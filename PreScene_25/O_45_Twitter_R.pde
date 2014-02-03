@@ -66,7 +66,9 @@ class RomanescoFortyFive extends SuperRomanesco
     String hashtag = join(hshtg, "") ;
     
     twt = new Twitter(hashtag, 2, true); // false ou true pour Online ou non
-    if (internet ) { twt.setup(); }
+    
+    if (internet ) twt.setup();
+
     //If you use font
     font[IDobj] = font[0] ;
   }
@@ -103,7 +105,9 @@ class RomanescoFortyFive extends SuperRomanesco
     // full message
     // split the message to can remove the hashtag
     if (message == null ) { 
-      if ( joinedWords.equals("") ) joinedWords = ("#ROMANESCO") ;
+      boolean acces = false ;
+      if(internet) acces = twt.twitterAcces() ;
+      if ( joinedWords.equals("") && acces) joinedWords = ("#ROMANESCO") ; else joinedWords = ("GIVE ME THE TWIITER CODE") ;
     } else {
       String[] words = splitTokens(message);
       // to remove the Hashtag
@@ -300,6 +304,12 @@ class Twitter
       // On démarre la recherche !
       ts.filter(filterQuery);
     }
+  }
+  
+  
+  boolean twitterAcces() {
+    println(twitterAcces) ;
+    if (twitterAcces) return true ; else return false ;
   }
   /////////////////////////////
   String update()

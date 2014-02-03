@@ -1,5 +1,5 @@
-true,
-setOAuthConsumerKey,8nNODPrrVCjmnxlL8PDjg,
-setOAuthConsumerSecret,RFrZFEzNYtMAjCnNBTF0pS8KVcRUOCSeCv0GsNibSA,
-setOAuthAccessToken,516334874-SeDNxr56fM2njKAg1K6PfqlMQhqRgGbuQ7LY1RSk,
-setOAuthAccessTokenSecret,fYk84SG4QKRBeyufi8c0oaGNkHstTB1v3K2ISuMIws
+false,
+setOAuthConsumerKey,your code,
+setOAuthConsumerSecret,your code,
+setOAuthAccessToken,your code,
+setOAuthAccessTokenSecret,your code

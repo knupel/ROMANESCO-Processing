@@ -452,7 +452,7 @@ void displaySetup() {
   frameRate(30) ; noCursor () ;
   colorMode(HSB, HSBmode.x, HSBmode.y, HSBmode.z, 100) ;
   //load graphic configuration
-  configurationScene = loadTable("setting/sceneProperty.csv", "header");
+  configurationScene = loadTable("sceneProperty.csv", "header");
   TableRow row = configurationScene.getRow(0);
   //fullscreen 
   if (row.getString("fullscreen").equals("TRUE") || row.getString("fullscreen").equals("true")) fullScreen = true ; else fullScreen = false ;
