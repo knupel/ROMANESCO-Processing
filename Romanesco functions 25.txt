@@ -1,0 +1,353 @@
+ 
+\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+   ROMANESCO PROJECT    ADVICES TO CODE
+/////////////////////////////////////////
+
+/////////////
+INTRODUCTION
+\\\\\\\\\\\\\
+The main sketch is the Prescene, it receive slider information from Contrôleur, mouse, leapmotion, midi-controller, pen apply this one
+and send a major part of the result to Scene or Miroir, who're just a slave !
+
+// INFORMATION
+You cannot dev Romanesco with PROCESSING 210, because there is a problem with the tablet library, but may be you can resolve this little problem ?
+ 
+
+
+
+ // GLOBAL CODE
+//////////////////////////
+At the top of the Prescene Sketch
+you find one important boolean : 
+* boolean testRomanesco * Give the permit to work directly with sketch, without the launcher...
+\\\\\\\\\\\\\\\\\\\\\\\\\\
+this true by default when you code, don't forget change to false when you ** EXPORT ** your app, 
+if you don't do that, the Prescene will not open the Scene.
+
+// The other is more cosmetic !
+boolean Controleur = true ;
+boolean Scene = true ;
+boolean Miroir = true ;
+
+//to opening app
+boolean openScene = true ;
+boolean openMiroir = true ;
+boolean openControleur = true ;
+
+//send the information to the final app : Scene or Miroir
+boolean youCanSendToScene = true ;
+boolean youCanSendToMiroir = true ;
+
+// when you work only with "Prescene" boolean presceneOnly must be true to give at the Prescene the internet acces
+boolean presceneOnly = false ;
+
+
+
+
+
+
+ // ROMANESCO CODE
+/////////////////
+ in void RomanescoYourNumber') {}
+ you must give the ID of your object 
+ int ID = # ;
+ 1 to 20 for the simple
+ 21 to 40 for the texture
+ 41 to 60 for the typo
+
+ int IDfamily = # ;
+ and give too the family ID
+ 1 for simple
+ 2 for texture
+ 3 for typo
+
+ there is TWO MAINS VOID in class ROMANESCO
+ void setting()
+ and 
+ void display()
+ if you use other void you must call this one in one of them
+
+
+
+
+
+
+
+
+
+
+boolean internet // say if internet is available
+boolean modeP3D  // say if P3D render is available
+int ID ; // 1 to 20 first family, simple object
+         // 21 to 40 second family, texture object
+         // 41 to 60 third family, typo object
+int IDfamilly ;  // 1 is the simple object first sliders
+                 // 2 is the texture family second group of sliders
+                 // 3 is typo family third groud of sliders
+
+
+
+//LIBRARY OR EXTERNAL CLASSES
+// when you code in the class romanesco and call external class or library need (this) you must write (callingClass) :
+example 
+* name = new LibraryOrClass(this);) >>>
+>>> become >>>
+<<< name = new LibraryOrClass(callingClass);)
+
+
+//CAMERA
+travelling(PVector targetPos) ; // the camera go to a specific point in the scene
+
+
+//OBJECT
+boolean startingPosition[IDobj] // to check if it's a first use of the object, work with the void startPosition(int,int,int,int)
+void startPosition(int IDobj, int x, int y, int z) // give the starting position of the object on the scene, WRITE IN THE void display()
+
+
+//MOTION
+boolean motion[IDobj] boolean use for the move activate or desactivate by the "m" key
+
+//LIST 
+//empty the list of particules activate by backspace and delete
+boolean romanescoEmptyList(IDobj)
+
+
+
+
+// DISPLAY MODE render
+for P3D 
+if (displayMode.equals("P3D") ) {}
+or
+boolean modeP3D
+
+for P2D
+if (displayMode.equals("P2D") ) {}
+
+for OPENGL
+if (displayMode.equals("OPENGL") ) {}
+
+for CLASSIC rendering
+if (displayMode.equals("Classic") ) {}
+
+//END DISPLAY MODE
+//////////////////
+
+
+
+
+
+
+
+//COMMON ASSOCIATION between the controler and the prescene
+// with action button
+// add obj
+if(actionButton[IDobj] == 1 && nTouch ) { /* yourList.add( new YourClass ()); */ }
+or
+int spawnFrequency = 3 ; 
+if(actionButton[IDobj] == 1 && nLongTouch && frameCount % spawnFrequency == 0 ) { /* yourList.add( new YourClass ()); */ }
+// motion
+if(actionButton[IDobj] == 1 && mTouch ) { }
+// change stuff like color palette....
+if(actionButton[IDobj] == 1 && xTouch ) { }
+// stop, move the mouse inside the object
+if(actionButton[IDobj] == 1 && spaceTouch ) { }
+
+//with parametter button
+open folder
+if ( parameterButton[IDobj] == 1 && oTouch ) { }
+
+
+
+
+
+
+
+
+
+//KEYBOARD BOOLEAN command
+//ATTENTION////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+Don't use DELETE and the letter 'i' and 's' from the keyboard this touch is use for the main CODE for empty  all the list, display information and save picture
+//ATTENTION////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+//// Dedicaced and reserved key ////
+///////////////////////
+// P3D move
+boolean cLongTouch //  use to move the camera in P3D world with the mouse function
+boolean vLongTouch // use to move the object in P3D world with the mouse function
+//ADD objects
+boolean nTouch, nLongTouch // ADD OBJECT use this keyboard touch it's suggestion for sure !
+
+// generaric keyborad command, it's better to don't use for others commands
+boolean spaceTouch      // give the boolean condition of the space touch to active the XY mouse, pen and Leap coordinate
+boolean backspaceTouch  // generaly to empty a specific list of object
+boolean nTouch         // generaly use to add a new particule like a clic depends what you want
+boolean nLongTouch     // generaly use to add a new particule like a clic depends what you want
+boolean mTouch         // generaly use to move the object, close to spaceTouch but different, linked with the boolean motion[IDobj]
+boolean oTouch       //  genrally open folder to choice a file for a specific object
+boolean pTouch       // to open an other folder, if the object already use "oTouch"
+
+// Free touch
+boolean aTouch, bTouch, cTouch, dTouch, eTouch, fTouch, gTouch, hTouch, jTouch, kTouch, lTouch, qTouch, rTouch, tTouch, uTouch, vTouch, wTouch, xTouch, yTouch, zTouch,
+leftTouch, rightTouch, upTouch, downTouch, 
+touch0, touch1, touch2, touch3, touch4, touch5, touch6, touch7, touch8, touch9, 
+enterTouch, returnTouch, shiftTouch, altTouch, escTouch ;
+
+//END of KEYBOARD
+/////////////////
+
+
+
+
+
+// TEXT
+///////
+
+Romanesco call karaoke.txt from the main directory in real time,
+so you can write on it when you use Romanesco
+"*" to separate the chapter 
+"/" to separate the sentence
+
+String [][] sentencesByChapter  ;
+To use this text in your object you can use this String array 
+the first array of the String index the Chapter who was separated by "*"
+the second is the specific sentence in each Chapter.
+
+String textRaw ; is the import text but with the "*" and "/"
+
+** When you code take a care to save the karaoke.txt in each folder of dev (Scene, Prescene, Mirroir) **
+
+// END TEXT
+///////////
+
+
+
+
+
+
+
+
+
+//SOUND 
+////////////
+float gauche[IDobj]  is volume left /  float value(0,1)
+float droite[IDobj]   is volume right / /  float value(0,1)
+float mix[IDobj]     is average volume between the left and the right / float value(0,1)
+float beat[IDobj]    is beat : value 1,10 
+float kick[IDobj]    is beat kick : value 1,10 
+float snare[IDobj]   is beat snare : value 1,10 
+float hat[IDobj]     is beat hat : value 1,10 
+float tempo[IDobj]        // global speed of track  / float value(0,1)
+float tempoBeat[IDobj]   // speed of track calculate on the beat
+float tempoKick[IDobj]  / / speed of track calculate on the kick
+float tempoSnare[IDobj] // speed of track calculate on the snare
+float tempoHat[IDobj] // speed of track calculte on the hat
+float getTimeTrack()  // return the time elapse from the beginning play to now
+///////////
+
+
+
+
+
+// MOUSE
+//////////////////////
+PVector mouse[IDobj]
+mouse[0].x // mouse[0].y // absolute position of the mouse
+mouse[0].z // return info from wheel mouse
+mouse[IDobj].x // mouse[IDobj].y // mouse[IDobj].z // same info tha mouse[IDobj] but this one is refresh when you press the space
+
+PVector pmouse[IDobj]
+pmouse[0] and pmouse[IDobj]
+
+int wheel[IDobj]
+wheel[0] and wheel[IDobj]
+or use the void zoom() and take the float value getCountZoom...this value is more reactive !
+// PEN
+////////////////////
+PVector pen[IDobj]
+pen[IDobj].x pen[IDobj].y   // information from the tablet tilt : orientation of the pen 
+pen[IDobj].z // information from tablet : pressure pen 
+
+
+// MOUSE CLICK BOOLEAN
+//////////////////////
+//short click just for one shot
+boolean clickShortLeft[IDobj] ;
+boolean clickShortRight[IDobj] ;
+//active after one mousePressed, be inactive after the mouse Released
+boolean clickLongLeft[IDobj] ;
+boolean clickLongLeft[IDobj] ;
+
+
+//END MOUSE, PEN, LEAPMOTION
+////////////////////////////
+
+
+
+// SLIDER FLOAT
+//////////////
+//value slider in float 0.0 to 100.0
+float valueObj[IDobj][1] hue in     
+float valueObj[IDobj][2] saturation in     
+float valueObj[IDobj][3] density in 
+float valueObj[IDobj][4] opacity in
+float valueObj[IDobj][5] hue out
+float valueObj[IDobj][6] saturation out
+float valueObj[IDobj][7] density out   
+float valueObj[IDobj][8] opacity out  
+
+float valueObj[IDobj][11] diameter / height     
+float valueObj[IDobj][12] width                 
+float valueObj[IDobj][13] thickness outline       
+float valueObj[IDobj][14] Quantité                
+float valueObj[IDobj][15] Durée               
+float valueObj[IDobj][16] Vitesse            
+float valueObj[IDobj][17] amplitude / amplitude / amplitude 
+float valueObj[IDobj][18] Orientation, deg    
+
+float valueObj[IDobj][21] amplitude / amplitude / misc
+float valueObj[IDobj][22] misc  
+float valueObj[IDobj][23] misc 
+float valueObj[IDobj][24] courbe / misc / misc  
+float valueObj[IDobj][25] attraction / misc / misc
+float valueObj[IDobj][26] force / misc / misc 
+float valueObj[IDobj][27] Family / misc / misc  
+float valueObj[IDobj][28] angle / misc / corps
+//END SLIDER
+////////////
+
+
+
+
+
+// COLOR
+////////
+color colorIn = color ( map(valueObj[IDobj][1],0,100,0,360), valueObj[IDobj][2], valueObj[IDobj][3],valueObj[IDobj][4] ) ;
+color colorOut = color ( map(valueObj[IDobj][5],0,100,0,360), valueObj[IDobj][6], valueObj[IDobj][7],valueObj[IDobj][8] ) ;
+
+
+
+
+
+
+
+
+//WEATHER FLOAT-PVECTOR
+///////////////////////
+PVector motionMeteo[IDobj]
+motionMeteo[IDobj].x // direction 0-360
+motionMeteo[IDobj].y // beaufort scale 0-12
+tempMeteo [IDobj]    // celsius grad
+humidityMeteo [IDobj]  ; 
+pressureMeteo [IDobj]  ; // hectopascal scale
+visibilityMeteo [IDobj]  ;
+/////////
+
+
+
+
+
+
+
+
+
+

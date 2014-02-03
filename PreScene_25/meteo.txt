@@ -1,0 +1,5 @@
+You change your data here, for the degree you can choice between celcius or farhneit, for the town choice in the list below or find the Woeid point for your town /
+yourDegree/celsius/
+yourTown/12728343/
+
+example woei point for few towns : Addis Abeba 1313090 & 56013543 || Antanarivo 1358594 & 2346150 || Berlin 638242 Bogota 368148 || bukittingi 1047315 || Coggia 586388|| Cusco 420371 || Iquitos 418445 || NYC 2459115  || Paris 20068148 || Praia do Norte 538241  || Pré Saint-Gervais 12728343  || Rio de Janeiro 455825 & 12581062 ||  Rouen 620108 || Sanaa 1958237 || Tokyo 1118370 & 2345889

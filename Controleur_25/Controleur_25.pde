@@ -1,0 +1,16 @@
+   ////////////////////////////////////////////////////////////////////////
+  // Romanesco Contrôleur Alpha 0.25 work with Processing 211  ///////////
+ ////////////////////////////////////////////////////////////////////////
+
+void setup() {
+  setting() ;
+  loadSetup() ;
+  interfaceSetup() ;
+  sendOSCsetup() ;
+}
+
+void draw() {
+  structureDraw() ;
+  interfaceDraw() ;
+  sendOSCdraw() ;
+}

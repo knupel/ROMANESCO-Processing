@@ -1,0 +1,11 @@
+Slider Name,Column 1,Column 2,Column 3,Column 4,Column 5,Column 6,Column 7,Column 8,Column 9, Column 10, Column 11, Column 12
+général,Couleur,Saturation,Densité,Opacité,Son gauche,Son droite,TYPOGRAPHIE,RIDEAU,,,,
+Object 1,Couleur,Saturation,Densité,Opacité,Couleur,Saturation,Densité,Opacité,,,,
+Object 2,Hauteur,Largeur,Épaisseur,Quantité,Durée,Vitesse,Amplitude, deg ,,,,
+Object 3,,,,Courbe,Attraction,Force,Famille,Angle,,,,
+Texture 1,Couleur,Saturation,Densité,Opacité,Couleur,Saturation,Densité,Opacité,,,,
+Texture 2,Hauteur,Largeur,Épaisseur,Quantité,Durée,Vitesse,Amplitude, deg,,,,
+Texture 3,,,,,,Force,,Analyse,,,,
+Typography 1,Couleur,Saturation,Densité,Opacité,,,,,,,,
+Typography 2,Hauteur,Largeur,Épaisseur,,,Vitesse,Amplitude, deg,,,,
+Typography 3,,,,,,,,Corps,,,,
