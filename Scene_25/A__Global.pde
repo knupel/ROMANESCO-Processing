@@ -18,6 +18,8 @@ int trackerUpdate ; // must be reset after each use
 
 //VIDEO
 import codeanticode.gsvideo.*;
+// SYPHON
+import codeanticode.syphon.*;
 
 //INTERNET
 import processing.net.*;
@@ -26,14 +28,13 @@ import com.sun.syndication.feed.synd.*;
 import com.sun.syndication.io.*;
 
 
-// for processing 2.0.3
+// for Processing 211
 import java.net.*;
 import java.io.*;
 import java.util.*;
 //for the fullscreen and screen choice
 import java.awt.*;
-//to use the mouseWheel event
-//import java.awt.event.*;
+
 
 //to make the window is resizable
 java.awt.Insets insets; // use for the border of window (top and right)

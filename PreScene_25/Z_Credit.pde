@@ -7,17 +7,19 @@ http://stanislas-marcais.blogspot.fr/
 /*
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 Un grand Merci à Laetitia, ma femme pour son soutient pendant toutes ses semaines, ses mois, ses années de développement
-Big up and thanks to Llatticeou, my wife for the support all night long, all weeks, all months, all years of coding
+Big up and thanks to Laetitia, my wife for the support all night long, all weeks, all months, all years of coding
 \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 */
 
 /*
-Un Grand merci également à la communauté Processing : 
-Daniel Shiffman for the slider 
-Marius Waltz for the Reads RSS et Atom feeds 
-Philo for the advices via le Forum 
+Big Thanks too the Processing community : 
+Daniel Shiffman for the slider, 
+Marius Waltz for Reads RSS and Atom feeds, 
+Philho for the advice on the Forum, 
 Andres Colubri for the sender Syphon
-Mark Webster, Julien Guichadoat et leurs workshops Processing parameterButtonis.
+adrock42 from the Forum Processing for the improvement of Syphon
+Mark webster and their workshop.
+
 
 Andreas Gysin for the creaturs from The Abyss project
 Nicoptère and 0 to 1 algorithm concept

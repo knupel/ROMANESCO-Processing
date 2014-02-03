@@ -12,6 +12,7 @@ String findPath ;
 
 void setup() {
   displaySetup() ;
+  miroirSetup() ;
   //dropping image from folder on the Scène
   drop = new SDrop(this);
   //load font
@@ -29,6 +30,7 @@ void setup() {
 //DRAW
 void draw() {
   initDraw() ;
+  miroirDraw() ;
   soundDraw() ;
   OSCDraw() ;
   meteoDraw() ;
@@ -51,4 +53,6 @@ void draw() {
 //KEYPRESSED
 void keyPressed () {
   keySave() ;
+  // to display the local adress
+  if(key == 'i') addressLocal = !addressLocal ;
 }
