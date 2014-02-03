@@ -37,7 +37,7 @@ void setup() {
   //GEOMERATIVE
   RG.init(this);
 
-  minimSetup() ;
+  soundSetup() ;
   cursorSetup() ;
   OSCSetup() ;
   meteoSetup() ;
@@ -52,7 +52,7 @@ void setup() {
 void draw() {
   //setting
   initDraw() ;
-  minimDraw() ;
+  soundDraw() ;
   meteoDraw() ;
   backgroundRomanescoPrescene() ;
   
@@ -91,26 +91,15 @@ void mousePressed() {
     clickShortRight[0] = true ; 
     clickLongRight[0] = true ;
   }
-  
-  // MUST BE REMOVE IN THE NEXT RELEASE, but the class is not clean and ready for that
-  romanescoMousepressed() ;
 }
 
 //MOUSE RELEASED
 void mouseReleased() {
   clickLongLeft[0] = false ; 
   clickLongRight[0] = false ;
-  
-  // MUST BE REMOVE IN THE NEXT RELEASE, but the class is not clean and ready for that
-  romanescoMousereleased() ;
 }
 
-//MOUSEDRAGGED
-void mouseDragged() {
-  // MUST BE REMOVE IN THE NEXT RELEASE, but the class is not clean and ready for that
-  romanescoMousedragged() ;
-}
-//END MOUSEDRAGGED
+
 
 //MOUSE WHEEL
 void mouseWheel(MouseEvent event) {
@@ -128,9 +117,7 @@ void keyPressed () {
   keyboardTrue() ;
   //save
   if(key == 's' ) selectOutput("Enregistrez le PDF et le PNG ", "saveImg") ;
-  
-  // MUST BE REMOVE IN THE NEXT RELEASE, but the class is not clean and ready for that
-  romanescoKeypressed() ;
+
 }
 //END KEYPRESSED
 
@@ -139,8 +126,5 @@ void keyPressed () {
 void keyReleased() {
   //special touch need to be long
   keyboardLongFalse() ;
-  
-  // MUST BE REMOVE IN THE NEXT RELEASE, but the class is not clean and ready for that
-  romanescoKeyreleased() ;
 }
 //END KEYRELEASED

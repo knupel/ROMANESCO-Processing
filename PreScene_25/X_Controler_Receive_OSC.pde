@@ -26,7 +26,7 @@ int numButtonTex = 150 ;
 int numButtonTypo = 150 ;
 
 // button
-int Ebeat, Ekick, Esnare, Ehat, Erideau, Emeteo ;
+int eBeat, eKick, eSnare, eHat, eCurtain, eMeteo ;
 int mainButton [] = new int [numObj] ;
 int soundButton [] = new int [numObj] ;
 int actionButton[] = new int [numObj] ;
@@ -201,16 +201,16 @@ void OSCDraw() {
   
   //TRANSFORM info from controler to use in the preScene
   //GLOBAL
-  Ebeat = valueButtonGlobal[1] ;
-  Ekick = valueButtonGlobal[2] ;
-  Esnare = valueButtonGlobal[3] ;
-  Ehat = valueButtonGlobal[4] ;
+  eBeat = valueButtonGlobal[1] ;
+  eKick = valueButtonGlobal[2] ;
+  eSnare = valueButtonGlobal[3] ;
+  eHat = valueButtonGlobal[4] ;
   //meteo
-  Emeteo = valueButtonGlobal[5] ;
+  eMeteo = valueButtonGlobal[5] ;
   //dropdown typo
   whichFont(valueButtonGlobal[7]) ;
   //rideau
-  Erideau = valueButtonGlobal[10] ;
+  eCurtain = valueButtonGlobal[10] ;
   
   //OBJ
   for ( int i = 0 ; i < 9 ; i++) {

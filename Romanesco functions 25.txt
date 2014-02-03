@@ -227,22 +227,32 @@ String textRaw ; is the import text but with the "*" and "/"
 
 
 
-//SOUND 
-////////////
+// SOUND 
+////////
+
 float gauche[IDobj]  is volume left /  float value(0,1)
 float droite[IDobj]   is volume right / /  float value(0,1)
 float mix[IDobj]     is average volume between the left and the right / float value(0,1)
+
 float beat[IDobj]    is beat : value 1,10 
 float kick[IDobj]    is beat kick : value 1,10 
 float snare[IDobj]   is beat snare : value 1,10 
 float hat[IDobj]     is beat hat : value 1,10 
+
 float tempo[IDobj]        // global speed of track  / float value(0,1)
 float tempoBeat[IDobj]   // speed of track calculate on the beat
 float tempoKick[IDobj]  / / speed of track calculate on the kick
 float tempoSnare[IDobj] // speed of track calculate on the snare
 float tempoHat[IDobj] // speed of track calculte on the hat
+
 float getTimeTrack()  // return the time elapse from the beginning play to now
-///////////
+
+float band [IDobj][whichBand] // whichBand give the information of the bande where catch the info
+usualy there is 16 bands, to know the number :
+bandSpectrum.length ;
+
+////////////
+// END SOUND
 
 
 
@@ -299,7 +309,7 @@ float valueObj[IDobj][8] opacity out
 
 float valueObj[IDobj][11] diameter / height     
 float valueObj[IDobj][12] width                 
-float valueObj[IDobj][13] thickness outline       
+float valueObj[IDobj][13] thickness       
 float valueObj[IDobj][14] Quantité                
 float valueObj[IDobj][15] Durée               
 float valueObj[IDobj][16] Vitesse            
@@ -320,11 +330,12 @@ float valueObj[IDobj][28] angle / misc / corps
 
 
 
-
-// COLOR
+// SUGESTION VAR
+// COLOR and SHAPE property
 ////////
 color colorIn = color ( map(valueObj[IDobj][1],0,100,0,360), valueObj[IDobj][2], valueObj[IDobj][3],valueObj[IDobj][4] ) ;
 color colorOut = color ( map(valueObj[IDobj][5],0,100,0,360), valueObj[IDobj][6], valueObj[IDobj][7],valueObj[IDobj][8] ) ;
+float thickness = map (valueObj[IDobj][13],0,100, .2, height *.1) ;
 
 
 

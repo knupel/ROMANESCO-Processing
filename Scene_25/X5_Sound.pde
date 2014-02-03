@@ -5,67 +5,69 @@ Minim minim;
 AudioInput input; // music from outside
 // spectrum
 FFT fft; 
+
 //beat
 BeatDetect beatEnergy, beatFrequency;
 BeatListener bl;
 
-//Beat
+boolean beatOnOff, kickOnOff, snareOnOff, hatOnOff ;
+
 float beatData, kickData, snareData, hatData ;
 float minBeat = 1.0 ;
 float maxBeat = 10.0  ;
-//....................variable son
+
 //volume
 float gaucheBrute, droiteBrute, // son droite gauche
       mixBrute ;
 
-
-//SETUP Minim
-void minimSetup()
-{
+//////////////
+// SOUND SETUP
+void soundSetup() {
   //Sound
   minim = new Minim(this);
   //sound from outside
   minim.debugOn();
   input = minim.getLineIn(Minim.STEREO, 512);
   
-  spectrumSetup() ;
+  spectrumSetup(numBand) ;
   beatSetup() ;
 }
-//SETUP
-void beatSetup()
-{
-  //Beat Frequency
-  beatFrequency = new BeatDetect(input.bufferSize(), input.sampleRate());
-  beatFrequency.setSensitivity(300);
-  kickData = snareData = hatData = minBeat; 
-  bl = new BeatListener(beatFrequency, input); 
-  
-  //Beat energy
-  beatEnergy = new BeatDetect();
-  beatData = 1.0 ;
-}
+// END SOUND SETUP
+//////////////////
 
 
 
-//DRAW
-void minimDraw()
-{
+
+/////////////
+// SOUND DRAW
+void soundDraw() {
   //General Draw
-  spectrum(input.mix) ;
+  spectrum(input.mix, numBand) ;
   beatEnergy.detect(input.mix);
   initTempo() ;
-  
-  //DRAW specific to Romanesco
-  int son = 1 ;
+  soundRomanesco() ;
+}
+// END SOUND DRAW
+/////////////////
+
+
+
+
+
+
+//specific stuff from romanesco
+//////////////////////////////
+void soundRomanesco() {
+  int sound = 1 ;
     
   float volumeControleurG = map(valueSliderGlobal[4], 0,100, 0, 1.3 ) ;
-   gauche[0] = map(input.left.get(son),  -0.07,0.1,  0, volumeControleurG);
+   gauche[0] = map(input.left.get(sound),  -0.07,0.1,  0, volumeControleurG);
   
   float volumeControleurD = map(valueSliderGlobal[5], 0,100, 0, 1.3 ) ;
-  droite[0] = map(input.right.get(son),  -0.07,0.1,  0, volumeControleurD);
+  droite[0] = map(input.right.get(sound),  -0.07,0.1,  0, volumeControleurD);
   
   float volumeControleurM = map(( (valueSliderGlobal[4] + valueSliderGlobal[5]) *.5), 0,100, 0, 1.3 ) ;
-  mix[0] = map(input.mix.get(son),  -0.07,0.1,  0, volumeControleurM);
+  mix[0] = map(input.mix.get(sound),  -0.07,0.1,  0, volumeControleurM);
   
   //volume
   if(gauche[0] < 0 ) gauche[0] = 0 ;
@@ -76,10 +78,14 @@ void minimDraw()
   if(mix[0] > 1 ) mix[0] = 1.0 ;
   
   //Beat
-  beat[0] = getBeat() ;
-  kick[0] = getKick() ;
-  snare[0] = getSnare() ;
-  hat[0] = getHat() ;
+  if(eBeat == 1 )  beatOnOff = true ; else beatOnOff = false ;
+  if(eKick == 1 )  kickOnOff = true ; else kickOnOff = false ;
+  if(eSnare == 1 ) snareOnOff = true ; else snareOnOff = false ;
+  if(eHat == 1 )   hatOnOff = true ; else hatOnOff = false ;
+  beat[0] = getBeat(beatOnOff) ;
+  kick[0] = getKick(kickOnOff) ;
+  snare[0] = getSnare(snareOnOff) ;
+  hat[0] = getHat(hatOnOff) ;
 }
   
 
@@ -89,32 +95,40 @@ void minimDraw()
 //BEAT
 //GLOBAL
 int beatNum, kickNum, snareNum, hatNum ;
+//setup
+void beatSetup() {
+  //Beat Frequency
+  beatFrequency = new BeatDetect(input.bufferSize(), input.sampleRate());
+  beatFrequency.setSensitivity(300);
+  kickData = snareData = hatData = minBeat; 
+  bl = new BeatListener(beatFrequency, input); 
+  
+  //Beat energy
+  beatEnergy = new BeatDetect();
+  beatData = 1.0 ;
+}
 //RETURN
 //BEAT QUANTITY
-int getBeatNum()
-{
-  if ( beatEnergy.isOnset() ) beatNum += 1 ; else if (  getTotalSpectrum() < 0.03 ) beatNum = 0 ;
+int getBeatNum() {
+  if ( beatEnergy.isOnset() ) beatNum += 1 ; else if (  getTotalSpectrum(numBand) < 0.03 ) beatNum = 0 ;
   return beatNum ;
 }
-int getKickNum()
-{
-  if ( beatFrequency.isKick()  ) kickNum += 1 ; else if (  getTotalSpectrum() < 0.03 ) kickNum = 0 ;
+int getKickNum() {
+  if ( beatFrequency.isKick()  ) kickNum += 1 ; else if (  getTotalSpectrum(numBand) < 0.03 ) kickNum = 0 ;
   return kickNum ;
 }
-int getSnareNum()
-{
-  if ( beatFrequency.isSnare()  ) snareNum += 1 ; else if (  getTotalSpectrum() < 0.03 ) snareNum = 0 ;
+int getSnareNum() {
+  if ( beatFrequency.isSnare()  ) snareNum += 1 ; else if (  getTotalSpectrum(numBand) < 0.03 ) snareNum = 0 ;
   return snareNum ;
 }
-int getHatNum()
-{
-  if ( beatFrequency.isHat()  ) hatNum += 1 ; else if (  getTotalSpectrum() < 0.03 ) hatNum = 0 ;
+int getHatNum() {
+  if ( beatFrequency.isHat()  ) hatNum += 1 ; else if (  getTotalSpectrum(numBand) < 0.03 ) hatNum = 0 ;
   return hatNum ;
 }
 
 //RESULT
-float getBeat() {
-  if (Ebeat == 1) {
+float getBeat(boolean beat) {
+  if (beat) {
     if ( beatEnergy.isOnset() ) beatData = maxBeat;
     beatData *= 0.95;
     if ( beatData < minBeat ) beatData = minBeat;
@@ -123,8 +137,8 @@ float getBeat() {
   return beatData ;
 }
 
-float getKick() {
-  if (Ekick == 1 ) {
+float getKick(boolean kick) {
+  if (kick) {
     if ( beatFrequency.isKick() )  kickData = maxBeat;
     kickData = constrain(kickData * 0.95, minBeat, maxBeat);
   } else kickData = 1.0 ;
@@ -132,8 +146,8 @@ float getKick() {
   return kickData ;
 }
 
-float getSnare() {
-  if (Esnare == 1 ) {
+float getSnare(boolean snare) {
+  if (snare) {
     if ( beatFrequency.isSnare() )  snareData = maxBeat;
     snareData = constrain(snareData * 0.95, minBeat, maxBeat);
   } else snareData = 1.0 ;
@@ -141,8 +155,8 @@ float getSnare() {
   return snareData ;
 }
 
-float getHat() {
-  if (Ehat == 1) {
+float getHat(boolean hat) {
+  if (hat) {
     if ( beatFrequency.isHat() )  hatData = maxBeat;
     hatData = constrain(hatData * 0.95, minBeat, maxBeat);
   } else hatData = 1.0 ;
@@ -185,19 +199,20 @@ float tempoHatAdd   = 0.005 ;
 
 
 //INITIALIZATION
+
 void initTempo() {
   float init = getTempoBeat() + getTempoKick()  + getTempoHat() + getTempoSnare() ;
 }
 
+
 //return global tempo
-float getTempoRef()
-{
+float getTempoRef() {
   // I remove the snare because is very bad information and slow down the the speed
   float tempoRef = 1 - (getTempoBeatRef() + getTempoKickRef()  + getTempoHatRef() ) *.33 ;
   return tempoRef ;
 }
-float getTempo()
-{
+//get tempo
+float getTempo() {
   // I remove the snare because is very bad information and slow down the the speed
   float tempo = (getTempoBeat() + getTempoKick()  + getTempoHat() ) *.33 ;
   return tempo ;
@@ -213,7 +228,7 @@ float getTempoBeat() {
   return tempoB ;
 }
 float getTempoBeatRef() {
-  if (tempoBeatRef > maxSpecific || getTotalSpectrum() < 0.03  ) tempoBeatRef = maxSpecific  ; 
+  if (tempoBeatRef > maxSpecific || getTotalSpectrum(numBand) < 0.03  ) tempoBeatRef = maxSpecific  ; 
   return  tempoBeatRef ;
 }
 
@@ -229,7 +244,7 @@ float getTempoKick() {
   return tempoK ;
 }
 float getTempoKickRef() {
-  if (tempoKickRef > maxSpecific || getTotalSpectrum() < 0.03  ) tempoKickRef = maxSpecific  ; 
+  if (tempoKickRef > maxSpecific || getTotalSpectrum(numBand) < 0.03  ) tempoKickRef = maxSpecific  ; 
   return  tempoKickRef ;
 }
 
@@ -244,7 +259,7 @@ float getTempoSnare() {
   return tempoS ;
 }
 float getTempoSnareRef() {
-  if (tempoSnareRef > maxSpecific || getTotalSpectrum() < 0.03  ) tempoSnareRef = maxSpecific  ; 
+  if (tempoSnareRef > maxSpecific || getTotalSpectrum(numBand) < 0.03  ) tempoSnareRef = maxSpecific  ; 
   return  tempoSnareRef ;
 }
 
@@ -259,7 +274,7 @@ float getTempoHat() {
   return tempoH ;
 }
 float getTempoHatRef() {
-  if (tempoHatRef > maxSpecific || getTotalSpectrum() < 0.03  ) tempoHatRef = maxSpecific  ; 
+  if (tempoHatRef > maxSpecific || getTotalSpectrum(numBand) < 0.03  ) tempoHatRef = maxSpecific  ; 
   return  tempoHatRef ;
 }
 
@@ -271,8 +286,7 @@ float getTempoHatRef() {
 float tempoAverage, tempoAverageRef  ;
 float tempoBeatAverage = 0.05 ;
 //RETURN
-float tempoAverageRef()
-{
+float tempoAverageRef() {
   //regulation du tempo
   if ( mesure == 0 && !refresh ) {
     tempoAverageRef = tempoAverage()  ;
@@ -285,8 +299,7 @@ float tempoAverageRef()
 }
 
 
-float tempoAverage()
-{
+float tempoAverage() {
   mesure = second()%2 ;
   
   if ( beatEnergy.isOnset() || beatFrequency.isKick() || beatFrequency.isSnare() || beatFrequency.isHat()  )  tempoAverage += tempoBeatAverage  ;
@@ -313,12 +326,11 @@ float tempoAverage()
 //GLOBAL
 int timeTrack  ;
 //RETURN
-float getTimeTrack()
-{
+float getTimeTrack() {
   float t ; 
   timeTrack += millis() % 10 ;
   t = timeTrack *.01 ;
-  if ( getTotalSpectrum() < 0.1 ) timeTrack = 0 ;
+  if ( getTotalSpectrum(numBand) < 0.1 ) timeTrack = 0 ;
   return round( t * 10.0f ) / 10.0f; 
 }
 ////////////////
@@ -328,51 +340,41 @@ float getTimeTrack()
 //SPECTRUM
 //////////
 //SPECTRUM
-//global
-int spectrumBandNumber = 16; // quantity analysis
 //info text band
-float [] band = new float [16] ;
-
-
+float [] bandSprectrum  ;
 //SETUP
-void spectrumSetup()
-{
+void spectrumSetup(int n) {
   //spectrum
+  bandSprectrum = new float [n] ;
   fft = new FFT(input.bufferSize(), input.sampleRate());
-  fft.linAverages(spectrumBandNumber);
+  fft.linAverages(n);
 }
 
 //DRAW
 //just create spectrum
-void spectrum(AudioBuffer fftData)
-{
+void spectrum(AudioBuffer fftData, int n) {
   fft.forward(fftData) ;
-  for(int i = 0; i < spectrumBandNumber ; i++)
+  for(int i = 0; i < n ; i++)
   {
     fft.scaleBand(i, 0.5 ) ;
-    band[i] = fft.getBand(i) ;
+    bandSprectrum[i] = fft.getBand(i) ;
   }
 }
 
 //ANNEXE VOID
-float getTotalSpectrum() 
-{
-  float t = band[0] + band[1] + band[2] + band[3] + band[4] + band[5] + band[6] + band[7] + band[8] + band[9] + band[10] + band[11] + band[12] + band[13] + band[14] + band[15] ;
+float getTotalSpectrum(int numBand) {
+  float t = 0 ;
+  // float t = bandSprectrum[0] + bandSprectrum[1] + bandSprectrum[2] + bandSprectrum[3] + bandSprectrum[4] + bandSprectrum[5] + bandSprectrum[6] + bandSprectrum[7] + bandSprectrum[8] + bandSprectrum[9] + bandSprectrum[10] + bandSprectrum[11] + bandSprectrum[12] + bandSprectrum[13] + bandSprectrum[14] + bandSprectrum[15] ;
+  for ( int i = 0 ; i < numBand ; i++ ) {
+    t += bandSprectrum[i] ;
+  }
   return t ;
 }
 //END SPECTRUM
 //////////////
 
 
-//END MINIM
-void stop()
-{
-  input.close() ;
-  minim.stop() ;
-  super.stop() ;
-}
-//////
-//END
+
 
 
 //CLASS to use the beat analyze
@@ -381,20 +383,28 @@ class BeatListener implements AudioListener
   private BeatDetect beatFrequency;
   private AudioInput source;
   
-  BeatListener(BeatDetect beatFrequency, AudioInput source)
-  {
+  BeatListener(BeatDetect beatFrequency, AudioInput source) {
     this.source = source;
     this.source.addListener(this);
     this.beatFrequency = beatFrequency;
   }
   
-  void samples(float[] samps)
-  {
+  void samples(float[] samps) {
     beatFrequency.detect(source.mix);
   }
   
-  void samples(float[] sampsL, float[] sampsR)
-  {
+  void samples(float[] sampsL, float[] sampsR) {
     beatFrequency.detect(source.mix);
   }
 }
+
+
+
+//END MINIM
+void stop() {
+  input.close() ;
+  minim.stop() ;
+  super.stop() ;
+}
+//////
+//END

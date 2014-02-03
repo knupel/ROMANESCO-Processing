@@ -1,8 +1,6 @@
-//GLOBAL
-
-
 //var to init the data of the object when is switch ON for the first time
-boolean initObj [] = new boolean [numObj +1]  ;
+boolean initValueSlider [] = new boolean [numObj +1]  ;
+boolean initValueMouse [] = new boolean [numObj +1]  ;
 //parameter for the super class
 float gauche[]  = new float [numObj +1] ;
 float droite[] = new float [numObj +1] ;
@@ -29,6 +27,9 @@ float visibilityMeteo [] = new float [numObj +1] ;
 
 //P3D OBJECT
 //position
+//position
+boolean startingPosition [] = new boolean[numObj +1] ;
+PVector startingPos [] = new PVector[numObj +1] ;
 PVector P3Dposition [] = new PVector[numObj + 1] ;
 PVector P3DpositionObjRef [] = new PVector[numObj + 1] ;
 boolean P3DrefPos [] = new boolean[numObj +1] ;
@@ -81,13 +82,12 @@ class SuperRomanesco
     if ( mainButton[IDobj] == 1  ) {
       ///////////////////
       ///GLOBAL
-      if( mTouch ) motion[IDobj] = !motion[IDobj] ;
-      if ( parameterButton[IDobj] == 1 || !initObj[IDobj] ) {
+      if ( parameterButton[IDobj] == 1 || !initValueSlider[IDobj] ) {
         valueObj[IDobj][1]  = float(d[1])   ; valueObj[IDobj][2]  = float(d[2])  ;  valueObj[IDobj][3]  = float(d[3])  ; valueObj[IDobj][4]  = float(d[4]) ;  valueObj[IDobj][5]  = float(d[5])  ;  valueObj[IDobj][6]  = float(d[6])  ; valueObj[IDobj][7]  = float(d[7])  ; valueObj[IDobj][8]  = float(d[8]) ;
         valueObj[IDobj][11] = float(d[11])  ; valueObj[IDobj][12] = float(d[12]) ;  valueObj[IDobj][13] = float(d[13]) ; valueObj[IDobj][14] = float(d[14]) ; valueObj[IDobj][15] = float(d[15]) ;  valueObj[IDobj][16] = float(d[16]) ; valueObj[IDobj][17] = float(d[17]) ; valueObj[IDobj][18] = float(d[18]) ;
         valueObj[IDobj][21] = float(d[21])  ; valueObj[IDobj][22] = float(d[22]) ;  valueObj[IDobj][23] = float(d[23]) ; valueObj[IDobj][24] = float(d[24]) ; valueObj[IDobj][25] = float(d[25]) ;  valueObj[IDobj][26] = float(d[26]) ; valueObj[IDobj][27] = float(d[27]) ; valueObj[IDobj][28] = float(d[28]) ;
         //after the first init, we don't need to init again the color when the setting button is off, so we say the init is true
-        initObj[IDobj] = true ;
+        initValueSlider[IDobj] = true ;
       }
       
       //SOUND
@@ -132,6 +132,9 @@ class SuperRomanesco
           mouse[IDobj] = mouse[0] ;
           wheel[IDobj] = wheel[0] ;
         } else {
+          mouse[IDobj] = mouse[IDobj] ;
+          pmouse[IDobj] = pmouse[IDobj] ;
+          if (pen[IDobj].z == 0.0 ) pen[IDobj].z = 1.0 ;
           /*
           //this var is use for the miror and the scene because there is very strange problem
           mouse[IDobj] = mouseSuperRomanesco ;
@@ -139,8 +142,6 @@ class SuperRomanesco
           */
          // the pressure of pen is between 0 and 1, so we must give a value in case if there is no pressure,
          // when the user go away from the space touch 
-         //for the tilt no probleme is stay in memory
-         if (pen[IDobj].z == 0.0 ) pen[IDobj].z = 1.0 ;
         }        
       }
       //METEO
@@ -160,6 +161,7 @@ class SuperRomanesco
         pressureMeteo [IDobj] = -1 ;
         visibilityMeteo [IDobj] = -1 ;
       }
+      initValueMouse[IDobj] = true ;
       //END
     }
   }

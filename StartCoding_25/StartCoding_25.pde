@@ -3,6 +3,8 @@
 ////////////////////////////////////////////////////////////////////////
 
 //GLOBAL
+boolean modeP3D = true ;
+
 int numObj = 99 ; // minimum 2 object because sur first Object is Zero and it use like ref. So the "1" is the real first object.
 int numBand = 16 ;
  
@@ -20,11 +22,6 @@ import com.leapmotion.leap.*;
 com.leapmotion.leap.Controller leap;
 
 
-//render
-//String displayMode = ("Classic") ;
-//String displayMode = ("P2D") ;
-String displayMode = ("P3D") ;
-//String displayMode = ("OPENGL") ;
 
 ///////IMPORTANT//////////////////////////////////////////////////////////////////////
 //CALLING class or library in Other Class, you must call the PApplet too in your class
@@ -57,7 +54,7 @@ void draw() {
   romanescoDraw() ;
   
   //stop the camera if we're in P3D world
-  if(displayMode.equals("P3D")) stopCamera() ;
+  if(modeP3D) stopCamera() ;
   
   //tablet, pen and mouse
   cursorDraw() ;
@@ -78,14 +75,14 @@ void draw() {
 
 void displaySetup() {
   colorMode(HSB, 360,100,100 ) ;
-  if(displayMode.equals("P3D")) { size(800,400,P3D); P3DSetup() ; } 
-  else if (displayMode.equals("Classic")) size(800,400) ; 
+  if(modeP3D) { size(800,400,P3D); P3DSetup() ; } 
+  else { size(800,400) ; }
 }
 
 
 void defaultSetting() {
     //background and camera 3D
-  if(displayMode.equals("P3D")) { 
+  if(modeP3D) { 
     backgroundP3D() ; 
     cameraDraw() ; 
   } else { 

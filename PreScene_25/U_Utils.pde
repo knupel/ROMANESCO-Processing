@@ -55,7 +55,7 @@ void crossPoint(PVector pos, PVector size, color colorCross, float e ) {
 //curtain
 void curtain() {
   // we must put a security for the rideau, if not there is bug sometime and the rideau appear we don't know why
-  if( Erideau == 1 ) {
+  if( eCurtain == 1 ) {
     rectMode(CORNER) ;
    //  float rideau = map(valueSlider[7], 0, 55, 0,100) ; 
     float rideau = 100 ; 
@@ -284,7 +284,7 @@ void backgroundRomanesco() {
   ny = map(ny, 0, 1 , 0.8, 100 ) ;
   
   //meteo change
-  if(Emeteo == 1 ) {
+  if(eMeteo == 1 ) {
     int newPressure = hectoPascal(weather.getPressure()) ;
     color dayColor = color (map(weather.getTemperature(),-40,60,270,0), map(newPressure, 920, 1080, 0,100), 100, ny ) ;
     //color night = color ( 220, map(newPressure, 920, 1080, 0,100), 20, ny ) ;

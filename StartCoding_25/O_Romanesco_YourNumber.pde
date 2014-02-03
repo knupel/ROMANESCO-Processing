@@ -1,8 +1,6 @@
 //GLOBAL
 RomanescoYourNumber romanescoYourNumber ;
 ////////////////////////////////////////////////////////////////////
-// Just in case you use a class must use an ArrayList in your object, 
-// if it's not call the class in the class RomanescoYourNumber just bellow
 /*
 ArrayList<YourClass> yourList ;
 */
@@ -34,28 +32,20 @@ void romanescoYourNumberDraw(String [] dataControleurLocal, String [] soundDataL
 int getFamillyRomanescoYourNumber() { return romanescoYourNumber.getIDfamilly() ; }
 
 ////////////
-//CLASS////
-//GLOBAL
-//////////////////////////////////////////
+// CLASS
 class RomanescoYourNumber extends SuperRomanesco 
 {
-  //FORBIDEN TO TOUCH
   int IDfamilly ;
-  //END OF FORBIDEN ZONE
-  
-  ////////////////////////////////////////////////////////////////////////////////////////////////
-  // YOUR VARIABLE OBJECT and CALL YOUR OWN CLASS HERE if it's not class that use an ArrayList //
-  //////////////////////////////////////////////////////////////////////////////////////////////
   /*
+  YOUR VARIABLE OBJECT 
+  and CALL YOUR OWN CLASS HERE if it's not class that use an ArrayList
+
   int var ; float var ; // etc
   YourClass yourClass ;
   */
   
-  // CLASS_WITHOUT_ARRAYLIST class_without_arraylist
-  ///////IMPORTANT///////////////////////////////////////////////////////////////////////////////////////////////////////////
-  //to call external class or library in class we have write this line at the top of code : PApplet callingClass = this ////
-  /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-  //and here you call call your class
+  // class_without_arraylist
+  ///////IMPORTANT//////////
   /*
   LibraryOrClass name ; 
   */
@@ -69,44 +59,26 @@ class RomanescoYourNumber extends SuperRomanesco
   RomanescoYourNumber(int ID, int IDfamilly) {
     super(ID) ;
     this.IDfamilly = IDfamilly ;
-    ///////IMPORTANT/////////////////////////////////////////////////////////////////////////////
-    //to call external class or library in class, now we must use "callingClass" like "this" ///
-    ///////////////////////////////////////////////////////////////////////////////////////////
     /*
+    ///////IMPORTANT///////
+    to call external class 
+    or library in class, now we must use "callingClass" like "this" ///
     name = new LibraryOrClass(callingClass);
     */
   }
   //END CONSTRUCTOR
   
   ////SETUP
-  //the setting that's stuff that you'r put usually in the void setup() 
+  //the setting that's stuff that you'r  in the void setup() of Processing
   void setting() {
-    // If you use font
     font[IDobj] = font[0] ;
-    //motion is true by default is better the object move when you switch on this one
     motion[IDobj] = true ;
-    
-    // YOUR SETTING OBJECT :
-    ////////////////////////    
-    // by default is (0,0,0) if you want a specficic starting position, you can give coordonate here
+    // if you want a specficic starting position, you can give coordonate here
     mouse[IDobj] = new PVector (30, height *.33, 0) ;
-    // Just in case you use a class need to be clear in your object
-     /*
-    yourList = new ArrayList<YourClass>() ;
-    */
-    //class_without_arraylist = new CLASS_WITHOUT_ARRAYLIST() ;
-    
     //CLASS who don't need use a list, genrally it's for single object
     /*
     yourClass = new YourClass() ;
     */
-
-    
-
-    
-    //////////////////////////
-    // END YOUR SETTING OBJECT
-    
   }
   ///////////
   //END SETUP
@@ -115,40 +87,34 @@ class RomanescoYourNumber extends SuperRomanesco
   /////////
   //DISPLAY 
   void display() {
-    // if you use font in your object
+    // font
     if (parameterButton[IDobj] == 1 ) font[IDobj] = font[0] ;
     
-    //DISPLAY OBJECT
+    //DISPLAY
     pushMatrix() ;
-    //P3D Give the position and the orientation of your object in the 3 dimensionals space
     P3Dmanipulation(IDobj) ;
     //END OF DON'T TOUCH
     
     // CHECK INTERNET ACCESS
     /* if (internet ) { } */
     
-    //CLASSIC DISPLAY
-    // you can use a direct display or mode display to switch what you want display with a same engine object
     
-    //EXAMPLE OBJECT
+    //DISPLAY WITHOUT DROPDOWN
     example() ;
-    //END YOUR WORK
     
-    // MODE DISPLAY with the dropdown menu of controler
-    /////////////////////
+    // DISPLAY WITH DROPDOWN
     if (modeButton[IDobj] == 0 || modeButton[IDobj] == 255 ) {
       //// just for information we use 0 to display the mode 1...same for the next mode +1...
     } else if (modeButton[IDobj] == 1 ) {
     } else if (modeButton[IDobj] == 2 ) {
-    // and same for the next
+    // etc...
     }
     
-    //DON'T TOUCH
-    // translate(P3Dposition[IDobj].x, P3Dposition[IDobj].y, P3Dposition[IDobj].z) ;
+    
 
     popMatrix() ;
-    //END of MODE DISPLAY
-    /////////////////////
+    //END DISPLAY
+    
     
     
     //ADD OBJECT from keyboard, press "N" for new one
@@ -160,7 +126,7 @@ class RomanescoYourNumber extends SuperRomanesco
     //END ADD OBJECT
     
     
-    //CLEAR THE LIST IF NECESSARY 
+    //CLEAR THE LIST of the particule
     if (romanescoEmptyList(IDobj)) { 
     // yourList.clear() ; 
     }
