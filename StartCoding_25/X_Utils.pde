@@ -4,40 +4,26 @@
 Tablet tablet;
 
 //SETUP
-void cursorSetup()
-{
+void cursorSetup() {
   tablet = new Tablet(this);
-  //setup mouseWheel
-  /*
-  addMouseWheelListener( new MouseWheelListener() { 
-    public void mouseWheelMoved(MouseWheelEvent mwe ) { 
-      mouseWheel(mwe.getWheelRotation());
-    }
-  });
-  */
+  //mouse
+  mouse[0] = new PVector(0,0) ;
+  pmouse[0] = new PVector(0,0) ;
+  wheel[0] = 0 ;
 }
 
 
 //DRAW
-void cursorDraw()
-{
+void cursorDraw() {
   pen[0] = new PVector (norm(tablet.getTiltX(),0,1), norm(tablet.getTiltY(),0,1), tablet.getPressure()) ;
   mouse[0] = new PVector(mouseX, mouseY ) ;
   pmouse[0] = new PVector(pmouseX, pmouseY ) ;
   wheel[0] = 0 ;
-  if( clickShortLeft[0] || clickShortRight[0] || clickLongLeft[0] || clickLongRight[0] ) mousepressed[0] = true ; else mousepressed[0] = false ;
+  // if( clickShortLeft[0] || clickShortRight[0] || clickLongLeft[0] || clickLongRight[0] ) mousepressed[0] = true ; else mousepressed[0] = false ;
+  //re-init the mouse button for the short click
+  clickShortLeft[0] = false ; 
+  clickShortRight[0] = false ;
 }
-
-
-/*
-//MOUSE WHEEL
-//Return mouse Whell info
-int wheelXY ;
-void mouseWheel(int delta) {
-  wheelXY = delta ;
-}
-*/
-
 ////////////////////////////////////////
 //END CURSOR, MOUSE, TABLET, LEAP MOTION
 
@@ -57,8 +43,7 @@ boolean aTouch, bTouch, cTouch, dTouch, eTouch, fTouch, gTouch, hTouch, iTouch, 
 boolean spaceTouch, cLongTouch, nLongTouch, vLongTouch ;
         
         
-void keyboardTrue()
-{
+void keyboardTrue() {
   if (key == ' ' ) spaceTouch = true ; 
   
   if (key == 'a'  || key == 'A' ) aTouch = true ;
@@ -114,14 +99,13 @@ void keyboardTrue()
 }
 
 void keyboardLongFalse() {
-  spaceTouch = false ; 
-  cLongTouch = false ;
-  nLongTouch = false ;
-  vLongTouch = false ;
+  if (key == ' ' ) spaceTouch = false ; 
+  if (key == 'c'  || key == 'C' ) cLongTouch = false ;
+  if (key == 'n'  || key == 'N' ) nLongTouch = false ;
+  if (key == 'v'  || key == 'V' ) vLongTouch = false ;
 }
 
-void keyboardFalse()
-{
+void keyboardFalse() {
     // check for the key and put false here, but it's less reactive that put false just after the use the boolean...here you display false three time !
   //spaceTouch = false ; 
   
@@ -196,21 +180,16 @@ int sunRise, sunSet ;
 
 
 //SETUP
-void meteoSetup()
-{
+void meteoSetup() {
   String [] md = loadStrings (sketchPath("")+"meteo.txt")  ;
   String meteoData  = join(md, "") ;
   String splitMeteoData [] = split(meteoData, '/') ;
 
   if (splitMeteoData[2].equals("celsius") ) weather = new YahooWeather(this, Integer.parseInt(splitMeteoData[4]), "c", updateIntervallMillis); else weather = new YahooWeather(this, Integer.parseInt(splitMeteoData[4]), "f", updateIntervallMillis) ;
-
-
-
 }
 
 //DRAW
-void meteoDraw()
-{
+void meteoDraw() {
   weather.update();
 
   //the sun set and the sunrise is calculate in minutes, one day is 1440 minutes, and the start is midnight
@@ -222,8 +201,7 @@ void meteoDraw()
 //ANNEXE
 
 //CLOCK SUN
-String clock24(String t, int mode)
-{
+String clock24(String t, int mode) {
   String [] split = new String [2] ;
   String [] splitTime = new String [2] ;
   String clockSunset =  t ;
@@ -295,8 +273,7 @@ color meteoColor(color day, color night, int whatTimeIsIt, int speedRiseSet)
 
 
 //one color
-color meteoColor(color colorOfTheDay, int whatTimeIsIt, int speedRiseSet, int pressure)
-{
+color meteoColor(color colorOfTheDay, int whatTimeIsIt, int speedRiseSet, int pressure) {
   color colorOfSky ;
   
   int sunrise,sunset ;
@@ -351,15 +328,13 @@ color meteoColor(color colorOfTheDay, int whatTimeIsIt, int speedRiseSet, int pr
 
 
 //PRESSION
-int hectoPascal(float pressureToConvert)
-{
+int hectoPascal(float pressureToConvert) {
   int HP ;
   if (pressureToConvert < 800 ) HP = int(pressureToConvert *33.86) ; else HP = (int)pressureToConvert ;
   return HP ;
 }
 //WIND FORCE
-int beaufort()
-{
+int beaufort() {
   int forceDuVent = 0 ;
   if (weather.getWindSpeed() < 1 ) forceDuVent = 0 ;
   if (weather.getWindSpeed() > 0 && weather.getWindSpeed() < 6 ) forceDuVent = 1 ;
@@ -383,8 +358,7 @@ int beaufort()
 //GLOBAL
 String vent ;
 //Void
-String windFrench()
-{
+String windFrench() {
   //wind
   
   if (weather.getWindDirection() > 348 || weather.getWindDirection() <  11 ) vent = "de Nord" ;
@@ -476,8 +450,7 @@ String traductionWeather(int code) {
 
 ///////////////////////////////////////////
 //TRANSLATOR INT to String, FLOAT to STRING
-String joinIntToString(int []data)
-{
+String joinIntToString(int []data) {
   String intString ;
   String [] dataString = new String [data.length] ;
   for ( int i = 0 ; i < data.length ; i++) dataString[i] = Integer.toString(data[i]) ;
@@ -486,8 +459,7 @@ String joinIntToString(int []data)
   return intString ;
 }
 
-String joinFloatToString(float []data)
-{
+String joinFloatToString(float []data) {
   String floatString ;
   String [] dataString = new String [data.length] ;
   //for ( int i = 0 ; i < data.length ; i++) dataString[i] = Float.toString(data[i]) ;
@@ -499,22 +471,19 @@ String joinFloatToString(float []data)
 }
 
 //Translater to String
-String FloatToString(float data)
-{
+String FloatToString(float data) {
   String newData ;
   newData = String.format("%.1f", data ) ;
   return newData ;
 }
 //
-String FloatToStringWithThree(float data)
-{
+String FloatToStringWithThree(float data) {
   String newData ;
   newData = String.format("%.3f", data ) ;
   return newData ;
 }
 //
-String IntToString(int data)
-{
+String IntToString(int data) {
   String newData ;
   newData = Integer.toString(data ) ;
   return newData ;
@@ -608,8 +577,7 @@ void fontSetup() {
 
 
 
-void whichFont (int whichFont) 
-{ 
+void whichFont (int whichFont) { 
   if (whichFont == 1 )     font[0] = AmericanTypewriter ; 
   else if (whichFont ==2 ) font[0] = AmericanTypewriterBold ;
   else if (whichFont == 3) font[0] = Banco ;

@@ -37,18 +37,6 @@ void romanescoDraw() {
 
 
 //EMPTY LIST
-/*
-void romanescoEmptyList() {
-  //Delete all the list without button check
-  if ( keyCode == BACKSPACE) {
-    for ( int i = 1 ; i < numObj ; i++ ) clearList[i] = true ;
-  }
-  //delete list if the parameter button is ON
-  if (keyCode == DELETE) {
-    for ( int i = 1 ; i < numObj ; i++ ) if ( parameterButton[i] == 1 ) clearList[i] = true ;
-  }
-}
-*/
 boolean romanescoEmptyList(int ID) {
   boolean e = false ;
   //global delete
@@ -97,5 +85,4 @@ void romanescoData() {
   for (int i = 0 ; i < numBand ; i++) {
     dataSoundGlobal[10 + i] = Float.toString(bandSprectrum[i]) ;
   }
-    
 }

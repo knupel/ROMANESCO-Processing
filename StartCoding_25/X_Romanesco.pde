@@ -1,6 +1,5 @@
 //GLOBAL
-int numObj = 99 ; // minimum 2 object because sur first Object is Zero and it use like ref. So the "1" is the real first object.
-int numBand = 16 ;
+
 
 //var to init the data of the object when is switch ON for the first time
 boolean initObj [] = new boolean [numObj +1]  ;
@@ -112,7 +111,6 @@ class SuperRomanesco
         for ( int i = 0 ; i < numBand ; i++) {
           band [IDobj][i] = float(soundData[10 + i]) ;
         }
-        
       } else {
         gauche[IDobj] = .05 ; droite[IDobj] = .05 ;  mix[IDobj] = .05 ;
         beat[IDobj] = 1.0 ; kick[IDobj] = 1.0 ; snare[IDobj] = 1.0 ; hat[IDobj] = 1.0 ;

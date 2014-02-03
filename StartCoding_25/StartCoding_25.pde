@@ -1,3 +1,11 @@
+  ////////////////////////////////////////////////////////////////////////
+ // Romanesco Startcoding Alpha 0.25 work with Processing 211  //////////
+////////////////////////////////////////////////////////////////////////
+
+//GLOBAL
+int numObj = 99 ; // minimum 2 object because sur first Object is Zero and it use like ref. So the "1" is the real first object.
+int numBand = 16 ;
+ 
 //sound
 import ddf.minim.*;
 import ddf.minim.analysis.*;
@@ -10,8 +18,7 @@ import com.onformative.yahooweather.*;
 //LEAP MOTION
 import com.leapmotion.leap.*;
 com.leapmotion.leap.Controller leap;
-//to use the mouseWheel event
-//import java.awt.event.*;
+
 
 //render
 //String displayMode = ("Classic") ;
@@ -47,18 +54,13 @@ void setup() {
 void draw() {
   defaultSetting() ;
   soundDraw() ;
-  
-  //OBJECT
-  //convert data from controler to String to send in the class Romanesco
   romanescoDraw() ;
-  //to change the boolean of each touch to false
   
   //stop the camera if we're in P3D world
   if(displayMode.equals("P3D")) stopCamera() ;
   
   //tablet, pen and mouse
   cursorDraw() ;
-  //keyboard
   keyboardFalse() ;
   //to change in false after one shot click
   clickShortLeft[0] = false ; 
@@ -75,7 +77,7 @@ void draw() {
 // ANNEXE
 
 void displaySetup() {
-    colorMode(HSB, 360,100,100 ) ;
+  colorMode(HSB, 360,100,100 ) ;
   if(displayMode.equals("P3D")) { size(800,400,P3D); P3DSetup() ; } 
   else if (displayMode.equals("Classic")) size(800,400) ; 
 }

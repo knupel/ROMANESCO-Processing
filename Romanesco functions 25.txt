@@ -252,15 +252,17 @@ float getTimeTrack()  // return the time elapse from the beginning play to now
 //////////////////////
 PVector mouse[IDobj]
 mouse[0].x // mouse[0].y // absolute position of the mouse
-mouse[0].z // return info from wheel mouse
+mouse[0].z // return info from the z axis when the leapmotion is active
 mouse[IDobj].x // mouse[IDobj].y // mouse[IDobj].z // same info tha mouse[IDobj] but this one is refresh when you press the space
-
-PVector pmouse[IDobj]
-pmouse[0] and pmouse[IDobj]
-
+// MOUSE WHEEL
 int wheel[IDobj]
 wheel[0] and wheel[IDobj]
 or use the void zoom() and take the float value getCountZoom...this value is more reactive !
+// PMOUSE
+PVector pmouse[IDobj]
+pmouse[0] and pmouse[IDobj]
+
+
 // PEN
 ////////////////////
 PVector pen[IDobj]

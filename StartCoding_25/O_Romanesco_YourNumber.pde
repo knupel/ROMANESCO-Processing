@@ -118,15 +118,7 @@ class RomanescoYourNumber extends SuperRomanesco
     // if you use font in your object
     if (parameterButton[IDobj] == 1 ) font[IDobj] = font[0] ;
     
-    // HERE IT'S FOR YOU
-    /////////
-    //ENGINE
-    
-    //END ENGINE
-    ////////////
-    
     //DISPLAY OBJECT
-    //DON'T TOUCH
     pushMatrix() ;
     //P3D Give the position and the orientation of your object in the 3 dimensionals space
     P3Dmanipulation(IDobj) ;
@@ -155,7 +147,6 @@ class RomanescoYourNumber extends SuperRomanesco
     // translate(P3Dposition[IDobj].x, P3Dposition[IDobj].y, P3Dposition[IDobj].z) ;
 
     popMatrix() ;
-    //END OF DON'T TOUCH
     //END of MODE DISPLAY
     /////////////////////
     
@@ -173,15 +164,6 @@ class RomanescoYourNumber extends SuperRomanesco
     if (romanescoEmptyList(IDobj)) { 
     // yourList.clear() ; 
     }
-    
-    
-    //IT'S THE END FOR YOU
-    //////////////////////
-    
-    
-    
-    
-
   }
   //END DRAW
   //////////
@@ -209,8 +191,8 @@ class RomanescoYourNumber extends SuperRomanesco
     text("Volume Mix " + mix[IDobj]     + " Gauche "     + gauche[IDobj]    + " Droite "     + droite[IDobj] ,                                                                           mouse[IDobj].x +10, mouse[IDobj].y + 20 + ( 3 * interlignage) ) ;
     text("Beat "       + beat[IDobj]    + " Kick "       + kick[IDobj]      + " Snare "      + snare[IDobj]     + " Hat "         + hat[IDobj] ,                                         mouse[IDobj].x +10, mouse[IDobj].y + 20 + ( 4 * interlignage)) ;
     text("Tempo "      + tempo[IDobj]   + " Tempo Beat " + tempoBeat[IDobj] + " Tempo Kick " + tempoKick[IDobj] + " Tempo Snare " + tempoSnare[IDobj] + " Tempo Hat " + tempoHat[IDobj], mouse[IDobj].x +10, mouse[IDobj].y + 20 + ( 5 * interlignage)) ;
-    text("Spectrum Band " +band[IDobj][0] ,                                                                                                                                                     mouse[IDobj].x +10, mouse[IDobj].y + 20 + ( 6 * interlignage)) ;
-    text("Mouse X "    + mouse[IDobj].x + " Y "          + mouse[IDobj].y   + " Molette "    + mouse[IDobj].z  ,                                                                         mouse[IDobj].x +10, mouse[IDobj].y + 20 + ( 7 * interlignage)) ;
+    text("Spectrum Band " +band[IDobj][0] ,                                                                                                                                              mouse[IDobj].x +10, mouse[IDobj].y + 20 + ( 6 * interlignage)) ;
+    text("Cursor X "    + mouse[IDobj].x + " cursor Y "          + mouse[IDobj].y   + " cursor Z "    + mouse[IDobj].z  + " Molette " + wheel[0]  ,                                      mouse[IDobj].x +10, mouse[IDobj].y + 20 + ( 7 * interlignage)) ;
     text("Pen X "      + pen[IDobj].x   + " Y "          + pen[IDobj].y     + " Pression "   + pen[IDobj].z  ,                                                                           mouse[IDobj].x +10, mouse[IDobj].y + 20 + ( 8 * interlignage)) ;
   }
   //END EXAMPLE
@@ -227,8 +209,8 @@ class RomanescoYourNumber extends SuperRomanesco
   //FORDIDEN TO TOUCH THIS VOID
   /////////////////////////////
   //DATA VOID
-  void data( String [] dataControler, String [] dataMinin) {
-    super.data(dataControler, dataMinin) ;
+  void data( String [] dataControlerLocal, String [] dataSoundLocal) {
+    super.data(dataControlerLocal, dataSoundLocal) ;
   }
   ////////////
   //Return ID
