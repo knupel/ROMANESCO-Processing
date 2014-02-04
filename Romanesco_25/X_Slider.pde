@@ -6,8 +6,7 @@ class Slider
   private PFont p ;
   
   //CONSTRUCTOR with title
-  public Slider(PVector pos, PVector posMol , PVector size, PVector posText, color slider, color boxIn, color boxOut, color colorText, PFont p)
-  {
+  public Slider(PVector pos, PVector posMol , PVector size, PVector posText, color slider, color boxIn, color boxOut, color colorText, PFont p) {
     this.pos = pos ;
     this.posMol = posMol ;
     this.size = size ;
@@ -26,8 +25,7 @@ class Slider
   }
   
   //CONSTRUCTOR minimum
-  public Slider(PVector pos, PVector posMol , PVector size, color slider, color boxIn, color boxOut )
-  {
+  public Slider(PVector pos, PVector posMol , PVector size, color slider, color boxIn, color boxOut ) {
     this.pos = pos ;
     this.posMol = posMol ;
     this.size = size ;
@@ -43,8 +41,7 @@ class Slider
   }
   
   //slider with external molette
-  public Slider(PVector pos, PVector posMol , PVector size, PVector sizeMol,  color slider, color boxIn, color boxOut )
-  {
+  public Slider(PVector pos, PVector posMol , PVector size, PVector sizeMol,  color slider, color boxIn, color boxOut ) {
     this.pos = pos ;
     this.posMol = posMol ;
     this.sizeMol = sizeMol ;
@@ -60,8 +57,7 @@ class Slider
   
   //SETTING
   
-  void sliderSetting()
-  {
+  void sliderSetting() {
     noStroke() ;
     
     //SLIDER
@@ -76,8 +72,7 @@ class Slider
   }
   
   //Slider update with title
-  void sliderUpdate(String s, boolean t)
-  {
+  void sliderUpdate(String s, boolean t) {
     //SLIDER
     fill(slider) ;
     rect(pos.x, pos.y, size.x, size.y ) ;
@@ -93,8 +88,7 @@ class Slider
     rect(newPosMol.x, newPosMol.y, sizeMol.x , sizeMol.y ) ;
   }
   //Slider update simple
-  void sliderUpdate()
-  {
+  void sliderUpdate() {
     //SLIDER
     fill(slider) ;
     rect(pos.x, pos.y, size.x, size.y ) ;
@@ -113,8 +107,7 @@ class Slider
   }
   
   
-  void moletteUpdate()
-  {
+  void moletteUpdate() {
     if (locked ()  ) molLocked = true ;
     if (!mousePressed)  molLocked = false ; 
       
@@ -124,8 +117,7 @@ class Slider
   }
   
   //RETURN
-  float getValue()
-  {
+  float getValue() {
     float value ;
     if ( size.x >= size.y ) value = map (newPosMol.x, posMin.x, posMax.x, 0,1) ; else value = map (newPosMol.y, posMin.y, posMax.y, 0,1) ;
     return value ;
@@ -159,13 +151,7 @@ class Slider
   }
   
   //locked
-  boolean locked () 
-  {
+  boolean locked () {
     if ( inside  && mousePressed ) return true ; else return false ;
   }
-    
-
-  
-  
-  
 }

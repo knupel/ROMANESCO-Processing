@@ -61,8 +61,7 @@ class Button
   }
   
   
-  void displayButton()
-  {
+  void displayButton() {
     String textResult ;
     
     if(OnOff) {

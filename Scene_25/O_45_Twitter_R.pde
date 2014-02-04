@@ -1,15 +1,7 @@
-
-
-
-
 //GLOBAL
 RomanescoFortyFive romanescoFortyFive ;
 ////////////////////////////////////////////////////////////////////
-// Just in case you use a class must use an ArrayList in your object, 
-// if it's not call the class in the class RomanescoFortyFive just bellow
-/*
-ArrayList<YourClass> yourList ;
-*/
+
 Twitter twt;
 ArrayList<MessageTwitter> listMsg ;
 
@@ -34,16 +26,7 @@ void romanescoFortyFiveDraw(String [] dataControleur, String [] dataMinim) {
   romanescoFortyFive.display() ;
 }
 
-//MOUSEPRESSED
-void romanescoFortyFiveMousepressed() { romanescoFortyFive.mousepressed() ; }
-//MOUSERELEASED
-void romanescoFortyFiveMousereleased() { romanescoFortyFive.mousereleased() ; }
-//MOUSE DRAGGED
-void romanescoFortyFiveMousedragged() { romanescoFortyFive.mousedragged() ; }
-//KEYPRESSED
-void romanescoFortyFiveKeypressed() { romanescoFortyFive.keypressed() ; }
-//KEY RELEASED
-void romanescoFortyFiveKeyreleased() { romanescoFortyFive.keyreleased() ; }
+
 
 //Return the ID familly to choice the data must be send to the class // 0 is global // 1 is Object // 2 is trame // 3 is typo
 int getFamillyRomanescoFortyFive() { return romanescoFortyFive.getIDfamilly() ; }
@@ -58,17 +41,12 @@ class RomanescoFortyFive extends SuperRomanesco
   int IDfamilly ;
   //END OF FORBIDEN ZONE
   String message ;
+  String hashtag ;
   
   //CONSTRUCTOR
   RomanescoFortyFive(int ID, int IDfamilly) {
     super(ID) ;
     this.IDfamilly = IDfamilly ;
-    ///////IMPORTANT////////////////////////////////////
-    //to call external class or library in class, 
-    //now we must use "callingClass" like "this"
-    /*
-    name = new LibraryOrClass(callingClass);
-    */
   }
   //END CONSTRUCTOR
   
@@ -77,10 +55,12 @@ class RomanescoFortyFive extends SuperRomanesco
   void setting() {
     listMsg = new ArrayList<MessageTwitter>() ;
     String [] hshtg = loadStrings ("ashtagReference.txt")  ;
-    String hashtag = join(hshtg, "") ;
+    hashtag = join(hshtg, "") ;
     
     twt = new Twitter(hashtag, 2, true); // false ou true pour Online ou non
-    if (internet ) { twt.setup(); }
+    
+    if (internet ) twt.setup();
+
     //If you use font
     font[IDobj] = font[0] ;
   }
@@ -109,15 +89,17 @@ class RomanescoFortyFive extends SuperRomanesco
     color ctwt ;
     ctwt = color(map(valueObj[IDobj][1],0,100,0,360), valueObj[IDobj][2], valueObj[IDobj][3], t) ;
     //hauteur largeur height and width
-    float h = map (valueObj[IDobj][11], 0, 100, 0, height *3 ) ;
-    float l = map (valueObj[IDobj][12], 0, 100, 0, width *3 ) ;
+    float h = map (valueObj[IDobj][11], 0, 100, corps*3, height *3 ) ;
+    float l = map (valueObj[IDobj][12], 0, 100, corps*3, width *3 ) ;
 
     // message reception
     if (internet) message = twt.update() ; else message = bigBrother ;
     // full message
     // split the message to can remove the hashtag
     if (message == null ) { 
-      if ( joinedWords.equals("") ) joinedWords = ("#ROMANESCO") ;
+      boolean acces = false ;
+      if(internet) acces = twt.twitterAcces() ;
+       if ( joinedWords.equals("") && acces) joinedWords = (hashtag) ; else joinedWords = ("GIVE ME THE TWITTER CODE") ;
     } else {
       String[] words = splitTokens(message);
       // to remove the Hashtag
@@ -151,9 +133,8 @@ class RomanescoFortyFive extends SuperRomanesco
     textAlign(CORNER);
     textFont(font[IDobj], corps + ( corps * fsc) );
     for (MessageTwitter msgTwt : listMsg)  {
-      // rotation / deg
       rotation(valueObj[IDobj][18], mouse[IDobj].x, mouse[IDobj].y) ;
-      if (soundButton[IDobj] != 1) msgTwt.display( 0 , 0, l, h, ctwt ) ; else msgTwt.display(-(droite[IDobj]*20) , -(gauche[IDobj ]*20) , l, h, ctwt ) ;
+      if (soundButton[IDobj] != 1) msgTwt.display( -width/2 , 0, l, h, ctwt ) ; else msgTwt.display(-width/2 -(droite[IDobj]*20) , -(gauche[IDobj ]*20) , l, h, ctwt ) ;
     }
     
      //CHANGE MODE DISPLAY
@@ -169,23 +150,10 @@ class RomanescoFortyFive extends SuperRomanesco
     //DON'T TOUCH
     popMatrix() ;
     //END OF DON'T TOUCH
-    //END of MODE DISPLAY
-    /////////////////////  
   }
   //END DRAW
   //////////
-  
-  //KEYPRESSED
-  void keypressed() {}
-  //KEY RELEASED
-  void keyreleased() {}
-  //MOUSEPRESSED
-  void mousepressed() {}
-  //MOUSE RELEASED
-  void mousereleased() {}
-  //MOUSE DRAGGED
-  void mousedragged() {}
-  
+
   
   //ANNEXE VOID
   void annexe() {}
@@ -261,7 +229,7 @@ ArrayList twitter_statuses;
 class Twitter
 {
   
-  String[] statuses_offline = { "Romanesco Alpha 21", "Romanesco Alpha 22", "Romanesco Alpha 23", "Romanesco Alpha 24" };
+  String[] statuses_offline = { "Romanesco Alpha 25", "Romanesco Alpha 25", "Romanesco Alpha 25", "Romanesco Alpha 25" };
   
   String keyword;
 
@@ -288,7 +256,7 @@ class Twitter
     String [] cT = split(codeTwitter, ",") ;
     
     //use this line if don't use the Scène
-    if(presceneOnly) if (cT[0].equals("true") || cT[0].equals("TRUE") ) twitterAcces = true ; else twitterAcces = false ;
+    if(presceneOnly ) if (cT[0].equals("true") || cT[0].equals("TRUE") ) twitterAcces = true ; else twitterAcces = false ;
     
 
     //acces twitter
@@ -317,8 +285,15 @@ class Twitter
       ts.filter(filterQuery);
     }
   }
+  
+  
+  boolean twitterAcces() {
+    println(twitterAcces) ;
+    if (twitterAcces) return true ; else return false ;
+  }
   /////////////////////////////
-  String update() {
+  String update()
+  {
     period += millis() - time;
     time = millis();
 
