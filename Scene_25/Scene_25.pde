@@ -1,5 +1,5 @@
   ///////////////////////////////////////////////////////////////////////////
- // Romanesco Scène Alpha 0.24 public release work with Processing 203  ////
+ // Romanesco Scène Alpha 0.25 public release work with Processing 211  ////
 ///////////////////////////////////////////////////////////////////////////
 
 // when you work only with prescene presceneOnly is true, on Prescene in the sketch Prescene
@@ -53,6 +53,4 @@ void draw() {
 //KEYPRESSED
 void keyPressed () {
   keySave() ;
-  // to display the local adress
-  if(key == 'i') addressLocal = !addressLocal ;
 }

@@ -596,7 +596,6 @@ void sketchPos(int x, int y, int which) {
 /////////
 Miroir miroir;
 boolean sendToSyphon  ;
-boolean addressLocal = true ;
 
 void miroirSetup() {
   if (sendToSyphon) miroir = new Miroir(this);
@@ -604,19 +603,6 @@ void miroirSetup() {
 
 void miroirDraw() {
   if (sendToSyphon) miroir.update();
-  
-  // catch to show the local adress to write in .txt in the source directory
-  if (addressLocal) {
-    stroke(blanc) ;
-    noFill() ;
-    textFont(SansSerif10, 10) ;
-    try {
-      textSize(25) ;
-    text("My local address for the Controleur", 50,50 ) ;
-    text (java.net.InetAddress.getLocalHost().getHostAddress(), 50,90) ;
-    }
-    catch(Exception e) {}
-  }
 }
 
 

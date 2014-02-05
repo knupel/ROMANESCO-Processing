@@ -107,14 +107,13 @@ void displayDraw() {
   textFont(FuturaStencil,20);
 }
 
-
+boolean MiroirSetting ;
 void launcherDraw() {
   text("ROMANESCO alpha 25", 10.0, 30.0);
   text("Choice                or ", 10.0, 60.0);
   choiceMiroirOrScene() ;
-  if (buttonScene.OnOff) launchScene() ;
-  if (buttonMiroir.OnOff) launchMiroir() ;
-  // launchMiroir() ;
+  if (buttonScene.OnOff || !MiroirSetting ) launchScene() ;
+  if (buttonMiroir.OnOff || MiroirSetting) launchMiroir() ;
 }
 // END DRAW
 ///////////
@@ -131,7 +130,8 @@ void choiceMiroirOrScene() {
 }
 // Scene launcher
 void launchScene() {
-  //which window display
+  MiroirSetting = false ;
+  //button to choice between the fullscreen or window display
   buttonWindow.displayButton() ;
   buttonFullscreen.displayButton() ;
   
@@ -140,15 +140,13 @@ void launchScene() {
   } else if (buttonFullscreen.OnOff) {
     screen = ("true") ;
   } 
-  //what display  
+  // what display  
   if (buttonFullscreen.OnOff) {
     fill(orange) ;
     text("on screen", 10.0, 120.0);
     //on which screen display the window
     whichScreenDraw() ;
-    
   } else if (buttonWindow.OnOff) {
-    //buttonFullscreen.OnOff = false ;
     screen = ("false") ;
     sizeWindow() ;
   }
@@ -157,17 +155,19 @@ void launchScene() {
   
 }
 
-//mirror launcher
+// LAUNCH MIROIR
 void launchMiroir() {
+  MiroirSetting = true ;
   screen = ("false") ;
   whichAppOpeningTheScene = ("false") ;
   buttonWindow.OnOff = true ;
+  addressLocal(10,88) ;
   sizeWindow() ;
   //last step
   launchApp() ;
 }
 
-//
+// LAUNCH APP
 void launchApp() {
   whichAppOpeningTheScene = ("true") ;
   if ( buttonWhichScreenOnOff > 0 && buttonFullscreen.OnOff ) {
@@ -182,10 +182,9 @@ void launchApp() {
 }
 
 
+// OPEN APP
 // int timeToLaunch, timeRepere ;
 // boolean openScene ;
-
-
 void openApp(boolean openTheScene) {
   if(openTheScene) open(pathScene); else open(pathMiroir) ;
   //timeRepere = (hour() *60 *60 )+(minute() *60) +second() ;
@@ -208,9 +207,20 @@ void setTable() {
   table.setString(0,8, whichAppOpeningTheScene) ;
   
   if(testLauncher) saveTable(table, "data/new.csv"); else saveTable(table, sketchPath("")+"sources/Scene_24.app/Contents/Resources/Java/data/setting/sceneProperty.csv"); 
-
 }
 
+/////////////////
+// ADDRESS IP
+void addressLocal(int x, int y) {
+  fill(orange) ;
+  // textFont(SansSerif10, 10) ;
+  try {
+    //textSize(25) ;
+  text("local address", x,y ) ;
+  text (java.net.InetAddress.getLocalHost().getHostAddress(), x+188,y) ;
+  }
+  catch(Exception e) {}
+}
 
 ////////////////
 // SIZE WINDOW
