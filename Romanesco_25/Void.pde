@@ -80,13 +80,14 @@ void structureSetup() {
 
 void loadSetup() {
     //load
-  if (testLauncher) table = loadTable("sceneProperty.csv", "header"); else table = loadTable(sketchPath("")+"sources/Scene_24.app/Contents/Resources/Java/data/setting/sceneProperty.csv", "header");
+  // if (testLauncher) table = loadTable("sceneProperty.csv", "header"); else table = loadTable(sketchPath("")+"sources/Scene_25.app/Contents/Java/data/sceneProperty.csv", "header");
+   if (testLauncher) table = loadTable("sceneProperty.csv", "header"); else table = loadTable(sketchPath("")+"sources/Scene_"+release+".app/Contents/Java/data/sceneProperty.csv", "header");
   //load typo
   FuturaStencil =loadFont ("FuturaStencilICG-20.vlw") ;
   
   //OPENING APP
-  pathScene = (sketchPath("") + "sources/Prescene_25.app");
-  pathMiroir = (sketchPath("") + "sources/Scene_25.app");
+  pathScene = (sketchPath("") + "sources/Prescene_"+release+".app");
+  pathMiroir = (sketchPath("") + "sources/Scene_"+release+".app");
   
   //Change the language of controleur
   // 0 is French
@@ -151,12 +152,14 @@ void launchScene() {
     sizeWindow() ;
   }
   //last step
+  openScene = true ;
   launchApp() ;
   
 }
 
 // LAUNCH MIROIR
 void launchMiroir() {
+  openScene = false ;
   MiroirSetting = true ;
   screen = ("false") ;
   whichAppOpeningTheScene = ("false") ;

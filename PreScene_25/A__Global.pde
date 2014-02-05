@@ -114,9 +114,9 @@ void opening() {
     text(" WAIT FOR CONTROLEUR", 50,50 ) ;
   }
   if (!testRomanesco) { 
-    if (openControleur) { open(sketchPath("")+"Controleur_24.app") ; openControleur = false ; } 
-    if (openScene)      { open(sketchPath("")+"Scene_24.app") ; openScene = false ; }
-    if (openMiroir)     { open(sketchPath("")+"Miroir_24.app") ; openMiroir = false ; }
+    if (openControleur) { open(sketchPath("")+"Controleur_"+release+".app") ; openControleur = false ; } 
+    if (openScene)      { open(sketchPath("")+"Scene_"+release+".app") ; openScene = false ; }
+   // if (openMiroir)     { open(sketchPath("")+"Miroir_24.app") ; openMiroir = false ; }
     // testRomanesco = true ;
   }
 }

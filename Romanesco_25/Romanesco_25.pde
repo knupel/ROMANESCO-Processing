@@ -1,4 +1,10 @@
-boolean testLauncher = true ;
+  ///////////////////////////////////////////////////////////////
+ // Romanesco Préscène Alpha 0.25 work with Processing 211  ////
+///////////////////////////////////////////////////////////////
+// romanesco release, change this number to open the app
+String release =("25") ;
+boolean testLauncher = false ;
+
 boolean openScene ;
 
 PFont FuturaStencil ;
