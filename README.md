@@ -2,10 +2,10 @@
 work version
 
 ##Architecture Sketches
-Romanesco_25 : Sketch to set Romanesco.
-Controleur_25 : interface slider to use the objects and the different parameters.
-Prescene_25 : use to move the object in the 3D space
-Scene_25 : the result of performance, we can use this one to send to syphon or not
+*Romanesco_25 : Sketch to set Romanesco.
+*Controleur_25 : interface slider to use the objects and the different parameters.
+*Prescene_25 : use to move the object in the 3D space
+*Scene_25 : the result of performance, we can use this one to send to syphon or not
 
 ## Code core
 launch the Scène, then the Préscène and Controleur in the last time
