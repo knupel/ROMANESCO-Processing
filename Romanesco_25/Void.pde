@@ -78,20 +78,14 @@ void structureSetup() {
 }
 
 
+
 void loadSetup() {
-    //load
-  // if (testLauncher) table = loadTable("sceneProperty.csv", "header"); else table = loadTable(sketchPath("")+"sources/Scene_25.app/Contents/Java/data/sceneProperty.csv", "header");
-   if (testLauncher) table = loadTable("sceneProperty.csv", "header"); else table = loadTable(sketchPath("")+"sources/Scene_"+release+".app/Contents/Java/data/sceneProperty.csv", "header");
-  //load typo
   FuturaStencil =loadFont ("FuturaStencilICG-20.vlw") ;
-  
-  //OPENING APP
+  // path to OPENING APP
   pathScene = (sketchPath("") + "sources/Prescene_"+release+".app");
   pathMiroir = (sketchPath("") + "sources/Scene_"+release+".app");
-  
   //Change the language of controleur
-  // 0 is French
-  // 1 is English
+  // "0" French - "1" English
   String[] l = split( ("1"), " ") ;
   saveStrings(sketchPath("")+"sources/preference/language.txt", l) ;
 }
@@ -109,12 +103,14 @@ void displayDraw() {
 }
 
 boolean MiroirSetting ;
+
 void launcherDraw() {
-  text("ROMANESCO alpha 25", 10.0, 30.0);
+  text("ROMANESCO alpha "+release, 10.0, 30.0);
   text("Choice                or ", 10.0, 60.0);
   choiceMiroirOrScene() ;
   if (buttonScene.OnOff || !MiroirSetting ) launchScene() ;
   if (buttonMiroir.OnOff || MiroirSetting) launchMiroir() ;
+  
 }
 // END DRAW
 ///////////
@@ -128,6 +124,7 @@ void launcherDraw() {
 void choiceMiroirOrScene() {
   buttonScene.displayButton() ;
   buttonMiroir.displayButton() ;
+  if(MiroirSetting) whichAppOpeningTheScene =("true") ; else whichAppOpeningTheScene =("false") ;
 }
 // Scene launcher
 void launchScene() {
@@ -162,7 +159,6 @@ void launchMiroir() {
   openScene = false ;
   MiroirSetting = true ;
   screen = ("false") ;
-  whichAppOpeningTheScene = ("false") ;
   buttonWindow.OnOff = true ;
   addressLocal(10,88) ;
   sizeWindow() ;
@@ -172,7 +168,6 @@ void launchMiroir() {
 
 // LAUNCH APP
 void launchApp() {
-  whichAppOpeningTheScene = ("true") ;
   if ( buttonWhichScreenOnOff > 0 && buttonFullscreen.OnOff ) {
     buttonStart.displayButton() ;
   //window mode the user must choice a window size  
@@ -197,20 +192,50 @@ void openApp(boolean openTheScene) {
 
 
 
-//SAVE the Table
-void setTable() {
-  //write the change in the file.csv
-  //if it's full size or not
-  table.setString(0,1, screen) ;
-  //where display the fullscreen
-  table.setInt(0,2, IDscreenSelected()) ;
-  //size of the scene
-  table.setInt(0,6,heightSlider ) ;
-  table.setInt(0,5,widthSlider ) ;
-  table.setString(0,8, whichAppOpeningTheScene) ;
+
+
+Table sceneProperty;
+String pathScenePropertySetting = sketchPath("")+"sources/preference/sceneProperty.csv" ;
+
+void saveProperty() {
+  sceneProperty = new Table();
+  String colOne =("fullscreen");
+  String colTwo =("whichScreen");
+  String colThree =("resizable");
+  String colFour =("decorated");
+  String colFive =("width");
+  String colSix =("height");
+  String colSeven =("render");
+  String colHeight =("miroir");
   
-  if(testLauncher) saveTable(table, "data/new.csv"); else saveTable(table, sketchPath("")+"sources/Scene_24.app/Contents/Resources/Java/data/setting/sceneProperty.csv"); 
+  sceneProperty.addColumn(colOne);
+  sceneProperty.addColumn(colTwo);
+  sceneProperty.addColumn(colThree);
+  sceneProperty.addColumn(colFour);
+  sceneProperty.addColumn(colFive);
+  sceneProperty.addColumn(colSix);
+  sceneProperty.addColumn(colSeven);
+  sceneProperty.addColumn(colHeight);
+  
+  TableRow newRow = sceneProperty.addRow();
+  if (heightSlider>1 & widthSlider>1 ) {
+    newRow.setString(colOne, screen);
+    newRow.setInt(colTwo, IDscreenSelected());
+    newRow.setString(colThree, "true");
+    newRow.setString(colFour, "true");
+    newRow.setInt(colFive, standardSizeWidth[widthSlider-1]);
+    newRow.setInt(colSix, standardSizeHeight[heightSlider -1]);
+    newRow.setString(colSeven, "P3D");
+    newRow.setString(colHeight, whichAppOpeningTheScene);
+    
+    saveTable(sceneProperty, pathScenePropertySetting);
+  }
 }
+// END SAVE PROPERTY
+////////////////////
+
+
+
 
 /////////////////
 // ADDRESS IP

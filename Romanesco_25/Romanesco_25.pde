@@ -3,7 +3,7 @@
 ///////////////////////////////////////////////////////////////
 // romanesco release, change this number to open the app
 String release =("25") ;
-boolean testLauncher = false ;
+boolean test = false ;
 
 boolean openScene ;
 
@@ -36,7 +36,6 @@ Button [] whichModeButton ;
 //Button start
 Button buttonStart ;
 
-Table table;
 
 void setup() {
   diplaySetup() ;
@@ -88,7 +87,8 @@ void mouseReleased() {
   //which Screen display
   if(buttonFullscreen.OnOff) whichScreenReleased() ;
   
-  setTable() ;
+  // setTable() ;
+  saveProperty() ;
 }
 
 

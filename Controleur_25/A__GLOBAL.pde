@@ -10,22 +10,9 @@ boolean saveMidi ;
 boolean selectMidi = false ;
 boolean rideauOpenClose ;
 
-//
-/*
-//camera
-boolean cameraOnOff = false ;
-*/
-//variable pour le clavier multiple
 boolean[] clavier = new boolean[526];
-//paramètre chargement
 boolean chargement = false ;
 boolean ouvrirFichier = false ;
-// int media1 ;
-//texte importé
-String texte = "" ;
-
-
-
 
 //ANNEXE
 void setting() {
@@ -33,7 +20,20 @@ void setting() {
   colorSetup() ;  
 
   frameRate(25) ; 
-  noStroke () ; // Le frameRate doit être le même dans tous les Sketches
+  noStroke () ; 
   frame.setResizable(true);
   background(gris);
+  //init the string value
+  for ( int i = 0 ; i < numCol ; i++ ) {
+    genTxtGUI[i] = ("") ;
+    objTxtGUIone[i] = ("") ;
+    objTxtGUItwo[i] = ("") ;
+    objTxtGUIthree[i] = ("") ;
+    textureTxtGUIone[i] = ("") ;
+    textureTxtGUItwo[i] = ("") ;
+    textureTxtGUIthree[i] = ("") ;
+    typoTxtGUIone[i] = ("") ;
+    typoTxtGUItwo[i] = ("") ;
+    typoTxtGUIthree[i] = ("") ;
+  }
 }

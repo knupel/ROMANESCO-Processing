@@ -2,8 +2,7 @@
 //LOAD PICTURE VIGNETTE
 
 int numVignette ;
-void importPicButtonSetup()
-{
+void importPicButtonSetup() {
   //load button vignette GUI general
   for(int j=0 ;  j<bouton.length ; j++ ) bouton[j] = loadImage ("bouton/bouton"+j+".png") ;
   
@@ -58,8 +57,7 @@ byte loadR []  = new byte [2*numSlider] ;
 //END GLOBAL
 
 //SETUP
-void loadSetup()
-{
+void loadSetup() {
   //////////// ATTENTION ////////////////
   // put the folder "Sauvegarde" in the folder "data", if you don't do that, it is not export when you make your application.
   // loadR = loadBytes("Sauvegarde"+java.io.File.separator+"Reglage.dat");
@@ -77,19 +75,16 @@ void loadSetup()
 
 
 //DRAW
-void OpenCloseSave()
-{
+void OpenCloseSave() {
   //raccourcit clavier, 
   ////////  proplème : après un CTRL + "touche", il n'y a plus besoin du CTRL pour faire fonctionner le tout....
   clavier[keyCode] = true;
   if(checkClavier(CONTROL ) && checkClavier(KeyEvent.VK_S) ) { 
     selectOutput("Sauvegarde Réglette", "sauvegardeReglette");
-    println("CTRL+S");
     clavier[keyCode] = false ;   // just open one window, when use only the keyboard, if you don't use that open all the windows save and open
   }
   if(checkClavier(CONTROL ) && checkClavier(KeyEvent.VK_O) ) { 
     selectInput("Chargement Réglette", "chargementReglette"); // ("display info in the window" , "name of the void calling" )
-    println("CTRL+O");
     clavier[keyCode] = false;   // 
   }
 }
@@ -135,14 +130,8 @@ boolean [] objectSimpleP2D, objectTextureP2D, objectTypographyP2D ;
 boolean [] objectSimpleP3D, objectTextureP3D, objectTypographyP3D ;
 
 
-void objectTableSetup()
-{
-  
-    objectList = loadTable("objectList.csv", "header") ;
-  /*
-  println(objectList.getRowCount() + " total rows in table"); 
-  println(objectList.getColumnCount() + " total columns in table");
-  */
+void objectTableSetup() {
+  objectList = loadTable("objectList.csv", "header") ;
   
   //find the quantity of object in each family
   for (TableRow row : objectList.rows()) {
@@ -246,9 +235,10 @@ String[] typoTxtGUIthree = new String[numCol] ;
 
 TableRow [] row = new TableRow[10] ;
 
-void textGUI() 
-{
-  String lang[] = loadStrings(sketchPath("") +"preference/language.txt") ;
+String lang[] ;
+
+void textGUI() {
+  if (!test)lang = loadStrings(sketchPath("") +"preference/language.txt") ; else lang = loadStrings("preference/language.txt") ;
   String l = join(lang,"") ;
   int language = Integer.parseInt(l);
 

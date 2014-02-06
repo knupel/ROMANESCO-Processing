@@ -450,12 +450,22 @@ Table configurationScene;
 // boolean mode
 boolean modeP3D ;
 
+String pathScenePropertySetting = sketchPath("")+"preference/sceneProperty.csv" ;
+TableRow row ;
+//SETUP
 void displaySetup() {
   frameRate(30) ; noCursor () ;
   colorMode(HSB, HSBmode.x, HSBmode.y, HSBmode.z, 100) ;
-  //load graphic configuration
-  configurationScene = loadTable("sceneProperty.csv", "header");
-  TableRow row = configurationScene.getRow(0);
+  configurationScene = loadTable(pathScenePropertySetting, "header");
+  
+  loadPropertyScene() ;
+  sizeScene() ;
+}
+
+
+//load property from table
+void loadPropertyScene() {
+  row = configurationScene.getRow(0);
   //fullscreen 
   if (row.getString("fullscreen").equals("TRUE") || row.getString("fullscreen").equals("true")) fullScreen = true ; else fullScreen = false ;
   //display on specific screen
@@ -466,16 +476,20 @@ void displaySetup() {
   sceneWidth = row.getInt("width") ;
   sceneHeight =  row.getInt("height")  ;
   //SYPHON
-  if(row.getString("Miroir").equals("TRUE") || row.getString("Miroir").equals("true")) sendToSyphon = true ; else sendToSyphon = false ;
+  if(row.getString("miroir").equals("TRUE") || row.getString("miroir").equals("true")) sendToSyphon = true ; else sendToSyphon = false ;
   
 
   // type of renderer
-  if      ( row.getString("renderer").equals("P2D") ) { displayMode = ("P2D") ;  modeP3D = false ; }
-  else if ( row.getString("renderer").equals("P3D") ) { displayMode = ("P3D") ; modeP3D = true ; }
-  else if (  row.getString("renderer").equals("OPENGL")  || row.getString("renderer").equals("opengl") ) { displayMode = ("OPENGL") ; modeP3D = false ; }
+  if      ( row.getString("render").equals("P2D") ) { displayMode = ("P2D") ;  modeP3D = false ; }
+  else if ( row.getString("render").equals("P3D") ) { displayMode = ("P3D") ; modeP3D = true ; }
+  else if (  row.getString("render").equals("OPENGL")  || row.getString("render").equals("opengl") ) { displayMode = ("OPENGL") ; modeP3D = false ; }
   else { displayMode = ("Classic") ; modeP3D = false ; }
-  
-  //create the Scene on fullscreen mode
+}
+// end load property
+
+//size scene
+void sizeScene() {
+    //create the Scene on fullscreen mode
   if ( fullScreen && displayMode.equals("Classic")) {
     size(screenWidth(whichScreen),screenHeight(whichScreen)) ;
     sketchPos(0, 0, whichScreen) ;
@@ -506,7 +520,7 @@ void displaySetup() {
     displaySizeByImage = true ;
   }
 }
-
+// END size scene
 
 
 

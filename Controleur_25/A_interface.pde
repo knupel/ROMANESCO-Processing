@@ -432,7 +432,7 @@ void structureDraw() {
 void textDraw() {
   fill (blanc) ; 
   textFont(FuturaStencil_20,20); 
-  text("ROMANESCO alpha 24", 5, 20); 
+  text("ROMANESCO alpha "+release, 5, 20); 
   //CLOCK
   textFont(FuturaStencil_20,20); textAlign(RIGHT);
   text(  nf(hour(),2)   + ":" + 

@@ -117,7 +117,7 @@ void opening() {
     if (openControleur) { open(sketchPath("")+"Controleur_"+release+".app") ; openControleur = false ; } 
     if (openScene)      { open(sketchPath("")+"Scene_"+release+".app") ; openScene = false ; }
    // if (openMiroir)     { open(sketchPath("")+"Miroir_24.app") ; openMiroir = false ; }
-    // testRomanesco = true ;
+    testRomanesco = true ;
   }
 }
 

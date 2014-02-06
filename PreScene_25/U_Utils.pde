@@ -617,14 +617,27 @@ Table configurationScene;
 int divSizePreScene = 2 ;
 // boolean mode
 boolean modeP3D ;
+String pathScenePropertySetting = sketchPath("")+"preference/sceneProperty.csv" ;
+TableRow row ;
 
+//SETUP
 void displaySetup() {
   frameRate(30) ;  // Le frameRate doit être le même dans tous les Sketches
+  
   //size and different property of scene : size, border, P2D, P3D...
   colorMode(HSB, HSBmode.x, HSBmode.y, HSBmode.z, 100) ;
-  //load graphic configuration
-  configurationScene = loadTable("preSceneProperty.csv", "header");
-  TableRow row = configurationScene.getRow(0);
+
+  loadPropertyPrescene() ;
+  sizePrescene() ;
+}
+//END DISPLAY START
+//////////////////
+
+
+//load property from table
+void loadPropertyPrescene() {
+  configurationScene = loadTable(pathScenePropertySetting, "header");
+  row = configurationScene.getRow(0);
   //fullscreen 
   if (row.getString("fullscreen").equals("TRUE") || row.getString("fullscreen").equals("true")) fullScreen = true ; else fullScreen = false ;
   //display on specific screen
@@ -633,47 +646,23 @@ void displaySetup() {
   if (row.getString("decorated").equals("FALSE") || row.getString("decorated").equals("false") || fullScreen ) undecorated = true ; else undecorated = false ;
 
   // type of renderer
-  if      ( row.getString("renderer").equals("P2D") ) { displayMode = ("P2D") ;  modeP3D = false ; }
-  else if ( row.getString("renderer").equals("P3D") ) { displayMode = ("P3D") ; modeP3D = true ; }
-  else if (  row.getString("renderer").equals("OPENGL")  || row.getString("renderer").equals("opengl") ) { displayMode = ("OPENGL") ; modeP3D = false ; }
+  if      ( row.getString("render").equals("P2D") ) { displayMode = ("P2D") ;  modeP3D = false ; }
+  else if ( row.getString("render").equals("P3D") ) { displayMode = ("P3D") ; modeP3D = true ; }
+  else if (  row.getString("render").equals("OPENGL")  || row.getString("render").equals("opengl") ) { displayMode = ("OPENGL") ; modeP3D = false ; }
   else { displayMode = ("Classic") ; modeP3D = false ; }
-  
-  
-  //size of the scene
-  if (fullScreen) {
-    if(displayMode.equals("P2D") || displayMode.equals("OPENGL") || modeP3D ) { 
-      fullSceneWidth  =600 ;  
-      fullSceneWidth =400 ; 
-    } else { 
-      fullSceneWidth = (int)fullScreen(myScreenToDisplayMySketch).x    /divSizePreScene ;
-      fullSceneWidth = (int)fullScreen(myScreenToDisplayMySketch).y /divSizePreScene  ;
-    }
-  } else {
-    if(displayMode.equals("P2D") || displayMode.equals("OPENGL") || modeP3D ) { 
-      sceneWidth  =600 ;  
-      sceneHeight =400 ; 
-    } else { 
-      sceneWidth = row.getInt("width")    /divSizePreScene ;
-      sceneHeight =  row.getInt("height") /divSizePreScene  ;
-    }
-  }
-  
-  //create the Scene
-  
-  if      ( fullScreen && displayMode.equals("Classic"))  size(fullSceneWidth, fullSceneHeight) ;
-  else if ( fullScreen && displayMode.equals("P2D")  )    size(fullSceneWidth, fullSceneHeight, P2D) ;
-  else if ( fullScreen && modeP3D  )    size(fullSceneWidth, fullSceneHeight, P3D) ;
-  else if ( fullScreen && displayMode.equals("OPENGL"))   size(fullSceneWidth, fullSceneHeight, OPENGL) ;
-  
-  else if ( !fullScreen && displayMode.equals("Classic")) size(sceneWidth, sceneHeight) ;
-  else if ( !fullScreen && displayMode.equals("P2D")  )   size(sceneWidth, sceneHeight, P2D) ;
-  else if ( !fullScreen && modeP3D  )   size(sceneWidth, sceneHeight, P3D) ;
-  else if ( !fullScreen && displayMode.equals("OPENGL"))  size(sceneWidth, sceneHeight, OPENGL) ;
-  else size(sceneWidth, sceneHeight) ;
-  
-  
-  //resizable frame by loading external image
-  if (row.getString("resizable").equals("TRUE")    || row.getString("fullscreen").equals("true")) {
+}
+
+
+
+
+
+// SIZE SCENE
+void sizePrescene() {
+      //size of the scene or prescene
+  if(modeP3D) size(600,400,P3D) ; else size(600,400) ;
+    //resizable frame by loading external image
+  // if (row.getString("resizable").equals("TRUE")    || row.getString("fullscreen").equals("true")) {
+  if (row.getString("resizable").equals("TRUE")) {
     frame.pack();  
     insets = frame.getInsets(); // use for the border of window (top and right)
     displaySizeByImage = true ;
@@ -682,8 +671,7 @@ void displaySetup() {
   //resize by cursor
   frame.setResizable(true);
 }
-//END DISPLAY START
-//////////////////
+// END SIZE SCENE
 
     
 //CHANGE SIZE DISPLAY BY IMAGE LOADING
