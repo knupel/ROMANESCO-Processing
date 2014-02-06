@@ -2,11 +2,10 @@
 work version
 
 ##Architecture Sketches
-Launcher is Romanesco_25 sketch : you don't need this of this sketch to work.
-Controleur is interface slider to use the objects and the different parameters.
-Prescene is use to move the object in the 3D space
-Scene is the result of performance, we can use this one to send tyo syphon or not
-Miroir is finish.
+Romanesco_25 : Sketch to set Romanesco.
+Controleur_25 : interface slider to use the objects and the different parameters.
+Prescene_25 : use to move the object in the 3D space
+Scene_25 : the result of performance, we can use this one to send to syphon or not
 
 ## Code core
 launch the Scène, then the Préscène and Controleur in the last time
@@ -23,7 +22,4 @@ If you want code use the var from the file Romanesco functions
 
 
 ##LICENCE
-ROMANESCO alpha 24 is under the licence CeCILL, very similar to the GNU GPL licence.
-
-
-
+ROMANESCO alpha 25 is under the licence CeCILL, very similar to the GNU GPL licence.
