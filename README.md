@@ -21,9 +21,6 @@ but don't forget to change the ID object and the ID familly
 ##code
 If you want code use the var from the file Romanesco functions
 
-##Miroir or Syphon
-If you want test the syphon you must change the preset Miroir to true in sceneProperty.csv in the Scene Folder
-
 
 ##LICENCE
 ROMANESCO alpha 24 is under the licence CeCILL, very similar to the GNU GPL licence.
