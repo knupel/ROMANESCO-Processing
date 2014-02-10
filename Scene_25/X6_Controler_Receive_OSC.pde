@@ -44,7 +44,7 @@ float valueSliderTypo[]  = new float [numSlider] ;
 
 //SETUP
 void OSCSetup() {
-    osc = new OscP5(this, 10001);
+   if(sendToSyphon) osc = new OscP5(this, 10002); else osc = new OscP5(this, 10001);
 }
 
 //EVENT
