@@ -44,6 +44,9 @@
 ### Remove
 ###### sketch Miroir
 
+###### Object 
+* Croix
+
 
 
 
