@@ -8,13 +8,14 @@
 ###### Prescene, Scene 
 * the FrameRate change to 60
  
-###### Object twitter
-* information when you don't have the Twitter keys
-* size minimum for the message
+###### Object
+* Twiter : information when you don't have the Twitter keys
+* Twiter : size minimum for the message
 
-###### Object Spiral
-* new algorithm for the thickness
-* new algorithm for the range max
+* Spirale : new algorithm for the thickness
+* Spirale : new algorithm for the range max
+
+* Spray : change the time of drying for the ink ( slider : life )
 
 ### ADD
 ###### Contrôleur 
