@@ -28,6 +28,8 @@
 
 ###### Object 
 * Boxolyzer based on the spectrum sound
+* Arbre : box display
+* Spiral : box display
 
 ### Remove
 ###### sketch Miroir
