@@ -1,6 +1,10 @@
 ## Revision Romanesco 25
 
 ### Correction
+
+###### Launcher
+* Display slider to set the width and the height, now return standard size display from the tiny 320x240 to the huge 16k x 12K
+
 ###### Contrôleur 
 * slider  height and width move to the third column
 
@@ -18,6 +22,10 @@
 * Spray : change the time of drying for the ink ( slider : life )
 
 ### ADD
+
+###### Launcher
+* button to choice between the Miroir or Scene mode
+ 
 ###### Contrôleur 
 * slider  depth
 
