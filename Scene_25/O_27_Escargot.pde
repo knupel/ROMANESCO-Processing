@@ -262,8 +262,8 @@ class RomanescoTwentySeven extends SuperRomanesco
        
      
      //size and thickness
-     float widthPix = map(valueObj[IDobj][11],0,100, 1, 50 ) ;
-     float heightPix = map(valueObj[IDobj][12],0,100, 1, 50 ) ;
+     float widthPix = map(valueObj[IDobj][21],0,100, 1, 50 ) ;
+     float heightPix = map(valueObj[IDobj][22],0,100, 1, 50 ) ;
      float thickPix = map(valueObj[IDobj][13],0,100, 1, 50 ) ;
      PVector infoSizePix = new PVector(widthPix,heightPix, thickPix) ;
      //modify the size
@@ -1386,8 +1386,7 @@ boolean analyzeDone ;
 
 //SETUP
 //SETTING
-void colorAnalyzeSetting(int pixSize, PImage imgAnalyze)
-{
+void colorAnalyzeSetting(int pixSize, PImage imgAnalyze) {
   if (imgAnalyze != null ) {
     
     cols = imgAnalyze.width / pixSize;
@@ -1403,8 +1402,7 @@ void colorAnalyzeSetting(int pixSize, PImage imgAnalyze)
 
 //RECORD
 //RAW RECORD without timer
-void recordPixelRaw(int cellSize, PImage imgRecord, boolean mirror)
-{
+void recordPixelRaw(int cellSize, PImage imgRecord, boolean mirror) {
   if (imgRecord != null && !analyzeDone  ) {
     imgRecord.loadPixels() ;
     //start analyze
@@ -1434,8 +1432,7 @@ void recordPixelRaw(int cellSize, PImage imgRecord, boolean mirror)
 //RAW RECORD with timer
 int stepAnalyzeImg ;
 //from image
-void recordPixelRaw(int cellSize, PImage imgRecord, float time, boolean mirror)
-{
+void recordPixelRaw(int cellSize, PImage imgRecord, float time, boolean mirror) {
   int newStep = timer(time) ;
   //analyze each new step
   if (stepAnalyzeImg != newStep ) {
@@ -1496,8 +1493,7 @@ PShape[] childrenShape ; // to create a shape children from SVG
 int IDshapeChildren ;
 int startPoint, endPoint ;
 
-void createListOfPoint (PShape s ) 
-{
+void createListOfPoint (PShape s ) {
   
   int  numChildren, numPoint;
   PVector pos  ;

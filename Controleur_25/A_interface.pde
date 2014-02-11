@@ -526,7 +526,12 @@ void textDraw() {
   
   //column 3
   text(textureTxtGUIthree[1], mgRHc3 +116, margeHautRT +4);
+  text(textureTxtGUIthree[2], mgRHc3 +116, margeHautRT +14);
+  text(textureTxtGUIthree[3], mgRHc3 +116, margeHautRT +24);
+  text(textureTxtGUIthree[4], mgRHc3 +116, margeHautRT +34);
+  text(textureTxtGUIthree[5], mgRHc3 +116, margeHautRT +44);
   text(textureTxtGUIthree[6], mgRHc3 +116, margeHautRT +54);
+  text(textureTxtGUIthree[7], mgRHc3 +116, margeHautRT +64);
   text(textureTxtGUIthree[8], mgRHc3 +116, margeHautRT +74);
 
 

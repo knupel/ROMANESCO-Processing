@@ -11,7 +11,7 @@ PVector HSBmode = new PVector (360,100,100) ; // give the color mode in HSB
 String findPath ; 
 
 void setup() {
-  displaySetup() ;
+  displaySetup(60) ; // the int give the frameRate
   miroirSetup() ;
   //dropping image from folder on the Scène
   drop = new SDrop(this);

@@ -92,10 +92,12 @@ class RomanescoTwo extends SuperRomanesco
     color colorIn = color ( map(valueObj[IDobj][1],0,100,0,360), valueObj[IDobj][2], valueObj[IDobj][3],valueObj[IDobj][4] ) ;
     color colorOut = color ( map(valueObj[IDobj][5],0,100,0,360), valueObj[IDobj][6], valueObj[IDobj][7],valueObj[IDobj][8] ) ;
     //thickness
-    float thickness = valueObj[IDobj][13] *.1 ;
+    float thickness = map(valueObj[IDobj][13],0,100,0.1, height*.02 ) ;
+    //speed
+    float speed = map(valueObj[IDobj][16],0,100, 0 , 10.0 ) ;
     
     
-    creatureManager.loop(colorIn, colorOut, thickness);
+    creatureManager.loop(colorIn, colorOut, thickness, speed);
      //CHANGE MODE DISPLAY
     /////////////////////
     int whichCreature ; 
@@ -314,7 +316,7 @@ class CreatureManager {
   }
   
   // main void
-  void loop(color colorIn, color colorOut, float thickness) {
+  void loop(color colorIn, color colorOut, float thickness, float speed) {
     if (showAbyssOrigin) {
       noFill();
       stroke(255, 0, 0);
@@ -326,7 +328,7 @@ class CreatureManager {
     }
     for (SuperCreature c : creatures) { 
       c.preDraw();
-      c.move();      
+      c.move(speed);      
       c.draw(colorIn, colorOut, thickness);
       c.postDraw();
     }
@@ -514,7 +516,7 @@ abstract class SuperCreature {
     this.cm = cm;
   }
 
-  abstract void move();
+  abstract void move(float s);
   abstract void draw(color cIn, color cOut, float t);
 
   //applies the default transforms... can be used as a shortcut
@@ -705,8 +707,8 @@ class AGBoxFish extends SuperCreature {
     eye = random(1, 3);
   }
 
-  void move() {
-    float s = sin(frameCount * fRot);
+  void move(float speed) {
+    float s = sin(frameCount *fRot);
     mat.rotateY(s * aRot + (noise(pos.z * 0.01, frameCount * 0.01) -0.5) * 0.1);
     mat.rotateZ(s * aRot * 0.3);
     mat.translate(-spd, 0, 0);
@@ -814,10 +816,10 @@ class AGCubus extends SuperCreature {
     angRange = random(0.3, 0.6);
   }
 
-  void move() {    
-    pos.x += sin(frameCount*fPos.x);
-    pos.y += sin(frameCount*fPos.y);
-    pos.z += cos(frameCount*fPos.y);
+  void move(float speed) {
+    pos.x += sin(frameCount *fPos.x);
+    pos.y += sin(frameCount *fPos.y );
+    pos.z += cos(frameCount *fPos.y);
 
     rot.x = sin(frameCount*fAng.x) * TWO_PI;
     rot.y = sin(frameCount*fAng.y) * TWO_PI;
@@ -902,9 +904,9 @@ class AGFloater extends SuperCreature {
     noiseOffset = random(1); 
   }
 
-  void move() {
+  void move(float speedValue) {
     mat.rotateY(map(noise(frameCount * noiseScale + noiseOffset), 0, 1, -0.1, 0.1));
-    float speed = map(sin(frameCount * freqBody), -1, 1, speedMin, speedMax);   
+    float speed = map(sin(frameCount * freqBody), -1, 1, speedMin , speedMax ); 
     mat.translate(0 , 0, speed);
     mat.mult(new PVector(), pos); //update the position vector
   }
@@ -976,8 +978,8 @@ class AGRadio extends SuperCreature {
     rFact = random(0.2, 0.4);
   }
 
-  void move() {
-    pos.add(pVel);  
+  void move(float speed) {
+    pos.add(pVel); 
     rot.add(rVel);  
     applyTransforms();
   }
@@ -1060,7 +1062,7 @@ class AGWorm extends SuperCreature {
     dest = new PVector();
   }
 
-  void move() {
+  void move(float speed) {
     if (random(1) < nervosismo) {
       dest.add(new PVector(random(-rSpeed,rSpeed),random(-rSpeed,rSpeed),random(-rSpeed,rSpeed)));
     }
@@ -1176,11 +1178,11 @@ class EPSeaFly extends SuperCreature {
     freqMulAng.z = random(-0.005, 0.005);
   }
 
-  void move() {
+  void move(float speed) {
     count++;
-    pos.x += sin(count*freqMulPos.x);
-    pos.y += sin(count*freqMulPos.y);
-    pos.z += cos(count*freqMulPos.y);
+    pos.x += sin(count *freqMulPos.x);
+    pos.y += sin(count *freqMulPos.y);
+    pos.z += cos(count *freqMulPos.y);
 
     rot.x = sin(count*freqMulAng.x) * TWO_PI;
     rot.y = sin(count*freqMulAng.y) * TWO_PI;
@@ -1322,14 +1324,14 @@ class FFBreather extends SuperCreature {
   }
 
 
-  void move() {
+  void move(float speed) {
     breath = noise(breathoff);
     breathoff += breathadd;
 
     sizeItCos = map(cos(sizeIt),-1,1,breath,1);
     sizeIt = sizeIt + addSizeIt;
 
-    pos.add(pVel);  
+    pos.add(pVel); 
     rot.add(rVel);  
     applyTransforms();
   }
@@ -1422,12 +1424,12 @@ class LPHubert extends SuperCreature {
     ////////////////
   }
 
-  void move() {
+  void move(float speed) {
     count++;
     ////////////////
-    pos.x += sin(count*freqMulPos.x);
-    pos.y += sin(count*freqMulPos.y);
-    pos.z += sin(count*freqMulPos.z);
+    pos.x += sin(count *freqMulPos.x);
+    pos.y += sin(count *freqMulPos.y);
+    pos.z += sin(count *freqMulPos.z);
 
     rot.x = sin(count*freqMulAng.x) * TWO_PI;
     rot.y = sin(count*freqMulAng.y) * TWO_PI;
@@ -1513,11 +1515,11 @@ class MCManta extends SuperCreature {
     wingsAmp.y = random(0.01, 0.15);
   }
 
-  void move() {
+  void move(float speed) {
     count++;
-    pos.x += cos(ang) * vel;
-    pos.y = cos(count*freqY) * ampY;
-    pos.z += sin(ang) * vel;
+    pos.x += cos(ang) *vel;
+    pos.y = cos(count *freqY) *ampY;
+    pos.z += sin(ang) *vel;
     rot.y = -ang;
     applyTransforms();
   }
@@ -1612,14 +1614,14 @@ class PXPSonar extends SuperCreature {
      freqMulSca.z = random(-0.005, 0.005);*/
   }
 
-  void move() {
+  void move(float speed) {
     rot.x = sin(frameCount*freqMulRot.x) * TWO_PI;
     rot.y = sin(frameCount*freqMulRot.y) * TWO_PI;
     rot.z = sin(frameCount*freqMulRot.z) * TWO_PI;
 
-    pos.x += sin(frameCount*freqMulPos.x);
-    pos.y += sin(frameCount*freqMulPos.y);
-    pos.z += cos(frameCount*freqMulPos.z);
+    pos.x += sin(frameCount *freqMulPos.x);
+    pos.y += sin(frameCount *freqMulPos.y);
+    pos.z += cos(frameCount *freqMulPos.z);
 
     applyTransforms();
   }
@@ -1697,9 +1699,9 @@ class OTFather extends SuperCreature {
     sca.set(s,s,s);
   }
 
-  void move() {
+  void move(float speed) {
     count++;
-    pos.add(pVel);  
+    pos.add(pVel); 
     rot.add(rVel);  
     applyTransforms();
   }

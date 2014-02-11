@@ -118,8 +118,8 @@ class RomanescoFortyFour extends SuperRomanesco
     if ( soundButton[IDobj] != 1 ) { t = valueObj[IDobj][4] ; } 
     color colorIn = color (map(valueObj[IDobj][1],0,100,0,360), valueObj[IDobj][2], valueObj[IDobj][3], t ) ;
     //hauteur largeur, height and width
-    float h = map (valueObj[IDobj][11], 0, 100, 0, height *3 ) ;
-    float l = map (valueObj[IDobj][12], 0, 100, 0, width *5 ) ;
+    float h = map (valueObj[IDobj][21], 0, 100, 0, height *3 ) ;
+    float l = map (valueObj[IDobj][22], 0, 100, 0, width *5 ) ;
     
     
     //tracking chapter

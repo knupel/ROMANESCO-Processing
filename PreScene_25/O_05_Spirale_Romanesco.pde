@@ -79,16 +79,25 @@ class RomanescoFive extends SuperRomanesco
     if (ratioScreen < 1 ) ratioScreen = 1 ;
     float ratio = 1.25 + (ratioScreen *.0005) ;  
     float z = map(valueObj[IDobj][17], 0,100,1.01, ratio)  ;
-    //vitesse
-    if(motion[IDobj]) speed = valueObj[IDobj][16] *tempo[IDobj] ; else speed = 0.0 ;
+    //speed
+    if(motion[IDobj]) {
+      float s = map(valueObj[IDobj][16],0,100,0,8) ;
+      s *= s ;
+      speed = s *tempo[IDobj] ; 
+    } else { 
+      speed = 0.0 ;
+    }
     //sound volume
     float volumeG = map (gauche[IDobj], 0,1, 0.5, 1.5 ) ;
     float volumeD = map (droite[IDobj], 0,1, 0.5, 1.5 ) ;
     
-    float hauteur = width  *valueObj[IDobj][11]  *volumeG *0.0005 *kick[IDobj] ;
-    float largeur = height *valueObj[IDobj][12]  *volumeD *0.0005 *hat[IDobj] ;
+    
+    float heightObj = width  *valueObj[IDobj][21]  *volumeG *0.0005 *kick[IDobj] ;
+    float widthObj = height *valueObj[IDobj][22]  *volumeD *0.0005 *hat[IDobj] ;
+    float depthObj = height *valueObj[IDobj][23]  *volumeD *0.0005 *hat[IDobj] ;
+    PVector size = new PVector(heightObj, widthObj, depthObj) ;
     //thickness
-    float e = map(valueObj[IDobj][13],0,100,0.1, height*.2 ) ;
+    float thickness = map(valueObj[IDobj][13],0,100,0.1, height*.2 ) ;
     //color
     color colorIn = color ( map(valueObj[IDobj][1],0,100,0,360), valueObj[IDobj][2], valueObj[IDobj][3],valueObj[IDobj][4] ) ;
     color colorOut = color ( map(valueObj[IDobj][5],0,100,0,360), valueObj[IDobj][6], valueObj[IDobj][7],valueObj[IDobj][8] ) ;
@@ -97,7 +106,7 @@ class RomanescoFive extends SuperRomanesco
     int mode = modeButton[IDobj] ;
     
     spirale.actualisation (mouse[IDobj].x , mouse[IDobj].y, speed) ;
-    spirale.affichage (n, nMax, hauteur, largeur, z, colorIn, colorOut, e, mode) ;
+    spirale.affichage (n, nMax, size, z, colorIn, colorOut, thickness, mode) ;
     
     //DON'T TOUCH
     popMatrix() ;
@@ -131,4 +140,106 @@ class RomanescoFive extends SuperRomanesco
   }
   ///////////////////////////
   //////////////////////////
+}
+
+
+
+
+
+
+ 
+
+class Spirale extends Rotation 
+{  
+  
+  Spirale () { 
+    super () ;
+  }
+  void affichage (int n, int nMax, PVector size, float z, color cIn, color cOut, float e, int mode) {
+    n = n-1 ;
+    int puissance = nMax-n ;
+    float ap = pow (z,puissance) ;
+    
+    //check the opacity of color
+    int alphaIn = (cIn >> 24) & 0xFF; 
+    int alphaOut = (cOut >> 24) & 0xFF; 
+    // to display or not
+    if ( alphaIn == 0 ) noFill() ; else fill (cIn) ;
+    if ( alphaOut == 0) {
+      noStroke() ;
+    } else {
+      stroke ( cOut ) ; 
+      if( e < 0.1 ) e = 0.1 ; //security for the negative value
+      strokeWeight ( e / ap) ;
+    }
+    
+    //display Mode
+    if (mode == 0 )      rect (0,0, size.x, size.y ) ;
+    else if (mode == 1 ) ellipse (0,0,size.x,size.y) ;
+    else if (mode == 2 ) box (size.x,size.y,size.z) ;
+    //
+    
+    translate (2,0 ) ;
+    rotate ( PI/6 ) ;
+    scale(z) ; 
+
+    if ( n > 0) { affichage (n, nMax, size, z, cIn, cOut, e, mode ) ; }
+  }
+  
+  
+  
+  //DIFFERENT DISPLAY MODE
+  void baliseDisc (color cIn, color cOut, float e, float amp, float varx, float vary, PVector sizeBalise, int max ) {
+    pushMatrix() ;
+    rectMode(CENTER) ;
+    
+    if ( max > 512 ) max = 512 ;
+    for(int i = 0 ; i < max ; i++) {
+      PVector inputResult = new PVector ( (input.left.get(i)*varx), (input.right.get(i)*vary) ) ;
+      PVector posBalise = new PVector ( amp * inputResult.x, amp * inputResult.y ) ;
+      //check the opacity of color
+      int alphaIn = (cIn >> 24) & 0xFF; 
+      int alphaOut = (cOut >> 24) & 0xFF; 
+      // to display or not
+      if ( alphaIn == 0 ) noFill() ; else fill (cIn) ;
+      if ( alphaOut == 0) {
+        noStroke() ;
+      } else {
+        stroke ( cOut ) ; 
+        if( e < 0.1 ) e = 0.1 ; //security for the negative value
+        strokeWeight (e) ;
+      }
+      ellipse(posBalise.x, posBalise.y, sizeBalise.x *abs(inputResult.x*50), sizeBalise.y * abs(inputResult.y*50) ) ;
+    }
+    rectMode(CORNER) ;
+    popMatrix() ;
+    noStroke() ;
+  }
+  
+  void baliseRect (color cIn, color cOut, float e, float amp, float varx, float vary, PVector sizeBalise, int max ) {
+    pushMatrix() ;
+    rectMode(CENTER) ;
+    
+    if ( max > 512 ) max = 512 ;
+    for(int i = 0 ; i < max ; i++) {
+      PVector inputResult = new PVector ( (input.left.get(i)*varx), (input.right.get(i)*vary) ) ;
+      PVector posBalise = new PVector ( amp * inputResult.x, amp * inputResult.y ) ;
+      //check the opacity of color
+      int alphaIn = (cIn >> 24) & 0xFF; 
+      int alphaOut = (cOut >> 24) & 0xFF; 
+      // to display or not
+      if ( alphaIn == 0 ) noFill() ; else fill (cIn) ;
+      if ( alphaOut == 0) {
+        noStroke() ;
+      } else {
+        stroke ( cOut ) ; 
+        if( e < 0.1 ) e = 0.1 ; //security for the negative value
+        strokeWeight (e) ;
+      }
+      rect(posBalise.x, posBalise.y, sizeBalise.x *abs(inputResult.x*50), sizeBalise.y * abs(inputResult.y*50) ) ;
+    }
+    rectMode(CORNER) ;
+    popMatrix() ;
+    noStroke() ;
+  }
 }

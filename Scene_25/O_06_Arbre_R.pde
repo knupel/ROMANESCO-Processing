@@ -23,16 +23,7 @@ void romanescoSixDraw(String [] dataControleur, String [] dataMinim) {
   romanescoSix.display() ;
 }
 
-//MOUSEPRESSED
-void romanescoSixMousepressed() { romanescoSix.mousepressed() ; }
-//MOUSERELEASED
-void romanescoSixMousereleased() { romanescoSix.mousereleased() ; }
-//MOUSE DRAGGED
-void romanescoSixMousedragged() { romanescoSix.mousedragged() ; }
-//KEYPRESSED
-void romanescoSixKeypressed() { romanescoSix.keypressed() ; }
-//KEY RELEASED
-void romanescoSixKeyreleased() { romanescoSix.keyreleased() ; }
+
 
 //Return the ID familly to choice the data must be send to the class // 0 is global // 1 is Object // 2 is trame // 3 is typo
 int getFamillyRomanescoSix() { return romanescoSix.getIDfamilly() ; }
@@ -49,6 +40,8 @@ class RomanescoSix extends SuperRomanesco
   //class
   Arbre arbre ;
   PVector posArbre = new PVector (random(width), random(height) ) ;
+  //speed
+  float speed ;
   //CONSTRUCTOR
   RomanescoSix(int ID, int IDfamilly) {
     super(ID) ;
@@ -85,8 +78,11 @@ class RomanescoSix extends SuperRomanesco
     int propA = ng ;
     int propB =  nd ;
     
-    //diameter of the first shape
-    int diam = 1 + (int(valueObj[IDobj][11])* (ng + nd ) ) ;
+    //size
+    float x = map(valueObj[IDobj][21],0,100, 1, height ) * (ng + nd ) ;
+    float y = map(valueObj[IDobj][22],0,100, 1, height ) * (ng + nd ) ;
+    float z = map(valueObj[IDobj][23],0,100, 1, height ) * (ng + nd ) ;
+    PVector size  = new PVector(x,y,z  ) ;
     int fourcheA = nd  ; 
     int fourcheB = ng ;
     //orientation
@@ -107,11 +103,18 @@ class RomanescoSix extends SuperRomanesco
     int mode = modeButton[IDobj] ;
     // angle
     float angle = map(valueObj[IDobj][28],0,100,0,90);
+    // speed
+    if(motion[IDobj]) {
+      float s = map(valueObj[IDobj][16],0,100,0,2) ;
+      s *= s ;
+      speed = s *tempo[IDobj] ; 
+    } else { 
+      speed = 0.0 ;
+    }
     
     arbre.affichage (direction) ;
-    //if (!spaceTouch ) arbre.actualisation(mouse[IDobj], colorIn, colorOut, epaisseur, diam, propA, propB, fourcheA, fourcheB, amplitude, n, mode, int(angle)) ;
     posArbre = new PVector (mouse[IDobj].x, mouse[IDobj].y) ;
-    arbre.actualisation(posArbre, colorIn, colorOut, epaisseur, diam, propA, propB, fourcheA, fourcheB, amplitude, n, mode, int(angle)) ;
+    arbre.actualisation(posArbre, colorIn, colorOut, epaisseur, size, propA, propB, fourcheA, fourcheB, amplitude, n, mode, int(angle), speed) ;
     
     
     //IT'S THE END FOR YOU
@@ -122,17 +125,7 @@ class RomanescoSix extends SuperRomanesco
     //END OF DON'T TOUCH
   }
   //END DRAW
-  
-  //KEYPRESSED
-  void keypressed() {}
-  //KEY RELEASED
-  void keyreleased() {}
-  //MOUSEPRESSED
-  void mousepressed() {}
-  //MOUSE RELEASED
-  void mousereleased() {}
-  //MOUSE DRAGGED
-  void mousedragged() {}
+
   
   
   //ANNEXE VOID
@@ -170,27 +163,24 @@ class RomanescoSix extends SuperRomanesco
 
 
 //////////////////
-//CLAS ARBRE
+//CLASS ARBRE
 class Arbre
 {
-  Arbre()
-  {
-  }
-  int vR = 1 ;  ;
+  Arbre() {}
+  // int vR = 1 ;  ;
   float theta, angleDirection ;
-  int rotation = 90  ;
+  float rotation = 90.0  ;
   float direction   ;
  
 //::::::::::::::::::::  
-  void affichage (float d)
-  {
-  direction = d ;
+  void affichage (float d) {
+    direction = d ;
   }
 //::::::::::::::::::::::::::::  
-  void actualisation (PVector posArbre, color cIn, color cOut, int e, int nombre, int propA, int propB, int fourcheA, int fourcheB, float amplitude, int n, int mode, float angle) {
-    rotation += vR ;
+  void actualisation (PVector posArbre, color cIn, color cOut, int e, PVector size, int propA, int propB, int fourcheA, int fourcheB, float amplitude, int n, int mode, float angle, float speed) {
+    rotation += speed ;
     // float newAngle = 180 - angle ;
-    if ( rotation > angle + 90  ) vR*=-1 ; else if ( rotation < angle ) vR*=-1 ; 
+    if ( rotation > angle + 90  ) speed*=-1 ; else if ( rotation < angle ) speed*=-1 ; 
     angle = rotation ; // de 0 à 180
     // Convert it to radians
     theta = radians(angle);
@@ -200,20 +190,20 @@ class Arbre
     translate(posArbre.x,posArbre.y);
     // Start the recursive branching
     rotate (angleDirection) ;
-    branch(cIn, cOut, e, nombre, propA, propB, fourcheA, fourcheB, amplitude, n, mode);
+    branch(cIn, cOut, e, size, propA, propB, fourcheA, fourcheB, amplitude, n, mode);
     popMatrix () ;
     
   }
 //::::::::::::::::::::::::::::  
-  void branch(color colorIn, color colorOut, float e, float proportion, int propA, int propB, int fourcheA, int fourcheB, float amplitude, int n, int mode) {
-    proportion *= random (propA, propB ) / 10 ;
+  void branch(color colorIn, color colorOut, float e, PVector proportion, int propA, int propB, int fourcheA, int fourcheB, float amplitude, int n, int mode) {
+    proportion.x *= random (propA, propB ) / 10 ;
     float fourche = random (0,10) ;
     stroke ( colorOut ) ;
     fill ( colorIn ) ;
     
     //En cours pour vérifier la fin de la boucle qui bug qd celle-ci est trop grande.
     if ( e < 0.1 ) e = 0.1 ;
-    if( proportion < 1 ) proportion = 1 ;
+    if( proportion.x < 1 ) proportion.x = 1 ;
     
     
     n = n-1 ;
@@ -225,17 +215,17 @@ class Arbre
   }
   
   //annexe branch
-  void displayBranch(color colorIn, color colorOut,float e, float proportion, int propA, int propB, int fourcheA, int fourcheB, float amplitude, int n, float t, int mode)
-  {
+  void displayBranch(color colorIn, color colorOut,float e, PVector proportion, int propA, int propB, int fourcheA, int fourcheB, float amplitude, int n, float t, int mode) {
     pushMatrix();    // Save the current state of transformation (i.e. where are we now)
     rotate(t);   // Rotate by theta
 
     strokeWeight (e ) ;
      if (mode == 0  ) line(0, 0, 0, -amplitude);  // Draw the branch
-    if (mode == 1 ) ellipse(0,0, proportion  , proportion  ) ;
-    if (mode == 2  ) {  ellipse(0,0, proportion  , proportion  ) ; line(0, 0, 0, -amplitude); }
-    if (mode == 3 ) rect(0,0, proportion  , proportion  ) ;
-    if (mode == 4  ) {  rect(0,0, proportion  , proportion  ) ; line(0, 0, 0, -amplitude); }
+    if (mode == 1 ) ellipse(0,0, proportion.x  , proportion.x  ) ;
+    if (mode == 2  ) {  ellipse(0,0, proportion.x  , proportion.x  ) ; line(0, 0, 0, -amplitude); }
+    if (mode == 3 ) rect(0,0, proportion.x  , proportion.x  ) ;
+    if (mode == 4  ) {  rect(0,0, proportion.x  , proportion.x  ) ; line(0, 0, 0, -amplitude); }
+    if (mode == 5  ) box(proportion.x  , proportion.x  , proportion.x  ) ;
     translate(0, -amplitude); // Move to the end of the branch
     branch(colorIn, colorOut, e, proportion, propA, propB, fourcheA, fourcheB, amplitude, n, mode);       // Ok, now call myself to draw two new branches!!
     popMatrix();     // Whenever we get back here, we "pop" in order to restore the previous matrix state

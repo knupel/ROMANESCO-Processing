@@ -453,8 +453,8 @@ boolean modeP3D ;
 String pathScenePropertySetting = sketchPath("")+"preference/sceneProperty.csv" ;
 TableRow row ;
 //SETUP
-void displaySetup() {
-  frameRate(30) ; noCursor () ;
+void displaySetup(int speed) {
+  frameRate(speed) ; noCursor () ;
   colorMode(HSB, HSBmode.x, HSBmode.y, HSBmode.z, 100) ;
   configurationScene = loadTable(pathScenePropertySetting, "header");
   

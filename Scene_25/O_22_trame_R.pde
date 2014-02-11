@@ -19,16 +19,7 @@ void romanescoTwentyTwoDraw(String [] dataControleur, String [] dataMinim) {
   romanescoTwentyTwo.display() ;
 }
 
-//MOUSEPRESSED
-void romanescoTwentyTwoMousepressed() { romanescoTwentyTwo.mousepressed() ; }
-//MOUSERELEASED
-void romanescoTwentyTwoMousereleased() { romanescoTwentyTwo.mousereleased() ; }
-//MOUSE DRAGGED
-void romanescoTwentyTwoMousedragged() { romanescoTwentyTwo.mousedragged() ; }
-//KEYPRESSED
-void romanescoTwentyTwoKeypressed() { romanescoTwentyTwo.keypressed() ; }
-//KEY RELEASED
-void romanescoTwentyTwoKeyreleased() { romanescoTwentyTwo.keyreleased() ; }
+
 
 //Return the ID familly to choice the data must be send to the class // 0 is global // 1 is Object // 2 is trame // 3 is typo
 int getFamillyRomanescoTwentyTwo() { return romanescoTwentyTwo.getIDfamilly() ; }
@@ -58,6 +49,8 @@ class RomanescoTwentyTwo extends SuperRomanesco
   void setting() {
     //class
     trame = new Trame() ;
+    // motion
+    motion[IDobj] = true ; 
   }
   ///////////
   //END SETUP
@@ -65,7 +58,8 @@ class RomanescoTwentyTwo extends SuperRomanesco
   
   
   //////DRAW
-  float d, g, h, l ;
+  float d, g ;
+  PVector size = new PVector(0,0,0) ;
   float angleTrame = 0 ;
   float angleObj = 0 ;
   float vitesse = 0 ;
@@ -88,8 +82,9 @@ class RomanescoTwentyTwo extends SuperRomanesco
       g = 0 ;
       d = 0 ;
     }
-    h = ( valueObj[IDobj][11] + pen[IDobj].z ) * abs(1 + g) ;
-    l = ( valueObj[IDobj][12] + pen[IDobj].z) * abs(1 + d) ;
+    size.x = ( valueObj[IDobj][21] + pen[IDobj].z ) * abs(1 + g) ;
+    size.y = ( valueObj[IDobj][22] + pen[IDobj].z) * abs(1 + d) ;
+    size.z = ( valueObj[IDobj][23] + pen[IDobj].z)  ;
     //size
 
     //orientation / deg
@@ -104,13 +99,14 @@ class RomanescoTwentyTwo extends SuperRomanesco
     color colorIn = color ( map(valueObj[IDobj][1],0,100,0,360), valueObj[IDobj][2], valueObj[IDobj][3],valueObj[IDobj][4] ) ;
     color colorOut = color ( map(valueObj[IDobj][5],0,100,0,360), valueObj[IDobj][6], valueObj[IDobj][7],valueObj[IDobj][8] ) ;
     //thickness / épaisseur
-    float e = valueObj[IDobj][13] ;
+    float thickness = map(valueObj[IDobj][13],0,100,0.1, height*.2 ) ;
     //amp
     float amp = map(valueObj[IDobj][17],0,100, .5, 3) ;
     
     //MODE DISPLAY
-    if(modeButton[IDobj] == 0 || modeButton[IDobj] == 255) trame.drawTrameRect(mouse[IDobj], angleTrame, angleObj, h , l , q, colorIn, colorOut, e, g, d, amp) ;
-    else if (modeButton[IDobj] == 1) trame.drawTrameDisc(mouse[IDobj], angleTrame, angleObj, h , l , q, colorIn, colorOut, e, g, d, amp) ;
+    if(modeButton[IDobj] == 0 || modeButton[IDobj] == 255) trame.drawTrameRect(mouse[IDobj], angleTrame, angleObj, size , q, colorIn, colorOut, thickness, g, d, amp) ;
+    else if (modeButton[IDobj] == 1) trame.drawTrameDisc(mouse[IDobj], angleTrame, angleObj, size , q, colorIn, colorOut, thickness, g, d, amp) ;
+    else if (modeButton[IDobj] == 2) trame.drawTrameBox(mouse[IDobj], angleTrame, angleObj, size , q, colorIn, colorOut, thickness, g, d, amp) ;
 
     
     /////////////////////////////
@@ -126,18 +122,7 @@ class RomanescoTwentyTwo extends SuperRomanesco
   //END DRAW
   //////////
   
-  
-  
-  //KEYPRESSED
-  void keypressed() {}
-  //KEY RELEASED
-  void keyreleased() {}
-  //MOUSEPRESSED
-  void mousepressed() {}
-  //MOUSE RELEASED
-  void mousereleased() {}
-  //MOUSE DRAGGED
-  void mousedragged() {}
+
   
   
   //ANNEXE VOID
@@ -178,85 +163,77 @@ class RomanescoTwentyTwo extends SuperRomanesco
 //CLASS TRAME
 class Trame 
 {
-  Trame()  { }
+  Trame(){}
   
   float nbrlgn ; 
   int vitesse ;
-  float vd, vg ;
   
-  void drawTrameLine ( float v, float q, color cOut, float e) 
-  {
-    if( e < 0.1 ) e = 0.1 ; //security for the negative value
-    stroke (cOut) ; strokeWeight(e) ;
-    float quantite = q*q *.001 ;
-    //nbrlgn = quantite ;
-   nbrlgn = (width + height) / quantite  ;
-    vitesse += (v) ;
-    if ( abs(vitesse) > quantite ) {
-      vitesse = 0 ; 
-    }
-    for (int i=0 ; i < nbrlgn +1 ; i++) {
-      float x1 = ( -(height) +i*( (width+ height ) /nbrlgn) ) +vitesse -e ;
-      float y1 = -e ;
-      float x2 =  ( 0 +i*( (width + height )  /nbrlgn) ) +vitesse +e ;
-      float y2 = width+height +e ; 
-      line ( x1 , y1 , x2 , y2);
-    }
-  }
   //TRAME RECTANGLEe multiple
-  void drawTrameRect (PVector axe, float angleTrame, float angleObj, float hauteur, float largeur, int nbrlgn, color cIn, color cOut, float e, float gauche, float droite, float amp ) {
+  void drawTrameRect (PVector axe, float angleTrame, float angleObj, PVector size, int nbrlgn, color cIn, color cOut, float e, float gauche, float droite, float amp ) {
     //check the opacity of color
-    int alphaIn = (cIn >> 24) & 0xFF; 
-    int alphaOut = (cOut >> 24) & 0xFF; 
-    // to display or not
-    if ( alphaIn == 0 ) noFill() ; else fill (cIn) ;
-    if ( alphaOut == 0) {
-      noStroke() ;
-    } else {
-      stroke ( cOut ) ; 
-      if( e < 0.1 ) e = 0.1 ; //security for the negative value
-      strokeWeight (e) ;
-    }
+    shapeProperty(cIn, cOut, e) ;
     
     pushMatrix() ;
-
     translate(axe.x, axe.y) ;
     //calcul the position of each object
     for (int i=1 ; i < nbrlgn ; i++) {
       for (int j=1 ; j < nbrlgn ; j++) { 
         PVector pos = new PVector (  (i *width *amp) / nbrlgn, (j *height *amp ) / nbrlgn )  ;
         PVector newPosAfterRotation = rotation (pos, axe, angleTrame) ;        
-        rectangleTrame (newPosAfterRotation, hauteur, largeur, gauche, droite, angleObj ) ;      
+        rectangleTrame (newPosAfterRotation, size.x, size.y, gauche, droite, angleObj ) ;      
       }
     }
     popMatrix() ;  
   }
-  //engine rectangle  //engine rectangle
-  void rectangleTrame( PVector pos, float h, float l, float gauche, float droite, float aObj)
-  {
-    pushMatrix() ;
-    vg += gauche ;
-    vd += droite ;
-    //position of each object
-    //...........
-    if (vg>360) vg =0 ; 
-    if (vd>360) vd =0 ;
-    //display
-    rectMode(CENTER) ;
-
-    translate(pos.x, pos.y) ;
-    rotate(aObj) ;
-    
-    rect (0, 0, pow(l,1.4), pow(h,1.4)) ;
-    rectMode(CORNER) ;
-    popMatrix() ;
-  }
+  
+  
   
   
   //TRAME DISC multiple
-  void drawTrameDisc (PVector axe, float angleTrame, float angleObj, float hauteur, float largeur, int nbrlgn, color cIn, color cOut, float e, float gauche, float droite, float amp   )
-  {
+  void drawTrameDisc (PVector axe, float angleTrame, float angleObj, PVector size, int nbrlgn, color cIn, color cOut, float e, float gauche, float droite, float amp   ) {
     //check the opacity of color
+    
+    shapeProperty(cIn, cOut, e) ;
+    pushMatrix() ;
+    translate(axe.x, axe.y) ;
+    //calcul the position of each object
+    for (int i=1 ; i < nbrlgn ; i++) {
+      for (int j=1 ; j < nbrlgn ; j++) {
+        PVector pos = new PVector (  (i *width *amp ) / nbrlgn, (j * height *amp ) / nbrlgn )  ;
+        PVector newPosAfterRotation = rotation (pos, axe, angleTrame) ;        
+        disqueTrame (newPosAfterRotation, size.x, size.y, gauche, droite, angleObj ) ;      
+      }
+    }
+    popMatrix() ;  
+  }
+  
+  
+  //TRAME BOX
+  void drawTrameBox (PVector axe, float angleTrame, float angleObj, PVector size, int nbrlgn, color cIn, color cOut, float e, float gauche, float droite, float amp   ) {
+    //check the opacity of color
+    
+    shapeProperty(cIn, cOut, e) ;
+    pushMatrix() ;
+    translate(axe.x, axe.y) ;
+    //calcul the position of each object
+    for (int i=1 ; i < nbrlgn ; i++) {
+      for (int j=1 ; j < nbrlgn ; j++) {
+        PVector pos = new PVector (  (i *width *amp ) / nbrlgn, (j * height *amp ) / nbrlgn )  ;
+        PVector newPosAfterRotation = rotation (pos, axe, angleTrame) ;        
+        boxTrame (newPosAfterRotation, size, gauche, droite, angleObj ) ;      
+      }
+    }
+    popMatrix() ;  
+  }
+  
+  
+  
+
+  
+  
+  
+  //Display 
+  void shapeProperty(color cIn, color cOut, float e) {
     int alphaIn = (cIn >> 24) & 0xFF; 
     int alphaOut = (cOut >> 24) & 0xFF; 
     // to display or not
@@ -268,31 +245,21 @@ class Trame
       if( e < 0.1 ) e = 0.1 ; //security for the negative value
       strokeWeight (e) ;
     }
-    
-    pushMatrix() ;
-    
-    translate(axe.x, axe.y) ;
-    //calcul the position of each object
-    for (int i=1 ; i < nbrlgn ; i++) {
-      for (int j=1 ; j < nbrlgn ; j++) {
-        PVector pos = new PVector (  (i *width *amp ) / nbrlgn, (j * height *amp ) / nbrlgn )  ;
-        PVector newPosAfterRotation = rotation (pos, axe, angleTrame) ;        
-        disqueTrame (newPosAfterRotation, hauteur, largeur, gauche, droite, angleObj ) ;      
-      }
-    }
-    popMatrix() ;  
   }
   
-  void disqueTrame( PVector pos, float h, float l, float gauche, float droite, float aObj)
-  {
+  
+  void rectangleTrame( PVector pos, float h, float l, float gauche, float droite, float aObj) {
     pushMatrix() ;
-    vg += gauche ;
-    vd += droite ;
-    //position of each object
-    //...........
-    if (vg>360) vg =0 ; 
-    if (vd>360) vd =0 ;
-    //display
+    rectMode(CENTER) ;
+    translate(pos.x, pos.y) ;
+    rotate(aObj) ;
+    rect (0, 0, pow(l,1.4), pow(h,1.4)) ;
+    rectMode(CORNER) ;
+    popMatrix() ;
+  }
+  
+  void disqueTrame( PVector pos, float h, float l, float gauche, float droite, float aObj) {
+    pushMatrix() ;
     ellipseMode(CENTER) ;
     translate(pos.x, pos.y) ;
     rotate(aObj) ;
@@ -300,5 +267,12 @@ class Trame
     ellipseMode(CORNER) ;
     popMatrix() ;
   }
-
+  
+  void boxTrame( PVector pos, PVector size, float gauche, float droite, float aObj) {
+    pushMatrix() ;
+    translate(pos.x, pos.y) ;
+    rotate(aObj) ;
+    box (pow(size.x,1.4), pow(size.y,1.4), pow(size.z,1.4)) ;
+    popMatrix() ;
+  }
 }

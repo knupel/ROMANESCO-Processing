@@ -24,16 +24,7 @@ void romanescoTwentyOneDraw(String [] dataControleur, String [] dataMinim) {
   romanescoTwentyOne.display() ;
 }
 
-//MOUSEPRESSED
-void romanescoTwentyOneMousepressed() { romanescoTwentyOne.mousepressed() ; }
-//MOUSERELEASED
-void romanescoTwentyOneMousereleased() { romanescoTwentyOne.mousereleased() ; }
-//MOUSE DRAGGED
-void romanescoTwentyOneMousedragged() { romanescoTwentyOne.mousedragged() ; }
-//KEYPRESSED
-void romanescoTwentyOneKeypressed() { romanescoTwentyOne.keypressed() ; }
-//KEY RELEASED
-void romanescoTwentyOneKeyreleased() { romanescoTwentyOne.keyreleased() ; }
+
 
 //Return the ID familly to choice the data must be send to the class // 0 is global // 1 is Object // 2 is trame // 3 is typo
 int getFamillyRomanescoTwentyOne() { return romanescoTwentyOne.getIDfamilly() ; }
@@ -50,7 +41,7 @@ class RomanescoTwentyOne extends SuperRomanesco
   
   ////////////////////////////////////////////////
   // YOUR VARIABLE OBJECT and CALL YOUR OWN CLASS HERE if it's not class that use an ArrayList
-  Trame trameLine ;
+  Line line ;
   // CLASS_WITHOUT_ARRAYLIST class_without_arraylist
    /*
   ///////IMPORTANT////////////////////////////////////
@@ -84,7 +75,10 @@ class RomanescoTwentyOne extends SuperRomanesco
   ////SETUP
   //the setting that's stuff that you'r put usually in the void setup() 
   void setting() {
-    trameLine = new Trame() ;
+   //motion
+   motion[IDobj] = true ;
+    //class_without_arraylist = new CLASS_WITHOUT_ARRAYLIST() ;
+    line = new Line() ;
   }
   ///////////
   //END SETUP
@@ -127,7 +121,7 @@ class RomanescoTwentyOne extends SuperRomanesco
     // color colorOut = color ( map(valueObj[IDobj][5],0,100,0,360), valueObj[IDobj][6], valueObj[IDobj][7],valueObj[IDobj][8] ) ;
 
 
-    trameLine.drawTrameLine (speed, q , colorIn,  thicknessLine) ;   //PARAMETER THAT YOU CAN USE
+    line.drawLine (speed, q , colorIn,  thicknessLine) ;   //PARAMETER THAT YOU CAN USE
 
     
     /////////////////////////////
@@ -145,16 +139,7 @@ class RomanescoTwentyOne extends SuperRomanesco
   }
   //END DRAW
   
-  //KEYPRESSED
-  void keypressed() {}
-  //KEY RELEASED
-  void keyreleased() {}
-  //MOUSEPRESSED
-  void mousepressed() {}
-  //MOUSE RELEASED
-  void mousereleased() {}
-  //MOUSE DRAGGED
-  void mousedragged() {}
+
   
   
   //ANNEXE VOID
@@ -181,4 +166,42 @@ class RomanescoTwentyOne extends SuperRomanesco
   }
   ///////////////////////////
   //////////////////////////
+}
+
+
+
+
+
+
+// CLASS LINE
+/////////////
+/////////////
+//CLASS TRAME
+class Line 
+{
+  Line()  { }
+  
+  float nbrlgn ; 
+  int vitesse ;
+  float vd, vg ;
+  
+  void drawLine ( float v, float q, color cOut, float e) {
+    if( e < 0.1 ) e = 0.1 ; //security for the negative value
+    stroke (cOut) ; strokeWeight(e) ;
+    float quantite = q*q *.001 ;
+    //nbrlgn = quantite ;
+   nbrlgn = (width + height) / quantite  ;
+    vitesse += (v) ;
+    if ( abs(vitesse) > quantite ) {
+      vitesse = 0 ; 
+    }
+    for (int i=0 ; i < nbrlgn +1 ; i++) {
+      float x1 = ( -(height) +i*( (width+ height ) /nbrlgn) ) +vitesse -e ;
+      float y1 = -e ;
+      float x2 =  ( 0 +i*( (width + height )  /nbrlgn) ) +vitesse +e ;
+      float y2 = width+height +e ; 
+      line ( x1 , y1 , x2 , y2);
+    }
+  }
+
 }

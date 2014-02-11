@@ -23,16 +23,6 @@ void romanescoSevenDraw(String [] dataControleur, String [] dataMinim) {
   romanescoSeven.display() ;
 }
 
-//MOUSEPRESSED
-void romanescoSevenMousepressed() { romanescoSeven.mousepressed() ; }
-//MOUSERELEASED
-void romanescoSevenMousereleased() { romanescoSeven.mousereleased() ; }
-//MOUSE DRAGGED
-void romanescoSevenMousedragged() { romanescoSeven.mousedragged() ; }
-//KEYPRESSED
-void romanescoSevenKeypressed() { romanescoSeven.keypressed() ; }
-//KEY RELEASED
-void romanescoSevenKeyreleased() { romanescoSeven.keyreleased() ; }
 
 //Return the ID familly to choice the data must be send to the class // 0 is global // 1 is Object // 2 is trame // 3 is typo
 int getFamillyRomanescoSeven() { return romanescoSeven.getIDfamilly() ; }
@@ -48,7 +38,7 @@ class RomanescoSeven extends SuperRomanesco
   //FORBIDEN TO TOUCH
   int IDfamilly ;
   // CLASS_WITHOUT_ARRAYLIST class_without_arraylist 
-  Spirale bezier ;
+  Bezier bezier ;
   //speed
   float speed ;
   //CONSTRUCTOR
@@ -61,8 +51,10 @@ class RomanescoSeven extends SuperRomanesco
   ////SETUP
   /////////
   void setting() {
+    //motion
+    motion[IDobj] = true ;
     //class
-    bezier = new Spirale() ;
+    bezier = new Bezier() ;
   }
   ///////////
   //END SETUP
@@ -115,17 +107,7 @@ class RomanescoSeven extends SuperRomanesco
     //END OF DON'T TOUCH
   }
   //END DRAW
-  
-  //KEYPRESSED
-  void keypressed() {}
-  //KEY RELEASED
-  void keyreleased() {}
-  //MOUSEPRESSED
-  void mousepressed() {}
-  //MOUSE RELEASED
-  void mousereleased() {}
-  //MOUSE DRAGGED
-  void mousedragged() {}
+
   
   
   //ANNEXE VOID
@@ -152,4 +134,55 @@ class RomanescoSeven extends SuperRomanesco
   }
   ///////////////////////////
   //////////////////////////
+}
+
+
+
+
+
+
+
+class Bezier extends Rotation 
+{  
+  
+  Bezier () { 
+    super () ;
+  }
+  
+  
+  void affichageBezier (color cIn, color cOut, PVector pos, float e, int z, float b1, float b2, float b3, float b4, float b5, float b6, float b7, float b8) {
+    //check the opacity of color
+    int alphaIn = (cIn >> 24) & 0xFF; 
+    int alphaOut = (cOut >> 24) & 0xFF; 
+    // to display or not
+    if ( alphaIn == 0 ) noFill() ; else fill (cIn) ;
+    if ( alphaOut == 0) {
+      noStroke() ;
+    } else {
+      stroke ( cOut ) ; 
+      if( e < 0.1 ) e = 0.1 ; //security for the negative value
+      strokeWeight (e) ;
+    }
+    /*
+    float zy = map (z, 0, 101, 0, height/2) ;
+    float posYH = height / 2 - zy ;
+    float posYB = height / 2 + zy ;
+    float posXG = -zy ;
+    float posXD = width + zy ;
+    */
+    float zy = map (z, 0, 101, 0, pos.y/2) ;
+    //float posYH = pos.x / 2 - zy ;
+    // float posYB = pos.y / 2 + zy ;
+    float posXG = -zy ;
+    float posXD = pos.x + zy ;
+    beginShape();
+    vertex(posXG, 0);
+    bezierVertex(b1, b2, b3, b4,
+                posXD, 0 );  
+    bezierVertex(b5, b6, b7, b8,  
+                posXG, 0);
+    endShape();
+    noStroke() ;
+  }
+  
 }

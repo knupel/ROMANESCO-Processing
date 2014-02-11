@@ -89,8 +89,8 @@ class RomanescoFortyFive extends SuperRomanesco
     color ctwt ;
     ctwt = color(map(valueObj[IDobj][1],0,100,0,360), valueObj[IDobj][2], valueObj[IDobj][3], t) ;
     //hauteur largeur height and width
-    float h = map (valueObj[IDobj][11], 0, 100, corps*3, height *3 ) ;
-    float l = map (valueObj[IDobj][12], 0, 100, corps*3, width *3 ) ;
+    float h = map (valueObj[IDobj][21], 0, 100, corps*3, height *3 ) ;
+    float l = map (valueObj[IDobj][22], 0, 100, corps*3, width *3 ) ;
 
     // message reception
     if (internet) message = twt.update() ; else message = bigBrother ;

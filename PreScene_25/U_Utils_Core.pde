@@ -439,7 +439,7 @@ void rotation ( float R, float posX, float posY ) {
 }
 //END OF ROTATION
 
-//END MATH //<>//
+//END MATH
 //////////
 
 
@@ -621,8 +621,8 @@ String pathScenePropertySetting = sketchPath("")+"preference/sceneProperty.csv" 
 TableRow row ;
 
 //SETUP
-void displaySetup() {
-  frameRate(30) ;  // Le frameRate doit être le même dans tous les Sketches
+void displaySetup(int speed) {
+  frameRate(speed) ;  // Le frameRate doit être le même dans tous les Sketches
   
   //size and different property of scene : size, border, P2D, P3D...
   colorMode(HSB, HSBmode.x, HSBmode.y, HSBmode.z, 100) ;

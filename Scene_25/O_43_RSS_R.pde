@@ -28,16 +28,6 @@ void romanescoFortyThreeDraw(String [] dataControleur, String [] dataMinim) {
   romanescoFortyThree.display() ;
 }
 
-//MOUSEPRESSED
-void romanescoFortyThreeMousepressed() { romanescoFortyThree.mousepressed() ; }
-//MOUSERELEASED
-void romanescoFortyThreeMousereleased() { romanescoFortyThree.mousereleased() ; }
-//MOUSE DRAGGED
-void romanescoFortyThreeMousedragged() { romanescoFortyThree.mousedragged() ; }
-//KEYPRESSED
-void romanescoFortyThreeKeypressed() { romanescoFortyThree.keypressed() ; }
-//KEY RELEASED
-void romanescoFortyThreeKeyreleased() { romanescoFortyThree.keyreleased() ; }
 
 //Return the ID familly to choice the data must be send to the class // 0 is global // 1 is Object // 2 is trame // 3 is typo
 int getFamillyRomanescoFortyThree() { return romanescoFortyThree.getIDfamilly() ; }
@@ -114,8 +104,8 @@ class RomanescoFortyThree extends SuperRomanesco
     color colorIn = color (map(valueObj[IDobj][1],0,100,0,360), valueObj[IDobj][2], valueObj[IDobj][3], t ) ;
     
     //hauteur largeur, height & width
-    float hauteur = map (valueObj[IDobj][11], 0, 100, 0, height *3 ) ;
-    float largeur = map (valueObj[IDobj][12], 0, 100, 0, width *3 ) ;
+    float hauteur = map (valueObj[IDobj][21], 0, 100, 0, height *3 ) ;
+    float largeur = map (valueObj[IDobj][22], 0, 100, 0, width *3 ) ;
     
     //ADD new object
     if (actionButton[IDobj] == 1 && nTouch ) {}
@@ -183,18 +173,7 @@ class RomanescoFortyThree extends SuperRomanesco
   }
   //END DRAW
   ////////
-    
-    
-  //KEYPRESSED
-  void keypressed() {}
-  //KEY RELEASED
-  void keyreleased() {}
-  //MOUSEPRESSED
-  void mousepressed() {}
-  //MOUSE RELEASED
-  void mousereleased() {}
-  //MOUSE DRAGGED
-  void mousedragged() {}
+
   
   
   //ANNEXE VOID

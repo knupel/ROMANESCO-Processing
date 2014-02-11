@@ -262,8 +262,8 @@ class RomanescoTwentySeven extends SuperRomanesco
        
      
      //size and thickness
-     float widthPix = map(valueObj[IDobj][11],0,100, 1, 50 ) ;
-     float heightPix = map(valueObj[IDobj][12],0,100, 1, 50 ) ;
+     float widthPix = map(valueObj[IDobj][21],0,100, 1, 50 ) ;
+     float heightPix = map(valueObj[IDobj][22],0,100, 1, 50 ) ;
      float thickPix = map(valueObj[IDobj][13],0,100, 1, 50 ) ;
      PVector infoSizePix = new PVector(widthPix,heightPix, thickPix) ;
      //modify the size

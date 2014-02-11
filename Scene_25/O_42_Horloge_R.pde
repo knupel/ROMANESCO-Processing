@@ -1,27 +1,12 @@
-
-
-
-
 //GLOBAL
 RomanescoFortyTwo romanescoFortyTwo ;
 ////////////////////////////////////////////////////////////////////
-// Just in case you use a class must use an ArrayList in your object, 
-// if it's not call the class in the class RomanescoFortyTwo just bellow
-/*
-ArrayList<YourClass> yourList ;
-*/
-
-
-
 //SETUP
 void romanescoFortyTwoSetup() {
-  // YOU MUST CHANGE THE ID
-  //Example : If it's RomanestoThirtySetup int ID = 30 ;
   int ID = 42 ; // 0 is Ref you must use a number in the order of apparition in the controleur, start from top left and follow the horizontal line
-  
   int IDfamilly = 3 ; // 1 is single object // 2 is trame // 3 is typo    ....... // 0 is global don't use this one it's for specific stuff
   romanescoFortyTwo = new RomanescoFortyTwo (ID, IDfamilly) ;
-
+  // setting
   romanescoFortyTwo.setting() ;
 }
 
@@ -107,7 +92,7 @@ class RomanescoFortyTwo extends SuperRomanesco
     float angle = map(valueObj[IDobj][18], 0,100, 0, TAU) ;
     //amplitude
     float amp = map(valueObj[IDobj][17],0,100,0, width *.75) ;
-    
+
     //CHANGE MODE DISPLAY
     /////////////////////
     if (modeButton[IDobj] == 0 || modeButton[IDobj] == 255 ) {

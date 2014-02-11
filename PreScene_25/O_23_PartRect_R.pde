@@ -4,7 +4,7 @@ RomanescoTwentyThree romanescoTwentyThree ;
 // Just in case you use a class must use an ArrayList in your object, 
 // if it's not call the class in the class RomanescoTwentyThree just bellow
 
-ArrayList partRectList = new ArrayList() ;
+ArrayList curtainList = new ArrayList() ;
 
 
 //SETUP
@@ -26,16 +26,7 @@ void romanescoTwentyThreeDraw(String [] dataControleur, String [] dataMinim) {
   romanescoTwentyThree.display() ;
 }
 
-//MOUSEPRESSED
-void romanescoTwentyThreeMousepressed() { romanescoTwentyThree.mousepressed() ; }
-//MOUSERELEASED
-void romanescoTwentyThreeMousereleased() { romanescoTwentyThree.mousereleased() ; }
-//MOUSE DRAGGED
-void romanescoTwentyThreeMousedragged() { romanescoTwentyThree.mousedragged() ; }
-//KEYPRESSED
-void romanescoTwentyThreeKeypressed() { romanescoTwentyThree.keypressed() ; }
-//KEY RELEASED
-void romanescoTwentyThreeKeyreleased() { romanescoTwentyThree.keyreleased() ; }
+
 
 //Return the ID familly to choice the data must be send to the class // 0 is global // 1 is Object // 2 is trame // 3 is typo
 int getFamillyRomanescoTwentyThree() { return romanescoTwentyThree.getIDfamilly() ; }
@@ -63,7 +54,6 @@ class RomanescoTwentyThree extends SuperRomanesco
   ////SETUP
   //the setting that's stuff that you'r put usually in the void setup() 
   void setting() {
-    //motion
     motion[IDobj] = true ;
   }
   ///////////
@@ -85,9 +75,13 @@ class RomanescoTwentyThree extends SuperRomanesco
     //durée / life
     int vie = 100 + (100 * int(valueObj[IDobj][15])) ;
     //thickness / épaisseur
-    int epaisseur = 1 + int((valueObj[IDobj][13] *.5) + abs(mix[IDobj]) *10);
+    // int epaisseur = 1 + int((valueObj[IDobj][13] *.5) + abs(mix[IDobj]) *10);
+    float thickness = map(valueObj[IDobj][13],0,100,0.1, height*.2 ) + abs(mix[IDobj]) *10 ;
     
-    float hauteur = map(valueObj[IDobj][11], 0, 100, 0, height*2) ;
+    float x = map(valueObj[IDobj][21], 0, 100, 0, height*2) ;
+    float y = map(valueObj[IDobj][22], 0, 100, 0, height*2) ;
+    float z = map(valueObj[IDobj][23], 0, 100, 0, height*2) ;
+    PVector size = new PVector(x,y,z) ;
     //Color
     float opacityIn = round(valueObj[IDobj][4] + ((mix[IDobj]) *25 )) ;
     float opacityOut = valueObj[IDobj][8] ;
@@ -97,17 +91,19 @@ class RomanescoTwentyThree extends SuperRomanesco
    //orientation / degré
    rotation(valueObj[IDobj][18], (mouse[IDobj].x *2) -width/2  , (mouse[IDobj].y *2) -height/2 ) ;
     
-    for (int i=0 ; i < partRectList.size(); i++) {
-      TrameP P = (TrameP) partRectList.get(i); // GET donne l'ordre d'aller chercher de la particule dans le la Valise Fourre Tout
-      if (P.disparition () ) {
-        partRectList.remove (i) ;
+    for (int i=0 ; i < curtainList.size(); i++) {
+      Curtain c = (Curtain) curtainList.get(i); // GET donne l'ordre d'aller chercher de la particule dans le la Valise Fourre Tout
+      if (c.disparition () ) {
+        curtainList.remove (i) ;
       } else {
-        P.actualisation ();
-        P.drawRect(colorIn, colorOut, opacityIn, opacityOut, epaisseur, hauteur) ;
+        c.actualisation ();
+        if(modeButton[IDobj] == 0 || modeButton[IDobj] == 255) c.drawRect(colorIn, colorOut, opacityIn, opacityOut, thickness, size.x)  ;
+        else if (modeButton[IDobj] == 1) c.drawBox(colorIn, colorOut, opacityIn, opacityOut, thickness, size)  ;
+        
       }
     }
     if (actionButton[IDobj] == 1 && nTouch) {
-      partRectList.add( new TrameP(vitesse, vie )) ;
+      curtainList.add( new Curtain(vitesse, vie )) ;
     }
 
     
@@ -125,20 +121,7 @@ class RomanescoTwentyThree extends SuperRomanesco
   //////////
   
   
-  
-  
-  
-  
-  //KEYPRESSED
-  void keypressed() {}
-  //KEY RELEASED
-  void keyreleased() {}
-  //MOUSEPRESSED
-  void mousepressed() {}
-  //MOUSE RELEASED
-  void mousereleased() {}
-  //MOUSE DRAGGED
-  void mousedragged() {}
+
   
   
   //ANNEXE VOID
@@ -175,24 +158,24 @@ class RomanescoTwentyThree extends SuperRomanesco
 
 //////////////
 //CLASS TrameP
-class TrameP 
+class Curtain 
 { 
   int chrono, transp, transpb ;
   int vp ;
   float croissance, v, mvt, posX ; 
-  TrameP(float vitesse, int vie)  
-  {
+  Curtain(float vitesse, int vie)  {
    v = vitesse ; vp = vie ; 
   }
   
-  boolean disparition () 
-  {
+  boolean disparition () {
     if (vp < 0 ) {
       return true ;
     } else {
       return false ;
     }
   }
+  
+  
   void actualisation() {
     
     mvt += v ;
@@ -206,7 +189,9 @@ class TrameP
       mvt*=-1 ;
     }
   }
-
+  
+  
+  //SHAPE
   void drawRect (color cIn, color cOut, float oIn, float oOut, float e, float h) {
     //security for the negative valu
     if( e < 0.1 ) e = 0.1 ;
@@ -222,6 +207,27 @@ class TrameP
     strokeWeight(e) ;
     fill ( cIn, oIn ) ;
     stroke (cOut, oOut ) ;
-    rect ( posX ,  -e, posX - (mouseX/3) , h+(2*e) ) ;
+    rect ( posX ,  -e, posX - (mouse[0].x/3) , h+(2*e) ) ;
+  }
+  
+  
+  void drawBox (color cIn, color cOut, float oIn, float oOut, float e, PVector size) {
+    //security for the negative valu
+    if( e < 0.1 ) e = 0.1 ;
+
+    if (vp < oIn )   { oIn = vp ;   } else { oIn = oIn ; }
+    if (vp < oOut )  { oOut = vp ;  } else { oOut = oOut ; }
+    
+    //life
+    vp = vp + chrono ;
+    chrono = -1 ; 
+    
+    //DISPLAY
+    strokeWeight(e) ;
+    fill ( cIn, oIn ) ;
+    stroke (cOut, oOut ) ;
+    translate(posX ,  -e) ;
+    box(size.x+(2*e), posX - (mouse[0].x/3), size.z+(2*e)) ;
+    //rect ( posX ,  -e, posX - (mouseX/3) , size.x+(2*e) ) ;
   }
 }

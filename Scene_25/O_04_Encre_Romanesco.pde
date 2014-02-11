@@ -80,10 +80,10 @@ class RomanescoFour extends SuperRomanesco
     sprayDirection = new PVector (pen[0].x,pen[0].y) ;
     inkDiffusion = map (valueObj[IDobj][17] , 0,100, 0, 100 *tempo[IDobj]  ) ; // speed / vitesse
     float flux = map (valueObj[IDobj][14], 0,100, 1,1000  ) ; // ink quantity
-    float thicknessPoint = map(valueObj[IDobj][13],0,100,0.1,width/20) ;
+    float thicknessPoint = map(valueObj[IDobj][13],0,100,0.1, height *.1) ;
     inkFlux = int(flux) ;
     angleSpray   = map (valueObj[IDobj][28], 0,100, 0,180 ) ; // angle
-    inkDry = map (valueObj[IDobj][15], 0,100, 1.0 , 0.000001) ; // durée
+    inkDry = map (valueObj[IDobj][15], 0,100, 1.0 , .0000000001) ; // durée
     float spr ;
     spr = map (valueObj[IDobj][26], 0,100 , 1, 100) ; // force de diffusion
     spray = int(spr) ;

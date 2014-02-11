@@ -163,8 +163,8 @@ class RomanescoTwentySix extends SuperRomanesco
     posCenterGrain.y = mouse[IDobj].y ;
     
     //size
-    float objWidth =  map(valueObj[IDobj][11],0,100,0.5, height *.2 *mix[IDobj]) ;
-    float objHeight =  map(valueObj[IDobj][12],0,100,0.5, height *.1 *mix[IDobj]) ;
+    float objWidth =  map(valueObj[IDobj][21],0,100,0.5, height *.2 *mix[IDobj]) ;
+    float objHeight =  map(valueObj[IDobj][22],0,100,0.5, height *.1 *mix[IDobj]) ;
     PVector size = new PVector(objWidth *10, objHeight *10) ;
     
     //thickness / épaisseur

@@ -117,9 +117,10 @@ class RomanescoThree extends SuperRomanesco
       float velLimit = (tempo[IDobj] ) *5.0 ; // max of speed Atom
       if (velLimit < 1.1 ) velLimit = 1.1 ;
       
-      //t is temperatur of atom, give the spped 
-      float vitesse = map(valueObj[IDobj][16],0,100, 0.0,3000.0);
-      if(soundButton[IDobj] > 0) t =  floor(vitesse  * tempo[IDobj]) ; else t = round(vitesse) ;
+      //the atom temperature give the speed 
+      float s = map(valueObj[IDobj][16],0,100, 0.0,17.0);
+      float speed = s*s*s ;
+      if(soundButton[IDobj] > 0) t =  floor(speed  * tempo[IDobj]) ; else t = round(speed) ;
       
       //ratio evolution for atom temperature...give an idea to change the speed of this one
       //because the temp of atom is linked with velocity of this one.
@@ -178,7 +179,7 @@ class RomanescoThree extends SuperRomanesco
       
       //the proton change the with the beat of music
       //diameter
-      float fp = map (valueObj[IDobj][11], 0,100, 1, 20) ;
+      float fp = map (valueObj[IDobj][21], 0,100, 1, 20) ;
       int factorSizeProton = int(fp) ;
       
       if ( atm.getProton() < 21 ) { 
@@ -205,20 +206,20 @@ class RomanescoThree extends SuperRomanesco
       //thickness / épaisseur
       float factorThicknessCloud = valueObj[IDobj][13] *beatThicknessCloud ;
       //diameter
-      float factorSizeField = map(valueObj[IDobj][11], 0,100, 1, 10) ; // factor size of the electronic Atom's Cloud
+      float factorSizeField = map(valueObj[IDobj][21], 0,100, 1, 10) ; // factor size of the electronic Atom's Cloud
       // float factorSizeField = OC21 / 20.0 ; // factor size of the electronic Atom's Cloud
       
       /////////TEXT///
       
       float corps ;
       //diameter / hauteur
-      corps = map(valueObj[IDobj][11], 0, 100, 6, height *0.66) ;
+      corps = map(valueObj[IDobj][21], 0, 100, 6, height *0.66) ;
      
       PVector posText = new PVector ( 0.0, 0.0, 0.0 ) ;
       int sizeTextName = int(corps) ;
       int sizeTextInfo = int(corps / 2.0) ;
       //largeur / width
-      float posTextInfo = valueObj[IDobj][12] + (beat[IDobj] *2.0)  ;
+      float posTextInfo = valueObj[IDobj][22] + (beat[IDobj] *2.0)  ;
       //marge
       float sideLeftRight = map(valueObj[IDobj][17],0,100,0,width*5) ;
       float sideTopBottom = map(valueObj[IDobj][17],0,100,0,height*5) ;

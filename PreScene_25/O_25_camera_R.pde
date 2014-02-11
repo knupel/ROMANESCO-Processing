@@ -117,8 +117,8 @@ class RomanescoTwentyFive extends SuperRomanesco
     
     //PART TWO
     cam.start();
-    cellSizeX = 2 + int(valueObj[IDobj][12])  ; 
-    cellSizeY = 2 + int(valueObj[IDobj][11])  ;
+    cellSizeX = 2 + int(valueObj[IDobj][22])  ; 
+    cellSizeY = 2 + int(valueObj[IDobj][21])  ;
     // factorDisplayPixel.x = factorDisplayCam.x / (20 -TD123/10 ) ; 
    //  factorDisplayPixel.y = factorDisplayCam.y / (20 -TD123/10 ) ; 
     

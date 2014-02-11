@@ -104,8 +104,8 @@ class RomanescoFortyThree extends SuperRomanesco
     color colorIn = color (map(valueObj[IDobj][1],0,100,0,360), valueObj[IDobj][2], valueObj[IDobj][3], t ) ;
     
     //hauteur largeur, height & width
-    float hauteur = map (valueObj[IDobj][11], 0, 100, 0, height *3 ) ;
-    float largeur = map (valueObj[IDobj][12], 0, 100, 0, width *3 ) ;
+    float hauteur = map (valueObj[IDobj][21], 0, 100, 0, height *3 ) ;
+    float largeur = map (valueObj[IDobj][22], 0, 100, 0, width *3 ) ;
     
     //ADD new object
     if (actionButton[IDobj] == 1 && nTouch ) {}

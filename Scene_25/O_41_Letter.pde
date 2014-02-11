@@ -83,11 +83,15 @@ class RomanescoFortyOne extends SuperRomanesco
     //init and re-init Geomerative if few stuff change about this line like text, font and the size of the font
     int sizeFont = int(map(valueObj[IDobj][28],0,100,height/50, height *2)) ;
     
+     //data
+
+    
     //tracking chapter
     String textChapters [] = split(textRaw, "*") ;
     //we use in this case the tittle of the text
     String sentence = textChapters [0] ;
 
+    
     //check if something change to update the RG.getText
     if (sizeRef == sizeFont && sentenceRef.equals(sentence) && pathRef.equals(pathFontObjTTF[IDobj])) newSetting = true  ; else newSetting = false ;
     sizeRef = sizeFont ;
@@ -174,7 +178,7 @@ class RomanescoFortyOne extends SuperRomanesco
     if(target < 0 ) target = 0 ; else if (target >= grp.countChildren()) target = grp.countChildren() - 1 ;
     //position
     if(motion[IDobj]) grp.children[whichLetter].rotate(s, grp.children[target].getCenter());
-    //result
+    
     displayLetter(whichLetter, cIn, t, jttr) ;
     displayLetter(target, cIn, t, jttr) ;
     
