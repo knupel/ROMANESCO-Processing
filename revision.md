@@ -4,6 +4,9 @@
 ###### Object twitter
 * information when you don't have the Twitter keys
 * size minimum for the message
+* ###### Object Spiral
+* new algorithm for the thickness
+* new algorithm for the range max
 
 ### ADD
 ###### Scene 
