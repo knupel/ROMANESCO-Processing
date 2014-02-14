@@ -335,7 +335,7 @@ float valueObj[IDobj][28] angle / misc / corps
 ////////
 color colorIn = color ( map(valueObj[IDobj][1],0,100,0,360), valueObj[IDobj][2], valueObj[IDobj][3],valueObj[IDobj][4] ) ;
 color colorOut = color ( map(valueObj[IDobj][5],0,100,0,360), valueObj[IDobj][6], valueObj[IDobj][7],valueObj[IDobj][8] ) ;
-float thickness = map (valueObj[IDobj][13],0,100, .2, height *.1) ;
+float thickness = map(valueObj[IDobj][13],0,100,0.1, height*.2 ) ;
 
 
 

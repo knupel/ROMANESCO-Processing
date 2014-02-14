@@ -24,6 +24,7 @@ void setup() {
   OSCSetup() ;
   meteoSetup() ;
   P3DSetup() ;
+  lightSetup();
   romanescoSetup() ;
 }
 
@@ -39,6 +40,7 @@ void draw() {
   beginSave() ;
   //ROMANESCO
   cameraDraw() ;
+  lightDraw() ;
   romanescoDraw() ;
   stopCamera() ;
   
