@@ -13,8 +13,8 @@ class Bouton
   //simple
   Bouton () {}
   //complexe
-  Bouton ( int margeGaucheB, int margeHautB, int longueurB, int hauteurB ) {
-    mGB =  margeGaucheB ; mHB = margeHautB ; lB = longueurB ; hB = hauteurB ;
+  Bouton ( int posWidthB, int posHeightB, int longueurB, int hauteurB ) {
+    mGB =  posWidthB ; mHB = posHeightB ; lB = longueurB ; hB = hauteurB ;
   }
   
 

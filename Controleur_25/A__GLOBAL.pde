@@ -8,10 +8,10 @@ int sliderMidi, valMidi ;
 int numMidi = -1 ;
 boolean saveMidi ;
 boolean selectMidi = false ;
-boolean rideauOpenClose ;
+boolean curtainOpenClose ;
 
 boolean[] clavier = new boolean[526];
-boolean chargement = false ;
+boolean loadSliderPos = false ;
 boolean ouvrirFichier = false ;
 
 //ANNEXE

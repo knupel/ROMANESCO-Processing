@@ -1,11 +1,11 @@
-Slider Name,Column 1,Column 2,Column 3,Column 4,Column 5,Column 6,Column 7,Column 8,Column 9, Column 10, Column 11, Column 12
-général,Hue,Saturation,Brigthness,Opacity,Sound Left,Sound Rigth,TYPOGRAPHY,CURTAIN,,,,
+Slider Name,Column 1,Column 2,Column 3,Column 4,Column 5,Column 6,Column 7,Column 8,Column 9,Column 10,Column 11,Column 12
+général,Hue,Saturation,Brigthness,Opacity,Left,Rigth,TYPOGRAPHY,CURTAIN,Hue,Saturation,Brightness,
 Object 1,Hue,Saturation,Brigthness,Opacity,Hue,Saturation,Brigthness,Opacity,,,,
-Object 2,,,Thickness,Quantity,Life,Speed,Amplitude, deg ,,,,
+Object 2,,,Thickness,Quantity,Life,Speed,Amplitude,orientation,,,,
 Object 3,Heigth,Width,Depth,Curve,Attraction,Force,Family,Angle,,,,
 Texture 1,Hue,Saturation,Brigthness,Opacity,Hue,Saturation,Density,Opacity,,,,
-Texture 2,,,Thickness,Quantity,Life,Speed,Amplitude, deg,,,,
+Texture 2,,,Thickness,Quantity,Life,Speed,Amplitude,orientation,,,,
 Texture 3,Heigth,Width,Depth,,,Force,,Analyze,,,,
 Typography 1,Hue,Saturation,Brigthness,Opacity,,,,,,,,
-Typography 2,,,Thickness,,,Speed,Amplitude, deg,,,,
+Typography 2,,,Thickness,,,Speed,Amplitude,orientation,,,,
 Typography 3,Heigth,Width,Depth,,,,,Size font,,,,

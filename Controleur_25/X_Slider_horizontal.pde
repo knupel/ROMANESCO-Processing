@@ -15,14 +15,10 @@ class RegletteHorizontale
   int newValMidi ;
   int IDmidi = -2 ;
 
-  RegletteHorizontale (int xp, int yp, int LRH, int HRH, int s, color boutonOUT, color boutonIN, color reglette, int transparence, int pC, int IDmidi) 
-  {
+  RegletteHorizontale (int xp, int yp, int LRH, int HRH, int s, color boutonOUT, color boutonIN, color reglette, int transparence, int pC, int IDmidi) {
     this.IDmidi = IDmidi ;
-    int widthtoheight = LRH - HRH;
-    
     longueurRH = LRH;   hauteurRH = HRH;              suivit = s;
     xpos = xp;          ypos = yp-hauteurRH/2;
-    float h = float(hauteurRH) ;
     float lh = float(longueurRH) ;
     
     //molette position
@@ -33,19 +29,21 @@ class RegletteHorizontale
     bOUT = boutonOUT ;  bIN = boutonIN ; rglt = reglette   ; transp = transparence ;
     
   }
-  //DISPLAY
-  void display() {
+  
+  //DISPLAY MOLETTE
+  void displayMolette(color cIn, color cOut, color colorOutline, PVector size) {
     fill(rglt, transp);
-    rect(xpos, ypos, longueurRH, hauteurRH); // affichage de la réglette
-    stroke(blanc) ; strokeWeight(1) ;
+    rect(xpos, ypos, longueurRH, hauteurRH); 
+    stroke(colorOutline) ; strokeWeight(size.z) ;
     if(dedans || locked) {
-      fill(bIN);
-      chargement = false ;
+      fill(cIn);
+      loadSliderPos = false ;
     } else {
-      fill(bOUT);
+      fill(cOut);
     }
-    //affichage molette   
-    rect(spos, ypos-3, hauteurRH-2, hauteurRH+4);
+    //display  
+    rect(spos, ypos-3, size.x, size.y);
+    // ellipse(spos +(size.y *.5), ypos-3 +(size.y *.5), size.y *1.2, size.y *1.2);
     noStroke() ;   
   }
 
@@ -60,7 +58,7 @@ class RegletteHorizontale
     NloadX = xpos + (loadX / (100.0 + ( (11.0/lh)*rapportChargement) ) * longueurRH);
     NLX = round(NloadX) ;
     // Choix entre le chargement des sauvegarde de position ou les coordonnées de la souris
-    if(chargement ) {
+    if(loadSliderPos ) {
       posX = NLX ; 
     } else { 
       posX = curseurX ; 
@@ -70,12 +68,11 @@ class RegletteHorizontale
    if(mousePressed && dedans) locked = true ;
    if(!mousePressed) locked = false ;
    
-   if(locked || chargement) {
+   if(locked || loadSliderPos) {
       newspos = constrain(posX-hauteurRH/2, sposMin, sposMax);
     }
 
     if(abs(newspos - spos) > 1) {
-      restart() ; // this line is from the main program to make a activityCount to zero
       spos = spos + (newspos-spos)/suivit;
     }
   }
@@ -101,7 +98,6 @@ class RegletteHorizontale
   void load(int loadX) {
     float lh = float(longueurRH) ;
     spos = xpos + (loadX / (100.0 + ( (11.0/lh)*rapportChargement) ) * longueurRH);
-    println(loadX + " / " + spos) ;
   }
   // give the ID from the controller Midi
   void selectIDmidi(int num) { IDmidi = num ; }
@@ -125,7 +121,4 @@ class RegletteHorizontale
   float getPos() { // nom de variable et () permet de récupérer les données d'un return
     return (((spos-xpos)/longueurRH)-0.004) *111 ;
   }
-
-
-  
 }

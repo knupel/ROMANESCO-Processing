@@ -500,12 +500,16 @@ void lightSetup() {
 //DRAW
 void lightDraw() {
   //change color of the directional light
+  colorLight = new PVector (map(valueSliderGlobal[6],0,100,0,360), valueSliderGlobal[7], valueSliderGlobal[8]) ;
+  /*
   colorLight.x += speedColorLight.x ;
   colorLight.y += speedColorLight.y ;
   colorLight.z += speedColorLight.z ;
+
   if (colorLight.x > 360 ) colorLight.x = 0 ;
   if (colorLight.y > 100 ) colorLight.y = 0 ;
   if (colorLight.z > 100 ) colorLight.z = 0 ;
+    */
   
   //change color og the ambient light
   colorAmbianceLight.x = map(mouseX, 0,width,0,360) ;

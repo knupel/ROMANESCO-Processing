@@ -12,16 +12,11 @@ String toPreScene [] = new String [8] ;
 
 
 void sendOSCsetup() {
-  
- osc = new OscP5(this, 10000);
- //To Préscène
+  osc = new OscP5(this, 10000);
  targetPreScene = new NetAddress(IPadress,10000);
-
-  
 }
 
-void sendOSCdraw()
-{
+void sendOSCdraw() {
   OscMessage RomanescoControleur = new OscMessage("ROMANESCO contrôleur");
   
   //int value join in one String 
@@ -64,20 +59,17 @@ void sendOSCdraw()
   
   
   
-void translateDataToSend()
-{
+void translateDataToSend() {
   //BUTTON GLOBAL
   //sound
   valueButtonGlobal[1] = EtatBbeat ;
   valueButtonGlobal[2] = EtatBkick ;
   valueButtonGlobal[3] = EtatBsnare ;
   valueButtonGlobal[4] = EtatBhat ;
-  //meteo
-  valueButtonGlobal[5] = EtatButtonMeteo ;
   //dropdown typo
   valueButtonGlobal[7] = dropdown[99].getSelection() +1 ; ;
-  //rideau
-  valueButtonGlobal[10] = EtatBOrideau ;
+  //curtain
+  valueButtonGlobal[10] = EtatBOcurtain ;
   
   //BUTTON OBJ
   int numObj = 9 ;

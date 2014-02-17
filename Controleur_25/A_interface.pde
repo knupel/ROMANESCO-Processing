@@ -24,8 +24,8 @@ int numSlider = 250 ;
 //SLIDER
 RegletteHorizontale [] RH = new RegletteHorizontale [numSlider] ;
 int suivitRH[] = new int[numSlider] ; 
-int margeGaucheRH[] = new int[numSlider] ;
-int margeHautRH[] = new int[numSlider] ;
+int posWidthRH[] = new int[numSlider] ;
+int posHeightRH[] = new int[numSlider] ;
 int longueurRH[] = new int[numSlider] ;
 int hauteurRH[] = new int[numSlider] ;
 float valueSlider[] = new float[numSlider] ;
@@ -45,7 +45,7 @@ int valueButtonObj[] = new int[numButtonObj] ;
 int valueButtonTex[] = new int[numButtonTex] ;
 int valueButtonTypo[] = new int[numButtonTypo] ;
 
-Simple  BOmidi, BOrideau, buttonMeteo,
+Simple  BOmidi, BOcurtain, buttonMeteo,
         Bbeat, Bkick, Bsnare, Bhat;
         
 //bouton objet
@@ -54,8 +54,8 @@ Simple[] BOf = new Simple[numButton] ;
 int transparenceBordBOf[] =      new int[numButton] ;
 int epaisseurBordBOf[] =         new int[numButton] ;
 int transparenceBoutonBOf[] =    new int[numButton] ;
-int margeGaucheBOf[] =           new int[numButton] ;
-int margeHautBOf[] =             new int[numButton] ;
+int posWidthBOf[] =           new int[numButton] ;
+int posHeightBOf[] =             new int[numButton] ;
 int longueurBOf[] =              new int[numButton] ;
 int hauteurBOf[] =               new int[numButton] ;
 
@@ -65,8 +65,8 @@ Simple[] BTf = new Simple[numButton] ;
 int transparenceBordBTf[] =      new int[numButton] ;
 int epaisseurBordBTf[] =         new int[numButton] ;
 int transparenceBoutonBTf[] =    new int[numButton] ;
-int margeGaucheBTf[] =           new int[numButton] ;
-int margeHautBTf[] =             new int[numButton] ;
+int posWidthBTf[] =           new int[numButton] ;
+int posHeightBTf[] =             new int[numButton] ;
 int longueurBTf[] =              new int[numButton] ;
 int hauteurBTf[] =               new int[numButton] ;
 
@@ -76,8 +76,8 @@ Simple[] BTYf = new Simple[numButton] ;
 int transparenceBordBTYf[] =      new int[numButton] ;
 int epaisseurBordBTYf[] =         new int[numButton] ;
 int transparenceBoutonBTYf[] =    new int[numButton] ;
-int margeGaucheBTYf[] =           new int[numButton] ;
-int margeHautBTYf[] =             new int[numButton] ;
+int posWidthBTYf[] =           new int[numButton] ;
+int posHeightBTYf[] =             new int[numButton] ;
 int longueurBTYf[] =              new int[numButton] ;
 int hauteurBTYf[] =               new int[numButton] ;
 
@@ -87,13 +87,13 @@ Simple[] BIf = new Simple[numButton] ;
 int transparenceBordBIf[] =      new int[numButton] ;
 int epaisseurBordBIf[] =         new int[numButton] ;
 int transparenceBoutonBIf[] =    new int[numButton] ;
-int margeGaucheBIf[] =           new int[numButton] ;
-int margeHautBIf[] =             new int[numButton] ;
+int posWidthBIf[] =           new int[numButton] ;
+int posHeightBIf[] =             new int[numButton] ;
 int longueurBIf[] =              new int[numButton] ;
 int hauteurBIf[] =               new int[numButton] ;
 
 int transparenceBordBE1, epaisseurBordBE1, transparenceBoutonBE1, 
-    margeGaucheBE1, margeHautBE1, longueurBE1, hauteurBE1 ;
+    posWidthBE1, posHeightBE1, longueurBE1, hauteurBE1 ;
     
 
 
@@ -104,27 +104,23 @@ int EtatBTf[] = new int[numButton] ;
 int EtatBTYf[] = new int[numButton] ;
 int EtatBIf[] = new int[numButton] ;
 
-//bouton midi
-int EtatButtonMeteo ;
-int transparenceBordButtonMeteo, epaisseurButtonMeteo, transparenceButtonMeteo, 
-    margeGaucheButtonMeteo, margeHautButtonMeteo, longueurButtonMeteo, hauteurButtonMeteo ;
     
 //bouton midi
 int EtatBOmidi ;
 int transparenceBordBOmidi, epaisseurBordBOmidi, transparenceBoutonBOmidi, 
-    margeGaucheBOmidi, margeHautBOmidi, longueurBOmidi, hauteurBOmidi ;
+    posWidthBOmidi, posHeightBOmidi, longueurBOmidi, hauteurBOmidi ;
 
-//bouton rideau
-int EtatBOrideau ;
-int transparenceBordBOrideau, epaisseurBordBOrideau, transparenceBoutonBOrideau, 
-    margeGaucheBOrideau, margeHautBOrideau, longueurBOrideau, hauteurBOrideau ;
+//bouton curtain
+int EtatBOcurtain ;
+int transparenceBordBOcurtain, epaisseurBordBOcurtain, transparenceBoutonBOcurtain, 
+    posWidthBOcurtain, posHeightBOcurtain, longueurBOcurtain, hauteurBOcurtain ;
 
 //bouton Musique
 int EtatBbeat, EtatBkick, EtatBsnare, EtatBhat ;
-int   margeGaucheBeat, margeHautBeat, longueurBeat,  hauteurBeat,
-  margeGaucheKick, margeHautKick, longueurKick,  hauteurKick,
-  margeGaucheSnare, margeHautSnare, longueurSnare,  hauteurSnare,
-  margeGaucheHat, margeHautHat, longueurHat,  hauteurHat ;
+int   posWidthBeat, posHeightBeat, longueurBeat,  hauteurBeat,
+  posWidthKick, posHeightKick, longueurKick,  hauteurKick,
+  posWidthSnare, posHeightSnare, longueurSnare,  hauteurSnare,
+  posWidthHat, posHeightHat, longueurHat,  hauteurHat ;
 
 
 //paramètres réglette couleur
@@ -133,39 +129,31 @@ int posXRH[] =      new int[numSlider*2] ;
 //paramètre généraux interface
 int hauteurRegH,
     mgRHc1, mgRHc2, mgRHc3,
-    margeHautBO,  margeGaucheBO,
-    margeHautRO,  margeGaucheRO,
-    margeHautBT,  margeGaucheBT,
-    margeHautRT,  margeGaucheRT,
-    margeHautBTY, margeGaucheBTY,
-    margeHautRTY, margeGaucheRTY,
-    margeHautBI,  margeGaucheBI,
-    margeHautRI,  margeGaucheRI ;
+    posHeightBO,  posWidthBO,
+    posHeightRO,  posWidthRO,
+    posHeightBT,  posWidthBT,
+    posHeightRT,  posWidthRT,
+    posHeightBTY, posWidthBTY,
+    posHeightRTY, posWidthRTY,
+    posHeightBI,  posWidthBI,
+    posHeightRI,  posWidthRI ;
 
 //SETUP
 void interfaceSetup() {
   fontSetup() ;
-  //Midi System
   midiSetup() ;
   importPicButtonSetup() ;
   //chargementReglette() ;
   buttonSliderSetup() ;
-  //call constructor
   constructorSliderButton() ;
-  dropdownSetup() ;
 }
 
 void interfaceDraw() {
   textDraw() ;
   midiDraw() ;
-  
   sliderDraw() ;
   moletteDraw () ;
-  //
-  buttonDisplayDraw () ;
-  buttonCheckDraw() ;
-  
-  dropdownDraw() ;
+  buttonDraw () ;
 }
 
 //END GLOBAL
@@ -200,162 +188,112 @@ void midiDraw() {
 
 //SETUP
 void buttonSliderSetup() {
-  //PARAMÈTRE RÉGLETTE & BOUTON
-  mgRHc1 = 20 ; mgRHc2 = 190 ; mgRHc3 = 360 ;
+  PVector columnPosVert = new PVector(22,197, 370) ; // give the pos of the column on the axis "x"
+  //PARAMÈTRE SLIDER and BUTTON
+  mgRHc1 = (int)columnPosVert.x ; mgRHc2 = (int)columnPosVert.y ; mgRHc3 = (int)columnPosVert.z ;
   hauteurRegH = 6 ;
-  margeHautBO  = 110  ;               margeGaucheBO  =30 ;
-  margeHautRO  = margeHautBO +60   ;  margeGaucheRO  =30 ;
-  margeHautBT  = 270  ;               margeGaucheBT  =30 ;
-  margeHautRT  = margeHautBT +60   ;  margeGaucheRT  =30 ;
-  margeHautBTY = 430 ;                margeGaucheBTY =30 ;
-  margeHautRTY = margeHautBTY +60  ;  margeGaucheRTY =30 ;
-  margeHautBI  = 560 ;                margeGaucheBI  =30 ;
-  margeHautRI  = margeHautRI +60   ;  margeGaucheRI  =30 ;
+  posHeightBO  = 110  ;               posWidthBO  =30 ;
+  posHeightRO  = posHeightBO +60   ;  posWidthRO  =30 ;
+  posHeightBT  = 270  ;               posWidthBT  =30 ;
+  posHeightRT  = posHeightBT +60   ;  posWidthRT  =30 ;
+  posHeightBTY = 430 ;                posWidthBTY =30 ;
+  posHeightRTY = posHeightBTY +60  ;  posWidthRTY =30 ;
+  posHeightBI  = 560 ;                posWidthBI  =30 ;
+  posHeightRI  = posHeightRI +60   ;  posWidthRI  =30 ;
   
-  //Paramètre bouton interface écran
-  //meteo
-  margeGaucheButtonMeteo = 20     ; margeHautButtonMeteo =28   ; longueurButtonMeteo =20  ; hauteurButtonMeteo =11 ;
-  //midi  
-  margeGaucheBOmidi = 490         ; margeHautBOmidi =27        ; longueurBOmidi =50       ; hauteurBOmidi =12 ;
-  //rideau  
-  margeGaucheBOrideau = 490       ; margeHautBOrideau =45      ; longueurBOrideau =50     ; hauteurBOrideau =12 ;
-  //beat button
-  margeGaucheBeat  = mgRHc2 +30   ; margeHautBeat  = 31        ; longueurBeat  =30        ; hauteurBeat  =10 ;
-  margeGaucheKick  = mgRHc2 +60   ; margeHautKick  = 31        ; longueurKick  =30        ; hauteurKick  =10 ;
-  margeGaucheSnare = mgRHc2 +88   ; margeHautSnare = 31        ; longueurSnare =45        ; hauteurSnare =10 ;
-  margeGaucheHat   = mgRHc2 +125  ; margeHautHat   = 31        ; longueurHat   =30        ; hauteurHat   =10 ;
-  
-  //Paramètre réglette couleur de fond
-  suivitRH[1] = 1 ; margeGaucheRH[1] = mgRHc1 ; margeHautRH[1]= 50     ; longueurRH[1] = 111 ; hauteurRH[1] = hauteurRegH ; // couleur du fond  
-  suivitRH[2] = 1 ; margeGaucheRH[2] = mgRHc1 ; margeHautRH[2]= 50 +10 ; longueurRH[2] = 111 ; hauteurRH[2] = hauteurRegH ;   
-  suivitRH[3] = 1 ; margeGaucheRH[3] = mgRHc1 ; margeHautRH[3]= 50 +20 ; longueurRH[3] = 111 ; hauteurRH[3] = hauteurRegH ;   
-  suivitRH[4] = 1 ; margeGaucheRH[4] = mgRHc1 ; margeHautRH[4]= 50 +30 ; longueurRH[4] = 111 ; hauteurRH[4] = hauteurRegH ;   
-  
-  suivitRH[5] = 1 ; margeGaucheRH[5] = mgRHc2 +30 ; margeHautRH[5]= 50 +7 ; longueurRH[5] = 111 ; hauteurRH[5] = hauteurRegH  ; // sound left
-  suivitRH[6] = 1 ; margeGaucheRH[6] = mgRHc2 +30 ; margeHautRH[6]= 50 +31 ; longueurRH[6] = 111 ; hauteurRH[6] = hauteurRegH ; // sound rigth 
-   
-  
-  //OBJECT SIMPLE
-  //position and area for the rollover
-  for (int i = 1 ; i <= numObjectSimple ; i++ ) {
-    margeGaucheBOf[i*10+1] = margeGaucheBO +((i-1)*40)-8 ; margeHautBOf[i*10+1] = margeHautBO -10  ; longueurBOf[i*10+1] = 20 ; hauteurBOf[i*10+1] = 20 ;  //main
-    margeGaucheBOf[i*10+2] = margeGaucheBO +((i-1)*40)-8 ; margeHautBOf[i*10+2] = margeHautBO +12  ; longueurBOf[i*10+2] = 19 ; hauteurBOf[i*10+2] = 6 ; //setting
-    margeGaucheBOf[i*10+3] = margeGaucheBO +((i-1)*40)-8 ; margeHautBOf[i*10+3] = margeHautBO +21  ; longueurBOf[i*10+3] = 10 ; hauteurBOf[i*10+3] = 6 ; //sound
-    margeGaucheBOf[i*10+4] = margeGaucheBO +((i-1)*40)+2 ; margeHautBOf[i*10+4] = margeHautBO +21  ; longueurBOf[i*10+4] = 10 ; hauteurBOf[i*10+4] = 6 ; //action
-    margeGaucheBOf[i*10+5] = margeGaucheBO +((i-1)*40)-8 ; margeHautBOf[i*10+5] = margeHautBO +31  ; longueurBOf[i*10+5] = 18 ; hauteurBOf[i*10+5] = 12 ; // meteo
-  }
-
-
- //Paramètre Object simple
-  suivitRH[11] = 1 ; margeGaucheRH[11] = mgRHc1 ; margeHautRH[11]= margeHautRO      ; longueurRH[11] = 111 ; hauteurRH[11] = hauteurRegH ;   // Hue (main)
-  suivitRH[12] = 1 ; margeGaucheRH[12] = mgRHc1 ; margeHautRH[12]= margeHautRO +10  ; longueurRH[12] = 111 ; hauteurRH[12] = hauteurRegH ;   // Saturation  (main)
-  suivitRH[13] = 1 ; margeGaucheRH[13] = mgRHc1 ; margeHautRH[13]= margeHautRO +20  ; longueurRH[13] = 111 ; hauteurRH[13] = hauteurRegH ;   // Brightness  (main)
-  suivitRH[14] = 1 ; margeGaucheRH[14] = mgRHc1 ; margeHautRH[14]= margeHautRO +30  ; longueurRH[14] = 111 ; hauteurRH[14] = hauteurRegH ;   // Opacity  (main)
-  suivitRH[15] = 1 ; margeGaucheRH[15] = mgRHc1 ; margeHautRH[15]= margeHautRO +40  ; longueurRH[15] = 111 ; hauteurRH[15] = hauteurRegH ;   // Hue (outline if there is )
-  suivitRH[16] = 1 ; margeGaucheRH[16] = mgRHc1 ; margeHautRH[16]= margeHautRO +50  ; longueurRH[16] = 111 ; hauteurRH[16] = hauteurRegH ;   // Saturation (outline if there is )
-  suivitRH[17] = 1 ; margeGaucheRH[17] = mgRHc1 ; margeHautRH[17]= margeHautRO +60  ; longueurRH[17] = 111 ; hauteurRH[17] = hauteurRegH  ;   // Brigthness ( outline if there is)
-  suivitRH[18] = 1 ; margeGaucheRH[18] = mgRHc1 ; margeHautRH[18]= margeHautRO +70  ; longueurRH[18] = 111 ; hauteurRH[18] = hauteurRegH  ;   //  Opacity ( if there is)
-  //Paramètre Object simple column 2
-  suivitRH[21] = 1 ; margeGaucheRH[21] = mgRHc2 ; margeHautRH[21]= margeHautRO      ; longueurRH[21] = 111 ; hauteurRH[21] = hauteurRegH ;    // Heigth
-  suivitRH[22] = 1 ; margeGaucheRH[22] = mgRHc2 ; margeHautRH[22]= margeHautRO +10  ; longueurRH[22] = 111 ; hauteurRH[22] = hauteurRegH ;    // Width
-  suivitRH[23] = 1 ; margeGaucheRH[23] = mgRHc2 ; margeHautRH[23]= margeHautRO +20  ; longueurRH[23] = 111 ; hauteurRH[23] = hauteurRegH ;    // Thickness
-  suivitRH[24] = 1 ; margeGaucheRH[24] = mgRHc2 ; margeHautRH[24]= margeHautRO +30  ; longueurRH[24] = 111 ; hauteurRH[24] = hauteurRegH ;    // Quantity
-  suivitRH[25] = 1 ; margeGaucheRH[25] = mgRHc2 ; margeHautRH[25]= margeHautRO +40  ; longueurRH[25] = 111 ; hauteurRH[25] = hauteurRegH ;    // Life
-  suivitRH[26] = 1 ; margeGaucheRH[26] = mgRHc2 ; margeHautRH[26]= margeHautRO +50  ; longueurRH[26] = 111 ; hauteurRH[26] = hauteurRegH ;    // Speed
-  suivitRH[27] = 1 ; margeGaucheRH[27] = mgRHc2 ; margeHautRH[27]= margeHautRO +60 ; longueurRH[27] = 111 ; hauteurRH[27] = hauteurRegH ;    // Easing
-  suivitRH[28] = 1 ; margeGaucheRH[28] = mgRHc2 ; margeHautRH[28]= margeHautRO +70 ; longueurRH[28] = 111 ; hauteurRH[28] = hauteurRegH ;    // Orientation
-  //Paramètre Object simple column 3
-  suivitRH[31] = 1 ; margeGaucheRH[31] = mgRHc3 ; margeHautRH[31]= margeHautRO      ; longueurRH[31] = 111 ; hauteurRH[31] = hauteurRegH ;     //Amplitude
-  suivitRH[32] = 1 ; margeGaucheRH[32] = mgRHc3 ; margeHautRH[32]= margeHautRO +10  ; longueurRH[32] = 111 ; hauteurRH[32] = hauteurRegH ;    
-  suivitRH[33] = 1 ; margeGaucheRH[33] = mgRHc3 ; margeHautRH[33]= margeHautRO +20  ; longueurRH[33] = 111 ; hauteurRH[33] = hauteurRegH ;   
-  suivitRH[34] = 1 ; margeGaucheRH[34] = mgRHc3 ; margeHautRH[34]= margeHautRO +30  ; longueurRH[34] = 111 ; hauteurRH[34] = hauteurRegH ;   
-  suivitRH[35] = 1 ; margeGaucheRH[35] = mgRHc3 ; margeHautRH[35]= margeHautRO +40  ; longueurRH[35] = 111 ; hauteurRH[35] = hauteurRegH ;   
-  suivitRH[36] = 1 ; margeGaucheRH[36] = mgRHc3 ; margeHautRH[36]= margeHautRO +50  ; longueurRH[36] = 111 ; hauteurRH[36] = hauteurRegH ;   
-  suivitRH[37] = 1 ; margeGaucheRH[37] = mgRHc3 ; margeHautRH[37]= margeHautRO +60 ; longueurRH[37] = 111 ; hauteurRH[37] = hauteurRegH ;   
-  suivitRH[38] = 1 ; margeGaucheRH[38] = mgRHc3 ; margeHautRH[38]= margeHautRO +70 ; longueurRH[38] = 111 ; hauteurRH[38] = hauteurRegH ;  
-  
-  
-  //OBJECT TEXTURE
-  for (int i = 1 ; i <= numObjectTexture ; i++ ) {
-    margeGaucheBTf[i*10+1] = margeGaucheBT +((i-1)*40)-8 ; margeHautBTf[i*10+1] = margeHautBT -10  ; longueurBTf[i*10+1] = 20 ; hauteurBTf[i*10+1] = 20 ; //main
-    margeGaucheBTf[i*10+2] = margeGaucheBT +((i-1)*40)-8 ; margeHautBTf[i*10+2] = margeHautBT +12  ; longueurBTf[i*10+2] = 19 ; hauteurBTf[i*10+2] = 6 ; //setting
-    margeGaucheBTf[i*10+3] = margeGaucheBT +((i-1)*40)-8 ; margeHautBTf[i*10+3] = margeHautBT +21  ; longueurBTf[i*10+3] = 10 ; hauteurBTf[i*10+3] = 6 ; //sound
-    margeGaucheBTf[i*10+4] = margeGaucheBT +((i-1)*40)+2 ; margeHautBTf[i*10+4] = margeHautBT +21  ; longueurBTf[i*10+4] = 10 ; hauteurBTf[i*10+4] = 6 ; //action
-    margeGaucheBTf[i*10+5] = margeGaucheBT +((i-1)*40)-8 ; margeHautBTf[i*10+5] = margeHautBT +31  ; longueurBTf[i*10+5] = 18 ; hauteurBTf[i*10+5] = 12 ; // meteo
-  }
-  
-  //TEXTURE column 1
-  suivitRH[111] = 1 ; margeGaucheRH[111] = mgRHc1 ; margeHautRH[111]= margeHautRT     ; longueurRH[111] = 111 ; hauteurRH[111] = hauteurRegH ;  // Hue (main)
-  suivitRH[112] = 1 ; margeGaucheRH[112] = mgRHc1 ; margeHautRH[112]= margeHautRT +10 ; longueurRH[112] = 111 ; hauteurRH[112] = hauteurRegH ;  // Saturation (main) 
-  suivitRH[113] = 1 ; margeGaucheRH[113] = mgRHc1 ; margeHautRH[113]= margeHautRT +20 ; longueurRH[113] = 111 ; hauteurRH[113] = hauteurRegH ;  // Brigthness (main)
-  suivitRH[114] = 1 ; margeGaucheRH[114] = mgRHc1 ; margeHautRH[114]= margeHautRT +30 ; longueurRH[114] = 111 ; hauteurRH[114] = hauteurRegH ;  // Opacity (main)   
-  suivitRH[115] = 1 ; margeGaucheRH[115] = mgRHc1 ; margeHautRH[115]= margeHautRT +40 ; longueurRH[115] = 111 ; hauteurRH[115] = hauteurRegH ;  // Hue ( outline if there is )
-  suivitRH[116] = 1 ; margeGaucheRH[116] = mgRHc1 ; margeHautRH[116]= margeHautRT +50 ; longueurRH[116] = 111 ; hauteurRH[116] = hauteurRegH ;  // Saturation ( outline if there is)  
-  suivitRH[117] = 1 ; margeGaucheRH[117] = mgRHc1 ; margeHautRH[117]= margeHautRT +60 ; longueurRH[117] = 111 ; hauteurRH[117] = hauteurRegH ;  // Brigthness ( outline if there is)
-  suivitRH[118] = 1 ; margeGaucheRH[118] = mgRHc1 ; margeHautRH[118]= margeHautRT +70 ; longueurRH[118] = 111 ; hauteurRH[118] = hauteurRegH ;  // Opcacity ( outline if there is)
-  //TEXTURE column 2  
-  suivitRH[121] = 1 ; margeGaucheRH[121] = mgRHc2 ; margeHautRH[121]= margeHautRT      ; longueurRH[121] = 111 ; hauteurRH[121] = hauteurRegH ;   // Height
-  suivitRH[122] = 1 ; margeGaucheRH[122] = mgRHc2 ; margeHautRH[122]= margeHautRT +10  ; longueurRH[122] = 111 ; hauteurRH[122] = hauteurRegH ;   // Width  
-  suivitRH[123] = 1 ; margeGaucheRH[123] = mgRHc2 ; margeHautRH[123]= margeHautRT +20  ; longueurRH[123] = 111 ; hauteurRH[123] = hauteurRegH ;   // Thickness
-  suivitRH[124] = 1 ; margeGaucheRH[124] = mgRHc2 ; margeHautRH[124]= margeHautRT +30  ; longueurRH[124] = 111 ; hauteurRH[124] = hauteurRegH ;   // Quantity 
-  suivitRH[125] = 1 ; margeGaucheRH[125] = mgRHc2 ; margeHautRH[125]= margeHautRT +40  ; longueurRH[125] = 111 ; hauteurRH[125] = hauteurRegH ;   // Life
-  suivitRH[126] = 1 ; margeGaucheRH[126] = mgRHc2 ; margeHautRH[126]= margeHautRT +50  ; longueurRH[126] = 111 ; hauteurRH[126] = hauteurRegH ;   // Speed 
-  suivitRH[127] = 1 ; margeGaucheRH[127] = mgRHc2 ; margeHautRH[127]= margeHautRT +60 ; longueurRH[127] = 111 ; hauteurRH[127] = hauteurRegH ;   // Easing
-  suivitRH[128] = 1 ; margeGaucheRH[128] = mgRHc2 ; margeHautRH[128]= margeHautRT +70 ; longueurRH[128] = 111 ; hauteurRH[128] = hauteurRegH ;   // Orientation
-  //TEXTURE column 3 
-  suivitRH[131] = 1 ; margeGaucheRH[131] = mgRHc3 ; margeHautRH[131]= margeHautRT      ; longueurRH[131] = 111 ; hauteurRH[131] = hauteurRegH ;   // Amplitude
-  suivitRH[132] = 1 ; margeGaucheRH[132] = mgRHc3 ; margeHautRH[132]= margeHautRT +10  ; longueurRH[132] = 111 ; hauteurRH[132] = hauteurRegH ;    
-  suivitRH[133] = 1 ; margeGaucheRH[133] = mgRHc3 ; margeHautRH[133]= margeHautRT +20  ; longueurRH[133] = 111 ; hauteurRH[133] = hauteurRegH ;   
-  suivitRH[134] = 1 ; margeGaucheRH[134] = mgRHc3 ; margeHautRH[134]= margeHautRT +30  ; longueurRH[134] = 111 ; hauteurRH[134] = hauteurRegH ;  
-  suivitRH[135] = 1 ; margeGaucheRH[135] = mgRHc3 ; margeHautRH[135]= margeHautRT +40  ; longueurRH[135] = 111 ; hauteurRH[135] = hauteurRegH ;  
-  suivitRH[136] = 1 ; margeGaucheRH[136] = mgRHc3 ; margeHautRH[136]= margeHautRT +50  ; longueurRH[136] = 111 ; hauteurRH[136] = hauteurRegH ;  
-  suivitRH[137] = 1 ; margeGaucheRH[137] = mgRHc3 ; margeHautRH[137]= margeHautRT +60 ; longueurRH[137] = 111 ; hauteurRH[137] = hauteurRegH ;  
-  suivitRH[138] = 1 ; margeGaucheRH[138] = mgRHc3 ; margeHautRH[138]= margeHautRT +70 ; longueurRH[138] = 111 ; hauteurRH[138] = hauteurRegH ;  //Analyze
-
-
-  //TYPOGRAPHY
-  //paramètre habillage couleur du bouton cercle BTY
-  for (int i = 1 ; i <= numObjectTypography ; i++ ) {
-    margeGaucheBTYf[i*10+1] = margeGaucheBTY +((i-1)*40)-8 ; margeHautBTYf[i*10+1] = margeHautBTY -10  ; longueurBTYf[i*10+1] = 20 ; hauteurBTYf[i*10+1] = 20 ; //main
-    margeGaucheBTYf[i*10+2] = margeGaucheBTY +((i-1)*40)-8 ; margeHautBTYf[i*10+2] = margeHautBTY +12  ; longueurBTYf[i*10+2] = 19 ; hauteurBTYf[i*10+2] = 6 ; //setting
-    margeGaucheBTYf[i*10+3] = margeGaucheBTY +((i-1)*40)-8 ; margeHautBTYf[i*10+3] = margeHautBTY +21  ; longueurBTYf[i*10+3] = 10 ; hauteurBTYf[i*10+3] = 6 ; //sound
-    margeGaucheBTYf[i*10+4] = margeGaucheBTY +((i-1)*40)+2 ; margeHautBTYf[i*10+4] = margeHautBTY +21  ; longueurBTYf[i*10+4] = 10 ; hauteurBTYf[i*10+4] = 6 ; //action
-    margeGaucheBTYf[i*10+5] = margeGaucheBTY +((i-1)*40)-8 ; margeHautBTYf[i*10+5] = margeHautBTY +31  ; longueurBTYf[i*10+5] = 18 ; hauteurBTYf[i*10+5] = 12 ; // meteo
-  }
-  //WHAT'S THIS !!!???
-  margeGaucheBE1 = mgRHc3  ; margeHautBE1 = margeHautBTY -6   ; longueurBE1 = 55 ; hauteurBE1 = 14 ;
-  
-  //TYPOGRAPHY column 1 
-  suivitRH[211] = 1 ; margeGaucheRH[211] = mgRHc1 ; margeHautRH[211] = margeHautRTY      ; longueurRH[211] = 111 ; hauteurRH[211] = hauteurRegH ;   // Hue
-  suivitRH[212] = 1 ; margeGaucheRH[212] = mgRHc1 ; margeHautRH[212] = margeHautRTY +10  ; longueurRH[212] = 111 ; hauteurRH[212] = hauteurRegH ;   // Saturation  
-  suivitRH[213] = 1 ; margeGaucheRH[213] = mgRHc1 ; margeHautRH[213] = margeHautRTY +20  ; longueurRH[213] = 111 ; hauteurRH[213] = hauteurRegH ;   // Brigthness  
-  suivitRH[214] = 1 ; margeGaucheRH[214] = mgRHc1 ; margeHautRH[214] = margeHautRTY +30  ; longueurRH[214] = 111 ; hauteurRH[214] = hauteurRegH ;   // Opacity
-  suivitRH[215] = 1 ; margeGaucheRH[215] = mgRHc1 ; margeHautRH[215] = margeHautRTY +40  ; longueurRH[215] = 111 ; hauteurRH[215] = hauteurRegH ;     
-  suivitRH[216] = 1 ; margeGaucheRH[216] = mgRHc1 ; margeHautRH[216] = margeHautRTY +50  ; longueurRH[216] = 111 ; hauteurRH[216] = hauteurRegH ;   
-  suivitRH[217] = 1 ; margeGaucheRH[217] = mgRHc1 ; margeHautRH[217] = margeHautRTY +60  ; longueurRH[217] = 111 ; hauteurRH[217] = hauteurRegH ;      
-  suivitRH[218] = 1 ; margeGaucheRH[218] = mgRHc1 ; margeHautRH[218] = margeHautRTY +70  ; longueurRH[218] = 111 ; hauteurRH[218] = hauteurRegH ;   
-  //TYPOGRAPHY column 2
-  suivitRH[221] = 1 ; margeGaucheRH[221] = mgRHc2 ; margeHautRH[221] = margeHautRTY      ; longueurRH[221] = 111 ; hauteurRH[221] = hauteurRegH ;  // heigth of paragraph 
-  suivitRH[222] = 1 ; margeGaucheRH[222] = mgRHc2 ; margeHautRH[222] = margeHautRTY +10  ; longueurRH[222] = 111 ; hauteurRH[222] = hauteurRegH ;  // width of paragraph  
-  suivitRH[223] = 1 ; margeGaucheRH[223] = mgRHc2 ; margeHautRH[223] = margeHautRTY +20  ; longueurRH[223] = 111 ; hauteurRH[223] = hauteurRegH ;      
-  suivitRH[224] = 1 ; margeGaucheRH[224] = mgRHc2 ; margeHautRH[224] = margeHautRTY +30  ; longueurRH[224] = 111 ; hauteurRH[224] = hauteurRegH ;   
-  suivitRH[225] = 1 ; margeGaucheRH[225] = mgRHc2 ; margeHautRH[225] = margeHautRTY +40  ; longueurRH[225] = 111 ; hauteurRH[225] = hauteurRegH ;  
-  suivitRH[226] = 1 ; margeGaucheRH[226] = mgRHc2 ; margeHautRH[226] = margeHautRTY +50  ; longueurRH[226] = 111 ; hauteurRH[226] = hauteurRegH ;   
-  suivitRH[227] = 1 ; margeGaucheRH[227] = mgRHc2 ; margeHautRH[227] = margeHautRTY +60  ; longueurRH[227] = 111 ; hauteurRH[227] = hauteurRegH ;     
-  suivitRH[228] = 1 ; margeGaucheRH[228] = mgRHc2 ; margeHautRH[228] = margeHautRTY +70  ; longueurRH[228] = 111 ; hauteurRH[228] = hauteurRegH ;   // Orientation
-  //TYPOGRAPHY column 3
-  suivitRH[231] = 1 ; margeGaucheRH[231] = mgRHc3 ; margeHautRH[231] = margeHautRTY      ; longueurRH[231] = 111 ; hauteurRH[231] = hauteurRegH ; //amplitude  
-  suivitRH[232] = 1 ; margeGaucheRH[232] = mgRHc3 ; margeHautRH[232] = margeHautRTY +10  ; longueurRH[232] = 111 ; hauteurRH[232] = hauteurRegH ;     
-  suivitRH[233] = 1 ; margeGaucheRH[233] = mgRHc3 ; margeHautRH[233] = margeHautRTY +20  ; longueurRH[233] = 111 ; hauteurRH[233] = hauteurRegH ;      
-  suivitRH[234] = 1 ; margeGaucheRH[234] = mgRHc3 ; margeHautRH[234] = margeHautRTY +30  ; longueurRH[234] = 111 ; hauteurRH[234] = hauteurRegH ;  
-  suivitRH[235] = 1 ; margeGaucheRH[235] = mgRHc3 ; margeHautRH[235] = margeHautRTY +40  ; longueurRH[235] = 111 ; hauteurRH[235] = hauteurRegH ;      
-  suivitRH[236] = 1 ; margeGaucheRH[236] = mgRHc3 ; margeHautRH[236] = margeHautRTY +50  ; longueurRH[236] = 111 ; hauteurRH[236] = hauteurRegH ;  
-  suivitRH[237] = 1 ; margeGaucheRH[237] = mgRHc3 ; margeHautRH[237] = margeHautRTY +60  ; longueurRH[237] = 111 ; hauteurRH[237] = hauteurRegH ;      
-  suivitRH[238] = 1 ; margeGaucheRH[238] = mgRHc3 ; margeHautRH[238] = margeHautRTY +70  ; longueurRH[238] = 111 ; hauteurRH[238] = hauteurRegH ;  //size font
-    
+  groupZero() ;
+  groupOne() ;
+  groupTwo() ;
+  groupThree() ;
+ 
+  dropdownSetup() ;
 }
 
 
+
+/////////////////////
+void groupZero() {
+  //midi  
+  posWidthBOmidi = 427         ; posHeightBOmidi =27        ; longueurBOmidi =50       ; hauteurBOmidi =12 ;
+  //curtain  
+  posWidthBOcurtain = 490       ; posHeightBOcurtain =27      ; longueurBOcurtain =50     ; hauteurBOcurtain =12 ;
+  //beat button
+  posWidthBeat  = mgRHc3 +0  ; posHeightBeat  = 51  ; longueurBeat  =30  ; hauteurBeat  =10 ;
+  posWidthKick  = mgRHc3 +30 ; posHeightKick  = 51  ; longueurKick  =30  ; hauteurKick  =10 ;
+  posWidthSnare = mgRHc3 +58 ; posHeightSnare = 51  ; longueurSnare =45  ; hauteurSnare =10 ;
+  posWidthHat   = mgRHc3 +95 ; posHeightHat   = 51  ; longueurHat   =30  ; hauteurHat   =10 ;
+  
+  //Background
+  suivitRH[1] = 1 ; posWidthRH[1] = mgRHc1 ; posHeightRH[1]= 50     ; longueurRH[1] = 111 ; hauteurRH[1] = hauteurRegH ; // couleur du fond  
+  suivitRH[2] = 1 ; posWidthRH[2] = mgRHc1 ; posHeightRH[2]= 50 +10 ; longueurRH[2] = 111 ; hauteurRH[2] = hauteurRegH ;   
+  suivitRH[3] = 1 ; posWidthRH[3] = mgRHc1 ; posHeightRH[3]= 50 +20 ; longueurRH[3] = 111 ; hauteurRH[3] = hauteurRegH ;   
+  suivitRH[4] = 1 ; posWidthRH[4] = mgRHc1 ; posHeightRH[4]= 50 +30 ; longueurRH[4] = 111 ; hauteurRH[4] = hauteurRegH ;   
+  //sound
+  suivitRH[5] = 1 ; posWidthRH[5] = mgRHc3  ; posHeightRH[5]= 50 +20 ; longueurRH[5] = 111 ; hauteurRH[5] = hauteurRegH  ; // sound left
+  suivitRH[6] = 1 ; posWidthRH[6] = mgRHc3  ; posHeightRH[6]= 50 +30 ; longueurRH[6] = 111 ; hauteurRH[6] = hauteurRegH ; // sound rigth 
+  //LIGHT
+  suivitRH[7] = 1 ; posWidthRH[7] = mgRHc2 ; posHeightRH[7]= 50     ; longueurRH[7] = 111 ; hauteurRH[7] = hauteurRegH ; // couleur du fond  
+  suivitRH[8] = 1 ; posWidthRH[8] = mgRHc2 ; posHeightRH[8]= 50 +10 ; longueurRH[8] = 111 ; hauteurRH[8] = hauteurRegH ;   
+  suivitRH[9] = 1 ; posWidthRH[9] = mgRHc2 ; posHeightRH[9]= 50 +20 ; longueurRH[9] = 111 ; hauteurRH[9] = hauteurRegH ;  
+}
+
+//////////////
+void groupOne() {
+  //position and area for the rollover
+  for (int i = 1 ; i <= numObjectSimple ; i++ ) {
+    posWidthBOf[i*10+1] = posWidthBO +((i-1)*40)-8 ; posHeightBOf[i*10+1] = posHeightBO -10  ; longueurBOf[i*10+1] = 20 ; hauteurBOf[i*10+1] = 20 ;  //main
+    posWidthBOf[i*10+2] = posWidthBO +((i-1)*40)-8 ; posHeightBOf[i*10+2] = posHeightBO +12  ; longueurBOf[i*10+2] = 19 ; hauteurBOf[i*10+2] = 6 ; //setting
+    posWidthBOf[i*10+3] = posWidthBO +((i-1)*40)-8 ; posHeightBOf[i*10+3] = posHeightBO +21  ; longueurBOf[i*10+3] = 10 ; hauteurBOf[i*10+3] = 6 ; //sound
+    posWidthBOf[i*10+4] = posWidthBO +((i-1)*40)+2 ; posHeightBOf[i*10+4] = posHeightBO +21  ; longueurBOf[i*10+4] = 10 ; hauteurBOf[i*10+4] = 6 ; //action
+    posWidthBOf[i*10+5] = posWidthBO +((i-1)*40)-8 ; posHeightBOf[i*10+5] = posHeightBO +31  ; longueurBOf[i*10+5] = 18 ; hauteurBOf[i*10+5] = 12 ; // meteo
+  }
+
+  // where the controleur must display the slider
+  for( int i = 0 ; i < 8 ; i++ ) {
+    suivitRH[i+11] = 1 ; posWidthRH[i+11] = mgRHc1 ; posHeightRH[i+11] = posHeightRO +i*10 ; longueurRH[i+11] = 111 ; hauteurRH[i+11] = hauteurRegH ;
+    suivitRH[i+21] = 1 ; posWidthRH[i+21] = mgRHc2 ; posHeightRH[i+21] = posHeightRO +i*10 ; longueurRH[i+21] = 111 ; hauteurRH[i+21] = hauteurRegH ;
+    suivitRH[i+31] = 1 ; posWidthRH[i+31] = mgRHc3 ; posHeightRH[i+31] = posHeightRO +i*10 ; longueurRH[i+31] = 111 ; hauteurRH[i+31] = hauteurRegH ;
+  }
+}
+
+//////////////////
+void groupTwo() {
+  for (int i = 1 ; i <= numObjectTexture ; i++ ) {
+    posWidthBTf[i*10+1] = posWidthBT +((i-1)*40)-8 ; posHeightBTf[i*10+1] = posHeightBT -10  ; longueurBTf[i*10+1] = 20 ; hauteurBTf[i*10+1] = 20 ; //main
+    posWidthBTf[i*10+2] = posWidthBT +((i-1)*40)-8 ; posHeightBTf[i*10+2] = posHeightBT +12  ; longueurBTf[i*10+2] = 19 ; hauteurBTf[i*10+2] = 6 ; //setting
+    posWidthBTf[i*10+3] = posWidthBT +((i-1)*40)-8 ; posHeightBTf[i*10+3] = posHeightBT +21  ; longueurBTf[i*10+3] = 10 ; hauteurBTf[i*10+3] = 6 ; //sound
+    posWidthBTf[i*10+4] = posWidthBT +((i-1)*40)+2 ; posHeightBTf[i*10+4] = posHeightBT +21  ; longueurBTf[i*10+4] = 10 ; hauteurBTf[i*10+4] = 6 ; //action
+    posWidthBTf[i*10+5] = posWidthBT +((i-1)*40)-8 ; posHeightBTf[i*10+5] = posHeightBT +31  ; longueurBTf[i*10+5] = 18 ; hauteurBTf[i*10+5] = 12 ; // meteo
+  }
+  // where the controle must display the slider
+  for( int i = 0 ; i < 8 ; i++ ) {
+    suivitRH[i+111] = 1 ; posWidthRH[i+111] = mgRHc1 ; posHeightRH[i+111] = posHeightRT +i*10 ; longueurRH[i+111] = 111 ; hauteurRH[i+111] = hauteurRegH ;
+    suivitRH[i+121] = 1 ; posWidthRH[i+121] = mgRHc2 ; posHeightRH[i+121] = posHeightRT +i*10 ; longueurRH[i+121] = 111 ; hauteurRH[i+121] = hauteurRegH ;
+    suivitRH[i+131] = 1 ; posWidthRH[i+131] = mgRHc3 ; posHeightRH[i+131] = posHeightRT +i*10 ; longueurRH[i+131] = 111 ; hauteurRH[i+131] = hauteurRegH ;
+  }
+}
+
+/////////////////
+void groupThree() {
+    //TYPOGRAPHY
+  //paramètre habillage couleur du bouton cercle BTY
+  for (int i = 1 ; i <= numObjectTypography ; i++ ) {
+    posWidthBTYf[i*10+1] = posWidthBTY +((i-1)*40)-8 ; posHeightBTYf[i*10+1] = posHeightBTY -10  ; longueurBTYf[i*10+1] = 20 ; hauteurBTYf[i*10+1] = 20 ; //main
+    posWidthBTYf[i*10+2] = posWidthBTY +((i-1)*40)-8 ; posHeightBTYf[i*10+2] = posHeightBTY +12  ; longueurBTYf[i*10+2] = 19 ; hauteurBTYf[i*10+2] = 6 ; //setting
+    posWidthBTYf[i*10+3] = posWidthBTY +((i-1)*40)-8 ; posHeightBTYf[i*10+3] = posHeightBTY +21  ; longueurBTYf[i*10+3] = 10 ; hauteurBTYf[i*10+3] = 6 ; //sound
+    posWidthBTYf[i*10+4] = posWidthBTY +((i-1)*40)+2 ; posHeightBTYf[i*10+4] = posHeightBTY +21  ; longueurBTYf[i*10+4] = 10 ; hauteurBTYf[i*10+4] = 6 ; //action
+    posWidthBTYf[i*10+5] = posWidthBTY +((i-1)*40)-8 ; posHeightBTYf[i*10+5] = posHeightBTY +31  ; longueurBTYf[i*10+5] = 18 ; hauteurBTYf[i*10+5] = 12 ; // meteo
+  }
+  //WHAT'S THIS !!!???
+  posWidthBE1 = mgRHc3  ; posHeightBE1 = posHeightBTY -6   ; longueurBE1 = 55 ; hauteurBE1 = 14 ;
+  
+  // where the controleur must display the slider
+  for( int i = 0 ; i < 8 ; i++ ) {
+    suivitRH[i+211] = 1 ; posWidthRH[i+211] = mgRHc1 ; posHeightRH[i+211] = posHeightRTY +i*10 ; longueurRH[i+211] = 111 ; hauteurRH[i+211] = hauteurRegH ;
+    suivitRH[i+221] = 1 ; posWidthRH[i+221] = mgRHc2 ; posHeightRH[i+221] = posHeightRTY +i*10 ; longueurRH[i+221] = 111 ; hauteurRH[i+221] = hauteurRegH ;
+    suivitRH[i+231] = 1 ; posWidthRH[i+231] = mgRHc3 ; posHeightRH[i+231] = posHeightRTY +i*10 ; longueurRH[i+231] = 111 ; hauteurRH[i+231] = hauteurRegH ;
+  } 
+}
 
 
 
@@ -365,33 +303,32 @@ void buttonSliderSetup() {
 /////////////
 //CONSTRUCTOR
 void constructorSliderButton() {
-  //button meteo
-  buttonMeteo = new Simple(margeGaucheButtonMeteo,  margeHautButtonMeteo, longueurButtonMeteo, hauteurButtonMeteo) ;
   //button beat
-  Bbeat = new Simple(margeGaucheBeat, margeHautBeat, longueurBeat,  hauteurBeat, vertTresFonce, vertFonce, rouge, rougeFonce, gris, grisNoir) ;
-  Bkick = new Simple(margeGaucheKick, margeHautKick, longueurKick,  hauteurKick, vertTresFonce, vertFonce, rouge, rougeFonce, gris, grisNoir) ;
-  Bsnare = new Simple(margeGaucheSnare, margeHautSnare, longueurSnare,  hauteurSnare, vertTresFonce, vertFonce, rouge, rougeFonce, gris, grisNoir) ;
-  Bhat = new Simple(margeGaucheHat, margeHautHat, longueurHat,  hauteurHat, vertTresFonce, vertFonce, rouge, rougeFonce, gris, grisNoir) ;
+  Bbeat = new Simple(posWidthBeat, posHeightBeat, longueurBeat,  hauteurBeat, vertTresFonce, vertFonce, rouge, rougeFonce, gris, grisNoir) ;
+  Bkick = new Simple(posWidthKick, posHeightKick, longueurKick,  hauteurKick, vertTresFonce, vertFonce, rouge, rougeFonce, gris, grisNoir) ;
+  Bsnare = new Simple(posWidthSnare, posHeightSnare, longueurSnare,  hauteurSnare, vertTresFonce, vertFonce, rouge, rougeFonce, gris, grisNoir) ;
+  Bhat = new Simple(posWidthHat, posHeightHat, longueurHat,  hauteurHat, vertTresFonce, vertFonce, rouge, rougeFonce, gris, grisNoir) ;
   //MIDI
-  BOmidi  = new Simple ( margeGaucheBOmidi, margeHautBOmidi, longueurBOmidi, hauteurBOmidi, vert, vertFonce, rouge, rougeFonce, gris, grisNoir ) ;
-  //RIDEAU
-  BOrideau  = new Simple ( margeGaucheBOrideau, margeHautBOrideau, longueurBOrideau, hauteurBOrideau, vert, vertFonce, rouge, rougeFonce, gris, grisNoir ) ;
+  BOmidi  = new Simple ( posWidthBOmidi, posHeightBOmidi, longueurBOmidi, hauteurBOmidi, vert, vertFonce, rouge, rougeFonce, gris, grisNoir ) ;
+  //curtain
+  BOcurtain  = new Simple ( posWidthBOcurtain, posHeightBOcurtain, longueurBOcurtain, hauteurBOcurtain, vert, vertFonce, rouge, rougeFonce, gris, grisNoir ) ;
   
   //button object, texture, typography
   for ( int i = 11 ; i < numButton ; i++) {
-    //object
-    BOf[i] = new Simple(  margeGaucheBOf[i], margeHautBOf[i], longueurBOf[i], hauteurBOf[i], boutonONin, boutonONout, boutonOFFin, boutonOFFout, gris, grisNoir ) ; 
-    //texture
-    BTf[i] = new Simple(  margeGaucheBTf[i], margeHautBTf[i], longueurBTf[i], hauteurBTf[i], boutonONin, boutonONout, boutonOFFin, boutonOFFout, gris, grisNoir ) ;
-    //typo
-    BTYf[i] = new Simple(  margeGaucheBTYf[i], margeHautBTYf[i], longueurBTYf[i], hauteurBTYf[i], boutonONin, boutonONout, boutonOFFin, boutonOFFout, gris, grisNoir ) ;
+    // group one
+    BOf[i] = new Simple(  posWidthBOf[i], posHeightBOf[i], longueurBOf[i], hauteurBOf[i], boutonONin, boutonONout, boutonOFFin, boutonOFFout, gris, grisNoir ) ; 
+    // group two
+    BTf[i] = new Simple(  posWidthBTf[i], posHeightBTf[i], longueurBTf[i], hauteurBTf[i], boutonONin, boutonONout, boutonOFFin, boutonOFFout, gris, grisNoir ) ;
+    // group Three
+    BTYf[i] = new Simple(  posWidthBTYf[i], posHeightBTYf[i], longueurBTYf[i], hauteurBTYf[i], boutonONin, boutonONout, boutonOFFin, boutonOFFout, gris, grisNoir ) ;
   }
   
   //slider
   for ( int i = 1 ; i < numSlider ; i++ ) {
+    //exception for the slider who must show the color
     int opacityReglette = 200 ;
-    if ( (i < 4) || ( i > 10 && i < 19) || ( i > 110 && i < 119) || ( i > 210 && i < 219) ) opacityReglette = 0 ; else opacityReglette = 200 ;
-    RH[i] = new RegletteHorizontale  (margeGaucheRH[i], margeHautRH[i], longueurRH[i], hauteurRH[i], suivitRH[i], orange, rouge, blancGrisClair, opacityReglette, loadR [i], loadR [i+numSlider]);
+    if ( (i < 4) || ( i > 6 && i < 19) || ( i > 110 && i < 119) || ( i > 210 && i < 219) ) opacityReglette = 0 ; else opacityReglette = 200 ;
+    RH[i] = new RegletteHorizontale  (posWidthRH[i], posHeightRH[i], longueurRH[i], hauteurRH[i], suivitRH[i], orange, rouge, blancGrisClair, opacityReglette, loadR [i], loadR [i+numSlider]);
   } 
 }
 //END CONSTRUCTOR
@@ -435,361 +372,334 @@ void textDraw() {
   text("ROMANESCO alpha "+release, 5, 20); 
   //CLOCK
   textFont(FuturaStencil_20,20); textAlign(RIGHT);
-  text(  nf(hour(),2)   + ":" + 
-         nf(minute(),2) , 
-         width -10, 20);
+  text(  nf(hour(),2)   + ":" +nf(minute(),2) , width -10, 20);
   fill (typoTitre) ; 
   textFont(texteInterface, sizeTexteInterface) ; textAlign(LEFT);
   fill (typoCourante) ;
 
-  text(genTxtGUI[1],       mgRHc1 +116, 55);
-  text(genTxtGUI[2],    mgRHc1 +116, 65);
-  text(genTxtGUI[3],       mgRHc1 +116, 75);
-  text(genTxtGUI[4],       mgRHc1 +116, 85);
-
+  text(genTxtGUI[1],       mgRHc1 +116, 54);
+  text(genTxtGUI[2],    mgRHc1 +116, 64);
+  text(genTxtGUI[3],       mgRHc1 +116, 74);
+  text(genTxtGUI[4],       mgRHc1 +116, 84);
+  
+  text(genTxtGUI[9],       mgRHc2 +116, 54);
+  text(genTxtGUI[10],    mgRHc2 +116, 64);
+  text(genTxtGUI[11],       mgRHc2 +116, 74);
   
   fill (typoCourante) ;
   textFont(texteInterface); 
-  text(genTxtGUI[5],    mgRHc2 +30, 50);
-  text(genTxtGUI[6],    mgRHc2 +30, 72);
- 
-   
-  //OBJECT SIMPLE
+  text(genTxtGUI[5],    mgRHc3 +116, 74);
+  text(genTxtGUI[6],    mgRHc3 +116, 84);
+  
+  dislayTextSlider() ;
+}
+
+
+
+void dislayTextSlider() {
+  // GROUP ZERO
+  textFont(FuturaStencil_20,20); textAlign(LEFT);
+  fill(blanc, 120) ;
+  text("BACKGROUND", mgRHc1, 43);
+  text("LIGHT", mgRHc2, 43);
+  
+  //GROUP ONE
   textFont(FuturaStencil_20,20); textAlign(RIGHT);
   fill(blanc, 120) ;
-  pushMatrix () ; rotate (-PI/2) ;  text("SIMPLE", -margeHautRO +70, 18); popMatrix() ;
+  pushMatrix () ; rotate (-PI/2) ;  text("SIMPLE", -posHeightRO +70, 18); popMatrix() ;
   fill (typoCourante) ;
   textFont(texteInterface);  textAlign(LEFT);
   
-  //colonne 1
-  text(objTxtGUIone[1], mgRHc1 +116, margeHautRO +4);
-  text(objTxtGUIone[2], mgRHc1 +116, margeHautRO +14);
-  text(objTxtGUIone[3], mgRHc1 +116, margeHautRO +24);
-  text(objTxtGUIone[4], mgRHc1 +116, margeHautRO +34);
-  text(objTxtGUIone[5], mgRHc1 +116, margeHautRO +44);
-  text(objTxtGUIone[6], mgRHc1 +116, margeHautRO +54);
-  text(objTxtGUIone[7], mgRHc1 +116, margeHautRO +64);
-  text(objTxtGUIone[8], mgRHc1 +116, margeHautRO +74);
-  
-  //colonne 2
-  text(objTxtGUItwo[1], mgRHc2 +116, margeHautRO +4);
-  text(objTxtGUItwo[2], mgRHc2 +116, margeHautRO +14);    
-  text(objTxtGUItwo[3], mgRHc2 +116, margeHautRO +24);
-  text(objTxtGUItwo[4], mgRHc2 +116, margeHautRO +34);    
-  text(objTxtGUItwo[5], mgRHc2 +116, margeHautRO +44);
-  text(objTxtGUItwo[6], mgRHc2 +116, margeHautRO +54);
-  text(objTxtGUItwo[7], mgRHc2 +116, margeHautRO +64);
-  int degreO ;
-  float dO = map (valueSlider[28],  0, 100, 0, 360 ) ;
-  degreO = round(dO) ;
-  text(degreO  + objTxtGUItwo[8],    mgRHc2 +116,  margeHautRO +74); 
-  
-  //colonne 3
-  text(objTxtGUIthree[1],   mgRHc3 +116, margeHautRO +4);
-  text(objTxtGUIthree[2],   mgRHc3 +116, margeHautRO +14);
-  text(objTxtGUIthree[3],   mgRHc3 +116, margeHautRO +24);
-  text(objTxtGUIthree[4],  mgRHc3 +116, margeHautRO +34);
-  text(objTxtGUIthree[5],  mgRHc3 +116, margeHautRO +44);
-  text(objTxtGUIthree[6],  mgRHc3 +116, margeHautRO +54);   
-  text(objTxtGUIthree[7],  mgRHc3 +116, margeHautRO +64);  
-  text(objTxtGUIthree[8],  mgRHc3 +116, margeHautRO +74);
-  
-  //TEXTURE
+  // GROUP TWO
   textFont(FuturaStencil_20,20);  textAlign(RIGHT);
   fill(blanc, 120) ;
-  pushMatrix () ; rotate (-PI/2) ;  text("TEXTURE", -margeHautRT +70, 18); popMatrix() ;
+  pushMatrix () ; rotate (-PI/2) ;  text("TEXTURE", -posHeightRT +70, 18); popMatrix() ;
   fill (typoCourante) ;
   textFont(texteInterface);  textAlign(LEFT);
   
-  //column 1
-  text(textureTxtGUIone[1], mgRHc1 +116, margeHautRT +4);
-  text(textureTxtGUIone[2], mgRHc1 +116, margeHautRT +14);
-  text(textureTxtGUIone[3], mgRHc1 +116, margeHautRT +24);
-  text(textureTxtGUIone[4], mgRHc1 +116, margeHautRT +34);
-  text(textureTxtGUIone[5], mgRHc1 +116, margeHautRT +44);
-  text(textureTxtGUIone[6], mgRHc1 +116, margeHautRT +54);
-  text(textureTxtGUIone[7], mgRHc1 +116, margeHautRT +64);
-  text(textureTxtGUIone[8], mgRHc1 +116, margeHautRT +74);
-  
-  //column 2
-  text(textureTxtGUItwo[1], mgRHc2 +116, margeHautRT +4);
-  text(textureTxtGUItwo[2], mgRHc2 +116, margeHautRT +14);    
-  text(textureTxtGUItwo[3], mgRHc2 +116, margeHautRT +24);
-  text(textureTxtGUItwo[4], mgRHc2 +116, margeHautRT +34);
-  text(textureTxtGUItwo[5], mgRHc2 +116, margeHautRT +44);
-  text(textureTxtGUItwo[6], mgRHc2 +116, margeHautRT +54); 
-  text(textureTxtGUItwo[7], mgRHc2 +116, margeHautRT +64);  
-  int degreT ;
-  float dT = map (valueSlider[128],  0, 100, 0, 360 ) ;
-  degreT = round(dT) ; 
-  text(degreT + textureTxtGUItwo[8],    mgRHc2 +116,  margeHautRT +74);
-  
-  //column 3
-  text(textureTxtGUIthree[1], mgRHc3 +116, margeHautRT +4);
-  text(textureTxtGUIthree[2], mgRHc3 +116, margeHautRT +14);
-  text(textureTxtGUIthree[3], mgRHc3 +116, margeHautRT +24);
-  text(textureTxtGUIthree[4], mgRHc3 +116, margeHautRT +34);
-  text(textureTxtGUIthree[5], mgRHc3 +116, margeHautRT +44);
-  text(textureTxtGUIthree[6], mgRHc3 +116, margeHautRT +54);
-  text(textureTxtGUIthree[7], mgRHc3 +116, margeHautRT +64);
-  text(textureTxtGUIthree[8], mgRHc3 +116, margeHautRT +74);
-
-
-  //TYPOGRAPHY
+  //GROUP THREE
   textFont(FuturaStencil_20,20); textAlign(RIGHT);
   fill(blanc, 120) ;
-  pushMatrix () ; rotate (-PI/2) ; text("TYPOGRAPHIE", -margeHautRTY +70, 18); popMatrix() ;
+  pushMatrix () ; rotate (-PI/2) ; text("TYPOGRAPHIE", -posHeightRTY +70, 18); popMatrix() ;
   fill (typoCourante) ;
   textFont(texteInterface); textAlign(LEFT);
   
-  //column 1
-  text(typoTxtGUIone[1], mgRHc1 +116,  margeHautRTY +3);
-  text(typoTxtGUIone[2], mgRHc1 +116,  margeHautRTY +13) ;    
-  text(typoTxtGUIone[3], mgRHc1 +116,  margeHautRTY +23) ;   
-  text(typoTxtGUIone[4], mgRHc1 +116,  margeHautRTY +33) ;
-  text(typoTxtGUIone[1], mgRHc1 +116,  margeHautRTY +43);
-  text(typoTxtGUIone[2], mgRHc1 +116,  margeHautRTY +53) ;    
-  text(typoTxtGUIone[3], mgRHc1 +116,  margeHautRTY +63) ;   
-  text(typoTxtGUIone[4], mgRHc1 +116,  margeHautRTY +73) ;   
+  // Legend text slider position
+  int correctionPos = 4 ;
+  for ( int i = 0 ; i < 8 ; i++) {
+    //group one
+    text(objTxtGUIone[i+1], mgRHc1 +116, posHeightRO +correctionPos +(i*10));
+    text(objTxtGUItwo[i+1], mgRHc2 +116, posHeightRO +correctionPos +(i*10));
+    text(objTxtGUIthree[i+1],   mgRHc3 +116, posHeightRO +correctionPos +(i*10));
+    //group two
+    text(textureTxtGUIone[i+1], mgRHc1 +116, posHeightRT +correctionPos +(i*10));
+    text(textureTxtGUItwo[i+1], mgRHc2 +116, posHeightRT +correctionPos +(i*10));
+    text(textureTxtGUIthree[i+1], mgRHc3 +116, posHeightRT +correctionPos +(i*10));
+    //group Three
+    text(typoTxtGUIone[i+1], mgRHc1 +116,  posHeightRTY +correctionPos +(i*10));
+    text(typoTxtGUItwo[i+1], mgRHc2 +116,  posHeightRTY +correctionPos +(i*10));
+    text(typoTxtGUIthree[i+1], mgRHc3 +116,  posHeightRTY +correctionPos +(i*10));
+  }
   
-  //column 2
-  text(typoTxtGUItwo[1], mgRHc2 +116,  margeHautRTY +3) ;
-  text(typoTxtGUItwo[2], mgRHc2 +116,  margeHautRTY +13) ;
-  text(typoTxtGUItwo[3], mgRHc2 +116,  margeHautRTY +23) ;
-  text(typoTxtGUItwo[4], mgRHc2 +116,  margeHautRTY +33) ;
-  text(typoTxtGUItwo[5], mgRHc2 +116,  margeHautRTY +43) ;
-  text(typoTxtGUItwo[6], mgRHc2 +116,  margeHautRTY +53) ;
-  text(typoTxtGUItwo[7], mgRHc2 +116,  margeHautRTY +63) ;
-  int degreTY ; 
-  float dTY = map (valueSlider[228], 0, 100, 0, 360 ) ; 
-  degreTY = round(dTY) ; 
-  text(degreTY + typoTxtGUItwo[8], mgRHc2 +116,  margeHautRTY +73);
-  
-  //column 3
-  text(typoTxtGUIthree[1], mgRHc3 +116,  margeHautRTY +3) ;
-  text(typoTxtGUIthree[2], mgRHc3 +116,  margeHautRTY +13) ;
-  text(typoTxtGUIthree[3], mgRHc3 +116,  margeHautRTY +23) ;
-  text(typoTxtGUIthree[4], mgRHc3 +116,  margeHautRTY +33) ;
-  text(typoTxtGUIthree[5], mgRHc3 +116,  margeHautRTY +43) ;
-  text(typoTxtGUIthree[6], mgRHc3 +116,  margeHautRTY +53) ;
-  text(typoTxtGUIthree[7], mgRHc3 +116,  margeHautRTY +63) ;
-  text(typoTxtGUIthree[8], mgRHc3 +116,  margeHautRTY +73) ;
-
+  // for information degre is value of rotation
+  /*
+  float degregroupOne = map (valueSlider[28],  0, 100, 0, 360 ) ;
+  float degregroupTwo = map (valueSlider[128],  0, 100, 0, 360 ) ;
+  float degregroupThree = map (valueSlider[228],  0, 100, 0, 360 ) ;
+  */
 }
+
 //END TEXT
+
+
+
+
+
 
 
 
 //MOLETTE
 void moletteDraw () {
+  PVector sizeMoletteSlider = new PVector (8,10, 1.5) ; // width, height, thickness
   //display and update the molette
   for ( int i = 0 ; i < numSlider ; i++) {
-    if ( (i>0 && i<7 ) || ( i>10 && i<19) || ( i>20 && i<29) || ( i>30 && i<39) || ( i>110 && i<119) || ( i>120 && i<129) || ( i>130 && i<139) || ( i>210 && i<219) || ( i>220 && i<229) || ( i>230 && i<239) ) { 
+    if ( (i>0 && i<10 ) || ( i>10 && i<19) || ( i>20 && i<29) || ( i>30 && i<39) || ( i>110 && i<119) || ( i>120 && i<129) || ( i>130 && i<139) || ( i>210 && i<219) || ( i>220 && i<229) || ( i>230 && i<239) ) { 
       //give which button is active and check is this button have a same IDmidi that Object
       if ( numMidi == RH[i].IDmidi() ) RH[i].updateMidi(valMidi) ;
     //  println(i + " / " + RH[i].IDmidi()) ;
       //to add an IDmidi from the internal setting to object
       if (selectMidi && RH[i].lock() ) { RH[i].selectIDmidi(numMidi) ; }
       //to add an ID midi from the save
-      if(chargement) { 
+      if(loadSliderPos) { 
         RH[i].selectIDmidi(int(loadR [i + numSlider]) ) ;
       }
-    //  if ( numMidi == null ) println ("pas d'activité" ) ;
       RH[i].update(mouseX, loadR[i]);    
-      RH[i].display();
+      RH[i].displayMolette(rouge, orange, blanc, sizeMoletteSlider);
+      
       
       //save midi setting
       /*
-      if (saveMidi) { 
-        newSettingMidi[i] = "" + RH[i].IDmidi() ; 
-      }
+      if (saveMidi) newSettingMidi[i] = "" + RH[i].IDmidi() ; 
       saveMidi = false ;
       */
-      
       //récupération des données de la réglette couleur fond  
       valueSlider[i] = constrain(map(RH[i].getPos(), 0, 104, 0,100),0,100)  ;     
-      //dataValeurRH[i] = round (valueSlider[i]) ;  
       saveR [i] = byte(valueSlider[i] ) ;
       saveR [i + numSlider] = byte(RH[i].IDmidi() ) ;
     }
   }
-  chargement = false ; 
+  loadSliderPos = false ; 
 }
 //END MOLETTE
 
 
-//SLIDER
-//DRAW
-void sliderDraw()
-{
+
+//SLIDER DRAW
+/////////////
+void sliderDraw() {
+  sliderDrawGroupZero () ;
+  sliderDrawGroupOne () ;
+  sliderDrawGroupTwo () ;
+  sliderDrawGroupThree () ;
+}
+
+// DETAIL GROUP SLIDER DRAW
+///////////////////////////
+void sliderDrawGroupZero () {
   //Background slider
-  if (mouseX > (margeGaucheRH[1] ) && mouseX < ( margeGaucheRH[1] + longueurRH[1]) 
-  && mouseY > ( margeHautRH[1] - 5) && mouseY < margeHautRH[1] + 30 ) {
-    fondRegletteCouleur    ( margeGaucheRH[1], margeHautRH[1], hauteurRH[1], longueurRH[1]) ;
-    fondRegletteSaturation ( margeGaucheRH[2], margeHautRH[2], hauteurRH[2], longueurRH[1], valueSlider[1], valueSlider[2], valueSlider[3] ) ;
-    fondRegletteDensite    ( margeGaucheRH[3], margeHautRH[3], hauteurRH[3], longueurRH[1], valueSlider[1], valueSlider[2], valueSlider[3] ) ;
+  if (mouseX > (posWidthRH[1] ) && mouseX < ( posWidthRH[1] + longueurRH[1]) 
+  && mouseY > ( posHeightRH[1] - 5) && mouseY < posHeightRH[1] + 30 ) {
+    fondRegletteCouleur    ( posWidthRH[1], posHeightRH[1], hauteurRH[1], longueurRH[1]) ;
+    fondRegletteSaturation ( posWidthRH[2], posHeightRH[2], hauteurRH[2], longueurRH[1], valueSlider[1], valueSlider[2], valueSlider[3] ) ;
+    fondRegletteDensite    ( posWidthRH[3], posHeightRH[3], hauteurRH[3], longueurRH[1], valueSlider[1], valueSlider[2], valueSlider[3] ) ;
   } else {
-    fondReglette    ( margeGaucheRH[1], margeHautRH[1], hauteurRH[1], longueurRH[1], blancGrisClair) ;
-    fondReglette    ( margeGaucheRH[2], margeHautRH[2], hauteurRH[2], longueurRH[2], blancGrisClair ) ;
-    fondReglette    ( margeGaucheRH[3], margeHautRH[3], hauteurRH[3], longueurRH[3], blancGrisClair ) ;
+    fondReglette    ( posWidthRH[1], posHeightRH[1], hauteurRH[1], longueurRH[1], blancGrisClair) ;
+    fondReglette    ( posWidthRH[2], posHeightRH[2], hauteurRH[2], longueurRH[2], blancGrisClair ) ;
+    fondReglette    ( posWidthRH[3], posHeightRH[3], hauteurRH[3], longueurRH[3], blancGrisClair ) ;
   }
-  
-  //simple slider
-  // Main color
-  if ( mouseX > (margeGaucheRH[11] ) && mouseX < ( margeGaucheRH[11] + longueurRH[11]) 
-       && mouseY > ( margeHautRH[11] - 5) && mouseY < margeHautRH[11] +30 ) 
+  // light slider
+  if (mouseX > (posWidthRH[7] ) && mouseX < ( posWidthRH[7] + longueurRH[7]) 
+  && mouseY > ( posHeightRH[7] - 5) && mouseY < posHeightRH[1] + 30 ) {
+    fondRegletteCouleur    ( posWidthRH[7], posHeightRH[7], hauteurRH[7], longueurRH[7]) ;
+    fondRegletteSaturation ( posWidthRH[8], posHeightRH[8], hauteurRH[8], longueurRH[7], valueSlider[7], valueSlider[8], valueSlider[9] ) ;
+    fondRegletteDensite    ( posWidthRH[9], posHeightRH[9], hauteurRH[9], longueurRH[7], valueSlider[7], valueSlider[8], valueSlider[9] ) ;
+  } else {
+    fondReglette    ( posWidthRH[7], posHeightRH[7], hauteurRH[7], longueurRH[7], blancGrisClair) ;
+    fondReglette    ( posWidthRH[8], posHeightRH[8], hauteurRH[8], longueurRH[8], blancGrisClair ) ;
+    fondReglette    ( posWidthRH[9], posHeightRH[9], hauteurRH[9], longueurRH[9], blancGrisClair ) ;
+  }
+}
+
+
+
+/////////////////////////////
+void sliderDrawGroupOne () {
+  if ( mouseX > (posWidthRH[11] ) && mouseX < ( posWidthRH[11] + longueurRH[11]) 
+       && mouseY > ( posHeightRH[11] - 5) && mouseY < posHeightRH[11] +30 ) 
   {
-    fondRegletteCouleur     ( margeGaucheRH[11], margeHautRH[11], hauteurRH[11], longueurRH[11]) ; 
-    fondRegletteSaturation  ( margeGaucheRH[12], margeHautRH[12], hauteurRH[12], longueurRH[11], valueSlider[11], valueSlider[12], valueSlider[13] ) ;
-    fondRegletteDensite     ( margeGaucheRH[13], margeHautRH[13], hauteurRH[13], longueurRH[11], valueSlider[11], valueSlider[12], valueSlider[13] ) ;
+    fondRegletteCouleur     ( posWidthRH[11], posHeightRH[11], hauteurRH[11], longueurRH[11]) ; 
+    fondRegletteSaturation  ( posWidthRH[12], posHeightRH[12], hauteurRH[12], longueurRH[11], valueSlider[11], valueSlider[12], valueSlider[13] ) ;
+    fondRegletteDensite     ( posWidthRH[13], posHeightRH[13], hauteurRH[13], longueurRH[11], valueSlider[11], valueSlider[12], valueSlider[13] ) ;
   } else {
-    fondReglette    ( margeGaucheRH[11], margeHautRH[11], hauteurRH[11], longueurRH[11], blanc) ;
-    fondReglette    ( margeGaucheRH[12], margeHautRH[12], hauteurRH[12], longueurRH[12], blanc ) ;
-    fondReglette    ( margeGaucheRH[13], margeHautRH[13], hauteurRH[13], longueurRH[13], blanc ) ;
+    fondReglette    ( posWidthRH[11], posHeightRH[11], hauteurRH[11], longueurRH[11], blanc) ;
+    fondReglette    ( posWidthRH[12], posHeightRH[12], hauteurRH[12], longueurRH[12], blanc ) ;
+    fondReglette    ( posWidthRH[13], posHeightRH[13], hauteurRH[13], longueurRH[13], blanc ) ;
   }
-  fondReglette    ( margeGaucheRH[14], margeHautRH[14], hauteurRH[14], longueurRH[14], blanc ) ;
+  fondReglette    ( posWidthRH[14], posHeightRH[14], hauteurRH[14], longueurRH[14], blanc ) ;
   
   //outline color
-  if ( mouseX > (margeGaucheRH[15] ) && mouseX < ( margeGaucheRH[15] + longueurRH[15]) 
-       && mouseY > ( margeHautRH[15] - 5) && mouseY < margeHautRH[15] +30 ) 
+  if ( mouseX > (posWidthRH[15] ) && mouseX < ( posWidthRH[15] + longueurRH[15]) 
+       && mouseY > ( posHeightRH[15] - 5) && mouseY < posHeightRH[15] +30 ) 
   {
-    fondRegletteCouleur     ( margeGaucheRH[15], margeHautRH[15], hauteurRH[15], longueurRH[15]) ; 
-    fondRegletteSaturation  ( margeGaucheRH[16], margeHautRH[16], hauteurRH[16], longueurRH[15], valueSlider[15], valueSlider[16], valueSlider[17] ) ;
-    fondRegletteDensite     ( margeGaucheRH[17], margeHautRH[17], hauteurRH[17], longueurRH[15], valueSlider[15], valueSlider[16], valueSlider[17] ) ;
+    fondRegletteCouleur     ( posWidthRH[15], posHeightRH[15], hauteurRH[15], longueurRH[15]) ; 
+    fondRegletteSaturation  ( posWidthRH[16], posHeightRH[16], hauteurRH[16], longueurRH[15], valueSlider[15], valueSlider[16], valueSlider[17] ) ;
+    fondRegletteDensite     ( posWidthRH[17], posHeightRH[17], hauteurRH[17], longueurRH[15], valueSlider[15], valueSlider[16], valueSlider[17] ) ;
   } else {
-    fondReglette    ( margeGaucheRH[15], margeHautRH[15], hauteurRH[15], longueurRH[15], blancGrisClair) ;
-    fondReglette    ( margeGaucheRH[16], margeHautRH[16], hauteurRH[16], longueurRH[16], blancGrisClair ) ;
-    fondReglette    ( margeGaucheRH[17], margeHautRH[17], hauteurRH[17], longueurRH[17], blancGrisClair) ;
+    fondReglette    ( posWidthRH[15], posHeightRH[15], hauteurRH[15], longueurRH[15], blancGrisClair) ;
+    fondReglette    ( posWidthRH[16], posHeightRH[16], hauteurRH[16], longueurRH[16], blancGrisClair ) ;
+    fondReglette    ( posWidthRH[17], posHeightRH[17], hauteurRH[17], longueurRH[17], blancGrisClair) ;
   }
-  fondReglette    ( margeGaucheRH[18], margeHautRH[18], hauteurRH[18], longueurRH[18], blancGrisClair ) ;
- 
-  
-  // texture slider
-  if ( mouseX > (margeGaucheRH[111] ) && mouseX < ( margeGaucheRH[111] + longueurRH[111]) 
-       && mouseY > ( margeHautRH[111] - 5) && mouseY < margeHautRH[111] +30 ) 
+  fondReglette    ( posWidthRH[18], posHeightRH[18], hauteurRH[18], longueurRH[18], blancGrisClair ) ;
+}
+
+
+////////////////////////////
+void sliderDrawGroupTwo () {
+  if ( mouseX > (posWidthRH[111] ) && mouseX < ( posWidthRH[111] + longueurRH[111]) 
+       && mouseY > ( posHeightRH[111] - 5) && mouseY < posHeightRH[111] +30 ) 
   {
-    fondRegletteCouleur     ( margeGaucheRH[111], margeHautRH[111], hauteurRH[111], longueurRH[111]) ; 
-    fondRegletteSaturation  ( margeGaucheRH[112], margeHautRH[112], hauteurRH[112], longueurRH[111], valueSlider[111], valueSlider[112], valueSlider[113] ) ;
-    fondRegletteDensite     ( margeGaucheRH[113], margeHautRH[113], hauteurRH[113], longueurRH[111], valueSlider[111], valueSlider[112], valueSlider[113] ) ;
+    fondRegletteCouleur     ( posWidthRH[111], posHeightRH[111], hauteurRH[111], longueurRH[111]) ; 
+    fondRegletteSaturation  ( posWidthRH[112], posHeightRH[112], hauteurRH[112], longueurRH[111], valueSlider[111], valueSlider[112], valueSlider[113] ) ;
+    fondRegletteDensite     ( posWidthRH[113], posHeightRH[113], hauteurRH[113], longueurRH[111], valueSlider[111], valueSlider[112], valueSlider[113] ) ;
   } else {
-    fondReglette    ( margeGaucheRH[111], margeHautRH[111], hauteurRH[111], longueurRH[111], blanc) ;
-    fondReglette    ( margeGaucheRH[112], margeHautRH[112], hauteurRH[112], longueurRH[112], blanc ) ;
-    fondReglette    ( margeGaucheRH[113], margeHautRH[113], hauteurRH[113], longueurRH[113], blanc ) ;
+    fondReglette    ( posWidthRH[111], posHeightRH[111], hauteurRH[111], longueurRH[111], blanc) ;
+    fondReglette    ( posWidthRH[112], posHeightRH[112], hauteurRH[112], longueurRH[112], blanc ) ;
+    fondReglette    ( posWidthRH[113], posHeightRH[113], hauteurRH[113], longueurRH[113], blanc ) ;
   }
-  fondReglette    ( margeGaucheRH[114], margeHautRH[114], hauteurRH[114], longueurRH[114], blanc ) ;
+  fondReglette    ( posWidthRH[114], posHeightRH[114], hauteurRH[114], longueurRH[114], blanc ) ;
   
   //outline color
-  if ( mouseX > (margeGaucheRH[115] ) && mouseX < ( margeGaucheRH[115] + longueurRH[115]) 
-       && mouseY > ( margeHautRH[115] - 5) && mouseY < margeHautRH[115] +30 ) 
+  if ( mouseX > (posWidthRH[115] ) && mouseX < ( posWidthRH[115] + longueurRH[115]) 
+       && mouseY > ( posHeightRH[115] - 5) && mouseY < posHeightRH[115] +30 ) 
   {
-    fondRegletteCouleur     ( margeGaucheRH[115], margeHautRH[115], hauteurRH[115], longueurRH[115]) ; 
-    fondRegletteSaturation  ( margeGaucheRH[116], margeHautRH[116], hauteurRH[116], longueurRH[115], valueSlider[115], valueSlider[116], valueSlider[117] ) ;
-    fondRegletteDensite     ( margeGaucheRH[117], margeHautRH[117], hauteurRH[117], longueurRH[115], valueSlider[115], valueSlider[116], valueSlider[117] ) ;
+    fondRegletteCouleur     ( posWidthRH[115], posHeightRH[115], hauteurRH[115], longueurRH[115]) ; 
+    fondRegletteSaturation  ( posWidthRH[116], posHeightRH[116], hauteurRH[116], longueurRH[115], valueSlider[115], valueSlider[116], valueSlider[117] ) ;
+    fondRegletteDensite     ( posWidthRH[117], posHeightRH[117], hauteurRH[117], longueurRH[115], valueSlider[115], valueSlider[116], valueSlider[117] ) ;
   } else {
-    fondReglette    ( margeGaucheRH[115], margeHautRH[115], hauteurRH[115], longueurRH[115], blancGrisClair) ;
-    fondReglette    ( margeGaucheRH[116], margeHautRH[116], hauteurRH[116], longueurRH[116], blancGrisClair ) ;
-    fondReglette    ( margeGaucheRH[117], margeHautRH[117], hauteurRH[117], longueurRH[117], blancGrisClair) ;
+    fondReglette    ( posWidthRH[115], posHeightRH[115], hauteurRH[115], longueurRH[115], blancGrisClair) ;
+    fondReglette    ( posWidthRH[116], posHeightRH[116], hauteurRH[116], longueurRH[116], blancGrisClair ) ;
+    fondReglette    ( posWidthRH[117], posHeightRH[117], hauteurRH[117], longueurRH[117], blancGrisClair) ;
   }
-  fondReglette    ( margeGaucheRH[118], margeHautRH[118], hauteurRH[118], longueurRH[118], blancGrisClair ) ;
-  
-  
-  
-  //TYPOGRAPHY slider color
-  if (mouseX > (margeGaucheRH[211] ) && mouseX < ( margeGaucheRH[211] + longueurRH[211]) && mouseY > ( margeHautRH[211] - 5) && mouseY < margeHautRH[211] + 30 ) {
-    fondRegletteCouleur    ( margeGaucheRH[211], margeHautRH[211], hauteurRH[211], longueurRH[211]) ;
-    fondRegletteSaturation ( margeGaucheRH[212], margeHautRH[212], hauteurRH[212], longueurRH[211], valueSlider[211], valueSlider[212], valueSlider[213] ) ;
-    fondRegletteDensite    ( margeGaucheRH[213], margeHautRH[213], hauteurRH[213], longueurRH[211], valueSlider[211], valueSlider[212], valueSlider[213] ) ;
+  fondReglette    ( posWidthRH[118], posHeightRH[118], hauteurRH[118], longueurRH[118], blancGrisClair ) ;
+}
+
+
+//////////////////////////////
+void sliderDrawGroupThree () {
+  if (mouseX > (posWidthRH[211] ) && mouseX < ( posWidthRH[211] + longueurRH[211]) && mouseY > ( posHeightRH[211] - 5) && mouseY < posHeightRH[211] + 30 ) {
+    fondRegletteCouleur    ( posWidthRH[211], posHeightRH[211], hauteurRH[211], longueurRH[211]) ;
+    fondRegletteSaturation ( posWidthRH[212], posHeightRH[212], hauteurRH[212], longueurRH[211], valueSlider[211], valueSlider[212], valueSlider[213] ) ;
+    fondRegletteDensite    ( posWidthRH[213], posHeightRH[213], hauteurRH[213], longueurRH[211], valueSlider[211], valueSlider[212], valueSlider[213] ) ;
   } else {
-    fondReglette    ( margeGaucheRH[211], margeHautRH[211], hauteurRH[211], longueurRH[211], blanc) ;
-    fondReglette    ( margeGaucheRH[212], margeHautRH[212], hauteurRH[212], longueurRH[212], blanc) ;
-    fondReglette    ( margeGaucheRH[213], margeHautRH[213], hauteurRH[213], longueurRH[213], blanc ) ;
+    fondReglette    ( posWidthRH[211], posHeightRH[211], hauteurRH[211], longueurRH[211], blanc) ;
+    fondReglette    ( posWidthRH[212], posHeightRH[212], hauteurRH[212], longueurRH[212], blanc) ;
+    fondReglette    ( posWidthRH[213], posHeightRH[213], hauteurRH[213], longueurRH[213], blanc ) ;
   }
-  fondReglette    ( margeGaucheRH[214], margeHautRH[214], hauteurRH[214], longueurRH[214], blanc ) ;
+  fondReglette    ( posWidthRH[214], posHeightRH[214], hauteurRH[214], longueurRH[214], blanc ) ;
   //outline color
-  if ( mouseX > (margeGaucheRH[215] ) && mouseX < ( margeGaucheRH[215] + longueurRH[215]) && mouseY > ( margeHautRH[215] - 5) && mouseY < margeHautRH[215] +30 ) {
-    fondRegletteCouleur     ( margeGaucheRH[215], margeHautRH[215], hauteurRH[215], longueurRH[215]) ; 
-    fondRegletteSaturation  ( margeGaucheRH[216], margeHautRH[216], hauteurRH[216], longueurRH[215], valueSlider[215], valueSlider[216], valueSlider[217] ) ;
-    fondRegletteDensite     ( margeGaucheRH[217], margeHautRH[217], hauteurRH[217], longueurRH[215], valueSlider[215], valueSlider[216], valueSlider[217] ) ;
+  if ( mouseX > (posWidthRH[215] ) && mouseX < ( posWidthRH[215] + longueurRH[215]) && mouseY > ( posHeightRH[215] - 5) && mouseY < posHeightRH[215] +30 ) {
+    fondRegletteCouleur     ( posWidthRH[215], posHeightRH[215], hauteurRH[215], longueurRH[215]) ; 
+    fondRegletteSaturation  ( posWidthRH[216], posHeightRH[216], hauteurRH[216], longueurRH[215], valueSlider[215], valueSlider[216], valueSlider[217] ) ;
+    fondRegletteDensite     ( posWidthRH[217], posHeightRH[217], hauteurRH[217], longueurRH[215], valueSlider[215], valueSlider[216], valueSlider[217] ) ;
   } else {
-    fondReglette    ( margeGaucheRH[215], margeHautRH[215], hauteurRH[215], longueurRH[215], blancGrisClair) ;
-    fondReglette    ( margeGaucheRH[216], margeHautRH[216], hauteurRH[216], longueurRH[216], blancGrisClair ) ;
-    fondReglette    ( margeGaucheRH[217], margeHautRH[217], hauteurRH[217], longueurRH[217], blancGrisClair) ;
+    fondReglette    ( posWidthRH[215], posHeightRH[215], hauteurRH[215], longueurRH[215], blancGrisClair) ;
+    fondReglette    ( posWidthRH[216], posHeightRH[216], hauteurRH[216], longueurRH[216], blancGrisClair ) ;
+    fondReglette    ( posWidthRH[217], posHeightRH[217], hauteurRH[217], longueurRH[217], blancGrisClair) ;
   }
-  fondReglette    ( margeGaucheRH[218], margeHautRH[218], hauteurRH[218], longueurRH[218], blancGrisClair ) ;
+  fondReglette    ( posWidthRH[218], posHeightRH[218], hauteurRH[218], longueurRH[218], blancGrisClair ) ;
   //end TYPO
 }
+
+// END SLIDER DRAW
+//////////////////
+
 
 
 
 /////////////////////
-void buttonDisplayDraw ()
-{
+void buttonDraw () {
   textFont(texteInterface) ;
-  
-  Bbeat.boutonTexte("BEAT",    margeGaucheBeat,  margeHautBeat  +6) ;
-  Bkick.boutonTexte("KICK",    margeGaucheKick,  margeHautKick  +6) ;
-  Bsnare.boutonTexte("SNARE",  margeGaucheSnare, margeHautSnare +6) ;
-  Bhat.boutonTexte("HAT",      margeGaucheHat,   margeHautHat   +6) ;
-  
-  //METEO
-  buttonMeteo.boutonMeteo () ;
+  buttonDrawGroupZero() ;
+  buttonDrawGroupOne() ;
+  buttonDrawGroupTwo() ;
+  buttonDrawGroupThree() ;
+  buttonCheckDraw() ;
+  dropdownDraw() ;
+}
+
+// DETAIL
+// GROUP ZERO
+void buttonDrawGroupZero() {
+    Bbeat.boutonTexte("BEAT",    posWidthBeat,  posHeightBeat  +6) ;
+  Bkick.boutonTexte("KICK",    posWidthKick,  posHeightKick  +6) ;
+  Bsnare.boutonTexte("SNARE",  posWidthSnare, posHeightSnare +6) ;
+  Bhat.boutonTexte("HAT",      posWidthHat,   posHeightHat   +6) ;
   //MIDI 
   PVector posTxtMidi = new PVector ( 15, 10 ) ;
   BOmidi.boutonCarreEcran  ("MIDI", posTxtMidi) ;
-  //RIDEAU
-  PVector posTxtRideau = new PVector ( 10, 10 ) ; 
-  BOrideau.boutonCarreEcran  (genTxtGUI[8], posTxtRideau) ;
-  
-  
-  //DISPLAY INTERFACE SIMPLE
-  for( int i = 1 ; i <= numObjectSimple ; i++ ) {
+  //curtain
+  PVector posTxtcurtain = new PVector ( 10, 10 ) ; 
+  BOcurtain.boutonCarreEcran  (genTxtGUI[8], posTxtcurtain) ;
+}
+//GROUP ONE
+void buttonDrawGroupOne() {
+    for( int i = 1 ; i <= numObjectSimple ; i++ ) {
     BOf[i*10 +1].boutonVignette(vignette_OFF_in_simple, vignette_OFF_out_simple, vignette_ON_in_simple, vignette_ON_out_simple, i) ; 
-    BOf[i*10 +2].boutonCarre () ; BOf[i*10 +3].boutonSonPetit () ; BOf[i*10 +4].boutonAction () ;
-    //display or not the meteo weather button
-    if(objectSimpleWeather[i -1] )  BOf[i*10 +5].boutonMeteo() ;
-    PVector pos = new PVector (margeGaucheBOf[i*10 +2], margeHautBOf[i*10 +1] +10) ;
+    BOf[i*10 +2].boutonCarre () ; 
+    BOf[i*10 +3].boutonSonPetit () ; 
+    BOf[i*10 +4].boutonAction () ;
+    PVector pos = new PVector (posWidthBOf[i*10 +2], posHeightBOf[i*10 +1] +10) ;
     PVector size = new PVector (20, 30) ;
     rolloverInfoVignette(pos, size, i, 1) ;
   }
-  //DISPLAY INTERFACE TEXTURE
-  for( int i = 1 ; i <= numObjectTexture ; i++ ) {
+}
+// GROUP TWO
+void buttonDrawGroupTwo() {
+    for( int i = 1 ; i <= numObjectTexture ; i++ ) {
     BTf[i*10 +1].boutonVignette(vignette_OFF_in_texture, vignette_OFF_out_texture, vignette_ON_in_texture, vignette_ON_out_texture, i) ; 
-    BTf[i*10 +2].boutonCarre () ; BTf[i*10 +3].boutonSonPetit () ; BTf[i*10 +4].boutonAction () ;     
-    //display or not the meteo weatehr button
-    if(objectTextureWeather[i -1] )  BTf[i*10 +5].boutonMeteo() ;
-    PVector pos = new PVector (margeGaucheBTf[i*10 +2], margeHautBTf[i*10 +1] +10) ;
+    BTf[i*10 +2].boutonCarre () ; 
+    BTf[i*10 +3].boutonSonPetit () ; 
+    BTf[i*10 +4].boutonAction () ;     
+    PVector pos = new PVector (posWidthBTf[i*10 +2], posHeightBTf[i*10 +1] +10) ;
     PVector size = new PVector (20, 30) ;
     rolloverInfoVignette(pos, size, i, 2) ;
   }
-  
-  //DISPLAY INTERFACE TYPOGRAPHY
-  for( int i = 1 ; i <= numObjectTypography ; i++ ) {
+}
+
+//GROUP THREE
+void buttonDrawGroupThree() {
+    for( int i = 1 ; i <= numObjectTypography ; i++ ) {
     BTYf[i*10 +1].boutonVignette(vignette_OFF_in_typography, vignette_OFF_out_typography, vignette_ON_in_typography, vignette_ON_out_typography, i) ; 
-    BTYf[i*10 +2].boutonCarre () ; BTYf[i*10 +3].boutonSonPetit () ; BTYf[i*10 +4].boutonAction () ; 
-    //display or not the meteo weather button
-    if(objectTypographyWeather[i -1] )  BTYf[i*10 +5].boutonMeteo() ;
-    PVector pos = new PVector (margeGaucheBTYf[i*10 +2], margeHautBTYf[i*10 +1] +10) ;
+    BTYf[i*10 +2].boutonCarre () ; 
+    BTYf[i*10 +3].boutonSonPetit () ; 
+    BTYf[i*10 +4].boutonAction () ; 
+    PVector pos = new PVector (posWidthBTYf[i*10 +2], posHeightBTYf[i*10 +1] +10) ;
     PVector size = new PVector (20, 30) ;
     rolloverInfoVignette(pos, size, i, 3) ;
   }
- 
 }
 
 
 
-
 void buttonCheckDraw() {
-  //RÉCUPÉRATION DES VALEURS
-  //meteo
-  EtatButtonMeteo = buttonMeteo.getEtatBoutonCarre() ;
-  //SON
+  //SOUND
   EtatBbeat = Bbeat.getEtatBoutonCarre() ;
   EtatBkick = Bkick.getEtatBoutonCarre() ;
   EtatBsnare = Bsnare.getEtatBoutonCarre() ;
   EtatBhat = Bhat.getEtatBoutonCarre() ;
   //Check position of button
   EtatBOmidi = BOmidi.getEtatBoutonCarre() ;
-  EtatBOrideau = BOrideau.getEtatBoutonCarre() ;
+  EtatBOcurtain = BOcurtain.getEtatBoutonCarre() ;
 
 
   //Statement button, if are OFF or ON
@@ -801,7 +711,6 @@ void buttonCheckDraw() {
     //catch the statement of button typography
     EtatBTYf[i] = BTYf[i].getEtatBoutonCarre() ;
   }
-  ///////////
 }
 
 
@@ -933,7 +842,7 @@ void dropdownSetup() {
   
   //FONT dropdown
   ///////////////
-  posDropdown[99] = new PVector(405, 28, 0.1)  ; // x y is pos anz z is marge between the dropdown and the header
+  posDropdown[99] = new PVector(340, 28, 0.1)  ; // x y is pos anz z is marge between the dropdown and the header
   sizeDropdownFont = new PVector (75, 13, 15 ) ;
   PVector posTextDropdownTypo = new PVector( 3, 10 )  ;
   dropdown[99] = new Dropdown(policeDropdownList,   posDropdown[99] , sizeDropdownFont, posTextDropdownTypo, colorBG, colorBoxIn, colorBoxOut, colorBoxText, texteInterface, sizeTexteInterface) ;
@@ -952,7 +861,7 @@ void dropdownSetup() {
     //to change the title of the header dropdown
     listDropdown[0] = "M"  ; 
     
-    posDropdown[i] = new PVector(margeGaucheBO -8 + space, margeHautBO +43, 0.1)  ; // x y is pos anz z is marge between the dropdown and the header
+    posDropdown[i] = new PVector(posWidthBO -8 + space, posHeightBO +43, 0.1)  ; // x y is pos anz z is marge between the dropdown and the header
     dropdown[i] = new Dropdown(listDropdown,   posDropdown[i] , sizeDropdownMode, posTextDropdown, colorBG, colorBoxIn, colorBoxOut, colorBoxText, texteInterface, sizeTexteInterface) ;
   }
   //Texture line
@@ -963,7 +872,7 @@ void dropdownSetup() {
     //to change the title of the header dropdown
     listDropdown[0] = "M"  ; 
     
-    posDropdown[i] = new PVector(margeGaucheBT -8 + space, margeHautBT +43, 0.1)  ; // x y is pos anz z is marge between the dropdown and the header
+    posDropdown[i] = new PVector(posWidthBT -8 + space, posHeightBT +43, 0.1)  ; // x y is pos anz z is marge between the dropdown and the header
     dropdown[i] = new Dropdown(listDropdown,   posDropdown[i] , sizeDropdownMode, posTextDropdown, colorBG, colorBoxIn, colorBoxOut, colorBoxText, texteInterface, sizeTexteInterface) ;
   }
   //Typo line
@@ -974,7 +883,7 @@ void dropdownSetup() {
     //to change the title of the header dropdown
     listDropdown[0] = "M"  ; 
     
-    posDropdown[i] = new PVector(margeGaucheBTY -8 + space, margeHautBTY +43, 0.1)  ; // x y is pos anz z is marge between the dropdown and the header
+    posDropdown[i] = new PVector(posWidthBTY -8 + space, posHeightBTY +43, 0.1)  ; // x y is pos anz z is marge between the dropdown and the header
     dropdown[i] = new Dropdown(listDropdown,   posDropdown[i] , sizeDropdownMode, posTextDropdown, colorBG, colorBoxIn, colorBoxOut, colorBoxText, texteInterface, sizeTexteInterface) ;
   }
   

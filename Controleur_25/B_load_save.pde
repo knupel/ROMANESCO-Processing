@@ -110,10 +110,10 @@ void chargementReglette(File selection) {
   String chargementCheminReglette = selection.getAbsolutePath();
   
   if (selection != null) {
-    chargement = true ;
+    loadSliderPos = true ;
     loadR = loadBytes(chargementCheminReglette);
   } else {
-    chargement = false ;
+    loadSliderPos = false ;
   }
 }
 
@@ -221,7 +221,7 @@ void objectTableSetup() {
 
 //LOAD text Interface
 Table textGUI;
-int numCol = 9 ;
+int numCol = 12 ;
 String[] genTxtGUI = new String[numCol] ;
 String[] objTxtGUIone = new String[numCol] ;
 String[] objTxtGUItwo = new String[numCol] ;
@@ -233,7 +233,7 @@ String[] typoTxtGUIone = new String[numCol] ;
 String[] typoTxtGUItwo = new String[numCol] ;
 String[] typoTxtGUIthree = new String[numCol] ;
 
-TableRow [] row = new TableRow[10] ;
+TableRow [] row = new TableRow[13] ;
 
 String lang[] ;
 
@@ -251,7 +251,7 @@ void textGUI() {
     textGUI = loadTable("sliderListEN.csv", "header") ;
   }
     
-  for ( int i = 0 ; i < 10 ; i++) {
+  for ( int i = 0 ; i < numCol ; i++) {
 
     row[i] = textGUI.getRow(i) ;
     for ( int j = 1 ; j < numCol ; j++) {
