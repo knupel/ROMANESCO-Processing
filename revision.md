@@ -7,6 +7,8 @@
 
 ###### Contrôleur 
 * slider  height and width move to the third column
+* button slider bigger
+* clean the core
 
 
 ###### Prescene, Scene 
@@ -42,6 +44,8 @@
 * Trame : box display
 
 ### Remove
+###### Controleur
+* weather button, but the function stay in the Romanesco core
 ###### sketch Miroir
 
 ###### Object 
