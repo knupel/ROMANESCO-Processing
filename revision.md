@@ -9,6 +9,7 @@
 * slider  height and width move to the third column
 * button slider bigger
 * clean the core
+* change the slider ID to add 50 more
 
 
 ###### Prescene, Scene 
@@ -29,6 +30,7 @@
 * button to choice between the Miroir or Scene mode
  
 ###### Contrôleur 
+* slider light direction
 * slider  depth
 
 ###### Scene 
