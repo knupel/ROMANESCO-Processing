@@ -19,7 +19,7 @@ PImage[] vignette_ON_out_typography ;
 PImage[] bouton = new PImage[18] ;
 
 //SLIDER
-int numSlider = 250 ;
+
 
 //SLIDER
 RegletteHorizontale [] RH = new RegletteHorizontale [numSlider] ;
@@ -29,7 +29,6 @@ int posHeightRH[] = new int[numSlider] ;
 int longueurRH[] = new int[numSlider] ;
 int hauteurRH[] = new int[numSlider] ;
 float valueSlider[] = new float[numSlider] ;
-//int dataValeurRH[] = new int[numSlider] ;
 
 
 //BOUTON
@@ -143,7 +142,6 @@ void interfaceSetup() {
   fontSetup() ;
   midiSetup() ;
   importPicButtonSetup() ;
-  //chargementReglette() ;
   buttonSliderSetup() ;
   constructorSliderButton() ;
 }
@@ -188,7 +186,7 @@ void midiDraw() {
 
 //SETUP
 void buttonSliderSetup() {
-  PVector columnPosVert = new PVector(22,197, 370) ; // give the pos of the column on the axis "x"
+  PVector columnPosVert = new PVector(22,200, 380) ; // give the pos of the column on the axis "x"
   //PARAMÈTRE SLIDER and BUTTON
   mgRHc1 = (int)columnPosVert.x ; mgRHc2 = (int)columnPosVert.y ; mgRHc3 = (int)columnPosVert.z ;
   hauteurRegH = 6 ;
@@ -235,6 +233,7 @@ void groupZero() {
   suivitRH[7] = 1 ; posWidthRH[7] = mgRHc2 ; posHeightRH[7]= 50     ; longueurRH[7] = 111 ; hauteurRH[7] = hauteurRegH ; // couleur du fond  
   suivitRH[8] = 1 ; posWidthRH[8] = mgRHc2 ; posHeightRH[8]= 50 +10 ; longueurRH[8] = 111 ; hauteurRH[8] = hauteurRegH ;   
   suivitRH[9] = 1 ; posWidthRH[9] = mgRHc2 ; posHeightRH[9]= 50 +20 ; longueurRH[9] = 111 ; hauteurRH[9] = hauteurRegH ;  
+  suivitRH[10] = 1 ; posWidthRH[10] = mgRHc2 ; posHeightRH[10]= 50 +30 ; longueurRH[10] = 111 ; hauteurRH[10] = hauteurRegH ;  // hue ambiance
 }
 
 //////////////
@@ -245,14 +244,13 @@ void groupOne() {
     posWidthBOf[i*10+2] = posWidthBO +((i-1)*40)-8 ; posHeightBOf[i*10+2] = posHeightBO +12  ; longueurBOf[i*10+2] = 19 ; hauteurBOf[i*10+2] = 6 ; //setting
     posWidthBOf[i*10+3] = posWidthBO +((i-1)*40)-8 ; posHeightBOf[i*10+3] = posHeightBO +21  ; longueurBOf[i*10+3] = 10 ; hauteurBOf[i*10+3] = 6 ; //sound
     posWidthBOf[i*10+4] = posWidthBO +((i-1)*40)+2 ; posHeightBOf[i*10+4] = posHeightBO +21  ; longueurBOf[i*10+4] = 10 ; hauteurBOf[i*10+4] = 6 ; //action
-    posWidthBOf[i*10+5] = posWidthBO +((i-1)*40)-8 ; posHeightBOf[i*10+5] = posHeightBO +31  ; longueurBOf[i*10+5] = 18 ; hauteurBOf[i*10+5] = 12 ; // meteo
   }
 
   // where the controleur must display the slider
   for( int i = 0 ; i < 8 ; i++ ) {
-    suivitRH[i+11] = 1 ; posWidthRH[i+11] = mgRHc1 ; posHeightRH[i+11] = posHeightRO +i*10 ; longueurRH[i+11] = 111 ; hauteurRH[i+11] = hauteurRegH ;
-    suivitRH[i+21] = 1 ; posWidthRH[i+21] = mgRHc2 ; posHeightRH[i+21] = posHeightRO +i*10 ; longueurRH[i+21] = 111 ; hauteurRH[i+21] = hauteurRegH ;
-    suivitRH[i+31] = 1 ; posWidthRH[i+31] = mgRHc3 ; posHeightRH[i+31] = posHeightRO +i*10 ; longueurRH[i+31] = 111 ; hauteurRH[i+31] = hauteurRegH ;
+    suivitRH[i+101] = 1 ; posWidthRH[i+101] = mgRHc1 ; posHeightRH[i+101] = posHeightRO +i*10 ; longueurRH[i+101] = 111 ; hauteurRH[i+101] = hauteurRegH ;
+    suivitRH[i+111] = 1 ; posWidthRH[i+111] = mgRHc2 ; posHeightRH[i+111] = posHeightRO +i*10 ; longueurRH[i+111] = 111 ; hauteurRH[i+111] = hauteurRegH ;
+    suivitRH[i+121] = 1 ; posWidthRH[i+121] = mgRHc3 ; posHeightRH[i+121] = posHeightRO +i*10 ; longueurRH[i+121] = 111 ; hauteurRH[i+121] = hauteurRegH ;
   }
 }
 
@@ -263,13 +261,12 @@ void groupTwo() {
     posWidthBTf[i*10+2] = posWidthBT +((i-1)*40)-8 ; posHeightBTf[i*10+2] = posHeightBT +12  ; longueurBTf[i*10+2] = 19 ; hauteurBTf[i*10+2] = 6 ; //setting
     posWidthBTf[i*10+3] = posWidthBT +((i-1)*40)-8 ; posHeightBTf[i*10+3] = posHeightBT +21  ; longueurBTf[i*10+3] = 10 ; hauteurBTf[i*10+3] = 6 ; //sound
     posWidthBTf[i*10+4] = posWidthBT +((i-1)*40)+2 ; posHeightBTf[i*10+4] = posHeightBT +21  ; longueurBTf[i*10+4] = 10 ; hauteurBTf[i*10+4] = 6 ; //action
-    posWidthBTf[i*10+5] = posWidthBT +((i-1)*40)-8 ; posHeightBTf[i*10+5] = posHeightBT +31  ; longueurBTf[i*10+5] = 18 ; hauteurBTf[i*10+5] = 12 ; // meteo
   }
   // where the controle must display the slider
   for( int i = 0 ; i < 8 ; i++ ) {
-    suivitRH[i+111] = 1 ; posWidthRH[i+111] = mgRHc1 ; posHeightRH[i+111] = posHeightRT +i*10 ; longueurRH[i+111] = 111 ; hauteurRH[i+111] = hauteurRegH ;
-    suivitRH[i+121] = 1 ; posWidthRH[i+121] = mgRHc2 ; posHeightRH[i+121] = posHeightRT +i*10 ; longueurRH[i+121] = 111 ; hauteurRH[i+121] = hauteurRegH ;
-    suivitRH[i+131] = 1 ; posWidthRH[i+131] = mgRHc3 ; posHeightRH[i+131] = posHeightRT +i*10 ; longueurRH[i+131] = 111 ; hauteurRH[i+131] = hauteurRegH ;
+    suivitRH[i+201] = 1 ; posWidthRH[i+201] = mgRHc1 ; posHeightRH[i+201] = posHeightRT +i*10 ; longueurRH[i+201] = 111 ; hauteurRH[i+201] = hauteurRegH ;
+    suivitRH[i+211] = 1 ; posWidthRH[i+211] = mgRHc2 ; posHeightRH[i+211] = posHeightRT +i*10 ; longueurRH[i+211] = 111 ; hauteurRH[i+211] = hauteurRegH ;
+    suivitRH[i+221] = 1 ; posWidthRH[i+221] = mgRHc3 ; posHeightRH[i+221] = posHeightRT +i*10 ; longueurRH[i+221] = 111 ; hauteurRH[i+221] = hauteurRegH ;
   }
 }
 
@@ -282,16 +279,15 @@ void groupThree() {
     posWidthBTYf[i*10+2] = posWidthBTY +((i-1)*40)-8 ; posHeightBTYf[i*10+2] = posHeightBTY +12  ; longueurBTYf[i*10+2] = 19 ; hauteurBTYf[i*10+2] = 6 ; //setting
     posWidthBTYf[i*10+3] = posWidthBTY +((i-1)*40)-8 ; posHeightBTYf[i*10+3] = posHeightBTY +21  ; longueurBTYf[i*10+3] = 10 ; hauteurBTYf[i*10+3] = 6 ; //sound
     posWidthBTYf[i*10+4] = posWidthBTY +((i-1)*40)+2 ; posHeightBTYf[i*10+4] = posHeightBTY +21  ; longueurBTYf[i*10+4] = 10 ; hauteurBTYf[i*10+4] = 6 ; //action
-    posWidthBTYf[i*10+5] = posWidthBTY +((i-1)*40)-8 ; posHeightBTYf[i*10+5] = posHeightBTY +31  ; longueurBTYf[i*10+5] = 18 ; hauteurBTYf[i*10+5] = 12 ; // meteo
   }
   //WHAT'S THIS !!!???
   posWidthBE1 = mgRHc3  ; posHeightBE1 = posHeightBTY -6   ; longueurBE1 = 55 ; hauteurBE1 = 14 ;
   
   // where the controleur must display the slider
   for( int i = 0 ; i < 8 ; i++ ) {
-    suivitRH[i+211] = 1 ; posWidthRH[i+211] = mgRHc1 ; posHeightRH[i+211] = posHeightRTY +i*10 ; longueurRH[i+211] = 111 ; hauteurRH[i+211] = hauteurRegH ;
-    suivitRH[i+221] = 1 ; posWidthRH[i+221] = mgRHc2 ; posHeightRH[i+221] = posHeightRTY +i*10 ; longueurRH[i+221] = 111 ; hauteurRH[i+221] = hauteurRegH ;
-    suivitRH[i+231] = 1 ; posWidthRH[i+231] = mgRHc3 ; posHeightRH[i+231] = posHeightRTY +i*10 ; longueurRH[i+231] = 111 ; hauteurRH[i+231] = hauteurRegH ;
+    suivitRH[i+301] = 1 ; posWidthRH[i+301] = mgRHc1 ; posHeightRH[i+301] = posHeightRTY +i*10 ; longueurRH[i+301] = 111 ; hauteurRH[i+301] = hauteurRegH ;
+    suivitRH[i+311] = 1 ; posWidthRH[i+311] = mgRHc2 ; posHeightRH[i+311] = posHeightRTY +i*10 ; longueurRH[i+311] = 111 ; hauteurRH[i+311] = hauteurRegH ;
+    suivitRH[i+321] = 1 ; posWidthRH[i+321] = mgRHc3 ; posHeightRH[i+321] = posHeightRTY +i*10 ; longueurRH[i+321] = 111 ; hauteurRH[i+321] = hauteurRegH ;
   } 
 }
 
@@ -327,7 +323,8 @@ void constructorSliderButton() {
   for ( int i = 1 ; i < numSlider ; i++ ) {
     //exception for the slider who must show the color
     int opacityReglette = 200 ;
-    if ( (i < 4) || ( i > 6 && i < 19) || ( i > 110 && i < 119) || ( i > 210 && i < 219) ) opacityReglette = 0 ; else opacityReglette = 200 ;
+    //if ( (i < 4) || ( i > 6 && i < 19) || ( i > 110 && i < 119) || ( i > 210 && i < 219) ) opacityReglette = 0 ; else opacityReglette = 200 ;
+    if ( (i < 4) || ( i > 6 && i < 10) || ( i > 100 && i < 109) || ( i > 200 && i < 209) || ( i > 300 && i < 309) ) opacityReglette = 0 ; else opacityReglette = 200 ;
     RH[i] = new RegletteHorizontale  (posWidthRH[i], posHeightRH[i], longueurRH[i], hauteurRH[i], suivitRH[i], orange, rouge, blancGrisClair, opacityReglette, loadR [i], loadR [i+numSlider]);
   } 
 }
@@ -385,6 +382,7 @@ void textDraw() {
   text(genTxtGUI[9],       mgRHc2 +116, 54);
   text(genTxtGUI[10],    mgRHc2 +116, 64);
   text(genTxtGUI[11],       mgRHc2 +116, 74);
+  text(genTxtGUI[12],       mgRHc2 +116, 84);
   
   fill (typoCourante) ;
   textFont(texteInterface); 
@@ -425,7 +423,7 @@ void dislayTextSlider() {
   textFont(texteInterface); textAlign(LEFT);
   
   // Legend text slider position
-  int correctionPos = 4 ;
+  int correctionPos = 3 ;
   for ( int i = 0 ; i < 8 ; i++) {
     //group one
     text(objTxtGUIone[i+1], mgRHc1 +116, posHeightRO +correctionPos +(i*10));
@@ -463,7 +461,10 @@ void moletteDraw () {
   PVector sizeMoletteSlider = new PVector (8,10, 1.5) ; // width, height, thickness
   //display and update the molette
   for ( int i = 0 ; i < numSlider ; i++) {
-    if ( (i>0 && i<10 ) || ( i>10 && i<19) || ( i>20 && i<29) || ( i>30 && i<39) || ( i>110 && i<119) || ( i>120 && i<129) || ( i>130 && i<139) || ( i>210 && i<219) || ( i>220 && i<229) || ( i>230 && i<239) ) { 
+    if (    (i>0 && i<19) 
+         || ( i>100 && i<109) || ( i>110 && i<119) || ( i>120 && i<129)
+         || ( i>200 && i<209) || ( i>210 && i<219) || ( i>220 && i<229) 
+         || ( i>300 && i<309) || ( i>310 && i<319) || ( i>320 && i<329) ) { 
       //give which button is active and check is this button have a same IDmidi that Object
       if ( numMidi == RH[i].IDmidi() ) RH[i].updateMidi(valMidi) ;
     //  println(i + " / " + RH[i].IDmidi()) ;
@@ -475,14 +476,8 @@ void moletteDraw () {
       }
       RH[i].update(mouseX, loadR[i]);    
       RH[i].displayMolette(rouge, orange, blanc, sizeMoletteSlider);
-      
-      
-      //save midi setting
-      /*
-      if (saveMidi) newSettingMidi[i] = "" + RH[i].IDmidi() ; 
-      saveMidi = false ;
-      */
-      //récupération des données de la réglette couleur fond  
+
+      //value from the slider hur background
       valueSlider[i] = constrain(map(RH[i].getPos(), 0, 104, 0,100),0,100)  ;     
       saveR [i] = byte(valueSlider[i] ) ;
       saveR [i + numSlider] = byte(RH[i].IDmidi() ) ;
@@ -519,14 +514,16 @@ void sliderDrawGroupZero () {
   }
   // light slider
   if (mouseX > (posWidthRH[7] ) && mouseX < ( posWidthRH[7] + longueurRH[7]) 
-  && mouseY > ( posHeightRH[7] - 5) && mouseY < posHeightRH[1] + 30 ) {
+  && mouseY > ( posHeightRH[7] - 5) && mouseY < posHeightRH[1] + 40 ) {
     fondRegletteCouleur    ( posWidthRH[7], posHeightRH[7], hauteurRH[7], longueurRH[7]) ;
     fondRegletteSaturation ( posWidthRH[8], posHeightRH[8], hauteurRH[8], longueurRH[7], valueSlider[7], valueSlider[8], valueSlider[9] ) ;
     fondRegletteDensite    ( posWidthRH[9], posHeightRH[9], hauteurRH[9], longueurRH[7], valueSlider[7], valueSlider[8], valueSlider[9] ) ;
+    fondRegletteCouleur    ( posWidthRH[10], posHeightRH[10], hauteurRH[10], longueurRH[10]) ;
   } else {
     fondReglette    ( posWidthRH[7], posHeightRH[7], hauteurRH[7], longueurRH[7], blancGrisClair) ;
     fondReglette    ( posWidthRH[8], posHeightRH[8], hauteurRH[8], longueurRH[8], blancGrisClair ) ;
     fondReglette    ( posWidthRH[9], posHeightRH[9], hauteurRH[9], longueurRH[9], blancGrisClair ) ;
+    fondReglette    ( posWidthRH[10], posHeightRH[10], hauteurRH[10], longueurRH[10], blancGrisClair ) ;
   }
 }
 
@@ -534,89 +531,89 @@ void sliderDrawGroupZero () {
 
 /////////////////////////////
 void sliderDrawGroupOne () {
-  if ( mouseX > (posWidthRH[11] ) && mouseX < ( posWidthRH[11] + longueurRH[11]) 
-       && mouseY > ( posHeightRH[11] - 5) && mouseY < posHeightRH[11] +30 ) 
+  if ( mouseX > (posWidthRH[101] ) && mouseX < ( posWidthRH[101] + longueurRH[101]) 
+       && mouseY > ( posHeightRH[101] - 5) && mouseY < posHeightRH[101] +30 ) 
   {
-    fondRegletteCouleur     ( posWidthRH[11], posHeightRH[11], hauteurRH[11], longueurRH[11]) ; 
-    fondRegletteSaturation  ( posWidthRH[12], posHeightRH[12], hauteurRH[12], longueurRH[11], valueSlider[11], valueSlider[12], valueSlider[13] ) ;
-    fondRegletteDensite     ( posWidthRH[13], posHeightRH[13], hauteurRH[13], longueurRH[11], valueSlider[11], valueSlider[12], valueSlider[13] ) ;
+    fondRegletteCouleur     ( posWidthRH[101], posHeightRH[101], hauteurRH[101], longueurRH[101]) ; 
+    fondRegletteSaturation  ( posWidthRH[102], posHeightRH[102], hauteurRH[102], longueurRH[101], valueSlider[101], valueSlider[102], valueSlider[103] ) ;
+    fondRegletteDensite     ( posWidthRH[103], posHeightRH[103], hauteurRH[103], longueurRH[101], valueSlider[101], valueSlider[102], valueSlider[103] ) ;
   } else {
-    fondReglette    ( posWidthRH[11], posHeightRH[11], hauteurRH[11], longueurRH[11], blanc) ;
-    fondReglette    ( posWidthRH[12], posHeightRH[12], hauteurRH[12], longueurRH[12], blanc ) ;
-    fondReglette    ( posWidthRH[13], posHeightRH[13], hauteurRH[13], longueurRH[13], blanc ) ;
+    fondReglette    ( posWidthRH[101], posHeightRH[101], hauteurRH[101], longueurRH[101], blanc) ;
+    fondReglette    ( posWidthRH[102], posHeightRH[102], hauteurRH[102], longueurRH[102], blanc ) ;
+    fondReglette    ( posWidthRH[103], posHeightRH[103], hauteurRH[103], longueurRH[103], blanc ) ;
   }
-  fondReglette    ( posWidthRH[14], posHeightRH[14], hauteurRH[14], longueurRH[14], blanc ) ;
+  fondReglette    ( posWidthRH[104], posHeightRH[104], hauteurRH[104], longueurRH[104], blanc ) ;
   
   //outline color
-  if ( mouseX > (posWidthRH[15] ) && mouseX < ( posWidthRH[15] + longueurRH[15]) 
-       && mouseY > ( posHeightRH[15] - 5) && mouseY < posHeightRH[15] +30 ) 
+  if ( mouseX > (posWidthRH[105] ) && mouseX < ( posWidthRH[105] + longueurRH[105]) 
+       && mouseY > ( posHeightRH[105] - 5) && mouseY < posHeightRH[105] +30 ) 
   {
-    fondRegletteCouleur     ( posWidthRH[15], posHeightRH[15], hauteurRH[15], longueurRH[15]) ; 
-    fondRegletteSaturation  ( posWidthRH[16], posHeightRH[16], hauteurRH[16], longueurRH[15], valueSlider[15], valueSlider[16], valueSlider[17] ) ;
-    fondRegletteDensite     ( posWidthRH[17], posHeightRH[17], hauteurRH[17], longueurRH[15], valueSlider[15], valueSlider[16], valueSlider[17] ) ;
+    fondRegletteCouleur     ( posWidthRH[105], posHeightRH[105], hauteurRH[105], longueurRH[105]) ; 
+    fondRegletteSaturation  ( posWidthRH[106], posHeightRH[106], hauteurRH[106], longueurRH[105], valueSlider[105], valueSlider[106], valueSlider[107] ) ;
+    fondRegletteDensite     ( posWidthRH[107], posHeightRH[107], hauteurRH[107], longueurRH[105], valueSlider[105], valueSlider[106], valueSlider[107] ) ;
   } else {
-    fondReglette    ( posWidthRH[15], posHeightRH[15], hauteurRH[15], longueurRH[15], blancGrisClair) ;
-    fondReglette    ( posWidthRH[16], posHeightRH[16], hauteurRH[16], longueurRH[16], blancGrisClair ) ;
-    fondReglette    ( posWidthRH[17], posHeightRH[17], hauteurRH[17], longueurRH[17], blancGrisClair) ;
+    fondReglette    ( posWidthRH[105], posHeightRH[105], hauteurRH[105], longueurRH[105], blancGrisClair) ;
+    fondReglette    ( posWidthRH[106], posHeightRH[106], hauteurRH[106], longueurRH[106], blancGrisClair ) ;
+    fondReglette    ( posWidthRH[107], posHeightRH[107], hauteurRH[107], longueurRH[107], blancGrisClair) ;
   }
-  fondReglette    ( posWidthRH[18], posHeightRH[18], hauteurRH[18], longueurRH[18], blancGrisClair ) ;
+  fondReglette    ( posWidthRH[108], posHeightRH[108], hauteurRH[108], longueurRH[108], blancGrisClair ) ;
 }
 
 
 ////////////////////////////
 void sliderDrawGroupTwo () {
-  if ( mouseX > (posWidthRH[111] ) && mouseX < ( posWidthRH[111] + longueurRH[111]) 
-       && mouseY > ( posHeightRH[111] - 5) && mouseY < posHeightRH[111] +30 ) 
+  if ( mouseX > (posWidthRH[201] ) && mouseX < ( posWidthRH[201] + longueurRH[201]) 
+       && mouseY > ( posHeightRH[201] - 5) && mouseY < posHeightRH[201] +30 ) 
   {
-    fondRegletteCouleur     ( posWidthRH[111], posHeightRH[111], hauteurRH[111], longueurRH[111]) ; 
-    fondRegletteSaturation  ( posWidthRH[112], posHeightRH[112], hauteurRH[112], longueurRH[111], valueSlider[111], valueSlider[112], valueSlider[113] ) ;
-    fondRegletteDensite     ( posWidthRH[113], posHeightRH[113], hauteurRH[113], longueurRH[111], valueSlider[111], valueSlider[112], valueSlider[113] ) ;
+    fondRegletteCouleur     ( posWidthRH[201], posHeightRH[201], hauteurRH[201], longueurRH[201]) ; 
+    fondRegletteSaturation  ( posWidthRH[202], posHeightRH[202], hauteurRH[202], longueurRH[201], valueSlider[201], valueSlider[202], valueSlider[203] ) ;
+    fondRegletteDensite     ( posWidthRH[203], posHeightRH[203], hauteurRH[203], longueurRH[201], valueSlider[201], valueSlider[202], valueSlider[203] ) ;
   } else {
-    fondReglette    ( posWidthRH[111], posHeightRH[111], hauteurRH[111], longueurRH[111], blanc) ;
-    fondReglette    ( posWidthRH[112], posHeightRH[112], hauteurRH[112], longueurRH[112], blanc ) ;
-    fondReglette    ( posWidthRH[113], posHeightRH[113], hauteurRH[113], longueurRH[113], blanc ) ;
+    fondReglette    ( posWidthRH[201], posHeightRH[201], hauteurRH[201], longueurRH[201], blanc) ;
+    fondReglette    ( posWidthRH[202], posHeightRH[202], hauteurRH[202], longueurRH[202], blanc ) ;
+    fondReglette    ( posWidthRH[203], posHeightRH[203], hauteurRH[203], longueurRH[203], blanc ) ;
   }
-  fondReglette    ( posWidthRH[114], posHeightRH[114], hauteurRH[114], longueurRH[114], blanc ) ;
+  fondReglette    ( posWidthRH[204], posHeightRH[204], hauteurRH[204], longueurRH[204], blanc ) ;
   
   //outline color
-  if ( mouseX > (posWidthRH[115] ) && mouseX < ( posWidthRH[115] + longueurRH[115]) 
-       && mouseY > ( posHeightRH[115] - 5) && mouseY < posHeightRH[115] +30 ) 
+  if ( mouseX > (posWidthRH[205] ) && mouseX < ( posWidthRH[205] + longueurRH[205]) 
+       && mouseY > ( posHeightRH[205] - 5) && mouseY < posHeightRH[205] +30 ) 
   {
-    fondRegletteCouleur     ( posWidthRH[115], posHeightRH[115], hauteurRH[115], longueurRH[115]) ; 
-    fondRegletteSaturation  ( posWidthRH[116], posHeightRH[116], hauteurRH[116], longueurRH[115], valueSlider[115], valueSlider[116], valueSlider[117] ) ;
-    fondRegletteDensite     ( posWidthRH[117], posHeightRH[117], hauteurRH[117], longueurRH[115], valueSlider[115], valueSlider[116], valueSlider[117] ) ;
+    fondRegletteCouleur     ( posWidthRH[205], posHeightRH[205], hauteurRH[205], longueurRH[205]) ; 
+    fondRegletteSaturation  ( posWidthRH[206], posHeightRH[206], hauteurRH[206], longueurRH[205], valueSlider[205], valueSlider[206], valueSlider[207] ) ;
+    fondRegletteDensite     ( posWidthRH[207], posHeightRH[207], hauteurRH[207], longueurRH[205], valueSlider[205], valueSlider[206], valueSlider[207] ) ;
   } else {
-    fondReglette    ( posWidthRH[115], posHeightRH[115], hauteurRH[115], longueurRH[115], blancGrisClair) ;
-    fondReglette    ( posWidthRH[116], posHeightRH[116], hauteurRH[116], longueurRH[116], blancGrisClair ) ;
-    fondReglette    ( posWidthRH[117], posHeightRH[117], hauteurRH[117], longueurRH[117], blancGrisClair) ;
+    fondReglette    ( posWidthRH[205], posHeightRH[205], hauteurRH[205], longueurRH[205], blancGrisClair) ;
+    fondReglette    ( posWidthRH[206], posHeightRH[206], hauteurRH[206], longueurRH[206], blancGrisClair ) ;
+    fondReglette    ( posWidthRH[207], posHeightRH[207], hauteurRH[207], longueurRH[207], blancGrisClair) ;
   }
-  fondReglette    ( posWidthRH[118], posHeightRH[118], hauteurRH[118], longueurRH[118], blancGrisClair ) ;
+  fondReglette    ( posWidthRH[208], posHeightRH[208], hauteurRH[208], longueurRH[208], blancGrisClair ) ;
 }
 
 
 //////////////////////////////
 void sliderDrawGroupThree () {
-  if (mouseX > (posWidthRH[211] ) && mouseX < ( posWidthRH[211] + longueurRH[211]) && mouseY > ( posHeightRH[211] - 5) && mouseY < posHeightRH[211] + 30 ) {
-    fondRegletteCouleur    ( posWidthRH[211], posHeightRH[211], hauteurRH[211], longueurRH[211]) ;
-    fondRegletteSaturation ( posWidthRH[212], posHeightRH[212], hauteurRH[212], longueurRH[211], valueSlider[211], valueSlider[212], valueSlider[213] ) ;
-    fondRegletteDensite    ( posWidthRH[213], posHeightRH[213], hauteurRH[213], longueurRH[211], valueSlider[211], valueSlider[212], valueSlider[213] ) ;
+  if (mouseX > (posWidthRH[301] ) && mouseX < ( posWidthRH[301] + longueurRH[301]) && mouseY > ( posHeightRH[301] - 5) && mouseY < posHeightRH[301] + 30 ) {
+    fondRegletteCouleur    ( posWidthRH[301], posHeightRH[301], hauteurRH[301], longueurRH[301]) ;
+    fondRegletteSaturation ( posWidthRH[302], posHeightRH[302], hauteurRH[302], longueurRH[301], valueSlider[301], valueSlider[302], valueSlider[303] ) ;
+    fondRegletteDensite    ( posWidthRH[303], posHeightRH[303], hauteurRH[303], longueurRH[301], valueSlider[301], valueSlider[302], valueSlider[303] ) ;
   } else {
-    fondReglette    ( posWidthRH[211], posHeightRH[211], hauteurRH[211], longueurRH[211], blanc) ;
-    fondReglette    ( posWidthRH[212], posHeightRH[212], hauteurRH[212], longueurRH[212], blanc) ;
-    fondReglette    ( posWidthRH[213], posHeightRH[213], hauteurRH[213], longueurRH[213], blanc ) ;
+    fondReglette    ( posWidthRH[301], posHeightRH[301], hauteurRH[301], longueurRH[301], blanc) ;
+    fondReglette    ( posWidthRH[302], posHeightRH[302], hauteurRH[302], longueurRH[302], blanc) ;
+    fondReglette    ( posWidthRH[303], posHeightRH[303], hauteurRH[303], longueurRH[303], blanc ) ;
   }
-  fondReglette    ( posWidthRH[214], posHeightRH[214], hauteurRH[214], longueurRH[214], blanc ) ;
+  fondReglette    ( posWidthRH[304], posHeightRH[304], hauteurRH[304], longueurRH[304], blanc ) ;
   //outline color
-  if ( mouseX > (posWidthRH[215] ) && mouseX < ( posWidthRH[215] + longueurRH[215]) && mouseY > ( posHeightRH[215] - 5) && mouseY < posHeightRH[215] +30 ) {
-    fondRegletteCouleur     ( posWidthRH[215], posHeightRH[215], hauteurRH[215], longueurRH[215]) ; 
-    fondRegletteSaturation  ( posWidthRH[216], posHeightRH[216], hauteurRH[216], longueurRH[215], valueSlider[215], valueSlider[216], valueSlider[217] ) ;
-    fondRegletteDensite     ( posWidthRH[217], posHeightRH[217], hauteurRH[217], longueurRH[215], valueSlider[215], valueSlider[216], valueSlider[217] ) ;
+  if ( mouseX > (posWidthRH[305] ) && mouseX < ( posWidthRH[305] + longueurRH[305]) && mouseY > ( posHeightRH[305] - 5) && mouseY < posHeightRH[305] +30 ) {
+    fondRegletteCouleur     ( posWidthRH[305], posHeightRH[305], hauteurRH[305], longueurRH[305]) ; 
+    fondRegletteSaturation  ( posWidthRH[306], posHeightRH[306], hauteurRH[306], longueurRH[305], valueSlider[305], valueSlider[306], valueSlider[307] ) ;
+    fondRegletteDensite     ( posWidthRH[307], posHeightRH[307], hauteurRH[307], longueurRH[305], valueSlider[305], valueSlider[306], valueSlider[307] ) ;
   } else {
-    fondReglette    ( posWidthRH[215], posHeightRH[215], hauteurRH[215], longueurRH[215], blancGrisClair) ;
-    fondReglette    ( posWidthRH[216], posHeightRH[216], hauteurRH[216], longueurRH[216], blancGrisClair ) ;
-    fondReglette    ( posWidthRH[217], posHeightRH[217], hauteurRH[217], longueurRH[217], blancGrisClair) ;
+    fondReglette    ( posWidthRH[305], posHeightRH[305], hauteurRH[305], longueurRH[305], blancGrisClair) ;
+    fondReglette    ( posWidthRH[306], posHeightRH[306], hauteurRH[306], longueurRH[306], blancGrisClair ) ;
+    fondReglette    ( posWidthRH[307], posHeightRH[307], hauteurRH[307], longueurRH[307], blancGrisClair) ;
   }
-  fondReglette    ( posWidthRH[218], posHeightRH[218], hauteurRH[218], longueurRH[218], blancGrisClair ) ;
+  fondReglette    ( posWidthRH[308], posHeightRH[308], hauteurRH[308], longueurRH[308], blancGrisClair ) ;
   //end TYPO
 }
 

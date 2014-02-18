@@ -450,7 +450,7 @@ Table configurationScene;
 // boolean mode
 boolean modeP3D ;
 
-String pathScenePropertySetting = sketchPath("")+"preference/sceneProperty.csv" ;
+String pathScenePropertySetting = sketchPath("")+"preferences/sceneProperty.csv" ;
 TableRow row ;
 //SETUP
 void displaySetup(int speed) {

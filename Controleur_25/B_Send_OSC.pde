@@ -34,15 +34,15 @@ void sendOSCdraw() {
   toPreScene[4] = joinIntToString(dataIntGlobal) ;
   //float value slider obj
   int[] dataIntObj = new int[30] ;
-  for ( int i = 11   ; i < 41 ; i++) { dataIntObj[i-11] = floor(valueSlider[i]) ; }
+  for ( int i = 101   ; i < 131 ; i++) { dataIntObj[i-101] = floor(valueSlider[i]) ; }
   toPreScene[5] = joinIntToString(dataIntObj);
   //float value slider tex
   int[] dataIntTex = new int[30] ;
-  for ( int i = 111   ; i < 141 ; i++) { dataIntTex[i-111] = floor(valueSlider[i]) ; }
+  for ( int i = 201   ; i < 231 ; i++) { dataIntTex[i-201] = floor(valueSlider[i]) ; }
   toPreScene[6] = joinIntToString(dataIntTex) ;
   //float value slider typo
   int[] dataIntTypo = new int[30] ;
-  for ( int i = 211   ; i < 241 ; i++) { dataIntTypo[i-211] = floor(valueSlider[i]) ; }
+  for ( int i = 301   ; i < 331 ; i++) { dataIntTypo[i-301] = floor(valueSlider[i]) ; }
   toPreScene[7] = joinIntToString(dataIntTypo) ;
   
   //add to OSC

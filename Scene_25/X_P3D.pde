@@ -492,38 +492,49 @@ PVector speedColorLight = new PVector(0,0,0) ;
 //PVector speedSpotLight = new PVector(0,0,0) ;
 //SETUP
 void lightSetup() {
-  float min =.001 ;
-  float max = 0.3 ;
-  speedColorLight = new PVector(random(min,max),random(min,max),random(min,max)) ;
+  if(modeP3D) {
+    float min =.001 ;
+    float max = 0.3 ;
+    speedColorLight = new PVector(random(min,max),random(min,max),random(min,max)) ;
+  }
 }
 
 //DRAW
 void lightDraw() {
-  //change color of the directional light
-  colorLight = new PVector (map(valueSliderGlobal[6],0,100,0,360), valueSliderGlobal[7], valueSliderGlobal[8]) ;
-  /*
-  colorLight.x += speedColorLight.x ;
-  colorLight.y += speedColorLight.y ;
-  colorLight.z += speedColorLight.z ;
-
-  if (colorLight.x > 360 ) colorLight.x = 0 ;
-  if (colorLight.y > 100 ) colorLight.y = 0 ;
-  if (colorLight.z > 100 ) colorLight.z = 0 ;
+  if(modeP3D) {
+    //change color of the directional light
+    PVector lightValue = new PVector (map(valueSliderGlobal[6],0,100,0,360), valueSliderGlobal[7], valueSliderGlobal[8]) ;
+    colorLight = new PVector (lightValue.x, lightValue.y, lightValue.z) ;
+    /*
+    colorLight.x += speedColorLight.x ;
+    colorLight.y += speedColorLight.y ;
+    colorLight.z += speedColorLight.z ;
+  
+    if (colorLight.x > 360 ) colorLight.x = 0 ;
+    if (colorLight.y > 100 ) colorLight.y = 0 ;
+    if (colorLight.z > 100 ) colorLight.z = 0 ;
+      */
+    
+    //change color og the ambient light
+    colorAmbianceLight.x = map(valueSliderGlobal[9],0,100,0,360)  ;
+    colorAmbianceLight.y = (lightValue.y) ;
+    colorAmbianceLight.z = (lightValue.z ) ;
+    /*
+    colorAmbianceLight.x = map(mouseX, 0,width,0,360) ;
+    colorAmbianceLight.y = map(mouseY, 0,height,0,100) ;
+    if (mousePressed) colorAmbianceLight.z = map(mouseY, 0,height,0,100) ; else colorAmbianceLight.z = map(mouseX, 0,width,0,100) ;
     */
-  
-  //change color og the ambient light
-  colorAmbianceLight.x = map(mouseX, 0,width,0,360) ;
-  colorAmbianceLight.y = map(mouseY, 0,height,0,100) ;
-  if (mousePressed) colorAmbianceLight.z = map(mouseY, 0,height,0,100) ; else colorAmbianceLight.z = map(mouseX, 0,width,0,100) ;
-  
-  // change the direction of the light
-  dirLight.x = map(mouseX,0,width, -1,1) ;
-  dirLight.y = map(mouseY,0,height, -1,1) ;
-  
-  //result
-  romanescoLight(colorAmbianceLight, colorLight, dirLight) ;
+    
+    // change the direction of the light
+    dirLight.x = map(mouseX,0,width, -1,1) ;
+    dirLight.y = map(mouseY,0,height, -1,1) ;
+    
+    //result
+    romanescoLight(colorAmbianceLight, colorLight, dirLight) ;
+  }
 }
 
+//ANNEXE LIGHT VOID
 void romanescoLight(PVector colorAmbLight, PVector colorLight, PVector dir) {
   directionalLight(colorLight.x, colorLight.y, colorLight.z, dir.x, dir.y, dir.z);
   // don't use the ambiant light if you need the object color

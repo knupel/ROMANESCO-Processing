@@ -46,23 +46,11 @@ void importPicButtonSetup() {
     vignette_ON_out_typography[i] = loadImage ("vignette_typography/vignette_ON_out_typography_"+i+".png") ;
   }
 }
-
-
-
-
-//SAVE SLIDER SETTING
-//GLOBALE
-byte saveR [] = new byte [2*numSlider]; // byte sur cette -128 à 127 soit 256 bytes
-byte loadR []  = new byte [2*numSlider] ;
 //END GLOBAL
 
 //SETUP
 void loadSetup() {
-  //////////// ATTENTION ////////////////
-  // put the folder "Sauvegarde" in the folder "data", if you don't do that, it is not export when you make your application.
-  // loadR = loadBytes("Sauvegarde"+java.io.File.separator+"Reglage.dat");
-  loadR = loadBytes("setting/BasicSetting.dat");
-  
+  loadR = loadBytes(sketchPath("")+"preferences/MidiSetting/defaultSetting.dat");
   //load data object
   objectTableSetup() ;
   //load text interface 
@@ -221,7 +209,7 @@ void objectTableSetup() {
 
 //LOAD text Interface
 Table textGUI;
-int numCol = 12 ;
+int numCol = 13 ;
 String[] genTxtGUI = new String[numCol] ;
 String[] objTxtGUIone = new String[numCol] ;
 String[] objTxtGUItwo = new String[numCol] ;
@@ -233,22 +221,22 @@ String[] typoTxtGUIone = new String[numCol] ;
 String[] typoTxtGUItwo = new String[numCol] ;
 String[] typoTxtGUIthree = new String[numCol] ;
 
-TableRow [] row = new TableRow[13] ;
+TableRow [] row = new TableRow[numCol+1] ;
 
 String lang[] ;
 
 void textGUI() {
-  if (!test)lang = loadStrings(sketchPath("") +"preference/language.txt") ; else lang = loadStrings("preference/language.txt") ;
+  if (!test)lang = loadStrings(sketchPath("") +"preferences/language.txt") ; else lang = loadStrings("preferences/language.txt") ;
   String l = join(lang,"") ;
   int language = Integer.parseInt(l);
 
   
   if( language == 0 ) { 
-    textGUI = loadTable("sliderListFR.csv", "header") ;
+    textGUI = loadTable(sketchPath("")+"preferences/sliderListFR.csv", "header") ;
   } else if (language == 1 ) {
-    textGUI = loadTable("sliderListEN.csv", "header") ;
+    textGUI = loadTable(sketchPath("")+"preferences/sliderListEN.csv", "header") ;
   } else {
-    textGUI = loadTable("sliderListEN.csv", "header") ;
+    textGUI = loadTable(sketchPath("")+"preferences/sliderListEN.csv", "header") ;
   }
     
   for ( int i = 0 ; i < numCol ; i++) {

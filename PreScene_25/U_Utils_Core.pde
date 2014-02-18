@@ -617,7 +617,7 @@ Table configurationScene;
 int divSizePreScene = 2 ;
 // boolean mode
 boolean modeP3D ;
-String pathScenePropertySetting = sketchPath("")+"preference/sceneProperty.csv" ;
+String pathScenePropertySetting = sketchPath("")+"preferences/sceneProperty.csv" ;
 TableRow row ;
 
 //SETUP
