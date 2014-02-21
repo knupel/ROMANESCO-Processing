@@ -21,7 +21,7 @@ boolean ouvrirFichier = false ;
 
 //ANNEXE
 void setting() {
-  size(550,650); 
+  size(565,650); 
   colorSetup() ;  
 
   frameRate(60) ; 
