@@ -1,12 +1,8 @@
 RomanescoOne romanescoOne ;
 
 //SETUP
-void romanescoOneSetup() {
-  //MUST CHANGE THE ID
-  //Example : If it's RomanestoThirtySetup int ID = 30 ;
-  int ID = 1 ; // 0 is Ref you must use a number is the order of apparition in the controleur, start from top left and follow the horizontal line
-  int IDfamilly = 1 ; // 0 is global // 1 is single object // 2 is trame // 3 is typo
-  romanescoOne = new RomanescoOne (ID, IDfamilly) ;
+void romanescoOneSetup(int ID) {
+  romanescoOne = new RomanescoOne (ID) ;
   romanescoOne.setting() ;
 }
 
@@ -30,7 +26,7 @@ int getFamillyRomanescoOne() { return romanescoOne.getIDfamilly() ; }
 class RomanescoOne extends SuperRomanesco 
 {
   //FORBIDEN TO TOUCH
-  int IDfamilly ;
+  int IDfamilly = 1 ; // 0 is global // 1 is single object // 2 is trame // 3 is typo
   //END OF FORBIDEN ZONE
   
   /////////////////////////
@@ -41,9 +37,8 @@ class RomanescoOne extends SuperRomanesco
   
   
   //CONSTRUCTOR
-  RomanescoOne(int ID, int IDfamilly) {
+  RomanescoOne(int ID) {
     super(ID) ;
-    this.IDfamilly = IDfamilly ;
   }
   //END CONSTRUCTOR
   

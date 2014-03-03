@@ -1,5 +1,5 @@
-Slider Name,Column 1,Column 2,Column 3,Column 4,Column 5,Column 6,Column 7,Column 8,Column 9,Column 10,Column 11,Column 12,Column 13
-général,Hue,Saturation,Brigthness,Opacity,Left,Rigth,TYPOGRAPHY,CURTAIN,Hue,Saturation,Brightness,Hue Ambient,
+Slider Name,Column 1,Column 2,Column 3,Column 4,Column 5,Column 6,Column 7,Column 8,Column 9,Column 10,Column 11,Column 12,Column 13,Column 14,Column 15
+général,Hue,Saturation,Brigthness,Refresh,Left,Rigth,TYPOGRAPHY,CURTAIN,Hue,Saturation,Brightness,Hue,Saturation,Brightness
 Object 1,Hue,Saturation,Brigthness,Opacity,Hue,Saturation,Brigthness,Opacity,,,,,
 Object 2,,,Thickness,Quantity,Life,Speed,Amplitude,Orientation,,,,,
 Object 3,Heigth,Width,Depth,Curve,Attraction,Force,Family,Angle,,,,,

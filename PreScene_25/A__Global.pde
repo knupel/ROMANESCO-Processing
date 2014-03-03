@@ -1,6 +1,9 @@
 ///////////////////////
 // GLOBAL SETTING ////
 /////////////////////
+int numObjectGroupOne = 9 ;
+int numObjectGroupTwo = 7 ;
+int numObjectGroupThree = 5 ;
 int numObj = 99 ; // minimum 2 object because sur first Object is Zero and it use like ref. So the "1" is the real first object.
 int numBand = 16 ; // num band for the spectrum sound
 

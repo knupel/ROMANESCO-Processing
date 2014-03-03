@@ -209,7 +209,7 @@ void objectTableSetup() {
 
 //LOAD text Interface
 Table textGUI;
-int numCol = 13 ;
+int numCol = 15 ;
 String[] genTxtGUI = new String[numCol] ;
 String[] objTxtGUIone = new String[numCol] ;
 String[] objTxtGUItwo = new String[numCol] ;

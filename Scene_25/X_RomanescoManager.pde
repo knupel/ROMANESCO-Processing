@@ -2,8 +2,7 @@
 PVector mouseCamera, pmouseCamera, mouseSuperRomanesco, pmouseSuperRomanesco ;
 
 //SETUP
-void romanescoSetup()
-{
+void romanescoSetup() {
   romanescoOneSetup() ;       romanescoTwoSetup() ;        romanescoThreeSetup() ;       romanescoFourSetup() ;       romanescoFiveSetup() ;       romanescoSixSetup() ;       romanescoSevenSetup() ; romanescoHeightSetup() ; romanescoNineSetup() ;
   romanescoTwentyOneSetup() ; romanescoTwentyTwoSetup() ;  romanescoTwentyThreeSetup() ; romanescoTwentyFourSetup() ; romanescoTwentyFiveSetup() ; romanescoTwentySixSetup() ; romanescoTwentySevenSetup() ;
   romanescoFortyOneSetup() ;  romanescoFortyTwoSetup() ;   romanescoFortyThreeSetup() ;  romanescoFortyFourSetup() ;  romanescoFortyFiveSetup() ;
@@ -177,25 +176,24 @@ boolean romanescoEmptyList(int ID) {
 
 
 //ROMANESCO DATA
-int numDataGlobal = 10 ;
-int numDataSlider = 30 ;
+
 
 //data from controleur
-String [] dataGlobal = new String [numDataGlobal] ;
-String [] dataControlerObj = new String [numDataSlider +1] ;
-String [] dataControlerTrame = new String [numDataSlider +1] ;
-String [] dataControlerTypo = new String [numDataSlider +1] ;
-String [] dataControler = new String [numDataSlider +1] ;
+String [] dataGlobal = new String [numSliderGroupZero] ;
+String [] dataControlerObj = new String [numSliderMaxForTheObject +1] ;
+String [] dataControlerTrame = new String [numSliderMaxForTheObject +1] ;
+String [] dataControlerTypo = new String [numSliderMaxForTheObject +1] ;
+String [] dataControler = new String [numSliderMaxForTheObject +1] ;
 //data from minim
 String [] dataSoundGlobal = new String [26] ;
 
 //
 void romanescoData() {
   // collecting value from controler and put in the specific familly String to send to each classes
-  for ( int i = 1 ; i < numDataGlobal ; i ++ ) {
+  for ( int i = 1 ; i < numSliderGroupZero ; i ++ ) {
     dataGlobal [i] = Float.toString(valueSliderGlobal[i]) ;
   }
-  for ( int i = 0 ; i < numDataSlider ; i ++ ) {
+  for ( int i = 0 ; i < numSliderMaxForTheObject ; i ++ ) {
     dataControlerObj   [i +1] = Float.toString(valueSliderObj[i]) ;
     dataControlerTrame [i +1] = Float.toString(valueSliderTex[i]) ;
     dataControlerTypo  [i +1] = Float.toString(valueSliderTypo[i]) ;

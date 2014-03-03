@@ -85,9 +85,7 @@ class SuperRomanesco
       ///////////////////
       ///GLOBAL
       if ( parameterButton[IDobj] == 1 || !initValueSlider[IDobj] ) {
-        valueObj[IDobj][1]  = float(d[1])   ; valueObj[IDobj][2]  = float(d[2])  ;  valueObj[IDobj][3]  = float(d[3])  ; valueObj[IDobj][4]  = float(d[4]) ;  valueObj[IDobj][5]  = float(d[5])  ;  valueObj[IDobj][6]  = float(d[6])  ; valueObj[IDobj][7]  = float(d[7])  ; valueObj[IDobj][8]  = float(d[8]) ;
-        valueObj[IDobj][11] = float(d[11])  ; valueObj[IDobj][12] = float(d[12]) ;  valueObj[IDobj][13] = float(d[13]) ; valueObj[IDobj][14] = float(d[14]) ; valueObj[IDobj][15] = float(d[15]) ;  valueObj[IDobj][16] = float(d[16]) ; valueObj[IDobj][17] = float(d[17]) ; valueObj[IDobj][18] = float(d[18]) ;
-        valueObj[IDobj][21] = float(d[21])  ; valueObj[IDobj][22] = float(d[22]) ;  valueObj[IDobj][23] = float(d[23]) ; valueObj[IDobj][24] = float(d[24]) ; valueObj[IDobj][25] = float(d[25]) ;  valueObj[IDobj][26] = float(d[26]) ; valueObj[IDobj][27] = float(d[27]) ; valueObj[IDobj][28] = float(d[28]) ;
+        for (int i = 1 ; i < d.length ; i++) valueObj[IDobj][i]  = float(d[i]) ;
         //after the first init, we don't need to init again the color when the setting button is off, so we say the init is true
         initValueSlider[IDobj] = true ;
       }

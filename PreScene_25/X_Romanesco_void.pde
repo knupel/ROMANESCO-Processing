@@ -1,7 +1,6 @@
 //SETUP
-void romanescoSetup()
-{
-  romanescoOneSetup() ;       romanescoTwoSetup() ;        romanescoThreeSetup() ;       romanescoFourSetup() ;       romanescoFiveSetup() ;       romanescoSixSetup() ;       romanescoSevenSetup() ; romanescoHeightSetup() ; romanescoNineSetup() ;
+void romanescoSetup() {
+  romanescoOneSetup(1) ;       romanescoTwoSetup() ;        romanescoThreeSetup() ;       romanescoFourSetup() ;       romanescoFiveSetup() ;       romanescoSixSetup() ;       romanescoSevenSetup() ; romanescoHeightSetup() ; romanescoNineSetup() ;
   romanescoTwentyOneSetup() ; romanescoTwentyTwoSetup() ;  romanescoTwentyThreeSetup() ; romanescoTwentyFourSetup() ; romanescoTwentyFiveSetup() ; romanescoTwentySixSetup() ; romanescoTwentySevenSetup() ;
   romanescoFortyOneSetup() ;  romanescoFortyTwoSetup() ;   romanescoFortyThreeSetup() ;  romanescoFortyFourSetup() ;  romanescoFortyFiveSetup() ;
   
@@ -20,8 +19,7 @@ void romanescoSetup()
 
 
 //DRAW
-void romanescoDraw()
-{
+void romanescoDraw() {
   if (eCurtain != 1) {
     
     //MODEL
@@ -37,11 +35,20 @@ void romanescoDraw()
     //call the data from contrôleur
     romanescoData() ;
     //check if the object is ON or OFF
-    //  ONE
+    
+    //GROUP ONE
+    /*
+    for (int i = 0 ; i < numObjectGroupOne ; i++) {
+      if ( mainButton[i+1] == 1 ) {
+        if ( getFamillyRomanescoOne() == 1 ) dataControler = dataControlerObj ; 
+        romanescoOneDraw(dataControler, dataSoundGlobal) ;
+      }  
+    }
+    */
     if ( mainButton[1] == 1 ) {
-      if ( getFamillyRomanescoOne() == 1 ) dataControler = dataControlerObj ; 
-      romanescoOneDraw(dataControler, dataSoundGlobal) ;
-    }  
+        if ( getFamillyRomanescoOne() == 1 ) dataControler = dataControlerObj ; 
+        romanescoOneDraw(dataControler, dataSoundGlobal) ;
+      } 
     //  TWO
     if ( mainButton[2] == 1 ) {
       if ( getFamillyRomanescoTwo() == 1 ) dataControler = dataControlerObj ; 
@@ -184,25 +191,26 @@ boolean romanescoEmptyList(int ID) {
 //annexe void
 
 //ROMANESCO DATA
-int numDataGlobal = 10 ;
-int numDataSlider = 30 ;
+//int numDataGlobal = numSliderGroupZero ;
+//int numDataSlider = numSlider ;
 
 //data from controleur
-String [] dataGlobal = new String [numDataGlobal] ;
-String [] dataControlerObj = new String [numDataSlider +1] ;
-String [] dataControlerTrame = new String [numDataSlider +1] ;
-String [] dataControlerTypo = new String [numDataSlider +1] ;
-String [] dataControler = new String [numDataSlider +1] ;
+// String [] dataGlobal = new String [numDataGlobal] ;
+String [] dataGlobal = new String [numSliderGroupZero] ;
+String [] dataControlerObj = new String [numSliderMaxForTheObject +1] ;
+String [] dataControlerTrame = new String [numSliderMaxForTheObject +1] ;
+String [] dataControlerTypo = new String [numSliderMaxForTheObject +1] ;
+String [] dataControler = new String [numSliderMaxForTheObject +1] ;
 //data from minim
-String [] dataSoundGlobal = new String [26] ;
+String [] dataSoundGlobal = new String [10+numBand] ;
 
 //
 void romanescoData() {
   // collecting value from controler and put in the specific familly String to send to each classes
-  for ( int i = 1 ; i < numDataGlobal ; i ++ ) {
+  for ( int i = 1 ; i < numSliderGroupZero ; i ++ ) {
     dataGlobal [i] = Float.toString(valueSliderGlobal[i]) ;
   }
-  for ( int i = 0 ; i < numDataSlider ; i ++ ) {
+  for ( int i = 0 ; i < numSliderMaxForTheObject ; i ++ ) {
     dataControlerObj   [i +1] = Float.toString(valueSliderObj[i]) ;
     dataControlerTrame [i +1] = Float.toString(valueSliderTex[i]) ;
     dataControlerTypo  [i +1] = Float.toString(valueSliderTypo[i]) ;

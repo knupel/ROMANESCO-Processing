@@ -29,20 +29,23 @@ void sendOSCdraw() {
   toPreScene[3] = joinIntToString(valueButtonTypo) ;
   
   //SLIDER to String
-  int[] dataIntGlobal = new int[10] ;
-  for ( int i = 1   ; i < 11 ; i++) { dataIntGlobal[i-1] = floor(valueSlider[i]) ; }
+  int[] dataIntGlobal = new int[numSliderGroupZero] ;
+  for ( int i = 1   ; i < numSliderGroupZero-1 ; i++) { 
+    dataIntGlobal[i-1] = floor(valueSlider[i]) ; 
+    println(i, valueSlider[i]) ;
+  }
   toPreScene[4] = joinIntToString(dataIntGlobal) ;
   //float value slider obj
-  int[] dataIntObj = new int[30] ;
-  for ( int i = 101   ; i < 131 ; i++) { dataIntObj[i-101] = floor(valueSlider[i]) ; }
+  int[] dataIntObj = new int[numSliderGroupOne] ;
+  for ( int i = 101   ; i < 101+numSliderGroupOne ; i++) { dataIntObj[i-101] = floor(valueSlider[i]) ; }
   toPreScene[5] = joinIntToString(dataIntObj);
   //float value slider tex
-  int[] dataIntTex = new int[30] ;
-  for ( int i = 201   ; i < 231 ; i++) { dataIntTex[i-201] = floor(valueSlider[i]) ; }
+  int[] dataIntTex = new int[numSliderGroupTwo] ;
+  for ( int i = 201   ; i < 201+numSliderGroupTwo ; i++) { dataIntTex[i-201] = floor(valueSlider[i]) ; }
   toPreScene[6] = joinIntToString(dataIntTex) ;
   //float value slider typo
-  int[] dataIntTypo = new int[30] ;
-  for ( int i = 301   ; i < 331 ; i++) { dataIntTypo[i-301] = floor(valueSlider[i]) ; }
+  int[] dataIntTypo = new int[numSliderGroupThree] ;
+  for ( int i = 301   ; i < 301+numSliderGroupThree ; i++) { dataIntTypo[i-301] = floor(valueSlider[i]) ; }
   toPreScene[7] = joinIntToString(dataIntTypo) ;
   
   //add to OSC

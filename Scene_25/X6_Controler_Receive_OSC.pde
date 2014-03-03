@@ -7,8 +7,8 @@ OscP5 osc;
 
 int numSliderFamilly = 40 ; // slider by familly object (global, object, trame, typo)
 
-int numSliderGlobal = 10 ;
-int numSlider = 30 ;
+int numSliderGroupZero = 14 ;
+int numSliderMaxForTheObject = 30 ;
 
 int numButtonGlobal = 50 ;
 int numButtonObj = 150 ;
@@ -30,16 +30,16 @@ int valueButtonObj[] = new int[numButtonObj] ;
 int valueButtonTex[] = new int[numButtonTex] ;
 int valueButtonTypo[] = new int[numButtonTypo] ;
 //SLIDER
-String valueSliderTempGlobal[]  = new String [numSliderGlobal] ;
-String valueSliderTempObj[]  = new String [numSlider] ;
-String valueSliderTempTex[]  = new String [numSlider] ;
-String valueSliderTempTypo[]  = new String [numSlider] ;
+String valueSliderTempGlobal[]  = new String [numSliderGroupZero] ;
+String valueSliderTempObj[]  = new String [numSliderMaxForTheObject] ;
+String valueSliderTempTex[]  = new String [numSliderMaxForTheObject] ;
+String valueSliderTempTypo[]  = new String [numSliderMaxForTheObject] ;
 String valueTempPreScene[] = new String [61] ;
 
-float valueSliderGlobal[]  = new float [numSliderGlobal] ;
-float valueSliderObj[]  = new float [numSlider] ;
-float valueSliderTex[]  = new float [numSlider] ;
-float valueSliderTypo[]  = new float [numSlider] ;
+float valueSliderGlobal[]  = new float [numSliderGroupZero] ;
+float valueSliderObj[]  = new float [numSliderMaxForTheObject] ;
+float valueSliderTex[]  = new float [numSliderMaxForTheObject] ;
+float valueSliderTypo[]  = new float [numSliderMaxForTheObject] ;
 
 
 //SETUP
@@ -75,11 +75,11 @@ void oscEvent(OscMessage receive ) {
   //PRESCENE
   valueTempPreScene = split(dataPreScene[8], '/') ;
   //convert String to float
-  for ( int i = 0 ; i < 10 ; i++) {
+  for ( int i = 0 ; i < numSliderGroupZero ; i++) {
   valueSliderGlobal[i] = Float.valueOf(valueSliderTempGlobal[i]) ;
   }
   
-  for ( int i = 0 ; i < 30 ; i++) { 
+  for ( int i = 0 ; i < numSliderMaxForTheObject ; i++) { 
     valueSliderObj [i] = Float.valueOf(valueSliderTempObj[i]) ;
     valueSliderTex [i] = Float.valueOf(valueSliderTempTex[i]) ;
     valueSliderTypo[i] = Float.valueOf(valueSliderTempTypo[i]) ;
