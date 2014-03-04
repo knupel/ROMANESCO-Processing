@@ -32,7 +32,6 @@ void sendOSCdraw() {
   int[] dataIntGlobal = new int[numSliderGroupZero] ;
   for ( int i = 1   ; i < numSliderGroupZero-1 ; i++) { 
     dataIntGlobal[i-1] = floor(valueSlider[i]) ; 
-    println(i, valueSlider[i]) ;
   }
   toPreScene[4] = joinIntToString(dataIntGlobal) ;
   //float value slider obj

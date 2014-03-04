@@ -987,7 +987,6 @@ void dropdownDraw() {
       newPosDropdown = new PVector ( posDropdown[i].x - margeAroundDropdown  , posDropdown[i].y ) ;
       if ( !insideRect(newPosDropdown, totalSizeDropdown) ) dropdown[i].locked = false;
     }
-    // println(dropdown[i].getSelection()) ;
     if (dropdown[i].getSelection() > -1 && m.length > 2 ) text( (dropdown[i].getSelection() +1), posDropdown[i].x +12 , posDropdown[i].y +8) ;
   }
 }
