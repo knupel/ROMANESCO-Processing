@@ -35,25 +35,24 @@ void oscEvent(OscMessage receive ) {
   }
     //SPLIT DATA for the Pre-Scene
   //Split data from the String Data
-  valueButtonGlobal = int(split(fromControler [0], '/')) ;
-  valueButtonObj = int(split(fromControler [1], '/')) ;
+  valueButtonGroupZero = int(split(fromControler [0], '/')) ;
+  valueButtonGroupObj = int(split(fromControler [1], '/')) ;
   
   //SLIDER
-  //split String
-  valueSliderTempGlobal = split(fromControler [4], '/') ;
-  valueSliderTempObj = split(fromControler [5], '/') ;
-  valueSliderTempTex = split(fromControler [6], '/') ;
-  valueSliderTempTypo = split(fromControler [7], '/') ;
-  //convert String to float
-  for ( int i = 0 ; i < numSliderGlobal ; i++) {
-    valueSliderGlobal[i] = Float.valueOf(valueSliderTempGlobal[i]) ;
+  //split String value from controler
+  for ( int i = 0 ; i < numGroup+1 ; i++ ) {
+    valueSliderTemp [i] = split(fromControler [i+4], '/') ;
   }
-  
-  for ( int i = 0 ; i < numSlider ; i++) { 
-    valueSliderObj [i] = Float.valueOf(valueSliderTempObj[i]) ;
-    valueSliderTex [i] = Float.valueOf(valueSliderTempTex[i]) ;
-    valueSliderTypo[i] = Float.valueOf(valueSliderTempTypo[i]) ;
+  // translate the String value to the float var to use
+  for ( int i = 0 ; i < numGroup+1 ; i++ ) {
+    // security because there not same quantity of slider in the group one and the other group
+    int n = 0 ;
+    if ( i < 1 ) n = numSliderGroupZero ; else n = numSlider ;
+    for (int j = 0 ; j < n ; j++) {
+      valueSlider[i][j] = Float.valueOf(valueSliderTemp[i][j]) ;
+    }
   }
+
 }
 
 
@@ -147,25 +146,25 @@ void OSCDraw() {
   
   //TRANSFORM info from controler to use in the preScene
   //GLOBAL
-  eBeat = valueButtonGlobal[1] ;
-  eKick = valueButtonGlobal[2] ;
-  eSnare = valueButtonGlobal[3] ;
-  eHat = valueButtonGlobal[4] ;
+  eBeat = valueButtonGroupZero[1] ;
+  eKick = valueButtonGroupZero[2] ;
+  eSnare = valueButtonGroupZero[3] ;
+  eHat = valueButtonGroupZero[4] ;
   //meteo
-  eMeteo = valueButtonGlobal[5] ;
+  eMeteo = valueButtonGroupZero[5] ;
   //dropdown typo
-  whichFont(valueButtonGlobal[7]) ;
+  whichFont(valueButtonGroupZero[7]) ;
   //rideau
-  eCurtain = valueButtonGlobal[10] ;
+  eCurtain = valueButtonGroupZero[10] ;
   
   //OBJ
   for ( int i = 0 ; i < numObj-1 ; i++) {
     int iPlusOne = i+1 ;
-    objectButton   [iPlusOne] = valueButtonObj[i *10 +1] ;
-    parameterButton[iPlusOne] = valueButtonObj[i *10 +2] ;
-    soundButton    [iPlusOne] = valueButtonObj[i *10 +3] ;
-    actionButton   [iPlusOne] = valueButtonObj[i *10 +4] ;
-    modeButton     [iPlusOne] = valueButtonObj[i *10 +9] ;
+    objectButton   [iPlusOne] = valueButtonGroupObj[i *10 +1] ;
+    parameterButton[iPlusOne] = valueButtonGroupObj[i *10 +2] ;
+    soundButton    [iPlusOne] = valueButtonGroupObj[i *10 +3] ;
+    actionButton   [iPlusOne] = valueButtonGroupObj[i *10 +4] ;
+    modeButton     [iPlusOne] = valueButtonGroupObj[i *10 +9] ;
     if (objectButton[iPlusOne] == 1 ) object[iPlusOne] = true ; else object[iPlusOne] = false ;
     if (parameterButton[iPlusOne] == 1 ) parameter[iPlusOne] = true ; else parameter[iPlusOne] = false ;
     if (soundButton[iPlusOne] == 1 ) sound[iPlusOne] = true ; else sound[iPlusOne] = false ;

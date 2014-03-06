@@ -86,10 +86,12 @@ void cursorSetup() {
   leap = new com.leapmotion.leap.Controller();
   //TABLET
   tablet = new Tablet(this);
-  //mouse
-  mouse[0] = new PVector(0,0) ;
-  pmouse[0] = new PVector(0,0) ;
-  wheel[0] = 0 ;
+  for (int i = 0 ; i < numObj ; i++ ) {
+    pen[i] = new PVector(0,0,0) ;
+    mouse[i] = new PVector(0,0) ;
+    pmouse[i] = new PVector(0,0) ;
+    wheel[i] = 0 ;
+  }
 
 }
 
@@ -952,38 +954,40 @@ PFont SansSerif10,
       
 String pathFontTTF [] = new String [50] ;  
 String pathFontVLW [] = new String [50] ;
-String prefixTTF = ("typoTTF/") ;
-String prefixVLW = ("typoVLW/") ;
+
       
 //SETUP
 void fontSetup() {
-  //write font path for VLW
-  pathFontVLW[1] = (prefixVLW+"AmericanTypewriter-96.vlw");
-  pathFontVLW[2] = (prefixVLW+"AmericanTypewriter-Bold-96.vlw");
-  pathFontVLW[3] = (prefixVLW+"BancoITCStd-Heavy-96.vlw");
-  pathFontVLW[4] = (prefixVLW+"CinquentaMilMeticais-96.vlw");
-  pathFontVLW[5] = (prefixVLW+"Container-Regular-96.vlw");
-  pathFontVLW[6] = (prefixVLW+"Diesel-96.vlw");
-  pathFontVLW[7] = (prefixVLW+"Digital2-96.vlw");
-  pathFontVLW[8] = (prefixVLW+"DIN-Regular-96.vlw");
-  pathFontVLW[9] = (prefixVLW+"DIN-Bold-96.vlw");
-  pathFontVLW[10] = (prefixVLW+"EastBlocICGClosed-96.vlw");
-  pathFontVLW[11] = (prefixVLW+"FuturaStencilICG-96.vlw");
-  pathFontVLW[12] = (prefixVLW+"FetteFraktur-96.vlw");
-  pathFontVLW[13] = (prefixVLW+"GANGBANGCRIME-96.vlw");
-  pathFontVLW[14] = (prefixVLW+"JuanitaDecoITCStd-96.vlw");
-  pathFontVLW[15] = (prefixVLW+"Komikahuna-96.vlw");
-  pathFontVLW[16] = (prefixVLW+"MesquiteStd-96.vlw");
-  pathFontVLW[17] = (prefixVLW+"NanumBrush-96.vlw");
-  pathFontVLW[18] = (prefixVLW+"RosewoodStd-Regular-96.vlw");
-  pathFontVLW[19] = (prefixVLW+"3theHardwayRMX-96.vlw");
-  pathFontVLW[20] = (prefixVLW+"Tokyo-One-96.vlw");
-  pathFontVLW[21] = (prefixVLW+"MinionPro-Regular-96.vlw");
-  pathFontVLW[22] = (prefixVLW+"MinionPro-Bold-96.vlw");
+  String fontPathVLW = sketchPath("")+"commonsData/typoVLW/" ;
+  //write font path
+  pathFontVLW[1] = (fontPathVLW+"AmericanTypewriter-96.vlw");
+  pathFontVLW[2] = (fontPathVLW+"AmericanTypewriter-Bold-96.vlw");
+  pathFontVLW[3] = (fontPathVLW+"BancoITCStd-Heavy-96.vlw");
+  pathFontVLW[4] = (fontPathVLW+"CinquentaMilMeticais-96.vlw");
+  pathFontVLW[5] = (fontPathVLW+"Container-Regular-96.vlw");
+  pathFontVLW[6] = (fontPathVLW+"Diesel-96.vlw");
+  pathFontVLW[7] = (fontPathVLW+"Digital2-96.vlw");
+  pathFontVLW[8] = (fontPathVLW+"DIN-Regular-96.vlw");
+  pathFontVLW[9] = (fontPathVLW+"DIN-Bold-96.vlw");
+  pathFontVLW[10] = (fontPathVLW+"EastBlocICGClosed-96.vlw");
+  pathFontVLW[11] = (fontPathVLW+"FuturaStencilICG-96.vlw");
+  pathFontVLW[12] = (fontPathVLW+"FetteFraktur-96.vlw");
+  pathFontVLW[13] = (fontPathVLW+"GANGBANGCRIME-96.vlw");
+  pathFontVLW[14] = (fontPathVLW+"JuanitaDecoITCStd-96.vlw");
+  pathFontVLW[15] = (fontPathVLW+"Komikahuna-96.vlw");
+  pathFontVLW[16] = (fontPathVLW+"MesquiteStd-96.vlw");
+  pathFontVLW[17] = (fontPathVLW+"NanumBrush-96.vlw");
+  pathFontVLW[18] = (fontPathVLW+"RosewoodStd-Regular-96.vlw");
+  pathFontVLW[19] = (fontPathVLW+"3theHardwayRMX-96.vlw");
+  pathFontVLW[20] = (fontPathVLW+"Tokyo-One-96.vlw");
+  pathFontVLW[21] = (fontPathVLW+"MinionPro-Regular-96.vlw");
+  pathFontVLW[22] = (fontPathVLW+"MinionPro-Bold-96.vlw");
   //special font
-  pathFontVLW[49] = (prefixVLW+"DIN-Regular-10.vlw");
+  pathFontVLW[49] = (fontPathVLW+"DIN-Regular-10.vlw");
+ SansSerif10 = loadFont(fontPathVLW+"SansSerif-10.vlw") ;
   
   //write font path for TTF
+  String prefixTTF = (sketchPath("")+"commonsData/typoTTF/") ;
   //by default
   pathFontTTF[0] = (prefixTTF+"FuturaStencil.ttf");
   //type
@@ -1011,6 +1015,7 @@ void fontSetup() {
   pathFontTTF[22] = (prefixTTF+"MinionWebPro.ttf");
   //special font
   pathFontTTF[49] = (prefixTTF+"FuturaStencil.ttf");
+
   
   //load
   AmericanTypewriter=loadFont      (pathFontVLW[1]);
@@ -1040,7 +1045,7 @@ void fontSetup() {
   DinRegular10=loadFont            (pathFontVLW[49]);
   font[0] = FuturaStencil ;
   pathFontObjTTF[0] = pathFontTTF[0] ;
-  SansSerif10 = loadFont(prefixVLW+"SansSerif-10.vlw") ;
+
 }
 
 

@@ -1,4 +1,40 @@
 // CLASS ROMANESCO MANAGER
+void romanescoSetup() {
+  romanescoManager = new ObjectRomanescoManager(this);
+  romanescoManager.addObjectRomanesco() ;
+  romanescoManager.finishTheIndex() ;
+}
+
+
+//Update the var of the object
+void updateObject(int ID, int group) {
+  if(parameter[ID]) {
+    for ( int i = 0 ; i < numGroup ; i++) if( group == i ) {
+      fillObj[ID] = fillRaw[i-1] ;
+      strokeObj[ID] = strokeRaw[i-1] ;
+      thicknessObj[ID] = thicknessRaw[i-1] ;
+      sizeObj[ID] = sizeRaw[i-1] ;
+      canvasObj[ID] = canvasRaw[i-1] ;
+      quantityObj[ID] = quantityRaw[i-1] ;
+      //column 3
+      speedObj[ID] = speedRaw[i-1] ;
+      orientationObj[ID] = orientationRaw[i-1] ;
+      angleObj[ID] = angleRaw[i-1] ;
+      amplitudeObj[ID] = amplitudeRaw[i-1] ;
+      analyzeObj[ID] = analyzeRaw[i-1] ; 
+      familyObj[ID] = familyRaw[i-1] ;
+      lifeObj[ID] = lifeRaw[i-1] ;
+      forceObj[ID] = forceRaw[i-1] ;
+    }
+  }
+  if(action[ID])if(spaceTouch) mouse[ID] = mouse[0] ;
+}
+///////////////////////////////////////
+
+
+
+
+//CLASS
 // inspired from Andreas Gysin work from The Abyss Project
 class ObjectRomanescoManager {
   private ArrayList<SuperRomanesco>RomanescoList ;
@@ -68,17 +104,18 @@ class ObjectRomanescoManager {
     indexObjects = new Table() ;
     indexObjects.addColumn("Library Order") ;
     indexObjects.addColumn("ID") ;
+    indexObjects.addColumn("Group") ;
     indexObjects.addColumn("Version") ;
     indexObjects.addColumn("Name") ;
     indexObjects.addColumn("Author") ;
     indexObjects.addColumn("Class name") ;
     
-    numObj = num +1 ;
-    objectName = new String[numObj] ;
-    objectID = new int[numObj] ;
+    // numObj = num +1 ;
+    objectName = new String[num +1] ;
+    objectID = new int[num +1] ;
     
     // add row
-    rowIndexObject = new TableRow [numObj-1] ;
+    rowIndexObject = new TableRow [num] ;
     for(int i = 0 ; i < rowIndexObject.length ; i++) {
       rowIndexObject[i] = indexObjects.addRow() ;
     }
@@ -98,7 +135,8 @@ class ObjectRomanescoManager {
     for (int i=0 ; i < RomanescoList.size() ; i++ ) {
       SuperRomanesco objR = (SuperRomanesco) RomanescoList.get(i) ;
       rowIndexObject[i].setString("Name", objR.romanescoName) ;
-      rowIndexObject[i].setInt("ID", objR.romanescoID) ;
+      rowIndexObject[i].setInt("ID", objR.IDobj) ;
+      rowIndexObject[i].setInt("Group", objR.IDgroup) ;
       rowIndexObject[i].setString("Author", objR.romanescoAuthor) ;
       rowIndexObject[i].setString("Version", objR.romanescoVersion) ;
     }

@@ -3,28 +3,25 @@
 
 //object one
 class ObjectOne extends SuperRomanesco {
-  
   public ObjectOne() {
     //from the index_objects.csv
     romanescoName = "MC OBJ-ONE" ;
-    romanescoID = 1 ;
+    IDobj = 1 ;
+    IDgroup = 1 ;
     romanescoAuthor  = "Stan le Punk";
     romanescoVersion = "Alpha";
-
   }
-  
-
   //DISPLAY
   void display() {
-    //Hide this conditional
-    if(parameter[romanescoID]) objectFill[romanescoID] = objectFill[0] ;
+    updateObject(IDobj, IDgroup) ;
     
-    fill(objectFill[romanescoID]) ;
-    ellipse(mouseX, mouseY, 30,30) ;
+    fill(fillObj[IDobj]) ;
+    stroke(strokeObj[IDobj]) ;
+    strokeWeight(thicknessObj[IDobj]) ;
+    ellipse(mouse[IDobj].x, mouse[IDobj].y, sizeObj[IDobj].x,sizeObj[IDobj].y) ;
   }
 }
 //end object one
-
 
 
 ///////////////////
@@ -32,26 +29,54 @@ class ObjectOne extends SuperRomanesco {
 
 //object two
 class ObjectTwo extends SuperRomanesco {
-  
   public ObjectTwo() {
     //from the index_objects.csv
     romanescoName = "DJ NUMBER TWO" ;
-    romanescoID = 2 ;
+    IDobj = 2 ;
+    IDgroup = 1 ;
     romanescoAuthor  = "Stan le Punk";
     romanescoVersion = "Alpha";
   }
-  
-  
   //DISPLAY
   void display() {
-    //Hide this conditional
-    if(parameter[romanescoID]) objectFill[romanescoID] = objectFill[0] ;
+    updateObject(IDobj, IDgroup) ;
     
-    fill(objectFill[romanescoID]) ;
-    rect(mouseY, mouseX, 30,30) ;
+    fill(fillObj[IDobj]) ;
+    stroke(strokeObj[IDobj]) ;
+    strokeWeight(thicknessObj[IDobj]) ;
+    rect(mouse[IDobj].y, mouse[IDobj].x, 30,30) ;
+  }
+}
+//end object two
+
+
+
+//object three
+class ObjectThree extends SuperRomanesco {
+  public ObjectThree() {
+    //from the index_objects.csv
+    romanescoName = "Three the CUBE" ;
+    IDobj = 3 ;
+    IDgroup = 1 ;
+    romanescoAuthor  = "Stan le Punk";
+    romanescoVersion = "Alpha";
+  }
+  //DISPLAY
+  void display() {
+    updateObject(IDobj, IDgroup) ;
+    
+    fill(fillObj[IDobj]) ;
+    stroke(strokeObj[IDobj]) ;
+    strokeWeight(thicknessObj[IDobj]) ;
+    pushMatrix() ;
+    translate(mouse[IDobj].x, mouse[IDobj].y,0) ;
+    box(sizeObj[IDobj].x,sizeObj[IDobj].y, sizeObj[IDobj].z) ;
+    popMatrix() ;
   }
 }
 //end object two
 
 // END OBJECT ROMANESCO
 ///////////////////////
+
+
