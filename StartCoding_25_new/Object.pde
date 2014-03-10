@@ -2,10 +2,10 @@
 //OBJECT ROMANESCO
 
 //object one
-class ObjectOne extends SuperRomanesco {
-  public ObjectOne() {
+class ObjectAAA extends SuperRomanesco {
+  public ObjectAAA() {
     //from the index_objects.csv
-    romanescoName = "MC OBJ-ONE" ;
+    romanescoName = "A CERCLE" ;
     IDobj = 1 ;
     IDgroup = 1 ;
     romanescoAuthor  = "Stan le Punk";
@@ -13,12 +13,12 @@ class ObjectOne extends SuperRomanesco {
   }
   //DISPLAY
   void display() {
-    updateObject(IDobj, IDgroup) ;
-    
-    fill(fillObj[IDobj]) ;
+    fill(fillObj[IDobj]) ; // you can use too
+    fill(hue(fillObj[IDobj]), saturation(fillObj[IDobj]), brightness(fillObj[IDobj]), alpha(fillObj[IDobj])) ;
     stroke(strokeObj[IDobj]) ;
     strokeWeight(thicknessObj[IDobj]) ;
-    ellipse(mouse[IDobj].x, mouse[IDobj].y, sizeObj[IDobj].x,sizeObj[IDobj].y) ;
+    ellipse(mouse[IDobj].x, mouse[IDobj].y, sizeXObj[IDobj],sizeYObj[IDobj]) ;
+
   }
 }
 //end object one
@@ -28,10 +28,10 @@ class ObjectOne extends SuperRomanesco {
 //OBJECT ROMANESCO
 
 //object two
-class ObjectTwo extends SuperRomanesco {
-  public ObjectTwo() {
+class ObjectZZZ extends SuperRomanesco {
+  public ObjectZZZ() {
     //from the index_objects.csv
-    romanescoName = "DJ NUMBER TWO" ;
+    romanescoName = "Z RECTANGLE" ;
     IDobj = 2 ;
     IDgroup = 1 ;
     romanescoAuthor  = "Stan le Punk";
@@ -39,12 +39,10 @@ class ObjectTwo extends SuperRomanesco {
   }
   //DISPLAY
   void display() {
-    updateObject(IDobj, IDgroup) ;
-    
     fill(fillObj[IDobj]) ;
     stroke(strokeObj[IDobj]) ;
     strokeWeight(thicknessObj[IDobj]) ;
-    rect(mouse[IDobj].y, mouse[IDobj].x, 30,30) ;
+    rect(mouse[IDobj].y, mouse[IDobj].x, sizeXObj[IDobj] *band[IDobj][0],sizeYObj[IDobj] *band[IDobj][1]) ;
   }
 }
 //end object two
@@ -52,10 +50,10 @@ class ObjectTwo extends SuperRomanesco {
 
 
 //object three
-class ObjectThree extends SuperRomanesco {
-  public ObjectThree() {
+class ObjectMMM extends SuperRomanesco {
+  public ObjectMMM() {
     //from the index_objects.csv
-    romanescoName = "Three the CUBE" ;
+    romanescoName = "M BOITE" ;
     IDobj = 3 ;
     IDgroup = 1 ;
     romanescoAuthor  = "Stan le Punk";
@@ -63,14 +61,12 @@ class ObjectThree extends SuperRomanesco {
   }
   //DISPLAY
   void display() {
-    updateObject(IDobj, IDgroup) ;
-    
     fill(fillObj[IDobj]) ;
     stroke(strokeObj[IDobj]) ;
-    strokeWeight(thicknessObj[IDobj]) ;
+    strokeWeight(thicknessObj[IDobj] *left[IDobj]) ;
     pushMatrix() ;
-    translate(mouse[IDobj].x, mouse[IDobj].y,0) ;
-    box(sizeObj[IDobj].x,sizeObj[IDobj].y, sizeObj[IDobj].z) ;
+    translate(mouse[IDobj].x*.5, mouse[IDobj].y*.5,0) ;
+    box(sizeXObj[IDobj],sizeYObj[IDobj], sizeZObj[IDobj]) ;
     popMatrix() ;
   }
 }

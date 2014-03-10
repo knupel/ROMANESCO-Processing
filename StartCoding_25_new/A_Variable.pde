@@ -26,7 +26,7 @@ boolean objectParameter[] ;
 //raw
 color fillRaw[], strokeRaw[] ;
 float thicknessRaw[] ; 
-PVector sizeRaw[], canvasRaw[] ;
+float sizeXRaw[], sizeYRaw[], sizeZRaw[], canvasXRaw[], canvasYRaw[], canvasZRaw[] ;
 float speedRaw[], forceRaw[], orientationRaw[], angleRaw[] ;
 float familyRaw[], quantityRaw[], lifeRaw[] , analyzeRaw[], amplitudeRaw[];
 //add in the next version when there is 30 slider by group
@@ -35,7 +35,7 @@ float curveRaw[], attractionRaw[] ;
 //object
 color fillObj[], strokeObj[] ;
 float thicknessObj[] ;
-PVector sizeObj[], canvasObj[] ;
+float sizeXObj[], sizeYObj[], sizeZObj[], canvasXObj[], canvasYObj[], canvasZObj[] ;
 float speedObj[], forceObj[], orientationObj[], angleObj[] ;
 float familyObj[], quantityObj[], lifeObj[] , analyzeObj[], amplitudeObj[];
 //add in the next version when there is 30 slider by group
@@ -109,11 +109,14 @@ float tempoHat[] ;
 //position
 boolean startingPosition [] ;
 PVector startingPos [] ;
-PVector P3Dposition [] ;
+float P3DpositionX[], P3DpositionY[], P3DpositionZ[] ;
+//PVector P3Dposition [] ;
 PVector P3DpositionObjRef [] ;
 boolean P3DrefPos [] ;
+PVector posManipulation[], dirManipulation [] ;
 //orientation
-PVector P3Ddirection [] ;
+float P3DdirectionX[], P3DdirectionY[] ;
+//PVector P3Ddirection [] ;
 PVector P3DdirectionObjRef [] ;
 boolean P3DrefDir [] ;
 
@@ -193,12 +196,18 @@ void createVarCursor() {
 void createVarP3D() {
   startingPosition = new boolean[numObj] ;
    startingPos = new PVector[numObj] ;
-   P3Dposition = new PVector[numObj] ;
+   P3DpositionX = new float[numObj] ;
+   P3DpositionY = new float[numObj] ;
+   P3DpositionZ = new float[numObj] ;
    P3DpositionObjRef = new PVector[numObj] ;
    P3DrefPos = new boolean[numObj] ;
+   
   //orientation
-   P3Ddirection = new PVector[numObj] ;
+   P3DdirectionX = new float[numObj] ;
+   P3DdirectionY = new float[numObj] ;
    P3DdirectionObjRef = new PVector[numObj] ;
+   posManipulation = new PVector[numObj] ;
+   dirManipulation = new PVector[numObj] ;
    P3DrefDir = new boolean[numObj] ;
 }
 
@@ -257,8 +266,8 @@ void createVarObject() {
   strokeRaw = new color[numObj] ;
   // column 1
   thicknessRaw = new float[numObj] ; ;
-  sizeRaw = new PVector[numObj] ; ;
-  canvasRaw = new PVector[numObj] ;
+  sizeXRaw = new float[numObj] ; sizeYRaw = new float[numObj] ; sizeZRaw = new float[numObj] ;
+  canvasXRaw = new float[numObj] ; canvasYRaw = new float[numObj] ; canvasZRaw = new float[numObj] ;
   quantityRaw = new float[numObj] ;
   //column 3
   speedRaw = new float[numObj] ;
@@ -275,8 +284,8 @@ void createVarObject() {
   strokeObj = new color[numObj] ;
   // column 2
   thicknessObj = new float[numObj] ; ;
-  sizeObj = new PVector[numObj] ; ;
-  canvasObj = new PVector[numObj] ; ;
+  sizeXObj = new float[numObj] ; sizeYObj = new float[numObj] ; sizeZObj = new float[numObj] ;
+  canvasXObj = new float[numObj] ; canvasYObj = new float[numObj] ; canvasZObj = new float[numObj] ;
   quantityObj = new float[numObj] ;
    //column 3
   speedObj = new float[numObj] ;
@@ -287,14 +296,6 @@ void createVarObject() {
   familyObj = new float[numObj] ;
   lifeObj = new float[numObj] ;
   forceObj = new float[numObj] ;
-  
-  //init the PVector
-  for (int i = 0 ; i < numObj ; i++) {
-    sizeRaw[i] = new PVector(0,0,0 ) ;
-    canvasRaw[i] = new PVector(0,0,0) ;
-    sizeObj[i] = new PVector(0,0,0 ) ;
-    canvasObj[i] = new PVector(0,0,0) ;
-  }
 }
 // END CREATE VAR
 //////////////////
@@ -317,12 +318,12 @@ void updateVar() {
     int maxSource = 100 ;
     float minSize = .1 ;
     thicknessRaw[i] = map(valueSlider[i+1][10],minSource,maxSource,minSize, (height*.33)) ;
-    sizeRaw[i].x = map(valueSlider[i+1][11],minSource,maxSource,minSize,width) ;
-    sizeRaw[i].y = map(valueSlider[i+1][12],minSource,maxSource,minSize,width) ;
-    sizeRaw[i].z = map(valueSlider[i+1][13],minSource,maxSource,minSize,width) ;
-    canvasRaw[i].x = map(valueSlider[i+1][14],minSource,maxSource,0,width) ;
-    canvasRaw[i].y = map(valueSlider[i+1][15],minSource,maxSource,0,height) ;
-    canvasRaw[i].z = map(valueSlider[i+1][16],minSource,maxSource,0,width) ;
+    sizeXRaw[i] = map(valueSlider[i+1][11],minSource,maxSource,minSize,width) ;
+    sizeYRaw[i] = map(valueSlider[i+1][12],minSource,maxSource,minSize,width) ;
+    sizeZRaw[i] = map(valueSlider[i+1][13],minSource,maxSource,minSize,width) ;
+    canvasXRaw[i] = map(valueSlider[i+1][14],minSource,maxSource, width *.1,width) ;
+    canvasYRaw[i] = map(valueSlider[i+1][15],minSource,maxSource,height *.1, height) ;
+    canvasZRaw[i] = map(valueSlider[i+1][16],minSource,maxSource,width *.1, width) ;
     quantityRaw[i] = map(valueSlider[i+1][17], minSource, maxSource,1,200) ;
     //column 3
     speedRaw[i] = valueSlider[i+1][20] ;
@@ -330,7 +331,7 @@ void updateVar() {
     angleRaw[i] = map(valueSlider[i+1][22],minSource, maxSource,0,360) ;
     amplitudeRaw[i] = map(valueSlider[i+1][23],minSource, maxSource,1,height) ;
     analyzeRaw[i] = valueSlider[i+1][24] ;
-    familyRaw[i] = map(valueSlider[i+1][25],minSource, maxSource,1,240) ;
+    familyRaw[i] = map(valueSlider[i+1][25],minSource, maxSource,1,118) ;
     lifeRaw[i] = valueSlider[i+1][26] +1 ;
     forceRaw[i] = valueSlider[i+1][27] +1 ;
   }

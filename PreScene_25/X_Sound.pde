@@ -364,7 +364,6 @@ void spectrum(AudioBuffer fftData, int n) {
 //ANNEXE VOID
 float getTotalSpectrum(int numBand) {
   float t = 0 ;
-  // float t = bandSprectrum[0] + bandSprectrum[1] + bandSprectrum[2] + bandSprectrum[3] + bandSprectrum[4] + bandSprectrum[5] + bandSprectrum[6] + bandSprectrum[7] + bandSprectrum[8] + bandSprectrum[9] + bandSprectrum[10] + bandSprectrum[11] + bandSprectrum[12] + bandSprectrum[13] + bandSprectrum[14] + bandSprectrum[15] ;
   for ( int i = 0 ; i < numBand ; i++ ) {
     t += bandSprectrum[i] ;
   }

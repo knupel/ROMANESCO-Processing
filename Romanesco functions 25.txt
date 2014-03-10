@@ -230,8 +230,8 @@ String textRaw ; is the import text but with the "*" and "/"
 // SOUND 
 ////////
 
-float gauche[IDobj]  is volume left /  float value(0,1)
-float droite[IDobj]   is volume right / /  float value(0,1)
+float left[IDobj]  is volume left /  float value(0,1)
+float right[IDobj]   is volume right / /  float value(0,1)
 float mix[IDobj]     is average volume between the left and the right / float value(0,1)
 
 float beat[IDobj]    is beat : value 1,10 
@@ -247,7 +247,7 @@ float tempoHat[IDobj] // speed of track calculte on the hat
 
 float getTimeTrack()  // return the time elapse from the beginning play to now
 
-float band [IDobj][whichBand] // whichBand give the information of the bande where catch the info
+float band [IDobj][whichBand] // whichBand give the information of the band where catch the info
 usualy there is 16 bands, to know the number :
 bandSpectrum.length ;
 
@@ -295,65 +295,39 @@ boolean clickLongLeft[IDobj] ;
 
 
 
-// SLIDER FLOAT
-//////////////
-//value slider in float 0.0 to 100.0
-float valueObj[IDobj][1] hue in     
-float valueObj[IDobj][2] saturation in     
-float valueObj[IDobj][3] density in 
-float valueObj[IDobj][4] opacity in
-float valueObj[IDobj][5] hue out
-float valueObj[IDobj][6] saturation out
-float valueObj[IDobj][7] density out   
-float valueObj[IDobj][8] opacity out  
+// VAR from Slider
+/////////////////
 
-float valueObj[IDobj][11] diameter / height     
-float valueObj[IDobj][12] width                 
-float valueObj[IDobj][13] thickness       
-float valueObj[IDobj][14] Quantité                
-float valueObj[IDobj][15] Durée               
-float valueObj[IDobj][16] Vitesse            
-float valueObj[IDobj][17] amplitude / amplitude / amplitude 
-float valueObj[IDobj][18] Orientation, deg    
+  
+VAR object
+color fillObj[IDobj] ; you can separate with hue, saturation, brightness and alpha
+color strokeObj[IDobj] ; you can separate with hue, saturation, brightness and alpha
 
-float valueObj[IDobj][21] amplitude / amplitude / misc
-float valueObj[IDobj][22] misc  
-float valueObj[IDobj][23] misc 
-float valueObj[IDobj][24] courbe / misc / misc  
-float valueObj[IDobj][25] attraction / misc / misc
-float valueObj[IDobj][26] force / misc / misc 
-float valueObj[IDobj][27] Family / misc / misc  
-float valueObj[IDobj][28] angle / misc / corps
+float thicknessObj[IDobj] ; value from 0.1 to height/3
+float sizeXObj[IDobj] ; sizeYObj[IDobj] ; sizeZObj[IDobj] ; value from 0.1 to width
+float canvasXObj[IDobj] ; value from width /10  to width
+float canvasYObj[IDobj] ; value from height /10  to height
+float canvasZObj[IDobj] ; value from width /10 to width
+float quantityObj = new float[numObj] ; value from 1 to 200 ;
+
+float speedObj[IDobj] ; value from 0 to 100
+float orientationObj[IDobj] ; value from 0 to 360 ;
+float angleObj[IDobj] ; value from 0 to 360 ;
+float amplitudeObj[IDobj] ; value from 1 to height.
+float analyzeObj[IDobj] ; value from 0 to 100.
+float familyObj[IDobj] ; value from 1 to 118, it's an atomic and arbitory choice !
+float lifeObj[IDobj] ; value from 1 to 100.
+float forceObj[IDobj] ; value from 1 to 100.
+
 //END SLIDER
 ////////////
 
 
 
 
-// SUGESTION VAR
-// COLOR and SHAPE property
-////////
-color colorIn = color ( map(valueObj[IDobj][1],0,100,0,360), valueObj[IDobj][2], valueObj[IDobj][3],valueObj[IDobj][4] ) ;
-color colorOut = color ( map(valueObj[IDobj][5],0,100,0,360), valueObj[IDobj][6], valueObj[IDobj][7],valueObj[IDobj][8] ) ;
-float thickness = map(valueObj[IDobj][13],0,100,0.1, height*.2 ) ;
 
 
 
-
-
-
-
-
-//WEATHER FLOAT-PVECTOR
-///////////////////////
-PVector motionMeteo[IDobj]
-motionMeteo[IDobj].x // direction 0-360
-motionMeteo[IDobj].y // beaufort scale 0-12
-tempMeteo [IDobj]    // celsius grad
-humidityMeteo [IDobj]  ; 
-pressureMeteo [IDobj]  ; // hectopascal scale
-visibilityMeteo [IDobj]  ;
-/////////
 
 
 

@@ -8,26 +8,87 @@ void romanescoSetup() {
 
 //Update the var of the object
 void updateObject(int ID, int group) {
-  if(parameter[ID]) {
-    for ( int i = 0 ; i < numGroup ; i++) if( group == i ) {
-      fillObj[ID] = fillRaw[i-1] ;
-      strokeObj[ID] = strokeRaw[i-1] ;
-      thicknessObj[ID] = thicknessRaw[i-1] ;
-      sizeObj[ID] = sizeRaw[i-1] ;
-      canvasObj[ID] = canvasRaw[i-1] ;
-      quantityObj[ID] = quantityRaw[i-1] ;
-      //column 3
-      speedObj[ID] = speedRaw[i-1] ;
-      orientationObj[ID] = orientationRaw[i-1] ;
-      angleObj[ID] = angleRaw[i-1] ;
-      amplitudeObj[ID] = amplitudeRaw[i-1] ;
-      analyzeObj[ID] = analyzeRaw[i-1] ; 
-      familyObj[ID] = familyRaw[i-1] ;
-      lifeObj[ID] = lifeRaw[i-1] ;
-      forceObj[ID] = forceRaw[i-1] ;
+  if(parameter[ID]) updateParameter(ID,group ) ;
+  updateSound(ID) ;
+  
+  
+  if(action[ID]){
+    
+    if(spaceTouch) mouse[ID] = mouse[0] ;
+    //if(vLongTouch) P3Dmanipulation(ID) ;
+    //println("void updateObject", ID, P3DpositionX[ID], P3DpositionY[ID]) ; 
+  }
+}
+
+
+
+
+//
+void updateParameter(int ID, int group) {
+  for ( int i = 0 ; i < numGroup ; i++) if( group == i ) {
+    int whichOne = i-1 ;
+    fillObj[ID] = fillRaw[whichOne] ;
+    strokeObj[ID] = strokeRaw[whichOne] ;
+    thicknessObj[ID] = thicknessRaw[whichOne] ;
+    sizeXObj[ID] = sizeXRaw[whichOne] ; 
+    sizeYObj[ID] = sizeYRaw[whichOne] ; 
+    sizeZObj[ID] = sizeZRaw[whichOne] ;
+    canvasXObj[ID] = canvasXRaw[whichOne] ; 
+    canvasYObj[ID] = canvasYRaw[whichOne] ; 
+    canvasZObj[ID] = canvasZRaw[whichOne] ;
+    quantityObj[ID] = quantityRaw[whichOne] ;
+    //column 3
+    speedObj[ID] = speedRaw[whichOne] ;
+    orientationObj[ID] = orientationRaw[whichOne] ;
+    angleObj[ID] = angleRaw[whichOne] ;
+    amplitudeObj[ID] = amplitudeRaw[whichOne] ;
+    analyzeObj[ID] = analyzeRaw[whichOne] ; 
+    familyObj[ID] = familyRaw[whichOne] ;
+    lifeObj[ID] = lifeRaw[whichOne] ;
+    forceObj[ID] = forceRaw[whichOne] ;
+  }
+}
+//
+void updateSound(int ID) {
+  if(sound[ID]) {
+    left[ID]  = left[0] ;// value(0,1)
+    right[ID] = right[0] ;//float value(0,1)
+    mix[ID]  = mix[0] ;//   is average volume between the left and the right / float value(0,1)
+    
+    beat[ID] = beat[0] ;//    is beat : value 1,10 
+    kick[ID] = kick[0] ;//   is beat kick : value 1,10 
+    snare[ID] = snare [0] ;//   is beat snare : value 1,10 
+    hat[ID]  = hat[0] ;//   is beat hat : value 1,10 
+    
+    tempo[ID]   = tempo[0] ;     // global speed of track  / float value(0,1)
+    tempoBeat[ID] = tempoBeat[0] ;  // speed of track calculate on the beat
+    tempoKick[ID] = tempoKick[0] ; // speed of track calculate on the kick
+    tempoSnare[ID] = tempoSnare[0] ;// speed of track calculate on the snare
+    tempoHat[ID] = tempoHat[0] ;// speed of track calculte on the hat
+    
+    for (int i = 0 ; i <numBand ; i++) {
+      band[ID][i] = band[0][i] ;
+    }
+  } else {
+    left[ID]  = 1 ;// value(0,1)
+    right[ID] = 1 ;//float value(0,1)
+    mix[ID]  = 1 ;//   is average volume between the left and the right / float value(0,1)
+    
+    beat[ID] = 1 ;//    is beat : value 1,10 
+    kick[ID] = 1 ;//   is beat kick : value 1,10 
+    snare[ID] = 1 ;//   is beat snare : value 1,10 
+    hat[ID]  = 1 ;//   is beat hat : value 1,10 
+    
+    tempo[ID]   = 1 ;     // global speed of track  / float value(0,1)
+    tempoBeat[ID] = 1 ;  // speed of track calculate on the beat
+    tempoKick[ID] = 1 ; // speed of track calculate on the kick
+    tempoSnare[ID] = 1 ;// speed of track calculate on the snare
+    tempoHat[ID] = 1 ;// speed of track calculte on the hat
+    
+    for (int i = 0 ; i <numBand ; i++) {
+      band[ID][i] = 1 ;
     }
   }
-  if(action[ID])if(spaceTouch) mouse[ID] = mouse[0] ;
 }
 ///////////////////////////////////////
 
@@ -192,11 +253,20 @@ class ObjectRomanescoManager {
   //END ADD OBJECT
   
   
-  
+  int count ;
   // RENDERING
   void displayObject() {
-    for (SuperRomanesco objR : RomanescoList) { 
-      objR.display() ;
+    for (SuperRomanesco objR : RomanescoList) {
+           if (object[objR.IDobj]) {
+        updateObject(objR.IDobj, objR.IDgroup) ;
+        
+        pushMatrix() ;
+        //addRefObj(objR.IDobj) ;
+        if(vLongTouch && action[objR.IDobj] ) P3Dmanipulation(objR.IDobj) ;
+        P3DmoveObj(objR.IDobj) ;
+        objR.display() ;
+        popMatrix() ;
+      }
     }
   }
   // END RENDERING

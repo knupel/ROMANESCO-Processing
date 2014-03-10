@@ -41,7 +41,6 @@ void soundSetup() {
 /////////////
 // SOUND DRAW
 void soundDraw() {
-  println(input.mix) ;
   spectrum(input.mix, numBand) ;
   beatEnergy.detect(input.mix);
   initTempo() ;
@@ -61,7 +60,7 @@ void soundRomanesco() {
   int sound = 1 ;
     
   float volumeControleurG = map(valueSlider[0][4], 0,100, 0, 1.3 ) ;
-   left[0] = map(input.left.get(sound),  -0.07,0.1,  0, volumeControleurG);
+  left[0] = map(input.left.get(sound),  -0.07,0.1,  0, volumeControleurG);
   
   float volumeControleurD = map(valueSlider[0][5], 0,100, 0, 1.3 ) ;
   right[0] = map(input.right.get(sound),  -0.07,0.1,  0, volumeControleurD);
@@ -86,6 +85,11 @@ void soundRomanesco() {
   kick[0] = getKick(kickOnOff) ;
   snare[0] = getSnare(snareOnOff) ;
   hat[0] = getHat(hatOnOff) ;
+  
+  //spectrum
+  for ( int i = 0 ; i < numBand ; i++ ) {
+    band[0][i] = bandSprectrum[i] ;
+  }
 }
   
 

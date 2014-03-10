@@ -40,8 +40,13 @@ void P3DSetup() {
     
     //P3D
     for ( int i = 0 ; i < numObj ; i ++ ) {
-      P3Dposition [i] = new PVector(-width/2, -height/2, 0) ;
-      P3Ddirection [i] = new PVector(0, 0, 0) ;
+      posManipulation[i] = new PVector(0,0,0) ; 
+      dirManipulation[i] = new PVector (0,0,0) ;
+      P3DpositionX [i] = -width/2 ;
+      P3DpositionY [i] = -height/2 ;
+      P3DpositionZ [i] = 0 ;
+      P3DdirectionX [i] = 0 ;
+      P3DdirectionY [i] = 0 ;
       P3DpositionObjRef[i] = new PVector(0,0,0) ; 
       P3DdirectionObjRef[i] = new PVector(0,0,0) ;
     }
@@ -56,87 +61,96 @@ void P3DSetup() {
 
 
 
-//OBJECT ORIENTATION AND POSITION
-PVector P3Dposition(PVector pos, int ID) {
-  
+//OBJECT ORIENTATION AND POSITION, For specific object
+//final direction and oriention with object ID
+void P3Dmanipulation(int ID) {
+  if(modeP3D) {
+    //position
+    if (!clickLongLeft[0] )  P3DrefPos[0] = true ;
+    P3DpositionX[ID] = P3Dposition(posManipulation[ID], ID).x ;
+    P3DpositionY[ID] = P3Dposition(posManipulation[ID], ID).y ;
+    P3DpositionZ[ID] = P3Dposition(posManipulation[ID], ID).z ;
+    //rotation
+    if (!clickLongRight[0] ) P3DrefDir[0] = true ;
+      //speed rotation
+    float speed = 150.0 ; // 150 is medium speed rotation
+    speedDirectionOfObject = new PVector(speed /(float)width, speed /(float)height) ; 
+    P3DdirectionX[ID] = P3Ddirection(dirManipulation[ID], speedDirectionOfObject, ID).x ; 
+    P3DdirectionY[ID] = P3Ddirection(dirManipulation[ID], speedDirectionOfObject, ID).y ;
+
+  }
+  addRefObj(ID) ;
+}
+
+//direction
+PVector P3Ddirection(PVector dir, PVector speed, int ID) {
   //XY pos
-  if (clickLongLeft[0] ) {
-    if(P3DrefPos[ID]  ) {
-      P3DpositionObjRef[ID] = pos ;
-      P3DpositionMouseRef = new PVector(mouse[0].x, mouse[0].y) ;
-    }
+  if(P3DrefDir[0]  ) {
+    P3DdirectionObjRef[0] = dir ;
+    P3DdirectionMouseRef = new PVector(mouse[0].x, mouse[0].y) ;
+  }
+  if(clickLongRight[0]) {
     //to create a only one ref position
-    P3DrefPos[ID] = false ;
+    P3DrefDir[0] = false ;
+    //create the delta between the ref and the mouse position
+    deltaObjDir.x = mouse[0].x -P3DdirectionMouseRef.x ;
+    deltaObjDir.y = mouse[0].y -P3DdirectionMouseRef.y ;
+    P3DtempObjDir = PVector.add(deltaObjDir, P3DdirectionObjRef[0] ) ;
+    //rotation of the camera
+    dir.x += (pmouse[0].y-mouse[0].y) * speed.y;
+    dir.y += (pmouse[0].x-mouse[0].x) * -speed.x;
+    if(dir.x > 360 ) dir.x = 0 ;
+    if(dir.x < 0  ) dir.x = 360 ;
+    if(dir.y > 360 ) dir.y = 0 ; 
+    if(dir.y < 0   ) dir.y = 360 ; 
+  }
+  return dir ;
+}
+//position
+PVector P3Dposition(PVector pos, int ID) {
+  // XY pos
+  if(P3DrefPos[0]  ) {
+    P3DpositionObjRef[ID] = pos ;
+    P3DpositionMouseRef = new PVector(mouse[0].x, mouse[0].y) ;
+  }
+  if (clickLongLeft[0]) {
+    //to create a only one ref position
+    P3DrefPos[0] = false ;
     //create the delta between the ref and the mouse position
     deltaObjPos.x = mouse[0].x -P3DpositionMouseRef.x ;
     deltaObjPos.y = mouse[0].y -P3DpositionMouseRef.y ;
     pos = PVector.add(deltaObjPos, P3DpositionObjRef[ID] ) ;
   }
-  
-  //Z pos
-  //zoom
+  // Y pos
   zoom() ;
-  
-  //P3DpositionObjRef[ID].z -= getCountZoom ;
-  // pos.z = P3DpositionObjRef[ID].z ;
   pos.z -= getCountZoom ;
-  
   return pos ;
 }
-
-
-PVector P3Ddirection(PVector dir, int ID, PVector speed) {
-  //XY pos
-  if (clickLongRight[0] ) {
-    if(P3DrefDir[ID]  ) {
-      P3DdirectionObjRef[ID] = dir ;
-      P3DdirectionMouseRef = new PVector(mouse[0].x, mouse[0].y) ;
-    }
-    //to create a only one ref position
-    P3DrefDir[ID] = false ;
-    //create the delta between the ref and the mouse position
-    deltaObjDir.x = mouse[0].x -P3DdirectionMouseRef.x ;
-    deltaObjDir.y = mouse[0].y -P3DdirectionMouseRef.y ;
-    P3DtempObjDir = PVector.add(deltaObjDir, P3DdirectionObjRef[ID] ) ;
-    //rotation of the camera
-    //solution 2
-    dir.x += (pmouse[0].y-mouse[0].y) * speed.y;
-    dir.y += (pmouse[0].x-mouse[0].x) *-speed.x;
-    if(dir.x > 360 ) dir.x = 0 ;
-    if(dir.x < 0  ) dir.x = 360 ;
-    if(dir.y > 360 ) dir.y = 0 ; 
-    if(dir.y < 0   ) dir.y = 360 ; 
-    
-  }
-  return dir ;
-}
-
-//final direction and oriention with object ID
-void P3Dmanipulation(int ID) {
+//Create ref position
+void addRefObj(int ID) {
   if(modeP3D) {
-    if(actionButton[ID] == 1 && vLongTouch ) {
-      //speed rotation
-      float speed = 150.0 ; // 150 is medium speed rotation
-      speedDirectionOfObject = new PVector(speed /(float)width, speed /(float)height) ; 
-       
-      P3Dposition[ID] = P3Dposition(P3Dposition[ID], ID) ;
-      P3Ddirection[ID] = P3Ddirection(P3Ddirection[ID], ID, speedDirectionOfObject) ; 
-    }
-    if (!clickLongLeft[0] ) P3DrefPos[ID] = true ;
-    translate(P3Dposition[ID].x, P3Dposition[ID].y, P3Dposition[ID].z) ;
-    rotateX(radians(P3Ddirection[ID].x)) ;
-    rotateY(radians(P3Ddirection[ID].y)) ;
+    posManipulation[ID] = new PVector ( P3DpositionX[ID], P3DpositionY[ID],P3DpositionZ[ID]) ;
+    dirManipulation[ID] = new PVector ( P3DdirectionX[ID], P3DdirectionY[ID]);
   }
 }
-//starting position
-void startPosition(int ID, int x, int y, int z) {
-  P3Dposition[ID] = new PVector(width/2 -x, height/2 -y, z) ;
-  startingPos[ID] = new PVector(x,y,z) ;
-  startingPosition[ID] = false ;
+
+//go to the new position
+void P3DmoveObj(int ID) {
+  translate(P3DpositionX[ID], P3DpositionY[ID], P3DpositionZ[ID]) ;
+  rotateX(radians(P3DdirectionX[ID])) ;
+  rotateY(radians(P3DdirectionY[ID])) ;
 }
 
 
 //END OF P3D OBJECT ORIENTATION AND DIRECTION
+
+
+//starting position
+void startPosition(int ID, int x, int y, int z) {
+  //P3Dposition[ID] = new PVector(width/2 -x, height/2 -y, z) ;
+  startingPos[ID] = new PVector(x,y,z) ;
+  startingPosition[ID] = false ;
+}
 
 
 
