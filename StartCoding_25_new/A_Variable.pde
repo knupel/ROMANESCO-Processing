@@ -83,7 +83,8 @@ float valueSliderGroupThree[]  = new float [numSlider] ;
 
 //MISC
 //var to init the data of the object when is switch ON for the first time
-boolean initValueSlider [] = new boolean [numObj]  ;
+boolean initValueSlider []  ;
+boolean initValueMouse [] ;
 // boolean initValueMouse [] = new boolean [numObj]  ;
 //parameter for the super class
 float left[] ;
@@ -173,8 +174,9 @@ void createVar() {
    pathFontObjTTF = new String[numObj] ;
      //MISC
   //var to init the data of the object when is switch ON for the first time
-   //initValueSlider = new boolean [numObj]  ;
-   //initValueMouse = new boolean [numObj]  ;
+   initValueSlider = new boolean [numObj]  ;
+   initValueMouse = new boolean [numObj]  ;
+     romanescoManager.initObj() ;
 }
 
 //init void
@@ -261,23 +263,23 @@ void createVarButton() {
 }
 
 void createVarObject() {
-    // VAR raw 
-  fillRaw = new color[numObj] ;
-  strokeRaw = new color[numObj] ;
+  // VAR raw 
+  fillRaw = new color[numGroup] ;
+  strokeRaw = new color[numGroup] ;
   // column 1
-  thicknessRaw = new float[numObj] ; ;
-  sizeXRaw = new float[numObj] ; sizeYRaw = new float[numObj] ; sizeZRaw = new float[numObj] ;
-  canvasXRaw = new float[numObj] ; canvasYRaw = new float[numObj] ; canvasZRaw = new float[numObj] ;
-  quantityRaw = new float[numObj] ;
+  thicknessRaw = new float[numGroup] ; ;
+  sizeXRaw = new float[numGroup] ; sizeYRaw = new float[numGroup] ; sizeZRaw = new float[numGroup] ;
+  canvasXRaw = new float[numGroup] ; canvasYRaw = new float[numGroup] ; canvasZRaw = new float[numGroup] ;
+  quantityRaw = new float[numGroup] ;
   //column 3
-  speedRaw = new float[numObj] ;
-  orientationRaw = new float[numObj] ;
-  angleRaw = new float[numObj] ;
-  amplitudeRaw = new float[numObj] ;
-  analyzeRaw = new float[numObj] ;
-  familyRaw = new float[numObj] ;
-  lifeRaw = new float[numObj] ;
-  forceRaw = new float[numObj] ;
+  speedRaw = new float[numGroup] ;
+  orientationRaw = new float[numGroup] ;
+  angleRaw = new float[numGroup] ;
+  amplitudeRaw = new float[numGroup] ;
+  analyzeRaw = new float[numGroup] ;
+  familyRaw = new float[numGroup] ;
+  lifeRaw = new float[numGroup] ;
+  forceRaw = new float[numGroup] ;
   
   // VAR object
   fillObj = new color[numObj] ;

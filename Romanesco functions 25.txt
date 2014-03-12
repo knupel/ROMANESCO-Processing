@@ -48,14 +48,8 @@ boolean presceneOnly = false ;
 
  // ROMANESCO CODE
 /////////////////
- in void RomanescoYourNumber') {}
- you must give the ID of your object 
- int ID = # ;
- 1 to 20 for the simple
- 21 to 40 for the texture
- 41 to 60 for the typo
 
- int IDfamily = # ;
+int IDfamily = # ;
  and give too the family ID
  1 for simple
  2 for texture
@@ -78,9 +72,7 @@ boolean presceneOnly = false ;
 
 boolean internet // say if internet is available
 boolean modeP3D  // say if P3D render is available
-int ID ; // 1 to 20 first family, simple object
-         // 21 to 40 second family, texture object
-         // 41 to 60 third family, typo object
+
 int IDfamilly ;  // 1 is the simple object first sliders
                  // 2 is the texture family second group of sliders
                  // 3 is typo family third groud of sliders

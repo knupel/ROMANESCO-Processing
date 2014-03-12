@@ -8,15 +8,21 @@ void romanescoSetup() {
 
 //Update the var of the object
 void updateObject(int ID, int group) {
-  if(parameter[ID]) updateParameter(ID,group ) ;
+  //initialization
+  if(!initValueMouse[ID]) { 
+    mouse[ID] = mouse[0] ;
+    initValueMouse[ID] = true ;
+  }
+  if(!initValueSlider[ID]) {
+    updateParameter(ID,group ) ;
+    initValueSlider[ID] = true ;
+  }
+  
+  if(parameter[ID] ) updateParameter(ID,group ) ;
   updateSound(ID) ;
   
-  
-  if(action[ID]){
-    
+  if(action[ID] ){
     if(spaceTouch) mouse[ID] = mouse[0] ;
-    //if(vLongTouch) P3Dmanipulation(ID) ;
-    //println("void updateObject", ID, P3DpositionX[ID], P3DpositionY[ID]) ; 
   }
 }
 
@@ -89,6 +95,17 @@ void updateSound(int ID) {
       band[ID][i] = 1 ;
     }
   }
+}
+
+
+//Clear the list
+boolean emptyList(int ID) {
+  boolean e = false ;
+  //global delete
+  if (backspaceTouch) e = true ;
+  //SPECIFIC DELETE when the paramer button of contrôleur is ON
+  else if (deleteTouch) if ( action[ID]) e = true ;
+  return e ;
 }
 ///////////////////////////////////////
 
@@ -211,6 +228,9 @@ class ObjectRomanescoManager {
   
   
   
+  
+  
+  
   /////////////////////////////////
   //ADD OBJECT from the sub-classes
   void addObjectRomanesco() {
@@ -251,24 +271,42 @@ class ObjectRomanescoManager {
     RomanescoList.add(objR);
   }
   //END ADD OBJECT
+  ////////////////
   
   
-  int count ;
-  // RENDERING
+  
+  ////////
+  //SETUP
+  // INIT ROMANESCO OBJECT
+  void initObj() {
+    for (SuperRomanesco objR : RomanescoList) {
+      objR.setting() ;
+      //println("init", objR.romanescoName, P3DpositionX[objR.IDobj]) ;
+    }
+  }
+  // END SETUP
+  ////////////
+  
+  
+  
+  ////////
+  // DRAW
   void displayObject() {
     for (SuperRomanesco objR : RomanescoList) {
-           if (object[objR.IDobj]) {
+      if (object[objR.IDobj]) {
         updateObject(objR.IDobj, objR.IDgroup) ;
         
         pushMatrix() ;
         //addRefObj(objR.IDobj) ;
         if(vLongTouch && action[objR.IDobj] ) P3Dmanipulation(objR.IDobj) ;
+        //println("display", objR.romanescoName, P3DpositionX[objR.IDobj]) ;
         P3DmoveObj(objR.IDobj) ;
         objR.display() ;
         popMatrix() ;
       }
     }
   }
-  // END RENDERING
+  // END DRAW
+  //////////
 }
 //END OBJECT ROMANESCO MANAGER

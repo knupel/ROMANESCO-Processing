@@ -8,10 +8,16 @@ class ObjectAAA extends SuperRomanesco {
     romanescoName = "A CERCLE" ;
     IDobj = 1 ;
     IDgroup = 1 ;
-    romanescoAuthor  = "Stan le Punk";
-    romanescoVersion = "Alpha";
+    romanescoAuthor  = "My is Nobody";
+    romanescoVersion = "Alpha 0.1";
+    romanescoPack = "startCoding" ;
+    romanescoRender = "classic" ;
   }
-  //DISPLAY
+  //SETUP
+  void setting() {
+    startPosition(IDobj, width/2, height/2, 0) ;
+  }
+  //DRAW
   void display() {
     fill(fillObj[IDobj]) ; // you can use too
     fill(hue(fillObj[IDobj]), saturation(fillObj[IDobj]), brightness(fillObj[IDobj]), alpha(fillObj[IDobj])) ;
@@ -31,35 +37,17 @@ class ObjectAAA extends SuperRomanesco {
 class ObjectZZZ extends SuperRomanesco {
   public ObjectZZZ() {
     //from the index_objects.csv
-    romanescoName = "Z RECTANGLE" ;
+    romanescoName = "Z BOITE" ;
     IDobj = 2 ;
     IDgroup = 1 ;
     romanescoAuthor  = "Stan le Punk";
     romanescoVersion = "Alpha";
   }
-  //DISPLAY
-  void display() {
-    fill(fillObj[IDobj]) ;
-    stroke(strokeObj[IDobj]) ;
-    strokeWeight(thicknessObj[IDobj]) ;
-    rect(mouse[IDobj].y, mouse[IDobj].x, sizeXObj[IDobj] *band[IDobj][0],sizeYObj[IDobj] *band[IDobj][1]) ;
+  //SETUP
+  void setting() {
+   startPosition(IDobj, width/2, height/2, 0) ;
   }
-}
-//end object two
-
-
-
-//object three
-class ObjectMMM extends SuperRomanesco {
-  public ObjectMMM() {
-    //from the index_objects.csv
-    romanescoName = "M BOITE" ;
-    IDobj = 3 ;
-    IDgroup = 1 ;
-    romanescoAuthor  = "Stan le Punk";
-    romanescoVersion = "Alpha";
-  }
-  //DISPLAY
+  //DRAW
   void display() {
     fill(fillObj[IDobj]) ;
     stroke(strokeObj[IDobj]) ;
@@ -71,6 +59,10 @@ class ObjectMMM extends SuperRomanesco {
   }
 }
 //end object two
+
+
+
+
 
 // END OBJECT ROMANESCO
 ///////////////////////

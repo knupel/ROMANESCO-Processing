@@ -52,7 +52,6 @@ void oscEvent(OscMessage receive ) {
       valueSlider[i][j] = Float.valueOf(valueSliderTemp[i][j]) ;
     }
   }
-
 }
 
 
@@ -169,6 +168,5 @@ void OSCDraw() {
     if (parameterButton[iPlusOne] == 1 ) parameter[iPlusOne] = true ; else parameter[iPlusOne] = false ;
     if (soundButton[iPlusOne] == 1 ) sound[iPlusOne] = true ; else sound[iPlusOne] = false ;
     if (actionButton[iPlusOne] == 1 ) action[iPlusOne] = true ; else action[iPlusOne] = false ;
-    
   }
 }

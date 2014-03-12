@@ -27,7 +27,7 @@ void P3DSetup() {
   if(modeP3D) {
     //CAMERA
     sceneCamera = new PVector (width/2 , height/2, 0) ;
-    sceneCamera = new PVector (0 , 0, 0) ;
+    sceneCamera = new PVector (0,0,0) ;
     eyeCamera = new PVector (0,0,0) ;
     //
     posSceneCameraRef = new PVector (0,0,0) ;
@@ -42,9 +42,6 @@ void P3DSetup() {
     for ( int i = 0 ; i < numObj ; i ++ ) {
       posManipulation[i] = new PVector(0,0,0) ; 
       dirManipulation[i] = new PVector (0,0,0) ;
-      P3DpositionX [i] = -width/2 ;
-      P3DpositionY [i] = -height/2 ;
-      P3DpositionZ [i] = 0 ;
       P3DdirectionX [i] = 0 ;
       P3DdirectionY [i] = 0 ;
       P3DpositionObjRef[i] = new PVector(0,0,0) ; 
@@ -148,8 +145,20 @@ void P3DmoveObj(int ID) {
 //starting position
 void startPosition(int ID, int x, int y, int z) {
   //P3Dposition[ID] = new PVector(width/2 -x, height/2 -y, z) ;
-  startingPos[ID] = new PVector(x,y,z) ;
-  startingPosition[ID] = false ;
+  initValueMouse [ID] = true ;
+  P3DpositionX[ID] = x -(width/2) ;
+  P3DpositionY[ID] = y -(height/2) ;
+  P3DpositionZ[ID] = z ;
+  mouse[ID] = new PVector (x,y) ;
+  // startingPosition[ID] = false ;
+}
+void startPosition(int ID, int x, int y) {
+  initValueMouse [ID] = true ;
+  //P3Dposition[ID] = new PVector(width/2 -x, height/2 -y, z) ;
+  P3DpositionX[ID] = x -(width/2) ;
+  P3DpositionY[ID] = y -(height/2);
+  // mouse[ID] = new PVector (x,y) ;
+  // startingPosition[ID] = false ;
 }
 
 
