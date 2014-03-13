@@ -13,7 +13,7 @@ To test romanesco in Processing launch the Scène, then the Préscène and Contr
 ## Code object
 * Launch the startcoding sketch and use the tab "Object" or "Object_Class
 * To check if your object work and use the sketch Controler to set your object.
-* In the library controler your object appear in the order of the IDObject and IDgroup
+* In the library controler, your object appear in the order of the IDobject and IDgroup.
 * When your object is done, you can transfer this one like a brick in the Prescene and Scene Sketch 
 but don't forget to change the ID object and the ID familly
 
