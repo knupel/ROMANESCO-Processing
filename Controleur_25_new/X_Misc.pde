@@ -62,11 +62,9 @@ void controllerIn(promidi.Controller controller, int device, int channel){
 ////////////////////
 void mousePressed () {
   //object
-  for( int i = 11 ; i < 96 ; i++ ) BOf[i].mousePressed()  ;
-  //texture
-  for ( int i = 11 ; i < 76 ; i++)  BTf[i].mousePressed() ;
-  //typo
-  for ( int i = 11 ; i < 56 ; i++)  BTYf[i].mousePressed() ;
+  if(numGroup[1] > 0 ) for( int i = 11 ; i < numGroup[1] *10 + 6 ; i++ ) BOf[i].mousePressed()  ;
+  if(numGroup[2] > 0 ) for( int i = 11 ; i < numGroup[2] *10 + 6 ; i++)  BTf[i].mousePressed() ;
+  if(numGroup[3] > 0 ) for( int i = 11 ; i < numGroup[3] *10 + 6 ; i++)  BTYf[i].mousePressed() ;
 
   //son
   Bbeat.mousePressed() ;

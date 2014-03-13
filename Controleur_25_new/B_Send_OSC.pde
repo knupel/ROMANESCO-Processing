@@ -69,41 +69,42 @@ void translateDataToSend() {
   valueButtonGlobal[3] = EtatBsnare ;
   valueButtonGlobal[4] = EtatBhat ;
   //dropdown typo
-  valueButtonGlobal[7] = dropdown[99].getSelection() +1 ; ;
+  valueButtonGlobal[7] = dropdown[lastDropdown].getSelection() +1 ; ;
   //curtain
   valueButtonGlobal[10] = EtatBOcurtain ;
   
   //BUTTON OBJ
-  int numObj = 9 ;
-  for ( int i = 0 ; i < numObj ; i ++) {
-    valueButtonObj[i *10 +1] = EtatBOf[i *10 +11] ;
-    valueButtonObj[i *10 +2] = EtatBOf[i *10 +12] ;
-    valueButtonObj[i *10 +3] = EtatBOf[i *10 +13] ;
-    valueButtonObj[i *10 +4] = EtatBOf[i *10 +14] ;
-    valueButtonObj[i *10 +5] = EtatBOf[i *10 +15] ;
-    
-    valueButtonObj[i *10 +9] = dropdown[i +1].getSelection() ;
+  if(numGroup[1] > 0 ) {
+    for ( int i = 0 ; i < numGroup[1] ; i ++) {
+      valueButtonObj[i *10 +1] = EtatBOf[i *10 +1] ;
+      valueButtonObj[i *10 +2] = EtatBOf[i *10 +2] ;
+      valueButtonObj[i *10 +3] = EtatBOf[i *10 +3] ;
+      valueButtonObj[i *10 +4] = EtatBOf[i *10 +4] ;
+      valueButtonObj[i *10 +5] = EtatBOf[i *10 +5] ;
+      valueButtonObj[i *10 +9] = dropdown[i +1].getSelection() ;
+    }
   }
   //BUTTON TEX
-  int numTex = 7 ;
-  for ( int i = 0 ; i < numTex ; i ++) {
-    valueButtonTex[i *10 +1] = EtatBTf[i *10 +11] ;
-    valueButtonTex[i *10 +2] = EtatBTf[i *10 +12] ;
-    valueButtonTex[i *10 +3] = EtatBTf[i *10 +13] ;
-    valueButtonTex[i *10 +4] = EtatBTf[i *10 +14] ;
-    valueButtonTex[i *10 +5] = EtatBTf[i *10 +15] ;
-    valueButtonTex[i *10 +9] = dropdown[i +21].getSelection() ;
+  if(numGroup[2] > 0 ) {
+    for ( int i = 0 ; i < numGroup[2] ; i ++) {
+      valueButtonTex[i *10 +1] = EtatBTf[i *10 +1] ;
+      valueButtonTex[i *10 +2] = EtatBTf[i *10 +2] ;
+      valueButtonTex[i *10 +3] = EtatBTf[i *10 +3] ;
+      valueButtonTex[i *10 +4] = EtatBTf[i *10 +4] ;
+      valueButtonTex[i *10 +5] = EtatBTf[i *10 +5] ;
+      valueButtonTex[i *10 +9] = dropdown[i +1].getSelection() ;
+    }
   }
   //BUTTON TYPO
-  int numTypo = 5 ;
-  for ( int i = 0 ; i < numTypo ; i ++) {
-    valueButtonTypo[i *10 +1] = EtatBTYf[i *10 +11] ;
-    valueButtonTypo[i *10 +2] = EtatBTYf[i *10 +12] ;
-    valueButtonTypo[i *10 +3] = EtatBTYf[i *10 +13] ;
-    valueButtonTypo[i *10 +4] = EtatBTYf[i *10 +14] ;
-    valueButtonTypo[i *10 +5] = EtatBTYf[i *10 +15] ;
-    
-    valueButtonTypo[i *10 +9] = dropdown[i +41].getSelection() ;
+  if(numGroup[3] > 0 ) {
+    for ( int i = 0 ; i < numGroup[3] ; i ++) {
+      valueButtonTypo[i *10 +1] = EtatBTYf[i *10 +1] ;
+      valueButtonTypo[i *10 +2] = EtatBTYf[i *10 +2] ;
+      valueButtonTypo[i *10 +3] = EtatBTYf[i *10 +3] ;
+      valueButtonTypo[i *10 +4] = EtatBTYf[i *10 +4] ;
+      valueButtonTypo[i *10 +5] = EtatBTYf[i *10 +5] ;
+      valueButtonTypo[i *10 +9] = dropdown[i +41].getSelection() ;
+    }
   }
 
 }

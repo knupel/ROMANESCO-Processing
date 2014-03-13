@@ -4,6 +4,7 @@ import processing.net.*;
 //SLIDER
 int numSlider = 350 ;
 int numGroupSlider = 4 ;
+int sliderByColumn = 8 ;
 // Midi
 import promidi.*;
 MidiIO midiIO;

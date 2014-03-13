@@ -2,50 +2,7 @@
 //LOAD PICTURE VIGNETTE
 
 int numVignette ;
-void importPicButtonSetup() {
-  //load button vignette GUI general
-  for(int j=0 ;  j<bouton.length ; j++ ) bouton[j] = loadImage ("bouton/bouton"+j+".png") ;
-  
-  //load simple vignette
-  numVignette = numGroup[1] +1  ;
-  vignette_OFF_in_simple = new PImage[numVignette] ;
-  vignette_OFF_out_simple = new PImage[numVignette] ;
-  vignette_ON_in_simple = new PImage[numVignette] ;
-  vignette_ON_out_simple = new PImage[numVignette] ;
 
-  for(int i=0 ;  i<numVignette ; i++ )  {
-    vignette_OFF_in_simple[i] = loadImage ("vignette_simple/vignette_OFF_in_simple_"+i+".png") ;
-    vignette_OFF_out_simple[i] = loadImage ("vignette_simple/vignette_OFF_out_simple_"+i+".png") ;
-    vignette_ON_in_simple[i] = loadImage ("vignette_simple/vignette_ON_in_simple_"+i+".png") ;
-    vignette_ON_out_simple[i] = loadImage ("vignette_simple/vignette_ON_out_simple_"+i+".png") ;
-  }
-  //load texture vignette
-  numVignette = numGroup[2] +1  ;
-  vignette_OFF_in_texture = new PImage[numVignette] ;
-  vignette_OFF_out_texture = new PImage[numVignette] ;
-  vignette_ON_in_texture = new PImage[numVignette] ;
-  vignette_ON_out_texture = new PImage[numVignette] ;
-
-  for(int i=0 ;  i<numVignette ; i++ )  {
-    vignette_OFF_in_texture[i] = loadImage ("vignette_texture/vignette_OFF_in_texture_"+i+".png") ;
-    vignette_OFF_out_texture[i] = loadImage ("vignette_texture/vignette_OFF_out_texture_"+i+".png") ;
-    vignette_ON_in_texture[i] = loadImage ("vignette_texture/vignette_ON_in_texture_"+i+".png") ;
-    vignette_ON_out_texture[i] = loadImage ("vignette_texture/vignette_ON_out_texture_"+i+".png") ;
-  }
-  //load typography vignette
-  numVignette = numGroup[3] +1  ;
-  vignette_OFF_in_typography = new PImage[numVignette] ;
-  vignette_OFF_out_typography = new PImage[numVignette] ;
-  vignette_ON_in_typography = new PImage[numVignette] ;
-  vignette_ON_out_typography = new PImage[numVignette] ;
-
-  for(int i=0 ;  i<numVignette ; i++ )  {
-    vignette_OFF_in_typography[i] = loadImage ("vignette_typography/vignette_OFF_in_typography_"+i+".png") ;
-    vignette_OFF_out_typography[i] = loadImage ("vignette_typography/vignette_OFF_out_typography_"+i+".png") ;
-    vignette_ON_in_typography[i] = loadImage ("vignette_typography/vignette_ON_in_typography_"+i+".png") ;
-    vignette_ON_out_typography[i] = loadImage ("vignette_typography/vignette_ON_out_typography_"+i+".png") ;
-  }
-}
 //END GLOBAL
 
 //SETUP
@@ -59,6 +16,210 @@ void loadSetup() {
   textGUI() ;
 }
 //END SETUP
+
+
+
+
+
+
+// LOAD INFO OBJECT from the PRESCENE
+/////////////////////////////////////
+Table objectList;
+int numGroup [], objectLibraryOrder [][], objectID [][], objectGroup [][]  ;
+String  objectName [][], objectAuthor [][], objectVersion [][], objectPack [][], objectRender [][], objectLoadName [][] ;
+boolean objectClassic [][], objectP2D [][], objectP3D [][] ;
+
+
+
+//BOUTON
+int numButton [] ;
+int numButtonTotalObjects ;
+int lastDropdown, numDropdown ;
+//BUTTON
+int valueButtonGlobal[], valueButtonObj[], valueButtonTex[], valueButtonTypo[]  ;
+Simple  BOmidi, BOcurtain, buttonMeteo,
+        Bbeat, Bkick, Bsnare, Bhat;
+        
+//bouton objet
+Simple[] BOf  ;
+int transparenceBordBOf[], epaisseurBordBOf[], transparenceBoutonBOf[], posWidthBOf[], posHeightBOf[], longueurBOf[], hauteurBOf[]  ;
+//bouton texture
+Simple[] BTf  ;
+int transparenceBordBTf[], epaisseurBordBTf[], transparenceBoutonBTf[], posWidthBTf[],posHeightBTf[], longueurBTf[], hauteurBTf[]  ;
+//bouton typo
+Simple[] BTYf  ;
+int transparenceBordBTYf[], epaisseurBordBTYf[], transparenceBoutonBTYf[], posWidthBTYf[], posHeightBTYf[], longueurBTYf[], hauteurBTYf[]  ;
+
+
+//Variable must be send to Scene
+//paramètre bouton
+int EtatBOf[], EtatBTf[], EtatBTYf[], EtatBIf[] ;
+
+
+//////////
+//DROPDOWN
+int startLoopObject, endLoopObject, startLoopTexture, endLoopTexture, startLoopTypo, endLoopTypo ;
+//GLOBAL
+Dropdown dropdown[], dropdownFont  ;
+
+PVector posDropdownFont, posDropdown[] ;
+PVector sizeDropdownFont, sizeDropdownMode ;
+PVector posTextDropdown = new PVector( 2, 8 )  ;
+
+PVector totalSizeDropdown = new PVector (0,0) ;
+PVector newPosDropdown = new PVector (0,0) ;
+
+String [] modeListRomanesco ;
+String [] policeDropdownList ;
+String [] listDropdown ;
+
+float margeAroundDropdown ;
+
+
+//SETUP
+ 
+//////////////////////////////////
+
+
+void buildLibrary() {
+  objectList = loadTable(sketchPath("")+"preferences/objects/index_romanesco_objects.csv", "header") ;
+  numByGroup() ;
+  initVarObject() ;
+  initVarButton() ;
+  infoByObject() ;
+}
+
+void initVarObject() {
+  int [] num = new int[numGroupSlider] ;
+  for ( int i = 0 ; i<num.length ; i++) {
+    num[i] = numGroup[i] ;
+  }
+  num = sort(num) ;
+  int numMaxObj = num[num.length-1] +1 ;
+  
+  objectLibraryOrder = new int [numGroupSlider][numMaxObj] ;
+  objectID = new int [numGroupSlider][numMaxObj] ;
+  objectGroup = new int [numGroupSlider][numMaxObj] ;
+  objectName = new String [numGroupSlider][numMaxObj] ;
+  objectAuthor = new String [numGroupSlider][numMaxObj] ;
+  objectVersion = new String [numGroupSlider][numMaxObj] ;
+  objectPack = new String [numGroupSlider][numMaxObj] ;
+  objectRender = new String [numGroupSlider][numMaxObj] ;
+  objectLoadName = new String [numGroupSlider][numMaxObj] ;
+  objectClassic = new boolean [numGroupSlider][numMaxObj] ;
+  objectP2D = new boolean [numGroupSlider][numMaxObj] ;
+  objectP3D = new boolean [numGroupSlider][numMaxObj] ;
+}
+
+
+
+void initVarButton() {
+  numButton = new int[numGroupSlider] ;
+  
+  numButton[0] = 11 ;
+  for (int i = 1 ; i < numGroupSlider ; i++ ) {
+    numButton[i] = numGroup[i]*10 ;
+    numButtonTotalObjects += numGroup[i] ;
+  }
+
+  numDropdown = numGroup[0] +1 ; // add one for the dropdownmenu
+  lastDropdown = numDropdown -1 ;
+  
+  valueButtonGlobal = new int[numButton[0]] ;
+  valueButtonObj = new int[numButton[1]] ;
+  valueButtonTex = new int[numButton[2]] ;
+  valueButtonTypo = new int[numButton[3]] ;
+  //bouton objet
+  BOf = new Simple[numButton[1] +10] ;
+  transparenceBordBOf =      new int[numButton[1] +10] ;
+  epaisseurBordBOf =         new int[numButton[1] +10] ;
+  transparenceBoutonBOf =    new int[numButton[1] +10] ;
+  posWidthBOf =              new int[numButton[1] +10] ;
+  posHeightBOf =             new int[numButton[1] +10] ;
+  longueurBOf =              new int[numButton[1] +10] ;
+  hauteurBOf =               new int[numButton[1] +10] ;
+  
+  //bouton texture
+  BTf = new Simple[numButton[2] +10] ;
+  transparenceBordBTf =      new int[numButton[2] +10] ;
+  epaisseurBordBTf =         new int[numButton[2] +10] ;
+  transparenceBoutonBTf =    new int[numButton[2] +10] ;
+  posWidthBTf =              new int[numButton[2] +10] ;
+  posHeightBTf =             new int[numButton[2] +10] ;
+  longueurBTf =              new int[numButton[2] +10] ;
+  hauteurBTf =               new int[numButton[2] +10] ;
+  
+  //bouton typo
+  BTYf = new Simple[numButton[3] +10] ;
+  transparenceBordBTYf =      new int[numButton[3] +10] ;
+  epaisseurBordBTYf =         new int[numButton[3] +10] ;
+  transparenceBoutonBTYf =    new int[numButton[3] +10] ;
+  posWidthBTYf =              new int[numButton[3] +10] ;
+  posHeightBTYf =             new int[numButton[3] +10] ;
+  longueurBTYf =              new int[numButton[3] +10] ;
+  hauteurBTYf =               new int[numButton[3] +10] ;
+  
+  //paramètre bouton
+  EtatBOf = new int[numButton[1]] ;
+  EtatBTf = new int[numButton[2]] ;
+  EtatBTYf = new int[numButton[3]] ;
+  // EtatBIf = new int[numButton] ;
+  
+  //dropdown
+  dropdown = new Dropdown[numDropdown] ;
+  posDropdown = new PVector[numDropdown] ;
+  startLoopObject = 1 ;
+  endLoopObject = 1 +numGroup[1] ;
+  startLoopTexture = endLoopObject ; 
+  endLoopTexture = startLoopTexture +numGroup[2] ;
+  startLoopTypo = endLoopTexture ; 
+  endLoopTypo = startLoopTypo +numGroup[3] ;
+
+}
+
+void infoByObject() {
+  int libraryRank = 0 ;
+  int numObjByGroup = 0 ;
+  for (int i = 1 ; i < numGroupSlider ; i++) {
+    if ( i == 1 ) numObjByGroup = numGroup[i] ;
+    if ( i == 2 ) numObjByGroup = numGroup[i] ;
+    if ( i == 3 ) numObjByGroup = numGroup[i] ;
+    for ( int j = 1 ; j <= numObjByGroup ; j++) {
+      libraryRank += 1 ;
+      TableRow row = objectList.getRow(libraryRank-1);
+      objectLibraryOrder [i][j] = row.getInt("Library Order") ;
+      objectID [i][j] = row.getInt("ID") ;
+      objectGroup[i][j] = row.getInt("Group");
+      objectPack[i][j] = row.getString("Pack");
+      objectRender[i][j] = row.getString("Render");
+      objectAuthor[i][j] = row.getString("Author");
+      objectVersion[i][j] = row.getString("Version");
+      objectLoadName[i][j] = row.getString("Class name");
+      objectName[i][j] = row.getString("Name");
+    }
+  }
+}
+
+
+
+void numByGroup() {
+  numGroup  = new int[numGroupSlider] ;
+  for (TableRow row : objectList.rows()) {
+    int objectGroup = row.getInt("Group");
+    for (int i = 0 ; i < numSlider ;i++) {
+      if (objectGroup == i) numGroup[i] += 1 ;
+    }
+  }
+  //give the num total of objects
+  numGroup[0] = numGroup[1] +numGroup[2] +numGroup[3] ;
+}
+// END BUILD LIBRARY
+////////////////////
+
+
+
+
+
 
 
 
@@ -106,92 +267,10 @@ void chargementReglette(File selection) {
 }
 
 
-// LOAD INFO OBJECT from the PRESCENE
-/////////////////////////////////////
-Table objectList;
-int numGroup [] ;
-int [][] objectID ;
-int [][] objectGroup ;
-String [][] objectName ;
-String [][] objectAuthor ;
-String [][] objectVersion ;
-String [][] objectPack ;
-String [][] objectRender ;
-String [][] objectLoadName ;
-boolean [][] objectClassic ;
-boolean [][] objectP2D ;
-boolean [][] objectP3D ;
 
 
-void buildLibrary() {
-  objectList = loadTable(sketchPath("")+"preferences/objects/index_romanesco_objects.csv", "header") ;
-  numByGroup() ;
-  println("Combien d'objet pas groupe ?",numGroup[1],numGroup[2],numGroup[3]) ; 
-  initVarObject() ;
-  infoByObject() ;
 
-  
-}
 
-void infoByObject() {
-  int libraryRank = 0 ;
-  int numObjByGroup = 0 ;
-  for (int i = 1 ; i < numGroupSlider ; i++) {
-    if ( i == 1 ) numObjByGroup = numGroup[i] ;
-    if ( i == 2 ) numObjByGroup = numGroup[i] ;
-    if ( i == 3 ) numObjByGroup = numGroup[i] ;
-    for ( int j = 1 ; j <= numObjByGroup ; j++) {
-      libraryRank += 1 ;
-      TableRow row = objectList.getRow(libraryRank-1);
-      objectID [i][j] = row.getInt("ID") ;
-      objectGroup[i][j] = row.getInt("Group");
-      objectPack[i][j] = row.getString("Pack");
-      objectRender[i][j] = row.getString("Render");
-      objectAuthor[i][j] = row.getString("Author");
-      objectVersion[i][j] = row.getString("Version");
-      objectLoadName[i][j] = row.getString("Class name");
-      objectName[i][j] = row.getString("Name");
-
-      println(objectID[i][j], objectLoadName[i][j]) ;
-
-    }
-  }
-}
-
-void initVarObject() {
-  int [] num = new int[numGroupSlider] ;
-  for ( int i = 0 ; i<num.length ; i++) {
-    num[i] = numGroup[i] ;
-  }
-  num = sort(num) ;
-  int numMaxObj = num[num.length-1] +1 ;
-  
-  objectID = new int [numGroupSlider][numMaxObj] ;
-  objectGroup = new int [numGroupSlider][numMaxObj] ;
-  objectName = new String [numGroupSlider][numMaxObj] ;
-  objectAuthor = new String [numGroupSlider][numMaxObj] ;
-  objectVersion = new String [numGroupSlider][numMaxObj] ;
-  objectPack = new String [numGroupSlider][numMaxObj] ;
-  objectRender = new String [numGroupSlider][numMaxObj] ;
-  objectLoadName = new String [numGroupSlider][numMaxObj] ;
-  objectClassic = new boolean [numGroupSlider][numMaxObj] ;
-  objectP2D = new boolean [numGroupSlider][numMaxObj] ;
-  objectP3D = new boolean [numGroupSlider][numMaxObj] ;
-}
-
-void numByGroup() {
-  numGroup  = new int[numGroupSlider] ;
-  for (TableRow row : objectList.rows()) {
-    int objectGroup = row.getInt("Group");
-    for (int i = 0 ; i < numSlider ;i++) {
-      if (objectGroup == i) numGroup[i] += 1 ;
-    }
-  }
-  //give the value zero at this numGroup by security, because this one are not not use and not init.
-  numGroup[0] = 0 ;
-}
-// END BUILD LIBRARY
-////////////////////
 
 //LOAD text Interface
 Table textGUI;
@@ -241,5 +320,56 @@ void textGUI() {
       if ( i == 8 ) typoTxtGUItwo[j ] = row[i].getString("Column "+numCol) ;
       if ( i == 9 ) typoTxtGUIthree[j] = row[i].getString("Column "+numCol) ;
     }
+  }
+}
+
+
+
+
+
+//IMPORT VIGNETTE
+void importPicButtonSetup() {
+  //load button vignette GUI general
+  for(int j=0 ;  j<bouton.length ; j++ ) bouton[j] = loadImage ("bouton/bouton"+j+".png") ;
+  
+  //load simple vignette
+  
+  numVignette = numGroup[1] +1  ;
+  vignette_OFF_in_simple = new PImage[numVignette] ;
+  vignette_OFF_out_simple = new PImage[numVignette] ;
+  vignette_ON_in_simple = new PImage[numVignette] ;
+  vignette_ON_out_simple = new PImage[numVignette] ;
+
+  for(int i=0 ;  i<numVignette ; i++ )  {
+    vignette_OFF_in_simple[i] = loadImage ("vignette_simple/vignette_OFF_in_simple_"+i+".png") ;
+    vignette_OFF_out_simple[i] = loadImage ("vignette_simple/vignette_OFF_out_simple_"+i+".png") ;
+    vignette_ON_in_simple[i] = loadImage ("vignette_simple/vignette_ON_in_simple_"+i+".png") ;
+    vignette_ON_out_simple[i] = loadImage ("vignette_simple/vignette_ON_out_simple_"+i+".png") ;
+  }
+  //load texture vignette
+  numVignette = numGroup[2] +1  ;
+  vignette_OFF_in_texture = new PImage[numVignette] ;
+  vignette_OFF_out_texture = new PImage[numVignette] ;
+  vignette_ON_in_texture = new PImage[numVignette] ;
+  vignette_ON_out_texture = new PImage[numVignette] ;
+
+  for(int i=0 ;  i<numVignette ; i++ )  {
+    vignette_OFF_in_texture[i] = loadImage ("vignette_texture/vignette_OFF_in_texture_"+i+".png") ;
+    vignette_OFF_out_texture[i] = loadImage ("vignette_texture/vignette_OFF_out_texture_"+i+".png") ;
+    vignette_ON_in_texture[i] = loadImage ("vignette_texture/vignette_ON_in_texture_"+i+".png") ;
+    vignette_ON_out_texture[i] = loadImage ("vignette_texture/vignette_ON_out_texture_"+i+".png") ;
+  }
+  //load typography vignette
+  numVignette = numGroup[3] +1  ;
+  vignette_OFF_in_typography = new PImage[numVignette] ;
+  vignette_OFF_out_typography = new PImage[numVignette] ;
+  vignette_ON_in_typography = new PImage[numVignette] ;
+  vignette_ON_out_typography = new PImage[numVignette] ;
+
+  for(int i=0 ;  i<numVignette ; i++ )  {
+    vignette_OFF_in_typography[i] = loadImage ("vignette_typography/vignette_OFF_in_typography_"+i+".png") ;
+    vignette_OFF_out_typography[i] = loadImage ("vignette_typography/vignette_OFF_out_typography_"+i+".png") ;
+    vignette_ON_in_typography[i] = loadImage ("vignette_typography/vignette_ON_in_typography_"+i+".png") ;
+    vignette_ON_out_typography[i] = loadImage ("vignette_typography/vignette_ON_out_typography_"+i+".png") ;
   }
 }
