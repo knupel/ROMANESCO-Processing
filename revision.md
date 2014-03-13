@@ -10,10 +10,12 @@
 * button slider bigger
 * clean the core
 * change the slider ID to add 50 more
+* now the library is dynamic. The controler read the info from file.csv write by the Romanesco Manger in the Prescene.
 
 
 ###### Prescene, Scene 
 * the FrameRate change to 60
+* change Romanesco Object manager, the new one is more simple and very easy to use.
  
 ###### Object
 * Twiter : information when you don't have the Twitter keys
@@ -31,7 +33,11 @@
  
 ###### Contrôleur 
 * slider light direction
+* slider ambient light
 * slider  depth
+
+###### Préscène
+* tool to write info object in the file.csv
 
 ###### Scene 
 * Miroir option to send at Syphon application
