@@ -14,6 +14,7 @@ abstract class SuperRomanesco {
     romanescoRender = "classic" ;
     IDgroup = 0 ;
     IDobj = 0 ;
+  }
   
   //manager return
   void setManagerReference(ObjectRomanescoManager orm) {

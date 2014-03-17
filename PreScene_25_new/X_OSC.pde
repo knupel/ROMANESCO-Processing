@@ -36,10 +36,16 @@ void oscEvent(OscMessage receive ) {
   for ( int i = 0 ; i < fromControler.length ; i++ ) {
     fromControler [i] = receive.get(i).stringValue() ;
   }
-    //SPLIT DATA for the Pre-Scene
   //Split data from the String Data
-  valueButtonGroupZero = int(split(fromControler [0], '/')) ;
-  valueButtonGroupObj = int(split(fromControler [1], '/')) ;
+  valueButtonGlobal = int(split(fromControler [0], '/')) ;
+  // stick the Int(String) chain from the group one, two and three is single chain integer(String).
+  String fullChainValueButtonObj =("") ;
+  
+  for ( int i = 1 ; i <= numGroup ; i++ ) {
+    fullChainValueButtonObj += fromControler [i]+"/" ;
+  }
+  //println(fullChainValueButtonObj) ;
+  valueButtonObj = int(split(fullChainValueButtonObj, '/')) ;
   
   //SLIDER
   //split String value from controler
@@ -127,57 +133,52 @@ void OSCDraw() {
    if (touch9)     dataPreScene [59] = ("1") ; else dataPreScene [59] = ("0") ;
    if (touch0)     dataPreScene [60] = ("1") ; else dataPreScene [60] = ("0") ;
    
-   
-  
    toScene = join(dataPreScene, "/") ;
    
-   //PROBLEM with packet to send we must join the smaller pack with the new one
+   //PROBLEM with packet to send, we must join the smaller pack with the new one
    // fromControler[4] = fromControler[4] + "/" + toScene ;
-   fromControler[4] = fromControler[4] + "/" +dataPreScene[0] + "/" +dataPreScene[1] + "/" +dataPreScene[2] + "/" +dataPreScene[3] + "/" +dataPreScene[4] + "/" +dataPreScene[10] ;
-   
-   
-   
-   
+   fromControler[4] = fromControler[4] + "/" +dataPreScene[0] + "/" +dataPreScene[1] + "/" +dataPreScene[2] + "/" +dataPreScene[3] + "/" +dataPreScene[4] + "/" +dataPreScene[10] ; 
   
   //SEND data to SCENE
   //send info from scene
   OscMessage RomanescoScene = new OscMessage("ROMANESCO PréScène");
   //add info to send
+  String sizeDataLengthFromPrescene = ("") ;
   for ( int i = 0 ; i < fromControler.length ; i++ ) {
     if (fromControler[i] == null ) fromControler[i] = ("") ;
     RomanescoScene.add(fromControler[i]);
+    sizeDataLengthFromPrescene += fromControler[i] ;
   }
   RomanescoScene.add(toScene);
+
   //send
+  println("Taille des données envoyées vers la Scène", sizeDataLengthFromPrescene.length()) ;
   if(Scene) if (youCanSendToScene)osc.send(RomanescoScene, targetScene); 
   if(Miroir) if (youCanSendToMiroir) osc.send(RomanescoScene, targetMiroir);
- 
-   
- 
-  
-  
   
   //TRANSFORM info from controler to use in the preScene
   //GLOBAL
-  eBeat = valueButtonGroupZero[1] ;
-  eKick = valueButtonGroupZero[2] ;
-  eSnare = valueButtonGroupZero[3] ;
-  eHat = valueButtonGroupZero[4] ;
+  eBeat = valueButtonGlobal[1] ;
+  eKick = valueButtonGlobal[2] ;
+  eSnare = valueButtonGlobal[3] ;
+  eHat = valueButtonGlobal[4] ;
   //meteo
-  eMeteo = valueButtonGroupZero[5] ;
+  eMeteo = valueButtonGlobal[5] ;
   //dropdown typo
-  whichFont(valueButtonGroupZero[7]) ;
+  whichFont(valueButtonGlobal[7]) ;
   //rideau
-  eCurtain = valueButtonGroupZero[10] ;
+  eCurtain = valueButtonGlobal[10] ;
+
   
   //OBJ
+
   for ( int i = 0 ; i < numObj-1 ; i++) {
     int iPlusOne = i+1 ;
-    objectButton   [iPlusOne] = valueButtonGroupObj[i *10 +1] ;
-    parameterButton[iPlusOne] = valueButtonGroupObj[i *10 +2] ;
-    soundButton    [iPlusOne] = valueButtonGroupObj[i *10 +3] ;
-    actionButton   [iPlusOne] = valueButtonGroupObj[i *10 +4] ;
-    modeButton     [iPlusOne] = valueButtonGroupObj[i *10 +9] ;
+    objectButton   [iPlusOne] = valueButtonObj[i *10 +1] ;
+    parameterButton[iPlusOne] = valueButtonObj[i *10 +2] ;
+    soundButton    [iPlusOne] = valueButtonObj[i *10 +3] ;
+    actionButton   [iPlusOne] = valueButtonObj[i *10 +4] ;
+    modeButton     [iPlusOne] = valueButtonObj[i *10 +9] ;
     if (objectButton[iPlusOne] == 1 ) object[iPlusOne] = true ; else object[iPlusOne] = false ;
     if (parameterButton[iPlusOne] == 1 ) parameter[iPlusOne] = true ; else parameter[iPlusOne] = false ;
     if (soundButton[iPlusOne] == 1 ) sound[iPlusOne] = true ; else sound[iPlusOne] = false ;

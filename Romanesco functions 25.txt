@@ -10,8 +10,9 @@ The main sketch is the Prescene, it receive slider information from Contrôleur,
 and send a major part of the result to Scene or Miroir, who're just a slave !
 
 // INFORMATION
-You cannot dev Romanesco with PROCESSING 210, because there is a problem with the tablet library, but may be you can resolve this little problem ?
- 
+You can Romanesco with PROCESSING 211, but you must export with the 203...there is problem with few library
+
+When you add a new object from Startcoding to the Prescene and Scene, don't forget to copy the new 
 
 
 
@@ -300,7 +301,7 @@ float sizeXObj[IDobj] ; sizeYObj[IDobj] ; sizeZObj[IDobj] ; value from 0.1 to wi
 float canvasXObj[IDobj] ; value from width /10  to width
 float canvasYObj[IDobj] ; value from height /10  to height
 float canvasZObj[IDobj] ; value from width /10 to width
-float quantityObj = new float[numObj] ; value from 1 to 200 ;
+float quantityObj = new float[numObj] ; value from 1 to 100 ;
 
 float speedObj[IDobj] ; value from 0 to 100
 float orientationObj[IDobj] ; value from 0 to 360 ;

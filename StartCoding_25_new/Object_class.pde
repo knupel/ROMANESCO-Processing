@@ -7,17 +7,22 @@ class ObjectMMM extends SuperRomanesco {
     IDobj = 3 ;
     IDgroup = 1 ;
     romanescoAuthor  = "My is Nobody";
-    romanescoVersion = "Alpha 0.1";
-    romanescoPack = "startCoding" ;
+    romanescoAuthor  = "My name is Nobody";
+    romanescoVersion = "Alpha 2.0";
+    romanescoPack = "Base" ;
     romanescoRender = "classic" ;
   }
   //GLOBAL
 
+  
+  
   //SETUP
   void setting() {
     startPosition(IDobj, width/2, height/2, 0) ;
     obj = new Object () ;
   }
+  
+  
   //DRAW
   void display() {
     color c = color(fillObj[IDobj]) ; // you can use too

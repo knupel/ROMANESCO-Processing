@@ -90,6 +90,12 @@ void soundRomanesco() {
   for ( int i = 0 ; i < numBand ; i++ ) {
     band[0][i] = bandSprectrum[i] ;
   }
+  
+  //tempo
+  tempo[0] = getTempoRef() ;
+  tempoKick[0] = getTempoKickRef() ;
+  tempoSnare[0] = getTempoSnareRef() ;
+  tempoHat[0] = getTempoHatRef() ;
 }
   
 

@@ -66,7 +66,7 @@ void updateSound(int ID) {
     kick[ID] = kick[0] ;//   is beat kick : value 1,10 
     snare[ID] = snare [0] ;//   is beat snare : value 1,10 
     hat[ID]  = hat[0] ;//   is beat hat : value 1,10 
-    
+
     tempo[ID]   = tempo[0] ;     // global speed of track  / float value(0,1)
     tempoBeat[ID] = tempoBeat[0] ;  // speed of track calculate on the beat
     tempoKick[ID] = tempoKick[0] ; // speed of track calculate on the kick
@@ -159,14 +159,8 @@ class ObjectRomanescoManager {
         numObjectRomanesco += 1 ;
       }
     }
-    
     writeIndex() ;
     
-    //show info object classes in the monitor
-    /*
-    println("Classes extends from " + superClassName + ":");  
-    println(objectNameRomanesco);
-    */
     return classes;  
   }
   //END ADD CLASSES
@@ -288,7 +282,6 @@ class ObjectRomanescoManager {
       motion[objR.IDobj] = true ;
       initValueMouse [objR.IDobj] = true ;
       objR.setting() ;
-      //println("init", objR.romanescoName, P3DpositionX[objR.IDobj]) ;
     }
   }
   // END SETUP
@@ -302,7 +295,6 @@ class ObjectRomanescoManager {
     for (SuperRomanesco objR : RomanescoList) {
       if (object[objR.IDobj]) {
         updateObject(objR.IDobj, objR.IDgroup) ;
-        
         pushMatrix() ;
         //addRefObj(objR.IDobj) ;
         if(vLongTouch && action[objR.IDobj] ) P3Dmanipulation(objR.IDobj) ;

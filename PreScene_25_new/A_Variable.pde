@@ -12,8 +12,8 @@ int numGroup = 3 ;
 int numSliderGroupZero = 14 ;
 int numSlider = 30 ;
 
-int numButtonGroupZero = 50 ;
-int numButtonGroupObj  ;
+int numButtonGlobal = 21 ; // group zero
+int numButtonObj  ; // group one, two and three
 
 //VAR
 int numObj ;
@@ -65,9 +65,11 @@ boolean parameter[]  ;
 int modeButton[]  ;
 
 //BUTTON
+int valueButtonGlobal[], valueButtonObj[]  ;
+/*
 int valueButtonGroupZero[] = new int[numButtonGroupZero] ;
 int valueButtonGroupObj[] = new int[numButtonGroupObj] ;
-
+*/
 //SLIDER
 String valueSliderTemp[][]  = new String [numGroup+1][numSlider] ;
 /*
@@ -164,7 +166,7 @@ PFont font[]  ;
 void createVar() {
   numObj = romanescoManager.numClasses + 1 ;
   //BUTTON CONTROLER
-  numButtonGroupObj = numObj*10 ;
+  numButtonObj = numObj*10 ;
 
   createVarButton() ;
   //createVarSlider() ;
@@ -269,8 +271,10 @@ void createVarButton() {
   parameter = new boolean [numObj] ;
   modeButton = new int [numObj] ;
   
-  valueButtonGroupZero = new int[numButtonGroupZero] ;
-  valueButtonGroupObj = new int[numButtonGroupObj] ;
+  // you must init this var, because we launch this part of code before the controler. And if we don't init the value is NaN and return an error.
+  valueButtonGlobal = new int[numButtonGlobal] ;
+  valueButtonObj = new int[numObj*10] ;
+
 }
 
 void createVarObject() {
@@ -334,14 +338,14 @@ void updateVar() {
     canvasXRaw[i] = map(valueSlider[i+1][14],minSource,maxSource, width *.1,width *5) ;
     canvasYRaw[i] = map(valueSlider[i+1][15],minSource,maxSource,height *.1, height *5) ;
     canvasZRaw[i] = map(valueSlider[i+1][16],minSource,maxSource,width *.1, width *5) ;
-    quantityRaw[i] = map(valueSlider[i+1][17], minSource, maxSource,1,200) ;
+    quantityRaw[i] = map(valueSlider[i+1][17], minSource, maxSource,1,100) ;
     //column 3
     speedRaw[i] = valueSlider[i+1][20] ;
     orientationRaw[i] = map(valueSlider[i+1][21],minSource, maxSource,0,360) ;
     angleRaw[i] = map(valueSlider[i+1][22],minSource, maxSource,0,360) ;
     amplitudeRaw[i] = map(valueSlider[i+1][23],minSource, maxSource,1,height) ;
     analyzeRaw[i] = valueSlider[i+1][24] ;
-    familyRaw[i] = map(valueSlider[i+1][25],minSource, maxSource,1,118) ;
+    familyRaw[i] = map(valueSlider[i+1][25],minSource, maxSource,1,100) ;
     lifeRaw[i] = valueSlider[i+1][26] +1 ;
     forceRaw[i] = valueSlider[i+1][27] +1 ;
 

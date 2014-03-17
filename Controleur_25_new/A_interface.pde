@@ -232,7 +232,6 @@ void groupTwo(int posButton, int posSlider) {
 
 /////////////////
 void groupThree(int posButton, int posSlider) {
-    //TYPOGRAPHY
   //paramètre habillage couleur du bouton cercle BTY
   for (int i = 1 ; i <= numGroup[3] ; i++ ) {
     posWidthBTYf[i*10+1] = posWidthBTY +((i-1)*40)-8 ; posHeightBTYf[i*10+1] = posButton -10  ; longueurBTYf[i*10+1] = 20 ; hauteurBTYf[i*10+1] = 20 ; //main
@@ -623,6 +622,7 @@ void buttonDrawGroupZero() {
 //GROUP ONE
 void buttonDrawGroupOne() {
     for( int i = 1 ; i <= numGroup[1] ; i++ ) {
+      println(i) ;
     BOf[i*10 +1].boutonVignette(vignette_OFF_in_simple, vignette_OFF_out_simple, vignette_ON_in_simple, vignette_ON_out_simple, i) ; 
     BOf[i*10 +2].boutonCarre () ; 
     BOf[i*10 +3].boutonSonPetit () ; 
@@ -673,11 +673,11 @@ void buttonCheckDraw() {
 
   //Statement button, if are OFF or ON
   for(int i = 1 ; i < numGroupSlider ; i++) {
-    int num = numButton[i] ;
+    int num = numButton[i] +10 ;
     for( int j = 11 ; j < num ; j++) {
-      if(numGroup[1] > 0 && i == 1 ) EtatBOf[j] = BOf[j].getEtatBoutonCarre() ;
-      if(numGroup[2] > 0 && i == 2 ) EtatBTf[j] = BTf[j].getEtatBoutonCarre() ;
-      if(numGroup[3] > 0 && i == 3 ) EtatBTYf[j] = BTYf[j].getEtatBoutonCarre() ;
+      if(numGroup[1] > 0 && i == 1 ) EtatBOf[j-10] = BOf[j].getEtatBoutonCarre() ;
+      if(numGroup[2] > 0 && i == 2 ) EtatBTf[j-10] = BTf[j].getEtatBoutonCarre() ;
+      if(numGroup[3] > 0 && i == 3 ) EtatBTYf[j-10] = BTYf[j].getEtatBoutonCarre() ;
     }
   }
 
@@ -728,7 +728,6 @@ void lookAndDisplayInfo(int IDorder, PVector pos) {
   String AuthorObj = displayInfo.getString("Author") ;
   String VersionObj = displayInfo.getString("Version") ;
   String PackObj = displayInfo.getString("Pack") ;    
-  //println(IDorder, whichOne) ;
   textSize(20 ) ;
   textFont(FuturaStencil_20) ;
   text(NameObj, mouseX +pos.x, mouseY +pos.y -25) ;

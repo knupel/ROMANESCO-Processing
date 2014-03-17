@@ -326,14 +326,14 @@ void updateVar() {
     canvasXRaw[i] = map(valueSlider[i+1][14],minSource,maxSource, width *.1,width) ;
     canvasYRaw[i] = map(valueSlider[i+1][15],minSource,maxSource,height *.1, height) ;
     canvasZRaw[i] = map(valueSlider[i+1][16],minSource,maxSource,width *.1, width) ;
-    quantityRaw[i] = map(valueSlider[i+1][17], minSource, maxSource,1,200) ;
+    quantityRaw[i] = map(valueSlider[i+1][17], minSource, maxSource,1,100) ;
     //column 3
     speedRaw[i] = valueSlider[i+1][20] ;
     orientationRaw[i] = map(valueSlider[i+1][21],minSource, maxSource,0,360) ;
     angleRaw[i] = map(valueSlider[i+1][22],minSource, maxSource,0,360) ;
     amplitudeRaw[i] = map(valueSlider[i+1][23],minSource, maxSource,1,height) ;
     analyzeRaw[i] = valueSlider[i+1][24] ;
-    familyRaw[i] = map(valueSlider[i+1][25],minSource, maxSource,1,118) ;
+    familyRaw[i] = map(valueSlider[i+1][25],minSource, maxSource,1,100) ;
     lifeRaw[i] = valueSlider[i+1][26] +1 ;
     forceRaw[i] = valueSlider[i+1][27] +1 ;
   }

@@ -209,7 +209,7 @@ class Atome extends SuperRomanesco {
     //data
     //amplitude
     //give the field of type of atome must be create
-    float numP = familyObj[IDobj] ;
+    float numP = map(familyObj[IDobj],1,100,1,118) ;
     int Z = int(random (1,numP)) ; // Z is the number of protons give the number of electrons max knew is 118
     int ion = round(random(0,0)); // number of electron(s) less(Anion)   more(Cation)   / give the magnetism & conductivity of the atome cannot be equal or sup to "Z"proton
     

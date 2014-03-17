@@ -7,7 +7,7 @@ class Lignes extends SuperRomanesco {
     IDobj = 10 ;
     IDgroup = 2 ;
     romanescoAuthor  = "Stan le Punk";
-    romanescoVersion = "Alpha 2.0";
+    romanescoVersion = "Alpha 2.1";
     romanescoPack = "Base" ;
     romanescoRender = "classic" ;
   }
@@ -17,12 +17,11 @@ class Lignes extends SuperRomanesco {
   float thicknessLine ;
   //SETUP
   void setting() {
-    startPosition(IDobj, width/2, height/2, 0) ;
+    startPosition(IDobj, 0, 0, 0) ;
     line = new Line() ;
   }
   //DRAW
   void display() {
-    println("Je suis là!") ;
     if( beat[IDobj] > 1 ) {
       ampLine = beat[IDobj] *(map(amplitudeObj[IDobj], 0,100, 0, 3)) ;
       thicknessLine = (thicknessObj[IDobj] *ampLine ) ;

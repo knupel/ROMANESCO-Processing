@@ -28,7 +28,7 @@ class SpiraleRomanesco extends SuperRomanesco {
     //amplitude
     float ratioScreen = height - 400 ;
     if (ratioScreen < 1 ) ratioScreen = 1 ;
-    float ratio = 1.25 + (ratioScreen *.0005) ;  
+    float ratio = 1.25 + (ratioScreen *.0005) ; 
     float z = map(amplitudeObj[IDobj], 0,100,1.01, ratio)  ;
     //speed
     
@@ -97,62 +97,5 @@ class Spirale extends Rotation {
     scale(z) ; 
 
     if ( n > 0) { affichage (n, nMax, size, z, cIn, cOut, e, mode ) ; }
-  }
-  
-  
-  
-  //DIFFERENT DISPLAY MODE
-  void baliseDisc (color cIn, color cOut, float e, float amp, float varx, float vary, PVector sizeBalise, int max ) {
-    pushMatrix() ;
-    rectMode(CENTER) ;
-    
-    if ( max > 512 ) max = 512 ;
-    for(int i = 0 ; i < max ; i++) {
-      PVector inputResult = new PVector ( (input.left.get(i)*varx), (input.right.get(i)*vary) ) ;
-      PVector posBalise = new PVector ( amp * inputResult.x, amp * inputResult.y ) ;
-      //check the opacity of color
-      int alphaIn = (cIn >> 24) & 0xFF; 
-      int alphaOut = (cOut >> 24) & 0xFF; 
-      // to display or not
-      if ( alphaIn == 0 ) noFill() ; else fill (cIn) ;
-      if ( alphaOut == 0) {
-        noStroke() ;
-      } else {
-        stroke ( cOut ) ; 
-        if( e < 0.1 ) e = 0.1 ; //security for the negative value
-        strokeWeight (e) ;
-      }
-      ellipse(posBalise.x, posBalise.y, sizeBalise.x *abs(inputResult.x*50), sizeBalise.y * abs(inputResult.y*50) ) ;
-    }
-    rectMode(CORNER) ;
-    popMatrix() ;
-    noStroke() ;
-  }
-  
-  void baliseRect (color cIn, color cOut, float e, float amp, float varx, float vary, PVector sizeBalise, int max ) {
-    pushMatrix() ;
-    rectMode(CENTER) ;
-    
-    if ( max > 512 ) max = 512 ;
-    for(int i = 0 ; i < max ; i++) {
-      PVector inputResult = new PVector ( (input.left.get(i)*varx), (input.right.get(i)*vary) ) ;
-      PVector posBalise = new PVector ( amp * inputResult.x, amp * inputResult.y ) ;
-      //check the opacity of color
-      int alphaIn = (cIn >> 24) & 0xFF; 
-      int alphaOut = (cOut >> 24) & 0xFF; 
-      // to display or not
-      if ( alphaIn == 0 ) noFill() ; else fill (cIn) ;
-      if ( alphaOut == 0) {
-        noStroke() ;
-      } else {
-        stroke ( cOut ) ; 
-        if( e < 0.1 ) e = 0.1 ; //security for the negative value
-        strokeWeight (e) ;
-      }
-      rect(posBalise.x, posBalise.y, sizeBalise.x *abs(inputResult.x*50), sizeBalise.y * abs(inputResult.y*50) ) ;
-    }
-    rectMode(CORNER) ;
-    popMatrix() ;
-    noStroke() ;
   }
 }

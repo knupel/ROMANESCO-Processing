@@ -7,15 +7,18 @@ class ObjectInTheArrayList extends SuperRomanesco {
     romanescoName = "ObjectInTheArrayList" ;
     IDobj = 4 ;
     IDgroup = 1 ;
-    romanescoAuthor  = "My is Nobody";
-    romanescoVersion = "Alpha 0.1";
-    romanescoPack = "startCoding" ;
+    romanescoAuthor  = "My name is Nobody";
+    romanescoVersion = "Alpha 2.0";
+    romanescoPack = "Base" ;
     romanescoRender = "classic" ;
   }
   //GLOBAL
   
   ClassListObject arrayObj[] ;
   int numObj ;
+  
+  
+  
   //SETUP
   void setting() {
     startPosition(IDobj, width/2, height/2, 0) ;
@@ -27,6 +30,10 @@ class ObjectInTheArrayList extends SuperRomanesco {
       list.add(obj) ;
     }
   }
+  
+  
+  
+  
   //DRAW
   void display() {
     PVector pos = new PVector(mouse[IDobj].x, mouse[IDobj].y) ;

@@ -3,9 +3,14 @@ Library Order,Name,ID,Group,Version,Author,Class name,Pack,Render
 2,Arbre,6,1,Alpha 2.0,Stan le Punk,ArbreRomanesco,Base,classic
 3,ATOM,3,1,Alpha 2.0,Stan le Punk,Atome,Base,P3D
 4,Balise,8,1,Alpha 2.0,Stan le Punk,BaliseRomanesco,Base,classic
-5,Courbe,7,1,Alpha 2.0,Stan le Punk,Courbe,Base,classic
-6,Lignes,10,2,Alpha 2.0,Stan le Punk,Lignes,Base,classic
-7,Polygone,9,1,Alpha 2.0,Stan le Punk,Polygone,Base,classic
-8,Spirale,5,1,Alpha 2.0,Stan le Punk,SpiraleRomanesco,Base,P3D
-9,Spray,4,1,Alpha 2.0,Stan le Punk,Spray,Base,classic
-10,Triangle,1,1,Alpha 2.0,Stan le Punk,Triangle,Base,classic
+5,Boxolyzer,13,2,Alpha 1.0,My name is Nobody,Boxolyzer,Base,P3D
+6,Courbe,7,1,Alpha 2.0,Stan le Punk,Courbe,Base,classic
+7,Damier,11,2,Alpha 2.0,Stan le Punk,Damier,Base,classic
+8,Galaxie,15,2,Alpha 2.0,Stan le Punk,Galaxie,Base,classic
+9,Lignes,10,2,Alpha 2.1,Stan le Punk,Lignes,Base,classic
+10,Polygone,9,1,Alpha 2.0,Stan le Punk,Polygone,Base,classic
+11,Rideau,12,2,Alpha 2.0,Stan le Punk,Rideau,Base,classic
+12,Spirale,5,1,Alpha 2.0,Stan le Punk,SpiraleRomanesco,Base,P3D
+13,Spray,4,1,Alpha 2.0,Stan le Punk,Spray,Base,classic
+14,Triangle,1,1,Alpha 2.0,Stan le Punk,Triangle,Base,classic
+15,Webcam,14,2,Alpha 2.0,Stan le Punk,Webcam,Base,classic

@@ -27,7 +27,8 @@ void sendOSCdraw() {
   toPreScene[1] = joinIntToString(valueButtonObj) ;
   toPreScene[2] = joinIntToString(valueButtonTex) ;
   toPreScene[3] = joinIntToString(valueButtonTypo) ;
-  
+  //println(valueButtonObj) ;
+  //println(toPreScene[1]) ;
   //SLIDER to String
   int[] dataIntGlobal = new int[numSliderGroupZero] ;
   for ( int i = 1   ; i < numSliderGroupZero-1 ; i++) { 
@@ -75,7 +76,7 @@ void translateDataToSend() {
   
   //BUTTON OBJ
   if(numGroup[1] > 0 ) {
-    for ( int i = 0 ; i < numGroup[1] ; i ++) {
+    for ( int i = 0 ; i < numGroup[1]   ; i ++) {
       valueButtonObj[i *10 +1] = EtatBOf[i *10 +1] ;
       valueButtonObj[i *10 +2] = EtatBOf[i *10 +2] ;
       valueButtonObj[i *10 +3] = EtatBOf[i *10 +3] ;
@@ -84,7 +85,10 @@ void translateDataToSend() {
       valueButtonObj[i *10 +9] = dropdown[i +1].getSelection() ;
     }
   }
+    //println(valueButtonObj) ;
+    // println(EtatBOf) ;
   //BUTTON TEX
+
   if(numGroup[2] > 0 ) {
     for ( int i = 0 ; i < numGroup[2] ; i ++) {
       valueButtonTex[i *10 +1] = EtatBTf[i *10 +1] ;
@@ -95,6 +99,7 @@ void translateDataToSend() {
       valueButtonTex[i *10 +9] = dropdown[i +1].getSelection() ;
     }
   }
+
   //BUTTON TYPO
   if(numGroup[3] > 0 ) {
     for ( int i = 0 ; i < numGroup[3] ; i ++) {
@@ -106,6 +111,7 @@ void translateDataToSend() {
       valueButtonTypo[i *10 +9] = dropdown[i +41].getSelection() ;
     }
   }
+  
 
 }
   
