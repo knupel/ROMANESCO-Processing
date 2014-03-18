@@ -622,7 +622,6 @@ void buttonDrawGroupZero() {
 //GROUP ONE
 void buttonDrawGroupOne() {
     for( int i = 1 ; i <= numGroup[1] ; i++ ) {
-      println(i) ;
     BOf[i*10 +1].boutonVignette(vignette_OFF_in_simple, vignette_OFF_out_simple, vignette_ON_in_simple, vignette_ON_out_simple, i) ; 
     BOf[i*10 +2].boutonCarre () ; 
     BOf[i*10 +3].boutonSonPetit () ; 
@@ -805,11 +804,12 @@ void fondRegletteDensite ( int posX, int posY, int hauteur, int largeur, float c
 void dropdownSetup() {
   //load the external list  for each mode and split to read in the interface
   //mode
-  String mode [] = loadStrings("setting/mode.txt") ;
-  String modeListGlobal = join(mode, "") ;
-  modeListRomanesco = split(modeListGlobal, "///") ; 
+  for (int i = 0 ; i<objectList.getColumnCount() ; i++) {
+    TableRow row = objectList.getRow(i);
+    modeListRomanesco [row.getInt("ID")] = row.getString("Mode"); ; 
+  }
   //typography
-  String pList [] = loadStrings("setting/police.txt") ;
+  String pList [] = loadStrings(sketchPath("")+"preferences/Font/fontList.txt") ;
   String policeList = join(pList, "") ;
   policeDropdownList = split(policeList, "/") ;
   
@@ -818,7 +818,7 @@ void dropdownSetup() {
   posDropdownFont = new PVector(posButtonFont.x, posButtonFont.y, 0.1)  ; // x y is pos anz z is marge between the dropdown and the header
   sizeDropdownFont = new PVector (75, 13, 15 ) ;
   PVector posTextDropdownTypo = new PVector( 3, 10 )  ;
-  dropdownFont = new Dropdown(policeDropdownList,   posDropdownFont , sizeDropdownFont, posTextDropdownTypo, colorBG, colorBoxIn, colorBoxOut, colorBoxText, texteInterface, sizeTexteInterface) ;
+  dropdownFont = new Dropdown("Font", policeDropdownList,   posDropdownFont , sizeDropdownFont, posTextDropdownTypo, colorBG, colorBoxIn, colorBoxOut, colorBoxText, texteInterface, sizeTexteInterface) ;
   
   
   
@@ -826,42 +826,36 @@ void dropdownSetup() {
   ///////////////
   //common param
   sizeDropdownMode = new PVector (20, 10, 9 ) ;
+  PVector newPos = new PVector( -8, 40 ) ;
   //object line
-  for ( int i = startLoopObject ; i < endLoopObject ; i ++ ) {
-    int space = ((i - startLoopObject +1) * 40) - 40 ;
-    //Split the dropdown to display in the dropdown
-    listDropdown = split(modeListRomanesco[i], "/" ) ;
-    //to change the title of the header dropdown
-    listDropdown[0] = "M"  ; 
-    
-    posDropdown[i] = new PVector(posWidthBO -8 + space, posHeightBO +43, 0.1)  ; // x y is pos anz z is marge between the dropdown and the header
-    dropdown[i] = new Dropdown(listDropdown,   posDropdown[i] , sizeDropdownMode, posTextDropdown, colorBG, colorBoxIn, colorBoxOut, colorBoxText, texteInterface, sizeTexteInterface) ;
-  }
+  checkTheDropdownSetupObject(startLoopObject, endLoopObject, posWidthBO +newPos.x, posHeightBO +newPos.y) ;
   //Texture line
-  for ( int i = startLoopTexture ; i < endLoopTexture ; i ++ ) {
-    int space = ((i - startLoopTexture +1) * 40) - 40 ;
-    //Split the dropdown to display in the dropdown
-    listDropdown = split(modeListRomanesco[i], "/" ) ;
-    //to change the title of the header dropdown
-    listDropdown[0] = "M"  ; 
-    
-    posDropdown[i] = new PVector(posWidthBT -8 + space, posHeightBT +43, 0.1)  ; // x y is pos anz z is marge between the dropdown and the header
-    dropdown[i] = new Dropdown(listDropdown,   posDropdown[i] , sizeDropdownMode, posTextDropdown, colorBG, colorBoxIn, colorBoxOut, colorBoxText, texteInterface, sizeTexteInterface) ;
-  }
+  checkTheDropdownSetupObject(startLoopTexture, endLoopTexture, posWidthBT +newPos.x, posHeightBT +newPos.y) ;
   //Typo line
-  for ( int i = startLoopTypo ; i < endLoopTypo ; i ++ ) {
-    int space = ((i - startLoopTypo +1) * 40) - 40 ;
-    //Split the dropdown to display in the dropdown
-    listDropdown = split(modeListRomanesco[i], "/" ) ;
-    //to change the title of the header dropdown
-    listDropdown[0] = "M"  ; 
-    
-    posDropdown[i] = new PVector(posWidthBTY -8 + space, posHeightBTY +43, 0.1)  ; // x y is pos anz z is marge between the dropdown and the header
-    dropdown[i] = new Dropdown(listDropdown,   posDropdown[i] , sizeDropdownMode, posTextDropdown, colorBG, colorBoxIn, colorBoxOut, colorBoxText, texteInterface, sizeTexteInterface) ;
-  }
-  
-
+  checkTheDropdownSetupObject(startLoopTypo, endLoopTypo, posWidthBTY +newPos.x, posHeightBTY +newPos.y) ;
 }
+
+void checkTheDropdownSetupObject( int start, int end, float posWidth, float posHeight) {
+  for ( int i = start ; i < end ; i ++ ) {
+    if(modeListRomanesco[i] != null ) {
+      int space = ((i - start +1) * 40) - 40 ;
+      //Split the dropdown to display in the dropdown
+      listDropdown = split(modeListRomanesco[i], "/" ) ;
+      //to change the title of the header dropdown
+
+      posDropdown[i] = new PVector(posWidth +space, posHeight , 0.1)  ; // x y is pos anz z is marge between the dropdown and the header
+      dropdown[i] = new Dropdown("M", listDropdown, posDropdown[i], sizeDropdownMode, posTextDropdown, colorBG, colorBoxIn, colorBoxOut, colorBoxText, texteInterface, sizeTexteInterface) ;
+    }
+  }
+}
+
+
+
+
+
+
+
+
 //DRAW
 void dropdownDraw() {
   ////////////////
@@ -881,56 +875,36 @@ void dropdownDraw() {
   
   ////////////////
   //MODE dropdown
-  //object line
-  for ( int i = startLoopObject ; i < endLoopObject ; i ++ ) {
-    String m [] = split(modeListRomanesco[i], "/") ;
-    if ( m.length > 1) {
-      dropdown[i].dropdownUpdate();
-      margeAroundDropdown = sizeDropdownMode.y  ;
-      //give the size of menu recalculate with the size of the word inside
-      PVector newSizeModeObj = dropdown[i].sizeDropdownMenu() ;
-      totalSizeDropdown = new PVector ( newSizeModeObj.x + (margeAroundDropdown *1.5) , sizeDropdownMode.y * (sizeDropdownMode.z +1)  + margeAroundDropdown   ) ; // we must add +1 to the size of the dropdown for the title plus the item list
-      //new pos to include the slider
-      newPosDropdown = new PVector ( posDropdown[i].x - margeAroundDropdown  , posDropdown[i].y ) ;
-      if ( !insideRect(newPosDropdown, totalSizeDropdown) ) dropdown[i].locked = false;
-    }
-    if (dropdown[i].getSelection() > -1 && m.length > 2 ) text( (dropdown[i].getSelection() +1), posDropdown[i].x +12 , posDropdown[i].y +8) ;
-  }
-  
-  //texture line
-  for ( int i = startLoopTexture ; i < endLoopTexture ; i ++ ) {
-    String m [] = split(modeListRomanesco[i], "/") ;
-    if ( m.length > 1) {
-      dropdown[i].dropdownUpdate();
-      margeAroundDropdown = sizeDropdownMode.y  ;
-      //give the size of menu recalculate with the size of the word inside
-      PVector newSizeModeTexture = dropdown[i].sizeDropdownMenu() ;
-      totalSizeDropdown = new PVector ( newSizeModeTexture.x + (margeAroundDropdown *1.5) , sizeDropdownMode.y * (sizeDropdownMode.z +1)  + margeAroundDropdown   ) ; // we must add +1 to the size of the dropdown for the title plus the item list
-      //new pos to include the slider
-      newPosDropdown = new PVector ( posDropdown[i].x - margeAroundDropdown  , posDropdown[i].y ) ;
-      if ( !insideRect(newPosDropdown, totalSizeDropdown) ) dropdown[i].locked = false;
-    }
-    if (dropdown[i].getSelection() > -1 && m.length > 2 ) text( (dropdown[i].getSelection() +1), posDropdown[i].x +12 , posDropdown[i].y +8) ;
-  }
-  
-  //typo line
-  for ( int i = startLoopTypo ; i < endLoopTypo ; i ++ ) {
-    String m [] = split(modeListRomanesco[i], "/") ;
-    if ( m.length > 1) {
-      dropdown[i].dropdownUpdate();
-      margeAroundDropdown = sizeDropdownMode.y  ;
-      //give the size of menu recalculate with the size of the word inside
-      PVector newSizeModeTypo = dropdown[i].sizeDropdownMenu() ;
-      totalSizeDropdown = new PVector ( newSizeModeTypo.x + (margeAroundDropdown *1.5) , sizeDropdownMode.y * (sizeDropdownMode.z +1)  + margeAroundDropdown   ) ; // we must add +1 to the size of the dropdown for the title plus the item list
-      //new pos to include the slider
-      newPosDropdown = new PVector ( posDropdown[i].x - margeAroundDropdown  , posDropdown[i].y ) ;
-      if ( !insideRect(newPosDropdown, totalSizeDropdown) ) dropdown[i].locked = false;
-    }
-    if (dropdown[i].getSelection() > -1 && m.length > 2 ) text( (dropdown[i].getSelection() +1), posDropdown[i].x +12 , posDropdown[i].y +8) ;
-  }
+  // group one
+  checkTheDropdownDrawObject(startLoopObject, endLoopObject) ;
+  // group two
+  checkTheDropdownDrawObject(startLoopTexture, endLoopTexture) ;
+  // group three
+  checkTheDropdownDrawObject( startLoopTypo, endLoopTypo) ;
 }
 
-//END DROPDOWN
+void checkTheDropdownDrawObject( int start, int end ) {
+  for ( int i = start ; i < end ; i ++ ) {
+    if(modeListRomanesco[i] != null ) {
+      String m [] = split(modeListRomanesco[i], "/") ;
+      if ( m.length > 1) {
+        dropdown[i].dropdownUpdate();
+        margeAroundDropdown = sizeDropdownMode.y  ;
+        //give the size of menu recalculate with the size of the word inside
+        PVector newSizeModeTypo = dropdown[i].sizeDropdownMenu() ;
+        totalSizeDropdown = new PVector ( newSizeModeTypo.x + (margeAroundDropdown *1.5) , sizeDropdownMode.y * (sizeDropdownMode.z +1)  + margeAroundDropdown   ) ; // we must add +1 to the size of the dropdown for the title plus the item list
+        //new pos to include the slider
+        newPosDropdown = new PVector ( posDropdown[i].x - margeAroundDropdown  , posDropdown[i].y ) ;
+        if ( !insideRect(newPosDropdown, totalSizeDropdown) ) dropdown[i].locked = false;
+      }
+      if (dropdown[i].getSelection() > -1 && m.length > 2 ) text( (dropdown[i].getSelection() +1), posDropdown[i].x +12 , posDropdown[i].y +8) ;
+    }
+  }
+}
+//END DROPDOWN DRAW
+
+
+
 //MOUSEPRESSED
 void dropdownMousepressed() {
   //FONT dropdown
@@ -946,39 +920,17 @@ void dropdownMousepressed() {
       } 
     }
   }
-  
-  //line object
-  for ( int i = startLoopObject ; i < endLoopObject ; i ++ ) { 
-    if (dropdown[i] != null) {
-      if (insideRect(posDropdown[i], sizeDropdownMode) && !dropdown[i].locked  ) {
-        dropdown[i].locked = true;
-      } else if (dropdown[i].locked) {
-        int line = dropdown[i].selectDropdownLine();
-        if (line > -1 ) {
-          dropdown[i].whichDropdownLine(line);
-          //to close the dropdown
-          dropdown[i].locked = false;        
-        } 
-      }
-    }
-  }
-  //texture object
-  for ( int i = startLoopTexture ; i < endLoopTexture ; i ++ ) { 
-    if (dropdown[i] != null) {
-      if (insideRect(posDropdown[i], sizeDropdownMode) && !dropdown[i].locked  ) {
-        dropdown[i].locked = true;
-      } else if (dropdown[i].locked) {
-        int line = dropdown[i].selectDropdownLine();
-        if (line > -1 ) {
-          dropdown[i].whichDropdownLine(line);
-          //to close the dropdown
-          dropdown[i].locked = false;        
-        } 
-      }
-    }
-  }
-  //typo object
-  for ( int i = startLoopTypo ; i < endLoopTypo ; i ++ ) { 
+  // group One
+  checkTheDropdownObjectMousepressed(startLoopObject, endLoopObject ) ;
+  // group Two
+  checkTheDropdownObjectMousepressed(startLoopTexture, endLoopTexture ) ;
+  //group one
+  checkTheDropdownObjectMousepressed(startLoopTypo, endLoopTypo ) ;
+}
+
+
+void checkTheDropdownObjectMousepressed( int start, int end ) {
+  for ( int i = start ; i < end ; i ++ ) { 
     if (dropdown[i] != null) {
       if (insideRect(posDropdown[i], sizeDropdownMode) && !dropdown[i].locked  ) {
         dropdown[i].locked = true;

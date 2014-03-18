@@ -279,15 +279,12 @@ void backgroundRomanesco() {
   color bg ;
   //to smooth the curve of transparency background
   float facteur = 2.5 ;
- // float homothety = 100.0 ;
+  // float homothety = 100.0 ;
   float nx = norm(valueSlider[0][3], 0.0 , 100.0) ;
   float ny = pow (nx ,facteur );
   ny = map(ny, 0, 1 , 0.8, 100 ) ;
   
   bg = color (map(valueSlider[0][0],0,100,0,360), valueSlider[0][1], valueSlider[0][2], ny ) ; 
-
-  
-  
   //choice the background
   if(displayMode.equals("Classic")) backgroundClassic(bg) ;
   else if(displayMode.equals("P3D")) backgroundP3D(bg) ;
@@ -929,7 +926,7 @@ PFont SansSerif10,
       
 //SETUP
 void fontSetup() {
-  String fontPathVLW = sketchPath("")+"commonsData/typoVLW/" ;
+  String fontPathVLW = sketchPath("")+"preferences/Font/typoVLW/" ;
 
   //write font path
   pathFontVLW[1] = (fontPathVLW+"AmericanTypewriter-96.vlw");
@@ -959,7 +956,7 @@ void fontSetup() {
   SansSerif10 = loadFont(fontPathVLW+"SansSerif-10.vlw") ;
   
   //write font path for TTF
-  String prefixTTF = (sketchPath("")+"commonsData/typoTTF/") ;
+  String prefixTTF = (sketchPath("")+"preferences/Font/typoTTF/") ;
   //by default
   pathFontTTF[0] = (prefixTTF+"FuturaStencil.ttf");
   //type
@@ -1017,8 +1014,6 @@ void fontSetup() {
 
   font[0] = FuturaStencil ;
   pathFontObjTTF[0] = pathFontTTF[0] ;
-  
-
 }
 
 

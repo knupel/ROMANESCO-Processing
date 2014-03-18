@@ -166,6 +166,7 @@ void initVarButton() {
   // EtatBIf = new int[numButton] ;
   
   //dropdown
+  modeListRomanesco = new String[numDropdown] ;
   dropdown = new Dropdown[numDropdown] ;
   posDropdown = new PVector[numDropdown] ;
   startLoopObject = 1 ;

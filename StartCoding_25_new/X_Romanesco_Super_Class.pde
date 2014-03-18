@@ -1,7 +1,7 @@
 ////////////////////////
 //SUPER CLASS ROMANESCO
 abstract class SuperRomanesco {
-  String romanescoName, romanescoAuthor, romanescoVersion, romanescoPack, romanescoRender ;
+  String romanescoName, romanescoAuthor, romanescoVersion, romanescoPack, romanescoRender, romanescoMode ;
   int IDobj, IDgroup ;
   //object manager return
   ObjectRomanescoManager orm ;
@@ -12,6 +12,7 @@ abstract class SuperRomanesco {
     romanescoVersion = "Alpha";
     romanescoPack = "Base" ;
     romanescoRender = "classic" ;
+    romanescoMode = "alpha/.../.../omega" // separate the name by a slash and write the next mode immadialtly after this one.
     IDgroup = 0 ;
     IDobj = 0 ;
   }

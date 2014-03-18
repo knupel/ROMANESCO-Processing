@@ -7,20 +7,21 @@ public class Dropdown {
   private PVector posSliderDropdown, sizeSliderDropdown, posMoletteDropdown, sizeMoletteDropdown, sizeBoxDropdownMenu ;
   //dropdown
   private int line = 0;
-  private String [] listItem ;
+  private String listItem[] , title ;
   private boolean locked, slider ;
   private final color colorBG, boxIn, boxOut, colorText ;
   private PVector pos, size, posText;
   private float factorPos  ; // use to calculate the margin between the box
   private int sizeFont ;
-  private int startingDropdown = 1 ;
+  private int startingDropdown = 0 ;
   private int endingDropdown = 1 ;
   private int updateDropdown = 0 ; //for the slider update
   private float missing ;
 
   //CONSTRUCTOR
-  public Dropdown(String [] listItem, PVector pos, PVector size, PVector posText, color colorBG, color boxIn, color boxOut, color colorText, PFont fontDropdown, int sizeFont ) {
+  public Dropdown(String title, String [] listItem, PVector pos, PVector size, PVector posText, color colorBG, color boxIn, color boxOut, color colorText, PFont fontDropdown, int sizeFont ) {
     //dropdown
+    this.title = title ;
     this.listItem = listItem;
     this.pos = pos;
     this.posText = posText ;
@@ -35,7 +36,7 @@ public class Dropdown {
     endingDropdown = int(size.z + 1) ;
     // security if the size of dropdown is superior of the item list
     if (endingDropdown > listItem.length ) endingDropdown = listItem.length ;
-    // difference betweel the total list item and what is possible to display
+    // difference between the total list item and what is possible to display
     missing = listItem.length - endingDropdown  ;
    
     //size of the dropdow, for the bottom part
@@ -47,7 +48,7 @@ public class Dropdown {
     if ( listItem.length > endingDropdown  ) slider = true ; else slider = false ;
     
     if (slider) {
-      sizeSliderDropdown = new PVector (  size.y / 2.0, ((endingDropdown -1) * size.y ) -pos.z) ;
+      sizeSliderDropdown = new PVector (  size.y / 2.0, ((endingDropdown ) * size.y ) -pos.z) ;
       posSliderDropdown = new PVector( pos.x - sizeSliderDropdown.x - (pos.z *2.0) , pos.y + size.y + (1.8 *pos.z) ) ;
       posMoletteDropdown = posSliderDropdown ;
       
@@ -67,7 +68,7 @@ public class Dropdown {
     
     //Dropdown
     if (locked) {
-      renderBox(listItem[0] ,1, size);
+      renderBox(title ,1, size);
       //give the position of dropdown
       int step = 2 ;
       //give the position in list of Item with the position from the slider's molette
@@ -88,14 +89,13 @@ public class Dropdown {
       }
     } else {
       //header rendering
-      renderBox(listItem[0],1, size);
+      renderBox(title,1, size);
     }
   }
 
 
   //DISPLAY
   public void renderBox(String label, int step, PVector sizeBoxDropdown) {
-    //
     noStroke() ;
     factorPos = step + pos.z -1 ;
     
@@ -123,6 +123,7 @@ public class Dropdown {
     if(mouseX >= pos.x && mouseX <= pos.x + size.x && mouseY >= pos.y && mouseY <= (listItem.length *size.y) +pos.y ) {
       //choice the line
       int line = floor( (mouseY - (pos.y +size.y )) / size.y ) + updateDropdown;
+            println(line) ;
       return line;
     } else {
       return -1; 

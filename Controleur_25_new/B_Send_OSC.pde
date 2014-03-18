@@ -70,7 +70,7 @@ void translateDataToSend() {
   valueButtonGlobal[3] = EtatBsnare ;
   valueButtonGlobal[4] = EtatBhat ;
   //dropdown typo
-  valueButtonGlobal[7] = dropdown[lastDropdown].getSelection() +1 ; ;
+  valueButtonGlobal[7] = dropdownFont.getSelection() +1 ; ;
   //curtain
   valueButtonGlobal[10] = EtatBOcurtain ;
   
@@ -82,7 +82,7 @@ void translateDataToSend() {
       valueButtonObj[i *10 +3] = EtatBOf[i *10 +3] ;
       valueButtonObj[i *10 +4] = EtatBOf[i *10 +4] ;
       valueButtonObj[i *10 +5] = EtatBOf[i *10 +5] ;
-      valueButtonObj[i *10 +9] = dropdown[i +1].getSelection() ;
+      if (dropdown[i+1] != null) valueButtonObj[i *10 +9] = dropdown[i+1].getSelection() ;
     }
   }
     //println(valueButtonObj) ;
@@ -96,7 +96,7 @@ void translateDataToSend() {
       valueButtonTex[i *10 +3] = EtatBTf[i *10 +3] ;
       valueButtonTex[i *10 +4] = EtatBTf[i *10 +4] ;
       valueButtonTex[i *10 +5] = EtatBTf[i *10 +5] ;
-      valueButtonTex[i *10 +9] = dropdown[i +1].getSelection() ;
+      if (dropdown[i+1] != null) valueButtonTex[i *10 +9] = dropdown[i +1].getSelection() ;
     }
   }
 
@@ -108,7 +108,7 @@ void translateDataToSend() {
       valueButtonTypo[i *10 +3] = EtatBTYf[i *10 +3] ;
       valueButtonTypo[i *10 +4] = EtatBTYf[i *10 +4] ;
       valueButtonTypo[i *10 +5] = EtatBTYf[i *10 +5] ;
-      valueButtonTypo[i *10 +9] = dropdown[i +41].getSelection() ;
+      if (dropdown[i+1] != null)  valueButtonTypo[i *10 +9] = dropdown[i +1].getSelection() ;
     }
   }
   

@@ -53,7 +53,7 @@ void setup() {
   meteoSetup() ;
   P3DSetup() ;
   //OBJECT SETTING
-  romanescoSetup() ;
+  //romanescoSetup() ;
 }
 
 

@@ -10,6 +10,7 @@ class ObjectAAA extends SuperRomanesco {
     romanescoVersion = "Alpha 2.0";
     romanescoPack = "Base" ;
     romanescoRender = "classic" ;
+    romanescoMode = "alpha/.../.../omega" // separate the name by a slash and write the next mode immadialtly after this one.
   }
   //GLOBAL
   

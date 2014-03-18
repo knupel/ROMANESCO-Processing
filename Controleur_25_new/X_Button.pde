@@ -1,6 +1,4 @@
-class Bouton
-{
-//............................Paramètre superClasse...............................
+class Bouton {
   color couleurBouton, couleurONoffCarre, couleurONoffCercle ;
   int mGB, mHB, lB, hB , etatBoutonCercle, etatBoutonCarre ;
   

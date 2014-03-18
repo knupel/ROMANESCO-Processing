@@ -62,7 +62,7 @@ boolean sound[]  ;
 boolean action[]  ;
 boolean parameter[]  ;
 
-int modeButton[]  ;
+int mode[]  ;
 
 //BUTTON
 int valueButtonGlobal[], valueButtonObj[]  ;
@@ -269,7 +269,7 @@ void createVarButton() {
   sound = new boolean [numObj] ;
   action = new boolean [numObj] ;
   parameter = new boolean [numObj] ;
-  modeButton = new int [numObj] ;
+  mode = new int [numObj] ;
   
   // you must init this var, because we launch this part of code before the controler. And if we don't init the value is NaN and return an error.
   valueButtonGlobal = new int[numButtonGlobal] ;

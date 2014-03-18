@@ -40,11 +40,9 @@ void oscEvent(OscMessage receive ) {
   valueButtonGlobal = int(split(fromControler [0], '/')) ;
   // stick the Int(String) chain from the group one, two and three is single chain integer(String).
   String fullChainValueButtonObj =("") ;
-  
   for ( int i = 1 ; i <= numGroup ; i++ ) {
     fullChainValueButtonObj += fromControler [i]+"/" ;
   }
-  //println(fullChainValueButtonObj) ;
   valueButtonObj = int(split(fullChainValueButtonObj, '/')) ;
   
   //SLIDER
@@ -152,7 +150,7 @@ void OSCDraw() {
   RomanescoScene.add(toScene);
 
   //send
-  println("Taille des données envoyées vers la Scène", sizeDataLengthFromPrescene.length()) ;
+  // println("Taille des données envoyées vers la Scène", sizeDataLengthFromPrescene.length()) ;
   if(Scene) if (youCanSendToScene)osc.send(RomanescoScene, targetScene); 
   if(Miroir) if (youCanSendToMiroir) osc.send(RomanescoScene, targetMiroir);
   
@@ -170,15 +168,14 @@ void OSCDraw() {
   eCurtain = valueButtonGlobal[10] ;
 
   
-  //OBJ
-
+  //OBJECTS
   for ( int i = 0 ; i < numObj-1 ; i++) {
     int iPlusOne = i+1 ;
     objectButton   [iPlusOne] = valueButtonObj[i *10 +1] ;
     parameterButton[iPlusOne] = valueButtonObj[i *10 +2] ;
     soundButton    [iPlusOne] = valueButtonObj[i *10 +3] ;
     actionButton   [iPlusOne] = valueButtonObj[i *10 +4] ;
-    modeButton     [iPlusOne] = valueButtonObj[i *10 +9] ;
+    mode     [iPlusOne] = valueButtonObj[i *10 +9] ;
     if (objectButton[iPlusOne] == 1 ) object[iPlusOne] = true ; else object[iPlusOne] = false ;
     if (parameterButton[iPlusOne] == 1 ) parameter[iPlusOne] = true ; else parameter[iPlusOne] = false ;
     if (soundButton[iPlusOne] == 1 ) sound[iPlusOne] = true ; else sound[iPlusOne] = false ;
