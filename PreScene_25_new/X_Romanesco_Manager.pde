@@ -14,12 +14,13 @@ void updateObject(int ID, int group) {
     initValueMouse[ID] = true ;
   }
   if(!initValueSlider[ID]) {
+    font[ID] = font[0] ;
     updateParameter(ID,group ) ;
     initValueSlider[ID] = true ;
   }
   
   if(parameter[ID] ) {
-    println(ID, group, "je suis ici") ;
+    font[ID] = font[0] ;
     updateParameter(ID,group ) ;
   }
   updateSound(ID) ;
@@ -48,7 +49,6 @@ void updateParameter(int ID, int group) {
     canvasZObj[ID] = canvasZRaw[whichOne] ;
     quantityObj[ID] = quantityRaw[whichOne] ;
     //column 3
-        println("je suis là", whichOne, speedRaw[whichOne]) ;
     speedObj[ID] = speedRaw[whichOne] ;
     orientationObj[ID] = orientationRaw[whichOne] ;
     angleObj[ID] = angleRaw[whichOne] ;

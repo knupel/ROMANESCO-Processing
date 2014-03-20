@@ -4,32 +4,32 @@
 //GLOBAL
 YahooWeather weather;
 int updateIntervallMillis = 30000;
+boolean meteo ;
 
 int sunRise, sunSet ;
 
 
 
 //SETUP
-void meteoSetup()
-{
-  String [] md = loadStrings (sketchPath("")+"meteo.txt")  ;
-  String meteoData  = join(md, "") ;
-  String splitMeteoData [] = split(meteoData, '/') ;
-
-  if (splitMeteoData[2].equals("celsius") ) weather = new YahooWeather(this, Integer.parseInt(splitMeteoData[4]), "c", updateIntervallMillis); else weather = new YahooWeather(this, Integer.parseInt(splitMeteoData[4]), "f", updateIntervallMillis) ;
-
-
-
+void meteoSetup() {
+  if (meteo) {
+    String [] md = loadStrings (sketchPath("")+"meteo.txt")  ;
+    String meteoData  = join(md, "") ;
+    String splitMeteoData [] = split(meteoData, '/') ;
+  
+    if (splitMeteoData[2].equals("celsius") ) weather = new YahooWeather(this, Integer.parseInt(splitMeteoData[4]), "c", updateIntervallMillis); else weather = new YahooWeather(this, Integer.parseInt(splitMeteoData[4]), "f", updateIntervallMillis) ;
+  }
 }
 
 //DRAW
-void meteoDraw()
-{
-  weather.update();
-
-  //the sun set and the sunrise is calculate in minutes, one day is 1440 minutes, and the start is midnight
-  sunRise = int(clock24(weather.getSunrise(), 1)) ;
-  sunSet = int(clock24(weather.getSunset(), 1)) ;
+void meteoDraw() {
+  if(meteo) {
+    weather.update();
+  
+    //the sun set and the sunrise is calculate in minutes, one day is 1440 minutes, and the start is midnight
+    sunRise = int(clock24(weather.getSunrise(), 1)) ;
+    sunSet = int(clock24(weather.getSunset(), 1)) ;
+  }
 }
 
 
@@ -58,58 +58,10 @@ String clock24(String t, int mode) {
 //global
 float sky_h, sky_s, sky_b, sunValue ;
 
-//DRAW
-
-//Two color
-/*
-color meteoColor(color day, color night, int whatTimeIsIt, int speedRiseSet)
-{
-  color colorOfSky ;
-  int sunrise,sunset ;
-  
-
-  sunrise = int(clock24(weather.getSunrise(), 1)) ;
-  sunset = int(clock24(weather.getSunset(), 1)) ;
-
-  //basic 
-  //if ( sunrise < whatTimeIsIt && sunset < whatTimeIsIt ) colorOfSky = bleuCiel ; else colorOfSky = bleuNuit ; 
-  
-  //smooth
-
-
-  if (  whatTimeIsIt  > sunrise -30 && whatTimeIsIt < sunrise +31 ) {
-    sunValue = whatTimeIsIt - sunrise +31  ;
-    sky_h = map(sunValue, 0,60, hue(night),       hue(day)) ;
-    sky_s = map(sunValue, 0,60, saturation(night),saturation(day)) ;
-    sky_b = map(sunValue, 0,60, brightness(night),brightness(day)) ;
-  } else if (  whatTimeIsIt  > sunset -30 && whatTimeIsIt < sunset +31 ) {
-    sunValue = whatTimeIsIt - sunset +31  ;
-    sky_h = map(sunValue, 0,60, hue(day),       hue(night)) ;
-    sky_s = map(sunValue, 0,60, saturation(day),saturation(night)) ;
-    sky_b = map(sunValue, 0,60, brightness(day),brightness(night)) ;
-  } else if ( whatTimeIsIt < sunrise -30 || whatTimeIsIt > sunset +30 ) {
-    sky_h = hue(night) ;
-    sky_s = saturation(night) ;
-    sky_b = brightness(night) ;
-  } else {
-    sky_h = hue(day) ;
-    sky_s = saturation(day) ;
-    sky_b = brightness(day) ;
-  }
-  
-  colorOfSky = color (sky_h,sky_s,sky_b) ;
-  // colorOfSky = bleuNuit ;
-  
-  return colorOfSky ;
-}
-
-*/
-
 
 
 //one color
-color meteoColor(color colorOfTheDay, int whatTimeIsIt, int speedRiseSet, int pressure)
-{
+color meteoColor(color colorOfTheDay, int whatTimeIsIt, int speedRiseSet, int pressure) {
   color colorOfSky ;
   
   int sunrise,sunset ;
@@ -163,15 +115,13 @@ color meteoColor(color colorOfTheDay, int whatTimeIsIt, int speedRiseSet, int pr
 
 
 //PRESSION
-int hectoPascal(float pressureToConvert)
-{
+int hectoPascal(float pressureToConvert) {
   int HP ;
   if (pressureToConvert < 800 ) HP = int(pressureToConvert *33.86) ; else HP = (int)pressureToConvert ;
   return HP ;
 }
 //WIND FORCE
-int beaufort()
-{
+int beaufort() {
   int forceDuVent = 0 ;
   if (weather.getWindSpeed() < 1 ) forceDuVent = 0 ;
   if (weather.getWindSpeed() > 0 && weather.getWindSpeed() < 6 ) forceDuVent = 1 ;
@@ -195,8 +145,7 @@ int beaufort()
 //GLOBAL
 String vent ;
 //Void
-String windFrench()
-{
+String windFrench() {
   //wind
   
   if (weather.getWindDirection() > 348 || weather.getWindDirection() <  11 ) vent = "de Nord" ;

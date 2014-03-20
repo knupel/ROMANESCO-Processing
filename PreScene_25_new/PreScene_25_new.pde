@@ -4,7 +4,10 @@
 String release =("25") ;
 //to work in dev, test phase
 boolean testRomanesco = true ;
+// when you work only with "Prescene" boolean presceneOnly must be true to give at the Prescene the internet acces
+boolean presceneOnly = true ;
 
+// I don't remember why there is the boolean 
 boolean Controleur = true ;
 boolean Scene = true ;
 boolean Miroir = true ;
@@ -23,8 +26,7 @@ boolean youCanSendToScene = true ;
 boolean youCanSendToMiroir = true ;
 
 
-// when you work only with "Prescene" boolean presceneOnly must be true to give at the Prescene the internet acces
-boolean presceneOnly = false ;
+
 //spectrum for the color mode and more if you need
 PVector HSBmode = new PVector (360,100,100) ; // give the color mode in HSB
 

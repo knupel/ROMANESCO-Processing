@@ -4,40 +4,38 @@
 //GLOBAL
 YahooWeather weather;
 int updateIntervallMillis = 30000;
+boolean meteo ;
 
 int sunRise, sunSet ;
 
 
 
 //SETUP
-void meteoSetup()
-{
-  String [] md = loadStrings (sketchPath("")+"meteo.txt")  ;
-  String meteoData  = join(md, "") ;
-  String splitMeteoData [] = split(meteoData, '/') ;
-
-  if (splitMeteoData[2].equals("celsius") ) weather = new YahooWeather(this, Integer.parseInt(splitMeteoData[4]), "c", updateIntervallMillis); else weather = new YahooWeather(this, Integer.parseInt(splitMeteoData[4]), "f", updateIntervallMillis) ;
-
-
-
+void meteoSetup() {
+  if(meteo) {
+    String [] md = loadStrings (sketchPath("")+"meteo.txt")  ;
+    String meteoData  = join(md, "") ;
+    String splitMeteoData [] = split(meteoData, '/') ;
+    if (splitMeteoData[2].equals("celsius") ) weather = new YahooWeather(this, Integer.parseInt(splitMeteoData[4]), "c", updateIntervallMillis); else weather = new YahooWeather(this, Integer.parseInt(splitMeteoData[4]), "f", updateIntervallMillis) ;
+  }
 }
 
 //DRAW
-void meteoDraw()
-{
-  weather.update();
-
-  //the sun set and the sunrise is calculate in minutes, one day is 1440 minutes, and the start is midnight
-  sunRise = int(clock24(weather.getSunrise(), 1)) ;
-  sunSet = int(clock24(weather.getSunset(), 1)) ;
+void meteoDraw() {
+  if(meteo) {
+    weather.update();
+  
+    //the sun set and the sunrise is calculate in minutes, one day is 1440 minutes, and the start is midnight
+    sunRise = int(clock24(weather.getSunrise(), 1)) ;
+    sunSet = int(clock24(weather.getSunset(), 1)) ;
+  }
 }
 
 
 //ANNEXE
 
 //CLOCK SUN
-String clock24(String t, int mode)
-{
+String clock24(String t, int mode) {
   String [] split = new String [2] ;
   String [] splitTime = new String [2] ;
   String clockSunset =  t ;
