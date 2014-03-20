@@ -1,4 +1,4 @@
-##ROMANESCO alpha 25
+##ROMANESCO alpha
 work version
 
 ##Architecture Sketches
