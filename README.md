@@ -2,10 +2,11 @@
 work version
 
 ##Architecture Sketches
-* Romanesco_25 : Sketch to set Romanesco.
-* Controleur_25 : interface slider to use the objects and the different parameters.
-* Prescene_25 : use to move the object in the 3D space
-* Scene_25 : the result of performance, we can use this one to send to syphon or not
+* Romanesco : Sketch to set Romanesco.
+* Controleur : interface slider to use the objects and the different parameters.
+* Prescene : use to move the object in the 3D space
+* Scene : the result of performance, we can use this one to send to syphon or not
+* StartCoding : To test the new object or core modification before to integrate in the Prescene or Scene
 
 ## Code core
 To test romanesco in Processing launch the Scène, then the Préscène and Controleur in the last time
@@ -22,4 +23,4 @@ If you want code use the var from the file Romanesco functions
 
 
 ##LICENCE
-ROMANESCO alpha 25 is under the licence CeCILL, very similar to the GNU GPL licence.
+ROMANESCO alpha is under the licence CeCILL, very similar to the GNU GPL licence.
