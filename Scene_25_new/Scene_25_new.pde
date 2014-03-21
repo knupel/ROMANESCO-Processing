@@ -18,7 +18,6 @@ ObjectRomanescoManager romanescoManager ;
 void setup() {
   romanescoSetup() ;
   createVar() ;
-  
   displaySetup(60) ; // the int give the frameRate
   miroirSetup() ;
   //dropping image from folder on the Scène
@@ -29,11 +28,11 @@ void setup() {
   RG.init(this);
 
   soundSetup() ;
+  cursorSetup() ; // the cursor setup of the Prescene is more complexe
   OSCSetup() ;
   meteoSetup() ;
   P3DSetup() ;
-  lightSetup();
-  romanescoSetup() ;
+  lightSetup(); // for the Scene only
 }
 
 //DRAW
@@ -43,6 +42,7 @@ void draw() {
   soundDraw() ;
   OSCDraw() ;
   meteoDraw() ;
+  updateVar() ;
   backgroundRomanesco() ;
   
   beginSave() ;

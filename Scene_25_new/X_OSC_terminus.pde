@@ -23,10 +23,13 @@ String dataPreScene [] = new String[9] ;
 void oscEvent(OscMessage receive ) {
   //BUTTON
   //position in the receive list, here is the last i+1, so it's numSlider
+  String sizeInfoRecption = ("") ;
   for (int i = 0 ; i < dataPreScene.length ; i++ ) {
     dataPreScene [i] = receive.get(i).stringValue() ;
+    sizeInfoRecption += dataPreScene [i] ;
   }
-  
+    
+
   //BUTTON
   valueButtonGlobal = int(split(dataPreScene[0], '/')) ;
   // stick the Int(String) chain from the group one, two and three is single chain integer(String).
@@ -40,7 +43,10 @@ void oscEvent(OscMessage receive ) {
   //split String value from controler
   for ( int i = 0 ; i < numGroup+1 ; i++ ) {
     valueSliderTemp [i] = split(dataPreScene[i+4], '/') ;
+    
   }
+  //PRESCENE
+  valueTempPreScene = split(dataPreScene[8], '/') ;
   // translate the String value to the float var to use
   for ( int i = 0 ; i < numGroup+1 ; i++ ) {
     // security because there not same quantity of slider in the group one and the other group
@@ -48,32 +54,10 @@ void oscEvent(OscMessage receive ) {
     if ( i < 1 ) n = numSliderGroupZero ; else n = numSlider ;
     for (int j = 0 ; j < n ; j++) {
       valueSlider[i][j] = Float.valueOf(valueSliderTemp[i][j]) ;
+      println("ma valeur est ",i,j, valueSliderTemp[i][j]) ;
     }
   }
-  /*
-  valueButtonObj = int(split(dataPreScene[1], '/')) ;
-  valueButtonTex = int(split(dataPreScene[2], '/')) ;
-  valueButtonTypo = int(split(dataPreScene[3], '/')) ;
   
-  
-  //SLIDER
-  valueSliderTempGlobal = split(dataPreScene[4], '/') ;
-  valueSliderTempObj = split(dataPreScene[5], '/') ;
-  valueSliderTempTex = split(dataPreScene[6], '/') ;
-  valueSliderTempTypo = split(dataPreScene[7], '/') ;
-  //PRESCENE
-  valueTempPreScene = split(dataPreScene[8], '/') ;
-  //convert String to float
-  for ( int i = 0 ; i < numSliderGroupZero ; i++) {
-  valueSliderGlobal[i] = Float.valueOf(valueSliderTempGlobal[i]) ;
-  }
-  
-  for ( int i = 0 ; i < numSliderMaxForTheObject ; i++) { 
-    valueSliderObj [i] = Float.valueOf(valueSliderTempObj[i]) ;
-    valueSliderTex [i] = Float.valueOf(valueSliderTempTex[i]) ;
-    valueSliderTypo[i] = Float.valueOf(valueSliderTempTypo[i]) ;
-  }
-  */
   if(valueTempPreScene[0].equals("0") ) spaceTouch = false ; else spaceTouch = true ;  
 
   if(valueTempPreScene[1].equals("0") ) aTouch = false ; else aTouch = true ;
@@ -115,7 +99,7 @@ void oscEvent(OscMessage receive ) {
   if(valueTempPreScene[35].equals("0") ) rightTouch = false ; else rightTouch = true ;
   if(valueTempPreScene[36].equals("0") ) leftTouch = false ; else leftTouch = true ;
   if(valueTempPreScene[37].equals("0") ) ctrlTouch = false ; else ctrlTouch = true ;
-  
+
   //MOUSE, CURSOR, PEN
   //PMOUSE
   // line for the SuperRomanesco object
@@ -175,13 +159,14 @@ void oscEvent(OscMessage receive ) {
   if(valueTempPreScene[58].equals("0") ) touch8 = false ; else touch8 = true ;
   if(valueTempPreScene[59].equals("0") ) touch9 = false ; else touch9 = true ;
   if(valueTempPreScene[60].equals("0") ) touch0 = false ; else touch0 = true ;
+  
+
 }
 
 
 //DRAW
 void OSCDraw() {
   //GLOBAL
-  println("je suis là", valueButtonGlobal.length, valueButtonObj.length) ;
   if(valueButtonGlobal.length > 1 || valueButtonObj.length > 1 ) {
     eBeat = valueButtonGlobal[1] ;
     eKick = valueButtonGlobal[2] ;

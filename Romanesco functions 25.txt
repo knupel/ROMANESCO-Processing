@@ -318,6 +318,19 @@ float forceObj[IDobj] ; value from 1 to 100.
 
 
 
+// METEO
+////////
+boolean meteo, is false by default. If you want use in your object write this one is true.
+
+More info check the Tab X_Module in the Meteo part in the sketch Prescene or Scene.
+
+
+// END METEO
+////////////
+
+
+
+
 
 
 

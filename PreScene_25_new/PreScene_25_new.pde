@@ -5,7 +5,7 @@ String release =("25") ;
 //to work in dev, test phase
 boolean testRomanesco = true ;
 // when you work only with "Prescene" boolean presceneOnly must be true to give at the Prescene the internet acces
-boolean presceneOnly = true ;
+boolean presceneOnly = false ;
 
 // I don't remember why there is the boolean 
 boolean Controleur = true ;
@@ -38,7 +38,6 @@ String findPath ;
 void setup() {
   romanescoSetup() ;
   createVar() ;
-    
   displaySetup(60) ; // the int value is the frameRate
 
   colorSetup() ;
@@ -50,12 +49,10 @@ void setup() {
   RG.init(this);
 
   soundSetup() ;
-  cursorSetup() ;
+  cursorSetup() ; // the cursor setup of the Scene is more simple
   OSCSetup() ;
   meteoSetup() ;
   P3DSetup() ;
-  //OBJECT SETTING
-  //romanescoSetup() ;
 }
 
 

@@ -19,7 +19,6 @@ void updateObject(int ID, int group) {
   }
   
   if(parameter[ID] ) {
-    println(ID, group, "je suis ici") ;
     updateParameter(ID,group ) ;
   }
   updateSound(ID) ;
@@ -48,7 +47,6 @@ void updateParameter(int ID, int group) {
     canvasZObj[ID] = canvasZRaw[whichOne] ;
     quantityObj[ID] = quantityRaw[whichOne] ;
     //column 3
-        println("je suis là", whichOne, speedRaw[whichOne]) ;
     speedObj[ID] = speedRaw[whichOne] ;
     orientationObj[ID] = orientationRaw[whichOne] ;
     angleObj[ID] = angleRaw[whichOne] ;

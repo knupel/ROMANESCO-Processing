@@ -48,7 +48,6 @@ class SpiraleRomanesco extends SuperRomanesco {
     float widthObj = height *sizeXObj[IDobj]  *volumeD *0.0005 *hat[IDobj] ;
     float depthObj = height *sizeZObj[IDobj]  *volumeD *0.0005 *hat[IDobj] ;
     PVector size = new PVector(widthObj, heightObj, depthObj) ;
-    
     spirale.actualisation (mouse[IDobj], speed) ;
     spirale.affichage (n, nMax, size, z, fillObj[IDobj], strokeObj[IDobj], thicknessObj[IDobj], mode[IDobj]) ;
   }
