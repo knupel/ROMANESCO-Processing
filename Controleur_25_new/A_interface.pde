@@ -803,10 +803,9 @@ void fondRegletteDensite ( int posX, int posY, int hauteur, int largeur, float c
 
 void dropdownSetup() {
   //load the external list  for each mode and split to read in the interface
-  //mode
-  for (int i = 0 ; i<objectList.getColumnCount() ; i++) {
+  for (int i = 0 ; i<objectList.getRowCount() ; i++) {
     TableRow row = objectList.getRow(i);
-    modeListRomanesco [row.getInt("ID")] = row.getString("Mode"); ; 
+    modeListRomanesco [row.getInt("ID")] = row.getString("Mode"); 
   }
   //typography
   String pList [] = loadStrings(sketchPath("")+"preferences/Font/fontList.txt") ;
@@ -893,11 +892,15 @@ void checkTheDropdownDrawObject( int start, int end ) {
         //give the size of menu recalculate with the size of the word inside
         PVector newSizeModeTypo = dropdown[i].sizeDropdownMenu() ;
         totalSizeDropdown = new PVector ( newSizeModeTypo.x + (margeAroundDropdown *1.5) , sizeDropdownMode.y * (sizeDropdownMode.z +1)  + margeAroundDropdown   ) ; // we must add +1 to the size of the dropdown for the title plus the item list
-        //new pos to include the slider
+         //new pos to include the slider
         newPosDropdown = new PVector ( posDropdown[i].x - margeAroundDropdown  , posDropdown[i].y ) ;
-        if ( !insideRect(newPosDropdown, totalSizeDropdown) ) dropdown[i].locked = false;
+        if ( !insideRect(newPosDropdown, totalSizeDropdown) ) {
+          dropdown[i].locked = false;
+        }
       }
-      if (dropdown[i].getSelection() > -1 && m.length > 2 ) text( (dropdown[i].getSelection() +1), posDropdown[i].x +12 , posDropdown[i].y +8) ;
+      if (dropdown[i].getSelection() > -1 && m.length > 2 ) {
+        text( (dropdown[i].getSelection() +1), posDropdown[i].x +12 , posDropdown[i].y +8) ;
+      }
     }
   }
 }
@@ -912,7 +915,8 @@ void dropdownMousepressed() {
     if (insideRect(posDropdownFont, sizeDropdownFont) && !dropdownFont.locked  ) {
       dropdownFont.locked = true;
     } else if (dropdownFont.locked) {
-      int line = dropdownFont.selectDropdownLine();
+      float newWidthDropdown = dropdownFont.sizeDropdownMenu().x ;
+      int line = dropdownFont.selectDropdownLine(newWidthDropdown);
       if (line > -1 ) {
         dropdownFont.whichDropdownLine(line);
         //to close the dropdown
@@ -935,7 +939,8 @@ void checkTheDropdownObjectMousepressed( int start, int end ) {
       if (insideRect(posDropdown[i], sizeDropdownMode) && !dropdown[i].locked  ) {
         dropdown[i].locked = true;
       } else if (dropdown[i].locked) {
-        int line = dropdown[i].selectDropdownLine();
+        float newWidthDropdown = dropdown[i].sizeDropdownMenu().x ;
+        int line = dropdown[i].selectDropdownLine(newWidthDropdown);
         if (line > -1 ) {
           dropdown[i].whichDropdownLine(line);
           //to close the dropdown

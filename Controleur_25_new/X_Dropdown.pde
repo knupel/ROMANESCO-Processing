@@ -73,9 +73,6 @@ public class Dropdown {
       int step = 2 ;
       //give the position in list of Item with the position from the slider's molette
       if (slider) updateDropdown = round(map (sliderDropdown.getValue(), 0,1, 0, missing)) ;
-      
-
-      
       //loop to display the item list
       for ( int i = startingDropdown + updateDropdown ; i < endingDropdown + updateDropdown ; i++) {
         //bottom rendering
@@ -84,7 +81,7 @@ public class Dropdown {
         if (slider) {
           sliderDropdown.sliderUpdate() ;
           fill(colorBG) ;
-          rect ( posMoletteDropdown.x, pos.y, sizeMoletteDropdown.x, size.y ) ; 
+          rect (posMoletteDropdown.x, pos.y, sizeMoletteDropdown.x, size.y ) ; 
         }
       }
     } else {
@@ -119,11 +116,10 @@ public class Dropdown {
   
   //RETURN
   //Check the dropdown when this one is open
-  public int selectDropdownLine() {
-    if(mouseX >= pos.x && mouseX <= pos.x + size.x && mouseY >= pos.y && mouseY <= (listItem.length *size.y) +pos.y ) {
+  public int selectDropdownLine(float newWidth) {
+    if(mouseX >= pos.x && mouseX <= pos.x + newWidth && mouseY >= pos.y && mouseY <= ((listItem.length+1) *size.y) +pos.y ) {
       //choice the line
       int line = floor( (mouseY - (pos.y +size.y )) / size.y ) + updateDropdown;
-            println(line) ;
       return line;
     } else {
       return -1; 

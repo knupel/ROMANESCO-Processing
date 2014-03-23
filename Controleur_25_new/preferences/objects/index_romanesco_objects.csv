@@ -18,5 +18,5 @@ Library Order,Name,ID,Group,Version,Author,Class name,Pack,Render,Mode
 17,Spirale,5,1,Alpha 2.0,Stan le Punk,SpiraleRomanesco,Base,P3D,1 Rectangle/2 Ellipse/3 Box
 18,Spray,4,1,Alpha 2.0,Stan le Punk,Spray,Base,classic,
 19,Triangle,1,1,Alpha 2.0,Stan le Punk,Triangle,Base,classic,
-20,Twitos,21,3,Alpha 2.0,Stan Le Punk,Twitos,Base,classic,
+20,Twitos,21,3,Alpha 2.1,Stan Le Punk,Twitos,Base,classic,
 21,Webcam,14,2,Alpha 2.0,Stan le Punk,Webcam,Base,classic,1 classic/2 monochrome
