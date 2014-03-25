@@ -190,9 +190,6 @@ void cameraDraw() {
       gotoCameraPosition = false ;
       gotoCameraEye = false ;
     }
-      
-  
-    // println(catchCam + " / " + posCamRef + " / " + eyeCamRef) ;
     //catch ref camera
     catchCameraInfo() ;
   }
@@ -292,8 +289,6 @@ void startCamera(boolean scene, boolean eye, PVector speed) {
 void updateCamera(PVector origin, PVector target, float speed) {
   if(!moveScene) sceneCamera = (follow(origin, target, speed)) ;
   if(!moveEye && (gotoCameraPosition || gotoCameraEye)) eyeCamera = backEye()  ;
-  //println("distance Ref" + distFollowRef) ;
-  //println("distance Current" + currentDistToTarget) ;
 }
 //stop
 void stopCamera() {
@@ -357,7 +352,6 @@ PVector backEye() {
       if(eye.y < 2 || eye.y > 358 ) if (eyeBackRef.y < 180 ) eye.y = map(currentDistToTarget,distFollowRef, 0,eyeBackRef.y, 0) ; else eye.y = map(currentDistToTarget,distFollowRef, 0,eyeBackRef.y, 360) ;
       // to stop the calcul
       if((eye.x < 2 || eye.x > 358 ) && (eye.y < 2 || eye.y > 358 )) gotoCameraEye = false ;
-      println("distance " + eye) ;
       */
       if (eyeBackRef.x < 180 ) eye.x = map(currentDistToTarget,distFollowRef, 0,eyeBackRef.x, 0) ; else eye.x = map(currentDistToTarget,distFollowRef, 0,eyeBackRef.x, 360) ;
       if (eyeBackRef.y < 180 ) eye.y = map(currentDistToTarget,distFollowRef, 0,eyeBackRef.y, 0) ; else eye.y = map(currentDistToTarget,distFollowRef, 0,eyeBackRef.y, 360) ;

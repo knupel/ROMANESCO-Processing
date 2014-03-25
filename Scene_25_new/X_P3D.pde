@@ -174,6 +174,8 @@ void cameraDraw() {
     //void with speed setting
     float speed = 150.0 ; // 150 is medium speed rotation
     PVector speedRotation = new PVector(speed /(float)width, speed /(float)height) ; 
+    //println("void cameraDraw()",clickLongLeft[0], cLongTouch, moveScene) ;
+    
     startCamera(moveScene, moveEye, speedRotation) ;
     //to change the scene position with a specific point
     if(gotoCameraPosition || gotoCameraEye ) updateCamera(sceneCamera, targetPosCam, speedMoveOfCamera) ;
@@ -190,9 +192,6 @@ void cameraDraw() {
       gotoCameraPosition = false ;
       gotoCameraEye = false ;
     }
-      
-  
-    // println(catchCam + " / " + posCamRef + " / " + eyeCamRef) ;
     //catch ref camera
     catchCameraInfo() ;
   }
@@ -223,8 +222,10 @@ void catchCameraInfo() {
 void startCamera(boolean scene, boolean eye, PVector speed) {
   pushMatrix() ;
   //Move the Scene
+  //println("void startCamera avant", scene) ;
   if(scene) {
     //create the ref to calcul the new position of the Scene
+    
     if(newRefSceneMouse) {
       posSceneCameraRef = sceneCamera ;
       posSceneMouseRef = new PVector(mouse[0].x, mouse[0].y) ;
@@ -235,6 +236,7 @@ void startCamera(boolean scene, boolean eye, PVector speed) {
     deltaScenePos.x = mouse[0].x -posSceneMouseRef.x ;
     deltaScenePos.y = mouse[0].y -posSceneMouseRef.y ;
     sceneCamera = PVector.add(deltaScenePos, posSceneCameraRef ) ;
+    println("void startCamera après", scene, newRefSceneMouse, mouse[0], posSceneMouseRef) ;
   } else {
     //change the boolean to true for the next mousepressed
     newRefSceneMouse = true ;
@@ -292,8 +294,6 @@ void startCamera(boolean scene, boolean eye, PVector speed) {
 void updateCamera(PVector origin, PVector target, float speed) {
   if(!moveScene) sceneCamera = (follow(origin, target, speed)) ;
   if(!moveEye && (gotoCameraPosition || gotoCameraEye)) eyeCamera = backEye()  ;
-  //println("distance Ref" + distFollowRef) ;
-  //println("distance Current" + currentDistToTarget) ;
 }
 //stop
 void stopCamera() {
@@ -352,13 +352,6 @@ PVector backEye() {
   if(gotoCameraEye) {
     if(currentDistToTarget > 2 ) {
       travellingPriority = true ;
-      /*
-      if(eye.x < 2 || eye.x > 358 ) if (eyeBackRef.x < 180 ) eye.x = map(currentDistToTarget,distFollowRef, 0,eyeBackRef.x, 0) ; else eye.x = map(currentDistToTarget,distFollowRef, 0,eyeBackRef.x, 360) ;
-      if(eye.y < 2 || eye.y > 358 ) if (eyeBackRef.y < 180 ) eye.y = map(currentDistToTarget,distFollowRef, 0,eyeBackRef.y, 0) ; else eye.y = map(currentDistToTarget,distFollowRef, 0,eyeBackRef.y, 360) ;
-      // to stop the calcul
-      if((eye.x < 2 || eye.x > 358 ) && (eye.y < 2 || eye.y > 358 )) gotoCameraEye = false ;
-      println("distance " + eye) ;
-      */
       if (eyeBackRef.x < 180 ) eye.x = map(currentDistToTarget,distFollowRef, 0,eyeBackRef.x, 0) ; else eye.x = map(currentDistToTarget,distFollowRef, 0,eyeBackRef.x, 360) ;
       if (eyeBackRef.y < 180 ) eye.y = map(currentDistToTarget,distFollowRef, 0,eyeBackRef.y, 0) ; else eye.y = map(currentDistToTarget,distFollowRef, 0,eyeBackRef.y, 360) ;
       //stop the calcul

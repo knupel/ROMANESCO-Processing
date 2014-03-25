@@ -117,9 +117,7 @@ class Polygone extends SuperRomanesco {
       // if the mouse is NOT on a polygon
       if (!onPolygon) {
         // add a point at mouseX,mouseY
-         println(onPolygon, clickShortLeft[IDobj], nLongTouch) ;
         if(clickShortLeft[IDobj] && nLongTouch ) {
-          println("Je mets des points sur les i") ;
           points.add(mousePolygon);
         }
         // if the right mouse button is pressed

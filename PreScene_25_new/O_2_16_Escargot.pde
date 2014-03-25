@@ -1285,8 +1285,7 @@ ArrayList<PVector> listPointsFromSVG = new ArrayList<PVector>();;
 ArrayList <PVector> shapeInfo = new ArrayList<PVector>(); ;
 
 //SETUP
-void shapeSVGsetting(String p)
-{
+void shapeSVGsetting(String p) {
   drawVertexSVG = false ;
   listPointsFromSVG.clear();
   shapeInfo.clear();
@@ -1406,7 +1405,7 @@ String pathSVGescargot ;
 //load image
 void choiceImg(File selection) {
   if (selection == null) {
-    println("aucun fichier selectionné");
+    println("no file selected");
   } else {
     pathImg  = selection.getAbsolutePath() ;
     img = loadImage(pathImg) ;
@@ -1417,7 +1416,7 @@ void choiceImg(File selection) {
 //load SVG
 void choiceSVG(File selection) {
   if (selection == null) {
-    println("aucun motif selectionné");
+    println("no pattern selected");
   } else {
     pathSVGescargot  = selection.getAbsolutePath() ;
     shapeSVGsetting(pathSVGescargot) ;
@@ -1433,7 +1432,6 @@ void dropEvent(DropEvent theDropEvent) {
       escargotGOanalyze = false ;
       escargotClear() ;
 
-   // println("### loading image ...");
     img = theDropEvent.loadImage();
     analyzeDone = false ;
   }

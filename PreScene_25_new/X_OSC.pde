@@ -148,8 +148,6 @@ void OSCDraw() {
     sizeDataLengthFromPrescene += fromControler[i] ;
   }
   RomanescoScene.add(toScene);
-  // println("j'envoie ça",sizeDataLengthFromPrescene.length() + toScene.length()) ;
-
   //send
   if(Scene) if (youCanSendToScene)osc.send(RomanescoScene, targetScene); 
   if(Miroir) if (youCanSendToMiroir) osc.send(RomanescoScene, targetMiroir);

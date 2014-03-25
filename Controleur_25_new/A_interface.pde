@@ -857,6 +857,16 @@ void checkTheDropdownSetupObject( int start, int end, float posWidth, float posH
 
 //DRAW
 void dropdownDraw() {
+    ////////////////
+  //MODE dropdown
+  // group one
+  checkTheDropdownDrawObject(startLoopObject, endLoopObject) ;
+  // group two
+  checkTheDropdownDrawObject(startLoopTexture, endLoopTexture) ;
+  // group three
+  checkTheDropdownDrawObject( startLoopTypo, endLoopTypo) ;
+  
+  
   ////////////////
   //FONT dropdown
   dropdownFont.dropdownUpdate();
@@ -871,15 +881,7 @@ void dropdownDraw() {
   saveR [7] = byte(dropdownFont.getSelection() +1 ) ;
   // END FONT dropdown
   ////////////////////
-  
-  ////////////////
-  //MODE dropdown
-  // group one
-  checkTheDropdownDrawObject(startLoopObject, endLoopObject) ;
-  // group two
-  checkTheDropdownDrawObject(startLoopTexture, endLoopTexture) ;
-  // group three
-  checkTheDropdownDrawObject( startLoopTypo, endLoopTypo) ;
+ 
 }
 
 void checkTheDropdownDrawObject( int start, int end ) {
@@ -898,8 +900,8 @@ void checkTheDropdownDrawObject( int start, int end ) {
           dropdown[i].locked = false;
         }
       }
-      if (dropdown[i].getSelection() > -1 && m.length > 2 ) {
-        text( (dropdown[i].getSelection() +1), posDropdown[i].x +12 , posDropdown[i].y +8) ;
+      if (dropdown[i].getSelection() > -1 && m.length > 1 ) {
+        text(dropdown[i].getSelection() +1, posDropdown[i].x +12 , posDropdown[i].y +8) ;
       }
     }
   }

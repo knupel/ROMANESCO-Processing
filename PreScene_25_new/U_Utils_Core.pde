@@ -230,6 +230,9 @@ PVector averageFingersPosition(boolean leapMotionConnected) {
       
     }
     //calculate the average position of all the fingers
+    // security, in case all the finger is equal to zero
+    if(averagePosOfTheFinger.x <= 0 ) averagePosOfTheFinger.x = 0.0001 ; 
+    if(averagePosOfTheFinger.y <= 0 ) averagePosOfTheFinger.y = 0.0001 ; 
     if(averagePosOfTheFinger.x != 0 || averagePosOfTheFinger.x != 0  ) averagePosOfTheFinger.div(objectNum.count()) ;
     
     return averagePosOfTheFinger ;

@@ -63,7 +63,6 @@ class Letter extends SuperRomanesco {
     int targetLetter = floor((mouse[IDobj].y +width/2) / rangeTargetLetter) ;
     if(targetLetter >= grp.countChildren() )targetLetter = targetLetter -1 ; 
     //speed
-    println(speedObj[IDobj]) ;
     if(motion[IDobj]) speed = map(speedObj[IDobj], 0,100, 0.001, 0.01 ) * tempo[IDobj]  ; else speed = 0.0 ;
     //to stop the move
     if (action[IDobj]  && spaceTouch ) speed = 0.0 ; 
@@ -144,7 +143,6 @@ class Letter extends SuperRomanesco {
       pts[i] = new PVector(0,0,0) ;
       pts[i].x = p[i].x ; 
       pts[i].y = p[i].y ;  
-      //println("PVector " + pts[i] + " " +pts.length + " points" ) ;
     }
     return pts ;
   }

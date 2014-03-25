@@ -87,7 +87,7 @@ void loadSetup() {
   //Change the language of controleur
   // "0" French - "1" English
   String[] l = split( ("1"), " ") ;
-  saveStrings(sketchPath("")+"sources/preference/language.txt", l) ;
+  saveStrings(sketchPath("")+"sources/preferences/language.txt", l) ;
 }
 // END SETUP
 ////////////
@@ -195,7 +195,7 @@ void openApp(boolean openTheScene) {
 
 
 Table sceneProperty;
-String pathScenePropertySetting = sketchPath("")+"sources/preference/sceneProperty.csv" ;
+String pathScenePropertySetting = sketchPath("")+"sources/preferences/sceneProperty.csv" ;
 
 void saveProperty() {
   sceneProperty = new Table();

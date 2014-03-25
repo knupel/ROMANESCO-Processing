@@ -43,8 +43,6 @@ class Damier extends SuperRomanesco {
     translate( mouse[IDobj].x, mouse[IDobj].y) ;
     vitesse = map(speedObj[IDobj], 0,100,0, 0.07 );
     //speed rotation
-    //if ( vitesse == 0 || !motion[IDobj]  ) angleTrame = angleObj[IDobj] ; else angleTrame += vitesse *tempo[IDobj] ;
-    println(angleObj[IDobj]) ;
     if ( vitesse == 0  ) angleTrame = angleObj[IDobj] ; else angleTrame += vitesse *tempo[IDobj] ;
     if (spaceTouch && action[IDobj]) angle = map(angleObj[IDobj], 0,100, 0, TAU) ; else angle = 0 ;
     //quantity

@@ -112,9 +112,6 @@ class CreatureManager {
         infoText += numb + "         " + c[i].getSimpleName() + "\n";
       }
     }
-    println("------------------------------------------------------");
-    println("Classes which extend " + superClassName + ":");  
-    println(infoText);
     return classes;
   }
 
@@ -1060,7 +1057,6 @@ class FFBreather extends SuperCreature {
       points.add(new PVector(cos(start)*creatureWidth,sin(start)*creatureWidth) );
       start += moveAroundCircle;
     }
-    //println(points);
   }
 
   void randomStart() 
@@ -1070,9 +1066,7 @@ class FFBreather extends SuperCreature {
     {
       creatureSize++;
     }
-    //println("creatureSize = " + creatureSize);
     realCreatureSize = 3*creatureSize;
-    //println("realCreatureSize = " + realCreatureSize);
     creatureWidth = (int)random(10,100);
     moveAroundCircle = TWO_PI/realCreatureSize;
 
@@ -1502,11 +1496,9 @@ class OTFather extends SuperCreature {
 
       float s = (cos(TWO_PI / (numPinne-1) * k));
       s = map(s, 1, -1, 0.9, 1);
-      // println(k + "   " + s);
       pushMatrix();
       scale(s);
-
-
+      
       for (int j=0; j<numTentacoli; j++) {
         pushMatrix();
         float a = (noise(count*noiseVel.x + j+k+1)-0.4)*0.782; 

@@ -304,7 +304,6 @@ class ObjectRomanescoManager {
         pushMatrix() ;
         //addRefObj(objR.IDobj) ;
         if(vLongTouch && action[objR.IDobj] ) P3Dmanipulation(objR.IDobj) ;
-        //println("display", objR.romanescoName, P3DpositionX[objR.IDobj]) ;
         P3DmoveObj(objR.IDobj) ;
         objR.display() ;
         popMatrix() ;
