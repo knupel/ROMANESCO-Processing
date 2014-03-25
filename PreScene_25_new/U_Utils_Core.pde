@@ -1126,16 +1126,6 @@ void displayInfoScene() {
   text("right" +int(input.right.get(1) *100) + "  left " + int(input.left.get(1) *100) , 15,15 *(posInfoObj)) ; 
 
   posInfoObj += 1 ;
-  //INFO WEATHER and METEO
-  text(weather.getCityName() + " / " + traductionWeather (weather.getWeatherConditionCode()) + "    Temperature " + weather.getTemperature() + "C°" + "   Pressure " + hectoPascal(weather.getPressure()) + " HectoPascal", 15,15 *(posInfoObj)) ; 
-  posInfoObj += 1 ;
-  text ("Wind " + windFrench() + " force " + beaufort() + "     Sunrise " + weather.getSunrise() + "     Sunset " + weather.getSunset(), 15,15 *(posInfoObj)) ; 
-  posInfoObj += 1 ;
- // if(mainButton[1] == 1 ) { posInfoObj += 1  ; }
- // if(mainButton[2] == 1 ) { posInfoObj += 1  ; }
-
-  //
-  
 }
 ////////////////
 //END DISPLAY INFO

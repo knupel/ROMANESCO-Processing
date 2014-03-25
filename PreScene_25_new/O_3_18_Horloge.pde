@@ -37,7 +37,7 @@ class Horloge extends SuperRomanesco {
     if ( sound[IDobj] ) { t = alpha(fillObj[IDobj]) ; } 
     color c = color(hue(fillObj[IDobj]), saturation(fillObj[IDobj]), brightness(fillObj[IDobj]), t ) ;
     //rotation / deg
-    float angle = map(orientationObj[IDobj], 0,360, 0, TAU) ;
+    float angle = map(directionObj[IDobj], 0,360, 0, TAU) ;
     //amplitude
     float amp = map(amplitudeObj[IDobj],0,height,0, width *.75) ;
     

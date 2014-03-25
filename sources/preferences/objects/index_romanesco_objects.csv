@@ -6,7 +6,7 @@ Library Order,Name,ID,Group,Version,Author,Class name,Pack,Render,Mode
 5,Boxolyzer,13,2,Alpha 1.0,My name is Nobody,Boxolyzer,Base,P3D,
 6,Courbe,7,1,Alpha 2.0,Stan le Punk,Courbe,Base,classic,
 7,Damier,11,2,Alpha 2.0,Stan le Punk,Damier,Base,classic,1 Rectangle/2 Ellipse/3 Box
-8,Escargot,16,2,Alpha 2.0,Stan le Punk,Escargot,Base,classic,1 Original/2 Raw/3 Point/4 Ellipse/5 Rectangle/6 Cross/7 SVG/8 Vitraux
+8,Escargot,16,2,Alpha 2.1,Stan le Punk,Escargot,Base,P3D,1 Original/2 Raw/3 Point/4 Ellipse/5 Rectangle/6 Box/7 Cross/8 SVG/9 Vitraux
 9,Galaxie,15,2,Alpha 2.0,Stan le Punk,Galaxie,Base,classic,1 Point/2 Ellipse/3 Rectangle
 10,A CERCLE,18,3,Alpha 2.0,Stan Le Punk,Horloge,Base,classic,1 Ellipse Clock 12/2 Ellipse Clock 24/3 Line Clock 12/4 Line Clock 24/5 minutes/6 secondes
 11,Karaoke,20,3,Alpha 2.0,Stan LePunk,Karaoke,Base,classic,
@@ -18,5 +18,5 @@ Library Order,Name,ID,Group,Version,Author,Class name,Pack,Render,Mode
 17,Spirale,5,1,Alpha 2.0,Stan le Punk,SpiraleRomanesco,Base,P3D,1 Rectangle/2 Ellipse/3 Box
 18,Spray,4,1,Alpha 2.0,Stan le Punk,Spray,Base,classic,
 19,Triangle,1,1,Alpha 2.0,Stan le Punk,Triangle,Base,classic,
-20,Twitos,21,3,Alpha 2.0,Stan Le Punk,Twitos,Base,classic,
+20,Twitos,21,3,Alpha 2.1,Stan Le Punk,Twitos,Base,classic,
 21,Webcam,14,2,Alpha 2.0,Stan le Punk,Webcam,Base,classic,1 classic/2 monochrome

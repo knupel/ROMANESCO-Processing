@@ -2,10 +2,7 @@ import oscP5.*;
 import netP5.*;
 
 OscP5 osc;
-//specific at the Scene
-String valueTempPreScene[] = new String [61] ;
-//Special var for the Scene and the Miroir
-PVector mouseCamera, pmouseCamera, mouseSuperRomanesco, pmouseSuperRomanesco ;
+
 
 //SLIDER and BUTTON
 
@@ -58,7 +55,7 @@ void oscEvent(OscMessage receive ) {
   }
   
   if(valueTempPreScene[0].equals("0") ) spaceTouch = false ; else spaceTouch = true ;  
-
+  
   if(valueTempPreScene[1].equals("0") ) aTouch = false ; else aTouch = true ;
   if(valueTempPreScene[2].equals("0") ) bTouch = false ; else bTouch = true ;
   if(valueTempPreScene[3].equals("0") ) cTouch = false ; else cTouch = true ;
@@ -102,10 +99,14 @@ void oscEvent(OscMessage receive ) {
   //MOUSE, CURSOR, PEN
   //PMOUSE
   // line for the SuperRomanesco object
+  println(valueTempPreScene[0], spaceTouch, valueTempPreScene[27], cLongTouch) ;
+
+  
   if(spaceTouch) {
     pmouseSuperRomanesco.x = map(Float.valueOf(valueTempPreScene[38].replaceAll(",", ".")), 0,1,0, width) ;
     pmouseSuperRomanesco.y = map(Float.valueOf(valueTempPreScene[39].replaceAll(",", ".")), 0,1,0,height) ;
   }
+  
   // line for the camera Pmouse, i don't understand why we need this temp var
   if(cLongTouch) {
     pmouseCamera.x = map(Float.valueOf(valueTempPreScene[38].replaceAll(",", ".")), 0,1,0, width) ;
@@ -121,12 +122,13 @@ void oscEvent(OscMessage receive ) {
   pen[0].z = Float.valueOf(valueTempPreScene[42].replaceAll(",", ".")) ;
   
   //MOUSE
-  // line for SuperRomanesco object
+  // reference to stop, it's a trick for a bug
   if(spaceTouch) {
     mouseSuperRomanesco.x = map(Float.valueOf(valueTempPreScene[43].replaceAll(",", ".")), 0,1,0, width) ;
     mouseSuperRomanesco.y = map(Float.valueOf(valueTempPreScene[44].replaceAll(",", ".")), 0, 1, 0,height) ;
     mouseSuperRomanesco.z = map(Float.valueOf(valueTempPreScene[45].replaceAll(",", ".")), 0, 1, -750,750) ;
   }
+  
   // line for the camera
   if(cLongTouch) {
     mouseCamera.x = map(Float.valueOf(valueTempPreScene[43].replaceAll(",", ".")), 0,1,0, width) ;

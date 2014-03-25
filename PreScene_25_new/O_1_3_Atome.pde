@@ -85,7 +85,7 @@ class Atome extends SuperRomanesco {
         if(spaceTouch && action[IDobj]) {
           newDirection = new PVector (-pen[IDobj].x, -pen[IDobj].y ) ;
         } else { 
-          newDirection = normalDir(int(orientationObj[IDobj])) ;
+          newDirection = normalDir(int(directionObj[IDobj])) ;
         }
       } else {
         newDirection = new PVector (0,0,0 ) ;

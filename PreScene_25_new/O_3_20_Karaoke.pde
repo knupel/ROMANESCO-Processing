@@ -78,7 +78,7 @@ class Karaoke extends SuperRomanesco {
         sentence = sentence + tracking(sentence, karaokeSentences.length ) ;
         trackerUpdate = 0 ;
       }
-      rotation(orientationObj[IDobj], mouse[IDobj].x, mouse[IDobj].y) ;
+      rotation(directionObj[IDobj], mouse[IDobj].x, mouse[IDobj].y) ;
       //DISPLAY
       textAlign(CORNER);
       textFont(font[IDobj], corps + (mix[IDobj]) *6 *beat[IDobj]);

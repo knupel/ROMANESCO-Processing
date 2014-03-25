@@ -57,7 +57,7 @@ class RSS extends SuperRomanesco {
       if ( i > 9 ) r =2 ; else if( i > 0 && i < 10 ) r =1 ; else r =0 ; 
       String hune = messageRSS.substring(r);
       //rotation / degré
-      rotation(orientationObj[IDobj], mouse[IDobj].x, mouse[IDobj].y) ;
+      rotation(directionObj[IDobj], mouse[IDobj].x, mouse[IDobj].y) ;
       text(hune, 0, 0, largeur, hauteur );
     }
     

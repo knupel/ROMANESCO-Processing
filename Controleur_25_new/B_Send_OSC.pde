@@ -92,7 +92,8 @@ void translateDataToSend() {
       valueButtonTex[i *10 +3] = EtatBTf[i *10 +3] ;
       valueButtonTex[i *10 +4] = EtatBTf[i *10 +4] ;
       valueButtonTex[i *10 +5] = EtatBTf[i *10 +5] ;
-      if (dropdown[i+1] != null) valueButtonTex[i *10 +9] = dropdown[i +1].getSelection() ;
+      int whichDropdown = i+1 +numGroup[1] ;
+      if (dropdown[whichDropdown] != null) valueButtonTex[i *10 +9] = dropdown[whichDropdown].getSelection() ;
     }
   }
 
@@ -104,7 +105,8 @@ void translateDataToSend() {
       valueButtonTypo[i *10 +3] = EtatBTYf[i *10 +3] ;
       valueButtonTypo[i *10 +4] = EtatBTYf[i *10 +4] ;
       valueButtonTypo[i *10 +5] = EtatBTYf[i *10 +5] ;
-      if (dropdown[i+1] != null)  valueButtonTypo[i *10 +9] = dropdown[i +1].getSelection() ;
+      int whichDropdown = i+1 +numGroup[1] +numGroup[2] ;
+      if (dropdown[whichDropdown] != null)  valueButtonTypo[i *10 +9] = dropdown[whichDropdown].getSelection() ;
     }
   }
   

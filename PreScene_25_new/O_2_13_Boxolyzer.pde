@@ -13,7 +13,6 @@ class Boxolyzer extends SuperRomanesco {
   }
   //GLOBAL
   boolean newDistribution ;
-  boolean horizon ; 
   int numBoxRef ;
 
   //SETUP
@@ -32,8 +31,7 @@ class Boxolyzer extends SuperRomanesco {
     if (numBox != numBoxRef ) newDistribution = true ;
     numBoxRef = numBox ;
     PVector size = new PVector(sizeXObj[IDobj],sizeYObj[IDobj],sizeZObj[IDobj]) ;
-    if (hTouch && action[IDobj]) if (horizon) horizon = false ; else horizon = true ;
-    boitesDraw(size, horizon, newDistribution, numBox, colorIn, colorOut, thickness) ;
+    boitesDraw(size, horizon[IDobj], newDistribution, numBox, colorIn, colorOut, thickness) ;
     
     //END YOUR WORK
     

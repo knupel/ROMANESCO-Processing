@@ -28,6 +28,7 @@ void updateObject(int ID, int group) {
   if(action[ID] ){
     if(spaceTouch) mouse[ID] = mouse[0] ;
     if( mTouch ) motion[ID] = !motion[ID] ;
+    if (hTouch) horizon[ID] = !horizon[ID] ;
   }
 }
 
@@ -50,7 +51,7 @@ void updateParameter(int ID, int group) {
     quantityObj[ID] = quantityRaw[whichOne] ;
     //column 3
     speedObj[ID] = speedRaw[whichOne] ;
-    orientationObj[ID] = orientationRaw[whichOne] ;
+    directionObj[ID] = directionRaw[whichOne] ;
     angleObj[ID] = angleRaw[whichOne] ;
     amplitudeObj[ID] = amplitudeRaw[whichOne] ;
     analyzeObj[ID] = analyzeRaw[whichOne] ; 

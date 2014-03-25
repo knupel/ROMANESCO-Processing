@@ -118,7 +118,7 @@ PVector P3Dposition(PVector pos, int ID) {
     deltaObjPos.y = mouse[0].y -P3DpositionMouseRef.y ;
     pos = PVector.add(deltaObjPos, P3DpositionObjRef[ID] ) ;
   }
-  // Y pos
+  // Z pos
   zoom() ;
   pos.z -= getCountZoom ;
   return pos ;

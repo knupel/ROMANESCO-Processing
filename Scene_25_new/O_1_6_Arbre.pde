@@ -38,7 +38,7 @@ class ArbreRomanesco extends SuperRomanesco {
     int fourcheA = nd  ; 
     int fourcheB = ng ;
     //orientation
-    float direction = orientationObj[IDobj] ;
+    float direction = directionObj[IDobj] ;
     //amplitude
     float ampSon ;
     if(sound[IDobj]) ampSon = map (abs(mix[IDobj]), 0, 1, .1 ,4) ; else ampSon = 1.0 ;

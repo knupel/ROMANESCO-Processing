@@ -39,7 +39,7 @@ class Rideau extends SuperRomanesco {
     color colorOut = strokeObj[IDobj] ;
     
    //orientation / degré
-   rotation(orientationObj[IDobj], (mouse[IDobj].x *2) -width/2  , (mouse[IDobj].y *2) -height/2 ) ;
+   rotation(directionObj[IDobj], (mouse[IDobj].x *2) -width/2  , (mouse[IDobj].y *2) -height/2 ) ;
     
     for (int i=0 ; i < rideauList.size(); i++) {
       Curtain c = (Curtain) rideauList.get(i); // GET donne l'ordre d'aller chercher de la particule dans le la Valise Fourre Tout

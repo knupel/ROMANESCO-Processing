@@ -1,3 +1,112 @@
+///////////////////////
+// GLOBAL SETTING ////
+/////////////////////
+
+
+//Web cam activity
+// boolean cameraOnOff = false ;
+//internet connection
+Boolean internet = true ;
+Boolean videoSignal = false ;
+String bigBrother = ("BIG BROTHER DON'T WATCHING YOU !!") ;
+
+/*
+// Screen size
+//String [] sD ;
+*/
+
+
+
+//variable for the tracking
+Boolean nextPrevious = false ;
+int nextPreviousInt = 0 ; // for send to Syphon
+int trackerUpdate ; // must be reset after each use
+
+//VIDEO
+import codeanticode.gsvideo.*;
+
+//INTERNET
+import processing.net.*;
+//FLUX RSS or TWITTER ????
+import com.sun.syndication.feed.synd.*;
+import com.sun.syndication.io.*;
+
+//TABLET GRAPHIC
+import codeanticode.tablet.*;
+//LEAP MOTION
+import com.leapmotion.leap.*;
+com.leapmotion.leap.Controller leap;
+
+
+
+
+// for processing 2.0.b9
+import java.net.*;
+import java.io.*;
+import java.util.*;
+//for the fullscreen and screen choice
+import java.awt.*;
+
+
+//to make the window is resizable
+java.awt.Insets insets; // use for the border of window (top and right)
+
+//GEOMERATIVE
+import geomerative.*;
+//TOXIC
+import toxi.geom.*;
+import toxi.geom.mesh2d.*;
+import toxi.util.*;
+import toxi.util.datatypes.*;
+import toxi.processing.*;
+
+//METEO
+import com.onformative.yahooweather.*;
+
+
+//SOUND
+import ddf.minim.*;
+import ddf.minim.analysis.*;
+
+///////IMPORTANT///////////////////////////////////////////////////////////////////////
+//CALLING class or library in Other Class, you must call the PApplet too in your class
+PApplet callingClass = this ;
+
+
+
+
+//fenêtre texte
+String texte ;
+//Variable CLAVIER
+
+
+
+//PDF save picture
+import processing.pdf.*;
+boolean savePDF ;
+String savePathPDF, savePathPNG ;
+
+
+
+
+//LOAD IMAGE
+// to drop load image
+import sojamo.drop.*;
+SDrop drop;
+boolean resizableByImgDrop ;
+
+//IMAGE
+PImage img ;
+String pathImg ; 
+
+
+
+
+
+
+
+
+
 // HIGH VAR
 boolean modeP3D ;
 //spectrum band
@@ -27,20 +136,20 @@ boolean objectParameter[] ;
 
 //VAR object
 //raw
-color fillRaw[], strokeRaw[] ;
-float thicknessRaw[] ; 
-float sizeXRaw[], sizeYRaw[], sizeZRaw[], canvasXRaw[], canvasYRaw[], canvasZRaw[] ;
-float speedRaw[], forceRaw[], orientationRaw[], angleRaw[] ;
-float familyRaw[], quantityRaw[], lifeRaw[] , analyzeRaw[], amplitudeRaw[];
+color [] fillRaw, strokeRaw ;
+float [] thicknessRaw ; 
+float [] sizeXRaw, sizeYRaw, sizeZRaw, canvasXRaw, canvasYRaw, canvasZRaw ;
+float [] speedRaw, forceRaw, directionRaw, angleRaw ;
+float [] familyRaw, quantityRaw, lifeRaw, analyzeRaw, amplitudeRaw;
 //add in the next version when there is 30 slider by group
-float curveRaw[], attractionRaw[] ;
+float [] curveRaw, attractionRaw ;
 
 //object
-color fillObj[], strokeObj[] ;
-float thicknessObj[] ;
-float sizeXObj[], sizeYObj[], sizeZObj[], canvasXObj[], canvasYObj[], canvasZObj[] ;
-float speedObj[], forceObj[], orientationObj[], angleObj[] ;
-float familyObj[], quantityObj[], lifeObj[] , analyzeObj[], amplitudeObj[];
+color [] fillObj, strokeObj ;
+float [] thicknessObj ;
+float [] sizeXObj, sizeYObj, sizeZObj, canvasXObj, canvasYObj, canvasZObj ;
+float [] speedObj, forceObj, directionObj, angleObj ;
+float [] familyObj, quantityObj, lifeObj , analyzeObj, amplitudeObj;
 //add in the next version when there is 30 slider by group
 float curveObj[], attractionObj[] ;
 //font
@@ -49,23 +158,15 @@ PFont police ;
 
 
 //OSC VAR
-
-
 // button
 int eBeat, eKick, eSnare, eHat, eCurtain, eMeteo ;
-int objectButton []  ;
-int soundButton []  ;
-int actionButton[]  ;
-int parameterButton[]  ;
-boolean object[]  ;
-boolean sound[]  ;
-boolean action[]  ;
-boolean parameter[]  ;
+int [] objectButton,soundButton, actionButton, parameterButton ;
+boolean [] object, sound, action, parameter ;
 
 int mode[]  ;
 
 //BUTTON
-int valueButtonGlobal[], valueButtonObj[]  ;
+int [] valueButtonGlobal, valueButtonObj  ;
 /*
 int valueButtonGroupZero[] = new int[numButtonGroupZero] ;
 int valueButtonGroupObj[] = new int[numButtonGroupObj] ;
@@ -88,26 +189,16 @@ float valueSliderGroupThree[]  = new float [numSlider] ;
 
 //MISC
 //var to init the data of the object when is switch ON for the first time
-boolean   initValueMouse []  ;
-boolean   initValueSlider []  ;
+boolean  [] initValueMouse, initValueSlider ;
 // boolean initValueMouse [] = new boolean [numObj]  ;
 //parameter for the super class
-float left[] ;
-float right[] ;
-float mix[] ;
+float [] left, right, mix ;
 //beat
-float beat[] ;
-float kick[] ;
-float snare[] ;
-float hat[] ;
+float [] beat, kick, snare, hat ;
 // spectrum
 float band[][] ;
 //tempo
-float tempo[] ;
-float tempoBeat[] ;
-float tempoKick[] ;
-float tempoSnare[] ;
-float tempoHat[] ;
+float [] tempo, tempoBeat, tempoKick, tempoSnare, tempoHat ;
 
 
 //P3D OBJECT
@@ -115,41 +206,75 @@ float tempoHat[] ;
 //position
 boolean startingPosition [] ;
 PVector startingPos [] ;
-float P3DpositionX[], P3DpositionY[], P3DpositionZ[] ;
+float [] P3DpositionX, P3DpositionY, P3DpositionZ ;
 //PVector P3Dposition [] ;
 PVector P3DpositionObjRef [] ;
 boolean P3DrefPos [] ;
-PVector posManipulation[], dirManipulation [] ;
+PVector [] posManipulation, dirManipulation ;
 //orientation
-float P3DdirectionX[], P3DdirectionY[] ;
+float [] P3DdirectionX, P3DdirectionY ;
 //PVector P3Ddirection [] ;
 PVector P3DdirectionObjRef [] ;
 boolean P3DrefDir [] ;
 
 //position of object and wheel
-PVector mouse[] ;
-PVector pmouse[] ;
-boolean clickShortLeft[] ;
-boolean clickShortRight[] ;
-boolean clickLongLeft[] ;
-boolean clickLongRight[] ;
-boolean mousepressed[] ;
+PVector [] mouse, pmouse, pen ;
+boolean [] clickShortLeft, clickShortRight, clickLongLeft, clickLongRight, mousepressed ;
 int wheel[] ;
 //pen info
-PVector pen[] ;
+
 //boolean clear
 boolean clearList[] ;
 //motion object
-boolean motion []  ;
+boolean [] motion, horizon  ;
 
 //main font for each object
-String pathFontTTF []  ;  
-String pathFontVLW []  ;
-String pathFontObjTTF[] ;
+String [] pathFontTTF, pathFontVLW, pathFontObjTTF ;
 PFont font[]  ;
 
 
 
+
+
+
+
+
+//OPENING the other window
+void opening() {
+    //OPEN CONTROLEUR and SCENE or MIROIR
+  if (!testRomanesco && openControleur) {
+    fill(blanc) ;
+    stroke(blanc) ;
+    textSize(36 ) ;
+    text(" WAIT FOR CONTROLEUR", 50,50 ) ;
+  }
+  if (!testRomanesco) { 
+    if (openControleur) { open(sketchPath("")+"Controleur_"+release+".app") ; openControleur = false ; } 
+    if (openScene)      { open(sketchPath("")+"Scene_"+release+".app") ; openScene = false ; }
+   // if (openMiroir)     { open(sketchPath("")+"Miroir_24.app") ; openMiroir = false ; }
+    testRomanesco = true ;
+  }
+}
+
+
+//INIT in real time and re-init the default setting of the display window
+
+
+void initDraw() {
+  //Default display shape and text
+  rectMode (CORNER) ; 
+  textAlign(LEFT) ;
+  //SCENE ATTRIBUT
+  //  if (fullScreen ) sketchPos(0,0, myScreenToDisplayMySketch) ; 
+  
+  //change the size of displaying if you load an image or a new image
+  resizableByImgDrop = true ;
+  if ( resizableByImgDrop && displaySizeByImage ) updateSizeDisplay(img) ;
+  
+  //load text raw for the different object
+  importText(sketchPath("")+"karaoke.txt") ;
+  splitText() ;
+}
 
 
 
@@ -174,11 +299,18 @@ void createVar() {
   createVarP3D() ;
   createVarCursor() ;
   createVarObject() ;
-  
-  //boolean clear
+  createMiscVar() ;
+  romanescoManager.initObj() ;
+}
+
+//init void
+// misc var
+void createMiscVar() {
+    //boolean clear
    clearList = new boolean[numObj] ;
   //motion object
    motion = new boolean [numObj]  ;
+   horizon = new boolean [numObj]  ;
   //main font for each object
    font = new PFont[numObj] ;
    pathFontObjTTF = new String[numObj] ;
@@ -189,10 +321,7 @@ void createVar() {
   //var to init the data of the object when is switch ON for the first time
    initValueMouse = new boolean [numObj]  ;
    initValueSlider = new boolean [numObj]  ;
-   romanescoManager.initObj() ;
 }
-
-//init void
 // var cursor
 void createVarCursor() {
   //position of object and wheel
@@ -288,7 +417,7 @@ void createVarObject() {
   quantityRaw = new float[numGroup] ;
   //column 3
   speedRaw = new float[numGroup] ;
-  orientationRaw = new float[numGroup] ;
+  directionRaw = new float[numGroup] ;
   angleRaw = new float[numGroup] ;
   amplitudeRaw = new float[numGroup] ;
   analyzeRaw = new float[numGroup] ;
@@ -306,7 +435,7 @@ void createVarObject() {
   quantityObj = new float[numObj] ;
    //column 3
   speedObj = new float[numObj] ;
-  orientationObj = new float[numObj] ;
+  directionObj = new float[numObj] ;
   angleObj = new float[numObj] ;
   amplitudeObj = new float[numObj] ;
   analyzeObj = new float[numObj] ;
@@ -341,7 +470,7 @@ void updateVar() {
     quantityRaw[i] = map(valueSlider[i+1][17], minSource, maxSource,1,100) ;
     //column 3
     speedRaw[i] = valueSlider[i+1][20] ;
-    orientationRaw[i] = map(valueSlider[i+1][21],minSource, maxSource,0,360) ;
+    directionRaw[i] = map(valueSlider[i+1][21],minSource, maxSource,0,360) ;
     angleRaw[i] = map(valueSlider[i+1][22],minSource, maxSource,0,360) ;
     amplitudeRaw[i] = map(valueSlider[i+1][23],minSource, maxSource,1,height) ;
     analyzeRaw[i] = valueSlider[i+1][24] ;
@@ -353,6 +482,18 @@ void updateVar() {
   
 }
 
+
+
+//INFO
+void displayInfo3D() {
+   String posCam = ( int(sceneCamera.x +width/2) + " / " + int(sceneCamera.y +height/2) + " / " +  int(sceneCamera.z -height/2)) ;
+   String eyeDirectionCam = ( int(eyeCamera.x) + " / " + int(eyeCamera.y) ) ;
+  fill(blanc) ; 
+  textFont(SansSerif10, 10) ;
+  textAlign(RIGHT) ;
+  text("Position " +posCam, width/2 -30 , height/2 -30) ;
+  text("Direction " +eyeDirectionCam, width/2 -30 , height/2 -15) ;
+}
 
 
 

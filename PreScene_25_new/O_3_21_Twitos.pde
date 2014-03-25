@@ -78,7 +78,7 @@ class Twitos extends SuperRomanesco {
     textAlign(CORNER);
     textFont(font[IDobj], corps + (mix[IDobj]) *6 *beat[IDobj]);
     for (MessageTwitter msgTwt : listMsg)  {
-      rotation(orientationObj[IDobj], mouse[IDobj].x, mouse[IDobj].y) ;
+      rotation(directionObj[IDobj], mouse[IDobj].x, mouse[IDobj].y) ;
       if (soundButton[IDobj] != 1) msgTwt.display( -width/2 , 0, largeur, hauteur, c ) ; else msgTwt.display(-width/2 -(right[IDobj]*20) , -(left[IDobj ]*20) , largeur, hauteur, c ) ;
     }
 

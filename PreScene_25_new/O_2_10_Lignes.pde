@@ -34,7 +34,7 @@ class Lignes extends SuperRomanesco {
     //to stop the move
     if (action[IDobj]  && spaceTouch ) speed = 0.0 ;
     
-    rotation(orientationObj[IDobj], mouse[IDobj].x, mouse[IDobj].y ) ;
+    rotation(directionObj[IDobj], mouse[IDobj].x, mouse[IDobj].y ) ;
     
     //quantité
     float q = map(quantityObj[IDobj], 1, 100, width , height *.2) ;
