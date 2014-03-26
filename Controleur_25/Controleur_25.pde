@@ -16,3 +16,38 @@ void draw() {
   interfaceDraw() ;
   sendOSCdraw() ;
 }
+
+
+
+////////////////////
+void mousePressed () {
+  //object
+  if(numGroup[1] > 0 ) for( int i = 11 ; i < numGroup[1] *10 + 6 ; i++ ) BOf[i].mousePressed()  ;
+  if(numGroup[2] > 0 ) for( int i = 11 ; i < numGroup[2] *10 + 6 ; i++)  BTf[i].mousePressed() ;
+  if(numGroup[3] > 0 ) for( int i = 11 ; i < numGroup[3] *10 + 6 ; i++)  BTYf[i].mousePressed() ;
+
+  //son
+  Bbeat.mousePressed() ;
+  Bkick.mousePressed() ;
+  Bsnare.mousePressed() ;
+  Bhat.mousePressed() ;
+  //midi
+  BOmidi.mousePressed() ;
+  //curtain
+  BOcurtain.mousePressed() ;
+  //dropdown
+  dropdownMousepressed() ;
+
+}
+
+
+//KEYPRESSED
+void keyPressed() {
+  //OpenClose save
+  OpenCloseSave() ;
+}
+
+//KEYRELEASED
+void keyReleased() { 
+  clavier[keyCode] = false;
+}

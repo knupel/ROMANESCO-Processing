@@ -92,7 +92,6 @@ void cursorSetup() {
     pmouse[i] = new PVector(0,0) ;
     wheel[i] = 0 ;
   }
-
 }
 
 //DRAW
@@ -231,6 +230,9 @@ PVector averageFingersPosition(boolean leapMotionConnected) {
       
     }
     //calculate the average position of all the fingers
+    // security, in case all the finger is equal to zero
+    if(averagePosOfTheFinger.x <= 0 ) averagePosOfTheFinger.x = 0.0001 ; 
+    if(averagePosOfTheFinger.y <= 0 ) averagePosOfTheFinger.y = 0.0001 ; 
     if(averagePosOfTheFinger.x != 0 || averagePosOfTheFinger.x != 0  ) averagePosOfTheFinger.div(objectNum.count()) ;
     
     return averagePosOfTheFinger ;
@@ -280,29 +282,12 @@ void backgroundRomanesco() {
   color bg ;
   //to smooth the curve of transparency background
   float facteur = 2.5 ;
- // float homothety = 100.0 ;
-  float nx = norm(valueSliderGlobal[3], 0.0 , 100.0) ;
+  // float homothety = 100.0 ;
+  float nx = norm(valueSlider[0][3], 0.0 , 100.0) ;
   float ny = pow (nx ,facteur );
   ny = map(ny, 0, 1 , 0.8, 100 ) ;
   
-  //meteo change
-  if(eMeteo == 1 ) {
-    int newPressure = hectoPascal(weather.getPressure()) ;
-    color dayColor = color (map(weather.getTemperature(),-40,60,270,0), map(newPressure, 920, 1080, 0,100), 100, ny ) ;
-    //color night = color ( 220, map(newPressure, 920, 1080, 0,100), 20, ny ) ;
-    
-    artificialTime += 1 ;
-    if (artificialTime > 1440 ) artificialTime = 0 ;
-    int weatherPressure = hectoPascal(weather.getPressure()) ;
-    //the articicial time
-    bg = color(meteoColor(dayColor, artificialTime, 120, weatherPressure ) );
-    //the real one
-    // fond = color(meteoColor(dayColor, minClock() ) );
-  } else {
-    bg = color (map(valueSliderGlobal[0],0,100,0,360), valueSliderGlobal[1], valueSliderGlobal[2], ny ) ; 
-  }
-  
-  
+  bg = color (map(valueSlider[0][0],0,100,0,360), valueSlider[0][1], valueSlider[0][2], ny ) ; 
   //choice the background
   if(displayMode.equals("Classic")) backgroundClassic(bg) ;
   else if(displayMode.equals("P3D")) backgroundP3D(bg) ;
@@ -311,7 +296,7 @@ void backgroundRomanesco() {
 
 void backgroundRomanescoPrescene() {
   color bg ;
-  bg = color (map(valueSliderGlobal[0],0,100,0,360), valueSliderGlobal[1], valueSliderGlobal[2], 100 ) ;
+  bg = color (map(valueSlider[0][0],0,100,0,360), valueSlider[0][1], valueSlider[0][2], 100 ) ;
     //choice the background
   if(displayMode.equals("Classic")) backgroundClassic(bg) ;
   else if(displayMode.equals("P3D")) backgroundP3D(bg) ;
@@ -374,75 +359,12 @@ boolean locked ( boolean inside )  {
 
 
 
-//////
-//MATH
-float perimeterCircle ( float r ) {
-  //calcul du perimetre
-  float p = r*TWO_PI  ;
-  return p ;
-}
-
-//radius surface
-float radiusSurface(int s) {
-  // calcul du rayon par rapport au nombre de point
-  float  r = sqrt(s/PI) ;
-  return r ;
-}
-// normal direction 0-360 to -1, 1 PVector
-PVector normalDir(int direction) {
-  int numPoints = 360;
-  float angle = TWO_PI/(float)numPoints;
-  direction = 360-direction;
-  direction += 180;
-  return new PVector(sin(angle*direction), cos(angle*direction));
-}
-// degre direction from PVector direction
-float deg360 (PVector dir) {
-  float deg360 ;
-  deg360 = 360 -(degrees(atan2(dir.x, dir.y)) +180)   ;
-  return deg360 ;
-}
 
 
-//ROTATION
-//GLOBAL
-PVector resultPositionOfRotation = new PVector() ;
-//DRAW
 
-PVector rotation (PVector ref, PVector lattice, float angle) {
-  
-  float a = angle( lattice, ref ) + angle;
-  float d = distance( lattice, ref );
-  
-  resultPositionOfRotation.x = lattice.x + cos( a ) * d;
-  resultPositionOfRotation.y = lattice.y + sin( a ) * d;
-  //
-  return resultPositionOfRotation;
-}
 
-float angle( PVector p0, PVector p1 ) {
-  return atan2( p1.y - p0.y, p1.x - p0.x );
-}
-  
-float distance( PVector p0, PVector p1 ) {
-  return sqrt( ( p0.x - p1.x ) * ( p0.x - p1.x ) + ( p0.y - p1.y ) * ( p0.y - p1.y ) );
-}
 
-//other Rotation
-//Rotation Objet
-void rotation ( float R, float posX, float posY ) {
-  float rotation ;
-  float angle  ;
-  float vR = map (R, 0, 100, 0, -360 ) ; 
-  rotation = vR ;
-  angle = rotation ;
-  translate(posX, posY ) ;
-  rotate (radians(angle) ) ;
-}
-//END OF ROTATION
 
-//END MATH
-//////////
 
 
 
@@ -531,19 +453,7 @@ void resetEasing(PVector targetOUT) {
 //end easing
 
 
-// drop event
-void dropEvent(DropEvent theDropEvent) {
-  // if the dropped object is an image, then load the image into our PImage.
-  if(theDropEvent.isImage()) {
-      escargotGOanalyze = false ;
-      escargotClear() ;
 
-   // println("### loading image ...");
-    img = theDropEvent.loadImage();
-    analyzeDone = false ;
-  }
-}
-//end drop event
 
 
 //zoom
@@ -617,8 +527,7 @@ int fullSceneWidth, fullSceneHeight, sceneWidth, sceneHeight ;
 Table configurationScene;
 //factor to divide the size of the Pré-Scène 
 int divSizePreScene = 2 ;
-// boolean mode
-boolean modeP3D ;
+
 String pathScenePropertySetting = sketchPath("")+"preferences/sceneProperty.csv" ;
 TableRow row ;
 
@@ -952,13 +861,13 @@ PFont SansSerif10,
       TheHardwayRMX,
       TokyoOne, TokyoOneSolid ;
       
-String pathFontTTF [] = new String [50] ;  
-String pathFontVLW [] = new String [50] ;
+
 
       
 //SETUP
 void fontSetup() {
-  String fontPathVLW = sketchPath("")+"commonsData/typoVLW/" ;
+  String fontPathVLW = sketchPath("")+"preferences/Font/typoVLW/" ;
+
   //write font path
   pathFontVLW[1] = (fontPathVLW+"AmericanTypewriter-96.vlw");
   pathFontVLW[2] = (fontPathVLW+"AmericanTypewriter-Bold-96.vlw");
@@ -984,10 +893,10 @@ void fontSetup() {
   pathFontVLW[22] = (fontPathVLW+"MinionPro-Bold-96.vlw");
   //special font
   pathFontVLW[49] = (fontPathVLW+"DIN-Regular-10.vlw");
- SansSerif10 = loadFont(fontPathVLW+"SansSerif-10.vlw") ;
+  SansSerif10 = loadFont(fontPathVLW+"SansSerif-10.vlw") ;
   
   //write font path for TTF
-  String prefixTTF = (sketchPath("")+"commonsData/typoTTF/") ;
+  String prefixTTF = (sketchPath("")+"preferences/Font/typoTTF/") ;
   //by default
   pathFontTTF[0] = (prefixTTF+"FuturaStencil.ttf");
   //type
@@ -1016,7 +925,6 @@ void fontSetup() {
   //special font
   pathFontTTF[49] = (prefixTTF+"FuturaStencil.ttf");
 
-  
   //load
   AmericanTypewriter=loadFont      (pathFontVLW[1]);
   AmericanTypewriterBold=loadFont  (pathFontVLW[2]);
@@ -1040,19 +948,18 @@ void fontSetup() {
   TokyoOne=loadFont                (pathFontVLW[20]);
   Minion=loadFont                  (pathFontVLW[21]);
   MinionBold=loadFont              (pathFontVLW[22]);
-  
+
   //default and special font
   DinRegular10=loadFont            (pathFontVLW[49]);
+
   font[0] = FuturaStencil ;
   pathFontObjTTF[0] = pathFontTTF[0] ;
-
 }
 
 
 
 
-void whichFont( int whichFont) 
-{ 
+void whichFont( int whichFont)  { 
   if (whichFont == 1 )     { pathFontObjTTF[0] = pathFontTTF[1] ; font[0] = AmericanTypewriter ;  }
   else if (whichFont ==2 ) { pathFontObjTTF[0] = pathFontTTF[2] ; font[0] = AmericanTypewriterBold ; }
   else if (whichFont == 3) { pathFontObjTTF[0] = pathFontTTF[3] ; font[0] = Banco ; }
@@ -1156,27 +1063,6 @@ void displayInfoScene() {
   text("right" +int(input.right.get(1) *100) + "  left " + int(input.left.get(1) *100) , 15,15 *(posInfoObj)) ; 
 
   posInfoObj += 1 ;
-  //INFO WEATHER and METEO
-  text(weather.getCityName() + " / " + traductionWeather (weather.getWeatherConditionCode()) + "    Temperature " + weather.getTemperature() + "C°" + "   Pressure " + hectoPascal(weather.getPressure()) + " HectoPascal", 15,15 *(posInfoObj)) ; 
-  posInfoObj += 1 ;
-  text ("Wind " + windFrench() + " force " + beaufort() + "     Sunrise " + weather.getSunrise() + "     Sunset " + weather.getSunset(), 15,15 *(posInfoObj)) ; 
-  posInfoObj += 1 ;
- // if(mainButton[1] == 1 ) { posInfoObj += 1  ; }
- // if(mainButton[2] == 1 ) { posInfoObj += 1  ; }
-  //video
-  if(mainButton[25] == 1 && videoSignal ) { 
-    text( "Camera active ", 15, 15 * (posInfoObj) ) ;  posInfoObj += 1 ; 
-  } else { 
-    text("No Video Signal", 15, 15 *(posInfoObj) ) ;
-    posInfoObj += 1 ;
-  }
-  //
-  if(mainButton[27] == 1 ) { 
-    text( "Info Escargot " + totalPixCheckedInTheEscargot + " Pixels analyz " +  " on " + listPixelRaw.size() + "    Escargots " + listEscargot.size() , 15, 15 * (posInfoObj) ) ;  posInfoObj += 1 ; 
-  } else { 
-    text("No image thred", 15, 15 *(posInfoObj) ) ;
-    posInfoObj += 1 ;
-  }
 }
 ////////////////
 //END DISPLAY INFO

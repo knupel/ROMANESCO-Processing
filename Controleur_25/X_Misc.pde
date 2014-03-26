@@ -59,37 +59,4 @@ void controllerIn(promidi.Controller controller, int device, int channel){
   valMidi = controller.getValue();
 }
 
-////////////////////
-void mousePressed () {
-  //object
-  for( int i = 11 ; i < 96 ; i++ ) BOf[i].mousePressed()  ;
-  //texture
-  for ( int i = 11 ; i < 76 ; i++)  BTf[i].mousePressed() ;
-  //typo
-  for ( int i = 11 ; i < 56 ; i++)  BTYf[i].mousePressed() ;
 
-  //son
-  Bbeat.mousePressed() ;
-  Bkick.mousePressed() ;
-  Bsnare.mousePressed() ;
-  Bhat.mousePressed() ;
-  //midi
-  BOmidi.mousePressed() ;
-  //curtain
-  BOcurtain.mousePressed() ;
-  //dropdown
-  dropdownMousepressed() ;
-
-}
-
-
-//KEYPRESSED
-void keyPressed() {
-  //OpenClose save
-  OpenCloseSave() ;
-}
-
-//KEYRELEASED
-void keyReleased() { 
-  clavier[keyCode] = false;
-}

@@ -3,6 +3,8 @@ import java.awt.event.KeyEvent;
 import processing.net.*;
 //SLIDER
 int numSlider = 350 ;
+int numGroupSlider = 4 ;
+int sliderByColumn = 8 ;
 // Midi
 import promidi.*;
 MidiIO midiIO;
@@ -12,6 +14,7 @@ boolean saveMidi ;
 boolean selectMidi = false ;
 boolean curtainOpenClose ;
 //GLOBAL
+
 byte saveR [] = new byte [2*numSlider]; // byte between -128 and 127 result 256 bytes
 byte loadR []  = new byte [2*numSlider] ;
 

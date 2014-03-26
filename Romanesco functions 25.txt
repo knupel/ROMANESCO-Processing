@@ -100,6 +100,9 @@ void startPosition(int IDobj, int x, int y, int z) // give the starting position
 //MOTION
 boolean motion[IDobj] boolean use for the move activate or desactivate by the "m" key
 
+//Alignement
+boolean horizon[IDobj] boolean use for the move activate or desactivate by the "h" key
+
 //LIST 
 //empty the list of particules activate by backspace and delete
 boolean romanescoEmptyList(IDobj)
@@ -304,7 +307,7 @@ float canvasZObj[IDobj] ; value from width /10 to width
 float quantityObj = new float[numObj] ; value from 1 to 100 ;
 
 float speedObj[IDobj] ; value from 0 to 100
-float orientationObj[IDobj] ; value from 0 to 360 ;
+float directionObj[IDobj] ; value from 0 to 360 ;
 float angleObj[IDobj] ; value from 0 to 360 ;
 float amplitudeObj[IDobj] ; value from 1 to height.
 float analyzeObj[IDobj] ; value from 0 to 100.
@@ -315,6 +318,25 @@ float forceObj[IDobj] ; value from 1 to 100.
 //END SLIDER
 ////////////
 
+
+
+// UTIL MATH
+float perimeterCircle (int r) return perimeter
+float radiusSurface(int s) return the radius with a speficic surface
+
+float distance(PVector p0, PVector p1 ) calcul distance between two PVectors
+float angle(PVector p0, PVector p1) calcul the angle between two PVectors
+
+PVector normalDir(int direction) // return a direction between -1 / 1 from 360° direction
+float deg360 (PVector dir) // return a 360 direction from PVector direction value between -1 to 1 ;
+PVector rotation(PVector ref, PVector lattice, float angle) // return a PVector position, for rotation around an axes
+
+
+// UTIL TIME
+
+float cycle(float add) // return value between -1 et 1 , nice to try with vzlue like 0.1
+int timer(float tempo) // return an add value from float <1 ;
+int minClock() // return the time of the day in minutes
 
 
 

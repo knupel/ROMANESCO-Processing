@@ -17,8 +17,8 @@ float minBeat = 1.0 ;
 float maxBeat = 10.0  ;
 
 //volume
-float gaucheBrute, droiteBrute, // son droite gauche
-      mixBrute ;
+//float leftRaw, rightBrute, // son right left
+//      mixBrute ;
 
 //////////////
 // SOUND SETUP
@@ -41,7 +41,6 @@ void soundSetup() {
 /////////////
 // SOUND DRAW
 void soundDraw() {
-  //General Draw
   spectrum(input.mix, numBand) ;
   beatEnergy.detect(input.mix);
   initTempo() ;
@@ -60,20 +59,20 @@ void soundDraw() {
 void soundRomanesco() {
   int sound = 1 ;
     
-  float volumeControleurG = map(valueSliderGlobal[4], 0,100, 0, 1.3 ) ;
-   gauche[0] = map(input.left.get(sound),  -0.07,0.1,  0, volumeControleurG);
+  float volumeControleurG = map(valueSlider[0][4], 0,100, 0, 1.3 ) ;
+  left[0] = map(input.left.get(sound),  -0.07,0.1,  0, volumeControleurG);
   
-  float volumeControleurD = map(valueSliderGlobal[5], 0,100, 0, 1.3 ) ;
-  droite[0] = map(input.right.get(sound),  -0.07,0.1,  0, volumeControleurD);
+  float volumeControleurD = map(valueSlider[0][5], 0,100, 0, 1.3 ) ;
+  right[0] = map(input.right.get(sound),  -0.07,0.1,  0, volumeControleurD);
   
-  float volumeControleurM = map(( (valueSliderGlobal[4] + valueSliderGlobal[5]) *.5), 0,100, 0, 1.3 ) ;
+  float volumeControleurM = map(( (valueSlider[0][4] + valueSlider[0][5]) *.5), 0,100, 0, 1.3 ) ;
   mix[0] = map(input.mix.get(sound),  -0.07,0.1,  0, volumeControleurM);
   
   //volume
-  if(gauche[0] < 0 ) gauche[0] = 0 ;
-  if(gauche[0] > 1 ) gauche[0] = 1.0 ; 
-  if(droite[0] < 0 ) droite[0] = 0 ;
-  if(droite[0] > 1 ) droite[0] = 1.0 ; 
+  if(left[0] < 0 ) left[0] = 0 ;
+  if(left[0] > 1 ) left[0] = 1.0 ; 
+  if(right[0] < 0 ) right[0] = 0 ;
+  if(right[0] > 1 ) right[0] = 1.0 ; 
   if(mix[0] < 0 ) mix[0] = 0 ;
   if(mix[0] > 1 ) mix[0] = 1.0 ;
   
@@ -86,6 +85,17 @@ void soundRomanesco() {
   kick[0] = getKick(kickOnOff) ;
   snare[0] = getSnare(snareOnOff) ;
   hat[0] = getHat(hatOnOff) ;
+  
+  //spectrum
+  for ( int i = 0 ; i < numBand ; i++ ) {
+    band[0][i] = bandSprectrum[i] ;
+  }
+  
+  //tempo
+  tempo[0] = getTempoRef() ;
+  tempoKick[0] = getTempoKickRef() ;
+  tempoSnare[0] = getTempoSnareRef() ;
+  tempoHat[0] = getTempoHatRef() ;
 }
   
 
@@ -364,6 +374,7 @@ void spectrum(AudioBuffer fftData, int n) {
 //ANNEXE VOID
 float getTotalSpectrum(int numBand) {
   float t = 0 ;
+  // float t = bandSprectrum[0] + bandSprectrum[1] + bandSprectrum[2] + bandSprectrum[3] + bandSprectrum[4] + bandSprectrum[5] + bandSprectrum[6] + bandSprectrum[7] + bandSprectrum[8] + bandSprectrum[9] + bandSprectrum[10] + bandSprectrum[11] + bandSprectrum[12] + bandSprectrum[13] + bandSprectrum[14] + bandSprectrum[15] ;
   for ( int i = 0 ; i < numBand ; i++ ) {
     t += bandSprectrum[i] ;
   }

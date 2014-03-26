@@ -178,18 +178,17 @@ class Pixel
 
 //CLASS ROTATION
 ////////////////
-class Rotation
-{
+class Rotation {
   float rotation ;
   float angle  ;
   
-  Rotation () { }
+  Rotation () {}
   
-  void actualisation (float cX, float cY, float vR) {
-    rotation += vR ;
-    if ( rotation > 360 ) { rotation = 0 ; }
+  void actualisation (PVector pos, float speed) {
+    rotation += speed ;
+    if ( rotation > 360 ) rotation = 0 ; else if (rotation < 0 ) rotation = 360 ;
     float angle = rotation ;
-    translate (cX, cY) ;
+    translate (pos.x, pos.y) ;
     rotate (radians(angle) ) ;
   }
 } 

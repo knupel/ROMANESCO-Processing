@@ -1,13 +1,21 @@
-O  //////////////////////////////////////////////////////////////////////////////////////////
+  //////////////////////////////////////////////////////////////////////////////////////////
  // Romanesco Préscène Alpha 0.25 work with Processing 211 export with Processing 203  ////
 //////////////////////////////////////////////////////////////////////////////////////////
 String release =("25") ;
 //to work in dev, test phase
 boolean testRomanesco = false ;
+// when you work only with "Prescene" boolean presceneOnly must be true to give at the Prescene the internet acces
+boolean presceneOnly = false ;
 
+// I don't remember why there is the boolean 
 boolean Controleur = true ;
 boolean Scene = true ;
 boolean Miroir = true ;
+
+//MANAGER CLASS
+import java.util.Iterator;
+import java.lang.reflect.*; 
+ObjectRomanescoManager romanescoManager ;
 
 //to opening app
 boolean openScene = true ;
@@ -18,8 +26,7 @@ boolean youCanSendToScene = true ;
 boolean youCanSendToMiroir = true ;
 
 
-// when you work only with "Prescene" boolean presceneOnly must be true to give at the Prescene the internet acces
-boolean presceneOnly = false ;
+
 //spectrum for the color mode and more if you need
 PVector HSBmode = new PVector (360,100,100) ; // give the color mode in HSB
 
@@ -29,7 +36,10 @@ PVector HSBmode = new PVector (360,100,100) ; // give the color mode in HSB
 String findPath ; 
 
 void setup() {
+  romanescoSetup() ;
+  createVar() ;
   displaySetup(60) ; // the int value is the frameRate
+
   colorSetup() ;
   //dropping image from folder on the Scène
   drop = new SDrop(this);
@@ -39,12 +49,10 @@ void setup() {
   RG.init(this);
 
   soundSetup() ;
-  cursorSetup() ;
+  cursorSetup() ; // the cursor setup of the Scene is more simple
   OSCSetup() ;
   meteoSetup() ;
   P3DSetup() ;
-  //OBJECT SETTING
-  romanescoSetup() ;
 }
 
 
@@ -55,18 +63,21 @@ void draw() {
   initDraw() ;
   soundDraw() ;
   meteoDraw() ;
+  updateVar() ;
+  OSCDraw() ;
   backgroundRomanescoPrescene() ;
   
   //ROMANESCO
   cameraDraw() ;
-  romanescoDraw() ;
+    //use romanesco object
+  romanescoManager.displayObject() ;
   repereCamera(sizeBG) ;
   stopCamera() ;
   
   //annexe
   info() ;
   curtain() ; 
-  OSCDraw() ;
+
   cursorDraw() ;
   keyboardFalse() ;
   opening() ;

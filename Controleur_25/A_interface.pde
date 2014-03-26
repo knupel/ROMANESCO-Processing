@@ -52,68 +52,7 @@ int   mgSliderc1, mgSliderc2, mgSliderc3,
 
 
 
-//BOUTON
-int numButton = 100 ;
-int numButtonGlobal = 11 ;
-int numButtonObj = 120 ;
-int numButtonTex = 120 ;
-int numButtonTypo = 120 ;
-int numButtonDropdown = 100 ;
-//BUTTON
-int valueButtonGlobal[] = new int[numButtonGlobal] ;
-int valueButtonObj[] = new int[numButtonObj] ;
-int valueButtonTex[] = new int[numButtonTex] ;
-int valueButtonTypo[] = new int[numButtonTypo] ;
 
-Simple  BOmidi, BOcurtain, buttonMeteo,
-        Bbeat, Bkick, Bsnare, Bhat;
-        
-//bouton objet
-Simple[] BOf = new Simple[numButton] ;
-
-int transparenceBordBOf[] =      new int[numButton] ;
-int epaisseurBordBOf[] =         new int[numButton] ;
-int transparenceBoutonBOf[] =    new int[numButton] ;
-int posWidthBOf[] =              new int[numButton] ;
-int posHeightBOf[] =             new int[numButton] ;
-int longueurBOf[] =              new int[numButton] ;
-int hauteurBOf[] =               new int[numButton] ;
-
-//bouton texture
-Simple[] BTf = new Simple[numButton] ;
-
-int transparenceBordBTf[] =      new int[numButton] ;
-int epaisseurBordBTf[] =         new int[numButton] ;
-int transparenceBoutonBTf[] =    new int[numButton] ;
-int posWidthBTf[] =              new int[numButton] ;
-int posHeightBTf[] =             new int[numButton] ;
-int longueurBTf[] =              new int[numButton] ;
-int hauteurBTf[] =               new int[numButton] ;
-
-//bouton typo
-Simple[] BTYf = new Simple[numButton] ;
-
-int transparenceBordBTYf[] =      new int[numButton] ;
-int epaisseurBordBTYf[] =         new int[numButton] ;
-int transparenceBoutonBTYf[] =    new int[numButton] ;
-int posWidthBTYf[] =              new int[numButton] ;
-int posHeightBTYf[] =             new int[numButton] ;
-int longueurBTYf[] =              new int[numButton] ;
-int hauteurBTYf[] =               new int[numButton] ;
-
-
-
-int transparenceBordBE1, epaisseurBordBE1, transparenceBoutonBE1, 
-    posWidthBE1, posHeightBE1, longueurBE1, hauteurBE1 ;
-    
-
-
-//Variable must be send to Scene
-//paramètre bouton
-int EtatBOf[] = new int[numButton] ;
-int EtatBTf[] = new int[numButton] ;
-int EtatBTYf[] = new int[numButton] ;
-int EtatBIf[] = new int[numButton] ;
 
 // bouton dropdown font
 PVector posButtonFont ; 
@@ -260,7 +199,7 @@ void groupZero(int pos) {
 //////////////
 void groupOne( int posButton, int posSlider) {
   //position and area for the rollover
-  for (int i = 1 ; i <= numObjectSimple ; i++ ) {
+  for (int i = 1 ; i <= numGroup[1] ; i++ ) {
     posWidthBOf[i*10+1] = posWidthBO +((i-1)*40)-8 ; posHeightBOf[i*10+1] = posButton -10  ; longueurBOf[i*10+1] = 20 ; hauteurBOf[i*10+1] = 20 ;  //main
     posWidthBOf[i*10+2] = posWidthBO +((i-1)*40)-8 ; posHeightBOf[i*10+2] = posButton +12  ; longueurBOf[i*10+2] = 19 ; hauteurBOf[i*10+2] = 6 ; //setting
     posWidthBOf[i*10+3] = posWidthBO +((i-1)*40)-8 ; posHeightBOf[i*10+3] = posButton +21  ; longueurBOf[i*10+3] = 10 ; hauteurBOf[i*10+3] = 6 ; //sound
@@ -268,7 +207,7 @@ void groupOne( int posButton, int posSlider) {
   }
 
   // where the controleur must display the slider
-  for( int i = 0 ; i < 8 ; i++ ) {
+  for( int i = 0 ; i < sliderByColumn ; i++ ) {
     suivitSlider[i+101] = 1 ; posWidthSlider[i+101] = mgSliderc1 ; posHeightSlider[i+101] = posSlider +i*10 ; longueurSlider[i+101] = 111 ; hauteurSlider[i+101] = sliderHeight ; ;
     suivitSlider[i+111] = 1 ; posWidthSlider[i+111] = mgSliderc2 ; posHeightSlider[i+111] = posSlider +i*10 ; longueurSlider[i+111] = 111 ; hauteurSlider[i+111] = sliderHeight ; ;
     suivitSlider[i+121] = 1 ; posWidthSlider[i+121] = mgSliderc3 ; posHeightSlider[i+121] = posSlider +i*10 ; longueurSlider[i+121] = 111 ; hauteurSlider[i+121] = sliderHeight ; ;
@@ -277,14 +216,14 @@ void groupOne( int posButton, int posSlider) {
 
 //////////////////
 void groupTwo(int posButton, int posSlider) {
-  for (int i = 1 ; i <= numObjectTexture ; i++ ) {
+  for (int i = 1 ; i <= numGroup[2] ; i++ ) {
     posWidthBTf[i*10+1] = posWidthBT +((i-1)*40)-8 ; posHeightBTf[i*10+1] = posButton -10  ; longueurBTf[i*10+1] = 20 ; hauteurBTf[i*10+1] = 20 ; //main
     posWidthBTf[i*10+2] = posWidthBT +((i-1)*40)-8 ; posHeightBTf[i*10+2] = posButton +12  ; longueurBTf[i*10+2] = 19 ; hauteurBTf[i*10+2] = 6 ; //setting
     posWidthBTf[i*10+3] = posWidthBT +((i-1)*40)-8 ; posHeightBTf[i*10+3] = posButton +21  ; longueurBTf[i*10+3] = 10 ; hauteurBTf[i*10+3] = 6 ; //sound
     posWidthBTf[i*10+4] = posWidthBT +((i-1)*40)+2 ; posHeightBTf[i*10+4] = posButton +21  ; longueurBTf[i*10+4] = 10 ; hauteurBTf[i*10+4] = 6 ; //action
   }
   // where the controle must display the slider
-  for( int i = 0 ; i < 8 ; i++ ) {
+  for( int i = 0 ; i < sliderByColumn ; i++ ) {
     suivitSlider[i+201] = 1 ; posWidthSlider[i+201] = mgSliderc1 ; posHeightSlider[i+201] = posSlider +i*10 ; longueurSlider[i+201] = 111 ; hauteurSlider[i+201] = sliderHeight ; ;
     suivitSlider[i+211] = 1 ; posWidthSlider[i+211] = mgSliderc2 ; posHeightSlider[i+211] = posSlider +i*10 ; longueurSlider[i+211] = 111 ; hauteurSlider[i+211] = sliderHeight ; ;
     suivitSlider[i+221] = 1 ; posWidthSlider[i+221] = mgSliderc3 ; posHeightSlider[i+221] = posSlider +i*10 ; longueurSlider[i+221] = 111 ; hauteurSlider[i+221] = sliderHeight ; ;
@@ -293,9 +232,8 @@ void groupTwo(int posButton, int posSlider) {
 
 /////////////////
 void groupThree(int posButton, int posSlider) {
-    //TYPOGRAPHY
   //paramètre habillage couleur du bouton cercle BTY
-  for (int i = 1 ; i <= numObjectTypography ; i++ ) {
+  for (int i = 1 ; i <= numGroup[3] ; i++ ) {
     posWidthBTYf[i*10+1] = posWidthBTY +((i-1)*40)-8 ; posHeightBTYf[i*10+1] = posButton -10  ; longueurBTYf[i*10+1] = 20 ; hauteurBTYf[i*10+1] = 20 ; //main
     posWidthBTYf[i*10+2] = posWidthBTY +((i-1)*40)-8 ; posHeightBTYf[i*10+2] = posButton +12  ; longueurBTYf[i*10+2] = 19 ; hauteurBTYf[i*10+2] = 6 ; //setting
     posWidthBTYf[i*10+3] = posWidthBTY +((i-1)*40)-8 ; posHeightBTYf[i*10+3] = posButton +21  ; longueurBTYf[i*10+3] = 10 ; hauteurBTYf[i*10+3] = 6 ; //sound
@@ -303,7 +241,7 @@ void groupThree(int posButton, int posSlider) {
   }
   
   // where the controleur must display the slider
-  for( int i = 0 ; i < 8 ; i++ ) {
+  for( int i = 0 ; i < sliderByColumn ; i++ ) {
     suivitSlider[i+301] = 1 ; posWidthSlider[i+301] = mgSliderc1 ; posHeightSlider[i+301] = posSlider +i*10 ; longueurSlider[i+301] = 111 ; hauteurSlider[i+301] = sliderHeight ; ;
     suivitSlider[i+311] = 1 ; posWidthSlider[i+311] = mgSliderc2 ; posHeightSlider[i+311] = posSlider +i*10 ; longueurSlider[i+311] = 111 ; hauteurSlider[i+311] = sliderHeight ; ;
     suivitSlider[i+321] = 1 ; posWidthSlider[i+321] = mgSliderc3 ; posHeightSlider[i+321] = posSlider +i*10 ; longueurSlider[i+321] = 111 ; hauteurSlider[i+321] = sliderHeight ; ;
@@ -329,14 +267,17 @@ void constructorSliderButton() {
   BOcurtain  = new Simple ( posWidthBOcurtain, posHeightBOcurtain, longueurBOcurtain, hauteurBOcurtain, vert, vertFonce, rouge, rougeFonce, gris, grisNoir ) ;
   
   //button object, texture, typography
-  for ( int i = 11 ; i < numButton ; i++) {
-    // group one
-    BOf[i] = new Simple(  posWidthBOf[i], posHeightBOf[i], longueurBOf[i], hauteurBOf[i], boutonONin, boutonONout, boutonOFFin, boutonOFFout, gris, grisNoir ) ; 
-    // group two
-    BTf[i] = new Simple(  posWidthBTf[i], posHeightBTf[i], longueurBTf[i], hauteurBTf[i], boutonONin, boutonONout, boutonOFFin, boutonOFFout, gris, grisNoir ) ;
-    // group Three
-    BTYf[i] = new Simple(  posWidthBTYf[i], posHeightBTYf[i], longueurBTYf[i], hauteurBTYf[i], boutonONin, boutonONout, boutonOFFin, boutonOFFout, gris, grisNoir ) ;
+  for(int i = 1 ; i < numGroupSlider ; i++) {
+    int num = numButton[i] ;
+    for ( int j = 11 ; j < 10+num ; j++) {
+      if(numGroup[1] > 0 && i == 1) BOf[j] = new Simple(  posWidthBOf[j], posHeightBOf[j], longueurBOf[j], hauteurBOf[j], boutonONin, boutonONout, boutonOFFin, boutonOFFout, gris, grisNoir ) ; 
+      if(numGroup[2] > 0 && i == 2) BTf[j] = new Simple(  posWidthBTf[j], posHeightBTf[j], longueurBTf[j], hauteurBTf[j], boutonONin, boutonONout, boutonOFFin, boutonOFFout, gris, grisNoir ) ;
+      if(numGroup[3] > 0 && i == 3) BTYf[j] = new Simple(  posWidthBTYf[j], posHeightBTYf[j], longueurBTYf[j], hauteurBTYf[j], boutonONin, boutonONout, boutonOFFin, boutonOFFout, gris, grisNoir ) ;
+    }
+
   }
+  
+  
   
   //slider
   for ( int i = 1 ; i < numSlider ; i++ ) {
@@ -433,27 +374,27 @@ void dislayTextSlider() {
   //GROUP ONE
   textFont(FuturaStencil_20,20); textAlign(RIGHT);
   fill(blanc, 120) ;
-  pushMatrix () ; rotate (-PI/2) ;  text("SIMPLE", -posHeightRO +70, 18); popMatrix() ;
+  pushMatrix () ; rotate (-PI/2) ;  text("GROUP ONE", -posHeightRO +70, 20); popMatrix() ;
   fill (typoCourante) ;
   textFont(texteInterface);  textAlign(LEFT);
   
   // GROUP TWO
   textFont(FuturaStencil_20,20);  textAlign(RIGHT);
   fill(blanc, 120) ;
-  pushMatrix () ; rotate (-PI/2) ;  text("TEXTURE", -posHeightRT +70, 18); popMatrix() ;
+  pushMatrix () ; rotate (-PI/2) ;  text("GROUP TWO", -posHeightRT +70, 20); popMatrix() ;
   fill (typoCourante) ;
   textFont(texteInterface);  textAlign(LEFT);
   
   //GROUP THREE
   textFont(FuturaStencil_20,20); textAlign(RIGHT);
   fill(blanc, 120) ;
-  pushMatrix () ; rotate (-PI/2) ; text("TYPOGRAPHIE", -posHeightRTY +70, 18); popMatrix() ;
+  pushMatrix () ; rotate (-PI/2) ; text("GROUP THREE", -posHeightRTY +70, 20); popMatrix() ;
   fill (typoCourante) ;
   textFont(texteInterface); textAlign(LEFT);
   
   // Legend text slider position
   int correctionPos = 3 ;
-  for ( int i = 0 ; i < 8 ; i++) {
+  for ( int i = 0 ; i < sliderByColumn ; i++) {
     //group one
     text(objTxtGUIone[i+1], mgSliderc1 +116, posHeightRO +correctionPos +(i*10));
     text(objTxtGUItwo[i+1], mgSliderc2 +116, posHeightRO +correctionPos +(i*10));
@@ -467,13 +408,6 @@ void dislayTextSlider() {
     text(typoTxtGUItwo[i+1], mgSliderc2 +116,  posHeightRTY +correctionPos +(i*10));
     text(typoTxtGUIthree[i+1], mgSliderc3 +116,  posHeightRTY +correctionPos +(i*10));
   }
-  
-  // for information degre is value of rotation
-  /*
-  float degregroupOne = map (valueSlider[28],  0, 100, 0, 360 ) ;
-  float degregroupTwo = map (valueSlider[128],  0, 100, 0, 360 ) ;
-  float degregroupThree = map (valueSlider[228],  0, 100, 0, 360 ) ;
-  */
 }
 
 //END TEXT
@@ -674,7 +608,7 @@ void buttonDraw () {
 // DETAIL
 // GROUP ZERO
 void buttonDrawGroupZero() {
-    Bbeat.boutonTexte("BEAT",    posWidthBeat,  posHeightBeat  +6) ;
+  Bbeat.boutonTexte("BEAT",    posWidthBeat,  posHeightBeat  +6) ;
   Bkick.boutonTexte("KICK",    posWidthKick,  posHeightKick  +6) ;
   Bsnare.boutonTexte("SNARE",  posWidthSnare, posHeightSnare +6) ;
   Bhat.boutonTexte("HAT",      posWidthHat,   posHeightHat   +6) ;
@@ -687,7 +621,7 @@ void buttonDrawGroupZero() {
 }
 //GROUP ONE
 void buttonDrawGroupOne() {
-    for( int i = 1 ; i <= numObjectSimple ; i++ ) {
+    for( int i = 1 ; i <= numGroup[1] ; i++ ) {
     BOf[i*10 +1].boutonVignette(vignette_OFF_in_simple, vignette_OFF_out_simple, vignette_ON_in_simple, vignette_ON_out_simple, i) ; 
     BOf[i*10 +2].boutonCarre () ; 
     BOf[i*10 +3].boutonSonPetit () ; 
@@ -699,7 +633,7 @@ void buttonDrawGroupOne() {
 }
 // GROUP TWO
 void buttonDrawGroupTwo() {
-    for( int i = 1 ; i <= numObjectTexture ; i++ ) {
+    for( int i = 1 ; i <= numGroup[2] ; i++ ) {
     BTf[i*10 +1].boutonVignette(vignette_OFF_in_texture, vignette_OFF_out_texture, vignette_ON_in_texture, vignette_ON_out_texture, i) ; 
     BTf[i*10 +2].boutonCarre () ; 
     BTf[i*10 +3].boutonSonPetit () ; 
@@ -712,7 +646,7 @@ void buttonDrawGroupTwo() {
 
 //GROUP THREE
 void buttonDrawGroupThree() {
-    for( int i = 1 ; i <= numObjectTypography ; i++ ) {
+    for( int i = 1 ; i <= numGroup[3] ; i++ ) {
     BTYf[i*10 +1].boutonVignette(vignette_OFF_in_typography, vignette_OFF_out_typography, vignette_ON_in_typography, vignette_ON_out_typography, i) ; 
     BTYf[i*10 +2].boutonCarre () ; 
     BTYf[i*10 +3].boutonSonPetit () ; 
@@ -737,14 +671,15 @@ void buttonCheckDraw() {
 
 
   //Statement button, if are OFF or ON
-  for( int i = 11 ; i < 100 ; i++) {
-    //catch the statement of button object
-    EtatBOf[i] = BOf[i].getEtatBoutonCarre() ;
-    //catch the statement of button texture
-    EtatBTf[i] = BTf[i].getEtatBoutonCarre() ;
-    //catch the statement of button typography
-    EtatBTYf[i] = BTYf[i].getEtatBoutonCarre() ;
+  for(int i = 1 ; i < numGroupSlider ; i++) {
+    int num = numButton[i] +10 ;
+    for( int j = 11 ; j < num ; j++) {
+      if(numGroup[1] > 0 && i == 1 ) EtatBOf[j-10] = BOf[j].getEtatBoutonCarre() ;
+      if(numGroup[2] > 0 && i == 2 ) EtatBTf[j-10] = BTf[j].getEtatBoutonCarre() ;
+      if(numGroup[3] > 0 && i == 3 ) EtatBTYf[j-10] = BTYf[j].getEtatBoutonCarre() ;
+    }
   }
+
 }
 
 
@@ -754,30 +689,55 @@ void buttonCheckDraw() {
 //show image
 void rolloverVignette ( int posX, int posY , int hauteur, int largeur, int numero, int posXimage, int posYimage) {
   if (mouseX > posX && mouseX < (largeur + posX ) && mouseY > posY - 10 && mouseY <  (hauteur + posY) -20 ) { 
-      image(vignette[numero],posXimage , posYimage ) ;
-    }
+    image(vignette[numero],posXimage , posYimage ) ;
+  }
 }
 
 //show info
-void rolloverInfoVignette(PVector pos, PVector size, int IDname, int IDfamily) {
+void rolloverInfoVignette(PVector pos, PVector size, int IDorder, int IDfamily) {
   if (mouseX > pos.x && mouseX < (size.x + pos.x ) && mouseY > pos.y - 10 && mouseY <  (size.y + pos.y) -20 ) {
-    textSize(20 ) ;
-    textFont(FuturaStencil_20) ;
     PVector fontPos = new PVector(-10, -20 ) ;
-    if (IDfamily == 1 ) {
-      text(objectSimpleName[IDname -1], mouseX   +fontPos.x, mouseY +fontPos.y) ;
-      text(objectSimpleAuthor[IDname -1], mouseX +fontPos.x, mouseY +fontPos.y -20) ;
-    }
-    if (IDfamily == 2 ) {
-      text(objectTextureName[IDname -1], mouseX   +fontPos.x, mouseY +fontPos.y) ;
-      text(objectTextureAuthor[IDname -1], mouseX +fontPos.x, mouseY +fontPos.y -20) ;
-    }
-    if (IDfamily == 3 ) {
-      text(objectTypographyName[IDname -1], mouseX   +fontPos.x, mouseY +fontPos.y) ;
-      text(objectTypographyAuthor[IDname -1], mouseX +fontPos.x, mouseY +fontPos.y -20) ;
+    
+    for ( int i = 1 ; i<numGroupSlider ; i++) {
+      if (IDfamily == i && numGroup[i]>0 ) {
+        int rank = 0 ;
+        if ( IDfamily == 1 ) rank = IDorder ;
+        if ( IDfamily == 2 ) rank = IDorder +numGroup[1] ;
+        if ( IDfamily == 3 ) rank = IDorder +numGroup[1] +numGroup[2] ;  
+        lookAndDisplayInfo(rank, fontPos) ;
+      }
     }
   }
 }
+
+void lookAndDisplayInfo(int IDorder, PVector pos) {
+  int whichOne = 0 ;
+  int whichLine = 0 ;
+  int num = objectList.getRowCount() ;
+  for ( int j = 0 ; j < num ; j++) {
+    TableRow lookFor = objectList.getRow(j);
+    int ID = lookFor.getInt("ID") ;
+    if ( ID == IDorder ) {
+      whichOne = ID ;
+      whichLine = j ;
+    }
+  }
+  TableRow displayInfo = objectList.getRow(whichLine) ;
+  String NameObj = displayInfo.getString("Name") ;
+  String AuthorObj = displayInfo.getString("Author") ;
+  String VersionObj = displayInfo.getString("Version") ;
+  String PackObj = displayInfo.getString("Pack") ;    
+  textSize(20 ) ;
+  textFont(FuturaStencil_20) ;
+  text(NameObj, mouseX +pos.x, mouseY +pos.y -25) ;
+  textSize(15 ) ;
+  text(AuthorObj, mouseX +pos.x, mouseY +pos.y -10) ;
+  textSize(10 ) ;
+  text(VersionObj, mouseX +pos.x, mouseY +pos.y +0) ;
+  text(PackObj, mouseX +pos.x, mouseY +pos.y +10) ;
+}
+// END DISPLAY INFO OBJECT
+//////////////////////////
 
 
 //SLIDER COLOR
@@ -840,46 +800,24 @@ void fondRegletteDensite ( int posX, int posY, int hauteur, int largeur, float c
 
 
 
-//////////
-//DROPDOWN
-int startLoopObject = 1 ;   int endLoopObject = 10 ;
-int startLoopTexture = 21 ; int endLoopTexture = 28 ;
-int startLoopTypo = 41 ;    int endLoopTypo = 46 ;
-//GLOBAL
-Dropdown[] dropdown = new Dropdown[numButton] ;
-PVector posDropdown[] = new PVector[numButton] ;
-PVector sizeDropdownFont, sizeDropdownMode ;
-PVector posTextDropdown = new PVector( 2, 8 )  ;
-
-PVector totalSizeDropdown = new PVector (0,0) ;
-PVector newPosDropdown = new PVector (0,0) ;
-
-String [] modeListRomanesco ;
-String [] policeDropdownList ;
-String [] listDropdown ;
-
-float margeAroundDropdown ;
-
-
-//SETUP
 
 void dropdownSetup() {
   //load the external list  for each mode and split to read in the interface
-  //mode
-  String mode [] = loadStrings("setting/mode.txt") ;
-  String modeListGlobal = join(mode, "") ;
-  modeListRomanesco = split(modeListGlobal, "///") ; 
+  for (int i = 0 ; i<objectList.getRowCount() ; i++) {
+    TableRow row = objectList.getRow(i);
+    modeListRomanesco [row.getInt("ID")] = row.getString("Mode"); 
+  }
   //typography
-  String pList [] = loadStrings("setting/police.txt") ;
+  String pList [] = loadStrings(sketchPath("")+"preferences/Font/fontList.txt") ;
   String policeList = join(pList, "") ;
   policeDropdownList = split(policeList, "/") ;
   
   //FONT dropdown
   ///////////////
-  posDropdown[99] = new PVector(posButtonFont.x, posButtonFont.y, 0.1)  ; // x y is pos anz z is marge between the dropdown and the header
+  posDropdownFont = new PVector(posButtonFont.x, posButtonFont.y, 0.1)  ; // x y is pos anz z is marge between the dropdown and the header
   sizeDropdownFont = new PVector (75, 13, 15 ) ;
   PVector posTextDropdownTypo = new PVector( 3, 10 )  ;
-  dropdown[99] = new Dropdown(policeDropdownList,   posDropdown[99] , sizeDropdownFont, posTextDropdownTypo, colorBG, colorBoxIn, colorBoxOut, colorBoxText, texteInterface, sizeTexteInterface) ;
+  dropdownFont = new Dropdown("Font", policeDropdownList,   posDropdownFont , sizeDropdownFont, posTextDropdownTypo, colorBG, colorBoxIn, colorBoxOut, colorBoxText, texteInterface, sizeTexteInterface) ;
   
   
   
@@ -887,164 +825,124 @@ void dropdownSetup() {
   ///////////////
   //common param
   sizeDropdownMode = new PVector (20, 10, 9 ) ;
+  PVector newPos = new PVector( -8, 40 ) ;
   //object line
-  for ( int i = startLoopObject ; i < endLoopObject ; i ++ ) {
-    int space = ((i - startLoopObject +1) * 40) - 40 ;
-    //Split the dropdown to display in the dropdown
-    listDropdown = split(modeListRomanesco[i], "/" ) ;
-    //to change the title of the header dropdown
-    listDropdown[0] = "M"  ; 
-    
-    posDropdown[i] = new PVector(posWidthBO -8 + space, posHeightBO +43, 0.1)  ; // x y is pos anz z is marge between the dropdown and the header
-    dropdown[i] = new Dropdown(listDropdown,   posDropdown[i] , sizeDropdownMode, posTextDropdown, colorBG, colorBoxIn, colorBoxOut, colorBoxText, texteInterface, sizeTexteInterface) ;
-  }
+  checkTheDropdownSetupObject(startLoopObject, endLoopObject, posWidthBO +newPos.x, posHeightBO +newPos.y) ;
   //Texture line
-  for ( int i = startLoopTexture ; i < endLoopTexture ; i ++ ) {
-    int space = ((i - startLoopTexture +1) * 40) - 40 ;
-    //Split the dropdown to display in the dropdown
-    listDropdown = split(modeListRomanesco[i], "/" ) ;
-    //to change the title of the header dropdown
-    listDropdown[0] = "M"  ; 
-    
-    posDropdown[i] = new PVector(posWidthBT -8 + space, posHeightBT +43, 0.1)  ; // x y is pos anz z is marge between the dropdown and the header
-    dropdown[i] = new Dropdown(listDropdown,   posDropdown[i] , sizeDropdownMode, posTextDropdown, colorBG, colorBoxIn, colorBoxOut, colorBoxText, texteInterface, sizeTexteInterface) ;
-  }
+  checkTheDropdownSetupObject(startLoopTexture, endLoopTexture, posWidthBT +newPos.x, posHeightBT +newPos.y) ;
   //Typo line
-  for ( int i = startLoopTypo ; i < endLoopTypo ; i ++ ) {
-    int space = ((i - startLoopTypo +1) * 40) - 40 ;
-    //Split the dropdown to display in the dropdown
-    listDropdown = split(modeListRomanesco[i], "/" ) ;
-    //to change the title of the header dropdown
-    listDropdown[0] = "M"  ; 
-    
-    posDropdown[i] = new PVector(posWidthBTY -8 + space, posHeightBTY +43, 0.1)  ; // x y is pos anz z is marge between the dropdown and the header
-    dropdown[i] = new Dropdown(listDropdown,   posDropdown[i] , sizeDropdownMode, posTextDropdown, colorBG, colorBoxIn, colorBoxOut, colorBoxText, texteInterface, sizeTexteInterface) ;
-  }
-  
-
+  checkTheDropdownSetupObject(startLoopTypo, endLoopTypo, posWidthBTY +newPos.x, posHeightBTY +newPos.y) ;
 }
+
+void checkTheDropdownSetupObject( int start, int end, float posWidth, float posHeight) {
+  for ( int i = start ; i < end ; i ++ ) {
+    if(modeListRomanesco[i] != null ) {
+      int space = ((i - start +1) * 40) - 40 ;
+      //Split the dropdown to display in the dropdown
+      listDropdown = split(modeListRomanesco[i], "/" ) ;
+      //to change the title of the header dropdown
+
+      posDropdown[i] = new PVector(posWidth +space, posHeight , 0.1)  ; // x y is pos anz z is marge between the dropdown and the header
+      dropdown[i] = new Dropdown("M", listDropdown, posDropdown[i], sizeDropdownMode, posTextDropdown, colorBG, colorBoxIn, colorBoxOut, colorBoxText, texteInterface, sizeTexteInterface) ;
+    }
+  }
+}
+
+
+
+
+
+
+
+
 //DRAW
 void dropdownDraw() {
+    ////////////////
+  //MODE dropdown
+  // group one
+  checkTheDropdownDrawObject(startLoopObject, endLoopObject) ;
+  // group two
+  checkTheDropdownDrawObject(startLoopTexture, endLoopTexture) ;
+  // group three
+  checkTheDropdownDrawObject( startLoopTypo, endLoopTypo) ;
+  
+  
+  ////////////////
   //FONT dropdown
-  dropdown[99].dropdownUpdate();
+  dropdownFont.dropdownUpdate();
   margeAroundDropdown = sizeDropdownFont.y  ;
   //give the size of menu recalculate with the size of the word inside
-  PVector newSizeFont = dropdown[99].sizeDropdownMenu() ;
+  PVector newSizeFont = dropdownFont.sizeDropdownMenu() ;
   totalSizeDropdown = new PVector ( newSizeFont.x + (margeAroundDropdown *1.5) , sizeDropdownFont.y * (sizeDropdownFont.z +1)  + margeAroundDropdown   ) ; // we must add +1 to the size of the dropdown for the title plus the item list
   //new pos to include the slider
-  newPosDropdown = new PVector ( posDropdown[99].x - margeAroundDropdown  , posDropdown[99].y ) ;
-  // println( posModeDropdown[i].y) ;
-  if ( !insideRect(newPosDropdown, totalSizeDropdown) ) dropdown[99].locked = false;
+  newPosDropdown = new PVector ( posDropdownFont.x - margeAroundDropdown  , posDropdownFont.y ) ;
+  if ( !insideRect(newPosDropdown, totalSizeDropdown) ) dropdownFont.locked = false;
   //give the value for sending to Scène and save
-  saveR [7] = byte(dropdown[99].getSelection() +1 ) ;
-
-  
-  //MODE dropdown
-  //object line
-  for ( int i = startLoopObject ; i < endLoopObject ; i ++ ) {
-    String m [] = split(modeListRomanesco[i], "/") ;
-    if ( m.length > 1) {
-      dropdown[i].dropdownUpdate();
-      margeAroundDropdown = sizeDropdownMode.y  ;
-      //give the size of menu recalculate with the size of the word inside
-      PVector newSizeModeObj = dropdown[i].sizeDropdownMenu() ;
-      totalSizeDropdown = new PVector ( newSizeModeObj.x + (margeAroundDropdown *1.5) , sizeDropdownMode.y * (sizeDropdownMode.z +1)  + margeAroundDropdown   ) ; // we must add +1 to the size of the dropdown for the title plus the item list
-      //new pos to include the slider
-      newPosDropdown = new PVector ( posDropdown[i].x - margeAroundDropdown  , posDropdown[i].y ) ;
-      // println( posModeDropdown[i].y) ;
-      if ( !insideRect(newPosDropdown, totalSizeDropdown) ) dropdown[i].locked = false;
-    }
-    if (dropdown[i].getSelection() > -1 && m.length > 2 ) text( (dropdown[i].getSelection() +1), posDropdown[i].x +12 , posDropdown[i].y +8) ;
-  }
-  
-  //texture line
-  for ( int i = startLoopTexture ; i < endLoopTexture ; i ++ ) {
-    String m [] = split(modeListRomanesco[i], "/") ;
-    if ( m.length > 1) {
-      dropdown[i].dropdownUpdate();
-      margeAroundDropdown = sizeDropdownMode.y  ;
-      //give the size of menu recalculate with the size of the word inside
-      PVector newSizeModeTexture = dropdown[i].sizeDropdownMenu() ;
-      totalSizeDropdown = new PVector ( newSizeModeTexture.x + (margeAroundDropdown *1.5) , sizeDropdownMode.y * (sizeDropdownMode.z +1)  + margeAroundDropdown   ) ; // we must add +1 to the size of the dropdown for the title plus the item list
-      //new pos to include the slider
-      newPosDropdown = new PVector ( posDropdown[i].x - margeAroundDropdown  , posDropdown[i].y ) ;
-      // println( posModeDropdown[i].y) ;
-      if ( !insideRect(newPosDropdown, totalSizeDropdown) ) dropdown[i].locked = false;
-    }
-    if (dropdown[i].getSelection() > -1 && m.length > 2 ) text( (dropdown[i].getSelection() +1), posDropdown[i].x +12 , posDropdown[i].y +8) ;
-  }
-  
-  //typo line
-  for ( int i = startLoopTypo ; i < endLoopTypo ; i ++ ) {
-    String m [] = split(modeListRomanesco[i], "/") ;
-    if ( m.length > 1) {
-      dropdown[i].dropdownUpdate();
-      margeAroundDropdown = sizeDropdownMode.y  ;
-      //give the size of menu recalculate with the size of the word inside
-      PVector newSizeModeTypo = dropdown[i].sizeDropdownMenu() ;
-      totalSizeDropdown = new PVector ( newSizeModeTypo.x + (margeAroundDropdown *1.5) , sizeDropdownMode.y * (sizeDropdownMode.z +1)  + margeAroundDropdown   ) ; // we must add +1 to the size of the dropdown for the title plus the item list
-      //new pos to include the slider
-      newPosDropdown = new PVector ( posDropdown[i].x - margeAroundDropdown  , posDropdown[i].y ) ;
-      if ( !insideRect(newPosDropdown, totalSizeDropdown) ) dropdown[i].locked = false;
-    }
-    if (dropdown[i].getSelection() > -1 && m.length > 2 ) text( (dropdown[i].getSelection() +1), posDropdown[i].x +12 , posDropdown[i].y +8) ;
-  }
+  saveR [7] = byte(dropdownFont.getSelection() +1 ) ;
+  // END FONT dropdown
+  ////////////////////
+ 
 }
 
-//END DROPDOWN
+void checkTheDropdownDrawObject( int start, int end ) {
+  for ( int i = start ; i < end ; i ++ ) {
+    if(modeListRomanesco[i] != null ) {
+      String m [] = split(modeListRomanesco[i], "/") ;
+      if ( m.length > 1) {
+        dropdown[i].dropdownUpdate();
+        margeAroundDropdown = sizeDropdownMode.y  ;
+        //give the size of menu recalculate with the size of the word inside
+        PVector newSizeModeTypo = dropdown[i].sizeDropdownMenu() ;
+        totalSizeDropdown = new PVector ( newSizeModeTypo.x + (margeAroundDropdown *1.5) , sizeDropdownMode.y * (sizeDropdownMode.z +1)  + margeAroundDropdown   ) ; // we must add +1 to the size of the dropdown for the title plus the item list
+         //new pos to include the slider
+        newPosDropdown = new PVector ( posDropdown[i].x - margeAroundDropdown  , posDropdown[i].y ) ;
+        if ( !insideRect(newPosDropdown, totalSizeDropdown) ) {
+          dropdown[i].locked = false;
+        }
+      }
+      if (dropdown[i].getSelection() > -1 && m.length > 1 ) {
+        text(dropdown[i].getSelection() +1, posDropdown[i].x +12 , posDropdown[i].y +8) ;
+      }
+    }
+  }
+}
+//END DROPDOWN DRAW
+
+
+
 //MOUSEPRESSED
 void dropdownMousepressed() {
-  //typographie dropdown
-  if (dropdown[99] != null) {
-    if (insideRect(posDropdown[99], sizeDropdownFont) && !dropdown[99].locked  ) {
-      dropdown[99].locked = true;
-    } else if (dropdown[99].locked) {
-      int line = dropdown[99].selectDropdownLine();
+  //FONT dropdown
+  if (dropdownFont != null) {
+    if (insideRect(posDropdownFont, sizeDropdownFont) && !dropdownFont.locked  ) {
+      dropdownFont.locked = true;
+    } else if (dropdownFont.locked) {
+      float newWidthDropdown = dropdownFont.sizeDropdownMenu().x ;
+      int line = dropdownFont.selectDropdownLine(newWidthDropdown);
       if (line > -1 ) {
-        dropdown[99].whichDropdownLine(line);
+        dropdownFont.whichDropdownLine(line);
         //to close the dropdown
-        dropdown[99].locked = false;        
+        dropdownFont.locked = false;        
       } 
     }
   }
-  
-  //line object
-  for ( int i = startLoopObject ; i < endLoopObject ; i ++ ) { 
+  // group One
+  checkTheDropdownObjectMousepressed(startLoopObject, endLoopObject ) ;
+  // group Two
+  checkTheDropdownObjectMousepressed(startLoopTexture, endLoopTexture ) ;
+  //group one
+  checkTheDropdownObjectMousepressed(startLoopTypo, endLoopTypo ) ;
+}
+
+
+void checkTheDropdownObjectMousepressed( int start, int end ) {
+  for ( int i = start ; i < end ; i ++ ) { 
     if (dropdown[i] != null) {
       if (insideRect(posDropdown[i], sizeDropdownMode) && !dropdown[i].locked  ) {
         dropdown[i].locked = true;
       } else if (dropdown[i].locked) {
-        int line = dropdown[i].selectDropdownLine();
-        if (line > -1 ) {
-          dropdown[i].whichDropdownLine(line);
-          //to close the dropdown
-          dropdown[i].locked = false;        
-        } 
-      }
-    }
-  }
-  //texture object
-  for ( int i = startLoopTexture ; i < endLoopTexture ; i ++ ) { 
-    if (dropdown[i] != null) {
-      if (insideRect(posDropdown[i], sizeDropdownMode) && !dropdown[i].locked  ) {
-        dropdown[i].locked = true;
-      } else if (dropdown[i].locked) {
-        int line = dropdown[i].selectDropdownLine();
-        if (line > -1 ) {
-          dropdown[i].whichDropdownLine(line);
-          //to close the dropdown
-          dropdown[i].locked = false;        
-        } 
-      }
-    }
-  }
-  //typo object
-  for ( int i = startLoopTypo ; i < endLoopTypo ; i ++ ) { 
-    if (dropdown[i] != null) {
-      if (insideRect(posDropdown[i], sizeDropdownMode) && !dropdown[i].locked  ) {
-        dropdown[i].locked = true;
-      } else if (dropdown[i].locked) {
-        int line = dropdown[i].selectDropdownLine();
+        float newWidthDropdown = dropdown[i].sizeDropdownMenu().x ;
+        int line = dropdown[i].selectDropdownLine(newWidthDropdown);
         if (line > -1 ) {
           dropdown[i].whichDropdownLine(line);
           //to close the dropdown

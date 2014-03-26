@@ -1,158 +1,32 @@
-//Special var for the Scene and the Miroir
-PVector mouseCamera, pmouseCamera, mouseSuperRomanesco, pmouseSuperRomanesco ;
-
-//SETUP
+// CLASS ROMANESCO MANAGER
 void romanescoSetup() {
-  romanescoOneSetup() ;       romanescoTwoSetup() ;        romanescoThreeSetup() ;       romanescoFourSetup() ;       romanescoFiveSetup() ;       romanescoSixSetup() ;       romanescoSevenSetup() ; romanescoHeightSetup() ; romanescoNineSetup() ;
-  romanescoTwentyOneSetup() ; romanescoTwentyTwoSetup() ;  romanescoTwentyThreeSetup() ; romanescoTwentyFourSetup() ; romanescoTwentyFiveSetup() ; romanescoTwentySixSetup() ; romanescoTwentySevenSetup() ;
-  romanescoFortyOneSetup() ;  romanescoFortyTwoSetup() ;   romanescoFortyThreeSetup() ;  romanescoFortyFourSetup() ;  romanescoFortyFiveSetup() ;
+  romanescoManager = new ObjectRomanescoManager(this);
+  romanescoManager.addObjectRomanesco() ;
+  romanescoManager.finishTheIndex() ;
+}
+
+
+//Update the var of the object
+void updateObject(int ID, int group) {
+  //initialization
+  if(!initValueMouse[ID]) { 
+    mouse[ID] = mouse[0] ;
+    initValueMouse[ID] = true ;
+  }
+  if(!initValueSlider[ID]) {
+    updateParameter(ID,group ) ;
+    initValueSlider[ID] = true ;
+  }
   
-  //init the tablet and the mouse
-  for ( int i = 0 ; i < numObj + 1 ; i++ ) {
-    pen[i] = new PVector (1,1,1) ;
-    mouse[i] = new PVector (0,0,0) ;
-    pmouse[i] = new PVector (0,0,0) ;
-    motion[i] = true ;
-    startingPosition[i] = true ;
-    startingPos[i] = new PVector(0,0,0) ;
-    pathFontObjTTF[i] = pathFontTTF[0] ;
-    
+  if(parameter[ID] ) {
+    updateParameter(ID,group ) ;
   }
-  //init the mouse Reference
-  pmouse[0] = new PVector (0,0,0) ;
-  mouse[0] = new PVector (0,0,0) ;
-  mouseSuperRomanesco = new PVector(0,0,0) ;
-  mouseCamera = new PVector(0,0,0) ;
-  pmouseSuperRomanesco = new PVector(0,0,0) ;
-  pmouseCamera = new PVector(0,0,0) ;
-}
-
-
-//DRAW
-void romanescoDraw() {
-  if (eCurtain != 1) {
-    //MODEL
-      //YOUR NUMBER
-      /*
-    if ( mainButton[9] == 1 ) {
-      if ( getFamillyRomanescoNine() == 1 ) dataControler = dataControlerObj ; 
-      if ( getFamillyRomanescoNine() == 2 ) dataControler = dataControlerTrame ; 
-      if ( getFamillyRomanescoNine() == 3 ) dataControler = dataControlerTypo ;
-      romanescoNineDraw(dataControler, dataSoundGlobal) ;
-    }
-    */
-    //call the data from contrôleur
-    romanescoData() ;
-    //check if the object is ON or OFF
-    //  ONE
-    if ( mainButton[1] == 1 ) {
-      if ( getFamillyRomanescoOne() == 1 ) dataControler = dataControlerObj ; 
-      romanescoOneDraw(dataControler, dataSoundGlobal) ;
-    }  
-    //  TWO
-    if ( mainButton[2] == 1 ) {
-      if ( getFamillyRomanescoTwo() == 1 ) dataControler = dataControlerObj ; 
-      romanescoTwoDraw(dataControler, dataSoundGlobal) ;
-    }
-    // THREE
-    if ( mainButton[3] == 1 ) {
-      if ( getFamillyRomanescoThree() == 1 ) dataControler = dataControlerObj ; 
-      romanescoThreeDraw(dataControler, dataSoundGlobal) ;
-    }
-    //  FOUR
-    if ( mainButton[4] == 1 ) {
-      if ( getFamillyRomanescoFour() == 1 ) dataControler = dataControlerObj ; 
-      romanescoFourDraw(dataControler, dataSoundGlobal) ;
-    }
-    //  FIVE
-    if ( mainButton[5] == 1 ) {
-      if ( getFamillyRomanescoFive() == 1 ) dataControler = dataControlerObj ; 
-      romanescoFiveDraw(dataControler, dataSoundGlobal) ;
-    }
-    // SIX
-    if ( mainButton[6] == 1 ) {
-      if ( getFamillyRomanescoSix() == 1 ) dataControler = dataControlerObj ; 
-      romanescoSixDraw(dataControler, dataSoundGlobal) ;
-    }
-      // SEVEN
-    if ( mainButton[7] == 1 ) {
-      if ( getFamillyRomanescoSeven() == 1 ) dataControler = dataControlerObj ; 
-      romanescoSevenDraw(dataControler, dataSoundGlobal) ;
-    }
-    // HEIGHT
-    if ( mainButton[8] == 1 ) {
-      if ( getFamillyRomanescoHeight() == 1 ) dataControler = dataControlerObj ; 
-      romanescoHeightDraw(dataControler, dataSoundGlobal) ;
-    }
-    //Nine
-    if ( mainButton[9] == 1 ) {
-      if ( getFamillyRomanescoNine() == 1 ) dataControler = dataControlerObj ; 
-      romanescoNineDraw(dataControler, dataSoundGlobal) ;
-    }
-    
-    //TEXTURE familly is  2
-    //TWENTY ONE
-    if ( mainButton[21] == 1 ) {
-      if ( getFamillyRomanescoTwentyOne() == 2 ) dataControler = dataControlerTrame ; 
-      romanescoTwentyOneDraw(dataControler, dataSoundGlobal) ;
-    }
-      //TWENTY TWO
-    if ( mainButton[22] == 1 ) {
-      if ( getFamillyRomanescoTwentyTwo() == 2 ) dataControler = dataControlerTrame ; 
-      romanescoTwentyTwoDraw(dataControler, dataSoundGlobal) ;
-    }
-    //TWENTY THREE
-    if ( mainButton[23] == 1 ) {
-      if ( getFamillyRomanescoTwentyThree() == 2 ) dataControler = dataControlerTrame ; 
-      romanescoTwentyThreeDraw(dataControler, dataSoundGlobal) ;
-    }
-    //TWENTY FOUR
-    if ( mainButton[24] == 1 ) {
-      if ( getFamillyRomanescoTwentyFour() == 2 ) dataControler = dataControlerTrame ; 
-      romanescoTwentyFourDraw(dataControler, dataSoundGlobal) ;
-    }
-    //TWENTY FIVE
-    if ( mainButton[25] == 1 ) {
-      if ( getFamillyRomanescoTwentyFive() == 2 ) dataControler = dataControlerTrame ; 
-      romanescoTwentyFiveDraw(dataControler, dataSoundGlobal) ;
-    }
-    //TWENTY SIX
-    if ( mainButton[26] == 1 ) {
-      if ( getFamillyRomanescoTwentySix() == 2 ) dataControler = dataControlerTrame ; 
-      romanescoTwentySixDraw(dataControler, dataSoundGlobal) ;
-    }
-    //TWENTY SEVEN
-    if ( mainButton[27] == 1 ) {
-      if ( getFamillyRomanescoTwentySeven() == 2 ) dataControler = dataControlerTrame ; 
-      romanescoTwentySevenDraw(dataControler, dataSoundGlobal) ;
-    }
-    
-    //TYPO
-    //FORTY ONE
-    if ( mainButton[41] == 1 ) {
-      if ( getFamillyRomanescoFortyOne() == 3 ) dataControler = dataControlerTypo ;
-      romanescoFortyOneDraw(dataControler, dataSoundGlobal) ;
-    }
-    //FORTY TWO
-    if ( mainButton[42] == 1 ) {
-      if ( getFamillyRomanescoFortyTwo() == 3 ) dataControler = dataControlerTypo ;
-      romanescoFortyTwoDraw(dataControler, dataSoundGlobal) ;
-    }
-    //FORTY THREE
-    if ( mainButton[43] == 1 ) {
-      if ( getFamillyRomanescoFortyThree() == 3 ) dataControler = dataControlerTypo ;
-      romanescoFortyThreeDraw(dataControler, dataSoundGlobal) ;
-    }
-    //FORTY FOUR
-    if ( mainButton[44] == 1 ) {
-      if ( getFamillyRomanescoFortyFour() == 3 ) dataControler = dataControlerTypo ;
-      romanescoFortyFourDraw(dataControler, dataSoundGlobal) ;
-    }
-    //FORTY FIVE
-    if ( mainButton[45] == 1 ) {
-      if ( getFamillyRomanescoFortyFive() == 3 ) dataControler = dataControlerTypo ;
-      romanescoFortyFiveDraw(dataControler, dataSoundGlobal) ;
-    }
+  updateSound(ID) ;
+  
+  if(action[ID] ){
+    if(spaceTouch) mouse[ID] = mouse[0] ;  else mouse[ID] = mouseSuperRomanesco ;
+    if( mTouch ) motion[ID] = !motion[ID] ;
+    if (hTouch) horizon[ID] = !horizon[ID] ;
   }
 
 }
@@ -160,54 +34,283 @@ void romanescoDraw() {
 
 
 
-////////////
-//EMPTY LIST
-boolean romanescoEmptyList(int ID) {
+//
+void updateParameter(int ID, int group) {
+  for ( int i = 0 ; i <= numGroup ; i++) if( group == i ) {
+    int whichOne = i-1 ;
+    fillObj[ID] = fillRaw[whichOne] ;
+    strokeObj[ID] = strokeRaw[whichOne] ;
+    thicknessObj[ID] = thicknessRaw[whichOne] ;
+    sizeXObj[ID] = sizeXRaw[whichOne] ; 
+    sizeYObj[ID] = sizeYRaw[whichOne] ; 
+    sizeZObj[ID] = sizeZRaw[whichOne] ;
+    canvasXObj[ID] = canvasXRaw[whichOne] ; 
+    canvasYObj[ID] = canvasYRaw[whichOne] ; 
+    canvasZObj[ID] = canvasZRaw[whichOne] ;
+    quantityObj[ID] = quantityRaw[whichOne] ;
+    //column 3
+    speedObj[ID] = speedRaw[whichOne] ;
+    directionObj[ID] = directionRaw[whichOne] ;
+    angleObj[ID] = angleRaw[whichOne] ;
+    amplitudeObj[ID] = amplitudeRaw[whichOne] ;
+    analyzeObj[ID] = analyzeRaw[whichOne] ; 
+    familyObj[ID] = familyRaw[whichOne] ;
+    lifeObj[ID] = lifeRaw[whichOne] ;
+    forceObj[ID] = forceRaw[whichOne] ;
+  }
+}
+//
+void updateSound(int ID) {
+  if(sound[ID]) {
+    left[ID]  = left[0] ;// value(0,1)
+    right[ID] = right[0] ;//float value(0,1)
+    mix[ID]  = mix[0] ;//   is average volume between the left and the right / float value(0,1)
+    
+    beat[ID] = beat[0] ;//    is beat : value 1,10 
+    kick[ID] = kick[0] ;//   is beat kick : value 1,10 
+    snare[ID] = snare [0] ;//   is beat snare : value 1,10 
+    hat[ID]  = hat[0] ;//   is beat hat : value 1,10 
+
+    tempo[ID]   = tempo[0] ;     // global speed of track  / float value(0,1)
+    tempoBeat[ID] = tempoBeat[0] ;  // speed of track calculate on the beat
+    tempoKick[ID] = tempoKick[0] ; // speed of track calculate on the kick
+    tempoSnare[ID] = tempoSnare[0] ;// speed of track calculate on the snare
+    tempoHat[ID] = tempoHat[0] ;// speed of track calculte on the hat
+    
+    for (int i = 0 ; i <numBand ; i++) {
+      band[ID][i] = band[0][i] ;
+    }
+  } else {
+    left[ID]  = 1 ;// value(0,1)
+    right[ID] = 1 ;//float value(0,1)
+    mix[ID]  = 1 ;//   is average volume between the left and the right / float value(0,1)
+    
+    beat[ID] = 1 ;//    is beat : value 1,10 
+    kick[ID] = 1 ;//   is beat kick : value 1,10 
+    snare[ID] = 1 ;//   is beat snare : value 1,10 
+    hat[ID]  = 1 ;//   is beat hat : value 1,10 
+    
+    tempo[ID]   = 1 ;     // global speed of track  / float value(0,1)
+    tempoBeat[ID] = 1 ;  // speed of track calculate on the beat
+    tempoKick[ID] = 1 ; // speed of track calculate on the kick
+    tempoSnare[ID] = 1 ;// speed of track calculate on the snare
+    tempoHat[ID] = 1 ;// speed of track calculte on the hat
+    
+    for (int i = 0 ; i <numBand ; i++) {
+      band[ID][i] = 1 ;
+    }
+  }
+}
+
+
+//Clear the list
+boolean emptyList(int ID) {
   boolean e = false ;
   //global delete
   if (backspaceTouch) e = true ;
   //SPECIFIC DELETE when the paramer button of contrôleur is ON
-  else if (deleteTouch) if ( actionButton[ID] == 1 ) e = true ;
+  else if (deleteTouch) if ( action[ID]) e = true ;
   return e ;
 }
-//END EMPTY LIST
-///////////////
+///////////////////////////////////////
 
 
 
-//ROMANESCO DATA
 
-
-//data from controleur
-String [] dataGlobal = new String [numSliderGroupZero] ;
-String [] dataControlerObj = new String [numSliderMaxForTheObject +1] ;
-String [] dataControlerTrame = new String [numSliderMaxForTheObject +1] ;
-String [] dataControlerTypo = new String [numSliderMaxForTheObject +1] ;
-String [] dataControler = new String [numSliderMaxForTheObject +1] ;
-//data from minim
-String [] dataSoundGlobal = new String [26] ;
-
-//
-void romanescoData() {
-  // collecting value from controler and put in the specific familly String to send to each classes
-  for ( int i = 1 ; i < numSliderGroupZero ; i ++ ) {
-    dataGlobal [i] = Float.toString(valueSliderGlobal[i]) ;
-  }
-  for ( int i = 0 ; i < numSliderMaxForTheObject ; i ++ ) {
-    dataControlerObj   [i +1] = Float.toString(valueSliderObj[i]) ;
-    dataControlerTrame [i +1] = Float.toString(valueSliderTex[i]) ;
-    dataControlerTypo  [i +1] = Float.toString(valueSliderTypo[i]) ;
-  }
-  //convert minim info
-  dataSoundGlobal[0] = Float.toString(gauche[0]) ;
-  dataSoundGlobal[1] = Float.toString(droite[0]) ;
-  dataSoundGlobal[2] = Float.toString(mix[0]) ;
-  dataSoundGlobal[3] = Float.toString(getBeat(beatOnOff)) ;
-  dataSoundGlobal[4] = Float.toString(getKick(kickOnOff)) ;
-  dataSoundGlobal[5] = Float.toString(getSnare(snareOnOff)) ;
-  dataSoundGlobal[6] = Float.toString(getHat(hatOnOff)) ;
+//CLASS
+// inspired from Andreas Gysin work from The Abyss Project
+class ObjectRomanescoManager {
+  private ArrayList<SuperRomanesco>RomanescoList ;
+  private ArrayList<Class>objectRomanescoList;
   
-  for (int i = 0 ; i < numBand ; i++) {
-    dataSoundGlobal[10 + i] = Float.toString(bandSprectrum[i]) ;
+  PApplet parent;
+  String objectNameRomanesco [] ;
+  String classRomanescoName [] ;
+  int numClasses ;
+  
+  ObjectRomanescoManager(PApplet parent) {
+    this.parent = parent;
+    RomanescoList = new ArrayList<SuperRomanesco>() ;
+    //scan the existant classes
+    objectRomanescoList = scanClasses(parent, "SuperRomanesco");
   }
+  
+  //STEP ONE
+  //ADD CLASSES
+  private ArrayList<Class> scanClasses(PApplet parent, String superClassName) {
+    ArrayList<Class> classes = new ArrayList<Class>();
+
+    Class[] c = parent.getClass().getDeclaredClasses();
+    
+    //create the index table
+    for (int i=0; i<c.length; i++) {
+      if (c[i].getSuperclass() != null && c[i].getSuperclass().getSimpleName().equals(superClassName) ) {
+        classes.add(c[i]);
+        numClasses = classes.size() ;
+      }
+    }
+    createIndex(numClasses) ;
+    
+    //init the String info
+    objectNameRomanesco = new String[numClasses] ;
+    for ( int i =0 ; i <objectNameRomanesco.length ; i++) objectNameRomanesco[i] =("") ;
+    
+    //add class in Romanesco, plus add info in the String for the index
+    int numObjectRomanesco = 0 ;
+    for (int i=0; i<c.length; i++) {
+      if (c[i].getSuperclass() != null && c[i].getSuperclass().getSimpleName().equals(superClassName) ) {
+        objectNameRomanesco[numObjectRomanesco] = c[i].getSimpleName() ;
+        numObjectRomanesco += 1 ;
+      }
+    }
+    writeIndex() ;
+    
+    return classes;  
+  }
+  //END ADD CLASSES
+  /////////////////
+  
+  
+  
+  /////////////////////////////////////////////
+  //CREATE an index.csv for the objects classes
+  String pathObjects = sketchPath("")+"preferences/objects/" ;
+  
+  //create the canvas index
+  void createIndex(int num) {
+    indexObjects = new Table() ;
+    indexObjects.addColumn("Library Order") ;
+    indexObjects.addColumn("Name") ;
+    indexObjects.addColumn("ID") ;
+    indexObjects.addColumn("Group") ;
+    indexObjects.addColumn("Version") ;
+    indexObjects.addColumn("Author") ;
+    indexObjects.addColumn("Class name") ;
+    indexObjects.addColumn("Pack") ;
+    indexObjects.addColumn("Render") ;
+    indexObjects.addColumn("Mode") ;
+    
+    // numObj = num +1 ;
+    objectName = new String[num +1] ;
+    objectID = new int[num +1] ;
+    
+    // add row
+    rowIndexObject = new TableRow [num] ;
+    for(int i = 0 ; i < rowIndexObject.length ; i++) {
+      rowIndexObject[i] = indexObjects.addRow() ;
+    }
+  }
+  
+  // put information in the index
+  void writeIndex() {
+    for(int i = 0 ; i < rowIndexObject.length ; i++) {
+      rowIndexObject[i].setString("Class name", objectNameRomanesco[i]) ;
+      rowIndexObject[i].setInt("Library Order", i+1) ;
+    }
+  }
+  
+  //external void
+  void finishTheIndex() {
+      // catch the different parameter from object class Romanesco
+    for (int i=0 ; i < RomanescoList.size() ; i++ ) {
+      SuperRomanesco objR = (SuperRomanesco) RomanescoList.get(i) ;
+      rowIndexObject[i].setString("Name", objR.romanescoName) ;
+      rowIndexObject[i].setInt("ID", objR.IDobj) ;
+      rowIndexObject[i].setInt("Group", objR.IDgroup) ;
+      rowIndexObject[i].setString("Author", objR.romanescoAuthor) ;
+      rowIndexObject[i].setString("Version", objR.romanescoVersion) ;
+      rowIndexObject[i].setString("Render", objR.romanescoRender) ;
+      rowIndexObject[i].setString("Pack", objR.romanescoPack) ;
+      rowIndexObject[i].setString("Mode", objR.romanescoMode) ;
+    }
+    saveTable(indexObjects, pathObjects+"index_romanesco_objects.csv") ; 
+  }
+    
+  
+  //END of the INDEX
+  //////////////////
+  
+  
+  
+  
+  
+  
+  
+  /////////////////////////////////
+  //ADD OBJECT from the sub-classes
+  void addObjectRomanesco() {
+    int n = floor(objectRomanescoList.size()-1) ;
+    for( int i = 0 ; i <= n ; i++) {
+    addObject(i) ;
+    }
+  }
+  //
+  public SuperRomanesco addObject(int i) {
+    if (i < 0 || i >= objectRomanescoList.size()) return null;
+    
+    SuperRomanesco f = null;
+    try {
+      Class c = objectRomanescoList.get(i);
+      Constructor[] constructors = c.getConstructors();
+      f = (SuperRomanesco) constructors[0].newInstance(parent);
+    }
+    catch (InvocationTargetException e) {
+      System.out.println(e);
+    } 
+    catch (InstantiationException e) {
+      System.out.println(e);
+    } 
+    catch (IllegalAccessException e) {
+      System.out.println(e);
+    } 
+    //add object 
+    if (f != null) {
+      addObject(f);
+    }
+    return f;
+  }
+  
+  // finalization of adding object
+  private void addObject(SuperRomanesco objR) {
+    objR.setManagerReference(this);
+    RomanescoList.add(objR);
+  }
+  //END ADD OBJECT
+  ////////////////
+  
+  
+  
+  ////////
+  //SETUP
+  // INIT ROMANESCO OBJECT
+  void initObj() {
+    for (SuperRomanesco objR : RomanescoList) {
+      motion[objR.IDobj] = true ;
+      initValueMouse [objR.IDobj] = true ;
+      objR.setting() ;
+    }
+  }
+  // END SETUP
+  ////////////
+  
+  
+  
+  ////////
+  // DRAW
+  void displayObject() {
+    for (SuperRomanesco objR : RomanescoList) {
+      if (object[objR.IDobj]) {
+        updateObject(objR.IDobj, objR.IDgroup) ;
+        pushMatrix() ;
+        //addRefObj(objR.IDobj) ;
+        if(vLongTouch && action[objR.IDobj] ) P3Dmanipulation(objR.IDobj) ;
+        P3DmoveObj(objR.IDobj) ;
+        objR.display() ;
+        popMatrix() ;
+      }
+    }
+  }
+  // END DRAW
+  //////////
 }
+//END OBJECT ROMANESCO MANAGER

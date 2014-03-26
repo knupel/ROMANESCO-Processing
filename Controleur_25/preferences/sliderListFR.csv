@@ -1,11 +1,11 @@
-Slider Name,Column 1,Column 2,Column 3,Column 4,Column 5,Column 6,Column 7,Column 8,Column 9,Column 10,Column 11,Column 12,Column 13
-général,Couleur,Saturation,Densité,Opacité,Son gauche,Son droite,TYPOGRAPHIE,RIDEAU,Couleur,Saturation,Densité,Couleur Ambiance
-Object 1,Couleur,Saturation,Densité,Opacité,Couleur,Saturation,Densité,Opacité,,,,,
-Object 2,Hauteur,Largeur,Épaisseur,Quantité,Durée,Vitesse,Amplitude,Orientation,,,,,
-Object 3,,,,Courbe,Attraction,Force,Famille,Angle,,,,,
-Texture 1,Couleur,Saturation,Densité,Opacité,Couleur,Saturation,Densité,Opacité,,,,,
-Texture 2,Hauteur,Largeur,Épaisseur,Quantité,Durée,Vitesse,Amplitude,Orientation,,,,,
-Texture 3,,,,,,Force,,Analyse,,,,,
-Typography 1,Couleur,Saturation,Densité,Opacité,,,,,,,,,
-Typography 2,Hauteur,Largeur,Épaisseur,,,Vitesse,Amplitude,Orientation,,,,,
-Typography 3,,,,,,,,Corps,,,,,
+Slider Name,Column 1,Column 2,Column 3,Column 4,Column 5,Column 6,Column 7,Column 8,Column 9,Column 10,Column 11,Column 12,Column 13,Column 14,Column 15
+général,Hue,Saturation,Brigthness,Refresh,Left,Rigth,TYPOGRAPHY,CURTAIN,Hue,Saturation,Brightness,Hue,Saturation,Brightness
+group 1 1,Hue,Saturation,Brigthness,Opacity,Hue,Saturation,Brigthness,Opacity,,,,,
+group 1 2,Thickness,Width,Height,Depth,Canvas X,Canvas Y,Canvas Z,Quantity,
+group 1 3,Speed,Direction,Angle,Amplitude,Analyze,Family,Life,Force,
+group 2 1,Hue,Saturation,Brigthness,Opacity,Hue,Saturation,Density,Opacity,,,,,
+group 2 2,Thickness,Width,Height,Depth,Canvas X,Canvas Y,Canvas Z,Quantity,
+group 2 3,Speed,Direction,Angle,Amplitude,Analyze,Family,Life,Force,
+group 3 1,Hue,Saturation,Brigthness,Opacity,,,,,,,,,
+group 3 2,Thickness,Width,Height,Depth,Canvas X,Canvas Y,Canvas Z,Quantity,
+group 3 3,Speed,Direction,Angle,Amplitude,Analyze,Family,Life,Force,

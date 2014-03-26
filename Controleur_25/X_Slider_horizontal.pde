@@ -33,18 +33,20 @@ class RegletteHorizontale
   //DISPLAY MOLETTE
   void displayMolette(color cIn, color cOut, color colorOutline, PVector size) {
     fill(rglt, transp);
-    rect(xpos, ypos, longueurSlider, hauteurSlider); 
-    stroke(colorOutline) ; strokeWeight(size.z) ;
-    if(dedans || locked) {
-      fill(cIn);
-      loadSliderPos = false ;
-    } else {
-      fill(cOut);
-    }
-    //display  
-    rect(spos, ypos-3, size.x, size.y);
-    // ellipse(spos +(size.y *.5), ypos-3 +(size.y *.5), size.y *1.2, size.y *1.2);
-    noStroke() ;   
+    if( xpos != 0 && ypos != 0) {
+      rect(xpos, ypos, longueurSlider, hauteurSlider); 
+      stroke(colorOutline) ; strokeWeight(size.z) ;
+      if(dedans || locked) {
+        fill(cIn);
+        loadSliderPos = false ;
+      } else {
+        fill(cOut);
+      }
+      //display  
+      rect(spos, ypos-3, size.x, size.y);
+      // ellipse(spos +(size.y *.5), ypos-3 +(size.y *.5), size.y *1.2, size.y *1.2);
+      noStroke() ;
+    }   
   }
 
 
