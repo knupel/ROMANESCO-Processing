@@ -367,7 +367,7 @@ int tracking(int t, int n) {
 
 //SCREEN CHOICE and FULLSCREEN
 GraphicsEnvironment g = GraphicsEnvironment.getLocalGraphicsEnvironment();
-GraphicsDevice[] gs = g.getScreenDevices();
+GraphicsDevice[] screenDevice = g.getScreenDevices();
 //FULLSCREEN
 boolean undecorated = false ;
 boolean fullScreen = false ;
@@ -420,20 +420,21 @@ void loadPropertyScene() {
 
 //size scene
 void sizeScene() {
+  if(fullScreen) instance = new JAppleMenuBar() ;
     //create the Scene on fullscreen mode
   if ( fullScreen && displayMode.equals("Classic")) {
     size(screenWidth(whichScreen),screenHeight(whichScreen)) ;
     sketchPos(0, 0, whichScreen) ;
   } else if ( fullScreen && displayMode.equals("P2D")) {
-    if ( !isGL() ) removeBorder() ;
+    if ( !isGL() ) removeBorder(undecorated) ;
     size(screenWidth(whichScreen),screenHeight(whichScreen), P2D) ;
     sketchPos(0, 0, whichScreen) ;
   } else if ( fullScreen && modeP3D) {
-    if ( !isGL() ) removeBorder() ;
+    if ( !isGL() ) removeBorder(undecorated) ;
     size(screenWidth(whichScreen),screenHeight(whichScreen), P3D) ;
     sketchPos(0, 0, whichScreen) ;
   } else if ( fullScreen && displayMode.equals("OPENGL")) {
-    if ( !isGL() ) removeBorder() ;
+    if ( !isGL() ) removeBorder(undecorated) ;
     size(screenWidth(whichScreen),screenHeight(whichScreen), OPENGL) ;
     sketchPos(0, 0, whichScreen) ;
   }
@@ -457,9 +458,9 @@ void sizeScene() {
 
 
 //REMOVE DECORTION WINDOW
-void removeBorder() {
+void removeBorder(boolean decor) {
   frame.removeNotify();
-  frame.setUndecorated(undecorated);
+  frame.setUndecorated(decor);
   frame.addNotify();
 }
 
@@ -481,33 +482,33 @@ void updateSizeDisplay(PImage imgDisplay) {
 //catch the size of display device to get the fullscreen on the screen of your choice
 PVector fullScreen(int whichScreen) {
   PVector size = new PVector(0,0) ;
-  if (whichScreen >= gs.length ) { 
+  if (whichScreen >= screenDevice.length ) { 
     whichScreen = 0 ;
     println( "screen choice not available") ;
   }
-  size.x =  gs[whichScreen].getDisplayMode().getWidth() ;
-  size.y =  gs[whichScreen].getDisplayMode().getHeight() ;
+  size.x =  screenDevice[whichScreen].getDisplayMode().getWidth() ;
+  size.y =  screenDevice[whichScreen].getDisplayMode().getHeight() ;
 
   return size ;
 }
 // width
 int screenWidth(int whichScreen) {
   int x = 0 ;
-  if (whichScreen >= gs.length ) { 
+  if (whichScreen >= screenDevice.length ) { 
     whichScreen = 0 ;
     println( "screen choice not available") ;
   }
-  x = gs[whichScreen].getDisplayMode().getWidth() ;
+  x = screenDevice[whichScreen].getDisplayMode().getWidth() ;
   return x ;
 }
 //heigth
 int screenHeight(int whichScreen) {
   int y = 0 ;
-  if (whichScreen >= gs.length ) { 
+  if (whichScreen >= screenDevice.length ) { 
     whichScreen = 0 ;
     println( "screen choice not available") ;
   }
-  y = gs[whichScreen].getDisplayMode().getHeight() ;
+  y = screenDevice[whichScreen].getDisplayMode().getHeight() ;
   return y ;
 }
 // END SCREEN SIZE
@@ -518,11 +519,14 @@ int screenHeight(int whichScreen) {
 
 //SKETCH POSITION
 void sketchPos(int x, int y, int which) {
-  if (which >= gs.length ) { 
+  // remove the apple menu bar
+  instance.setVisible(false, false);
+  
+  if (which >= screenDevice.length ) { 
     which = 0 ;
     println( "screen choice not available") ;
   } 
-  GraphicsDevice gd = gs[which];
+  GraphicsDevice gd = screenDevice[which];
   GraphicsConfiguration[] gc = gd.getConfigurations();
   for (int i=0; i < gc.length; i++) {
     Rectangle gcBounds = gc[i].getBounds();

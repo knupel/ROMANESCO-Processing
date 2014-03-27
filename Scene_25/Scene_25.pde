@@ -5,8 +5,6 @@ String release =("25") ;
 
 
 //MANAGER CLASS
-import java.util.Iterator;
-import java.lang.reflect.*; 
 ObjectRomanescoManager romanescoManager ;
 
 void setup() {

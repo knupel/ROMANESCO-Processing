@@ -1,3 +1,4 @@
+JAppleMenuBar instance;
 //specific at the Scene
 String valueTempPreScene[] = new String [61] ;
 //Special var for the Scene and the Miroir

@@ -1,6 +1,44 @@
 // HIGH VAR///////////////////////
 // GLOBAL SETTING ////
 /////////////////////
+import codeanticode.gsvideo.*;
+import codeanticode.syphon.*;
+
+import oscP5.*;
+import netP5.*;
+
+import processing.pdf.*;
+import processing.net.*;
+
+import ddf.minim.*;
+import ddf.minim.analysis.*;
+
+import java.net.*;
+import java.io.*;
+import java.util.*;
+import java.awt.*;
+import java.util.Iterator;
+import java.lang.reflect.*; 
+
+import japplemenubar.*;
+
+import sojamo.drop.*;
+
+import geomerative.*;
+import toxi.geom.*;
+import toxi.geom.mesh2d.*;
+import toxi.util.*;
+import toxi.util.datatypes.*;
+import toxi.processing.*;
+
+import com.onformative.yahooweather.*;
+
+import com.sun.syndication.feed.synd.*;
+import com.sun.syndication.io.*;
+
+
+
+
 
 Boolean internet = true ;
 String bigBrother = (" BIG BROTHER DON'T WATCHING YOU !!") ;
@@ -12,36 +50,11 @@ int nextPreviousInt = 0 ; // for send to Syphon
 int trackerUpdate ; // must be reset after each use
 
 
-import codeanticode.gsvideo.*;
 
-import codeanticode.syphon.*;
-
-import processing.net.*;
-//FLUX RSS or TWITTER ????
-import com.sun.syndication.feed.synd.*;
-import com.sun.syndication.io.*;
-// for Processing 211
-import java.net.*;
-import java.io.*;
-import java.util.*;
-//for the fullscreen and screen choice
-import java.awt.*;
 //to make the window is resizable
 java.awt.Insets insets; // use for the border of window (top and right)
 
-//GEOMERATIVE
-import geomerative.*;
-//TOXIC
-import toxi.geom.*;
-import toxi.geom.mesh2d.*;
-import toxi.util.*;
-import toxi.util.datatypes.*;
-import toxi.processing.*;
-//METEO
-import com.onformative.yahooweather.*;
-//SOUND
-import ddf.minim.*;
-import ddf.minim.analysis.*;
+
 //CALLING class or library in Other Class, you must call the PApplet too in your class
 PApplet callingClass = this ;
 
@@ -55,12 +68,12 @@ String findPath ;
 
 //Variable CLAVIER
 boolean displayInfo ;
-//PDF save picture
-import processing.pdf.*;
+
 boolean savePDF ;
 String savePathPDF, savePathPNG ;
+
+
 // to drop load image
-import sojamo.drop.*;
 SDrop drop;
 boolean resizableByImgDrop ;
 //IMAGE
