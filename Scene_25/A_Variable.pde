@@ -228,6 +228,7 @@ void keySave() {
 //init var
 void initDraw() {
   rectMode (CORNER) ; 
+  if(mavericks && fullScreen) sketchPosition(whichScreen) ;
   //load text raw for the different object
   importText(sketchPath("")+"karaoke.txt") ;
   splitText() ;
