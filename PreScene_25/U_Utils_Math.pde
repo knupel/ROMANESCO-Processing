@@ -1,4 +1,14 @@
-//EQUATION
+// ALGEBRE
+//roots dimensions n
+float roots(float valueToRoots, int n) {
+  return pow(valueToRoots, 1.0/n) ;
+}
+
+
+
+
+
+//GEOMATRY
 // EQUATION CIRLCE
 float perimeterCircle ( int r ) {
   float p = 2*r*PI  ;
@@ -48,9 +58,9 @@ float distance(PVector p0, PVector p1) {
   return sqrt( ( p0.x - p1.x ) * ( p0.x - p1.x ) + ( p0.y - p1.y ) * ( p0.y - p1.y ) );
 }
 
+
 //other Rotation
 //Rotation Objet
-
 void rotation (float angle, float posX, float posY ) {
   translate(posX, posY ) ;
   rotate (radians(angle) ) ;
@@ -173,3 +183,66 @@ PVector pointOnCirlcle(int r, float angle) {
   posPix.y = sin(angle) *r ;
   return posPix ;
 }
+
+// END GEOMETRY
+
+
+
+
+// MISC
+////////
+
+// MAP
+float mapLocked(float value, float sourceMin, float sourceMax, float targetMin, float targetMax) {
+  if(sourceMax >= targetMax ) sourceMax = targetMax ;
+  if (value < sourceMin ) value = sourceMin ;
+  if (value > sourceMax ) value = sourceMax ;
+  float newMax = sourceMax - sourceMin ;
+  float deltaTarget = targetMax - targetMin ;
+  float ratio = ((value - sourceMin) / newMax ) ;
+  float result = targetMin +deltaTarget *ratio;
+  return result; 
+}
+
+float mapStartSmooth(float value, float sourceMin, float sourceMax, float targetMin, float targetMax, int level) {
+  if(sourceMax >= targetMax ) sourceMax = targetMax ;
+  if (value < sourceMin ) value = sourceMin ;
+  if (value > sourceMax ) value = sourceMax ;
+  float newMax = sourceMax - sourceMin ;
+  float deltaTarget = targetMax - targetMin ;
+  float ratio = ((value - sourceMin) / newMax ) ;
+  ratio = pow(ratio, level) ;
+  float result = targetMin +deltaTarget *ratio;
+  return result;
+}
+
+float mapEndSmooth(float value, float sourceMin, float sourceMax, float targetMin, float targetMax, int level) {
+  if(sourceMax >= targetMax ) sourceMax = targetMax ;
+  if (value < sourceMin ) value = sourceMin ;
+  if (value > sourceMax ) value = sourceMax ;
+  float newMax = sourceMax - sourceMin ;
+  float deltaTarget = targetMax - targetMin ;
+  float ratio = ((value - sourceMin) / newMax ) ;
+  ratio = roots(ratio, level) ;
+  float result = targetMin +deltaTarget *ratio;
+  return result;
+}
+
+
+float mapEndStartSmooth(float value, float sourceMin, float sourceMax, float targetMin, float targetMax, int level) {
+  if(sourceMax >= targetMax ) sourceMax = targetMax ;
+  if (value < sourceMin ) value = sourceMin ;
+  if (value > sourceMax ) value = sourceMax ;
+  float newMax = sourceMax - sourceMin ;
+  float deltaTarget = targetMax - targetMin ;
+  float ratio = ((value - sourceMin) / newMax ) ;
+  ratio = map(ratio,0,1, -1, 1 ) ;
+  int correction = 1 ;
+  if(level % 2 == 1 ) correction = 1 ; else correction = -1 ;
+  if (ratio < 0 ) ratio = pow(ratio, level) *correction  ; else ratio = pow(ratio, level)  ;
+  ratio = map(ratio, -1,1, 0,1) ;
+  float result = targetMin +deltaTarget *ratio;
+  return result;
+}
+// END MAP
+

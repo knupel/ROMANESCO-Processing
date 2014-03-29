@@ -54,6 +54,8 @@ class Abbyss extends SuperRomanesco {
         else if (downTouch )  creatureManager.prevCameraCreature();
       }
     }
+    //
+    if (emptyList(IDobj)) creatureManager.killAll(whichCreature);
 
   }
 }

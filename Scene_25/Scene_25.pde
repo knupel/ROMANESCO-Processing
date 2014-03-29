@@ -9,7 +9,7 @@ ObjectRomanescoManager romanescoManager ;
 
 void setup() {
   romanescoSetup() ;
-  OSMavericksCheck() ;
+  // OSMavericksCheck() ;
   createVar() ;
   initVarScene() ;
   displaySetup(60) ; // the int give the frameRate

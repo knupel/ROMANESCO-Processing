@@ -7,7 +7,7 @@ class SpiraleRomanesco extends SuperRomanesco {
     IDobj = 5 ;
     IDgroup = 1 ;
     romanescoAuthor  = "Stan le Punk";
-    romanescoVersion = "Alpha 2.0";
+    romanescoVersion = "Alpha 2.1";
     romanescoPack = "Base" ;
     romanescoRender = "P3D" ;
     romanescoMode = "1 Rectangle/2 Ellipse/3 Box" ;
@@ -24,13 +24,13 @@ class SpiraleRomanesco extends SuperRomanesco {
   void display() {
     //quantity
     int n ;
-    int nMax = 20 + (int)quantityObj[IDobj] *3 ;
+    int nMax = 1 + (int)quantityObj[IDobj] *3 ;
     n = nMax ;
     //amplitude
-    float ratioScreen = height - 400 ;
+    float ratioScreen = height*.1 ;
     if (ratioScreen < 1 ) ratioScreen = 1 ;
     float ratio = 1.25 + (ratioScreen *.0005) ; 
-    float z = map(amplitudeObj[IDobj], 0,100,1.01, ratio)  ;
+    float z = map(amplitudeObj[IDobj], 1,height,1.01, ratio)  ;
     //speed
     
     if(motion[IDobj]) {
@@ -43,10 +43,10 @@ class SpiraleRomanesco extends SuperRomanesco {
     //sound volume
     float volumeG = map (left[IDobj], 0,1, 0.5, 1.5 ) ;
     float volumeD = map (right[IDobj], 0,1, 0.5, 1.5 ) ;
-    
-    float heightObj = width  *sizeYObj[IDobj]  *volumeG *0.0005 *kick[IDobj] ;
-    float widthObj = height *sizeXObj[IDobj]  *volumeD *0.0005 *hat[IDobj] ;
-    float depthObj = height *sizeZObj[IDobj]  *volumeD *0.0005 *hat[IDobj] ;
+
+    float heightObj = width    *sizeYObj[IDobj] *volumeG *(.01 /width) *kick[IDobj] ;
+    float widthObj = height   *sizeXObj[IDobj]  *volumeD *(.01 /height) *hat[IDobj] ;
+    float depthObj = height   *sizeZObj[IDobj]  *volumeD *(.01 /width) *hat[IDobj] ;
     PVector size = new PVector(widthObj, heightObj, depthObj) ;
     
     spirale.actualisation (mouse[IDobj], speed) ;
@@ -68,20 +68,11 @@ class Spirale extends Rotation {
     n = n-1 ;
     int puissance = nMax-n ;
     float ap = pow (z,puissance) ;
-    
-    //check the opacity of color
-    int alphaIn = (cIn >> 24) & 0xFF; 
-    int alphaOut = (cOut >> 24) & 0xFF; 
-    // to display or not
-    if ( alphaIn == 0 ) noFill() ; else fill (cIn) ;
-    if ( alphaOut == 0) {
-      noStroke() ;
-    } else {
-      stroke ( cOut ) ; 
-      if( e < 0.1 ) e = 0.1 ; //security for the negative value
-      strokeWeight ( e / ap) ;
-    }
-    
+    fill (cIn) ;
+    stroke ( cOut ) ; 
+    //float newStrokeWeight = 1 / (e/ap) ;
+    strokeWeight (e) ;
+
     //display Mode
     if (mode == 0 )      rect (0,0, size.x, size.y ) ;
     else if (mode == 1 ) ellipse (0,0,size.x,size.y) ;

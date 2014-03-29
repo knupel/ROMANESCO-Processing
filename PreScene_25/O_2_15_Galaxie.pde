@@ -69,9 +69,9 @@ class Galaxie extends SuperRomanesco {
     posCenterGrain.y = mouse[IDobj].y ;
     
     //size
-    float objWidth =  sizeXObj[IDobj] *mix[IDobj] ;
-    float objHeight =  sizeYObj[IDobj] *.1 *mix[IDobj] ;
-    PVector size = new PVector(objWidth *10, objHeight *10) ;
+    float objWidth =  .1 + sizeXObj[IDobj] *mix[IDobj] ;
+    float objHeight = .1 +sizeYObj[IDobj] *mix[IDobj] ;
+    PVector size = new PVector(objWidth, objHeight) ;
     
     //thickness / épaisseur
     float e = thicknessObj[IDobj] *mix[IDobj] ;
@@ -89,7 +89,7 @@ class Galaxie extends SuperRomanesco {
     //////////////
     //DISPLAY MODE
     if (mode[IDobj] == 0 || mode[IDobj] == 255 ) {
-      pointSable(objWidth, colorIn) ;
+      pointSable(e, colorIn) ;
     } else if (mode[IDobj] == 1 ) {
       ellipseSable(size,e , colorIn, colorOut) ;
     } else if (mode[IDobj] == 2 ) {

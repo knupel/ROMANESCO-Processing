@@ -8,6 +8,7 @@ void romanescoSetup() {
 
 //Update the var of the object
 void updateObject(int ID, int group) {
+  //if (font[ID] == null ) font[ID] = font[0] ;
   //initialization
   if(!initValueMouse[ID]) { 
     mouse[ID] = mouse[0] ;
@@ -18,6 +19,7 @@ void updateObject(int ID, int group) {
     updateParameter(ID,group ) ;
     initValueSlider[ID] = true ;
   }
+  
   
   if(parameter[ID] ) {
     font[ID] = font[0] ;

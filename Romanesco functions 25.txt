@@ -331,6 +331,14 @@ PVector normalDir(int direction) // return a direction between -1 / 1 from 360°
 float deg360 (PVector dir) // return a 360 direction from PVector direction value between -1 to 1 ;
 PVector rotation(PVector ref, PVector lattice, float angle) // return a PVector position, for rotation around an axes
 
+float roots(float valueToRoots, int n) // return the roots value with "n" dimension
+
+
+float mapLocked(float value, float sourceMin, float sourceMax, float targetMin, float targetMax) // the return value is lock between the min and the max
+float mapStartSmooth(float value, float sourceMin, float sourceMax, float targetMin, float targetMax, int level) // the begin of the curve is smoothed by the level
+float mapEndSmooth(float value, float sourceMin, float sourceMax, float targetMin, float targetMax, int level) // the end of the curve is smoothed by the level
+float mapEndStartSmooth(float value, float sourceMin, float sourceMax, float targetMin, float targetMax, int level) // the begin and the end of the curve is smoothed by the level
+
 
 // UTIL TIME
 

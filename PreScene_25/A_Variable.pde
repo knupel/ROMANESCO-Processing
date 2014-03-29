@@ -460,7 +460,7 @@ void updateVar() {
     int minSource = 0 ;
     int maxSource = 100 ;
     float minSize = .1 ;
-    thicknessRaw[i] = map(valueSlider[i+1][10],minSource,maxSource,minSize, (height*.33)) ;
+    thicknessRaw[i] = mapStartSmooth(valueSlider[i+1][10],minSource,maxSource,minSize, (height*.33),2) ;
     sizeXRaw[i] = map(valueSlider[i+1][11],minSource,maxSource,minSize,width) ;
     sizeYRaw[i] = map(valueSlider[i+1][12],minSource,maxSource,minSize,width) ;
     sizeZRaw[i] = map(valueSlider[i+1][13],minSource,maxSource,minSize,width) ;

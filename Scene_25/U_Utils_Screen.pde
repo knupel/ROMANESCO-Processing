@@ -20,6 +20,7 @@ Table configurationScene;
 
 String pathScenePropertySetting = sketchPath("")+"preferences/sceneProperty.csv" ;
 TableRow row ;
+
 //SETUP
 void displaySetup(int speed) {
   frameRate(speed) ; noCursor () ;
@@ -51,10 +52,10 @@ void loadPropertyScene() {
   
 
   // type of renderer
-  if      ( row.getString("render").equals("P2D") ) { displayMode = ("P2D") ;  modeP3D = false ; }
-  else if ( row.getString("render").equals("P3D") ) { displayMode = ("P3D") ; modeP3D = true ; }
-  else if (  row.getString("render").equals("OPENGL")  || row.getString("render").equals("opengl") ) { displayMode = ("OPENGL") ; modeP3D = false ; }
-  else { displayMode = ("Classic") ; modeP3D = false ; }
+  if      (row.getString("render").equals("P2D") ) { displayMode = ("P2D") ; modeP2D = true ; }
+  else if (row.getString("render").equals("P3D") ) { displayMode = ("P3D") ; modeP3D = true ; }
+  else if (row.getString("render").equals("OPENGL")  || row.getString("render").equals("opengl")) { displayMode = ("OPENGL") ; modeOPENGL = true ; }
+  else  { displayMode = ("Classic") ; modeClassic = true ; }
 }
 // end load property
 
@@ -65,10 +66,8 @@ PVector[] screenInfo ;
 
 
 void fullscreenWithMavericks(int whichOne, boolean decor) {
-  
   initNumberScreen() ;
   infoScreen() ;
-  instance = new JAppleMenuBar();
   screenMode(decor, screenInfo[whichOne]) ;
 }
 
@@ -93,7 +92,10 @@ void screenMode(boolean varFullscreen, PVector size) {
     removeBorder(true) ;
     instance.setVisible(false, false);
   }
-  size((int)size.x,(int)size.y) ;
+  if       (modeP3D) size((int)size.x,(int)size.y, P3D) ;
+  else if  (modeP2D) size((int)size.x,(int)size.y, P2D) ;
+  else if  (modeOPENGL) size((int)size.x,(int)size.y, OPENGL) ;
+  else size((int)size.x,(int)size.y) ;
 }
 
 
@@ -124,32 +126,33 @@ public void infoScreen() {
 // WITHOUT MAVERICKS
 ///////////////////////////////////
 void sizeScene() {
+  if(fullScreen) instance = new JAppleMenuBar();
     //create the Scene on fullscreen mode
-  if (fullScreen && displayMode.equals("Classic")) {
+  if (fullScreen && modeClassic) {
     size(screenWidth(whichScreen),screenHeight(whichScreen)) ;
     sketchPosWithoutMavericks(0, 0, whichScreen) ;
-  } else if ( fullScreen && displayMode.equals("P2D")) {
+  } else if (fullScreen && modeP2D) {
     if ( !isGL() ) removeBorder(undecorated) ;
     size(screenWidth(whichScreen),screenHeight(whichScreen), P2D) ;
     sketchPosWithoutMavericks(0, 0, whichScreen) ;
-  } else if ( fullScreen && modeP3D) {
+  } else if (fullScreen && modeP3D) {
     if ( !isGL() ) removeBorder(undecorated) ;
     size(screenWidth(whichScreen),screenHeight(whichScreen), P3D) ;
     sketchPosWithoutMavericks(0, 0, whichScreen) ;
-  } else if ( fullScreen && displayMode.equals("OPENGL")) {
+  } else if (fullScreen && modeOPENGL) {
     if ( !isGL() ) removeBorder(undecorated) ;
     size(screenWidth(whichScreen),screenHeight(whichScreen), OPENGL) ;
     sketchPosWithoutMavericks(0, 0, whichScreen) ;
   }
   //create the Scene on window mode
-  else if ( !fullScreen && displayMode.equals("Classic")  )      size(sceneWidth, sceneHeight) ;
-  else if ( !fullScreen && displayMode.equals("P2D")  )   size(sceneWidth, sceneHeight, P2D) ;
-  else if ( !fullScreen && modeP3D )   size(sceneWidth, sceneHeight, P3D) ;
-  else if ( !fullScreen && displayMode.equals("OPENGL") ) size(sceneWidth, sceneHeight, OPENGL) ;
+  else if ( !fullScreen && modeClassic) size(sceneWidth, sceneHeight) ;
+  else if ( !fullScreen && modeP2D    ) size(sceneWidth, sceneHeight, P2D) ;
+  else if ( !fullScreen && modeP3D    ) size(sceneWidth, sceneHeight, P3D) ;
+  else if ( !fullScreen && modeOPENGL ) size(sceneWidth, sceneHeight, OPENGL) ;
   else size(sceneWidth, sceneHeight) ;
   
   //resizable frame by loading external image when Romanesco is not on fullscreen mode
-  if (row.getString("resizable").equals("TRUE")  && !fullScreen && displayMode.equals("Classic") ) {
+  if (row.getString("resizable").equals("TRUE")  && !fullScreen && modeClassic ) {
     frame.pack();  
     insets = frame.getInsets(); // use for the border of window (top and right)
     displaySizeByImage = true ;
@@ -163,7 +166,7 @@ void sketchPosWithoutMavericks(int x, int y, int whichOne) {
   // remove the apple menu bar
   instance.setVisible(false, false);
   
-  if (whichOne >= screenDevice.length ) { 
+  if (whichOne >= screenDevice.length ||  whichOne < 0 ) { 
     whichOne = 0 ;
     println( "screen choice not available") ;
   } 
@@ -196,17 +199,18 @@ PVector fullScreen(int whichOne) {
 // width
 int screenWidth(int whichOne) {
   int x = 0 ;
-  if (whichOne >= screenDevice.length ) { 
+  if (whichOne >= screenDevice.length ||  whichOne < 0 ) { 
     whichOne = 0 ;
     println( "screen choice not available") ;
   }
+  println(whichOne) ;
   x = screenDevice[whichOne].getDisplayMode().getWidth() ;
   return x ;
 }
 //heigth
 int screenHeight(int whichOne) {
   int y = 0 ;
-  if (whichOne >= screenDevice.length ) { 
+  if (whichOne >= screenDevice.length || whichOne < 0 ) { 
     whichOne = 0 ;
     println( "screen choice not available") ;
   }
