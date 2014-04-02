@@ -290,13 +290,12 @@ void brightSpectrumPalette(int [] brightP, int sizeSpectrum)
 
 
 //CHANGE COLOR pixel in the list of Pixel
-void changeColorOfPixel(ArrayList listMustBeChange )
-{
+void changeColorOfPixel(ArrayList listMustBeChange ) {
   for( int i = 0 ; i<listMustBeChange.size() ; i++) {
     Pixel p = (Pixel) listMustBeChange.get(i) ;
-    p.changeHue   (huePalette,     hueStart,    hueEnd) ;
-    p.changeSat   (satPalette,     satStart,    satEnd) ; 
-    p.changeBright(brightPalette,  brightStart, brightEnd) ;
+    p.changeHue   (HSBmode, huePalette, hueStart, hueEnd) ;
+    p.changeSat   (HSBmode, satPalette, satStart, satEnd) ; 
+    p.changeBright(HSBmode, brightPalette, brightStart, brightEnd) ;
     
     p.updatePalette() ; 
   }

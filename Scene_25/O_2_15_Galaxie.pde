@@ -67,8 +67,8 @@ class Galaxie extends SuperRomanesco {
 
     posCenterGrain.x = mouse[IDobj].x ;
     posCenterGrain.y = mouse[IDobj].y ;
-   
-    // size 
+    
+    //size
     float objWidth =  .1 + sizeXObj[IDobj] *mix[IDobj] ;
     float objHeight = .1 +sizeYObj[IDobj] *mix[IDobj] ;
     PVector size = new PVector(objWidth, objHeight) ;

@@ -8,7 +8,7 @@ class Atome extends SuperRomanesco {
     IDobj = 3 ;
     IDgroup = 1 ;
     romanescoAuthor  = "Stan le Punk";
-    romanescoVersion = "Alpha 2.0";
+    romanescoVersion = "Alpha 1.1";
     romanescoPack = "Base" ;
     romanescoRender = "P3D" ;
     romanescoMode = "1 Schema/2 Cloud/3 Title/4 Font" ;

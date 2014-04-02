@@ -8,7 +8,7 @@ class Triangle extends SuperRomanesco {
     IDobj = 1 ;
     IDgroup = 1 ;
     romanescoAuthor  = "Stan le Punk";
-    romanescoVersion = "Alpha 2.0";
+    romanescoVersion = "Alpha 1.1";
     romanescoPack = "Base" ;
     romanescoRender = "classic" ;
   }

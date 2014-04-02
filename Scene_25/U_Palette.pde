@@ -50,8 +50,7 @@ void paletteRandom(PVector n, PVector spectrum)
 }
 
 //palette with color from you !!!!
-void paletteClassic(int [] hueList, int[] satList, int[] brightList, PVector spectrum)
-{
+void paletteClassic(int [] hueList, int[] satList, int[] brightList, PVector spectrum) {
   huePalette = new int [hueList.length] ;
   huePaletteRef = new int [hueList.length] ;
   for (int i = 0 ; i < hueList.length ; i++) huePalette [i] = huePaletteRef [i] = hueList[i] ;
@@ -95,7 +94,7 @@ void paletteHSB(PVector hueVar, PVector satVar, PVector brightVar) {
 }
 
 //hue void
-void paletteHue(PVector hueInfo )  {  // (huePivot, hueSpeed, hueRange )
+void paletteHue(PVector hueInfo )  {
   float cycle = cycle(hueInfo.y) ;
   float factor = map(cycle, -1,1, hueInfo.z,1) ;
   for ( int i = 0 ; i < huePalette.length ; i++ ) {
@@ -105,7 +104,7 @@ void paletteHue(PVector hueInfo )  {  // (huePivot, hueSpeed, hueRange )
 }
 
 //saturation void
-void paletteSat(PVector satInfo ) { // (satPivot, satSpeed, satRange )
+void paletteSat(PVector satInfo )  {
   float cycle = cycle(satInfo.y) ;
   float factor = map(cycle, -1,1, satInfo.z,1) ;
   for ( int i = 0 ; i < satPalette.length ; i++ ) {
@@ -115,7 +114,7 @@ void paletteSat(PVector satInfo ) { // (satPivot, satSpeed, satRange )
 }
 
 //brightness void
-void paletteBright(PVector brightInfo ) {  // (brightPivot, brightSpeed, brightRange )
+void paletteBright(PVector brightInfo )  {
   float cycle = cycle(brightInfo.y) ;
   float factor = map(cycle, -1,1, brightInfo.z,1) ;
   for ( int i = 0 ; i < brightPalette.length ; i++ ) {
@@ -141,7 +140,7 @@ void hueSpectrumPalette(int [] hueP, int sizeSpectrum)
     int [] zoneHue = new int [max] ;
   
     
-    int total = 0 ;
+    // int total = 0 ;
     if(max >1 ) {
       for ( int i = 0 ; i < max ; i++ ) {
         if ( i == 0 ) {
@@ -179,12 +178,10 @@ void hueSpectrumPalette(int [] hueP, int sizeSpectrum)
       hueEnd[0] = sizeSpectrum ;
     }
   }
-    
 }
 
 //saturation Spectrum
-void satSpectrumPalette(int [] satP, int sizeSpectrum)
-{  
+void satSpectrumPalette(int [] satP, int sizeSpectrum) {  
   if(satP.length > 0 ) {
     int max = satP.length  ;
     satStart = new int [max] ;
@@ -194,7 +191,7 @@ void satSpectrumPalette(int [] satP, int sizeSpectrum)
     int [] zoneSat = new int [max] ;
   
     
-    int total = 0 ;
+    //int total = 0 ;
     if (max > 1 ) {
       for ( int i = 0 ; i < max ; i++ ) {
         if ( i == 0 ) {
@@ -249,7 +246,7 @@ void brightSpectrumPalette(int [] brightP, int sizeSpectrum)
     int [] zoneBright = new int [max] ;
   
     
-    int total = 0 ;
+    //int total = 0 ;
     if ( max > 1 ) {
       for ( int i = 0 ; i < max ; i++ ) {
         if ( i == 0 ) {
@@ -293,13 +290,12 @@ void brightSpectrumPalette(int [] brightP, int sizeSpectrum)
 
 
 //CHANGE COLOR pixel in the list of Pixel
-void changeColorOfPixel(ArrayList listMustBeChange )
-{
+void changeColorOfPixel(ArrayList listMustBeChange ) {
   for( int i = 0 ; i<listMustBeChange.size() ; i++) {
     Pixel p = (Pixel) listMustBeChange.get(i) ;
-    p.changeHue   (huePalette,     hueStart,    hueEnd) ;
-    p.changeSat   (satPalette,     satStart,    satEnd) ; 
-    p.changeBright(brightPalette,  brightStart, brightEnd) ;
+    p.changeHue   (HSBmode, huePalette, hueStart, hueEnd) ;
+    p.changeSat   (HSBmode, satPalette, satStart, satEnd) ; 
+    p.changeBright(HSBmode, brightPalette, brightStart, brightEnd) ;
     
     p.updatePalette() ; 
   }

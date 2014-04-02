@@ -2,6 +2,8 @@
  // Romanesco Préscène Alpha 0.25 work with Processing 211 export with Processing 203  ////
 //////////////////////////////////////////////////////////////////////////////////////////
 String release =("25") ;
+// security must be link with the controler in the next release
+int levelSecurity = 200 ;
 
 
 //MANAGER CLASS

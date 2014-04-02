@@ -42,6 +42,9 @@ boolean youCanSendToMiroir = true ;
 // when you work only with "Prescene" boolean presceneOnly must be true to give at the Prescene the internet acces
 boolean presceneOnly = false ;
 
+//SECURITY LAG
+int levelSecurity = 100 ; is not finish, this value can be use to block the function, this value must me control from the Controler
+
 
 
 
@@ -345,6 +348,55 @@ float mapEndStartSmooth(float value, float sourceMin, float sourceMax, float tar
 float cycle(float add) // return value between -1 et 1 , nice to try with vzlue like 0.1
 int timer(float tempo) // return an add value from float <1 ;
 int minClock() // return the time of the day in minutes
+
+
+
+
+//CLASS PIXEL
+/////////////
+this class is define by a lot of parameter and work in HSB, 360,100,100,100
+PVector size (x,y,z)
+PVector pos (x,y,z)
+
+color colour, newColour ;
+
+PVector wind I must define ?
+float field : define the field of life (action) of the pixel, it use like a radius around the origin of the pixel
+float life = 1 ; 
+float timePast = 0.01 ; // this value is use to remove time from the life.
+
+// parameter use to find the pixel in the mess
+PVector gridPos(x,y) in matrix 2D // this value is use to find a specific pixel in the array
+int rank
+int ID
+
+
+there is few different construtors
+Pixel(PVector pos)
+Pixel(PVector pos, color colour)
+Pixel(PVector pos, PVector size)
+Pixel(PVector pos, PVector size, color colour)
+// INK CONTRUCTOR
+Pixel(PVector pos, float field, float timePast, color colour)
+Pixel(PVector pos, float field, float timePast) 
+// RANK CONSTRUCTOR
+Pixel(int rank, PVector gridPos) // this one is use to rank the pixel in the array
+Pixel(int rank)
+
+// FUNCTION
+// must define what the role
+void displayPixel(int diam) 
+void displayPixel(int diam, PVector effectColor)
+
+// UPDATE
+void drying(float var)
+
+
+
+
+
+// END CLASS PIXEL
+//////////////////
 
 
 

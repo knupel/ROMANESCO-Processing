@@ -30,8 +30,11 @@ void updateObject(int ID, int group) {
     if(spaceTouch) mouse[ID] = mouse[0] ;  else mouse[ID] = mouseSuperRomanesco ;
     if( mTouch ) motion[ID] = !motion[ID] ;
     if (hTouch) horizon[ID] = !horizon[ID] ;
+    clickLongLeft[ID] = clickLongLeft[0] ;
+    clickLongRight[ID] = clickLongRight[0] ;
+    clickShortLeft[ID] = clickShortLeft[0] ;
+    clickShortRight[ID] = clickShortRight[0] ;
   }
-
 }
 
 

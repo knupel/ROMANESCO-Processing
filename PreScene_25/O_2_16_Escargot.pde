@@ -265,8 +265,8 @@ class Escargot extends SuperRomanesco {
     
     for ( Pixel p : listPixelRaw ) {
       //display
-      stroke(p.c, opacity) ;
-      if(soundButton[IDobj] == 1 ) strokeWeight(beatReactivityHSB(sizePixCtrl, p.size, p.c, rangeThreeHundredSixty, rangeHundred, musicFactor ).z) ; else strokeWeight(sizeP) ;
+      stroke(p.colour, opacity) ;
+      if(soundButton[IDobj] == 1 ) strokeWeight(beatReactivityHSB(sizePixCtrl, p.size, p.colour, rangeThreeHundredSixty, rangeHundred, musicFactor ).z) ; else strokeWeight(sizeP) ;
       point(p.pos.x *ratio.x, p.pos.y *ratio.y) ;
     }
   }
@@ -282,7 +282,7 @@ class Escargot extends SuperRomanesco {
     for ( Pixel p : listPixelRaw ) {
       if (p.ID == 1 ) {
         //color
-        if ( colorPixDisplay ) c = p.newColor ; else c = p.c ;
+        if ( colorPixDisplay ) c = p.newColour ; else c = p.colour ;
         
         //display
         stroke(c, opacity) ;
@@ -302,16 +302,16 @@ class Escargot extends SuperRomanesco {
     for ( Pixel p : listEscargot ) {
       //check if we must display original color or the new palette
       int x = (int)p.pos.x ; int y = (int)p.pos.y ;
-      if ( colorPixDisplay ) c = p.newColor ; else c = get(x , y) ;
+      if ( colorPixDisplay ) c = p.newColour ; else c = get(x , y) ;
   
-      p.changeHue   (huePalette,     hueStart,    hueEnd) ;
-      p.changeSat   (satPalette,     satStart,    satEnd) ; 
-      p.changeBright(brightPalette,  brightStart, brightEnd) ;
+      p.changeHue   (HSBmode, huePalette, hueStart, hueEnd) ;
+      p.changeSat   (HSBmode, satPalette, satStart, satEnd) ; 
+      p.changeBright(HSBmode, brightPalette,  brightStart, brightEnd) ;
       // update the color after change each componante
       p.updatePalette() ;
       
       stroke(c, opacity) ;
-      if(soundButton[IDobj] == 1 ) strokeWeight(beatReactivityHSB(sizePixCtrl, p.size, p.c, rangeThreeHundredSixty, rangeHundred, musicFactor ).z) ; else strokeWeight(sizeP) ;
+      if(soundButton[IDobj] == 1 ) strokeWeight(beatReactivityHSB(sizePixCtrl, p.size, p.colour, rangeThreeHundredSixty, rangeHundred, musicFactor).z) ; else strokeWeight(sizeP) ;
       point(p.pos.x *ratio.x, p.pos.y *ratio.y) ; 
     }
   }
@@ -328,10 +328,10 @@ class Escargot extends SuperRomanesco {
    
     for ( Pixel p : listEscargot ) {
       
-      if ( colorPixDisplay ) c = p.newColor ; else c = p.c ;
-      p.changeHue   (huePalette,     hueStart,    hueEnd) ;
-      p.changeSat   (satPalette,     satStart,    satEnd) ; 
-      p.changeBright(brightPalette,  brightStart, brightEnd) ;
+      if ( colorPixDisplay ) c = p.newColour ; else c = p.colour ;
+      p.changeHue   (HSBmode, huePalette, hueStart, hueEnd) ;
+      p.changeSat   (HSBmode, satPalette, satStart, satEnd) ; 
+      p.changeBright(HSBmode, brightPalette, brightStart, brightEnd) ;
       // update the color after change each componante
       p.updatePalette() ; 
 
@@ -364,10 +364,10 @@ class Escargot extends SuperRomanesco {
     
     for ( Pixel p : listEscargot ) {
       
-      if ( colorPixDisplay ) c = p.newColor ; else c = p.c ;
-      p.changeHue   (huePalette,     hueStart,    hueEnd) ;
-      p.changeSat   (satPalette,     satStart,    satEnd) ; 
-      p.changeBright(brightPalette,  brightStart, brightEnd) ;
+      if ( colorPixDisplay ) c = p.newColour ; else c = p.colour ;
+      p.changeHue   (HSBmode, huePalette, hueStart, hueEnd) ;
+      p.changeSat   (HSBmode, satPalette, satStart, satEnd) ; 
+      p.changeBright(HSBmode, brightPalette, brightStart, brightEnd) ;
       // update the color after change each componante
       p.updatePalette() ; 
      
@@ -397,10 +397,10 @@ class Escargot extends SuperRomanesco {
     
     for ( Pixel p : listEscargot ) {
       
-      if ( colorPixDisplay ) c = p.newColor ; else c = p.c ;
-      p.changeHue   (huePalette,     hueStart,    hueEnd) ;
-      p.changeSat   (satPalette,     satStart,    satEnd) ; 
-      p.changeBright(brightPalette,  brightStart, brightEnd) ;
+      if ( colorPixDisplay ) c = p.newColour ; else c = p.colour ;
+      p.changeHue   (HSBmode, huePalette, hueStart, hueEnd) ;
+      p.changeSat   (HSBmode, satPalette, satStart, satEnd) ; 
+      p.changeBright(HSBmode,brightPalette, brightStart, brightEnd) ;
       // update the color after change each componante
       p.updatePalette() ; 
      
@@ -444,10 +444,10 @@ class Escargot extends SuperRomanesco {
     
     for ( Pixel p : listEscargot ) {
       
-      if ( colorPixDisplay ) c = p.newColor ; else c = p.c ;
-      p.changeHue   (huePalette,     hueStart,    hueEnd) ;
-      p.changeSat   (satPalette,     satStart,    satEnd) ; 
-      p.changeBright(brightPalette,  brightStart, brightEnd) ;
+      if ( colorPixDisplay ) c = p.newColour ; else c = p.colour ;
+      p.changeHue   (HSBmode, huePalette, hueStart, hueEnd) ;
+      p.changeSat   (HSBmode, satPalette, satStart, satEnd) ; 
+      p.changeBright(HSBmode, brightPalette, brightStart, brightEnd) ;
       // update the color after change each componante
       p.updatePalette() ;
       
@@ -472,11 +472,11 @@ class Escargot extends SuperRomanesco {
     for ( Pixel p : listEscargot ) { 
       //check if we must display original color or the new palette
       int x = (int)p.pos.x ; int y = (int)p.pos.y ;
-      if ( colorPixDisplay ) c = p.newColor ; else c = get(x , y) ;
+      if ( colorPixDisplay ) c = p.newColour ; else c = get(x , y) ;
       
-      p.changeHue   (huePalette,     hueStart,    hueEnd) ;
-      p.changeSat   (satPalette,     satStart,    satEnd) ; 
-      p.changeBright(brightPalette,  brightStart, brightEnd) ;
+      p.changeHue   (HSBmode, huePalette, hueStart, hueEnd) ;
+      p.changeSat   (HSBmode, satPalette, satStart, satEnd) ; 
+      p.changeBright(HSBmode,brightPalette, brightStart, brightEnd) ;
       // update the color after change each componante
       p.updatePalette() ; 
       
@@ -543,15 +543,15 @@ class Escargot extends SuperRomanesco {
           Pixel p = (Pixel) listPixelRaw.get(posInList) ;
           if ( whichColorVoronoi ) {
             //change the color with the new palette
-            p.changeHue   (huePalette,     hueStart,    hueEnd) ;
-            p.changeSat   (satPalette,     satStart,    satEnd) ; 
-            p.changeBright(brightPalette,  brightStart, brightEnd) ;
+            p.changeHue   (HSBmode, huePalette, hueStart, hueEnd) ;
+            p.changeSat   (HSBmode, satPalette, satStart, satEnd) ; 
+            p.changeBright(HSBmode,brightPalette, brightStart, brightEnd) ;
             // update the color after change each componante
             p.updatePalette() ; 
-            fill(p.newColor) ;
+            fill(p.newColour) ;
           } else {
             //original color of the pix
-            fill(p.c) ;
+            fill(p.colour) ;
           }
           if(thicknessVoronoi == 0 ) { 
             noStroke() ; 
@@ -594,15 +594,15 @@ class Escargot extends SuperRomanesco {
           Pixel p = (Pixel) listPixelRaw.get(posInList) ;
           if ( whichColorVoronoi ) {
             //change the color with the new palette
-            p.changeHue   (huePalette,     hueStart,    hueEnd) ;
-            p.changeSat   (satPalette,     satStart,    satEnd) ; 
-            p.changeBright(brightPalette,  brightStart, brightEnd) ;
+            p.changeHue   (HSBmode, huePalette, hueStart, hueEnd) ;
+            p.changeSat   (HSBmode, satPalette, satStart, satEnd) ; 
+            p.changeBright(HSBmode, brightPalette, brightStart, brightEnd) ;
             // update the color after change each componante
             p.updatePalette() ; 
-            fill(p.newColor) ;
+            fill(p.newColour) ;
           } else {
             //original color of the pix
-            fill(p.c) ;
+            fill(p.colour) ;
           }
           if(thicknessVoronoi == 0 ) { 
             noStroke() ; 
@@ -780,7 +780,7 @@ void escargotAnalyze(int pivot, int max, String mode, boolean whichColor, int si
       startingPixelToAnalyze += 1 ; // information of how many pixel is starting point analyzing
       //choice wich color of pixel must be use for the analyzis, the original one or the new one
       color colorRef ;
-      if ( !whichColor ) colorRef = pixelRef.c ; else colorRef = pixelRef.newColor ;
+      if ( !whichColor ) colorRef = pixelRef.colour ; else colorRef = pixelRef.newColour ;
       
       for ( int snailLevel = 1 ; snailLevel <= maxSnailLevel ; snailLevel++) {
         for ( int escargotPos = 1 ; escargotPos < 10 ; escargotPos++) { // "posPixelAroundTheMainPixel" give the direction around the pixel pivot
@@ -849,7 +849,7 @@ void escargotAnalyze(int pivot, int max, String mode, boolean whichColor, boolea
       startingPixelToAnalyze += 1 ; // information of how many pixel is starting point analyzing
       //choice wich color of pixel must be use for the analyzis, the original one or the new one
       color colorRef ;
-      if ( !whichColor ) colorRef = pixelRef.c ; else colorRef = pixelRef.newColor ;
+      if ( !whichColor ) colorRef = pixelRef.colour ; else colorRef = pixelRef.newColour ;
       
       for ( int snailLevel = 1 ; snailLevel <= maxSnailLevel ; snailLevel++) {
         for ( int escargotPos = 1 ; escargotPos < 10 ; escargotPos++) { // "posPixelAroundTheMainPixel" give the direction around the pixel pivot
@@ -1013,7 +1013,7 @@ void findEscargot(color cRef, int pixSize) {
 
   PVector sizeBarycenter = new PVector(numberPixelAnalyze, numberPixelAnalyze) ;
   //add barycenter in the list
-  listEscargot.add(new Pixel(barycenterEscargot, cRef, sizeBarycenter)); 
+  listEscargot.add(new Pixel(barycenterEscargot, sizeBarycenter, cRef)); 
 }
 
 
@@ -1051,7 +1051,7 @@ color wichColorCheck ;
 //by hsb
 void hueSaturationBrightnessCheck(int escargotPos_n, color cRef, Pixel pixelEscargotAnalyze, boolean whichPix) {
   //choice the ref color in pix Class a original color or the new one
-  if( !whichPix ) wichColorCheck = pixelEscargotAnalyze.c ; else wichColorCheck = pixelEscargotAnalyze.newColor ;
+  if( !whichPix ) wichColorCheck = pixelEscargotAnalyze.colour ; else wichColorCheck = pixelEscargotAnalyze.newColour ;
   if( pixelEscargotAnalyze.ID == 0 // check if the pixel is never analyze before
       && hue(wichColorCheck) == hue(cRef) // and if the hue is good
       && saturation(wichColorCheck) == saturation(cRef) // and if the saturation is good
@@ -1073,7 +1073,7 @@ void hueSaturationBrightnessCheck(int escargotPos_n, color cRef, Pixel pixelEsca
 //by hue
 void hueCheck(int escargotPos_n, color cRef, Pixel pixelEscargotAnalyze, boolean whichPix) {
   //choice the ref color in pix Class a original color or the new one
-  if( !whichPix ) wichColorCheck = pixelEscargotAnalyze.c ; else wichColorCheck = pixelEscargotAnalyze.newColor ;
+  if( !whichPix ) wichColorCheck = pixelEscargotAnalyze.colour ; else wichColorCheck = pixelEscargotAnalyze.newColour ;
   if( pixelEscargotAnalyze.ID == 0 && hue(wichColorCheck) == hue(cRef) ) { // check if the pixel is never analyze before and if the hue is good
   // change the ID "ZERO" to "ONE" to indicate this that pixel has to be checked and have a good color.
     pixelEscargotAnalyze.changeID(1) ;
@@ -1092,7 +1092,7 @@ void hueCheck(int escargotPos_n, color cRef, Pixel pixelEscargotAnalyze, boolean
 //by saturation
 void saturationCheck(int escargotPos_n, color cRef, Pixel pixelEscargotAnalyze, boolean whichPix) {
   //choice the ref color in pix Class a original color or the new one
-  if( !whichPix ) wichColorCheck = pixelEscargotAnalyze.c ; else wichColorCheck = pixelEscargotAnalyze.newColor ;
+  if( !whichPix ) wichColorCheck = pixelEscargotAnalyze.colour ; else wichColorCheck = pixelEscargotAnalyze.newColour ;
   if( pixelEscargotAnalyze.ID == 0 && saturation(wichColorCheck) == saturation(cRef) ) // check if the pixel is never analyze before and if the hue is good
     {
 
@@ -1113,7 +1113,7 @@ void saturationCheck(int escargotPos_n, color cRef, Pixel pixelEscargotAnalyze, 
 //by brightness
 void brightnessCheck(int escargotPos_n, color cRef, Pixel pixelEscargotAnalyze, boolean whichPix) {
   //choice the ref color in pix Class a original color or the new one
-  if( !whichPix ) wichColorCheck = pixelEscargotAnalyze.c ; else wichColorCheck = pixelEscargotAnalyze.newColor ;
+  if( !whichPix ) wichColorCheck = pixelEscargotAnalyze.colour ; else wichColorCheck = pixelEscargotAnalyze.newColour ;
   if( pixelEscargotAnalyze.ID == 0 && brightness(wichColorCheck) == brightness(cRef) ) // check if the pixel is never analyze before and if the hue is good
     {
       // change the ID "ZERO" to "ONE" to indicate this that pixel has to be checked and have a good color.
@@ -1132,7 +1132,7 @@ void brightnessCheck(int escargotPos_n, color cRef, Pixel pixelEscargotAnalyze, 
 //by hue and saturation
 void hueSaturationCheck(int escargotPos_n, color cRef, Pixel pixelEscargotAnalyze, boolean whichPix) {
   //choice the ref color in pix Class a original color or the new one
-  if( !whichPix ) wichColorCheck = pixelEscargotAnalyze.c ; else wichColorCheck = pixelEscargotAnalyze.newColor ;
+  if( !whichPix ) wichColorCheck = pixelEscargotAnalyze.colour ; else wichColorCheck = pixelEscargotAnalyze.newColour ;
   if( pixelEscargotAnalyze.ID == 0 // check if the pixel is never analyze before
       && hue(wichColorCheck) == hue(cRef) // and if the hue is good
       && saturation(wichColorCheck) == saturation(cRef) ) // and if the saturation is good
@@ -1154,7 +1154,7 @@ void hueSaturationCheck(int escargotPos_n, color cRef, Pixel pixelEscargotAnalyz
 // by hue and brigthness
 void hueBrightnessCheck(int escargotPos_n, color cRef, Pixel pixelEscargotAnalyze, boolean whichPix) {
   //choice the ref color in pix Class a original color or the new one
-  if( !whichPix ) wichColorCheck = pixelEscargotAnalyze.c ; else wichColorCheck = pixelEscargotAnalyze.newColor ;
+  if( !whichPix ) wichColorCheck = pixelEscargotAnalyze.colour ; else wichColorCheck = pixelEscargotAnalyze.newColour ;
   if( pixelEscargotAnalyze.ID == 0 // check if the pixel is never analyze before
       && hue(wichColorCheck) == hue(cRef) // and if the hue is good
       && brightness(wichColorCheck) == brightness(cRef) ) { // and if the brightness is good too 
@@ -1175,7 +1175,7 @@ void hueBrightnessCheck(int escargotPos_n, color cRef, Pixel pixelEscargotAnalyz
 //by saturation and brightness
 void saturationBrightnessCheck(int escargotPos_n, color cRef, Pixel pixelEscargotAnalyze, boolean whichPix) {
   //choice the ref color in pix Class a original color or the new one
-  if( !whichPix ) wichColorCheck = pixelEscargotAnalyze.c ; else wichColorCheck = pixelEscargotAnalyze.newColor ;
+  if( !whichPix ) wichColorCheck = pixelEscargotAnalyze.colour ; else wichColorCheck = pixelEscargotAnalyze.newColour ;
   if( pixelEscargotAnalyze.ID == 0 // check if the pixel is never analyze before
       && saturation(wichColorCheck) == saturation(cRef) // and if the saturation is good
       && brightness(wichColorCheck) == brightness(cRef) ) { // and if the brightness is good too 
@@ -1405,8 +1405,7 @@ void createListOfPoint (PShape s ) {
 
 
 //Draw shape bezier Vertex
-void drawBezierVertex(ArrayList<PVector> list, ArrayList<PVector> shapes)
-{
+void drawBezierVertex(ArrayList<PVector> list, ArrayList<PVector> shapes) {
     if (drawVertexSVG) {
       for ( int i = 0 ; i < shapes.size() ; i++) {
       int start = int(shapes.get(i).y) ;
@@ -1427,8 +1426,7 @@ void drawBezierVertex(ArrayList<PVector> list, ArrayList<PVector> shapes)
   }
 }
 //Draw with scale
-void drawBezierVertex(PVector pos, float scale, ArrayList<PVector> list, ArrayList<PVector> shapes)
-{
+void drawBezierVertex(PVector pos, float scale, ArrayList<PVector> list, ArrayList<PVector> shapes) {
   if (drawVertexSVG) {
       for ( int i = 0 ; i < shapes.size() ; i++) {
       int start = int(shapes.get(i).y) ;

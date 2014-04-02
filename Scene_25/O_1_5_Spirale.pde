@@ -43,7 +43,7 @@ class SpiraleRomanesco extends SuperRomanesco {
     //sound volume
     float volumeG = map (left[IDobj], 0,1, 0.5, 1.5 ) ;
     float volumeD = map (right[IDobj], 0,1, 0.5, 1.5 ) ;
-    
+
     float heightObj = width    *sizeYObj[IDobj] *volumeG *(.01 /width) *kick[IDobj] ;
     float widthObj = height   *sizeXObj[IDobj]  *volumeD *(.01 /height) *hat[IDobj] ;
     float depthObj = height   *sizeZObj[IDobj]  *volumeD *(.01 /width) *hat[IDobj] ;
@@ -70,8 +70,9 @@ class Spirale extends Rotation {
     float ap = pow (z,puissance) ;
     fill (cIn) ;
     stroke ( cOut ) ; 
+    //float newStrokeWeight = 1 / (e/ap) ;
     strokeWeight (e) ;
-    
+
     //display Mode
     if (mode == 0 )      rect (0,0, size.x, size.y ) ;
     else if (mode == 1 ) ellipse (0,0,size.x,size.y) ;

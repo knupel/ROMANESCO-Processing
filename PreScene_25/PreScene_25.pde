@@ -2,6 +2,8 @@
  // Romanesco Préscène Alpha 0.25 work with Processing 211 export with Processing 203  ////
 //////////////////////////////////////////////////////////////////////////////////////////
 String release =("25") ;
+// security must be link with the controler in the next release
+int levelSecurity = 200 ;
 //to work in dev, test phase
 boolean testRomanesco = false ;
 // when you work only with "Prescene" boolean presceneOnly must be true to give at the Prescene the internet acces
@@ -27,8 +29,7 @@ boolean youCanSendToMiroir = true ;
 
 
 
-//spectrum for the color mode and more if you need
-PVector HSBmode = new PVector (360,100,100) ; // give the color mode in HSB
+
 
 
 
