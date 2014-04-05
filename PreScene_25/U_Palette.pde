@@ -19,8 +19,7 @@ int [] brightPalette, brightPaletteRef ;
 //DRAW OR SETUP
 //MAKE PALETTE
 // random hue Palette
-void paletteRandom(PVector n, PVector spectrum)
-{
+void paletteRandom(PVector n, PVector spectrum) {
   huePalette = new int [(int)n.x] ;
   huePaletteRef = new int [(int)n.x] ;
   for (int i = 0 ; i < (int)n.x ; i++) huePalette [i] = huePaletteRef [i] = (int)random(spectrum.x) ;
@@ -235,8 +234,7 @@ void satSpectrumPalette(int [] satP, int sizeSpectrum) {
 
 
 //brightness Spectrum
-void brightSpectrumPalette(int [] brightP, int sizeSpectrum)
-{  
+void brightSpectrumPalette(int [] brightP, int sizeSpectrum) {  
   if(brightP.length > 0 ) {
     int max = brightP.length  ;
     brightStart = new int [max] ;

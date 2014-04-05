@@ -32,6 +32,8 @@ color colorWrite(color colorRef, int threshold, color clear, color deep) {
 
 
 
+
+
 //DRAWING
 //CROSS
 void crossPoint(PVector pos, color colorCross, int e, int size) {
@@ -91,7 +93,7 @@ void cursorSetup() {
   tablet = new Tablet(this);
   for (int i = 0 ; i < numObj ; i++ ) {
     pen[i] = new PVector(0,0,0) ;
-    mouse[i] = new PVector(0,0) ;
+    mouse[i] = new PVector(0,0,0) ;
     pmouse[i] = new PVector(0,0) ;
     wheel[i] = 0 ;
   }
@@ -105,8 +107,8 @@ void cursorDraw() {
   //check the tablet
   pen[0] = new PVector (norm(tablet.getTiltX(),0,1), norm(tablet.getTiltY(),0,1), tablet.getPressure()) ;
   //check the leapmotion
-  if (fingerCheck() ) {
-    if (fingersNum() < 2 ) mouse[0] = new PVector(averageFingersPosition(true).x, averageFingersPosition(true).y, averageFingersPosition(true).z ) ; else mouse[0] = mouse [0] ;
+  if (!fingerCheck() && numFingers() > 1 ) {
+    mouse[0] = new PVector(averagePosition(true).x, averagePosition(true).y, averagePosition(true).z ) ; //else mouse[0] = mouse [0] ;
   } else {
     mouse[0] = new PVector(mouseX, mouseY ) ; 
     pmouse[0] = new PVector(pmouseX, pmouseY ) ;
@@ -140,137 +142,7 @@ void cursorDisplay() {
 }
 
 
-//LEAP MOTION
-void leapFingerSingleInfo() {
-  InteractionBox iBox = leap.frame().interactionBox();
-  PointableList objectNum = leap.frame().pointables();
-  
-  for(int p = 0; p < objectNum.count(); p++) {
-    //initialization
-    Pointable object = objectNum.get(p);
-    com.leapmotion.leap.Vector normPos = iBox.normalizePoint(object.stabilizedTipPosition());
-    //return the ID
-    int objectID = object.id()  ;
-    
-    //3D position
-    float posX = normPos.getX() * width;
-    float posY = height - normPos.getY() * height;
-    int depth = (width + height) / 4 ;
-    float posZ = map(normPos.getZ(), 0,1, -depth, depth) ;
-    //put position info in PVector
-    PVector pos = new PVector (posX, posY, posZ ) ;
-    
-    //info 
-    float magnitudeObject = normPos.magnitude() ;
-    //horizontal orientation
-    int rollObject = (int)map(normPos.roll(), 0, PI, 280,-80) ;
-    //vertical orientation
-    int pitchObject = (int)map(normPos.pitch(), 0, PI, 280,-80) ;
-    //assiette
-    int yawObject = (int)map(normPos.yaw(), 0, PI, 280,-80) ;
-    
-    //display info
-    pushMatrix() ;
-    translate(pos.x, pos.y, pos.z) ;
-    rotateX(radians(-pitchObject)) ;
-    rotateY(radians(-rollObject)) ;
-    rotateZ(radians(yawObject)) ;
 
-    fill(blanc) ;
-    text("My name is " + objectID, 0, 0) ;
-    fill(rouge) ;
-    text("my position is " + (int)pos.x + " / " + (int)pos.y + " / " + (int)pos.z, 0,12) ;
-    text("my XXX oriantation " + pitchObject+"°", 0,24) ;
-    text("my YYY oriantation " + rollObject+"°", 0,36) ;
-    text("my ZZZ oriantation " + yawObject+"°", 0,48) ;
-    String mag = String.format("%.5f", magnitudeObject) ;
-    text("my magnitude " + mag, 0,60) ;
-    popMatrix() ;
-  }
-}
-
-void leapFingerAverageInfo() {
-  //average fingers info position
-    
-    pushMatrix() ;
-    translate(averageFingersPosition(true).x, averageFingersPosition(true).y,averageFingersPosition(true).z ) ;
-    fill(blanc) ;
-    text("Average position fingers", 0,0 ) ;
-    fill(rouge) ;
-    text("my position is " + (int)averageFingersPosition(true).x + " / " + (int)averageFingersPosition(true).y + " / " + (int)averageFingersPosition(true).z, 0,12) ;
-    
-    popMatrix() ;
-}
-
-
-
-PVector averageFingersPosition(boolean leapMotionConnected) {
-  if(leapMotionConnected) {
-    InteractionBox iBox = leap.frame().interactionBox();
-    PointableList objectNum = leap.frame().pointables();
-    
-    PVector averagePosOfTheFinger = new PVector (0,0,0) ;
-    
-    for(int p = 0; p < objectNum.count(); p++)
-    {
-      //initialization
-      Pointable object = objectNum.get(p);
-      com.leapmotion.leap.Vector normPos = iBox.normalizePoint(object.stabilizedTipPosition());
-      //return the ID
-      // int objectID = object.id()  ;
-      
-      //3D position
-      float posX = normPos.getX() * width;
-      float posY = height - normPos.getY() * height;
-      int depth = (width + height) / 4 ;
-      float ratioZoom = 1.0 ;
-      float posZ = map(normPos.getZ(), 1,0, -depth *ratioZoom, depth *ratioZoom) ;
-      //put position info in PVector
-      PVector pos = new PVector (posX, posY, -posZ) ;
-      
-      //add pos finger by finger
-      averagePosOfTheFinger.add(pos) ;
-      
-    }
-    //calculate the average position of all the fingers
-    // security, in case all the finger is equal to zero
-    if(averagePosOfTheFinger.x <= 0 ) averagePosOfTheFinger.x = 0.0001 ; 
-    if(averagePosOfTheFinger.y <= 0 ) averagePosOfTheFinger.y = 0.0001 ; 
-    if(averagePosOfTheFinger.x != 0 || averagePosOfTheFinger.x != 0  ) averagePosOfTheFinger.div(objectNum.count()) ;
-    
-    return averagePosOfTheFinger ;
-  } else {
-    //leapMotion is not active
-    PVector averagePosOfTheFinger = new PVector (mouseX,mouseY,0) ;
-    return averagePosOfTheFinger ;
-  }
-}
-
-
-//return the num of finger
-int fingersNum() {
-  int num ;
-  // InteractionBox iBox = leap.frame().interactionBox();
-  PointableList objectNum = leap.frame().pointables();
-  num = objectNum.count() ;
-  return num ;
-}
-
-
-//check is there is Finger in the field
-boolean fingerCheck() {
-  Boolean testFingerLeap ;
-  //InteractionBox iBox = leap.frame().interactionBox();
-  PointableList objectNum = leap.frame().pointables();
-  // PointableList objectNum = leap.frame().isValid();
-  if (objectNum.isEmpty()) testFingerLeap  = false ; else testFingerLeap  = true ;
-  return testFingerLeap  ;
-}
-//END LEAP MOTION
-
-
-////////////////////////////////////////
-//END CURSOR, MOUSE, TABLET, LEAP MOTION
 
 
 
@@ -498,149 +370,6 @@ int tracking(int t, int n) {
 //////////////////////////////////////////
 //END MISC MISC // MISC // MISC // MISC //
 //////////////////////////////////////////
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-///////////////////////////////////////////////
-//GRAPHIC CONFIGURATION OF THE SCENE DISPLAYING
-//SCREEN CHOICE and FULLSCREEN
-GraphicsEnvironment g = GraphicsEnvironment.getLocalGraphicsEnvironment();
-GraphicsDevice[] gs = g.getScreenDevices();
-//FULLSCREEN
-boolean undecorated = false ;
-boolean fullScreen = false ;
-boolean displaySizeByImage ;
-String displayMode = ("") ;
-//ID of the screen
-int myScreenToDisplayMySketch ;
-//size of the Scene
-int fullSceneWidth, fullSceneHeight, sceneWidth, sceneHeight ;
-//to load the .csv who give the graphic configuration for the Scene
-Table configurationScene;
-//factor to divide the size of the Pré-Scène 
-int divSizePreScene = 2 ;
-
-String pathScenePropertySetting = sketchPath("")+"preferences/sceneProperty.csv" ;
-TableRow row ;
-
-//SETUP
-void displaySetup(int speed) {
-  frameRate(speed) ;  // Le frameRate doit être le même dans tous les Sketches
-  
-  //size and different property of scene : size, border, P2D, P3D...
-  colorMode(HSB, HSBmode.x, HSBmode.y, HSBmode.z, 100) ;
-
-  loadPropertyPrescene() ;
-  sizePrescene() ;
-}
-//END DISPLAY START
-//////////////////
-
-
-//load property from table
-void loadPropertyPrescene() {
-  configurationScene = loadTable(pathScenePropertySetting, "header");
-  row = configurationScene.getRow(0);
-  //fullscreen 
-  if (row.getString("fullscreen").equals("TRUE") || row.getString("fullscreen").equals("true")) fullScreen = true ; else fullScreen = false ;
-  //display on specific screen
-  myScreenToDisplayMySketch = row.getInt("whichScreen") -1 ;
-  //decorated the scene
-  if (row.getString("decorated").equals("FALSE") || row.getString("decorated").equals("false") || fullScreen ) undecorated = true ; else undecorated = false ;
-
-  // type of renderer
-  if      ( row.getString("render").equals("P2D") ) { displayMode = ("P2D") ;  modeP3D = false ; }
-  else if ( row.getString("render").equals("P3D") ) { displayMode = ("P3D") ; modeP3D = true ; }
-  else if (  row.getString("render").equals("OPENGL")  || row.getString("render").equals("opengl") ) { displayMode = ("OPENGL") ; modeP3D = false ; }
-  else { displayMode = ("Classic") ; modeP3D = false ; }
-}
-
-
-
-
-
-// SIZE SCENE
-void sizePrescene() {
-      //size of the scene or prescene
-  if(modeP3D) size(600,400,P3D) ; else size(600,400) ;
-    //resizable frame by loading external image
-  // if (row.getString("resizable").equals("TRUE")    || row.getString("fullscreen").equals("true")) {
-  if (row.getString("resizable").equals("TRUE")) {
-    frame.pack();  
-    insets = frame.getInsets(); // use for the border of window (top and right)
-    displaySizeByImage = true ;
-  }
-  
-  //resize by cursor
-  frame.setResizable(true);
-}
-// END SIZE SCENE
-
-    
-//CHANGE SIZE DISPLAY BY IMAGE LOADING
-void updateSizeDisplay(PImage imgDisplay) {
-  if (imgDisplay != null ) {
-    PVector newSizeSketch = new PVector (imgDisplay.width, imgDisplay.height ) ;
-    setSize((int)newSizeSketch.x, (int)newSizeSketch.y) ;
-    PVector newSizeWindow = new PVector ( Math.max( newSizeSketch.x, MIN_WINDOW_WIDTH)  + insets.left + insets.right, 
-                                          Math.max( newSizeSketch.y, MIN_WINDOW_HEIGHT) + insets.top  + insets.bottom) ;
-    frame.setSize((int)newSizeWindow.x, (int)newSizeWindow.y);
-  }
-}
-
-//catch the size of display device to get the fullscreen on the screen of your choice
-PVector fullScreen(int whichScreen) {
-  PVector size = new PVector(0,0) ;
-  if (whichScreen >= gs.length ) { 
-    whichScreen = 0 ;
-  }
-  size.x =  gs[whichScreen].getDisplayMode().getWidth() ;
-  size.y =  gs[whichScreen].getDisplayMode().getHeight() ;
-  
-  frame.removeNotify();
-  frame.setUndecorated(true);
-  frame.addNotify();
-
-  return size ;
-}
-
-void sketchPos(int x, int y, int whichScreen) {
-  if (whichScreen >= gs.length ) { 
-    whichScreen = 0 ;
-  } 
-  GraphicsDevice gd = gs[whichScreen];
-  GraphicsConfiguration[] gc = gd.getConfigurations();
-  for (int i=0; i < gc.length; i++) {
-    Rectangle gcBounds = gc[i].getBounds();
-    int xoffs = gcBounds.x;
-    int yoffs = gcBounds.y;
-    int posX = (i*50)+xoffs ;
-    int posY =  (i*60)+yoffs ;
-    frame.setLocation(posX +x, posY +y);
-  }
-}
-
-// END OF GRAPHIC CONFIGURATION
-///////////////////////////////
-
-
-
-
-
-
-
-
 
 
 
