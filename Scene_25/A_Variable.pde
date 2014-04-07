@@ -129,7 +129,7 @@ PFont police ;
 
 //OSC VAR
 // button
-int eBeat, eKick, eSnare, eHat, eCurtain, eMeteo ;
+int eBeat, eKick, eSnare, eHat, eCurtain, eBackground, eLightOne, eLightTwo ;
 int [] objectButton,soundButton, actionButton, parameterButton ;
 boolean [] object, sound, action, parameter ;
 
@@ -248,8 +248,7 @@ void createVar() {
   
   createMiscVar() ;
   
-
-   romanescoManager.initObj() ;
+  romanescoManager.initObj() ;
 }
 
 //init void

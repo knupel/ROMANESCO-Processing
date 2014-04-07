@@ -26,6 +26,7 @@ void displaySetup(int speed) {
   
   //size and different property of scene : size, border, P2D, P3D...
   colorMode(HSB, HSBmode.x, HSBmode.y, HSBmode.z, 100) ;
+  background(0);
 
   loadPropertyPrescene() ;
   sizePrescene() ;

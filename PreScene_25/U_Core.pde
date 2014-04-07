@@ -154,27 +154,31 @@ void cursorDisplay() {
 int artificialTime ;
 //FOND
 void backgroundRomanesco() {
-  color bg ;
-  //to smooth the curve of transparency background
-  float facteur = 2.5 ;
-  // float homothety = 100.0 ;
-  float nx = norm(valueSlider[0][3], 0.0 , 100.0) ;
-  float ny = pow (nx ,facteur );
-  ny = map(ny, 0, 1 , 0.8, 100 ) ;
-  
-  bg = color (map(valueSlider[0][0],0,100,0,360), valueSlider[0][1], valueSlider[0][2], ny ) ; 
-  //choice the background
-  if(displayMode.equals("Classic")) backgroundClassic(bg) ;
-  else if(displayMode.equals("P3D")) backgroundP3D(bg) ;
+  if(eBackground == 1) {
+    color bg ;
+    //to smooth the curve of transparency background
+    float facteur = 2.5 ;
+    // float homothety = 100.0 ;
+    float nx = norm(valueSlider[0][3], 0.0 , 100.0) ;
+    float ny = pow (nx ,facteur );
+    ny = map(ny, 0, 1 , 0.8, 100 ) ;
+    
+    bg = color (map(valueSlider[0][0],0,100,0,360), valueSlider[0][1], valueSlider[0][2], ny ) ; 
+    //choice the background
+    if(displayMode.equals("Classic")) backgroundClassic(bg) ;
+    else if(displayMode.equals("P3D")) backgroundP3D(bg) ;
+  }
 }
 
 
 void backgroundRomanescoPrescene() {
-  color bg ;
-  bg = color (map(valueSlider[0][0],0,100,0,360), valueSlider[0][1], valueSlider[0][2], 100 ) ;
-    //choice the background
-  if(displayMode.equals("Classic")) backgroundClassic(bg) ;
-  else if(displayMode.equals("P3D")) backgroundP3D(bg) ;
+  if(eBackground == 1) {
+    color bg ;
+    bg = color (map(valueSlider[0][0],0,100,0,360), valueSlider[0][1], valueSlider[0][2], 100 ) ;
+      //choice the background
+    if(displayMode.equals("Classic")) backgroundClassic(bg) ;
+    else if(displayMode.equals("P3D")) backgroundP3D(bg) ;
+  }
 }
 
 

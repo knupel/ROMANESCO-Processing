@@ -97,6 +97,8 @@ void curtain() {
 //CURSOR, MOUSE, TABLET, LEAP MOTION
 //GLOBAL
 void cursorSetup() {
+  //LEAP MOTION
+  leap = new com.leapmotion.leap.Controller();
   for (int i = 0 ; i < numObj ; i++ ) {
     pen[i] = new PVector(0,0,0) ;
     mouse[i] = new PVector(0,0) ;
@@ -239,27 +241,31 @@ void saveImg(File selection) {
 int artificialTime ;
 //FOND
 void backgroundRomanesco() {
-  noStroke() ;
-  color bg ;
-  //to smooth the curve of transparency background
-  float facteur = 2.5 ;
-  // float homothety = 100.0 ;
-  float nx = norm(valueSlider[0][3], 0.0 , 100.0) ;
-  float ny = pow (nx ,facteur );
-  ny = map(ny, 0, 1 , 0.8, 100 ) ;
-  
-  bg = color (map(valueSlider[0][0],0,100,0,360), valueSlider[0][1], valueSlider[0][2], ny ) ; 
-  //choice the background
-  if(displayMode.equals("Classic")) backgroundClassic(bg) ;
-  else if(displayMode.equals("P3D")) backgroundP3D(bg) ;
+  if(eBackground == 1) {
+    noStroke() ;
+    color bg ;
+    //to smooth the curve of transparency background
+    float facteur = 2.5 ;
+    // float homothety = 100.0 ;
+    float nx = norm(valueSlider[0][3], 0.0 , 100.0) ;
+    float ny = pow (nx ,facteur );
+    ny = map(ny, 0, 1 , 0.8, 100 ) ;
+    
+    bg = color (map(valueSlider[0][0],0,100,0,360), valueSlider[0][1], valueSlider[0][2], ny ) ; 
+    //choice the background
+    if(displayMode.equals("Classic")) backgroundClassic(bg) ;
+    else if(displayMode.equals("P3D")) backgroundP3D(bg) ;
+  }
 }
 
 //diffenrent background
 void backgroundClassic(color c) {
-  //DISPLAY FINAL
-  noStroke() ;
-  fill(c) ;
-  rect (0,0, width, height) ;
+  if(eBackground == 1) {
+    //DISPLAY FINAL
+    noStroke() ;
+    fill(c) ;
+    rect (0,0, width, height) ;
+  }
 }
 
 //P3D
@@ -267,13 +273,15 @@ void backgroundClassic(color c) {
 ////////////
 PVector sizeBG ;
 void backgroundP3D(color c) {
-  fill(c) ;
-  noStroke() ;
-  pushMatrix() ;
-  sizeBG = new PVector(width *100, height *100, height *7) ;
-  translate(-sizeBG.x *.5,-sizeBG.y *.5 , -sizeBG.z) ;
-  rect(0,0, sizeBG.x,sizeBG.y) ;
-  popMatrix() ;
+  if(eBackground == 1) {
+    fill(c) ;
+    noStroke() ;
+    pushMatrix() ;
+    sizeBG = new PVector(width *100, height *100, height *7) ;
+    translate(-sizeBG.x *.5,-sizeBG.y *.5 , -sizeBG.z) ;
+    rect(0,0, sizeBG.x,sizeBG.y) ;
+    popMatrix() ;
+  }
 }
 //END BACKGROUND
 ////////////////

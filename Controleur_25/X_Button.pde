@@ -1,6 +1,8 @@
 class Bouton {
   color couleurBouton, couleurONoffCarre, couleurONoffCercle ;
-  int mGB, mHB, lB, hB , etatBoutonCercle, etatBoutonCarre ;
+  int etatBoutonCercle, etatBoutonCarre ;
+  PVector pos = new PVector() ; 
+  PVector size = new PVector() ;
   
   boolean dedansBoutonCercle = false ;
   boolean JouerBoutonCercle = false ;
@@ -11,8 +13,16 @@ class Bouton {
   //simple
   Bouton () {}
   //complexe
-  Bouton ( int posWidthB, int posHeightB, int longueurB, int hauteurB ) {
-    mGB =  posWidthB ; mHB = posHeightB ; lB = longueurB ; hB = hauteurB ;
+  Bouton (int posWidth, int posHeight, int widthButton, int heightButton) {
+    pos.x = posWidth ;
+    pos.y = posHeight ;
+    size.x = widthButton ;
+    size.y = heightButton ;
+    pos.x =  posWidth ; pos.y = posHeight ; size.x = widthButton ; size.y = heightButton ;
+  }
+  Bouton ( PVector pos, PVector size ) {
+    this.pos = pos.get() ;
+    this.size = size.get() ;
   }
   
 
@@ -21,32 +31,57 @@ class Bouton {
   
   //ROLLOVER
   //rectangle
-  float newhB = 1  ;
+  float newSize = 1  ;
+  //
   boolean detectionCarre() {
+    if (size.y < 10 ) newSize = size.y *1.8 ; 
+    else if (size.y >= 10 && size.y < 20  ) newSize = size.y *1.2 ;  
+    else if (size.y >= 20 ) newSize = size.y ;
+    if ( mouseX > pos.x && mouseX < pos.x + size.x && mouseY > pos.y  && mouseY < pos.y + newSize ) { 
+      return true ; 
+    } else { 
+      return false ; 
+    }
+  }
+  // with correction for the font position
+  boolean detectionCarre(int correction) {
+    if (size.y < 10 ) newSize = size.y *1.8 ; 
+    else if (size.y >= 10 && size.y < 20  ) newSize = size.y *1.2 ;  
+    else if (size.y >= 20 ) newSize = size.y ;
     
-    if (hB < 10 ) newhB = hB *1.8 ; 
-    else if (hB >= 10 && hB < 20  ) newhB = hB *1.2 ;  
-    else if (hB >= 20 ) newhB = hB ;
-    
-   if ( mouseX > mGB && mouseX < mGB + lB && mouseY > mHB  && mouseY < mHB + newhB ) { 
-     return true ; 
-   } else { 
-     return false ; 
-   }
+    if ( mouseX > pos.x && mouseX < pos.x + size.x && mouseY > pos.y -correction  && mouseY < pos.y +newSize -correction) { 
+      return true ; 
+    } else { 
+      return false ; 
+    }
   }
   //ellipse
   boolean detectionCercle() {
-    float disX = mGB -mouseX ; 
-    float disY = mHB -mouseY  ; 
-    if (sqrt(sq(disX) + sq(disY)) < lB/2 ) return true ; else return false ; 
+    float disX = pos.x -mouseX ; 
+    float disY = pos.y -mouseY  ; 
+    if (sqrt(sq(disX) + sq(disY)) < size.x/2 ) return true ; else return false ; 
   } 
   
   
   
   //CLIC
-  void mousePressed () {
+  void mousePressedText() {
     //rect
-    if ( detectionCarre() ) {
+    if (detectionCarre((int)size.y) ) {
+      dedansBoutonCarre = true ;
+      if ( JouerBoutonCarre ) {
+        JouerBoutonCarre = false ;
+        etatBoutonCarre = 0 ;
+      } else {
+        JouerBoutonCarre = true ;
+        etatBoutonCarre = 1 ; 
+      }
+    }
+  }
+  //
+  void mousePressed() {
+    //rect
+    if (detectionCarre() ) {
       dedansBoutonCarre = true ;
       if ( JouerBoutonCarre ) {
         JouerBoutonCarre = false ;
@@ -68,11 +103,10 @@ class Bouton {
       }
     }
   }
-  
-  void mouseReleased () 
-  {
+  /*
+  void mouseReleased () {
     //rect
-    if ( detectionCarre() ) {
+    if (detectionCarre() ) {
       dedansBoutonCarre = true ;
       if ( JouerBoutonCarre ) {
         JouerBoutonCarre = false ;
@@ -94,28 +128,33 @@ class Bouton {
       }
     }
   } 
+  */
 }
 
 
 ////////
 //BUTTON
-class Simple extends Bouton
-{
+class Simple extends Bouton {
   color cBINonBO, cBOUTonBO, cBINoffBO, cBOUToffBO, cBEinBO, cBEoutBO ;
   
   //CONSTRUCTOR
-  Simple(int mGB,  int mHB, int lB, int hB) {
-    super(mGB, mHB, lB, hB) ;
+  Simple(int posWidth, int posHeight, int widthButton, int heightButton) {
+    super(posWidth, posHeight, widthButton, heightButton) ;
   }
   
   //
-  Simple (  int mGB,  int mHB, int lB, int hB, 
-            color BoutonINonBO, color BoutonOUTonBO, color BoutonINoffBO, color BoutonOUToffBO,
-            color BoutonEnsembleINBO, color BoutonEnsembleOUTBO)                  
+  Simple (int posWidth, int posHeight, int widthButton, int heightButton, 
+          color BoutonINonBO, color BoutonOUTonBO, color BoutonINoffBO, color BoutonOUToffBO,
+           color BoutonEnsembleINBO, color BoutonEnsembleOUTBO)                  
  {
-   super(mGB, mHB, lB, hB) ;
+   super(posWidth, posHeight,  widthButton, heightButton) ;
    cBINonBO = BoutonINonBO ; cBOUTonBO = BoutonOUTonBO ; cBINoffBO = BoutonINoffBO ; cBOUToffBO = BoutonOUToffBO ;
    cBEinBO = BoutonEnsembleINBO ; cBEoutBO = BoutonEnsembleOUTBO ;
+ }
+ 
+ Simple (PVector pos, PVector size, color BoutonINonBO, color BoutonOUTonBO, color BoutonINoffBO, color BoutonOUToffBO )  {
+   super(pos, size) ;
+   cBINonBO = BoutonINonBO ; cBOUTonBO = BoutonOUTonBO ; cBINoffBO = BoutonINoffBO ; cBOUToffBO = BoutonOUToffBO ;
  }
  
  
@@ -123,7 +162,7 @@ class Simple extends Bouton
  //VOID
  void boutonFond () {
    fill(couleurBouton) ;
-   rect(mGB, mHB, lB, hB) ;
+   rect(pos.x, pos.y, size.x, size.y) ;
  }
  
  
@@ -133,7 +172,7 @@ class Simple extends Bouton
  ///Bouton carre
  void boutonCarre () {
    strokeWeight (1) ;
-   if ( JouerBoutonCarre ) {
+   if (JouerBoutonCarre ) {
      stroke(vertTresFonce) ;
      if ( detectionCarre() ) { 
        dedansBoutonCarre = true ;
@@ -151,7 +190,7 @@ class Simple extends Bouton
      }
    }
    fill(couleurONoffCarre) ;
-   rect(mGB, mHB, lB, hB) ;
+   rect(pos.x, pos.y, size.x, size.y) ;
    noStroke() ;
  }
  ////////////////////////////////////
@@ -175,72 +214,13 @@ class Simple extends Bouton
      }
    }
    fill(couleurONoffCercle) ;
-   ellipse(mGB, mHB, lB, lB) ;
+   ellipse(pos.x, pos.y, size.x, size.x) ;
    noStroke() ;
  }
  
- /*
- /////////////////////////////////////////
- void boutonJouer ()
- {
-   smooth() ;
-   pushMatrix() ;
-   translate ( -lB/2 , -lB/2 ) ;
-   
-   if ( JouerBoutonCercle ) {
-     if ( detectionCercle() ) {
-       dedansBoutonCercle = true ;
-       couleurONoffCercle = cBINonBO ;
-       image(bouton[6],mGB , mHB ) ;
-     } else {
-       couleurONoffCercle = cBOUTonBO ;
-       image(bouton[7],mGB , mHB ) ;
-     }
-   } else {
-       if ( detectionCercle() ) {
-       dedansBoutonCercle = true ;
-       couleurONoffCercle = cBINoffBO ;
-       image(bouton[4],mGB , mHB ) ;
-     } else {
-       couleurONoffCercle = cBOUToffBO ;
-       image(bouton[5],mGB , mHB ) ;
-     }
-   }
-   fill(couleurONoffCercle, 30) ;
-   popMatrix() ;
- }
- */
- ///////////////////////////////////////
- /*
- void boutonRetour ()
- {
-   smooth() ;
-   pushMatrix() ;
-   translate ( -lB/2 , -lB/2 ) ;
-   
-   if ( JouerBoutonCercle ) {
-     if ( detectionCercle() ) {
-       dedansBoutonCercle = true ;
-       couleurONoffCercle = cBINonBO ;
-       image(bouton[8],mGB , mHB ) ;
-     } else {
-       couleurONoffCercle = cBOUTonBO ;
-       image(bouton[8],mGB , mHB ) ;
-     }
-   } else {
-       if ( detectionCercle() ) {
-       dedansBoutonCercle = true ;
-       couleurONoffCercle = cBINoffBO ;
-       image(bouton[9],mGB , mHB ) ;
-     } else {
-       couleurONoffCercle = cBOUToffBO ;
-       image(bouton[9],mGB , mHB ) ;
-     }
-   }
-   fill(couleurONoffCercle, 30) ;
-   popMatrix() ;
- }
- */
+
+
+ 
  
  //////////////
  //IMAGE BUTTON
@@ -252,16 +232,16 @@ class Simple extends Bouton
    if ( JouerBoutonCarre ) {
      if ( detectionCarre() ) {
        dedansBoutonCarre = true ;
-       image(vignette_ON_in[wichVignette],mGB , mHB ) ;
+       image(vignette_ON_in[wichVignette],pos.x, pos.y) ;
      } else {
-       image(vignette_ON_out[wichVignette],mGB , mHB ) ;
+       image(vignette_ON_out[wichVignette],pos.x, pos.y) ;
      }
    } else {
        if ( detectionCarre() ) {
        dedansBoutonCarre = true ;
-       image(vignette_OFF_in[wichVignette],mGB , mHB ) ;
+       image(vignette_OFF_in[wichVignette],pos.x, pos.y) ;
      } else {
-       image(vignette_OFF_out[wichVignette],mGB , mHB ) ;
+       image(vignette_OFF_out[wichVignette],pos.x, pos.y) ;
      }
    }
  }
@@ -273,17 +253,17 @@ class Simple extends Bouton
      if ( detectionCarre() ) {
        //ON
        dedansBoutonCarre = true ;
-       image(bouton[1],mGB , mHB ) ;
+       image(bouton[1],pos.x, pos.y ) ;
      } else {
-       image(bouton[0],mGB , mHB ) ;
+       image(bouton[0],pos.x, pos.y ) ;
      }
    } else {
      //OFF
        if ( detectionCarre() ) {
        dedansBoutonCarre = true ;
-       image(bouton[3],mGB , mHB ) ;
+       image(bouton[3],pos.x, pos.y ) ;
      } else {
-       image(bouton[2],mGB , mHB ) ;
+       image(bouton[2],pos.x, pos.y) ;
      }
    }
  }
@@ -294,43 +274,22 @@ class Simple extends Bouton
    if ( JouerBoutonCarre ) {
      if ( detectionCarre() ) {
        dedansBoutonCarre = true ;
-       image(bouton[11],mGB , mHB ) ;
+       image(bouton[11],pos.x, pos.y) ;
      } else {
-       image(bouton[10],mGB , mHB ) ;
+       image(bouton[10],pos.x, pos.y) ;
      }
    } else {
        if ( detectionCarre() ) {
        dedansBoutonCarre = true ;
-       image(bouton[13],mGB , mHB ) ;
+       image(bouton[13],pos.x, pos.y) ;
      } else {
-       image(bouton[12],mGB , mHB ) ;
+       image(bouton[12],pos.x, pos.y) ;
      }
    }
  }
  
- //METEO Button
- void boutonMeteo()
- {
-   if ( JouerBoutonCarre ) {
-     if ( detectionCarre() ) {
-       dedansBoutonCarre = true ;
-       image(bouton[15],mGB , mHB ) ;
-     } else {
-       image(bouton[14],mGB , mHB ) ;
-     }
-   } else {
-       if ( detectionCarre() ) {
-       dedansBoutonCarre = true ;
-       image(bouton[17],mGB , mHB ) ;
-     } else {
-       image(bouton[16],mGB , mHB ) ;
-     }
-   }
- }
- 
- ///Bouton Texte
- void boutonTexte(String s, int x, int y)
- {
+ ///BUTTON Texte
+ void boutonTexte(String s, int x, int y) {
    if ( JouerBoutonCarre ) {
      stroke(vertTresFonce) ;
      if ( detectionCarre() ) { 
@@ -350,14 +309,34 @@ class Simple extends Bouton
    }
 
    fill(couleurONoffCarre) ;
-  // rect(x, y, 50, 50) ;
    text(s, x, y) ;
-   //noStroke() ;
+ }
+ 
+ void boutonTexte(String s, PVector pos, PFont font, int sizeFont) {
+   if (JouerBoutonCarre) {
+     if (detectionCarre(sizeFont) ) { 
+       dedansBoutonCarre = true ;
+       couleurONoffCarre = cBINonBO ;
+     } else {
+       couleurONoffCarre = cBOUTonBO ;
+     }
+   } else {
+     if (detectionCarre(sizeFont) ) {
+       dedansBoutonCarre = true ;
+       couleurONoffCarre = cBINoffBO ;
+     } else {
+       couleurONoffCarre = cBOUToffBO ;
+     }
+   }
+   // println(s, JouerBoutonCarre, dedansBoutonCarre) ;
+   fill(couleurONoffCarre) ;
+   textFont(font) ;
+   textSize(sizeFont) ;
+   text(s, pos.x, pos.y) ;
  }
  
  ////////////////////////////////////
- void boutonCarreEcran (String s, PVector pos)
- {
+ void boutonCarreEcran (String s, PVector localpos) {
    strokeWeight (1) ;
    if ( JouerBoutonCarre ) {
      stroke(vertTresFonce) ;
@@ -378,9 +357,9 @@ class Simple extends Bouton
    }
 
    fill(couleurONoffCarre) ;
-   rect(mGB, mHB, lB, hB) ;
+   rect(pos.x, pos.y, size.x, size.y) ;
    fill(blanc) ;
-   text(s, mGB +pos.x, mHB + pos.y) ;
+   text(s, pos.x +localpos.x, pos.y + localpos.y) ;
    noStroke() ;
  }
 

@@ -67,10 +67,17 @@ void translateDataToSend() {
   valueButtonGlobal[2] = EtatBkick ;
   valueButtonGlobal[3] = EtatBsnare ;
   valueButtonGlobal[4] = EtatBhat ;
-  //dropdown typo
+  /*
   valueButtonGlobal[7] = dropdownFont.getSelection() +1 ; ;
-  //curtain
-  valueButtonGlobal[10] = EtatBOcurtain ;
+  valueButtonGlobal[10] = EtatCurtainButton ;
+  */
+  valueButtonGlobal[5] = dropdownFont.getSelection() +1 ; ;
+  valueButtonGlobal[6] = EtatCurtainButton ;
+  
+  valueButtonGlobal[7] = EtatBackgroundButton ;
+  valueButtonGlobal[8] = EtatLightOneButton ;
+  valueButtonGlobal[9] = EtatLightTwoButton ;
+ 
   
   //BUTTON OBJ
   if(numGroup[1] > 0 ) {
@@ -109,8 +116,6 @@ void translateDataToSend() {
       if (dropdown[whichDropdown] != null)  valueButtonTypo[i *10 +9] = dropdown[whichDropdown].getSelection() ;
     }
   }
-  
-
 }
   
 

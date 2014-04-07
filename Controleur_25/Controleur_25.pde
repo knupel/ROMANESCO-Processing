@@ -26,15 +26,18 @@ void mousePressed () {
   if(numGroup[2] > 0 ) for( int i = 11 ; i < numGroup[2] *10 + 6 ; i++)  BTf[i].mousePressed() ;
   if(numGroup[3] > 0 ) for( int i = 11 ; i < numGroup[3] *10 + 6 ; i++)  BTYf[i].mousePressed() ;
 
+  buttonBackground.mousePressedText() ;
+  buttonLightOne.mousePressedText() ;
+  buttonLightTwo.mousePressedText() ;
   //son
-  Bbeat.mousePressed() ;
-  Bkick.mousePressed() ;
-  Bsnare.mousePressed() ;
-  Bhat.mousePressed() ;
+  Bbeat.mousePressedText() ;
+  Bkick.mousePressedText() ;
+  Bsnare.mousePressedText() ;
+  Bhat.mousePressedText() ;
   //midi
-  BOmidi.mousePressed() ;
+  BOmidi.mousePressedText() ;
   //curtain
-  BOcurtain.mousePressed() ;
+  BOcurtain.mousePressedText() ;
   //dropdown
   dropdownMousepressed() ;
 

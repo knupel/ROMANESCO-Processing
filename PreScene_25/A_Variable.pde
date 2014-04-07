@@ -33,9 +33,7 @@ import com.sun.syndication.io.*;
 
 //TABLET GRAPHIC
 import codeanticode.tablet.*;
-//LEAP MOTION
-import com.leapmotion.leap.*;
-com.leapmotion.leap.Controller leap;
+
 
 
 
@@ -159,7 +157,7 @@ PFont police ;
 
 //OSC VAR
 // button
-int eBeat, eKick, eSnare, eHat, eCurtain, eMeteo ;
+int eBeat, eKick, eSnare, eHat, eCurtain, eBackground, eLightOne, eLightTwo ;
 int [] objectButton,soundButton, actionButton, parameterButton ;
 boolean [] object, sound, action, parameter ;
 
@@ -167,25 +165,10 @@ int mode[]  ;
 
 //BUTTON
 int [] valueButtonGlobal, valueButtonObj  ;
-/*
-int valueButtonGroupZero[] = new int[numButtonGroupZero] ;
-int valueButtonGroupObj[] = new int[numButtonGroupObj] ;
-*/
 //SLIDER
 String valueSliderTemp[][]  = new String [numGroup+1][numSlider] ;
-/*
-String valueSliderTempGroupZero[]  = new String [numSliderGroupZero] ;
-String valueSliderTempGroupOne[]  = new String [numSlider] ;
-String valueSliderTempGroupTwo[]  = new String [numSlider] ;
-String valueSliderTempGroupThree[]  = new String [numSlider] ;
-*/
 float valueSlider[][]  = new float [numGroup+1][numSlider] ;
-/*
-float valueSliderGlobal[]  = new float [numSliderGroupZero] ;
-float valueSliderGroupOne[]  = new float [numSlider] ;
-float valueSliderGroupTwo[]  = new float [numSlider] ;
-float valueSliderGroupThree[]  = new float [numSlider] ;
-*/
+
 
 //MISC
 //var to init the data of the object when is switch ON for the first time
@@ -374,21 +357,7 @@ void createVarSound() {
    tempoHat = new float [numObj] ;
 }
 //
-/*
-void createVarSlider() {
-  //valueSliderTempGroup = new String [numGroup] [numSlider] ;
-  valueSliderTempGroupZero  = new String [numSliderGroupZero] ;
-  valueSliderTempGroupOne  = new String [numSlider] ;
-  valueSliderTempGroupTwo  = new String [numSlider] ;
-  valueSliderTempGroupThree  = new String [numSlider] ;
-  
-  valueSliderGlobal  = new float [numSliderGroupZero] ;
-  valueSliderGroupOne  = new float [numSlider] ;
-  valueSliderGroupTwo  = new float [numSlider] ;
-  valueSliderGroupThree  = new float [numSlider] ;
-}
-*/
-//
+
 void createVarButton() {
   objectButton = new int [numObj] ;
   soundButton = new int [numObj] ;

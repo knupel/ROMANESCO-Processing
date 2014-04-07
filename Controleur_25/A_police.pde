@@ -4,7 +4,7 @@ int sizeTexteInterface = 14 ;
 public PFont 
       //controleur font
       police, texteInterface,
-      EmigreEight, FuturaStencil_20,
+      EmigreEight, FuturaStencil_20, FuturaStencil_10,
 
       
       //scène Font
@@ -31,6 +31,7 @@ void fontSetup() {
   String fontPathVLW = sketchPath("")+"preferences/Font/typoVLW/" ;
   EmigreEight = loadFont (fontPathVLW+"EmigreEight-14.vlw") ;
   FuturaStencil_20 = loadFont(fontPathVLW+"FuturaStencilICG-20.vlw");
+  FuturaStencil_10 = loadFont(fontPathVLW+"FuturaStencilICG-10.vlw");
   //Scène Font  
   AmericanTypewriter=loadFont       (fontPathVLW+"AmericanTypewriter-96.vlw");
   AmericanTypewriterBold=loadFont   (fontPathVLW+"AmericanTypewriter-Bold-96.vlw");

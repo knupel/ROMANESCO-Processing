@@ -158,13 +158,13 @@ void OSCDraw() {
   eKick = valueButtonGlobal[2] ;
   eSnare = valueButtonGlobal[3] ;
   eHat = valueButtonGlobal[4] ;
-  //meteo
-  eMeteo = valueButtonGlobal[5] ;
-  //dropdown typo
-  whichFont(valueButtonGlobal[7]) ;
-  //rideau
-  eCurtain = valueButtonGlobal[10] ;
-
+  
+  whichFont(valueButtonGlobal[5]) ;
+  eCurtain = valueButtonGlobal[6] ;
+  
+  eBackground = valueButtonGlobal[7] ;
+  eLightOne = valueButtonGlobal[8] ;
+  eLightTwo = valueButtonGlobal[9] ;
   
   //OBJECTS
   for ( int i = 0 ; i < numObj-1 ; i++) {

@@ -1,4 +1,6 @@
-
+//LEAP MOTION
+import com.leapmotion.leap.*;
+com.leapmotion.leap.Controller leap;
 
 //boolean delayBetweenThePos ;
 //int numFingerRef ;

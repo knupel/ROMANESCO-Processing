@@ -37,7 +37,8 @@ int numButtonTotalObjects ;
 int lastDropdown, numDropdown ;
 //BUTTON
 int valueButtonGlobal[], valueButtonObj[], valueButtonTex[], valueButtonTypo[]  ;
-Simple  BOmidi, BOcurtain, buttonMeteo,
+Simple  BOmidi, BOcurtain,
+        buttonBackground, buttonLightOne, buttonLightTwo,
         Bbeat, Bkick, Bsnare, Bhat;
         
 //bouton objet

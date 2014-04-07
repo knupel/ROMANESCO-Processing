@@ -51,28 +51,39 @@ int   mgSliderc1, mgSliderc2, mgSliderc3,
 
 
 
-
+//Background / light one / light two
+int EtatBackgroundButton, EtatLightOneButton, EtatLightTwoButton ;
+PVector posBackgroundButton, sizeBackgroundButton,
+        posLightOneButton, sizeLightOneButton,
+        posLightTwoButton,  sizeLightTwoButton ;
 
 
 // bouton dropdown font
 PVector posButtonFont ; 
-//bouton midi
-int EtatBOmidi ;
-int transparenceBordBOmidi, epaisseurBordBOmidi, transparenceBoutonBOmidi, 
-    posWidthBOmidi, posHeightBOmidi, longueurBOmidi, hauteurBOmidi ;
+// MIDI, CURTAIN
+int EtatMidiButton, EtatCurtainButton, EtatBbeat, EtatBkick, EtatBsnare, EtatBhat ; ;
+PVector posMidiButton, sizeMidiButton,
+        posCurtainButton, sizeCurtainButton,
+        posBeatButton, sizeBeatButton,
+        posKickButton, sizeKickButton,
+        posSnareButton, sizeSnareButton,
+        posHatButton, sizeHatButton ;
+//int transparenceBordBOmidi, epaisseurBordBOmidi, transparenceBoutonBOmidi, 
+//    posWidthBOmidi, posHeightBOmidi, longueurBOmidi, hauteurBOmidi ;
 
 //bouton curtain
-int EtatBOcurtain ;
-int transparenceBordBOcurtain, epaisseurBordBOcurtain, transparenceBoutonBOcurtain, 
-    posWidthBOcurtain, posHeightBOcurtain, longueurBOcurtain, hauteurBOcurtain ;
+//int EtatBOcurtain ;
+//int transparenceBordBOcurtain, epaisseurBordBOcurtain, transparenceBoutonBOcurtain, 
+ //   posWidthBOcurtain, posHeightBOcurtain, longueurBOcurtain, hauteurBOcurtain ;
 
 //bouton Musique
+/*
 int EtatBbeat, EtatBkick, EtatBsnare, EtatBhat ;
 int   posWidthBeat, posHeightBeat, longueurBeat,  hauteurBeat,
   posWidthKick, posHeightKick, longueurKick,  hauteurKick,
   posWidthSnare, posHeightSnare, longueurSnare,  hauteurSnare,
   posWidthHat, posHeightHat, longueurHat,  hauteurHat ;
-
+*/
 
 //paramètres réglette couleur
 int posXSlider[] =      new int[numSlider*2] ;
@@ -118,7 +129,7 @@ void midiSetup() {
 void midiDraw() {
   //save midi setting molette
   String [] newSettingMidi = new String[numSlider] ;
-  if ( EtatBOmidi == 1 ) selectMidi = true ; else selectMidi = false ;
+  if ( EtatMidiButton == 1 ) selectMidi = true ; else selectMidi = false ;
 }
 //END MIDI
 
@@ -133,25 +144,35 @@ void buttonSliderSetup() {
   margeLeft = (int)columnPosVert.x +15 ; // marge left for the first GUI button and slider
   startingTopPosition = 30 ; // marge top to starting position of the GUI button and slider
   mgSliderc1 = (int)columnPosVert.x ; mgSliderc2 = (int)columnPosVert.y ; mgSliderc3 = (int)columnPosVert.z ;
+  int topMenuPos = startingTopPosition +10 ;
   
-  //GROUP ZERO
-  //font
-  posButtonFont = new PVector(margeLeft -5, startingTopPosition)  ; //
-  //midi  
-  posWidthBOmidi = margeLeft +85 ; 
-  posHeightBOmidi =startingTopPosition ; 
-  longueurBOmidi =50 ; 
-  hauteurBOmidi =12 ;
-  //curtain  
-  posWidthBOcurtain = posWidthBOmidi +70 ; 
-  posHeightBOcurtain =startingTopPosition  ; 
-  longueurBOcurtain =50 ; 
-  hauteurBOcurtain =12 ;
-  //beat button
-  posWidthBeat  = mgSliderc3 +0  ; posHeightBeat  = startingTopPosition  ; longueurBeat  =30  ; hauteurBeat  =10 ;
-  posWidthKick  = mgSliderc3 +30 ; posHeightKick  = startingTopPosition  ; longueurKick  =30  ; hauteurKick  =10 ;
-  posWidthSnare = mgSliderc3 +58 ; posHeightSnare = startingTopPosition  ; longueurSnare =45  ; hauteurSnare =10 ;
-  posWidthHat   = mgSliderc3 +95 ; posHeightHat   = startingTopPosition  ; longueurHat   =30  ; hauteurHat   =10 ;
+  //GROUP GLOBAL
+  // FONT
+  posButtonFont = new PVector(mgSliderc1, startingTopPosition)  ; //
+  
+  // MIDI CURTAIN
+  sizeCurtainButton = new PVector(30,12) ;
+  sizeMidiButton = new PVector(30,12) ;
+  posMidiButton = new PVector(mgSliderc2, topMenuPos) ; 
+  posCurtainButton = new PVector(posMidiButton.x +sizeMidiButton.x +5, topMenuPos) ; 
+  
+  //SOUND BUTTON
+  sizeBeatButton = new PVector(30,10) ; 
+  sizeKickButton = new PVector(30,10) ; 
+  sizeSnareButton = new PVector(40,10) ; 
+  sizeHatButton = new PVector(30,10) ;
+  posBeatButton = new PVector(mgSliderc3 +0, topMenuPos) ; 
+  posKickButton = new PVector(posBeatButton.x +sizeBeatButton.x +5, topMenuPos) ; 
+  posSnareButton = new PVector(posKickButton.x +sizeKickButton.x +5, topMenuPos) ; 
+  posHatButton = new PVector(posSnareButton.x +sizeSnareButton.x +5, topMenuPos) ;
+
+  // background / light button
+  posBackgroundButton = new PVector(mgSliderc1, startingTopPosition + 60) ;
+  sizeBackgroundButton = new PVector(85,10) ;
+  posLightOneButton = new PVector(mgSliderc2, posBackgroundButton.y) ;
+  sizeLightOneButton = new PVector(55,10) ;
+  posLightTwoButton = new PVector(mgSliderc3, posBackgroundButton.y) ;
+  sizeLightTwoButton = new PVector(55,10) ;
   
   // GROUP ONE
   posHeightBO  = startingTopPosition + 140  ;               posWidthBO  =margeLeft ;
@@ -183,14 +204,14 @@ void groupZero(int pos) {
   suivitSlider[2] = 1 ; posWidthSlider[2] = mgSliderc1 ; posHeightSlider[2]= pos +20 ; longueurSlider[2] = 111 ; hauteurSlider[2] = sliderHeight ; ;   
   suivitSlider[3] = 1 ; posWidthSlider[3] = mgSliderc1 ; posHeightSlider[3]= pos +30 ; longueurSlider[3] = 111 ; hauteurSlider[3] = sliderHeight ; ;   
   suivitSlider[4] = 1 ; posWidthSlider[4] = mgSliderc1 ; posHeightSlider[4]= pos +40 ; longueurSlider[4] = 111 ; hauteurSlider[4] = sliderHeight ; ;   
-  //sound
-  suivitSlider[5] = 1 ; posWidthSlider[5] = mgSliderc3  ; posHeightSlider[5]= pos -35 ; longueurSlider[5] = 111 ; hauteurSlider[5] = sliderHeight ;  ; // sound left
-  suivitSlider[6] = 1 ; posWidthSlider[6] = mgSliderc3  ; posHeightSlider[6]= pos -45 ; longueurSlider[6] = 111 ; hauteurSlider[6] = sliderHeight ; ; // sound rigth 
-  //LIGHT
+  // SOUND
+  suivitSlider[5] = 1 ; posWidthSlider[5] = mgSliderc3  ; posHeightSlider[5]= pos -30 ; longueurSlider[5] = 111 ; hauteurSlider[5] = sliderHeight ;  ; // sound left
+  suivitSlider[6] = 1 ; posWidthSlider[6] = mgSliderc3  ; posHeightSlider[6]= pos -40 ; longueurSlider[6] = 111 ; hauteurSlider[6] = sliderHeight ; ; // sound rigth 
+  // LIGHT ONE
   suivitSlider[7] = 1 ; posWidthSlider[7] = mgSliderc2 ; posHeightSlider[7]= pos +10 ; longueurSlider[7] = 111 ; hauteurSlider[7] = sliderHeight ; ; // hue 
   suivitSlider[8] = 1 ; posWidthSlider[8] = mgSliderc2 ; posHeightSlider[8]= pos +20 ; longueurSlider[8] = 111 ; hauteurSlider[8] = sliderHeight ; ;   
   suivitSlider[9] = 1 ; posWidthSlider[9] = mgSliderc2 ; posHeightSlider[9]= pos +30 ; longueurSlider[9] = 111 ; hauteurSlider[9] = sliderHeight ; ; 
- //AMBIENT 
+ // LIGHT TWO
   suivitSlider[10] = 1 ; posWidthSlider[10] = mgSliderc3 ; posHeightSlider[10]= pos +10 ; longueurSlider[10] = 111 ; hauteurSlider[10] = sliderHeight ; ;  // hue ambiance
   suivitSlider[11] = 1 ; posWidthSlider[11] = mgSliderc3 ; posHeightSlider[11]= pos +20 ; longueurSlider[11] = 111 ; hauteurSlider[11] = sliderHeight ; ;
   suivitSlider[12] = 1 ; posWidthSlider[12] = mgSliderc3 ; posHeightSlider[12]= pos +30 ; longueurSlider[12] = 111 ; hauteurSlider[12] = sliderHeight ; ;
@@ -256,15 +277,18 @@ void groupThree(int posButton, int posSlider) {
 /////////////
 //CONSTRUCTOR
 void constructorSliderButton() {
+  buttonBackground = new Simple(posBackgroundButton, sizeBackgroundButton, vertTresFonce, vertFonce, rouge, rougeFonce) ;
+  buttonLightOne = new Simple(posLightOneButton, sizeLightOneButton, vertTresFonce, vertFonce, rouge, rougeFonce) ;
+  buttonLightTwo = new Simple(posLightTwoButton, sizeLightTwoButton, vertTresFonce, vertFonce, rouge, rougeFonce) ;
   //button beat
-  Bbeat = new Simple(posWidthBeat, posHeightBeat, longueurBeat,  hauteurBeat, vertTresFonce, vertFonce, rouge, rougeFonce, gris, grisNoir) ;
-  Bkick = new Simple(posWidthKick, posHeightKick, longueurKick,  hauteurKick, vertTresFonce, vertFonce, rouge, rougeFonce, gris, grisNoir) ;
-  Bsnare = new Simple(posWidthSnare, posHeightSnare, longueurSnare,  hauteurSnare, vertTresFonce, vertFonce, rouge, rougeFonce, gris, grisNoir) ;
-  Bhat = new Simple(posWidthHat, posHeightHat, longueurHat,  hauteurHat, vertTresFonce, vertFonce, rouge, rougeFonce, gris, grisNoir) ;
+  Bbeat = new Simple(posBeatButton, sizeBeatButton, vertTresFonce, vertFonce, rouge, rougeFonce) ;
+  Bkick = new Simple(posKickButton, sizeKickButton, vertTresFonce, vertFonce, rouge, rougeFonce) ;
+  Bsnare = new Simple(posSnareButton, sizeSnareButton, vertTresFonce, vertFonce, rouge, rougeFonce) ;
+  Bhat = new Simple(posHatButton, sizeHatButton, vertTresFonce, vertFonce, rouge, rougeFonce) ;
   //MIDI
-  BOmidi  = new Simple ( posWidthBOmidi, posHeightBOmidi, longueurBOmidi, hauteurBOmidi, vert, vertFonce, rouge, rougeFonce, gris, grisNoir ) ;
+  BOmidi  = new Simple (posMidiButton, sizeMidiButton, vert, vertFonce, rouge, rougeFonce) ;
   //curtain
-  BOcurtain  = new Simple ( posWidthBOcurtain, posHeightBOcurtain, longueurBOcurtain, hauteurBOcurtain, vert, vertFonce, rouge, rougeFonce, gris, grisNoir ) ;
+  BOcurtain  = new Simple (posCurtainButton, sizeCurtainButton, vert, vertFonce, rouge, rougeFonce) ;
   
   //button object, texture, typography
   for(int i = 1 ; i < numGroupSlider ; i++) {
@@ -342,9 +366,11 @@ void dispayTextSliderGroupZero(int pos) {
   // GROUP ZERO
   textFont(FuturaStencil_20,20); textAlign(LEFT);
   fill(blanc, 120) ;
+  /*
   text("BACKGROUND", mgSliderc1, posHeightSlider[1] -(correction*4));
   text("LIGHT", mgSliderc2, posHeightSlider[7] -(correction*4));
   text("AMBIENT", mgSliderc3, posHeightSlider[10] -(correction*4));
+  */
   fill (typoTitre) ; 
   textFont(texteInterface, sizeTexteInterface) ; textAlign(LEFT);
   fill (typoCourante) ;
@@ -474,7 +500,7 @@ void sliderDrawGroupZero () {
     fondReglette    ( posWidthSlider[2], posHeightSlider[2], hauteurSlider[2], longueurSlider[2], blancGrisClair ) ;
     fondReglette    ( posWidthSlider[3], posHeightSlider[3], hauteurSlider[3], longueurSlider[3], blancGrisClair ) ;
   }
-  // light slider
+  // light ONE slider
   if (mouseX > (posWidthSlider[7] ) && mouseX < ( posWidthSlider[7] + longueurSlider[7]) 
   && mouseY > ( posHeightSlider[7] - 5) && mouseY < posHeightSlider[1] + 40 ) {
     fondRegletteCouleur    ( posWidthSlider[7], posHeightSlider[7], hauteurSlider[7], longueurSlider[7]) ;
@@ -485,7 +511,7 @@ void sliderDrawGroupZero () {
     fondReglette    ( posWidthSlider[8], posHeightSlider[8], hauteurSlider[8], longueurSlider[8], blancGrisClair ) ;
     fondReglette    ( posWidthSlider[9], posHeightSlider[9], hauteurSlider[9], longueurSlider[9], blancGrisClair ) ;
   }
-  // ambient slider
+  // light TWO slider
   if (mouseX > (posWidthSlider[10] ) && mouseX < ( posWidthSlider[10] + longueurSlider[10]) 
   && mouseY > ( posHeightSlider[10] - 5) && mouseY < posHeightSlider[1] + 40 ) {
     fondRegletteCouleur    ( posWidthSlider[10], posHeightSlider[10], hauteurSlider[10], longueurSlider[10]) ;
@@ -608,16 +634,19 @@ void buttonDraw () {
 // DETAIL
 // GROUP ZERO
 void buttonDrawGroupZero() {
-  Bbeat.boutonTexte("BEAT",    posWidthBeat,  posHeightBeat  +6) ;
-  Bkick.boutonTexte("KICK",    posWidthKick,  posHeightKick  +6) ;
-  Bsnare.boutonTexte("SNARE",  posWidthSnare, posHeightSnare +6) ;
-  Bhat.boutonTexte("HAT",      posWidthHat,   posHeightHat   +6) ;
-  //MIDI 
-  PVector posTxtMidi = new PVector ( 15, 10 ) ;
-  BOmidi.boutonCarreEcran  ("MIDI", posTxtMidi) ;
-  //curtain
-  PVector posTxtcurtain = new PVector ( 10, 10 ) ; 
-  BOcurtain.boutonCarreEcran  (genTxtGUI[8], posTxtcurtain) ;
+  buttonBackground.boutonTexte("Background", posBackgroundButton, FuturaStencil_10, 10) ;
+  buttonLightOne.boutonTexte("Light One", posLightOneButton, FuturaStencil_10, 10) ;
+  buttonLightTwo.boutonTexte("Light Two",  posLightTwoButton, FuturaStencil_10, 10) ;
+  
+  // SOUND
+  Bbeat.boutonTexte("BEAT", posBeatButton, FuturaStencil_10, 10) ;
+  Bkick.boutonTexte("KICK", posKickButton, FuturaStencil_10, 10) ;
+  Bsnare.boutonTexte("SNARE", posSnareButton, FuturaStencil_10, 10) ;
+  Bhat.boutonTexte("HAT", posHatButton, FuturaStencil_10, 10) ;
+  
+  //MIDI / CURTAIN
+  BOmidi.boutonTexte  ("MIDI", posMidiButton, FuturaStencil_10, 10) ;
+  BOcurtain.boutonTexte  (genTxtGUI[8], posCurtainButton, FuturaStencil_10, 10) ;
 }
 //GROUP ONE
 void buttonDrawGroupOne() {
@@ -660,14 +689,17 @@ void buttonDrawGroupThree() {
 
 
 void buttonCheckDraw() {
+  EtatBackgroundButton = buttonBackground.getEtatBoutonCarre() ;
+  EtatLightOneButton = buttonLightOne.getEtatBoutonCarre() ;
+  EtatLightTwoButton = buttonLightTwo.getEtatBoutonCarre() ;
   //SOUND
   EtatBbeat = Bbeat.getEtatBoutonCarre() ;
   EtatBkick = Bkick.getEtatBoutonCarre() ;
   EtatBsnare = Bsnare.getEtatBoutonCarre() ;
   EtatBhat = Bhat.getEtatBoutonCarre() ;
   //Check position of button
-  EtatBOmidi = BOmidi.getEtatBoutonCarre() ;
-  EtatBOcurtain = BOcurtain.getEtatBoutonCarre() ;
+  EtatMidiButton = BOmidi.getEtatBoutonCarre() ;
+  EtatCurtainButton = BOcurtain.getEtatBoutonCarre() ;
 
 
   //Statement button, if are OFF or ON
