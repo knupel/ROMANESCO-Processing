@@ -97,12 +97,10 @@ void curtain() {
 //CURSOR, MOUSE, TABLET, LEAP MOTION
 //GLOBAL
 void cursorSetup() {
-  //LEAP MOTION
-  leap = new com.leapmotion.leap.Controller();
   for (int i = 0 ; i < numObj ; i++ ) {
-    pen[i] = new PVector(0,0,0) ;
-    mouse[i] = new PVector(0,0) ;
-    pmouse[i] = new PVector(0,0) ;
+    pen[i] = new PVector() ;
+    mouse[i] = new PVector() ;
+    pmouse[i] = new PVector() ;
     wheel[i] = 0 ;
   }
 }
@@ -234,7 +232,7 @@ void saveImg(File selection) {
 ///////////////
 
 
-
+/*
 /////////////
 //BACKGROUND
 /////////////
@@ -285,7 +283,7 @@ void backgroundP3D(color c) {
 }
 //END BACKGROUND
 ////////////////
-
+*/
 
 ///////////////////////////////////////////////
 // MISC

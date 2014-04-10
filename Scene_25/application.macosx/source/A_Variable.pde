@@ -1,118 +1,90 @@
-///////////////////////
+// HIGH VAR///////////////////////
 // GLOBAL SETTING ////
 /////////////////////
-
-
-//Web cam activity
-// boolean cameraOnOff = false ;
-//internet connection
-Boolean internet = true ;
-Boolean videoSignal = false ;
-String bigBrother = ("BIG BROTHER DON'T WATCHING YOU !!") ;
-
-/*
-// Screen size
-//String [] sD ;
-*/
-
-
-
-//variable for the tracking
-Boolean nextPrevious = false ;
-int nextPreviousInt = 0 ; // for send to Syphon
-int trackerUpdate ; // must be reset after each use
-
-//VIDEO
 import codeanticode.gsvideo.*;
+import codeanticode.syphon.*;
 
-//INTERNET
+import oscP5.*;
+import netP5.*;
+
+import processing.pdf.*;
 import processing.net.*;
-//FLUX RSS or TWITTER ????
-import com.sun.syndication.feed.synd.*;
-import com.sun.syndication.io.*;
 
-//TABLET GRAPHIC
-import codeanticode.tablet.*;
+import ddf.minim.*;
+import ddf.minim.analysis.*;
 
-
-
-
-
-// for processing 2.0.b9
 import java.net.*;
 import java.io.*;
 import java.util.*;
-//for the fullscreen and screen choice
 import java.awt.*;
+import java.util.Iterator;
+import java.lang.reflect.*; 
 
+import japplemenubar.*;
 
-//to make the window is resizable
-java.awt.Insets insets; // use for the border of window (top and right)
+import sojamo.drop.*;
 
-//GEOMERATIVE
 import geomerative.*;
-//TOXIC
 import toxi.geom.*;
 import toxi.geom.mesh2d.*;
 import toxi.util.*;
 import toxi.util.datatypes.*;
 import toxi.processing.*;
 
-//METEO
 import com.onformative.yahooweather.*;
 
+import com.sun.syndication.feed.synd.*;
+import com.sun.syndication.io.*;
 
-//SOUND
-import ddf.minim.*;
-import ddf.minim.analysis.*;
 
-///////IMPORTANT///////////////////////////////////////////////////////////////////////
+
+
+
+Boolean internet = true ;
+String bigBrother = (" BIG BROTHER DON'T WATCHING YOU !!") ;
+
+Boolean videoSignal = false ;
+//variable for the tracking
+Boolean nextPrevious = false ;
+int nextPreviousInt = 0 ; // for send to Syphon
+int trackerUpdate ; // must be reset after each use
+
+
+
+//to make the window is resizable
+java.awt.Insets insets; // use for the border of window (top and right)
+
+
 //CALLING class or library in Other Class, you must call the PApplet too in your class
 PApplet callingClass = this ;
 
+ // when you work only with prescene presceneOnly is true, on Prescene in the sketch Prescene
+//but in the Miroir and Scene sketch presceneOnly must be true for the final work.
+boolean presceneOnly = true ;
+//spectrum for the color mode and more if you need
+PVector HSBmode = new PVector (360,100,100) ; // give the color mode in HSB
+//path to open the controleur
+String findPath ; 
 
-
-
-//fenêtre texte
-String texte ;
 //Variable CLAVIER
+boolean displayInfo ;
 
-
-
-//PDF save picture
-import processing.pdf.*;
 boolean savePDF ;
 String savePathPDF, savePathPNG ;
 
 
-
-
-//LOAD IMAGE
 // to drop load image
-import sojamo.drop.*;
 SDrop drop;
 boolean resizableByImgDrop ;
-
 //IMAGE
 PImage img ;
 String pathImg ; 
-
-
-
-
-
-
-
-
-
-// HIGH VAR
-boolean modeP3D ;
+//
+boolean modeP3D, modeP2D, modeOPENGL, modeClassic ;
 //spectrum band
 int numBand = 16 ;
 //font
 int numFont = 50 ;
-//slider family but I'm not sure is necessary
-int numSliderFamilly = 40 ; // slider by familly object (global, object, trame, typo)
 //quantity of group object slider
 int numGroup = 3 ;
 
@@ -165,10 +137,25 @@ int mode[]  ;
 
 //BUTTON
 int [] valueButtonGlobal, valueButtonObj  ;
+/*
+int valueButtonGroupZero[] = new int[numButtonGroupZero] ;
+int valueButtonGroupObj[] = new int[numButtonGroupObj] ;
+*/
 //SLIDER
 String valueSliderTemp[][]  = new String [numGroup+1][numSlider] ;
+/*
+String valueSliderTempGroupZero[]  = new String [numSliderGroupZero] ;
+String valueSliderTempGroupOne[]  = new String [numSlider] ;
+String valueSliderTempGroupTwo[]  = new String [numSlider] ;
+String valueSliderTempGroupThree[]  = new String [numSlider] ;
+*/
 float valueSlider[][]  = new float [numGroup+1][numSlider] ;
-
+/*
+float valueSliderGlobal[]  = new float [numSliderGroupZero] ;
+float valueSliderGroupOne[]  = new float [numSlider] ;
+float valueSliderGroupTwo[]  = new float [numSlider] ;
+float valueSliderGroupThree[]  = new float [numSlider] ;
+*/
 
 //MISC
 //var to init the data of the object when is switch ON for the first time
@@ -218,59 +205,35 @@ PFont font[]  ;
 
 
 
-
-
-
-
-//OPENING the other window
-void opening() {
-    //OPEN CONTROLEUR and SCENE or MIROIR
-  if (!testRomanesco && openControleur) {
-    fill(blanc) ;
-    stroke(blanc) ;
-    textSize(36 ) ;
-    text(" WAIT FOR CONTROLEUR", 50,50 ) ;
+////////////////////
+//SAVE SCENE PICTURE
+void beginSave() {
+    if (countSave == 1 ) savePDF = true ;
+  if (savePDF) beginRecord(PDF, savePathPDF) ; 
+}
+void endSave() {
+    //SAVE IMAGE END
+  if (savePDF ) {
+    endRecord();
+    savePDF = false ;
+    countSave = 0 ;
   }
-  if (!testRomanesco) { 
-    if (openControleur) { open(sketchPath("")+"Controleur_"+release+".app") ; openControleur = false ; } 
-    if (openScene)      { open(sketchPath("")+"Scene_"+release+".app") ; openScene = false ; }
-   // if (openMiroir)     { open(sketchPath("")+"Miroir_24.app") ; openMiroir = false ; }
-    testRomanesco = true ;
-  }
+}
+void keySave() {
+  if(key == 's' ) selectOutput("Enregistrez le PDF et le PNG ", "saveImg") ;
 }
 
 
-//INIT in real time and re-init the default setting of the display window
 
-
+//init var
 void initDraw() {
-  //Default display shape and text
   rectMode (CORNER) ; 
-  textAlign(LEFT) ;
-  //SCENE ATTRIBUT
-  //  if (fullScreen ) sketchPos(0,0, myScreenToDisplayMySketch) ; 
-  
-  //change the size of displaying if you load an image or a new image
-  resizableByImgDrop = true ;
-  if ( resizableByImgDrop && displaySizeByImage ) updateSizeDisplay(img) ;
-  
+  if(mavericks && fullScreen) sketchPosition(whichScreen) ;
   //load text raw for the different object
   importText(sketchPath("")+"karaoke.txt") ;
   splitText() ;
 }
 
-
-
-
-
-
-
-
-
-
-
-
-//init var
 void createVar() {
   numObj = romanescoManager.numClasses + 1 ;
   //BUTTON CONTROLER
@@ -282,7 +245,9 @@ void createVar() {
   createVarP3D() ;
   createVarCursor() ;
   createVarObject() ;
+  
   createMiscVar() ;
+  
   romanescoManager.initObj() ;
 }
 
@@ -358,6 +323,7 @@ void createVarSound() {
 }
 //
 
+//
 void createVarButton() {
   objectButton = new int [numObj] ;
   soundButton = new int [numObj] ;
@@ -419,7 +385,6 @@ void createVarObject() {
 // UPDATE DATA from CONTROLER and PRESCENE
 void updateVar() {
   //from column 1
-  //fill
   for(int i = 0 ; i < numGroup ; i++) {
     //column 1
     fillRaw[i] = color(map(valueSlider[i+1][0],0,100,0,360), valueSlider[i+1][1], valueSlider[i+1][2], valueSlider[i+1][3]) ;
@@ -448,21 +413,4 @@ void updateVar() {
     forceRaw[i] = valueSlider[i+1][27] +1 ;
 
   }
-  
 }
-
-
-
-//INFO
-void displayInfo3D() {
-   String posCam = ( int(sceneCamera.x +width/2) + " / " + int(sceneCamera.y +height/2) + " / " +  int(sceneCamera.z -height/2)) ;
-   String eyeDirectionCam = ( int(eyeCamera.x) + " / " + int(eyeCamera.y) ) ;
-  fill(blanc) ; 
-  textFont(SansSerif10, 10) ;
-  textAlign(RIGHT) ;
-  text("Position " +posCam, width/2 -30 , height/2 -30) ;
-  text("Direction " +eyeDirectionCam, width/2 -30 , height/2 -15) ;
-}
-
-
-

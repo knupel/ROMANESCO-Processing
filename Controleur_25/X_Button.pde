@@ -328,7 +328,6 @@ class Simple extends Bouton {
        couleurONoffCarre = cBOUToffBO ;
      }
    }
-   // println(s, JouerBoutonCarre, dedansBoutonCarre) ;
    fill(couleurONoffCarre) ;
    textFont(font) ;
    textSize(sizeFont) ;

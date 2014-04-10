@@ -304,9 +304,9 @@ color strokeObj[IDobj] ; you can separate with hue, saturation, brightness and a
 
 float thicknessObj[IDobj] ; value from 0.1 to height/3
 float sizeXObj[IDobj] ; sizeYObj[IDobj] ; sizeZObj[IDobj] ; value from 0.1 to width
-float canvasXObj[IDobj] ; value from width /10  to width
-float canvasYObj[IDobj] ; value from height /10  to height
-float canvasZObj[IDobj] ; value from width /10 to width
+float canvasXObj[IDobj] ; value from width /10  to (5 * width)
+float canvasYObj[IDobj] ; value from height /10  to (5 *height )
+float canvasZObj[IDobj] ; value from width /10 to (5 * width)
 float quantityObj = new float[numObj] ; value from 1 to 100 ;
 
 float speedObj[IDobj] ; value from 0 to 100

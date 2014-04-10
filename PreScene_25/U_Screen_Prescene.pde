@@ -30,6 +30,7 @@ void displaySetup(int speed) {
 
   loadPropertyPrescene() ;
   sizePrescene() ;
+  backgroundShaderSetup(modeP3D) ;
 }
 //END DISPLAY START
 //////////////////

@@ -84,6 +84,7 @@ void curtain() {
 //CURSOR, MOUSE, TABLET, LEAP MOTION
 //GLOBAL
 Tablet tablet;
+PVector cursorRef = new PVector() ;
 
 //SETUP
 void cursorSetup() {
@@ -92,9 +93,10 @@ void cursorSetup() {
   //TABLET
   tablet = new Tablet(this);
   for (int i = 0 ; i < numObj ; i++ ) {
-    pen[i] = new PVector(0,0,0) ;
-    mouse[i] = new PVector(0,0,0) ;
-    pmouse[i] = new PVector(0,0) ;
+    pen[i] = new PVector() ;
+    // use the 250 value for "z" to keep the position light on the front
+    mouse[i] = new PVector(0,0,250) ;
+    pmouse[i] = new PVector() ;
     wheel[i] = 0 ;
   }
 }
@@ -102,16 +104,19 @@ void cursorSetup() {
 //DRAW
 int speedWheel = 5 ;
 void cursorDraw() {
+  //cursorRef = new PVector(mouseX, mouseY) ;
     //mousePressed
   if( clickShortLeft[0] || clickShortRight[0] || clickLongLeft[0] || clickLongRight[0] ) mousepressed[0] = true ; else mousepressed[0] = false ;
   //check the tablet
   pen[0] = new PVector (norm(tablet.getTiltX(),0,1), norm(tablet.getTiltY(),0,1), tablet.getPressure()) ;
   //check the leapmotion
   if (!fingerCheck() && numFingers() > 1 ) {
-    mouse[0] = new PVector(averagePosition(true).x, averagePosition(true).y, averagePosition(true).z ) ; //else mouse[0] = mouse [0] ;
-  } else {
-    mouse[0] = new PVector(mouseX, mouseY ) ; 
-    pmouse[0] = new PVector(pmouseX, pmouseY ) ;
+    mouse[0] = new PVector(averagePosition(true).x, averagePosition(true).y, averagePosition(true).z ) ; 
+  } else if (cursorRef.x != mouseX && cursorRef.y != mouseY) { // need the conditional to keep the cursor in position when the hand move from leapmotion field
+    mouse[0].x = mouseX ;
+    mouse[0].y = mouseY ;
+    pmouse[0] = new PVector(pmouseX, pmouseY) ;
+    cursorRef = new PVector(mouseX, mouseY) ;
   }
   //re-init the wheel value to be sure this one is stopped
   wheel[0] = 0 ;
@@ -148,62 +153,7 @@ void cursorDisplay() {
 
 
 
-/////////////
-//BACKGROUND
-/////////////
-int artificialTime ;
-//FOND
-void backgroundRomanesco() {
-  if(eBackground == 1) {
-    color bg ;
-    //to smooth the curve of transparency background
-    float facteur = 2.5 ;
-    // float homothety = 100.0 ;
-    float nx = norm(valueSlider[0][3], 0.0 , 100.0) ;
-    float ny = pow (nx ,facteur );
-    ny = map(ny, 0, 1 , 0.8, 100 ) ;
-    
-    bg = color (map(valueSlider[0][0],0,100,0,360), valueSlider[0][1], valueSlider[0][2], ny ) ; 
-    //choice the background
-    if(displayMode.equals("Classic")) backgroundClassic(bg) ;
-    else if(displayMode.equals("P3D")) backgroundP3D(bg) ;
-  }
-}
 
-
-void backgroundRomanescoPrescene() {
-  if(eBackground == 1) {
-    color bg ;
-    bg = color (map(valueSlider[0][0],0,100,0,360), valueSlider[0][1], valueSlider[0][2], 100 ) ;
-      //choice the background
-    if(displayMode.equals("Classic")) backgroundClassic(bg) ;
-    else if(displayMode.equals("P3D")) backgroundP3D(bg) ;
-  }
-}
-
-
-//diffenrent background
-void backgroundClassic(color c) {
-  //DISPLAY FINAL
-  noStroke() ;
-  fill(c) ;
-  rect (0,0, width, height) ;
-}
-
-//P3D
-//BACKGROUND
-////////////
-PVector sizeBG ;
-void backgroundP3D(color c) {
-  fill(c) ;
-  noStroke() ;
-  pushMatrix() ;
-  sizeBG = new PVector(width *100, height *100, height *7) ;
-  translate(-sizeBG.x *.5,-sizeBG.y *.5 , -sizeBG.z) ;
-  rect(0,0, sizeBG.x,sizeBG.y) ;
-  popMatrix() ;
-}
-//END BACKGROUND
 
 
 
@@ -602,64 +552,64 @@ PFont SansSerif10,
       
 //SETUP
 void fontSetup() {
-  String fontPathVLW = sketchPath("")+"preferences/Font/typoVLW/" ;
+  String fontPathVLW = preferencesPath +"Font/typoVLW/" ;
 
   //write font path
-  pathFontVLW[1] = (fontPathVLW+"AmericanTypewriter-96.vlw");
-  pathFontVLW[2] = (fontPathVLW+"AmericanTypewriter-Bold-96.vlw");
-  pathFontVLW[3] = (fontPathVLW+"BancoITCStd-Heavy-96.vlw");
-  pathFontVLW[4] = (fontPathVLW+"CinquentaMilMeticais-96.vlw");
-  pathFontVLW[5] = (fontPathVLW+"Container-Regular-96.vlw");
-  pathFontVLW[6] = (fontPathVLW+"Diesel-96.vlw");
-  pathFontVLW[7] = (fontPathVLW+"Digital2-96.vlw");
-  pathFontVLW[8] = (fontPathVLW+"DIN-Regular-96.vlw");
-  pathFontVLW[9] = (fontPathVLW+"DIN-Bold-96.vlw");
-  pathFontVLW[10] = (fontPathVLW+"EastBlocICGClosed-96.vlw");
-  pathFontVLW[11] = (fontPathVLW+"FuturaStencilICG-96.vlw");
-  pathFontVLW[12] = (fontPathVLW+"FetteFraktur-96.vlw");
-  pathFontVLW[13] = (fontPathVLW+"GANGBANGCRIME-96.vlw");
-  pathFontVLW[14] = (fontPathVLW+"JuanitaDecoITCStd-96.vlw");
-  pathFontVLW[15] = (fontPathVLW+"Komikahuna-96.vlw");
-  pathFontVLW[16] = (fontPathVLW+"MesquiteStd-96.vlw");
-  pathFontVLW[17] = (fontPathVLW+"NanumBrush-96.vlw");
-  pathFontVLW[18] = (fontPathVLW+"RosewoodStd-Regular-96.vlw");
-  pathFontVLW[19] = (fontPathVLW+"3theHardwayRMX-96.vlw");
-  pathFontVLW[20] = (fontPathVLW+"Tokyo-One-96.vlw");
-  pathFontVLW[21] = (fontPathVLW+"MinionPro-Regular-96.vlw");
-  pathFontVLW[22] = (fontPathVLW+"MinionPro-Bold-96.vlw");
+  pathFontVLW[1] = fontPathVLW+"AmericanTypewriter-96.vlw";
+  pathFontVLW[2] = fontPathVLW+"AmericanTypewriter-Bold-96.vlw";
+  pathFontVLW[3] = fontPathVLW+"BancoITCStd-Heavy-96.vlw";
+  pathFontVLW[4] = fontPathVLW+"CinquentaMilMeticais-96.vlw";
+  pathFontVLW[5] = fontPathVLW+"Container-Regular-96.vlw";
+  pathFontVLW[6] = fontPathVLW+"Diesel-96.vlw";
+  pathFontVLW[7] = fontPathVLW+"Digital2-96.vlw";
+  pathFontVLW[8] = fontPathVLW+"DIN-Regular-96.vlw";
+  pathFontVLW[9] = fontPathVLW+"DIN-Bold-96.vlw";
+  pathFontVLW[10] = fontPathVLW+"EastBlocICGClosed-96.vlw";
+  pathFontVLW[11] = fontPathVLW+"FuturaStencilICG-96.vlw";
+  pathFontVLW[12] = fontPathVLW+"FetteFraktur-96.vlw";
+  pathFontVLW[13] = fontPathVLW+"GANGBANGCRIME-96.vlw";
+  pathFontVLW[14] = fontPathVLW+"JuanitaDecoITCStd-96.vlw";
+  pathFontVLW[15] = fontPathVLW+"Komikahuna-96.vlw";
+  pathFontVLW[16] = fontPathVLW+"MesquiteStd-96.vlw";
+  pathFontVLW[17] = fontPathVLW+"NanumBrush-96.vlw";
+  pathFontVLW[18] = fontPathVLW+"RosewoodStd-Regular-96.vlw";
+  pathFontVLW[19] = fontPathVLW+"3theHardwayRMX-96.vlw";
+  pathFontVLW[20] = fontPathVLW+"Tokyo-One-96.vlw";
+  pathFontVLW[21] = fontPathVLW+"MinionPro-Regular-96.vlw";
+  pathFontVLW[22] = fontPathVLW+"MinionPro-Bold-96.vlw";
   //special font
-  pathFontVLW[49] = (fontPathVLW+"DIN-Regular-10.vlw");
-  SansSerif10 = loadFont(fontPathVLW+"SansSerif-10.vlw") ;
+  pathFontVLW[49] = fontPathVLW+"DIN-Regular-10.vlw";
+  SansSerif10 = loadFont(fontPathVLW+"SansSerif-10.vlw" );
   
   //write font path for TTF
-  String prefixTTF = (sketchPath("")+"preferences/Font/typoTTF/") ;
+  String prefixTTF = preferencesPath +"Font/typoTTF/" ;
   //by default
-  pathFontTTF[0] = (prefixTTF+"FuturaStencil.ttf");
+  pathFontTTF[0] = prefixTTF+"FuturaStencil.ttf";
   //type
-  pathFontTTF[1] = (prefixTTF+"AmericanTypewriter.ttf");
-  pathFontTTF[2] = (prefixTTF+"AmericanTypewriter.ttf");
-  pathFontTTF[3] = (prefixTTF+"Banco.ttf");
-  pathFontTTF[4] = (prefixTTF+"Cinquenta.ttf");
-  pathFontTTF[5] = (prefixTTF+"FuturaStencil.ttf");
-  pathFontTTF[6] = (prefixTTF+"FuturaStencil.ttf");
-  pathFontTTF[7] = (prefixTTF+"Digital2.ttf");
-  pathFontTTF[8] = (prefixTTF+"FuturaStencil.ttf");
-  pathFontTTF[9] = (prefixTTF+"FuturaStencil.ttf");
-  pathFontTTF[10] = (prefixTTF+"FuturaStencil.ttf");
-  pathFontTTF[11] = (prefixTTF+"FuturaStencil.ttf");
-  pathFontTTF[12] = (prefixTTF+"FetteFraktur.ttf");
-  pathFontTTF[13] = (prefixTTF+"GangBangCrime.ttf");
-  pathFontTTF[14] = (prefixTTF+"JuanitaITC.ttf");
-  pathFontTTF[15] = (prefixTTF+"Komikahuna.ttf");
-  pathFontTTF[16] = (prefixTTF+"FuturaStencil.ttf");
-  pathFontTTF[17] = (prefixTTF+"FuturaStencil.ttf");
-  pathFontTTF[18] = (prefixTTF+"FuturaStencil.ttf");
-  pathFontTTF[19] = (prefixTTF+"3Hardway.ttf");
-  pathFontTTF[20] = (prefixTTF+"FuturaStencil.ttf");
-  pathFontTTF[21] = (prefixTTF+"MinionWebPro.ttf");
-  pathFontTTF[22] = (prefixTTF+"MinionWebPro.ttf");
+  pathFontTTF[1] = prefixTTF+"AmericanTypewriter.ttf";
+  pathFontTTF[2] = prefixTTF+"AmericanTypewriter.ttf";
+  pathFontTTF[3] = prefixTTF+"Banco.ttf";
+  pathFontTTF[4] = prefixTTF+"Cinquenta.ttf";
+  pathFontTTF[5] = prefixTTF+"FuturaStencil.ttf";
+  pathFontTTF[6] = prefixTTF+"FuturaStencil.ttf";
+  pathFontTTF[7] = prefixTTF+"Digital2.ttf";
+  pathFontTTF[8] = prefixTTF+"FuturaStencil.ttf";
+  pathFontTTF[9] = prefixTTF+"FuturaStencil.ttf";
+  pathFontTTF[10] = prefixTTF+"FuturaStencil.ttf";
+  pathFontTTF[11] = prefixTTF+"FuturaStencil.ttf";
+  pathFontTTF[12] = prefixTTF+"FetteFraktur.ttf";
+  pathFontTTF[13] = prefixTTF+"GangBangCrime.ttf";
+  pathFontTTF[14] = prefixTTF+"JuanitaITC.ttf";
+  pathFontTTF[15] = prefixTTF+"Komikahuna.ttf";
+  pathFontTTF[16] = prefixTTF+"FuturaStencil.ttf";
+  pathFontTTF[17] = prefixTTF+"FuturaStencil.ttf";
+  pathFontTTF[18] = prefixTTF+"FuturaStencil.ttf";
+  pathFontTTF[19] = prefixTTF+"3Hardway.ttf";
+  pathFontTTF[20] = prefixTTF+"FuturaStencil.ttf";
+  pathFontTTF[21] = prefixTTF+"MinionWebPro.ttf";
+  pathFontTTF[22] = prefixTTF+"MinionWebPro.ttf";
   //special font
-  pathFontTTF[49] = (prefixTTF+"FuturaStencil.ttf");
+  pathFontTTF[49] = prefixTTF+"FuturaStencil.ttf";
 
   //load
   AmericanTypewriter=loadFont      (pathFontVLW[1]);
