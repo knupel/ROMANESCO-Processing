@@ -24,10 +24,12 @@ void loadSetup() {
 
 // LOAD INFO OBJECT from the PRESCENE
 /////////////////////////////////////
-Table objectList;
-int numGroup [], objectLibraryOrder [][], objectID [][], objectGroup [][]  ;
-String  objectName [][], objectAuthor [][], objectVersion [][], objectPack [][], objectRender [][], objectLoadName [][] ;
-boolean objectClassic [][], objectP2D [][], objectP3D [][] ;
+Table objectList, shaderBackgroundList;
+int numGroup [] ; 
+int [][] objectLibraryOrder, objectID, objectGroup ;
+String  [][] objectName , objectAuthor, objectVersion, objectPack, objectRender, objectLoadName ;
+boolean [][] objectClassic, objectP2D, objectP3D ;
+String [] shaderBackgroundName, shaderBackgroundAuthor ;
 
 
 
@@ -38,7 +40,9 @@ int lastDropdown, numDropdown ;
 //BUTTON
 int valueButtonGlobal[], valueButtonObj[], valueButtonTex[], valueButtonTypo[]  ;
 Simple  BOmidi, BOcurtain,
-        buttonBackground, buttonLightOne, buttonLightTwo,
+        buttonBackground, 
+        buttonLightOne, buttonLightOneAction,
+        buttonLightTwo, buttonLightTwoAction,
         Bbeat, Bkick, Bsnare, Bhat;
         
 //bouton objet
@@ -61,18 +65,16 @@ int EtatBOf[], EtatBTf[], EtatBTYf[], EtatBIf[] ;
 //DROPDOWN
 int startLoopObject, endLoopObject, startLoopTexture, endLoopTexture, startLoopTypo, endLoopTypo ;
 //GLOBAL
-Dropdown dropdown[], dropdownFont  ;
+Dropdown dropdown[], dropdownFont, dropdownShaderBG  ;
 
-PVector posDropdownFont, posDropdown[] ;
-PVector sizeDropdownFont, sizeDropdownMode ;
-PVector posTextDropdown = new PVector( 2, 8 )  ;
+PVector posDropdownFont, posDropdownShaderBG, posDropdown[] ;
+PVector sizeDropdownFont, sizeDropdownShaderBG, sizeDropdownMode ;
+PVector posTextDropdown = new PVector(2, 8)  ;
 
-PVector totalSizeDropdown = new PVector (0,0) ;
-PVector newPosDropdown = new PVector (0,0) ;
+PVector totalSizeDropdown = new PVector () ;
+PVector newPosDropdown = new PVector () ;
 
-String [] modeListRomanesco ;
-String [] policeDropdownList ;
-String [] listDropdown ;
+String [] modeListRomanesco, policeDropdownList, listDropdown, listDropdownShaderBG;
 
 float margeAroundDropdown ;
 
@@ -84,10 +86,12 @@ float margeAroundDropdown ;
 
 void buildLibrary() {
   objectList = loadTable(sketchPath("")+"preferences/objects/index_romanesco_objects.csv", "header") ;
+  shaderBackgroundList = loadTable(sketchPath("")+"preferences/shaderBackgroundList.csv", "header") ;
   numByGroup() ;
   initVarObject() ;
   initVarButton() ;
   infoByObject() ;
+  infoShaderBackground() ;
 }
 
 void initVarObject() {
@@ -117,7 +121,7 @@ void initVarObject() {
 void initVarButton() {
   numButton = new int[numGroupSlider] ;
   
-  numButton[0] = 11 ;
+  numButton[0] = 13 ;
   for (int i = 1 ; i < numGroupSlider ; i++ ) {
     numButton[i] = numGroup[i]*10 ;
     numButtonTotalObjects += numGroup[i] ;
@@ -177,6 +181,18 @@ void initVarButton() {
   startLoopTypo = endLoopTexture ; 
   endLoopTypo = startLoopTypo +numGroup[3] ;
 
+}
+
+
+void infoShaderBackground() {
+  int n = shaderBackgroundList.getRowCount() ;
+  shaderBackgroundName = new String[n] ;
+  shaderBackgroundAuthor = new String[n] ;
+  for (int i = 0 ; i < n ; i++ ) {
+     TableRow row = shaderBackgroundList.getRow(i) ;
+     shaderBackgroundName[i] = row.getString("Name") ;
+     shaderBackgroundAuthor[i] = row.getString("Author") ;
+  }
 }
 
 void infoByObject() {

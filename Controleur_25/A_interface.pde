@@ -52,14 +52,18 @@ int   mgSliderc1, mgSliderc2, mgSliderc3,
 
 
 //Background / light one / light two
-int EtatBackgroundButton, EtatLightOneButton, EtatLightTwoButton ;
+int EtatBackgroundButton, 
+    EtatLightOneButton, EtatLightOneAction, 
+    EtatLightTwoButton, EtatLightTwoAction ;
 PVector posBackgroundButton, sizeBackgroundButton,
-        posLightOneButton, sizeLightOneButton,
-        posLightTwoButton,  sizeLightTwoButton ;
+        posLightOneAction, sizeLightOneAction, posLightOneButton, sizeLightOneButton,
+        posLightTwoAction, sizeLightTwoAction, posLightTwoButton, sizeLightTwoButton ;
 
 
-// bouton dropdown font
-PVector posButtonFont ; 
+// DROPDOWN button font and shader background
+int EtatFont, EtatShaderBG ;
+PVector posButtonFont, posButtonShaderBG ; 
+
 // MIDI, CURTAIN
 int EtatMidiButton, EtatCurtainButton, EtatBbeat, EtatBkick, EtatBsnare, EtatBhat ; ;
 PVector posMidiButton, sizeMidiButton,
@@ -68,22 +72,7 @@ PVector posMidiButton, sizeMidiButton,
         posKickButton, sizeKickButton,
         posSnareButton, sizeSnareButton,
         posHatButton, sizeHatButton ;
-//int transparenceBordBOmidi, epaisseurBordBOmidi, transparenceBoutonBOmidi, 
-//    posWidthBOmidi, posHeightBOmidi, longueurBOmidi, hauteurBOmidi ;
 
-//bouton curtain
-//int EtatBOcurtain ;
-//int transparenceBordBOcurtain, epaisseurBordBOcurtain, transparenceBoutonBOcurtain, 
- //   posWidthBOcurtain, posHeightBOcurtain, longueurBOcurtain, hauteurBOcurtain ;
-
-//bouton Musique
-/*
-int EtatBbeat, EtatBkick, EtatBsnare, EtatBhat ;
-int   posWidthBeat, posHeightBeat, longueurBeat,  hauteurBeat,
-  posWidthKick, posHeightKick, longueurKick,  hauteurKick,
-  posWidthSnare, posHeightSnare, longueurSnare,  hauteurSnare,
-  posWidthHat, posHeightHat, longueurHat,  hauteurHat ;
-*/
 
 //paramètres réglette couleur
 int posXSlider[] =      new int[numSlider*2] ;
@@ -148,31 +137,39 @@ void buttonSliderSetup() {
   
   //GROUP GLOBAL
   // FONT
-  posButtonFont = new PVector(mgSliderc1, startingTopPosition)  ; //
+  posButtonFont = new PVector(mgSliderc3 -3, startingTopPosition +30)  ; 
+  // SHADER BACKGROUNG
+  posButtonShaderBG = new PVector(mgSliderc1 -3, startingTopPosition)  ;
   
   // MIDI CURTAIN
   sizeCurtainButton = new PVector(30,12) ;
   sizeMidiButton = new PVector(30,12) ;
-  posMidiButton = new PVector(mgSliderc2, topMenuPos) ; 
-  posCurtainButton = new PVector(posMidiButton.x +sizeMidiButton.x +5, topMenuPos) ; 
+  posMidiButton = new PVector(mgSliderc3, topMenuPos) ; 
+  posCurtainButton = new PVector(mgSliderc3, topMenuPos +15) ; 
   
   //SOUND BUTTON
   sizeBeatButton = new PVector(30,10) ; 
   sizeKickButton = new PVector(30,10) ; 
   sizeSnareButton = new PVector(40,10) ; 
   sizeHatButton = new PVector(30,10) ;
-  posBeatButton = new PVector(mgSliderc3 +0, topMenuPos) ; 
-  posKickButton = new PVector(posBeatButton.x +sizeBeatButton.x +5, topMenuPos) ; 
-  posSnareButton = new PVector(posKickButton.x +sizeKickButton.x +5, topMenuPos) ; 
-  posHatButton = new PVector(posSnareButton.x +sizeSnareButton.x +5, topMenuPos) ;
+  posBeatButton = new PVector(mgSliderc3 +0, topMenuPos +60) ; 
+  posKickButton = new PVector(posBeatButton.x +sizeBeatButton.x +5, topMenuPos +60) ; 
+  posSnareButton = new PVector(posKickButton.x +sizeKickButton.x +5, topMenuPos +60) ; 
+  posHatButton = new PVector(posSnareButton.x +sizeSnareButton.x +5, topMenuPos +60) ;
 
-  // background / light button
-  posBackgroundButton = new PVector(mgSliderc1, startingTopPosition + 60) ;
-  sizeBackgroundButton = new PVector(85,10) ;
-  posLightOneButton = new PVector(mgSliderc2, posBackgroundButton.y) ;
-  sizeLightOneButton = new PVector(55,10) ;
-  posLightTwoButton = new PVector(mgSliderc3, posBackgroundButton.y) ;
-  sizeLightTwoButton = new PVector(55,10) ;
+  // background 
+  posBackgroundButton = new PVector(mgSliderc1, startingTopPosition +50) ;
+  sizeBackgroundButton = new PVector(95,10) ;
+  // light button
+  posLightOneButton = new PVector(mgSliderc2, startingTopPosition +10) ;
+  sizeLightOneButton = new PVector(80,10) ;
+  posLightOneAction = new PVector(mgSliderc2 +90, posLightOneButton.y) ;
+  sizeLightOneAction = new PVector(45,10) ;
+  //
+  posLightTwoButton = new PVector(mgSliderc2, startingTopPosition +60) ;
+  sizeLightTwoButton = new PVector(80,10) ;
+  posLightTwoAction = new PVector(mgSliderc2 +90, posLightTwoButton.y) ;
+  sizeLightTwoAction = new PVector(45,10) ;
   
   // GROUP ONE
   posHeightBO  = startingTopPosition + 140  ;               posWidthBO  =margeLeft ;
@@ -200,21 +197,21 @@ void buttonSliderSetup() {
 /////////////////////
 void groupZero(int pos) {
   //Background
-  suivitSlider[1] = 1 ; posWidthSlider[1] = mgSliderc1 ; posHeightSlider[1]= pos +10 ; longueurSlider[1] = 111 ; hauteurSlider[1] = sliderHeight ; ; // couleur du fond  
-  suivitSlider[2] = 1 ; posWidthSlider[2] = mgSliderc1 ; posHeightSlider[2]= pos +20 ; longueurSlider[2] = 111 ; hauteurSlider[2] = sliderHeight ; ;   
-  suivitSlider[3] = 1 ; posWidthSlider[3] = mgSliderc1 ; posHeightSlider[3]= pos +30 ; longueurSlider[3] = 111 ; hauteurSlider[3] = sliderHeight ; ;   
-  suivitSlider[4] = 1 ; posWidthSlider[4] = mgSliderc1 ; posHeightSlider[4]= pos +40 ; longueurSlider[4] = 111 ; hauteurSlider[4] = sliderHeight ; ;   
+  suivitSlider[1] = 1 ; posWidthSlider[1] = mgSliderc1 ; posHeightSlider[1]= pos +0 ; longueurSlider[1] = 111 ; hauteurSlider[1] = sliderHeight ; ; // couleur du fond  
+  suivitSlider[2] = 1 ; posWidthSlider[2] = mgSliderc1 ; posHeightSlider[2]= pos +10 ; longueurSlider[2] = 111 ; hauteurSlider[2] = sliderHeight ; ;   
+  suivitSlider[3] = 1 ; posWidthSlider[3] = mgSliderc1 ; posHeightSlider[3]= pos +20 ; longueurSlider[3] = 111 ; hauteurSlider[3] = sliderHeight ; ;   
+  suivitSlider[4] = 1 ; posWidthSlider[4] = mgSliderc1 ; posHeightSlider[4]= pos +30 ; longueurSlider[4] = 111 ; hauteurSlider[4] = sliderHeight ; ;   
   // SOUND
-  suivitSlider[5] = 1 ; posWidthSlider[5] = mgSliderc3  ; posHeightSlider[5]= pos -30 ; longueurSlider[5] = 111 ; hauteurSlider[5] = sliderHeight ;  ; // sound left
-  suivitSlider[6] = 1 ; posWidthSlider[6] = mgSliderc3  ; posHeightSlider[6]= pos -40 ; longueurSlider[6] = 111 ; hauteurSlider[6] = sliderHeight ; ; // sound rigth 
+  suivitSlider[5] = 1 ; posWidthSlider[5] = mgSliderc3  ; posHeightSlider[5]= pos +20 ; longueurSlider[5] = 111 ; hauteurSlider[5] = sliderHeight ;  ; // sound left
+  suivitSlider[6] = 1 ; posWidthSlider[6] = mgSliderc3  ; posHeightSlider[6]= pos +30 ; longueurSlider[6] = 111 ; hauteurSlider[6] = sliderHeight ; ; // sound rigth 
   // LIGHT ONE
-  suivitSlider[7] = 1 ; posWidthSlider[7] = mgSliderc2 ; posHeightSlider[7]= pos +10 ; longueurSlider[7] = 111 ; hauteurSlider[7] = sliderHeight ; ; // hue 
-  suivitSlider[8] = 1 ; posWidthSlider[8] = mgSliderc2 ; posHeightSlider[8]= pos +20 ; longueurSlider[8] = 111 ; hauteurSlider[8] = sliderHeight ; ;   
-  suivitSlider[9] = 1 ; posWidthSlider[9] = mgSliderc2 ; posHeightSlider[9]= pos +30 ; longueurSlider[9] = 111 ; hauteurSlider[9] = sliderHeight ; ; 
+  suivitSlider[7] = 1 ; posWidthSlider[7] = mgSliderc2 ; posHeightSlider[7]= pos -40 ; longueurSlider[7] = 111 ; hauteurSlider[7] = sliderHeight ; ; // hue 
+  suivitSlider[8] = 1 ; posWidthSlider[8] = mgSliderc2 ; posHeightSlider[8]= pos -30 ; longueurSlider[8] = 111 ; hauteurSlider[8] = sliderHeight ; ;   
+  suivitSlider[9] = 1 ; posWidthSlider[9] = mgSliderc2 ; posHeightSlider[9]= pos -20 ; longueurSlider[9] = 111 ; hauteurSlider[9] = sliderHeight ; ; 
  // LIGHT TWO
-  suivitSlider[10] = 1 ; posWidthSlider[10] = mgSliderc3 ; posHeightSlider[10]= pos +10 ; longueurSlider[10] = 111 ; hauteurSlider[10] = sliderHeight ; ;  // hue ambiance
-  suivitSlider[11] = 1 ; posWidthSlider[11] = mgSliderc3 ; posHeightSlider[11]= pos +20 ; longueurSlider[11] = 111 ; hauteurSlider[11] = sliderHeight ; ;
-  suivitSlider[12] = 1 ; posWidthSlider[12] = mgSliderc3 ; posHeightSlider[12]= pos +30 ; longueurSlider[12] = 111 ; hauteurSlider[12] = sliderHeight ; ;
+  suivitSlider[10] = 1 ; posWidthSlider[10] = mgSliderc2 ; posHeightSlider[10]= pos +10 ; longueurSlider[10] = 111 ; hauteurSlider[10] = sliderHeight ; ;  // hue ambiance
+  suivitSlider[11] = 1 ; posWidthSlider[11] = mgSliderc2 ; posHeightSlider[11]= pos +20 ; longueurSlider[11] = 111 ; hauteurSlider[11] = sliderHeight ; ;
+  suivitSlider[12] = 1 ; posWidthSlider[12] = mgSliderc2 ; posHeightSlider[12]= pos +30 ; longueurSlider[12] = 111 ; hauteurSlider[12] = sliderHeight ; ;
 }
 
 //////////////
@@ -278,8 +275,12 @@ void groupThree(int posButton, int posSlider) {
 //CONSTRUCTOR
 void constructorSliderButton() {
   buttonBackground = new Simple(posBackgroundButton, sizeBackgroundButton, vertTresFonce, vertFonce, rouge, rougeFonce) ;
+  // LIGHT ONE
   buttonLightOne = new Simple(posLightOneButton, sizeLightOneButton, vertTresFonce, vertFonce, rouge, rougeFonce) ;
+  buttonLightOneAction = new Simple(posLightOneAction, sizeLightOneAction, vertTresFonce, vertFonce, rouge, rougeFonce) ;
+  // LIGHT TWO 
   buttonLightTwo = new Simple(posLightTwoButton, sizeLightTwoButton, vertTresFonce, vertFonce, rouge, rougeFonce) ;
+  buttonLightTwoAction = new Simple(posLightTwoAction, sizeLightTwoAction, vertTresFonce, vertFonce, rouge, rougeFonce) ;
   //button beat
   Bbeat = new Simple(posBeatButton, sizeBeatButton, vertTresFonce, vertFonce, rouge, rougeFonce) ;
   Bkick = new Simple(posKickButton, sizeKickButton, vertTresFonce, vertFonce, rouge, rougeFonce) ;
@@ -365,33 +366,29 @@ void dispayTextSliderGroupZero(int pos) {
   int correction = 3 ;
   // GROUP ZERO
   textFont(FuturaStencil_20,20); textAlign(LEFT);
-  fill(blanc, 120) ;
-  /*
-  text("BACKGROUND", mgSliderc1, posHeightSlider[1] -(correction*4));
-  text("LIGHT", mgSliderc2, posHeightSlider[7] -(correction*4));
-  text("AMBIENT", mgSliderc3, posHeightSlider[10] -(correction*4));
-  */
+  //fill(blanc, 120) ;
+
   fill (typoTitre) ; 
-  textFont(texteInterface, sizeTexteInterface) ; textAlign(LEFT);
+  textFont(textInterface, sizeTexteInterface) ; textAlign(LEFT);
   fill (typoCourante) ;
   //BACKGROUND
-  text(genTxtGUI[1], mgSliderc1 +116, posHeightSlider[1] +correction);
-  text(genTxtGUI[2], mgSliderc1 +116, posHeightSlider[2] +correction);
-  text(genTxtGUI[3], mgSliderc1 +116, posHeightSlider[3] +correction);
-  text(genTxtGUI[4], mgSliderc1 +116, posHeightSlider[4] +correction);
+  text(genTxtGUI[1], posWidthSlider[1] +116, posHeightSlider[1] +correction);
+  text(genTxtGUI[2], posWidthSlider[2] +116, posHeightSlider[2] +correction);
+  text(genTxtGUI[3], posWidthSlider[3] +116, posHeightSlider[3] +correction);
+  text(genTxtGUI[4], posWidthSlider[4] +116, posHeightSlider[4] +correction);
   // LIGHT
-  text(genTxtGUI[9], mgSliderc2 +116, posHeightSlider[7] +correction);
-  text(genTxtGUI[10], mgSliderc2 +116,posHeightSlider[8] +correction);
-  text(genTxtGUI[11], mgSliderc2 +116, posHeightSlider[9] +correction);
+  text(genTxtGUI[9], posWidthSlider[7] +116, posHeightSlider[7] +correction);
+  text(genTxtGUI[10], posWidthSlider[8] +116,posHeightSlider[8] +correction);
+  text(genTxtGUI[11], posWidthSlider[9] +116, posHeightSlider[9] +correction);
   //AMBIENT
-  text(genTxtGUI[12], mgSliderc3 +116, posHeightSlider[10] +correction);
-  text(genTxtGUI[13], mgSliderc3 +116, posHeightSlider[11] +correction);
-  text(genTxtGUI[14], mgSliderc3 +116, posHeightSlider[12] +correction);
+  text(genTxtGUI[12], posWidthSlider[10] +116, posHeightSlider[10] +correction);
+  text(genTxtGUI[13], posWidthSlider[11] +116, posHeightSlider[11] +correction);
+  text(genTxtGUI[14], posWidthSlider[12] +116, posHeightSlider[12] +correction);
   
   fill (typoCourante) ;
-  textFont(texteInterface); 
-  text(genTxtGUI[5], mgSliderc3 +116, posHeightSlider[5] +correction);
-  text(genTxtGUI[6], mgSliderc3 +116, posHeightSlider[6] +correction);
+  textFont(textInterface); 
+  text(genTxtGUI[5], posWidthSlider[5] +116, posHeightSlider[5] +correction);
+  text(genTxtGUI[6], posWidthSlider[6] +116, posHeightSlider[6] +correction);
 }
 
 
@@ -402,21 +399,21 @@ void dislayTextSlider() {
   fill(blanc, 120) ;
   pushMatrix () ; rotate (-PI/2) ;  text("GROUP ONE", -posHeightRO +70, 20); popMatrix() ;
   fill (typoCourante) ;
-  textFont(texteInterface);  textAlign(LEFT);
+  textFont(textInterface);  textAlign(LEFT);
   
   // GROUP TWO
   textFont(FuturaStencil_20,20);  textAlign(RIGHT);
   fill(blanc, 120) ;
   pushMatrix () ; rotate (-PI/2) ;  text("GROUP TWO", -posHeightRT +70, 20); popMatrix() ;
   fill (typoCourante) ;
-  textFont(texteInterface);  textAlign(LEFT);
+  textFont(textInterface);  textAlign(LEFT);
   
   //GROUP THREE
   textFont(FuturaStencil_20,20); textAlign(RIGHT);
   fill(blanc, 120) ;
   pushMatrix () ; rotate (-PI/2) ; text("GROUP THREE", -posHeightRTY +70, 20); popMatrix() ;
   fill (typoCourante) ;
-  textFont(texteInterface); textAlign(LEFT);
+  textFont(textInterface); textAlign(LEFT);
   
   // Legend text slider position
   int correctionPos = 3 ;
@@ -622,7 +619,7 @@ void sliderDrawGroupThree () {
 
 /////////////////////
 void buttonDraw () {
-  textFont(texteInterface) ;
+  textFont(textInterface) ;
   buttonDrawGroupZero() ;
   buttonDrawGroupOne() ;
   buttonDrawGroupTwo() ;
@@ -635,8 +632,12 @@ void buttonDraw () {
 // GROUP ZERO
 void buttonDrawGroupZero() {
   buttonBackground.boutonTexte("Background", posBackgroundButton, FuturaStencil_10, 10) ;
-  buttonLightOne.boutonTexte("Light One", posLightOneButton, FuturaStencil_10, 10) ;
-  buttonLightTwo.boutonTexte("Light Two",  posLightTwoButton, FuturaStencil_10, 10) ;
+  //LIGHT ONE
+  buttonLightOne.boutonTexte("Light on/off", posLightOneButton, FuturaStencil_10, 10) ;
+  buttonLightOneAction.boutonTexte("action", posLightOneAction, FuturaStencil_10, 10) ;
+  // LIGHT TWO
+  buttonLightTwo.boutonTexte("Light on/off",  posLightTwoButton, FuturaStencil_10, 10) ;
+  buttonLightTwoAction.boutonTexte("action",  posLightTwoAction, FuturaStencil_10, 10) ;
   
   // SOUND
   Bbeat.boutonTexte("BEAT", posBeatButton, FuturaStencil_10, 10) ;
@@ -690,8 +691,12 @@ void buttonDrawGroupThree() {
 
 void buttonCheckDraw() {
   EtatBackgroundButton = buttonBackground.getEtatBoutonCarre() ;
+  //LIGHT ONE
   EtatLightOneButton = buttonLightOne.getEtatBoutonCarre() ;
+  EtatLightOneAction = buttonLightOneAction.getEtatBoutonCarre() ;
+  // LIGHT TWO
   EtatLightTwoButton = buttonLightTwo.getEtatBoutonCarre() ;
+  EtatLightTwoAction = buttonLightTwoAction.getEtatBoutonCarre() ;
   //SOUND
   EtatBbeat = Bbeat.getEtatBoutonCarre() ;
   EtatBkick = Bkick.getEtatBoutonCarre() ;
@@ -844,12 +849,20 @@ void dropdownSetup() {
   String policeList = join(pList, "") ;
   policeDropdownList = split(policeList, "/") ;
   
+  //SHADER backgorund dropdown
+  ///////////////
+  posDropdownShaderBG = new PVector(posButtonShaderBG.x, posButtonShaderBG.y, 0.1)  ; // x y is pos anz z is marge between the dropdown and the header
+  sizeDropdownShaderBG = new PVector (75, 13, 15 ) ;
+  PVector posTextDropdownShaderBG = new PVector(3, 10)  ;
+  dropdownShaderBG = new Dropdown("Shader background", shaderBackgroundName, posDropdownShaderBG, sizeDropdownShaderBG, posTextDropdownShaderBG, colorBG, colorBoxIn, colorBoxOut, colorBoxText, sizeTexteInterface) ;
+  
+  
   //FONT dropdown
   ///////////////
   posDropdownFont = new PVector(posButtonFont.x, posButtonFont.y, 0.1)  ; // x y is pos anz z is marge between the dropdown and the header
   sizeDropdownFont = new PVector (75, 13, 15 ) ;
-  PVector posTextDropdownTypo = new PVector( 3, 10 )  ;
-  dropdownFont = new Dropdown("Font", policeDropdownList,   posDropdownFont , sizeDropdownFont, posTextDropdownTypo, colorBG, colorBoxIn, colorBoxOut, colorBoxText, texteInterface, sizeTexteInterface) ;
+  PVector posTextDropdownTypo = new PVector(3, 10)  ;
+  dropdownFont = new Dropdown("Font", policeDropdownList,   posDropdownFont , sizeDropdownFont, posTextDropdownTypo, colorBG, colorBoxIn, colorBoxOut, colorBoxText, sizeTexteInterface) ;
   
   
   
@@ -875,7 +888,7 @@ void checkTheDropdownSetupObject( int start, int end, float posWidth, float posH
       //to change the title of the header dropdown
 
       posDropdown[i] = new PVector(posWidth +space, posHeight , 0.1)  ; // x y is pos anz z is marge between the dropdown and the header
-      dropdown[i] = new Dropdown("M", listDropdown, posDropdown[i], sizeDropdownMode, posTextDropdown, colorBG, colorBoxIn, colorBoxOut, colorBoxText, texteInterface, sizeTexteInterface) ;
+      dropdown[i] = new Dropdown("M", listDropdown, posDropdown[i], sizeDropdownMode, posTextDropdown, colorBG, colorBoxIn, colorBoxOut, colorBoxText, sizeTexteInterface) ;
     }
   }
 }
@@ -889,7 +902,6 @@ void checkTheDropdownSetupObject( int start, int end, float posWidth, float posH
 
 //DRAW
 void dropdownDraw() {
-    ////////////////
   //MODE dropdown
   // group one
   checkTheDropdownDrawObject(startLoopObject, endLoopObject) ;
@@ -898,30 +910,54 @@ void dropdownDraw() {
   // group three
   checkTheDropdownDrawObject( startLoopTypo, endLoopTypo) ;
   
-  
-  ////////////////
-  //FONT dropdown
-  dropdownFont.dropdownUpdate();
+  dropdownShaderBG() ;
+  dropdownFontDraw() ;
+}
+// END MAIN
+
+// SHADER Background
+void dropdownShaderBG() {
+  dropdownShaderBG.dropdownUpdate(FuturaStencil_10, textInterface);
+  margeAroundDropdown = sizeDropdownFont.y  ;
+  //give the size of menu recalculate with the size of the word inside
+  PVector newSizeFont = dropdownShaderBG.sizeDropdownMenu() ;
+  totalSizeDropdown = new PVector ( newSizeFont.x +(margeAroundDropdown *1.5), sizeDropdownShaderBG.y *(sizeDropdownShaderBG.z +1) +margeAroundDropdown) ; // we must add +1 to the size of the dropdown for the title plus the item list
+  //new pos to include the slider
+  newPosDropdown = new PVector (posDropdownShaderBG.x -margeAroundDropdown, posDropdownShaderBG.y) ;
+  if (!insideRect(newPosDropdown, totalSizeDropdown)) dropdownShaderBG.locked = false ;
+  // display the selection
+  if(!dropdownShaderBG.locked) {
+    textFont(FuturaStencil_10) ;
+    EtatShaderBG = dropdownShaderBG.getSelection() ;
+    text(shaderBackgroundName[EtatShaderBG], posDropdownShaderBG.x +3 , posDropdownShaderBG.y +22) ;
+    if (dropdownShaderBG.getSelection() != 0 ) text("by " +shaderBackgroundAuthor[dropdownShaderBG.getSelection()], posDropdownShaderBG.x +3 , posDropdownShaderBG.y +32) ;
+  }
+}
+
+// FONT
+void dropdownFontDraw() {
+  dropdownFont.dropdownUpdate(FuturaStencil_10, textInterface);
   margeAroundDropdown = sizeDropdownFont.y  ;
   //give the size of menu recalculate with the size of the word inside
   PVector newSizeFont = dropdownFont.sizeDropdownMenu() ;
-  totalSizeDropdown = new PVector ( newSizeFont.x + (margeAroundDropdown *1.5) , sizeDropdownFont.y * (sizeDropdownFont.z +1)  + margeAroundDropdown   ) ; // we must add +1 to the size of the dropdown for the title plus the item list
+  totalSizeDropdown = new PVector ( newSizeFont.x +(margeAroundDropdown *1.5), sizeDropdownFont.y *(sizeDropdownFont.z +1) +margeAroundDropdown) ; // we must add +1 to the size of the dropdown for the title plus the item list
   //new pos to include the slider
-  newPosDropdown = new PVector ( posDropdownFont.x - margeAroundDropdown  , posDropdownFont.y ) ;
-  if ( !insideRect(newPosDropdown, totalSizeDropdown) ) dropdownFont.locked = false;
-  //give the value for sending to Scène and save
-  saveR [7] = byte(dropdownFont.getSelection() +1 ) ;
-  // END FONT dropdown
-  ////////////////////
- 
+  newPosDropdown = new PVector (posDropdownFont.x -margeAroundDropdown, posDropdownFont.y) ;
+  if (!insideRect(newPosDropdown, totalSizeDropdown)) dropdownFont.locked = false ;
+  //give the value for the save
+  saveR [7] = byte(dropdownFont.getSelection() +1) ;
+  // display the selection
+  textFont(FuturaStencil_10) ;
+  text(policeDropdownList[dropdownFont.getSelection()], posDropdownFont.x +35 , posDropdownFont.y +10) ;
 }
 
+// OBJECT
 void checkTheDropdownDrawObject( int start, int end ) {
   for ( int i = start ; i < end ; i ++ ) {
     if(modeListRomanesco[i] != null ) {
       String m [] = split(modeListRomanesco[i], "/") ;
       if ( m.length > 1) {
-        dropdown[i].dropdownUpdate();
+        dropdown[i].dropdownUpdate(FuturaStencil_10, textInterface);
         margeAroundDropdown = sizeDropdownMode.y  ;
         //give the size of menu recalculate with the size of the word inside
         PVector newSizeModeTypo = dropdown[i].sizeDropdownMenu() ;
@@ -933,6 +969,7 @@ void checkTheDropdownDrawObject( int start, int end ) {
         }
       }
       if (dropdown[i].getSelection() > -1 && m.length > 1 ) {
+        textFont(FuturaStencil_10) ;
         text(dropdown[i].getSelection() +1, posDropdown[i].x +12 , posDropdown[i].y +8) ;
       }
     }
@@ -944,7 +981,36 @@ void checkTheDropdownDrawObject( int start, int end ) {
 
 //MOUSEPRESSED
 void dropdownMousepressed() {
-  //FONT dropdown
+  checkDropdownShaderBG() ;
+  checkDropdownFont() ;
+  // group One
+  checkTheDropdownObjectMousepressed(startLoopObject, endLoopObject ) ;
+  // group Two
+  checkTheDropdownObjectMousepressed(startLoopTexture, endLoopTexture ) ;
+  //group one
+  checkTheDropdownObjectMousepressed(startLoopTypo, endLoopTypo ) ;
+}
+// END MAIN
+
+
+void checkDropdownShaderBG() {
+  if (dropdownShaderBG != null) {
+    if (insideRect(posDropdownShaderBG, sizeDropdownShaderBG) && !dropdownShaderBG.locked  ) {
+      dropdownShaderBG.locked = true;
+    } else if (dropdownShaderBG.locked) {
+      float newWidthDropdown = dropdownShaderBG.sizeDropdownMenu().x ;
+      int line = dropdownShaderBG.selectDropdownLine(newWidthDropdown);
+      if (line > -1 ) {
+        dropdownShaderBG.whichDropdownLine(line);
+        //to close the dropdown
+        dropdownShaderBG.locked = false;        
+      } 
+    }
+  }
+}
+
+
+void checkDropdownFont() {
   if (dropdownFont != null) {
     if (insideRect(posDropdownFont, sizeDropdownFont) && !dropdownFont.locked  ) {
       dropdownFont.locked = true;
@@ -958,14 +1024,7 @@ void dropdownMousepressed() {
       } 
     }
   }
-  // group One
-  checkTheDropdownObjectMousepressed(startLoopObject, endLoopObject ) ;
-  // group Two
-  checkTheDropdownObjectMousepressed(startLoopTexture, endLoopTexture ) ;
-  //group one
-  checkTheDropdownObjectMousepressed(startLoopTypo, endLoopTypo ) ;
 }
-
 
 void checkTheDropdownObjectMousepressed( int start, int end ) {
   for ( int i = start ; i < end ; i ++ ) { 

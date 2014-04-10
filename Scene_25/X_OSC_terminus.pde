@@ -162,11 +162,15 @@ void OSCDraw() {
     
     whichFont(valueButtonGlobal[5]) ;
     eCurtain = valueButtonGlobal[6] ;
-  
+    
     eBackground = valueButtonGlobal[7] ;
+    
     eLightOne = valueButtonGlobal[8] ;
     eLightTwo = valueButtonGlobal[9] ;
+    eLightOneAction = valueButtonGlobal[10] ;
+    eLightTwoAction = valueButtonGlobal[11] ;
     
+    whichShader = valueButtonGlobal[12] ;
   
     //OBJECT
     for ( int i = 0 ; i < numObj-1 ; i++) {

@@ -77,6 +77,11 @@ void translateDataToSend() {
   valueButtonGlobal[7] = EtatBackgroundButton ;
   valueButtonGlobal[8] = EtatLightOneButton ;
   valueButtonGlobal[9] = EtatLightTwoButton ;
+  valueButtonGlobal[10] = EtatLightOneAction ;
+  valueButtonGlobal[11] = EtatLightTwoAction ;
+  
+  valueButtonGlobal[12] = EtatShaderBG ;
+
  
   
   //BUTTON OBJ

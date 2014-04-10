@@ -19,7 +19,7 @@ public class Dropdown {
   private float missing ;
 
   //CONSTRUCTOR
-  public Dropdown(String title, String [] listItem, PVector pos, PVector size, PVector posText, color colorBG, color boxIn, color boxOut, color colorText, PFont fontDropdown, int sizeFont ) {
+  public Dropdown(String title, String [] listItem, PVector pos, PVector size, PVector posText, color colorBG, color boxIn, color boxOut, color colorText, int sizeFont ) {
     //dropdown
     this.title = title ;
     this.listItem = listItem;
@@ -62,13 +62,12 @@ public class Dropdown {
   }
   
   //DRAW
-  void dropdownUpdate() {
+  void dropdownUpdate(PFont titleFont, PFont dropdownFont) {
     //to be sure of the position
     rectMode(CORNER);
-    
     //Dropdown
     if (locked) {
-      renderBox(title ,1, size);
+      titleWithoutBox(title, 1, size, titleFont);
       //give the position of dropdown
       int step = 2 ;
       //give the position in list of Item with the position from the slider's molette
@@ -76,7 +75,7 @@ public class Dropdown {
       //loop to display the item list
       for ( int i = startingDropdown + updateDropdown ; i < endingDropdown + updateDropdown ; i++) {
         //bottom rendering
-        renderBox(listItem[i] , step++,  sizeBoxDropdownMenu);
+        renderBox(listItem[i], step++, sizeBoxDropdownMenu, dropdownFont);
         //Slider dropdown
         if (slider) {
           sliderDropdown.sliderUpdate() ;
@@ -86,33 +85,47 @@ public class Dropdown {
       }
     } else {
       //header rendering
-      renderBox(title,1, size);
+      titleWithoutBox(title, 1, size, titleFont);
     }
   }
 
 
   //DISPLAY
-  public void renderBox(String label, int step, PVector sizeBoxDropdown) {
-    noStroke() ;
+  public void titleWithoutBox(String title, int step, PVector size, PFont font) {
+    //update
     factorPos = step + pos.z -1 ;
-    
+    float yLevel = step == 1 ? pos.y  : (pos.y + (size.y * (factorPos )));
+    PVector newPosDropdown = new PVector (pos.x, yLevel) ;
+    if (insideRect(newPosDropdown, size)) {
+      fill(boxIn); 
+    } else { 
+      fill(boxOut ) ;
+    }
+    textFont(font);
+    text(title, pos.x +posText.x , yLevel +posText.y );
+  }
+  
+  public void renderBox(String label, int step, PVector sizeBoxDropdown, PFont font) {
+    //update
+    factorPos = step + pos.z -1 ;
     float yLevel = step == 1 ? pos.y  : (pos.y + (sizeBoxDropdown.y * (factorPos )));
-    
-    PVector newPosDropdown = new PVector (pos.x, yLevel  ) ;
+    PVector newPosDropdown = new PVector (pos.x, yLevel) ;
     if (insideRect(newPosDropdown, sizeBoxDropdown)) {
       fill(boxIn); 
     } else { 
       fill(boxOut ) ;
     }
-    
+    //display
+    noStroke() ;
     rect(pos.x, yLevel , sizeBoxDropdown.x, sizeBoxDropdown.y );
-    
     fill(colorText);
-    textFont(fontDropdown);
+    textFont(font);
     textSize(sizeFont) ;
     text(label, pos.x +posText.x , yLevel +posText.y );
-
   }
+  
+  
+
   
   //RETURN
   //Check the dropdown when this one is open

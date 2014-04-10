@@ -500,10 +500,11 @@ PVector follow(PVector origin, PVector target, float speed) {
 ///////
 PVector colorLightOne = new PVector(0,0,0);
 PVector colorLightTwo = new PVector(0,0,0);
-PVector dirLight = new PVector(0,0,1);
+PVector dirLightOne = new PVector(0,0,1);
+PVector dirLightTwo = new PVector(0,0,1);
+boolean lightOneMove, lightTwoMove ;
 
 PVector speedColorLight = new PVector(0,0,0) ;
-//PVector speedSpotLight = new PVector(0,0,0) ;
 //SETUP
 void lightSetup() {
   if(modeP3D) {
@@ -521,21 +522,28 @@ void lightDraw() {
     colorLightTwo = new PVector (map(valueSlider[0][9],0,100,0,360), valueSlider[0][10], valueSlider[0][11]) ;
     
     // change the direction of the light
-    boolean lightMove = true ;
-    if(lightMove) {
-      dirLight.x = map(mouse[0].x,0,width, -1,1) ;
-      dirLight.y = map(mouse[0].y,0,height, -1,1) ;
-      dirLight.z = map(mouse[0].z,-750,750, -1,1) ;
+    if(eLightOneAction == 1 ) lightOneMove = true ; else lightOneMove = false ;
+    if(eLightTwoAction == 1 ) lightTwoMove = true ; else lightTwoMove = false ;
+    
+    if(lightOneMove) {
+      dirLightOne.x = map(mouse[0].x,0,width, -1,1) ;
+      dirLightOne.y = map(mouse[0].y,0,height, -1,1) ;
+      dirLightOne.z = map(mouse[0].z,-750,750, -1,1) ;
+    }
+    if(lightTwoMove) {
+      dirLightTwo.x = map(mouse[0].x,0,width, 1,-1) ;
+      dirLightTwo.y = map(mouse[0].y,0,height, 1,-1) ;
+      dirLightTwo.z = map(mouse[0].z,-750,750, 1,-1) ;
     }
     //result
-    romanescoLight(colorLightOne, colorLightTwo, dirLight) ;
+    romanescoLight(colorLightOne, colorLightTwo, dirLightOne, dirLightTwo) ;
   }
 }
 
 //ANNEXE LIGHT VOID
-void romanescoLight(PVector colorOne, PVector colorTwo, PVector dir) {
-  if(eLightOne == 1 ) directionalLight(colorOne.x, colorOne.y, colorOne.z, -dir.x, -dir.y, -dir.z);
-  if(eLightTwo == 1 ) directionalLight(colorTwo.x, colorTwo.y, colorTwo.z, dir.x, dir.y, dir.z);
+void romanescoLight(PVector colorOne, PVector colorTwo, PVector dirOne, PVector dirTwo) {
+  if(eLightOne == 1 ) directionalLight(colorOne.x, colorOne.y, colorOne.z, dirOne.x, dirOne.y, dirOne.z);
+  if(eLightTwo == 1 ) directionalLight(colorTwo.x, colorTwo.y, colorTwo.z, dirTwo.x, dirTwo.y, dirTwo.z);
   // don't use the ambiant light if you need the object color
 
 }

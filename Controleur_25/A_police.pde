@@ -3,7 +3,7 @@ int sizeTexteInterface = 14 ;
 
 public PFont 
       //controleur font
-      police, texteInterface,
+      police, textInterface,
       EmigreEight, FuturaStencil_20, FuturaStencil_10,
 
       
@@ -56,7 +56,7 @@ void fontSetup() {
   TokyoOne=loadFont                (fontPathVLW+"Tokyo-One-96.vlw");
   
   //Typo for the interface
-  texteInterface = EmigreEight ;
+  textInterface = EmigreEight ;
   
 
 

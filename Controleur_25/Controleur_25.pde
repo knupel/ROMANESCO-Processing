@@ -27,8 +27,12 @@ void mousePressed () {
   if(numGroup[3] > 0 ) for( int i = 11 ; i < numGroup[3] *10 + 6 ; i++)  BTYf[i].mousePressed() ;
 
   buttonBackground.mousePressedText() ;
+  //LIGHT ONE
   buttonLightOne.mousePressedText() ;
+  buttonLightOneAction.mousePressedText() ;
+  // LIGHT TWO
   buttonLightTwo.mousePressedText() ;
+  buttonLightTwoAction.mousePressedText() ;
   //son
   Bbeat.mousePressedText() ;
   Bkick.mousePressedText() ;

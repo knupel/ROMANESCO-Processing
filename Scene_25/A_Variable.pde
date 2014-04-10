@@ -129,7 +129,9 @@ PFont police ;
 
 //OSC VAR
 // button
-int eBeat, eKick, eSnare, eHat, eCurtain, eBackground, eLightOne, eLightTwo ;
+int eBeat, eKick, eSnare, eHat, eCurtain, eBackground ;
+int eLightOne, eLightTwo, eLightOneAction, eLightTwoAction ;
+int whichShader ;
 int [] objectButton,soundButton, actionButton, parameterButton ;
 boolean [] object, sound, action, parameter ;
 

@@ -3,7 +3,7 @@
 /////////////
 int artificialTime ;
 //FOND
-void backgroundRomanesco() {
+void backgroundRomanesco(boolean useShader) {
   if(eBackground == 1) {
     color bg ;
     //to smooth the curve of transparency background
@@ -18,12 +18,12 @@ void backgroundRomanesco() {
     if(displayMode.equals("Classic")) backgroundClassic(bg) ;
     else if(displayMode.equals("P3D")) backgroundP3D(bg) ;
   } else {
-    backgroundShaderDraw(modeP3D, shaderMode) ;
+    backgroundShaderDraw(modeP3D, useShader, whichShader) ;
   }
 }
 
 
-void backgroundRomanescoPrescene() {
+void backgroundRomanescoPrescene(boolean useShader) {
   if(eBackground == 1) {
     color bg ;
     bg = color (map(valueSlider[0][0],0,100,0,360), valueSlider[0][1], valueSlider[0][2], 100 ) ;
@@ -31,7 +31,7 @@ void backgroundRomanescoPrescene() {
     if(displayMode.equals("Classic")) backgroundClassic(bg) ;
     else if(displayMode.equals("P3D")) backgroundP3D(bg) ;
   } else {
-    backgroundShaderDraw(modeP3D, shaderMode) ;
+    backgroundShaderDraw(modeP3D, useShader, whichShader) ;
   }
 }
 
@@ -63,7 +63,6 @@ void backgroundP3D(color c) {
 
 
 // BACKGROUND SHADER
-int shaderMode = 3 ;
 PShader bizarre, snow, sinLight, blurOne, blurTwo, hallo, necklace, water, damierEllipse, cellular, psy, psyTwo, psyThree ;
 
 void backgroundShaderSetup(boolean renderP3D) {
@@ -91,20 +90,21 @@ void backgroundShaderSetup(boolean renderP3D) {
 
 
 
-void backgroundShaderDraw(boolean renderP3D, int whichShader) {
-  if(renderP3D) {
+void backgroundShaderDraw(boolean renderP3D, boolean useShaderOrNot, int whichOne) {
+  if(renderP3D && useShaderOrNot) {
     PVector posBGshader = new PVector(0,0) ;
     PVector sizeBGshader = new PVector(width,height, height) ; 
-    
-    if     (whichShader ==0) rectangle(posBGshader, sizeBGshader, blurOne ) ;
-    else if(whichShader ==1) rectangle(posBGshader, sizeBGshader, blurTwo ) ;
-    else if(whichShader ==2) rectangle(posBGshader, sizeBGshader, cellular) ;
-    else if(whichShader ==3) rectangle(posBGshader, sizeBGshader, damierEllipse) ;
-    else if(whichShader ==4) rectangle(posBGshader, sizeBGshader, hallo) ;
-    else if(whichShader ==5) rectangle(posBGshader, sizeBGshader, necklace) ;
-    else if(whichShader ==6) rectangle(posBGshader, sizeBGshader, psy) ;
-    else if(whichShader ==7) rectangle(posBGshader, sizeBGshader, snow ) ;
-    else if(whichShader ==8) rectangle(posBGshader, sizeBGshader, sinLight ) ;
+
+    if     (whichOne ==1) rectangle(posBGshader, sizeBGshader, blurOne ) ;
+    else if(whichOne ==2) rectangle(posBGshader, sizeBGshader, blurTwo ) ;
+    else if(whichOne ==3) rectangle(posBGshader, sizeBGshader, cellular) ;
+    else if(whichOne ==4) rectangle(posBGshader, sizeBGshader, damierEllipse) ;
+    else if(whichOne ==5) rectangle(posBGshader, sizeBGshader, hallo) ;
+    else if(whichOne ==6) rectangle(posBGshader, sizeBGshader, necklace) ;
+    else if(whichOne ==7) rectangle(posBGshader, sizeBGshader, psy) ;
+    else if(whichOne ==8) rectangle(posBGshader, sizeBGshader, snow ) ;
+    else if(whichOne ==9) rectangle(posBGshader, sizeBGshader, sinLight ) ;
+    println("J4aimerais afficher le Shader", whichOne) ;
     
     
     //rectangle(posBGshader, sizeBGshader, bizarre) ;  // work bad

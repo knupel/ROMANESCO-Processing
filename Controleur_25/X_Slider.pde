@@ -98,8 +98,7 @@ class Slider
     rect(newPosMol.x, newPosMol.y, sizeMol.x , sizeMol.y ) ;
   }
   
-  void moletteUpdate()
-  {
+  void moletteUpdate() {
     if (locked (insideRect(newPosMol, sizeMol) )  ) molLocked = true ;
     if (!mousePressed)  molLocked = false ; 
       
@@ -109,8 +108,7 @@ class Slider
   }
   
   //RETURN
-  float getValue()
-  {
+  float getValue() {
     float value ;
     if ( size.x >= size.y ) value = map (newPosMol.x, posMin.x, posMax.x, 0,1) ; else value = map (newPosMol.y, posMin.y, posMax.y, 0,1) ;
     return value ;

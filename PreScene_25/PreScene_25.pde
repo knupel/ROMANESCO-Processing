@@ -8,7 +8,7 @@ int levelSecurity = 200 ;
 //to work in dev, test phase
 boolean testRomanesco = false ;
 // when you work only with "Prescene" boolean presceneOnly must be true to give at the Prescene the internet acces
-boolean presceneOnly = false ;
+boolean presceneOnly = true ;
 
 // I don't remember why there is the boolean 
 boolean Controleur = true ;
@@ -67,7 +67,7 @@ void draw() {
   meteoDraw() ;
   updateVar() ;
   OSCDraw() ;
-  backgroundRomanescoPrescene() ;
+  backgroundRomanescoPrescene(presceneOnly) ;
   
   //ROMANESCO
   cameraDraw() ;
