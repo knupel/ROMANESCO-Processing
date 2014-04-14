@@ -95,15 +95,7 @@ void curtain() {
 
 //CURSOR, PEN, LEAP MOTION
 //CURSOR, MOUSE, TABLET, LEAP MOTION
-//GLOBAL
-void cursorSetup() {
-  for (int i = 0 ; i < numObj ; i++ ) {
-    pen[i] = new PVector() ;
-    mouse[i] = new PVector() ;
-    pmouse[i] = new PVector() ;
-    wheel[i] = 0 ;
-  }
-}
+
 
 
 void cursorDraw() {

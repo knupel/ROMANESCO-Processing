@@ -1,5 +1,3 @@
-//
-boolean dropdownOpen ; // use to indicate to indicate at the other button, they cannot be used when the user are on the dropdown menu
 
 // CLASS
 public class Dropdown {
@@ -69,7 +67,6 @@ public class Dropdown {
     rectMode(CORNER);
     //Dropdown
     if (locked) {
-      dropdownOpen = true ;
       titleWithoutBox(title, 1, size, titleFont);
       //give the position of dropdown
       int step = 2 ;
@@ -79,7 +76,6 @@ public class Dropdown {
       for ( int i = startingDropdown + updateDropdown ; i < endingDropdown + updateDropdown ; i++) {
         //bottom rendering
         renderBox(listItem[i], step++, sizeBoxDropdownMenu, dropdownFont);
-        //dropdownActivity = true ;
         //Slider dropdown
         if (slider) {
           sliderDropdown.sliderUpdate() ;
@@ -89,11 +85,8 @@ public class Dropdown {
       }
     } else {
       //header rendering
-      dropdownOpen = false ;
       titleWithoutBox(title, 1, size, titleFont);
     }
-    //println("je ne suis plus là niveau deux") ;
-    //dropdownActivity = false ;
   }
 
 
@@ -103,8 +96,11 @@ public class Dropdown {
     factorPos = step + pos.z -1 ;
     float yLevel = step == 1 ? pos.y  : (pos.y + (size.y * (factorPos )));
     PVector newPosDropdown = new PVector (pos.x, yLevel) ;
-    if (insideRect(newPosDropdown, size)) fill(boxIn); else fill(boxOut ) ;
-    //dropdownActivity = false ;
+    if (insideRect(newPosDropdown, size)) {
+      fill(boxIn); 
+    } else { 
+      fill(boxOut ) ;
+    }
     textFont(font);
     text(title, pos.x +posText.x , yLevel +posText.y );
   }
@@ -114,7 +110,11 @@ public class Dropdown {
     factorPos = step + pos.z -1 ;
     float yLevel = step == 1 ? pos.y  : (pos.y + (sizeBoxDropdown.y * (factorPos )));
     PVector newPosDropdown = new PVector (pos.x, yLevel) ;
-    if (insideRect(newPosDropdown, sizeBoxDropdown)) fill(boxIn); else fill(boxOut ) ;
+    if (insideRect(newPosDropdown, sizeBoxDropdown)) {
+      fill(boxIn); 
+    } else { 
+      fill(boxOut ) ;
+    }
     //display
     noStroke() ;
     rect(pos.x, yLevel , sizeBoxDropdown.x, sizeBoxDropdown.y );

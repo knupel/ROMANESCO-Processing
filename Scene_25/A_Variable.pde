@@ -207,6 +207,20 @@ PFont font[]  ;
 
 
 
+//GLOBAL
+void varObjectSetup() {
+  for (int i = 0 ; i < numObj ; i++ ) {
+    startingPos[i] = new PVector(height/2, width/2, 0) ;
+    pen[i] = new PVector() ;
+    mouse[i] = new PVector() ;
+    pmouse[i] = new PVector() ;
+    wheel[i] = 0 ;
+  }
+}
+
+
+
+
 ////////////////////
 //SAVE SCENE PICTURE
 void beginSave() {

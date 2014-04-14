@@ -34,12 +34,12 @@ class Horloge extends SuperRomanesco {
     
     // couleur du texte
     float t = alpha(fillObj[IDobj]) * abs(mix[IDobj]) ;
-    if ( sound[IDobj] ) { t = alpha(fillObj[IDobj]) ; } 
+    if (sound[IDobj]) { t = alpha(fillObj[IDobj]) ; } 
     color c = color(hue(fillObj[IDobj]), saturation(fillObj[IDobj]), brightness(fillObj[IDobj]), t ) ;
     //rotation / deg
     float angle = map(directionObj[IDobj], 0,360, 0, TAU) ;
     //amplitude
-    float amp = map(amplitudeObj[IDobj],0,height,0, width *.75) ;
+    float amp = map(amplitudeObj[IDobj],1,height, 1, height  / 4) ;
     
     //CHANGE MODE DISPLAY
     /////////////////////

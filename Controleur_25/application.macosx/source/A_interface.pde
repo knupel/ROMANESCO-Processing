@@ -900,26 +900,24 @@ void checkTheDropdownSetupObject( int start, int end, float posWidth, float posH
 
 
 
-//DRAW DROPDOWN
-boolean dropdownActivity ;
-int dropdownActivityCount ;
-
+//DRAW
 void dropdownDraw() {
+  //MODE dropdown
+  // group one
   checkTheDropdownDrawObject(startLoopObject, endLoopObject) ;
+  // group two
   checkTheDropdownDrawObject(startLoopTexture, endLoopTexture) ;
-  checkTheDropdownDrawObject(startLoopTypo, endLoopTypo) ;
+  // group three
+  checkTheDropdownDrawObject( startLoopTypo, endLoopTypo) ;
+  
   dropdownShaderBG() ;
   dropdownFontDraw() ;
-  // check the activity o the dropdown
-  if(dropdownActivityCount > 0 ) dropdownActivity = true ; else dropdownActivity = false ;
-  dropdownActivityCount = 0 ;
 }
 // END MAIN
 
 // SHADER Background
 void dropdownShaderBG() {
   dropdownShaderBG.dropdownUpdate(FuturaStencil_10, textInterface);
-  if (dropdownOpen) dropdownActivityCount = +1 ;
   margeAroundDropdown = sizeDropdownFont.y  ;
   //give the size of menu recalculate with the size of the word inside
   PVector newSizeFont = dropdownShaderBG.sizeDropdownMenu() ;
@@ -939,7 +937,6 @@ void dropdownShaderBG() {
 // FONT
 void dropdownFontDraw() {
   dropdownFont.dropdownUpdate(FuturaStencil_10, textInterface);
-  if (dropdownOpen) dropdownActivityCount = +1 ;
   margeAroundDropdown = sizeDropdownFont.y  ;
   //give the size of menu recalculate with the size of the word inside
   PVector newSizeFont = dropdownFont.sizeDropdownMenu() ;
@@ -961,7 +958,6 @@ void checkTheDropdownDrawObject( int start, int end ) {
       String m [] = split(modeListRomanesco[i], "/") ;
       if ( m.length > 1) {
         dropdown[i].dropdownUpdate(FuturaStencil_10, textInterface);
-        if (dropdownOpen) dropdownActivityCount = +1 ;
         margeAroundDropdown = sizeDropdownMode.y  ;
         //give the size of menu recalculate with the size of the word inside
         PVector newSizeModeTypo = dropdown[i].sizeDropdownMenu() ;

@@ -301,6 +301,18 @@ void changeColorOfPixel(ArrayList listMustBeChange ) {
 }
 
 
+//convert color HSB to RVB
+PVector HSBtoRGB(float hue, float saturation, float brightness) {
+  PVector PVectorRGB = new PVector() ;
+  colorMode(RGB,255,255,255) ;
+  int intRGB ;
+  intRGB = Color.HSBtoRGB(hue, saturation, brightness);
+  PVectorRGB = new PVector (red(intRGB), green(intRGB), blue(intRGB)) ;
+  colorMode(HSB,HSBmode.x,HSBmode.y,HSBmode.z) ;
+  return PVectorRGB ;
+}
+
+
 
 
 

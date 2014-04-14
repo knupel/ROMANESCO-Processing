@@ -65,7 +65,7 @@ class Polygone extends SuperRomanesco {
     //gap and scale effect
     float ratioControler = map(amplitudeObj[IDobj], 0, 100, 0.1,10) ;
     float ratioSound = abs(mix[IDobj]) ;
-    if (!sound[IDobj] ) ratioFinal =  ratioControler *ratioSound ; else ratioFinal =ratioControler ;
+    if (sound[IDobj] ) ratioFinal =  ratioControler *ratioSound ; else ratioFinal =ratioControler ;
 
 
     PVector pos = new PVector (mouse[IDobj].x, mouse[IDobj].y ) ;

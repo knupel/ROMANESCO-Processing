@@ -51,7 +51,7 @@ void setup() {
   RG.init(this);
 
   soundSetup() ;
-  cursorSetup() ; // the cursor setup of the Scene is more simple
+  varObjectSetup() ; // the varObject setup of the Scene is more simple
   OSCSetup() ;
   meteoSetup() ;
   P3DSetup() ;
@@ -73,7 +73,7 @@ void draw() {
   cameraDraw() ;
     //use romanesco object
   romanescoManager.displayObject() ;
-  repereCamera(sizeBG) ;
+  repereCamera(sizeBackgroundP3D) ;
   stopCamera() ;
   
   //annexe

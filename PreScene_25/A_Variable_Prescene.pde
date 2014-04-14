@@ -218,6 +218,26 @@ String [] pathFontTTF, pathFontVLW, pathFontObjTTF ;
 PFont font[]  ;
 
 
+Tablet tablet;
+PVector cursorRef = new PVector() ;
+
+//SETUP
+void varObjectSetup() {
+  //LEAP MOTION
+  leap = new com.leapmotion.leap.Controller();
+  //TABLET
+  tablet = new Tablet(this);
+  for (int i = 0 ; i < numObj ; i++ ) {
+    startingPos[i] = new PVector(height/2, width/2, 0) ;
+    pen[i] = new PVector() ;
+    // use the 250 value for "z" to keep the position light on the front
+    mouse[i] = new PVector(0,0,250) ;
+    pmouse[i] = new PVector() ;
+    wheel[i] = 0 ;
+  }
+}
+
+
 
 
 
@@ -323,7 +343,7 @@ void createVarCursor() {
 }
 // P3D
 void createVarP3D() {
-  startingPosition = new boolean[numObj] ;
+   startingPosition = new boolean[numObj] ;
    startingPos = new PVector[numObj] ;
    P3DpositionX = new float[numObj] ;
    P3DpositionY = new float[numObj] ;

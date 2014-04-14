@@ -42,6 +42,9 @@ boolean youCanSendToMiroir = true ;
 // when you work only with "Prescene" boolean presceneOnly must be true to give at the Prescene the internet acces
 boolean presceneOnly = false ;
 
+
+
+
 //SECURITY LAG
 int levelSecurity = 100 ; is not finish, this value can be use to block the function, this value must me control from the Controler
 
@@ -219,7 +222,9 @@ String textRaw ; is the import text but with the "*" and "/"
 ///////////
 
 
-
+//STARTING POSITION
+give the position of the object at the opening app
+PVector startingPos[IDobj] by default this value is equal to (width/2, height/2, 0)
 
 
 
@@ -348,6 +353,9 @@ float mapEndStartSmooth(float value, float sourceMin, float sourceMax, float tar
 float cycle(float add) // return value between -1 et 1 , nice to try with vzlue like 0.1
 int timer(float tempo) // return an add value from float <1 ;
 int minClock() // return the time of the day in minutes
+
+// UTIL COLOR
+PVector HSBtoRGB(float hue, float saturation, float brightness) convert color in the HSB world
 
 
 

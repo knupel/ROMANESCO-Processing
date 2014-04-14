@@ -455,10 +455,9 @@ class Atom
     //strokeWeight(d) ;
     insideA = radiusCursor2D() ;
     insideF = radiusElectronicFieldCursor2D() ;
-    if(mousePressed && insideA)   { lock = true; }
-    if(!mousePressed)             { lock = false; }
-    if(lock) 
-    { 
+    if(mousePressed && insideA) lock = true;
+    if(!mousePressed)           lock = false;
+    if (lock) { 
       pos.x = mouseX; 
       pos.y = mouseY;
     }
@@ -468,10 +467,9 @@ class Atom
     //strokeWeight(d) ;
     insideA = radiusCursor2D() ;
     insideF = radiusElectronicFieldCursor2D() ;
-    if( mousePressed && insideA) { lock = true; }
-    if(!mousePressed)            { lock = false; }
-    if(lock) 
-    { 
+    if( mousePressed && insideA) lock = true ;
+    if(!mousePressed)            lock = false ;
+    if (lock) { 
       pos.x = mouseX; 
       pos.y = mouseY;
       vel.x = (mouseX -pmouseX) * inertia; 
@@ -611,16 +609,14 @@ class Atom
   }
   //::::::::::::::::::::::
   
-  void noContactCovalent() // internal
-  {
+  void noContactCovalent() { // internal
     collision = false ; // this boolean give the control of the velocity to the update() void
     //for the covalent collision
     electronicCovalentBond() ;
   }
   
   // Update the bond of each atom
-  void electronicCovalentBond() // internal
-  {
+  void electronicCovalentBond() { // internal
     if (proton < 3 ) { 
       covalentBond[0] = true ;
       if (valenceElectron == 0 ) { covalentBond[1] = false ; covalentBondLast = false ;  }

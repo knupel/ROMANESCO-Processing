@@ -61,10 +61,9 @@ class Webcam extends SuperRomanesco {
    //  factorDisplayPixel.y = factorDisplayCam.y / (20 -TD123/10 ) ; 
     
     cols = sizeCam [whichSizeCam][0] / cellSizeX; // before the resizing
-    rows = sizeCam [whichSizeCam][1] / cellSizeY; 
+    rows = sizeCam [whichSizeCam][1] / cellSizeY;
     if (testCam()) {
       cam.read();
-      cam.loadPixels() ;
       for (int i = 0; i < cols ; i++) {
         for (int j = 0; j < rows  ; j++) {
           // Where are we, pixel-wise?
@@ -73,13 +72,6 @@ class Webcam extends SuperRomanesco {
           //// display pixel 
           int  loc = posPixelX  + posPixelY *cam.width; // classic
           //  int loc = (cam.width - x - 1) + y*cam.width; // mirror
-          // FUN
-          /*
-          int loc = x + y; 
-          int loc = x *y;
-          int loc = cam.width  + y*cam.width;
-          */
-          
           //make pixel
           float h = hue(cam.pixels[loc]);
           float s = saturation(cam.pixels[loc]);
@@ -100,25 +92,22 @@ class Webcam extends SuperRomanesco {
             //display the result
             colorPixelCam = color(newHue, newSat, newBrigth, alpha(fillObj[IDobj]));
           }
-          ////////////
-          
+   
           //DISPLAY
-          //DON'T TOUCH
           pushMatrix() ;
           //P3D Give the position and the orientation of your object in the 3 dimensionals space
-
-          //END OF DON'T TOUCH 
           PVector newDisplay = new PVector  (cellSizeX *factorDisplayCam.x,   cellSizeY *factorDisplayCam.y) ;
           PVector newCellSize = new PVector (cellSizeX *factorDisplayPixel.x *left[IDobj], cellSizeY *factorDisplayPixel.y *right[IDobj]) ;
-
           //init the position of image on the middle of the screen
           PVector posMouseCam = new PVector ( width / 2, height /2) ;
+          println(mouse[IDobj], startingPos[IDobj]) ;
           if (mouse[IDobj].x >= -startingPos[IDobj].x && mouse[IDobj].y >= -startingPos[IDobj].y) posMouseCam = mouse[IDobj] ;
           //create the ratio for the translate position in functiun of the size of the Scene, not really good algorythm
           float ratioDisplay = (float)width / (float)height ;
           float factorDisplacementRatioSizeOfTheDisplay = map(width, 0, 2000, .6, .2 ) ;
           float factorTranslateX = factorDisplacementRatioSizeOfTheDisplay / ratioDisplay ;
           float factorTranslateY = factorDisplacementRatioSizeOfTheDisplay ;
+
           //finalization of the position
           translate( ( (posPixelX +newDisplay.x *factorTranslateX) *factorDisplayCam.x) + posMouseCam.x - width *0.5 , 
                      ( (posPixelY +newDisplay.y *factorTranslateY) *factorDisplayCam.y) + posMouseCam.y - height*0.5  );
@@ -137,7 +126,6 @@ class Webcam extends SuperRomanesco {
       testDeviceCam += 1 ;
       text("No extarnal video signal, Romanesco try on the native Camera", mouse[0].x , mouse[0].y ) ;
     } 
-    
     
     //TEST CAM
     // testDeviceCam += 1 ;

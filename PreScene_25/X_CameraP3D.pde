@@ -20,11 +20,14 @@ PVector targetPosCam = new PVector(0, 0, 0) ;
 PVector speedDirectionOfObject  ;
 PVector  P3DpositionMouseRef, deltaObjPos ;
 PVector  P3DdirectionMouseRef, deltaObjDir, P3DtempObjDir ;
+PVector sizeBackgroundP3D  ;
 
 
-//SETUP
+//SET = P
 void P3DSetup() {
+      
   if(modeP3D) {
+    sizeBackgroundP3D = new PVector(width *100, height *100, height *7) ;
     //CAMERA
     sceneCamera = new PVector (width/2 , height/2, 0) ;
     sceneCamera = new PVector (0,0,0) ;

@@ -25,7 +25,7 @@ void setup() {
   RG.init(this);
 
   soundSetup() ;
-  cursorSetup() ; // the cursor setup of the Prescene is more complexe
+  varObjectSetup() ; // the varObject setup of the Scene is more simple
   OSCSetup() ;
   meteoSetup() ;
   P3DSetup() ;

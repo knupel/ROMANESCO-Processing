@@ -83,7 +83,7 @@ class Bouton {
     //rect
     if (detectionCarre() ) {
       dedansBoutonCarre = true ;
-      if (JouerBoutonCarre) {
+      if ( JouerBoutonCarre ) {
         JouerBoutonCarre = false ;
         etatBoutonCarre = 0 ;
       } else {
@@ -92,9 +92,9 @@ class Bouton {
       }
     }
     //ellipse
-    if (detectionCercle()) {
+    if ( detectionCercle() ) {
       dedansBoutonCercle = true ;
-      if (JouerBoutonCercle) {
+      if ( JouerBoutonCercle ) {
         JouerBoutonCercle = false ;
         etatBoutonCercle = 0 ;
       } else {
@@ -174,7 +174,7 @@ class Simple extends Bouton {
    strokeWeight (1) ;
    if (JouerBoutonCarre ) {
      stroke(vertTresFonce) ;
-     if (detectionCarre() && !dropdownActivity) { 
+     if ( detectionCarre() ) { 
        dedansBoutonCarre = true ;
        couleurONoffCarre = cBINonBO ;
      } else {
@@ -182,7 +182,7 @@ class Simple extends Bouton {
      }
    } else {
      stroke(rougeTresFonce) ; 
-     if (detectionCarre() && !dropdownActivity) {
+     if ( detectionCarre() ) {
        dedansBoutonCarre = true ;
        couleurONoffCarre = cBINoffBO ;
      } else {
@@ -196,9 +196,9 @@ class Simple extends Bouton {
  ////////////////////////////////////
  void boutonCercle () {
    strokeWeight (1) ;
-   if (JouerBoutonCercle ) {
+   if ( JouerBoutonCercle ) {
      stroke(vertTresFonce) ;
-     if ( detectionCercle() && !dropdownActivity) {
+     if ( detectionCercle() ) {
        dedansBoutonCercle = true ;
        couleurONoffCercle = cBINonBO ;
      } else {
@@ -206,7 +206,7 @@ class Simple extends Bouton {
      }
    } else {
      stroke(rougeTresFonce) ;
-     if (detectionCercle() && !dropdownActivity) {
+     if ( detectionCercle() ) {
        dedansBoutonCercle = true ;
        couleurONoffCercle = cBINoffBO ;
      } else {
@@ -229,15 +229,15 @@ class Simple extends Bouton {
  // vignette_OFF_in_simple, vignette_OFF_out_simple, vignette_ON_in_simple, vignette_ON_out_simple
  void boutonVignette(PImage[] vignette_OFF_in, PImage[] vignette_OFF_out, PImage[] vignette_ON_in, PImage[] vignette_ON_out, int wichVignette) {
    
-   if (JouerBoutonCarre ) {
-     if (detectionCarre() && !dropdownActivity) {
+   if ( JouerBoutonCarre ) {
+     if ( detectionCarre() ) {
        dedansBoutonCarre = true ;
        image(vignette_ON_in[wichVignette],pos.x, pos.y) ;
      } else {
        image(vignette_ON_out[wichVignette],pos.x, pos.y) ;
      }
    } else {
-       if (detectionCarre() && !dropdownActivity) {
+       if ( detectionCarre() ) {
        dedansBoutonCarre = true ;
        image(vignette_OFF_in[wichVignette],pos.x, pos.y) ;
      } else {
@@ -250,7 +250,7 @@ class Simple extends Bouton {
  //SOUND button
  void boutonSonPetit () {
    if ( JouerBoutonCarre ) {
-     if (detectionCarre() && !dropdownActivity) {
+     if ( detectionCarre() ) {
        //ON
        dedansBoutonCarre = true ;
        image(bouton[1],pos.x, pos.y ) ;
@@ -259,7 +259,7 @@ class Simple extends Bouton {
      }
    } else {
      //OFF
-       if (detectionCarre() && !dropdownActivity) {
+       if ( detectionCarre() ) {
        dedansBoutonCarre = true ;
        image(bouton[3],pos.x, pos.y ) ;
      } else {
@@ -269,16 +269,17 @@ class Simple extends Bouton {
  }
  
  //ACTION Button
- void boutonAction () {
+ void boutonAction ()
+ {
    if ( JouerBoutonCarre ) {
-     if (detectionCarre() && !dropdownActivity) {
+     if ( detectionCarre() ) {
        dedansBoutonCarre = true ;
        image(bouton[11],pos.x, pos.y) ;
      } else {
        image(bouton[10],pos.x, pos.y) ;
      }
    } else {
-       if (detectionCarre() && !dropdownActivity) {
+       if ( detectionCarre() ) {
        dedansBoutonCarre = true ;
        image(bouton[13],pos.x, pos.y) ;
      } else {
@@ -289,9 +290,9 @@ class Simple extends Bouton {
  
  ///BUTTON Texte
  void boutonTexte(String s, int x, int y) {
-   if (JouerBoutonCarre) {
+   if ( JouerBoutonCarre ) {
      stroke(vertTresFonce) ;
-     if ( detectionCarre() && !dropdownActivity) { 
+     if ( detectionCarre() ) { 
        dedansBoutonCarre = true ;
        couleurONoffCarre = cBINonBO ;
      } else {
@@ -299,7 +300,7 @@ class Simple extends Bouton {
      }
    } else {
       stroke(rougeTresFonce) ; 
-     if ( detectionCarre() && !dropdownActivity) {
+     if ( detectionCarre() ) {
        dedansBoutonCarre = true ;
        couleurONoffCarre = cBINoffBO ;
      } else {
@@ -313,16 +314,14 @@ class Simple extends Bouton {
  
  void boutonTexte(String s, PVector pos, PFont font, int sizeFont) {
    if (JouerBoutonCarre) {
-     if (detectionCarre(sizeFont) && !dropdownActivity) {
-       println("je suis là", frameCount) ; 
+     if (detectionCarre(sizeFont) ) { 
        dedansBoutonCarre = true ;
        couleurONoffCarre = cBINonBO ;
      } else {
        couleurONoffCarre = cBOUTonBO ;
      }
    } else {
-     if (detectionCarre(sizeFont) && !dropdownActivity) {
-       println("je suis là", frameCount) ;
+     if (detectionCarre(sizeFont) ) {
        dedansBoutonCarre = true ;
        couleurONoffCarre = cBINoffBO ;
      } else {
@@ -340,7 +339,7 @@ class Simple extends Bouton {
    strokeWeight (1) ;
    if ( JouerBoutonCarre ) {
      stroke(vertTresFonce) ;
-     if (detectionCarre() && !dropdownActivity) { 
+     if ( detectionCarre() ) { 
        dedansBoutonCarre = true ;
        couleurONoffCarre = cBINonBO ;
      } else {
@@ -348,7 +347,7 @@ class Simple extends Bouton {
      }
    } else {
      stroke(rougeTresFonce) ; 
-     if (detectionCarre() && !dropdownActivity) {
+     if ( detectionCarre() ) {
        dedansBoutonCarre = true ;
        couleurONoffCarre = cBINoffBO ;
      } else {

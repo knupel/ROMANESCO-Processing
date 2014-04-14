@@ -83,23 +83,7 @@ void curtain() {
 ////////////////////////////////////
 //CURSOR, MOUSE, TABLET, LEAP MOTION
 //GLOBAL
-Tablet tablet;
-PVector cursorRef = new PVector() ;
 
-//SETUP
-void cursorSetup() {
-  //LEAP MOTION
-  leap = new com.leapmotion.leap.Controller();
-  //TABLET
-  tablet = new Tablet(this);
-  for (int i = 0 ; i < numObj ; i++ ) {
-    pen[i] = new PVector() ;
-    // use the 250 value for "z" to keep the position light on the front
-    mouse[i] = new PVector(0,0,250) ;
-    pmouse[i] = new PVector() ;
-    wheel[i] = 0 ;
-  }
-}
 
 //DRAW
 int speedWheel = 5 ;
@@ -789,19 +773,19 @@ void repere(int size) {
 
 //repere camera
 void repereCamera(PVector size) {
-  if(modeP3D && displayInfo3D )  {
+  if(modeP3D && displayInfo3D )  { 
     size.x = size.x *.1 ;
     size.y = size.y *.1 ;
-    
+    println("un") ;
     color xColor = rouge ;
     color yColor = vert ;
     color zColor = jaune ;
     int posTxt = 10 ;
+    
     textFont(SansSerif10, 10) ;
-    
-    
     //GRID
     grid(size) ;
+
     //AXES
     strokeWeight(.2) ;
     // X LINE
@@ -809,7 +793,7 @@ void repereCamera(PVector size) {
     text("X LINE XXX", posTxt,-posTxt) ;
     stroke(xColor) ; noFill() ;
     line(-size.x,0,0,size.x,0,0) ;
-    
+
     // Y LINE
     fill(yColor) ;
     pushMatrix() ;

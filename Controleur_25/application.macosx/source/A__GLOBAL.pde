@@ -12,7 +12,6 @@ int sliderMidi, valMidi ;
 int numMidi = -1 ;
 boolean saveMidi ;
 boolean selectMidi = false ;
-//curtain
 boolean curtainOpenClose ;
 //GLOBAL
 
@@ -22,7 +21,6 @@ byte loadR []  = new byte [2*numSlider] ;
 boolean[] clavier = new boolean[526];
 boolean loadSliderPos = false ;
 boolean ouvrirFichier = false ;
-
 
 //ANNEXE
 void setting() {
