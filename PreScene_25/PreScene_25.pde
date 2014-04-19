@@ -8,7 +8,7 @@ int levelSecurity = 200 ;
 //to work in dev, test phase
 boolean testRomanesco = false ;
 // when you work only with "Prescene" boolean presceneOnly must be true to give at the Prescene the internet acces
-boolean presceneOnly = true ;
+boolean presceneOnly = false ;
 
 // I don't remember why there is the boolean 
 boolean Controleur = true ;

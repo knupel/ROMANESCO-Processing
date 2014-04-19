@@ -314,7 +314,6 @@ class Simple extends Bouton {
  void boutonTexte(String s, PVector pos, PFont font, int sizeFont) {
    if (JouerBoutonCarre) {
      if (detectionCarre(sizeFont) && !dropdownActivity) {
-       println("je suis là", frameCount) ; 
        dedansBoutonCarre = true ;
        couleurONoffCarre = cBINonBO ;
      } else {
@@ -322,7 +321,6 @@ class Simple extends Bouton {
      }
    } else {
      if (detectionCarre(sizeFont) && !dropdownActivity) {
-       println("je suis là", frameCount) ;
        dedansBoutonCarre = true ;
        couleurONoffCarre = cBINoffBO ;
      } else {

@@ -96,7 +96,7 @@ class Escargot extends SuperRomanesco {
   
   //SETUP
   void setting() {
-    startPosition(IDobj, width/2, height/2, 0) ;
+    startPosition(IDobj, 0, 0, 0) ;
     //load pattern SVG to display a Pixel pattern you create in Illustrator or other software
     pathSVG = sketchPath("")+"preferences/pixel/model.svg" ;
     shapeSVGsetting(pathSVG) ;

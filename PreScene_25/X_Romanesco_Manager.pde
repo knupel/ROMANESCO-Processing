@@ -11,7 +11,7 @@ void updateObject(int ID, int group) {
   //if (font[ID] == null ) font[ID] = font[0] ;
   //initialization
   if(!initValueMouse[ID]) { 
-    mouse[ID] = mouse[0] ;
+    mouse[ID] = mouse[0].get() ;
     initValueMouse[ID] = true ;
   }
   if(!initValueSlider[ID]) {
@@ -28,7 +28,7 @@ void updateObject(int ID, int group) {
   updateSound(ID) ;
   
   if(action[ID] ){
-    if(spaceTouch) mouse[ID] = mouse[0] ;
+    if(spaceTouch) mouse[ID] = mouse[0].get() ; 
     if( mTouch ) motion[ID] = !motion[ID] ;
     if (hTouch) horizon[ID] = !horizon[ID] ;
     clickLongLeft[ID] = clickLongLeft[0] ;

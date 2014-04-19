@@ -43,7 +43,7 @@ class Atome extends SuperRomanesco {
   
   //SETUP
   void setting() {
-    startPosition(IDobj, width/2, height/2, 0) ;
+    startPosition(IDobj, 0, 0, 0) ;
     
     atomList = new ArrayList<Atom>();
     
@@ -455,10 +455,9 @@ class Atom
     //strokeWeight(d) ;
     insideA = radiusCursor2D() ;
     insideF = radiusElectronicFieldCursor2D() ;
-    if(mousePressed && insideA)   { lock = true; }
-    if(!mousePressed)             { lock = false; }
-    if(lock) 
-    { 
+    if(mousePressed && insideA) lock = true;
+    if(!mousePressed)           lock = false;
+    if (lock) { 
       pos.x = mouseX; 
       pos.y = mouseY;
     }
@@ -468,10 +467,9 @@ class Atom
     //strokeWeight(d) ;
     insideA = radiusCursor2D() ;
     insideF = radiusElectronicFieldCursor2D() ;
-    if( mousePressed && insideA) { lock = true; }
-    if(!mousePressed)            { lock = false; }
-    if(lock) 
-    { 
+    if( mousePressed && insideA) lock = true ;
+    if(!mousePressed)            lock = false ;
+    if (lock) { 
       pos.x = mouseX; 
       pos.y = mouseY;
       vel.x = (mouseX -pmouseX) * inertia; 
@@ -611,16 +609,14 @@ class Atom
   }
   //::::::::::::::::::::::
   
-  void noContactCovalent() // internal
-  {
+  void noContactCovalent() { // internal
     collision = false ; // this boolean give the control of the velocity to the update() void
     //for the covalent collision
     electronicCovalentBond() ;
   }
   
   // Update the bond of each atom
-  void electronicCovalentBond() // internal
-  {
+  void electronicCovalentBond() { // internal
     if (proton < 3 ) { 
       covalentBond[0] = true ;
       if (valenceElectron == 0 ) { covalentBond[1] = false ; covalentBondLast = false ;  }
@@ -911,19 +907,17 @@ class Atom
   void eCloudEllipse2D(color eColor, float amp, boolean cloud_, float thickness) {
     electronicInfo() ;
     // boolean cloud = cloud_ ;  // send the information to class Univers for the wall
-
-    noFill() ; 
-    if ( thickness < 0.1 ) thickness = 0.1 ;
+    noFill() ;
+    if ( thickness < 0.01 ) thickness = 0.01 ;
     if ( alpha(eColor) != 0 ) {
       strokeWeight(thickness) ;
       stroke( eColor) ;
       ellipse (pos.x, pos.y, radiusElectronicFieldCovalent() *amp, radiusElectronicFieldCovalent() *amp ) ;
       ellipse (pos.x, pos.y, radiusElectronicField() *amp,     radiusElectronicField() *amp ) ;  
-    }  
-    
+    }
   }
-////////////////DISPLAY///////////////////////////////////////////////////////////////////
-//////////////Display text & Misc
+
+  //////////////Display text & Misc
   // text from main program
   void title2D(String title, color cName, PFont p, int sizeText, PVector posText ) {
     if ( alpha(cName) != 0 ) {
@@ -939,10 +933,8 @@ class Atom
       text(nickName , pos.x +posText.x , pos.y +posText.y );
     }
   }
-///////////////////////DISPLAY PROPERTY of ATOM////////////////////////////////////////////
+  /////////////////////DISPLAY PROPERTY of ATOM////////////////////////////////////////////
   void titleAtom2D (color cName, color cInfo, PFont p, int sizeTextName, int sizeTextInfo, float amp_ ) {
-    // name
-     
     ampInfo = amp_ ;
     float posXtext = (n *d *ampInfo) *0.35 ;
     float posYtext = sizeTextName *0.25 *(ampInfo/10.0) ;

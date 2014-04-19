@@ -88,11 +88,12 @@ void oscEvent(OscMessage receive ) {
 
   //MOUSE, CURSOR, PEN
   //PMOUSE
+  /*
   if(spaceTouch) {
     pmouseSuperRomanesco.x = map(Float.valueOf(valueTempPreScene[38].replaceAll(",", ".")), 0,1,0, width) ;
     pmouseSuperRomanesco.y = map(Float.valueOf(valueTempPreScene[39].replaceAll(",", ".")), 0,1,0,height) ;
   }
-  
+  */
   // line for the camera Pmouse, i don't understand why we need this temp var
   if(cLongTouch) {
     pmouseCamera.x = map(Float.valueOf(valueTempPreScene[38].replaceAll(",", ".")), 0,1,0, width) ;
@@ -109,12 +110,13 @@ void oscEvent(OscMessage receive ) {
   
   //MOUSE
   // reference to stop, it's a trick for a bug
+  /*
   if(spaceTouch) {
     mouseSuperRomanesco.x = map(Float.valueOf(valueTempPreScene[43].replaceAll(",", ".")), 0,1,0, width) ;
     mouseSuperRomanesco.y = map(Float.valueOf(valueTempPreScene[44].replaceAll(",", ".")), 0, 1, 0,height) ;
     mouseSuperRomanesco.z = map(Float.valueOf(valueTempPreScene[45].replaceAll(",", ".")), 0, 1, -750,750) ;
   }
-  
+  */
   // line for the camera
   if(cLongTouch) {
     mouseCamera.x = map(Float.valueOf(valueTempPreScene[43].replaceAll(",", ".")), 0,1,0, width) ;

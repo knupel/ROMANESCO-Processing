@@ -95,6 +95,7 @@ void backgroundShaderDraw(boolean renderP3D, boolean useShaderOrNot, int whichOn
   if(renderP3D && useShaderOrNot) {
     PVector posBGshader = new PVector(0,0) ;
     PVector sizeBGshader = new PVector(width,height, height) ; 
+    fill(0) ; noStroke() ;
 
     if     (whichOne ==1) rectangle(posBGshader, sizeBGshader, blurOne ) ;
     else if(whichOne ==2) rectangle(posBGshader, sizeBGshader, blurTwo ) ;
@@ -111,7 +112,12 @@ void backgroundShaderDraw(boolean renderP3D, boolean useShaderOrNot, int whichOn
     //rectangle(posBGshader, sizeBGshader, water) ; // problem
     //rectangle(posBGshader, sizeBGshader, psyTwo) ; // problem
     //rectangle(posBGshader, sizeBGshader, psyThree) ; // problem
-  }
+  }  else if (whichOne != 0) {
+    int sizeText = 14 ;
+    textSize(sizeText) ;
+    fill(orange, 10) ; noStroke() ;
+    text("Shader is active", sizeText, sizeText*1.5) ;
+  } 
 
 }
 

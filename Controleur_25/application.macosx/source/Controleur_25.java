@@ -37,6 +37,7 @@ public void draw() {
   structureDraw() ;
   interfaceDraw() ;
   sendOSCdraw() ;
+
 }
 
 
@@ -44,26 +45,28 @@ public void draw() {
 ////////////////////
 public void mousePressed () {
   //object
-  if(numGroup[1] > 0 ) for( int i = 11 ; i < numGroup[1] *10 + 6 ; i++ ) BOf[i].mousePressed()  ;
-  if(numGroup[2] > 0 ) for( int i = 11 ; i < numGroup[2] *10 + 6 ; i++)  BTf[i].mousePressed() ;
-  if(numGroup[3] > 0 ) for( int i = 11 ; i < numGroup[3] *10 + 6 ; i++)  BTYf[i].mousePressed() ;
-
-  buttonBackground.mousePressedText() ;
-  //LIGHT ONE
-  buttonLightOne.mousePressedText() ;
-  buttonLightOneAction.mousePressedText() ;
-  // LIGHT TWO
-  buttonLightTwo.mousePressedText() ;
-  buttonLightTwoAction.mousePressedText() ;
-  //son
-  Bbeat.mousePressedText() ;
-  Bkick.mousePressedText() ;
-  Bsnare.mousePressedText() ;
-  Bhat.mousePressedText() ;
-  //midi
-  BOmidi.mousePressedText() ;
-  //curtain
-  BOcurtain.mousePressedText() ;
+  if(!dropdownActivity) {
+    if(numGroup[1] > 0 ) for( int i = 11 ; i < numGroup[1] *10 + 6 ; i++ ) BOf[i].mousePressed()  ;
+    if(numGroup[2] > 0 ) for( int i = 11 ; i < numGroup[2] *10 + 6 ; i++)  BTf[i].mousePressed() ;
+    if(numGroup[3] > 0 ) for( int i = 11 ; i < numGroup[3] *10 + 6 ; i++)  BTYf[i].mousePressed() ;
+  
+    buttonBackground.mousePressedText() ;
+    //LIGHT ONE
+    buttonLightOne.mousePressedText() ;
+    buttonLightOneAction.mousePressedText() ;
+    // LIGHT TWO
+    buttonLightTwo.mousePressedText() ;
+    buttonLightTwoAction.mousePressedText() ;
+    //son
+    Bbeat.mousePressedText() ;
+    Bkick.mousePressedText() ;
+    Bsnare.mousePressedText() ;
+    Bhat.mousePressedText() ;
+    //midi
+    BOmidi.mousePressedText() ;
+    //curtain
+    BOcurtain.mousePressedText() ;
+  }
   //dropdown
   dropdownMousepressed() ;
 
@@ -94,6 +97,7 @@ int sliderMidi, valMidi ;
 int numMidi = -1 ;
 boolean saveMidi ;
 boolean selectMidi = false ;
+//curtain
 boolean curtainOpenClose ;
 //GLOBAL
 
@@ -103,6 +107,7 @@ byte loadR []  = new byte [2*numSlider] ;
 boolean[] clavier = new boolean[526];
 boolean loadSliderPos = false ;
 boolean ouvrirFichier = false ;
+
 
 //ANNEXE
 public void setting() {
@@ -1029,24 +1034,26 @@ public void checkTheDropdownSetupObject( int start, int end, float posWidth, flo
 
 
 
-//DRAW
+//DRAW DROPDOWN
+boolean dropdownActivity ;
+int dropdownActivityCount ;
+
 public void dropdownDraw() {
-  //MODE dropdown
-  // group one
   checkTheDropdownDrawObject(startLoopObject, endLoopObject) ;
-  // group two
   checkTheDropdownDrawObject(startLoopTexture, endLoopTexture) ;
-  // group three
-  checkTheDropdownDrawObject( startLoopTypo, endLoopTypo) ;
-  
+  checkTheDropdownDrawObject(startLoopTypo, endLoopTypo) ;
   dropdownShaderBG() ;
   dropdownFontDraw() ;
+  // check the activity o the dropdown
+  if(dropdownActivityCount > 0 ) dropdownActivity = true ; else dropdownActivity = false ;
+  dropdownActivityCount = 0 ;
 }
 // END MAIN
 
 // SHADER Background
 public void dropdownShaderBG() {
   dropdownShaderBG.dropdownUpdate(FuturaStencil_10, textInterface);
+  if (dropdownOpen) dropdownActivityCount = +1 ;
   margeAroundDropdown = sizeDropdownFont.y  ;
   //give the size of menu recalculate with the size of the word inside
   PVector newSizeFont = dropdownShaderBG.sizeDropdownMenu() ;
@@ -1066,6 +1073,7 @@ public void dropdownShaderBG() {
 // FONT
 public void dropdownFontDraw() {
   dropdownFont.dropdownUpdate(FuturaStencil_10, textInterface);
+  if (dropdownOpen) dropdownActivityCount = +1 ;
   margeAroundDropdown = sizeDropdownFont.y  ;
   //give the size of menu recalculate with the size of the word inside
   PVector newSizeFont = dropdownFont.sizeDropdownMenu() ;
@@ -1087,6 +1095,7 @@ public void checkTheDropdownDrawObject( int start, int end ) {
       String m [] = split(modeListRomanesco[i], "/") ;
       if ( m.length > 1) {
         dropdown[i].dropdownUpdate(FuturaStencil_10, textInterface);
+        if (dropdownOpen) dropdownActivityCount = +1 ;
         margeAroundDropdown = sizeDropdownMode.y  ;
         //give the size of menu recalculate with the size of the word inside
         PVector newSizeModeTypo = dropdown[i].sizeDropdownMenu() ;
@@ -1844,7 +1853,7 @@ class Bouton {
     //rect
     if (detectionCarre() ) {
       dedansBoutonCarre = true ;
-      if ( JouerBoutonCarre ) {
+      if (JouerBoutonCarre) {
         JouerBoutonCarre = false ;
         etatBoutonCarre = 0 ;
       } else {
@@ -1853,9 +1862,9 @@ class Bouton {
       }
     }
     //ellipse
-    if ( detectionCercle() ) {
+    if (detectionCercle()) {
       dedansBoutonCercle = true ;
-      if ( JouerBoutonCercle ) {
+      if (JouerBoutonCercle) {
         JouerBoutonCercle = false ;
         etatBoutonCercle = 0 ;
       } else {
@@ -1935,7 +1944,7 @@ class Simple extends Bouton {
    strokeWeight (1) ;
    if (JouerBoutonCarre ) {
      stroke(vertTresFonce) ;
-     if ( detectionCarre() ) { 
+     if (detectionCarre() && !dropdownActivity) { 
        dedansBoutonCarre = true ;
        couleurONoffCarre = cBINonBO ;
      } else {
@@ -1943,7 +1952,7 @@ class Simple extends Bouton {
      }
    } else {
      stroke(rougeTresFonce) ; 
-     if ( detectionCarre() ) {
+     if (detectionCarre() && !dropdownActivity) {
        dedansBoutonCarre = true ;
        couleurONoffCarre = cBINoffBO ;
      } else {
@@ -1957,9 +1966,9 @@ class Simple extends Bouton {
  ////////////////////////////////////
  public void boutonCercle () {
    strokeWeight (1) ;
-   if ( JouerBoutonCercle ) {
+   if (JouerBoutonCercle ) {
      stroke(vertTresFonce) ;
-     if ( detectionCercle() ) {
+     if ( detectionCercle() && !dropdownActivity) {
        dedansBoutonCercle = true ;
        couleurONoffCercle = cBINonBO ;
      } else {
@@ -1967,7 +1976,7 @@ class Simple extends Bouton {
      }
    } else {
      stroke(rougeTresFonce) ;
-     if ( detectionCercle() ) {
+     if (detectionCercle() && !dropdownActivity) {
        dedansBoutonCercle = true ;
        couleurONoffCercle = cBINoffBO ;
      } else {
@@ -1990,15 +1999,15 @@ class Simple extends Bouton {
  // vignette_OFF_in_simple, vignette_OFF_out_simple, vignette_ON_in_simple, vignette_ON_out_simple
  public void boutonVignette(PImage[] vignette_OFF_in, PImage[] vignette_OFF_out, PImage[] vignette_ON_in, PImage[] vignette_ON_out, int wichVignette) {
    
-   if ( JouerBoutonCarre ) {
-     if ( detectionCarre() ) {
+   if (JouerBoutonCarre ) {
+     if (detectionCarre() && !dropdownActivity) {
        dedansBoutonCarre = true ;
        image(vignette_ON_in[wichVignette],pos.x, pos.y) ;
      } else {
        image(vignette_ON_out[wichVignette],pos.x, pos.y) ;
      }
    } else {
-       if ( detectionCarre() ) {
+       if (detectionCarre() && !dropdownActivity) {
        dedansBoutonCarre = true ;
        image(vignette_OFF_in[wichVignette],pos.x, pos.y) ;
      } else {
@@ -2011,7 +2020,7 @@ class Simple extends Bouton {
  //SOUND button
  public void boutonSonPetit () {
    if ( JouerBoutonCarre ) {
-     if ( detectionCarre() ) {
+     if (detectionCarre() && !dropdownActivity) {
        //ON
        dedansBoutonCarre = true ;
        image(bouton[1],pos.x, pos.y ) ;
@@ -2020,7 +2029,7 @@ class Simple extends Bouton {
      }
    } else {
      //OFF
-       if ( detectionCarre() ) {
+       if (detectionCarre() && !dropdownActivity) {
        dedansBoutonCarre = true ;
        image(bouton[3],pos.x, pos.y ) ;
      } else {
@@ -2030,17 +2039,16 @@ class Simple extends Bouton {
  }
  
  //ACTION Button
- public void boutonAction ()
- {
+ public void boutonAction () {
    if ( JouerBoutonCarre ) {
-     if ( detectionCarre() ) {
+     if (detectionCarre() && !dropdownActivity) {
        dedansBoutonCarre = true ;
        image(bouton[11],pos.x, pos.y) ;
      } else {
        image(bouton[10],pos.x, pos.y) ;
      }
    } else {
-       if ( detectionCarre() ) {
+       if (detectionCarre() && !dropdownActivity) {
        dedansBoutonCarre = true ;
        image(bouton[13],pos.x, pos.y) ;
      } else {
@@ -2051,9 +2059,9 @@ class Simple extends Bouton {
  
  ///BUTTON Texte
  public void boutonTexte(String s, int x, int y) {
-   if ( JouerBoutonCarre ) {
+   if (JouerBoutonCarre) {
      stroke(vertTresFonce) ;
-     if ( detectionCarre() ) { 
+     if ( detectionCarre() && !dropdownActivity) { 
        dedansBoutonCarre = true ;
        couleurONoffCarre = cBINonBO ;
      } else {
@@ -2061,7 +2069,7 @@ class Simple extends Bouton {
      }
    } else {
       stroke(rougeTresFonce) ; 
-     if ( detectionCarre() ) {
+     if ( detectionCarre() && !dropdownActivity) {
        dedansBoutonCarre = true ;
        couleurONoffCarre = cBINoffBO ;
      } else {
@@ -2075,14 +2083,14 @@ class Simple extends Bouton {
  
  public void boutonTexte(String s, PVector pos, PFont font, int sizeFont) {
    if (JouerBoutonCarre) {
-     if (detectionCarre(sizeFont) ) { 
+     if (detectionCarre(sizeFont) && !dropdownActivity) {
        dedansBoutonCarre = true ;
        couleurONoffCarre = cBINonBO ;
      } else {
        couleurONoffCarre = cBOUTonBO ;
      }
    } else {
-     if (detectionCarre(sizeFont) ) {
+     if (detectionCarre(sizeFont) && !dropdownActivity) {
        dedansBoutonCarre = true ;
        couleurONoffCarre = cBINoffBO ;
      } else {
@@ -2100,7 +2108,7 @@ class Simple extends Bouton {
    strokeWeight (1) ;
    if ( JouerBoutonCarre ) {
      stroke(vertTresFonce) ;
-     if ( detectionCarre() ) { 
+     if (detectionCarre() && !dropdownActivity) { 
        dedansBoutonCarre = true ;
        couleurONoffCarre = cBINonBO ;
      } else {
@@ -2108,7 +2116,7 @@ class Simple extends Bouton {
      }
    } else {
      stroke(rougeTresFonce) ; 
-     if ( detectionCarre() ) {
+     if (detectionCarre() && !dropdownActivity) {
        dedansBoutonCarre = true ;
        couleurONoffCarre = cBINoffBO ;
      } else {
@@ -2132,6 +2140,8 @@ class Simple extends Bouton {
     return etatBoutonCarre ;
   }
 }
+//
+boolean dropdownOpen ; // use to indicate to indicate at the other button, they cannot be used when the user are on the dropdown menu
 
 // CLASS
 public class Dropdown {
@@ -2201,6 +2211,7 @@ public class Dropdown {
     rectMode(CORNER);
     //Dropdown
     if (locked) {
+      dropdownOpen = true ;
       titleWithoutBox(title, 1, size, titleFont);
       //give the position of dropdown
       int step = 2 ;
@@ -2210,6 +2221,7 @@ public class Dropdown {
       for ( int i = startingDropdown + updateDropdown ; i < endingDropdown + updateDropdown ; i++) {
         //bottom rendering
         renderBox(listItem[i], step++, sizeBoxDropdownMenu, dropdownFont);
+        //dropdownActivity = true ;
         //Slider dropdown
         if (slider) {
           sliderDropdown.sliderUpdate() ;
@@ -2219,8 +2231,11 @@ public class Dropdown {
       }
     } else {
       //header rendering
+      dropdownOpen = false ;
       titleWithoutBox(title, 1, size, titleFont);
     }
+    //println("je ne suis plus l\u00e0 niveau deux") ;
+    //dropdownActivity = false ;
   }
 
 
@@ -2230,11 +2245,8 @@ public class Dropdown {
     factorPos = step + pos.z -1 ;
     float yLevel = step == 1 ? pos.y  : (pos.y + (size.y * (factorPos )));
     PVector newPosDropdown = new PVector (pos.x, yLevel) ;
-    if (insideRect(newPosDropdown, size)) {
-      fill(boxIn); 
-    } else { 
-      fill(boxOut ) ;
-    }
+    if (insideRect(newPosDropdown, size)) fill(boxIn); else fill(boxOut ) ;
+    //dropdownActivity = false ;
     textFont(font);
     text(title, pos.x +posText.x , yLevel +posText.y );
   }
@@ -2244,11 +2256,7 @@ public class Dropdown {
     factorPos = step + pos.z -1 ;
     float yLevel = step == 1 ? pos.y  : (pos.y + (sizeBoxDropdown.y * (factorPos )));
     PVector newPosDropdown = new PVector (pos.x, yLevel) ;
-    if (insideRect(newPosDropdown, sizeBoxDropdown)) {
-      fill(boxIn); 
-    } else { 
-      fill(boxOut ) ;
-    }
+    if (insideRect(newPosDropdown, sizeBoxDropdown)) fill(boxIn); else fill(boxOut ) ;
     //display
     noStroke() ;
     rect(pos.x, yLevel , sizeBoxDropdown.x, sizeBoxDropdown.y );

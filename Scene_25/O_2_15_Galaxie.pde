@@ -37,7 +37,7 @@ class Galaxie extends SuperRomanesco {
   
   //SETUP
   void setting() {
-    startPosition(IDobj, width/2, height/2, 0) ;
+    startPosition(IDobj, width/2, height/4, 0) ;
   }
   //DRAW
   void display() {

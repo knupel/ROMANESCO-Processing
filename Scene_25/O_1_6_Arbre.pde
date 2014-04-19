@@ -17,7 +17,7 @@ class ArbreRomanesco extends SuperRomanesco {
   PVector posArbre = new PVector (random(width), random(height) ) ;
   //SETUP
   void setting() {
-    startPosition(IDobj, width/2, height/2, 0) ;
+    startPosition(IDobj, 0, 0, 0) ;
     arbre = new Arbre () ;
   }
   //DRAW

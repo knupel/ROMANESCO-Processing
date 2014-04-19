@@ -28,7 +28,7 @@ class Polygone extends SuperRomanesco {
   
   //SETUP
   void setting() {
-    startPosition(IDobj, width/2, height/2, 0) ;
+    startPosition(IDobj,0,0,0) ;
     // init
     for(int i = 0 ; i < 4 ; i++) {
       mousePolygon = new Vec2D(random(width),random(height));

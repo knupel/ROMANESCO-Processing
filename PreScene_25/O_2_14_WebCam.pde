@@ -100,7 +100,6 @@ class Webcam extends SuperRomanesco {
           PVector newCellSize = new PVector (cellSizeX *factorDisplayPixel.x *left[IDobj], cellSizeY *factorDisplayPixel.y *right[IDobj]) ;
           //init the position of image on the middle of the screen
           PVector posMouseCam = new PVector ( width / 2, height /2) ;
-          println(mouse[IDobj], startingPos[IDobj]) ;
           if (mouse[IDobj].x >= -startingPos[IDobj].x && mouse[IDobj].y >= -startingPos[IDobj].y) posMouseCam = mouse[IDobj] ;
           //create the ratio for the translate position in functiun of the size of the Scene, not really good algorythm
           float ratioDisplay = (float)width / (float)height ;

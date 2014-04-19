@@ -94,6 +94,7 @@ void backgroundShaderDraw(boolean renderP3D, boolean useShaderOrNot, int whichOn
   if(renderP3D && useShaderOrNot) {
     PVector posBGshader = new PVector(0,0) ;
     PVector sizeBGshader = new PVector(width,height, height) ; 
+    fill(0) ; noStroke() ;
 
     if     (whichOne ==1) rectangle(posBGshader, sizeBGshader, blurOne ) ;
     else if(whichOne ==2) rectangle(posBGshader, sizeBGshader, blurTwo ) ;
