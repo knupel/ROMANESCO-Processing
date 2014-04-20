@@ -323,6 +323,8 @@ float familyObj[IDobj] ; value from 1 to 100, it's an atomic and arbitory choice
 float lifeObj[IDobj] ; value from 1 to 100.
 float forceObj[IDobj] ; value from 1 to 100.
 
+float fontSizeObj[IDobj] ; 3 to height in the release 25 work with the slider sizeXObj
+
 //END SLIDER
 ////////////
 

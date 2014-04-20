@@ -39,10 +39,8 @@ class Twitos extends SuperRomanesco {
   
   //DRAW
   void display() {
-    float corps ;
-    //size text / corps
-    corps = map(sizeYObj[IDobj], 0, height, 6, height *0.33) ;
-    textFont(font[IDobj], corps + ( corps * mix[IDobj]) );
+    float sizeFont = fontSizeObj[IDobj] ;
+    textFont(font[IDobj], sizeFont +(sizeFont *mix[IDobj]) );
     // couleur du texte
     float t = alpha(fillObj[IDobj]) * abs(mix[IDobj]) ;
     if ( sound[IDobj] ) { t = alpha(fillObj[IDobj]) ; } 
@@ -76,7 +74,7 @@ class Twitos extends SuperRomanesco {
     
     //DISPLAY
     textAlign(CORNER);
-    textFont(font[IDobj], corps + (mix[IDobj]) *6 *beat[IDobj]);
+    textFont(font[IDobj], sizeFont +(mix[IDobj]) *6 *beat[IDobj]);
     for (MessageTwitter msgTwt : listMsg)  {
       rotation(directionObj[IDobj], mouse[IDobj].x, mouse[IDobj].y) ;
       if (soundButton[IDobj] != 1) msgTwt.display( -width/2 , 0, largeur, hauteur, c ) ; else msgTwt.display(-width/2 -(right[IDobj]*20) , -(left[IDobj ]*20) , largeur, hauteur, c ) ;

@@ -27,10 +27,8 @@ class Horloge extends SuperRomanesco {
   void display() {
     textAlign(CENTER);
     // typo
-    float corps ;
-    //size letter / corps
-    corps = map(sizeYObj[IDobj], 0, height, 6, 2 *height) ;
-    textFont(font[IDobj], corps + (mix[IDobj] *30));
+    float sizeFont = fontSizeObj[IDobj] ;
+    textFont(font[IDobj], sizeFont +(mix[IDobj] *30));
     
     // couleur du texte
     float t = alpha(fillObj[IDobj]) * abs(mix[IDobj]) ;

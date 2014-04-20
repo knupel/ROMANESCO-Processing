@@ -25,10 +25,9 @@ class Karaoke extends SuperRomanesco {
   
   //DRAW
   void display() {
-    float corps ;
-    //size text / corps
-    corps = map(sizeYObj[IDobj], 0, height, 6, height *0.33) ;
-    textFont(font[IDobj], corps + ( corps * mix[IDobj]) );
+    float sizeFont = fontSizeObj[IDobj] ;
+    
+    textFont(font[IDobj], sizeFont + ( sizeFont * mix[IDobj]) );
     // couleur du texte
     float t = alpha(fillObj[IDobj]) * abs(mix[IDobj]) ;
     if ( sound[IDobj] ) { t = alpha(fillObj[IDobj]) ; } 
@@ -81,9 +80,9 @@ class Karaoke extends SuperRomanesco {
       rotation(directionObj[IDobj], mouse[IDobj].x, mouse[IDobj].y) ;
       //DISPLAY
       textAlign(CORNER);
-      textFont(font[IDobj], corps + (mix[IDobj]) *6 *beat[IDobj]);
+      textFont(font[IDobj], sizeFont+ (mix[IDobj]) *6 *beat[IDobj]);
       fill(c) ;
-      text(karaokeSentences[sentence], 0 , 0 , largeur, hauteur ) ;
+      text(karaokeSentences[sentence], 0, 0, largeur, hauteur) ;
     }
 
   }

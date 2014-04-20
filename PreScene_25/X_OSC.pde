@@ -1,5 +1,4 @@
-import oscP5.*;
-import netP5.*;
+
 
 OscP5 osc;
 NetAddress targetScene, targetMiroir;

@@ -1,3 +1,4 @@
+ObjectRomanescoManager romanescoManager ;
 // CLASS ROMANESCO MANAGER
 void romanescoSetup() {
   romanescoManager = new ObjectRomanescoManager(this);
@@ -47,6 +48,7 @@ void updateParameter(int ID, int group) {
     int whichOne = i-1 ;
     fillObj[ID] = fillRaw[whichOne] ;
     strokeObj[ID] = strokeRaw[whichOne] ;
+    // column 2
     thicknessObj[ID] = thicknessRaw[whichOne] ;
     sizeXObj[ID] = sizeXRaw[whichOne] ; 
     sizeYObj[ID] = sizeYRaw[whichOne] ; 
@@ -64,6 +66,8 @@ void updateParameter(int ID, int group) {
     familyObj[ID] = familyRaw[whichOne] ;
     lifeObj[ID] = lifeRaw[whichOne] ;
     forceObj[ID] = forceRaw[whichOne] ;
+    //future slider
+    fontSizeObj[ID] = fontSizeRaw[whichOne] ;
   }
 }
 //

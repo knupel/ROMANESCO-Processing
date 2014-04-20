@@ -7,8 +7,7 @@ String preferencesPath = sketchPath("")+"preferences/" ;
 int levelSecurity = 200 ;
 
 
-//MANAGER CLASS
-ObjectRomanescoManager romanescoManager ;
+
 
 void setup() {
   romanescoSetup() ;

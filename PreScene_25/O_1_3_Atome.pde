@@ -141,13 +141,10 @@ class Atome extends SuperRomanesco {
       
       /////////TEXT///
       
-      float corps ;
-      //diameter / hauteur
-      corps = map(sizeXObj[IDobj], 0, 100, 6, height *0.66) ;
-     
+      float sizeFont = fontSizeObj[IDobj] ;
       PVector posText = new PVector ( 0.0, 0.0, 0.0 ) ;
-      int sizeTextName = int(corps) ;
-      int sizeTextInfo = int(corps / 2.0) ;
+      int sizeTextName = int(sizeFont) ;
+      int sizeTextInfo = int(sizeFont *.5) ;
       //width
       float posTextInfo = sizeYObj[IDobj] + (beat[IDobj] *2.0)  ;
       //Canvas
@@ -162,9 +159,9 @@ class Atome extends SuperRomanesco {
           atm.display( fillObj[IDobj], factorSizeProton * beatSizeProton ) ; // wait color
           atm.eCloudPoint2D(strokeObj[IDobj], factorSizeField, cloud) ;
         } else if (mode[IDobj] == 2 ) {
-          atm.title2D (fillObj[IDobj], font[IDobj] , sizeTextName, posText ) ; 
+          atm.title2D(fillObj[IDobj], font[IDobj], sizeTextName, posText ) ; 
         } else {
-          atm.titleAtom2D (fillObj[IDobj], strokeObj[IDobj], font[IDobj] , sizeTextName, sizeTextInfo, posTextInfo ) ; // (color name, color Info, PFont, int sizeTextName,int  sizeTextInfo )
+          atm.titleAtom2D (fillObj[IDobj], strokeObj[IDobj], font[IDobj], sizeTextName, sizeTextInfo, posTextInfo ) ; // (color name, color Info, PFont, int sizeTextName,int  sizeTextInfo )
         }
   
       
@@ -185,7 +182,8 @@ class Atome extends SuperRomanesco {
     //CLEAR
     if (emptyList(IDobj)) atomList.clear() ;
     //ADD ATOM
-    if(action[IDobj] && nLongTouch && frameCount % 2 == 0) atomAdd(giveNametoAtom()) ;
+    int speedReproduction = 4 ;
+    if(action[IDobj] && nLongTouch && frameCount % speedReproduction == 0) atomAdd(giveNametoAtom()) ;
 
   }
   //END DRAW

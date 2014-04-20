@@ -36,7 +36,6 @@ class Spray extends SuperRomanesco {
     
     if(mode[IDobj] == 0 ) encre() ;
     if(mode[IDobj] == 1 ) displayStar() ;
-    
   }
   
   

@@ -1,18 +1,6 @@
 // HIGH VAR///////////////////////
 // GLOBAL SETTING ////
-/////////////////////
-import codeanticode.gsvideo.*;
-import codeanticode.syphon.*;
-
-import oscP5.*;
-import netP5.*;
-
-import processing.pdf.*;
-import processing.net.*;
-
-import ddf.minim.*;
-import ddf.minim.analysis.*;
-
+/////////////////////import java.net.*;
 import java.net.*;
 import java.io.*;
 import java.util.*;
@@ -20,21 +8,34 @@ import java.awt.*;
 import java.util.Iterator;
 import java.lang.reflect.*; 
 
-import japplemenubar.*;
-
-import sojamo.drop.*;
-
+import codeanticode.gsvideo.*;
+import oscP5.*;
+import netP5.*;
+import processing.net.*;
+import processing.pdf.*;
+//FLUX RSS or TWITTER ????
+import com.sun.syndication.feed.synd.*;
+import com.sun.syndication.io.*;
+//SOUND
+import ddf.minim.*;
+import ddf.minim.analysis.*;
+//GEOMERATIVE
 import geomerative.*;
+//TOXIC
 import toxi.geom.*;
 import toxi.geom.mesh2d.*;
 import toxi.util.*;
 import toxi.util.datatypes.*;
 import toxi.processing.*;
-
+// METEO
 import com.onformative.yahooweather.*;
+// DROP IMAGE
+import sojamo.drop.*;
+//CALLING class or library in Other Class, you must call the PApplet too in your class
+PApplet callingClass = this ;
+// use for the border of window (top and right)
+java.awt.Insets insets; 
 
-import com.sun.syndication.feed.synd.*;
-import com.sun.syndication.io.*;
 
 
 
@@ -51,35 +52,32 @@ int trackerUpdate ; // must be reset after each use
 
 
 
-//to make the window is resizable
-java.awt.Insets insets; // use for the border of window (top and right)
 
 
-//CALLING class or library in Other Class, you must call the PApplet too in your class
-PApplet callingClass = this ;
 
- // when you work only with prescene presceneOnly is true, on Prescene in the sketch Prescene
-//but in the Miroir and Scene sketch presceneOnly must be true for the final work.
-boolean presceneOnly = true ;
+
+
+
+
 //spectrum for the color mode and more if you need
 PVector HSBmode = new PVector (360,100,100) ; // give the color mode in HSB
 //path to open the controleur
 String findPath ; 
 
-//Variable CLAVIER
-boolean displayInfo ;
-
-boolean savePDF ;
-String savePathPDF, savePathPNG ;
 
 
+
+
+//IMAGE
+PImage img ;
+String pathImg ;
 // to drop load image
 SDrop drop;
 boolean resizableByImgDrop ;
-//IMAGE
-PImage img ;
-String pathImg ; 
-//
+
+
+
+// HIGH VAR
 boolean modeP3D, modeP2D, modeOPENGL, modeClassic ;
 //spectrum band
 int numBand = 16 ;
@@ -112,6 +110,9 @@ float [] sizeXRaw, sizeYRaw, sizeZRaw, canvasXRaw, canvasYRaw, canvasZRaw ;
 float [] speedRaw, forceRaw, directionRaw, angleRaw ;
 float [] familyRaw, quantityRaw, lifeRaw, analyzeRaw, amplitudeRaw;
 //add in the next version when there is 30 slider by group
+//future slider available now ;
+float []fontSizeRaw ;
+//for the next relase
 float [] curveRaw, attractionRaw ;
 
 //object
@@ -121,7 +122,10 @@ float [] sizeXObj, sizeYObj, sizeZObj, canvasXObj, canvasYObj, canvasZObj ;
 float [] speedObj, forceObj, directionObj, angleObj ;
 float [] familyObj, quantityObj, lifeObj , analyzeObj, amplitudeObj;
 //add in the next version when there is 30 slider by group
-float curveObj[], attractionObj[] ;
+//future slider available now ;
+float []fontSizeObj ;
+//for the next relase
+float []curveObj, attractionObj ;
 //font
 PFont police ;
 
@@ -139,30 +143,14 @@ int mode[]  ;
 
 //BUTTON
 int [] valueButtonGlobal, valueButtonObj  ;
-/*
-int valueButtonGroupZero[] = new int[numButtonGroupZero] ;
-int valueButtonGroupObj[] = new int[numButtonGroupObj] ;
-*/
 //SLIDER
 String valueSliderTemp[][]  = new String [numGroup+1][numSlider] ;
-/*
-String valueSliderTempGroupZero[]  = new String [numSliderGroupZero] ;
-String valueSliderTempGroupOne[]  = new String [numSlider] ;
-String valueSliderTempGroupTwo[]  = new String [numSlider] ;
-String valueSliderTempGroupThree[]  = new String [numSlider] ;
-*/
 float valueSlider[][]  = new float [numGroup+1][numSlider] ;
-/*
-float valueSliderGlobal[]  = new float [numSliderGroupZero] ;
-float valueSliderGroupOne[]  = new float [numSlider] ;
-float valueSliderGroupTwo[]  = new float [numSlider] ;
-float valueSliderGroupThree[]  = new float [numSlider] ;
-*/
+
 
 //MISC
 //var to init the data of the object when is switch ON for the first time
 boolean  [] initValueMouse, initValueSlider ;
-// boolean initValueMouse [] = new boolean [numObj]  ;
 //parameter for the super class
 float [] left, right, mix ;
 //beat
@@ -174,7 +162,6 @@ float [] tempo, tempoBeat, tempoKick, tempoSnare, tempoHat ;
 
 
 //P3D OBJECT
-//position
 //position
 boolean startingPosition [] ;
 PVector startingPos [] ;
@@ -207,49 +194,21 @@ PFont font[]  ;
 
 
 
-//GLOBAL
-void varObjectSetup() {
-  for (int i = 0 ; i < numObj ; i++ ) {
-    startingPos[i] = new PVector(height/2, width/2, 0) ;
-    pen[i] = new PVector() ;
-    mouse[i] = new PVector() ;
-    pmouse[i] = new PVector() ;
-    wheel[i] = 0 ;
-  }
-}
 
 
 
 
-////////////////////
-//SAVE SCENE PICTURE
-void beginSave() {
-    if (countSave == 1 ) savePDF = true ;
-  if (savePDF) beginRecord(PDF, savePathPDF) ; 
-}
-void endSave() {
-    //SAVE IMAGE END
-  if (savePDF ) {
-    endRecord();
-    savePDF = false ;
-    countSave = 0 ;
-  }
-}
-void keySave() {
-  if(key == 's' ) selectOutput("Enregistrez le PDF et le PNG ", "saveImg") ;
-}
+
+
+
+
+
+
+
 
 
 
 //init var
-void initDraw() {
-  rectMode (CORNER) ; 
-  if(mavericks && fullScreen) sketchPosition(whichScreen) ;
-  //load text raw for the different object
-  importText(sketchPath("")+"karaoke.txt") ;
-  splitText() ;
-}
-
 void createVar() {
   numObj = romanescoManager.numClasses + 1 ;
   //BUTTON CONTROLER
@@ -375,6 +334,8 @@ void createVarObject() {
   familyRaw = new float[numGroup] ;
   lifeRaw = new float[numGroup] ;
   forceRaw = new float[numGroup] ;
+  //future slider
+  fontSizeRaw = new float[numGroup] ;
   
   // VAR object
   fillObj = new color[numObj] ;
@@ -393,6 +354,8 @@ void createVarObject() {
   familyObj = new float[numObj] ;
   lifeObj = new float[numObj] ;
   forceObj = new float[numObj] ;
+  //future slider
+  fontSizeObj = new float[numObj] ;
 }
 // END CREATE VAR
 //////////////////
@@ -427,6 +390,9 @@ void updateVar() {
     familyRaw[i] = map(valueSlider[i+1][25],minSource, maxSource,1,100) ;
     lifeRaw[i] = valueSlider[i+1][26] +1 ;
     forceRaw[i] = valueSlider[i+1][27] +1 ;
+    // future slider
+    fontSizeRaw[i] = map(sizeXRaw[i], 0, 100, .01, height *.01) ;
+    fontSizeRaw[i] = 3 +(fontSizeRaw[i] *fontSizeRaw[i]) ;
 
   }
 }

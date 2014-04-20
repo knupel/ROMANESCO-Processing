@@ -36,8 +36,7 @@ class Letter extends SuperRomanesco {
       pathFontObjTTF[IDobj] = pathFontObjTTF[0] ;
     }
     //init and re-init Geomerative if few stuff change about this line like text, font and the size of the font
-    int sizeFont = int(map(sizeYObj[IDobj],0,height,height/50, height *2)) ;
-    
+    float sizeFont = fontSizeObj[IDobj] ;
     
     //tracking chapter
     String textChapters [] = split(textRaw, "*") ;
@@ -47,12 +46,12 @@ class Letter extends SuperRomanesco {
     
     //check if something change to update the RG.getText
     if (sizeRef == sizeFont && sentenceRef.equals(sentence) && pathRef.equals(pathFontObjTTF[IDobj])) newSetting = true  ; else newSetting = false ;
-    sizeRef = sizeFont ;
+    sizeRef = (int)sizeFont ;
     sentenceRef = (sentence) ;
     pathRef = (pathFontObjTTF[IDobj]) ;
 
     if(!newSetting) { 
-      grp = RG.getText(sentence, pathFontObjTTF[IDobj], sizeFont, CENTER); 
+      grp = RG.getText(sentence, pathFontObjTTF[IDobj], (int)sizeFont, CENTER); 
       newSetting = true ;
     }
     

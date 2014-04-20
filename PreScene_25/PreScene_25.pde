@@ -6,19 +6,16 @@ String preferencesPath = sketchPath("")+"preferences/" ;
 // security must be link with the controler in the next release
 int levelSecurity = 200 ;
 //to work in dev, test phase
-boolean testRomanesco = false ;
+boolean testRomanesco = true ;
 // when you work only with "Prescene" boolean presceneOnly must be true to give at the Prescene the internet acces
-boolean presceneOnly = false ;
+boolean presceneOnly = true ;
 
 // I don't remember why there is the boolean 
 boolean Controleur = true ;
 boolean Scene = true ;
 boolean Miroir = true ;
 
-//MANAGER CLASS
-import java.util.Iterator;
-import java.lang.reflect.*; 
-ObjectRomanescoManager romanescoManager ;
+
 
 //to opening app
 boolean openScene = true ;

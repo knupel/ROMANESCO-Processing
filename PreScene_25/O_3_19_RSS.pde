@@ -35,10 +35,8 @@ class RSS extends SuperRomanesco {
   
   //DRAW
   void display() {
-    float corps ;
-    //size text / corps
-    corps = map(sizeYObj[IDobj], 0, height, 6, height *0.33) ;
-    textFont(font[IDobj], corps + ( corps * mix[IDobj]) );
+    float sizeFont = fontSizeObj[IDobj] ;
+    textFont(font[IDobj], sizeFont + ( sizeFont * mix[IDobj]) );
     // couleur du texte
     float t = alpha(fillObj[IDobj]) * abs(mix[IDobj]) ;
     if ( sound[IDobj] ) { t = alpha(fillObj[IDobj]) ; } 

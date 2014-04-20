@@ -1,54 +1,21 @@
-///////////////////////
-// GLOBAL SETTING ////
-/////////////////////
-
-
-//Web cam activity
-// boolean cameraOnOff = false ;
-//internet connection
-Boolean internet = true ;
-Boolean videoSignal = false ;
-String bigBrother = ("BIG BROTHER DON'T WATCHING YOU !!") ;
-
-/*
-// Screen size
-//String [] sD ;
-*/
-
-
-
-//variable for the tracking
-Boolean nextPrevious = false ;
-int nextPreviousInt = 0 ; // for send to Syphon
-int trackerUpdate ; // must be reset after each use
-
-//VIDEO
-import codeanticode.gsvideo.*;
-
-//INTERNET
-import processing.net.*;
-//FLUX RSS or TWITTER ????
-import com.sun.syndication.feed.synd.*;
-import com.sun.syndication.io.*;
-
-//TABLET GRAPHIC
-import codeanticode.tablet.*;
-
-
-
-
-
-// for processing 2.0.b9
 import java.net.*;
 import java.io.*;
 import java.util.*;
-//for the fullscreen and screen choice
 import java.awt.*;
+import java.util.Iterator;
+import java.lang.reflect.*; 
 
-
-//to make the window is resizable
-java.awt.Insets insets; // use for the border of window (top and right)
-
+import codeanticode.gsvideo.*;
+import oscP5.*;
+import netP5.*;
+import processing.net.*;
+import processing.pdf.*;
+//FLUX RSS or TWITTER ????
+import com.sun.syndication.feed.synd.*;
+import com.sun.syndication.io.*;
+//SOUND
+import ddf.minim.*;
+import ddf.minim.analysis.*;
 //GEOMERATIVE
 import geomerative.*;
 //TOXIC
@@ -57,56 +24,28 @@ import toxi.geom.mesh2d.*;
 import toxi.util.*;
 import toxi.util.datatypes.*;
 import toxi.processing.*;
-
-//METEO
+// METEO
 import com.onformative.yahooweather.*;
-
-
-//SOUND
-import ddf.minim.*;
-import ddf.minim.analysis.*;
-
-///////IMPORTANT///////////////////////////////////////////////////////////////////////
+// DROP IMAGE
+import sojamo.drop.*;
 //CALLING class or library in Other Class, you must call the PApplet too in your class
 PApplet callingClass = this ;
+// use for the border of window (top and right)
+java.awt.Insets insets; 
 
-
-
-
-//fenêtre texte
-String texte ;
-//Variable CLAVIER
-
-
-
-//PDF save picture
-import processing.pdf.*;
-boolean savePDF ;
-String savePathPDF, savePathPNG ;
-
-
-
-
-//LOAD IMAGE
-// to drop load image
-import sojamo.drop.*;
-SDrop drop;
-boolean resizableByImgDrop ;
 
 //IMAGE
 PImage img ;
 String pathImg ; 
-
-
-
-
-
+//LOAD IMAGE
+SDrop drop;
+boolean resizableByImgDrop ;
 
 
 
 
 // HIGH VAR
-boolean modeP3D ;
+boolean modeP3D, modeP2D, modeOPENGL, modeClassic ;
 //spectrum band
 int numBand = 16 ;
 //font
@@ -132,6 +71,7 @@ int objectID[] ;
 //BUTTON CONTROLER
 boolean objectParameter[] ;
 
+
 //VAR object
 //raw
 color [] fillRaw, strokeRaw ;
@@ -140,6 +80,9 @@ float [] sizeXRaw, sizeYRaw, sizeZRaw, canvasXRaw, canvasYRaw, canvasZRaw ;
 float [] speedRaw, forceRaw, directionRaw, angleRaw ;
 float [] familyRaw, quantityRaw, lifeRaw, analyzeRaw, amplitudeRaw;
 //add in the next version when there is 30 slider by group
+//future slider available now ;
+float []fontSizeRaw ;
+//for the next relase
 float [] curveRaw, attractionRaw ;
 
 //object
@@ -149,17 +92,19 @@ float [] sizeXObj, sizeYObj, sizeZObj, canvasXObj, canvasYObj, canvasZObj ;
 float [] speedObj, forceObj, directionObj, angleObj ;
 float [] familyObj, quantityObj, lifeObj , analyzeObj, amplitudeObj;
 //add in the next version when there is 30 slider by group
-float curveObj[], attractionObj[] ;
+//future slider available now ;
+float []fontSizeObj ;
+//for the next relase
+float []curveObj, attractionObj ;
 //font
 PFont police ;
-
 
 
 //OSC VAR
 // button
 int eBeat, eKick, eSnare, eHat, eCurtain, eBackground ;
-int whichShader ;
 int eLightOne, eLightTwo, eLightOneAction, eLightTwoAction ;
+int whichShader ;
 int [] objectButton,soundButton, actionButton, parameterButton ;
 boolean [] object, sound, action, parameter ;
 
@@ -188,7 +133,6 @@ float [] tempo, tempoBeat, tempoKick, tempoSnare, tempoHat ;
 
 //P3D OBJECT
 //position
-//position
 boolean startingPosition [] ;
 PVector startingPos [] ;
 float [] P3DpositionX, P3DpositionY, P3DpositionZ ;
@@ -216,78 +160,6 @@ boolean [] motion, horizon  ;
 //main font for each object
 String [] pathFontTTF, pathFontVLW, pathFontObjTTF ;
 PFont font[]  ;
-
-
-Tablet tablet;
-PVector cursorRef = new PVector() ;
-
-//SETUP
-void varObjectSetup() {
-  //LEAP MOTION
-  leap = new com.leapmotion.leap.Controller();
-  //TABLET
-  tablet = new Tablet(this);
-  for (int i = 0 ; i < numObj ; i++ ) {
-    startingPos[i] = new PVector(height/2, width/2, 0) ;
-    pen[i] = new PVector() ;
-    // use the 250 value for "z" to keep the position light on the front
-    mouse[i] = new PVector(0,0,250) ;
-    pmouse[i] = new PVector() ;
-    wheel[i] = 0 ;
-  }
-}
-
-
-
-
-
-
-
-
-//OPENING the other window
-void opening() {
-    //OPEN CONTROLEUR and SCENE or MIROIR
-  if (!testRomanesco && openControleur) {
-    fill(blanc) ;
-    stroke(blanc) ;
-    textSize(28 ) ;
-    text("Take your time, smoke a cigarette", 50,height/2 ) ;
-  }
-  if (!testRomanesco) { 
-    if (openControleur) { open(sketchPath("")+"Controleur_"+release+".app") ; openControleur = false ; } 
-    if (openScene)      { open(sketchPath("")+"Scene_"+release+".app") ; openScene = false ; }
-   // if (openMiroir)     { open(sketchPath("")+"Miroir_24.app") ; openMiroir = false ; }
-    testRomanesco = true ;
-  }
-}
-
-
-//INIT in real time and re-init the default setting of the display window
-
-
-void initDraw() {
-  //Default display shape and text
-  rectMode (CORNER) ; 
-  textAlign(LEFT) ;
-  //SCENE ATTRIBUT
-  //  if (fullScreen ) sketchPos(0,0, myScreenToDisplayMySketch) ; 
-  
-  //change the size of displaying if you load an image or a new image
-  resizableByImgDrop = true ;
-  if ( resizableByImgDrop && displaySizeByImage ) updateSizeDisplay(img) ;
-  
-  //load text raw for the different object
-  importText(sketchPath("")+"karaoke.txt") ;
-  splitText() ;
-}
-
-
-
-
-
-
-
-
 
 
 
@@ -415,6 +287,9 @@ void createVarObject() {
   familyRaw = new float[numGroup] ;
   lifeRaw = new float[numGroup] ;
   forceRaw = new float[numGroup] ;
+  //future slider
+  fontSizeRaw = new float[numGroup] ;
+  
   
   // VAR object
   fillObj = new color[numObj] ;
@@ -433,6 +308,8 @@ void createVarObject() {
   familyObj = new float[numObj] ;
   lifeObj = new float[numObj] ;
   forceObj = new float[numObj] ;
+    //future slider
+  fontSizeObj = new float[numObj] ;
 }
 // END CREATE VAR
 //////////////////
@@ -468,23 +345,8 @@ void updateVar() {
     familyRaw[i] = map(valueSlider[i+1][25],minSource, maxSource,1,100) ;
     lifeRaw[i] = valueSlider[i+1][26] +1 ;
     forceRaw[i] = valueSlider[i+1][27] +1 ;
-
+    // future slider
+    fontSizeRaw[i] = map(sizeXRaw[i], 0, 100, .01, height *.01) ;
+    fontSizeRaw[i] = 3 +(fontSizeRaw[i] *fontSizeRaw[i]) ;
   }
-  
 }
-
-
-
-//INFO
-void displayInfo3D() {
-   String posCam = ( int(sceneCamera.x +width/2) + " / " + int(sceneCamera.y +height/2) + " / " +  int(sceneCamera.z -height/2)) ;
-   String eyeDirectionCam = ( int(eyeCamera.x) + " / " + int(eyeCamera.y) ) ;
-  fill(blanc) ; 
-  textFont(SansSerif10, 10) ;
-  textAlign(RIGHT) ;
-  text("Position " +posCam, width/2 -30 , height/2 -30) ;
-  text("Direction " +eyeDirectionCam, width/2 -30 , height/2 -15) ;
-}
-
-
-
