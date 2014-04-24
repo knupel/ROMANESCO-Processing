@@ -114,6 +114,39 @@ void chromaticCircle(PVector pos, int d) {
 
 
 //full cirlce
+PVector [] circle (PVector pos, int d, int num) {
+  PVector [] p = new PVector [num] ;
+  int surface = d*d ; 
+  int radius = ceil(radiusSurface(surface)) ;
+  for( int i=0 ; i < num ; i++) {
+    float stepAngle = map(i, 0, num, 0, 2*PI) ; 
+    float angle =  2*PI - stepAngle;
+    p[i] = new PVector(pointOnCirlcle(radius, angle).x +pos.x,pointOnCirlcle(radius, angle).y + pos.y) ;
+  }
+  return p ;
+}
+
+PVector [] circle (PVector pos, int d, int num, float jitter) {
+  PVector [] p = new PVector [num] ;
+  int surface = d*d ; 
+  int radius = ceil(radiusSurface(surface)) ;
+  float angleCorrection ; // this correction is cosmetic, when we'he a pair beam this one is stable for your eyes :)
+  for( int i=0 ; i < num ; i++) {
+    int beam = num /2 ;
+    if ( beam%2 == 0 ) angleCorrection = PI / num ; else angleCorrection = 0.0 ;
+    if ( num%2 == 0 ) jitter *= -1 ; else jitter *= 1 ; // the beam have two points at the top and each one must go to the opposate...
+    
+    float stepAngle = map(i, 0, num, 0, TAU) ;
+    float jitterAngle = map(jitter, -1, 1, -PI/num, PI/num) ;
+    float angle =  TAU -stepAngle +jitterAngle +angleCorrection ;
+    
+    p[i] = new PVector(pointOnCirlcle(radius, angle).x +pos.x, pointOnCirlcle(radius, angle ).y +pos.y) ;
+  }
+  return p ;
+}
+
+
+//full cirlce
 void circle(color c, PVector pos, int d) {
   int surface = d*d ; // surface is equale of square surface where is the cirlcke...make sens ?
 
@@ -245,4 +278,3 @@ float mapEndStartSmooth(float value, float sourceMin, float sourceMax, float tar
   return result;
 }
 // END MAP
-

@@ -80,7 +80,7 @@ class Galaxie extends SuperRomanesco {
     color colorOut = strokeObj[IDobj] ;
     
     //surface
-    PVector surface = new PVector(canvasXObj[IDobj], canvasYObj[IDobj], canvasZObj[IDobj])  ;
+    PVector surface = new PVector(canvasXObj[IDobj] *10, canvasYObj[IDobj] *10, canvasZObj[IDobj] *10)  ;
     
     /////////
     //UPDATE

@@ -159,7 +159,7 @@ class Escargot extends SuperRomanesco {
     maxEntryPoints = n *n *n ;
     //if (maxEntryPoints > listPixelRaw.size() / 4 ) maxEntryPoints = listPixelRaw.size() ;
 
-    radiusAnalyze = int(map(amplitudeObj[IDobj],0,100,2,100));
+    radiusAnalyze = int(map(amplitudeObj[IDobj],0,1,2,100));
     pixelAnalyzeSize = int(map(analyzeObj[IDobj],0,100,2,30));
     
 

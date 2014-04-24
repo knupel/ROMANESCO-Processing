@@ -42,7 +42,7 @@ class ArbreRomanesco extends SuperRomanesco {
     //amplitude
     float ampSon ;
     if(sound[IDobj]) ampSon = map (abs(mix[IDobj]), 0, 1, .1 ,4) ; else ampSon = 1.0 ;
-    float amplitude = map(amplitudeObj[IDobj], 0,100, 0,height *.2) *ampSon ;
+    float amplitude = map(amplitudeObj[IDobj], 0,1, 0,height *.2) *ampSon ;
     int n = (ng+nd) ;
     //quantity
     float quantityNode = map(quantityObj[IDobj],1,100,2,32) ;

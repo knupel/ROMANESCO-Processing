@@ -73,7 +73,7 @@ class Letter extends SuperRomanesco {
     color colorIn = fillObj[IDobj] ;
     // color colorOut = color ( map(valueObj[IDobj][5],0,100,0,360), valueObj[IDobj][6], valueObj[IDobj][7],valueObj[IDobj][8] ) ;
     //jitter
-    int jitter = int(map(amplitudeObj[IDobj],0,100,1,15)) ;
+    int jitter = int(map(amplitudeObj[IDobj],0,1,1,15)) ;
     
     //final position
     translate(mouse[IDobj].x, mouse[IDobj].y) ;

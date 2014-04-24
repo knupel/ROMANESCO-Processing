@@ -49,8 +49,8 @@ class Twitos extends SuperRomanesco {
 
     
     //hauteur largeur, height & width
-    float largeur = canvasXObj[IDobj] *3 ;
-    float hauteur = canvasYObj[IDobj] *3 ;
+    float largeur = canvasXObj[IDobj] *15 ;
+    float hauteur = canvasYObj[IDobj] *15 ;
     
     // message reception
     if (internet) message = twt.update() ; else message = bigBrother ;
@@ -251,5 +251,3 @@ class TwitterListener implements StatusListener{
     ex.printStackTrace();
   }
 }
-
-

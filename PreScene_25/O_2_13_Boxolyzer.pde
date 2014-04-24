@@ -39,7 +39,7 @@ class Boxolyzer extends SuperRomanesco {
     // MODE DISPLAY with the dropdown menu of controler
     /////////////////////
     if        (mode[IDobj] ==0) { boxolyzerClassic(size, horizon[IDobj] , directionObj[IDobj]) ;
-    } else if (mode[IDobj] ==1) { boxolyzerCircle(size, int(canvasXObj[IDobj]*.1), horizon[IDobj], directionObj[IDobj]) ;
+    } else if (mode[IDobj] ==1) { boxolyzerCircle(size, (int)canvasXObj[IDobj], horizon[IDobj], directionObj[IDobj]) ;
     } else if (mode[IDobj] ==2) {
     // and same for the next
     } else {

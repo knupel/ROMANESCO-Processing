@@ -23,7 +23,7 @@ class Lignes extends SuperRomanesco {
   //DRAW
   void display() {
     if( beat[IDobj] > 1 ) {
-      ampLine = beat[IDobj] *(map(amplitudeObj[IDobj], 0,100, 0, 3)) ;
+      ampLine = beat[IDobj] *(map(amplitudeObj[IDobj], 0,1, 0, 3)) ;
       thicknessLine = (thicknessObj[IDobj] *ampLine ) ;
     } else {
       thicknessLine = thicknessObj[IDobj] ;

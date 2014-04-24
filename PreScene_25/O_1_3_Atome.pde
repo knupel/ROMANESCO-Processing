@@ -148,7 +148,7 @@ class Atome extends SuperRomanesco {
       //width
       float posTextInfo = sizeYObj[IDobj] + (beat[IDobj] *2.0)  ;
       //Canvas
-      PVector marge = new PVector(canvasXObj[IDobj], canvasYObj[IDobj]) ;
+      PVector marge = new PVector(canvasXObj[IDobj] *10, canvasYObj[IDobj] *10) ;
       
 
       //MODE OF DISPLAY

@@ -1,3 +1,6 @@
+// HIGH VAR///////////////////////
+// GLOBAL SETTING ////
+/////////////////////import java.net.*;
 import java.net.*;
 import java.io.*;
 import java.util.*;
@@ -34,13 +37,31 @@ PApplet callingClass = this ;
 java.awt.Insets insets; 
 
 
+
+
+
+
+
+Boolean videoSignal = false ;
+//variable for the tracking
+Boolean nextPrevious = false ;
+int nextPreviousInt = 0 ; // for send to Syphon
+int trackerUpdate ; // must be reset after each use
+//spectrum for the color mode and more if you need
+PVector HSBmode = new PVector (360,100,100) ; // give the color mode in HSB
+//path to open the controleur
+String findPath ; 
+
+
+
+
+
 //IMAGE
 PImage img ;
-String pathImg ; 
-//LOAD IMAGE
+String pathImg ;
+// to drop load image
 SDrop drop;
 boolean resizableByImgDrop ;
-
 
 
 
@@ -50,8 +71,6 @@ boolean modeP3D, modeP2D, modeOPENGL, modeClassic ;
 int numBand = 16 ;
 //font
 int numFont = 50 ;
-//slider family but I'm not sure is necessary
-int numSliderFamilly = 40 ; // slider by familly object (global, object, trame, typo)
 //quantity of group object slider
 int numGroup = 3 ;
 
@@ -70,7 +89,6 @@ String objectName [] ;
 int objectID[] ;
 //BUTTON CONTROLER
 boolean objectParameter[] ;
-
 
 //VAR object
 //raw
@@ -100,6 +118,7 @@ float []curveObj, attractionObj ;
 PFont police ;
 
 
+
 //OSC VAR
 // button
 int eBeat, eKick, eSnare, eHat, eCurtain, eBackground ;
@@ -120,7 +139,6 @@ float valueSlider[][]  = new float [numGroup+1][numSlider] ;
 //MISC
 //var to init the data of the object when is switch ON for the first time
 boolean  [] initValueMouse, initValueSlider ;
-// boolean initValueMouse [] = new boolean [numObj]  ;
 //parameter for the super class
 float [] left, right, mix ;
 //beat
@@ -164,6 +182,20 @@ PFont font[]  ;
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 //init var
 void createVar() {
   numObj = romanescoManager.numClasses + 1 ;
@@ -176,7 +208,9 @@ void createVar() {
   createVarP3D() ;
   createVarCursor() ;
   createVarObject() ;
+  
   createMiscVar() ;
+  
   romanescoManager.initObj() ;
 }
 
@@ -215,7 +249,7 @@ void createVarCursor() {
 }
 // P3D
 void createVarP3D() {
-   startingPosition = new boolean[numObj] ;
+  startingPosition = new boolean[numObj] ;
    startingPos = new PVector[numObj] ;
    P3DpositionX = new float[numObj] ;
    P3DpositionY = new float[numObj] ;
@@ -252,6 +286,7 @@ void createVarSound() {
 }
 //
 
+//
 void createVarButton() {
   objectButton = new int [numObj] ;
   soundButton = new int [numObj] ;
@@ -290,7 +325,6 @@ void createVarObject() {
   //future slider
   fontSizeRaw = new float[numGroup] ;
   
-  
   // VAR object
   fillObj = new color[numObj] ;
   strokeObj = new color[numObj] ;
@@ -308,7 +342,7 @@ void createVarObject() {
   familyObj = new float[numObj] ;
   lifeObj = new float[numObj] ;
   forceObj = new float[numObj] ;
-    //future slider
+  //future slider
   fontSizeObj = new float[numObj] ;
 }
 // END CREATE VAR
@@ -318,7 +352,6 @@ void createVarObject() {
 // UPDATE DATA from CONTROLER and PRESCENE
 void updateVar() {
   //from column 1
-  //fill
   for(int i = 0 ; i < numGroup ; i++) {
     //column 1
     fillRaw[i] = color(map(valueSlider[i+1][0],0,100,0,360), valueSlider[i+1][1], valueSlider[i+1][2], valueSlider[i+1][3]) ;
@@ -328,19 +361,19 @@ void updateVar() {
     int minSource = 0 ;
     int maxSource = 100 ;
     float minSize = .1 ;
-    thicknessRaw[i] = mapStartSmooth(valueSlider[i+1][10],minSource,maxSource,minSize, (height*.33),2) ;
-    sizeXRaw[i] = map(valueSlider[i+1][11],minSource,maxSource,minSize,width) ;
-    sizeYRaw[i] = map(valueSlider[i+1][12],minSource,maxSource,minSize,width) ;
-    sizeZRaw[i] = map(valueSlider[i+1][13],minSource,maxSource,minSize,width) ;
-    canvasXRaw[i] = map(valueSlider[i+1][14],minSource,maxSource, width *.1,width *5) ;
-    canvasYRaw[i] = map(valueSlider[i+1][15],minSource,maxSource,height *.1, height *5) ;
-    canvasZRaw[i] = map(valueSlider[i+1][16],minSource,maxSource,width *.1, width *5) ;
-    quantityRaw[i] = map(valueSlider[i+1][17], minSource, maxSource,1,100) ;
+    thicknessRaw[i] = mapStartSmooth(valueSlider[i+1][10], minSource, maxSource, minSize, (height*.33), 2) ;
+    sizeXRaw[i] = map(valueSlider[i+1][11], minSource, maxSource, minSize, width) ;
+    sizeYRaw[i] = map(valueSlider[i+1][12], minSource, maxSource, minSize, width) ;
+    sizeZRaw[i] = map(valueSlider[i+1][13], minSource, maxSource, minSize, width) ;
+    canvasXRaw[i] = map(valueSlider[i+1][14], minSource, maxSource, width *minSize, width) ;
+    canvasYRaw[i] = map(valueSlider[i+1][15], minSource, maxSource, height *minSize, height) ;
+    canvasZRaw[i] = map(valueSlider[i+1][16], minSource, maxSource, height *minSize, height) ;
+    quantityRaw[i] = map(valueSlider[i+1][17], minSource, maxSource, 1, 100) ;
     //column 3
     speedRaw[i] = valueSlider[i+1][20] ;
     directionRaw[i] = map(valueSlider[i+1][21],minSource, maxSource,0,360) ;
     angleRaw[i] = map(valueSlider[i+1][22],minSource, maxSource,0,360) ;
-    amplitudeRaw[i] = map(valueSlider[i+1][23],minSource, maxSource,1,height) ;
+    amplitudeRaw[i] = map(valueSlider[i+1][23],minSource, maxSource,0,1) ;
     analyzeRaw[i] = valueSlider[i+1][24] ;
     familyRaw[i] = map(valueSlider[i+1][25],minSource, maxSource,1,100) ;
     lifeRaw[i] = valueSlider[i+1][26] +1 ;
@@ -348,5 +381,6 @@ void updateVar() {
     // future slider
     fontSizeRaw[i] = map(sizeXRaw[i], 0, 100, .01, height *.01) ;
     fontSizeRaw[i] = 3 +(fontSizeRaw[i] *fontSizeRaw[i]) ;
+
   }
 }

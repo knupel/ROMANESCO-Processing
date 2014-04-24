@@ -1,6 +1,4 @@
 //COLOR for internal use
-//spectrum for the color mode and more if you need
-PVector HSBmode = new PVector (360,100,100) ; // give the color mode in HSB
 
 color fond ;
 color rouge, orange, jaune, vert, bleu, noir, blanc, gris  ;

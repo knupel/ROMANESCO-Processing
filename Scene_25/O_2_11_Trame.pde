@@ -49,7 +49,7 @@ class Damier extends SuperRomanesco {
     int q = int(map(quantityObj[IDobj], 0, 100, 2,50)) ;
 
     //amp
-    float amp = map(amplitudeObj[IDobj],0,100, .5, 3) ;
+    float amp = map(amplitudeObj[IDobj],0,1, .5, 3) ;
     
     //MODE DISPLAY
     if(mode[IDobj] == 0 || mode[IDobj] == 255) trame.drawTrameRect(mouse[IDobj], angleTrame, angle, size , q, fillObj[IDobj], strokeObj[IDobj], thicknessObj[IDobj], g, d, amp) ;

@@ -170,5 +170,3 @@ class Webcam extends SuperRomanesco {
 
 // END OBJECT ROMANESCO
 ///////////////////////
-
-

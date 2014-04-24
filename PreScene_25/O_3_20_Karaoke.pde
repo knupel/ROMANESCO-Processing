@@ -34,8 +34,8 @@ class Karaoke extends SuperRomanesco {
     color c = color(hue(fillObj[IDobj]), saturation(fillObj[IDobj]), brightness(fillObj[IDobj]), t ) ;
     
     //hauteur largeur, height & width
-    float largeur = canvasXObj[IDobj] *3 ;
-    float hauteur = canvasYObj[IDobj] *3 ;
+    float largeur = canvasXObj[IDobj] *15 ;
+    float hauteur = canvasYObj[IDobj] *15 ;
     
     //tracking chapter
     String karaokeChapters [] = split(textRaw, "*") ;
@@ -88,5 +88,3 @@ class Karaoke extends SuperRomanesco {
   }
 }
 //end object one
-
-

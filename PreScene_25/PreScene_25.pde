@@ -29,11 +29,6 @@ boolean youCanSendToMiroir = true ;
 
 
 
-
-
-//path to open the controleur
-String findPath ; 
-
 void setup() {
   romanescoSetup() ;
   createVar() ;

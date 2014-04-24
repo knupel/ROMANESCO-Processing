@@ -30,7 +30,7 @@ class SpiraleRomanesco extends SuperRomanesco {
     float ratioScreen = height*.1 ;
     if (ratioScreen < 1 ) ratioScreen = 1 ;
     float ratio = 1.25 + (ratioScreen *.0005) ; 
-    float z = map(amplitudeObj[IDobj], 1,height,1.01, ratio)  ;
+    float z = map(amplitudeObj[IDobj], 0,1,1.01, ratio)  ;
     //speed
     
     if(motion[IDobj]) {

@@ -37,7 +37,7 @@ class Horloge extends SuperRomanesco {
     //rotation / deg
     float angle = map(directionObj[IDobj], 0,360, 0, TAU) ;
     //amplitude
-    float amp = map(amplitudeObj[IDobj],1,height, 1, height  / 4) ;
+    float amp = map(amplitudeObj[IDobj],0,1, 1, height  / 4) ;
     
     //CHANGE MODE DISPLAY
     /////////////////////

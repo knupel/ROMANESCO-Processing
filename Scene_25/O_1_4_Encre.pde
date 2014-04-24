@@ -71,7 +71,7 @@ class Spray extends SuperRomanesco {
   
   // the orderer
   void starProduction() {
-    float depth = map(canvasZObj[IDobj],width/10,width *5,0,width *3) ;
+    float depth = map(canvasZObj[IDobj], width/10, width, 0, width *3) ;
     PVector pos = new PVector(mouse[IDobj].x, mouse[IDobj].y, depth ) ;
     //tha first value must be smaller than second
     
@@ -82,16 +82,10 @@ class Spray extends SuperRomanesco {
     int numP = (int)map(quantityObj[IDobj],1,100,20,width) ;
     PVector numPoints = new PVector(numP/10,numP) ;
     
-    int branchMin = (int)map(canvasXObj[IDobj],width/10,width *5,1,30) ;
-    int branchMax = (int)map(canvasYObj[IDobj],height/10,height *5,1,30) ;
+    int branchMin = (int)map(canvasXObj[IDobj],width/10,width,1,30) ;
+    int branchMax = (int)map(canvasYObj[IDobj], height/10, height, 1, 30) ;
     PVector numBranchs = new PVector(branchMin,branchMax) ;
-    // println(canvasXRaw[1],canvasXObj[IDobj],numBranchs.x) ;
-    /*
-    PVector size = new PVector(20,60) ;
-  PVector numPoints = new PVector(10,50) ;
-  int test = 30 ;
-  PVector numBranchs = new PVector(test,test) ;
-  */
+
     color colour = fillObj[IDobj] ;
     int varAngle = (int)map(angleObj[IDobj], 0,360,0,180) ;
     PVector angle = new PVector(0,varAngle) ; // 0-360 degree

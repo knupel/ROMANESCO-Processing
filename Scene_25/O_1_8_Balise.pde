@@ -24,7 +24,7 @@ class BaliseRomanesco extends SuperRomanesco {
     if (motion[IDobj]) speed = (map(speedObj[IDobj], 0,100, 0,20)) *tempo[IDobj] ; else speed = 0.0 ;
 
     //amplitude
-    float amp = map(amplitudeObj[IDobj], 0,100, 0, width) ;
+    float amp = map(amplitudeObj[IDobj], 0,1, 0, width) ;
 
     //hauteur / largeur
     float tempoEffect = 1 + ((beat[IDobj] -1  ) + (kick[IDobj] -1  ) + (snare[IDobj] -1  ) + (hat[IDobj] -1  ) );

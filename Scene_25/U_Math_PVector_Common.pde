@@ -17,14 +17,14 @@ PVector follow(PVector finish, float speed) {
     finishRef = finish.get() ; 
     initMove = true ;
   }
-  currentPos = calculPos(origin, finish, speed) ;
+  currentPos = gotoTarget(origin, finish, speed) ;
   return currentPos ;
 }
 // END PASS
 
 
 // CALCULATE THE POS of PVector Traveller
-PVector calculPos(PVector origin,  PVector finish, float speed) {
+PVector gotoTarget(PVector origin,  PVector finish, float speed) {
   PVector pos = new PVector() ;
   if(origin.x > finish.x) pos.x = origin.x  -distanceDone(origin, finish, speed).x ; else pos.x = origin.x  +distanceDone(origin, finish, speed).x ; 
   if(origin.y > finish.y) pos.y = origin.y  -distanceDone(origin, finish, speed).y ; else pos.y = origin.y  +distanceDone(origin, finish, speed).y ; 
@@ -51,7 +51,6 @@ PVector distanceDone(PVector origin,  PVector finish, float speedRef) {
   distance.z = abs(finish.z - origin.z) ;
   //calcul the speed for XYZ
   PVector speed = new PVector(speedMoveTo(distance.x, speedRef), speedMoveTo(distance.y, speedRef), speedMoveTo(distance.z, speedRef)) ;
-  // println(speedMoveTo(distance.x, speedRef), distance.x,speedRef) ;
   // for the X
   dist.x = distance.x -distanceDone.x ;
   if(dist.x <= 0 ) stopX = true ; else stopX = false ;
