@@ -22,6 +22,9 @@ class SpiraleRomanesco extends SuperRomanesco {
   }
   //DRAW
   void display() {
+    fill(fillObj[IDobj]) ;
+    stroke(strokeObj[IDobj]) ;
+    strokeWeight(thicknessObj[IDobj]*.02) ;
     //quantity
     int n ;
     int nMax = 1 + (int)quantityObj[IDobj] *3 ;
@@ -50,7 +53,7 @@ class SpiraleRomanesco extends SuperRomanesco {
     PVector size = new PVector(widthObj, heightObj, depthObj) ;
     
     spirale.actualisation (mouse[IDobj], speed) ;
-    spirale.affichage (n, nMax, size, z, fillObj[IDobj], strokeObj[IDobj], thicknessObj[IDobj], mode[IDobj]) ;
+    spirale.affichage (n, nMax, size, z, mode[IDobj]) ;
   }
 }
 
@@ -64,14 +67,10 @@ class Spirale extends Rotation {
   Spirale () { 
     super () ;
   }
-  void affichage (int n, int nMax, PVector size, float z, color cIn, color cOut, float e, int mode) {
+  void affichage (int n, int nMax, PVector size, float z, int mode) {
     n = n-1 ;
     int puissance = nMax-n ;
     float ap = pow (z,puissance) ;
-    fill (cIn) ;
-    stroke ( cOut ) ; 
-    //float newStrokeWeight = 1 / (e/ap) ;
-    strokeWeight (e) ;
 
     //display Mode
     if (mode == 0 )      rect (0,0, size.x, size.y ) ;
@@ -83,6 +82,6 @@ class Spirale extends Rotation {
     rotate ( PI/6 ) ;
     scale(z) ; 
 
-    if ( n > 0) { affichage (n, nMax, size, z, cIn, cOut, e, mode ) ; }
+    if ( n > 0) { affichage (n, nMax, size, z,  mode ) ; }
   }
 }

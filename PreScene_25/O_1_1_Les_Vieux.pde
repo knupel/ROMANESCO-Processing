@@ -25,9 +25,7 @@ class LesVieux extends SuperRomanesco {
   }
   //DRAW
   void display() {
-    fill(fillObj[IDobj]) ;
-    stroke(strokeObj[IDobj]) ;
-    strokeWeight(thicknessObj[IDobj]) ;
+    aspect(IDobj) ;
     
     if(mode[IDobj] == 0 ) doubleTriangleDisplay() ;
     if(mode[IDobj] == 1 ) courbe() ;

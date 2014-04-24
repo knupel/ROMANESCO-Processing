@@ -35,9 +35,21 @@ class MesAmis extends SuperRomanesco {
 
   //DRAW
   void display() {
-    PVector center = new PVector(0, 0, 0 ) ;
+    
+    PVector center = new PVector() ;
+    
+    PVector jitter = new PVector() ;
+    println(getTimeTrack()) ;
+    if(sound[IDobj] && getTimeTrack() > 0.2 ) {
+      float valueX = left[IDobj] * (width / 2 ) ;
+      float valueY = right[IDobj] * (height / 2 ) ;
+      float valueZ = mix[IDobj] * (height / 2 ) ;
+      jitter = new PVector(valueX,valueY,valueZ) ;
+    }
+    
+    
     float speed = map(speedObj[IDobj],0,100, .00001, .05);
-    if(sound[IDobj]) speed *= beat[IDobj] ;
+    if(sound[IDobj]) speed *= allBeats(IDobj) ;
     float radiusMax = map(canvasXObj[IDobj], width/10, width, width/4, width *1.5) ;
     float radiusMin = map(amplitudeObj[IDobj], 0, 1, radiusMax, radiusMax /10) ; ;
     // new population
@@ -51,10 +63,8 @@ class MesAmis extends SuperRomanesco {
     }
     
     
-    strokeWeight(thicknessObj[IDobj]) ;
-    stroke(strokeObj[IDobj]) ;
-    fill(fillObj[IDobj]) ;
-    amiDrawHeartMove(center, speed, radiusMin, radiusMax, mode[IDobj]) ;
+    aspect(IDobj) ;
+    amiDrawHeartMove(center, speed, radiusMin, radiusMax, jitter, mode[IDobj]) ;
 
   }
   
@@ -85,7 +95,7 @@ class MesAmis extends SuperRomanesco {
   }
   //draw
   //different points
-  void amiDrawHeartMove(PVector posCenter, float speed, float distMin, float distMax, int mode) {
+  void amiDrawHeartMove(PVector posCenter, float speed, float distMin, float distMax, PVector jitter, int mode) {
     // new distribution
     if(newPeoplePosition) {
       for(int i = 0 ; i < listPeople.size() ; i++) {
@@ -102,6 +112,8 @@ class MesAmis extends SuperRomanesco {
       Ami peopleOrigin = listPeople.get(i) ;
       //update
       if (!goBack) target = new PVector(posCenter.x, posCenter.y, posCenter.z) ; else  target = new PVector(peopleOrigin.originalPos.x, peopleOrigin.originalPos.y, peopleOrigin.originalPos.z) ;
+      PVector jitting = new PVector(random(-jitter.x, jitter.x), random(-jitter.y, jitter.y), random(-jitter.y, jitter.y)) ;
+      target.add(jitting) ;
       peopleOrigin.pos = heartMove(peopleOrigin.pos, target, distMin, speed) ;
       //draw
       if(mode == 0 ) lineFriends(peopleOrigin) ;

@@ -14,6 +14,7 @@ class Soleil extends SuperRomanesco {
   }
   //GLOBAL
   float jitter ;
+  float angleRotation ;
   //SETUP
   void setting() {
     startPosition(IDobj, width/2, height/2, 0) ;
@@ -21,19 +22,23 @@ class Soleil extends SuperRomanesco {
   }
   //DRAW
   void display() {
-    fill(fillObj[IDobj]) ;
-    stroke(strokeObj[IDobj]) ;
-    strokeWeight(thicknessObj[IDobj]) ;
+    aspect(IDobj) ;
     //
     PVector pos = new PVector(mouse[IDobj].x, mouse[IDobj].y,0) ;
-    int diam = (int)map(canvasXObj[IDobj], width/10, width, width/10, width *3) ;
+    int diam = int(map(canvasXObj[IDobj], width/10, width, width/10, width *1.2) *allBeats(IDobj) ) ;
     int numBeam = (int)(quantityObj[IDobj] +1) ;
     // Jitter
-    jitter += (angleObj[IDobj] *.001) ;
-    float jitting = cos(jitter) ;
+    jitter += (angleObj[IDobj] *.001 ) ;
+    float jitting = cos(jitter) *tempo[IDobj] ;
      //noise
-    float noise = sq(amplitudeObj[IDobj] *10.0) ;
-   println(noise) ; 
+     float noise = 0 ;
+     if (sound[IDobj]) noise = (mix[IDobj] *mix[IDobj]) *50.0 ; else noise = sq(amplitudeObj[IDobj] *10.0) ;
+    // rotation speed
+    float speedRotation = 0 ;
+    speedRotation = sq(speedObj[IDobj] *.1 *tempo[IDobj]) ;
+    angleRotation += speedRotation ;
+    rotate (radians(angleRotation)) ;
+
     // mode
     if(mode[IDobj] == 0) soleil(pos, diam, numBeam) ;
     if(mode[IDobj] == 1) soleil(pos, diam, numBeam, jitting) ;

@@ -22,6 +22,8 @@ class BaliseRomanesco extends SuperRomanesco {
   //DRAW
   void display() {
     if (motion[IDobj]) speed = (map(speedObj[IDobj], 0,100, 0,20)) *tempo[IDobj] ; else speed = 0.0 ;
+    // color and thickness
+    aspect(IDobj) ;
 
     //amplitude
     float amp = map(amplitudeObj[IDobj], 0,1, 0, width) ;
@@ -36,9 +38,9 @@ class BaliseRomanesco extends SuperRomanesco {
     
     balise.actualisation (mouse[IDobj] , speed) ;
     if (mode[IDobj] == 0 || mode[IDobj] == 255 ) {
-      balise.baliseDisc (fillObj[IDobj], strokeObj[IDobj], thicknessObj[IDobj], amp, var, sizeBalise, int(radiusBalise), sound[IDobj]) ;
+      balise.baliseDisc (amp, var, sizeBalise, int(radiusBalise), sound[IDobj]) ;
     } else if (mode[IDobj] == 1 ) {
-     balise.baliseRect (fillObj[IDobj], strokeObj[IDobj], thicknessObj[IDobj], amp, var, sizeBalise, int(radiusBalise), sound[IDobj]) ;
+     balise.baliseRect (amp, var, sizeBalise, int(radiusBalise), sound[IDobj]) ;
     } 
     
   }
@@ -56,7 +58,7 @@ class Balise extends Rotation {
   
   Balise () { super () ; }
   
-  void baliseDisc (color cIn, color cOut, float e, float amp, PVector var, PVector sizeBalise, int max, boolean sound ) {
+  void baliseDisc (float amp, PVector var, PVector sizeBalise, int max, boolean sound ) {
     pushMatrix() ;
     rectMode(CENTER) ;
     
@@ -66,9 +68,6 @@ class Balise extends Rotation {
       PVector v = new PVector(input( i,max,var,sound).x, input(i,max,var,sound).y) ;
       PVector posBalise = new PVector ( amp * v.x, amp * v.y ) ;
       
-      stroke(cOut) ;
-      fill(cIn) ;
-      strokeWeight(e) ;
       ellipse(posBalise.x, posBalise.y, sizeBalise.x *abs(v.x*50), sizeBalise.y * abs(v.y*50) ) ;
     }
     rectMode(CORNER) ;
@@ -76,7 +75,7 @@ class Balise extends Rotation {
     noStroke() ;
   }
   
-  void baliseRect (color cIn, color cOut, float e, float amp, PVector var, PVector sizeBalise, int max, boolean sound ) {
+  void baliseRect (float amp, PVector var, PVector sizeBalise, int max, boolean sound ) {
     pushMatrix() ;
     rectMode(CENTER) ;
     PVector inputResult = new PVector(0,0,0) ;
@@ -84,10 +83,6 @@ class Balise extends Rotation {
     for(int i = 0 ; i < max ; i++) {
       PVector v = new PVector(input( i,max,var,sound).x, input(i,max,var,sound).y) ;
       PVector posBalise = new PVector ( amp * v.x, amp * v.y ) ;
-      //check the opacity of color
-      stroke(cOut) ;
-      fill(cIn) ;
-      strokeWeight(e) ;
       rect(posBalise.x, posBalise.y, sizeBalise.x *abs(v.x*50), sizeBalise.y * abs(v.y*50) ) ;
     }
     rectMode(CORNER) ;

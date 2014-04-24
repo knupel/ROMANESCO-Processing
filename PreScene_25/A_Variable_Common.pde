@@ -384,3 +384,17 @@ void updateVar() {
 
   }
 }
+
+
+//SHORTCUT VAR
+//SOUND
+float allBeats(int ID) {
+  return (beat[ID]*.25) +(kick[ID]*.25) +(hat[ID]*.25) +(snare[ID]*.25) ;
+}
+// ASPECT
+
+void aspect(int ID) {
+  if(alpha(fillObj[ID]) == 0 ) noFill() ; else fill(fillObj[ID]) ;
+  if(alpha(strokeObj[ID]) == 0 ) noStroke() ; else stroke(strokeObj[ID]) ;
+  strokeWeight(thicknessObj[ID]) ;
+}

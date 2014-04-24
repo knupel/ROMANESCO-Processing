@@ -7,7 +7,7 @@ class Damier extends SuperRomanesco {
     IDobj = 11 ;
     IDgroup = 2 ;
     romanescoAuthor  = "Stan le Punk";
-    romanescoVersion = "Alpha 2.0";
+    romanescoVersion = "Alpha 2.1";
     romanescoPack = "Base" ;
     romanescoRender = "classic" ;
     romanescoMode = "1 Rectangle/2 Ellipse/3 Box" ;
@@ -27,6 +27,9 @@ class Damier extends SuperRomanesco {
   }
   //DRAW
   void display() {
+    // color and thickness
+    aspect(IDobj) ;
+    
     if ( sound[IDobj]) {
       g = left[IDobj] ; 
       d = right[IDobj] ; 
@@ -52,9 +55,9 @@ class Damier extends SuperRomanesco {
     float amp = map(amplitudeObj[IDobj],0,1, .5, 3) ;
     
     //MODE DISPLAY
-    if(mode[IDobj] == 0 || mode[IDobj] == 255) trame.drawTrameRect(mouse[IDobj], angleTrame, angle, size , q, fillObj[IDobj], strokeObj[IDobj], thicknessObj[IDobj], g, d, amp) ;
-    else if (mode[IDobj] == 1) trame.drawTrameDisc(mouse[IDobj], angleTrame, angle, size , q, fillObj[IDobj], strokeObj[IDobj], thicknessObj[IDobj], g, d, amp) ;
-    else if (mode[IDobj] == 2) trame.drawTrameBox(mouse[IDobj], angleTrame, angle, size , q, fillObj[IDobj], strokeObj[IDobj], thicknessObj[IDobj], g, d, amp) ;
+    if(mode[IDobj] == 0 || mode[IDobj] == 255) trame.drawTrameRect(mouse[IDobj], angleTrame, angle, size , q, g, d, amp) ;
+    else if (mode[IDobj] == 1) trame.drawTrameDisc(mouse[IDobj], angleTrame, angle, size , q, g, d, amp) ;
+    else if (mode[IDobj] == 2) trame.drawTrameBox(mouse[IDobj], angleTrame, angle, size , q, g, d, amp) ;
     
   }
 }
@@ -73,10 +76,7 @@ class Trame {
   int vitesse ;
   
   //TRAME RECTANGLEe multiple
-  void drawTrameRect (PVector axe, float angleTrame, float angleObj, PVector size, int nbrlgn, color cIn, color cOut, float e, float gauche, float droite, float amp ) {
-    //check the opacity of color
-    shapeProperty(cIn, cOut, e) ;
-    
+  void drawTrameRect (PVector axe, float angleTrame, float angleObj, PVector size, int nbrlgn, float gauche, float droite, float amp ) {
     pushMatrix() ;
     translate(axe.x, axe.y) ;
     //calcul the position of each object
@@ -94,10 +94,7 @@ class Trame {
   
   
   //TRAME DISC multiple
-  void drawTrameDisc (PVector axe, float angleTrame, float angleObj, PVector size, int nbrlgn, color cIn, color cOut, float e, float gauche, float droite, float amp   ) {
-    //check the opacity of color
-    
-    shapeProperty(cIn, cOut, e) ;
+  void drawTrameDisc (PVector axe, float angleTrame, float angleObj, PVector size, int nbrlgn, float gauche, float droite, float amp   ) {
     pushMatrix() ;
     translate(axe.x, axe.y) ;
     //calcul the position of each object
@@ -113,10 +110,7 @@ class Trame {
   
   
   //TRAME BOX
-  void drawTrameBox (PVector axe, float angleTrame, float angleObj, PVector size, int nbrlgn, color cIn, color cOut, float e, float gauche, float droite, float amp   ) {
-    //check the opacity of color
-    
-    shapeProperty(cIn, cOut, e) ;
+  void drawTrameBox (PVector axe, float angleTrame, float angleObj, PVector size, int nbrlgn, float gauche, float droite, float amp   ) {
     pushMatrix() ;
     translate(axe.x, axe.y) ;
     //calcul the position of each object
@@ -129,28 +123,6 @@ class Trame {
     }
     popMatrix() ;  
   }
-  
-  
-  
-
-  
-  
-  
-  //Display 
-  void shapeProperty(color cIn, color cOut, float e) {
-    int alphaIn = (cIn >> 24) & 0xFF; 
-    int alphaOut = (cOut >> 24) & 0xFF; 
-    // to display or not
-    if ( alphaIn == 0 ) noFill() ; else fill (cIn) ;
-    if ( alphaOut == 0) {
-      noStroke() ;
-    } else {
-      stroke ( cOut ) ; 
-      if( e < 0.1 ) e = 0.1 ; //security for the negative value
-      strokeWeight (e) ;
-    }
-  }
-  
   
   void rectangleTrame( PVector pos, float h, float l, float gauche, float droite, float aObj) {
     pushMatrix() ;

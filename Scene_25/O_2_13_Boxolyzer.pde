@@ -29,10 +29,8 @@ class Boxolyzer extends SuperRomanesco {
     if (numBox != numBoxRef ) newDistribution = true ;
     numBoxRef = numBox ;
     PVector size = new PVector(sizeXObj[IDobj],sizeYObj[IDobj],sizeZObj[IDobj]) ;
-    //
-    fill(fillObj[IDobj]) ;
-    stroke(strokeObj[IDobj]) ;
-    strokeWeight(thicknessObj[IDobj]) ; 
+    // color and thickness
+    aspect(IDobj) ; 
     //
     distribution(numBox, newDistribution) ;
     
