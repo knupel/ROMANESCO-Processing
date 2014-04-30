@@ -23,11 +23,14 @@ class RSS extends SuperRomanesco {
   //SETUP
   void setting() {
     startPosition(IDobj, width/2, height/2, 0) ;
+    
+    
     if(internet) {
-      String [] fluxRSS = loadStrings(sketchPath("")+"RSSReference.txt") ;
+      String [] fluxRSS = loadStrings(preferencesPath+"network/RSSReference.txt") ;
       String RSS = join(fluxRSS, "") ;
       flux = new FeedReader(RSS);
     }
+    
   }
   
   

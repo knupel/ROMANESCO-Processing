@@ -1,12 +1,12 @@
-  //////////////////////////////////////////////////////////////////////////////////////////
- // Romanesco Préscène Alpha 0.25 work with Processing 211 export with Processing 203  ////
-//////////////////////////////////////////////////////////////////////////////////////////
+  ///////////////////////////////////////////////////////////////
+ // Romanesco Préscène Alpha 0.25 work with Processing 212  ////
+///////////////////////////////////////////////////////////////
 String release =("25") ;
 String preferencesPath = sketchPath("")+"preferences/" ;
 // security must be link with the controler in the next release
 int levelSecurity = 200 ;
 //to work in dev, test phase
-boolean testRomanesco = true ;
+boolean testRomanesco = false ;
 // when you work only with "Prescene" boolean presceneOnly must be true to give at the Prescene the internet acces
 boolean presceneOnly = true ;
 
@@ -32,21 +32,23 @@ boolean youCanSendToMiroir = true ;
 void setup() {
   romanescoSetup() ;
   createVar() ;
+  
   displaySetup(60) ; // the int value is the frameRate
 
   colorSetup() ;
-  //dropping image from folder on the Scène
+  // dropping image from folder on the Scène
   drop = new SDrop(this);
   
   fontSetup() ;
-  //GEOMERATIVE
-  RG.init(this);
+ // GEOMERATIVE
+ RG.init(this);
 
   soundSetup() ;
   varObjectSetup() ; // the varObject setup of the Scene is more simple
   OSCSetup() ;
   meteoSetup() ;
   P3DSetup() ;
+  
 }
 
 
@@ -63,7 +65,7 @@ void draw() {
   
   //ROMANESCO
   cameraDraw() ;
-    //use romanesco object
+  //use romanesco object
   romanescoManager.displayObject() ;
   repereCamera(sizeBackgroundP3D) ;
   stopCamera() ;
@@ -88,6 +90,7 @@ void draw() {
 
 /////MOUSE////
 //MOUSEPRESSED
+
 void mousePressed() {
   if(mouseButton == LEFT ) { 
     clickShortLeft[0] = true ; 
@@ -134,3 +137,4 @@ void keyReleased() {
   keyboardLongFalse() ;
 }
 //END KEYRELEASED
+

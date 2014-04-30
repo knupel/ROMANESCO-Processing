@@ -1,7 +1,8 @@
-RRRRomanescoRRRR*
+ROMANESCO ROMANESCO*
 Generative Live Art Application/
 by Stanislas Marçais/
 make with Processing for the Processing users/
+Romanesco is a Free Software/
 show your creative code freely*
 
 Romanesco Project/
@@ -13,11 +14,13 @@ show your creative code freely*
 Romanesco Project/
 Generative Live Art Application/
 by Stanislas Marçais/
+Romanesco is a Free Software/
 make with Processing for the Processing users/
 show your creative code freely*
 
 Romanesco Project/
 Generative Live Art Application/
 by Stanislas Marçais/
+Romanesco is a Open Source/
 make with Processing for the Processing users/
 show your creative code freely*

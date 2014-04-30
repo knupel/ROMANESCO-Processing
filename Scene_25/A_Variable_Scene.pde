@@ -35,7 +35,7 @@ void initDraw() {
   rectMode (CORNER) ; 
   if(mavericks && fullScreen) sketchPosition(whichScreen) ;
   //load text raw for the different object
-  importText(sketchPath("")+"karaoke.txt") ;
+  importText(preferencesPath+"karaoke/karaoke.txt") ;
   splitText() ;
 }
 
