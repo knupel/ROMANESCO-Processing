@@ -15,7 +15,6 @@ void draw() {
   structureDraw() ;
   interfaceDraw() ;
   sendOSCdraw() ;
-
 }
 
 

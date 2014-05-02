@@ -1,6 +1,6 @@
 // HIGH VAR///////////////////////
 // GLOBAL SETTING ////
-/////////////////////import java.net.*;
+
 import java.net.*;
 import java.io.*;
 import java.util.*;
@@ -32,6 +32,7 @@ import com.onformative.yahooweather.*;
 // DROP IMAGE
 import sojamo.drop.*;
 //CALLING class or library in Other Class, you must call the PApplet too in your class
+
 PApplet callingClass = this ;
 // use for the border of window (top and right)
 java.awt.Insets insets; 
@@ -151,7 +152,7 @@ float [] tempo, tempoBeat, tempoKick, tempoSnare, tempoHat ;
 
 //P3D OBJECT
 //position
-boolean startingPosition [] ;
+//boolean startingPosition [] ;
 PVector startingPos [] ;
 float [] P3DpositionX, P3DpositionY, P3DpositionZ ;
 //PVector P3Dposition [] ;
@@ -173,11 +174,12 @@ int wheel[] ;
 //boolean clear
 boolean clearList[] ;
 //motion object
-boolean [] motion, horizon  ;
+boolean [] motion, horizon, setting ;
 
 //main font for each object
 String [] pathFontTTF, pathFontVLW, pathFontObjTTF ;
 PFont font[]  ;
+
 
 
 
@@ -203,12 +205,10 @@ void createVar() {
   numButtonObj = numObj*10 ;
 
   createVarButton() ;
-  //createVarSlider() ;
   createVarSound() ;
   createVarP3D() ;
   createVarCursor() ;
   createVarObject() ;
-  
   createMiscVar() ;
   
   romanescoManager.initObj() ;
@@ -217,7 +217,8 @@ void createVar() {
 //init void
 // misc var
 void createMiscVar() {
-    //boolean clear
+   setting = new boolean [numObj]  ;
+  //boolean clear
    clearList = new boolean[numObj] ;
   //motion object
    motion = new boolean [numObj]  ;
@@ -249,7 +250,7 @@ void createVarCursor() {
 }
 // P3D
 void createVarP3D() {
-  startingPosition = new boolean[numObj] ;
+   //startingPosition = new boolean[numObj] ;
    startingPos = new PVector[numObj] ;
    P3DpositionX = new float[numObj] ;
    P3DpositionY = new float[numObj] ;
@@ -384,10 +385,6 @@ void updateVar() {
 
   }
 }
-
-
-
-
 
 
 //SHORTCUT VAR

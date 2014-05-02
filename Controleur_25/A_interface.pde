@@ -214,14 +214,18 @@ void groupZero(int pos) {
   suivitSlider[12] = 1 ; posWidthSlider[12] = mgSliderc2 ; posHeightSlider[12]= pos +30 ; longueurSlider[12] = 111 ; hauteurSlider[12] = sliderHeight ; ;
 }
 
+PVector posRelativeMainButton = new PVector (-8, -10) ;
+PVector posRelativeSettingButton = new PVector (-8,14) ;
+PVector posRelativeSoundButton = new PVector (-8,25) ;
+PVector posRelativeActionButton = new PVector (4,25) ;
 //////////////
 void groupOne( int posButton, int posSlider) {
   //position and area for the rollover
   for (int i = 1 ; i <= numGroup[1] ; i++ ) {
-    posWidthBOf[i*10+1] = posWidthBO +((i-1)*40)-8 ; posHeightBOf[i*10+1] = posButton -10  ; longueurBOf[i*10+1] = 20 ; hauteurBOf[i*10+1] = 20 ;  //main
-    posWidthBOf[i*10+2] = posWidthBO +((i-1)*40)-8 ; posHeightBOf[i*10+2] = posButton +12  ; longueurBOf[i*10+2] = 19 ; hauteurBOf[i*10+2] = 6 ; //setting
-    posWidthBOf[i*10+3] = posWidthBO +((i-1)*40)-8 ; posHeightBOf[i*10+3] = posButton +21  ; longueurBOf[i*10+3] = 10 ; hauteurBOf[i*10+3] = 6 ; //sound
-    posWidthBOf[i*10+4] = posWidthBO +((i-1)*40)+2 ; posHeightBOf[i*10+4] = posButton +21  ; longueurBOf[i*10+4] = 10 ; hauteurBOf[i*10+4] = 6 ; //action
+    posWidthBOf[i*10+1] = posWidthBO +((i-1)*40) +(int)posRelativeMainButton.x    ; posHeightBOf[i*10+1] = posButton +(int)posRelativeMainButton.y     ; longueurBOf[i*10+1] = 20 ; hauteurBOf[i*10+1] = 20 ;  //main
+    posWidthBOf[i*10+2] = posWidthBO +((i-1)*40) +(int)posRelativeSettingButton.x ; posHeightBOf[i*10+2] = posButton +(int)posRelativeSettingButton.y  ; longueurBOf[i*10+2] = 19 ; hauteurBOf[i*10+2] = 6 ; //setting
+    posWidthBOf[i*10+3] = posWidthBO +((i-1)*40) +(int)posRelativeSoundButton.x   ; posHeightBOf[i*10+3] = posButton +(int)posRelativeSoundButton.y    ; longueurBOf[i*10+3] = 10 ; hauteurBOf[i*10+3] = 6 ; //sound
+    posWidthBOf[i*10+4] = posWidthBO +((i-1)*40) +(int)posRelativeActionButton.x  ; posHeightBOf[i*10+4] = posButton +(int)posRelativeActionButton.y   ; longueurBOf[i*10+4] = 10 ; hauteurBOf[i*10+4] = 6 ; //action
   }
 
   // where the controleur must display the slider
@@ -235,10 +239,10 @@ void groupOne( int posButton, int posSlider) {
 //////////////////
 void groupTwo(int posButton, int posSlider) {
   for (int i = 1 ; i <= numGroup[2] ; i++ ) {
-    posWidthBTf[i*10+1] = posWidthBT +((i-1)*40)-8 ; posHeightBTf[i*10+1] = posButton -10  ; longueurBTf[i*10+1] = 20 ; hauteurBTf[i*10+1] = 20 ; //main
-    posWidthBTf[i*10+2] = posWidthBT +((i-1)*40)-8 ; posHeightBTf[i*10+2] = posButton +12  ; longueurBTf[i*10+2] = 19 ; hauteurBTf[i*10+2] = 6 ; //setting
-    posWidthBTf[i*10+3] = posWidthBT +((i-1)*40)-8 ; posHeightBTf[i*10+3] = posButton +21  ; longueurBTf[i*10+3] = 10 ; hauteurBTf[i*10+3] = 6 ; //sound
-    posWidthBTf[i*10+4] = posWidthBT +((i-1)*40)+2 ; posHeightBTf[i*10+4] = posButton +21  ; longueurBTf[i*10+4] = 10 ; hauteurBTf[i*10+4] = 6 ; //action
+    posWidthBTf[i*10+1] = posWidthBT +((i-1)*40) +(int)posRelativeMainButton.x    ; posHeightBTf[i*10+1] = posButton +(int)posRelativeMainButton.y     ; longueurBTf[i*10+1] = 20 ; hauteurBTf[i*10+1] = 20 ; //main
+    posWidthBTf[i*10+2] = posWidthBT +((i-1)*40) +(int)posRelativeSettingButton.x ; posHeightBTf[i*10+2] = posButton +(int)posRelativeSettingButton.y  ; longueurBTf[i*10+2] = 19 ; hauteurBTf[i*10+2] = 6 ; //setting
+    posWidthBTf[i*10+3] = posWidthBT +((i-1)*40) +(int)posRelativeSoundButton.x   ; posHeightBTf[i*10+3] = posButton +(int)posRelativeSoundButton.y    ; longueurBTf[i*10+3] = 10 ; hauteurBTf[i*10+3] = 6 ; //sound
+    posWidthBTf[i*10+4] = posWidthBT +((i-1)*40) +(int)posRelativeActionButton.x  ; posHeightBTf[i*10+4] = posButton +(int)posRelativeActionButton.y   ; longueurBTf[i*10+4] = 10 ; hauteurBTf[i*10+4] = 6 ; //action
   }
   // where the controle must display the slider
   for( int i = 0 ; i < sliderByColumn ; i++ ) {
@@ -252,10 +256,10 @@ void groupTwo(int posButton, int posSlider) {
 void groupThree(int posButton, int posSlider) {
   //paramètre habillage couleur du bouton cercle BTY
   for (int i = 1 ; i <= numGroup[3] ; i++ ) {
-    posWidthBTYf[i*10+1] = posWidthBTY +((i-1)*40)-8 ; posHeightBTYf[i*10+1] = posButton -10  ; longueurBTYf[i*10+1] = 20 ; hauteurBTYf[i*10+1] = 20 ; //main
-    posWidthBTYf[i*10+2] = posWidthBTY +((i-1)*40)-8 ; posHeightBTYf[i*10+2] = posButton +12  ; longueurBTYf[i*10+2] = 19 ; hauteurBTYf[i*10+2] = 6 ; //setting
-    posWidthBTYf[i*10+3] = posWidthBTY +((i-1)*40)-8 ; posHeightBTYf[i*10+3] = posButton +21  ; longueurBTYf[i*10+3] = 10 ; hauteurBTYf[i*10+3] = 6 ; //sound
-    posWidthBTYf[i*10+4] = posWidthBTY +((i-1)*40)+2 ; posHeightBTYf[i*10+4] = posButton +21  ; longueurBTYf[i*10+4] = 10 ; hauteurBTYf[i*10+4] = 6 ; //action
+    posWidthBTYf[i*10+1] = posWidthBTY +((i-1)*40) +(int)posRelativeMainButton.x    ; posHeightBTYf[i*10+1] = posButton +(int)posRelativeMainButton.y     ; longueurBTYf[i*10+1] = 20 ; hauteurBTYf[i*10+1] = 20 ; //main
+    posWidthBTYf[i*10+2] = posWidthBTY +((i-1)*40) +(int)posRelativeSettingButton.x ; posHeightBTYf[i*10+2] = posButton +(int)posRelativeSettingButton.y  ; longueurBTYf[i*10+2] = 19 ; hauteurBTYf[i*10+2] = 6 ; //setting
+    posWidthBTYf[i*10+3] = posWidthBTY +((i-1)*40) +(int)posRelativeSoundButton.x   ; posHeightBTYf[i*10+3] = posButton +(int)posRelativeSoundButton.y    ; longueurBTYf[i*10+3] = 10 ; hauteurBTYf[i*10+3] = 6 ; //sound
+    posWidthBTYf[i*10+4] = posWidthBTY +((i-1)*40) +(int)posRelativeActionButton.x  ; posHeightBTYf[i*10+4] = posButton +(int)posRelativeActionButton.y   ; longueurBTYf[i*10+4] = 10 ; hauteurBTYf[i*10+4] = 6 ; //action
   }
   
   // where the controleur must display the slider
@@ -918,6 +922,7 @@ void dropdownDraw() {
 
 // SHADER Background
 void dropdownShaderBG() {
+  
   dropdownShaderBG.dropdownUpdate(FuturaStencil_10, textInterface);
   if (dropdownOpen) dropdownActivityCount = +1 ;
   margeAroundDropdown = sizeDropdownFont.y  ;
@@ -928,11 +933,15 @@ void dropdownShaderBG() {
   newPosDropdown = new PVector (posDropdownShaderBG.x -margeAroundDropdown, posDropdownShaderBG.y) ;
   if (!insideRect(newPosDropdown, totalSizeDropdown)) dropdownShaderBG.locked = false ;
   // display the selection
+  
   if(!dropdownShaderBG.locked) {
+    if (dropdownShaderBG.getSelection() != 0 ) fill(vertFonce) ; else fill(rougeFonce) ;
     textFont(FuturaStencil_10) ;
     EtatShaderBG = dropdownShaderBG.getSelection() ;
     text(shaderBackgroundName[EtatShaderBG], posDropdownShaderBG.x +3 , posDropdownShaderBG.y +22) ;
-    if (dropdownShaderBG.getSelection() != 0 ) text("by " +shaderBackgroundAuthor[dropdownShaderBG.getSelection()], posDropdownShaderBG.x +3 , posDropdownShaderBG.y +32) ;
+    if (dropdownShaderBG.getSelection() != 0 ) {
+      text("by " +shaderBackgroundAuthor[dropdownShaderBG.getSelection()], posDropdownShaderBG.x +3 , posDropdownShaderBG.y +32) ;
+    } 
   }
 }
 

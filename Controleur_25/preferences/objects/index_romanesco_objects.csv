@@ -2,20 +2,21 @@ Library Order,Name,ID,Group,Version,Author,Class name,Pack,Render,Mode
 1,The Abbyss,2,1,Beta 2.0,Andreas Gysin,Abbyss,Base,P3D,1 Box Fish/2 Cubus/3 Floater/4 Radio/5 Worm/6 Sea Fly/7 Breather/8 Spider/9 Manta/10 Father/11 Super Nova
 2,Arbre,6,1,Alpha 2.0,Stan le Punk,ArbreRomanesco,Base,classic,1 Trait/2 Disc/3 Disc trait/4 Rectangle/5 Rectangle trait/6 Box
 3,ATOM,3,1,Alpha 1.1,Stan le Punk,Atome,Base,P3D,1 Schema/2 Cloud/3 Title/4 Font
-4,Balise,8,1,Alpha 2.0,Stan le Punk,BaliseRomanesco,Base,classic,1 Disc/2 Rectangle
+4,Balise,8,1,Alpha 1.2,Stan le Punk,BaliseRomanesco,Base,P3D,1 Disc/2 Rectangle/3 Box/4 Box Snake
 5,Boxolyzer,13,2,Alpha 1.0,My name is Nobody,Boxolyzer,Base,P3D,1 Classic/2 Circle
 6,Damier,11,2,Alpha 2.1,Stan le Punk,Damier,Base,classic,1 Rectangle/2 Ellipse/3 Box
 7,Escargot,16,2,Alpha 2.1,Stan le Punk,Escargot,Base,P3D,1 Original/2 Raw/3 Point/4 Ellipse/5 Rectangle/6 Box/7 Cross/8 SVG/9 Vitraux
 8,Galaxie,15,2,Alpha 2.0,Stan le Punk,Galaxie,Base,classic,1 Point/2 Ellipse/3 Rectangle
-9,A CERCLE,18,3,Alpha 2.0,Stan Le Punk,Horloge,Base,classic,1 Ellipse Clock 12/2 Ellipse Clock 24/3 Line Clock 12/4 Line Clock 24/5 minutes/6 secondes
-10,Karaoke,20,3,Alpha 2.0,Stan LePunk,Karaoke,Base,classic,
-11,Les Vieux,1,1,Alpha 2.1,Stan le Punk,LesVieux,Base,classic,1 Triangle/2 Courbe
-12,Letter,17,3,Alpha 1.1,Stan le Punk,Letter,Base,classic,
-13,Lignes,10,2,Alpha 2.1,Stan le Punk,Lignes,Base,classic,
-14,Mes Amis,9,1,Alpha 1.0,Stan le Punk,MesAmis,Base,P3D,1 Lines/2 Triangles
-15,RSS,19,3,Alpha 2.0,Stan Le Punk,RSS,Base,classic,
-16,Rideau,12,2,Alpha 2.0,Stan le Punk,Rideau,Base,classic,1 Rectangle/2 Box
-17,Soleil,7,1,Alpha 1.0,Stan le Punk,Soleil,Base,P3D,1 Beam/2 Lie'Bro'One/3 Lie'Bro'Two/4 Lie'Bro Noisy
-18,Spirale,5,1,Alpha 2.1,Stan le Punk,SpiraleRomanesco,Base,P3D,1 Rectangle/2 Ellipse/3 Box
-19,Spray,4,1,Alpha 2.0,Stan le Punk,Spray,Base,P3D,1 Spray/2 Star
-20,Webcam,14,2,Alpha 2.0,Stan le Punk,Webcam,Base,classic,1 classic/2 monochrome
+9,Hexagone,17,2,Alpha 1.1,Amnon Owed,Hexagone,Base,P3D,
+10,A CERCLE,19,3,Alpha 2.0,Stan Le Punk,Horloge,Base,classic,1 Ellipse Clock 12/2 Ellipse Clock 24/3 Line Clock 12/4 Line Clock 24/5 minutes/6 secondes
+11,Karaoke,21,3,Alpha 2.0,Stan LePunk,Karaoke,Base,classic,
+12,Les Vieux,1,1,Alpha 2.1,Stan le Punk,LesVieux,Base,classic,1 Triangle/2 Courbe
+13,Letter,18,3,Alpha 1.1,Stan le Punk,Letter,Base,classic,
+14,Lignes,10,2,Alpha 2.1,Stan le Punk,Lignes,Base,classic,
+15,Mes Amis,9,1,Alpha 1.0,Stan le Punk,MesAmis,Base,P3D,1 Lines/2 Triangles
+16,RSS,20,3,Alpha 2.0,Stan Le Punk,RSS,Base,classic,
+17,Rideau,12,2,Alpha 2.0,Stan le Punk,Rideau,Base,classic,1 Rectangle/2 Box
+18,Soleil,7,1,Alpha 1.0,Stan le Punk,Soleil,Base,P3D,1 Beam/2 Lie'Bro'One/3 Lie'Bro'Two/4 Lie'Bro Noisy
+19,Spirale,5,1,Alpha 2.1,Stan le Punk,SpiraleRomanesco,Base,P3D,1 Rectangle/2 Ellipse/3 Box
+20,Spray,4,1,Alpha 2.0,Stan le Punk,Spray,Base,P3D,1 Spray/2 Star
+21,Webcam,14,2,Alpha 2.0,Stan le Punk,Webcam,Base,classic,1 classic/2 monochrome

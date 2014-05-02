@@ -771,10 +771,8 @@ void repere(int size) {
 
 //repere camera
 void repereCamera(PVector size) {
-  if(modeP3D && displayInfo3D )  { 
-    size.x = size.x *.1 ;
-    size.y = size.y *.1 ;
-    println("un") ;
+  if(modeP3D && displayInfo3D )  {
+    PVector newSize =  PVector.mult(size,.1) ;
     color xColor = rouge ;
     color yColor = vert ;
     color zColor = jaune ;
@@ -790,7 +788,7 @@ void repereCamera(PVector size) {
     fill(xColor) ;
     text("X LINE XXX", posTxt,-posTxt) ;
     stroke(xColor) ; noFill() ;
-    line(-size.x,0,0,size.x,0,0) ;
+    line(-newSize.x,0,0,newSize.x,0,0) ;
 
     // Y LINE
     fill(yColor) ;
@@ -799,7 +797,7 @@ void repereCamera(PVector size) {
     text("Y LINE YYY", posTxt,-posTxt) ;
     popMatrix() ;
     stroke(yColor) ; noFill() ;
-    line(0,-size.y,0,0,size.y,0) ;
+    line(0,-newSize.y,0,0,newSize.y,0) ;
     
     // Z LINE
     fill(zColor) ;
@@ -808,13 +806,13 @@ void repereCamera(PVector size) {
     text("Z LINE ZZZ", posTxt,-posTxt) ;
     popMatrix() ;
     stroke(zColor) ; noFill() ;
-    line(0,0,-size.z,0,0,size.z) ;
+    line(0,0,-newSize.z,0,0,newSize.z) ;
   }
 }
 
 
 void grid(PVector s) {
-  strokeWeight(.1) ;
+  strokeWeight(.2) ;
   noFill() ;
   stroke(bleu) ;
   int sizeX = (int)s.z ;

@@ -147,19 +147,14 @@ void P3DmoveObj(int ID) {
 
 //starting position
 void startPosition(int ID, int x, int y, int z) {
-  //P3Dposition[ID] = new PVector(width/2 -x, height/2 -y, z) ;
   P3DpositionX[ID] = x -(width/2) ;
   P3DpositionY[ID] = y -(height/2) ;
   P3DpositionZ[ID] = z ;
   mouse[ID] = new PVector (x,y) ;
-  // startingPosition[ID] = false ;
 }
 void startPosition(int ID, int x, int y) {
-  //P3Dposition[ID] = new PVector(width/2 -x, height/2 -y, z) ;
   P3DpositionX[ID] = x -(width/2) ;
   P3DpositionY[ID] = y -(height/2);
-  // mouse[ID] = new PVector (x,y) ;
-  // startingPosition[ID] = false ;
 }
 
 

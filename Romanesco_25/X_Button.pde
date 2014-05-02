@@ -63,8 +63,26 @@ class Button
   
   void displayButton() {
     String textResult ;
-    
     if(OnOff) {
+      textResult = textOn ;
+      if(insideRect()) fill(On_In) ; else fill (On_Out ) ;
+    } else {
+      textResult = textOff ;
+      if(insideRect()) fill(Off_In) ; else fill (Off_Out ) ;
+    }
+      
+    if (textOff != null || textOn != null ) {
+      textSize(size.y) ;
+      text(textResult, pos.x, pos.y + size.y ) ; 
+    } else {
+      rect(pos.x, pos.y, size.x, size.y) ;
+    }
+  }
+  
+  //indicate if this one is on or off
+  void displayButton(boolean off) {
+    String textResult ;
+    if(OnOff || off) {
       textResult = textOn ;
       if(insideRect()) fill(On_In) ; else fill (On_Out ) ;
     } else {
@@ -112,11 +130,9 @@ class Button
   }
  
   //MOUSEPRESSED
-  void mouseClic() 
-  {
-    //rect
+  void mouseClic() {
     if ( insideRect() ) {
-      if ( OnOff ) OnOff = false ; else OnOff = true ;
+      if (OnOff) OnOff = false ; else OnOff = true ;
     }
   } 
   

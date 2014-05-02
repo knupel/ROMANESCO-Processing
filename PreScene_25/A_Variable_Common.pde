@@ -152,7 +152,7 @@ float [] tempo, tempoBeat, tempoKick, tempoSnare, tempoHat ;
 
 //P3D OBJECT
 //position
-boolean startingPosition [] ;
+//boolean startingPosition [] ;
 PVector startingPos [] ;
 float [] P3DpositionX, P3DpositionY, P3DpositionZ ;
 //PVector P3Dposition [] ;
@@ -174,7 +174,7 @@ int wheel[] ;
 //boolean clear
 boolean clearList[] ;
 //motion object
-boolean [] motion, horizon  ;
+boolean [] motion, horizon, setting ;
 
 //main font for each object
 String [] pathFontTTF, pathFontVLW, pathFontObjTTF ;
@@ -217,7 +217,8 @@ void createVar() {
 //init void
 // misc var
 void createMiscVar() {
-    //boolean clear
+   setting = new boolean [numObj]  ;
+  //boolean clear
    clearList = new boolean[numObj] ;
   //motion object
    motion = new boolean [numObj]  ;
@@ -249,7 +250,7 @@ void createVarCursor() {
 }
 // P3D
 void createVarP3D() {
-  startingPosition = new boolean[numObj] ;
+   //startingPosition = new boolean[numObj] ;
    startingPos = new PVector[numObj] ;
    P3DpositionX = new float[numObj] ;
    P3DpositionY = new float[numObj] ;

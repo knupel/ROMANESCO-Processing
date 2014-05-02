@@ -1,7 +1,6 @@
-  ///////////////////////////////////////////////////////////////
- // Romanesco Préscène Alpha 0.25 work with Processing 211  ////
-///////////////////////////////////////////////////////////////
-// romanesco release, change this number to open the app
+  ////////////////////////////////////////////////////////////////
+ // Romanesco Préscène Alpha 0.25 built with Processing 212  ////
+////////////////////////////////////////////////////////////////
 String release =("25") ;
 boolean test = false ;
 
@@ -39,6 +38,7 @@ Button buttonStart ;
 
 void setup() {
   diplaySetup() ;
+  OSMavericksCheck() ;
   colorSetup() ;
   structureSetup() ;
   loadSetup() ;
@@ -77,18 +77,17 @@ void mousePressed() {
   
   //button start
   buttonStart.mouseClic() ;
-  if(buttonStart.OnOff ) openApp(openScene) ;
+  if(buttonStart.OnOff ) {
+    saveProperty() ;
+    openApp(openScene) ;
+  }
   buttonStart.OnOff = false ;
 }
 
 
 //MOUSELEASED
 void mouseReleased() {
-  //which Screen display
   if(buttonFullscreen.OnOff) whichScreenReleased() ;
-  
-  // setTable() ;
-  saveProperty() ;
 }
 
 

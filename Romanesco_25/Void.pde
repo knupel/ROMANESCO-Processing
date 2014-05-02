@@ -102,15 +102,15 @@ void displayDraw() {
   textFont(FuturaStencil,20);
 }
 
-boolean MiroirSetting ;
+boolean MiroirSetting, SceneSetting ;
 
 void launcherDraw() {
   text("ROMANESCO alpha "+release, 10.0, 30.0);
   text("Choice                or ", 10.0, 60.0);
   choiceMiroirOrScene() ;
-  if (buttonScene.OnOff || !MiroirSetting ) launchScene() ;
+  //fork choice menu
+  if (buttonScene.OnOff || SceneSetting) launchScene() ;
   if (buttonMiroir.OnOff || MiroirSetting) launchMiroir() ;
-  
 }
 // END DRAW
 ///////////
@@ -122,13 +122,14 @@ void launcherDraw() {
 //ANNEXE
 ////////
 void choiceMiroirOrScene() {
-  buttonScene.displayButton() ;
-  buttonMiroir.displayButton() ;
+  buttonScene.displayButton(SceneSetting) ;
+  buttonMiroir.displayButton(MiroirSetting) ;
   if(MiroirSetting) whichAppOpeningTheScene =("true") ; else whichAppOpeningTheScene =("false") ;
 }
 // Scene launcher
 void launchScene() {
   MiroirSetting = false ;
+  SceneSetting = true ;
   //button to choice between the fullscreen or window display
   buttonWindow.displayButton() ;
   buttonFullscreen.displayButton() ;
@@ -158,6 +159,7 @@ void launchScene() {
 void launchMiroir() {
   openScene = false ;
   MiroirSetting = true ;
+  SceneSetting = false ;
   screen = ("false") ;
   buttonWindow.OnOff = true ;
   addressLocal(10,88) ;
@@ -168,7 +170,7 @@ void launchMiroir() {
 
 // LAUNCH APP
 void launchApp() {
-  if ( buttonWhichScreenOnOff > 0 && buttonFullscreen.OnOff ) {
+  if (buttonWhichScreenOnOff > 0 && buttonFullscreen.OnOff) {
     buttonStart.displayButton() ;
   //window mode the user must choice a window size  
   } else if ( buttonWindow.OnOff && heightSlider>1 & widthSlider>1 ) {
@@ -181,19 +183,14 @@ void launchApp() {
 
 
 // OPEN APP
-// int timeToLaunch, timeRepere ;
-// boolean openScene ;
 void openApp(boolean openTheScene) {
   if(openTheScene) open(pathScene); else open(pathMiroir) ;
-  //timeRepere = (hour() *60 *60 )+(minute() *60) +second() ;
-  //timeToLaunch = timeRepere +5 ;
-  // openScene = true ;
 }
 
 
 
 
-
+// SAVE DISPLAY PROPERTY
 Table sceneProperty;
 String pathScenePropertySetting = sketchPath("")+"sources/preferences/sceneProperty.csv" ;
 
@@ -218,18 +215,19 @@ void saveProperty() {
   sceneProperty.addColumn(colHeight);
   
   TableRow newRow = sceneProperty.addRow();
-  if (heightSlider>1 & widthSlider>1 ) {
-    newRow.setString(colOne, screen);
-    newRow.setInt(colTwo, IDscreenSelected());
-    newRow.setString(colThree, "true");
-    newRow.setString(colFour, "true");
-    newRow.setInt(colFive, standardSizeWidth[widthSlider-1]);
-    newRow.setInt(colSix, standardSizeHeight[heightSlider -1]);
-    newRow.setString(colSeven, "P3D");
-    newRow.setString(colHeight, whichAppOpeningTheScene);
-    
-    saveTable(sceneProperty, pathScenePropertySetting);
-  }
+  int whichScreen = 0 ; 
+  if(mavericks) whichScreen = IDscreenSelected() -1 ; else whichScreen = IDscreenSelected() ;
+  
+  newRow.setString(colOne, screen);
+  newRow.setInt(colTwo, whichScreen);
+  newRow.setString(colThree, "true");
+  newRow.setString(colFour, "true");
+  newRow.setInt(colFive, standardSizeWidth[widthSlider-1]);
+  newRow.setInt(colSix, standardSizeHeight[heightSlider -1]);
+  newRow.setString(colSeven, "P3D");
+  newRow.setString(colHeight, whichAppOpeningTheScene);
+  //
+  saveTable(sceneProperty, pathScenePropertySetting);
 }
 // END SAVE PROPERTY
 ////////////////////
@@ -241,11 +239,9 @@ void saveProperty() {
 // ADDRESS IP
 void addressLocal(int x, int y) {
   fill(orange) ;
-  // textFont(SansSerif10, 10) ;
   try {
-    //textSize(25) ;
-  text("local address", x,y ) ;
-  text (java.net.InetAddress.getLocalHost().getHostAddress(), x+188,y) ;
+    text("local address", x,y ) ;
+    text (java.net.InetAddress.getLocalHost().getHostAddress(), x+188,y) ;
   }
   catch(Exception e) {}
 }
@@ -336,4 +332,15 @@ int IDscreenSelected() {
     if (whichScreenButton[i].OnOff == true ) IDscreen = i+1 ;
   }
   return IDscreen ;
+}
+
+
+//check OS
+boolean mavericks = false ;
+void OSMavericksCheck() {
+  // check OSX version
+  String OS = System.getProperty("os.version") ;
+  OS  = OS.replace(".","");
+  int OSversion = Integer.parseInt(OS);
+  if(OSversion >= 1090  ) mavericks = true ; else mavericks = false ;
 }

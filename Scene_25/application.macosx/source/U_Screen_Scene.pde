@@ -50,7 +50,9 @@ void loadPropertyScene() {
   sceneHeight =  row.getInt("height")  ;
   //SYPHON
   if(row.getString("miroir").equals("TRUE") || row.getString("miroir").equals("true")) sendToSyphon = true ; else sendToSyphon = false ;
+  if(fullScreen) text("fullScreen", 10, 20 ) ;
   
+
   // type of renderer
   if      (row.getString("render").equals("P2D") ) { displayMode = ("P2D") ; modeP2D = true ; }
   else if (row.getString("render").equals("P3D") ) { displayMode = ("P3D") ; modeP3D = true ; }
