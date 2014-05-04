@@ -99,7 +99,7 @@ travelling(PVector targetPos) ; // the camera go to a specific point in the scen
 
 
 //OBJECT
-boolean startingPosition[IDobj] // to check if it's a first use of the object, work with the void startPosition(int,int,int,int)
+boolean setting[IDobj] to block the setting at the beggining and when you came back to the button setting to don't go immediatly on the value slider...not finish in progress
 void startPosition(int IDobj, int x, int y, int z) // give the starting position of the object on the scene, WRITE IN THE void display()
 
 
@@ -308,6 +308,11 @@ float mapStartSmooth(float value, float sourceMin, float sourceMax, float target
 float mapEndSmooth(float value, float sourceMin, float sourceMax, float targetMin, float targetMax, int level) // the end of the curve is smoothed by the level
 
 float mapEndStartSmooth(float value, float sourceMin, float sourceMax, float targetMin, float targetMax, int level) // the begin and the end of the curve is smoothed by the level
+
+
+// UTIL PVECTOR
+PVector gotoTarget(PVector origin,  PVector finish, float speed) 
+
 
 
 

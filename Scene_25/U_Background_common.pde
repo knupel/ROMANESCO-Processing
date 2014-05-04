@@ -48,12 +48,16 @@ void backgroundClassic(color c) {
 //BACKGROUND
 ////////////
 void backgroundP3D(color c) {
-  fill(c) ;
-  noStroke() ;
-  pushMatrix() ;
-  translate(-sizeBackgroundP3D.x *.5,-sizeBackgroundP3D.y *.5 , -sizeBackgroundP3D.z) ;
-  rect(0,0, sizeBackgroundP3D.x, sizeBackgroundP3D.y) ;
-  popMatrix() ;
+  if(alpha(c) < 90 ) {
+    fill(c) ;
+    noStroke() ;
+    pushMatrix() ;
+    translate(-sizeBackgroundP3D.x *.5,-sizeBackgroundP3D.y *.5 , -sizeBackgroundP3D.z) ;
+    rect(0,0, sizeBackgroundP3D.x, sizeBackgroundP3D.y) ;
+    popMatrix() ;
+  } else {
+    background(c) ;
+  }
 }
 
 

@@ -85,26 +85,35 @@ void curtain() {
 
 //DRAW
 int speedWheel = 5 ;
+
 void cursorDraw() {
-  //cursorRef = new PVector(mouseX, mouseY) ;
-    //mousePressed
+  //mousePressed
   if( clickShortLeft[0] || clickShortRight[0] || clickLongLeft[0] || clickLongRight[0] ) mousepressed[0] = true ; else mousepressed[0] = false ;
   //check the tablet
   pen[0] = new PVector (norm(tablet.getTiltX(),0,1), norm(tablet.getTiltY(),0,1), tablet.getPressure()) ;
+  
   //check the leapmotion
   if (!fingerCheck() && numFingers() > 1 ) {
     mouse[0] = new PVector(averagePosition(true).x, averagePosition(true).y, averagePosition(true).z ) ; 
   } else if (cursorRef.x != mouseX && cursorRef.y != mouseY) { // need the conditional to keep the cursor in position when the hand move from leapmotion field
-    mouse[0].x = mouseX ;
-    mouse[0].y = mouseY ;
+    mouse[0] = new PVector (mouseX, mouseY) ;
     pmouse[0] = new PVector(pmouseX, pmouseY) ;
     cursorRef = new PVector(mouseX, mouseY) ;
   }
+  
+  // security to reset the pmouse for start clean for the next rotation
+  if(!mousepressed[0]) {
+    if(pmouse[0].x != mouse[0].x || pmouse[0].y != mouse[0].y ) {
+     pmouse[0] = gotoTarget(pmouse[0],  mouse[0], .1) ;
+    }
+  } 
+
   //re-init the wheel value to be sure this one is stopped
   wheel[0] = 0 ;
   //re-init the mouse button for the short click
   clickShortLeft[0] = false ; 
   clickShortRight[0] = false ;
+  
   //why this line is here ????
   if (nextPrevious) nextPreviousInt = 1 ; else nextPreviousInt = 0 ;
 }

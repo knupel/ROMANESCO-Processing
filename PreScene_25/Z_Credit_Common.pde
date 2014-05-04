@@ -22,9 +22,10 @@ Mark webster and their workshop.
 
 
 Andreas Gysin for the creaturs from The Abyss project
+Amnon Owen for Hexagon Pattern
 Nicoptère and 0 to 1 algorithm concept
 
-Mais aussi,
-Agnes et le Crash Lab de Mains d'Œuvre à Saint-Ouen
-et biensur Ivan sans lequel je n'aurais pas connu Processing
+Also,
+Agnes and the Crash Lab de Mains d'Œuvre, Saint-Ouen, France ; for the learning workshop
+Ivan Jukanovic for the kickstarting !
 */

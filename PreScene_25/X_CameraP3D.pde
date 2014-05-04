@@ -27,7 +27,7 @@ PVector sizeBackgroundP3D  ;
 void P3DSetup() {
       
   if(modeP3D) {
-    sizeBackgroundP3D = new PVector(width *100, height *100, height *7) ;
+    sizeBackgroundP3D = new PVector(width *100, height *100, height *7.5) ;
     //CAMERA
     sceneCamera = new PVector (width/2 , height/2, 0) ;
     sceneCamera = new PVector (0,0,0) ;
@@ -65,6 +65,11 @@ void P3DSetup() {
 //final direction and oriention with object ID
 void P3Dmanipulation(int ID) {
   if(modeP3D) {
+    // perspective
+    float aspect = float(width)/float(height) ;
+    float fov = 1.0 ;
+    float cameraZ = (height/2.0) / tan(fov/2.0);
+    perspective(fov, aspect, cameraZ *.02, cameraZ*100.0);
     //position
     if (!clickLongLeft[0] )  P3DrefPos[0] = true ;
     P3DpositionX[ID] = P3Dposition(posManipulation[ID], ID).x ;
@@ -97,8 +102,8 @@ PVector P3Ddirection(PVector dir, PVector speed, int ID) {
     deltaObjDir.y = mouse[0].y -P3DdirectionMouseRef.y ;
     P3DtempObjDir = PVector.add(deltaObjDir, P3DdirectionObjRef[0] ) ;
     //rotation of the camera
-    dir.x += (pmouse[0].y-mouse[0].y) * speed.y;
-    dir.y += (pmouse[0].x-mouse[0].x) * -speed.x;
+    dir.x += (pmouse[0].y-mouse[0].y) *speed.y;
+    dir.y += (pmouse[0].x-mouse[0].x) *-speed.x;
     if(dir.x > 360 ) dir.x = 0 ;
     if(dir.x < 0  ) dir.x = 360 ;
     if(dir.y > 360 ) dir.y = 0 ; 
@@ -332,9 +337,9 @@ void travelling(PVector target) {
   gotoCameraPosition = true ;
   gotoCameraEye = true ;
 }
-
-
 //END INIT FOLLOW
+
+
 
 float speedX  ;
 float speedY  ;
@@ -345,12 +350,6 @@ PVector backEye() {
   if(gotoCameraEye) {
     if(currentDistToTarget > 2 ) {
       travellingPriority = true ;
-      /*
-      if(eye.x < 2 || eye.x > 358 ) if (eyeBackRef.x < 180 ) eye.x = map(currentDistToTarget,distFollowRef, 0,eyeBackRef.x, 0) ; else eye.x = map(currentDistToTarget,distFollowRef, 0,eyeBackRef.x, 360) ;
-      if(eye.y < 2 || eye.y > 358 ) if (eyeBackRef.y < 180 ) eye.y = map(currentDistToTarget,distFollowRef, 0,eyeBackRef.y, 0) ; else eye.y = map(currentDistToTarget,distFollowRef, 0,eyeBackRef.y, 360) ;
-      // to stop the calcul
-      if((eye.x < 2 || eye.x > 358 ) && (eye.y < 2 || eye.y > 358 )) gotoCameraEye = false ;
-      */
       if (eyeBackRef.x < 180 ) eye.x = map(currentDistToTarget,distFollowRef, 0,eyeBackRef.x, 0) ; else eye.x = map(currentDistToTarget,distFollowRef, 0,eyeBackRef.x, 360) ;
       if (eyeBackRef.y < 180 ) eye.y = map(currentDistToTarget,distFollowRef, 0,eyeBackRef.y, 0) ; else eye.y = map(currentDistToTarget,distFollowRef, 0,eyeBackRef.y, 360) ;
       //stop the calcul
@@ -367,8 +366,6 @@ PVector backEye() {
       float ratioY = eyeBackRef.y / frameRate *speedBackEye ;
       speedX += ratioX ;
       speedY += ratioY ;
-      //speedX += .5 ;
-      //speedY += .5 ;
       if (eyeBackRef.x < 180 && !travellingPriority ) eye.x = eyeBackRef.x -speedX ; else eye.x  = eyeBackRef.x +speedX ;
       if (eyeBackRef.y < 180 && !travellingPriority ) eye.y = eyeBackRef.y -speedY ; else eye.y  = eyeBackRef.y +speedY ;
       // to stop the calcul
@@ -383,27 +380,12 @@ PVector backEye() {
       }
     }
   } 
-  
-  //reset the value and the boolean for a next move
-  /*
-  if(currentDistToTarget < 5 && (eye.x < 2 || eye.x > 358 )  && (eye.y < 2 || eye.y > 358 )) {
-    gotoCameraEye = false ;
-  */
   return eye ;
 }
 
 
 //MAIN VOID
 PVector speedByAxes = new PVector(0,0,0) ;
-//
-/*
-void cameraGoto(PVector newPos, float speed) {
-  cameraSpeedMove = speed ;
-  newDistanceToTarget = new PVector(0,0,0) ;
-  distToCamera = PVector.sub(sceneCamera, newPos) ;
-  speedByAxes = PVector.div(distToCamera, 1.0 / speed) ;
-}
-*/
 //calculate new position to go at the new target camera
 PVector distToTargetUpdated = new PVector (0,0,0) ;
 float currentDistToTarget = 0 ;
@@ -517,24 +499,8 @@ void lightSetup() {
 void lightDraw() {
   if(modeP3D) {
     //change color of the directional light
-    //PVector lightValue = new PVector (map(valueSliderGlobal[6],0,100,0,360), valueSliderGlobal[7], valueSliderGlobal[8]) ;
     colorLight = new PVector (map(valueSlider[0][6],0,100,0,360), valueSlider[0][7], valueSlider[0][8]) ;
     colorAmbient = new PVector (map(valueSlider[0][9],0,100,0,360), valueSlider[0][10], valueSlider[0][11]) ;
-
-    /*
-    colorLight.x += speedColorLight.x ;
-    colorLight.y += speedColorLight.y ;
-    colorLight.z += speedColorLight.z ;
-  
-    if (colorLight.x > 360 ) colorLight.x = 0 ;
-    if (colorLight.y > 100 ) colorLight.y = 0 ;
-    if (colorLight.z > 100 ) colorLight.z = 0 ;
-
-    colorAmbianceLight.x = map(mouseX, 0,width,0,360) ;
-    colorAmbianceLight.y = map(mouseY, 0,height,0,100) ;
-    if (mousePressed) colorAmbianceLight.z = map(mouseY, 0,height,0,100) ; else colorAmbianceLight.z = map(mouseX, 0,width,0,100) ;
-    */
-    
     // change the direction of the light
     dirLight.x = map(mouseX,0,width, -1,1) ;
     dirLight.y = map(mouseY,0,height, -1,1) ;

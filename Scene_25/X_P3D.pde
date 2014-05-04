@@ -26,7 +26,7 @@ PVector sizeBackgroundP3D  ;
 //SETUP
 void P3DSetup() {
   if(modeP3D) {
-    sizeBackgroundP3D = new PVector(width *100, height *100, height *7) ;
+    sizeBackgroundP3D = new PVector(width *100, height *100, height *7.5) ;
     //CAMERA
     sceneCamera = new PVector (width/2 , height/2, 0) ;
     sceneCamera = new PVector (0,0,0) ;
@@ -64,6 +64,11 @@ void P3DSetup() {
 //final direction and oriention with object ID
 void P3Dmanipulation(int ID) {
   if(modeP3D) {
+    // perspective
+    float aspect = float(width)/float(height) ;
+    float fov = 1.0 ;
+    float cameraZ = (height/2.0) / tan(fov/2.0);
+    perspective(fov, aspect, cameraZ *.02, cameraZ*100.0);
     //position
     if (!clickLongLeft[0] )  P3DrefPos[0] = true ;
     P3DpositionX[ID] = P3Dposition(posManipulation[ID], ID).x ;

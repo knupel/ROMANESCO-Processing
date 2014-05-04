@@ -11,9 +11,11 @@ boolean testRomanesco = false ;
 boolean presceneOnly = true ;
 
 // I don't remember why there is the boolean 
+/*
 boolean Controleur = true ;
 boolean Scene = true ;
 boolean Miroir = true ;
+*/
 
 
 
@@ -32,23 +34,21 @@ boolean youCanSendToMiroir = true ;
 void setup() {
   romanescoSetup() ;
   createVar() ;
-  
   displaySetup(60) ; // the int value is the frameRate
-
   colorSetup() ;
+  
+  //MISC SETUP
   // dropping image from folder on the Scène
   drop = new SDrop(this);
+  // GEOMERATIVE
+  RG.init(this);
   
   fontSetup() ;
- // GEOMERATIVE
- RG.init(this);
-
   soundSetup() ;
   varObjectSetup() ; // the varObject setup of the Scene is more simple
   OSCSetup() ;
   meteoSetup() ;
   P3DSetup() ;
-  
 }
 
 
@@ -73,7 +73,8 @@ void draw() {
   //annexe
   info() ;
   curtain() ; 
-
+  
+  // misc
   cursorDraw() ;
   keyboardFalse() ;
   opening() ;
