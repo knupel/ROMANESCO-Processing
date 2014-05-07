@@ -664,38 +664,7 @@ void whichFont( int whichFont)  {
 //END FONT
 
 
-//TEXT
-String importRaw [] ;
-String  textRaw ;
-String [][] sentencesByChapter ;
 
-void importText(String path) {
-  importRaw = loadStrings(path) ;
-  textRaw = join(importRaw, "") ;
-}
-
-void splitText() {
-  String karaokeChapters [] = split(textRaw, "*") ;
-  
-  // find the quantity of chapter and sentences by chapter to create the final double array String
-  int numChapter = karaokeChapters.length ;
-  int maxSentencesByChapter = 0 ;  
-  for ( int i = 0 ; i < numChapter ; i++) {
-    String sentences [] = split(karaokeChapters[i], "/") ;
-    if ( sentences.length > maxSentencesByChapter ) maxSentencesByChapter = sentences.length ; 
-  }
-  //create the final double array string
-  sentencesByChapter = new String [numChapter][maxSentencesByChapter] ;
-  //put the sentences in the double String by chapter
-  for ( int i = 0 ; i < numChapter ; i++) {
-    String sentences [] = split(karaokeChapters[i], "/") ;
-    for ( int j = 0 ; j <  sentences.length ; j++) {
-      sentencesByChapter [i][j] = sentences[j] ;
-    }
-  }
-}
-// END TEXT
-//////////
 
 // END FONT and TEXT MANAGER
 ////////////////////////////

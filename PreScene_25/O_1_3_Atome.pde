@@ -180,7 +180,7 @@ class Atome extends SuperRomanesco {
     
 
     //CLEAR
-    if (emptyList(IDobj)) atomList.clear() ;
+    if (resetAction(IDobj)) atomList.clear() ;
     //ADD ATOM
     int speedReproduction = 4 ;
     if(action[IDobj] && nLongTouch && frameCount % speedReproduction == 0) atomAdd(giveNametoAtom()) ;

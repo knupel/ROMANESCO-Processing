@@ -1,6 +1,8 @@
-CREDIT AND THANKS
-
-
+/*
+Romanesco Project by Stanislas Marçais
+http://romanescoproject.wordpress.com/
+http://stanislas-marcais.blogspot.fr/ 
+*/
 
 /*
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -10,35 +12,20 @@ Big up and thanks to Laetitia, my wife for the support all night long, all weeks
 */
 
 /*
-Big Thanks too the Processing community :
-Mark webster and their workshop
-Andres Colubri for the sender Syphon
-Philho, Amnon… for the advices on the Forum, 
+Big Thanks too the Processing community : 
 Daniel Shiffman for the slider, 
 Marius Waltz for Reads RSS and Atom feeds, 
-
-And Naturally Casey Reas and Ben Fry for Processing himself.
-
-
+Philho for the advice on the Forum, 
+Andres Colubri for the sender Syphon
 adrock42 from the Forum Processing for the improvement of Syphon
-
-
-For the feedback, Ivan Jukanovic, Clément Seurat, Tim Soret, Nicolas Ticot.
-For the Traduction Dinh et Stéphanie Doan Van Bien, Lauren et Nicolas Thepot.
-
+Mark webster and their workshop.
 
 
 Andreas Gysin for the creaturs from The Abyss project
-Nicoptère and his 0 to 1 algorithm concept
+Amnon Owen for Hexagon Pattern
+Nicoptère and 0 to 1 algorithm concept
 
 Also,
-Agnès and le Crass Lab of Mains d'Œuvre - Saint-Ouen -
-Ivan for the Starting to Processing
-*/
-
-
-/*
-Romanesco Project by Stanislas Marçais
-http://romanescoproject.wordpress.com/
-http://stanislas-marcais.blogspot.fr/ 
+Agnes and the Crash Lab de Mains d'Œuvre, Saint-Ouen, France ; for the learning workshop
+Ivan Jukanovic for the kickstarting !
 */

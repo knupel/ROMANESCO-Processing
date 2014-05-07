@@ -66,7 +66,7 @@ class Spray extends SuperRomanesco {
       stroke(hue(p.colour), saturation(p.colour), brightness(p.colour), alpha(fillObj[IDobj]) );
       point(p.pos.x +jitterOne, p.pos.y +jitterTwo, p.pos.z +jitterThree) ;
     }
-    if (emptyList(IDobj)) starList.clear() ;
+    if (resetAction(IDobj)) starList.clear() ;
   }
   
   // the orderer
@@ -82,8 +82,8 @@ class Spray extends SuperRomanesco {
     int numP = (int)map(quantityObj[IDobj],1,100,20,width) ;
     PVector numPoints = new PVector(numP/10,numP) ;
     
-    int branchMin = (int)map(canvasXObj[IDobj],width/10,width,1,30) ;
-    int branchMax = (int)map(canvasYObj[IDobj], height/10, height, 1, 30) ;
+    int branchMin = (int)map(canvasXObj[IDobj], width/10, width,1,30) ;
+    int branchMax = (int)map(canvasYObj[IDobj], width/10, width, 1, 30) ;
     PVector numBranchs = new PVector(branchMin,branchMax) ;
 
     color colour = fillObj[IDobj] ;
@@ -173,7 +173,7 @@ class Spray extends SuperRomanesco {
     
     /////////////////////////////
     //CLEAR THE LIST IF NECESSARY 
-    if (emptyList(IDobj)) encreList.clear() ;
+    if (resetAction(IDobj)) encreList.clear() ;
   }
   void addEncre(float fp, PVector d, float a, int spray, float dif, int flux) {
     for ( int i = 0 ; i < flux *fp ; i++ ) {

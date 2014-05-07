@@ -65,16 +65,16 @@ int EtatBOf[], EtatBTf[], EtatBTYf[], EtatBIf[] ;
 //DROPDOWN
 int startLoopObject, endLoopObject, startLoopTexture, endLoopTexture, startLoopTypo, endLoopTypo ;
 //GLOBAL
-Dropdown dropdown[], dropdownFont, dropdownShaderBG  ;
+Dropdown dropdown[], dropdownFont, dropdownBackground, dropdownImage, dropdownFileText  ;
 
-PVector posDropdownFont, posDropdownShaderBG, posDropdown[] ;
-PVector sizeDropdownFont, sizeDropdownShaderBG, sizeDropdownMode ;
+PVector posDropdownFont, posDropdownBackground, posDropdownImage, posDropdownFileText, posDropdown[] ;
+PVector sizeDropdownFont, sizeDropdownBackground, sizeDropdownImage, sizeDropdownFileText, sizeDropdownMode ;
 PVector posTextDropdown = new PVector(2, 8)  ;
 
 PVector totalSizeDropdown = new PVector () ;
 PVector newPosDropdown = new PVector () ;
 
-String [] modeListRomanesco, policeDropdownList, listDropdown, listDropdownShaderBG;
+String [] modeListRomanesco, policeDropdownList, imageDropdownList, fileTextDropdownList, listDropdown, listDropdownBackground;
 
 float margeAroundDropdown ;
 
@@ -121,7 +121,7 @@ void initVarObject() {
 void initVarButton() {
   numButton = new int[numGroupSlider] ;
   
-  numButton[0] = 13 ;
+  numButton[0] = 15 ;
   for (int i = 1 ; i < numGroupSlider ; i++ ) {
     numButton[i] = numGroup[i]*10 ;
     numButtonTotalObjects += numGroup[i] ;

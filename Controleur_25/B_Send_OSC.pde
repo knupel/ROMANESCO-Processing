@@ -80,9 +80,9 @@ void translateDataToSend() {
   valueButtonGlobal[10] = EtatLightOneAction ;
   valueButtonGlobal[11] = EtatLightTwoAction ;
   
-  valueButtonGlobal[12] = EtatShaderBG ;
-
- 
+  valueButtonGlobal[12] = EtatBackground ;
+  valueButtonGlobal[13] = EtatImage ;
+  valueButtonGlobal[14] = EtatFileText ;
   
   //BUTTON OBJ
   if(numGroup[1] > 0 ) {

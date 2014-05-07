@@ -114,13 +114,23 @@ void updateSound(int ID) {
 }
 
 
-//Clear the list
-boolean emptyList(int ID) {
+// RESET list and Object
+// by action
+boolean resetAction(int ID) {
   boolean e = false ;
   //global delete
   if (backspaceTouch) e = true ;
   //SPECIFIC DELETE when the paramer button of contrôleur is ON
   else if (deleteTouch) if ( action[ID]) e = true ;
+  return e ;
+}
+// by parameter
+boolean resetParameter(int ID) {
+  boolean e = false ;
+  //global delete
+  if (backspaceTouch) e = true ;
+  //SPECIFIC DELETE when the paramer button of contrôleur is ON
+  else if (deleteTouch) if ( parameter[ID]) e = true ;
   return e ;
 }
 ///////////////////////////////////////

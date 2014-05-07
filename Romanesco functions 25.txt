@@ -109,9 +109,12 @@ boolean motion[IDobj] boolean use for the move activate or desactivate by the "m
 //Alignement
 boolean horizon[IDobj] boolean use for the move activate or desactivate by the "h" key
 
-//LIST 
-//empty the list of particules activate by backspace and delete
-boolean romanescoEmptyList(IDobj)
+//RESET
+// to empty the list or reset object activate by backspace and delete
+boolean resetAction(ID) when the Action button is On
+boolean resetParameter(ID) when the Parameter button is On
+Suggestion use Action Button for the particle and the list
+and Parameter for the other reset. But it's just a suggestion
 
 
 
@@ -263,8 +266,8 @@ float thicknessObj[IDobj] ; value from 0.1 to height/3
 
 float sizeXObj[IDobj] ; sizeYObj[IDobj] ; sizeZObj[IDobj] ; value from 0.1 to width
 float canvasXObj[IDobj] ; value from width/10  to width
-float canvasYObj[IDobj] ; value from height/10  to height
-float canvasZObj[IDobj] ; value from height/10 to height
+float canvasYObj[IDobj] ; value from width/10  to width
+float canvasZObj[IDobj] ; value from width/10 to width
 float quantityObj = new float[numObj] ; value from 1 to 100 ;
 
 float speedObj[IDobj] ; value from 0 to 100
@@ -438,7 +441,11 @@ boolean nTouch, nLongTouch // ADD OBJECT use this keyboard touch it's suggestion
 
 // generaric keyborad command, it's better to don't use for others commands
 boolean spaceTouch      // give the boolean condition of the space touch to active the XY mouse, pen and Leap coordinate
+
+// backspace and delete it's better to use resetAction(ID) or resetParameter(ID)
 boolean backspaceTouch  // generaly to empty a specific list of object
+boolean deleteTouch  //  specific to empty list or reset object
+
 boolean nTouch         // generaly use to add a new particule like a clic depends what you want
 boolean nLongTouch     // generaly use to add a new particule like a clic depends what you want
 boolean mTouch         // generaly use to move the object, close to spaceTouch but different, linked with the boolean motion[IDobj]
@@ -459,12 +466,25 @@ enterTouch, returnTouch, shiftTouch, altTouch, escTouch ;
 
 
 
+// IMAGE
+////////
+imagePath[whichImage] ; image jpg from the dropdown menu
+
+// END IMAGE
+///////////
+
+
+
+
+
+
 
 // TEXT
 ///////
+textPath[whichText] ; text from the dropdown menu
 
-Romanesco call karaoke.txt from the main directory in real time,
-so you can write on it when you use Romanesco
+Romanesco call fileText.txt from the folder Karaoke from the preferences folder,
+so you can write on it when you use Romanesco split function
 "*" to separate the chapter 
 "/" to separate the sentence
 

@@ -57,9 +57,7 @@ String findPath ;
 
 
 
-//IMAGE
-PImage img ;
-String pathImg ;
+
 // to drop load image
 SDrop drop;
 boolean resizableByImgDrop ;
@@ -124,7 +122,7 @@ PFont police ;
 // button
 int eBeat, eKick, eSnare, eHat, eCurtain, eBackground ;
 int eLightOne, eLightTwo, eLightOneAction, eLightTwoAction ;
-int whichShader ;
+int whichShader, whichImage, whichText ;
 int [] objectButton,soundButton, actionButton, parameterButton ;
 boolean [] object, sound, action, parameter ;
 
@@ -367,8 +365,8 @@ void updateVar() {
     sizeYRaw[i] = map(valueSlider[i+1][12], minSource, maxSource, minSize, width) ;
     sizeZRaw[i] = map(valueSlider[i+1][13], minSource, maxSource, minSize, width) ;
     canvasXRaw[i] = map(valueSlider[i+1][14], minSource, maxSource, width *minSize, width) ;
-    canvasYRaw[i] = map(valueSlider[i+1][15], minSource, maxSource, height *minSize, height) ;
-    canvasZRaw[i] = map(valueSlider[i+1][16], minSource, maxSource, height *minSize, height) ;
+    canvasYRaw[i] = map(valueSlider[i+1][15], minSource, maxSource, width *minSize, width) ;
+    canvasZRaw[i] = map(valueSlider[i+1][16], minSource, maxSource, width *minSize, width) ;
     quantityRaw[i] = map(valueSlider[i+1][17], minSource, maxSource, 1, 100) ;
     //column 3
     speedRaw[i] = valueSlider[i+1][20] ;
@@ -380,7 +378,7 @@ void updateVar() {
     lifeRaw[i] = valueSlider[i+1][26] +1 ;
     forceRaw[i] = valueSlider[i+1][27] +1 ;
     // future slider
-    fontSizeRaw[i] = map(sizeXRaw[i], 0, 100, .01, height *.01) ;
+    fontSizeRaw[i] = map(sizeXRaw[i], minSize, width, .01, height *.05) ;
     fontSizeRaw[i] = 3 +(fontSizeRaw[i] *fontSizeRaw[i]) ;
 
   }

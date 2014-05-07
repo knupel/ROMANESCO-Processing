@@ -34,9 +34,6 @@ void initVarScene() {
 void initDraw() {
   rectMode (CORNER) ; 
   if(mavericks && fullScreen) sketchPosition(whichScreen) ;
-  //load text raw for the different object
-  importText(preferencesPath+"karaoke/karaoke.txt") ;
-  splitText() ;
 }
 
 
@@ -66,7 +63,7 @@ void varObjectSetup() {
   for (int i = 0 ; i < numObj ; i++ ) {
     startingPos[i] = new PVector(height/2, width/2, 0) ;
     pen[i] = new PVector() ;
-    mouse[i] = new PVector() ;
+    mouse[i] = new PVector(0,0,0) ;
     pmouse[i] = new PVector() ;
     wheel[i] = 0 ;
   }

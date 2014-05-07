@@ -42,8 +42,8 @@ class Honeycomb extends SuperRomanesco {
     if(setting[IDobj]) canvas = new PVector(map(canvasXObj[IDobj],width/10,width,width/10, width *5),map(canvasYObj[IDobj],height/10,height,height/10, height *5)) ;
     
     
-    sliderCanvasX = map(canvasXObj[IDobj],width/10,width,width/10, width *5) ;
-    sliderCanvasY = map(canvasYObj[IDobj],height/10,height,height/10, height *5) ;
+    sliderCanvasX = map(canvasXObj[IDobj], width/10, width, width/10, width *5) ;
+    sliderCanvasY = map(canvasYObj[IDobj], width/10, width, width/10, width *5) ;
     // Good idea to lock the value when you come back for a new slider setting, must work around this concept
     if(initRef) {
       sliderCanvasXref = sliderCanvasX ;
@@ -67,6 +67,7 @@ class Honeycomb extends SuperRomanesco {
     radiusRef = hexagonRadius ;
     
     // DISPLAY
+    noStroke() ;
     pushMatrix() ;
     translate(-width/2, -height/2) ;
     for (Hexagon h : grid) { h.calculateNewColor(); }

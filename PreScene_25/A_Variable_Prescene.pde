@@ -42,7 +42,7 @@ void varObjectSetup() {
     startingPos[i] = new PVector(height/2, width/2, 0) ;
     pen[i] = new PVector() ;
     // use the 250 value for "z" to keep the position light on the front
-    mouse[i] = new PVector(0,0,250) ;
+    mouse[i] = new PVector(0,0,0) ;
     pmouse[i] = new PVector() ;
     wheel[i] = 0 ;
   }
@@ -86,9 +86,7 @@ void initDraw() {
   resizableByImgDrop = true ;
   if ( resizableByImgDrop && displaySizeByImage ) updateSizeDisplay(img) ;
   
-  //load text raw for the different object
-  importText(preferencesPath+"karaoke/karaoke.txt") ;
-  splitText() ;
+
 }
 
 

@@ -3,6 +3,7 @@
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 String release = ("25") ;
 boolean test = false ;
+String preferencesPath = sketchPath("")+"preferences/" ;
 
 void setup() {
   setting() ;

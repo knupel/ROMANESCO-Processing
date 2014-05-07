@@ -5,7 +5,7 @@ class Escargot extends SuperRomanesco {
     IDobj = 16 ;
     IDgroup = 2 ;
     romanescoAuthor  = "Stan le Punk";
-    romanescoVersion = "Alpha 2.1";
+    romanescoVersion = "Alpha 1.3";
     romanescoPack = "Base" ;
     romanescoRender = "P3D" ;
     romanescoMode = "1 Original/2 Raw/3 Point/4 Ellipse/5 Rectangle/6 Box/7 Cross/8 SVG/9 Vitraux" ;
@@ -68,7 +68,7 @@ class Escargot extends SuperRomanesco {
   int objMotion = 1 ; //motion of the pixel is under influence of the wind, if the wind is strong the pixel motion become low
   PVector motionInfo = new PVector(windDirection, windForce, objMotion)  ;
   //ratio for the image, say if the picture must be adapted to the size window or not
-  boolean ratioImg ;
+  boolean ratioImg = true ;
   
   //COLOR MOTION
     /*
@@ -119,141 +119,137 @@ class Escargot extends SuperRomanesco {
   
   
   
-  
+  String imgPathRef = ("") ;
   //DRAW
   void display() {
-    //MOTION
-    windForce = (int)map(speedObj[IDobj],0,100,0,13) ;
-    windDirection = (int)directionObj[IDobj] ;
-    objMotion = int(map(forceObj[IDobj],0,100, 0,20) *(1.0 + pen[IDobj].z)) ;
-    motionInfo.y = windForce ;
-    //PEN
-     if (pen[IDobj].z == 1 ) pen[IDobj].z = 0 ; else pen[IDobj].z = pen[IDobj].z ;
-     if( (pen[IDobj].x == 1.0 && pen[IDobj].y == 1.0) || (pen[IDobj].x == 0.0 && pen[IDobj].y == 0.0) ) {
-       motionInfo.x = windDirection  ; 
-     } else {
-       PVector convertTilt = new PVector (-pen[IDobj].x, -pen[IDobj].y) ;
-       motionInfo.x = deg360(convertTilt) ;
-     }
-     
-     // if (!spaceTouch) for( Pixel p : listEscargot) {
-     //alternat beween the pen and the controleur
-     // if( pen[IDobj].x == 0 && pen[IDobj].y == 0 ) newDirection = normalDir(int(map(valueObj[IDobj][18],0,100,0,360))) ; else newDirection = new PVector (-pen[IDobj].x  , -pen[IDobj].y ) ;
-     
-     if (!motion[IDobj]) for( Pixel p : listEscargot) {
-       p.updatePosPixel(motionInfo, img) ;
-     }
-    ////////////////
-    
-    
-    //ANALYZE
-    //change the size of pixel ref for analyzing
-    if (pixelAnalyzeSize != pixelAnalyzeSizeRef || radiusAnalyze != radiusAnalyzeRef || maxEntryPoints != maxEntryPointsRef  ) reInitilisationAnalyze() ;
-
-    pixelAnalyzeSizeRef = pixelAnalyzeSize;
-    radiusAnalyzeRef = radiusAnalyze ;
-    maxEntryPointsRef = maxEntryPoints ;
-    
-    int n = int(map(quantityObj[IDobj],0,100,4,50)) ;
-    //maxEntryPoints = int(map(valueObj[IDobj][14],0,100,1,50)) *int(map(valueObj[IDobj][14],0,100,1,50)) *int(map(valueObj[IDobj][14],0,100,1,50)) ;
-    maxEntryPoints = n *n *n ;
-    //if (maxEntryPoints > listPixelRaw.size() / 4 ) maxEntryPoints = listPixelRaw.size() ;
-
-    radiusAnalyze = int(map(amplitudeObj[IDobj],0,1,2,100));
-    pixelAnalyzeSize = int(map(analyzeObj[IDobj],0,100,2,30));
-    
-
-    
-     //security for the droping img from external folder
-     if(parameter[IDobj] && rTouch ) ratioImg = !ratioImg ;
-     if( img != null && img.width > 3 && ratioImg ) {
-       analyzeImg(pixelAnalyzeSize) ;
-       ratioImgWindow = new PVector ((float)width / (float)img.width , (float)height / (float)img.height ) ;
-     } else if (img != null && img.width > 3 && !ratioImg) {
-       analyzeImg(pixelAnalyzeSize) ;
-       ratioImgWindow = new PVector(1,1) ;
-     } else {
-       ratioImgWindow = new PVector(1,1) ;
-     }
+    if(img != null)  {
+      //MOTION
+      windForce = (int)map(speedObj[IDobj],0,100,0,13) ;
+      windDirection = (int)directionObj[IDobj] ;
+      objMotion = int(map(forceObj[IDobj],0,100, 0,20) *(1.0 + pen[IDobj].z)) ;
+      motionInfo.y = windForce ;
+      //PEN
+       if (pen[IDobj].z == 1 ) pen[IDobj].z = 0 ; else pen[IDobj].z = pen[IDobj].z ;
+       if( (pen[IDobj].x == 1.0 && pen[IDobj].y == 1.0) || (pen[IDobj].x == 0.0 && pen[IDobj].y == 0.0) ) {
+         motionInfo.x = windDirection  ; 
+       } else {
+         PVector convertTilt = new PVector (-pen[IDobj].x, -pen[IDobj].y) ;
+         motionInfo.x = deg360(convertTilt) ;
+       }
        
-     
-     //size and thickness
-     PVector sizePix = new PVector (map(sizeXObj[IDobj],0,width, 1, 50 ), map(sizeYObj[IDobj],0,height, 1, 50 ), map(sizeZObj[IDobj],0,width, 1, 50 )) ;
-
-     float thickPix = map(thicknessObj[IDobj],0,height *.33, 1, 50 ) ;
-     //PVector infoSizePix = new PVector(widthPix,heightPix, thickPix) ;
-     //modify the size
-     // float factorSizePix ;
-     
-     // range 100
-     float soundHundredMin = random(80) ;
-     float soundHundredMax = random(soundHundredMin, soundHundredMin +20) ;
-     PVector rangeReactivitySoundHundred = new PVector (soundHundredMin, soundHundredMax) ;
-     //range 360
-     float soundThreeHundredSixtyMin = random(330) ;
-     float soundThreeHundredSixtyMax = random(soundThreeHundredSixtyMin, soundThreeHundredSixtyMin +30) ;
-     PVector rangeReactivitySoundThreeHundredSixty = new PVector (soundThreeHundredSixtyMin, soundThreeHundredSixtyMax) ;
-     //Music factor
-     PVector musicFactor = new PVector (kick[IDobj] *.2, snare[IDobj]*.2, beat[IDobj]*.2) ; // hsb reactivity, the first PVector is for the hue, the second for the saturation, the third for the brightness
-     
-     //opacity
-     int opacityShapeIn =  (int)alpha(fillObj[IDobj]) ;
-     int opacityShapeOut = (int)alpha(strokeObj[IDobj]) ;
-     
-     //open new image for the background
-    if ( parameter[IDobj] && oTouch ) {
-      //step 1 clear the list for new analyze
-      selectInput("Select jpg picture", "choiceImg");
-      //this void is connected with the void in the main DRAW TAB (keypressed() key == 'o' selectInput("Choisissez une belle image", "choiceImg");
-      escargotGOanalyze = false ;
-      escargotClear() ;
+       // if (!spaceTouch) for( Pixel p : listEscargot) {
+       //alternat beween the pen and the controleur
+       // if( pen[IDobj].x == 0 && pen[IDobj].y == 0 ) newDirection = normalDir(int(map(valueObj[IDobj][18],0,100,0,360))) ; else newDirection = new PVector (-pen[IDobj].x  , -pen[IDobj].y ) ;
+       
+       if (!motion[IDobj]) for( Pixel p : listEscargot) {
+         p.updatePosPixel(motionInfo, img) ;
+       }
+      ////////////////
+      
+      //ANALYZE
+      //change the size of pixel ref for analyzing
+      if (pixelAnalyzeSize != pixelAnalyzeSizeRef || radiusAnalyze != radiusAnalyzeRef || maxEntryPoints != maxEntryPointsRef  ) reInitilisationAnalyze() ;
+  
+      pixelAnalyzeSizeRef = pixelAnalyzeSize;
+      radiusAnalyzeRef = radiusAnalyze ;
+      maxEntryPointsRef = maxEntryPoints ;
+      
+      int n = int(map(quantityObj[IDobj],0,100,4,50)) ;
+      //maxEntryPoints = int(map(valueObj[IDobj][14],0,100,1,50)) *int(map(valueObj[IDobj][14],0,100,1,50)) *int(map(valueObj[IDobj][14],0,100,1,50)) ;
+      maxEntryPoints = n *n *n ;
+      //if (maxEntryPoints > listPixelRaw.size() / 4 ) maxEntryPoints = listPixelRaw.size() ;
+  
+      radiusAnalyze = int(map(amplitudeObj[IDobj],0,1,2,100));
+      pixelAnalyzeSize = int(map(analyzeObj[IDobj],0,100,2,30));
+      
+  
+      
+       //security for the droping img from external folder
+       if(parameter[IDobj] && rTouch ) ratioImg = !ratioImg ;
+       if( img != null && img.width > 3 && ratioImg ) {
+         analyzeImg(pixelAnalyzeSize) ;
+         // ratioImgWindow = new PVector ((float)width / (float)img.width , (float)height / (float)img.height ) ;
+         ratioImgWindow = new PVector ((float)width / (float)img.width , (float)width / (float)img.width ) ;
+       } else if (img != null && img.width > 3 && !ratioImg) {
+         analyzeImg(pixelAnalyzeSize) ;
+         ratioImgWindow = new PVector(1,1) ;
+       } else {
+         ratioImgWindow = new PVector(1,1) ;
+       }
+       
+       //size and thickness
+       PVector sizePix = new PVector (map(sizeXObj[IDobj],.1,width, .1, height/10 ), map(sizeYObj[IDobj],.1,width, .1, height/10 ), map(sizeZObj[IDobj],.1,width, .1, height/10 )) ;
+       float thickPix = map(thicknessObj[IDobj],0.1,height *.33, 0.1, height/10 ) ;
+       
+       // range 100
+       float soundHundredMin = random(80) ;
+       float soundHundredMax = random(soundHundredMin, soundHundredMin +20) ;
+       PVector rangeReactivitySoundHundred = new PVector (soundHundredMin, soundHundredMax) ;
+       //range 360
+       float soundThreeHundredSixtyMin = random(330) ;
+       float soundThreeHundredSixtyMax = random(soundThreeHundredSixtyMin, soundThreeHundredSixtyMin +30) ;
+       PVector rangeReactivitySoundThreeHundredSixty = new PVector (soundThreeHundredSixtyMin, soundThreeHundredSixtyMax) ;
+       //Music factor
+       PVector musicFactor = new PVector (kick[IDobj] *.2, snare[IDobj]*.2, beat[IDobj]*.2) ; // hsb reactivity, the first PVector is for the hue, the second for the saturation, the third for the brightness
+       
+       //opacity
+       int opacityShapeIn =  (int)alpha(fillObj[IDobj]) ;
+       int opacityShapeOut = (int)alpha(strokeObj[IDobj]) ;
+       
+       // update image
+       if(parameter[IDobj] && imgPathRef != imagePath[whichImage] ) {
+         analyzeDone = false ;
+         escargotGOanalyze = false ;
+         escargotClear() ;
+         imgPathRef = imagePath[whichImage] ;
+       }
+      
+      
+      
+      //choice new pattern SVG
+      if ( action[IDobj] && pTouch ) {
+        //step 1 clear the list for new analyze
+        drawVertexSVG = false ;
+        selectInput("select SVG pattern 50x50", "choiceSVG");
+      }
+      
+      //change the color palette
+      if (action[IDobj] && xTouch ) paletteRandom(HSBpalette, HSBmode ) ;
+      
+      //clear the pixels for the new analyze
+      if (action[IDobj] && ( deleteTouch || backspaceTouch)) {
+        escargotClear() ;
+        analyzeDone = false ;
+        totalPixCheckedInTheEscargot = 0 ;
+      }
+  
+  
+  
+      
+  
+       //CHANGE MODE DISPLAY
+      /////////////////////
+      // translate((width*.5)-(img.width *.5) ,(height *.5)-(img.height *.5),0) ;
+      if (mode[IDobj] == 0 || mode[IDobj] == 255 ) {
+        displayRawPixel(thickPix, opacityShapeIn, rangeReactivitySoundHundred, rangeReactivitySoundThreeHundredSixty, musicFactor, ratioImgWindow) ;
+      } else if (mode[IDobj] == 1 ) {
+        escargotRaw(thickPix, opacityShapeIn, rangeReactivitySoundHundred, rangeReactivitySoundThreeHundredSixty, musicFactor, ratioImgWindow) ;
+      } else if (mode[IDobj] == 2 ) {
+        escargotPoint(thickPix, opacityShapeIn, rangeReactivitySoundHundred, rangeReactivitySoundThreeHundredSixty, musicFactor, ratioImgWindow) ;
+      } else if (mode[IDobj] == 3 ) {
+        escargotEllipse(sizePix, thickPix, opacityShapeIn, opacityShapeOut, rangeReactivitySoundHundred, rangeReactivitySoundThreeHundredSixty, musicFactor, ratioImgWindow ) ;
+      } else if (mode[IDobj] == 4 ) {
+        escargotRect(sizePix, thickPix, opacityShapeIn, opacityShapeOut, rangeReactivitySoundHundred, rangeReactivitySoundThreeHundredSixty, musicFactor, ratioImgWindow ) ;
+      }else if (mode[IDobj] == 5 ) {
+        escargotBox(sizePix, thickPix, opacityShapeIn, opacityShapeOut, rangeReactivitySoundHundred, rangeReactivitySoundThreeHundredSixty, musicFactor, ratioImgWindow, horizon[IDobj] ) ;
+      } else if (mode[IDobj] == 6 ) {
+        escargotCross(sizePix, thickPix, opacityShapeIn, rangeReactivitySoundHundred, rangeReactivitySoundThreeHundredSixty, musicFactor, ratioImgWindow ) ;
+      } else if (mode[IDobj] == 7 ) {
+        escargotSVG(sizePix, thickPix, opacityShapeIn, opacityShapeOut, rangeReactivitySoundHundred, rangeReactivitySoundThreeHundredSixty, musicFactor, ratioImgWindow) ;
+      } else if (mode[IDobj] == 8 ) {
+        if( listEscargot.size() < maxVoronoiPoints) voronoiStatic(strokeColor, thickness, useNewPalettePixColorToDisplay) ; else text("Trop de point a afficher", 20, height - 20 ) ;
+      }
     }
-    
-    
-    //choice new pattern SVG
-    if ( action[IDobj] && pTouch ) {
-      //step 1 clear the list for new analyze
-      drawVertexSVG = false ;
-      selectInput("select SVG pattern 50x50", "choiceSVG");
-    }
-    
-    //change the color palette
-    if (action[IDobj] && xTouch ) paletteRandom(HSBpalette, HSBmode ) ;
-    
-    //clear the pixels for the new analyze
-    if (action[IDobj] && ( deleteTouch || backspaceTouch)) {
-      escargotClear() ;
-      analyzeDone = false ;
-      totalPixCheckedInTheEscargot = 0 ;
-    }
-
-
-
-    
-
-     //CHANGE MODE DISPLAY
-    /////////////////////
-    if(img != null) translate((width*.5)-(img.width *.5) ,(height *.5)-(img.height *.5),0) ;
-    if (mode[IDobj] == 0 || mode[IDobj] == 255 ) {
-      displayRawPixel(thickPix, opacityShapeIn, rangeReactivitySoundHundred, rangeReactivitySoundThreeHundredSixty, musicFactor, ratioImgWindow) ;
-    } else if (mode[IDobj] == 1 ) {
-      escargotRaw(thickPix, opacityShapeIn, rangeReactivitySoundHundred, rangeReactivitySoundThreeHundredSixty, musicFactor, ratioImgWindow) ;
-    } else if (mode[IDobj] == 2 ) {
-      escargotPoint(thickPix, opacityShapeIn, rangeReactivitySoundHundred, rangeReactivitySoundThreeHundredSixty, musicFactor, ratioImgWindow) ;
-    } else if (mode[IDobj] == 3 ) {
-      escargotEllipse(sizePix, thickPix, opacityShapeIn, opacityShapeOut, rangeReactivitySoundHundred, rangeReactivitySoundThreeHundredSixty, musicFactor, ratioImgWindow ) ;
-    } else if (mode[IDobj] == 4 ) {
-      escargotRect(sizePix, thickPix, opacityShapeIn, opacityShapeOut, rangeReactivitySoundHundred, rangeReactivitySoundThreeHundredSixty, musicFactor, ratioImgWindow ) ;
-    }else if (mode[IDobj] == 5 ) {
-      escargotBox(sizePix, thickPix, opacityShapeIn, opacityShapeOut, rangeReactivitySoundHundred, rangeReactivitySoundThreeHundredSixty, musicFactor, ratioImgWindow, horizon[IDobj] ) ;
-    } else if (mode[IDobj] == 6 ) {
-      escargotCross(sizePix, thickPix, opacityShapeIn, rangeReactivitySoundHundred, rangeReactivitySoundThreeHundredSixty, musicFactor, ratioImgWindow ) ;
-    } else if (mode[IDobj] == 7 ) {
-      escargotSVG(sizePix, thickPix, opacityShapeIn, opacityShapeOut, rangeReactivitySoundHundred, rangeReactivitySoundThreeHundredSixty, musicFactor, ratioImgWindow) ;
-    } else if (mode[IDobj] == 8 ) {
-      if( listEscargot.size() < maxVoronoiPoints) voronoiStatic(strokeColor, thickness, useNewPalettePixColorToDisplay) ; else text("Trop de point a afficher", 20, height - 20 ) ;
-    }
-
   }
   
   
@@ -1458,19 +1454,9 @@ void drawBezierVertex(PVector pos, float scale, ArrayList<PVector> list, ArrayLi
 
 
 
-//LOAD IMAGE AND PATTERN
+//LOAD PATTERN
 //SVG PATTERN
 String pathSVGescargot ;
-//load image
-void choiceImg(File selection) {
-  if (selection == null) {
-    println("no file selected");
-  } else {
-    pathImg  = selection.getAbsolutePath() ;
-    img = loadImage(pathImg) ;
-    analyzeDone = false ;
-  }
-}
 
 //load SVG
 void choiceSVG(File selection) {
@@ -1483,29 +1469,4 @@ void choiceSVG(File selection) {
   }
 }
 
-/*
-// drop event
-void dropEvent(DropEvent theDropEvent) {
-  // if the dropped object is an image, then load the image into our PImage.
-  if(theDropEvent.isImage()) {
-      escargotGOanalyze = false ;
-      escargotClear() ;
 
-    img = theDropEvent.loadImage();
-    analyzeDone = false ;
-  }
-}
-//end drop event
-*/
-
-
-/*
-void truc() {
-  if(object[IDobj] ) { 
-    text( "Info Escargot " + totalPixCheckedInTheEscargot + " Pixels analyz " +  " on " + listPixelRaw.size() + "    Escargots " + listEscargot.size() , 15, 15 * (posInfoObj) ) ;  posInfoObj += 1 ; 
-  } else { 
-    text("No image thred", 15, 15 *(posInfoObj) ) ;
-    posInfoObj += 1 ;
-  }
-}
-*/
