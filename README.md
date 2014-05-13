@@ -1,4 +1,5 @@
 ##ROMANESCO alpha 25
+Romanesco can be your Processing library to manage and test your sketch in a P3D world.
 This sketches are in progress. They can be buggy, you can use the previous version to work with stable release.
 
 ##Architecture Sketches
@@ -24,3 +25,4 @@ If you want code in Romanesco there few compulsory variables and functions that 
 
 ##LICENCE
 ROMANESCO alpha is a Free Software under the licence CeCILL, very similar to the GNU GPL licence.
+This project start in 2011, November.
