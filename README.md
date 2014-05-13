@@ -2,25 +2,28 @@
 work version
 
 ##Architecture Sketches
-* Romanesco : Sketch to set Romanesco.
+* Romanesco : Sketch to set the Romanesco application.
 * Controleur : interface slider to use the objects and the different parameters.
 * Prescene : use to move the object in the 3D space
 * Scene : the result of performance, we can use this one to send to syphon or not
-* StartCoding : To test the new object or core modification before to integrate in the Prescene or Scene
 
 ## Code core
-To test romanesco in Processing launch the Scène, then the Préscène and Controleur in the last time
-
-## Code object
-* Launch the startcoding sketch and use the tab "Object" or "Object_Class
-* To check if your object work and use the sketch Controler to set your object.
-* In the library controler, your object appear in the order of the IDobject and IDgroup.
-* When your object is done, you can transfer this one like a brick in the Prescene and Scene Sketch 
-but don't forget to change the ID object and the ID familly
+To test romanesco in Processing launch the Prescene then the Scene and Controleur in the last time
 
 ##code
-If you want code use the var from the file Romanesco functions
+If you want code in Romanesco there few compulsory variables, functions that you can find in the file "Romanesco functions 25.txt" and others who can help you.
+
+## Code and Export
+* Create a new tab with a clean sub class "SuperRomanesco" in Prescene Sketch
+* Give number ID to this one, this number must be in the series of the other. No interruption from the first Obj to the last.
+* When your code is done, run the Prescene to create the index of yours objects in the folder "Prescene-#/preferences/objects" paste this one in the to the folder "Controleur-#/preferences/objects".
+* Run the sketch Controleur
+* If your code work fine, you can past your brick in the folder "Scene-#"
+* Export all your App put at the Root the "Launcher.app" create a folder "source", in this one you can drop the Scene, Prescene and the Controleur dont forget to create the folder "preferences" and put in this one every data you need.
+* it's done !
+
+
 
 
 ##LICENCE
-ROMANESCO alpha is under the licence CeCILL, very similar to the GNU GPL licence.
+ROMANESCO alpha is a Free Software under the licence CeCILL, very similar to the GNU GPL licence.
