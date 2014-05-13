@@ -16,7 +16,7 @@ If you want code in Romanesco there few compulsory variables and functions that 
 * When your code is done, run the Prescene to create the index of yours objects in the folder "Prescene-#/preferences/objects" paste this one in the to the folder "Controleur-#/preferences/objects".
 * Run the sketch Controleur
 * If your code work fine, you can past your brick in the folder "Scene-#"
-* Export all your App put at the Root the "Launcher.app" create a folder "source", in this one you can drop the Scene, Prescene and the Controleur dont forget to create the folder "preferences" and put in this one every data you need.
+* Export all your Apps, put the "Launcher.app" them at the root, in the same folder create a folder "source", in this one you can drop the Scene, Prescene and the Controleur dont forget to create the folder "preferences" and put in this one every data you need.
 * it's done !
 
 
