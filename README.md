@@ -1,5 +1,5 @@
-##ROMANESCO alpha
-work version
+##ROMANESCO alpha 25
+This sketches are in progress. They can be buggy, you can use the previous version to work with stable release.
 
 ##Architecture Sketches
 * Romanesco : Sketch to set the Romanesco application.
@@ -7,13 +7,10 @@ work version
 * Prescene : use to move the object in the 3D space
 * Scene : the result of performance, we can use this one to send to syphon or not
 
-## Code core
-To test romanesco in Processing launch the Prescene then the Scene and Controleur in the last time
+##Functions and variable
+If you want code in Romanesco there few compulsory variables and functions that you can find in the file "Romanesco functions 25.txt" and others who can help you.
 
-##code
-If you want code in Romanesco there few compulsory variables, functions that you can find in the file "Romanesco functions 25.txt" and others who can help you.
-
-## Code and Export
+##Code and Export
 * Create a new tab with a clean sub class "SuperRomanesco" in Prescene Sketch
 * Give number ID to this one, this number must be in the series of the other. No interruption from the first Obj to the last.
 * When your code is done, run the Prescene to create the index of yours objects in the folder "Prescene-#/preferences/objects" paste this one in the to the folder "Controleur-#/preferences/objects".
