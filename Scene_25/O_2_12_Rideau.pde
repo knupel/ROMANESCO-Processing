@@ -26,7 +26,7 @@ class Rideau extends SuperRomanesco {
     //speed / vitesse
     float vitesse = 0.01 + (speedObj[IDobj] *0.001) ;
     //durée / life
-    int vie = 100 + (100 * int(lifeObj[IDobj])) ;
+    int vie = int(map(lifeObj[IDobj],0,1,100,20000)) ;
     //thickness / épaisseur
     // int epaisseur = 1 + int((valueObj[IDobj][13] *.5) + abs(mix[IDobj]) *10);
     float thickness = thicknessObj[IDobj] + abs(mix[IDobj]) *10 ;

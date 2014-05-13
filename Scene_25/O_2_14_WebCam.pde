@@ -6,10 +6,10 @@ class Webcam extends SuperRomanesco {
     IDobj = 14 ;
     IDgroup = 2 ;
     romanescoAuthor  = "Stan le Punk";
-    romanescoVersion = "Alpha 2.0";
+    romanescoVersion = "Alpha 1.2";
     romanescoPack = "Base" ;
     romanescoRender = "classic" ;
-    romanescoMode = "1 classic/2 monochrome" ;
+    romanescoMode = "1 Rectangle color/2 Rectangle mono/3 Point color/4 Point mono/3 Box color/4 Box mono" ;
   }
   //GLOBAL
   int cameraStatut = 0 ;
@@ -51,14 +51,17 @@ class Webcam extends SuperRomanesco {
     factorDisplayCam.x = width / factorCalcul.x ; 
     factorDisplayCam.y = height / factorCalcul.y ;
     
-    factorDisplayPixel = factorDisplayCam ;//PARAMETER THAT YOU CAN USE
+    float minVal = 0.1 ;
+    float maxVal = height / 50 ;
+    PVector factorSizePix = new PVector(map(sizeXObj[IDobj],0.1,width, minVal, maxVal), map(sizeYObj[IDobj],0.1,width, minVal, maxVal), map(sizeZObj[IDobj],0.1,width, minVal, maxVal)) ; 
+    factorDisplayPixel = new PVector(factorDisplayCam.x *factorSizePix.x , factorDisplayCam.y *factorSizePix.y, factorSizePix.z) ;//PARAMETER THAT YOU CAN USE
     
     //PART TWO
     cam.start();
-    cellSizeX = 2 + int(sizeYObj[IDobj])  ; 
-    cellSizeY = 2 + int(sizeXObj[IDobj])  ;
-    // factorDisplayPixel.x = factorDisplayCam.x / (20 -TD123/10 ) ; 
-   //  factorDisplayPixel.y = factorDisplayCam.y / (20 -TD123/10 ) ; 
+    cellSizeX = int(map(canvasYObj[IDobj],width/10, width, width/5, width/1000))  ; 
+    cellSizeY = int(map(canvasXObj[IDobj],width/10, width, width/5, width/1000))  ;
+    if(cellSizeX < 1 ) cellSizeX = 1 ;
+    if(cellSizeY < 1 ) cellSizeY = 1 ;
     
     cols = sizeCam [whichSizeCam][0] / cellSizeX; // before the resizing
     rows = sizeCam [whichSizeCam][1] / cellSizeY;
@@ -73,57 +76,17 @@ class Webcam extends SuperRomanesco {
           int  loc = posPixelX  + posPixelY *cam.width; // classic
           //  int loc = (cam.width - x - 1) + y*cam.width; // mirror
           //make pixel
-          float h = hue(cam.pixels[loc]);
-          float s = saturation(cam.pixels[loc]);
-          float b = brightness(cam.pixels[loc]);
-          // Make a new color with an alpha component
-         // color c = color(h, s, b);
-          
-          
-          //mode of display
-          if (mode[IDobj] == 0 || mode[IDobj] == 255 ) {
-            //color mode
-            colorPixelCam = color(h, s, b, alpha(fillObj[IDobj]));
-          } else if (mode[IDobj] == 1 ) {
-            //monochrome mode, change param from the cam with the slider influence
-            float newHue = hue(fillObj[IDobj]) ;
-            float newSat = s * map(saturation(fillObj[IDobj]),0,100,0,1) ;
-            float newBrigth = b * map(brightness(fillObj[IDobj]),0,100,0,1) ;
-            //display the result
-            colorPixelCam = color(newHue, newSat, newBrigth, alpha(fillObj[IDobj]));
-          }
-   
-          //DISPLAY
-          pushMatrix() ;
-          //P3D Give the position and the orientation of your object in the 3 dimensionals space
-          PVector newDisplay = new PVector  (cellSizeX *factorDisplayCam.x,   cellSizeY *factorDisplayCam.y) ;
-          PVector newCellSize = new PVector (cellSizeX *factorDisplayPixel.x *left[IDobj], cellSizeY *factorDisplayPixel.y *right[IDobj]) ;
-          //init the position of image on the middle of the screen
-          PVector posMouseCam = new PVector ( width / 2, height /2) ;
-          if (mouse[IDobj].x >= -startingPos[IDobj].x && mouse[IDobj].y >= -startingPos[IDobj].y) posMouseCam = mouse[IDobj] ;
-          //create the ratio for the translate position in functiun of the size of the Scene, not really good algorythm
-          float ratioDisplay = (float)width / (float)height ;
-          float factorDisplacementRatioSizeOfTheDisplay = map(width, 0, 2000, .6, .2 ) ;
-          float factorTranslateX = factorDisplacementRatioSizeOfTheDisplay / ratioDisplay ;
-          float factorTranslateY = factorDisplacementRatioSizeOfTheDisplay ;
+          PVector hsb = new PVector (hue(cam.pixels[loc]), saturation(cam.pixels[loc]), brightness(cam.pixels[loc]) ) ;
 
-          //finalization of the position
-          translate( ( (posPixelX +newDisplay.x *factorTranslateX) *factorDisplayCam.x) + posMouseCam.x - width *0.5 , 
-                     ( (posPixelY +newDisplay.y *factorTranslateY) *factorDisplayCam.y) + posMouseCam.y - height*0.5  );
-                     
-          rectMode(CENTER) ;
-          fill(colorPixelCam) ;
-          noStroke() ;
-          rect (0,0, newCellSize.x, newCellSize.y) ;
-          //DON'T TOUCH
-          popMatrix() ;
-          //END OF DON'T TOUCH
+          
+          // Make a new color with an alpha component
+          displayPix(mode[IDobj],hsb) ; 
         }
       } 
     } else if (!testCam() && testDeviceCam < 180 )  {
       fill(0) ;
       testDeviceCam += 1 ;
-      text("No extarnal video signal, Romanesco try on the native Camera", mouse[0].x , mouse[0].y ) ;
+      text("No external video signal, Romanesco try on the native Camera", mouse[0].x , mouse[0].y ) ;
     } 
     
     //TEST CAM
@@ -145,7 +108,132 @@ class Webcam extends SuperRomanesco {
   }
   
   
+  
+  
+  
+  
   //annexe
+
+  
+  
+  void displayPix(int mode, PVector hsb) {
+    //DISPLAY
+    pushMatrix() ;
+    //P3D Give the position and the orientation of your object in the 3 dimensionals space
+    PVector newDisplay = new PVector  (cellSizeX *factorDisplayCam.x,   cellSizeY *factorDisplayCam.y) ;
+    
+    float newCellSizeX = cellSizeX *factorDisplayPixel.x *left[IDobj] ;
+    float newCellSizeY = cellSizeY *factorDisplayPixel.y *right[IDobj] ;
+    float factorSizeZ = map(sizeZObj[IDobj], .1, width, .5, 10) ;
+    PVector newCellSize = new PVector (newCellSizeX, newCellSizeY, factorSizeZ ) ;
+    //init the position of image on the middle of the screen
+    PVector posMouseCam = new PVector ( width / 2, height /2) ;
+    if (mouse[IDobj].x >= -startingPosition[IDobj].x && mouse[IDobj].y >= -startingPosition[IDobj].y) posMouseCam = mouse[IDobj] ;
+    //create the ratio for the translate position in functiun of the size of the Scene, not really good algorythm
+    float ratioDisplay = (float)width / (float)height ;
+    float factorDisplacementRatioSizeOfTheDisplay = map(width, 0, 2000, .6, .2 ) ;
+    float factorTranslateX = factorDisplacementRatioSizeOfTheDisplay / ratioDisplay ;
+    float factorTranslateY = factorDisplacementRatioSizeOfTheDisplay ;
+
+    //finalization of the position
+    float finalPosPixelX = ( (posPixelX +newDisplay.x *factorTranslateX) *factorDisplayCam.x) + posMouseCam.x - width *0.5 ;
+    float finalPosPixelY = ( (posPixelY +newDisplay.y *factorTranslateY) *factorDisplayCam.y) + posMouseCam.y - height*0.5 ;
+    PVector pos = new PVector (finalPosPixelX, finalPosPixelY, 0);
+    //translate(finalPosPixelX, finalPosPixelY, finalPosPixelZ);
+               
+    rectMode(CENTER) ;
+    
+    if(mode == 0 ) rectangleColour(pos, newCellSize, hsb) ;
+    if(mode == 1 ) rectangleMonochrome(pos, newCellSize, hsb) ;
+    if(mode == 2 ) pointColour(pos, newCellSize, hsb) ;
+    if(mode == 3 ) pointMonochrome(pos, newCellSize, hsb) ;
+    if(mode == 4 ) boxColour(pos, newCellSize, hsb) ;
+    if(mode == 5 ) boxMonochrome(pos, newCellSize, hsb) ;
+    //
+    popMatrix() ;
+  }
+  
+  
+  
+  
+  
+  
+  // different mode
+  void rectangleMonochrome(PVector pos, PVector size, PVector hsb) {
+    translate(pos.x, pos.y, pos.z);
+    monochrome(hsb) ;
+    fill(colorPixelCam) ;
+    noStroke() ;
+    rect (0,0, size.x, size.y) ;
+  }
+  //
+  void rectangleColour(PVector pos, PVector size, PVector hsb) {
+    translate(pos.x, pos.y, pos.z);
+    colour(hsb) ;
+    fill(colorPixelCam) ;
+    noStroke() ;
+    rect (0,0, size.x, size.y) ;
+  }
+  //
+  void pointMonochrome(PVector pos, PVector size, PVector hsb) {
+    translate(pos.x, pos.y, pos.z);
+    monochrome(hsb) ;
+    stroke(colorPixelCam) ;
+    strokeWeight(size.x) ;
+    point(0,0,0) ;
+  }
+  //
+  void pointColour(PVector pos, PVector size, PVector hsb) {
+    translate(pos.x, pos.y, pos.z);
+    colour(hsb) ;
+    stroke(colorPixelCam) ;
+    strokeWeight(size.x) ;
+    point(0,0,0)  ;
+  }
+  //
+  void boxMonochrome(PVector pos, PVector size, PVector hsb) {
+    float depth = (hsb.z +1) *size.z ;
+    if(horizon[IDobj]) translate(pos.x, pos.y, depth *.5); else translate(pos.x, pos.y, pos.z);
+    monochrome(hsb) ;
+    fill(colorPixelCam) ;
+    noStroke() ;
+    box(size.x, size.y, depth) ;
+  }
+  //
+  void boxColour(PVector pos, PVector size, PVector hsb) {
+    float depth = (hsb.z +1) *size.z ;
+    if(horizon[IDobj]) translate(pos.x, pos.y, depth *.5); else translate(pos.x, pos.y, pos.z);
+    colour(hsb) ;
+    fill(colorPixelCam) ;
+    noStroke() ;
+    box(size.x, size.y, depth) ;
+  }
+  
+  
+  
+  
+  
+  
+  void colour(PVector hsb) {
+    float newSat = hsb.y *map(saturation(fillObj[IDobj]),0,100,0,1) ;
+    float newBrigth = hsb.z *map(brightness(fillObj[IDobj]),0,100,0,1) ;
+    colorPixelCam = color(hsb.x, newSat, newBrigth, alpha(fillObj[IDobj]));
+  }
+  
+  void monochrome(PVector hsb) {
+    float newHue = hue(fillObj[IDobj]) ;
+    float newSat = hsb.y *map(saturation(fillObj[IDobj]),0,100,0,1) ;
+    float newBrigth = hsb.z *map(brightness(fillObj[IDobj]),0,100,0,1) ;
+    //display the result
+    colorPixelCam = color(newHue, newSat, newBrigth, alpha(fillObj[IDobj]));
+  }
+  
+  
+  
+  
+  
+  
+  // test camera
   int testCam ;
   boolean testCam() {
     if (cam.available() ) testCam =+ 30 ; else testCam -= 1 ;
@@ -159,14 +247,7 @@ class Webcam extends SuperRomanesco {
     
     if ( testCam > 2 ) return true ;  else return false ;
   }
+  
+  
+  
 }
-//end object one
-
-
-
-
-
-
-
-// END OBJECT ROMANESCO
-///////////////////////

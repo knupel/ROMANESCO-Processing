@@ -32,17 +32,16 @@ class Letter extends SuperRomanesco {
   
   //DRAW
   void display() {
+    loadText(IDobj) ;
+    
     if (parameter[IDobj] || pathFontObjTTF[IDobj] == null ) { 
       font[IDobj] = font[0] ;
       pathFontObjTTF[IDobj] = pathFontObjTTF[0] ;
     }
     //init and re-init Geomerative if few stuff change about this line like text, font and the size of the font
     sizeFont = int(fontSizeObj[IDobj]) ;
-    
-    //tracking chapter
-    String textChapters [] = split(textRaw, "*") ;
-    //we use in this case the tittle of the text
-    String sentence = textChapters [0] ;
+    //text
+    String sentence = whichSentence(textImport[IDobj], 0, 0) ;
 
     
     //check if something change to update the RG.getText
@@ -90,7 +89,7 @@ class Letter extends SuperRomanesco {
     PVector jitter = new PVector (jitterX, jitterY, jitterZ) ;
     
     //final position
-        // Problem with spaceTouch move
+    // Problem with spaceTouch move
     // translate(mouse[IDobj].x , mouse[IDobj].y , mouse[IDobj].z) ;
     
     fill(colorIn); noStroke() ;

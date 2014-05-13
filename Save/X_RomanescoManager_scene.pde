@@ -1,6 +1,5 @@
 //MANAGER CLASS
 ObjectRomanescoManager romanescoManager ;
-
 // CLASS ROMANESCO MANAGER
 void romanescoSetup() {
   romanescoManager = new ObjectRomanescoManager(this);
@@ -17,13 +16,17 @@ void updateObject(int ID, int group) {
     mouse[ID] = mouse[0].get() ;
     initValueMouse[ID] = true ;
   }
-  if(!initValueSlider[ID]) {
+  if(!initValueControleur[ID]) {
     font[ID] = font[0] ;
     updateParameter(ID,group ) ;
-    initValueSlider[ID] = true ;
+    initValueControleur[ID] = true ;
+    whichImage[ID] = whichImage[0] ;
+    whichText[ID] = whichText[0] ;
   }
   
   if(parameter[ID] ) {
+    whichImage[ID] = whichImage[0] ;
+    whichText[ID] = whichText[0] ;
     font[ID] = font[0] ;
     updateParameter(ID,group ) ;
   }

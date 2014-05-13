@@ -115,6 +115,7 @@ class Escargot extends SuperRomanesco {
     //step 2 if you use Voronoi
     //setting voronoi
     voronoiToxicSetup() ;
+    
   }
   
   
@@ -122,7 +123,12 @@ class Escargot extends SuperRomanesco {
   String imgPathRef = ("") ;
   //DRAW
   void display() {
-    if(img != null)  {
+    
+    loadImg(IDobj) ;
+    
+    if(img[IDobj] == null)  {
+      img[IDobj] = loadImage(imagePath[whichImage[IDobj]]) ;
+    } else {
       //MOTION
       windForce = (int)map(speedObj[IDobj],0,100,0,13) ;
       windDirection = (int)directionObj[IDobj] ;
@@ -142,7 +148,7 @@ class Escargot extends SuperRomanesco {
        // if( pen[IDobj].x == 0 && pen[IDobj].y == 0 ) newDirection = normalDir(int(map(valueObj[IDobj][18],0,100,0,360))) ; else newDirection = new PVector (-pen[IDobj].x  , -pen[IDobj].y ) ;
        
        if (!motion[IDobj]) for( Pixel p : listEscargot) {
-         p.updatePosPixel(motionInfo, img) ;
+         p.updatePosPixel(motionInfo, img[IDobj]) ;
        }
       ////////////////
       
@@ -160,17 +166,17 @@ class Escargot extends SuperRomanesco {
       //if (maxEntryPoints > listPixelRaw.size() / 4 ) maxEntryPoints = listPixelRaw.size() ;
   
       radiusAnalyze = int(map(amplitudeObj[IDobj],0,1,2,100));
-      pixelAnalyzeSize = int(map(analyzeObj[IDobj],0,100,2,30));
+      pixelAnalyzeSize = int(map(analyzeObj[IDobj],0,1,100,2));
       
   
       
        //security for the droping img from external folder
        if(parameter[IDobj] && rTouch ) ratioImg = !ratioImg ;
-       if( img != null && img.width > 3 && ratioImg ) {
+       if(img[IDobj] != null && img[IDobj].width > 3 && ratioImg ) {
          analyzeImg(pixelAnalyzeSize) ;
          // ratioImgWindow = new PVector ((float)width / (float)img.width , (float)height / (float)img.height ) ;
-         ratioImgWindow = new PVector ((float)width / (float)img.width , (float)width / (float)img.width ) ;
-       } else if (img != null && img.width > 3 && !ratioImg) {
+         ratioImgWindow = new PVector ((float)width / (float)img[IDobj].width , (float)width / (float)img[IDobj].width ) ;
+       } else if (img[IDobj] != null && img[IDobj].width > 3 && !ratioImg) {
          analyzeImg(pixelAnalyzeSize) ;
          ratioImgWindow = new PVector(1,1) ;
        } else {
@@ -197,11 +203,11 @@ class Escargot extends SuperRomanesco {
        int opacityShapeOut = (int)alpha(strokeObj[IDobj]) ;
        
        // update image
-       if(parameter[IDobj] && imgPathRef != imagePath[whichImage] ) {
+       if(parameter[IDobj] && imgPathRef != imagePath[whichImage[IDobj]] ) {
          analyzeDone = false ;
          escargotGOanalyze = false ;
          escargotClear() ;
-         imgPathRef = imagePath[whichImage] ;
+         imgPathRef = imagePath[whichImage[IDobj]] ;
        }
       
       
@@ -249,7 +255,7 @@ class Escargot extends SuperRomanesco {
       } else if (mode[IDobj] == 8 ) {
         if( listEscargot.size() < maxVoronoiPoints) voronoiStatic(strokeColor, thickness, useNewPalettePixColorToDisplay) ; else text("Trop de point a afficher", 20, height - 20 ) ;
       }
-    }
+    } 
   }
   
   
@@ -569,7 +575,7 @@ class Escargot extends SuperRomanesco {
     for ( Pixel b : listEscargot) {
       //security against the NaN result
       if ( Float.isNaN(b.pos.x) ) {
-        PVector pos = b.posPixel(motion, img);
+        PVector pos = b.posPixel(motion, img[IDobj]);
         voronoi.addPoint(new Vec2D(pos.x, pos.y));
       }
     }
@@ -691,11 +697,11 @@ class Escargot extends SuperRomanesco {
     //escargotClear() ;
     
     // put in this void the size of pixel you want, to create grid analyzing and image than you want analyze
-    colorAnalyzeSetting(sizePixForAnalyze, img) ;
+    colorAnalyzeSetting(sizePixForAnalyze, img[IDobj]) ;
     
     //step 2
     //three componants : FIRST : size of the pixel grid // SECOND which PImage // THIRD mirror "FALSE" or "TRUE"
-    recordPixelRaw(sizePixForAnalyze, img, false) ; 
+    recordPixelRaw(sizePixForAnalyze, img[IDobj], false) ; 
     
     //step 3
     // give the list point of Pixel must be change with the new palette
@@ -1468,5 +1474,3 @@ void choiceSVG(File selection) {
 
   }
 }
-
-

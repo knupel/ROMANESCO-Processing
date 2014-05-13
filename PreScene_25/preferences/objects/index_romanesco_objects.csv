@@ -1,7 +1,7 @@
 Library Order,Name,ID,Group,Version,Author,Class name,Pack,Render,Mode
 1,The Abbyss,2,1,Beta 2.0,Andreas Gysin,Abbyss,Base,P3D,1 Box Fish/2 Cubus/3 Floater/4 Radio/5 Worm/6 Sea Fly/7 Breather/8 Spider/9 Manta/10 Father/11 Super Nova
 2,Arbre,6,1,Alpha 2.0,Stan le Punk,ArbreRomanesco,Base,classic,1 Trait/2 Disc/3 Disc trait/4 Rectangle/5 Rectangle trait/6 Box
-3,ATOM,3,1,Alpha 1.1,Stan le Punk,Atome,Base,P3D,1 Schema/2 Cloud/3 Title/4 Font
+3,ATOM,3,1,Alpha 1.2,Stan le Punk,Atome,Base,P3D,1 Schema/2 Cloud/3 Title/4 Font
 4,Balise,8,1,Alpha 1.2,Stan le Punk,BaliseRomanesco,Base,P3D,1 Disc/2 Rectangle/3 Box/4 Box Snake
 5,Boxolyzer,13,2,Alpha 1.0,My name is Nobody,Boxolyzer,Base,P3D,1 Classic/2 Circle
 6,Damier,11,2,Alpha 2.1,Stan le Punk,Damier,Base,classic,1 Rectangle/2 Ellipse/3 Box
@@ -19,4 +19,4 @@ Library Order,Name,ID,Group,Version,Author,Class name,Pack,Render,Mode
 18,Soleil,7,1,Alpha 1.0,Stan le Punk,Soleil,Base,P3D,1 Beam/2 Lie'Bro'One/3 Lie'Bro'Two/4 Lie'Bro Noisy
 19,Spirale,5,1,Alpha 2.1,Stan le Punk,SpiraleRomanesco,Base,P3D,1 Rectangle/2 Ellipse/3 Box
 20,Spray,4,1,Alpha 2.0,Stan le Punk,Spray,Base,P3D,1 Spray/2 Star
-21,Webcam,14,2,Alpha 2.0,Stan le Punk,Webcam,Base,classic,1 classic/2 monochrome
+21,Webcam,14,2,Alpha 1.2,Stan le Punk,Webcam,Base,classic,1 Rectangle color/2 Rectangle mono/3 Point color/4 Point mono/3 Box color/4 Box mono

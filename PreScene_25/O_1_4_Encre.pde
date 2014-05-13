@@ -149,7 +149,7 @@ class Spray extends SuperRomanesco {
     float thicknessPoint = thicknessObj[IDobj]*.1 ;
     inkFlux = int(flux) ;
     angleSpray   = map (angleObj[IDobj], 0,360, 0,180 ) ; // angle
-    dry = (int)map(lifeObj[IDobj], 1,100, frameRate , 100000) ; // durée
+    dry = (int)map(lifeObj[IDobj], 0,1, frameRate , 100000) ; // durée
     float spr ;
     spr = map(forceObj[IDobj], 1,100 , 1, width) ; // force de diffusion
     spray = int(spr) ;

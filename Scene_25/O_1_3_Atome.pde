@@ -8,7 +8,7 @@ class Atome extends SuperRomanesco {
     IDobj = 3 ;
     IDgroup = 1 ;
     romanescoAuthor  = "Stan le Punk";
-    romanescoVersion = "Alpha 1.1";
+    romanescoVersion = "Alpha 1.2";
     romanescoPack = "Base" ;
     romanescoRender = "P3D" ;
     romanescoMode = "1 Schema/2 Cloud/3 Title/4 Font" ;
@@ -33,17 +33,22 @@ class Atome extends SuperRomanesco {
 
   float atomX = 0 ; float atomY = 0 ;
   
+  //beat var
   float beatSizeProton = 1 ;
   float beatThicknessCloud = 1 ;
   float beatSizeCloud = 1 ;
+  // var for the beat range reactivity
+  int rangeA = 0 , rangeB = 0, rangeC  =0  ;
   
   //direction of atome
   PVector newDirection ;
   
+
+  
   
   //SETUP
   void setting() {
-    startPosition(IDobj, 0, 0, 0) ;
+    startPosition(IDobj, width/2, height/2, 0) ;
     
     atomList = new ArrayList<Atom>();
     
@@ -56,17 +61,14 @@ class Atome extends SuperRomanesco {
    int diam = 5 ;
    int Kstart = int(abs( mix[IDobj]) *1000) ; // Temperature of Atom, influence the mouvement behavior
    //motion
-   motion[IDobj] = true ;
    
    Atom atm = new Atom( pos, vel, Z, ion, rebound, diam,  Kstart) ; 
    atomList.add(atm) ;
    
-   // init font
-   font[IDobj] = font[0] ;
   }
   //DRAW
   void display() {
-    if (parameter[IDobj]) font[IDobj] = font[0] ;
+    loadText(IDobj) ;
     
         //OBJECT
     for (Atom atm : atomList) {
@@ -74,9 +76,9 @@ class Atome extends SuperRomanesco {
       float velLimit = (tempo[IDobj] ) *5.0 ; // max of speed Atom
       if (velLimit < 1.1 ) velLimit = 1.1 ;
       //the atom temperature give the speed 
-      float s = map(speedObj[IDobj],0,100, 0.0,17.0);
-      float speed = s*s*s ;
+      float speed = speedObj[IDobj] *speedObj[IDobj] ;
       if(sound[IDobj]) t =  floor(speed  * tempo[IDobj]) ; else t = round(speed) ;
+      
       //ratio evolution for atom temperature...give an idea to change the speed of this one
       //because the temp of atom is linked with velocity of this one.
       float tempAbs = 10.0 ;
@@ -91,11 +93,13 @@ class Atome extends SuperRomanesco {
         newDirection = new PVector (0,0,0 ) ;
       }
       
-      PVector newVelocity = new PVector ( sq(tempo[IDobj]) *1000.0 , sq(tempo[IDobj]) *1000.0 );
+      PVector newVelocity = new PVector ( sq(tempo[IDobj]) *1000.0, sq(tempo[IDobj]) *1000.0 );
       //security if the value is null to don't stop the move
       float acceleration ; 
       if(pen[IDobj].z == 0 ) acceleration = 1.0  ; else acceleration = pen[IDobj].z * 1000.0  ;
-      changeVelocity = new PVector (newDirection.x * newVelocity.x *right[IDobj] *acceleration  , newDirection.y * newVelocity.y *left[IDobj] *acceleration  ) ;
+      float soundDirectionRight = map(right[IDobj], 0, 1, -1, 1) ;
+      float soundDirectionLeft = map(left[IDobj], 0, 1, 1, -1) ;
+      changeVelocity = new PVector (newDirection.x *newVelocity.x *soundDirectionRight *acceleration, newDirection.y *newVelocity.y *soundDirectionLeft *acceleration) ;
       
       atm.update (t, velLimit, changeVelocity, tempAbs) ; // obligation to use this void, in the atomic univers
       //COLLISION
@@ -112,13 +116,22 @@ class Atome extends SuperRomanesco {
       float fp = map (sizeXObj[IDobj], 0,100, 1, 20) ;
       int factorSizeProton = int(fp) ;
       
-      if ( atm.getProton() < 21 ) { 
+      int max = 118 ;
+      
+      if( (nTouch && action[IDobj]) || rangeA == 0 ) {
+        rangeA = round(random(0,max-80)) ;
+        rangeB = round(random(rangeA,max-40)) ;
+        rangeC = round(random(rangeB,max)) ;
+      }
+      
+      
+      if ( atm.getProton() < rangeA ) { 
         beatSizeProton = beat[IDobj] ;
-      } else if ( atm.getProton() > 20 && atm.getProton() < 45 ) {
+      } else if ( atm.getProton() > rangeA && atm.getProton() < rangeB ) {
         beatSizeProton = kick[IDobj] ;
-      } else if ( atm.getProton() > 44 && atm.getProton() < 65 ) {
+      } else if ( atm.getProton() > rangeB && atm.getProton() < rangeC ) {
         beatSizeProton = snare[IDobj] ;
-      } else if ( atm.getProton()  > 64 ) {
+      } else if ( atm.getProton()  > rangeC ) {
         beatSizeProton = hat[IDobj] ;
       }
       /////////////////CLOUD///////////////////////////////////////
@@ -148,7 +161,7 @@ class Atome extends SuperRomanesco {
       //width
       float posTextInfo = sizeYObj[IDobj] + (beat[IDobj] *2.0)  ;
       //Canvas
-      PVector marge = new PVector(canvasXObj[IDobj] *10, canvasYObj[IDobj] *10) ;
+      PVector marge = new PVector(map(canvasXObj[IDobj], width/10, width, width/20, width *3) , map(canvasYObj[IDobj], height/10, height, height/20, height *3) ) ;
       
 
       //MODE OF DISPLAY
@@ -169,11 +182,6 @@ class Atome extends SuperRomanesco {
       ////////////////////////////////////////////////////////////////////////////////////////////
       atm.universWall2D( bottom, top, wallRight, wallLeft, false, marge) ; // obligation to use this void
       ////////////////////////////////////////////////////////////////////////////////////////////
-      
-      ///////////////////////// INTERNAL VOID \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
-      //Electronic Info 
-      //atm.electronicInfo() ; // give the number of electronic shell and the Valence Shell
-      //atm.addElectron() ;    // add electron on the atom at the begin the electron is equal to "Z"proton
     }
     
     
@@ -182,8 +190,8 @@ class Atome extends SuperRomanesco {
     //CLEAR
     if (resetAction(IDobj)) atomList.clear() ;
     //ADD ATOM
-    int speedReproduction = 4 ;
-    if(action[IDobj] && nLongTouch && frameCount % speedReproduction == 0) atomAdd(giveNametoAtom()) ;
+    int speedReproduction = round(map(lifeObj[IDobj],0,1,20,1));
+    if(action[IDobj] && nLongTouch && clickLongLeft[IDobj] && frameCount % speedReproduction == 0) atomAdd(giveNametoAtom(), startingPosition[IDobj]) ;
 
   }
   //END DRAW
@@ -196,15 +204,15 @@ class Atome extends SuperRomanesco {
   //give name to the atom from the karaoke.txt in the source repository
   String giveNametoAtom() {
     String s = ("") ;
-    int whichChapter = floor(random(sentencesByChapter.length)) ;
-    int whichSentence = floor(random(sentencesByChapter[0].length)) ;
+    int whichChapter = floor(random(numChapters(textImport[IDobj]))) ;
+    int whichSentence = floor(random(numMaxSentencesByChapter(textImport[IDobj]))) ;
     //give a random name, is this one is null in the array, give the tittle name of text
-    if(sentencesByChapter[whichChapter][whichSentence] != null ) s = sentencesByChapter[whichChapter][whichSentence] ; else s = sentencesByChapter[0][0] ;
+    if(whichSentence(textImport[IDobj], whichChapter, whichSentence) != null ) s = whichSentence(textImport[IDobj], whichChapter, whichSentence) ; else s = whichSentence(textImport[IDobj], 0, 0) ;
     return s ;
   }
   
   // ADD function
-  void atomAdd() {
+  void atomAdd(PVector newPos) {
     //data
     //amplitude
     //give the field of type of atome must be create
@@ -220,7 +228,7 @@ class Atome extends SuperRomanesco {
     int diam = 5 ;
     // Atom motion
     float startVel = 1.0 ;
-    PVector posA = new PVector ( mouse[IDobj].x, mouse[IDobj].y, 0.0 ) ;
+    PVector posA = new PVector ( mouse[IDobj].x -newPos.x, mouse[IDobj].y -newPos.y, 0.0 ) ;
     PVector velA = new PVector ( random(-startVel, startVel ), random(-startVel, startVel ), random(-startVel, startVel ) ) ;
     
     for (Atom atm : atomList) {
@@ -231,7 +239,7 @@ class Atome extends SuperRomanesco {
   }
   
   //Add atom with a specific name
-  void atomAdd(String name) {
+  void atomAdd(String name, PVector newPos) {
     //data
     //amplitude
     //give the field of type of atome must be create
@@ -247,7 +255,7 @@ class Atome extends SuperRomanesco {
     int diam = 5 ;
     // Atom motion
     float startVel = 1.0 ;
-    PVector posA = new PVector ( mouse[IDobj].x, mouse[IDobj].y, 0.0 ) ;
+    PVector posA = new PVector ( mouse[IDobj].x -newPos.x, mouse[IDobj].y -newPos.y, 0.0 ) ;
     PVector velA = new PVector ( random(-startVel, startVel ), random(-startVel, startVel ), random(-startVel, startVel ) ) ;
     
     for (Atom atm : atomList) {
@@ -523,11 +531,6 @@ class Atom
         atomVect.x = target.pos.x - pos.x;
         atomVect.y = target.pos.y - pos.y;
         ////////////////////////////////////////////
-        /*
-        if (fieldCollide( target, 
-                          target.radiusElectronicFieldCovalent(), radiusElectronicFieldCovalent(), 
-                          target.radiusElectronicField(),         radiusElectronicField()          )) {
-        */
         if (collide( target, target.radiusElectronicField(), radiusElectronicField() ) ) {
           contactCovalentEN(target, atomVect) ;
           if (collide( target, target.radiusElectronicFieldCovalent(), radiusElectronicFieldCovalent() ) ) {
@@ -552,22 +555,16 @@ class Atom
    
    
   void contactCovalent(Atom target, PVector atomVect)  {
-    //  float linking = abs(target.electroNegativity - electroNegativity) * 25.0 ;
-    //  float linkingLuck = random(100);
-    // if (!target.covalentBondLast || !covalentBondLast ) {
-       if (!target.covalentBondLast || !covalentBondLast ) {
-           resolveCollision(target , atomVect) ;
-           //   if ( linkingLuck < linking ) {
-        resolveCollision(target , atomVect) ;
-      }  else {
-        // new motion of atom when is lock together//
-   //     mole = true ; // say the atom is now a molecule
-        float factorAddMotion = 2.0 ; // 2.0 is average motion factor
-        PVector newVel = new PVector ( (vel.x + target.vel.x) /factorAddMotion , (vel.y + target.vel.y) /factorAddMotion ) ;
-        target.vel = newVel ;
-        vel  = newVel ;
-      }
-  //   }
+    if (!target.covalentBondLast || !covalentBondLast ) {
+      resolveCollision(target , atomVect) ;
+      resolveCollision(target , atomVect) ;
+    }  else {
+      // new motion of atom when is lock together//
+      float factorAddMotion = 2.0 ; // 2.0 is average motion factor
+      PVector newVel = new PVector ( (vel.x + target.vel.x) /factorAddMotion , (vel.y + target.vel.y) /factorAddMotion ) ;
+      target.vel = newVel ;
+      vel  = newVel ;
+    }
    }
    
    
@@ -904,7 +901,6 @@ class Atom
   // display the ellipse of Valence bond
   void eCloudEllipse2D(color eColor, float amp, boolean cloud_, float thickness) {
     electronicInfo() ;
-    // boolean cloud = cloud_ ;  // send the information to class Univers for the wall
     noFill() ;
     if ( thickness < 0.01 ) thickness = 0.01 ;
     if ( alpha(eColor) != 0 ) {
@@ -949,26 +945,11 @@ class Atom
       textAlign (LEFT) ; 
       text(ion,              pos.x +posXtext , pos.y -posYtext );
       text(valenceElectron,  pos.x +posXtext , pos.y +( 2.3 *posYtext));
-      //text(valenceElectron,  pos.x +posXtext , pos.y +sizeTextInfo);
       textAlign (RIGHT) ; 
-     // text(proton,           pos.x -posXtext , pos.y +sizeTextInfo); 
       text(proton,           pos.x -posXtext , pos.y +( 2.3 *posYtext));
       text(round(mass),      pos.x -posXtext , pos.y -posYtext); 
-      
-      // capacity of atom for the Covalent Bond
-      /*
-      String capacity = c ;
-      textFont(p, 10); textAlign(CENTER);
-      text(capacity , pos.x , pos.y -15 ); 
-      //Energy of atom
-      String sE = nf(screenEffect, 1, 2 ) ;
-      text("SE " + sE + " / EN " + electroNegativity , pos.x , pos.y +20 );
-      */
+
     }
-   
-   //size of electronicCloud
-   //text(radiusElectronicField() , pos.x , pos.y +20 ); 
-    
   } 
   
 
@@ -1209,10 +1190,9 @@ class Univers {
     //float renderLeft = restitutionLeft + rebond_ ;
     //::::::WALL ON
     if ( wallOnOff ) {
-      //wall right
-      if (pos.x > width -r +marge.x || pos.x < r -marge.x ) {
+      if (pos.x > -r +marge.x || pos.x < r -marge.x ) {
       newVel.x = -newVel.x *renderRight ;        
-      } else if (pos.y > height -r + marge.y ||pos.y < r -marge.y ) {
+      } else if (pos.y > -r +marge.y ||pos.y < r -marge.y ) {
         newVel.y = -newVel.y *renderBottom ;    
       }
     }
@@ -1220,20 +1200,20 @@ class Univers {
     //::::::WALL OFF
     //wall right
     if ( !wallOnOff ) {
-      if (pos.x > width +r + marge.x ) {
+      if (pos.x > +r + marge.x ) {
         newPos.x = -r -marge.x;
         newVel.x *=+1 ;
         //wall left
       } else if (pos.x < -r -marge.x  ) {
-        newPos.x = width +r + marge.x;
+        newPos.x = +r + marge.x;
         newVel.x *=+1 ;
         //ground  
-      } else if (pos.y > height +r + marge.y ) {
+      } else if (pos.y > +r + marge.y ) {
         newPos.y = -r -marge.y;
         newVel.x *=+1 ;
         //roof  
       } else if (pos.y < -r -marge.y ) {
-        newPos.y =  height +r +marge.y;
+        newPos.y =  +r +marge.y;
         newVel.x *=+1 ;
       }
     }

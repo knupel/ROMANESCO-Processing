@@ -31,22 +31,12 @@ String savePathPDF, savePathPNG ;
 
 Tablet tablet;
 PVector cursorRef = new PVector() ;
-
-//SETUP
-void varObjectSetup() {
-  //LEAP MOTION
+void presceneSetup() {
   leap = new com.leapmotion.leap.Controller();
-  //TABLET
   tablet = new Tablet(this);
-  for (int i = 0 ; i < numObj ; i++ ) {
-    startingPos[i] = new PVector(height/2, width/2, 0) ;
-    pen[i] = new PVector() ;
-    // use the 250 value for "z" to keep the position light on the front
-    mouse[i] = new PVector(0,0,0) ;
-    pmouse[i] = new PVector() ;
-    wheel[i] = 0 ;
-  }
 }
+
+
 
 
 
@@ -84,7 +74,7 @@ void initDraw() {
   
   //change the size of displaying if you load an image or a new image
   resizableByImgDrop = true ;
-  if ( resizableByImgDrop && displaySizeByImage ) updateSizeDisplay(img) ;
+  if ( resizableByImgDrop && displaySizeByImage ) updateSizeDisplay(imgDefault) ;
   
 
 }

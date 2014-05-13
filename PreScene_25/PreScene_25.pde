@@ -10,15 +10,6 @@ boolean testRomanesco = false ;
 // when you work only with "Prescene" boolean presceneOnly must be true to give at the Prescene the internet acces
 boolean presceneOnly = true ;
 
-// I don't remember why there is the boolean 
-/*
-boolean Controleur = true ;
-boolean Scene = true ;
-boolean Miroir = true ;
-*/
-
-
-
 //to opening app
 boolean openScene = true ;
 boolean openMiroir = true ;
@@ -43,9 +34,11 @@ void setup() {
   // GEOMERATIVE
   RG.init(this);
   
+  presceneSetup() ; // the varObject setup of the Scene is more simple
+  
+  varObjSetup() ;
   fontSetup() ;
   soundSetup() ;
-  varObjectSetup() ; // the varObject setup of the Scene is more simple
   OSCSetup() ;
   meteoSetup() ;
   P3DSetup() ;
@@ -55,7 +48,6 @@ void setup() {
 
 //DRAW
 void draw() {
-  
   //setting
   initDraw() ;
   soundDraw() ;
@@ -63,7 +55,7 @@ void draw() {
   updateVar() ;
   OSCDraw() ;
   // we must write the void loadLiveData, after OSCDraw in cas where the OSC send a file Image or Text don't exist in the Scene or Prescene Folder
-  loadLiveData() ; 
+  //loadLiveData() ; 
   backgroundRomanescoPrescene(presceneOnly) ;
   
   //ROMANESCO
@@ -141,4 +133,3 @@ void keyReleased() {
   keyboardLongFalse() ;
 }
 //END KEYRELEASED
-

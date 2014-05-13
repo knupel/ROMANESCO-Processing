@@ -25,6 +25,8 @@ class Karaoke extends SuperRomanesco {
   
   //DRAW
   void display() {
+    loadText(IDobj) ;
+    
     float sizeFont = fontSizeObj[IDobj] ;
     
     textFont(font[IDobj], sizeFont + ( sizeFont * mix[IDobj]) );
@@ -38,7 +40,7 @@ class Karaoke extends SuperRomanesco {
     float hauteur = canvasYObj[IDobj] *15 ;
     
     //tracking chapter
-    String karaokeChapters [] = split(textRaw, "*") ;
+    String karaokeChapters [] = split(textImport[IDobj], "*") ;
     //security button
     if(action[IDobj] && nLongTouch ) {
       

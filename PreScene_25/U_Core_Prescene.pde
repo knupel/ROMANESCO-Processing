@@ -698,8 +698,7 @@ void displayInfoScene() {
   //INFO SIZE and RENDERER
   String displayModeInfo ;
   if (displayMode.equals("Classic") ) displayModeInfo = ("classic") ; else displayModeInfo = displayMode ;
-  if (img != null ) text ("Scène width " + width + " height" + height + " image width "+ img.width + "height"+ img.height + "    render mode" + displayModeInfo + "    FrameRate " + frameRate, 15,15 ) ; 
-  else text("Scène width " + width + "height" + height + "   render mode " + displayModeInfo + "    FrameRate " + frameRate, 15,15) ;
+  text("Scène width " + width + "height" + height + "   render mode " + displayModeInfo + "    FrameRate " + frameRate, 15,15) ;
   //INFO MOUSE and PEN
   text("position X " + mouseX + "  position Y " + mouseY + "  molette " + wheel[0] + "    pen orientation " + (int)deg360(pen[0]) +"°   stylet pressur " + int(pen[0].z *10),15, 15 * (posInfoObj) ) ;  
   posInfoObj += 1 ;

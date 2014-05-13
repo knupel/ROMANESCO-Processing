@@ -15,21 +15,25 @@ void updateObject(int ID, int group) {
     mouse[ID] = mouse[0].get() ;
     initValueMouse[ID] = true ;
   }
-  if(!initValueSlider[ID]) {
+  if(!initValueControleur[ID]) {
     font[ID] = font[0] ;
     updateParameter(ID,group ) ;
-    initValueSlider[ID] = true ;
+    initValueControleur[ID] = true ;
+    whichImage[ID] = whichImage[0] ;
+    whichText[ID] = whichText[0] ;
   }
   
   
-  if(parameter[ID] ) {
+  if(parameter[ID]) {
+    whichImage[ID] = whichImage[0] ;
+    whichText[ID] = whichText[0] ;
     font[ID] = font[0] ;
     updateParameter(ID,group ) ;
   }
   updateSound(ID) ;
   
   if(action[ID] ){
-    if(spaceTouch) mouse[ID] = mouse[0].get() ; 
+    //if(spaceTouch) mouse[ID] = mouse[0].get() ; 
     if( mTouch ) motion[ID] = !motion[ID] ;
     if (hTouch) horizon[ID] = !horizon[ID] ;
     clickLongLeft[ID] = clickLongLeft[0] ;

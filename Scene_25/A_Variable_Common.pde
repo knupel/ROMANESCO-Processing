@@ -122,7 +122,8 @@ PFont police ;
 // button
 int eBeat, eKick, eSnare, eHat, eCurtain, eBackground ;
 int eLightOne, eLightTwo, eLightOneAction, eLightTwoAction ;
-int whichShader, whichImage, whichText ;
+int whichShader ; 
+int [] whichImage, whichText ;
 int [] objectButton,soundButton, actionButton, parameterButton ;
 boolean [] object, sound, action, parameter ;
 
@@ -137,7 +138,7 @@ float valueSlider[][]  = new float [numGroup+1][numSlider] ;
 
 //MISC
 //var to init the data of the object when is switch ON for the first time
-boolean  [] initValueMouse, initValueSlider ;
+boolean  [] initValueMouse, initValueControleur ;
 //parameter for the super class
 float [] left, right, mix ;
 //beat
@@ -150,16 +151,16 @@ float [] tempo, tempoBeat, tempoKick, tempoSnare, tempoHat ;
 
 //P3D OBJECT
 //position
-//boolean startingPosition [] ;
-PVector startingPos [] ;
+
+PVector startingPosition [] ;
 float [] P3DpositionX, P3DpositionY, P3DpositionZ ;
-//PVector P3Dposition [] ;
+
 PVector P3DpositionObjRef [] ;
 boolean P3DrefPos [] ;
 PVector [] posManipulation, dirManipulation ;
 //orientation
 float [] P3DdirectionX, P3DdirectionY ;
-//PVector P3Ddirection [] ;
+
 PVector P3DdirectionObjRef [] ;
 boolean P3DrefDir [] ;
 
@@ -211,8 +212,6 @@ void createVar() {
   
   romanescoManager.initObj() ;
 }
-
-//init void
 // misc var
 void createMiscVar() {
    setting = new boolean [numObj]  ;
@@ -221,6 +220,12 @@ void createMiscVar() {
   //motion object
    motion = new boolean [numObj]  ;
    horizon = new boolean [numObj]  ;
+   // IMAGE
+   img = new PImage[numObj] ;
+   whichImage = new int[numObj] ;
+   // TEXT
+   textImport = new String [numObj] ;
+   whichText = new int[numObj] ;
   //main font for each object
    font = new PFont[numObj] ;
    pathFontObjTTF = new String[numObj] ;
@@ -230,7 +235,7 @@ void createMiscVar() {
      //MISC
   //var to init the data of the object when is switch ON for the first time
    initValueMouse = new boolean [numObj]  ;
-   initValueSlider = new boolean [numObj]  ;
+   initValueControleur = new boolean [numObj]  ;
 }
 // var cursor
 void createVarCursor() {
@@ -248,8 +253,7 @@ void createVarCursor() {
 }
 // P3D
 void createVarP3D() {
-   //startingPosition = new boolean[numObj] ;
-   startingPos = new PVector[numObj] ;
+   startingPosition = new PVector[numObj] ;
    P3DpositionX = new float[numObj] ;
    P3DpositionY = new float[numObj] ;
    P3DpositionZ = new float[numObj] ;
@@ -348,6 +352,22 @@ void createVarObject() {
 //////////////////
 
 
+
+// SETTING VAR
+//SETUP
+void varObjSetup() {
+  for (int i = 0 ; i < numObj ; i++ ) {
+    pen[i] = new PVector() ;
+    // use the 250 value for "z" to keep the position light on the front
+    mouse[i] = new PVector(0,0,0) ;
+    pmouse[i] = new PVector() ;
+    wheel[i] = 0 ;
+
+  }
+}
+// END SETTING AR
+
+
 // UPDATE DATA from CONTROLER and PRESCENE
 void updateVar() {
   //from column 1
@@ -373,9 +393,9 @@ void updateVar() {
     directionRaw[i] = map(valueSlider[i+1][21],minSource, maxSource,0,360) ;
     angleRaw[i] = map(valueSlider[i+1][22],minSource, maxSource,0,360) ;
     amplitudeRaw[i] = map(valueSlider[i+1][23],minSource, maxSource,0,1) ;
-    analyzeRaw[i] = valueSlider[i+1][24] ;
+    analyzeRaw[i] = map(valueSlider[i+1][24],minSource, maxSource,0,1) ;
     familyRaw[i] = map(valueSlider[i+1][25],minSource, maxSource,1,100) ;
-    lifeRaw[i] = valueSlider[i+1][26] +1 ;
+    lifeRaw[i] = map(valueSlider[i+1][26],minSource, maxSource,0,1) ;
     forceRaw[i] = valueSlider[i+1][27] +1 ;
     // future slider
     fontSizeRaw[i] = map(sizeXRaw[i], minSize, width, .01, height *.05) ;

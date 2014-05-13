@@ -1,8 +1,13 @@
 //////////////
 //CHECK FOLDER
-PImage img ;
+PImage imgDefault ;
+PImage[] img ;
 ArrayList imageFiles = new ArrayList();
+
+String textRaw ;
+String[] textImport ;
 ArrayList textFiles = new ArrayList();
+
 String [] imagePath, textPath ;
 boolean folderImageIsSelected = true ;
 boolean folderFileTextIsSelected = true ;
@@ -13,17 +18,22 @@ int refImageNumFiles, refTextNumFiles ;
 
 
 // main void
-void loadLiveData() {
-  // image
+void loadImg(int ID) {
   checkImageFolder() ;
-  if(whichImage > imagePath.length ) whichImage = 0 ;
-  if(imagePath != null) img = loadImage(imagePath[whichImage]) ;
-  // text
-  checkFileTextFolder() ;
-  if(whichText > textPath.length ) whichText = 0 ;
-  importText(textPath[whichText]) ;
-  splitText() ;
+  // whichImage is the int return from the dropdown menu
+  if(whichImage[ID] > imagePath.length ) whichImage[ID] = 0 ;
+  if(imagePath != null) img[ID] = loadImage(imagePath[whichImage[ID]]) ;
 }
+
+void loadText(int ID) {
+  checkFileTextFolder() ;
+  // whichText is the int return from the dropdown menu
+  if(whichText[ID] > textPath.length ) whichText[ID] = 0 ;
+  textImport[ID] = importText(textPath[whichText[ID]]) ;
+}
+
+
+
 // check what's happen in the selected folder
 void checkImageFolder() {
   String path = sketchPath +"/" +preferencesPath +"Images" ;
@@ -166,12 +176,81 @@ void recurseDir(ArrayList a, String dir) {
 
 
 
-//TEXT
+
+
+
+
+
+
+// NEW VOID TEXT
 String importRaw [] ;
-String  textRaw ;
+
+
+
+String importText(String path) {
+  importRaw = loadStrings(path) ;
+  return join(importRaw, "") ;
+}
+
+
+// info num Chapters
+int numChapters(String txt) {
+  String chapters [] = split(txt, "*") ;
+  return chapters.length ;
+}
+
+// info num Sentences
+int numMaxSentencesByChapter(String txt) {
+  String chapters [] = split(txt, "*") ;
+  // find the quantity of chapter and sentences by chapter to create the final double array String
+  int numChapter = chapters.length ;
+  int maxSentencesByChapter = 0 ;  
+  for ( int i = 0 ; i < numChapter ; i++) {
+    String sentences [] = split(chapters[i], "/") ;
+    if ( sentences.length > maxSentencesByChapter ) maxSentencesByChapter = sentences.length ; 
+  }
+  
+  return maxSentencesByChapter ;
+}
+
+
+
+String whichSentence(String txt, int whichChapter, int whichSentence) {
+  String chapters [] = split(txt, "*") ;
+  String  [][] repartition ;
+  
+  // find the quantity of chapter and sentences by chapter to create the final double array String
+  int numChapter = chapters.length ;
+  int maxSentencesByChapter = 0 ;  
+  for ( int i = 0 ; i < numChapter ; i++) {
+    String sentences [] = split(chapters[i], "/") ;
+    if ( sentences.length > maxSentencesByChapter ) maxSentencesByChapter = sentences.length ; 
+  }
+  //create the final double array string
+  repartition = new String [numChapter][maxSentencesByChapter] ;
+  //put the sentences in the double String by chapter
+  for ( int i = 0 ; i < numChapter ; i++) {
+    String sentences [] = split(chapters[i], "/") ;
+    for ( int j = 0 ; j <  sentences.length ; j++) {
+      repartition [i][j] = sentences[j] ;
+    }
+  }
+  //security
+  if(whichChapter > chapters.length ) whichChapter = 0 ;
+  if(whichSentence > maxSentencesByChapter ) whichSentence = 0 ;
+  
+  return repartition[whichChapter][whichSentence] ;
+}
+
+
+
+
+
+// OLD VOID TEXT
+/*
 String [][] sentencesByChapter ;
 
-void importText(String path) {
+void importTxt(String path) {
   importRaw = loadStrings(path) ;
   textRaw = join(importRaw, "") ;
 }
@@ -196,11 +275,6 @@ void splitText() {
     }
   }
 }
+*/
 // END TEXT
 //////////
-
-
-
-
-
-

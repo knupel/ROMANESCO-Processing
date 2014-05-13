@@ -316,7 +316,7 @@ void dropEvent(DropEvent theDropEvent) {
       escargotClear() ;
 
    // println("### loading image ...");
-    img = theDropEvent.loadImage();
+    img[0] = theDropEvent.loadImage();
     analyzeDone = false ;
   }
 }
@@ -600,8 +600,7 @@ void displayInfoScene() {
   //INFO SIZE and RENDERER
   String displayModeInfo ;
   if (displayMode.equals("Classic") ) displayModeInfo = ("classique") ; else displayModeInfo = displayMode ;
-  if (img != null ) text ("Taille de la scène " + width + "x" + height + " Taille de l'image "+ img.width + "x"+ img.height + "   Mode d'affichage " + displayModeInfo , 15,15 ) ; 
-  else text("Taille de la scène " + width + "x" + height + "   mode d'affichage " + displayModeInfo, 15,15) ;
+  text("Taille de la scène " + width + "x" + height + "   mode d'affichage " + displayModeInfo, 15,15) ;
   //INFO MOUSE and PEN
   text("position X " + mouse[0].x + "  position Y " + mouse[0].y + "  molette " + wheel[0] + "    stylet orientation " + (int)deg360(pen[0]) +"°   stylet pression " + int(pen[0].z *10),15, 15 * (posInfoObj) ) ;  
   posInfoObj += 1 ;

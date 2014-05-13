@@ -171,8 +171,8 @@ void OSCDraw() {
   eLightTwoAction = valueButtonGlobal[11] ;
   
   whichShader = valueButtonGlobal[12] ;
-  whichImage = valueButtonGlobal[13] ;
-  whichText = valueButtonGlobal[14] ;
+  whichImage[0] = valueButtonGlobal[13] ;
+  whichText[0] = valueButtonGlobal[14] ;
   
   //OBJECTS
   for ( int i = 0 ; i < numObj-1 ; i++) {

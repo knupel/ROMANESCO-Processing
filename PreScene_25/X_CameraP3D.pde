@@ -152,6 +152,7 @@ void P3DmoveObj(int ID) {
 
 //starting position
 void startPosition(int ID, int x, int y, int z) {
+  startingPosition[ID] = new PVector(x,y,z) ;
   P3DpositionX[ID] = x -(width/2) ;
   P3DpositionY[ID] = y -(height/2) ;
   P3DpositionZ[ID] = z ;
