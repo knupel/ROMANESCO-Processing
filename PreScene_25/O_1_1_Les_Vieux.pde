@@ -19,7 +19,7 @@ class LesVieux extends SuperRomanesco {
   Tri tri[] ;
   //SETUP
   void setting() {
-    startPosition(IDobj, 0, 0, 0) ;
+    startPosition(IDobj, width/2, height/3, 0) ;
     bezier = new Bezier() ;
     doubleTriangleSetting() ;
   }
@@ -73,6 +73,7 @@ class LesVieux extends SuperRomanesco {
     }
   }
   void doubleTriangleDisplay() {
+    if (spaceTouch && action[IDobj]) mouse[IDobj] = mouse[0].get() ;
     PVector pos = new PVector(mouse[IDobj].x, mouse[IDobj].y) ;
     PVector canvas = new PVector (canvasXObj[IDobj] *10,canvasYObj[IDobj] *10) ;
     //thickness

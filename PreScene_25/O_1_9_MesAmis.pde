@@ -11,7 +11,7 @@ class MesAmis extends SuperRomanesco {
     romanescoVersion = "Alpha 1.0";
     romanescoPack = "Base" ;
     romanescoRender = "P3D" ;
-    romanescoMode = "1 Lines/2 Triangles" ; // separate the name by a slash and write the next mode immadialtly after this one.
+    romanescoMode = "1 Triangles/2 Lignes" ; // separate the name by a slash and write the next mode immadialtly after this one.
   }
   //GLOBAL
   IntList IDpeople = new IntList() ;
@@ -39,16 +39,17 @@ class MesAmis extends SuperRomanesco {
     PVector center = new PVector() ;
     
     PVector jitter = new PVector() ;
-    println(getTimeTrack()) ;
     if(sound[IDobj] && getTimeTrack() > 0.2 ) {
-      float valueX = left[IDobj] * (width / 2 ) ;
-      float valueY = right[IDobj] * (height / 2 ) ;
-      float valueZ = mix[IDobj] * (height / 2 ) ;
+      float factor = .2 ;
+      float valueX = left[IDobj]*factor *(width / 2 ) ;
+      float valueY = right[IDobj]*factor *(height / 2 ) ;
+      float valueZ = mix[IDobj]*factor *(height / 2 ) ;
       jitter = new PVector(valueX,valueY,valueZ) ;
     }
     
     
-    float speed = map(speedObj[IDobj],0,100, .00001, .05);
+    float speed = map(speedObj[IDobj],0,100, .0001, .2);
+    speed = speed*speed ;
     if(sound[IDobj]) speed *= allBeats(IDobj) ;
     float radiusMax = map(canvasXObj[IDobj], width/10, width, width/4, width *1.5) ;
     float radiusMin = map(amplitudeObj[IDobj], 0, 1, radiusMax, radiusMax /10) ; ;
@@ -116,8 +117,9 @@ class MesAmis extends SuperRomanesco {
       target.add(jitting) ;
       peopleOrigin.pos = heartMove(peopleOrigin.pos, target, distMin, speed) ;
       //draw
-      if(mode == 0 ) lineFriends(peopleOrigin) ;
-      if(mode == 1 ) triangleFriends(peopleOrigin) ;
+      if(mode == 0 ) triangleFriends(peopleOrigin) ;
+      if(mode == 1 ) lineFriends(peopleOrigin) ;
+
     }
   }
   

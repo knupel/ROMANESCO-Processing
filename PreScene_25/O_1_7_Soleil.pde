@@ -17,7 +17,7 @@ class Soleil extends SuperRomanesco {
   float angleRotation ;
   //SETUP
   void setting() {
-    startPosition(IDobj, width/2, height/2, 0) ;
+    startPosition(IDobj, width/2, height -height/3, 0) ;
     
   }
   //DRAW

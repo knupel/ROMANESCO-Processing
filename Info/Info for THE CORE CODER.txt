@@ -1,0 +1,31 @@
+CODE for THE CORE CODER
+
+Becareful is not finish and totaly imcomplete !
+
+Three main sketches :
+Controleur, Prescene, and Scene.
+
+The controler is a specific sketch, 
+but the prescene, scene and mirroir are very similare.
+
+The main sketch is the Prescene, the Scene and Mirroir is a replic of this one.
+
+The Controleur send information to the Prescene about the different instruction that prescene must be execute, 
+the Prescene execute all the instruction, and add few instructions like the mouse position, sound effect...
+then send all informations to the Scene or the Mirroir for the final work.
+
+Between the Prescene, Scene there are a commom tabs :
+Object, Camera, SuperRomanesco
+
+
+
+
+// PRESCENE CODE
+//to opening app
+boolean openScene = true ;
+boolean openMiroir = true ;
+boolean openControleur = true ;
+
+//send the information to the final app : Scene or Miroir
+boolean youCanSendToScene = true ;
+boolean youCanSendToMiroir = true ;

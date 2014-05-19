@@ -25,7 +25,7 @@ class Escargot extends SuperRomanesco {
   boolean whichColorVoronoi ;
   //ratio size image and window
   PVector ratioImgWindow = new PVector(1,1) ;
-  color strokeColor  ; // color for the stroke
+  //color strokeColor  ; // color for the stroke
   int thickness = 1 ; // if "zero" noStroke() is activate
   boolean useNewPalettePixColorToDisplay = true ; // if want use the original picture from the raw list to find color write "FALSE", but if you do that you can use the possibility to change the palette in Live, else use "TRUE"
   
@@ -45,7 +45,7 @@ class Escargot extends SuperRomanesco {
   int speedAnalyze = 10 ; // quantity of point be analyzing in the image. It's random choice on the surface of the image.
   int maxEntryPoints = 500 ; // quantity of point be analyzing in the image. It's random choice on the surface of the image.
   int maxEntryPointsRef = 500 ; // quantity of point be analyzing in the image. It's random choice on the surface of the image.
-  int maxVoronoiPoints = 500 ; // max point for voronoi calcula bahond is very very slow
+  int maxVoronoiPoints = 125000 ; // max point for voronoi calcula bahond is very very slow
   
   String modeTri = ("b") ; // you can choice in few mode "hsb"(exact same hue, saturation and brithness the other mode is part of this three composantes, "b", "s", "hs", "hb", "sb"
   boolean useNewPalettePixColorToAnalyze = true ; // choice the color you analyze, the raw color you must write "FALSE" if you look in the "newColor" because you have change the color pixel for anything you must write "TRUE", best analyze with the new palette
@@ -53,7 +53,7 @@ class Escargot extends SuperRomanesco {
   
   //PALETTE COLOR
   //random palette
-  PVector HSBpalette = new PVector (6, 6, 12) ;  // quantity for eaches components of palette in HSB order // need "1" minimum in each componante
+  PVector HSBpalette = new PVector (6, 6, 12) ;  // quantity for each components of palette in HSB order // need "1" minimum in each componante
   //palette from you
   int hueColor[] =    new int [(int)HSBpalette.x] ;
   int satColor[] =    new int [(int)HSBpalette.y] ;
@@ -97,6 +97,7 @@ class Escargot extends SuperRomanesco {
   //SETUP
   void setting() {
     startPosition(IDobj, 0, 0, 0) ;
+    if(!scene) maxVoronoiPoints = 250 ;
     //load pattern SVG to display a Pixel pattern you create in Illustrator or other software
     pathSVG = sketchPath("")+"preferences/pixel/model.svg" ;
     shapeSVGsetting(pathSVG) ;
@@ -161,13 +162,16 @@ class Escargot extends SuperRomanesco {
       maxEntryPointsRef = maxEntryPoints ;
       
       int n = int(map(quantityObj[IDobj],0,100,4,50)) ;
-      //maxEntryPoints = int(map(valueObj[IDobj][14],0,100,1,50)) *int(map(valueObj[IDobj][14],0,100,1,50)) *int(map(valueObj[IDobj][14],0,100,1,50)) ;
       maxEntryPoints = n *n *n ;
-      //if (maxEntryPoints > listPixelRaw.size() / 4 ) maxEntryPoints = listPixelRaw.size() ;
-  
-      radiusAnalyze = int(map(amplitudeObj[IDobj],0,1,2,100));
-      pixelAnalyzeSize = int(map(analyzeObj[IDobj],0,1,100,2));
       
+      // security for the voronoï displaying, because if you change the analyze in the voronoi process, Romanesco make the Arraylist error
+      if(mode[IDobj] != 8 || (maxEntryPoints != maxEntryPointsRef && scene) ) {
+        //if (maxEntryPoints > listPixelRaw.size() / 4 ) maxEntryPoints = listPixelRaw.size() ;
+        radiusAnalyze = int(map(amplitudeObj[IDobj],0,1,2,100));
+        pixelAnalyzeSize = int(map(analyzeObj[IDobj],0,1,100,2));
+      } else {
+        if(maxEntryPoints > maxVoronoiPoints) maxEntryPoints = maxVoronoiPoints  ;
+      }
   
       
        //security for the droping img from external folder
@@ -253,8 +257,16 @@ class Escargot extends SuperRomanesco {
       } else if (mode[IDobj] == 7 ) {
         escargotSVG(sizePix, thickPix, opacityShapeIn, opacityShapeOut, rangeReactivitySoundHundred, rangeReactivitySoundThreeHundredSixty, musicFactor, ratioImgWindow) ;
       } else if (mode[IDobj] == 8 ) {
-        if( listEscargot.size() < maxVoronoiPoints) voronoiStatic(strokeColor, thickness, useNewPalettePixColorToDisplay) ; else text("Trop de point a afficher", 20, height - 20 ) ;
+        //if( listEscargot.size() < 600) {
+        if( listEscargot.size() < maxVoronoiPoints + maxVoronoiPoints/10) {
+          voronoiStatic(fillObj[IDobj], strokeObj[IDobj], thickPix, useNewPalettePixColorToDisplay, ratioImgWindow) ; 
+        } else {
+          text("Too much points to net voronoï connection", 20, height - 20 ) ;
+        }
       }
+      
+      // info display
+      objectInfo[IDobj] = ("Pixel Analyzing "+listEscargot.size()+ " on " + maxEntryPoints+ " / Pixel Size " + pixelAnalyzeSize+ " / Radius Analyze around the pixel " + radiusAnalyze) ;
     } 
   }
   
@@ -518,48 +530,57 @@ class Escargot extends SuperRomanesco {
     gfx = new ToxiclibsSupport(callingClass);
   }
   
-  void voronoiStatic(color stroke, int e, boolean whichColor) {
+  // DRAW
+  void voronoiStatic(color fill, color stroke, float thickness, boolean whichColor, PVector ratio) {
     whichColorVoronoi = whichColor ;
-    thicknessVoronoi = e ;
-    colorStrokeVoronoi = stroke ;
+    // thicknessVoronoi = e ;
+    //colorStrokeVoronoi = stroke ;
   
   
-    for ( Pixel b : listEscargot) {
+    for (Pixel b : listEscargot) {
       //security against the NaN result
-      if ( Float.isNaN(b.pos.x) ) ; else voronoi.addPoint(new Vec2D(b.pos.x, b.pos.y));
+      if (Float.isNaN(b.pos.x)) ; else voronoi.addPoint(new Vec2D(b.pos.x *ratio.x, b.pos.y *ratio.y));
     }
   
     for (Polygon2D poly : voronoi.getRegions() ) {
       //to recalculate the position in the arraylist
       PVector findPosFromVoronoi = new PVector (0,0) ;
-      for ( Vec2D v : voronoi.getSites() ) {
-        if ( poly.containsPoint( v ) ) {
+      for (Vec2D v : voronoi.getSites() ) {
+        if (poly.containsPoint(v) ) {
           //position in grid
-          findPosFromVoronoi.x = int(v.x /pixelAnalyzeSize) ;
-          findPosFromVoronoi.y = int(v.y /pixelAnalyzeSize) ;
+          //findPosFromVoronoi.x = int((v.x /pixelAnalyzeSize)*ratio.x) ;
+          //findPosFromVoronoi.y = int((v.y /pixelAnalyzeSize)*ratio.y) ;
+          findPosFromVoronoi.x = int(v.x/pixelAnalyzeSize) ;
+          findPosFromVoronoi.y = int(v.y/pixelAnalyzeSize) ;
           if(findPosFromVoronoi.x > cols -1 ) findPosFromVoronoi.x = cols -1 ;
           if(findPosFromVoronoi.y > rows -1 ) findPosFromVoronoi.y = rows -1 ;
-          int posInList = ((int)findPosFromVoronoi.x  * rows ) + (int)findPosFromVoronoi.y ; 
+          //int posInList = ((int)findPosFromVoronoi.x  * rows ) + (int)findPosFromVoronoi.y ; 
+          int posInList = (int(findPosFromVoronoi.x / ratio.x )  * rows ) + int(findPosFromVoronoi.y /ratio.y) ; 
           
           //look the color in the list
-          Pixel p = (Pixel) listPixelRaw.get(posInList) ;
-          if ( whichColorVoronoi ) {
-            //change the color with the new palette
-            p.changeHue   (HSBmode, huePalette, hueStart, hueEnd) ;
-            p.changeSat   (HSBmode, satPalette, satStart, satEnd) ; 
-            p.changeBright(HSBmode,brightPalette, brightStart, brightEnd) ;
-            // update the color after change each componante
-            p.updatePalette() ; 
-            fill(p.newColour) ;
-          } else {
-            //original color of the pix
-            fill(p.colour) ;
-          }
-          if(thicknessVoronoi == 0 ) { 
-            noStroke() ; 
-          } else { 
-            stroke(colorStrokeVoronoi) ;
-            strokeWeight(thicknessVoronoi) ;
+          if(posInList < listPixelRaw.size() ) {
+            Pixel p = (Pixel) listPixelRaw.get(posInList) ;
+            
+            if (whichColorVoronoi) {
+              //change the color with the new palette
+              p.changeHue   (HSBmode, huePalette, hueStart, hueEnd) ;
+              p.changeSat   (HSBmode, satPalette, satStart, satEnd) ; 
+              p.changeBright(HSBmode,brightPalette, brightStart, brightEnd) ;
+              // update the color after change each componante
+              p.updatePalette() ; 
+              float newSat = map(saturation(p.newColour),0,100, 0,saturation(fill)) ;
+              float newBright = map(brightness(p.newColour),0,100, 0,brightness(fill)) ;
+              fill(hue(p.newColour), newSat, newBright, alpha(fill)) ;
+            } else {
+              //original color of the pix
+              fill(hue(p.colour), saturation(p.colour), brightness(p.colour), alpha(fill)) ;
+            }
+            if(thicknessVoronoi == 0 ) { 
+              noStroke() ; 
+            } else { 
+              stroke(stroke) ;
+              strokeWeight(thickness) ;
+            }
           }
           gfx.polygon2D(poly);
         }
@@ -570,55 +591,12 @@ class Escargot extends SuperRomanesco {
   }
   
   
-  void voronoiMotion(PVector motion) {
-    //security
-    for ( Pixel b : listEscargot) {
-      //security against the NaN result
-      if ( Float.isNaN(b.pos.x) ) {
-        PVector pos = b.posPixel(motion, img[IDobj]);
-        voronoi.addPoint(new Vec2D(pos.x, pos.y));
-      }
-    }
   
-    for (Polygon2D poly : voronoi.getRegions() ) {
-      //to recalculate the position in the arraylist
-      PVector findPosFromVoronoi = new PVector (0,0) ;
-      for ( Vec2D v : voronoi.getSites() ) {
-        if ( poly.containsPoint( v ) ) {
-          //position in grid
-          findPosFromVoronoi.x = int(v.x /pixelAnalyzeSize) ;
-          findPosFromVoronoi.y = int(v.y /pixelAnalyzeSize) ;
-          if(findPosFromVoronoi.x > cols -1 ) findPosFromVoronoi.x = cols -1 ;
-          if(findPosFromVoronoi.y > rows -1 ) findPosFromVoronoi.y = rows -1 ;
-          int posInList = ((int)findPosFromVoronoi.x  * rows ) + (int)findPosFromVoronoi.y ; 
-          
-          //look the color in the list
-          Pixel p = (Pixel) listPixelRaw.get(posInList) ;
-          if ( whichColorVoronoi ) {
-            //change the color with the new palette
-            p.changeHue   (HSBmode, huePalette, hueStart, hueEnd) ;
-            p.changeSat   (HSBmode, satPalette, satStart, satEnd) ; 
-            p.changeBright(HSBmode, brightPalette, brightStart, brightEnd) ;
-            // update the color after change each componante
-            p.updatePalette() ; 
-            fill(p.newColour) ;
-          } else {
-            //original color of the pix
-            fill(p.colour) ;
-          }
-          if(thicknessVoronoi == 0 ) { 
-            noStroke() ; 
-          } else { 
-            stroke(colorStrokeVoronoi) ;
-            strokeWeight(thicknessVoronoi) ;
-          }
-          gfx.polygon2D(poly);
-        }
-      }
-    }
-    //clear voronoi list
-    voronoi = new Voronoi();
-  }
+  
+  
+  
+  
+  
   
   
   
@@ -689,13 +667,6 @@ class Escargot extends SuperRomanesco {
   //main analyze void    
   void analyzeImg(int sizePixForAnalyze) {
     //Analyze image
-    //step 1
-    /* 
-    clear the list for new analyze
-    here we don't use because we clear when we call the new image by the keyboard
-    */
-    //escargotClear() ;
-    
     // put in this void the size of pixel you want, to create grid analyzing and image than you want analyze
     colorAnalyzeSetting(sizePixForAnalyze, img[IDobj]) ;
     
@@ -710,7 +681,7 @@ class Escargot extends SuperRomanesco {
     //step 4
     //escargot analyze of the arraylist create by the void recordPixelRaw
     
-   if ( escargotGOanalyze && listEscargot.size() < maxEntryPoints ) {
+   if ( escargotGOanalyze && listEscargot.size() < maxEntryPoints) {
       //security to make sure the speed is not higher to the max entry points
       if ( speedAnalyze > maxEntryPoints / 10 ) speedAnalyze = maxEntryPoints / 10 ;
       for (int i = 0 ; i < speedAnalyze ; i++ ) {
@@ -718,8 +689,8 @@ class Escargot extends SuperRomanesco {
         //void without control for escargot analyze
         //escargotAnalyze(whichPointInTheList, radiusAnalyze, modeTri, useNewPalettePixColorToAnalyze ) ;
         
-        //void with control for escargot analyze, the last componant is a boolean control
-       escargotAnalyze(whichPointInTheList, radiusAnalyze, modeTri, useNewPalettePixColorToAnalyze, escargotGOanalyze, sizePixForAnalyze ) ; // escargotStopAnalyze
+        //void with control for escargot analyze, the last component is a boolean control
+        escargotAnalyze(whichPointInTheList, radiusAnalyze, modeTri, useNewPalettePixColorToAnalyze, escargotGOanalyze, sizePixForAnalyze ) ; // escargotStopAnalyze
       }
     }
   }

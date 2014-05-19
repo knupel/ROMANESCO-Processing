@@ -7,7 +7,7 @@ class Damier extends SuperRomanesco {
     IDobj = 11 ;
     IDgroup = 2 ;
     romanescoAuthor  = "Stan le Punk";
-    romanescoVersion = "Alpha 2.1";
+    romanescoVersion = "Alpha 1.1";
     romanescoPack = "Base" ;
     romanescoRender = "classic" ;
     romanescoMode = "1 Rectangle/2 Ellipse/3 Box" ;

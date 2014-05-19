@@ -4,7 +4,15 @@
 import codeanticode.tablet.*;
 
 
+boolean scene = false ;
 
+//to opening app
+boolean openScene = true ;
+boolean openMiroir = true ;
+boolean openControleur = true ;
+//send to the other sketches
+boolean youCanSendToScene = true ;
+boolean youCanSendToMiroir = true ;
 
 //Web cam activity
 // boolean cameraOnOff = false ;
@@ -17,7 +25,7 @@ String bigBrother = ("BIG BROTHER DON'T WATCHING YOU !!") ;
 
 
 //fenêtre texte
-String texte ;
+//String texte ;
 //Variable CLAVIER
 
 

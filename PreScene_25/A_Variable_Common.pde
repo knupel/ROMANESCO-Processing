@@ -58,6 +58,9 @@ String findPath ;
 
 
 
+
+
+
 // to drop load image
 SDrop drop;
 boolean resizableByImgDrop ;
@@ -84,8 +87,11 @@ int numObj ;
 Table indexObjects ;
 TableRow [] rowIndexObject ;
 //MISC var
-String objectName [] ;
-int objectID[] ;
+//info object
+String [] objectInfo, objectName ;
+int [] objectID ;
+//for the leap motion ?
+int objectLeapID[] ;
 //BUTTON CONTROLER
 boolean objectParameter[] ;
 
@@ -213,6 +219,10 @@ void createVar() {
 }
 // misc var
 void createMiscVar() {
+
+    
+   objectLeapID = new int[numObj] ;
+    
    setting = new boolean [numObj]  ;
   //boolean clear
    clearList = new boolean[numObj] ;

@@ -1,4 +1,12 @@
-
+// Void antiBugBlack
+  void antiBugFillBlack(color c) {
+        if (alpha(c) == 0 ) {
+      noFill() ; 
+      noStroke() ; 
+    } else {     
+      fill (c) ; 
+    }
+  }
 //GLOBAL
 //Range of each component HSB to change the color palette of image
 //HUE

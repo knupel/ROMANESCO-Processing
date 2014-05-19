@@ -676,14 +676,18 @@ void whichFont( int whichFont)  {
 //////////////
 //DISPLAY INFO
 boolean displayInfo, displayInfo3D ;
-int posInfoObj = 2 ;
+int posInfo = 2 ;
+
 
 void info () {
     //check the keyboard
   if (iTouch) displayInfo = !displayInfo ;
   if (gTouch) displayInfo3D = !displayInfo3D ;
   //display info
-  if (displayInfo) displayInfoScene() ;
+  if (displayInfo) {
+    displayInfoScene() ;
+    displayInfoObject() ;
+  }
   if ( modeP3D && displayInfo3D) displayInfo3D() ;
 }
 
@@ -691,8 +695,8 @@ void displayInfoScene() {
   noStroke() ;
   fill(0,100,0, 50) ;
   rectMode(CORNER) ;
-  rect(0,-5,width, 15*posInfoObj) ;
-  posInfoObj = 2 ;
+  rect(0,-5,width, 15*posInfo) ;
+  posInfo = 2 ;
   fill(0,0,100) ;
   textFont(SansSerif10, 10) ;
   //INFO SIZE and RENDERER
@@ -700,14 +704,36 @@ void displayInfoScene() {
   if (displayMode.equals("Classic") ) displayModeInfo = ("classic") ; else displayModeInfo = displayMode ;
   text("Scène width " + width + "height" + height + "   render mode " + displayModeInfo + "    FrameRate " + frameRate, 15,15) ;
   //INFO MOUSE and PEN
-  text("position X " + mouseX + "  position Y " + mouseY + "  molette " + wheel[0] + "    pen orientation " + (int)deg360(pen[0]) +"°   stylet pressur " + int(pen[0].z *10),15, 15 * (posInfoObj) ) ;  
-  posInfoObj += 1 ;
+  text("position X " + mouseX + "  position Y " + mouseY + "  molette " + wheel[0] + "    pen orientation " + (int)deg360(pen[0]) +"°   stylet pressur " + int(pen[0].z *10),15, 15 *posInfo ) ;  
+  posInfo += 1 ;
   //INFO SOUND
-  if (getTimeTrack() > 1 ) text("the track play until " +getTimeTrack() + "  Tempo " + getTempoRef() , 15,15 *(posInfoObj)) ; else text("no track detected ", 15, 15 *(posInfoObj)) ;
-  posInfoObj += 1 ;
-  text("right" +int(input.right.get(1) *100) + "  left " + int(input.left.get(1) *100) , 15,15 *(posInfoObj)) ; 
+  if (getTimeTrack() > 1 ) text("the track play until " +getTimeTrack() + "  Tempo " + getTempoRef() , 15,15 *(posInfo)) ; else text("no track detected ", 15, 15 *(posInfo)) ;
+  posInfo += 1 ;
+  text("right" +int(input.right.get(1) *100) + "  left " + int(input.left.get(1) *100) , 15,15 *(posInfo)) ; 
+  posInfo += 1 ;
+}
 
-  posInfoObj += 1 ;
+
+int posInfoObj = 1 ;
+
+void displayInfoObject() {
+  noStroke() ;
+  fill(0,100,0, 50) ;
+  rectMode(CORNER) ;
+  float heightBox = 15*posInfoObj ;
+  rect(0, height -heightBox,width, heightBox) ;
+  fill(0,0,100) ;
+  textFont(SansSerif10, 10) ;
+  
+  posInfoObj = 1 ;
+  // for (SuperRomanesco objR : RomanescoList)
+  for(int i = 0 ; i < numObj ; i++) {
+    
+    if(object[i]) {
+      posInfoObj += 1 ;
+      text(objectName[i] + " " + objectInfo[objectID[i]], 10, height -(15 *(posInfoObj -1))) ;
+    }
+  }
 }
 ////////////////
 //END DISPLAY INFO

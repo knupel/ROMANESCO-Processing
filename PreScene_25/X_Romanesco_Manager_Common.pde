@@ -3,7 +3,8 @@ ObjectRomanescoManager romanescoManager ;
 void romanescoSetup() {
   romanescoManager = new ObjectRomanescoManager(this);
   romanescoManager.addObjectRomanesco() ;
-  romanescoManager.finishTheIndex() ;
+  romanescoManager.finishIndex() ;
+  romanescoManager.writeInfoUser() ;
 }
 
 
@@ -188,7 +189,8 @@ class ObjectRomanescoManager {
         numObjectRomanesco += 1 ;
       }
     }
-    writeIndex() ;
+    beginIndex() ;
+    
     
     return classes;  
   }
@@ -197,10 +199,12 @@ class ObjectRomanescoManager {
   
   
   
-  /////////////////////////////////////////////
-  //CREATE an index.csv for the objects classes
+  //////////////////////////////////////
+  // INDEX and INFO OBJECT FROM CLASSES
   String pathObjects = sketchPath("")+"preferences/objects/" ;
   
+  ////////////////
+  // INTERN VOID
   //create the canvas index
   void createIndex(int num) {
     indexObjects = new Table() ;
@@ -215,27 +219,43 @@ class ObjectRomanescoManager {
     indexObjects.addColumn("Render") ;
     indexObjects.addColumn("Mode") ;
     
-    // numObj = num +1 ;
-    objectName = new String[num +1] ;
-    objectID = new int[num +1] ;
+    // move to the tab A_Variable_Common
+    //objectName = new String[num +1] ;
+    // objectID = new int[num +1] ;
     
     // add row
     rowIndexObject = new TableRow [num] ;
     for(int i = 0 ; i < rowIndexObject.length ; i++) {
       rowIndexObject[i] = indexObjects.addRow() ;
     }
+    
+    // create var for info object, need to be create here
+    objectName = new String[num +1] ;
+    objectInfo = new String[num +1] ;
+    objectID = new int[num +1] ;
+    
+    
   }
   
   // put information in the index
-  void writeIndex() {
+  void beginIndex() {
     for(int i = 0 ; i < rowIndexObject.length ; i++) {
       rowIndexObject[i].setString("Class name", objectNameRomanesco[i]) ;
       rowIndexObject[i].setInt("Library Order", i+1) ;
     }
   }
   
-  //external void
-  void finishTheIndex() {
+
+  
+  
+  
+  ////////////////
+  /*EXTERN VOID
+  * use with in romanescoSetup() {
+  * romanescoManager.finishIndex() ;
+  */
+  //finish index
+  void finishIndex() {
       // catch the different parameter from object class Romanesco
     for (int i=0 ; i < RomanescoList.size() ; i++ ) {
       SuperRomanesco objR = (SuperRomanesco) RomanescoList.get(i) ;
@@ -249,6 +269,22 @@ class ObjectRomanescoManager {
       rowIndexObject[i].setString("Mode", objR.romanescoMode) ;
     }
     saveTable(indexObjects, pathObjects+"index_romanesco_objects.csv") ; 
+  }
+  
+  /*
+  * use with in romanescoSetup() {
+  * romanescoManager.writeInfoUser() ;
+  */
+  //ADD info for the user
+  void writeInfoUser() {
+      // catch the different parameter from object class Romanesco
+    for (int i=0 ; i < RomanescoList.size() ; i++ ) {
+      
+      SuperRomanesco objR = (SuperRomanesco) RomanescoList.get(i) ;
+      objectName[objR.IDobj] = objR.romanescoName ;
+      objectID[objR.IDobj] = objR.IDobj ;
+    }
+    //println(inventoryObject) ;
   }
     
   

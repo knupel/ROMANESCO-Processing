@@ -8,7 +8,7 @@ class Webcam extends SuperRomanesco {
     romanescoAuthor  = "Stan le Punk";
     romanescoVersion = "Alpha 1.2";
     romanescoPack = "Base" ;
-    romanescoRender = "classic" ;
+    romanescoRender = "P3D" ;
     romanescoMode = "1 Rectangle color/2 Rectangle mono/3 Point color/4 Point mono/3 Box color/4 Box mono" ;
   }
   //GLOBAL
@@ -18,14 +18,13 @@ class Webcam extends SuperRomanesco {
   //Cameras
   int [] [] sizeCam = { {640,480}, {160,120}, {176,144}, {320,240}, {352,288} } ;
   int whichSizeCam = 4 ; // choice the resolution size of camera
-  String whichCam = "2" ; // choice the camera
+  String whichCam = "1" ; // "1" to search an external webcam, the device "0" is the native webcam on mac
   boolean nativeWebCam ;
   int testDeviceCam ;
   
-  PVector factorDisplayCam = new PVector ( 0,0) ;
-  PVector factorDisplayPixel = new PVector ( 0,0) ;
+  PVector factorDisplayCam = new PVector (0,0) ;
+  PVector factorDisplayPixel = new PVector (0,0) ;
   PVector factorCalcul = new PVector (0,0) ;
-  // PVector posMovie = new PVector(0,0 ) ; // position x & y for the camera
   
   color colorPixelCam ;
   
@@ -58,8 +57,8 @@ class Webcam extends SuperRomanesco {
     
     //PART TWO
     cam.start();
-    cellSizeX = int(map(canvasYObj[IDobj],width/10, width, width/5, width/1000))  ; 
-    cellSizeY = int(map(canvasXObj[IDobj],width/10, width, width/5, width/1000))  ;
+    cellSizeX = int(map(canvasYObj[IDobj],width/10, width, 50, 1))  ; 
+    cellSizeY = int(map(canvasXObj[IDobj],width/10, width, 50, 1))  ;
     if(cellSizeX < 1 ) cellSizeX = 1 ;
     if(cellSizeY < 1 ) cellSizeY = 1 ;
     
@@ -86,7 +85,7 @@ class Webcam extends SuperRomanesco {
     } else if (!testCam() && testDeviceCam < 180 )  {
       fill(0) ;
       testDeviceCam += 1 ;
-      text("No external video signal, Romanesco try on the native Camera", mouse[0].x , mouse[0].y ) ;
+      text("No external video signal, Romanesco try on the native Camera", 10 , 20 ) ;
     } 
     
     //TEST CAM
@@ -160,59 +159,78 @@ class Webcam extends SuperRomanesco {
   
   // different mode
   void rectangleMonochrome(PVector pos, PVector size, PVector hsb) {
+    size = checkSize(size).get() ;
     translate(pos.x, pos.y, pos.z);
     monochrome(hsb) ;
     fill(colorPixelCam) ;
     noStroke() ;
+    antiBugFillBlack(colorPixelCam) ;
     rect (0,0, size.x, size.y) ;
   }
   //
   void rectangleColour(PVector pos, PVector size, PVector hsb) {
+    size = checkSize(size).get() ;
     translate(pos.x, pos.y, pos.z);
     colour(hsb) ;
     fill(colorPixelCam) ;
     noStroke() ;
+    antiBugFillBlack(colorPixelCam) ;
     rect (0,0, size.x, size.y) ;
   }
   //
   void pointMonochrome(PVector pos, PVector size, PVector hsb) {
+    size = checkSize(size).get() ;
     translate(pos.x, pos.y, pos.z);
     monochrome(hsb) ;
     stroke(colorPixelCam) ;
     strokeWeight(size.x) ;
+    antiBugFillBlack(colorPixelCam) ;
     point(0,0,0) ;
   }
   //
   void pointColour(PVector pos, PVector size, PVector hsb) {
+    size = checkSize(size).get() ;
     translate(pos.x, pos.y, pos.z);
     colour(hsb) ;
     stroke(colorPixelCam) ;
     strokeWeight(size.x) ;
+    antiBugFillBlack(colorPixelCam) ;
     point(0,0,0)  ;
   }
   //
   void boxMonochrome(PVector pos, PVector size, PVector hsb) {
+    size = checkSize(size).get() ;
     float depth = (hsb.z +1) *size.z ;
     if(horizon[IDobj]) translate(pos.x, pos.y, depth *.5); else translate(pos.x, pos.y, pos.z);
     monochrome(hsb) ;
     fill(colorPixelCam) ;
+    antiBugFillBlack(colorPixelCam) ;
     noStroke() ;
     box(size.x, size.y, depth) ;
   }
   //
   void boxColour(PVector pos, PVector size, PVector hsb) {
+    size = checkSize(size).get() ;
     float depth = (hsb.z +1) *size.z ;
     if(horizon[IDobj]) translate(pos.x, pos.y, depth *.5); else translate(pos.x, pos.y, pos.z);
     colour(hsb) ;
     fill(colorPixelCam) ;
+    antiBugFillBlack(colorPixelCam) ;
     noStroke() ;
     box(size.x, size.y, depth) ;
   }
   
   
+  //Annexe
   
-  
-  
+  // security size 
+  PVector checkSize(PVector size) {
+    float minSize = 2.0 ;
+    if (size.x < minSize ) size.x = minSize ;
+    if (size.y < minSize ) size.y = minSize ;
+    if (size.z < minSize ) size.z = minSize ;
+    return size ;
+  }
   
   void colour(PVector hsb) {
     float newSat = hsb.y *map(saturation(fillObj[IDobj]),0,100,0,1) ;
@@ -233,21 +251,16 @@ class Webcam extends SuperRomanesco {
   
   
   
+  
+  
   // test camera
   int testCam ;
   boolean testCam() {
-    if (cam.available() ) testCam =+ 30 ; else testCam -= 1 ;
+    if (cam.available()) testCam =+ 30 ; else testCam -= 1 ;
     if ( testCam < 1 ) testCam = 0 ;
     
-    if ( testCam > 2 ) {
-      videoSignal = true ;
-    } else {
-      videoSignal = false ;
-    }
-    
+    if ( testCam > 2 ) videoSignal = true ; else videoSignal = false ;
+    // boolean returned
     if ( testCam > 2 ) return true ;  else return false ;
   }
-  
-  
-  
 }

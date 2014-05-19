@@ -7,7 +7,7 @@ class SpiraleRomanesco extends SuperRomanesco {
     IDobj = 5 ;
     IDgroup = 1 ;
     romanescoAuthor  = "Stan le Punk";
-    romanescoVersion = "Alpha 2.1";
+    romanescoVersion = "Alpha 1.2";
     romanescoPack = "Base" ;
     romanescoRender = "P3D" ;
     romanescoMode = "1 Rectangle/2 Ellipse/3 Box" ;
@@ -22,8 +22,7 @@ class SpiraleRomanesco extends SuperRomanesco {
   }
   //DRAW
   void display() {
-    fill(fillObj[IDobj]) ;
-    stroke(strokeObj[IDobj]) ;
+    aspect(IDobj) ;
     strokeWeight(thicknessObj[IDobj]*.02) ;
     //quantity
     int n ;

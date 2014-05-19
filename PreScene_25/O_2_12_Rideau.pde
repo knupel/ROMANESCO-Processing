@@ -18,7 +18,7 @@ class Rideau extends SuperRomanesco {
 
   //SETUP
   void setting() {
-    startPosition(IDobj, width/2, height/2, 0) ;
+    startPosition(IDobj, width, height, 0) ;
   }
   //DRAW
   void display() {
@@ -39,7 +39,7 @@ class Rideau extends SuperRomanesco {
     color colorOut = strokeObj[IDobj] ;
     
    //orientation / degré
-   rotation(directionObj[IDobj], (mouse[IDobj].x *2) -width/2  , (mouse[IDobj].y *2) -height/2 ) ;
+   rotation(directionObj[IDobj], (mouse[IDobj].x *2) -width/2, (mouse[IDobj].y *2) -height/2 ) ;
     
     for (int i=0 ; i < rideauList.size(); i++) {
       Curtain c = (Curtain) rideauList.get(i); // GET donne l'ordre d'aller chercher de la particule dans le la Valise Fourre Tout
@@ -53,7 +53,7 @@ class Rideau extends SuperRomanesco {
       }
     }
     if (action[IDobj] && nTouch) {
-      rideauList.add( new Curtain(vitesse, vie )) ;
+      rideauList.add( new Curtain(vitesse, vie)) ;
     }
     
   }
@@ -113,9 +113,11 @@ class Curtain {
     chrono = -1 ; 
     
     //DISPLAY
+    
     strokeWeight(e) ;
     fill ( cIn, oIn ) ;
     stroke (cOut, oOut ) ;
+    
     rect ( posX ,  -e, posX - (mouse[0].x/3) , h+(2*e) ) ;
   }
   

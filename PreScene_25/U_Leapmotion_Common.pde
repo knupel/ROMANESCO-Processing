@@ -42,7 +42,7 @@ PVector addFingerPosition(PointableList objectNum, InteractionBox iBox) {
     Pointable object = objectNum.get(p);
     com.leapmotion.leap.Vector normPos = iBox.normalizePoint(object.stabilizedTipPosition());
     //return the ID
-    int objectID = object.id()  ;
+    int objectLeapID = object.id()  ;
     
     //3D position
     float posX = normPos.getX() * width;
@@ -110,7 +110,7 @@ PVector addFingerPosition(PointableList objectNum, InteractionBox iBox, PVector 
     Pointable object = objectNum.get(p);
     com.leapmotion.leap.Vector normPos = iBox.normalizePoint(object.stabilizedTipPosition());
     //return the ID
-    int objectID = object.id()  ;
+    int objectLeapID = object.id()  ;
     
     //3D position
       float posX = normPos.getX() *width;
