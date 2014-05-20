@@ -94,10 +94,10 @@ void startPosition(int IDobj, int x, int y, int z) // give the starting position
 
 
 //MOTION
-boolean motion[IDobj] boolean use for the move activate or desactivate by the "m" key
+boolean motion[IDobj] boolean use for the move activate or desactivate by the "m" key - booleann mTouch - 
 
 //Alignement
-boolean horizon[IDobj] boolean use for the move activate or desactivate by the "h" key
+boolean horizon[IDobj] boolean use for the move activate or desactivate by the "h" key - booleann hTouch -
 
 //RESET
 // to empty the list or reset object activate by backspace and delete
@@ -214,9 +214,9 @@ pmouse[0] and pmouse[IDobj]
 
 // PEN
 ////////////////////
-PVector pen[IDobj]
+PVector pen[IDobj] or pen[0]
 pen[IDobj].x pen[IDobj].y   // information from the tablet tilt : orientation of the pen 
-pen[IDobj].z // information from tablet : pressure pen 
+pen[IDobj].z - value to 0 to 1 - information from tablet : pressure pen 
 
 
 // MOUSE CLICK BOOLEAN
@@ -425,14 +425,14 @@ boolean spaceTouch      // give the boolean condition of the space touch to acti
 boolean backspaceTouch  // generaly to empty a specific list of object or to reset object
 boolean deleteTouch  //  specific to empty list or reset object or to reset object
 
-boolean nTouch         // generaly use to add a new particule like a clic depends what you want
-boolean nLongTouch     // generaly use to add a new particule like a clic depends what you want
-boolean mTouch         // generaly use to move the object, close to spaceTouch but different, linked with the boolean motion[IDobj]
-boolean oTouch       //  genrally open folder to choice a file for a specific object
-boolean pTouch       // to open an other folder, if the object already use "oTouch"
-boolean hTouch       // generaly use to change the ground position for the P3D object, for example test it on the Boxolyzer object.
-boolean rTouch       // generaly use to reverse value, or to change the canvas size of object.
-boolean xTouch        // generaly use to change the coloour palette
+boolean nTouch 			- generaly use to add a new particule like a clic depends what you want
+boolean nLongTouch		- generaly use to add a new particule like a clic depends what you want
+boolean mTouch		- boolean motion[IDobj] 	- generaly use to move the object, close to spaceTouch but different.
+boolean oTouch 			- genrally open folder to choice a file for a specific object
+boolean pTouch 			- to open an other folder, if the object already use "oTouch"
+boolean hTouch 		- boolean horizon[IDobj] 	- generaly use to change the ground position for the P3D object, for example test it on the Boxolyzer object.
+boolean rTouch 			- generaly use to reverse value, or to change the canvas size of object.
+boolean xTouch 			- generaly use to change the coloour palette
 
 // Free touch
 boolean aTouch, bTouch, cTouch, dTouch, eTouch, fTouch, gTouch,  jTouch, kTouch, lTouch, qTouch, tTouch, uTouch, vTouch, wTouch, yTouch, zTouch,

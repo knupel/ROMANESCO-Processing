@@ -1,44 +1,3 @@
-boolean mavericks = false ;
-void OSMavericksCheck() {
-  // check OSX version
-  String OS = System.getProperty("os.version") ;
-  OS  = OS.replace(".","");
-  int OSversion = Integer.parseInt(OS);
-  if(OSversion >= 1090  ) mavericks = true ; else mavericks = false ;
-}
-
-
-//COLOR for internal use
-color fond ;
-color rouge, orange, jaune, vert, bleu, noir, blanc, gris  ;
-
-void colorSetup() {
-  rouge = color(10,100,100);
-  orange = color(25,100,100);
-  jaune = color(50,100,100) ;
-  vert = color(150,100,100);
-  bleu = color(235,100,100);
-  noir = color(10,100,0);
-  gris = color(10,50,50);
-  blanc = color(0,0,100);
-}
-
-//ROLLOVER TEXT ON BACKGROUNG CHANGE
-color colorW ;
-//
-color colorWrite(color colorRef, int threshold, color clear, color deep) {
-  if( brightness( colorRef ) < threshold ) {
-    colorW = color(clear) ;
-  } else {
-    colorW = color(deep) ;
-  }
-  return colorW ;
-}
-//END COLOR
-///////////
-
-
-
 
 
 
@@ -586,36 +545,6 @@ void whichFont( int whichFont)
 
 
 
-//////////////
-//DISPLAY INFO
-int posInfoObj = 2 ;
-
-void displayInfoScene() {
-  noStroke() ;
-  fill(0,100,0, 50) ;
-  rect(0,-5,width, 15*posInfoObj) ;
-  posInfoObj = 2 ;
-  fill(0,0,100) ;
-  textFont(SansSerif10, 10) ;
-  //INFO SIZE and RENDERER
-  String displayModeInfo ;
-  if (displayMode.equals("Classic") ) displayModeInfo = ("classique") ; else displayModeInfo = displayMode ;
-  text("Taille de la scène " + width + "x" + height + "   mode d'affichage " + displayModeInfo, 15,15) ;
-  //INFO MOUSE and PEN
-  text("position X " + mouse[0].x + "  position Y " + mouse[0].y + "  molette " + wheel[0] + "    stylet orientation " + (int)deg360(pen[0]) +"°   stylet pression " + int(pen[0].z *10),15, 15 * (posInfoObj) ) ;  
-  posInfoObj += 1 ;
-  //INFO SOUND
-  if (getTimeTrack() > 1 ) text("Le morceau dure depuis " +getTimeTrack() + "  Tempo " + getTempoRef() , 15,15 *(posInfoObj)) ; else text("Aucun morceau détecté ", 15, 15 *(posInfoObj)) ;
-  posInfoObj += 1 ;
-  //INFO WEATHER and METEO
-  text(weather.getCityName() + " / " + traductionWeather (weather.getWeatherConditionCode()) + "    Température " + weather.getTemperature() + "C°" + "   Pression " + hectoPascal(weather.getPressure()) + " HectoPascal", 15,15 *(posInfoObj)) ; 
-  posInfoObj += 1 ;
-  text ("Vent " + windFrench() + " de Force " + beaufort() + "     Levé du soleil " + weather.getSunrise() + "     Couché du soleil " + weather.getSunset(), 15,15 *(posInfoObj)) ; 
-  posInfoObj += 1 ;
-
-}
-////////////////
-//END DISPLAY INFO
 
 
 
@@ -631,81 +560,5 @@ void displayInfoScene() {
 
 
 
-//////
-//P3D
-
-//REPERE 3D
-void repere(int size, PVector pos, String name) {
-  pushMatrix() ;
-  translate(pos.x +20 , pos.y -20, pos.z) ;
-  fill(blanc) ;
-  text(name, 0,0) ;
-  popMatrix() ;
-  line(-size +pos.x,pos.y, pos.z,size +pos.x, pos.y, pos.z) ;
-  line(pos.x,-size +pos.y, pos.z, pos.x,size +pos.y, pos.z) ;
-  line(pos.x, pos.y,-size +pos.z, pos.x, pos.y,size +pos.z) ;
-}
-//repere cross
-void repere(int size) {
-  line(-size,0,0,size,0,0) ;
-  line(0,-size,0,0,size,0) ;
-  line(0,0,-size,0,0,size) ;
-}
-
-//repere camera
-void repereCamera(PVector size) {
-  size.x = size.x *.1 ;
-  size.y = size.y *.1 ;
-  
-  color xColor = rouge ;
-  color yColor = vert ;
-  color zColor = jaune ;
-  int posTxt = 10 ;
-  textFont(SansSerif10, 10) ;
-  
-  
-  //GRID
-  grid(size) ;
-  //AXES
-  strokeWeight(.2) ;
-  // X LINE
-  fill(xColor) ;
-  text("X LINE XXX", posTxt,-posTxt) ;
-  stroke(xColor) ; noFill() ;
-  line(-size.x,0,0,size.x,0,0) ;
-  
-  // Y LINE
-  fill(yColor) ;
-  pushMatrix() ;
-  rotateZ(radians(-90)) ;
-  text("Y LINE YYY", posTxt,-posTxt) ;
-  popMatrix() ;
-  stroke(yColor) ; noFill() ;
-  line(0,-size.y,0,0,size.y,0) ;
-  
-  // Z LINE
-  fill(zColor) ;
-  pushMatrix() ;
-  rotateY(radians(90)) ;
-  text("Z LINE ZZZ", posTxt,-posTxt) ;
-  popMatrix() ;
-  stroke(zColor) ; noFill() ;
-  line(0,0,-size.z,0,0,size.z) ;
-}
 
 
-void grid(PVector s) {
-  strokeWeight(.1) ;
-  noFill() ;
-  stroke(bleu) ;
-  int sizeX = (int)s.z ;
-  //horizontal grid
-  for ( int i = -sizeX ; i<= sizeX ; i = i+10 ) {
-    if(i != 0 ) line(i,0,-sizeX,i,0,sizeX) ;
-  }
-}
-//END REPERE 3D
-
-
-//END P3D
-/////////

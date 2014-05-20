@@ -20,8 +20,6 @@ PVector mouseCamera, pmouseCamera ;
 
 
 //Variable CLAVIER
-boolean displayInfo ;
-
 boolean savePDF ;
 String savePathPDF, savePathPNG ;
 

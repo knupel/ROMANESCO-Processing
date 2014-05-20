@@ -15,6 +15,7 @@ void setup() {
   createVar() ;
   initVarScene() ;
   displaySetup(60) ; // the int give the frameRate
+  colorSetup() ;
   miroirSetup() ;
   //dropping image from folder on the Scène
   drop = new SDrop(this);
@@ -44,12 +45,15 @@ void draw() {
   beginSave() ;
   //ROMANESCO
   cameraDraw() ;
+  lightPosition() ;
   lightDraw() ;
   romanescoManager.displayObject() ;
+  repereCamera(sizeBackgroundP3D) ;
   stopCamera() ;
   
   //ANNEXE
   endSave() ;
+  info() ;
   curtain() ;  
 
   nextPreviousKeypressed() ;
@@ -60,4 +64,7 @@ void draw() {
 //KEYPRESSED
 void keyPressed () {
   keySave() ;
+ // info common command with Prescene
+  if (key == 'i') displayInfo = !displayInfo ;
+  if (key == 'g') displayInfo3D = !displayInfo3D ;
 }

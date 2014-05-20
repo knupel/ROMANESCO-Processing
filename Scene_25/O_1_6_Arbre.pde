@@ -7,51 +7,53 @@ class ArbreRomanesco extends SuperRomanesco {
     IDobj = 6 ;
     IDgroup = 1 ;
     romanescoAuthor  = "Stan le Punk";
-    romanescoVersion = "Alpha 2.0";
+    romanescoVersion = "Alpha 1.2";
     romanescoPack = "Base" ;
     romanescoRender = "classic" ;
     romanescoMode = "1 Trait/2 Disc/3 Disc trait/4 Rectangle/5 Rectangle trait/6 Box" ;
   }
   //GLOBAL
   float speed ;
-  PVector posArbre = new PVector (random(width), random(height) ) ;
+  PVector posArbre = new PVector () ;
   //SETUP
   void setting() {
-    startPosition(IDobj, 0, 0, 0) ;
+    startPosition(IDobj, width/2, height/3, 0) ;
     arbre = new Arbre () ;
   }
   //DRAW
   void display() {
     float epaisseur = thicknessObj[IDobj] ;
     float g = map(left[IDobj], -1, 1, 0, 5) ;
-    float d = map(right[IDobj], -1, 1, 2, 7) ;
+    float d = map(right[IDobj], -1, 1, 2, 4) ;
+    // quantity of the shape
     int ng = round(g);
     int nd = round( d );
-    int propA = ng ;
-    int propB =  nd ;
+    //size of the shape
+    float propA = g  ;
+    float propB = d  ;
     
     //size
-    float x = sizeXObj[IDobj] * (ng + nd ) ;
-    float y = sizeYObj[IDobj] * (ng + nd ) ;
-    float z = sizeZObj[IDobj] * (ng + nd ) ;
-    PVector size  = new PVector(x,y,z  ) ;
+    float x = sizeXObj[IDobj] *(g+d) *.1 ;
+    float y = sizeYObj[IDobj] *(g+d) *.1 ;
+    float z = sizeZObj[IDobj] *(g+d) *.1 ;
+    PVector size  = new PVector(x,y,z) ;
     int fourcheA = nd  ; 
     int fourcheB = ng ;
     //orientation
     float direction = directionObj[IDobj] ;
     //amplitude
-    float ampSon ;
-    if(sound[IDobj]) ampSon = map (abs(mix[IDobj]), 0, 1, .1 ,4) ; else ampSon = 1.0 ;
-    float amplitude = map(amplitudeObj[IDobj], 0,1, 0,height *.2) *ampSon ;
+    float amplitude = map(amplitudeObj[IDobj], 0,1, 0,height *.5) *allBeats(IDobj) ;
+    
+    // "n" what is it ?
     int n = (ng+nd) ;
     //quantity
     float quantityNode = map(quantityObj[IDobj],1,100,2,32) ;
     int maxNode = int(quantityNode) ;
-    if ( n>maxNode ) { n = maxNode ; } ;
+    if ( n>maxNode ) n = maxNode ;
 
 
     // angle
-    float angle = map(angleObj[IDobj],0,360,0,90);
+    float angle = map(angleObj[IDobj],0,360,0,180);
     // speed
     if(motion[IDobj]) {
       float s = map(speedObj[IDobj],0,100,0,2) ;
@@ -61,9 +63,13 @@ class ArbreRomanesco extends SuperRomanesco {
       speed = 0.0 ;
     }
     
+    aspect(IDobj) ;
+    
     arbre.affichage (direction) ;
-    posArbre = new PVector (mouse[IDobj].x, mouse[IDobj].y) ;
-    arbre.actualisation(posArbre, fillObj[IDobj], strokeObj[IDobj], epaisseur, size, propA, propB, fourcheA, fourcheB, amplitude, n, mode[IDobj], angle, speed) ;
+    arbre.actualisation(posArbre, epaisseur, size, propA, propB, fourcheA, fourcheB, amplitude, n, mode[IDobj], angle, speed, IDobj) ;
+    
+    //info
+    objectInfo[IDobj] = ("Nodes " + maxNode + " Amplitude " + (int)amplitude + " Orientation " +direction +  " Speed " + (int)map(speed,0,4,0,100) );
     
   }
 }
@@ -89,57 +95,71 @@ class Arbre {
     direction = d ;
   }
 //::::::::::::::::::::::::::::  
-  void actualisation (PVector posArbre, color cIn, color cOut, float e, PVector size, int propA, int propB, int fourcheA, int fourcheB, float amplitude, int n, int mode, float angle, float speed) {
+  void actualisation (PVector posArbre, float e, PVector size, float propA, float propB, int fourcheA, int fourcheB, float amplitude, int n, int mode, float angle, float speed, int ID) {
     rotation += speed ;
-    // float newAngle = 180 - angle ;
-    if ( rotation > angle + 90  ) speed*=-1 ; else if ( rotation < angle ) speed*=-1 ; 
+    if (rotation > angle +90) speed*=-1 ; else if ( rotation < angle ) speed*=-1 ; 
     angle = rotation ; // de 0 à 180
     // Convert it to radians
     theta = radians(angle);
-  
     angleDirection = radians (direction) ;
     pushMatrix () ;
-    translate(posArbre.x,posArbre.y);
+    translate(posArbre.x,posArbre.y, 0) ;
     // Start the recursive branching
     rotate (angleDirection) ;
-    branch(cIn, cOut, e, size, propA, propB, fourcheA, fourcheB, amplitude, n, mode);
+    branch(e, size, propA, propB, fourcheA, fourcheB, amplitude, n, mode, ID);
     popMatrix () ;
+
     
   }
-//::::::::::::::::::::::::::::  
-  void branch(color colorIn, color colorOut, float e, PVector proportion, int propA, int propB, int fourcheA, int fourcheB, float amplitude, int n, int mode) {
-    proportion.x *= random (propA, propB ) / 10 ;
-    float fourche = random (0,10) ;
-    stroke ( colorOut ) ;
-    fill ( colorIn ) ;
+  
+  
+  //float fourche = 10.0 ; 
+  void branch(float e, PVector proportion, float propA, float propB, int fourcheA, int fourcheB, float amplitude, int n, int mode, int ID) {
+    PVector newSize = proportion.get() ;
+    newSize.x = proportion.x /(random(propA, propB)*.3) ;
+    newSize.y = proportion.y /(random(propA, propB)*.3) ;
+    newSize.z = proportion.z /(random(propA, propB)*.3) ;
     
-    //En cours pour vérifier la fin de la boucle qui bug qd celle-ci est trop grande.
-    if ( e < 0.1 ) e = 0.1 ;
-    if( proportion.x < 1 ) proportion.x = 1 ;
+    if(newSize.x < 1 ) newSize.x = 1 ;
     
     
+    // recursice need a end  !
     n = n-1 ;
-    // Toutes fonctions répétitives doit posséder une sortie, ici une taille inférieure à 2
-    if (n > 0) {
-      if (fourche < fourcheA  ) displayBranch(colorIn, colorOut, e, proportion, propA, propB, fourcheA, fourcheB, amplitude, n, -theta, mode) ; 
-                           else displayBranch(colorIn, colorOut,e, proportion, propA, propB, fourcheA, fourcheB, amplitude, n, theta, mode) ;
+    if (n >0) {
+     displayBranch(e, newSize, propA, propB, fourcheA, fourcheB, amplitude, n, -theta, mode, ID) ; 
+     displayBranch(e, newSize, propA, propB, fourcheA, fourcheB, amplitude, n, theta, mode, ID) ;
     }
   }
   
   //annexe branch
-  void displayBranch(color colorIn, color colorOut,float e, PVector proportion, int propA, int propB, int fourcheA, int fourcheB, float amplitude, int n, float t, int mode) {
+  void displayBranch(float e, PVector newSize, float propA, float propB, int fourcheA, int fourcheB, float amplitude, int n, float t, int mode, int ID) {
     pushMatrix();    // Save the current state of transformation (i.e. where are we now)
     rotate(t);   // Rotate by theta
 
-    strokeWeight (e ) ;
-     if (mode == 0  ) line(0, 0, 0, -amplitude);  // Draw the branch
-    if (mode == 1 ) ellipse(0,0, proportion.x  , proportion.x  ) ;
-    if (mode == 2  ) {  ellipse(0,0, proportion.x  , proportion.x  ) ; line(0, 0, 0, -amplitude); }
-    if (mode == 3 ) rect(0,0, proportion.x  , proportion.x  ) ;
-    if (mode == 4  ) {  rect(0,0, proportion.x  , proportion.x  ) ; line(0, 0, 0, -amplitude); }
-    if (mode == 5  ) box(proportion.x  , proportion.x  , proportion.x  ) ;
+    strokeWeight (e) ;
+    
+    if (mode == 0  ) line(0, 0, 0, -amplitude);  // Draw the branch
+    if (mode == 2  ) { ellipse(0,0, newSize.x, newSize.x) ; line(0, 0, 0, -amplitude); }
+    if (mode == 4  ) { rect(0,0, newSize.x, newSize.y) ; line(0, 0, 0, -amplitude); }
+    if (mode == 1 || mode == 3 || mode == 5 ) {
+    if (mode == 1 )  ellipse(0,0, newSize.x , newSize.x) ;
+    if (mode == 3 )  rect(0,0, newSize.x, newSize.y) ;
+    if (mode == 5  ) box(newSize.x, newSize.y, newSize.z) ;
+      if (!horizon[ID]) {
+        //pushMatrix() ;
+        float factor = 0.0 ;
+        if(!vTouch && pen[0].z != 0) factor = map(pen[0].z,0.01,1, -.5,.5) ; else factor = 0 ;
+        translate(0,0, -newSize.z *factor) ; 
+      } else {
+        //pushMatrix() ;
+        float factor = 0.0 ;
+        if(!vTouch && pen[0].z != 0)factor = .15 + map(pen[0].z,0.01,1, 1.2,-1.2) ; else factor = .15 ;
+        translate(0,0, -newSize.z *factor) ;
+        //popMatrix() ;
+      }
+    }
     translate(0, -amplitude); // Move to the end of the branch
-    branch(colorIn, colorOut, e, proportion, propA, propB, fourcheA, fourcheB, amplitude, n, mode);       // Ok, now call myself to draw two new branches!!
+    branch(e, newSize, propA, propB, fourcheA, fourcheB, amplitude, n, mode, ID);       // Ok, now call myself to draw two new branches!!
     popMatrix();     // Whenever we get back here, we "pop" in order to restore the previous matrix state
   }
 }

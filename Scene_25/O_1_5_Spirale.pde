@@ -7,7 +7,7 @@ class SpiraleRomanesco extends SuperRomanesco {
     IDobj = 5 ;
     IDgroup = 1 ;
     romanescoAuthor  = "Stan le Punk";
-    romanescoVersion = "Alpha 2.1";
+    romanescoVersion = "Alpha 1.2";
     romanescoPack = "Base" ;
     romanescoRender = "P3D" ;
     romanescoMode = "1 Rectangle/2 Ellipse/3 Box" ;
@@ -22,8 +22,7 @@ class SpiraleRomanesco extends SuperRomanesco {
   }
   //DRAW
   void display() {
-    fill(fillObj[IDobj]) ;
-    stroke(strokeObj[IDobj]) ;
+    aspect(IDobj) ;
     strokeWeight(thicknessObj[IDobj]*.02) ;
     //quantity
     int n ;
@@ -54,6 +53,9 @@ class SpiraleRomanesco extends SuperRomanesco {
     
     spirale.actualisation (mouse[IDobj], speed) ;
     spirale.affichage (n, nMax, size, z, mode[IDobj]) ;
+    
+    // info display
+    objectInfo[IDobj] = ("Speed "+speed+ " / Amplitude " + map(z, 1.01, 1.27, 1,100) + " Quantity " + nMax) ;
   }
 }
 

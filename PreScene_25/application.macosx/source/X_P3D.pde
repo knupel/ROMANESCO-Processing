@@ -23,8 +23,9 @@ PVector  P3DdirectionMouseRef, deltaObjDir, P3DtempObjDir ;
 PVector sizeBackgroundP3D  ;
 
 
-//SETUP
+//SET = P
 void P3DSetup() {
+      
   if(modeP3D) {
     sizeBackgroundP3D = new PVector(width *100, height *100, height *7.5) ;
     //CAMERA
@@ -96,8 +97,8 @@ PVector P3Ddirection(PVector dir, PVector speed, int ID) {
     deltaObjDir.y = mouse[0].y -P3DdirectionMouseRef.y ;
     P3DtempObjDir = PVector.add(deltaObjDir, P3DdirectionObjRef[0] ) ;
     //rotation of the camera
-    dir.x += (pmouse[0].y-mouse[0].y) * speed.y;
-    dir.y += (pmouse[0].x-mouse[0].x) * -speed.x;
+    dir.x += (pmouse[0].y-mouse[0].y) *speed.y;
+    dir.y += (pmouse[0].x-mouse[0].x) *-speed.x;
     if(dir.x > 360 ) dir.x = 0 ;
     if(dir.x < 0  ) dir.x = 360 ;
     if(dir.y > 360 ) dir.y = 0 ; 
@@ -120,7 +121,7 @@ PVector P3Dposition(PVector pos, int ID) {
     deltaObjPos.y = mouse[0].y -P3DpositionMouseRef.y ;
     pos = PVector.add(deltaObjPos, P3DpositionObjRef[ID] ) ;
   }
-  // Z pos
+  // Y pos
   zoom() ;
   pos.z -= getCountZoom ;
   return pos ;
@@ -152,15 +153,11 @@ void startPosition(int ID, int x, int y, int z) {
   P3DpositionZ[ID] = z ;
   mouse[ID] = new PVector (x,y) ;
 }
-/*
 void startPosition(int ID, int x, int y) {
-  //P3Dposition[ID] = new PVector(width/2 -x, height/2 -y, z) ;
   P3DpositionX[ID] = x -(width/2) ;
   P3DpositionY[ID] = y -(height/2);
-  // mouse[ID] = new PVector (x,y) ;
-  // startingPosition[ID] = false ;
 }
-*/
+
 
 
 
@@ -177,8 +174,6 @@ void cameraDraw() {
     //void with speed setting
     float speed = 150.0 ; // 150 is medium speed rotation
     PVector speedRotation = new PVector(speed /(float)width, speed /(float)height) ; 
-    //println("void cameraDraw()",clickLongLeft[0], cLongTouch, moveScene) ;
-    
     startCamera(moveScene, moveEye, speedRotation) ;
     //to change the scene position with a specific point
     if(gotoCameraPosition || gotoCameraEye ) updateCamera(sceneCamera, targetPosCam, speedMoveOfCamera) ;
@@ -225,10 +220,8 @@ void catchCameraInfo() {
 void startCamera(boolean scene, boolean eye, PVector speed) {
   pushMatrix() ;
   //Move the Scene
-  //println("void startCamera avant", scene) ;
   if(scene) {
     //create the ref to calcul the new position of the Scene
-    
     if(newRefSceneMouse) {
       posSceneCameraRef = sceneCamera ;
       posSceneMouseRef = new PVector(mouse[0].x, mouse[0].y) ;
@@ -342,9 +335,9 @@ void travelling(PVector target) {
   gotoCameraPosition = true ;
   gotoCameraEye = true ;
 }
-
-
 //END INIT FOLLOW
+
+
 
 float speedX  ;
 float speedY  ;
@@ -371,8 +364,6 @@ PVector backEye() {
       float ratioY = eyeBackRef.y / frameRate *speedBackEye ;
       speedX += ratioX ;
       speedY += ratioY ;
-      //speedX += .5 ;
-      //speedY += .5 ;
       if (eyeBackRef.x < 180 && !travellingPriority ) eye.x = eyeBackRef.x -speedX ; else eye.x  = eyeBackRef.x +speedX ;
       if (eyeBackRef.y < 180 && !travellingPriority ) eye.y = eyeBackRef.y -speedY ; else eye.y  = eyeBackRef.y +speedY ;
       // to stop the calcul
@@ -387,27 +378,12 @@ PVector backEye() {
       }
     }
   } 
-  
-  //reset the value and the boolean for a next move
-  /*
-  if(currentDistToTarget < 5 && (eye.x < 2 || eye.x > 358 )  && (eye.y < 2 || eye.y > 358 )) {
-    gotoCameraEye = false ;
-  */
   return eye ;
 }
 
 
 //MAIN VOID
 PVector speedByAxes = new PVector(0,0,0) ;
-//
-/*
-void cameraGoto(PVector newPos, float speed) {
-  cameraSpeedMove = speed ;
-  newDistanceToTarget = new PVector(0,0,0) ;
-  distToCamera = PVector.sub(sceneCamera, newPos) ;
-  speedByAxes = PVector.div(distToCamera, 1.0 / speed) ;
-}
-*/
 //calculate new position to go at the new target camera
 PVector distToTargetUpdated = new PVector (0,0,0) ;
 float currentDistToTarget = 0 ;
@@ -518,6 +494,7 @@ void lightSetup() {
   }
 }
 
+
 // LIGHT POSITION
 PVector lightPos = new PVector() ;
 void lightPosition() {
@@ -563,6 +540,10 @@ void romanescoLight(PVector colorOne, PVector colorTwo, PVector dirOne, PVector 
 
 // END LIGHT
 ////////////
+
+
+
+
 
 
 
