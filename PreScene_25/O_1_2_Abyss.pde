@@ -23,7 +23,7 @@ class Abbyss extends SuperRomanesco {
   }
   //DRAW
   void display() {
-    creatureManager.loop(fillObj[IDobj], strokeObj[IDobj], thicknessObj[IDobj], speedObj[IDobj]);
+    creatureManager.loop(fillObj[IDobj], strokeObj[IDobj], thicknessObj[IDobj], speedObj[IDobj] *100.0);
     
     
     

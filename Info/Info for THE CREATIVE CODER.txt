@@ -62,11 +62,14 @@ int IDfamily = # ;
 
 
 
+////////////////////////////
+// WHERE are Romanesco work
+// if you want use a different rendering on the scene or prescene, you can use this boolean.
+indicate if your work on scene or prescene
+boolean scene 
+boolean prescene
 
-
-
-boolean scene // if you want use a different rendering on the scene or prescene, you can use this boolean.
-
+//
 boolean internet // say if internet is available
 boolean modeP3D  // say if P3D render is available
 
@@ -99,10 +102,16 @@ boolean motion[IDobj] boolean use for the move activate or desactivate by the "m
 //Alignement
 boolean horizon[IDobj] boolean use for the move activate or desactivate by the "h" key - booleann hTouch -
 
+//reverse direction
+boolean reverse[IDobj] use to reverse direction or what you want, activa by "r" key - boolean rTouch -
+
+// INFO display on Prescen
+boolean objectInfoDisplay[IDobj] use to display info or what you want show on Prescene or Scene from your object, activate by "i" key - boolean iTouch
+
 //RESET
 // to empty the list or reset object activate by backspace and delete
-boolean resetAction(ID) when the Action button is On
-boolean resetParameter(ID) when the Parameter button is On
+boolean resetAction(IDobj) when the Action button is On
+boolean resetParameter(IDobj) when the Parameter button is On
 Suggestion use Action Button for the particle and the list
 and Parameter for the other reset. But it's just a suggestion
 
@@ -199,7 +208,7 @@ bandSpectrum.length ;
 
 // MOUSE
 //////////////////////
-PVector mouse[IDobj]
+PVector mouse[IDobj] refresh with space touch
 mouse[0].x // mouse[0].y // absolute position of the mouse
 mouse[0].z // return info from the z axis when the leapmotion is active
 mouse[IDobj].x // mouse[IDobj].y // mouse[IDobj].z // same info tha mouse[IDobj] but this one is refresh when you press the space
@@ -214,7 +223,7 @@ pmouse[0] and pmouse[IDobj]
 
 // PEN
 ////////////////////
-PVector pen[IDobj] or pen[0]
+PVector pen[IDobj] or pen[0] refresh with space touch
 pen[IDobj].x pen[IDobj].y   // information from the tablet tilt : orientation of the pen 
 pen[IDobj].z - value to 0 to 1 - information from tablet : pressure pen 
 
@@ -249,14 +258,14 @@ float canvasXObj[IDobj] ; canvasYObj[IDobj] ; canvasZObj[IDobj] value from width
 
 float quantityObj = new float[numObj] ; value from 1 to 100 ;
 
-float speedObj[IDobj] ; value from 0 to 100
-float directionObj[IDobj] ; value from 0 to 360 ;
-float angleObj[IDobj] ; value from 0 to 360 ;
+float speedObj[IDobj] ; value from 0 to 1
+float directionObj[IDobj] ; value from 0 to 360
+float angleObj[IDobj] ; value from 0 to 360
 float amplitudeObj[IDobj] ; value from 0 to 1
 float analyzeObj[IDobj] ; value from 0 to 1
 float familyObj[IDobj] ; value from 1 to 118, it's atomic choice 118 is the last atom knew in 2006!
 float lifeObj[IDobj] ; value from 0 to 1
-float forceObj[IDobj] ; value from 1 to 100.
+float forceObj[IDobj] ; value from 0 to 1
 
 // shortcut var
 float fontSizeObj[IDobj] ; 3 to height in the release 25 work with the slider sizeXObj

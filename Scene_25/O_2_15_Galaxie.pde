@@ -5,7 +5,7 @@ class Galaxie extends SuperRomanesco {
     IDobj = 15 ;
     IDgroup = 2 ;
     romanescoAuthor  = "Stan le Punk";
-    romanescoVersion = "Alpha 2.0";
+    romanescoVersion = "Alpha 1.2";
     romanescoPack = "Base" ;
     romanescoRender = "classic" ;
     romanescoMode ="1 Point/2 Ellipse/3 Rectangle" ;
@@ -28,11 +28,12 @@ class Galaxie extends SuperRomanesco {
   //vibration
   float vibrationGrain = 0.1 ;
   //the stream of sand
-  PVector deformationGrain = new PVector (0.0, 0.0 ) ;
+  PVector deformationGrain = new PVector () ;
 
-  PVector motionGrain = new PVector (0.0 , 0.0) ;
-  float newRayonGrain = 1 ;
+  PVector motionGrain = new PVector () ;
+  //float newRayonGrain = 1 ;
   float variableRayonGrain = -0.001 ;
+  //float variableRayonGrain = -0.1 ;
   
   
   //SETUP
@@ -42,53 +43,80 @@ class Galaxie extends SuperRomanesco {
   //DRAW
   void display() {
     
-    if (mode[IDobj] == 0 || mode[IDobj] == 255 ) numFromControler = int(3*(sq(quantityObj[IDobj])) ) ; else numFromControler = 30 + int(10 *quantityObj[IDobj]) ;
-    if (numGrains != numFromControler && parameterButton[IDobj] == 1 ) makeSand = true ;
+    //surface
+    PVector marge = new PVector(canvasXObj[IDobj] *5, canvasYObj[IDobj] *5, canvasZObj[IDobj] *5)  ;
+    PVector surface = new PVector(marge.x *2.0 + width, marge.y *2.0 +height) ;
+    
+    if (mode[IDobj] == 0 ) numFromControler = int(3*(sq(quantityObj[IDobj])) ) ; else numFromControler = 30 + int(10 *quantityObj[IDobj]) ;
+    if ((numGrains != numFromControler && parameterButton[IDobj] == 1) || resetAction(IDobj) ) makeSand = true ;
     if (makeSand) {
       numGrains = numFromControler ;
-      grainSetup(numGrains) ;
+      grainSetup(numGrains, marge) ;
       makeSand = false ;
     }
  
     //give back the pen info
     float pressionGrain = sq(1 + pen[IDobj].z) ;
-    orientationStyletGrain = new PVector ( 4* pen[IDobj].x , pen[IDobj].y ) ;
+    orientationStyletGrain = new PVector ( pen[IDobj].x *10.0 , pen[IDobj].y *10.0 ) ;
+    deformationGrain = orientationStyletGrain.get() ; ;
     
-    //float vitesse = vitesseGrainA ;
-   // float vitesseSound = gaucheDroite ;
     // speed / vitesse
-    vitesseGrainA = map(left[IDobj],0,1, 1, 2) ;
-    vitesseGrainB = map(right[IDobj],0,1, 1, 2) ;
+    vitesseGrainA = map(left[IDobj],0,1, 1, 17) ;
+    vitesseGrainB = map(right[IDobj],0,1, 1, 17) ;
     
-    if(motion[IDobj]) speedDust = map(speedObj[IDobj],0,100, 0.0001 ,2) ; else speedDust = 0.0001 ;
+    if(motion[IDobj]) speedDust = map(speedObj[IDobj],0,1, 0.0001 ,3) ; else speedDust = 0.000001 ;
     
     vitesseGrain.x = vitesseGrainA *speedDust *tempo[IDobj] *pressionGrain  ;
     vitesseGrain.y = vitesseGrainB *speedDust *tempo[IDobj] *pressionGrain  ;
+    if(reverse[IDobj]) {
+      vitesseGrain.x = vitesseGrain.x *1 ; 
+      vitesseGrain.y = vitesseGrain.y *1 ; 
+    } else {
+      vitesseGrain.x = vitesseGrain.x *-1 ;
+      vitesseGrain.y = vitesseGrain.y *-1 ;
+    }
+    
+    //force
+    float amplitude = 75 ;
+    variableRayonGrain = map(forceObj[IDobj], 0,1, 0, amplitude ) ;
+    
 
-    posCenterGrain.x = mouse[IDobj].x ;
-    posCenterGrain.y = mouse[IDobj].y ;
+
+    
+    
+
     
     //size
-    float objWidth =  .1 + sizeXObj[IDobj] *mix[IDobj] ;
+    float objWidth =  .1 +sizeXObj[IDobj] *mix[IDobj] ;
     float objHeight = .1 +sizeYObj[IDobj] *mix[IDobj] ;
     PVector size = new PVector(objWidth, objHeight) ;
     
     //thickness / épaisseur
-    float e = thicknessObj[IDobj] *mix[IDobj] ;
+    float e = thicknessObj[IDobj] ;
 
     color colorIn = fillObj[IDobj] ;
     color colorOut = strokeObj[IDobj] ;
     
-    //surface
-    PVector surface = new PVector(canvasXObj[IDobj] *10, canvasYObj[IDobj] *10, canvasZObj[IDobj] *10)  ;
+
+    
+    // Axe rotation
+    posCenterGrain = mouse[IDobj].get() ;
+    //ratio transformation du canvas
+    float ratioX = (surface.x) / float(width) ;
+    float ratioY = (surface.y) / float(height) ;
+    
+    PVector newPosCenterGrain = new PVector() ;
+    newPosCenterGrain.x = posCenterGrain.x *ratioX - marge.x ;
+    newPosCenterGrain.y = posCenterGrain.y *ratioY - marge.y ;
+    posCenterGrain = newPosCenterGrain.get() ;
     
     /////////
     //UPDATE
-    updateGrain(upTouch, downTouch, leftTouch, rightTouch, clickLongLeft[IDobj], surface);
+    updateGrain(upTouch, downTouch, leftTouch, rightTouch, clickLongLeft[IDobj], marge);
     
     //////////////
     //DISPLAY MODE
-    if (mode[IDobj] == 0 || mode[IDobj] == 255 ) {
+    if (mode[IDobj] == 0) {
       pointSable(e, colorIn) ;
     } else if (mode[IDobj] == 1 ) {
       ellipseSable(size,e , colorIn, colorOut) ;
@@ -97,10 +125,35 @@ class Galaxie extends SuperRomanesco {
     } else {
       pointSable(objWidth, colorIn) ;
     }
+    
+   
+    
+    
+    // INFO DISPLAY
+    objectInfo[IDobj] =("Quantity " +numGrains + " Canvas " + (int)surface.x + "x" + (int)surface.y ) ;
+    if (objectInfoDisplay[IDobj] && prescene) {
+      strokeWeight(1) ;
+      stroke(blanc) ;
+      noFill() ;
+      line(-marge.x,       posCenterGrain.y, width +marge.x, posCenterGrain.y ) ;
+      line(posCenterGrain.x, -marge.y,       posCenterGrain.x, marge.y +height ) ;
+      
+      rect(-marge.x, -marge.y, marge.x *2 + width, marge.y *2 + height) ;
+    }
   }
+  // END DISPLAY
+  
+  
+  
     
     
-    //ANNEXE VOID
+  
+  
+  
+  
+  
+  
+  //ANNEXE VOID
   //DISPLAY MODE
   void pointSable(float diam, color c) {
     for(int j = 0; j < grain.length; j++) {
@@ -132,10 +185,10 @@ class Galaxie extends SuperRomanesco {
   }
   
   //SETUP
-  void grainSetup( int num) {
+  void grainSetup(int num, PVector marge) {
     grain = new PVector [num] ;
     for(int i = 0; i < num ; i++) {
-      grain[i] = new PVector (random(width), random(height)) ;
+      grain[i] = new PVector (random(-marge.x, width +marge.x), random(-marge.y, height +marge.y)) ;
     }
     makeSand = true ;
   }
@@ -145,12 +198,12 @@ class Galaxie extends SuperRomanesco {
   void updateGrain(boolean up, boolean down, boolean leftSide, boolean rightSide, boolean mouseClic, PVector area) {
     
     for(int i = 0; i < grain.length; i++) {
-      newRayonGrain = newRayonGrain -variableRayonGrain ;
+      // newRayonGrain = newRayonGrain -variableRayonGrain ;
       
-      motionGrain.x = grain[i].x -posCenterGrain.x -(deformationGrain.x +right[IDobj])  ;
-      motionGrain.y = grain[i].y -posCenterGrain.y -(deformationGrain.y +left[IDobj] ) ;
+      motionGrain.x = grain[i].x -posCenterGrain.x -(deformationGrain.x +right[IDobj]) +variableRayonGrain ;
+      motionGrain.y = grain[i].y -posCenterGrain.y -(deformationGrain.y +left[IDobj] ) +variableRayonGrain ;
   
-      PVector posGrain = new PVector ( 0,0, 0) ;
+      PVector posGrain = new PVector () ;
       float r = dist(grain[i].x/vitesseGrain.x, grain[i].y /vitesseGrain.x, int(posCenterGrain.x) /vitesseGrain.x, int(posCenterGrain.y) /vitesseGrain.x);
       
       //spiral rotation
@@ -161,6 +214,7 @@ class Galaxie extends SuperRomanesco {
         posGrain.x = cos(1/r*vitesseGrain.y)*motionGrain.x - ( sin(1/r*vitesseGrain.y)*motionGrain.y );
         posGrain.y = sin(1/r*vitesseGrain.y)*motionGrain.x + ( cos(1/r*vitesseGrain.y)*motionGrain.y );
       }
+      
       // to make line veticale or horizontal
       if (rightSide || leftSide  ) {
         posGrain.x = cos(1/r*vitesseGrain.y)*motionGrain.x ;

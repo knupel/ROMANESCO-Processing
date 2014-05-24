@@ -13,11 +13,12 @@ class Damier extends SuperRomanesco {
     romanescoMode = "1 Rectangle/2 Ellipse/3 Box" ;
   }
   //GLOBAL
-  float d, g ;
+  float d, g, m ;
   PVector size = new PVector(0,0,0) ;
   float angleTrame = 0 ;
   float angle = 0 ;
-  float vitesse = 0 ;
+  float speed = 0 ;
+  boolean reverse = false ;
 
   //SETUP
   void setting() {
@@ -31,35 +32,47 @@ class Damier extends SuperRomanesco {
     aspect(IDobj) ;
     
     if ( sound[IDobj]) {
-      g = left[IDobj] ; 
-      d = right[IDobj] ; 
+      g = map(left[IDobj],0,1,1,20) ; 
+      d = map(right[IDobj],0,1,1,20) ; 
+      m = map(mix[IDobj],0,1,1,20) ;
     } else {  
-      g = 0.0 ;
-      d = 0.0 ;
+      g = 1.0 ;
+      d = 1.0 ;
+      m = 1.0 ;
     }
-    size.x = ( sizeXObj[IDobj] + pen[IDobj].z ) * abs(1 + g) ;
-    size.y = ( sizeYObj[IDobj] + pen[IDobj].z) * abs(1 + d) ;
-    size.z = ( sizeZObj[IDobj] + pen[IDobj].z)  ;
+    float penPressure = map(pen[IDobj].z,0,1,1,width/100) ;
+    size.x = ( map(sizeXObj[IDobj],.1,width,5,width/8) *penPressure *allBeats(IDobj) ) *g ;
+    size.y = ( map(sizeYObj[IDobj],5,width,5,width/8) *penPressure *allBeats(IDobj)) *d ;
+    size.z = ( map(sizeZObj[IDobj],5,width,5,width/8) *penPressure *allBeats(IDobj)) *m  ;
     //size
 
     //orientation / deg
-    translate( mouse[IDobj].x, mouse[IDobj].y) ;
-    vitesse = map(speedObj[IDobj], 0,100,0, 0.07 );
-    //speed rotation
-    if ( vitesse == 0  ) angleTrame = angleObj[IDobj] ; else angleTrame += vitesse *tempo[IDobj] ;
-    if (spaceTouch && action[IDobj]) angle = map(angleObj[IDobj], 0,100, 0, TAU) ; else angle = 0 ;
+    //speed
+    speed = map(speedObj[IDobj], 0,1,0, 0.5 );
+    if(rTouch) reverse = !reverse ;
+    if(reverse) speed = speed *1 ; else speed = speed * -1 ;
+    if (speed != 0 && motion[IDobj]) angleTrame += speed *tempo[IDobj] ;
+    
+    
+    //rotation of the single shape
+    if (action[IDobj]) angle = map(angleObj[IDobj], 0,100, 0, TAU) ; 
+    
     //quantity
-    int q = int(map(quantityObj[IDobj], 0, 100, 2,50)) ;
+    int q = int(map(quantityObj[IDobj], 1, 100, 2,15)) ;
 
     //amp
-    float amp = map(amplitudeObj[IDobj],0,1, .5, 3) ;
+    float amp = map(amplitudeObj[IDobj],0,1, .1, height/100) ;
     
     //MODE DISPLAY
     if(mode[IDobj] == 0 || mode[IDobj] == 255) trame.drawTrameRect(mouse[IDobj], angleTrame, angle, size , q, g, d, amp) ;
     else if (mode[IDobj] == 1) trame.drawTrameDisc(mouse[IDobj], angleTrame, angle, size , q, g, d, amp) ;
     else if (mode[IDobj] == 2) trame.drawTrameBox(mouse[IDobj], angleTrame, angle, size , q, g, d, amp) ;
     
+    //INFO
+    objectInfo[IDobj] =("Quantity " + q + " shapes / Angle " + (int)angle + " Speed " + int(speed *100) + " Amplitude " + int(amp *100)) ;
+    
   }
+  
 }
 //end object two
 

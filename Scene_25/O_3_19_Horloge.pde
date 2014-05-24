@@ -27,13 +27,21 @@ class Horloge extends SuperRomanesco {
   void display() {
     textAlign(CENTER);
     // typo
-    float sizeFont = fontSizeObj[IDobj] ;
-    textFont(font[IDobj], sizeFont +(mix[IDobj] *30));
+    float sizeFont = fontSizeObj[IDobj] +12 ;
+    textFont(font[IDobj], sizeFont *allBeats(IDobj));
     
     // couleur du texte
     float t = alpha(fillObj[IDobj]) * abs(mix[IDobj]) ;
-    if (sound[IDobj]) { t = alpha(fillObj[IDobj]) ; } 
+    if (sound[IDobj]) t = alpha(fillObj[IDobj]) ;
     color c = color(hue(fillObj[IDobj]), saturation(fillObj[IDobj]), brightness(fillObj[IDobj]), t ) ;
+    // security against the blavk bug opacity
+    if (alpha(c) == 0 ) {
+      noFill() ; 
+      noStroke() ; 
+    } else {     
+      fill (c) ; 
+    }
+    
     //rotation / deg
     float angle = map(directionObj[IDobj], 0,360, 0, TAU) ;
     //amplitude
@@ -41,31 +49,31 @@ class Horloge extends SuperRomanesco {
     
     //CHANGE MODE DISPLAY
     /////////////////////
-    if (mode[IDobj] == 0 || mode[IDobj] == 255 ) {
-      horlogeCercle (mouse[IDobj], angle, amp, c, 12 ) ; // on 12 hours model english clock
+    if (mode[IDobj] == 0 ) {
+      horlogeCercle (mouse[IDobj], angle, amp, 12 ) ; // on 12 hours model english clock
     } else if (mode[IDobj] == 1 ) {
-      horlogeCercle (mouse[IDobj], angle,  amp, c, 24 ) ; // on 24 hours model international clock
+      horlogeCercle (mouse[IDobj], angle,  amp, 24 ) ; // on 24 hours model international clock
     } else if (mode[IDobj] == 2 ) {
-      horlogeLigne  (mouse[IDobj], angle, amp, c, 12 ) ; // on 12 hours model english clock
+      horlogeLigne  (mouse[IDobj], angle, amp, 12 ) ; // on 12 hours model english clock
     } else if (mode[IDobj] == 3 ) {
-      horlogeLigne  (mouse[IDobj], angle, amp, c, 24 ) ; // on 24 hours model international clock
+      horlogeLigne  (mouse[IDobj], angle, amp, 24 ) ; // on 24 hours model international clock
     } else if (mode[IDobj] == 4 ) {
-      horlogeMinute(mouse[IDobj], angle, c) ;
+      horlogeMinute(mouse[IDobj], angle) ;
     } else if (mode[IDobj] == 5 ) {
-      horlogeSeconde(mouse[IDobj], angle, c) ;
+      horlogeSeconde(mouse[IDobj], angle) ;
     }
 
   }
   
   
   //ANNEXE
-  void horlogeCercle(PVector posHorloge, float angle, float  amp, color colorHorloge, int timeMode) {
+  void horlogeCercle(PVector posHorloge, float angle, float  amp, int timeMode) {
     //Angles pour sin() et cos() départ à 3h, enlever PI/2 pour un départ à midi
     float s = map (second(), 0, 60, 0,    TWO_PI ) - HALF_PI ;
     float m = map (minute(), 0, 60, 0,    TWO_PI ) - HALF_PI ;
     float h = map (hour() % 12, 0, 12, 0, TWO_PI ) - HALF_PI ;
     
-    fill (colorHorloge) ;
+    
     //seconde
     textAlign(CENTER, CENTER) ;
     translate(posHorloge.x, posHorloge.y) ;
@@ -83,8 +91,7 @@ class Horloge extends SuperRomanesco {
   
   
   ////
-  void horlogeLigne(PVector posHorloge, float angle, float amp, color colorHorloge, int timeMode) {
-    fill (colorHorloge) ;
+  void horlogeLigne(PVector posHorloge, float angle, float amp, int timeMode) {
     //seconde
     textAlign(CENTER, CENTER) ;
     translate(posHorloge.x, posHorloge.y) ;
@@ -97,8 +104,7 @@ class Horloge extends SuperRomanesco {
   }
   
   ////
-  void horlogeMinute(PVector posHorloge, float angle, color colorHorloge ) {
-    fill (colorHorloge) ;
+  void horlogeMinute(PVector posHorloge, float angle) {
     textAlign(CENTER, CENTER) ;
     translate(posHorloge.x, posHorloge.y) ;
     rotate(angle) ;
@@ -107,9 +113,7 @@ class Horloge extends SuperRomanesco {
   }
   
   ////
-  void horlogeSeconde(PVector posHorloge, float angle, color colorHorloge ) {
-    
-    fill (colorHorloge) ;
+  void horlogeSeconde(PVector posHorloge, float angle) {
     textAlign(CENTER, CENTER) ;
     translate(posHorloge.x, posHorloge.y) ;
     rotate(angle) ;

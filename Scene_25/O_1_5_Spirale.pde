@@ -36,7 +36,7 @@ class SpiraleRomanesco extends SuperRomanesco {
     //speed
     
     if(motion[IDobj]) {
-      float s = map(speedObj[IDobj],0,100,0,8) ;
+      float s = map(speedObj[IDobj],0,1,0,8) ;
       s *= s ;
       speed = s *tempo[IDobj] ; 
     } else { 
@@ -65,7 +65,6 @@ class SpiraleRomanesco extends SuperRomanesco {
 
 //CLASS
 class Spirale extends Rotation {  
-  
   Spirale () { 
     super () ;
   }

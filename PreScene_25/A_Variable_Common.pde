@@ -90,6 +90,7 @@ TableRow [] rowIndexObject ;
 //info object
 String [] objectInfo, objectName ;
 int [] objectID ;
+boolean [] objectInfoDisplay ;
 //for the leap motion ?
 int objectLeapID[] ;
 //BUTTON CONTROLER
@@ -175,10 +176,8 @@ boolean [] clickShortLeft, clickShortRight, clickLongLeft, clickLongRight, mouse
 int wheel[] ;
 //pen info
 
-//boolean clear
-boolean clearList[] ;
-//motion object
-boolean [] motion, horizon, setting ;
+//boolean object
+boolean [] motion, horizon, setting, reverse, clearList ;
 
 //main font for each object
 String [] pathFontTTF, pathFontVLW, pathFontObjTTF ;
@@ -222,13 +221,15 @@ void createMiscVar() {
 
     
    objectLeapID = new int[numObj] ;
+   
+   objectInfoDisplay = new boolean[numObj] ;
     
    setting = new boolean [numObj]  ;
   //boolean clear
    clearList = new boolean[numObj] ;
-  //motion object
    motion = new boolean [numObj]  ;
    horizon = new boolean [numObj]  ;
+   reverse = new boolean [numObj] ;
    // IMAGE
    img = new PImage[numObj] ;
    whichImage = new int[numObj] ;
@@ -398,16 +399,16 @@ void updateVar() {
     canvasZRaw[i] = map(valueSlider[i+1][16], minSource, maxSource, width *minSize, width) ;
     quantityRaw[i] = map(valueSlider[i+1][17], minSource, maxSource, 1, 100) ;
     //column 3
-    speedRaw[i] = valueSlider[i+1][20] ;
+    speedRaw[i] = map(valueSlider[i+1][20],minSource, maxSource,0,1) ;
     directionRaw[i] = map(valueSlider[i+1][21],minSource, maxSource,0,360) ;
     angleRaw[i] = map(valueSlider[i+1][22],minSource, maxSource,0,360) ;
     amplitudeRaw[i] = map(valueSlider[i+1][23],minSource, maxSource,0,1) ;
     analyzeRaw[i] = map(valueSlider[i+1][24],minSource, maxSource,0 , 1) ;
     familyRaw[i] = map(valueSlider[i+1][25],minSource, maxSource,1,100) ;
     lifeRaw[i] = map(valueSlider[i+1][26],minSource, maxSource,0,1) ;
-    forceRaw[i] = valueSlider[i+1][27] +1 ;
+    forceRaw[i] = map(valueSlider[i+1][27], minSource, maxSource, 0, 1) ;
     // future slider
-    fontSizeRaw[i] = map(sizeXRaw[i], minSize, width, .01, height *.05) ;
+    fontSizeRaw[i] = map(sizeXRaw[i], minSize, width, 1, (float)height *.025) ;
     fontSizeRaw[i] = 3 +(fontSizeRaw[i] *fontSizeRaw[i]) ;
 
   }

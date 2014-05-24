@@ -17,7 +17,7 @@ class Soleil extends SuperRomanesco {
   float angleRotation ;
   //SETUP
   void setting() {
-    startPosition(IDobj, width/2, height/2, 0) ;
+    startPosition(IDobj, width/2, height -height/3, 0) ;
     
   }
   //DRAW
@@ -35,7 +35,7 @@ class Soleil extends SuperRomanesco {
      if (sound[IDobj]) noise = (mix[IDobj] *mix[IDobj]) *50.0 ; else noise = sq(amplitudeObj[IDobj] *10.0) ;
     // rotation speed
     float speedRotation = 0 ;
-    speedRotation = sq(speedObj[IDobj] *.1 *tempo[IDobj]) ;
+    speedRotation = sq(speedObj[IDobj] *10.0 *tempo[IDobj]) ;
     angleRotation += speedRotation ;
     rotate (radians(angleRotation)) ;
 

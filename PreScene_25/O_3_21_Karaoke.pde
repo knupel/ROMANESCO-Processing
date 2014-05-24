@@ -29,7 +29,7 @@ class Karaoke extends SuperRomanesco {
     
     float sizeFont = fontSizeObj[IDobj] ;
     
-    textFont(font[IDobj], sizeFont + ( sizeFont * mix[IDobj]) );
+    textFont(font[IDobj], sizeFont + ( sizeFont *mix[IDobj]) *allBeats(IDobj) );
     // couleur du texte
     float t = alpha(fillObj[IDobj]) * abs(mix[IDobj]) ;
     if ( sound[IDobj] ) { t = alpha(fillObj[IDobj]) ; } 

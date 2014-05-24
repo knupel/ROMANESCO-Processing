@@ -48,7 +48,7 @@ class MesAmis extends SuperRomanesco {
     }
     
     
-    float speed = map(speedObj[IDobj],0,100, .0001, .2);
+    float speed = map(speedObj[IDobj],0,1, .0001, .2);
     speed = speed*speed ;
     if(sound[IDobj]) speed *= allBeats(IDobj) ;
     float radiusMax = map(canvasXObj[IDobj], width/10, width, width/4, width *1.5) ;

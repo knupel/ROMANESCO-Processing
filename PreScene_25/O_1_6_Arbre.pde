@@ -56,7 +56,7 @@ class ArbreRomanesco extends SuperRomanesco {
     float angle = map(angleObj[IDobj],0,360,0,180);
     // speed
     if(motion[IDobj]) {
-      float s = map(speedObj[IDobj],0,100,0,2) ;
+      float s = map(speedObj[IDobj],0,1,0,2) ;
       s *= s ;
       speed = s *tempo[IDobj] ; 
     } else { 

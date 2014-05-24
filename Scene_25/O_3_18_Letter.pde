@@ -20,6 +20,7 @@ class Letter extends SuperRomanesco {
  
   int whichLetter ;
   int axeLetter ;
+  int startDirection = -1 ;
 
   
   //SETUP
@@ -49,11 +50,15 @@ class Letter extends SuperRomanesco {
     sizeRef = sizeFont ;
     sentenceRef = (sentence) ;
     pathRef = (pathFontObjTTF[IDobj]) ;
-    if(!newSetting || resetParameter(IDobj)) { 
+    if(!newSetting || resetParameter(IDobj)) {
+     
       grp = RG.getText(sentence, pathFontObjTTF[IDobj], (int)sizeFont, CENTER); 
       newSetting = true ;
       axeLetter = int(random (grp.countChildren())) ;
-      
+    }
+    if(resetParameter(IDobj)) {
+      int choiceDir = floor(random(2)) ;
+      if(choiceDir == 0 ) startDirection = -1 ; else startDirection = 1 ;
     }
     
     if(allBeats(IDobj) > 10 || nTouch ) axeLetter = int(random (grp.countChildren())) ;
@@ -64,19 +69,13 @@ class Letter extends SuperRomanesco {
     
     /////////
     //ENGINE
-    //float rangeTargetLetter = height / grp.countChildren() ;
-    /*
-    float rangeTargetLetter = height  ;
-    targetLetter = floor((mouse[IDobj].y +width/2) / rangeTargetLetter) ;
-    if(targetLetter >= grp.countChildren() )targetLetter = targetLetter -1 ; 
-    */
     
     //speed
     float speed ;
-    if(motion[IDobj]) speed = map(speedObj[IDobj], 0,100, 0.001, 0.5 ) *tempo[IDobj]  ; else speed = 0.0 ;
+    if(motion[IDobj]) speed = map(speedObj[IDobj], 0,1, 0.001, 0.5 ) *tempo[IDobj]  ; else speed = 0.0 ;
     //to stop the move
     if (!action[IDobj]) speed = 0.0 ; 
-    if(mousepressed[0]) speed = -speed ;
+    if(mousepressed[0] || spaceTouch) speed = -speed ;
     
     //DISPLAY
     float thicknessLetter = map(thicknessObj[IDobj], .1, height/3, 0.1, height /10) ; ;
@@ -87,10 +86,6 @@ class Letter extends SuperRomanesco {
     float jitterY = map(canvasYObj[IDobj],width/10, width, 0, width/5) ;
     float jitterZ = map(canvasZObj[IDobj],width/10, width, 0, width/5) ;
     PVector jitter = new PVector (jitterX, jitterY, jitterZ) ;
-    
-    //final position
-    // Problem with spaceTouch move
-    // translate(mouse[IDobj].x , mouse[IDobj].y , mouse[IDobj].z) ;
     
     fill(colorIn); noStroke() ;
 
@@ -106,11 +101,11 @@ class Letter extends SuperRomanesco {
     void letters(float speed, int axeLetter, color c, float thickness, PVector jttr) {
     //create a PVector arraylist from geomerative analyze
     // float rangeWhichLetter = width / grp.countChildren() ;
-    if (sound[IDobj]) whichLetter = (int)allBeats(IDobj) ; else whichLetter = grp.countChildren() / 2 ;
+    if (sound[IDobj]) whichLetter = (int)allBeats(IDobj) ; else whichLetter = 0 ;
     
     //security against the array out bounds
-    if(whichLetter < 0 ) whichLetter = 0 ; else if (whichLetter >= grp.countChildren()) whichLetter = grp.countChildren() - 1 ;
-    int num = (int)map(quantityObj[IDobj],1,100, 1,grp.countChildren()) ;
+    if(whichLetter < 0 ) whichLetter = 0 ; else if (whichLetter >= grp.countChildren()) whichLetter = grp.countChildren() -1  ;
+    int num = (int)map(quantityObj[IDobj],1,100, 0,grp.countChildren() +1) ;
     wheelLetter(num, speed, c, thickness, jttr) ;
 
     
@@ -128,7 +123,8 @@ class Letter extends SuperRomanesco {
       int targetLetter ;
       targetLetter = whichLetter +i ;
       if (targetLetter < grp.countChildren() ) {
-        if(i%whichOneChangeDirection == 0 ) speed = speed *-1 ;
+        if(i%whichOneChangeDirection == 0 ) speed  = speed *-1  ;
+        speed = speed *startDirection ;
         if(motion[IDobj]) grp.children[targetLetter].rotate(speed, grp.children[axeLetter].getCenter());
         displayLetter(targetLetter, c, thickness, jttr) ;
       }
@@ -139,6 +135,13 @@ class Letter extends SuperRomanesco {
     RPoint[] pnts = grp.children[which].getPoints() ; 
     PVector [] points = geomerativeFontPoints(pnts)  ;
     noFill() ; stroke(c) ; strokeWeight(thickness) ;
+    // security against the black brightness bug opacity
+    if (alpha(c) == 0 ) {
+      noFill() ; 
+      noStroke() ; 
+    } else {     
+      fill (c) ; 
+    }
     for ( int i = 0; i < points.length; i++ ) {
       points[i].add(jitterPVector(ampJttr)) ;
       float factor = 40.0 ;
@@ -150,7 +153,6 @@ class Letter extends SuperRomanesco {
   }
   
   //ANNEXE VOID
-  void annexe() {}
   //jitter for PVector points
   PVector jitterPVector(PVector range) {
     float factor = 0.0 ;

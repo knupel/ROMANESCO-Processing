@@ -31,7 +31,7 @@ class Lignes extends SuperRomanesco {
     }
 
     //speed
-    if(motion[IDobj]) speed = map(speedObj[IDobj], 0,100, 0, height/20 ) * tempo[IDobj]  ; else speed = 0.0 ;
+    if(motion[IDobj]) speed = map(speedObj[IDobj], 0,1, 0, height/20 ) * tempo[IDobj]  ; else speed = 0.0 ;
     
     if(rTouch) reverse = !reverse ;
     if(reverse) speed = speed *1 ; else speed = speed * -1 ;

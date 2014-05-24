@@ -145,14 +145,14 @@ class Spray extends SuperRomanesco {
   void encre() {
     factorPressure = map(pen[0].z, 0, 1, 1, 50 ) ;
     sprayDirection = new PVector (pen[0].x,pen[0].y) ;
-    inkDiffusion = map (speedObj[IDobj] , 0,100, 0, 100 *tempo[IDobj]  ) ; // speed / vitesse
+    inkDiffusion = map (speedObj[IDobj] , 0,1, 0, 100 *tempo[IDobj]  ) ; // speed / vitesse
     float flux = map (quantityObj[IDobj], 0,100, 1,1000  ) ; // ink quantity
     float thicknessPoint = thicknessObj[IDobj]*.1 ;
     inkFlux = int(flux) ;
     angleSpray   = map (angleObj[IDobj], 0,360, 0,180 ) ; // angle
     dry = (int)map(lifeObj[IDobj], 0,1, frameRate , 100000) ; // durée
     float spr ;
-    spr = map(forceObj[IDobj], 1,100 , 1, width) ; // force de diffusion
+    spr = map(forceObj[IDobj],0,1, 1, width) ; // force de diffusion
     spray = int(spr) ;
     
     // INK DRY

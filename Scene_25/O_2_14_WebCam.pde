@@ -22,10 +22,9 @@ class Webcam extends SuperRomanesco {
   boolean nativeWebCam ;
   int testDeviceCam ;
   
-  PVector factorDisplayCam = new PVector ( 0,0) ;
-  PVector factorDisplayPixel = new PVector ( 0,0) ;
+  PVector factorDisplayCam = new PVector (0,0) ;
+  PVector factorDisplayPixel = new PVector (0,0) ;
   PVector factorCalcul = new PVector (0,0) ;
-  // PVector posMovie = new PVector(0,0 ) ; // position x & y for the camera
   
   color colorPixelCam ;
   
@@ -86,7 +85,7 @@ class Webcam extends SuperRomanesco {
     } else if (!testCam() && testDeviceCam < 180 )  {
       fill(0) ;
       testDeviceCam += 1 ;
-      text("No external video signal, Romanesco try on the native Camera", mouse[0].x , mouse[0].y ) ;
+      text("No external video signal, Romanesco try on the native Camera", 10 , 20 ) ;
     } 
     
     //TEST CAM
@@ -160,59 +159,78 @@ class Webcam extends SuperRomanesco {
   
   // different mode
   void rectangleMonochrome(PVector pos, PVector size, PVector hsb) {
+    size = checkSize(size).get() ;
     translate(pos.x, pos.y, pos.z);
     monochrome(hsb) ;
     fill(colorPixelCam) ;
     noStroke() ;
+    antiBugFillBlack(colorPixelCam) ;
     rect (0,0, size.x, size.y) ;
   }
   //
   void rectangleColour(PVector pos, PVector size, PVector hsb) {
+    size = checkSize(size).get() ;
     translate(pos.x, pos.y, pos.z);
     colour(hsb) ;
     fill(colorPixelCam) ;
     noStroke() ;
+    antiBugFillBlack(colorPixelCam) ;
     rect (0,0, size.x, size.y) ;
   }
   //
   void pointMonochrome(PVector pos, PVector size, PVector hsb) {
+    size = checkSize(size).get() ;
     translate(pos.x, pos.y, pos.z);
     monochrome(hsb) ;
     stroke(colorPixelCam) ;
     strokeWeight(size.x) ;
+    antiBugFillBlack(colorPixelCam) ;
     point(0,0,0) ;
   }
   //
   void pointColour(PVector pos, PVector size, PVector hsb) {
+    size = checkSize(size).get() ;
     translate(pos.x, pos.y, pos.z);
     colour(hsb) ;
     stroke(colorPixelCam) ;
     strokeWeight(size.x) ;
+    antiBugFillBlack(colorPixelCam) ;
     point(0,0,0)  ;
   }
   //
   void boxMonochrome(PVector pos, PVector size, PVector hsb) {
+    size = checkSize(size).get() ;
     float depth = (hsb.z +1) *size.z ;
     if(horizon[IDobj]) translate(pos.x, pos.y, depth *.5); else translate(pos.x, pos.y, pos.z);
     monochrome(hsb) ;
     fill(colorPixelCam) ;
+    antiBugFillBlack(colorPixelCam) ;
     noStroke() ;
     box(size.x, size.y, depth) ;
   }
   //
   void boxColour(PVector pos, PVector size, PVector hsb) {
+    size = checkSize(size).get() ;
     float depth = (hsb.z +1) *size.z ;
     if(horizon[IDobj]) translate(pos.x, pos.y, depth *.5); else translate(pos.x, pos.y, pos.z);
     colour(hsb) ;
     fill(colorPixelCam) ;
+    antiBugFillBlack(colorPixelCam) ;
     noStroke() ;
     box(size.x, size.y, depth) ;
   }
   
   
+  //Annexe
   
-  
-  
+  // security size 
+  PVector checkSize(PVector size) {
+    float minSize = 2.0 ;
+    if (size.x < minSize ) size.x = minSize ;
+    if (size.y < minSize ) size.y = minSize ;
+    if (size.z < minSize ) size.z = minSize ;
+    return size ;
+  }
   
   void colour(PVector hsb) {
     float newSat = hsb.y *map(saturation(fillObj[IDobj]),0,100,0,1) ;
@@ -233,21 +251,16 @@ class Webcam extends SuperRomanesco {
   
   
   
+  
+  
   // test camera
   int testCam ;
   boolean testCam() {
-    if (cam.available() ) testCam =+ 30 ; else testCam -= 1 ;
+    if (cam.available()) testCam =+ 30 ; else testCam -= 1 ;
     if ( testCam < 1 ) testCam = 0 ;
     
-    if ( testCam > 2 ) {
-      videoSignal = true ;
-    } else {
-      videoSignal = false ;
-    }
-    
+    if ( testCam > 2 ) videoSignal = true ; else videoSignal = false ;
+    // boolean returned
     if ( testCam > 2 ) return true ;  else return false ;
   }
-  
-  
-  
 }

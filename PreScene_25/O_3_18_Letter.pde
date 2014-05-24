@@ -72,7 +72,7 @@ class Letter extends SuperRomanesco {
     
     //speed
     float speed ;
-    if(motion[IDobj]) speed = map(speedObj[IDobj], 0,100, 0.001, 0.5 ) *tempo[IDobj]  ; else speed = 0.0 ;
+    if(motion[IDobj]) speed = map(speedObj[IDobj], 0,1, 0.001, 0.5 ) *tempo[IDobj]  ; else speed = 0.0 ;
     //to stop the move
     if (!action[IDobj]) speed = 0.0 ; 
     if(mousepressed[0] || spaceTouch) speed = -speed ;

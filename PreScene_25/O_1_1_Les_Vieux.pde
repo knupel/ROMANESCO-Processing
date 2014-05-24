@@ -36,7 +36,7 @@ class LesVieux extends SuperRomanesco {
   // COURBE
   float speedCurve ;
   void courbe() {
-    float bezierPoint = forceObj[IDobj] *beat[IDobj] ;
+    float bezierPoint = map(forceObj[IDobj],0,1,1,100) *beat[IDobj] ;
     
     float b1 = (bezierPoint + (left[IDobj] *100)) *2.0 ;
     float b2 = (bezierPoint + (right[IDobj] *100)) *2.0 ;
@@ -48,7 +48,7 @@ class LesVieux extends SuperRomanesco {
     float b8 = (bezierPoint - (right[IDobj] *100)) *2.0 ;
     
     //vitesse / speed
-    if (motion[IDobj]) speedCurve  = speedObj[IDobj]*.2 *tempo[IDobj] ; else speedCurve = 0.0 ;
+    if (motion[IDobj]) speedCurve  = speedObj[IDobj]*20 *tempo[IDobj] ; else speedCurve = 0.0 ;
     //amplitude
     float ampB = map(amplitudeObj[IDobj],0,1, -50, width *.5) ;
     int amp = int(ampB) ;
@@ -79,14 +79,14 @@ class LesVieux extends SuperRomanesco {
     //thickness
     if(sound[IDobj]) thicknessObj[IDobj] *= mix[IDobj] ;
     // speed
-    if(sound[IDobj]) speedObj[IDobj] *= tempo[IDobj] ;
+    if(sound[IDobj]) speedObj[IDobj] = speedObj[IDobj] *tempo[IDobj] *100.0 ;
     //which side display the triangle
     PVector side ;
 
     for (int i=0 ; i < listTri.size() ; i++ ) {
       Tri tri = (Tri) listTri.get(i) ;
       if( i == 0 ) side = new PVector(canvas.x,0) ; else side = new PVector(0,canvas.y) ;
-      tri.display(pos, canvas, side.x, side.y, speedObj[IDobj]) ;
+      tri.display(pos, canvas, side.x, side.y, speedObj[IDobj] *100.0) ;
     }
   }
 }

@@ -18,7 +18,6 @@ class Honeycomb extends SuperRomanesco {
   float radiusRef = hexagonRadius ;
   float hexagonStroke = 3.0; // stroke weight around hexagons (simulated! much faster than using the stroke() method)
   float strokeRef = hexagonStroke ;
-  //color strokeColor = color(0); // stroke color around hexagons (simulated! much faster than using the stroke() method)
   float neighbourDistance = hexagonRadius*2 ; // the default distance to include up to 6 neighbours
   PVector canvas, canvasRef ;
   
@@ -212,4 +211,3 @@ class Hexagon {
     popMatrix();
   }
 }
-

@@ -22,7 +22,7 @@ class RSS extends SuperRomanesco {
   
   //SETUP
   void setting() {
-    startPosition(IDobj, width/2, height/2, 0) ;
+    startPosition(IDobj,width/10, height/2, 0) ;
     
     
     if(internet) {
@@ -39,7 +39,7 @@ class RSS extends SuperRomanesco {
   //DRAW
   void display() {
     float sizeFont = fontSizeObj[IDobj] ;
-    textFont(font[IDobj], sizeFont + ( sizeFont * mix[IDobj]) );
+    textFont(font[IDobj], sizeFont + ( sizeFont *mix[IDobj]) *allBeats(IDobj) );
     // couleur du texte
     float t = alpha(fillObj[IDobj]) * abs(mix[IDobj]) ;
     if ( sound[IDobj] ) { t = alpha(fillObj[IDobj]) ; } 
@@ -64,6 +64,7 @@ class RSS extends SuperRomanesco {
       String hune = messageRSS.substring(r);
       //rotation / degré
       rotation(directionObj[IDobj], mouse[IDobj].x, mouse[IDobj].y) ;
+      if(horizon[IDobj]) textAlign(CENTER) ; else textAlign(LEFT) ;
       text(hune, 0, 0, largeur, hauteur );
     }
     

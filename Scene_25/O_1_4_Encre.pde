@@ -5,14 +5,14 @@ ArrayList<Pixel> starList = new ArrayList<Pixel>();
 class Spray extends SuperRomanesco {
   public Spray() {
     //from the index_objects.csv
-    romanescoName = "Spray" ;
+    romanescoName = "Stars Spray" ;
     IDobj = 4 ;
     IDgroup = 1 ;
     romanescoAuthor  = "Stan le Punk";
-    romanescoVersion = "Alpha 2.0";
+    romanescoVersion = "Alpha 1.1";
     romanescoPack = "Base" ;
     romanescoRender = "P3D" ;
-    romanescoMode = "1 Spray/2 Star" ;
+    romanescoMode = "1 Star/2 Spray" ;
   }
   //GLOBAL
   // INK
@@ -32,10 +32,11 @@ class Spray extends SuperRomanesco {
   }
   //DRAW
   void display() {
-    if(mode[IDobj] == 1 && clickLongLeft[IDobj] && nLongTouch ) starProduction() ;
+    if(mode[IDobj] == 0 && clickLongLeft[IDobj] && nLongTouch ) starProduction() ;
     
-    if(mode[IDobj] == 0 ) encre() ;
-    if(mode[IDobj] == 1 ) displayStar() ;
+    if(mode[IDobj] == 0 ) displayStar() ;
+    if(mode[IDobj] == 1 ) encre() ;
+    
     
   }
   
@@ -63,7 +64,7 @@ class Spray extends SuperRomanesco {
       
     for ( Pixel p : starList ) {
       strokeWeight(thicknessObj[IDobj] *thicknessSoundEffect) ;  
-      stroke(hue(p.colour), saturation(p.colour), brightness(p.colour), alpha(fillObj[IDobj]) );
+      stroke(hue(p.colour), saturation(fillObj[IDobj]), brightness(fillObj[IDobj]), alpha(fillObj[IDobj]) );
       point(p.pos.x +jitterOne, p.pos.y +jitterTwo, p.pos.z +jitterThree) ;
     }
     if (resetAction(IDobj)) starList.clear() ;
@@ -72,7 +73,7 @@ class Spray extends SuperRomanesco {
   // the orderer
   void starProduction() {
     float depth = map(canvasZObj[IDobj], width/10, width, 0, width *3) ;
-    PVector pos = new PVector(mouse[IDobj].x, mouse[IDobj].y, depth ) ;
+    PVector pos = new PVector(mouse[0].x - startingPosition[IDobj].x, mouse[0].y - startingPosition[IDobj].y, depth ) ;
     //tha first value must be smaller than second
     
     int sizeMin = (int)map(sizeXObj[IDobj],0.1,width,1,20) ;
@@ -144,14 +145,14 @@ class Spray extends SuperRomanesco {
   void encre() {
     factorPressure = map(pen[0].z, 0, 1, 1, 50 ) ;
     sprayDirection = new PVector (pen[0].x,pen[0].y) ;
-    inkDiffusion = map (speedObj[IDobj] , 0,100, 0, 100 *tempo[IDobj]  ) ; // speed / vitesse
+    inkDiffusion = map (speedObj[IDobj] , 0,1, 0, 100 *tempo[IDobj]  ) ; // speed / vitesse
     float flux = map (quantityObj[IDobj], 0,100, 1,1000  ) ; // ink quantity
     float thicknessPoint = thicknessObj[IDobj]*.1 ;
     inkFlux = int(flux) ;
     angleSpray   = map (angleObj[IDobj], 0,360, 0,180 ) ; // angle
     dry = (int)map(lifeObj[IDobj], 0,1, frameRate , 100000) ; // durée
     float spr ;
-    spr = map(forceObj[IDobj], 1,100 , 1, width) ; // force de diffusion
+    spr = map(forceObj[IDobj],0,1, 1, width) ; // force de diffusion
     spray = int(spr) ;
     
     // INK DRY
@@ -187,7 +188,7 @@ class Spray extends SuperRomanesco {
       float angleDeg = random(-a, a);
       float angle = radians(angleDeg) ;
       // calcul of the absolute position of each pixel
-      PVector tilt = new PVector ( pen[0].x * distance, pen[0].y * distance ) ;
+      PVector tilt = new PVector ( pen[0].x *distance, pen[0].y *distance ) ;
       //position the pixel around the laticce, pivot...
       PVector posTilt = new PVector ( mouse[0].x - tilt.x , mouse[0].y - tilt.y  ) ;
       

@@ -21,7 +21,7 @@ class BaliseRomanesco extends SuperRomanesco {
   }
   //DRAW
   void display() {
-    if (motion[IDobj]) speed = (map(speedObj[IDobj], 0,100, 0,20)) *tempo[IDobj] ; else speed = 0.0 ;
+    if (motion[IDobj]) speed = (map(speedObj[IDobj], 0,1, 0,20)) *tempo[IDobj] ; else speed = 0.0 ;
     // color and thickness
     aspect(IDobj) ;
 
@@ -29,7 +29,7 @@ class BaliseRomanesco extends SuperRomanesco {
     float amp = map(amplitudeObj[IDobj], 0,1, 0, width *3) ;
     
     //factor size
-    float factor = forceObj[IDobj] *(allBeats(IDobj) *.2) ;
+    float factor = map(forceObj[IDobj],0,0,1,100) *(allBeats(IDobj) *.2) ;
     if(factor < 1.0 ) factor = 1.0 ;
     
     

@@ -7,7 +7,7 @@ class Lignes extends SuperRomanesco {
     IDobj = 10 ;
     IDgroup = 2 ;
     romanescoAuthor  = "Stan le Punk";
-    romanescoVersion = "Alpha 2.1";
+    romanescoVersion = "Alpha 1.1";
     romanescoPack = "Base" ;
     romanescoRender = "classic" ;
   }
@@ -15,9 +15,10 @@ class Lignes extends SuperRomanesco {
   float ampLine  =1.0 ;
   float speed ;
   float thicknessLine ;
+  Boolean reverse = false ;
   //SETUP
   void setting() {
-    startPosition(IDobj, 0, 0, 0) ;
+    startPosition(IDobj, width/2, height/2, 0) ;
     line = new Line() ;
   }
   //DRAW
@@ -30,18 +31,21 @@ class Lignes extends SuperRomanesco {
     }
 
     //speed
-    if(motion[IDobj]) speed = map(speedObj[IDobj], 0,100, -25,25 ) * tempo[IDobj]  ; else speed = 0.0 ;
+    if(motion[IDobj]) speed = map(speedObj[IDobj], 0,1, 0, height/20 ) * tempo[IDobj]  ; else speed = 0.0 ;
+    
+    if(rTouch) reverse = !reverse ;
+    if(reverse) speed = speed *1 ; else speed = speed * -1 ;
     //to stop the move
     if (action[IDobj]  && spaceTouch ) speed = 0.0 ;
     
-    rotation(directionObj[IDobj], mouse[IDobj].x, mouse[IDobj].y ) ;
-    
-    //quantité
-    float q = map(quantityObj[IDobj], 1, 100, width , height *.2) ;
-
-
-
-    line.drawLine (speed, q , fillObj[IDobj],  thicknessLine) ;
+    // size canvas
+    PVector canvas = new PVector (map(canvasXObj[IDobj],width/10, width, height, height *5),map(canvasXObj[IDobj],width/10, width, width, width *5)) ; 
+    //quantity
+    float q = map(quantityObj[IDobj], 1, 100, canvas.x *.5 , canvas.y *.05) ;
+    //rotation
+    rotation(directionObj[IDobj], canvas.x *.5, canvas.y *.5 ) ;
+    //display
+    line.drawLine (speed, q , fillObj[IDobj], thicknessLine, canvas, directionObj[IDobj]) ;
     
   }
 }
@@ -59,23 +63,40 @@ class Line {
   int vitesse ;
   float vd, vg ;
   
-  void drawLine ( float v, float q, color cOut, float e) {
+  void drawLine ( float v, float q, color c, float e, PVector canvas, float angle) {
     if( e < 0.1 ) e = 0.1 ; //security for the negative value
-    stroke (cOut) ; strokeWeight(e) ;
+     strokeWeight(e) ;
+    // security against the black brightness bug opacity
+    if (alpha(c) == 0 ) noStroke() ; else stroke (c) ;
+    
     float quantite = q*q *.001 ;
     //nbrlgn = quantite ;
-   nbrlgn = (width + height) / quantite  ;
+   nbrlgn = (canvas.x + canvas.y) / quantite  ;
     vitesse += (v) ;
     if ( abs(vitesse) > quantite ) {
       vitesse = 0 ; 
     }
     for (int i=0 ; i < nbrlgn +1 ; i++) {
-      float x1 = ( -(height) +i*( (width+ height ) /nbrlgn) ) +vitesse -e ;
+      float x1 = ( -(canvas.y) +i*( (canvas.x+ canvas.y ) /nbrlgn) ) +vitesse -e ;
       float y1 = -e ;
-      float x2 =  ( 0 +i*( (width + height )  /nbrlgn) ) +vitesse +e ;
-      float y2 = width+height +e ; 
+      float x2 =  ( 0 +i*( (canvas.x + canvas.y )  /nbrlgn) ) +vitesse +e ;
+      float y2 = canvas.x+canvas.y +e ; 
       line ( x1 , y1 , x2 , y2);
+      /*
+      PVector a = new PVector(x1, y1 ) ;
+      PVector b = new PVector(x2, y2 ) ;
+
+      //PVector lattice = new PVector(canvas.x *.5, canvas.y *.5 ) ;
+      PVector lattice = new PVector(width/2, height/2 ) ;
+      //pushMatrix() ;
+      //rotation(angle, canvas.x / nbrlgn , canvas.y / nbrlgn) ;
+      rotation(a, lattice, radians(angle)) ;
+      //rotation(b, lattice, radians(-angle)) ;
+      line(a.x, a.y, b.x, b.y) ;
+      //popMatrix() ;
+      */
+      
+      
     }
   }
-
 }

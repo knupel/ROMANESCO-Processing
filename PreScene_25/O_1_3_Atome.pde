@@ -76,7 +76,7 @@ class Atome extends SuperRomanesco {
       float velLimit = (tempo[IDobj] ) *5.0 ; // max of speed Atom
       if (velLimit < 1.1 ) velLimit = 1.1 ;
       //the atom temperature give the speed 
-      float speed = speedObj[IDobj] *speedObj[IDobj] ;
+      float speed = (speedObj[IDobj] *100) *(speedObj[IDobj] *100) ;
       if(sound[IDobj]) t =  floor(speed  * tempo[IDobj]) ; else t = round(speed) ;
       
       //ratio evolution for atom temperature...give an idea to change the speed of this one

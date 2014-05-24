@@ -29,7 +29,8 @@ Button buttonWindow, buttonFullscreen  ;
 Button [] whichScreenButton ;
 //slider var
 Slider sliderWidth, sliderHeight ;
-int heightSlider, widthSlider ;
+int heightSlider =1 ;
+int widthSlider = 1 ;
 //which mode rendering
 Button [] whichModeButton ;
 //Button start

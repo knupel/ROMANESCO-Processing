@@ -21,7 +21,7 @@ class BaliseRomanesco extends SuperRomanesco {
   }
   //DRAW
   void display() {
-    if (motion[IDobj]) speed = (map(speedObj[IDobj], 0,100, 0,20)) *tempo[IDobj] ; else speed = 0.0 ;
+    if (motion[IDobj]) speed = (map(speedObj[IDobj], 0,1, 0,20)) *tempo[IDobj] ; else speed = 0.0 ;
     // color and thickness
     aspect(IDobj) ;
 
@@ -29,9 +29,7 @@ class BaliseRomanesco extends SuperRomanesco {
     float amp = map(amplitudeObj[IDobj], 0,1, 0, width *3) ;
     
     //factor size
-    float valueBeat = 1 ;
-    
-    float factor = forceObj[IDobj] *(allBeats(IDobj) *.2) ;
+    float factor = map(forceObj[IDobj],0,0,1,100) *(allBeats(IDobj) *.2) ;
     if(factor < 1.0 ) factor = 1.0 ;
     
     
@@ -42,7 +40,9 @@ class BaliseRomanesco extends SuperRomanesco {
     float tempoEffect = 1 + ((beat[IDobj] -1  ) + (kick[IDobj] -1  ) + (snare[IDobj] -1  ) + (hat[IDobj] -1  ) );
     PVector sizeBalise  = new PVector (sizeXObj[IDobj] *tempoEffect, sizeYObj[IDobj] *tempoEffect, sizeZObj[IDobj] ) ;
     // variable position
-    PVector var = new PVector(left[IDobj],right[IDobj]) ; 
+    PVector var = new PVector(left[IDobj] *5,right[IDobj] *5) ;
+    if(var.x <= 0 ) var.x = .1 ; 
+    if(var.y <= 0 ) var.y = .1 ; 
     //quantity
     float radiusBalise = map(quantityObj[IDobj], 1,100, 2, 511); // here the value max is 511 because we work with buffersize with 512 field
     
@@ -67,7 +67,7 @@ class Balise extends Rotation {
     pushMatrix() ;
     rectMode(CENTER) ;
     
-    PVector inputResult = new PVector(0,0,0) ;
+    //PVector inputResult = new PVector(0,0,0) ;
     if ( max > 512 ) max = 512 ;
     for(int i = 0 ; i < max ; i++) {
       PVector v = new PVector(input(i,max,var,sound).x, input(i,max,var,sound).y) ;

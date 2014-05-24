@@ -5,6 +5,7 @@ import codeanticode.tablet.*;
 
 
 boolean scene = false ;
+boolean prescene = true ;
 
 //to opening app
 boolean openScene = true ;
@@ -86,13 +87,3 @@ void initDraw() {
   
 
 }
-
-
-
-
-
-
-
-
-
-

@@ -22,7 +22,7 @@ class RSS extends SuperRomanesco {
   
   //SETUP
   void setting() {
-    startPosition(IDobj, width/2, height/2, 0) ;
+    startPosition(IDobj,width/10, height/2, 0) ;
     
     
     if(internet) {
@@ -39,17 +39,22 @@ class RSS extends SuperRomanesco {
   //DRAW
   void display() {
     float sizeFont = fontSizeObj[IDobj] ;
-    textFont(font[IDobj], sizeFont + ( sizeFont * mix[IDobj]) );
+    textFont(font[IDobj], sizeFont + ( sizeFont *mix[IDobj]) *allBeats(IDobj) );
     // couleur du texte
     float t = alpha(fillObj[IDobj]) * abs(mix[IDobj]) ;
     if ( sound[IDobj] ) { t = alpha(fillObj[IDobj]) ; } 
     color c = color(hue(fillObj[IDobj]), saturation(fillObj[IDobj]), brightness(fillObj[IDobj]), t ) ;
+    // security against the blavk bug opacity
+    if (alpha(c) == 0 ) {
+      noFill() ; 
+      noStroke() ; 
+    } else {     
+      fill (c) ; 
+    }
     
     //hauteur largeur, height & width
     float largeur = canvasXObj[IDobj] *15 ;
-    float hauteur = canvasYObj[IDobj] *15 ;
-    
-    fill(c) ;
+    float hauteur = canvasYObj[IDobj] *15 ;   
       
     for( int i=info; i < info + 1; i++) {
       //internet = false ;
@@ -59,6 +64,7 @@ class RSS extends SuperRomanesco {
       String hune = messageRSS.substring(r);
       //rotation / degré
       rotation(directionObj[IDobj], mouse[IDobj].x, mouse[IDobj].y) ;
+      if(horizon[IDobj]) textAlign(CENTER) ; else textAlign(LEFT) ;
       text(hune, 0, 0, largeur, hauteur );
     }
     

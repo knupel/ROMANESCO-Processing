@@ -10,10 +10,10 @@ void romanescoSetup() {
 
 //Update the var of the object
 void updateObject(int ID, int group) {
-  //if (font[ID] == null ) font[ID] = font[0] ;
   //initialization
   if(!initValueMouse[ID]) { 
     mouse[ID] = mouse[0].get() ;
+    pen[ID] = pen[0].get() ;
     initValueMouse[ID] = true ;
   }
   if(!initValueControleur[ID]) {
@@ -23,6 +23,9 @@ void updateObject(int ID, int group) {
     whichImage[ID] = whichImage[0] ;
     whichText[ID] = whichText[0] ;
   }
+  
+  // info
+  if (iTouch) objectInfoDisplay[ID] = !objectInfoDisplay[ID] ;
   
   
   if(parameter[ID]) {
@@ -34,9 +37,13 @@ void updateObject(int ID, int group) {
   updateSound(ID) ;
   
   if(action[ID] ){
-    //if(spaceTouch) mouse[ID] = mouse[0].get() ; 
-    if( mTouch ) motion[ID] = !motion[ID] ;
+    if(spaceTouch) {
+      pen[ID] = pen[0].get() ;
+      mouse[ID] = mouse[0].get() ;
+    }
+    if (mTouch) motion[ID] = !motion[ID] ;
     if (hTouch) horizon[ID] = !horizon[ID] ;
+    if (rTouch) reverse[ID] = !reverse[ID] ;
     clickLongLeft[ID] = clickLongLeft[0] ;
     clickLongRight[ID] = clickLongRight[0] ;
     clickShortLeft[ID] = clickShortLeft[0] ;

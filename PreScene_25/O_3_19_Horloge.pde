@@ -27,12 +27,12 @@ class Horloge extends SuperRomanesco {
   void display() {
     textAlign(CENTER);
     // typo
-    float sizeFont = fontSizeObj[IDobj] ;
-    textFont(font[IDobj], sizeFont +(mix[IDobj] *30));
+    float sizeFont = fontSizeObj[IDobj] +12 ;
+    textFont(font[IDobj], sizeFont *allBeats(IDobj));
     
     // couleur du texte
     float t = alpha(fillObj[IDobj]) * abs(mix[IDobj]) ;
-    if (sound[IDobj]) { t = alpha(fillObj[IDobj]) ; } 
+    if (sound[IDobj]) t = alpha(fillObj[IDobj]) ;
     color c = color(hue(fillObj[IDobj]), saturation(fillObj[IDobj]), brightness(fillObj[IDobj]), t ) ;
     // security against the blavk bug opacity
     if (alpha(c) == 0 ) {
@@ -49,7 +49,7 @@ class Horloge extends SuperRomanesco {
     
     //CHANGE MODE DISPLAY
     /////////////////////
-    if (mode[IDobj] == 0 || mode[IDobj] == 255 ) {
+    if (mode[IDobj] == 0 ) {
       horlogeCercle (mouse[IDobj], angle, amp, 12 ) ; // on 12 hours model english clock
     } else if (mode[IDobj] == 1 ) {
       horlogeCercle (mouse[IDobj], angle,  amp, 24 ) ; // on 24 hours model international clock

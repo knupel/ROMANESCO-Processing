@@ -301,6 +301,7 @@ int posInfo = 2 ;
 
 void info () {
   if (displayInfo) {
+    //perspective() ;
     displayInfoScene() ;
     displayInfoObject() ;
   }
@@ -311,6 +312,7 @@ void displayInfoScene() {
   noStroke() ;
   fill(0,100,0, 50) ;
   rectMode(CORNER) ;
+  textAlign(LEFT) ;
   rect(0,-5,width, 15*posInfo) ;
   posInfo = 2 ;
   fill(0,0,100) ;
@@ -339,6 +341,7 @@ void displayInfoObject() {
   noStroke() ;
   fill(0,100,0, 50) ;
   rectMode(CORNER) ;
+  textAlign(LEFT) ;
   float heightBox = 15*posInfoObj ;
   rect(0, height -heightBox,width, heightBox) ;
   fill(0,0,100) ;
@@ -371,7 +374,6 @@ void displayInfo3D() {
 
 
 
-
 //////
 //P3D
 
@@ -395,7 +397,7 @@ void repere(int size) {
 
 //repere camera
 void repereCamera(PVector size) {
-  if(modeP3D && displayInfo3D )  {
+  if(modeP3D && displayInfo3D)  {
     PVector newSize =  PVector.mult(size,.1) ;
     color xColor = rouge ;
     color yColor = vert ;
@@ -452,6 +454,7 @@ void grid(PVector s) {
 /////////
 ////////////////
 //END DISPLAY INFO
+
 
 
 
