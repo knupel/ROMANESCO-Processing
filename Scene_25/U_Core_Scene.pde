@@ -373,7 +373,7 @@ boolean aTouch, bTouch, cTouch, dTouch, eTouch, fTouch, gTouch, hTouch, iTouch, 
         touch0, touch1, touch2, touch3, touch4, touch5, touch6, touch7, touch8, touch9, 
         backspaceTouch, deleteTouch, enterTouch, returnTouch, shiftTouch, altTouch, escTouch, ctrlTouch ;
 //long touch
-boolean spaceTouch, cLongTouch, nLongTouch, vLongTouch ;  
+boolean spaceTouch, cLongTouch, lLongTouch, nLongTouch, vLongTouch ;  
 
 //END KEYBOARD
 //////////////
@@ -537,28 +537,3 @@ void whichFont( int whichFont)
 
 // END FONT and TEXT MANAGER
 ////////////////////////////
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

@@ -13,7 +13,7 @@ Boolean internet = true ;
 String bigBrother = (" BIG BROTHER DON'T WATCHING YOU !!") ;
 
 //specific at the Scene
-String valueTempPreScene[] = new String [61] ;
+String valueTempPreScene[] = new String [71] ;
 //Special var for the Scene and the Miroir
 PVector mouseCamera, pmouseCamera ; 
 

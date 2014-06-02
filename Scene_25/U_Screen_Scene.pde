@@ -203,7 +203,6 @@ int screenWidth(int whichOne) {
     whichOne = 0 ;
     println( "screen choice not available") ;
   }
-  println(whichOne) ;
   x = screenDevice[whichOne].getDisplayMode().getWidth() ;
   return x ;
 }

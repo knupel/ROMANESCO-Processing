@@ -51,9 +51,6 @@ void checkImageFolder() {
     for (int i = 0; i < allFiles.size(); i++) {
       File f = (File) allFiles.get(i);   
       fileName = f.getName(); 
-      //println("Name: " + filename);
-      //println("Full path: " + f.getAbsolutePath());
-      //println("Is directory: " + f.isDirectory());
   
       // Add it to the list if it's not a directory
       if (f.isDirectory() == false) {
@@ -92,9 +89,6 @@ void checkFileTextFolder() {
     for (int i = 0; i < allFiles.size(); i++) {
       File f = (File) allFiles.get(i);   
       fileName = f.getName(); 
-      //println("Name: " + filename);
-      //println("Full path: " + f.getAbsolutePath());
-      //println("Is directory: " + f.isDirectory());
   
       // Add it to the list if it's not a directory
       if (f.isDirectory() == false) {

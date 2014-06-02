@@ -266,8 +266,8 @@ class ObjectRomanescoManager {
   
   ////////////////
   /*EXTERN VOID
-  * use with in romanescoSetup() {
   * romanescoManager.finishIndex() ;
+  * use with in romanescoSetup() {}
   */
   //finish index
   void finishIndex() {
@@ -287,14 +287,13 @@ class ObjectRomanescoManager {
   }
   
   /*
-  * use with in romanescoSetup() {
   * romanescoManager.writeInfoUser() ;
+  * use with in romanescoSetup() {}
   */
   //ADD info for the user
   void writeInfoUser() {
       // catch the different parameter from object class Romanesco
     for (int i=0 ; i < RomanescoList.size() ; i++ ) {
-      
       SuperRomanesco objR = (SuperRomanesco) RomanescoList.get(i) ;
       objectName[objR.IDobj] = objR.romanescoName ;
       objectID[objR.IDobj] = objR.IDobj ;
@@ -377,7 +376,7 @@ class ObjectRomanescoManager {
       if (object[objR.IDobj]) {
         updateObject(objR.IDobj, objR.IDgroup) ;
         pushMatrix() ;
-        //addRefObj(objR.IDobj) ;
+        addRefObj(objR.IDobj) ;
         if(vLongTouch && action[objR.IDobj] ) P3Dmanipulation(objR.IDobj) ;
         P3DmoveObj(objR.IDobj) ;
         objR.display() ;

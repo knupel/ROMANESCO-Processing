@@ -1,0 +1,60 @@
+ROMANESCO / ADD / REMOVE / IMPROVE / BUG FIX
+
+
+ROMANESCO 0.25 Revision
+
+
+/// ADD ///
+
+LAUNCHER
+* launch MIROIR from the launcher
+* preset to choice the size for the Scene
+
+CONTROLLER
+* Dropdown menu picture
+* Dropdown menu text
+* Dropdown menu shader Background
+* Menu Light one and two
+
+SCENE 
+* Manager class for Romanesco object
+* Manager images file.jpg from folder
+* Manager text file.txt from folder
+
+* key shortcut to return the camera to the origin
+* key shortcut to return the object to the origin
+* key shortcut to control the Light
+
+* Spectrum analyze with 16 bands
+
+* Info object String
+
+LIBRARY
+* "MES AMIS"
+* "SOLEIL"
+* "HONNEY COMB"
+* "LES VIEUX" special place for the objects remove from their place but not from Romanesco
+
+
+
+/// REMOVE ///////
+
+CONTROLEUR 
+* remove the weather button
+
+SCENE
+* Weather API function
+* Object Twittos
+* space touch to move the Object
+
+
+
+/// IMPROVE ///
+
+CONTROLEUR
+* growth the size of the slider
+* Change the organization of the sliders 
+
+SCENE
+* leapmotion control
+* start to corect the color bug with the color value (0,0,0,0)

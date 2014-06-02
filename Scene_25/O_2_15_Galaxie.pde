@@ -78,7 +78,7 @@ class Galaxie extends SuperRomanesco {
     
     //force
     float amplitude = 75 ;
-    variableRayonGrain = map(forceObj[IDobj], 0,1, 0, amplitude ) ;
+    variableRayonGrain = map(forceObj[IDobj], 0,1, 0, amplitude ) ; //<>//
     
 
 

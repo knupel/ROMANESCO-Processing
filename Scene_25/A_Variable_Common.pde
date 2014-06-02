@@ -157,10 +157,14 @@ float [] tempo, tempoBeat, tempoKick, tempoSnare, tempoHat ;
 
 
 //P3D OBJECT
+//setting and save
+int numSettingCamera, numSettingOrientationObject ;
+PVector [][] P3DpositionSetting, P3DdirectionSetting ;
+PVector [] eyeCameraSetting, sceneCameraSetting ;
 //position
 PVector startingPosition [] ;
 float [] P3DpositionX, P3DpositionY, P3DpositionZ ;
-//PVector P3Dposition [] ;
+
 PVector P3DpositionObjRef [] ;
 boolean P3DrefPos [] ;
 PVector [] posManipulation, dirManipulation ;
@@ -263,6 +267,14 @@ void createVarCursor() {
 }
 // P3D
 void createVarP3D() {
+  //setting and save
+   numSettingCamera = 1 ;
+   eyeCameraSetting = new PVector [numSettingCamera] ;
+   sceneCameraSetting = new PVector [numSettingCamera] ;
+   numSettingOrientationObject = 1 ;
+   P3DpositionSetting = new PVector [numSettingOrientationObject] [numObj] ;
+   P3DdirectionSetting = new PVector [numSettingOrientationObject] [numObj] ;
+   //
    startingPosition = new PVector[numObj] ;
    P3DpositionX = new float[numObj] ;
    P3DpositionY = new float[numObj] ;
@@ -408,7 +420,7 @@ void updateVar() {
     lifeRaw[i] = map(valueSlider[i+1][26],minSource, maxSource,0,1) ;
     forceRaw[i] = map(valueSlider[i+1][27], minSource, maxSource, 0, 1) ;
     // future slider
-    fontSizeRaw[i] = map(sizeXRaw[i], minSize, width, .01, height *.05) ;
+    fontSizeRaw[i] = map(sizeXRaw[i], minSize, width, 1, (float)height *.025) ;
     fontSizeRaw[i] = 3 +(fontSizeRaw[i] *fontSizeRaw[i]) ;
 
   }

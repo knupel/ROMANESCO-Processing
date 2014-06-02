@@ -69,6 +69,10 @@ indicate if your work on scene or prescene
 boolean scene 
 boolean prescene
 
+
+
+
+
 //
 boolean internet // say if internet is available
 boolean modeP3D  // say if P3D render is available

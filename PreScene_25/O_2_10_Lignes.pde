@@ -18,7 +18,7 @@ class Lignes extends SuperRomanesco {
   Boolean reverse = false ;
   //SETUP
   void setting() {
-    startPosition(IDobj, width/2, height/2, 0) ;
+    startPosition(IDobj, 0, 0, 0) ;
     line = new Line() ;
   }
   //DRAW
@@ -43,7 +43,7 @@ class Lignes extends SuperRomanesco {
     //quantity
     float q = map(quantityObj[IDobj], 1, 100, canvas.x *.5 , canvas.y *.05) ;
     //rotation
-    rotation(directionObj[IDobj], canvas.x *.5, canvas.y *.5 ) ;
+    rotation(directionObj[IDobj] +180, canvas.x *.5, canvas.y *.5 ) ;
     //display
     line.drawLine (speed, q , fillObj[IDobj], thicknessLine, canvas, directionObj[IDobj]) ;
     

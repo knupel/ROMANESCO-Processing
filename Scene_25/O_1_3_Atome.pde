@@ -97,9 +97,12 @@ class Atome extends SuperRomanesco {
       //security if the value is null to don't stop the move
       float acceleration ; 
       if(pen[IDobj].z == 0 ) acceleration = 1.0  ; else acceleration = pen[IDobj].z * 1000.0  ;
+      
+      // musrt work the sound direction
       float soundDirectionRight = map(right[IDobj], 0, 1, -1, 1) ;
-      float soundDirectionLeft = map(left[IDobj], 0, 1, 1, -1) ;
-      changeVelocity = new PVector (newDirection.x *newVelocity.x *soundDirectionRight *acceleration, newDirection.y *newVelocity.y *soundDirectionLeft *acceleration) ;
+      float soundDirectionLeft = map(left[IDobj], 0, 1, -1, 1) ;
+      float soundDirection = 1 ;
+      changeVelocity = new PVector (newDirection.x *newVelocity.x *soundDirection *acceleration, newDirection.y *newVelocity.y *soundDirection *acceleration) ;
       
       atm.update (t, velLimit, changeVelocity, tempAbs) ; // obligation to use this void, in the atomic univers
       //COLLISION

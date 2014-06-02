@@ -29,7 +29,7 @@ class BaliseRomanesco extends SuperRomanesco {
     float amp = map(amplitudeObj[IDobj], 0,1, 0, width *3) ;
     
     //factor size
-    float factor = map(forceObj[IDobj],0,0,1,100) *(allBeats(IDobj) *.2) ;
+    float factor = map(forceObj[IDobj],0,1,1,100) *(allBeats(IDobj) *.2) ;
     if(factor < 1.0 ) factor = 1.0 ;
     
     
@@ -48,6 +48,9 @@ class BaliseRomanesco extends SuperRomanesco {
     
     balise.actualisation(mouse[IDobj] , speed) ;
     balise.display(amp, var, sizeBalise, factor, int(radiusBalise), sound[IDobj], mode[IDobj]) ;
+    
+    
+    objectInfo[IDobj] = ("Size "+(int)sizeBalise.x + " / " + (int)sizeBalise.y + " / " + (int)sizeBalise.z  + " Radius " + int(radiusBalise) ) ;
   }
 }
 //end object two
@@ -71,7 +74,7 @@ class Balise extends Rotation {
     if ( max > 512 ) max = 512 ;
     for(int i = 0 ; i < max ; i++) {
       PVector v = new PVector(input(i,max,var,sound).x, input(i,max,var,sound).y) ;
-      PVector posBalise = new PVector ( amp * v.x, amp * v.y ) ;
+      PVector posBalise = new PVector ( amp *v.x, amp *v.y ) ;
       v = new PVector (abs(v.x *factor), abs(v.y *factor) ) ;
       PVector newSize = new PVector(sizeBalise.x *v.x, sizeBalise.y *v.y, sizeBalise.z *((v.x +v.y)*.5))   ;
       if (mode == 0 ) ellipse(posBalise.x, posBalise.y, newSize.x, newSize.y) ;

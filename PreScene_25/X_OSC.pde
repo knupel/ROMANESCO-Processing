@@ -62,7 +62,7 @@ void oscEvent(OscMessage receive ) {
 
 
 //
-String dataPreScene [] = new String [61] ;
+String dataPreScene [] = new String [71] ;
 
 
 void OSCDraw() {
@@ -94,10 +94,10 @@ void OSCDraw() {
    if (xTouch)     dataPreScene [24] = ("1") ; else dataPreScene [24] = ("0") ;
    if (yTouch)     dataPreScene [25] = ("1") ; else dataPreScene [25] = ("0") ;
    if (zTouch)     dataPreScene [26] = ("1") ; else dataPreScene [26] = ("0") ;
-   //longtouch
-   if (cLongTouch) dataPreScene [27] = ("1") ; else dataPreScene [27] = ("0") ;
-   if (nLongTouch) dataPreScene [28] = ("1") ; else dataPreScene [28] = ("0") ;
-   if (vLongTouch) dataPreScene [29] = ("1") ; else dataPreScene [29] = ("0") ;
+   //empty
+   dataPreScene [27] = ("0") ;
+   dataPreScene [28] = ("0") ;
+   dataPreScene [29] = ("0") ;
    
    if (enterTouch)    dataPreScene [30] = ("1") ; else dataPreScene [30] = ("0") ;
    if (deleteTouch)    dataPreScene [31] = ("1") ; else dataPreScene [31] = ("0") ;
@@ -129,6 +129,12 @@ void OSCDraw() {
    if (touch8)     dataPreScene [58] = ("1") ; else dataPreScene [58] = ("0") ;
    if (touch9)     dataPreScene [59] = ("1") ; else dataPreScene [59] = ("0") ;
    if (touch0)     dataPreScene [60] = ("1") ; else dataPreScene [60] = ("0") ;
+      //longtouch
+   if (cLongTouch) dataPreScene [61] = ("1") ; else dataPreScene [61] = ("0") ;
+   if (lLongTouch) dataPreScene [62] = ("1") ; else dataPreScene [62] = ("0") ;
+   if (nLongTouch) dataPreScene [63] = ("1") ; else dataPreScene [63] = ("0") ;
+   if (vLongTouch) dataPreScene [64] = ("1") ; else dataPreScene [64] = ("0") ;
+
    
    toScene = join(dataPreScene, "/") ;
    

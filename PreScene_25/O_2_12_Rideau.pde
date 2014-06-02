@@ -18,7 +18,7 @@ class Rideau extends SuperRomanesco {
 
   //SETUP
   void setting() {
-    startPosition(IDobj, width, height, 0) ;
+    startPosition(IDobj, 0, height, 0) ;
   }
   //DRAW
   void display() {
@@ -60,7 +60,7 @@ class Rideau extends SuperRomanesco {
       }
     }
     if ((action[IDobj] && nTouch) || rideauList.size() < 1 )  {
-      rideauList.add( new Curtain(vitesse, vie)) ;
+      rideauList.add( new Curtain(startingPosition[IDobj].x, vitesse, vie)) ;
     }
     
     // info
@@ -82,8 +82,10 @@ class Curtain {
   int chrono, transp, transpb ;
   int vp ;
   float croissance, v, mvt, posX ; 
-  Curtain(float vitesse, int vie)  {
-   v = vitesse ; vp = vie ; 
+  Curtain(float posX, float vitesse, int vie)  {
+   v = vitesse ; 
+   vp = vie ; 
+   this.posX = posX ;
   }
   
   boolean disparition () {
@@ -116,7 +118,7 @@ class Curtain {
     vp = vp + chrono ;
     chrono = -1 ;
     PVector newSize = new PVector(size.x, size.y) ;
-    if(horizon[ID]) rect ( posX, 0, newSize.x, newSize.y) ; else rect ( posX, -newSize.y/2, newSize.x, newSize.y ) ;
+    if(horizon[ID]) rect (posX, 0, newSize.x, newSize.y) ; else rect ( posX, -newSize.y/2, newSize.x, newSize.y ) ;
   }
   
   

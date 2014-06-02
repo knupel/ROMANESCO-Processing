@@ -72,10 +72,7 @@ void oscEvent(OscMessage receive ) {
   if(valueTempPreScene[24].equals("0") ) xTouch = false ; else xTouch = true ;
   if(valueTempPreScene[25].equals("0") ) yTouch = false ; else yTouch = true ;
   if(valueTempPreScene[26].equals("0") ) zTouch = false ; else zTouch = true ;
-  //long touch
-  if(valueTempPreScene[27].equals("0") ) cLongTouch = false ; else cLongTouch = true ;
-  if(valueTempPreScene[28].equals("0") ) nLongTouch = false ; else nLongTouch = true ;
-  if(valueTempPreScene[29].equals("0") ) vLongTouch = false ; else vLongTouch = true ;
+
   
   if(valueTempPreScene[30].equals("0") ) enterTouch = false ; else enterTouch = true ;
   if(valueTempPreScene[31].equals("0") ) deleteTouch = false ; else deleteTouch = true ;
@@ -88,12 +85,6 @@ void oscEvent(OscMessage receive ) {
 
   //MOUSE, CURSOR, PEN
   //PMOUSE
-  /*
-  if(spaceTouch) {
-    pmouseSuperRomanesco.x = map(Float.valueOf(valueTempPreScene[38].replaceAll(",", ".")), 0,1,0, width) ;
-    pmouseSuperRomanesco.y = map(Float.valueOf(valueTempPreScene[39].replaceAll(",", ".")), 0,1,0,height) ;
-  }
-  */
   // line for the camera Pmouse, i don't understand why we need this temp var
   if(cLongTouch) {
     pmouseCamera.x = map(Float.valueOf(valueTempPreScene[38].replaceAll(",", ".")), 0,1,0, width) ;
@@ -109,14 +100,6 @@ void oscEvent(OscMessage receive ) {
   pen[0].z = Float.valueOf(valueTempPreScene[42].replaceAll(",", ".")) ;
   
   //MOUSE
-  // reference to stop, it's a trick for a bug
-  /*
-  if(spaceTouch) {
-    mouseSuperRomanesco.x = map(Float.valueOf(valueTempPreScene[43].replaceAll(",", ".")), 0,1,0, width) ;
-    mouseSuperRomanesco.y = map(Float.valueOf(valueTempPreScene[44].replaceAll(",", ".")), 0, 1, 0,height) ;
-    mouseSuperRomanesco.z = map(Float.valueOf(valueTempPreScene[45].replaceAll(",", ".")), 0, 1, -750,750) ;
-  }
-  */
   // line for the camera
   if(cLongTouch) {
     mouseCamera.x = map(Float.valueOf(valueTempPreScene[43].replaceAll(",", ".")), 0,1,0, width) ;
@@ -148,7 +131,11 @@ void oscEvent(OscMessage receive ) {
   if(valueTempPreScene[58].equals("0") ) touch8 = false ; else touch8 = true ;
   if(valueTempPreScene[59].equals("0") ) touch9 = false ; else touch9 = true ;
   if(valueTempPreScene[60].equals("0") ) touch0 = false ; else touch0 = true ;
-  
+    //long touch
+  if(valueTempPreScene[61].equals("0") ) cLongTouch = false ; else cLongTouch = true ;
+  if(valueTempPreScene[62].equals("0") ) lLongTouch = false ; else lLongTouch = true ;
+  if(valueTempPreScene[63].equals("0") ) nLongTouch = false ; else nLongTouch = true ;
+  if(valueTempPreScene[64].equals("0") ) vLongTouch = false ; else vLongTouch = true ;
 
 }
 

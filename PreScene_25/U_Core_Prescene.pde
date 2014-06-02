@@ -358,7 +358,7 @@ boolean aTouch, bTouch, cTouch, dTouch, eTouch, fTouch, gTouch, hTouch, iTouch, 
         touch0, touch1, touch2, touch3, touch4, touch5, touch6, touch7, touch8, touch9, 
         backspaceTouch, deleteTouch, enterTouch, returnTouch, shiftTouch, altTouch, escTouch, ctrlTouch ;
 //long touch
-boolean spaceTouch,  cLongTouch, nLongTouch, vLongTouch ;        
+boolean spaceTouch,  cLongTouch, nLongTouch, vLongTouch, lLongTouch ;        
         
         
 void keyboardTrue() {
@@ -375,7 +375,7 @@ void keyboardTrue() {
   if (key == 'i'  || key == 'I' ) iTouch = true ;
   if (key == 'j'  || key == 'J' ) jTouch = true ;
   if (key == 'k'  || key == 'K' ) kTouch = true ;
-  if (key == 'l'  || key == 'L' ) lTouch = true ;
+  if (key == 'l'  || key == 'L' ) { lTouch = true ; lLongTouch = true ; }
   if (key == 'm'  || key == 'M' ) mTouch = true ;
   if (key == 'n'  || key == 'N' ) { nTouch = true ; nLongTouch = true ; }
   if (key == 'o'  || key == 'O' ) oTouch = true ;
@@ -419,6 +419,7 @@ void keyboardTrue() {
 void keyboardLongFalse() {
   if (key == ' ' ) spaceTouch = false ; 
   if (key == 'c'  || key == 'C' ) cLongTouch = false ;
+  if (key == 'l'  || key == 'L' ) lLongTouch = false ;
   if (key == 'n'  || key == 'N' ) nLongTouch = false ;
   if (key == 'v'  || key == 'V' ) vLongTouch = false ;
 }
@@ -640,24 +641,3 @@ void whichFont( int whichFont)  {
 
 // END FONT and TEXT MANAGER
 ////////////////////////////
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

@@ -17,14 +17,15 @@ class Soleil extends SuperRomanesco {
   float angleRotation ;
   //SETUP
   void setting() {
-    startPosition(IDobj, width/2, height -height/3, 0) ;
+    startPosition(IDobj, width/2, height/2, 0) ;
     
   }
+  PVector pos = new PVector() ;
   //DRAW
   void display() {
     aspect(IDobj) ;
     //
-    PVector pos = new PVector(mouse[IDobj].x, mouse[IDobj].y,0) ;
+    if(!motion[IDobj]) pos = new PVector(mouse[IDobj].x -width/2, mouse[IDobj].y -height/2,0) ; else pos = new PVector(0,0,0) ;
     int diam = int(map(canvasXObj[IDobj], width/10, width, width/10, width *1.2) *allBeats(IDobj) ) ;
     int numBeam = (int)(quantityObj[IDobj] +1) ;
     // Jitter
@@ -44,6 +45,11 @@ class Soleil extends SuperRomanesco {
     if(mode[IDobj] == 1) soleil(pos, diam, numBeam, jitting) ;
     if(mode[IDobj] == 2) soleil(pos, diam, numBeam, jitter) ;
     if(mode[IDobj] == 3) soleil(pos, diam, numBeam, jitter, noise) ;
+    
+    // info display
+    String revolution = ("") ;
+    if(motion[IDobj]) revolution =("false") ; else revolution = ("true") ;
+    objectInfo[IDobj] = ("Motion "+revolution + " Radius revolution " + abs(int(mouse[IDobj].x -width/2)) ) ;
     
     
   }

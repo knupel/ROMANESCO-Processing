@@ -29,7 +29,9 @@ void setup() {
   fontSetup() ;
   soundSetup() ;
   OSCSetup() ;
+  /* see later to use or not
   meteoSetup() ;
+  */
   P3DSetup() ;
 }
 
@@ -40,7 +42,9 @@ void draw() {
   //setting
   initDraw() ;
   soundDraw() ;
+  /* see later to use or not
   meteoDraw() ;
+  */
   updateVar() ;
   OSCDraw() ;
   // we must write the void loadLiveData, after OSCDraw in cas where the OSC send a file Image or Text don't exist in the Scene or Prescene Folder

@@ -28,12 +28,11 @@ class Spray extends SuperRomanesco {
   
   //SETUP
   void setting() {
-    startPosition(IDobj, 0, 0, 0) ;
+    startPosition(IDobj, width/2, height/2, 0) ;
   }
   //DRAW
   void display() {
     if(mode[IDobj] == 0 && clickLongLeft[IDobj] && nLongTouch ) starProduction() ;
-    
     if(mode[IDobj] == 0 ) displayStar() ;
     if(mode[IDobj] == 1 ) encre() ;
     

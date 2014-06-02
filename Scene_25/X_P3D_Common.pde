@@ -23,37 +23,49 @@ PVector  P3DdirectionMouseRef, deltaObjDir, P3DtempObjDir ;
 PVector sizeBackgroundP3D  ;
 
 
-//SET = P
+//SETUP
 void P3DSetup() {
       
   if(modeP3D) {
     sizeBackgroundP3D = new PVector(width *100, height *100, height *7.5) ;
     //CAMERA
-    sceneCamera = new PVector (width/2 , height/2, 0) ;
-    sceneCamera = new PVector (0,0,0) ;
-    eyeCamera = new PVector (0,0,0) ;
+    sceneCamera = new PVector () ;
+    eyeCamera = new PVector () ;
     //
-    posSceneCameraRef = new PVector (0,0,0) ;
-    posEyeCameraRef = new PVector (0,0,0) ;
+    posSceneCameraRef = new PVector () ;
+    posEyeCameraRef = new PVector () ;
     //
-    deltaScenePos = new PVector (0,0,0) ;
-    deltaEyePos = new PVector (0,0,0) ;
+    deltaScenePos = new PVector () ;
+    deltaEyePos = new PVector () ;
     //
-    tempEyeCamera = new PVector(0,0,0) ;
+    tempEyeCamera = new PVector() ;
     
     //P3D
-    for ( int i = 0 ; i < numObj ; i ++ ) {
-      posManipulation[i] = new PVector(0,0,0) ; 
-      dirManipulation[i] = new PVector (0,0,0) ;
+    for ( int i = 0 ; i < numObj ; i++ ) {
+      posManipulation[i] = new PVector() ; 
+      dirManipulation[i] = new PVector () ;
       P3DdirectionX [i] = 0 ;
       P3DdirectionY [i] = 0 ;
-      P3DpositionObjRef[i] = new PVector(0,0,0) ; 
-      P3DdirectionObjRef[i] = new PVector(0,0,0) ;
+      P3DpositionObjRef[i] = new PVector() ; 
+      P3DdirectionObjRef[i] = new PVector() ;
     }
-    P3DpositionMouseRef = new PVector(0,0,0) ; deltaObjPos = new PVector(0,0,0) ;
-    P3DdirectionMouseRef = new PVector(0,0,0) ; deltaObjDir = new PVector(0,0,0) ;
-
-  }
+    P3DpositionMouseRef = new PVector() ; deltaObjPos = new PVector() ;
+    P3DdirectionMouseRef = new PVector() ; deltaObjDir = new PVector() ;
+    
+    // SAVE SETTING CAMERA and OBJECT orientation
+    //camera
+    for ( int i = 0 ; i < numSettingCamera ; i++ ) {
+       eyeCameraSetting[i] = new PVector () ;
+       sceneCameraSetting[i] = new PVector () ;
+    }
+    // object orientation
+    for ( int i = 0 ; i < numSettingOrientationObject ; i++ ) {
+      for (int j = 0 ; j < numObj ; j++ ) {
+         P3DpositionSetting [i][j] = new PVector(0,0,0) ;
+         P3DdirectionSetting [i][j] = new PVector(0,0) ;
+       }
+     }
+   }
 }
 
 //END SETUP
@@ -62,9 +74,11 @@ void P3DSetup() {
 
 
 //OBJECT ORIENTATION AND POSITION, For specific object
-//final direction and oriention with object ID
+// MAIN
+// final direction and oriention with object ID
 void P3Dmanipulation(int ID) {
   if(modeP3D) {
+    //UPDATE
     //position
     if (!clickLongLeft[0] )  P3DrefPos[0] = true ;
     P3DpositionX[ID] = P3Dposition(posManipulation[ID], ID).x ;
@@ -77,11 +91,21 @@ void P3Dmanipulation(int ID) {
     speedDirectionOfObject = new PVector(speed /(float)width, speed /(float)height) ; 
     P3DdirectionX[ID] = P3Ddirection(dirManipulation[ID], speedDirectionOfObject, ID).x ; 
     P3DdirectionY[ID] = P3Ddirection(dirManipulation[ID], speedDirectionOfObject, ID).y ;
-
+    
+    //RESET
+    if(touch0) {
+      P3DpositionX[ID] = P3DpositionSetting [0][ID].x ;
+      P3DpositionY[ID] = P3DpositionSetting [0][ID].y ;
+      P3DpositionZ[ID] = P3DpositionSetting [0][ID].z ;
+      P3DdirectionX[ID] = P3DdirectionSetting [0][ID].x ;
+      P3DdirectionY[ID] = P3DdirectionSetting [0][ID].y ;
+    }
   }
   addRefObj(ID) ;
 }
 
+
+//ANNEXE
 //direction
 PVector P3Ddirection(PVector dir, PVector speed, int ID) {
   //XY pos
@@ -110,8 +134,8 @@ PVector P3Ddirection(PVector dir, PVector speed, int ID) {
 PVector P3Dposition(PVector pos, int ID) {
   // XY pos
   if(P3DrefPos[0]  ) {
-    P3DpositionObjRef[ID] = pos ;
-    P3DpositionMouseRef = new PVector(mouse[0].x, mouse[0].y) ;
+    P3DpositionObjRef[ID] = pos.get() ;
+    P3DpositionMouseRef = mouse[0].get() ;
   }
   if (clickLongLeft[0]) {
     //to create a only one ref position
@@ -121,7 +145,7 @@ PVector P3Dposition(PVector pos, int ID) {
     deltaObjPos.y = mouse[0].y -P3DpositionMouseRef.y ;
     pos = PVector.add(deltaObjPos, P3DpositionObjRef[ID] ) ;
   }
-  // Y pos
+  // Z pos
   zoom() ;
   pos.z -= getCountZoom ;
   return pos ;
@@ -151,13 +175,17 @@ void startPosition(int ID, int x, int y, int z) {
   P3DpositionX[ID] = x -(width/2) ;
   P3DpositionY[ID] = y -(height/2) ;
   P3DpositionZ[ID] = z ;
+  P3DpositionSetting [0][ID] = new PVector(P3DpositionX[ID], P3DpositionY[ID], P3DpositionZ[ID] ) ;
   mouse[ID] = new PVector (x,y) ;
 }
+/*
 void startPosition(int ID, int x, int y) {
   P3DpositionX[ID] = x -(width/2) ;
   P3DpositionY[ID] = y -(height/2);
+  P3DpositionSetting [0][ID] = new PVector(P3DpositionX[ID], P3DpositionY[ID]) ;
+  mouse[ID] = new PVector (x,y) ;
 }
-
+*/
 
 
 
@@ -183,10 +211,12 @@ void cameraDraw() {
       //calculate the distance and few stuffes to move the camera
       travelling(posCamRef) ;
     }
+    
+    
     // back to origine raw style
     if(cLongTouch) if (touch0) {
-      eyeCamera = new PVector(0,0) ;
-      sceneCamera = new PVector(0,0,0) ;
+      eyeCamera = eyeCameraSetting[0].get() ;
+      sceneCamera = sceneCameraSetting[0].get() ;
       gotoCameraPosition = false ;
       gotoCameraEye = false ;
     }
@@ -389,7 +419,6 @@ PVector distToTargetUpdated = new PVector (0,0,0) ;
 float currentDistToTarget = 0 ;
 PVector currentPosition = new PVector(0,0,0) ;
 PVector absPosition = new PVector(0,0,0) ;
-// PVector targetPoint ;
 
 PVector follow(PVector origin, PVector target, float speed) {
   //very weird I must inverse the value to have the good result !
@@ -498,7 +527,7 @@ void lightSetup() {
 // LIGHT POSITION
 PVector lightPos = new PVector() ;
 void lightPosition() {
-  if(modeP3D && spaceTouch) {
+  if(modeP3D && lLongTouch) {
     lightPos.x = mouse[0].x ;
     lightPos.y = mouse[0].y ;
     lightPos.z -= wheel[0] ;
