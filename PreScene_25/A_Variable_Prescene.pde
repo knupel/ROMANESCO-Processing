@@ -66,7 +66,7 @@ void opening() {
   if (!testRomanesco) { 
     if (openControleur) { open(sketchPath("")+"Controleur_"+release+".app") ; openControleur = false ; } 
     if (openScene)      { open(sketchPath("")+"Scene_"+release+".app") ; openScene = false ; }
-    testRomanesco = true ;
+    // testRomanesco = true ;
   }
 }
 

@@ -55,7 +55,7 @@ class Atome extends SuperRomanesco {
     //add one atom to the start
    PVector pos = new PVector (random(width), random(height), 0) ;
    PVector vel = new PVector ( random(-1, 1 ), random(-1, 1 ), random(-1, 1 ) ) ;
-   int Z = int(familyObj[IDobj]) ;
+   int Z = 1 ; // 1 is the hydrogen ID, you can choice between 1 to 118 the last atom knew
    int ion = round(random(0,0));
    float rebound = 0.5 ;
    int diam = 5 ;
@@ -116,7 +116,7 @@ class Atome extends SuperRomanesco {
       //PARAMETER FROM ROMANESCO
       //the proton change the with the beat of music
       //diameter
-      float fp = map (sizeXObj[IDobj], 0,100, 1, 20) ;
+      float fp = map (sizeXObj[IDobj], .1,width, 1, width *.1) ;
       int factorSizeProton = int(fp) ;
       
       int max = 118 ;
@@ -162,7 +162,7 @@ class Atome extends SuperRomanesco {
       int sizeTextName = int(sizeFont) ;
       int sizeTextInfo = int(sizeFont *.5) ;
       //width
-      float posTextInfo = sizeYObj[IDobj] + (beat[IDobj] *2.0)  ;
+      float posTextInfo = map(sizeYObj[IDobj], .1, width,fp*.2, width*.2) + (beat[IDobj] *2.0)  ;
       //Canvas
       PVector marge = new PVector(map(canvasXObj[IDobj], width/10, width, width/20, width *3) , map(canvasYObj[IDobj], height/10, height, height/20, height *3) ) ;
       

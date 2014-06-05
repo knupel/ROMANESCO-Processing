@@ -6,6 +6,7 @@ int artificialTime ;
 void backgroundRomanesco(boolean useShader) {
   if(eBackground == 1) {
     color bg ;
+    
     //to smooth the curve of transparency background
     float facteur = 2.5 ;
     // float homothety = 100.0 ;
@@ -18,20 +19,20 @@ void backgroundRomanesco(boolean useShader) {
     if(displayMode.equals("Classic")) backgroundClassic(bg) ;
     else if(displayMode.equals("P3D")) backgroundP3D(bg) ;
   } else {
-    backgroundShaderDraw(modeP3D, useShader, whichShader) ;
+    backgroundShaderDraw(modeP3D, whichShader) ;
   }
 }
 
 
-void backgroundRomanescoPrescene(boolean useShader) {
+void backgroundRomanescoPrescene() {
   if(eBackground == 1) {
     color bg ;
     bg = color (map(valueSlider[0][0],0,100,0,360), valueSlider[0][1], valueSlider[0][2], 100 ) ;
       //choice the background
     if(displayMode.equals("Classic")) backgroundClassic(bg) ;
-    else if(displayMode.equals("P3D")) backgroundP3D(bg) ;
+    else if(modeP3D) backgroundP3D(bg) ;
   } else {
-    backgroundShaderDraw(modeP3D, useShader, whichShader) ;
+    backgroundShaderDraw(modeP3D, whichShader) ;
   }
 }
 
@@ -58,6 +59,7 @@ void backgroundP3D(color c) {
   } else {
     background(c) ;
   }
+  
 }
 
 
@@ -94,8 +96,10 @@ void backgroundShaderSetup(boolean renderP3D) {
 
 
 
-void backgroundShaderDraw(boolean renderP3D, boolean useShaderOrNot, int whichOne) {
-  if(renderP3D && useShaderOrNot) {
+void backgroundShaderDraw(boolean renderP3D, int whichOne) {
+  if( (renderP3D && testRomanesco) ||  (renderP3D && presceneOnly) ) {
+  //if(renderP3D && testRomanesco) {
+  //if(renderP3D && presceneOnly) {
     PVector posBGshader = new PVector(0,0) ;
     PVector sizeBGshader = new PVector(width,height, height) ; 
     fill(0) ; noStroke() ;
@@ -115,7 +119,13 @@ void backgroundShaderDraw(boolean renderP3D, boolean useShaderOrNot, int whichOn
     //rectangle(posBGshader, sizeBGshader, water) ; // problem
     //rectangle(posBGshader, sizeBGshader, psyTwo) ; // problem
     //rectangle(posBGshader, sizeBGshader, psyThree) ; // problem
-  }
+  }  else if (whichOne != 0  ) {
+    backgroundP3D(100) ;
+    int sizeText = 14 ;
+    textSize(sizeText) ;
+    fill(orange) ; noStroke() ;
+    text("Shader is ON", sizeText, height/3) ;
+  } 
 
 }
 

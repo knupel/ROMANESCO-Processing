@@ -49,7 +49,7 @@ void draw() {
   OSCDraw() ;
   // we must write the void loadLiveData, after OSCDraw in cas where the OSC send a file Image or Text don't exist in the Scene or Prescene Folder
   // loadLiveData() ; 
-  backgroundRomanescoPrescene(presceneOnly) ;
+  backgroundRomanescoPrescene() ;
   
   //ROMANESCO
   cameraDraw() ;

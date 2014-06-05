@@ -5,6 +5,7 @@ JAppleMenuBar instance;
 
 boolean scene = true ;
 boolean prescene = false ;
+boolean testRomanesco = false ;
 
 
 // In the Miroir and Scene sketch presceneOnly must be true for the final work.
