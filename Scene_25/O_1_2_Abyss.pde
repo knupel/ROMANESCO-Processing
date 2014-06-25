@@ -13,6 +13,7 @@ class Abbyss extends SuperRomanesco {
     romanescoPack = "Base" ;
     romanescoRender = "P3D" ;
     romanescoMode = "1 Box Fish/2 Cubus/3 Floater/4 Radio/5 Worm/6 Sea Fly/7 Breather/8 Spider/9 Manta/10 Father/11 Super Nova" ;// separate the name by a slash and write the next mode immadialtly after this one.
+    romanescoSlider = "Hue fill,Saturation fill,Brightness fill,Alpha fill,Hue stroke,Saturation stroke,Brightness stroke,Alpha stroke,Thickness" ;
   }
   //GLOBAL
   
@@ -23,6 +24,7 @@ class Abbyss extends SuperRomanesco {
   }
   //DRAW
   void display() {
+    if(alpha(strokeObj[IDobj]) == 0 ) thicknessObj[IDobj] = 0 ;
     creatureManager.loop(fillObj[IDobj], strokeObj[IDobj], thicknessObj[IDobj], speedObj[IDobj] *100.0);
     
     
@@ -56,6 +58,9 @@ class Abbyss extends SuperRomanesco {
     }
     //
     if (resetAction(IDobj)) creatureManager.killAll(whichCreature);
+    
+    // info display
+    objectInfo[IDobj] = ("Creatures "+ creatureManager.creatures.size()) ;
 
   }
 }

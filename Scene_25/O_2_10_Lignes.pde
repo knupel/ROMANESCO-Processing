@@ -10,6 +10,7 @@ class Lignes extends SuperRomanesco {
     romanescoVersion = "Alpha 1.1";
     romanescoPack = "Base" ;
     romanescoRender = "classic" ;
+    romanescoSlider = "Hue fill,Saturation fill,Brightness fill,Alpha fill,Thickness,Quantity,Speed,Direction" ;
   }
   //GLOBAL
   float ampLine  =1.0 ;

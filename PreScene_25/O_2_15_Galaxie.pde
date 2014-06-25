@@ -9,6 +9,7 @@ class Galaxie extends SuperRomanesco {
     romanescoPack = "Base" ;
     romanescoRender = "classic" ;
     romanescoMode ="1 Point/2 Ellipse/3 Rectangle" ;
+    romanescoSlider = "Hue fill,Saturation fill,Brightness fill,Alpha fill,Hue stroke,Saturation stroke,Brightness stroke,Alpha stroke,Thickness,Width,Height,Canvas X,Canvas Y,Speed,Force" ;
   }
   //GLOBAL
     boolean makeSand = true ;

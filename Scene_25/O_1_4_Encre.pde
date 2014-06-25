@@ -13,6 +13,7 @@ class Spray extends SuperRomanesco {
     romanescoPack = "Base" ;
     romanescoRender = "P3D" ;
     romanescoMode = "1 Star/2 Spray" ;
+    romanescoSlider = "Hue fill,Saturation fill,Brightness fill,Alpha fill,Thickness,Width,Height,Canvas X,Canvas Y,Quantity,Speed,Angle,Life" ;
   }
   //GLOBAL
   // INK

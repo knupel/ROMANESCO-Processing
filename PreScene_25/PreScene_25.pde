@@ -1,7 +1,8 @@
-  ///////////////////////////////////////////////////////////////
- // Romanesco Préscène Alpha 0.25 work with Processing 212  ////
-///////////////////////////////////////////////////////////////
-String release =("25") ;
+  ////////////////////////////////////////////////////////////
+ // Romanesco Unu Bêta 1.0 work with Processing 221 /////////
+////////////////////////////////////////////////////////////
+String release = ("25") ;
+String version = ("1.0") ;
 String preferencesPath = sketchPath("")+"preferences/" ;
 // security must be link with the controler in the next release
 int levelSecurity = 200 ;
@@ -29,9 +30,6 @@ void setup() {
   fontSetup() ;
   soundSetup() ;
   OSCSetup() ;
-  /* see later to use or not
-  meteoSetup() ;
-  */
   P3DSetup() ;
 }
 
@@ -42,9 +40,6 @@ void draw() {
   //setting
   initDraw() ;
   soundDraw() ;
-  /* see later to use or not
-  meteoDraw() ;
-  */
   updateVar() ;
   OSCDraw() ;
   // we must write the void loadLiveData, after OSCDraw in cas where the OSC send a file Image or Text don't exist in the Scene or Prescene Folder

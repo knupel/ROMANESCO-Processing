@@ -11,7 +11,7 @@ boolean testRomanesco = false ;
 // In the Miroir and Scene sketch presceneOnly must be true for the final work.
 boolean presceneOnly = true ;
 Boolean internet = true ;
-String bigBrother = (" BIG BROTHER DON'T WATCHING YOU !!") ;
+String bigBrother = ("BIG BROTHER DON'T WATCHING YOU !!") ;
 
 //specific at the Scene
 String valueTempPreScene[] = new String [71] ;

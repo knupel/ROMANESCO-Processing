@@ -11,6 +11,7 @@ class RSS extends SuperRomanesco {
     romanescoPack = "Base" ;
     romanescoRender = "classic" ;
     romanescoMode = "" ; // separate the name by a slash and write the next mode immadialtly after this one.
+    romanescoSlider = "Hue fill,Saturation fill,Brightness fill,Alpha fill,Width,Canvas X,Canvas Y,Canvas Z,Direction" ;
   }
   //GLOBAL
   FeedReader flux;

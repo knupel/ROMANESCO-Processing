@@ -282,6 +282,7 @@ class ObjectRomanescoManager {
       rowIndexObject[i].setString("Render", objR.romanescoRender) ;
       rowIndexObject[i].setString("Pack", objR.romanescoPack) ;
       rowIndexObject[i].setString("Mode", objR.romanescoMode) ;
+      rowIndexObject[i].setString("Slider", objR.romanescoSlider) ;
     }
     saveTable(indexObjects, pathObjects+"index_romanesco_objects.csv") ; 
   }
@@ -403,7 +404,7 @@ class ObjectRomanescoManager {
 ////////////////////////
 //SUPER CLASS ROMANESCO
 abstract class SuperRomanesco {
-  String romanescoName, romanescoAuthor, romanescoVersion, romanescoPack, romanescoRender, romanescoMode ;
+  String romanescoName, romanescoAuthor, romanescoVersion, romanescoPack, romanescoRender, romanescoMode, romanescoSlider ;
   int IDobj, IDgroup ;
   //object manager return
   ObjectRomanescoManager orm ;
@@ -415,6 +416,7 @@ abstract class SuperRomanesco {
     romanescoPack = "Base" ;
     romanescoRender = "classic" ;
     romanescoMode = "" ; // separate the name by a slash and write the next mode immadialtly after this one.
+    romanescoSlider = "all" ;
     IDgroup = 0 ;
     IDobj = 0 ;
   }

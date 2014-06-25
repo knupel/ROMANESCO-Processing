@@ -11,6 +11,7 @@ class BaliseRomanesco extends SuperRomanesco {
     romanescoPack = "Base" ;
     romanescoRender = "P3D" ;
     romanescoMode = "1 Disc/2 Rectangle/3 Box/4 Box Snake" ;
+    romanescoSlider = "Hue fill,Saturation fill,Brightness fill,Alpha fill,Hue stroke,Saturation stroke,Brightness stroke,Alpha stroke,Thickness,Width,Height,Depth,Quantity,Speed,Amplitude,Force" ;
   }
   //GLOBAL
   float speed ;

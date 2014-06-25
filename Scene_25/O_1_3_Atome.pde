@@ -12,6 +12,7 @@ class Atome extends SuperRomanesco {
     romanescoPack = "Base" ;
     romanescoRender = "P3D" ;
     romanescoMode = "1 Schema/2 Cloud/3 Title/4 Font" ;
+    romanescoSlider = "Hue fill,Saturation fill,Brightness fill,Alpha fill,Hue stroke,Saturation stroke,Brightness stroke,Alpha stroke,Thickness,Width,Canvas X,Canvas Y,Speed,Direction,Family,Life" ;
   }
   
   //GLOBAL
@@ -187,7 +188,8 @@ class Atome extends SuperRomanesco {
       ////////////////////////////////////////////////////////////////////////////////////////////
     }
     
-    
+    // info display
+    objectInfo[IDobj] = ("Atoms "+atomList.size()) ;
     
 
     //CLEAR
@@ -199,6 +201,8 @@ class Atome extends SuperRomanesco {
   }
   //END DRAW
   /////////
+  
+  
   
   
   

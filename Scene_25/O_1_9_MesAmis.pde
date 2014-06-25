@@ -12,6 +12,7 @@ class MesAmis extends SuperRomanesco {
     romanescoPack = "Base" ;
     romanescoRender = "P3D" ;
     romanescoMode = "1 Triangles/2 Lignes" ; // separate the name by a slash and write the next mode immadialtly after this one.
+    romanescoSlider = "Hue fill,Saturation fill,Brightness fill,Alpha fill,Hue stroke,Saturation stroke,Brightness stroke,Alpha stroke,Thickness,Canvas X,Speed,Quantity,Amplitude" ;
   }
   //GLOBAL
   IntList IDpeople = new IntList() ;

@@ -11,6 +11,7 @@ class Soleil extends SuperRomanesco {
     romanescoPack = "Base" ;
     romanescoRender = "P3D" ;
     romanescoMode = "1 Beam/2 Lie'Bro'One/3 Lie'Bro'Two/4 Lie'Bro Noisy" ;
+    romanescoSlider = "Hue fill,Saturation fill,Brightness fill,Alpha fill,Hue stroke,Saturation stroke,Brightness stroke,Alpha stroke,Thickness,Canvas X,Quantity,Speed,Angle,Amplitude" ;
   }
   //GLOBAL
   float jitter ;

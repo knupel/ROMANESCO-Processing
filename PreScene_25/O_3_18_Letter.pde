@@ -8,7 +8,8 @@ class Letter extends SuperRomanesco {
     romanescoVersion = "Alpha 1.1";
     romanescoPack = "Base" ;
     romanescoRender = "P3D" ;
-     romanescoMode = "1 Line/2 Point" ;
+    romanescoMode = "1 Line/2 Point" ;
+    romanescoSlider = "Hue fill,Saturation fill,Brightness fill,Alpha fill,Thickness,Width,Canvas X,Canvas Y,Canvas Z,Quantity,Speed" ;
   }
   //GLOBAL
   RFont f;

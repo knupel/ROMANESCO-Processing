@@ -3,7 +3,7 @@
 class Horloge extends SuperRomanesco {
   public Horloge() {
     //from the index_objects.csv
-    romanescoName = "A CERCLE" ;
+    romanescoName = "Horloge" ;
     IDobj = 19 ;
     IDgroup = 3 ;
     romanescoAuthor  = "Stan Le Punk";
@@ -11,6 +11,7 @@ class Horloge extends SuperRomanesco {
     romanescoPack = "Base" ;
     romanescoRender = "classic" ;
     romanescoMode = "1 Ellipse Clock 12/2 Ellipse Clock 24/3 Line Clock 12/4 Line Clock 24/5 minutes/6 secondes" ;// separate the name by a slash and write the next mode immadialtly after this one.
+    romanescoSlider = "Hue fill,Saturation fill,Brightness fill,Alpha fill,Width,Amplitude" ;
   }
   //GLOBAL
   
