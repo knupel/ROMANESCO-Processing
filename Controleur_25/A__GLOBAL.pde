@@ -36,7 +36,7 @@ int numVignette ;
 
 //ANNEXE
 void setting() {
-  size(565,650); 
+  size(565,640); 
   colorSetup() ;  
 
   frameRate(60) ; 

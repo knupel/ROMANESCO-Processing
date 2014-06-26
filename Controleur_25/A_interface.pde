@@ -348,24 +348,43 @@ void constructorSliderButton() {
 //DRAW
 void structureDraw() {
   //background
-  fill(grisClair) ; rect(0, 0, width, height ) ;
-  fill(grisClair) ; rect(0, 24, width, 29) ; // main band
-  fill(blancGris) ; rect(0, 24+29, width, 100 ) ; // //GROUP ZERO
+  // fill(noirGris) ; rect(0, 0, width, height ) ;
+  fill(grisNoir) ; rect(0, 24, width, 31) ; // main band
+  fill(gris) ; rect(0, 24+31, width, 100 ) ; // //GROUP ZERO
   fill(grisClair) ; rect(0, posHeightBO -15, width, 160 ) ;   //GROUP ONE
-  fill(grisClair) ; rect(0, posHeightBT -15, width, 140 ) ;   //GROUP TWO
+  fill(grisClair) ; rect(0, posHeightBT -15, width, 160 ) ;   //GROUP TWO
   fill(grisClair) ; rect(0, posHeightBTY -15, width, height ) ; //   //GROUP THREE
   //the decoration line
-  fill (orange) ; 
-  rect(0,0, width, 24) ;
+  fill (rougeFonce) ; 
+  rect(0,0, width, 22) ;
+  fill(orange) ;
+  rect(0,22, width, 2) ;
+  fill (grisNoir) ;
+  rect(0,height-9, width, 2) ;
+  fill (rougeFonce) ;
   rect(0,height-7, width, 7) ;
   
-  int thicknessDecoration = 2 ;
+  
+  
+  //LINE
+  int thicknessDecoration = 5 ;
+  fill(noir) ;
+  rect(0,54 , width, 2) ; 
+  
+  fill(grisFonce) ;
+  rect(0,posHeightBO -22, width, 8) ; //GROUP ONE
+  fill(grisNoir) ;
+  rect(0,posHeightBO -20, width, 4) ; //GROUP ONE
+  
   fill(gris) ;
-  rect(0,51 +thicknessDecoration, width, thicknessDecoration) ; //GROUP ONE
+  rect(0,posHeightBT -24 +thicknessDecoration, width, thicknessDecoration) ; //GROUP TWO
+  fill(grisTresFonce) ;
+  rect(0,posHeightBT -16, width, 2) ; //GROUP TWO
+  
   fill(gris) ;
-  rect(0,posHeightBO -19 +thicknessDecoration, width, thicknessDecoration) ; //GROUP ONE
-  rect(0,posHeightBT -19 +thicknessDecoration, width, thicknessDecoration) ; //GROUP TWO
-  rect(0,posHeightBTY -19 +thicknessDecoration, width, thicknessDecoration) ; //GROUP THREE
+  rect(0,posHeightBTY -24 +thicknessDecoration, width, thicknessDecoration) ; //GROUP THREE
+  fill(grisTresFonce) ;
+  rect(0,posHeightBTY -16, width, 2) ; //GROUP TWO
   
 
 }
@@ -378,13 +397,14 @@ void structureDraw() {
 //DRAW
 void textDraw() {
   fill (blanc) ; 
-  textFont(FuturaStencil_20,20); 
-  text("ROMANESCO UNU", 5, 20);
+  int posTextY = 18 ;
+  textFont(FuturaStencil_20,16); 
+  text(nameVersion, 5, posTextY);
   textFont(textInterface) ;
-  text(version, 198,20) ; 
+  text("Edition " + edition + " Version " + version, 160,posTextY -1) ; 
   //CLOCK
-  textFont(FuturaStencil_20,20); textAlign(RIGHT);
-  text(  nf(hour(),2)   + ":" +nf(minute(),2) , width -10, 20);
+  textFont(FuturaStencil_20,16); textAlign(RIGHT);
+  text(nf(hour(),2)   + ":" +nf(minute(),2) , width -10, posTextY);
   
   dispayTextSliderGroupZero(startingTopPosition +64) ;
   
@@ -427,21 +447,21 @@ void dispayTextSliderGroupZero(int pos) {
 void dislayTextSlider() {
   //GROUP ONE
   textFont(FuturaStencil_20,20); textAlign(RIGHT);
-  fill(blanc, 120) ;
+  fill(grisFonce) ;
   pushMatrix () ; rotate (-PI/2) ;  text("GROUP ONE", -posHeightRO +70, 20); popMatrix() ;
   fill (typoCourante) ;
   textFont(textInterface);  textAlign(LEFT);
   
   // GROUP TWO
   textFont(FuturaStencil_20,20);  textAlign(RIGHT);
-  fill(blanc, 120) ;
+  fill(grisFonce) ;
   pushMatrix () ; rotate (-PI/2) ;  text("GROUP TWO", -posHeightRT +70, 20); popMatrix() ;
   fill (typoCourante) ;
   textFont(textInterface);  textAlign(LEFT);
   
   //GROUP THREE
   textFont(FuturaStencil_20,20); textAlign(RIGHT);
-  fill(blanc, 120) ;
+  fill(grisFonce) ;
   pushMatrix () ; rotate (-PI/2) ; text("GROUP THREE", -posHeightRTY +70, 20); popMatrix() ;
   fill (typoCourante) ;
   textFont(textInterface); textAlign(LEFT);
@@ -667,11 +687,11 @@ void sliderDrawGroupZero () {
     fondRegletteSaturation ( posWidthSlider[2], posHeightSlider[2], hauteurSlider[2], longueurSlider[1], valueSlider[1], valueSlider[2], valueSlider[3] ) ;
     fondRegletteDensite    ( posWidthSlider[3], posHeightSlider[3], hauteurSlider[3], longueurSlider[1], valueSlider[1], valueSlider[2], valueSlider[3] ) ;
   } else {
-    fondReglette    ( posWidthSlider[1], posHeightSlider[1], hauteurSlider[1], longueurSlider[1], blanc) ;
-    fondReglette    ( posWidthSlider[2], posHeightSlider[2], hauteurSlider[2], longueurSlider[2], blanc) ;
-    fondReglette    ( posWidthSlider[3], posHeightSlider[3], hauteurSlider[3], longueurSlider[3], blanc) ;
+    fondReglette    ( posWidthSlider[1], posHeightSlider[1], hauteurSlider[1], longueurSlider[1], grisClair) ;
+    fondReglette    ( posWidthSlider[2], posHeightSlider[2], hauteurSlider[2], longueurSlider[2], grisClair) ;
+    fondReglette    ( posWidthSlider[3], posHeightSlider[3], hauteurSlider[3], longueurSlider[3], grisClair) ;
   }
-  fondReglette ( posWidthSlider[4], posHeightSlider[4], hauteurSlider[4], longueurSlider[4], blancGrisClair) ;
+  fondReglette ( posWidthSlider[4], posHeightSlider[4], hauteurSlider[4], longueurSlider[4], grisClair) ;
   // light ONE slider
   if (mouseX > (posWidthSlider[7] ) && mouseX < ( posWidthSlider[7] + longueurSlider[7]) 
   && mouseY > ( posHeightSlider[7] - 5) && mouseY < posHeightSlider[1] + 40 ) {
@@ -679,9 +699,9 @@ void sliderDrawGroupZero () {
     fondRegletteSaturation ( posWidthSlider[8], posHeightSlider[8], hauteurSlider[8], longueurSlider[7], valueSlider[7], valueSlider[8], valueSlider[9] ) ;
     fondRegletteDensite    ( posWidthSlider[9], posHeightSlider[9], hauteurSlider[9], longueurSlider[7], valueSlider[7], valueSlider[8], valueSlider[9] ) ;
   } else {
-    fondReglette    ( posWidthSlider[7], posHeightSlider[7], hauteurSlider[7], longueurSlider[7], blanc) ;
-    fondReglette    ( posWidthSlider[8], posHeightSlider[8], hauteurSlider[8], longueurSlider[8], blanc) ;
-    fondReglette    ( posWidthSlider[9], posHeightSlider[9], hauteurSlider[9], longueurSlider[9], blanc) ;
+    fondReglette    ( posWidthSlider[7], posHeightSlider[7], hauteurSlider[7], longueurSlider[7], grisClair) ;
+    fondReglette    ( posWidthSlider[8], posHeightSlider[8], hauteurSlider[8], longueurSlider[8], grisClair) ;
+    fondReglette    ( posWidthSlider[9], posHeightSlider[9], hauteurSlider[9], longueurSlider[9], grisClair) ;
   }
   // light TWO slider
   if (mouseX > (posWidthSlider[10] ) && mouseX < ( posWidthSlider[10] + longueurSlider[10]) 
@@ -690,13 +710,13 @@ void sliderDrawGroupZero () {
     fondRegletteSaturation ( posWidthSlider[11], posHeightSlider[11], hauteurSlider[11], longueurSlider[10], valueSlider[10], valueSlider[11], valueSlider[9] ) ;
     fondRegletteDensite    ( posWidthSlider[12], posHeightSlider[12], hauteurSlider[12], longueurSlider[10], valueSlider[10], valueSlider[11], valueSlider[12] ) ;
   } else {
-    fondReglette    ( posWidthSlider[10], posHeightSlider[10], hauteurSlider[10], longueurSlider[10], blanc) ;
-    fondReglette    ( posWidthSlider[11], posHeightSlider[11], hauteurSlider[11], longueurSlider[11], blanc) ;
-    fondReglette    ( posWidthSlider[12], posHeightSlider[12], hauteurSlider[12], longueurSlider[12], blanc) ;
+    fondReglette    ( posWidthSlider[10], posHeightSlider[10], hauteurSlider[10], longueurSlider[10], grisClair) ;
+    fondReglette    ( posWidthSlider[11], posHeightSlider[11], hauteurSlider[11], longueurSlider[11], grisClair) ;
+    fondReglette    ( posWidthSlider[12], posHeightSlider[12], hauteurSlider[12], longueurSlider[12], grisClair) ;
   }
   // music
-  fondReglette ( posWidthSlider[5], posHeightSlider[5], hauteurSlider[5], longueurSlider[5], blanc) ;
-  fondReglette ( posWidthSlider[6], posHeightSlider[6], hauteurSlider[6], longueurSlider[6], blanc) ;
+  fondReglette ( posWidthSlider[5], posHeightSlider[5], hauteurSlider[5], longueurSlider[5], grisClair) ;
+  fondReglette ( posWidthSlider[6], posHeightSlider[6], hauteurSlider[6], longueurSlider[6], grisClair) ;
 }
 
 
@@ -929,8 +949,15 @@ void fondRegletteDensite ( int posX, int posY, int hauteur, int largeur, float c
 
 int refSizeImageDropdown, refSizeFileTextDropdown ;
 PVector posTextDropdownImage, posTextDropdownFileText ; 
+color colorTopDropdownBoxOut, selectedText ;
 
 void dropdownSetup() {
+   //colorTopDropdownBG = vertClair ;
+   //colorTopDropdownBoxIn = rouge ;
+   colorTopDropdownBoxOut = orange ;
+   selectedText = vertFonce ;
+   //colorTopDropdownBoxText = vertClair ;
+   // colorTopDropdownBoxOut, colorTopDropdownBoxText ;
   //load the external list  for each mode and split to read in the interface
   for (int i = 0 ; i<objectList.getRowCount() ; i++) {
     TableRow row = objectList.getRow(i);
@@ -949,7 +976,7 @@ void dropdownSetup() {
   posDropdownBackground = new PVector(posButtonBackground.x, posButtonBackground.y, 0.1)  ; // x y is pos anz z is marge between the dropdown and the header
   sizeDropdownBackground = new PVector (75, 13, 15 ) ;
   PVector posTextDropdownBackground = new PVector(3, 10)  ;
-  dropdownBackground = new Dropdown("Background", shaderBackgroundName, posDropdownBackground, sizeDropdownBackground, posTextDropdownBackground, colorBG, colorBoxIn, colorBoxOut, colorBoxText, sizeTexteInterface) ;
+  dropdownBackground = new Dropdown("Background", shaderBackgroundName, posDropdownBackground, sizeDropdownBackground, posTextDropdownBackground, colorBG, colorBoxIn, colorTopDropdownBoxOut, colorBoxText, sizeTexteInterface) ;
   
   
   //FONT dropdown
@@ -957,7 +984,7 @@ void dropdownSetup() {
   posDropdownFont = new PVector(posButtonFont.x, posButtonFont.y, 0.1)  ; // x y is pos anz z is marge between the dropdown and the header
   sizeDropdownFont = new PVector (40, 13, 15 ) ;
   PVector posTextDropdownTypo = new PVector(3, 10)  ;
-  dropdownFont = new Dropdown("Font", policeDropdownList,   posDropdownFont , sizeDropdownFont, posTextDropdownTypo, colorBG, colorBoxIn, colorBoxOut, colorBoxText, sizeTexteInterface) ;
+  dropdownFont = new Dropdown("Font", policeDropdownList,   posDropdownFont , sizeDropdownFont, posTextDropdownTypo, colorBG, colorBoxIn, colorTopDropdownBoxOut, colorBoxText, sizeTexteInterface) ;
   
   // Image Dropdown
   //////////////////
@@ -965,7 +992,7 @@ void dropdownSetup() {
   sizeDropdownImage = new PVector (60, 13, 15 ) ;
   posTextDropdownImage = new PVector(3, 10)  ;
   refSizeImageDropdown = imageDropdownList.length ;
-  dropdownImage = new Dropdown("Image", imageDropdownList, posDropdownImage, sizeDropdownImage, posTextDropdownImage, colorBG, colorBoxIn, colorBoxOut, colorBoxText, sizeTexteInterface) ;
+  dropdownImage = new Dropdown("Image", imageDropdownList, posDropdownImage, sizeDropdownImage, posTextDropdownImage, colorBG, colorBoxIn, colorTopDropdownBoxOut, colorBoxText, sizeTexteInterface) ;
   
   // File text Dropdown
   //////////////////
@@ -973,7 +1000,7 @@ void dropdownSetup() {
   sizeDropdownFileText = new PVector (40, 13, 15 ) ;
   posTextDropdownFileText = new PVector(3, 10)  ;
   refSizeFileTextDropdown = fileTextDropdownList.length ;
-  dropdownFileText = new Dropdown("Text", fileTextDropdownList, posDropdownFileText, sizeDropdownFileText, posTextDropdownFileText, colorBG, colorBoxIn, colorBoxOut, colorBoxText, sizeTexteInterface) ;
+  dropdownFileText = new Dropdown("Text", fileTextDropdownList, posDropdownFileText, sizeDropdownFileText, posTextDropdownFileText, colorBG, colorBoxIn, colorTopDropdownBoxOut, colorBoxText, sizeTexteInterface) ;
   
   
   
@@ -1044,7 +1071,7 @@ void dropdownBackground() {
   // display the selection
   
   if(!dropdownBackground.locked) {
-    if (dropdownBackground.getSelection() != 0 ) fill(vertTresFonce) ; else fill(rougeFonce) ;
+    if (dropdownBackground.getSelection() != 0 ) fill(selectedText) ; else fill(rougeFonce) ;
     textFont(FuturaStencil_10) ;
     EtatBackground = dropdownBackground.getSelection() ;
     // text(shaderBackgroundName[EtatBackground], posDropdownBackground.x +3 , posDropdownBackground.y +22) ;
@@ -1070,7 +1097,7 @@ void dropdownFont() {
   if (!insideRect(newPosDropdown, totalSizeDropdown)) dropdownFont.locked = false ;
   
   if(!dropdownFont.locked) {
-    fill(vertTresFonce) ;
+    fill(selectedText) ;
     //give the value for the save
     saveR [7] = byte(dropdownFont.getSelection() +1) ;
     // display the selection
@@ -1084,7 +1111,7 @@ void dropdownFont() {
 void dropdownImage() {
   // live update of the content
   if(imageDropdownList.length != refSizeImageDropdown ) {
-    dropdownImage = new Dropdown("Image", imageDropdownList, posDropdownImage, sizeDropdownImage, posTextDropdownImage, colorBG, colorBoxIn, colorBoxOut, colorBoxText, sizeTexteInterface) ;
+    dropdownImage = new Dropdown("Image", imageDropdownList, posDropdownImage, sizeDropdownImage, posTextDropdownImage, colorBG, colorBoxIn, colorTopDropdownBoxOut, colorBoxText, sizeTexteInterface) ;
     refSizeImageDropdown = imageDropdownList.length ;
   }
   
@@ -1099,7 +1126,7 @@ void dropdownImage() {
   if (!insideRect(newPosDropdown, totalSizeDropdown)) dropdownImage.locked = false ;
   
   if(!dropdownImage.locked) {
-    fill(vertTresFonce) ;
+    fill(selectedText) ;
     //give the value for the save
   //  saveR [7] = byte(dropdownImage.getSelection() +1) ;
     // display the selection
@@ -1114,7 +1141,7 @@ void dropdownImage() {
 void dropdownFileText() {
   // live update of the content
   if(fileTextDropdownList.length != refSizeFileTextDropdown ) {
-    dropdownFileText = new Dropdown("Text", fileTextDropdownList, posDropdownFileText, sizeDropdownFileText, posTextDropdownFileText, colorBG, colorBoxIn, colorBoxOut, colorBoxText, sizeTexteInterface) ;
+    dropdownFileText = new Dropdown("Text", fileTextDropdownList, posDropdownFileText, sizeDropdownFileText, posTextDropdownFileText, colorBG, colorBoxIn, colorTopDropdownBoxOut, colorBoxText, sizeTexteInterface) ;
     refSizeFileTextDropdown = fileTextDropdownList.length ;
   }
   
@@ -1129,7 +1156,7 @@ void dropdownFileText() {
   if (!insideRect(newPosDropdown, totalSizeDropdown)) dropdownFileText.locked = false ;
   
   if(!dropdownFileText.locked) {
-    fill(vertTresFonce) ;
+    fill(selectedText) ;
       //give the value for the save
     //saveR [7] = byte(dropdownFileText.getSelection() +1) ;
     // display the selection

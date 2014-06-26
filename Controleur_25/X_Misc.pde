@@ -9,9 +9,8 @@ color rouge, rougeFonce, rougeTresFonce,
       vert, vertClair, vertFonce, vertTresFonce,
       bleu,
       violet,
-      noir, noirGris,
-      blanc, blancGrisClair, blancGris,  
-      gris, grisClair , grisFonce, grisNoir, 
+       
+      blanc, blancGrisClair, blancGris, gris, grisClair, grisFonce, grisTresFonce, grisNoir, noirGris, noir,
       
       typoCourante, typoTitre,
       //bouton
@@ -23,9 +22,16 @@ color rouge, rougeFonce, rougeTresFonce,
 //SETUP
 void colorSetup() {
    colorMode (HSB, 360,100,100 ) ; 
-   blanc = color(0,0,95) ;            blancGrisClair = color( 0,0,85) ;  blancGris = color( 0,0,75) ; 
-   grisClair = color(0,0, 65) ;       gris = color(0,0,50) ;             grisFonce = color(0,0,40)  ;     grisNoir = color(0,0,30) ;      
-   noirGris = color (0,0,20) ;         noir = color (0,0,5) ;  
+   blanc = color(0,0,95) ;            
+   blancGrisClair = color( 0,0,85) ;  
+   blancGris = color( 0,0,75) ; 
+   grisClair = color(0,0, 65) ;       
+   gris = color(0,0,50) ;             
+   grisFonce = color(0,0,40)  ;     
+   grisTresFonce = color(0,0,30) ; 
+   grisNoir = color(0,0,20) ;      
+   noirGris = color (0,0,15) ;         
+   noir = color (0,0,5) ;  
    vertClair = color (100,20,100) ;     vert = color(100,70,80) ;           vertFonce = color(100,100,50) ;     vertTresFonce = color(100,100,30) ;
    rougeTresFonce = color(10, 100, 50) ; rougeFonce = color (10, 100, 70) ;  rouge = color(10,100,100) ;           orange = color (35,100,100) ; 
    

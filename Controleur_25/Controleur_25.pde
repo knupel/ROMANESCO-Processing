@@ -1,8 +1,9 @@
   ////////////////////////////////////////////////////////////
  // Romanesco Unu Bêta 1.0 work with Processing 221 /////////
 ////////////////////////////////////////////////////////////
-String release = ("25") ;
-String version = ("1.0") ;
+String nameVersion = ("Romanesco Unu") ;
+String version = ("25") ;
+String edition = ("1.0") ;
 boolean test = false ;
 String preferencesPath = sketchPath("")+"preferences/" ;
 

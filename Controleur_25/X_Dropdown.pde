@@ -5,7 +5,7 @@ boolean dropdownOpen ; // use to indicate to indicate at the other button, they 
 public class Dropdown {
   //Slider dropdown
   Slider sliderDropdown ;
-  private PFont fontDropdown ;
+  // private PFont fontDropdown ;
   private PVector posSliderDropdown, sizeSliderDropdown, posMoletteDropdown, sizeMoletteDropdown, sizeBoxDropdownMenu ;
   //dropdown
   private int line = 0;
@@ -30,7 +30,7 @@ public class Dropdown {
 
     this.size = size; // header size
     this.sizeFont = sizeFont ;
-    this.fontDropdown = fontDropdown ;
+    //this.fontDropdown = fontDropdown ;
     this.colorBG = colorBG ;
     this.boxIn = boxIn ;
     this.boxOut = boxOut ;
@@ -47,7 +47,7 @@ public class Dropdown {
     
     //slider dropdown
     //condition to display the slider
-    if ( listItem.length > endingDropdown  ) slider = true ; else slider = false ;
+    if (listItem.length > endingDropdown  ) slider = true ; else slider = false ;
     
     if (slider) {
       sizeSliderDropdown = new PVector (  size.y / 2.0, ((endingDropdown ) * size.y ) -pos.z) ;
@@ -79,7 +79,6 @@ public class Dropdown {
       for ( int i = startingDropdown + updateDropdown ; i < endingDropdown + updateDropdown ; i++) {
         //bottom rendering
         renderBox(listItem[i], step++, sizeBoxDropdownMenu, dropdownFont);
-        //dropdownActivity = true ;
         //Slider dropdown
         if (slider) {
           sliderDropdown.sliderUpdate() ;
