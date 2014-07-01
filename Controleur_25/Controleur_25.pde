@@ -9,16 +9,30 @@ String preferencesPath = sketchPath("")+"preferences/" ;
 
 void setup() {
   setting() ;
+  buildLibrary() ;
   loadSetup() ;
   setDisplaySlider() ;
-  interfaceSetup() ;
+  checkImageFolder() ;
+  checkFileTextFolder() ;
+  fontSetup() ;
+  midiSetup() ;
+  importPicButtonSetup() ;
+  buttonSliderSetup() ;
+  constructorSliderButton() ;
   sendOSCsetup() ;
+  buttonSetSaveSetting() ;
 }
 
 void draw() {
   structureDraw() ;
   checkSlider() ;
-  interfaceDraw() ;
+  checkImageFolder() ;
+  checkFileTextFolder() ;
+  initLiveData() ;
+  textDraw() ;
+  midiDraw() ;
+  sliderDraw() ;
+  buttonDraw() ;
   sendOSCdraw() ;
   initVarSliderDynamic() ;
   

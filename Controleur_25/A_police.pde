@@ -1,12 +1,15 @@
 //GLOBAL
-int sizeTexteInterface = 14 ;
+
 
 public PFont 
       //controleur font
-      police, textInterface,
-      EmigreEight, FuturaStencil_20, FuturaStencil_10,
+      textUsual_1, textUsual_2, textUsual_3,
+      title_1, title_2,
+      EmigreEight, 
+      FuturaCondLight_10, FuturaCondLight_11,FuturaCondLight_12,
+      FuturaStencil_20, FuturaStencil_10 ;
 
-      
+      /*
       //scène Font
       AmericanTypewriter, AmericanTypewriterBold,
       Banco, 
@@ -23,16 +26,26 @@ public PFont
       Rosewood,
       TheHardwayRMX,
       TokyoOne, TokyoOneSolid ;
-      
+      */
       
 //SETUP
 void fontSetup() {
   //controleur Font
   String fontPathVLW = sketchPath("")+"preferences/Font/typoVLW/" ;
-  EmigreEight = loadFont (fontPathVLW+"EmigreEight-14.vlw") ;
+  //EmigreEight = loadFont (fontPathVLW+"EmigreEight-14.vlw") ;
   FuturaStencil_20 = loadFont(fontPathVLW+"FuturaStencilICG-20.vlw");
   FuturaStencil_10 = loadFont(fontPathVLW+"FuturaStencilICG-10.vlw");
+  FuturaCondLight_10 = loadFont(fontPathVLW+"Futura-CondensedLight-10.vlw");
+  FuturaCondLight_11 = loadFont(fontPathVLW+"Futura-CondensedLight-11.vlw");
+  FuturaCondLight_12 = loadFont(fontPathVLW+"Futura-CondensedLight-12.vlw");
+  
+  textUsual_1 = FuturaCondLight_10 ;
+  textUsual_2 = FuturaCondLight_11 ;
+  textUsual_3 = FuturaCondLight_12 ;
+  title_1 = FuturaStencil_10 ;
+  title_2 = FuturaStencil_20 ;
   //Scène Font  
+  /*
   AmericanTypewriter=loadFont       (fontPathVLW+"AmericanTypewriter-96.vlw");
   AmericanTypewriterBold=loadFont   (fontPathVLW+"AmericanTypewriter-Bold-96.vlw");
   Banco=loadFont                    (fontPathVLW+"BancoITCStd-Heavy-96.vlw");
@@ -54,10 +67,5 @@ void fontSetup() {
   Rosewood=loadFont                (fontPathVLW+"RosewoodStd-Regular-96.vlw");
   TheHardwayRMX=loadFont            (fontPathVLW+"3theHardwayRMX-96.vlw");
   TokyoOne=loadFont                (fontPathVLW+"Tokyo-One-96.vlw");
-  
-  //Typo for the interface
-  textInterface = EmigreEight ;
-  
-
-
+  */
 }

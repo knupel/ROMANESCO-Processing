@@ -73,7 +73,6 @@ void translateDataToSend() {
   */
   valueButtonGlobal[5] = dropdownFont.getSelection() +1 ; ;
   valueButtonGlobal[6] = EtatCurtainButton ;
-  
   valueButtonGlobal[7] = EtatBackgroundButton ;
   valueButtonGlobal[8] = EtatLightOneButton ;
   valueButtonGlobal[9] = EtatLightTwoButton ;

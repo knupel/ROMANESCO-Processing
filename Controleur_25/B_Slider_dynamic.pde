@@ -97,10 +97,10 @@ void recoverActiveSliderFromObj() {
 
 
 void initVarSliderDynamic() {
-  loadSliderPos = false ; 
   for ( int j = 1 ; j < NUM_GROUP_SLIDER ; j++) {
     showSliderGroup[j] = false ;
   }
+  loadSaveSetting = false ;
 }
 
 

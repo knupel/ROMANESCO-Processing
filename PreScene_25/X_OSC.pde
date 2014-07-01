@@ -154,8 +154,6 @@ void OSCDraw() {
   }
   RomanescoScene.add(toScene);
   //send
-  // if(Scene) if (youCanSendToScene)osc.send(RomanescoScene, targetScene); 
-  // if(Miroir) if (youCanSendToMiroir) osc.send(RomanescoScene, targetMiroir);
   if (youCanSendToScene)osc.send(RomanescoScene, targetScene); 
   if (youCanSendToMiroir) osc.send(RomanescoScene, targetMiroir);
   

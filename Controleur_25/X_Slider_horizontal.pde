@@ -1,5 +1,4 @@
-class RegletteHorizontale
-{
+class SliderHorizontal {
   int posX ;
   int longueurSlider, hauteurSlider;    // width et height de la réglette
   int xpos, ypos;         // x and y position de la réglette
@@ -15,7 +14,7 @@ class RegletteHorizontale
   int newValMidi ;
   int IDmidi = -2 ;
 
-  RegletteHorizontale (int xp, int yp, int LSlider, int HSlider, int s, color boutonOUT, color boutonIN, color reglette, int transparence, int pC, int IDmidi) {
+  SliderHorizontal (int xp, int yp, int LSlider, int HSlider, int s, color boutonOUT, color boutonIN, color reglette, int transparence, float pC, int IDmidi) {
     this.IDmidi = IDmidi ;
     longueurSlider = LSlider;   hauteurSlider = HSlider;              suivit = s;
     xpos = xp;          ypos = yp-hauteurSlider/2;
@@ -38,7 +37,7 @@ class RegletteHorizontale
       stroke(colorOutline) ; strokeWeight(size.z) ;
       if(dedans || locked) {
         fill(cIn);
-        loadSliderPos = false ;
+        // loadSaveSetting = false ;
       } else {
         fill(cOut);
       }
@@ -53,26 +52,20 @@ class RegletteHorizontale
   
 
   
-  void update(int curseurX, int loadX ) {
+  void update(int currentX, int saveX, boolean save) {
     int NLX ;
     float NloadX ;
     float lh = float(longueurSlider) ;
-    NloadX = xpos + (loadX / (100.0 + ( (11.0/lh)*rapportChargement) ) * longueurSlider);
+    NloadX = xpos + (saveX / (100.0 + ( (11.0/lh)*rapportChargement) ) * longueurSlider);
     NLX = round(NloadX) ;
     // Choix entre le chargement des sauvegarde de position ou les coordonnées de la souris
-    if(loadSliderPos ) {
-      posX = NLX ; 
-    } else { 
-      posX = curseurX ; 
-    }
+    if(save) posX = NLX ; else posX = currentX ;
    
    if(dedans()) dedans = true ; else dedans = false ;
    if(mousePressed && dedans) locked = true ;
    if(!mousePressed) locked = false ;
    
-   if(locked || loadSliderPos) {
-      newspos = constrain(posX-hauteurSlider/2, sposMin, sposMax);
-    }
+   if(locked || save)newspos = constrain(posX-hauteurSlider/2, sposMin, sposMax);
 
     if(abs(newspos - spos) > 1) {
       spos = spos + (newspos-spos)/suivit;

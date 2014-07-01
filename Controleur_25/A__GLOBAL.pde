@@ -2,6 +2,7 @@
 import java.awt.event.KeyEvent;
 import processing.net.*;
 // CONSTANT VAR
+final int BUTTON_BY_OBJECT = 4 ;
 final int NUM_GROUP_SLIDER = 4 ;
 final int NUM_SLIDER_GLOBAL = 14 ;
 final int NUM_SLIDER = 350 ;
@@ -24,11 +25,17 @@ boolean selectMidi = false ;
 boolean curtainOpenClose ;
 //GLOBAL
 
-byte saveR [] = new byte [2 *NUM_SLIDER]; // byte between -128 and 127 result 256 bytes
-byte loadR []  = new byte [2 *NUM_SLIDER] ;
+// Save Setting var
+// byte saveSlider [] = new byte  [2 *NUM_SLIDER]; // byte between -128 and 127 result 256 bytes
+// byte loadSlider []  = new byte [2 *NUM_SLIDER] ; // there is no reason to used 2*NUM_SLIDER except to mcreat a big num of saved, and it's important :)
+PVector [] infoSlider, infoButton ;
 
+/*
+byte saveButton []  = new byte [2 *NUM_SLIDER] ;
+byte loadButton []  = new byte [2 *NUM_SLIDER] ;
+*/
 boolean[] keyboard = new boolean[526];
-boolean loadSliderPos = false ;
+boolean loadSaveSetting = false ;
 boolean ouvrirFichier = false ;
 
 //LOAD PICTURE VIGNETTE
@@ -49,5 +56,38 @@ void setting() {
     sliderNameOne[i] = ("") ;
     sliderNameTwo[i] = ("") ;
     sliderNameThree[i] = ("") ;
+  }
+}
+
+
+
+
+// SHORTCUTS & KEYBOARD ACTION
+//////////////////////////////
+void shortCuts() {
+  keyboard[keyCode] = true;
+  // slider display command
+  if(checkKeyboard(CONTROL) && checkKeyboard(KeyEvent.VK_X) ) {
+    resetSlider = true ;
+    allSliderUsed = !allSliderUsed ;
+    keyboard[keyCode] = false ;
+  }
+
+  if(checkKeyboard(CONTROL ) && checkKeyboard(KeyEvent.VK_C)) {
+    resetSlider = true ;
+    showAllSliders = !showAllSliders ;
+    keyboard[keyCode] = false ;
+  }
+  
+  // save slider
+  if(checkKeyboard(CONTROL) && checkKeyboard(KeyEvent.VK_S) ) {
+    showAllSliders = true ; 
+    selectOutput("Save setting", "saveSetting");
+    keyboard[keyCode] = false ;   // just open one window, when use only the keyboard, if you don't use that open all the windows save and open
+  }
+  // open saved slider
+  if(checkKeyboard(CONTROL) && checkKeyboard(KeyEvent.VK_O) ) { 
+    selectInput("Load setting", "loadSetting"); // ("display info in the window" , "name of the void calling" )
+    keyboard[keyCode] = false;   // 
   }
 }

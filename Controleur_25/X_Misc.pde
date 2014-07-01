@@ -12,11 +12,11 @@ color rouge, rougeFonce, rougeTresFonce,
        
       blanc, blancGrisClair, blancGris, gris, grisClair, grisFonce, grisTresFonce, grisNoir, noirGris, noir,
       
-      typoCourante, typoTitre,
+      colorTextUsual, colorTitle,
       //bouton
-      boutonOFFin, boutonOFFout, boutonONin, boutonONout,
+      boutonOFFin, boutonOFFout, boutonONin, boutonONout ;
       //for the dropdown
-      colorBoxIn, colorBoxOut, colorBoxText, colorBG ;
+
 
 
 //SETUP
@@ -34,16 +34,13 @@ void colorSetup() {
    noir = color (0,0,5) ;  
    vertClair = color (100,20,100) ;     vert = color(100,70,80) ;           vertFonce = color(100,100,50) ;     vertTresFonce = color(100,100,30) ;
    rougeTresFonce = color(10, 100, 50) ; rougeFonce = color (10, 100, 70) ;  rouge = color(10,100,100) ;           orange = color (35,100,100) ; 
+   jaune = color(50,100,100) ;
    
-   typoCourante = grisNoir ; typoTitre = noirGris ;
+   colorTextUsual = grisNoir ; colorTitle = noirGris ;
    boutonOFFin = orange ; boutonOFFout = rougeFonce ;
    boutonONin = vert ; boutonONout = vertFonce ;
    
-   //dropdown
-   colorBG = rougeTresFonce ;
-   colorBoxIn =rouge ; 
-   colorBoxOut = rougeFonce ;
-   colorBoxText = blancGrisClair ;
+
 }
 //END COLOR
 
@@ -83,17 +80,12 @@ void checkImageFolder() {
     imageFiles.clear() ;
     String path = sketchPath +"/" +preferencesPath +"Images" ; 
     
-    //println("Listing info about all files in a directory and all subdirectories: ");
     ArrayList allFiles = listFilesRecursive(path);
   
     String fileName = "";
     for (int i = 0; i < allFiles.size(); i++) {
       File f = (File) allFiles.get(i);   
       fileName = f.getName(); 
-      //println("Name: " + filename);
-      //println("Full path: " + f.getAbsolutePath());
-      //println("Is directory: " + f.isDirectory());
-  
       // Add it to the list if it's not a directory
       if (f.isDirectory() == false) {
         String lastThree = fileName.substring(fileName.length()-3, fileName.length());
@@ -105,7 +97,6 @@ void checkImageFolder() {
     // show the info name file
     for (int i = 0; i < imageFiles.size(); i++) {
       File f = (File) imageFiles.get(i); 
-      //println("Name: " + f.getName());
     }
     
     // to don't loop with this void
@@ -119,17 +110,12 @@ void checkFileTextFolder() {
     textFiles.clear() ;
     String path = sketchPath +"/" +preferencesPath +"Karaoke" ; 
     
-    //println("Listing info about all files in a directory and all subdirectories: ");
     ArrayList allFiles = listFilesRecursive(path);
   
     String fileName = "";
     for (int i = 0; i < allFiles.size(); i++) {
       File f = (File) allFiles.get(i);   
       fileName = f.getName(); 
-      //println("Name: " + filename);
-      //println("Full path: " + f.getAbsolutePath());
-      //println("Is directory: " + f.isDirectory());
-  
       // Add it to the list if it's not a directory
       if (f.isDirectory() == false) {
         String lastThree = fileName.substring(fileName.length()-3, fileName.length());
@@ -141,7 +127,6 @@ void checkFileTextFolder() {
     // show the info name file
     for (int i = 0; i < textFiles.size(); i++) {
       File f = (File) textFiles.get(i); 
-     // println("Name: " + f.getName());
     }
     
     // to don't loop with this void

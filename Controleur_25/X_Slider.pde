@@ -1,5 +1,5 @@
-class Slider
-{
+
+class Slider {
   private PVector pos, size, posText, posMol, sizeMol, newPosMol, posMin, posMax ;
   private color slider, boxIn, boxOut, colorText ;
   private boolean molLocked ;
@@ -75,15 +75,15 @@ class Slider
   void sliderUpdate(String s, boolean t) {
     //SLIDER
     fill(slider) ;
-    rect(pos.x, pos.y, size.x, size.y ) ;
+    rect(pos.x, pos.y, size.x, size.y) ;
     if (t) {
       fill(colorText) ;
       textFont (p ) ;
       textSize (posText.z) ;
-      text(s, posText.x, posText.y ) ;
+      text(s, posText.x, posText.y) ;
     }
     //MOLETTE
-    if (insideRect(newPosMol, sizeMol)) fill(boxIn); else fill(boxOut ) ;
+    if (insideRect(newPosMol, sizeMol)) fill(boxIn); else fill(boxOut) ;
     moletteUpdate() ;
     rect(newPosMol.x, newPosMol.y, sizeMol.x , sizeMol.y ) ;
   }
@@ -91,26 +91,26 @@ class Slider
   void sliderUpdate() {
     //SLIDER
     fill(slider) ;
-    rect(pos.x, pos.y, size.x, size.y ) ;
+    rect(pos.x, pos.y, size.x, size.y) ;
     //MOLETTE
     if (insideRect(newPosMol, sizeMol)) fill(boxIn); else fill(boxOut ) ;
     moletteUpdate() ;
-    rect(newPosMol.x, newPosMol.y, sizeMol.x , sizeMol.y ) ;
+    rect(newPosMol.x, newPosMol.y, sizeMol.x , sizeMol.y) ;
   }
   
   void moletteUpdate() {
-    if (locked (insideRect(newPosMol, sizeMol) )  ) molLocked = true ;
+    if (locked (insideRect(newPosMol, sizeMol))) molLocked = true ;
     if (!mousePressed)  molLocked = false ; 
       
-    if ( molLocked ) {  
-      if ( size.x >= size.y ) newPosMol.x = constrain(mouseX -(sizeMol.x / 2.0 ), posMin.x, posMax.x)  ; else newPosMol.y = constrain(mouseY -(sizeMol.y / 2.0 ), posMin.y, posMax.y) ;
+    if (molLocked) {  
+      if (size.x >= size.y) newPosMol.x = constrain(mouseX -(sizeMol.x /2.0), posMin.x, posMax.x)  ; else newPosMol.y = constrain(mouseY -(sizeMol.y /2.0), posMin.y, posMax.y) ;
     }
   }
   
   //RETURN
   float getValue() {
     float value ;
-    if ( size.x >= size.y ) value = map (newPosMol.x, posMin.x, posMax.x, 0,1) ; else value = map (newPosMol.y, posMin.y, posMax.y, 0,1) ;
+    if (size.x >= size.y) value = map (newPosMol.x, posMin.x, posMax.x, 0,1) ; else value = map (newPosMol.y, posMin.y, posMax.y, 0,1) ;
     return value ;
   }
 }

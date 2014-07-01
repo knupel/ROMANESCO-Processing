@@ -6,9 +6,11 @@
 
 //SETUP
 void loadSetup() {
-  loadR = loadBytes(sketchPath("")+"preferences/MidiSetting/defaultSetting.dat");
+  //buildLibrary() ;
+  loadSave(sketchPath("")+"preferences/MidiSetting/defaultSetting.csv") ;
+  
   //load data object
-  buildLibrary() ;
+  
   //load text interface 
   // 0 is French
   // 1 is english
@@ -82,11 +84,8 @@ String [] modeListRomanesco, policeDropdownList, imageDropdownList, fileTextDrop
 float margeAroundDropdown ;
 
 
-//SETUP
- 
-//////////////////////////////////
-
-
+//SETTING
+ /////////
 void buildLibrary() {
   objectList = loadTable(sketchPath("")+"preferences/objects/index_romanesco_objects.csv", "header") ;
   shaderBackgroundList = loadTable(sketchPath("")+"preferences/shaderBackgroundList.csv", "header") ;
@@ -238,66 +237,223 @@ void numByGroup() {
 
 
 //DRAW
-void shortCuts() {
-  keyboard[keyCode] = true;
-  // slider display command
-  if(checkKeyboard(CONTROL) && checkKeyboard(KeyEvent.VK_X) ) {
-    resetSlider = true ;
-    allSliderUsed = !allSliderUsed ;
-    keyboard[keyCode] = false ;
-  }
- // if(keyPressed){
-    if(checkKeyboard(CONTROL ) && checkKeyboard(KeyEvent.VK_C)) {
-      resetSlider = true ;
-      showAllSliders = !showAllSliders ;
-      keyboard[keyCode] = false ;
-    }
-//  }
-    
-  
-  // save slider
-  if(checkKeyboard(CONTROL) && checkKeyboard(KeyEvent.VK_S) ) { 
-    println("je suis là") ;
-    selectOutput("Sauvegarde Réglette", "sauvegardeReglette");
-    keyboard[keyCode] = false ;   // just open one window, when use only the keyboard, if you don't use that open all the windows save and open
-  }
-  // open saved slider
-  if(checkKeyboard(CONTROL) && checkKeyboard(KeyEvent.VK_O) ) { 
-    selectInput("Chargement Réglette", "chargementReglette"); // ("display info in the window" , "name of the void calling" )
-    keyboard[keyCode] = false;   // 
-  }
-}
 
 
+// SAVE LOAD
 
-
-//////
-void sauvegardeReglette(File selection) {
+// SAVE
+///////
+void saveSetting(File selection) {
   // opens file chooser
-  String sauvegardeCheminReglette = selection.getAbsolutePath() ;
+  String savePathSetting = selection.getAbsolutePath() ;
   
   if (selection != null) {
-    if (!sauvegardeCheminReglette.endsWith(".dat")) sauvegardeCheminReglette += ".dat";
-    saveBytes(sauvegardeCheminReglette, saveR);
+    saveSlider() ;
+    midiButtonManager(true) ;
+    saveTable(saveSetting, savePathSetting+".csv");
+    saveSetting.clearRows() ;
   } else {
     println("Aucune sauvegarde") ;
   }
 }
 
 
+
+
+//LOAD
 //////
-void chargementReglette(File selection) {
+Table loadSettingButton ;
+//////
+void loadSetting(File selection) {
   // opens file chooser
-  String chargementCheminReglette = selection.getAbsolutePath();
+  String loadPathSetting = selection.getAbsolutePath();
   
   if (selection != null) {
-    loadSliderPos = true ;
-    loadR = loadBytes(chargementCheminReglette);
-  } else {
-    loadSliderPos = false ;
+    loadSaveSetting = true ;
+    loadSave(loadPathSetting) ;
+  } 
+}
+
+
+void loadSave(String path) {
+  loadSettingButton = loadTable(path, "header");
+  // create the good num of Var info about slider and button
+  int countButton = 0 ;
+  int countSlider = 0 ;
+  
+  for (TableRow row : loadSettingButton.rows()) {
+    String s = row.getString("Type") ;
+    if( s.equals("Button")  ){ 
+     countButton++ ; 
+    }
+    if( s.equals("Slider")  ){ 
+      countSlider++ ; 
+    }
+  }
+  infoSlider = new PVector [countSlider] ;
+  infoButton = new PVector [countSlider] ;
+  
+  
+  // re-init the counter for the new loop
+  countButton = 0 ;
+  countSlider = 0 ;
+  for (TableRow row : loadSettingButton.rows()) {
+    String s = row.getString("Type") ;
+    //
+    if( s.equals("Button")  ){ 
+     int IDbutton = row.getInt("ID button") ;
+     int IDmidi = row.getInt("ID midi") ;
+     int onOff = row.getInt("On Off") ;
+     infoButton[countButton] = new PVector(IDbutton,IDmidi,onOff) ;
+     countButton++ ; 
+    }
+    //
+    if( s.equals("Slider")  ){
+     int IDslider = row.getInt("ID slider") ;
+     int IDmidi = row.getInt("ID midi") ;
+     int valueSlider = row.getInt("Value slider") ; 
+     infoSlider[countSlider] = new PVector(IDslider,IDmidi,valueSlider) ; 
+     countSlider++ ; //<>//
+    }
   }
 }
 
+
+PVector infoSave(PVector [] list, int pos) {
+  PVector info = new PVector() ;
+  float v = 0 ;
+  float IDmidi = 0 ;
+  for(int i = 0 ; i < list.length ;i++) {
+    
+  if(list[i] != null ) if((int)list[i].x == pos) {
+      v = list[i].z ;
+      IDmidi = list[i].y ;
+      info = new PVector(pos, IDmidi,v) ;
+      break;
+    } else {
+      info = new PVector(-1,-1,-1) ;
+    }
+  }
+  return info ;
+}
+
+
+void buttonSetSaveSetting() {
+  // close loop to save the button statement, 
+  // see void midiButtonManager(boolean saveButton)
+  int rank = 0 ;
+  // Background and Curtain
+  if(infoButton[rank].z  == 1.0) buttonBackground.onOff = true ; else buttonBackground.onOff = false ;
+  buttonBackground.IDmidi = (int)infoButton[rank].y ; 
+  rank++ ;
+  if(infoButton[rank].z == 1.0) BOcurtain.onOff = true ; else BOcurtain.onOff = false ;
+  BOcurtain.IDmidi = (int)infoButton[rank].y ; 
+  rank++ ;
+  //LIGHT ONE
+  if(infoButton[rank].z == 1.0) buttonLightOne.onOff = true ; else buttonLightOne.onOff = false ;
+  buttonLightOne.IDmidi = (int)infoButton[rank].y ; 
+  rank++ ;
+  if(infoButton[rank].z == 1.0) buttonLightOneAction.onOff = true ; else buttonLightOneAction.onOff = false ;
+  buttonLightOneAction.IDmidi = (int)infoButton[rank].y ; 
+  rank++ ;
+  // LIGHT TWO
+  if(infoButton[rank].z == 1.0) buttonLightTwo.onOff = true ; else buttonLightTwo.onOff = false ;
+  buttonLightTwo.IDmidi = (int)infoButton[rank].y ; 
+  rank++ ;
+  if(infoButton[rank].z == 1.0) buttonLightTwoAction.onOff = true ; else buttonLightTwoAction.onOff = false ;
+  buttonLightTwoAction.IDmidi = (int)infoButton[rank].y ; 
+  rank++ ;
+  //SOUND
+  if(infoButton[rank].z == 1.0) Bbeat.onOff = true ; else Bbeat.onOff = false ;
+  Bbeat.IDmidi = (int)infoButton[rank].y ;
+ rank++ ; 
+  if(infoButton[rank].z == 1.0) Bkick.onOff = true ; else Bkick.onOff = false ;
+  Bkick.IDmidi = (int)infoButton[rank].y ; 
+  rank++ ;
+  if(infoButton[rank].z == 1.0) Bsnare.onOff = true ; else Bsnare.onOff = false ;
+  Bsnare.IDmidi = (int)infoButton[rank].y ;
+  rank++ ;
+  if(infoButton[rank].z == 1.0) Bhat.onOff = true ; else Bhat.onOff = false ;
+  Bhat.IDmidi = (int)infoButton[rank].y ; 
+  rank++ ;
+  
+  //
+  rank--  ;
+  //
+  
+  int whichGroup = 1 ;
+  int buttonRank ;
+  for( int i = 1 ; i <= numGroup[whichGroup] ; i++ ) {
+    for (int j = 1 ; j <= BUTTON_BY_OBJECT ; j++) {
+      rank++ ;
+      buttonRank = (int)infoButton[rank].x ;
+      if(infoButton[rank].z == 1.0 && buttonRank == (i*10)+j) BOf[buttonRank].onOff = true ; else BOf[buttonRank].onOff = false ; 
+      BOf[buttonRank].IDmidi = (int)infoButton[rank].y ; 
+    }
+  }
+  whichGroup = 2 ; 
+  for( int i = 1 ; i <= numGroup[whichGroup] ; i++ ) {
+    for (int j = 1 ; j <= BUTTON_BY_OBJECT ; j++) {
+      rank++ ;
+      buttonRank = (int)infoButton[rank].x ;
+      if(infoButton[rank].z == 1.0 && buttonRank == (i*10)+j) BTf[buttonRank].onOff = true ; else BTf[buttonRank].onOff = false ; 
+      BTf[buttonRank].IDmidi = (int)infoButton[rank].y ; 
+    } 
+  }
+  whichGroup = 3 ;
+  for( int i = 1 ; i <= numGroup[whichGroup] ; i++ ) {
+    for (int j = 1 ; j <= BUTTON_BY_OBJECT ; j++) {
+      rank++ ;
+      buttonRank = (int)infoButton[rank].x ;
+      if(infoButton[rank].z == 1.0 && buttonRank == (i*10)+j) BTYf[buttonRank].onOff = true ; else BTYf[buttonRank].onOff = false ; 
+      BTYf[buttonRank].IDmidi = (int)infoButton[rank].y ; 
+    }
+  }
+}
+
+
+/*
+int rank = 1 ;
+  midiButton(buttonBackground, rank++, saveButton) ;
+  midiButton(BOcurtain, rank++, saveButton) ;
+  
+  midiButton(buttonLightOne, rank++, saveButton) ;
+  midiButton(buttonLightOneAction, rank++, saveButton) ;
+  midiButton(buttonLightTwo, rank++, saveButton) ;
+  midiButton(buttonLightTwoAction, rank++, saveButton) ;
+  
+  midiButton(Bbeat, rank++, saveButton) ;
+  midiButton(Bkick, rank++, saveButton) ;
+  midiButton(Bsnare, rank++, saveButton) ;
+  midiButton(Bhat, rank++, saveButton) ;
+  
+  int whichGroup = 1 ;
+  for( int i = 1 ; i <= numGroup[whichGroup ] ; i++ ) {
+    rank = 1 ;
+    midiButton(BOf[posRankButton(i,rank)], posRankButton(i,rank), saveButton) ; rank++ ;
+    midiButton(BOf[posRankButton(i,rank)], posRankButton(i,rank), saveButton) ; rank++ ;
+    midiButton(BOf[posRankButton(i,rank)], posRankButton(i,rank), saveButton) ; rank++ ;
+    midiButton(BOf[posRankButton(i,rank)], posRankButton(i,rank), saveButton) ;
+  }
+  whichGroup = 2 ; 
+  for( int i = 1 ; i <= numGroup[whichGroup] ; i++ ) {
+    rank = 1 ;
+    midiButton(BTf[posRankButton(i,rank)], posRankButton(i,rank), saveButton) ; rank++ ;
+    midiButton(BTf[posRankButton(i,rank)], posRankButton(i,rank), saveButton) ; rank++ ;
+    midiButton(BTf[posRankButton(i,rank)], posRankButton(i,rank), saveButton) ; rank++ ; 
+    midiButton(BTf[posRankButton(i,rank)], posRankButton(i,rank), saveButton) ;     
+  }
+  whichGroup = 3 ;
+  for( int i = 1 ; i <= numGroup[whichGroup] ; i++ ) {
+    rank = 1 ;
+    midiButton(BTYf[posRankButton(i,rank)], posRankButton(i,rank), saveButton) ; rank++ ;
+    midiButton(BTYf[posRankButton(i,rank)], posRankButton(i,rank), saveButton) ; rank++ ;
+    midiButton(BTYf[posRankButton(i,rank)], posRankButton(i,rank), saveButton) ; rank++ ;
+    midiButton(BTYf[posRankButton(i,rank)], posRankButton(i,rank), saveButton) ;
+  }
+  
+  */
+// SAVE LOAD
 
 
 

@@ -1,26 +1,32 @@
-class Bouton {
+class Button {
   color couleurBouton, couleurONoffCarre, couleurONoffCercle ;
-  int etatBoutonCercle, etatBoutonCarre ;
   PVector pos = new PVector() ; 
   PVector size = new PVector() ;
   
-  boolean dedansBoutonCercle = false ;
-  boolean JouerBoutonCercle = false ;
-  boolean JouerBoutonCarre = false ;  
-  boolean dedansBoutonCarre = false ;
+  boolean inside ;
+  // boolean dedansBoutonCercle = false ;
+  // boolean dedansBoutonCarre = false ;
+  boolean onOff = false ;  
+  //MIDI
+  int newValMidi ;
+  //int IDbutton ;
+  int IDmidi = -2 ;
+  
   
   //Constructor
   //simple
-  Bouton () {}
+  Button () {}
   //complexe
-  Bouton (int posWidth, int posHeight, int widthButton, int heightButton) {
+  Button (int posWidth, int posHeight, int widthButton, int heightButton, boolean onOff) {
+    this.onOff = onOff ;
     pos.x = posWidth ;
     pos.y = posHeight ;
     size.x = widthButton ;
     size.y = heightButton ;
     pos.x =  posWidth ; pos.y = posHeight ; size.x = widthButton ; size.y = heightButton ;
   }
-  Bouton ( PVector pos, PVector size ) {
+  Button (PVector pos, PVector size, boolean onOff) {
+    this.onOff = onOff ;
     this.pos = pos.get() ;
     this.size = size.get() ;
   }
@@ -38,8 +44,10 @@ class Bouton {
     else if (size.y >= 10 && size.y < 20  ) newSize = size.y *1.2 ;  
     else if (size.y >= 20 ) newSize = size.y ;
     if ( mouseX > pos.x && mouseX < pos.x + size.x && mouseY > pos.y  && mouseY < pos.y + newSize ) { 
+      inside = true ;
       return true ; 
-    } else { 
+    } else {
+      inside = false ;
       return false ; 
     }
   }
@@ -50,8 +58,10 @@ class Bouton {
     else if (size.y >= 20 ) newSize = size.y ;
     
     if ( mouseX > pos.x && mouseX < pos.x + size.x && mouseY > pos.y -correction  && mouseY < pos.y +newSize -correction) { 
+      inside = true ;
       return true ; 
-    } else { 
+    } else {
+      inside = false ;
       return false ; 
     }
   }
@@ -59,101 +69,59 @@ class Bouton {
   boolean detectionCercle() {
     float disX = pos.x -mouseX ; 
     float disY = pos.y -mouseY  ; 
-    if (sqrt(sq(disX) + sq(disY)) < size.x/2 ) return true ; else return false ; 
+    if (sqrt(sq(disX) + sq(disY)) < size.x/2 ) {
+      inside = true ;
+      return true ; 
+    } else {
+      inside = false ;
+      return false ; 
+    }
   } 
   
   
   
   //CLIC
   void mousePressedText() {
-    //rect
-    if (detectionCarre((int)size.y) ) {
-      dedansBoutonCarre = true ;
-      if ( JouerBoutonCarre ) {
-        JouerBoutonCarre = false ;
-        etatBoutonCarre = 0 ;
-      } else {
-        JouerBoutonCarre = true ;
-        etatBoutonCarre = 1 ; 
-      }
-    }
+    if (detectionCarre((int)size.y) ) if (onOff) onOff = false ; else onOff = true ; 
   }
   //
   void mousePressed() {
-    //rect
-    if (detectionCarre() ) {
-      dedansBoutonCarre = true ;
-      if (JouerBoutonCarre) {
-        JouerBoutonCarre = false ;
-        etatBoutonCarre = 0 ;
-      } else {
-        JouerBoutonCarre = true ;
-        etatBoutonCarre = 1 ; 
-      }
-    }
-    //ellipse
-    if (detectionCercle()) {
-      dedansBoutonCercle = true ;
-      if (JouerBoutonCercle) {
-        JouerBoutonCercle = false ;
-        etatBoutonCercle = 0 ;
-      } else {
-        JouerBoutonCercle = true ;
-        etatBoutonCercle = 1 ;
-      }
-    }
+    if (detectionCarre() ) if (onOff) onOff = false ; else onOff = true ;
+    //
+    if (detectionCercle()) if (onOff) onOff = false ; else onOff = true ;
   }
-  /*
-  void mouseReleased () {
-    //rect
-    if (detectionCarre() ) {
-      dedansBoutonCarre = true ;
-      if ( JouerBoutonCarre ) {
-        JouerBoutonCarre = false ;
-        etatBoutonCarre = 0 ;
-      } else {
-        JouerBoutonCarre = true ;
-        etatBoutonCarre = 1 ; 
-      }
-    }
-    //ellipse
-    if ( detectionCercle() ) {
-      dedansBoutonCercle = true ;
-      if ( JouerBoutonCercle ) {
-        JouerBoutonCercle = false ;
-        etatBoutonCercle = 0 ;
-      } else {
-        JouerBoutonCercle = true ;
-        etatBoutonCercle = 1 ;
-      }
-    }
-  } 
-  */
+  
+  // MIDI
+  int IDmidi() { return IDmidi ; }
+  
+  void selectIDmidi(int num) { IDmidi = num ; }
 }
+
+
 
 
 ////////
 //BUTTON
-class Simple extends Bouton {
+class Simple extends Button {
   color cBINonBO, cBOUTonBO, cBINoffBO, cBOUToffBO, cBEinBO, cBEoutBO ;
   
   //CONSTRUCTOR
-  Simple(int posWidth, int posHeight, int widthButton, int heightButton) {
-    super(posWidth, posHeight, widthButton, heightButton) ;
+  Simple(int posWidth, int posHeight, int widthButton, int heightButton, boolean onOff) {
+    super(posWidth, posHeight, widthButton, heightButton, onOff) ;
   }
   
   //
   Simple (int posWidth, int posHeight, int widthButton, int heightButton, 
           color BoutonINonBO, color BoutonOUTonBO, color BoutonINoffBO, color BoutonOUToffBO,
-           color BoutonEnsembleINBO, color BoutonEnsembleOUTBO)                  
+           color BoutonEnsembleINBO, color BoutonEnsembleOUTBO, boolean onOff)                  
  {
-   super(posWidth, posHeight,  widthButton, heightButton) ;
+   super(posWidth, posHeight,  widthButton, heightButton, onOff) ;
    cBINonBO = BoutonINonBO ; cBOUTonBO = BoutonOUTonBO ; cBINoffBO = BoutonINoffBO ; cBOUToffBO = BoutonOUToffBO ;
    cBEinBO = BoutonEnsembleINBO ; cBEoutBO = BoutonEnsembleOUTBO ;
  }
  
- Simple (PVector pos, PVector size, color BoutonINonBO, color BoutonOUTonBO, color BoutonINoffBO, color BoutonOUToffBO )  {
-   super(pos, size) ;
+ Simple (PVector pos, PVector size, color BoutonINonBO, color BoutonOUTonBO, color BoutonINoffBO, color BoutonOUToffBO, boolean onOff)  {
+   super(pos, size, onOff) ;
    cBINonBO = BoutonINonBO ; cBOUTonBO = BoutonOUTonBO ; cBINoffBO = BoutonINoffBO ; cBOUToffBO = BoutonOUToffBO ;
  }
  
@@ -172,10 +140,10 @@ class Simple extends Bouton {
  ///Bouton carre
  void boutonCarre () {
    strokeWeight (1) ;
-   if (JouerBoutonCarre ) {
+   if (onOff) {
      stroke(vertTresFonce) ;
      if (detectionCarre() && !dropdownActivity) { 
-       dedansBoutonCarre = true ;
+       //
        couleurONoffCarre = cBINonBO ;
      } else {
        couleurONoffCarre = cBOUTonBO ;
@@ -183,7 +151,7 @@ class Simple extends Bouton {
    } else {
      stroke(rougeTresFonce) ; 
      if (detectionCarre() && !dropdownActivity) {
-       dedansBoutonCarre = true ;
+       // dedansBoutonCarre = true ;
        couleurONoffCarre = cBINoffBO ;
      } else {
        couleurONoffCarre = cBOUToffBO ;
@@ -196,10 +164,10 @@ class Simple extends Bouton {
  ////////////////////////////////////
  void boutonCercle () {
    strokeWeight (1) ;
-   if (JouerBoutonCercle ) {
+   if (onOff) {
      stroke(vertTresFonce) ;
-     if ( detectionCercle() && !dropdownActivity) {
-       dedansBoutonCercle = true ;
+     if (detectionCercle() && !dropdownActivity) {
+       // dedansBoutonCercle = true ;
        couleurONoffCercle = cBINonBO ;
      } else {
        couleurONoffCercle = cBOUTonBO ;
@@ -207,7 +175,7 @@ class Simple extends Bouton {
    } else {
      stroke(rougeTresFonce) ;
      if (detectionCercle() && !dropdownActivity) {
-       dedansBoutonCercle = true ;
+       //dedansBoutonCercle = true ;
        couleurONoffCercle = cBINoffBO ;
      } else {
        couleurONoffCercle = cBOUToffBO ;
@@ -229,16 +197,16 @@ class Simple extends Bouton {
  // vignette_OFF_in_simple, vignette_OFF_out_simple, vignette_ON_in_simple, vignette_ON_out_simple
  void boutonVignette(PImage[] vignette_OFF_in, PImage[] vignette_OFF_out, PImage[] vignette_ON_in, PImage[] vignette_ON_out, int wichVignette) {
    
-   if (JouerBoutonCarre ) {
+   if (onOff ) {
      if (detectionCarre() && !dropdownActivity) {
-       dedansBoutonCarre = true ;
+       //dedansBoutonCarre = true ;
        image(vignette_ON_in[wichVignette],pos.x, pos.y) ;
      } else {
        image(vignette_ON_out[wichVignette],pos.x, pos.y) ;
      }
    } else {
        if (detectionCarre() && !dropdownActivity) {
-       dedansBoutonCarre = true ;
+       //dedansBoutonCarre = true ;
        image(vignette_OFF_in[wichVignette],pos.x, pos.y) ;
      } else {
        image(vignette_OFF_out[wichVignette],pos.x, pos.y) ;
@@ -249,10 +217,10 @@ class Simple extends Bouton {
  
  //SOUND button
  void boutonSonPetit () {
-   if ( JouerBoutonCarre ) {
+   if ( onOff ) {
      if (detectionCarre() && !dropdownActivity) {
        //ON
-       dedansBoutonCarre = true ;
+       // dedansBoutonCarre = true ;
        image(bouton[1],pos.x, pos.y ) ;
      } else {
        image(bouton[0],pos.x, pos.y ) ;
@@ -260,7 +228,7 @@ class Simple extends Bouton {
    } else {
      //OFF
        if (detectionCarre() && !dropdownActivity) {
-       dedansBoutonCarre = true ;
+       //dedansBoutonCarre = true ;
        image(bouton[3],pos.x, pos.y ) ;
      } else {
        image(bouton[2],pos.x, pos.y) ;
@@ -270,16 +238,16 @@ class Simple extends Bouton {
  
  //ACTION Button
  void boutonAction () {
-   if ( JouerBoutonCarre ) {
+   if ( onOff ) {
      if (detectionCarre() && !dropdownActivity) {
-       dedansBoutonCarre = true ;
+       // dedansBoutonCarre = true ;
        image(bouton[11],pos.x, pos.y) ;
      } else {
        image(bouton[10],pos.x, pos.y) ;
      }
    } else {
        if (detectionCarre() && !dropdownActivity) {
-       dedansBoutonCarre = true ;
+       // dedansBoutonCarre = true ;
        image(bouton[13],pos.x, pos.y) ;
      } else {
        image(bouton[12],pos.x, pos.y) ;
@@ -289,10 +257,10 @@ class Simple extends Bouton {
  
  ///BUTTON Texte
  void boutonTexte(String s, int x, int y) {
-   if (JouerBoutonCarre) {
+   if (onOff) {
      stroke(vertTresFonce) ;
      if ( detectionCarre() && !dropdownActivity) { 
-       dedansBoutonCarre = true ;
+       // dedansBoutonCarre = true ;
        couleurONoffCarre = cBINonBO ;
      } else {
        couleurONoffCarre = cBOUTonBO ;
@@ -300,7 +268,7 @@ class Simple extends Bouton {
    } else {
       stroke(rougeTresFonce) ; 
      if ( detectionCarre() && !dropdownActivity) {
-       dedansBoutonCarre = true ;
+       // dedansBoutonCarre = true ;
        couleurONoffCarre = cBINoffBO ;
      } else {
        couleurONoffCarre = cBOUToffBO ;
@@ -312,16 +280,16 @@ class Simple extends Bouton {
  }
  
  void boutonTexte(String s, PVector pos, PFont font, int sizeFont) {
-   if (JouerBoutonCarre) {
+   if (onOff) {
      if (detectionCarre(sizeFont) && !dropdownActivity) {
-       dedansBoutonCarre = true ;
+       // dedansBoutonCarre = true ;
        couleurONoffCarre = cBINonBO ;
      } else {
        couleurONoffCarre = cBOUTonBO ;
      }
    } else {
      if (detectionCarre(sizeFont) && !dropdownActivity) {
-       dedansBoutonCarre = true ;
+       // dedansBoutonCarre = true ;
        couleurONoffCarre = cBINoffBO ;
      } else {
        couleurONoffCarre = cBOUToffBO ;
@@ -336,10 +304,10 @@ class Simple extends Bouton {
  ////////////////////////////////////
  void boutonCarreEcran (String s, PVector localpos) {
    strokeWeight (1) ;
-   if ( JouerBoutonCarre ) {
+   if (onOff) {
      stroke(vertTresFonce) ;
      if (detectionCarre() && !dropdownActivity) { 
-       dedansBoutonCarre = true ;
+       // dedansBoutonCarre = true ;
        couleurONoffCarre = cBINonBO ;
      } else {
        couleurONoffCarre = cBOUTonBO ;
@@ -347,7 +315,7 @@ class Simple extends Bouton {
    } else {
      stroke(rougeTresFonce) ; 
      if (detectionCarre() && !dropdownActivity) {
-       dedansBoutonCarre = true ;
+       // dedansBoutonCarre = true ;
        couleurONoffCarre = cBINoffBO ;
      } else {
        couleurONoffCarre = cBOUToffBO ;
@@ -362,11 +330,13 @@ class Simple extends Bouton {
  }
 
 
-//.........................................................................................
-  int getEtatBoutonCercle() { // nom de variable et () permet de récupérer les données d'un return
-    return etatBoutonCercle ;
+  // return the statement of the button is this one is ON or OFF
+  int getOnOff() { 
+    if (!onOff) return 0 ; else return 1 ;
   }
-  int getEtatBoutonCarre() { // nom de variable et () permet de récupérer les données d'un return
-    return etatBoutonCarre ;
-  }
+  
+  //MIDI
+  int IDmidi() { return IDmidi ; }
+  // 
+  //void selectIDmidi(int num) { IDmidi = num ; }
 }

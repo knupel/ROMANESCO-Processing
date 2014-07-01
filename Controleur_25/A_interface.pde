@@ -33,7 +33,7 @@ int margeLeft  ; // marge left for the first GUI button and slider
 int startingTopPosition  ; // marge top to starting position of the GUI button and slider
 
 int sliderHeight = 6 ;
-RegletteHorizontale [] Slider = new RegletteHorizontale [NUM_SLIDER] ;
+SliderHorizontal [] Slider = new SliderHorizontal [NUM_SLIDER] ;
 int suivitSlider[] = new int[NUM_SLIDER] ; 
 int posWidthSlider[] = new int[NUM_SLIDER] ;
 int posHeightSlider[] = new int[NUM_SLIDER] ;
@@ -82,30 +82,6 @@ int posXSlider[] =      new int[NUM_SLIDER *2] ;
 
 
 
-//SETUP
-void interfaceSetup() {
-  checkImageFolder() ;
-  checkFileTextFolder() ;
-  fontSetup() ;
-  midiSetup() ;
-  importPicButtonSetup() ;
-  buttonSliderSetup() ;
-  constructorSliderButton() ;
-}
-
-void interfaceDraw() {
-  checkImageFolder() ;
-  checkFileTextFolder() ;
-  initLiveData() ;
-  textDraw() ;
-  midiDraw() ;
-  sliderDraw() ;
-  buttonDraw() ;
-}
-
-//END GLOBAL
-///////////
-
 
 
 
@@ -120,18 +96,146 @@ void midiSetup() {
   midiIO = MidiIO.getInstance(this);
   //open the first midi channel of the first device if there Input
   if ( midiIO.numberOfInputDevices() > 0 ) midiIO.openInput(0,0);
+  indexMidiButton() ;
 }
 //DRAW
 void midiDraw() {
   //save midi setting molette
   // String [] newSettingMidi = new String[numSlider] ;
-  if ( EtatMidiButton == 1 ) selectMidi = true ; else selectMidi = false ;
+  if (EtatMidiButton == 1) selectMidi = true ; else selectMidi = false ;
+  
+
 }
-//END MIDI
 
 
 
-//BUTTON
+
+// MIDI SETTING
+void midiButtonManager(boolean saveButton) {
+  // close loop for load save button
+  // see void buttonSetSaveSetting()
+  int rank = 0 ;
+  midiButton(buttonBackground, rank++, saveButton) ;
+  midiButton(BOcurtain, rank++, saveButton) ;
+  
+  midiButton(buttonLightOne, rank++, saveButton) ;
+  midiButton(buttonLightOneAction, rank++, saveButton) ;
+  midiButton(buttonLightTwo, rank++, saveButton) ;
+  midiButton(buttonLightTwoAction, rank++, saveButton) ;
+  
+  midiButton(Bbeat, rank++, saveButton) ;
+  midiButton(Bkick, rank++, saveButton) ;
+  midiButton(Bsnare, rank++, saveButton) ;
+  midiButton(Bhat, rank++, saveButton) ;
+  
+  int whichGroup = 1 ;
+  for( int i = 1 ; i <= numGroup[whichGroup ] ; i++ ) {
+    rank = 1 ;
+    midiButton(BOf[posRankButton(i,rank)], posRankButton(i,rank), saveButton) ; rank++ ;
+    midiButton(BOf[posRankButton(i,rank)], posRankButton(i,rank), saveButton) ; rank++ ;
+    midiButton(BOf[posRankButton(i,rank)], posRankButton(i,rank), saveButton) ; rank++ ;
+    midiButton(BOf[posRankButton(i,rank)], posRankButton(i,rank), saveButton) ;
+  }
+  whichGroup = 2 ; 
+  for( int i = 1 ; i <= numGroup[whichGroup] ; i++ ) {
+    rank = 1 ;
+    midiButton(BTf[posRankButton(i,rank)], posRankButton(i,rank), saveButton) ; rank++ ;
+    midiButton(BTf[posRankButton(i,rank)], posRankButton(i,rank), saveButton) ; rank++ ;
+    midiButton(BTf[posRankButton(i,rank)], posRankButton(i,rank), saveButton) ; rank++ ; 
+    midiButton(BTf[posRankButton(i,rank)], posRankButton(i,rank), saveButton) ;     
+  }
+  whichGroup = 3 ;
+  for( int i = 1 ; i <= numGroup[whichGroup] ; i++ ) {
+    rank = 1 ;
+    midiButton(BTYf[posRankButton(i,rank)], posRankButton(i,rank), saveButton) ; rank++ ;
+    midiButton(BTYf[posRankButton(i,rank)], posRankButton(i,rank), saveButton) ; rank++ ;
+    midiButton(BTYf[posRankButton(i,rank)], posRankButton(i,rank), saveButton) ; rank++ ;
+    midiButton(BTYf[posRankButton(i,rank)], posRankButton(i,rank), saveButton) ;
+  }
+}
+//
+int posRankButton(int pos, int rank) {
+  return pos*10 +rank ;
+}
+///////////
+
+
+boolean loadButton = true ;
+void midiButton(Button b, int IDbutton, boolean saveButton) {
+
+  setttingMidiButton(b) ;
+  updateMidiButton(b) ;
+  if(saveButton) setButton(IDbutton, b.IDmidi(), b.onOff) ;
+  
+}
+void setttingMidiButton(Button b) {
+  // setting midi
+  if(selectMidi && b.inside && mousePressed) b.selectIDmidi(numMidi) ;
+}
+void updateMidiButton(Button b) {
+  // update midi
+   if(valMidi == 127 && numMidi == b.IDmidi()) {
+    b.onOff = !b.onOff ;
+    valMidi = 0 ;
+  }
+}
+
+// SLIDER SAVE
+void saveSlider() {
+  for (int i = 1 ; i < NUM_SLIDER_GLOBAL ; i++) {
+     float v = valueSlider[i] ;
+     setSlider(i, -2, v) ;
+  }
+  for (int i = 1 ; i < NUM_GROUP_SLIDER ; i++) { 
+    for(int j = 1 ; j < SLIDER_BY_GROUP ; j++) {
+      float v =  valueSlider[j +(i *100)] ; 
+      setSlider(j +(i *100), -2, v) ;
+    }
+  }
+  showAllSliders = false ;
+}
+
+
+
+
+// BUTTON SAVE
+Table saveSetting ;
+//write the value in the table
+void setButton(int IDbutton, int IDmidi, boolean b) {
+  TableRow buttonSetting = saveSetting.addRow() ;
+  buttonSetting.setString("Type", "Button") ;
+  buttonSetting.setInt("ID button", IDbutton) ;
+  buttonSetting.setInt("ID midi", IDmidi) ;
+  if(b) buttonSetting.setInt("On Off", 1) ; else buttonSetting.setInt("On Off", 0) ;
+}
+void setSlider(int IDslider, int IDmidi, float value) {
+  TableRow sliderSetting = saveSetting.addRow() ;
+  sliderSetting.setString("Type", "Slider") ;
+  sliderSetting.setInt("ID slider", IDslider) ;
+  sliderSetting.setInt("ID midi", IDmidi) ;
+  sliderSetting.setFloat("Value slider", value) ; 
+}
+
+void indexMidiButton() {
+  saveSetting = new Table() ;
+  saveSetting.addColumn("Type") ;
+  saveSetting.addColumn("ID slider") ;
+  saveSetting.addColumn("Value slider") ;
+  saveSetting.addColumn("ID button") ;
+  saveSetting.addColumn("On Off") ;
+  saveSetting.addColumn("ID midi") ;
+  
+  
+  
+  //saveButton [whichOne] = byte(valueSlider[whichOne] ) ;
+  //saveButton [whichOne + NUM_SLIDER] = byte(Slider[whichOne].IDmidi() ) ;
+}
+// END MIDI
+
+
+
+
+
 
 //SETUP
 void buttonSliderSetup() {
@@ -295,30 +399,30 @@ void constructorSliderButton() {
   color OffInColor = rouge ;
   color OffOutColor = rougeFonce ;
   
-  buttonBackground = new Simple(posBackgroundButton, sizeBackgroundButton, OnInColor, OnOutColor, OffInColor, OffOutColor) ;
+  buttonBackground = new Simple(posBackgroundButton, sizeBackgroundButton, OnInColor, OnOutColor, OffInColor, OffOutColor, true) ;
   // LIGHT ONE
-  buttonLightOne = new Simple(posLightOneButton, sizeLightOneButton, OnInColor, OnOutColor, OffInColor, OffOutColor) ;
-  buttonLightOneAction = new Simple(posLightOneAction, sizeLightOneAction, OnInColor, OnOutColor, OffInColor, OffOutColor) ;
+  buttonLightOne = new Simple(posLightOneButton, sizeLightOneButton, OnInColor, OnOutColor, OffInColor, OffOutColor, false) ;
+  buttonLightOneAction = new Simple(posLightOneAction, sizeLightOneAction, OnInColor, OnOutColor, OffInColor, OffOutColor, false) ;
   // LIGHT TWO 
-  buttonLightTwo = new Simple(posLightTwoButton, sizeLightTwoButton, OnInColor, OnOutColor, OffInColor, OffOutColor) ;
-  buttonLightTwoAction = new Simple(posLightTwoAction, sizeLightTwoAction, OnInColor, OnOutColor, OffInColor, OffOutColor) ;
+  buttonLightTwo = new Simple(posLightTwoButton, sizeLightTwoButton, OnInColor, OnOutColor, OffInColor, OffOutColor, false) ;
+  buttonLightTwoAction = new Simple(posLightTwoAction, sizeLightTwoAction, OnInColor, OnOutColor, OffInColor, OffOutColor, false) ;
   //button beat
-  Bbeat = new Simple(posBeatButton, sizeBeatButton, OnInColor, OnOutColor, OffInColor, OffOutColor) ;
-  Bkick = new Simple(posKickButton, sizeKickButton, OnInColor, OnOutColor, OffInColor, OffOutColor) ;
-  Bsnare = new Simple(posSnareButton, sizeSnareButton, OnInColor, OnOutColor, OffInColor, OffOutColor) ;
-  Bhat = new Simple(posHatButton, sizeHatButton, OnInColor, OnOutColor, OffInColor, OffOutColor) ;
+  Bbeat = new Simple(posBeatButton, sizeBeatButton, OnInColor, OnOutColor, OffInColor, OffOutColor, false) ;
+  Bkick = new Simple(posKickButton, sizeKickButton, OnInColor, OnOutColor, OffInColor, OffOutColor, false) ;
+  Bsnare = new Simple(posSnareButton, sizeSnareButton, OnInColor, OnOutColor, OffInColor, OffOutColor, false) ;
+  Bhat = new Simple(posHatButton, sizeHatButton, OnInColor, OnOutColor, OffInColor, OffOutColor, false) ;
   //MIDI
-  BOmidi  = new Simple (posMidiButton, sizeMidiButton, OnInColor, OnOutColor, OffInColor, OffOutColor) ;
+  BOmidi  = new Simple (posMidiButton, sizeMidiButton, OnInColor, OnOutColor, OffInColor, OffOutColor, false) ;
   //curtain
-  BOcurtain  = new Simple (posCurtainButton, sizeCurtainButton, OnInColor, OnOutColor, OffInColor, OffOutColor) ;
+  BOcurtain  = new Simple (posCurtainButton, sizeCurtainButton, OnInColor, OnOutColor, OffInColor, OffOutColor, true) ;
   
   //button object, texture, typography
   for(int i = 1 ; i < NUM_GROUP_SLIDER ; i++) {
     int num = numButton[i] ;
     for ( int j = 11 ; j < 10+num ; j++) {
-      if(numGroup[1] > 0 && i == 1) BOf[j] = new Simple(  posWidthBOf[j], posHeightBOf[j], longueurBOf[j], hauteurBOf[j], boutonONin, boutonONout, boutonOFFin, boutonOFFout, gris, grisNoir ) ; 
-      if(numGroup[2] > 0 && i == 2) BTf[j] = new Simple(  posWidthBTf[j], posHeightBTf[j], longueurBTf[j], hauteurBTf[j], boutonONin, boutonONout, boutonOFFin, boutonOFFout, gris, grisNoir ) ;
-      if(numGroup[3] > 0 && i == 3) BTYf[j] = new Simple(  posWidthBTYf[j], posHeightBTYf[j], longueurBTYf[j], hauteurBTYf[j], boutonONin, boutonONout, boutonOFFin, boutonOFFout, gris, grisNoir ) ;
+      if(numGroup[1] > 0 && i == 1) BOf[j] = new Simple(  posWidthBOf[j], posHeightBOf[j], longueurBOf[j], hauteurBOf[j], boutonONin, boutonONout, boutonOFFin, boutonOFFout, gris, grisNoir, false) ; 
+      if(numGroup[2] > 0 && i == 2) BTf[j] = new Simple(  posWidthBTf[j], posHeightBTf[j], longueurBTf[j], hauteurBTf[j], boutonONin, boutonONout, boutonOFFin, boutonOFFout, gris, grisNoir, false) ;
+      if(numGroup[3] > 0 && i == 3) BTYf[j] = new Simple(  posWidthBTYf[j], posHeightBTYf[j], longueurBTYf[j], hauteurBTYf[j], boutonONin, boutonONout, boutonOFFin, boutonOFFout, gris, grisNoir, false) ;
     }
 
   }
@@ -327,10 +431,8 @@ void constructorSliderButton() {
   
   //slider
   for ( int i = 1 ; i < NUM_SLIDER ; i++ ) {
-    //exception for the slider who must show the color
-    int opacityReglette = 200 ;
-    if ( (i < 4) || ( i > 6 && i < 13) || ( i > 100 && i < 109) || ( i > 200 && i < 209) || ( i > 300 && i < 309) ) opacityReglette = 0 ; else opacityReglette = 200 ;
-    Slider[i] = new RegletteHorizontale  (posWidthSlider[i], posHeightSlider[i], longueurSlider[i], hauteurSlider[i], suivitSlider[i], orange, rouge, blancGrisClair, opacityReglette, loadR [i], loadR [i+NUM_SLIDER]);
+    int opacity = 100 ;
+    if(infoSave(infoSlider,i).x > -1 ) Slider[i] = new SliderHorizontal  (posWidthSlider[i], posHeightSlider[i], longueurSlider[i], hauteurSlider[i], suivitSlider[i], orange, rouge, blancGrisClair, opacity, infoSave(infoSlider, i).z, (int)infoSave(infoSlider, i).y);
   } 
 }
 //END CONSTRUCTOR
@@ -344,11 +446,12 @@ void constructorSliderButton() {
 
 
 
+
+
 //STRUCTURE
 //DRAW
 void structureDraw() {
   //background
-  // fill(noirGris) ; rect(0, 0, width, height ) ;
   fill(grisNoir) ; rect(0, 24, width, 31) ; // main band
   fill(gris) ; rect(0, 24+31, width, 100 ) ; // //GROUP ZERO
   fill(grisClair) ; rect(0, posHeightBO -15, width, 160 ) ;   //GROUP ONE
@@ -400,7 +503,7 @@ void textDraw() {
   int posTextY = 18 ;
   textFont(FuturaStencil_20,16); 
   text(nameVersion, 5, posTextY);
-  textFont(textInterface) ;
+  textFont(textUsual_1) ;
   text("Edition " + edition + " Version " + version, 160,posTextY -1) ; 
   //CLOCK
   textFont(FuturaStencil_20,16); textAlign(RIGHT);
@@ -419,9 +522,9 @@ void dispayTextSliderGroupZero(int pos) {
   textFont(FuturaStencil_20,20); textAlign(LEFT);
   //fill(blanc, 120) ;
 
-  fill (typoTitre) ; 
-  textFont(textInterface, sizeTexteInterface) ; textAlign(LEFT);
-  fill (typoCourante) ;
+  fill (colorTitle) ; 
+  textFont(textUsual_1) ; textAlign(LEFT);
+  fill (colorTextUsual) ;
   //BACKGROUND
   text(genTxtGUI[1], posWidthSlider[1] +116, posHeightSlider[1] +correction);
   text(genTxtGUI[2], posWidthSlider[2] +116, posHeightSlider[2] +correction);
@@ -436,8 +539,8 @@ void dispayTextSliderGroupZero(int pos) {
   text(genTxtGUI[13], posWidthSlider[11] +116, posHeightSlider[11] +correction);
   text(genTxtGUI[14], posWidthSlider[12] +116, posHeightSlider[12] +correction);
   
-  fill (typoCourante) ;
-  textFont(textInterface); 
+  fill (colorTextUsual) ;
+  textFont(textUsual_1); 
   text(genTxtGUI[5], posWidthSlider[5] +116, posHeightSlider[5] +correction);
   text(genTxtGUI[6], posWidthSlider[6] +116, posHeightSlider[6] +correction);
 }
@@ -449,22 +552,22 @@ void dislayTextSlider() {
   textFont(FuturaStencil_20,20); textAlign(RIGHT);
   fill(grisFonce) ;
   pushMatrix () ; rotate (-PI/2) ;  text("GROUP ONE", -posHeightRO +70, 20); popMatrix() ;
-  fill (typoCourante) ;
-  textFont(textInterface);  textAlign(LEFT);
+  fill (colorTextUsual) ;
+  textFont(textUsual_1);  textAlign(LEFT);
   
   // GROUP TWO
   textFont(FuturaStencil_20,20);  textAlign(RIGHT);
   fill(grisFonce) ;
   pushMatrix () ; rotate (-PI/2) ;  text("GROUP TWO", -posHeightRT +70, 20); popMatrix() ;
-  fill (typoCourante) ;
-  textFont(textInterface);  textAlign(LEFT);
+  fill (colorTextUsual) ;
+  textFont(textUsual_1);  textAlign(LEFT);
   
   //GROUP THREE
   textFont(FuturaStencil_20,20); textAlign(RIGHT);
   fill(grisFonce) ;
   pushMatrix () ; rotate (-PI/2) ; text("GROUP THREE", -posHeightRTY +70, 20); popMatrix() ;
-  fill (typoCourante) ;
-  textFont(textInterface); textAlign(LEFT);
+  fill (colorTextUsual) ;
+  textFont(textUsual_1); textAlign(LEFT);
   
   // Legend text slider position
   int correctionPos = 3 ;
@@ -554,28 +657,27 @@ void sliderDraw() {
 // annexe void molette
 void updateMolette(int whichOne) {
   PVector sizeMoletteSlider = new PVector (8,10, 1.5) ; // width, height, thickness
+  
+  //MIDI function
   //give which button is active and check is this button have a same IDmidi that Object
   if (numMidi == Slider[whichOne].IDmidi() ) Slider[whichOne].updateMidi(valMidi) ;
   //to add an IDmidi from the internal setting to object
-  if (selectMidi && Slider[whichOne].lock() ) { Slider[whichOne].selectIDmidi(numMidi) ; }
+  if (selectMidi && Slider[whichOne].lock() ) Slider[whichOne].selectIDmidi(numMidi) ; 
   //to add an ID midi from the save
-  if(loadSliderPos) { 
-    Slider[whichOne].selectIDmidi(int(loadR [whichOne + NUM_SLIDER]) ) ;
-  }
+  if(loadSaveSetting) Slider[whichOne].selectIDmidi((int)infoSave(infoSlider, whichOne).y ) ;
+
+  
   // update and display
-  Slider[whichOne].update(mouseX, loadR[whichOne]);    
+  Slider[whichOne].update(mouseX, (int)infoSave(infoSlider, whichOne).z, loadSaveSetting); 
   Slider[whichOne].displayMolette(rouge, orange, blanc, sizeMoletteSlider);
 
   //return value between 0 / 100
   valueSlider[whichOne] = constrain(map(Slider[whichOne].getPos(), 0, 104, 0,100),0,100)  ;
   // save data
-  saveMolette (whichOne) ;  
+  //  
 }
 
-void saveMolette(int whichOne) {
-  saveR [whichOne] = byte(valueSlider[whichOne] ) ;
-  saveR [whichOne + NUM_SLIDER] = byte(Slider[whichOne].IDmidi() ) ;
-}
+
 //END MOLETTE
 ////////////
 
@@ -727,15 +829,23 @@ void sliderDrawGroupZero () {
 
 
 /////////////////////
-void buttonDraw () {
-  textFont(textInterface) ;
+void buttonDraw() {
+  textFont(textUsual_1) ;
   buttonDrawGroupZero() ;
   buttonDrawGroupOne() ;
   buttonDrawGroupTwo() ;
   buttonDrawGroupThree() ;
   buttonCheckDraw() ;
   dropdownDraw() ;
+  midiButtonManager(false) ;
 }
+
+
+
+
+
+
+
 
 // DETAIL
 // GROUP ZERO
@@ -772,7 +882,7 @@ void buttonDrawGroupOne() {
 }
 // GROUP TWO
 void buttonDrawGroupTwo() {
-    for( int i = 1 ; i <= numGroup[2] ; i++ ) {
+  for( int i = 1 ; i <= numGroup[2] ; i++ ) {
     BTf[i*10 +1].boutonVignette(vignette_OFF_in_texture, vignette_OFF_out_texture, vignette_ON_in_texture, vignette_ON_out_texture, i) ; 
     BTf[i*10 +2].boutonCarre () ; 
     BTf[i*10 +3].boutonSonPetit () ; 
@@ -785,7 +895,7 @@ void buttonDrawGroupTwo() {
 
 //GROUP THREE
 void buttonDrawGroupThree() {
-    for( int i = 1 ; i <= numGroup[3] ; i++ ) {
+  for( int i = 1 ; i <= numGroup[3] ; i++ ) {
     BTYf[i*10 +1].boutonVignette(vignette_OFF_in_typography, vignette_OFF_out_typography, vignette_ON_in_typography, vignette_ON_out_typography, i) ; 
     BTYf[i*10 +2].boutonCarre () ; 
     BTYf[i*10 +3].boutonSonPetit () ; 
@@ -799,36 +909,35 @@ void buttonDrawGroupThree() {
 
 
 void buttonCheckDraw() {
-  EtatBackgroundButton = buttonBackground.getEtatBoutonCarre() ;
+  EtatBackgroundButton = buttonBackground.getOnOff() ;
   //LIGHT ONE
-  EtatLightOneButton = buttonLightOne.getEtatBoutonCarre() ;
-  EtatLightOneAction = buttonLightOneAction.getEtatBoutonCarre() ;
+  EtatLightOneButton = buttonLightOne.getOnOff() ;
+  EtatLightOneAction = buttonLightOneAction.getOnOff() ;
   // LIGHT TWO
-  EtatLightTwoButton = buttonLightTwo.getEtatBoutonCarre() ;
-  EtatLightTwoAction = buttonLightTwoAction.getEtatBoutonCarre() ;
+  EtatLightTwoButton = buttonLightTwo.getOnOff() ;
+  EtatLightTwoAction = buttonLightTwoAction.getOnOff() ;
   //SOUND
-  EtatBbeat = Bbeat.getEtatBoutonCarre() ;
-  EtatBkick = Bkick.getEtatBoutonCarre() ;
-  EtatBsnare = Bsnare.getEtatBoutonCarre() ;
-  EtatBhat = Bhat.getEtatBoutonCarre() ;
+  EtatBbeat = Bbeat.getOnOff() ;
+  EtatBkick = Bkick.getOnOff() ;
+  EtatBsnare = Bsnare.getOnOff() ;
+  EtatBhat = Bhat.getOnOff() ;
   //Check position of button
-  EtatMidiButton = BOmidi.getEtatBoutonCarre() ;
-  EtatCurtainButton = BOcurtain.getEtatBoutonCarre() ;
+  EtatMidiButton = BOmidi.getOnOff() ;
+  EtatCurtainButton = BOcurtain.getOnOff() ;
 
 
   //Statement button, if are OFF or ON
   for(int i = 1 ; i < NUM_GROUP_SLIDER ; i++) {
     int num = numButton[i] +10 ;
     for( int j = 11 ; j < num ; j++) {
-      if(numGroup[1] > 0 && i == 1 ) {
-        EtatBOf[j-10] = BOf[j].getEtatBoutonCarre() ;
-      }
-      if(numGroup[2] > 0 && i == 2 ) EtatBTf[j-10] = BTf[j].getEtatBoutonCarre() ;
-      if(numGroup[3] > 0 && i == 3 ) EtatBTYf[j-10] = BTYf[j].getEtatBoutonCarre() ;
+      if(numGroup[1] > 0 && i == 1 ) EtatBOf[j-10] = BOf[j].getOnOff() ;
+      if(numGroup[2] > 0 && i == 2 ) EtatBTf[j-10] = BTf[j].getOnOff() ;
+      if(numGroup[3] > 0 && i == 3 ) EtatBTYf[j-10] = BTYf[j].getOnOff() ;
     }
   }
-
 }
+
+
 
 
 
@@ -859,14 +968,12 @@ void rolloverInfoVignette(PVector pos, PVector size, int IDorder, int IDfamily) 
 }
 
 void lookAndDisplayInfo(int IDorder, PVector pos) {
-  int whichOne = 0 ;
   int whichLine = 0 ;
   int num = objectList.getRowCount() ;
   for ( int j = 0 ; j < num ; j++) {
     TableRow lookFor = objectList.getRow(j);
     int ID = lookFor.getInt("ID") ;
     if ( ID == IDorder ) {
-      whichOne = ID ;
       whichLine = j ;
     }
   }
@@ -874,7 +981,8 @@ void lookAndDisplayInfo(int IDorder, PVector pos) {
   String NameObj = displayInfo.getString("Name") ;
   String AuthorObj = displayInfo.getString("Author") ;
   String VersionObj = displayInfo.getString("Version") ;
-  String PackObj = displayInfo.getString("Pack") ;    
+  String PackObj = displayInfo.getString("Pack") ; 
+  fill(jaune) ;  
   textSize(20 ) ;
   textFont(FuturaStencil_20) ;
   text(NameObj, mouseX +pos.x, mouseY +pos.y -25) ;
@@ -946,18 +1054,23 @@ void fondRegletteDensite ( int posX, int posY, int hauteur, int largeur, float c
 
 
 
-
+// DROPDOWN
 int refSizeImageDropdown, refSizeFileTextDropdown ;
 PVector posTextDropdownImage, posTextDropdownFileText ; 
-color colorTopDropdownBoxOut, selectedText ;
+color selectedText ;
+color colorBoxIn, colorBoxOut, colorBoxText, colorDropdownBG, colorDropdownTitleIn, colorDropdownTitleOut ;
+int sizeToRenderTheBoxDropdown = 15 ;
 
 void dropdownSetup() {
-   //colorTopDropdownBG = vertClair ;
-   //colorTopDropdownBoxIn = rouge ;
-   colorTopDropdownBoxOut = orange ;
+   //dropdown
+   colorDropdownBG = rougeTresFonce ;
+   colorDropdownTitleIn = jaune ;
+   colorDropdownTitleOut = orange ;
+   colorBoxIn = jaune ; 
+   colorBoxOut = orange ;
+   colorBoxText = rougeFonce ;
    selectedText = vertFonce ;
-   //colorTopDropdownBoxText = vertClair ;
-   // colorTopDropdownBoxOut, colorTopDropdownBoxText ;
+
   //load the external list  for each mode and split to read in the interface
   for (int i = 0 ; i<objectList.getRowCount() ; i++) {
     TableRow row = objectList.getRow(i);
@@ -972,42 +1085,45 @@ void dropdownSetup() {
   initLiveData() ;
  
   //SHADER backgorund dropdown
+  
   ///////////////
   posDropdownBackground = new PVector(posButtonBackground.x, posButtonBackground.y, 0.1)  ; // x y is pos anz z is marge between the dropdown and the header
-  sizeDropdownBackground = new PVector (75, 13, 15 ) ;
+  sizeDropdownBackground = new PVector (75, sizeToRenderTheBoxDropdown, 10) ; // z is the num of line you show
   PVector posTextDropdownBackground = new PVector(3, 10)  ;
-  dropdownBackground = new Dropdown("Background", shaderBackgroundName, posDropdownBackground, sizeDropdownBackground, posTextDropdownBackground, colorBG, colorBoxIn, colorTopDropdownBoxOut, colorBoxText, sizeTexteInterface) ;
+  dropdownBackground = new Dropdown("Background", shaderBackgroundName, posDropdownBackground, sizeDropdownBackground, posTextDropdownBackground, colorDropdownBG, colorDropdownTitleIn, colorDropdownTitleOut, colorBoxIn, colorBoxOut, colorBoxText, sizeToRenderTheBoxDropdown) ;
   
   
   //FONT dropdown
   ///////////////
   posDropdownFont = new PVector(posButtonFont.x, posButtonFont.y, 0.1)  ; // x y is pos anz z is marge between the dropdown and the header
-  sizeDropdownFont = new PVector (40, 13, 15 ) ;
+  sizeDropdownFont = new PVector (40, sizeToRenderTheBoxDropdown, 10 ) ; // z is the num of line you show
   PVector posTextDropdownTypo = new PVector(3, 10)  ;
-  dropdownFont = new Dropdown("Font", policeDropdownList,   posDropdownFont , sizeDropdownFont, posTextDropdownTypo, colorBG, colorBoxIn, colorTopDropdownBoxOut, colorBoxText, sizeTexteInterface) ;
+  dropdownFont = new Dropdown("Font", policeDropdownList,   posDropdownFont , sizeDropdownFont, posTextDropdownTypo, colorDropdownBG, colorDropdownTitleIn, colorDropdownTitleOut, colorBoxIn, colorBoxOut, colorBoxText, sizeToRenderTheBoxDropdown) ;
   
   // Image Dropdown
   //////////////////
   posDropdownImage = new PVector(posButtonImage.x, posButtonImage.y, 0.1)  ; // x y is pos anz z is marge between the dropdown and the header
-  sizeDropdownImage = new PVector (60, 13, 15 ) ;
+  sizeDropdownImage = new PVector (60, sizeToRenderTheBoxDropdown, 10 ) ; // z is the num of line you show
   posTextDropdownImage = new PVector(3, 10)  ;
   refSizeImageDropdown = imageDropdownList.length ;
-  dropdownImage = new Dropdown("Image", imageDropdownList, posDropdownImage, sizeDropdownImage, posTextDropdownImage, colorBG, colorBoxIn, colorTopDropdownBoxOut, colorBoxText, sizeTexteInterface) ;
+  dropdownImage = new Dropdown("Image", imageDropdownList, posDropdownImage, sizeDropdownImage, posTextDropdownImage, colorDropdownBG, colorDropdownTitleIn, colorDropdownTitleOut, colorBoxIn, colorBoxOut, colorBoxText, sizeToRenderTheBoxDropdown) ;
   
   // File text Dropdown
   //////////////////
   posDropdownFileText = new PVector(posButtonFileText.x, posButtonFileText.y, 0.1)  ; // x y is pos anz z is marge between the dropdown and the header
-  sizeDropdownFileText = new PVector (40, 13, 15 ) ;
+  sizeDropdownFileText = new PVector (40, sizeToRenderTheBoxDropdown, 10 ) ; // z is the num of line you show
   posTextDropdownFileText = new PVector(3, 10)  ;
   refSizeFileTextDropdown = fileTextDropdownList.length ;
-  dropdownFileText = new Dropdown("Text", fileTextDropdownList, posDropdownFileText, sizeDropdownFileText, posTextDropdownFileText, colorBG, colorBoxIn, colorTopDropdownBoxOut, colorBoxText, sizeTexteInterface) ;
+  dropdownFileText = new Dropdown("Text", fileTextDropdownList, posDropdownFileText, sizeDropdownFileText, posTextDropdownFileText, colorDropdownBG, colorDropdownTitleIn, colorDropdownTitleOut, colorBoxIn, colorBoxOut, colorBoxText, sizeToRenderTheBoxDropdown) ;
   
   
   
   //MODE Dropdown
   ///////////////
+  colorDropdownTitleIn = rouge ;
+  colorDropdownTitleOut = rougeFonce ;
   //common param
-  sizeDropdownMode = new PVector (20, 10, 9 ) ;
+  sizeDropdownMode = new PVector (20, sizeToRenderTheBoxDropdown, 8) ;
   PVector newPos = new PVector( -8, 40 ) ;
   //object line
   checkTheDropdownSetupObject(startLoopObject, endLoopObject, posWidthBO +newPos.x, posHeightBO +newPos.y) ;
@@ -1026,7 +1142,7 @@ void checkTheDropdownSetupObject( int start, int end, float posWidth, float posH
       //to change the title of the header dropdown
 
       posDropdown[i] = new PVector(posWidth +space, posHeight , 0.1)  ; // x y is pos anz z is marge between the dropdown and the header
-      dropdown[i] = new Dropdown("M", listDropdown, posDropdown[i], sizeDropdownMode, posTextDropdown, colorBG, colorBoxIn, colorBoxOut, colorBoxText, sizeTexteInterface) ;
+      dropdown[i] = new Dropdown("M", listDropdown, posDropdown[i], sizeDropdownMode, posTextDropdown, colorDropdownBG, colorDropdownTitleIn, colorDropdownTitleOut, colorBoxIn, colorBoxOut, colorBoxText, sizeToRenderTheBoxDropdown) ;
     }
   }
 }
@@ -1059,12 +1175,15 @@ void dropdownDraw() {
 // SHADER Background
 void dropdownBackground() {
   
-  dropdownBackground.dropdownUpdate(FuturaStencil_10, textInterface);
+  dropdownBackground.dropdownUpdate(FuturaStencil_10, textUsual_1);
   if (dropdownOpen) dropdownActivityCount = +1 ;
   margeAroundDropdown = sizeDropdownFont.y  ;
   //give the size of menu recalculate with the size of the word inside
-  PVector newSizeFont = dropdownBackground.sizeDropdownMenu() ;
-  totalSizeDropdown = new PVector ( newSizeFont.x +(margeAroundDropdown *1.5), sizeDropdownBackground.y *(sizeDropdownBackground.z +1) +margeAroundDropdown) ; // we must add +1 to the size of the dropdown for the title plus the item list
+  PVector newSizeFont = dropdownBackground.sizeBoxDropdownMenu ;
+  //compare the standard size of dropdown with the number of element of the list.
+  int heightDropdown = 0 ;
+  if(shaderBackgroundName.length < sizeDropdownBackground.z ) heightDropdown = shaderBackgroundName.length ; else heightDropdown = (int)sizeDropdownBackground.z ;
+  totalSizeDropdown = new PVector ( newSizeFont.x +(margeAroundDropdown *1.5), sizeDropdownBackground.y *(heightDropdown +1) +margeAroundDropdown) ; // we must add +1 to the size of the dropdown for the title plus the item list
   //new pos to include the slider
   newPosDropdown = new PVector (posDropdownBackground.x -margeAroundDropdown, posDropdownBackground.y) ;
   if (!insideRect(newPosDropdown, totalSizeDropdown)) dropdownBackground.locked = false ;
@@ -1072,13 +1191,13 @@ void dropdownBackground() {
   
   if(!dropdownBackground.locked) {
     if (dropdownBackground.getSelection() != 0 ) fill(selectedText) ; else fill(rougeFonce) ;
-    textFont(FuturaStencil_10) ;
+    textFont(textUsual_2) ;
     EtatBackground = dropdownBackground.getSelection() ;
     // text(shaderBackgroundName[EtatBackground], posDropdownBackground.x +3 , posDropdownBackground.y +22) ;
     if (dropdownBackground.getSelection() != 0 ) {
       text(shaderBackgroundName[EtatBackground] +" by " +shaderBackgroundAuthor[dropdownBackground.getSelection()], posDropdownBackground.x +3 , posDropdownBackground.y +22) ;
     } else {
-      text(shaderBackgroundName[EtatBackground] +" by nobody", posDropdownBackground.x +3 , posDropdownBackground.y +22) ;
+      text(shaderBackgroundName[EtatBackground], posDropdownBackground.x +3 , posDropdownBackground.y +22) ;
     }
       
   }
@@ -1086,22 +1205,23 @@ void dropdownBackground() {
 
 // FONT
 void dropdownFont() {
-  dropdownFont.dropdownUpdate(FuturaStencil_10, textInterface);
+  dropdownFont.dropdownUpdate(FuturaStencil_10, textUsual_1);
   if (dropdownOpen) dropdownActivityCount = +1 ;
   margeAroundDropdown = sizeDropdownFont.y  ;
   //give the size of menu recalculate with the size of the word inside
-  PVector newSizeFont = dropdownFont.sizeDropdownMenu() ;
-  totalSizeDropdown = new PVector (newSizeFont.x +(margeAroundDropdown *1.5), sizeDropdownFont.y *(sizeDropdownFont.z +1) +margeAroundDropdown) ; // we must add +1 to the size of the dropdown for the title plus the item list
+  PVector newSizeFont = dropdownFont.sizeBoxDropdownMenu ;
+  //compare the standard size of dropdown with the number of element of the list.
+  int heightDropdown = 0 ;
+  if(policeDropdownList.length < sizeDropdownFont.z ) heightDropdown = policeDropdownList.length ; else heightDropdown = (int)sizeDropdownFont.z ;
+  totalSizeDropdown = new PVector (newSizeFont.x +(margeAroundDropdown *1.5), sizeDropdownFont.y *(heightDropdown +1) +margeAroundDropdown) ; // we must add +1 to the size of the dropdown for the title plus the item list
   //new pos to include the slider
   newPosDropdown = new PVector (posDropdownFont.x -margeAroundDropdown, posDropdownFont.y) ;
   if (!insideRect(newPosDropdown, totalSizeDropdown)) dropdownFont.locked = false ;
   
   if(!dropdownFont.locked) {
     fill(selectedText) ;
-    //give the value for the save
-    saveR [7] = byte(dropdownFont.getSelection() +1) ;
     // display the selection
-    textFont(FuturaStencil_10) ;
+    textFont(textUsual_2) ;
     text(policeDropdownList[dropdownFont.getSelection()], posDropdownFont.x +3 , posDropdownFont.y +22) ;
   }
 }
@@ -1111,16 +1231,19 @@ void dropdownFont() {
 void dropdownImage() {
   // live update of the content
   if(imageDropdownList.length != refSizeImageDropdown ) {
-    dropdownImage = new Dropdown("Image", imageDropdownList, posDropdownImage, sizeDropdownImage, posTextDropdownImage, colorBG, colorBoxIn, colorTopDropdownBoxOut, colorBoxText, sizeTexteInterface) ;
+    dropdownImage = new Dropdown("Image", imageDropdownList, posDropdownImage, sizeDropdownImage, posTextDropdownImage, colorDropdownBG, colorDropdownTitleIn, colorDropdownTitleOut, colorBoxIn, colorBoxOut, colorBoxText, sizeToRenderTheBoxDropdown) ;
     refSizeImageDropdown = imageDropdownList.length ;
   }
   
-  dropdownImage.dropdownUpdate(FuturaStencil_10, textInterface);
+  dropdownImage.dropdownUpdate(FuturaStencil_10, textUsual_1);
   if (dropdownOpen) dropdownActivityCount = +1 ;
   margeAroundDropdown = sizeDropdownImage.y  ;
   //give the size of menu recalculate with the size of the word inside
-  PVector newSizeImage = dropdownImage.sizeDropdownMenu() ;
-  totalSizeDropdown = new PVector (newSizeImage.x +(margeAroundDropdown *1.5), sizeDropdownImage.y *(sizeDropdownImage.z +1) +margeAroundDropdown) ; // we must add +1 to the size of the dropdown for the title plus the item list
+  PVector newSizeImage = dropdownImage.sizeBoxDropdownMenu ;
+  //compare the standard size of dropdown with the number of element of the list.
+  int heightDropdown = 0 ;
+  if(imageDropdownList.length < sizeDropdownImage.z ) heightDropdown = imageDropdownList.length ; else heightDropdown = (int)sizeDropdownImage.z ;
+  totalSizeDropdown = new PVector (newSizeImage.x +(margeAroundDropdown *1.5), sizeDropdownImage.y *(heightDropdown +1) +margeAroundDropdown) ; // we must add +1 to the size of the dropdown for the title plus the item list
   //new pos to include the slider
   newPosDropdown = new PVector (posDropdownImage.x -margeAroundDropdown, posDropdownImage.y) ;
   if (!insideRect(newPosDropdown, totalSizeDropdown)) dropdownImage.locked = false ;
@@ -1131,7 +1254,7 @@ void dropdownImage() {
   //  saveR [7] = byte(dropdownImage.getSelection() +1) ;
     // display the selection
     EtatImage = dropdownImage.getSelection() ;
-    textFont(FuturaStencil_10) ;
+    textFont(textUsual_2) ;
     text(imageDropdownList[dropdownImage.getSelection()], posDropdownImage.x +3, posDropdownImage.y +22) ;
   }
 }
@@ -1141,16 +1264,19 @@ void dropdownImage() {
 void dropdownFileText() {
   // live update of the content
   if(fileTextDropdownList.length != refSizeFileTextDropdown ) {
-    dropdownFileText = new Dropdown("Text", fileTextDropdownList, posDropdownFileText, sizeDropdownFileText, posTextDropdownFileText, colorBG, colorBoxIn, colorTopDropdownBoxOut, colorBoxText, sizeTexteInterface) ;
+    dropdownFileText = new Dropdown("Text", fileTextDropdownList, posDropdownFileText, sizeDropdownFileText, posTextDropdownFileText, colorDropdownBG, colorDropdownTitleIn, colorDropdownTitleOut, colorBoxIn, colorBoxOut, colorBoxText, sizeToRenderTheBoxDropdown) ;
     refSizeFileTextDropdown = fileTextDropdownList.length ;
   }
   
-  dropdownFileText.dropdownUpdate(FuturaStencil_10, textInterface);
+  dropdownFileText.dropdownUpdate(FuturaStencil_10, textUsual_1);
   if (dropdownOpen) dropdownActivityCount = +1 ;
   margeAroundDropdown = sizeDropdownFileText.y  ;
   //give the size of menu recalculate with the size of the word inside
-  PVector newSizeFileText = dropdownFileText.sizeDropdownMenu() ;
-  totalSizeDropdown = new PVector ( newSizeFileText.x +(margeAroundDropdown *1.5), sizeDropdownFileText.y *(sizeDropdownFileText.z +1) +margeAroundDropdown) ; // we must add +1 to the size of the dropdown for the title plus the item list
+  PVector newSizeFileText = dropdownFileText.sizeBoxDropdownMenu ;
+  //compare the standard size of dropdown with the number of element of the list.
+  int heightDropdown = 0 ;
+  if(fileTextDropdownList.length < sizeDropdownFileText.z ) heightDropdown = fileTextDropdownList.length ; else heightDropdown = (int)sizeDropdownFileText.z ;
+  totalSizeDropdown = new PVector ( newSizeFileText.x +(margeAroundDropdown *1.5), sizeDropdownFileText.y *(heightDropdown +1) +margeAroundDropdown) ; // we must add +1 to the size of the dropdown for the title plus the item list
   //new pos to include the slider
   newPosDropdown = new PVector (posDropdownFileText.x -margeAroundDropdown, posDropdownFileText.y) ;
   if (!insideRect(newPosDropdown, totalSizeDropdown)) dropdownFileText.locked = false ;
@@ -1161,7 +1287,7 @@ void dropdownFileText() {
     //saveR [7] = byte(dropdownFileText.getSelection() +1) ;
     // display the selection
     EtatFileText = dropdownFileText.getSelection() ;
-    textFont(FuturaStencil_10) ;
+    textFont(textUsual_2) ;
     text(fileTextDropdownList[dropdownFileText.getSelection()], posDropdownFileText.x +3 , posDropdownFileText.y +22) ;
   }
 }
@@ -1172,19 +1298,21 @@ void checkTheDropdownDrawObject( int start, int end ) {
     if(modeListRomanesco[i] != null ) {
       String m [] = split(modeListRomanesco[i], "/") ;
       if ( m.length > 1) {
-        dropdown[i].dropdownUpdate(FuturaStencil_10, textInterface);
+        dropdown[i].dropdownUpdate(FuturaStencil_10, textUsual_1);
         if (dropdownOpen) dropdownActivityCount = +1 ;
         margeAroundDropdown = sizeDropdownMode.y  ;
         //give the size of menu recalculate with the size of the word inside
-        PVector newSizeModeTypo = dropdown[i].sizeDropdownMenu() ;
-        totalSizeDropdown = new PVector ( newSizeModeTypo.x + (margeAroundDropdown *1.5) , sizeDropdownMode.y * (sizeDropdownMode.z +1)  + margeAroundDropdown   ) ; // we must add +1 to the size of the dropdown for the title plus the item list
+        PVector newSizeModeTypo = dropdown[i].sizeBoxDropdownMenu ;
+         int heightDropdown = 0 ;
+        if(dropdown[i].listItem.length < sizeDropdownMode.z ) heightDropdown = dropdown[i].listItem.length ; else heightDropdown = (int)sizeDropdownMode.z ;
+        totalSizeDropdown = new PVector (newSizeModeTypo.x + (margeAroundDropdown *1.5) , sizeDropdownMode.y * (heightDropdown +1)  + margeAroundDropdown   ) ; // we must add +1 to the size of the dropdown for the title plus the item list
          //new pos to include the slider
-        newPosDropdown = new PVector ( posDropdown[i].x - margeAroundDropdown  , posDropdown[i].y ) ;
-        if ( !insideRect(newPosDropdown, totalSizeDropdown) ) {
+        newPosDropdown = new PVector (posDropdown[i].x - margeAroundDropdown, posDropdown[i].y) ;
+        if ( !insideRect(newPosDropdown, totalSizeDropdown)) {
           dropdown[i].locked = false;
         }
       }
-      if (dropdown[i].getSelection() > -1 && m.length > 1 ) {
+      if (dropdown[i].getSelection() > -1 && m.length > 1) {
         textFont(FuturaStencil_10) ;
         text(dropdown[i].getSelection() +1, posDropdown[i].x +12 , posDropdown[i].y +8) ;
       }
@@ -1216,7 +1344,7 @@ void checkDropdownBackground() {
     if (insideRect(posDropdownBackground, sizeDropdownBackground) && !dropdownBackground.locked  ) {
       dropdownBackground.locked = true;
     } else if (dropdownBackground.locked) {
-      float newWidthDropdown = dropdownBackground.sizeDropdownMenu().x ;
+      float newWidthDropdown = dropdownBackground.sizeBoxDropdownMenu.x ;
       int line = dropdownBackground.selectDropdownLine(newWidthDropdown);
       if (line > -1 ) {
         dropdownBackground.whichDropdownLine(line);
@@ -1233,7 +1361,7 @@ void checkDropdownFont() {
     if (insideRect(posDropdownFont, sizeDropdownFont) && !dropdownFont.locked  ) {
       dropdownFont.locked = true;
     } else if (dropdownFont.locked) {
-      float newWidthDropdown = dropdownFont.sizeDropdownMenu().x ;
+      float newWidthDropdown = dropdownFont.sizeBoxDropdownMenu.x ;
       int line = dropdownFont.selectDropdownLine(newWidthDropdown);
       if (line > -1 ) {
         dropdownFont.whichDropdownLine(line);
@@ -1250,7 +1378,7 @@ void checkDropdownImage() {
     if (insideRect(posDropdownImage, sizeDropdownImage) && !dropdownImage.locked  ) {
       dropdownImage.locked = true;
     } else if (dropdownImage.locked) {
-      float newWidthDropdown = dropdownImage.sizeDropdownMenu().x ;
+      float newWidthDropdown = dropdownImage.sizeBoxDropdownMenu.x ;
       int line = dropdownImage.selectDropdownLine(newWidthDropdown);
       if (line > -1 ) {
         dropdownImage.whichDropdownLine(line);
@@ -1267,7 +1395,7 @@ void checkDropdownFileText() {
     if (insideRect(posDropdownFileText, sizeDropdownFileText) && !dropdownFileText.locked  ) {
       dropdownFileText.locked = true;
     } else if (dropdownFileText.locked) {
-      float newWidthDropdown = dropdownFileText.sizeDropdownMenu().x ;
+      float newWidthDropdown = dropdownFileText.sizeBoxDropdownMenu.x ;
       int line = dropdownFileText.selectDropdownLine(newWidthDropdown);
       if (line > -1 ) {
         dropdownFileText.whichDropdownLine(line);
@@ -1284,7 +1412,7 @@ void checkTheDropdownObjectMousepressed( int start, int end ) {
       if (insideRect(posDropdown[i], sizeDropdownMode) && !dropdown[i].locked  ) {
         dropdown[i].locked = true;
       } else if (dropdown[i].locked) {
-        float newWidthDropdown = dropdown[i].sizeDropdownMenu().x ;
+        float newWidthDropdown = dropdown[i].sizeBoxDropdownMenu.x ;
         int line = dropdown[i].selectDropdownLine(newWidthDropdown);
         if (line > -1 ) {
           dropdown[i].whichDropdownLine(line);
