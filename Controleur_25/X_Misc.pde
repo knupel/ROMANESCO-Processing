@@ -32,7 +32,7 @@ void colorSetup() {
    grisNoir = color(0,0,20) ;      
    noirGris = color (0,0,15) ;         
    noir = color (0,0,5) ;  
-   vertClair = color (100,20,100) ;     vert = color(100,70,80) ;           vertFonce = color(100,100,50) ;     vertTresFonce = color(100,100,30) ;
+   vertClair = color (100,20,100) ;     vert = color(100,50,70) ;           vertFonce = color(100,100,50) ;     vertTresFonce = color(100,100,30) ;
    rougeTresFonce = color(10, 100, 50) ; rougeFonce = color (10, 100, 70) ;  rouge = color(10,100,100) ;           orange = color (35,100,100) ; 
    jaune = color(50,100,100) ;
    

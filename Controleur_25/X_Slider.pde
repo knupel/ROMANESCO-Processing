@@ -62,7 +62,7 @@ class Slider {
     
     //SLIDER
     fill(slider) ;
-    rect(pos.x, pos.y, size.x, size.y ) ;
+    rect(pos.x, pos.y, size.x, size.y) ;
     
     //MOLETTE
     fill(boxOut) ;
@@ -75,7 +75,7 @@ class Slider {
   void sliderUpdate(String s, boolean t) {
     //SLIDER
     fill(slider) ;
-    rect(pos.x, pos.y, size.x, size.y) ;
+    //rect(pos.x, pos.y, size.x, size.y) ;
     if (t) {
       fill(colorText) ;
       textFont (p ) ;
@@ -95,7 +95,7 @@ class Slider {
     //MOLETTE
     if (insideRect(newPosMol, sizeMol)) fill(boxIn); else fill(boxOut ) ;
     moletteUpdate() ;
-    rect(newPosMol.x, newPosMol.y, sizeMol.x , sizeMol.y) ;
+    //rect(newPosMol.x, newPosMol.y, sizeMol.x , sizeMol.y) ;
   }
   
   void moletteUpdate() {

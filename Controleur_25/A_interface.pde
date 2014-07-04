@@ -16,7 +16,13 @@ PImage[] vignette_OFF_in_typography ;
 PImage[] vignette_OFF_out_typography ;
 PImage[] vignette_ON_in_typography ;
 PImage[] vignette_ON_out_typography ;
-PImage[] bouton = new PImage[18] ;
+// we must change that.
+PImage[] picSetting = new PImage[4] ;
+PImage[] picSound = new PImage[4] ;
+PImage[] picAction = new PImage[4] ;
+PImage[] picCurtain = new PImage[4] ;
+PImage[] picMidi = new PImage[4] ;
+
 
 /////////
 //SLIDER
@@ -32,7 +38,8 @@ PVector columnPosVert = new PVector(25,205, 385) ; // give the pos of the column
 int margeLeft  ; // marge left for the first GUI button and slider
 int startingTopPosition  ; // marge top to starting position of the GUI button and slider
 
-int sliderHeight = 6 ;
+int sliderHeight = 8 ;
+int roundedSlider = 5 ;
 SliderHorizontal [] Slider = new SliderHorizontal [NUM_SLIDER] ;
 int suivitSlider[] = new int[NUM_SLIDER] ; 
 int posWidthSlider[] = new int[NUM_SLIDER] ;
@@ -42,6 +49,7 @@ int hauteurSlider[] = new int[NUM_SLIDER] ;
 float valueSlider[] = new float[NUM_SLIDER] ;
 
 //paramètre généraux interface
+
 int   mgSliderc1, mgSliderc2, mgSliderc3,
     posHeightBO,  posWidthBO,
     posHeightRO,  posWidthRO,
@@ -224,11 +232,6 @@ void indexMidiButton() {
   saveSetting.addColumn("ID button") ;
   saveSetting.addColumn("On Off") ;
   saveSetting.addColumn("ID midi") ;
-  
-  
-  
-  //saveButton [whichOne] = byte(valueSlider[whichOne] ) ;
-  //saveButton [whichOne + NUM_SLIDER] = byte(Slider[whichOne].IDmidi() ) ;
 }
 // END MIDI
 
@@ -257,10 +260,10 @@ void buttonSliderSetup() {
 
   int posSmallButtonY = 28 ;
   // MIDI CURTAIN
-  sizeCurtainButton = new PVector(30,12) ;
-  sizeMidiButton = new PVector(30,12) ;
-  posMidiButton = new PVector(mgSliderc2, topMenuPos +posSmallButtonY ) ; 
-  posCurtainButton = new PVector(mgSliderc1, topMenuPos +posSmallButtonY ) ; 
+  sizeCurtainButton = new PVector(30,30) ;
+  sizeMidiButton = new PVector(50,26) ;
+  posMidiButton = new PVector(mgSliderc1 + 40, topMenuPos +21) ; 
+  posCurtainButton = new PVector(mgSliderc1, topMenuPos +19) ; 
   
   //SOUND BUTTON
   sizeBeatButton = new PVector(30,10) ; 
@@ -394,9 +397,9 @@ void groupThree(int posButton, int posSlider) {
 /////////////
 //CONSTRUCTOR
 void constructorSliderButton() {
-  color OnInColor = vertFonce ;
+  color OnInColor = vert ;
   color OnOutColor = vertTresFonce ;
-  color OffInColor = rouge ;
+  color OffInColor = orange ;
   color OffOutColor = rougeFonce ;
   
   buttonBackground = new Simple(posBackgroundButton, sizeBackgroundButton, OnInColor, OnOutColor, OffInColor, OffOutColor, true) ;
@@ -420,9 +423,9 @@ void constructorSliderButton() {
   for(int i = 1 ; i < NUM_GROUP_SLIDER ; i++) {
     int num = numButton[i] ;
     for ( int j = 11 ; j < 10+num ; j++) {
-      if(numGroup[1] > 0 && i == 1) BOf[j] = new Simple(  posWidthBOf[j], posHeightBOf[j], longueurBOf[j], hauteurBOf[j], boutonONin, boutonONout, boutonOFFin, boutonOFFout, gris, grisNoir, false) ; 
-      if(numGroup[2] > 0 && i == 2) BTf[j] = new Simple(  posWidthBTf[j], posHeightBTf[j], longueurBTf[j], hauteurBTf[j], boutonONin, boutonONout, boutonOFFin, boutonOFFout, gris, grisNoir, false) ;
-      if(numGroup[3] > 0 && i == 3) BTYf[j] = new Simple(  posWidthBTYf[j], posHeightBTYf[j], longueurBTYf[j], hauteurBTYf[j], boutonONin, boutonONout, boutonOFFin, boutonOFFout, gris, grisNoir, false) ;
+      if(numGroup[1] > 0 && i == 1) BOf[j] = new Simple(posWidthBOf[j], posHeightBOf[j], longueurBOf[j], hauteurBOf[j], boutonONin, boutonONout, boutonOFFin, boutonOFFout, gris, grisNoir, false) ; 
+      if(numGroup[2] > 0 && i == 2) BTf[j] = new Simple(posWidthBTf[j], posHeightBTf[j], longueurBTf[j], hauteurBTf[j], boutonONin, boutonONout, boutonOFFin, boutonOFFout, gris, grisNoir, false) ;
+      if(numGroup[3] > 0 && i == 3) BTYf[j] = new Simple(posWidthBTYf[j], posHeightBTYf[j], longueurBTYf[j], hauteurBTYf[j], boutonONin, boutonONout, boutonOFFin, boutonOFFout, gris, grisNoir, false) ;
     }
 
   }
@@ -609,7 +612,7 @@ void dislayTextSlider() {
 void sliderDraw() {
   // DISPLAY BAR
   // global
-  sliderDrawGroupZero () ;
+  sliderDrawGroupZero() ;
   // group one, two, three
   for(int i = 1 ; i < NUM_GROUP_SLIDER ; i++) {
     sliderObject(i) ;
@@ -619,10 +622,12 @@ void sliderDraw() {
 
   // DISPLAY MOLETTE
   // global
+  int whichGroup = 0 ;
   for (int i = 1 ; i < NUM_SLIDER_GLOBAL ; i++) {
-     updateMolette(i) ;
+     updateMolette(i, whichGroup) ;
   }
   // group one, two, three
+  whichGroup = 1 ;
   if(!showAllSliders) {
     for (int i = 1 ; i <= numObj ; i++) {
       if (objectActive[i] ) {
@@ -630,7 +635,7 @@ void sliderDraw() {
           if (showSliderGroup[j] && objectGroup[i] == j) { 
             for(int k = 1 ; k < SLIDER_BY_GROUP ; k++) {
               if (displaySlider[j][k]) {
-                updateMolette(k +(objectGroup[i] *100)) ; 
+                updateMolette(k +(objectGroup[i] *100), whichGroup) ; 
               }
             }
           }
@@ -641,7 +646,7 @@ void sliderDraw() {
   } else {
     for (int i = 1 ; i < NUM_GROUP_SLIDER ; i++) { 
       for(int j = 1 ; j < SLIDER_BY_GROUP ; j++) {
-        updateMolette(j +(i *100)) ; 
+        updateMolette(j +(i *100), whichGroup) ; 
       }
     }
   }
@@ -655,21 +660,25 @@ void sliderDraw() {
 
 
 // annexe void molette
-void updateMolette(int whichOne) {
-  PVector sizeMoletteSlider = new PVector (8,10, 1.5) ; // width, height, thickness
+void updateMolette(int whichOne, int whichGroup) {
+  PVector sizeMoletteSlider = new PVector (8,10, 1.2) ; // width, height, thickness
   
   //MIDI function
   //give which button is active and check is this button have a same IDmidi that Object
-  if (numMidi == Slider[whichOne].IDmidi() ) Slider[whichOne].updateMidi(valMidi) ;
+  if (numMidi == Slider[whichOne].IDmidi()) Slider[whichOne].updateMidi(valMidi) ;
   //to add an IDmidi from the internal setting to object
-  if (selectMidi && Slider[whichOne].lock() ) Slider[whichOne].selectIDmidi(numMidi) ; 
+  if (selectMidi && Slider[whichOne].lock()) Slider[whichOne].selectIDmidi(numMidi) ; 
   //to add an ID midi from the save
-  if(loadSaveSetting) Slider[whichOne].selectIDmidi((int)infoSave(infoSlider, whichOne).y ) ;
+  if(loadSaveSetting) Slider[whichOne].selectIDmidi((int)infoSave(infoSlider, whichOne).y) ;
 
   
   // update and display
   Slider[whichOne].update(mouseX, (int)infoSave(infoSlider, whichOne).z, loadSaveSetting); 
-  Slider[whichOne].displayMolette(rouge, orange, blanc, sizeMoletteSlider);
+  PVector correctionPosMoletteY = new PVector(-2,2)  ;
+  // choice the property display depending the group slider
+  if (whichGroup == 0) 
+  Slider[whichOne].displayMolette(blancGris, grisFonce, grisNoir, sizeMoletteSlider, correctionPosMoletteY); 
+  else Slider[whichOne].displayMolette(blanc, grisClair, grisTresFonce, sizeMoletteSlider, correctionPosMoletteY);
 
   //return value between 0 / 100
   valueSlider[whichOne] = constrain(map(Slider[whichOne].getPos(), 0, 104, 0,100),0,100)  ;
@@ -731,11 +740,11 @@ void sliderObject(int whichOne) {
     if (displaySlider[whichGroup][saturationFillRank]) fondRegletteSaturation (posWidthSlider[whichOne +saturationFillRank], posHeightSlider[whichOne +saturationFillRank], hauteurSlider[whichOne +saturationFillRank], longueurSlider[whichOne +hueFillRank], valueSlider[whichOne +hueFillRank], valueSlider[whichOne +saturationFillRank], valueSlider[whichOne +brightnessFillRank] ) ;
     if (displaySlider[whichGroup][brightnessFillRank]) fondRegletteDensite    (posWidthSlider[whichOne +brightnessFillRank], posHeightSlider[whichOne +brightnessFillRank], hauteurSlider[whichOne +brightnessFillRank], longueurSlider[whichOne +hueFillRank], valueSlider[whichOne +hueFillRank], valueSlider[whichOne +saturationFillRank], valueSlider[whichOne +brightnessFillRank] ) ;
   } else {
-    if (displaySlider[whichGroup][hueFillRank])        fondReglette (posWidthSlider[whichOne +hueFillRank], posHeightSlider[whichOne +hueFillRank], hauteurSlider[whichOne +hueFillRank], longueurSlider[whichOne +hueFillRank], blanc) ;
-    if (displaySlider[whichGroup][saturationFillRank]) fondReglette (posWidthSlider[whichOne +saturationFillRank], posHeightSlider[whichOne +saturationFillRank], hauteurSlider[whichOne +saturationFillRank], longueurSlider[whichOne +saturationFillRank], blanc ) ;
-    if (displaySlider[whichGroup][brightnessFillRank]) fondReglette (posWidthSlider[whichOne +brightnessFillRank], posHeightSlider[whichOne +brightnessFillRank], hauteurSlider[whichOne +brightnessFillRank], longueurSlider[whichOne +brightnessFillRank], blanc ) ;
+    if (displaySlider[whichGroup][hueFillRank])        fondReglette (posWidthSlider[whichOne +hueFillRank], posHeightSlider[whichOne +hueFillRank], hauteurSlider[whichOne +hueFillRank], longueurSlider[whichOne +hueFillRank], roundedSlider, blanc) ;
+    if (displaySlider[whichGroup][saturationFillRank]) fondReglette (posWidthSlider[whichOne +saturationFillRank], posHeightSlider[whichOne +saturationFillRank], hauteurSlider[whichOne +saturationFillRank], longueurSlider[whichOne +saturationFillRank], roundedSlider, blanc ) ;
+    if (displaySlider[whichGroup][brightnessFillRank]) fondReglette (posWidthSlider[whichOne +brightnessFillRank], posHeightSlider[whichOne +brightnessFillRank], hauteurSlider[whichOne +brightnessFillRank], longueurSlider[whichOne +brightnessFillRank], roundedSlider, blanc ) ;
   }
-  if (displaySlider[whichGroup][alphaFillRank]) fondReglette (posWidthSlider[whichOne +alphaFillRank], posHeightSlider[whichOne +alphaFillRank], hauteurSlider[whichOne +alphaFillRank], longueurSlider[whichOne +alphaFillRank], blanc ) ;
+  if (displaySlider[whichGroup][alphaFillRank]) fondReglette (posWidthSlider[whichOne +alphaFillRank], posHeightSlider[whichOne +alphaFillRank], hauteurSlider[whichOne +alphaFillRank], longueurSlider[whichOne +alphaFillRank], roundedSlider, blanc ) ;
   
   //outline color
   if ( mouseX > (posWidthSlider[whichOne +hueStrokeRank] ) && mouseX < ( posWidthSlider[whichOne +hueStrokeRank] + longueurSlider[whichOne +hueStrokeRank]) 
@@ -745,37 +754,37 @@ void sliderObject(int whichOne) {
     if (displaySlider[whichGroup][saturationStrokeRank]) fondRegletteSaturation (posWidthSlider[whichOne +saturationStrokeRank], posHeightSlider[whichOne +saturationStrokeRank], hauteurSlider[whichOne +saturationStrokeRank], longueurSlider[whichOne +hueStrokeRank], valueSlider[whichOne +hueStrokeRank], valueSlider[whichOne +saturationStrokeRank], valueSlider[whichOne +brightnessStrokeRank] ) ;
     if (displaySlider[whichGroup][brightnessStrokeRank]) fondRegletteDensite    (posWidthSlider[whichOne +brightnessStrokeRank], posHeightSlider[whichOne +brightnessStrokeRank], hauteurSlider[whichOne +brightnessStrokeRank], longueurSlider[whichOne +hueStrokeRank], valueSlider[whichOne +hueStrokeRank], valueSlider[whichOne +saturationStrokeRank], valueSlider[whichOne +brightnessStrokeRank] ) ;
   } else {
-    if (displaySlider[whichGroup][hueStrokeRank])        fondReglette (posWidthSlider[whichOne +hueStrokeRank], posHeightSlider[whichOne +hueStrokeRank], hauteurSlider[whichOne +hueStrokeRank], longueurSlider[whichOne +hueStrokeRank], blancGrisClair) ;
-    if (displaySlider[whichGroup][saturationStrokeRank]) fondReglette (posWidthSlider[whichOne +saturationStrokeRank], posHeightSlider[whichOne +saturationStrokeRank], hauteurSlider[whichOne +saturationStrokeRank], longueurSlider[whichOne +saturationStrokeRank], blancGrisClair ) ;
-    if (displaySlider[whichGroup][brightnessStrokeRank]) fondReglette (posWidthSlider[whichOne +brightnessStrokeRank], posHeightSlider[whichOne +brightnessStrokeRank], hauteurSlider[whichOne +brightnessStrokeRank], longueurSlider[whichOne +brightnessStrokeRank], blancGrisClair) ;
+    if (displaySlider[whichGroup][hueStrokeRank])        fondReglette (posWidthSlider[whichOne +hueStrokeRank], posHeightSlider[whichOne +hueStrokeRank], hauteurSlider[whichOne +hueStrokeRank], longueurSlider[whichOne +hueStrokeRank], roundedSlider, blancGrisClair) ;
+    if (displaySlider[whichGroup][saturationStrokeRank]) fondReglette (posWidthSlider[whichOne +saturationStrokeRank], posHeightSlider[whichOne +saturationStrokeRank], hauteurSlider[whichOne +saturationStrokeRank], longueurSlider[whichOne +saturationStrokeRank], roundedSlider, blancGrisClair ) ;
+    if (displaySlider[whichGroup][brightnessStrokeRank]) fondReglette (posWidthSlider[whichOne +brightnessStrokeRank], posHeightSlider[whichOne +brightnessStrokeRank], hauteurSlider[whichOne +brightnessStrokeRank], longueurSlider[whichOne +brightnessStrokeRank], roundedSlider, blancGrisClair) ;
   }
-  if (displaySlider[whichGroup][alphaStrokeRank]) fondReglette (posWidthSlider[whichOne +alphaStrokeRank], posHeightSlider[whichOne +alphaStrokeRank], hauteurSlider[whichOne +alphaStrokeRank], longueurSlider[whichOne +alphaStrokeRank], blancGrisClair) ;
+  if (displaySlider[whichGroup][alphaStrokeRank]) fondReglette (posWidthSlider[whichOne +alphaStrokeRank], posHeightSlider[whichOne +alphaStrokeRank], hauteurSlider[whichOne +alphaStrokeRank], longueurSlider[whichOne +alphaStrokeRank], roundedSlider, blancGrisClair) ;
   //  thickness
-  if( displaySlider[whichGroup][thicknessRank]) fondReglette ( posWidthSlider[whichOne +thicknessRank], posHeightSlider[whichOne +thicknessRank], hauteurSlider[whichOne +thicknessRank], longueurSlider[whichOne +thicknessRank], blancGrisClair) ;
+  if( displaySlider[whichGroup][thicknessRank]) fondReglette ( posWidthSlider[whichOne +thicknessRank], posHeightSlider[whichOne +thicknessRank], hauteurSlider[whichOne +thicknessRank], longueurSlider[whichOne +thicknessRank], roundedSlider, blancGrisClair) ;
   // width, height, depth
-  if(displaySlider[whichGroup][widthObjRank])  fondReglette (posWidthSlider[whichOne +widthObjRank], posHeightSlider[whichOne +widthObjRank], hauteurSlider[whichOne +widthObjRank], longueurSlider[whichOne +widthObjRank], blanc) ;
-  if(displaySlider[whichGroup][heightObjRank]) fondReglette (posWidthSlider[whichOne +heightObjRank], posHeightSlider[whichOne +heightObjRank], hauteurSlider[whichOne +heightObjRank], longueurSlider[whichOne +heightObjRank], blanc) ;
-  if(displaySlider[whichGroup][depthObjRank])  fondReglette (posWidthSlider[whichOne +depthObjRank], posHeightSlider[whichOne +depthObjRank], hauteurSlider[whichOne +depthObjRank], longueurSlider[whichOne +depthObjRank], blanc) ;
+  if(displaySlider[whichGroup][widthObjRank])  fondReglette (posWidthSlider[whichOne +widthObjRank], posHeightSlider[whichOne +widthObjRank], hauteurSlider[whichOne +widthObjRank], longueurSlider[whichOne +widthObjRank], roundedSlider, blanc) ;
+  if(displaySlider[whichGroup][heightObjRank]) fondReglette (posWidthSlider[whichOne +heightObjRank], posHeightSlider[whichOne +heightObjRank], hauteurSlider[whichOne +heightObjRank], longueurSlider[whichOne +heightObjRank], roundedSlider, blanc) ;
+  if(displaySlider[whichGroup][depthObjRank])  fondReglette (posWidthSlider[whichOne +depthObjRank], posHeightSlider[whichOne +depthObjRank], hauteurSlider[whichOne +depthObjRank], longueurSlider[whichOne +depthObjRank], roundedSlider, blanc) ;
   // canvas
-  if(displaySlider[whichGroup][canvasXRank]) fondReglette (posWidthSlider[whichOne +canvasXRank], posHeightSlider[whichOne +canvasXRank], hauteurSlider[whichOne +canvasXRank], longueurSlider[whichOne +canvasXRank], blancGrisClair) ;
-  if(displaySlider[whichGroup][canvasYRank]) fondReglette (posWidthSlider[whichOne +canvasYRank], posHeightSlider[whichOne +canvasYRank], hauteurSlider[whichOne +canvasYRank], longueurSlider[whichOne +canvasYRank], blancGrisClair) ;
-  if(displaySlider[whichGroup][canvasZRank]) fondReglette (posWidthSlider[whichOne +canvasZRank], posHeightSlider[whichOne +canvasZRank], hauteurSlider[whichOne +canvasZRank], longueurSlider[whichOne +canvasZRank], blancGrisClair) ;
+  if(displaySlider[whichGroup][canvasXRank]) fondReglette (posWidthSlider[whichOne +canvasXRank], posHeightSlider[whichOne +canvasXRank], hauteurSlider[whichOne +canvasXRank], longueurSlider[whichOne +canvasXRank], roundedSlider, blancGrisClair) ;
+  if(displaySlider[whichGroup][canvasYRank]) fondReglette (posWidthSlider[whichOne +canvasYRank], posHeightSlider[whichOne +canvasYRank], hauteurSlider[whichOne +canvasYRank], longueurSlider[whichOne +canvasYRank], roundedSlider, blancGrisClair) ;
+  if(displaySlider[whichGroup][canvasZRank]) fondReglette (posWidthSlider[whichOne +canvasZRank], posHeightSlider[whichOne +canvasZRank], hauteurSlider[whichOne +canvasZRank], longueurSlider[whichOne +canvasZRank], roundedSlider, blancGrisClair) ;
   // quantity
-  if(displaySlider[whichGroup][quantityRank]) fondReglette ( posWidthSlider[whichOne +quantityRank], posHeightSlider[whichOne +quantityRank], hauteurSlider[whichOne +quantityRank], longueurSlider[whichOne +quantityRank], blanc) ;
+  if(displaySlider[whichGroup][quantityRank]) fondReglette ( posWidthSlider[whichOne +quantityRank], posHeightSlider[whichOne +quantityRank], hauteurSlider[whichOne +quantityRank], longueurSlider[whichOne +quantityRank], roundedSlider, blanc) ;
   // speed
-  if(displaySlider[whichGroup][speedRank]) fondReglette ( posWidthSlider[whichOne +speedRank], posHeightSlider[whichOne +speedRank], hauteurSlider[whichOne +speedRank], longueurSlider[whichOne +speedRank], blanc) ;
+  if(displaySlider[whichGroup][speedRank]) fondReglette ( posWidthSlider[whichOne +speedRank], posHeightSlider[whichOne +speedRank], hauteurSlider[whichOne +speedRank], longueurSlider[whichOne +speedRank], roundedSlider, blanc) ;
   // direction angle
-  if(displaySlider[whichGroup][directionRank]) fondReglette ( posWidthSlider[whichOne +directionRank], posHeightSlider[whichOne +directionRank], hauteurSlider[whichOne +directionRank], longueurSlider[whichOne +directionRank], blancGrisClair) ;
-  if(displaySlider[whichGroup][angleRank]) fondReglette ( posWidthSlider[whichOne +angleRank], posHeightSlider[whichOne +angleRank], hauteurSlider[whichOne +angleRank], longueurSlider[whichOne +angleRank], blancGrisClair) ;
+  if(displaySlider[whichGroup][directionRank]) fondReglette ( posWidthSlider[whichOne +directionRank], posHeightSlider[whichOne +directionRank], hauteurSlider[whichOne +directionRank], longueurSlider[whichOne +directionRank], roundedSlider, blancGrisClair) ;
+  if(displaySlider[whichGroup][angleRank]) fondReglette ( posWidthSlider[whichOne +angleRank], posHeightSlider[whichOne +angleRank], hauteurSlider[whichOne +angleRank], longueurSlider[whichOne +angleRank], roundedSlider, blancGrisClair) ;
   // amplitude
-  if(displaySlider[whichGroup][amplitudeRank]) fondReglette ( posWidthSlider[whichOne +amplitudeRank], posHeightSlider[whichOne +amplitudeRank], hauteurSlider[whichOne +amplitudeRank], longueurSlider[whichOne +amplitudeRank], blanc) ;
+  if(displaySlider[whichGroup][amplitudeRank]) fondReglette ( posWidthSlider[whichOne +amplitudeRank], posHeightSlider[whichOne +amplitudeRank], hauteurSlider[whichOne +amplitudeRank], longueurSlider[whichOne +amplitudeRank], roundedSlider, blanc) ;
   // analyze
-  if(displaySlider[whichGroup][analyzeRank])  fondReglette ( posWidthSlider[whichOne +analyzeRank], posHeightSlider[whichOne +analyzeRank], hauteurSlider[whichOne +analyzeRank], longueurSlider[whichOne +analyzeRank], blancGrisClair) ;
+  if(displaySlider[whichGroup][analyzeRank])  fondReglette ( posWidthSlider[whichOne +analyzeRank], posHeightSlider[whichOne +analyzeRank], hauteurSlider[whichOne +analyzeRank], longueurSlider[whichOne +analyzeRank], roundedSlider, blancGrisClair) ;
   // Family Life
-  if(displaySlider[whichGroup][familyRank]) fondReglette ( posWidthSlider[whichOne +familyRank], posHeightSlider[whichOne +familyRank], hauteurSlider[whichOne +familyRank], longueurSlider[whichOne +familyRank], blanc) ;
-  if(displaySlider[whichGroup][lifeRank]) fondReglette ( posWidthSlider[whichOne +lifeRank], posHeightSlider[whichOne +lifeRank], hauteurSlider[whichOne +lifeRank], longueurSlider[whichOne +lifeRank], blanc) ;
+  if(displaySlider[whichGroup][familyRank]) fondReglette ( posWidthSlider[whichOne +familyRank], posHeightSlider[whichOne +familyRank], hauteurSlider[whichOne +familyRank], longueurSlider[whichOne +familyRank], roundedSlider, blanc) ;
+  if(displaySlider[whichGroup][lifeRank]) fondReglette ( posWidthSlider[whichOne +lifeRank], posHeightSlider[whichOne +lifeRank], hauteurSlider[whichOne +lifeRank], longueurSlider[whichOne +lifeRank], roundedSlider, blanc) ;
   // force
-  if(displaySlider[whichGroup][forceRank]) fondReglette ( posWidthSlider[whichOne +forceRank], posHeightSlider[whichOne +forceRank], hauteurSlider[whichOne +forceRank], longueurSlider[whichOne +forceRank], blancGrisClair) ;
+  if(displaySlider[whichGroup][forceRank]) fondReglette ( posWidthSlider[whichOne +forceRank], posHeightSlider[whichOne +forceRank], hauteurSlider[whichOne +forceRank], longueurSlider[whichOne +forceRank], roundedSlider, blancGrisClair) ;
 }
 
 
@@ -789,11 +798,11 @@ void sliderDrawGroupZero () {
     fondRegletteSaturation ( posWidthSlider[2], posHeightSlider[2], hauteurSlider[2], longueurSlider[1], valueSlider[1], valueSlider[2], valueSlider[3] ) ;
     fondRegletteDensite    ( posWidthSlider[3], posHeightSlider[3], hauteurSlider[3], longueurSlider[1], valueSlider[1], valueSlider[2], valueSlider[3] ) ;
   } else {
-    fondReglette    ( posWidthSlider[1], posHeightSlider[1], hauteurSlider[1], longueurSlider[1], grisClair) ;
-    fondReglette    ( posWidthSlider[2], posHeightSlider[2], hauteurSlider[2], longueurSlider[2], grisClair) ;
-    fondReglette    ( posWidthSlider[3], posHeightSlider[3], hauteurSlider[3], longueurSlider[3], grisClair) ;
+    fondReglette    ( posWidthSlider[1], posHeightSlider[1], hauteurSlider[1], longueurSlider[1], roundedSlider, grisClair) ;
+    fondReglette    ( posWidthSlider[2], posHeightSlider[2], hauteurSlider[2], longueurSlider[2], roundedSlider, grisClair) ;
+    fondReglette    ( posWidthSlider[3], posHeightSlider[3], hauteurSlider[3], longueurSlider[3], roundedSlider, grisClair) ;
   }
-  fondReglette ( posWidthSlider[4], posHeightSlider[4], hauteurSlider[4], longueurSlider[4], grisClair) ;
+  fondReglette ( posWidthSlider[4], posHeightSlider[4], hauteurSlider[4], longueurSlider[4], roundedSlider, grisClair) ;
   // light ONE slider
   if (mouseX > (posWidthSlider[7] ) && mouseX < ( posWidthSlider[7] + longueurSlider[7]) 
   && mouseY > ( posHeightSlider[7] - 5) && mouseY < posHeightSlider[1] + 40 ) {
@@ -801,9 +810,9 @@ void sliderDrawGroupZero () {
     fondRegletteSaturation ( posWidthSlider[8], posHeightSlider[8], hauteurSlider[8], longueurSlider[7], valueSlider[7], valueSlider[8], valueSlider[9] ) ;
     fondRegletteDensite    ( posWidthSlider[9], posHeightSlider[9], hauteurSlider[9], longueurSlider[7], valueSlider[7], valueSlider[8], valueSlider[9] ) ;
   } else {
-    fondReglette    ( posWidthSlider[7], posHeightSlider[7], hauteurSlider[7], longueurSlider[7], grisClair) ;
-    fondReglette    ( posWidthSlider[8], posHeightSlider[8], hauteurSlider[8], longueurSlider[8], grisClair) ;
-    fondReglette    ( posWidthSlider[9], posHeightSlider[9], hauteurSlider[9], longueurSlider[9], grisClair) ;
+    fondReglette    ( posWidthSlider[7], posHeightSlider[7], hauteurSlider[7], longueurSlider[7], roundedSlider, grisClair) ;
+    fondReglette    ( posWidthSlider[8], posHeightSlider[8], hauteurSlider[8], longueurSlider[8], roundedSlider, grisClair) ;
+    fondReglette    ( posWidthSlider[9], posHeightSlider[9], hauteurSlider[9], longueurSlider[9], roundedSlider, grisClair) ;
   }
   // light TWO slider
   if (mouseX > (posWidthSlider[10] ) && mouseX < ( posWidthSlider[10] + longueurSlider[10]) 
@@ -812,13 +821,13 @@ void sliderDrawGroupZero () {
     fondRegletteSaturation ( posWidthSlider[11], posHeightSlider[11], hauteurSlider[11], longueurSlider[10], valueSlider[10], valueSlider[11], valueSlider[9] ) ;
     fondRegletteDensite    ( posWidthSlider[12], posHeightSlider[12], hauteurSlider[12], longueurSlider[10], valueSlider[10], valueSlider[11], valueSlider[12] ) ;
   } else {
-    fondReglette    ( posWidthSlider[10], posHeightSlider[10], hauteurSlider[10], longueurSlider[10], grisClair) ;
-    fondReglette    ( posWidthSlider[11], posHeightSlider[11], hauteurSlider[11], longueurSlider[11], grisClair) ;
-    fondReglette    ( posWidthSlider[12], posHeightSlider[12], hauteurSlider[12], longueurSlider[12], grisClair) ;
+    fondReglette    ( posWidthSlider[10], posHeightSlider[10], hauteurSlider[10], longueurSlider[10], roundedSlider, grisClair) ;
+    fondReglette    ( posWidthSlider[11], posHeightSlider[11], hauteurSlider[11], longueurSlider[11], roundedSlider, grisClair) ;
+    fondReglette    ( posWidthSlider[12], posHeightSlider[12], hauteurSlider[12], longueurSlider[12], roundedSlider, grisClair) ;
   }
   // music
-  fondReglette ( posWidthSlider[5], posHeightSlider[5], hauteurSlider[5], longueurSlider[5], grisClair) ;
-  fondReglette ( posWidthSlider[6], posHeightSlider[6], hauteurSlider[6], longueurSlider[6], grisClair) ;
+  fondReglette ( posWidthSlider[5], posHeightSlider[5], hauteurSlider[5], longueurSlider[5], roundedSlider, grisClair) ;
+  fondReglette ( posWidthSlider[6], posHeightSlider[6], hauteurSlider[6], longueurSlider[6], roundedSlider, grisClair) ;
 }
 
 
@@ -865,16 +874,16 @@ void buttonDrawGroupZero() {
   Bhat.boutonTexte("HAT", posHatButton, FuturaStencil_10, 10) ;
   
   //MIDI / CURTAIN
-  BOmidi.boutonTexte  ("MIDI", posMidiButton, FuturaStencil_10, 10) ;
-  BOcurtain.boutonTexte  (genTxtGUI[8], posCurtainButton, FuturaStencil_10, 10) ;
+  BOmidi.buttonPic(picMidi) ;
+  BOcurtain.buttonPic(picCurtain) ; 
 }
 //GROUP ONE
 void buttonDrawGroupOne() {
     for( int i = 1 ; i <= numGroup[1] ; i++ ) {
-    BOf[i*10 +1].boutonVignette(vignette_OFF_in_simple, vignette_OFF_out_simple, vignette_ON_in_simple, vignette_ON_out_simple, i) ; 
-    BOf[i*10 +2].boutonCarre () ; 
-    BOf[i*10 +3].boutonSonPetit () ; 
-    BOf[i*10 +4].boutonAction () ;
+    BOf[i*10 +1].buttonPicSerie(vignette_OFF_in_simple, vignette_OFF_out_simple, vignette_ON_in_simple, vignette_ON_out_simple, i) ; 
+    BOf[i*10 +2].buttonPic(picSetting) ;
+    BOf[i*10 +3].buttonPic(picSound) ; 
+    BOf[i*10 +4].buttonPic(picAction) ; 
     PVector pos = new PVector (posWidthBOf[i*10 +2], posHeightBOf[i*10 +1] +10) ;
     PVector size = new PVector (20, 30) ;
     rolloverInfoVignette(pos, size, i, 1) ;
@@ -883,10 +892,10 @@ void buttonDrawGroupOne() {
 // GROUP TWO
 void buttonDrawGroupTwo() {
   for( int i = 1 ; i <= numGroup[2] ; i++ ) {
-    BTf[i*10 +1].boutonVignette(vignette_OFF_in_texture, vignette_OFF_out_texture, vignette_ON_in_texture, vignette_ON_out_texture, i) ; 
-    BTf[i*10 +2].boutonCarre () ; 
-    BTf[i*10 +3].boutonSonPetit () ; 
-    BTf[i*10 +4].boutonAction () ;     
+    BTf[i*10 +1].buttonPicSerie(vignette_OFF_in_texture, vignette_OFF_out_texture, vignette_ON_in_texture, vignette_ON_out_texture, i) ; 
+    BTf[i*10 +2].buttonPic(picSetting) ;
+    BTf[i*10 +3].buttonPic(picSound) ; 
+    BTf[i*10 +4].buttonPic(picAction) ;     
     PVector pos = new PVector (posWidthBTf[i*10 +2], posHeightBTf[i*10 +1] +10) ;
     PVector size = new PVector (20, 30) ;
     rolloverInfoVignette(pos, size, i, 2) ;
@@ -896,10 +905,10 @@ void buttonDrawGroupTwo() {
 //GROUP THREE
 void buttonDrawGroupThree() {
   for( int i = 1 ; i <= numGroup[3] ; i++ ) {
-    BTYf[i*10 +1].boutonVignette(vignette_OFF_in_typography, vignette_OFF_out_typography, vignette_ON_in_typography, vignette_ON_out_typography, i) ; 
-    BTYf[i*10 +2].boutonCarre () ; 
-    BTYf[i*10 +3].boutonSonPetit () ; 
-    BTYf[i*10 +4].boutonAction () ; 
+    BTYf[i*10 +1].buttonPicSerie(vignette_OFF_in_typography, vignette_OFF_out_typography, vignette_ON_in_typography, vignette_ON_out_typography, i) ; 
+    BTYf[i*10 +2].buttonPic(picSetting) ;
+    BTYf[i*10 +3].buttonPic(picSound) ; 
+    BTYf[i*10 +4].buttonPic(picAction) ; 
     PVector pos = new PVector (posWidthBTYf[i*10 +2], posHeightBTYf[i*10 +1] +10) ;
     PVector size = new PVector (20, 30) ;
     rolloverInfoVignette(pos, size, i, 3) ;
@@ -997,20 +1006,18 @@ void lookAndDisplayInfo(int IDorder, PVector pos) {
 
 
 //SLIDER COLOR
-void fondReglette ( int posX, int posY, int hauteur, int largeur, color couleur ) {
-  float hx ;
-  hx = hauteur ;
+void fondReglette ( int posX, int posY, int heightSlider, int widthslider, int rounded, color couleur) {
   fill ( couleur ) ;
-  rect ( posX  , posY - (hx /2.0 )  , largeur , hauteur ) ;
+  rect ( posX  , posY - (heightSlider *.5) ,widthslider ,heightSlider, rounded) ;
 }
 
 //hue
-void fondRegletteCouleur ( int posX, int posY, int hauteur, int largeur ) {
+void fondRegletteCouleur ( int posX, int posY, int heightSlider, int widthslider) {
   pushMatrix () ;
-  translate (posX , posY-(hauteur/2) ) ;
-  for ( int i=0 ; i < largeur ; i++ ) {
-    for ( int j=0 ; j <=hauteur ; j++ ) {
-      float cr = map(i, 0, largeur, 0, 360 ) ;
+  translate (posX , posY-(heightSlider *.5)) ;
+  for ( int i=0 ; i < widthslider ; i++ ) {
+    for ( int j=0 ; j <=heightSlider ; j++ ) {
+      float cr = map(i, 0, widthslider, 0, 360 ) ;
       fill (cr, 100, 100) ;
       rect ( i, j, 1,1 ) ;
     }
@@ -1019,15 +1026,15 @@ void fondRegletteCouleur ( int posX, int posY, int hauteur, int largeur ) {
 }
 
 //saturation
-void fondRegletteSaturation ( int posX, int posY, int hauteur, int largeur, float couleur, float s, float d ) {
+void fondRegletteSaturation ( int posX, int posY, int heightSlider, int widthslider, float couleur, float s, float d) {
   pushMatrix () ;
-  translate (posX , posY-(hauteur/2) ) ;
-  for ( int i=0 ; i < largeur ; i++ ) {
-    for ( int j=0 ; j <=hauteur ; j++ ) {
-      float cr = map(i, 0, largeur, 0, 100 ) ;
-      float coul = map(couleur, 0, largeur, 0, 360 ) ;
+  translate (posX , posY-(heightSlider *.5)) ;
+  for ( int i=0 ; i < widthslider ; i++ ) {
+    for ( int j=0 ; j <=heightSlider ; j++ ) {
+      float cr = map(i, 0, widthslider, 0, 100 ) ;
+      float coul = map(couleur, 0, widthslider, 0, 360 ) ;
       // float sat = map(s, 0, largeur, 0, 100 ) ;
-      float dens = map(d, 0, largeur, 0, 100 ) ;
+      float dens = map(d, 0, widthslider, 0, 100 ) ;
       fill (coul, cr, dens) ;
       rect ( i, j, 1,1 ) ;
     }
@@ -1036,14 +1043,14 @@ void fondRegletteSaturation ( int posX, int posY, int hauteur, int largeur, floa
 }
 
 //density
-void fondRegletteDensite ( int posX, int posY, int hauteur, int largeur, float couleur, float s, float d ) {
+void fondRegletteDensite ( int posX, int posY, int heightSlider, int widthslider, float couleur, float s, float d) {
   pushMatrix () ;
-  translate (posX , posY-(hauteur/2) ) ;
-  for ( int i=0 ; i < largeur ; i++ ) {
-    for ( int j=0 ; j <=hauteur ; j++ ) {
-      float cr = map(i, 0, largeur, 0, 100 ) ;
-      float coul = map(couleur, 0, largeur, 0, 360 ) ;
-      float sat = map(s, 0, largeur, 0, 100 ) ;
+  translate (posX , posY-(heightSlider *.5)) ;
+  for ( int i=0 ; i < widthslider ; i++ ) {
+    for ( int j=0 ; j <=heightSlider ; j++ ) {
+      float cr = map(i, 0, widthslider, 0, 100 ) ;
+      float coul = map(couleur, 0, widthslider, 0, 360 ) ;
+      float sat = map(s, 0, widthslider, 0, 100 ) ;
       // float dens = map(d, 0, largeur, 0, 100 ) ;
       fill (coul, sat, cr) ;
       rect ( i, j, 1,1 ) ;

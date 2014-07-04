@@ -74,7 +74,7 @@ Dropdown dropdown[], dropdownFont, dropdownBackground, dropdownImage, dropdownFi
 
 PVector posDropdownFont, posDropdownBackground, posDropdownImage, posDropdownFileText, posDropdown[] ;
 PVector sizeDropdownFont, sizeDropdownBackground, sizeDropdownImage, sizeDropdownFileText, sizeDropdownMode ;
-PVector posTextDropdown = new PVector(2, 8)  ;
+PVector posTextDropdown = new PVector(2,8)  ;
 
 PVector totalSizeDropdown = new PVector () ;
 PVector newPosDropdown = new PVector () ;
@@ -412,47 +412,6 @@ void buttonSetSaveSetting() {
 }
 
 
-/*
-int rank = 1 ;
-  midiButton(buttonBackground, rank++, saveButton) ;
-  midiButton(BOcurtain, rank++, saveButton) ;
-  
-  midiButton(buttonLightOne, rank++, saveButton) ;
-  midiButton(buttonLightOneAction, rank++, saveButton) ;
-  midiButton(buttonLightTwo, rank++, saveButton) ;
-  midiButton(buttonLightTwoAction, rank++, saveButton) ;
-  
-  midiButton(Bbeat, rank++, saveButton) ;
-  midiButton(Bkick, rank++, saveButton) ;
-  midiButton(Bsnare, rank++, saveButton) ;
-  midiButton(Bhat, rank++, saveButton) ;
-  
-  int whichGroup = 1 ;
-  for( int i = 1 ; i <= numGroup[whichGroup ] ; i++ ) {
-    rank = 1 ;
-    midiButton(BOf[posRankButton(i,rank)], posRankButton(i,rank), saveButton) ; rank++ ;
-    midiButton(BOf[posRankButton(i,rank)], posRankButton(i,rank), saveButton) ; rank++ ;
-    midiButton(BOf[posRankButton(i,rank)], posRankButton(i,rank), saveButton) ; rank++ ;
-    midiButton(BOf[posRankButton(i,rank)], posRankButton(i,rank), saveButton) ;
-  }
-  whichGroup = 2 ; 
-  for( int i = 1 ; i <= numGroup[whichGroup] ; i++ ) {
-    rank = 1 ;
-    midiButton(BTf[posRankButton(i,rank)], posRankButton(i,rank), saveButton) ; rank++ ;
-    midiButton(BTf[posRankButton(i,rank)], posRankButton(i,rank), saveButton) ; rank++ ;
-    midiButton(BTf[posRankButton(i,rank)], posRankButton(i,rank), saveButton) ; rank++ ; 
-    midiButton(BTf[posRankButton(i,rank)], posRankButton(i,rank), saveButton) ;     
-  }
-  whichGroup = 3 ;
-  for( int i = 1 ; i <= numGroup[whichGroup] ; i++ ) {
-    rank = 1 ;
-    midiButton(BTYf[posRankButton(i,rank)], posRankButton(i,rank), saveButton) ; rank++ ;
-    midiButton(BTYf[posRankButton(i,rank)], posRankButton(i,rank), saveButton) ; rank++ ;
-    midiButton(BTYf[posRankButton(i,rank)], posRankButton(i,rank), saveButton) ; rank++ ;
-    midiButton(BTYf[posRankButton(i,rank)], posRankButton(i,rank), saveButton) ;
-  }
-  
-  */
 // SAVE LOAD
 
 
@@ -505,11 +464,19 @@ void textGUI() {
 
 //IMPORT VIGNETTE
 void importPicButtonSetup() {
-  //load button vignette GUI general
-  for(int j=0 ;  j<bouton.length ; j++ ) bouton[j] = loadImage ("bouton/bouton"+j+".png") ;
+
+  
+  //picto setting
+  for(int i = 0 ; i<4 ; i++) {
+    picCurtain[i]   = loadImage("picto/picto_curtain_"+i+".png") ;
+    picMidi[i]   = loadImage("picto/picto_midi_"+i+".png") ;
+    picSetting[i] = loadImage("picto/picto_setting_"+i+".png") ;
+    picSound[i]   = loadImage("picto/picto_sound_"+i+".png") ;
+    picAction[i]   = loadImage("picto/picto_action_"+i+".png") ;
+  }
+  
   
   //load simple vignette
-  
   numVignette = numGroup[1] +1  ;
   vignette_OFF_in_simple = new PImage[numVignette] ;
   vignette_OFF_out_simple = new PImage[numVignette] ;

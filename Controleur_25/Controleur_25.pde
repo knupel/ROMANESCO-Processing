@@ -35,7 +35,6 @@ void draw() {
   buttonDraw() ;
   sendOSCdraw() ;
   initVarSliderDynamic() ;
-  
 }
 
 
@@ -61,9 +60,9 @@ void mousePressed () {
     Bsnare.mousePressedText() ;
     Bhat.mousePressedText() ;
     //midi
-    BOmidi.mousePressedText() ;
+    BOmidi.mousePressed() ;
     //curtain
-    BOcurtain.mousePressedText() ;
+    BOcurtain.mousePressed() ;
   }
   //dropdown
   dropdownMousepressed() ;

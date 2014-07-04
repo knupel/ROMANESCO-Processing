@@ -16,12 +16,15 @@ class SliderHorizontal {
 
   SliderHorizontal (int xp, int yp, int LSlider, int HSlider, int s, color boutonOUT, color boutonIN, color reglette, int transparence, float pC, int IDmidi) {
     this.IDmidi = IDmidi ;
-    longueurSlider = LSlider;   hauteurSlider = HSlider;              suivit = s;
-    xpos = xp;          ypos = yp-hauteurSlider/2;
+    longueurSlider = LSlider;   
+    hauteurSlider = HSlider;              
+    suivit = s;
+    xpos = xp;          
+    ypos = yp-hauteurSlider/2;
     float lh = float(longueurSlider) ;
     
     //molette position
-    spos = xpos + (pC / (100.0 + ( (11.0/lh)*rapportDepart) ) * LSlider); 
+    spos = xpos + (pC / (100.0 + ((11.0/lh)*rapportDepart)) *LSlider); 
     newspos = spos;
     
     sposMin = xpos;    sposMax = xpos + longueurSlider - hauteurSlider;
@@ -30,20 +33,17 @@ class SliderHorizontal {
   }
   
   //DISPLAY MOLETTE
-  void displayMolette(color cIn, color cOut, color colorOutline, PVector size) {
-    fill(rglt, transp);
+  void displayMolette(color cIn, color cOut, color colorOutline, PVector size, PVector correctionPos) {
+    
     if( xpos != 0 && ypos != 0) {
-      //rect(xpos, ypos, longueurSlider, hauteurSlider); 
-      stroke(colorOutline) ; strokeWeight(size.z) ;
-      if(dedans || locked) {
-        fill(cIn);
-        // loadSaveSetting = false ;
-      } else {
-        fill(cOut);
-      }
+      fill(rglt, transp);
+      stroke(colorOutline) ; 
+      strokeWeight(size.z) ;
+      //noStroke() ;
+      if(dedans || locked) fill(cIn); else fill(cOut);
       //display  
-      rect(spos, ypos-3, size.x, size.y);
-      // ellipse(spos +(size.y *.5), ypos-3 +(size.y *.5), size.y *1.2, size.y *1.2);
+      float factorSize = 1.0 ;
+      ellipse(spos +(size.y *.5) +correctionPos.x, ypos-3 +(size.y *.5) +correctionPos.y, size.y *factorSize, size.y *factorSize);
       noStroke() ;
     }   
   }
@@ -56,7 +56,7 @@ class SliderHorizontal {
     int NLX ;
     float NloadX ;
     float lh = float(longueurSlider) ;
-    NloadX = xpos + (saveX / (100.0 + ( (11.0/lh)*rapportChargement) ) * longueurSlider);
+    NloadX = xpos + (saveX / (100.0 + ( (11.0/lh)*rapportChargement) ) *longueurSlider);
     NLX = round(NloadX) ;
     // Choix entre le chargement des sauvegarde de position ou les coordonnées de la souris
     if(save) posX = NLX ; else posX = currentX ;
@@ -68,7 +68,7 @@ class SliderHorizontal {
    if(locked || save)newspos = constrain(posX-hauteurSlider/2, sposMin, sposMax);
 
     if(abs(newspos - spos) > 1) {
-      spos = spos + (newspos-spos)/suivit;
+      spos = spos +(newspos-spos)/suivit;
     }
   }
 
@@ -79,13 +79,11 @@ class SliderHorizontal {
   // update position from midi controller
   void updateMidi(int val) {
     //update the Midi position only if the Midi Button move
-    if ( newValMidi != val ) { 
+    if (newValMidi != val) { 
       newValMidi = val ; 
       newspos = map(val, 1, 127, sposMin, sposMax ) ;
       posX = newValMidi ; 
     }
-    // val = map(val,1,128, 0, width ) ; 
-
   }
   
   //////
@@ -108,9 +106,7 @@ class SliderHorizontal {
     if(mouseX > spos && mouseX < spos+hauteurSlider &&
        mouseY > ypos && mouseY < ypos+hauteurSlider) {  
       return true;
-    } else {
-      return false;
-    }
+    } else return false;
   }
   //return pos
   float getPos() { // nom de variable et () permet de récupérer les données d'un return
