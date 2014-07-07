@@ -24,6 +24,6 @@ If you want code in Romanesco there few compulsory variables and functions that 
 
 
 ##LICENCE
-ROMANESCO is a Free Software under the licence CeCILL, very similar to the GNU GPL licence.
-Free for the artist and free using, but for the company or business use, contact-me.
-This project start in 2011, November.
+ROMANESCO is under the licence CeCILL.
+Romanesco is free for the non-commercial use in other case contact-me.
+2011-2014.
