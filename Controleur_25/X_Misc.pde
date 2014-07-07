@@ -209,3 +209,25 @@ void recurseDir(ArrayList a, String dir) {
 }
 //END CHECK FOLDER
 /////////////////
+
+
+
+
+/////////
+// CREDIT
+boolean insideNameversion ;
+void credit() {
+  if(mouseX > 2 && mouseX < 160 && mouseY > 3 && mouseY < 26 ) insideNameversion = true ; else insideNameversion = false ;
+  if(insideNameversion && mousePressed) {
+  String credit[] = loadStrings("credit.txt");
+  
+  fill(grisNoir,225) ; 
+  int startBloc = 24 ;
+  rect(0, startBloc, width, height - startBloc -9 ) ; // //GROUP ZERO
+  for (int i = 0 ; i < credit.length; i++) {
+    fill(blanc) ;
+    text(credit[i], 10,startBloc + 12 + ((i+1)*14));
+  }
+  }
+}
+// END CREDIT

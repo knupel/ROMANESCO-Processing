@@ -502,13 +502,12 @@ void structureDraw() {
 //TEXT
 //DRAW
 void textDraw() {
-  fill (blanc) ; 
+  if(insideNameversion) fill (jaune) ; else fill(orange) ;
   int posTextY = 18 ;
   textFont(FuturaStencil_20,16); 
   text(nameVersion, 5, posTextY);
-  textFont(textUsual_1) ;
-  text("Edition " + edition + " Version " + version, 160,posTextY -1) ; 
   //CLOCK
+  fill (orange) ; 
   textFont(FuturaStencil_20,16); textAlign(RIGHT);
   text(nf(hour(),2)   + ":" +nf(minute(),2) , width -10, posTextY);
   
