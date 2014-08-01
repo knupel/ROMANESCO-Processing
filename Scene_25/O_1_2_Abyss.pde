@@ -401,11 +401,11 @@ abstract class SuperCreature {
   };
 
   PVector getPos() {
-    return pos.get();
+    return pos.copy();
   }
 
   void setPos(PVector pos) {
-    this.pos = pos.get();
+    this.pos = pos.copy();
   }
 
   void creatureHasBeenAdded(SuperCreature c) {

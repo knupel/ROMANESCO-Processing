@@ -1,0 +1,279 @@
+_____________
+Romanesco Unu 
+°°°°°°°°°°°°°
+°°°°°°°°°°°°°
+________________________
+Guide to code the object
+°°°°°°°°°°°°°°°°°°°°°°°°
+°°°°°°°°°°°°°°°°°°°°°°°°
+
+
+________________
+FAMILY OBJECT
+°°°°°°°°°°°°°°°°
+int IDfamily = # ;
+ and give too the family ID
+ 1 for simple
+ 2 for texture
+ 3 for typo
+
+
+________________________________
+SLIDER CONTROLLER ACTIVATION
+°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°
+ remove the slider you don't want display
+ romanescoSlider = "Hue fill,Saturation fill,Brightness fill,Alpha fill,Hue stroke,Saturation stroke,Brightness stroke,
+ 					Alpha stroke,Thickness,Width,Height,Depth,Canvas X,Canvas Y,Canvas Z,Quantity,Speed,Direction,
+ 					Angle,Amplitude,Analyze,Family,Life,Force" ;
+
+________________
+VOID
+°°°°°°°°°°°°°°°°
+ there is TWO MAINS VOID in class ROMANESCO
+ void setting()
+ and 
+ void display()
+ if you use other void you must call this one in one of them
+
+
+
+_____________________________
+LIBRARY OR EXTERNAL CLASSES
+°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°
+when you code in the class romanesco and call external class or library need (this) you must write (callingClass) :
+example 
+* name = new LibraryOrClass(this);) >>>
+>>> become >>>
+<<< name = new LibraryOrClass(callingClass);)
+
+
+
+
+
+
+
+
+
+____________
+VARIABLES
+°°°°°°°°°°°°°
+
+SLIDER
+––––––––––––––––––––––
+VAR object from slider
+
+color fillObj[IDobj] ; you can separate with hue, saturation, brightness and alpha
+color strokeObj[IDobj] ; you can separate with hue, saturation, brightness and alpha
+float thicknessObj[IDobj] ; value from 0.1 to height/3
+
+float sizeXObj[IDobj] ; sizeYObj[IDobj] ; sizeZObj[IDobj] ; value from 0.1 to width
+
+float canvasXObj[IDobj] ; canvasYObj[IDobj] ; canvasZObj[IDobj] value from width/10  to width
+
+float quantityObj = new float[numObj] ; value from 1 to 100 ;
+
+float speedObj[IDobj] ; value from 0 to 1
+float directionObj[IDobj] ; value from 0 to 360
+float angleObj[IDobj] ; value from 0 to 360
+float amplitudeObj[IDobj] ; value from 0 to 1
+float analyzeObj[IDobj] ; value from 0 to 1
+float familyObj[IDobj] ; value from 1 to 118, it's atomic choice 118 is the last atom knew in 2006!
+float lifeObj[IDobj] ; value from 0 to 1
+float forceObj[IDobj] ; value from 0 to 1
+
+// shortcut var
+float fontSizeObj[IDobj] ; 3 to height in the release 25 work with the slider sizeXObj
+
+void aspect(int ID) give the fill, stroke and strokeWeight
+
+
+
+SOUND 
+–––––––––––––––––––
+VAR from the sound
+
+float left[IDobj]  return value from 0 to 1 when the sound button is ON, if it's OFF the value is 1
+float right[IDobj] return value from 0 to 1 when the sound button is ON, if it's OFF the value is 1
+float mix[IDobj]   return value from 0 to 1 when the sound button is ON, if it's OFF the value is 1
+
+float beat[IDobj]    return value from 1 to 10 when the button sound is ON, the value keep the last value if the button is OFF 
+float kick[IDobj]    return value from 1 to 10 when the button sound is ON, the value keep the last value if the button is OFF 
+float snare[IDobj]   return value from 1 to 10 when the button sound is ON, the value keep the last value if the button is OFF 
+float hat[IDobj]     return value from 1 to 10 when the button sound is ON, the value keep the last value if the button is OFF 
+float allBeats(IDobj) is a some of the four beats, return value from 1 to 40 when the button sound is ON, the value keep the last value if the button is OFF 
+
+float tempo[IDobj]      return value from 0 to 1 when the sound button is ON, if it's OFF the value is 1
+float tempoBeat[IDobj]  return value from 0 to 1 when the sound button is ON, if it's OFF the value is 1
+float tempoKick[IDobj]  return value from 0 to 1 when the sound button is ON, if it's OFF the value is 1
+float tempoSnare[IDobj] return value from 0 to 1 when the sound button is ON, if it's OFF the value is 1
+float tempoHat[IDobj]   return value from 0 to 1 when the sound button is ON, if it's OFF the value is 1
+
+float getTimeTrack()  if the track is ON return the time elapse from the beginning play to now, if the track is OFF return value < 0.2
+
+float band [IDobj][whichBand] // whichBand give the information of the band where catch the info
+usualy there is 16 bands, to know the number :
+bandSpectrum.length ;
+
+
+
+COMMON EXTERNAL DEVICE
+––––––––––––––––––––––––––––––––––––––
+VAR from the mouse, pen and leapmotion
+
+
+POINTER XYZ
+PVector mouse[IDobj] refresh with space touch
+mouse[0].x // mouse[0].y // absolute position of the mouse
+mouse[0].z // return info from the z axis when the leapmotion is active
+mouse[IDobj].x // mouse[IDobj].y // mouse[IDobj].z // same info tha mouse[IDobj] but this one is refresh when you press the space
+
+MOUSE WHEEL
+int wheel[IDobj]
+wheel[0] and wheel[IDobj]
+or use the void zoom() and take the float value getCountZoom...this value is more reactive !
+
+PMOUSE
+PVector pmouse[IDobj]
+pmouse[0] and pmouse[IDobj]
+
+
+PEN
+––––––––––
+PVector pen[IDobj] or pen[0] refresh with space touch
+pen[IDobj].x pen[IDobj].y   // information from the tablet tilt : orientation of the pen 
+pen[IDobj].z - value to 0 to 1 - information from tablet : pressure pen 
+
+
+MOUSE CLICK BOOLEAN
+–––––––––––––––––––––––––
+Short click just for one shot
+	boolean clickShortLeft[IDobj] ;
+	boolean clickShortRight[IDobj] ;
+Active after one mousePressed, be inactive after the mouse Released
+	boolean clickLongLeft[IDobj] ;
+	boolean clickLongLeft[IDobj] ;
+
+
+
+
+
+
+
+
+
+______________________
+IMPORT
+°°°°°°°°°°°°°°°°°°°°°°
+IMAGE IMPORT
+–––––––––––––––––––––––
+load image from the menu controller:
+img[IDobj] = loadImage(imagePath[whichImage[IDobj]]) ;
+
+details:
+loadImg(IDobj) void use to load and update the image
+String imagePath[whichImage] ; image jpg from the dropdown menu
+PImage img[IDobj] image selected from dropdown menu and confirm by the Parameter button of the object
+
+
+TEXT IMPORT
+–––––––––––––––––––––––
+loadText(IDobj) use to load and update the text
+
+String textImport[IDobj] raw text selected from the folder preferences/Karaoke
+
+textPath[whichText] ; text from the dropdown menu
+
+int numChapters(String textImport[IDobj]) give the number of the chapter of your raw text
+
+int numMaxSentencesByChapter(String textImport[IDobj]) give the number of sentences of the chapter have the most sentences
+
+String whichSentence(String txt, int whichChapter, int whichSentence) return String
+
+Romanesco call fileText.txt from the folder Karaoke from the preferences folder,
+so you can write on it when you use Romanesco split function
+"*" to separate the chapter 
+"/" to separate the sentence
+
+** When you code take a care to save the karaoke.txt in each folder of dev (Scene, Prescene, Mirroir) **
+
+
+
+
+
+
+
+
+_____________________________
+MISC
+°°°°°°°°°°°°°°°°°°°°°°°°°°°°°
+
+RESET
+––––––––––––
+To empty the list or reset object activate by backspace and delete
+boolean resetAction(IDobj) when the Action button is On
+boolean resetParameter(IDobj) when the Parameter button is On
+Suggestion use Action Button for the particle and the list
+and Parameter for the other reset. But it's just a suggestion
+
+
+STARTING POSITION
+––––––––––––––––––––––––
+give the position of the object at the opening app
+PVector startingPos[IDobj] by default this value is equal to (width/2, height/2, 0)
+this void give the XYZ to
+PVector startingPosition[IDobj] ;
+
+
+CAMERA
+––––––––––––
+travelling(PVector targetPos) ; // the camera go to a specific point in the scene
+
+
+OBJECT
+––––––––––––
+boolean setting[IDobj] to block the setting at the beggining and when you came back to the button setting to don't go immediatly on the value slider...not finish in progress
+void startPosition(int IDobj, int x, int y, int z) // give the starting position of the object on the scene, WRITE IN THE void display()
+
+
+MOTION
+––––––––––––
+boolean motion[IDobj] boolean use for the move activate or desactivate by the "m" key - booleann mTouch - 
+
+
+ALIGNEMENT
+––––––––––––––––
+boolean horizon[IDobj] boolean use for the move activate or desactivate by the "h" key - booleann hTouch -
+
+
+REVERSE DIRECTION
+–––––––––––––––––––––––
+boolean reverse[IDobj] use to reverse direction or what you want, activa by "r" key - boolean rTouch -
+
+
+INFO
+––––––––––
+boolean objectInfoDisplay[IDobj] use to display info or what you want show on Prescene or Scene from your object, activate by "i" key - boolean iTouch
+String objectName[IDobj] return the name of your object
+String objectInfo[IDobj]  can be use to add info who can be display in the info option when you push "i" on the prescene
+int objectID[IDobj] return the ID of the object
+
+
+COMMON ASSOCIATION 
+––––––––––––––––––––––––––
+between the controler and the prescene
+// with action button
+// add obj
+if(actionButton[IDobj] == 1 && nTouch ) { /* yourList.add( new YourClass ()); */ }
+or
+int spawnFrequency = 3 ; 
+if(actionButton[IDobj] == 1 && nLongTouch && frameCount % spawnFrequency == 0 ) { /* yourList.add( new YourClass ()); */ }
+// motion
+if(actionButton[IDobj] == 1 && mTouch ) { }
+// change stuff like color palette....
+if(actionButton[IDobj] == 1 && xTouch ) { }
+// stop, move the mouse inside the object
+if(actionButton[IDobj] == 1 && spaceTouch ) { }
+
+//with parametter button
+open folder
+if ( parameterButton[IDobj] == 1 && oTouch ) { }

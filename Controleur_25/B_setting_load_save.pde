@@ -7,7 +7,7 @@
 //SETUP
 void loadSetup() {
   //buildLibrary() ;
-  loadSave(sketchPath("")+"preferences/MidiSetting/defaultSetting.csv") ;
+  loadSave(sketchPath("")+"preferences/setting/defaultSetting.csv") ;
   
   //load data object
   

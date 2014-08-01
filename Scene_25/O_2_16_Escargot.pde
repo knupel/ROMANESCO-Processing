@@ -5,11 +5,11 @@ class Escargot extends SuperRomanesco {
     IDobj = 16 ;
     IDgroup = 2 ;
     romanescoAuthor  = "Stan le Punk";
-    romanescoVersion = "Alpha 1.3";
+    romanescoVersion = "version 1.4";
     romanescoPack = "Base" ;
     romanescoRender = "P3D" ;
     romanescoMode = "1 Original/2 Raw/3 Point/4 Ellipse/5 Rectangle/6 Box/7 Cross/8 SVG/9 Vitraux" ;
-    romanescoSlider = "Hue fill,Saturation fill,Brightness fill,Alpha fill,Hue stroke,Saturation stroke,Brightness stroke,Alpha stroke,Thickness,Width,Height,Depth,Speed,Direction,Amplitude,Analyze" ;
+    romanescoSlider = "Hue fill,Saturation fill,Brightness fill,Alpha fill,Hue stroke,Saturation stroke,Brightness stroke,Alpha stroke,Thickness,Width,Height,Depth,Speed,Direction,Amplitude,Analyze,Quantity,Force" ;
   }
   //GLOBAL
   String pathSVG ;
@@ -94,6 +94,9 @@ class Escargot extends SuperRomanesco {
   float brightRange = 0.00 ; // between "zero" and "one" : "zero" if the max amplitude between the pivot and the color start
   PVector brightVariation = new PVector (brightPivot, brightSpeed, brightRange ) ;
   
+  //SOUND
+  int forceBeat = 1 ;
+  
   
   //SETUP
   void setting() {
@@ -156,7 +159,7 @@ class Escargot extends SuperRomanesco {
       
       //ANALYZE
       //change the size of pixel ref for analyzing
-      if (pixelAnalyzeSize != pixelAnalyzeSizeRef || radiusAnalyze != radiusAnalyzeRef || maxEntryPoints != maxEntryPointsRef  ) reInitilisationAnalyze() ;
+      if (pixelAnalyzeSize != pixelAnalyzeSizeRef || radiusAnalyze != radiusAnalyzeRef || maxEntryPoints != maxEntryPointsRef) reInitilisationAnalyze() ;
   
       pixelAnalyzeSizeRef = pixelAnalyzeSize;
       radiusAnalyzeRef = radiusAnalyze ;
@@ -189,7 +192,8 @@ class Escargot extends SuperRomanesco {
        }
        
        //size and thickness
-       PVector sizePix = new PVector (map(sizeXObj[IDobj],.1,width, 1, height/50 ), map(sizeYObj[IDobj],.1,width, 1, height/50 ), map(sizeZObj[IDobj],.1,width, 1, height/50 )) ;
+       PVector sizePix = new PVector (map(sizeXObj[IDobj],.1,width, 1, height/30 ), map(sizeYObj[IDobj],.1,width, 1, height/30 ), map(sizeZObj[IDobj],.1,width, 1, height/30 )) ;
+       float sizePoint = map(sizeXObj[IDobj],.1,width, 1, height/6 ) ;
        float thickPix = map(thicknessObj[IDobj],0.1,height *.33, 0.1, height/10 ) ;
        
        // range 100
@@ -201,11 +205,9 @@ class Escargot extends SuperRomanesco {
        float soundThreeHundredSixtyMax = random(soundThreeHundredSixtyMin, soundThreeHundredSixtyMin +30) ;
        PVector rangeReactivitySoundThreeHundredSixty = new PVector (soundThreeHundredSixtyMin, soundThreeHundredSixtyMax) ;
        //Music factor
-       PVector musicFactor = new PVector (kick[IDobj] *.2, snare[IDobj]*.2, beat[IDobj]*.2) ; // hsb reactivity, the first PVector is for the hue, the second for the saturation, the third for the brightness
-       
-       //opacity
-       int opacityShapeIn =  (int)alpha(fillObj[IDobj]) ;
-       int opacityShapeOut = (int)alpha(strokeObj[IDobj]) ;
+       PVector musicFactor = new PVector ( allBeats(IDobj) *left[IDobj], allBeats(IDobj) *right[IDobj]) ;
+       forceBeat = (int)map(forceObj[IDobj],0,1,1,40) ;
+
        
        // update image
        if(parameter[IDobj] && imgPathRef != imagePath[whichImage[IDobj]] ) {
@@ -242,27 +244,27 @@ class Escargot extends SuperRomanesco {
       /////////////////////
       // translate((width*.5)-(img.width *.5) ,(height *.5)-(img.height *.5),0) ;
       if (mode[IDobj] == 0 || mode[IDobj] == 255 ) {
-        displayRawPixel(sizePix.x, opacityShapeIn, rangeReactivitySoundHundred, rangeReactivitySoundThreeHundredSixty, musicFactor, ratioImgWindow) ;
+        displayRawPixel(sizePoint, fillObj[IDobj], rangeReactivitySoundHundred, rangeReactivitySoundThreeHundredSixty, musicFactor, ratioImgWindow) ;
       } else if (mode[IDobj] == 1 ) {
-        escargotRaw(sizePix.x, opacityShapeIn, rangeReactivitySoundHundred, rangeReactivitySoundThreeHundredSixty, musicFactor, ratioImgWindow) ;
+        escargotRaw(sizePoint, fillObj[IDobj], rangeReactivitySoundHundred, rangeReactivitySoundThreeHundredSixty, musicFactor, ratioImgWindow) ;
       } else if (mode[IDobj] == 2 ) {
-        escargotPoint(sizePix.x, opacityShapeIn, rangeReactivitySoundHundred, rangeReactivitySoundThreeHundredSixty, musicFactor, ratioImgWindow) ;
+        escargotPoint(sizePix, fillObj[IDobj], rangeReactivitySoundHundred, rangeReactivitySoundThreeHundredSixty, musicFactor, ratioImgWindow) ;
       } else if (mode[IDobj] == 3 ) {
-        escargotEllipse(sizePix, thickPix, opacityShapeIn, opacityShapeOut, rangeReactivitySoundHundred, rangeReactivitySoundThreeHundredSixty, musicFactor, ratioImgWindow) ;
+        escargotEllipse(sizePix, thickPix, fillObj[IDobj], strokeObj[IDobj], rangeReactivitySoundHundred, rangeReactivitySoundThreeHundredSixty, musicFactor, ratioImgWindow) ;
       } else if (mode[IDobj] == 4 ) {
-        escargotRect(sizePix, thickPix, opacityShapeIn, opacityShapeOut, rangeReactivitySoundHundred, rangeReactivitySoundThreeHundredSixty, musicFactor, ratioImgWindow) ;
+        escargotRect(sizePix, thickPix, fillObj[IDobj], strokeObj[IDobj], rangeReactivitySoundHundred, rangeReactivitySoundThreeHundredSixty, musicFactor, ratioImgWindow) ;
       }else if (mode[IDobj] == 5 ) {
-        escargotBox(sizePix, thickPix, opacityShapeIn, opacityShapeOut, rangeReactivitySoundHundred, rangeReactivitySoundThreeHundredSixty, musicFactor, ratioImgWindow, horizon[IDobj]) ;
+        escargotBox(sizePix, thickPix, fillObj[IDobj], strokeObj[IDobj], rangeReactivitySoundHundred, rangeReactivitySoundThreeHundredSixty, musicFactor, ratioImgWindow, horizon[IDobj]) ;
       } else if (mode[IDobj] == 6 ) {
-        escargotCross(sizePix, thickPix, opacityShapeIn, rangeReactivitySoundHundred, rangeReactivitySoundThreeHundredSixty, musicFactor, ratioImgWindow) ;
+        escargotCross(sizePix, thickPix, fillObj[IDobj], rangeReactivitySoundHundred, rangeReactivitySoundThreeHundredSixty, musicFactor, ratioImgWindow) ;
       } else if (mode[IDobj] == 7 ) {
-        escargotSVG(sizePix, thickPix, opacityShapeIn, opacityShapeOut, rangeReactivitySoundHundred, rangeReactivitySoundThreeHundredSixty, musicFactor, ratioImgWindow) ;
+        escargotSVG(sizePix, thickPix, fillObj[IDobj], strokeObj[IDobj], rangeReactivitySoundHundred, rangeReactivitySoundThreeHundredSixty, musicFactor, ratioImgWindow) ;
       } else if (mode[IDobj] == 8 ) {
         //if( listEscargot.size() < 600) {
         if( listEscargot.size() < maxVoronoiPoints + maxVoronoiPoints/10) {
           voronoiStatic(fillObj[IDobj], strokeObj[IDobj], thickPix, useNewPalettePixColorToDisplay, ratioImgWindow) ; 
         } else {
-          text("Too much points to net voronoï connection", 20, height - 20 ) ;
+          text("Too much points to net voronoï connection", 20, height -20) ;
         }
       }
       
@@ -274,14 +276,18 @@ class Escargot extends SuperRomanesco {
   
   
   //ANNEXE VOID
-  void displayRawPixel(float sizeP, int opacity, PVector rangeHundred, PVector rangeThreeHundredSixty, PVector musicFactor, PVector ratio) {
+  void displayRawPixel(float sizeP, color cIn, PVector rangeHundred, PVector rangeThreeHundredSixty, PVector musicFactor, PVector ratio) {
     // we must create a PVector because i'm lazy to create an other void beatReactivity for one float
     PVector sizePixCtrl = new PVector (0,0,sizeP) ;
+    float factorSat = map(saturation(cIn),0,100,0,1) ;
+    float factorBright = map(brightness(cIn),0,100,0,1) ;
     
     for ( Pixel p : listPixelRaw ) {
       //display
-      stroke(p.colour, opacity) ;
-      if(sound[IDobj]) strokeWeight(beatReactivityHSB(sizePixCtrl, p.size, p.colour, rangeThreeHundredSixty, rangeHundred, musicFactor ).z) ; else strokeWeight(sizeP) ;
+      stroke(hue(p.colour),saturation(p.colour)*factorSat,brightness(p.colour)*factorBright, alpha(cIn)) ;
+      float newSize = 0 ;
+      if(sound[IDobj])  newSize = beatReactivityHSB(sizePixCtrl, p.size, p.colour, rangeThreeHundredSixty, rangeHundred, musicFactor ).z ; else newSize = sizeP ;
+      strokeWeight(newSize) ;
       point(p.pos.x *ratio.x, p.pos.y *ratio.y) ;
     }
   }
@@ -289,8 +295,10 @@ class Escargot extends SuperRomanesco {
   
   
   //Display which point is use to caluculate the barycenter
-  void escargotRaw(float sizeP, int opacity, PVector rangeHundred, PVector rangeThreeHundredSixty, PVector musicFactor, PVector ratio) {
+  void escargotRaw(float sizeP, color cIn, PVector rangeHundred, PVector rangeThreeHundredSixty, PVector musicFactor, PVector ratio) {
     color c ;
+    float factorSat = map(saturation(cIn),0,100,0,1) ;
+    float factorBright = map(brightness(cIn),0,100,0,1) ;
     // we must create a PVector because i'm lazy to creat an other void beatReactivity for one float
     PVector sizePixCtrl = new PVector (0,0,sizeP) ;
     
@@ -300,8 +308,10 @@ class Escargot extends SuperRomanesco {
         if ( colorPixDisplay ) c = p.newColour ; else c = p.colour ;
         
         //display
-        stroke(c, opacity) ;
-        if(sound[IDobj]) strokeWeight(beatReactivityHSB(sizePixCtrl, p.size, p.colour, rangeThreeHundredSixty, rangeHundred, musicFactor ).z) ; else strokeWeight(sizeP) ;
+        stroke(hue(c),saturation(c)*factorSat,brightness(c)*factorBright, alpha(cIn)) ;
+        float newSize = 0 ;
+        if(sound[IDobj])  newSize = beatReactivityHSB(sizePixCtrl, p.size, p.colour, rangeThreeHundredSixty, rangeHundred, musicFactor ).z ; else newSize = sizeP ;
+        strokeWeight(newSize) ;
         point(p.pos.x *ratio.x, p.pos.y *ratio.y) ;
       }
     }
@@ -309,10 +319,12 @@ class Escargot extends SuperRomanesco {
 
 
   //Display Barycenter
-  void escargotPoint(float sizeP, int opacity, PVector rangeHundred, PVector rangeThreeHundredSixty, PVector musicFactor, PVector ratio) {
+  void escargotPoint(PVector size, color cIn, PVector rangeHundred, PVector rangeThreeHundredSixty, PVector musicFactor, PVector ratio) {
     color c ;
+    float factorSat = map(saturation(cIn),0,100,0,1) ;
+    float factorBright = map(brightness(cIn),0,100,0,1) ;
     // we must create a PVector because i'm lazy to creat an other void beatReactivity for one float
-    PVector sizePixCtrl = new PVector (0,0,sizeP) ;
+    //PVector sizePixCtrl = new PVector (0,0,size.x) ;
 
     for ( Pixel p : listEscargot ) {
       //check if we must display original color or the new palette
@@ -325,10 +337,13 @@ class Escargot extends SuperRomanesco {
       // update the color after change each componante
       p.updatePalette() ;
       
-      stroke(c, opacity) ;
-      float strokeSound = beatReactivityHSB(sizePixCtrl, p.size, p.colour, rangeThreeHundredSixty, rangeHundred, musicFactor).z ;
-      if(soundButton[IDobj] == 1 ) strokeWeight(strokeSound) ; else strokeWeight(p.size.x *sizeP) ;
-      point(p.pos.x *ratio.x, p.pos.y *ratio.y) ; 
+      stroke(hue(c),saturation(c)*factorSat,brightness(c)*factorBright, alpha(cIn)) ;
+      PVector newSize = new PVector() ;
+      newSize = newSize2D(size, p.size, rangeThreeHundredSixty, rangeHundred, musicFactor, c, forceBeat) ; //<>//
+      
+      if (soundButton[IDobj] == 1) strokeWeight(newSize.x) ; else strokeWeight(p.size.x *size.x) ;
+      
+       point(p.pos.x *ratio.x, p.pos.y *ratio.y) ; 
     }
   }
   
@@ -337,12 +352,14 @@ class Escargot extends SuperRomanesco {
   
   
   //ELLIPSE
-  void escargotEllipse(PVector size, float thickness, int opacityIn, int opacityOut, PVector rangeHundred, PVector rangeThreeHundredSixty, PVector musicFactor, PVector ratio) {
+  void escargotEllipse(PVector size, float thickness, color cIn, color cOut, PVector rangeHundred, PVector rangeThreeHundredSixty, PVector musicFactor, PVector ratio) {
     color c ;
-    //PVector newSize = new PVector (sizePix.x, sizePix.y, sizePix.z) ;   ;
-   // float newStrokeWeight = sizePix.z   ;
+    float factorSatIn = map(saturation(cIn),0,100,0,1) ;
+    float factorBrightIn = map(brightness(cIn),0,100,0,1) ;
+    float factorSatOut = map(saturation(cIn),0,100,0,1) ;
+    float factorBrightOut = map(brightness(cIn),0,100,0,1) ;
    
-    for ( Pixel p : listEscargot ) {
+    for (Pixel p : listEscargot) {
       
       if ( colorPixDisplay ) c = p.newColour ; else c = p.colour ;
       p.changeHue   (HSBmode, huePalette, hueStart, hueEnd) ;
@@ -355,110 +372,112 @@ class Escargot extends SuperRomanesco {
       // A RETRAVAILLER
       
       //display
-      if (opacityIn != 0) fill(c, opacityIn) ; else noFill() ;
-      
-      if (opacityOut != 0) {
-        stroke(c, opacityOut) ; 
+      if (alpha(cIn) != 0) fill(hue(c),saturation(c)*factorSatIn,brightness(c)*factorBrightIn, alpha(cIn)) ; else noFill() ;
+      if (alpha(cOut) != 0) {
+        stroke(hue(c),saturation(c)*factorSatOut,brightness(c)*factorBrightOut, alpha(cOut)) ; 
         strokeWeight(thickness ) ;
       } else { 
         noStroke() ;
       } 
-      ellipse(p.pos.x *ratio.x,  p.pos.y *ratio.y,    beatReactivityHSB(size, p.size, c, rangeThreeHundredSixty, rangeHundred, musicFactor ).x,       beatReactivityHSB(size, p.size, c, rangeThreeHundredSixty, rangeHundred, musicFactor ).y) ; 
+      
+      PVector newSize = new PVector() ;
+      newSize = newSize2D(size, p.size, rangeThreeHundredSixty, rangeHundred, musicFactor, c, forceBeat) ;
+      // display
+      ellipse(p.pos.x *ratio.x,  p.pos.y *ratio.y, newSize.x, newSize.y) ; 
     }
   }
   
-
-  
-  
-  
-  
   //RECT
-  void escargotRect(PVector size, float thickness, int opacityIn, int opacityOut, PVector rangeHundred, PVector rangeThreeHundredSixty, PVector musicFactor, PVector ratio) {
+  void escargotRect(PVector size, float thickness, color cIn, color cOut, PVector rangeHundred, PVector rangeThreeHundredSixty, PVector musicFactor, PVector ratio) {
     color c ;
-    // PVector newSize = new PVector (sizePix.x *.01, sizePix.y *.01) ;   ;
-    // float newStrokeWeight = sizePix.z   ;
+    float factorSatIn = map(saturation(cIn),0,100,0,1) ;
+    float factorBrightIn = map(brightness(cIn),0,100,0,1) ;
+    float factorSatOut = map(saturation(cIn),0,100,0,1) ;
+    float factorBrightOut = map(brightness(cIn),0,100,0,1) ;
     
-    for ( Pixel p : listEscargot ) {
-      
+    for (Pixel p : listEscargot) {
       if ( colorPixDisplay ) c = p.newColour ; else c = p.colour ;
       p.changeHue   (HSBmode, huePalette, hueStart, hueEnd) ;
       p.changeSat   (HSBmode, satPalette, satStart, satEnd) ; 
       p.changeBright(HSBmode, brightPalette, brightStart, brightEnd) ;
       // update the color after change each componante
       p.updatePalette() ; 
-     
-     //music influence on the opacity
       
       //display
-      if (opacityIn != 0) fill(c, opacityIn) ; else noFill() ;
-      if (opacityOut != 0) {
-        stroke(c, opacityOut) ; 
-        strokeWeight(thickness) ;
+      if (alpha(cIn) != 0) fill(hue(c),saturation(c)*factorSatIn,brightness(c)*factorBrightIn, alpha(cIn)) ; else noFill() ;
+      if (alpha(cOut) != 0) {
+        stroke(hue(c),saturation(c)*factorSatOut,brightness(c)*factorBrightOut, alpha(cOut)) ; 
+        strokeWeight(thickness ) ;
       } else { 
         noStroke() ;
-      }
-      //recalculate the pose  to scale with coordonate in the middle of the shape ( like(RectMode(CENTER) )
-      float sizeX = beatReactivityHSB(size, p.size, c,rangeThreeHundredSixty, rangeHundred, musicFactor ).x ;
-      float sizeY = beatReactivityHSB(size, p.size, c,rangeThreeHundredSixty, rangeHundred, musicFactor ).y ; 
-      rect((p.pos.x - (sizeX *.5)) *ratio.x, (p.pos.y - (sizeY *.5)) *ratio.y, sizeX , sizeY) ; 
+      } 
+
+      PVector newSize = new PVector() ;
+      newSize = newSize2D(size, p.size, rangeThreeHundredSixty, rangeHundred, musicFactor, c, forceBeat) ;
+      // display
+      rect((p.pos.x - (newSize.x *.5)) *ratio.x, (p.pos.y - (newSize.y *.5)) *ratio.y, newSize.x , newSize.y) ; 
     }
   }
   
   
   //RECT
-  void escargotBox(PVector size, float thickness, int opacityIn, int opacityOut, PVector rangeHundred, PVector rangeThreeHundredSixty, PVector musicFactor, PVector ratio, boolean alignement) {
+  void escargotBox(PVector size, float thickness, color cIn, color cOut, PVector rangeHundred, PVector rangeThreeHundredSixty, PVector musicFactor, PVector ratio, boolean alignement) {
     color c ;
-    // PVector newSize = new PVector (sizePix.x *.01, sizePix.y *.01) ;   ;
-    // float newStrokeWeight = sizePix.z   ;
+    float factorSatIn = map(saturation(cIn),0,100,0,1) ;
+    float factorBrightIn = map(brightness(cIn),0,100,0,1) ;
+    float factorSatOut = map(saturation(cIn),0,100,0,1) ;
+    float factorBrightOut = map(brightness(cIn),0,100,0,1) ;
     
-    for ( Pixel p : listEscargot ) {
-      
+    for (Pixel p : listEscargot) {
       if ( colorPixDisplay ) c = p.newColour ; else c = p.colour ;
       p.changeHue   (HSBmode, huePalette, hueStart, hueEnd) ;
       p.changeSat   (HSBmode, satPalette, satStart, satEnd) ; 
       p.changeBright(HSBmode,brightPalette, brightStart, brightEnd) ;
       // update the color after change each componante
       p.updatePalette() ; 
-     
-     //music influence on the opacity
       
       //display
-      if (opacityIn != 0) fill(c, opacityIn) ; else noFill() ;
-      if (opacityOut != 0) {
-        stroke(c, opacityOut) ; 
-        strokeWeight(thickness) ;
+      if (alpha(cIn) != 0) fill(hue(c),saturation(c)*factorSatIn,brightness(c)*factorBrightIn, alpha(cIn)) ; else noFill() ;
+      if (alpha(cOut) != 0) {
+        stroke(hue(c),saturation(c)*factorSatOut,brightness(c)*factorBrightOut, alpha(cOut)) ; 
+        strokeWeight(thickness ) ;
       } else { 
         noStroke() ;
-      }
+      } 
       //recalculate the pose  to scale with coordonate in the middle of the shape ( like(RectMode(CENTER) )
-      float sizeX = beatReactivityHSB(size, p.size, c,rangeThreeHundredSixty, rangeHundred, musicFactor ).x ;
-      float sizeY = beatReactivityHSB(size, p.size, c,rangeThreeHundredSixty, rangeHundred, musicFactor ).y ;
-      float sizeZ = beatReactivityHSB(size, p.size, c,rangeThreeHundredSixty, rangeHundred, musicFactor ).z *brightness(c) ;
+
+      // float witness = beatReactivityHSB(size, p.size, c, rangeThreeHundredSixty, rangeHundred, musicFactor ).z  ;
+      PVector newSize = new PVector() ;
+      newSize = newSize3D(size, p.size, rangeThreeHundredSixty, rangeHundred, musicFactor, c, forceBeat) ;
+      // display
       pushMatrix() ;
-      // translate( (p.pos.x - (sizeX *.5)) *ratio.x, (p.pos.y - (sizeY *.5)) *ratio.y, 0 ) ;
-      
       if (!alignement) {
-        //translate(pos.x, pos.y, pos.z) ; 
-        translate( p.pos.x *ratio.x, p.pos.y *ratio.y, 0 ) ;
+        translate(p.pos.x *ratio.x, p.pos.y *ratio.y, 0) ;
       } else {
-        float horizon = sizeZ *.5 ;
+        float horizon = newSize.z *.5 ;
         translate(p.pos.x *ratio.x, p.pos.y *ratio.y, horizon) ;
-        //translate( p.pos.x *ratio.x, p.pos.y *ratio.y, 0 ) ;
       }
-      
-      box(sizeX , sizeY, sizeZ ) ; 
+      //show
+      box(newSize.x, newSize.y, newSize.z) ;
+      /*
+      if (soundButton[IDobj] == 1) { 
+        if( witness > size.z) box(newSize.x, newSize.y, newSize.z) ; 
+      } else if (soundButton[IDobj] == 0){ 
+        box(newSize.x, newSize.y, newSize.z) ; 
+      }
+      */
       popMatrix() ;
     }
   }
   
   
   //CROSS
-  void escargotCross(PVector size, float thickness, int opacity, PVector rangeHundred, PVector rangeThreeHundredSixty, PVector musicFactor, PVector ratio) {
+  void escargotCross(PVector size, float thickness, color cIn, PVector rangeHundred, PVector rangeThreeHundredSixty, PVector musicFactor, PVector ratio) {
     color c ; 
-    PVector newSize = new PVector (size.x, size.y) ;
-    // float newStrokeWeight = sizePix.z   ;
+    float factorSat = map(saturation(cIn),0,100,0,1) ;
+    float factorBright = map(brightness(cIn),0,100,0,1) ;
     
-    for ( Pixel p : listEscargot ) {
+    for (Pixel p : listEscargot) {
       
       if ( colorPixDisplay ) c = p.newColour ; else c = p.colour ;
       p.changeHue   (HSBmode, huePalette, hueStart, hueEnd) ;
@@ -467,13 +486,14 @@ class Escargot extends SuperRomanesco {
       // update the color after change each componante
       p.updatePalette() ;
       
-      //music influence on the opacity
-      //A TRAVAILLER
-  
-      color newC = color(c, opacity) ;
-     //  void crossPoint(PVector pos, PVector size, color colorCross, float e, )
-     PVector pos = new PVector(p.pos.x *ratio.x, p.pos.y *ratio.y) ;
-      crossPoint(pos, newSize, newC, thickness) ;
+
+      color newC = color(hue(c),saturation(c)*factorSat,brightness(c)*factorBright, alpha(cIn)) ;
+
+      PVector pos = new PVector(p.pos.x *ratio.x, p.pos.y *ratio.y) ;
+      PVector newSize = new PVector() ;
+      newSize = newSize3D(size, p.size, rangeThreeHundredSixty, rangeHundred, musicFactor, c, forceBeat) ;
+      // display
+      if (alpha(cIn) > 0 ) crossPoint3D(pos, newSize, newC, thickness) ;
     }
   }
   
@@ -481,14 +501,17 @@ class Escargot extends SuperRomanesco {
   
   /////////////
   //display SVG shave like pixel
-  void escargotSVG(PVector size, float thickness, int opacityIn, int opacityOut, PVector rangeHundred, PVector rangeThreeHundredSixty, PVector musicFactor, PVector ratio) {
+  void escargotSVG(PVector size, float thickness, color cIn, color cOut, PVector rangeHundred, PVector rangeThreeHundredSixty, PVector musicFactor, PVector ratio) {
     color c ;
-    // PVector newSize = new PVector (sizePix.x, sizePix.y, sizePix.y) ;
+    float factorSatIn = map(saturation(cIn),0,100,0,1) ;
+    float factorBrightIn = map(brightness(cIn),0,100,0,1) ;
+    float factorSatOut = map(saturation(cIn),0,100,0,1) ;
+    float factorBrightOut = map(brightness(cIn),0,100,0,1) ;
     
-    for ( Pixel p : listEscargot ) { 
+    for (Pixel p : listEscargot) { 
       //check if we must display original color or the new palette
       int x = (int)p.pos.x ; int y = (int)p.pos.y ;
-      if ( colorPixDisplay ) c = p.newColour ; else c = get(x , y) ;
+      if (colorPixDisplay) c = p.newColour ; else c = get(x , y) ;
       
       p.changeHue   (HSBmode, huePalette, hueStart, hueEnd) ;
       p.changeSat   (HSBmode, satPalette, satStart, satEnd) ; 
@@ -496,23 +519,22 @@ class Escargot extends SuperRomanesco {
       // update the color after change each componante
       p.updatePalette() ; 
       
-      //music influence on the opacity
-      //A TRAVAILLER
-     
-      
       //display
-      if (opacityIn != 0) fill(c, opacityIn) ; else noFill() ;
-      if (opacityOut != 0) {
-        stroke(c, opacityOut) ; 
-        strokeWeight(thickness) ;
+      if (alpha(cIn) != 0) fill(hue(c),saturation(c)*factorSatIn,brightness(c)*factorBrightIn, alpha(cIn)) ; else noFill() ;
+      if (alpha(cOut) != 0) {
+        stroke(hue(c),saturation(c)*factorSatOut,brightness(c)*factorBrightOut, alpha(cOut)) ; 
+        strokeWeight(thickness ) ;
       } else { 
         noStroke() ;
-      }
+      } 
       //recalculate the pose  to scale with coordonate in the middle of the shape ( like(RectMode(CENTER) ) 
-      float sizeSVG =  .01 *p.size.x *size.x ;
+      
+      PVector newSize = new PVector() ;
+      newSize = newSize2D(size, p.size, rangeThreeHundredSixty, rangeHundred, musicFactor, c, forceBeat) ;
+      // display
+      float sizeSVG = newSize.x *.1 ;
       PVector newPos = new PVector ( p.pos.x - (50 *sizeSVG *.5) *ratio.x ,p.pos.y - (50 *sizeSVG *.5) *ratio.y) ;
   
-      //PVector newPos = new PVector ( p.pos.x -(p.size.x *float(sizePix)  *.05), p.pos.y - (p.size.y *float(sizePix)  *.05) ) ;
       if (drawVertexSVG) drawBezierVertex(newPos, sizeSVG , listPointsFromSVG, shapeInfo ) ;
     }
   }
@@ -550,13 +572,10 @@ class Escargot extends SuperRomanesco {
       for (Vec2D v : voronoi.getSites() ) {
         if (poly.containsPoint(v) ) {
           //position in grid
-          //findPosFromVoronoi.x = int((v.x /pixelAnalyzeSize)*ratio.x) ;
-          //findPosFromVoronoi.y = int((v.y /pixelAnalyzeSize)*ratio.y) ;
           findPosFromVoronoi.x = int(v.x/pixelAnalyzeSize) ;
           findPosFromVoronoi.y = int(v.y/pixelAnalyzeSize) ;
           if(findPosFromVoronoi.x > cols -1 ) findPosFromVoronoi.x = cols -1 ;
           if(findPosFromVoronoi.y > rows -1 ) findPosFromVoronoi.y = rows -1 ;
-          //int posInList = ((int)findPosFromVoronoi.x  * rows ) + (int)findPosFromVoronoi.y ; 
           int posInList = (int(findPosFromVoronoi.x / ratio.x )  * rows ) + int(findPosFromVoronoi.y /ratio.y) ; 
           
           //look the color in the list
@@ -611,7 +630,7 @@ class Escargot extends SuperRomanesco {
   //COLOR
   //beat rectivity
   PVector beatReactivityHSB(PVector sizeFromControleur, PVector sizeFromList, color beatColor, PVector range360, PVector range100, PVector beatFactor) {
-    PVector newSize = new PVector (sizeFromControleur.x, sizeFromControleur.y, sizeFromControleur.z) ;
+    PVector newSize = sizeFromControleur.copy() ;
     //HUE
     if ( hue(beatColor) > range360.x && hue(beatColor) < range360.y ) {
       newSize.x = newSize.x             *beatFactor.x ; 
@@ -646,6 +665,41 @@ class Escargot extends SuperRomanesco {
       
     }
     return newSize ;
+  }
+  
+  // SIZE PIXEL CALCUL
+  // 2D PIXEL
+  PVector newSize2D(PVector size, PVector classSize, PVector range360, PVector range100, PVector factor, int c, int beatAmplitude) {
+    PVector result = new PVector() ;
+    if (result.z > size.z || soundButton[IDobj] == 1) {
+    result.x = beatReactivityHSB(size, classSize, c, range360, range100, factor).x *map(allBeats(IDobj),1,40,1,beatAmplitude);
+    result.y = beatReactivityHSB(size, classSize, c, range360, range100, factor).y *map(allBeats(IDobj),1,40,1,beatAmplitude) ;
+    result.z = beatReactivityHSB(size, classSize, c, range360, range100, factor).z ;
+      
+    } else {
+      result.x = classSize.x *size.x ;
+      result.y = classSize.y *size.y ;
+    }
+    return result ;
+  }
+  // 3D PIXEL
+  PVector newSize3D(PVector size, PVector classSize, PVector range360, PVector range100, PVector factor, color c, int beatAmplitude) {
+    PVector result = new PVector() ;
+    float ratioDepth = map(brightness(c),0,100,0,1) ;
+    result.x = beatReactivityHSB(size, classSize, c, range360, range100, factor).x *map(allBeats(IDobj),1,40,1,beatAmplitude) ;
+    result.y = beatReactivityHSB(size, classSize, c, range360, range100, factor).y *map(allBeats(IDobj),1,40,1,beatAmplitude) ;
+    result.z = beatReactivityHSB(size, classSize, c, range360, range100, factor).z ;
+      
+    if (soundButton[IDobj] == 1) {
+      result.x = result.x *size.x ;
+      result.y = result.y *size.y ;
+      result.z = result.z *size.z *ratioDepth ;
+    } else {
+      result.x = classSize.x *size.x ;
+      result.y = classSize.y *size.y ;
+      result.z = (result.x + result.y)*.25 *size.z *ratioDepth ;
+    }
+    return result ;
   }
   
   

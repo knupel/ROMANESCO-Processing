@@ -6,15 +6,17 @@
 
 //DRAWING
 //CROSS
-void crossPoint(PVector pos, color colorCross, int e, int size) {
+void crossPoint2D(PVector pos, color colorCross, int e, int size) {
   stroke(colorCross) ;
   strokeWeight(e) ;
   
   line(pos.x, pos.y -size, pos.x, pos.y +size) ;
   line(pos.x +size, pos.y, pos.x -size, pos.y) ;
 }
+
+
 // other cross
-void crossPoint(PVector pos, PVector size, color colorCross, float e ) {
+void crossPoint2D(PVector pos, PVector size, color colorCross, float e ) {
   if (e <0.1) e = 0.1 ;
   stroke(colorCross) ;
   strokeWeight(e) ;
@@ -23,24 +25,28 @@ void crossPoint(PVector pos, PVector size, color colorCross, float e ) {
   //vertical
   line(pos.x +size.y, pos.y, pos.x -size.y, pos.y) ;
 }
+void crossPoint3D(PVector pos, PVector size, color colorCross, float e ) {
+  if (e <0.1) e = 0.1 ;
+  stroke(colorCross) ;
+  strokeWeight(e) ;
+  //horizontal
+  line(pos.x, pos.y -size.x,0, pos.x, pos.y +size.x,0) ;
+  //vertical
+  line(pos.x +size.y, pos.y,0, pos.x -size.y, pos.y,0) ;
+  //depth
+  line(pos.x, pos.y,size.z, pos.x, pos.y,-size.z) ;
+}
 //
 
 
 
 //curtain
 void curtain() {
-  // we must put a security for the rideau, if not there is bug sometime and the rideau appear we don't know why
-  if( eCurtain == 1 ) {
+  if(eCurtain == 0) {
     rectMode(CORNER) ;
-   //  float rideau = map(valueSlider[7], 0, 55, 0,100) ; 
-    float rideau = 100 ; 
-    fill (0, rideau ) ; 
+    fill (0) ; 
     noStroke() ;
     rect(-1,-1, width+2, height+2);
-    fill(75, rideau) ;
-    textSize(36) ;
-    textFont(ContainerRegular) ;
-   // text("ENTRACTE", width /4, height /3) ; 
   }
 }
 //end curtain
@@ -90,11 +96,12 @@ void cursorDraw() {
   if (nextPrevious) nextPreviousInt = 1 ; else nextPreviousInt = 0 ;
 }
 
-
+/*
 //CURSOR DISPLAY
 //GLOBAL
 boolean cursorDisplay = false ;
 //SHOW CURSOR
+
 void cursorDisplay() {
   //check if we must display the cursor or not
   if (keyPressed == true && !cursorDisplay && key == 'c'   ) cursorDisplay = true ;
@@ -105,10 +112,10 @@ void cursorDisplay() {
     color colorCursor = color( 0) ;
     int eCursor = 1 ;
     int sizeCursor = 5 ;
-    crossPoint(cursorPos, colorCursor, eCursor, sizeCursor) ;
+    crossPoint2D(cursorPos, colorCursor, eCursor, sizeCursor) ;
   }
 }
-
+*/
 
 
 

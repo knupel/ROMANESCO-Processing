@@ -224,6 +224,7 @@ void credit() {
   int startBloc = 24 ;
   rect(0, startBloc, width, height - startBloc -9 ) ; // //GROUP ZERO
   for (int i = 0 ; i < credit.length; i++) {
+    textFont(textUsual_3) ;
     fill(blanc) ;
     text(credit[i], 10,startBloc + 12 + ((i+1)*14));
   }

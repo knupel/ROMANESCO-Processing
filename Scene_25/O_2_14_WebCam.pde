@@ -160,7 +160,7 @@ class Webcam extends SuperRomanesco {
   
   // different mode
   void rectangleMonochrome(PVector pos, PVector size, PVector hsb) {
-    size = checkSize(size).get() ;
+    size = checkSize(size).copy() ;
     translate(pos.x, pos.y, pos.z);
     monochrome(hsb) ;
     fill(colorPixelCam) ;
@@ -170,7 +170,7 @@ class Webcam extends SuperRomanesco {
   }
   //
   void rectangleColour(PVector pos, PVector size, PVector hsb) {
-    size = checkSize(size).get() ;
+    size = checkSize(size).copy() ;
     translate(pos.x, pos.y, pos.z);
     colour(hsb) ;
     fill(colorPixelCam) ;
@@ -180,7 +180,7 @@ class Webcam extends SuperRomanesco {
   }
   //
   void pointMonochrome(PVector pos, PVector size, PVector hsb) {
-    size = checkSize(size).get() ;
+    size = checkSize(size).copy() ;
     translate(pos.x, pos.y, pos.z);
     monochrome(hsb) ;
     stroke(colorPixelCam) ;
@@ -190,7 +190,7 @@ class Webcam extends SuperRomanesco {
   }
   //
   void pointColour(PVector pos, PVector size, PVector hsb) {
-    size = checkSize(size).get() ;
+    size = checkSize(size).copy() ;
     translate(pos.x, pos.y, pos.z);
     colour(hsb) ;
     stroke(colorPixelCam) ;
@@ -200,7 +200,7 @@ class Webcam extends SuperRomanesco {
   }
   //
   void boxMonochrome(PVector pos, PVector size, PVector hsb) {
-    size = checkSize(size).get() ;
+    size = checkSize(size).copy() ;
     float depth = (hsb.z +1) *size.z ;
     if(horizon[IDobj]) translate(pos.x, pos.y, depth *.5); else translate(pos.x, pos.y, pos.z);
     monochrome(hsb) ;
@@ -211,7 +211,7 @@ class Webcam extends SuperRomanesco {
   }
   //
   void boxColour(PVector pos, PVector size, PVector hsb) {
-    size = checkSize(size).get() ;
+    size = checkSize(size).copy() ;
     float depth = (hsb.z +1) *size.z ;
     if(horizon[IDobj]) translate(pos.x, pos.y, depth *.5); else translate(pos.x, pos.y, pos.z);
     colour(hsb) ;

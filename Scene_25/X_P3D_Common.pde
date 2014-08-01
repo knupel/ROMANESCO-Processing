@@ -134,8 +134,8 @@ PVector P3Ddirection(PVector dir, PVector speed, int ID) {
 PVector P3Dposition(PVector pos, int ID) {
   // XY pos
   if(P3DrefPos[0]  ) {
-    P3DpositionObjRef[ID] = pos.get() ;
-    P3DpositionMouseRef = mouse[0].get() ;
+    P3DpositionObjRef[ID] = pos.copy() ;
+    P3DpositionMouseRef = mouse[0].copy() ;
   }
   if (clickLongLeft[0]) {
     //to create a only one ref position
@@ -215,8 +215,8 @@ void cameraDraw() {
     
     // back to origine raw style
     if(cLongTouch) if (touch0) {
-      eyeCamera = eyeCameraSetting[0].get() ;
-      sceneCamera = sceneCameraSetting[0].get() ;
+      eyeCamera = eyeCameraSetting[0].copy() ;
+      sceneCamera = sceneCameraSetting[0].copy() ;
       gotoCameraPosition = false ;
       gotoCameraEye = false ;
     }

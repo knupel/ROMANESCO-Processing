@@ -67,5 +67,6 @@ void main() {
 	}
 	
 	float t = max(dSum / 32., dMax) * mix(.92, 1., noise(uv.x + noise(uv.y + time)));
-	gl_FragColor = vec4(t * vec3(t*t*1.3, t*1.3, 1.), 1.);
+	// gl_FragColor = vec4(t * vec3(t*t*1.3, t*1.3, 1.), 1.);
+	gl_FragColor = vec4(t * vec3(t*t*colorBG.x, t*colorBG.y, colorBG.z), 1.);
 }

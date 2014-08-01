@@ -74,7 +74,7 @@ class LesVieux extends SuperRomanesco {
     }
   }
   void doubleTriangleDisplay() {
-    if (spaceTouch && action[IDobj]) mouse[IDobj] = mouse[0].get() ;
+    if (spaceTouch && action[IDobj]) mouse[IDobj] = mouse[0].copy() ;
     PVector pos = new PVector(mouse[IDobj].x, mouse[IDobj].y) ;
     PVector canvas = new PVector (canvasXObj[IDobj] *10,canvasYObj[IDobj] *10) ;
     //thickness

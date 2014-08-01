@@ -12,8 +12,8 @@ void romanescoSetup() {
 void updateObject(int ID, int group) {
   //initialization
   if(!initValueMouse[ID]) { 
-    mouse[ID] = mouse[0].get() ;
-    pen[ID] = pen[0].get() ;
+    mouse[ID] = mouse[0].copy() ;
+    pen[ID] = pen[0].copy() ;
     initValueMouse[ID] = true ;
   }
   if(!initValueControleur[ID]) {
@@ -38,8 +38,8 @@ void updateObject(int ID, int group) {
   
   if(action[ID] ){
     if(spaceTouch) {
-      pen[ID] = pen[0].get() ;
-      mouse[ID] = mouse[0].get() ;
+      pen[ID] = pen[0].copy() ;
+      mouse[ID] = mouse[0].copy() ;
     }
     if (mTouch) motion[ID] = !motion[ID] ;
     if (hTouch) horizon[ID] = !horizon[ID] ;

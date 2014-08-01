@@ -9,12 +9,12 @@ PVector currentPos = new PVector() ;
 PVector follow(PVector finish, float speed) {
   PVector origin = new PVector() ;
   if(finish != finishRef && initMove ) {
-    origin = currentPos.get() ; 
+    origin = currentPos.copy() ; 
   } 
   if (!initMove ) {
     origin = new PVector(width/2, height/2, 0 ) ;
     finish = new PVector(width/2, height/2, 0 ) ;
-    finishRef = finish.get() ; 
+    finishRef = finish.copy() ; 
     initMove = true ;
   }
   currentPos = gotoTarget(origin, finish, speed) ;

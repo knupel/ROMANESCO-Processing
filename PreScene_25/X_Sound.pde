@@ -211,6 +211,7 @@ float tempoHatAdd   = 0.005 ;
 //INITIALIZATION
 
 void initTempo() {
+  // this weird float who's not used must be here, we must work around !
   float init = getTempoBeat() + getTempoKick()  + getTempoHat() + getTempoSnare() ;
 }
 

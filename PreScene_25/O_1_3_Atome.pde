@@ -100,8 +100,10 @@ class Atome extends SuperRomanesco {
       if(pen[IDobj].z == 0 ) acceleration = 1.0  ; else acceleration = pen[IDobj].z * 1000.0  ;
       
       // musrt work the sound direction
+      /*
       float soundDirectionRight = map(right[IDobj], 0, 1, -1, 1) ;
       float soundDirectionLeft = map(left[IDobj], 0, 1, -1, 1) ;
+      */
       float soundDirection = 1 ;
       changeVelocity = new PVector (newDirection.x *newVelocity.x *soundDirection *acceleration, newDirection.y *newVelocity.y *soundDirection *acceleration) ;
       
@@ -191,8 +193,6 @@ class Atome extends SuperRomanesco {
     // info display
     objectInfo[IDobj] = ("Atoms "+atomList.size()) ;
     
-    
-    
 
     //CLEAR
     if (resetAction(IDobj)) atomList.clear() ;
@@ -203,6 +203,8 @@ class Atome extends SuperRomanesco {
   }
   //END DRAW
   /////////
+  
+  
   
   
   

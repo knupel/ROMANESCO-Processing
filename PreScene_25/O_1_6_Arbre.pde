@@ -116,7 +116,7 @@ class Arbre {
   
   //float fourche = 10.0 ; 
   void branch(float e, PVector proportion, float propA, float propB, int fourcheA, int fourcheB, float amplitude, int n, int mode, int ID) {
-    PVector newSize = proportion.get() ;
+    PVector newSize = proportion.copy() ;
     newSize.x = proportion.x /(random(propA, propB)*.3) ;
     newSize.y = proportion.y /(random(propA, propB)*.3) ;
     newSize.z = proportion.z /(random(propA, propB)*.3) ;

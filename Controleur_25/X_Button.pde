@@ -90,16 +90,16 @@ class Simple extends Button {
   color cBINonBO, cBOUTonBO, cBINoffBO, cBOUToffBO, cBEinBO, cBEoutBO ;
   
   //CONSTRUCTOR
-  Simple(int posWidth, int posHeight, int widthButton, int heightButton, boolean onOff) {
-    super(posWidth, posHeight, widthButton, heightButton, onOff) ;
+  Simple(PVector pos, PVector size, boolean onOff) {
+    super(pos, size, onOff) ;
   }
   
   //
-  Simple (int posWidth, int posHeight, int widthButton, int heightButton, 
+  Simple (PVector pos, PVector size,
           color BoutonINonBO, color BoutonOUTonBO, color BoutonINoffBO, color BoutonOUToffBO,
            color BoutonEnsembleINBO, color BoutonEnsembleOUTBO, boolean onOff)                  
  {
-   super(posWidth, posHeight,  widthButton, heightButton, onOff) ;
+   super(pos, size, onOff) ;
    cBINonBO = BoutonINonBO ; cBOUTonBO = BoutonOUTonBO ; cBINoffBO = BoutonINoffBO ; cBOUToffBO = BoutonOUToffBO ;
    cBEinBO = BoutonEnsembleINBO ; cBEoutBO = BoutonEnsembleOUTBO ;
  }

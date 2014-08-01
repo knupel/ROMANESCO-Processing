@@ -7,7 +7,7 @@
 
 //cross
 ///////
-void crossPoint(PVector pos, color colorCross, int e, int size) {
+void crossPoint2D(PVector pos, color colorCross, int e, int size) {
   stroke(colorCross) ;
   strokeWeight(e) ;
   
@@ -16,8 +16,8 @@ void crossPoint(PVector pos, color colorCross, int e, int size) {
 }
 
 
-//just a little cross, for make cursor, point etc
-void crossPoint(PVector pos, PVector size, color colorCross, float e ) {
+// other cross
+void crossPoint2D(PVector pos, PVector size, color colorCross, float e ) {
   if (e <0.1) e = 0.1 ;
   stroke(colorCross) ;
   strokeWeight(e) ;
@@ -26,7 +26,17 @@ void crossPoint(PVector pos, PVector size, color colorCross, float e ) {
   //vertical
   line(pos.x +size.y, pos.y, pos.x -size.y, pos.y) ;
 }
-//end cross
+void crossPoint3D(PVector pos, PVector size, color colorCross, float e ) {
+  if (e <0.1) e = 0.1 ;
+  stroke(colorCross) ;
+  strokeWeight(e) ;
+  //horizontal
+  line(pos.x, pos.y -size.x,0, pos.x, pos.y +size.x,0) ;
+  //vertical
+  line(pos.x +size.y, pos.y,0, pos.x -size.y, pos.y,0) ;
+  //depth
+  line(pos.x, pos.y,size.z, pos.x, pos.y,-size.z) ;
+}
 ///////////
 
 
@@ -34,16 +44,11 @@ void crossPoint(PVector pos, PVector size, color colorCross, float e ) {
 /////////////
 void curtain() {
   // we must put a security for the rideau, if not there is bug sometime and the rideau appear we don't know why
-  if( eCurtain == 1) {
+  if( eCurtain == 0) {
     rectMode(CORNER) ;
-    float rideau = 100 ; 
-    fill (0, rideau ) ; 
+    fill (0) ; 
     noStroke() ;
-    rect(-1,-1, width+2, height+2);
-    fill(75, rideau) ;
-    textSize(36) ;
-    textFont(ContainerRegular) ;
-  }
+    rect(-1,-1, width+2, height+2); }
 }
 //end curtain
 /////////////

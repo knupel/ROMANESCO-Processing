@@ -9,7 +9,7 @@ class Galaxie extends SuperRomanesco {
     romanescoPack = "Base" ;
     romanescoRender = "classic" ;
     romanescoMode ="1 Point/2 Ellipse/3 Rectangle" ;
-    romanescoSlider = "Hue fill,Saturation fill,Brightness fill,Alpha fill,Hue stroke,Saturation stroke,Brightness stroke,Alpha stroke,Thickness,Width,Height,Canvas X,Canvas Y,Speed,Force" ;
+    romanescoSlider = "Hue fill,Saturation fill,Brightness fill,Alpha fill,Hue stroke,Saturation stroke,Brightness stroke,Alpha stroke,Thickness,Width,Height,Canvas X,Canvas Y,Quantity,Speed,Force" ;
   }
   //GLOBAL
     boolean makeSand = true ;
@@ -45,10 +45,10 @@ class Galaxie extends SuperRomanesco {
   void display() {
     
     //surface
-    PVector marge = new PVector(canvasXObj[IDobj] *5, canvasYObj[IDobj] *5, canvasZObj[IDobj] *5)  ;
-    PVector surface = new PVector(marge.x *2.0 + width, marge.y *2.0 +height) ;
+    PVector marge = new PVector(map(canvasXObj[IDobj],width/10, width, width/20, width*10), map(canvasYObj[IDobj],width/10, width, height/20, height*10), map(canvasZObj[IDobj], width/10, width, width/10, width *10))  ;
+    PVector surface = marge.copy() ;
     
-    if (mode[IDobj] == 0 ) numFromControler = int(3*(sq(quantityObj[IDobj])) ) ; else numFromControler = 30 + int(10 *quantityObj[IDobj]) ;
+    if (mode[IDobj] == 0 ) numFromControler = int(9*(sq(quantityObj[IDobj])) ) ; else numFromControler = 30 + int(25 *quantityObj[IDobj]) ;
     if ((numGrains != numFromControler && parameterButton[IDobj] == 1) || resetAction(IDobj) ) makeSand = true ;
     if (makeSand) {
       numGrains = numFromControler ;
@@ -59,7 +59,7 @@ class Galaxie extends SuperRomanesco {
     //give back the pen info
     float pressionGrain = sq(1 + pen[IDobj].z) ;
     orientationStyletGrain = new PVector ( pen[IDobj].x *10.0 , pen[IDobj].y *10.0 ) ;
-    deformationGrain = orientationStyletGrain.get() ; ;
+    deformationGrain = orientationStyletGrain.copy() ; ;
     
     // speed / vitesse
     vitesseGrainA = map(left[IDobj],0,1, 1, 17) ;
@@ -101,7 +101,7 @@ class Galaxie extends SuperRomanesco {
 
     
     // Axe rotation
-    posCenterGrain = mouse[IDobj].get() ;
+    posCenterGrain = mouse[IDobj].copy() ;
     //ratio transformation du canvas
     float ratioX = (surface.x) / float(width) ;
     float ratioY = (surface.y) / float(height) ;
@@ -109,7 +109,7 @@ class Galaxie extends SuperRomanesco {
     PVector newPosCenterGrain = new PVector() ;
     newPosCenterGrain.x = posCenterGrain.x *ratioX - marge.x ;
     newPosCenterGrain.y = posCenterGrain.y *ratioY - marge.y ;
-    posCenterGrain = newPosCenterGrain.get() ;
+    posCenterGrain = newPosCenterGrain.copy() ;
     
     /////////
     //UPDATE

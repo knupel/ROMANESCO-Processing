@@ -63,8 +63,8 @@ class Soleil extends SuperRomanesco {
       float vibration = random(-noise, noise) ;
       PVector p1 = new PVector() ;
       PVector p2 = new PVector() ;
-      p1 = circle(pos, diam, numPoints, jitter)[i].get() ;
-      p2 = circle(pos, diam, numPoints, jitter)[i +1].get() ;
+      p1 = circle(pos, diam, numPoints, jitter)[i].copy() ;
+      p2 = circle(pos, diam, numPoints, jitter)[i +1].copy() ;
   
       beginShape() ;
       vertex(pos.x, pos.y, pos.z) ;
@@ -81,8 +81,8 @@ class Soleil extends SuperRomanesco {
     for (int i = 0 ; i < numPoints -1 ; i = i +2) {
       PVector p1 = new PVector() ;
       PVector p2 = new PVector() ;
-      p1 = circle(pos, diam, numPoints, jitter)[i].get() ;
-      p2 = circle(pos, diam, numPoints, jitter)[i +1].get() ;
+      p1 = circle(pos, diam, numPoints, jitter)[i].copy() ;
+      p2 = circle(pos, diam, numPoints, jitter)[i +1].copy() ;
   
       beginShape() ;
       vertex(pos.x, pos.y, pos.z) ;
@@ -98,8 +98,8 @@ class Soleil extends SuperRomanesco {
     for (int i = 0 ; i < numPoints -1 ; i = i +2) {
       PVector p1 = new PVector() ;
       PVector p2 = new PVector() ;
-      p1 = circle(pos, diam, numPoints)[i].get() ;
-      p2 = circle(pos, diam, numPoints)[i +1].get() ;
+      p1 = circle(pos, diam, numPoints)[i].copy() ;
+      p2 = circle(pos, diam, numPoints)[i +1].copy() ;
       beginShape() ;
       vertex(pos.x, pos.y, pos.z) ;
       vertex(p1.x, p1.y, p1.z) ;

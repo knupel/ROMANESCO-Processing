@@ -1,32 +1,31 @@
 Romanesco Unu
 2011-2014 - 1.0.0.25 
+Romanesco is free for the non-commercial use in other case contact us.
 
-Romanesco is free for the non-commercial use in other case contact-me.
-
-Core and architecture : Stan le Punk
+Core code : Stan le Punk
 UX Design : Stan le Punk
 Graphic Design : Stan le Punk
-Library Objects : Andreas Gysin, Amnon Owen, Stan le Punk
+Library Objects Contributors : Andreas Gysin, Amnon Owen, Stan le Punk.
 
-Algorithm inspiration : Nicoptére, Daniel shiffman, Andreas Gysin, Julien Gachadoat aka V3GA
-Code feedback : Dinh Doan Van Bien, Jérôme Forêt
-UX feedback : Ivan Jukanovic, Clément Seurat, Dinh Doan Van Bien
-Communication feedback : Christian Delecluse, Pierre-Alexandre Loy, Nicotepo
+Code feedback: Dinh Doan Van Bien, Jérôme Forêt.
+UX feedback: Ivan Jukanovic, Clément Seurat.
+Communication feedback: Christian Delecluse, Péa Loy, Nicotepo.
 
-Translation : Stéphanie Doan Van Bien, Lauren Thepot, Ori Cosentino
+Algorithm inspiration: Nicoptére, Daniel Shiffman, Andreas Gysin, Julien Gachadoat aka V3GA.
 
-Network support : Fabien Bonnamy
+Translation: Stéphanie Doan Van Bien, Lauren Thépot.
 
-Soul support : Laetitia Natali aka Lalou
-Financial support : Laetitia Natali  aka Lalou
+Soul support: Laetitia Natali aka Lalou
+Financial support: Laetitia Natali aka Lalou
+Network support: Fabien Bonnamy
 
-Workshop inspiration : Jimy Hertz, Matthieu Savary, Julien Gachadoat aka V3GA
-Forum Processing answer : AmnonP5, Datguy, R. Brauer, Adrock42, Philho
-Library Processing people : Daniel Shiffman, Marius Waltz, Andres Colubri, 
-Andreas Schlegel, Ricard Marxer, Michael Heuer
+Forum Processing answer: AmnonP5, Datguy, R. Brauer, Adrock42, Philho.
 
-Processing Oragnisation : Casey Reas, Ben Fry, Manindra Moharana
+Library and Mode from: Daniel Shiffman, Marius Waltz, Andres Colubri, Andreas Schlegel, 
+Ricard Marxer, Michael Heuer, Manindra Moharana.
 
-Special Thanks : La Mère à JC
+Processing Organisation: Casey Reas, Ben Fry.
+
+Special Thanks: La Mère à JC and Mark Webster for the Processing Workshop.
 
 

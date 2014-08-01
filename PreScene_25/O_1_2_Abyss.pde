@@ -24,7 +24,6 @@ class Abbyss extends SuperRomanesco {
   }
   //DRAW
   void display() {
-
     if(alpha(strokeObj[IDobj]) == 0 ) thicknessObj[IDobj] = 0 ;
     creatureManager.loop(fillObj[IDobj], strokeObj[IDobj], thicknessObj[IDobj], speedObj[IDobj] *100.0);
     
@@ -59,7 +58,6 @@ class Abbyss extends SuperRomanesco {
     }
     //
     if (resetAction(IDobj)) creatureManager.killAll(whichCreature);
-    
     
     // info display
     objectInfo[IDobj] = ("Creatures "+ creatureManager.creatures.size()) ;
@@ -403,11 +401,11 @@ abstract class SuperCreature {
   };
 
   PVector getPos() {
-    return pos.get();
+    return pos.copy();
   }
 
   void setPos(PVector pos) {
-    this.pos = pos.get();
+    this.pos = pos.copy();
   }
 
   void creatureHasBeenAdded(SuperCreature c) {

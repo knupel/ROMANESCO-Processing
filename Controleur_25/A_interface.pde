@@ -402,17 +402,31 @@ void constructorSliderButton() {
   Bsnare = new Simple(posSnareButton, sizeSnareButton, OnInColor, OnOutColor, OffInColor, OffOutColor, false) ;
   Bhat = new Simple(posHatButton, sizeHatButton, OnInColor, OnOutColor, OffInColor, OffOutColor, false) ;
   //MIDI
-  BOmidi  = new Simple (posMidiButton, sizeMidiButton, OnInColor, OnOutColor, OffInColor, OffOutColor, false) ;
+  BOmidi  = new Simple(posMidiButton, sizeMidiButton, false) ;
   //curtain
-  BOcurtain  = new Simple (posCurtainButton, sizeCurtainButton, OnInColor, OnOutColor, OffInColor, OffOutColor, true) ;
+  BOcurtain  = new Simple(posCurtainButton, sizeCurtainButton, false) ;
   
   //button object, texture, typography
   for(int i = 1 ; i < NUM_GROUP_SLIDER ; i++) {
     int num = numButton[i] ;
+    PVector pos = new PVector() ;
+    PVector size = new PVector() ;
     for ( int j = 11 ; j < 10+num ; j++) {
-      if(numGroup[1] > 0 && i == 1) BOf[j] = new Simple(posWidthBOf[j], posHeightBOf[j], longueurBOf[j], hauteurBOf[j], boutonONin, boutonONout, boutonOFFin, boutonOFFout, gris, grisNoir, false) ; 
-      if(numGroup[2] > 0 && i == 2) BTf[j] = new Simple(posWidthBTf[j], posHeightBTf[j], longueurBTf[j], hauteurBTf[j], boutonONin, boutonONout, boutonOFFin, boutonOFFout, gris, grisNoir, false) ;
-      if(numGroup[3] > 0 && i == 3) BTYf[j] = new Simple(posWidthBTYf[j], posHeightBTYf[j], longueurBTYf[j], hauteurBTYf[j], boutonONin, boutonONout, boutonOFFin, boutonOFFout, gris, grisNoir, false) ;
+      if(numGroup[1] > 0 && i == 1) {
+        pos = new PVector(posWidthBOf[j], posHeightBOf[j]) ;
+        size = new PVector(longueurBOf[j], hauteurBOf[j]) ; 
+        BOf[j] = new Simple(pos, size, boutonONin, boutonONout, boutonOFFin, boutonOFFout, gris, grisNoir, false) ;
+      } 
+      if(numGroup[2] > 0 && i == 2) {
+        pos = new PVector(posWidthBTf[j], posHeightBTf[j]) ;
+        size = new PVector(longueurBTf[j], hauteurBTf[j]) ; 
+        BTf[j] = new Simple(pos, size, boutonONin, boutonONout, boutonOFFin, boutonOFFout, gris, grisNoir, false) ;
+      }
+      if(numGroup[3] > 0 && i == 3) {
+        pos = new PVector(posWidthBTYf[j], posHeightBTYf[j]) ;
+        size = new PVector(longueurBTYf[j], hauteurBTYf[j]) ;
+        BTYf[j] = new Simple(pos, size, boutonONin, boutonONout, boutonOFFin, boutonOFFout, gris, grisNoir, false) ;
+      }
     }
 
   }

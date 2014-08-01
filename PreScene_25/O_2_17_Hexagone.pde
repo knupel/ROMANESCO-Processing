@@ -32,7 +32,7 @@ class Honeycomb extends SuperRomanesco {
   void setting() {
     startPosition(IDobj, width/2, height/2, 0) ;
     canvas = new PVector(width, height) ;
-    canvasRef = canvas.get() ;
+    canvasRef = canvas.copy();
     initGrid(canvas); // initialize the CA grid of hexagons (including neighbour search and creation of hexagon vertex positions)
   }
   //DRAW
@@ -62,7 +62,7 @@ class Honeycomb extends SuperRomanesco {
       initGrid(canvas);
     }
     //update the reference
-    canvasRef = canvas.get() ;
+    canvasRef = canvas.copy() ;
     strokeRef = hexagonStroke ;
     radiusRef = hexagonRadius ;
     

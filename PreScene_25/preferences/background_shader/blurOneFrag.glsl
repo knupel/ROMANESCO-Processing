@@ -1,7 +1,8 @@
 #ifdef GL_ES
 precision mediump float;
 #endif
- 
+
+uniform vec4 colorBG; 
 uniform float time;
 uniform vec2 mouse;
 uniform vec2 resolution;
@@ -36,6 +37,8 @@ float fbm( in vec2 point )
 	f /= 0.984375-.5;
 	return f;
 }
+
+
 float fbm(in float x, in float y){return fbm(vec2(x,y));}
 void main( void ) {
  
@@ -46,15 +49,15 @@ void main( void ) {
 	//pos.x+=mouse.y;
 	vec4 col;
 	
-	
-	col=vec4(.1,.3,.2,1.)*5.;
+	col=vec4(colorBG.x,colorBG.y,colorBG.z,1.)*1.;
 	float f = mix(0.0,fbm(pos.x*mouse.x*5.,time*.09-pos.y/100.0),1.);
 	
 	f=mix(0.0,f,1.-abs(pos.y)*abs(pos.y)*abs(pos.y));
 	//f=smoothstep(0.0,1.0)
 	//f+=.1-abs(pos.y/10.);
 	f=smoothstep(0.,1.,f);
-	col*=f;//smoothstep(.0,1.0,f);
+	col*=f;
+	//smoothstep(.0,1.0,f);
 	
 	
 	

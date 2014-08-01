@@ -10,10 +10,10 @@ String dataPreScene [] = new String[9] ;
 void oscEvent(OscMessage receive ) {
   //BUTTON
   //position in the receive list, here is the last i+1, so it's numSlider
-  String sizeInfoRecption = ("") ;
+  String sizeInfoReception = ("") ;
   for (int i = 0 ; i < dataPreScene.length ; i++ ) {
     dataPreScene [i] = receive.get(i).stringValue() ;
-    sizeInfoRecption += dataPreScene [i] ;
+    sizeInfoReception += dataPreScene [i] ;
   }
     
 

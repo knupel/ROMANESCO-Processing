@@ -74,7 +74,7 @@ void fullscreenWithMavericks(int whichOne, boolean decor) {
 }
 
 void sketchPosition(int whichOne) {
-  PVector pos = new PVector (0,0) ;
+  // PVector pos = new PVector (0,0) ;
   if (whichOne > screenDevice.length )  whichOne = 0 ;
   GraphicsDevice displayOnThisDevice = screenDevice[whichOne];
   GraphicsConfiguration[] graphicsConfigurationOfThisDevice = displayOnThisDevice.getConfigurations();
@@ -92,7 +92,8 @@ void sketchPosition(int whichOne) {
 void screenMode(boolean varFullscreen, PVector size) {
   if(varFullscreen) {
     removeBorder(true) ;
-    instance.setVisible(false, false);
+    // instance.setVisible(false, false); // processing before 302
+    instance.setVisible(false);
   }
   if       (modeP3D) size((int)size.x,(int)size.y, P3D) ;
   else if  (modeP2D) size((int)size.x,(int)size.y, P2D) ;
@@ -108,7 +109,7 @@ public void initNumberScreen() {
 
 public void infoScreen() {
   for (int i = 0; i < screenInfo.length; i++) {
-    String ID = screenDevice[i].getIDstring() ;
+    // String ID = screenDevice[i].getIDstring() ;
     screenInfo [i].x =  screenDevice[i].getDisplayMode().getWidth() ;
     screenInfo [i].y =  screenDevice[i].getDisplayMode().getHeight() ;
   }
@@ -166,7 +167,8 @@ void sizeScene() {
 
 void sketchPosWithoutMavericks(int x, int y, int whichOne) {
   // remove the apple menu bar
-  instance.setVisible(false, false);
+  // instance.setVisible(false, false); // before processing 302
+  instance.setVisible(false);
   
   if (whichOne >= screenDevice.length ||  whichOne < 0 ) { 
     whichOne = 0 ;

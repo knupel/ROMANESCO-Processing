@@ -71,8 +71,10 @@ class Spirale extends Rotation {
   }
   void affichage (int n, int nMax, PVector size, float z, int mode) {
     n = n-1 ;
+    /*
     int puissance = nMax-n ;
     float ap = pow (z,puissance) ;
+    */
 
     //display Mode
     if (mode == 0 )      rect (0,0, size.x, size.y ) ;

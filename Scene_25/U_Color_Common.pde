@@ -1,5 +1,4 @@
 //COLOR for internal use
-
 color fond ;
 color rouge, orange, jaune, vert, bleu, noir, blanc, gris  ;
 
@@ -25,19 +24,34 @@ color colorWrite(color colorRef, int threshold, color clear, color deep) {
   }
   return colorW ;
 }
-//END COLOR
-///////////
 
 
+
+
+
+
+
+////////////////////
 // Void antiBugBlack
-  void antiBugFillBlack(color c) {
-        if (alpha(c) == 0 ) {
-      noFill() ; 
-      noStroke() ; 
-    } else {     
-      fill (c) ; 
-    }
+void antiBugFillBlack(color c) {
+      if (alpha(c) == 0 ) {
+    noFill() ; 
+    noStroke() ; 
+  } else {     
+    fill (c) ; 
   }
+}
+  
+  
+  
+  
+  
+  
+  
+  
+  
+////////////////  
+// PALETTE COLOR
 //GLOBAL
 //Range of each component HSB to change the color palette of image
 //HUE
@@ -342,10 +356,10 @@ void changeColorOfPixel(ArrayList listMustBeChange ) {
 //convert color HSB to RVB
 PVector HSBtoRGB(float hue, float saturation, float brightness) {
   PVector PVectorRGB = new PVector() ;
-  colorMode(RGB,255,255,255) ;
-  int intRGB ;
-  intRGB = Color.HSBtoRGB(hue, saturation, brightness);
-  PVectorRGB = new PVector (red(intRGB), green(intRGB), blue(intRGB)) ;
+  
+  color c = color (hue, saturation, brightness);
+  colorMode(RGB,255) ;
+  PVectorRGB = new PVector (red(c), green(c), blue(c)) ;
   colorMode(HSB,HSBmode.x,HSBmode.y,HSBmode.z) ;
   return PVectorRGB ;
 }

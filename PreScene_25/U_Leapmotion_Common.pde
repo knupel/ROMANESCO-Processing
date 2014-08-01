@@ -42,7 +42,7 @@ PVector addFingerPosition(PointableList objectNum, InteractionBox iBox) {
     Pointable object = objectNum.get(p);
     com.leapmotion.leap.Vector normPos = iBox.normalizePoint(object.stabilizedTipPosition());
     //return the ID
-    int objectLeapID = object.id()  ;
+    // int objectLeapID = object.id()  ;
     
     //3D position
     float posX = normPos.getX() * width;
@@ -110,7 +110,7 @@ PVector addFingerPosition(PointableList objectNum, InteractionBox iBox, PVector 
     Pointable object = objectNum.get(p);
     com.leapmotion.leap.Vector normPos = iBox.normalizePoint(object.stabilizedTipPosition());
     //return the ID
-    int objectLeapID = object.id()  ;
+    // int objectLeapID = object.id()  ;
     
     //3D position
       float posX = normPos.getX() *width;
@@ -141,7 +141,7 @@ PVector addFingerPosition(PointableList objectNum, InteractionBox iBox, PVector 
 //return the num of finger
 int numFingers() {
   int num ;
-  InteractionBox iBox = leap.frame().interactionBox();
+  // InteractionBox iBox = leap.frame().interactionBox();
   PointableList objectNum = leap.frame().pointables();
   num = objectNum.count() ;
   return num ;
@@ -159,7 +159,8 @@ boolean fingerCheck() {
 }
 */
 boolean fingerCheck() {
-  Boolean test ;InteractionBox iBox = leap.frame().interactionBox();
+  Boolean test ;
+  // InteractionBox iBox = leap.frame().interactionBox();
   PointableList objectNum = leap.frame().pointables();
   // PointableList objectNum = leap.frame().isValid();
   test = objectNum.isEmpty() ;

@@ -98,8 +98,6 @@ void backgroundShaderSetup(boolean renderP3D) {
 
 void backgroundShaderDraw(boolean renderP3D, int whichOne) {
   if( (renderP3D && testRomanesco) ||  (renderP3D && presceneOnly) ) {
-  //if(renderP3D && testRomanesco) {
-  //if(renderP3D && presceneOnly) {
     PVector posBGshader = new PVector(0,0) ;
     PVector sizeBGshader = new PVector(width,height, height) ; 
     fill(0) ; noStroke() ;
@@ -143,9 +141,9 @@ void rectangle(PVector pos, PVector size, PShader s) {
   addTempo += tempo[0] ;
   PVector RGBbackground  = new PVector () ;
   RGBbackground = HSBtoRGB(map(valueSlider[0][0],0,100,0,360), valueSlider[0][1], valueSlider[0][2] ) ;
-  float hueNorm = map(RGBbackground.x,0,255,0,1) ;
-  float saturationNorm = map(RGBbackground.y,0,255,0,1) ;
-  float brightnessNorm = map(RGBbackground.z,0,255,0,1) ;
+  float redNorm = map(RGBbackground.x,0,255,0,1) ;
+  float greenNorm = map(RGBbackground.y,0,255,0,1) ;
+  float blueNorm = map(RGBbackground.z,0,255,0,1) ;
   float alphaNorm = map(valueSlider[0][2],0,100,0,1) ;
   
 
@@ -154,7 +152,7 @@ void rectangle(PVector pos, PVector size, PShader s) {
   float varTime = millis() / 1000.0 ;
   float x = map(mouse[0].x,0,width,0,1) ;
   float y = map(mouse[0].y,0,height,0,1) ;
-  s.set("colorBG",hueNorm, saturationNorm, brightnessNorm, alphaNorm) ; 
+  s.set("colorBG",redNorm, greenNorm, blueNorm, alphaNorm) ; 
   s.set("mixSound", varMix) ;
   s.set("addTempo", addTempo) ;
   s.set("tempo", varTempo) ;

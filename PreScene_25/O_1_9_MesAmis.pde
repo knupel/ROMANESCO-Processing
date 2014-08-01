@@ -8,10 +8,11 @@ class MesAmis extends SuperRomanesco {
     IDobj = 9 ;
     IDgroup = 1 ;
     romanescoAuthor  = "Stan le Punk";
-    romanescoVersion = "Alpha 1.0";
+    romanescoVersion = "version 1.0";
     romanescoPack = "Base" ;
     romanescoRender = "P3D" ;
-    romanescoMode = "1 Triangles/2 Lignes" ; // separate the name by a slash and write the next mode immadialtly after this one.
+    //romanescoMode = "1 full/2 lines" but the line is not really interesting
+    romanescoMode = "" ; // separate the name by a slash and write the next mode immadialtly after this one.
     romanescoSlider = "Hue fill,Saturation fill,Brightness fill,Alpha fill,Hue stroke,Saturation stroke,Brightness stroke,Alpha stroke,Thickness,Canvas X,Speed,Quantity,Amplitude" ;
   }
   //GLOBAL
@@ -119,7 +120,7 @@ class MesAmis extends SuperRomanesco {
       peopleOrigin.pos = heartMove(peopleOrigin.pos, target, distMin, speed) ;
       //draw
       if(mode == 0 ) triangleFriends(peopleOrigin) ;
-      if(mode == 1 ) lineFriends(peopleOrigin) ;
+      //if(mode == 1 ) lineFriends(peopleOrigin) ;
 
     }
   }
@@ -148,6 +149,7 @@ class MesAmis extends SuperRomanesco {
   
   
   // CONNECT YOUR FRIEND with line
+  /*
   void lineFriends(Ami ami) {
     if (ami.friendList.length > 0 ) {
       PVector origin = ami.pos ;
@@ -158,6 +160,7 @@ class MesAmis extends SuperRomanesco {
       }
     }
   }
+  */
   // END CONNECT YOUR FRIEND with line
   
   // CONNECT YOUR FRIEND with triangle
@@ -169,8 +172,8 @@ class MesAmis extends SuperRomanesco {
         Ami amiOne = listPeople.get(ami.friendList[f]) ;
         Ami amiTwo ;
         if (ami.friendList[f] +1 >= listPeople.size() )  amiTwo = listPeople.get(ami.friendList[0]) ; else amiTwo = listPeople.get(ami.friendList[f] +1) ; 
-        PVector posAmiOne = amiOne.pos.get() ;
-        PVector posAmiTwo = amiTwo.pos.get() ;
+        PVector posAmiOne = amiOne.pos.copy() ;
+        PVector posAmiTwo = amiTwo.pos.copy() ;
         //display
         beginShape() ;
         vertex(me.x, me.y, me.z) ;
