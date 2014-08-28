@@ -7,7 +7,7 @@ class Lignes extends SuperRomanesco {
     IDobj = 10 ;
     IDgroup = 2 ;
     romanescoAuthor  = "Stan le Punk";
-    romanescoVersion = "Alpha 1.1";
+    romanescoVersion = "Version 1.1";
     romanescoPack = "Base" ;
     romanescoRender = "classic" ;
     romanescoSlider = "Hue fill,Saturation fill,Brightness fill,Alpha fill,Thickness,Quantity,Speed,Direction" ;

@@ -9,10 +9,10 @@ class Abbyss extends SuperRomanesco {
     IDobj = 2 ;
     IDgroup = 1 ;
     romanescoAuthor  = "Andreas Gysin";
-    romanescoVersion = "Beta 2.0";
+    romanescoVersion = "version 2.1";
     romanescoPack = "Base" ;
     romanescoRender = "P3D" ;
-    romanescoMode = "1 Box Fish/2 Cubus/3 Floater/4 Radio/5 Worm/6 Sea Fly/7 Breather/8 Spider/9 Manta/10 Father/11 Super Nova" ;// separate the name by a slash and write the next mode immadialtly after this one.
+    romanescoMode = "Box Fish/Cubus/Floater/Radio/Worm/Sea Fly/Breather/Spider/Manta/Father/Super Nova" ;// separate the name by a slash and write the next mode immadialtly after this one.
     romanescoSlider = "Hue fill,Saturation fill,Brightness fill,Alpha fill,Hue stroke,Saturation stroke,Brightness stroke,Alpha stroke,Thickness" ;
   }
   //GLOBAL

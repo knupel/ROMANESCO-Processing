@@ -7,10 +7,10 @@ class SpiraleRomanesco extends SuperRomanesco {
     IDobj = 5 ;
     IDgroup = 1 ;
     romanescoAuthor  = "Stan le Punk";
-    romanescoVersion = "Alpha 1.2";
+    romanescoVersion = "Version 1.2";
     romanescoPack = "Base" ;
     romanescoRender = "P3D" ;
-    romanescoMode = "1 Rectangle/2 Ellipse/3 Box" ;
+    romanescoMode = "Rectangle/Ellipse/Box" ;
     romanescoSlider = "Hue fill,Saturation fill,Brightness fill,Alpha fill,Hue stroke,Saturation stroke,Brightness stroke,Alpha stroke,Thickness,Width,Height,Depth,Quantity,Speed,Amplitude" ;
   }
   //GLOBAL
@@ -52,7 +52,8 @@ class SpiraleRomanesco extends SuperRomanesco {
     float depthObj = height   *sizeZObj[IDobj]  *volumeD *(.01 /width) *hat[IDobj] ;
     PVector size = new PVector(widthObj, heightObj, depthObj) ;
     
-    spirale.actualisation (mouse[IDobj], speed) ;
+    PVector pos = new PVector() ; // we write that because the first part of the void is not available any more.
+    spirale.actualisation (pos, speed) ;
     spirale.affichage (n, nMax, size, z, mode[IDobj]) ;
     
     // info display

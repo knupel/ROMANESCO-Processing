@@ -2,6 +2,7 @@
 precision mediump float;
 #endif
 
+uniform vec4 colorBG; 
 uniform float time;
 uniform vec2 mouse;
 uniform vec2 resolution;
@@ -35,5 +36,8 @@ void main() {
 	p += .2 * vec3(sin(time / 16.), sin(time / 12.),  sin(time / 128.));
 	float t = field(p);
 	float v = (1. - exp((abs(uv.x) - 1.) * 6.)) * (1. - exp((abs(uv.y) - 1.) * 6.));
-	gl_FragColor = mix(.4, 1., v) * vec4(1.8 * t * t * t, 1.4 * t * t, t, 1.0);
+
+	vec4 tempColor = mix(.4, 1., v) * vec4(1.8 * t * t * t, 1.4 * t * t, t, 1.0);
+	gl_FragColor = vec4(tempColor.x *colorBG.x, tempColor.y *colorBG.y, tempColor.z *colorBG.z, tempColor.w *colorBG.w) ;
+	// gl_FragColor = mix(.4, 1., v) * vec4(1.8 * t * t * t, 1.4 * t * t, t, 1.0);
 }

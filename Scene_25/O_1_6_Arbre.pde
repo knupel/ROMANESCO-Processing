@@ -7,10 +7,10 @@ class ArbreRomanesco extends SuperRomanesco {
     IDobj = 6 ;
     IDgroup = 1 ;
     romanescoAuthor  = "Stan le Punk";
-    romanescoVersion = "Alpha 1.2";
+    romanescoVersion = "Version 1.2";
     romanescoPack = "Base" ;
     romanescoRender = "classic" ;
-    romanescoMode = "1 Trait/2 Disc/3 Disc trait/4 Rectangle/5 Rectangle trait/6 Box" ;
+    romanescoMode = "Line/Disc/Disc line/Rectangle/Rectangle line/Box" ;
     romanescoSlider = "Hue fill,Saturation fill,Brightness fill,Alpha fill,Hue stroke,Saturation stroke,Brightness stroke,Alpha stroke,Thickness,Width,Height,Depth,Quantity,Speed,Direction,Angle,Amplitude" ;
   }
   //GLOBAL

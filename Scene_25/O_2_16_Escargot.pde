@@ -8,7 +8,7 @@ class Escargot extends SuperRomanesco {
     romanescoVersion = "version 1.4";
     romanescoPack = "Base" ;
     romanescoRender = "P3D" ;
-    romanescoMode = "1 Original/2 Raw/3 Point/4 Ellipse/5 Rectangle/6 Box/7 Cross/8 SVG/9 Vitraux" ;
+    romanescoMode = "Original/Raw/Point/Ellipse/Rectangle/Box/Cross/SVG/Vitraux" ;
     romanescoSlider = "Hue fill,Saturation fill,Brightness fill,Alpha fill,Hue stroke,Saturation stroke,Brightness stroke,Alpha stroke,Thickness,Width,Height,Depth,Speed,Direction,Amplitude,Analyze,Quantity,Force" ;
   }
   //GLOBAL
@@ -339,7 +339,7 @@ class Escargot extends SuperRomanesco {
       
       stroke(hue(c),saturation(c)*factorSat,brightness(c)*factorBright, alpha(cIn)) ;
       PVector newSize = new PVector() ;
-      newSize = newSize2D(size, p.size, rangeThreeHundredSixty, rangeHundred, musicFactor, c, forceBeat) ; //<>//
+      newSize = newSize2D(size, p.size, rangeThreeHundredSixty, rangeHundred, musicFactor, c, forceBeat) ; //<>// //<>//
       
       if (soundButton[IDobj] == 1) strokeWeight(newSize.x) ; else strokeWeight(p.size.x *size.x) ;
       

@@ -8,10 +8,10 @@ class Atome extends SuperRomanesco {
     IDobj = 3 ;
     IDgroup = 1 ;
     romanescoAuthor  = "Stan le Punk";
-    romanescoVersion = "Alpha 1.2";
+    romanescoVersion = "version 1.2";
     romanescoPack = "Base" ;
     romanescoRender = "P3D" ;
-    romanescoMode = "1 Schema/2 Cloud/3 Title/4 Font" ;
+    romanescoMode = "Chemical title/Chemical schema/Electronic Cloud/Your text" ;
     romanescoSlider = "Hue fill,Saturation fill,Brightness fill,Alpha fill,Hue stroke,Saturation stroke,Brightness stroke,Alpha stroke,Thickness,Width,Canvas X,Canvas Y,Speed,Direction,Family,Life" ;
   }
   
@@ -171,18 +171,17 @@ class Atome extends SuperRomanesco {
       
 
       //MODE OF DISPLAY
-        if (mode[IDobj] == 0 || mode[IDobj] == 255 ) {
-          atm.display( fillObj[IDobj], factorSizeProton * beatSizeProton ) ; // wait color
-          atm.eCloudEllipse2D(strokeObj[IDobj], factorSizeField, cloud, factorThicknessCloud) ;
-        } else if (mode[IDobj] == 1 ) {
-          atm.display( fillObj[IDobj], factorSizeProton * beatSizeProton ) ; // wait color
-          atm.eCloudPoint2D(strokeObj[IDobj], factorSizeField, cloud) ;
-        } else if (mode[IDobj] == 2 ) {
-          atm.title2D(fillObj[IDobj], font[IDobj], sizeTextName, posText ) ; 
-        } else {
-          atm.titleAtom2D (fillObj[IDobj], strokeObj[IDobj], font[IDobj], sizeTextName, sizeTextInfo, posTextInfo ) ; // (color name, color Info, PFont, int sizeTextName,int  sizeTextInfo )
-        }
-  
+      if (mode[IDobj] == 0 || mode[IDobj] == 255 ) {
+        atm.titleAtom2D (fillObj[IDobj], strokeObj[IDobj], font[IDobj], sizeTextName, sizeTextInfo, posTextInfo ) ; // (color name, color Info, PFont, int sizeTextName,int  sizeTextInfo )
+      } else if (mode[IDobj] == 1 ) {
+        atm.display( fillObj[IDobj], factorSizeProton * beatSizeProton ) ; // wait color
+        atm.eCloudEllipse2D(strokeObj[IDobj], factorSizeField, cloud, factorThicknessCloud) ;
+      } else if (mode[IDobj] == 2 ) {
+        atm.display( fillObj[IDobj], factorSizeProton * beatSizeProton ) ; // wait color
+        atm.eCloudPoint2D(strokeObj[IDobj], factorSizeField, cloud) ;
+      } else {
+        atm.title2D(fillObj[IDobj], font[IDobj], sizeTextName, posText ) ; 
+      }
       
       //UNIVERS
       ////////////////////////////////////////////////////////////////////////////////////////////

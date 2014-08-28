@@ -7,10 +7,10 @@ class Soleil extends SuperRomanesco {
     IDobj = 7 ;
     IDgroup = 1 ;
     romanescoAuthor  = "Stan le Punk";
-    romanescoVersion = "Alpha 1.0";
+    romanescoVersion = "Version 1.0";
     romanescoPack = "Base" ;
     romanescoRender = "P3D" ;
-    romanescoMode = "1 Beam/2 Lie'Bro'One/3 Lie'Bro'Two/4 Lie'Bro Noisy" ;
+    romanescoMode = "Beam/Lie'Bro'One/Lie'Bro'Two/Lie'Bro Noisy" ;
     romanescoSlider = "Hue fill,Saturation fill,Brightness fill,Alpha fill,Hue stroke,Saturation stroke,Brightness stroke,Alpha stroke,Thickness,Canvas X,Quantity,Speed,Angle,Amplitude" ;
   }
   //GLOBAL

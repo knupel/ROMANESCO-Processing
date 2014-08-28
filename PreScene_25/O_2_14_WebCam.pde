@@ -6,10 +6,10 @@ class Webcam extends SuperRomanesco {
     IDobj = 14 ;
     IDgroup = 2 ;
     romanescoAuthor  = "Stan le Punk";
-    romanescoVersion = "Alpha 1.2";
+    romanescoVersion = "Version 1.2";
     romanescoPack = "Base" ;
     romanescoRender = "P3D" ;
-    romanescoMode = "1 Rectangle color/2 Rectangle mono/3 Point color/4 Point mono/3 Box color/4 Box mono" ;
+    romanescoMode = "Rectangle color/Rectangle mono/Point color/Point mono/Box color/Box mono" ;
     romanescoSlider = "Hue fill,Saturation fill,Brightness fill,Alpha fill,Width,Height,Depth,Canvas X,Canvas Y" ;
   }
   //GLOBAL

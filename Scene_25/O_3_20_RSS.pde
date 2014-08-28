@@ -7,7 +7,7 @@ class RSS extends SuperRomanesco {
     IDobj = 20 ;
     IDgroup = 3 ;
     romanescoAuthor  = "Stan Le Punk";
-    romanescoVersion = "Alpha 2.0";
+    romanescoVersion = "version 1.1";
     romanescoPack = "Base" ;
     romanescoRender = "classic" ;
     romanescoMode = "" ; // separate the name by a slash and write the next mode immadialtly after this one.

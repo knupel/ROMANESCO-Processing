@@ -7,10 +7,10 @@ class BaliseRomanesco extends SuperRomanesco {
     IDobj = 8 ;
     IDgroup = 1 ;
     romanescoAuthor  = "Stan le Punk";
-    romanescoVersion = "Alpha 1.2";
+    romanescoVersion = "Version 1.2";
     romanescoPack = "Base" ;
     romanescoRender = "P3D" ;
-    romanescoMode = "1 Disc/2 Rectangle/3 Box/4 Box Snake" ;
+    romanescoMode = "Disc/Rectangle/Box/Box Snake" ;
     romanescoSlider = "Hue fill,Saturation fill,Brightness fill,Alpha fill,Hue stroke,Saturation stroke,Brightness stroke,Alpha stroke,Thickness,Width,Height,Depth,Quantity,Speed,Amplitude,Force" ;
   }
   //GLOBAL

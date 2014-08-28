@@ -9,10 +9,10 @@ class Spray extends SuperRomanesco {
     IDobj = 4 ;
     IDgroup = 1 ;
     romanescoAuthor  = "Stan le Punk";
-    romanescoVersion = "Alpha 1.1";
+    romanescoVersion = "version 1.1";
     romanescoPack = "Base" ;
     romanescoRender = "P3D" ;
-    romanescoMode = "1 Star/2 Spray" ;
+    romanescoMode = "Star/Spray" ;
     romanescoSlider = "Hue fill,Saturation fill,Brightness fill,Alpha fill,Thickness,Width,Height,Canvas X,Canvas Y,Quantity,Speed,Angle,Life" ;
   }
   //GLOBAL

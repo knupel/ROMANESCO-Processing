@@ -7,7 +7,7 @@ class Honeycomb extends SuperRomanesco {
     IDobj = 17 ;
     IDgroup = 2 ;
     romanescoAuthor  = "Amnon Owed";
-    romanescoVersion = "Alpha 1.1";
+    romanescoVersion = "Version 0.1";
     romanescoPack = "Base" ;
     romanescoRender = "P3D" ;
     romanescoMode = "" ;

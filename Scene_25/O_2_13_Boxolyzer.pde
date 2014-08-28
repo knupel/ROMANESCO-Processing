@@ -7,10 +7,10 @@ class Boxolyzer extends SuperRomanesco {
     IDobj = 13 ;
     IDgroup = 2 ;
     romanescoAuthor  = "My name is Nobody";
-    romanescoVersion = "Alpha 1.0";
+    romanescoVersion = "Version 1.0";
     romanescoPack = "Base" ;
     romanescoRender = "P3D" ;
-    romanescoMode ="1 Classic/2 Circle" ;
+    romanescoMode ="Classic/Circle" ;
     romanescoSlider = "Hue fill,Saturation fill,Brightness fill,Alpha fill,Hue stroke,Saturation stroke,Brightness stroke,Alpha stroke,Thickness,Width,Height,Depth,Canvas X,Quantity,Direction" ;
   }
   //GLOBAL

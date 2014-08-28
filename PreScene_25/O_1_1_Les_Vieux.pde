@@ -5,14 +5,14 @@ Bezier bezier ;
 class LesVieux extends SuperRomanesco {
   public LesVieux() {
     //from the index_objects.csv
-    romanescoName = "Les Vieux" ;
+    romanescoName = "Les anciens" ;
     IDobj = 1 ;
     IDgroup = 1 ;
     romanescoAuthor  = "Stan le Punk";
-    romanescoVersion = "Alpha 2.1";
+    romanescoVersion = "Version 2.1";
     romanescoPack = "Base" ;
     romanescoRender = "classic" ;
-    romanescoMode = "1 Triangle/2 Courbe" ;
+    romanescoMode = "Courbe/Triangle bug" ;
     romanescoSlider = "Hue fill,Saturation fill,Brightness fill,Alpha fill,Hue stroke,Saturation stroke,Brightness stroke,Alpha stroke,Thickness,Canvas X,Speed,Amplitude" ;
   }
   //GLOBAL
@@ -28,8 +28,9 @@ class LesVieux extends SuperRomanesco {
   void display() {
     aspect(IDobj) ;
     
-    if(mode[IDobj] == 0 ) doubleTriangleDisplay() ;
-    if(mode[IDobj] == 1 ) courbe() ;
+    if(mode[IDobj] == 0 ) courbe() ;
+    if(mode[IDobj] == 1 ) doubleTriangleDisplay() ;
+    
     
   }
   

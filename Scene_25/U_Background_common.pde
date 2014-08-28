@@ -127,7 +127,7 @@ void backgroundShaderDraw(boolean renderP3D, int whichOne) {
 
 }
 
-float addTempo ;
+float shaderMouseX, shaderMouseY ;
 void rectangle(PVector pos, PVector size, PShader s) {
   int factorSize = 10 ;
   size.mult(factorSize) ;
@@ -135,29 +135,26 @@ void rectangle(PVector pos, PVector size, PShader s) {
   translate(-size.x *.5,-size.y *.5 , -size.z*.5) ;
   shader(s) ;
   
-  float varBeat = beat[0] / 2.0 ;
-  float varTempo = tempo[0] ;
-  float varMix = mix[0] ;
-  addTempo += tempo[0] ;
+  
   PVector RGBbackground  = new PVector () ;
   RGBbackground = HSBtoRGB(map(valueSlider[0][0],0,100,0,360), valueSlider[0][1], valueSlider[0][2] ) ;
   float redNorm = map(RGBbackground.x,0,255,0,1) ;
   float greenNorm = map(RGBbackground.y,0,255,0,1) ;
   float blueNorm = map(RGBbackground.z,0,255,0,1) ;
-  float alphaNorm = map(valueSlider[0][2],0,100,0,1) ;
+  float alphaNorm = map(valueSlider[0][3],0,100,0,1) ;
   
-
+  float varTime = (float)millis() *.001 ;
+  if(spaceTouch) {
+    shaderMouseX = map(mouse[0].x,0,width,0,1) ;
+    shaderMouseY = map(mouse[0].y,0,height,0,1) ;
+  }
   
-  
-  float varTime = millis() / 1000.0 ;
-  float x = map(mouse[0].x,0,width,0,1) ;
-  float y = map(mouse[0].y,0,height,0,1) ;
   s.set("colorBG",redNorm, greenNorm, blueNorm, alphaNorm) ; 
-  s.set("mixSound", varMix) ;
-  s.set("addTempo", addTempo) ;
-  s.set("tempo", varTempo) ;
-  s.set("beat", varBeat) ;
-  s.set("mouse",x, y) ;
+  s.set("mixSound", mix[0]) ;
+  s.set("timeTrack", getTimeTrack()) ;
+  s.set("tempo", tempo[0]) ;
+  s.set("beat", allBeats(0)) ;
+  s.set("mouse",shaderMouseX, shaderMouseY) ;
   s.set("resolution",size.x/factorSize, size.y/factorSize) ;
   s.set("time", varTime);
   

@@ -5,10 +5,10 @@ class Letter extends SuperRomanesco {
     IDobj = 18 ;
     IDgroup = 3 ;
     romanescoAuthor  = "Stan le Punk";
-    romanescoVersion = "Alpha 1.1";
+    romanescoVersion = "Version 1.1";
     romanescoPack = "Base" ;
     romanescoRender = "P3D" ;
-    romanescoMode = "1 Line/2 Point" ;
+    romanescoMode = "Line/Point" ;
     romanescoSlider = "Hue fill,Saturation fill,Brightness fill,Alpha fill,Thickness,Width,Canvas X,Canvas Y,Canvas Z,Quantity,Speed" ;
   }
   //GLOBAL

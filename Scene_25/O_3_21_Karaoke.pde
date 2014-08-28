@@ -7,7 +7,7 @@ class Karaoke extends SuperRomanesco {
     IDobj = 21 ;
     IDgroup = 3 ;
     romanescoAuthor  = "Stan LePunk";
-    romanescoVersion = "Alpha 2.0";
+    romanescoVersion = "Version 2.0";
     romanescoPack = "Base" ;
     romanescoRender = "classic" ;
     romanescoMode = "" ; // separate the name by a slash and write the next mode immadialtly after this one.

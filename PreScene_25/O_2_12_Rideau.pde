@@ -8,10 +8,10 @@ class Rideau extends SuperRomanesco {
     IDobj = 12 ;
     IDgroup = 2 ;
     romanescoAuthor  = "Stan le Punk";
-    romanescoVersion = "Alpha 2.0";
+    romanescoVersion = "Version 2.0";
     romanescoPack = "Base" ;
     romanescoRender = "classic" ;
-    romanescoMode ="1 Rectangle/2 Box" ;
+    romanescoMode ="Rectangle/Box" ;
     romanescoSlider = "Hue fill,Saturation fill,Brightness fill,Alpha fill,Hue stroke,Saturation stroke,Brightness stroke,Alpha stroke,Thickness,Width,Height,Depth,Canvas X,Direction,Life" ;
   }
   //GLOBAL
