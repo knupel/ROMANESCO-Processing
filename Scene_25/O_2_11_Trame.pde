@@ -33,18 +33,21 @@ class Damier extends SuperRomanesco {
     aspect(IDobj) ;
     
     if ( sound[IDobj]) {
-      g = map(left[IDobj],0,1,1,20) ; 
-      d = map(right[IDobj],0,1,1,20) ; 
-      m = map(mix[IDobj],0,1,1,20) ;
+      g = map(left[IDobj],0,1,1,5) ; 
+      d = map(right[IDobj],0,1,1,5) ; 
+      m = map(mix[IDobj],0,1,1,5) ;
     } else {  
       g = 1.0 ;
       d = 1.0 ;
       m = 1.0 ;
     }
     float penPressure = map(pen[IDobj].z,0,1,1,width/100) ;
-    size.x = ( map(sizeXObj[IDobj],.1,width,5,width/8) *penPressure *allBeats(IDobj) ) *g ;
-    size.y = ( map(sizeYObj[IDobj],5,width,5,width/8) *penPressure *allBeats(IDobj)) *d ;
-    size.z = ( map(sizeZObj[IDobj],5,width,5,width/8) *penPressure *allBeats(IDobj)) *m  ;
+    float sizeXtemp = map(sizeXObj[IDobj],.1,width,.1,width/33) ;
+    float sizeYtemp = map(sizeYObj[IDobj],.1,width,.1,width/33) ;
+    float sizeZtemp = map(sizeZObj[IDobj],.1,width,.1,width/33) ;
+    size.x = ((sizeXtemp *sizeXtemp) *penPressure *allBeats(IDobj) ) *g ;
+    size.y = ((sizeYtemp *sizeYtemp) *penPressure *allBeats(IDobj)) *d ;
+    size.z = ((sizeZtemp *sizeZtemp) *penPressure *allBeats(IDobj)) *m  ;
     //size
 
     //orientation / deg
@@ -62,7 +65,7 @@ class Damier extends SuperRomanesco {
     int q = int(map(quantityObj[IDobj], 1, 100, 2,15)) ;
 
     //amp
-    float amp = map(amplitudeObj[IDobj],0,1, .1, height/100) ;
+    float amp = map(amplitudeObj[IDobj],0,1, .1, height/200) ;
     
     //MODE DISPLAY
     if(mode[IDobj] == 0 || mode[IDobj] == 255) trame.drawTrameRect(mouse[IDobj], angleTrame, angle, size , q, g, d, amp) ;

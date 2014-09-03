@@ -407,10 +407,15 @@ void constructorSliderButton() {
   BOcurtain  = new Simple(posCurtainButton, sizeCurtainButton, false) ;
   
   //button object, texture, typography
+  PVector pos = new PVector() ;
+  PVector size = new PVector() ;
+  // we don't use the BOf[0], BTf[0] and BTYf[0] must he must be init in case we add object in Scene and this one has never use before and don't exist in the save pref
+  BOf[0] = new Simple(pos, size, boutonONin, boutonONout, boutonOFFin, boutonOFFout, gris, grisNoir, false) ;
+  BTf[0] = new Simple(pos, size, boutonONin, boutonONout, boutonOFFin, boutonOFFout, gris, grisNoir, false) ;
+  BTYf[0] = new Simple(pos, size, boutonONin, boutonONout, boutonOFFin, boutonOFFout, gris, grisNoir, false) ;
+  // init the object library
   for(int i = 1 ; i < NUM_GROUP_SLIDER ; i++) {
     int num = numButton[i] ;
-    PVector pos = new PVector() ;
-    PVector size = new PVector() ;
     for ( int j = 11 ; j < 10+num ; j++) {
       if(numGroup[1] > 0 && i == 1) {
         pos = new PVector(posWidthBOf[j], posHeightBOf[j]) ;

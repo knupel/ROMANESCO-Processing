@@ -9,7 +9,7 @@ boolean testRomanesco = false ;
 
 
 // In the Miroir and Scene sketch presceneOnly must be true for the final work.
-boolean presceneOnly = true ;
+boolean fullRendering = true ;
 Boolean internet = true ;
 String bigBrother = ("BIG BROTHER DON'T WATCHING YOU !!") ;
 

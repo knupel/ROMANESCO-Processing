@@ -1,3 +1,4 @@
+
   ////////////////////////////////////////////////////////////////
  // Romanesco Unu 1.0 / version 25 / made with Processing 303 ///
 ////////////////////////////////////////////////////////////////
@@ -9,7 +10,7 @@ int levelSecurity = 200 ;
 //to work in dev, test phase
 boolean testRomanesco = true ;
 // when you work only with "Prescene" boolean presceneOnly must be true to give at the Prescene the internet acces
-boolean presceneOnly = false ;
+boolean fullRendering = false ;
 
 
 void setup() {

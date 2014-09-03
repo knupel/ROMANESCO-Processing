@@ -1,5 +1,30 @@
 //////////////////
 //OBJECT ROMANESCO
+import twitter4j.conf.*;
+import twitter4j.internal.async.*;
+import twitter4j.internal.org.json.*;
+import twitter4j.internal.logging.*;
+import twitter4j.json.*;
+import twitter4j.internal.util.*;
+import twitter4j.management.*;
+import twitter4j.auth.*;
+import twitter4j.api.*;
+import twitter4j.util.*;
+import twitter4j.internal.http.*;
+import twitter4j.*;
+import twitter4j.internal.json.*;
+
+import twitter4j.StatusDeletionNotice;
+import twitter4j.StatusDeletionNotice;
+import twitter4j.StatusListener;
+import twitter4j.Status;
+import twitter4j.FilterQuery;
+import twitter4j.TwitterStreamFactory;
+import twitter4j.TwitterStream;
+import twitter4j.conf.ConfigurationBuilder;
+
+
+
 Twitter twt;
 ArrayList<MessageTwitter> listMsg ;
 String joinedWordsTwitter = ("") ;
@@ -9,10 +34,10 @@ class Twitos extends SuperRomanesco {
   public Twitos() {
     //from the index_objects.csv
     romanescoName = "Twitos" ;
-    IDobj = 21 ;
+    IDobj = 22 ;
     IDgroup = 3 ;
     romanescoAuthor  = "Stan Le Punk";
-    romanescoVersion = "Alpha 2.1";
+    romanescoVersion = "version 2.1";
     romanescoPack = "Base" ;
     romanescoRender = "classic" ;
     romanescoMode = "" ; // separate the name by a slash and write the next mode immadialtly after this one.
@@ -26,7 +51,7 @@ class Twitos extends SuperRomanesco {
   void setting() {
     startPosition(IDobj, width/2, height/2, 0) ;
     listMsg = new ArrayList<MessageTwitter>() ;
-    String [] hshtg = loadStrings(preferencesPath+"twitter/ashtagReference.txt")  ;
+    String [] hshtg = loadStrings(preferencesPath+"network/twitter/ashtagReference.txt")  ;
     hashtag = join(hshtg, "") ;
     
     twt = new Twitter(hashtag, 2, true); // false ou true pour Online ou non
@@ -53,7 +78,7 @@ class Twitos extends SuperRomanesco {
     float hauteur = canvasYObj[IDobj] *15 ;
     
     // message reception
-    if (internet) message = twt.update() ; else message = bigBrother ;
+    if (internet && fullRendering) message = twt.update() ; else message = bigBrother ;
     // full message
     // split the message to can remove the hashtag
     if (message == null ) { 
@@ -114,20 +139,11 @@ class MessageTwitter {
 
 //////////////////
 //CLASS TWITER
-import twitter4j.StatusDeletionNotice;
-import twitter4j.StatusDeletionNotice;
-import twitter4j.StatusListener;
-import twitter4j.Status;
-import twitter4j.FilterQuery;
-import twitter4j.TwitterStreamFactory;
-import twitter4j.TwitterStream;
-import twitter4j.conf.ConfigurationBuilder;
-
 ArrayList twitter_statuses; 
 
 class Twitter {
   
-  String[] statuses_offline = { "Romanesco Alpha "+release, "Romanesco Alpha "+release, "Romanesco Alpha "+release, "Romanesco Alpha "+release };
+  String[] statuses_offline = { "Romanesco Unu "+release, "Romanesco Unu "+release, "Romanesco Unu "+release, "Romanesco Unu "+release };
   
   String keyword;
 
@@ -149,12 +165,12 @@ class Twitter {
   boolean twitterAcces ;
   void setup() {
     // load the file.txt to read your twitter code
-    String [] codeT = loadStrings(sketchPath("")+"preferences/twitter/twitterCode.txt")  ;
+    String [] codeT = loadStrings(sketchPath("")+"preferences/network/twitter/twitterCode.txt")  ;
     String codeTwitter = join(codeT, "") ;
     String [] cT = split(codeTwitter, ",") ;
     
     //use this line if don't use the Scène
-    if(presceneOnly ) if (cT[0].equals("true") || cT[0].equals("TRUE") ) { 
+    if(fullRendering) if (cT[0].equals("true") || cT[0].equals("TRUE") ) { 
       twitterAcces = true ; 
     } else {
       twitterAcces = false ;
@@ -183,9 +199,9 @@ class Twitter {
       filterQuery.track(new String[] { keyword } ); 
   
       // On fait le lien entre le TwitterStream (qui récupère les messages) et notre écouteur  
-      ts.addListener(new TwitterListener());
+     //  ts.addListener(new TwitterListener());
       // On démarre la recherche !
-      ts.filter(filterQuery);
+     //  ts.filter(filterQuery);
     }
   }
   
@@ -227,7 +243,8 @@ class Twitter {
 // Classe qui permet "d'écouter" les messages entrants
 // récupérés par notre instance TwitterStream
 // ------------------------------------------------------------
-class TwitterListener implements StatusListener{
+/*
+class TwitterListener{
   // onStatus : nouveau message qui vient d'arriver 
   public void onStatus(Status status) {
     twitter_statuses.add(status);
@@ -251,3 +268,4 @@ class TwitterListener implements StatusListener{
     ex.printStackTrace();
   }
 }
+*/

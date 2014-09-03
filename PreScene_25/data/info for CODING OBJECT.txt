@@ -49,16 +49,6 @@ example
 
 
 
-_________
-RENDERING
-°°°°°°°°°
-boolean fullRendering ;
-You can use this boolean to limit your object on the Prescene. It's usefull with object use a lot of particuls.
-yhis boolean is false on the Prescene and true on the Scene.
-
-
-
-
 
 
 
@@ -67,13 +57,6 @@ yhis boolean is false on the Prescene and true on the Scene.
 ____________
 VARIABLES
 °°°°°°°°°°°°°
-
-BUTTON
-––––––––––––––––––––––
-boolean sound[ID]
-boolean parameter[ID]
-boolean action[ID]
-
 
 SLIDER
 ––––––––––––––––––––––

@@ -13,7 +13,7 @@ class Spray extends SuperRomanesco {
     romanescoPack = "Base" ;
     romanescoRender = "P3D" ;
     romanescoMode = "Star/Spray" ;
-    romanescoSlider = "Hue fill,Saturation fill,Brightness fill,Alpha fill,Thickness,Width,Height,Canvas X,Canvas Y,Quantity,Speed,Angle,Life" ;
+    romanescoSlider = "Hue fill,Saturation fill,Brightness fill,Alpha fill,Thickness,Width,Height,Canvas X,Canvas Y,Quantity,Speed,Angle,Life,Force" ;
   }
   //GLOBAL
   // INK
@@ -24,6 +24,7 @@ class Spray extends SuperRomanesco {
   float angleSpray = 10.0 ; // like is write
   float factorPressure ;
   PVector sprayDirection ;
+  boolean changeColor ;
   
   //GALAXIE
   
@@ -33,13 +34,22 @@ class Spray extends SuperRomanesco {
   }
   //DRAW
   void display() {
+    // change color pallete
+    if(xTouch) changeColor = !changeColor ;
+    
+    
     if(mode[IDobj] == 0 && clickLongLeft[IDobj] && nLongTouch ) starProduction() ;
     if(mode[IDobj] == 0 ) displayStar() ;
     if(mode[IDobj] == 1 ) encre() ;
     
+    // info display
+    String whichColor = ("") ;
+    if(changeColor) whichColor =("Original Color") ; else whichColor =("Color from Controller") ;
+    objectInfo[IDobj] = ("Quantity Ink " +encreList.size() +" Quantity Star " + starList.size() + " / " + whichColor ) ;
+    
     
   }
-  
+ 
   
   //ANNEXE VOID
   
@@ -62,9 +72,9 @@ class Spray extends SuperRomanesco {
     thicknessSoundEffect = 1 + jitterOne ;
       
       
-    for ( Pixel p : starList ) {
+    for (Pixel p : starList) {
       strokeWeight(thicknessObj[IDobj] *thicknessSoundEffect) ;  
-      stroke(hue(p.colour), saturation(fillObj[IDobj]), brightness(fillObj[IDobj]), alpha(fillObj[IDobj]) );
+      if(changeColor) stroke(hue(p.colour), saturation(p.colour), brightness(p.colour), alpha(fillObj[IDobj])); else stroke(fillObj[IDobj]) ;
       point(p.pos.x +jitterOne, p.pos.y +jitterTwo, p.pos.z +jitterThree) ;
     }
     if (resetAction(IDobj)) starList.clear() ;
@@ -80,7 +90,13 @@ class Spray extends SuperRomanesco {
     int sizeMax = (int)map(sizeYObj[IDobj],0.1,width,20, width *2) ;
     PVector size = new PVector(sizeMin,sizeMax) ;
     
-    int numP = (int)map(quantityObj[IDobj],1,100,20,width) ;
+    int numP = (int)map(quantityObj[IDobj],1,100,10,width) ;
+    // limitation for the prescene rendering
+    if(!fullRendering) {
+      numP = numP / 1000 ;
+      if(numP < 5 ) numP = 5 ;
+    }
+    
     PVector numPoints = new PVector(numP/10,numP) ;
     
     int branchMin = (int)map(canvasXObj[IDobj], width/10, width,1,30) ;
@@ -146,7 +162,10 @@ class Spray extends SuperRomanesco {
     factorPressure = map(pen[0].z, 0, 1, 1, 50 ) ;
     sprayDirection = new PVector (pen[0].x,pen[0].y) ;
     inkDiffusion = map (speedObj[IDobj] , 0,1, 0, 100 *tempo[IDobj]  ) ; // speed / vitesse
-    float flux = map (quantityObj[IDobj], 0,100, 1,1000  ) ; // ink quantity
+    
+    float flux = map (quantityObj[IDobj], 0,100, 10,1000  ) ; // ink quantity
+    if(!fullRendering) flux = 10 ; // limitation for the prescene rendering
+    
     float thicknessPoint = thicknessObj[IDobj]*.1 ;
     inkFlux = int(flux) ;
     angleSpray   = map (angleObj[IDobj], 0,360, 0,180 ) ; // angle
@@ -160,15 +179,16 @@ class Spray extends SuperRomanesco {
     float timeDry = 1.0 / float(dry) ;
   
    // add encre
-   int security = levelSecurity *1000 ;
-   if (action[IDobj] && nLongTouch && clickLongLeft[0] && encreList.size() < security) addEncre(factorPressure, sprayDirection, angleSpray, spray, inkDiffusion, inkFlux) ; 
+   int security ;
+   if (fullRendering) security = 1000000 ; else security = 5000 ;
+   if (action[IDobj] && nLongTouch && clickLongLeft[0] && encreList.size() < security) addEncre(factorPressure, sprayDirection, angleSpray, spray, inkDiffusion, inkFlux, fillObj[IDobj]) ; 
   
     //display
     for ( Pixel e :  encreList ) {
       if (action[IDobj]) e.drying(var, timeDry) ;
       strokeWeight(thicknessPoint) ;
       noFill() ;
-      stroke(fillObj[IDobj]) ;
+      if(changeColor) stroke(hue(e.colour), saturation(e.colour), brightness(e.colour), alpha(fillObj[IDobj])); else stroke(fillObj[IDobj]) ;
       point(e.pos.x, e.pos.y) ;
     }
     
@@ -176,7 +196,7 @@ class Spray extends SuperRomanesco {
     //CLEAR THE LIST IF NECESSARY 
     if (resetAction(IDobj)) encreList.clear() ;
   }
-  void addEncre(float fp, PVector d, float a, int spray, float dif, int flux) {
+  void addEncre(float fp, PVector d, float a, int spray, float diffusion, int flux, int colorInk) {
     for ( int i = 0 ; i < flux *fp ; i++ ) {
       
       //to make a good Spray, use a good distribution
@@ -195,10 +215,11 @@ class Spray extends SuperRomanesco {
       //calcul the final position to display
       mouse[IDobj].x = rotation(posTilt, mouse[0], angle).x ;
       mouse[IDobj].y = rotation(posTilt, mouse[0], angle).y ;
+      mouse[IDobj].sub(startingPosition[IDobj]) ;
 
       
       //put the pixel in the list to use peacefully
-      encreList.add( new Pixel( mouse[IDobj], dif)) ;
+      encreList.add( new Pixel( mouse[IDobj], diffusion, colorInk)) ;
     }
   }
   

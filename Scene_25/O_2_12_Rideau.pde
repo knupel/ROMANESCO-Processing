@@ -29,7 +29,8 @@ class Rideau extends SuperRomanesco {
     //durée / life
     int vie = int(map(lifeObj[IDobj],0,1,100,20000)) ;
     //thickness / épaisseur
-    float thickness = thicknessObj[IDobj] + abs(mix[IDobj]) *10 ;
+    float thickness ;
+    if(sound[IDobj]) thickness = thicknessObj[IDobj] + abs(mix[IDobj]) *10 ; else thickness = thicknessObj[IDobj] ;
     
     float heightShape = sizeYObj[IDobj] *allBeats(IDobj) ;
     PVector size = new PVector(sizeXObj[IDobj], heightShape ,sizeZObj[IDobj]) ;

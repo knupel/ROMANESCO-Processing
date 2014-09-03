@@ -3,7 +3,7 @@ ArrayList <Hexagon> grid = new ArrayList <Hexagon> (); // the arrayList to store
 class Honeycomb extends SuperRomanesco {
   public Honeycomb() {
     //from the index_objects.csv
-    romanescoName = "Honeycomb" ;
+    romanescoName = "Nid d'abeilles" ;
     IDobj = 17 ;
     IDgroup = 2 ;
     romanescoAuthor  = "Amnon Owed";

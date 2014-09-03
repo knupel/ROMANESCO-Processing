@@ -283,15 +283,20 @@ void loadSave(String path) {
   
   for (TableRow row : loadSettingButton.rows()) {
     String s = row.getString("Type") ;
+    /*
     if( s.equals("Button")  ){ 
      countButton++ ; 
     }
+    */
     if( s.equals("Slider")  ){ 
       countSlider++ ; 
     }
   }
   infoSlider = new PVector [countSlider] ;
-  infoButton = new PVector [countSlider] ;
+  // infoButton = new PVector [countButton] ;
+  // we don't count from the save in case we add object and this one has never use before and he don't exist in the data base
+  infoButton = new PVector [numObj*4 +10] ; 
+  for(int i = 0 ; i < infoButton.length ; i++) infoButton[i] = new PVector() ;
   
   
   // re-init the counter for the new loop

@@ -97,7 +97,7 @@ void backgroundShaderSetup(boolean renderP3D) {
 
 
 void backgroundShaderDraw(boolean renderP3D, int whichOne) {
-  if( (renderP3D && testRomanesco) ||  (renderP3D && presceneOnly) ) {
+  if( (renderP3D && testRomanesco) ||  (renderP3D && fullRendering) ) {
     PVector posBGshader = new PVector(0,0) ;
     PVector sizeBGshader = new PVector(width,height, height) ; 
     fill(0) ; noStroke() ;

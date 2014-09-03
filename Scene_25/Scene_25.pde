@@ -1,5 +1,5 @@
   ////////////////////////////////////////////////////////////////
- // Romanesco Unu 1.0 / version 25 / made with Processing 302 ///
+ // Romanesco Unu 1.0 / version 25 / made with Processing 303 ///
 ////////////////////////////////////////////////////////////////
 String release =("25") ;
 String preferencesPath = sketchPath("")+"preferences/" ;

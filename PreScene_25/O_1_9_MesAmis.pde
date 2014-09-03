@@ -4,7 +4,7 @@
 class MesAmis extends SuperRomanesco {
   public MesAmis() {
     //from the index_objects.csv
-    romanescoName = "Mes Amis" ;
+    romanescoName = "Rubis" ;
     IDobj = 9 ;
     IDgroup = 1 ;
     romanescoAuthor  = "Stan le Punk";

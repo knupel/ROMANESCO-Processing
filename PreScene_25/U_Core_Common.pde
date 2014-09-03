@@ -314,7 +314,9 @@ void displayInfoScene() {
   //INFO SIZE and RENDERER
   String displayModeInfo ;
   if (displayMode.equals("Classic") ) displayModeInfo = ("classic") ; else displayModeInfo = displayMode ;
-  text("Scène width " + width + "height" + height + "   render mode " + displayModeInfo + "    FrameRate " + (int)frameRate, 15,15) ;
+  String infoRendering =("");
+  if(fullRendering) infoRendering = ("Full rendering") ; else infoRendering = ("Preview rendering") ;
+  text("Size " + width + "x" + height + " / "  + infoRendering + " / Render mode " + displayModeInfo + " / FrameRate " + (int)frameRate, 15,15) ;
   //INFO MOUSE and PEN
   text("Mouse " + mouseX + " / " + mouseY + " molette " + wheel[0] + " pen orientation " + (int)deg360(pen[0]) +"°   stylet pressur " + int(pen[0].z *10),15, 15 *posInfo ) ;  
   posInfo += 1 ;

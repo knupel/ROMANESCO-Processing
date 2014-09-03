@@ -11,7 +11,7 @@ class ArbreRomanesco extends SuperRomanesco {
     romanescoPack = "Base" ;
     romanescoRender = "classic" ;
     romanescoMode = "Line/Disc/Disc line/Rectangle/Rectangle line/Box" ;
-    romanescoSlider = "Hue fill,Saturation fill,Brightness fill,Alpha fill,Hue stroke,Saturation stroke,Brightness stroke,Alpha stroke,Thickness,Width,Height,Depth,Quantity,Speed,Direction,Angle,Amplitude" ;
+    romanescoSlider = "Hue fill,Saturation fill,Brightness fill,Alpha fill,Hue stroke,Saturation stroke,Brightness stroke,Alpha stroke,Thickness,Width,Height,Depth,Quantity,Speed,Direction,Amplitude" ;
   }
   //GLOBAL
   float speed ;
@@ -43,7 +43,7 @@ class ArbreRomanesco extends SuperRomanesco {
     //orientation
     float direction = directionObj[IDobj] ;
     //amplitude
-    float amplitude = map(amplitudeObj[IDobj], 0,1, 0,height *.5) *allBeats(IDobj) ;
+    float amplitude = map(amplitudeObj[IDobj], 0,1, 0.1,height *.5) *allBeats(IDobj) ;
     
     // "n" what is it ?
     int n = (ng+nd) ;
@@ -54,7 +54,8 @@ class ArbreRomanesco extends SuperRomanesco {
 
 
     // angle
-    float angle = map(angleObj[IDobj],0,360,0,180);
+    // float angle = map(angleObj[IDobj],0,360,0,180);
+    float angle = 90 ; // but this function must be remove because it give no effect
     // speed
     if(motion[IDobj]) {
       float s = map(speedObj[IDobj],0,1,0,2) ;

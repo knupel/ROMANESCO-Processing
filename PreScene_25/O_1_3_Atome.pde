@@ -4,7 +4,7 @@ ArrayList<Atom> atomList ;
 class Atome extends SuperRomanesco {
   public Atome() {
     //from the index_objects.csv
-    romanescoName = "ATOM" ;
+    romanescoName = "Atome" ;
     IDobj = 3 ;
     IDgroup = 1 ;
     romanescoAuthor  = "Stan le Punk";
@@ -12,7 +12,7 @@ class Atome extends SuperRomanesco {
     romanescoPack = "Base" ;
     romanescoRender = "P3D" ;
     romanescoMode = "Chemical title/Chemical schema/Electronic Cloud/Your text" ;
-    romanescoSlider = "Hue fill,Saturation fill,Brightness fill,Alpha fill,Hue stroke,Saturation stroke,Brightness stroke,Alpha stroke,Thickness,Width,Canvas X,Canvas Y,Speed,Direction,Family,Life" ;
+    romanescoSlider = "Hue fill,Saturation fill,Brightness fill,Alpha fill,Hue stroke,Saturation stroke,Brightness stroke,Alpha stroke,Thickness,Width,Canvas X,Canvas Y,Speed,Direction,Family,Quantity" ;
   }
   
   //GLOBAL
@@ -85,6 +85,7 @@ class Atome extends SuperRomanesco {
       float tempAbs = 10.0 ;
       //VELOCITY and DIRECTION of atom
       if(motion[IDobj]) {
+        //if(action[IDobj]) {
         if(spaceTouch && action[IDobj]) {
           newDirection = new PVector (-pen[IDobj].x, -pen[IDobj].y ) ;
         } else { 
@@ -196,8 +197,15 @@ class Atome extends SuperRomanesco {
     //CLEAR
     if (resetAction(IDobj)) atomList.clear() ;
     //ADD ATOM
-    int speedReproduction = round(map(lifeObj[IDobj],0,1,20,1));
+    int speedReproduction = round(map(quantityObj[IDobj],1,100,30,1));
     if(action[IDobj] && nLongTouch && clickLongLeft[IDobj] && frameCount % speedReproduction == 0) atomAdd(giveNametoAtom(), startingPosition[IDobj]) ;
+    
+    if(atomList.size()<1) {
+      int num = int(random(1,quantityObj[IDobj]*3)) ;
+      for(int i = 0 ; i < num ; i++ ) {
+        atomAdd(giveNametoAtom(), startingPosition[IDobj]) ;
+      }
+    }
 
   }
   //END DRAW
@@ -219,33 +227,7 @@ class Atome extends SuperRomanesco {
     return s ;
   }
   
-  // ADD function
-  void atomAdd(PVector newPos) {
-    //data
-    //amplitude
-    //give the field of type of atome must be create
-    float numP = map(familyObj[IDobj],1,100,1,118) ;
-    int Z = int(random (1,numP)) ; // Z is the number of protons give the number of electrons max knew is 118
-    int ion = round(random(0,0)); // number of electron(s) less(Anion)   more(Cation)   / give the magnetism & conductivity of the atome cannot be equal or sup to "Z"proton
-    
-    int Kstart = int(abs( mix[IDobj]) *1000) ; // Temperature of Atom, influence the mouvement behavior
 
-    if (Kstart > 500 ) Kstart = 500 ;
-    // physic action & display in the Univers
-    float rebound = 0.5 ;
-    int diam = 5 ;
-    // Atom motion
-    float startVel = 1.0 ;
-    PVector posA = new PVector ( mouse[IDobj].x -newPos.x, mouse[IDobj].y -newPos.y, 0.0 ) ;
-    PVector velA = new PVector ( random(-startVel, startVel ), random(-startVel, startVel ), random(-startVel, startVel ) ) ;
-    
-    for (Atom atm : atomList) {
-      if(atm.insideField()) return;
-    }
-    Atom atm = new Atom( posA, velA, Z, ion, rebound, diam,  Kstart) ; 
-    atomList.add(atm) ;
-  }
-  
   //Add atom with a specific name
   void atomAdd(String name, PVector newPos) {
     //data
@@ -263,8 +245,8 @@ class Atome extends SuperRomanesco {
     int diam = 5 ;
     // Atom motion
     float startVel = 1.0 ;
-    PVector posA = new PVector ( mouse[IDobj].x -newPos.x, mouse[IDobj].y -newPos.y, 0.0 ) ;
-    PVector velA = new PVector ( random(-startVel, startVel ), random(-startVel, startVel ), random(-startVel, startVel ) ) ;
+    PVector posA = new PVector (mouse[0].x -newPos.x, mouse[0].y -newPos.y, 0.0) ;
+    PVector velA = new PVector (random(-startVel, startVel ), random(-startVel, startVel ), random(-startVel, startVel ) ) ;
     
     for (Atom atm : atomList) {
       if(atm.insideField()) return;

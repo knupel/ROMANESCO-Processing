@@ -33,8 +33,11 @@ class Soleil extends SuperRomanesco {
     jitter += (angleObj[IDobj] *.001 ) ;
     float jitting = cos(jitter) *tempo[IDobj] ;
      //noise
-     float noise = 0 ;
-     if (sound[IDobj]) noise = (mix[IDobj] *mix[IDobj]) *50.0 ; else noise = sq(amplitudeObj[IDobj] *10.0) ;
+     PVector noise = new PVector() ;
+     float amp = sq(amplitudeObj[IDobj] *10.0) ;
+     float rightNoise =  ((right[IDobj] *right[IDobj] *5) *amp) ;
+     float leftNoise = ((left[IDobj] *left[IDobj] *5) *amp) ;
+     if (sound[IDobj]) noise = new PVector(rightNoise, leftNoise) ; else noise = new PVector(amp,amp) ;
     // rotation speed
     float speedRotation = 0 ;
     speedRotation = sq(speedObj[IDobj] *10.0 *tempo[IDobj]) ;
@@ -57,10 +60,10 @@ class Soleil extends SuperRomanesco {
   
   // ANNEXE
   // soleil with jitter
-  void soleil(PVector pos, int diam, int numBeam, float jitter, float noise) {
+  void soleil(PVector pos, int diam, int numBeam, float jitter, PVector noise) {
     int numPoints = numBeam *2 ;
     for (int i = 0 ; i < numPoints -1 ; i = i +2) {
-      float vibration = random(-noise, noise) ;
+      float vibration = random(-noise.x, noise.y) ;
       PVector p1 = new PVector() ;
       PVector p2 = new PVector() ;
       p1 = circle(pos, diam, numPoints, jitter)[i].copy() ;

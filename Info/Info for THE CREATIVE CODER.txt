@@ -27,10 +27,9 @@ if you don't do that, the Prescene will not open the Scene.
 
 
 
-
-
-// when you work only with "Prescene" boolean presceneOnly must be true to give at the Prescene the internet acces
-boolean presceneOnly = false ;
+boolean fullRendering = false ;
+This boolean is use to indicate if the object or other algorithm must work at full capacity or not.
+Use this one for the rendering Prescene, like a preview to preserve the processor from the big calcul, like shader background or other objects with a lot of particuls.
 
 
 
@@ -188,15 +187,7 @@ void drying(float var)
 
 
 
-// METEO
-////////
-boolean meteo, is false by default. If you want use in your object write this one is true.
 
-More info check the Tab X_Module in the Meteo part in the sketch Prescene or Scene.
-
-
-// END METEO
-////////////
 
 
 

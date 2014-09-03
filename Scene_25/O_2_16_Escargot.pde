@@ -1,7 +1,7 @@
 class Escargot extends SuperRomanesco {
   public Escargot() {
     //from the index_objects.csv
-    romanescoName = "Escargot" ;
+    romanescoName = "Image" ;
     IDobj = 16 ;
     IDgroup = 2 ;
     romanescoAuthor  = "Stan le Punk";
