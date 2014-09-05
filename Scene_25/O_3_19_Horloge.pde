@@ -11,7 +11,7 @@ class Horloge extends SuperRomanesco {
     romanescoPack = "Base" ;
     romanescoRender = "classic" ;
     romanescoMode = "Ellipse Clock 12/Ellipse Clock 24/Line Clock 12/Line Clock 24/minutes/secondes" ;// separate the name by a slash and write the next mode immadialtly after this one.
-    romanescoSlider = "Hue fill,Saturation fill,Brightness fill,Alpha fill,Width,Amplitude" ;
+    romanescoSlider = "Hue fill,Saturation fill,Brightness fill,Alpha fill,Width,Direction,Amplitude" ;
   }
   //GLOBAL
   

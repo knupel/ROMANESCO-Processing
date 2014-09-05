@@ -11,7 +11,7 @@ class Honeycomb extends SuperRomanesco {
     romanescoPack = "Base" ;
     romanescoRender = "P3D" ;
     romanescoMode = "" ;
-    romanescoSlider = "Hue fill,Saturation fill,Brightness fill,Alpha fill,Thickness,Width,Canvas X,Canvas Y" ;
+    romanescoSlider = "Saturation fill,Brightness fill,Alpha fill,Thickness,Width,Canvas X,Canvas Y" ;
   }
   //GLOBAL
   boolean newHoneycomb  ;
@@ -38,26 +38,40 @@ class Honeycomb extends SuperRomanesco {
   //DRAW
   void display() {
     neighbourDistance = hexagonRadius *2;
-    hexagonStroke = thicknessObj[IDobj] *allBeats(IDobj) ;
-    if(setting[IDobj]) canvas = new PVector(map(canvasXObj[IDobj],width/10,width,width/10, width *5),map(canvasYObj[IDobj],height/10,height,height/10, height *5)) ;
+    hexagonStroke = thicknessObj[IDobj] ;
+
+    
+    // limitation for the preview
+    if(fullRendering) {
+      sliderCanvasX = map(canvasXObj[IDobj], width/10, width, width/20, width *3) ;
+      sliderCanvasY = map(canvasYObj[IDobj], width/10, width, width/20, width *3) ;
+      //change the radius of hexagon
+      hexagonRadius = map(sizeXObj[IDobj],.1,width, 5, width/15)  ;
+    } else {
+      sliderCanvasX = map(canvasXObj[IDobj], width/10, width, width/20, width) ;
+      sliderCanvasY = map(canvasYObj[IDobj], width/10, width, width/20, width) ;
+      //change the radius of hexagon
+      hexagonRadius = map(sizeXObj[IDobj],.1,width, 20, width/15)  ;
+    }
     
     
-    sliderCanvasX = map(canvasXObj[IDobj], width/10, width, width/10, width *5) ;
-    sliderCanvasY = map(canvasYObj[IDobj], width/10, width, width/10, width *5) ;
+    canvas = new PVector(sliderCanvasX,sliderCanvasY) ;
+      
     // Good idea to lock the value when you come back for a new slider setting, must work around this concept
     if(initRef) {
       sliderCanvasXref = sliderCanvasX ;
       sliderCanvasYref = sliderCanvasY ;
       initRef = false ;
     }
-    if(sliderCanvasX != sliderCanvasXref || sliderCanvasY != sliderCanvasYref ) setting[IDobj] = true ;
+
     sliderCanvasXref = sliderCanvasX ;
     sliderCanvasYref = sliderCanvasY ;
     
-    if(hexagonStroke < 1.0 ) hexagonStroke = 1.0 ;
+    // music factor
+    float soundSizeFactor ;
+    if(getTimeTrack() > 0.2) soundSizeFactor = allBeats(IDobj) ; else soundSizeFactor = 1.0 ;
     
-    //change the radius of hexagon
-    hexagonRadius = map(sizeXObj[IDobj],.1,width, 5, width/15)  ;
+
     if(hexagonRadius != radiusRef || hexagonStroke != strokeRef || (canvas.x != canvasRef.x || canvas.y != canvasRef.y) ) {
       initGrid(canvas);
     }
@@ -74,21 +88,29 @@ class Honeycomb extends SuperRomanesco {
   
     // change the color of each hexagon cell to the new color and display it
     // this can be done in one loop because all calculations are already finished
+    
     for (Hexagon h : grid) {
       h.changeColor();
-      h.display(v, fillObj[IDobj]);
+      h.display(v, fillObj[IDobj],soundSizeFactor);
     }
     popMatrix() ;
     
     // new honeycomb
-    if((action[IDobj] && nTouch) || allBeats(IDobj) >= 3.125 ) newHoneycomb = true ;
+    //if((action[IDobj] && xTouch) || allBeats(IDobj) >= 3.125 ) newHoneycomb = true ;
+    if((action[IDobj] && xTouch)) newHoneycomb = true ;
     
     if(newHoneycomb) {
       float r = random(1000000); // random number that is used by all the hexagon cells...
       for (Hexagon h : grid) { h.resetColor(r); } // ... to generate a new color
       newHoneycomb = false ;
     }
+    
+    
+    // INFO
+    objectInfo[IDobj] = (grid.size() + " hexagons") ;
   }
+  
+  
   
   // ANNEXE VOID
   // do everything needed to start up the grid ONCE
@@ -104,7 +126,7 @@ class Honeycomb extends SuperRomanesco {
     for (int i=0; i<hX; i++) {
       for (int j=0; j<hY; j++) {
         // each hexagon contains it's xy position within the grid (also see the Hexagon class)
-        grid.add( new Hexagon(i, j,hexagonRadius) );
+        grid.add(new Hexagon(i, j,hexagonRadius) );
       }
     }
     
@@ -202,12 +224,12 @@ class Hexagon {
 
   // display the hexagon at position xy with the current color
   // use the vertex positions that have been pre-calculated ONCE (instead of re-calculating these for each cell on each draw)
-  void display(PVector[] v, color in) {
+  void display(PVector[] v, color in, float factor) {
     pushMatrix();
     translate(x, y);
     fill(currentColor, saturation(in), brightness(in), alpha(in));
     beginShape();
-    for (int i=0; i<6; i++) { vertex(v[i].x, v[i].y); }
+    for (int i=0; i<6; i++) { vertex(v[i].x *factor, v[i].y *factor); }
     endShape();
     popMatrix();
   }

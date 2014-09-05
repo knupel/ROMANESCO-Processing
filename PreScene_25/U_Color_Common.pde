@@ -360,7 +360,7 @@ PVector HSBtoRGB(float hue, float saturation, float brightness) {
   color c = color (hue, saturation, brightness);
   colorMode(RGB,255) ;
   PVectorRGB = new PVector (red(c), green(c), blue(c)) ;
-  colorMode(HSB,HSBmode.x,HSBmode.y,HSBmode.z) ;
+  colorMode(HSB,HSBmode.x,HSBmode.y,HSBmode.z,100) ;
   return PVectorRGB ;
 }
 

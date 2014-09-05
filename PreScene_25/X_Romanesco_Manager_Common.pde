@@ -142,7 +142,7 @@ boolean resetParameter(int ID) {
   //global delete
   if (backspaceTouch) e = true ;
   //SPECIFIC DELETE when the paramer button of contrôleur is ON
-  else if (deleteTouch) if ( parameter[ID]) e = true ;
+  else if (deleteTouch) if (parameter[ID]) e = true ;
   return e ;
 }
 ///////////////////////////////////////
@@ -226,9 +226,6 @@ class ObjectRomanescoManager {
     indexObjects.addColumn("Render") ;
     indexObjects.addColumn("Mode") ;
     
-    // move to the tab A_Variable_Common
-    //objectName = new String[num +1] ;
-    // objectID = new int[num +1] ;
     
     // add row
     rowIndexObject = new TableRow [num] ;

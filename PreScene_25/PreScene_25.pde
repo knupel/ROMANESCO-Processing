@@ -8,7 +8,7 @@ String preferencesPath = sketchPath("")+"preferences/" ;
 // security must be link with the controler in the next release
 int levelSecurity = 200 ;
 //to work in dev, test phase
-boolean testRomanesco = true ;
+boolean testRomanesco = false ;
 // when you work only with "Prescene" boolean presceneOnly must be true to give at the Prescene the internet acces
 boolean fullRendering = false ;
 
@@ -44,8 +44,8 @@ void draw() {
   updateVar() ;
   OSCDraw() ;
   // we must write the void loadLiveData, after OSCDraw in cas where the OSC send a file Image or Text don't exist in the Scene or Prescene Folder
-  // loadLiveData() ; 
-  backgroundRomanescoPrescene() ;
+  // backgroundRomanescoPrescene() ;
+  backgroundRomanesco() ;
   
   //ROMANESCO
   cameraDraw() ;
@@ -63,6 +63,8 @@ void draw() {
   cursorDraw() ;
   keyboardFalse() ;
   opening() ;
+  
+
 }
 //END DRAW
 

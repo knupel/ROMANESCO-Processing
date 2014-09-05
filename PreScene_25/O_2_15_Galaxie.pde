@@ -39,17 +39,25 @@ class Galaxie extends SuperRomanesco {
   
   //SETUP
   void setting() {
-    startPosition(IDobj, width/2, height/4, 0) ;
+    startPosition(IDobj, 0, 0, 0) ;
   }
   //DRAW
   void display() {
     
     //surface
     PVector marge = new PVector(map(canvasXObj[IDobj],width/10, width, width/20, width*10), map(canvasYObj[IDobj],width/10, width, height/20, height*10), map(canvasZObj[IDobj], width/10, width, width/10, width *10))  ;
-    PVector surface = marge.copy() ;
+    PVector surface = new PVector(marge.x *2 +width, marge.y *2 +height) ;
     
+    //quantity of star
     if (mode[IDobj] == 0 ) numFromControler = int(9*(sq(quantityObj[IDobj])) ) ; else numFromControler = 30 + int(25 *quantityObj[IDobj]) ;
+    if(fullRendering ) {
+      if (mode[IDobj] == 0 ) numFromControler = int(9*(sq(quantityObj[IDobj])) ) ; else numFromControler = 30 + int(25 *quantityObj[IDobj]) ;
+    } else {
+      if (mode[IDobj] == 0 ) numFromControler = int(9*quantityObj[IDobj]) ; else numFromControler = 30 + int(quantityObj[IDobj]) ;
+    }
+    
     if ((numGrains != numFromControler && parameterButton[IDobj] == 1) || resetAction(IDobj) ) makeSand = true ;
+    
     if (makeSand) {
       numGrains = numFromControler ;
       grainSetup(numGrains, marge) ;
@@ -65,7 +73,7 @@ class Galaxie extends SuperRomanesco {
     vitesseGrainA = map(left[IDobj],0,1, 1, 17) ;
     vitesseGrainB = map(right[IDobj],0,1, 1, 17) ;
     
-    if(motion[IDobj]) speedDust = map(speedObj[IDobj],0,1, 0.0001 ,3) ; else speedDust = 0.000001 ;
+    if(motion[IDobj]) speedDust = map(speedObj[IDobj],0,1, 0.00005 ,0.5) ; else speedDust = 0.00001 ;
     
     vitesseGrain.x = vitesseGrainA *speedDust *tempo[IDobj] *pressionGrain  ;
     vitesseGrain.y = vitesseGrainB *speedDust *tempo[IDobj] *pressionGrain  ;
@@ -78,7 +86,7 @@ class Galaxie extends SuperRomanesco {
     }
     
     //force
-    float amplitude = 75 ;
+    float amplitude = 11 ;
     variableRayonGrain = map(forceObj[IDobj], 0,1, 0, amplitude ) ; //<>// //<>//
     
 
@@ -103,12 +111,13 @@ class Galaxie extends SuperRomanesco {
     // Axe rotation
     posCenterGrain = mouse[IDobj].copy() ;
     //ratio transformation du canvas
-    float ratioX = (surface.x) / float(width) ;
-    float ratioY = (surface.y) / float(height) ;
+    float ratioX = surface.x / float(width) ;
+    float ratioY = surface.y / float(height) ;
     
     PVector newPosCenterGrain = new PVector() ;
-    newPosCenterGrain.x = posCenterGrain.x *ratioX - marge.x ;
-    newPosCenterGrain.y = posCenterGrain.y *ratioY - marge.y ;
+    newPosCenterGrain.x = posCenterGrain.x *ratioX -marge.x ;
+    newPosCenterGrain.y = posCenterGrain.y *ratioY -marge.y ;
+    // copy the final result
     posCenterGrain = newPosCenterGrain.copy() ;
     
     /////////
@@ -131,11 +140,13 @@ class Galaxie extends SuperRomanesco {
     
     
     // INFO DISPLAY
-    objectInfo[IDobj] =("Quantity " +numGrains + " Canvas " + (int)surface.x + "x" + (int)surface.y ) ;
+    objectInfo[IDobj] =("Quantity " +numGrains + " - Canvas " + (int)surface.x + "x" + (int)surface.y + " - Center Galaxy " + int(posCenterGrain.x +marge.x) + "x" + int(posCenterGrain.y +marge.y) + " - speed" +int(speedDust *200.)) ;
+    // objectInfo[IDobj] =("Quantity " +numGrains + " - Canvas " + (int)surface.x + "x" + (int)surface.y + " - Center Galaxy " + int(posCenterGrain.x +(posCenterGrain.x *.5)) + "x" + int(posCenterGrain.y +(posCenterGrain.y *.5)) ) ;
     if (objectInfoDisplay[IDobj] && prescene) {
       strokeWeight(1) ;
       stroke(blanc) ;
       noFill() ;
+      text("Galaxy center", posCenterGrain.x +5, posCenterGrain.y -5) ; 
       line(-marge.x,       posCenterGrain.y, width +marge.x, posCenterGrain.y ) ;
       line(posCenterGrain.x, -marge.y,       posCenterGrain.x, marge.y +height ) ;
       

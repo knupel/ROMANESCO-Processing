@@ -2,40 +2,43 @@
 //BACKGROUND
 /////////////
 int artificialTime ;
-//FOND
-void backgroundRomanesco(boolean useShader) {
-  if(eBackground == 1) {
-    color bg ;
-    
-    //to smooth the curve of transparency background
-    float facteur = 2.5 ;
-    // float homothety = 100.0 ;
-    float nx = norm(valueSlider[0][3], 0.0 , 100.0) ;
-    float ny = pow (nx ,facteur );
-    ny = map(ny, 0, 1 , 0.8, 100 ) ;
-    
-    bg = color (map(valueSlider[0][0],0,100,0,360), valueSlider[0][1], valueSlider[0][2], ny ) ; 
-    //choice the background
-    if(displayMode.equals("Classic")) backgroundClassic(bg) ;
-    else if(displayMode.equals("P3D")) backgroundP3D(bg) ;
-  } else {
-    backgroundShaderDraw(modeP3D, whichShader) ;
-  }
-}
 
 
-void backgroundRomanescoPrescene() {
+// BACKGROUND
+void backgroundRomanesco() {
+  // in preview mode the background is always on, to remove the trace effect
+  if(!fullRendering) eBackground = 1 ;
+  
   if(eBackground == 1) {
-    color bg ;
-    bg = color (map(valueSlider[0][0],0,100,0,360), valueSlider[0][1], valueSlider[0][2], 100 ) ;
+    if(whichShader == 0) {
+      color bg ;
+      
+      // choice the rendering color palette for the classic background
+      if(fullRendering) {
+        //to smooth the curve of transparency background
+        float factorSmooth = 2.5 ;
+        // float homothety = 100.0 ;
+        float nx = norm(valueSlider[0][3], 0.0 , 100.0) ;
+        float ny = pow (nx, factorSmooth);
+        ny = map(ny, 0, 1, 0.8, 100) ;
+        bg = color (map(valueSlider[0][0],0,100,0,360), valueSlider[0][1], valueSlider[0][2], ny ) ; 
+      } else {
+        bg = color (map(valueSlider[0][0],0,100,0,360), valueSlider[0][1], valueSlider[0][2], 100 ) ;
+      }
+      
       //choice the background
-    if(displayMode.equals("Classic")) backgroundClassic(bg) ;
-    else if(modeP3D) backgroundP3D(bg) ;
-  } else {
-    backgroundShaderDraw(modeP3D, whichShader) ;
+      if(displayMode.equals("Classic")) backgroundClassic(bg) ;
+      else if(displayMode.equals("P3D")) backgroundP3D(bg) ;
+    } else {
+      backgroundShaderDraw(modeP3D, whichShader) ;
+    }
   }
 }
 
+
+
+// ANNEXE VOID BACKGROUND
+/////////////////////////
 
 //diffenrent background
 void backgroundClassic(color c) {

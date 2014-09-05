@@ -245,12 +245,13 @@ void buttonSliderSetup() {
   posButtonImage =      new PVector(mgSliderc2 +115, startingTopPosition +posDropdownGrobalY)  ; 
   posButtonFileText =   new PVector(mgSliderc3 +60, startingTopPosition +posDropdownGrobalY)  ; 
 
-  int posSmallButtonY = 28 ;
+  
   // MIDI CURTAIN
+  int correctionMidiCurtain = 78 ;
   sizeCurtainButton = new PVector(30,30) ;
   sizeMidiButton = new PVector(50,26) ;
-  posMidiButton = new PVector(mgSliderc1 + 40, topMenuPos +21) ; 
-  posCurtainButton = new PVector(mgSliderc1, topMenuPos +19) ; 
+  posMidiButton = new PVector(mgSliderc1 + 40, topMenuPos +correctionMidiCurtain +1) ; 
+  posCurtainButton = new PVector(mgSliderc1, topMenuPos +correctionMidiCurtain -1) ; 
   
   //SOUND BUTTON
   sizeBeatButton = new PVector(30,10) ; 
@@ -258,36 +259,47 @@ void buttonSliderSetup() {
   sizeSnareButton = new PVector(40,10) ; 
   sizeHatButton = new PVector(30,10) ;
   
-  posBeatButton = new PVector(mgSliderc3 +0, topMenuPos +posSmallButtonY) ; 
-  posKickButton = new PVector(posBeatButton.x +sizeBeatButton.x +5, topMenuPos +posSmallButtonY) ; 
-  posSnareButton = new PVector(posKickButton.x +sizeKickButton.x +5, topMenuPos +posSmallButtonY) ; 
-  posHatButton = new PVector(posSnareButton.x +sizeSnareButton.x +5, topMenuPos +posSmallButtonY) ;
+  int correctionBeat = 79 ;
+  posBeatButton = new PVector(mgSliderc3 +0, topMenuPos +correctionBeat) ; 
+  posKickButton = new PVector(posBeatButton.x +sizeBeatButton.x +5, topMenuPos +correctionBeat) ; 
+  posSnareButton = new PVector(posKickButton.x +sizeKickButton.x +5, topMenuPos +correctionBeat) ; 
+  posHatButton = new PVector(posSnareButton.x +sizeSnareButton.x +5, topMenuPos +correctionBeat) ;
 
   // background 
-  posBackgroundButton = new PVector(mgSliderc1, startingTopPosition +70) ;
-  sizeBackgroundButton = new PVector(95,10) ;
-  // light one button
-  posLightOneButton = new PVector(mgSliderc2, startingTopPosition +80) ;
+  int correctionButtonBG = 38 ;
+  posBackgroundButton = new PVector(mgSliderc1, startingTopPosition +correctionButtonBG) ;
+  sizeBackgroundButton = new PVector(120,10) ;
+  
+  // light 
+  int correctionButtonLight = 38 ;
+  // one button
+  posLightOneButton = new PVector(mgSliderc2, startingTopPosition +correctionButtonLight) ;
   sizeLightOneButton = new PVector(80,10) ;
   posLightOneAction = new PVector(mgSliderc2 +90, posLightOneButton.y) ;
   sizeLightOneAction = new PVector(45,10) ;
   // light two button
-  posLightTwoButton = new PVector(mgSliderc3, startingTopPosition +80) ;
+  posLightTwoButton = new PVector(mgSliderc3, startingTopPosition +correctionButtonLight) ;
   sizeLightTwoButton = new PVector(80,10) ;
   posLightTwoAction = new PVector(mgSliderc3 +90, posLightTwoButton.y) ;
   sizeLightTwoAction = new PVector(45,10) ;
   
   // GROUP ONE
-  posHeightBO  = startingTopPosition + 140  ;               posWidthBO  =margeLeft ;
-  posHeightRO  = posHeightBO +60   ;  posWidthRO  =margeLeft ;
+  posHeightBO = startingTopPosition +140  ; 
+  posWidthBO  = margeLeft ;
+  posHeightRO = posHeightBO +60   ;  
+  posWidthRO  = margeLeft ;
   
   //GROUP TWO
-  posHeightBT  = posHeightBO + 160 ;  posWidthBT  =margeLeft ;
-  posHeightRT  = posHeightBT +60   ;  posWidthRT  =margeLeft ;
+  posHeightBT = posHeightBO +160 ;  
+  posWidthBT  = margeLeft ;
+  posHeightRT = posHeightBT +60   ;  
+  posWidthRT  =margeLeft ;
   
   //GROUP THREE
-  posHeightBTY = posHeightBT + 160 ;  posWidthBTY =margeLeft ;
-  posHeightRTY = posHeightBTY +60  ;  posWidthRTY =margeLeft ;
+  posHeightBTY = posHeightBT +160 ;  
+  posWidthBTY = margeLeft ;
+  posHeightRTY = posHeightBTY +60  ;  
+  posWidthRTY = margeLeft ;
   
   // VOID
   groupZero(startingTopPosition +80) ;
@@ -303,21 +315,25 @@ void buttonSliderSetup() {
 /////////////////////
 void groupZero(int pos) {
   //Background
-  suivitSlider[1] = 1 ; posWidthSlider[1] = mgSliderc1 ; posHeightSlider[1]= pos +0 ; longueurSlider[1] = 111 ; hauteurSlider[1] = sliderHeight ; ; // couleur du fond  
-  suivitSlider[2] = 1 ; posWidthSlider[2] = mgSliderc1 ; posHeightSlider[2]= pos +10 ; longueurSlider[2] = 111 ; hauteurSlider[2] = sliderHeight ; ;   
-  suivitSlider[3] = 1 ; posWidthSlider[3] = mgSliderc1 ; posHeightSlider[3]= pos +20 ; longueurSlider[3] = 111 ; hauteurSlider[3] = sliderHeight ; ;   
-  suivitSlider[4] = 1 ; posWidthSlider[4] = mgSliderc1 ; posHeightSlider[4]= pos +30 ; longueurSlider[4] = 111 ; hauteurSlider[4] = sliderHeight ; ;   
-  // SOUND
-  suivitSlider[5] = 1 ; posWidthSlider[5] = mgSliderc3  ; posHeightSlider[5]= pos -30 ; longueurSlider[5] = 111 ; hauteurSlider[5] = sliderHeight ;  ; // sound left
-  suivitSlider[6] = 1 ; posWidthSlider[6] = mgSliderc3  ; posHeightSlider[6]= pos -20 ; longueurSlider[6] = 111 ; hauteurSlider[6] = sliderHeight ; ; // sound rigth 
+  int correctionSliderBG = -32 ;
+  suivitSlider[1] = 1 ; posWidthSlider[1] = mgSliderc1 ; posHeightSlider[1]= pos +correctionSliderBG +0 ; longueurSlider[1] = 111 ; hauteurSlider[1] = sliderHeight ; ; // couleur du fond  
+  suivitSlider[2] = 1 ; posWidthSlider[2] = mgSliderc1 ; posHeightSlider[2]= pos +correctionSliderBG +10 ; longueurSlider[2] = 111 ; hauteurSlider[2] = sliderHeight ; ;   
+  suivitSlider[3] = 1 ; posWidthSlider[3] = mgSliderc1 ; posHeightSlider[3]= pos +correctionSliderBG +20 ; longueurSlider[3] = 111 ; hauteurSlider[3] = sliderHeight ; ;   
+  suivitSlider[4] = 1 ; posWidthSlider[4] = mgSliderc1 ; posHeightSlider[4]= pos +correctionSliderBG +30 ; longueurSlider[4] = 111 ; hauteurSlider[4] = sliderHeight ; ;
+  //LIGHT
+  int correctionSliderLight = -32 ;
   // LIGHT ONE
-  suivitSlider[7] = 1 ; posWidthSlider[7] = mgSliderc2 ; posHeightSlider[7]= pos +10 ; longueurSlider[7] = 111 ; hauteurSlider[7] = sliderHeight ; ; // hue 
-  suivitSlider[8] = 1 ; posWidthSlider[8] = mgSliderc2 ; posHeightSlider[8]= pos +20 ; longueurSlider[8] = 111 ; hauteurSlider[8] = sliderHeight ; ;   
-  suivitSlider[9] = 1 ; posWidthSlider[9] = mgSliderc2 ; posHeightSlider[9]= pos +30 ; longueurSlider[9] = 111 ; hauteurSlider[9] = sliderHeight ; ; 
+  suivitSlider[7] = 1 ; posWidthSlider[7] = mgSliderc2 ; posHeightSlider[7]= pos +correctionSliderLight +0 ; longueurSlider[7] = 111 ; hauteurSlider[7] = sliderHeight ; ; // hue 
+  suivitSlider[8] = 1 ; posWidthSlider[8] = mgSliderc2 ; posHeightSlider[8]= pos +correctionSliderLight +10 ; longueurSlider[8] = 111 ; hauteurSlider[8] = sliderHeight ; ;   
+  suivitSlider[9] = 1 ; posWidthSlider[9] = mgSliderc2 ; posHeightSlider[9]= pos +correctionSliderLight +20 ; longueurSlider[9] = 111 ; hauteurSlider[9] = sliderHeight ; ; 
  // LIGHT TWO
-  suivitSlider[10] = 1 ; posWidthSlider[10] = mgSliderc3 ; posHeightSlider[10]= pos +10 ; longueurSlider[10] = 111 ; hauteurSlider[10] = sliderHeight ; ;  // hue ambiance
-  suivitSlider[11] = 1 ; posWidthSlider[11] = mgSliderc3 ; posHeightSlider[11]= pos +20 ; longueurSlider[11] = 111 ; hauteurSlider[11] = sliderHeight ; ;
-  suivitSlider[12] = 1 ; posWidthSlider[12] = mgSliderc3 ; posHeightSlider[12]= pos +30 ; longueurSlider[12] = 111 ; hauteurSlider[12] = sliderHeight ; ;
+  suivitSlider[10] = 1 ; posWidthSlider[10] = mgSliderc3 ; posHeightSlider[10]= pos +correctionSliderLight +0 ; longueurSlider[10] = 111 ; hauteurSlider[10] = sliderHeight ; ;  // hue ambiance
+  suivitSlider[11] = 1 ; posWidthSlider[11] = mgSliderc3 ; posHeightSlider[11]= pos +correctionSliderLight +10 ; longueurSlider[11] = 111 ; hauteurSlider[11] = sliderHeight ; ;
+  suivitSlider[12] = 1 ; posWidthSlider[12] = mgSliderc3 ; posHeightSlider[12]= pos +correctionSliderLight +20 ; longueurSlider[12] = 111 ; hauteurSlider[12] = sliderHeight ; ;
+  // SOUND
+  int correctionSliderSound = +19 ;
+  suivitSlider[5] = 1 ; posWidthSlider[5] = mgSliderc3  ; posHeightSlider[5]= pos +correctionSliderSound +0 ; longueurSlider[5] = 111 ; hauteurSlider[5] = sliderHeight ;  ; // sound left
+  suivitSlider[6] = 1 ; posWidthSlider[6] = mgSliderc3  ; posHeightSlider[6]= pos +correctionSliderSound +10 ; longueurSlider[6] = 111 ; hauteurSlider[6] = sliderHeight ; ; // sound rigth 
 }
 
 PVector posRelativeMainButton = new PVector (-8, -10) ;
@@ -870,7 +886,9 @@ void buttonInfoOnTheTop() {
 // DETAIL
 // GROUP ZERO
 void buttonDrawGroupZero() {
-  buttonBackground.boutonTexte("Background on/off", posBackgroundButton, FuturaStencil_10, 10) ;
+  
+  //buttonBackground.boutonTexte("Background on/off", posBackgroundButton, FuturaStencil_10, 10) ;
+  buttonBackground.boutonTexte(shaderBackgroundName[EtatBackground] + " on/off", posBackgroundButton, FuturaStencil_10, 10) ;
   //LIGHT ONE
   buttonLightOne.boutonTexte("Light on/off", posLightOneButton, FuturaStencil_10, 10) ;
   buttonLightOneAction.boutonTexte("action", posLightOneAction, FuturaStencil_10, 10) ;
@@ -1205,10 +1223,9 @@ void dropdownBackground() {
   // display the selection
   
   if(!dropdownBackground.locked) {
-    if (dropdownBackground.getSelection() != 0 ) fill(selectedText) ; else fill(rougeFonce) ;
+    fill(selectedText) ;
     textFont(textUsual_2) ;
     EtatBackground = dropdownBackground.getSelection() ;
-    // text(shaderBackgroundName[EtatBackground], posDropdownBackground.x +3 , posDropdownBackground.y +22) ;
     if (dropdownBackground.getSelection() != 0 ) {
       text(shaderBackgroundName[EtatBackground] +" by " +shaderBackgroundAuthor[dropdownBackground.getSelection()], posDropdownBackground.x +3 , posDropdownBackground.y +22) ;
     } else {

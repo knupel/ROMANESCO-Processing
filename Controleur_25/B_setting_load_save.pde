@@ -252,9 +252,11 @@ void saveSetting(File selection) {
     midiButtonManager(true) ;
     saveTable(saveSetting, savePathSetting+".csv");
     saveSetting.clearRows() ;
-  } else {
+  } 
+  /*else {
     println("Aucune sauvegarde") ;
   }
+  */
 }
 
 

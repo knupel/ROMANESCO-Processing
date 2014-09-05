@@ -22,6 +22,7 @@ class Letter extends SuperRomanesco {
   int whichLetter ;
   int axeLetter ;
   int startDirection = -1 ;
+  int numLetter ;
 
   
   //SETUP
@@ -73,10 +74,13 @@ class Letter extends SuperRomanesco {
     
     //speed
     float speed ;
-    if(motion[IDobj]) speed = map(speedObj[IDobj], 0,1, 0.001, 0.5 ) *tempo[IDobj]  ; else speed = 0.0 ;
+    if(motion[IDobj]) speed = map(speedObj[IDobj], 0,1, 0.000, 0.3 ) *tempo[IDobj]  ; else speed = 0.0 ;
     //to stop the move
     if (!action[IDobj]) speed = 0.0 ; 
-    if(mousepressed[0] || spaceTouch) speed = -speed ;
+    if(clickLongLeft[IDobj] || spaceTouch) speed = -speed ;
+    
+    //num letter to display
+    numLetter = (int)map(quantityObj[IDobj],1,100, 0,grp.countChildren() +1) ;
     
     //DISPLAY
     float thicknessLetter = map(thicknessObj[IDobj], .1, height/3, 0.1, height /10) ; ;
@@ -92,22 +96,27 @@ class Letter extends SuperRomanesco {
 
     letters(speed, axeLetter, colorIn, thicknessLetter, jitter) ;
     //END YOUR WORK
+    
+
+    
+    // INFO
+    objectInfo[IDobj] = ("Quantity of letter display " + numLetter + " - Speed " +int(speed*100)) ;
 
   }
   
   
   // ANNEXE
-    float rotation ;
+  float rotation ;
   
-    void letters(float speed, int axeLetter, color c, float thickness, PVector jttr) {
+  void letters(float speed, int axeLetter, color c, float thickness, PVector jttr) {
     //create a PVector arraylist from geomerative analyze
     // float rangeWhichLetter = width / grp.countChildren() ;
     if (sound[IDobj]) whichLetter = (int)allBeats(IDobj) ; else whichLetter = 0 ;
     
     //security against the array out bounds
     if(whichLetter < 0 ) whichLetter = 0 ; else if (whichLetter >= grp.countChildren()) whichLetter = grp.countChildren() -1  ;
-    int num = (int)map(quantityObj[IDobj],1,100, 0,grp.countChildren() +1) ;
-    wheelLetter(num, speed, c, thickness, jttr) ;
+    println(numLetter) ;
+    wheelLetter(numLetter, speed, c, thickness, jttr) ;
 
     
     if(axeLetter < 0 ) axeLetter = 0 ; else if (axeLetter >= grp.countChildren()) axeLetter = grp.countChildren() - 1 ;

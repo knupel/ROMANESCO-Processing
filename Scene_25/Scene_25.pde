@@ -40,7 +40,7 @@ void draw() {
   OSCDraw() ;
   meteoDraw() ;
   updateVar() ;
-  backgroundRomanesco(true) ; // the boolean give the authorization do display the shader
+  backgroundRomanesco() ; 
   
   beginSave() ;
   //ROMANESCO

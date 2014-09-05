@@ -25,8 +25,8 @@ class Button {
   }
   Button (PVector pos, PVector size, boolean onOff) {
     this.onOff = onOff ;
-    this.pos = pos.get() ;
-    this.size = size.get() ;
+    this.pos = pos.copy() ;
+    this.size = size.copy() ;
   }
   
 
