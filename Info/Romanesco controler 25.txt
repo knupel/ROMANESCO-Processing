@@ -1,3 +1,0 @@
-// CONTROLER function
-
-boolean dropdownActivity ; // use to indicate to indicate at the other button, they cannot be used when the user are on the dropdown menu

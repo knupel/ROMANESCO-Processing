@@ -1,13 +1,84 @@
  
-\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
-   ROMANESCO PROJECT    ADVICES TO CODE
-/////////////////////////////////////////
-
-/////////////
-INTRODUCTION
-\\\\\\\\\\\\\
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////// ROMANESCO PROJECT /////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 The main sketch is the Prescene, it receive slider information from Contrôleur, mouse, leapmotion, midi-controller, pen apply this one
 and send a major part of the result to Scene or Miroir, who're just a slave !
+
+
+CODE for THE CORE CODER
+
+Becareful is not finish and totaly imcomplete !
+
+Three main sketches :
+Controleur, Prescene, and Scene.
+
+The controler is a specific sketch, 
+but the prescene, scene and mirroir are very similare.
+
+The main sketch is the Prescene, the Scene and Mirroir is a replic of this one.
+
+The Controller send information to the Prescene about the different instruction that prescene must be execute, 
+the Prescene execute all the instruction, and add few instructions like the mouse position, sound effect...
+then send all informations to the Scene or the Mirroir for the final work.
+
+Between the Prescene, Scene there are a commom tabs :
+Object, Camera, SuperRomanesco
+
+
+
+
+/////////////////////////
+// COTROLLER FUNCTION //
+///////////////////////
+
+boolean dropdownActivity ; // use to indicate to indicate at the other button, they cannot be used when the user are on the dropdown menu
+
+
+
+
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+////////////////////////
+// PRESENE /// SCENE //
+//////////////////////
+
+
+
+// PRESCENE CODE
+//to opening app
+boolean openScene = true ;
+boolean openMiroir = true ;
+boolean openControleur = true ;
+
+//send the information to the final app : Scene or Miroir
+boolean youCanSendToScene = true ;
+boolean youCanSendToMiroir = true ;
+
+
+
+
+//SAVE and SETTING Camera and Object orientation and position
+
+whichSetting is 0
+afor Romanesco alpha 25 there is only one save setting is 0
+for more setting change int numSettingCamera and int numSettingOrientationObject in the void createVarP3D() in the tab Variable_Common
+
+
+PVector P3DpositionSetting [whichSetting][IDobj] ;
+PVector P3DdirectionSetting [whichSetting][IDobj] ;
+
+PVector eyeCameraSetting[whichSetting] ;
+PVector sceneCameraSetting[whichSetting] ;
+
+
+
 
 
 
@@ -287,7 +358,7 @@ so you can write on it when you use Romanesco split function
 
 //SECURITY LAG
 ///////////////
-int levelSecurity = 100 ; is not finish, this value can be use to block the function, this value must be control from the Controler
+int levelSecurity = 200 ; is not finish, this value can be use to block the function, this value must be control from the Controler
 ////////////////////////
 
 
@@ -318,6 +389,15 @@ if (displayMode.equals("Classic") ) {}
 
 //END DISPLAY MODE
 //////////////////
+
+
+
+
+
+
+
+
+
 
 
 

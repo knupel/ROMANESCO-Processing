@@ -54,8 +54,11 @@ class RSS extends SuperRomanesco {
     }
     
     //hauteur largeur, height & width
-    float largeur = canvasXObj[IDobj] *15 ;
-    float hauteur = canvasYObj[IDobj] *15 ;   
+    float ratioTextBox ;
+    ratioTextBox = allBeats(IDobj) *.25 ;
+    if(ratioTextBox < 1 ) ratioTextBox = 1. ;
+    float largeur = canvasXObj[IDobj] *ratioTextBox ;
+    float hauteur = canvasYObj[IDobj] *ratioTextBox ;    
       
     for( int i=info; i < info + 1; i++) {
       //internet = false ;
