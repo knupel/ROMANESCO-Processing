@@ -64,8 +64,8 @@ void opening() {
     text("Take your time, smoke a cigarette", 50,height/2 ) ;
   }
   if (!testRomanesco) { 
-    if (openControleur) { open(sketchPath("")+"Controleur_"+release+".app") ; openControleur = false ; } 
-    if (openScene)      { open(sketchPath("")+"Scene_"+release+".app") ; openScene = false ; }
+    if (openControleur) { open(sketchPath("")+"Controleur_"+version+".app") ; openControleur = false ; } 
+    if (openScene)      { open(sketchPath("")+"Scene_"+version+".app") ; openScene = false ; }
     // testRomanesco = true ;
   }
 }

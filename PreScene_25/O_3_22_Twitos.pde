@@ -143,7 +143,7 @@ ArrayList twitter_statuses;
 
 class Twitter {
   
-  String[] statuses_offline = { "Romanesco Unu "+release, "Romanesco Unu "+release, "Romanesco Unu "+release, "Romanesco Unu "+release };
+  String[] statuses_offline = { "Romanesco Unu "+version, "Romanesco Unu "+version, "Romanesco Unu "+version, "Romanesco Unu "+version };
   
   String keyword;
 

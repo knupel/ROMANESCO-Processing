@@ -1,10 +1,10 @@
   ////////////////////////////////////////////////////////////////
  // Romanesco Unu 1.0 / version 25 / made with Processing 303 ///
 ////////////////////////////////////////////////////////////////
-String release =("25") ;
+String version = ("25") ;
+String edition = ("1.0") ;
 String preferencesPath = sketchPath("")+"preferences/" ;
 // security must be link with the controler in the next release
-int levelSecurity = 200 ;
 
 
 

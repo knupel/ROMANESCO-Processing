@@ -89,8 +89,7 @@ void loadSetup() {
   // path to OPENING APP
   pathScene = (sketchPath("") + "sources/Prescene_"+version+".app");
   pathMiroir = (sketchPath("") + "sources/Scene_"+version+".app");
-  //Change the language of controleur
-  // "0" French - "1" English
+
   String[] l = split( ("1"), " ") ;
   saveStrings(sketchPath("")+"sources/preferences/language.txt", l) ;
 }
@@ -117,7 +116,7 @@ void launcherDraw() {
   fill(blanc) ;
   text(nameVersion, 10.0, 23.0);
   textFont(EmigreEight,14);
-  text("Edition " +edition + " version "+version, 205.0, 23.0);
+  text("Edition " +edition + " Version "+version, 205.0, 23.0);
   fill(grisClair) ;
   textFont(FuturaStencil,20);
   text("Choice                or ", 10.0, 60.0);

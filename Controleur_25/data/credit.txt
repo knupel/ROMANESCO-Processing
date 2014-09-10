@@ -1,6 +1,6 @@
 Romanesco Unu
-2011-2014 - 1.0.0.25 
-Romanesco is free for the non-commercial use in other case contact us.
+2011-2014 - Pretty version 1.0.0 - Version 25 
+Romanesco is free for the non-commercial use, in other case contact us.
 
 Core code : Stan le Punk
 UX Design : Stan le Punk
