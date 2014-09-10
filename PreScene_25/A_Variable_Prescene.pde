@@ -82,8 +82,7 @@ void initDraw() {
   //  if (fullScreen ) sketchPos(0,0, myScreenToDisplayMySketch) ; 
   
   //change the size of displaying if you load an image or a new image
-  resizableByImgDrop = true ;
-  if ( resizableByImgDrop && displaySizeByImage ) updateSizeDisplay(imgDefault) ;
+  if (displaySizeByImage ) updateSizeDisplay(imgDefault) ;
   
 
 }

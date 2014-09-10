@@ -197,11 +197,13 @@ class Atome extends SuperRomanesco {
     //CLEAR
     if (resetAction(IDobj)) atomList.clear() ;
     //ADD ATOM
-    int speedReproduction = round(map(quantityObj[IDobj],1,100,30,1));
+    int maxValueReproduction ;
+    if(fullRendering) maxValueReproduction = 1 ; else maxValueReproduction = 25 ;
+    int speedReproduction = round(map(quantityObj[IDobj],1,100,30,maxValueReproduction));
     if(action[IDobj] && nLongTouch && clickLongLeft[IDobj] && frameCount % speedReproduction == 0) atomAdd(giveNametoAtom(), startingPosition[IDobj]) ;
     
     if(atomList.size()<1) {
-      int num = int(random(1,quantityObj[IDobj]*3)) ;
+      int num = int(random(1,9)) ;
       for(int i = 0 ; i < num ; i++ ) {
         atomAdd(giveNametoAtom(), startingPosition[IDobj]) ;
       }
@@ -277,8 +279,7 @@ class Atome extends SuperRomanesco {
 
 ///////////
 //CLAS ATOM
-class Atom 
-{
+class Atom {
   String [] nameAtom = { "Atom", "H",                                                                                                                                                                                         "He", 
                                  "Li", "Be",                                                                                                                                                 "B",  "C",   "N",   "O",  "F",   "Ne", 
                                  "Na", "Mg",                                                                                                                                                 "Al", "Si",  "P",   "S",  "Cl",  "Ar",

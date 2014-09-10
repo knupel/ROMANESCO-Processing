@@ -29,10 +29,8 @@ import toxi.util.datatypes.*;
 import toxi.processing.*;
 // METEO
 import com.onformative.yahooweather.*;
-// DROP IMAGE
-import sojamo.drop.*;
-//CALLING class or library in Other Class, you must call the PApplet too in your class
 
+//CALLING class or library in Other Class, you must call the PApplet too in your class
 PApplet callingClass = this ;
 // use for the border of window (top and right)
 java.awt.Insets insets; 
@@ -61,9 +59,6 @@ String findPath ;
 
 
 
-// to drop load image
-SDrop drop;
-boolean resizableByImgDrop ;
 
 
 

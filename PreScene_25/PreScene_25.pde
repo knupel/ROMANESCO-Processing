@@ -5,11 +5,8 @@
 String release = ("25") ;
 String version = ("1.0") ;
 String preferencesPath = sketchPath("")+"preferences/" ;
-// security must be link with the controler in the next release
-int levelSecurity = 200 ;
 //to work in dev, test phase
 boolean testRomanesco = false ;
-// when you work only with "Prescene" boolean presceneOnly must be true to give at the Prescene the internet acces
 boolean fullRendering = false ;
 
 
@@ -19,9 +16,6 @@ void setup() {
   displaySetup(60) ; // the int value is the frameRate
   colorSetup() ;
   
-  //MISC SETUP
-  // dropping image from folder on the Scène
-  drop = new SDrop(this);
   // GEOMERATIVE
   RG.init(this);
   
@@ -43,8 +37,6 @@ void draw() {
   soundDraw() ;
   updateVar() ;
   OSCDraw() ;
-  // we must write the void loadLiveData, after OSCDraw in cas where the OSC send a file Image or Text don't exist in the Scene or Prescene Folder
-  // backgroundRomanescoPrescene() ;
   backgroundRomanesco() ;
   
   //ROMANESCO

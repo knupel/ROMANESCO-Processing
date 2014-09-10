@@ -49,7 +49,7 @@ class Abbyss extends SuperRomanesco {
     else whichCreature = 0 ;
     
     if(action[IDobj]) {
-      if ( nLongTouch && frameCount % 3 == 0) creatureManager.addCurrentCreature(whichCreature);
+      if (nLongTouch && frameCount % 3 == 0) creatureManager.addCurrentCreature(whichCreature);
       //to cennect the creature to the camera
       if(cLongTouch) {
         if (upTouch )    creatureManager.nextCameraCreature();
