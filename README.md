@@ -1,7 +1,7 @@
 ##ROMANESCO version 26 / Romanesco Unu 1.0.1.26
 Romanesco can be your manager to test your sketch in a P3D world.
 Those sketches are the progress work for the previous [Romanesco Unu 1.0.0.25](https://github.com/StanLepunK/ROMANESCO_25).
-[download the app](http://romanescoproject.wordpress.com/download/)
+to download the built [app 1.0.0.25](http://romanescoproject.wordpress.com/download/)
 
 ##Architecture Sketches
 * Romanesco : Sketch to set the Romanesco application.
