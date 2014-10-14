@@ -6,10 +6,8 @@
 
 //SETUP
 void loadSetup() {
-  //buildLibrary() ;
+  createInfoButtonAndSlider(sketchPath("")+"preferences/setting/defaultSetting.csv") ;
   loadSave(sketchPath("")+"preferences/setting/defaultSetting.csv") ;
-  
-  //load data object
   
   //load text interface 
   // 0 is French
@@ -236,9 +234,42 @@ void numByGroup() {
 
 
 
-//DRAW
 
 
+
+//////////////////////////////////
+// SETTING INFO BUTTON AND SLIDER
+
+// create var info for the button and the slider
+
+void createInfoButtonAndSlider(String path) {
+  Table table = loadTable(path, "header");
+  // create the good num of Var info about slider and button
+  int countButton = 0 ;
+  int countSlider = 0 ;
+  
+  for (TableRow row : table.rows()) {
+    String s = row.getString("Type") ;
+    if( s.equals("Slider")) countSlider++ ; 
+  }
+  infoSlider = new PVector [countSlider] ;
+  
+  // we don't count from the save in case we add object and this one has never use before and he don't exist in the data base
+  infoButton = new PVector [numObj*4 +10] ; 
+  for(int i = 0 ; i < infoButton.length ; i++) infoButton[i] = new PVector() ;
+}
+//////////////////////////////////
+/////////////////////////////////
+
+
+
+
+
+
+
+
+
+/////////////
 // SAVE LOAD
 
 // SAVE
@@ -248,23 +279,85 @@ void saveSetting(File selection) {
   String savePathSetting = selection.getAbsolutePath() ;
   
   if (selection != null) {
-    saveSlider() ;
+    saveInfoSlider() ;
     midiButtonManager(true) ;
     saveTable(saveSetting, savePathSetting+".csv");
     saveSetting.clearRows() ;
   } 
-  /*else {
-    println("Aucune sauvegarde") ;
+}
+
+
+// SAVE SLIDERS
+// save the position and the ID of the slider molette
+void saveInfoSlider() {
+  //group zero
+  for (int i = 1 ; i < NUM_SLIDER_GLOBAL ; i++) {
+     // set PVector info Slider
+     int temp = i-1 ;
+     infoSlider[temp].z = valueSlider[i] ;
+     setSlider(i, (int)infoSlider[temp].y, infoSlider[temp].z) ;
+
   }
-  */
+  
+  // the group one, two, three
+  for (int i = 1 ; i < NUM_GROUP_SLIDER ; i++) { 
+    for(int j = 1 ; j < SLIDER_BY_GROUP ; j++) {
+      // set PVector info Slider
+      int IDslider = j +(i *100) ;
+      // third loop to check and foinf the good PVector array in the list
+      for(int k = 0 ; k < infoSlider.length ;k++) {
+        if( (int)infoSlider[k].x ==IDslider) {
+          infoSlider[k].z = valueSlider[IDslider] ;
+          setSlider(IDslider, (int)infoSlider[k].y, infoSlider[i].z) ;
+        }
+      }
+    }
+  }
+  showAllSliders = false ;
 }
 
 
 
 
+// BUTTON SAVE
+Table saveSetting ;
+//write the value in the table
+void setButton(int IDbutton, int IDmidi, boolean b) {
+  TableRow buttonSetting = saveSetting.addRow() ;
+  buttonSetting.setString("Type", "Button") ;
+  buttonSetting.setInt("ID button", IDbutton) ;
+  buttonSetting.setInt("ID midi", IDmidi) ;
+  if(b) buttonSetting.setInt("On Off", 1) ; else buttonSetting.setInt("On Off", 0) ;
+}
+void setSlider(int IDslider, int IDmidi, float value) {
+  TableRow sliderSetting = saveSetting.addRow() ;
+  sliderSetting.setString("Type", "Slider") ;
+  sliderSetting.setInt("ID slider", IDslider) ;
+  sliderSetting.setInt("ID midi", IDmidi) ;
+  sliderSetting.setFloat("Value slider", value) ; 
+}
+
+void indexMidiButton() {
+  saveSetting = new Table() ;
+  saveSetting.addColumn("Type") ;
+  saveSetting.addColumn("ID slider") ;
+  saveSetting.addColumn("Value slider") ;
+  saveSetting.addColumn("ID button") ;
+  saveSetting.addColumn("On Off") ;
+  saveSetting.addColumn("ID midi") ;
+}
+
+
+// END SAVE
+///////////
+
+
+
+
+
+
+
 //LOAD
-//////
-Table loadSettingButton ;
 //////
 void loadSetting(File selection) {
   // opens file chooser
@@ -273,38 +366,25 @@ void loadSetting(File selection) {
   if (selection != null) {
     loadSaveSetting = true ;
     loadSave(loadPathSetting) ;
+    setSave = true ;
   } 
 }
 
 
+
+
+
+
+
+
+
+// loadSave(path) read info from save file
 void loadSave(String path) {
-  loadSettingButton = loadTable(path, "header");
-  // create the good num of Var info about slider and button
+  Table settingTable = loadTable(path, "header");
+  // re-init the counter for the new loop
   int countButton = 0 ;
   int countSlider = 0 ;
-  
-  for (TableRow row : loadSettingButton.rows()) {
-    String s = row.getString("Type") ;
-    /*
-    if( s.equals("Button")  ){ 
-     countButton++ ; 
-    }
-    */
-    if( s.equals("Slider")  ){ 
-      countSlider++ ; 
-    }
-  }
-  infoSlider = new PVector [countSlider] ;
-  // infoButton = new PVector [countButton] ;
-  // we don't count from the save in case we add object and this one has never use before and he don't exist in the data base
-  infoButton = new PVector [numObj*4 +10] ; 
-  for(int i = 0 ; i < infoButton.length ; i++) infoButton[i] = new PVector() ;
-  
-  
-  // re-init the counter for the new loop
-  countButton = 0 ;
-  countSlider = 0 ;
-  for (TableRow row : loadSettingButton.rows()) {
+  for (TableRow row : settingTable.rows()) {
     String s = row.getString("Type") ;
     //
     if( s.equals("Button")  ){ 
@@ -326,25 +406,52 @@ void loadSave(String path) {
 }
 
 
-PVector infoSave(PVector [] list, int pos) {
-  PVector info = new PVector() ;
-  float v = 0 ;
-  float IDmidi = 0 ;
-  for(int i = 0 ; i < list.length ;i++) {
-    
-  if(list[i] != null ) if((int)list[i].x == pos) {
-      v = list[i].z ;
-      IDmidi = list[i].y ;
-      info = new PVector(pos, IDmidi,v) ;
-      break;
-    } else {
-      info = new PVector(-1,-1,-1) ;
-    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+//SETTING SAVE
+Boolean setSave = true ;
+void settingDataFromSave() {
+  if(setSave) {
+    buttonSetSaveSetting() ;
+    sliderSetSaveSetting() ;
+    setSave = false ;
   }
-  return info ;
 }
 
 
+//setting SLIDER from save
+void sliderSetSaveSetting() {
+  for (int i = 1 ; i < NUM_SLIDER_GLOBAL ; i++) {
+    int whichOne = i ;
+    PVector info = infoSaveFromRawList(infoSlider, whichOne).copy() ;
+    Slider[whichOne].updateFromSave((int)info.z, (int)info.y) ; // (pos, IDmidi) ;
+    // Slider[whichOne].update(mouseX, (int)info.z, true);
+  }
+  for (int i = 1 ; i < NUM_GROUP_SLIDER ; i++) { 
+    for(int j = 1 ; j < SLIDER_BY_GROUP ; j++) {
+      int whichOne = j +(i *100) ;
+      PVector info = infoSaveFromRawList(infoSlider, whichOne).copy() ;
+      println(info) ;
+      Slider[whichOne].updateFromSave((int)info.z, (int)info.y) ; // (pos, IDmidi) ;
+    }
+  }
+}
+
+
+
+
+//setting BUTTON from save
 void buttonSetSaveSetting() {
   // close loop to save the button statement, 
   // see void midiButtonManager(boolean saveButton)
@@ -418,6 +525,27 @@ void buttonSetSaveSetting() {
   }
 }
 
+
+
+
+// infoSaveFromRawList read info to translate and give a good position
+PVector infoSaveFromRawList(PVector [] list, int pos) {
+  PVector info = new PVector() ;
+  float v = 0 ;
+  float IDmidi = 0 ;
+  for(int i = 0 ; i < list.length ;i++) {
+    
+  if(list[i] != null ) if((int)list[i].x == pos) {
+      v = list[i].z ;
+      IDmidi = list[i].y ;
+      info = new PVector(pos, IDmidi,v) ;
+      break;
+    } else {
+      info = new PVector(-1,-1,-1) ;
+    }
+  }
+  return info ;
+}
 
 // SAVE LOAD
 

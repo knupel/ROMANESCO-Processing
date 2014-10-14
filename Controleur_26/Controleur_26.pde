@@ -1,8 +1,8 @@
   //////////////////////////////////////////////////////////////////
- // Romanesco Unu 1.0.0 / version 25 / made with Processing 304 ///
+ // Romanesco Unu 1.0.1 / version 26 / made with Processing 304 ///
 //////////////////////////////////////////////////////////////////
-String version = ("25") ;
-String prettyVersion = ("1.0.0") ;
+String version = ("26") ;
+String prettyVersion = ("1.0.1") ;
 String nameVersion = ("Romanesco Unu") ;
 boolean test = false ;
 String preferencesPath = sketchPath("")+"preferences/" ;
@@ -20,10 +20,14 @@ void setup() {
   buttonSliderSetup() ;
   constructorSliderButton() ;
   sendOSCsetup() ;
-  buttonSetSaveSetting() ;
+  
+  //button
+  settingDataFromSave() ;
 }
 
+
 void draw() {
+  settingDataFromSave() ;
   structureDraw() ;
   checkSlider() ;
   checkImageFolder() ;
@@ -35,8 +39,8 @@ void draw() {
   buttonDraw() ;
   sendOSCdraw() ;
   initVarSliderDynamic() ;
+  
   credit() ;
-
 }
 
 
@@ -69,7 +73,6 @@ void mousePressed () {
   }
   //dropdown
   dropdownMousepressed() ;
-
 }
 
 

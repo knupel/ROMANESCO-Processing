@@ -84,143 +84,7 @@ int posXSlider[] = new int[NUM_SLIDER *2] ;
 //SPECIFIC VOID of INTERFACE
 
 
-//MIDI
-//SETUP
-void midiSetup() {
-  //get an instance of MidiIO
-  midiIO = MidiIO.getInstance(this);
-  //open the first midi channel of the first device if there Input
-  if ( midiIO.numberOfInputDevices() > 0 ) midiIO.openInput(0,0);
-  indexMidiButton() ;
-}
-//DRAW
-void midiDraw() {
-  //save midi setting molette
-  // String [] newSettingMidi = new String[numSlider] ;
-  if (EtatMidiButton == 1) selectMidi = true ; else selectMidi = false ;
-  
 
-}
-
-
-
-
-// MIDI SETTING
-void midiButtonManager(boolean saveButton) {
-  // close loop for load save button
-  // see void buttonSetSaveSetting()
-  int rank = 0 ;
-  midiButton(buttonBackground, rank++, saveButton) ;
-  midiButton(BOcurtain, rank++, saveButton) ;
-  
-  midiButton(buttonLightOne, rank++, saveButton) ;
-  midiButton(buttonLightOneAction, rank++, saveButton) ;
-  midiButton(buttonLightTwo, rank++, saveButton) ;
-  midiButton(buttonLightTwoAction, rank++, saveButton) ;
-  
-  midiButton(Bbeat, rank++, saveButton) ;
-  midiButton(Bkick, rank++, saveButton) ;
-  midiButton(Bsnare, rank++, saveButton) ;
-  midiButton(Bhat, rank++, saveButton) ;
-  
-  int whichGroup = 1 ;
-  for( int i = 1 ; i <= numGroup[whichGroup ] ; i++ ) {
-    rank = 1 ;
-    midiButton(BOf[posRankButton(i,rank)], posRankButton(i,rank), saveButton) ; rank++ ;
-    midiButton(BOf[posRankButton(i,rank)], posRankButton(i,rank), saveButton) ; rank++ ;
-    midiButton(BOf[posRankButton(i,rank)], posRankButton(i,rank), saveButton) ; rank++ ;
-    midiButton(BOf[posRankButton(i,rank)], posRankButton(i,rank), saveButton) ;
-  }
-  whichGroup = 2 ; 
-  for( int i = 1 ; i <= numGroup[whichGroup] ; i++ ) {
-    rank = 1 ;
-    midiButton(BTf[posRankButton(i,rank)], posRankButton(i,rank), saveButton) ; rank++ ;
-    midiButton(BTf[posRankButton(i,rank)], posRankButton(i,rank), saveButton) ; rank++ ;
-    midiButton(BTf[posRankButton(i,rank)], posRankButton(i,rank), saveButton) ; rank++ ; 
-    midiButton(BTf[posRankButton(i,rank)], posRankButton(i,rank), saveButton) ;     
-  }
-  whichGroup = 3 ;
-  for( int i = 1 ; i <= numGroup[whichGroup] ; i++ ) {
-    rank = 1 ;
-    midiButton(BTYf[posRankButton(i,rank)], posRankButton(i,rank), saveButton) ; rank++ ;
-    midiButton(BTYf[posRankButton(i,rank)], posRankButton(i,rank), saveButton) ; rank++ ;
-    midiButton(BTYf[posRankButton(i,rank)], posRankButton(i,rank), saveButton) ; rank++ ;
-    midiButton(BTYf[posRankButton(i,rank)], posRankButton(i,rank), saveButton) ;
-  }
-}
-//
-int posRankButton(int pos, int rank) {
-  return pos*10 +rank ;
-}
-///////////
-
-
-boolean loadButton = true ;
-void midiButton(Button b, int IDbutton, boolean saveButton) {
-
-  setttingMidiButton(b) ;
-  updateMidiButton(b) ;
-  if(saveButton) setButton(IDbutton, b.IDmidi(), b.onOff) ;
-  
-}
-void setttingMidiButton(Button b) {
-  // setting midi
-  if(selectMidi && b.inside && mousePressed) b.selectIDmidi(numMidi) ;
-}
-void updateMidiButton(Button b) {
-  // update midi
-   if(valMidi == 127 && numMidi == b.IDmidi()) {
-    b.onOff = !b.onOff ;
-    valMidi = 0 ;
-  }
-}
-
-// SLIDER SAVE
-void saveSlider() {
-  for (int i = 1 ; i < NUM_SLIDER_GLOBAL ; i++) {
-     float v = valueSlider[i] ;
-     setSlider(i, -2, v) ;
-  }
-  for (int i = 1 ; i < NUM_GROUP_SLIDER ; i++) { 
-    for(int j = 1 ; j < SLIDER_BY_GROUP ; j++) {
-      float v =  valueSlider[j +(i *100)] ; 
-      setSlider(j +(i *100), -2, v) ;
-    }
-  }
-  showAllSliders = false ;
-}
-
-
-
-
-// BUTTON SAVE
-Table saveSetting ;
-//write the value in the table
-void setButton(int IDbutton, int IDmidi, boolean b) {
-  TableRow buttonSetting = saveSetting.addRow() ;
-  buttonSetting.setString("Type", "Button") ;
-  buttonSetting.setInt("ID button", IDbutton) ;
-  buttonSetting.setInt("ID midi", IDmidi) ;
-  if(b) buttonSetting.setInt("On Off", 1) ; else buttonSetting.setInt("On Off", 0) ;
-}
-void setSlider(int IDslider, int IDmidi, float value) {
-  TableRow sliderSetting = saveSetting.addRow() ;
-  sliderSetting.setString("Type", "Slider") ;
-  sliderSetting.setInt("ID slider", IDslider) ;
-  sliderSetting.setInt("ID midi", IDmidi) ;
-  sliderSetting.setFloat("Value slider", value) ; 
-}
-
-void indexMidiButton() {
-  saveSetting = new Table() ;
-  saveSetting.addColumn("Type") ;
-  saveSetting.addColumn("ID slider") ;
-  saveSetting.addColumn("Value slider") ;
-  saveSetting.addColumn("ID button") ;
-  saveSetting.addColumn("On Off") ;
-  saveSetting.addColumn("ID midi") ;
-}
-// END MIDI
 
 
 
@@ -457,7 +321,7 @@ void constructorSliderButton() {
   //slider
   for ( int i = 1 ; i < NUM_SLIDER ; i++ ) {
     int opacity = 100 ;
-    if(infoSave(infoSlider,i).x > -1 ) Slider[i] = new SliderHorizontal  (posWidthSlider[i], posHeightSlider[i], longueurSlider[i], hauteurSlider[i], suivitSlider[i], orange, rouge, blancGrisClair, opacity, infoSave(infoSlider, i).z, (int)infoSave(infoSlider, i).y);
+    if(infoSaveFromRawList(infoSlider,i).x > -1 ) Slider[i] = new SliderHorizontal  (posWidthSlider[i], posHeightSlider[i], longueurSlider[i], hauteurSlider[i], suivitSlider[i], orange, rouge, blancGrisClair, opacity, infoSaveFromRawList(infoSlider, i).z, (int)infoSaveFromRawList(infoSlider, i).y);
   } 
 }
 //END CONSTRUCTOR
@@ -656,6 +520,7 @@ void sliderDraw() {
           if (showSliderGroup[j] && objectGroup[i] == j) { 
             for(int k = 1 ; k < SLIDER_BY_GROUP ; k++) {
               if (displaySlider[j][k]) {
+                // ???? weird here we work only on the group one because whichGroup is one and don't change ??????
                 updateMolette(k +(objectGroup[i] *100), whichGroup) ; 
               }
             }
@@ -684,18 +549,13 @@ void sliderDraw() {
 void updateMolette(int whichOne, int whichGroup) {
   PVector sizeMoletteSlider = new PVector (8,10, 1.2) ; // width, height, thickness
   
-  //MIDI function
-  //give which button is active and check is this button have a same IDmidi that Object
-  if (numMidi == Slider[whichOne].IDmidi()) Slider[whichOne].updateMidi(valMidi) ;
-  //to add an IDmidi from the internal setting to object
-  if (selectMidi && Slider[whichOne].lock()) Slider[whichOne].selectIDmidi(numMidi) ; 
-  //to add an ID midi from the save
-  if(loadSaveSetting) Slider[whichOne].selectIDmidi((int)infoSave(infoSlider, whichOne).y) ;
-
+  //MIDI slider update
+  sliderMidiUpdate(whichOne) ;
   
-  // update and display
-  Slider[whichOne].update(mouseX, (int)infoSave(infoSlider, whichOne).z, loadSaveSetting); 
+  // Slider update and display
+  Slider[whichOne].update(mouseX, (int)infoSaveFromRawList(infoSlider, whichOne).z, loadSaveSetting); 
   PVector correctionPosMoletteY = new PVector(-2,2)  ;
+  
   // choice the property display depending the group slider
   if (whichGroup == 0) 
   Slider[whichOne].displayMolette(blancGris, grisFonce, grisNoir, sizeMoletteSlider, correctionPosMoletteY); 
@@ -703,8 +563,6 @@ void updateMolette(int whichOne, int whichGroup) {
 
   //return value between 0 / 100
   valueSlider[whichOne] = constrain(map(Slider[whichOne].getPos(), 0, 104, 0,100),0,100)  ;
-  // save data
-  //  
 }
 
 
@@ -886,8 +744,6 @@ void buttonInfoOnTheTop() {
 // DETAIL
 // GROUP ZERO
 void buttonDrawGroupZero() {
-  
-  //buttonBackground.boutonTexte("Background on/off", posBackgroundButton, FuturaStencil_10, 10) ;
   buttonBackground.boutonTexte(shaderBackgroundName[EtatBackground] + " on/off", posBackgroundButton, FuturaStencil_10, 10) ;
   //LIGHT ONE
   buttonLightOne.boutonTexte("Light on/off", posLightOneButton, FuturaStencil_10, 10) ;

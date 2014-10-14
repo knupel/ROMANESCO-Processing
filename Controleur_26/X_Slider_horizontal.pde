@@ -48,8 +48,10 @@ class SliderHorizontal {
     }   
   }
 
-
   
+  
+  
+
 
   
   void update(int currentX, int saveX, boolean save) {
@@ -76,6 +78,25 @@ class SliderHorizontal {
     return min(max(val, minv), maxv);
   }
   
+  //update from save file
+  void updateFromSave(int pos, int IDmidi) {
+    // update position
+    int NLX ;
+    float NloadX ;
+    float lh = float(longueurSlider) ;
+    NloadX = xpos + (pos / (100.0 + ( (11.0/lh)*rapportChargement) ) *longueurSlider);
+    NLX = round(NloadX) ;
+    posX = NLX ;
+    // IDmidi
+    this.IDmidi = IDmidi ;
+  }
+  
+  
+  
+  
+  
+  
+  
   // update position from midi controller
   void updateMidi(int val) {
     //update the Midi position only if the Midi Button move
@@ -92,22 +113,34 @@ class SliderHorizontal {
     float lh = float(longueurSlider) ;
     spos = xpos + (loadX / (100.0 + ( (11.0/lh)*rapportChargement) ) * longueurSlider);
   }
+  
+  
+  
   // give the ID from the controller Midi
   void selectIDmidi(int num) { IDmidi = num ; }
+  
+  
+  
   
   ////////
   //RETURN
   //give the IDmidi 
   int IDmidi() { return IDmidi ; }
+  
+  
+  
   //return the state
   boolean lock() { return locked ; }
+  
+  
+  
   //rollover
   boolean dedans() {
-    if(mouseX > spos && mouseX < spos+hauteurSlider &&
-       mouseY > ypos && mouseY < ypos+hauteurSlider) {  
-      return true;
-    } else return false;
+    if(mouseX > spos && mouseX < spos+hauteurSlider && mouseY > ypos && mouseY < ypos+hauteurSlider) return true ; else return false ;
   }
+  
+  
+  
   //return pos
   float getPos() { // nom de variable et () permet de récupérer les données d'un return
     return (((spos-xpos)/longueurSlider)-0.004) *111 ;

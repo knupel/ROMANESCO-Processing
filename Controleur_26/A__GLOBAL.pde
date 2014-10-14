@@ -77,7 +77,9 @@ void shortCuts() {
   }
   // open saved slider
   if(checkKeyboard(CONTROL) && checkKeyboard(KeyEvent.VK_O) ) { 
+    
     selectInput("Load setting", "loadSetting"); // ("display info in the window" , "name of the void calling" )
-    keyboard[keyCode] = false;   // 
+    keyboard[keyCode] = false;   //
+    
   }
 }
