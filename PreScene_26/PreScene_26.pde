@@ -1,9 +1,9 @@
 
   ////////////////////////////////////////////////////////////////
- // Romanesco Unu 1.0 / version 25 / made with Processing 304 ///
+ // Romanesco Unu 1.0.1 / version 26 / made with Processing 304 ///
 ////////////////////////////////////////////////////////////////
-String version = ("25") ;
-String edition = ("1.0") ;
+String version = ("26") ;
+String edition = ("1.0.1") ;
 String nameVersion = ("Romanesco Unu") ;
 String preferencesPath = sketchPath("")+"preferences/" ;
 //to work in dev, test phase
