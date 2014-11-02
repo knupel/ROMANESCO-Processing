@@ -1,8 +1,8 @@
   ////////////////////////////////////////////////////////////////
- // Romanesco Unu 1.0 / version 25 / made with Processing 304 ///
+ // Romanesco Unu 1.0.1 / version 26 / made with Processing 304 ///
 ////////////////////////////////////////////////////////////////
-String version = ("25") ;
-String edition = ("1.0") ;
+String version = ("26") ;
+String prettyVersion = ("1.0.1") ;
 String nameVersion = ("Romanesco Unu") ;
 boolean test = false ;
 
@@ -48,6 +48,7 @@ void setup() {
   loadSetup() ;
 }
 void draw() {
+  frame.setTitle(nameVersion + " " +prettyVersion+"."+version+ " - Launcher");
   displayDraw() ;
   launcherDraw() ;
 }

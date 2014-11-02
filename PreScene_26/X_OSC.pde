@@ -113,7 +113,7 @@ void OSCDraw() {
    dataPreScene[40] = FloatToStringWithThree(pen[0].x) ; dataPreScene[41] = FloatToStringWithThree(pen[0].y) ; dataPreScene[42] = FloatToString(pen[0].z) ; 
    dataPreScene[43] = FloatToStringWithThree(norm(mouse[0].x, 0, width)) ; 
    dataPreScene[44] = FloatToStringWithThree(norm(mouse[0].y,0,height)) ;
-   dataPreScene[45] = FloatToStringWithThree(norm(mouse[0].z,-750,750)) ;
+   dataPreScene[45] = FloatToStringWithThree(norm(mouse[0].z,-depth,depth)) ;
    if (clickShortLeft[0]) dataPreScene [46] = ("1") ; else dataPreScene [46] = ("0") ;
    if (clickShortRight[0]) dataPreScene [47] = ("1") ; else dataPreScene [47] = ("0") ;
    if (clickLongLeft[0]) dataPreScene [48] = ("1") ; else dataPreScene [48] = ("0") ;

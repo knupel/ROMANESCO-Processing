@@ -285,30 +285,34 @@ float mapEndStartSmooth(float value, float sourceMin, float sourceMax, float tar
 
 // MATH PVECTOR
 ///////////////
-
-
-// PVECTOR
-// PASS THE INFORMATION, but the good !
-PVector finishRef ;
-boolean initMove ;
-PVector currentPos = new PVector() ;
-
-PVector follow(PVector finish, float speed) {
-  PVector origin = new PVector() ;
-  if(finish != finishRef && initMove ) {
-    origin = currentPos.copy() ; 
-  } 
-  if (!initMove ) {
-    origin = new PVector(width/2, height/2, 0 ) ;
-    finish = new PVector(width/2, height/2, 0 ) ;
-    finishRef = finish.copy() ; 
-    initMove = true ;
+// FOLLOW PVECTOR
+PVector goToPosFollow = new PVector() ;
+// CALCULATE THE POS of PVector Traveller, give the target pos and the speed to go.
+PVector follow(PVector target, float speed) {
+  // calcul X pos
+  float targetX = target.x;
+  float dx = targetX - goToPosFollow.x;
+  if(abs(dx) != 0) {
+    goToPosFollow.x += dx * speed;
   }
-  currentPos = gotoTarget(origin, finish, speed) ;
-  return currentPos ;
+  // calcul Y pos
+  float targetY = target.y;
+  float dy = targetY - goToPosFollow.y;
+  if(abs(dy) != 0) {
+    goToPosFollow.y += dy * speed;
+  }
+  // calcul Z pos
+  float targetZ = target.z;
+  float dz = targetZ - goToPosFollow.z;
+  if(abs(dz) != 0) {
+    goToPosFollow.z += dz * speed;
+  }
+  return goToPosFollow ;
 }
-// END PASS
 
+
+//////////////////////////////////////////////
+// THIS PART MUST BE DEPRECaTED in the future
 
 // CALCULATE THE POS of PVector Traveller
 PVector gotoTarget(PVector origin,  PVector finish, float speed) {
@@ -361,3 +365,7 @@ PVector distanceDone(PVector origin,  PVector finish, float speedRef) {
 float speedMoveTo(float distance, float speed) {
   return distance *1 *speed ;
 }
+
+
+// END of the deprecated function
+/////////////////////////////////

@@ -1,9 +1,9 @@
 
-  ////////////////////////////////////////////////////////////////
+  //////////////////////////////////////////////////////////////////
  // Romanesco Unu 1.0.1 / version 26 / made with Processing 304 ///
-////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////
 String version = ("26") ;
-String edition = ("1.0.1") ;
+String prettyVersion = ("1.0.1") ;
 String nameVersion = ("Romanesco Unu") ;
 String preferencesPath = sketchPath("")+"preferences/" ;
 //to work in dev, test phase
@@ -21,7 +21,7 @@ void setup() {
   RG.init(this);
   
   presceneSetup() ; // the varObject setup of the Scene is more simple
-  
+  leapMotionSetup() ;
   varObjSetup() ;
   fontSetup() ;
   soundSetup() ;
@@ -33,18 +33,21 @@ void setup() {
 
 //DRAW
 void draw() {
+  frame.setTitle(nameVersion + " " +prettyVersion+"."+version+ " - Prescene");
   //setting
   initDraw() ;
   soundDraw() ;
   updateVar() ;
   OSCDraw() ;
   backgroundRomanesco() ;
+  updateCommand() ;
+  leapMotionUpdate() ;
   
   //ROMANESCO
   cameraDraw() ;
   lightPosition() ;
   //use romanesco object
-  romanescoManager.displayObject() ;
+  romanescoManager.displayObject(ORDER_ONE, ORDER_TWO) ;
   repereCamera(sizeBackgroundP3D) ;
   stopCamera() ;
   

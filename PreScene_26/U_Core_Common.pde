@@ -1,3 +1,31 @@
+//BOOLEAN COMMAND
+boolean ORDER_ONE, ORDER_TWO, ORDER_THREE ;
+
+void updateCommand() {
+  // move the object
+  if(clickLongLeft[0] || finger.activefingers == 1 ) {
+    ORDER_ONE = true ; 
+    ORDER_TWO = false ;
+  }
+  // rotate the object
+  else if(clickLongRight[0] || finger.activefingers == 2) {
+    ORDER_ONE = false ; 
+    ORDER_TWO = true ;
+  }
+  // move and rotate
+  else if(finger.activefingers == 3) {
+    ORDER_ONE = true ; 
+    ORDER_TWO = true ;
+  } else {
+  // false
+    ORDER_ONE = false ;
+    ORDER_TWO = false ;
+  }
+}
+
+
+
+
 //////////////
 //CHECK FOLDER
 PImage imgDefault ;

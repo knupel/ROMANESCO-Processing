@@ -12,6 +12,7 @@ String displayMode = ("") ;
 int myScreenToDisplayMySketch ;
 //size of the Scene
 int fullSceneWidth, fullSceneHeight, sceneWidth, sceneHeight ;
+int depth ;
 //to load the .csv who give the graphic configuration for the Scene
 Table configurationScene;
 //factor to divide the size of the Pré-Scène 
@@ -62,6 +63,7 @@ void loadPropertyPrescene() {
 void sizePrescene() {
       //size of the scene or prescene
   if(modeP3D) size(600,400,P3D) ; else size(600,400) ;
+  depth = height ;
     //resizable frame by loading external image
   // if (row.getString("resizable").equals("TRUE")    || row.getString("fullscreen").equals("true")) {
   if (row.getString("resizable").equals("TRUE")) {

@@ -39,7 +39,6 @@ String savePathPDF, savePathPNG ;
 
 
 Tablet tablet;
-PVector cursorRef = new PVector() ;
 void presceneSetup() {
   leap = new com.leapmotion.leap.Controller();
   tablet = new Tablet(this);

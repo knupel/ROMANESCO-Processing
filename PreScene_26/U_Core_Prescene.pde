@@ -56,28 +56,36 @@ void curtain() {
 
 
 
-////////////////////////////////////
-//CURSOR, MOUSE, TABLET, LEAP MOTION
+///////////////////////
+//CURSOR, MOUSE, TABLET
 //GLOBAL
 
 
 //DRAW
 int speedWheel = 5 ;
+float speedLeapmotion = .3 ;
+PVector posRef = new PVector() ;
+
 
 void cursorDraw() {
+  updateLeapCommand() ;
+  
   //mousePressed
-  if( clickShortLeft[0] || clickShortRight[0] || clickLongLeft[0] || clickLongRight[0] ) mousepressed[0] = true ; else mousepressed[0] = false ;
+  if(clickShortLeft[0] || clickShortRight[0] || clickLongLeft[0] || clickLongRight[0] || orderOneLeap || orderTwoLeap) mousepressed[0] = true ; else mousepressed[0] = false ;
+  
   //check the tablet
   pen[0] = new PVector (norm(tablet.getTiltX(),0,1), norm(tablet.getTiltY(),0,1), tablet.getPressure()) ;
   
-  //check the leapmotion
-  if (!fingerCheck() && numFingers() > 1 ) {
-    mouse[0] = new PVector(averagePosition(true).x, averagePosition(true).y, averagePosition(true).z ) ; 
-  } else if (cursorRef.x != mouseX && cursorRef.y != mouseY) { // need the conditional to keep the cursor in position when the hand move from leapmotion field
-    mouse[0] = new PVector (mouseX, mouseY) ;
-    pmouse[0] = new PVector(pmouseX, pmouseY) ;
-    cursorRef = new PVector(mouseX, mouseY) ;
-  }
+  
+  // Leap and mouse move
+   if (orderOneLeap || orderTwoLeap) {
+     mouse[0] = new PVector(averageTranslatePosition(speedLeapmotion).x, -averageTranslatePosition(speedLeapmotion).y,averageTranslatePosition(speedLeapmotion).z)  ;
+   } else if((posRef.x != mouseX && posRef.y != mouseY)) {
+     mouse[0] = new PVector(mouseX,mouseY) ;
+     pmouse[0] = new PVector(pmouseX,pmouseY) ;
+     posRef = mouse[0].copy() ;
+   }
+
   
   // security to reset the pmouse for start clean for the next rotation
   if(!mousepressed[0]) {
@@ -96,26 +104,6 @@ void cursorDraw() {
   if (nextPrevious) nextPreviousInt = 1 ; else nextPreviousInt = 0 ;
 }
 
-/*
-//CURSOR DISPLAY
-//GLOBAL
-boolean cursorDisplay = false ;
-//SHOW CURSOR
-
-void cursorDisplay() {
-  //check if we must display the cursor or not
-  if (keyPressed == true && !cursorDisplay && key == 'c'   ) cursorDisplay = true ;
-  else if ( keyPressed == true && cursorDisplay && key == 'c' ) cursorDisplay = false;
-  //display cursor
-  if (cursorDisplay) {
-    PVector cursorPos = new PVector (mouseX, mouseY) ;
-    color colorCursor = color( 0) ;
-    int eCursor = 1 ;
-    int sizeCursor = 5 ;
-    crossPoint2D(cursorPos, colorCursor, eCursor, sizeCursor) ;
-  }
-}
-*/
 
 
 
@@ -151,7 +139,7 @@ boolean insideRect(PVector pos, PVector size) {
 
 //LOCKED
 boolean locked ( boolean inside )  {
-  if ( inside  && mousepressed[0] ) return true ; else return false ;
+  if (inside  && mousepressed[0]) return true ; else return false ;
 }
 //END DETECTION
 //////////////

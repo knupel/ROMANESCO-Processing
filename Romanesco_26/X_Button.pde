@@ -107,33 +107,21 @@ class Button
   //detection cursor on area
   //rect
   boolean insideRect() { 
-    if ( mouseX > pos.x && mouseX < pos.x + size.x && mouseY > pos.y  && mouseY < pos.y + size.y ) {
-      inside = true ;
-      return true ; 
-    } else {
-      inside = false ;
-      return false ; 
-    }
+    if ( mouseX > pos.x && mouseX < pos.x + size.x && mouseY > pos.y  && mouseY < pos.y + size.y ) inside = true ; else inside = false ;
+    return inside ;
   }
 
   //ellipse
   boolean insideEllipse() {
     float disX = pos.x -mouseX ; 
     float disY = pos.y -mouseY  ; 
-    if (sqrt(sq(disX) + sq(disY)) < size.x/2 ) {
-     inside = true ;
-      return true ; 
-    } else {
-      inside = false ;
-      return false ; 
-    }
+    if (sqrt(sq(disX) + sq(disY)) < size.x/2 ) inside = true ; else inside = false ;
+    return inside ;
   }
  
   //MOUSEPRESSED
   void mouseClic() {
-    if ( insideRect() ) {
-      if (OnOff) OnOff = false ; else OnOff = true ;
-    }
+    if (insideRect()) if (!OnOff)  OnOff = !OnOff ;
   } 
   
 }

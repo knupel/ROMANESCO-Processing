@@ -163,7 +163,9 @@ float mapEndStartSmooth(float value, float sourceMin, float sourceMax, float tar
 
 
 // UTIL PVECTOR
-PVector gotoTarget(PVector origin,  PVector finish, float speed) 
+PVector gotoTarget(PVector origin,  PVector finish, float speed) // nice for a static travel when the start and the arrival is knew, work with XYZ
+
+PVector follow(PVector target, float speed) // go to follow something in move like a cursor, works with XYZ
 
 
 

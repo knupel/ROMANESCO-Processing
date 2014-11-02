@@ -1,8 +1,9 @@
   ////////////////////////////////////////////////////////////////
- // Romanesco Unu 1.0 / version 25 / made with Processing 304 ///
+ // Romanesco Unu 1.0.1 / version 26 / made with Processing 304 ///
 ////////////////////////////////////////////////////////////////
-String version = ("25") ;
-String edition = ("1.0") ;
+String nameVersion = ("Romanesco Unu") ;
+String version = ("26") ;
+String prettyVersion = ("1.0.1") ;
 String preferencesPath = sketchPath("")+"preferences/" ;
 // security must be link with the controler in the next release
 
@@ -34,6 +35,7 @@ void setup() {
 
 //DRAW
 void draw() {
+  frame.setTitle(nameVersion + " " +prettyVersion+"."+version+ " - Prescene");
   initDraw() ;
   miroirDraw() ;
   soundDraw() ;

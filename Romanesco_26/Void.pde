@@ -116,7 +116,7 @@ void launcherDraw() {
   fill(blanc) ;
   text(nameVersion, 10.0, 23.0);
   textFont(EmigreEight,14);
-  text("Edition " +edition + " Version "+version, 205.0, 23.0);
+  text("Version " +prettyVersion + "."+version, 205.0, 23.0);
   fill(grisClair) ;
   textFont(FuturaStencil,20);
   text("Choice                or ", 10.0, 60.0);
@@ -147,11 +147,7 @@ void launchScene() {
   buttonWindow.displayButton() ;
   buttonFullscreen.displayButton() ;
   
-  if (buttonWindow.OnOff) {
-    screen = ("false") ;
-  } else if (buttonFullscreen.OnOff) {
-    screen = ("true") ;
-  } 
+  if (buttonWindow.OnOff) screen = ("false") ; else if (buttonFullscreen.OnOff) screen = ("true") ;
   // what display  
   if (buttonFullscreen.OnOff) {
     fill(orange) ;

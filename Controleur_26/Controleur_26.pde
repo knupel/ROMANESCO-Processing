@@ -27,6 +27,7 @@ void setup() {
 
 
 void draw() {
+  frame.setTitle(nameVersion + " " +prettyVersion+"."+version+ " - Controller");
   settingDataFromSave() ;
   structureDraw() ;
   checkSlider() ;

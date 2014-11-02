@@ -44,8 +44,12 @@ void updateObject(int ID, int group) {
     if (mTouch) motion[ID] = !motion[ID] ;
     if (hTouch) horizon[ID] = !horizon[ID] ;
     if (rTouch) reverse[ID] = !reverse[ID] ;
+    /*
     clickLongLeft[ID] = clickLongLeft[0] ;
     clickLongRight[ID] = clickLongRight[0] ;
+    */
+    clickLongLeft[ID] = ORDER_ONE ;
+    clickLongRight[ID] = ORDER_TWO ;
     clickShortLeft[ID] = clickShortLeft[0] ;
     clickShortRight[ID] = clickShortRight[0] ;
   }
@@ -369,13 +373,13 @@ class ObjectRomanescoManager {
   
   ////////
   // DRAW
-  void displayObject() {
+  void displayObject(boolean movePos, boolean moveDir) {
     for (SuperRomanesco objR : RomanescoList) {
       if (object[objR.IDobj]) {
         updateObject(objR.IDobj, objR.IDgroup) ;
         pushMatrix() ;
         addRefObj(objR.IDobj) ;
-        if(vLongTouch && action[objR.IDobj] ) P3Dmanipulation(objR.IDobj) ;
+        if(vLongTouch && action[objR.IDobj] ) P3Dmanipulation(movePos, moveDir, objR.IDobj) ;
         P3DmoveObj(objR.IDobj) ;
         objR.display() ;
         popMatrix() ;
