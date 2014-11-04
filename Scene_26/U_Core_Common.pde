@@ -236,40 +236,6 @@ String whichSentence(String txt, int whichChapter, int whichSentence) {
   return repartition[whichChapter][whichSentence] ;
 }
 
-
-
-
-
-// OLD VOID TEXT
-/*
-String [][] sentencesByChapter ;
-
-void importTxt(String path) {
-  importRaw = loadStrings(path) ;
-  textRaw = join(importRaw, "") ;
-}
-
-void splitText() {
-  String karaokeChapters [] = split(textRaw, "*") ;
-  
-  // find the quantity of chapter and sentences by chapter to create the final double array String
-  int numChapter = karaokeChapters.length ;
-  int maxSentencesByChapter = 0 ;  
-  for ( int i = 0 ; i < numChapter ; i++) {
-    String sentences [] = split(karaokeChapters[i], "/") ;
-    if ( sentences.length > maxSentencesByChapter ) maxSentencesByChapter = sentences.length ; 
-  }
-  //create the final double array string
-  sentencesByChapter = new String [numChapter][maxSentencesByChapter] ;
-  //put the sentences in the double String by chapter
-  for ( int i = 0 ; i < numChapter ; i++) {
-    String sentences [] = split(karaokeChapters[i], "/") ;
-    for ( int j = 0 ; j <  sentences.length ; j++) {
-      sentencesByChapter [i][j] = sentences[j] ;
-    }
-  }
-}
-*/
 // END TEXT
 //////////
 
@@ -455,10 +421,76 @@ void grid(PVector s) {
 
 
 
+//DRAWING
+//CROSS
+void crossPoint2D(PVector pos, color colorCross, int e, int size) {
+  stroke(colorCross) ;
+  strokeWeight(e) ;
+  
+  line(pos.x, pos.y -size, pos.x, pos.y +size) ;
+  line(pos.x +size, pos.y, pos.x -size, pos.y) ;
+}
 
 
-// INFO SYSTEM
-//////////////
+// other cross
+void crossPoint2D(PVector pos, PVector size, color colorCross, float e ) {
+  if (e <0.1) e = 0.1 ;
+  stroke(colorCross) ;
+  strokeWeight(e) ;
+  //horizontal
+  line(pos.x, pos.y -size.x, pos.x, pos.y +size.x) ;
+  //vertical
+  line(pos.x +size.y, pos.y, pos.x -size.y, pos.y) ;
+}
+void crossPoint3D(PVector pos, PVector size, color colorCross, float e ) {
+  if (e <0.1) e = 0.1 ;
+  stroke(colorCross) ;
+  strokeWeight(e) ;
+  //horizontal
+  line(pos.x, pos.y -size.x,0, pos.x, pos.y +size.x,0) ;
+  //vertical
+  line(pos.x +size.y, pos.y,0, pos.x -size.y, pos.y,0) ;
+  //depth
+  line(pos.x, pos.y,size.z, pos.x, pos.y,-size.z) ;
+}
+//
+
+
+//END DRAWING
+////////////
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// MISC
+///////
+
+
+//curtain
+void curtain() {
+  if(eCurtain == 0) {
+    rectMode(CORNER) ;
+    fill (0) ; 
+    noStroke() ;
+    rect(-1,-1, width+2, height+2);
+  }
+}
+//end curtain
+
+
+
 // OS mac DETECTION
 boolean mavericks = false ;
 void OSMavericksCheck() {
@@ -468,5 +500,7 @@ void OSMavericksCheck() {
   int OSversion = Integer.parseInt(OS);
   if(OSversion >= 1090  ) mavericks = true ; else mavericks = false ;
 }
-// END INFO SYSTEM
-//////////////////
+
+
+// END MISC
+///////////

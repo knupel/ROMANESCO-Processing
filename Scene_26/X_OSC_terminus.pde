@@ -131,11 +131,17 @@ void oscEvent(OscMessage receive ) {
   if(valueTempPreScene[58].equals("0") ) touch8 = false ; else touch8 = true ;
   if(valueTempPreScene[59].equals("0") ) touch9 = false ; else touch9 = true ;
   if(valueTempPreScene[60].equals("0") ) touch0 = false ; else touch0 = true ;
-    //long touch
-  if(valueTempPreScene[61].equals("0") ) cLongTouch = false ; else cLongTouch = true ;
-  if(valueTempPreScene[62].equals("0") ) lLongTouch = false ; else lLongTouch = true ;
-  if(valueTempPreScene[63].equals("0") ) nLongTouch = false ; else nLongTouch = true ;
-  if(valueTempPreScene[64].equals("0") ) vLongTouch = false ; else vLongTouch = true ;
+  
+  // Long Touch
+  if(valueTempPreScene[61].equals("0")) cLongTouch = false ; else cLongTouch = true ;
+  if(valueTempPreScene[62].equals("0")) lLongTouch = false ; else lLongTouch = true ;
+  if(valueTempPreScene[63].equals("0")) nLongTouch = false ; else nLongTouch = true ;
+  if(valueTempPreScene[64].equals("0")) vLongTouch = false ; else vLongTouch = true ;
+  
+  //ORDER
+  if(valueTempPreScene[70].equals("0")) ORDER_ONE = false ; else ORDER_ONE = true ;
+  if(valueTempPreScene[71].equals("0")) ORDER_TWO = false ; else ORDER_TWO = true ;
+  if(valueTempPreScene[72].equals("0")) ORDER_THREE = false ; else ORDER_THREE = true ;
 
 }
 

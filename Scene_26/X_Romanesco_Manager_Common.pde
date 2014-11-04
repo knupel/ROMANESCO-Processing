@@ -44,8 +44,12 @@ void updateObject(int ID, int group) {
     if (mTouch) motion[ID] = !motion[ID] ;
     if (hTouch) horizon[ID] = !horizon[ID] ;
     if (rTouch) reverse[ID] = !reverse[ID] ;
+    /*
     clickLongLeft[ID] = clickLongLeft[0] ;
     clickLongRight[ID] = clickLongRight[0] ;
+    */
+    clickLongLeft[ID] = ORDER_ONE ;
+    clickLongRight[ID] = ORDER_TWO ;
     clickShortLeft[ID] = clickShortLeft[0] ;
     clickShortRight[ID] = clickShortRight[0] ;
   }
@@ -142,7 +146,7 @@ boolean resetParameter(int ID) {
   //global delete
   if (backspaceTouch) e = true ;
   //SPECIFIC DELETE when the paramer button of contrôleur is ON
-  else if (deleteTouch) if ( parameter[ID]) e = true ;
+  else if (deleteTouch) if (parameter[ID]) e = true ;
   return e ;
 }
 ///////////////////////////////////////
@@ -226,9 +230,6 @@ class ObjectRomanescoManager {
     indexObjects.addColumn("Render") ;
     indexObjects.addColumn("Mode") ;
     
-    // move to the tab A_Variable_Common
-    //objectName = new String[num +1] ;
-    // objectID = new int[num +1] ;
     
     // add row
     rowIndexObject = new TableRow [num] ;
@@ -372,13 +373,20 @@ class ObjectRomanescoManager {
   
   ////////
   // DRAW
-  void displayObject() {
+  void displayObject(boolean movePos, boolean moveDir, boolean movePosAndDir) {
+    // when you use the third order Romanesco understand the the first and the second are true
+    if(movePosAndDir) {
+      moveDir = true ;
+      movePos = true ;
+    }
+    
+    //the methodv
     for (SuperRomanesco objR : RomanescoList) {
       if (object[objR.IDobj]) {
         updateObject(objR.IDobj, objR.IDgroup) ;
         pushMatrix() ;
         addRefObj(objR.IDobj) ;
-        if(vLongTouch && action[objR.IDobj] ) P3Dmanipulation(objR.IDobj) ;
+        if(vLongTouch && action[objR.IDobj] ) P3Dmanipulation(movePos, moveDir, objR.IDobj) ;
         P3DmoveObj(objR.IDobj) ;
         objR.display() ;
         popMatrix() ;

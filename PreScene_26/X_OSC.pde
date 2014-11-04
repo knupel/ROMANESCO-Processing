@@ -62,7 +62,7 @@ void oscEvent(OscMessage receive ) {
 
 
 //
-String dataPreScene [] = new String [71] ;
+String dataPreScene [] = new String [73] ;
 
 
 void OSCDraw() {
@@ -94,11 +94,13 @@ void OSCDraw() {
    if (xTouch)     dataPreScene [24] = ("1") ; else dataPreScene [24] = ("0") ;
    if (yTouch)     dataPreScene [25] = ("1") ; else dataPreScene [25] = ("0") ;
    if (zTouch)     dataPreScene [26] = ("1") ; else dataPreScene [26] = ("0") ;
-   //empty
-   dataPreScene [27] = ("0") ;
-   dataPreScene [28] = ("0") ;
-   dataPreScene [29] = ("0") ;
    
+   //FREE
+   dataPreScene [27] = ("") ;
+   dataPreScene [28] = ("") ;
+   dataPreScene [29] = ("") ;
+   
+   // SPECIAL TOUCH
    if (enterTouch)    dataPreScene [30] = ("1") ; else dataPreScene [30] = ("0") ;
    if (deleteTouch)    dataPreScene [31] = ("1") ; else dataPreScene [31] = ("0") ;
    if (backspaceTouch) dataPreScene [32] = ("1") ; else dataPreScene [32] = ("0") ;
@@ -107,7 +109,8 @@ void OSCDraw() {
    if (rightTouch) dataPreScene [35] = ("1") ; else dataPreScene [35] = ("0") ;
    if (leftTouch) dataPreScene [36] = ("1") ; else dataPreScene [36] = ("0") ;
    if (ctrlTouch) dataPreScene [37] = ("1") ; else dataPreScene [37] = ("0") ;
-   //cursor
+   
+   // MOUSE
    dataPreScene[38] = FloatToStringWithThree(norm(pmouse[0].x, 0, width)) ; 
    dataPreScene[39] = FloatToStringWithThree(norm(pmouse[0].y,0,height)) ;
    dataPreScene[40] = FloatToStringWithThree(pen[0].x) ; dataPreScene[41] = FloatToStringWithThree(pen[0].y) ; dataPreScene[42] = FloatToString(pen[0].z) ; 
@@ -119,6 +122,8 @@ void OSCDraw() {
    if (clickLongLeft[0]) dataPreScene [48] = ("1") ; else dataPreScene [48] = ("0") ;
    if (clickLongRight[0]) dataPreScene [49] = ("1") ; else dataPreScene [49] = ("0") ;
    dataPreScene[50] = IntToString(wheel[0]) ;
+   
+   // NUMBER
    if (touch1)     dataPreScene [51] = ("1") ; else dataPreScene [51] = ("0") ;
    if (touch2)     dataPreScene [52] = ("1") ; else dataPreScene [52] = ("0") ;
    if (touch3)     dataPreScene [53] = ("1") ; else dataPreScene [53] = ("0") ;
@@ -129,11 +134,24 @@ void OSCDraw() {
    if (touch8)     dataPreScene [58] = ("1") ; else dataPreScene [58] = ("0") ;
    if (touch9)     dataPreScene [59] = ("1") ; else dataPreScene [59] = ("0") ;
    if (touch0)     dataPreScene [60] = ("1") ; else dataPreScene [60] = ("0") ;
-      //longtouch
+   
+   //longtouch
    if (cLongTouch) dataPreScene [61] = ("1") ; else dataPreScene [61] = ("0") ;
    if (lLongTouch) dataPreScene [62] = ("1") ; else dataPreScene [62] = ("0") ;
    if (nLongTouch) dataPreScene [63] = ("1") ; else dataPreScene [63] = ("0") ;
    if (vLongTouch) dataPreScene [64] = ("1") ; else dataPreScene [64] = ("0") ;
+   
+   // FREE
+   dataPreScene [65] = ("") ;
+   dataPreScene [66] = ("") ;
+   dataPreScene [67] = ("") ;
+   dataPreScene [68] = ("") ;
+   dataPreScene [69] = ("") ;
+   
+   // ORDER
+   if (ORDER_ONE) dataPreScene [70] = ("1") ; else dataPreScene [70] = ("0") ;
+   if (ORDER_TWO) dataPreScene [71] = ("1") ; else dataPreScene [71] = ("0") ;
+   if (ORDER_THREE) dataPreScene [72] = ("1") ; else dataPreScene [72] = ("0") ;
 
    
    toScene = join(dataPreScene, "/") ;
@@ -144,7 +162,7 @@ void OSCDraw() {
   
   //SEND data to SCENE
   //send info from scene
-  OscMessage RomanescoScene = new OscMessage("ROMANESCO PréScène");
+  OscMessage RomanescoScene = new OscMessage("ROMANESCO Préscène");
   //add info to send
   String sizeDataLengthFromPrescene = ("") ;
   for ( int i = 0 ; i < fromControler.length ; i++ ) {

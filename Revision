@@ -5,11 +5,12 @@ ROMANESCO 0.26 Revision
 /// ADD ///
 *
 /// REMOVE ///////
-*
+* the option to drop image on the Scene
 /// IMPROVE ///
 *
 /// BUG FIXE
 * Midi save and load slider
+* Leapmotion camera and objects position and direction
 
 
 ////////////////////////

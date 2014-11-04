@@ -29,10 +29,8 @@ import toxi.util.datatypes.*;
 import toxi.processing.*;
 // METEO
 import com.onformative.yahooweather.*;
-// DROP IMAGE
-import sojamo.drop.*;
-//CALLING class or library in Other Class, you must call the PApplet too in your class
 
+//CALLING class or library in Other Class, you must call the PApplet too in your class
 PApplet callingClass = this ;
 // use for the border of window (top and right)
 java.awt.Insets insets; 
@@ -61,10 +59,12 @@ String findPath ;
 
 
 
-// to drop load image
-SDrop drop;
-boolean resizableByImgDrop ;
-
+// COMMAND BOOLEAN
+//BOOLEAN COMMAND
+/*
+command from leap motion, mouse or other devices if we code for that :)
+*/
+boolean ORDER, ORDER_ONE, ORDER_TWO, ORDER_THREE ;
 
 
 // HIGH VAR
@@ -176,7 +176,7 @@ boolean P3DrefDir [] ;
 
 //position of object and wheel
 PVector [] mouse, pmouse, pen ;
-boolean [] clickShortLeft, clickShortRight, clickLongLeft, clickLongRight, mousepressed ;
+boolean [] clickShortLeft, clickShortRight, clickLongLeft, clickLongRight;
 int wheel[] ;
 //pen info
 
@@ -260,7 +260,6 @@ void createVarCursor() {
    clickShortRight = new boolean [numObj] ;
    clickLongLeft = new boolean [numObj] ;
    clickLongRight = new boolean [numObj] ;
-   mousepressed = new boolean [numObj] ;
    wheel = new int [numObj] ;
   //pen info
    pen = new PVector[numObj] ;

@@ -14,7 +14,7 @@ float speedMoveOfCamera = 0.1 ;
 //CAMERA Stuff
 private boolean moveScene, moveEye ;
 
-PVector targetPosCam = new PVector(0, 0, 0) ;
+PVector targetPosCam = new PVector(0,0,0) ;
 
 //P3D STUFF
 PVector speedDirectionOfObject  ;
@@ -23,7 +23,8 @@ PVector  P3DdirectionMouseRef, deltaObjDir, P3DtempObjDir ;
 PVector sizeBackgroundP3D  ;
 
 
-//SETUP
+// P3D SETUP
+////////////
 void P3DSetup() {
       
   if(modeP3D) {
@@ -69,28 +70,39 @@ void P3DSetup() {
 }
 
 //END SETUP
+///////////
 
 
 
 
+
+
+
+
+
+
+
+
+
+//////////////////////////////////////////////////////
 //OBJECT ORIENTATION AND POSITION, For specific object
 // MAIN
 // final direction and oriention with object ID
-void P3Dmanipulation(int ID) {
+void P3Dmanipulation(boolean movePos, boolean moveDir, int ID) {
   if(modeP3D) {
     //UPDATE
     //position
-    if (!clickLongLeft[0] )  P3DrefPos[0] = true ;
-    P3DpositionX[ID] = P3Dposition(posManipulation[ID], ID).x ;
-    P3DpositionY[ID] = P3Dposition(posManipulation[ID], ID).y ;
-    P3DpositionZ[ID] = P3Dposition(posManipulation[ID], ID).z ;
+    if (!movePos)  P3DrefPos[0] = true ;
+    P3DpositionX[ID] = P3Dposition(posManipulation[ID], ID, movePos).x ;
+    P3DpositionY[ID] = P3Dposition(posManipulation[ID], ID, movePos).y ;
+    P3DpositionZ[ID] = P3Dposition(posManipulation[ID], ID, movePos).z ;
     //rotation
-    if (!clickLongRight[0] ) P3DrefDir[0] = true ;
+    if (!moveDir) P3DrefDir[0] = true ;
       //speed rotation
-    float speed = 150.0 ; // 150 is medium speed rotation
+    float speed = 100.0 ; // 150 is medium speed rotation
     speedDirectionOfObject = new PVector(speed /(float)width, speed /(float)height) ; 
-    P3DdirectionX[ID] = P3Ddirection(dirManipulation[ID], speedDirectionOfObject, ID).x ; 
-    P3DdirectionY[ID] = P3Ddirection(dirManipulation[ID], speedDirectionOfObject, ID).y ;
+    P3DdirectionX[ID] = P3Ddirection(dirManipulation[ID], speedDirectionOfObject, ID, moveDir).x ; 
+    P3DdirectionY[ID] = P3Ddirection(dirManipulation[ID], speedDirectionOfObject, ID, moveDir).y ;
     
     //RESET
     if(touch0) {
@@ -107,54 +119,54 @@ void P3Dmanipulation(int ID) {
 
 //ANNEXE
 //direction
-PVector P3Ddirection(PVector dir, PVector speed, int ID) {
+PVector P3Ddirection(PVector dir, PVector speed, int ID, boolean authorization) {
   //XY pos
-  if(P3DrefDir[0]  ) {
+  if(P3DrefDir[0]) {
     P3DdirectionObjRef[0] = dir ;
     P3DdirectionMouseRef = new PVector(mouse[0].x, mouse[0].y) ;
   }
-  if(clickLongRight[0]) {
+  if(authorization) {
     //to create a only one ref position
     P3DrefDir[0] = false ;
     //create the delta between the ref and the mouse position
     deltaObjDir.x = mouse[0].x -P3DdirectionMouseRef.x ;
     deltaObjDir.y = mouse[0].y -P3DdirectionMouseRef.y ;
     P3DtempObjDir = PVector.add(deltaObjDir, P3DdirectionObjRef[0] ) ;
+    
     //rotation of the camera
-    dir.x += (pmouse[0].y-mouse[0].y) *speed.y;
-    dir.y += (pmouse[0].x-mouse[0].x) *-speed.x;
-    if(dir.x > 360 ) dir.x = 0 ;
-    if(dir.x < 0  ) dir.x = 360 ;
-    if(dir.y > 360 ) dir.y = 0 ; 
-    if(dir.y < 0   ) dir.y = 360 ; 
+    // solution 1 with the leapmotion
+    dir = eyeWithLeapmotionDevice(P3DtempObjDir).copy() ;
+    //solution 2 without leapmotion
+    //eyeCamera = eye(speed) ;
   }
   return dir ;
 }
 //position
-PVector P3Dposition(PVector pos, int ID) {
+PVector P3Dposition(PVector pos, int ID, boolean authorization) {
   // XY pos
-  if(P3DrefPos[0]  ) {
+  if(P3DrefPos[0]) {
     P3DpositionObjRef[ID] = pos.copy() ;
     P3DpositionMouseRef = mouse[0].copy() ;
   }
-  if (clickLongLeft[0]) {
+  if (authorization) {
     //to create a only one ref position
     P3DrefPos[0] = false ;
     //create the delta between the ref and the mouse position
     deltaObjPos.x = mouse[0].x -P3DpositionMouseRef.x ;
     deltaObjPos.y = mouse[0].y -P3DpositionMouseRef.y ;
+    // deltaObjPos.z = mouse[0].z -P3DpositionMouseRef.z ;
     pos = PVector.add(deltaObjPos, P3DpositionObjRef[ID] ) ;
+    
   }
-  // Z pos
-  zoom() ;
-  pos.z -= getCountZoom ;
+  // we catch the mouseZ info here because we don't need the authorizationv
+  pos.z -= wheel[0] ;
   return pos ;
 }
 //Create ref position
 void addRefObj(int ID) {
   if(modeP3D) {
-    posManipulation[ID] = new PVector ( P3DpositionX[ID], P3DpositionY[ID],P3DpositionZ[ID]) ;
-    dirManipulation[ID] = new PVector ( P3DdirectionX[ID], P3DdirectionY[ID]);
+    posManipulation[ID] = new PVector (P3DpositionX[ID], P3DpositionY[ID],P3DpositionZ[ID]) ;
+    dirManipulation[ID] = new PVector (P3DdirectionX[ID], P3DdirectionY[ID]);
   }
 }
 
@@ -175,56 +187,61 @@ void startPosition(int ID, int x, int y, int z) {
   P3DpositionX[ID] = x -(width/2) ;
   P3DpositionY[ID] = y -(height/2) ;
   P3DpositionZ[ID] = z ;
+  
   P3DpositionSetting [0][ID] = new PVector(P3DpositionX[ID], P3DpositionY[ID], P3DpositionZ[ID] ) ;
-  mouse[ID] = new PVector (x,y) ;
+  mouse[ID] = new PVector (x,y,z) ;
 }
-/*
-void startPosition(int ID, int x, int y) {
-  P3DpositionX[ID] = x -(width/2) ;
-  P3DpositionY[ID] = y -(height/2);
-  P3DpositionSetting [0][ID] = new PVector(P3DpositionX[ID], P3DpositionY[ID]) ;
-  mouse[ID] = new PVector (x,y) ;
-}
-*/
+// END MOVE OBJECT
+///////////////////////////////////////////
 
 
 
 
-////////
-//CAMERA
+
+
+
+
+
+
+
+
+///////////////////////////////////////////
+// MOVE CAMERA
 void cameraDraw() {
   if(modeP3D) {
     paralaxe() ;
-    //camera order
-    if(clickLongLeft[0] && cLongTouch) moveScene = true ;   else moveScene = false ;
-    if(clickLongRight[0] && cLongTouch) moveEye = true ;   else moveEye = false ;
-    
+    //camera order from the mouse or from the leap
+    if(cLongTouch) {
+      if(ORDER_ONE || ORDER_THREE) moveScene = true ;   else moveScene = false ;
+      if(ORDER_TWO || ORDER_THREE) moveEye = true ;   else moveEye = false ;
+      
+      //update z position of the camera
+      sceneCamera.z -= wheel[0] ;
+      
+      // change camera position
+      if(enterTouch) travelling(posCamRef) ;
+      if (touch0) changeCameraPosition(0) ;
+    } else {
+      moveScene = false ;
+      moveEye = false ;
+    }
+
     //void with speed setting
     float speed = 150.0 ; // 150 is medium speed rotation
     PVector speedRotation = new PVector(speed /(float)width, speed /(float)height) ; 
     startCamera(moveScene, moveEye, speedRotation) ;
+    
     //to change the scene position with a specific point
     if(gotoCameraPosition || gotoCameraEye ) updateCamera(sceneCamera, targetPosCam, speedMoveOfCamera) ;
+
     
-    //back to the ref position in smooth mode
-    if(cLongTouch) if(enterTouch) {
-      //calculate the distance and few stuffes to move the camera
-      travelling(posCamRef) ;
-    }
-    
-    
-    // back to origine raw style
-    if(cLongTouch) if (touch0) {
-      eyeCamera = eyeCameraSetting[0].copy() ;
-      sceneCamera = sceneCameraSetting[0].copy() ;
-      gotoCameraPosition = false ;
-      gotoCameraEye = false ;
-    }
     //catch ref camera
     catchCameraInfo() ;
   }
 }
 //END CAMERA DRAW
+
+
 
 
 //CATCH a ref position and direction of the camera
@@ -246,61 +263,14 @@ void catchCameraInfo() {
 
 
 
+
+
 //startCamera with speed setting
 void startCamera(boolean scene, boolean eye, PVector speed) {
   pushMatrix() ;
   //Move the Scene
-  if(scene) {
-    //create the ref to calcul the new position of the Scene
-    if(newRefSceneMouse) {
-      posSceneCameraRef = sceneCamera ;
-      posSceneMouseRef = new PVector(mouse[0].x, mouse[0].y) ;
-    }
-    //to create a only one ref position
-    newRefSceneMouse = false ;
-    //create the delta between the ref and the mouse position
-    deltaScenePos.x = mouse[0].x -posSceneMouseRef.x ;
-    deltaScenePos.y = mouse[0].y -posSceneMouseRef.y ;
-    sceneCamera = PVector.add(deltaScenePos, posSceneCameraRef ) ;
-  } else {
-    //change the boolean to true for the next mousepressed
-    newRefSceneMouse = true ;
-  }
-    
-  
-  //move the eye camera
-  if(eye) {
-    //create the ref to calcul the new position of the Scene
-    if(newRefEyeMouse) {
-      posEyeCameraRef = tempEyeCamera ;
-      posEyeMouseRef = new PVector(mouse[0].x, mouse[0].y) ;
-    }
-    //to create a only one ref position
-    newRefEyeMouse = false ;
-    //create the delta between the ref and the mouse position
-    deltaEyePos.x = mouse[0].x -posEyeMouseRef.x ;
-    deltaEyePos.y = mouse[0].y -posEyeMouseRef.y ;
-    tempEyeCamera = PVector.add(deltaEyePos, posEyeCameraRef ) ;
-
-    //rotation of the camera
-    //solution 2
-    eyeCamera.x += (pmouse[0].y-mouse[0].y) * speed.y;
-    eyeCamera.y += (pmouse[0].x-mouse[0].x) *-speed.x;
-    if(eyeCamera.x > 360 ) eyeCamera.x = 0 ;
-    if( eyeCamera.x < 0  ) eyeCamera.x = 360 ;
-    if(eyeCamera.y > 360 ) eyeCamera.y = 0 ; 
-    if(eyeCamera.y < 0   ) eyeCamera.y = 360 ; 
-  } else {
-    //change the boolean to true for the next mousepressed
-    newRefEyeMouse = true ;
-  }
-  //zoom
-  //zoom
-  if(cLongTouch) { 
-    zoom() ;
-    sceneCamera.z -= getCountZoom ;
-  }
-
+  updatePosCamera(scene) ;
+  updateEyeCamera(eye, speed) ;
   
   camera() ;
   beginCamera() ;
@@ -315,6 +285,61 @@ void startCamera(boolean scene, boolean eye, PVector speed) {
 //end camera with speed setting
 ///////////////////////////////
 
+
+// Update POS CAMERA
+void updatePosCamera(boolean authorization) {
+  if(authorization) {
+    //create the ref to calcul the new position of the Scene
+    if(newRefSceneMouse) {
+      posSceneCameraRef = sceneCamera ;
+      posSceneMouseRef = new PVector(mouse[0].x, mouse[0].y, mouse[0].z) ;
+    }
+    //to create a only one ref position
+    newRefSceneMouse = false ;
+    //create the delta between the ref and the mouse position
+    deltaScenePos.x = mouse[0].x -posSceneMouseRef.x ;
+    deltaScenePos.y = mouse[0].y -posSceneMouseRef.y ;
+    deltaScenePos.z = mouse[0].z -posSceneMouseRef.z ;
+    sceneCamera = PVector.add(deltaScenePos, posSceneCameraRef ) ;
+  } else {
+    //change the boolean to true for the next mousepressed
+    newRefSceneMouse = true ;
+  }
+}
+
+
+
+
+
+// UPDATE EYE CAMERA
+void updateEyeCamera(boolean authorization, PVector speed) {
+  if(authorization) {
+    //create the ref to calcul the new position of the Scene
+    if(newRefEyeMouse) {
+      posEyeCameraRef = tempEyeCamera ;
+      posEyeMouseRef = new PVector(mouse[0].x, mouse[0].y) ;
+    }
+    //to create a only one ref position
+    newRefEyeMouse = false ;
+    //create the delta between the ref and the mouse position
+    deltaEyePos.x = mouse[0].x -posEyeMouseRef.x ;
+    deltaEyePos.y = mouse[0].y -posEyeMouseRef.y ;
+    tempEyeCamera = PVector.add(deltaEyePos, posEyeCameraRef ) ;
+
+    //rotation of the camera
+    // solution 1
+    eyeCamera = eyeWithLeapmotionDevice(tempEyeCamera).copy() ;
+    //solution 2
+    //eyeCamera = eye(speed) ;
+
+  } else {
+    //change the boolean to true for the next mousepressed
+    newRefEyeMouse = true ;
+  }
+}
+
+
+
 //UPDATE CAMERA POSITION
 void updateCamera(PVector origin, PVector target, float speed) {
   if(!moveScene) sceneCamera = (follow(origin, target, speed)) ;
@@ -328,18 +353,75 @@ void stopCamera() {
     stopParalaxe() ;
   }
 }
-//END of CAMERA move
+
+//END MOVE CAMERA
+///////////////////////////////////////
 
 
 
 
-//CHANGE the position of the CAMERA
-///////////////////////////////////
-//RAW
-void cameraGoto(PVector newPos ) {
-  sceneCamera = newPos ;
+
+
+
+
+
+
+
+
+
+
+
+///////////////////////////
+// ANNEXE AND COMMON METHOD
+
+// EYE POSITION two solutions
+PVector eyeP3D = new PVector() ;
+/*
+Soltion 1
+We must use this one with le leapmotion information, because with the leapmotion device
+there is no "pmouse" information.
+*/
+PVector eyeWithLeapmotionDevice(PVector tempEye) {
+  eyeP3D = new PVector() ;
+  eyeP3D = new PVector(map(tempEye.y, 0, width, 0, 360), map(tempEye.x, 0, height, 0, 360)) ; 
+  return eyeP3D ;
 }
 
+
+/*
+solution 2
+we can use this better void whn we don't use the leapmotio */
+PVector eye(PVector speed) {
+  eyeP3D.x += (pmouse[0].y-mouse[0].y) * speed.y;
+    eyeP3D.y += (pmouse[0].x-mouse[0].x) *-speed.x;
+    if(eyeP3D.x > 360) eyeP3D.x = 0 ;
+    if(eyeP3D.x < 0) eyeP3D.x = 360 ;
+    if(eyeP3D.y > 360) eyeP3D.y = 0 ; 
+    if(eyeP3D.y < 0) eyeP3D.y = 360 ;
+  return eyeP3D ;
+}
+
+// END EYE POSITION
+
+
+
+// CHANGE CAMERA POSITION
+void changeCameraPosition(int ID) {
+  eyeCamera = eyeCameraSetting[ID].copy() ;
+  sceneCamera = sceneCameraSetting[ID].copy() ;
+  gotoCameraPosition = false ;
+  gotoCameraEye = false ;
+}
+
+
+
+
+// CAMERA GOTO
+/*
+void cameraGoto(PVector newPos) {
+  sceneCamera = newPos ;
+}
+*/
 
 //END of change position of CAMERA
 //////////////////////////////////

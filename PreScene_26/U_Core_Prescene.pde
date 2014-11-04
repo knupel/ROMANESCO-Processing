@@ -4,55 +4,7 @@
 
 
 
-//DRAWING
-//CROSS
-void crossPoint2D(PVector pos, color colorCross, int e, int size) {
-  stroke(colorCross) ;
-  strokeWeight(e) ;
-  
-  line(pos.x, pos.y -size, pos.x, pos.y +size) ;
-  line(pos.x +size, pos.y, pos.x -size, pos.y) ;
-}
 
-
-// other cross
-void crossPoint2D(PVector pos, PVector size, color colorCross, float e ) {
-  if (e <0.1) e = 0.1 ;
-  stroke(colorCross) ;
-  strokeWeight(e) ;
-  //horizontal
-  line(pos.x, pos.y -size.x, pos.x, pos.y +size.x) ;
-  //vertical
-  line(pos.x +size.y, pos.y, pos.x -size.y, pos.y) ;
-}
-void crossPoint3D(PVector pos, PVector size, color colorCross, float e ) {
-  if (e <0.1) e = 0.1 ;
-  stroke(colorCross) ;
-  strokeWeight(e) ;
-  //horizontal
-  line(pos.x, pos.y -size.x,0, pos.x, pos.y +size.x,0) ;
-  //vertical
-  line(pos.x +size.y, pos.y,0, pos.x -size.y, pos.y,0) ;
-  //depth
-  line(pos.x, pos.y,size.z, pos.x, pos.y,-size.z) ;
-}
-//
-
-
-
-//curtain
-void curtain() {
-  if(eCurtain == 0) {
-    rectMode(CORNER) ;
-    fill (0) ; 
-    noStroke() ;
-    rect(-1,-1, width+2, height+2);
-  }
-}
-//end curtain
-
-//END DRAWING
-////////////
 
 
 

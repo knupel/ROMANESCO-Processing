@@ -2,69 +2,15 @@
 
 
 
-//DRAWING
-//////////
 
-//cross
-///////
-void crossPoint2D(PVector pos, color colorCross, int e, int size) {
-  stroke(colorCross) ;
-  strokeWeight(e) ;
-  
-  line(pos.x, pos.y -size, pos.x, pos.y +size) ;
-  line(pos.x +size, pos.y, pos.x -size, pos.y) ;
-}
-
-
-// other cross
-void crossPoint2D(PVector pos, PVector size, color colorCross, float e ) {
-  if (e <0.1) e = 0.1 ;
-  stroke(colorCross) ;
-  strokeWeight(e) ;
-  //horizontal
-  line(pos.x, pos.y -size.x, pos.x, pos.y +size.x) ;
-  //vertical
-  line(pos.x +size.y, pos.y, pos.x -size.y, pos.y) ;
-}
-void crossPoint3D(PVector pos, PVector size, color colorCross, float e ) {
-  if (e <0.1) e = 0.1 ;
-  stroke(colorCross) ;
-  strokeWeight(e) ;
-  //horizontal
-  line(pos.x, pos.y -size.x,0, pos.x, pos.y +size.x,0) ;
-  //vertical
-  line(pos.x +size.y, pos.y,0, pos.x -size.y, pos.y,0) ;
-  //depth
-  line(pos.x, pos.y,size.z, pos.x, pos.y,-size.z) ;
-}
-///////////
-
-
-//CURTAIN////
-/////////////
-void curtain() {
-  // we must put a security for the rideau, if not there is bug sometime and the rideau appear we don't know why
-  if( eCurtain == 0) {
-    rectMode(CORNER) ;
-    fill (0) ; 
-    noStroke() ;
-    rect(-1,-1, width+2, height+2); }
-}
-//end curtain
-/////////////
-
-//////////////
-//END DRAWING
 
 
 //CURSOR, PEN, LEAP MOTION
-//CURSOR, MOUSE, TABLET, LEAP MOTION
-
-
 
 void cursorDraw() {
   //mousePressed
-  if( clickShortLeft[0] || clickShortRight[0] || clickLongLeft[0] || clickLongRight[0] ) mousepressed[0] = true ; else mousepressed[0] = false ;
+  if(ORDER_ONE || ORDER_TWO || ORDER_THREE) ORDER = true ; else ORDER = false ;  
+  
   //next previous
   if (nextPrevious) nextPreviousInt = 1 ; else nextPreviousInt = 0 ;
 }
@@ -98,10 +44,6 @@ boolean insideRect(PVector pos, PVector size) {
     if(mouse[0].x > pos.x && mouse[0].x < pos.x + size.x && mouse[0].y >  pos.y && mouse[0].y < pos.y + size.y) return true ; else return false ;
 }
 
-//LOCKED
-boolean locked ( boolean inside ) {
-  if ( inside  && mousepressed[0] ) return true ; else return false ;
-}
 
 
 
@@ -272,19 +214,7 @@ void resetEasing(PVector targetOUT) {
 
 
 
-//drop event
-void dropEvent(DropEvent theDropEvent) {
-  // if the dropped object is an image, then load the image into our PImage.
-  if(theDropEvent.isImage()) {
-      escargotGOanalyze = false ;
-      escargotClear() ;
 
-   // println("### loading image ...");
-    img[0] = theDropEvent.loadImage();
-    analyzeDone = false ;
-  }
-}
-//end dropevent
 
 
 // zoom

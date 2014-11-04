@@ -18,8 +18,7 @@ void setup() {
   displaySetup(60) ; // the int give the frameRate
   colorSetup() ;
   miroirSetup() ;
-  //dropping image from folder on the Scène
-  drop = new SDrop(this);
+
   //load font
   fontSetup() ;
   //GEOMERATIVE
@@ -49,7 +48,7 @@ void draw() {
   cameraDraw() ;
   lightPosition() ;
   lightDraw() ;
-  romanescoManager.displayObject() ;
+  romanescoManager.displayObject(ORDER_ONE, ORDER_TWO, ORDER_THREE) ;
   repereCamera(sizeBackgroundP3D) ;
   stopCamera() ;
   
