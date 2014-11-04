@@ -20,7 +20,6 @@ void updateLeapCommand() {
     orderOneLeap = false ; 
     orderTwoLeap = false ;
   }
-  println(orderOneLeap, orderTwoLeap) ;
     
 }
 

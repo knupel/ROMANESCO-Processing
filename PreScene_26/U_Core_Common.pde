@@ -1,27 +1,4 @@
-//BOOLEAN COMMAND
-boolean ORDER_ONE, ORDER_TWO, ORDER_THREE ;
 
-void updateCommand() {
-  // move the object
-  if(clickLongLeft[0] || finger.activefingers == 1 ) {
-    ORDER_ONE = true ; 
-    ORDER_TWO = false ;
-  }
-  // rotate the object
-  else if(clickLongRight[0] || finger.activefingers == 2) {
-    ORDER_ONE = false ; 
-    ORDER_TWO = true ;
-  }
-  // move and rotate
-  else if(finger.activefingers == 3) {
-    ORDER_ONE = true ; 
-    ORDER_TWO = true ;
-  } else {
-  // false
-    ORDER_ONE = false ;
-    ORDER_TWO = false ;
-  }
-}
 
 
 
@@ -264,40 +241,6 @@ String whichSentence(String txt, int whichChapter, int whichSentence) {
   return repartition[whichChapter][whichSentence] ;
 }
 
-
-
-
-
-// OLD VOID TEXT
-/*
-String [][] sentencesByChapter ;
-
-void importTxt(String path) {
-  importRaw = loadStrings(path) ;
-  textRaw = join(importRaw, "") ;
-}
-
-void splitText() {
-  String karaokeChapters [] = split(textRaw, "*") ;
-  
-  // find the quantity of chapter and sentences by chapter to create the final double array String
-  int numChapter = karaokeChapters.length ;
-  int maxSentencesByChapter = 0 ;  
-  for ( int i = 0 ; i < numChapter ; i++) {
-    String sentences [] = split(karaokeChapters[i], "/") ;
-    if ( sentences.length > maxSentencesByChapter ) maxSentencesByChapter = sentences.length ; 
-  }
-  //create the final double array string
-  sentencesByChapter = new String [numChapter][maxSentencesByChapter] ;
-  //put the sentences in the double String by chapter
-  for ( int i = 0 ; i < numChapter ; i++) {
-    String sentences [] = split(karaokeChapters[i], "/") ;
-    for ( int j = 0 ; j <  sentences.length ; j++) {
-      sentencesByChapter [i][j] = sentences[j] ;
-    }
-  }
-}
-*/
 // END TEXT
 //////////
 

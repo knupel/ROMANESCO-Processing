@@ -373,7 +373,14 @@ class ObjectRomanescoManager {
   
   ////////
   // DRAW
-  void displayObject(boolean movePos, boolean moveDir) {
+  void displayObject(boolean movePos, boolean moveDir, boolean movePosAndDir) {
+    // when you use the third order Romanesco understand the the first and the second are true
+    if(movePosAndDir) {
+      moveDir = true ;
+      movePos = true ;
+    }
+    
+    //the methodv
     for (SuperRomanesco objR : RomanescoList) {
       if (object[objR.IDobj]) {
         updateObject(objR.IDobj, objR.IDgroup) ;

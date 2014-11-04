@@ -47,7 +47,7 @@ void draw() {
   cameraDraw() ;
   lightPosition() ;
   //use romanesco object
-  romanescoManager.displayObject(ORDER_ONE, ORDER_TWO) ;
+  romanescoManager.displayObject(ORDER_ONE, ORDER_TWO, ORDER_THREE) ;
   repereCamera(sizeBackgroundP3D) ;
   stopCamera() ;
   

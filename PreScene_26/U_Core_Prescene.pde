@@ -61,34 +61,63 @@ void curtain() {
 //GLOBAL
 
 
-//DRAW
+
+void updateCommand() {
+  // move the object
+  if(clickLongLeft[0] || finger.activefingers == 1 ) {
+    ORDER_ONE = true ; 
+    ORDER_TWO = false ;
+    ORDER_THREE = false ;
+  }
+  // rotate the object
+  else if(clickLongRight[0] || finger.activefingers == 2) {
+    ORDER_ONE = false ; 
+    ORDER_TWO = true ;
+    ORDER_THREE = false ;
+  }
+  // move and rotate
+  else if(finger.activefingers == 3) {
+    ORDER_ONE = false ; 
+    ORDER_TWO = false ;
+    ORDER_THREE = true ;
+  } else {
+  // false
+    ORDER_ONE = false ;
+    ORDER_TWO = false ;
+    ORDER_THREE = false ;
+  }
+}
+
+
+
 int speedWheel = 5 ;
 float speedLeapmotion = .3 ;
 PVector posRef = new PVector() ;
+int mouseZ ;
 
 
 void cursorDraw() {
   updateLeapCommand() ;
+  updateMouseZ() ;
   
   //mousePressed
-  if(clickShortLeft[0] || clickShortRight[0] || clickLongLeft[0] || clickLongRight[0] || orderOneLeap || orderTwoLeap) mousepressed[0] = true ; else mousepressed[0] = false ;
+  if(ORDER_ONE || ORDER_TWO || ORDER_THREE) ORDER = true ; else ORDER = false ;
   
   //check the tablet
   pen[0] = new PVector (norm(tablet.getTiltX(),0,1), norm(tablet.getTiltY(),0,1), tablet.getPressure()) ;
   
-  
   // Leap and mouse move
-   if (orderOneLeap || orderTwoLeap) {
-     mouse[0] = new PVector(averageTranslatePosition(speedLeapmotion).x, -averageTranslatePosition(speedLeapmotion).y,averageTranslatePosition(speedLeapmotion).z)  ;
-   } else if((posRef.x != mouseX && posRef.y != mouseY)) {
-     mouse[0] = new PVector(mouseX,mouseY) ;
-     pmouse[0] = new PVector(pmouseX,pmouseY) ;
-     posRef = mouse[0].copy() ;
-   }
+  if (orderOneLeap || orderTwoLeap) {
+    mouse[0] = new PVector(averageTranslatePosition(speedLeapmotion).x, -averageTranslatePosition(speedLeapmotion).y,averageTranslatePosition(speedLeapmotion).z)  ;
+  } else if(posRef.x != mouseX && posRef.y != mouseY) {
+    mouse[0] = new PVector(mouseX,mouseY) ;
+    pmouse[0] = new PVector(pmouseX,pmouseY) ;
+    posRef = mouse[0].copy() ;
+  }
 
   
   // security to reset the pmouse for start clean for the next rotation
-  if(!mousepressed[0]) {
+  if(!ORDER) {
     if(pmouse[0].x != mouse[0].x || pmouse[0].y != mouse[0].y ) {
      pmouse[0] = gotoTarget(pmouse[0],  mouse[0], .1) ;
     }
@@ -105,6 +134,14 @@ void cursorDraw() {
 }
 
 
+// ANNEXE VOID
+void updateMouseZ() {
+  mouseZ -= wheel[0] ;
+}
+
+
+// END CURSOR DRAW
+//////////////////
 
 
 
@@ -134,13 +171,10 @@ boolean insideCircle (PVector pos, int diam) {
 
 //RECTANGLE
 boolean insideRect(PVector pos, PVector size) { 
-    if(mouse[0].x > pos.x && mouse[0].x < pos.x + size.x && mouse[0].y >  pos.y && mouse[0].y < pos.y + size.y) return true ; else return false ;
+  if(mouse[0].x > pos.x && mouse[0].x < pos.x + size.x && mouse[0].y >  pos.y && mouse[0].y < pos.y + size.y) return true ; else return false ;
 }
 
-//LOCKED
-boolean locked ( boolean inside )  {
-  if (inside  && mousepressed[0]) return true ; else return false ;
-}
+
 //END DETECTION
 //////////////
 
@@ -241,13 +275,6 @@ void resetEasing(PVector targetOUT) {
 
 
 
-
-
-//zoom
-//with the wheel mouse
-private float getCountZoom ;
-void zoom() { getCountZoom = wheel[0] ; }
-//end zoom
 
 
 

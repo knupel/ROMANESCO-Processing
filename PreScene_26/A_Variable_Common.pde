@@ -59,7 +59,12 @@ String findPath ;
 
 
 
-
+// COMMAND BOOLEAN
+//BOOLEAN COMMAND
+/*
+command from leap motion, mouse or other devices if we code for that :)
+*/
+boolean ORDER, ORDER_ONE, ORDER_TWO, ORDER_THREE ;
 
 
 // HIGH VAR
@@ -171,7 +176,7 @@ boolean P3DrefDir [] ;
 
 //position of object and wheel
 PVector [] mouse, pmouse, pen ;
-boolean [] clickShortLeft, clickShortRight, clickLongLeft, clickLongRight, mousepressed ;
+boolean [] clickShortLeft, clickShortRight, clickLongLeft, clickLongRight;
 int wheel[] ;
 //pen info
 
@@ -255,7 +260,6 @@ void createVarCursor() {
    clickShortRight = new boolean [numObj] ;
    clickLongLeft = new boolean [numObj] ;
    clickLongRight = new boolean [numObj] ;
-   mousepressed = new boolean [numObj] ;
    wheel = new int [numObj] ;
   //pen info
    pen = new PVector[numObj] ;
