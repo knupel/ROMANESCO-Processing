@@ -2,7 +2,7 @@ class Letter extends SuperRomanesco {
   public Letter() {
     //from the index_objects.csv
     romanescoName = "Letter" ;
-    IDobj = 18 ;
+    IDobj = 19 ;
     IDgroup = 3 ;
     romanescoAuthor  = "Stan le Punk";
     romanescoVersion = "Version 1.1";

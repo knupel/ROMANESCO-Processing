@@ -4,7 +4,7 @@ class Horloge extends SuperRomanesco {
   public Horloge() {
     //from the index_objects.csv
     romanescoName = "Horloge" ;
-    IDobj = 19 ;
+    IDobj = 20 ;
     IDgroup = 3 ;
     romanescoAuthor  = "Stan Le Punk";
     romanescoVersion = "Version 2.0";

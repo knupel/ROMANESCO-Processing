@@ -79,15 +79,22 @@ SLIDER
 ––––––––––––––––––––––
 VAR object from slider
 
-color fillObj[IDobj] ; you can separate with hue, saturation, brightness and alpha
-color strokeObj[IDobj] ; you can separate with hue, saturation, brightness and alpha
+color fillObj[IDobj] ; you can separate with hue(fillObj[IDobj]), saturation(fillObj[IDobj]), brightness(fillObj[IDobj]) and alpha(fillObj[IDobj])
+color strokeObj[IDobj] ; you can separate with hue(strokeObj[IDobj]), saturation(strokeObj[IDobj]), brightness(strokeObj[IDobj]) and alpha(strokeObj[IDobj])
 float thicknessObj[IDobj] ; value from 0.1 to height/3
 
-float sizeXObj[IDobj] ; sizeYObj[IDobj] ; sizeZObj[IDobj] ; value from 0.1 to width
+this parameters is use for the object or particule size
+float sizeXObj[IDobj] ; 
+float sizeYObj[IDobj] ; 
+float sizeZObj[IDobj] ; value from 0.1 to width
 
-float canvasXObj[IDobj] ; canvasYObj[IDobj] ; canvasZObj[IDobj] value from width/10  to width
 
-float quantityObj = new float[numObj] ; value from 1 to 100 ;
+this parameter is use to space where the particule object, or the object can growth or move...
+float canvasXObj[IDobj] ; 
+float canvasYObj[IDobj] ; 
+float canvasZObj[IDobj] value from width/10  to width
+
+float quantityObj[IDobj] ; value from 1 to 100 ;
 
 float speedObj[IDobj] ; value from 0 to 1
 float directionObj[IDobj] ; value from 0 to 360
@@ -99,7 +106,7 @@ float lifeObj[IDobj] ; value from 0 to 1
 float forceObj[IDobj] ; value from 0 to 1
 
 // shortcut var
-float fontSizeObj[IDobj] ; 3 to height in the release 25 work with the slider sizeXObj
+float fontSizeObj[IDobj] ; 3 to height since Romanesco 25 work with the slider sizeXObj
 
 void aspect(int ID) give the fill, stroke and strokeWeight
 
@@ -139,36 +146,47 @@ VAR from the mouse, pen and leapmotion
 
 
 POINTER XYZ
+––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
 PVector mouse[IDobj] refresh with space touch
 mouse[0].x // mouse[0].y // absolute position of the mouse
 mouse[0].z // return info from the z axis when the leapmotion is active
 mouse[IDobj].x // mouse[IDobj].y // mouse[IDobj].z // same info than mouse[0] but this one is refresh when you press the space
 
 MOUSE WHEEL
+––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
 int wheel[IDobj]
 wheel[0] and wheel[IDobj]
 or use the void zoom() and take the float value getCountZoom...this value is more reactive !
 
 PMOUSE
+––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
 PVector pmouse[IDobj]
 pmouse[0] and pmouse[IDobj]
 
 
 PEN
-––––––––––
+––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
 PVector pen[IDobj] or pen[0] refresh with space touch
 pen[IDobj].x pen[IDobj].y   // information from the tablet tilt : orientation of the pen 
 pen[IDobj].z - value to 0 to 1 - information from tablet : pressure pen 
 
 
 MOUSE CLICK BOOLEAN
-–––––––––––––––––––––––––
+–––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
 Short click just for one shot
 	boolean clickShortLeft[IDobj] ;
 	boolean clickShortRight[IDobj] ;
 Active after one mousePressed, be inactive after the mouse Released
 	boolean clickLongLeft[IDobj] ;
 	boolean clickLongLeft[IDobj] ;
+
+
+
+LEAP MOTION or MOUSE ORDER
+–––––––––––––––––––––––––––
+boolean ORDER_ONE ; eturn "true" the leftClick or when only one finger are in the leapmotion field	
+boolean ORDER_TWO ; return "true" the rightClick or when only two fingers are in the leapmotion field	
+boolean ORDER_THREE ; return "true" when three fingers are in the leapmotion field
 
 
 
@@ -224,76 +242,69 @@ _____________________________
 MISC
 °°°°°°°°°°°°°°°°°°°°°°°°°°°°°
 
-RESET
-––––––––––––
+STARTING POSITION
+–––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+give the position of the object at the opening app
+PVector startingPos[IDobj] by default this value is equal to (width/2, height/2, 0)
+
+to change that use this void 
+void startPosition(int IDobj, int x, int y, int z) use it IN THE void display()
+
+
+
+
+RESET OBJECT : empty the object list
+––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
 To empty the list or reset object activate by backspace and delete
 boolean resetAction(IDobj) when the Action button is On
+
 boolean resetParameter(IDobj) when the Parameter button is On
 Suggestion use Action Button for the particle and the list
 and Parameter for the other reset. But it's just a suggestion
 
 
-STARTING POSITION
-––––––––––––––––––––––––
-give the position of the object at the opening app
-PVector startingPos[IDobj] by default this value is equal to (width/2, height/2, 0)
-this void give the XYZ to
-PVector startingPosition[IDobj] ;
 
 
 CAMERA
-––––––––––––
+––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
 travelling(PVector targetPos) ; // the camera go to a specific point in the scene
 
 
 OBJECT
-––––––––––––
-boolean setting[IDobj] to block the setting at the beggining and when you came back to the button setting to don't go immediatly on the value slider...not finish in progress
-void startPosition(int IDobj, int x, int y, int z) // give the starting position of the object on the scene, WRITE IN THE void display()
-
-
-
-SHADER BACKGROUND
-–––––––––––––––––––––––
-variable than you can catch when you code in GLSL 
-
-uniform float beat ; // value from 0 to 40 see variable allBeats(ID)
-uniform float tempo ; // return value from 0 to 1 when the sound button is ON, if it's OFF the value is 1
-uniform float mixSound ; // return a sound value from 0 to 1 when the sound button is ON, if it's OFF the value is 1
-uniform float tempo ; // value from 0 to 1 
-uniform float timeTrack ; // if value > .2 the music is ON
-uniform vec4 colorBG ; // var from 0 to 1 in RGBa mode
-uniform vec2 mouse ; // coordonate x et y of the cursor when this one is click left
-uniform vec2 resolution ; // return the resolution of the Scene
-uniform float time ; // return the value millis()/1000
-
+–––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+boolean setting[IDobj] to block the setting at the beggining and when you come back to the button setting to don't go immediatly on the value slider...not finish in progress
 
 
 MOTION
-––––––––––––
+––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
 boolean motion[IDobj] boolean use for the move activate or desactivate by the "m" key - booleann mTouch - 
 
 
 ALIGNEMENT
-––––––––––––––––
+––––––––––––––––––––––––––––––––––––––––––––––––––––––––
 boolean horizon[IDobj] boolean use for the move activate or desactivate by the "h" key - booleann hTouch -
 
 
 REVERSE DIRECTION
-–––––––––––––––––––––––
+–––––––––––––––––––––––––––––––––––––––––––––––––––––––––
 boolean reverse[IDobj] use to reverse direction or what you want, activa by "r" key - boolean rTouch -
 
 
 INFO
-––––––––––
+–––––––––––––––––––––––––––––––––––––––––––––––––––––––––
 boolean objectInfoDisplay[IDobj] use to display info or what you want show on Prescene or Scene from your object, activate by "i" key - boolean iTouch
+
 String objectName[IDobj] return the name of your object
+
 String objectInfo[IDobj]  can be use to add info who can be display in the info option when you push "i" on the prescene
+
 int objectID[IDobj] return the ID of the object
 
 
+
+
 COMMON ASSOCIATION 
-––––––––––––––––––––––––––
+–––––––––––––––––––––––––––––––––––––––––––––––––––––––––
 between the controler and the prescene
 // with action button
 // add obj

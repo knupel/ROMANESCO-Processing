@@ -4,7 +4,7 @@ class RSS extends SuperRomanesco {
   public RSS() {
     //from the index_objects.csv
     romanescoName = "RSS" ;
-    IDobj = 20 ;
+    IDobj = 21 ;
     IDgroup = 3 ;
     romanescoAuthor  = "Stan Le Punk";
     romanescoVersion = "version 1.1";
