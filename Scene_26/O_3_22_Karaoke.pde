@@ -4,7 +4,7 @@ class Karaoke extends SuperRomanesco {
   public Karaoke() {
     //from the index_objects.csv
     romanescoName = "Karaoke" ;
-    IDobj = 21 ;
+    IDobj = 22 ;
     IDgroup = 3 ;
     romanescoAuthor  = "Stan LePunk";
     romanescoVersion = "Version 2.0";

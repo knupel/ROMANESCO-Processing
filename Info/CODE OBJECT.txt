@@ -120,11 +120,13 @@ float left[IDobj]  return value from 0 to 1 when the sound button is ON, if it's
 float right[IDobj] return value from 0 to 1 when the sound button is ON, if it's OFF the value is 1
 float mix[IDobj]   return a sound value from 0 to 1 when the sound button is ON, if it's OFF the value is 1
 
-float beat[IDobj]    return value from 1 to 10 when the button sound is ON, the value keep the last value if the button is OFF 
-float kick[IDobj]    return value from 1 to 10 when the button sound is ON, the value keep the last value if the button is OFF 
-float snare[IDobj]   return value from 1 to 10 when the button sound is ON, the value keep the last value if the button is OFF 
-float hat[IDobj]     return value from 1 to 10 when the button sound is ON, the value keep the last value if the button is OFF 
-float allBeats(IDobj) is a some of the four beats, return value from 1 to 40 when the button sound is ON, the value keep the last value if the button is OFF 
+float beat[IDobj]    return value from 1 to 3 when the button sound is ON, the value keep the last value if the button is OFF 
+float kick[IDobj]    return value from 1 to 3 when the button sound is ON, the value keep the last value if the button is OFF 
+float snare[IDobj]   return value from 1 to 3 when the button sound is ON, the value keep the last value if the button is OFF 
+float hat[IDobj]     return value from 1 to 3 when the button sound is ON, the value keep the last value if the button is OFF 
+float allBeats(IDobj) is a some of the four beats, return value from 1 to 12 when the button sound is ON, the value keep the last value if the button is OFF
+?????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????
+????? it's weird because normally the value return must be between 1 to 10 for single value and 1 to 40 for the sum ????? 
 
 float tempo[IDobj]      return value from 0 to 1 when the sound button is ON, if it's OFF the value is 1
 float tempoBeat[IDobj]  return value from 0 to 1 when the sound button is ON, if it's OFF the value is 1

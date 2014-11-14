@@ -10,7 +10,7 @@ Library Order,Name,ID,Group,Version,Author,Class name,Pack,Render,Mode,Slider
 9,Nid d'abeilles,17,2,Version 0.1,Amnon Owed,Honeycomb,Base,P3D,,"Saturation fill,Brightness fill,Alpha fill,Thickness,Width,Canvas X,Canvas Y"
 10,Horloge,20,3,Version 2.0,Stan Le Punk,Horloge,Base,classic,Ellipse Clock 12/Ellipse Clock 24/Line Clock 12/Line Clock 24/minutes/secondes,"Hue fill,Saturation fill,Brightness fill,Alpha fill,Width,Direction,Amplitude"
 11,Karaoke,22,3,Version 2.0,Stan LePunk,Karaoke,Base,classic,,"Hue fill,Saturation fill,Brightness fill,Alpha fill,Width,Canvas X,Canvas Y,Direction"
-12,Kofosphere,18,2,Version 1.0,Kof,Kofosphere,Base,P3D,Point,"Hue fill,Saturation fill,Brightness fill,Alpha fill,Thickness,Canvas X,Quantity,Speed"
+12,Kofosphere,18,2,Version 1.0,Kof,Kofosphere,Base,P3D,Point color/Point mono/Pox color/Box mono,"Hue stroke,Saturation stroke,Brightness stroke,Alpha stroke,Hue fill,Saturation fill,Brightness fill,Alpha fill,Thickness,Width,Height,Depth,Canvas X,Quantity,Speed"
 13,Les anciens,1,1,Version 2.1,Stan le Punk,LesVieux,Base,classic,Courbe/Triangle bug,"Hue fill,Saturation fill,Brightness fill,Alpha fill,Hue stroke,Saturation stroke,Brightness stroke,Alpha stroke,Thickness,Canvas X,Speed,Amplitude"
 14,Letter,19,3,Version 1.1,Stan le Punk,Letter,Base,P3D,Line/Point,"Hue fill,Saturation fill,Brightness fill,Alpha fill,Thickness,Width,Canvas X,Canvas Y,Canvas Z,Quantity,Speed"
 15,Lignes,10,2,Version 1.1,Stan le Punk,Lignes,Base,classic,,"Hue fill,Saturation fill,Brightness fill,Alpha fill,Thickness,Quantity,Speed,Direction"

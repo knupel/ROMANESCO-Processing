@@ -34,7 +34,7 @@ class Twitos extends SuperRomanesco {
   public Twitos() {
     //from the index_objects.csv
     romanescoName = "Twitos" ;
-    IDobj = 22 ;
+    IDobj = 23 ;
     IDgroup = 3 ;
     romanescoAuthor  = "Stan Le Punk";
     romanescoVersion = "version 2.1";
