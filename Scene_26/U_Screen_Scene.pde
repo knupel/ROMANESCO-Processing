@@ -92,8 +92,8 @@ void sketchPosition(int whichOne) {
 void screenMode(boolean varFullscreen, PVector size) {
   if(varFullscreen) {
     removeBorder(true) ;
-    // instance.setVisible(false, false); // processing before 302
-    instance.setVisible(false);
+    instance.setVisible(false, false); 
+    // instance.setVisible(false); // Processing 303 and 304
   }
   if       (modeP3D) size((int)size.x,(int)size.y, P3D) ;
   else if  (modeP2D) size((int)size.x,(int)size.y, P2D) ;
@@ -167,8 +167,8 @@ void sizeScene() {
 
 void sketchPosWithoutMavericks(int x, int y, int whichOne) {
   // remove the apple menu bar
-  // instance.setVisible(false, false); // before processing 302
-  instance.setVisible(false);
+  instance.setVisible(false, false); 
+  // instance.setVisible(false); // Processing 303 and 304
   
   if (whichOne >= screenDevice.length ||  whichOne < 0 ) { 
     whichOne = 0 ;

@@ -154,7 +154,7 @@ PVector P3Dposition(PVector pos, int ID, boolean authorization) {
     //create the delta between the ref and the mouse position
     deltaObjPos.x = mouse[0].x -P3DpositionMouseRef.x ;
     deltaObjPos.y = mouse[0].y -P3DpositionMouseRef.y ;
-    // deltaObjPos.z = mouse[0].z -P3DpositionMouseRef.z ;
+    deltaObjPos.z = mouse[0].z -P3DpositionMouseRef.z ;
     pos = PVector.add(deltaObjPos, P3DpositionObjRef[ID] ) ;
     
   }
@@ -229,7 +229,7 @@ void cameraDraw() {
     //void with speed setting
     float speed = 150.0 ; // 150 is medium speed rotation
     PVector speedRotation = new PVector(speed /(float)width, speed /(float)height) ; 
-    startCamera(moveScene, moveEye, speedRotation) ;
+    startCamera(moveScene, moveEye, LEAPMOTION_DETECTED, speedRotation) ;
     
     //to change the scene position with a specific point
     if(gotoCameraPosition || gotoCameraEye ) updateCamera(sceneCamera, targetPosCam, speedMoveOfCamera) ;
@@ -266,10 +266,10 @@ void catchCameraInfo() {
 
 
 //startCamera with speed setting
-void startCamera(boolean scene, boolean eye, PVector speed) {
+void startCamera(boolean scene, boolean eye, boolean leapMotionDetected, PVector speed) {
   pushMatrix() ;
   //Move the Scene
-  updatePosCamera(scene) ;
+  updatePosCamera(scene, leapMotionDetected) ;
   updateEyeCamera(eye, speed) ;
   
   camera() ;
@@ -287,7 +287,7 @@ void startCamera(boolean scene, boolean eye, PVector speed) {
 
 
 // Update POS CAMERA
-void updatePosCamera(boolean authorization) {
+void updatePosCamera(boolean authorization, boolean leapMotionDetected) {
   if(authorization) {
     //create the ref to calcul the new position of the Scene
     if(newRefSceneMouse) {
@@ -300,7 +300,8 @@ void updatePosCamera(boolean authorization) {
     deltaScenePos.x = mouse[0].x -posSceneMouseRef.x ;
     deltaScenePos.y = mouse[0].y -posSceneMouseRef.y ;
     deltaScenePos.z = mouse[0].z -posSceneMouseRef.z ;
-    sceneCamera = PVector.add(deltaScenePos, posSceneCameraRef ) ;
+    if(leapMotionDetected) sceneCamera = PVector.add(PVector.mult(deltaScenePos,-1), posSceneCameraRef ) ; else sceneCamera = PVector.add(deltaScenePos, posSceneCameraRef ) ;
+
   } else {
     //change the boolean to true for the next mousepressed
     newRefSceneMouse = true ;

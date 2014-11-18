@@ -62,7 +62,7 @@ void oscEvent(OscMessage receive ) {
 
 
 //
-String dataPreScene [] = new String [73] ;
+String dataPreScene [] = new String [74] ;
 
 
 void OSCDraw() {
@@ -152,6 +152,7 @@ void OSCDraw() {
    if (ORDER_ONE) dataPreScene [70] = ("1") ; else dataPreScene [70] = ("0") ;
    if (ORDER_TWO) dataPreScene [71] = ("1") ; else dataPreScene [71] = ("0") ;
    if (ORDER_THREE) dataPreScene [72] = ("1") ; else dataPreScene [72] = ("0") ;
+   if (LEAPMOTION_DETECTED) dataPreScene [73] = ("1") ; else dataPreScene [73] = ("0") ;
 
    
    toScene = join(dataPreScene, "/") ;

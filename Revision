@@ -1,10 +1,9 @@
-ROMANESCO / ADD / REMOVE / IMPROVE / BUG FIX
 ///////////////////////
 ROMANESCO 0.26 Revision
-///////////////////////
+
+/// CORE ///
 /// ADD ///
-* Kofosphere object 3D
-* template to code object
+
 /// REMOVE ///////
 * the option to drop image on the Scene
 /// IMPROVE ///
@@ -12,6 +11,19 @@ ROMANESCO 0.26 Revision
 /// BUG FIXE
 * Midi save and load slider
 * Leapmotion camera and objects position and direction
+
+
+/// OBJECT ///
+/// ADD ///
+* Kofosphere object 3D
+* template to code object
+* Atom : slider amplitude for the sound reactivity
+
+// CHANGE
+* Atom : change the Ellipse mode to Sphere mode
+
+
+
 
 
 ////////////////////////

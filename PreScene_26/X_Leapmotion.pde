@@ -1,6 +1,8 @@
 // LEAP COMMAND
 ///////////////
 boolean orderOneLeap, orderTwoLeap ;
+
+
 void updateLeapCommand() {
   // move the object
   if(finger.activefingers == 1 ) {
@@ -39,6 +41,7 @@ void leapMotionSetup() {
 
 void leapMotionUpdate() {
   finger.updateLeap() ;
+  if(fingerVisibleCheck()) LEAPMOTION_DETECTED = true ; else LEAPMOTION_DETECTED = false ;
 }
 
 boolean fingerVisibleCheck() {

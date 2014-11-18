@@ -65,6 +65,7 @@ String findPath ;
 command from leap motion, mouse or other devices if we code for that :)
 */
 boolean ORDER, ORDER_ONE, ORDER_TWO, ORDER_THREE ;
+boolean LEAPMOTION_DETECTED ;
 
 
 // HIGH VAR

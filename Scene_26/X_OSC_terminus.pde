@@ -142,6 +142,7 @@ void oscEvent(OscMessage receive ) {
   if(valueTempPreScene[70].equals("0")) ORDER_ONE = false ; else ORDER_ONE = true ;
   if(valueTempPreScene[71].equals("0")) ORDER_TWO = false ; else ORDER_TWO = true ;
   if(valueTempPreScene[72].equals("0")) ORDER_THREE = false ; else ORDER_THREE = true ;
+  if(valueTempPreScene[73].equals("0")) LEAPMOTION_DETECTED = false ; else LEAPMOTION_DETECTED = true ;
 
 }
 

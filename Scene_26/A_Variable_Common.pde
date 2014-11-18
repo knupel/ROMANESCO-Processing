@@ -65,6 +65,7 @@ String findPath ;
 command from leap motion, mouse or other devices if we code for that :)
 */
 boolean ORDER, ORDER_ONE, ORDER_TWO, ORDER_THREE ;
+boolean LEAPMOTION_DETECTED ;
 
 
 // HIGH VAR
@@ -274,7 +275,7 @@ void createVarP3D() {
    P3DpositionSetting = new PVector [numSettingOrientationObject] [numObj] ;
    P3DdirectionSetting = new PVector [numSettingOrientationObject] [numObj] ;
    //
-   startingPosition = new PVector[numObj] ;
+   startingPosition = new PVector[numObj] ; //<>//
    P3DpositionX = new float[numObj] ;
    P3DpositionY = new float[numObj] ;
    P3DpositionZ = new float[numObj] ;

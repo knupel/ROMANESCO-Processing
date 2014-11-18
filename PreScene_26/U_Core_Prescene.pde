@@ -1,4 +1,42 @@
+Tablet tablet;
+void presceneSetup() {
+  leap = new com.leapmotion.leap.Controller();
+  tablet = new Tablet(this);
+}
 
+
+//OPENING the other window
+void opening() {
+    //OPEN CONTROLEUR and SCENE or MIROIR
+  if (!testRomanesco && openControleur) {
+    fill(blanc) ;
+    stroke(blanc) ;
+    textSize(28 ) ;
+    text("Take your time, smoke a cigarette", 50,height/2 ) ;
+  }
+  if (!testRomanesco) { 
+    if (openControleur) { open(sketchPath("")+"Controleur_"+version+".app") ; openControleur = false ; } 
+    if (openScene)      { open(sketchPath("")+"Scene_"+version+".app") ; openScene = false ; }
+    // testRomanesco = true ;
+  }
+}
+
+
+//INIT in real time and re-init the default setting of the display window
+
+
+void initDraw() {
+  //Default display shape and text
+  rectMode (CORNER) ; 
+  textAlign(LEFT) ;
+  //SCENE ATTRIBUT
+  //  if (fullScreen ) sketchPos(0,0, myScreenToDisplayMySketch) ; 
+  
+  //change the size of displaying if you load an image or a new image
+  if (displaySizeByImage ) updateSizeDisplay(imgDefault) ;
+  
+
+}
 
 
 
@@ -42,8 +80,7 @@ void updateCommand() {
 
 
 
-int speedWheel = 5 ;
-float speedLeapmotion = .3 ;
+
 PVector posRef = new PVector() ;
 int mouseZ ;
 
@@ -71,7 +108,7 @@ void cursorDraw() {
   // security to reset the pmouse for start clean for the next rotation
   if(!ORDER) {
     if(pmouse[0].x != mouse[0].x || pmouse[0].y != mouse[0].y ) {
-     pmouse[0] = gotoTarget(pmouse[0],  mouse[0], .1) ;
+      pmouse[0] = gotoTarget(pmouse[0],  mouse[0], .1) ;
     }
   } 
 
