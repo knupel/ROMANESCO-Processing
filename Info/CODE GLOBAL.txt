@@ -173,6 +173,11 @@ PVector follow(PVector target, float speed) // go to follow something in move li
 
 
 // UTIL GEOMETRY
+
+// create polygone 2D, choice the quantity of summits and the radius.
+void primitive(int x, int y, int radius, int summits)
+
+
 PVector [] circle (PVector pos, int d, int num) // return a list of points xyz to realize a circle, the first param is the position of circle, the second is the diameter, the third is the num of points to do this circle
 PVector [] circle (PVector pos, int d, int num, float jitter) // same function with jitter variation
 
@@ -180,7 +185,7 @@ PVector pointOnCirlcle(int r, float angle) // return the position of the point o
 
 float perimeterCircle (int r) return perimeter
 
-float radiusSurface(int s) return the radius with a speficic surface
+float radiusSurface(int surface) return the radius with a speficic surface
 
 float angle(PVector p0, PVector p1) calcul the angle between two PVectors
 

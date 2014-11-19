@@ -14,12 +14,20 @@ float perimeterCircle ( int r ) {
   float p = 2*r*PI  ;
   return p ;
 }
-//EQUATION
-float radiusSurface(int s) {
-  float  r = sqrt(s/PI) ;
-  return r ;
+
+
+float radiusSurface(int surface) {
+  // calcul the radius from circle surface
+  return sqrt(surface/PI);
 }
+
+
 // END EQUATION CIRCLE
+//////////////////////
+
+
+
+
 // normal direction 0-360 to -1, 1 PVector
 PVector normalDir(int direction) {
   int numPoints = 360;
@@ -70,11 +78,11 @@ void rotation (float angle, float posX, float posY ) {
 
 
 // END EQUATION
+///////////////
 
 
 
-
-
+// PRIMITIVE SHAPE
 //DISC
 void disc( PVector pos, int diam, color c ) {
   for ( int i = 1 ; i < diam +1 ; i++) {
@@ -110,17 +118,47 @@ void chromaticCircle(PVector pos, int d) {
 // END DISC
 
 
+// PRIMITIVE with "n" summits
+void primitive(int x, int y, int radius, int summits) {
+  if(summits < 3) summits = 3 ;
+  PVector pos = new PVector (x,y) ;
+  PVector [] summit = new PVector[summits] ;
+  // create coord of the shape
+  for (int i = 0 ; i < summits ; i++) {
+    summit[i] = circle(pos, radius, summits)[i].copy() ; 
+  }
+  
+  //draw the shape
+  beginShape() ;
+  for (int i = 0 ; i < summits ; i++) {
+    vertex(summit[i].x, summit[i].y) ;
+  }
+  vertex(summit[0].x, summit[0].y) ;
+  endShape() ;
+}
+
+// END PRIMITIVE SHAPE
 
 
 
-//full cirlce
+
+
+
+
+
+// summits around the circle
 PVector [] circle (PVector pos, int d, int num) {
   PVector [] p = new PVector [num] ;
   int surface = d*d ; 
   int radius = ceil(radiusSurface(surface)) ;
+  
+  // choice your starting point
+  float startingAnglePos = PI*.5;
+  if(num == 4) startingAnglePos = PI*.25;
+  
   for( int i=0 ; i < num ; i++) {
-    float stepAngle = map(i, 0, num, 0, 2*PI) ; 
-    float angle =  2*PI - stepAngle;
+    float stepAngle = map(i, 0, num, 0, TAU) ; 
+    float angle =  TAU - stepAngle -startingAnglePos;
     p[i] = new PVector(pointOnCirlcle(radius, angle).x +pos.x,pointOnCirlcle(radius, angle).y + pos.y) ;
   }
   return p ;
@@ -130,6 +168,11 @@ PVector [] circle (PVector pos, int d, int num, float jitter) {
   PVector [] p = new PVector [num] ;
   int surface = d*d ; 
   int radius = ceil(radiusSurface(surface)) ;
+  
+  // choice your starting point
+  float startingAnglePos = PI*.5;
+  if(num == 4) startingAnglePos = PI*.25;
+  
   float angleCorrection ; // this correction is cosmetic, when we'he a pair beam this one is stable for your eyes :)
   for( int i=0 ; i < num ; i++) {
     int beam = num /2 ;
@@ -138,7 +181,7 @@ PVector [] circle (PVector pos, int d, int num, float jitter) {
     
     float stepAngle = map(i, 0, num, 0, TAU) ;
     float jitterAngle = map(jitter, -1, 1, -PI/num, PI/num) ;
-    float angle =  TAU -stepAngle +jitterAngle +angleCorrection ;
+    float angle =  TAU -stepAngle +jitterAngle +angleCorrection -startingAnglePos;
     
     p[i] = new PVector(pointOnCirlcle(radius, angle).x +pos.x, pointOnCirlcle(radius, angle ).y +pos.y) ;
   }

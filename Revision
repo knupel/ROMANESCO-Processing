@@ -3,6 +3,8 @@ ROMANESCO 0.26 Revision
 
 /// CORE ///
 /// ADD ///
+* void primitive(int x, int y, int radius, int summits) to create regulare polygone with "n" summits
+* void appearance(color colorFill, color colorStroke, float thickness) to check the color fill and stroke to disable the fill() or the stroke() and display
 
 /// REMOVE ///////
 * the option to drop image on the Scene
@@ -16,8 +18,13 @@ ROMANESCO 0.26 Revision
 /// OBJECT ///
 /// ADD ///
 * Kofosphere object 3D
+
 * template to code object
+
+* Atom modes : box, sphere, triangle, rectangle...
 * Atom : slider amplitude for the sound reactivity
+* Atom : slider depth for the size box
+* Atom : left, right sound to add jitter direction for each atom
 
 // CHANGE
 * Atom : add new mode

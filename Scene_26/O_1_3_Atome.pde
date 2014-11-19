@@ -11,13 +11,13 @@ class Atome extends SuperRomanesco {
     romanescoVersion = "version 1.3";
     romanescoPack = "Base" ;
     romanescoRender = "P3D" ;
-    romanescoMode = "Chemical title/Chemical schema/Electronic Cloud/Your text" ;
-    romanescoSlider = "Hue fill,Saturation fill,Brightness fill,Alpha fill,Hue stroke,Saturation stroke,Brightness stroke,Alpha stroke,Thickness,Width,Height,Canvas X,Canvas Y,Speed,Direction,Family,Quantity,Amplitude" ;
+    romanescoMode = "Chemical Name/File text/Electronic cloud/Ellipse schema/Ellipse cloud/Triangle schema/Triangle cloud/Rectangle schema/Rectangle cloud/Box schema/Box cloud/Sphere schema/Sphere cloud" ;
+    romanescoSlider = "Hue fill,Saturation fill,Brightness fill,Alpha fill,Hue stroke,Saturation stroke,Brightness stroke,Alpha stroke,Thickness,Width,Height,Depth,Canvas X,Canvas Y,Speed,Direction,Family,Quantity,Amplitude,Angle" ;
   }
   
   //GLOBAL
   int KelvinUnivers  ; // Kelvin degree influent on the mouvement of the Atom, at 0°K there is no move !!! 273K° give 273/Kelvin = 1.0 multi reference when the water became ice ! 
-  int t ;
+  int atomTemperature ;
   float pressure = 1.0 ; // Atmospheric pressure. "1" is earth reference
   // wall of screen
   float restitution = 0.5 ;
@@ -29,8 +29,6 @@ class Atome extends SuperRomanesco {
 
   //Molecule.Atom
   boolean cloud = true ; // To swith ON/OFF phycic of the cloud
-  // ArrayList<Atom> listA ;
-  PVector changeVelocity = new PVector (0.0 , 0.0) ;
 
   float atomX = 0 ; float atomY = 0 ;
   
@@ -55,7 +53,7 @@ class Atome extends SuperRomanesco {
     
     //add one atom to the start
    PVector pos = new PVector (random(width), random(height), 0) ;
-   PVector vel = new PVector ( random(-1, 1 ), random(-1, 1 ), random(-1, 1 ) ) ;
+   PVector vel = new PVector ( random(-1, 1), random(-1, 1), random(-1, 1) ) ;
    int Z = 1 ; // 1 is the hydrogen ID, you can choice between 1 to 118 the last atom knew
    int ion = round(random(0,0));
    float rebound = 0.5 ;
@@ -74,41 +72,40 @@ class Atome extends SuperRomanesco {
     //OBJECT
     for (Atom atm : atomList) {
       ////////////////UPDATE////////////////////////////////////////
-      float velLimit = (tempo[IDobj] ) *5.0 ; // max of speed Atom
+      float velLimit = tempo[IDobj] *5.0 ; // max of speed Atom
       if (velLimit < 1.1 ) velLimit = 1.1 ;
       //the atom temperature give the speed 
       float speed = (speedObj[IDobj] *100) *(speedObj[IDobj] *100) ;
-      if(sound[IDobj]) t =  floor(speed  * tempo[IDobj]) ; else t = round(speed) ;
+      if(sound[IDobj]) atomTemperature =  floor(speed *tempo[IDobj]) ; else atomTemperature = round(speed) ;
       
       //ratio evolution for atom temperature...give an idea to change the speed of this one
       //because the temp of atom is linked with velocity of this one.
       float tempAbs = 10.0 ;
       //VELOCITY and DIRECTION of atom
       if(motion[IDobj]) {
-        //if(action[IDobj]) {
         if(spaceTouch && action[IDobj]) {
           newDirection = new PVector (-pen[IDobj].x, -pen[IDobj].y ) ;
         } else { 
           newDirection = normalDir(int(directionObj[IDobj])) ;
         }
       } else {
-        newDirection = new PVector (0,0,0 ) ;
+        newDirection = new PVector () ;
       }
       
-      PVector newVelocity = new PVector ( sq(tempo[IDobj]) *1000.0, sq(tempo[IDobj]) *1000.0 );
+      PVector newVelocity = new PVector (sq(tempo[IDobj]) *1000., sq(tempo[IDobj]) *1000.);
       //security if the value is null to don't stop the move
       float acceleration ; 
-      if(pen[IDobj].z == 0 ) acceleration = 1.0  ; else acceleration = pen[IDobj].z * 1000.0  ;
+      if(pen[IDobj].z == 0 ) acceleration = 1. ; else acceleration = pen[IDobj].z *1000. ;
       
-      // must work the sound direction
-      /*
-      float soundDirectionRight = map(right[IDobj], 0, 1, -1, 1) ;
-      float soundDirectionLeft = map(left[IDobj], 0, 1, -1, 1) ;
-      */
-      float soundDirection = 1 ;
-      changeVelocity = new PVector (newDirection.x *newVelocity.x *soundDirection *acceleration, newDirection.y *newVelocity.y *soundDirection *acceleration) ;
       
-      atm.update (t, velLimit, changeVelocity, tempAbs) ; // obligation to use this void, in the atomic univers
+      PVector soundDirection = new PVector() ;
+      if(sound[IDobj]) soundDirection = new PVector(right[IDobj], left[IDobj]) ; else soundDirection = new PVector(0, 0) ;
+
+      float velocityX = newDirection.x *newVelocity.x *acceleration ;
+      float velocityY = newDirection.y *newVelocity.y *acceleration ;
+      PVector changeVelocity = new PVector (velocityX, velocityY) ;
+
+      atm.update (atomTemperature, velLimit, changeVelocity, tempAbs, soundDirection) ; // obligation to use this void, in the atomic univers
       //COLLISION
       atm.covalentCollision (atomList);
       //DRAG
@@ -159,12 +156,17 @@ class Atome extends SuperRomanesco {
       
       
       // SIZE
-      float sizeAtomeRaw = map (sizeXObj[IDobj], .1,width, 1, width *.1) ;
-      float sizeAtome = sizeAtomeRaw *beatSizeProton ;
+      float sizeAtomeRawX = map (sizeXObj[IDobj], .1, width, .2, width *.05) ;
+      float sizeAtomeRawY = map (sizeYObj[IDobj], .1, width, .2, width *.05) ;
+      float sizeAtomeRawZ = map (sizeZObj[IDobj], .1, width, .2, width *.05) ;
+      float sizeAtomeX = sizeAtomeRawX *beatSizeProton ;
+      float sizeAtomeY = sizeAtomeRawY *beatSizeProton ;
+      float sizeAtomeZ = sizeAtomeRawZ *beatSizeProton ;
+      PVector sizeAtomeXYZ = new PVector(sizeAtomeX,sizeAtomeY,sizeAtomeZ) ;
       
-      float thickness = map(thicknessObj[IDobj],.1, width/3, .1, width/30) ;
+      float thickness = map(thicknessObj[IDobj],.1, width/3, .1, width/20) ;
       //diameter
-      float factorSizeField = sizeAtome *1.2 ; // factor size of the electronic Atom's Cloud
+      float factorSizeField = sizeAtomeX *1.2 ; // factor size of the electronic Atom's Cloud
       
       /////////TEXT///
       
@@ -173,23 +175,41 @@ class Atome extends SuperRomanesco {
       int sizeTextName = int(sizeFont) ;
       int sizeTextInfo = int(sizeFont *.5) ;
       //width
-      float posTextInfo = map(sizeYObj[IDobj], .1, width,sizeAtomeRaw*.2, width*.2) + (beat[IDobj] *2.0)  ;
+      float posTextInfo = map(sizeYObj[IDobj], .1, width,sizeAtomeRawX*.2, width*.2) + (beat[IDobj] *2.0)  ;
       //Canvas
       PVector marge = new PVector(map(canvasXObj[IDobj], width/10, width, width/20, width *3) , map(canvasYObj[IDobj], height/10, height, height/20, height *3) ) ;
       
 
       //MODE OF DISPLAY
-      if (mode[IDobj] == 0 || mode[IDobj] == 255 ) {
-        atm.titleAtom2D (fillObj[IDobj], strokeObj[IDobj], font[IDobj], sizeTextName, sizeTextInfo, posTextInfo ) ; // (color name, color Info, PFont, int sizeTextName,int  sizeTextInfo )
-      } else if (mode[IDobj] == 1 ) {
-        atm.display( fillObj[IDobj], strokeObj[IDobj], sizeAtome, thickness) ; // wait color
-        atm.eCloudEllipse2D(strokeObj[IDobj], factorSizeField, cloud, thickness) ;
-      } else if (mode[IDobj] == 2 ) {
-        atm.display( fillObj[IDobj], strokeObj[IDobj], sizeAtome, thickness) ; // wait color
-        atm.eCloudPoint2D(fillObj[IDobj], factorSizeField, cloud, thickness) ;
-      } else {
-        atm.title2D(fillObj[IDobj], font[IDobj], sizeTextName, posText ) ; 
-      }
+      //romanescoMode = "Chemical Name/File text/Electronic cloud/Ellipse schema/Ellipse cloud/Triangle schema/Triangle cloud/Rectangle schema/Rectangle cloud/Box schema/Box cloud/Sphere schema/Sphere cloud" ;
+      if (mode[IDobj] == 0 || mode[IDobj] == 255 ) 
+      atm.titleAtom2D (fillObj[IDobj], strokeObj[IDobj], font[IDobj], sizeTextName, sizeTextInfo, posTextInfo, angleObj[IDobj]) ; // (color name, color Info, PFont, int sizeTextName,int  sizeTextInfo )
+      else if (mode[IDobj] == 1 ) 
+      atm.title2D(fillObj[IDobj], font[IDobj], sizeTextName, posText, angleObj[IDobj]) ;
+      else if (mode[IDobj] == 2 )
+      atm.display("", "POINT", sizeAtomeXYZ, fillObj[IDobj], strokeObj[IDobj], thickness, angleObj[IDobj]) ;
+      else if (mode[IDobj] == 3 )
+      atm.display("ELLIPSE", "ELLIPSE", sizeAtomeXYZ, fillObj[IDobj], strokeObj[IDobj], thickness, angleObj[IDobj]) ;
+      else if (mode[IDobj] == 4 )
+      atm.display("ELLIPSE", "POINT", sizeAtomeXYZ, fillObj[IDobj], strokeObj[IDobj], thickness, angleObj[IDobj]) ;
+      else if (mode[IDobj] == 5 )
+      atm.display("TRIANGLE", "ELLIPSE", sizeAtomeXYZ, fillObj[IDobj], strokeObj[IDobj], thickness, angleObj[IDobj]) ;
+       else if (mode[IDobj] == 6 )
+      atm.display("TRIANGLE", "POINT", sizeAtomeXYZ, fillObj[IDobj], strokeObj[IDobj], thickness, angleObj[IDobj]) ;
+      else if (mode[IDobj] == 7 )
+      atm.display("RECTANGLE", "ELLIPSE", sizeAtomeXYZ, fillObj[IDobj], strokeObj[IDobj], thickness, angleObj[IDobj]) ;
+      else if (mode[IDobj] == 8 )
+      atm.display("RECTANGLE", "POINT", sizeAtomeXYZ, fillObj[IDobj], strokeObj[IDobj], thickness, angleObj[IDobj]) ;
+      else if (mode[IDobj] == 9 )
+      atm.display("BOX", "ELLIPSE", sizeAtomeXYZ, fillObj[IDobj], strokeObj[IDobj], thickness, angleObj[IDobj]) ;
+      else if (mode[IDobj] == 10 )
+      atm.display("BOX", "POINT", sizeAtomeXYZ, fillObj[IDobj], strokeObj[IDobj], thickness, angleObj[IDobj]) ;
+      else if (mode[IDobj] == 11 )
+      atm.display("SPHERE", "ELLIPSE", sizeAtomeXYZ, fillObj[IDobj], strokeObj[IDobj], thickness, angleObj[IDobj]) ;
+      else if (mode[IDobj] == 12 )
+      atm.display("SPHERE", "POINT", sizeAtomeXYZ, fillObj[IDobj], strokeObj[IDobj], thickness, angleObj[IDobj]) ;
+ 
+
       
       //UNIVERS
       ////////////////////////////////////////////////////////////////////////////////////////////
@@ -285,7 +305,7 @@ class Atome extends SuperRomanesco {
 
 
 ///////////
-//CLAS ATOM
+//CLASS ATOM
 class Atom {
   String [] nameAtom = { "Atom", "H",                                                                                                                                                                                         "He", 
                                  "Li", "Be",                                                                                                                                                 "B",  "C",   "N",   "O",  "F",   "Ne", 
@@ -310,7 +330,8 @@ class Atom {
  ArrayList<Electron> listE; // list of electron for each Atom
   PVector pos ;    // position of the atom
   PVector vel ;    // velocity of the atom
-  float d, mass, rebound ; // diameter and answer on the wall
+  float diamAtom ;
+  float mass, rebound ; // diameter and answer on the wall
   
   //Atomic property
   int  neutron, proton, electron, ion, valenceElectron, missingElectron, freeElectronicSpace ;
@@ -320,7 +341,7 @@ class Atom {
   float electroNegativity = 0.0 ; // Electronegativity of atom 
 
   float mgt ; // ionic load : give the magnetism atom
-  float amp = 1.0 ; // default parameter of the amplitude of electronic field
+  float amplitudeElectrocField = 1.0 ; // default parameter of the amplitude of electronic field
   float ampInfo = 1.0 ; // default parameter of the amplitude of electronic field
   
   boolean insideA, insideF, lock, collision, cloud ;
@@ -346,7 +367,7 @@ class Atom {
     pos = pos_  ;
     vel = vel_  ;
     rebound = rebound_ ; 
-    d = d_ ;
+    diamAtom = d_ ;
     mass = d_ ;
     // UNIVERS
     nvrs = new Univers() ;
@@ -364,7 +385,8 @@ class Atom {
     
     mass = proton + neutron ; ion = ion_ ;
     electroNegativity = Pauling[proton_] ; // Give the electroNagativity of Atom whith Pauling board
-    rebound = rebound_ ; d = d_ ;
+    rebound = rebound_ ; 
+    diamAtom = d_ ;
     K_atom = Kelvin_ ;
     float Ka = Kelvin_ / 273.0 ;
      
@@ -393,7 +415,8 @@ class Atom {
     
     mass = proton + neutron ; ion = ion_ ;
     electroNegativity = Pauling[proton_] ; // Give the electroNagativity of Atom whith Pauling board
-    rebound = rebound_ ; d = d_ ;
+    rebound = rebound_ ; 
+    diamAtom = d_ ;
     K_atom = Kelvin_ ;
     float Ka = Kelvin_ / 273.0 ;
      
@@ -420,9 +443,11 @@ class Atom {
   }
   
   // update Atom
-  void update(int Kelvin_univers, float velLimit, PVector changeVel, float tempAbs) { 
-    vel.x = changeVel.x ;
-    vel.y = changeVel.y;
+  void update(int Kelvin_univers, float velLimit, PVector changeVel, float tempAbs, PVector jitterDirection) { 
+    float jitterX = map(random(jitterDirection.x), 0, 1, -1, 1) ;
+    float jitterY = map(random(jitterDirection.y), 0, 1, -1, 1) ;
+    vel.x = changeVel.x *jitterX ;
+    vel.y = changeVel.y *jitterY;
     
     //update atom temperature
     if (K_atom < Kelvin_univers ) K_atom += tempAbs ;
@@ -454,37 +479,7 @@ class Atom {
    if (!covalentBondLast )  c = "full";   
   }
   
-//:::::::Optional void atom ( position, detection...)
-  void drag2D() {
-    //strokeWeight(d) ;
-    insideA = radiusCursor2D() ;
-    insideF = radiusElectronicFieldCursor2D() ;
-    if(mousePressed && insideA) lock = true;
-    if(!mousePressed)           lock = false;
-    if (lock) { 
-      pos.x = mouseX; 
-      pos.y = mouseY;
-    }
-  }
-  //:::::::drag Atom
-  void drag2D(float inertia) {
-    //strokeWeight(d) ;
-    insideA = radiusCursor2D() ;
-    insideF = radiusElectronicFieldCursor2D() ;
-    if( mousePressed && insideA) lock = true ;
-    if(!mousePressed)            lock = false ;
-    if (lock) { 
-      pos.x = mouseX; 
-      pos.y = mouseY;
-      vel.x = (mouseX -pmouseX) * inertia; 
-      vel.y = (mouseY -pmouseY) * inertia;
-      if (vel.x == 0 && vel.y == 0 ) 
-      {
-        vel.x = random(-1,1) ;
-        vel.x = random(-1,1) ;
-      }   
-    }
-  }
+
 ////////////////////////////////////COLLISION/////////////////////////////////////////////////////////adapted from Ira Greenberg///////////////
 //////////////////////////COLLISION SIMPLE//////////////////////////////////////////////////////////
   void collision(ArrayList<Atom> listA ) {
@@ -846,137 +841,191 @@ class Atom {
   
   
   
+  
+  
+  
+  
+  
+  
+  
+  
   ////////////////////
   //DISPLAY
-  
-  //Display classic
-  void display (color colorFill, color colorStroke, float fs, float thickness) {
-    if(alpha(colorFill) !=0 || alpha(colorStroke) !=0 ) {
-      float diam = d*fs ;
-      if (thickness < 0.01 ) thickness = 0.01 ;
-      //stroke param
-      if (alpha(colorStroke) !=0) {
-        strokeWeight(thickness) ;
-        stroke(colorStroke) ;
-      } else noStroke() ;
-      
-      // fill param
-      if (alpha(colorFill) !=0) {
-        fill(colorFill) ;
-      } else noFill() ;
-      
-      
-
-      pushMatrix() ;
-      translate(pos.x, pos.y) ;
-      sphere(diam) ;
-      int face ;
-      face = int(diam * .2) ;
-      if(face < 5 ) face = 5; else if(face > 20 ) face = 20 ;
-      sphereDetail(face) ;
-      popMatrix() ;
-    }
-  }
-  
-  
-  //////////////display the electronic Cloud/////////////////////////////
-  //Possible to creat a void with 3D or with ellipse
-  void eCloudPoint2D(color colorFill, float amp, boolean cloud_, float thickness) {
-    addElectron() ;
-    electronicInfo() ;
+  void display(String core, String cloud, PVector size, color colorFill, color colorStroke, float thickness, float orientation) {
+    appearance(colorFill, colorStroke,thickness) ;
+    //check size
+    size.x *= diamAtom ;
+    size.y *= diamAtom ;
+    size.z *= diamAtom ;
     
-    cloud = cloud_ ;  // send the information to class Univers for the wall
-    float Ex ;
-    float Ey ;
     
-    float ElectronicCloud = radiusElectronicField() *2;
-    // thickness is the diam of the electron point
-    if (thickness < .1 ) thickness = .1 ;
-    if ( alpha(colorFill) != 0 ) {
-      for (Electron lctrn : listE) {
-        float randomEx = random( -ElectronicCloud, ElectronicCloud ) ;
-        float randomEy = random( -ElectronicCloud, ElectronicCloud ) ;
-        
-        if ( sqrt(sq(randomEx) + sq(randomEy)) > (ElectronicCloud/2 ) ) // to keep the electron in the radius of atom
-        {
-          Ex = -ElectronicCloud ;
-          Ey = -ElectronicCloud ;
-        } else {
-          Ex = pos.x + randomEx ;
-          Ey = pos.y + randomEy ;  
-          lctrn.displayPoint2D(Ex, Ey, thickness, colorFill) ; 
-        }
-      }
+    pushMatrix() ;
+    translate(pos.x, pos.y) ;
+    rotateX(radians(orientation)) ;
+    // CORE
+    if(core.equals("ELLIPSE")) coreEllipse(size) ;
+    if(core.equals("RECTANGLE")) coreRect(size) ;
+    if(core.equals("BOX")) coreBox(size) ;
+    if(core.equals("SPHERE")) coreSphere(size) ;
+    if(core.equals("TRIANGLE")) coreTriangle(size) ;
+    
+    //CLOUD
+    if(cloud.equals("ELLIPSE")) cloudEllipse(size.x *.2) ;
+    if(cloud.equals("POINT")) {
+      // special appearance for the point because Processing use the stroke for the point
+      stroke(colorFill) ;
+      strokeWeight(thickness *2.) ;
+      cloudPoint(size.x *.2) ;
+      appearance(colorFill, colorStroke,thickness) ;
     }
+    
+    popMatrix() ;
+    
   }
-  // display the ellipse of Valence bond
-  void eCloudEllipse2D(color eColor, float amp, boolean cloud_, float thickness) {
-    electronicInfo() ;
-    noFill() ;
-    if ( thickness < 0.01 ) thickness = 0.01 ;
-    if ( alpha(eColor) != 0 ) {
+  
+  
 
-      strokeWeight(thickness) ;
-      stroke( eColor) ;
-      ellipse (pos.x, pos.y, radiusElectronicFieldCovalent() *amp, radiusElectronicFieldCovalent() *amp ) ;
-      ellipse (pos.x, pos.y, radiusElectronicField() *amp,     radiusElectronicField() *amp ) ;  
-    }
-  }
-
-  //////////////Display text & Misc
+  // DISPLAY TEXT and MISC
+  ////////////////////////
   // text from main program
-  void title2D(String title, color cName, PFont p, int sizeText, PVector posText ) {
+  /*
+  void title2D(String title, color cName, PFont p, int sizeText, PVector posText, float orientation) {
     if (alpha(cName) != 0 ) {
       fill(cName); textFont(p, sizeText);
       textAlign(CENTER);
       text(title , pos.x +posText.x , pos.y +posText.y );
     }
   }
-  void title2D(color cName, PFont p, int sizeText, PVector posText ) {
-    if ( alpha(cName) != 0 ) {
-      fill(cName); textFont(p, sizeText);
+  */
+  void title2D(color colorText, PFont p, int sizeText, PVector posText, float orientation) {
+    if ( alpha(colorText) != 0 ) {
+      fill(colorText); textFont(p, sizeText);
       textAlign(CENTER) ;
-      text(nickName , pos.x +posText.x , pos.y +posText.y );
+      
+      pushMatrix() ;
+      translate(pos.x, pos.y) ;
+      rotateX(radians(orientation)) ;
+      text(nickName ,posText.x,posText.y);
+      popMatrix() ;
     }
   }
   /////////////////////DISPLAY PROPERTY of ATOM////////////////////////////////////////////
-  void titleAtom2D (color cName, color cInfo, PFont p, int sizeTextName, int sizeTextInfo, float amp_ ) {
+  void titleAtom2D (color colorText, color colorInfo, PFont p, int sizeTextName, int sizeTextInfo, float amp_, float orientation) {
     ampInfo = amp_ ;
-    float posXtext = (n *d *ampInfo) *0.35 ;
+    float posXtext = (n *diamAtom *ampInfo) *0.35 ;
     float posYtext = sizeTextName *0.25 *(ampInfo/10.0) ;
-    
-    if ( alpha(cName) != 0 ) {
-      fill(cName); textFont(p, sizeTextName);
+    pushMatrix() ;
+    translate(pos.x, pos.y) ;
+    rotateX(radians(orientation)) ;
+      
+    if ( alpha(colorText) != 0 ) {
+      fill(colorText); textFont(p, sizeTextName);
       textAlign(CENTER);
 
-      text(nameAtom[proton] , pos.x , pos.y + posYtext );
+      text(nameAtom[proton] ,0 , posYtext );
     }
     //Info
-    if ( alpha(cInfo) != 0 ) {
-      fill(cInfo); textFont(p, sizeTextInfo);
+    if ( alpha(colorInfo) != 0 ) {
+      fill(colorInfo); textFont(p, sizeTextInfo);
       textAlign (LEFT) ; 
-      text(ion,              pos.x +posXtext , pos.y -posYtext );
-      text(valenceElectron,  pos.x +posXtext , pos.y +( 2.3 *posYtext));
+      text(ion,              posXtext , -posYtext );
+      text(valenceElectron,  posXtext ,  2.3 *posYtext);
       textAlign (RIGHT) ; 
-      text(proton,           pos.x -posXtext , pos.y +( 2.3 *posYtext));
-      text(round(mass),      pos.x -posXtext , pos.y -posYtext); 
+      text(proton,           -posXtext , 2.3 *posYtext);
+      text(round(mass),      -posXtext , -posYtext); 
 
     }
+    popMatrix() ;
   } 
   
+  
+  
+  
+  
+  // ANNEXE DISPLAY
+  // CORE
+  void coreTriangle(PVector size) {
+    primitive(0,0,int(size.x),3) ;
+  }
+  
+  void coreSphere(PVector size) {
+    int minFace = 10 ;
+    int maxFace = 25 ;
+    sphere(size.x) ;
+    int face ;
+    face = int(size.x * .2) ;
+    if(face < minFace ) face = minFace; else if(face > maxFace ) face = maxFace ;
+    sphereDetail(face) ;
+  }
+  
+  void coreBox(PVector size) {
+    box(size.x, size.y, size.z) ;
+  }
+  
+  
+  void coreEllipse(PVector size) {
+    ellipse(0,0,size.x, size.y) ;
+  }
+  
+  void coreRect(PVector size) {
+    rectMode(CENTER) ;
+    rect(0,0,size.x, size.y) ;
+    rectMode(CORNER) ;
+  }
+  
+  //CLOUD 
+  
+  // ELLIPSE
+  void cloudEllipse(float newAmplitudeElectrocField) {
+    electronicInfo() ;
+    noFill() ;
+    ellipse (0, 0, radiusElectronicFieldCovalent() *newAmplitudeElectrocField, radiusElectronicFieldCovalent() *newAmplitudeElectrocField ) ;
+    ellipse (0, 0, radiusElectronicField() *newAmplitudeElectrocField,     radiusElectronicField() *newAmplitudeElectrocField ) ; 
+  }
+  
+  // CLOUD POINT
+  void cloudPoint(float newAmplitudeElectrocField) {
+    addElectron() ;
+    electronicInfo() ;
+    cloud = true ;
+    PVector posElectron = new PVector() ; 
+    float ElectronicCloud = radiusElectronicField() *.5 *newAmplitudeElectrocField;
+    
+    //
+    for (Electron electron : listE) {
+      float randomEx = random( -ElectronicCloud, ElectronicCloud ) ;
+      float randomEy = random( -ElectronicCloud, ElectronicCloud ) ;
+      
+      // check if the electron are in the diameter
+      
+      if (sqrt(sq(randomEx) + sq(randomEy)) > ElectronicCloud) {
+        posElectron.x = -ElectronicCloud ;
+        posElectron.y = -ElectronicCloud ;
+      } else {
+        
+        posElectron.x = randomEx ;
+        posElectron.y = randomEy ;
+        point(posElectron.x,posElectron.y) ;
+        // electron.displayPoint2D(posElectron, thickness, colorFill) ; 
+      }
+    }
+  }
+  // END DISPLAY
+  //////////////
+  
 
-///////////////////////////////////////////////////////////////////////////////////////////////
-//////////////////////////EXTERNAL INFLUENCE///////////////////////////////////////////////////
-  //Wall border
+  /////////////////////////////////////////////////////////////////////////////////////////////
+  //////////////////////////EXTERNAL INFLUENCE///////////////////////////////////////////////////
+  // Wall border
   void universWall2D(float restitutionBottom_, float restitutionTop_, float restitutionRight_, float restitutionLeft_, boolean wallOnOff_, PVector marge) {
     nvrs.physicWall2D(restitutionBottom_, restitutionTop_, restitutionRight_, restitutionLeft_, wallOnOff_) ;
     nvrs.wall2D(pos, vel, radius(), radiusElectronicField(), rebound, cloud, marge ) ;
   }  
-//::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+  //
 
    
-////////////////////////////////////////////////////////////////////////////////////////////////  
-//////////////////////////////////////RETURN///////////////////////////////////////////////////
+  ////////////////////////////////////////////////////////////////////////////////////////////////  
+  //////////////////////////////////////RETURN///////////////////////////////////////////////////
 
   //////DETECT COLLISION\\\\\\\\\\\\\\\\\\\\\\\\\\\\
   // Detection the cursor is on the atom
@@ -1020,12 +1069,12 @@ class Atom {
   }
   //::::::::::::::::: Calculate the surface of Atom
   float surface() {
-    return  PI*sq(d/2) ;   
+    return  PI*sq(diamAtom/2) ;   
   }
   //:::::::::::::::RADIUS:::::::::::::::::::
   //:::::::::::::::Return the radius of atom
   float radius() { 
-    return d / 2;
+    return diamAtom / 2;
   }
   //:::::::::::::::Return the radius of the atom's electronic field
   float radiusElectronicField() { 
@@ -1048,7 +1097,7 @@ class Atom {
     
     ratioSizeAtom = 1 + ( ratioSizeAtom *ratioPeriodic *base ) ;
     
-    REF =( d *amp *ratioSizeAtom ) ;
+    REF = diamAtom *amplitudeElectrocField *ratioSizeAtom  ;
     return REF ;
   }
   //:::::::::::::::Return the radius of the atom's electronic valence bond field 
@@ -1068,11 +1117,11 @@ class Atom {
     if (n == 7 ) { base = 4.55 ; ratioPeriodic = 2.50 ; maxPos = 32 ; posAtom = abs( proton -118) ;  }
     
     float newPosAtom = norm( posAtom, 0.0, maxPos -1 ) ;
-    if (newPosAtom == 0 ) { ratioSizeAtom = newPosAtom ; } else { ratioSizeAtom = newPosAtom / ((3.0 - pow(newPosAtom, 5)  ) -newPosAtom) ; }
+    if (newPosAtom == 0 ) ratioSizeAtom = newPosAtom ; else ratioSizeAtom = newPosAtom / ((3.0 - pow(newPosAtom, 5)  ) -newPosAtom) ; 
     
     ratioSizeAtom = 1 + ( ratioSizeAtom *ratioPeriodic *base ) ;
     
-    REFC =( d *amp *ratioSizeAtom *0.8 ) ;
+    REFC = diamAtom *amplitudeElectrocField *ratioSizeAtom *0.8 ;
     return REFC ;
   }
 
@@ -1091,57 +1140,67 @@ class Atom {
   int getProton() {
     return proton ;
   }
+  
+  
+  
+  
+  
+  
+  
+  // ANNEXE
+  //Optional void atom
+
+  void drag2D() {
+    //strokeWeight(d) ;
+    insideA = radiusCursor2D() ;
+    insideF = radiusElectronicFieldCursor2D() ;
+    if(mousePressed && insideA) lock = true;
+    if(!mousePressed)           lock = false;
+    if (lock) { 
+      pos.x = mouseX; 
+      pos.y = mouseY;
+    }
+  }
+  //:::::::drag Atom
+  void drag2D(float inertia) {
+    //strokeWeight(d) ;
+    insideA = radiusCursor2D() ;
+    insideF = radiusElectronicFieldCursor2D() ;
+    if( mousePressed && insideA) lock = true ;
+    if(!mousePressed)            lock = false ;
+    if (lock) { 
+      pos.x = mouseX; 
+      pos.y = mouseY;
+      vel.x = (mouseX -pmouseX) * inertia; 
+      vel.y = (mouseY -pmouseY) * inertia;
+      if (vel.x == 0 && vel.y == 0 ) 
+      {
+        vel.x = random(-1,1) ;
+        vel.x = random(-1,1) ;
+      }   
+    }
+  }
+  // END ANNEXE
+  
 }
+
+// END CLASS ATOM
+/////////////////
+
+
+
+
+
+
 
 
 
 //////////////////////////
-//SUPER CLASS ELECTRON
+//SUPER CLASS ELECTRON to create a list of electron
 class Electron {
-  float thick = 1.0 ;
   Electron() {}
-  //::::::::::::::::::::::::::::::::::::::::::::::::::
-  void displayPoint2D(float x , float y ,float diam , color c) {
-   // if (alpha(eColor) != 0 ) { 
-  
-      strokeWeight(diam) ;
-      stroke(c) ;
-      point(x, y) ;
- //   } 
-      
-    
-  //  set(int(x_), int(y_), eColor ) ;
-  }
-  
-  //::::::::::::::::::::::::::::::::::::::::::::::::::
-  void displayPoint3D(float x , float y , float z ,int diam , color eColor) {
-    if (alpha(eColor) != 0 ) {
-      strokeWeight(diam) ;
-      stroke(eColor) ;
-      point(x, y, z) ;
-    }
-  }
-  
-  //:::::::::::::::::::::::::::::::::::::::::::::::::::
-  void displayEllipse(float x_ , float y_ ,int d_ , color eColorFill, color eColorStroke, float eThick ) {
-    thick = eThick ;
-    if (alpha(eColorFill) != 0 && alpha( eColorStroke) != 0  ) {
-      strokeWeight(thick) ;
-      fill(eColorFill) ;
-      stroke(eColorStroke) ;
-      ellipse(x_, y_, d_, d_) ;
-    } else if (alpha(eColorFill) == 0 ) {
-      strokeWeight(thick) ;
-      noFill() ;
-      stroke(eColorStroke) ;
-      ellipse(x_, y_, d_, d_) ;
-    } else if (alpha(eColorStroke) == 0 ) {
-      noStroke() ;
-      fill(eColorFill) ;
-      ellipse(x_, y_, d_, d_) ;
-    }
-  }
 }
+
 ///////////////////////////////////////////////////
 //Special class creat like reference for the rotate
 class Ref {

@@ -41,6 +41,19 @@ void antiBugFillBlack(color c) {
     fill (c) ; 
   }
 }
+
+
+// activate the fill, stroke and set the the strokeWeight
+void appearance(color colorFill, color colorStroke, float thickness) {
+  //check the color
+  if(alpha(colorFill) <=0)  noFill() ; else fill(colorFill) ;
+  
+  if(alpha(colorStroke) <=0) noStroke() ;
+  else {
+    stroke(colorStroke) ;
+    strokeWeight(thickness) ;
+  }
+}
   
   
   
