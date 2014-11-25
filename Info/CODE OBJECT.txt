@@ -70,9 +70,9 @@ VARIABLES
 
 BUTTON
 ––––––––––––––––––––––
-boolean sound[ID]
-boolean parameter[ID]
-boolean action[ID]
+boolean sound[IDobj]
+boolean parameter[IDobj]
+boolean action[IDobj]
 
 
 SLIDER

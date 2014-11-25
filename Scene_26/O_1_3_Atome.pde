@@ -11,7 +11,7 @@ class Atome extends SuperRomanesco {
     romanescoVersion = "version 1.3";
     romanescoPack = "Base" ;
     romanescoRender = "P3D" ;
-    romanescoMode = "Chemical Name/File text/Electronic cloud/Ellipse schema/Ellipse cloud/Triangle schema/Triangle cloud/Rectangle schema/Rectangle cloud/Box schema/Box cloud/Sphere schema/Sphere cloud" ;
+    romanescoMode = "Chemical Name/File text/Electronic cloud/Ellipse circle/Ellipse triangle/Ellipse cloud/Triangle circle/Triangle triangle/Triangle cloud/Rectangle rectangle/Rectangle cloud" ;
     romanescoSlider = "Hue fill,Saturation fill,Brightness fill,Alpha fill,Hue stroke,Saturation stroke,Brightness stroke,Alpha stroke,Thickness,Width,Height,Depth,Canvas X,Canvas Y,Speed,Direction,Family,Quantity,Amplitude,Angle" ;
   }
   
@@ -41,6 +41,9 @@ class Atome extends SuperRomanesco {
   
   //direction of atome
   PVector newDirection ;
+  
+  // 3D mode for the objects
+  boolean threeDimension ;
   
 
   
@@ -109,13 +112,18 @@ class Atome extends SuperRomanesco {
       //COLLISION
       atm.covalentCollision (atomList);
       //DRAG
+      /*
       float inertia = 1.0 ; // strong of the drag
       atm.drag2D(inertia) ;
+      */
     
       
       //DISPLAY
       //PARAMETER FROM ROMANESCO
       //the proton change the with the beat of music
+      
+      // 3D or 2D
+      if(dTouch && parameter[IDobj] ) threeDimension = !threeDimension ;
 
       
       int max = 118 ;
@@ -184,30 +192,35 @@ class Atome extends SuperRomanesco {
       //romanescoMode = "Chemical Name/File text/Electronic cloud/Ellipse schema/Ellipse cloud/Triangle schema/Triangle cloud/Rectangle schema/Rectangle cloud/Box schema/Box cloud/Sphere schema/Sphere cloud" ;
       if (mode[IDobj] == 0 || mode[IDobj] == 255 ) 
       atm.titleAtom2D (fillObj[IDobj], strokeObj[IDobj], font[IDobj], sizeTextName, sizeTextInfo, posTextInfo, angleObj[IDobj]) ; // (color name, color Info, PFont, int sizeTextName,int  sizeTextInfo )
-      else if (mode[IDobj] == 1 ) 
-      atm.title2D(fillObj[IDobj], font[IDobj], sizeTextName, posText, angleObj[IDobj]) ;
-      else if (mode[IDobj] == 2 )
-      atm.display("", "POINT", sizeAtomeXYZ, fillObj[IDobj], strokeObj[IDobj], thickness, angleObj[IDobj]) ;
-      else if (mode[IDobj] == 3 )
-      atm.display("ELLIPSE", "ELLIPSE", sizeAtomeXYZ, fillObj[IDobj], strokeObj[IDobj], thickness, angleObj[IDobj]) ;
-      else if (mode[IDobj] == 4 )
-      atm.display("ELLIPSE", "POINT", sizeAtomeXYZ, fillObj[IDobj], strokeObj[IDobj], thickness, angleObj[IDobj]) ;
-      else if (mode[IDobj] == 5 )
-      atm.display("TRIANGLE", "ELLIPSE", sizeAtomeXYZ, fillObj[IDobj], strokeObj[IDobj], thickness, angleObj[IDobj]) ;
-       else if (mode[IDobj] == 6 )
-      atm.display("TRIANGLE", "POINT", sizeAtomeXYZ, fillObj[IDobj], strokeObj[IDobj], thickness, angleObj[IDobj]) ;
-      else if (mode[IDobj] == 7 )
-      atm.display("RECTANGLE", "ELLIPSE", sizeAtomeXYZ, fillObj[IDobj], strokeObj[IDobj], thickness, angleObj[IDobj]) ;
-      else if (mode[IDobj] == 8 )
-      atm.display("RECTANGLE", "POINT", sizeAtomeXYZ, fillObj[IDobj], strokeObj[IDobj], thickness, angleObj[IDobj]) ;
-      else if (mode[IDobj] == 9 )
-      atm.display("BOX", "ELLIPSE", sizeAtomeXYZ, fillObj[IDobj], strokeObj[IDobj], thickness, angleObj[IDobj]) ;
-      else if (mode[IDobj] == 10 )
-      atm.display("BOX", "POINT", sizeAtomeXYZ, fillObj[IDobj], strokeObj[IDobj], thickness, angleObj[IDobj]) ;
-      else if (mode[IDobj] == 11 )
-      atm.display("SPHERE", "ELLIPSE", sizeAtomeXYZ, fillObj[IDobj], strokeObj[IDobj], thickness, angleObj[IDobj]) ;
-      else if (mode[IDobj] == 12 )
-      atm.display("SPHERE", "POINT", sizeAtomeXYZ, fillObj[IDobj], strokeObj[IDobj], thickness, angleObj[IDobj]) ;
+      else if (mode[IDobj] == 1 ) { 
+        atm.title2D(fillObj[IDobj], font[IDobj], sizeTextName, posText, angleObj[IDobj]) ;
+      } else if (mode[IDobj] == 2 ) {
+        atm.display("", "POINT", sizeAtomeXYZ, fillObj[IDobj], strokeObj[IDobj], thickness, angleObj[IDobj]) ;
+      } else if (mode[IDobj] == 3 ) {
+        if(threeDimension) atm.display("SPHERE", "ELLIPSE", sizeAtomeXYZ, fillObj[IDobj], strokeObj[IDobj], thickness, angleObj[IDobj]) ;
+        else atm.display("ELLIPSE", "ELLIPSE", sizeAtomeXYZ, fillObj[IDobj], strokeObj[IDobj], thickness, angleObj[IDobj]) ;
+      } else if (mode[IDobj] == 4 ) {
+        if(threeDimension) atm.display("SPHERE", "TRIANGLE", sizeAtomeXYZ, fillObj[IDobj], strokeObj[IDobj], thickness, angleObj[IDobj]) ;
+        else atm.display("ELLIPSE", "TRIANGLE", sizeAtomeXYZ, fillObj[IDobj], strokeObj[IDobj], thickness, angleObj[IDobj]) ;
+      } else if (mode[IDobj] == 5 ) {
+        if(threeDimension) atm.display("SPHERE", "POINT", sizeAtomeXYZ, fillObj[IDobj], strokeObj[IDobj], thickness, angleObj[IDobj]) ;
+        else atm.display("ELLIPSE", "POINT", sizeAtomeXYZ, fillObj[IDobj], strokeObj[IDobj], thickness, angleObj[IDobj]) ;
+      } else if (mode[IDobj] == 6 ) {
+        if(threeDimension) atm.display("TETRA", "ELLIPSE", sizeAtomeXYZ, fillObj[IDobj], strokeObj[IDobj], thickness, angleObj[IDobj]) ;
+        else atm.display("TRIANGLE", "ELLIPSE", sizeAtomeXYZ, fillObj[IDobj], strokeObj[IDobj], thickness, angleObj[IDobj]) ;
+      } else if (mode[IDobj] == 7 ) {
+        if(threeDimension) atm.display("TETRA", "TRIANGLE", sizeAtomeXYZ, fillObj[IDobj], strokeObj[IDobj], thickness, angleObj[IDobj]) ;
+        else atm.display("TRIANGLE", "TRIANGLE", sizeAtomeXYZ, fillObj[IDobj], strokeObj[IDobj], thickness, angleObj[IDobj]) ;
+      } else if (mode[IDobj] == 8 ) {
+        if(threeDimension) atm.display("TETRA", "POINT", sizeAtomeXYZ, fillObj[IDobj], strokeObj[IDobj], thickness, angleObj[IDobj]) ;
+        else atm.display("TRIANGLE", "POINT", sizeAtomeXYZ, fillObj[IDobj], strokeObj[IDobj], thickness, angleObj[IDobj]) ;
+      } else if (mode[IDobj] == 9 ) {
+        if(threeDimension) atm.display("BOX", "RECTANGLE", sizeAtomeXYZ, fillObj[IDobj], strokeObj[IDobj], thickness, angleObj[IDobj]) ;
+        else atm.display("RECTANGLE", "RECTANGLE", sizeAtomeXYZ, fillObj[IDobj], strokeObj[IDobj], thickness, angleObj[IDobj]) ;
+      } else if (mode[IDobj] == 10 ) {
+        if(threeDimension) atm.display("BOX", "POINT", sizeAtomeXYZ, fillObj[IDobj], strokeObj[IDobj], thickness, angleObj[IDobj]) ;
+        else atm.display("RECTANGLE", "POINT", sizeAtomeXYZ, fillObj[IDobj], strokeObj[IDobj], thickness, angleObj[IDobj]) ;
+      }
  
 
       
@@ -865,12 +878,15 @@ class Atom {
     // CORE
     if(core.equals("ELLIPSE")) coreEllipse(size) ;
     if(core.equals("RECTANGLE")) coreRect(size) ;
-    if(core.equals("BOX")) coreBox(size) ;
-    if(core.equals("SPHERE")) coreSphere(size) ;
     if(core.equals("TRIANGLE")) coreTriangle(size) ;
+    if(core.equals("SPHERE")) coreSphere(size) ;
+    if(core.equals("BOX")) coreBox(size) ;
+    if(core.equals("TETRA")) coreTetra(size) ;
     
     //CLOUD
     if(cloud.equals("ELLIPSE")) cloudEllipse(size.x *.2) ;
+    if(cloud.equals("RECTANGLE")) cloudRectangle(size.x *.2) ;
+    if(cloud.equals("TRIANGLE")) cloudTriangle(size.x *.2) ;
     if(cloud.equals("POINT")) {
       // special appearance for the point because Processing use the stroke for the point
       stroke(colorFill) ;
@@ -943,26 +959,10 @@ class Atom {
   
   
   // ANNEXE DISPLAY
-  // CORE
+  // CORE 2D
   void coreTriangle(PVector size) {
     primitive(0,0,int(size.x),3) ;
   }
-  
-  void coreSphere(PVector size) {
-    int minFace = 10 ;
-    int maxFace = 25 ;
-    sphere(size.x) ;
-    int face ;
-    face = int(size.x * .2) ;
-    if(face < minFace ) face = minFace; else if(face > maxFace ) face = maxFace ;
-    sphereDetail(face) ;
-  }
-  
-  void coreBox(PVector size) {
-    box(size.x, size.y, size.z) ;
-  }
-  
-  
   void coreEllipse(PVector size) {
     ellipse(0,0,size.x, size.y) ;
   }
@@ -973,14 +973,51 @@ class Atom {
     rectMode(CORNER) ;
   }
   
+  // CORE 3D
+  void coreSphere(PVector size) {
+    int minFace = 10 ;
+    int maxFace = 25 ;
+    sphere(size.x *.4) ;
+    int face ;
+    face = int(size.x * .2) ;
+    if(face < minFace ) face = minFace; else if(face > maxFace ) face = maxFace ;
+    sphereDetail(face) ;
+  }
+  
+  void coreBox(PVector size) {
+    box(size.x, size.y, size.z) ;
+  }
+  
+  void  coreTetra(PVector size) {
+    int diam = (int)size.x ;
+    polyhedron("TETRAHEDRON", "VERTEX", diam) ;
+  }
+  
+  
+  
+  
   //CLOUD 
   
-  // ELLIPSE
+  
   void cloudEllipse(float newAmplitudeElectrocField) {
     electronicInfo() ;
     noFill() ;
     ellipse (0, 0, radiusElectronicFieldCovalent() *newAmplitudeElectrocField, radiusElectronicFieldCovalent() *newAmplitudeElectrocField ) ;
-    ellipse (0, 0, radiusElectronicField() *newAmplitudeElectrocField,     radiusElectronicField() *newAmplitudeElectrocField ) ; 
+    ellipse (0, 0, radiusElectronicField() *newAmplitudeElectrocField,     radiusElectronicField() *newAmplitudeElectrocField ) ;
+  }
+  
+  void cloudRectangle(float newAmplitudeElectrocField) {
+    electronicInfo() ;
+    noFill() ;
+    rect(0, 0, radiusElectronicFieldCovalent() *newAmplitudeElectrocField, radiusElectronicFieldCovalent() *newAmplitudeElectrocField ) ;
+    rect(0, 0, radiusElectronicField() *newAmplitudeElectrocField,     radiusElectronicField() *newAmplitudeElectrocField ) ;
+  }
+  
+  void cloudTriangle(float newAmplitudeElectrocField) {
+    electronicInfo() ;
+    noFill() ; 
+    primitive(0,0,int(radiusElectronicFieldCovalent() *newAmplitudeElectrocField),3) ;
+    primitive(0,0,int(radiusElectronicField() *newAmplitudeElectrocField),3) ;
   }
   
   // CLOUD POINT

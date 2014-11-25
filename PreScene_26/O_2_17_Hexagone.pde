@@ -39,19 +39,17 @@ class Honeycomb extends SuperRomanesco {
   void display() {
     neighbourDistance = hexagonRadius *2;
     hexagonStroke = thicknessObj[IDobj] ;
+    hexagonRadius = map(sizeXObj[IDobj],.1,width, width /40, width/15)  ;
 
     
     // limitation for the preview
+    int minSize = width/80 ;
     if(fullRendering) {
-      sliderCanvasX = map(canvasXObj[IDobj], width/10, width, width/20, width *3) ;
-      sliderCanvasY = map(canvasYObj[IDobj], width/10, width, width/20, width *3) ;
-      //change the radius of hexagon
-      hexagonRadius = map(sizeXObj[IDobj],.1,width, 5, width/15)  ;
+      sliderCanvasX = map(canvasXObj[IDobj], width/10, width, minSize, width *4) ;
+      sliderCanvasY = map(canvasYObj[IDobj], width/10, width, minSize, width *4) ;      
     } else {
-      sliderCanvasX = map(canvasXObj[IDobj], width/10, width, width/20, width) ;
-      sliderCanvasY = map(canvasYObj[IDobj], width/10, width, width/20, width) ;
-      //change the radius of hexagon
-      hexagonRadius = map(sizeXObj[IDobj],.1,width, 20, width/15)  ;
+      sliderCanvasX = map(canvasXObj[IDobj], width/10, width, minSize, width) ;
+      sliderCanvasY = map(canvasYObj[IDobj], width/10, width, minSize, width) ;
     }
     
     

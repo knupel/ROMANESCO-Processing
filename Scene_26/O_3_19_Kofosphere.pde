@@ -17,7 +17,9 @@ class Kofosphere extends SuperRomanesco {
   
   //SETUP
   void setting() {
-    startPosition(IDobj, width/2, height/2, 0) ;
+   // very strange start position to be in the middle of the Scene
+   startPosition(IDobj, width/2 -(width/4), height/2 -(height/4), 0) ;
+    // startPosition(IDobj, 0, width/2, -(height *2)) ;
     
     float startingRadius = width ;
     
@@ -154,7 +156,7 @@ class Sphere{
         
         // DISPLAY MODE
         if(mode < 2 ) {
-          strokeWeight(factorSize);
+          strokeWeight(factorSize *3);
           stroke(colorIn);
           point(posX *deform,posY *deform,posZ *deform);
         } else if ( mode > 1 && mode < 4 ) {

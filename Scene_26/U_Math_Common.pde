@@ -1,3 +1,10 @@
+// CONSTANT NUMBER
+final float PHI = (1 + sqrt(5))/2; //a number of polys use the golden ratio...
+final float ROOT2 = sqrt(2); //...and the square root of two, the famous first irrationnal number by Pythagore
+final float EULER = 2.718281828459045235360287471352; // Constant d'auler
+
+
+
 // ALGEBRE
 //roots dimensions n
 float roots(float valueToRoots, int n) {
@@ -8,7 +15,8 @@ float roots(float valueToRoots, int n) {
 
 
 
-//GEOMATRY
+//GEOMETRY
+/////////////////////////////////
 // EQUATION CIRLCE
 float perimeterCircle ( int r ) {
   float p = 2*r*PI  ;
@@ -63,7 +71,7 @@ float angle(PVector p0, PVector p1) {
 }
   
 float distance(PVector p0, PVector p1) {
-  return sqrt( ( p0.x - p1.x ) * ( p0.x - p1.x ) + ( p0.y - p1.y ) * ( p0.y - p1.y ) );
+  return sqrt( ( p0.x -p1.x) *( p0.x -p1.x) +( p0.y -p1.y) *( p0.y -p1.y));
 }
 
 
@@ -82,7 +90,14 @@ void rotation (float angle, float posX, float posY ) {
 
 
 
-// PRIMITIVE SHAPE
+
+
+
+
+// PRIMITIVE 2D
+///////////////
+
+
 //DISC
 void disc( PVector pos, int diam, color c ) {
   for ( int i = 1 ; i < diam +1 ; i++) {
@@ -118,7 +133,7 @@ void chromaticCircle(PVector pos, int d) {
 // END DISC
 
 
-// PRIMITIVE with "n" summits
+// PRIMITIVE  with "n" summits
 void primitive(int x, int y, int radius, int summits) {
   if(summits < 3) summits = 3 ;
   PVector pos = new PVector (x,y) ;
@@ -137,7 +152,7 @@ void primitive(int x, int y, int radius, int summits) {
   endShape() ;
 }
 
-// END PRIMITIVE SHAPE
+
 
 
 
@@ -260,7 +275,355 @@ PVector pointOnCirlcle(int r, float angle) {
   return posPix ;
 }
 
+
+// END PRIMITIVE 2D
+///////////////////
+
+
+
+
+
+
+
+
+
+
+//PRIMITIVE 3D
+//////////////
+
+//POLYDRON
+  //create Polyhedron
+  /*
+  "TETRAHEDRON","CUBE", "OCTOHEDRON", "DODECAHEDRON","ICOSAHEDRON","CUBOCTAHEDRON","ICOSI DODECAHEDRON",
+  "TRUNCATED CUBE","TRUNCATED OCTAHEDRON","TRUNCATED DODECAHEDRON","TRUNCATED ICOSAHEDRON","TRUNCATED CUBOCTAHEDRON","RHOMBIC CUBOCTAHEDRON",
+  "RHOMBIC DODECAHEDRON","RHOMBIC TRIACONTAHEDRON","RHOMBIC COSI DODECAHEDRON SMALL","RHOMBIC COSI DODECAHEDRON GREAT"
+  All Polyhedrons can use "POINT" and "LINE" display mode.
+  except the "TETRADRON" who can also use "VERTEX" display mode.
+  */
+  
+// MAIN VOID to create polyhedron
+void polyhedron(String whichPolyhedron, String whichStyleToDraw, int size) {
+  //This is where the actual defining of the polyhedrons takes place
+
+   
+  listPVectorPolyhedron.clear(); //clear out whatever verts are currently defined
+  
+  if(whichPolyhedron.equals("TETRAHEDRON")) tetrahedron(size) ;
+  if(whichPolyhedron.equals("CUBE")) cube(size) ;
+  if(whichPolyhedron.equals("OCTOHEDRON")) octohedron(size) ;
+  if(whichPolyhedron.equals("DODECAHEDRON"))dodecahedron(size) ;
+  if(whichPolyhedron.equals("ICOSAHEDRON"))icosahedron(size) ;
+  if(whichPolyhedron.equals("CUBOCTAHEDRON"))cuboctahedron(size) ;
+  if(whichPolyhedron.equals("ICOSI DODECAHEDRON"))icosi_dodecahedron(size) ;
+
+  if(whichPolyhedron.equals("TRUNCATED CUBE"))truncated_cube(size) ;
+  if(whichPolyhedron.equals("TRUNCATED OCTAHEDRON"))truncated_octahedron(size) ;
+  if(whichPolyhedron.equals("TRUNCATED DODECAHEDRON"))truncated_dodecahedron(size) ;
+  if(whichPolyhedron.equals("TRUNCATED ICOSAHEDRON"))truncated_icosahedron(size) ;
+  if(whichPolyhedron.equals("TRUNCATED CUBOCTAHEDRON"))truncated_cuboctahedron(size) ;
+  
+  if(whichPolyhedron.equals("RHOMBIC CUBOCTAHEDRON"))rhombic_cuboctahedron(size) ;
+  if(whichPolyhedron.equals("RHOMBIC DODECAHEDRON"))rhombic_dodecahedron(size) ;
+  if(whichPolyhedron.equals("RHOMBIC TRIACONTAHEDRON"))rhombic_triacontahedron(size) ;
+  if(whichPolyhedron.equals("RHOMBIC COSI DODECAHEDRON SMALL"))rhombic_cosi_dodecahedron_small(size) ;
+  if(whichPolyhedron.equals("RHOMBIC COSI DODECAHEDRON GREAT"))rhombic_cosi_dodecahedron_great(size) ;
+  
+  // which method to draw
+  if(whichStyleToDraw.equals("LINE")) drawLinePolyhedron(whichPolyhedron) ;
+  if(whichStyleToDraw.equals("POINT")) drawPointPolyhedron(whichPolyhedron) ;
+  if(whichStyleToDraw.equals("VERTEX")) drawVertexPolyhedron(whichPolyhedron) ;
+
+}
+
+
+
+
+// POLYHEDRON DETAIL 
+////////////
+//set up initial polyhedron
+float factorSizePolyhedron ;
+//some variables to hold the current polyhedron...
+ArrayList listPVectorPolyhedron = new ArrayList();
+float edgeLengthOfPolyhedron;
+String strName, strNotes;
+
+// FEW POLYHEDRON
+// BASIC
+void tetrahedron(int size) {
+  listPVectorPolyhedron.add(new PVector(1, 1, 1)) ;
+  listPVectorPolyhedron.add(new PVector(-1, -1, 1)) ;
+  listPVectorPolyhedron.add(new PVector(-1, 1, -1)) ;
+  listPVectorPolyhedron.add(new PVector(1, -1, -1)) ;
+  edgeLengthOfPolyhedron = 0 ;
+  factorSizePolyhedron = size /2;
+}
+
+void cube(int size) {
+  addVerts(1, 1, 1);
+  edgeLengthOfPolyhedron = 2;
+  factorSizePolyhedron = size /2;
+}
+
+void octohedron(int size) {
+  addPermutations(1, 0, 0);
+  edgeLengthOfPolyhedron = ROOT2;
+  factorSizePolyhedron = size *.8;
+}
+
+void dodecahedron(int size) {
+  addVerts(1, 1, 1);
+  addPermutations(0, 1/PHI, PHI);
+  edgeLengthOfPolyhedron = 2/PHI;
+  factorSizePolyhedron = size /2.5;
+}
+
+
+// SPECIAL
+void icosahedron(int size) {
+  addPermutations(0, 1, PHI);
+  edgeLengthOfPolyhedron = 2.0;
+  factorSizePolyhedron = size /2.7;
+}
+
+void icosi_dodecahedron(int size) {
+  addPermutations(0, 0, 2*PHI);
+  addPermutations(1, PHI, sq(PHI));
+  edgeLengthOfPolyhedron = 2;
+  factorSizePolyhedron = size/5;
+}
+
+void cuboctahedron(int size) {
+  addPermutations(1, 0, 1);
+  edgeLengthOfPolyhedron = ROOT2;
+  factorSizePolyhedron = size /1.9;
+}
+
+
+// TRUNCATED
+void truncated_cube(int size) {
+  addPermutations(ROOT2 - 1, 1, 1);
+  edgeLengthOfPolyhedron = 2*(ROOT2 - 1);     
+  factorSizePolyhedron = size /2.1;
+}
+
+void truncated_octahedron(int size) {
+  addPermutations(0, 1, 2);
+  addPermutations(2, 1, 0);
+  edgeLengthOfPolyhedron = ROOT2;
+  factorSizePolyhedron = size/3.4;
+}
+
+void truncated_cuboctahedron(int size) {
+  addPermutations(ROOT2 + 1, 2*ROOT2 + 1, 1);
+  addPermutations(ROOT2 + 1, 1, 2*ROOT2 + 1);
+  edgeLengthOfPolyhedron = 2;
+  factorSizePolyhedron = size/6.9;
+}
+
+void truncated_dodecahedron(int size) {
+  addPermutations(0, 1/PHI, PHI + 2);
+  addPermutations(1/PHI, PHI, 2*PHI);
+  addPermutations(PHI, 2, sq(PHI));
+  edgeLengthOfPolyhedron = 2*(PHI - 1);
+  factorSizePolyhedron = size/6;
+}
+
+void truncated_icosahedron(int size) {
+  addPermutations(0, 1, 3*PHI);
+  addPermutations(2, 2*PHI + 1, PHI);
+  addPermutations(1, PHI + 2, 2*PHI);
+  edgeLengthOfPolyhedron = 2;
+  factorSizePolyhedron = size/8;
+}
+
+// RHOMBIC
+void rhombic_dodecahedron(int size) {
+  addVerts(1, 1, 1);
+  addPermutations(0, 0, 2);
+  edgeLengthOfPolyhedron = sqrt(3);
+  factorSizePolyhedron = size /2.8;
+}
+
+void rhombic_triacontahedron(int size) {
+  addVerts(sq(PHI), sq(PHI), sq(PHI));
+  addPermutations(sq(PHI), 0, pow(PHI, 3));
+  addPermutations(0, PHI, pow(PHI, 3));
+  edgeLengthOfPolyhedron = PHI*sqrt(PHI + 2);
+  factorSizePolyhedron = size /7.2;
+}
+
+void rhombic_cuboctahedron(int size) {
+  addPermutations(ROOT2 + 1, 1, 1);
+  edgeLengthOfPolyhedron = 2;
+  factorSizePolyhedron = size/4.2;
+}
+
+void rhombic_cosi_dodecahedron_small(int size) {
+  addPermutations(1, 1, pow(PHI, 3));
+  addPermutations(sq(PHI), PHI, 2*PHI);
+  addPermutations(PHI + 2, 0, sq(PHI));
+  edgeLengthOfPolyhedron = 2;
+  factorSizePolyhedron = size/7.4;
+}
+
+void rhombic_cosi_dodecahedron_great(int size) {
+  addPermutations(1/PHI, 1/PHI, PHI + 3);
+  addPermutations(2/PHI, PHI, 2*PHI + 1);
+  addPermutations(1/PHI, sq(PHI), 3*PHI - 1);
+  addPermutations(2*PHI - 1, 2, PHI + 2);
+  addPermutations(PHI, 3, 2*PHI);
+  edgeLengthOfPolyhedron = 2*PHI - 2;
+  factorSizePolyhedron = size/7.8;
+}
+
+
+
+//Built Tetrahedron
+// EASY METHOD, for direct and single drawing
+// classic and easy method
+void drawPointPolyhedron(String polyhedronName) {
+  for (int i=0; i <listPVectorPolyhedron.size(); i++) {
+    PVector point = (PVector)listPVectorPolyhedron.get(i) ;
+    if(polyhedronName.equals("TETRAHEDRON")) {
+      pushMatrix() ;
+      rotateX(TAU -1) ;
+      rotateY(PI/4) ;
+    }
+    point(point.x *factorSizePolyhedron, point.y *factorSizePolyhedron, point.z *factorSizePolyhedron);
+    if(polyhedronName.equals("TETRAHEDRON")) popMatrix() ;
+  }
+}
+
+void drawLinePolyhedron(String polyhedronName) {
+  for (int i=0; i <listPVectorPolyhedron.size(); i++) {
+    for (int j=i +1; j < listPVectorPolyhedron.size(); j++) {
+      if (isEdge(i, j, listPVectorPolyhedron) || edgeLengthOfPolyhedron == 0 ) {
+        PVector v1 = (PVector)listPVectorPolyhedron.get(i) ;
+        PVector v2 = (PVector)listPVectorPolyhedron.get(j) ;
+        if(polyhedronName.equals("TETRAHEDRON")) {
+          pushMatrix() ;
+          rotateX(TAU -1) ;
+          rotateY(PI/4) ;
+        }
+        line(v1.x *factorSizePolyhedron, v1.y *factorSizePolyhedron, v1.z *factorSizePolyhedron, v2.x *factorSizePolyhedron, v2.y *factorSizePolyhedron, v2.z *factorSizePolyhedron);
+        if(polyhedronName.equals("TETRAHEDRON")) popMatrix() ;
+      }
+    }
+  }
+}
+
+void drawVertexPolyhedron(String polyhedronName) {
+  beginShape() ;
+  for (int i=0; i <listPVectorPolyhedron.size(); i++) {
+    for (int j=i +1; j <listPVectorPolyhedron.size(); j++) {
+      if (isEdge(i, j, listPVectorPolyhedron) || edgeLengthOfPolyhedron == 0 ) {
+        // vLine((PVector)listPVectorPolyhedron.get(i), (PVector)listPVectorPolyhedron.get(j));
+        PVector v1 = (PVector)listPVectorPolyhedron.get(i) ;
+        PVector v2 = (PVector)listPVectorPolyhedron.get(j) ;
+        v1 = new PVector(v1.x *factorSizePolyhedron, v1.y *factorSizePolyhedron, v1.z *factorSizePolyhedron) ;
+        v2 = new PVector(v2.x *factorSizePolyhedron, v2.y *factorSizePolyhedron, v2.z *factorSizePolyhedron) ;
+        if(polyhedronName.equals("TETRAHEDRON")) {
+          pushMatrix() ;
+          rotateX(TAU -1) ;
+          rotateY(PI/4) ;
+        }
+        vertex(v1.x, v1.y, v1.z) ;
+        vertex(v2.x, v2.y, v2.z) ;
+        if(polyhedronName.equals("TETRAHEDRON")) popMatrix() ;
+      }
+    }
+  }
+  endShape(CLOSE) ;
+}
+// END of EASY METHOD and DIRECT METHOD
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+// annexe draw polyhedron
+boolean isEdge(int vID1, int vID2, ArrayList listPoint) {
+  //had some rounding errors that were messing things up, so I had to make it a bit more forgiving...
+  int pres = 1000;
+  PVector v1 = (PVector)listPoint.get(vID1);
+  PVector v2 = (PVector)listPoint.get(vID2);
+  float d = sqrt(sq(v1.x - v2.x) + sq(v1.y - v2.y) + sq(v1.z - v2.z)) + .00001;
+  return (int(d *pres)==int(edgeLengthOfPolyhedron *pres));
+}
+
+// END DRAW POLYHEDRON
+//////////////////////
+
+
+// ADD POINTS for built POLYHEDRON
+/////////////////////////////////
+
+ 
+void addPermutations(float x, float y, float z) {
+  //adds vertices for all three permutations of x, y, and z
+  addVerts(x, y, z);
+  addVerts(z, x, y);
+  addVerts(y, z, x);
+}
+
+
+ 
+void addVerts(float x, float y, float z) {
+  //adds the requested vert and all "mirrored" verts
+  listPVectorPolyhedron.add (new PVector(x, y, z));
+  // z
+  if (z != 0.0) listPVectorPolyhedron.add (new PVector(x, y, -z)); 
+  // y
+  if (y != 0.0) {
+    listPVectorPolyhedron.add (new PVector(x, -y, z));
+    if (z != 0.0) listPVectorPolyhedron.add (new PVector(x, -y, -z));
+  } 
+  // x
+  if (x != 0.0) {
+    listPVectorPolyhedron.add (new PVector(-x, y, z));
+    if (z != 0.0) listPVectorPolyhedron.add(new PVector(-x, y, -z));
+    if (y != 0.0) {
+      listPVectorPolyhedron.add (new PVector(-x, -y, z));
+      if (z != 0.0) listPVectorPolyhedron.add (new PVector(-x, -y, -z));
+    }
+  }
+}
+// END POLYHEDRON
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// END PRIMITIVE 3D
+///////////////////
+
 // END GEOMETRY
+///////////////
+
+
+
+
+
+
+
+
 
 
 

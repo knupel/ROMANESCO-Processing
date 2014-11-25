@@ -5,6 +5,7 @@ ROMANESCO 0.26 Revision
 /// ADD ///
 * void primitive(int x, int y, int radius, int summits) to create regulare polygone with "n" summits
 * void appearance(color colorFill, color colorStroke, float thickness) to check the color fill and stroke to disable the fill() or the stroke() and display
+* void polyhedron(String whichPolyhedron, String whichStyleToDraw, int size) to create different kind of polyhedron > read "CODE GLOBAL.txt" Primitive 3D part
 
 /// REMOVE ///////
 * the option to drop image on the Scene
@@ -16,19 +17,23 @@ ROMANESCO 0.26 Revision
 
 
 /// OBJECT ///
-/// ADD ///
+/// ADD OBJ ///
 * Kofosphere object 3D
 
 * template to code object
 
-* Atom modes : box, sphere, triangle, rectangle...
+
+* Atom modes : box, sphere, triangle, terahedron, rectangle...
+* Atom : key "d" on the Prescene to change the displaying of the atom to 2D to 3D > 3D to 2D
 * Atom : slider amplitude for the sound reactivity
 * Atom : slider depth for the size box
 * Atom : left, right sound to add jitter direction for each atom
 
-// CHANGE
+// CHANGE OBJ
 * Atom : add new mode
 
+/// BUG FIXE OBJ
+* HEXAGONE : fixe canvas bug when this one displayed too much shapes
 
 
 

@@ -2,14 +2,13 @@
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////// ROMANESCO PROJECT /////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 The main sketch is the Prescene, it receive slider information from Contrôleur, mouse, leapmotion, midi-controller, pen apply this one
 and send a major part of the result to Scene or Miroir, who're just a slave !
 
 
 CODE for THE CORE CODER
 
-Becareful is not finish and totaly imcomplete !
+Be careful is not finish and totaly imcomplete !
 
 Three main sketches :
 Controleur, Prescene, and Scene.
@@ -36,13 +35,8 @@ Object, Camera, SuperRomanesco
 boolean dropdownActivity ; // use to indicate to indicate at the other button, they cannot be used when the user are on the dropdown menu
 
 
-
-
-
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
 ////////////////////////
@@ -144,7 +138,17 @@ int IDfamilly ;  // 1 is the simple object first sliders
 ////////// UTIL /////////////////
 ////////////////////////////////
 
-// UTIL MATH
+
+
+// ALGEBRA
+/////////////
+
+// CONSTANT MATH
+final float PHI = (1 + sqrt(5))/2; // the golden ratio
+final float ROOT2 = sqrt(2); // the number of Pythagore
+final float EULER = 2.718281828459045235360287471352; // Constant d'auler
+
+// METHODE
 float distance(PVector p0, PVector p1 ) calcul distance between two PVectors
 
 float deg360 (PVector dir) // return a 360 direction from PVector direction value between -1 to 1 ;
@@ -162,20 +166,55 @@ float mapEndSmooth(float value, float sourceMin, float sourceMax, float targetMi
 float mapEndStartSmooth(float value, float sourceMin, float sourceMax, float targetMin, float targetMax, int level) // the begin and the end of the curve is smoothed by the level
 
 
-// UTIL PVECTOR
+// END ALGEBRA
+//////////////
+
+
+
+
+
+
+
+
+
+// GEOMETRY
+///////////
+
+// PRIMITIVE 2D
+void primitive(int x, int y, int radius, int summits)
+-- create polygone 2D, choice the quantity of summits and the radius.
+
+
+// PRIMITIVE 3D
+-- Polyhedron primitive 3D
+  /*
+  -- to choice the polyhedron String whichPolyhedron
+  "TETRAHEDRON","CUBE", "OCTOHEDRON", "DODECAHEDRON","ICOSAHEDRON","CUBOCTAHEDRON","ICOSI DODECAHEDRON",
+  "TRUNCATED CUBE","TRUNCATED OCTAHEDRON","TRUNCATED DODECAHEDRON","TRUNCATED ICOSAHEDRON","TRUNCATED CUBOCTAHEDRON","RHOMBIC CUBOCTAHEDRON",
+  "RHOMBIC DODECAHEDRON","RHOMBIC TRIACONTAHEDRON","RHOMBIC COSI DODECAHEDRON SMALL","RHOMBIC COSI DODECAHEDRON GREAT"
+
+  -- to choice the display mode String whichStyleToDraw
+  All Polyhedrons can use "POINT" and "LINE" display mode.
+  except the "TETRADRON" who can also use "VERTEX" display mode.
+
+  -- to choice the diameter int size
+  */
+void polyhedron(String whichPolyhedron, String whichStyleToDraw, int size)
+
+// END GEOMETRY
+//////////////
+
+
+
+
+////////
+// MISC
+
+
+// PVECTOR
 PVector gotoTarget(PVector origin,  PVector finish, float speed) // nice for a static travel when the start and the arrival is knew, work with XYZ
 
 PVector follow(PVector target, float speed) // go to follow something in move like a cursor, works with XYZ
-
-
-
-
-
-
-// UTIL GEOMETRY
-
-// create polygone 2D, choice the quantity of summits and the radius.
-void primitive(int x, int y, int radius, int summits)
 
 
 PVector [] circle (PVector pos, int d, int num) // return a list of points xyz to realize a circle, the first param is the position of circle, the second is the diameter, the third is the num of points to do this circle
@@ -196,8 +235,9 @@ PVector normalDir(int direction) // return a direction between -1 / 1 from 360°
 
 
 
-// UTIL TIME
-float cycle(float add) // return value between -1 et 1 , nice to try with vzlue like 0.1
+// TIME
+///////
+float cycle(float add) // return value between -1 et 1 , nice to try with value like 0.1
 
 int timer(float tempo) // return an add value from float <1 ;
 
@@ -207,7 +247,8 @@ int minClock() // return the time of the day in minutes
 
 
 
-// UTIL COLOR
+// COLOR
+////////
 PVector HSBtoRGB(float hue, float saturation, float brightness) convert color in the HSB world
 
 
@@ -301,7 +342,7 @@ boolean oTouch 			- genrally open folder to choice a file for a specific object
 boolean pTouch 			- to open an other folder, if the object already use "oTouch"
 boolean hTouch 		- boolean horizon[IDobj] 	- generaly use to change the ground position for the P3D object, for example test it on the Boxolyzer object.
 boolean rTouch 			- generaly use to reverse value, or to change the canvas size of object.
-boolean xTouch 			- generaly use to change the coloour palette
+boolean xTouch 			- generaly use to change the colour palette
 
 // Free touch
 boolean aTouch, bTouch, cTouch, dTouch, eTouch, fTouch, gTouch,  jTouch, kTouch, lTouch, qTouch, tTouch, uTouch, vTouch, wTouch, yTouch, zTouch,
