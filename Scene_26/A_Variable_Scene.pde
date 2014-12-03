@@ -1,8 +1,9 @@
 import codeanticode.syphon.*;
-import japplemenubar.*;
 // remove menu bar apple
+/*
+import japplemenubar.*;
 JAppleMenuBar instance;
-
+*/
 boolean scene = true ;
 boolean prescene = false ;
 boolean testRomanesco = false ;
@@ -19,13 +20,6 @@ String valueTempPreScene[] = new String [71] ;
 PVector mouseCamera, pmouseCamera ; 
 
 
-
-
-//Variable CLAVIER
-boolean savePDF ;
-String savePathPDF, savePathPNG ;
-
-
 void initVarScene() {
   mouseCamera = new PVector(0,0,0) ;
   pmouseCamera = new PVector(0,0,0) ;
@@ -33,33 +27,6 @@ void initVarScene() {
 
 
 //init var
-void initDraw() {
-  rectMode (CORNER) ; 
-  if(mavericks && fullScreen) sketchPosition(whichScreen) ;
-}
-
-
-
-////////////////////
-//SAVE SCENE PICTURE
-void beginSave() {
-    if (countSave == 1 ) savePDF = true ;
-  if (savePDF) beginRecord(PDF, savePathPDF) ; 
-}
-void endSave() {
-    //SAVE IMAGE END
-  if (savePDF ) {
-    endRecord();
-    savePDF = false ;
-    countSave = 0 ;
-  }
-}
-void keySave() {
-  if(key == 's' ) selectOutput("Enregistrez le PDF et le PNG ", "saveImg") ;
-}
-
-
-
 //GLOBAL
 void varObjectSetup() {
   for (int i = 0 ; i < numObj ; i++ ) {

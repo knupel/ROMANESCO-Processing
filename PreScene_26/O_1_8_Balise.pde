@@ -38,10 +38,17 @@ class BaliseRomanesco extends SuperRomanesco {
     
 
     // SIZE
-    float tempoEffect = 1 + ((beat[IDobj] -1  ) + (kick[IDobj] -1  ) + (snare[IDobj] -1  ) + (hat[IDobj] -1  ) );
-    PVector sizeBalise  = new PVector (sizeXObj[IDobj] *tempoEffect, sizeYObj[IDobj] *tempoEffect, sizeZObj[IDobj] ) ;
-    // variable position
-    PVector var = new PVector(left[IDobj] *5,right[IDobj] *5) ;
+    float factorBeat = .5 ;
+    // float tempoEffect = 1 + ((beat[IDobj] -1  ) + (kick[IDobj] -1  ) + (snare[IDobj] -1  ) + (hat[IDobj] -1  ) );
+    float tempoEffect = 1 + ((beat[IDobj] *factorBeat) + (kick[IDobj] *factorBeat) + (snare[IDobj] *factorBeat) + (hat[IDobj] *factorBeat));
+    PVector sizeBalise = new PVector(sizeXObj[IDobj],sizeYObj[IDobj],sizeZObj[IDobj]) ;
+    PVector var = new PVector(1,1) ;
+    if(sound[IDobj]) {
+      sizeBalise  = new PVector (sizeXObj[IDobj] *tempoEffect, sizeYObj[IDobj] *tempoEffect, sizeZObj[IDobj] ) ;
+      // variable position
+      var = new PVector(left[IDobj] *5,right[IDobj] *5) ;
+    }
+    
     if(var.x <= 0 ) var.x = .1 ; 
     if(var.y <= 0 ) var.y = .1 ; 
     //quantity
@@ -75,6 +82,7 @@ class Balise extends Rotation {
     if ( max > 512 ) max = 512 ;
     for(int i = 0 ; i < max ; i++) {
       PVector v = new PVector(input(i,max,var,sound).x, input(i,max,var,sound).y) ;
+      // PVector v = new PVector(input(i,max,var,sound).x, input(i,max,var,sound).y) ;
       PVector posBalise = new PVector ( amp *v.x, amp *v.y ) ;
       v = new PVector (abs(v.x *factor), abs(v.y *factor) ) ;
       PVector newSize = new PVector(sizeBalise.x *v.x, sizeBalise.y *v.y, sizeBalise.z *((v.x +v.y)*.5))   ;

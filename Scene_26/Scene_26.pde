@@ -11,15 +11,13 @@ String preferencesPath = sketchPath("")+"preferences/" ;
 
 
 void setup() {
+  
   romanescoSetup() ;
-  // OSMavericksCheck() ;
   createVar() ;
   initVarScene() ;
   displaySetup(60) ; // the int give the frameRate
   colorSetup() ;
   miroirSetup() ;
-
-  //load font
   fontSetup() ;
   //GEOMERATIVE
   RG.init(this);
@@ -27,14 +25,22 @@ void setup() {
   soundSetup() ;
   varObjectSetup() ; // the varObject setup of the Scene is more simple
   OSCSetup() ;
-  meteoSetup() ;
+
   P3DSetup() ;
   lightSetup(); // for the Scene only
+  
+  // module
+  // meteoSetup() ;
+  
+  //option
+  // OSMavericksCheck() 
+
 }
 
 //DRAW
 void draw() {
-  frame.setTitle(nameVersion + " " +prettyVersion+"."+version+ " - Prescene");
+  
+  if(!syphon) frame.setTitle(nameVersion + " " +prettyVersion+"."+version+ " - Scene"); else frame.setTitle(nameVersion + " " +prettyVersion+"."+version+ " - Miroir");
   initDraw() ;
   miroirDraw() ;
   soundDraw() ;
@@ -43,7 +49,6 @@ void draw() {
   updateVar() ;
   backgroundRomanesco() ; 
   
-  beginSave() ;
   //ROMANESCO
   cameraDraw() ;
   lightPosition() ;
@@ -53,18 +58,17 @@ void draw() {
   stopCamera() ;
   
   //ANNEXE
-  endSave() ;
   info() ;
   curtain() ;  
 
   nextPreviousKeypressed() ;
+
 }
 //END DRAW
 
 /////KEY/////
 //KEYPRESSED
 void keyPressed () {
-  keySave() ;
  // info common command with Prescene
   if (key == 'i') displayInfo = !displayInfo ;
   if (key == 'g') displayInfo3D = !displayInfo3D ;

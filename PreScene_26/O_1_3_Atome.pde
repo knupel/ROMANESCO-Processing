@@ -70,77 +70,98 @@ class Atome extends SuperRomanesco {
   }
   //DRAW
   void display() {
+    // SETTING PARAMETER
     loadText(IDobj) ;
+    // 3D or 2D
+    if(parameter[IDobj] & dTouch) threeDimension = !threeDimension ;
     
-    //OBJECT
-    for (Atom atm : atomList) {
-      ////////////////UPDATE////////////////////////////////////////
-      float velLimit = tempo[IDobj] *5.0 ; // max of speed Atom
-      if (velLimit < 1.1 ) velLimit = 1.1 ;
-      //the atom temperature give the speed 
-      float speed = (speedObj[IDobj] *100) *(speedObj[IDobj] *100) ;
-      if(sound[IDobj]) atomTemperature =  floor(speed *tempo[IDobj]) ; else atomTemperature = round(speed) ;
-      
-      //ratio evolution for atom temperature...give an idea to change the speed of this one
-      //because the temp of atom is linked with velocity of this one.
-      float tempAbs = 10.0 ;
-      //VELOCITY and DIRECTION of atom
-      if(motion[IDobj]) {
-        if(spaceTouch && action[IDobj]) {
-          newDirection = new PVector (-pen[IDobj].x, -pen[IDobj].y ) ;
-        } else { 
-          newDirection = normalDir(int(directionObj[IDobj])) ;
-        }
-      } else {
-        newDirection = new PVector () ;
+    //speed
+    float speed = (speedObj[IDobj] *100) *(speedObj[IDobj] *100) ;
+    float velLimit = tempo[IDobj] *5.0 ; // max of speed Atom
+    if (velLimit < 1.1 ) velLimit = 1.1 ;
+    //the atom temperature give the speed 
+    if(sound[IDobj]) atomTemperature =  floor(speed *tempo[IDobj]) ; else atomTemperature = round(speed) ;
+    //ratio evolution for atom temperature...give an idea to change the speed of this one
+    //because the temp of atom is linked with velocity of this one.
+    float tempAbs = 10.0 ;
+    
+    //VELOCITY and DIRECTION of atom
+    if(motion[IDobj]) {
+      if(spaceTouch && action[IDobj]) {
+        newDirection = new PVector (-pen[IDobj].x, -pen[IDobj].y ) ;
+      } else { 
+        newDirection = normalDir(int(directionObj[IDobj])) ;
       }
-      
-      PVector newVelocity = new PVector (sq(tempo[IDobj]) *1000., sq(tempo[IDobj]) *1000.);
-      //security if the value is null to don't stop the move
-      float acceleration ; 
-      if(pen[IDobj].z == 0 ) acceleration = 1. ; else acceleration = pen[IDobj].z *1000. ;
-      
-      
-      PVector soundDirection = new PVector() ;
-      if(sound[IDobj]) soundDirection = new PVector(right[IDobj], left[IDobj]) ; else soundDirection = new PVector(0, 0) ;
+    } else {
+      newDirection = new PVector () ;
+    }
+    
+    PVector newVelocity = new PVector (sq(tempo[IDobj]) *1000., sq(tempo[IDobj]) *1000.);
+    //security if the value is null to don't stop the move
+    float acceleration ; 
+    if(pen[IDobj].z == 0 ) acceleration = 1. ; else acceleration = pen[IDobj].z *1000. ;
+    
+    
+    PVector soundDirection = new PVector() ;
+    if(sound[IDobj]) soundDirection = new PVector(right[IDobj], left[IDobj]) ; else soundDirection = new PVector(0, 0) ;
 
-      float velocityX = newDirection.x *newVelocity.x *acceleration ;
-      float velocityY = newDirection.y *newVelocity.y *acceleration ;
-      PVector changeVelocity = new PVector (velocityX, velocityY) ;
+    float velocityX = newDirection.x *newVelocity.x *acceleration ;
+    float velocityY = newDirection.y *newVelocity.y *acceleration ;
+    PVector changeVelocity = new PVector (velocityX, velocityY) ;
+    
+    // FACTOR SOUND REACTIVITY
+    float maxBeat = map(amplitudeObj[IDobj],0,1,1,15) ;
+    beat[IDobj] = map(beat[IDobj],1,10, 1,maxBeat) ;
+    kick[IDobj] = map(kick[IDobj],1,10, 1,maxBeat) ;
+    snare[IDobj] = map(snare[IDobj],1,10, 1,maxBeat) ;
+    hat[IDobj] = map(hat[IDobj],1,10, 1,maxBeat) ;
+    
+    // thickness
+    float thickness = map(thicknessObj[IDobj],.1, width/3, .1, width/20) ;
+    
+    // TEXT
+    float sizeFont = fontSizeObj[IDobj] *1.5 ;
+    PVector posText = new PVector ( 0.0, 0.0, 0.0 ) ;
+    int sizeTextName = int(sizeFont) ;
+    int sizeTextInfo = int(sizeFont *.5) ;
 
+    //Canvas
+    PVector marge = new PVector(map(canvasXObj[IDobj], width/10, width, width/20, width *3) , map(canvasYObj[IDobj], height/10, height, height/20, height *3) ) ;
+      
+      
+      
+    
+    // DISPLAY and UPDATE ATOM
+    for (Atom atm : atomList) {
+      // main method
       atm.update (atomTemperature, velLimit, changeVelocity, tempAbs, soundDirection) ; // obligation to use this void, in the atomic univers
-      //COLLISION
       atm.covalentCollision (atomList);
-      //DRAG
-      /*
-      float inertia = 1.0 ; // strong of the drag
-      atm.drag2D(inertia) ;
-      */
+      
+      // SIZE
+      float sizeAtomeRawX = map (sizeXObj[IDobj], .1, width, .2, width *.05) ;
+      float sizeAtomeRawY = map (sizeYObj[IDobj], .1, width, .2, width *.05) ;
+      float sizeAtomeRawZ = map (sizeZObj[IDobj], .1, width, .2, width *.05) ;
+      float sizeAtomeX = sizeAtomeRawX *beatSizeProton ;
+      float sizeAtomeY = sizeAtomeRawY *beatSizeProton ;
+      float sizeAtomeZ = sizeAtomeRawZ *beatSizeProton ;
+      PVector sizeAtomeXYZ = new PVector(sizeAtomeX,sizeAtomeY,sizeAtomeZ) ;
+      //diameter
+      float factorSizeField = sizeAtomeX *1.2 ; // factor size of the electronic Atom's Cloud
+       //width
+      float posTextInfo = map(sizeYObj[IDobj], .1, width,sizeAtomeRawX*.2, width*.2) + (beat[IDobj] *2.0)  ;
+
     
       
       //DISPLAY
       //PARAMETER FROM ROMANESCO
       //the proton change the with the beat of music
-      
-      // 3D or 2D
-      if(dTouch && parameter[IDobj] ) threeDimension = !threeDimension ;
-
-      
       int max = 118 ;
-      
       if( (nTouch && action[IDobj]) || rangeA == 0 ) {
         rangeA = round(random(0,max-80)) ;
         rangeB = round(random(rangeA,max-40)) ;
         rangeC = round(random(rangeB,max)) ;
       }
       
-      
-      // FACTOR SOUND REACTIVITY
-      float maxBeat = map(amplitudeObj[IDobj],0,1,1,15) ;
-      beat[IDobj] = map(beat[IDobj],1,10, 1,maxBeat) ;
-      kick[IDobj] = map(kick[IDobj],1,10, 1,maxBeat) ;
-      snare[IDobj] = map(snare[IDobj],1,10, 1,maxBeat) ;
-      hat[IDobj] = map(hat[IDobj],1,10, 1,maxBeat) ;
 
       if ( atm.getProton() < rangeA ) { 
         beatSizeProton = beat[IDobj] ;
@@ -152,40 +173,16 @@ class Atome extends SuperRomanesco {
         beatSizeProton = hat[IDobj] ;
       }
       /////////////////CLOUD///////////////////////////////////////
-      if ( atm.getProton() < 21 ) { 
+      if ( atm.getProton() < 41 ) { 
         beatThicknessCloud = beat[IDobj] ;
-      } else if ( atm.getProton() > 20 && atm.getProton() < 45 ) {
+      } else if ( atm.getProton() > 40 && atm.getProton() < 66 ) {
         beatThicknessCloud = kick[IDobj] ;
-      } else if ( atm.getProton() > 44 && atm.getProton() < 65 ) {
+      } else if ( atm.getProton() > 65 && atm.getProton() < 91 ) {
         beatThicknessCloud = snare[IDobj] ;
-      } else if ( atm.getProton()  > 64 ) {
+      } else if ( atm.getProton()  > 90 ) {
         beatThicknessCloud = hat[IDobj] ;
       }
-      
-      
-      // SIZE
-      float sizeAtomeRawX = map (sizeXObj[IDobj], .1, width, .2, width *.05) ;
-      float sizeAtomeRawY = map (sizeYObj[IDobj], .1, width, .2, width *.05) ;
-      float sizeAtomeRawZ = map (sizeZObj[IDobj], .1, width, .2, width *.05) ;
-      float sizeAtomeX = sizeAtomeRawX *beatSizeProton ;
-      float sizeAtomeY = sizeAtomeRawY *beatSizeProton ;
-      float sizeAtomeZ = sizeAtomeRawZ *beatSizeProton ;
-      PVector sizeAtomeXYZ = new PVector(sizeAtomeX,sizeAtomeY,sizeAtomeZ) ;
-      
-      float thickness = map(thicknessObj[IDobj],.1, width/3, .1, width/20) ;
-      //diameter
-      float factorSizeField = sizeAtomeX *1.2 ; // factor size of the electronic Atom's Cloud
-      
-      /////////TEXT///
-      
-      float sizeFont = fontSizeObj[IDobj] *1.5 ;
-      PVector posText = new PVector ( 0.0, 0.0, 0.0 ) ;
-      int sizeTextName = int(sizeFont) ;
-      int sizeTextInfo = int(sizeFont *.5) ;
-      //width
-      float posTextInfo = map(sizeYObj[IDobj], .1, width,sizeAtomeRawX*.2, width*.2) + (beat[IDobj] *2.0)  ;
-      //Canvas
-      PVector marge = new PVector(map(canvasXObj[IDobj], width/10, width, width/20, width *3) , map(canvasYObj[IDobj], height/10, height, height/20, height *3) ) ;
+
       
 
       //MODE OF DISPLAY

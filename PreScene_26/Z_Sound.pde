@@ -389,8 +389,7 @@ float getTotalSpectrum(int numBand) {
 
 
 //CLASS to use the beat analyze
-class BeatListener implements AudioListener
-{
+class BeatListener implements AudioListener {
   private BeatDetect beatFrequency;
   private AudioInput source;
   

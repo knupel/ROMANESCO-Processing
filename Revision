@@ -9,17 +9,18 @@ ROMANESCO 0.26 Revision
 
 /// REMOVE ///////
 * the option to drop image on the Scene
+* save PDF and PNG
 /// IMPROVE ///
 *
 /// BUG FIXE
 * Midi save and load slider
 * Leapmotion camera and objects position and direction
+* remove the method to remove the menu bar in fullscreen, because it's crash reason for the Scene.
 
 
 /// OBJECT ///
 /// ADD OBJ ///
 * Kofosphere object 3D
-
 * template to code object
 
 
@@ -31,9 +32,11 @@ ROMANESCO 0.26 Revision
 
 // CHANGE OBJ
 * Atom : add new mode
+* Atom : optimize the code to growth the speed rate
 
 /// BUG FIXE OBJ
 * HEXAGONE : fixe canvas bug when this one displayed too much shapes
+* Balise : display shape with acceptable size when the sound is off
 
 
 

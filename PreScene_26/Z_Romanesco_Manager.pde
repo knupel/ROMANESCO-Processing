@@ -212,7 +212,7 @@ class ObjectRomanescoManager {
   
   //////////////////////////////////////
   // INDEX and INFO OBJECT FROM CLASSES
-  String pathObjects = sketchPath("")+"preferences/objects/" ;
+  String pathObjects = preferencesPath+"objects/" ;
   
   ////////////////
   // INTERN VOID

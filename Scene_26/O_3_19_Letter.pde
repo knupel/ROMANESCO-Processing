@@ -115,7 +115,6 @@ class Letter extends SuperRomanesco {
     
     //security against the array out bounds
     if(whichLetter < 0 ) whichLetter = 0 ; else if (whichLetter >= grp.countChildren()) whichLetter = grp.countChildren() -1  ;
-    println(numLetter) ;
     wheelLetter(numLetter, speed, c, thickness, jttr) ;
 
     

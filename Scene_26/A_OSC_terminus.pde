@@ -1,7 +1,7 @@
 OscP5 osc;
 //SETUP
 void OSCSetup() {
-   if(sendToSyphon) osc = new OscP5(this, 10002); else osc = new OscP5(this, 10001);
+   if(syphon) osc = new OscP5(this, 10002); else osc = new OscP5(this, 10001);
 }
 
 //EVENT

@@ -165,7 +165,7 @@ class Twitter {
   boolean twitterAcces ;
   void setup() {
     // load the file.txt to read your twitter code
-    String [] codeT = loadStrings(sketchPath("")+"preferences/network/twitter/twitterCode.txt")  ;
+    String [] codeT = loadStrings(preferencesPath +"network/twitter/twitterCode.txt")  ;
     String codeTwitter = join(codeT, "") ;
     String [] cT = split(codeTwitter, ",") ;
     

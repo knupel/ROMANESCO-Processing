@@ -58,8 +58,13 @@ class Webcam extends SuperRomanesco {
     
     //PART TWO
     cam.start();
-    cellSizeX = int(map(canvasYObj[IDobj],width/10, width, 50, 1))  ; 
-    cellSizeY = int(map(canvasXObj[IDobj],width/10, width, 50, 1))  ;
+    if(fullRendering) {
+      cellSizeX = int(map(canvasYObj[IDobj],width/10, width, 50, 1))  ; 
+      cellSizeY = int(map(canvasXObj[IDobj],width/10, width, 50, 1))  ;
+    } else {
+      cellSizeX = int(map(canvasYObj[IDobj],width/10, width, 50, 20))  ; 
+      cellSizeY = int(map(canvasXObj[IDobj],width/10, width, 50, 20))  ;
+    }
     if(cellSizeX < 1 ) cellSizeX = 1 ;
     if(cellSizeY < 1 ) cellSizeY = 1 ;
     

@@ -1,6 +1,26 @@
+//CURSOR, PEN, LEAP MOTION
+
+void cursorDraw() {
+  //mousePressed
+  if(ORDER_ONE || ORDER_TWO || ORDER_THREE) ORDER = true ; else ORDER = false ;  
+  
+  //next previous
+  if (nextPrevious) nextPreviousInt = 1 ; else nextPreviousInt = 0 ;
+}
+///////////////
+//END CURSOR, PEN, 
+
+
+
+
+
   ///////////////////////////////////
  //    GRAPHIC CONFIGURATION  //////
 ///////////////////////////////////
+void initDraw() {
+  rectMode (CORNER) ; 
+  if(mavericks && fullScreen) sketchPosition(whichScreen) ;
+}
 
 //SCREEN CHOICE and FULLSCREEN
 GraphicsEnvironment g = GraphicsEnvironment.getLocalGraphicsEnvironment();
@@ -51,7 +71,7 @@ void loadPropertyScene() {
   sceneWidth = row.getInt("width") ;
   sceneHeight =  row.getInt("height")  ;
   //SYPHON
-  if(row.getString("miroir").equals("TRUE") || row.getString("miroir").equals("true")) sendToSyphon = true ; else sendToSyphon = false ;
+  if(row.getString("miroir").equals("TRUE") || row.getString("miroir").equals("true")) syphon = true ; else syphon = false ;
   
   // type of renderer
   if      (row.getString("render").equals("P2D") ) { displayMode = ("P2D") ; modeP2D = true ; }
@@ -92,9 +112,12 @@ void sketchPosition(int whichOne) {
 void screenMode(boolean varFullscreen, PVector size) {
   if(varFullscreen) {
     removeBorder(true) ;
+    /*
     instance.setVisible(false, false); 
     // instance.setVisible(false); // Processing 303 and 304
+    */
   }
+  
   if       (modeP3D) size((int)size.x,(int)size.y, P3D) ;
   else if  (modeP2D) size((int)size.x,(int)size.y, P2D) ;
   else if  (modeOPENGL) size((int)size.x,(int)size.y, OPENGL) ;
@@ -129,7 +152,9 @@ public void infoScreen() {
 // WITHOUT MAVERICKS
 ///////////////////////////////////
 void sizeScene() {
+  /*
   if(fullScreen) instance = new JAppleMenuBar();
+  */
     //create the Scene on fullscreen mode
   if (fullScreen && modeClassic) {
     size(screenWidth(whichScreen),screenHeight(whichScreen)) ;
@@ -166,9 +191,11 @@ void sizeScene() {
 
 
 void sketchPosWithoutMavericks(int x, int y, int whichOne) {
+  /*
   // remove the apple menu bar
   instance.setVisible(false, false); 
   // instance.setVisible(false); // Processing 303 and 304
+  */
   
   if (whichOne >= screenDevice.length ||  whichOne < 0 ) { 
     whichOne = 0 ;
@@ -256,14 +283,14 @@ void updateSizeDisplay(PImage imgDisplay) {
 // MIROIR
 /////////
 Miroir miroir;
-boolean sendToSyphon  ;
+boolean syphon  ;
 
 void miroirSetup() {
-  if (sendToSyphon) miroir = new Miroir(this);
+  if (syphon) miroir = new Miroir(this);
 }
 
 void miroirDraw() {
-  if (sendToSyphon) miroir.update();
+  if (syphon) miroir.update();
 }
 
 

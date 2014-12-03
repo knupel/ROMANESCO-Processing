@@ -504,3 +504,191 @@ void OSMavericksCheck() {
 
 // END MISC
 ///////////
+
+
+
+
+
+
+
+
+//////////
+//KEYBOARD
+
+//short Touch
+boolean aTouch, bTouch, cTouch, dTouch, eTouch, fTouch, gTouch, hTouch, iTouch, jTouch, kTouch, lTouch, mTouch, nTouch, oTouch, pTouch, qTouch, rTouch, sTouch, tTouch, uTouch, vTouch, wTouch, xTouch, yTouch, zTouch,
+        leftTouch, rightTouch, upTouch, downTouch, 
+        touch0, touch1, touch2, touch3, touch4, touch5, touch6, touch7, touch8, touch9, 
+        backspaceTouch, deleteTouch, enterTouch, returnTouch, shiftTouch, altTouch, escTouch, ctrlTouch ;
+//long touch
+boolean spaceTouch, cLongTouch, lLongTouch, nLongTouch, vLongTouch ;  
+
+//END KEYBOARD
+//////////////
+
+
+
+
+
+
+//DETECTION
+//CIRLCLE
+boolean insideCircle (PVector pos, int diam) {
+  if (dist(pos.x, pos.y, mouseX, mouseY) < diam) return true  ; else return false ;
+}
+
+//RECTANGLE
+boolean insideRect(PVector pos, PVector size) { 
+    if(mouse[0].x > pos.x && mouse[0].x < pos.x + size.x && mouse[0].y >  pos.y && mouse[0].y < pos.y + size.y) return true ; else return false ;
+}
+//DETECTION
+
+
+
+
+
+////////
+//TIME
+int minClock() {
+  return hour()*60 + minute() ;
+}
+
+
+//timer
+int chrnmtr, chronometer, newChronometer ;
+
+int timer(float tempo) {
+  int translateTempo = int(1000 *tempo) ;
+  newChronometer = millis()%translateTempo ;
+  if ( chronometer > newChronometer ) {
+    chrnmtr += 1  ;
+  }
+  chronometer = newChronometer ;
+  return chrnmtr ;
+}
+
+//make cycle from speed
+float totalCycle ;
+float cycle(float add) {
+  totalCycle += add ; // choice here the speed of the cycle
+  return sin(totalCycle) ;
+}
+
+
+//END TIME
+///////////
+
+
+
+// EASING
+////////
+PVector targetIN = new PVector () ;
+//Pen
+PVector easingIN = new PVector () ;
+//
+PVector easing(PVector targetOUT, float effectOUT) {
+  targetIN.x = targetOUT.x;
+  float dx = targetIN.x - easingIN.x;
+  if(abs(dx) > 1) {
+    easingIN.x += dx * effectOUT;
+  }
+  
+  targetIN.y = targetOUT.y;
+  float dy = targetIN.y - easingIN.y;
+  if(abs(dy) > 1) {
+    easingIN.y += dy * effectOUT;
+  }
+  return easingIN ;
+}
+//
+void resetEasing(PVector targetOUT) {
+  easingIN.x = targetOUT.x ; easingIN.y = targetOUT.y ;
+}
+//end easing
+
+
+
+
+//////////////////
+//tracking with pad
+void nextPreviousKeypressed() {
+    //tracking
+  nextPrevious = true ;
+}
+//
+int tracking(int t, int n) {
+  if (nextPrevious) {
+    if (downTouch && t < n-1 ) {
+      trackerUpdate = +1 ;
+    } else if (upTouch  && t > 0 ) {
+      trackerUpdate = -1 ;
+    } 
+  }
+  if (nextPrevious) {
+    if ( leftTouch  && t > 0 ) {
+      trackerUpdate = -1 ;
+    } else if ( rightTouch && t < n-1 ) {
+      trackerUpdate = +1 ;
+    }
+  }
+  nextPrevious = false ;
+  return trackerUpdate ;
+}
+//END nextPrevious
+
+
+
+
+
+
+
+
+
+///////////////////////////////////////////
+//TRANSLATOR INT to String, FLOAT to STRING
+//truncate
+float truncate( float x ) {
+    return round( x * 100.0f ) / 100.0f;
+}
+//Int to String with array list
+String joinIntToString(int []data) {
+  String intString ;
+  String [] dataString = new String [data.length] ;
+  for ( int i = 0 ; i < data.length ; i++) dataString[i] = Integer.toString(data[i]) ;
+  intString = join(dataString,"/") ;
+  
+  return intString ;
+}
+
+//float to String with array list
+String joinFloatToString(float []data) {
+  String floatString ;
+  String [] dataString = new String [data.length] ;
+  //for ( int i = 0 ; i < data.length ; i++) dataString[i] = Float.toString(data[i]) ;
+  //we must use just one decimal after coma, to dodge the outBoundIndex blablabla
+  for ( int i = 0 ; i < data.length ; i++) dataString[i] = String.format("%.1f" ,data[i]) ;
+  floatString = join(dataString,"/") ;
+  
+  return floatString ;
+}
+
+//Translater to String
+String FloatToString(float data) {
+  String newData ;
+  newData = String.format("%.1f", data ) ;
+  return newData ;
+}
+//
+String FloatToStringWithThree(float data) {
+  String newData ;
+  newData = String.format("%.3f", data ) ;
+  return newData ;
+}
+//
+String IntToString(int data) {
+  String newData ;
+  newData = Integer.toString(data ) ;
+  return newData ;
+}
+//END TRANSLATOR
+///////////////

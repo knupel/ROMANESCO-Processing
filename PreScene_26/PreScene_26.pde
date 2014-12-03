@@ -12,20 +12,20 @@ boolean fullRendering = false ;
 
 
 void setup() {
+  // common setup
   romanescoSetup() ;
   createVar() ;
+  //specific setup
   displaySetup(60) ; // the int value is the frameRate
-  colorSetup() ;
-  
-  // GEOMERATIVE
-  RG.init(this);
-  
   presceneSetup() ; // the varObject setup of the Scene is more simple
   leapMotionSetup() ;
+  OSCSetup() ;
+  //common setup
+  colorSetup() ;
+  RG.init(this);  // Geomerative
   varObjSetup() ;
   fontSetup() ;
   soundSetup() ;
-  OSCSetup() ;
   P3DSetup() ;
 }
 

@@ -103,7 +103,7 @@ class Escargot extends SuperRomanesco {
     startPosition(IDobj, 0, 0, 0) ;
     if(!scene) maxVoronoiPoints = 250 ;
     //load pattern SVG to display a Pixel pattern you create in Illustrator or other software
-    pathSVG = sketchPath("")+"preferences/pixel/model.svg" ;
+    pathSVG = preferencesPath +"pixel/model.svg" ;
     shapeSVGsetting(pathSVG) ;
     
     //random palette

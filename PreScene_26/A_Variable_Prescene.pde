@@ -26,10 +26,3 @@ String bigBrother = ("BIG BROTHER DON'T WATCHING YOU !!") ;
 // CURSOR SPEED
 int speedWheel = 5 ;
 float speedLeapmotion = .15 ; // between 0.000001 and 1 : can be good between 0.1 and 0.4
-
-
-
-
-//SAVE PICTURE
-boolean savePDF ;
-String savePathPDF, savePathPNG ;
