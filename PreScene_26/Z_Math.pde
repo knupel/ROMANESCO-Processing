@@ -513,27 +513,56 @@ void drawLinePolyhedron(String polyhedronName) {
 }
 
 void drawVertexPolyhedron(String polyhedronName) {
-  beginShape() ;
-  for (int i=0; i <listPVectorPolyhedron.size(); i++) {
-    for (int j=i +1; j <listPVectorPolyhedron.size(); j++) {
-      if (isEdge(i, j, listPVectorPolyhedron) || edgeLengthOfPolyhedron == 0 ) {
-        // vLine((PVector)listPVectorPolyhedron.get(i), (PVector)listPVectorPolyhedron.get(j));
-        PVector v1 = (PVector)listPVectorPolyhedron.get(i) ;
-        PVector v2 = (PVector)listPVectorPolyhedron.get(j) ;
-        v1 = new PVector(v1.x *factorSizePolyhedron, v1.y *factorSizePolyhedron, v1.z *factorSizePolyhedron) ;
-        v2 = new PVector(v2.x *factorSizePolyhedron, v2.y *factorSizePolyhedron, v2.z *factorSizePolyhedron) ;
-        if(polyhedronName.equals("TETRAHEDRON")) {
-          pushMatrix() ;
-          rotateX(TAU -1) ;
-          rotateY(PI/4) ;
+  // TETRAHEDRON
+  if(polyhedronName.equals("TETRAHEDRON")) {
+    pushMatrix() ;
+    rotateX(TAU -1) ;
+    rotateY(PI/4) ;
+    int n = 4 ; // quantity of face of Tetrahedron
+    for(int i = 0 ; i < n ; i++) {
+      // choice of each point
+      int a = i ;
+      int b = i+1 ;
+      int c = i+2 ;
+      if(i == n-2 ) c = 0 ;
+      if(i == n-1 ) {
+        b = 0 ;
+        c = 1 ;
+      }
+      PVector v1 = (PVector)listPVectorPolyhedron.get(a) ;
+      PVector v2 = (PVector)listPVectorPolyhedron.get(b) ;
+      PVector v3 = (PVector)listPVectorPolyhedron.get(c) ;
+      // scale the position of the points
+      v1 = new PVector(v1.x *factorSizePolyhedron, v1.y *factorSizePolyhedron, v1.z *factorSizePolyhedron) ;
+      v2 = new PVector(v2.x *factorSizePolyhedron, v2.y *factorSizePolyhedron, v2.z *factorSizePolyhedron) ;
+      v3 = new PVector(v3.x *factorSizePolyhedron, v3.y *factorSizePolyhedron, v3.z *factorSizePolyhedron) ;
+      
+      // drawing
+      beginShape() ;
+      vertex(v1.x, v1.y, v1.z) ;
+      vertex(v2.x, v2.y, v2.z) ;
+      vertex(v3.x, v3.y, v3.z) ;
+      endShape(CLOSE) ;
+    }
+    popMatrix() ;
+  // OTHER POLYHEDRON
+  } else {
+    beginShape() ;
+    for (int i=0; i <listPVectorPolyhedron.size(); i++) {
+      for (int j=i +1; j <listPVectorPolyhedron.size(); j++) {
+        if (isEdge(i, j, listPVectorPolyhedron) || edgeLengthOfPolyhedron == 0 ) {
+          // vLine((PVector)listPVectorPolyhedron.get(i), (PVector)listPVectorPolyhedron.get(j));
+          PVector v1 = (PVector)listPVectorPolyhedron.get(i) ;
+          PVector v2 = (PVector)listPVectorPolyhedron.get(j) ;
+          v1 = new PVector(v1.x *factorSizePolyhedron, v1.y *factorSizePolyhedron, v1.z *factorSizePolyhedron) ;
+          v2 = new PVector(v2.x *factorSizePolyhedron, v2.y *factorSizePolyhedron, v2.z *factorSizePolyhedron) ;
+          vertex(v1.x, v1.y, v1.z) ;
+          vertex(v2.x, v2.y, v2.z) ;
         }
-        vertex(v1.x, v1.y, v1.z) ;
-        vertex(v2.x, v2.y, v2.z) ;
-        if(polyhedronName.equals("TETRAHEDRON")) popMatrix() ;
       }
     }
+    endShape(CLOSE) ;
   }
-  endShape(CLOSE) ;
 }
 // END of EASY METHOD and DIRECT METHOD
 

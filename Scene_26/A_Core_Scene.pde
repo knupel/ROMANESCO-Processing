@@ -286,11 +286,14 @@ Miroir miroir;
 boolean syphon  ;
 
 void miroirSetup() {
-  if (syphon) miroir = new Miroir(this);
+  //if (syphon) miroir = new Miroir(this);
+  miroir = new Miroir(this);
 }
 
 void miroirDraw() {
+  if(yTouch) syphon = !syphon ;
   if (syphon) miroir.update();
+  println(syphon) ;
 }
 
 
