@@ -22,7 +22,7 @@ If you want code in Romanesco there few compulsory variables and functions that 
 
 ##Built Romanesco on OSX
 * Before export your sketches
-* Create a main folder, in this one create a "sources".
+* Create a main folder, in this one create a folder named "sources".
 * In "sources" you create "preferences" folder
 * In "preferences" you drop :
  * "background_shader" folder
