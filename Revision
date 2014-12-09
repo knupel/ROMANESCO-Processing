@@ -23,16 +23,15 @@ ROMANESCO 0.26 Revision
 * Kofosphere object 3D
 * template to code object
 
-
+// CHANGE OBJ
+* Atom : add new mode
+* Atom : optimize the code to growth the speed rate
+* Letters : add mode triangle face
 * Atom modes : box, sphere, triangle, terahedron, rectangle...
 * Atom : key "d" on the Prescene to change the displaying of the atom to 2D to 3D > 3D to 2D
 * Atom : slider amplitude for the sound reactivity
 * Atom : slider depth for the size box
 * Atom : left, right sound to add jitter direction for each atom
-
-// CHANGE OBJ
-* Atom : add new mode
-* Atom : optimize the code to growth the speed rate
 
 /// BUG FIXE OBJ
 * HEXAGONE : fixe canvas bug when this one displayed too much shapes
@@ -59,6 +58,9 @@ CONTROLLER
 * Menu Light one and two
 
 SCENE 
+* Math : Few Polyhedrons
+* Math : Tetrahedron
+* Math : Triangle vertex P3D mode
 * Manager class for Romanesco object
 * Manager images file.jpg from folder
 * Manager text file.txt from folder

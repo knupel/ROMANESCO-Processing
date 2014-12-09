@@ -98,6 +98,8 @@ void rotation (float angle, float posX, float posY ) {
 ///////////////
 
 
+
+
 //DISC
 void disc( PVector pos, int diam, color c ) {
   for ( int i = 1 ; i < diam +1 ; i++) {
@@ -290,6 +292,14 @@ PVector pointOnCirlcle(int r, float angle) {
 
 //PRIMITIVE 3D
 //////////////
+
+void triangle(float x1, float y1, float z1, float x2, float y2, float z2, float x3, float y3, float z3) {
+  beginShape() ;
+  vertex(x1, y1, z1) ;
+  vertex(x2, y2, z2) ;
+  vertex(x3, y3, z3) ;
+  endShape(CLOSE) ;
+}
 
 //POLYDRON
   //create Polyhedron

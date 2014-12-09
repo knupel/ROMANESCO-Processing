@@ -5,11 +5,11 @@ class Letter extends SuperRomanesco {
     IDobj = 19 ;
     IDgroup = 3 ;
     romanescoAuthor  = "Stan le Punk";
-    romanescoVersion = "Version 1.1";
+    romanescoVersion = "Version 1.2";
     romanescoPack = "Base" ;
     romanescoRender = "P3D" ;
-    romanescoMode = "Line/Point" ;
-    romanescoSlider = "Hue fill,Saturation fill,Brightness fill,Alpha fill,Thickness,Width,Canvas X,Canvas Y,Canvas Z,Quantity,Speed" ;
+    romanescoMode = "Point/Line/Triangle" ;
+    romanescoSlider = "Hue fill,Saturation fill,Brightness fill,Alpha fill,Hue stroke,Saturation stroke,Brightness stroke,Alpha stroke,Thickness,Width,Canvas X,Canvas Y,Canvas Z,Quantity,Speed" ;
   }
   //GLOBAL
   RFont f;
@@ -45,6 +45,7 @@ class Letter extends SuperRomanesco {
     sizeFont = int(fontSizeObj[IDobj]) ;
     //text
     String sentence = whichSentence(textImport[IDobj], 0, 0) ;
+    
 
     
     //check if something change to update the RG.getText
@@ -83,18 +84,24 @@ class Letter extends SuperRomanesco {
     numLetter = (int)map(quantityObj[IDobj],1,100, 0,grp.countChildren() +1) ;
     
     //DISPLAY
+    // thickness
     float thicknessLetter = map(thicknessObj[IDobj], .1, height/3, 0.1, height /10) ; ;
-    //color
-    color colorIn = fillObj[IDobj] ;
-    //jitter
-    float jitterX = map(canvasXObj[IDobj],width/10, width, 0, width/5) ;
-    float jitterY = map(canvasYObj[IDobj],width/10, width, 0, width/5) ;
-    float jitterZ = map(canvasZObj[IDobj],width/10, width, 0, width/5) ;
-    PVector jitter = new PVector (jitterX, jitterY, jitterZ) ;
-    
-    fill(colorIn); noStroke() ;
 
-    letters(speed, axeLetter, colorIn, thicknessLetter, jitter) ;
+    // color
+    if(mode[IDobj] <= 1) {
+      noFill() ; stroke(fillObj[IDobj]) ; strokeWeight(thicknessLetter) ;
+    } else {
+      fill(fillObj[IDobj]) ; stroke(strokeObj[IDobj]) ; strokeWeight(thicknessLetter) ;
+    }
+    //jitter
+    float jitterX = map(canvasXObj[IDobj],width/10, width, 0, width/40) ;
+    float jitterY = map(canvasYObj[IDobj],width/10, width, 0, width/40) ;
+    float jitterZ = map(canvasZObj[IDobj],width/10, width, 0, width/40) ;
+    PVector jitter = new PVector (jitterX *jitterX, jitterY *jitterY, jitterZ *jitterZ) ;
+    
+
+
+    letters(speed, axeLetter, jitter) ;
     //END YOUR WORK
     
 
@@ -108,23 +115,23 @@ class Letter extends SuperRomanesco {
   // ANNEXE
   float rotation ;
   
-  void letters(float speed, int axeLetter, color c, float thickness, PVector jttr) {
+  void letters(float speed, int axeLetter, PVector jttr) {
     //create a PVector arraylist from geomerative analyze
     // float rangeWhichLetter = width / grp.countChildren() ;
     if (sound[IDobj]) whichLetter = (int)allBeats(IDobj) ; else whichLetter = 0 ;
     
     //security against the array out bounds
     if(whichLetter < 0 ) whichLetter = 0 ; else if (whichLetter >= grp.countChildren()) whichLetter = grp.countChildren() -1  ;
-    wheelLetter(numLetter, speed, c, thickness, jttr) ;
+    wheelLetter(numLetter, speed, jttr) ;
 
     
     if(axeLetter < 0 ) axeLetter = 0 ; else if (axeLetter >= grp.countChildren()) axeLetter = grp.countChildren() - 1 ;
-    displayLetter(axeLetter, c, thickness, jttr) ;
+    displayLetter(axeLetter, jttr) ;
   }
   
   int whichOneChangeDirection = 1 ;
   
-  void wheelLetter(int num, float speed, color c, float thickness, PVector jttr) {
+  void wheelLetter(int num, float speed, PVector jttr) {
     // direction rotation for each one
     if(frameCount%160 == 0 || nTouch) whichOneChangeDirection = round(random(1,num)) ;
     //position
@@ -135,14 +142,15 @@ class Letter extends SuperRomanesco {
         if(i%whichOneChangeDirection == 0 ) speed  = speed *-1  ;
         speed = speed *startDirection ;
         if(motion[IDobj]) grp.children[targetLetter].rotate(speed, grp.children[axeLetter].getCenter());
-        displayLetter(targetLetter, c, thickness, jttr) ;
+        displayLetter(targetLetter, jttr) ;
       }
     }
   }
   
-  void displayLetter(int which, color c, float thickness, PVector ampJttr) {
+  void displayLetter(int which, PVector ampJttr) {
     RPoint[] pnts = grp.children[which].getPoints() ; 
     PVector [] points = geomerativeFontPoints(pnts)  ;
+    /*
     noFill() ; stroke(c) ; strokeWeight(thickness) ;
     // security against the black brightness bug opacity
     if (alpha(c) == 0 ) {
@@ -151,13 +159,16 @@ class Letter extends SuperRomanesco {
     } else {     
       fill (c) ; 
     }
+    */
     for ( int i = 0; i < points.length; i++ ) {
       points[i].add(jitterPVector(ampJttr)) ;
       float factor = 40.0 ;
       points[i].z = points[i].z +(allBeats(IDobj) *factor) ; 
 
-      if(mode[IDobj] == 0 ) if(i > 0 ) line( points[i-1].x, points[i-1].y, points[i-1].z,   points[i].x, points[i].y, points[i].z );
-      if(mode[IDobj] == 1 ) point(points[i].x, points[i].y, points[i].z) ;
+      if(mode[IDobj] == 0 ) point(points[i].x, points[i].y, points[i].z) ;
+      if(mode[IDobj] == 1 ) if(i > 0 ) line( points[i-1].x, points[i-1].y, points[i-1].z,   points[i].x, points[i].y, points[i].z );
+      if(mode[IDobj] == 2 ) if(i > 1 ) triangle(points[i-2].x, points[i-2].y, points[i-2].z,   points[i-1].x, points[i-1].y, points[i-1].z,   points[i].x, points[i].y, points[i].z );
+      
     }
   }
   
@@ -165,7 +176,7 @@ class Letter extends SuperRomanesco {
   //jitter for PVector points
   PVector jitterPVector(PVector range) {
     float factor = 0.0 ;
-    if(sound[IDobj]) factor = 2.0 ; else factor = 0.0  ;
+    if(sound[IDobj]) factor = 2.0 ; else factor = 0.1  ;
     int rangeX = int(range.x *left[IDobj] *factor) ;
     int rangeY = int(range.y *right[IDobj] *factor) ;
     int rangeZ = int(range.z *mix[IDobj] *factor) ;
@@ -186,4 +197,5 @@ class Letter extends SuperRomanesco {
     }
     return pts ;
   }
+  
 }

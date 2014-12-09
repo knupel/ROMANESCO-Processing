@@ -185,6 +185,10 @@ void primitive(int x, int y, int radius, int summits)
 -- create polygone 2D, choice the quantity of summits and the radius.
 
 
+void triangle(int x1, int y1, int z1, int x2, int y2, int z2, int x3, int y3, int z3)
+-- triangle vertex
+
+
 // PRIMITIVE 3D
 -- Polyhedron primitive 3D
   /*
