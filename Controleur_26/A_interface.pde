@@ -520,7 +520,6 @@ void sliderDraw() {
           if (showSliderGroup[j] && objectGroup[i] == j) { 
             for(int k = 1 ; k < SLIDER_BY_GROUP ; k++) {
               if (displaySlider[j][k]) {
-                // ???? weird here we work only on the group one because whichGroup is one and don't change ??????
                 updateMolette(k +(objectGroup[i] *100), whichGroup) ; 
               }
             }
@@ -557,8 +556,7 @@ void updateMolette(int whichOne, int whichGroup) {
   PVector correctionPosMoletteY = new PVector(-2,2)  ;
   
   // choice the property display depending the group slider
-  if (whichGroup == 0) 
-  Slider[whichOne].displayMolette(blancGris, grisFonce, grisNoir, sizeMoletteSlider, correctionPosMoletteY); 
+  if (whichGroup == 0) Slider[whichOne].displayMolette(blancGris, grisFonce, grisNoir, sizeMoletteSlider, correctionPosMoletteY); 
   else Slider[whichOne].displayMolette(blanc, grisClair, grisTresFonce, sizeMoletteSlider, correctionPosMoletteY);
 
   //return value between 0 / 100

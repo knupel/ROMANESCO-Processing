@@ -251,6 +251,7 @@ PVector startingPos[IDobj] by default this value is equal to (width/2, height/2,
 
 to change that use this void 
 void startPosition(int IDobj, int x, int y, int z) use it IN THE void display()
+ give the x,y,z data to PVector  startingPos[IDobj]
 
 
 

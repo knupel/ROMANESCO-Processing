@@ -304,11 +304,12 @@ void saveInfoSlider() {
     for(int j = 1 ; j < SLIDER_BY_GROUP ; j++) {
       // set PVector info Slider
       int IDslider = j +(i *100) ;
-      // third loop to check and foinf the good PVector array in the list
+      // third loop to check and find the good PVector array in the list
       for(int k = 0 ; k < infoSlider.length ;k++) {
+        println(k, IDslider) ;
         if( (int)infoSlider[k].x ==IDslider) {
           infoSlider[k].z = valueSlider[IDslider] ;
-          setSlider(IDslider, (int)infoSlider[k].y, infoSlider[i].z) ;
+          setSlider(IDslider, (int)infoSlider[k].y, infoSlider[k].z) ;
         }
       }
     }
@@ -387,7 +388,7 @@ void loadSave(String path) {
   for (TableRow row : settingTable.rows()) {
     String s = row.getString("Type") ;
     //
-    if( s.equals("Button")  ){ 
+    if( s.equals("Button")){ 
      int IDbutton = row.getInt("ID button") ;
      int IDmidi = row.getInt("ID midi") ;
      int onOff = row.getInt("On Off") ;
@@ -395,11 +396,13 @@ void loadSave(String path) {
      countButton++ ; 
     }
     //
-    if( s.equals("Slider")  ){
+    if( s.equals("Slider")){
      int IDslider = row.getInt("ID slider") ;
      int IDmidi = row.getInt("ID midi") ;
      int valueSlider = row.getInt("Value slider") ; 
-     infoSlider[countSlider] = new PVector(IDslider,IDmidi,valueSlider) ; 
+     infoSlider[countSlider] = new PVector(IDslider,IDmidi,valueSlider) ;
+     println(IDslider,IDmidi,valueSlider) ;
+     println(infoSlider[countSlider]) ;
      countSlider++ ; //<>//
     }
   }
@@ -442,7 +445,6 @@ void sliderSetSaveSetting() {
     for(int j = 1 ; j < SLIDER_BY_GROUP ; j++) {
       int whichOne = j +(i *100) ;
       PVector info = infoSaveFromRawList(infoSlider, whichOne).copy() ;
-      println(info) ;
       Slider[whichOne].updateFromSave((int)info.z, (int)info.y) ; // (pos, IDmidi) ;
     }
   }

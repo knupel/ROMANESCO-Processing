@@ -1,5 +1,5 @@
 Romanesco Unu
-2011-2014 - Pretty version 1.0.0 - Version 25 
+2011-2014 - Pretty version 1.0.1 - Version 26 
 Romanesco is free for the non-commercial use, in other case contact us.
 
 Core code : Stan le Punk
@@ -8,7 +8,7 @@ Graphic Design : Stan le Punk
 Library Objects Contributors : Andreas Gysin, Amnon Owen, Stan le Punk.
 
 Code feedback: Dinh Doan Van Bien, Jérôme Forêt.
-UX feedback: Ivan Jukanovic, Clément Seurat.
+UX feedback: Ivan Jukanovic, Clément Seurat, Etienne Auger.
 Communication feedback: Christian Delecluse, Péa Loy, Nicotepo.
 
 Algorithm inspiration: Nicoptére, Daniel Shiffman, Andreas Gysin, Julien Gachadoat aka V3GA.
@@ -27,6 +27,6 @@ Ricard Marxer, Michael Heuer, Manindra Moharana.
 
 Processing Organisation: Casey Reas, Ben Fry.
 
-Special Thanks: La Mère à JC and Mark Webster for the Processing Workshop.
+Special Thanks: "La Mère à JC" and Mark Webster for the Processing Workshop.
 
 

@@ -118,16 +118,23 @@ class Escargot extends SuperRomanesco {
     */
   
     //step 2 if you use Voronoi
-    //setting voronoi
     voronoiToxicSetup() ;
-    
   }
   
   
   
   String imgPathRef = ("") ;
+  boolean firstSettingPosition = true ;
   //DRAW
   void display() {
+    println(startingPos[IDobj]) ;
+    /*
+    if(firstSettingPosition && startingPos[IDobj].x == 0.0 && startingPos[IDobj].y == 0.0 ) {
+      startingPos[IDobj].x = img[IDobj].width /4 ;
+      startingPos[IDobj].y = img[IDobj].height /4 ;
+      firstSettingPosition = false ;
+    }
+    */
     
     loadImg(IDobj) ;
     
@@ -152,7 +159,7 @@ class Escargot extends SuperRomanesco {
        //alternat beween the pen and the controleur
        // if( pen[IDobj].x == 0 && pen[IDobj].y == 0 ) newDirection = normalDir(int(map(valueObj[IDobj][18],0,100,0,360))) ; else newDirection = new PVector (-pen[IDobj].x  , -pen[IDobj].y ) ;
        
-       if (!motion[IDobj]) for( Pixel p : listEscargot) {
+       if (!motion[IDobj]) for(Pixel p : listEscargot) {
          p.updatePosPixel(motionInfo, img[IDobj]) ;
        }
       ////////////////
@@ -242,7 +249,11 @@ class Escargot extends SuperRomanesco {
   
        //CHANGE MODE DISPLAY
       /////////////////////
-      // translate((width*.5)-(img.width *.5) ,(height *.5)-(img.height *.5),0) ;
+      
+      // correction position to rotate the picture by the center
+      pushMatrix() ;
+      translate(-img[IDobj].width /4, -img[IDobj].height /4) ;
+      
       if (mode[IDobj] == 0 || mode[IDobj] == 255 ) {
         displayRawPixel(sizePoint, fillObj[IDobj], rangeReactivitySoundHundred, rangeReactivitySoundThreeHundredSixty, musicFactor, ratioImgWindow) ;
       } else if (mode[IDobj] == 1 ) {
@@ -268,6 +279,9 @@ class Escargot extends SuperRomanesco {
         }
       }
       
+      // end of correction position
+      popMatrix() ;
+      
       // info display
       objectInfo[IDobj] = ("Image " +img[IDobj].width + "x"+img[IDobj].height + " Analyze "+listEscargot.size()+ " of " + maxEntryPoints+ " / Cell " + pixelAnalyzeSize+ "px / Radius analyze " + radiusAnalyze + " Scale " + ratioImgWindow.x + " / " +ratioImgWindow.y) ;
     } 
@@ -282,7 +296,7 @@ class Escargot extends SuperRomanesco {
     float factorSat = map(saturation(cIn),0,100,0,1) ;
     float factorBright = map(brightness(cIn),0,100,0,1) ;
     
-    for ( Pixel p : listPixelRaw ) {
+    for (Pixel p : listPixelRaw) {
       //display
       stroke(hue(p.colour),saturation(p.colour)*factorSat,brightness(p.colour)*factorBright, alpha(cIn)) ;
       float newSize = 0 ;
@@ -361,7 +375,7 @@ class Escargot extends SuperRomanesco {
    
     for (Pixel p : listEscargot) {
       
-      if ( colorPixDisplay ) c = p.newColour ; else c = p.colour ;
+      if (colorPixDisplay) c = p.newColour ; else c = p.colour ;
       p.changeHue   (HSBmode, huePalette, hueStart, hueEnd) ;
       p.changeSat   (HSBmode, satPalette, satStart, satEnd) ; 
       p.changeBright(HSBmode, brightPalette, brightStart, brightEnd) ;
@@ -737,9 +751,9 @@ class Escargot extends SuperRomanesco {
     //step 4
     //escargot analyze of the arraylist create by the void recordPixelRaw
     
-   if ( escargotGOanalyze && listEscargot.size() < maxEntryPoints) {
+   if (escargotGOanalyze && listEscargot.size() < maxEntryPoints) {
       //security to make sure the speed is not higher to the max entry points
-      if ( speedAnalyze > maxEntryPoints / 10 ) speedAnalyze = maxEntryPoints / 10 ;
+      if (speedAnalyze > maxEntryPoints / 10 ) speedAnalyze = maxEntryPoints / 10 ;
       for (int i = 0 ; i < speedAnalyze ; i++ ) {
         int whichPointInTheList  = (int)random(listPixelRaw.size()) ;
         //void without control for escargot analyze
@@ -811,8 +825,8 @@ void escargotAnalyze(int pivot, int max, String mode, boolean whichColor, int si
       color colorRef ;
       if ( !whichColor ) colorRef = pixelRef.colour ; else colorRef = pixelRef.newColour ;
       
-      for ( int snailLevel = 1 ; snailLevel <= maxSnailLevel ; snailLevel++) {
-        for ( int escargotPos = 1 ; escargotPos < 10 ; escargotPos++) { // "posPixelAroundTheMainPixel" give the direction around the pixel pivot
+      for (int snailLevel = 1 ; snailLevel <= maxSnailLevel ; snailLevel++) {
+        for (int escargotPos = 1 ; escargotPos < 10 ; escargotPos++) { // "posPixelAroundTheMainPixel" give the direction around the pixel pivot
           if (lockEscargot[escargotPos -1] == 0 ) {
             //cols and rows is var from TAB "B_Pixel_Analyze_raw_Record"
             //strange the way is vetical and we must use the rows, not a same way than pixel who use the cols

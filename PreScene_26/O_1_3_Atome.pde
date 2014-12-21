@@ -256,7 +256,7 @@ class Atome extends SuperRomanesco {
   
   //ANNEXE
   
-  //give name to the atom from the karaoke.txt in the source repository
+  //give name to the atom from the file.txt in the source repository
   String giveNametoAtom() {
     String s = ("") ;
     int whichChapter = floor(random(numChapters(textImport[IDobj]))) ;

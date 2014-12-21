@@ -103,12 +103,8 @@ void sliderMidiUpdate(int whichOne) {
     for(int i = 0 ; i <infoSlider.length ; i++) {
       if(whichOne == (int)infoSlider[i].x) {
         infoSlider[i].y = numMidi  ;
-        //println(infoSlider[i]) ;
       }
     }
-
-    //println(infoSlider) ;
-    // println(whichOne, numMidi) ;
   }
   
   //ID midi from controller midi button setting
