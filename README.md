@@ -59,5 +59,5 @@ If you want code in Romanesco there few compulsory variables and functions that 
 
 ##LICENCE
 ROMANESCO is under the licence CeCILL.
-Romanesco is free, for the commercial use [make a donation can be good](http://romanescoproject.wordpress.com/download/)
+Romanesco is free, for the commercial use [make a donation can be good !](http://romanescoproject.wordpress.com/download/)
 2011-2014.
