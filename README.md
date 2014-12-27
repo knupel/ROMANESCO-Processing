@@ -45,11 +45,16 @@ If you want code in Romanesco there few compulsory variables and functions that 
 
 ##Built Romanesco on Windows
 * ?
-* 
+
 ##Libraries used for the application
 * [OSC](http://www.sojamo.de/libraries/oscp5/)
-
-
+* [YahooWeather](http://www.onformative.com/lab/google-weather-library-for-processing/)
+* [Geomerative](http://www.ricardmarxer.com/geomerative/)
+* [Leapmotion] (https://github.com/heuermh/leap-motion-processing)
+* [Tablet] (http://interfaze.info/libraries/tablet/)
+* [Syphon] (https://github.com/Syphon/Processing)
+* [GSVideo] (http://sourceforge.net/projects/gsvideo/files/gsvideo/1.0/)
+* [Minim, Promidi, Romefeeder, Toxilib and Twitter] (https://www.dropbox.com/s/jl0kr6tug7daut5/libraries_romanesco.zip?dl=0)
 
 
 ##LICENCE
