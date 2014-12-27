@@ -45,6 +45,9 @@ If you want code in Romanesco there few compulsory variables and functions that 
 
 ##Built Romanesco on Windows
 * ?
+* 
+##Libraries used for the application
+* [OSC](http://www.sojamo.de/libraries/oscp5/)
 
 
 
