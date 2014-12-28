@@ -57,7 +57,7 @@ If you want code in Romanesco there few compulsory variables and functions that 
 * [Minim, Promidi, Romefeeder, Toxilib and Twitter] (https://www.dropbox.com/s/jl0kr6tug7daut5/libraries_romanesco.zip?dl=0)
 
 
-##LICENCE
+##LICENSE
 ROMANESCO is under the licence CeCILL.
-Romanesco is free, for the commercial use [make a donation can be good  ](http://romanescoproject.wordpress.com/download/) to support the project.
-2011-2014.
+Romanesco is free, for the commercial use [make a donation can be good  ](http://romanescoproject.wordpress.com/download/) to support the project !
+ROMANESCO 2011-2014.
