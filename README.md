@@ -9,6 +9,10 @@ to download the built [app 1.0.0.25](http://romanescoproject.wordpress.com/downl
 * Prescene : use to move the object in the 3D space.
 * Scene : Display the result, we can use this one to send to syphon or not.
 
+
+##Memory
+Romanesco Prescene and Scene need a lot of memory to run in Processing. May be you will need to increase the Processing memory.
+
 ##Functions and variables
 If you want code in Romanesco there few compulsory variables and functions that you can find in the file "Romanesco functions ##.txt" and others who can help you.
 
