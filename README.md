@@ -1,7 +1,7 @@
-##ROMANESCO version 26 / Romanesco Unu 1.0.1.26
+##ROMANESCO version 27 / Romanesco Unu 1.0.2.27
 Romanesco can be your manager to test your sketch in a P3D world.
-Those sketches are the progress work for the previous [Romanesco Unu 1.0.0.25](https://github.com/StanLepunK/ROMANESCO_25).
-to download the built [app 1.0.0.25](http://romanescoproject.wordpress.com/download/)
+Those sketches are the progress work for [the previous releases of Romanesco Unu](https://github.com/StanLepunK/ROMANESCO_previous_release).
+to download the last built version [app 1.0.1.26](http://romanescoproject.wordpress.com/download/)
 
 ##Architecture Sketches
 * Romanesco : Sketch to set the Romanesco application.
@@ -65,4 +65,4 @@ If you want code in Romanesco there few compulsory variables and functions that 
 ROMANESCO is under the licence [CeCILL](http://www.cecill.info/licences/Licence_CeCILL_V2.1-en.html).
 Romanesco is a free software.
 For the commercial using [make a donation can be good  ](http://romanescoproject.wordpress.com/download/) to support the project !
-ROMANESCO 2011-2014.
+ROMANESCO 2011-2015.
