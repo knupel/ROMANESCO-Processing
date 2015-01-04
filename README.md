@@ -1,4 +1,4 @@
-##ROMANESCO version 27 / Romanesco Unu 1.0.2.27
+##ROMANESCO 27 / Romanesco Unu 1.0.2.27
 Romanesco can be your manager to test your sketch in a P3D world.
 Those sketches are the progress work. 
 For the [previous releases of Romanesco Unu](https://github.com/StanLepunK/ROMANESCO_previous_release).
