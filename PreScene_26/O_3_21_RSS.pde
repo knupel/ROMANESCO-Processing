@@ -63,8 +63,8 @@ class RSS extends SuperRomanesco {
     for( int i=info; i < info + 1; i++) {
       //internet = false ;
       if (internet && fullRendering) {
-        if(i < flux.entry.length) messageRSS =  (i +""+flux.entry[i]) ; else messageRSS = "  Big Brother is watching You" ;
-      } else messageRSS = "  "+ bigBrother ;
+        if(i<flux.entry.length) messageRSS =  (i +""+flux.entry[i]) ;  else messageRSS =("  Big Brother is watching you") ;
+      } else messageRSS = ("  Big Brother is watching you") ;
       int r ;
       if ( i > 9 ) r =2 ; else if( i > 0 && i < 10 ) r =1 ; else r =0 ; 
       String hune = messageRSS.substring(r);

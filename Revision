@@ -15,7 +15,7 @@ ROMANESCO 0.26 Revision
 /// BUG FIXE
 * Midi save and load slider
 * Leapmotion camera and objects position and direction
-* remove the method to remove the menu bar in fullscreen, because it's crash reason for the Scene.
+* remove the method to remove the menu bar in fullscreen, because it's a crash reason for the Scene.
 
 
 /// OBJECT ///
@@ -36,6 +36,8 @@ ROMANESCO 0.26 Revision
 /// BUG FIXE OBJ
 * HEXAGONE : fixe canvas bug when this one displayed too much shapes
 * Balise : display shape with acceptable size when the sound is off
+* RSS : fixe the outbound index in case where there is no info.
+* Escargot : Rotation image by the center, not by the corner.
 
 
 

@@ -127,7 +127,7 @@ class Escargot extends SuperRomanesco {
   boolean firstSettingPosition = true ;
   //DRAW
   void display() {
-    println(startingPos[IDobj]) ;
+    // println(startingPos[IDobj]) ;
     /*
     if(firstSettingPosition && startingPos[IDobj].x == 0.0 && startingPos[IDobj].y == 0.0 ) {
       startingPos[IDobj].x = img[IDobj].width /4 ;

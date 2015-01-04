@@ -306,7 +306,6 @@ void saveInfoSlider() {
       int IDslider = j +(i *100) ;
       // third loop to check and find the good PVector array in the list
       for(int k = 0 ; k < infoSlider.length ;k++) {
-        println(k, IDslider) ;
         if( (int)infoSlider[k].x ==IDslider) {
           infoSlider[k].z = valueSlider[IDslider] ;
           setSlider(IDslider, (int)infoSlider[k].y, infoSlider[k].z) ;
@@ -392,7 +391,8 @@ void loadSave(String path) {
      int IDbutton = row.getInt("ID button") ;
      int IDmidi = row.getInt("ID midi") ;
      int onOff = row.getInt("On Off") ;
-     infoButton[countButton] = new PVector(IDbutton,IDmidi,onOff) ;
+     // if(countButton < infoButton.length) is used in case that the number is inferior at the number of object in save file
+     if(countButton < infoButton.length) infoButton[countButton] = new PVector(IDbutton,IDmidi,onOff) ;
      countButton++ ; 
     }
     //
@@ -401,8 +401,8 @@ void loadSave(String path) {
      int IDmidi = row.getInt("ID midi") ;
      int valueSlider = row.getInt("Value slider") ; 
      infoSlider[countSlider] = new PVector(IDslider,IDmidi,valueSlider) ;
-     println(IDslider,IDmidi,valueSlider) ;
-     println(infoSlider[countSlider]) ;
+     //println(IDslider,IDmidi,valueSlider) ;
+    // println(infoSlider[countSlider]) ;
      countSlider++ ; //<>//
     }
   }
