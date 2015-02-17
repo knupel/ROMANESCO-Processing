@@ -25,14 +25,13 @@ PVector columnPosVert = new PVector(25,205, 385) ; // give the pos of the column
 int margeLeft  ; // marge left for the first GUI button and slider
 int startingTopPosition  ; // marge top to starting position of the GUI button and slider
 
+int sliderWidth = 111 ;
 int sliderHeight = 8 ;
 int roundedSlider = 5 ;
-SliderHorizontal [] Slider = new SliderHorizontal [NUM_SLIDER] ;
-int suivitSlider[] = new int[NUM_SLIDER] ; 
-int posWidthSlider[] = new int[NUM_SLIDER] ;
-int posHeightSlider[] = new int[NUM_SLIDER] ;
-int longueurSlider[] = new int[NUM_SLIDER] ;
-int hauteurSlider[] = new int[NUM_SLIDER] ;
+SliderAdjustable [] Slider = new SliderAdjustable [NUM_SLIDER] ;
+int []suivitSlider ; 
+PVector [] sizeSlider, posSlider = new PVector[NUM_SLIDER] ; 
+
 float valueSlider[] = new float[NUM_SLIDER] ;
 
 //paramètre généraux interface
@@ -176,28 +175,44 @@ void buttonSliderSetup() {
 
 
 
-/////////////////////
+// GROUP ZERO Setting
+///////////////////////
 void groupZero(int pos) {
-  //Background
+  
+  // background slider
   int correctionSliderBG = -32 ;
-  suivitSlider[1] = 1 ; posWidthSlider[1] = mgSliderc1 ; posHeightSlider[1]= pos +correctionSliderBG +0 ; longueurSlider[1] = 111 ; hauteurSlider[1] = sliderHeight ; ; // couleur du fond  
-  suivitSlider[2] = 1 ; posWidthSlider[2] = mgSliderc1 ; posHeightSlider[2]= pos +correctionSliderBG +10 ; longueurSlider[2] = 111 ; hauteurSlider[2] = sliderHeight ; ;   
-  suivitSlider[3] = 1 ; posWidthSlider[3] = mgSliderc1 ; posHeightSlider[3]= pos +correctionSliderBG +20 ; longueurSlider[3] = 111 ; hauteurSlider[3] = sliderHeight ; ;   
-  suivitSlider[4] = 1 ; posWidthSlider[4] = mgSliderc1 ; posHeightSlider[4]= pos +correctionSliderBG +30 ; longueurSlider[4] = 111 ; hauteurSlider[4] = sliderHeight ; ;
+  int startLoop = 1 ;
+  for(int i = startLoop ; i <= 4 ;i++) {
+    suivitSlider[i] = 1 ;
+    posSlider[i] = new PVector(mgSliderc1, pos +correctionSliderBG +(i-1 *10)) ;
+    sizeSlider[i] = new PVector(sliderWidth,sliderHeight) ;
+  }
+  
   //LIGHT
   int correctionSliderLight = -32 ;
   // LIGHT ONE
-  suivitSlider[7] = 1 ; posWidthSlider[7] = mgSliderc2 ; posHeightSlider[7]= pos +correctionSliderLight +0 ; longueurSlider[7] = 111 ; hauteurSlider[7] = sliderHeight ; ; // hue 
-  suivitSlider[8] = 1 ; posWidthSlider[8] = mgSliderc2 ; posHeightSlider[8]= pos +correctionSliderLight +10 ; longueurSlider[8] = 111 ; hauteurSlider[8] = sliderHeight ; ;   
-  suivitSlider[9] = 1 ; posWidthSlider[9] = mgSliderc2 ; posHeightSlider[9]= pos +correctionSliderLight +20 ; longueurSlider[9] = 111 ; hauteurSlider[9] = sliderHeight ; ; 
+  startLoop = 7 ;
+  for(int i = startLoop ; i <= 9 ;i++) {
+    suivitSlider[i] = 1 ;
+    posSlider[i] = new PVector(mgSliderc2, pos +correctionSliderLight +(i-startLoop *10)) ;
+    sizeSlider[i] = new PVector(sliderWidth,sliderHeight) ;
+  }
  // LIGHT TWO
-  suivitSlider[10] = 1 ; posWidthSlider[10] = mgSliderc3 ; posHeightSlider[10]= pos +correctionSliderLight +0 ; longueurSlider[10] = 111 ; hauteurSlider[10] = sliderHeight ; ;  // hue ambiance
-  suivitSlider[11] = 1 ; posWidthSlider[11] = mgSliderc3 ; posHeightSlider[11]= pos +correctionSliderLight +10 ; longueurSlider[11] = 111 ; hauteurSlider[11] = sliderHeight ; ;
-  suivitSlider[12] = 1 ; posWidthSlider[12] = mgSliderc3 ; posHeightSlider[12]= pos +correctionSliderLight +20 ; longueurSlider[12] = 111 ; hauteurSlider[12] = sliderHeight ; ;
+   startLoop = 10 ;
+  for(int i = startLoop ; i <= 12 ;i++) {
+    suivitSlider[i] = 1 ;
+    posSlider[i] = new PVector(mgSliderc3, pos +correctionSliderLight +(i-startLoop *10)) ;
+    sizeSlider[i] = new PVector(sliderWidth,sliderHeight) ;
+  }
+  
   // SOUND
   int correctionSliderSound = +19 ;
-  suivitSlider[5] = 1 ; posWidthSlider[5] = mgSliderc3  ; posHeightSlider[5]= pos +correctionSliderSound +0 ; longueurSlider[5] = 111 ; hauteurSlider[5] = sliderHeight ;  ; // sound left
-  suivitSlider[6] = 1 ; posWidthSlider[6] = mgSliderc3  ; posHeightSlider[6]= pos +correctionSliderSound +10 ; longueurSlider[6] = 111 ; hauteurSlider[6] = sliderHeight ; ; // sound rigth 
+     startLoop = 5 ;
+  for(int i = startLoop ; i <= 6 ;i++) {
+    suivitSlider[i] = 1 ;
+    posSlider[i] = new PVector(mgSliderc3, pos +correctionSliderSound +(i-startLoop *10)) ;
+    sizeSlider[i] = new PVector(sliderWidth,sliderHeight) ;
+  }
 }
 
 PVector posRelativeMainButton = new PVector (-8, -10) ;
@@ -205,55 +220,92 @@ PVector posRelativeSettingButton = new PVector (-8,14) ;
 PVector posRelativeSoundButton = new PVector (-8,25) ;
 PVector posRelativeActionButton = new PVector (4,25) ;
 //////////////
-void groupOne( int posButton, int posSlider) {
+void groupOne(int buttonPositionY, int sliderPositionY) {
   //position and area for the rollover
   for (int i = 1 ; i <= numGroup[1] ; i++ ) {
-    posWidthBOf[i*10+1] = posWidthBO +((i-1)*40) +(int)posRelativeMainButton.x    ; posHeightBOf[i*10+1] = posButton +(int)posRelativeMainButton.y     ; longueurBOf[i*10+1] = 20 ; hauteurBOf[i*10+1] = 20 ;  //main
-    posWidthBOf[i*10+2] = posWidthBO +((i-1)*40) +(int)posRelativeSettingButton.x ; posHeightBOf[i*10+2] = posButton +(int)posRelativeSettingButton.y  ; longueurBOf[i*10+2] = 19 ; hauteurBOf[i*10+2] = 6 ; //setting
-    posWidthBOf[i*10+3] = posWidthBO +((i-1)*40) +(int)posRelativeSoundButton.x   ; posHeightBOf[i*10+3] = posButton +(int)posRelativeSoundButton.y    ; longueurBOf[i*10+3] = 10 ; hauteurBOf[i*10+3] = 6 ; //sound
-    posWidthBOf[i*10+4] = posWidthBO +((i-1)*40) +(int)posRelativeActionButton.x  ; posHeightBOf[i*10+4] = posButton +(int)posRelativeActionButton.y   ; longueurBOf[i*10+4] = 10 ; hauteurBOf[i*10+4] = 6 ; //action
+    posWidthBOf[i*10+1] = posWidthBO +((i-1)*40) +(int)posRelativeMainButton.x    ; posHeightBOf[i*10+1] = buttonPositionY +(int)posRelativeMainButton.y     ; longueurBOf[i*10+1] = 20 ; hauteurBOf[i*10+1] = 20 ;  //main
+    posWidthBOf[i*10+2] = posWidthBO +((i-1)*40) +(int)posRelativeSettingButton.x ; posHeightBOf[i*10+2] = buttonPositionY +(int)posRelativeSettingButton.y  ; longueurBOf[i*10+2] = 19 ; hauteurBOf[i*10+2] = 6 ; //setting
+    posWidthBOf[i*10+3] = posWidthBO +((i-1)*40) +(int)posRelativeSoundButton.x   ; posHeightBOf[i*10+3] = buttonPositionY +(int)posRelativeSoundButton.y    ; longueurBOf[i*10+3] = 10 ; hauteurBOf[i*10+3] = 6 ; //sound
+    posWidthBOf[i*10+4] = posWidthBO +((i-1)*40) +(int)posRelativeActionButton.x  ; posHeightBOf[i*10+4] = buttonPositionY +(int)posRelativeActionButton.y   ; longueurBOf[i*10+4] = 10 ; hauteurBOf[i*10+4] = 6 ; //action
   }
 
   // where the controleur must display the slider
   for( int i = 0 ; i < SLIDER_BY_COL ; i++ ) {
-    suivitSlider[i+101] = 1 ; posWidthSlider[i+101] = mgSliderc1 ; posHeightSlider[i+101] = posSlider +i*10 ; longueurSlider[i+101] = 111 ; hauteurSlider[i+101] = sliderHeight ; ;
-    suivitSlider[i+111] = 1 ; posWidthSlider[i+111] = mgSliderc2 ; posHeightSlider[i+111] = posSlider +i*10 ; longueurSlider[i+111] = 111 ; hauteurSlider[i+111] = sliderHeight ; ;
-    suivitSlider[i+121] = 1 ; posWidthSlider[i+121] = mgSliderc3 ; posHeightSlider[i+121] = posSlider +i*10 ; longueurSlider[i+121] = 111 ; hauteurSlider[i+121] = sliderHeight ; ;
+    for (int j = 0 ; j < 3 ; j++) {
+      int whichSlider = i +101 +(j*10) ;
+      int posX = 0 ;
+      switch(j) {
+        case 0 : posX = mgSliderc1; 
+        break;
+        case 1 : posX = mgSliderc2;
+        break;
+        case 2 : posX = mgSliderc3;
+        break ;
+      }
+      suivitSlider[whichSlider] = 1 ;
+      posSlider   [whichSlider] = new PVector(posX, sliderPositionY +i*10) ;
+      sizeSlider  [whichSlider] =new PVector(sliderWidth, sliderHeight) ;
+    }
   }
 }
 
 //////////////////
-void groupTwo(int posButton, int posSlider) {
+void groupTwo(int buttonPositionY, int sliderPositionY) {
   for (int i = 1 ; i <= numGroup[2] ; i++ ) {
-    posWidthBTf[i*10+1] = posWidthBT +((i-1)*40) +(int)posRelativeMainButton.x    ; posHeightBTf[i*10+1] = posButton +(int)posRelativeMainButton.y     ; longueurBTf[i*10+1] = 20 ; hauteurBTf[i*10+1] = 20 ; //main
-    posWidthBTf[i*10+2] = posWidthBT +((i-1)*40) +(int)posRelativeSettingButton.x ; posHeightBTf[i*10+2] = posButton +(int)posRelativeSettingButton.y  ; longueurBTf[i*10+2] = 19 ; hauteurBTf[i*10+2] = 6 ; //setting
-    posWidthBTf[i*10+3] = posWidthBT +((i-1)*40) +(int)posRelativeSoundButton.x   ; posHeightBTf[i*10+3] = posButton +(int)posRelativeSoundButton.y    ; longueurBTf[i*10+3] = 10 ; hauteurBTf[i*10+3] = 6 ; //sound
-    posWidthBTf[i*10+4] = posWidthBT +((i-1)*40) +(int)posRelativeActionButton.x  ; posHeightBTf[i*10+4] = posButton +(int)posRelativeActionButton.y   ; longueurBTf[i*10+4] = 10 ; hauteurBTf[i*10+4] = 6 ; //action
+    posWidthBTf[i*10+1] = posWidthBT +((i-1)*40) +(int)posRelativeMainButton.x    ; posHeightBTf[i*10+1] = buttonPositionY +(int)posRelativeMainButton.y     ; longueurBTf[i*10+1] = 20 ; hauteurBTf[i*10+1] = 20 ; //main
+    posWidthBTf[i*10+2] = posWidthBT +((i-1)*40) +(int)posRelativeSettingButton.x ; posHeightBTf[i*10+2] = buttonPositionY +(int)posRelativeSettingButton.y  ; longueurBTf[i*10+2] = 19 ; hauteurBTf[i*10+2] = 6 ; //setting
+    posWidthBTf[i*10+3] = posWidthBT +((i-1)*40) +(int)posRelativeSoundButton.x   ; posHeightBTf[i*10+3] = buttonPositionY +(int)posRelativeSoundButton.y    ; longueurBTf[i*10+3] = 10 ; hauteurBTf[i*10+3] = 6 ; //sound
+    posWidthBTf[i*10+4] = posWidthBT +((i-1)*40) +(int)posRelativeActionButton.x  ; posHeightBTf[i*10+4] = buttonPositionY +(int)posRelativeActionButton.y   ; longueurBTf[i*10+4] = 10 ; hauteurBTf[i*10+4] = 6 ; //action
   }
   // where the controle must display the slider
   for( int i = 0 ; i < SLIDER_BY_COL ; i++ ) {
-    suivitSlider[i+201] = 1 ; posWidthSlider[i+201] = mgSliderc1 ; posHeightSlider[i+201] = posSlider +i*10 ; longueurSlider[i+201] = 111 ; hauteurSlider[i+201] = sliderHeight ; ;
-    suivitSlider[i+211] = 1 ; posWidthSlider[i+211] = mgSliderc2 ; posHeightSlider[i+211] = posSlider +i*10 ; longueurSlider[i+211] = 111 ; hauteurSlider[i+211] = sliderHeight ; ;
-    suivitSlider[i+221] = 1 ; posWidthSlider[i+221] = mgSliderc3 ; posHeightSlider[i+221] = posSlider +i*10 ; longueurSlider[i+221] = 111 ; hauteurSlider[i+221] = sliderHeight ; ;
+    for (int j = 0 ; j < 3 ; j++) {
+      int whichSlider = i +201 +(j*10) ;
+      int posX = 0 ;
+      switch(j) {
+        case 0 : posX = mgSliderc1; 
+        break;
+        case 1 : posX = mgSliderc2;
+        break;
+        case 2 : posX = mgSliderc3;
+        break ;
+      }
+    suivitSlider[whichSlider] = 1 ;
+    posSlider   [whichSlider] = new PVector(posX, sliderPositionY +i*10) ;
+    sizeSlider  [whichSlider] =new PVector(sliderWidth, sliderHeight) ;
+    }
   }
 }
 
 /////////////////
-void groupThree(int posButton, int posSlider) {
+void groupThree(int buttonPositionY, int sliderPositionY) {
   //paramètre habillage couleur du bouton cercle BTY
   for (int i = 1 ; i <= numGroup[3] ; i++ ) {
-    posWidthBTYf[i*10+1] = posWidthBTY +((i-1)*40) +(int)posRelativeMainButton.x    ; posHeightBTYf[i*10+1] = posButton +(int)posRelativeMainButton.y     ; longueurBTYf[i*10+1] = 20 ; hauteurBTYf[i*10+1] = 20 ; //main
-    posWidthBTYf[i*10+2] = posWidthBTY +((i-1)*40) +(int)posRelativeSettingButton.x ; posHeightBTYf[i*10+2] = posButton +(int)posRelativeSettingButton.y  ; longueurBTYf[i*10+2] = 19 ; hauteurBTYf[i*10+2] = 6 ; //setting
-    posWidthBTYf[i*10+3] = posWidthBTY +((i-1)*40) +(int)posRelativeSoundButton.x   ; posHeightBTYf[i*10+3] = posButton +(int)posRelativeSoundButton.y    ; longueurBTYf[i*10+3] = 10 ; hauteurBTYf[i*10+3] = 6 ; //sound
-    posWidthBTYf[i*10+4] = posWidthBTY +((i-1)*40) +(int)posRelativeActionButton.x  ; posHeightBTYf[i*10+4] = posButton +(int)posRelativeActionButton.y   ; longueurBTYf[i*10+4] = 10 ; hauteurBTYf[i*10+4] = 6 ; //action
+    posWidthBTYf[i*10+1] = posWidthBTY +((i-1)*40) +(int)posRelativeMainButton.x    ; posHeightBTYf[i*10+1] = buttonPositionY +(int)posRelativeMainButton.y     ; longueurBTYf[i*10+1] = 20 ; hauteurBTYf[i*10+1] = 20 ; //main
+    posWidthBTYf[i*10+2] = posWidthBTY +((i-1)*40) +(int)posRelativeSettingButton.x ; posHeightBTYf[i*10+2] = buttonPositionY +(int)posRelativeSettingButton.y  ; longueurBTYf[i*10+2] = 19 ; hauteurBTYf[i*10+2] = 6 ; //setting
+    posWidthBTYf[i*10+3] = posWidthBTY +((i-1)*40) +(int)posRelativeSoundButton.x   ; posHeightBTYf[i*10+3] = buttonPositionY +(int)posRelativeSoundButton.y    ; longueurBTYf[i*10+3] = 10 ; hauteurBTYf[i*10+3] = 6 ; //sound
+    posWidthBTYf[i*10+4] = posWidthBTY +((i-1)*40) +(int)posRelativeActionButton.x  ; posHeightBTYf[i*10+4] = buttonPositionY +(int)posRelativeActionButton.y   ; longueurBTYf[i*10+4] = 10 ; hauteurBTYf[i*10+4] = 6 ; //action
   }
   
   // where the controleur must display the slider
+  // where the controle must display the slider
   for( int i = 0 ; i < SLIDER_BY_COL ; i++ ) {
-    suivitSlider[i+301] = 1 ; posWidthSlider[i+301] = mgSliderc1 ; posHeightSlider[i+301] = posSlider +i*10 ; longueurSlider[i+301] = 111 ; hauteurSlider[i+301] = sliderHeight ; ;
-    suivitSlider[i+311] = 1 ; posWidthSlider[i+311] = mgSliderc2 ; posHeightSlider[i+311] = posSlider +i*10 ; longueurSlider[i+311] = 111 ; hauteurSlider[i+311] = sliderHeight ; ;
-    suivitSlider[i+321] = 1 ; posWidthSlider[i+321] = mgSliderc3 ; posHeightSlider[i+321] = posSlider +i*10 ; longueurSlider[i+321] = 111 ; hauteurSlider[i+321] = sliderHeight ; ;
-  } 
+    for (int j = 0 ; j < 3 ; j++) {
+      int whichSlider = i +301 +(j*10) ;
+      int posX = 0 ;
+      switch(j) {
+        case 0 : posX = mgSliderc1; 
+        break;
+        case 1 : posX = mgSliderc2;
+        break;
+        case 2 : posX = mgSliderc3;
+        break ;
+      }
+    suivitSlider[whichSlider] = 1 ;
+    posSlider   [whichSlider] = new PVector(posX, sliderPositionY +i*10) ;
+    sizeSlider  [whichSlider] =new PVector(sliderWidth, sliderHeight) ;
+    }
+  }
 }
 
 
@@ -263,7 +315,7 @@ void groupThree(int posButton, int posSlider) {
 
 /////////////
 //CONSTRUCTOR
-void constructorSliderButton() {
+void constructorButton() {
   color OnInColor = vert ;
   color OnOutColor = vertTresFonce ;
   color OffInColor = orange ;
@@ -315,13 +367,15 @@ void constructorSliderButton() {
     }
 
   }
-  
-  
-  
+}
+
+
+
+void constructorSlider() {
   //slider
   for ( int i = 1 ; i < NUM_SLIDER ; i++ ) {
     int opacity = 100 ;
-    if(infoSaveFromRawList(infoSlider,i).x > -1 ) Slider[i] = new SliderHorizontal  (posWidthSlider[i], posHeightSlider[i], longueurSlider[i], hauteurSlider[i], suivitSlider[i], orange, rouge, blancGrisClair, opacity, infoSaveFromRawList(infoSlider, i).z, (int)infoSaveFromRawList(infoSlider, i).y);
+    if(infoSaveFromRawList(infoSlider,i).x > -1 ) Slider[i] = new SliderAdjustable  (posWidthSlider[i], posHeightSlider[i], longueurSlider[i], hauteurSlider[i], suivitSlider[i], orange, rouge, blancGrisClair, opacity, infoSaveFromRawList(infoSlider, i).z, (int)infoSaveFromRawList(infoSlider, i).y);
   } 
 }
 //END CONSTRUCTOR

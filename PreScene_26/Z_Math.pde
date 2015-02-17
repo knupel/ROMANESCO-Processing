@@ -1,7 +1,7 @@
 // CONSTANT NUMBER
 final float PHI = (1 + sqrt(5))/2; //a number of polys use the golden ratio...
 final float ROOT2 = sqrt(2); //...and the square root of two, the famous first irrationnal number by Pythagore
-final float EULER = 2.718281828459045235360287471352; // Constant d'auler
+final float EULER = 2.718281828459045235360287471352; // Constant d'Euler
 
 
 
