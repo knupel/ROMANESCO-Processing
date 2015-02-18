@@ -60,7 +60,8 @@ public class Dropdown {
       
       sizeMoletteDropdown =  new PVector (sizeSliderDropdown.x, sizeSliderDropdown.y /factorSizeMolette) ;
       
-      sliderDropdown = new Slider(posSliderDropdown, posMoletteDropdown, sizeSliderDropdown, sizeMoletteDropdown, colorBG, boxIn, boxOut) ;
+      // sliderDropdown = new Slider(posSliderDropdown, posMoletteDropdown, sizeSliderDropdown, sizeMoletteDropdown, colorBG, boxIn, boxOut) ;
+      sliderDropdown = new Slider(posSliderDropdown, posMoletteDropdown, sizeSliderDropdown, sizeMoletteDropdown, "RECT") ;
       sliderDropdown.sliderSetting() ;
     }
   }
@@ -83,7 +84,7 @@ public class Dropdown {
         renderBox(listItem[i], step++, sizeBoxDropdownMenu, dropdownFont, colorTextBox);
         //Slider dropdown
         if (slider) {
-          sliderDropdown.sliderUpdate() ;
+          sliderDropdown.moletteUpdate() ;
           fill(colorBG) ;
         }
       }

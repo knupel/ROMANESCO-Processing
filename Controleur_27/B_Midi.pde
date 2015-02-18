@@ -96,10 +96,10 @@ void updateMidiButton(Button b) {
 //give which button is active and check is this button have a same IDmidi that Object
 void sliderMidiUpdate(int whichOne) {
   // update info from midi controller
-  if (numMidi == Slider[whichOne].IDmidi()) Slider[whichOne].updateMidi(valMidi) ;
+  if (numMidi == slider[whichOne].IDmidi()) slider[whichOne].updateMidi(valMidi) ;
 
   
-  if(selectMidi && Slider[whichOne].lock()) {
+  if(selectMidi && slider[whichOne].lockedMol()) {
     for(int i = 0 ; i <infoSlider.length ; i++) {
       if(whichOne == (int)infoSlider[i].x) {
         infoSlider[i].y = numMidi  ;
@@ -108,9 +108,9 @@ void sliderMidiUpdate(int whichOne) {
   }
   
   //ID midi from controller midi button setting
-  if (selectMidi && Slider[whichOne].lock()) Slider[whichOne].selectIDmidi(numMidi) ;
+  if (selectMidi && slider[whichOne].lockedMol()) slider[whichOne].selectIDmidi(numMidi) ;
   
   //ID midi from save
-  if(loadSaveSetting) Slider[whichOne].selectIDmidi((int)infoSaveFromRawList(infoSlider, whichOne).y) ;
+  if(loadSaveSetting) slider[whichOne].selectIDmidi((int)infoSaveFromRawList(infoSlider, whichOne).y) ;
 }
 // END MIDI

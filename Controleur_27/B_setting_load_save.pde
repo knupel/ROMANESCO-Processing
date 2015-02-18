@@ -89,9 +89,17 @@ void buildLibrary() {
   shaderBackgroundList = loadTable(sketchPath("")+"preferences/shaderBackgroundList.csv", "header") ;
   numByGroup() ;
   initVarObject() ;
+  initVarSlider() ;
   initVarButton() ;
   infoByObject() ;
   infoShaderBackground() ;
+}
+
+void initVarSlider() {
+  for (int i = 0 ; i < NUM_SLIDER ;i++) {
+    sizeSlider[i] = new PVector() ;
+    posSlider[i] = new PVector() ; 
+  }
 }
 
 void initVarObject() {
@@ -438,14 +446,16 @@ void sliderSetSaveSetting() {
   for (int i = 1 ; i < NUM_SLIDER_GLOBAL ; i++) {
     int whichOne = i ;
     PVector info = infoSaveFromRawList(infoSlider, whichOne).copy() ;
-    Slider[whichOne].updateFromSave((int)info.z, (int)info.y) ; // (pos, IDmidi) ;
+    slider[whichOne].sliderSettingMidi((int)info.y) ; 
+    slider[whichOne].sliderSettingPos(info.z) ; 
     // Slider[whichOne].update(mouseX, (int)info.z, true);
   }
   for (int i = 1 ; i < NUM_GROUP_SLIDER ; i++) { 
     for(int j = 1 ; j < SLIDER_BY_GROUP ; j++) {
       int whichOne = j +(i *100) ;
       PVector info = infoSaveFromRawList(infoSlider, whichOne).copy() ;
-      Slider[whichOne].updateFromSave((int)info.z, (int)info.y) ; // (pos, IDmidi) ;
+      slider[whichOne].sliderSettingMidi((int)info.y) ; 
+      slider[whichOne].sliderSettingPos(info.z) ; 
     }
   }
 }

@@ -1,3 +1,9 @@
+// SLIDER horizontal version 5.c by Stan le Punk
+
+
+
+
+
 // SliderAdjustable : extends class of class Slider
 public class SliderAdjustable extends Slider {
   protected float minNorm = 0 ;
@@ -11,92 +17,39 @@ public class SliderAdjustable extends Slider {
   protected PVector newPosMin = new PVector() ;
   protected PVector newPosMax = new PVector() ;
   // color
-  protected color adjIn, adjOut ;
+  protected color adjIn = color(255) ;
+  protected color adjOut = color(125) ; ;
 
   boolean lockedMin, lockedMax, insideMin, insideMax ;
   
   // CLASSIC CONSTRUCTOR
-  SliderAdjustable (PVector pos, PVector posMol , PVector size, PVector posText, color slider, color molIn, color molOut, color adjIn, color adjOut, color colorText, PFont p) {
-    super(pos, posMol, size, posText, slider, molIn, molOut, colorText, p) ;
+  SliderAdjustable (PVector pos, PVector posMol , PVector size, PVector posText, PFont p) {
+    super(pos, posMol, size, posText, p) ;
     this.posMinMax = pos.copy() ;
     this.newPosMin = posMinMax.copy() ;
-    
     this.sizeMinMax = size.copy() ;
     this.sizeMolMinMax = new PVector(widthMinMax, size.y) ;
-    // color
-    this.adjIn = adjIn ;
-    this.adjOut = adjOut ;
   }
   
-  SliderAdjustable(PVector pos, PVector posMol , PVector size, color slider, color molIn, color molOut, color adjIn, color adjOut) {
-    super(pos, posMol, size, slider, molIn, molOut) ;
+  SliderAdjustable(PVector pos, PVector posMol , PVector size) {
+    super(pos, posMol, size) ;
     this.posMinMax = pos.copy() ;
     this.newPosMin = posMinMax.copy() ;
-    
     this.sizeMinMax = size.copy() ;
     this.sizeMolMinMax = new PVector(widthMinMax, size.y) ;
-    // color
-    this.adjIn = adjIn ;
-    this.adjOut = adjOut ;
-    
   }
   
   //slider with external molette
-  SliderAdjustable(PVector pos, PVector posMol , PVector size, PVector sizeMol,  color slider, color molIn, color molOut, color adjIn, color adjOut) {
-    super(pos, posMol, size, sizeMol, slider, molIn, molOut) ;
+  SliderAdjustable(PVector pos, PVector posMol , PVector size, PVector sizeMol, String moletteShapeType) {
+    super(pos, posMol, size, sizeMol, moletteShapeType) ;
     this.posMinMax = pos.copy() ;
     this.newPosMin = posMinMax.copy() ;
-    
     this.sizeMinMax = size.copy() ;
     this.sizeMolMinMax = new PVector(widthMinMax, size.y) ;
-    // color
-    this.adjIn = adjIn ;
-    this.adjOut = adjOut ;
   }
   // END CLASSIC CONSTRUCTOR
   /////////////////////////
-  
-  
-  // ROMANESCO CONSTRUCTOR
-  SliderAdjustable (PVector pos, PVector posMol , PVector size, PVector posText, color slider, color molIn, color molOut, color adjIn, color adjOut, color colorText, PFont p, int IDmidi) {
-    super(pos, posMol, size, posText, slider, molIn, molOut, colorText, p, IDmidi) ;
-    this.posMinMax = pos.copy() ;
-    this.newPosMin = posMinMax.copy() ;
-    
-    this.sizeMinMax = size.copy() ;
-    this.sizeMolMinMax = new PVector(widthMinMax, size.y) ;
-    // color
-    this.adjIn = adjIn ;
-    this.adjOut = adjOut ;
-  }
-  
-  SliderAdjustable(PVector pos, PVector posMol , PVector size, color slider, color molIn, color molOut, color adjIn, color adjOut, int IDmidi) {
-    super(pos, posMol, size, slider, molIn, molOut, IDmidi) ;
-    this.posMinMax = pos.copy() ;
-    this.newPosMin = posMinMax.copy() ;
-    
-    this.sizeMinMax = size.copy() ;
-    this.sizeMolMinMax = new PVector(widthMinMax, size.y) ;
-    // color
-    this.adjIn = adjIn ;
-    this.adjOut = adjOut ;
-    
-  }
-  
-  //slider with external molette
-  SliderAdjustable(PVector pos, PVector posMol , PVector size, PVector sizeMol,  color slider, color molIn, color molOut, color adjIn, color adjOut, int IDmidi) {
-    super(pos, posMol, size, sizeMol, slider, molIn, molOut, IDmidi) ;
-    this.posMinMax = pos.copy() ;
-    this.newPosMin = posMinMax.copy() ;
-    
-    this.sizeMinMax = size.copy() ;
-    this.sizeMolMinMax = new PVector(widthMinMax, size.y) ;
-    // color
-    this.adjIn = adjIn ;
-    this.adjOut = adjOut ;
-  }
-  
-  // END CONSTRUCTOR
+
   
   
   
@@ -163,10 +116,27 @@ public class SliderAdjustable extends Slider {
   
   
   
-  // Display
+  // Display classic
   void minMaxSliderDisplay() {
     if(lockedMin || lockedMax || insideMax || insideMin) fill(adjIn) ; else fill(adjOut) ;
+    noStroke() ;
     rect(newPosMin.x, newPosMin.y +sizeMinMax.y *.4, sizeMinMax.x, sizeMinMax.y *.3) ;
+  }
+  
+  // Display advanced
+  void minMaxSliderDisplay(color adjIn, color adjOut, color strokeIn, color strokeOut, float thickness) {
+    this.adjIn = adjIn ;
+    this.adjOut = adjOut ;
+    strokeWeight(thickness) ;
+    if(lockedMin || lockedMax || insideMax || insideMin) {
+      fill(adjIn) ;
+      stroke(strokeIn) ;
+    } else {
+      fill(adjOut) ;
+      stroke(strokeOut) ;
+    }
+    rect(newPosMin.x, newPosMin.y +sizeMinMax.y *.4, sizeMinMax.x, sizeMinMax.y *.3) ;
+    noStroke() ;
   }
   
   
@@ -198,6 +168,8 @@ public class SliderAdjustable extends Slider {
    // if (insideMax && mousePressed && !lockedMol && !insideMin && !lockedMin) return true ; else return false ;
   }
 }
+// END Extends class SLIDER
+///////////////////////////
 
 
 
@@ -208,118 +180,66 @@ public class SliderAdjustable extends Slider {
 
 
 
+
+
+
+
+
+
+
+
+////////////////
 // CLASS SLIDER
 public class Slider {
   protected PVector pos, size, posMol, posText, sizeMol, posMin, posMax ;
   protected PVector newPosMol = new PVector() ;
-  protected color slider, molIn, molOut, colorText ;
+  protected color sliderColor = color(60) ;
+  protected color molIn = color(255) ;
+  protected color molOut = color(125) ;
+  protected color colorText = color(0) ; ;
   protected boolean lockedMol, insideMol ;
   protected PFont p ;
   protected float minNormValueOfSlider = 0 ;
   protected float maxNormValueOfSlider = 1 ;
-  // romanesco add
+  // advance slider
   protected int newValMidi ;
   protected int IDmidi = -2 ;
-  
-  
-  // CONSTRUCTOR ROMANESCO
-  //CONSTRUCTOR with title
-  public Slider(PVector pos, PVector posMol , PVector size, PVector posText, color slider, color molIn, color molOut, color colorText, PFont p, int IDmidi) {
-    this.pos = pos.copy() ;
-    this.posMol = posMol.copy() ;
-    this.size = size.copy() ;
-    this.posText = posText ;
-    this.slider = slider ;
-    this.molIn = molIn ;
-    this.molOut = molOut ;
-    this.colorText = colorText ;
-    this.p = p ;
-    // romanesco add
-    this.IDmidi = IDmidi ;
-
-    //which molette for slider horizontal or vertical
-    if ( size.x >= size.y ) sizeMol = new PVector (size.y, size.y ) ; else sizeMol = new PVector (size.x, size.x ) ;
-    posMin = new PVector (pos.x, pos.y) ;
-    posMax = new PVector (pos.x + size.x - sizeMol.x, pos.y + size.y - sizeMol.y ) ;
-  }
-  
-  //CONSTRUCTOR minimum
-  public Slider(PVector pos, PVector posMol , PVector size, color slider, color molIn, color molOut, int IDmidi) {
-    this.pos = pos.copy() ;
-    this.posMol = posMol.copy() ;
-    this.size = size.copy() ;
-    this.slider = slider ;
-    this.molIn = molIn ;
-    this.molOut = molOut ;
-    // romanesco add
-    this.IDmidi = IDmidi ;
-
-    //which molette for slider horizontal or vertical
-    if ( size.x >= size.y ) sizeMol = new PVector (size.y, size.y ) ; else sizeMol = new PVector (size.x, size.x ) ;
-    posMin = new PVector (pos.x, pos.y) ;
-    posMax = new PVector (pos.x + size.x - sizeMol.x, pos.y + size.y - sizeMol.y ) ;
-  }
-  
-  //slider with external molette
-  public Slider(PVector pos, PVector posMol , PVector size, PVector sizeMol,  color slider, color molIn, color molOut, int IDmidi) {
-    this.pos = pos.copy() ;
-    this.posMol = posMol.copy() ;
-    this.sizeMol = sizeMol.copy() ;
-    this.size = size.copy() ;
-    this.slider = slider ;
-    this.molIn = molIn ;
-    this.molOut = molOut ;
-    // romanesco add
-    this.IDmidi = IDmidi ;
-
-    posMin = new PVector (pos.x, pos.y) ;
-    posMax = new PVector (pos.x + size.x - sizeMol.x, pos.y + size.y - sizeMol.y) ;
-  }
-  
+  protected String moletteShapeType = ("") ;
   
   // CLASSIC CONSTRUCTOR
   //CONSTRUCTOR with title
-  public Slider(PVector pos, PVector posMol , PVector size, PVector posText, color slider, color molIn, color molOut, color colorText, PFont p) {
+  public Slider(PVector pos, PVector posMol , PVector size, PVector posText, PFont p) {
     this.pos = pos.copy() ;
-    this.posMol = posMol.copy() ;
+    this.posMol = new PVector(pos.x + (posMol.x*size.x), pos.y +(posMol.y*size.y)) ;
     this.size = size.copy() ;
     this.posText = posText ;
-    this.slider = slider ;
-    this.molIn = molIn ;
-    this.molOut = molOut ;
-    this.colorText = colorText ;
     this.p = p ;
 
     //which molette for slider horizontal or vertical
-    if ( size.x >= size.y ) sizeMol = new PVector (size.y, size.y ) ; else sizeMol = new PVector (size.x, size.x ) ;
+    if (size.x >= size.y) sizeMol = new PVector (size.y, size.y ) ; else sizeMol = new PVector (size.x, size.x ) ;
     posMin = new PVector (pos.x, pos.y) ;
     posMax = new PVector (pos.x + size.x - sizeMol.x, pos.y + size.y - sizeMol.y ) ;
   }
   
   //CONSTRUCTOR minimum
-  public Slider(PVector pos, PVector posMol , PVector size, color slider, color molIn, color molOut ) {
+  public Slider(PVector pos, PVector posMol, PVector size) {
     this.pos = pos.copy() ;
-    this.posMol = posMol.copy() ;
+    this.posMol = new PVector(pos.x + (posMol.x*size.x), pos.y +(posMol.y*size.y)) ;
     this.size = size.copy() ;
-    this.slider = slider ;
-    this.molIn = molIn ;
-    this.molOut = molOut ;
 
     //which molette for slider horizontal or vertical
-    if ( size.x >= size.y ) sizeMol = new PVector (size.y, size.y ) ; else sizeMol = new PVector (size.x, size.x ) ;
+    if (size.x >= size.y) sizeMol = new PVector (size.y, size.y ) ; else sizeMol = new PVector (size.x, size.x ) ;
     posMin = new PVector (pos.x, pos.y) ;
     posMax = new PVector (pos.x + size.x - sizeMol.x, pos.y + size.y - sizeMol.y ) ;
   }
   
   //slider with external molette
-  public Slider(PVector pos, PVector posMol , PVector size, PVector sizeMol,  color slider, color molIn, color molOut ) {
+  public Slider(PVector pos, PVector posMol , PVector size, PVector sizeMol, String moletteShapeType) {
     this.pos = pos.copy() ;
-    this.posMol = posMol.copy() ;
+    this.posMol = new PVector(pos.x + (posMol.x*size.x), pos.y +(posMol.y*size.y)) ;
     this.sizeMol = sizeMol.copy() ;
     this.size = size.copy() ;
-    this.slider = slider ;
-    this.molIn = molIn ;
-    this.molOut = molOut ;
+    this.moletteShapeType = moletteShapeType ;
 
     posMin = new PVector (pos.x, pos.y) ;
     posMax = new PVector (pos.x + size.x - sizeMol.x, pos.y + size.y - sizeMol.y) ;
@@ -335,45 +255,23 @@ public class Slider {
   
   
   // METHODES
-  //SLIDER
+  //SETTING
   void sliderSetting() {
     this.newPosMol = posMol.copy() ;
   }
   
-  
-  
-  //Slider update simple
-  void sliderUpdate() {
-    fill(slider) ;
-    rect(pos.x, pos.y, size.x, size.y ) ;
-  }
-  //Slider update with title
-  void sliderUpdate(String s, boolean t) {
-    //SLIDER
-    fill(slider) ;
-    rect(pos.x, pos.y, size.x, size.y ) ;
-    if (t) {
-      fill(colorText) ;
-      textFont (p) ;
-      textSize (posText.z) ;
-      text(s, posText.x, posText.y ) ;
-    }
-  }
-  
 
-  
-  
-  
-  
-  
-  
-  // MOLETTE
-  //display molette
-  void moletteDisplay() {
-    if(lockedMol || insideMol) fill(molIn); else fill(molOut ) ;
-    rect(newPosMol.x, newPosMol.y, sizeMol.x , sizeMol.y ) ;
+  void sliderSettingMidi(int IDmidi) {
+    this.IDmidi = IDmidi ;
   }
+  void sliderSettingPos(float normPos) {
+    newPosMol.x = size.x *normPos ;
+  }
+  // END SETTING
   
+  
+  
+  // UPDATE
   // update molette position
   void moletteUpdate() {
     // check if the mouse is in the slider or not
@@ -388,6 +286,76 @@ public class Slider {
       if (size.x >= size.y) newPosMol.x = constrain(mouseX -(sizeMol.x *.5), posMin.x, posMax.x) ; else newPosMol.y = constrain(mouseY -(sizeMol.y *.5), posMin.y, posMax.y) ;
     }
   }
+  
+
+  
+  
+  
+  
+  
+  
+  // DISPLAY SLIDER
+  //Slider display classic
+  void sliderDisplay() {
+    fill(sliderColor) ;
+    rect(pos.x, pos.y, size.x, size.y ) ;
+  }
+  
+  // slider display advanced
+  void sliderDisplay(color sliderColor, color sliderStrokeColor, float thickness) {
+    this.sliderColor = sliderColor ;
+    fill(sliderColor) ;
+    stroke(sliderStrokeColor) ;
+    strokeWeight(thickness) ;
+    rect(pos.x, pos.y, size.x, size.y ) ;
+    noStroke() ;
+  }
+  //Slider update with title
+  void sliderDisplayText(String s, boolean t) {
+    //SLIDER
+    fill(sliderColor) ;
+    rect(pos.x, pos.y, size.x, size.y ) ;
+    if (t) {
+      fill(colorText) ;
+      textFont (p) ;
+      textSize (posText.z) ;
+      text(s, posText.x, posText.y ) ;
+    }
+  }
+  
+  
+  // DISPLAY MOLETTE
+  //display molette
+  void moletteDisplay() {
+    if(lockedMol || insideMol) fill(molIn); else fill(molOut ) ;
+    if(moletteShapeType.equals("ELLIPSE")) ellipse(newPosMol.x, newPosMol.y, sizeMol.x , sizeMol.y) ; else  rect(newPosMol.x, newPosMol.y, sizeMol.x , sizeMol.y ) ;
+  }
+  
+  // display molette advanced
+  void moletteDisplay(color molIn, color molOut, color strokeIn, color strokeOut, float thickness) {
+    this.molIn = molIn ;
+    this.molOut = molOut ;
+
+    strokeWeight(thickness) ;
+    if(lockedMol || insideMol) {
+      fill(molIn);
+      stroke(strokeIn) ;
+    } else {
+      fill(molOut ) ;
+      stroke(strokeOut) ;
+    }
+    if(moletteShapeType.equals("ELLIPSE") ) {
+      ellipse(newPosMol.x, newPosMol.y, sizeMol.x , sizeMol.y ) ;
+    } else if(moletteShapeType.equals("RECT")) {
+      rect(newPosMol.x, newPosMol.y, sizeMol.x , sizeMol.y ) ;
+    } else rect(newPosMol.x, newPosMol.y, sizeMol.x , sizeMol.y ) ;
+    
+    noStroke() ;
+  }
+
+
+  
+
   
   
   
@@ -437,10 +405,18 @@ public class Slider {
   // END CLASSIC METHOD
   /////////////////////
   
-  
-  ////////////////////
-  // ROMAESCO METHODE
-  // update position from midi controller
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ ///////////////////
+ // ADVANCED METHOD
+ // update position from midi controller
   void updateMidi(int val) {
     //update the Midi position only if the Midi Button move
     if (newValMidi != val) { 
@@ -449,6 +425,7 @@ public class Slider {
       // posX = newValMidi ; 
     }
   }
+
   
   //////
   //VOID
