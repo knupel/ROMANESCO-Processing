@@ -20,14 +20,41 @@ PImage[] picMidi = new PImage[4] ;
 
 // POSITION GLOBAL button and Slider
 
+// vertical grid
+int colOne = 35 ; 
+int colTwo = 225 ; 
+int colThree = 415 ;
+int margeLeft  = colOne +15 ;
 
-PVector columnPosVert = new PVector(25,205, 385) ; // give the pos of the column on the axis "x"
-int margeLeft  ; // marge left for the first GUI button and slider
-int startingTopPosition  ; // marge top to starting position of the GUI button and slider
+// horizontal grid
+int lineHeader = 30 ;
+int lineGroupZero = 68 ;
+int lineGroupOne = 180 ;
+int lineGroupTwo = 370 ;
+int lineGroupThree = 560 ;
+int topMenuPos = lineHeader +10 ;
 
+int spacingBetweenSlider = 12 ;
+
+
+
+  
 int sliderWidth = 111 ;
-int sliderHeight = 8 ;
+int sliderHeight = 10 ;
 int roundedSlider = 5 ;
+
+// correction for special button and slider
+int correctionMidi = 58 ;
+int correctionCurtain = 58 ;
+int correctionSliderPosition = 60 ;
+int correctionBeatButton = 53 ;
+int correctionSliderBG = -32 ;
+int correctionSliderSound = +21 ;
+int correctionSliderLight = -32 ;
+
+
+
+
 SliderAdjustable [] slider = new SliderAdjustable [NUM_SLIDER] ;
 int []suivitSlider ; 
 PVector [] sizeSlider = new PVector[NUM_SLIDER] ;
@@ -37,14 +64,14 @@ float valueSlider[] = new float[NUM_SLIDER] ;
 
 //paramètre généraux interface
 
-int mgSliderc1, mgSliderc2, mgSliderc3,
-    posHeightBO,  posWidthBO,
-    posHeightRO,  posWidthRO,
-    posHeightBT,  posWidthBT,
-    posHeightRT,  posWidthRT,
-    posHeightBTY, posWidthBTY,
-    posHeightRTY, posWidthRTY ;
-
+/*
+int posHeightBO ;  // posWidthBO,
+ int   posHeightRO ;  //posWidthRO,
+int    posHeightBT ;  //posWidthBT,
+ int   posHeightRT ;  //posWidthRT,
+int    posHeightBTY ; //posWidthBTY,
+int    posHeightRTY ; //posWidthRTY ;
+*/
 
 
 
@@ -93,29 +120,43 @@ int posXSlider[] = new int[NUM_SLIDER *2] ;
 
 //SETUP
 void buttonSliderSetup() {
- 
-  //GLOBAL POS
-  margeLeft = (int)columnPosVert.x +15 ; // marge left for the first GUI button and slider
-  startingTopPosition = 30 ; // marge top to starting position of the GUI button and slider
-  mgSliderc1 = (int)columnPosVert.x ; mgSliderc2 = (int)columnPosVert.y ; mgSliderc3 = (int)columnPosVert.z ;
-  int topMenuPos = startingTopPosition +10 ;
   
   //GROUP GLOBAL
   
+  
+  // HEADER
   // DROPDOWN MENU : SHADER BG, FONT, IMAGE, FILE TEXT
   int posDropdownGrobalY = -3 ;
-  posButtonBackground = new PVector(mgSliderc1 -3, startingTopPosition +posDropdownGrobalY)  ;
-  posButtonFont =       new PVector(mgSliderc2 -3, startingTopPosition +posDropdownGrobalY)  ; 
-  posButtonImage =      new PVector(mgSliderc2 +115, startingTopPosition +posDropdownGrobalY)  ; 
-  posButtonFileText =   new PVector(mgSliderc3 +60, startingTopPosition +posDropdownGrobalY)  ; 
+  posButtonBackground = new PVector(colOne -3, lineHeader +posDropdownGrobalY)  ;
+  posButtonFont =       new PVector(colTwo -3, lineHeader +posDropdownGrobalY)  ; 
+  posButtonImage =      new PVector(colTwo +115, lineHeader +posDropdownGrobalY)  ; 
+  posButtonFileText =   new PVector(colThree +60, lineHeader +posDropdownGrobalY)  ; 
 
   
+  /////////////
+  // GROUP ZERO
+    // background 
+  posBackgroundButton = new PVector(colOne, lineGroupZero) ;
+  sizeBackgroundButton = new PVector(120,10) ;
+  
+  // light 
+  // one button
+  posLightOneButton = new PVector(colTwo, lineGroupZero) ;
+  sizeLightOneButton = new PVector(80,10) ;
+  posLightOneAction = new PVector(colTwo +90, posLightOneButton.y) ;
+  sizeLightOneAction = new PVector(45,10) ;
+  // light two button
+  posLightTwoButton = new PVector(colThree, lineGroupZero) ;
+  sizeLightTwoButton = new PVector(80,10) ;
+  posLightTwoAction = new PVector(colThree +90, posLightTwoButton.y) ;
+  sizeLightTwoAction = new PVector(45,10) ;
+  
+  
   // MIDI CURTAIN
-  int correctionMidiCurtain = 78 ;
   sizeCurtainButton = new PVector(30,30) ;
   sizeMidiButton = new PVector(50,26) ;
-  posMidiButton = new PVector(mgSliderc1 + 40, topMenuPos +correctionMidiCurtain +1) ; 
-  posCurtainButton = new PVector(mgSliderc1, topMenuPos +correctionMidiCurtain -1) ; 
+  posMidiButton = new PVector(colOne + 40, lineGroupZero +correctionMidi +1) ; 
+  posCurtainButton = new PVector(colOne, lineGroupZero +correctionCurtain -1) ; 
   
   //SOUND BUTTON
   sizeBeatButton = new PVector(30,10) ; 
@@ -123,53 +164,34 @@ void buttonSliderSetup() {
   sizeSnareButton = new PVector(40,10) ; 
   sizeHatButton = new PVector(30,10) ;
   
-  int correctionBeat = 79 ;
-  posBeatButton = new PVector(mgSliderc3 +0, topMenuPos +correctionBeat) ; 
-  posKickButton = new PVector(posBeatButton.x +sizeBeatButton.x +5, topMenuPos +correctionBeat) ; 
-  posSnareButton = new PVector(posKickButton.x +sizeKickButton.x +5, topMenuPos +correctionBeat) ; 
-  posHatButton = new PVector(posSnareButton.x +sizeSnareButton.x +5, topMenuPos +correctionBeat) ;
-
-  // background 
-  int correctionButtonBG = 38 ;
-  posBackgroundButton = new PVector(mgSliderc1, startingTopPosition +correctionButtonBG) ;
-  sizeBackgroundButton = new PVector(120,10) ;
+  posBeatButton = new PVector(colThree +0, lineGroupZero +correctionBeatButton) ; 
+  posKickButton = new PVector(posBeatButton.x +sizeBeatButton.x +5, lineGroupZero +correctionBeatButton) ; 
+  posSnareButton = new PVector(posKickButton.x +sizeKickButton.x +5, lineGroupZero +correctionBeatButton) ; 
+  posHatButton = new PVector(posSnareButton.x +sizeSnareButton.x +5, lineGroupZero +correctionBeatButton) ;
+  // END GROUP ZERO
+  ////////////////
   
-  // light 
-  int correctionButtonLight = 38 ;
-  // one button
-  posLightOneButton = new PVector(mgSliderc2, startingTopPosition +correctionButtonLight) ;
-  sizeLightOneButton = new PVector(80,10) ;
-  posLightOneAction = new PVector(mgSliderc2 +90, posLightOneButton.y) ;
-  sizeLightOneAction = new PVector(45,10) ;
-  // light two button
-  posLightTwoButton = new PVector(mgSliderc3, startingTopPosition +correctionButtonLight) ;
-  sizeLightTwoButton = new PVector(80,10) ;
-  posLightTwoAction = new PVector(mgSliderc3 +90, posLightTwoButton.y) ;
-  sizeLightTwoAction = new PVector(45,10) ;
   
+  ////////////
   // GROUP ONE
-  posHeightBO = startingTopPosition +140  ; 
-  posWidthBO  = margeLeft ;
-  posHeightRO = posHeightBO +60   ;  
-  posWidthRO  = margeLeft ;
+  //posHeightBO = lineGroupOne  ; 
+  //posHeightRO = posHeightBO +60   ;  
   
+  ////////////
   //GROUP TWO
-  posHeightBT = posHeightBO +160 ;  
-  posWidthBT  = margeLeft ;
-  posHeightRT = posHeightBT +60   ;  
-  posWidthRT  =margeLeft ;
+  //posHeightBT = lineGroupTwo ;  
+  //posHeightRT = posHeightBT +60   ;  
   
+  //////////////
   //GROUP THREE
-  posHeightBTY = posHeightBT +160 ;  
-  posWidthBTY = margeLeft ;
-  posHeightRTY = posHeightBTY +60  ;  
-  posWidthRTY = margeLeft ;
+  //posHeightBTY = lineGroupThree ;  
+  // posHeightRTY = posHeightBTY +60  ;  
   
   // VOID
-  groupZero(startingTopPosition +80) ;
-  groupOne(posHeightBO, posHeightRO ) ;
-  groupTwo(posHeightBT, posHeightRT ) ;
-  groupThree(posHeightBTY, posHeightRTY ) ;
+  groupZero(lineHeader +80) ;
+  groupOne(lineGroupOne, lineGroupOne +correctionSliderPosition ) ;
+  groupTwo(lineGroupTwo, lineGroupTwo +correctionSliderPosition ) ;
+  groupThree(lineGroupThree, lineGroupThree +correctionSliderPosition ) ;
  
   dropdownSetup() ;
 }
@@ -181,41 +203,34 @@ void buttonSliderSetup() {
 void groupZero(int pos) {
   
   // background slider
-  int correctionSliderBG = -32 ;
   int startLoop = 1 ;
   for(int i = startLoop ; i <= startLoop +3 ;i++) {
-    //suivitSlider[i] = 1 ;
-    float posY = pos +correctionSliderBG +((i-1) *10) ;
-    posSlider[i] = new PVector(mgSliderc1, posY) ;
+    float posY = pos +correctionSliderBG +((i-1) *spacingBetweenSlider) ;
+    posSlider[i] = new PVector(colOne, posY) ;
     sizeSlider[i] = new PVector(sliderWidth,sliderHeight) ;
   }
   // SOUND
-  int correctionSliderSound = +19 ;
-     startLoop = 5 ;
+  startLoop = 5 ;
   for(int i = startLoop ; i <= startLoop +1 ;i++) {
-    // suivitSlider[i] = 1 ;
-    float posY = pos +correctionSliderSound +((i-startLoop) *10) ;
-    posSlider[i] = new PVector(mgSliderc3, posY) ;
+    float posY = pos +correctionSliderSound +((i-startLoop) *spacingBetweenSlider) ;
+    posSlider[i] = new PVector(colThree, posY) ;
     sizeSlider[i] = new PVector(sliderWidth,sliderHeight) ;
   }
   
   
   //LIGHT
-  int correctionSliderLight = -32 ;
   // LIGHT ONE
   startLoop = 7 ;
   for(int i = startLoop ; i <= startLoop +2 ;i++) {
-    //suivitSlider[i] = 1 ;
-    float posY = pos +correctionSliderLight +((i-startLoop) *10) ;
-    posSlider[i] = new PVector(mgSliderc2, posY) ;
+    float posY = pos +correctionSliderLight +((i-startLoop) *spacingBetweenSlider) ;
+    posSlider[i] = new PVector(colTwo, posY) ;
     sizeSlider[i] = new PVector(sliderWidth,sliderHeight) ;
   }
  // LIGHT TWO
    startLoop = 10 ;
   for(int i = startLoop ; i <= startLoop +2 ;i++) {
-    //suivitSlider[i] = 1 ;
-    float posY = pos +correctionSliderLight +((i-startLoop) *10) ;
-    posSlider[i] = new PVector(mgSliderc3, posY) ;
+    float posY = pos +correctionSliderLight +((i-startLoop) *spacingBetweenSlider) ;
+    posSlider[i] = new PVector(colThree, posY) ;
     sizeSlider[i] = new PVector(sliderWidth,sliderHeight) ;
   }
   
@@ -230,10 +245,10 @@ PVector posRelativeActionButton = new PVector (4,25) ;
 void groupOne(int buttonPositionY, int sliderPositionY) {
   //position and area for the rollover
   for (int i = 1 ; i <= numGroup[1] ; i++) {
-    posWidthBOf[i*10+1] = posWidthBO +((i-1)*40) +(int)posRelativeMainButton.x    ; posHeightBOf[i*10+1] = buttonPositionY +(int)posRelativeMainButton.y     ; longueurBOf[i*10+1] = 20 ; hauteurBOf[i*10+1] = 20 ;  //main
-    posWidthBOf[i*10+2] = posWidthBO +((i-1)*40) +(int)posRelativeSettingButton.x ; posHeightBOf[i*10+2] = buttonPositionY +(int)posRelativeSettingButton.y  ; longueurBOf[i*10+2] = 19 ; hauteurBOf[i*10+2] = 6 ; //setting
-    posWidthBOf[i*10+3] = posWidthBO +((i-1)*40) +(int)posRelativeSoundButton.x   ; posHeightBOf[i*10+3] = buttonPositionY +(int)posRelativeSoundButton.y    ; longueurBOf[i*10+3] = 10 ; hauteurBOf[i*10+3] = 6 ; //sound
-    posWidthBOf[i*10+4] = posWidthBO +((i-1)*40) +(int)posRelativeActionButton.x  ; posHeightBOf[i*10+4] = buttonPositionY +(int)posRelativeActionButton.y   ; longueurBOf[i*10+4] = 10 ; hauteurBOf[i*10+4] = 6 ; //action
+    posWidthBOf[i*10+1] = margeLeft +((i-1)*40) +(int)posRelativeMainButton.x    ; posHeightBOf[i*10+1] = buttonPositionY +(int)posRelativeMainButton.y     ; longueurBOf[i*10+1] = 20 ; hauteurBOf[i*10+1] = 20 ;  //main
+    posWidthBOf[i*10+2] = margeLeft +((i-1)*40) +(int)posRelativeSettingButton.x ; posHeightBOf[i*10+2] = buttonPositionY +(int)posRelativeSettingButton.y  ; longueurBOf[i*10+2] = 19 ; hauteurBOf[i*10+2] = 6 ; //setting
+    posWidthBOf[i*10+3] = margeLeft +((i-1)*40) +(int)posRelativeSoundButton.x   ; posHeightBOf[i*10+3] = buttonPositionY +(int)posRelativeSoundButton.y    ; longueurBOf[i*10+3] = 10 ; hauteurBOf[i*10+3] = 6 ; //sound
+    posWidthBOf[i*10+4] = margeLeft +((i-1)*40) +(int)posRelativeActionButton.x  ; posHeightBOf[i*10+4] = buttonPositionY +(int)posRelativeActionButton.y   ; longueurBOf[i*10+4] = 10 ; hauteurBOf[i*10+4] = 6 ; //action
   }
 
   // where the controleur must display the slider
@@ -242,15 +257,14 @@ void groupOne(int buttonPositionY, int sliderPositionY) {
       int whichSlider = i +101 +(j*10) ;
       int posX = 0 ;
       switch(j) {
-        case 0 : posX = mgSliderc1; 
+        case 0 : posX = colOne; 
         break;
-        case 1 : posX = mgSliderc2;
+        case 1 : posX = colTwo;
         break;
-        case 2 : posX = mgSliderc3;
+        case 2 : posX = colThree;
         break ;
       }
-      // suivitSlider[whichSlider] = 1 ;
-      posSlider   [whichSlider] = new PVector(posX, sliderPositionY +i*10) ;
+      posSlider   [whichSlider] = new PVector(posX, sliderPositionY +i *spacingBetweenSlider ) ;
       sizeSlider  [whichSlider] = new PVector(sliderWidth, sliderHeight) ;
     }
   }
@@ -259,10 +273,10 @@ void groupOne(int buttonPositionY, int sliderPositionY) {
 //////////////////
 void groupTwo(int buttonPositionY, int sliderPositionY) {
   for (int i = 1 ; i <= numGroup[2] ; i++ ) {
-    posWidthBTf[i*10+1] = posWidthBT +((i-1)*40) +(int)posRelativeMainButton.x    ; posHeightBTf[i*10+1] = buttonPositionY +(int)posRelativeMainButton.y     ; longueurBTf[i*10+1] = 20 ; hauteurBTf[i*10+1] = 20 ; //main
-    posWidthBTf[i*10+2] = posWidthBT +((i-1)*40) +(int)posRelativeSettingButton.x ; posHeightBTf[i*10+2] = buttonPositionY +(int)posRelativeSettingButton.y  ; longueurBTf[i*10+2] = 19 ; hauteurBTf[i*10+2] = 6 ; //setting
-    posWidthBTf[i*10+3] = posWidthBT +((i-1)*40) +(int)posRelativeSoundButton.x   ; posHeightBTf[i*10+3] = buttonPositionY +(int)posRelativeSoundButton.y    ; longueurBTf[i*10+3] = 10 ; hauteurBTf[i*10+3] = 6 ; //sound
-    posWidthBTf[i*10+4] = posWidthBT +((i-1)*40) +(int)posRelativeActionButton.x  ; posHeightBTf[i*10+4] = buttonPositionY +(int)posRelativeActionButton.y   ; longueurBTf[i*10+4] = 10 ; hauteurBTf[i*10+4] = 6 ; //action
+    posWidthBTf[i*10+1] = margeLeft +((i-1)*40) +(int)posRelativeMainButton.x    ; posHeightBTf[i*10+1] = buttonPositionY +(int)posRelativeMainButton.y     ; longueurBTf[i*10+1] = 20 ; hauteurBTf[i*10+1] = 20 ; //main
+    posWidthBTf[i*10+2] = margeLeft +((i-1)*40) +(int)posRelativeSettingButton.x ; posHeightBTf[i*10+2] = buttonPositionY +(int)posRelativeSettingButton.y  ; longueurBTf[i*10+2] = 19 ; hauteurBTf[i*10+2] = 6 ; //setting
+    posWidthBTf[i*10+3] = margeLeft +((i-1)*40) +(int)posRelativeSoundButton.x   ; posHeightBTf[i*10+3] = buttonPositionY +(int)posRelativeSoundButton.y    ; longueurBTf[i*10+3] = 10 ; hauteurBTf[i*10+3] = 6 ; //sound
+    posWidthBTf[i*10+4] = margeLeft +((i-1)*40) +(int)posRelativeActionButton.x  ; posHeightBTf[i*10+4] = buttonPositionY +(int)posRelativeActionButton.y   ; longueurBTf[i*10+4] = 10 ; hauteurBTf[i*10+4] = 6 ; //action
   }
   // where the controle must display the slider
   for( int i = 0 ; i < SLIDER_BY_COL ; i++ ) {
@@ -270,15 +284,14 @@ void groupTwo(int buttonPositionY, int sliderPositionY) {
       int whichSlider = i +201 +(j*10) ;
       int posX = 0 ;
       switch(j) {
-        case 0 : posX = mgSliderc1; 
+        case 0 : posX = colOne; 
         break;
-        case 1 : posX = mgSliderc2;
+        case 1 : posX = colTwo;
         break;
-        case 2 : posX = mgSliderc3;
+        case 2 : posX = colThree;
         break ;
       }
-    // suivitSlider[whichSlider] = 1 ;
-    posSlider   [whichSlider] = new PVector(posX, sliderPositionY +i*10) ;
+    posSlider   [whichSlider] = new PVector(posX, sliderPositionY +i *spacingBetweenSlider) ;
     sizeSlider  [whichSlider] = new PVector(sliderWidth, sliderHeight) ;
     }
   }
@@ -288,10 +301,10 @@ void groupTwo(int buttonPositionY, int sliderPositionY) {
 void groupThree(int buttonPositionY, int sliderPositionY) {
   //paramètre habillage couleur du bouton cercle BTY
   for (int i = 1 ; i <= numGroup[3] ; i++ ) {
-    posWidthBTYf[i*10+1] = posWidthBTY +((i-1)*40) +(int)posRelativeMainButton.x    ; posHeightBTYf[i*10+1] = buttonPositionY +(int)posRelativeMainButton.y     ; longueurBTYf[i*10+1] = 20 ; hauteurBTYf[i*10+1] = 20 ; //main
-    posWidthBTYf[i*10+2] = posWidthBTY +((i-1)*40) +(int)posRelativeSettingButton.x ; posHeightBTYf[i*10+2] = buttonPositionY +(int)posRelativeSettingButton.y  ; longueurBTYf[i*10+2] = 19 ; hauteurBTYf[i*10+2] = 6 ; //setting
-    posWidthBTYf[i*10+3] = posWidthBTY +((i-1)*40) +(int)posRelativeSoundButton.x   ; posHeightBTYf[i*10+3] = buttonPositionY +(int)posRelativeSoundButton.y    ; longueurBTYf[i*10+3] = 10 ; hauteurBTYf[i*10+3] = 6 ; //sound
-    posWidthBTYf[i*10+4] = posWidthBTY +((i-1)*40) +(int)posRelativeActionButton.x  ; posHeightBTYf[i*10+4] = buttonPositionY +(int)posRelativeActionButton.y   ; longueurBTYf[i*10+4] = 10 ; hauteurBTYf[i*10+4] = 6 ; //action
+    posWidthBTYf[i*10+1] = margeLeft +((i-1)*40) +(int)posRelativeMainButton.x    ; posHeightBTYf[i*10+1] = buttonPositionY +(int)posRelativeMainButton.y     ; longueurBTYf[i*10+1] = 20 ; hauteurBTYf[i*10+1] = 20 ; //main
+    posWidthBTYf[i*10+2] = margeLeft +((i-1)*40) +(int)posRelativeSettingButton.x ; posHeightBTYf[i*10+2] = buttonPositionY +(int)posRelativeSettingButton.y  ; longueurBTYf[i*10+2] = 19 ; hauteurBTYf[i*10+2] = 6 ; //setting
+    posWidthBTYf[i*10+3] = margeLeft +((i-1)*40) +(int)posRelativeSoundButton.x   ; posHeightBTYf[i*10+3] = buttonPositionY +(int)posRelativeSoundButton.y    ; longueurBTYf[i*10+3] = 10 ; hauteurBTYf[i*10+3] = 6 ; //sound
+    posWidthBTYf[i*10+4] = margeLeft +((i-1)*40) +(int)posRelativeActionButton.x  ; posHeightBTYf[i*10+4] = buttonPositionY +(int)posRelativeActionButton.y   ; longueurBTYf[i*10+4] = 10 ; hauteurBTYf[i*10+4] = 6 ; //action
   }
   
   // where the controleur must display the slider
@@ -301,15 +314,14 @@ void groupThree(int buttonPositionY, int sliderPositionY) {
       int whichSlider = i +301 +(j*10) ;
       int posX = 0 ;
       switch(j) {
-        case 0 : posX = mgSliderc1; 
+        case 0 : posX = colOne; 
         break;
-        case 1 : posX = mgSliderc2;
+        case 1 : posX = colTwo;
         break;
-        case 2 : posX = mgSliderc3;
+        case 2 : posX = colThree;
         break ;
       }
-    // suivitSlider[whichSlider] = 1 ;
-    posSlider   [whichSlider] = new PVector(posX, sliderPositionY +i*10) ;
+    posSlider   [whichSlider] = new PVector(posX, sliderPositionY +i *spacingBetweenSlider) ;
     sizeSlider  [whichSlider] = new PVector(sliderWidth, sliderHeight) ;
     }
   }
@@ -322,59 +334,7 @@ void groupThree(int buttonPositionY, int sliderPositionY) {
 
 /////////////
 //CONSTRUCTOR
-void constructorButton() {
-  color OnInColor = vert ;
-  color OnOutColor = vertTresFonce ;
-  color OffInColor = orange ;
-  color OffOutColor = rougeFonce ;
-  
-  buttonBackground = new Simple(posBackgroundButton, sizeBackgroundButton, OnInColor, OnOutColor, OffInColor, OffOutColor, true) ;
-  // LIGHT ONE
-  buttonLightOne = new Simple(posLightOneButton, sizeLightOneButton, OnInColor, OnOutColor, OffInColor, OffOutColor, false) ;
-  buttonLightOneAction = new Simple(posLightOneAction, sizeLightOneAction, OnInColor, OnOutColor, OffInColor, OffOutColor, false) ;
-  // LIGHT TWO 
-  buttonLightTwo = new Simple(posLightTwoButton, sizeLightTwoButton, OnInColor, OnOutColor, OffInColor, OffOutColor, false) ;
-  buttonLightTwoAction = new Simple(posLightTwoAction, sizeLightTwoAction, OnInColor, OnOutColor, OffInColor, OffOutColor, false) ;
-  //button beat
-  Bbeat = new Simple(posBeatButton, sizeBeatButton, OnInColor, OnOutColor, OffInColor, OffOutColor, false) ;
-  Bkick = new Simple(posKickButton, sizeKickButton, OnInColor, OnOutColor, OffInColor, OffOutColor, false) ;
-  Bsnare = new Simple(posSnareButton, sizeSnareButton, OnInColor, OnOutColor, OffInColor, OffOutColor, false) ;
-  Bhat = new Simple(posHatButton, sizeHatButton, OnInColor, OnOutColor, OffInColor, OffOutColor, false) ;
-  //MIDI
-  BOmidi  = new Simple(posMidiButton, sizeMidiButton, false) ;
-  //curtain
-  BOcurtain  = new Simple(posCurtainButton, sizeCurtainButton, false) ;
-  
-  //button object, texture, typography
-  PVector pos = new PVector() ;
-  PVector size = new PVector() ;
-  // we don't use the BOf[0], BTf[0] and BTYf[0] must he must be init in case we add object in Scene and this one has never use before and don't exist in the save pref
-  BOf[0] = new Simple(pos, size, boutonONin, boutonONout, boutonOFFin, boutonOFFout, gris, grisNoir, false) ;
-  BTf[0] = new Simple(pos, size, boutonONin, boutonONout, boutonOFFin, boutonOFFout, gris, grisNoir, false) ;
-  BTYf[0] = new Simple(pos, size, boutonONin, boutonONout, boutonOFFin, boutonOFFout, gris, grisNoir, false) ;
-  // init the object library
-  for(int i = 1 ; i < NUM_GROUP_SLIDER ; i++) {
-    int num = numButton[i] ;
-    for ( int j = 11 ; j < 10+num ; j++) {
-      if(numGroup[1] > 0 && i == 1) {
-        pos = new PVector(posWidthBOf[j], posHeightBOf[j]) ;
-        size = new PVector(longueurBOf[j], hauteurBOf[j]) ; 
-        BOf[j] = new Simple(pos, size, boutonONin, boutonONout, boutonOFFin, boutonOFFout, gris, grisNoir, false) ;
-      } 
-      if(numGroup[2] > 0 && i == 2) {
-        pos = new PVector(posWidthBTf[j], posHeightBTf[j]) ;
-        size = new PVector(longueurBTf[j], hauteurBTf[j]) ; 
-        BTf[j] = new Simple(pos, size, boutonONin, boutonONout, boutonOFFin, boutonOFFout, gris, grisNoir, false) ;
-      }
-      if(numGroup[3] > 0 && i == 3) {
-        pos = new PVector(posWidthBTYf[j], posHeightBTYf[j]) ;
-        size = new PVector(longueurBTYf[j], hauteurBTYf[j]) ;
-        BTYf[j] = new Simple(pos, size, boutonONin, boutonONout, boutonOFFin, boutonOFFout, gris, grisNoir, false) ;
-      }
-    }
 
-  }
-}
 
 
 
@@ -398,9 +358,11 @@ void structureDraw() {
   //background
   fill(grisNoir) ; rect(0, 24, width, 31) ; // main band
   fill(gris) ; rect(0, 24+31, width, 100 ) ; // //GROUP ZERO
-  fill(grisClair) ; rect(0, posHeightBO -15, width, 160 ) ;   //GROUP ONE
-  fill(grisClair) ; rect(0, posHeightBT -15, width, 160 ) ;   //GROUP TWO
-  fill(grisClair) ; rect(0, posHeightBTY -15, width, height ) ; //   //GROUP THREE
+  int heightOfGroup = lineGroupTwo -lineGroupOne ;
+  fill(grisClair) ; rect(0, lineGroupOne -15, width, heightOfGroup) ;   //GROUP ONE
+  fill(grisClair) ; rect(0, lineGroupTwo -15, width, heightOfGroup) ;   //GROUP TWO
+  fill(grisClair) ; rect(0, lineGroupThree -15, width, height ) ; //GROUP THREE
+  
   //the decoration line
   fill (rougeFonce) ; 
   rect(0,0, width, 22) ;
@@ -411,27 +373,26 @@ void structureDraw() {
   fill (rougeFonce) ;
   rect(0,height-7, width, 7) ;
   
-  
-  
-  //LINE
+  // LINE DECORATION
+  // GROUP ZERO
   int thicknessDecoration = 5 ;
   fill(noir) ;
   rect(0,54 , width, 2) ; 
-  
+  //GROUP ONE
   fill(grisFonce) ;
-  rect(0,posHeightBO -22, width, 8) ; //GROUP ONE
+  rect(0, lineGroupOne -22, width, 8) ; 
   fill(grisNoir) ;
-  rect(0,posHeightBO -20, width, 4) ; //GROUP ONE
-  
+  rect(0, lineGroupOne -20, width, 4) ; 
+  // GROUP TWO
   fill(gris) ;
-  rect(0,posHeightBT -24 +thicknessDecoration, width, thicknessDecoration) ; //GROUP TWO
+  rect(0, lineGroupTwo -24 +thicknessDecoration, width, thicknessDecoration) ; 
   fill(grisTresFonce) ;
-  rect(0,posHeightBT -16, width, 2) ; //GROUP TWO
-  
+  rect(0, lineGroupTwo -16, width, 2) ;
+  // GROUP THREE
   fill(gris) ;
-  rect(0,posHeightBTY -24 +thicknessDecoration, width, thicknessDecoration) ; //GROUP THREE
+  rect(0, lineGroupThree -24 +thicknessDecoration, width, thicknessDecoration) ; 
   fill(grisTresFonce) ;
-  rect(0,posHeightBTY -16, width, 2) ; //GROUP TWO
+  rect(0, lineGroupThree -16, width, 2) ;
   
 
 }
@@ -452,95 +413,12 @@ void textDraw() {
   textFont(FuturaStencil_20,16); textAlign(RIGHT);
   text(nf(hour(),2)   + ":" +nf(minute(),2) , width -10, posTextY);
   
-  dispayTextSliderGroupZero(startingTopPosition +64) ;
+  dispayTextSliderGroupZero(lineHeader +64) ;
   
   dislayTextSlider() ;
 }
 
 
-
-void dispayTextSliderGroupZero(int pos) {
-  int correction = 3 ;
-  // GROUP ZERO
-  textFont(FuturaStencil_20,20); 
-  textAlign(LEFT);
-  //fill(blanc, 120) ;
-
-  fill (colorTitle) ; 
-  textFont(textUsual_1) ; 
-  //textAlign(LEFT);
-  fill (colorTextUsual) ;
-  /** Must rework the array String for the title the order is wrong
-  for(int i = 0 ; i < 14 ; i++) {
-    int whichOne = i +1 ;
-    text(genTxtGUI[whichOne], posSlider[whichOne].x +sizeSlider[whichOne].x +correction, posSlider[whichOne].y +correction);
-  }
-  */
-  //BACKGROUND
-  
-  text(genTxtGUI[1], posSlider[1].x +116, posSlider[1].y +correction);
-  text(genTxtGUI[2], posSlider[2].x +116, posSlider[2].y +correction);
-  text(genTxtGUI[3], posSlider[3].x +116, posSlider[3].y +correction);
-  text(genTxtGUI[4], posSlider[4].x +116, posSlider[4].y +correction);
-  // LIGHT
-  text(genTxtGUI[9], posSlider[7].x +116, posSlider[7].y +correction);
-  text(genTxtGUI[10], posSlider[8].x +116, posSlider[8].y +correction);
-  text(genTxtGUI[11], posSlider[9].x +116, posSlider[9].y +correction);
-  //AMBIENT
-  text(genTxtGUI[12], posSlider[10].x +116, posSlider[10].y +correction);
-  text(genTxtGUI[13], posSlider[11].x +116, posSlider[11].y +correction);
-  text(genTxtGUI[14], posSlider[12].x +116, posSlider[12].y +correction);
-  
-  fill (colorTextUsual) ;
-  textFont(textUsual_1); 
-  text(genTxtGUI[5], posSlider[5].x +116, posSlider[5].y +correction);
-  text(genTxtGUI[6], posSlider[6].x +116, posSlider[6].y +correction);
- 
-}
-
-
-
-void dislayTextSlider() {
-  //GROUP ONE
-  textFont(FuturaStencil_20,20); textAlign(RIGHT);
-  fill(grisFonce) ;
-  pushMatrix () ; rotate (-PI/2) ;  text("GROUP ONE", -posHeightRO +70, 20); popMatrix() ;
-  fill (colorTextUsual) ;
-  textFont(textUsual_1);  textAlign(LEFT);
-  
-  // GROUP TWO
-  textFont(FuturaStencil_20,20);  textAlign(RIGHT);
-  fill(grisFonce) ;
-  pushMatrix () ; rotate (-PI/2) ;  text("GROUP TWO", -posHeightRT +70, 20); popMatrix() ;
-  fill (colorTextUsual) ;
-  textFont(textUsual_1);  textAlign(LEFT);
-  
-  //GROUP THREE
-  textFont(FuturaStencil_20,20); textAlign(RIGHT);
-  fill(grisFonce) ;
-  pushMatrix () ; rotate (-PI/2) ; text("GROUP THREE", -posHeightRTY +70, 20); popMatrix() ;
-  fill (colorTextUsual) ;
-  textFont(textUsual_1); textAlign(LEFT);
-  
-  // Legend text slider position
-  int correctionPos = 3 ;
-  for ( int i = 0 ; i < SLIDER_BY_COL ; i++) {
-    //group one
-    text(sliderNameOne[i+1], mgSliderc1 +116, posHeightRO +correctionPos +(i*10));
-    text(sliderNameTwo[i+1], mgSliderc2 +116, posHeightRO +correctionPos +(i*10));
-    text(sliderNameThree[i+1],   mgSliderc3 +116, posHeightRO +correctionPos +(i*10));
-    //group two
-    text(sliderNameOne[i+1], mgSliderc1 +116, posHeightRT +correctionPos +(i*10));
-    text(sliderNameTwo[i+1], mgSliderc2 +116, posHeightRT +correctionPos +(i*10));
-    text(sliderNameThree[i+1], mgSliderc3 +116, posHeightRT +correctionPos +(i*10));
-    //group Three
-    text(sliderNameOne[i+1], mgSliderc1 +116,  posHeightRTY +correctionPos +(i*10));
-    text(sliderNameTwo[i+1], mgSliderc2 +116,  posHeightRTY +correctionPos +(i*10));
-    text(sliderNameThree[i+1], mgSliderc3 +116,  posHeightRTY +correctionPos +(i*10));
-  }
-}
-
-//END TEXT
 
 
 
@@ -556,37 +434,32 @@ void dislayTextSlider() {
 
 
 ///////////////////
-// SLIDER & MOLETTE
+// SLIDER
 void constructorSlider() {
   //slider
   for ( int i = 1 ; i < NUM_SLIDER ; i++ ) {
-    // SliderAdjustable(PVector pos, PVector posMol , PVector size, PVector sizeMol,  color slider, color molIn, color molOut, color adjIn, color adjOut)
-
     PVector sizeMol = new PVector (sizeSlider[i].y, sizeSlider[i].y) ;
     PVector posMol = new PVector(.5,0) ;
-    // int opacity = 100 ;
     if(infoSaveFromRawList(infoSlider,i).x > -1 ) slider[i] = new SliderAdjustable  (posSlider[i], posMol, sizeSlider[i], sizeMol, "ELLIPSE");
 
     if(slider[i] != null) slider[i].sliderSetting() ;
-    
-
   } 
 }
 
 
 void sliderDraw() {
-  // DISPLAY BAR
-  // global
+  // UPDATE GROUP ZERO
   sliderDrawGroupZero() ;
-  // group one, two, three
+  
+  /* Loop to display the false background slider instead the usual class Slider background,
+  we use it the methode to display a particular background, like the rainbowcolor... */
   for(int i = 1 ; i < NUM_GROUP_SLIDER ; i++) {
-    sliderObject(i) ;
+    sliderBackground(i) ;
   }
-  // END DISPLAY BAR
   
 
-  // DISPLAY MOLETTE
-  // global
+  // UPDATE and DISPLAY SLIDER GROUP ONE, TWO, THREE
+  /* different way to display depend the displaying mode, who can be change with "ctrl+x" */
   int whichGroup = 0 ;
   for (int i = 1 ; i < NUM_SLIDER_GLOBAL ; i++) {
      sliderUpdate(i) ;
@@ -618,7 +491,6 @@ void sliderDraw() {
       }
     }
   }
-  // END  DISPLAY MOLETTE
 }
 
 
@@ -627,7 +499,7 @@ void sliderDraw() {
 
 
 
-// annexe void molette
+// SLIDER UPDATE
 void sliderUpdate(int whichOne) {
   // PVector sizeMoletteSlider = new PVector (8,10, 1.2) ; // width, height, thickness
   
@@ -635,8 +507,10 @@ void sliderUpdate(int whichOne) {
   sliderMidiUpdate(whichOne) ;
   if(!slider[whichOne].lockedMax  && !slider[whichOne].lockedMax) slider[whichOne].insideMolette() ;
   slider[whichOne].moletteUpdate() ;
-  //return value between 0 / 100
-  valueSlider[whichOne] = constrain(map(slider[whichOne].getValue(), 0, 1, 0,100),0,100)  ;
+  
+  //return value to the prescene between 0 to 99
+  int valueMax = 99 ;
+  valueSlider[whichOne] = constrain(map(slider[whichOne].getValue(), 0, 1, 0,valueMax),0,valueMax)  ;
 }
 
 
@@ -660,10 +534,86 @@ void sliderAdvancedDisplay(int whichOne, int whichGroup) {
 }
 
 
-//END MOLETTE
-////////////
+
+// TEXT
+void dispayTextSliderGroupZero(int pos) {
+  // GROUP ZERO
+  textFont(FuturaStencil_20,20); 
+  textAlign(LEFT);
+  fill (colorTitle) ; 
+  textFont(textUsual_1) ; 
+  //textAlign(LEFT);
+  fill (colorTextUsual) ;
+  /** Must rework the array String for the title the order is wrong
+  for(int i = 0 ; i < 14 ; i++) {
+    int whichOne = i +1 ;
+    text(genTxtGUI[whichOne], posSlider[whichOne].x +sizeSlider[whichOne].x +correction, posSlider[whichOne].y +correction);
+  }
+  */
+  //BACKGROUND
+  int correctionY = 3 ;
+  int correctionX = sliderWidth + 5 ;
+  text(genTxtGUI[1], posSlider[1].x +correctionX, posSlider[1].y +correctionY);
+  text(genTxtGUI[2], posSlider[2].x +correctionX, posSlider[2].y +correctionY);
+  text(genTxtGUI[3], posSlider[3].x +correctionX, posSlider[3].y +correctionY);
+  text(genTxtGUI[4], posSlider[4].x +correctionX, posSlider[4].y +correctionY);
+  // LIGHT
+  text(genTxtGUI[9], posSlider[7].x +correctionX, posSlider[7].y +correctionY);
+  text(genTxtGUI[10], posSlider[8].x +correctionX, posSlider[8].y +correctionY);
+  text(genTxtGUI[11], posSlider[9].x +correctionX, posSlider[9].y +correctionY);
+  //AMBIENT
+  text(genTxtGUI[12], posSlider[10].x +correctionX, posSlider[10].y +correctionY);
+  text(genTxtGUI[13], posSlider[11].x +correctionX, posSlider[11].y +correctionY);
+  text(genTxtGUI[14], posSlider[12].x +correctionX, posSlider[12].y +correctionY);
+  
+  fill (colorTextUsual) ;
+  textFont(textUsual_1); 
+  text(genTxtGUI[5], posSlider[5].x +correctionX, posSlider[5].y +correctionY);
+  text(genTxtGUI[6], posSlider[6].x +correctionX, posSlider[6].y +correctionY);
+}
 
 
+
+void dislayTextSlider() {
+  //GROUP ONE
+  textFont(FuturaStencil_20,20); textAlign(RIGHT);
+  fill(grisFonce) ;
+  pushMatrix () ; rotate (-PI/2) ;  text("GROUP ONE", -lineGroupOne, 20); popMatrix() ;
+  fill (colorTextUsual) ;
+  textFont(textUsual_1);  textAlign(LEFT);
+  
+  // GROUP TWO
+  textFont(FuturaStencil_20,20);  textAlign(RIGHT);
+  fill(grisFonce) ;
+  pushMatrix () ; rotate (-PI/2) ;  text("GROUP TWO", -lineGroupTwo, 20); popMatrix() ;
+  fill (colorTextUsual) ;
+  textFont(textUsual_1);  textAlign(LEFT);
+  
+  //GROUP THREE
+  textFont(FuturaStencil_20,20); textAlign(RIGHT);
+  fill(grisFonce) ;
+  pushMatrix () ; rotate (-PI/2) ; text("GROUP THREE", -lineGroupThree, 20); popMatrix() ;
+  fill (colorTextUsual) ;
+  textFont(textUsual_1); textAlign(LEFT);
+  
+  // Legend text slider position
+  int correctionY = correctionSliderPosition +4 ;
+  int correctionX = sliderWidth + 5 ;
+  for ( int i = 0 ; i < SLIDER_BY_COL ; i++) {
+    //group one
+    text(sliderNameOne[i +1], colOne +correctionX, lineGroupOne +correctionY +(i*spacingBetweenSlider));
+    text(sliderNameTwo[i +1], colTwo +correctionX, lineGroupOne +correctionY +(i*spacingBetweenSlider));
+    text(sliderNameThree[i +1], colThree +correctionX, lineGroupOne +correctionY +(i*spacingBetweenSlider));
+    //group two
+    text(sliderNameOne[i +1], colOne +correctionX, lineGroupTwo +correctionY +(i*spacingBetweenSlider));
+    text(sliderNameTwo[i +1], colTwo +correctionX, lineGroupTwo +correctionY +(i*spacingBetweenSlider));
+    text(sliderNameThree[i +1], colThree +correctionX, lineGroupTwo +correctionY +(i*spacingBetweenSlider));
+    //group Three
+    text(sliderNameOne[i +1], colOne +correctionX, lineGroupThree +correctionY +(i*spacingBetweenSlider));
+    text(sliderNameTwo[i +1], colTwo +correctionX, lineGroupThree +correctionY +(i*spacingBetweenSlider));
+    text(sliderNameThree[i +1], colThree +correctionX, lineGroupThree +correctionY +(i*spacingBetweenSlider));
+  }
+}
 
 
 
@@ -700,13 +650,15 @@ int forceRank = 28 ;
 */
 
 /////////////////////////////
-///object slider
-void sliderObject(int whichOne) {
+// SLIDER special BACKGROUND
+/* Loop to display the false background slider instead the usual class Slider background,
+we use it the methode to display a particular background, like the rainbowcolor... */
+void sliderBackground(int whichOne) {
   // to find the good slider in the array
   int whichGroup = whichOne ;
   whichOne *= 100 ;
   //
-  if ( mouseX > (posSlider[whichOne +hueFillRank].x ) && mouseX < ( posSlider[whichOne +hueFillRank].y + sizeSlider[whichOne +hueFillRank].x) 
+  if ( mouseX > (posSlider[whichOne +hueFillRank].x ) && mouseX < (posSlider[whichOne +hueFillRank].y +sizeSlider[whichOne +hueFillRank].x) 
        && mouseY > ( posSlider[whichOne +hueFillRank].y - 5) && mouseY < posSlider[whichOne +hueFillRank].y +30 ) 
   {
     if (displaySlider[whichGroup][hueFillRank])        fondRegletteCouleur    (posSlider[whichOne +hueFillRank].x, posSlider[whichOne +hueFillRank].y, sizeSlider[whichOne +hueFillRank].y, sizeSlider[whichOne +hueFillRank].x) ; 
@@ -766,7 +718,7 @@ void sliderObject(int whichOne) {
 void sliderDrawGroupZero () {
   //Background slider
   if (mouseX > (posSlider[1].x ) && mouseX < ( posSlider[1].x + sizeSlider[1].x) 
-  && mouseY > ( posSlider[1].y - 5) && mouseY < posSlider[1].y + 30 ) {
+      && mouseY > ( posSlider[1].y - 5) && mouseY < posSlider[1].y + 30 ) {
     fondRegletteCouleur    ( posSlider[1].x, posSlider[1].y, sizeSlider[1].y, sizeSlider[1].x) ;
     fondRegletteSaturation ( posSlider[2].x, posSlider[2].y, sizeSlider[2].y, sizeSlider[1].x, valueSlider[1], valueSlider[2], valueSlider[3] ) ;
     fondRegletteDensite    ( posSlider[3].x, posSlider[3].y, sizeSlider[3].y, sizeSlider[1].x, valueSlider[1], valueSlider[2], valueSlider[3] ) ;
@@ -778,7 +730,7 @@ void sliderDrawGroupZero () {
   fondReglette ( posSlider[4].x, posSlider[4].y, sizeSlider[4].y, sizeSlider[4].x, roundedSlider, grisClair) ;
   // light ONE slider
   if (mouseX > (posSlider[7].x ) && mouseX < ( posSlider[7].x +sizeSlider[7].x) 
-  && mouseY > ( posSlider[7].y - 5) && mouseY < posSlider[1].y +40) {
+      && mouseY > ( posSlider[7].y - 5) && mouseY < posSlider[1].y +40) {
     fondRegletteCouleur    ( posSlider[7].x, posSlider[7].y, sizeSlider[7].y, sizeSlider[7].x) ;
     fondRegletteSaturation ( posSlider[8].x, posSlider[8].y, sizeSlider[8].y, sizeSlider[7].x, valueSlider[7], valueSlider[8], valueSlider[9] ) ;
     fondRegletteDensite    ( posSlider[9].x, posSlider[9].y, sizeSlider[9].y, sizeSlider[7].x, valueSlider[7], valueSlider[8], valueSlider[9] ) ;
@@ -789,7 +741,7 @@ void sliderDrawGroupZero () {
   }
   // light TWO slider
   if (mouseX > (posSlider[10].x ) && mouseX < ( posSlider[10].x + sizeSlider[10].x) 
-  && mouseY > ( posSlider[10].y - 5) && mouseY < posSlider[1].y + 40 ) {
+      && mouseY > ( posSlider[10].y - 5) && mouseY < posSlider[1].y + 40 ) {
     fondRegletteCouleur    ( posSlider[10].x, posSlider[10].y, sizeSlider[10].y, sizeSlider[10].x) ;
     fondRegletteSaturation ( posSlider[11].x, posSlider[11].y, sizeSlider[11].y, sizeSlider[10].x, valueSlider[10], valueSlider[11], valueSlider[9] ) ;
     fondRegletteDensite    ( posSlider[12].x, posSlider[12].y, sizeSlider[12].y, sizeSlider[10].x, valueSlider[10], valueSlider[11], valueSlider[12] ) ;
@@ -804,13 +756,146 @@ void sliderDrawGroupZero () {
 }
 
 
-// END SLIDER DRAW
+
+
+
+
+//SLIDER COLOR
+void fondReglette (float posX, float posY, float heightSlider, float widthslider, int rounded, color coulour) {
+  fill (coulour) ;
+  rect (posX, posY -(heightSlider *.5), widthslider, heightSlider, rounded) ;
+}
+
+//hue
+void fondRegletteCouleur (float posX, float posY, float heightSlider, float widthSlider) {
+  pushMatrix () ;
+  translate (posX , posY-(heightSlider *.5)) ;
+  for ( int i=0 ; i < widthSlider ; i++ ) {
+    for ( int j=0 ; j <=heightSlider ; j++ ) {
+      float cr = map(i, 0, widthSlider, 0, 360 ) ;
+      fill (cr, 100, 100) ;
+      rect ( i, j, 1,1 ) ;
+    }
+  }
+  popMatrix() ;
+}
+
+//saturation
+void fondRegletteSaturation (float posX, float posY, float heightSlider, float widthSlider, float coulour, float s, float d) {
+  pushMatrix () ;
+  translate (posX , posY-(heightSlider *.5)) ;
+  for ( int i=0 ; i < widthSlider ; i++ ) {
+    for ( int j=0 ; j <=heightSlider ; j++ ) {
+      float cr = map(i, 0, widthSlider, 0, 100 ) ;
+      float coul = map(coulour, 0, widthSlider, 0, 360 ) ;
+      // float sat = map(s, 0, largeur, 0, 100 ) ;
+      float dens = map(d, 0, widthSlider, 0, 100 ) ;
+      fill (coul, cr, dens) ;
+      rect ( i, j, 1,1 ) ;
+    }
+  }
+  popMatrix() ;
+}
+
+//density
+void fondRegletteDensite (float posX, float posY, float heightSlider, float widthSlider, float coulour, float s, float d) {
+  pushMatrix () ;
+  translate (posX , posY-(heightSlider *.5)) ;
+  for ( int i=0 ; i < widthSlider ; i++ ) {
+    for ( int j=0 ; j <=heightSlider ; j++ ) {
+      float cr = map(i, 0, widthSlider, 0, 100 ) ;
+      float coul = map(coulour, 0, widthSlider, 0, 360 ) ;
+      float sat = map(s, 0, widthSlider, 0, 100 ) ;
+      // float dens = map(d, 0, largeur, 0, 100 ) ;
+      fill (coul, sat, cr) ;
+      rect (i, j, 1,1) ;
+    }
+  }
+  popMatrix() ;
+}
+// END SLIDER
 //////////////////
 
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /////////////////////
+// BUTTON
+
+// BUTTON CONSTRUCTOR
+void constructorButton() {
+  color OnInColor = vert ;
+  color OnOutColor = vertTresFonce ;
+  color OffInColor = orange ;
+  color OffOutColor = rougeFonce ;
+  
+  buttonBackground = new Simple(posBackgroundButton, sizeBackgroundButton, OnInColor, OnOutColor, OffInColor, OffOutColor, true) ;
+  // LIGHT ONE
+  buttonLightOne = new Simple(posLightOneButton, sizeLightOneButton, OnInColor, OnOutColor, OffInColor, OffOutColor, false) ;
+  buttonLightOneAction = new Simple(posLightOneAction, sizeLightOneAction, OnInColor, OnOutColor, OffInColor, OffOutColor, false) ;
+  // LIGHT TWO 
+  buttonLightTwo = new Simple(posLightTwoButton, sizeLightTwoButton, OnInColor, OnOutColor, OffInColor, OffOutColor, false) ;
+  buttonLightTwoAction = new Simple(posLightTwoAction, sizeLightTwoAction, OnInColor, OnOutColor, OffInColor, OffOutColor, false) ;
+  //button beat
+  Bbeat = new Simple(posBeatButton, sizeBeatButton, OnInColor, OnOutColor, OffInColor, OffOutColor, false) ;
+  Bkick = new Simple(posKickButton, sizeKickButton, OnInColor, OnOutColor, OffInColor, OffOutColor, false) ;
+  Bsnare = new Simple(posSnareButton, sizeSnareButton, OnInColor, OnOutColor, OffInColor, OffOutColor, false) ;
+  Bhat = new Simple(posHatButton, sizeHatButton, OnInColor, OnOutColor, OffInColor, OffOutColor, false) ;
+  //MIDI
+  BOmidi  = new Simple(posMidiButton, sizeMidiButton, false) ;
+  //curtain
+  BOcurtain  = new Simple(posCurtainButton, sizeCurtainButton, false) ;
+  
+  //button object, texture, typography
+  PVector pos = new PVector() ;
+  PVector size = new PVector() ;
+  // we don't use the BOf[0], BTf[0] and BTYf[0] must he must be init in case we add object in Scene and this one has never use before and don't exist in the save pref
+  BOf[0] = new Simple(pos, size, boutonONin, boutonONout, boutonOFFin, boutonOFFout, gris, grisNoir, false) ;
+  BTf[0] = new Simple(pos, size, boutonONin, boutonONout, boutonOFFin, boutonOFFout, gris, grisNoir, false) ;
+  BTYf[0] = new Simple(pos, size, boutonONin, boutonONout, boutonOFFin, boutonOFFout, gris, grisNoir, false) ;
+  // init the object library
+  for(int i = 1 ; i < NUM_GROUP_SLIDER ; i++) {
+    int num = numButton[i] ;
+    for ( int j = 11 ; j < 10+num ; j++) {
+      if(numGroup[1] > 0 && i == 1) {
+        pos = new PVector(posWidthBOf[j], posHeightBOf[j]) ;
+        size = new PVector(longueurBOf[j], hauteurBOf[j]) ; 
+        BOf[j] = new Simple(pos, size, boutonONin, boutonONout, boutonOFFin, boutonOFFout, gris, grisNoir, false) ;
+      } 
+      if(numGroup[2] > 0 && i == 2) {
+        pos = new PVector(posWidthBTf[j], posHeightBTf[j]) ;
+        size = new PVector(longueurBTf[j], hauteurBTf[j]) ; 
+        BTf[j] = new Simple(pos, size, boutonONin, boutonONout, boutonOFFin, boutonOFFout, gris, grisNoir, false) ;
+      }
+      if(numGroup[3] > 0 && i == 3) {
+        pos = new PVector(posWidthBTYf[j], posHeightBTYf[j]) ;
+        size = new PVector(longueurBTYf[j], hauteurBTYf[j]) ;
+        BTYf[j] = new Simple(pos, size, boutonONin, boutonONout, boutonOFFin, boutonOFFout, gris, grisNoir, false) ;
+      }
+    }
+
+  }
+}
+
+
+
+
+
+// BUTTON DRAW
 void buttonDraw() {
   textFont(textUsual_1) ;
   buttonDrawGroupZero() ;
@@ -981,63 +1066,19 @@ void lookAndDisplayInfo(int IDorder, PVector pos) {
 //////////////////////////
 
 
-//SLIDER COLOR
-void fondReglette (float posX, float posY, float heightSlider, float widthslider, int rounded, color coulour) {
-  fill (coulour) ;
-  rect (posX, posY -(heightSlider *.5), widthslider, heightSlider, rounded) ;
-}
 
-//hue
-void fondRegletteCouleur (float posX, float posY, float heightSlider, float widthSlider) {
-  pushMatrix () ;
-  translate (posX , posY-(heightSlider *.5)) ;
-  for ( int i=0 ; i < widthSlider ; i++ ) {
-    for ( int j=0 ; j <=heightSlider ; j++ ) {
-      float cr = map(i, 0, widthSlider, 0, 360 ) ;
-      fill (cr, 100, 100) ;
-      rect ( i, j, 1,1 ) ;
-    }
-  }
-  popMatrix() ;
-}
 
-//saturation
-void fondRegletteSaturation (float posX, float posY, float heightSlider, float widthSlider, float coulour, float s, float d) {
-  pushMatrix () ;
-  translate (posX , posY-(heightSlider *.5)) ;
-  for ( int i=0 ; i < widthSlider ; i++ ) {
-    for ( int j=0 ; j <=heightSlider ; j++ ) {
-      float cr = map(i, 0, widthSlider, 0, 100 ) ;
-      float coul = map(coulour, 0, widthSlider, 0, 360 ) ;
-      // float sat = map(s, 0, largeur, 0, 100 ) ;
-      float dens = map(d, 0, widthSlider, 0, 100 ) ;
-      fill (coul, cr, dens) ;
-      rect ( i, j, 1,1 ) ;
-    }
-  }
-  popMatrix() ;
-}
 
-//density
-void fondRegletteDensite (float posX, float posY, float heightSlider, float widthSlider, float coulour, float s, float d) {
-  pushMatrix () ;
-  translate (posX , posY-(heightSlider *.5)) ;
-  for ( int i=0 ; i < widthSlider ; i++ ) {
-    for ( int j=0 ; j <=heightSlider ; j++ ) {
-      float cr = map(i, 0, widthSlider, 0, 100 ) ;
-      float coul = map(coulour, 0, widthSlider, 0, 360 ) ;
-      float sat = map(s, 0, widthSlider, 0, 100 ) ;
-      // float dens = map(d, 0, largeur, 0, 100 ) ;
-      fill (coul, sat, cr) ;
-      rect (i, j, 1,1) ;
-    }
-  }
-  popMatrix() ;
-}
+
+
+
+
+
 
 
 
 // DROPDOWN
+////////////
 int refSizeImageDropdown, refSizeFileTextDropdown ;
 PVector posTextDropdownImage, posTextDropdownFileText ; 
 color selectedText ;
@@ -1108,12 +1149,12 @@ void dropdownSetup() {
   //common param
   sizeDropdownMode = new PVector (20, sizeToRenderTheBoxDropdown, 8) ;
   PVector newPos = new PVector( -8, 40 ) ;
-  //object line
-  checkTheDropdownSetupObject(startLoopObject, endLoopObject, posWidthBO +newPos.x, posHeightBO +newPos.y) ;
-  //Texture line
-  checkTheDropdownSetupObject(startLoopTexture, endLoopTexture, posWidthBT +newPos.x, posHeightBT +newPos.y) ;
-  //Typo line
-  checkTheDropdownSetupObject(startLoopTypo, endLoopTypo, posWidthBTY +newPos.x, posHeightBTY +newPos.y) ;
+  // group one
+  checkTheDropdownSetupObject(startLoopObject, endLoopObject, margeLeft +newPos.x, lineGroupOne +newPos.y) ;
+  // group two
+  checkTheDropdownSetupObject(startLoopTexture, endLoopTexture, margeLeft +newPos.x, lineGroupTwo +newPos.y) ;
+  // group three
+  checkTheDropdownSetupObject(startLoopTypo, endLoopTypo, margeLeft +newPos.x, lineGroupThree +newPos.y) ;
 }
 
 void checkTheDropdownSetupObject( int start, int end, float posWidth, float posHeight) {
