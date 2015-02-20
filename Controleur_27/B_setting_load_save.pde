@@ -407,10 +407,9 @@ void loadSave(String path) {
     if( s.equals("Slider")){
      int IDslider = row.getInt("ID slider") ;
      int IDmidi = row.getInt("ID midi") ;
-     int valueSlider = row.getInt("Value slider") ; 
+     float valueSlider = row.getFloat("Value slider") ; 
+    // println(valueSlider) ;
      infoSlider[countSlider] = new PVector(IDslider,IDmidi,valueSlider) ;
-     //println(IDslider,IDmidi,valueSlider) ;
-    // println(infoSlider[countSlider]) ;
      countSlider++ ; //<>//
     }
   }
@@ -447,7 +446,7 @@ void sliderSetSaveSetting() {
     int whichOne = i ;
     PVector info = infoSaveFromRawList(infoSlider, whichOne).copy() ;
     slider[whichOne].sliderSettingMidi((int)info.y) ; 
-    slider[whichOne].sliderSettingPos(info.z) ; 
+    slider[whichOne].sliderSettingPos(info.z) ;
     // Slider[whichOne].update(mouseX, (int)info.z, true);
   }
   for (int i = 1 ; i < NUM_GROUP_SLIDER ; i++) { 
@@ -547,6 +546,7 @@ PVector infoSaveFromRawList(PVector [] list, int pos) {
   float IDmidi = 0 ;
   for(int i = 0 ; i < list.length ;i++) {
     
+  //if(list[i] != null ) if((int)list[i].x == pos) {
   if(list[i] != null ) if((int)list[i].x == pos) {
       v = list[i].z ;
       IDmidi = list[i].y ;

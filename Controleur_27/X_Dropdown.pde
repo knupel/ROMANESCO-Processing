@@ -1,4 +1,6 @@
-//
+// DROPDOWN february 2015 adaptation of version 2c work with SLIDER 5d by Stan le Punk
+
+
 boolean dropdownOpen ; // use to indicate to indicate at the other button, they cannot be used when the user are on the dropdown menu
 
 // CLASS
@@ -6,7 +8,8 @@ public class Dropdown {
   //Slider dropdown
   Slider sliderDropdown ;
   // private PFont fontDropdown ;
-  private PVector posSliderDropdown, sizeSliderDropdown, posMoletteDropdown, sizeMoletteDropdown, sizeBoxDropdownMenu ;
+  private PVector posSliderDropdown, sizeSliderDropdown, sizeMoletteDropdown, sizeBoxDropdownMenu ; 
+  private PVector posMoletteDropdown = new PVector(0,0) ; 
   //dropdown
   private int line = 0;
   private String listItem[] , title ;
@@ -54,15 +57,13 @@ public class Dropdown {
     if (slider) {
       sizeSliderDropdown = new PVector (sizeBox *.5, ((endingDropdown ) *sizeBox ) -pos.z) ;
       posSliderDropdown = new PVector(pos.x -sizeSliderDropdown.x -(pos.z *2.0), pos.y +sizeBox +(1.8 *pos.z)) ;
-      posMoletteDropdown = posSliderDropdown ;
       
       float factorSizeMolette = float(listItem.length) / float(endingDropdown -1 ) ;
       
       sizeMoletteDropdown =  new PVector (sizeSliderDropdown.x, sizeSliderDropdown.y /factorSizeMolette) ;
       
-      // sliderDropdown = new Slider(posSliderDropdown, posMoletteDropdown, sizeSliderDropdown, sizeMoletteDropdown, colorBG, boxIn, boxOut) ;
       sliderDropdown = new Slider(posSliderDropdown, posMoletteDropdown, sizeSliderDropdown, sizeMoletteDropdown, "RECT") ;
-      sliderDropdown.sliderSetting() ;
+       sliderDropdown.sliderSetting() ;
     }
   }
   
@@ -78,14 +79,17 @@ public class Dropdown {
       int step = 2 ;
       //give the position in list of Item with the position from the slider's molette
       if (slider) updateDropdown = round(map (sliderDropdown.getValue(), 0,1, 0, missing)) ;
+      if (slider) println(sliderDropdown.getValue(), updateDropdown, missing) ;
       //loop to display the item list
       for ( int i = startingDropdown + updateDropdown ; i < endingDropdown + updateDropdown ; i++) {
         //bottom rendering
         renderBox(listItem[i], step++, sizeBoxDropdownMenu, dropdownFont, colorTextBox);
         //Slider dropdown
         if (slider) {
+          sliderDropdown.insideMolette() ;
           sliderDropdown.moletteUpdate() ;
-          fill(colorBG) ;
+          sliderDropdown.sliderDisplay(colorBG,colorBG,0) ;
+          sliderDropdown.moletteDisplay(jaune, jaune, orange, orange, 0) ;
         }
       }
     } else {

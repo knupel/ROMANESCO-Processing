@@ -20,37 +20,42 @@ PImage[] picMidi = new PImage[4] ;
 
 // POSITION GLOBAL button and Slider
 
+float ratioNormSizeMolette = 1.3 ; 
+int sliderWidth = 140 ;
+int sliderHeight = 10 ;
+int roundedSlider = 5 ;
+
 // vertical grid
 int colOne = 35 ; 
-int colTwo = 225 ; 
-int colThree = 415 ;
+int colTwo = int(1.5 *sliderWidth +colOne)  ; 
+int colThree = int(1.5 *sliderWidth +colTwo) ;
 int margeLeft  = colOne +15 ;
 
 // horizontal grid
 int lineHeader = 30 ;
-int lineGroupZero = 68 ;
-int lineGroupOne = 180 ;
-int lineGroupTwo = 370 ;
-int lineGroupThree = 560 ;
+int lineGroupZero = 70 ;
+int lineGroupOne = 185 ;
+int lineGroupTwo = 375 ;
+int lineGroupThree = 565 ;
 int topMenuPos = lineHeader +10 ;
 
-int spacingBetweenSlider = 12 ;
+int spacingBetweenSlider = 13 ;
 
 
 
-  
-int sliderWidth = 111 ;
-int sliderHeight = 10 ;
-int roundedSlider = 5 ;
+
 
 // correction for special button and slider
 int correctionMidi = 58 ;
 int correctionCurtain = 58 ;
 int correctionSliderPosition = 60 ;
-int correctionBeatButton = 53 ;
+
 int correctionSliderBG = -32 ;
-int correctionSliderSound = +21 ;
+int correctionSliderSound = +25 ;
+int correctionBeatButton = 2 *correctionSliderSound +5 ;
 int correctionSliderLight = -32 ;
+
+int correctionHeaderDropdownY = -3 ;
 
 
 
@@ -119,21 +124,8 @@ int posXSlider[] = new int[NUM_SLIDER *2] ;
 
 
 //SETUP
-void buttonSliderSetup() {
-  
-  //GROUP GLOBAL
-  
-  
-  // HEADER
-  // DROPDOWN MENU : SHADER BG, FONT, IMAGE, FILE TEXT
-  int posDropdownGrobalY = -3 ;
-  posButtonBackground = new PVector(colOne -3, lineHeader +posDropdownGrobalY)  ;
-  posButtonFont =       new PVector(colTwo -3, lineHeader +posDropdownGrobalY)  ; 
-  posButtonImage =      new PVector(colTwo +115, lineHeader +posDropdownGrobalY)  ; 
-  posButtonFileText =   new PVector(colThree +60, lineHeader +posDropdownGrobalY)  ; 
-
-  
-  /////////////
+void buttonSetup() {
+    /////////////
   // GROUP ZERO
     // background 
   posBackgroundButton = new PVector(colOne, lineGroupZero) ;
@@ -168,32 +160,13 @@ void buttonSliderSetup() {
   posKickButton = new PVector(posBeatButton.x +sizeBeatButton.x +5, lineGroupZero +correctionBeatButton) ; 
   posSnareButton = new PVector(posKickButton.x +sizeKickButton.x +5, lineGroupZero +correctionBeatButton) ; 
   posHatButton = new PVector(posSnareButton.x +sizeSnareButton.x +5, lineGroupZero +correctionBeatButton) ;
-  // END GROUP ZERO
-  ////////////////
-  
-  
-  ////////////
-  // GROUP ONE
-  //posHeightBO = lineGroupOne  ; 
-  //posHeightRO = posHeightBO +60   ;  
-  
-  ////////////
-  //GROUP TWO
-  //posHeightBT = lineGroupTwo ;  
-  //posHeightRT = posHeightBT +60   ;  
-  
-  //////////////
-  //GROUP THREE
-  //posHeightBTY = lineGroupThree ;  
-  // posHeightRTY = posHeightBTY +60  ;  
-  
-  // VOID
+}
+
+void sliderSetup() {
   groupZero(lineHeader +80) ;
   groupOne(lineGroupOne, lineGroupOne +correctionSliderPosition ) ;
   groupTwo(lineGroupTwo, lineGroupTwo +correctionSliderPosition ) ;
   groupThree(lineGroupThree, lineGroupThree +correctionSliderPosition ) ;
- 
-  dropdownSetup() ;
 }
 
 
@@ -438,8 +411,9 @@ void textDraw() {
 void constructorSlider() {
   //slider
   for ( int i = 1 ; i < NUM_SLIDER ; i++ ) {
-    PVector sizeMol = new PVector (sizeSlider[i].y, sizeSlider[i].y) ;
-    PVector posMol = new PVector(.5,0) ;
+    PVector sizeMol = new PVector (sizeSlider[i].y *ratioNormSizeMolette, sizeSlider[i].y *ratioNormSizeMolette) ;
+    // we use the var posMol here just to init the Slider, because we load data from save further.
+    PVector posMol = new PVector() ;
     if(infoSaveFromRawList(infoSlider,i).x > -1 ) slider[i] = new SliderAdjustable  (posSlider[i], posMol, sizeSlider[i], sizeMol, "ELLIPSE");
 
     if(slider[i] != null) slider[i].sliderSetting() ;
@@ -1086,6 +1060,11 @@ color colorBoxIn, colorBoxOut, colorBoxText, colorDropdownBG, colorDropdownTitle
 int sizeToRenderTheBoxDropdown = 15 ;
 
 void dropdownSetup() {
+
+  posButtonBackground = new PVector(colOne -3, lineHeader +correctionHeaderDropdownY)  ;
+  posButtonFont =       new PVector(colTwo -3, lineHeader +correctionHeaderDropdownY)  ; 
+  posButtonImage =      new PVector(colTwo +115, lineHeader +correctionHeaderDropdownY)  ; 
+  posButtonFileText =   new PVector(colThree +60, lineHeader +correctionHeaderDropdownY)  ; 
    //dropdown
    colorDropdownBG = rougeTresFonce ;
    colorDropdownTitleIn = jaune ;

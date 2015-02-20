@@ -1,4 +1,4 @@
-// SLIDER horizontal version 5.c by Stan le Punk
+// SLIDER february 2015 version 5d by Stan le Punk
 
 
 
@@ -61,7 +61,7 @@ public class SliderAdjustable extends Slider {
         
     minNormValueOfSlider = minNorm ;
     maxNormValueOfSlider = maxNorm ;
-    sizeMinMax = new PVector (size.x *newNormSize, size.y) ;
+    if (size.x >= size.y) sizeMinMax = new PVector (size.x *newNormSize, size.y) ; else sizeMinMax = new PVector (size.y *newNormSize, size.x) ;
     
     posMin = new PVector (pos.x +(size.x *minNorm), pos.y) ;
     posMax = new PVector (pos.x -sizeMol.x +(size.x *maxNorm), pos.y +size.y -sizeMol.y) ;
@@ -216,9 +216,9 @@ public class Slider {
     this.p = p ;
 
     //which molette for slider horizontal or vertical
-    if (size.x >= size.y) sizeMol = new PVector (size.y, size.y ) ; else sizeMol = new PVector (size.x, size.x ) ;
+    if (size.x >= size.y) sizeMol = new PVector (size.y, size.y) ; else sizeMol = new PVector (size.x, size.x ) ;
     posMin = new PVector (pos.x, pos.y) ;
-    posMax = new PVector (pos.x + size.x - sizeMol.x, pos.y + size.y - sizeMol.y ) ;
+    posMax = new PVector (pos.x + size.x -sizeMol.x, pos.y + size.y -sizeMol.y ) ;
   }
   
   //CONSTRUCTOR minimum
@@ -228,21 +228,21 @@ public class Slider {
     this.size = size.copy() ;
 
     //which molette for slider horizontal or vertical
-    if (size.x >= size.y) sizeMol = new PVector (size.y, size.y ) ; else sizeMol = new PVector (size.x, size.x ) ;
+    if (size.x >= size.y) sizeMol = new PVector (size.y, size.y) ; else sizeMol = new PVector (size.x, size.x ) ;
     posMin = new PVector (pos.x, pos.y) ;
-    posMax = new PVector (pos.x + size.x - sizeMol.x, pos.y + size.y - sizeMol.y ) ;
+    posMax = new PVector (pos.x + size.x -sizeMol.x, pos.y +size.y -sizeMol.y ) ;
   }
   
   //slider with external molette
   public Slider(PVector pos, PVector posMol , PVector size, PVector sizeMol, String moletteShapeType) {
     this.pos = pos.copy() ;
-    this.posMol = new PVector(pos.x + (posMol.x*size.x), pos.y +(posMol.y*size.y)) ;
+    this.posMol = new PVector(pos.x +(posMol.x *size.x), pos.y +(posMol.y *size.y)) ;
     this.sizeMol = sizeMol.copy() ;
     this.size = size.copy() ;
     this.moletteShapeType = moletteShapeType ;
 
     posMin = new PVector (pos.x, pos.y) ;
-    posMax = new PVector (pos.x + size.x - sizeMol.x, pos.y + size.y - sizeMol.y) ;
+    posMax = new PVector (pos.x +size.x -sizeMol.x, pos.y +size.y -sizeMol.y) ;
   }
   
   // END CONSTRUCTOR
@@ -256,16 +256,27 @@ public class Slider {
   
   // METHODES
   //SETTING
+  
   void sliderSetting() {
+    /* May be it's possible to remove this method to includ that in the constructor ?
+    but now we need that to init the molette */
     this.newPosMol = posMol.copy() ;
   }
+  
   
 
   void sliderSettingMidi(int IDmidi) {
     this.IDmidi = IDmidi ;
   }
+  
+  
+  // setting the position from a specific value
   void sliderSettingPos(float normPos) {
-    newPosMol.x = size.x *normPos ;
+    // security to constrain the value in normalizing range.
+    if(normPos > 1.) normPos = 1. ;
+    if(normPos < 0) normPos = 0 ;
+    // check if it's horizontal or vertical slider
+    if(size.x >= size.y) newPosMol.x = size.x *normPos +posMin.x  ; else newPosMol.y = size.y *normPos +posMin.y +sizeMol.y;
   }
   // END SETTING
   
@@ -274,12 +285,19 @@ public class Slider {
   // UPDATE
   // update molette position
   void moletteUpdate() {
-    // check if the mouse is in the slider or not
+    // move the molette is this one is locked
     // security
-    if (newPosMol.x < posMin.x ) newPosMol.x = posMin.x ;
-    if (newPosMol.x > posMax.x ) newPosMol.x = posMax.x ;
+    if(size.x >= size.y) {
+      // for the horizontal slider
+      if (newPosMol.x < posMin.x ) newPosMol.x = posMin.x ;
+      if (newPosMol.x > posMax.x ) newPosMol.x = posMax.x ;
+    } else {
+      // for the vertical slider
+      if (newPosMol.y < posMin.y ) newPosMol.y = posMin.y ;
+      if (newPosMol.y > posMax.y ) newPosMol.y = posMax.y ;
+    }
     
-    //
+    
     if (lockedMol()) lockedMol = true ;
     if (!mousePressed) lockedMol = false ; 
     if (lockedMol) {  
@@ -328,7 +346,7 @@ public class Slider {
   //display molette
   void moletteDisplay() {
     if(lockedMol || insideMol) fill(molIn); else fill(molOut ) ;
-    if(moletteShapeType.equals("ELLIPSE")) ellipse(newPosMol.x, newPosMol.y, sizeMol.x , sizeMol.y) ; else  rect(newPosMol.x, newPosMol.y, sizeMol.x , sizeMol.y ) ;
+    if(moletteShapeType.equals("ELLIPSE")) ellipse(sizeMol.x *.5 +newPosMol.x, newPosMol.y, sizeMol.x , sizeMol.y) ; else  rect(newPosMol.x, newPosMol.y, sizeMol.x, sizeMol.y) ;
   }
   
   // display molette advanced
@@ -345,7 +363,7 @@ public class Slider {
       stroke(strokeOut) ;
     }
     if(moletteShapeType.equals("ELLIPSE") ) {
-      ellipse(newPosMol.x, newPosMol.y, sizeMol.x , sizeMol.y ) ;
+      ellipse(sizeMol.x *.5 +newPosMol.x, newPosMol.y, sizeMol.x , sizeMol.y) ;
     } else if(moletteShapeType.equals("RECT")) {
       rect(newPosMol.x, newPosMol.y, sizeMol.x , sizeMol.y ) ;
     } else rect(newPosMol.x, newPosMol.y, sizeMol.x , sizeMol.y ) ;
@@ -367,6 +385,7 @@ public class Slider {
   // return the position of the molette between 0 and 1
   float getValue() {
     float value ;
+    //println(newPosMol.y, posMin.y, posMax.y, minNormValueOfSlider,maxNormValueOfSlider) ;
     if (size.x >= size.y) value = map (newPosMol.x, posMin.x, posMax.x, minNormValueOfSlider,maxNormValueOfSlider) ; 
                           else value = map (newPosMol.y, posMin.y, posMax.y, minNormValueOfSlider,maxNormValueOfSlider) ;
     return value ;
@@ -381,7 +400,7 @@ public class Slider {
   }
   
   
-  boolean insideMolette() { 
+  boolean insideMolette() {
     if(insideRect(newPosMol, sizeMol)) insideMol = true ; else insideMol = false ;
     return insideMol ;
   }
@@ -398,7 +417,7 @@ public class Slider {
   
   
   //locked
-  boolean lockedMol () {
+  boolean lockedMol() {
     if (insideMol && mousePressed ) return true ; else return false ;
   }
   

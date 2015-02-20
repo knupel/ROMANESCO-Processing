@@ -17,7 +17,9 @@ void setup() {
   fontSetup() ;
   midiSetup() ;
   importPicButtonSetup() ;
-  buttonSliderSetup() ;
+  sliderSetup() ;
+  buttonSetup() ;
+  dropdownSetup() ;
   constructorButton() ;
   constructorSlider() ;
   sendOSCsetup() ;
