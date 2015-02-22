@@ -24,6 +24,10 @@ float ratioNormSizeMolette = 1.3 ;
 int sliderWidth = 140 ;
 int sliderHeight = 10 ;
 int roundedSlider = 5 ;
+/*  the position is calculated in ratio of the slider position. Not optimize for the vertical slider */
+float normPosSliderAdjustable = .5 ; 
+/*the height size is calculated in ratio of the slider height size.  Not optimize for the vertical slider */
+float normSizeSliderAdjustable =.2 ; 
 
 // vertical grid
 int colOne = 35 ; 
@@ -50,10 +54,10 @@ int correctionMidi = 58 ;
 int correctionCurtain = 58 ;
 int correctionSliderPosition = 60 ;
 
-int correctionSliderBG = -32 ;
-int correctionSliderSound = +25 ;
-int correctionBeatButton = 2 *correctionSliderSound +5 ;
-int correctionSliderLight = -32 ;
+int correctionSliderBG = 50 ;
+int correctionSliderSound = 105 ;
+int correctionBeatButton = correctionSliderSound -50 ;
+int correctionSliderLight = 50 ;
 
 int correctionHeaderDropdownY = -3 ;
 
@@ -163,7 +167,8 @@ void buttonSetup() {
 }
 
 void sliderSetup() {
-  groupZero(lineHeader +80) ;
+  // groupZero(lineHeader +80) ;
+  groupZero(lineHeader) ;
   groupOne(lineGroupOne, lineGroupOne +correctionSliderPosition ) ;
   groupTwo(lineGroupTwo, lineGroupTwo +correctionSliderPosition ) ;
   groupThree(lineGroupThree, lineGroupThree +correctionSliderPosition ) ;
@@ -414,7 +419,10 @@ void constructorSlider() {
     PVector sizeMol = new PVector (sizeSlider[i].y *ratioNormSizeMolette, sizeSlider[i].y *ratioNormSizeMolette) ;
     // we use the var posMol here just to init the Slider, because we load data from save further.
     PVector posMol = new PVector() ;
-    if(infoSaveFromRawList(infoSlider,i).x > -1 ) slider[i] = new SliderAdjustable  (posSlider[i], posMol, sizeSlider[i], sizeMol, "ELLIPSE");
+    // float correctionSliderPosY = sliderHeight *.5 ;
+    PVector tempPosSlider = new PVector(posSlider[i].x, posSlider[i].y -(sliderHeight *.6)) ;
+    // if(infoSaveFromRawList(infoSlider,i).x > -1 ) slider[i] = new SliderAdjustable  (posSlider[i], posMol, sizeSlider[i], sizeMol, "ELLIPSE");
+    if(infoSaveFromRawList(infoSlider,i).x > -1 ) slider[i] = new SliderAdjustable  (tempPosSlider, posMol, sizeSlider[i], sizeMol, "ELLIPSE");
 
     if(slider[i] != null) slider[i].sliderSetting() ;
   } 
@@ -479,7 +487,23 @@ void sliderUpdate(int whichOne) {
   
   //MIDI update
   sliderMidiUpdate(whichOne) ;
-  if(!slider[whichOne].lockedMax  && !slider[whichOne].lockedMax) slider[whichOne].insideMolette() ;
+  // check the main molette
+  if(!slider[whichOne].lockedMax  && !slider[whichOne].lockedMax) slider[whichOne].insideMol_Ellipse() ;
+  //check the min and max molette
+  if(!slider[whichOne].lockedMol && !slider[whichOne].insideMol ) {
+    // min molette
+    if(!slider[whichOne].insideMax && !slider[whichOne].lockedMax) {
+      slider[whichOne].insideMin() ;
+      slider[whichOne].minUpdate() ;
+    }
+    // max molette
+    if(!slider[whichOne].insideMin && !slider[whichOne].lockedMin) {
+      slider[whichOne].insideMax() ;
+      slider[whichOne].maxUpdate() ;
+    }
+  }
+  
+  slider[whichOne].minMaxSliderUpdate() ;
   slider[whichOne].moletteUpdate() ;
   
   //return value to the prescene between 0 to 99
@@ -489,23 +513,24 @@ void sliderUpdate(int whichOne) {
 
 
 void sliderAdvancedDisplay(int whichOne, int whichGroup) {
-    PVector correctionPosMoletteY = new PVector(-2,2)  ;
-    float thicknessMolette = 1 ;
-    
-    if (whichGroup == 0) {
-      color colorMolIn = rouge ;
-      color colorMolOut = gris ;
-      color colorMolStrokeIn = noir ;
-      color colorMolStrokeOut = grisFonce ;
-      slider[whichOne].moletteDisplay(colorMolIn,colorMolOut, colorMolStrokeIn, colorMolStrokeOut, thicknessMolette) ;
-    } else {
-      color colorMolIn = rouge ;
-      color colorMolOut = grisClair ;
-      color colorMolStrokeIn = grisTresFonce ;
-      color colorMolStrokeOut = gris ;
-      slider[whichOne].moletteDisplay(colorMolIn,colorMolOut, colorMolStrokeIn, colorMolStrokeOut, thicknessMolette) ;
-    }
+  if (whichGroup == 0) {
+    sliderMinMaxRomanescoDisplay(whichOne, grisTresFonce, gris) ;
+    sliderMoletteRomanescoDisplay(whichOne, blanc, blancGris) ;
+  } else {
+    sliderMinMaxRomanescoDisplay(whichOne, grisFonce, grisClair) ;
+    sliderMoletteRomanescoDisplay(whichOne, blanc, blancGris) ;
+  }
 }
+// local method
+void sliderMinMaxRomanescoDisplay(int whichOne,  color colorIn, color colorOut) {
+  float thickness = 0 ;
+   slider[whichOne].minMaxSliderDisplay(normPosSliderAdjustable, normSizeSliderAdjustable, colorIn, colorOut, colorIn, colorOut, thickness) ;
+}
+void sliderMoletteRomanescoDisplay(int whichOne, color colorMolIn, color colorMolOut) {
+  slider[whichOne].moletteDisplay(colorMolIn,colorMolOut, colorMolIn,colorMolOut, 1) ;
+}
+// end local method
+
 
 
 
@@ -632,7 +657,8 @@ void sliderBackground(int whichOne) {
   int whichGroup = whichOne ;
   whichOne *= 100 ;
   //
-  if ( mouseX > (posSlider[whichOne +hueFillRank].x ) && mouseX < (posSlider[whichOne +hueFillRank].y +sizeSlider[whichOne +hueFillRank].x) 
+  println(whichOne, hueFillRank, posSlider[whichOne +hueFillRank].y +sizeSlider[whichOne +hueFillRank].x) ;
+  if ( mouseX > (posSlider[whichOne +hueFillRank].x ) && mouseX < (posSlider[whichOne +hueFillRank].x +sizeSlider[whichOne +hueFillRank].x) 
        && mouseY > ( posSlider[whichOne +hueFillRank].y - 5) && mouseY < posSlider[whichOne +hueFillRank].y +30 ) 
   {
     if (displaySlider[whichGroup][hueFillRank])        fondRegletteCouleur    (posSlider[whichOne +hueFillRank].x, posSlider[whichOne +hueFillRank].y, sizeSlider[whichOne +hueFillRank].y, sizeSlider[whichOne +hueFillRank].x) ; 
@@ -688,7 +714,7 @@ void sliderBackground(int whichOne) {
 
 
 
-// global slider
+// DRAW GROUP ZER
 void sliderDrawGroupZero () {
   //Background slider
   if (mouseX > (posSlider[1].x ) && mouseX < ( posSlider[1].x + sizeSlider[1].x) 

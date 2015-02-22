@@ -86,7 +86,7 @@ public class Dropdown {
         renderBox(listItem[i], step++, sizeBoxDropdownMenu, dropdownFont, colorTextBox);
         //Slider dropdown
         if (slider) {
-          sliderDropdown.insideMolette() ;
+          sliderDropdown.insideMol_Rect() ;
           sliderDropdown.moletteUpdate() ;
           sliderDropdown.sliderDisplay(colorBG,colorBG,0) ;
           sliderDropdown.moletteDisplay(jaune, jaune, orange, orange, 0) ;

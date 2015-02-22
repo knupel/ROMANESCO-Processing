@@ -1,193 +1,4 @@
-// SLIDER february 2015 version 5d by Stan le Punk
-
-
-
-
-
-// SliderAdjustable : extends class of class Slider
-public class SliderAdjustable extends Slider {
-  protected float minNorm = 0 ;
-  protected float maxNorm = 1 ;
-  // size
-  protected PVector sizeMinMax = new PVector() ;
-  protected PVector sizeMolMinMax = new PVector() ;
-  int widthMinMax = 10 ;
-  // pos  
-  protected PVector posMinMax = new PVector() ;
-  protected PVector newPosMin = new PVector() ;
-  protected PVector newPosMax = new PVector() ;
-  // color
-  protected color adjIn = color(255) ;
-  protected color adjOut = color(125) ; ;
-
-  boolean lockedMin, lockedMax, insideMin, insideMax ;
-  
-  // CLASSIC CONSTRUCTOR
-  SliderAdjustable (PVector pos, PVector posMol , PVector size, PVector posText, PFont p) {
-    super(pos, posMol, size, posText, p) ;
-    this.posMinMax = pos.copy() ;
-    this.newPosMin = posMinMax.copy() ;
-    this.sizeMinMax = size.copy() ;
-    this.sizeMolMinMax = new PVector(widthMinMax, size.y) ;
-  }
-  
-  SliderAdjustable(PVector pos, PVector posMol , PVector size) {
-    super(pos, posMol, size) ;
-    this.posMinMax = pos.copy() ;
-    this.newPosMin = posMinMax.copy() ;
-    this.sizeMinMax = size.copy() ;
-    this.sizeMolMinMax = new PVector(widthMinMax, size.y) ;
-  }
-  
-  //slider with external molette
-  SliderAdjustable(PVector pos, PVector posMol , PVector size, PVector sizeMol, String moletteShapeType) {
-    super(pos, posMol, size, sizeMol, moletteShapeType) ;
-    this.posMinMax = pos.copy() ;
-    this.newPosMin = posMinMax.copy() ;
-    this.sizeMinMax = size.copy() ;
-    this.sizeMolMinMax = new PVector(widthMinMax, size.y) ;
-  }
-  // END CLASSIC CONSTRUCTOR
-  /////////////////////////
-
-  
-  
-  
-  /////////
-  // METHOD
-  
-  void minMaxSliderUpdate() {
-    float newNormSize = maxNorm -minNorm ;
-        
-    minNormValueOfSlider = minNorm ;
-    maxNormValueOfSlider = maxNorm ;
-    if (size.x >= size.y) sizeMinMax = new PVector (size.x *newNormSize, size.y) ; else sizeMinMax = new PVector (size.y *newNormSize, size.x) ;
-    
-    posMin = new PVector (pos.x +(size.x *minNorm), pos.y) ;
-    posMax = new PVector (pos.x -sizeMol.x +(size.x *maxNorm), pos.y +size.y -sizeMol.y) ;
-    
-    
-  }
-  
-  // update Min and Max value
-  // update min value
-  void minUpdate() {
-    float range = sizeMol.x *1.5 ;
-    //
-    if (lockedMin()) lockedMin = true ;
-    if (!mousePressed) lockedMin = false ; 
-    if (lockedMin) {  
-      if (size.x >= size.y) {
-        // security
-        if (newPosMin.x < posMin.x ) newPosMin.x = posMin.x ;
-        else if (newPosMin.x > posMax.x -range) newPosMin.x = posMax.x -range ;
-        
-        newPosMin.x = constrain(mouseX, pos.x, pos.x+size.x -range) ; 
-        // norm the value to return to method minMaxSliderUpdate
-        minNorm = map(newPosMin.x, posMin.x, posMax.x, minNormValueOfSlider,maxNormValueOfSlider) ;
-      } else newPosMin.y = constrain(mouseY -sizeMinMax.y, posMin.y, posMax.y) ; // this line is not reworking
-    }
-  }
-  
-  
-  // update maxvalue
-  void maxUpdate() {
-    float range = sizeMol.x *1.5 ;
-    //
-    if (lockedMax()) lockedMax = true ;
-    if (!mousePressed) lockedMax = false ; 
-    if (lockedMax) { 
-      if (size.x >= size.y) {
-        // security
-        if (newPosMax.x < posMin.x +range)  newPosMax.x = posMin.x +range ;
-        else if (newPosMax.x > posMax.x ) newPosMax.x = posMax.x ;
-        
-        newPosMax.x = constrain(mouseX -sizeMol.x, pos.x +range, pos.x +size.x -sizeMol.x) ; 
-        // norm the value to return to method minMaxSliderUpdate
-        maxNorm = map(newPosMax.x, posMin.x, posMax.x, minNormValueOfSlider,maxNormValueOfSlider) ;
-      } else newPosMax.y = constrain(mouseY -sizeMinMax.y, posMin.y, posMax.y) ; // this line is not reworking
-    }
-  }
-  
-  
-  
-  
-  
-  
-  
-  
-  // Display classic
-  void minMaxSliderDisplay() {
-    if(lockedMin || lockedMax || insideMax || insideMin) fill(adjIn) ; else fill(adjOut) ;
-    noStroke() ;
-    rect(newPosMin.x, newPosMin.y +sizeMinMax.y *.4, sizeMinMax.x, sizeMinMax.y *.3) ;
-  }
-  
-  // Display advanced
-  void minMaxSliderDisplay(color adjIn, color adjOut, color strokeIn, color strokeOut, float thickness) {
-    this.adjIn = adjIn ;
-    this.adjOut = adjOut ;
-    strokeWeight(thickness) ;
-    if(lockedMin || lockedMax || insideMax || insideMin) {
-      fill(adjIn) ;
-      stroke(strokeIn) ;
-    } else {
-      fill(adjOut) ;
-      stroke(strokeOut) ;
-    }
-    rect(newPosMin.x, newPosMin.y +sizeMinMax.y *.4, sizeMinMax.x, sizeMinMax.y *.3) ;
-    noStroke() ;
-  }
-  
-  
-  
-  
-  
-  
-  // ANNEXE
-  // INSIDE
-  boolean insideMin() {
-    if(insideRect(posMin, sizeMolMinMax)) insideMin = true ; else insideMin = false ;
-    return insideMin ;
-  }
-  
-  boolean insideMax() {
-    PVector pos = new PVector (posMax.x +(sizeMol.x*.5), posMax.y) ;
-    if(insideRect(pos, sizeMolMinMax)) insideMax = true ; else insideMax = false ;
-    return insideMax ;
-  }
-  
-  //LOCKED
-  boolean lockedMin () {
-    if (insideMin && mousePressed) return true ; else return false ;
-    //if (insideMin && mousePressed && !lockedMol && !insideMax && !lockedMax) return true ; else return false ;
-  }
-  
-  boolean lockedMax () {
-    if (insideMax && mousePressed) return true ; else return false ;
-   // if (insideMax && mousePressed && !lockedMol && !insideMin && !lockedMin) return true ; else return false ;
-  }
-}
-// END Extends class SLIDER
-///////////////////////////
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+// SLIDER february 2015 version 5e by Stan le Punk
 ////////////////
 // CLASS SLIDER
 public class Slider {
@@ -218,7 +29,8 @@ public class Slider {
     //which molette for slider horizontal or vertical
     if (size.x >= size.y) sizeMol = new PVector (size.y, size.y) ; else sizeMol = new PVector (size.x, size.x ) ;
     posMin = new PVector (pos.x, pos.y) ;
-    posMax = new PVector (pos.x + size.x -sizeMol.x, pos.y + size.y -sizeMol.y ) ;
+
+    posMax = new PVector (pos.x +size.x +size.y, pos.y) ;
   }
   
   //CONSTRUCTOR minimum
@@ -230,7 +42,10 @@ public class Slider {
     //which molette for slider horizontal or vertical
     if (size.x >= size.y) sizeMol = new PVector (size.y, size.y) ; else sizeMol = new PVector (size.x, size.x ) ;
     posMin = new PVector (pos.x, pos.y) ;
-    posMax = new PVector (pos.x + size.x -sizeMol.x, pos.y +size.y -sizeMol.y ) ;
+        // posMax = new PVector (pos.x + size.x -size.y,  pos.y) ;
+    // posMax = new PVector (pos.x +size.x +(size.y *2),  pos.y) ;
+    posMax = new PVector (0,  pos.y) ;
+    println(pos.x, size.x, size.y, posMax.x) ;
   }
   
   //slider with external molette
@@ -242,7 +57,8 @@ public class Slider {
     this.moletteShapeType = moletteShapeType ;
 
     posMin = new PVector (pos.x, pos.y) ;
-    posMax = new PVector (pos.x +size.x -sizeMol.x, pos.y +size.y -sizeMol.y) ;
+
+    posMax = new PVector (pos.x +size.x  +size.y,  pos.y) ;
   }
   
   // END CONSTRUCTOR
@@ -346,7 +162,7 @@ public class Slider {
   //display molette
   void moletteDisplay() {
     if(lockedMol || insideMol) fill(molIn); else fill(molOut ) ;
-    if(moletteShapeType.equals("ELLIPSE")) ellipse(sizeMol.x *.5 +newPosMol.x, newPosMol.y, sizeMol.x , sizeMol.y) ; else  rect(newPosMol.x, newPosMol.y, sizeMol.x, sizeMol.y) ;
+     molettePos() ;
   }
   
   // display molette advanced
@@ -362,14 +178,13 @@ public class Slider {
       fill(molOut ) ;
       stroke(strokeOut) ;
     }
-    if(moletteShapeType.equals("ELLIPSE") ) {
-      ellipse(sizeMol.x *.5 +newPosMol.x, newPosMol.y, sizeMol.x , sizeMol.y) ;
-    } else if(moletteShapeType.equals("RECT")) {
-      rect(newPosMol.x, newPosMol.y, sizeMol.x , sizeMol.y ) ;
-    } else rect(newPosMol.x, newPosMol.y, sizeMol.x , sizeMol.y ) ;
+    molettePos() ;
     
     noStroke() ;
   }
+  
+  
+ 
 
 
   
@@ -382,6 +197,16 @@ public class Slider {
   
 
   //ANNEXE VOID
+  // display the molette
+  void molettePos() {
+    if(moletteShapeType.equals("ELLIPSE") ) {
+      ellipse(sizeMol.x *.5 +newPosMol.x, size.y *.5 +newPosMol.y, sizeMol.x , sizeMol.y) ;
+    } else if(moletteShapeType.equals("RECT")) {
+      rect(newPosMol.x, newPosMol.y, sizeMol.x , sizeMol.y ) ;
+    } else rect(newPosMol.x, newPosMol.y, sizeMol.x , sizeMol.y ) ;
+  }
+  
+  
   // return the position of the molette between 0 and 1
   float getValue() {
     float value ;
@@ -400,18 +225,19 @@ public class Slider {
   }
   
   
-  boolean insideMolette() {
+  boolean insideMol_Rect() {
     if(insideRect(newPosMol, sizeMol)) insideMol = true ; else insideMol = false ;
     return insideMol ;
   }
   
 
   //ellipse
-  boolean insideEllipse() {
-    float disX = pos.x -mouseX ; 
-    float disY = pos.y -mouseY ; 
-    if (sqrt(sq(disX) + sq(disY)) < size.x *.5) insideMol = true ; else insideMol = false ;
-    return insideMol ;
+  boolean insideMol_Ellipse() {
+    float radius = sizeMol.x ;
+    int posX = int(radius *.5 +newPosMol.x ) ; 
+    int posY = int(size.y *.5 +newPosMol.y) ;
+    if(pow((posX -mouseX),2) + pow((posY -mouseY),2) < pow(radius,sqrt(3))) insideMol = true ; else insideMol = false ;
+   return insideMol ;
   }
   
   
@@ -441,7 +267,6 @@ public class Slider {
     if (newValMidi != val) { 
       newValMidi = val ; 
       newPosMol.x = map(val, 1, 127, posMin.x, posMax.x) ;
-      // posX = newValMidi ; 
     }
   }
 
@@ -450,22 +275,204 @@ public class Slider {
   //VOID
   void load(int load) {
     newPosMol.x = load ;
-    /*
-    float lh = float(longueurSlider) ;
-    spos = xpos + (loadX / (100.0 + ( (11.0/lh)*rapportChargement) ) * longueurSlider);
-    */
   }
-  
-  
   
   // give the ID from the controller Midi
   void selectIDmidi(int num) { IDmidi = num ; }
   
-  
-  
-  
-  ////////
-  //RETURN
   //give the IDmidi 
   int IDmidi() { return IDmidi ; }
 }
+
+// END SLIDER
+/////////////
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+////////////////////////////////////////////////////
+// SLIDER ADJUSTABLE : extends class of class Slider
+public class SliderAdjustable extends Slider {
+  protected float minNorm = 0 ;
+  protected float maxNorm = 1 ;
+  // size
+  protected PVector sizeMinMax = new PVector() ;
+  protected PVector sizeMolMinMax = new PVector() ;
+  int widthMinMax = 10 ;
+  // pos  
+  protected PVector posMinMax = new PVector() ;
+  protected PVector newPosMin = new PVector() ;
+  protected PVector newPosMax = new PVector() ;
+  // color
+  protected color adjIn = color(255) ;
+  protected color adjOut = color(125) ; ;
+
+  boolean lockedMin, lockedMax, insideMin, insideMax ;
+  
+  // CLASSIC CONSTRUCTOR
+  SliderAdjustable (PVector pos, PVector posMol , PVector size, PVector posText, PFont p) {
+    super(pos, posMol, size, posText, p) ;
+    this.posMinMax = pos.copy() ;
+    this.newPosMin = posMinMax.copy() ;
+    this.sizeMinMax = size.copy() ;
+    this.sizeMolMinMax = new PVector(widthMinMax, size.y) ;
+  }
+  
+  SliderAdjustable(PVector pos, PVector posMol , PVector size) {
+    super(pos, posMol, size) ;
+    this.posMinMax = pos.copy() ;
+    this.newPosMin = posMinMax.copy() ;
+    this.sizeMinMax = size.copy() ;
+    this.sizeMolMinMax = new PVector(widthMinMax, size.y) ;
+  }
+  
+  //slider with external molette
+  SliderAdjustable(PVector pos, PVector posMol , PVector size, PVector sizeMol, String moletteShapeType) {
+    super(pos, posMol, size, sizeMol, moletteShapeType) ;
+    this.posMinMax = pos.copy() ;
+    this.newPosMin = posMinMax.copy() ;
+    this.sizeMinMax = size.copy() ;
+    this.sizeMolMinMax = new PVector(widthMinMax, size.y) ;
+  }
+  // END CLASSIC CONSTRUCTOR
+  /////////////////////////
+
+  
+  
+  
+  /////////
+  // METHOD
+  
+  void minMaxSliderUpdate() {
+    float newNormSize = maxNorm -minNorm ;
+    minNormValueOfSlider = minNorm ;
+    maxNormValueOfSlider = maxNorm ;
+    
+    if (size.x >= size.y) sizeMinMax = new PVector (size.x *newNormSize, size.y) ; else sizeMinMax = new PVector (size.y *newNormSize, size.x) ;
+    
+    posMin = new PVector (pos.x +(size.x *minNorm), pos.y) ;
+    // in this case the detection is translate on to and left of the size of molette
+    posMax = new PVector (pos.x -sizeMol.x +(size.x *maxNorm), pos.y) ;
+  }
+  
+  // update Min and Max value
+  // update min value
+  void minUpdate() {
+    float range = sizeMol.x *1.5 ;
+    //
+    if (lockedMin()) lockedMin = true ;
+    if (!mousePressed) lockedMin = false ; 
+    if (lockedMin) {  
+      if (size.x >= size.y) {
+        // security
+        if (newPosMin.x < posMin.x ) newPosMin.x = posMin.x ;
+        else if (newPosMin.x > posMax.x -range) newPosMin.x = posMax.x -range ;
+        
+        newPosMin.x = constrain(mouseX, pos.x, pos.x+size.x -range) ; 
+        // norm the value to return to method minMaxSliderUpdate
+        minNorm = map(newPosMin.x, posMin.x, posMax.x, minNormValueOfSlider,maxNormValueOfSlider) ;
+      } else newPosMin.y = constrain(mouseY -sizeMinMax.y, posMin.y, posMax.y) ; // this line is not reworking
+    }
+  }
+  
+  
+  // update maxvalue
+  void maxUpdate() {
+    float range = sizeMol.x *1.5 ;
+    //
+    if (lockedMax()) lockedMax = true ;
+    if (!mousePressed) lockedMax = false ; 
+    if (lockedMax) { 
+      if (size.x >= size.y) {
+        // security
+        // println(newPosMax.x, posMax.x) ;
+        if (newPosMax.x < posMin.x +range)  newPosMax.x = posMin.x +range ;
+        else if (newPosMax.x > posMax.x ) newPosMax.x = posMax.x ;
+         newPosMax.x = constrain(mouseX -(size.y *.5) , pos.x +range, pos.x +size.x -(size.y *.5)) ; 
+         // norm the value to return to method minMaxSliderUpdate
+        posMax = new PVector (pos.x -sizeMol.x +(size.x *maxNorm), pos.y) ;
+        /* we use a temporary position for a good display of the max slider */
+        PVector tempPosMax = new PVector(pos.x -(size.y *.5) +(size.x *maxNorm), posMax.y) ;
+        maxNorm = map(newPosMax.x, posMin.x, tempPosMax.x, minNormValueOfSlider,maxNormValueOfSlider) ;
+      } else newPosMax.y = constrain(mouseY -sizeMinMax.y, posMin.y, posMax.y) ; // this line is not reworking
+    }
+  }
+  
+  
+  
+  
+  
+  
+  
+  
+  // Display classic
+  void minMaxSliderDisplay() {
+    if(lockedMin || lockedMax || insideMax || insideMin) fill(adjIn) ; else fill(adjOut) ;
+    noStroke() ;
+    rect(newPosMin.x, newPosMin.y +sizeMinMax.y *.4, sizeMinMax.x, sizeMinMax.y *.3) ;
+  }
+  
+  // Display advanced
+ void minMaxSliderDisplay(float normPos, float normSize, color adjIn, color adjOut, color strokeIn, color strokeOut, float thickness) {
+    this.adjIn = adjIn ;
+    this.adjOut = adjOut ;
+    strokeWeight(thickness) ;
+    if(lockedMin || lockedMax || insideMax || insideMin) {
+      fill(adjIn) ;
+      stroke(strokeIn) ;
+    } else {
+      fill(adjOut) ;
+      stroke(strokeOut) ;
+    }
+    rect(newPosMin.x, newPosMin.y +sizeMinMax.y *normPos, sizeMinMax.x, sizeMinMax.y *normSize) ;
+    noStroke() ;
+  }
+  
+  
+  
+  
+  
+  
+  // ANNEXE
+  // INSIDE
+  boolean insideMin() {
+    if(insideRect(posMin, sizeMolMinMax)) insideMin = true ; else insideMin = false ;
+    return insideMin ;
+  }
+  
+  boolean insideMax() {
+    PVector tempPosMax = new PVector(pos.x -(size.y *.5) +(size.x *maxNorm), posMax.y) ;
+    if(insideRect(tempPosMax, sizeMolMinMax)) insideMax = true ; else insideMax = false ;
+    return insideMax ;
+  }
+  
+  //LOCKED
+  boolean lockedMin () {
+    if (insideMin && mousePressed) return true ; else return false ;
+  }
+  
+  boolean lockedMax () {
+    if (insideMax && mousePressed) return true ; else return false ;
+  }
+}
+// END Extends class SLIDER
+///////////////////////////
