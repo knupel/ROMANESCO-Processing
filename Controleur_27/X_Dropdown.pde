@@ -79,7 +79,6 @@ public class Dropdown {
       int step = 2 ;
       //give the position in list of Item with the position from the slider's molette
       if (slider) updateDropdown = round(map (sliderDropdown.getValue(), 0,1, 0, missing)) ;
-      if (slider) println(sliderDropdown.getValue(), updateDropdown, missing) ;
       //loop to display the item list
       for ( int i = startingDropdown + updateDropdown ; i < endingDropdown + updateDropdown ; i++) {
         //bottom rendering

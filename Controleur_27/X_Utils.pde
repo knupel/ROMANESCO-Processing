@@ -26,8 +26,9 @@ int longestWord( String[] listWordsToSort, int start, int finish ) {
 
 
 
-//INSIDE
-//CIRLCLE
+// MOUSE DETECTION
+// CIRLCLE
+
 boolean insideCircle (PVector pos, int diam) {
   if (dist(pos.x, pos.y, mouseX, mouseY) < diam) return true  ; else return false ;
 }

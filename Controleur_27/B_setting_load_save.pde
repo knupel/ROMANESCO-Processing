@@ -302,7 +302,7 @@ void saveInfoSlider() {
   for (int i = 1 ; i < NUM_SLIDER_GLOBAL ; i++) {
      // set PVector info Slider
      int temp = i-1 ;
-     infoSlider[temp].z = valueSlider[i] ;
+     infoSlider[temp].z = slider[i].getValue() ;
      setSlider(i, (int)infoSlider[temp].y, infoSlider[temp].z) ;
 
   }
@@ -315,7 +315,7 @@ void saveInfoSlider() {
       // third loop to check and find the good PVector array in the list
       for(int k = 0 ; k < infoSlider.length ;k++) {
         if( (int)infoSlider[k].x ==IDslider) {
-          infoSlider[k].z = valueSlider[IDslider] ;
+          infoSlider[k].z = slider[IDslider].getValue() ;
           setSlider(IDslider, (int)infoSlider[k].y, infoSlider[k].z) ;
         }
       }
@@ -408,7 +408,6 @@ void loadSave(String path) {
      int IDslider = row.getInt("ID slider") ;
      int IDmidi = row.getInt("ID midi") ;
      float valueSlider = row.getFloat("Value slider") ; 
-    // println(valueSlider) ;
      infoSlider[countSlider] = new PVector(IDslider,IDmidi,valueSlider) ;
      countSlider++ ; //<>//
     }
@@ -444,17 +443,16 @@ void settingDataFromSave() {
 void sliderSetSaveSetting() {
   for (int i = 1 ; i < NUM_SLIDER_GLOBAL ; i++) {
     int whichOne = i ;
-    PVector info = infoSaveFromRawList(infoSlider, whichOne).copy() ;
-    slider[whichOne].sliderSettingMidi((int)info.y) ; 
-    slider[whichOne].sliderSettingPos(info.z) ;
-    // Slider[whichOne].update(mouseX, (int)info.z, true);
+    PVector infoSliderTemp = infoSaveFromRawList(infoSlider, whichOne).copy() ;
+    slider[whichOne].sliderSettingMidi((int)infoSliderTemp.y) ; 
+    slider[whichOne].sliderSettingPos(infoSliderTemp.z) ;
   }
   for (int i = 1 ; i < NUM_GROUP_SLIDER ; i++) { 
     for(int j = 1 ; j < SLIDER_BY_GROUP ; j++) {
       int whichOne = j +(i *100) ;
-      PVector info = infoSaveFromRawList(infoSlider, whichOne).copy() ;
-      slider[whichOne].sliderSettingMidi((int)info.y) ; 
-      slider[whichOne].sliderSettingPos(info.z) ; 
+      PVector infoSliderTemp = infoSaveFromRawList(infoSlider, whichOne).copy() ;
+      slider[whichOne].sliderSettingMidi((int)infoSliderTemp.y) ; 
+      slider[whichOne].sliderSettingPos(infoSliderTemp.z) ; 
     }
   }
 }

@@ -4,8 +4,7 @@
 //COLOR
 //GLOBAL
 color rouge, rougeFonce, rougeTresFonce,   
-      orange, 
-      jaune, 
+      orange, jauneOrange, jaune, 
       vert, vertClair, vertFonce, vertTresFonce,
       bleu,
       violet,
@@ -32,8 +31,15 @@ void colorSetup() {
    grisNoir = color(0,0,20) ;      
    noirGris = color (0,0,15) ;         
    noir = color (0,0,5) ;  
-   vertClair = color (100,20,100) ;     vert = color(100,50,70) ;           vertFonce = color(100,100,50) ;     vertTresFonce = color(100,100,30) ;
-   rougeTresFonce = color(10, 100, 50) ; rougeFonce = color (10, 100, 70) ;  rouge = color(10,100,100) ;           orange = color (35,100,100) ; 
+   vertClair = color (100,20,100) ;     
+   vert = color(100,50,70) ; 
+   vertFonce = color(100,100,50) ; 
+   vertTresFonce = color(100,100,30) ;
+   rougeTresFonce = color(10, 100, 50) ; 
+   rougeFonce = color (10, 100, 70) ;  
+   rouge = color(10,100,100) ;            
+   orange = color (35,100,100) ; 
+   jauneOrange = color (42,100,100) ; 
    jaune = color(50,100,100) ;
    
    colorTextUsual = grisNoir ; colorTitle = noirGris ;

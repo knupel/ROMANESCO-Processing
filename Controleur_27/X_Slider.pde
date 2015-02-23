@@ -1,4 +1,4 @@
-// SLIDER february 2015 version 5e by Stan le Punk
+// SLIDER february 2015 version 5f by Stan le Punk
 ////////////////
 // CLASS SLIDER
 public class Slider {
@@ -45,7 +45,6 @@ public class Slider {
         // posMax = new PVector (pos.x + size.x -size.y,  pos.y) ;
     // posMax = new PVector (pos.x +size.x +(size.y *2),  pos.y) ;
     posMax = new PVector (0,  pos.y) ;
-    println(pos.x, size.x, size.y, posMax.x) ;
   }
   
   //slider with external molette
@@ -92,7 +91,7 @@ public class Slider {
     if(normPos > 1.) normPos = 1. ;
     if(normPos < 0) normPos = 0 ;
     // check if it's horizontal or vertical slider
-    if(size.x >= size.y) newPosMol.x = size.x *normPos +posMin.x  ; else newPosMol.y = size.y *normPos +posMin.y +sizeMol.y;
+    if(size.x >= size.y) newPosMol.x = size.x *normPos +posMin.x -(sizeMol.y *normPos)  ; else newPosMol.y = size.y *normPos +posMin.y -(sizeMol.x *normPos);
   }
   // END SETTING
   
@@ -210,7 +209,6 @@ public class Slider {
   // return the position of the molette between 0 and 1
   float getValue() {
     float value ;
-    //println(newPosMol.y, posMin.y, posMax.y, minNormValueOfSlider,maxNormValueOfSlider) ;
     if (size.x >= size.y) value = map (newPosMol.x, posMin.x, posMax.x, minNormValueOfSlider,maxNormValueOfSlider) ; 
                           else value = map (newPosMol.y, posMin.y, posMax.y, minNormValueOfSlider,maxNormValueOfSlider) ;
     return value ;
@@ -286,19 +284,6 @@ public class Slider {
 
 // END SLIDER
 /////////////
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -404,7 +389,6 @@ public class SliderAdjustable extends Slider {
     if (lockedMax) { 
       if (size.x >= size.y) {
         // security
-        // println(newPosMax.x, posMax.x) ;
         if (newPosMax.x < posMin.x +range)  newPosMax.x = posMin.x +range ;
         else if (newPosMax.x > posMax.x ) newPosMax.x = posMax.x ;
          newPosMax.x = constrain(mouseX -(size.y *.5) , pos.x +range, pos.x +size.x -(size.y *.5)) ; 
