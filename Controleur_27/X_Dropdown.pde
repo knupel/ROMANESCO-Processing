@@ -80,7 +80,7 @@ public class Dropdown {
       //give the position in list of Item with the position from the slider's molette
       if (slider) updateDropdown = round(map (sliderDropdown.getValue(), 0,1, 0, missing)) ;
       //loop to display the item list
-      for ( int i = startingDropdown + updateDropdown ; i < endingDropdown + updateDropdown ; i++) {
+      for ( int i = startingDropdown +updateDropdown ; i < endingDropdown +updateDropdown ; i++) {
         //bottom rendering
         renderBox(listItem[i], step++, sizeBoxDropdownMenu, dropdownFont, colorTextBox);
         //Slider dropdown
@@ -88,7 +88,7 @@ public class Dropdown {
           sliderDropdown.insideMol_Rect() ;
           sliderDropdown.moletteUpdate() ;
           sliderDropdown.sliderDisplay(colorBG,colorBG,0) ;
-          sliderDropdown.moletteDisplay(jaune, jaune, orange, orange, 0) ;
+          sliderDropdown.moletteDisplay(jaune, orange, jaune, orange, 0) ;
         }
       }
     } else {

@@ -39,8 +39,8 @@ int margeLeft  = colOne +15 ;
 int lineHeader = 30 ;
 int lineGroupZero = 70 ;
 int lineGroupOne = 185 ;
-int lineGroupTwo = 375 ;
-int lineGroupThree = 565 ;
+int lineGroupTwo = 390 ;
+int lineGroupThree = 595 ;
 int topMenuPos = lineHeader +10 ;
 
 int spacingBetweenSlider = 13 ;
@@ -52,8 +52,11 @@ int spacingBetweenSlider = 13 ;
 // correction for special button and slider
 int correctionMidi = 58 ;
 int correctionCurtain = 58 ;
-int correctionSliderPosition = 60 ;
+int correctionButtonObject = 3 ;
+int correctionDropdownObject = 43 ;
 
+
+int correctionSliderObject = 65 ;
 int correctionSliderBG = 50 ;
 int correctionSliderSound = 105 ;
 int correctionBeatButton = correctionSliderSound -50 ;
@@ -120,16 +123,8 @@ void structureDraw() {
   
   int correctionheight = 14 ;
   fill(grisClair) ; rect(0, 0, width, height ) ; //GROUP ONE to THREE
-  /*
-  fill(grisClair) ; rect(0, 0, width, heightOfGroup) ;   //GROUP TWO
-  fill(grisClair) ; rect(0, 0, width, heightOfGroup) ;   //GROUP ONE
-  */
   fill(gris) ; rect(0, 0, width, lineGroupOne -correctionheight) ; // //GROUP ZERO
   fill(grisNoir) ; rect(0, 0, width, lineGroupZero -correctionheight) ; // main band
-
-
-
-
   
   //the decoration line
   fill(jauneOrange) ;
@@ -217,11 +212,8 @@ void constructorSlider() {
     PVector sizeMol = new PVector (sizeSlider[i].y *ratioNormSizeMolette, sizeSlider[i].y *ratioNormSizeMolette) ;
     // we use the var posMol here just to init the Slider, because we load data from save further.
     PVector posMol = new PVector() ;
-    // float correctionSliderPosY = sliderHeight *.5 ;
     PVector tempPosSlider = new PVector(posSlider[i].x, posSlider[i].y -(sliderHeight *.6)) ;
-    // if(infoSaveFromRawList(infoSlider,i).x > -1 ) slider[i] = new SliderAdjustable  (posSlider[i], posMol, sizeSlider[i], sizeMol, "ELLIPSE");
     if(infoSaveFromRawList(infoSlider,i).x > -1 ) slider[i] = new SliderAdjustable  (tempPosSlider, posMol, sizeSlider[i], sizeMol, "ELLIPSE");
-
     if(slider[i] != null) slider[i].sliderSetting() ;
   } 
 }
@@ -230,10 +222,10 @@ void constructorSlider() {
 // SLIDER SETUP
 // MAIN METHOD SLIDER SETUP
 void sliderSetup() {
-  groupZeroSlider(lineHeader) ;
-  groupOneSlider(lineGroupOne +correctionSliderPosition) ;
-  groupTwoSlider(lineGroupTwo +correctionSliderPosition) ;
-  groupThreeSlider(lineGroupThree +correctionSliderPosition) ;
+  groupZeroSlider (lineHeader) ;
+  groupOneSlider (lineGroupOne +correctionSliderObject) ;
+  groupTwoSlider (lineGroupTwo +correctionSliderObject) ;
+  groupThreeSlider (lineGroupThree +correctionSliderObject) ;
 }
 // LOCAL SLIDER SETUP METHOD
 void groupZeroSlider(int pos) {
@@ -274,7 +266,7 @@ void groupZeroSlider(int pos) {
 void groupOneSlider(int sliderPositionY) {
   // where the controleur must display the slider
   for( int i = 0 ; i < SLIDER_BY_COL ; i++ ) {
-    for (int j = 0 ; j < 3 ; j++) {
+    for (int j = 0 ; j < NUM_COL_SLIDER ; j++) {
       int whichSlider = i +101 +(j*10) ;
       int posX = 0 ;
       switch(j) {
@@ -293,9 +285,9 @@ void groupOneSlider(int sliderPositionY) {
 
 //
 void groupTwoSlider(int sliderPositionY) {
-  // where the controle must display the slider
+  // where the controller must display the slider
   for( int i = 0 ; i < SLIDER_BY_COL ; i++ ) {
-    for (int j = 0 ; j < 3 ; j++) {
+    for (int j = 0 ; j < NUM_COL_SLIDER ; j++) {
       int whichSlider = i +201 +(j*10) ;
       int posX = 0 ;
       switch(j) {
@@ -314,11 +306,10 @@ void groupTwoSlider(int sliderPositionY) {
 
 //
 void groupThreeSlider(int sliderPositionY) {
-  // where the controleur must display the slider
-  // where the controle must display the slider
+  // where the controller must display the slider
   for( int i = 0 ; i < SLIDER_BY_COL ; i++ ) {
-    for (int j = 0 ; j < 3 ; j++) {
-      int whichSlider = i +301 +(j*10) ;
+    for (int j = 0 ; j < NUM_COL_SLIDER ; j++) {
+      int whichSlider = j *10 +i +301 ;
       int posX = 0 ;
       switch(j) {
         case 0 : posX = colOne; 
@@ -333,7 +324,7 @@ void groupThreeSlider(int sliderPositionY) {
     }
   }
 }
-//
+// END SLIDER SETUP
 
 
 // SLIDER DRAW
@@ -364,8 +355,9 @@ void sliderDraw() {
           if (showSliderGroup[j] && objectGroup[i] == j) { 
             for(int k = 1 ; k < SLIDER_BY_GROUP ; k++) {
               if (displaySlider[j][k]) {
-                sliderUpdate(k +(objectGroup[i] *100)) ; 
-                sliderAdvancedDisplay(k +(objectGroup[i] *100), whichGroup) ; 
+                int whichOne = objectGroup[i] *100 +k ;
+                sliderUpdate(whichOne) ; 
+                sliderAdvancedDisplay(whichOne, whichGroup) ; 
               }
             }
           }
@@ -376,8 +368,9 @@ void sliderDraw() {
   } else {
     for (int i = 1 ; i < NUM_GROUP_SLIDER ; i++) { 
       for(int j = 1 ; j < SLIDER_BY_GROUP ; j++) {
-        sliderUpdate(j +(i *100)) ;
-        sliderAdvancedDisplay(j +(i *100), whichGroup) ;
+        int whichOne = i *100 +j ;
+        sliderUpdate(whichOne) ;
+        sliderAdvancedDisplay(whichOne, whichGroup) ;
       }
     }
   }
@@ -504,7 +497,7 @@ void dislayTextSlider() {
   textFont(textUsual_1); textAlign(LEFT);
   
   // Legend text slider position
-  int correctionY = correctionSliderPosition +4 ;
+  int correctionY = correctionSliderObject +4 ;
   int correctionX = sliderWidth + 5 ;
   for ( int i = 0 ; i < SLIDER_BY_COL ; i++) {
     //group one
@@ -564,7 +557,8 @@ void sliderBackground(int whichOne) {
   // to find the good slider in the array
   int whichGroup = whichOne ;
   whichOne *= 100 ;
-  //
+  
+  // COL ONE
   if ( mouseX > (posSlider[whichOne +hueFillRank].x ) && mouseX < (posSlider[whichOne +hueFillRank].x +sizeSlider[whichOne +hueFillRank].x) 
        && mouseY > ( posSlider[whichOne +hueFillRank].y - 5) && mouseY < posSlider[whichOne +hueFillRank].y +30 ) 
   {
@@ -592,7 +586,10 @@ void sliderBackground(int whichOne) {
   }
   if (displaySlider[whichGroup][alphaStrokeRank]) fondReglette (posSlider[whichOne +alphaStrokeRank].x, posSlider[whichOne +alphaStrokeRank].y, sizeSlider[whichOne +alphaStrokeRank].y, sizeSlider[whichOne +alphaStrokeRank].x, roundedSlider, blancGrisClair) ;
   //  thickness
-  if( displaySlider[whichGroup][thicknessRank]) fondReglette (posSlider[whichOne +thicknessRank].x, posSlider[whichOne +thicknessRank].y, sizeSlider[whichOne +thicknessRank].y, sizeSlider[whichOne +thicknessRank].x, roundedSlider, blancGrisClair) ;
+  if( displaySlider[whichGroup][thicknessRank]) fondReglette (posSlider[whichOne +thicknessRank].x, posSlider[whichOne +thicknessRank].y, sizeSlider[whichOne +thicknessRank].y, sizeSlider[whichOne +thicknessRank].x, roundedSlider, blanc) ;
+  
+  // COL TWO
+
   // width, height, depth
   if(displaySlider[whichGroup][widthObjRank])  fondReglette (posSlider[whichOne +widthObjRank].x, posSlider[whichOne +widthObjRank].y, sizeSlider[whichOne +widthObjRank].y, sizeSlider[whichOne +widthObjRank].x, roundedSlider, blanc) ;
   if(displaySlider[whichGroup][heightObjRank]) fondReglette (posSlider[whichOne +heightObjRank].x, posSlider[whichOne +heightObjRank].y, sizeSlider[whichOne +heightObjRank].y, sizeSlider[whichOne +heightObjRank].x, roundedSlider, blanc) ;
@@ -601,27 +598,33 @@ void sliderBackground(int whichOne) {
   if(displaySlider[whichGroup][canvasXRank]) fondReglette (posSlider[whichOne +canvasXRank].x, posSlider[whichOne +canvasXRank].y, sizeSlider[whichOne +canvasXRank].y, sizeSlider[whichOne +canvasXRank].x, roundedSlider, blancGrisClair) ;
   if(displaySlider[whichGroup][canvasYRank]) fondReglette (posSlider[whichOne +canvasYRank].x, posSlider[whichOne +canvasYRank].y, sizeSlider[whichOne +canvasYRank].y, sizeSlider[whichOne +canvasYRank].x, roundedSlider, blancGrisClair) ;
   if(displaySlider[whichGroup][canvasZRank]) fondReglette (posSlider[whichOne +canvasZRank].x, posSlider[whichOne +canvasZRank].y, sizeSlider[whichOne +canvasZRank].y, sizeSlider[whichOne +canvasZRank].x, roundedSlider, blancGrisClair) ;
-  // quantity
+  // Family
+  if(displaySlider[whichGroup][familyRank]) fondReglette ( posSlider[whichOne +familyRank].x, posSlider[whichOne +familyRank].y, sizeSlider[whichOne +familyRank].y, sizeSlider[whichOne +familyRank].x, roundedSlider, blanc) ;
   if(displaySlider[whichGroup][quantityRank]) fondReglette (posSlider[whichOne +quantityRank].x, posSlider[whichOne +quantityRank].y, sizeSlider[whichOne +quantityRank].y, sizeSlider[whichOne +quantityRank].x, roundedSlider, blanc) ;
+  if(displaySlider[whichGroup][lifeRank]) fondReglette ( posSlider[whichOne +lifeRank].x, posSlider[whichOne +lifeRank].y, sizeSlider[whichOne +lifeRank].y, sizeSlider[whichOne +lifeRank].x, roundedSlider, blanc) ;
+
+  
+  // COL THREE
   // speed
   if(displaySlider[whichGroup][speedRank]) fondReglette ( posSlider[whichOne +speedRank].x, posSlider[whichOne +speedRank].y, sizeSlider[whichOne +speedRank].y, sizeSlider[whichOne +speedRank].x, roundedSlider, blanc) ;
   // direction angle
   if(displaySlider[whichGroup][directionRank]) fondReglette ( posSlider[whichOne +directionRank].x, posSlider[whichOne +directionRank].y, sizeSlider[whichOne +directionRank].y, sizeSlider[whichOne +directionRank].x, roundedSlider, blancGrisClair) ;
   if(displaySlider[whichGroup][angleRank]) fondReglette ( posSlider[whichOne +angleRank].x, posSlider[whichOne +angleRank].y, sizeSlider[whichOne +angleRank].y, sizeSlider[whichOne +angleRank].x, roundedSlider, blancGrisClair) ;
-  // amplitude
+  // Forces
   if(displaySlider[whichGroup][amplitudeRank]) fondReglette (posSlider[whichOne +amplitudeRank].x, posSlider[whichOne +amplitudeRank].y, sizeSlider[whichOne +amplitudeRank].y, sizeSlider[whichOne +amplitudeRank].x, roundedSlider, blanc) ;
-  // analyze
+  if(displaySlider[whichGroup][attractionRank]) fondReglette (posSlider[whichOne +attractionRank].x, posSlider[whichOne +attractionRank].y, sizeSlider[whichOne +attractionRank].y, sizeSlider[whichOne +attractionRank].x, roundedSlider, blanc) ;
+  if(displaySlider[whichGroup][repulsionRank]) fondReglette (posSlider[whichOne +repulsionRank].x, posSlider[whichOne +repulsionRank].y, sizeSlider[whichOne +repulsionRank].y, sizeSlider[whichOne +repulsionRank].x, roundedSlider, blanc) ;
+  if(displaySlider[whichGroup][influenceRank]) fondReglette ( posSlider[whichOne +influenceRank].x, posSlider[whichOne +influenceRank].y, sizeSlider[whichOne +influenceRank].y, sizeSlider[whichOne +influenceRank].x, roundedSlider, blancGrisClair) ;
+  // Misc
+  if(displaySlider[whichGroup][alignmentRank]) fondReglette ( posSlider[whichOne +alignmentRank].x, posSlider[whichOne +alignmentRank].y, sizeSlider[whichOne +alignmentRank].y, sizeSlider[whichOne +alignmentRank].x, roundedSlider, blancGrisClair) ;
   if(displaySlider[whichGroup][analyzeRank])  fondReglette ( posSlider[whichOne +analyzeRank].x, posSlider[whichOne +analyzeRank].y, sizeSlider[whichOne +analyzeRank].y, sizeSlider[whichOne +analyzeRank].x, roundedSlider, blancGrisClair) ;
-  // Family Life
-  if(displaySlider[whichGroup][familyRank]) fondReglette ( posSlider[whichOne +familyRank].x, posSlider[whichOne +familyRank].y, sizeSlider[whichOne +familyRank].y, sizeSlider[whichOne +familyRank].x, roundedSlider, blanc) ;
-  if(displaySlider[whichGroup][lifeRank]) fondReglette ( posSlider[whichOne +lifeRank].x, posSlider[whichOne +lifeRank].y, sizeSlider[whichOne +lifeRank].y, sizeSlider[whichOne +lifeRank].x, roundedSlider, blanc) ;
-  // force
-  if(displaySlider[whichGroup][forceRank]) fondReglette ( posSlider[whichOne +forceRank].x, posSlider[whichOne +forceRank].y, sizeSlider[whichOne +forceRank].y, sizeSlider[whichOne +forceRank].x, roundedSlider, blancGrisClair) ;
+
+
 }
 
 
 
-// DRAW GROUP ZER
+// DRAW GROUP ZERO
 void sliderDrawGroupZero () {
   //Background slider
   if (mouseX > (posSlider[1].x ) && mouseX < ( posSlider[1].x + sizeSlider[1].x) 
@@ -647,7 +650,7 @@ void sliderDrawGroupZero () {
     fondReglette    ( posSlider[9].x, posSlider[9].y, sizeSlider[9].y, sizeSlider[9].x, roundedSlider, grisClair) ;
   }
   // light TWO slider
-  if (mouseX > (posSlider[10].x ) && mouseX < ( posSlider[10].x + sizeSlider[10].x) 
+  if (mouseX > (posSlider[10].x ) && mouseX < ( posSlider[10].x +sizeSlider[10].x) 
       && mouseY > ( posSlider[10].y - 5) && mouseY < posSlider[1].y + 40 ) {
     fondRegletteCouleur    ( posSlider[10].x, posSlider[10].y, sizeSlider[10].y, sizeSlider[10].x) ;
     fondRegletteSaturation ( posSlider[11].x, posSlider[11].y, sizeSlider[11].y, sizeSlider[10].x, valueSlider[10], valueSlider[11], valueSlider[9] ) ;
@@ -835,9 +838,11 @@ void buttonSetup() {
   posSnareButton = new PVector(posKickButton.x +sizeKickButton.x +5, lineGroupZero +correctionBeatButton) ; 
   posHatButton = new PVector(posSnareButton.x +sizeSnareButton.x +5, lineGroupZero +correctionBeatButton) ;
   
-  groupOneButton(lineGroupOne) ;
-  groupTwoButton(lineGroupTwo) ;
-  groupThreeButton(lineGroupThree) ;
+  
+
+  groupOneButton(lineGroupOne +correctionButtonObject) ;
+  groupTwoButton(lineGroupTwo +correctionButtonObject) ;
+  groupThreeButton(lineGroupThree +correctionButtonObject) ;
 }
 
 // LOCAL METHOD SETUP
@@ -1100,8 +1105,10 @@ void dropdownSetup() {
   colorDropdownTitleIn = rouge ;
   colorDropdownTitleOut = rougeFonce ;
   //common param
-  sizeDropdownMode = new PVector (20, sizeToRenderTheBoxDropdown, 8) ;
-  PVector newPos = new PVector( -8, 40 ) ;
+  int numLineDisplayByTheDropdownObj = 8 ;
+  sizeDropdownMode = new PVector (20, sizeToRenderTheBoxDropdown, numLineDisplayByTheDropdownObj) ;
+  // int correctionDropdownObject +correctionButtonObject
+  PVector newPos = new PVector( -8, correctionDropdownObject ) ;
   // group one
   checkTheDropdownSetupObject(startLoopObject, endLoopObject, margeLeft +newPos.x, lineGroupOne +newPos.y) ;
   // group two
@@ -1111,9 +1118,9 @@ void dropdownSetup() {
 }
 
 void checkTheDropdownSetupObject( int start, int end, float posWidth, float posHeight) {
-  for ( int i = start ; i < end ; i ++ ) {
+  for ( int i = start ; i < end ; i++ ) {
     if(modeListRomanesco[i] != null ) {
-      int space = ((i - start +1) * 40) - 40 ;
+      int space = ((i -start +1) * 40) -40 ;
       //Split the dropdown to display in the dropdown
       listDropdown = split(modeListRomanesco[i], "/" ) ;
       //to change the title of the header dropdown

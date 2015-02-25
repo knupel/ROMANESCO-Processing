@@ -28,9 +28,15 @@ public class Slider {
 
     //which molette for slider horizontal or vertical
     if (size.x >= size.y) sizeMol = new PVector (size.y, size.y) ; else sizeMol = new PVector (size.x, size.x ) ;
-    posMin = new PVector (pos.x, pos.y) ;
-
-    posMax = new PVector (pos.x +size.x +size.y, pos.y) ;
+    // calculate minimum and maxium position of the molette
+    if(size.x > size.y) {
+      posMin = new PVector (pos.x, pos.y) ;
+      posMax = new PVector (pos.x +size.x +size.y,  pos.y) ;
+    } else {
+      posMin = new PVector (pos.x, pos.y) ;
+      float correction = sizeMol.y  + sizeMol.x ;
+      posMax = new PVector (pos.x,  pos.y  +size.x +size.y -correction) ;
+    }
   }
   
   //CONSTRUCTOR minimum
@@ -40,11 +46,16 @@ public class Slider {
     this.size = size.copy() ;
 
     //which molette for slider horizontal or vertical
-    if (size.x >= size.y) sizeMol = new PVector (size.y, size.y) ; else sizeMol = new PVector (size.x, size.x ) ;
-    posMin = new PVector (pos.x, pos.y) ;
-        // posMax = new PVector (pos.x + size.x -size.y,  pos.y) ;
-    // posMax = new PVector (pos.x +size.x +(size.y *2),  pos.y) ;
-    posMax = new PVector (0,  pos.y) ;
+    if (size.x >= size.y) sizeMol = new PVector (size.y, size.y) ; else sizeMol = new PVector (size.x, size.x) ;
+    // calculate minimum and maxium position of the molette
+    if(size.x > size.y) {
+      posMin = new PVector (pos.x, pos.y) ;
+      posMax = new PVector (pos.x +size.x +size.y,  pos.y) ;
+    } else {
+      posMin = new PVector (pos.x, pos.y) ;
+      float correction = sizeMol.y  + sizeMol.x ;
+      posMax = new PVector (pos.x,  pos.y  +size.x +size.y -correction) ;
+    }
   }
   
   //slider with external molette
@@ -54,16 +65,21 @@ public class Slider {
     this.sizeMol = sizeMol.copy() ;
     this.size = size.copy() ;
     this.moletteShapeType = moletteShapeType ;
-
-    posMin = new PVector (pos.x, pos.y) ;
-
-    posMax = new PVector (pos.x +size.x  +size.y,  pos.y) ;
+    // calculate minimum and maxium position of the molette
+    if(size.x > size.y) {
+      posMin = new PVector (pos.x, pos.y) ;
+      posMax = new PVector (pos.x +size.x +size.y,  pos.y) ;
+    } else {
+      posMin = new PVector (pos.x, pos.y) ;
+      float correction = sizeMol.y  + sizeMol.x ;
+      posMax = new PVector (pos.x,  pos.y  +size.x +size.y -correction) ;
+    }
   }
   
   // END CONSTRUCTOR
   
   
-  
+
   
   
   
@@ -284,6 +300,13 @@ public class Slider {
 
 // END SLIDER
 /////////////
+
+
+
+
+
+
+
 
 
 

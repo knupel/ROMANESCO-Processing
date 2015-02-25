@@ -48,24 +48,29 @@ int hueStrokeRank = 5 ;
 int saturationStrokeRank = 6 ;
 int brightnessStrokeRank = 7 ;
 int alphaStrokeRank = 8 ;
+int thicknessRank = 9 ;
 
-int thicknessRank = 11 ;
-int widthObjRank = 12 ;
-int heightObjRank = 13 ;
-int depthObjRank = 14 ;
-int canvasXRank = 15 ;
-int canvasYRank = 16 ;
-int canvasZRank = 17 ;
+int widthObjRank = 11 ;
+int heightObjRank = 12 ;
+int depthObjRank = 13 ;
+int canvasXRank = 14 ;
+int canvasYRank = 15 ;
+int canvasZRank = 16 ;
+int familyRank = 17 ;
 int quantityRank = 18 ;
+int lifeRank = 19 ;
 
 int speedRank = 21 ;
 int directionRank = 22 ;
 int angleRank = 23 ;
 int amplitudeRank = 24 ;
-int analyzeRank = 25 ;
-int familyRank = 26 ;
-int lifeRank = 27 ;
-int forceRank = 28 ;
+int attractionRank = 25 ;
+int repulsionRank = 26 ;
+int influenceRank = 27 ;
+int alignmentRank = 28 ;
+int analyzeRank = 29 ;
+
+
 
 
 
