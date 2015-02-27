@@ -27,24 +27,27 @@ void sendOSCdraw() {
   toPreScene[1] = joinIntToString(valueButtonObj) ;
   toPreScene[2] = joinIntToString(valueButtonTex) ;
   toPreScene[3] = joinIntToString(valueButtonTypo) ;
-  //SLIDER to String
-  int[] dataIntGlobal = new int[NUM_SLIDER_GLOBAL] ;
-  for ( int i = 1   ; i < NUM_SLIDER_GLOBAL-1 ; i++) { 
-    dataIntGlobal[i-1] = floor(valueSlider[i]) ; 
-  }
-  toPreScene[4] = joinIntToString(dataIntGlobal) ;
-  //float value slider obj
-  int[] dataIntObj = new int[SLIDER_BY_GROUP] ;
-  for ( int i = 101   ; i < 101 +SLIDER_BY_GROUP ; i++) { dataIntObj[i-101] = floor(valueSlider[i]) ; }
-  toPreScene[5] = joinIntToString(dataIntObj);
-  //float value slider tex
-  int[] dataIntTex = new int[SLIDER_BY_GROUP] ;
-  for ( int i = 201   ; i < 201 +SLIDER_BY_GROUP ; i++) { dataIntTex[i-201] = floor(valueSlider[i]) ; }
-  toPreScene[6] = joinIntToString(dataIntTex) ;
-  //float value slider typo
-  int[] dataIntTypo = new int[SLIDER_BY_GROUP] ;
-  for ( int i = 301   ; i < 301 +SLIDER_BY_GROUP ; i++) { dataIntTypo[i-301] = floor(valueSlider[i]) ; }
-  toPreScene[7] = joinIntToString(dataIntTypo) ;
+  
+  // Catch the value slider to send to Prescene
+    //return value to the prescene between 0 to 99
+
+  // GROUP ZERO
+  int[] dataGroupZero = new int[NUM_SLIDER_GLOBAL] ;
+  for ( int i = 1   ; i < NUM_SLIDER_GLOBAL-1 ; i++) dataGroupZero[i-1] = floor(valueSlider[i]) ;
+  // println(dataGroupZero) ;
+  toPreScene[4] = joinIntToString(dataGroupZero) ;
+  // GROUP ONE
+  int[] dataGroupOne = new int[SLIDER_BY_GROUP] ;
+  for ( int i = 101   ; i < 101 +SLIDER_BY_GROUP ; i++) dataGroupOne[i-101] = floor(valueSlider[i]) ; 
+  toPreScene[5] = joinIntToString(dataGroupOne);
+  // GROUP TWO
+  int[] dataGroupTwo = new int[SLIDER_BY_GROUP] ;
+  for ( int i = 201 ; i < 201 +SLIDER_BY_GROUP ; i++) dataGroupTwo[i-201] = floor(valueSlider[i]) ;
+  toPreScene[6] = joinIntToString(dataGroupTwo) ;
+  // GROUP THREE
+  int[] dataGroupThree = new int[SLIDER_BY_GROUP] ;
+  for ( int i = 301   ; i < 301 +SLIDER_BY_GROUP ; i++) dataGroupThree[i-301] = floor(valueSlider[i]) ;
+  toPreScene[7] = joinIntToString(dataGroupThree) ;
   
   //add to OSC
   for ( int i = 0 ; i < toPreScene.length ; i++) {

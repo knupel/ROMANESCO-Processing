@@ -1,6 +1,6 @@
 //GLOBAL
 import java.awt.event.KeyEvent;
-import processing.net.*;
+// import processing.net.*;
 // CONSTANT VAR
 final int NUM_COL_SLIDER = 3 ;
 final int BUTTON_BY_OBJECT = 4 ;

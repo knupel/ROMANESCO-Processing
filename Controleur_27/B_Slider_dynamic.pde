@@ -14,30 +14,10 @@ boolean allSliderUsed = false ;
 boolean showAllSliders = false ;
 
 //these sliders name are not used for the interface but for the display analyze slider
-String hueFill = ("Hue fill") ;
-String saturationFill = ("Saturation fill") ;
-String brightnessFill = ("Brightness fill") ;
-String alphaFill = ("Alpha fill") ;
-String hueStroke = ("Hue stroke") ;
-String saturationStroke = ("Saturation stroke") ;
-String brightnessStroke = ("Brightness stroke") ;
-String alphaStroke = ("Alpha stroke") ;
-String thickness = ("Thickness") ;
-String widthObj = ("Width") ;
-String heightObj = ("Height") ;
-String depthObj = ("Depth") ;
-String canvasX = ("Canvas X") ;
-String canvasY = ("Canvas Y") ;
-String canvasZ = ("Canvas Z") ;
-String quantity = ("Quantity") ;
-String speed = ("Speed") ;
-String direction = ("Direction") ;
-String angle = ("Angle") ;
-String amplitude = ("Amplitude") ;
-String analyze = ("Analyze") ;
-String family = ("Family") ;
-String life = ("Life") ;
-String force = ("Force") ;
+
+
+
+
 
 
 int hueFillRank = 1 ;
@@ -79,6 +59,7 @@ int analyzeRank = 29 ;
 
 void setDisplaySlider() {
   setSliderDynamic() ;
+  giveNameSliderUsedByObject() ;
   listSliderInterface() ;
   recoverActiveSliderFromObj() ;
   listSliderObject() ;
@@ -139,42 +120,50 @@ void listSliderObject() {
 }
 
 
+String  sliderName [] = new String[NUM_SLIDER +1] ;
+
+
+void giveNameSliderUsedByObject() {
+  sliderName[0] = ("not used") ;
+  sliderName[1] = ("Hue fill") ;
+  sliderName[2] = ("Saturation fill") ;
+  sliderName[3] = ("Brightness fill") ;
+  sliderName[4] = ("Alpha fill") ;
+  sliderName[5] = ("Hue stroke") ;
+  sliderName[6] = ("Saturation stroke") ;
+  sliderName[7] = ("Brightness stroke") ;
+  sliderName[8] = ("Alpha stroke") ;
+  sliderName[9] = ("Thickness") ;
+  sliderName[10] = ("not used") ;
+
+  sliderName[11] = ("Width") ;
+  sliderName[12] = ("Height") ;
+  sliderName[13] = ("Depth") ;
+  sliderName[14] = ("Canvas X") ;
+  sliderName[15] = ("Canvas Y") ;
+  sliderName[16] = ("Canvas Z") ;
+  sliderName[17] = ("Family") ;
+  sliderName[18] = ("Quantity") ;
+  sliderName[19] = ("Life") ;
+  sliderName[20] = ("not used") ;
+
+  sliderName[21] = ("Speed") ;
+  sliderName[22] = ("Direction") ;
+  sliderName[23] = ("Angle") ;
+  sliderName[24] = ("Amplitude") ;
+  sliderName[25] = ("Attraction") ;
+  sliderName[26] = ("Repulsion") ;
+  sliderName[27] = ("Alignment") ;
+  sliderName[28] = ("Influence") ;
+  sliderName[29] = ("Analyze") ;
+  sliderName[30] = ("not used") ;
+}
+
 
 void listSliderInterface() {
-  sliderControler.append("not used") ;
-  // col one
-  sliderControler.append(hueFill) ;
-  sliderControler.append(saturationFill) ;
-  sliderControler.append(brightnessFill) ;
-  sliderControler.append(alphaFill) ;
-  sliderControler.append(hueStroke) ;
-  sliderControler.append(saturationStroke) ;
-  sliderControler.append(brightnessStroke) ;
-  sliderControler.append(alphaStroke) ;
-  sliderControler.append("not used") ;
-  sliderControler.append("not used") ;
-  // col two
-  sliderControler.append(thickness) ;
-  sliderControler.append(widthObj) ;
-  sliderControler.append(heightObj) ;
-  sliderControler.append(depthObj) ;
-  sliderControler.append(canvasX) ;
-  sliderControler.append(canvasY) ;
-  sliderControler.append(canvasZ) ;
-  sliderControler.append(quantity) ;
-  sliderControler.append("not used") ;
-  sliderControler.append("not used") ;
-  // col three
-  sliderControler.append(speed) ;
-  sliderControler.append(direction) ;
-  sliderControler.append(angle) ;
-  sliderControler.append(amplitude) ;
-  sliderControler.append(analyze) ;
-  sliderControler.append(family) ;
-  sliderControler.append(life) ;
-  sliderControler.append(force) ;
-  sliderControler.append("not used") ;
-  sliderControler.append("not used") ;
+  for(int i = 0 ; i <NUM_SLIDER ; i++) {
+    sliderControler.append(sliderName[i]) ;
+  }
 }
 
 

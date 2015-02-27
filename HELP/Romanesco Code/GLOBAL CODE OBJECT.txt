@@ -79,30 +79,37 @@ SLIDER
 ––––––––––––––––––––––
 VAR object from slider
 
+
+// COL ONE
 color fillObj[IDobj] ; you can separate with hue(fillObj[IDobj]), saturation(fillObj[IDobj]), brightness(fillObj[IDobj]) and alpha(fillObj[IDobj])
 color strokeObj[IDobj] ; you can separate with hue(strokeObj[IDobj]), saturation(strokeObj[IDobj]), brightness(strokeObj[IDobj]) and alpha(strokeObj[IDobj])
 float thicknessObj[IDobj] ; value from 0.1 to height/3
 
+// COL TWO
 this parameters is use for the object or particule size
 float sizeXObj[IDobj] ; 
 float sizeYObj[IDobj] ; 
 float sizeZObj[IDobj] ; value from 0.1 to width
-
-
 this parameter is use to space where the particule object, or the object can growth or move...
 float canvasXObj[IDobj] ; 
 float canvasYObj[IDobj] ; 
 float canvasZObj[IDobj] value from width/10  to width
+float familyObj[IDobj] ; value from 0 to 1
+float quantityObj[IDobj] ; value from 0 to 1
+float lifeObj[IDobj] ; value from 0 to 1
 
-float quantityObj[IDobj] ; value from 1 to 100 ;
-
+// COL THREE
 float speedObj[IDobj] ; value from 0 to 1
 float directionObj[IDobj] ; value from 0 to 360
 float angleObj[IDobj] ; value from 0 to 360
 float amplitudeObj[IDobj] ; value from 0 to 1
+float attractionObj[IDobj] ; value from 0 to 1
+float repulsionObj[IDobj] ; value from 0 to 1
+float influenceObj[IDobj] ; value from 0 to 1
+float alignmentObj[IDobj] ; value from 0 to 1
 float analyzeObj[IDobj] ; value from 0 to 1
-float familyObj[IDobj] ; value from 1 to 118, it's atomic choice 118 is the last atom knew in 2006!
-float lifeObj[IDobj] ; value from 0 to 1
+
+
 float forceObj[IDobj] ; value from 0 to 1
 
 // shortcut var

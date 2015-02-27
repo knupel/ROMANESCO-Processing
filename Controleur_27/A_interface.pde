@@ -1,4 +1,5 @@
-//GLOBAL
+// VARIABLE declaration
+////////////////////////////////////
 PImage[] OFF_in_thumbnail ;
 PImage[] OFF_out_thumbnail ;
 PImage[] ON_in_thumbnail ;
@@ -9,61 +10,6 @@ PImage[] picSound = new PImage[4] ;
 PImage[] picAction = new PImage[4] ;
 PImage[] picCurtain = new PImage[4] ;
 PImage[] picMidi = new PImage[4] ;
-
-
-/////////
-//SLIDER
-
-
-
-
-
-// POSITION GLOBAL button and Slider
-
-float ratioNormSizeMolette = 1.3 ; 
-int sliderWidth = 140 ;
-int sliderHeight = 10 ;
-int roundedSlider = 5 ;
-/*  the position is calculated in ratio of the slider position. Not optimize for the vertical slider */
-float normPosSliderAdjustable = .5 ; 
-/*the height size is calculated in ratio of the slider height size.  Not optimize for the vertical slider */
-float normSizeSliderAdjustable =.2 ; 
-
-// vertical grid
-int colOne = 35 ; 
-int colTwo = int(1.5 *sliderWidth +colOne)  ; 
-int colThree = int(1.5 *sliderWidth +colTwo) ;
-int margeLeft  = colOne +15 ;
-
-// horizontal grid
-int lineHeader = 30 ;
-int lineGroupZero = 70 ;
-int lineGroupOne = 185 ;
-int lineGroupTwo = 390 ;
-int lineGroupThree = 595 ;
-int topMenuPos = lineHeader +10 ;
-
-int spacingBetweenSlider = 13 ;
-
-
-
-
-
-// correction for special button and slider
-int correctionMidi = 58 ;
-int correctionCurtain = 58 ;
-int correctionButtonObject = 3 ;
-int correctionDropdownObject = 43 ;
-
-
-int correctionSliderObject = 65 ;
-int correctionSliderBG = 50 ;
-int correctionSliderSound = 105 ;
-int correctionBeatButton = correctionSliderSound -50 ;
-int correctionSliderLight = 50 ;
-
-int correctionHeaderDropdownY = -3 ;
-
 
 
 
@@ -102,15 +48,83 @@ PVector posMidiButton, sizeMidiButton,
 //paramètres réglette couleur
 int posXSlider[] = new int[NUM_SLIDER *2] ;
 
+// END variables declaration
+////////////////////////////////////
 
 
-/*
+
+
+
+
+
+
+
+
+
+
+
+
+// PARAMETER
+/////////////////////////////////
+float ratioNormSizeMolette = 1.3 ; 
+int sliderWidth = 140 ;
+int sliderHeight = 10 ;
+int roundedSlider = 5 ;
+/*  the position is calculated in ratio of the slider position. Not optimize for the vertical slider */
+float normPosSliderAdjustable = .5 ; 
+/*the height size is calculated in ratio of the slider height size.  Not optimize for the vertical slider */
+float normSizeSliderAdjustable =.2 ; 
+
+// vertical grid
+int colOne = 35 ; 
+int colTwo = int(1.5 *sliderWidth +colOne)  ; 
+int colThree = int(1.5 *sliderWidth +colTwo) ;
+int margeLeft  = colOne +15 ;
+
+// horizontal grid
 int lineHeader = 30 ;
 int lineGroupZero = 70 ;
 int lineGroupOne = 185 ;
-int lineGroupTwo = 375 ;
-int lineGroupThree = 565 ;
-*/
+int lineGroupTwo = 390 ;
+int lineGroupThree = 595 ;
+int topMenuPos = lineHeader +10 ;
+
+int spacingBetweenSlider = 13 ;
+
+// correction for special button and slider
+int correctionMidi = 58 ;
+int correctionCurtain = 58 ;
+int correctionButtonObject = 3 ;
+int correctionDropdownObject = 43 ;
+
+
+int correctionSliderObject = 65 ;
+int correctionSliderBG = 50 ;
+int correctionSliderSound = 105 ;
+int correctionBeatButton = correctionSliderSound -50 ;
+int correctionSliderLight = 50 ;
+
+int correctionHeaderDropdownY = -3 ;
+
+
+// END PARAMETER
+//////////////////////////////////
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -407,9 +421,11 @@ void sliderUpdate(int whichOne) {
   slider[whichOne].minMaxSliderUpdate() ;
   slider[whichOne].moletteUpdate() ;
   
-  //return value to the prescene between 0 to 99
-  int valueMax = 99 ;
+  // translate float value to int, to use OSC easily without problem of Array Outbound...blablah
+  int valueMax = 360 ;
   valueSlider[whichOne] = constrain(map(slider[whichOne].getValue(), 0, 1, 0,valueMax),0,valueMax)  ;
+  
+
 }
 
 
@@ -435,7 +451,8 @@ void sliderMoletteRomanescoDisplay(int whichOne, color colorMolIn, color colorMo
 
 
 
-// TEXT
+// TEXT slider
+///////////////
 void dispayTextSliderGroupZero(int pos) {
   // GROUP ZERO
   textFont(FuturaStencil_20,20); 
@@ -514,43 +531,14 @@ void dislayTextSlider() {
     text(sliderNameThree[i +1], colThree +correctionX, lineGroupThree +correctionY +(i*spacingBetweenSlider));
   }
 }
+// end text
+///////////
 
 
 
 
-// DETAIL GROUP SLIDER DRAW
-///////////////////////////
-/* info rank slider by name
-int hueFillRank = 1 ;
-int saturationFillRank = 2 ;
-int brightnessFillRank = 3 ;
-int alphaFillRank = 4 ;
-int hueStrokeRank = 5 ;
-int saturationStrokeRank = 6 ;
-int brightnessStrokeRank = 7 ;
-int alphaStrokeRank = 8 ;
-
-int thicknessRank = 11 ;
-int widthObjRank = 12 ;
-int heightObjRank = 13 ;
-int depthObjRank = 14 ;
-int canvasXRank = 15 ;
-int canvasYRank = 16 ;
-int canvasZRank = 17 ;
-int quantityRank = 18 ;
-
-int speedRank = 21 ;
-int directionRank = 22 ;
-int angleRank = 23 ;
-int amplitudeRank = 24 ;
-int analyzeRank = 25 ;
-int famillyRank = 26 ;
-int lifeRank = 27 ;
-int forceRank = 28 ;
-*/
-
-/////////////////////////////
-// SLIDER special BACKGROUND
+////////////////////
+// Slider background
 /* Loop to display the false background slider instead the usual class Slider background,
 we use it the methode to display a particular background, like the rainbowcolor... */
 void sliderBackground(int whichOne) {
@@ -562,62 +550,62 @@ void sliderBackground(int whichOne) {
   if ( mouseX > (posSlider[whichOne +hueFillRank].x ) && mouseX < (posSlider[whichOne +hueFillRank].x +sizeSlider[whichOne +hueFillRank].x) 
        && mouseY > ( posSlider[whichOne +hueFillRank].y - 5) && mouseY < posSlider[whichOne +hueFillRank].y +30 ) 
   {
-    if (displaySlider[whichGroup][hueFillRank])        fondRegletteCouleur    (posSlider[whichOne +hueFillRank].x, posSlider[whichOne +hueFillRank].y, sizeSlider[whichOne +hueFillRank].y, sizeSlider[whichOne +hueFillRank].x) ; 
-    if (displaySlider[whichGroup][saturationFillRank]) fondRegletteSaturation (posSlider[whichOne +saturationFillRank].x, posSlider[whichOne +saturationFillRank].y, sizeSlider[whichOne +saturationFillRank].y, sizeSlider[whichOne +hueFillRank].x, valueSlider[whichOne +hueFillRank], valueSlider[whichOne +saturationFillRank], valueSlider[whichOne +brightnessFillRank] ) ;
-    if (displaySlider[whichGroup][brightnessFillRank]) fondRegletteDensite    (posSlider[whichOne +brightnessFillRank].x, posSlider[whichOne +brightnessFillRank].y, sizeSlider[whichOne +brightnessFillRank].y, sizeSlider[whichOne +hueFillRank].x, valueSlider[whichOne +hueFillRank], valueSlider[whichOne +saturationFillRank], valueSlider[whichOne +brightnessFillRank] ) ;
+    if (displaySlider[whichGroup][hueFillRank])        hueSliderBG    (posSlider[whichOne +hueFillRank].x, posSlider[whichOne +hueFillRank].y, sizeSlider[whichOne +hueFillRank].y, sizeSlider[whichOne +hueFillRank].x) ; 
+    if (displaySlider[whichGroup][saturationFillRank]) saturationSliderBG (posSlider[whichOne +saturationFillRank].x, posSlider[whichOne +saturationFillRank].y, sizeSlider[whichOne +saturationFillRank].y, sizeSlider[whichOne +hueFillRank].x, valueSlider[whichOne +hueFillRank], valueSlider[whichOne +saturationFillRank], valueSlider[whichOne +brightnessFillRank] ) ;
+    if (displaySlider[whichGroup][brightnessFillRank]) brightnessSliderBG    (posSlider[whichOne +brightnessFillRank].x, posSlider[whichOne +brightnessFillRank].y, sizeSlider[whichOne +brightnessFillRank].y, sizeSlider[whichOne +hueFillRank].x, valueSlider[whichOne +hueFillRank], valueSlider[whichOne +saturationFillRank], valueSlider[whichOne +brightnessFillRank] ) ;
   } else {
-    if (displaySlider[whichGroup][hueFillRank])        fondReglette (posSlider[whichOne +hueFillRank].x, posSlider[whichOne +hueFillRank].y, sizeSlider[whichOne +hueFillRank].y, sizeSlider[whichOne +hueFillRank].x, roundedSlider, blanc) ;
-    if (displaySlider[whichGroup][saturationFillRank]) fondReglette (posSlider[whichOne +saturationFillRank].x, posSlider[whichOne +saturationFillRank].y, sizeSlider[whichOne +saturationFillRank].y, sizeSlider[whichOne +saturationFillRank].x, roundedSlider, blanc ) ;
-    if (displaySlider[whichGroup][brightnessFillRank]) fondReglette (posSlider[whichOne +brightnessFillRank].x, posSlider[whichOne +brightnessFillRank].y, sizeSlider[whichOne +brightnessFillRank].y, sizeSlider[whichOne +brightnessFillRank].x, roundedSlider, blanc ) ;
+    if (displaySlider[whichGroup][hueFillRank])        sliderBG (posSlider[whichOne +hueFillRank].x, posSlider[whichOne +hueFillRank].y, sizeSlider[whichOne +hueFillRank].y, sizeSlider[whichOne +hueFillRank].x, roundedSlider, blanc) ;
+    if (displaySlider[whichGroup][saturationFillRank]) sliderBG (posSlider[whichOne +saturationFillRank].x, posSlider[whichOne +saturationFillRank].y, sizeSlider[whichOne +saturationFillRank].y, sizeSlider[whichOne +saturationFillRank].x, roundedSlider, blanc ) ;
+    if (displaySlider[whichGroup][brightnessFillRank]) sliderBG (posSlider[whichOne +brightnessFillRank].x, posSlider[whichOne +brightnessFillRank].y, sizeSlider[whichOne +brightnessFillRank].y, sizeSlider[whichOne +brightnessFillRank].x, roundedSlider, blanc ) ;
   }
-  if (displaySlider[whichGroup][alphaFillRank]) fondReglette (posSlider[whichOne +alphaFillRank].x, posSlider[whichOne +alphaFillRank].y, sizeSlider[whichOne +alphaFillRank].y, sizeSlider[whichOne +alphaFillRank].x, roundedSlider, blanc ) ;
+  if (displaySlider[whichGroup][alphaFillRank]) sliderBG (posSlider[whichOne +alphaFillRank].x, posSlider[whichOne +alphaFillRank].y, sizeSlider[whichOne +alphaFillRank].y, sizeSlider[whichOne +alphaFillRank].x, roundedSlider, blanc ) ;
   
   //outline color
   if ( mouseX > (posSlider[whichOne +hueStrokeRank].x) && mouseX < ( posSlider[whichOne +hueStrokeRank].x +sizeSlider[whichOne +hueStrokeRank].x) 
        && mouseY > ( posSlider[whichOne +hueStrokeRank].y - 5) && mouseY < posSlider[whichOne +hueStrokeRank].y +30 ) 
   {
-    if (displaySlider[whichGroup][hueStrokeRank])        fondRegletteCouleur    (posSlider[whichOne +hueStrokeRank].x, posSlider[whichOne +hueStrokeRank].y, sizeSlider[whichOne +hueStrokeRank].y, sizeSlider[whichOne +hueStrokeRank].x) ; 
-    if (displaySlider[whichGroup][saturationStrokeRank]) fondRegletteSaturation (posSlider[whichOne +saturationStrokeRank].x, posSlider[whichOne +saturationStrokeRank].y, sizeSlider[whichOne +saturationStrokeRank].y, sizeSlider[whichOne +hueStrokeRank].x, valueSlider[whichOne +hueStrokeRank], valueSlider[whichOne +saturationStrokeRank], valueSlider[whichOne +brightnessStrokeRank] ) ;
-    if (displaySlider[whichGroup][brightnessStrokeRank]) fondRegletteDensite    (posSlider[whichOne +brightnessStrokeRank].x, posSlider[whichOne +brightnessStrokeRank].y, sizeSlider[whichOne +brightnessStrokeRank].y, sizeSlider[whichOne +hueStrokeRank].x, valueSlider[whichOne +hueStrokeRank], valueSlider[whichOne +saturationStrokeRank], valueSlider[whichOne +brightnessStrokeRank] ) ;
+    if (displaySlider[whichGroup][hueStrokeRank])        hueSliderBG    (posSlider[whichOne +hueStrokeRank].x, posSlider[whichOne +hueStrokeRank].y, sizeSlider[whichOne +hueStrokeRank].y, sizeSlider[whichOne +hueStrokeRank].x) ; 
+    if (displaySlider[whichGroup][saturationStrokeRank]) saturationSliderBG (posSlider[whichOne +saturationStrokeRank].x, posSlider[whichOne +saturationStrokeRank].y, sizeSlider[whichOne +saturationStrokeRank].y, sizeSlider[whichOne +hueStrokeRank].x, valueSlider[whichOne +hueStrokeRank], valueSlider[whichOne +saturationStrokeRank], valueSlider[whichOne +brightnessStrokeRank] ) ;
+    if (displaySlider[whichGroup][brightnessStrokeRank]) brightnessSliderBG    (posSlider[whichOne +brightnessStrokeRank].x, posSlider[whichOne +brightnessStrokeRank].y, sizeSlider[whichOne +brightnessStrokeRank].y, sizeSlider[whichOne +hueStrokeRank].x, valueSlider[whichOne +hueStrokeRank], valueSlider[whichOne +saturationStrokeRank], valueSlider[whichOne +brightnessStrokeRank] ) ;
   } else {
-    if (displaySlider[whichGroup][hueStrokeRank])        fondReglette (posSlider[whichOne +hueStrokeRank].x, posSlider[whichOne +hueStrokeRank].y, sizeSlider[whichOne +hueStrokeRank].y, sizeSlider[whichOne +hueStrokeRank].x, roundedSlider, blancGrisClair) ;
-    if (displaySlider[whichGroup][saturationStrokeRank]) fondReglette (posSlider[whichOne +saturationStrokeRank].x, posSlider[whichOne +saturationStrokeRank].y, sizeSlider[whichOne +saturationStrokeRank].y, sizeSlider[whichOne +saturationStrokeRank].x, roundedSlider, blancGrisClair ) ;
-    if (displaySlider[whichGroup][brightnessStrokeRank]) fondReglette (posSlider[whichOne +brightnessStrokeRank].x, posSlider[whichOne +brightnessStrokeRank].y, sizeSlider[whichOne +brightnessStrokeRank].y, sizeSlider[whichOne +brightnessStrokeRank].x, roundedSlider, blancGrisClair) ;
+    if (displaySlider[whichGroup][hueStrokeRank])        sliderBG (posSlider[whichOne +hueStrokeRank].x, posSlider[whichOne +hueStrokeRank].y, sizeSlider[whichOne +hueStrokeRank].y, sizeSlider[whichOne +hueStrokeRank].x, roundedSlider, blancGrisClair) ;
+    if (displaySlider[whichGroup][saturationStrokeRank]) sliderBG (posSlider[whichOne +saturationStrokeRank].x, posSlider[whichOne +saturationStrokeRank].y, sizeSlider[whichOne +saturationStrokeRank].y, sizeSlider[whichOne +saturationStrokeRank].x, roundedSlider, blancGrisClair ) ;
+    if (displaySlider[whichGroup][brightnessStrokeRank]) sliderBG (posSlider[whichOne +brightnessStrokeRank].x, posSlider[whichOne +brightnessStrokeRank].y, sizeSlider[whichOne +brightnessStrokeRank].y, sizeSlider[whichOne +brightnessStrokeRank].x, roundedSlider, blancGrisClair) ;
   }
-  if (displaySlider[whichGroup][alphaStrokeRank]) fondReglette (posSlider[whichOne +alphaStrokeRank].x, posSlider[whichOne +alphaStrokeRank].y, sizeSlider[whichOne +alphaStrokeRank].y, sizeSlider[whichOne +alphaStrokeRank].x, roundedSlider, blancGrisClair) ;
+  if (displaySlider[whichGroup][alphaStrokeRank]) sliderBG (posSlider[whichOne +alphaStrokeRank].x, posSlider[whichOne +alphaStrokeRank].y, sizeSlider[whichOne +alphaStrokeRank].y, sizeSlider[whichOne +alphaStrokeRank].x, roundedSlider, blancGrisClair) ;
   //  thickness
-  if( displaySlider[whichGroup][thicknessRank]) fondReglette (posSlider[whichOne +thicknessRank].x, posSlider[whichOne +thicknessRank].y, sizeSlider[whichOne +thicknessRank].y, sizeSlider[whichOne +thicknessRank].x, roundedSlider, blanc) ;
+  if( displaySlider[whichGroup][thicknessRank]) sliderBG (posSlider[whichOne +thicknessRank].x, posSlider[whichOne +thicknessRank].y, sizeSlider[whichOne +thicknessRank].y, sizeSlider[whichOne +thicknessRank].x, roundedSlider, blanc) ;
   
   // COL TWO
 
   // width, height, depth
-  if(displaySlider[whichGroup][widthObjRank])  fondReglette (posSlider[whichOne +widthObjRank].x, posSlider[whichOne +widthObjRank].y, sizeSlider[whichOne +widthObjRank].y, sizeSlider[whichOne +widthObjRank].x, roundedSlider, blanc) ;
-  if(displaySlider[whichGroup][heightObjRank]) fondReglette (posSlider[whichOne +heightObjRank].x, posSlider[whichOne +heightObjRank].y, sizeSlider[whichOne +heightObjRank].y, sizeSlider[whichOne +heightObjRank].x, roundedSlider, blanc) ;
-  if(displaySlider[whichGroup][depthObjRank])  fondReglette (posSlider[whichOne +depthObjRank].x, posSlider[whichOne +depthObjRank].y, sizeSlider[whichOne +depthObjRank].y, sizeSlider[whichOne +depthObjRank].x, roundedSlider, blanc) ;
+  if(displaySlider[whichGroup][widthObjRank])  sliderBG (posSlider[whichOne +widthObjRank].x, posSlider[whichOne +widthObjRank].y, sizeSlider[whichOne +widthObjRank].y, sizeSlider[whichOne +widthObjRank].x, roundedSlider, blanc) ;
+  if(displaySlider[whichGroup][heightObjRank]) sliderBG (posSlider[whichOne +heightObjRank].x, posSlider[whichOne +heightObjRank].y, sizeSlider[whichOne +heightObjRank].y, sizeSlider[whichOne +heightObjRank].x, roundedSlider, blanc) ;
+  if(displaySlider[whichGroup][depthObjRank])  sliderBG (posSlider[whichOne +depthObjRank].x, posSlider[whichOne +depthObjRank].y, sizeSlider[whichOne +depthObjRank].y, sizeSlider[whichOne +depthObjRank].x, roundedSlider, blanc) ;
   // canvas
-  if(displaySlider[whichGroup][canvasXRank]) fondReglette (posSlider[whichOne +canvasXRank].x, posSlider[whichOne +canvasXRank].y, sizeSlider[whichOne +canvasXRank].y, sizeSlider[whichOne +canvasXRank].x, roundedSlider, blancGrisClair) ;
-  if(displaySlider[whichGroup][canvasYRank]) fondReglette (posSlider[whichOne +canvasYRank].x, posSlider[whichOne +canvasYRank].y, sizeSlider[whichOne +canvasYRank].y, sizeSlider[whichOne +canvasYRank].x, roundedSlider, blancGrisClair) ;
-  if(displaySlider[whichGroup][canvasZRank]) fondReglette (posSlider[whichOne +canvasZRank].x, posSlider[whichOne +canvasZRank].y, sizeSlider[whichOne +canvasZRank].y, sizeSlider[whichOne +canvasZRank].x, roundedSlider, blancGrisClair) ;
+  if(displaySlider[whichGroup][canvasXRank]) sliderBG (posSlider[whichOne +canvasXRank].x, posSlider[whichOne +canvasXRank].y, sizeSlider[whichOne +canvasXRank].y, sizeSlider[whichOne +canvasXRank].x, roundedSlider, blancGrisClair) ;
+  if(displaySlider[whichGroup][canvasYRank]) sliderBG (posSlider[whichOne +canvasYRank].x, posSlider[whichOne +canvasYRank].y, sizeSlider[whichOne +canvasYRank].y, sizeSlider[whichOne +canvasYRank].x, roundedSlider, blancGrisClair) ;
+  if(displaySlider[whichGroup][canvasZRank]) sliderBG (posSlider[whichOne +canvasZRank].x, posSlider[whichOne +canvasZRank].y, sizeSlider[whichOne +canvasZRank].y, sizeSlider[whichOne +canvasZRank].x, roundedSlider, blancGrisClair) ;
   // Family
-  if(displaySlider[whichGroup][familyRank]) fondReglette ( posSlider[whichOne +familyRank].x, posSlider[whichOne +familyRank].y, sizeSlider[whichOne +familyRank].y, sizeSlider[whichOne +familyRank].x, roundedSlider, blanc) ;
-  if(displaySlider[whichGroup][quantityRank]) fondReglette (posSlider[whichOne +quantityRank].x, posSlider[whichOne +quantityRank].y, sizeSlider[whichOne +quantityRank].y, sizeSlider[whichOne +quantityRank].x, roundedSlider, blanc) ;
-  if(displaySlider[whichGroup][lifeRank]) fondReglette ( posSlider[whichOne +lifeRank].x, posSlider[whichOne +lifeRank].y, sizeSlider[whichOne +lifeRank].y, sizeSlider[whichOne +lifeRank].x, roundedSlider, blanc) ;
+  if(displaySlider[whichGroup][familyRank]) sliderBG ( posSlider[whichOne +familyRank].x, posSlider[whichOne +familyRank].y, sizeSlider[whichOne +familyRank].y, sizeSlider[whichOne +familyRank].x, roundedSlider, blanc) ;
+  if(displaySlider[whichGroup][quantityRank]) sliderBG (posSlider[whichOne +quantityRank].x, posSlider[whichOne +quantityRank].y, sizeSlider[whichOne +quantityRank].y, sizeSlider[whichOne +quantityRank].x, roundedSlider, blanc) ;
+  if(displaySlider[whichGroup][lifeRank]) sliderBG ( posSlider[whichOne +lifeRank].x, posSlider[whichOne +lifeRank].y, sizeSlider[whichOne +lifeRank].y, sizeSlider[whichOne +lifeRank].x, roundedSlider, blanc) ;
 
   
   // COL THREE
   // speed
-  if(displaySlider[whichGroup][speedRank]) fondReglette ( posSlider[whichOne +speedRank].x, posSlider[whichOne +speedRank].y, sizeSlider[whichOne +speedRank].y, sizeSlider[whichOne +speedRank].x, roundedSlider, blanc) ;
+  if(displaySlider[whichGroup][speedRank]) sliderBG ( posSlider[whichOne +speedRank].x, posSlider[whichOne +speedRank].y, sizeSlider[whichOne +speedRank].y, sizeSlider[whichOne +speedRank].x, roundedSlider, blanc) ;
   // direction angle
-  if(displaySlider[whichGroup][directionRank]) fondReglette ( posSlider[whichOne +directionRank].x, posSlider[whichOne +directionRank].y, sizeSlider[whichOne +directionRank].y, sizeSlider[whichOne +directionRank].x, roundedSlider, blancGrisClair) ;
-  if(displaySlider[whichGroup][angleRank]) fondReglette ( posSlider[whichOne +angleRank].x, posSlider[whichOne +angleRank].y, sizeSlider[whichOne +angleRank].y, sizeSlider[whichOne +angleRank].x, roundedSlider, blancGrisClair) ;
+  if(displaySlider[whichGroup][directionRank]) sliderBG ( posSlider[whichOne +directionRank].x, posSlider[whichOne +directionRank].y, sizeSlider[whichOne +directionRank].y, sizeSlider[whichOne +directionRank].x, roundedSlider, blancGrisClair) ;
+  if(displaySlider[whichGroup][angleRank]) sliderBG ( posSlider[whichOne +angleRank].x, posSlider[whichOne +angleRank].y, sizeSlider[whichOne +angleRank].y, sizeSlider[whichOne +angleRank].x, roundedSlider, blancGrisClair) ;
   // Forces
-  if(displaySlider[whichGroup][amplitudeRank]) fondReglette (posSlider[whichOne +amplitudeRank].x, posSlider[whichOne +amplitudeRank].y, sizeSlider[whichOne +amplitudeRank].y, sizeSlider[whichOne +amplitudeRank].x, roundedSlider, blanc) ;
-  if(displaySlider[whichGroup][attractionRank]) fondReglette (posSlider[whichOne +attractionRank].x, posSlider[whichOne +attractionRank].y, sizeSlider[whichOne +attractionRank].y, sizeSlider[whichOne +attractionRank].x, roundedSlider, blanc) ;
-  if(displaySlider[whichGroup][repulsionRank]) fondReglette (posSlider[whichOne +repulsionRank].x, posSlider[whichOne +repulsionRank].y, sizeSlider[whichOne +repulsionRank].y, sizeSlider[whichOne +repulsionRank].x, roundedSlider, blanc) ;
-  if(displaySlider[whichGroup][influenceRank]) fondReglette ( posSlider[whichOne +influenceRank].x, posSlider[whichOne +influenceRank].y, sizeSlider[whichOne +influenceRank].y, sizeSlider[whichOne +influenceRank].x, roundedSlider, blancGrisClair) ;
+  if(displaySlider[whichGroup][amplitudeRank]) sliderBG (posSlider[whichOne +amplitudeRank].x, posSlider[whichOne +amplitudeRank].y, sizeSlider[whichOne +amplitudeRank].y, sizeSlider[whichOne +amplitudeRank].x, roundedSlider, blanc) ;
+  if(displaySlider[whichGroup][attractionRank]) sliderBG (posSlider[whichOne +attractionRank].x, posSlider[whichOne +attractionRank].y, sizeSlider[whichOne +attractionRank].y, sizeSlider[whichOne +attractionRank].x, roundedSlider, blanc) ;
+  if(displaySlider[whichGroup][repulsionRank]) sliderBG (posSlider[whichOne +repulsionRank].x, posSlider[whichOne +repulsionRank].y, sizeSlider[whichOne +repulsionRank].y, sizeSlider[whichOne +repulsionRank].x, roundedSlider, blanc) ;
+  if(displaySlider[whichGroup][influenceRank]) sliderBG ( posSlider[whichOne +influenceRank].x, posSlider[whichOne +influenceRank].y, sizeSlider[whichOne +influenceRank].y, sizeSlider[whichOne +influenceRank].x, roundedSlider, blancGrisClair) ;
   // Misc
-  if(displaySlider[whichGroup][alignmentRank]) fondReglette ( posSlider[whichOne +alignmentRank].x, posSlider[whichOne +alignmentRank].y, sizeSlider[whichOne +alignmentRank].y, sizeSlider[whichOne +alignmentRank].x, roundedSlider, blancGrisClair) ;
-  if(displaySlider[whichGroup][analyzeRank])  fondReglette ( posSlider[whichOne +analyzeRank].x, posSlider[whichOne +analyzeRank].y, sizeSlider[whichOne +analyzeRank].y, sizeSlider[whichOne +analyzeRank].x, roundedSlider, blancGrisClair) ;
+  if(displaySlider[whichGroup][alignmentRank]) sliderBG ( posSlider[whichOne +alignmentRank].x, posSlider[whichOne +alignmentRank].y, sizeSlider[whichOne +alignmentRank].y, sizeSlider[whichOne +alignmentRank].x, roundedSlider, blancGrisClair) ;
+  if(displaySlider[whichGroup][analyzeRank])  sliderBG ( posSlider[whichOne +analyzeRank].x, posSlider[whichOne +analyzeRank].y, sizeSlider[whichOne +analyzeRank].y, sizeSlider[whichOne +analyzeRank].x, roundedSlider, blancGrisClair) ;
 
 
 }
@@ -629,52 +617,52 @@ void sliderDrawGroupZero () {
   //Background slider
   if (mouseX > (posSlider[1].x ) && mouseX < ( posSlider[1].x + sizeSlider[1].x) 
       && mouseY > ( posSlider[1].y - 5) && mouseY < posSlider[1].y + 30 ) {
-    fondRegletteCouleur    ( posSlider[1].x, posSlider[1].y, sizeSlider[1].y, sizeSlider[1].x) ;
-    fondRegletteSaturation ( posSlider[2].x, posSlider[2].y, sizeSlider[2].y, sizeSlider[1].x, valueSlider[1], valueSlider[2], valueSlider[3] ) ;
-    fondRegletteDensite    ( posSlider[3].x, posSlider[3].y, sizeSlider[3].y, sizeSlider[1].x, valueSlider[1], valueSlider[2], valueSlider[3] ) ;
+    hueSliderBG    ( posSlider[1].x, posSlider[1].y, sizeSlider[1].y, sizeSlider[1].x) ;
+    saturationSliderBG ( posSlider[2].x, posSlider[2].y, sizeSlider[2].y, sizeSlider[1].x, valueSlider[1], valueSlider[2], valueSlider[3] ) ;
+    brightnessSliderBG    ( posSlider[3].x, posSlider[3].y, sizeSlider[3].y, sizeSlider[1].x, valueSlider[1], valueSlider[2], valueSlider[3] ) ;
   } else {
-    fondReglette    ( posSlider[1].x, posSlider[1].y, sizeSlider[1].y, sizeSlider[1].x, roundedSlider, grisClair) ;
-    fondReglette    ( posSlider[2].x, posSlider[2].y, sizeSlider[2].y, sizeSlider[2].x, roundedSlider, grisClair) ;
-    fondReglette    ( posSlider[3].x, posSlider[3].y, sizeSlider[3].y, sizeSlider[3].x, roundedSlider, grisClair) ;
+    sliderBG    ( posSlider[1].x, posSlider[1].y, sizeSlider[1].y, sizeSlider[1].x, roundedSlider, grisClair) ;
+    sliderBG    ( posSlider[2].x, posSlider[2].y, sizeSlider[2].y, sizeSlider[2].x, roundedSlider, grisClair) ;
+    sliderBG    ( posSlider[3].x, posSlider[3].y, sizeSlider[3].y, sizeSlider[3].x, roundedSlider, grisClair) ;
   }
-  fondReglette ( posSlider[4].x, posSlider[4].y, sizeSlider[4].y, sizeSlider[4].x, roundedSlider, grisClair) ;
+  sliderBG ( posSlider[4].x, posSlider[4].y, sizeSlider[4].y, sizeSlider[4].x, roundedSlider, grisClair) ;
   // light ONE slider
   if (mouseX > (posSlider[7].x ) && mouseX < ( posSlider[7].x +sizeSlider[7].x) 
       && mouseY > ( posSlider[7].y - 5) && mouseY < posSlider[1].y +40) {
-    fondRegletteCouleur    ( posSlider[7].x, posSlider[7].y, sizeSlider[7].y, sizeSlider[7].x) ;
-    fondRegletteSaturation ( posSlider[8].x, posSlider[8].y, sizeSlider[8].y, sizeSlider[7].x, valueSlider[7], valueSlider[8], valueSlider[9] ) ;
-    fondRegletteDensite    ( posSlider[9].x, posSlider[9].y, sizeSlider[9].y, sizeSlider[7].x, valueSlider[7], valueSlider[8], valueSlider[9] ) ;
+    hueSliderBG    ( posSlider[7].x, posSlider[7].y, sizeSlider[7].y, sizeSlider[7].x) ;
+    saturationSliderBG ( posSlider[8].x, posSlider[8].y, sizeSlider[8].y, sizeSlider[7].x, valueSlider[7], valueSlider[8], valueSlider[9] ) ;
+    brightnessSliderBG    ( posSlider[9].x, posSlider[9].y, sizeSlider[9].y, sizeSlider[7].x, valueSlider[7], valueSlider[8], valueSlider[9] ) ;
   } else {
-    fondReglette    ( posSlider[7].x, posSlider[7].y, sizeSlider[7].y, sizeSlider[7].x, roundedSlider, grisClair) ;
-    fondReglette    ( posSlider[8].x, posSlider[8].y, sizeSlider[8].y, sizeSlider[8].x, roundedSlider, grisClair) ;
-    fondReglette    ( posSlider[9].x, posSlider[9].y, sizeSlider[9].y, sizeSlider[9].x, roundedSlider, grisClair) ;
+    sliderBG    ( posSlider[7].x, posSlider[7].y, sizeSlider[7].y, sizeSlider[7].x, roundedSlider, grisClair) ;
+    sliderBG    ( posSlider[8].x, posSlider[8].y, sizeSlider[8].y, sizeSlider[8].x, roundedSlider, grisClair) ;
+    sliderBG    ( posSlider[9].x, posSlider[9].y, sizeSlider[9].y, sizeSlider[9].x, roundedSlider, grisClair) ;
   }
   // light TWO slider
   if (mouseX > (posSlider[10].x ) && mouseX < ( posSlider[10].x +sizeSlider[10].x) 
       && mouseY > ( posSlider[10].y - 5) && mouseY < posSlider[1].y + 40 ) {
-    fondRegletteCouleur    ( posSlider[10].x, posSlider[10].y, sizeSlider[10].y, sizeSlider[10].x) ;
-    fondRegletteSaturation ( posSlider[11].x, posSlider[11].y, sizeSlider[11].y, sizeSlider[10].x, valueSlider[10], valueSlider[11], valueSlider[9] ) ;
-    fondRegletteDensite    ( posSlider[12].x, posSlider[12].y, sizeSlider[12].y, sizeSlider[10].x, valueSlider[10], valueSlider[11], valueSlider[12] ) ;
+    hueSliderBG    ( posSlider[10].x, posSlider[10].y, sizeSlider[10].y, sizeSlider[10].x) ;
+    saturationSliderBG ( posSlider[11].x, posSlider[11].y, sizeSlider[11].y, sizeSlider[10].x, valueSlider[10], valueSlider[11], valueSlider[9] ) ;
+    brightnessSliderBG    ( posSlider[12].x, posSlider[12].y, sizeSlider[12].y, sizeSlider[10].x, valueSlider[10], valueSlider[11], valueSlider[12] ) ;
   } else {
-    fondReglette    ( posSlider[10].x, posSlider[10].y, sizeSlider[10].y, sizeSlider[10].x, roundedSlider, grisClair) ;
-    fondReglette    ( posSlider[11].x, posSlider[11].y, sizeSlider[11].y, sizeSlider[11].x, roundedSlider, grisClair) ;
-    fondReglette    ( posSlider[12].x, posSlider[12].y, sizeSlider[12].y, sizeSlider[12].x, roundedSlider, grisClair) ;
+    sliderBG    ( posSlider[10].x, posSlider[10].y, sizeSlider[10].y, sizeSlider[10].x, roundedSlider, grisClair) ;
+    sliderBG    ( posSlider[11].x, posSlider[11].y, sizeSlider[11].y, sizeSlider[11].x, roundedSlider, grisClair) ;
+    sliderBG    ( posSlider[12].x, posSlider[12].y, sizeSlider[12].y, sizeSlider[12].x, roundedSlider, grisClair) ;
   }
   // music
-  fondReglette ( posSlider[5].x, posSlider[5].y, sizeSlider[5].y, sizeSlider[5].x, roundedSlider, grisClair) ;
-  fondReglette ( posSlider[6].x, posSlider[6].y, sizeSlider[6].y, sizeSlider[6].x, roundedSlider, grisClair) ;
+  sliderBG ( posSlider[5].x, posSlider[5].y, sizeSlider[5].y, sizeSlider[5].x, roundedSlider, grisClair) ;
+  sliderBG ( posSlider[6].x, posSlider[6].y, sizeSlider[6].y, sizeSlider[6].x, roundedSlider, grisClair) ;
 }
 
 
 
 //SLIDER COLOR
-void fondReglette (float posX, float posY, float heightSlider, float widthslider, int rounded, color coulour) {
+void sliderBG (float posX, float posY, float heightSlider, float widthslider, int rounded, color coulour) {
   fill (coulour) ;
   rect (posX, posY -(heightSlider *.5), widthslider, heightSlider, rounded) ;
 }
 
-//hue
-void fondRegletteCouleur (float posX, float posY, float heightSlider, float widthSlider) {
+// hue
+void hueSliderBG (float posX, float posY, float heightSlider, float widthSlider) {
   pushMatrix () ;
   translate (posX , posY-(heightSlider *.5)) ;
   for ( int i=0 ; i < widthSlider ; i++ ) {
@@ -687,39 +675,41 @@ void fondRegletteCouleur (float posX, float posY, float heightSlider, float widt
   popMatrix() ;
 }
 
-//saturation
-void fondRegletteSaturation (float posX, float posY, float heightSlider, float widthSlider, float coulour, float s, float d) {
+// saturation
+void saturationSliderBG (float posX, float posY, float heightSlider, float widthSlider, float colour, float s, float d) {
   pushMatrix () ;
+  println(colour) ;
   translate (posX , posY-(heightSlider *.5)) ;
   for ( int i=0 ; i < widthSlider ; i++ ) {
     for ( int j=0 ; j <=heightSlider ; j++ ) {
       float cr = map(i, 0, widthSlider, 0, 100 ) ;
-      float coul = map(coulour, 0, widthSlider, 0, 360 ) ;
       // float sat = map(s, 0, largeur, 0, 100 ) ;
       float dens = map(d, 0, widthSlider, 0, 100 ) ;
-      fill (coul, cr, dens) ;
+      fill (colour, cr, dens) ;
       rect ( i, j, 1,1 ) ;
     }
   }
   popMatrix() ;
 }
 
-//density
-void fondRegletteDensite (float posX, float posY, float heightSlider, float widthSlider, float coulour, float s, float d) {
+// brightness
+void brightnessSliderBG (float posX, float posY, float heightSlider, float widthSlider, float colour, float s, float d) {
   pushMatrix () ;
   translate (posX , posY-(heightSlider *.5)) ;
   for ( int i=0 ; i < widthSlider ; i++ ) {
     for ( int j=0 ; j <=heightSlider ; j++ ) {
       float cr = map(i, 0, widthSlider, 0, 100 ) ;
-      float coul = map(coulour, 0, widthSlider, 0, 360 ) ;
       float sat = map(s, 0, widthSlider, 0, 100 ) ;
       // float dens = map(d, 0, largeur, 0, 100 ) ;
-      fill (coul, sat, cr) ;
+      fill (colour, sat, cr) ;
       rect (i, j, 1,1) ;
     }
   }
   popMatrix() ;
 }
+// End SLIDER background
+
+
 // END SLIDER
 //////////////////
 

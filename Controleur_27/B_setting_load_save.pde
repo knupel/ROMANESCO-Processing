@@ -137,7 +137,7 @@ void initVarButton() {
   valueButtonObj = new int[numButton[1]] ;
   valueButtonTex = new int[numButton[2]] ;
   valueButtonTypo = new int[numButton[3]] ;
-  //bouton objet
+  // Group one
   BOf = new Simple[numButton[1] +10] ;
   transparenceBordBOf =      new int[numButton[1] +10] ;
   epaisseurBordBOf =         new int[numButton[1] +10] ;
@@ -147,7 +147,7 @@ void initVarButton() {
   longueurBOf =              new int[numButton[1] +10] ;
   hauteurBOf =               new int[numButton[1] +10] ;
   
-  //bouton texture
+  // group two
   BTf = new Simple[numButton[2] +10] ;
   transparenceBordBTf =      new int[numButton[2] +10] ;
   epaisseurBordBTf =         new int[numButton[2] +10] ;
@@ -157,7 +157,7 @@ void initVarButton() {
   longueurBTf =              new int[numButton[2] +10] ;
   hauteurBTf =               new int[numButton[2] +10] ;
   
-  //bouton typo
+  // group three
   BTYf = new Simple[numButton[3] +10] ;
   transparenceBordBTYf =      new int[numButton[3] +10] ;
   epaisseurBordBTYf =         new int[numButton[3] +10] ;
@@ -527,6 +527,7 @@ void buttonSetSaveSetting() {
   for( int i = 1 ; i <= numGroup[whichGroup] ; i++ ) {
     for (int j = 1 ; j <= BUTTON_BY_OBJECT ; j++) {
       rank++ ;
+      println(i, j, rank) ;
       buttonRank = (int)infoButton[rank].x ;
       if(infoButton[rank].z == 1.0 && buttonRank == (i*10)+j) BTYf[buttonRank].onOff = true ; else BTYf[buttonRank].onOff = false ; 
       BTYf[buttonRank].IDmidi = (int)infoButton[rank].y ; 
