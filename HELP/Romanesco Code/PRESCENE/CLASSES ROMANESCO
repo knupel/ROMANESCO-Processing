@@ -1,0 +1,91 @@
+//CLASS PIXEL
+/////////////
+
+//PARAM
+this class is define by a lot of parameter and work in HSB, 360,100,100,100
+PVector size (x,y,z)
+PVector pos (x,y,z)
+
+color colour, newColour ;
+
+PVector wind I must define ?
+float field : define the field of life (action) of the pixel, it use like a radius around the origin of the pixel
+float life = 1 ; 
+float timePast = 0.01 ; // this value is use to remove time from the life.
+
+// parameter use to find the pixel in the mess
+PVector gridPos(x,y) in matrix 2D // this value is use to find a specific pixel in the array
+int rank
+int ID
+
+CONSTRUCTOR
+Pixel(PVector pos)
+Pixel(PVector pos, color colour)
+Pixel(PVector pos, PVector size)
+Pixel(PVector pos, PVector size, color colour)
+// INK CONTRUCTOR
+Pixel(PVector pos, float field, float timePast, color colour)
+Pixel(PVector pos, float field, float timePast) 
+// RANK CONSTRUCTOR
+Pixel(int rank, PVector gridPos) // this one is use to rank the pixel in the array
+Pixel(int rank)
+
+
+
+
+// METHOD
+// must define what the role
+void displayPixel(int diam) 
+void displayPixel(int diam, PVector effectColor)
+
+// UPDATE
+void drying(float var)
+
+// END CLASS PIXEL
+//////////////////
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// CLASS CANVAS
+///////////////
+PARAM
+PVector size (x,y,z)
+PVector pos (x,y,z)
+// X coord
+float left, right ;
+// Y coord
+float top, bottom ;
+// Z coord
+float front, back ;
+
+// CONSTRUTOR
+Canvas(PVector pos, PVector size)
+
+// METHOD
+void update() use to change the size
+
+void canvasLine() use to display the canvas in line mode
+
+
+
+// END CLASS CANVAS
+///////////////////

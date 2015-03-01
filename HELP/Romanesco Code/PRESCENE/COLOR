@@ -1,0 +1,8 @@
+// COLOR
+
+PVector HSBtoRGB(float hue, float saturation, float brightness) 
+convert color in the HSB world
+
+
+int camaieu(int max, float colorRef, int range)
+// return hue or other date in range of specific data float

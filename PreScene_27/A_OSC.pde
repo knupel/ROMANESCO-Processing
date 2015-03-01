@@ -48,7 +48,6 @@ void oscEvent(OscMessage receive ) {
   //split String value from controler
   for ( int i = 0 ; i < numGroup+1 ; i++ ) {
     valueSliderTemp [i] = split(fromControler [i+4], '/') ;
-    // println(valueSliderTemp [i]) ;
   }
   // translate the String value to the float var to use
   for ( int i = 0 ; i < numGroup+1 ; i++ ) {

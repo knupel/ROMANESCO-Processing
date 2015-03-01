@@ -23,19 +23,13 @@ void backgroundRomanesco() {
         
         bg = color (map(valueSlider[0][0],0,MAX_VALUE_SLIDER,0,HSBmode.x), map(valueSlider[0][1],0,MAX_VALUE_SLIDER,0,HSBmode.y), map(valueSlider[0][2],0,MAX_VALUE_SLIDER,0,HSBmode.z), alpha) ; 
       } else {
-        int hue = 0 ;
-        int saturation = 0 ;
-        int brightness = 30 ;
         int alpha = (int)HSBmode.z ; // we use HSBmode.z here but it's not correcte, but that's ok because often the "w" value in HSB mode is equal to "y" and "z" hue = 360 and saturation = brightness = alpha
-        bg = color (hue, saturation, brightness, alpha) ;
+        bg = color (map(valueSlider[0][0],0,MAX_VALUE_SLIDER,0,HSBmode.x), map(valueSlider[0][1],0,MAX_VALUE_SLIDER,0,HSBmode.y), map(valueSlider[0][2],0,MAX_VALUE_SLIDER,0,HSBmode.z), alpha) ;
       }
       
-      // Now the background is all the time for P3D mode
-      /*
+      //choice the background
       if(displayMode.equals("Classic")) backgroundClassic(bg) ;
       else if(displayMode.equals("P3D")) backgroundP3D(bg) ;
-      */
-      backgroundP3D(bg) ;
     } else {
       backgroundShaderDraw(modeP3D, whichShader) ;
     }

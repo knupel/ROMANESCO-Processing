@@ -1,0 +1,19 @@
+
+
+CAMERA
+///////////////
+
+
+//SAVE and SETTING Camera and Object orientation and position
+
+whichSetting is 0
+afor Romanesco alpha 25 there is only one save setting is 0
+for more setting change int numSettingCamera and int numSettingOrientationObject in the void 
+createVarP3D() in the tab Variable_Common
+
+
+PVector P3DpositionSetting [whichSetting][IDobj] ;
+PVector P3DdirectionSetting [whichSetting][IDobj] ;
+
+PVector eyeCameraSetting[whichSetting] ;
+PVector sceneCameraSetting[whichSetting] ;

@@ -1,0 +1,134 @@
+
+
+// PRESCENE 
+//////////////////
+
+
+
+
+
+
+
+////////////////////////////
+// WHERE are Romanesco work
+if you want use a different rendering on the scene or prescene, you can use this boolean.
+indicate if your work on scene or prescene
+
+boolean scene 
+boolean prescene
+this way is deprecated
+
+** boolean fullRendering **
+is better
+
+
+
+
+
+
+
+boolean internet // return boolean if internet is available
+
+
+boolean modeP3D  // return boolean if P3D render is available
+
+
+
+
+
+
+// PVECTOR
+PVector gotoTarget(PVector origin,  PVector finish, float speed) // nice for a static travel when the start and the arrival is knew, work with XYZ
+
+PVector follow(PVector target, float speed) // go to follow something in move like a cursor, works with XYZ
+
+
+PVector [] circle (PVector pos, int d, int num) // return a list of points xyz to realize a circle, the first param is the position of circle, the second is the diameter, the third is the num of points to do this circle
+PVector [] circle (PVector pos, int d, int num, float jitter) // same function with jitter variation
+
+PVector pointOnCirlcle(int r, float angle) // return the position of the point on the perimeter of the circle. The first param is the radius, the second is the angle in radian (PI scale)
+
+float perimeterCircle (int r) return perimeter
+
+float radiusSurface(int surface) return the radius with a speficic surface
+
+float angle(PVector p0, PVector p1) calcul the angle between two PVectors
+
+PVector normalDir(int direction) // return a direction between -1 / 1 from 360° direction
+
+
+
+
+
+
+// TIME
+///////
+float cycle(float add) // return value between -1 et 1 , nice to try with value like 0.1
+
+int timer(float tempo) // return an add value from float <1 ;
+
+int minClock() // return the time of the day in minutes
+
+
+
+
+
+
+//SECURITY LAG
+///////////////
+int levelSecurity = 200 ; is not finish, this value can be use to block the function, this value must be control from the Controler
+////////////////////////
+
+
+
+
+
+
+
+
+///////////////////////
+// DISPLAY MODE render
+Usualy Romanesco work in P3D mode, if one of the object is in P3D mode all the rendering is in P3D
+
+
+for P3D 
+if (displayMode.equals("P3D") ) {}
+or
+boolean modeP3D
+
+for P2D
+if (displayMode.equals("P2D") ) {}
+
+for OPENGL
+if (displayMode.equals("OPENGL") ) {}
+
+for CLASSIC rendering
+if (displayMode.equals("Classic") ) {}
+
+//END DISPLAY MODE
+//////////////////
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

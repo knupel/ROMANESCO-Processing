@@ -1,0 +1,67 @@
+// ALGEBRA
+/////////////
+
+// CONSTANT MATH
+final float PHI = (1 + sqrt(5))/2; // the golden ratio
+final float ROOT2 = sqrt(2); // the number of Pythagore
+final float EULER = 2.718281828459045235360287471352; // Constant d'auler
+
+// METHOD
+float distance(PVector p0, PVector p1 ) calcul distance between two PVectors
+
+float deg360 (PVector dir) // return a 360 direction from PVector direction value between -1 to 1 ;
+
+PVector rotation(PVector ref, PVector lattice, float angle) // return a PVector position, for rotation around an axes
+
+float roots(float valueToRoots, int n) // return the roots value with "n" dimension
+
+float mapLocked(float value, float sourceMin, float sourceMax, float targetMin, float targetMax) // the return value is lock between the min and the max
+
+float mapStartSmooth(float value, float sourceMin, float sourceMax, float targetMin, float targetMax, int level) // the begin of the curve is smoothed by the level
+
+float mapEndSmooth(float value, float sourceMin, float sourceMax, float targetMin, float targetMax, int level) // the end of the curve is smoothed by the level
+
+float mapEndStartSmooth(float value, float sourceMin, float sourceMax, float targetMin, float targetMax, int level) // the begin and the end of the curve is smoothed by the level
+
+
+// END ALGEBRA
+//////////////
+
+
+
+
+
+
+
+
+
+// GEOMETRY
+///////////
+
+// PRIMITIVE 2D
+void primitive(int x, int y, int radius, int summits)
+-- create polygone 2D, choice the quantity of summits and the radius.
+
+
+void triangle(int x1, int y1, int z1, int x2, int y2, int z2, int x3, int y3, int z3)
+-- triangle vertex
+
+
+// PRIMITIVE 3D
+-- Polyhedron primitive 3D
+  /*
+  -- to choice the polyhedron String whichPolyhedron
+  "TETRAHEDRON","CUBE", "OCTOHEDRON", "DODECAHEDRON","ICOSAHEDRON","CUBOCTAHEDRON","ICOSI DODECAHEDRON",
+  "TRUNCATED CUBE","TRUNCATED OCTAHEDRON","TRUNCATED DODECAHEDRON","TRUNCATED ICOSAHEDRON","TRUNCATED CUBOCTAHEDRON","RHOMBIC CUBOCTAHEDRON",
+  "RHOMBIC DODECAHEDRON","RHOMBIC TRIACONTAHEDRON","RHOMBIC COSI DODECAHEDRON SMALL","RHOMBIC COSI DODECAHEDRON GREAT"
+
+  -- to choice the display mode String whichStyleToDraw
+  All Polyhedrons can use "POINT" and "LINE" display mode.
+  except the "TETRADRON" who can also use "VERTEX" display mode.
+
+  -- to choice the diameter int size
+  */
+void polyhedron(String whichPolyhedron, String whichStyleToDraw, int size)
+
+// END GEOMETRY
+//////////////
