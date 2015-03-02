@@ -70,7 +70,9 @@ void updateCommand() {
     ORDER_ONE = false ; 
     ORDER_TWO = false ;
     ORDER_THREE = true ;
-  } else {
+  }
+    
+  if(!clickLongLeft[0] && !clickLongRight[0] && finger.activefingers != 2 && finger.activefingers != 1 && finger.activefingers != 3)  {
   // false
     ORDER_ONE = false ;
     ORDER_TWO = false ;

@@ -1,3 +1,22 @@
+/*
+Here you findPath
+LIGHT POSITION
+
+CHECK FOLDER
+*/
+
+// LIGHT
+// LIGHT POSITION
+PVector lightPos = new PVector() ;
+void lightPosition() {
+  if(modeP3D && lLongTouch) {
+    lightPos.x = mouse[0].x ;
+    lightPos.y = mouse[0].y ;
+    lightPos.z -= wheel[0] ;
+  }
+}
+
+
 //////////////
 //CHECK FOLDER
 PImage imgDefault ;
@@ -315,7 +334,7 @@ void displayInfoObject() {
     
     if(object[i]) {
       posInfoObj += 1 ;
-      String position = ("x:" +(int)P3DpositionX[i] + " y:" + (int)P3DpositionY[i]+ " z:" + (int)P3DpositionZ[i]) ;
+      String position = ("x:" +(int)posObjX[i] + " y:" + (int)posObjY[i]+ " z:" + (int)posObjZ[i]) ;
       text(objectName[i] + " - Coord " + position + " - " + objectInfo[objectID[i]], 10, height -(15 *(posInfoObj -1))) ;
     }
   }

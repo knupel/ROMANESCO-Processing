@@ -1,8 +1,12 @@
-private PVector posSceneMouseRef, posEyeMouseRef ;
-private PVector posSceneCameraRef, posEyeCameraRef ;
-private PVector eyeCamera, sceneCamera ;
-private PVector deltaScenePos, deltaEyePos ;
-private PVector tempEyeCamera ;
+private PVector posSceneMouseRef = new PVector() ;
+private PVector posEyeMouseRef = new PVector() ;
+private PVector posSceneCameraRef= new PVector() ;
+private PVector posEyeCameraRef = new PVector() ;
+private PVector eyeCamera = new PVector() ;
+private PVector sceneCamera = new PVector() ;
+private PVector deltaScenePos = new PVector() ;
+private PVector deltaEyePos = new PVector() ;
+private PVector tempEyeCamera = new PVector() ;
 
 private boolean newRefSceneMouse = true ;
 private boolean newRefEyeMouse = true ;
@@ -14,57 +18,59 @@ float speedMoveOfCamera = 0.1 ;
 //CAMERA Stuff
 private boolean moveScene, moveEye ;
 
-PVector targetPosCam = new PVector(0,0,0) ;
+PVector targetPosCam = new PVector() ;
 
-//P3D STUFF
+//P3D ROMANESCO STUFF
 PVector speedDirectionOfObject  ;
-PVector  P3DpositionMouseRef, deltaObjPos ;
-PVector  P3DdirectionMouseRef, deltaObjDir, P3DtempObjDir ;
+PVector  P3DpositionMouseRef = new PVector() ;
+PVector deltaObjPos = new PVector() ;
+PVector  P3DdirectionMouseRef = new PVector() ;
+PVector deltaObjDir = new PVector() ;
+
+PVector P3DtempObjDir ;
 PVector sizeBackgroundP3D  ;
 
 
 // P3D SETUP
 ////////////
-void P3DSetup() {
+void P3DSetup(boolean modeP3D, int numObj, int numSettingCamera, int numSettingOrientationObject) {
       
   if(modeP3D) {
     sizeBackgroundP3D = new PVector(width *100, height *100, height *7.5) ;
-    //CAMERA
-    sceneCamera = new PVector () ;
-    eyeCamera = new PVector () ;
-    //
-    posSceneCameraRef = new PVector () ;
-    posEyeCameraRef = new PVector () ;
-    //
-    deltaScenePos = new PVector () ;
-    deltaEyePos = new PVector () ;
-    //
-    tempEyeCamera = new PVector() ;
+    settingAllCameras (numSettingCamera) ;
+    settingCameraManipulation (numObj) ;
+    settingObjectManipulation(numObj, numSettingCamera, numSettingOrientationObject) ;
+  }
     
-    //P3D
-    for ( int i = 0 ; i < numObj ; i++ ) {
-      posManipulation[i] = new PVector() ; 
-      dirManipulation[i] = new PVector () ;
-      P3DdirectionX [i] = 0 ;
-      P3DdirectionY [i] = 0 ;
-      P3DpositionObjRef[i] = new PVector() ; 
-      P3DdirectionObjRef[i] = new PVector() ;
-    }
-    P3DpositionMouseRef = new PVector() ; deltaObjPos = new PVector() ;
-    P3DdirectionMouseRef = new PVector() ; deltaObjDir = new PVector() ;
-    
-    // SAVE SETTING CAMERA and OBJECT orientation
-    //camera
-    for ( int i = 0 ; i < numSettingCamera ; i++ ) {
-       eyeCameraSetting[i] = new PVector () ;
-       sceneCameraSetting[i] = new PVector () ;
-    }
-    // object orientation
-    for ( int i = 0 ; i < numSettingOrientationObject ; i++ ) {
-      for (int j = 0 ; j < numObj ; j++ ) {
-         P3DpositionSetting [i][j] = new PVector(0,0,0) ;
-         P3DdirectionSetting [i][j] = new PVector(0,0) ;
-       }
+
+}
+
+// ANNEXE setting camera and object manipulation
+void settingCameraManipulation (int numObj) {
+  //P3D for all ROMANESCO object
+  for ( int i = 0 ; i < numObj ; i++ ) {
+    posManipulation[i] = new PVector() ; 
+    dirManipulation[i] = new PVector () ;
+    P3DdirectionX [i] = 0 ;
+    P3DdirectionY [i] = 0 ;
+    P3DpositionObjRef[i] = new PVector() ; 
+    P3DdirectionObjRef[i] = new PVector() ;
+  }
+}
+
+void settingAllCameras (int numSettingCamera) {
+  for ( int i = 0 ; i < numSettingCamera ; i++ ) {
+     eyeCameraSetting[i] = new PVector () ;
+     sceneCameraSetting[i] = new PVector () ;
+  }
+}
+  
+void settingObjectManipulation (int numObj, int numSettingCamera, int numSettingOrientationObject) {
+  // object orientation
+  for ( int i = 0 ; i < numSettingOrientationObject ; i++ ) {
+    for (int j = 0 ; j < numObj ; j++ ) {
+       P3DpositionSetting [i][j] = new PVector() ;
+       P3DdirectionSetting [i][j] = new PVector() ;
      }
    }
 }
@@ -376,14 +382,13 @@ void stopCamera() {
 // ANNEXE AND COMMON METHOD
 
 // EYE POSITION two solutions
-PVector eyeP3D = new PVector() ;
 /*
-Soltion 1
+Solution 1
 We must use this one with le leapmotion information, because with the leapmotion device
 there is no "pmouse" information.
 */
 PVector eyeWithLeapmotionDevice(PVector tempEye) {
-  eyeP3D = new PVector() ;
+  PVector eyeP3D = new PVector() ;
   eyeP3D = new PVector(map(tempEye.y, 0, width, 0, 360), map(tempEye.x, 0, height, 0, 360)) ; 
   return eyeP3D ;
 }
@@ -391,8 +396,9 @@ PVector eyeWithLeapmotionDevice(PVector tempEye) {
 
 /*
 solution 2
-we can use this better void whn we don't use the leapmotio */
+we can use this better void when we don't use the leapmotion */
 PVector eye(PVector speed) {
+  PVector eyeP3D = new PVector() ;
   eyeP3D.x += (pmouse[0].y-mouse[0].y) * speed.y;
     eyeP3D.y += (pmouse[0].x-mouse[0].x) *-speed.x;
     if(eyeP3D.x > 360) eyeP3D.x = 0 ;
@@ -437,14 +443,14 @@ PVector getPosCamera() { return sceneCamera ; }
 
 //INIT FOLLOW
 float distFollowRef = 0 ;
-PVector eyeBackRef = new PVector(0,0,0 ) ;
+PVector eyeBackRef = new PVector() ;
 //travelling with only camera position
 void travelling(PVector target) {
   distFollowRef = PVector.dist(target, sceneCamera) ;
   
   targetPosCam = target ; 
   eyeBackRef = getEyeCamera() ;
-  absPosition = new PVector(0,0,0) ;
+  absPosition = new PVector() ;
   gotoCameraPosition = true ;
   gotoCameraEye = true ;
 }
@@ -456,7 +462,7 @@ float speedX  ;
 float speedY  ;
     
 PVector backEye() {
-  PVector eye = new PVector(0,0) ;
+  PVector eye = new PVector() ;
 
   if(gotoCameraEye) {
     if(currentDistToTarget > 2 ) {
@@ -496,12 +502,12 @@ PVector backEye() {
 
 
 //MAIN VOID
-PVector speedByAxes = new PVector(0,0,0) ;
+PVector speedByAxes = new PVector() ;
 //calculate new position to go at the new target camera
-PVector distToTargetUpdated = new PVector (0,0,0) ;
+PVector distToTargetUpdated = new PVector () ;
 float currentDistToTarget = 0 ;
-PVector currentPosition = new PVector(0,0,0) ;
-PVector absPosition = new PVector(0,0,0) ;
+PVector currentPosition = new PVector() ;
+PVector absPosition = new PVector() ;
 
 PVector follow(PVector origin, PVector target, float speed) {
   //very weird I must inverse the value to have the good result !
@@ -585,73 +591,24 @@ PVector follow(PVector origin, PVector target, float speed) {
 }
 
 
+// END CAMERA P3D
+/////////////////
 
 
 
-//LIGHT
-///////
-PVector colorLightOne = new PVector(0,0,0);
-PVector colorLightTwo = new PVector(0,0,0);
-PVector dirLightOne = new PVector(0,0,1);
-PVector dirLightTwo = new PVector(0,0,1);
-boolean lightOneMove, lightTwoMove ;
-
-PVector speedColorLight = new PVector(0,0,0) ;
-//SETUP
-void lightSetup() {
-  if(modeP3D) {
-    float min =.001 ;
-    float max = 0.3 ;
-    speedColorLight = new PVector(random(min,max),random(min,max),random(min,max)) ;
-  }
-}
 
 
-// LIGHT POSITION
-PVector lightPos = new PVector() ;
-void lightPosition() {
-  if(modeP3D && lLongTouch) {
-    lightPos.x = mouse[0].x ;
-    lightPos.y = mouse[0].y ;
-    lightPos.z -= wheel[0] ;
-  }
-}
-//DRAW
-void lightDraw() {
-  if(modeP3D) {
-    //change color of light
-    colorLightOne = new PVector (map(valueSlider[0][6], 0, MAX_VALUE_SLIDER, 0, HSBmode.x), map(valueSlider[0][7],0, MAX_VALUE_SLIDER, 0, HSBmode.y), map(valueSlider[0][8], 0, MAX_VALUE_SLIDER, 0, HSBmode.z)) ;
-    colorLightTwo = new PVector (map(valueSlider[0][9], 0, MAX_VALUE_SLIDER, 0, HSBmode.x), map(valueSlider[0][10], 0, MAX_VALUE_SLIDER, 0, HSBmode.y), map(valueSlider[0][11], 0, MAX_VALUE_SLIDER, 0, HSBmode.z)) ;
-    
-    // change the direction of the light
-    if(eLightOneAction == 1 ) lightOneMove = true ; else lightOneMove = false ;
-    if(eLightTwoAction == 1 ) lightTwoMove = true ; else lightTwoMove = false ;
-    
-    if(lightOneMove) {
-      dirLightOne.x = map(lightPos.x,0,width, -1,1) ;
-      dirLightOne.y = map(lightPos.y,0,height, -1,1) ;
-      dirLightOne.z = map(lightPos.z,-750,750, -1,1) ;
-    }
-    if(lightTwoMove) {
-      dirLightTwo.x = map(lightPos.x,0,width, 1,-1) ;
-      dirLightTwo.y = map(lightPos.y,0,height, 1,-1) ;
-      dirLightTwo.z = map(lightPos.z,-750,750, 1,-1) ;
-    }
-    //result
-    romanescoLight(colorLightOne, colorLightTwo, dirLightOne, dirLightTwo) ;
-  }
-}
-
-//ANNEXE LIGHT VOID
-void romanescoLight(PVector colorOne, PVector colorTwo, PVector dirOne, PVector dirTwo) {
-  if(eLightOne == 1 ) directionalLight(colorOne.x, colorOne.y, colorOne.z, dirOne.x, dirOne.y, dirOne.z);
-  if(eLightTwo == 1 ) directionalLight(colorTwo.x, colorTwo.y, colorTwo.z, dirTwo.x, dirTwo.y, dirTwo.z);
-  // don't use the ambiant light if you need the object color
-}
 
 
-// END LIGHT
-////////////
+
+
+
+
+
+
+
+
+
 
 
 

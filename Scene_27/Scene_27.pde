@@ -26,7 +26,7 @@ void setup() {
   varObjectSetup() ; // the varObject setup of the Scene is more simple
   OSCSetup() ;
 
-  P3DSetup() ;
+  P3DSetup(modeP3D, numObj, numSettingCamera, numSettingOrientationObject) ;
   lightSetup(); // for the Scene only
   
   // module

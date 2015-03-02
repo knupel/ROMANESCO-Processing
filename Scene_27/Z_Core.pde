@@ -1,3 +1,23 @@
+/*
+Here you findPath
+LIGHT POSITION
+
+CHECK FOLDER
+*/
+
+// LIGHT
+// LIGHT POSITION
+PVector lightPos = new PVector() ;
+void lightPosition() {
+  if(modeP3D && lLongTouch) {
+    lightPos.x = mouse[0].x ;
+    lightPos.y = mouse[0].y ;
+    lightPos.z -= wheel[0] ;
+  }
+}
+
+
+
 //////////////
 //CHECK FOLDER
 PImage imgDefault ;

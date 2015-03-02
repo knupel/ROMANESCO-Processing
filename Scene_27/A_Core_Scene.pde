@@ -1,3 +1,16 @@
+/*
+Here you find : 
+
+CURSOR, PEN, LEAP MOTION
+
+GRAPHIC CONFIGURATION
+
+MIRROIR
+
+LIGHT
+*/
+
+
 //CURSOR, PEN, LEAP MOTION
 
 void cursorDraw() {
@@ -214,7 +227,7 @@ void sketchPosWithoutMavericks(int x, int y, int whichOne) {
 }
 
 
-//SCREN SIZE
+//SCREEN SIZE
 //catch the size of display device to get the fullscreen on the screen of your choice
 PVector fullScreen(int whichOne) {
   PVector size = new PVector(0,0) ;
@@ -334,3 +347,69 @@ class Miroir {
   //////////////////////////////////////
  ///  END OF GRAPHIC CONFIGURATION ////
 //////////////////////////////////////
+
+
+
+
+
+
+
+
+
+
+//LIGHT
+///////
+PVector colorLightOne = new PVector(0,0,0);
+PVector colorLightTwo = new PVector(0,0,0);
+PVector dirLightOne = new PVector(0,0,1);
+PVector dirLightTwo = new PVector(0,0,1);
+boolean lightOneMove, lightTwoMove ;
+
+PVector speedColorLight = new PVector(0,0,0) ;
+//SETUP
+void lightSetup() {
+  if(modeP3D) {
+    float min =.001 ;
+    float max = 0.3 ;
+    speedColorLight = new PVector(random(min,max),random(min,max),random(min,max)) ;
+  }
+}
+
+
+
+//DRAW
+void lightDraw() {
+  if(modeP3D) {
+    //change color of light
+    colorLightOne = new PVector (map(valueSlider[0][6], 0, MAX_VALUE_SLIDER, 0, HSBmode.x), map(valueSlider[0][7],0, MAX_VALUE_SLIDER, 0, HSBmode.y), map(valueSlider[0][8], 0, MAX_VALUE_SLIDER, 0, HSBmode.z)) ;
+    colorLightTwo = new PVector (map(valueSlider[0][9], 0, MAX_VALUE_SLIDER, 0, HSBmode.x), map(valueSlider[0][10], 0, MAX_VALUE_SLIDER, 0, HSBmode.y), map(valueSlider[0][11], 0, MAX_VALUE_SLIDER, 0, HSBmode.z)) ;
+    
+    // change the direction of the light
+    if(eLightOneAction == 1 ) lightOneMove = true ; else lightOneMove = false ;
+    if(eLightTwoAction == 1 ) lightTwoMove = true ; else lightTwoMove = false ;
+    
+    if(lightOneMove) {
+      dirLightOne.x = map(lightPos.x,0,width, -1,1) ;
+      dirLightOne.y = map(lightPos.y,0,height, -1,1) ;
+      dirLightOne.z = map(lightPos.z,-750,750, -1,1) ;
+    }
+    if(lightTwoMove) {
+      dirLightTwo.x = map(lightPos.x,0,width, 1,-1) ;
+      dirLightTwo.y = map(lightPos.y,0,height, 1,-1) ;
+      dirLightTwo.z = map(lightPos.z,-750,750, 1,-1) ;
+    }
+    //result
+    romanescoLight(colorLightOne, colorLightTwo, dirLightOne, dirLightTwo) ;
+  }
+}
+
+//ANNEXE LIGHT VOID
+void romanescoLight(PVector colorOne, PVector colorTwo, PVector dirOne, PVector dirTwo) {
+  if(eLightOne == 1 ) directionalLight(colorOne.x, colorOne.y, colorOne.z, dirOne.x, dirOne.y, dirOne.z);
+  if(eLightTwo == 1 ) directionalLight(colorTwo.x, colorTwo.y, colorTwo.z, dirTwo.x, dirTwo.y, dirTwo.z);
+  // don't use the ambiant light if you need the object color
+}
+
+
+// END LIGHT
+////////////

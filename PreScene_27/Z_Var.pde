@@ -174,21 +174,22 @@ float [] tempo, tempoBeat, tempoKick, tempoSnare, tempoHat ;
 
 //P3D OBJECT
 //setting and save
-int numSettingCamera, numSettingOrientationObject ;
-PVector [][] P3DpositionSetting, P3DdirectionSetting ;
+int numSettingCamera = 1 ;
+int numSettingOrientationObject = 1 ;
+PVector [][] posObjSetting, dirObjSetting ;
 PVector [] eyeCameraSetting, sceneCameraSetting ;
 //position
 PVector startingPosition [] ;
-float [] P3DpositionX, P3DpositionY, P3DpositionZ ;
+float [] posObjX, posObjY, posObjZ ;
 
-PVector P3DpositionObjRef [] ;
-boolean P3DrefPos [] ;
-PVector [] posManipulation, dirManipulation ;
+PVector posObjRef ;
+boolean newObjRefPos ;
+PVector [] posObj, dirObj ;
 //orientation
-float [] P3DdirectionX, P3DdirectionY ;
+float [] dirObjX, dirObjY ;
 //PVector P3Ddirection [] ;
-PVector P3DdirectionObjRef [] ;
-boolean P3DrefDir [] ;
+PVector dirObjRef ;
+boolean newObjRefDir ;
 
 //position of object and wheel
 PVector [] mouse, pmouse, pen ;
@@ -229,7 +230,7 @@ void createVar() {
 
   createVarButton() ;
   createVarSound() ;
-  createVarP3D() ;
+  createVarP3D(numObj, numSettingCamera, numSettingOrientationObject) ;
   createVarCursor() ;
   createVarObject() ;
   createMiscVar() ;
@@ -281,29 +282,24 @@ void createVarCursor() {
    pen = new PVector[numObj] ;
 }
 // P3D
-void createVarP3D() {
+void createVarP3D(int numObj, int numSettingCamera, int numSettingOrientationObject) {
   //setting and save
-   numSettingCamera = 1 ;
    eyeCameraSetting = new PVector [numSettingCamera] ;
    sceneCameraSetting = new PVector [numSettingCamera] ;
-   numSettingOrientationObject = 1 ;
-   P3DpositionSetting = new PVector [numSettingOrientationObject] [numObj] ;
-   P3DdirectionSetting = new PVector [numSettingOrientationObject] [numObj] ;
+
+   posObjSetting = new PVector [numSettingOrientationObject] [numObj] ;
+   dirObjSetting = new PVector [numSettingOrientationObject] [numObj] ;
    //
    startingPosition = new PVector[numObj] ; //<>//
-   P3DpositionX = new float[numObj] ;
-   P3DpositionY = new float[numObj] ;
-   P3DpositionZ = new float[numObj] ;
-   P3DpositionObjRef = new PVector[numObj] ;
-   P3DrefPos = new boolean[numObj] ;
+   posObjX = new float[numObj] ;
+   posObjY = new float[numObj] ;
+   posObjZ = new float[numObj] ;
    
   //orientation
-   P3DdirectionX = new float[numObj] ;
-   P3DdirectionY = new float[numObj] ;
-   P3DdirectionObjRef = new PVector[numObj] ;
-   posManipulation = new PVector[numObj] ;
-   dirManipulation = new PVector[numObj] ;
-   P3DrefDir = new boolean[numObj] ;
+   dirObjX = new float[numObj] ;
+   dirObjY = new float[numObj] ;
+   posObj = new PVector[numObj] ;
+   dirObj = new PVector[numObj] ;
 }
 
 void createVarSound() {

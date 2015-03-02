@@ -26,7 +26,7 @@ void setup() {
   varObjSetup() ;
   fontSetup() ;
   soundSetup() ;
-  P3DSetup() ;
+  P3DSetup(modeP3D, numObj, numSettingCamera, numSettingOrientationObject) ;
 }
 
 
