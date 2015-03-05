@@ -627,10 +627,11 @@ void importPicButtonSetup() {
   ON_in_thumbnail = new PImage[num] ;
   ON_out_thumbnail = new PImage[num] ;
   for(int i=0 ;  i<num ; i++ ) {
-    OFF_in_thumbnail[i] = loadImage("thumbnail/OFF_in/OFF_in_"+i+".png") ;
-    OFF_out_thumbnail[i] = loadImage("thumbnail/OFF_out/OFF_out_"+i+".png") ;
-    ON_in_thumbnail[i] = loadImage("thumbnail/ON_in/ON_in_"+i+".png") ;
-    ON_out_thumbnail[i] = loadImage("thumbnail/ON_out/ON_out_"+i+".png") ;
+    String className = objectLoadName[i] ;
+    OFF_in_thumbnail[i] = loadImage("thumbnail/OFF_in/OFF_in_"+className+".png") ;
+    OFF_out_thumbnail[i] = loadImage("thumbnail/OFF_out/OFF_out_"+className+".png") ;
+    ON_in_thumbnail[i] = loadImage("thumbnail/ON_in/ON_in_"+className+".png") ;
+    ON_out_thumbnail[i] = loadImage("thumbnail/ON_out/ON_out_"+className+".png") ;
   }
   
 }

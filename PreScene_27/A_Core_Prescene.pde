@@ -2,6 +2,7 @@ Tablet tablet;
 void presceneSetup() {
   leap = new com.leapmotion.leap.Controller();
   tablet = new Tablet(this);
+  displayInfo3D = true ;
 }
 
 
@@ -71,7 +72,7 @@ void updateCommand() {
     ORDER_TWO = false ;
     ORDER_THREE = true ;
   }
-    
+
   if(!clickLongLeft[0] && !clickLongRight[0] && finger.activefingers != 2 && finger.activefingers != 1 && finger.activefingers != 3)  {
   // false
     ORDER_ONE = false ;
@@ -100,11 +101,12 @@ void cursorDraw() {
   // Leap and mouse move
   if (orderOneLeap || orderTwoLeap) {
     mouse[0] = new PVector(averageTranslatePosition(speedLeapmotion).x, -averageTranslatePosition(speedLeapmotion).y,averageTranslatePosition(speedLeapmotion).z)  ;
-  } else if(posRef.x != mouseX && posRef.y != mouseY) {
+  } else if(posRef.x != mouseX || posRef.y != mouseY) {
     mouse[0] = new PVector(mouseX,mouseY) ;
     pmouse[0] = new PVector(pmouseX,pmouseY) ;
     posRef = mouse[0].copy() ;
   }
+  
 
   
   // security to reset the pmouse for start clean for the next rotation

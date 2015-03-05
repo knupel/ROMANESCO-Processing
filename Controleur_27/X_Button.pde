@@ -132,18 +132,22 @@ class Simple extends Button {
  // vignette_OFF_in_simple, vignette_OFF_out_simple, vignette_ON_in_simple, vignette_ON_out_simple
  void buttonPicSerie(PImage[] OFF_in, PImage[] OFF_out, PImage[] ON_in, PImage[] ON_out, int whichOne) {
    int correctionX = -1 ;
-   if (onOff ) {
-     if (rollover() && !dropdownActivity) image(ON_in[whichOne],pos.x +correctionX, pos.y) ; else image(ON_out[whichOne],pos.x +correctionX, pos.y) ;
-   } else {
-     if (rollover() && !dropdownActivity) image(OFF_in[whichOne],pos.x +correctionX, pos.y) ; else image(OFF_out[whichOne],pos.x +correctionX, pos.y) ;
+   if(ON_in[whichOne] != null && ON_out[whichOne] != null && OFF_in[whichOne] != null && OFF_out[whichOne] != null ) {
+     if (onOff) {
+       if (rollover() && !dropdownActivity) image(ON_in[whichOne],pos.x +correctionX, pos.y) ; else image(ON_out[whichOne],pos.x +correctionX, pos.y) ;
+     } else {
+       if (rollover() && !dropdownActivity) image(OFF_in[whichOne],pos.x +correctionX, pos.y) ; else image(OFF_out[whichOne],pos.x +correctionX, pos.y) ;
+     }
    }
  }
  void buttonPic(PImage [] pic) {
    int correctionX = -1 ;
-   if ( onOff ) {
-     if (rollover() && !dropdownActivity) image(pic[1],pos.x +correctionX, pos.y ) ; else image(pic[0],pos.x +correctionX, pos.y ) ;
-   } else {
-     if (rollover() && !dropdownActivity) image(pic[3],pos.x +correctionX, pos.y ) ; else image(pic[2],pos.x +correctionX, pos.y) ;
+   if(pic[0] != null && pic[1] != null && pic[2] != null && pic[3] != null ) {
+     if (onOff) {
+       if (rollover() && !dropdownActivity) image(pic[1],pos.x +correctionX, pos.y ) ; else image(pic[0],pos.x +correctionX, pos.y ) ;
+     } else {
+       if (rollover() && !dropdownActivity) image(pic[3],pos.x +correctionX, pos.y ) ; else image(pic[2],pos.x +correctionX, pos.y) ;
+     }
    }
  }
  void buttonPicText(PImage [] pic, String text) {

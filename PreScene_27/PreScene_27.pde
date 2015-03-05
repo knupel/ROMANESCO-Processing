@@ -48,12 +48,13 @@ void draw() {
   lightPosition() ;
   //use romanesco object
   romanescoManager.displayObject(ORDER_ONE, ORDER_TWO, ORDER_THREE) ;
-  repereCamera(sizeBackgroundP3D) ;
+  if(modeP3D) createGridCamera() ;
+  // gridCamera(sizeBackgroundP3D) ;
   stopCamera() ;
   
   //annexe
   info() ;
-  curtain() ;
+  // curtain() ;
   
   // misc
   cursorDraw() ;

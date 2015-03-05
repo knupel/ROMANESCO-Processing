@@ -41,6 +41,7 @@ void leapMotionSetup() {
 
 void leapMotionUpdate() {
   finger.updateLeap() ;
+  LEAPMOTION_DETECTED = false ;
   if(fingerVisibleCheck()) LEAPMOTION_DETECTED = true ; else LEAPMOTION_DETECTED = false ;
 }
 

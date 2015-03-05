@@ -1,5 +1,49 @@
 ///////////////////////
-ROMANESCO 0.26 Revision
+ROMANESCO 27 Revision
+
+/// CORE ///
+/// ADD ///
+* slider attraction
+* slider repulsion
+* slider alignement
+* slider influence
+* option to change the minimum and maximum value for the slider
+
+* class canvas
+* void camaieu
+
+
+/// REMOVE ///////
+* slider force
+* remove the old class slider
+* curtain on Prescene
+
+/// IMPROVE ///
+* normalize slider family 
+* normalize slider quantity
+* grid camera
+* change the system name of pic object thumbnail from "number" to "class name", easier to add pic thumbnail when there is new object is library.
+
+
+/// BUG FIXE
+* rotation and move jump camera with the mouse
+* fixe the loading bug
+
+
+/// OBJECT ///
+/// ADD OBJ ///
+* Boids
+
+
+// CHANGE OBJ
+
+
+/// BUG FIXE OBJ
+
+
+
+///////////////////////
+ROMANESCO 26 Revision
 
 /// CORE ///
 /// ADD ///
@@ -43,7 +87,7 @@ ROMANESCO 0.26 Revision
 
 
 ////////////////////////
-ROMANESCO 0.25 Revision
+ROMANESCO 25 Revision
 ///////////////////////
 
 

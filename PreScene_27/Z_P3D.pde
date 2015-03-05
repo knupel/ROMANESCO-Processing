@@ -38,15 +38,14 @@ void P3DSetup(boolean modeP3D, int numObj, int numSettingCamera, int numSettingO
   if(modeP3D) {
     sizeBackgroundP3D = new PVector(width *100, height *100, height *7.5) ;
     settingAllCameras (numSettingCamera) ;
-    settingCameraManipulation (numObj) ;
+    settingObjManipulation (numObj) ;
     settingObjectManipulation(numObj, numSettingCamera, numSettingOrientationObject) ;
   }
-    
-
 }
 
-// ANNEXE setting camera and object manipulation
-void settingCameraManipulation (int numObj) {
+
+// ANNEXE setting object manipulation
+void settingObjManipulation (int numObj) {
   //P3D for all ROMANESCO object
   for ( int i = 0 ; i < numObj ; i++ ) {
     posObj[i] = new PVector() ; 
@@ -56,13 +55,6 @@ void settingCameraManipulation (int numObj) {
   }
 }
 
-void settingAllCameras (int numSettingCamera) {
-  for ( int i = 0 ; i < numSettingCamera ; i++ ) {
-     eyeCameraSetting[i] = new PVector () ;
-     sceneCameraSetting[i] = new PVector () ;
-  }
-}
-  
 void settingObjectManipulation (int numObj, int numSettingCamera, int numSettingOrientationObject) {
   // object orientation
   for ( int i = 0 ; i < numSettingOrientationObject ; i++ ) {
@@ -72,6 +64,16 @@ void settingObjectManipulation (int numObj, int numSettingCamera, int numSetting
      }
    }
 }
+
+// ANNEXE setting camera manipulation
+void settingAllCameras (int numSettingCamera) {
+  for ( int i = 0 ; i < numSettingCamera ; i++ ) {
+     eyeCameraSetting[i] = new PVector () ;
+     sceneCameraSetting[i] = new PVector () ;
+  }
+}
+  
+
 
 //END SETUP
 ///////////
@@ -88,8 +90,8 @@ void settingObjectManipulation (int numObj, int numSettingCamera, int numSetting
 
 
 
-//////////////////////////////////////////////////////
-//OBJECT ORIENTATION AND POSITION, For specific object
+////////////////////////////////
+//OBJECT position and direction
 // MAIN
 // final direction and oriention with object ID
 void objectMove(boolean movePos, boolean moveDir, int ID) {
@@ -338,7 +340,6 @@ PVector updateEyeCamera(boolean authorization, PVector posMouse) {
     if(newRefEyeMouse) {
       posEyeCameraRef = tempEyeCamera.copy() ;
       posEyeMouseRef = posMouse.copy() ;
-            println(eyeCamera,posMouse, posEyeMouseRef, posEyeCameraRef) ;
     }
     //to create a only one ref position
     newRefEyeMouse = false ;
@@ -370,6 +371,22 @@ void stopCamera() {
     stopParalaxe() ;
   }
 }
+
+// END CAMERA
+/////////////
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 // EYE POSITION two solutions
 /*
@@ -425,38 +442,17 @@ void changeCameraPosition(int ID) {
   gotoCameraPosition = false ;
   gotoCameraEye = false ;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// CAMERA GOTO
-/*
-void cameraGoto(PVector newPos) {
-  sceneCamera = newPos ;
-}
-*/
-
 //END of change position of CAMERA
 //////////////////////////////////
+
+
+
+
+
+
+
+
+
 
 
 //GET
@@ -660,3 +656,83 @@ void stopParalaxe() {
 }
 // END PERSPECTIVE
 //////////////////
+
+
+
+
+
+
+
+
+
+
+
+
+// GRID CAMERA WORLD
+/////////////////////
+void createGridCamera() {
+  // PVector sizeGrid = new PVector(width *20, height *20, width *20) ;
+  float thickness = .5 ;
+  color rougeX = #D31216 ;
+  color vertY = #2DA308 ;
+  color jauneY = #EFB90F ;
+  color bleuGrid = #596F91 ;
+  PFont font = createFont("SansSerif",10) ;
+  gridCamera(sizeBackgroundP3D, thickness, rougeX, vertY, jauneY, bleuGrid, font, displayInfo3D) ;
+
+}
+
+
+
+//repere camera
+void gridCamera(PVector size, float thickness, color colorX, color colorY,color colorZ, color colorGrid, PFont font, boolean showGrid) {
+  if(showGrid)  {
+    PVector newSize =  PVector.mult(size,.2) ;
+
+    int posTxt = 10 ;
+    
+    textFont(font, 10) ;
+    //GRID
+    grid(size, thickness *.1, colorGrid) ;
+
+    //AXES
+    strokeWeight(thickness *.1) ;
+    // X LINE
+    fill(colorX) ;
+    text("X LINE XXX", posTxt,-posTxt) ;
+    stroke(colorX) ; noFill() ;
+    line(-newSize.x,0,0,newSize.x,0,0) ;
+
+    // Y LINE
+    fill(colorY) ;
+    pushMatrix() ;
+    rotateZ(radians(-90)) ;
+    text("Y LINE YYY", posTxt,-posTxt) ;
+    popMatrix() ;
+    stroke(colorY) ; noFill() ;
+    line(0,-newSize.y,0,0,newSize.y,0) ;
+    
+    // Z LINE
+    fill(colorZ) ;
+    pushMatrix() ;
+    rotateY(radians(90)) ;
+    text("Z LINE ZZZ", posTxt,-posTxt) ;
+    popMatrix() ;
+    stroke(colorZ) ; noFill() ;
+    line(0,0,-newSize.z,0,0,newSize.z) ;
+  }
+}
+
+
+void grid(PVector s, float thickness, color colorGrid) {
+  strokeWeight(thickness) ;
+  noFill() ;
+  stroke(colorGrid) ;
+  int sizeX = (int)s.z ;
+  //horizontal grid
+  for ( int i = -sizeX ; i<= sizeX ; i = i+10 ) {
+    if(i != 0 ) line(i,0,-sizeX,i,0,sizeX) ;
+  }
+}
+//END CAMERA GRID WORLD
+///////////////////////
