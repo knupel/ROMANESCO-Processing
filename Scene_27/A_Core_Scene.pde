@@ -306,7 +306,6 @@ void miroirSetup() {
 void miroirDraw() {
   if(yTouch) syphon = !syphon ;
   if (syphon) miroir.update();
-  println(syphon) ;
 }
 
 

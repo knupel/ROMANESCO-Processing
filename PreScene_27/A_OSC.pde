@@ -7,7 +7,7 @@ String sendToScene = ("127.0.0.1") ;
 String sendToMiroir = ("127.0.0.1") ;
 
 //message from controler
-String fromControler [] = new String [8] ;
+
 //message from pré-Scène
 String toScene = ("Message from Préscène") ;
 
@@ -29,9 +29,11 @@ void OSCSetup() {
 }
 
 
+int numOfPartSendByController = 6 ; 
+String fromControler [] = new String [numOfPartSendByController] ;
 //EVENT to check what else is receive by the receiver
-void oscEvent(OscMessage receive ) {
-  //catch data from controleur
+void oscEvent(OscMessage receive) {
+  //catch data from controller
   for ( int i = 0 ; i < fromControler.length ; i++ ) {
     fromControler [i] = receive.get(i).stringValue() ;
   }
@@ -39,24 +41,24 @@ void oscEvent(OscMessage receive ) {
   valueButtonGlobal = int(split(fromControler [0], '/')) ;
   // stick the Int(String) chain from the group one, two and three is single chain integer(String).
   String fullChainValueButtonObj =("") ;
-  for ( int i = 1 ; i <= numGroup ; i++ ) {
+  for ( int i = 1 ; i <= NUM_GROUP ; i++ ) {
     fullChainValueButtonObj += fromControler [i]+"/" ;
   }
   valueButtonObj = int(split(fullChainValueButtonObj, '/')) ;
   
   //SLIDER
   //split String value from controler
-  for ( int i = 0 ; i < numGroup+1 ; i++ ) {
-    valueSliderTemp [i] = split(fromControler [i+4], '/') ;
+  int numTotalGroup = NUM_GROUP +1 ;
+  for ( int i = 0 ; i < numTotalGroup ; i++ ) {
+    valueSliderTemp [i] = split(fromControler [i +numTotalGroup], '/') ;
   }
   // translate the String value to the float var to use
-  for ( int i = 0 ; i < numGroup+1 ; i++ ) {
+  for ( int i = 0 ; i < NUM_GROUP +1 ; i++ ) {
     // security because there not same quantity of slider in the group one and the other group
     int n = 0 ;
     if ( i < 1 ) n = numSliderGroupZero ; else n = numSlider ;
     for (int j = 0 ; j < n ; j++) {
       valueSlider[i][j] = Float.valueOf(valueSliderTemp[i][j]) ;
-      
     }
   }
 }
@@ -158,9 +160,34 @@ void OSCDraw() {
    
    toScene = join(dataPreScene, "/") ;
    
-   //PROBLEM with packet to send, we must join the smaller pack with the new one
-   // fromControler[4] = fromControler[4] + "/" + toScene ;
-   fromControler[4] = fromControler[4] + "/" +dataPreScene[0] + "/" +dataPreScene[1] + "/" +dataPreScene[2] + "/" +dataPreScene[3] + "/" +dataPreScene[4] + "/" +dataPreScene[10] ; 
+   
+   
+   ////////////// WEIRD /////////////////////////////////////////////////////////
+
+
+   
+   
+  fromControler[NUM_GROUP +1] = fromControler[NUM_GROUP +1] + "/" +dataPreScene[0] + "/" +dataPreScene[1] + "/" +dataPreScene[2] + "/" +dataPreScene[3] + "/" +dataPreScene[4] + "/" +dataPreScene[10] ;
+  println("après", fromControler[NUM_GROUP +1]) ;
+     /* I don't understand this line  why we must  add this data dataPreScene[0], dataPreScene[1], dataPreScene[2], dataPreScene[3], dataPreScene[4], dataPreScene[10] here, this not real interesting dateindexObjects
+     plus  we add all data at th end.
+     see line : RomanescoScene.add(toScene);
+   In the test just dataPreScene[0] change the value between 1 and 0
+   
+   But if don't add ths line below the Scene crash
+   in the method OSCdraw() {
+    ...
+    eBeat = valueButtonGlobal[1]
+    ... }
+    with this error message
+    nullpointer : Arrayover flows...
+    method in charge OSCevent
+    javalangreflect.Invokation target Exception
+
+   */
+  
+  
+  
   
   //SEND data to SCENE
   //send info from scene
@@ -173,6 +200,17 @@ void OSCDraw() {
     sizeDataLengthFromPrescene += fromControler[i] ;
   }
   RomanescoScene.add(toScene);
+  
+  
+  
+  /* TEST
+  String test [] = new String [numOfPartSendByController +1] ;
+  for ( int i = 0 ; i < test.length ; i++ ) {
+    test [i] = RomanescoScene.get(i).stringValue() ;
+    println(i, test[i]) ;
+  }
+  */
+
   //send
   if (youCanSendToScene)osc.send(RomanescoScene, targetScene); 
   if (youCanSendToMiroir) osc.send(RomanescoScene, targetMiroir);

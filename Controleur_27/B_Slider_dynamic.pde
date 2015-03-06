@@ -278,16 +278,6 @@ void checkObjectOnOff() {
       if(mousePressed)  activityButtonParameter = !activityButtonParameter ;
     }
   }
-  for(int i = 0 ; i < numGroup[3] ; i++ ) {
-    int whichOne = i*10 +2 ;
-    if (EtatBTYf[whichOne] == 1) {
-      objectActive[i +numGroup[1] +numGroup[2] +1] = true ; 
-      if(mousePressed)  activityButtonParameter = !activityButtonParameter ;
-    } else { 
-      objectActive[i +numGroup[1] +numGroup[2] +1] = false ;
-      if(mousePressed)  activityButtonParameter = !activityButtonParameter ;
-    }
-  }
   
   if(activityParameter) resetSlider = true ;
   activityParameter = false ;

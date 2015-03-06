@@ -4,7 +4,7 @@ import java.awt.event.KeyEvent;
 // CONSTANT VAR
 final int NUM_COL_SLIDER = 3 ;
 final int BUTTON_BY_OBJECT = 4 ;
-final int NUM_GROUP_SLIDER = 4 ;
+final int NUM_GROUP_SLIDER = 3 ;
 final int NUM_SLIDER_GLOBAL = 14 ;
 final int NUM_SLIDER = 350 ;
 final int SLIDER_BY_GROUP = 30 ;

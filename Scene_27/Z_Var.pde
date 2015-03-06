@@ -83,7 +83,7 @@ int numBand = 16 ;
 //font
 int numFont = 50 ;
 //quantity of group object slider
-int numGroup = 3 ;
+int NUM_GROUP = 2 ;
 
 int numSliderGroupZero = 14 ;
 int numSlider = 30 ;
@@ -155,8 +155,8 @@ int mode[]  ;
 //BUTTON
 int [] valueButtonGlobal, valueButtonObj  ;
 //SLIDER
-String valueSliderTemp[][]  = new String [numGroup+1][numSlider] ;
-float valueSlider[][]  = new float [numGroup+1][numSlider] ;
+String valueSliderTemp[][]  = new String [NUM_GROUP+1][numSlider] ;
+float valueSlider[][]  = new float [NUM_GROUP+1][numSlider] ;
 
 
 //MISC
@@ -343,28 +343,28 @@ void createVarButton() {
 void createVarObject() {
     // VAR raw
   // col 1
-  fillRaw = new color[numGroup] ;
-  strokeRaw = new color[numGroup] ;
-  thicknessRaw = new float[numGroup] ;
+  fillRaw = new color[NUM_GROUP] ;
+  strokeRaw = new color[NUM_GROUP] ;
+  thicknessRaw = new float[NUM_GROUP] ;
   // col two
-  sizeXRaw = new float[numGroup] ;   sizeYRaw = new float[numGroup] ;    sizeZRaw = new float[numGroup] ;
-  canvasXRaw = new float[numGroup] ; canvasYRaw = new float[numGroup] ;  canvasZRaw = new float[numGroup] ;
-  familyRaw = new float[numGroup] ;  quantityRaw = new float[numGroup] ; lifeRaw = new float[numGroup] ;
+  sizeXRaw = new float[NUM_GROUP] ;   sizeYRaw = new float[NUM_GROUP] ;    sizeZRaw = new float[NUM_GROUP] ;
+  canvasXRaw = new float[NUM_GROUP] ; canvasYRaw = new float[NUM_GROUP] ;  canvasZRaw = new float[NUM_GROUP] ;
+  familyRaw = new float[NUM_GROUP] ;  quantityRaw = new float[NUM_GROUP] ; lifeRaw = new float[NUM_GROUP] ;
   //col three
-  speedRaw = new float[numGroup] ;
-  directionRaw = new float[numGroup] ;
-  angleRaw = new float[numGroup] ;
-  amplitudeRaw = new float[numGroup] ;
-  attractionRaw = new float[numGroup] ;
-  repulsionRaw = new float[numGroup] ;
-  alignmentRaw = new float[numGroup] ;
-  influenceRaw = new float[numGroup] ;
-  analyzeRaw = new float[numGroup] ;
+  speedRaw = new float[NUM_GROUP] ;
+  directionRaw = new float[NUM_GROUP] ;
+  angleRaw = new float[NUM_GROUP] ;
+  amplitudeRaw = new float[NUM_GROUP] ;
+  attractionRaw = new float[NUM_GROUP] ;
+  repulsionRaw = new float[NUM_GROUP] ;
+  alignmentRaw = new float[NUM_GROUP] ;
+  influenceRaw = new float[NUM_GROUP] ;
+  analyzeRaw = new float[NUM_GROUP] ;
   
   
   
   //future slider
-  fontSizeRaw = new float[numGroup] ;
+  fontSizeRaw = new float[NUM_GROUP] ;
   
   // VAR object
   fillObj = new color[numObj] ;
@@ -412,7 +412,7 @@ void varObjSetup() {
 // UPDATE DATA from CONTROLER and PRESCENE
 void updateVar() {
   //from column 1
-  for(int i = 0 ; i < numGroup ; i++) {
+  for(int i = 0 ; i < NUM_GROUP ; i++) {
     int minSource = 0 ;
     // int maxSource = 1 ;
     float minSize = .1 ;

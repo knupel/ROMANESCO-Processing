@@ -136,7 +136,6 @@ void initVarButton() {
   valueButtonGlobal = new int[numButton[0]] ;
   valueButtonObj = new int[numButton[1]] ;
   valueButtonTex = new int[numButton[2]] ;
-  valueButtonTypo = new int[numButton[3]] ;
   // Group one
   BOf = new Simple[numButton[1] +10] ;
   transparenceBordBOf =      new int[numButton[1] +10] ;
@@ -157,21 +156,11 @@ void initVarButton() {
   longueurBTf =              new int[numButton[2] +10] ;
   hauteurBTf =               new int[numButton[2] +10] ;
   
-  // group three
-  BTYf = new Simple[numButton[3] +10] ;
-  transparenceBordBTYf =      new int[numButton[3] +10] ;
-  epaisseurBordBTYf =         new int[numButton[3] +10] ;
-  transparenceBoutonBTYf =    new int[numButton[3] +10] ;
-  posWidthBTYf =              new int[numButton[3] +10] ;
-  posHeightBTYf =             new int[numButton[3] +10] ;
-  longueurBTYf =              new int[numButton[3] +10] ;
-  hauteurBTYf =               new int[numButton[3] +10] ;
+
   
   //paramètre bouton
   EtatBOf = new int[numButton[1]] ;
   EtatBTf = new int[numButton[2]] ;
-  EtatBTYf = new int[numButton[3]] ;
-  // EtatBIf = new int[numButton] ;
   
   //dropdown
   modeListRomanesco = new String[numDropdown] ;
@@ -181,8 +170,6 @@ void initVarButton() {
   endLoopObject = 1 +numGroup[1] ;
   startLoopTexture = endLoopObject ; 
   endLoopTexture = startLoopTexture +numGroup[2] ;
-  startLoopTypo = endLoopTexture ; 
-  endLoopTypo = startLoopTypo +numGroup[3] ;
 
 }
 
@@ -230,7 +217,7 @@ void numByGroup() {
     }
   }
   //give the num total of objects
-  numObj = numGroup[1] +numGroup[2] +numGroup[3] ;
+  numObj = numGroup[1] +numGroup[2] ;
 }
 // END BUILD LIBRARY
 ////////////////////
@@ -523,16 +510,6 @@ void buttonSetSaveSetting() {
       BTf[buttonRank].IDmidi = (int)infoButton[rank].y ; 
     } 
   }
-  whichGroup = 3 ;
-  for( int i = 1 ; i <= numGroup[whichGroup] ; i++ ) {
-    for (int j = 1 ; j <= BUTTON_BY_OBJECT ; j++) {
-      rank++ ;
-      println(i, j, rank) ;
-      buttonRank = (int)infoButton[rank].x ;
-      if(infoButton[rank].z == 1.0 && buttonRank == (i*10)+j) BTYf[buttonRank].onOff = true ; else BTYf[buttonRank].onOff = false ; 
-      BTYf[buttonRank].IDmidi = (int)infoButton[rank].y ; 
-    }
-  }
 }
 
 
@@ -621,17 +598,17 @@ void importPicButtonSetup() {
     picAction[i]   = loadImage("picto/picto_action_"+i+".png") ;
   }
   // load thumbnail
-  int num = numGroup[1] + numGroup[2] + numGroup[3] +1 ;
+  int num = numGroup[1] +numGroup[2] +1 ;
   OFF_in_thumbnail = new PImage[num] ;
   OFF_out_thumbnail = new PImage[num] ;
   ON_in_thumbnail = new PImage[num] ;
   ON_out_thumbnail = new PImage[num] ;
   for(int i=0 ;  i<num ; i++ ) {
-    String className = objectLoadName[i] ;
+    String className = ("0") ;
+    if (objectLoadName[i] != null ) className = objectLoadName[i] ;
     OFF_in_thumbnail[i] = loadImage("thumbnail/OFF_in/OFF_in_"+className+".png") ;
     OFF_out_thumbnail[i] = loadImage("thumbnail/OFF_out/OFF_out_"+className+".png") ;
     ON_in_thumbnail[i] = loadImage("thumbnail/ON_in/ON_in_"+className+".png") ;
     ON_out_thumbnail[i] = loadImage("thumbnail/ON_out/ON_out_"+className+".png") ;
   }
-  
 }

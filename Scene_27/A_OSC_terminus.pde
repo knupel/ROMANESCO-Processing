@@ -5,37 +5,50 @@ void OSCSetup() {
 }
 
 //EVENT
-String dataPreScene [] = new String[9] ;
+int numOfPartSendByPrescene = 7 ; 
+// this num is equal of the part from Controller plus One part of the prescene with information catch in Prescene : mouse, leap...
+String dataPreScene [] = new String[numOfPartSendByPrescene] ;
+
+
+
+
 // to check what else is receive by the receiver
 void oscEvent(OscMessage receive ) {
-  //BUTTON
-  //position in the receive list, here is the last i+1, so it's numSlider
+  
+  
+  // split all info from Prescene
   String sizeInfoReception = ("") ;
   for (int i = 0 ; i < dataPreScene.length ; i++ ) {
     dataPreScene [i] = receive.get(i).stringValue() ;
     sizeInfoReception += dataPreScene [i] ;
-  }
     
-
+  }
+  
+    
+  // Catch the particular info 
   //BUTTON
+  /* split String value from controler */
   valueButtonGlobal = int(split(dataPreScene[0], '/')) ;
   // stick the Int(String) chain from the group one, two and three is single chain integer(String).
   String fullChainValueButtonObj =("") ;
-  for ( int i = 1 ; i <= numGroup ; i++ ) {
+  for ( int i = 1 ; i <= NUM_GROUP ; i++ ) {
     fullChainValueButtonObj += dataPreScene[i]+"/" ;
   }
   valueButtonObj = int(split(fullChainValueButtonObj, '/')) ;
   
   //SLIDER
-  //split String value from controler
-  for ( int i = 0 ; i < numGroup+1 ; i++ ) {
-    valueSliderTemp [i] = split(dataPreScene[i+4], '/') ;
+  /* split String value from controler */
+  int numGroupTotal = NUM_GROUP+1 ;
+  for ( int i = 0 ; i < numGroupTotal ; i++ ) {
+    valueSliderTemp [i] = split(dataPreScene[i+numGroupTotal], '/') ;
     
   }
+  
   //PRESCENE
-  valueTempPreScene = split(dataPreScene[8], '/') ;
+  /* split info, we catch here the lat port of OSC info */
+  valueTempPreScene = split(dataPreScene[numOfPartSendByPrescene -1], '/') ;
   // translate the String value to the float var to use
-  for ( int i = 0 ; i < numGroup+1 ; i++ ) {
+  for ( int i = 0 ; i < NUM_GROUP+1 ; i++ ) {
     // security because there not same quantity of slider in the group one and the other group
     int n = 0 ;
     if ( i < 1 ) n = numSliderGroupZero ; else n = numSlider ;
@@ -44,6 +57,9 @@ void oscEvent(OscMessage receive ) {
     }
   }
   
+  
+  
+  // Info distribution
   if(valueTempPreScene[0].equals("0") ) spaceTouch = false ; else spaceTouch = true ;  
   
   if(valueTempPreScene[1].equals("0") ) aTouch = false ; else aTouch = true ;
@@ -150,7 +166,7 @@ void oscEvent(OscMessage receive ) {
 //DRAW
 void OSCDraw() {
   //GLOBAL
-  if(valueButtonGlobal.length > 1 || valueButtonObj.length > 1 ) {
+  if(valueButtonGlobal.length > 0 || valueButtonObj.length > 0 ) {
     eBeat = valueButtonGlobal[1] ;
     eKick = valueButtonGlobal[2] ;
     eSnare = valueButtonGlobal[3] ;

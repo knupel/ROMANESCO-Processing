@@ -52,14 +52,6 @@ void midiButtonManager(boolean saveButton) {
     midiButton(BTf[posRankButton(i,rank)], posRankButton(i,rank), saveButton) ; rank++ ; 
     midiButton(BTf[posRankButton(i,rank)], posRankButton(i,rank), saveButton) ;     
   }
-  whichGroup = 3 ;
-  for( int i = 1 ; i <= numGroup[whichGroup] ; i++ ) {
-    rank = 1 ;
-    midiButton(BTYf[posRankButton(i,rank)], posRankButton(i,rank), saveButton) ; rank++ ;
-    midiButton(BTYf[posRankButton(i,rank)], posRankButton(i,rank), saveButton) ; rank++ ;
-    midiButton(BTYf[posRankButton(i,rank)], posRankButton(i,rank), saveButton) ; rank++ ;
-    midiButton(BTYf[posRankButton(i,rank)], posRankButton(i,rank), saveButton) ;
-  }
 }
 
 

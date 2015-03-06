@@ -86,7 +86,6 @@ int lineHeader = 30 ;
 int lineGroupZero = 70 ;
 int lineGroupOne = 185 ;
 int lineGroupTwo = 390 ;
-int lineGroupThree = 595 ;
 int topMenuPos = lineHeader +10 ;
 
 int spacingBetweenSlider = 13 ;
@@ -169,11 +168,6 @@ void structureDraw() {
   fill(grisTresFonce) ;
   rect(0, lineGroupTwo -16, width, 2) ;
   
-  // GROUP THREE
-  fill(gris) ;
-  rect(0, lineGroupThree -24 +thicknessDecoration, width, thicknessDecoration) ; 
-  fill(grisTresFonce) ;
-  rect(0, lineGroupThree -16, width, 2) ;
   
 
 }
@@ -239,7 +233,6 @@ void sliderSetup() {
   groupZeroSlider (lineHeader) ;
   groupOneSlider (lineGroupOne +correctionSliderObject) ;
   groupTwoSlider (lineGroupTwo +correctionSliderObject) ;
-  groupThreeSlider (lineGroupThree +correctionSliderObject) ;
 }
 // LOCAL SLIDER SETUP METHOD
 void groupZeroSlider(int pos) {
@@ -506,12 +499,6 @@ void dislayTextSlider() {
   fill (colorTextUsual) ;
   textFont(textUsual_1);  textAlign(LEFT);
   
-  //GROUP THREE
-  textFont(FuturaStencil_20,20); textAlign(RIGHT);
-  fill(grisFonce) ;
-  pushMatrix () ; rotate (-PI/2) ; text("GROUP THREE", -lineGroupThree, 20); popMatrix() ;
-  fill (colorTextUsual) ;
-  textFont(textUsual_1); textAlign(LEFT);
   
   // Legend text slider position
   int correctionY = correctionSliderObject +4 ;
@@ -525,10 +512,6 @@ void dislayTextSlider() {
     text(sliderNameOne[i +1], colOne +correctionX, lineGroupTwo +correctionY +(i*spacingBetweenSlider));
     text(sliderNameTwo[i +1], colTwo +correctionX, lineGroupTwo +correctionY +(i*spacingBetweenSlider));
     text(sliderNameThree[i +1], colThree +correctionX, lineGroupTwo +correctionY +(i*spacingBetweenSlider));
-    //group Three
-    text(sliderNameOne[i +1], colOne +correctionX, lineGroupThree +correctionY +(i*spacingBetweenSlider));
-    text(sliderNameTwo[i +1], colTwo +correctionX, lineGroupThree +correctionY +(i*spacingBetweenSlider));
-    text(sliderNameThree[i +1], colThree +correctionX, lineGroupThree +correctionY +(i*spacingBetweenSlider));
   }
 }
 // end text
@@ -678,7 +661,6 @@ void hueSliderBG (float posX, float posY, float heightSlider, float widthSlider)
 // saturation
 void saturationSliderBG (float posX, float posY, float heightSlider, float widthSlider, float colour, float s, float d) {
   pushMatrix () ;
-  println(colour) ;
   translate (posX , posY-(heightSlider *.5)) ;
   for ( int i=0 ; i < widthSlider ; i++ ) {
     for ( int j=0 ; j <=heightSlider ; j++ ) {
@@ -763,7 +745,6 @@ void constructorButton() {
   // we don't use the BOf[0], BTf[0] and BTYf[0] must he must be init in case we add object in Scene and this one has never use before and don't exist in the save pref
   BOf[0] = new Simple(pos, size, boutonONin, boutonONout, boutonOFFin, boutonOFFout, gris, grisNoir, false) ;
   BTf[0] = new Simple(pos, size, boutonONin, boutonONout, boutonOFFin, boutonOFFout, gris, grisNoir, false) ;
-  BTYf[0] = new Simple(pos, size, boutonONin, boutonONout, boutonOFFin, boutonOFFout, gris, grisNoir, false) ;
   // init the object library
   for(int i = 1 ; i < NUM_GROUP_SLIDER ; i++) {
     int num = numButton[i] ;
@@ -777,11 +758,6 @@ void constructorButton() {
         pos = new PVector(posWidthBTf[j], posHeightBTf[j]) ;
         size = new PVector(longueurBTf[j], hauteurBTf[j]) ; 
         BTf[j] = new Simple(pos, size, boutonONin, boutonONout, boutonOFFin, boutonOFFout, gris, grisNoir, false) ;
-      }
-      if(numGroup[3] > 0 && i == 3) {
-        pos = new PVector(posWidthBTYf[j], posHeightBTYf[j]) ;
-        size = new PVector(longueurBTYf[j], hauteurBTYf[j]) ;
-        BTYf[j] = new Simple(pos, size, boutonONin, boutonONout, boutonOFFin, boutonOFFout, gris, grisNoir, false) ;
       }
     }
 
@@ -832,7 +808,6 @@ void buttonSetup() {
 
   groupOneButton(lineGroupOne +correctionButtonObject) ;
   groupTwoButton(lineGroupTwo +correctionButtonObject) ;
-  groupThreeButton(lineGroupThree +correctionButtonObject) ;
 }
 
 // LOCAL METHOD SETUP
@@ -878,7 +853,6 @@ void buttonDraw() {
   buttonDrawGroupZero() ;
   buttonDrawGroupOne() ;
   buttonDrawGroupTwo() ;
-  buttonDrawGroupThree() ;
   buttonCheckDraw() ;
   dropdownDraw() ;
   buttonInfoOnTheTop() ;
@@ -945,20 +919,6 @@ void buttonDrawGroupTwo() {
   }
 }
 
-//GROUP THREE
-void buttonDrawGroupThree() {
-  // var use to find the good thumbnail
-  int rankThumbnail = numGroup[1] + numGroup[2] ;
-  for( int i = 1 ; i <= numGroup[3] ; i++ ) {
-    BTYf[i*10 +1].buttonPicSerie(OFF_in_thumbnail, OFF_out_thumbnail, ON_in_thumbnail, ON_out_thumbnail, i +rankThumbnail) ; 
-    BTYf[i*10 +2].buttonPic(picSetting) ;
-    BTYf[i*10 +3].buttonPic(picSound) ; 
-    BTYf[i*10 +4].buttonPic(picAction) ; 
-    PVector pos = new PVector (posWidthBTYf[i*10 +2], posHeightBTYf[i*10 +1] +10) ;
-    PVector size = new PVector (20, 30) ;
-    rolloverInfoVignette(pos, size, i, 3) ;
-  }
-}
 
 
 
@@ -986,7 +946,6 @@ void buttonCheckDraw() {
     for( int j = 11 ; j < num ; j++) {
       if(numGroup[1] > 0 && i == 1 ) EtatBOf[j-10] = BOf[j].getOnOff() ;
       if(numGroup[2] > 0 && i == 2 ) EtatBTf[j-10] = BTf[j].getOnOff() ;
-      if(numGroup[3] > 0 && i == 3 ) EtatBTYf[j-10] = BTYf[j].getOnOff() ;
     }
   }
 }
@@ -1103,8 +1062,6 @@ void dropdownSetup() {
   checkTheDropdownSetupObject(startLoopObject, endLoopObject, margeLeft +newPos.x, lineGroupOne +newPos.y) ;
   // group two
   checkTheDropdownSetupObject(startLoopTexture, endLoopTexture, margeLeft +newPos.x, lineGroupTwo +newPos.y) ;
-  // group three
-  checkTheDropdownSetupObject(startLoopTypo, endLoopTypo, margeLeft +newPos.x, lineGroupThree +newPos.y) ;
 }
 
 void checkTheDropdownSetupObject( int start, int end, float posWidth, float posHeight) {

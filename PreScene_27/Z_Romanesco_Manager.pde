@@ -60,7 +60,7 @@ void updateObject(int ID, int group) {
 
 //
 void updateParameter(int ID, int group) {
-  for ( int i = 0 ; i <= numGroup ; i++) if( group == i ) {
+  for ( int i = 0 ; i <= NUM_GROUP ; i++) if( group == i ) {
     int whichOne = i-1 ;
     if(fullRendering) {
       fillObj[ID] = fillRaw[whichOne] ;

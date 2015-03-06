@@ -338,7 +338,6 @@ PVector updateEyeCamera(boolean authorization, PVector posMouse) {
     if(newRefEyeMouse) {
       posEyeCameraRef = tempEyeCamera.copy() ;
       posEyeMouseRef = posMouse.copy() ;
-            println(eyeCamera,posMouse, posEyeMouseRef, posEyeCameraRef) ;
     }
     //to create a only one ref position
     newRefEyeMouse = false ;
