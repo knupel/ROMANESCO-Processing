@@ -168,7 +168,7 @@ void OSCDraw() {
    
    
   fromControler[NUM_GROUP +1] = fromControler[NUM_GROUP +1] + "/" +dataPreScene[0] + "/" +dataPreScene[1] + "/" +dataPreScene[2] + "/" +dataPreScene[3] + "/" +dataPreScene[4] + "/" +dataPreScene[10] ;
-  println("après", fromControler[NUM_GROUP +1]) ;
+  // println("après", fromControler[NUM_GROUP +1]) ;
      /* I don't understand this line  why we must  add this data dataPreScene[0], dataPreScene[1], dataPreScene[2], dataPreScene[3], dataPreScene[4], dataPreScene[10] here, this not real interesting dateindexObjects
      plus  we add all data at th end.
      see line : RomanescoScene.add(toScene);

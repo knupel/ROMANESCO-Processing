@@ -151,7 +151,8 @@ PVector updateDirObj(PVector speed, int ID, boolean authorization) {
 PVector updatePosObj(PVector pos, int ID, boolean authorization) {
   // XY pos
   if(newObjRefPos) {
-    posObjRef = pos.copy() ;
+    println("je suis là") ;
+    posObjRef[ID] = pos.copy() ;
     P3DpositionMouseRef = mouse[0].copy() ;
   }
   if (authorization) {
@@ -161,13 +162,15 @@ PVector updatePosObj(PVector pos, int ID, boolean authorization) {
     deltaObjPos.x = mouse[0].x -P3DpositionMouseRef.x ;
     deltaObjPos.y = mouse[0].y -P3DpositionMouseRef.y ;
     deltaObjPos.z = mouse[0].z -P3DpositionMouseRef.z ;
-    pos = PVector.add(deltaObjPos, posObjRef ) ;
+    pos = PVector.add(deltaObjPos, posObjRef[ID]) ;
     
   }
   // we catch the mouseZ info here because we don't need the authorizationv
   pos.z -= wheel[0] ;
   return pos ;
 }
+
+
 //Create ref position
 void addRefObj(int ID) {
   if(modeP3D) {

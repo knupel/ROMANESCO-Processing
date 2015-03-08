@@ -254,7 +254,7 @@ MISC
 STARTING POSITION
 –––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
 give the position of the object at the opening app
-PVector startingPos[IDobj] by default this value is equal to (width/2, height/2, 0)
+PVector startingPosition[IDobj] by default this value is equal to (width/2, height/2, 0)
 
 to change that use this void 
 void startPosition(int IDobj, int x, int y, int z) use it IN THE void display()

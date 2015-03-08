@@ -375,6 +375,7 @@ class ObjectRomanescoManager {
       motion[objR.IDobj] = true ;
       initValueMouse[objR.IDobj] = true ;
       objR.setting() ;
+      posObjRef[objR.IDobj] = startingPosition[objR.IDobj].copy() ;
     }
   }
   // END SETUP
@@ -391,7 +392,7 @@ class ObjectRomanescoManager {
       movePos = true ;
     }
     
-    //the methodv
+    //the methode
     for (SuperRomanesco objR : RomanescoList) {
       if (object[objR.IDobj]) {
         updateObject(objR.IDobj, objR.IDgroup) ;

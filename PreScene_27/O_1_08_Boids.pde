@@ -39,7 +39,7 @@ class Boids extends SuperRomanesco {
   void setting() {
    startPosition(IDobj, width/2, height/2, 0) ;
    // build the canvas where the boid can move
-   PVector pos = new PVector (width/2, height/2, 0) ;
+   PVector pos = new PVector (0, 0, 0) ;
    PVector size = new PVector(width,width,width) ;
    // PVector size = new PVector(canvasXObj[IDobj],canvasYObj[IDobj],canvasZObj[IDobj]) ;
    myCanvas = new Canvas(pos, size) ;
@@ -90,7 +90,7 @@ class Boids extends SuperRomanesco {
   
   // quantity of boids
   numOfBoid = int(quantityObj[IDobj] *1500 +20); //amount of boids to start the program with
-  // if(!fullRendering) numOfBoid /= 15 ;
+  if(!fullRendering) numOfBoid /= 15 ;
   
   // change saturation, brightness an alpha layer
   for(Boid b : flock.listBoid) {

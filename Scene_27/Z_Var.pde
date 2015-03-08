@@ -182,9 +182,9 @@ PVector [] eyeCameraSetting, sceneCameraSetting ;
 PVector startingPosition [] ;
 float [] posObjX, posObjY, posObjZ ;
 
-PVector posObjRef ;
+// PVector posObjRef ;
 boolean newObjRefPos ;
-PVector [] posObj, dirObj ;
+PVector [] posObj, dirObj, posObjRef ;
 //orientation
 float [] dirObjX, dirObjY ;
 //PVector P3Ddirection [] ;
@@ -298,6 +298,7 @@ void createVarP3D(int numObj, int numSettingCamera, int numSettingOrientationObj
   //orientation
    dirObjX = new float[numObj] ;
    dirObjY = new float[numObj] ;
+   posObjRef = new PVector[numObj] ;
    posObj = new PVector[numObj] ;
    dirObj = new PVector[numObj] ;
 }

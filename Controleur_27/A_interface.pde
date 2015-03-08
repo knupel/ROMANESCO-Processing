@@ -83,27 +83,55 @@ int margeLeft  = colOne +15 ;
 
 // horizontal grid
 int lineHeader = 30 ;
-int lineGroupZero = 70 ;
-int lineGroupOne = 185 ;
-int lineGroupTwo = 390 ;
-int topMenuPos = lineHeader +10 ;
+int lineMenuTopDropdown = 65 ;
+int lineGroupZero = 95 ;
+int lineGroupOne = 300 ;
+int lineGroupTwo = lineGroupOne +205 ;
+
 
 int spacingBetweenSlider = 13 ;
 
 // correction for special button and slider
-int correctionMidi = 58 ;
-int correctionCurtain = 58 ;
+int correctionCurtainX = 0 ;
+int correctionMidiX = 40 ;
+int correctionCurtainY = 0 ;
+int correctionMidiY = 0 ;
+
+// MENU TOP DROPDOWN
+int correctionHeaderDropdownY = +6 ;
+int correctionHeaderDropdownBackgroundX = -3 ;
+int correctionHeaderDropdownFontX = 100 ;
+int correctionHeaderDropdownImageX = 150 ;
+int correctionHeaderDropdownFileTextX = 205 ;
+
+
+//GROUP ZERO
+int correctionSliderPos = 12 ;
+// GROUP BG
+int correctionBGX = colOne ;
+int correctionBGY = lineGroupZero +15 ;
+
+// GROUP LIGHT
+int correctionLightOneX = colTwo ;
+int correctionLightOneY = lineGroupZero +15 ;
+int correctionLightTwoX = colTwo ;
+int correctionLightTwoY = lineGroupZero +80 ;
+
+
+// GROUP SOUND
+int correctionSoundX = colThree ;
+int correctionSoundY = lineGroupZero +15 ;
+// int correctionBeatButton = correctionSliderSound -50 ;
+
+
+
+// GROUP OBJECT
+int correctionSliderObject = 65 ;
 int correctionButtonObject = 3 ;
 int correctionDropdownObject = 43 ;
 
 
-int correctionSliderObject = 65 ;
-int correctionSliderBG = 50 ;
-int correctionSliderSound = 105 ;
-int correctionBeatButton = correctionSliderSound -50 ;
-int correctionSliderLight = 50 ;
 
-int correctionHeaderDropdownY = -3 ;
 
 
 // END PARAMETER
@@ -132,29 +160,34 @@ int correctionHeaderDropdownY = -3 ;
 ////////////////////////
 void structureDraw() {
   //background
-  int heightOfGroup = lineGroupTwo -lineGroupOne ;
+  // int heightOfGroup = lineGroupTwo -lineGroupOne ;
   
   int correctionheight = 14 ;
   fill(grisClair) ; rect(0, 0, width, height ) ; //GROUP ONE to THREE
   fill(gris) ; rect(0, 0, width, lineGroupOne -correctionheight) ; // //GROUP ZERO
-  fill(grisNoir) ; rect(0, 0, width, lineGroupZero -correctionheight) ; // main band
+  fill(grisNoir) ; rect(0, lineMenuTopDropdown, width, lineGroupZero -lineMenuTopDropdown) ; // main band
   
   //the decoration line
   fill(jauneOrange) ;
   rect(0,0, width, lineHeader-6) ;
   fill (rougeFonce) ; 
   rect(0,0, width, lineHeader-8) ;
+  
   // bottom line
   fill (jauneOrange) ;
   rect(0,height-9, width, 2) ;
   fill (rougeFonce) ;
   rect(0,height-7, width, 7) ;
   
+  // LINE MENU TOP DROPDOWN
+    fill (jauneOrange) ;
+  rect(0,lineMenuTopDropdown, width, 2) ;
+  
   // LINE DECORATION
   // GROUP ZERO
   int thicknessDecoration = 5 ;
   fill(noir) ;
-  rect(0,54 , width, 2) ;
+  rect(0,lineGroupZero , width, 2) ;
   
   //GROUP ONE
   fill(jauneOrange) ;
@@ -183,7 +216,7 @@ void textDraw() {
   textFont(FuturaStencil_20,16); textAlign(RIGHT);
   text(nf(hour(),2)   + ":" +nf(minute(),2) , width -10, posTextY);
   
-  dispayTextSliderGroupZero(lineHeader +64) ;
+  dispayTextSliderGroupZero( lineGroupZero +64) ;
   
   dislayTextSlider() ;
 }
@@ -230,23 +263,23 @@ void constructorSlider() {
 // SLIDER SETUP
 // MAIN METHOD SLIDER SETUP
 void sliderSetup() {
-  groupZeroSlider (lineHeader) ;
+  groupZeroSlider (correctionSliderPos) ;
   groupOneSlider (lineGroupOne +correctionSliderObject) ;
   groupTwoSlider (lineGroupTwo +correctionSliderObject) ;
 }
 // LOCAL SLIDER SETUP METHOD
-void groupZeroSlider(int pos) {
+void groupZeroSlider(int correctionY) {
   // background slider
   int startLoop = 1 ;
   for(int i = startLoop ; i <= startLoop +3 ;i++) {
-    float posY = pos +correctionSliderBG +((i-1) *spacingBetweenSlider) ;
+    float posY = correctionBGY +correctionY +((i-1) *spacingBetweenSlider) ;
     posSlider[i] = new PVector(colOne, posY) ;
     sizeSlider[i] = new PVector(sliderWidth,sliderHeight) ;
   }
   // SOUND
   startLoop = 5 ;
   for(int i = startLoop ; i <= startLoop +1 ;i++) {
-    float posY = pos +correctionSliderSound +((i-startLoop) *spacingBetweenSlider) ;
+    float posY = correctionSoundY +correctionY +((i-startLoop) *spacingBetweenSlider) ;
     posSlider[i] = new PVector(colThree, posY) ;
     sizeSlider[i] = new PVector(sliderWidth,sliderHeight) ;
   }
@@ -256,15 +289,15 @@ void groupZeroSlider(int pos) {
   // LIGHT ONE
   startLoop = 7 ;
   for(int i = startLoop ; i <= startLoop +2 ;i++) {
-    float posY = pos +correctionSliderLight +((i-startLoop) *spacingBetweenSlider) ;
-    posSlider[i] = new PVector(colTwo, posY) ;
+    float posY = correctionLightOneY +correctionY +((i-startLoop) *spacingBetweenSlider) ;
+    posSlider[i] = new PVector(correctionLightOneX, posY) ;
     sizeSlider[i] = new PVector(sliderWidth,sliderHeight) ;
   }
  // LIGHT TWO
    startLoop = 10 ;
   for(int i = startLoop ; i <= startLoop +2 ;i++) {
-    float posY = pos +correctionSliderLight +((i-startLoop) *spacingBetweenSlider) ;
-    posSlider[i] = new PVector(colThree, posY) ;
+    float posY = correctionLightTwoY +correctionY +((i-startLoop) *spacingBetweenSlider) ;
+    posSlider[i] = new PVector(correctionLightTwoX, posY) ;
     sizeSlider[i] = new PVector(sliderWidth,sliderHeight) ;
   }
 }
@@ -769,29 +802,33 @@ void constructorButton() {
 // Main METHOD SETUP
 void buttonSetup() {
     /////////////
+    
+  // MIDI CURTAIN
+  sizeCurtainButton = new PVector(30,30) ;
+  sizeMidiButton = new PVector(50,26) ;
+  posMidiButton = new PVector(colOne +correctionMidiX, lineHeader +correctionMidiY +1) ; 
+  posCurtainButton = new PVector(colOne +correctionCurtainX, lineHeader +correctionCurtainY -1) ; 
+  
+  
   // GROUP ZERO
-    // background 
-  posBackgroundButton = new PVector(colOne, lineGroupZero) ;
+  // background 
+  posBackgroundButton = new PVector(correctionBGX, correctionBGY) ;
   sizeBackgroundButton = new PVector(120,10) ;
   
   // light 
   // one button
-  posLightOneButton = new PVector(colTwo, lineGroupZero) ;
+  posLightOneButton = new PVector(correctionLightOneX, correctionLightOneY) ;
   sizeLightOneButton = new PVector(80,10) ;
-  posLightOneAction = new PVector(colTwo +90, posLightOneButton.y) ;
+  posLightOneAction = new PVector(correctionLightOneX +90, posLightOneButton.y) ;
   sizeLightOneAction = new PVector(45,10) ;
   // light two button
-  posLightTwoButton = new PVector(colThree, lineGroupZero) ;
+  posLightTwoButton = new PVector(correctionLightTwoX, correctionLightTwoY) ;
   sizeLightTwoButton = new PVector(80,10) ;
-  posLightTwoAction = new PVector(colThree +90, posLightTwoButton.y) ;
+  posLightTwoAction = new PVector(correctionLightTwoX +90, posLightTwoButton.y) ;
   sizeLightTwoAction = new PVector(45,10) ;
   
   
-  // MIDI CURTAIN
-  sizeCurtainButton = new PVector(30,30) ;
-  sizeMidiButton = new PVector(50,26) ;
-  posMidiButton = new PVector(colOne + 40, lineGroupZero +correctionMidi +1) ; 
-  posCurtainButton = new PVector(colOne, lineGroupZero +correctionCurtain -1) ; 
+
   
   //SOUND BUTTON
   sizeBeatButton = new PVector(30,10) ; 
@@ -799,10 +836,10 @@ void buttonSetup() {
   sizeSnareButton = new PVector(40,10) ; 
   sizeHatButton = new PVector(30,10) ;
   
-  posBeatButton = new PVector(colThree +0, lineGroupZero +correctionBeatButton) ; 
-  posKickButton = new PVector(posBeatButton.x +sizeBeatButton.x +5, lineGroupZero +correctionBeatButton) ; 
-  posSnareButton = new PVector(posKickButton.x +sizeKickButton.x +5, lineGroupZero +correctionBeatButton) ; 
-  posHatButton = new PVector(posSnareButton.x +sizeSnareButton.x +5, lineGroupZero +correctionBeatButton) ;
+  posBeatButton = new PVector(correctionSoundX, correctionSoundY) ; 
+  posKickButton = new PVector(posBeatButton.x +sizeBeatButton.x +5, correctionSoundY) ; 
+  posSnareButton = new PVector(posKickButton.x +sizeKickButton.x +5, correctionSoundY) ; 
+  posHatButton = new PVector(posSnareButton.x +sizeSnareButton.x +5, correctionSoundY) ;
   
   
 
@@ -989,10 +1026,10 @@ int sizeToRenderTheBoxDropdown = 15 ;
 
 void dropdownSetup() {
 
-  posButtonBackground = new PVector(colOne -3, lineHeader +correctionHeaderDropdownY)  ;
-  posButtonFont =       new PVector(colTwo -3, lineHeader +correctionHeaderDropdownY)  ; 
-  posButtonImage =      new PVector(colTwo +115, lineHeader +correctionHeaderDropdownY)  ; 
-  posButtonFileText =   new PVector(colThree +60, lineHeader +correctionHeaderDropdownY)  ; 
+  posButtonBackground = new PVector(colOne +correctionHeaderDropdownBackgroundX, lineMenuTopDropdown +correctionHeaderDropdownY)  ;
+  posButtonFont =       new PVector(colOne +correctionHeaderDropdownFontX,  lineMenuTopDropdown +correctionHeaderDropdownY)  ; 
+  posButtonImage =      new PVector(colOne +correctionHeaderDropdownImageX,  lineMenuTopDropdown +correctionHeaderDropdownY)  ; 
+  posButtonFileText =   new PVector(colOne +correctionHeaderDropdownFileTextX,  lineMenuTopDropdown +correctionHeaderDropdownY)  ; 
    //dropdown
    colorDropdownBG = rougeTresFonce ;
    colorDropdownTitleIn = jaune ;

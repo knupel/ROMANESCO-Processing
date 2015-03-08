@@ -12,11 +12,13 @@ boolean fullRendering = false ;
 
 
 void setup() {
+  int frameRateRomanesco ;
+  if(fullRendering) frameRateRomanesco = 60 ; else frameRateRomanesco = 15 ;
+  displaySetup(frameRateRomanesco) ; // the int value is the frameRate
   // common setup
   romanescoSetup() ;
   createVar() ;
   //specific setup
-  displaySetup(60) ; // the int value is the frameRate
   presceneSetup() ; // the varObject setup of the Scene is more simple
   leapMotionSetup() ;
   OSCSetup() ;
