@@ -68,9 +68,9 @@ void setDisplaySlider() {
 void setSliderDynamic() {
   sliderObj = new StringList [numObj +1] ;
   sliderObjRaw = new String [numObj +1] ;
-  sliderObjListRaw = new String [numObj +1][SLIDER_BY_GROUP +1] ;
+  sliderObjListRaw = new String [numObj +1][NUM_SLIDER_OBJ +1] ;
   objectActive = new boolean[numObj +1] ;
-  displaySlider = new boolean [NUM_GROUP_SLIDER] [SLIDER_BY_GROUP +1] ;
+  displaySlider = new boolean [NUM_GROUP_SLIDER] [NUM_SLIDER_OBJ +1] ;
 }
 
 
@@ -100,14 +100,14 @@ void listSliderObject() {
 
   //setting the list to don't have a null value
   for (int i = 0 ; i < sliderObj.length ; i++) {
-    for( int j = 0 ; j < SLIDER_BY_GROUP ; j++ ) {
+    for( int j = 0 ; j < NUM_SLIDER_OBJ ; j++ ) {
       sliderObj[i].append("") ;
     }
   }
   // had value to the slider list object
   for (int i = 0 ; i <= numObj ; i++) {
     String [] listSliderTemp = splitText(sliderObjRaw[i], (",")) ;
-    for( int j = 0 ; j < SLIDER_BY_GROUP ; j++ ) {
+    for( int j = 0 ; j < NUM_SLIDER_OBJ ; j++ ) {
       for ( int k = 0 ; k < listSliderTemp.length ; k++ ) {
         if(listSliderTemp[k].equals(sliderControler.get(j))) {
           sliderObj[i].set(j,listSliderTemp[k]) ;
@@ -120,7 +120,7 @@ void listSliderObject() {
 }
 
 
-String  sliderName [] = new String[NUM_SLIDER +1] ;
+String  sliderName [] = new String[NUM_SLIDER_TOTAL +1] ;
 
 
 void giveNameSliderUsedByObject() {
@@ -161,7 +161,7 @@ void giveNameSliderUsedByObject() {
 
 
 void listSliderInterface() {
-  for(int i = 0 ; i <NUM_SLIDER ; i++) {
+  for(int i = 0 ; i <NUM_SLIDER_TOTAL ; i++) {
     sliderControler.append(sliderName[i]) ;
   }
 }
@@ -188,7 +188,7 @@ void checkSlider() {
     //reset slider for new check
     for(int i = 1 ; i < NUM_GROUP_SLIDER ; i++) {
       firstCheck [i] = true ;
-      for(int j = 0 ; j <SLIDER_BY_GROUP ; j++) {
+      for(int j = 0 ; j <NUM_SLIDER_OBJ ; j++) {
         displaySlider[i][j] = false ;
       }
     }
@@ -197,7 +197,7 @@ void checkSlider() {
     int IDgroup = 0 ;
      if (showAllSliders) {
       for ( int i = 1 ; i < NUM_GROUP_SLIDER ; i++) {
-        for ( int j = 1 ; j < SLIDER_BY_GROUP ; j++) {
+        for ( int j = 1 ; j < NUM_SLIDER_OBJ ; j++) {
         displaySlider[i][j] = true ;
         }
       }
@@ -206,7 +206,7 @@ void checkSlider() {
         if (objectActive[i]) {
           for (int j = 1 ; j < NUM_GROUP_SLIDER ; j++) {
            if (objectGroup[i] == j) { IDgroup = j ;
-              for(int k = 1 ; k < SLIDER_BY_GROUP ; k++) {
+              for(int k = 1 ; k < NUM_SLIDER_OBJ ; k++) {
                 if (firstCheck[j])  {
                   if((sliderControler.get(k).equals(sliderObj[i].get(k)) || sliderObj[i].get(k).equals("all"))) displaySlider[IDgroup][k] = true ; else displaySlider[IDgroup][k] = false ;
                 } else {

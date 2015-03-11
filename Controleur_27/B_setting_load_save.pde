@@ -96,7 +96,7 @@ void buildLibrary() {
 }
 
 void initVarSlider() {
-  for (int i = 0 ; i < NUM_SLIDER ;i++) {
+  for (int i = 0 ; i < NUM_SLIDER_TOTAL ;i++) {
     sizeSlider[i] = new PVector() ;
     posSlider[i] = new PVector() ; 
   }
@@ -212,7 +212,7 @@ void numByGroup() {
   numGroup  = new int[NUM_GROUP_SLIDER] ;
   for (TableRow row : objectList.rows()) {
     int objectGroup = row.getInt("Group");
-    for (int i = 0 ; i < NUM_SLIDER ;i++) {
+    for (int i = 0 ; i < NUM_SLIDER_TOTAL ;i++) {
       if (objectGroup == i) numGroup[i] += 1 ;
     }
   }
@@ -286,7 +286,7 @@ void saveSetting(File selection) {
 // save the position and the ID of the slider molette
 void saveInfoSlider() {
   //group zero
-  for (int i = 1 ; i < NUM_SLIDER_GLOBAL ; i++) {
+  for (int i = 1 ; i < NUM_SLIDER_MISC ; i++) {
      // set PVector info Slider
      int temp = i-1 ;
      infoSlider[temp].z = slider[i].getValue() ;
@@ -296,7 +296,7 @@ void saveInfoSlider() {
   
   // the group one, two, three
   for (int i = 1 ; i < NUM_GROUP_SLIDER ; i++) { 
-    for(int j = 1 ; j < SLIDER_BY_GROUP ; j++) {
+    for(int j = 1 ; j < NUM_SLIDER_OBJ ; j++) {
       // set PVector info Slider
       int IDslider = j +(i *100) ;
       // third loop to check and find the good PVector array in the list
@@ -428,14 +428,14 @@ void settingDataFromSave() {
 
 //setting SLIDER from save
 void sliderSetSaveSetting() {
-  for (int i = 1 ; i < NUM_SLIDER_GLOBAL ; i++) {
+  for (int i = 1 ; i < NUM_SLIDER_MISC ; i++) {
     int whichOne = i ;
     PVector infoSliderTemp = infoSaveFromRawList(infoSlider, whichOne).copy() ;
     slider[whichOne].sliderSettingMidi((int)infoSliderTemp.y) ; 
     slider[whichOne].sliderSettingPos(infoSliderTemp.z) ;
   }
   for (int i = 1 ; i < NUM_GROUP_SLIDER ; i++) { 
-    for(int j = 1 ; j < SLIDER_BY_GROUP ; j++) {
+    for(int j = 1 ; j < NUM_SLIDER_OBJ ; j++) {
       int whichOne = j +(i *100) ;
       PVector infoSliderTemp = infoSaveFromRawList(infoSlider, whichOne).copy() ;
       slider[whichOne].sliderSettingMidi((int)infoSliderTemp.y) ; 
@@ -546,6 +546,7 @@ PVector infoSaveFromRawList(PVector [] list, int pos) {
 Table textGUI;
 int numCol = 15 ;
 String[] genTxtGUI = new String[numCol] ;
+String[] sliderNameCamera = new String[numCol] ;
 String[] sliderNameOne = new String[numCol] ;
 String[] sliderNameTwo = new String[numCol] ;
 String[] sliderNameThree = new String[numCol] ;
@@ -572,11 +573,12 @@ void textGUI() {
 
     row[i] = textGUI.getRow(i) ;
     for ( int j = 1 ; j < numCol ; j++) {
-      String numCol = Integer.toString(j) ;
-      if ( i == 0 ) genTxtGUI[j] = row[i].getString("Column "+numCol) ;
-      if ( i == 1 ) sliderNameOne[j] = row[i].getString("Column "+numCol) ;
-      if ( i == 2 ) sliderNameTwo[j] = row[i].getString("Column "+numCol) ;
-      if ( i == 3 ) sliderNameThree[j] = row[i].getString("Column "+numCol) ;
+      String whichCol = Integer.toString(j) ;
+      if ( i == 0 ) genTxtGUI[j] = row[i].getString("Column "+whichCol) ;
+      if ( i == 1 ) sliderNameCamera[j] = row[i].getString("Column "+whichCol) ;
+      if ( i == 2 ) sliderNameOne[j] = row[i].getString("Column "+whichCol) ;
+      if ( i == 3 ) sliderNameTwo[j] = row[i].getString("Column "+whichCol) ;
+      if ( i == 4 ) sliderNameThree[j] = row[i].getString("Column "+whichCol) ;
     }
   }
 }

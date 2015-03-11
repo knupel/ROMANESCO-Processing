@@ -5,9 +5,9 @@ import java.awt.event.KeyEvent;
 final int NUM_COL_SLIDER = 3 ;
 final int BUTTON_BY_OBJECT = 4 ;
 final int NUM_GROUP_SLIDER = 3 ;
-final int NUM_SLIDER_GLOBAL = 14 ;
-final int NUM_SLIDER = 350 ;
-final int SLIDER_BY_GROUP = 30 ;
+final int NUM_SLIDER_MISC = 30 ;
+final int NUM_SLIDER_TOTAL = 250 ;
+final int NUM_SLIDER_OBJ = 30 ;
 final int SLIDER_BY_COL = 9 ;
 
 
@@ -53,6 +53,7 @@ void setting() {
   //init the string value
   for ( int i = 0 ; i < numCol ; i++ ) {
     genTxtGUI[i] = ("") ;
+    sliderNameCamera[i] = ("") ;
     sliderNameOne[i] = ("") ;
     sliderNameTwo[i] = ("") ;
     sliderNameThree[i] = ("") ;

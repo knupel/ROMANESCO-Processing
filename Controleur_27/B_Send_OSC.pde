@@ -31,17 +31,17 @@ void sendOSCdraw() {
     //return value to the prescene between 0 to 99
 
   // GROUP ZERO
-  int[] dataGroupZero = new int[NUM_SLIDER_GLOBAL] ;
-  for ( int i = 1   ; i < NUM_SLIDER_GLOBAL-1 ; i++) dataGroupZero[i-1] = floor(valueSlider[i]) ;
+  int[] dataGroupZero = new int[NUM_SLIDER_MISC] ;
+  for ( int i = 1   ; i < NUM_SLIDER_MISC -1 ; i++) dataGroupZero[i-1] = floor(valueSlider[i]) ;
 
   toPreScene[3] = joinIntToString(dataGroupZero) ;
   // GROUP ONE
-  int[] dataGroupOne = new int[SLIDER_BY_GROUP] ;
-  for ( int i = 101   ; i < 101 +SLIDER_BY_GROUP ; i++) dataGroupOne[i-101] = floor(valueSlider[i]) ; 
+  int[] dataGroupOne = new int[NUM_SLIDER_OBJ] ;
+  for ( int i = 101   ; i < 101 +NUM_SLIDER_OBJ ; i++) dataGroupOne[i-101] = floor(valueSlider[i]) ; 
   toPreScene[4] = joinIntToString(dataGroupOne);
   // GROUP TWO
-  int[] dataGroupTwo = new int[SLIDER_BY_GROUP] ;
-  for ( int i = 201 ; i < 201 +SLIDER_BY_GROUP ; i++) dataGroupTwo[i-201] = floor(valueSlider[i]) ;
+  int[] dataGroupTwo = new int[NUM_SLIDER_OBJ] ;
+  for ( int i = 201 ; i < 201 +NUM_SLIDER_OBJ ; i++) dataGroupTwo[i-201] = floor(valueSlider[i]) ;
   toPreScene[5] = joinIntToString(dataGroupTwo) ;
   
   //add to OSC

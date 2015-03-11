@@ -17,3 +17,25 @@ PVector P3DdirectionSetting [whichSetting][IDobj] ;
 
 PVector eyeCameraSetting[whichSetting] ;
 PVector sceneCameraSetting[whichSetting] ;
+
+
+// GRID CAMERA
+gridCamera(PVector sizeBackgroundP3D) ; 
+
+
+
+
+
+// PARALAXE
+
+void paralaxe()
+/* give to the world a human vision */
+
+
+
+void paralaxe(float focal, float deformation)
+Wth this void you can change the paralaxe of the vision
+> float focal give the focal like camera lens between 28 mm to 200 mm the min value is like a fisheye.
+value between 28 to 200
+> float deformation change the ration of the width and height represention of the SCENE,
+value between -1 to 1, the "0" value is like no deformation

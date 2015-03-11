@@ -13,12 +13,12 @@ PImage[] picMidi = new PImage[4] ;
 
 
 
-SliderAdjustable [] slider = new SliderAdjustable [NUM_SLIDER] ;
+SliderAdjustable [] slider = new SliderAdjustable [NUM_SLIDER_TOTAL] ;
 int []suivitSlider ; 
-PVector [] sizeSlider = new PVector[NUM_SLIDER] ;
-PVector [] posSlider = new PVector[NUM_SLIDER] ; 
+PVector [] sizeSlider = new PVector[NUM_SLIDER_TOTAL] ;
+PVector [] posSlider = new PVector[NUM_SLIDER_TOTAL] ; 
 
-float valueSlider[] = new float[NUM_SLIDER] ;
+float valueSlider[] = new float[NUM_SLIDER_TOTAL] ;
 
 
 
@@ -46,7 +46,7 @@ PVector posMidiButton, sizeMidiButton,
 
 
 //paramètres réglette couleur
-int posXSlider[] = new int[NUM_SLIDER *2] ;
+int posXSlider[] = new int[NUM_SLIDER_TOTAL *2] ;
 
 // END variables declaration
 ////////////////////////////////////
@@ -85,7 +85,7 @@ int margeLeft  = colOne +15 ;
 int lineHeader = 30 ;
 int lineMenuTopDropdown = 65 ;
 int lineGroupZero = 95 ;
-int lineGroupOne = 300 ;
+int lineGroupOne = 320 ;
 int lineGroupTwo = lineGroupOne +205 ;
 
 
@@ -101,8 +101,8 @@ int correctionMidiY = 0 ;
 int correctionHeaderDropdownY = +6 ;
 int correctionHeaderDropdownBackgroundX = -3 ;
 int correctionHeaderDropdownFontX = 100 ;
-int correctionHeaderDropdownImageX = 150 ;
-int correctionHeaderDropdownFileTextX = 205 ;
+int correctionHeaderDropdownImageX = 200 ;
+int correctionHeaderDropdownFileTextX = 255 ;
 
 
 //GROUP ZERO
@@ -117,10 +117,14 @@ int correctionLightOneY = lineGroupZero +15 ;
 int correctionLightTwoX = colTwo ;
 int correctionLightTwoY = lineGroupZero +80 ;
 
+// GROUP CAMERA
+int correctionCameraX = colThree ;
+int correctionCameraY = lineGroupZero +15 ;
+
 
 // GROUP SOUND
-int correctionSoundX = colThree ;
-int correctionSoundY = lineGroupZero +15 ;
+int correctionSoundX = colOne ;
+int correctionSoundY = lineGroupZero +160 ;
 // int correctionBeatButton = correctionSliderSound -50 ;
 
 
@@ -189,6 +193,12 @@ void structureDraw() {
   fill(noir) ;
   rect(0,lineGroupZero , width, 2) ;
   
+  // LINE SOUND
+  fill(grisFonce) ;
+  rect(0, correctionSoundY -26 +thicknessDecoration, width, thicknessDecoration) ; 
+  fill(grisTresFonce) ;
+  rect(0, correctionSoundY -18, width, 2) ;
+  
   //GROUP ONE
   fill(jauneOrange) ;
   rect(0, lineGroupOne -22, width, 8) ; 
@@ -249,7 +259,7 @@ void textDraw() {
 // SLIDER
 void constructorSlider() {
   //slider
-  for ( int i = 1 ; i < NUM_SLIDER ; i++ ) {
+  for ( int i = 1 ; i < NUM_SLIDER_TOTAL ; i++ ) {
     PVector sizeMol = new PVector (sizeSlider[i].y *ratioNormSizeMolette, sizeSlider[i].y *ratioNormSizeMolette) ;
     // we use the var posMol here just to init the Slider, because we load data from save further.
     PVector posMol = new PVector() ;
@@ -280,7 +290,7 @@ void groupZeroSlider(int correctionY) {
   startLoop = 5 ;
   for(int i = startLoop ; i <= startLoop +1 ;i++) {
     float posY = correctionSoundY +correctionY +((i-startLoop) *spacingBetweenSlider) ;
-    posSlider[i] = new PVector(colThree, posY) ;
+    posSlider[i] = new PVector(correctionSoundX, posY) ;
     sizeSlider[i] = new PVector(sliderWidth,sliderHeight) ;
   }
   
@@ -298,6 +308,16 @@ void groupZeroSlider(int correctionY) {
   for(int i = startLoop ; i <= startLoop +2 ;i++) {
     float posY = correctionLightTwoY +correctionY +((i-startLoop) *spacingBetweenSlider) ;
     posSlider[i] = new PVector(correctionLightTwoX, posY) ;
+    sizeSlider[i] = new PVector(sliderWidth,sliderHeight) ;
+  }
+  
+  // CAMERA
+//  int correctionCameraX = colThree ;
+//int correctionCameraY = lineGroupZero +15 ;
+   startLoop = 20 ;
+  for(int i = startLoop ; i <= startLoop +8 ;i++) {
+    float posY = correctionCameraY +correctionY +((i-startLoop) *spacingBetweenSlider) ;
+    posSlider[i] = new PVector(correctionCameraX, posY) ;
     sizeSlider[i] = new PVector(sliderWidth,sliderHeight) ;
   }
 }
@@ -343,28 +363,9 @@ void groupTwoSlider(int sliderPositionY) {
     }
   }
 }
-
-//
-void groupThreeSlider(int sliderPositionY) {
-  // where the controller must display the slider
-  for( int i = 0 ; i < SLIDER_BY_COL ; i++ ) {
-    for (int j = 0 ; j < NUM_COL_SLIDER ; j++) {
-      int whichSlider = j *10 +i +301 ;
-      int posX = 0 ;
-      switch(j) {
-        case 0 : posX = colOne; 
-        break;
-        case 1 : posX = colTwo;
-        break;
-        case 2 : posX = colThree;
-        break ;
-      }
-    posSlider   [whichSlider] = new PVector(posX, sliderPositionY +i *spacingBetweenSlider) ;
-    sizeSlider  [whichSlider] = new PVector(sliderWidth, sliderHeight) ;
-    }
-  }
-}
 // END SLIDER SETUP
+
+
 
 
 // SLIDER DRAW
@@ -382,7 +383,7 @@ void sliderDraw() {
   // UPDATE and DISPLAY SLIDER GROUP ONE, TWO, THREE
   /* different way to display depend the displaying mode, who can be change with "ctrl+x" */
   int whichGroup = 0 ;
-  for (int i = 1 ; i < NUM_SLIDER_GLOBAL ; i++) {
+  for (int i = 1 ; i < NUM_SLIDER_MISC ; i++) {
      sliderUpdate(i) ;
      sliderAdvancedDisplay(i, whichGroup) ;
   }
@@ -393,7 +394,7 @@ void sliderDraw() {
       if (objectActive[i] ) {
         for (int j = 1 ; j < NUM_GROUP_SLIDER ; j++) {
           if (showSliderGroup[j] && objectGroup[i] == j) { 
-            for(int k = 1 ; k < SLIDER_BY_GROUP ; k++) {
+            for(int k = 1 ; k < NUM_SLIDER_OBJ ; k++) {
               if (displaySlider[j][k]) {
                 int whichOne = objectGroup[i] *100 +k ;
                 sliderUpdate(whichOne) ; 
@@ -407,7 +408,7 @@ void sliderDraw() {
   // if it ask to show all slider  
   } else {
     for (int i = 1 ; i < NUM_GROUP_SLIDER ; i++) { 
-      for(int j = 1 ; j < SLIDER_BY_GROUP ; j++) {
+      for(int j = 1 ; j < NUM_SLIDER_OBJ ; j++) {
         int whichOne = i *100 +j ;
         sliderUpdate(whichOne) ;
         sliderAdvancedDisplay(whichOne, whichGroup) ;
@@ -496,23 +497,21 @@ void dispayTextSliderGroupZero(int pos) {
   //BACKGROUND
   int correctionY = 3 ;
   int correctionX = sliderWidth + 5 ;
-  text(genTxtGUI[1], posSlider[1].x +correctionX, posSlider[1].y +correctionY);
-  text(genTxtGUI[2], posSlider[2].x +correctionX, posSlider[2].y +correctionY);
-  text(genTxtGUI[3], posSlider[3].x +correctionX, posSlider[3].y +correctionY);
-  text(genTxtGUI[4], posSlider[4].x +correctionX, posSlider[4].y +correctionY);
-  // LIGHT
-  text(genTxtGUI[9], posSlider[7].x +correctionX, posSlider[7].y +correctionY);
-  text(genTxtGUI[10], posSlider[8].x +correctionX, posSlider[8].y +correctionY);
-  text(genTxtGUI[11], posSlider[9].x +correctionX, posSlider[9].y +correctionY);
-  //AMBIENT
-  text(genTxtGUI[12], posSlider[10].x +correctionX, posSlider[10].y +correctionY);
-  text(genTxtGUI[13], posSlider[11].x +correctionX, posSlider[11].y +correctionY);
-  text(genTxtGUI[14], posSlider[12].x +correctionX, posSlider[12].y +correctionY);
+  // BACKGROUND and SOUND
+  for(int i = 1 ; i < 7 ; i++ ) {
+    text(genTxtGUI[i], posSlider[i].x +correctionX, posSlider[i].y +correctionY);
+  }
   
-  fill (colorTextUsual) ;
-  textFont(textUsual_1); 
-  text(genTxtGUI[5], posSlider[5].x +correctionX, posSlider[5].y +correctionY);
-  text(genTxtGUI[6], posSlider[6].x +correctionX, posSlider[6].y +correctionY);
+  // LIGHT
+  for(int i = 9 ; i < 15 ; i++ ) {
+    text(genTxtGUI[i], posSlider[i-2].x +correctionX, posSlider[i-2].y +correctionY);
+  }
+  
+  // CAMERA
+  int numSliderCorrection = 19 ;
+  for(int i = 1 ; i < 9 ; i++ ) {
+    text(sliderNameCamera[i], posSlider[i+numSliderCorrection].x +correctionX, posSlider[i+numSliderCorrection].y +correctionY);
+  }
 }
 
 
@@ -641,7 +640,7 @@ void sliderDrawGroupZero () {
     sliderBG    ( posSlider[2].x, posSlider[2].y, sizeSlider[2].y, sizeSlider[2].x, roundedSlider, grisClair) ;
     sliderBG    ( posSlider[3].x, posSlider[3].y, sizeSlider[3].y, sizeSlider[3].x, roundedSlider, grisClair) ;
   }
-  sliderBG ( posSlider[4].x, posSlider[4].y, sizeSlider[4].y, sizeSlider[4].x, roundedSlider, grisClair) ;
+  sliderBG ( posSlider[4].x, posSlider[4].y, sizeSlider[4].y, sizeSlider[4].x, roundedSlider, blancGris) ;
   // light ONE slider
   if (mouseX > (posSlider[7].x ) && mouseX < ( posSlider[7].x +sizeSlider[7].x) 
       && mouseY > ( posSlider[7].y - 5) && mouseY < posSlider[1].y +40) {
@@ -664,9 +663,22 @@ void sliderDrawGroupZero () {
     sliderBG    ( posSlider[11].x, posSlider[11].y, sizeSlider[11].y, sizeSlider[11].x, roundedSlider, grisClair) ;
     sliderBG    ( posSlider[12].x, posSlider[12].y, sizeSlider[12].y, sizeSlider[12].x, roundedSlider, grisClair) ;
   }
-  // music
+  // sound
   sliderBG ( posSlider[5].x, posSlider[5].y, sizeSlider[5].y, sizeSlider[5].x, roundedSlider, grisClair) ;
   sliderBG ( posSlider[6].x, posSlider[6].y, sizeSlider[6].y, sizeSlider[6].x, roundedSlider, grisClair) ;
+  
+  
+  
+  // CAMERA
+  sliderBG ( posSlider[20].x, posSlider[20].y, sizeSlider[20].y, sizeSlider[20].x, roundedSlider, grisClair) ;
+  sliderBG ( posSlider[21].x, posSlider[21].y, sizeSlider[21].y, sizeSlider[21].x, roundedSlider, grisClair) ;
+  sliderBG ( posSlider[22].x, posSlider[22].y, sizeSlider[22].y, sizeSlider[22].x, roundedSlider, blancGris) ;
+  sliderBG ( posSlider[23].x, posSlider[23].y, sizeSlider[23].y, sizeSlider[23].x, roundedSlider, blancGris) ;
+  sliderBG ( posSlider[24].x, posSlider[24].y, sizeSlider[24].y, sizeSlider[24].x, roundedSlider, blancGris) ;
+  sliderBG ( posSlider[25].x, posSlider[25].y, sizeSlider[25].y, sizeSlider[25].x, roundedSlider, grisClair) ;
+  sliderBG ( posSlider[26].x, posSlider[26].y, sizeSlider[26].y, sizeSlider[26].x, roundedSlider, grisClair) ;
+  sliderBG ( posSlider[27].x, posSlider[27].y, sizeSlider[27].y, sizeSlider[27].x, roundedSlider, grisClair) ;
+  sliderBG ( posSlider[28].x, posSlider[28].y, sizeSlider[28].y, sizeSlider[28].x, roundedSlider, grisClair) ;
 }
 
 

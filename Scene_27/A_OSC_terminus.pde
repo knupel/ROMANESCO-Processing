@@ -51,13 +51,14 @@ void oscEvent(OscMessage receive ) {
   for ( int i = 0 ; i < NUM_GROUP+1 ; i++ ) {
     // security because there not same quantity of slider in the group one and the other group
     int n = 0 ;
-    if ( i < 1 ) n = numSliderGroupZero ; else n = numSlider ;
+    if ( i < 1 ) n = NUM_SLIDER_MISC ; else n = NUM_SLIDER_OBJ ;
     for (int j = 0 ; j < n ; j++) {
       valueSlider[i][j] = Float.valueOf(valueSliderTemp[i][j]) ;
     }
   }
   
-  
+
+
   
   // Info distribution
   if(valueTempPreScene[0].equals("0") ) spaceTouch = false ; else spaceTouch = true ;  

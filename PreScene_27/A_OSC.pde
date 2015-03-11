@@ -54,9 +54,9 @@ void oscEvent(OscMessage receive) {
   }
   // translate the String value to the float var to use
   for ( int i = 0 ; i < NUM_GROUP +1 ; i++ ) {
-    // security because there not same quantity of slider in the group one and the other group
+    // security because there not same quantity of slider in the group MISC -zero- and OBJECT group -one and two-.
     int n = 0 ;
-    if ( i < 1 ) n = numSliderGroupZero ; else n = numSlider ;
+    if ( i < 1 ) n = NUM_SLIDER_MISC ; else n = NUM_SLIDER_OBJ ;
     for (int j = 0 ; j < n ; j++) {
       valueSlider[i][j] = Float.valueOf(valueSliderTemp[i][j]) ;
     }
@@ -190,7 +190,6 @@ void OSCDraw() {
   
   
   //SEND data to SCENE
-  //send info from scene
   OscMessage RomanescoScene = new OscMessage("ROMANESCO Prescene");
   //add info to send
   String sizeDataLengthFromPrescene = ("") ;

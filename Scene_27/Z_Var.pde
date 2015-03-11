@@ -85,8 +85,8 @@ int numFont = 50 ;
 //quantity of group object slider
 int NUM_GROUP = 2 ;
 
-int numSliderGroupZero = 14 ;
-int numSlider = 30 ;
+int NUM_SLIDER_MISC = 30 ;
+int NUM_SLIDER_OBJ = 30 ;
 
 int numButtonGlobal = 21 ; // group zero
 int numButtonObj  ; // group one, two and three
@@ -154,9 +154,12 @@ int mode[]  ;
 
 //BUTTON
 int [] valueButtonGlobal, valueButtonObj  ;
+
 //SLIDER
-String valueSliderTemp[][]  = new String [NUM_GROUP+1][numSlider] ;
-float valueSlider[][]  = new float [NUM_GROUP+1][numSlider] ;
+String valueSliderTemp[][]  = new String [NUM_GROUP+1][NUM_SLIDER_OBJ] ;
+
+// becareful if the number of MISC SLIDERS is upper than OBJ SLIDER, that can be a problem in the future.
+float valueSlider[][]  = new float [NUM_GROUP+1][NUM_SLIDER_OBJ] ;
 
 
 //MISC
@@ -290,7 +293,7 @@ void createVarP3D(int numObj, int numSettingCamera, int numSettingOrientationObj
    posObjSetting = new PVector [numSettingOrientationObject] [numObj] ;
    dirObjSetting = new PVector [numSettingOrientationObject] [numObj] ;
    //
-   startingPosition = new PVector[numObj] ; //<>//
+   startingPosition = new PVector[numObj] ;
    posObjX = new float[numObj] ;
    posObjY = new float[numObj] ;
    posObjZ = new float[numObj] ;

@@ -151,7 +151,6 @@ PVector updateDirObj(PVector speed, int ID, boolean authorization) {
 PVector updatePosObj(PVector pos, int ID, boolean authorization) {
   // XY pos
   if(newObjRefPos) {
-    println("je suis là") ;
     posObjRef[ID] = pos.copy() ;
     P3DpositionMouseRef = mouse[0].copy() ;
   }
@@ -218,7 +217,9 @@ void startPosition(int ID, int x, int y, int z) {
 // MOVE CAMERA
 void cameraDraw() {
   if(modeP3D) {
-    paralaxe() ;
+    float focal = map(valueSlider[0][19],0,360,28,200) ;
+    float deformation = map(valueSlider[0][20],0,360,-1,1) ;
+    paralaxe(focal, deformation) ;
     //camera order from the mouse or from the leap
     if(cLongTouch) {
       if(ORDER_ONE || ORDER_THREE) moveScene = true ;   else moveScene = false ;
@@ -282,7 +283,43 @@ void startCamera(boolean scene, boolean eye, boolean leapMotionDetected, PVector
   sceneCamera.x = updatePosCamera(scene, leapMotionDetected, mouse[0]).x ;
   sceneCamera.y = updatePosCamera(scene, leapMotionDetected, mouse[0]).y ;
   eyeCamera = updateEyeCamera(eye, mouse[0]).copy() ;
-  camera() ;
+  
+
+  /*
+  default setting camera from Processing.org example, like the camera above
+  float eyeCamX = width/2.0 ;
+  float eyeCamY = height/2.0 ;
+  float eyeCamZ = (height/2.0) / tan(PI*30.0 / 180.0) ;
+  float centerCamX = width/2.0 ;
+  float centerCamY = height/2.0 ;
+  float centerCamZ = 0 ;
+  */
+  // float focal = map(valueSlider[0][19],0,360,28,200) ;
+  float eyeCamX = map(valueSlider[0][21],0,360,0,width)  ;
+  float eyeCamY = map(valueSlider[0][22],0,360,0,height)  ;
+  float eyeCamZ = map(valueSlider[0][23],0,360,0,width)  ;
+  
+    float centerCamX = map(valueSlider[0][24],0,360,0,width)  ; ;
+  float centerCamY = map(valueSlider[0][25],0,360,0,height)  ;
+  float centerCamZ = map(valueSlider[0][26],0,360,0,width)  ;
+  
+
+  
+  
+  float upX = map(valueSlider[0][27],0,360,-1,1) ;
+  // float upX = sin(frameCount*.01) ;
+  float upY = 1 ; // not interesting
+  //float upY = sin(frameCount*.01) ;
+  float upZ = 0 ; // not interesting
+  //float upZ = sin(frameCount*.1) ;
+  
+  
+  
+  
+  
+  // ENGINE
+  camera(eyeCamX, eyeCamY, eyeCamZ, centerCamX, centerCamY, centerCamZ, upX, upY, upZ) ;
+  // camera() ;
   beginCamera() ;
 
   //scene position
@@ -644,12 +681,29 @@ PVector follow(PVector origin, PVector target, float speed) {
 
 
 
+
 // PERSPECTIVE
 //////////////
 void paralaxe() {
   float aspect = float(width)/float(height) ;
   float fov = 1.0 ;
   float cameraZ = (height/2.0) / tan(fov/2.0);
+  perspective(fov, aspect, cameraZ *.02, cameraZ*100.0);
+}
+
+
+void paralaxe(float focal, float deformation) {
+  // ratio deformation
+  float aspect = float(width)/float(height) ;
+  aspect += deformation ;
+  // focal
+  focal = constrain(focal, 28,200) ;
+  focal = map(focal,28,200,140,5) ;
+  float fov = radians(focal) ;
+  // this algo is from Processing example
+  float cameraZ = (height/2.0) / tan(fov/2.0);
+  
+  // this algo is from Processing example
   perspective(fov, aspect, cameraZ *.02, cameraZ*100.0);
 }
 
