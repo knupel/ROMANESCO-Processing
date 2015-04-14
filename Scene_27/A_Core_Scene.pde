@@ -356,6 +356,13 @@ class Miroir {
 
 
 
+
+
+
+
+
+
+
 //LIGHT
 ///////
 PVector colorLightOne = new PVector(0,0,0);
@@ -368,6 +375,7 @@ PVector speedColorLight = new PVector(0,0,0) ;
 //SETUP
 void lightSetup() {
   if(modeP3D) {
+    shaderSetup() ;
     float min =.001 ;
     float max = 0.3 ;
     speedColorLight = new PVector(random(min,max),random(min,max),random(min,max)) ;
@@ -404,11 +412,208 @@ void lightDraw() {
 
 //ANNEXE LIGHT VOID
 void romanescoLight(PVector colorOne, PVector colorTwo, PVector dirOne, PVector dirTwo) {
+  shader(pixShader);
+  // ambiant light
+  Vec4 colourAmbient = new Vec4(map(valueSlider[0][0],0,MAX_VALUE_SLIDER,0,HSBmode.x), map(valueSlider[0][1],0,MAX_VALUE_SLIDER,0,HSBmode.y), map(valueSlider[0][2],0,MAX_VALUE_SLIDER,0,HSBmode.z), 100) ;
+  
+  ambientLightPix(colourAmbient) ;
+  
+  // directional
+  int numOflight = 2 ;
+  Vec4 [] colorLight = new Vec4[numOflight] ;
+  Vec3 [] dirLight = new Vec3[numOflight] ;
+  // change by the future Vec4 HSBmode.a
+  float a = 100 ;
+  colorLight[0] = new Vec4(colorOne.x, colorOne.y, colorOne.z, a) ;
+  colorLight[1] = new Vec4(colorTwo.x, colorTwo.y,  colorTwo.z, a) ;
+  dirLight[0] = new Vec3(dirOne.x, dirOne.y, dirOne.z) ;
+  dirLight[1] = new Vec3(dirTwo.x, dirTwo.y, dirTwo.z) ;
+  
+  directionalLightPixList(colorLight,dirLight, 1) ; // 2 lights
+  /*
   if(eLightOne == 1 ) directionalLight(colorOne.x, colorOne.y, colorOne.z, dirOne.x, dirOne.y, dirOne.z);
   if(eLightTwo == 1 ) directionalLight(colorTwo.x, colorTwo.y, colorTwo.z, dirTwo.x, dirTwo.y, dirTwo.z);
+  */
   // don't use the ambiant light if you need the object color
 }
 
 
+
+// SHADER PIX LIGHT
+///////////////////
+PShader pixShader;
+
+void shaderSetup() {
+  String path = (preferencesPath +"shader/") ;
+  pixShader = loadShader(path+"pixFrag.glsl", path+"pixVert.glsl");
+}
+
+
+// LIGHT
+///////
+
+// Annexe light void
+//////////////////////
+
+/// AMBIENT LIGHT
+/////////////////
+void ambientLightPix(Vec4 colourPlusAlpha) {
+  /*
+  int alphaFromColorMode = 100 ; // Romanesco are in HSB(360,100,100,100) ;
+  float alpha = map(colourPlusAlpha.a,0,alphaFromColorMode,0,1) ;
+  */
+  ambientLight(colourPlusAlpha.r, colourPlusAlpha.g, colourPlusAlpha.b);
+  // we can use the pos of light in case we use the function falloff
+  /*
+  float x = width/2 ;
+ float y = height/2 ;
+  float z = 0 ;
+  ambientLight(colourPlusAlpha.r, colourPlusAlpha.g, colourPlusAlpha.b, x, y, z);
+  */
+  
+}
+
+
+
+
+
+
+// POINT LIGTH
+//////////////
+void pointLightList() {
+  float r = 255 *abs(cos(frameCount *.01)) ;
+  float g = 255 *abs(cos(frameCount *.002)) ;
+  float b = 255 *abs(cos(frameCount *.003)) ;
+  float a = 255 ;
+  Vec4 colorLightOne = new Vec4(r, g, b, a) ;
+  Vec4 colorLightTwo = new Vec4(g, b,  r, a) ;
+    float x = mouseX ;
+  float y = mouseY ;
+  float z = 200 ;
+  Vec3 posLightOne = new Vec3(x, y, z) ;
+  x = width -mouseX ;
+  y = height -mouseY ;
+  Vec3 posLightTwo = new Vec3(x, y, z) ;
+  pointLightPix(colorLightOne, posLightOne);
+  pointLightPix(colorLightTwo, posLightTwo);
+}
+
+
+void pointLightPix(Vec4 colourPlusAlpha, Vec3 pos) {
+   float alpha = map(colourPlusAlpha.a,0,255,0,1) ;
+   pointLight(colourPlusAlpha.r *alpha, colourPlusAlpha.g *alpha, colourPlusAlpha.b *alpha, pos.x, pos.y, pos.z) ;
+}
+
+
+
+
+//DIRECTIONAL LIGHT
+///////////////////
+/**
+open a list of lights with a max of height lights
+@param Vec4 [] colour RGBa float component value 0-255
+@param Vec4 [] dir xyz float component value -1 to 1
+*/
+void directionalLightPixList(Vec4 [] colour, Vec3 [] dir, int num) {
+   // security for the outbound index
+  if (colour.length != num || dir.length != num ) { 
+    num = 1 ;
+    println("Problem with the number of light, by security we use just one light now !") ;
+  }
+  for (int i = 0 ; i < 1 ; i++) {
+    directionalLightPix(colour[i], dir[i]) ;
+  }
+}
+// specific void
+///////////////
+void directionalLightPix(Vec4 rgba, Vec3 dir) {
+  int alphaFromColorMode = 100 ; // Romanesco are in HSB(360,100,100,100) ;
+  float alpha = map(rgba.a,0,alphaFromColorMode,0,1) ;
+  directionalLight(rgba.r *alpha, rgba.g *alpha, rgba.b *alpha, dir.x, dir.y, dir.z);
+  
+}
+
+
+
+//SPOT LIGHT
+/////////////
+void spotLightPixList() {
+  float r = 255 *abs(cos(frameCount *.002)) ;
+  float g = 255 *abs(cos(frameCount *.01)) ;
+  float b = 255 *abs(cos(frameCount *.004)) ;
+  float a = 255 ;
+  Vec4 colorLightOne = new Vec4(r, g, b, a) ;
+  Vec4 colorLightTwo = new Vec4(g, b,  r, a) ;
+  Vec4 colorLightThree = new Vec4(b, r,  g, a) ;
+  
+  float x = mouseX ;
+  float y = mouseY ;
+  float z = 200 ;
+  Vec3 posLightOne = new Vec3(x, y, z) ;
+  x = width -mouseX ;
+  y = height -mouseY ;
+  Vec3 posLightTwo = new Vec3(x, y, z) ;
+  x = width *sin(frameCount *.002) ;
+  y = height *sin(frameCount *.01) ;
+  Vec3 posLightThree = new Vec3(x, y, z) ;
+  
+  float dirX = 0 ;
+  float dirY = 0 ;
+  float dirZ = -1 ;
+  Vec3 dirLight = new Vec3(dirX, dirY, dirZ) ;
+  
+  /*
+  float ratio = 1.2 +(5 *abs(sin(frameCount *.003))) ;
+  float angle = TAU/ratio ; // good from PI/2 to
+  float concentration = 1+ 100 *abs(sin(frameCount *.004)); // try 1 > 1000
+  */
+   float angle = TAU /2 ;
+  float concentration = 100 ;
+
+  
+  spotLightPix(colorLightOne, posLightOne, dirLight, angle, concentration) ;
+  spotLightPix(colorLightTwo, posLightTwo, dirLight, angle, concentration) ;
+  spotLightPix(colorLightThree, posLightThree, dirLight, angle, concentration) ;
+}
+
+void spotLightPix(Vec4 rgba, Vec3 pos, Vec3 dir, float angle, float concentration) {
+   float alpha = map(rgba.a,0,255,0,1) ;
+   spotLight(rgba.r *alpha, rgba.g *alpha, rgba.b *alpha, pos.x, pos.y, pos.z, dir.x, dir.y, dir.z, angle, concentration) ;
+}
+// END SHADER PIX LIGTH
+//////////////////////
+
 // END LIGHT
 ////////////
+
+
+
+
+
+
+
+// GLOBAL SHADER
+////////////////
+void  shaderDraw() {
+  // Color value fro the global vertex
+  ////////////////////////////////////
+  Vec4 RGBa = new Vec4(1, 1, 1, .5) ; // it's OPENGL data between 0 to 1 
+    // the range is between -1 to 1, you can go beyond but take care at your life !
+  PVector RGB = new PVector(RGBa.r, RGBa.g, RGBa.b);
+
+  pixShader.set("colorVertex", RGB);
+  pixShader.set("alphaVertex", RGBa.a);
+  // pixlightShader.set("contrast", 1.);
+  
+  
+  // vertex position
+  //////////////////
+  // float canvasZ = cos(frameCount *.01) ;
+  PVector canvasXYZ = new PVector (1,1,1) ;
+  
+  pixShader.set("canvas", canvasXYZ);
+  pixShader.set("zoom", 1.);
+}
+
+// GLOBAL SHADER
+////////////////

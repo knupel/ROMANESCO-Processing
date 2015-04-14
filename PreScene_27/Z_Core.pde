@@ -5,8 +5,12 @@ LIGHT POSITION
 CHECK FOLDER
 */
 
-// LIGHT
+
+
 // LIGHT POSITION
+/*
+This void is necessary to diplay the info, not directly for the light because you don't use Light in the Prescene
+*/
 PVector lightPos = new PVector() ;
 void lightPosition() {
   if(modeP3D && lLongTouch) {

@@ -48,6 +48,7 @@ void draw() {
   meteoDraw() ;
   updateVar() ;
   backgroundRomanesco() ; 
+  shaderDraw() ; // maybe can desactivate the background shader
   
   //ROMANESCO
   cameraDraw() ;
