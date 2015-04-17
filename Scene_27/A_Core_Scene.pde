@@ -411,12 +411,17 @@ void lightDraw() {
 }
 
 //ANNEXE LIGHT VOID
+boolean AmbientOnOff  ;
+boolean [] directionalOnOff = new boolean[2]  ;
 void romanescoLight(PVector colorOne, PVector colorTwo, PVector dirOne, PVector dirTwo) {
+  if(eLightOne == 1 || eLightTwo == 1) AmbientOnOff = true ; else AmbientOnOff = false ;
+  if(eLightOne == 1 ) directionalOnOff [0] = true ; else directionalOnOff [0] = false ;
+  if(eLightTwo == 1 ) directionalOnOff [1] = true ; else directionalOnOff [1] = false ;
   shader(pixShader);
   // ambiant light
   Vec4 colourAmbient = new Vec4(map(valueSlider[0][0],0,MAX_VALUE_SLIDER,0,HSBmode.x), map(valueSlider[0][1],0,MAX_VALUE_SLIDER,0,HSBmode.y), map(valueSlider[0][2],0,MAX_VALUE_SLIDER,0,HSBmode.z), 100) ;
   
-  ambientLightPix(colourAmbient) ;
+  if(AmbientOnOff)ambientLightPix(colourAmbient) ;
   
   // directional
   int numOflight = 2 ;
@@ -426,10 +431,10 @@ void romanescoLight(PVector colorOne, PVector colorTwo, PVector dirOne, PVector 
   float a = 100 ;
   colorLight[0] = new Vec4(colorOne.x, colorOne.y, colorOne.z, a) ;
   colorLight[1] = new Vec4(colorTwo.x, colorTwo.y,  colorTwo.z, a) ;
-  dirLight[0] = new Vec3(dirOne.x, dirOne.y, dirOne.z) ;
+  dirLight[0] = new Vec3(dirOne.x ,dirOne.y, dirOne.z) ;
   dirLight[1] = new Vec3(dirTwo.x, dirTwo.y, dirTwo.z) ;
   
-  directionalLightPixList(colorLight,dirLight, 1) ; // 2 lights
+  directionalLightPixList(colorLight,dirLight, directionalOnOff, numOflight) ; // 2 lights
   /*
   if(eLightOne == 1 ) directionalLight(colorOne.x, colorOne.y, colorOne.z, dirOne.x, dirOne.y, dirOne.z);
   if(eLightTwo == 1 ) directionalLight(colorTwo.x, colorTwo.y, colorTwo.z, dirTwo.x, dirTwo.y, dirTwo.z);
@@ -514,14 +519,14 @@ open a list of lights with a max of height lights
 @param Vec4 [] colour RGBa float component value 0-255
 @param Vec4 [] dir xyz float component value -1 to 1
 */
-void directionalLightPixList(Vec4 [] colour, Vec3 [] dir, int num) {
+void directionalLightPixList(Vec4 [] colour, Vec3 [] dir, boolean [] OnOff, int num) {
    // security for the outbound index
   if (colour.length != num || dir.length != num ) { 
     num = 1 ;
     println("Problem with the number of light, by security we use just one light now !") ;
   }
   for (int i = 0 ; i < 1 ; i++) {
-    directionalLightPix(colour[i], dir[i]) ;
+    if(OnOff[i])directionalLightPix(colour[i], dir[i]) ;
   }
 }
 // specific void

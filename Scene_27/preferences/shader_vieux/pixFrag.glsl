@@ -49,10 +49,12 @@ varying vec4 specular_frag;
 // local parameter
 // direction
 vec3 lightDirTemp, lightPos ;
+vec3 direction, normal ;
 // special
 float falloff ;
 float spotf;
 // color param
+float intensity ;
 vec3 colorDiffuse, colorSpecular ; 
 vec3 totalAmbient, totalFrontDiffuse, totalBackDiffuse, totalFrontSpecular, totalBackSpecular ;
 
@@ -91,10 +93,8 @@ vec4 ambient(vec3 lightAmb) {
 }
 
 void colorIntensity(int whichOne) {
-	vec3 direction = normalize(lightDir[whichOne]);
-	vec3 normal = normalize(ecNormal);
 	// we code the color in the frag, to separate the color, because if we do that in the vert. The result is an average of the color.
-	float intensity = max(0.0, dot(direction, normal));
+	intensity = max(0.0, dot(direction, normal));
 	// color diffuse
 	colorDiffuse = vec3(lightDiffuse[whichOne].r *intensity, 
 						lightDiffuse[whichOne].g *intensity, 
@@ -112,11 +112,17 @@ void any_greaterThan(int whichOne) {
 	}
 
 	if (any(greaterThan(lightDiffuse[whichOne], zero_vec3))) {
-		totalFrontDiffuse  += colorDiffuse *falloff *spotf *lambertFactor(lightDir[whichOne], ecNormal);
+		// totalFrontDiffuse  += colorDiffuse *falloff *spotf ;
+		totalFrontDiffuse  += colorDiffuse *falloff *spotf *lambertFactor(lightDirTemp, ecNormal);
+		/*
+	  	totalFrontDiffuse  += colorDiffuse *falloff *spotf *  
+                            lambertFactor(lightDirTemp, ecNormal);
+                            */
     }
       
     if (any(greaterThan(lightSpecular[whichOne], zero_vec3))) {
-      	totalFrontSpecular += colorSpecular * falloff * spotf *blinnPhongFactor(lightDir[whichOne], ecVertex, ecNormal, shininess_frag);
+      	totalFrontSpecular += colorSpecular * falloff * spotf * 
+                            blinnPhongFactor(lightDirTemp, ecVertex, ecNormal, shininess_frag);
     } 
 
 }
@@ -149,13 +155,20 @@ void main() {
     // loop for the light
 	for(int i = 0 ; i <  numLight ; i++) {
 		lightPos = lightPosition[i].xyz;
+		// temporary data must be change in the future
+		// lightDir = -one_float * lightNormal[i];
+		lightDirTemp = normalize(lightPos - ecVertex);
+        
+        // direction
+		direction = normalize(lightDir[i]);
+		normal = normalize(ecNormal);
 
 		// spot light
 		float spotCos = lightSpot[i].x;
 		float spotExp = lightSpot[i].y;
 		spotf = spotExp > zero_float ? spotFactor(lightPos, ecVertex, lightNormal[i], spotCos, spotExp) : one_float;
 
-		colorIntensity(i) ;
+        colorIntensity(i) ;
 
 	  	// subtotal
 	  	any_greaterThan(i) ;
@@ -165,6 +178,21 @@ void main() {
 	  	final_color += vec4(totalAmbient, 0) * ambient_frag + 
 	  				vec4(totalFrontDiffuse, 1.)  *vertColor + 
 	  				vec4(totalFrontSpecular, 0)  *specular_frag ;
+	  	*/
+	  				/*
+	  	final_color += vec4(totalAmbient, 0)  + 
+	  				vec4(totalFrontDiffuse, 1.)   + 
+	  				vec4(totalFrontSpecular, 0)   ;
+	  				*/
+	  	/*
+	  	final_color += vec4(totalAmbient, 0)  + 
+	  				vec4(totalFrontDiffuse, 1.)   + 
+	  				vec4(totalFrontSpecular, 0)   ;
+	  	*/
+	  	/*
+	  	final_color += vec4(totalAmbient, 1.) * ambient_frag + 
+	  				vec4(totalFrontDiffuse, 1.) *spotf + 
+	  				vec4(totalFrontSpecular, 1.) *spotf ;
 	  	*/
 	}
 		  	final_color += vec4(totalAmbient, 1.)  + 

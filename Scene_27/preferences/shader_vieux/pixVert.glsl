@@ -8,8 +8,6 @@ https://processing.org/tutorials/pshader/
 
 // the number of light need to be a constant, not uniform from our sketch, because there is glitch bug
 const int numLight = 8 ;
-const float zero_float = 0.0;
-const float one_float = 1.0;
 
 //from Processing univers
 uniform mat4 modelview;
@@ -19,7 +17,7 @@ uniform mat3 normalMatrix;
 //from Processing light
 uniform int lightCount;
 uniform vec4 lightPosition[numLight];
-uniform vec3 lightNormal[numLight];
+// uniform vec3 lightNormal[8];
 
 
 
@@ -74,10 +72,8 @@ void main() {
     
 
     // light control
-	for(int i = 0 ;i < numLight ;i++) {
-		// we calculate the normal position in the vertex to have dynamic position for the lights
-		lightDir[i] = -one_float *lightNormal[i] ;
-		lightDir[i] *= normalize(lightPosition[i].xyz - ecVertex) ;
+	for(int i = 0 ;i < numLight ;i++) { 
+		lightDir[i] = normalize(lightPosition[i].xyz - ecVertex);
 	}
 
 
