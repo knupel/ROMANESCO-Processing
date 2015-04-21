@@ -546,6 +546,7 @@ PVector infoSaveFromRawList(PVector [] list, int pos) {
 Table textGUI;
 int numCol = 15 ;
 String[] genTxtGUI = new String[numCol] ;
+String[] sliderNameLight = new String[numCol] ;
 String[] sliderNameCamera = new String[numCol] ;
 String[] sliderNameOne = new String[numCol] ;
 String[] sliderNameTwo = new String[numCol] ;
@@ -575,10 +576,11 @@ void textGUI() {
     for ( int j = 1 ; j < numCol ; j++) {
       String whichCol = Integer.toString(j) ;
       if ( i == 0 ) genTxtGUI[j] = row[i].getString("Column "+whichCol) ;
-      if ( i == 1 ) sliderNameCamera[j] = row[i].getString("Column "+whichCol) ;
-      if ( i == 2 ) sliderNameOne[j] = row[i].getString("Column "+whichCol) ;
-      if ( i == 3 ) sliderNameTwo[j] = row[i].getString("Column "+whichCol) ;
-      if ( i == 4 ) sliderNameThree[j] = row[i].getString("Column "+whichCol) ;
+      if ( i == 1 ) sliderNameLight[j] = row[i].getString("Column "+whichCol) ;
+      if ( i == 2 ) sliderNameCamera[j] = row[i].getString("Column "+whichCol) ;
+      if ( i == 3 ) sliderNameOne[j] = row[i].getString("Column "+whichCol) ;
+      if ( i == 4 ) sliderNameTwo[j] = row[i].getString("Column "+whichCol) ;
+      if ( i == 5 ) sliderNameThree[j] = row[i].getString("Column "+whichCol) ;
     }
   }
 }

@@ -112,10 +112,14 @@ int correctionBGX = colOne ;
 int correctionBGY = lineGroupZero +15 ;
 
 // GROUP LIGHT
+// directional light
 int correctionLightOneX = colTwo ;
 int correctionLightOneY = lineGroupZero +15 ;
 int correctionLightTwoX = colTwo ;
 int correctionLightTwoY = lineGroupZero +80 ;
+// ambient light
+int correctionAmbientLightX = colOne ;
+int correctionAmbientLightY = lineGroupZero +80 ;
 
 // GROUP CAMERA
 int correctionCameraX = colThree ;
@@ -164,11 +168,10 @@ int correctionDropdownObject = 43 ;
 ////////////////////////
 void structureDraw() {
   //background
-  // int heightOfGroup = lineGroupTwo -lineGroupOne ;
   
   int correctionheight = 14 ;
-  fill(grisClair) ; rect(0, 0, width, height ) ; //GROUP ONE to THREE
-  fill(gris) ; rect(0, 0, width, lineGroupOne -correctionheight) ; // //GROUP ZERO
+  fill(grisClair) ; rect(0, 0, width, height ) ; //GROUP object  ONE and TWO
+  fill(gris) ; rect(0, 0, width, lineGroupOne -correctionheight) ; // //GROUP global ZERO
   fill(grisNoir) ; rect(0, lineMenuTopDropdown, width, lineGroupZero -lineMenuTopDropdown) ; // main band
   
   //the decoration line
@@ -277,7 +280,12 @@ void sliderSetup() {
   groupOneSlider (lineGroupOne +correctionSliderObject) ;
   groupTwoSlider (lineGroupTwo +correctionSliderObject) ;
 }
+
+
 // LOCAL SLIDER SETUP METHOD
+
+// group zero, global slider for camera, sound, light, background...
+////////////////////////////////////////////////////////////////////
 void groupZeroSlider(int correctionY) {
   // background slider
   int startLoop = 1 ;
@@ -296,22 +304,33 @@ void groupZeroSlider(int correctionY) {
   
   
   //LIGHT
-  // LIGHT ONE
+  /////////////
+  // Directional light one
   startLoop = 7 ;
   for(int i = startLoop ; i <= startLoop +2 ;i++) {
     float posY = correctionLightOneY +correctionY +((i-startLoop) *spacingBetweenSlider) ;
     posSlider[i] = new PVector(correctionLightOneX, posY) ;
     sizeSlider[i] = new PVector(sliderWidth,sliderHeight) ;
   }
- // LIGHT TWO
-   startLoop = 10 ;
+  // Directional light two
+  startLoop = 10 ;
   for(int i = startLoop ; i <= startLoop +2 ;i++) {
     float posY = correctionLightTwoY +correctionY +((i-startLoop) *spacingBetweenSlider) ;
     posSlider[i] = new PVector(correctionLightTwoX, posY) ;
     sizeSlider[i] = new PVector(sliderWidth,sliderHeight) ;
   }
   
+  // Ambient light
+  startLoop = 13 ;
+  for(int i = startLoop ; i <= startLoop +2 ;i++) {
+    float posY = correctionAmbientLightY +correctionY +((i-startLoop) *spacingBetweenSlider) ;
+    posSlider[i] = new PVector(correctionAmbientLightX, posY) ;
+    sizeSlider[i] = new PVector(sliderWidth,sliderHeight) ;
+  }
+  
+  
   // CAMERA
+  //////////
 //  int correctionCameraX = colThree ;
 //int correctionCameraY = lineGroupZero +15 ;
    startLoop = 20 ;
@@ -322,7 +341,10 @@ void groupZeroSlider(int correctionY) {
   }
 }
 
-//
+
+
+// Object group
+///////////////////////////////////////////
 void groupOneSlider(int sliderPositionY) {
   // where the controleur must display the slider
   for( int i = 0 ; i < SLIDER_BY_COL ; i++ ) {
@@ -370,13 +392,12 @@ void groupTwoSlider(int sliderPositionY) {
 
 // SLIDER DRAW
 void sliderDraw() {
-  // UPDATE GROUP ZERO
-  sliderDrawGroupZero() ;
+  sliderDisplayGroupZero() ;
   
   /* Loop to display the false background slider instead the usual class Slider background,
   we use it the methode to display a particular background, like the rainbowcolor... */
   for(int i = 1 ; i < NUM_GROUP_SLIDER ; i++) {
-    sliderBackground(i) ;
+    sliderDisplayObject(i) ;
   }
   
 
@@ -502,10 +523,17 @@ void dispayTextSliderGroupZero(int pos) {
     text(genTxtGUI[i], posSlider[i].x +correctionX, posSlider[i].y +correctionY);
   }
   
-  // LIGHT
-  for(int i = 9 ; i < 15 ; i++ ) {
-    text(genTxtGUI[i], posSlider[i-2].x +correctionX, posSlider[i-2].y +correctionY);
+
+  // light
+  for(int i = 0 ; i < 3 ; i++ ) {
+    // directional one
+    text(sliderNameLight[i+1], posSlider[i +7].x +correctionX, posSlider[i+7].y +correctionY);
+    // directional two
+    text(sliderNameLight[i+1], posSlider[i +10].x +correctionX, posSlider[i+10].y +correctionY);
+    // ambient
+    text(sliderNameLight[i+1], posSlider[i +13].x +correctionX, posSlider[i+13].y +correctionY);
   }
+  
   
   // CAMERA
   int numSliderCorrection = 19 ;
@@ -552,41 +580,102 @@ void dislayTextSlider() {
 
 
 
-////////////////////
-// Slider background
+/////////////////
+// SLIDER DISPLAY
+////////////////////////////////////////////////////////////////////////////////
+// Slider display for the global slider background, camera, light, sound....
+/*
+When you add a new sliders, you must change the starting value from 'NAN' to a value between 0 and 1 in the file 'defaultSetting.csv' in the 'preferences/setting' folder.
+And you must add the name of this one in the 'preferences/'  folder sliderListEN.csv' and in the 'sliderListFR' file
+*/
+void sliderDisplayGroupZero () {
+  sliderBackgroundDisplay() ;
+  sliderDirectionalLightOne() ;
+  sliderDirectionalLightTwo() ;
+  sliderAmbientLight() ;
+  sliderSoundDisplay() ;
+  sliderCameraDisplay() ;
+}
+
+// local void for slider display group zero
+void sliderBackgroundDisplay() {
+  int start = 0 ;
+  sliderHSBglobalDisplay(start) ;
+  sliderBG ( posSlider[4].x, posSlider[4].y, sizeSlider[4].y, sizeSlider[4].x, roundedSlider, blancGris) ;
+}
+
+// light local variable display
+void sliderAmbientLight() {
+  int start = 12;
+  sliderHSBglobalDisplay(start) ;
+}
+
+void sliderDirectionalLightOne() {
+  int start = 6 ;
+  sliderHSBglobalDisplay(start) ;
+}
+
+void sliderDirectionalLightTwo() {
+  int start = 9 ;
+  sliderHSBglobalDisplay(start) ;
+}
+//
+void sliderSoundDisplay() {
+   sliderBG ( posSlider[5].x, posSlider[5].y, sizeSlider[5].y, sizeSlider[5].x, roundedSlider, grisClair) ;
+  sliderBG ( posSlider[6].x, posSlider[6].y, sizeSlider[6].y, sizeSlider[6].x, roundedSlider, grisClair) ;
+}
+
+void sliderCameraDisplay() {
+    // we cannot loop, because we change the color of display at the end of the function
+  sliderBG ( posSlider[20].x, posSlider[20].y, sizeSlider[20].y, sizeSlider[20].x, roundedSlider, grisClair) ;
+  sliderBG ( posSlider[21].x, posSlider[21].y, sizeSlider[21].y, sizeSlider[21].x, roundedSlider, grisClair) ;
+  sliderBG ( posSlider[22].x, posSlider[22].y, sizeSlider[22].y, sizeSlider[22].x, roundedSlider, blancGris) ;
+  sliderBG ( posSlider[23].x, posSlider[23].y, sizeSlider[23].y, sizeSlider[23].x, roundedSlider, blancGris) ;
+  sliderBG ( posSlider[24].x, posSlider[24].y, sizeSlider[24].y, sizeSlider[24].x, roundedSlider, blancGris) ;
+  sliderBG ( posSlider[25].x, posSlider[25].y, sizeSlider[25].y, sizeSlider[25].x, roundedSlider, grisClair) ;
+  sliderBG ( posSlider[26].x, posSlider[26].y, sizeSlider[26].y, sizeSlider[26].x, roundedSlider, grisClair) ;
+  sliderBG ( posSlider[27].x, posSlider[27].y, sizeSlider[27].y, sizeSlider[27].x, roundedSlider, grisClair) ;
+  sliderBG ( posSlider[28].x, posSlider[28].y, sizeSlider[28].y, sizeSlider[28].x, roundedSlider, grisClair) ;
+}
+
+// supra local void
+void sliderHSBglobalDisplay(int start) {
+  if (mouseX > (posSlider[1 +start].x ) && mouseX < ( posSlider[1 +start].x +sizeSlider[1 +start].x) 
+      && mouseY > ( posSlider[1 +start].y - 5) && mouseY < posSlider[1 +start].y +40) {
+    hueSliderBG    ( posSlider[1 +start].x, posSlider[1 +start].y, sizeSlider[1 +start].y, sizeSlider[1 +start].x) ;
+    saturationSliderBG ( posSlider[2 +start].x, posSlider[2 +start].y, sizeSlider[2 +start].y, sizeSlider[1 +start].x, valueSlider[1 +start], valueSlider[2 +start], valueSlider[3 +start] ) ;
+    brightnessSliderBG ( posSlider[3 +start].x, posSlider[3 +start].y, sizeSlider[3 +start].y, sizeSlider[1 +start].x, valueSlider[1 +start], valueSlider[2 +start], valueSlider[3 +start] ) ;
+  } else {
+    sliderBG    ( posSlider[1 +start].x, posSlider[1 +start].y, sizeSlider[1 +start].y, sizeSlider[1 +start].x, roundedSlider, grisClair) ;
+    sliderBG    ( posSlider[2 +start].x, posSlider[2 +start].y, sizeSlider[2 +start].y, sizeSlider[2 +start].x, roundedSlider, grisClair) ;
+    sliderBG    ( posSlider[3 +start].x, posSlider[3 +start].y, sizeSlider[3 +start].y, sizeSlider[3 +start].x, roundedSlider, grisClair) ;
+  }
+}
+// end slider display for group zero
+////////////////////////////////////
+
+
+
+// Slider display for the Object slider
+////////////////////////////////////////
+/*
+When you add a new sliders, you must change the starting value from 'NAN' to a value between 0 and 1 in the file 'defaultSetting.csv' in the 'preferences/setting' folder.
+And you must add the name of this one in the 'preferences/'  folder sliderListEN.csv' and in the 'sliderListFR' file
+*/
+
 /* Loop to display the false background slider instead the usual class Slider background,
 we use it the methode to display a particular background, like the rainbowcolor... */
-void sliderBackground(int whichOne) {
+void sliderDisplayObject(int whichOne) {
   // to find the good slider in the array
   int whichGroup = whichOne ;
   whichOne *= 100 ;
   
   // COL ONE
-  if ( mouseX > (posSlider[whichOne +hueFillRank].x ) && mouseX < (posSlider[whichOne +hueFillRank].x +sizeSlider[whichOne +hueFillRank].x) 
-       && mouseY > ( posSlider[whichOne +hueFillRank].y - 5) && mouseY < posSlider[whichOne +hueFillRank].y +30 ) 
-  {
-    if (displaySlider[whichGroup][hueFillRank])        hueSliderBG    (posSlider[whichOne +hueFillRank].x, posSlider[whichOne +hueFillRank].y, sizeSlider[whichOne +hueFillRank].y, sizeSlider[whichOne +hueFillRank].x) ; 
-    if (displaySlider[whichGroup][saturationFillRank]) saturationSliderBG (posSlider[whichOne +saturationFillRank].x, posSlider[whichOne +saturationFillRank].y, sizeSlider[whichOne +saturationFillRank].y, sizeSlider[whichOne +hueFillRank].x, valueSlider[whichOne +hueFillRank], valueSlider[whichOne +saturationFillRank], valueSlider[whichOne +brightnessFillRank] ) ;
-    if (displaySlider[whichGroup][brightnessFillRank]) brightnessSliderBG    (posSlider[whichOne +brightnessFillRank].x, posSlider[whichOne +brightnessFillRank].y, sizeSlider[whichOne +brightnessFillRank].y, sizeSlider[whichOne +hueFillRank].x, valueSlider[whichOne +hueFillRank], valueSlider[whichOne +saturationFillRank], valueSlider[whichOne +brightnessFillRank] ) ;
-  } else {
-    if (displaySlider[whichGroup][hueFillRank])        sliderBG (posSlider[whichOne +hueFillRank].x, posSlider[whichOne +hueFillRank].y, sizeSlider[whichOne +hueFillRank].y, sizeSlider[whichOne +hueFillRank].x, roundedSlider, blanc) ;
-    if (displaySlider[whichGroup][saturationFillRank]) sliderBG (posSlider[whichOne +saturationFillRank].x, posSlider[whichOne +saturationFillRank].y, sizeSlider[whichOne +saturationFillRank].y, sizeSlider[whichOne +saturationFillRank].x, roundedSlider, blanc ) ;
-    if (displaySlider[whichGroup][brightnessFillRank]) sliderBG (posSlider[whichOne +brightnessFillRank].x, posSlider[whichOne +brightnessFillRank].y, sizeSlider[whichOne +brightnessFillRank].y, sizeSlider[whichOne +brightnessFillRank].x, roundedSlider, blanc ) ;
-  }
+  sliderHSBobjectDisplay(whichOne, whichGroup, hueFillRank, saturationFillRank, brightnessFillRank) ;
   if (displaySlider[whichGroup][alphaFillRank]) sliderBG (posSlider[whichOne +alphaFillRank].x, posSlider[whichOne +alphaFillRank].y, sizeSlider[whichOne +alphaFillRank].y, sizeSlider[whichOne +alphaFillRank].x, roundedSlider, blanc ) ;
   
   //outline color
-  if ( mouseX > (posSlider[whichOne +hueStrokeRank].x) && mouseX < ( posSlider[whichOne +hueStrokeRank].x +sizeSlider[whichOne +hueStrokeRank].x) 
-       && mouseY > ( posSlider[whichOne +hueStrokeRank].y - 5) && mouseY < posSlider[whichOne +hueStrokeRank].y +30 ) 
-  {
-    if (displaySlider[whichGroup][hueStrokeRank])        hueSliderBG    (posSlider[whichOne +hueStrokeRank].x, posSlider[whichOne +hueStrokeRank].y, sizeSlider[whichOne +hueStrokeRank].y, sizeSlider[whichOne +hueStrokeRank].x) ; 
-    if (displaySlider[whichGroup][saturationStrokeRank]) saturationSliderBG (posSlider[whichOne +saturationStrokeRank].x, posSlider[whichOne +saturationStrokeRank].y, sizeSlider[whichOne +saturationStrokeRank].y, sizeSlider[whichOne +hueStrokeRank].x, valueSlider[whichOne +hueStrokeRank], valueSlider[whichOne +saturationStrokeRank], valueSlider[whichOne +brightnessStrokeRank] ) ;
-    if (displaySlider[whichGroup][brightnessStrokeRank]) brightnessSliderBG    (posSlider[whichOne +brightnessStrokeRank].x, posSlider[whichOne +brightnessStrokeRank].y, sizeSlider[whichOne +brightnessStrokeRank].y, sizeSlider[whichOne +hueStrokeRank].x, valueSlider[whichOne +hueStrokeRank], valueSlider[whichOne +saturationStrokeRank], valueSlider[whichOne +brightnessStrokeRank] ) ;
-  } else {
-    if (displaySlider[whichGroup][hueStrokeRank])        sliderBG (posSlider[whichOne +hueStrokeRank].x, posSlider[whichOne +hueStrokeRank].y, sizeSlider[whichOne +hueStrokeRank].y, sizeSlider[whichOne +hueStrokeRank].x, roundedSlider, blancGrisClair) ;
-    if (displaySlider[whichGroup][saturationStrokeRank]) sliderBG (posSlider[whichOne +saturationStrokeRank].x, posSlider[whichOne +saturationStrokeRank].y, sizeSlider[whichOne +saturationStrokeRank].y, sizeSlider[whichOne +saturationStrokeRank].x, roundedSlider, blancGrisClair ) ;
-    if (displaySlider[whichGroup][brightnessStrokeRank]) sliderBG (posSlider[whichOne +brightnessStrokeRank].x, posSlider[whichOne +brightnessStrokeRank].y, sizeSlider[whichOne +brightnessStrokeRank].y, sizeSlider[whichOne +brightnessStrokeRank].x, roundedSlider, blancGrisClair) ;
-  }
+  sliderHSBobjectDisplay(whichOne, whichGroup, hueStrokeRank, saturationStrokeRank, brightnessStrokeRank) ;
   if (displaySlider[whichGroup][alphaStrokeRank]) sliderBG (posSlider[whichOne +alphaStrokeRank].x, posSlider[whichOne +alphaStrokeRank].y, sizeSlider[whichOne +alphaStrokeRank].y, sizeSlider[whichOne +alphaStrokeRank].x, roundedSlider, blancGrisClair) ;
   //  thickness
   if( displaySlider[whichGroup][thicknessRank]) sliderBG (posSlider[whichOne +thicknessRank].x, posSlider[whichOne +thicknessRank].y, sizeSlider[whichOne +thicknessRank].y, sizeSlider[whichOne +thicknessRank].x, roundedSlider, blanc) ;
@@ -625,64 +714,27 @@ void sliderBackground(int whichOne) {
 
 }
 
-
-
-// DRAW GROUP ZERO
-void sliderDrawGroupZero () {
-  //Background slider
-  if (mouseX > (posSlider[1].x ) && mouseX < ( posSlider[1].x + sizeSlider[1].x) 
-      && mouseY > ( posSlider[1].y - 5) && mouseY < posSlider[1].y + 30 ) {
-    hueSliderBG    ( posSlider[1].x, posSlider[1].y, sizeSlider[1].y, sizeSlider[1].x) ;
-    saturationSliderBG ( posSlider[2].x, posSlider[2].y, sizeSlider[2].y, sizeSlider[1].x, valueSlider[1], valueSlider[2], valueSlider[3] ) ;
-    brightnessSliderBG    ( posSlider[3].x, posSlider[3].y, sizeSlider[3].y, sizeSlider[1].x, valueSlider[1], valueSlider[2], valueSlider[3] ) ;
+// local void to display the HSB slider and display the specific color of this one
+void sliderHSBobjectDisplay(int whichOne, int whichGroup, int hueRank, int satRank, int brightRank) {
+    if ( mouseX > (posSlider[whichOne +hueRank].x ) && mouseX < (posSlider[whichOne +hueRank].x +sizeSlider[whichOne +hueRank].x) 
+       && mouseY > ( posSlider[whichOne +hueRank].y - 5) && mouseY < posSlider[whichOne +hueRank].y +30 ) 
+  {
+    if (displaySlider[whichGroup][hueRank])    hueSliderBG        (posSlider[whichOne +hueRank].x,    posSlider[whichOne +hueRank].y,    sizeSlider[whichOne +hueRank].y,    sizeSlider[whichOne +hueRank].x) ; 
+    if (displaySlider[whichGroup][satRank])    saturationSliderBG (posSlider[whichOne +satRank].x,    posSlider[whichOne +satRank].y,    sizeSlider[whichOne +satRank].y,    sizeSlider[whichOne +hueRank].x, valueSlider[whichOne +hueRank], valueSlider[whichOne +satRank], valueSlider[whichOne +brightRank] ) ;
+    if (displaySlider[whichGroup][brightRank]) brightnessSliderBG (posSlider[whichOne +brightRank].x, posSlider[whichOne +brightRank].y, sizeSlider[whichOne +brightRank].y, sizeSlider[whichOne +hueRank].x, valueSlider[whichOne +hueRank], valueSlider[whichOne +satRank], valueSlider[whichOne +brightRank] ) ;
   } else {
-    sliderBG    ( posSlider[1].x, posSlider[1].y, sizeSlider[1].y, sizeSlider[1].x, roundedSlider, grisClair) ;
-    sliderBG    ( posSlider[2].x, posSlider[2].y, sizeSlider[2].y, sizeSlider[2].x, roundedSlider, grisClair) ;
-    sliderBG    ( posSlider[3].x, posSlider[3].y, sizeSlider[3].y, sizeSlider[3].x, roundedSlider, grisClair) ;
+    if (displaySlider[whichGroup][hueRank])    sliderBG (posSlider[whichOne +hueRank].x,    posSlider[whichOne +hueRank].y,    sizeSlider[whichOne +hueRank].y,    sizeSlider[whichOne +hueRank].x,    roundedSlider, blanc) ;
+    if (displaySlider[whichGroup][satRank])    sliderBG (posSlider[whichOne +satRank].x,    posSlider[whichOne +satRank].y,    sizeSlider[whichOne +satRank].y,    sizeSlider[whichOne +satRank].x,    roundedSlider, blanc ) ;
+    if (displaySlider[whichGroup][brightRank]) sliderBG (posSlider[whichOne +brightRank].x, posSlider[whichOne +brightRank].y, sizeSlider[whichOne +brightRank].y, sizeSlider[whichOne +brightRank].x, roundedSlider, blanc ) ;
   }
-  sliderBG ( posSlider[4].x, posSlider[4].y, sizeSlider[4].y, sizeSlider[4].x, roundedSlider, blancGris) ;
-  // light ONE slider
-  if (mouseX > (posSlider[7].x ) && mouseX < ( posSlider[7].x +sizeSlider[7].x) 
-      && mouseY > ( posSlider[7].y - 5) && mouseY < posSlider[1].y +40) {
-    hueSliderBG    ( posSlider[7].x, posSlider[7].y, sizeSlider[7].y, sizeSlider[7].x) ;
-    saturationSliderBG ( posSlider[8].x, posSlider[8].y, sizeSlider[8].y, sizeSlider[7].x, valueSlider[7], valueSlider[8], valueSlider[9] ) ;
-    brightnessSliderBG    ( posSlider[9].x, posSlider[9].y, sizeSlider[9].y, sizeSlider[7].x, valueSlider[7], valueSlider[8], valueSlider[9] ) ;
-  } else {
-    sliderBG    ( posSlider[7].x, posSlider[7].y, sizeSlider[7].y, sizeSlider[7].x, roundedSlider, grisClair) ;
-    sliderBG    ( posSlider[8].x, posSlider[8].y, sizeSlider[8].y, sizeSlider[8].x, roundedSlider, grisClair) ;
-    sliderBG    ( posSlider[9].x, posSlider[9].y, sizeSlider[9].y, sizeSlider[9].x, roundedSlider, grisClair) ;
-  }
-  // light TWO slider
-  if (mouseX > (posSlider[10].x ) && mouseX < ( posSlider[10].x +sizeSlider[10].x) 
-      && mouseY > ( posSlider[10].y - 5) && mouseY < posSlider[1].y + 40 ) {
-    hueSliderBG    ( posSlider[10].x, posSlider[10].y, sizeSlider[10].y, sizeSlider[10].x) ;
-    saturationSliderBG ( posSlider[11].x, posSlider[11].y, sizeSlider[11].y, sizeSlider[10].x, valueSlider[10], valueSlider[11], valueSlider[9] ) ;
-    brightnessSliderBG    ( posSlider[12].x, posSlider[12].y, sizeSlider[12].y, sizeSlider[10].x, valueSlider[10], valueSlider[11], valueSlider[12] ) ;
-  } else {
-    sliderBG    ( posSlider[10].x, posSlider[10].y, sizeSlider[10].y, sizeSlider[10].x, roundedSlider, grisClair) ;
-    sliderBG    ( posSlider[11].x, posSlider[11].y, sizeSlider[11].y, sizeSlider[11].x, roundedSlider, grisClair) ;
-    sliderBG    ( posSlider[12].x, posSlider[12].y, sizeSlider[12].y, sizeSlider[12].x, roundedSlider, grisClair) ;
-  }
-  // sound
-  sliderBG ( posSlider[5].x, posSlider[5].y, sizeSlider[5].y, sizeSlider[5].x, roundedSlider, grisClair) ;
-  sliderBG ( posSlider[6].x, posSlider[6].y, sizeSlider[6].y, sizeSlider[6].x, roundedSlider, grisClair) ;
-  
-  
-  
-  // CAMERA
-  sliderBG ( posSlider[20].x, posSlider[20].y, sizeSlider[20].y, sizeSlider[20].x, roundedSlider, grisClair) ;
-  sliderBG ( posSlider[21].x, posSlider[21].y, sizeSlider[21].y, sizeSlider[21].x, roundedSlider, grisClair) ;
-  sliderBG ( posSlider[22].x, posSlider[22].y, sizeSlider[22].y, sizeSlider[22].x, roundedSlider, blancGris) ;
-  sliderBG ( posSlider[23].x, posSlider[23].y, sizeSlider[23].y, sizeSlider[23].x, roundedSlider, blancGris) ;
-  sliderBG ( posSlider[24].x, posSlider[24].y, sizeSlider[24].y, sizeSlider[24].x, roundedSlider, blancGris) ;
-  sliderBG ( posSlider[25].x, posSlider[25].y, sizeSlider[25].y, sizeSlider[25].x, roundedSlider, grisClair) ;
-  sliderBG ( posSlider[26].x, posSlider[26].y, sizeSlider[26].y, sizeSlider[26].x, roundedSlider, grisClair) ;
-  sliderBG ( posSlider[27].x, posSlider[27].y, sizeSlider[27].y, sizeSlider[27].x, roundedSlider, grisClair) ;
-  sliderBG ( posSlider[28].x, posSlider[28].y, sizeSlider[28].y, sizeSlider[28].x, roundedSlider, grisClair) ;
 }
 
 
 
+
+
+
+// super local variable
 //SLIDER COLOR
 void sliderBG (float posX, float posY, float heightSlider, float widthslider, int rounded, color coulour) {
   fill (coulour) ;
