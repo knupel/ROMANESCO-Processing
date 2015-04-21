@@ -14,7 +14,7 @@ To download the last built version [app 1.0.1.26](http://romanescoproject.wordpr
 ##Memory
 Romanesco Prescene and Scene need a lot of memory to run in Processing. May be you will need to increase the Processing memory.
 
-##Functions and variables
+##Help to code
 If you want code in Romanesco there few compulsory variables, methods and functions.  You find the different files in the folder "HELP/Romanesco Code/" and others who can help you.
 
 ##Code and Export
