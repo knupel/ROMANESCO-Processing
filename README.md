@@ -1,5 +1,6 @@
 ##ROMANESCO 27 / Romanesco Unu 1.0.2.27
-Romanesco can be your manager to test your sketch in a P3D world.
+Romanesco is a Generative Live Art Application, but can be
+your object manager to test your sketch in a P3D world.
 Those sketches are the progress work. 
 For the [previous releases of Romanesco Unu](https://github.com/StanLepunK/ROMANESCO_previous_release).
 To download the last built version [app 1.0.1.26](http://romanescoproject.wordpress.com/download/)
@@ -9,6 +10,7 @@ To download the last built version [app 1.0.1.26](http://romanescoproject.wordpr
 * Controleur : interface slider to use the objects and the different parameters.
 * Prescene : use to move the object in the 3D space.
 * Scene : Display the result, we can use this one to send to syphon or not.
+* Romanesco must be coded with Processing 3.0a5
 
 
 ##Memory
