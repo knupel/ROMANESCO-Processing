@@ -42,7 +42,7 @@ If you want code in Romanesco there few compulsory variables, methods and functi
  * shaderBackgroundList.csv file 
  * sliderListEN.csv file
  * sliderListFR.csv file
-* Export all your Apps, put the "Launcher.app" in the main Folder, in "sources" drop the Scene, Prescene and the Controleur.
+* Export all your Apps, put the "Launcher.app" in the main Folder, in "sources" drop the Scene, Prescene and the Controleur. You must embeded Java when you export your differents app, because with Java 8 there is a bug with the window display.
 * Check your internet connexion and run.
 
 ##Built Romanesco on Linux
