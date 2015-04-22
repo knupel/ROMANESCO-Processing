@@ -1,6 +1,6 @@
 //////////////////
 //OBJECT ROMANESCO
-class Karaoke extends SuperRomanesco {
+class Karaoke extends Romanesco {
   public Karaoke() {
     //from the index_objects.csv
     romanescoName = "Karaoke" ;

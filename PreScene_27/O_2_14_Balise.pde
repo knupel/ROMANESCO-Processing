@@ -1,6 +1,6 @@
 Balise balise ;
 //object three
-class BaliseRomanesco extends SuperRomanesco {
+class BaliseRomanesco extends Romanesco {
   public BaliseRomanesco() {
     //from the index_objects.csv
     romanescoName = "Balise" ;

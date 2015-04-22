@@ -1,0 +1,9 @@
+BESTIARY of the Romanesco world
+
+-- Tetrahedron --
+> This group of method are present in Mathematic chapter and in Bestiary
+void tetrahedronAdd() ; // this method add the four points in a arraylist of point, the shape create have a size of "1"
+void tetrahedronClear() ; clear the list of point
+int tetrahedronSize() ; return the size of the list
+void tetrahedronList(int size) ; // this method draw all points from the arraylist of point, you can use the int size to change the size of the tetrahedron...in this method the list is not clear
+void tetrahedron(int size) // display tetrahedron, you can change the size with the int, the starting size is around "one" pixel

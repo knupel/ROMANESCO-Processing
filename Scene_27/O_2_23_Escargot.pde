@@ -1,4 +1,4 @@
-class Escargot extends SuperRomanesco {
+class Escargot extends Romanesco {
   public Escargot() {
     //from the index_objects.csv
     romanescoName = "Image" ;

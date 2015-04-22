@@ -1,6 +1,6 @@
   ArrayList<BOITEaMUSIQUE> boiteList ;
   
-class Boxolyzer extends SuperRomanesco {
+class Boxolyzer extends Romanesco {
   public Boxolyzer() {
     //from the index_objects.csv
     romanescoName = "Boxolyzer" ;

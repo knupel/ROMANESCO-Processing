@@ -1,7 +1,7 @@
 
 
 
-class MesAmis extends SuperRomanesco {
+class MesAmis extends Romanesco {
   public MesAmis() {
     //from the index_objects.csv
     romanescoName = "Rubis" ;

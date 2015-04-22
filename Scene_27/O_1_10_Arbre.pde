@@ -1,6 +1,6 @@
 Arbre arbre ;
 //object three
-class ArbreRomanesco extends SuperRomanesco {
+class ArbreRomanesco extends Romanesco {
   public ArbreRomanesco() {
     //from the index_objects.csv
     romanescoName = "Arbre" ;

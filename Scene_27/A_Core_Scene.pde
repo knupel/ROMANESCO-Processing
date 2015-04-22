@@ -365,13 +365,6 @@ class Miroir {
 
 //LIGHT
 ///////
-PVector colorLightOne = new PVector(0,0,0);
-PVector colorLightTwo = new PVector(0,0,0);
-PVector dirLightOne = new PVector(0,0,1);
-PVector dirLightTwo = new PVector(0,0,1);
-boolean lightOneMove, lightTwoMove ;
-
-PVector speedColorLight = new PVector(0,0,0) ;
 //SETUP
 void lightSetup() {
   if(modeP3D) {
@@ -381,66 +374,73 @@ void lightSetup() {
     speedColorLight = new PVector(random(min,max),random(min,max),random(min,max)) ;
   }
 }
+// END SETUP
+////////////
 
 
 
 //DRAW
+PVector speedColorLight = new PVector(0,0,0) ;
+Vec4 colorDirectionalLightOne = new Vec4(0,100,100,100);
+Vec3 dirDirectionalLightOne = new Vec3(0,0,1);
+
+Vec4 colorDirectionalLightTwo = new Vec4(0,100,100,100);
+Vec3 dirDirectionalLightTwo = new Vec3(0,0,1);
+
+boolean lightOneMove, lightTwoMove, lightAmbientMove ;
+boolean AmbientOnOff  ;
+boolean directionalLightOneOnOff, directionalLightTwoOnOff  ;
+
+
 void lightDraw() {
   if(modeP3D) {
-    //change color of light
-    colorLightOne = new PVector (map(valueSlider[0][6], 0, MAX_VALUE_SLIDER, 0, HSBmode.x), map(valueSlider[0][7],0, MAX_VALUE_SLIDER, 0, HSBmode.y), map(valueSlider[0][8], 0, MAX_VALUE_SLIDER, 0, HSBmode.z)) ;
-    colorLightTwo = new PVector (map(valueSlider[0][9], 0, MAX_VALUE_SLIDER, 0, HSBmode.x), map(valueSlider[0][10], 0, MAX_VALUE_SLIDER, 0, HSBmode.y), map(valueSlider[0][11], 0, MAX_VALUE_SLIDER, 0, HSBmode.z)) ;
+    shader(pixShader) ;
     
-    // change the direction of the light
-    if(eLightOneAction == 1 ) lightOneMove = true ; else lightOneMove = false ;
-    if(eLightTwoAction == 1 ) lightTwoMove = true ; else lightTwoMove = false ;
+    // ambient light
+    if(eLightAmbient == 1 ) AmbientOnOff = true ; else AmbientOnOff = false ;
+    if(AmbientOnOff){ 
+      if(eLightAmbientAction == 1 ) lightAmbientMove = true ; else lightAmbientMove = false ;
+      Vec4 colourAmbient = new Vec4(map(valueSlider[0][12],0,MAX_VALUE_SLIDER,0,HSBmode.x), map(valueSlider[0][13],0,MAX_VALUE_SLIDER,0,HSBmode.y), map(valueSlider[0][14],0,MAX_VALUE_SLIDER,0,HSBmode.z), 100) ;
+      ambientLightPix(colourAmbient) ;
+    }
     
-    if(lightOneMove) {
-      dirLightOne.x = map(lightPos.x,0,width, -1,1) ;
-      dirLightOne.y = map(lightPos.y,0,height, -1,1) ;
-      dirLightOne.z = map(lightPos.z,-750,750, -1,1) ;
+    // Directional light one
+   if(eLightOne == 1 ) directionalLightOneOnOff = true ; else directionalLightOneOnOff = false ;
+   if(directionalLightOneOnOff) {
+     // direction
+      if(eLightOneAction == 1 ) lightOneMove = true ; else lightOneMove = false ;
+      if(lightOneMove) {
+        dirDirectionalLightOne.x = map(lightPos.x,0,width, -1,1) ;
+        dirDirectionalLightOne.y = map(lightPos.y,0,height, -1,1) ;
+        dirDirectionalLightOne.z = map(lightPos.z,-750,750, -1,1) ;
+      }
+      // color
+      colorDirectionalLightOne = new Vec4 (map(valueSlider[0][6], 0, MAX_VALUE_SLIDER, 0, HSBmode.x), map(valueSlider[0][7],0, MAX_VALUE_SLIDER, 0, HSBmode.y), map(valueSlider[0][8], 0, MAX_VALUE_SLIDER, 0, HSBmode.z),100) ;
+      // rendering
+      directionalLightPix(colorDirectionalLightOne, dirDirectionalLightOne) ;
     }
-    if(lightTwoMove) {
-      dirLightTwo.x = map(lightPos.x,0,width, 1,-1) ;
-      dirLightTwo.y = map(lightPos.y,0,height, 1,-1) ;
-      dirLightTwo.z = map(lightPos.z,-750,750, 1,-1) ;
+    
+    // Directional light two
+    if(eLightTwo == 1 ) directionalLightTwoOnOff = true ; else directionalLightTwoOnOff = false ;
+   if(directionalLightTwoOnOff) {
+     // direction
+      if(eLightTwoAction == 1 ) lightTwoMove = true ; else lightTwoMove = false ;
+      if(lightTwoMove) {
+        dirDirectionalLightTwo.x = map(lightPos.x,0,width, 1,-1) ;
+        dirDirectionalLightTwo.y = map(lightPos.y,0,height, 1,-1) ;
+        dirDirectionalLightTwo.z = map(lightPos.z,-750,750, 1,-1) ;
+      }
+      // color
+      colorDirectionalLightTwo = new Vec4 (map(valueSlider[0][9], 0, MAX_VALUE_SLIDER, 0, HSBmode.x), map(valueSlider[0][10],0, MAX_VALUE_SLIDER, 0, HSBmode.y), map(valueSlider[0][11], 0, MAX_VALUE_SLIDER, 0, HSBmode.z),100) ;
+      // rendering
+      directionalLightPix(colorDirectionalLightTwo, dirDirectionalLightTwo) ;
     }
-    //result
-    romanescoLight(colorLightOne, colorLightTwo, dirLightOne, dirLightTwo) ;
+    
   }
 }
 
 //ANNEXE LIGHT VOID
-boolean AmbientOnOff  ;
-boolean [] directionalOnOff = new boolean[2]  ;
-void romanescoLight(PVector colorOne, PVector colorTwo, PVector dirOne, PVector dirTwo) {
-  if(eLightOne == 1 || eLightTwo == 1) AmbientOnOff = true ; else AmbientOnOff = false ;
-  if(eLightOne == 1 ) directionalOnOff [0] = true ; else directionalOnOff [0] = false ;
-  if(eLightTwo == 1 ) directionalOnOff [1] = true ; else directionalOnOff [1] = false ;
-  shader(pixShader);
-  // ambiant light
-  Vec4 colourAmbient = new Vec4(map(valueSlider[0][0],0,MAX_VALUE_SLIDER,0,HSBmode.x), map(valueSlider[0][1],0,MAX_VALUE_SLIDER,0,HSBmode.y), map(valueSlider[0][2],0,MAX_VALUE_SLIDER,0,HSBmode.z), 100) ;
-  
-  if(AmbientOnOff)ambientLightPix(colourAmbient) ;
-  
-  // directional
-  int numOflight = 2 ;
-  Vec4 [] colorLight = new Vec4[numOflight] ;
-  Vec3 [] dirLight = new Vec3[numOflight] ;
-  // change by the future Vec4 HSBmode.a
-  float a = 100 ;
-  colorLight[0] = new Vec4(colorOne.x, colorOne.y, colorOne.z, a) ;
-  colorLight[1] = new Vec4(colorTwo.x, colorTwo.y,  colorTwo.z, a) ;
-  dirLight[0] = new Vec3(dirOne.x ,dirOne.y, dirOne.z) ;
-  dirLight[1] = new Vec3(dirTwo.x, dirTwo.y, dirTwo.z) ;
-  
-  directionalLightPixList(colorLight,dirLight, directionalOnOff, numOflight) ; // 2 lights
-  /*
-  if(eLightOne == 1 ) directionalLight(colorOne.x, colorOne.y, colorOne.z, dirOne.x, dirOne.y, dirOne.z);
-  if(eLightTwo == 1 ) directionalLight(colorTwo.x, colorTwo.y, colorTwo.z, dirTwo.x, dirTwo.y, dirTwo.z);
-  */
-  // don't use the ambiant light if you need the object color
-}
+
 
 
 
@@ -454,30 +454,45 @@ void shaderSetup() {
 }
 
 
-// LIGHT
-///////
 
-// Annexe light void
-//////////////////////
+
+
+// SUPER ANNEXE METHOD
+///////////////////////
 
 /// AMBIENT LIGHT
 /////////////////
 void ambientLightPix(Vec4 colourPlusAlpha) {
-  /*
-  int alphaFromColorMode = 100 ; // Romanesco are in HSB(360,100,100,100) ;
-  float alpha = map(colourPlusAlpha.a,0,alphaFromColorMode,0,1) ;
-  */
+  /* int alphaFromColorMode = 100 ; // Romanesco are in HSB(360,100,100,100) ;
+  float alpha = map(colourPlusAlpha.a,0,alphaFromColorMode,0,1) ; */
   ambientLight(colourPlusAlpha.r, colourPlusAlpha.g, colourPlusAlpha.b);
-  // we can use the pos of light in case we use the function falloff
-  /*
-  float x = width/2 ;
- float y = height/2 ;
-  float z = 0 ;
-  ambientLight(colourPlusAlpha.r, colourPlusAlpha.g, colourPlusAlpha.b, x, y, z);
-  */
+}
+void ambientLightPix(Vec4 rgba, Vec3 pos) {
+  /* int alphaFromColorMode = 100 ; // Romanesco are in HSB(360,100,100,100) ;
+  float alpha = map(colourPlusAlpha.a,0,alphaFromColorMode,0,1) ; */
+  ambientLight(rgba.r, rgba.g, rgba.b, pos.x, pos.y, pos.z);
+}
+// END AMBIENT LIGHT
+////////////////////
+
+
+//DIRECTIONAL LIGHT
+///////////////////
+/**
+open a list of lights with a max of height lights
+@param Vec4 [] colour RGBa float component value 0-255
+@param Vec4 [] dir xyz float component value -1 to 1
+*/
+// specific void
+///////////////
+void directionalLightPix(Vec4 rgba, Vec3 dir) {
+  int alphaFromColorMode = 100 ; // Romanesco are in HSB(360,100,100,100) ;
+  float alpha = map(rgba.a,0,alphaFromColorMode,0,1) ;
+  directionalLight(rgba.r *alpha, rgba.g *alpha, rgba.b *alpha, dir.x, dir.y, dir.z);
   
 }
-
+// END DIRECTIONAL LIGHT
+////////////////////////
 
 
 
@@ -512,31 +527,7 @@ void pointLightPix(Vec4 colourPlusAlpha, Vec3 pos) {
 
 
 
-//DIRECTIONAL LIGHT
-///////////////////
-/**
-open a list of lights with a max of height lights
-@param Vec4 [] colour RGBa float component value 0-255
-@param Vec4 [] dir xyz float component value -1 to 1
-*/
-void directionalLightPixList(Vec4 [] colour, Vec3 [] dir, boolean [] OnOff, int num) {
-   // security for the outbound index
-  if (colour.length != num || dir.length != num ) { 
-    num = 1 ;
-    println("Problem with the number of light, by security we use just one light now !") ;
-  }
-  for (int i = 0 ; i < 1 ; i++) {
-    if(OnOff[i])directionalLightPix(colour[i], dir[i]) ;
-  }
-}
-// specific void
-///////////////
-void directionalLightPix(Vec4 rgba, Vec3 dir) {
-  int alphaFromColorMode = 100 ; // Romanesco are in HSB(360,100,100,100) ;
-  float alpha = map(rgba.a,0,alphaFromColorMode,0,1) ;
-  directionalLight(rgba.r *alpha, rgba.g *alpha, rgba.b *alpha, dir.x, dir.y, dir.z);
-  
-}
+
 
 
 

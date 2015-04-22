@@ -1,6 +1,6 @@
 ArrayList <Hexagon> grid = new ArrayList <Hexagon> (); // the arrayList to store the whole grid of cells
 
-class Honeycomb extends SuperRomanesco {
+class Honeycomb extends Romanesco {
   public Honeycomb() {
     //from the index_objects.csv
     romanescoName = "Nid d'abeilles" ;

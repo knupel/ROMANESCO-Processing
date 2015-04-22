@@ -66,21 +66,26 @@ void translateDataToSend() {
   valueButtonGlobal[2] = EtatBkick ;
   valueButtonGlobal[3] = EtatBsnare ;
   valueButtonGlobal[4] = EtatBhat ;
-  /*
-  valueButtonGlobal[7] = dropdownFont.getSelection() +1 ; ;
-  valueButtonGlobal[10] = EtatCurtainButton ;
-  */
+
   valueButtonGlobal[5] = dropdownFont.getSelection() +1 ; ;
   valueButtonGlobal[6] = EtatCurtainButton ;
   valueButtonGlobal[7] = EtatBackgroundButton ;
+  
   valueButtonGlobal[8] = EtatLightOneButton ;
   valueButtonGlobal[9] = EtatLightTwoButton ;
-  valueButtonGlobal[10] = EtatLightOneAction ;
-  valueButtonGlobal[11] = EtatLightTwoAction ;
+  valueButtonGlobal[10] = EtatLightAmbientButton ;
+  valueButtonGlobal[11] = EtatLightOneAction ;
+  valueButtonGlobal[12] = EtatLightTwoAction ;
+  valueButtonGlobal[13] = EtatLightAmbientAction ;
   
+  valueButtonGlobal[14] = EtatBackgroundShader ;
+  valueButtonGlobal[15] = EtatImage ;
+  valueButtonGlobal[16] = EtatFileText ;
+  /*
   valueButtonGlobal[12] = EtatBackground ;
   valueButtonGlobal[13] = EtatImage ;
   valueButtonGlobal[14] = EtatFileText ;
+  */
   
   //BUTTON GROUP ONE
   if(numGroup[1] > 0 ) {

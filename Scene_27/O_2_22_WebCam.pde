@@ -1,5 +1,5 @@
 
-class Webcam extends SuperRomanesco {
+class Webcam extends Romanesco {
   public Webcam() {
     //from the index_objects.csv
     romanescoName = "Webcam" ;

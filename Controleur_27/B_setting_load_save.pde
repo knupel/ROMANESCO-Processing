@@ -43,6 +43,7 @@ int lastDropdown, numDropdown ;
 int valueButtonGlobal[], valueButtonObj[], valueButtonTex[], valueButtonTypo[]  ;
 Simple  BOmidi, BOcurtain,
         buttonBackground, 
+        buttonLightAmbient, buttonLightAmbientAction,
         buttonLightOne, buttonLightOneAction,
         buttonLightTwo, buttonLightTwoAction,
         Bbeat, Bkick, Bsnare, Bhat;
@@ -124,7 +125,7 @@ void initVarObject() {
 void initVarButton() {
   numButton = new int[NUM_GROUP_SLIDER] ;
   
-  numButton[0] = 15 ;
+  numButton[0] = 18 ;
   for (int i = 1 ; i < NUM_GROUP_SLIDER ; i++ ) {
     numButton[i] = numGroup[i]*10 ;
     numButtonTotalObjects += numGroup[i] ;

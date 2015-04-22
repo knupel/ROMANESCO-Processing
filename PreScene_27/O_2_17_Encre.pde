@@ -2,7 +2,7 @@ ArrayList<Pixel> encreList = new ArrayList<Pixel>(); ;
 ArrayList<Pixel> starList = new ArrayList<Pixel>();
 
 //object one
-class Spray extends SuperRomanesco {
+class Spray extends Romanesco {
   public Spray() {
     //from the index_objects.csv
     romanescoName = "Stars Spray" ;

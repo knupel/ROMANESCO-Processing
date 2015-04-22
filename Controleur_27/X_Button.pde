@@ -167,8 +167,8 @@ class Simple extends Button {
    }
  }
 
- ///BUTTON Texte
- void boutonTexte(String s, int x, int y) {
+ ///BUTTON Text
+ void buttonText(String s, int x, int y) {
    if (onOff) {
      stroke(vertTresFonce) ;
      if (rollover() && !dropdownActivity) couleurONoffCarre = cBINonBO ; else couleurONoffCarre = cBOUTonBO ;
@@ -181,7 +181,7 @@ class Simple extends Button {
    text(s, x, y) ;
  }
  
- void boutonTexte(String s, PVector pos, PFont font, int sizeFont) {
+ void buttonText(String s, PVector pos, PFont font, int sizeFont) {
    if (onOff) {
      if (rollover(sizeFont) && !dropdownActivity) couleurONoffCarre = cBINonBO ; else couleurONoffCarre = cBOUTonBO ;
    } else {

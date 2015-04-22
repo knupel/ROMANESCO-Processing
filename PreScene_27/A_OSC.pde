@@ -39,7 +39,7 @@ void oscEvent(OscMessage receive) {
   }
   //Split data from the String Data
   valueButtonGlobal = int(split(fromControler [0], '/')) ;
-  // stick the Int(String) chain from the group one, two and three is single chain integer(String).
+  // stick the Int(String) chain from the group object "one" and "two" is single chain integer(String).
   String fullChainValueButtonObj =("") ;
   for ( int i = 1 ; i <= NUM_GROUP ; i++ ) {
     fullChainValueButtonObj += fromControler [i]+"/" ;
@@ -54,7 +54,7 @@ void oscEvent(OscMessage receive) {
   }
   // translate the String value to the float var to use
   for ( int i = 0 ; i < NUM_GROUP +1 ; i++ ) {
-    // security because there not same quantity of slider in the group MISC -zero- and OBJECT group -one and two-.
+    // security because there not same quantity of slider in the group MISC "zero" and OBJECT group "one and two".
     int n = 0 ;
     if ( i < 1 ) n = NUM_SLIDER_MISC ; else n = NUM_SLIDER_OBJ ;
     for (int j = 0 ; j < n ; j++) {
@@ -168,13 +168,13 @@ void OSCDraw() {
    
    
   fromControler[NUM_GROUP +1] = fromControler[NUM_GROUP +1] + "/" +dataPreScene[0] + "/" +dataPreScene[1] + "/" +dataPreScene[2] + "/" +dataPreScene[3] + "/" +dataPreScene[4] + "/" +dataPreScene[10] ;
-  // println("après", fromControler[NUM_GROUP +1]) ;
+  // println("after ", fromControler[NUM_GROUP +1]) ;
      /* I don't understand this line  why we must  add this data dataPreScene[0], dataPreScene[1], dataPreScene[2], dataPreScene[3], dataPreScene[4], dataPreScene[10] here, this not real interesting dateindexObjects
      plus  we add all data at th end.
      see line : RomanescoScene.add(toScene);
    In the test just dataPreScene[0] change the value between 1 and 0
    
-   But if don't add ths line below the Scene crash
+   But if we don't add ths line below the Scene crash
    in the method OSCdraw() {
     ...
     eBeat = valueButtonGlobal[1]
@@ -229,12 +229,14 @@ void OSCDraw() {
   
   eLightOne = valueButtonGlobal[8] ;
   eLightTwo = valueButtonGlobal[9] ;
-  eLightOneAction = valueButtonGlobal[10] ;
-  eLightTwoAction = valueButtonGlobal[11] ;
+  eLightAmbient = valueButtonGlobal[10] ;
+  eLightOneAction = valueButtonGlobal[11] ;
+  eLightTwoAction = valueButtonGlobal[12] ;
+  eLightAmbientAction = valueButtonGlobal[13] ;
   
-  whichShader = valueButtonGlobal[12] ;
-  whichImage[0] = valueButtonGlobal[13] ;
-  whichText[0] = valueButtonGlobal[14] ;
+  whichShader = valueButtonGlobal[14] ;
+  whichImage[0] = valueButtonGlobal[15] ;
+  whichText[0] = valueButtonGlobal[16] ;
   
   //OBJECTS
   for ( int i = 0 ; i < numObj-1 ; i++) {

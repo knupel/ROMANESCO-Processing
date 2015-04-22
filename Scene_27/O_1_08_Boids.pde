@@ -1,4 +1,4 @@
-class Boids extends SuperRomanesco {
+class Boids extends Romanesco {
   public Boids() {
     //Send to the index_objects.csv. This file is used by the controller
     romanescoName = "Boids" ;
@@ -7,7 +7,7 @@ class Boids extends SuperRomanesco {
     romanescoAuthor  = "Too much people";
     romanescoVersion = "Version 1.0";
     romanescoPack = "Base" ;
-    romanescoMode = "" ; // separate each name by "/"
+    romanescoMode = "Tetra mono/Tetra poly" ; // separate each name by "/"
     
     /* Choice which slider can influence your object, see the file in the FOLDER "...HELP/Romanesco Code/GLOBAL CODE OBJECT.txt"
     below an example.
@@ -32,10 +32,8 @@ class Boids extends SuperRomanesco {
   int maxColorRef = 360 ; // here we are in HSB 360
   int rangeAroundYourColor = 70 ;
   int numOfBoid ;
-  
-  
-  
-  //SETUP
+  // Main method
+  // setup
   void setting() {
    startPosition(IDobj, width/2, height/2, 0) ;
    // build the canvas where the boid can move
@@ -46,68 +44,61 @@ class Boids extends SuperRomanesco {
    // color colorBoid = color(80,100,100) ;
    birthPlace = pos.copy() ;
    flock = new Flock() ;
+  }
   
-  
-
-  
-  
-  // flock.flockSetup() ;
- }
- 
- //DRAW
+  // draw
   void display() {
     // MAIN method
-  PVector size = new PVector(sizeXObj[IDobj] ,sizeXObj[IDobj],sizeXObj[IDobj]) ;
-  size.mult(.1) ;
-  float alignment = map(alignmentObj[IDobj],0,1,0,10) ;
-  float cohesion = map(attractionObj[IDobj],0,1,0,10) ;
-  float separation = map(repulsionObj[IDobj],0,1,0,10) ;
-  PVector unity = new PVector(cohesion, separation) ;
-  if(flock.listBoid.size() > 0 )flock.run(size, alignment, unity);
+    PVector size = new PVector(sizeXObj[IDobj] ,sizeXObj[IDobj],sizeXObj[IDobj]) ;
+    size.mult(.1) ;
+    float alignment = map(alignmentObj[IDobj],0,1,0,10) ;
+    float cohesion = map(attractionObj[IDobj],0,1,0,10) ;
+    float separation = map(repulsionObj[IDobj],0,1,0,10) ;
+    PVector unity = new PVector(cohesion, separation) ;
+    if(flock.listBoid.size() > 0 )flock.run(size, alignment, unity);
+    
+    // ANNEXE methods
+    
+    // GOAL of the boids
+    //float depthGoal =sin(frameCount *.001) *300 ;
+    // flock.goal(mouseX,mouseY, depthGoal);
+    
+    // INFLUENCE of the boid around him
+    float ratioInfluence = influenceObj[IDobj] *400 +1 ;
+    float influenceArea =  abs(sin(frameCount *.001) *ratioInfluence) ;
+    flock.influence(influenceArea);
+    
+    // SPEED
+    float speed = map(speedObj[IDobj],0,1,.1,10) ;
+    flock.speed(speed) ;
+    
+    // cage size
+    myCanvas.size.x = canvasXObj[IDobj] *10 ;
+    myCanvas.size.y = canvasYObj[IDobj] *10 ;
+    myCanvas.size.z = canvasZObj[IDobj] *10 ;
+    myCanvas.update() ;
   
-  // ANNEXE methods
-  
-  // GOAL of the boids
-  //float depthGoal =sin(frameCount *.001) *300 ;
-  // flock.goal(mouseX,mouseY, depthGoal);
-  
-  // INFLUENCE of the boid around him
-  float ratioInfluence = influenceObj[IDobj] *400 +1 ;
-  float influenceArea =  abs(sin(frameCount *.001) *ratioInfluence) ;
-  flock.influence(influenceArea);
-  
-  // SPEED
-  float speed = map(speedObj[IDobj],0,1,.1,10) ;
-  flock.speed(speed) ;
-  
-  // cage size
-  myCanvas.size.x = canvasXObj[IDobj] *10 ;
-  myCanvas.size.y = canvasYObj[IDobj] *10 ;
-  myCanvas.size.z = canvasZObj[IDobj] *10 ;
-  myCanvas.update() ;
-
-  flock.canvasSetting(myCanvas.left, myCanvas.right, myCanvas.top, myCanvas.bottom, myCanvas.front, myCanvas.back) ;
-  
-  // quantity of boids
-  numOfBoid = int(quantityObj[IDobj] *1500 +20); //amount of boids to start the program with
-  if(!fullRendering) numOfBoid /= 15 ;
-  
-  // change saturation, brightness an alpha layer
-  for(Boid b : flock.listBoid) {
-    b.colorBoid = color(hue(b.colorBoid), saturation(fillObj[IDobj]), brightness(fillObj[IDobj]), alpha(fillObj[IDobj])) ;
-  }
-  
-  
-  if(flock.listBoid.size() < 1 ) {
-    flock.rebirth(birthPlace, numOfBoid, fillObj[IDobj],maxColorRef, rangeAroundYourColor) ;
-  }
-  
-  // clear the boids list
-  // flock.clear() ;
-  
-  if(nTouch && action[IDobj]) {
-   flock.rebirth(birthPlace, numOfBoid, fillObj[IDobj],maxColorRef, rangeAroundYourColor) ;
-  }
+    flock.canvasSetting(myCanvas.left, myCanvas.right, myCanvas.top, myCanvas.bottom, myCanvas.front, myCanvas.back) ;
+    
+    // quantity of boids
+    numOfBoid = int(quantityObj[IDobj] *1500 +20); //amount of boids to start the program with
+    if(!fullRendering) numOfBoid /= 15 ;
+    
+    // change saturation, brightness an alpha layer
+    for(Boid b : flock.listBoid) {
+      b.colorBoid = color(hue(b.colorBoid), saturation(fillObj[IDobj]), brightness(fillObj[IDobj]), alpha(fillObj[IDobj])) ;
+    }
+    
+    
+    // 
+    if(flock.listBoid.size() < 1 ) {
+      flock.add(birthPlace, numOfBoid, fillObj[IDobj],maxColorRef, rangeAroundYourColor) ;
+    }
+    
+    if(nTouch && action[IDobj]) {
+      flock.add(birthPlace, numOfBoid, fillObj[IDobj],maxColorRef, rangeAroundYourColor) ;
+    }
+    println(listPointTetrahedron.size()) ;
     // INFO
     objectInfo[IDobj] = ("There is " + numOfBoid + " boids") ;
     if(displayInfo) {
@@ -117,9 +108,6 @@ class Boids extends SuperRomanesco {
     }
   }
 }
-
-
-
 
 
 
@@ -229,17 +217,17 @@ class Flock {
   // ADD and REMOVE boids
   
   // different rebirth
-  void rebirth(int n) {
+  void add(int n) {
     listBoid.clear() ;
     for(int i = 0; i < n ; i++) listBoid.add(new Boid(birthPlace));
   }
   
-  void rebirth(int n, color colorBoid) {
+  void add(int n, color colorBoid) {
     listBoid.clear() ;
     for(int i = 0; i < n ; i++) listBoid.add(new Boid(birthPlace, colorBoid));
   }
   
- void rebirth(PVector birthPlace, int n, color colorBoid, int max, int range) {
+ void add(PVector birthPlace, int n, color colorBoid, int max, int range) {
    listBoid.clear() ;
     float refColor = hue(colorBoid) ;
     for(int i = 0; i < n ; i++) {
@@ -509,59 +497,19 @@ class Boid {
   
   
   // DISPLAY
-  
-  // bird
-  float t=0;
-  float flap = 0;
-  
   void display(PVector size) {
-    t+=.1;
-    flap = 10*sin(t);
-    
     pushMatrix();
     translate(pos.x, pos.y, pos.z);
     rotateY(atan2(-velNorm.z, velNorm.x));
     rotateZ(asin(velNorm.y /velNorm.mag()));
     stroke(colorBoid);
-    noFill();
-    noStroke();
+   // noFill();
+    // noStroke();
     fill(colorBoid);
-    bird(size.x, flap) ;
+    tetrahedron((int)size.x) ;
     
     endShape();
     //box(10);
     popMatrix();
   }
-  
-  
-  void bird(float size, float flap) {
-    //draw bird
-    beginShape(TRIANGLES);
-    vertex(3 *size, 0, 0);
-    vertex(-3 *size, 2 *size, 0);
-    vertex(-3 *size, -2 *size, 0);
-    
-    vertex(3 *size, 0, 0);
-    vertex(-3 *size, 2 *size, 0);
-    vertex(-3 *size, 0, 2 *size);
-    
-    vertex(3 *size, 0, 0);
-    vertex(-3 *size, 0, 2 *size);
-    vertex(-3 *size, -2 *size, 0);
-    
-    vertex(-3 *size, 0, 2 *size);
-    vertex(-3 *size, 2 *size, 0);
-    vertex(-3 *size, -2 *size, 0);
-    
-    //  wings
-    vertex(2 *size, 0, 0);
-    vertex(-1 *size, 0, 0);
-    vertex(-1 *size, -8 *size, flap);
-    
-    vertex(2 *size, 0, 0);
-    vertex(-1 *size, 0, 0);
-    vertex(-1 *size, 8 *size, flap);
-  }
-  
-  
 }

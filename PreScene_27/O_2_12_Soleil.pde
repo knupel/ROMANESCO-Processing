@@ -1,6 +1,6 @@
 
 //object three
-class Soleil extends SuperRomanesco {
+class Soleil extends Romanesco {
   public Soleil() {
     //from the index_objects.csv
     romanescoName = "Soleil" ;

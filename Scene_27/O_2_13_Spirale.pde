@@ -1,6 +1,6 @@
 Spirale spirale ; 
 //object three
-class SpiraleRomanesco extends SuperRomanesco {
+class SpiraleRomanesco extends Romanesco {
   public SpiraleRomanesco() {
     //from the index_objects.csv
     romanescoName = "Spirale" ;

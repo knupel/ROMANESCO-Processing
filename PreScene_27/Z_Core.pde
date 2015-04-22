@@ -333,7 +333,7 @@ void displayInfoObject() {
   textFont(SansSerif10, 10) ;
   
   posInfoObj = 1 ;
-  // for (SuperRomanesco objR : RomanescoList)
+  // for (Romanesco objR : RomanescoList)
   for(int i = 0 ; i < numObj ; i++) {
     
     if(object[i]) {

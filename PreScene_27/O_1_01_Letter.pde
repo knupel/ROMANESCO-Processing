@@ -1,4 +1,4 @@
-class Letter extends SuperRomanesco {
+class Letter extends Romanesco {
   public Letter() {
     //from the index_objects.csv
     romanescoName = "Letter" ;

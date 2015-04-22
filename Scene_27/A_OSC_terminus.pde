@@ -180,12 +180,14 @@ void OSCDraw() {
     
     eLightOne = valueButtonGlobal[8] ;
     eLightTwo = valueButtonGlobal[9] ;
-    eLightOneAction = valueButtonGlobal[10] ;
-    eLightTwoAction = valueButtonGlobal[11] ;
+    eLightAmbient = valueButtonGlobal[10] ;
+    eLightOneAction = valueButtonGlobal[11] ;
+    eLightTwoAction = valueButtonGlobal[12] ;
+    eLightAmbientAction = valueButtonGlobal[13] ;
     
-    whichShader = valueButtonGlobal[12] ;
-    whichImage [0] = valueButtonGlobal[13] ;
-    whichText [0] = valueButtonGlobal[14] ;
+    whichShader = valueButtonGlobal[14] ;
+    whichImage [0] = valueButtonGlobal[15] ;
+    whichText [0] = valueButtonGlobal[16] ;
   
     //OBJECT
     for ( int i = 0 ; i < numObj-1 ; i++) {

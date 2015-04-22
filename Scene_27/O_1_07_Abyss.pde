@@ -2,7 +2,7 @@ CreatureManager creatureManager ;
 boolean useBackdrop = false;
 
 //object one
-class Abbyss extends SuperRomanesco {
+class Abbyss extends Romanesco {
   public Abbyss() {
     //from the index_objects.csv
     romanescoName = "The Abbyss" ;

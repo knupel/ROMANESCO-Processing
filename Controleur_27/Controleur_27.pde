@@ -58,6 +58,9 @@ void mousePressed () {
     if(numGroup[2] > 0 ) for( int i = 11 ; i < numGroup[2] *10 + 6 ; i++)  BTf[i].mousePressed() ;
   
     buttonBackground.mousePressedText() ;
+        //LIGHT ONE
+    buttonLightAmbient.mousePressedText() ;
+    buttonLightAmbientAction.mousePressedText() ;
     //LIGHT ONE
     buttonLightOne.mousePressedText() ;
     buttonLightOneAction.mousePressedText() ;

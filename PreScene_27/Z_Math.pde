@@ -293,6 +293,7 @@ PVector pointOnCirlcle(int r, float angle) {
 //PRIMITIVE 3D
 //////////////
 
+// this triangle is a primitive 2D in 3D world
 void triangle(float x1, float y1, float z1, float x2, float y2, float z2, float x3, float y3, float z3) {
   beginShape() ;
   vertex(x1, y1, z1) ;
@@ -301,6 +302,68 @@ void triangle(float x1, float y1, float z1, float x2, float y2, float z2, float 
   endShape(CLOSE) ;
 }
 
+
+
+// SIMPLE TETRAHEDRON
+/////////////////////
+ArrayList listPointTetrahedron = new ArrayList() ;
+// main method
+/* The starting size is around "one pixel */
+void tetrahedron(int size) {
+  tetrahedronClear() ;
+  tetrahedronAdd() ;
+  tetrahedronDisplay(size) ;
+}
+
+// add function
+void tetrahedronAdd() {
+  listPointTetrahedron.add (new PVector(1, 1, 1));
+  listPointTetrahedron.add (new PVector(-1, -1, 1));
+  listPointTetrahedron.add (new PVector(-1, 1, -1));
+  listPointTetrahedron.add (new PVector(1, -1, -1));
+}
+
+
+// clear function
+void tetrahedronClear() {
+  listPointTetrahedron.clear() ;
+}
+void tetrahedronDisplay(int size) {
+  int finalSize = size /2 ;
+  int n = 4 ; // quantity of face of Tetrahedron
+  for(int i = 0 ; i < n ; i++) {
+    // choice of each point
+    int a = i ;
+    int b = i+1 ;
+    int c = i+2 ;
+    if(i == n-2 ) c = 0 ;
+    if(i == n-1 ) {
+      b = 0 ;
+      c = 1 ;
+    }
+    PVector v1 = (PVector)listPointTetrahedron.get(a) ;
+    PVector v2 = (PVector)listPointTetrahedron.get(b) ;
+    PVector v3 = (PVector)listPointTetrahedron.get(c) ;
+    // scale the position of the points
+    v1 = new PVector(v1.x *finalSize, v1.y *finalSize, v1.z *finalSize) ;
+    v2 = new PVector(v2.x *finalSize, v2.y *finalSize, v2.z *finalSize) ;
+    v3 = new PVector(v3.x *finalSize, v3.y *finalSize, v3.z *finalSize) ;
+    
+    // drawing
+    beginShape() ;
+    vertex(v1.x, v1.y, v1.z) ;
+    vertex(v2.x, v2.y, v2.z) ;
+    vertex(v3.x, v3.y, v3.z) ;
+    endShape() ;
+  }
+}
+// END SIMPLE TETRAHEDRON
+////////////////////////
+
+
+
+
+
 //POLYDRON
   //create Polyhedron
   /*
@@ -308,7 +371,7 @@ void triangle(float x1, float y1, float z1, float x2, float y2, float z2, float 
   "TRUNCATED CUBE","TRUNCATED OCTAHEDRON","TRUNCATED DODECAHEDRON","TRUNCATED ICOSAHEDRON","TRUNCATED CUBOCTAHEDRON","RHOMBIC CUBOCTAHEDRON",
   "RHOMBIC DODECAHEDRON","RHOMBIC TRIACONTAHEDRON","RHOMBIC COSI DODECAHEDRON SMALL","RHOMBIC COSI DODECAHEDRON GREAT"
   All Polyhedrons can use "POINT" and "LINE" display mode.
-  except the "TETRADRON" who can also use "VERTEX" display mode.
+  except the "TETRAHEDRON" who can also use "VERTEX" display mode.
   */
   
 // MAIN VOID to create polyhedron
@@ -318,7 +381,7 @@ void polyhedron(String whichPolyhedron, String whichStyleToDraw, int size) {
    
   listPVectorPolyhedron.clear(); //clear out whatever verts are currently defined
   
-  if(whichPolyhedron.equals("TETRAHEDRON")) tetrahedron(size) ;
+  if(whichPolyhedron.equals("TETRAHEDRON")) tetrahedron_poly(size) ;
   if(whichPolyhedron.equals("CUBE")) cube(size) ;
   if(whichPolyhedron.equals("OCTOHEDRON")) octohedron(size) ;
   if(whichPolyhedron.equals("DODECAHEDRON"))dodecahedron(size) ;
@@ -359,7 +422,7 @@ String strName, strNotes;
 
 // FEW POLYHEDRON
 // BASIC
-void tetrahedron(int size) {
+void tetrahedron_poly(int size) {
   listPVectorPolyhedron.add(new PVector(1, 1, 1)) ;
   listPVectorPolyhedron.add(new PVector(-1, -1, 1)) ;
   listPVectorPolyhedron.add(new PVector(-1, 1, -1)) ;

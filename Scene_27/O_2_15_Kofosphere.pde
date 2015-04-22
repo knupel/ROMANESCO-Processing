@@ -1,4 +1,4 @@
-class Kofosphere extends SuperRomanesco {
+class Kofosphere extends Romanesco {
   public Kofosphere() {
     //from the index_objects.csv
     romanescoName = "Kofosphere" ;

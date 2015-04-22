@@ -1,4 +1,4 @@
-class Galaxie extends SuperRomanesco {
+class Galaxie extends Romanesco {
   public Galaxie() {
     //from the index_objects.csv
     romanescoName = "Galaxie" ;

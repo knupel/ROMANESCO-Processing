@@ -23,16 +23,18 @@ float valueSlider[] = new float[NUM_SLIDER_TOTAL] ;
 
 
 //Background / light one / light two
-int EtatBackgroundButton, 
+int EtatBackgroundButton,
+    EtatLightAmbientButton, EtatLightAmbientAction,
     EtatLightOneButton, EtatLightOneAction, 
     EtatLightTwoButton, EtatLightTwoAction ;
 PVector posBackgroundButton, sizeBackgroundButton,
+        posLightAmbientAction, sizeLightAmbientAction, posLightAmbientButton, sizeLightAmbientButton,
         posLightOneAction, sizeLightOneAction, posLightOneButton, sizeLightOneButton,
         posLightTwoAction, sizeLightTwoAction, posLightTwoButton, sizeLightTwoButton ;
 
 
 // DROPDOWN button font and shader background
-int EtatFont, EtatBackground, EtatImage, EtatFileText ;
+int EtatFont, EtatBackgroundShader, EtatImage, EtatFileText ;
 PVector posButtonFont, posButtonBackground, posButtonImage, posButtonFileText ; 
 
 // MIDI, CURTAIN
@@ -82,6 +84,8 @@ int colThree = int(1.5 *sliderWidth +colTwo) ;
 int margeLeft  = colOne +15 ;
 
 // horizontal grid
+
+// this not a position but the height of the rectangle
 int lineHeader = 30 ;
 int lineMenuTopDropdown = 65 ;
 int lineGroupZero = 95 ;
@@ -91,6 +95,12 @@ int lineGroupTwo = lineGroupOne +205 ;
 
 int spacingBetweenSlider = 13 ;
 
+// button slider
+int sizeTitleButton = 10 ;
+int correctionButtonSliderTextY = 1 ;
+
+
+
 // correction for special button and slider
 int correctionCurtainX = 0 ;
 int correctionMidiX = 40 ;
@@ -98,7 +108,7 @@ int correctionCurtainY = 0 ;
 int correctionMidiY = 0 ;
 
 // MENU TOP DROPDOWN
-int correctionHeaderDropdownY = +6 ;
+int correctionHeaderDropdownY = +4 ;
 int correctionHeaderDropdownBackgroundX = -3 ;
 int correctionHeaderDropdownFontX = 100 ;
 int correctionHeaderDropdownImageX = 200 ;
@@ -107,29 +117,32 @@ int correctionHeaderDropdownFileTextX = 255 ;
 
 //GROUP ZERO
 int correctionSliderPos = 12 ;
+int correctionGroupZeroY = 13 ;
 // GROUP BG
 int correctionBGX = colOne ;
-int correctionBGY = lineGroupZero +15 ;
+int correctionBGY = lineGroupZero +correctionGroupZeroY +2 ;
 
 // GROUP LIGHT
-// directional light
-int correctionLightOneX = colTwo ;
-int correctionLightOneY = lineGroupZero +15 ;
-int correctionLightTwoX = colTwo ;
-int correctionLightTwoY = lineGroupZero +80 ;
+
 // ambient light
-int correctionAmbientLightX = colOne ;
-int correctionAmbientLightY = lineGroupZero +80 ;
+int correctionLightAmbientX = colOne ;
+int correctionLightAmbientY = lineGroupZero +correctionGroupZeroY +73 ;
+
+// directional light one
+int correctionLightOneX = colTwo ;
+int correctionLightOneY = lineGroupZero +correctionGroupZeroY +13 ;
+// directional light two
+int correctionLightTwoX = colTwo ;
+int correctionLightTwoY = lineGroupZero +correctionGroupZeroY +73 ;
 
 // GROUP CAMERA
 int correctionCameraX = colThree ;
-int correctionCameraY = lineGroupZero +15 ;
+int correctionCameraY = lineGroupZero +correctionGroupZeroY -5 ;
 
 
 // GROUP SOUND
 int correctionSoundX = colOne ;
 int correctionSoundY = lineGroupZero +160 ;
-// int correctionBeatButton = correctionSliderSound -50 ;
 
 
 
@@ -323,8 +336,8 @@ void groupZeroSlider(int correctionY) {
   // Ambient light
   startLoop = 13 ;
   for(int i = startLoop ; i <= startLoop +2 ;i++) {
-    float posY = correctionAmbientLightY +correctionY +((i-startLoop) *spacingBetweenSlider) ;
-    posSlider[i] = new PVector(correctionAmbientLightX, posY) ;
+    float posY = correctionLightAmbientY +correctionY +((i-startLoop) *spacingBetweenSlider) ;
+    posSlider[i] = new PVector(correctionLightAmbientX, posY) ;
     sizeSlider[i] = new PVector(sliderWidth,sliderHeight) ;
   }
   
@@ -503,9 +516,7 @@ void sliderMoletteRomanescoDisplay(int whichOne, color colorMolIn, color colorMo
 ///////////////
 void dispayTextSliderGroupZero(int pos) {
   // GROUP ZERO
-  textFont(FuturaStencil_20,20); 
   textAlign(LEFT);
-  fill (colorTitle) ; 
   textFont(textUsual_1) ; 
   //textAlign(LEFT);
   fill (colorTextUsual) ;
@@ -820,6 +831,9 @@ void constructorButton() {
   color OffOutColor = rougeFonce ;
   
   buttonBackground = new Simple(posBackgroundButton, sizeBackgroundButton, OnInColor, OnOutColor, OffInColor, OffOutColor, true) ;
+  // LIGHT AMBIENT
+  buttonLightAmbient =       new Simple(posLightAmbientButton, sizeLightAmbientButton, OnInColor, OnOutColor, OffInColor, OffOutColor, false) ;
+  buttonLightAmbientAction = new Simple(posLightAmbientAction, sizeLightAmbientAction, OnInColor, OnOutColor, OffInColor, OffOutColor, false) ;
   // LIGHT ONE
   buttonLightOne = new Simple(posLightOneButton, sizeLightOneButton, OnInColor, OnOutColor, OffInColor, OffOutColor, false) ;
   buttonLightOneAction = new Simple(posLightOneAction, sizeLightOneAction, OnInColor, OnOutColor, OffInColor, OffOutColor, false) ;
@@ -865,8 +879,6 @@ void constructorButton() {
 //////////////////
 // Main METHOD SETUP
 void buttonSetup() {
-    /////////////
-    
   // MIDI CURTAIN
   sizeCurtainButton = new PVector(30,30) ;
   sizeMidiButton = new PVector(50,26) ;
@@ -876,19 +888,24 @@ void buttonSetup() {
   
   // GROUP ZERO
   // background 
-  posBackgroundButton = new PVector(correctionBGX, correctionBGY) ;
+  posBackgroundButton = new PVector(correctionBGX, correctionBGY +correctionButtonSliderTextY) ;
   sizeBackgroundButton = new PVector(120,10) ;
   
-  // light 
+  // light
+  // ambient button
+  posLightAmbientButton = new PVector(correctionLightAmbientX, correctionLightAmbientY +correctionButtonSliderTextY) ;
+  sizeLightAmbientButton = new PVector(80,10) ;
+  posLightAmbientAction = new PVector(correctionLightAmbientX +90, posLightAmbientButton.y) ; // for the y we take the y of the button
+  sizeLightAmbientAction = new PVector(45,10) ;
   // one button
-  posLightOneButton = new PVector(correctionLightOneX, correctionLightOneY) ;
+  posLightOneButton = new PVector(correctionLightOneX, correctionLightOneY +correctionButtonSliderTextY) ;
   sizeLightOneButton = new PVector(80,10) ;
-  posLightOneAction = new PVector(correctionLightOneX +90, posLightOneButton.y) ;
+  posLightOneAction = new PVector(correctionLightOneX +90, posLightOneButton.y) ; // for the y we take the y of the button
   sizeLightOneAction = new PVector(45,10) ;
   // light two button
-  posLightTwoButton = new PVector(correctionLightTwoX, correctionLightTwoY) ;
+  posLightTwoButton = new PVector(correctionLightTwoX, correctionLightTwoY +correctionButtonSliderTextY) ;
   sizeLightTwoButton = new PVector(80,10) ;
-  posLightTwoAction = new PVector(correctionLightTwoX +90, posLightTwoButton.y) ;
+  posLightTwoAction = new PVector(correctionLightTwoX +90, posLightTwoButton.y) ; // for the y we take the y of the button
   sizeLightTwoAction = new PVector(45,10) ;
   
   
@@ -900,10 +917,10 @@ void buttonSetup() {
   sizeSnareButton = new PVector(40,10) ; 
   sizeHatButton = new PVector(30,10) ;
   
-  posBeatButton = new PVector(correctionSoundX, correctionSoundY) ; 
-  posKickButton = new PVector(posBeatButton.x +sizeBeatButton.x +5, correctionSoundY) ; 
-  posSnareButton = new PVector(posKickButton.x +sizeKickButton.x +5, correctionSoundY) ; 
-  posHatButton = new PVector(posSnareButton.x +sizeSnareButton.x +5, correctionSoundY) ;
+  posBeatButton = new PVector(correctionSoundX, correctionSoundY +correctionButtonSliderTextY) ; 
+  posKickButton = new PVector(posBeatButton.x +sizeBeatButton.x +5, correctionSoundY +correctionButtonSliderTextY) ; 
+  posSnareButton = new PVector(posKickButton.x +sizeKickButton.x +5, correctionSoundY +correctionButtonSliderTextY) ; 
+  posHatButton = new PVector(posSnareButton.x +sizeSnareButton.x +5, correctionSoundY +correctionButtonSliderTextY) ;
   
   
 
@@ -974,19 +991,23 @@ void buttonInfoOnTheTop() {
 
 // GROUP ZERO
 void buttonDrawGroupZero() {
-  buttonBackground.boutonTexte(shaderBackgroundName[EtatBackground] + " on/off", posBackgroundButton, FuturaStencil_10, 10) ;
+  buttonBackground.buttonText(shaderBackgroundName[EtatBackgroundShader] + " on/off", posBackgroundButton, titleButtonMedium, sizeTitleButton) ;
+  buttonBackground.buttonText(shaderBackgroundName[EtatBackgroundShader] + " on/off", posBackgroundButton, titleButtonMedium, sizeTitleButton) ;
+  // Light ambient
+  buttonLightAmbient.buttonText("Ambient on/off", posLightAmbientButton, titleButtonMedium, sizeTitleButton) ;
+  buttonLightAmbientAction.buttonText("action", posLightAmbientAction, titleButtonMedium, sizeTitleButton) ;
   //LIGHT ONE
-  buttonLightOne.boutonTexte("Light on/off", posLightOneButton, FuturaStencil_10, 10) ;
-  buttonLightOneAction.boutonTexte("action", posLightOneAction, FuturaStencil_10, 10) ;
+  buttonLightOne.buttonText("Light on/off", posLightOneButton, titleButtonMedium, sizeTitleButton) ;
+  buttonLightOneAction.buttonText("action", posLightOneAction, titleButtonMedium, sizeTitleButton) ;
   // LIGHT TWO
-  buttonLightTwo.boutonTexte("Light on/off",  posLightTwoButton, FuturaStencil_10, 10) ;
-  buttonLightTwoAction.boutonTexte("action",  posLightTwoAction, FuturaStencil_10, 10) ;
+  buttonLightTwo.buttonText("Light on/off",  posLightTwoButton, titleButtonMedium, sizeTitleButton) ;
+  buttonLightTwoAction.buttonText("action",  posLightTwoAction, titleButtonMedium, sizeTitleButton) ;
   
   // SOUND
-  Bbeat.boutonTexte("BEAT", posBeatButton, FuturaStencil_10, 10) ;
-  Bkick.boutonTexte("KICK", posKickButton, FuturaStencil_10, 10) ;
-  Bsnare.boutonTexte("SNARE", posSnareButton, FuturaStencil_10, 10) ;
-  Bhat.boutonTexte("HAT", posHatButton, FuturaStencil_10, 10) ;
+  Bbeat.buttonText("BEAT", posBeatButton, titleButtonMedium, sizeTitleButton) ;
+  Bkick.buttonText("KICK", posKickButton, titleButtonMedium, sizeTitleButton) ;
+  Bsnare.buttonText("SNARE", posSnareButton, titleButtonMedium, sizeTitleButton) ;
+  Bhat.buttonText("HAT", posHatButton, titleButtonMedium, sizeTitleButton) ;
   
   //MIDI / CURTAIN
   BOmidi.buttonPic(picMidi) ;
@@ -1025,6 +1046,9 @@ void buttonDrawGroupTwo() {
 
 void buttonCheckDraw() {
   EtatBackgroundButton = buttonBackground.getOnOff() ;
+    //LIGHT ONE
+  EtatLightAmbientButton = buttonLightAmbient.getOnOff() ;
+  EtatLightAmbientAction = buttonLightAmbientAction.getOnOff() ;
   //LIGHT ONE
   EtatLightOneButton = buttonLightOne.getOnOff() ;
   EtatLightOneAction = buttonLightOneAction.getOnOff() ;
@@ -1207,7 +1231,7 @@ void dropdownDraw() {
 // SHADER Background
 void dropdownBackground() {
   
-  dropdownBackground.dropdownUpdate(FuturaStencil_10, textUsual_1);
+  dropdownBackground.dropdownUpdate(titleDropdownMedium, textUsual_1);
   if (dropdownOpen) dropdownActivityCount = +1 ;
   margeAroundDropdown = sizeDropdownFont.y  ;
   //give the size of menu recalculate with the size of the word inside
@@ -1224,11 +1248,11 @@ void dropdownBackground() {
   if(!dropdownBackground.locked) {
     fill(selectedText) ;
     textFont(textUsual_2) ;
-    EtatBackground = dropdownBackground.getSelection() ;
+    EtatBackgroundShader = dropdownBackground.getSelection() ;
     if (dropdownBackground.getSelection() != 0 ) {
-      text(shaderBackgroundName[EtatBackground] +" by " +shaderBackgroundAuthor[dropdownBackground.getSelection()], posDropdownBackground.x +3 , posDropdownBackground.y +22) ;
+      text(shaderBackgroundName[EtatBackgroundShader] +" by " +shaderBackgroundAuthor[dropdownBackground.getSelection()], posDropdownBackground.x +3 , posDropdownBackground.y +22) ;
     } else {
-      text(shaderBackgroundName[EtatBackground], posDropdownBackground.x +3 , posDropdownBackground.y +22) ;
+      text(shaderBackgroundName[EtatBackgroundShader], posDropdownBackground.x +3 , posDropdownBackground.y +22) ;
     }
       
   }
@@ -1236,7 +1260,7 @@ void dropdownBackground() {
 
 // FONT
 void dropdownFont() {
-  dropdownFont.dropdownUpdate(FuturaStencil_10, textUsual_1);
+  dropdownFont.dropdownUpdate(titleDropdownMedium, textUsual_1);
   if (dropdownOpen) dropdownActivityCount = +1 ;
   margeAroundDropdown = sizeDropdownFont.y  ;
   //give the size of menu recalculate with the size of the word inside
@@ -1266,7 +1290,7 @@ void dropdownImage() {
     refSizeImageDropdown = imageDropdownList.length ;
   }
   
-  dropdownImage.dropdownUpdate(FuturaStencil_10, textUsual_1);
+  dropdownImage.dropdownUpdate(titleDropdownMedium, textUsual_1);
   if (dropdownOpen) dropdownActivityCount = +1 ;
   margeAroundDropdown = sizeDropdownImage.y  ;
   //give the size of menu recalculate with the size of the word inside
@@ -1299,7 +1323,7 @@ void dropdownFileText() {
     refSizeFileTextDropdown = fileTextDropdownList.length ;
   }
   
-  dropdownFileText.dropdownUpdate(FuturaStencil_10, textUsual_1);
+  dropdownFileText.dropdownUpdate(titleDropdownMedium, textUsual_1);
   if (dropdownOpen) dropdownActivityCount = +1 ;
   margeAroundDropdown = sizeDropdownFileText.y  ;
   //give the size of menu recalculate with the size of the word inside
@@ -1329,7 +1353,7 @@ void checkTheDropdownDrawObject( int start, int end ) {
     if(modeListRomanesco[i] != null ) {
       String m [] = split(modeListRomanesco[i], "/") ;
       if ( m.length > 1) {
-        dropdown[i].dropdownUpdate(FuturaStencil_10, textUsual_1);
+        dropdown[i].dropdownUpdate(titleDropdownMedium, textUsual_1);
         if (dropdownOpen) dropdownActivityCount = +1 ;
         margeAroundDropdown = sizeDropdownMode.y  ;
         //give the size of menu recalculate with the size of the word inside
@@ -1344,7 +1368,7 @@ void checkTheDropdownDrawObject( int start, int end ) {
         }
       }
       if (dropdown[i].getSelection() > -1 && m.length > 1) {
-        textFont(FuturaStencil_10) ;
+        textFont(titleDropdownMedium) ;
         text(dropdown[i].getSelection() +1, posDropdown[i].x +12 , posDropdown[i].y +8) ;
       }
     }

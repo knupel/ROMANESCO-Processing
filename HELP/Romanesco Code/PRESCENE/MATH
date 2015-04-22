@@ -4,7 +4,7 @@
 // CONSTANT MATH
 final float PHI = (1 + sqrt(5))/2; // the golden ratio
 final float ROOT2 = sqrt(2); // the number of Pythagore
-final float EULER = 2.718281828459045235360287471352; // Constant d'auler
+final float EULER = 2.718281828459045235360287471352; // Constant d'Euler
 
 // METHOD
 float distance(PVector p0, PVector p1 ) calcul distance between two PVectors
@@ -48,7 +48,19 @@ void triangle(int x1, int y1, int z1, int x2, int y2, int z2, int x3, int y3, in
 
 
 // PRIMITIVE 3D
--- Polyhedron primitive 3D
+
+-- Tetrahedron --
+> This group of method are present in Mathematic chapter and in Bestiary
+void tetrahedronAdd() ; // this method add the four points in a arraylist of point, the shape create have a size of "1"
+void tetrahedronClear() ; clear the list of point
+int tetrahedronSize() ; return the size of the list
+void tetrahedronList(int size) ; // this method draw all points from the arraylist of point, you can use the int size to change the size of the tetrahedron...in this method the list is not clear
+void tetrahedron(int size) // display tetrahedron, you can change the size with the int, the starting size is around "one" pixel
+
+
+
+
+-- Polyhedron primitive 3D --
   /*
   -- to choice the polyhedron String whichPolyhedron
   "TETRAHEDRON","CUBE", "OCTOHEDRON", "DODECAHEDRON","ICOSAHEDRON","CUBOCTAHEDRON","ICOSI DODECAHEDRON",

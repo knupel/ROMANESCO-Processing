@@ -1,6 +1,6 @@
 Trame trame ;
 //object three
-class Damier extends SuperRomanesco {
+class Damier extends Romanesco {
   public Damier() {
     //from the index_objects.csv
     romanescoName = "Damier" ;

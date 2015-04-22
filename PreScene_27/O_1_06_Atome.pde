@@ -1,7 +1,7 @@
 ArrayList<Atom> atomList ;
 
 //object one
-class Atome extends SuperRomanesco {
+class Atome extends Romanesco {
   public Atome() {
     //from the index_objects.csv
     romanescoName = "Atome" ;

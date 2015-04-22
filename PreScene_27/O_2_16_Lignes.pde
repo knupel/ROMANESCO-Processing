@@ -1,6 +1,6 @@
 Line line ;
 //object three
-class Lignes extends SuperRomanesco {
+class Lignes extends Romanesco {
   public Lignes() {
     //from the index_objects.csv
     romanescoName = "Lignes" ;

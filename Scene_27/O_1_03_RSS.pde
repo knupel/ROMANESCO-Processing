@@ -1,6 +1,6 @@
 //////////////////
 //OBJECT ROMANESCO
-class RSS extends SuperRomanesco {
+class RSS extends Romanesco {
   public RSS() {
     //from the index_objects.csv
     romanescoName = "RSS" ;

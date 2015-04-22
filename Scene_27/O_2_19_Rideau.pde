@@ -1,7 +1,7 @@
 ArrayList rideauList = new ArrayList() ;
 
 //object one
-class Rideau extends SuperRomanesco {
+class Rideau extends Romanesco {
   public Rideau() {
     //from the index_objects.csv
     romanescoName = "Rideau" ;

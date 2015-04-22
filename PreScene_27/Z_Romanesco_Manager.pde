@@ -168,7 +168,7 @@ boolean resetParameter(int ID) {
 //CLASS
 // inspired from Andreas Gysin work from The Abyss Project
 class ObjectRomanescoManager {
-  private ArrayList<SuperRomanesco>RomanescoList ;
+  private ArrayList<Romanesco>RomanescoList ;
   private ArrayList<Class>objectRomanescoList;
   
   PApplet parent;
@@ -178,9 +178,9 @@ class ObjectRomanescoManager {
   
   ObjectRomanescoManager(PApplet parent) {
     this.parent = parent;
-    RomanescoList = new ArrayList<SuperRomanesco>() ;
+    RomanescoList = new ArrayList<Romanesco>() ;
     //scan the existant classes
-    objectRomanescoList = scanClasses(parent, "SuperRomanesco");
+    objectRomanescoList = scanClasses(parent, "Romanesco");
   }
   
   //STEP ONE
@@ -285,7 +285,7 @@ class ObjectRomanescoManager {
   void finishIndex() {
       // catch the different parameter from object class Romanesco
     for (int i=0 ; i < RomanescoList.size() ; i++ ) {
-      SuperRomanesco objR = (SuperRomanesco) RomanescoList.get(i) ;
+      Romanesco objR = (Romanesco) RomanescoList.get(i) ;
       rowIndexObject[i].setString("Name", objR.romanescoName) ;
       rowIndexObject[i].setInt("ID", objR.IDobj) ;
       rowIndexObject[i].setInt("Group", objR.IDgroup) ;
@@ -307,7 +307,7 @@ class ObjectRomanescoManager {
   void writeInfoUser() {
       // catch the different parameter from object class Romanesco
     for (int i=0 ; i < RomanescoList.size() ; i++ ) {
-      SuperRomanesco objR = (SuperRomanesco) RomanescoList.get(i) ;
+      Romanesco objR = (Romanesco) RomanescoList.get(i) ;
       objectName[objR.IDobj] = objR.romanescoName ;
       objectID[objR.IDobj] = objR.IDobj ;
     }
@@ -332,14 +332,14 @@ class ObjectRomanescoManager {
     }
   }
   //
-  public SuperRomanesco addObject(int i) {
+  public Romanesco addObject(int i) {
     if (i < 0 || i >= objectRomanescoList.size()) return null;
     
-    SuperRomanesco f = null;
+    Romanesco f = null;
     try {
       Class c = objectRomanescoList.get(i);
       Constructor[] constructors = c.getConstructors();
-      f = (SuperRomanesco) constructors[0].newInstance(parent);
+      f = (Romanesco) constructors[0].newInstance(parent);
     }
     catch (InvocationTargetException e) {
       System.out.println(e);
@@ -358,7 +358,7 @@ class ObjectRomanescoManager {
   }
   
   // finalization of adding object
-  private void addObject(SuperRomanesco objR) {
+  private void addObject(Romanesco objR) {
     objR.setManagerReference(this);
     RomanescoList.add(objR);
   }
@@ -371,7 +371,7 @@ class ObjectRomanescoManager {
   //SETUP
   // INIT ROMANESCO OBJECT
   void initObj() {
-    for (SuperRomanesco objR : RomanescoList) {
+    for (Romanesco objR : RomanescoList) {
       motion[objR.IDobj] = true ;
       initValueMouse[objR.IDobj] = true ;
       objR.setting() ;
@@ -393,7 +393,7 @@ class ObjectRomanescoManager {
     }
     
     //the methode
-    for (SuperRomanesco objR : RomanescoList) {
+    for (Romanesco objR : RomanescoList) {
       if (object[objR.IDobj]) {
         updateObject(objR.IDobj, objR.IDgroup) ;
         pushMatrix() ;
@@ -423,13 +423,13 @@ class ObjectRomanescoManager {
 
 ////////////////////////
 //SUPER CLASS ROMANESCO
-abstract class SuperRomanesco {
+abstract class Romanesco {
   String romanescoName, romanescoAuthor, romanescoVersion, romanescoPack, romanescoRender, romanescoMode, romanescoSlider ;
   int IDobj, IDgroup ;
   //object manager return
   ObjectRomanescoManager orm ;
   
-  public SuperRomanesco() {
+  public Romanesco() {
     romanescoName = "Unknown" ;
     romanescoAuthor = "Anonymous";
     romanescoVersion = "Alpha";

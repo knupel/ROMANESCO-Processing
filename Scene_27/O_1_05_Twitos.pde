@@ -31,7 +31,7 @@ ArrayList<MessageTwitter> listMsg ;
 String joinedWordsTwitter = ("") ;
 
 //
-class Twitos extends SuperRomanesco {
+class Twitos extends Romanesco {
   public Twitos() {
     //from the index_objects.csv
     romanescoName = "Twitos" ;
