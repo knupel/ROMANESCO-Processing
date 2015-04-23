@@ -10,7 +10,6 @@ class MesAmis extends Romanesco {
     romanescoAuthor  = "Stan le Punk";
     romanescoVersion = "version 1.0";
     romanescoPack = "Base" ;
-    romanescoRender = "P3D" ;
     //romanescoMode = "1 full/2 lines" but the line is not really interesting
     romanescoMode = "" ; // separate the name by a slash and write the next mode immadialtly after this one.
     romanescoSlider = "Hue fill,Saturation fill,Brightness fill,Alpha fill,Hue stroke,Saturation stroke,Brightness stroke,Alpha stroke,Thickness,Canvas X,Speed,Quantity,Amplitude" ;

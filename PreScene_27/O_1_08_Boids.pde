@@ -1,31 +1,15 @@
 class Boids extends Romanesco {
   public Boids() {
-    //Send to the index_objects.csv. This file is used by the controller
     romanescoName = "Boids" ;
-    IDobj = 8 ; // depend where your want your object in Romanesco controller
-    IDgroup = 1 ;  // choice a Romanesco Group 1 to 3
-    romanescoAuthor  = "Too much people";
+    IDobj = 8 ;
+    IDgroup = 1 ;
+    romanescoAuthor  = "Stan le Punk inspirated by Craig W. Reynolds";
     romanescoVersion = "Version 1.0";
     romanescoPack = "Base" ;
-    romanescoMode = "Tetra mono/Tetra poly" ; // separate each name by "/"
-    
-    /* Choice which slider can influence your object, see the file in the FOLDER "...HELP/Romanesco Code/GLOBAL CODE OBJECT.txt"
-    below an example.
-    Becareful you must seprate the name slider by a coma without space*/
-    romanescoSlider = "Hue fill,Saturation fill,Brightness fill,Alpha fill,Canvas X,Canvas Y,Canvas Z,Quantity,Attraction,Repulsion,Influence,Alignment,Width,Speed" ;
-    /*
-    Hue fill,Saturation fill,Brightness fill,Alpha fill,
-           Hue stroke,Saturation stroke,Brightness stroke, Alpha stroke,
-           Thickness,
-           Width,Height,Depth,
-           Canvas X,Canvas Y,Canvas Z,
-           Family,Quantity,Life,
-           Speed,Direction,Angle,
-           Amplitude,Attraction, Repulsion,
-           Influence,Analyze" ;
-
-    */
+    romanescoMode = "Tetra monochrome/Tetra camaieu" ; // separate the differentes mode by "/"
+    romanescoSlider = "Hue fill,Saturation fill,Brightness fill,Alpha fill,Thickness,Size X,Canvas X,Canvas Y,Canvas Z,Quantity,Attraction,Repulsion,Influence,Alignment,Width,Speed" ;
   }
+  
   Flock flock;
   Canvas myCanvas ;
   PVector birthPlace ;
@@ -44,18 +28,19 @@ class Boids extends Romanesco {
    // color colorBoid = color(80,100,100) ;
    birthPlace = pos.copy() ;
    flock = new Flock() ;
+   tetrahedronAdd() ;
   }
   
   // draw
   void display() {
     // MAIN method
-    PVector size = new PVector(sizeXObj[IDobj] ,sizeXObj[IDobj],sizeXObj[IDobj]) ;
-    size.mult(.1) ;
+    float thickness = map(thicknessObj[IDobj],.1,width/3,.1,width/30 ) ;
+    int size = (int)map(sizeXObj[IDobj],.1,width, 2,width/10) ;
     float alignment = map(alignmentObj[IDobj],0,1,0,10) ;
     float cohesion = map(attractionObj[IDobj],0,1,0,10) ;
     float separation = map(repulsionObj[IDobj],0,1,0,10) ;
     PVector unity = new PVector(cohesion, separation) ;
-    if(flock.listBoid.size() > 0 )flock.run(size, alignment, unity);
+    if(flock.listBoid.size() > 0 )flock.run(alignment, unity);
     
     // ANNEXE methods
     
@@ -81,24 +66,28 @@ class Boids extends Romanesco {
     flock.canvasSetting(myCanvas.left, myCanvas.right, myCanvas.top, myCanvas.bottom, myCanvas.front, myCanvas.back) ;
     
     // quantity of boids
-    numOfBoid = int(quantityObj[IDobj] *1500 +20); //amount of boids to start the program with
+    numOfBoid = int(quantityObj[IDobj] *700 +30); //amount of boids to start the program with
     if(!fullRendering) numOfBoid /= 15 ;
     
-    // change saturation, brightness an alpha layer
+    // change the setting of the boid
+
     for(Boid b : flock.listBoid) {
       b.colorBoid = color(hue(b.colorBoid), saturation(fillObj[IDobj]), brightness(fillObj[IDobj]), alpha(fillObj[IDobj])) ;
+      b.size = size ;
+      b.thickness = thickness;
     }
     
     
-    // 
     if(flock.listBoid.size() < 1 ) {
       flock.add(birthPlace, numOfBoid, fillObj[IDobj],maxColorRef, rangeAroundYourColor) ;
     }
     
+    // clear the boids list
+    // flock.clear() ;
     if(nTouch && action[IDobj]) {
       flock.add(birthPlace, numOfBoid, fillObj[IDobj],maxColorRef, rangeAroundYourColor) ;
     }
-    println(listPointTetrahedron.size()) ;
+    
     // INFO
     objectInfo[IDobj] = ("There is " + numOfBoid + " boids") ;
     if(displayInfo) {
@@ -189,13 +178,13 @@ class Flock {
   
   
   // DRAW
-  void run(PVector size, float ratioAlignment, PVector unity) {
+  void run(float ratioAlignment, PVector unity) {
     //iterate through the list of boids 
     for(Boid b : listBoid) {
      // Boid tempBoid = (Boid)listBoid.get(i); //create a temporary boid to process and make it the current boid in the list
     //  b.colorBoid = colorBoid;
       b.settingBounds (left, right, top, bottom, front, back);
-      b.run (listBoid, size, ratioAlignment, unity); //tell the temporary boid to execute its run method
+      b.run (listBoid, ratioAlignment, unity); //tell the temporary boid to execute its run method
     }
   }
   
@@ -290,6 +279,8 @@ class Boid {
   float maxSpeed = 4; //maximum magnitude for the velocity vector
   float maxSteerForce = .1; //maximum magnitude of the steering vector
   color colorBoid = color(255) ;
+  float thickness = 1 ;
+  int size = 1 ;
   
   
   
@@ -316,7 +307,7 @@ class Boid {
   
   
   // DRAW
-  void run(ArrayList boidList, PVector size, float ratioAlignment, PVector unity) {
+  void run(ArrayList boidList, float ratioAlignment, PVector unity) {
 
     
     //acc.add(new PVector(0,.05,0));
@@ -326,7 +317,7 @@ class Boid {
     checkBounds();
     
     //display
-    display(size);
+    display();
   }
   
   
@@ -497,16 +488,22 @@ class Boid {
   
   
   // DISPLAY
-  void display(PVector size) {
+  void display() {
     pushMatrix();
     translate(pos.x, pos.y, pos.z);
     rotateY(atan2(-velNorm.z, velNorm.x));
     rotateZ(asin(velNorm.y /velNorm.mag()));
-    stroke(colorBoid);
-   // noFill();
-    // noStroke();
-    fill(colorBoid);
-    tetrahedron((int)size.x) ;
+    strokeWeight(thickness) ;
+    if(thickness <= 0 || alpha(colorBoid) == 0 ) noStroke() ; else stroke(colorBoid);
+    if(alpha(colorBoid) == 0 ) noFill() ; else  fill(colorBoid);
+    tetrahedron(size) ;
+    /*
+    size.x = 10 ;
+    strokeWeight(size.x) ;
+    point(0,0) ;
+    */
+    // box(size.x) ;
+    // tetrahedronDisplay((int)size.x) ;
     
     endShape();
     //box(10);

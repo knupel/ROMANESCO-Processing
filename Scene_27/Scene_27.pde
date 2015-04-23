@@ -29,12 +29,6 @@ void setup() {
   P3DSetup(modeP3D, numObj, numSettingCamera, numSettingOrientationObject) ;
   lightSetup(); // for the Scene only
   
-  // module
-  // meteoSetup() ;
-  
-  //option
-  // OSMavericksCheck() 
-
 }
 
 //DRAW

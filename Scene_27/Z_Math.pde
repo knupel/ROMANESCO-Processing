@@ -348,15 +348,19 @@ void tetrahedronDisplay(int size) {
     v1 = new PVector(v1.x *finalSize, v1.y *finalSize, v1.z *finalSize) ;
     v2 = new PVector(v2.x *finalSize, v2.y *finalSize, v2.z *finalSize) ;
     v3 = new PVector(v3.x *finalSize, v3.y *finalSize, v3.z *finalSize) ;
-    
-    // drawing
-    beginShape() ;
-    vertex(v1.x, v1.y, v1.z) ;
-    vertex(v2.x, v2.y, v2.z) ;
-    vertex(v3.x, v3.y, v3.z) ;
-    endShape() ;
+    renderTetrahedron(v1, v2, v3) ;
   }
 }
+
+void renderTetrahedron(PVector v1, PVector v2, PVector v3) {
+  beginShape() ;
+  vertex(v1.x, v1.y, v1.z) ;
+  vertex(v2.x, v2.y, v2.z) ;
+  vertex(v3.x, v3.y, v3.z) ;
+  endShape() ;
+}
+
+
 // END SIMPLE TETRAHEDRON
 ////////////////////////
 

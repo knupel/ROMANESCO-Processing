@@ -110,8 +110,6 @@ float alignmentObj[IDobj] ; value from 0 to 1
 float analyzeObj[IDobj] ; value from 0 to 1
 
 
-float forceObj[IDobj] ; value from 0 to 1
-
 // shortcut var
 float fontSizeObj[IDobj] ; 3 to height since Romanesco 25 work with the slider sizeXObj
 
