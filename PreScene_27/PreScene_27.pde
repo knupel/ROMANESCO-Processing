@@ -39,7 +39,7 @@ void draw() {
   //setting
   initDraw() ;
   soundDraw() ;
-  updateVar() ;
+  updateVarRaw() ;
   OSCDraw() ;
   backgroundRomanesco() ;
   updateCommand() ;
@@ -59,6 +59,7 @@ void draw() {
   // curtain() ;
   
   // misc
+  updateVarTemp() ;
   cursorDraw() ;
   keyboardFalse() ;
   opening() ;

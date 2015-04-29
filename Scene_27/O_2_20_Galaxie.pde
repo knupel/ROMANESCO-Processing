@@ -5,7 +5,7 @@ class Galaxie extends Romanesco {
     IDobj = 20 ;
     IDgroup = 2 ;
     romanescoAuthor  = "Stan le Punk";
-    romanescoVersion = "Version 1.2";
+    romanescoVersion = "Version 1.3";
     romanescoPack = "Base" ;
     romanescoRender = "classic" ;
     romanescoMode ="Point/Ellipse/Rectangle/Box" ;

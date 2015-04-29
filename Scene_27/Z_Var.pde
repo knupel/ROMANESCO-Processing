@@ -115,14 +115,38 @@ float [] speedRaw ;
 float [] directionRaw, angleRaw ;
 float [] amplitudeRaw, attractionRaw, repulsionRaw ;
 float [] alignmentRaw, influenceRaw, analyzeRaw ;
-
+/* used in this time with sizeXObj */
+float []fontSizeRaw ;
+/*
 //add in the next version when there is 30 slider by group
 //future slider available now ;
-float []fontSizeRaw ;
 //for the next relase
 float [] curveRaw ;
+*/
+
+// temp
+/* value used to know if the value slider have change or nor */
+color [] fillTemp, strokeTemp ;
+float [] thicknessTemp ; 
+float [] sizeXTemp, sizeYTemp, sizeZTemp, canvasXTemp, canvasYTemp, canvasZTemp ;
+float [] familyTemp, quantityTemp, lifeTemp ;
+float [] speedTemp ;
+float [] directionTemp, angleTemp ;
+float [] amplitudeTemp, attractionTemp, repulsionTemp ;
+float [] alignmentTemp, influenceTemp, analyzeTemp ;
+/* used in this time with sizeXObj */
+float []fontSizeTemp ;
+/*
+//add in the next version when there is 30 slider by group
+//future slider available now ;
+//for the next relase
+float [] curveTemp ;
+*/
+
+
 
 //object
+boolean [] firstOpeningObj ; // used to check if this object is already opening before
 color [] fillObj, strokeObj ;
 float [] thicknessObj ; 
 float [] sizeXObj, sizeYObj, sizeZObj, canvasXObj, canvasYObj, canvasZObj ;
@@ -131,11 +155,15 @@ float [] speedObj ;
 float [] directionObj, angleObj ;
 float [] amplitudeObj, attractionObj, repulsionObj ;
 float [] alignmentObj, influenceObj, analyzeObj ;
+/* used in this time with sizeXObj */
+float []fontSizeObj ;
+/*
 //add in the next version when there is 30 slider by group
 //future slider available now ;
-float []fontSizeObj ;
 //for the next relase
 float []curveObj ;
+*/
+
 //font
 PFont police ;
 
@@ -347,16 +375,13 @@ void createVarButton() {
 }
 
 void createVarObject() {
-    // VAR raw
-  // col 1
+  // Raw
   fillRaw = new color[NUM_GROUP] ;
   strokeRaw = new color[NUM_GROUP] ;
   thicknessRaw = new float[NUM_GROUP] ;
-  // col two
   sizeXRaw = new float[NUM_GROUP] ;   sizeYRaw = new float[NUM_GROUP] ;    sizeZRaw = new float[NUM_GROUP] ;
   canvasXRaw = new float[NUM_GROUP] ; canvasYRaw = new float[NUM_GROUP] ;  canvasZRaw = new float[NUM_GROUP] ;
   familyRaw = new float[NUM_GROUP] ;  quantityRaw = new float[NUM_GROUP] ; lifeRaw = new float[NUM_GROUP] ;
-  //col three
   speedRaw = new float[NUM_GROUP] ;
   directionRaw = new float[NUM_GROUP] ;
   angleRaw = new float[NUM_GROUP] ;
@@ -366,13 +391,33 @@ void createVarObject() {
   alignmentRaw = new float[NUM_GROUP] ;
   influenceRaw = new float[NUM_GROUP] ;
   analyzeRaw = new float[NUM_GROUP] ;
-  
-  
-  
   //future slider
+  /* used in this time with the sizeXobj */
   fontSizeRaw = new float[NUM_GROUP] ;
   
+  // Temp
+  /* used to compare the value slider, to know if the value of the obhject must be updated orn ot */
+  fillTemp = new color[NUM_GROUP] ;
+  strokeTemp = new color[NUM_GROUP] ;
+  thicknessTemp = new float[NUM_GROUP] ;
+  sizeXTemp = new float[NUM_GROUP] ;   sizeYTemp = new float[NUM_GROUP] ;    sizeZTemp = new float[NUM_GROUP] ;
+  canvasXTemp = new float[NUM_GROUP] ; canvasYTemp = new float[NUM_GROUP] ;  canvasZTemp = new float[NUM_GROUP] ;
+  familyTemp = new float[NUM_GROUP] ;  quantityTemp = new float[NUM_GROUP] ; lifeTemp = new float[NUM_GROUP] ;
+  speedTemp = new float[NUM_GROUP] ;
+  directionTemp = new float[NUM_GROUP] ;
+  angleTemp = new float[NUM_GROUP] ;
+  amplitudeTemp = new float[NUM_GROUP] ;
+  attractionTemp = new float[NUM_GROUP] ;
+  repulsionTemp = new float[NUM_GROUP] ;
+  alignmentTemp = new float[NUM_GROUP] ;
+  influenceTemp = new float[NUM_GROUP] ;
+  analyzeTemp = new float[NUM_GROUP] ;
+  //future slider
+  /* used in this time with the sizeXobj */
+  fontSizeTemp = new float[NUM_GROUP] ;
+  
   // VAR object
+  firstOpeningObj = new boolean[numObj] ; // used to check if this object is already opening before
   fillObj = new color[numObj] ;
   strokeObj = new color[numObj] ;
   // column 2
@@ -392,7 +437,8 @@ void createVarObject() {
   analyzeObj = new float[numObj] ;
   
 
-  //future slider
+    //future slider
+  /* used in this time with the sizeXobj */
   fontSizeObj = new float[numObj] ;
 }
 // END CREATE VAR
@@ -415,9 +461,11 @@ void varObjSetup() {
 // END SETTING AR
 
 
-// UPDATE DATA from CONTROLER and PRESCENE
-void updateVar() {
-  //from column 1
+/* 
+UPDATE DATA from CONTROLER and PRESCENE
+Those value are used to updated the object data value, and updated at the end of the loop the temp value
+*/
+void updateVarRaw() {
   for(int i = 0 ; i < NUM_GROUP ; i++) {
     int minSource = 0 ;
     // int maxSource = 1 ;
@@ -449,10 +497,43 @@ void updateVar() {
     alignmentRaw[i] = map(valueSlider[i+1][27],minSource, MAX_VALUE_SLIDER,0,1) ;
     analyzeRaw[i] = map(valueSlider[i+1][28],minSource, MAX_VALUE_SLIDER,0 , 1) ;
 
-    // future slider
+    /* used in this time with sizeXObj */
     fontSizeRaw[i] = map(sizeXRaw[i], minSize, width, 1, (float)height *.025) ;
     fontSizeRaw[i] = 3 +(fontSizeRaw[i] *fontSizeRaw[i]) ;
+  }
+}
 
+
+/* Those temp value are used to know is the object value must be updated */
+void updateVarTemp() {
+    for(int i = 0 ; i < NUM_GROUP ; i++) {
+    //column 1
+    fillTemp[i] = fillRaw[i] ;
+    strokeTemp[i] = strokeRaw[i] ;
+    thicknessTemp[i] = thicknessRaw[i] ;
+    //column 2
+    sizeXTemp[i] = sizeXRaw[i] ;
+    sizeYTemp[i] = sizeYRaw[i] ;
+    sizeZTemp[i] = sizeZRaw[i] ;
+    canvasXTemp[i] = canvasXRaw[i] ;
+    canvasYTemp[i] = canvasYRaw[i] ;
+    canvasZTemp[i] = canvasZRaw[i] ;
+    familyTemp[i] = familyRaw[i] ;
+    quantityTemp[i] = quantityRaw[i] ;
+    lifeTemp[i] = lifeRaw[i] ;
+    //column 3
+    speedTemp[i] = speedRaw[i] ;
+    directionTemp[i] = directionRaw[i] ;
+    angleTemp[i] = angleRaw[i] ;
+    amplitudeTemp[i] = amplitudeRaw[i] ;
+    attractionTemp[i] = attractionRaw[i] ;
+    repulsionTemp[i] = repulsionRaw[i] ;
+    influenceTemp[i] = influenceRaw[i] ;
+    alignmentTemp[i] = alignmentRaw[i] ;
+    analyzeTemp[i] = analyzeRaw[i] ;
+
+    /* used in this time with sizeXObj */
+    fontSizeTemp[i] = fontSizeRaw[i] ;
   }
 }
 

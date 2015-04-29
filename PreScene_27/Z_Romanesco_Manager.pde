@@ -18,7 +18,7 @@ void updateObject(int ID, int group) {
   }
   if(!initValueControleur[ID]) {
     font[ID] = font[0] ;
-    updateParameter(ID,group ) ;
+    updateSliderValue(ID,group ) ;
     initValueControleur[ID] = true ;
     whichImage[ID] = whichImage[0] ;
     whichText[ID] = whichText[0] ;
@@ -32,7 +32,7 @@ void updateObject(int ID, int group) {
     whichImage[ID] = whichImage[0] ;
     whichText[ID] = whichText[0] ;
     font[ID] = font[0] ;
-    updateParameter(ID,group ) ;
+    updateSliderValue(ID,group ) ;
   }
   updateSound(ID) ;
   
@@ -59,44 +59,52 @@ void updateObject(int ID, int group) {
 
 
 //
-void updateParameter(int ID, int group) {
+void updateSliderValue(int ID, int group) {
   for ( int i = 0 ; i <= NUM_GROUP ; i++) if( group == i ) {
     int whichOne = i-1 ;
     if(fullRendering) {
-      fillObj[ID] = fillRaw[whichOne] ;
-      strokeObj[ID] = strokeRaw[whichOne] ;
-      thicknessObj[ID] = thicknessRaw[whichOne] ;
+      if (fillRaw[whichOne] != fillTemp[whichOne] || !firstOpeningObj[ID]) fillObj[ID] = fillRaw[whichOne] ;
+      if (strokeRaw[whichOne] != strokeTemp[whichOne] || !firstOpeningObj[ID]) strokeObj[ID] = strokeRaw[whichOne] ;
+      if (thicknessRaw[whichOne] != thicknessTemp[whichOne] || !firstOpeningObj[ID]) thicknessObj[ID] = thicknessRaw[whichOne] ;
     } else {
+      // preview display
       fillObj[ID] = color(0,0,100,30) ; ;
       strokeObj[ID] =  color(0,0,100,30) ;
       thicknessObj[ID] = 2 ;
     }
     // column 2
-    sizeXObj[ID] = sizeXRaw[whichOne] ; 
-    sizeYObj[ID] = sizeYRaw[whichOne] ; 
-    sizeZObj[ID] = sizeZRaw[whichOne] ;
-    canvasXObj[ID] = canvasXRaw[whichOne] ; 
-    canvasYObj[ID] = canvasYRaw[whichOne] ; 
-    canvasZObj[ID] = canvasZRaw[whichOne] ;
-    familyObj[ID] = familyRaw[whichOne] ;
-    quantityObj[ID] = quantityRaw[whichOne] ;
-    lifeObj[ID] = lifeRaw[whichOne] ;
+    if (sizeXRaw[whichOne] != sizeXTemp[whichOne] || !firstOpeningObj[ID]) sizeXObj[ID] = sizeXRaw[whichOne] ; 
+    if (sizeYRaw[whichOne] != sizeYTemp[whichOne] || !firstOpeningObj[ID]) sizeYObj[ID] = sizeYRaw[whichOne] ; 
+    if (sizeZRaw[whichOne] != sizeZTemp[whichOne] || !firstOpeningObj[ID]) sizeZObj[ID] = sizeZRaw[whichOne] ;
+    if (canvasXRaw[whichOne] != canvasXTemp[whichOne] || !firstOpeningObj[ID]) canvasXObj[ID] = canvasXRaw[whichOne] ; 
+    if (canvasYRaw[whichOne] != canvasYTemp[whichOne] || !firstOpeningObj[ID]) canvasYObj[ID] = canvasYRaw[whichOne] ; 
+    if (canvasZRaw[whichOne] != canvasZTemp[whichOne] || !firstOpeningObj[ID]) canvasZObj[ID] = canvasZRaw[whichOne] ;
+    if (familyRaw[whichOne] != familyTemp[whichOne] || !firstOpeningObj[ID]) familyObj[ID] = familyRaw[whichOne] ;
+    if (quantityRaw[whichOne] != quantityTemp[whichOne] || !firstOpeningObj[ID]) quantityObj[ID] = quantityRaw[whichOne] ;
+    if (lifeRaw[whichOne] != lifeTemp[whichOne] || !firstOpeningObj[ID]) lifeObj[ID] = lifeRaw[whichOne] ;
     //column 3
-    speedObj[ID] = speedRaw[whichOne] ;
-    directionObj[ID] = directionRaw[whichOne] ;
-    angleObj[ID] = angleRaw[whichOne] ;
-    amplitudeObj[ID] = amplitudeRaw[whichOne] ;
-    attractionObj[ID] = attractionRaw[whichOne] ;
-    repulsionObj[ID] = repulsionRaw[whichOne] ;
-    alignmentObj[ID] = alignmentRaw[whichOne] ;
-    influenceObj[ID] = influenceRaw[whichOne] ;
-    analyzeObj[ID] = analyzeRaw[whichOne] ; 
+    if (speedRaw[whichOne] != speedTemp[whichOne] || !firstOpeningObj[ID]) speedObj[ID] = speedRaw[whichOne] ;
+    if (directionRaw[whichOne] != directionTemp[whichOne] || !firstOpeningObj[ID]) directionObj[ID] = directionRaw[whichOne] ;
+    if (angleRaw[whichOne] != angleTemp[whichOne] || !firstOpeningObj[ID]) angleObj[ID] = angleRaw[whichOne] ;
+    if (amplitudeRaw[whichOne] != amplitudeTemp[whichOne] || !firstOpeningObj[ID]) amplitudeObj[ID] = amplitudeRaw[whichOne] ;
+    if (attractionRaw[whichOne] != attractionTemp[whichOne] || !firstOpeningObj[ID]) attractionObj[ID] = attractionRaw[whichOne] ;
+    if (repulsionRaw[whichOne] != repulsionTemp[whichOne] || !firstOpeningObj[ID]) repulsionObj[ID] = repulsionRaw[whichOne] ;
+    if (alignmentRaw[whichOne] != alignmentTemp[whichOne] || !firstOpeningObj[ID]) alignmentObj[ID] = alignmentRaw[whichOne] ;
+    if (influenceRaw[whichOne] != influenceTemp[whichOne] || !firstOpeningObj[ID]) influenceObj[ID] = influenceRaw[whichOne] ;
+    if (analyzeRaw[whichOne] != analyzeTemp[whichOne] || !firstOpeningObj[ID]) analyzeObj[ID] = analyzeRaw[whichOne] ; 
 
-    // forceObj[ID] = forceRaw[whichOne] ;
     //future slider ???
-    fontSizeObj[ID] = fontSizeRaw[whichOne] ;
+    if (fontSizeRaw[whichOne] != fontSizeTemp[whichOne] || !firstOpeningObj[ID]) fontSizeObj[ID] = fontSizeRaw[whichOne] ;
   }
+  /* make the obj has be never update in the future except by the moving slider */
+  firstOpeningObj[ID] = true ; 
+
 }
+
+
+
+
+
 //
 void updateSound(int ID) {
   if(sound[ID]) {
@@ -378,6 +386,8 @@ class ObjectRomanescoManager {
       posObjRef[objR.IDobj] = startingPosition[objR.IDobj].copy() ;
     }
   }
+  
+
   // END SETUP
   ////////////
   
@@ -392,7 +402,7 @@ class ObjectRomanescoManager {
       movePos = true ;
     }
     
-    //the methode
+    //the method
     for (Romanesco objR : RomanescoList) {
       if (object[objR.IDobj]) {
         updateObject(objR.IDobj, objR.IDgroup) ;

@@ -40,7 +40,7 @@ void draw() {
   soundDraw() ;
   OSCDraw() ;
   meteoDraw() ;
-  updateVar() ;
+  updateVarRaw() ;
   backgroundRomanesco() ; 
   shaderDraw() ; // maybe can desactivate the background shader
   
@@ -55,6 +55,7 @@ void draw() {
   //ANNEXE
   info() ;
   curtain() ;  
+  updateVarTemp() ;
 
   nextPreviousKeypressed() ;
 
