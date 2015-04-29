@@ -8,8 +8,8 @@ class Galaxie extends Romanesco {
     romanescoVersion = "Version 1.2";
     romanescoPack = "Base" ;
     romanescoRender = "classic" ;
-    romanescoMode ="Point/Ellipse/Rectangle" ;
-    romanescoSlider = "Hue fill,Saturation fill,Brightness fill,Alpha fill,Hue stroke,Saturation stroke,Brightness stroke,Alpha stroke,Thickness,Width,Height,Canvas X,Canvas Y,Quantity,Speed,Repulsion" ;
+    romanescoMode ="Point/Ellipse/Rectangle/Box" ;
+    romanescoSlider = "Hue fill,Saturation fill,Brightness fill,Alpha fill,Hue stroke,Saturation stroke,Brightness stroke,Alpha stroke,Thickness,Width,Height,Depth,Canvas X,Canvas Y,Quantity,Speed,Influence" ;
   }
   //GLOBAL
     boolean makeSand = true ;
@@ -49,14 +49,16 @@ class Galaxie extends Romanesco {
     PVector surface = new PVector(marge.x *2 +width, marge.y *2 +height) ;
     
     //quantity of star
-    float quantity = pow(map(quantityObj[IDobj],0,1,12,144),2) ;
-    
-    if(fullRendering ) {
-      if (mode[IDobj] == 0 ) quantity *= .01 ;
-    } else {
-      if (mode[IDobj] == 0 ) quantity *= .0001 ; else quantity *= .01 ;
+    float max = 1500 ;
+    float min = 300 ;
+    if(!fullRendering ) {
+      min = 30 ;
+      max = 150 ;
     }
+    float quantity = map(quantityObj[IDobj],0,1,min,max) ;
+    if (mode[IDobj] == 0 ) numFromControler = int(quantity *10) ; else numFromControler = int(quantity) ;
     
+
     if ((numGrains != numFromControler && parameterButton[IDobj] == 1) || resetAction(IDobj) ) makeSand = true ;
     
     if (makeSand) {
@@ -71,10 +73,13 @@ class Galaxie extends Romanesco {
     deformationGrain = orientationStyletGrain.copy() ; ;
     
     // speed / vitesse
+     speedDust = map(speedObj[IDobj],0,1, 0.00005 ,.5) ; 
+     if(sound[IDobj]) speedDust *= 3 ;
+        
     vitesseGrainA = map(left[IDobj],0,1, 1, 17) ;
     vitesseGrainB = map(right[IDobj],0,1, 1, 17) ;
     
-    if(motion[IDobj]) speedDust = map(speedObj[IDobj],0,1, 0.00005 ,0.5) ; else speedDust = 0.00001 ;
+
     
     vitesseGrain.x = vitesseGrainA *speedDust *tempo[IDobj] *pressionGrain  ;
     vitesseGrain.y = vitesseGrainB *speedDust *tempo[IDobj] *pressionGrain  ;
@@ -86,20 +91,15 @@ class Galaxie extends Romanesco {
       vitesseGrain.y = vitesseGrain.y *-1 ;
     }
     
-    //force
-    float amplitude = 11 ;
-    variableRayonGrain = map(repulsionObj[IDobj], 0,1, 0, amplitude ) ; //<>// //<>//
-    
-
-
-    
-    
-
+    // force
+    int maxInfluence = 11 ;
+    variableRayonGrain = map(influenceObj[IDobj], 0,1, 0, maxInfluence ) ;
     
     //size
     float objWidth =  .1 +sizeXObj[IDobj] *mix[IDobj] ;
     float objHeight = .1 +sizeYObj[IDobj] *mix[IDobj] ;
-    PVector size = new PVector(objWidth, objHeight) ;
+    float objDepth = .1 +sizeZObj[IDobj] *mix[IDobj] ;
+    PVector size = new PVector(objWidth, objHeight,objDepth) ;
     
     //thickness / épaisseur
     float e = thicknessObj[IDobj] ;
@@ -123,7 +123,7 @@ class Galaxie extends Romanesco {
     
     /////////
     //UPDATE
-    updateGrain(upTouch, downTouch, leftTouch, rightTouch, clickLongLeft[IDobj], marge);
+    if(motion[IDobj]) if (speedObj[IDobj] >= 0.01) updateGrain(upTouch, downTouch, leftTouch, rightTouch, clickLongLeft[IDobj], marge);
     
     //////////////
     //DISPLAY MODE
@@ -133,6 +133,8 @@ class Galaxie extends Romanesco {
       ellipseSable(size,e , colorIn, colorOut) ;
     } else if (mode[IDobj] == 2 ) {
       rectSable(size,e , colorIn, colorOut) ;
+    } else if (mode[IDobj] == 3 ) {
+      boxSable(size,e , colorIn, colorOut) ;
     } else {
       pointSable(objWidth, colorIn) ;
     }
@@ -142,8 +144,7 @@ class Galaxie extends Romanesco {
     
     // INFO DISPLAY
     objectInfo[IDobj] =("Quantity " +numGrains + " - Canvas " + (int)surface.x + "x" + (int)surface.y + " - Center Galaxy " + int(posCenterGrain.x +marge.x) + "x" + int(posCenterGrain.y +marge.y) + " - speed" +int(speedDust *200.)) ;
-    // objectInfo[IDobj] =("Quantity " +numGrains + " - Canvas " + (int)surface.x + "x" + (int)surface.y + " - Center Galaxy " + int(posCenterGrain.x +(posCenterGrain.x *.5)) + "x" + int(posCenterGrain.y +(posCenterGrain.y *.5)) ) ;
-    if (objectInfoDisplay[IDobj] && prescene) {
+    if (objectInfoDisplay[IDobj]) {
       strokeWeight(1) ;
       stroke(blanc) ;
       noFill() ;
@@ -186,13 +187,31 @@ class Galaxie extends Romanesco {
       //set(int(grain[j].x), int(grain[j].y), colorIn);
     }
   }
-  //
+  // rect
   void rectSable(PVector size, float e, color cIn, color cOut) {
     for(int j = 0; j < grain.length; j++) {
       strokeWeight(e) ;
       stroke(cOut) ;
       fill(cIn) ;
       rect(grain[j].x, grain[j].y, size.x, size.y);
+      //set(int(grain[j].x), int(grain[j].y), colorIn);
+    }
+  }
+  
+  void boxSable(PVector size, float e, color cIn, color cOut) {
+    /* we change a little bit the z position, to have a good rendering when there is superpostion of the shape */
+    float modificationPosZ = 0 ;
+    float ratio = .001 ;
+    for(int j = 0; j < grain.length; j++) {
+       modificationPosZ += ratio ;
+      strokeWeight(e) ;
+      stroke(cOut) ;
+      fill(cIn) ;
+      
+      pushMatrix() ;
+      translate(grain[j].x, grain[j].y, modificationPosZ) ;
+      box(size.x, size.y, size.z);
+      popMatrix() ;
       //set(int(grain[j].x), int(grain[j].y), colorIn);
     }
   }

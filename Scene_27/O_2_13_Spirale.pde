@@ -29,7 +29,7 @@ class SpiraleRomanesco extends Romanesco {
     //quantity
     int n ;
     int nMax = 1 ;
-     nMax = 1 + (int)quantityObj[IDobj] *300 ; 
+     nMax = 1 + int(quantityObj[IDobj] *300) ; 
     if(!fullRendering) nMax *= .1 ;
     n = nMax ;
 

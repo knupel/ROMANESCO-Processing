@@ -69,7 +69,7 @@ void updateParameter(int ID, int group) {
     } else {
       fillObj[ID] = color(0,0,100,30) ; ;
       strokeObj[ID] =  color(0,0,100,30) ;
-      thicknessObj[ID] = .5 ;
+      thicknessObj[ID] = 2 ;
     }
     // column 2
     sizeXObj[ID] = sizeXRaw[whichOne] ; 

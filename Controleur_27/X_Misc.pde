@@ -84,7 +84,7 @@ void checkImageFolder() {
   if(frameCount%180 == 0) {
     countImageSelection++ ;
     imageFiles.clear() ;
-    String path = sketchPath +"/" +preferencesPath +"Images" ; 
+    String path = sketchPath("") +"/" +preferencesPath +"Images" ; 
     
     ArrayList allFiles = listFilesRecursive(path);
   
@@ -113,7 +113,7 @@ void checkFileTextFolder() {
   if(frameCount%180 == 0) {
     countFileTextSelection++ ;
     textFiles.clear() ;
-    String path = sketchPath +"/" +preferencesPath +"Karaoke" ; 
+    String path = sketchPath("") +"/" +preferencesPath +"Karaoke" ; 
     
     ArrayList allFiles = listFilesRecursive(path);
   

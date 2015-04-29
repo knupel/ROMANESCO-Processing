@@ -341,16 +341,19 @@ class Canvas {
 // CLASS VEC
 ////////////
 class Vec2 {
-  
   // inspireted by GLSL code
   float x,y ;
   float s,t ;
+  float u,v ;
   Vec2(float x, float y) {
     this.x = x ;
     this.y = y ;
     
     this.s = x ;
     this.t = y ;
+    
+    this.u = x ;
+    this.v = y ;
   }
 }
 
@@ -396,6 +399,24 @@ class Vec4 {
     this.p = z ;
     this.q = w ;
   }
+}
+
+
+
+// use too return a Vec value
+Vec4 Vec4(float x, float y, float z, float w) {
+  Vec4 value = new Vec4(x,y,z,w) ;
+  return value ;
+}
+
+Vec3 Vec3(float x, float y, float z) {
+  Vec3 value = new Vec3(x,y,z) ;
+  return value ;
+}
+
+Vec2 Vec2(float x, float y) {
+  Vec2 value = new Vec2(x,y) ;
+  return value ;
 }
 // END CLASS VEC
 ///////////////

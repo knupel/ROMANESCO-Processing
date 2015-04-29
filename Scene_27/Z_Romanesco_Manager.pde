@@ -69,7 +69,7 @@ void updateParameter(int ID, int group) {
     } else {
       fillObj[ID] = color(0,0,100,30) ; ;
       strokeObj[ID] =  color(0,0,100,30) ;
-      thicknessObj[ID] = .5 ;
+      thicknessObj[ID] = 2 ;
     }
     // column 2
     sizeXObj[ID] = sizeXRaw[whichOne] ; 
@@ -375,6 +375,7 @@ class ObjectRomanescoManager {
       motion[objR.IDobj] = true ;
       initValueMouse[objR.IDobj] = true ;
       objR.setting() ;
+      posObjRef[objR.IDobj] = startingPosition[objR.IDobj].copy() ;
     }
   }
   // END SETUP
@@ -391,7 +392,7 @@ class ObjectRomanescoManager {
       movePos = true ;
     }
     
-    //the methodv
+    //the methode
     for (Romanesco objR : RomanescoList) {
       if (object[objR.IDobj]) {
         updateObject(objR.IDobj, objR.IDgroup) ;

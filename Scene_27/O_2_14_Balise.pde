@@ -27,7 +27,7 @@ class BaliseRomanesco extends Romanesco {
     aspect(IDobj) ;
 
     //amplitude
-    float amp = map(amplitudeObj[IDobj], 0,1, 0, width *3) ;
+    float amp = map(amplitudeObj[IDobj], 0,1, 0, width *5) ;
     
     //factor size
     float factor = map(repulsionObj[IDobj],0,1,1,100) *(allBeats(IDobj) *.2) ;
@@ -52,7 +52,9 @@ class BaliseRomanesco extends Romanesco {
     if(var.x <= 0 ) var.x = .1 ; 
     if(var.y <= 0 ) var.y = .1 ; 
     //quantity
-    float radiusBalise = map(quantityObj[IDobj], 0,1, 2, 511); // here the value max is 511 because we work with buffersize with 512 field
+    int maxBalise = 511 ;
+    if(!fullRendering) maxBalise = 64 ;
+    float radiusBalise = map(quantityObj[IDobj], 0,1, 2, maxBalise); // here the value max is 511 because we work with buffersize with 512 field
     
     balise.actualisation(mouse[IDobj] , speed) ;
     balise.display(amp, var, sizeBalise, factor, int(radiusBalise), sound[IDobj], mode[IDobj]) ;
