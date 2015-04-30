@@ -4,7 +4,7 @@ class Boids extends Romanesco {
     IDobj = 8 ;
     IDgroup = 1 ;
     romanescoAuthor  = "Stan le Punk inspirated by Craig W. Reynolds";
-    romanescoVersion = "Version 1.0";
+    romanescoVersion = "Version 1.0.0";
     romanescoPack = "Base" ;
     romanescoMode = "Tetra monochrome/Tetra camaieu" ; // separate the differentes mode by "/"
     romanescoSlider = "Hue fill,Saturation fill,Brightness fill,Alpha fill,Thickness,Size X,Canvas X,Canvas Y,Canvas Z,Quantity,Attraction,Repulsion,Influence,Alignment,Width,Speed" ;
@@ -34,7 +34,7 @@ class Boids extends Romanesco {
   // draw
   void display() {
     // MAIN method
-    float thickness = map(thicknessObj[IDobj],.1,width/3,.1,width/30 ) ;
+    float thickness = map(thicknessObj[IDobj],0,width/3,0,width/30 ) ;
     int size = (int)map(sizeXObj[IDobj],.1,width, 2,width/10) ;
     float alignment = map(alignmentObj[IDobj],0,1,0,10) ;
     float cohesion = map(attractionObj[IDobj],0,1,0,10) ;
@@ -70,7 +70,6 @@ class Boids extends Romanesco {
     if(!fullRendering) numOfBoid /= 15 ;
     
     // change the setting of the boid
-
     for(Boid b : flock.listBoid) {
       b.colorBoid = color(hue(b.colorBoid), saturation(fillObj[IDobj]), brightness(fillObj[IDobj]), alpha(fillObj[IDobj])) ;
       b.size = size ;
@@ -495,6 +494,7 @@ class Boid {
     rotateZ(asin(velNorm.y /velNorm.mag()));
     strokeWeight(thickness) ;
     if(thickness <= 0 || alpha(colorBoid) == 0 ) noStroke() ; else stroke(colorBoid);
+    println(thickness, alpha(colorBoid)) ;
     if(alpha(colorBoid) == 0 ) noFill() ; else  fill(colorBoid);
     tetrahedron(size) ;
     /*

@@ -470,11 +470,12 @@ void updateVarRaw() {
     int minSource = 0 ;
     // int maxSource = 1 ;
     float minSize = .1 ;
+    float minThickness = 0 ;
     //column 1
     fillRaw[i] = color(valueSlider[i+1][0], map(valueSlider[i+1][1],0,MAX_VALUE_SLIDER,0,100), map(valueSlider[i+1][2],0,MAX_VALUE_SLIDER,0,100), map(valueSlider[i+1][3],0,MAX_VALUE_SLIDER,0,100)) ;
     strokeRaw[i] = color(valueSlider[i+1][4], map(valueSlider[i+1][5],0,MAX_VALUE_SLIDER,0,100), map(valueSlider[i+1][6],0,MAX_VALUE_SLIDER,0,100), map(valueSlider[i+1][7],0,MAX_VALUE_SLIDER,0,100)) ;
 
-    thicknessRaw[i] = mapStartSmooth(valueSlider[i+1][8], minSource, MAX_VALUE_SLIDER, minSize, (height*.33), 2) ;
+    thicknessRaw[i] = mapStartSmooth(valueSlider[i+1][8], minSource, MAX_VALUE_SLIDER, minThickness, (height*.33), 2) ;
 
     //column 2
     sizeXRaw[i] = map(valueSlider[i+1][10], minSource, MAX_VALUE_SLIDER, minSize, width) ;

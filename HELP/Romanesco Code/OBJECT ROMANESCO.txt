@@ -83,7 +83,7 @@ VAR object from slider
 // COL ONE
 color fillObj[IDobj] ; you can separate with hue(fillObj[IDobj]), saturation(fillObj[IDobj]), brightness(fillObj[IDobj]) and alpha(fillObj[IDobj])
 color strokeObj[IDobj] ; you can separate with hue(strokeObj[IDobj]), saturation(strokeObj[IDobj]), brightness(strokeObj[IDobj]) and alpha(strokeObj[IDobj])
-float thicknessObj[IDobj] ; value from 0.1 to height/3
+float thicknessObj[IDobj] ; value from 0 to height/3
 
 // COL TWO
 this parameters is use for the object or particule size

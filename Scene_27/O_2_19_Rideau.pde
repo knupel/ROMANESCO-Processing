@@ -8,7 +8,7 @@ class Rideau extends Romanesco {
     IDobj = 19 ;
     IDgroup = 2 ;
     romanescoAuthor  = "Stan le Punk";
-    romanescoVersion = "Version 2.0";
+    romanescoVersion = "Version 2.0.1";
     romanescoPack = "Base" ;
     romanescoRender = "classic" ;
     romanescoMode ="Rectangle/Box" ;
@@ -29,8 +29,10 @@ class Rideau extends Romanesco {
     //durée / life
     int vie = int(map(lifeObj[IDobj],0,1,100,20000)) ;
     //thickness / épaisseur
-    float thickness ;
-    if(sound[IDobj]) thickness = thicknessObj[IDobj] + abs(mix[IDobj]) *10 ; else thickness = thicknessObj[IDobj] ;
+    float thickness = 0 ;
+    if(sound[IDobj]) {
+      if(thicknessObj[IDobj] != 0 ) thickness = thicknessObj[IDobj] + abs(mix[IDobj]) *10 ; 
+    } else thickness = thicknessObj[IDobj] ;
     
     float heightShape = sizeYObj[IDobj] *allBeats(IDobj) ;
     PVector size = new PVector(sizeXObj[IDobj], heightShape ,sizeZObj[IDobj]) ;

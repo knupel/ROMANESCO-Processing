@@ -749,6 +749,7 @@ float mapLocked(float value, float sourceMin, float sourceMax, float targetMin, 
   return result; 
 }
 
+// to map not linear, start the curve slowly to finish hardly
 float mapStartSmooth(float value, float sourceMin, float sourceMax, float targetMin, float targetMax, int level) {
   if(sourceMax >= targetMax ) sourceMax = targetMax ;
   if (value < sourceMin ) value = sourceMin ;
@@ -761,6 +762,7 @@ float mapStartSmooth(float value, float sourceMin, float sourceMax, float target
   return result;
 }
 
+// to map not linear, start the curve hardly to finish slowly
 float mapEndSmooth(float value, float sourceMin, float sourceMax, float targetMin, float targetMax, int level) {
   if(sourceMax >= targetMax ) sourceMax = targetMax ;
   if (value < sourceMin ) value = sourceMin ;
@@ -773,7 +775,7 @@ float mapEndSmooth(float value, float sourceMin, float sourceMax, float targetMi
   return result;
 }
 
-
+// to map not linear, like a "S"
 float mapEndStartSmooth(float value, float sourceMin, float sourceMax, float targetMin, float targetMax, int level) {
   if(sourceMax >= targetMax ) sourceMax = targetMax ;
   if (value < sourceMin ) value = sourceMin ;

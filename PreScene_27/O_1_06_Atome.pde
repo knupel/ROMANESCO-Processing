@@ -8,7 +8,7 @@ class Atome extends Romanesco {
     IDobj = 6 ;
     IDgroup = 1 ;
     romanescoAuthor  = "Stan le Punk";
-    romanescoVersion = "version 1.3";
+    romanescoVersion = "version 1.3.1";
     romanescoPack = "Base" ;
     romanescoRender = "P3D" ;
     romanescoMode = "Chemical Name/File text/Electronic cloud/Ellipse circle/Ellipse triangle/Ellipse cloud/Triangle circle/Triangle triangle/Triangle cloud/Rectangle rectangle/Rectangle cloud" ;
@@ -117,7 +117,7 @@ class Atome extends Romanesco {
     hat[IDobj] = map(hat[IDobj],1,10, 1,maxBeat) ;
     
     // thickness
-    float thickness = map(thicknessObj[IDobj],.1, width/3, .1, width/20) ;
+    float thickness = map(thicknessObj[IDobj],0, width/3, 0, width/20) ;
     
     // TEXT
     float sizeFont = fontSizeObj[IDobj] *1.5 ;
