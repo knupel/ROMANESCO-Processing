@@ -16,7 +16,7 @@ private boolean newRefEyeMouse = true ;
 // Update Camera position
 /* We move the scene 
 */
-PVector refPosCamera = new PVector() ;
+
 PVector updatePosCamera(boolean authorization, boolean leapMotionDetected, PVector posDevice) {
   if(authorization) {
     //create the ref to calcul the new position of the Scene
@@ -29,8 +29,8 @@ PVector updatePosCamera(boolean authorization, boolean leapMotionDetected, PVect
 
     //create the delta between the ref and the mouse position
     deltaScenePos = PVector.sub(posDevice, posSceneMouseRef) ;
-    if (leapMotionDetected) refPosCamera = PVector.add(PVector.mult(deltaScenePos,-1), posSceneCameraRef ) ; else refPosCamera = PVector.add(deltaScenePos, posSceneCameraRef ) ;
-    return refPosCamera ;
+    if (leapMotionDetected) return      PVector.add(PVector.mult(deltaScenePos,-1), posSceneCameraRef ) ; 
+                            else return PVector.add(deltaScenePos, posSceneCameraRef ) ;
   } else {
     //change the boolean to true for the next mousepressed
     newRefSceneMouse = true ;
@@ -41,8 +41,8 @@ PVector updatePosCamera(boolean authorization, boolean leapMotionDetected, PVect
 
 
 // Update Camera EYE position
-PVector refEyeCamera = new PVector()  ;
 PVector updateEyeCamera(boolean authorization, PVector posMouse) {
+  // PVector refEyeCamera = new PVector()  ;
   if(authorization) {
     //create the ref to calcul the new position of the Scene
     if(newRefEyeMouse) {
@@ -56,8 +56,8 @@ PVector updateEyeCamera(boolean authorization, PVector posMouse) {
     tempEyeCamera = PVector.add(deltaEyePos, posEyeCameraRef ) ;
 
     //rotation of the camera
-    refEyeCamera = eyeClassic(tempEyeCamera).copy() ;
-    return refEyeCamera ;
+    // return eyeClassic(tempEyeCamera) ;
+    return eyeClassic(tempEyeCamera).copy() ;
   } else {
     //change the boolean to true for the next mousepressed
     newRefEyeMouse = true ;
