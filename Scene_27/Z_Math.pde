@@ -16,7 +16,8 @@ float roots(float valueToRoots, int n) {
 
 
 //GEOMETRY
-/////////////////////////////////
+//////////
+
 // EQUATION CIRLCE
 float perimeterCircle ( int r ) {
   float p = 2*r*PI  ;
@@ -30,8 +31,134 @@ float radiusSurface(int surface) {
 }
 
 
-// END EQUATION CIRCLE
-//////////////////////
+// GEOMETRY POLAR
+/*
+
+@return float
+*/
+float longitude(float x, float range) {
+  return map(x, 0,range, 0, TAU) ;
+}
+float latitude(float y, float range) {
+  return map(y, 0,range, 0, TAU) ;
+}
+/*
+Return normal vector from angle 0 >2PI 
+@return Vec3
+*/
+Vec3 toCartesian(float longitude, float latitude) {
+  /*
+  // physical model
+  float x = sin(longitude) *cos(latitude) ;
+  float y = sin(longitude) *sin(latitude) ;
+  float z = cos(longitude)  ;
+  */
+  // First Algo
+  float x = sin(latitude) *cos(longitude);
+  float y = sin(latitude) *sin(longitude);
+  float z = cos(latitude);
+  return new Vec3(x, y, z);
+}
+/*
+Return normal vector from angle 0 >2PI 
+@return Vec3
+*/
+Vec3 toCartesian(float longitude, float latitude, float radius) {
+  /* // physical model
+  // weird behavior on the z axis 
+  float x = sin(longitude) *cos(latitude) *radius;
+  float y = sin(longitude) *sin(latitude) *radius;
+  float z = cos(longitude) *radius;
+  */
+
+  /* // mathematical model
+  float x = cos(longitude) *cos(latitude) *radius;
+  float y = sin(longitude) *cos(latitude) *radius;
+  float z = sin(longitude) *radius;
+  */
+  // First Algo
+  float x = radius *sin(latitude) *cos(longitude);
+  float y = radius *sin(latitude) *sin(longitude);
+  float z = radius *cos(latitude);
+  return new Vec3(x, y, z);
+}
+/* 
+return a vector info : radius,longitude, latitude
+@return Vec3
+*/
+Vec3 toPolar(Vec3 cart) {
+  float radius = sqrt(cart.x * cart.x + cart.y * cart.y + cart.z * cart.z);
+  float longitude = acos(cart.x / sqrt(cart.x * cart.x + cart.y * cart.y)) * (cart.y < 0 ? -1 : 1);
+  float latitude = acos(cart.z / radius) * (cart.z < 0 ? -1 : 1);
+  // check NaN result
+  if (Float.isNaN(longitude)) longitude = 0 ;
+  if (Float.isNaN(latitude)) latitude = 0 ;
+  if (Float.isNaN(radius)) radius = 0 ;
+  // result
+  return new Vec3(radius, longitude, latitude) ;
+}
+
+///////////////
+// Cartesian 3D
+/*
+@ return Vec3
+return the position of point on Sphere, with longitude and latitude
+*/
+//If you want just the final pos
+Vec3 toCartesian3D(Vec2 pos, Vec2 range, float sizeField)  {
+  // vertical plan position
+  float verticalY = toCartesian2D(pos.y, Vec2(0,range.y), Vec2(0,TAU), sizeField).x ;
+  float verticalZ = toCartesian2D(pos.y, Vec2(0,range.y), Vec2(0,TAU), sizeField).y ; 
+  Vec3 posVertical = new Vec3(0, verticalY, verticalZ) ;
+  // horizontal plan position
+  float horizontalX = toCartesian2D(pos.x, Vec2(0,range.x), Vec2(0,TAU), sizeField).x ; 
+  float horizontalZ = toCartesian2D(pos.x, Vec2(0,range.x), Vec2(0,TAU), sizeField).y  ;
+  Vec3 posHorizontal = new Vec3(horizontalX, 0, horizontalZ) ;
+  
+  return projectionSphere (middle(posVertical,posHorizontal), sizeField) ;
+}
+
+
+
+//Step 1 : translate the mouse position x and y  on the sphere, we must do that separately
+/*
+@ return Vec2 
+return lineat value on the circle perimeter
+*/
+Vec2 toCartesian2D (float posMouse, Vec2 range, Vec2 targetRadian, float distance) {
+  float rotationPlan = map(posMouse, range.x, range.y, targetRadian.x, targetRadian.y)  ;
+  float x = cos(rotationPlan) *distance ;
+  float y = sin(rotationPlan) *distance ;
+  return new Vec2 (x, y) ;
+}
+
+
+// END POLAR and CARTESIAN coord
+/////////////////////////////////
+
+
+
+
+//bisectorProjection
+/* 
+@ return Vec3
+calculte the projection position on the sphere, we supose the center of the sphere is 0,0,0
+
+the bisector is the midlle position of two points who are on the surface of sphere
+*/
+Vec3 projectionSphere(Vec3 point, float radius ) {
+  Vec3 center = new Vec3(0) ;
+  float distanceBetweenCenterAndBisector = point.dist(center) ;
+  float rapport = radius /distanceBetweenCenterAndBisector ;
+  point.mult(rapport) ;
+  return point ;
+}
+
+
+
+
+
+
 
 
 
@@ -738,6 +865,34 @@ void addVerts(float x, float y, float z) {
 ////////
 
 // MAP
+///////
+/*
+map the value between the min and the max
+@ return float
+*/
+float mapCycle(float value, float min, float max) {
+  max += .000001 ;
+  float newValue ;
+  if(min < 0 && max >= 0 ) {
+    float tempMax = max + abs(min) ;
+    value += abs(min) ;
+    float tempMin = 0 ;
+    newValue =  tempMin +abs(value)%(tempMax - tempMin)  ;
+    newValue -= abs(min) ;
+    return newValue ;
+  } else if ( min < 0 && max < 0) {
+    newValue = abs(value)%(abs(max)+min) -max ;
+    return newValue ;
+  } else {
+    newValue = min + abs(value)%(max - min) ;
+    return newValue ;
+  }
+}
+
+/*
+map the value between the min and the max, but this value is lock between the min and the max
+@ return float
+*/
 float mapLocked(float value, float sourceMin, float sourceMax, float targetMin, float targetMax) {
   if(sourceMax >= targetMax ) sourceMax = targetMax ;
   if (value < sourceMin ) value = sourceMin ;
@@ -792,6 +947,7 @@ float mapEndStartSmooth(float value, float sourceMin, float sourceMax, float tar
   return result;
 }
 // END MAP
+//////////
 
 
 

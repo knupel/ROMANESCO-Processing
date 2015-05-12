@@ -60,7 +60,7 @@ class Escargot extends Romanesco {
   int satColor[] =    new int [(int)HSBpalette.y] ;
   int brightColor[] = new int [(int)HSBpalette.z] ;
   //spectrum for the color mode and more if you need
-  PVector HSBmode = new PVector (360,100,100) ; // give the color mode in HSB
+  Vec4 HSBmode = new Vec4 (360,100,100,100) ; // give the color mode in HSB
   
   //MOTION POSITION
   //Wind force, direction

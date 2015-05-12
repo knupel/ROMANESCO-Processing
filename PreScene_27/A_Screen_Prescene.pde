@@ -26,7 +26,7 @@ void displaySetup(int speed) {
   frameRate(speed) ;  // Le frameRate doit être le même dans tous les Sketches
   
   //size and different property of scene : size, border, P2D, P3D...
-  colorMode(HSB, HSBmode.x, HSBmode.y, HSBmode.z, 100) ;
+  colorMode(HSB, HSBmode.r, HSBmode.g, HSBmode.b, HSBmode.a) ;
   background(0);
 
   loadPropertyPrescene() ;

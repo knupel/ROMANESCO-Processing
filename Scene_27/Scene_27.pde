@@ -1,6 +1,8 @@
-  ////////////////////////////////////////////////////////////////
+  //////////////////////////////////////////////////////////////////
  // Romanesco Unu 1.0.2 / version 27 / made with Processing 305 ///
-////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////
+/* 14.750 lines of code the 4th may !!!! */
+
 String nameVersion = ("Romanesco Unu") ;
 String version = ("27") ;
 String prettyVersion = ("1.0.2") ;
@@ -49,7 +51,7 @@ void draw() {
   lightPosition() ;
   lightDraw() ;
   romanescoManager.displayObject(ORDER_ONE, ORDER_TWO, ORDER_THREE) ;
-  repereCamera(sizeBackgroundP3D) ;
+  if(modeP3D) createGridCamera() ;
   stopCamera() ;
   
   //ANNEXE

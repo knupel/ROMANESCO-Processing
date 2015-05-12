@@ -348,7 +348,7 @@ void displayInfoObject() {
 
 //INFO 3D
 void displayInfo3D() {
-   String posCam = ( int(sceneCamera.x +width/2) + " / " + int(sceneCamera.y +height/2) + " / " +  int(sceneCamera.z -height/2)) ;
+   String posCam = ( int(-1 *sceneCamera.x ) + " / " + int(sceneCamera.y) + " / " +  int(sceneCamera.z -height/2)) ;
    String eyeDirectionCam = ( int(eyeCamera.x) + " / " + int(eyeCamera.y) ) ;
   fill(0,0,100) ; 
   textFont(SansSerif10, 10) ;
@@ -621,6 +621,9 @@ float truncate( float x ) {
     return round( x * 100.0f ) / 100.0f;
 }
 //Int to String with array list
+/*
+@ return String
+*/
 String joinIntToString(int []data) {
   String intString ;
   String [] dataString = new String [data.length] ;

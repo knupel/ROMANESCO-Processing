@@ -55,7 +55,7 @@ void displaySetup(int speed) {
   background(0) ;
   frameRate(speed) ; 
   noCursor () ;
-  colorMode(HSB, HSBmode.x, HSBmode.y, HSBmode.z, 100) ;
+  colorMode(HSB, HSBmode.r, HSBmode.g, HSBmode.b, HSBmode.a) ;
   configurationScene = loadTable(pathScenePropertySetting, "header");
   
   loadPropertyScene() ;

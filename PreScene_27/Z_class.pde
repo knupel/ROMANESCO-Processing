@@ -119,7 +119,7 @@ class Pixel {
   
   //CHANGE COLOR 
   // hue from Range
-  void changeHue(PVector HSBinfo, int[] newHue,  int[] start, int[] end) {
+  void changeHue(Vec4 HSBinfo, int[] newHue,  int[] start, int[] end) {
     float h = hue(this.colour) ;
     
     for( int i = 0 ; i < newHue.length ; i++) {
@@ -136,7 +136,7 @@ class Pixel {
   }
   
   // saturation from Range
-  void changeSat(PVector HSBinfo, int[] newSat,  int[] start, int[] end) {
+  void changeSat(Vec4 HSBinfo, int[] newSat,  int[] start, int[] end) {
     float s = saturation(this.colour) ;
     
     for( int i = 0 ; i < newSat.length ; i++) {
@@ -153,7 +153,7 @@ class Pixel {
   }
   
   // saturation from Range
-  void changeBright(PVector HSBinfo, int[] newBright,  int[] start, int[] end) {
+  void changeBright(Vec4 HSBinfo, int[] newBright,  int[] start, int[] end) {
     float b = brightness(this.colour) ;
 
     
@@ -338,85 +338,3 @@ class Canvas {
 
 
 
-// CLASS VEC
-////////////
-class Vec2 {
-  // inspireted by GLSL code
-  float x,y ;
-  float s,t ;
-  float u,v ;
-  Vec2(float x, float y) {
-    this.x = x ;
-    this.y = y ;
-    
-    this.s = x ;
-    this.t = y ;
-    
-    this.u = x ;
-    this.v = y ;
-  }
-}
-
-class Vec3 {
-  // inspireted by GLSL code
-  float x,y,z ;
-  float r, g, b ;
-  float s, t, p ;
-  Vec3(float x, float y, float z) {
-    this.x = x ;
-    this.y = y ;
-    this.z = z ;
-    
-    this.r = x ;
-    this.g = y ;
-    this.b = z ;
-    
-    this.s = x ;
-    this.t = y ;
-    this.p = z ;
-  }
-}
-
-class Vec4 {
-  
-  // inspireted by GLSL code
-  float x,y,z,w ;
-  float r, g, b, a ;
-  float s, t, p, q ;
-  Vec4(float x, float y, float z, float w) {
-    this.x = x ;
-    this.y = y ;
-    this.z = z ;
-    this.w = w ;
-    
-    this.r = x ;
-    this.g = y ;
-    this.b = z ;
-    this.a = w ;
-    
-    this.s = x ;
-    this.t = y ;
-    this.p = z ;
-    this.q = w ;
-  }
-}
-
-
-
-// use too return a Vec value
-Vec4 Vec4(float x, float y, float z, float w) {
-  Vec4 value = new Vec4(x,y,z,w) ;
-  return value ;
-}
-
-Vec3 Vec3(float x, float y, float z) {
-  Vec3 value = new Vec3(x,y,z) ;
-  return value ;
-}
-
-Vec2 Vec2(float x, float y) {
-  Vec2 value = new Vec2(x,y) ;
-  return value ;
-}
-// END CLASS VEC
-///////////////

@@ -2,6 +2,7 @@
   //////////////////////////////////////////////////////////////////
  // Romanesco Unu 1.0.2 / version 27 / made with Processing 305 ///
 //////////////////////////////////////////////////////////////////
+/* 14.500 lines of code the 4th may 2015 !!!! */
 String version = ("27") ;
 String prettyVersion = ("1.0.2") ;
 String nameVersion = ("Romanesco Unu") ;
@@ -27,7 +28,7 @@ void setup() {
   RG.init(this);  // Geomerative
   varObjSetup() ;
   fontSetup() ;
-  soundSetup() ;
+  // soundSetup() ;
   P3DSetup(modeP3D, numObj, numSettingCamera, numSettingOrientationObject) ;
 }
 
@@ -38,7 +39,7 @@ void draw() {
   frame.setTitle(nameVersion + " " +prettyVersion+"."+version+ " - Prescene");
   //setting
   initDraw() ;
-  soundDraw() ;
+  // soundDraw() ;
   updateVarRaw() ;
   OSCDraw() ;
   backgroundRomanesco() ;

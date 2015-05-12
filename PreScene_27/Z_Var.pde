@@ -55,7 +55,7 @@ Boolean nextPrevious = false ;
 int nextPreviousInt = 0 ; // for send to Syphon
 int trackerUpdate ; // must be reset after each use
 //spectrum for the color mode and more if you need
-PVector HSBmode = new PVector (360,100,100) ; // give the color mode in HSB
+Vec4 HSBmode = new Vec4 (360,100,100,100) ; // give the color mode in HSB
 //path to open the controleur
 String findPath ; 
 
@@ -449,10 +449,11 @@ void createVarObject() {
 // SETTING VAR
 //SETUP
 void varObjSetup() {
+  dirObjRef = new PVector() ;
   for (int i = 0 ; i < numObj ; i++ ) {
     pen[i] = new PVector() ;
     // use the 250 value for "z" to keep the position light on the front
-    mouse[i] = new PVector(0,0,0) ;
+    mouse[i] = new PVector() ;
     pmouse[i] = new PVector() ;
     wheel[i] = 0 ;
 

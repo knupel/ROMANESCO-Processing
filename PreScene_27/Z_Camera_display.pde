@@ -1,15 +1,4 @@
-private PVector posSceneMouseRef = new PVector() ;
-private PVector posEyeMouseRef = new PVector() ;
-private PVector posSceneCameraRef= new PVector() ;
-private PVector posEyeCameraRef = new PVector() ;
-private PVector eyeCamera = new PVector() ;
-private PVector sceneCamera = new PVector() ;
-private PVector deltaScenePos = new PVector() ;
-private PVector deltaEyePos = new PVector() ;
-private PVector tempEyeCamera = new PVector() ;
 
-private boolean newRefSceneMouse = true ;
-private boolean newRefEyeMouse = true ;
 //travelling
 boolean gotoCameraPosition, gotoCameraEye, travellingPriority ;
 
@@ -22,9 +11,9 @@ PVector targetPosCam = new PVector() ;
 
 //P3D ROMANESCO STUFF
 PVector speedDirectionOfObject  ;
-PVector  P3DpositionMouseRef = new PVector() ;
-PVector deltaObjPos = new PVector() ;
-PVector  P3DdirectionMouseRef = new PVector() ;
+// PVector  P3DpositionMouseRef = new PVector() ;
+
+
 PVector deltaObjDir = new PVector() ;
 
 PVector tempObjDir = new PVector() ;
@@ -99,9 +88,10 @@ void objectMove(boolean movePos, boolean moveDir, int ID) {
     //UPDATE
     //position
     if (!movePos)  newObjRefPos = true ;
-    posObjX[ID] = updatePosObj(posObj[ID], ID, movePos).x ;
-    posObjY[ID] = updatePosObj(posObj[ID], ID, movePos).y ;
-    posObjZ[ID] = updatePosObj(posObj[ID], ID, movePos).z ;
+    PVector newPos = updatePosObj(posObj[ID], ID, movePos) ;
+    posObjX[ID] = newPos.x ;
+    posObjY[ID] = newPos.y ;
+    posObjZ[ID] = newPos.z ;
     //rotation
     if (!moveDir) newObjRefDir = true ;
       //speed rotation
@@ -125,18 +115,22 @@ void objectMove(boolean movePos, boolean moveDir, int ID) {
 
 //ANNEXE
 //direction
+PVector  P3DdirectionMouseRef = new PVector() ;
 
 PVector updateDirObj(PVector speed, int ID, boolean authorization) {
   
   if(authorization) {
     if(newObjRefDir) {
-      dirObjRef = tempObjDir ;
+      dirObjRef = tempObjDir.copy() ;
       P3DdirectionMouseRef = mouse[0].copy() ;
     }
     //to create a only one ref position
     newObjRefDir = false ;
     //create the delta between the ref and the mouse position
     deltaObjDir = PVector.sub(mouse[0], P3DdirectionMouseRef) ;
+    println(dirObjRef) ;
+    println(deltaObjDir) ;
+    println(tempObjDir) ;
     tempObjDir = PVector.add(deltaObjDir, dirObjRef) ;
     
     //rotation of the camera
@@ -148,24 +142,105 @@ PVector updateDirObj(PVector speed, int ID, boolean authorization) {
 }
 
 //position
+// float 
+PVector P3DpositionMouseRef = new PVector() ;
+
 PVector updatePosObj(PVector pos, int ID, boolean authorization) {
+  Vec3 deltaObjPos = new Vec3() ;
+  // we must re-init the Z value because the behavior of the wheel is different than coordonate of the mouse who are permanent.
+  P3DpositionMouseRef.z = 0 ;
+
   // XY pos
   if(newObjRefPos) {
     posObjRef[ID] = pos.copy() ;
-    P3DpositionMouseRef = mouse[0].copy() ;
+    P3DpositionMouseRef.x = mouse[0].x ;
+    P3DpositionMouseRef.y = mouse[0].y ;
+    // special op with the wheel value, because this value is not constant
+    P3DpositionMouseRef.z -= wheel[0] ;
+
   }
+  // Z position with the wheel
+  deltaObjPos.z = wheel[0] -P3DpositionMouseRef.z ;
+
+  // X et Y pos with the mouse coordonate
   if (authorization) {
     //to create a only one ref position
     newObjRefPos = false ;
     //create the delta between the ref and the mouse position
     deltaObjPos.x = mouse[0].x -P3DpositionMouseRef.x ;
     deltaObjPos.y = mouse[0].y -P3DpositionMouseRef.y ;
-    deltaObjPos.z = mouse[0].z -P3DpositionMouseRef.z ;
-    pos = PVector.add(deltaObjPos, posObjRef[ID]) ;
-    
-  }
-  // we catch the mouseZ info here because we don't need the authorizationv
-  pos.z -= wheel[0] ;
+  } 
+
+  // special op with the wheel value
+  deltaObjPos.z *= -1. ;
+  
+  
+  
+  
+  
+  
+  
+  /*
+  // WORK AROUND CAMERA, to find the position of the camera when we Rotate the camera...
+  // VERY HARD !!!!!
+  // mag obg
+  float magObj = mag(deltaObjPos) ;
+  // polar info for the obj and the camera
+  Vec3 polarObj = toPolar(deltaObjPos) ;
+  
+  // info 
+  // println("real pos cam ", sceneCamera) ;
+  float magCam =  height/2 ;
+  Vec3 posCamCorrection = new Vec3( sceneCamera.x, sceneCamera.y, sceneCamera.z + magCam) ;
+
+  
+  // polar info for the obj and the camera
+  Vec3 polarObj = toPolar(deltaObjPos) ;
+  float norm360longitude = mapCycle(eyeCamera.x,0,360) ;
+  float norm360latitude = mapCycle(eyeCamera.y ,0,360) ;
+  // transform value 0-360 to 0-2PI
+  float longitude = map(norm360longitude,0,360, 0, TAU) ;
+  float latitude = map(norm360latitude, 0,360,0,TAU) ;
+  // finalize calcul for the cartesian position of camera
+
+
+
+ 
+  Vec3 cart_sol_1 = toCartesian(longitude, latitude, magCam) ;
+  strokeWeight (10) ;
+  stroke (0,0,100) ;
+  int ratio = 2 ;
+  point(cart_sol_1.x *ratio,cart_sol_1.y *ratio,cart_sol_1.z *ratio) ;
+  // cartEye.x *= -1 ;
+  
+  println("cartesian classic Eye ", (int)cart_sol_1.x, 
+                                    (int)cart_sol_1.y, 
+                                    (int)cart_sol_1.z ) ;
+                                    
+                                    Vec3 cart_sol_2 = toCartesian3D ( Vec2 (mouse[0].x,mouse[0].y), Vec2(width,height), magCam) ;
+  point(cart_sol_2.x,cart_sol_2.y ,cart_sol_2.z ) ;
+  println("cartesian Alternative Eye ",(int)cart_sol_2.x, (int)cart_sol_2.y, (int)cart_sol_2.z) ;
+  
+  // *************************************
+  ///////////////////////////////////
+  // TRY THIS SOLUTION, same than sceneCamera ???????
+  
+  // if(!moveScene) sceneCamera = (follow(origin, target, speed)) ;
+
+  
+  // END WORK around the camera
+  ////////////////////////////
+  */
+
+
+
+
+  
+
+
+  PVector delta = deltaObjPos.copyVecToPVector() ;
+  // final position
+  pos = PVector.add(posObjRef[ID], delta) ;
   return pos ;
 }
 
@@ -230,7 +305,9 @@ void cameraDraw() {
       
       // change camera position
       if(enterTouch) travelling(posCamRef) ;
-      if (touch0) changeCameraPosition(0) ;
+      if (touch0) {
+        changeCameraPosition(0) ;
+      }
     } else if (!cLongTouch || (ORDER_ONE && ORDER_ONE && ORDER_THREE) ) {
       moveScene = false ;
       moveEye = false ;
@@ -278,53 +355,65 @@ void catchCameraInfo() {
 //startCamera with speed setting
 void startCamera(boolean scene, boolean eye, boolean leapMotionDetected, PVector speed) {
   pushMatrix() ;
+
+  // setting camera recording
+  ///////////////////////////
+  
+
   //Move the Scene
-  // We cannot use the method copy of the PVector, because we must preserve the "Z" parameter of this PVector to move the Scene with the wheel
+  
+  // We cannot use the method copy() of the PVector, because we must preserve the "Z" parameter of this PVector to move the Scene with the wheel
   sceneCamera.x = updatePosCamera(scene, leapMotionDetected, mouse[0]).x ;
   sceneCamera.y = updatePosCamera(scene, leapMotionDetected, mouse[0]).y ;
+
   eyeCamera = updateEyeCamera(eye, mouse[0]).copy() ;
   
 
-  /*
-  default setting camera from Processing.org example, like the camera above
-  float eyeCamX = width/2.0 ;
-  float eyeCamY = height/2.0 ;
-  float eyeCamZ = (height/2.0) / tan(PI*30.0 / 180.0) ;
-  float centerCamX = width/2.0 ;
-  float centerCamY = height/2.0 ;
-  float centerCamZ = 0 ;
-  */
-  // float focal = map(valueSlider[0][19],0,360,28,200) ;
-  float eyeCamX = map(valueSlider[0][21],0,360,0,width)  ;
-  float eyeCamY = map(valueSlider[0][22],0,360,0,height)  ;
-  float eyeCamZ = map(valueSlider[0][23],0,360,0,width)  ;
-  
-    float centerCamX = map(valueSlider[0][24],0,360,0,width)  ; ;
-  float centerCamY = map(valueSlider[0][25],0,360,0,height)  ;
-  float centerCamZ = map(valueSlider[0][26],0,360,0,width)  ;
   
 
+
+  // setting of the camera projection
+  ///////////////////////////////////
+  
+  // default setting camera from Processing.org example, like the camera above
+  /*
+  float dirCamX = width/2.0 ; // eye X
+  float dirCamY = height/2.0 ; // eye Y
+  float dirCamZ = (height/2.0) / tan(PI*30.0 / 180.0) ; // // eye Z
+  float centerCamX = width/2.0 ; // Position X
+  float centerCamY = height/2.0 ; // Position Y
+  float centerCamZ = 0 ; // Position Z
+  float upX = 0 ;
+  float upY = 1 ;
+  float upZ = 0 ;
+  */
   
   
+  // float focal = map(valueSlider[0][19],0,360,28,200) ;
+  float dirCamX = map(valueSlider[0][21],0,360,0,width)  ; // on controler is Eye X
+  float dirCamY = map(valueSlider[0][22],0,360,0,height)  ; // on controler is Eye Y
+  float dirCamZ = map(valueSlider[0][23],0,360,0,width)  ; // on controler is Eye Z
+  
+  float centerCamX = map(valueSlider[0][24],0,360,0,width)  ; // on controler is Position X
+  float centerCamY = map(valueSlider[0][25],0,360,0,height)  ; // on controler is Position Y
+  float centerCamZ = map(valueSlider[0][26],0,360,0,width)  ; // on controler is Position Z
+
   float upX = map(valueSlider[0][27],0,360,-1,1) ;
-  // float upX = sin(frameCount*.01) ;
   float upY = 1 ; // not interesting
-  //float upY = sin(frameCount*.01) ;
   float upZ = 0 ; // not interesting
-  //float upZ = sin(frameCount*.1) ;
   
-  
-  
-  
-  
+
   // ENGINE
-  camera(eyeCamX, eyeCamY, eyeCamZ, centerCamX, centerCamY, centerCamZ, upX, upY, upZ) ;
+  camera(dirCamX, dirCamY, dirCamZ, centerCamX, centerCamY, centerCamZ, upX, upY, upZ) ;
   // camera() ;
   beginCamera() ;
 
   //scene position
   translate(sceneCamera.x +width/2, sceneCamera.y +height/2, sceneCamera.z) ;
-  //eye direction
+  //orientation direction
+  /*
+  eyeCamera, is not a good terminilogy because the real eye camera is not use here. Here we just move the world.
+  */
   rotateX(radians(eyeCamera.x)) ;
   rotateY(radians(eyeCamera.y)) ;
 
@@ -338,71 +427,14 @@ void startCamera(boolean scene, boolean eye, boolean leapMotionDetected, PVector
 
 
 
-// CAMERA ENGINE
-// CAMERA version 5.b
 
-
-// Update POS CAMERA
-// Update Camera position
-PVector refPosCamera = new PVector() ;
-PVector updatePosCamera(boolean authorization, boolean leapMotionDetected, PVector pos) {
-  // MOVE SCENE
-  ////////////////
-  if(authorization) {
-    //create the ref to calcul the new position of the Scene
-    if(newRefSceneMouse) {
-      posSceneCameraRef = sceneCamera.copy() ;
-      posSceneMouseRef = pos.copy() ;
-      //to create a only one ref position
-      newRefSceneMouse = false ;
-    }
-
-    //create the delta between the ref and the mouse position
-    deltaScenePos = PVector.sub(pos, posSceneMouseRef) ;
-    if (leapMotionDetected) refPosCamera = PVector.add(PVector.mult(deltaScenePos,-1), posSceneCameraRef ) ; else refPosCamera = PVector.add(deltaScenePos, posSceneCameraRef ) ;
-  } else {
-    //change the boolean to true for the next mousepressed
-
-    newRefSceneMouse = true ;
-  }
-  return refPosCamera ;
-}
-
-
-
-
-/////////////////////
-// UPDATE EYE CAMERA
-PVector refEyeCamera = new PVector()  ;
-PVector updateEyeCamera(boolean authorization, PVector posMouse) {
-  if(authorization) {
-    //create the ref to calcul the new position of the Scene
-    if(newRefEyeMouse) {
-      posEyeCameraRef = tempEyeCamera.copy() ;
-      posEyeMouseRef = posMouse.copy() ;
-    }
-    //to create a only one ref position
-    newRefEyeMouse = false ;
-    //create the delta between the ref and the mouse position
-    deltaEyePos = PVector.sub(posMouse, posEyeMouseRef) ;
-    tempEyeCamera = PVector.add(deltaEyePos, posEyeCameraRef ) ;
-
-    //rotation of the camera
-    refEyeCamera = eyeClassic(tempEyeCamera).copy() ;
-  } else {
-    //change the boolean to true for the next mousepressed
-    newRefEyeMouse = true ;
-  }
-  return refEyeCamera ;
-}
-
-
-
-//UPDATE CAMERA POSITION
 void updateCamera(PVector origin, PVector target, float speed) {
   if(!moveScene) sceneCamera = (follow(origin, target, speed)) ;
   if(!moveEye && (gotoCameraPosition || gotoCameraEye)) eyeCamera = backEye()  ;
 }
+
+
+
 //stop
 void stopCamera() {
   if(modeP3D) {
@@ -411,63 +443,6 @@ void stopCamera() {
     stopParalaxe() ;
   }
 }
-
-// END CAMERA
-/////////////
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// EYE POSITION two solutions
-/*
-Solution 1
-We must use this one with le leapmotion information, because with the leapmotion device
-there is no "pmouse" information.
-*/
-PVector eyeClassic(PVector tempEye) {
-  PVector eyeP3D = new PVector() ;
-  eyeP3D = new PVector(map(tempEye.y, 0, width, 0, 360), map(tempEye.x, 0, height, 0, 360)) ; 
-  return eyeP3D ;
-}
-
-
-/*
-solution 2
-we can use this better void when we don't use the leapmotion */
-
-// Solution interesting but there is problem with it ??????????
-PVector eyeAdvanced(PVector PreviousPos, PVector pos, PVector speed) {
-  PVector eyeP3D = new PVector() ;
-  // eyeP3D.x += (PreviousPos.y -pos.y) *speed.y;
-  // eyeP3D.y += (PreviousPos.x -pos.x) *-speed.x;
-  eyeP3D.x += (PreviousPos.y -pos.y) *speed.y;
-  eyeP3D.y += (PreviousPos.x -pos.x) *-speed.x;
-  
-  if(eyeP3D.x > 360) eyeP3D.x = 0 ;
-  if(eyeP3D.x < 0) eyeP3D.x = 360 ;
-  if(eyeP3D.y > 360) eyeP3D.y = 0 ; 
-  if(eyeP3D.y < 0) eyeP3D.y = 360 ;
-  return eyeP3D ;
-}
-
-// END EYE POSITION
-// END CAMERA version 5.a
-/////////////////////////
-
-
-
-
-
 
 
 
@@ -749,6 +724,7 @@ void gridCamera(PVector size, float thickness, color colorX, color colorY,color 
     int posTxt = 10 ;
     
     textFont(font, 10) ;
+    textAlign(LEFT, BOTTOM);
     //GRID
     grid(size, thickness *.1, colorGrid) ;
 
@@ -756,7 +732,9 @@ void gridCamera(PVector size, float thickness, color colorX, color colorY,color 
     strokeWeight(thickness *.1) ;
     // X LINE
     fill(colorX) ;
+    pushMatrix() ;
     text("X LINE XXX", posTxt,-posTxt) ;
+    popMatrix() ;
     stroke(colorX) ; noFill() ;
     line(-newSize.x,0,0,newSize.x,0,0) ;
 

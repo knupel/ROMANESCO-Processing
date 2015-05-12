@@ -5,8 +5,12 @@ LIGHT POSITION
 CHECK FOLDER
 */
 
-// LIGHT
+
+
 // LIGHT POSITION
+/*
+This void is necessary to diplay the info, not directly for the light because you don't use Light in the Prescene
+*/
 PVector lightPos = new PVector() ;
 void lightPosition() {
   if(modeP3D && lLongTouch) {
@@ -344,7 +348,7 @@ void displayInfoObject() {
 
 //INFO 3D
 void displayInfo3D() {
-   String posCam = ( int(sceneCamera.x +width/2) + " / " + int(sceneCamera.y +height/2) + " / " +  int(sceneCamera.z -height/2)) ;
+   String posCam = ( int(-1 *sceneCamera.x ) + " / " + int(sceneCamera.y) + " / " +  int(sceneCamera.z -height/2)) ;
    String eyeDirectionCam = ( int(eyeCamera.x) + " / " + int(eyeCamera.y) ) ;
   fill(0,0,100) ; 
   textFont(SansSerif10, 10) ;
@@ -376,59 +380,6 @@ void repere(int size) {
   line(0,0,-size,0,0,size) ;
 }
 
-//repere camera
-void repereCamera(PVector size) {
-  if(modeP3D && displayInfo3D)  {
-    PVector newSize =  PVector.mult(size,.1) ;
-    color xColor = rouge ;
-    color yColor = vert ;
-    color zColor = jaune ;
-    int posTxt = 10 ;
-    
-    textFont(SansSerif10, 10) ;
-    //GRID
-    grid(size) ;
-
-    //AXES
-    strokeWeight(.2) ;
-    // X LINE
-    fill(xColor) ;
-    text("X LINE XXX", posTxt,-posTxt) ;
-    stroke(xColor) ; noFill() ;
-    line(-newSize.x,0,0,newSize.x,0,0) ;
-
-    // Y LINE
-    fill(yColor) ;
-    pushMatrix() ;
-    rotateZ(radians(-90)) ;
-    text("Y LINE YYY", posTxt,-posTxt) ;
-    popMatrix() ;
-    stroke(yColor) ; noFill() ;
-    line(0,-newSize.y,0,0,newSize.y,0) ;
-    
-    // Z LINE
-    fill(zColor) ;
-    pushMatrix() ;
-    rotateY(radians(90)) ;
-    text("Z LINE ZZZ", posTxt,-posTxt) ;
-    popMatrix() ;
-    stroke(zColor) ; noFill() ;
-    line(0,0,-newSize.z,0,0,newSize.z) ;
-  }
-}
-
-
-void grid(PVector s) {
-  strokeWeight(.2) ;
-  noFill() ;
-  stroke(bleu) ;
-  int sizeX = (int)s.z ;
-  //horizontal grid
-  for ( int i = -sizeX ; i<= sizeX ; i = i+10 ) {
-    if(i != 0 ) line(i,0,-sizeX,i,0,sizeX) ;
-  }
-}
-//END REPERE 3D
 
 
 //END P3D
@@ -670,6 +621,9 @@ float truncate( float x ) {
     return round( x * 100.0f ) / 100.0f;
 }
 //Int to String with array list
+/*
+@ return String
+*/
 String joinIntToString(int []data) {
   String intString ;
   String [] dataString = new String [data.length] ;

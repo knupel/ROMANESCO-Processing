@@ -33,22 +33,7 @@ boolean internet // return boolean if internet is available
 boolean modeP3D  // return boolean if P3D render is available
 
 
-// VEC
-//////
 
-Like PVector, but closer of GLSL method.
-is use to store float value
-Vec2(x,y) can return for x,y, but also for s,t and u,v
-Vec3(x,y,z) can return for x,y,z but also for r,g,b and s,t,p
-Vec3(x,y,z,w) can return for x,y,z,w but also for r,g,b,a and s,t,p,q
-
-you can use method 	Vec2(arg float,arg float)
-					Vec3(arg float,arg float,arg float)
-					Vec4(arg float,arg float,arg float,arg float)
-					those methode return a Vec value
-
-// END VEC
-//////////
 
 
 

@@ -1,27 +1,284 @@
-// ALGEBRA
-/////////////
-
 // CONSTANT MATH
 final float PHI = (1 + sqrt(5))/2; // the golden ratio
 final float ROOT2 = sqrt(2); // the number of Pythagore
 final float EULER = 2.718281828459045235360287471352; // Constant d'Euler
 
+
+
+
+
+// VEC
+inspirated by GLSL and PVector Method
+/////////////////////////////////////
+
+Like PVector, but closer of GLSL method.
+is use to store float value than below
+
+Vec2()
+Vec2(value)
+Vec2(x,y) 
+you can catch : 
+x,y 
+s,t
+u,v
+
+Vec3()
+Vec3(value)
+Vec3(x,y,z) 
+you can catch : 
+x,y,z 
+r,g,b 
+s,t,p
+
+Vec3()
+Vec3(value)
+Vec3(x,y,z,w) 
+you can catch : 
+x,y,z,w 
+r,g,b,a 
+s,t,p,q
+
+You can use method  Vec2(arg float,arg float)
+          Vec3(arg float,arg float,arg float)
+          Vec4(arg float,arg float,arg float,arg float)
+those methode return a Vec value
+
+// INTERN method
+//////////////////
+
+Magnitude int
+-------------
+@ return float
+> magnitude of the vectors 
+yourVec2.map()
+yourVec3.map()
+yourVec4.map()
+> magnitude of two vectors, between himself and the target vector
+> return magnitude in float component
+yourVec2.map(Vec2 v)
+yourVec3.map(Vec3 v)
+yourVec4.map(Vec3 v)
+
+Distance int
+------------
+@ return float
+> distance between himself and the target vector
+yourVec2.dist(Vec3 v_target)
+yourVec3.dist(Vec3 v_target)
+yourVec4.dist(Vec3 v_target)
+
+
+
+
+
+Multiplication int
+------------------
+@ return Vec2, Vec3 or Vec4
+> Multiplication vector by float
+yourVec2.mult(float num)
+yourVec3.mult(float num)
+yourVec4.mult(float num)
+
+> Multiplication vector by Vector
+> return componant mult by the float
+yourVec2.mult(Vec2 v)
+yourVec3.mult(Vec3 v)
+yourVec4.mult(Vec3 v)
+
+Division int
+-------------
+@ return Vec2, Vec3 or Vec4
+> Division vector by float
+yourVec2.div(float num)
+yourVec3.div((float num)
+yourVec4.div((float num)
+
+> Division vector by Vector
+> return componant mult by the float
+yourVec2.div(Vec2 v)
+yourVec3.div(Vec3 v)
+yourVec4.div(Vec3 v)
+
+
+Addition int
+------------
+@ return Vec2, Vec3 or Vec4
+> add two vectors
+yourVec2.add(Vec2 v_a, Vec2 v_b)
+yourVec3.add(Vec3 v_a, Vec3 v_b)
+yourVec4.add(Vec4 v_a, Vec4 v_b)
+
+Copy int
+--------
+@ return Vec2, Vec3 or Vec4
+> Retunn the componant of the Vec, in Vec 
+> Work for Vec2, Vec3, Vec4
+yourVec.copy() ;
+
+> Return the componant of the Vec in PVector
+> Work for Vec2 and Vec3, there is no PVector with 4 components
+yourVec.copyVecToPVector() ;
+
+Map int
+-------
+@ return Vec2, Vec3 or Vec4
+> eturn a mapping Vec on different scale
+yourVec.mapVec(float minIn, float maxIn, float minOut, float maxOut)
+yourVec.mapVec(float minIn, float maxIn, float minOut, float maxOut)
+yourVec.mapVec(float minIn, float maxIn, float minOut, float maxOut)
+
+
+
+
+// end internal method
+//////////////////////
+
+
+
+
+
+
+// EXTERNAL method
+//////////////////
+
+addition ext
+------------
+@ return Vec2, Vec3 or Vec4
+> return the sum of vectors
+add(Vec2 v1, Vec2 v2)
+add(Vec3 v1, Vec3 v2)
+add(Vec4 v1, Vec4 v2)
+
+
+Multiplication ext
+------------------
+> return the multi of two vectors
+mult(Vec2 v1, Vec2 v2)
+mult(Vec3 v1, Vec3 v2)
+mult(Vec4 v1, Vec4 v2)
+
+Division ext
+-------------
+> return the multi of two vectors
+div(Vec2 v1, Vec2 v2)
+div(Vec3 v1, Vec3 v2)
+div(Vec4 v1, Vec4 v2)
+
+Map ext
+-------
+@ return Vec2, Vec3 or Vec4
+> return a mapping Vec on different scale
+mapVec(Vec2 v, float minIn, float maxIn, float minOut, float maxOut)
+mapVec(Vec3 v, float minIn, float maxIn, float minOut, float maxOut)
+mapVec(Vec4 v, float minIn, float maxIn, float minOut, float maxOut)
+
+
+
+Equals ext
+----------
+@ return boolean
+> compares two Vectors too see if those ones are identicals
+equals(Vec2 v1, Vec2 v2)
+equals(Vec3 v1, Vec3 v2)
+equals(Vec4 v1, Vec4 v2)
+equals(PVector v1, PVector v2)
+
+
+Magnitude ext
+-------------
+@return float
+> return Magnitude of vector orlength
+map(Vec2 v)
+map(Vec3 v)
+map(Vec3 v)
+> magnitude of two vectors, between himself and the target vector */
+map(Vec2 v1, Vec2 v2)
+map(Vec3 v1, Vec3 v2)
+map(Vec3 v1, Vec3 v2)
+
+Distance ext
+------------
+@ return float
+> add two vectors
+dist(Vec2 v_a, Vec2 v_b)
+dist(Vec3 v_a, Vec3 v_b)
+dist(Vec4 v_a, Vec4 v_b)
+
+
+Middle ext
+------------
+@ return Vec2, Vec3 or Vec4
+> find the middle position between two vectors
+middle(Vec2 v_a, Vec2 v_b)
+middle(Vec3 v_a, Vec3 v_b)
+middle(Vec4 v_a, Vec4 v_b)
+
+
+Copy PVector to Vec ext
+-----------------------
+@ return Vec3
+> transforme PVector to Vec3
+copyPVectorToVec(PVector v)
+
+
+// END VEC
+//////////
+
+
+
+
+
+
+
+
+
+
+
+
+
+// ALGEBRA
+/////////////
+
+
+
 // METHOD
-float distance(PVector p0, PVector p1 ) calcul distance between two PVectors
+float distance(PVector p0, PVector p1 ) 
+/* calcul distance between two PVectors
 
-float deg360 (PVector dir) // return a 360 direction from PVector direction value between -1 to 1 ;
+float deg360 (PVector dir) 
+/* return a 360 direction from PVector direction value between -1 to 1 ;
 
-PVector rotation(PVector ref, PVector lattice, float angle) // return a PVector position, for rotation around an axes
+PVector rotation(PVector ref, PVector lattice, float angle) 
+/* return a PVector position, for rotation around an axes
 
-float roots(float valueToRoots, int n) // return the roots value with "n" dimension
+float roots(float valueToRoots, int n) 
+/* return the roots value with "n" dimension
 
-float mapLocked(float value, float sourceMin, float sourceMax, float targetMin, float targetMax) // the return value is lock between the min and the max
 
-float mapStartSmooth(float value, float sourceMin, float sourceMax, float targetMin, float targetMax, int level) // the begin of the curve is smoothed by the level
 
-float mapEndSmooth(float value, float sourceMin, float sourceMax, float targetMin, float targetMax, int level) // the end of the curve is smoothed by the level
 
-float mapEndStartSmooth(float value, float sourceMin, float sourceMax, float targetMin, float targetMax, int level) // the begin and the end of the curve is smoothed by the level
+// MAP
+//////
+
+float mapCycle(float value, float min, float max)
+/* map the value between the min and the max
+@ return float
+*/
+
+float mapLocked(float value, float sourceMin, float sourceMax, float targetMin, float targetMax) 
+/* the return value is lock between the min and the max
+
+float mapStartSmooth(float value, float sourceMin, float sourceMax, float targetMin, float targetMax, int level) 
+/* the begin of the curve is smoothed by the level
+
+float mapEndSmooth(float value, float sourceMin, float sourceMax, float targetMin, float targetMax, int level) 
+/* the end of the curve is smoothed by the level
+
+float mapEndStartSmooth(float value, float sourceMin, float sourceMax, float targetMin, float targetMax, int level) 
+/* the begin and the end of the curve is smoothed by the level
+
+
+
 
 
 // END ALGEBRA
@@ -37,6 +294,69 @@ float mapEndStartSmooth(float value, float sourceMin, float sourceMax, float tar
 
 // GEOMETRY
 ///////////
+
+// POLAR  ans SPHERE GEOMETRY
+
+latitude, longitude
+--------------------
+/*
+The begin is zero and the max your range, x is a position in the range
+@return float
+*/
+float longitude(float x, float range) ;
+float latitude(float y, float range)  :
+
+Polar orientation
+-----------------
+/* return a Vec3 with radius radius,longitude, latitude component
+Vec3 toPolar(Vec3 cartesian_coord_xyz)
+
+Cartesian coord
+---------------
+/* Return Vec3 normal coord
+you must use a radian for the longitude and latitude
+Vec3 toCartesian(float longitude, float latitude)
+
+/* Return Vec3 coord
+you must use a radian for the longitude and latitude
+Vec3 toCartesian(float longitude, float latitude, float radius)
+
+
+/* alternative method
+@ return Vec3
+/*
+This methode include two step, the first find the position of the point of circle verttical and vertical
+then find the middle to do a projection on the surface of the sphere.
+*/
+Vec3 toCartesian3D(Vec2 pos, Vec2 range, float sizeField)
+
+Cartesian coord on 2D
+@ return Vec2
+/* find coord on circle from the linare value
+Vec2 toCartesian2D(float pos, Vec2 range, Vec2 targetRadian, float distance)
+pos : is the variable value
+Vec2 range : give the min and the max value, range.x is a min, range.y is the max value
+Vec2 targetRadian : give the min and the max value returned in Radian.  For example a circle is between 0 and 2PI
+
+// SPHERE GEOMETRY
+/*
+@ return Vec3
+give the projection of point on the surface of sphere.
+the center of sphere is (0,0,0)
+*/
+Vec3 projectionSphere(Vec3 point, float radius )
+
+
+
+
+
+
+
+
+
+
+
+
 
 // PRIMITIVE 2D
 void primitive(int x, int y, int radius, int summits)

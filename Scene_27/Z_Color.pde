@@ -85,7 +85,7 @@ int [] brightPalette, brightPaletteRef ;
 //DRAW OR SETUP
 //MAKE PALETTE
 // random hue Palette
-void paletteRandom(PVector n, PVector spectrum) {
+void paletteRandom(PVector n, Vec4 spectrum) {
   huePalette = new int [(int)n.x] ;
   huePaletteRef = new int [(int)n.x] ;
   for (int i = 0 ; i < (int)n.x ; i++) huePalette [i] = huePaletteRef [i] = (int)random(spectrum.x) ;
@@ -373,7 +373,7 @@ PVector HSBtoRGB(float hue, float saturation, float brightness) {
   color c = color (hue, saturation, brightness);
   colorMode(RGB,255) ;
   PVectorRGB = new PVector (red(c), green(c), blue(c)) ;
-  colorMode(HSB,HSBmode.x,HSBmode.y,HSBmode.z,100) ;
+  colorMode(HSB,HSBmode.r,HSBmode.r,HSBmode.b,HSBmode.a) ;
   return PVectorRGB ;
 }
 
