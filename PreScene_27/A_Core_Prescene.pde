@@ -1,3 +1,42 @@
+
+
+// VARIABLES PRESCENE
+/////////////////////
+boolean scene = false ;
+boolean prescene = true ;
+
+//to opening app
+boolean openScene = true ;
+boolean openMiroir = true ;
+boolean openControleur = true ;
+//send to the other sketches
+boolean youCanSendToScene = true ;
+boolean youCanSendToMiroir = true ;
+
+// Web cam activity
+// boolean cameraOnOff = false ;
+
+// internet connection
+boolean internet = true ;
+String bigBrother = ("BIG BROTHER DON'T WATCHING YOU !!") ;
+
+
+
+
+// CURSOR SPEED
+int speedWheel = 5 ;
+float speedLeapmotion = .15 ; // between 0.000001 and 1 : can be good between 0.1 and 0.4
+
+// END VARIABLE
+///////////////
+
+
+
+
+// METHOD
+/////////
+
+import codeanticode.tablet.*;
 Tablet tablet;
 void presceneSetup() {
   leap = new com.leapmotion.leap.Controller();

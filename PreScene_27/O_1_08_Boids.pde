@@ -4,10 +4,10 @@ class Boids extends Romanesco {
     IDobj = 8 ;
     IDgroup = 1 ;
     romanescoAuthor  = "Stan le Punk inspirated by Craig W. Reynolds";
-    romanescoVersion = "Version 1.0.0";
+    romanescoVersion = "Version 1.0.1";
     romanescoPack = "Base" ;
     romanescoMode = "Tetra monochrome/Tetra camaieu" ; // separate the differentes mode by "/"
-    romanescoSlider = "Hue fill,Saturation fill,Brightness fill,Alpha fill,Thickness,Size X,Canvas X,Canvas Y,Canvas Z,Quantity,Attraction,Repulsion,Influence,Alignment,Width,Speed" ;
+    romanescoSlider = "Hue fill,Saturation fill,Brightness fill,Alpha fill,Hue stroke,Saturation stroke,Brightness stroke,Alpha stroke,Thickness,Size X,Canvas X,Canvas Y,Canvas Z,Quantity,Attraction,Repulsion,Influence,Alignment,Width,Speed" ;
   }
   
   Flock flock;
@@ -28,6 +28,8 @@ class Boids extends Romanesco {
    // color colorBoid = color(80,100,100) ;
    birthPlace = pos.copy() ;
    flock = new Flock() ;
+
+   // tetrahedronAdd() : weird why this method is here ?
    tetrahedronAdd() ;
   }
   
@@ -71,20 +73,21 @@ class Boids extends Romanesco {
     
     // change the setting of the boid
     for(Boid b : flock.listBoid) {
-      b.colorBoid = color(hue(b.colorBoid), saturation(fillObj[IDobj]), brightness(fillObj[IDobj]), alpha(fillObj[IDobj])) ;
+      b.fillBoid = color(hue(b.fillBoid), saturation(fillObj[IDobj]), brightness(fillObj[IDobj]), alpha(fillObj[IDobj])) ;
+      b.strokeBoid = color(hue(b.strokeBoid), saturation(strokeObj[IDobj]), brightness(strokeObj[IDobj]), alpha(strokeObj[IDobj])) ;
       b.size = size ;
       b.thickness = thickness;
     }
     
     
     if(flock.listBoid.size() < 1 ) {
-      flock.add(birthPlace, numOfBoid, fillObj[IDobj],maxColorRef, rangeAroundYourColor) ;
+      flock.add(birthPlace, numOfBoid, fillObj[IDobj], strokeObj[IDobj], maxColorRef, rangeAroundYourColor) ;
     }
     
     // clear the boids list
     // flock.clear() ;
     if(nTouch && action[IDobj]) {
-      flock.add(birthPlace, numOfBoid, fillObj[IDobj],maxColorRef, rangeAroundYourColor) ;
+      flock.add(birthPlace, numOfBoid, fillObj[IDobj], strokeObj[IDobj], maxColorRef, rangeAroundYourColor) ;
     }
     
     // INFO
@@ -124,31 +127,35 @@ class Flock {
   
   
   // CONSTRUCTOR
-  Flock(int n,color colorBoid) {
+  Flock(int n, color fillBoid, color strokeBoid) {
    birthPlace = new PVector(width/2,height/2,0) ;
     for(int i = 0; i < n ; i++) {
-      listBoid.add(new Boid(birthPlace,colorBoid));
+      listBoid.add(new Boid(birthPlace, fillBoid, strokeBoid));
     }
   }
   
   
   // 
-  Flock(PVector birthPlace, int n, color colorBoid) {
+  Flock(PVector birthPlace, int n, color fillBoid, color strokeBoid) {
     this.birthPlace = birthPlace.copy() ;
     for(int i = 0; i < n ; i++) {
-      listBoid.add(new Boid(birthPlace,colorBoid));
+      listBoid.add(new Boid(birthPlace, fillBoid, strokeBoid));
     }
   }
   
   
-  // Boids Camaieu constructor
-  Flock(PVector birthPlace, int n, color colorBoid, int max, int range) {
-    float refColor = hue(colorBoid) ;
-    this.birthPlace = birthPlace.copy() ;
-    for(int i = 0; i < n ; i++) {
-      float newHue = camaieu(max, refColor, range) ;
-      colorBoid = color (newHue, saturation(colorBoid), brightness(colorBoid)) ;
-      listBoid.add(new Boid(birthPlace,colorBoid));
+  // Flock Camaieu constructor
+  Flock(PVector birthPlace, int n, color fillBoid, color strokeBoid, int max, int range) {
+     this.birthPlace = birthPlace.copy() ;
+     
+     float refFill = hue(fillBoid) ;
+     float refStroke = hue(strokeBoid) ;
+     for(int i = 0; i < n ; i++) {
+      float newHueFill = camaieu(max, refFill, range) ;
+      float newHueStroke = camaieu(max, refStroke, range) ;
+      fillBoid = color (newHueFill, saturation(fillBoid), brightness(fillBoid)) ;
+      strokeBoid = color (newHueStroke, saturation(strokeBoid), brightness(strokeBoid)) ;
+      listBoid.add(new Boid(birthPlace, fillBoid, strokeBoid));
     }
   }
   
@@ -210,18 +217,21 @@ class Flock {
     for(int i = 0; i < n ; i++) listBoid.add(new Boid(birthPlace));
   }
   
-  void add(int n, color colorBoid) {
+  void add(int n, color fillBoid, color strokeBoid) {
     listBoid.clear() ;
-    for(int i = 0; i < n ; i++) listBoid.add(new Boid(birthPlace, colorBoid));
+    for(int i = 0; i < n ; i++) listBoid.add(new Boid(birthPlace, fillBoid, strokeBoid));
   }
   
- void add(PVector birthPlace, int n, color colorBoid, int max, int range) {
+ void add(PVector birthPlace, int n, color fillBoid, color strokeBoid, int max, int range) {
    listBoid.clear() ;
-    float refColor = hue(colorBoid) ;
+    float refFill = hue(fillBoid) ;
+    float refStroke = hue(strokeBoid) ;
     for(int i = 0; i < n ; i++) {
-      float newHue = camaieu(max, refColor, range) ;
-      colorBoid = color (newHue, saturation(colorBoid), brightness(colorBoid)) ;
-      listBoid.add(new Boid(birthPlace,colorBoid));
+      float newHueFill = camaieu(max, refFill, range) ;
+      float newHueStroke = camaieu(max, refStroke, range) ;
+      fillBoid = color (newHueFill, saturation(fillBoid), brightness(fillBoid)) ;
+      strokeBoid = color (newHueStroke, saturation(strokeBoid), brightness(strokeBoid)) ;
+      listBoid.add(new Boid(birthPlace,fillBoid,strokeBoid));
     }
   }
   
@@ -277,7 +287,8 @@ class Boid {
   float neighborhoodRadius = 100 ; //radius in which it looks for fellow boids, we give 100 for default value
   float maxSpeed = 4; //maximum magnitude for the velocity vector
   float maxSteerForce = .1; //maximum magnitude of the steering vector
-  color colorBoid = color(255) ;
+  color fillBoid = color(255) ;
+  color strokeBoid = color(255) ;
   float thickness = 1 ;
   int size = 1 ;
   
@@ -292,8 +303,9 @@ class Boid {
     velNorm = new PVector(random(-1,1),random(-1,1),random(1,-1));
   }
   
-  Boid(PVector pos, color colorBoid) {
-    this.colorBoid = colorBoid ;
+  Boid(PVector pos, color fillBoid, color strokeBoid) {
+    this.fillBoid = fillBoid ;
+    this.strokeBoid = strokeBoid ;
     this.pos = pos.copy() ;
     velNorm = new PVector(random(-1,1),random(-1,1),random(1,-1));
   }
@@ -493,9 +505,9 @@ class Boid {
     rotateY(atan2(-velNorm.z, velNorm.x));
     rotateZ(asin(velNorm.y /velNorm.mag()));
     strokeWeight(thickness) ;
-    if(thickness <= 0 || alpha(colorBoid) == 0 ) noStroke() ; else stroke(colorBoid);
-    println(thickness, alpha(colorBoid)) ;
-    if(alpha(colorBoid) == 0 ) noFill() ; else  fill(colorBoid);
+    if(thickness <= 0 || alpha(strokeBoid) == 0 ) noStroke() ; else stroke(strokeBoid);
+    // println(thickness, alpha(colorBoid)) ;
+    if(alpha(fillBoid) == 0 ) noFill() ; else  fill(fillBoid);
     tetrahedron(size) ;
     /*
     size.x = 10 ;

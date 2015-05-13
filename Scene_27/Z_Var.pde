@@ -37,21 +37,14 @@ java.awt.Insets insets;
 
 
 
-
-
-
 // Max value whi is return from the slider controller
 int MAX_VALUE_SLIDER = 360 ;
 
 
 
-
-
-
-
-Boolean videoSignal = false ;
+boolean videoSignal = false ;
 //variable for the tracking
-Boolean nextPrevious = false ;
+boolean nextPrevious = false ;
 int nextPreviousInt = 0 ; // for send to Syphon
 int trackerUpdate ; // must be reset after each use
 //spectrum for the color mode and more if you need
@@ -61,7 +54,9 @@ String findPath ;
 
 
 
-
+// MOUSE DETECTION
+// return if the cursor (mouse) is in the sketch or not
+boolean MOUSE_IN_OUT = true ;
 
 
 
@@ -69,11 +64,11 @@ String findPath ;
 
 // COMMAND BOOLEAN
 //BOOLEAN COMMAND
-/*
-command from leap motion, mouse or other devices if we code for that :)
-*/
+/* command from leap motion, mouse or other devices if we code for that :) */
 boolean ORDER, ORDER_ONE, ORDER_TWO, ORDER_THREE ;
 boolean LEAPMOTION_DETECTED ;
+
+
 
 
 // HIGH VAR

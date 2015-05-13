@@ -77,9 +77,10 @@ void draw() {
 
 
 
-/////MOUSE////
-//MOUSEPRESSED
+// MOUSE EVENT 
+////////////////////
 
+// MOUSEPRESSED
 void mousePressed() {
   if(mouseButton == LEFT ) { 
     clickShortLeft[0] = true ; 
@@ -95,6 +96,15 @@ void mousePressed() {
 void mouseReleased() {
   clickLongLeft[0] = false ; 
   clickLongRight[0] = false ;
+}
+
+// Mouse in or out of the sketch
+public void mouseEntered(MouseEvent e) {
+  MOUSE_IN_OUT = true ;
+}
+
+public void mouseExited(MouseEvent e) {
+  MOUSE_IN_OUT = false ;
 }
 
 

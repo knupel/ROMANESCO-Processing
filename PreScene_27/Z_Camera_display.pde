@@ -29,6 +29,7 @@ void P3DSetup(boolean modeP3D, int numObj, int numSettingCamera, int numSettingO
     settingAllCameras (numSettingCamera) ;
     settingObjManipulation (numObj) ;
     settingObjectManipulation(numObj, numSettingCamera, numSettingOrientationObject) ;
+    initVariableCamera() ;
   }
 }
 
@@ -282,6 +283,94 @@ void startPosition(int ID, int x, int y, int z) {
 
 
 
+// METHOD Variable update variable camera
+/////////////////////////////////////////
+float dirCamX,dirCamY,dirCamZ,
+        centerCamX,centerCamY,centerCamZ,
+        upX,upY,upZ ;
+float focal, deformation ;
+
+Vec3 finalSceneCamera ;
+Vec2 finalEyeCamera ;
+
+
+void initVariableCamera() {
+  variableCameraPresceneRendering() ;
+}
+
+void setVariableCamera() {
+  // float focal = map(valueSlider[0][19],0,360,28,200) ;
+
+  /* this method need to be on the Prescene sketch and on the window.
+  1. boolean prescene : On prescene, because on Scene we don't need to have a global view : boolean prescene
+  2. boolean MOUSE_IN_OUT : because if we mode out the sketch the keyevent is not updated, and the camera stay in camera view */
+  if(fullRendering || (cLongTouch && MOUSE_IN_OUT && prescene)) variableCameraFullrendering() ; else variableCameraPresceneRendering() ;
+}
+
+void variableCameraFullrendering() {
+      // world rendering
+    focal = map(valueSlider[0][19],0,360,28,200) ;
+    deformation = map(valueSlider[0][20],0,360,-1,1) ;
+    // camera
+    dirCamX = map(valueSlider[0][21],0,360,0,width)  ; // on controler is Eye X
+    dirCamY = map(valueSlider[0][22],0,360,0,height)  ; // on controler is Eye Y
+    dirCamZ = map(valueSlider[0][23],0,360,0,width)  ; // on controler is Eye Z
+    
+    centerCamX = map(valueSlider[0][24],0,360,0,width)  ; // on controler is Position X
+    centerCamY = map(valueSlider[0][25],0,360,0,height)  ; // on controler is Position Y
+    centerCamZ = map(valueSlider[0][26],0,360,0,width)  ; // on controler is Position Z
+
+    upX = map(valueSlider[0][27],0,360,-1,1) ;
+    upY = 1 ; // not interesting
+    upZ = 0 ; // not interesting
+    // final camera position
+    finalSceneCamera = new Vec3 (sceneCamera.x +width/2, sceneCamera.y +height/2, sceneCamera.z) ;
+  //scene position
+    finalEyeCamera = new Vec2 (radians(eyeCamera.x), radians(eyeCamera.y) ) ;
+
+
+
+}
+
+void variableCameraPresceneRendering() {
+      // default setting camera from Processing.org example, like the camera above
+    /*
+    float dirCamX = width/2.0 ; // eye X
+    float dirCamY = height/2.0 ; // eye Y
+    float dirCamZ = (height/2.0) / tan(PI*30.0 / 180.0) ; // // eye Z
+    float centerCamX = width/2.0 ; // Position X
+    float centerCamY = height/2.0 ; // Position Y
+    float centerCamZ = 0 ; // Position Z
+    float upX = 0 ;
+    float upY = 1 ;
+    float upZ = 0 ;
+    */
+     // world rendering
+    focal = 40 ; // 28-200
+    deformation = 0 ; // -1 to 1 
+    // camera
+    dirCamX = width/2.0 ; // eye X
+    dirCamY = height/2.0 ; // eye Y
+    dirCamZ = (height/2.0) / tan(PI*30.0 / 180.0) ; // eye Z
+    
+    centerCamX = width/2.0 ; // Position X
+    centerCamY = height/2.0 ; // Position Y
+    centerCamZ = 0 ; // Position Z
+    
+    upX = 0 ;
+    upY = 1 ;
+    upZ = 0 ;
+        // final camera position
+    finalSceneCamera = new Vec3 (width/2, height, -width) ;
+    float longitude = -45 ;
+    float latitude = 0 ;
+    finalEyeCamera = new Vec2 (longitude, latitude) ;
+
+}
+
+// END update variable camera
+/////////////////////////////
+
 
 
 
@@ -291,12 +380,20 @@ void startPosition(int ID, int x, int y, int z) {
 ///////////////////////////////////////////
 // MOVE CAMERA
 void cameraDraw() {
+
   if(modeP3D) {
+    // set camera variable
+    /* look if the user is on the Prescene or not, and other stuff to display the good views */
+    setVariableCamera() ;
+    /*
     float focal = map(valueSlider[0][19],0,360,28,200) ;
     float deformation = map(valueSlider[0][20],0,360,-1,1) ;
+*/
     paralaxe(focal, deformation) ;
     //camera order from the mouse or from the leap
     if(cLongTouch) {
+
+      
       if(ORDER_ONE || ORDER_THREE) moveScene = true ;   else moveScene = false ;
       if(ORDER_TWO || ORDER_THREE) moveEye = true ;   else moveEye = false ;
       
@@ -314,9 +411,11 @@ void cameraDraw() {
     }
 
     //void with speed setting
+    
     float speed = 150.0 ; // 150 is medium speed rotation
     PVector speedRotation = new PVector(speed /(float)width, speed /(float)height) ; 
     startCamera(moveScene, moveEye, LEAPMOTION_DETECTED, speedRotation) ;
+    
     
     //to change the scene position with a specific point
     if(gotoCameraPosition || gotoCameraEye ) updateCamera(sceneCamera, targetPosCam, speedMoveOfCamera) ;
@@ -355,67 +454,26 @@ void catchCameraInfo() {
 //startCamera with speed setting
 void startCamera(boolean scene, boolean eye, boolean leapMotionDetected, PVector speed) {
   pushMatrix() ;
-
   // setting camera recording
-  ///////////////////////////
-  
 
-  //Move the Scene
-  
-  // We cannot use the method copy() of the PVector, because we must preserve the "Z" parameter of this PVector to move the Scene with the wheel
+  // update the world position
+  /* We cannot use the method copy() of the PVector, because we must preserve the "Z" parameter of this PVector to move the Scene with the wheel */
   sceneCamera.x = updatePosCamera(scene, leapMotionDetected, mouse[0]).x ;
   sceneCamera.y = updatePosCamera(scene, leapMotionDetected, mouse[0]).y ;
 
   eyeCamera = updateEyeCamera(eye, mouse[0]).copy() ;
-  
 
-  
-
-
-  // setting of the camera projection
-  ///////////////////////////////////
-  
-  // default setting camera from Processing.org example, like the camera above
-  /*
-  float dirCamX = width/2.0 ; // eye X
-  float dirCamY = height/2.0 ; // eye Y
-  float dirCamZ = (height/2.0) / tan(PI*30.0 / 180.0) ; // // eye Z
-  float centerCamX = width/2.0 ; // Position X
-  float centerCamY = height/2.0 ; // Position Y
-  float centerCamZ = 0 ; // Position Z
-  float upX = 0 ;
-  float upY = 1 ;
-  float upZ = 0 ;
-  */
-  
-  
-  // float focal = map(valueSlider[0][19],0,360,28,200) ;
-  float dirCamX = map(valueSlider[0][21],0,360,0,width)  ; // on controler is Eye X
-  float dirCamY = map(valueSlider[0][22],0,360,0,height)  ; // on controler is Eye Y
-  float dirCamZ = map(valueSlider[0][23],0,360,0,width)  ; // on controler is Eye Z
-  
-  float centerCamX = map(valueSlider[0][24],0,360,0,width)  ; // on controler is Position X
-  float centerCamY = map(valueSlider[0][25],0,360,0,height)  ; // on controler is Position Y
-  float centerCamZ = map(valueSlider[0][26],0,360,0,width)  ; // on controler is Position Z
-
-  float upX = map(valueSlider[0][27],0,360,-1,1) ;
-  float upY = 1 ; // not interesting
-  float upZ = 0 ; // not interesting
-  
-
-  // ENGINE
+  // final setting of the camera
   camera(dirCamX, dirCamY, dirCamZ, centerCamX, centerCamY, centerCamZ, upX, upY, upZ) ;
   // camera() ;
   beginCamera() ;
 
-  //scene position
-  translate(sceneCamera.x +width/2, sceneCamera.y +height/2, sceneCamera.z) ;
-  //orientation direction
-  /*
-  eyeCamera, is not a good terminilogy because the real eye camera is not use here. Here we just move the world.
-  */
-  rotateX(radians(eyeCamera.x)) ;
-  rotateY(radians(eyeCamera.y)) ;
+  // scene position
+  translate(finalSceneCamera.x, finalSceneCamera.y, finalSceneCamera.z) ;
+  // scene orientation direction
+  /* eyeCamera, is not a good terminilogy because the real eye camera is not use here. Here we just move the world. */
+  rotateX(finalEyeCamera.x) ;
+  rotateY(finalEyeCamera.y) ;
 
 }
 //end camera with speed setting

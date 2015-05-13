@@ -1,7 +1,10 @@
 // CONSTANT MATH
-final float PHI = (1 + sqrt(5))/2; // the golden ratio
-final float ROOT2 = sqrt(2); // the number of Pythagore
-final float EULER = 2.718281828459045235360287471352; // Constant d'Euler
+float PI = 3.14...
+float QUARTER_PI = PI/4
+float TAU = 2*PI...
+float PHI = (1 + sqrt(5))/2; // the golden ratio
+float ROOT2 = sqrt(2); // the number of Pythagore
+float EULER = 2.718281828459045235360287471352; // Constant d'Euler
 
 
 

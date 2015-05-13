@@ -1,8 +1,4 @@
-///////////////////////
-// GLOBAL SETTING ////
-/////////////////////
-import codeanticode.tablet.*;
-
+Variable 
 
 boolean scene = false ;
 boolean prescene = true ;
@@ -18,8 +14,11 @@ boolean youCanSendToMiroir = true ;
 //Web cam activity
 // boolean cameraOnOff = false ;
 //internet connection
-Boolean internet = true ;
+boolean internet = true ;
 String bigBrother = ("BIG BROTHER DON'T WATCHING YOU !!") ;
+
+// return if the cursor - mouse - is in the sketch or not
+boolean MOUSE_IN_OUT ;
 
 
 
