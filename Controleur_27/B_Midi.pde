@@ -5,7 +5,6 @@ void midiSetup() {
   midiIO = MidiIO.getInstance(this);
   //open the first midi channel of the first device if there Input
   if (midiIO.numberOfInputDevices() > 0 ) midiIO.openInput(0,0);
-  indexMidiButton() ;
 }
 //DRAW
 void midiDraw() {
@@ -93,8 +92,8 @@ void sliderMidiUpdate(int whichOne) {
   
   if(selectMidi && slider[whichOne].lockedMol()) {
     for(int i = 0 ; i <infoSlider.length ; i++) {
-      if(whichOne == (int)infoSlider[i].x) {
-        infoSlider[i].y = numMidi  ;
+      if(whichOne == (int)infoSlider[i].a) {
+        infoSlider[i].b = numMidi  ;
       }
     }
   }
@@ -103,6 +102,6 @@ void sliderMidiUpdate(int whichOne) {
   if (selectMidi && slider[whichOne].lockedMol()) slider[whichOne].selectIDmidi(numMidi) ;
   
   //ID midi from save
-  if(loadSaveSetting) slider[whichOne].selectIDmidi((int)infoSaveFromRawList(infoSlider, whichOne).y) ;
+  if(loadSaveSetting) slider[whichOne].selectIDmidi((int)infoSaveFromRawList(infoSlider, whichOne).b) ;
 }
 // END MIDI

@@ -18,23 +18,36 @@ void setup() {
   fontSetup() ;
   midiSetup() ;
   importPicButtonSetup() ;
-  sliderSetup() ;
+  sliderSettingVar() ;
   buttonSetup() ;
   dropdownSetup() ;
   constructorButton() ;
   constructorSlider() ;
   sendOSCsetup() ;
-  
-  //button
   settingDataFromSave() ;
 }
 
 
 void draw() {
+  /*
+  for(int whichOne = 1 ; whichOne < 10 ;whichOne++) {
+         sliderUpdate(whichOne) ;
+         int whichGroup = 0 ;
+    // sliderAdvancedDisplay(i, whichGroup) ;
+           slider[whichOne].insideMin() ;
+      slider[whichOne].updateMin() ;
+  //  }
+    // max molette
+  //  if(!slider[whichOne].insideMin && !slider[whichOne].lockedMin) {
+      slider[whichOne].insideMax() ;
+      slider[whichOne].updateMax() ;
+  }
+  */
+  
   frame.setTitle(nameVersion + " " +prettyVersion+"."+version+ " - Controller");
-  settingDataFromSave() ;
+  // settingDataFromSave() ;
   structureDraw() ;
-  checkSlider() ;
+  checkSliderObject() ;
   checkImageFolder() ;
   checkFileTextFolder() ;
   initLiveData() ;

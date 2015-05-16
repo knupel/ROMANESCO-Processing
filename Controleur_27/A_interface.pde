@@ -280,15 +280,17 @@ void constructorSlider() {
     // we use the var posMol here just to init the Slider, because we load data from save further.
     PVector posMol = new PVector() ;
     PVector tempPosSlider = new PVector(posSlider[i].x, posSlider[i].y -(sliderHeight *.6)) ;
-    if(infoSaveFromRawList(infoSlider,i).x > -1 ) slider[i] = new SliderAdjustable  (tempPosSlider, posMol, sizeSlider[i], sizeMol, "ELLIPSE");
-    if(slider[i] != null) slider[i].sliderSetting() ;
+    if(infoSaveFromRawList(infoSlider,i).a > -1 ) {
+      slider[i] = new SliderAdjustable  (tempPosSlider, posMol, sizeSlider[i], sizeMol, "ELLIPSE");
+    }
+    if(slider[i] != null) slider[i].setting() ;
   } 
 }
 
 
 // SLIDER SETUP
 // MAIN METHOD SLIDER SETUP
-void sliderSetup() {
+void sliderSettingVar() {
   groupZeroSlider (correctionSliderPos) ;
   groupOneSlider (lineGroupOne +correctionSliderObject) ;
   groupTwoSlider (lineGroupTwo +correctionSliderObject) ;
@@ -405,12 +407,14 @@ void groupTwoSlider(int sliderPositionY) {
 
 // SLIDER DRAW
 void sliderDraw() {
-  sliderDisplayGroupZero() ;
+  // sliderDisplayGroupZero() ;
+  displayBackgroundSliderGroupZero() ;
   
   /* Loop to display the false background slider instead the usual class Slider background,
   we use it the methode to display a particular background, like the rainbowcolor... */
   for(int i = 1 ; i < NUM_GROUP_SLIDER ; i++) {
-    sliderDisplayObject(i) ;
+    // sliderDisplayObject(i) ;
+    displayBackgroundSliderGroupObject(i) ;
   }
   
 
@@ -419,7 +423,7 @@ void sliderDraw() {
   int whichGroup = 0 ;
   for (int i = 1 ; i < NUM_SLIDER_MISC ; i++) {
      sliderUpdate(i) ;
-     sliderAdvancedDisplay(i, whichGroup) ;
+     sliderDisplayMoletteCurrentMinMax(i, whichGroup) ;
   }
   // group one, two, three
   whichGroup = 1 ;
@@ -432,7 +436,7 @@ void sliderDraw() {
               if (displaySlider[j][k]) {
                 int whichOne = objectGroup[i] *100 +k ;
                 sliderUpdate(whichOne) ; 
-                sliderAdvancedDisplay(whichOne, whichGroup) ; 
+                sliderDisplayMoletteCurrentMinMax(whichOne, whichGroup) ; 
               }
             }
           }
@@ -445,7 +449,7 @@ void sliderDraw() {
       for(int j = 1 ; j < NUM_SLIDER_OBJ ; j++) {
         int whichOne = i *100 +j ;
         sliderUpdate(whichOne) ;
-        sliderAdvancedDisplay(whichOne, whichGroup) ;
+        sliderDisplayMoletteCurrentMinMax(whichOne, whichGroup) ;
       }
     }
   }
@@ -463,24 +467,31 @@ void sliderUpdate(int whichOne) {
   
   //MIDI update
   sliderMidiUpdate(whichOne) ;
-  // check the main molette
-  if(!slider[whichOne].lockedMax  && !slider[whichOne].lockedMax) slider[whichOne].insideMol_Ellipse() ;
-  //check the min and max molette
+  
+
+   // MIN and MAX molette
+  //check
   if(!slider[whichOne].lockedMol && !slider[whichOne].insideMol ) {
     // min molette
-    if(!slider[whichOne].insideMax && !slider[whichOne].lockedMax) {
+    if(!slider[whichOne].insideMax() && !slider[whichOne].lockedMax) {
       slider[whichOne].insideMin() ;
-      slider[whichOne].minUpdate() ;
+      slider[whichOne].updateMin() ;
     }
     // max molette
-    if(!slider[whichOne].insideMin && !slider[whichOne].lockedMin) {
+    if(!slider[whichOne].insideMin() && !slider[whichOne].lockedMin) {
       slider[whichOne].insideMax() ;
-      slider[whichOne].maxUpdate() ;
+      slider[whichOne].updateMax() ;
     }
   }
+  // update 
+  slider[whichOne].updateMinMax() ;
   
-  slider[whichOne].minMaxSliderUpdate() ;
-  slider[whichOne].moletteUpdate() ;
+  
+  // CURRENT molette
+  // check
+  if(!slider[whichOne].lockedMax  && !slider[whichOne].lockedMax) slider[whichOne].insideMol_Ellipse() ;
+  // update
+  slider[whichOne].updateMolette() ;
   
   // translate float value to int, to use OSC easily without problem of Array Outbound...blablah
   int valueMax = 360 ;
@@ -490,22 +501,22 @@ void sliderUpdate(int whichOne) {
 }
 
 
-void sliderAdvancedDisplay(int whichOne, int whichGroup) {
+void sliderDisplayMoletteCurrentMinMax(int whichOne, int whichGroup) {
   if (whichGroup == 0) {
-    sliderMinMaxRomanescoDisplay(whichOne, grisTresFonce, gris) ;
-    sliderMoletteRomanescoDisplay(whichOne, blanc, blancGris) ;
+    sliderDisplayMinMaxMolette(whichOne, grisTresFonce, gris) ;
+    sliderDisplayCurrentMolette(whichOne, blanc, blancGris) ;
   } else {
-    sliderMinMaxRomanescoDisplay(whichOne, grisFonce, grisClair) ;
-    sliderMoletteRomanescoDisplay(whichOne, blanc, blancGris) ;
+    sliderDisplayMinMaxMolette(whichOne, grisFonce, grisClair) ;
+    sliderDisplayCurrentMolette(whichOne, blanc, blancGris) ;
   }
 }
 // local method
-void sliderMinMaxRomanescoDisplay(int whichOne,  color colorIn, color colorOut) {
+void sliderDisplayMinMaxMolette(int whichOne,  color colorIn, color colorOut) {
   float thickness = 0 ;
-   slider[whichOne].minMaxSliderDisplay(normPosSliderAdjustable, normSizeSliderAdjustable, colorIn, colorOut, colorIn, colorOut, thickness) ;
+  slider[whichOne].displayMinMax(normPosSliderAdjustable, normSizeSliderAdjustable, colorIn, colorOut, colorIn, colorOut, thickness) ;
 }
-void sliderMoletteRomanescoDisplay(int whichOne, color colorMolIn, color colorMolOut) {
-  slider[whichOne].moletteDisplay(colorMolIn,colorMolOut, colorMolIn,colorMolOut, 1) ;
+void sliderDisplayCurrentMolette(int whichOne, color colorMolIn, color colorMolOut) {
+  slider[whichOne].displayMolette(colorMolIn,colorMolOut, colorMolIn,colorMolOut, 1) ;
 }
 // end local method
 
@@ -599,7 +610,7 @@ void dislayTextSlider() {
 When you add a new sliders, you must change the starting value from 'NAN' to a value between 0 and 1 in the file 'defaultSetting.csv' in the 'preferences/setting' folder.
 And you must add the name of this one in the 'preferences/'  folder sliderListEN.csv' and in the 'sliderListFR' file
 */
-void sliderDisplayGroupZero () {
+void displayBackgroundSliderGroupZero() {
   sliderBackgroundDisplay() ;
   sliderDirectionalLightOne() ;
   sliderDirectionalLightTwo() ;
@@ -612,7 +623,7 @@ void sliderDisplayGroupZero () {
 void sliderBackgroundDisplay() {
   int start = 0 ;
   sliderHSBglobalDisplay(start) ;
-  sliderBG ( posSlider[4].x, posSlider[4].y, sizeSlider[4].y, sizeSlider[4].x, roundedSlider, blancGris) ;
+  sliderBG(posSlider[4].x, posSlider[4].y, sizeSlider[4].y, sizeSlider[4].x, roundedSlider, blancGris) ;
 }
 
 // light local variable display
@@ -632,7 +643,7 @@ void sliderDirectionalLightTwo() {
 }
 //
 void sliderSoundDisplay() {
-   sliderBG ( posSlider[5].x, posSlider[5].y, sizeSlider[5].y, sizeSlider[5].x, roundedSlider, grisClair) ;
+  sliderBG ( posSlider[5].x, posSlider[5].y, sizeSlider[5].y, sizeSlider[5].x, roundedSlider, grisClair) ;
   sliderBG ( posSlider[6].x, posSlider[6].y, sizeSlider[6].y, sizeSlider[6].x, roundedSlider, grisClair) ;
 }
 
@@ -667,6 +678,21 @@ void sliderHSBglobalDisplay(int start) {
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 // Slider display for the Object slider
 ////////////////////////////////////////
 /*
@@ -676,7 +702,7 @@ And you must add the name of this one in the 'preferences/'  folder sliderListEN
 
 /* Loop to display the false background slider instead the usual class Slider background,
 we use it the methode to display a particular background, like the rainbowcolor... */
-void sliderDisplayObject(int whichOne) {
+void displayBackgroundSliderGroupObject(int whichOne) {
   // to find the good slider in the array
   int whichGroup = whichOne ;
   whichOne *= 100 ;

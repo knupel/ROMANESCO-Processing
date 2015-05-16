@@ -169,7 +169,7 @@ void listSliderInterface() {
 
 
 // DRAW
-void checkSlider() {
+void checkSliderObject() {
    checkObjectOnOff() ;
    whichSliderMustBeDisplay() ;
    // check the group slider

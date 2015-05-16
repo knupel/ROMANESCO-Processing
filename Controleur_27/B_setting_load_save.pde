@@ -6,6 +6,7 @@
 
 //SETUP
 void loadSetup() {
+  buildSaveTable() ;
   createInfoButtonAndSlider(sketchPath("")+"preferences/setting/defaultSetting.csv") ;
   loadSave(sketchPath("")+"preferences/setting/defaultSetting.csv") ;
   
@@ -48,13 +49,13 @@ Simple  BOmidi, BOcurtain,
         buttonLightTwo, buttonLightTwoAction,
         Bbeat, Bkick, Bsnare, Bhat;
         
-//bouton objet
+//button group one
 Simple[] BOf  ;
 int transparenceBordBOf[], epaisseurBordBOf[], transparenceBoutonBOf[], posWidthBOf[], posHeightBOf[], longueurBOf[], hauteurBOf[]  ;
-//bouton texture
+//button group two
 Simple[] BTf  ;
 int transparenceBordBTf[], epaisseurBordBTf[], transparenceBoutonBTf[], posWidthBTf[],posHeightBTf[], longueurBTf[], hauteurBTf[]  ;
-//bouton typo
+//bouton group three
 Simple[] BTYf  ;
 int transparenceBordBTYf[], epaisseurBordBTYf[], transparenceBoutonBTYf[], posWidthBTYf[], posHeightBTYf[], longueurBTYf[], hauteurBTYf[]  ;
 
@@ -248,14 +249,13 @@ void createInfoButtonAndSlider(String path) {
     String s = row.getString("Type") ;
     if( s.equals("Slider")) countSlider++ ; 
   }
-  infoSlider = new PVector [countSlider] ;
+  infoSlider = new Vec5 [countSlider] ;
   
   // we don't count from the save in case we add object and this one has never use before and he don't exist in the data base
   infoButton = new PVector [numObj*4 +10] ; 
   for(int i = 0 ; i < infoButton.length ; i++) infoButton[i] = new PVector() ;
 }
 //////////////////////////////////
-/////////////////////////////////
 
 
 
@@ -290,10 +290,11 @@ void saveInfoSlider() {
   for (int i = 1 ; i < NUM_SLIDER_MISC ; i++) {
      // set PVector info Slider
      int temp = i-1 ;
-     infoSlider[temp].z = slider[i].getValue() ;
-     setSlider(i, (int)infoSlider[temp].y, infoSlider[temp].z) ;
-
-  }
+     infoSlider[temp].c = slider[i].getValue() ;
+     infoSlider[temp].d = slider[i].getValueMin() ;
+     infoSlider[temp].e = slider[i].getValueMax() ;
+     setSlider(i, (int)infoSlider[temp].b, infoSlider[temp].c,infoSlider[temp].d,infoSlider[temp].e) ;
+   }
   
   // the group one, two, three
   for (int i = 1 ; i < NUM_GROUP_SLIDER ; i++) { 
@@ -302,9 +303,11 @@ void saveInfoSlider() {
       int IDslider = j +(i *100) ;
       // third loop to check and find the good PVector array in the list
       for(int k = 0 ; k < infoSlider.length ;k++) {
-        if( (int)infoSlider[k].x ==IDslider) {
-          infoSlider[k].z = slider[IDslider].getValue() ;
-          setSlider(IDslider, (int)infoSlider[k].y, infoSlider[k].z) ;
+        if( (int)infoSlider[k].a ==IDslider) {
+          infoSlider[k].c = slider[IDslider].getValue() ;
+          infoSlider[k].d = slider[IDslider].getValueMin() ;
+          infoSlider[k].e = slider[IDslider].getValueMax() ;
+          setSlider(IDslider, (int)infoSlider[k].b, infoSlider[k].c,infoSlider[k].d,infoSlider[k].e) ;
         }
       }
     }
@@ -325,18 +328,23 @@ void setButton(int IDbutton, int IDmidi, boolean b) {
   buttonSetting.setInt("ID midi", IDmidi) ;
   if(b) buttonSetting.setInt("On Off", 1) ; else buttonSetting.setInt("On Off", 0) ;
 }
-void setSlider(int IDslider, int IDmidi, float value) {
+//
+void setSlider(int IDslider, int IDmidi, float value, float min, float max) {
   TableRow sliderSetting = saveSetting.addRow() ;
   sliderSetting.setString("Type", "Slider") ;
   sliderSetting.setInt("ID slider", IDslider) ;
   sliderSetting.setInt("ID midi", IDmidi) ;
   sliderSetting.setFloat("Value slider", value) ; 
+  sliderSetting.setFloat("Min slider", min) ; 
+  sliderSetting.setFloat("Max slider", max) ; 
 }
 
-void indexMidiButton() {
+void buildSaveTable() {
   saveSetting = new Table() ;
   saveSetting.addColumn("Type") ;
   saveSetting.addColumn("ID slider") ;
+  saveSetting.addColumn("Min slider") ;
+  saveSetting.addColumn("Max slider") ;
   saveSetting.addColumn("Value slider") ;
   saveSetting.addColumn("ID button") ;
   saveSetting.addColumn("On Off") ;
@@ -382,22 +390,24 @@ void loadSave(String path) {
   int countSlider = 0 ;
   for (TableRow row : settingTable.rows()) {
     String s = row.getString("Type") ;
-    //
+    // button
     if( s.equals("Button")){ 
      int IDbutton = row.getInt("ID button") ;
      int IDmidi = row.getInt("ID midi") ;
      int onOff = row.getInt("On Off") ;
-     // if(countButton < infoButton.length) is used in case that the number is inferior at the number of object in save file
+     /* if(countButton < infoButton.length) is used in case that the number is inferior at the number of object in save file */
      if(countButton < infoButton.length) infoButton[countButton] = new PVector(IDbutton,IDmidi,onOff) ;
      countButton++ ; 
     }
-    //
+    // slider
     if( s.equals("Slider")){
      int IDslider = row.getInt("ID slider") ;
      int IDmidi = row.getInt("ID midi") ;
      float valueSlider = row.getFloat("Value slider") ; 
-     infoSlider[countSlider] = new PVector(IDslider,IDmidi,valueSlider) ;
-     countSlider++ ; //<>//
+     float min = row.getFloat("Min slider") ;
+     float max = row.getFloat("Max slider") ;
+     infoSlider[countSlider] = new Vec5(IDslider,IDmidi,valueSlider,min,max) ;
+     countSlider++ ;
     }
   }
 }
@@ -416,40 +426,48 @@ void loadSave(String path) {
 
 
 
-//SETTING SAVE
+// SETTING SAVE
+/////////////////////////
 Boolean setSave = true ;
 void settingDataFromSave() {
   if(setSave) {
-    buttonSetSaveSetting() ;
-    sliderSetSaveSetting() ;
+    setButtonSave() ;
+    setSliderSave() ;
     setSave = false ;
   }
 }
 
 
-//setting SLIDER from save
-void sliderSetSaveSetting() {
+// Setting SLIDER from save
+void setSliderSave() {
   for (int i = 1 ; i < NUM_SLIDER_MISC ; i++) {
-    int whichOne = i ;
-    PVector infoSliderTemp = infoSaveFromRawList(infoSlider, whichOne).copy() ;
-    slider[whichOne].sliderSettingMidi((int)infoSliderTemp.y) ; 
-    slider[whichOne].sliderSettingPos(infoSliderTemp.z) ;
+    setttingSliderSave(i) ;
   }
   for (int i = 1 ; i < NUM_GROUP_SLIDER ; i++) { 
     for(int j = 1 ; j < NUM_SLIDER_OBJ ; j++) {
       int whichOne = j +(i *100) ;
-      PVector infoSliderTemp = infoSaveFromRawList(infoSlider, whichOne).copy() ;
-      slider[whichOne].sliderSettingMidi((int)infoSliderTemp.y) ; 
-      slider[whichOne].sliderSettingPos(infoSliderTemp.z) ; 
+      setttingSliderSave(whichOne) ;
     }
   }
+}
+// local method of setSliderSave()
+void setttingSliderSave(int whichOne) {
+  Vec5 infoSliderTemp = infoSaveFromRawList(infoSlider, whichOne).copy() ;
+  slider[whichOne].setMidi((int)infoSliderTemp.b) ; 
+  slider[whichOne].setMolette(infoSliderTemp.c) ; 
+  slider[whichOne].setMinMax(infoSliderTemp.d, infoSliderTemp.e) ;
+  /*
+  slider[whichOne].insideMin() ;
+  slider[whichOne].insideMax() ;
+  slider[whichOne].updateMinMax() ;
+  */
 }
 
 
 
 
 //setting BUTTON from save
-void buttonSetSaveSetting() {
+void setButtonSave() {
   // close loop to save the button statement, 
   // see void midiButtonManager(boolean saveButton)
   int rank = 0 ;
@@ -517,26 +535,33 @@ void buttonSetSaveSetting() {
 
 
 // infoSaveFromRawList read info to translate and give a good position
-PVector infoSaveFromRawList(PVector [] list, int pos) {
-  PVector info = new PVector() ;
-  float v = 0 ;
+Vec5 infoSaveFromRawList(Vec5[] list, int pos) {
+  Vec5 info = new Vec5() ;
+  float valueSlider = 0 ;
+  float valueSliderMin = 0 ;
+  float valueSliderMax = 1 ;
   float IDmidi = 0 ;
   for(int i = 0 ; i < list.length ;i++) {
-    
-  //if(list[i] != null ) if((int)list[i].x == pos) {
-  if(list[i] != null ) if((int)list[i].x == pos) {
-      v = list[i].z ;
-      IDmidi = list[i].y ;
-      info = new PVector(pos, IDmidi,v) ;
+    if(list[i] != null ) if((int)list[i].a == pos) {
+      valueSlider = list[i].c ;
+      valueSliderMin = list[i].d ;
+      valueSliderMax = list[i].e ;
+      IDmidi = list[i].b ;
+      info = new Vec5(pos, IDmidi,valueSlider,valueSliderMin,valueSliderMax) ;
       break;
     } else {
-      info = new PVector(-1,-1,-1) ;
+      info = new Vec5(-1,-1,-1,-1,-1) ;
     }
   }
   return info ;
 }
+// END SETTING SAVE
+///////////////////
 
-// SAVE LOAD
+
+
+
+
 
 
 

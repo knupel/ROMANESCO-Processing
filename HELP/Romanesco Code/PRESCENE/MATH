@@ -33,13 +33,22 @@ x,y,z
 r,g,b 
 s,t,p
 
-Vec3()
-Vec3(value)
-Vec3(x,y,z,w) 
+Vec4()
+Vec4(value)
+Vec4(x,y,z,w) 
 you can catch : 
 x,y,z,w 
 r,g,b,a 
 s,t,p,q
+
+Vec5()
+Vec5(float value)
+Vec5(a,b,c,d,e)
+you can catch 
+a,b,c,d,e
+
+
+
 
 You can use method  Vec2(arg float,arg float)
           Vec3(arg float,arg float,arg float)
@@ -113,9 +122,9 @@ yourVec4.add(Vec4 v_a, Vec4 v_b)
 
 Copy int
 --------
-@ return Vec2, Vec3 or Vec4
+@ return Vec2, Vec3, Vec4 or Vec5
 > Retunn the componant of the Vec, in Vec 
-> Work for Vec2, Vec3, Vec4
+> Work for Vec2, Vec3, Vec4, Vec5
 yourVec.copy() ;
 
 > Return the componant of the Vec in PVector

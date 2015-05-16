@@ -1,4 +1,4 @@
-// DROPDOWN february 2015 adaptation of version 2c work with SLIDER 5d by Stan le Punk
+// DROPDOWN february 2015 adaptation of version 2c work with SLIDER 5g by Stan le Punk
 
 
 boolean dropdownOpen ; // use to indicate to indicate at the other button, they cannot be used when the user are on the dropdown menu
@@ -63,7 +63,7 @@ public class Dropdown {
       sizeMoletteDropdown =  new PVector (sizeSliderDropdown.x, sizeSliderDropdown.y /factorSizeMolette) ;
       
       sliderDropdown = new Slider(posSliderDropdown, posMoletteDropdown, sizeSliderDropdown, sizeMoletteDropdown, "RECT") ;
-       sliderDropdown.sliderSetting() ;
+       sliderDropdown.setting() ;
     }
   }
   
@@ -86,9 +86,9 @@ public class Dropdown {
         //Slider dropdown
         if (slider) {
           sliderDropdown.insideMol_Rect() ;
-          sliderDropdown.moletteUpdate() ;
+          sliderDropdown.updateMolette() ;
           sliderDropdown.sliderDisplay(colorBG,colorBG,0) ;
-          sliderDropdown.moletteDisplay(jaune, orange, jaune, orange, 0) ;
+          sliderDropdown.displayMolette(jaune, orange, jaune, orange, 0) ;
         }
       }
     } else {

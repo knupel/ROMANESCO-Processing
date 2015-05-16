@@ -46,10 +46,8 @@ void sendOSCdraw() {
   
   //add to OSC
   for ( int i = 0 ; i < toPreScene.length ; i++) {
-    //println(i, toPreScene[i]) ;
     RomanescoControleur.add(toPreScene[i]);
   }
- // println("controleur",toPreScene[3]) ;
   //send
   osc.send(RomanescoControleur, targetPreScene ); 
 }

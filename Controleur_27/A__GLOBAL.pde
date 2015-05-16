@@ -28,7 +28,8 @@ boolean curtainOpenClose ;
 //GLOBAL
 
 // Save Setting var
-PVector [] infoSlider, infoButton ;
+Vec5 [] infoSlider ; 
+PVector [] infoButton ;
 
 // slider mode display
 int sliderModeDisplay = 0 ;
