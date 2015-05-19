@@ -24,7 +24,7 @@ void setup() {
   //GEOMERATIVE
   RG.init(this);
 
-  soundSetup() ;
+  //soundSetup() ;
   varObjectSetup() ; // the varObject setup of the Scene is more simple
   OSCSetup() ;
 
@@ -39,7 +39,7 @@ void draw() {
   if(!syphon) frame.setTitle(nameVersion + " " +prettyVersion+"."+version+ " - Scene"); else frame.setTitle(nameVersion + " " +prettyVersion+"."+version+ " - Miroir");
   initDraw() ;
   miroirDraw() ;
-  soundDraw() ;
+  // soundDraw() ;
   OSCDraw() ;
   meteoDraw() ;
   updateVarRaw() ;
@@ -68,6 +68,9 @@ void draw() {
 //KEYPRESSED
 void keyPressed () {
  // info common command with Prescene
+
+  if(key == 's') saveDataObject(true) ;
+  if(key =='o') loadDataObject(true) ;
   if (key == 'i') displayInfo = !displayInfo ;
   if (key == 'g') displayInfo3D = !displayInfo3D ;
 }

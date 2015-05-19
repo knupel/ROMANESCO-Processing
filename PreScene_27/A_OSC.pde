@@ -163,13 +163,10 @@ void OSCDraw() {
    
    
    ////////////// WEIRD /////////////////////////////////////////////////////////
-
-
-   
-   
-  fromControler[NUM_GROUP +1] = fromControler[NUM_GROUP +1] + "/" +dataPreScene[0] + "/" +dataPreScene[1] + "/" +dataPreScene[2] + "/" +dataPreScene[3] + "/" +dataPreScene[4] + "/" +dataPreScene[10] ;
-  // println("after ", fromControler[NUM_GROUP +1]) ;
-     /* I don't understand this line  why we must  add this data dataPreScene[0], dataPreScene[1], dataPreScene[2], dataPreScene[3], dataPreScene[4], dataPreScene[10] here, this not real interesting dateindexObjects
+   fromControler[NUM_GROUP +1] = fromControler[NUM_GROUP +1] + "/" +dataPreScene[0] + "/" +dataPreScene[1] + "/" +dataPreScene[2] + "/" +dataPreScene[3] + "/" +dataPreScene[4] + "/" +dataPreScene[10] ;
+   /** 
+   println("after ", fromControler[NUM_GROUP +1]) ;
+     I don't understand this line  why we must  add this data dataPreScene[0], dataPreScene[1], dataPreScene[2], dataPreScene[3], dataPreScene[4], dataPreScene[10] here, this not real interesting dateindexObjects
      plus  we add all data at th end.
      see line : RomanescoScene.add(toScene);
    In the test just dataPreScene[0] change the value between 1 and 0
@@ -201,40 +198,32 @@ void OSCDraw() {
   RomanescoScene.add(toScene);
   
   
-  
-  /* TEST
-  String test [] = new String [numOfPartSendByController +1] ;
-  for ( int i = 0 ; i < test.length ; i++ ) {
-    test [i] = RomanescoScene.get(i).stringValue() ;
-    println(i, test[i]) ;
-  }
-  */
 
   //send
   if (youCanSendToScene)osc.send(RomanescoScene, targetScene); 
   if (youCanSendToMiroir) osc.send(RomanescoScene, targetMiroir);
   
   //TRANSFORM info from controler to use in the preScene
-  //GLOBAL
-  eBeat = valueButtonGlobal[1] ;
-  eKick = valueButtonGlobal[2] ;
-  eSnare = valueButtonGlobal[3] ;
-  eHat = valueButtonGlobal[4] ;
+  // sound option on/off
+  if(valueButtonGlobal[1] == 1 ) onOffBeat = true ; else onOffBeat = false ;
+  if(valueButtonGlobal[2] == 1 ) onOffKick = true ; else onOffKick = false ;
+  if(valueButtonGlobal[3] == 1 ) onOffSnare = true ; else onOffSnare = false ;
+  if(valueButtonGlobal[4] == 1 ) onOffHat = true ; else onOffHat = false ;
+  // backgound option on/off
+  if(valueButtonGlobal[6] == 1 ) onOffCurtain = true ; else onOffCurtain = false ;
+  if(valueButtonGlobal[7] == 1 ) onOffBackground = true ; else onOffBackground = false ;
+  // light on/off
+  if(valueButtonGlobal[8] == 1 ) onOffDirLightOne = true ; else onOffDirLightOne = false ;
+  if(valueButtonGlobal[9] == 1 ) onOffDirLightTwo = true ; else onOffDirLightTwo = false ;
+  if(valueButtonGlobal[10] == 1 ) onOffLightAmbient = true ; else onOffLightAmbient = false ;
+  // light move light on/off
+  if(valueButtonGlobal[11] == 1 ) onOffDirLightOneAction = true ; else onOffDirLightOneAction = false ;
+  if(valueButtonGlobal[12] == 1 ) onOffDirLightTwoAction = true ; else onOffDirLightTwoAction = false ;
+  if(valueButtonGlobal[13] == 1 ) onOffLightAmbientAction = true ; else onOffLightAmbientAction = false ;
   
-  whichFont(valueButtonGlobal[5]) ;
-  eCurtain = valueButtonGlobal[6] ;
-  
-  eBackground = valueButtonGlobal[7] ;
-  
-  
-  eLightOne = valueButtonGlobal[8] ;
-  eLightTwo = valueButtonGlobal[9] ;
-  eLightAmbient = valueButtonGlobal[10] ;
-  eLightOneAction = valueButtonGlobal[11] ;
-  eLightTwoAction = valueButtonGlobal[12] ;
-  eLightAmbientAction = valueButtonGlobal[13] ;
-  
-  whichShader = valueButtonGlobal[14] ;
+  // list choice
+   whichShader = valueButtonGlobal[14] ;
+  choiceFont(valueButtonGlobal[5]) ;
   whichImage[0] = valueButtonGlobal[15] ;
   whichText[0] = valueButtonGlobal[16] ;
   

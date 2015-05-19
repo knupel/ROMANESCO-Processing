@@ -10,7 +10,7 @@ FFT fft;
 BeatDetect beatEnergy, beatFrequency;
 BeatListener bl;
 
-boolean beatOnOff, kickOnOff, snareOnOff, hatOnOff ;
+// boolean beatOnOff, kickOnOff, snareOnOff, hatOnOff ;
 
 float beatData, kickData, snareData, hatData ;
 float minBeat = 1.0 ;
@@ -77,14 +77,35 @@ void soundRomanesco() {
   if(mix[0] > 1 ) mix[0] = 1.0 ;
   
   //Beat
+  /*
   if(eBeat == 1 )  beatOnOff = true ; else beatOnOff = false ;
   if(eKick == 1 )  kickOnOff = true ; else kickOnOff = false ;
   if(eSnare == 1 ) snareOnOff = true ; else snareOnOff = false ;
   if(eHat == 1 )   hatOnOff = true ; else hatOnOff = false ;
+    beat[0] = getBeat(beatOnOff) ;
+  kick[0] = getKick(kickOnOff) ;
+  snare[0] = getSnare(snareOnOff) ;
+  hat[0] = getHat(hatOnOff) ;
+  */
+  
+  /*
+  if(onOffBeat)  beatOnOff = true ; else beatOnOff = false ;
+  if(onOffKick)  kickOnOff = true ; else kickOnOff = false ;
+  if(onOffSnare) snareOnOff = true ; else snareOnOff = false ;
+  if(onOffHat)   hatOnOff = true ; else hatOnOff = false ;
+
   beat[0] = getBeat(beatOnOff) ;
   kick[0] = getKick(kickOnOff) ;
   snare[0] = getSnare(snareOnOff) ;
   hat[0] = getHat(hatOnOff) ;
+  */
+  
+  
+  beat[0] = getBeat(onOffBeat) ;
+  kick[0] = getKick(onOffKick) ;
+  snare[0] = getSnare(onOffSnare) ;
+  hat[0] = getHat(onOffHat) ;
+  
   
   //spectrum
   for ( int i = 0 ; i < numBand ; i++ ) {
@@ -375,8 +396,7 @@ void spectrum(AudioBuffer fftData, int n) {
 //ANNEXE VOID
 float getTotalSpectrum(int numBand) {
   float t = 0 ;
-  // float t = bandSprectrum[0] + bandSprectrum[1] + bandSprectrum[2] + bandSprectrum[3] + bandSprectrum[4] + bandSprectrum[5] + bandSprectrum[6] + bandSprectrum[7] + bandSprectrum[8] + bandSprectrum[9] + bandSprectrum[10] + bandSprectrum[11] + bandSprectrum[12] + bandSprectrum[13] + bandSprectrum[14] + bandSprectrum[15] ;
-  for ( int i = 0 ; i < numBand ; i++ ) {
+ for ( int i = 0 ; i < numBand ; i++ ) {
     t += bandSprectrum[i] ;
   }
   return t ;

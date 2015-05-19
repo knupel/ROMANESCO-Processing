@@ -3,9 +3,14 @@
 
 import twitter4j.conf.*;
 import twitter4j.internal.async.*;
-import twitter4j.internal.org.json.*;
-import twitter4j.internal.logging.*;
+
+// JSON problem concurrence with the JSON of Processing
+//import twitter4j.internal.org.json.*;
 import twitter4j.json.*;
+import twitter4j.internal.json.*;
+
+import twitter4j.internal.logging.*;
+
 import twitter4j.internal.util.*;
 import twitter4j.management.*;
 import twitter4j.auth.*;
@@ -13,7 +18,7 @@ import twitter4j.api.*;
 import twitter4j.util.*;
 import twitter4j.internal.http.*;
 import twitter4j.*;
-import twitter4j.internal.json.*;
+
 
 import twitter4j.StatusDeletionNotice;
 import twitter4j.StatusDeletionNotice;

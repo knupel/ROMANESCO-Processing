@@ -1,67 +1,76 @@
 /////////////
 //BACKGROUND
-/////////////
-int artificialTime ;
+Vec4  colorBackground, colorBackgroundRef, colorBackgroundPrescene;
 
 
-// BACKGROUND
+void backgroundSetup() {
+  colorBackgroundRef = Vec4() ;
+  colorBackground = Vec4() ;
+  colorBackgroundPrescene = Vec4(0,0,20,HSBmode.a) ;
+}
+
 
 void backgroundRomanesco() {
   // in preview mode the background is always on, to remove the trace effect
-  if(!fullRendering) eBackground = 1 ;
-
-  if(eBackground == 1) {
-    if(whichShader == 0) {
-      color bg ;
-      // choice the rendering color palette for the classic background
-      if(fullRendering) {
-        //to smooth the curve of transparency background
-        float factorSmooth = 2.5 ;
-        float nx = norm(valueSlider[0][3], 0.0 , MAX_VALUE_SLIDER) ;
-        float alpha = pow (nx, factorSmooth);
-        alpha = map(alpha, 0, 1, 0.8, HSBmode.z) ; // we use HSBmode.z here but it's not correcte, but that's ok because often the "w" value in HSB mode is equal to "y" and "z" hue = 360 and saturation = brightness = alpha
-        
-        bg = color (map(valueSlider[0][0],0,MAX_VALUE_SLIDER,0,HSBmode.x), map(valueSlider[0][1],0,MAX_VALUE_SLIDER,0,HSBmode.y), map(valueSlider[0][2],0,MAX_VALUE_SLIDER,0,HSBmode.z), alpha) ; 
+  if(!fullRendering) { 
+    onOffBackground = false ;
+    colorBackground = colorBackgroundPrescene.copy() ;
+    backgroundP3D(colorBackground) ;
+  } else {
+    if(onOffBackground) {
+      if(whichShader == 0) {
+        // choice the rendering color palette for the classic background
+        if(fullRendering) {
+          // check if the slider background are move, if it's true update the color background
+          if(!equals(colorBackgroundRef,updateBackground())) colorBackground = updateBackground().copy() ;
+          else colorBackgroundRef = updateBackground().copy() ;
+          backgroundP3D(colorBackground) ;
+        } 
+        backgroundP3D(colorBackground) ;
       } else {
-        int alpha = (int)HSBmode.z ; // we use HSBmode.z here but it's not correcte, but that's ok because often the "w" value in HSB mode is equal to "y" and "z" hue = 360 and saturation = brightness = alpha
-        bg = color (map(valueSlider[0][0],0,MAX_VALUE_SLIDER,0,HSBmode.x), map(valueSlider[0][1],0,MAX_VALUE_SLIDER,0,HSBmode.y), map(valueSlider[0][2],0,MAX_VALUE_SLIDER,0,HSBmode.z), alpha) ;
+        backgroundShaderDraw(modeP3D, whichShader) ;
       }
-      
-      //choice the background
-      if(displayMode.equals("Classic")) backgroundClassic(bg) ;
-      else if(displayMode.equals("P3D")) backgroundP3D(bg) ;
-    } else {
-      backgroundShaderDraw(modeP3D, whichShader) ;
     }
   }
 }
 
 
 
+
+
+
 // ANNEXE VOID BACKGROUND
 /////////////////////////
+Vec4 updateBackground() {
+  //to smooth the curve of transparency background
+  float factorSmooth = 2.5 ;
+  float nx = norm(valueSlider[0][3], 0.0 , MAX_VALUE_SLIDER) ;
+  float alpha = pow (nx, factorSmooth);
+  alpha = map(alpha, 0, 1, 0.8, HSBmode.a) ; 
+  return Vec4(map(valueSlider[0][0],0,MAX_VALUE_SLIDER,0,HSBmode.r),map(valueSlider[0][1],0,MAX_VALUE_SLIDER,0,HSBmode.g),map(valueSlider[0][2],0,MAX_VALUE_SLIDER,0,HSBmode.b),alpha) ;
+}
 
 //diffenrent background
-void backgroundClassic(color c) {
+void backgroundClassic(Vec4 c) {
   //DISPLAY FINAL
   noStroke() ;
-  fill(c) ;
+  fill(c.r,c.g, c.b, c.a) ;
   rect (0,0, width, height) ;
 }
 
 //P3D
 //BACKGROUND
 ////////////
-void backgroundP3D(color c) {
-  if(alpha(c) < 90 ) {
-    fill(c) ;
+void backgroundP3D(Vec4 c) {
+  if(c.a < 90 ) {
+    fill(c.r, c.g, c.b, c.a) ;
     noStroke() ;
     pushMatrix() ;
     translate(-sizeBackgroundP3D.x *.5,-sizeBackgroundP3D.y *.5 , -sizeBackgroundP3D.z) ;
     rect(0,0, sizeBackgroundP3D.x, sizeBackgroundP3D.y) ;
     popMatrix() ;
   } else {
-    background(c) ;
+    background(c.r, c.g, c.b, c.a) ;
   }
   
 }
@@ -122,7 +131,7 @@ void backgroundShaderDraw(boolean renderP3D, int whichOne) {
     //rectangle(posBGshader, sizeBGshader, psyTwo) ; // problem
     //rectangle(posBGshader, sizeBGshader, psyThree) ; // problem
   }  else if (whichOne != 0  ) {
-    backgroundP3D(100) ;
+    backgroundP3D(Vec4(100)) ;
     int sizeText = 14 ;
     textSize(sizeText) ;
     fill(orange) ; noStroke() ;

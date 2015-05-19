@@ -26,7 +26,9 @@ void callShader() {
 /////////////////
 void ambientLightPix(Vec4 rgba) {
       float alphaNormal = map(rgba.a,0,g.colorModeA,0,1) ;
-  /* check the color mode of your skecth, if this one is on RGB, you must apply the alpha on RGB component, else in HSB you must apply only on SB components */
+  /**
+   check the color mode of your skecth, if this one is on RGB, you must apply the alpha on RGB component, else in HSB you must apply only on SB components 
+   */
   if(g.colorMode == 1 ) {
     rgba.r *= alphaNormal ;
     rgba.g *= alphaNormal ;
@@ -39,7 +41,9 @@ void ambientLightPix(Vec4 rgba) {
 }
 void ambientLightPix(Vec4 rgba, Vec3 pos) {
       float alphaNormal = map(rgba.a,0,g.colorModeA,0,1) ;
-  /* check the color mode of your skecth, if this one is on RGB, you must apply the alpha on RGB component, else in HSB you must apply only on SB components */
+  /** 
+  check the color mode of your skecth, if this one is on RGB, you must apply the alpha on RGB component, else in HSB you must apply only on SB components 
+  */
   if(g.colorMode == 1 ) {
     rgba.r *= alphaNormal ;
     rgba.g *= alphaNormal ;
@@ -65,7 +69,9 @@ open a list of lights with a max of height lights
 ///////////////
 void directionalLightPix(Vec4 rgba, Vec3 dir) {
     float alphaNormal = map(rgba.a,0,g.colorModeA,0,1) ;
-  /* check the color mode of your skecth, if this one is on RGB, you must apply the alpha on RGB component, else in HSB you must apply only on SB components */
+  /**
+  check the color mode of your skecth, if this one is on RGB, you must apply the alpha on RGB component, else in HSB you must apply only on SB components 
+   */
   if(g.colorMode == 1 ) {
     rgba.r *= alphaNormal ;
     rgba.g *= alphaNormal ;

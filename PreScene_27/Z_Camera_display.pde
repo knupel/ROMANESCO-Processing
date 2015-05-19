@@ -294,10 +294,74 @@ Vec3 finalSceneCamera ;
 Vec2 finalEyeCamera ;
 
 
+
+
+
+// init var
 void initVariableCamera() {
   variableCameraPresceneRendering() ;
 }
 
+
+
+
+
+
+
+
+
+
+// MOVE CAMERA
+//////////////
+void cameraDraw() {
+  if(modeP3D) {
+    updateCamera(moveScene, moveEye, LEAPMOTION_DETECTED) ;
+    // set camera variable
+    /* look if the user is on the Prescene or not, and other stuff to display the good views */
+    setVariableCamera() ;
+
+    // deformation and focal of the lenz camera
+    paralaxe(focal, deformation) ;
+    
+    //camera order from the mouse or from the leap
+    controlCamera() ;
+
+    /*
+        //void with speed setting
+    float speed = 150.0 ; // 150 is medium speed rotation
+    PVector speedRotation = new PVector(speed /(float)width, speed /(float)height) ; 
+    */
+    startCamera() ;
+    
+    //to change the scene position with a specific point
+    if(gotoCameraPosition || gotoCameraEye ) moveCamera(sceneCamera, targetPosCam, speedMoveOfCamera) ;
+
+    //catch ref camera
+    catchCameraInfo() ;
+  }
+}
+//END CAMERA DRAW
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// Annexe method of the method cameraDraw()
+///////////////////////////////////////////
 void setVariableCamera() {
   // float focal = map(valueSlider[0][19],0,360,28,200) ;
 
@@ -368,66 +432,6 @@ void variableCameraPresceneRendering() {
 
 }
 
-// END update variable camera
-/////////////////////////////
-
-
-
-
-
-
-
-///////////////////////////////////////////
-// MOVE CAMERA
-void cameraDraw() {
-
-  if(modeP3D) {
-    // set camera variable
-    /* look if the user is on the Prescene or not, and other stuff to display the good views */
-    setVariableCamera() ;
-    /*
-    float focal = map(valueSlider[0][19],0,360,28,200) ;
-    float deformation = map(valueSlider[0][20],0,360,-1,1) ;
-*/
-    paralaxe(focal, deformation) ;
-    //camera order from the mouse or from the leap
-    if(cLongTouch) {
-
-      
-      if(ORDER_ONE || ORDER_THREE) moveScene = true ;   else moveScene = false ;
-      if(ORDER_TWO || ORDER_THREE) moveEye = true ;   else moveEye = false ;
-      
-      //update z position of the camera
-      sceneCamera.z -= wheel[0] ;
-      
-      // change camera position
-      if(enterTouch) travelling(posCamRef) ;
-      if (touch0) {
-        changeCameraPosition(0) ;
-      }
-    } else if (!cLongTouch || (ORDER_ONE && ORDER_ONE && ORDER_THREE) ) {
-      moveScene = false ;
-      moveEye = false ;
-    }
-
-    //void with speed setting
-    
-    float speed = 150.0 ; // 150 is medium speed rotation
-    PVector speedRotation = new PVector(speed /(float)width, speed /(float)height) ; 
-    startCamera(moveScene, moveEye, LEAPMOTION_DETECTED, speedRotation) ;
-    
-    
-    //to change the scene position with a specific point
-    if(gotoCameraPosition || gotoCameraEye ) updateCamera(sceneCamera, targetPosCam, speedMoveOfCamera) ;
-
-    
-    //catch ref camera
-    catchCameraInfo() ;
-  }
-}
-//END CAMERA DRAW
-
-
 
 
 //CATCH a ref position and direction of the camera
@@ -447,50 +451,68 @@ void catchCameraInfo() {
 
 
 
-
-
+//camera order from the mouse or from the leap
+void controlCamera() {
+  if(cLongTouch) {
+    if(ORDER_ONE || ORDER_THREE) moveScene = true ;   else moveScene = false ;
+    if(ORDER_TWO || ORDER_THREE) moveEye = true ;   else moveEye = false ;
+      
+    //update z position of the camera
+    sceneCamera.z -= wheel[0] ;
+      
+    // change camera position
+    if(enterTouch) travelling(posCamRef) ;
+    if (touch0) {
+      changeCameraPosition(0) ;
+    }
+  } else if (!cLongTouch || (ORDER_ONE && ORDER_ONE && ORDER_THREE) ) {
+    moveScene = false ;
+    moveEye = false ;
+  }  
+}
 
 
 //startCamera with speed setting
-void startCamera(boolean scene, boolean eye, boolean leapMotionDetected, PVector speed) {
+void startCamera() {
   pushMatrix() ;
-  // setting camera recording
-
-  // update the world position
-  /* We cannot use the method copy() of the PVector, because we must preserve the "Z" parameter of this PVector to move the Scene with the wheel */
-  sceneCamera.x = updatePosCamera(scene, leapMotionDetected, mouse[0]).x ;
-  sceneCamera.y = updatePosCamera(scene, leapMotionDetected, mouse[0]).y ;
-
-  eyeCamera = updateEyeCamera(eye, mouse[0]).copy() ;
-
-  // final setting of the camera
   camera(dirCamX, dirCamY, dirCamZ, centerCamX, centerCamY, centerCamZ, upX, upY, upZ) ;
-  // camera() ;
   beginCamera() ;
-
   // scene position
   translate(finalSceneCamera.x, finalSceneCamera.y, finalSceneCamera.z) ;
   // scene orientation direction
   /* eyeCamera, is not a good terminilogy because the real eye camera is not use here. Here we just move the world. */
   rotateX(finalEyeCamera.x) ;
   rotateY(finalEyeCamera.y) ;
-
+  /**  
+  // you find popMatrix() in the method stopCamera() ;
+  */
 }
-//end camera with speed setting
-///////////////////////////////
 
 
+// update the position of the scene (camera) and the orientation
+void updateCamera(boolean scene, boolean eye, boolean leapMotion) {
+    // update the world position
+  /* We cannot use the method copy() of the PVector, because we must preserve the "Z" parameter of this PVector to move the Scene with the wheel */
+  sceneCamera.x = updatePosCamera(scene, leapMotion, mouse[0]).x ;
+  sceneCamera.y = updatePosCamera(scene, leapMotion, mouse[0]).y ;
+  eyeCamera = updateEyeCamera(eye, mouse[0]).copy() ;
+}
 
 
-
-
-
-
-void updateCamera(PVector origin, PVector target, float speed) {
+// move camera to target
+void moveCamera(PVector origin, PVector target, float speed) {
   if(!moveScene) sceneCamera = (follow(origin, target, speed)) ;
   if(!moveEye && (gotoCameraPosition || gotoCameraEye)) eyeCamera = backEye()  ;
 }
 
+
+// CHANGE CAMERA POSITION
+void changeCameraPosition(int ID) {
+  eyeCamera = eyeCameraSetting[ID].copy() ;
+  sceneCamera = sceneCameraSetting[ID].copy() ;
+  gotoCameraPosition = false ;
+  gotoCameraEye = false ;
+}
 
 
 //stop
@@ -508,15 +530,8 @@ void stopCamera() {
 
 
 
-// CHANGE CAMERA POSITION
-void changeCameraPosition(int ID) {
-  eyeCamera = eyeCameraSetting[ID].copy() ;
-  sceneCamera = sceneCameraSetting[ID].copy() ;
-  gotoCameraPosition = false ;
-  gotoCameraEye = false ;
-}
-//END of change position of CAMERA
-//////////////////////////////////
+
+
 
 
 

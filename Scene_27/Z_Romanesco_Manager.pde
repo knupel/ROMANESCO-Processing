@@ -96,7 +96,9 @@ void updateSliderValue(int ID, int group) {
     //future slider ???
     if (fontSizeRaw[whichOne] != fontSizeTemp[whichOne] || !firstOpeningObj[ID]) fontSizeObj[ID] = fontSizeRaw[whichOne] ;
   }
-  /* make the obj has be never update in the future except by the moving slider */
+  /** 
+  make the obj has be never update in the future except by the moving slider 
+  */
   firstOpeningObj[ID] = true ; 
 
 }
@@ -258,14 +260,17 @@ class ObjectRomanescoManager {
     
     // create var for info object, need to be create here
     int numPlusOne = num + 1 ;
-    objectName = new String[numPlusOne] ;
-    objectInfo = new String[numPlusOne] ;
     objectID = new int[numPlusOne] ;
+    objectName = new String[numPlusOne] ;
+    objectAuthor = new String[numPlusOne] ;
+    objectVersion = new String[numPlusOne] ;
+    objectPack = new String[numPlusOne] ;
+    objectInfo = new String[numPlusOne] ;
     // init var
     for ( int i = 0 ; i<numPlusOne ; i++ ) {
       objectName [i] = "My name is Nobody" ;
       objectInfo [i] = "Sorry nobody write about me !" ;
-      objectID [i] = 117 ;
+      objectID [i] = 0 ;
     }
     
     
@@ -305,6 +310,7 @@ class ObjectRomanescoManager {
       rowIndexObject[i].setString("Slider", objR.romanescoSlider) ;
     }
     saveTable(indexObjects, pathObjects+"index_romanesco_objects.csv") ; 
+    NUM_OBJ = RomanescoList.size() ;
   }
   
   /*
@@ -316,8 +322,11 @@ class ObjectRomanescoManager {
       // catch the different parameter from object class Romanesco
     for (int i=0 ; i < RomanescoList.size() ; i++ ) {
       Romanesco objR = (Romanesco) RomanescoList.get(i) ;
-      objectName[objR.IDobj] = objR.romanescoName ;
       objectID[objR.IDobj] = objR.IDobj ;
+      objectName[objR.IDobj] = objR.romanescoName ;
+      objectAuthor[objR.IDobj] = objR.romanescoAuthor ;
+      objectVersion[objR.IDobj] = objR.romanescoVersion ;
+      objectPack[objR.IDobj] = objR.romanescoPack ;
     }
   }
     

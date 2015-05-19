@@ -450,7 +450,7 @@ void crossPoint3D(PVector pos, PVector size, color colorCross, float e ) {
 
 //curtain
 void curtain() {
-  if(eCurtain == 0) {
+  if(!onOffCurtain) {
     rectMode(CORNER) ;
     fill (0) ; 
     noStroke() ;

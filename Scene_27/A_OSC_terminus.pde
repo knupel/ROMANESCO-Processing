@@ -168,6 +168,30 @@ void oscEvent(OscMessage receive ) {
 void OSCDraw() {
   //GLOBAL
   if(valueButtonGlobal.length > 0 || valueButtonObj.length > 0 ) {
+  // sound option on/off
+  if(valueButtonGlobal[1] == 1 ) onOffBeat = true ; else onOffBeat = false ;
+  if(valueButtonGlobal[2] == 1 ) onOffKick = true ; else onOffKick = false ;
+  if(valueButtonGlobal[3] == 1 ) onOffSnare = true ; else onOffSnare = false ;
+  if(valueButtonGlobal[4] == 1 ) onOffHat = true ; else onOffHat = false ;
+  // backgound option on/off
+  if(valueButtonGlobal[6] == 1 ) onOffCurtain = true ; else onOffCurtain = false ;
+  if(valueButtonGlobal[7] == 1 ) onOffBackground = true ; else onOffBackground = false ;
+  // light on/off
+  if(valueButtonGlobal[8] == 1 ) onOffDirLightOne = true ; else onOffDirLightOne = false ;
+  if(valueButtonGlobal[9] == 1 ) onOffDirLightTwo = true ; else onOffDirLightTwo = false ;
+  if(valueButtonGlobal[10] == 1 ) onOffLightAmbient = true ; else onOffLightAmbient = false ;
+  // light move light on/off
+  if(valueButtonGlobal[11] == 1 ) onOffDirLightOneAction = true ; else onOffDirLightOneAction = false ;
+  if(valueButtonGlobal[12] == 1 ) onOffDirLightTwoAction = true ; else onOffDirLightTwoAction = false ;
+  if(valueButtonGlobal[13] == 1 ) onOffLightAmbientAction = true ; else onOffLightAmbientAction = false ;
+  
+  // list choice
+  choiceFont(whichFont) ;
+  whichFont = valueButtonGlobal[5] ;
+  whichShader = valueButtonGlobal[14] ;
+  whichImage[0] = valueButtonGlobal[15] ;
+  whichText[0] = valueButtonGlobal[16] ;
+    /*
     eBeat = valueButtonGlobal[1] ;
     eKick = valueButtonGlobal[2] ;
     eSnare = valueButtonGlobal[3] ;
@@ -188,6 +212,7 @@ void OSCDraw() {
     whichShader = valueButtonGlobal[14] ;
     whichImage [0] = valueButtonGlobal[15] ;
     whichText [0] = valueButtonGlobal[16] ;
+    */
   
     //OBJECT
     for ( int i = 0 ; i < numObj-1 ; i++) {
