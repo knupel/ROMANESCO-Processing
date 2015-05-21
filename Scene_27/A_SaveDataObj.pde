@@ -188,6 +188,7 @@ void loadDataObject(boolean authorization) {
 		colorBackground.g = dataWorld.getFloat("saturation background");
 		colorBackground.b = dataWorld.getFloat("brightness background") ;
 		colorBackground.a = dataWorld.getFloat("refresh background") ;
+		colorBackgroundRef = colorBackground.copy() ;
 
 		// color ambient light
 		colourAmbient.r = dataWorld.getFloat("hue ambient") ;

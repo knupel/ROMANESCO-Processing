@@ -72,6 +72,11 @@ boolean LEAPMOTION_DETECTED ;
 
 
 
+// SAVE
+boolean load_Scene_Setting, save_Current_Scene_Setting, save_New_Scene_Setting ;
+
+
+
 
 // HIGH VAR
 boolean modeP3D, modeP2D, modeOPENGL, modeClassic ;

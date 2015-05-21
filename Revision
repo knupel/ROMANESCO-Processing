@@ -2,15 +2,53 @@
 ROMANESCO 27 Revision
 
 /// CORE ///
+-----------
+
 /// ADD ///
+* SLIDER
+--------
 * slider attraction
 * slider repulsion
 * slider alignement
 * slider influence
 * option to change the minimum and maximum value for the slider
 
+
+* CAMERA
+--------
+* Global view of your Prescene. Now when you don't use the camera to move or rotate you've a global view of the world.
+* Add slider to set your camera.
+
+
+* LIGHT
+-------
+* add an ambient light
+
+
+** CLASS
+--------
 * class canvas
+* class Vec2, Vec3, Vec4, Vec5
+	    this class is close of PVector :
+	    you can add, mult, div, mag, dist, map like in PVector.
+	    
+	    you can also 
+	    > compare two Vec with equals method
+	    > find the middle of two Vec, with the middle method.
+
+	    > Vec is compatible with PVector.
+	    you can copy your PVector to Vec, create Vec directly from your PVector.
+
+
+** VOID
+-------
 * void camaieu
+
+
+
+** SAVE
+-------
+* Now you can save you Scene setting, not only you Controler setting. And it's very big step.
 
 
 /// REMOVE ///////
@@ -23,6 +61,7 @@ ROMANESCO 27 Revision
 * normalize slider quantity
 * grid camera
 * change the system name of pic object thumbnail from "number" to "class name", easier to add pic thumbnail when there is new object is library.
+* Best rending for the light, is not optimum but is better.
 
 
 /// BUG FIXE
@@ -30,7 +69,15 @@ ROMANESCO 27 Revision
 * fixe the loading bug
 
 
+/// END CORE ///
+---------------
+
+
+
+
+
 /// OBJECT ///
+--------------
 /// ADD OBJ ///
 * Boids
 
@@ -39,6 +86,9 @@ ROMANESCO 27 Revision
 
 
 /// BUG FIXE OBJ
+
+/// END OBJECT ///
+------------------
 
 
 

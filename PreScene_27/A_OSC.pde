@@ -29,28 +29,42 @@ void OSCSetup() {
 }
 
 
-int numOfPartSendByController = 6 ; 
-String fromControler [] = new String [numOfPartSendByController] ;
+
+
+
+
+
+// RECEIVE INFO from CONTROLLER
+////////////////////////////////
+int numOfPartSendByController = 7 ; 
+String fromController [] = new String [numOfPartSendByController] ;
 //EVENT to check what else is receive by the receiver
+
 void oscEvent(OscMessage receive) {
   //catch data from controller
-  for ( int i = 0 ; i < fromControler.length ; i++ ) {
-    fromControler [i] = receive.get(i).stringValue() ;
+  for ( int i = 0 ; i < fromController.length ; i++ ) {
+    fromController [i] = receive.get(i).stringValue() ;
   }
+
+
+
+  // BUTTON
   //Split data from the String Data
-  valueButtonGlobal = int(split(fromControler [0], '/')) ;
+  valueButtonGlobal = int(split(fromController [0], '/')) ;
   // stick the Int(String) chain from the group object "one" and "two" is single chain integer(String).
   String fullChainValueButtonObj =("") ;
   for ( int i = 1 ; i <= NUM_GROUP ; i++ ) {
-    fullChainValueButtonObj += fromControler [i]+"/" ;
+    fullChainValueButtonObj += fromController [i]+"/" ;
   }
   valueButtonObj = int(split(fullChainValueButtonObj, '/')) ;
   
+
+
   //SLIDER
-  //split String value from controler
+  //split String value from controller
   int numTotalGroup = NUM_GROUP +1 ;
   for ( int i = 0 ; i < numTotalGroup ; i++ ) {
-    valueSliderTemp [i] = split(fromControler [i +numTotalGroup], '/') ;
+    valueSliderTemp [i] = split(fromController [i +numTotalGroup], '/') ;
   }
   // translate the String value to the float var to use
   for ( int i = 0 ; i < NUM_GROUP +1 ; i++ ) {
@@ -61,10 +75,42 @@ void oscEvent(OscMessage receive) {
       valueSlider[i][j] = Float.valueOf(valueSliderTemp[i][j]) ;
     }
   }
+
+
+
+  // LOAD SAVE
+
+  /*
+  +1 for the global group
+  *2 because there is one group for the button and an other one for the slider
+  */
+  int whichOne = (NUM_GROUP +1) *2 ;
+  String [] booleanSave  ;
+
+  booleanSave = split(fromController[whichOne], '/') ;
+  // convert string to boolean
+  load_Scene_Setting = Boolean.valueOf(booleanSave[0]).booleanValue();
+  save_Current_Scene_Setting = Boolean.valueOf(booleanSave[1]).booleanValue();
+  save_New_Scene_Setting = Boolean.valueOf(booleanSave[2]).booleanValue();
+   
+  if(load_Scene_Setting)         println ("Prescene ", "load_Scene_Setting",         load_Scene_Setting) ;
+  if(save_Current_Scene_Setting) println ("Prescene ", "save_Current_Scene_Setting", save_Current_Scene_Setting) ;
+  if(save_New_Scene_Setting)     println ("Prescene ", "save_New_Scene_Setting",     save_New_Scene_Setting) ;
 }
 
 
-//
+
+
+
+
+
+
+
+
+
+
+
+// FROM PRESCENE to SCENE
 String dataPreScene [] = new String [74] ;
 
 
@@ -163,9 +209,9 @@ void OSCDraw() {
    
    
    ////////////// WEIRD /////////////////////////////////////////////////////////
-   fromControler[NUM_GROUP +1] = fromControler[NUM_GROUP +1] + "/" +dataPreScene[0] + "/" +dataPreScene[1] + "/" +dataPreScene[2] + "/" +dataPreScene[3] + "/" +dataPreScene[4] + "/" +dataPreScene[10] ;
+   fromController[NUM_GROUP +1] = fromController[NUM_GROUP +1] + "/" +dataPreScene[0] + "/" +dataPreScene[1] + "/" +dataPreScene[2] + "/" +dataPreScene[3] + "/" +dataPreScene[4] + "/" +dataPreScene[10] ;
    /** 
-   println("after ", fromControler[NUM_GROUP +1]) ;
+   println("after ", fromController[NUM_GROUP +1]) ;
      I don't understand this line  why we must  add this data dataPreScene[0], dataPreScene[1], dataPreScene[2], dataPreScene[3], dataPreScene[4], dataPreScene[10] here, this not real interesting dateindexObjects
      plus  we add all data at th end.
      see line : RomanescoScene.add(toScene);
@@ -190,10 +236,10 @@ void OSCDraw() {
   OscMessage RomanescoScene = new OscMessage("ROMANESCO Prescene");
   //add info to send
   String sizeDataLengthFromPrescene = ("") ;
-  for ( int i = 0 ; i < fromControler.length ; i++ ) {
-    if (fromControler[i] == null ) fromControler[i] = ("") ;
-    RomanescoScene.add(fromControler[i]);
-    sizeDataLengthFromPrescene += fromControler[i] ;
+  for ( int i = 0 ; i < fromController.length ; i++ ) {
+    if (fromController[i] == null ) fromController[i] = ("") ;
+    RomanescoScene.add(fromController[i]);
+    sizeDataLengthFromPrescene += fromController[i] ;
   }
   RomanescoScene.add(toScene);
   

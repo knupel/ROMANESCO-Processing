@@ -1,4 +1,4 @@
-// CLASS VEC 0.1.6
+// CLASS VEC 0.1.7
 //////////////////
 // inspireted by GLSL code and PVector
 
@@ -715,45 +715,65 @@ Vec3 copyPVectorToVec(PVector p) {
 
 // return a Vec value
 // Vec 5
+////////
 Vec5 Vec5(float a, float b, float c, float d, float e) {
   return new Vec5(a,b,c,d,e) ;
 }
+
 Vec5 Vec5(float v) {
   return new Vec5(v) ;
 }
+
 Vec5 Vec5() {
   return new Vec5(0.) ;
 }
 
 // Vec 4
+////////
 Vec4 Vec4(float x, float y, float z, float w) {
   return new Vec4(x,y,z,w) ;
 }
+
 Vec4 Vec4(float v) {
   return new Vec4(v) ;
 }
+
 Vec4 Vec4() {
   return new Vec4(0.) ;
 }
 
 // Vec 3
+////////
 Vec3 Vec3(float x, float y, float z) {
   return new Vec3(x,y,z) ;
 }
+
 Vec3 Vec3(float v) {
   return new Vec3(v) ;
 }
+
+Vec3 Vec3(PVector p) {
+  return new Vec3(p.x, p.y, p.z) ;
+}
+
 Vec3 Vec3() {
   return new Vec3(0.) ;
 }
 
 // Vec 2
-Vec2 Vec2(float x, float y) {
+////////
+Vec2 Vec2(float x, float y) { 
   return new Vec2(x,y) ;
 }
+
 Vec2 Vec2(float v) {
   return new Vec2(v) ;
 }
+
+Vec2 Vec2(PVector p) {
+  return new Vec2(p.x, p.y) ;
+}
+
 Vec2 Vec2() {
   return new Vec2(0.) ;
 }

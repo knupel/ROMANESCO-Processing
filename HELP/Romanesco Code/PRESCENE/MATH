@@ -18,24 +18,31 @@ Like PVector, but closer of GLSL method.
 is use to store float value than below
 
 Vec2()
-Vec2(value)
-Vec2(x,y) 
+Vec2(float value)
+Vec2(int value)
+Vec2(PVector p)
+Vec2(float x, float y) 
+Vec2(int x, int y) 
 you can catch : 
 x,y 
 s,t
 u,v
 
 Vec3()
-Vec3(value)
-Vec3(x,y,z) 
+Vec3(float value)
+Vec3(intvalue)
+Vec3(PVector p)
+Vec3(float x,float y, float z) 
+Vec3(int x,int y, int z) 
 you can catch : 
 x,y,z 
 r,g,b 
 s,t,p
 
 Vec4()
-Vec4(value)
-Vec4(x,y,z,w) 
+Vec4(float value)
+Vec4(float x,float y, float z, float w) 
+Vec4(int x, int y, int z, int w) 
 you can catch : 
 x,y,z,w 
 r,g,b,a 
@@ -43,7 +50,8 @@ s,t,p,q
 
 Vec5()
 Vec5(float value)
-Vec5(a,b,c,d,e)
+Vec5(float a,float b, float c, float d, float e)
+Vec5(int a, int b, int c, int d, int e)
 you can catch 
 a,b,c,d,e
 

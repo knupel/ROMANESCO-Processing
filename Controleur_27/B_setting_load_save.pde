@@ -8,7 +8,7 @@
 void loadSetup() {
   buildSaveTable() ;
   createInfoButtonAndSlider(sketchPath("")+"preferences/setting/defaultSetting.csv") ;
-  loadSave(sketchPath("")+"preferences/setting/defaultSetting.csv") ;
+  loadSaveController(sketchPath("")+"preferences/setting/defaultSetting.csv") ;
   
   //load text interface 
   // 0 is French
@@ -41,7 +41,7 @@ int numButton [] ;
 int numButtonTotalObjects ;
 int lastDropdown, numDropdown ;
 //BUTTON
-int valueButtonGlobal[], valueButtonObj[], valueButtonTex[], valueButtonTypo[]  ;
+int valueButtonGroup_0[], valueButtonGroup_1[], valueButtonGroup_2[] ; 
 Simple  BOmidi, BOcurtain,
         buttonBackground, 
         buttonLightAmbient, buttonLightAmbientAction,
@@ -135,9 +135,9 @@ void initVarButton() {
   numDropdown = numObj +1 ; // add one for the dropdownmenu
   lastDropdown = numDropdown -1 ;
   
-  valueButtonGlobal = new int[numButton[0]] ;
-  valueButtonObj = new int[numButton[1]] ;
-  valueButtonTex = new int[numButton[2]] ;
+  valueButtonGroup_0 = new int[numButton[0]] ;
+  valueButtonGroup_1 = new int[numButton[1]] ;
+  valueButtonGroup_2 = new int[numButton[2]] ;
   // Group one
   BOf = new Simple[numButton[1] +10] ;
   transparenceBordBOf =      new int[numButton[1] +10] ;
@@ -270,17 +270,29 @@ void createInfoButtonAndSlider(String path) {
 
 // SAVE
 ///////
+String savePathSetting = ("") ;
 void saveSetting(File selection) {
   // opens file chooser
-  String savePathSetting = selection.getAbsolutePath() ;
+  savePathSetting = selection.getAbsolutePath() ;
   
   if (selection != null) {
+    saveSetting(savePathSetting) ;
+    /*
     saveInfoSlider() ;
     midiButtonManager(true) ;
     saveTable(saveSetting, savePathSetting+".csv");
     saveSetting.clearRows() ;
+    */
   } 
 }
+
+void saveSetting(String path) {
+  saveInfoSlider() ;
+  midiButtonManager(true) ;
+  saveTable(saveSetting, path+".csv");
+  saveSetting.clearRows() ;
+}
+
 
 
 // SAVE SLIDERS
@@ -363,13 +375,13 @@ void buildSaveTable() {
 
 //LOAD
 //////
-void loadSetting(File selection) {
+void loadSettingController(File selection) {
   // opens file chooser
-  String loadPathSetting = selection.getAbsolutePath();
-  
+
+  String loadPathControllerSetting = selection.getAbsolutePath();
   if (selection != null) {
     loadSaveSetting = true ;
-    loadSave(loadPathSetting) ;
+    loadSaveController(loadPathControllerSetting) ;
     setSave = true ;
   } 
 }
@@ -383,7 +395,7 @@ void loadSetting(File selection) {
 
 
 // loadSave(path) read info from save file
-void loadSave(String path) {
+void loadSaveController(String path) {
   Table settingTable = loadTable(path, "header");
   // re-init the counter for the new loop
   int countButton = 0 ;

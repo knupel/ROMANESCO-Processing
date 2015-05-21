@@ -1,5 +1,6 @@
-/////////////
-//BACKGROUND
+
+// Z BACKGROUND
+//////////////////////////////////////////////////////////////////
 Vec4  colorBackground, colorBackgroundRef, colorBackgroundPrescene;
 
 

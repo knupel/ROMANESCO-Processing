@@ -85,41 +85,43 @@ void settingAllCameras (int numSettingCamera) {
 // MAIN
 // final direction and oriention with object ID
 void objectMove(boolean movePos, boolean moveDir, int ID) {
-  if(modeP3D) {
-    //UPDATE
-    //position
-    if (!movePos)  newObjRefPos = true ;
-    PVector newPos = updatePosObj(posObj[ID], ID, movePos) ;
-    posObjX[ID] = newPos.x ;
-    posObjY[ID] = newPos.y ;
-    posObjZ[ID] = newPos.z ;
-    //rotation
-    if (!moveDir) newObjRefDir = true ;
-      //speed rotation
-    float speed = 100.0 ; // 150 is medium speed rotation
-    speedDirectionOfObject = new PVector(speed /(float)width, speed /(float)height) ; 
-    dirObjX[ID] = updateDirObj(speedDirectionOfObject, ID, moveDir).x ; 
-    dirObjY[ID] = updateDirObj(speedDirectionOfObject, ID, moveDir).y ;
-    
-    //RESET
-    if(touch0) {
-      posObjX[ID] = posObjSetting [0][ID].x ;
-      posObjY[ID] = posObjSetting [0][ID].y ;
-      posObjZ[ID] = posObjSetting [0][ID].z ;
-      dirObjX[ID] = dirObjSetting [0][ID].x ;
-      dirObjY[ID] = dirObjSetting [0][ID].y ;
-    }
+  //UPDATE
+  //position
+  if (!movePos)  newObjRefPos = true ;
+  PVector newPos = updatePosObj(posObj[ID], ID, movePos) ;
+  posObjX[ID] = newPos.x ;
+  posObjY[ID] = newPos.y ;
+  posObjZ[ID] = newPos.z ;
+  //rotation
+  if (!moveDir) newObjRefDir = true ;
+    //speed rotation
+  float speed = 100.0 ; // 150 is medium speed rotation
+  speedDirectionOfObject = new PVector(speed /(float)width, speed /(float)height) ; 
+  dirObjX[ID] = updateDirObj(speedDirectionOfObject, ID, moveDir).x ; 
+  dirObjY[ID] = updateDirObj(speedDirectionOfObject, ID, moveDir).y ;
+  
+  //RESET
+  if(touch0) {
+    posObjX[ID] = posObjSetting [0][ID].x ;
+    posObjY[ID] = posObjSetting [0][ID].y ;
+    posObjZ[ID] = posObjSetting [0][ID].z ;
+    dirObjX[ID] = dirObjSetting [0][ID].x ;
+    dirObjY[ID] = dirObjSetting [0][ID].y ;
   }
   addRefObj(ID) ;
 }
 
 
-//ANNEXE
-//direction
+
+
+// UPDATE POSITION & DIRECTION obj
+//////////////////////////////////
+
+// update direction obj
+/////////////////////////////////////////////
 PVector  P3DdirectionMouseRef = new PVector() ;
 
 PVector updateDirObj(PVector speed, int ID, boolean authorization) {
-  
   if(authorization) {
     if(newObjRefDir) {
       dirObjRef = tempObjDir.copy() ;
@@ -129,9 +131,6 @@ PVector updateDirObj(PVector speed, int ID, boolean authorization) {
     newObjRefDir = false ;
     //create the delta between the ref and the mouse position
     deltaObjDir = PVector.sub(mouse[0], P3DdirectionMouseRef) ;
-    println(dirObjRef) ;
-    println(deltaObjDir) ;
-    println(tempObjDir) ;
     tempObjDir = PVector.add(deltaObjDir, dirObjRef) ;
     
     //rotation of the camera
@@ -141,9 +140,13 @@ PVector updateDirObj(PVector speed, int ID, boolean authorization) {
   }
   return dirObj[ID] ;
 }
+// end update direction obj
+////////////////////////////
 
-//position
-// float 
+
+
+// update position obj
+//////////////////////
 PVector P3DpositionMouseRef = new PVector() ;
 
 PVector updatePosObj(PVector pos, int ID, boolean authorization) {
@@ -174,14 +177,7 @@ PVector updatePosObj(PVector pos, int ID, boolean authorization) {
 
   // special op with the wheel value
   deltaObjPos.z *= -1. ;
-  
-  
-  
-  
-  
-  
-  
-  /*
+  /**
   // WORK AROUND CAMERA, to find the position of the camera when we Rotate the camera...
   // VERY HARD !!!!!
   // mag obg
@@ -233,17 +229,40 @@ PVector updatePosObj(PVector pos, int ID, boolean authorization) {
   ////////////////////////////
   */
 
-
-
-
-  
-
-
   PVector delta = deltaObjPos.copyVecToPVector() ;
   // final position
   pos = PVector.add(posObjRef[ID], delta) ;
   return pos ;
 }
+// end update position obj
+//////////////////////////
+
+
+
+
+// local method update position and direction
+///////////////////////////////////////////
+
+
+
+//go to the new position
+void P3DmoveObj(int ID) {
+  translate(posObjX[ID], posObjY[ID], posObjZ[ID]) ;
+  rotateX(radians(dirObjX[ID])) ;
+  rotateY(radians(dirObjY[ID])) ;
+}
+
+
+// END UPDATE POSITION & DIRECTION obj
+//////////////////////////////////////
+
+
+
+
+
+
+
+
 
 
 //Create ref position
@@ -254,15 +273,6 @@ void addRefObj(int ID) {
   }
 }
 
-//go to the new position
-void P3DmoveObj(int ID) {
-  translate(posObjX[ID], posObjY[ID], posObjZ[ID]) ;
-  rotateX(radians(dirObjX[ID])) ;
-  rotateY(radians(dirObjY[ID])) ;
-}
-
-
-//END OF P3D OBJECT ORIENTATION AND DIRECTION
 
 
 //starting position
@@ -286,8 +296,8 @@ void startPosition(int ID, int x, int y, int z) {
 // METHOD Variable update variable camera
 /////////////////////////////////////////
 float dirCamX,dirCamY,dirCamZ,
-        centerCamX,centerCamY,centerCamZ,
-        upX,upY,upZ ;
+      centerCamX,centerCamY,centerCamZ,
+      upX,upY,upZ ;
 float focal, deformation ;
 
 Vec3 finalSceneCamera ;
@@ -314,31 +324,29 @@ void initVariableCamera() {
 // MOVE CAMERA
 //////////////
 void cameraDraw() {
-  if(modeP3D) {
-    updateCamera(moveScene, moveEye, LEAPMOTION_DETECTED) ;
-    // set camera variable
-    /* look if the user is on the Prescene or not, and other stuff to display the good views */
-    setVariableCamera() ;
+  updateCamera(moveScene, moveEye, LEAPMOTION_DETECTED, cLongTouch) ;
+  // set camera variable
+  /* look if the user is on the Prescene or not, and other stuff to display the good views */
+  setVariableCamera(cLongTouch) ;
 
-    // deformation and focal of the lenz camera
-    paralaxe(focal, deformation) ;
-    
-    //camera order from the mouse or from the leap
-    controlCamera() ;
+  // deformation and focal of the lenz camera
+  paralaxe(focal, deformation) ;
+  
+  //camera order from the mouse or from the leap
+  controlCamera(cLongTouch) ;
 
-    /*
-        //void with speed setting
-    float speed = 150.0 ; // 150 is medium speed rotation
-    PVector speedRotation = new PVector(speed /(float)width, speed /(float)height) ; 
-    */
-    startCamera() ;
-    
-    //to change the scene position with a specific point
-    if(gotoCameraPosition || gotoCameraEye ) moveCamera(sceneCamera, targetPosCam, speedMoveOfCamera) ;
+  /*
+      //void with speed setting
+  float speed = 150.0 ; // 150 is medium speed rotation
+  PVector speedRotation = new PVector(speed /(float)width, speed /(float)height) ; 
+  */
+  startCamera() ;
+  
+  //to change the scene position with a specific point
+  if(gotoCameraPosition || gotoCameraEye ) moveCamera(sceneCamera, targetPosCam, speedMoveOfCamera) ;
 
-    //catch ref camera
-    catchCameraInfo() ;
-  }
+  //catch ref camera
+  catchCameraInfo() ;
 }
 //END CAMERA DRAW
 
@@ -362,16 +370,16 @@ void cameraDraw() {
 
 // Annexe method of the method cameraDraw()
 ///////////////////////////////////////////
-void setVariableCamera() {
+void setVariableCamera(boolean authorization) {
   // float focal = map(valueSlider[0][19],0,360,28,200) ;
 
   /* this method need to be on the Prescene sketch and on the window.
   1. boolean prescene : On prescene, because on Scene we don't need to have a global view : boolean prescene
   2. boolean MOUSE_IN_OUT : because if we mode out the sketch the keyevent is not updated, and the camera stay in camera view */
-  if(fullRendering || (cLongTouch && MOUSE_IN_OUT && prescene)) variableCameraFullrendering() ; else variableCameraPresceneRendering() ;
+  if(fullRendering || (cLongTouch && MOUSE_IN_OUT && prescene)) variableCameraFullrendering(authorization) ; else variableCameraPresceneRendering() ;
 }
 
-void variableCameraFullrendering() {
+void variableCameraFullrendering(boolean authorization) {
       // world rendering
     focal = map(valueSlider[0][19],0,360,28,200) ;
     deformation = map(valueSlider[0][20],0,360,-1,1) ;
@@ -387,14 +395,16 @@ void variableCameraFullrendering() {
     upX = map(valueSlider[0][27],0,360,-1,1) ;
     upY = 1 ; // not interesting
     upZ = 0 ; // not interesting
+
+
     // final camera position
+    if (checkMouseMove(authorization)) {
     finalSceneCamera = new Vec3 (sceneCamera.x +width/2, sceneCamera.y +height/2, sceneCamera.z) ;
   //scene position
     finalEyeCamera = new Vec2 (radians(eyeCamera.x), radians(eyeCamera.y) ) ;
-
-
-
+  }
 }
+
 
 void variableCameraPresceneRendering() {
       // default setting camera from Processing.org example, like the camera above
@@ -452,8 +462,8 @@ void catchCameraInfo() {
 
 
 //camera order from the mouse or from the leap
-void controlCamera() {
-  if(cLongTouch) {
+void controlCamera(boolean authorazation) {
+  if(authorazation) {
     if(ORDER_ONE || ORDER_THREE) moveScene = true ;   else moveScene = false ;
     if(ORDER_TWO || ORDER_THREE) moveEye = true ;   else moveEye = false ;
       
@@ -465,7 +475,7 @@ void controlCamera() {
     if (touch0) {
       changeCameraPosition(0) ;
     }
-  } else if (!cLongTouch || (ORDER_ONE && ORDER_ONE && ORDER_THREE) ) {
+  } else if (!authorazation || (ORDER_ONE && ORDER_ONE && ORDER_THREE) ) {
     moveScene = false ;
     moveEye = false ;
   }  
@@ -489,13 +499,19 @@ void startCamera() {
 }
 
 
+
+
+
 // update the position of the scene (camera) and the orientation
-void updateCamera(boolean scene, boolean eye, boolean leapMotion) {
+void updateCamera(boolean scene, boolean eye, boolean leapMotion, boolean authorization) {
+  if(authorization) {
     // update the world position
-  /* We cannot use the method copy() of the PVector, because we must preserve the "Z" parameter of this PVector to move the Scene with the wheel */
-  sceneCamera.x = updatePosCamera(scene, leapMotion, mouse[0]).x ;
-  sceneCamera.y = updatePosCamera(scene, leapMotion, mouse[0]).y ;
-  eyeCamera = updateEyeCamera(eye, mouse[0]).copy() ;
+
+    /* We cannot use the method copy() of the PVector, because we must preserve the "Z" parameter of this PVector to move the Scene with the wheel */
+    sceneCamera.x = updatePosCamera(scene, leapMotion, mouse[0]).x ;
+    sceneCamera.y = updatePosCamera(scene, leapMotion, mouse[0]).y ;
+    eyeCamera = updateEyeCamera(eye, mouse[0]).copy() ;
+  }
 }
 
 
@@ -517,11 +533,24 @@ void changeCameraPosition(int ID) {
 
 //stop
 void stopCamera() {
-  if(modeP3D) {
-    popMatrix() ;
-    endCamera() ;
-    stopParalaxe() ;
-  }
+  popMatrix() ;
+  endCamera() ;
+  stopParalaxe() ;
+}
+
+
+// check if the mouse move or not, it's use to update or not the position of the world.
+// we must use that to don't update the scene when we load the save scene setting
+Vec3 mouseCheckRef = Vec3() ;
+int wheelCheckRef = 0 ;
+
+boolean checkMouseMove( boolean authorization) {
+  boolean mouseMove ;
+  if( authorization &&    (!equals(mouseCheckRef, Vec3(mouse[0])) || wheelCheckRef != wheel[0])) mouseMove = true ; else mouseMove = false ;
+  // create ref
+  wheelCheckRef = wheel[0] ;
+  mouseCheckRef = Vec3(mouse[0]) ;
+  return mouseMove ;
 }
 
 

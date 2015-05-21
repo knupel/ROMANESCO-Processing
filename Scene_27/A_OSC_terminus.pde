@@ -5,13 +5,19 @@ void OSCSetup() {
 }
 
 //EVENT
-int numOfPartSendByPrescene = 7 ; 
+int numOfPartSendByPrescene = 8 ; 
 // this num is equal of the part from Controller plus One part of the prescene with information catch in Prescene : mouse, leap...
 String dataPreScene [] = new String[numOfPartSendByPrescene] ;
 
 
 
 
+
+
+
+
+
+// OSC RECEIVE
 // to check what else is receive by the receiver
 void oscEvent(OscMessage receive ) {
   
@@ -43,6 +49,29 @@ void oscEvent(OscMessage receive ) {
     valueSliderTemp [i] = split(dataPreScene[i+numGroupTotal], '/') ;
     
   }
+  
+  // LOAD SAVE ORDER
+    // LOAD SAVE
+
+  /*
+  +1 for the global group
+  *2 because there is one group for the button and an other one for the slider
+  */
+  int whichOne = (NUM_GROUP +1) *2 ;
+  String [] booleanSave  ;
+
+  booleanSave = split(dataPreScene[whichOne], '/') ;
+  // convert string to boolean
+  load_Scene_Setting = Boolean.valueOf(booleanSave[0]).booleanValue();
+  save_Current_Scene_Setting = Boolean.valueOf(booleanSave[1]).booleanValue();
+  save_New_Scene_Setting = Boolean.valueOf(booleanSave[2]).booleanValue();
+
+  if (load_Scene_Setting)         println("Scene ", "load_Scene_Setting", load_Scene_Setting) ;
+  if (save_Current_Scene_Setting) println("Scene ","save_Current_Scene_Setting", save_Current_Scene_Setting) ;
+  if (save_New_Scene_Setting)     println("Scene ","save_New_Scene_Setting",save_New_Scene_Setting) ;
+
+
+
   
   //PRESCENE
   /* split info, we catch here the lat port of OSC info */
