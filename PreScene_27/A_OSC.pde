@@ -1,6 +1,4 @@
 
-
-OscP5 osc;
 NetAddress targetScene, targetMiroir;
 //adress to scene information from the OSC sender
 String sendToScene = ("127.0.0.1") ;
@@ -9,22 +7,22 @@ String sendToMiroir = ("127.0.0.1") ;
 //message from controler
 
 //message from pré-Scène
-String toScene = ("Message from Préscène") ;
+String toScene = ("Message from Prescene to Scene") ;
 
-
+OscP5 osc;
 //SETUP
 void OSCSetup() {
   osc = new OscP5(this, 10000);
   
   //send to the Scène
-  if (youCanSendToScene) targetScene = new NetAddress(sendToScene,10001);
+  if (youCanSendToScene) targetScene = new NetAddress(sendToScene,9001);
   //send to the miroir
   if (!testRomanesco) {
     String [] addressIP = loadStrings(preferencesPath+"network/IP_local_miroir.txt") ;
     sendToMiroir = join(addressIP, "") ;
-    targetMiroir = new NetAddress(sendToMiroir,10002);
+    targetMiroir = new NetAddress(sendToMiroir,9002);
   } else if (testRomanesco && youCanSendToMiroir )  {
-    targetMiroir = new NetAddress(sendToMiroir,10002);
+    targetMiroir = new NetAddress(sendToMiroir,9002);
   }
 }
 
@@ -34,68 +32,19 @@ void OSCSetup() {
 
 
 
-// RECEIVE INFO from CONTROLLER
-////////////////////////////////
-int numOfPartSendByController = 7 ; 
-String fromController [] = new String [numOfPartSendByController] ;
-//EVENT to check what else is receive by the receiver
+
 
 void oscEvent(OscMessage receive) {
-  //catch data from controller
-  for ( int i = 0 ; i < fromController.length ; i++ ) {
-    fromController [i] = receive.get(i).stringValue() ;
+  if(receive.addrPattern().equals("Controller")) {
+    catchDataFromController(receive) ;
+    splitDataButton() ;
+    splitDataSlider() ;
+    splitDataLoadSave() ;
   }
-
-
-
-  // BUTTON
-  //Split data from the String Data
-  valueButtonGlobal = int(split(fromController [0], '/')) ;
-  // stick the Int(String) chain from the group object "one" and "two" is single chain integer(String).
-  String fullChainValueButtonObj =("") ;
-  for ( int i = 1 ; i <= NUM_GROUP ; i++ ) {
-    fullChainValueButtonObj += fromController [i]+"/" ;
-  }
-  valueButtonObj = int(split(fullChainValueButtonObj, '/')) ;
-  
-
-
-  //SLIDER
-  //split String value from controller
-  int numTotalGroup = NUM_GROUP +1 ;
-  for ( int i = 0 ; i < numTotalGroup ; i++ ) {
-    valueSliderTemp [i] = split(fromController [i +numTotalGroup], '/') ;
-  }
-  // translate the String value to the float var to use
-  for ( int i = 0 ; i < NUM_GROUP +1 ; i++ ) {
-    // security because there not same quantity of slider in the group MISC "zero" and OBJECT group "one and two".
-    int n = 0 ;
-    if ( i < 1 ) n = NUM_SLIDER_MISC ; else n = NUM_SLIDER_OBJ ;
-    for (int j = 0 ; j < n ; j++) {
-      valueSlider[i][j] = Float.valueOf(valueSliderTemp[i][j]) ;
-    }
-  }
-
-
-
-  // LOAD SAVE
-
-  /*
-  +1 for the global group
-  *2 because there is one group for the button and an other one for the slider
+  /**
+  // may be is not a good place for that
   */
-  int whichOne = (NUM_GROUP +1) *2 ;
-  String [] booleanSave  ;
-
-  booleanSave = split(fromController[whichOne], '/') ;
-  // convert string to boolean
-  load_Scene_Setting = Boolean.valueOf(booleanSave[0]).booleanValue();
-  save_Current_Scene_Setting = Boolean.valueOf(booleanSave[1]).booleanValue();
-  save_New_Scene_Setting = Boolean.valueOf(booleanSave[2]).booleanValue();
-   
-  if(load_Scene_Setting)         println ("Prescene ", "load_Scene_Setting",         load_Scene_Setting) ;
-  if(save_Current_Scene_Setting) println ("Prescene ", "save_Current_Scene_Setting", save_Current_Scene_Setting) ;
-  if(save_New_Scene_Setting)     println ("Prescene ", "save_New_Scene_Setting",     save_New_Scene_Setting) ;
+  translateDataFromController () ;
 }
 
 
@@ -110,12 +59,109 @@ void oscEvent(OscMessage receive) {
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// OSC DRAW
+////////////
+void OSCDraw() {
+   encapsuleDataPrescene() ;
+    /**  
+   
+   
+   ////////////// WEIRD /////////////////////////////////////////////////////////
+   fromController[NUM_GROUP +1] = fromController[NUM_GROUP +1] + "/" +dataPreScene[0] + "/" +dataPreScene[1] + "/" +dataPreScene[2] + "/" +dataPreScene[3] + "/" +dataPreScene[4] + "/" +dataPreScene[10] ;
+ 
+   println("after ", fromController[NUM_GROUP +1]) ;
+     I don't understand this line  why we must  add this data dataPreScene[0], dataPreScene[1], dataPreScene[2], dataPreScene[3], dataPreScene[4], dataPreScene[10] here, this not real interesting dateindexObjects
+     plus  we add all data at th end.
+     see line : RomanescoScene.add(toScene);
+   In the test just dataPreScene[0] change the value between 1 and 0
+   
+   But if we don't add this line below the Scene crash
+   in the method OSCdraw() {
+    ...
+    eBeat = valueButtonGlobal[1]
+    ... }
+    with this error message
+    nullpointer : Arrayover flows...
+    method in charge OSCevent
+*/
+
+    //SEND data to SCENE
+  OscMessage RomanescoScene = new OscMessage("Prescene");
+  /**
+  //add info to send
+  String sizeDataLengthFromPrescene = ("") ;
+  for ( int i = 0 ; i < fromController.length ; i++ ) {
+    if (fromController[i] == null ) fromController[i] = ("") ;
+    RomanescoScene.add(fromController[i]);
+    sizeDataLengthFromPrescene += fromController[i] ;
+  }
+
+
+     */
+  RomanescoScene.add(toScene);
+  
+  
+
+  //send
+  if (youCanSendToScene)osc.send(RomanescoScene, targetScene); 
+  if (youCanSendToMiroir) osc.send(RomanescoScene, targetMiroir);
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// ANNEXE VOID of OSC DRAW
+//////////////////////////
 // FROM PRESCENE to SCENE
 String dataPreScene [] = new String [74] ;
 
-
-void OSCDraw() {
-   //CATCH data from preScene to Scene
+void encapsuleDataPrescene(){
+  //CATCH data from preScene to Scene
    if (spaceTouch) dataPreScene [0] = ("1") ; else dataPreScene [0] =("0") ;
    if (aTouch)     dataPreScene [1] = ("1") ; else dataPreScene [1] = ("0") ;
    if (bTouch)     dataPreScene [2] = ("1") ; else dataPreScene [2] = ("0") ;
@@ -205,85 +251,15 @@ void OSCDraw() {
 
    
    toScene = join(dataPreScene, "/") ;
-   
-   
-   
-   ////////////// WEIRD /////////////////////////////////////////////////////////
-   fromController[NUM_GROUP +1] = fromController[NUM_GROUP +1] + "/" +dataPreScene[0] + "/" +dataPreScene[1] + "/" +dataPreScene[2] + "/" +dataPreScene[3] + "/" +dataPreScene[4] + "/" +dataPreScene[10] ;
-   /** 
-   println("after ", fromController[NUM_GROUP +1]) ;
-     I don't understand this line  why we must  add this data dataPreScene[0], dataPreScene[1], dataPreScene[2], dataPreScene[3], dataPreScene[4], dataPreScene[10] here, this not real interesting dateindexObjects
-     plus  we add all data at th end.
-     see line : RomanescoScene.add(toScene);
-   In the test just dataPreScene[0] change the value between 1 and 0
-   
-   But if we don't add ths line below the Scene crash
-   in the method OSCdraw() {
-    ...
-    eBeat = valueButtonGlobal[1]
-    ... }
-    with this error message
-    nullpointer : Arrayover flows...
-    method in charge OSCevent
-    javalangreflect.Invokation target Exception
 
-   */
-  
-  
-  
-  
-  //SEND data to SCENE
-  OscMessage RomanescoScene = new OscMessage("ROMANESCO Prescene");
-  //add info to send
-  String sizeDataLengthFromPrescene = ("") ;
-  for ( int i = 0 ; i < fromController.length ; i++ ) {
-    if (fromController[i] == null ) fromController[i] = ("") ;
-    RomanescoScene.add(fromController[i]);
-    sizeDataLengthFromPrescene += fromController[i] ;
-  }
-  RomanescoScene.add(toScene);
-  
-  
-
-  //send
-  if (youCanSendToScene)osc.send(RomanescoScene, targetScene); 
-  if (youCanSendToMiroir) osc.send(RomanescoScene, targetMiroir);
-  
-  //TRANSFORM info from controler to use in the preScene
-  // sound option on/off
-  if(valueButtonGlobal[1] == 1 ) onOffBeat = true ; else onOffBeat = false ;
-  if(valueButtonGlobal[2] == 1 ) onOffKick = true ; else onOffKick = false ;
-  if(valueButtonGlobal[3] == 1 ) onOffSnare = true ; else onOffSnare = false ;
-  if(valueButtonGlobal[4] == 1 ) onOffHat = true ; else onOffHat = false ;
-  // backgound option on/off
-  if(valueButtonGlobal[6] == 1 ) onOffCurtain = true ; else onOffCurtain = false ;
-  if(valueButtonGlobal[7] == 1 ) onOffBackground = true ; else onOffBackground = false ;
-  // light on/off
-  if(valueButtonGlobal[8] == 1 ) onOffDirLightOne = true ; else onOffDirLightOne = false ;
-  if(valueButtonGlobal[9] == 1 ) onOffDirLightTwo = true ; else onOffDirLightTwo = false ;
-  if(valueButtonGlobal[10] == 1 ) onOffLightAmbient = true ; else onOffLightAmbient = false ;
-  // light move light on/off
-  if(valueButtonGlobal[11] == 1 ) onOffDirLightOneAction = true ; else onOffDirLightOneAction = false ;
-  if(valueButtonGlobal[12] == 1 ) onOffDirLightTwoAction = true ; else onOffDirLightTwoAction = false ;
-  if(valueButtonGlobal[13] == 1 ) onOffLightAmbientAction = true ; else onOffLightAmbientAction = false ;
-  
-  // list choice
-   whichShader = valueButtonGlobal[14] ;
-  choiceFont(valueButtonGlobal[5]) ;
-  whichImage[0] = valueButtonGlobal[15] ;
-  whichText[0] = valueButtonGlobal[16] ;
-  
-  //OBJECTS
-  for ( int i = 0 ; i < numObj-1 ; i++) {
-    int iPlusOne = i+1 ;
-    objectButton   [iPlusOne] = valueButtonObj[i *10 +1] ;
-    parameterButton[iPlusOne] = valueButtonObj[i *10 +2] ;
-    soundButton    [iPlusOne] = valueButtonObj[i *10 +3] ;
-    actionButton   [iPlusOne] = valueButtonObj[i *10 +4] ;
-    mode     [iPlusOne] = valueButtonObj[i *10 +9] ;
-    if (objectButton[iPlusOne] == 1 ) object[iPlusOne] = true ; else object[iPlusOne] = false ;
-    if (parameterButton[iPlusOne] == 1 ) parameter[iPlusOne] = true ; else parameter[iPlusOne] = false ;
-    if (soundButton[iPlusOne] == 1 ) sound[iPlusOne] = true ; else sound[iPlusOne] = false ;
-    if (actionButton[iPlusOne] == 1 ) action[iPlusOne] = true ; else action[iPlusOne] = false ;
-  }
 }
+
+
+
+
+
+
+
+
+
+

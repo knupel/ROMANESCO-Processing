@@ -40,7 +40,7 @@ void draw() {
   initDraw() ;
   miroirDraw() ;
   // soundDraw() ;
-  OSCDraw() ;
+  // OSCDraw() ;
   meteoDraw() ;
   updateVarRaw() ;
   backgroundRomanesco() ; 

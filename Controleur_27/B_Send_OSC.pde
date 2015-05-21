@@ -2,24 +2,26 @@
 import oscP5.*;
 import netP5.*;
 
-OscP5 osc;
-NetAddress target ;
+
 // local
 String IPadress = ("127.0.0.1") ;
 // Message to Prescene
 String toPreScene [] = new String [7] ;
 
 
-
+OscP5 osc_1, osc_2;
+NetAddress target_1, target_2 ;
 void sendOSCsetup() {
- osc = new OscP5(this, 10000);
- target = new NetAddress(IPadress,10000);
+ osc_1 = new OscP5(this, 10000);
+ osc_2 = new OscP5(this, 9000);
+ target_1 = new NetAddress(IPadress,10000);
+ target_2 = new NetAddress(IPadress,9000);
 
 
 }
 
 void sendOSCdraw() {
-  OscMessage RomanescoControleur = new OscMessage("ROMANESCO contrôleur");
+  OscMessage RomanescoControleur = new OscMessage("Controller");
   
   //int value join in String 
   translateDataToSend() ;
@@ -62,7 +64,8 @@ void sendOSCdraw() {
     RomanescoControleur.add(toPreScene[i]);
   }
   //send
-  osc.send(RomanescoControleur, target) ; 
+  osc_1.send(RomanescoControleur, target_1) ; 
+  osc_2.send(RomanescoControleur, target_2) ; 
 }
 
 

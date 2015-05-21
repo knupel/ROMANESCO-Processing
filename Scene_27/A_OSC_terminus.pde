@@ -1,81 +1,47 @@
-OscP5 osc;
+
+
+OscP5 osc_1, osc_2;
 //SETUP
 void OSCSetup() {
-   if(syphon) osc = new OscP5(this, 10002); else osc = new OscP5(this, 10001);
+  osc_1 = new OscP5(this, 9000);
+  if(syphon) osc_2 = new OscP5(this, 9002); else osc_2 = new OscP5(this, 9001);
+
 }
 
-//EVENT
-int numOfPartSendByPrescene = 8 ; 
-// this num is equal of the part from Controller plus One part of the prescene with information catch in Prescene : mouse, leap...
-String dataPreScene [] = new String[numOfPartSendByPrescene] ;
-
-
-
-
-
-
-
-
-
-// OSC RECEIVE
-// to check what else is receive by the receiver
-void oscEvent(OscMessage receive ) {
-  
-  
-  // split all info from Prescene
-  String sizeInfoReception = ("") ;
-  for (int i = 0 ; i < dataPreScene.length ; i++ ) {
-    dataPreScene [i] = receive.get(i).stringValue() ;
-    sizeInfoReception += dataPreScene [i] ;
-    
+void oscEvent(OscMessage receive) {
+  if(receive.addrPattern().equals("Controller")) {
+    catchDataFromController(receive) ;
+    //
+    splitDataButton() ;
+    splitDataSlider() ;
+    splitDataLoadSave() ;
   }
-  
-    
-  // Catch the particular info 
-  //BUTTON
-  /* split String value from controler */
-  valueButtonGlobal = int(split(dataPreScene[0], '/')) ;
-  // stick the Int(String) chain from the group one, two and three is single chain integer(String).
-  String fullChainValueButtonObj =("") ;
-  for ( int i = 1 ; i <= NUM_GROUP ; i++ ) {
-    fullChainValueButtonObj += dataPreScene[i]+"/" ;
+  if(receive.addrPattern().equals("Prescene")) {
+    catchDataFromPrescene(receive) ;
+    //
+    splitDataFromPrescene() ;
   }
-  valueButtonObj = int(split(fullChainValueButtonObj, '/')) ;
-  
-  //SLIDER
-  /* split String value from controler */
-  int numGroupTotal = NUM_GROUP+1 ;
-  for ( int i = 0 ; i < numGroupTotal ; i++ ) {
-    valueSliderTemp [i] = split(dataPreScene[i+numGroupTotal], '/') ;
-    
-  }
-  
-  // LOAD SAVE ORDER
-    // LOAD SAVE
-
-  /*
-  +1 for the global group
-  *2 because there is one group for the button and an other one for the slider
+  /**
+  // may be is not a good place for that
   */
-  int whichOne = (NUM_GROUP +1) *2 ;
-  String [] booleanSave  ;
-
-  booleanSave = split(dataPreScene[whichOne], '/') ;
-  // convert string to boolean
-  load_Scene_Setting = Boolean.valueOf(booleanSave[0]).booleanValue();
-  save_Current_Scene_Setting = Boolean.valueOf(booleanSave[1]).booleanValue();
-  save_New_Scene_Setting = Boolean.valueOf(booleanSave[2]).booleanValue();
-
-  if (load_Scene_Setting)         println("Scene ", "load_Scene_Setting", load_Scene_Setting) ;
-  if (save_Current_Scene_Setting) println("Scene ","save_Current_Scene_Setting", save_Current_Scene_Setting) ;
-  if (save_New_Scene_Setting)     println("Scene ","save_New_Scene_Setting",save_New_Scene_Setting) ;
+  translateDataFromController () ;
+  translateDataFromPrescene() ;
+}
 
 
 
-  
-  //PRESCENE
-  /* split info, we catch here the lat port of OSC info */
-  valueTempPreScene = split(dataPreScene[numOfPartSendByPrescene -1], '/') ;
+
+
+String dataPrescene = ("") ;
+
+void catchDataFromPrescene(OscMessage receive) {
+  dataPrescene = receive.get(0).stringValue() ;
+}
+
+
+
+void splitDataFromPrescene() {
+  valueTempPreScene = split(dataPrescene, '/') ;
   // translate the String value to the float var to use
   for ( int i = 0 ; i < NUM_GROUP+1 ; i++ ) {
     // security because there not same quantity of slider in the group one and the other group
@@ -85,11 +51,15 @@ void oscEvent(OscMessage receive ) {
       valueSlider[i][j] = Float.valueOf(valueSliderTemp[i][j]) ;
     }
   }
-  
+}
 
 
-  
-  // Info distribution
+
+
+
+
+void translateDataFromPrescene() {
+    // Info distribution
   if(valueTempPreScene[0].equals("0") ) spaceTouch = false ; else spaceTouch = true ;  
   
   if(valueTempPreScene[1].equals("0") ) aTouch = false ; else aTouch = true ;
@@ -189,73 +159,4 @@ void oscEvent(OscMessage receive ) {
   if(valueTempPreScene[71].equals("0")) ORDER_TWO = false ; else ORDER_TWO = true ;
   if(valueTempPreScene[72].equals("0")) ORDER_THREE = false ; else ORDER_THREE = true ;
   if(valueTempPreScene[73].equals("0")) LEAPMOTION_DETECTED = false ; else LEAPMOTION_DETECTED = true ;
-
-}
-
-
-//DRAW
-void OSCDraw() {
-  //GLOBAL
-  if(valueButtonGlobal.length > 0 || valueButtonObj.length > 0 ) {
-  // sound option on/off
-  if(valueButtonGlobal[1] == 1 ) onOffBeat = true ; else onOffBeat = false ;
-  if(valueButtonGlobal[2] == 1 ) onOffKick = true ; else onOffKick = false ;
-  if(valueButtonGlobal[3] == 1 ) onOffSnare = true ; else onOffSnare = false ;
-  if(valueButtonGlobal[4] == 1 ) onOffHat = true ; else onOffHat = false ;
-  // backgound option on/off
-  if(valueButtonGlobal[6] == 1 ) onOffCurtain = true ; else onOffCurtain = false ;
-  if(valueButtonGlobal[7] == 1 ) onOffBackground = true ; else onOffBackground = false ;
-  // light on/off
-  if(valueButtonGlobal[8] == 1 ) onOffDirLightOne = true ; else onOffDirLightOne = false ;
-  if(valueButtonGlobal[9] == 1 ) onOffDirLightTwo = true ; else onOffDirLightTwo = false ;
-  if(valueButtonGlobal[10] == 1 ) onOffLightAmbient = true ; else onOffLightAmbient = false ;
-  // light move light on/off
-  if(valueButtonGlobal[11] == 1 ) onOffDirLightOneAction = true ; else onOffDirLightOneAction = false ;
-  if(valueButtonGlobal[12] == 1 ) onOffDirLightTwoAction = true ; else onOffDirLightTwoAction = false ;
-  if(valueButtonGlobal[13] == 1 ) onOffLightAmbientAction = true ; else onOffLightAmbientAction = false ;
-  
-  // list choice
-  choiceFont(whichFont) ;
-  whichFont = valueButtonGlobal[5] ;
-  whichShader = valueButtonGlobal[14] ;
-  whichImage[0] = valueButtonGlobal[15] ;
-  whichText[0] = valueButtonGlobal[16] ;
-    /*
-    eBeat = valueButtonGlobal[1] ;
-    eKick = valueButtonGlobal[2] ;
-    eSnare = valueButtonGlobal[3] ;
-    eHat = valueButtonGlobal[4] ;
-    
-    whichFont(valueButtonGlobal[5]) ;
-    eCurtain = valueButtonGlobal[6] ;
-    
-    eBackground = valueButtonGlobal[7] ;
-    
-    eLightOne = valueButtonGlobal[8] ;
-    eLightTwo = valueButtonGlobal[9] ;
-    eLightAmbient = valueButtonGlobal[10] ;
-    eLightOneAction = valueButtonGlobal[11] ;
-    eLightTwoAction = valueButtonGlobal[12] ;
-    eLightAmbientAction = valueButtonGlobal[13] ;
-    
-    whichShader = valueButtonGlobal[14] ;
-    whichImage [0] = valueButtonGlobal[15] ;
-    whichText [0] = valueButtonGlobal[16] ;
-    */
-  
-    //OBJECT
-    for ( int i = 0 ; i < numObj-1 ; i++) {
-      int iPlusOne = i+1 ;
-      objectButton   [i +1] = valueButtonObj[i *10 +1] ;
-      parameterButton[i +1] = valueButtonObj[i *10 +2] ;
-      soundButton    [i +1] = valueButtonObj[i *10 +3] ;
-      actionButton   [i +1] = valueButtonObj[i *10 +4] ;
-      mode           [i +1] = valueButtonObj[i *10 +9] ;
-      //create the boolean
-      if (objectButton[iPlusOne] == 1 ) object[iPlusOne] = true ; else object[iPlusOne] = false ;
-      if (parameterButton[iPlusOne] == 1 ) parameter[iPlusOne] = true ; else parameter[iPlusOne] = false ;
-      if (soundButton[iPlusOne] == 1 ) sound[iPlusOne] = true ; else sound[iPlusOne] = false ;
-      if (actionButton[iPlusOne] == 1 ) action[iPlusOne] = true ; else action[iPlusOne] = false ;
-    }
-  }
 }
