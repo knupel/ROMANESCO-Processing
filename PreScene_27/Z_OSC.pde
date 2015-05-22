@@ -67,10 +67,11 @@ void splitDataLoadSave() {
   load_Scene_Setting = Boolean.valueOf(booleanSave[0]).booleanValue();
   save_Current_Scene_Setting = Boolean.valueOf(booleanSave[1]).booleanValue();
   save_New_Scene_Setting = Boolean.valueOf(booleanSave[2]).booleanValue();
-   
-  if(load_Scene_Setting)         println ("Prescene ", "load_Scene_Setting",         load_Scene_Setting) ;
-  if(save_Current_Scene_Setting) println ("Prescene ", "save_Current_Scene_Setting", save_Current_Scene_Setting) ;
-  if(save_New_Scene_Setting)     println ("Prescene ", "save_New_Scene_Setting",     save_New_Scene_Setting) ;
+   /*
+  if(load_Scene_Setting)         println (IAM, "load_Scene_Setting",         load_Scene_Setting) ;
+  if(save_Current_Scene_Setting) println (IAM, "save_Current_Scene_Setting", save_Current_Scene_Setting) ;
+  if(save_New_Scene_Setting)     println (IAM, "save_New_Scene_Setting",     save_New_Scene_Setting) ;
+  */
 }
 
 

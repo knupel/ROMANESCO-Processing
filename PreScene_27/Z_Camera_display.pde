@@ -462,8 +462,8 @@ void catchCameraInfo() {
 
 
 //camera order from the mouse or from the leap
-void controlCamera(boolean authorazation) {
-  if(authorazation) {
+void controlCamera(boolean authorization) {
+  if(authorization) {
     if(ORDER_ONE || ORDER_THREE) moveScene = true ;   else moveScene = false ;
     if(ORDER_TWO || ORDER_THREE) moveEye = true ;   else moveEye = false ;
       
@@ -475,7 +475,7 @@ void controlCamera(boolean authorazation) {
     if (touch0) {
       changeCameraPosition(0) ;
     }
-  } else if (!authorazation || (ORDER_ONE && ORDER_ONE && ORDER_THREE) ) {
+  } else if (!authorization || (ORDER_ONE && ORDER_ONE && ORDER_THREE) ) {
     moveScene = false ;
     moveEye = false ;
   }  

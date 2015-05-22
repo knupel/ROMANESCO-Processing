@@ -52,7 +52,7 @@ void splitDataSlider() {
 
 
 // split data boolean to give load or save order
-void splitDataLoadSave() {
+void splitDataLoadSaveController() {
     // LOAD SAVE
 
   /*
@@ -64,13 +64,9 @@ void splitDataLoadSave() {
 
   booleanSave = split(fromController[whichOne], '/') ;
   // convert string to boolean
-  load_Scene_Setting = Boolean.valueOf(booleanSave[0]).booleanValue();
-  save_Current_Scene_Setting = Boolean.valueOf(booleanSave[1]).booleanValue();
-  save_New_Scene_Setting = Boolean.valueOf(booleanSave[2]).booleanValue();
-   
-  if(load_Scene_Setting)         println ("Prescene ", "load_Scene_Setting",         load_Scene_Setting) ;
-  if(save_Current_Scene_Setting) println ("Prescene ", "save_Current_Scene_Setting", save_Current_Scene_Setting) ;
-  if(save_New_Scene_Setting)     println ("Prescene ", "save_New_Scene_Setting",     save_New_Scene_Setting) ;
+  load_SCENE_Setting_from_controller = Boolean.valueOf(booleanSave[0]).booleanValue();
+  save_Current_SCENE_Setting_from_controller = Boolean.valueOf(booleanSave[1]).booleanValue();
+  save_New_SCENE_Setting_from_controller = Boolean.valueOf(booleanSave[2]).booleanValue();
 }
 
 

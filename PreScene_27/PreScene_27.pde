@@ -4,6 +4,7 @@
 //////////////////////////////////////////////////////////////////
 /* 14.500 lines of code the 4th may 2015 !!!! */
 String version = ("27") ;
+String IAM = ("Prescene") ;
 String prettyVersion = ("1.0.2") ;
 String nameVersion = ("Romanesco Unu") ;
 String preferencesPath = sketchPath("")+"preferences/" ;
@@ -45,6 +46,7 @@ void draw() {
   backgroundRomanesco() ;
   updateCommand() ;
   leapMotionUpdate() ;
+  loadPrescene() ;
   
   //ROMANESCO
   cameraDraw() ;
@@ -119,13 +121,10 @@ void mouseWheel(MouseEvent event) {
 /////KEY/////
 //KEYPRESSED
 void keyPressed () {
+  shortCutsPrescene() ;
   nextPreviousKeypressed() ;
   keyboardTrue() ;
-  //save
-  if (key == 's') selectOutput("Enregistrez le PDF et le PNG ", "saveImg") ;
-  // info common command with Scene
-  if (key == 'i') displayInfo = !displayInfo ;
-  if (key == 'g') displayInfo3D = !displayInfo3D ;
+
 }
 //END KEYPRESSED
 
@@ -134,5 +133,6 @@ void keyPressed () {
 void keyReleased() {
   //special touch need to be long
   keyboardLongFalse() ;
+  keyboard[keyCode] = false ;
 }
 //END KEYRELEASED

@@ -1,4 +1,6 @@
 
+// Prescene A-OSC
+/////////////////////////////////////
 NetAddress targetScene, targetMiroir;
 //adress to scene information from the OSC sender
 String sendToScene = ("127.0.0.1") ;
@@ -28,12 +30,6 @@ void OSCSetup() {
 
 
 
-
-
-
-
-
-
 void oscEvent(OscMessage receive) {
   if(receive.addrPattern().equals("Controller")) {
     catchDataFromController(receive) ;
@@ -59,70 +55,29 @@ void oscEvent(OscMessage receive) {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // OSC DRAW
 ////////////
 void OSCDraw() {
+  OscMessage RomanescoScene = new OscMessage("Prescene");
+  // Prepare the packets
    encapsuleDataPrescene() ;
-    /**  
-   
-   
-   ////////////// WEIRD /////////////////////////////////////////////////////////
-   fromController[NUM_GROUP +1] = fromController[NUM_GROUP +1] + "/" +dataPreScene[0] + "/" +dataPreScene[1] + "/" +dataPreScene[2] + "/" +dataPreScene[3] + "/" +dataPreScene[4] + "/" +dataPreScene[10] ;
- 
-   println("after ", fromController[NUM_GROUP +1]) ;
-     I don't understand this line  why we must  add this data dataPreScene[0], dataPreScene[1], dataPreScene[2], dataPreScene[3], dataPreScene[4], dataPreScene[10] here, this not real interesting dateindexObjects
-     plus  we add all data at th end.
-     see line : RomanescoScene.add(toScene);
-   In the test just dataPreScene[0] change the value between 1 and 0
-   
-   But if we don't add this line below the Scene crash
-   in the method OSCdraw() {
-    ...
-    eBeat = valueButtonGlobal[1]
-    ... }
-    with this error message
-    nullpointer : Arrayover flows...
-    method in charge OSCevent
-*/
+   booleanLoadSaveScene() ;
+
+
 
     //SEND data to SCENE
-  OscMessage RomanescoScene = new OscMessage("Prescene");
-  /**
-  //add info to send
-  String sizeDataLengthFromPrescene = ("") ;
-  for ( int i = 0 ; i < fromController.length ; i++ ) {
-    if (fromController[i] == null ) fromController[i] = ("") ;
-    RomanescoScene.add(fromController[i]);
-    sizeDataLengthFromPrescene += fromController[i] ;
-  }
+  
 
-
-     */
   RomanescoScene.add(toScene);
+  // send the load path to the scene to also open the save setting in the scene with only one opening window input
+  RomanescoScene.add(path_to_load_scene_setting) ;
+  // reset the path for the next send, because the Scene check this path, to know if this one is not null,
+  // and if this one is not null, the Scene load data.
+  path_to_load_scene_setting = ("") ;
+
+  RomanescoScene.add(booleanLoadSave) ;
+
+
   
   
 
@@ -135,28 +90,34 @@ void OSCDraw() {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // ANNEXE VOID of OSC DRAW
 //////////////////////////
+String booleanLoadSave = ("") ;
+
+void booleanLoadSaveScene() {
+       // LOAD SAVE SCENE ORDER
+  boolean load, save_current, save_new ;
+  if (load_Scene_Setting          || load_Scene_Setting_local)          load = true ;         else load = false ;
+  if (save_Current_Scene_Setting  || save_Current_Scene_Setting_local)  save_current = true ; else save_current = false ;
+  if (save_New_Scene_Setting      || save_New_Scene_Setting_local)      save_new = true ;     else save_new = false ;
+
+  String load_string = String.valueOf(load) ;
+  String  saveCurrent_string = String.valueOf(save_current) ;
+  String  saveNew_string = String.valueOf(save_new) ;
+
+  // we change to false boolean load and data to false each 1 second to have a time to load and save
+  if(frameCount%60 == 0) { 
+    load_Scene_Setting = save_Current_Scene_Setting = save_New_Scene_Setting = false ;
+    load_Scene_Setting_local = save_Current_Scene_Setting_local = save_New_Scene_Setting_local = false ;
+  }
+
+  booleanLoadSave = load_string + "/" +  saveCurrent_string + "/" + saveNew_string ;
+
+}
+
+
+
+
 // FROM PRESCENE to SCENE
 String dataPreScene [] = new String [74] ;
 

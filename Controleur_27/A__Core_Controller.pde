@@ -66,7 +66,7 @@ void setting() {
 
 // SHORTCUTS & KEYBOARD ACTION
 //////////////////////////////
-void shortCuts() {
+void shortCutsController() {
   keyboard[keyCode] = true;
   // slider display command
   if(checkKeyboard(CONTROL) && checkKeyboard(KeyEvent.VK_X) ) {
@@ -83,17 +83,18 @@ void shortCuts() {
   // load
   check_Keyboard_load_scene() ;
   check_Keyboard_load_controller() ;
-  /*
-  if(checkKeyboard(CONTROL) && checkKeyboard(KeyEvent.VK_O) ) { 
-    
-    selectInput("Load setting controller", "loadSettingController"); // ("display info in the window" , "name of the void calling" )
-    keyboard[keyCode] = false;   //
-    
-  }
-  */
 }
-// LOAD SCENE
+
+
+
+
+// ANNEXE shortcut method
+//////////////////////////
+
+// SCENE
+///////////////////
 boolean load_Scene_Setting, save_Current_Scene_Setting, save_New_Scene_Setting ;
+// Scene load
 // CTRL + O
 void check_Keyboard_load_scene() {
   if(checkKeyboard(CONTROL) && !checkKeyboard(SHIFT) && checkKeyboard(KeyEvent.VK_O) ) { 
@@ -104,16 +105,7 @@ void check_Keyboard_load_scene() {
   }
 }
 
-void check_Keyboard_load_controller() {
-  if(checkKeyboard(CONTROL) && checkKeyboard(SHIFT) && checkKeyboard(KeyEvent.VK_O) ) { 
-    println("load controller") ;
-    // selectInput("Load setting controller", "loadSettingController"); // ("display info in the window" , "name of the void calling" )
-    keyboard[keyCode] = false;   //
-    
-  }
-}
-
-// SCENE SAVE
+// Scene current save
 // CTRL + S
 void check_Keyboard_save_scene_CURRENT_path() {
   if(checkKeyboard(CONTROL) && !checkKeyboard(SHIFT) && checkKeyboard(KeyEvent.VK_S) ) {
@@ -122,6 +114,7 @@ void check_Keyboard_save_scene_CURRENT_path() {
     keyboard[keyCode] = false ;   // just open one window, when use only the keyboard, if you don't use that open all the windows save and open
    }
 }
+// Scene new save
 // CTRL + SHIFT + S
 void check_Keyboard_save_scene_NEW_path() {
   if(checkKeyboard(CONTROL) && checkKeyboard(SHIFT) && checkKeyboard(KeyEvent.VK_S) ) {
@@ -131,7 +124,28 @@ void check_Keyboard_save_scene_NEW_path() {
   }
 }
 
-// CONTROLLER SAVE
+
+
+
+
+
+
+
+// CONTROLLER 
+//////////////////
+// Controller load
+
+// CTRL + SHIFT + O
+void check_Keyboard_load_controller() {
+  if(checkKeyboard(CONTROL) && checkKeyboard(SHIFT) && checkKeyboard(KeyEvent.VK_O) ) { 
+    println("load controller") ;
+    selectInput("Load setting controller", "loadSettingController"); // ("display info in the window" , "name of the method callingBack" )
+    keyboard[keyCode] = false;   //
+    
+  }
+}
+
+// Controller current save
 // CTRL + E
 void check_Keyboard_save_controller_CURRENT_path() {
   if(checkKeyboard(CONTROL) && !checkKeyboard(SHIFT) && checkKeyboard(KeyEvent.VK_E) ) {
@@ -148,6 +162,7 @@ void check_Keyboard_save_controller_CURRENT_path() {
     keyboard[keyCode] = false ;   // just open one window, when use only the keyboard, if you don't use that open all the windows save and open
   }
 }
+// Controller new save
 // CTRL + SHIFT + E
 void check_Keyboard_save_controller_NEW_path() {
   if(checkKeyboard(CONTROL) && checkKeyboard(SHIFT) && checkKeyboard(KeyEvent.VK_E) ) {
@@ -160,6 +175,10 @@ void check_Keyboard_save_controller_NEW_path() {
   }
 
 }
+
+
+// END SHORTCUTS
+/////////////////
 
 
 

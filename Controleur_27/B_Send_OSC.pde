@@ -21,7 +21,7 @@ void sendOSCsetup() {
 }
 
 void sendOSCdraw() {
-  OscMessage RomanescoControleur = new OscMessage("Controller");
+  OscMessage RomanescoController = new OscMessage("Controller");
   
   //int value join in String 
   translateDataToSend() ;
@@ -56,16 +56,18 @@ void sendOSCdraw() {
   String load = String.valueOf(load_Scene_Setting) ;
   String  saveCurrent = String.valueOf(save_Current_Scene_Setting) ;
   String  saveNew = String.valueOf(save_New_Scene_Setting) ;
-  load_Scene_Setting = save_Current_Scene_Setting = save_New_Scene_Setting = false ;
+  // we change to false boolean load and data to false each 2 second to have a time to load and save
+  if(frameCount%60 == 0) load_Scene_Setting = save_Current_Scene_Setting = save_New_Scene_Setting = false ;
+
   toPreScene[6] = load + "/" +  saveCurrent + "/" + saveNew;
   
   //add to OSC
   for ( int i = 0 ; i < toPreScene.length ; i++) {
-    RomanescoControleur.add(toPreScene[i]);
+    RomanescoController.add(toPreScene[i]);
   }
   //send
-  osc_1.send(RomanescoControleur, target_1) ; 
-  osc_2.send(RomanescoControleur, target_2) ; 
+  osc_1.send(RomanescoController, target_1) ; 
+  osc_2.send(RomanescoController, target_2) ; 
 }
 
 

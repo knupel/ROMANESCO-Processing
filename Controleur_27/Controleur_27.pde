@@ -3,6 +3,7 @@
 //////////////////////////////////////////////////////////////////
 /* 4.100 lines of code the 4th may !!!! */
 String version = ("27") ;
+String IAM = ("Controller") ;
 String prettyVersion = ("1.0.2") ;
 String nameVersion = ("Romanesco Unu") ;
 boolean test = false ;
@@ -99,7 +100,7 @@ void mousePressed () {
 //KEYPRESSED
 void keyPressed() {
   //OpenClose save
-  shortCuts() ;
+  shortCutsController() ;
 }
 
 //KEYRELEASED

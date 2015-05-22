@@ -73,7 +73,7 @@ boolean LEAPMOTION_DETECTED ;
 
 
 // SAVE
-boolean load_Scene_Setting, save_Current_Scene_Setting, save_New_Scene_Setting ;
+boolean load_SCENE_Setting_from_controller, save_Current_SCENE_Setting_from_controller, save_New_SCENE_Setting_from_controller ;
 
 
 

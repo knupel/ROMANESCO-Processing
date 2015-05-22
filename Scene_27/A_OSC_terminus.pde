@@ -14,7 +14,7 @@ void oscEvent(OscMessage receive) {
     //
     splitDataButton() ;
     splitDataSlider() ;
-    splitDataLoadSave() ;
+    splitDataLoadSaveController() ;
   }
   if(receive.addrPattern().equals("Prescene")) {
     catchDataFromPrescene(receive) ;
@@ -28,14 +28,20 @@ void oscEvent(OscMessage receive) {
   translateDataFromPrescene() ;
 }
 
+// FROM CONTROLLER
+/**
+look in the tab Z_OSC
+*/
 
 
-
-
+// FROM PRESCENE
 String dataPrescene = ("") ;
+String from_prescene_boolean_load_save = ("") ;
 
 void catchDataFromPrescene(OscMessage receive) {
   dataPrescene = receive.get(0).stringValue() ;
+  path_to_load_scene_setting = receive.get(1).stringValue() ;
+  from_prescene_boolean_load_save = receive.get(2).stringValue() ;
 }
 
 
@@ -51,6 +57,18 @@ void splitDataFromPrescene() {
       valueSlider[i][j] = Float.valueOf(valueSliderTemp[i][j]) ;
     }
   }
+}
+
+
+boolean load_SCENE_Setting_order_from_presecene, save_Current_SCENE_Setting_order_from_presecene, save_New_SCENE_Setting_order_from_presecene ;
+void splitDataLoadSavePrescene() {
+  String [] booleanSave  ;
+
+  booleanSave = split(from_prescene_boolean_load_save, '/') ;
+  // convert string to boolean
+  load_SCENE_Setting_order_from_presecene = Boolean.valueOf(booleanSave[0]).booleanValue();
+  save_Current_SCENE_Setting_order_from_presecene = Boolean.valueOf(booleanSave[1]).booleanValue();
+  save_New_SCENE_Setting_order_from_presecene = Boolean.valueOf(booleanSave[2]).booleanValue();
 }
 
 

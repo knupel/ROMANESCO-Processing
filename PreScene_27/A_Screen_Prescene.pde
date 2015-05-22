@@ -1,8 +1,8 @@
 ///////////////////////////////////////////////
 //GRAPHIC CONFIGURATION OF THE SCENE DISPLAYING
 //SCREEN CHOICE and FULLSCREEN
-GraphicsEnvironment g = GraphicsEnvironment.getLocalGraphicsEnvironment();
-GraphicsDevice[] gs = g.getScreenDevices();
+GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+GraphicsDevice[] gs = ge.getScreenDevices();
 //FULLSCREEN
 boolean undecorated = false ;
 boolean fullScreen = false ;

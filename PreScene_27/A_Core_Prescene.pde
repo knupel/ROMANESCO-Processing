@@ -209,18 +209,78 @@ String nameNumber(String name) {
 
 
 
+// KEYBOARD & SHORTCUTS
+///////////////////////
+//GLOBAL
+import java.awt.event.KeyEvent;
+boolean[] keyboard = new boolean[526];
+
+void shortCutsPrescene() {
+  keyboard[keyCode] = true ;
+  // save Scene
+  check_Keyboard_save_scene_CURRENT_path() ;
+  check_Keyboard_save_scene_NEW_path() ;
+  // load
+  check_Keyboard_load_scene() ;
+
+  // save
+  if (key == 's') selectOutput("Enregistrez le PDF et le PNG ", "saveImg") ;
+  // info common command with Scene
+  if (key == 'i') displayInfo = !displayInfo ;
+  if (key == 'g') displayInfo3D = !displayInfo3D ;
+
+}
 
 
 
+// SCENE
+///////////////////
+boolean load_Scene_Setting_local, 
+        save_Current_Scene_Setting_local,
+        save_New_Scene_Setting_local ;
+// Scene load
+// CTRL + O
+void check_Keyboard_load_scene() {
+  if(checkKeyboard(CONTROL) && !checkKeyboard(SHIFT) && checkKeyboard(KeyEvent.VK_O) ) { 
+    load_Scene_Setting_local = true ;
+    println("load scene / local", load_Scene_Setting_local) ;
+    keyboard[keyCode] = false;   //
+    
+  }
+}
+
+// Scene current save
+// CTRL + S
+void check_Keyboard_save_scene_CURRENT_path() {
+  if(checkKeyboard(CONTROL) && !checkKeyboard(SHIFT) && checkKeyboard(KeyEvent.VK_S) ) {
+    save_Current_Scene_Setting_local = true ;
+    println("save on current path scene / local",  save_Current_Scene_Setting_local) ;
+    keyboard[keyCode] = false ;   // just open one window, when use only the keyboard, if you don't use that open all the windows save and open
+   }
+}
+// Scene new save
+// CTRL + SHIFT + S
+void check_Keyboard_save_scene_NEW_path() {
+  if(checkKeyboard(CONTROL) && checkKeyboard(SHIFT) && checkKeyboard(KeyEvent.VK_S) ) {
+    save_New_Scene_Setting_local = true ;
+    println("save on a new path scene / local", save_New_Scene_Setting_local) ;
+    keyboard[keyCode] = false ;   // just open one window, when use only the keyboard, if you don't use that open all the windows save and open
+  }
+}
 
 
 
-
+boolean checkKeyboard(int c) {
+  if (keyboard.length >= c) {
+    return keyboard[c];  
+  }
+  return false;
+}
 
 
 
       
-        
+ // KEYBOARD COMMAND       
         
 void keyboardTrue() {
   if (key == ' ' ) spaceTouch = true ; 

@@ -4,6 +4,7 @@
 /* 14.750 lines of code the 4th may !!!! */
 
 String nameVersion = ("Romanesco Unu") ;
+String IAM = ("Scene") ;
 String version = ("27") ;
 String prettyVersion = ("1.0.2") ;
 String preferencesPath = sketchPath("")+"preferences/" ;
@@ -29,7 +30,7 @@ void setup() {
   OSCSetup() ;
 
   P3DSetup(modeP3D, numObj, numSettingCamera, numSettingOrientationObject) ;
-  lightSetup(); // for the Scene only
+  lightSetup(); 
   
 }
 
@@ -44,7 +45,9 @@ void draw() {
   meteoDraw() ;
   updateVarRaw() ;
   backgroundRomanesco() ; 
-  shaderDraw() ; // maybe can desactivate the background shader
+  shaderDraw() ; // maybe can disable the background shader
+  loadScene() ;
+  saveScene() ;
   
   //ROMANESCO
   cameraDraw() ;
@@ -68,9 +71,6 @@ void draw() {
 //KEYPRESSED
 void keyPressed () {
  // info common command with Prescene
-
-  if(key == 's') saveDataObject(true) ;
-  if(key =='o') loadDataObject(true) ;
   if (key == 'i') displayInfo = !displayInfo ;
   if (key == 'g') displayInfo3D = !displayInfo3D ;
 }
