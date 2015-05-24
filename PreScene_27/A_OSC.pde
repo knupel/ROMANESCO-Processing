@@ -112,7 +112,6 @@ void booleanLoadSaveScene() {
   }
 
   booleanLoadSave = load_string + "/" +  saveCurrent_string + "/" + saveNew_string ;
-
 }
 
 

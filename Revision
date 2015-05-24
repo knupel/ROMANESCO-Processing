@@ -5,6 +5,7 @@ ROMANESCO 27 Revision
 -----------
 
 /// ADD ///
+//////////
 * SLIDER
 --------
 * slider attraction
@@ -49,12 +50,22 @@ ROMANESCO 27 Revision
 ** SAVE
 -------
 * Now you can save you Scene setting, not only you Controler setting. And it's very big step.
+save
+> CTRL + S 			> save on the current save Scene setting
+> CTRL + SHIFT + S 	>  save on the new save Scene setting
+> CTRL + E 			> save on the current save Controller setting
+> CTRL + SHIFT + E 	> save on the new save Controller setting
+load
+> CTRL + O 			> load Scene setting
+> CTRL + SHIFT + O 	> load Controller setting
 
 
 /// REMOVE ///////
+//////////////////
 * slider force
 * remove the old class slider
 * curtain on Prescene
+* aspect in the prescene, now all the object are white, with stroke of one without alpha.
 
 /// IMPROVE ///
 * normalize slider family 

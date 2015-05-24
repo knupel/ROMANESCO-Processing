@@ -6,20 +6,18 @@ void loadPrescene() {
 		openLoad = false ;
 		selectInput("Load setting Scene", "loadSettingScene") ; // ("display info in the window" , "name of the method callingBack" )
 	}
-	
-
-
 }
 
 
 String path_to_load_scene_setting = ("") ;
 // method callingBack
 void loadSettingScene(File selection) {
-  path_to_load_scene_setting = selection.getAbsolutePath();
+	println(path_to_load_scene_setting) ;
   if (selection != null) {
+  	path_to_load_scene_setting = selection.getAbsolutePath();
   	loadDataObject(path_to_load_scene_setting) ;
-    load_Scene_Setting = false ;
-    load_Scene_Setting_local = false ;
-    openLoad = true ;
   } 
+  load_Scene_Setting = false ;
+  load_Scene_Setting_local = false ;
+  openLoad = true ;
 }

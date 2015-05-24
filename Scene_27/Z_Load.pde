@@ -84,9 +84,9 @@ void loadDataObject(String path) {
 		upZ = dataCam.getFloat("upZ"); ;
 		*/
         // curent position
-		finalSceneCamera.x = dataCam.getFloat("scene x") ;
-		finalSceneCamera.y = dataCam.getFloat("scene y") ;
-		finalSceneCamera.z = dataCam.getFloat("scene z") ;
+		finalSceneCamera.x = dataCam.getFloat("scene x") *width ;
+		finalSceneCamera.y = dataCam.getFloat("scene y") *width ;
+		finalSceneCamera.z = dataCam.getFloat("scene z") *width ;
 		finalEyeCamera.x = dataCam.getFloat("longitude") ;
 		finalEyeCamera.y = dataCam.getFloat("latitude") ;
 	}
@@ -117,14 +117,14 @@ void loadDataObject(String path) {
         float a_stroke = dataObj.getFloat("alpha stroke") ;
 		strokeObj[ID] = color(h_stroke, s_stroke, b_stroke, a_stroke) ;
 
-		thicknessObj[ID] = dataObj.getFloat("thickness") ;
+		thicknessObj[ID] = dataObj.getFloat("thickness") *height ;
 
-		sizeXObj[ID] = dataObj.getFloat("width") ;
-		sizeYObj[ID] = dataObj.getFloat("height") ;
-		sizeZObj[ID] = dataObj.getFloat("depth") ;
-		canvasXObj[ID] = dataObj.getFloat("canvas x") ;
-		canvasYObj[ID] = dataObj.getFloat("canvas y") ;
-		canvasZObj[ID] = dataObj.getFloat("canvas z") ;
+		sizeXObj[ID] = dataObj.getFloat("width") *width ;
+		sizeYObj[ID] = dataObj.getFloat("height") *width ;
+		sizeZObj[ID] = dataObj.getFloat("depth") *width ;
+		canvasXObj[ID] = dataObj.getFloat("canvas x") *width ;
+		canvasYObj[ID] = dataObj.getFloat("canvas y") *width ;
+		canvasZObj[ID] = dataObj.getFloat("canvas z") *width ;
 		familyObj[ID] = dataObj.getFloat("family") ;
 		quantityObj[ID] = dataObj.getFloat("quantity") ;
 		lifeObj[ID] = dataObj.getFloat("life") ;
@@ -139,9 +139,9 @@ void loadDataObject(String path) {
 		influenceObj[ID] = dataObj.getFloat("influence") ;
 		analyzeObj[ID] = dataObj.getFloat("analyze") ;
 
-		posObjX[ID]	= dataObj.getFloat("pos x obj") ;
-		posObjY[ID]	= dataObj.getFloat("pos y obj") ;
-		posObjZ[ID]	= dataObj.getFloat("pos z obj") ;
+		posObjX[ID]	= dataObj.getFloat("pos x obj") *width ;
+		posObjY[ID]	= dataObj.getFloat("pos y obj") *width ;
+		posObjZ[ID]	= dataObj.getFloat("pos z obj") *width ;
 
 		dirObjX[ID]	= dataObj.getFloat("longitude obj") ;
 		dirObjY[ID]	= dataObj.getFloat("latitude obj") ;

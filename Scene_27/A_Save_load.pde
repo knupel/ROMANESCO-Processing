@@ -42,19 +42,17 @@ void saveScene() {
 
 String savePathSetting = ("") ;
 void saveSetting(File selection) {
-  // opens file chooser
-  savePathSetting = selection.getAbsolutePath() ;
-  
-  if (selection != null) {
+	if (selection != null) {
+  	savePathSetting = selection.getAbsolutePath() ;
     saveDataObject(savePathSetting) ;
   } 
+  openSave = true ;
 }
 
 
 
 
 void saveDataObject(String path) {
-	openSave = true ;
 	JSONArray save = new JSONArray() ;
 	// init counter
 	int startPosJSONDataWorld = 0 ;
@@ -147,9 +145,9 @@ void saveDataObject(String path) {
 		dataCam.setFloat("upZ", upZ) ;
 		*/
         // curent position
-		dataCam.setFloat("scene x", finalSceneCamera.x) ;
-		dataCam.setFloat("scene y", finalSceneCamera.y) ;
-		dataCam.setFloat("scene z", finalSceneCamera.z) ;
+		dataCam.setFloat("scene x", finalSceneCamera.x /width) ;
+		dataCam.setFloat("scene y", finalSceneCamera.y /width) ;
+		dataCam.setFloat("scene z", finalSceneCamera.z /width) ;
 		dataCam.setFloat("longitude", finalEyeCamera.x) ;
 		dataCam.setFloat("latitude", finalEyeCamera.y) ;
 		// save in the JSON Array
@@ -185,14 +183,14 @@ void saveDataObject(String path) {
 		dataObj.setFloat("saturation stroke", saturation(strokeObj[i])) ;
 		dataObj.setFloat("brightness stroke", brightness(strokeObj[i])) ;
 		dataObj.setFloat("alpha stroke", alpha(strokeObj[i])) ;
-		dataObj.setFloat("thickness", thicknessObj[i]) ;
+		dataObj.setFloat("thickness", thicknessObj[i] /height) ;
 
-		dataObj.setFloat("width", sizeXObj[i]) ;
-		dataObj.setFloat("height", sizeYObj[i]) ;
-		dataObj.setFloat("depth", sizeZObj[i]) ;
-		dataObj.setFloat("canvas x", canvasXObj[i]) ;
-		dataObj.setFloat("canvas y", canvasYObj[i]) ;
-		dataObj.setFloat("canvas z", canvasZObj[i]) ;
+		dataObj.setFloat("width", sizeXObj[i] /width) ;
+		dataObj.setFloat("height", sizeYObj[i] /width) ;
+		dataObj.setFloat("depth", sizeZObj[i] /width) ;
+		dataObj.setFloat("canvas x", canvasXObj[i] /width) ;
+		dataObj.setFloat("canvas y", canvasYObj[i] /width) ;
+		dataObj.setFloat("canvas z", canvasZObj[i] /width) ;
 		dataObj.setFloat("family", familyObj[i]) ;
 		dataObj.setFloat("quantity", quantityObj[i]) ;
 		dataObj.setFloat("life", lifeObj[i]) ;
@@ -208,9 +206,9 @@ void saveDataObject(String path) {
 		dataObj.setFloat("analyze", analyzeObj[i]) ;
         
         // position & orientation
-		dataObj.setFloat("pos x obj", posObjX[i]) ;
-		dataObj.setFloat("pos y obj", posObjY[i]) ;
-		dataObj.setFloat("pos z obj", posObjZ[i]) ;
+		dataObj.setFloat("pos x obj", posObjX[i] /width) ;
+		dataObj.setFloat("pos y obj", posObjY[i] /width) ;
+		dataObj.setFloat("pos z obj", posObjZ[i] /width) ;
 
 		dataObj.setFloat("longitude obj", dirObjX[i]) ;
 		dataObj.setFloat("latitude obj", dirObjY[i]) ;

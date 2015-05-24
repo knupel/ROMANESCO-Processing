@@ -186,8 +186,10 @@ void updateMouseZ() {
 ////////////////////////////////////////////////////////////
 //MISC // MISC // MISC // MISC //
 
-
 //file name for save
+/**
+May be not used
+*/
 String nameNumber(String name) {
   String numPict ;
   int year = year() -2000 ;
@@ -224,7 +226,7 @@ void shortCutsPrescene() {
   check_Keyboard_load_scene() ;
 
   // save
-  if (key == 's') selectOutput("Enregistrez le PDF et le PNG ", "saveImg") ;
+  // if (key == 's') selectOutput("Enregistrez le PDF et le PNG ", "saveImg") ;
   // info common command with Scene
   if (key == 'i') displayInfo = !displayInfo ;
   if (key == 'g') displayInfo3D = !displayInfo3D ;
@@ -243,7 +245,7 @@ boolean load_Scene_Setting_local,
 void check_Keyboard_load_scene() {
   if(checkKeyboard(CONTROL) && !checkKeyboard(SHIFT) && checkKeyboard(KeyEvent.VK_O) ) { 
     load_Scene_Setting_local = true ;
-    println("load scene / local", load_Scene_Setting_local) ;
+    //println("load scene / local", load_Scene_Setting_local) ;
     keyboard[keyCode] = false;   //
     
   }
@@ -254,7 +256,7 @@ void check_Keyboard_load_scene() {
 void check_Keyboard_save_scene_CURRENT_path() {
   if(checkKeyboard(CONTROL) && !checkKeyboard(SHIFT) && checkKeyboard(KeyEvent.VK_S) ) {
     save_Current_Scene_Setting_local = true ;
-    println("save on current path scene / local",  save_Current_Scene_Setting_local) ;
+    //println("save on current path scene / local",  save_Current_Scene_Setting_local) ;
     keyboard[keyCode] = false ;   // just open one window, when use only the keyboard, if you don't use that open all the windows save and open
    }
 }
@@ -263,7 +265,7 @@ void check_Keyboard_save_scene_CURRENT_path() {
 void check_Keyboard_save_scene_NEW_path() {
   if(checkKeyboard(CONTROL) && checkKeyboard(SHIFT) && checkKeyboard(KeyEvent.VK_S) ) {
     save_New_Scene_Setting_local = true ;
-    println("save on a new path scene / local", save_New_Scene_Setting_local) ;
+    // println("save on a new path scene / local", save_New_Scene_Setting_local) ;
     keyboard[keyCode] = false ;   // just open one window, when use only the keyboard, if you don't use that open all the windows save and open
   }
 }

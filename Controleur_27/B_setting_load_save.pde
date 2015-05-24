@@ -272,18 +272,8 @@ void createInfoButtonAndSlider(String path) {
 ///////
 String savePathSetting = ("") ;
 void saveSetting(File selection) {
-  // opens file chooser
   savePathSetting = selection.getAbsolutePath() ;
-  
-  if (selection != null) {
-    saveSetting(savePathSetting) ;
-    /*
-    saveInfoSlider() ;
-    midiButtonManager(true) ;
-    saveTable(saveSetting, savePathSetting+".csv");
-    saveSetting.clearRows() ;
-    */
-  } 
+  if (selection != null) saveSetting(savePathSetting) ;
 }
 
 void saveSetting(String path) {
@@ -373,13 +363,11 @@ void buildSaveTable() {
 
 
 
-//LOAD
+//LOAD setting
 //////
 void loadSettingController(File selection) {
-  // opens file chooser
-
-  String loadPathControllerSetting = selection.getAbsolutePath();
   if (selection != null) {
+    String loadPathControllerSetting = selection.getAbsolutePath();
     loadSaveSetting = true ;
     loadSaveController(loadPathControllerSetting) ;
     setSave = true ;

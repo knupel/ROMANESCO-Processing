@@ -20,6 +20,7 @@ void oscEvent(OscMessage receive) {
     catchDataFromPrescene(receive) ;
     //
     splitDataFromPrescene() ;
+    splitDataLoadSavePrescene() ;
   }
   /**
   // may be is not a good place for that
@@ -63,8 +64,9 @@ void splitDataFromPrescene() {
 boolean load_SCENE_Setting_order_from_presecene, save_Current_SCENE_Setting_order_from_presecene, save_New_SCENE_Setting_order_from_presecene ;
 void splitDataLoadSavePrescene() {
   String [] booleanSave  ;
-
+  
   booleanSave = split(from_prescene_boolean_load_save, '/') ;
+  // println(booleanSave) ;
   // convert string to boolean
   load_SCENE_Setting_order_from_presecene = Boolean.valueOf(booleanSave[0]).booleanValue();
   save_Current_SCENE_Setting_order_from_presecene = Boolean.valueOf(booleanSave[1]).booleanValue();
