@@ -68,9 +68,9 @@ void updateSliderValue(int ID, int group) {
       if (thicknessRaw[whichOne] != thicknessTemp[whichOne] || !firstOpeningObj[ID]) thicknessObj[ID] = thicknessRaw[whichOne] ;
     } else {
       // preview display
-      fillObj[ID] = color(0,0,100,30) ; ;
-      strokeObj[ID] =  color(0,0,100,30) ;
-      thicknessObj[ID] = 2 ;
+      fillObj[ID] = COLOR_FILL_OBJ_PREVIEW ;
+      strokeObj[ID] =  COLOR_STROKE_OBJ_PREVIEW ;
+      thicknessObj[ID] = THICKNESS_OBJ_PREVIEW ;
     }
     // column 2
     if (sizeXRaw[whichOne] != sizeXTemp[whichOne] || !firstOpeningObj[ID]) sizeXObj[ID] = sizeXRaw[whichOne] ; 

@@ -21,13 +21,13 @@ Here you save all the scene parameter
 */
 boolean openSave = true ;
 void saveScene() {
-	if(( save_New_SCENE_Setting_from_controller || save_New_SCENE_Setting_order_from_presecene) && openSave) {
+	if(( save_New_SCENE_Setting_GLOBAL || save_New_SCENE_Setting_order_from_presecene) && openSave) {
 		// println("create a new save") ;
 		openSave = false ;
 		File tempFileName = new File ("your_scene_setting.json");
 		selectOutput("Save Scene", "saveSetting", tempFileName);
 		
-	} else if((save_Current_SCENE_Setting_from_controller || save_Current_SCENE_Setting_order_from_presecene) && openSave) {
+	} else if((save_Current_SCENE_Setting_GLOBAL || save_Current_SCENE_Setting_order_from_presecene) && openSave) {
 		openSave = false ;
 		if(!savePathSetting.equals("")) {
 			// println("save on the current save", savePathSetting) ;

@@ -14,11 +14,11 @@ String preferencesPath = sketchPath("")+"preferences/" ;
 
 
 void setup() {
-  
+  if(fullRendering) frameRateRomanesco = 60 ; else frameRateRomanesco = 15 ;
   romanescoSetup() ;
   createVar() ;
   initVarScene() ;
-  displaySetup(60) ; // the int give the frameRate
+  displaySetup(frameRateRomanesco) ; // the int give the frameRate
   colorSetup() ;
   miroirSetup() ;
   fontSetup() ;

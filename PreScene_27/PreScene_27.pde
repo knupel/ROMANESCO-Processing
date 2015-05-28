@@ -12,9 +12,8 @@ String preferencesPath = sketchPath("")+"preferences/" ;
 boolean testRomanesco = false ;
 boolean fullRendering = false ;
 
-
+  
 void setup() {
-  int frameRateRomanesco ;
   if(fullRendering) frameRateRomanesco = 60 ; else frameRateRomanesco = 15 ;
   displaySetup(frameRateRomanesco) ; // the int value is the frameRate
   // common setup

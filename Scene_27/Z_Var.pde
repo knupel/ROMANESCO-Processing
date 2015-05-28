@@ -35,6 +35,9 @@ PApplet callingClass = this ;
 // use for the border of window (top and right)
 java.awt.Insets insets; 
 
+// framerate of the scene
+int frameRateRomanesco ;
+
 
 
 // Max value whi is return from the slider controller
@@ -73,7 +76,7 @@ boolean LEAPMOTION_DETECTED ;
 
 
 // SAVE
-boolean load_SCENE_Setting_from_controller, save_Current_SCENE_Setting_from_controller, save_New_SCENE_Setting_from_controller ;
+boolean load_SCENE_Setting_GLOBAL, save_Current_SCENE_Setting_GLOBAL, save_New_SCENE_Setting_GLOBAL ;
 
 
 
@@ -93,7 +96,10 @@ int NUM_SLIDER_OBJ = 30 ;
 int numButtonGlobal = 21 ; // group zero
 int numButtonObj  ; // group one, two and three
 
-//VAR
+// VAR obj
+color COLOR_FILL_OBJ_PREVIEW  ; 
+color COLOR_STROKE_OBJ_PREVIEW ;
+int THICKNESS_OBJ_PREVIEW = 2 ;
 int numObj ;
 Table indexObjects ;
 TableRow [] rowIndexObject ;
@@ -464,6 +470,9 @@ void varObjSetup() {
     wheel[i] = 0 ;
 
   }
+    // init global var for the color obj preview mode display
+  COLOR_FILL_OBJ_PREVIEW = color (0,0,100,30) ; 
+  COLOR_STROKE_OBJ_PREVIEW = color (0,0,100,30) ;
 }
 // END SETTING AR
 

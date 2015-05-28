@@ -35,7 +35,8 @@ void oscEvent(OscMessage receive) {
     catchDataFromController(receive) ;
     splitDataButton() ;
     splitDataSlider() ;
-    splitDataLoadSave() ;
+    splitDataLoadSaveController() ;
+    // splitDataLoadSave() ;
   }
   /**
   // may be is not a good place for that
@@ -97,9 +98,9 @@ String booleanLoadSave = ("") ;
 void booleanLoadSaveScene() {
        // LOAD SAVE SCENE ORDER
   boolean load, save_current, save_new ;
-  if (load_Scene_Setting          || load_Scene_Setting_local)          load = true ;         else load = false ;
-  if (save_Current_Scene_Setting  || save_Current_Scene_Setting_local)  save_current = true ; else save_current = false ;
-  if (save_New_Scene_Setting      || save_New_Scene_Setting_local)      save_new = true ;     else save_new = false ;
+  if (load_SCENE_Setting_GLOBAL          || load_Scene_Setting_local)          load = true ;         else load = false ;
+  if (save_Current_SCENE_Setting_GLOBAL  || save_Current_Scene_Setting_local)  save_current = true ; else save_current = false ;
+  if (save_New_SCENE_Setting_GLOBAL      || save_New_Scene_Setting_local)      save_new = true ;     else save_new = false ;
 
   String load_string = String.valueOf(load) ;
   String  saveCurrent_string = String.valueOf(save_current) ;
@@ -107,7 +108,7 @@ void booleanLoadSaveScene() {
 
   // we change to false boolean load and data to false each 1 second to have a time to load and save
   if(frameCount%60 == 0) { 
-    load_Scene_Setting = save_Current_Scene_Setting = save_New_Scene_Setting = false ;
+    load_SCENE_Setting_GLOBAL = save_Current_SCENE_Setting_GLOBAL = save_New_SCENE_Setting_GLOBAL = false ;
     load_Scene_Setting_local = save_Current_Scene_Setting_local = save_New_Scene_Setting_local = false ;
   }
 

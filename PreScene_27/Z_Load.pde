@@ -105,19 +105,27 @@ void loadDataObject(String path) {
         // display mode
 		mode[ID] = dataObj.getInt("Mode obj") ;
 		
-        // slider 
+        // slider fill
         float h_fill = dataObj.getFloat("hue fill") ;
         float s_fill = dataObj.getFloat("saturation fill") ;
         float b_fill = dataObj.getFloat("brightness fill") ;
         float a_fill = dataObj.getFloat("alpha fill") ;
-		fillObj[ID] = color(h_fill, s_fill, b_fill, a_fill) ;
+		// slider stroke
 		float h_stroke = dataObj.getFloat("hue stroke") ;
         float s_stroke = dataObj.getFloat("saturation stroke") ;
         float b_stroke = dataObj.getFloat("brightness stroke") ;
         float a_stroke = dataObj.getFloat("alpha stroke") ;
-		strokeObj[ID] = color(h_stroke, s_stroke, b_stroke, a_stroke) ;
 
-		thicknessObj[ID] = dataObj.getFloat("thickness") *height ;
+        if(fullRendering) {
+        	fillObj[ID] = color(h_fill, s_fill, b_fill, a_fill) ;
+			strokeObj[ID] = color(h_stroke, s_stroke, b_stroke, a_stroke) ;
+			thicknessObj[ID] = dataObj.getFloat("thickness") *height ;
+		} else {
+			// preview display
+			fillObj[ID] = COLOR_FILL_OBJ_PREVIEW ;
+			strokeObj[ID] =  COLOR_STROKE_OBJ_PREVIEW ;
+			thicknessObj[ID] = THICKNESS_OBJ_PREVIEW ;
+	    }
 
 		sizeXObj[ID] = dataObj.getFloat("width") *width ;
 		sizeYObj[ID] = dataObj.getFloat("height") *width ;

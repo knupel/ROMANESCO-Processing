@@ -64,9 +64,9 @@ void splitDataLoadSaveController() {
 
   booleanSave = split(fromController[whichOne], '/') ;
   // convert string to boolean
-  load_SCENE_Setting_from_controller = Boolean.valueOf(booleanSave[0]).booleanValue();
-  save_Current_SCENE_Setting_from_controller = Boolean.valueOf(booleanSave[1]).booleanValue();
-  save_New_SCENE_Setting_from_controller = Boolean.valueOf(booleanSave[2]).booleanValue();
+  load_SCENE_Setting_GLOBAL = Boolean.valueOf(booleanSave[0]).booleanValue();
+  save_Current_SCENE_Setting_GLOBAL = Boolean.valueOf(booleanSave[1]).booleanValue();
+  save_New_SCENE_Setting_GLOBAL = Boolean.valueOf(booleanSave[2]).booleanValue();
 }
 
 

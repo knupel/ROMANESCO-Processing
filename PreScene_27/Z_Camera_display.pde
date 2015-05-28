@@ -506,7 +506,7 @@ void startCamera() {
 void updateCamera(boolean scene, boolean eye, boolean leapMotion, boolean authorization) {
   if(authorization) {
     // update the world position
-
+   //  println("je suis là") ;
     /* We cannot use the method copy() of the PVector, because we must preserve the "Z" parameter of this PVector to move the Scene with the wheel */
     sceneCamera.x = updatePosCamera(scene, leapMotion, mouse[0]).x ;
     sceneCamera.y = updatePosCamera(scene, leapMotion, mouse[0]).y ;
