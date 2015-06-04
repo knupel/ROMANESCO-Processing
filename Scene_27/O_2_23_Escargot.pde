@@ -136,10 +136,8 @@ class Escargot extends Romanesco {
     */
     
     loadImg(IDobj) ;
-    
-    if(img[IDobj] == null)  {
-      img[IDobj] = loadImage(imagePath[whichImage[IDobj]]) ;
-    } else {
+
+    if(img[IDobj] != null) {  
       //MOTION
       windForce = (int)map(speedObj[IDobj],0,1,0,13) ;
       windDirection = (int)directionObj[IDobj] ;

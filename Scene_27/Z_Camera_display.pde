@@ -546,7 +546,7 @@ int wheelCheckRef = 0 ;
 
 boolean checkMouseMove( boolean authorization) {
   boolean mouseMove ;
-  if( authorization &&    (!equals(mouseCheckRef, Vec3(mouse[0])) || wheelCheckRef != wheel[0])) mouseMove = true ; else mouseMove = false ;
+  if( authorization &&    (!compare(mouseCheckRef, Vec3(mouse[0])) || wheelCheckRef != wheel[0])) mouseMove = true ; else mouseMove = false ;
   // create ref
   wheelCheckRef = wheel[0] ;
   mouseCheckRef = Vec3(mouse[0]) ;

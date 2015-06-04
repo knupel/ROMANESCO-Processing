@@ -28,7 +28,7 @@ void setup() {
   RG.init(this);  // Geomerative
   varObjSetup() ;
   fontSetup() ;
-  // soundSetup() ;
+  soundSetup() ;
   P3DSetup(modeP3D, numObj, numSettingCamera, numSettingOrientationObject) ;
 }
 
@@ -39,7 +39,7 @@ void draw() {
   frame.setTitle(nameVersion + " " +prettyVersion+"."+version+ " - Prescene");
   //setting
   initDraw() ;
-  //soundDraw() ;
+  soundDraw() ;
   updateVarRaw() ;
   OSCDraw() ;
   backgroundRomanesco() ;

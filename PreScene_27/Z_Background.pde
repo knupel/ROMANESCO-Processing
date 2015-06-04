@@ -23,7 +23,7 @@ void backgroundRomanesco() {
         // choice the rendering color palette for the classic background
         if(fullRendering) {
           // check if the slider background are move, if it's true update the color background
-          if(!equals(colorBackgroundRef,updateBackground())) colorBackground = updateBackground().copy() ;
+          if(!compare(colorBackgroundRef,updateBackground())) colorBackground = updateBackground().copy() ;
           else colorBackgroundRef = updateBackground().copy() ;
           backgroundP3D(colorBackground) ;
         } 

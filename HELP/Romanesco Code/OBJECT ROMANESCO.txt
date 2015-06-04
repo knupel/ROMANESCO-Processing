@@ -69,45 +69,54 @@ VARIABLES
 °°°°°°°°°°°°°
 
 BUTTON
-––––––––––––––––––––––
-boolean sound[IDobj]
-boolean parameter[IDobj]
-boolean action[IDobj]
+––––––
+mode[IDobj] @return int the number of the displaying mode
+action[IDobj] @return boolean / we use this one for the mouse move + vTouch in Romanesco application
+sound[IDobj] #return boolean 
+parameter[IDobj] #return boolean 
 
 
 SLIDER
 ––––––––––––––––––––––
 VAR object from slider
 
+hue(fillObj[IDobj]) ; @return float value 0.0 > 360.0
+saturation(fillObj[IDobj]) ; @return float value 0.0 > 100.0
+brightness(fillObj[IDobj]) ;  @return float value 0.0 > 100.0
+alpha(fillObj[IDobj])  ; @return float value 0.0 > 100.0
+>>>> fillObj[IDobj] = color(hue_fill,saturation_fill,brightness_fill,alpha_fill) ; @return color (360100,100,100)
 
-// COL ONE
-color fillObj[IDobj] ; you can separate with hue(fillObj[IDobj]), saturation(fillObj[IDobj]), brightness(fillObj[IDobj]) and alpha(fillObj[IDobj])
-color strokeObj[IDobj] ; you can separate with hue(strokeObj[IDobj]), saturation(strokeObj[IDobj]), brightness(strokeObj[IDobj]) and alpha(strokeObj[IDobj])
-float thicknessObj[IDobj] ; value from 0 to height/3
+hue(strokeObj[IDobj]) ; @return float value 0.0 > 360.0
+saturation(strokeObj[IDobj]) ; @return float value 0.0 > 100.0
+brightness(strokeObj[IDobj]) ; @return float value 0.0 > 100.0
+alpha(strokeObj[IDobj]) ; @return float value 0.0 > 100.0
+>>>> strokeObj[IDobj] = color(hue_stroke,saturation_stroke,brightness_stroke,alpha_stroke) ; @return color (360100,100,100)
 
-// COL TWO
-this parameters is use for the object or particule size
-float sizeXObj[IDobj] ; 
-float sizeYObj[IDobj] ; 
-float sizeZObj[IDobj] ; value from 0.1 to width
-this parameter is use to space where the particule object, or the object can growth or move...
-float canvasXObj[IDobj] ; 
-float canvasYObj[IDobj] ; 
-float canvasZObj[IDobj] value from width/10  to width
-float familyObj[IDobj] ; value from 0 to 1
-float quantityObj[IDobj] ; value from 0 to 1
-float lifeObj[IDobj] ; value from 0 to 1
+thicknessObj[IDobj] @return float value 0.1 > height/3
 
-// COL THREE
-float speedObj[IDobj] ; value from 0 to 1
-float directionObj[IDobj] ; value from 0 to 360
-float angleObj[IDobj] ; value from 0 to 360
-float amplitudeObj[IDobj] ; value from 0 to 1
-float attractionObj[IDobj] ; value from 0 to 1
-float repulsionObj[IDobj] ; value from 0 to 1
-float influenceObj[IDobj] ; value from 0 to 1
-float alignmentObj[IDobj] ; value from 0 to 1
-float analyzeObj[IDobj] ; value from 0 to 1
+sizeXObj[IDobj] ; @return float value 0.1 > width
+sizeYObj[IDobj]  ;  @return float value 0.1 > width
+sizeZObj[IDobj]  = ; @return float value 0.1 > width
+
+canvasXObj[IDobj]  ; @return float value width/10  > width
+canvasYObj[IDobj]  ; @return float value width/10  > width
+canvasZObj[IDobj]  ; @return float value width/10  > width
+
+familyObj[IDobj]  ;  @return float value 0 to 1
+quantityObj[IDobj]  ; @return float value 0 to 1
+lifeObj[IDobj]  ; @return float value 0 to 1
+
+speedObj[IDobj]  ; @return float value 0 to 1
+
+directionObj[IDobj]  ; @return float value 0 > 360
+angleObj[IDobj]  ; @return float value 0 > 360
+
+amplitudeObj[IDobj]  ; @return float value 0 > 1
+attractionObj[IDobj]  ; @return float value 0 > 1
+repulsionObj[IDobj]  ; @return float value 0 > 1
+influenceObj[IDobj]  ; @return float value 0 > 1
+alignmentObj[IDobj]  ; @return float value 0 > 1
+analyzeObj[IDobj]  ; @return float value 0 > 1
 
 
 // shortcut var

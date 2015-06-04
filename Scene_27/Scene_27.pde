@@ -25,7 +25,7 @@ void setup() {
   //GEOMERATIVE
   RG.init(this);
 
-  //soundSetup() ;
+  soundSetup() ;
   varObjectSetup() ; // the varObject setup of the Scene is more simple
   OSCSetup() ;
 
@@ -40,7 +40,7 @@ void draw() {
   if(!syphon) frame.setTitle(nameVersion + " " +prettyVersion+"."+version+ " - Scene"); else frame.setTitle(nameVersion + " " +prettyVersion+"."+version+ " - Miroir");
   initDraw() ;
   miroirDraw() ;
-  // soundDraw() ;
+  soundDraw() ;
   // OSCDraw() ;
   meteoDraw() ;
   updateVarRaw() ;

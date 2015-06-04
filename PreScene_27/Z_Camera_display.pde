@@ -462,8 +462,8 @@ void catchCameraInfo() {
 
 
 //camera order from the mouse or from the leap
-void controlCamera(boolean authorization) {
-  if(authorization) {
+void controlCamera(boolean authorazation) {
+  if(authorazation) {
     if(ORDER_ONE || ORDER_THREE) moveScene = true ;   else moveScene = false ;
     if(ORDER_TWO || ORDER_THREE) moveEye = true ;   else moveEye = false ;
       
@@ -475,7 +475,7 @@ void controlCamera(boolean authorization) {
     if (touch0) {
       changeCameraPosition(0) ;
     }
-  } else if (!authorization || (ORDER_ONE && ORDER_ONE && ORDER_THREE) ) {
+  } else if (!authorazation || (ORDER_ONE && ORDER_ONE && ORDER_THREE) ) {
     moveScene = false ;
     moveEye = false ;
   }  
@@ -506,7 +506,7 @@ void startCamera() {
 void updateCamera(boolean scene, boolean eye, boolean leapMotion, boolean authorization) {
   if(authorization) {
     // update the world position
-   //  println("je suis là") ;
+
     /* We cannot use the method copy() of the PVector, because we must preserve the "Z" parameter of this PVector to move the Scene with the wheel */
     sceneCamera.x = updatePosCamera(scene, leapMotion, mouse[0]).x ;
     sceneCamera.y = updatePosCamera(scene, leapMotion, mouse[0]).y ;
@@ -546,7 +546,7 @@ int wheelCheckRef = 0 ;
 
 boolean checkMouseMove( boolean authorization) {
   boolean mouseMove ;
-  if( authorization &&    (!equals(mouseCheckRef, Vec3(mouse[0])) || wheelCheckRef != wheel[0])) mouseMove = true ; else mouseMove = false ;
+  if( authorization &&    (!compare(mouseCheckRef, Vec3(mouse[0])) || wheelCheckRef != wheel[0])) mouseMove = true ; else mouseMove = false ;
   // create ref
   wheelCheckRef = wheel[0] ;
   mouseCheckRef = Vec3(mouse[0]) ;

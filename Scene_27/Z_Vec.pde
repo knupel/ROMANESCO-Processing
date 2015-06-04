@@ -1,4 +1,4 @@
-// CLASS VEC 0.1.7
+// CLASS VEC 0.1.8
 //////////////////
 // inspireted by GLSL code and PVector
 
@@ -557,13 +557,13 @@ Vec4 div(Vec4 v_a, Vec4 v_b) {
 @ return boolean
 */
 // Vec method
-boolean equals(Vec2 v_a, Vec2 v_b) {
+boolean compare(Vec2 v_a, Vec2 v_b) {
   if((v_a.x == v_b.x) && (v_a.y == v_b.y)) return true ; else return false ;
 }
-boolean equals(Vec3 v_a, Vec3 v_b) {
+boolean compare(Vec3 v_a, Vec3 v_b) {
   if((v_a.x == v_b.x) && (v_a.y == v_b.y) && (v_a.z == v_b.z)) return true ; else return false ;
 }
-boolean equals(Vec4 v_a, Vec4 v_b) {
+boolean compare(Vec4 v_a, Vec4 v_b) {
   if((v_a.x == v_b.x) && (v_a.y == v_b.y) && (v_a.z == v_b.z) && (v_a.w == v_b.w)) return true ; else return false ;
 }
 
