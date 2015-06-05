@@ -36,6 +36,9 @@ void oscEvent(OscMessage receive) {
     splitDataButton() ;
     splitDataSlider() ;
     splitDataLoadSaveController() ;
+    /**
+    Why this line is commented ?
+    */
     // splitDataLoadSave() ;
   }
   /**
@@ -83,8 +86,10 @@ void OSCDraw() {
   
 
   //send
+  
   if (youCanSendToScene)osc.send(RomanescoScene, targetScene); 
   if (youCanSendToMiroir) osc.send(RomanescoScene, targetMiroir);
+  
 
 }
 

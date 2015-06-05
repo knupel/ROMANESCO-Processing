@@ -57,9 +57,11 @@ void settingObjectManipulation (int numObj, int numSettingCamera, int numSetting
 
 // ANNEXE setting camera manipulation
 void settingAllCameras (int numSettingCamera) {
-  for ( int i = 0 ; i < numSettingCamera ; i++ ) {
-     eyeCameraSetting[i] = new PVector () ;
-     sceneCameraSetting[i] = new PVector () ;
+  if (eyeCameraSetting != null && sceneCameraSetting != null ) {
+    for ( int i = 0 ; i < numSettingCamera ; i++ ) {
+       eyeCameraSetting[i] = new PVector () ;
+       sceneCameraSetting[i] = new PVector () ;
+    }
   }
 }
   

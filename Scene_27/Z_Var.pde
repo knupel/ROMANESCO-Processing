@@ -189,8 +189,9 @@ boolean onOffDirLightOne,       onOffDirLightTwo,       onOffLightAmbient,
  //   eLightOneAction, eLightTwoAction, eLightAmbientAction ;
 int whichShader ; 
 int [] whichImage, whichText ;
+String [] image_path_ref  ;
 int [] objectButton,soundButton, actionButton, parameterButton ;
-boolean [] object, sound, action, parameter ;
+boolean [] show_object, sound, action, parameter ;
 
 int mode[]  ;
 
@@ -299,6 +300,7 @@ void createMiscVar() {
    // IMAGE
    img = new PImage[numObj] ;
    whichImage = new int[numObj] ;
+   image_path_ref = new String[numObj] ;
    // TEXT
    textImport = new String [numObj] ;
    whichText = new int[numObj] ;
@@ -374,7 +376,7 @@ void createVarButton() {
   soundButton = new int [numObj] ;
   actionButton = new int [numObj] ;
   parameterButton = new int [numObj] ;
-  object = new boolean [numObj] ;
+  show_object = new boolean [numObj] ;
   sound = new boolean [numObj] ;
   action = new boolean [numObj] ;
   parameter = new boolean [numObj] ;
@@ -509,8 +511,8 @@ void updateVarRaw() {
     amplitudeRaw[i] = map(valueSlider[i+1][23],minSource, MAX_VALUE_SLIDER,0,1) ;
     attractionRaw[i] = map(valueSlider[i+1][24],minSource, MAX_VALUE_SLIDER,0,1) ;
     repulsionRaw[i] = map(valueSlider[i+1][25],minSource, MAX_VALUE_SLIDER,0,1) ;
-    influenceRaw[i] = map(valueSlider[i+1][26],minSource, MAX_VALUE_SLIDER,0,1) ;
-    alignmentRaw[i] = map(valueSlider[i+1][27],minSource, MAX_VALUE_SLIDER,0,1) ;
+    alignmentRaw[i] = map(valueSlider[i+1][26],minSource, MAX_VALUE_SLIDER,0,1) ;
+    influenceRaw[i] = map(valueSlider[i+1][27],minSource, MAX_VALUE_SLIDER,0,1) ;
     analyzeRaw[i] = map(valueSlider[i+1][28],minSource, MAX_VALUE_SLIDER,0 , 1) ;
 
     /* used in this time with sizeXObj */

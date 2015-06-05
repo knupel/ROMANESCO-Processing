@@ -45,7 +45,14 @@ void loadImg(int ID) {
   checkImageFolder() ;
   // whichImage is the int return from the dropdown menu
   if(whichImage[ID] > imagePath.length ) whichImage[ID] = 0 ;
-  if(imagePath != null) img[ID] = loadImage(imagePath[whichImage[ID]]) ;
+
+  if(imagePath != null) {
+    String image_current_path = imagePath[whichImage[ID]] ;
+    if(!image_current_path.equals(image_path_ref[ID])) {
+      img[ID] = loadImage(image_current_path) ;
+    }
+    image_path_ref[ID] = image_current_path ;
+  }
 }
 
 void loadText(int ID) {
@@ -315,7 +322,8 @@ void displayInfoScene() {
   //INFO SOUND
   if (getTimeTrack() > 1 ) text("the track play until " +getTimeTrack() + "  Tempo " + getTempoRef() , 15,15 *(posInfo)) ; else text("no track detected ", 15, 15 *(posInfo)) ;
   posInfo += 1 ;
-  text("right " +int(input.right.get(1) *100),15, 15 *(posInfo)) ;  text("left " + int(input.left.get(1) *100), 50, 15 *(posInfo)) ;
+  text("right " + right_volume_info, 15, 15 *(posInfo)) ;  
+  text("left "  + left_volume_info,  50, 15 *(posInfo)) ;
   posInfo += 1 ;
 }
 
@@ -336,7 +344,7 @@ void displayInfoObject() {
   // for (Romanesco objR : RomanescoList)
   for(int i = 0 ; i < numObj ; i++) {
     
-    if(object[i]) {
+    if(show_object[i]) {
       posInfoObj += 1 ;
       String position = ("x:" +(int)posObjX[i] + " y:" + (int)posObjY[i]+ " z:" + (int)posObjZ[i]) ;
       text(objectName[i] + " - Coord " + position + " - " + objectInfo[objectID[i]], 10, height -(15 *(posInfoObj -1))) ;

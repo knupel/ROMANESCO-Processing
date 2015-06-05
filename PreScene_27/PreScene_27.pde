@@ -10,7 +10,7 @@ String nameVersion = ("Romanesco Unu") ;
 String preferencesPath = sketchPath("")+"preferences/" ;
 //to work in dev, test phase
 boolean testRomanesco = false ;
-boolean fullRendering = false ;
+boolean fullRendering = true ;
 
   
 void setup() {
@@ -28,7 +28,7 @@ void setup() {
   RG.init(this);  // Geomerative
   varObjSetup() ;
   fontSetup() ;
-  soundSetup() ;
+  if(fullRendering) soundSetup() ;
   P3DSetup(modeP3D, numObj, numSettingCamera, numSettingOrientationObject) ;
 }
 
@@ -36,10 +36,10 @@ void setup() {
 
 //DRAW
 void draw() {
-  frame.setTitle(nameVersion + " " +prettyVersion+"."+version+ " - Prescene");
+  frame.setTitle(nameVersion + " " +prettyVersion+"."+version+ " | Préscène | FPS: "+round(frameRate));
   //setting
   initDraw() ;
-  soundDraw() ;
+  if(fullRendering) soundDraw() ;
   updateVarRaw() ;
   OSCDraw() ;
   backgroundRomanesco() ;
@@ -53,12 +53,11 @@ void draw() {
   //use romanesco object
   romanescoManager.displayObject(ORDER_ONE, ORDER_TWO, ORDER_THREE) ;
   if(modeP3D) createGridCamera() ;
-  // gridCamera(sizeBackgroundP3D) ;
   stopCamera() ;
   
   //annexe
   info() ;
-  // curtain() ;
+  if(fullRendering && !testRomanesco) curtain() ;
   
   // misc
   updateVarTemp() ;

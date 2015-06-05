@@ -5,7 +5,7 @@ class Escargot extends Romanesco {
     IDobj = 23 ;
     IDgroup = 2 ;
     romanescoAuthor  = "Stan le Punk";
-    romanescoVersion = "version 1.4";
+    romanescoVersion = "version 1.4.1";
     romanescoPack = "Base" ;
     romanescoRender = "P3D" ;
     romanescoMode = "Original/Raw/Point/Ellipse/Rectangle/Box/Cross/SVG/Vitraux" ;
@@ -101,6 +101,7 @@ class Escargot extends Romanesco {
   //SETUP
   void setting() {
     startPosition(IDobj, 0, 0, 0) ;
+    loadImg(IDobj) ;
     if(!scene) maxVoronoiPoints = 250 ;
     //load pattern SVG to display a Pixel pattern you create in Illustrator or other software
     pathSVG = preferencesPath +"pixel/model.svg" ;
@@ -135,7 +136,7 @@ class Escargot extends Romanesco {
     }
     */
     
-    loadImg(IDobj) ;
+    if(parameter[IDobj]) loadImg(IDobj) ;
 
     if(img[IDobj] != null) {  
       //MOTION

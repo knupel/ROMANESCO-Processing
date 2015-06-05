@@ -10,15 +10,15 @@ FFT fft;
 BeatDetect beatEnergy, beatFrequency;
 BeatListener bl;
 
-// boolean beatOnOff, kickOnOff, snareOnOff, hatOnOff ;
 
 float beatData, kickData, snareData, hatData ;
 float minBeat = 1.0 ;
 float maxBeat = 10.0  ;
 
 //volume
-//float leftRaw, rightBrute, // son right left
-//      mixBrute ;
+int right_volume_info = 0 ;
+int left_volume_info = 0 ;
+
 
 //////////////
 // SOUND SETUP
@@ -45,6 +45,8 @@ void soundDraw() {
   beatEnergy.detect(input.mix);
   initTempo() ;
   soundRomanesco() ;
+  right_volume_info = int(input.right.get(1)  *100) ; 
+  left_volume_info = int(input.left.get(1)  *100) ;
 }
 // END SOUND DRAW
 /////////////////
@@ -77,30 +79,6 @@ void soundRomanesco() {
   if(mix[0] > 1 ) mix[0] = 1.0 ;
   
   //Beat
-  /*
-  if(eBeat == 1 )  beatOnOff = true ; else beatOnOff = false ;
-  if(eKick == 1 )  kickOnOff = true ; else kickOnOff = false ;
-  if(eSnare == 1 ) snareOnOff = true ; else snareOnOff = false ;
-  if(eHat == 1 )   hatOnOff = true ; else hatOnOff = false ;
-    beat[0] = getBeat(beatOnOff) ;
-  kick[0] = getKick(kickOnOff) ;
-  snare[0] = getSnare(snareOnOff) ;
-  hat[0] = getHat(hatOnOff) ;
-  */
-  
-  /*
-  if(onOffBeat)  beatOnOff = true ; else beatOnOff = false ;
-  if(onOffKick)  kickOnOff = true ; else kickOnOff = false ;
-  if(onOffSnare) snareOnOff = true ; else snareOnOff = false ;
-  if(onOffHat)   hatOnOff = true ; else hatOnOff = false ;
-
-  beat[0] = getBeat(beatOnOff) ;
-  kick[0] = getKick(kickOnOff) ;
-  snare[0] = getSnare(snareOnOff) ;
-  hat[0] = getHat(hatOnOff) ;
-  */
-  
-  
   beat[0] = getBeat(onOffBeat) ;
   kick[0] = getKick(onOffKick) ;
   snare[0] = getSnare(onOffSnare) ;
@@ -396,8 +374,11 @@ void spectrum(AudioBuffer fftData, int n) {
 //ANNEXE VOID
 float getTotalSpectrum(int numBand) {
   float t = 0 ;
- for ( int i = 0 ; i < numBand ; i++ ) {
-    t += bandSprectrum[i] ;
+  if (bandSprectrum != null ) {
+   for ( int i = 0 ; i < numBand ; i++ ) {
+     //  if(bandSprectrum[i] != null ) t += bandSprectrum[i] ;
+      t += bandSprectrum[i] ;
+    }
   }
   return t ;
 }

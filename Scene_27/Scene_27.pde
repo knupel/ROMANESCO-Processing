@@ -37,7 +37,7 @@ void setup() {
 //DRAW
 void draw() {
   
-  if(!syphon) frame.setTitle(nameVersion + " " +prettyVersion+"."+version+ " - Scene"); else frame.setTitle(nameVersion + " " +prettyVersion+"."+version+ " - Miroir");
+  if(!syphon) frame.setTitle(nameVersion + " " +prettyVersion+"."+version+ " | Scéne | FPS: "+round(frameRate)); else frame.setTitle(nameVersion + " " +prettyVersion+"."+version+ " | Mirroir | FPS: "+round(frameRate));
   initDraw() ;
   miroirDraw() ;
   soundDraw() ;

@@ -21,6 +21,7 @@ class Surface extends Romanesco {
   // setup
   void setting() {
     startPosition(IDobj, width/2, height/2, 0) ;
+    loadImg(IDobj) ;
   }
   
   // declare VAR
@@ -38,18 +39,18 @@ class Surface extends Romanesco {
   
   // draw
   void display() {
+    //if (testRomanesco) mode[IDobj] = 1 ;
     // color to Vec4 composant
     stroke_color = Vec4(hue(strokeObj[IDobj]),saturation(strokeObj[IDobj]),brightness(strokeObj[IDobj]),alpha(strokeObj[IDobj])) ;
     fill_color = Vec4(hue(fillObj[IDobj]),saturation(fillObj[IDobj]),brightness(fillObj[IDobj]),alpha(fillObj[IDobj])) ;
     // load image
-    loadImg(IDobj) ;
-   // println(resetAction(IDobj)) ;
+    if(parameter[IDobj]) loadImg(IDobj) ;
 
 
     if(motion[IDobj]) speed = speedObj[IDobj] *.7 ; else speed = 0 ;
     
-    amplitude = amplitudeObj[IDobj] *height *.025 *beat[IDobj] ; 
-    amplitude *= amplitude ;
+    amplitude = amplitudeObj[IDobj] *height *.25  ; 
+    amplitude = amplitude *amplitude *beat[IDobj] ;
     
     
     
@@ -66,11 +67,12 @@ class Surface extends Romanesco {
     // SIMPLE GRID
     if(mode[IDobj] != 0 ) {
       //size pixel triangle
-      int sizePix_grid_simple = int(3 +sizeXObj[IDobj] /33) ;
+      int sizePixMin = 7 ;
+      int sizePix_grid_simple = int(sizePixMin +sizeXObj[IDobj] /33) ;
       if(!fullRendering) sizePix_grid_simple *= 3 ;
       //size canvas grid
       Vec2 newCanvas = Vec2(canvasXObj[IDobj],canvasYObj[IDobj]) ;
-      newCanvas.mult(2.5) ;
+      newCanvas.mult(4.5) ;
       // create grid if there is no grid
       if( grid_surface_simple.size() < 1) create_surface_simple(sizePix_grid_simple,newCanvas) ;
       
@@ -114,7 +116,6 @@ class Surface extends Romanesco {
       objectInfo[IDobj] =("Mode: " + mode[IDobj] +" | Triangles:"+grid_surface_image.size() + " | " + image.width + "x" + image.height) ; 
     } else objectInfo[IDobj] =("Mode: " + mode[IDobj] +" | Triangles:"+grid_surface_simple.size()) ;
     
-    println(grid_surface_image.size(), grid_surface_simple.size()) ;
     
   }
   // End Display method

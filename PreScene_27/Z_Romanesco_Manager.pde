@@ -412,15 +412,17 @@ class ObjectRomanescoManager {
     }
     
     //the method
-    for (Romanesco objR : RomanescoList) {
-      if (object[objR.IDobj]) {
-        updateObject(objR.IDobj, objR.IDgroup) ;
-        pushMatrix() ;
-        addRefObj(objR.IDobj) ;
-        if(vLongTouch && action[objR.IDobj] ) objectMove(movePos, moveDir, objR.IDobj) ;
-        P3DmoveObj(objR.IDobj) ;
-        objR.display() ;
-        popMatrix() ;
+    if (show_object != null) {
+      for (Romanesco objR : RomanescoList) {
+        if (show_object[objR.IDobj]) {
+          updateObject(objR.IDobj, objR.IDgroup) ;
+          pushMatrix() ;
+          addRefObj(objR.IDobj) ;
+          if(vLongTouch && action[objR.IDobj] ) objectMove(movePos, moveDir, objR.IDobj) ;
+          P3DmoveObj(objR.IDobj) ;
+          objR.display() ;
+          popMatrix() ;
+        }
       }
     }
   }

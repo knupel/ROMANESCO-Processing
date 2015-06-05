@@ -1,4 +1,4 @@
-// CLASS VEC 0.1.8
+// CLASS VEC 0.1.9
 //////////////////
 // inspireted by GLSL code and PVector
 
@@ -557,14 +557,29 @@ Vec4 div(Vec4 v_a, Vec4 v_b) {
 @ return boolean
 */
 // Vec method
+// Vec2 compare
 boolean compare(Vec2 v_a, Vec2 v_b) {
-  if((v_a.x == v_b.x) && (v_a.y == v_b.y)) return true ; else return false ;
+  if( v_a != null && v_b != null ) {
+    if((v_a.x == v_b.x) && (v_a.y == v_b.y)) {
+      return true ; 
+    } else return false ;
+  } else return false ;
 }
+// Vec3 compare
 boolean compare(Vec3 v_a, Vec3 v_b) {
-  if((v_a.x == v_b.x) && (v_a.y == v_b.y) && (v_a.z == v_b.z)) return true ; else return false ;
+  if( v_a != null && v_b != null ) {
+    if((v_a.x == v_b.x) && (v_a.y == v_b.y) && (v_a.z == v_b.z)) {
+            return true ; 
+    } else return false ;
+  } else return false ;
 }
+// Vec4 compare
 boolean compare(Vec4 v_a, Vec4 v_b) {
-  if((v_a.x == v_b.x) && (v_a.y == v_b.y) && (v_a.z == v_b.z) && (v_a.w == v_b.w)) return true ; else return false ;
+  if( v_a != null && v_b != null ) {
+    if((v_a.x == v_b.x) && (v_a.y == v_b.y) && (v_a.z == v_b.z) && (v_a.w == v_b.w)) {
+            return true ; 
+    } else return false ;
+  } else return false ;
 }
 
 

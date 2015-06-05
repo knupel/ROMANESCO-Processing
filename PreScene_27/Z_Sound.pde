@@ -16,8 +16,9 @@ float minBeat = 1.0 ;
 float maxBeat = 10.0  ;
 
 //volume
-//float leftRaw, rightBrute, // son right left
-//      mixBrute ;
+int right_volume_info = 0 ;
+int left_volume_info = 0 ;
+
 
 //////////////
 // SOUND SETUP
@@ -44,6 +45,8 @@ void soundDraw() {
   beatEnergy.detect(input.mix);
   initTempo() ;
   soundRomanesco() ;
+  right_volume_info = int(input.right.get(1)  *100) ; 
+  left_volume_info = int(input.left.get(1)  *100) ;
 }
 // END SOUND DRAW
 /////////////////
@@ -371,8 +374,11 @@ void spectrum(AudioBuffer fftData, int n) {
 //ANNEXE VOID
 float getTotalSpectrum(int numBand) {
   float t = 0 ;
- for ( int i = 0 ; i < numBand ; i++ ) {
-    t += bandSprectrum[i] ;
+  if (bandSprectrum != null ) {
+   for ( int i = 0 ; i < numBand ; i++ ) {
+     //  if(bandSprectrum[i] != null ) t += bandSprectrum[i] ;
+      t += bandSprectrum[i] ;
+    }
   }
   return t ;
 }

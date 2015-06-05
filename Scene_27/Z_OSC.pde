@@ -105,7 +105,7 @@ void translateDataFromController () {
     soundButton    [iPlusOne] = valueButtonObj[i *10 +3] ;
     actionButton   [iPlusOne] = valueButtonObj[i *10 +4] ;
     mode     [iPlusOne] = valueButtonObj[i *10 +9] ;
-    if (objectButton[iPlusOne] == 1 ) object[iPlusOne] = true ; else object[iPlusOne] = false ;
+    if (objectButton[iPlusOne] == 1 ) show_object[iPlusOne] = true ; else show_object[iPlusOne] = false ;
     if (parameterButton[iPlusOne] == 1 ) parameter[iPlusOne] = true ; else parameter[iPlusOne] = false ;
     if (soundButton[iPlusOne] == 1 ) sound[iPlusOne] = true ; else sound[iPlusOne] = false ;
     if (actionButton[iPlusOne] == 1 ) action[iPlusOne] = true ; else action[iPlusOne] = false ;
