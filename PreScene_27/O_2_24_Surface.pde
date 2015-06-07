@@ -49,11 +49,8 @@ class Surface extends Romanesco {
 
     if(motion[IDobj]) speed = speedObj[IDobj] *.7 ; else speed = 0 ;
     
-    amplitude = amplitudeObj[IDobj] *height *.25  ; 
-    amplitude = amplitude *amplitude *beat[IDobj] ;
-    
-    
-    
+    amplitude = amplitudeObj[IDobj] *height *.07 *beat[IDobj]  ;
+    amplitude *= amplitude  ;
     
     // IMAGE GRID
     sizePixel_image = floor(map(analyzeObj[IDobj], 0,1,width/20,2)) ;
@@ -77,7 +74,6 @@ class Surface extends Romanesco {
       if( grid_surface_simple.size() < 1) create_surface_simple(sizePix_grid_simple,newCanvas) ;
       
       // from of the wave
-      println("Influence: ",influenceObj[IDobj]) ;
       int maxStep = (int)map(influenceObj[IDobj],0,1,2,50) ;
       step = map(noise(5),0,1,0,maxStep) ; // break the linear mode of the wave
       

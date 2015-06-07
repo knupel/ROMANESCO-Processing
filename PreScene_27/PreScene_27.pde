@@ -10,7 +10,7 @@ String nameVersion = ("Romanesco Unu") ;
 String preferencesPath = sketchPath("")+"preferences/" ;
 //to work in dev, test phase
 boolean testRomanesco = false ;
-boolean fullRendering = true ;
+boolean fullRendering = false ;
 
   
 void setup() {
@@ -28,7 +28,8 @@ void setup() {
   RG.init(this);  // Geomerative
   varObjSetup() ;
   fontSetup() ;
-  if(fullRendering) soundSetup() ;
+  // here we ask for the testRomanesco true, because the Minim Library talk too much in the consol
+  if(fullRendering && !testRomanesco) soundSetup() ;
   P3DSetup(modeP3D, numObj, numSettingCamera, numSettingOrientationObject) ;
 }
 
@@ -39,7 +40,8 @@ void draw() {
   frame.setTitle(nameVersion + " " +prettyVersion+"."+version+ " | Préscène | FPS: "+round(frameRate));
   //setting
   initDraw() ;
-  if(fullRendering) soundDraw() ;
+  // here we ask for the testRomanesco true, because the Minim Library talk too much in the consol
+  if(fullRendering && !testRomanesco) soundDraw() ;
   updateVarRaw() ;
   OSCDraw() ;
   backgroundRomanesco() ;

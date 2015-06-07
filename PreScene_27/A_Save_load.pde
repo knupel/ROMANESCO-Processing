@@ -12,7 +12,6 @@ void loadPrescene() {
 String path_to_load_scene_setting = ("") ;
 // method callingBack
 void loadSettingScene(File selection) {
-	println(path_to_load_scene_setting) ;
   if (selection != null) {
   	path_to_load_scene_setting = selection.getAbsolutePath();
   	loadDataObject(path_to_load_scene_setting) ;

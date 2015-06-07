@@ -20,6 +20,8 @@ void backgroundRomanesco() {
   } else {
     if(onOffBackground) {
       if(whichShader == 0) {
+        // check if the color model is changed after the shader used
+        if(g.colorModeX != 360 || g.colorModeY != 100 || g.colorModeZ !=100 || g.colorModeA !=100) colorMode(HSB,360,100,100,100) ;
         // choice the rendering color palette for the classic background
         if(fullRendering) {
           // check if the slider background are move, if it's true update the color background
@@ -44,11 +46,16 @@ void backgroundRomanesco() {
 /////////////////////////
 Vec4 updateBackground() {
   //to smooth the curve of transparency background
+  // HSB
+  float hue_bg =         map(valueSlider[0][0],0,MAX_VALUE_SLIDER,0,HSBmode.r) ;
+  float saturation_bg =  map(valueSlider[0][1],0,MAX_VALUE_SLIDER,0,HSBmode.g) ;
+  float brigthness_bg =  map(valueSlider[0][2],0,MAX_VALUE_SLIDER,0,HSBmode.b) ;
+  // ALPHA
   float factorSmooth = 2.5 ;
   float nx = norm(valueSlider[0][3], 0.0 , MAX_VALUE_SLIDER) ;
   float alpha = pow (nx, factorSmooth);
-  alpha = map(alpha, 0, 1, 0.8, HSBmode.a) ; 
-  return Vec4(map(valueSlider[0][0],0,MAX_VALUE_SLIDER,0,HSBmode.r),map(valueSlider[0][1],0,MAX_VALUE_SLIDER,0,HSBmode.g),map(valueSlider[0][2],0,MAX_VALUE_SLIDER,0,HSBmode.b),alpha) ;
+  alpha = map(alpha, 0, 1, 0.8, HSBmode.a) ;
+  return Vec4(hue_bg,saturation_bg,brigthness_bg,alpha) ;
 }
 
 //diffenrent background
@@ -63,6 +70,7 @@ void backgroundClassic(Vec4 c) {
 //BACKGROUND
 ////////////
 void backgroundP3D(Vec4 c) {
+  // I don't remember why there is an alpha comparaison with under or upper 90 ?
   if(c.a < 90 ) {
     fill(c.r, c.g, c.b, c.a) ;
     noStroke() ;
@@ -156,7 +164,6 @@ void rectangle(PVector pos, PVector size, PShader s) {
   float greenNorm = map(RGBbackground.y,0,255,0,1) ;
   float blueNorm = map(RGBbackground.z,0,255,0,1) ;
   float alphaNorm = map(valueSlider[0][3],0,MAX_VALUE_SLIDER,0,1) ;
-  
   float varTime = (float)millis() *.001 ;
   if(spaceTouch) {
     shaderMouseX = map(mouse[0].x,0,width,0,1) ;

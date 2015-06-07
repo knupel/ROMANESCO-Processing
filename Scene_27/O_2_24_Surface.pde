@@ -49,11 +49,8 @@ class Surface extends Romanesco {
 
     if(motion[IDobj]) speed = speedObj[IDobj] *.7 ; else speed = 0 ;
     
-    amplitude = amplitudeObj[IDobj] *height *.25  ; 
-    amplitude = amplitude *amplitude *beat[IDobj] ;
-    
-    
-    
+    amplitude = amplitudeObj[IDobj] *height *.07 *beat[IDobj]  ;
+    amplitude *= amplitude  ;
     
     // IMAGE GRID
     sizePixel_image = floor(map(analyzeObj[IDobj], 0,1,width/20,2)) ;
