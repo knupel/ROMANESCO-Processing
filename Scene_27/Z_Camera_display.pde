@@ -133,6 +133,8 @@ PVector updateDirObj(PVector speed, int ID, boolean authorization) {
     newObjRefDir = false ;
     //create the delta between the ref and the mouse position
     deltaObjDir = PVector.sub(mouse[0], P3DdirectionMouseRef) ;
+    println(ID, deltaObjDir) ;
+    println(ID, dirObjRef) ;
     tempObjDir = PVector.add(deltaObjDir, dirObjRef) ;
     
     //rotation of the camera

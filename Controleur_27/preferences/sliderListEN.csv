@@ -1,8 +1,7 @@
 Slider Name,Column 1,Column 2,Column 3,Column 4,Column 5,Column 6,Column 7,Column 8,Column 9,Column 10,Column 11,Column 12,Column 13,Column 14,Column 15
-général,Hue,Saturation,Brigthness,Refresh,Left,Rigth,TYPOGRAPHY,CURTAIN,
-Light,Hue,Saturation,Brigthness,
-camera,Focal 28-200,Deformation,Eye X,Eye Y,Eye Z,Position X,Position Y,Position Z, Roll
-slider 1,Hue,Saturation,Brigthness,Opacity,Hue,Saturation,Brigthness,Opacity,Thickness,,,,
-slider 2,Width,Height,Depth,Canvas X,Canvas Y,Canvas Z,Family,Quantity,Life
-slider 3,Speed,Direction,Angle,Amplitude,Attraction,Repulsion,Alignment,Influence,Analyze
-
+général,Hue,Saturation,Brigthness,Refresh,Left,Rigth,TYPOGRAPHY,CURTAIN,,,,,,,
+Light,Hue,Saturation,Brigthness,,,,,,,,,,,,
+camera,Focal 28-200,Deformation,Direction X,Direction Y,Direction Z,Position X,Position Y,Position Z,Pitch,,,,,,
+slider 1,Hue,Saturation,Brigthness,Opacity,Hue,Saturation,Brigthness,Opacity,Thickness,,,,,,
+slider 2,Width,Height,Depth,Canvas X,Canvas Y,Canvas Z,Family,Quantity,Life,,,,,,
+slider 3,Speed,Direction,Angle,Amplitude,Attraction,Repulsion,Alignment,Influence,Analyze,,,,,,

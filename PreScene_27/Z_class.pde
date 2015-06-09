@@ -355,8 +355,8 @@ class Canvas {
 
 
 
-// CLASS POLYGONE
-/////////////////
+// CLASS POLYGONE june 2015 / 1.1.1
+///////////////////////////////////
 class Polygon {
   Vec4 [] points ;
   PVector pos ;
@@ -400,7 +400,10 @@ class Polygon {
     fill(color_fill) ;
     stroke(color_stroke) ;
     strokeWeight(strokeWeight) ;
-    // noStroke();
+    // check for transparency
+    if(strokeWeight == 0 || alpha(color_stroke) == 0) noStroke() ;
+    if(alpha(color_fill) == 0) noFill() ;
+    // draw
     beginShape();
     for (int i = 0; i < points.length; i++) {
       vertex(points[i].x, points[i].y, points[i].z);
@@ -413,8 +416,11 @@ class Polygon {
   void draw_polygon_in_PShape(PShape in) {
     in.fill(color_fill) ;
     in.stroke(color_stroke) ;
-    // in.noStroke() ;
     in.strokeWeight(strokeWeight) ;
+    // check for trnsparency
+    if(strokeWeight == 0 || alpha(color_stroke) == 0) in.noStroke() ;
+    if(alpha(color_fill) == 0) in.noFill() ;
+    // draw
     for (int i = 0; i < points.length; i++) {
       in.vertex(points[i].x, points[i].y, points[i].z);
     }

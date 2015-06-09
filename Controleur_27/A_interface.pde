@@ -559,7 +559,7 @@ void dispayTextSliderGroupZero(int pos) {
   
   // CAMERA
   int numSliderCorrection = 19 ;
-  for(int i = 1 ; i < 9 ; i++ ) {
+  for(int i = 1 ; i < sliderNameCamera.length ; i++ ) {
     text(sliderNameCamera[i], posSlider[i+numSliderCorrection].x +correctionX, posSlider[i+numSliderCorrection].y +correctionY);
   }
 }

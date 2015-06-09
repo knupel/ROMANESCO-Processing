@@ -30,6 +30,7 @@ class Surface extends Romanesco {
   float amplitude = 30 ;
   // GRID IMAGE
   int sizePixel_image ;
+  int altitude_image ;
   // GRID SIMPLE
   float step  = .01 ;  
   float refSizeTriangle ;
@@ -41,13 +42,14 @@ class Surface extends Romanesco {
   void display() {
     //if (testRomanesco) mode[IDobj] = 1 ;
     // color to Vec4 composant
-    stroke_color = Vec4(hue(strokeObj[IDobj]),saturation(strokeObj[IDobj]),brightness(strokeObj[IDobj]),alpha(strokeObj[IDobj])) ;
     fill_color = Vec4(hue(fillObj[IDobj]),saturation(fillObj[IDobj]),brightness(fillObj[IDobj]),alpha(fillObj[IDobj])) ;
+    stroke_color = Vec4(hue(strokeObj[IDobj]),saturation(strokeObj[IDobj]),brightness(strokeObj[IDobj]),alpha(strokeObj[IDobj])) ;
     // load image
     if(parameter[IDobj]) loadImg(IDobj) ;
 
 
     if(motion[IDobj]) speed = speedObj[IDobj] *.7 ; else speed = 0 ;
+    
     
     amplitude = amplitudeObj[IDobj] *height *.07 *beat[IDobj]  ;
     amplitude *= amplitude  ;
@@ -61,7 +63,11 @@ class Surface extends Romanesco {
       choicePicture = false ;
     }
     
-    // SIMPLE GRID
+    
+    
+    
+    // simple grid param
+    ////////////////////
     if(mode[IDobj] != 0 ) {
       //size pixel triangle
       int sizePixMin = 7 ;
@@ -82,11 +88,6 @@ class Surface extends Romanesco {
         grid_surface_simple.clear() ;
       }
       
-      
-      
-      
-      
-      
       // Vague + clear
       if(mode[IDobj] == 1 ) {
         if( refSizeTriangle != sizeXObj[IDobj] || !compare(canvasRef,newCanvas) ) {
@@ -104,8 +105,19 @@ class Surface extends Romanesco {
       refSizeTriangle = sizeXObj[IDobj] ;
       canvasRef = newCanvas ;
     }
+    // END simple grid param
+    ////////////////////////
     
-    // update
+    // update image grid
+    if(motion[IDobj]) {
+      float speed_image = speedObj[IDobj] * .2 ;
+      float amplitude_image = amplitudeObj[IDobj] *width *2 ;
+      altitude_image = int(sin(frameCount *speed_image) *amplitude_image) ;
+    }
+    
+    
+    // update all mode
+    /////////////////////////////
     update_and_clean(mode[IDobj]) ;
     
     // info
@@ -128,7 +140,7 @@ class Surface extends Romanesco {
   void update_and_clean(int whichMode) {
     if(whichMode == 0 ) {
       if( grid_surface_simple.size() > 0 )grid_surface_simple.clear() ;
-      update_surface_image(sizePixel_image, fill_color.a, stroke_color,thicknessObj[IDobj]) ;
+      update_surface_image(sizePixel_image, fill_color, stroke_color,thicknessObj[IDobj], altitude_image) ;
     } else if (whichMode == 1 || whichMode == 2 ) {
       if( grid_surface_image.size() > 0 )grid_surface_image.clear() ;
       update_surface_simple(fillObj[IDobj], strokeObj[IDobj], thicknessObj[IDobj], speed, amplitude, step) ;
@@ -194,15 +206,17 @@ class Surface extends Romanesco {
   // BUILD SURFACE IMAGE
   ////////////////////////////////////////////////////////////////////
   Vec4 stroke_ref = new Vec4()  ;
-  float alpha_fill_ref  ;
+  Vec4 fill_ref = new Vec4()  ;
+  // float alpha_fill_ref  ;
   float thickness_ref  ;
+  int altitude_ref ;
   boolean refresh_surface ;
     // advice method
-  void update_surface_image(int sizePix, float alpha_fill, Vec4 color_stroke, float thickness) {
-    
-    if( !compare(stroke_ref,color_stroke) || alpha_fill_ref != alpha_fill || thickness_ref != thickness) refresh_surface = true ;
+  void update_surface_image(int sizePix, Vec4 color_fill, Vec4 color_stroke, float thickness, int altitude) {
+    if( !compare(stroke_ref,color_stroke) || !compare(fill_ref,color_fill) || thickness_ref != thickness || altitude_ref != altitude) refresh_surface = true ;
     stroke_ref = color_stroke.copy() ;
-    alpha_fill_ref = alpha_fill ;
+    fill_ref = color_fill.copy() ;
+    altitude_ref = altitude ;
     thickness_ref = thickness ;
     // if(choicePicture) loadImageFromFolder() ;
     if(!choicePicture) {
@@ -211,8 +225,7 @@ class Surface extends Romanesco {
       choicePicture = true ;
     }
     if((newPicture && choicePicture) || refresh_surface) {
-      int altitude = int(sin(frameCount *.01) *1000) ;
-      surface_build_image_grid(0,0,altitude, sizePix, grid_surface_image, alpha_fill, color_stroke, thickness) ;
+      surface_build_image_grid(0,0,altitude, sizePix, grid_surface_image, color_fill, color_stroke, thickness) ;
       refresh_surface = false ;
     }
     if(image != null) surfaceShapeDraw() ;
@@ -223,7 +236,7 @@ class Surface extends Romanesco {
   // SURFACE METHODE
   ///////////////////
   // annexe method
-  void surface_build_image_grid(float x, float y, int altitude, int sizeTriangle, ArrayList<Polygon> gridTriangle, float alpha_fill, Vec4 color_stroke, float thickness) {
+  void surface_build_image_grid(float x, float y, int altitude, int sizeTriangle, ArrayList<Polygon> gridTriangle, Vec4 color_fill, Vec4 color_stroke, float thickness) {
       //setting grid
     PVector startingPosition = new PVector(x, y) ; 
     /*
@@ -233,9 +246,8 @@ class Surface extends Romanesco {
      */
     surfaceGridImg(sizeTriangle, startingPosition, image, gridTriangle) ;
     if(gridTriangle.size() > 0 ) {
-      println("compute high Poly");
-      // surfaceImgColor(gridTriangle) ;
-      surfaceImgColor(gridTriangle, alpha_fill, color_stroke, thickness) ;
+      println("compute Surface grid");
+      surfaceImgColor(gridTriangle, color_fill, color_stroke, thickness) ;
       
       surfaceImgSummit(altitude, gridTriangle) ;
       createSurfaceShape(gridTriangle) ;
@@ -254,8 +266,7 @@ class Surface extends Romanesco {
       // clear the list if you load an other picture.
       gridTriangle.clear(); 
       listTrianglePoint.clear() ;
-    
-    
+      
       //classic grid method
       Vec2 canvas = Vec2(imgSurface.width, imgSurface.height);
       surfaceGrid(sizePix, canvas, startingPosition, gridTriangle) ;
@@ -263,26 +274,26 @@ class Surface extends Romanesco {
   }
   
   // color surface
-  void surfaceImgColor(ArrayList<Polygon> gridTriangle, float alpha_fill, Vec4 color_stroke, float thickness) {
+  void surfaceImgColor(ArrayList<Polygon> gridTriangle, Vec4 color_fill, Vec4 color_stroke, float thickness) {
     /* We calculated the value of first pixel in the pixel arraylist to remove or add this "firstValue" to the other the pixel, 
      because we need have count from zero to find give the good color to the good polygon. */
     Polygon ref = (Polygon) grid_surface_image.get(0) ;
     int firstValue = int((ref.pos.y -1) *imgSurface.width +ref.pos.x) ;
-  
+
     for (Polygon t : gridTriangle) {
       // find the pixel in the picture import with the triangle grid to return the color to polygon.
       int  rankPixel = int((t.pos.y) *imgSurface.width +t.pos.x) -firstValue ;
   
-      //security for the array crash
-      if (rankPixel < imgSurface.pixels.length) {
+      
+      if (rankPixel < imgSurface.pixels.length) { //security for the array crash
         int colorTriangle = imgSurface.pixels[rankPixel] ;
-        if(alpha_fill == 0) noFill() ; else t.color_fill = color(hue(colorTriangle),saturation(colorTriangle),brightness(colorTriangle), alpha_fill) ;
-        if(color_stroke.a == 0 || thickness == 0 ) {
-          noStroke() ;
-        } else {
-          t.color_stroke = color(stroke_color.r,stroke_color.g,stroke_color.b,stroke_color.a)  ;
-          t.strokeWeight = thickness ;
-        }
+        float newSat = saturation(colorTriangle) ;
+        float newBright = brightness(colorTriangle) ;
+        if (color_fill.g <= newSat ) newSat = color_fill.g ;
+        if (color_fill.b <= newBright ) newBright = color_fill.b ;
+        t.color_fill = color(hue(colorTriangle),newSat, newBright, color_fill.a) ;
+        t.color_stroke = color(stroke_color.r,stroke_color.g,stroke_color.b,stroke_color.a)  ;
+        t.strokeWeight = thickness ;
       }
     }
   }
@@ -326,14 +337,14 @@ class Surface extends Romanesco {
   PShape patternShape;
   // local void
   void createSurfaceShape(ArrayList<Polygon> gridTriangle) {
-    println("Create high Poly mesh");
+    println("Create high Surface mesh");
     patternShape = createShape();
     patternShape.beginShape(TRIANGLES);
     for (Polygon t : gridTriangle) {
       t.draw_polygon_in_PShape(patternShape) ;
     }
     patternShape.endShape(CLOSE);
-    println("High Poly mesh has been created with "+patternShape.getVertexCount()+" vertex");
+    println("High Surface mesh has been created with "+patternShape.getVertexCount()+" vertex");
   }
   //
   void surfaceShapeDraw() {
