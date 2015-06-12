@@ -355,7 +355,7 @@ class Canvas {
 
 
 
-// CLASS POLYGONE june 2015 / 1.1.1
+// CLASS POLYGONE june 2015 / 1.1.2
 ///////////////////////////////////
 class Polygon {
   Vec4 [] points ;
@@ -411,6 +411,45 @@ class Polygon {
     endShape(CLOSE) ;
   }
   
+  void draw_polygon(PVector motion) {
+    fill(color_fill) ;
+    stroke(color_stroke) ;
+    strokeWeight(strokeWeight) ;
+    // check for transparency
+    if(strokeWeight == 0 || alpha(color_stroke) == 0) noStroke() ;
+    if(alpha(color_fill) == 0) noFill() ;
+    // draw
+    pushMatrix() ;
+    translate(motion.x,motion.y,motion.z) ;
+    beginShape();
+    for (int i = 0; i < points.length; i++) {
+      vertex(points[i].x, points[i].y, points[i].z);
+    }
+    endShape(CLOSE) ;
+    popMatrix() ;
+  }
+  
+  void draw_polygon(PVector motion, PVector rotation) {
+    fill(color_fill) ;
+    stroke(color_stroke) ;
+    strokeWeight(strokeWeight) ;
+    // check for transparency
+    if(strokeWeight == 0 || alpha(color_stroke) == 0) noStroke() ;
+    if(alpha(color_fill) == 0) noFill() ;
+    // draw
+    pushMatrix() ;
+    translate(motion.x,motion.y,motion.z) ;
+    rotateX(radians(rotation.x)) ;
+    rotateZ(radians(rotation.y)) ;
+    rotateY(radians(rotation.z)) ;
+    beginShape();
+    for (int i = 0; i < points.length; i++) {
+      vertex(points[i].x, points[i].y, points[i].z);
+    }
+    endShape(CLOSE) ;
+    popMatrix() ;
+  }
+  
   
   // SHAPE METHOD
   void draw_polygon_in_PShape(PShape in) {
@@ -424,6 +463,22 @@ class Polygon {
     for (int i = 0; i < points.length; i++) {
       in.vertex(points[i].x, points[i].y, points[i].z);
     }
+  }
+  
+  void draw_polygon_in_PShape(PShape in, PVector motion) {
+    in.fill(color_fill) ;
+    in.stroke(color_stroke) ;
+    in.strokeWeight(strokeWeight) ;
+    // check for trnsparency
+    if(strokeWeight == 0 || alpha(color_stroke) == 0) in.noStroke() ;
+    if(alpha(color_fill) == 0) in.noFill() ;
+    // draw
+    pushMatrix() ;
+    translate(motion.x,motion.y,motion.z) ;
+    for (int i = 0; i < points.length; i++) {
+      in.vertex(points[i].x, points[i].y, points[i].z);
+    }
+    popMatrix() ;
   }
   //
   /*

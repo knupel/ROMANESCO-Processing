@@ -10,7 +10,7 @@ String nameVersion = ("Romanesco Unu") ;
 String preferencesPath = sketchPath("")+"preferences/" ;
 //to work in dev, test phase
 boolean testRomanesco = false ;
-boolean fullRendering = false ;
+boolean fullRendering = true ;
 
   
 void setup() {
