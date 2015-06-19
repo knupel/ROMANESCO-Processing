@@ -11,7 +11,7 @@ class Boxolyzer extends Romanesco {
     romanescoPack = "Base" ;
     romanescoRender = "P3D" ;
     romanescoMode ="Classic/Circle" ;
-    romanescoSlider = "Hue fill,Saturation fill,Brightness fill,Alpha fill,Hue stroke,Saturation stroke,Brightness stroke,Alpha stroke,Thickness,Width,Height,Depth,Canvas X,Quantity,Direction" ;
+    romanescoSlider = "Hue fill,Saturation fill,Brightness fill,Alpha fill,Hue stroke,Saturation stroke,Brightness stroke,Alpha stroke,Thickness,Size X,Size Y,Size Z,Canvas X,Quantity,Direction" ;
   }
   //GLOBAL
   boolean newDistribution ;

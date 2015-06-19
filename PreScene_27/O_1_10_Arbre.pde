@@ -11,7 +11,7 @@ class ArbreRomanesco extends Romanesco {
     romanescoPack = "Base" ;
     romanescoRender = "classic" ;
     romanescoMode = "Line/Disc/Disc line/Rectangle/Rectangle line/Box" ;
-    romanescoSlider = "Hue fill,Saturation fill,Brightness fill,Alpha fill,Hue stroke,Saturation stroke,Brightness stroke,Alpha stroke,Thickness,Width,Height,Depth,Quantity,Speed,Direction,Amplitude" ;
+    romanescoSlider = "Hue fill,Saturation fill,Brightness fill,Alpha fill,Hue stroke,Saturation stroke,Brightness stroke,Alpha stroke,Thickness,Size X,Size Y,Size Z,Quantity,Speed,Direction,Amplitude" ;
   }
   //GLOBAL
   float speed ;

@@ -9,7 +9,7 @@ class Galaxie extends Romanesco {
     romanescoPack = "Base" ;
     romanescoRender = "classic" ;
     romanescoMode ="Point/Ellipse/Rectangle/Box" ;
-    romanescoSlider = "Hue fill,Saturation fill,Brightness fill,Alpha fill,Hue stroke,Saturation stroke,Brightness stroke,Alpha stroke,Thickness,Width,Height,Depth,Canvas X,Canvas Y,Quantity,Speed,Influence" ;
+    romanescoSlider = "Hue fill,Saturation fill,Brightness fill,Alpha fill,Hue stroke,Saturation stroke,Brightness stroke,Alpha stroke,Thickness,Size X,Size Y,Size Z,Canvas X,Canvas Y,Quantity,Speed,Influence" ;
   }
   //GLOBAL
     boolean makeSand = true ;
@@ -20,7 +20,7 @@ class Galaxie extends Romanesco {
   PVector orientationStyletGrain ;
 
   int numGrains ;
-  int numFromControler ;
+  int numFromController ;
   PVector [] grain ;
   float vitesseGrainA = 0.0;
   float vitesseGrainB = 0.0 ;
@@ -56,13 +56,13 @@ class Galaxie extends Romanesco {
       max = 150 ;
     }
     float quantity = map(quantityObj[IDobj],0,1,min,max) ;
-    if (mode[IDobj] == 0 ) numFromControler = int(quantity *10) ; else numFromControler = int(quantity) ;
+    if (mode[IDobj] == 0 ) numFromController = int(quantity *10) ; else numFromController = int(quantity) ;
     
 
-    if ((numGrains != numFromControler && parameterButton[IDobj] == 1) || resetAction(IDobj) ) makeSand = true ;
+    if ((numGrains != numFromController && parameterButton[IDobj] == 1) || resetAction(IDobj) ) makeSand = true ;
     
     if (makeSand) {
-      numGrains = numFromControler ;
+      numGrains = numFromController ;
       grainSetup(numGrains, marge) ;
       makeSand = false ;
     }

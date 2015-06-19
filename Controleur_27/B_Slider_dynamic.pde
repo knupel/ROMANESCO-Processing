@@ -136,9 +136,9 @@ void giveNameSliderUsedByObject() {
   sliderName[9] = ("Thickness") ;
   sliderName[10] = ("not used") ;
 
-  sliderName[11] = ("Width") ;
-  sliderName[12] = ("Height") ;
-  sliderName[13] = ("Depth") ;
+  sliderName[11] = ("Size X") ;
+  sliderName[12] = ("Size Y") ;
+  sliderName[13] = ("Size Z") ;
   sliderName[14] = ("Canvas X") ;
   sliderName[15] = ("Canvas Y") ;
   sliderName[16] = ("Canvas Z") ;

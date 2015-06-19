@@ -9,7 +9,7 @@ class Escargot extends Romanesco {
     romanescoPack = "Base" ;
     romanescoRender = "P3D" ;
     romanescoMode = "Original/Raw/Point/Ellipse/Rectangle/Box/Cross/SVG/Vitraux" ;
-    romanescoSlider = "Hue fill,Saturation fill,Brightness fill,Alpha fill,Hue stroke,Saturation stroke,Brightness stroke,Alpha stroke,Thickness,Width,Height,Depth,Speed,Direction,Amplitude,Analyze,Quantity,Repulsion" ;
+    romanescoSlider = "Hue fill,Saturation fill,Brightness fill,Alpha fill,Hue stroke,Saturation stroke,Brightness stroke,Alpha stroke,Thickness,Size X,Size Y,Size Z,Speed,Direction,Amplitude,Analyze,Quantity,Repulsion" ;
   }
   //GLOBAL
   String pathSVG ;

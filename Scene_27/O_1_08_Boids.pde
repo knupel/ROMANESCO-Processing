@@ -506,6 +506,7 @@ class Boid {
     rotateZ(asin(velNorm.y /velNorm.mag()));
     strokeWeight(thickness) ;
     if(thickness <= 0 || alpha(strokeBoid) == 0 ) noStroke() ; else stroke(strokeBoid);
+    // println(thickness, alpha(colorBoid)) ;
     if(alpha(fillBoid) == 0 ) noFill() ; else  fill(fillBoid);
     tetrahedron(size) ;
     /*

@@ -12,7 +12,7 @@ class Atome extends Romanesco {
     romanescoPack = "Base" ;
     romanescoRender = "P3D" ;
     romanescoMode = "Chemical Name/File text/Electronic cloud/Ellipse circle/Ellipse triangle/Ellipse cloud/Triangle circle/Triangle triangle/Triangle cloud/Rectangle rectangle/Rectangle cloud" ;
-    romanescoSlider = "Hue fill,Saturation fill,Brightness fill,Alpha fill,Hue stroke,Saturation stroke,Brightness stroke,Alpha stroke,Thickness,Width,Height,Depth,Canvas X,Canvas Y,Speed,Direction,Family,Quantity,Amplitude,Angle" ;
+    romanescoSlider = "Hue fill,Saturation fill,Brightness fill,Alpha fill,Hue stroke,Saturation stroke,Brightness stroke,Alpha stroke,Thickness,Size X,Size Y,Size Z,Canvas X,Canvas Y,Speed,Direction,Family,Quantity,Amplitude,Angle" ;
   }
   
   //GLOBAL

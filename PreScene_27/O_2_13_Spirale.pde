@@ -11,7 +11,7 @@ class SpiraleRomanesco extends Romanesco {
     romanescoPack = "Base" ;
     romanescoRender = "P3D" ;
     romanescoMode = "Rectangle/Ellipse/Box" ;
-    romanescoSlider = "Hue fill,Saturation fill,Brightness fill,Alpha fill,Hue stroke,Saturation stroke,Brightness stroke,Alpha stroke,Thickness,Width,Height,Depth,Quantity,Speed,Canvas X,Canvas Y,Canvas Z" ;
+    romanescoSlider = "Hue fill,Saturation fill,Brightness fill,Alpha fill,Hue stroke,Saturation stroke,Brightness stroke,Alpha stroke,Thickness,Size X,Size Y,Size Z,Quantity,Speed,Canvas X,Canvas Y,Canvas Z" ;
   }
   //GLOBAL
      

@@ -9,7 +9,7 @@ class Letter extends Romanesco {
     romanescoPack = "Base" ;
     romanescoRender = "P3D" ;
     romanescoMode = "Point/Line/Triangle" ;
-    romanescoSlider = "Hue fill,Saturation fill,Brightness fill,Alpha fill,Hue stroke,Saturation stroke,Brightness stroke,Alpha stroke,Thickness,Width,Canvas X,Canvas Y,Canvas Z,Quantity,Speed" ;
+    romanescoSlider = "Hue fill,Saturation fill,Brightness fill,Alpha fill,Hue stroke,Saturation stroke,Brightness stroke,Alpha stroke,Thickness,Size X,Canvas X,Canvas Y,Canvas Z,Quantity,Speed" ;
   }
   //GLOBAL
   RFont f;

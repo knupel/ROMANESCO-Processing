@@ -13,7 +13,7 @@ class Spray extends Romanesco {
     romanescoPack = "Base" ;
     romanescoRender = "P3D" ;
     romanescoMode = "Star/Spray" ;
-    romanescoSlider = "Hue fill,Saturation fill,Brightness fill,Alpha fill,Thickness,Width,Height,Canvas X,Canvas Y,Quantity,Speed,Angle,Life,Repulsion" ;
+    romanescoSlider = "Hue fill,Saturation fill,Brightness fill,Alpha fill,Thickness,Size X,Size Y,Canvas X,Canvas Y,Quantity,Speed,Angle,Life,Repulsion" ;
   }
   //GLOBAL
   // INK

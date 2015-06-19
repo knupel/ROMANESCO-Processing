@@ -16,14 +16,13 @@ String preferencesPath = sketchPath("")+"preferences/" ;
 void setup() {
   if(fullRendering) frameRateRomanesco = 60 ; else frameRateRomanesco = 15 ;
   romanescoSetup() ;
+  RG.init(this); // GEOMERATIVE
   createVar() ;
   initVarScene() ;
   displaySetup(frameRateRomanesco) ; // the int give the frameRate
   colorSetup() ;
   miroirSetup() ;
   fontSetup() ;
-  //GEOMERATIVE
-  RG.init(this);
 
   soundSetup() ;
   varObjectSetup() ; // the varObject setup of the Scene is more simple
@@ -37,7 +36,7 @@ void setup() {
 //DRAW
 void draw() {
   
-  if(!syphon) frame.setTitle(nameVersion + " " +prettyVersion+"."+version+ " | Scéne | FPS: "+round(frameRate)); else frame.setTitle(nameVersion + " " +prettyVersion+"."+version+ " | Mirroir | FPS: "+round(frameRate));
+  if(!syphon) frame.setTitle(nameVersion + " " +prettyVersion+"."+version+ " | Scéne | FPS: "+round(frameRate)); else frame.setTitle(nameVersion + " " +prettyVersion+"."+version+ " | Miroir | FPS: "+round(frameRate));
   initDraw() ;
   miroirDraw() ;
   soundDraw() ;
@@ -73,4 +72,5 @@ void keyPressed () {
  // info common command with Prescene
   if (key == 'i') displayInfo = !displayInfo ;
   if (key == 'g') displayInfo3D = !displayInfo3D ;
+  if (key == 'y') syphon = !syphon ;
 }

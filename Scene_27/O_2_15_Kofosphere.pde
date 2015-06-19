@@ -9,7 +9,7 @@ class Kofosphere extends Romanesco {
     romanescoPack = "Base" ;
     romanescoRender = "P3D" ;
     romanescoMode = "Point color/Point mono/Pox color/Box mono" ;
-    romanescoSlider = "Hue stroke,Saturation stroke,Brightness stroke,Alpha stroke,Hue fill,Saturation fill,Brightness fill,Alpha fill,Thickness,Width,Height,Depth,Canvas X,Quantity,Speed" ;
+    romanescoSlider = "Hue stroke,Saturation stroke,Brightness stroke,Alpha stroke,Hue fill,Saturation fill,Brightness fill,Alpha fill,Thickness,Size X,Size Y,Size Z,Canvas X,Quantity,Speed" ;
   }
   //GLOBAL
 

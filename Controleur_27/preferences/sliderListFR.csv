@@ -3,5 +3,5 @@ général,Couleur,Saturation,Luminosité,Rafraichissement,Gauche,Droite,TYPOGRAP
 Light,Couleur,Saturation,Luminosité,,,,,,,,,,,,
 camera,Focale 28-200,Déformation,Direction X,Direction Y,Direction Z,Position X,Position Y,Position Z,Assiestte,,,,,,
 slider 1,Couleur,Saturation,Luminosité,Opacité,Couleur,Saturation,Luminosité,Opacité,Épaisseur,,,,,,
-slider 2,Longueur,Hauteur,Profondeur,Canvas X,Canvas Y,Canvas Z,Famille,Quantité,Durée,,,,,,
+slider 2,Taille X,Taille Y,Taille Z,Canvas X,Canvas Y,Canvas Z,Famille,Quantité,Durée,,,,,,
 slider 3,Vitesse,Direction,Angle,Amplitude,Attraction,Répulsion,Alignement,Influence,Analyse,,,,,,

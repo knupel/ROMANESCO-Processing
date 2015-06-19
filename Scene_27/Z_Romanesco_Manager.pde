@@ -125,7 +125,7 @@ void updateSound(int ID) {
     tempoSnare[ID] = tempoSnare[0] ;// speed of track calculate on the snare
     tempoHat[ID] = tempoHat[0] ;// speed of track calculte on the hat
     
-    for (int i = 0 ; i <numBand ; i++) {
+    for (int i = 0 ; i <NUM_BANDS ; i++) {
       band[ID][i] = band[0][i] ;
     }
   } else {
@@ -144,7 +144,7 @@ void updateSound(int ID) {
     tempoSnare[ID] = 1 ;// speed of track calculate on the snare
     tempoHat[ID] = 1 ;// speed of track calculte on the hat
     
-    for (int i = 0 ; i <numBand ; i++) {
+    for (int i = 0 ; i <NUM_BANDS ; i++) {
       band[ID][i] = 1 ;
     }
   }

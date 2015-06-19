@@ -9,7 +9,7 @@ class Galaxie extends Romanesco {
     romanescoPack = "Base" ;
     romanescoRender = "classic" ;
     romanescoMode ="Point/Ellipse/Rectangle/Box" ;
-    romanescoSlider = "Hue fill,Saturation fill,Brightness fill,Alpha fill,Hue stroke,Saturation stroke,Brightness stroke,Alpha stroke,Thickness,Width,Height,Depth,Canvas X,Canvas Y,Quantity,Speed,Influence" ;
+    romanescoSlider = "Hue fill,Saturation fill,Brightness fill,Alpha fill,Hue stroke,Saturation stroke,Brightness stroke,Alpha stroke,Thickness,Size X,Size Y,Size Z,Canvas X,Canvas Y,Quantity,Speed,Influence" ;
   }
   //GLOBAL
     boolean makeSand = true ;

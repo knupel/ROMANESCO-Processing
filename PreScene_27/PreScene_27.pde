@@ -16,6 +16,7 @@ boolean fullRendering = true ;
 void setup() {
   if(fullRendering) frameRateRomanesco = 60 ; else frameRateRomanesco = 15 ;
   displaySetup(frameRateRomanesco) ; // the int value is the frameRate
+  RG.init(this);  // Geomerative
   // common setup
   romanescoSetup() ;
   createVar() ;
@@ -25,7 +26,6 @@ void setup() {
   OSCSetup() ;
   //common setup
   colorSetup() ;
-  RG.init(this);  // Geomerative
   varObjSetup() ;
   fontSetup() ;
   // here we ask for the testRomanesco true, because the Minim Library talk too much in the consol
@@ -66,8 +66,6 @@ void draw() {
   cursorDraw() ;
   keyboardFalse() ;
   opening() ;
-  
-
 }
 //END DRAW
 

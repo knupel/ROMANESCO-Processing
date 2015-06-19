@@ -10,7 +10,7 @@ class Webcam extends Romanesco {
     romanescoPack = "Base" ;
     romanescoRender = "P3D" ;
     romanescoMode = "Rectangle color/Rectangle mono/Point color/Point mono/Box color/Box mono" ;
-    romanescoSlider = "Hue fill,Saturation fill,Brightness fill,Alpha fill,Width,Height,Depth,Canvas X,Canvas Y" ;
+    romanescoSlider = "Hue fill,Saturation fill,Brightness fill,Alpha fill,Size X,Size Y,Size Z,Canvas X,Canvas Y" ;
   }
   //GLOBAL
   int cameraStatut = 0 ;

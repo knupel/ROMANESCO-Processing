@@ -29,7 +29,7 @@ void soundSetup() {
   minim.debugOn();
   input = minim.getLineIn(Minim.STEREO, 512);
   
-  spectrumSetup(numBand) ;
+  spectrumSetup(NUM_BANDS) ;
   beatSetup() ;
 }
 // END SOUND SETUP
@@ -41,7 +41,7 @@ void soundSetup() {
 /////////////
 // SOUND DRAW
 void soundDraw() {
-  spectrum(input.mix, numBand) ;
+  spectrum(input.mix, NUM_BANDS) ;
   beatEnergy.detect(input.mix);
   initTempo() ;
   soundRomanesco() ;
@@ -86,7 +86,7 @@ void soundRomanesco() {
   
   
   //spectrum
-  for ( int i = 0 ; i < numBand ; i++ ) {
+  for ( int i = 0 ; i < NUM_BANDS ; i++ ) {
     band[0][i] = bandSprectrum[i] ;
   }
   
@@ -119,19 +119,19 @@ void beatSetup() {
 //RETURN
 //BEAT QUANTITY
 int getBeatNum() {
-  if ( beatEnergy.isOnset() ) beatNum += 1 ; else if (  getTotalSpectrum(numBand) < 0.03 ) beatNum = 0 ;
+  if ( beatEnergy.isOnset() ) beatNum += 1 ; else if (  getTotalSpectrum(NUM_BANDS) < 0.03 ) beatNum = 0 ;
   return beatNum ;
 }
 int getKickNum() {
-  if ( beatFrequency.isKick()  ) kickNum += 1 ; else if (  getTotalSpectrum(numBand) < 0.03 ) kickNum = 0 ;
+  if ( beatFrequency.isKick()  ) kickNum += 1 ; else if (  getTotalSpectrum(NUM_BANDS) < 0.03 ) kickNum = 0 ;
   return kickNum ;
 }
 int getSnareNum() {
-  if ( beatFrequency.isSnare()  ) snareNum += 1 ; else if (  getTotalSpectrum(numBand) < 0.03 ) snareNum = 0 ;
+  if ( beatFrequency.isSnare()  ) snareNum += 1 ; else if (  getTotalSpectrum(NUM_BANDS) < 0.03 ) snareNum = 0 ;
   return snareNum ;
 }
 int getHatNum() {
-  if ( beatFrequency.isHat()  ) hatNum += 1 ; else if (  getTotalSpectrum(numBand) < 0.03 ) hatNum = 0 ;
+  if ( beatFrequency.isHat()  ) hatNum += 1 ; else if (  getTotalSpectrum(NUM_BANDS) < 0.03 ) hatNum = 0 ;
   return hatNum ;
 }
 
@@ -238,7 +238,7 @@ float getTempoBeat() {
   return tempoB ;
 }
 float getTempoBeatRef() {
-  if (tempoBeatRef > maxSpecific || getTotalSpectrum(numBand) < 0.03  ) tempoBeatRef = maxSpecific  ; 
+  if (tempoBeatRef > maxSpecific || getTotalSpectrum(NUM_BANDS) < 0.03  ) tempoBeatRef = maxSpecific  ; 
   return  tempoBeatRef ;
 }
 
@@ -254,7 +254,7 @@ float getTempoKick() {
   return tempoK ;
 }
 float getTempoKickRef() {
-  if (tempoKickRef > maxSpecific || getTotalSpectrum(numBand) < 0.03  ) tempoKickRef = maxSpecific  ; 
+  if (tempoKickRef > maxSpecific || getTotalSpectrum(NUM_BANDS) < 0.03  ) tempoKickRef = maxSpecific  ; 
   return  tempoKickRef ;
 }
 
@@ -269,7 +269,7 @@ float getTempoSnare() {
   return tempoS ;
 }
 float getTempoSnareRef() {
-  if (tempoSnareRef > maxSpecific || getTotalSpectrum(numBand) < 0.03  ) tempoSnareRef = maxSpecific  ; 
+  if (tempoSnareRef > maxSpecific || getTotalSpectrum(NUM_BANDS) < 0.03  ) tempoSnareRef = maxSpecific  ; 
   return  tempoSnareRef ;
 }
 
@@ -284,7 +284,7 @@ float getTempoHat() {
   return tempoH ;
 }
 float getTempoHatRef() {
-  if (tempoHatRef > maxSpecific || getTotalSpectrum(numBand) < 0.03  ) tempoHatRef = maxSpecific  ; 
+  if (tempoHatRef > maxSpecific || getTotalSpectrum(NUM_BANDS) < 0.03  ) tempoHatRef = maxSpecific  ; 
   return  tempoHatRef ;
 }
 
@@ -340,7 +340,7 @@ float getTimeTrack() {
   float t ; 
   timeTrack += millis() % 10 ;
   t = timeTrack *.01 ;
-  if ( getTotalSpectrum(numBand) < 0.1 ) timeTrack = 0 ;
+  if ( getTotalSpectrum(NUM_BANDS) < 0.1 ) timeTrack = 0 ;
   return round( t * 10.0f ) / 10.0f; 
 }
 ////////////////
@@ -372,10 +372,10 @@ void spectrum(AudioBuffer fftData, int n) {
 }
 
 //ANNEXE VOID
-float getTotalSpectrum(int numBand) {
+float getTotalSpectrum(int NUM_BANDS) {
   float t = 0 ;
   if (bandSprectrum != null ) {
-   for ( int i = 0 ; i < numBand ; i++ ) {
+   for ( int i = 0 ; i < NUM_BANDS ; i++ ) {
      //  if(bandSprectrum[i] != null ) t += bandSprectrum[i] ;
       t += bandSprectrum[i] ;
     }

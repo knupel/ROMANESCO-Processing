@@ -84,7 +84,7 @@ boolean load_SCENE_Setting_GLOBAL, save_Current_SCENE_Setting_GLOBAL, save_New_S
 // HIGH VAR
 boolean modeP3D, modeP2D, modeOPENGL, modeClassic ;
 //spectrum band
-int numBand = 16 ;
+int NUM_BANDS = 16 ;
 //font
 int numFont = 50 ;
 //quantity of group object slider
@@ -360,7 +360,7 @@ void createVarSound() {
    snare  = new float [numObj] ;
    hat  = new float [numObj] ;
   // spectrum
-   band = new float [numObj][numBand] ;
+   band = new float [numObj][NUM_BANDS] ;
   //tempo
    tempo = new float [numObj] ;
    tempoBeat = new float [numObj] ;

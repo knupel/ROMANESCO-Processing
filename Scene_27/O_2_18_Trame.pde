@@ -11,7 +11,7 @@ class Damier extends Romanesco {
     romanescoPack = "Base" ;
     romanescoRender = "classic" ;
     romanescoMode = "Rectangle/Ellipse/Box" ;
-    romanescoSlider = "Hue fill,Saturation fill,Brightness fill,Alpha fill,Hue stroke,Saturation stroke,Brightness stroke,Alpha stroke,Thickness,Width,Height,Depth,Quantity,Speed,Amplitude" ;
+    romanescoSlider = "Hue fill,Saturation fill,Brightness fill,Alpha fill,Hue stroke,Saturation stroke,Brightness stroke,Alpha stroke,Thickness,Size X,Size Y,Size Z,Quantity,Speed,Amplitude" ;
   }
   //GLOBAL
   float d, g, m ;
