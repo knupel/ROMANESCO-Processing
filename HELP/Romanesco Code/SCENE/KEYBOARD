@@ -61,10 +61,10 @@ boolean xTouch
 
 // FREE KEY
 ////////////
-boolean aTouch, bTouch, cTouch, dTouch, eTouch, fTouch, gTouch,  jTouch, kTouch, lTouch, qTouch, tTouch, uTouch, vTouch, wTouch, yTouch, zTouch,
+boolean aTouch, bTouch, cTouch, dTouch, eTouch, fTouch, gTouch, jTouch, kTouch, lTouch, qTouch, tTouch, uTouch, vTouch, wTouch, yTouch, zTouch,
 leftTouch, rightTouch, upTouch, downTouch, 
 touch0, touch1, touch2, touch3, touch4, touch5, touch6, touch7, touch8, touch9, 
-enterTouch, returnTouch, shiftTouch, altTouch, escTouch ;
+enterTouch, returnTouch, shiftTouch, altTouch, escTouch, cmdTouch ;
 
 //END of KEYBOARD
 /////////////////

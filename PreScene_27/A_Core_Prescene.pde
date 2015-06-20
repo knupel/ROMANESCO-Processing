@@ -1,4 +1,11 @@
-
+/**
+Here you find
+> variable Prescene
+> update command for the mouse, cursor...
+> tablet
+> open method for the scene and controller
+> keyboard command
+*/
 
 // VARIABLES PRESCENE
 /////////////////////
@@ -52,8 +59,8 @@ void opening() {
   if (!testRomanesco && openControleur) {
     fill(blanc) ;
     stroke(blanc) ;
-    textSize(28 ) ;
-    text("Take your time, smoke a cigarette", 50,height/2 ) ;
+    textSize(60) ;
+    text("Take your time, smoke a cigarette", width/2,height/2 ) ;
   }
   if (!testRomanesco) { 
     if (openScene)      { 
@@ -334,18 +341,19 @@ void keyboardTrue() {
   if (key == '8' ) touch8 = true ;
   if (key == '9' ) touch9 = true ;
   
-  if( keyCode == BACKSPACE ) backspaceTouch = true ;
+  if (keyCode == BACKSPACE ) backspaceTouch = true ;
   if (keyCode == DELETE ) deleteTouch = true ;
-  if( keyCode == SHIFT ) shiftTouch = true ;
-  if( keyCode == ALT ) altTouch = true ;
-  if( keyCode == RETURN ) returnTouch = true ;
-  if( keyCode == ENTER ) enterTouch = true ;
-  if( keyCode == CONTROL ) ctrlTouch = true ;
+  if (keyCode == SHIFT ) shiftTouch = true ;
+  if (keyCode == ALT ) altTouch = true ;
+  if (keyCode == RETURN ) returnTouch = true ;
+  if (keyCode == ENTER ) enterTouch = true ;
+  if (keyCode == CONTROL ) ctrlTouch = true ;
+  if (keyCode == 157 ) cmdTouch = true ;
   
-  if( keyCode == LEFT ) leftTouch = true ;
-  if( keyCode == RIGHT ) rightTouch = true ;
-  if( keyCode == UP ) upTouch = true ;
-  if( keyCode == DOWN ) downTouch = true ;
+  if (keyCode == LEFT ) leftTouch = true ;
+  if (keyCode == RIGHT ) rightTouch = true ;
+  if (keyCode == UP ) upTouch = true ;
+  if (keyCode == DOWN ) downTouch = true ;
 }
 
 void keyboardLongFalse() {
@@ -405,11 +413,12 @@ void keyboardFalse() {
   if (altTouch) altTouch = false ; 
   if (escTouch) escTouch = false ;
   if (ctrlTouch) ctrlTouch = false ;
+  if (cmdTouch) cmdTouch = false ;
   
-  if(upTouch ) upTouch = false ;
-  if(downTouch) downTouch = false ;
+  if (upTouch) upTouch = false ;
+  if (downTouch) downTouch = false ;
   if (leftTouch) leftTouch = false ;
-  if (rightTouch ) rightTouch = false ;
+  if (rightTouch) rightTouch = false ;
 
 }
 //END KEYBOARD

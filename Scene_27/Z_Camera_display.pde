@@ -133,8 +133,6 @@ PVector updateDirObj(PVector speed, int ID, boolean authorization) {
     newObjRefDir = false ;
     //create the delta between the ref and the mouse position
     deltaObjDir = PVector.sub(mouse[0], P3DdirectionMouseRef) ;
-    println(ID, deltaObjDir) ;
-    println(ID, dirObjRef) ;
     tempObjDir = PVector.add(deltaObjDir, dirObjRef) ;
     
     //rotation of the camera
@@ -347,7 +345,9 @@ void cameraDraw() {
   startCamera() ;
   
   //to change the scene position with a specific point
-  if(gotoCameraPosition || gotoCameraEye ) moveCamera(sceneCamera, targetPosCam, speedMoveOfCamera) ;
+  if(gotoCameraPosition || gotoCameraEye ) {
+    moveCamera(sceneCamera, targetPosCam, speedMoveOfCamera) ;
+  }
 
   //catch ref camera
   catchCameraInfo() ;
@@ -384,27 +384,39 @@ void setVariableCamera(boolean authorization) {
 }
 
 void variableCameraFullrendering(boolean authorization) {
-      // world rendering
-    focal = map(valueSlider[0][19],0,360,28,200) ;
-    deformation = map(valueSlider[0][20],0,360,-1,1) ;
-    // camera
-    dirCamX = map(valueSlider[0][21],0,360,0,width)  ; // on controler is Eye X
-    dirCamY = map(valueSlider[0][22],0,360,0,height)  ; // on controler is Eye Y
-    dirCamZ = map(valueSlider[0][23],0,360,0,width)  ; // on controler is Eye Z
-    
-    centerCamX = map(valueSlider[0][24],0,360,0,width)  ; // on controler is Position X
-    centerCamY = map(valueSlider[0][25],0,360,0,height)  ; // on controler is Position Y
-    centerCamZ = map(valueSlider[0][26],0,360,0,width)  ; // on controler is Position Z
+    // world rendering
+  focal = map(valueSlider[0][19],0,360,28,200) ;
+  deformation = map(valueSlider[0][20],0,360,-1,1) ;
+  // camera
+  dirCamX = map(valueSlider[0][21],0,360,0,width)  ; // on controler is Eye X
+  dirCamY = map(valueSlider[0][22],0,360,0,height)  ; // on controler is Eye Y
+  dirCamZ = map(valueSlider[0][23],0,360,0,width)  ; // on controler is Eye Z
+  
+  centerCamX = map(valueSlider[0][24],0,360,0,width)  ; // on controler is Position X
+  centerCamY = map(valueSlider[0][25],0,360,0,height)  ; // on controler is Position Y
+  centerCamZ = map(valueSlider[0][26],0,360,0,width)  ; // on controler is Position Z
 
-    upX = map(valueSlider[0][27],0,360,-1,1) ;
-    upY = 1 ; // not interesting
-    upZ = 0 ; // not interesting
+  upX = map(valueSlider[0][27],0,360,-1,1) ;
+  upY = 1 ; // not interesting
+  upZ = 0 ; // not interesting
 
-
-    // final camera position
-    if (checkMouseMove(authorization)) {
-    finalSceneCamera = new Vec3 (sceneCamera.x +width/2, sceneCamera.y +height/2, sceneCamera.z) ;
-  //scene position
+  // displacement of the scene
+  int displacement_scene_x = width/2 ;
+  int displacement_scene_y = height/2 ;
+  int displacement_scene_z = 0 ;
+  
+  // Check the special move camera
+  float compare_pos_scene_x = finalSceneCamera.x - sceneCamera.x ;
+  float compare_pos_scene_y = finalSceneCamera.y - sceneCamera.y ;
+  float compare_pos_scene_z = finalSceneCamera.z - sceneCamera.z ;
+  boolean specialMoveCamera ;
+  if( compare_pos_scene_x != displacement_scene_x || 
+      compare_pos_scene_y != displacement_scene_y || 
+      compare_pos_scene_z != displacement_scene_y ) specialMoveCamera = true ; else specialMoveCamera = false ;
+  
+  // final camera position
+  if (checkMouseMove(authorization) || specialMoveCamera) {
+    finalSceneCamera = new Vec3 (sceneCamera.x +displacement_scene_x, sceneCamera.y +displacement_scene_y, sceneCamera.z +displacement_scene_z) ;
     finalEyeCamera = new Vec2 (radians(eyeCamera.x), radians(eyeCamera.y) ) ;
   }
 }
@@ -521,7 +533,7 @@ void updateCamera(boolean scene, boolean eye, boolean leapMotion, boolean author
 
 // move camera to target
 void moveCamera(PVector origin, PVector target, float speed) {
-  if(!moveScene) sceneCamera = (follow(origin, target, speed)) ;
+  if(!moveScene) sceneCamera = follow(origin, target, speed) ;
   if(!moveEye && (gotoCameraPosition || gotoCameraEye)) eyeCamera = backEye()  ;
 }
 
@@ -550,7 +562,7 @@ int wheelCheckRef = 0 ;
 
 boolean checkMouseMove( boolean authorization) {
   boolean mouseMove ;
-  if( authorization &&    (!compare(mouseCheckRef, Vec3(mouse[0])) || wheelCheckRef != wheel[0])) mouseMove = true ; else mouseMove = false ;
+  if( authorization && (!compare(mouseCheckRef, Vec3(mouse[0])) || wheelCheckRef != wheel[0])) mouseMove = true ; else mouseMove = false ;
   // create ref
   wheelCheckRef = wheel[0] ;
   mouseCheckRef = Vec3(mouse[0]) ;
@@ -674,8 +686,8 @@ PVector follow(PVector origin, PVector target, float speed) {
 
   //XYZ
   if ( (distToTargetUpdated.x > rangeStop.x || distToTargetUpdated.x < -rangeStop.x) && 
-        (distToTargetUpdated.y > rangeStop.y || distToTargetUpdated.y < -rangeStop.y) && 
-        (distToTargetUpdated.y > rangeStop.z || distToTargetUpdated.y < -rangeStop.z))  {
+       (distToTargetUpdated.y > rangeStop.y || distToTargetUpdated.y < -rangeStop.y) && 
+       (distToTargetUpdated.y > rangeStop.z || distToTargetUpdated.y < -rangeStop.z))  {
     if (origin.x < target.x )  absPosition.x += speedByAxes.x ;  else absPosition.x -= speedByAxes.x ;
     if (origin.y < target.y )  absPosition.y += speedByAxes.y ;  else absPosition.y -= speedByAxes.y ;
     if (origin.z < target.z )  absPosition.z += speedByAxes.z ;  else absPosition.z -= speedByAxes.z ;
