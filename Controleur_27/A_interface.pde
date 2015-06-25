@@ -39,7 +39,7 @@ PVector posButtonFont, posButtonBackground, posButtonImage, posButtonFileText ;
 
 // MIDI, CURTAIN
 int EtatMidiButton, EtatCurtainButton, EtatBbeat, EtatBkick, EtatBsnare, EtatBhat ; ;
-PVector posMidiButton, sizeMidiButton,
+PVector posMidiButton, sizeMidiButton, pos_midi_info,
         posCurtainButton, sizeCurtainButton,
         posBeatButton, sizeBeatButton,
         posKickButton, sizeKickButton,
@@ -101,11 +101,12 @@ int correctionButtonSliderTextY = 1 ;
 
 
 
-// correction for special button and slider
+// CURTAIN
 int correctionCurtainX = 0 ;
-int correctionMidiX = 40 ;
 int correctionCurtainY = 0 ;
-int correctionMidiY = 0 ;
+
+
+
 
 // MENU TOP DROPDOWN
 int correctionHeaderDropdownY = +4 ;
@@ -140,6 +141,8 @@ int correctionCameraX = colThree ;
 int correctionCameraY = lineGroupZero +correctionGroupZeroY -5 ;
 
 
+
+
 // GROUP SOUND
 int correctionSoundX = colOne ;
 int correctionSoundY = lineGroupZero +160 ;
@@ -150,6 +153,14 @@ int correctionSoundY = lineGroupZero +160 ;
 int correctionSliderObject = 65 ;
 int correctionButtonObject = 3 ;
 int correctionDropdownObject = 43 ;
+
+
+// GROUP MIDI
+int correctionMidiX = 40 ;
+int correctionMidiY = 0 ;
+int spacing_midi_info = 13 ;
+int correction_info_midi_x = 50 ;
+int correction_info_midi_y = 5 ;
 
 
 
@@ -908,7 +919,8 @@ void buttonSetup() {
   // MIDI CURTAIN
   sizeCurtainButton = new PVector(30,30) ;
   sizeMidiButton = new PVector(50,26) ;
-  posMidiButton = new PVector(colOne +correctionMidiX, lineHeader +correctionMidiY +1) ; 
+  posMidiButton = new PVector(colOne +correctionMidiX, lineHeader +correctionMidiY +1) ;
+  pos_midi_info = new PVector(posMidiButton.x +correction_info_midi_x, posMidiButton.y +correction_info_midi_y) ;
   posCurtainButton = new PVector(colOne +correctionCurtainX, lineHeader +correctionCurtainY -1) ; 
   
   

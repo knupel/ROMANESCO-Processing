@@ -14,6 +14,10 @@ ROMANESCO 27 Revision
 * slider influence
 * option to change the minimum and maximum value for the slider
 
+* MIDI
+------
+* add option to change midi device
+
 
 * CAMERA
 --------
@@ -78,6 +82,7 @@ load
 /// BUG FIXE
 * rotation and move jump camera with the mouse
 * fixe the loading bug
+* fixe bug camera special move, like return to the origin
 
 
 /// END CORE ///
@@ -90,7 +95,14 @@ load
 /// OBJECT ///
 --------------
 /// ADD OBJ ///
+* Anillos
 * Boids
+* Orbital
+* Surface
+
+// REMOVE OBJ //
+* Rideau
+*Curtain
 
 
 // CHANGE OBJ

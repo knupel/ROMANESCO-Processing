@@ -99,6 +99,7 @@ void mousePressed () {
 
 //KEYPRESSED
 void keyPressed() {
+  midi_keyPressed() ;
   //OpenClose save
   shortCutsController() ;
 }
