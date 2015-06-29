@@ -67,7 +67,7 @@ public void draw() {
   */
   
   frame.setTitle(nameVersion + " " +prettyVersion+"."+version+ " - Controller");
-  // settingDataFromSave() ;
+  settingDataFromSave() ;
   structureDraw() ;
   checkSliderObject() ;
   checkImageFolder() ;
@@ -230,7 +230,6 @@ boolean load_Scene_Setting, save_Current_Scene_Setting, save_New_Scene_Setting ;
 public void check_Keyboard_load_scene() {
   if(checkKeyboard(CONTROL) && !checkKeyboard(SHIFT) && checkKeyboard(KeyEvent.VK_O) ) { 
     load_Scene_Setting = true ;
-    // println("load scene", load_Scene_Setting) ;
     keyboard[keyCode] = false;   //
     
   }
@@ -241,7 +240,6 @@ public void check_Keyboard_load_scene() {
 public void check_Keyboard_save_scene_CURRENT_path() {
   if(checkKeyboard(CONTROL) && !checkKeyboard(SHIFT) && checkKeyboard(KeyEvent.VK_S) ) {
     save_Current_Scene_Setting = true ;
-    //println("save scene on the current path",  save_Current_Scene_Setting) ;
     keyboard[keyCode] = false ;   // just open one window, when use only the keyboard, if you don't use that open all the windows save and open
    }
 }
@@ -250,7 +248,6 @@ public void check_Keyboard_save_scene_CURRENT_path() {
 public void check_Keyboard_save_scene_NEW_path() {
   if(checkKeyboard(CONTROL) && checkKeyboard(SHIFT) && checkKeyboard(KeyEvent.VK_S) ) {
     save_New_Scene_Setting = true ;
-   //  println("save scene on a new path", save_New_Scene_Setting) ;
     keyboard[keyCode] = false ;   // just open one window, when use only the keyboard, if you don't use that open all the windows save and open
   }
 }
@@ -269,7 +266,6 @@ public void check_Keyboard_save_scene_NEW_path() {
 // CTRL + SHIFT + O
 public void check_Keyboard_load_controller() {
   if(checkKeyboard(CONTROL) && checkKeyboard(SHIFT) && checkKeyboard(KeyEvent.VK_O) ) { 
-    println("load controller") ;
     selectInput("Load setting controller", "loadSettingController"); // ("display info in the window" , "name of the method callingBack" )
     keyboard[keyCode] = false;   //
     
@@ -281,7 +277,6 @@ public void check_Keyboard_load_controller() {
 public void check_Keyboard_save_controller_CURRENT_path() {
   if(checkKeyboard(CONTROL) && !checkKeyboard(SHIFT) && checkKeyboard(KeyEvent.VK_E) ) {
     showAllSliders = true ;
-    // println("save controler on the same path",savePathSetting) ;
     if (savePathSetting.equals("")) {
       File tempFileName = new File ("your_controller_setting.csv");
       selectOutput("Save setting", "saveSetting", tempFileName);
@@ -296,7 +291,6 @@ public void check_Keyboard_save_controller_NEW_path() {
   if(checkKeyboard(CONTROL) && checkKeyboard(SHIFT) && checkKeyboard(KeyEvent.VK_E) ) {
     println(savePathSetting) ;
     showAllSliders = true ; 
-    println("save controler on a new path") ;
     File tempFileName = new File ("your_controller_setting.csv");
     selectOutput("Save setting", "saveSetting", tempFileName);
     keyboard[keyCode] = false ;   // just open one window, when use only the keyboard, if you don't use that open all the windows save and open
@@ -2982,8 +2976,8 @@ public void buildSaveTable() {
 public void loadSettingController(File selection) {
   if (selection != null) {
     String loadPathControllerSetting = selection.getAbsolutePath();
-    loadSaveSetting = true ;
     loadSaveController(loadPathControllerSetting) ;
+    loadSaveSetting = true ;
     setSave = true ;
   } 
 }
@@ -2998,6 +2992,8 @@ public void loadSettingController(File selection) {
 
 // loadSave(path) read info from save file
 public void loadSaveController(String path) {
+  println(path) ;
+  
   Table settingTable = loadTable(path, "header");
   // re-init the counter for the new loop
   int countButton = 0 ;

@@ -111,8 +111,11 @@ load
 
 // CHANGE OBJ
 
+* Arbre : adjustement of the amplitude and size proportion
+
 
 /// BUG FIXE OBJ
+* Arbre : fix bug size when there is no sound
 
 /// END OBJECT ///
 ------------------

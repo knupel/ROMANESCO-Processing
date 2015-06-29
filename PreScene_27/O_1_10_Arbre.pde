@@ -7,7 +7,7 @@ class ArbreRomanesco extends Romanesco {
     IDobj = 10 ;
     IDgroup = 1 ;
     romanescoAuthor  = "Stan le Punk";
-    romanescoVersion = "Version 1.3";
+    romanescoVersion = "Version 1.3.1";
     romanescoPack = "Base" ;
     romanescoRender = "classic" ;
     romanescoMode = "Line/Disc/Disc line/Rectangle/Rectangle line/Box" ;
@@ -33,9 +33,14 @@ class ArbreRomanesco extends Romanesco {
     int n = int(map(quantityObj[IDobj],0,1,2,maxFork*2)) ;
     
     float epaisseur = thicknessObj[IDobj] ;
-    float ratioLeft = map(left[IDobj], 0, 1, 0, 1.5) ;
-    float ratioRight = map(right[IDobj], 0, 1, 0, 1.5) ;
+    float ratioLeft = map(left[IDobj], 0, 1, .5, 2) ;
+    float ratioRight = map(right[IDobj], 0, 1, .5, 2) ;
+    if(!fullRendering) {
+      ratioLeft = .75 ;
+      ratioRight = .75 ;
+    }
     float ratioMix = ratioLeft + ratioRight ;
+
     // quantity of the shape
 
     //size of the shape
@@ -51,14 +56,20 @@ class ArbreRomanesco extends Romanesco {
       
     
     //size
-    float x = map(sizeXObj[IDobj],.1,width,.1,width/2) *ratioMix ;
-    float y = map(sizeYObj[IDobj],.1,width,.1,width/2) *ratioMix ;
-    float z = map(sizeZObj[IDobj],.1,width,.1,width/2) *ratioMix ;
+    int div_size = 20 ;
+    float x = map(sizeXObj[IDobj],.1,width,.1,width /div_size) ;
+    float y = map(sizeYObj[IDobj],.1,width,.1,width /div_size) ;
+    float z = map(sizeZObj[IDobj],.1,width,.1,width /div_size) ;
+    x = x *x *ratioMix ;
+    y = y *y *ratioMix ;
+    z = z *z *ratioMix ;
+
     PVector size  = new PVector(x,y,z) ;
     //orientation
     float direction = directionObj[IDobj] ;
     //amplitude
-    float amplitude = map(amplitudeObj[IDobj], 0,1, 0.1,height *.5) *allBeats(IDobj) ;
+    float amplitude = map(amplitudeObj[IDobj], 0,1, 0.1,width *.6) ;
+    if(fullRendering) amplitude = amplitude *allBeats(IDobj) ;
     
 
 
@@ -67,12 +78,15 @@ class ArbreRomanesco extends Romanesco {
     // float angle = map(angleObj[IDobj],0,360,0,180);
     float angle = 90 ; // but this function must be remove because it give no effect
     // speed
-    if(motion[IDobj]) {
+    if(motion[IDobj] && fullRendering) {
       float s = map(speedObj[IDobj],0,1,0,2) ;
       s *= s ;
       speed = s *tempo[IDobj] ; 
-    } else { 
+    } else if (!motion[IDobj] && fullRendering){ 
       speed = 0.0 ;
+    } else {
+      speed = 1.0 ;
+
     }
     
     aspect(IDobj) ;

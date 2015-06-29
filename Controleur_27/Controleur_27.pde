@@ -46,7 +46,7 @@ void draw() {
   */
   
   frame.setTitle(nameVersion + " " +prettyVersion+"."+version+ " - Controller");
-  // settingDataFromSave() ;
+  settingDataFromSave() ;
   structureDraw() ;
   checkSliderObject() ;
   checkImageFolder() ;

@@ -368,8 +368,8 @@ void buildSaveTable() {
 void loadSettingController(File selection) {
   if (selection != null) {
     String loadPathControllerSetting = selection.getAbsolutePath();
-    loadSaveSetting = true ;
     loadSaveController(loadPathControllerSetting) ;
+    loadSaveSetting = true ;
     setSave = true ;
   } 
 }
@@ -384,6 +384,8 @@ void loadSettingController(File selection) {
 
 // loadSave(path) read info from save file
 void loadSaveController(String path) {
+  println(path) ;
+  
   Table settingTable = loadTable(path, "header");
   // re-init the counter for the new loop
   int countButton = 0 ;

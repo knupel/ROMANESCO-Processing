@@ -99,7 +99,6 @@ boolean load_Scene_Setting, save_Current_Scene_Setting, save_New_Scene_Setting ;
 void check_Keyboard_load_scene() {
   if(checkKeyboard(CONTROL) && !checkKeyboard(SHIFT) && checkKeyboard(KeyEvent.VK_O) ) { 
     load_Scene_Setting = true ;
-    // println("load scene", load_Scene_Setting) ;
     keyboard[keyCode] = false;   //
     
   }
@@ -110,7 +109,6 @@ void check_Keyboard_load_scene() {
 void check_Keyboard_save_scene_CURRENT_path() {
   if(checkKeyboard(CONTROL) && !checkKeyboard(SHIFT) && checkKeyboard(KeyEvent.VK_S) ) {
     save_Current_Scene_Setting = true ;
-    //println("save scene on the current path",  save_Current_Scene_Setting) ;
     keyboard[keyCode] = false ;   // just open one window, when use only the keyboard, if you don't use that open all the windows save and open
    }
 }
@@ -119,7 +117,6 @@ void check_Keyboard_save_scene_CURRENT_path() {
 void check_Keyboard_save_scene_NEW_path() {
   if(checkKeyboard(CONTROL) && checkKeyboard(SHIFT) && checkKeyboard(KeyEvent.VK_S) ) {
     save_New_Scene_Setting = true ;
-   //  println("save scene on a new path", save_New_Scene_Setting) ;
     keyboard[keyCode] = false ;   // just open one window, when use only the keyboard, if you don't use that open all the windows save and open
   }
 }
@@ -138,7 +135,6 @@ void check_Keyboard_save_scene_NEW_path() {
 // CTRL + SHIFT + O
 void check_Keyboard_load_controller() {
   if(checkKeyboard(CONTROL) && checkKeyboard(SHIFT) && checkKeyboard(KeyEvent.VK_O) ) { 
-    println("load controller") ;
     selectInput("Load setting controller", "loadSettingController"); // ("display info in the window" , "name of the method callingBack" )
     keyboard[keyCode] = false;   //
     
@@ -150,7 +146,6 @@ void check_Keyboard_load_controller() {
 void check_Keyboard_save_controller_CURRENT_path() {
   if(checkKeyboard(CONTROL) && !checkKeyboard(SHIFT) && checkKeyboard(KeyEvent.VK_E) ) {
     showAllSliders = true ;
-    // println("save controler on the same path",savePathSetting) ;
     if (savePathSetting.equals("")) {
       File tempFileName = new File ("your_controller_setting.csv");
       selectOutput("Save setting", "saveSetting", tempFileName);
@@ -165,7 +160,6 @@ void check_Keyboard_save_controller_NEW_path() {
   if(checkKeyboard(CONTROL) && checkKeyboard(SHIFT) && checkKeyboard(KeyEvent.VK_E) ) {
     println(savePathSetting) ;
     showAllSliders = true ; 
-    println("save controler on a new path") ;
     File tempFileName = new File ("your_controller_setting.csv");
     selectOutput("Save setting", "saveSetting", tempFileName);
     keyboard[keyCode] = false ;   // just open one window, when use only the keyboard, if you don't use that open all the windows save and open

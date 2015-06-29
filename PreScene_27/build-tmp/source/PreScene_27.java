@@ -5772,7 +5772,7 @@ class ArbreRomanesco extends Romanesco {
     IDobj = 10 ;
     IDgroup = 1 ;
     romanescoAuthor  = "Stan le Punk";
-    romanescoVersion = "Version 1.3";
+    romanescoVersion = "Version 1.3.1";
     romanescoPack = "Base" ;
     romanescoRender = "classic" ;
     romanescoMode = "Line/Disc/Disc line/Rectangle/Rectangle line/Box" ;
@@ -5798,9 +5798,14 @@ class ArbreRomanesco extends Romanesco {
     int n = PApplet.parseInt(map(quantityObj[IDobj],0,1,2,maxFork*2)) ;
     
     float epaisseur = thicknessObj[IDobj] ;
-    float ratioLeft = map(left[IDobj], 0, 1, 0, 1.5f) ;
-    float ratioRight = map(right[IDobj], 0, 1, 0, 1.5f) ;
+    float ratioLeft = map(left[IDobj], 0, 1, .5f, 2) ;
+    float ratioRight = map(right[IDobj], 0, 1, .5f, 2) ;
+    if(!fullRendering) {
+      ratioLeft = .75f ;
+      ratioRight = .75f ;
+    }
     float ratioMix = ratioLeft + ratioRight ;
+
     // quantity of the shape
 
     //size of the shape
@@ -5816,14 +5821,20 @@ class ArbreRomanesco extends Romanesco {
       
     
     //size
-    float x = map(sizeXObj[IDobj],.1f,width,.1f,width/2) *ratioMix ;
-    float y = map(sizeYObj[IDobj],.1f,width,.1f,width/2) *ratioMix ;
-    float z = map(sizeZObj[IDobj],.1f,width,.1f,width/2) *ratioMix ;
+    int div_size = 20 ;
+    float x = map(sizeXObj[IDobj],.1f,width,.1f,width /div_size) ;
+    float y = map(sizeYObj[IDobj],.1f,width,.1f,width /div_size) ;
+    float z = map(sizeZObj[IDobj],.1f,width,.1f,width /div_size) ;
+    x = x *x *ratioMix ;
+    y = y *y *ratioMix ;
+    z = z *z *ratioMix ;
+
     PVector size  = new PVector(x,y,z) ;
     //orientation
     float direction = directionObj[IDobj] ;
     //amplitude
-    float amplitude = map(amplitudeObj[IDobj], 0,1, 0.1f,height *.5f) *allBeats(IDobj) ;
+    float amplitude = map(amplitudeObj[IDobj], 0,1, 0.1f,width *.6f) ;
+    if(fullRendering) amplitude = amplitude *allBeats(IDobj) ;
     
 
 
@@ -5832,12 +5843,15 @@ class ArbreRomanesco extends Romanesco {
     // float angle = map(angleObj[IDobj],0,360,0,180);
     float angle = 90 ; // but this function must be remove because it give no effect
     // speed
-    if(motion[IDobj]) {
+    if(motion[IDobj] && fullRendering) {
       float s = map(speedObj[IDobj],0,1,0,2) ;
       s *= s ;
       speed = s *tempo[IDobj] ; 
-    } else { 
+    } else if (!motion[IDobj] && fullRendering){ 
       speed = 0.0f ;
+    } else {
+      speed = 1.0f ;
+
     }
     
     aspect(IDobj) ;
@@ -5950,8 +5964,8 @@ class Boxolyzer extends Romanesco {
     romanescoName = "Boxolyzer" ;
     IDobj = 11 ;
     IDgroup = 1 ;
-    romanescoAuthor  = "My name is Nobody";
-    romanescoVersion = "Version 1.0";
+    romanescoAuthor  = "Stan le Punk";
+    romanescoVersion = "Version 1.0.1";
     romanescoPack = "Base" ;
     romanescoRender = "P3D" ;
     romanescoMode ="Classic/Circle" ;
@@ -5973,7 +5987,9 @@ class Boxolyzer extends Romanesco {
     int numBox = PApplet.parseInt(map(quantityObj[IDobj],0, 1, 1, 16)) ;
     if (numBox != numBoxRef ) newDistribution = true ;
     numBoxRef = numBox ;
-    PVector size = new PVector(sizeXObj[IDobj],sizeYObj[IDobj],sizeZObj[IDobj]) ;
+    Vec3 size = Vec3(sizeXObj[IDobj],sizeYObj[IDobj],sizeZObj[IDobj]) ;
+    size.mult(2) ;
+
     // color and thickness
     aspect(IDobj) ; 
     //
@@ -5984,6 +6000,10 @@ class Boxolyzer extends Romanesco {
     if        (mode[IDobj] ==0) { boxolyzerClassic(size, horizon[IDobj] , directionObj[IDobj]) ;
     } else if (mode[IDobj] ==1) { boxolyzerCircle(size, (int)canvasXObj[IDobj], horizon[IDobj], directionObj[IDobj]) ;
     } 
+
+
+    // INFO
+    objectInfo[IDobj] = ("There is " +numBox + " bands analyzed");
     
   }
   
@@ -5995,7 +6015,7 @@ class Boxolyzer extends Romanesco {
   
   boolean orientation ;
   // BOXLIZER CIRCLE
-  public void boxolyzerCircle(PVector size, int diam, boolean groundPosition, float dir) {
+  public void boxolyzerCircle(Vec3 size, int diam, boolean groundPosition, float dir) {
     if( action[IDobj] && rTouch ) orientation = !orientation ;
     int surface = diam*diam ; // surface is equale of square surface where is the cirlcke...make sens ?
     int radius = ceil(radiusSurface(surface)) ;
@@ -6019,14 +6039,18 @@ class Boxolyzer extends Romanesco {
 
 
   // EQUALIZER CLASSIC
-  public void boxolyzerClassic(PVector size, boolean groundPosition, float dir) {
-    PVector pos = new PVector(0,height /2 ,0) ;
+  public void boxolyzerClassic(Vec3 size, boolean groundPosition, float dir) {
+    PVector pos = new PVector(0,height *.5f ,0) ;
     float factorSpectrum = 0 ;
     int n = boiteList.size() ;
+    // int canvasFinal = width ;
+    int canvasFinal = (int)map(canvasXObj[IDobj], width/10, width, width/2,width*3)  ;
+    int displacement_symetric = PApplet.parseInt(width *.5f -canvasFinal *.5f) ;
     for( int i = 0 ; i < n ; i++) {
-      pos.x = (i *width/n) + (width/(n*2)) ;
-      if(  i < band.length) factorSpectrum = band [IDobj][i] ;
+      pos.x = (i *canvasFinal/n) + (canvasFinal /(n *2)) +displacement_symetric ;
+      if( i < band.length) factorSpectrum = band [IDobj][i] ;
       BOITEaMUSIQUE boiteAmusique = (BOITEaMUSIQUE) boiteList.get(i) ;
+      if(!fullRendering) factorSpectrum = .5f ;
       boiteAmusique.showTheBoite(pos, size, factorSpectrum, groundPosition, dir) ;
     }
   }
@@ -6048,7 +6072,7 @@ class Boxolyzer extends Romanesco {
   }
   //
   public void addBoite(int ID) {
-    PVector size = new PVector (1,1,1) ;
+    Vec3 size = Vec3(1,1,1) ;
     BOITEaMUSIQUE boiteAmusique = new BOITEaMUSIQUE(size, ID) ; 
     boiteList.add(boiteAmusique) ;
   }
@@ -6066,18 +6090,18 @@ class Boxolyzer extends Romanesco {
 //CLASS
 class BOITEaMUSIQUE {
   PVector pos = new PVector(0,0,0) ;
-  PVector size = new PVector (0,0,0) ;
+  Vec3 size ;
   int ID ;
   
-  BOITEaMUSIQUE(PVector size, int ID) {
+  BOITEaMUSIQUE(Vec3 size, int ID) {
     this.ID = ID ;
     this.size = size ;
   }
   
   
   
-  public void showTheBoite(PVector pos, PVector size, float factor, boolean groundLine, float dir) {
-    PVector newSize = new PVector (size.x, size.y *factor,size.z *factor ) ;
+  public void showTheBoite(PVector pos, Vec3 size, float factor, boolean groundLine, float dir) {
+    Vec3 newSize = Vec3(size.x, size.y *factor,size.z *factor ) ;
     //put the box on the ground !
     float horizon = pos.y - ( newSize.y *.5f ) ;  
     pushMatrix() ;

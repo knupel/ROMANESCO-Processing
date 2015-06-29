@@ -6,8 +6,8 @@ class Boxolyzer extends Romanesco {
     romanescoName = "Boxolyzer" ;
     IDobj = 11 ;
     IDgroup = 1 ;
-    romanescoAuthor  = "My name is Nobody";
-    romanescoVersion = "Version 1.0";
+    romanescoAuthor  = "Stan le Punk";
+    romanescoVersion = "Version 1.0.1";
     romanescoPack = "Base" ;
     romanescoRender = "P3D" ;
     romanescoMode ="Classic/Circle" ;
@@ -29,7 +29,9 @@ class Boxolyzer extends Romanesco {
     int numBox = int(map(quantityObj[IDobj],0, 1, 1, 16)) ;
     if (numBox != numBoxRef ) newDistribution = true ;
     numBoxRef = numBox ;
-    PVector size = new PVector(sizeXObj[IDobj],sizeYObj[IDobj],sizeZObj[IDobj]) ;
+    Vec3 size = Vec3(sizeXObj[IDobj],sizeYObj[IDobj],sizeZObj[IDobj]) ;
+    size.mult(2) ;
+
     // color and thickness
     aspect(IDobj) ; 
     //
@@ -40,6 +42,10 @@ class Boxolyzer extends Romanesco {
     if        (mode[IDobj] ==0) { boxolyzerClassic(size, horizon[IDobj] , directionObj[IDobj]) ;
     } else if (mode[IDobj] ==1) { boxolyzerCircle(size, (int)canvasXObj[IDobj], horizon[IDobj], directionObj[IDobj]) ;
     } 
+
+
+    // INFO
+    objectInfo[IDobj] = ("There is " +numBox + " bands analyzed");
     
   }
   
@@ -51,7 +57,7 @@ class Boxolyzer extends Romanesco {
   
   boolean orientation ;
   // BOXLIZER CIRCLE
-  void boxolyzerCircle(PVector size, int diam, boolean groundPosition, float dir) {
+  void boxolyzerCircle(Vec3 size, int diam, boolean groundPosition, float dir) {
     if( action[IDobj] && rTouch ) orientation = !orientation ;
     int surface = diam*diam ; // surface is equale of square surface where is the cirlcke...make sens ?
     int radius = ceil(radiusSurface(surface)) ;
@@ -75,14 +81,18 @@ class Boxolyzer extends Romanesco {
 
 
   // EQUALIZER CLASSIC
-  void boxolyzerClassic(PVector size, boolean groundPosition, float dir) {
-    PVector pos = new PVector(0,height /2 ,0) ;
+  void boxolyzerClassic(Vec3 size, boolean groundPosition, float dir) {
+    PVector pos = new PVector(0,height *.5 ,0) ;
     float factorSpectrum = 0 ;
     int n = boiteList.size() ;
+    // int canvasFinal = width ;
+    int canvasFinal = (int)map(canvasXObj[IDobj], width/10, width, width/2,width*3)  ;
+    int displacement_symetric = int(width *.5 -canvasFinal *.5) ;
     for( int i = 0 ; i < n ; i++) {
-      pos.x = (i *width/n) + (width/(n*2)) ;
-      if(  i < band.length) factorSpectrum = band [IDobj][i] ;
+      pos.x = (i *canvasFinal/n) + (canvasFinal /(n *2)) +displacement_symetric ;
+      if( i < band.length) factorSpectrum = band [IDobj][i] ;
       BOITEaMUSIQUE boiteAmusique = (BOITEaMUSIQUE) boiteList.get(i) ;
+      if(!fullRendering) factorSpectrum = .5 ;
       boiteAmusique.showTheBoite(pos, size, factorSpectrum, groundPosition, dir) ;
     }
   }
@@ -104,7 +114,7 @@ class Boxolyzer extends Romanesco {
   }
   //
   void addBoite(int ID) {
-    PVector size = new PVector (1,1,1) ;
+    Vec3 size = Vec3(1,1,1) ;
     BOITEaMUSIQUE boiteAmusique = new BOITEaMUSIQUE(size, ID) ; 
     boiteList.add(boiteAmusique) ;
   }
@@ -122,18 +132,18 @@ class Boxolyzer extends Romanesco {
 //CLASS
 class BOITEaMUSIQUE {
   PVector pos = new PVector(0,0,0) ;
-  PVector size = new PVector (0,0,0) ;
+  Vec3 size ;
   int ID ;
   
-  BOITEaMUSIQUE(PVector size, int ID) {
+  BOITEaMUSIQUE(Vec3 size, int ID) {
     this.ID = ID ;
     this.size = size ;
   }
   
   
   
-  void showTheBoite(PVector pos, PVector size, float factor, boolean groundLine, float dir) {
-    PVector newSize = new PVector (size.x, size.y *factor,size.z *factor ) ;
+  void showTheBoite(PVector pos, Vec3 size, float factor, boolean groundLine, float dir) {
+    Vec3 newSize = Vec3(size.x, size.y *factor,size.z *factor ) ;
     //put the box on the ground !
     float horizon = pos.y - ( newSize.y *.5 ) ;  
     pushMatrix() ;
