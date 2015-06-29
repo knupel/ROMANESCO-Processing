@@ -74,9 +74,9 @@ public void draw() {
   checkFileTextFolder() ;
   initLiveData() ;
   textDraw() ;
-  midiDraw() ;
   sliderDraw() ;
   buttonDraw() ;
+  midiDraw() ;
   sendOSCdraw() ;
   initVarSliderDynamic() ;
   
@@ -472,8 +472,9 @@ int correctionDropdownObject = 43 ;
 int correctionMidiX = 40 ;
 int correctionMidiY = 0 ;
 int spacing_midi_info = 13 ;
-int correction_info_midi_x = 50 ;
-int correction_info_midi_y = 5 ;
+int correction_info_midi_x = 60 ;
+int correction_info_midi_y = 10 ;
+int size_x_window_info_midi = 200 ;
 
 
 
@@ -1954,6 +1955,15 @@ public void midiDraw() {
   }
 
   if(selectMidi) {
+    
+    if(midiIO.numberOfInputDevices() < 1 ) fill(rougeFonce) ; else fill(grisTresFonce) ;
+    stroke(jaune) ;
+    strokeWeight(1.5f) ;
+    window_midi_info(pos_midi_info, size_x_window_info_midi, spacing_midi_info) ;
+    noStroke() ;
+
+    textFont(textUsual_1);  textAlign(LEFT);
+    if(midiIO.numberOfInputDevices() < 1 ) fill(blanc) ; else fill(grisClair) ;
     display_select_midi_device(pos_midi_info, spacing_midi_info) ;
     midi_device_choice(pos_midi_info, spacing_midi_info) ;
   }
@@ -2003,6 +2013,20 @@ public void display_select_midi_device(PVector pos, int spacing) {
   } else {
     choice_midi_device = false ;
   }
+}
+
+
+
+public void window_midi_info(PVector pos, int size_x, int spacing) {
+  int pos_x = (int)pos.x -(spacing/2) ;
+  int pos_y = (int)pos.y -spacing ;
+  int size_y = 0 ;
+  if (!choice_midi_device || !choice_midi_default_device) {
+    size_y = PApplet.parseInt(spacing *2.5f +(spacing *(midiIO.numberOfInputDevices() *1.2f))) ;
+  } else {
+    size_y = PApplet.parseInt(spacing *2.5f) ;
+  }
+  rect(pos_x, pos_y, size_x, size_y) ;
 }
 // END DISPLAY INFO MIDI INPUT
 //////////////////////////////
@@ -2062,6 +2086,7 @@ public void open_input_midi(int whichOne, int whichChannel) {
     choice_midi_device = true ;
   }
 }
+//
 public void open_new_input_midi() {
   if (which_midi_input >= 0 ) {
     which_midi_input = -1 ;

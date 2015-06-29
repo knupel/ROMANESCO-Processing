@@ -159,8 +159,9 @@ int correctionDropdownObject = 43 ;
 int correctionMidiX = 40 ;
 int correctionMidiY = 0 ;
 int spacing_midi_info = 13 ;
-int correction_info_midi_x = 50 ;
-int correction_info_midi_y = 5 ;
+int correction_info_midi_x = 60 ;
+int correction_info_midi_y = 10 ;
+int size_x_window_info_midi = 200 ;
 
 
 

@@ -62,6 +62,7 @@ void draw() {
   updateVarTemp() ;
 
   nextPreviousKeypressed() ;
+  init_value_temp_prescene() ;
 
 }
 //END DRAW

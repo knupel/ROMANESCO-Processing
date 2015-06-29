@@ -53,9 +53,9 @@ void draw() {
   checkFileTextFolder() ;
   initLiveData() ;
   textDraw() ;
-  midiDraw() ;
   sliderDraw() ;
   buttonDraw() ;
+  midiDraw() ;
   sendOSCdraw() ;
   initVarSliderDynamic() ;
   

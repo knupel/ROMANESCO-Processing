@@ -70,6 +70,7 @@ load
 * remove the old class slider
 * curtain on Prescene
 * aspect in the prescene, now all the object are white, with stroke of one without alpha.
+* remove pmouse
 
 /// IMPROVE ///
 * normalize slider family 
@@ -80,6 +81,7 @@ load
 
 
 /// BUG FIXE
+* remove the bug on the boolean objectInfoDisplay[ID], now the boolean is independant between the scène and the préscène
 * rotation and move jump camera with the mouse
 * fixe the loading bug
 * fixe bug camera special move, like return to the origin
@@ -99,10 +101,12 @@ load
 * Boids
 * Orbital
 * Surface
+* reversion function to Balise object
+* stop motion function to Balise object
 
 // REMOVE OBJ //
 * Rideau
-*Curtain
+* Curtain
 
 
 // CHANGE OBJ

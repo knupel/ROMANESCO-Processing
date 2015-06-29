@@ -314,10 +314,10 @@ class Escargot extends Romanesco {
     // we must create a PVector because i'm lazy to creat an other void beatReactivity for one float
     PVector sizePixCtrl = new PVector (0,0,sizeP) ;
     
-    for ( Pixel p : listPixelRaw ) {
+    for (Pixel p : listPixelRaw ) {
       if (p.ID == 1 ) {
         //color
-        if ( colorPixDisplay ) c = p.newColour ; else c = p.colour ;
+        if (colorPixDisplay ) c = p.newColour ; else c = p.colour ;
         
         //display
         stroke(hue(c),saturation(c)*factorSat,brightness(c)*factorBright, alpha(cIn)) ;

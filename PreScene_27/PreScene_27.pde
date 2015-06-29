@@ -64,7 +64,10 @@ void draw() {
   // misc
   updateVarTemp() ;
   cursorDraw() ;
+
+  // change to false if the information has be sent to Scene...but how ????
   keyboardFalse() ;
+  
   opening() ;
 }
 //END DRAW

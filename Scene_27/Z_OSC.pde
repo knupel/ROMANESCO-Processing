@@ -55,9 +55,9 @@ void splitDataSlider() {
 void splitDataLoadSaveController() {
     // LOAD SAVE
 
-  /*
+  /**
   +1 for the global group
-  *2 because there is one group for the button and an other one for the slider
+  x2 because there is one group for the button and an other one for the slider
   */
   int whichOne = (NUM_GROUP +1) *2 ;
   String [] booleanSave  ;

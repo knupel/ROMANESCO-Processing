@@ -46,7 +46,7 @@ void loadImg(int ID) {
   // whichImage is the int return from the dropdown menu
   if(whichImage[ID] > imagePath.length ) whichImage[ID] = 0 ;
 
-  if(imagePath != null) {
+  if(imagePath != null && imagePath.length > 0) {
     String image_current_path = imagePath[whichImage[ID]] ;
     if(!image_current_path.equals(image_path_ref[ID])) {
       img[ID] = loadImage(image_current_path) ;

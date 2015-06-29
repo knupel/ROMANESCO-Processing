@@ -47,7 +47,7 @@ Tablet tablet;
 void presceneSetup() {
   leap = new com.leapmotion.leap.Controller();
   tablet = new Tablet(this);
-  displayInfo3D = true ;
+  if(fullRendering) displayInfo3D = false ; else displayInfo3D = true ;
 }
 
 
@@ -158,18 +158,11 @@ void cursorDraw() {
     mouse[0] = new PVector(averageTranslatePosition(speedLeapmotion).x, -averageTranslatePosition(speedLeapmotion).y,averageTranslatePosition(speedLeapmotion).z)  ;
   } else if(posRef.x != mouseX || posRef.y != mouseY) {
     mouse[0] = new PVector(mouseX,mouseY) ;
-    pmouse[0] = new PVector(pmouseX,pmouseY) ;
     posRef = mouse[0].copy() ;
   }
   
 
-  
-  // security to reset the pmouse for start clean for the next rotation
-  if(!ORDER) {
-    if(pmouse[0].x != mouse[0].x || pmouse[0].y != mouse[0].y ) {
-      pmouse[0] = gotoTarget(pmouse[0],  mouse[0], .1) ;
-    }
-  } 
+
 
   //re-init the wheel value to be sure this one is stopped
   wheel[0] = 0 ;
@@ -366,7 +359,10 @@ void keyboardLongFalse() {
 
 
 void keyboardFalse() {
-  // check for the key and put false here, but it's less reactive that put false just after the use the boolean...here you display false three time !
+  /** 
+  check for the key and put false here, but it's less reactive that put false just after the use the boolean...here you display false three time !
+  */
+  // we add modulo to be sure the information about the boolean is transmit to the scene
   if(aTouch) aTouch = false ; 
   if(bTouch) bTouch = false ;
   if(cTouch) cTouch = false ;
@@ -419,7 +415,6 @@ void keyboardFalse() {
   if (downTouch) downTouch = false ;
   if (leftTouch) leftTouch = false ;
   if (rightTouch) rightTouch = false ;
-
 }
 //END KEYBOARD
 //////////////

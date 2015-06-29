@@ -46,7 +46,7 @@ void loadImg(int ID) {
   // whichImage is the int return from the dropdown menu
   if(whichImage[ID] > imagePath.length ) whichImage[ID] = 0 ;
 
-  if(imagePath != null) {
+  if(imagePath != null && imagePath.length > 0) {
     String image_current_path = imagePath[whichImage[ID]] ;
     if(!image_current_path.equals(image_path_ref[ID])) {
       img[ID] = loadImage(image_current_path) ;
@@ -497,7 +497,7 @@ void OSMavericksCheck() {
 boolean aTouch, bTouch, cTouch, dTouch, eTouch, fTouch, gTouch, hTouch, iTouch, jTouch, kTouch, lTouch, mTouch, nTouch, oTouch, pTouch, qTouch, rTouch, sTouch, tTouch, uTouch, vTouch, wTouch, xTouch, yTouch, zTouch,
         leftTouch, rightTouch, upTouch, downTouch, 
         touch0, touch1, touch2, touch3, touch4, touch5, touch6, touch7, touch8, touch9, 
-        backspaceTouch, deleteTouch, enterTouch, returnTouch, shiftTouch, altTouch, escTouch, ctrlTouch ;
+        backspaceTouch, deleteTouch, enterTouch, returnTouch, shiftTouch, altTouch, escTouch, ctrlTouch, cmdTouch ;
 //long touch
 boolean spaceTouch, cLongTouch, lLongTouch, nLongTouch, vLongTouch ;  
 

@@ -67,12 +67,8 @@ void OSCDraw() {
    encapsuleDataPrescene() ;
    booleanLoadSaveScene() ;
 
-
-
-    //SEND data to SCENE
-  
-
-  RomanescoScene.add(toScene);
+   //SEND data to SCENE
+   RomanescoScene.add(toScene);
   // send the load path to the scene to also open the save setting in the scene with only one opening window input
   RomanescoScene.add(path_to_load_scene_setting) ;
   // reset the path for the next send, because the Scene check this path, to know if this one is not null,
@@ -81,16 +77,9 @@ void OSCDraw() {
 
   RomanescoScene.add(booleanLoadSave) ;
 
-
-  
-  
-
   //send
-  
-  if (youCanSendToScene)osc.send(RomanescoScene, targetScene); 
+  if (youCanSendToScene) osc.send(RomanescoScene, targetScene); 
   if (youCanSendToMiroir) osc.send(RomanescoScene, targetMiroir);
-  
-
 }
 
 
@@ -155,6 +144,8 @@ void encapsuleDataPrescene(){
    if (xTouch)     dataPreScene [24] = ("1") ; else dataPreScene [24] = ("0") ;
    if (yTouch)     dataPreScene [25] = ("1") ; else dataPreScene [25] = ("0") ;
    if (zTouch)     dataPreScene [26] = ("1") ; else dataPreScene [26] = ("0") ;
+
+   if(rTouch) println("Prescene",rTouch,dataPreScene [18], frameCount) ;
    
    //FREE
    dataPreScene [27] = ("") ;
@@ -172,8 +163,6 @@ void encapsuleDataPrescene(){
    if (ctrlTouch) dataPreScene [37] = ("1") ; else dataPreScene [37] = ("0") ;
    
    // MOUSE
-   dataPreScene[38] = FloatToStringWithThree(norm(pmouse[0].x, 0, width)) ; 
-   dataPreScene[39] = FloatToStringWithThree(norm(pmouse[0].y,0,height)) ;
    dataPreScene[40] = FloatToStringWithThree(pen[0].x) ; dataPreScene[41] = FloatToStringWithThree(pen[0].y) ; dataPreScene[42] = FloatToString(pen[0].z) ; 
    dataPreScene[43] = FloatToStringWithThree(norm(mouse[0].x, 0, width)) ; 
    dataPreScene[44] = FloatToStringWithThree(norm(mouse[0].y,0,height)) ;

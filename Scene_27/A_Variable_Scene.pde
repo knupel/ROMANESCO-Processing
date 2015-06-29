@@ -17,12 +17,11 @@ String bigBrother = ("BIG BROTHER DON'T WATCHING YOU !!") ;
 //specific at the Scene
 String valueTempPreScene[] = new String [71] ;
 //Special var for the Scene and the Miroir
-PVector mouseCamera, pmouseCamera ; 
+PVector mouseCamera ; 
 
 
 void initVarScene() {
   mouseCamera = new PVector(0,0,0) ;
-  pmouseCamera = new PVector(0,0,0) ;
 }
 
 
@@ -32,7 +31,6 @@ void varObjectSetup() {
   for (int i = 0 ; i < numObj ; i++ ) {
     pen[i] = new PVector() ;
     mouse[i] = new PVector(0,0,0) ;
-    pmouse[i] = new PVector() ;
     wheel[i] = 0 ;
   }
 }

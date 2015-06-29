@@ -25,7 +25,7 @@ void updateObject(int ID, int group) {
   }
   
   // info
-  if (iTouch) objectInfoDisplay[ID] = !objectInfoDisplay[ID] ;
+  objectInfoDisplay[ID] = displayInfo?true:false ;
   
   
   if(parameter[ID]) {

@@ -238,7 +238,7 @@ PVector dirObjRef ;
 boolean newObjRefDir ;
 
 //position of object and wheel
-PVector [] mouse, pmouse, pen ;
+PVector [] mouse, pen ;
 boolean [] clickShortLeft, clickShortRight, clickLongLeft, clickLongRight;
 int wheel[] ;
 //pen info
@@ -319,7 +319,6 @@ void createMiscVar() {
 void createVarCursor() {
   //position of object and wheel
    mouse  = new PVector[numObj] ;
-   pmouse = new PVector[numObj] ;
    clickShortLeft = new boolean [numObj] ;
    clickShortRight = new boolean [numObj] ;
    clickLongLeft = new boolean [numObj] ;
@@ -468,7 +467,6 @@ void varObjSetup() {
     pen[i] = new PVector() ;
     // use the 250 value for "z" to keep the position light on the front
     mouse[i] = new PVector() ;
-    pmouse[i] = new PVector() ;
     wheel[i] = 0 ;
 
   }

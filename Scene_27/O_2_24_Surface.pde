@@ -246,7 +246,7 @@ class Surface extends Romanesco {
      */
     surfaceGridImg(sizeTriangle, startingPosition, image, gridTriangle) ;
     if(gridTriangle.size() > 0 ) {
-      println("compute Surface grid");
+      if(testRomanesco) println("compute Surface grid");
       surfaceImgColor(gridTriangle, color_fill, color_stroke, thickness) ;
       
       surfaceImgSummit(altitude, gridTriangle) ;
@@ -337,14 +337,14 @@ class Surface extends Romanesco {
   PShape patternShape;
   // local void
   void createSurfaceShape(ArrayList<Polygon> gridTriangle) {
-    println("Create high Surface mesh");
+    if(testRomanesco) println("Create high Surface mesh");
     patternShape = createShape();
     patternShape.beginShape(TRIANGLES);
     for (Polygon t : gridTriangle) {
       t.draw_polygon_in_PShape(patternShape) ;
     }
     patternShape.endShape(CLOSE);
-    println("High Surface mesh has been created with "+patternShape.getVertexCount()+" vertex");
+    if(testRomanesco) println("High Surface mesh has been created with "+patternShape.getVertexCount()+" vertex");
   }
   //
   void surfaceShapeDraw() {

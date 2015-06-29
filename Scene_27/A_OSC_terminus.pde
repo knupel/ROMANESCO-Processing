@@ -78,8 +78,12 @@ void splitDataLoadSavePrescene() {
 
 
 
+
 void translateDataFromPrescene() {
     // Info distribution
+
+  // SHORT EVENT
+  ///////////////
   if(valueTempPreScene[0].equals("0") ) spaceTouch = false ; else spaceTouch = true ;  
   
   if(valueTempPreScene[1].equals("0") ) aTouch = false ; else aTouch = true ;
@@ -108,6 +112,10 @@ void translateDataFromPrescene() {
   if(valueTempPreScene[24].equals("0") ) xTouch = false ; else xTouch = true ;
   if(valueTempPreScene[25].equals("0") ) yTouch = false ; else yTouch = true ;
   if(valueTempPreScene[26].equals("0") ) zTouch = false ; else zTouch = true ;
+  /**
+  Change the valueTempPreScene[n] to be independant of the Prescene ans the his low frameRate for the boolean refresh
+  */
+  //println("Scene", rTouch, valueTempPreScene[18], frameCount) ;
 
   
   if(valueTempPreScene[30].equals("0") ) enterTouch = false ; else enterTouch = true ;
@@ -119,44 +127,7 @@ void translateDataFromPrescene() {
   if(valueTempPreScene[36].equals("0") ) leftTouch = false ; else leftTouch = true ;
   if(valueTempPreScene[37].equals("0") ) ctrlTouch = false ; else ctrlTouch = true ;
 
-  //MOUSE, CURSOR, PEN
-  //PMOUSE
-  // line for the camera Pmouse, i don't understand why we need this temp var
-  if(cLongTouch) {
-    pmouseCamera.x = map(Float.valueOf(valueTempPreScene[38].replaceAll(",", ".")), 0,1,0, width) ;
-    pmouseCamera.y = map(Float.valueOf(valueTempPreScene[39].replaceAll(",", ".")), 0,1,0,height) ;
-  }
-  //
-  pmouse[0].x = map(Float.valueOf(valueTempPreScene[38].replaceAll(",", ".")), 0,1,0, width) ;
-  pmouse[0].y = map(Float.valueOf(valueTempPreScene[39].replaceAll(",", ".")), 0,1,0,height) ;
-
-  //PEN
-  pen[0].x = Float.valueOf(valueTempPreScene[40].replaceAll(",", ".")) ;
-  pen[0].y = Float.valueOf(valueTempPreScene[41].replaceAll(",", ".")) ;
-  pen[0].z = Float.valueOf(valueTempPreScene[42].replaceAll(",", ".")) ;
-  
-  //MOUSE
-  // line for the camera
-  if(cLongTouch) {
-    mouseCamera.x = map(Float.valueOf(valueTempPreScene[43].replaceAll(",", ".")), 0,1,0, width) ;
-    mouseCamera.y = map(Float.valueOf(valueTempPreScene[44].replaceAll(",", ".")), 0, 1, 0,height) ;
-    mouseCamera.z = map(Float.valueOf(valueTempPreScene[45].replaceAll(",", ".")), 0, 1, -750,750) ;
-  }
-  mouse[0].x = map(Float.valueOf(valueTempPreScene[43].replaceAll(",", ".")), 0,1,0, width) ;
-  mouse[0].y = map(Float.valueOf(valueTempPreScene[44].replaceAll(",", ".")), 0, 1, 0,height) ;
-  mouse[0].z = map(Float.valueOf(valueTempPreScene[45].replaceAll(",", ".")), 0, 1, -750,750) ;
-  
-  //BUTTON
-  if(valueTempPreScene[46].equals("0") ) clickShortLeft[0] = false ; else clickShortLeft[0] = true ;
-  if(valueTempPreScene[47].equals("0") ) clickShortRight[0] = false ; else clickShortRight[0] = true ;
-  if(valueTempPreScene[48].equals("0") ) clickLongLeft[0] = false ; else clickLongLeft[0] = true ;
-  if(valueTempPreScene[49].equals("0") ) clickLongRight[0] = false ; else clickLongRight[0] = true ;
-  
-  //WHEEL
-  wheel[0] = Integer.parseInt(valueTempPreScene[50]) ;
-  //END MOUSE, CURSOR, PEN
-  
-  //number key
+    //number key
   if(valueTempPreScene[51].equals("0") ) touch1 = false ; else touch1 = true ;
   if(valueTempPreScene[52].equals("0") ) touch2 = false ; else touch2 = true ;
   if(valueTempPreScene[53].equals("0") ) touch3 = false ; else touch3 = true ;
@@ -167,14 +138,75 @@ void translateDataFromPrescene() {
   if(valueTempPreScene[58].equals("0") ) touch8 = false ; else touch8 = true ;
   if(valueTempPreScene[59].equals("0") ) touch9 = false ; else touch9 = true ;
   if(valueTempPreScene[60].equals("0") ) touch0 = false ; else touch0 = true ;
+  // END SHORT KEY EVENT
+  //////////////////////
+
+
+
+
   
-  // Long Touch
+
+  
+  
+
+
+  // Longtime event
+  /////////////////
+  // long mouse event
+  if(valueTempPreScene[48].equals("0") ) clickLongLeft[0] = false ; else clickLongLeft[0] = true ;
+  if(valueTempPreScene[49].equals("0") ) clickLongRight[0] = false ; else clickLongRight[0] = true ;
+  // long key event
   if(valueTempPreScene[61].equals("0")) cLongTouch = false ; else cLongTouch = true ;
   if(valueTempPreScene[62].equals("0")) lLongTouch = false ; else lLongTouch = true ;
   if(valueTempPreScene[63].equals("0")) nLongTouch = false ; else nLongTouch = true ;
   if(valueTempPreScene[64].equals("0")) vLongTouch = false ; else vLongTouch = true ;
   
-  //ORDER
+  
+
+
+
+
+
+  // MOUSE EVENT
+  //PEN
+  pen[0].x = Float.valueOf(valueTempPreScene[40].replaceAll(",", ".")) ;
+  pen[0].y = Float.valueOf(valueTempPreScene[41].replaceAll(",", ".")) ;
+  pen[0].z = Float.valueOf(valueTempPreScene[42].replaceAll(",", ".")) ;
+  
+  //MOUSE
+  // create a temp mouse pos, to temporize the difference of the frame rate between the Préscène and the Scène.
+  PVector target_pos = new PVector() ;
+  target_pos.x = map(Float.valueOf(valueTempPreScene[43].replaceAll(",", ".")), 0,1,0, width) ;
+  target_pos.y = map(Float.valueOf(valueTempPreScene[44].replaceAll(",", ".")), 0, 1, 0,height) ;
+  target_pos.z = map(Float.valueOf(valueTempPreScene[45].replaceAll(",", ".")), 0, 1, -750,750) ;
+  // absolute mouse pos
+  mouse[0].x = target_pos.x +mouse[0].x *.5 ;
+  mouse[0].y = target_pos.y +mouse[0].y *.5 ;
+  mouse[0].z = target_pos.z +mouse[0].z *.5 ;
+
+  if(cLongTouch) mouseCamera = mouse[0].copy() ;
+
+
+  // Mouse button
+  if(valueTempPreScene[46].equals("0") ) clickShortLeft[0] = false ; else clickShortLeft[0] = true ;
+  if(valueTempPreScene[47].equals("0") ) clickShortRight[0] = false ; else clickShortRight[0] = true ;
+
+  
+  //WHEEL
+  wheel[0] = Integer.parseInt(valueTempPreScene[50]) ;
+  //END MOUSE, CURSOR, PEN
+
+
+  
+
+
+
+
+
+
+
+  // ORDER
+  ///////////////
   if(valueTempPreScene[70].equals("0")) ORDER_ONE = false ; else ORDER_ONE = true ;
   if(valueTempPreScene[71].equals("0")) ORDER_TWO = false ; else ORDER_TWO = true ;
   if(valueTempPreScene[72].equals("0")) ORDER_THREE = false ; else ORDER_THREE = true ;
