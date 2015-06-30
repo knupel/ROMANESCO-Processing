@@ -745,8 +745,6 @@ public void encapsuleDataPrescene(){
    if (xTouch)     dataPreScene [24] = ("1") ; else dataPreScene [24] = ("0") ;
    if (yTouch)     dataPreScene [25] = ("1") ; else dataPreScene [25] = ("0") ;
    if (zTouch)     dataPreScene [26] = ("1") ; else dataPreScene [26] = ("0") ;
-
-   if(rTouch) println("Prescene",rTouch,dataPreScene [18], frameCount) ;
    
    //FREE
    dataPreScene [27] = ("") ;
@@ -6120,7 +6118,7 @@ class Soleil extends Romanesco {
     IDobj = 12 ;
     IDgroup = 2 ;
     romanescoAuthor  = "Stan le Punk";
-    romanescoVersion = "Version 1.1";
+    romanescoVersion = "Version 1.1.1";
     romanescoPack = "Base" ;
     romanescoRender = "P3D" ;
     romanescoMode = "Beam/Lie'Bro'One/Lie'Bro'Two/Lie'Bro Noisy" ;
@@ -6139,7 +6137,7 @@ class Soleil extends Romanesco {
   public void display() {
     aspect(IDobj) ;
     //
-    if(!motion[IDobj]) pos = new PVector(mouse[IDobj].x -width/2, mouse[IDobj].y -height/2,0) ; else pos = new PVector(0,0,0) ;
+    if(spaceTouch && action[IDobj]) pos = new PVector(mouse[IDobj].x -width/2, mouse[IDobj].y -height/2,0) ; else pos = new PVector(0,0,0) ;
     int diam = PApplet.parseInt(map(canvasXObj[IDobj], width/10, width, width/10, width *1.2f) *allBeats(IDobj) ) ;
     int numBeam = (int)(quantityObj[IDobj] *180 +1) ;
     if(!fullRendering) numBeam /= 20 ;
@@ -6153,9 +6151,13 @@ class Soleil extends Romanesco {
      float rightNoise =  ((right[IDobj] *right[IDobj] *5) *amp) ;
      float leftNoise = ((left[IDobj] *left[IDobj] *5) *amp) ;
      if (sound[IDobj]) noise = new PVector(rightNoise, leftNoise) ; else noise = new PVector(amp,amp) ;
+     // rotation direction
+     int direction = 1 ;
+     if(reverse[IDobj]) direction = 1 ; else direction = -1 ;
+     if(!motion[IDobj]) direction = 0 ;
     // rotation speed
     float speedRotation = 0 ;
-    speedRotation = sq(speedObj[IDobj] *10.0f *tempo[IDobj]) ;
+    speedRotation = sq(speedObj[IDobj] *10.0f *tempo[IDobj]) *direction ;
     angleRotation += speedRotation ;
     rotate (radians(angleRotation)) ;
 
@@ -6167,7 +6169,7 @@ class Soleil extends Romanesco {
     
     // info display
     String revolution = ("") ;
-    if(motion[IDobj]) revolution =("false") ; else revolution = ("true") ;
+    if(spaceTouch && action[IDobj]) revolution =("false") ; else revolution = ("true") ;
     objectInfo[IDobj] = ("The sun have " + numBeam + " beams - Motion "+revolution ) ;
     
     
@@ -6226,7 +6228,6 @@ class Soleil extends Romanesco {
     }
   }
 }
-//end object two
 Spirale spirale ; 
 //object three
 class SpiraleRomanesco extends Romanesco {
@@ -7231,7 +7232,7 @@ class Anillos extends Romanesco {
  
   // setup
   public void setting() {
-    startPosition(IDobj, width/2, height/2, 0) ;
+    startPosition(IDobj, width/2, height/3, -height) ;
     anillos_setting(num_anillos) ;
    
    }
@@ -7254,8 +7255,8 @@ class Anillos extends Romanesco {
     num_anillos = PApplet.parseInt( NUM_ANNILOS_MAX * quantityObj[IDobj] ) ;
    
     if( num_anillos != num_ref_anillos) {
-        anillos_setting(num_anillos) ;
-        num_ref_anillos = num_anillos ;
+      anillos_setting(num_anillos) ;
+      num_ref_anillos = num_anillos ;
     }
   }
    
@@ -7282,7 +7283,6 @@ class Anillos extends Romanesco {
   }
 
   public void inter(Vec3 pos, int N)  {
-    //println("je suis l\u00e0", frameCount) ;
     // calcul pos y
     for (int i = 0; i < N; i++) {
       ringY[i] += 0.2f * (N - i) * (pos.x - ringY[i]) / N;
@@ -7294,7 +7294,7 @@ class Anillos extends Romanesco {
 
     // diam
     float diam = radius *sizeXObj[IDobj] *allBeats(IDobj) ;
-    float orientation = S *map(angleObj[IDobj],0,360,0,1);
+    float orientation = S *map(angleObj[IDobj],0,360,-PI,PI);
     float effevtiveT = T *analyzeObj[IDobj];
    
     // render

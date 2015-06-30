@@ -7,7 +7,7 @@ class Soleil extends Romanesco {
     IDobj = 12 ;
     IDgroup = 2 ;
     romanescoAuthor  = "Stan le Punk";
-    romanescoVersion = "Version 1.1";
+    romanescoVersion = "Version 1.1.1";
     romanescoPack = "Base" ;
     romanescoRender = "P3D" ;
     romanescoMode = "Beam/Lie'Bro'One/Lie'Bro'Two/Lie'Bro Noisy" ;
@@ -26,7 +26,7 @@ class Soleil extends Romanesco {
   void display() {
     aspect(IDobj) ;
     //
-    if(!motion[IDobj]) pos = new PVector(mouse[IDobj].x -width/2, mouse[IDobj].y -height/2,0) ; else pos = new PVector(0,0,0) ;
+    if(spaceTouch && action[IDobj]) pos = new PVector(mouse[IDobj].x -width/2, mouse[IDobj].y -height/2,0) ; else pos = new PVector(0,0,0) ;
     int diam = int(map(canvasXObj[IDobj], width/10, width, width/10, width *1.2) *allBeats(IDobj) ) ;
     int numBeam = (int)(quantityObj[IDobj] *180 +1) ;
     if(!fullRendering) numBeam /= 20 ;
@@ -40,9 +40,13 @@ class Soleil extends Romanesco {
      float rightNoise =  ((right[IDobj] *right[IDobj] *5) *amp) ;
      float leftNoise = ((left[IDobj] *left[IDobj] *5) *amp) ;
      if (sound[IDobj]) noise = new PVector(rightNoise, leftNoise) ; else noise = new PVector(amp,amp) ;
+     // rotation direction
+     int direction = 1 ;
+     if(reverse[IDobj]) direction = 1 ; else direction = -1 ;
+     if(!motion[IDobj]) direction = 0 ;
     // rotation speed
     float speedRotation = 0 ;
-    speedRotation = sq(speedObj[IDobj] *10.0 *tempo[IDobj]) ;
+    speedRotation = sq(speedObj[IDobj] *10.0 *tempo[IDobj]) *direction ;
     angleRotation += speedRotation ;
     rotate (radians(angleRotation)) ;
 
@@ -54,7 +58,7 @@ class Soleil extends Romanesco {
     
     // info display
     String revolution = ("") ;
-    if(motion[IDobj]) revolution =("false") ; else revolution = ("true") ;
+    if(spaceTouch && action[IDobj]) revolution =("false") ; else revolution = ("true") ;
     objectInfo[IDobj] = ("The sun have " + numBeam + " beams - Motion "+revolution ) ;
     
     
@@ -113,4 +117,3 @@ class Soleil extends Romanesco {
     }
   }
 }
-//end object two

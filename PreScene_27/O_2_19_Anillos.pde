@@ -28,7 +28,7 @@ class Anillos extends Romanesco {
  
   // setup
   void setting() {
-    startPosition(IDobj, width/2, height/2, 0) ;
+    startPosition(IDobj, width/2, height/3, -height) ;
     anillos_setting(num_anillos) ;
    
    }
@@ -51,8 +51,8 @@ class Anillos extends Romanesco {
     num_anillos = int( NUM_ANNILOS_MAX * quantityObj[IDobj] ) ;
    
     if( num_anillos != num_ref_anillos) {
-        anillos_setting(num_anillos) ;
-        num_ref_anillos = num_anillos ;
+      anillos_setting(num_anillos) ;
+      num_ref_anillos = num_anillos ;
     }
   }
    
@@ -79,7 +79,6 @@ class Anillos extends Romanesco {
   }
 
   void inter(Vec3 pos, int N)  {
-    //println("je suis là", frameCount) ;
     // calcul pos y
     for (int i = 0; i < N; i++) {
       ringY[i] += 0.2 * (N - i) * (pos.x - ringY[i]) / N;
@@ -91,7 +90,7 @@ class Anillos extends Romanesco {
 
     // diam
     float diam = radius *sizeXObj[IDobj] *allBeats(IDobj) ;
-    float orientation = S *map(angleObj[IDobj],0,360,0,1);
+    float orientation = S *map(angleObj[IDobj],0,360,-PI,PI);
     float effevtiveT = T *analyzeObj[IDobj];
    
     // render

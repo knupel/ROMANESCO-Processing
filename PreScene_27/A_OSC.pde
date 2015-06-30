@@ -144,8 +144,6 @@ void encapsuleDataPrescene(){
    if (xTouch)     dataPreScene [24] = ("1") ; else dataPreScene [24] = ("0") ;
    if (yTouch)     dataPreScene [25] = ("1") ; else dataPreScene [25] = ("0") ;
    if (zTouch)     dataPreScene [26] = ("1") ; else dataPreScene [26] = ("0") ;
-
-   if(rTouch) println("Prescene",rTouch,dataPreScene [18], frameCount) ;
    
    //FREE
    dataPreScene [27] = ("") ;
