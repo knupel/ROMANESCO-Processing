@@ -14105,11 +14105,25 @@ public void updateObject(int ID, int group) {
 //
 public void updateSliderValue(int ID, int group) {
   for ( int i = 0 ; i <= NUM_GROUP ; i++) if( group == i ) {
-    int whichOne = i-1 ;
+    int which_group = i-1 ;
     if(fullRendering) {
-      if (fillRaw[whichOne] != fillTemp[whichOne] || !firstOpeningObj[ID]) fillObj[ID] = fillRaw[whichOne] ;
-      if (strokeRaw[whichOne] != strokeTemp[whichOne] || !firstOpeningObj[ID]) strokeObj[ID] = strokeRaw[whichOne] ;
-      if (thicknessRaw[whichOne] != thicknessTemp[whichOne] || !firstOpeningObj[ID]) thicknessObj[ID] = thicknessRaw[whichOne] ;
+      /**
+      Changer : le fill et le stroke doivent se calculer sur des valeurs s\u00e9par\u00e9e, hue, sat, bright and alpha, sinon quand on les change cela change tout d'une seul coup.
+      */
+      // fill obj
+      if      ( !firstOpeningObj[ID] ) fillObj[ID]                                          = color ( fill_hue_raw[which_group], fill_sat_raw[which_group],  fill_bright_raw[which_group], fill_alpha_raw[which_group]) ; 
+      else if ( fill_hue_temp[which_group] != fill_hue_raw[which_group] ) fillObj[ID]       = color ( fill_hue_raw[which_group], saturation(fillObj[ID]),    brightness(fillObj[ID]),      alpha(fillObj[ID])) ;
+      else if ( fill_sat_temp[which_group] != fill_sat_raw[which_group] ) fillObj[ID]       = color ( hue(fillObj[ID]),          fill_sat_raw[which_group],  brightness(fillObj[ID]),      alpha(fillObj[ID])) ; 
+      else if ( fill_bright_temp[which_group] != fill_bright_raw[which_group] ) fillObj[ID] = color ( hue(fillObj[ID]),          saturation(fillObj[ID]),    fill_bright_raw[which_group], alpha(fillObj[ID])) ;   
+      else if( fill_alpha_temp[which_group] != fill_alpha_raw[which_group] ) fillObj[ID]    = color ( hue(fillObj[ID]),          saturation(fillObj[ID]),    brightness(fillObj[ID]),      fill_alpha_raw[which_group]) ;  
+      // stroke obj
+      if      ( !firstOpeningObj[ID] ) strokeObj[ID]                                          = color ( stroke_hue_raw[which_group], stroke_sat_raw[which_group],  stroke_bright_raw[which_group], stroke_alpha_raw[which_group]) ; 
+      else if ( stroke_hue_temp[which_group] != stroke_hue_raw[which_group] ) strokeObj[ID]       = color ( stroke_hue_raw[which_group], saturation(strokeObj[ID]),    brightness(strokeObj[ID]),      alpha(strokeObj[ID])) ;
+      else if ( stroke_sat_temp[which_group] != stroke_sat_raw[which_group] ) strokeObj[ID]       = color ( hue(strokeObj[ID]),          stroke_sat_raw[which_group],  brightness(strokeObj[ID]),      alpha(strokeObj[ID])) ; 
+      else if ( stroke_bright_temp[which_group] != stroke_bright_raw[which_group] ) strokeObj[ID] = color ( hue(strokeObj[ID]),          saturation(strokeObj[ID]),    stroke_bright_raw[which_group], alpha(strokeObj[ID])) ;   
+      else if( stroke_alpha_temp[which_group] != stroke_alpha_raw[which_group] ) strokeObj[ID]    = color ( hue(strokeObj[ID]),          saturation(strokeObj[ID]),    brightness(strokeObj[ID]),      stroke_alpha_raw[which_group]) ;  
+      // thickness
+      if (thicknessRaw[which_group] != thicknessTemp[which_group] || !firstOpeningObj[ID]) thicknessObj[ID] = thicknessRaw[which_group] ;
     } else {
       // preview display
       fillObj[ID] = COLOR_FILL_OBJ_PREVIEW ;
@@ -14117,28 +14131,28 @@ public void updateSliderValue(int ID, int group) {
       thicknessObj[ID] = THICKNESS_OBJ_PREVIEW ;
     }
     // column 2
-    if (sizeXRaw[whichOne] != sizeXTemp[whichOne] || !firstOpeningObj[ID]) sizeXObj[ID] = sizeXRaw[whichOne] ; 
-    if (sizeYRaw[whichOne] != sizeYTemp[whichOne] || !firstOpeningObj[ID]) sizeYObj[ID] = sizeYRaw[whichOne] ; 
-    if (sizeZRaw[whichOne] != sizeZTemp[whichOne] || !firstOpeningObj[ID]) sizeZObj[ID] = sizeZRaw[whichOne] ;
-    if (canvasXRaw[whichOne] != canvasXTemp[whichOne] || !firstOpeningObj[ID]) canvasXObj[ID] = canvasXRaw[whichOne] ; 
-    if (canvasYRaw[whichOne] != canvasYTemp[whichOne] || !firstOpeningObj[ID]) canvasYObj[ID] = canvasYRaw[whichOne] ; 
-    if (canvasZRaw[whichOne] != canvasZTemp[whichOne] || !firstOpeningObj[ID]) canvasZObj[ID] = canvasZRaw[whichOne] ;
-    if (familyRaw[whichOne] != familyTemp[whichOne] || !firstOpeningObj[ID]) familyObj[ID] = familyRaw[whichOne] ;
-    if (quantityRaw[whichOne] != quantityTemp[whichOne] || !firstOpeningObj[ID]) quantityObj[ID] = quantityRaw[whichOne] ;
-    if (lifeRaw[whichOne] != lifeTemp[whichOne] || !firstOpeningObj[ID]) lifeObj[ID] = lifeRaw[whichOne] ;
+    if (sizeXRaw[which_group] != sizeXTemp[which_group] || !firstOpeningObj[ID]) sizeXObj[ID] = sizeXRaw[which_group] ; 
+    if (sizeYRaw[which_group] != sizeYTemp[which_group] || !firstOpeningObj[ID]) sizeYObj[ID] = sizeYRaw[which_group] ; 
+    if (sizeZRaw[which_group] != sizeZTemp[which_group] || !firstOpeningObj[ID]) sizeZObj[ID] = sizeZRaw[which_group] ;
+    if (canvasXRaw[which_group] != canvasXTemp[which_group] || !firstOpeningObj[ID]) canvasXObj[ID] = canvasXRaw[which_group] ; 
+    if (canvasYRaw[which_group] != canvasYTemp[which_group] || !firstOpeningObj[ID]) canvasYObj[ID] = canvasYRaw[which_group] ; 
+    if (canvasZRaw[which_group] != canvasZTemp[which_group] || !firstOpeningObj[ID]) canvasZObj[ID] = canvasZRaw[which_group] ;
+    if (familyRaw[which_group] != familyTemp[which_group] || !firstOpeningObj[ID]) familyObj[ID] = familyRaw[which_group] ;
+    if (quantityRaw[which_group] != quantityTemp[which_group] || !firstOpeningObj[ID]) quantityObj[ID] = quantityRaw[which_group] ;
+    if (lifeRaw[which_group] != lifeTemp[which_group] || !firstOpeningObj[ID]) lifeObj[ID] = lifeRaw[which_group] ;
     //column 3
-    if (speedRaw[whichOne] != speedTemp[whichOne] || !firstOpeningObj[ID]) speedObj[ID] = speedRaw[whichOne] ;
-    if (directionRaw[whichOne] != directionTemp[whichOne] || !firstOpeningObj[ID]) directionObj[ID] = directionRaw[whichOne] ;
-    if (angleRaw[whichOne] != angleTemp[whichOne] || !firstOpeningObj[ID]) angleObj[ID] = angleRaw[whichOne] ;
-    if (amplitudeRaw[whichOne] != amplitudeTemp[whichOne] || !firstOpeningObj[ID]) amplitudeObj[ID] = amplitudeRaw[whichOne] ;
-    if (attractionRaw[whichOne] != attractionTemp[whichOne] || !firstOpeningObj[ID]) attractionObj[ID] = attractionRaw[whichOne] ;
-    if (repulsionRaw[whichOne] != repulsionTemp[whichOne] || !firstOpeningObj[ID]) repulsionObj[ID] = repulsionRaw[whichOne] ;
-    if (alignmentRaw[whichOne] != alignmentTemp[whichOne] || !firstOpeningObj[ID]) alignmentObj[ID] = alignmentRaw[whichOne] ;
-    if (influenceRaw[whichOne] != influenceTemp[whichOne] || !firstOpeningObj[ID]) influenceObj[ID] = influenceRaw[whichOne] ;
-    if (analyzeRaw[whichOne] != analyzeTemp[whichOne] || !firstOpeningObj[ID]) analyzeObj[ID] = analyzeRaw[whichOne] ; 
+    if (speedRaw[which_group] != speedTemp[which_group] || !firstOpeningObj[ID]) speedObj[ID] = speedRaw[which_group] ;
+    if (directionRaw[which_group] != directionTemp[which_group] || !firstOpeningObj[ID]) directionObj[ID] = directionRaw[which_group] ;
+    if (angleRaw[which_group] != angleTemp[which_group] || !firstOpeningObj[ID]) angleObj[ID] = angleRaw[which_group] ;
+    if (amplitudeRaw[which_group] != amplitudeTemp[which_group] || !firstOpeningObj[ID]) amplitudeObj[ID] = amplitudeRaw[which_group] ;
+    if (attractionRaw[which_group] != attractionTemp[which_group] || !firstOpeningObj[ID]) attractionObj[ID] = attractionRaw[which_group] ;
+    if (repulsionRaw[which_group] != repulsionTemp[which_group] || !firstOpeningObj[ID]) repulsionObj[ID] = repulsionRaw[which_group] ;
+    if (alignmentRaw[which_group] != alignmentTemp[which_group] || !firstOpeningObj[ID]) alignmentObj[ID] = alignmentRaw[which_group] ;
+    if (influenceRaw[which_group] != influenceTemp[which_group] || !firstOpeningObj[ID]) influenceObj[ID] = influenceRaw[which_group] ;
+    if (analyzeRaw[which_group] != analyzeTemp[which_group] || !firstOpeningObj[ID]) analyzeObj[ID] = analyzeRaw[which_group] ; 
 
     //future slider ???
-    if (fontSizeRaw[whichOne] != fontSizeTemp[whichOne] || !firstOpeningObj[ID]) fontSizeObj[ID] = fontSizeRaw[whichOne] ;
+    if (fontSizeRaw[which_group] != fontSizeTemp[which_group] || !firstOpeningObj[ID]) fontSizeObj[ID] = fontSizeRaw[which_group] ;
   }
   /** 
   make the obj has be never update in the future except by the moving slider 
@@ -14334,7 +14348,8 @@ class ObjectRomanescoManager {
   
   
   ////////////////
-  /*EXTERN VOID
+  /**
+  EXTERNAL  VOID
   * romanescoManager.finishIndex() ;
   * use with in romanescoSetup() {}
   */
@@ -15056,7 +15071,8 @@ boolean objectParameter[] ;
 
 //VAR object
 //raw
-int [] fillRaw, strokeRaw ;
+int [] fill_hue_raw, fill_sat_raw, fill_bright_raw, fill_alpha_raw ;
+int [] stroke_hue_raw, stroke_sat_raw, stroke_bright_raw, stroke_alpha_raw ;
 float [] thicknessRaw ; 
 float [] sizeXRaw, sizeYRaw, sizeZRaw, canvasXRaw, canvasYRaw, canvasZRaw ;
 float [] familyRaw, quantityRaw, lifeRaw ;
@@ -15075,7 +15091,8 @@ float [] curveRaw ;
 
 // temp
 /* value used to know if the value slider have change or nor */
-int [] fillTemp, strokeTemp ;
+int [] fill_hue_temp, fill_sat_temp, fill_bright_temp, fill_alpha_temp ;
+int [] stroke_hue_temp, stroke_sat_temp, stroke_bright_temp, stroke_alpha_temp ;
 float [] thicknessTemp ; 
 float [] sizeXTemp, sizeYTemp, sizeZTemp, canvasXTemp, canvasYTemp, canvasZTemp ;
 float [] familyTemp, quantityTemp, lifeTemp ;
@@ -15174,7 +15191,6 @@ boolean newObjRefPos ;
 PVector [] posObj, dirObj, posObjRef ;
 //orientation
 float [] dirObjX, dirObjY ;
-//PVector P3Ddirection [] ;
 PVector dirObjRef ;
 boolean newObjRefDir ;
 
@@ -15233,7 +15249,7 @@ public void createMiscVar() {
    objectInfoDisplay = new boolean[numObj] ;
     
    setting = new boolean [numObj]  ;
-  //boolean clear
+   // boolean clear
    clearList = new boolean[numObj] ;
    motion = new boolean [numObj]  ;
    horizon = new boolean [numObj]  ;
@@ -15251,8 +15267,8 @@ public void createMiscVar() {
    pathFontTTF = new String [numFont] ;  
    pathFontVLW = new String [numFont] ;
    font = new PFont[numFont] ;
-     //MISC
-  //var to init the data of the object when is switch ON for the first time
+   //MISC
+   //var to init the data of the object when is switch ON for the first time
    initValueMouse = new boolean [numObj]  ;
    initValueControleur = new boolean [numObj]  ;
 }
@@ -15270,7 +15286,7 @@ public void createVarCursor() {
 }
 // P3D
 public void createVarP3D(int numObj, int numSettingCamera, int numSettingOrientationObject) {
-  //setting and save
+   // setting and save
    eyeCameraSetting = new PVector [numSettingCamera] ;
    sceneCameraSetting = new PVector [numSettingCamera] ;
 
@@ -15282,7 +15298,7 @@ public void createVarP3D(int numObj, int numSettingCamera, int numSettingOrienta
    posObjY = new float[numObj] ;
    posObjZ = new float[numObj] ;
    
-  //orientation
+   // orientation
    dirObjX = new float[numObj] ;
    dirObjY = new float[numObj] ;
    posObjRef = new PVector[numObj] ;
@@ -15291,17 +15307,18 @@ public void createVarP3D(int numObj, int numSettingCamera, int numSettingOrienta
 }
 
 public void createVarSound() {
+  // volume 
    left = new float [numObj] ;
    right = new float [numObj] ;
    mix  = new float [numObj] ;
-  //beat
+   // beat
    beat  = new float [numObj] ;
    kick  = new float [numObj] ;
    snare  = new float [numObj] ;
    hat  = new float [numObj] ;
-  // spectrum
+   // spectrum
    band = new float [numObj][NUM_BANDS] ;
-  //tempo
+   // tempo
    tempo = new float [numObj] ;
    tempoBeat = new float [numObj] ;
    tempoKick = new float [numObj] ;
@@ -15322,16 +15339,16 @@ public void createVarButton() {
   parameter = new boolean [numObj] ;
   mode = new int [numObj] ;
   
-  // you must init this var, because we launch this part of code before the controler. And if we don't init the value is NaN and return an error.
+  // you must init this var, because we launch this part of code before the controller. And if we don't init the value is NaN and return an error.
   valueButtonGlobal = new int[numButtonGlobal] ;
   valueButtonObj = new int[numObj*10] ;
 
 }
 
 public void createVarObject() {
-  // Raw
-  fillRaw = new int[NUM_GROUP] ;
-  strokeRaw = new int[NUM_GROUP] ;
+  // RAW
+  fill_hue_raw = new int[NUM_GROUP] ;   fill_sat_raw = new int[NUM_GROUP] ;   fill_bright_raw = new int[NUM_GROUP] ;    fill_alpha_raw = new int[NUM_GROUP] ;
+  stroke_hue_raw = new int[NUM_GROUP] ; stroke_sat_raw = new int[NUM_GROUP] ; stroke_bright_raw = new int[NUM_GROUP] ;  stroke_alpha_raw = new int[NUM_GROUP] ;
   thicknessRaw = new float[NUM_GROUP] ;
   sizeXRaw = new float[NUM_GROUP] ;   sizeYRaw = new float[NUM_GROUP] ;    sizeZRaw = new float[NUM_GROUP] ;
   canvasXRaw = new float[NUM_GROUP] ; canvasYRaw = new float[NUM_GROUP] ;  canvasZRaw = new float[NUM_GROUP] ;
@@ -15351,8 +15368,8 @@ public void createVarObject() {
   
   // Temp
   /* used to compare the value slider, to know if the value of the obhject must be updated orn ot */
-  fillTemp = new int[NUM_GROUP] ;
-  strokeTemp = new int[NUM_GROUP] ;
+  fill_hue_temp = new int[NUM_GROUP] ;    fill_sat_temp = new int[NUM_GROUP] ;    fill_bright_temp = new int[NUM_GROUP] ;   fill_alpha_temp = new int[NUM_GROUP] ;
+  stroke_hue_temp = new int[NUM_GROUP] ;  stroke_sat_temp = new int[NUM_GROUP] ;  stroke_bright_temp = new int[NUM_GROUP] ; stroke_alpha_temp = new int[NUM_GROUP] ;
   thicknessTemp = new float[NUM_GROUP] ;
   sizeXTemp = new float[NUM_GROUP] ;   sizeYTemp = new float[NUM_GROUP] ;    sizeZTemp = new float[NUM_GROUP] ;
   canvasXTemp = new float[NUM_GROUP] ; canvasYTemp = new float[NUM_GROUP] ;  canvasZTemp = new float[NUM_GROUP] ;
@@ -15427,19 +15444,28 @@ public void updateVarRaw() {
     int minSource = 0 ;
     // int maxSource = 1 ;
     float minSize = .1f ;
-    //column 1
-    fillRaw[i] = color(valueSlider[i+1][0], map(valueSlider[i+1][1],0,MAX_VALUE_SLIDER,0,100), map(valueSlider[i+1][2],0,MAX_VALUE_SLIDER,0,100), map(valueSlider[i+1][3],0,MAX_VALUE_SLIDER,0,100)) ;
-    strokeRaw[i] = color(valueSlider[i+1][4], map(valueSlider[i+1][5],0,MAX_VALUE_SLIDER,0,100), map(valueSlider[i+1][6],0,MAX_VALUE_SLIDER,0,100), map(valueSlider[i+1][7],0,MAX_VALUE_SLIDER,0,100)) ;
-
+    // fill
+    fill_hue_raw[i] = (int)valueSlider[i+1][0] ;
+    fill_sat_raw[i] = (int)map(valueSlider[i+1][1],0,MAX_VALUE_SLIDER,0,HSBmode.g);    
+    fill_bright_raw[i] = (int)map(valueSlider[i+1][2],0,MAX_VALUE_SLIDER,0,HSBmode.b) ;   
+    fill_alpha_raw[i] = (int)map(valueSlider[i+1][3],0,MAX_VALUE_SLIDER,0,HSBmode.a);
+    // stroke
+    stroke_hue_raw[i] = (int)valueSlider[i+1][4] ; 
+    stroke_sat_raw[i] = (int)map(valueSlider[i+1][5],0,MAX_VALUE_SLIDER,0,HSBmode.g);  
+    stroke_bright_raw[i] = (int)map(valueSlider[i+1][6],0,MAX_VALUE_SLIDER,0,HSBmode.b) ; 
+    stroke_alpha_raw[i] = (int)map(valueSlider[i+1][7],0,MAX_VALUE_SLIDER,0,HSBmode.a);
+    // 
     thicknessRaw[i] = mapStartSmooth(valueSlider[i+1][8], minSource, MAX_VALUE_SLIDER, minSize, (height*.33f), 2) ;
 
-    //column 2
+    // size
     sizeXRaw[i] = map(valueSlider[i+1][10], minSource, MAX_VALUE_SLIDER, minSize, width) ;
     sizeYRaw[i] = map(valueSlider[i+1][11], minSource, MAX_VALUE_SLIDER, minSize, width) ;
     sizeZRaw[i] = map(valueSlider[i+1][12], minSource, MAX_VALUE_SLIDER, minSize, width) ;
+    // canvas
     canvasXRaw[i] = map(valueSlider[i+1][13], minSource, MAX_VALUE_SLIDER, width *minSize, width) ;
     canvasYRaw[i] = map(valueSlider[i+1][14], minSource, MAX_VALUE_SLIDER, width *minSize, width) ;
     canvasZRaw[i] = map(valueSlider[i+1][15], minSource, MAX_VALUE_SLIDER, width *minSize, width) ;
+    // misc
     familyRaw[i] = map(valueSlider[i+1][16],minSource, MAX_VALUE_SLIDER, 0, 1) ;
     quantityRaw[i] = map(valueSlider[i+1][17], minSource, MAX_VALUE_SLIDER, 0, 1) ;
     lifeRaw[i] = map(valueSlider[i+1][18],minSource, MAX_VALUE_SLIDER,0,1) ;
@@ -15448,6 +15474,7 @@ public void updateVarRaw() {
     directionRaw[i] = map(valueSlider[i+1][21],minSource, MAX_VALUE_SLIDER,0,360) ;
     angleRaw[i] = map(valueSlider[i+1][22],minSource, MAX_VALUE_SLIDER,0,360) ;
     amplitudeRaw[i] = map(valueSlider[i+1][23],minSource, MAX_VALUE_SLIDER,0,1) ;
+    // force
     attractionRaw[i] = map(valueSlider[i+1][24],minSource, MAX_VALUE_SLIDER,0,1) ;
     repulsionRaw[i] = map(valueSlider[i+1][25],minSource, MAX_VALUE_SLIDER,0,1) ;
     alignmentRaw[i] = map(valueSlider[i+1][26],minSource, MAX_VALUE_SLIDER,0,1) ;
@@ -15464,17 +15491,27 @@ public void updateVarRaw() {
 /* Those temp value are used to know is the object value must be updated */
 public void updateVarTemp() {
     for(int i = 0 ; i < NUM_GROUP ; i++) {
-    //column 1
-    fillTemp[i] = fillRaw[i] ;
-    strokeTemp[i] = strokeRaw[i] ;
+    // fill
+    fill_hue_temp[i] = fill_hue_raw[i] ;
+    fill_sat_temp[i] = fill_sat_raw[i] ;    
+    fill_bright_temp[i] = fill_bright_raw[i] ;   
+    fill_alpha_temp[i] = fill_alpha_raw[i] ;
+    // stroke
+    stroke_hue_temp[i] = stroke_hue_raw[i] ; 
+    stroke_sat_temp[i] = stroke_sat_raw[i] ;  
+    stroke_bright_temp[i] = stroke_bright_raw[i] ; 
+    stroke_alpha_temp[i] = stroke_alpha_raw[i] ;
+    //
     thicknessTemp[i] = thicknessRaw[i] ;
-    //column 2
+    //size
     sizeXTemp[i] = sizeXRaw[i] ;
     sizeYTemp[i] = sizeYRaw[i] ;
     sizeZTemp[i] = sizeZRaw[i] ;
+    // canvas
     canvasXTemp[i] = canvasXRaw[i] ;
     canvasYTemp[i] = canvasYRaw[i] ;
     canvasZTemp[i] = canvasZRaw[i] ;
+    // misc
     familyTemp[i] = familyRaw[i] ;
     quantityTemp[i] = quantityRaw[i] ;
     lifeTemp[i] = lifeRaw[i] ;
@@ -15483,6 +15520,7 @@ public void updateVarTemp() {
     directionTemp[i] = directionRaw[i] ;
     angleTemp[i] = angleRaw[i] ;
     amplitudeTemp[i] = amplitudeRaw[i] ;
+    // force
     attractionTemp[i] = attractionRaw[i] ;
     repulsionTemp[i] = repulsionRaw[i] ;
     influenceTemp[i] = influenceRaw[i] ;
@@ -15573,15 +15611,15 @@ public void fontSetup() {
   pathFontVLW[20] = fontPathVLW+"Tokyo-One-96.vlw";
   pathFontVLW[21] = fontPathVLW+"MinionPro-Regular-96.vlw";
   pathFontVLW[22] = fontPathVLW+"MinionPro-Bold-96.vlw";
-  //special font
+  // special font
   pathFontVLW[49] = fontPathVLW+"DIN-Regular-10.vlw";
   SansSerif10 = loadFont(fontPathVLW+"SansSerif-10.vlw" );
   
-  //write font path for TTF
+  // write font path for TTF
   String prefixTTF = preferencesPath +"Font/typoTTF/" ;
   //by default
   pathFontTTF[0] = prefixTTF+"FuturaStencil.ttf";
-  //type
+  // type
   pathFontTTF[1] = prefixTTF+"AmericanTypewriter.ttf";
   pathFontTTF[2] = prefixTTF+"AmericanTypewriter.ttf";
   pathFontTTF[3] = prefixTTF+"Banco.ttf";
@@ -15604,10 +15642,10 @@ public void fontSetup() {
   pathFontTTF[20] = prefixTTF+"FuturaStencil.ttf";
   pathFontTTF[21] = prefixTTF+"MinionWebPro.ttf";
   pathFontTTF[22] = prefixTTF+"MinionWebPro.ttf";
-  //special font
+  // special font
   pathFontTTF[49] = prefixTTF+"FuturaStencil.ttf";
 
-  //load
+  // load
   AmericanTypewriter=loadFont      (pathFontVLW[1]);
   AmericanTypewriterBold=loadFont  (pathFontVLW[2]);
   Banco=loadFont                   (pathFontVLW[3]);
@@ -15631,7 +15669,7 @@ public void fontSetup() {
   Minion=loadFont                  (pathFontVLW[21]);
   MinionBold=loadFont              (pathFontVLW[22]);
 
-  //default and special font
+  // default and special font
   DinRegular10=loadFont            (pathFontVLW[49]);
 
   font[0] = FuturaStencil ;

@@ -115,7 +115,8 @@ boolean objectParameter[] ;
 
 //VAR object
 //raw
-color [] fillRaw, strokeRaw ;
+int [] fill_hue_raw, fill_sat_raw, fill_bright_raw, fill_alpha_raw ;
+int [] stroke_hue_raw, stroke_sat_raw, stroke_bright_raw, stroke_alpha_raw ;
 float [] thicknessRaw ; 
 float [] sizeXRaw, sizeYRaw, sizeZRaw, canvasXRaw, canvasYRaw, canvasZRaw ;
 float [] familyRaw, quantityRaw, lifeRaw ;
@@ -134,7 +135,8 @@ float [] curveRaw ;
 
 // temp
 /* value used to know if the value slider have change or nor */
-color [] fillTemp, strokeTemp ;
+int [] fill_hue_temp, fill_sat_temp, fill_bright_temp, fill_alpha_temp ;
+int [] stroke_hue_temp, stroke_sat_temp, stroke_bright_temp, stroke_alpha_temp ;
 float [] thicknessTemp ; 
 float [] sizeXTemp, sizeYTemp, sizeZTemp, canvasXTemp, canvasYTemp, canvasZTemp ;
 float [] familyTemp, quantityTemp, lifeTemp ;
@@ -233,7 +235,6 @@ boolean newObjRefPos ;
 PVector [] posObj, dirObj, posObjRef ;
 //orientation
 float [] dirObjX, dirObjY ;
-//PVector P3Ddirection [] ;
 PVector dirObjRef ;
 boolean newObjRefDir ;
 
@@ -292,7 +293,7 @@ void createMiscVar() {
    objectInfoDisplay = new boolean[numObj] ;
     
    setting = new boolean [numObj]  ;
-  //boolean clear
+   // boolean clear
    clearList = new boolean[numObj] ;
    motion = new boolean [numObj]  ;
    horizon = new boolean [numObj]  ;
@@ -310,8 +311,8 @@ void createMiscVar() {
    pathFontTTF = new String [numFont] ;  
    pathFontVLW = new String [numFont] ;
    font = new PFont[numFont] ;
-     //MISC
-  //var to init the data of the object when is switch ON for the first time
+   //MISC
+   //var to init the data of the object when is switch ON for the first time
    initValueMouse = new boolean [numObj]  ;
    initValueControleur = new boolean [numObj]  ;
 }
@@ -329,7 +330,7 @@ void createVarCursor() {
 }
 // P3D
 void createVarP3D(int numObj, int numSettingCamera, int numSettingOrientationObject) {
-  //setting and save
+   // setting and save
    eyeCameraSetting = new PVector [numSettingCamera] ;
    sceneCameraSetting = new PVector [numSettingCamera] ;
 
@@ -341,7 +342,7 @@ void createVarP3D(int numObj, int numSettingCamera, int numSettingOrientationObj
    posObjY = new float[numObj] ;
    posObjZ = new float[numObj] ;
    
-  //orientation
+   // orientation
    dirObjX = new float[numObj] ;
    dirObjY = new float[numObj] ;
    posObjRef = new PVector[numObj] ;
@@ -350,17 +351,18 @@ void createVarP3D(int numObj, int numSettingCamera, int numSettingOrientationObj
 }
 
 void createVarSound() {
+  // volume 
    left = new float [numObj] ;
    right = new float [numObj] ;
    mix  = new float [numObj] ;
-  //beat
+   // beat
    beat  = new float [numObj] ;
    kick  = new float [numObj] ;
    snare  = new float [numObj] ;
    hat  = new float [numObj] ;
-  // spectrum
+   // spectrum
    band = new float [numObj][NUM_BANDS] ;
-  //tempo
+   // tempo
    tempo = new float [numObj] ;
    tempoBeat = new float [numObj] ;
    tempoKick = new float [numObj] ;
@@ -381,16 +383,16 @@ void createVarButton() {
   parameter = new boolean [numObj] ;
   mode = new int [numObj] ;
   
-  // you must init this var, because we launch this part of code before the controler. And if we don't init the value is NaN and return an error.
+  // you must init this var, because we launch this part of code before the controller. And if we don't init the value is NaN and return an error.
   valueButtonGlobal = new int[numButtonGlobal] ;
   valueButtonObj = new int[numObj*10] ;
 
 }
 
 void createVarObject() {
-  // Raw
-  fillRaw = new color[NUM_GROUP] ;
-  strokeRaw = new color[NUM_GROUP] ;
+  // RAW
+  fill_hue_raw = new int[NUM_GROUP] ;   fill_sat_raw = new int[NUM_GROUP] ;   fill_bright_raw = new int[NUM_GROUP] ;    fill_alpha_raw = new int[NUM_GROUP] ;
+  stroke_hue_raw = new int[NUM_GROUP] ; stroke_sat_raw = new int[NUM_GROUP] ; stroke_bright_raw = new int[NUM_GROUP] ;  stroke_alpha_raw = new int[NUM_GROUP] ;
   thicknessRaw = new float[NUM_GROUP] ;
   sizeXRaw = new float[NUM_GROUP] ;   sizeYRaw = new float[NUM_GROUP] ;    sizeZRaw = new float[NUM_GROUP] ;
   canvasXRaw = new float[NUM_GROUP] ; canvasYRaw = new float[NUM_GROUP] ;  canvasZRaw = new float[NUM_GROUP] ;
@@ -410,8 +412,8 @@ void createVarObject() {
   
   // Temp
   /* used to compare the value slider, to know if the value of the obhject must be updated orn ot */
-  fillTemp = new color[NUM_GROUP] ;
-  strokeTemp = new color[NUM_GROUP] ;
+  fill_hue_temp = new int[NUM_GROUP] ;    fill_sat_temp = new int[NUM_GROUP] ;    fill_bright_temp = new int[NUM_GROUP] ;   fill_alpha_temp = new int[NUM_GROUP] ;
+  stroke_hue_temp = new int[NUM_GROUP] ;  stroke_sat_temp = new int[NUM_GROUP] ;  stroke_bright_temp = new int[NUM_GROUP] ; stroke_alpha_temp = new int[NUM_GROUP] ;
   thicknessTemp = new float[NUM_GROUP] ;
   sizeXTemp = new float[NUM_GROUP] ;   sizeYTemp = new float[NUM_GROUP] ;    sizeZTemp = new float[NUM_GROUP] ;
   canvasXTemp = new float[NUM_GROUP] ; canvasYTemp = new float[NUM_GROUP] ;  canvasZTemp = new float[NUM_GROUP] ;
@@ -486,19 +488,28 @@ void updateVarRaw() {
     int minSource = 0 ;
     // int maxSource = 1 ;
     float minSize = .1 ;
-    //column 1
-    fillRaw[i] = color(valueSlider[i+1][0], map(valueSlider[i+1][1],0,MAX_VALUE_SLIDER,0,100), map(valueSlider[i+1][2],0,MAX_VALUE_SLIDER,0,100), map(valueSlider[i+1][3],0,MAX_VALUE_SLIDER,0,100)) ;
-    strokeRaw[i] = color(valueSlider[i+1][4], map(valueSlider[i+1][5],0,MAX_VALUE_SLIDER,0,100), map(valueSlider[i+1][6],0,MAX_VALUE_SLIDER,0,100), map(valueSlider[i+1][7],0,MAX_VALUE_SLIDER,0,100)) ;
-
+    // fill
+    fill_hue_raw[i] = (int)valueSlider[i+1][0] ;
+    fill_sat_raw[i] = (int)map(valueSlider[i+1][1],0,MAX_VALUE_SLIDER,0,HSBmode.g);    
+    fill_bright_raw[i] = (int)map(valueSlider[i+1][2],0,MAX_VALUE_SLIDER,0,HSBmode.b) ;   
+    fill_alpha_raw[i] = (int)map(valueSlider[i+1][3],0,MAX_VALUE_SLIDER,0,HSBmode.a);
+    // stroke
+    stroke_hue_raw[i] = (int)valueSlider[i+1][4] ; 
+    stroke_sat_raw[i] = (int)map(valueSlider[i+1][5],0,MAX_VALUE_SLIDER,0,HSBmode.g);  
+    stroke_bright_raw[i] = (int)map(valueSlider[i+1][6],0,MAX_VALUE_SLIDER,0,HSBmode.b) ; 
+    stroke_alpha_raw[i] = (int)map(valueSlider[i+1][7],0,MAX_VALUE_SLIDER,0,HSBmode.a);
+    // 
     thicknessRaw[i] = mapStartSmooth(valueSlider[i+1][8], minSource, MAX_VALUE_SLIDER, minSize, (height*.33), 2) ;
 
-    //column 2
+    // size
     sizeXRaw[i] = map(valueSlider[i+1][10], minSource, MAX_VALUE_SLIDER, minSize, width) ;
     sizeYRaw[i] = map(valueSlider[i+1][11], minSource, MAX_VALUE_SLIDER, minSize, width) ;
     sizeZRaw[i] = map(valueSlider[i+1][12], minSource, MAX_VALUE_SLIDER, minSize, width) ;
+    // canvas
     canvasXRaw[i] = map(valueSlider[i+1][13], minSource, MAX_VALUE_SLIDER, width *minSize, width) ;
     canvasYRaw[i] = map(valueSlider[i+1][14], minSource, MAX_VALUE_SLIDER, width *minSize, width) ;
     canvasZRaw[i] = map(valueSlider[i+1][15], minSource, MAX_VALUE_SLIDER, width *minSize, width) ;
+    // misc
     familyRaw[i] = map(valueSlider[i+1][16],minSource, MAX_VALUE_SLIDER, 0, 1) ;
     quantityRaw[i] = map(valueSlider[i+1][17], minSource, MAX_VALUE_SLIDER, 0, 1) ;
     lifeRaw[i] = map(valueSlider[i+1][18],minSource, MAX_VALUE_SLIDER,0,1) ;
@@ -507,6 +518,7 @@ void updateVarRaw() {
     directionRaw[i] = map(valueSlider[i+1][21],minSource, MAX_VALUE_SLIDER,0,360) ;
     angleRaw[i] = map(valueSlider[i+1][22],minSource, MAX_VALUE_SLIDER,0,360) ;
     amplitudeRaw[i] = map(valueSlider[i+1][23],minSource, MAX_VALUE_SLIDER,0,1) ;
+    // force
     attractionRaw[i] = map(valueSlider[i+1][24],minSource, MAX_VALUE_SLIDER,0,1) ;
     repulsionRaw[i] = map(valueSlider[i+1][25],minSource, MAX_VALUE_SLIDER,0,1) ;
     alignmentRaw[i] = map(valueSlider[i+1][26],minSource, MAX_VALUE_SLIDER,0,1) ;
@@ -523,17 +535,27 @@ void updateVarRaw() {
 /* Those temp value are used to know is the object value must be updated */
 void updateVarTemp() {
     for(int i = 0 ; i < NUM_GROUP ; i++) {
-    //column 1
-    fillTemp[i] = fillRaw[i] ;
-    strokeTemp[i] = strokeRaw[i] ;
+    // fill
+    fill_hue_temp[i] = fill_hue_raw[i] ;
+    fill_sat_temp[i] = fill_sat_raw[i] ;    
+    fill_bright_temp[i] = fill_bright_raw[i] ;   
+    fill_alpha_temp[i] = fill_alpha_raw[i] ;
+    // stroke
+    stroke_hue_temp[i] = stroke_hue_raw[i] ; 
+    stroke_sat_temp[i] = stroke_sat_raw[i] ;  
+    stroke_bright_temp[i] = stroke_bright_raw[i] ; 
+    stroke_alpha_temp[i] = stroke_alpha_raw[i] ;
+    //
     thicknessTemp[i] = thicknessRaw[i] ;
-    //column 2
+    //size
     sizeXTemp[i] = sizeXRaw[i] ;
     sizeYTemp[i] = sizeYRaw[i] ;
     sizeZTemp[i] = sizeZRaw[i] ;
+    // canvas
     canvasXTemp[i] = canvasXRaw[i] ;
     canvasYTemp[i] = canvasYRaw[i] ;
     canvasZTemp[i] = canvasZRaw[i] ;
+    // misc
     familyTemp[i] = familyRaw[i] ;
     quantityTemp[i] = quantityRaw[i] ;
     lifeTemp[i] = lifeRaw[i] ;
@@ -542,6 +564,7 @@ void updateVarTemp() {
     directionTemp[i] = directionRaw[i] ;
     angleTemp[i] = angleRaw[i] ;
     amplitudeTemp[i] = amplitudeRaw[i] ;
+    // force
     attractionTemp[i] = attractionRaw[i] ;
     repulsionTemp[i] = repulsionRaw[i] ;
     influenceTemp[i] = influenceRaw[i] ;
@@ -632,15 +655,15 @@ void fontSetup() {
   pathFontVLW[20] = fontPathVLW+"Tokyo-One-96.vlw";
   pathFontVLW[21] = fontPathVLW+"MinionPro-Regular-96.vlw";
   pathFontVLW[22] = fontPathVLW+"MinionPro-Bold-96.vlw";
-  //special font
+  // special font
   pathFontVLW[49] = fontPathVLW+"DIN-Regular-10.vlw";
   SansSerif10 = loadFont(fontPathVLW+"SansSerif-10.vlw" );
   
-  //write font path for TTF
+  // write font path for TTF
   String prefixTTF = preferencesPath +"Font/typoTTF/" ;
   //by default
   pathFontTTF[0] = prefixTTF+"FuturaStencil.ttf";
-  //type
+  // type
   pathFontTTF[1] = prefixTTF+"AmericanTypewriter.ttf";
   pathFontTTF[2] = prefixTTF+"AmericanTypewriter.ttf";
   pathFontTTF[3] = prefixTTF+"Banco.ttf";
@@ -663,10 +686,10 @@ void fontSetup() {
   pathFontTTF[20] = prefixTTF+"FuturaStencil.ttf";
   pathFontTTF[21] = prefixTTF+"MinionWebPro.ttf";
   pathFontTTF[22] = prefixTTF+"MinionWebPro.ttf";
-  //special font
+  // special font
   pathFontTTF[49] = prefixTTF+"FuturaStencil.ttf";
 
-  //load
+  // load
   AmericanTypewriter=loadFont      (pathFontVLW[1]);
   AmericanTypewriterBold=loadFont  (pathFontVLW[2]);
   Banco=loadFont                   (pathFontVLW[3]);
@@ -690,7 +713,7 @@ void fontSetup() {
   Minion=loadFont                  (pathFontVLW[21]);
   MinionBold=loadFont              (pathFontVLW[22]);
 
-  //default and special font
+  // default and special font
   DinRegular10=loadFont            (pathFontVLW[49]);
 
   font[0] = FuturaStencil ;

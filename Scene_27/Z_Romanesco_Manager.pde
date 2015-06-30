@@ -61,11 +61,25 @@ void updateObject(int ID, int group) {
 //
 void updateSliderValue(int ID, int group) {
   for ( int i = 0 ; i <= NUM_GROUP ; i++) if( group == i ) {
-    int whichOne = i-1 ;
+    int which_group = i-1 ;
     if(fullRendering) {
-      if (fillRaw[whichOne] != fillTemp[whichOne] || !firstOpeningObj[ID]) fillObj[ID] = fillRaw[whichOne] ;
-      if (strokeRaw[whichOne] != strokeTemp[whichOne] || !firstOpeningObj[ID]) strokeObj[ID] = strokeRaw[whichOne] ;
-      if (thicknessRaw[whichOne] != thicknessTemp[whichOne] || !firstOpeningObj[ID]) thicknessObj[ID] = thicknessRaw[whichOne] ;
+      /**
+      Changer : le fill et le stroke doivent se calculer sur des valeurs séparée, hue, sat, bright and alpha, sinon quand on les change cela change tout d'une seul coup.
+      */
+      // fill obj
+      if      ( !firstOpeningObj[ID] ) fillObj[ID]                                          = color ( fill_hue_raw[which_group], fill_sat_raw[which_group],  fill_bright_raw[which_group], fill_alpha_raw[which_group]) ; 
+      else if ( fill_hue_temp[which_group] != fill_hue_raw[which_group] ) fillObj[ID]       = color ( fill_hue_raw[which_group], saturation(fillObj[ID]),    brightness(fillObj[ID]),      alpha(fillObj[ID])) ;
+      else if ( fill_sat_temp[which_group] != fill_sat_raw[which_group] ) fillObj[ID]       = color ( hue(fillObj[ID]),          fill_sat_raw[which_group],  brightness(fillObj[ID]),      alpha(fillObj[ID])) ; 
+      else if ( fill_bright_temp[which_group] != fill_bright_raw[which_group] ) fillObj[ID] = color ( hue(fillObj[ID]),          saturation(fillObj[ID]),    fill_bright_raw[which_group], alpha(fillObj[ID])) ;   
+      else if( fill_alpha_temp[which_group] != fill_alpha_raw[which_group] ) fillObj[ID]    = color ( hue(fillObj[ID]),          saturation(fillObj[ID]),    brightness(fillObj[ID]),      fill_alpha_raw[which_group]) ;  
+      // stroke obj
+      if      ( !firstOpeningObj[ID] ) strokeObj[ID]                                          = color ( stroke_hue_raw[which_group], stroke_sat_raw[which_group],  stroke_bright_raw[which_group], stroke_alpha_raw[which_group]) ; 
+      else if ( stroke_hue_temp[which_group] != stroke_hue_raw[which_group] ) strokeObj[ID]       = color ( stroke_hue_raw[which_group], saturation(strokeObj[ID]),    brightness(strokeObj[ID]),      alpha(strokeObj[ID])) ;
+      else if ( stroke_sat_temp[which_group] != stroke_sat_raw[which_group] ) strokeObj[ID]       = color ( hue(strokeObj[ID]),          stroke_sat_raw[which_group],  brightness(strokeObj[ID]),      alpha(strokeObj[ID])) ; 
+      else if ( stroke_bright_temp[which_group] != stroke_bright_raw[which_group] ) strokeObj[ID] = color ( hue(strokeObj[ID]),          saturation(strokeObj[ID]),    stroke_bright_raw[which_group], alpha(strokeObj[ID])) ;   
+      else if( stroke_alpha_temp[which_group] != stroke_alpha_raw[which_group] ) strokeObj[ID]    = color ( hue(strokeObj[ID]),          saturation(strokeObj[ID]),    brightness(strokeObj[ID]),      stroke_alpha_raw[which_group]) ;  
+      // thickness
+      if (thicknessRaw[which_group] != thicknessTemp[which_group] || !firstOpeningObj[ID]) thicknessObj[ID] = thicknessRaw[which_group] ;
     } else {
       // preview display
       fillObj[ID] = COLOR_FILL_OBJ_PREVIEW ;
@@ -73,28 +87,28 @@ void updateSliderValue(int ID, int group) {
       thicknessObj[ID] = THICKNESS_OBJ_PREVIEW ;
     }
     // column 2
-    if (sizeXRaw[whichOne] != sizeXTemp[whichOne] || !firstOpeningObj[ID]) sizeXObj[ID] = sizeXRaw[whichOne] ; 
-    if (sizeYRaw[whichOne] != sizeYTemp[whichOne] || !firstOpeningObj[ID]) sizeYObj[ID] = sizeYRaw[whichOne] ; 
-    if (sizeZRaw[whichOne] != sizeZTemp[whichOne] || !firstOpeningObj[ID]) sizeZObj[ID] = sizeZRaw[whichOne] ;
-    if (canvasXRaw[whichOne] != canvasXTemp[whichOne] || !firstOpeningObj[ID]) canvasXObj[ID] = canvasXRaw[whichOne] ; 
-    if (canvasYRaw[whichOne] != canvasYTemp[whichOne] || !firstOpeningObj[ID]) canvasYObj[ID] = canvasYRaw[whichOne] ; 
-    if (canvasZRaw[whichOne] != canvasZTemp[whichOne] || !firstOpeningObj[ID]) canvasZObj[ID] = canvasZRaw[whichOne] ;
-    if (familyRaw[whichOne] != familyTemp[whichOne] || !firstOpeningObj[ID]) familyObj[ID] = familyRaw[whichOne] ;
-    if (quantityRaw[whichOne] != quantityTemp[whichOne] || !firstOpeningObj[ID]) quantityObj[ID] = quantityRaw[whichOne] ;
-    if (lifeRaw[whichOne] != lifeTemp[whichOne] || !firstOpeningObj[ID]) lifeObj[ID] = lifeRaw[whichOne] ;
+    if (sizeXRaw[which_group] != sizeXTemp[which_group] || !firstOpeningObj[ID]) sizeXObj[ID] = sizeXRaw[which_group] ; 
+    if (sizeYRaw[which_group] != sizeYTemp[which_group] || !firstOpeningObj[ID]) sizeYObj[ID] = sizeYRaw[which_group] ; 
+    if (sizeZRaw[which_group] != sizeZTemp[which_group] || !firstOpeningObj[ID]) sizeZObj[ID] = sizeZRaw[which_group] ;
+    if (canvasXRaw[which_group] != canvasXTemp[which_group] || !firstOpeningObj[ID]) canvasXObj[ID] = canvasXRaw[which_group] ; 
+    if (canvasYRaw[which_group] != canvasYTemp[which_group] || !firstOpeningObj[ID]) canvasYObj[ID] = canvasYRaw[which_group] ; 
+    if (canvasZRaw[which_group] != canvasZTemp[which_group] || !firstOpeningObj[ID]) canvasZObj[ID] = canvasZRaw[which_group] ;
+    if (familyRaw[which_group] != familyTemp[which_group] || !firstOpeningObj[ID]) familyObj[ID] = familyRaw[which_group] ;
+    if (quantityRaw[which_group] != quantityTemp[which_group] || !firstOpeningObj[ID]) quantityObj[ID] = quantityRaw[which_group] ;
+    if (lifeRaw[which_group] != lifeTemp[which_group] || !firstOpeningObj[ID]) lifeObj[ID] = lifeRaw[which_group] ;
     //column 3
-    if (speedRaw[whichOne] != speedTemp[whichOne] || !firstOpeningObj[ID]) speedObj[ID] = speedRaw[whichOne] ;
-    if (directionRaw[whichOne] != directionTemp[whichOne] || !firstOpeningObj[ID]) directionObj[ID] = directionRaw[whichOne] ;
-    if (angleRaw[whichOne] != angleTemp[whichOne] || !firstOpeningObj[ID]) angleObj[ID] = angleRaw[whichOne] ;
-    if (amplitudeRaw[whichOne] != amplitudeTemp[whichOne] || !firstOpeningObj[ID]) amplitudeObj[ID] = amplitudeRaw[whichOne] ;
-    if (attractionRaw[whichOne] != attractionTemp[whichOne] || !firstOpeningObj[ID]) attractionObj[ID] = attractionRaw[whichOne] ;
-    if (repulsionRaw[whichOne] != repulsionTemp[whichOne] || !firstOpeningObj[ID]) repulsionObj[ID] = repulsionRaw[whichOne] ;
-    if (alignmentRaw[whichOne] != alignmentTemp[whichOne] || !firstOpeningObj[ID]) alignmentObj[ID] = alignmentRaw[whichOne] ;
-    if (influenceRaw[whichOne] != influenceTemp[whichOne] || !firstOpeningObj[ID]) influenceObj[ID] = influenceRaw[whichOne] ;
-    if (analyzeRaw[whichOne] != analyzeTemp[whichOne] || !firstOpeningObj[ID]) analyzeObj[ID] = analyzeRaw[whichOne] ; 
+    if (speedRaw[which_group] != speedTemp[which_group] || !firstOpeningObj[ID]) speedObj[ID] = speedRaw[which_group] ;
+    if (directionRaw[which_group] != directionTemp[which_group] || !firstOpeningObj[ID]) directionObj[ID] = directionRaw[which_group] ;
+    if (angleRaw[which_group] != angleTemp[which_group] || !firstOpeningObj[ID]) angleObj[ID] = angleRaw[which_group] ;
+    if (amplitudeRaw[which_group] != amplitudeTemp[which_group] || !firstOpeningObj[ID]) amplitudeObj[ID] = amplitudeRaw[which_group] ;
+    if (attractionRaw[which_group] != attractionTemp[which_group] || !firstOpeningObj[ID]) attractionObj[ID] = attractionRaw[which_group] ;
+    if (repulsionRaw[which_group] != repulsionTemp[which_group] || !firstOpeningObj[ID]) repulsionObj[ID] = repulsionRaw[which_group] ;
+    if (alignmentRaw[which_group] != alignmentTemp[which_group] || !firstOpeningObj[ID]) alignmentObj[ID] = alignmentRaw[which_group] ;
+    if (influenceRaw[which_group] != influenceTemp[which_group] || !firstOpeningObj[ID]) influenceObj[ID] = influenceRaw[which_group] ;
+    if (analyzeRaw[which_group] != analyzeTemp[which_group] || !firstOpeningObj[ID]) analyzeObj[ID] = analyzeRaw[which_group] ; 
 
     //future slider ???
-    if (fontSizeRaw[whichOne] != fontSizeTemp[whichOne] || !firstOpeningObj[ID]) fontSizeObj[ID] = fontSizeRaw[whichOne] ;
+    if (fontSizeRaw[which_group] != fontSizeTemp[which_group] || !firstOpeningObj[ID]) fontSizeObj[ID] = fontSizeRaw[which_group] ;
   }
   /** 
   make the obj has be never update in the future except by the moving slider 
@@ -290,7 +304,8 @@ class ObjectRomanescoManager {
   
   
   ////////////////
-  /*EXTERN VOID
+  /**
+  EXTERNAL  VOID
   * romanescoManager.finishIndex() ;
   * use with in romanescoSetup() {}
   */
