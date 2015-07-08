@@ -101,8 +101,7 @@ load
 * Boids
 * Orbital
 * Surface
-* reversion function to Balise object
-* stop motion function to Balise object
+
 
 // REMOVE OBJ //
 * Rideau
@@ -110,8 +109,12 @@ load
 
 
 // CHANGE OBJ
-
+* reversion function to Balise object
+* stop motion function to Balise object
 * Arbre : adjustement of the amplitude and size proportion
+* Rubis : add motion stop, with "m" touch
+* Soleil : add reverse function
+* Soleil : change the special move
 
 
 /// BUG FIXE OBJ
@@ -119,6 +122,18 @@ load
 
 /// END OBJECT ///
 ------------------
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

@@ -5543,7 +5543,7 @@ class MesAmis extends Romanesco {
     IDobj = 9 ;
     IDgroup = 1 ;
     romanescoAuthor  = "Stan le Punk";
-    romanescoVersion = "version 1.0";
+    romanescoVersion = "version 1.0.1";
     romanescoPack = "Base" ;
     romanescoRender = "P3D" ;
     //romanescoMode = "1 full/2 lines" but the line is not really interesting
@@ -5575,6 +5575,15 @@ class MesAmis extends Romanesco {
     
     PVector center = new PVector() ;
     
+
+    
+    // speed
+    float speed = map(speedObj[IDobj],0,1, .0001f, .2f);
+    speed = speed*speed ;
+    if(sound[IDobj]) speed *= allBeats(IDobj) ;
+
+
+
     PVector jitter = new PVector() ;
     if(sound[IDobj] && getTimeTrack() > 0.2f ) {
       float factor = .2f ;
@@ -5583,13 +5592,21 @@ class MesAmis extends Romanesco {
       float valueZ = mix[IDobj]*factor *(height / 2 ) ;
       jitter = new PVector(valueX,valueY,valueZ) ;
     }
-    
-    
-    float speed = map(speedObj[IDobj],0,1, .0001f, .2f);
-    speed = speed*speed ;
-    if(sound[IDobj]) speed *= allBeats(IDobj) ;
+
+    // size of the rubis
     float radiusMax = map(canvasXObj[IDobj], width/10, width, width/4, width *1.5f) ;
-    float radiusMin = map(amplitudeObj[IDobj], 0, 1, radiusMax, radiusMax /10) ; ;
+    float radiusMin = map(amplitudeObj[IDobj], 0, 1, radiusMax, radiusMax /10) ;
+
+
+     // stop motion
+    if(!motion[IDobj]) { 
+      speed = 0 ; 
+      jitter = new PVector(0,0,0) ;
+    }
+
+ 
+
+
     
     // new population
     if(!fullRendering)  quantityObj[IDobj] *= .1f ;
