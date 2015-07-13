@@ -3,7 +3,7 @@ class Boids extends Romanesco {
     romanescoName = "Boids" ;
     IDobj = 8 ;
     IDgroup = 1 ;
-    romanescoAuthor  = "Stan le Punk inspirated by Craig W. Reynolds";
+    romanescoAuthor  = "Stan le Punk";
     romanescoVersion = "Version 1.0.1";
     romanescoPack = "Base" ;
     romanescoMode = "Tetra monochrome/Tetra camaieu" ; // separate the differentes mode by "/"
@@ -19,7 +19,7 @@ class Boids extends Romanesco {
   // Main method
   // setup
   void setting() {
-   startPosition(IDobj, width/2, height/2, 0) ;
+   startPosition(IDobj, width/2, height/2, -width) ;
    // build the canvas where the boid can move
    PVector pos = new PVector (0, 0, 0) ;
    PVector size = new PVector(width,width,width) ;
@@ -47,8 +47,20 @@ class Boids extends Romanesco {
     // ANNEXE methods
     
     // GOAL of the boids
-    //float depthGoal =sin(frameCount *.001) *300 ;
-    // flock.goal(mouseX,mouseY, depthGoal);
+    if(spaceTouch) {
+      float depthGoal =sin(frameCount *.002) *width ;
+      float pos_x = map(mouse[IDobj].x,0,width, -canvasXObj[IDobj], canvasXObj[IDobj] ) ;
+      float pos_y = map(mouse[IDobj].y,0,height, -canvasYObj[IDobj], canvasYObj[IDobj] ) ;
+      flock.goal(pos_x,pos_y, depthGoal);
+    }
+
+    int beat_sensibility = 5 ;
+    if(allBeats(IDobj) > beat_sensibility) {      
+      float depthGoal =sin(frameCount *.003) *width ;
+      float pos_x = sin(frameCount *.003) *canvasXObj[IDobj] ;
+      float pos_y = cos(frameCount *.003) *canvasYObj[IDobj] ;
+      flock.goal(pos_x,pos_y, depthGoal);
+    }
     
     // INFLUENCE of the boid around him
     float ratioInfluence = influenceObj[IDobj] *400 +1 ;
@@ -56,7 +68,10 @@ class Boids extends Romanesco {
     flock.influence(influenceArea);
     
     // SPEED
-    float speed = map(speedObj[IDobj],0,1,.1,10) ;
+    float speed = map(speedObj[IDobj],0,1,.1,7) ;
+    speed *= speed ;
+    if(sound[IDobj] )speed *= (map(mix[IDobj],0,1,.00000001,7)) ;
+    if(!motion[IDobj] || getTimeTrack() < .2) speed = .00000001 ;
     flock.speed(speed) ;
     
     // cage size

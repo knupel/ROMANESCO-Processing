@@ -1,16 +1,16 @@
 Romanesco Unu
-2011-2014 - Pretty version 1.0.1 - Version 26 
+2011-2015 - version 1.0.2.27 
 Romanesco is free and free, but for the commercial use that can be good to do a donation !
-Romanesco is under CeCill Licence, close to GNU GPL licence.
+Romanesco is under CeCill License - http://www.cecill.info/licences/Licence_CeCILL_V2-en.html -
 
-Core code : Stan le Punk
-UX Design : Stan le Punk
-Graphic Design : Stan le Punk
-Library Objects Contributors : Andreas Gysin, Amnon Owen, KOF, Stan le Punk.
+Core code: Stan le Punk
+UX Design: Stan le Punk
+Graphic Design: Stan le Punk 
+Objects Contributors: Andreas Gysin, Amnon Owen, KOF, 
+Alexandre Petit, David Robayo, Stan le Punk.
 
 Code feedback: Dinh Doan Van Bien, Jérôme Forêt.
-UX feedback: Ivan Jukanovic, Clément Seurat, Etienne Auger.
-Communication feedback: Christian Delecluse, Péa Loy, Nicotepo.
+UX feedback: Ivan Jukanovic, Clément Seurat, Etienne Auger, Alexandre Augier
 
 Algorithm inspiration: Nicoptére, Daniel Shiffman, Andreas Gysin, Julien Gachadoat aka V3GA.
 
@@ -18,8 +18,8 @@ Translation: Stéphanie Doan Van Bien, Lauren Thépot, Laetitia Natali.
 
 Soul support: Laetitia Natali aka Lalou
 Financial support: Laetitia Natali aka Lalou
-Blog Network support: Fabien Bonnamy, Le Collagiste
-Social Network support: Processing Lyon, Processing Rennes, Free Art Bureau, VJUnion.
+Network support: Ludovic Laurent, Tutoprocessing, Le Collagiste, Processing Lyon, Processing Rennes,
+Free Art Bureau, VJUnion.
 
 Forum Processing answer: AmnonP5, Datguy, R. Brauer, Adrock42, Philho.
 
@@ -28,6 +28,6 @@ Ricard Marxer, Michael Heuer, Manindra Moharana.
 
 Processing Organisation: Casey Reas, Ben Fry.
 
-Special Thanks: "La Mère à JC" and Mark Webster for the Processing Workshop.
+Special Thanks: Ludovic Laurent and Mark Webster for the Processing workshop.
 
 

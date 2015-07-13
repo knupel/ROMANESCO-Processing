@@ -7,7 +7,7 @@ class BaliseRomanesco extends Romanesco {
     IDobj = 14 ;
     IDgroup = 2 ;
     romanescoAuthor  = "Stan le Punk";
-    romanescoVersion = "Version 1.2";
+    romanescoVersion = "Version 1.2.1";
     romanescoPack = "Base" ;
     romanescoRender = "P3D" ;
     romanescoMode = "Disc/Rectangle/Box/Box Snake" ;
@@ -26,7 +26,6 @@ class BaliseRomanesco extends Romanesco {
     // authorization to make something with the sound in Prescene mode
     boolean authorization = false ;
     float tempo_balise = 1 ;
-    // println(tempo[IDobj]) ;
     if(sound[IDobj] && fullRendering) {
       authorization = true ;
       tempo_balise = tempo[IDobj] ;
@@ -45,7 +44,7 @@ class BaliseRomanesco extends Romanesco {
     aspect(IDobj) ;
 
     //amplitude
-    float amp = map(amplitudeObj[IDobj], 0,1, 0, width *5) ;
+    float amp = map(amplitudeObj[IDobj], 0,1, 0, width *9) ;
     
     //factor size
     float factor = map(repulsionObj[IDobj],0,1,1,100) *(allBeats(IDobj) *.2) ;
@@ -59,7 +58,6 @@ class BaliseRomanesco extends Romanesco {
 
     // SIZE
     float factorBeat = .5 ;
-    // float tempoEffect = 1 + ((beat[IDobj] -1  ) + (kick[IDobj] -1  ) + (snare[IDobj] -1  ) + (hat[IDobj] -1  ) );
     float tempoEffect = 1 + ((beat[IDobj] *factorBeat) + (kick[IDobj] *factorBeat) + (snare[IDobj] *factorBeat) + (hat[IDobj] *factorBeat));
     PVector sizeBalise = new PVector(sizeXObj[IDobj],sizeYObj[IDobj],sizeZObj[IDobj]) ;
     PVector var = new PVector(1,1) ;
@@ -76,8 +74,8 @@ class BaliseRomanesco extends Romanesco {
     if(!fullRendering) maxBalise = 64 ;
     float radiusBalise = map(quantityObj[IDobj], 0,1, 2, maxBalise); // here the value max is 511 because we work with buffersize with 512 field
     
-    
-    balise.actualisation(mouse[IDobj] , speed) ;
+    PVector newPos = new PVector() ;
+    balise.actualisation(newPos, speed) ;
     balise.display(amp, var, sizeBalise, factor, int(radiusBalise), authorization, mode[IDobj]) ;
     
     
@@ -132,7 +130,7 @@ class Balise extends Rotation {
   PVector input( int whichOne, int max, PVector var, boolean authorization) {
     PVector value = new PVector(1,1,1) ;
     if(authorization) {
-      value = new PVector ( (input.left.get(whichOne)*var.x), (input.right.get(whichOne)*var.y) ) ; 
+      value = new PVector ((input.left.get(whichOne)*var.x), (input.right.get(whichOne)*var.y) ) ; 
     } else {
       float n = (float)whichOne ;
       n = n - (max/2) ;

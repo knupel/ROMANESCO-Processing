@@ -7,7 +7,7 @@ class Boxolyzer extends Romanesco {
     IDobj = 11 ;
     IDgroup = 1 ;
     romanescoAuthor  = "Stan le Punk";
-    romanescoVersion = "Version 1.0.1";
+    romanescoVersion = "Version 1.0.2";
     romanescoPack = "Base" ;
     romanescoRender = "P3D" ;
     romanescoMode ="Classic/Circle" ;
@@ -145,9 +145,14 @@ class BOITEaMUSIQUE {
   void showTheBoite(PVector pos, Vec3 size, float factor, boolean groundLine, float dir) {
     Vec3 newSize = Vec3(size.x, size.y *factor,size.z *factor ) ;
     //put the box on the ground !
-    float horizon = pos.y - ( newSize.y *.5 ) ;  
+
     pushMatrix() ;
-    if (!groundLine) translate(pos.x, pos.y, pos.z) ; else translate(pos.x, horizon, pos.z) ;
+    if (!groundLine) {
+      translate(pos.x, pos.y, pos.z) ; 
+    } else {
+      float horizon = pos.y -(newSize.z *.5) ;  
+      translate(pos.x, horizon, pos.z) ;
+    }
     rotateX(radians(dir)) ;
     box(newSize.x,newSize.y,newSize.z) ;
     popMatrix() ;

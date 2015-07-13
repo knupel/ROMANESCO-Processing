@@ -109,12 +109,18 @@ load
 
 
 // CHANGE OBJ
-* reversion function to Balise object
-* stop motion function to Balise object
-* Arbre : adjustement of the amplitude and size proportion
-* Rubis : add motion stop, with "m" touch
-* Soleil : add reverse function
-* Soleil : change the special move
+* Balise: add reverse
+* Balise: add stop motion function
+* Arbre: adjustement of the amplitude and size proportion
+* Rubis: add motion stop, with "m" touch
+* Soleil: add reverse function
+* Soleil: change the special move
+* Spirale: improve beat detection
+* Spirale: add slider for the alignment
+* spiral: add shortcut horizon to switch the alignment.
+* Balise: remove the move on the space touch
+* Lignes: add modes to display few grid lignes
+* Lignes: add slider angle and alignment
 
 
 /// BUG FIXE OBJ

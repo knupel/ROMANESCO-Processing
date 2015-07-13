@@ -10,6 +10,14 @@ String nameVersion = ("Romanesco Unu") ;
 String preferencesPath = sketchPath("")+"preferences/" ;
 //to work in dev, test phase
 boolean testRomanesco = false ;
+
+/*
+Use true when you want 
+display color
+used sound
+ maximum possibility of the object
+ full frame rate
+*/
 boolean fullRendering = true ;
 
   

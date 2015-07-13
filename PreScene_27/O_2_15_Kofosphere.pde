@@ -5,10 +5,10 @@ class Kofosphere extends Romanesco {
     IDobj = 15 ;
     IDgroup = 2 ;
     romanescoAuthor  = "Kof";
-    romanescoVersion = "Version 1.0";
+    romanescoVersion = "Version 1.0.1";
     romanescoPack = "Base" ;
     romanescoRender = "P3D" ;
-    romanescoMode = "Point color/Point mono/Pox color/Box mono" ;
+    romanescoMode = "Point color/Point mono/Box color/Box mono" ;
     romanescoSlider = "Hue stroke,Saturation stroke,Brightness stroke,Alpha stroke,Hue fill,Saturation fill,Brightness fill,Alpha fill,Thickness,Size X,Size Y,Size Z,Canvas X,Quantity,Speed" ;
   }
   //GLOBAL
@@ -32,7 +32,8 @@ class Kofosphere extends Romanesco {
   //DRAW
   void display() {
     float beatFactor = map(allBeats(IDobj), 1,12, 1., 3.5) ;
-    if(sound[IDobj]) canvasXObj[IDobj] = sq(map(canvasXObj[IDobj], width/10, width, .01, 1.1)) *beatFactor ; else canvasXObj[IDobj] = sq(map(canvasXObj[IDobj], width/10, width, .01, 1.1)) ;
+    float radius = map(canvasXObj[IDobj], width/10, width, .01, 1.1) ;
+    if(sound[IDobj]) radius = sq(radius) *beatFactor ; 
     
     // quantity of particules
     float quantity = map(quantityObj[IDobj],0 ,1, 10,200);
@@ -42,7 +43,13 @@ class Kofosphere extends Romanesco {
     if(fullRendering && (mode[IDobj] > 1 && mode[IDobj] < 4)) quantity /= 2.5 ;  
     
     // speed
-    if(reverse[IDobj]) speedObj[IDobj] *= .001 ; else speedObj[IDobj] *= -.001 ;
+    float ratio_speed = .1 ;
+    float norm_speed = map(speedObj[IDobj],0,1,0,1.5) ;
+    norm_speed *= norm_speed ;
+    if(reverse[IDobj]) norm_speed *= ratio_speed ; else norm_speed *= -ratio_speed ;
+    Vec2 speed = Vec2(norm_speed) ;
+    speed.mult(.5 +left[IDobj], .5 +right[IDobj]) ;
+
     // size for the box
     float factorSizeDivide = .025 ;
     float newSizeX = sizeXObj[IDobj] *factorSizeDivide ;
@@ -51,7 +58,7 @@ class Kofosphere extends Romanesco {
     // we make a square size to smooth the growth
     PVector size = new PVector(newSizeX *newSizeX, newSizeY *newSizeY,newSizeZ *newSizeZ) ; 
     
-    sphere.drawSpheres(size, speedObj[IDobj], canvasXObj[IDobj], quantity, thicknessObj[IDobj], fillObj[IDobj], strokeObj[IDobj],mode[IDobj]);
+    sphere.drawSpheres(size, speed, radius, quantity, thicknessObj[IDobj], fillObj[IDobj], strokeObj[IDobj],mode[IDobj]);
     
 
     
@@ -88,18 +95,17 @@ class Sphere{
   }
 
   
-  
-  void drawSpheres(PVector size, float speed, float radiusFactor, float quantity, float thickness, color colorIn, color colorOut, int mode) {
+  float newRadius ;
+  void drawSpheres(PVector size, Vec2 speed, float radiusFactor, float quantity, float thickness, color colorIn, color colorOut, int mode) {
     //color mode
     if(mode%2==0) kofosphereInColor = true ; else kofosphereInColor = false ;
     
-    speed *= 100 ;
     quantity *=.01 ;
     // param
-    speedRotateX += speed ;
-    speedRotateY += speed ;
+    speedRotateX += speed.x ;
+    speedRotateY += speed.y ;
     //
-    float newRadius =  radius *radiusFactor ;
+    newRadius =  radius *radiusFactor ;
     /// color
     float hueIn = hue(colorIn) ;
     float saturationIn = saturation(colorIn) ;
@@ -116,13 +122,14 @@ class Sphere{
     
     pushMatrix();
     translate(pos.x,pos.y,pos.z);
+    //speed rotation
+    rotateX(speedRotateX);
+    rotateY(speedRotateY);
     
     float d = noise(frameCount/100)*(1500.0 +(1500 *quantity));
     density = 2.9 +(20*(1 -quantity)) ;
     
-    //speed rotation
-    rotateX(speedRotateX);
-    rotateY(speedRotateY);
+
     
     for(float f = -180 ; f < d; f += density){
       // we put this calcul here, because we don't need this calcul in the next loop.

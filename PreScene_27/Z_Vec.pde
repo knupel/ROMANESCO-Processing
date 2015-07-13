@@ -1,68 +1,103 @@
-// CLASS VEC 0.1.9
-//////////////////
+// CLASS VEC 0.1.11
+///////////////////
 // inspireted by GLSL code and PVector
 
 // VEC 2
 ////////////////
 class Vec2 {
+  float ref_x, ref_y = 0 ;
   float x,y = 0;
   float s,t = 0;
   float u,v = 0;
   
-  Vec2() {
-  }
+  Vec2() {}
   
   Vec2(float value) {
-    this.x = this.y = this.s = this.t = this.u = this.v = value ;
+    this.ref_x = this.ref_y = this.x = this.y = this.s = this.t = this.u = this.v = value ;
   }
   
   Vec2(float x, float y) {
-    this.x = this.s = this.u = x ;
-    this.y = this.t = this.v = y ;
+    this.ref_x = this.x = this.s = this.u = x ;
+    this.ref_y = this.y = this.t = this.v = y ;
   }
   
   
   // multiplication
-  /* multiply Vector by a float value */
-  void mult(float mult) {
-    x *= mult ; y *= mult ;
+  /* multiply Vector by a same float value */
+  Vec2 mult(float mult) {
+    x *= mult ; 
+    y *= mult ;
     // update value
     s = u = x ;
     t = v = y ;
+    return new Vec2(x,y) ;
+  }
+  
+  /* multiply Vector by different float value */
+  Vec2 mult(float mult_x, float mult_y) {
+    x *= mult_x ; 
+    y *= mult_y ;
+    // update value
+    s = u = x ;
+    t = v = y ;
+    return new Vec2(x,y) ;
   }
   
   // mult by vector
-  void mult(Vec2 v_a) {
-    x *= v_a.x ; y *= v_a.y ; 
+  Vec2 mult(Vec2 v_a) {
+    x *= v_a.x ; 
+    y *= v_a.y ; 
     // update value
     s = u = x ;
     t = v = y ;
+    return new Vec2(x,y) ;
   }
   
   
     // division
   ///////////
   /*
-  @ return Vec
   divide Vector by a float value */
-  void div(float div) {
+  Vec2 div(float div) {
     x /= div ; y /= div ; 
     // update value
     s = u = x ;
     t = v = y ;
+    return new Vec2(x,y) ;
+    
   }
   
   // divide by vector
-  void div(Vec2 v_a) {
+  Vec2 div(Vec2 v_a) {
     x /= v_a.x ; y /= v_a.y ;  
     // update value
     s = u = x ;
     t = v = y ;
+    return new Vec2(x,y) ;
   }
   
   
-  // addition
-  ///////////
+  /* Addition
+  @return Vec2
+  */
+  /* add float value */
+  Vec2 add(float value) {
+    x += value ;
+    y += value ;
+    // update value
+    s = u = x ;
+    t = v = y ;
+    return new Vec2(x,y)  ;
+  }
+  /* add Vector */
+  Vec2 add(Vec2 v_a) {
+    x += v_a.x ;
+    y += v_a.y ;
+    // update value
+    s = u = x ;
+    t = v = y ;
+    return new Vec2(x,y)  ;
+  }
   /* add two Vector together */
   Vec2 add(Vec2 v_a, Vec2 v_b) {
     x = v_a.x + v_b.x ;
@@ -72,6 +107,9 @@ class Vec2 {
     t = v = y ;
     return new Vec2(x,y)  ;
   }
+  
+  
+  
   
   /* mapping
   return mapping vector
@@ -116,6 +154,33 @@ class Vec2 {
   }
   
   
+  // Jitter
+  ////////////
+  /* create jitter effect around the vector position */
+  /* with global range */
+  Vec2 jitter(int range) {
+    x = ref_x ;
+    y = ref_y ;
+    x += random(-range, range) ;
+    y += random(-range, range) ;
+    // update value
+    s = u = x ;
+    t = v = y ;
+    return new Vec2(x,y) ;
+  }
+  /* with specific range */
+  Vec2 jitter(int range_x,int range_y) {
+    x = ref_x ;
+    y = ref_y ;
+    x += random(-range_x, range_x) ;
+    y += random(-range_y, range_y) ;
+    // update value
+    s = u = x ;
+    t = v = y ;
+    return new Vec2(x,y) ;
+  }
+  
+  
   
   /*catch info
   /////////////
@@ -149,38 +214,52 @@ class Vec2 {
 // VEC 3
 ////////////////
 class Vec3 {
+  float ref_x, ref_y, ref_z = 0 ;
   float x,y,z  = 0 ;
   float r, g, b = 0 ;
   float s, t, p = 0 ;
+  
   Vec3() {}
   
   Vec3(float value) {
-    this.x = this.y = this.z  = this.r = this.g = this.b =this.s = this.t = this.p = value ;
+    this.ref_x = this.ref_y = this.ref_z = this.x = this.y = this.z  = this.r = this.g = this.b =this.s = this.t = this.p = value ;
   }
   
   Vec3(float x, float y, float z) {
-    this.x = this.r =this.s = x ;
-    this.y = this.g =this.t = y ;
-    this.z = this.b = this.p =z ;
+    this.ref_x = this.x = this.r =this.s = x ;
+    this.ref_y = this.y = this.g =this.t = y ;
+    this.ref_z = this.z = this.b = this.p =z ;
   }
   
   // multiplication
-  /* multiply Vector by a float value */
-  void mult(float mult) {
+  /* multiply Vector by a same float value */
+  Vec3 mult(float mult) {
     x *= mult ; y *= mult ; z *= mult ;
     // update value
     r = s = x ;
     g = t = y ;
     b = p = z ;
+    return new Vec3(x,y,z) ;
+  }
+  
+  /* multiply Vector by a different float value */
+  Vec3 mult(float mult_x, float mult_y, float mult_z) {
+    x *= mult_x ; y *= mult_y ; z *= mult_z ;
+    // update value
+    r = s = x ;
+    g = t = y ;
+    b = p = z ;
+    return new Vec3(x,y,z) ;
   }
   
   // mult by vector
-  void mult(Vec3 v_a) {
+  Vec3 mult(Vec3 v_a) {
     x *= v_a.x ; y *= v_a.y ; z *= v_a.z ; 
     // update value
     r = s = x ;
     g = t = y ;
     b = p = z ;
+    return new Vec3(x,y,z) ;
   }
   
   
@@ -190,26 +269,51 @@ class Vec3 {
   /*
   @ return Vec
   divide Vector by a float value */
-  void div(float div) {
+  Vec3 div(float div) {
     x /= div ; y /= div ; z /= div ;
     // update value
     r = s = x ;
     g = t = y ;
     b = p = z ;
+    return new Vec3(x,y,z) ;
   }
   
   // divide by vector
-  void div(Vec3 v_a) {
+  Vec3 div(Vec3 v_a) {
     x /= v_a.x ; y /= v_a.y ; z /= v_a.z ; 
     // update value
     r = s = x ;
     g = t = y ;
     b = p = z ;
+    return new Vec3(x,y,z) ;
   }
   
   
   
   // addition
+    /* add float value */
+  Vec3 add(float value) {
+    x += value ;
+    y += value ;
+    z += value ;
+    // update value
+    r = s = x ;
+    g = t = y ;
+    b = p = z ;
+    return new Vec3(x,y,z)  ;
+  }
+  /* add one Vector */
+  Vec3 add(Vec3 v_a) {
+    x += v_a.x ;
+    y += v_a.y ;
+    z += v_a.z ;
+    // update value
+    r = s = x ;
+    g = t = y ;
+    b = p = z ;
+    return new Vec3(x,y,z)  ;
+  }
+  
   /* add two Vector together */
   Vec3 add(Vec3 v_a, Vec3 v_b) {
     x = v_a.x + v_b.x ;
@@ -275,6 +379,40 @@ class Vec3 {
     return (float) Math.sqrt(dx*dx + dy*dy + dz*dz);
   }
   
+  // Jitter
+  ////////////
+  /* create jitter effect around the vector position */
+  /* with global range */
+  Vec3 jitter(int range) {
+    x = ref_x ;
+    y = ref_y ;
+    z = ref_z ;
+    x += random(-range, range) ;
+    y += random(-range, range) ;
+    z += random(-range, range) ;
+    // update value
+    r = s = x ;
+    g = t = y ;
+    b = p = z ;
+    return new Vec3(x,y,z) ;
+  }
+  /* with specific range */
+  Vec3 jitter(int range_x,int range_y,int range_z) {
+    x = ref_x ;
+    y = ref_y ;
+    z = ref_z ;
+    x += random(-range_x, range_x) ;
+    y += random(-range_y, range_y) ;
+    z += random(-range_z, range_z) ;
+    // update value
+    r = s = x ;
+    g = t = y ;
+    b = p = z ;
+    return new Vec3(x,y,z) ;
+  }
+  
+  
+  
   // catch info
   /////////////
   /*
@@ -305,6 +443,7 @@ class Vec3 {
 // VEC 4
 ////////
 class Vec4 {
+  float ref_x, ref_y, ref_z, ref_w = 0 ;
   float x,y,z,w = 0 ;
   float r, g, b, a = 0 ;
   float s, t, p, q = 0 ;
@@ -312,35 +451,47 @@ class Vec4 {
   Vec4 () {}
   
   Vec4(float value) {
-    this.x = this.y = this.z = this.w = this.r = this.g = this.b = this.a =this.s = this.t = this.p = this.q = value ;
+    this.ref_x = this.ref_y = this.ref_z = this.ref_w = this.x = this.y = this.z = this.w = this.r = this.g = this.b = this.a =this.s = this.t = this.p = this.q = value ;
   }
   
   Vec4(float x, float y, float z, float w) {
-    this.x = this.r = this.s = x ;
-    this.y = this.g = this.t =y ;
-    this.z = this.b = this.p =z ;
-    this.w = this.a = this.q = w ;
+    this.ref_x = this.x = this.r = this.s = x ;
+    this.ref_y = this.y = this.g = this.t =y ;
+    this.ref_z = this.z = this.b = this.p =z ;
+    this.ref_w = this.w = this.a = this.q = w ;
   }
   
   
   // multiplication
-  // mult by float
-  void mult(float mult) {
+  // mult by a same float
+  Vec4 mult(float mult) {
     x *= mult ; y *= mult ; z *= mult ; w *= mult ;
     r = s = x ;
     g = t = y ;
     b = p = z ;
     a = q = w ;
+    return new Vec4(x,y,z,w) ;
+  }
+  
+    // mult by a different float
+  Vec4 mult(float mult_x, float mult_y, float mult_z, float mult_w) {
+    x *= mult_x ; y *= mult_y ; z *= mult_z ; w *= mult_w ;
+    r = s = x ;
+    g = t = y ;
+    b = p = z ;
+    a = q = w ;
+    return new Vec4(x,y,z,w) ;
   }
   
   // mult by vector
-  void mult(Vec4 v_a) {
+  Vec4 mult(Vec4 v_a) {
     x *= v_a.x ; y *= v_a.y ; z *= v_a.z ; w *= v_a.w ;
     // update value
     r = s = x ;
     g = t = y ;
     b = p = z ;
     a = q = w ;
+    return new Vec4(x,y,z,w) ;
   }
   
   
@@ -349,26 +500,55 @@ class Vec4 {
   /*
   @ return Vec
   divide Vector by a float value */
-  void div(float div) {
+  Vec4 div(float div) {
     x /= div ; y /= div ; z /= div ; w /= div ;
     // update value
     r = s = x ;
     g = t = y ;
     b = p = z ;
     a = q = w ;
+    return new Vec4(x,y,z,w) ;
   }
   
   // divide by vector
-  void div(Vec4 v_a) {
+  Vec4 div(Vec4 v_a) {
     x /= v_a.x ; y /= v_a.y ; z /= v_a.z ; w /= v_a.w ;
     // update value
     r = s = x ;
     g = t = y ;
     b = p = z ;
     a = q = w ;
+    return new Vec4(x,y,z,w) ;
   }
   
+  
   // addition
+    /* add float value */
+  Vec4 add(float value) {
+    x += value ;
+    y += value ;
+    z += value ;
+    w += value ;
+    // update value
+    r = s = x ;
+    g = t = y ;
+    b = p = z ;
+    a = q = w ;
+    return new Vec4(x,y,z,w)  ;
+  }
+  /* add vec */
+  Vec4 add(Vec4 v_a) {
+    x += v_a.x ;
+    y += v_a.y ;
+    z += v_a.z ;
+    w += v_a.w ;
+    // update value
+    r = s = x ;
+    g = t = y ;
+    b = p = z ;
+    a = q = w ;
+    return new Vec4(x,y,z,w)  ;
+  }
   /* add two Vector together */
   Vec4 add(Vec4 v_a, Vec4 v_b) {
     x = v_a.x + v_b.x ;
@@ -427,6 +607,45 @@ class Vec4 {
     float dz = z - v_target.z;
     float dw = w - v_target.w;
     return (float) Math.sqrt(dx*dx + dy*dy + dz*dz + dw*dw);
+  }
+  
+  
+    // Jitter
+  ////////////
+  /* create jitter effect around the vector position */
+  /* with global range */
+  Vec4 jitter(int range) {
+    x = ref_x ;
+    y = ref_y ;
+    z = ref_z ;
+    w = ref_w ;
+    x += random(-range, range) ;
+    y += random(-range, range) ;
+    z += random(-range, range) ;
+    w += random(-range, range) ;
+    // update value
+    r = s = x ;
+    g = t = y ;
+    b = p = z ;
+    a = q = w ;
+    return new Vec4(x,y,z,w) ;
+  }
+  /* with specific range */
+  Vec4 jitter(int range_x,int range_y,int range_z,int range_w) {
+    x = ref_x ;
+    y = ref_y ;
+    z = ref_z ;
+    w = ref_w ;
+    x += random(-range_x, range_x) ;
+    y += random(-range_y, range_y) ;
+    z += random(-range_z, range_z) ;
+    w += random(-range_z, range_z) ;
+    // update value
+    r = s = x ;
+    g = t = y ;
+    b = p = z ;
+    a = q = w ;
+    return new Vec4(x,y,z,w) ;
   }
     
   // catch info
@@ -721,6 +940,59 @@ Transform PVector in Vec
 Vec3 copyPVectorToVec(PVector p) {
   return new Vec3(p.x,p.y,p.z) ;
 }
+
+
+
+// JITTER
+/////////
+// Vec2
+Vec2 jitterVec2(int range) {
+  Vec2 jitter = Vec2() ;
+  jitter.x = random(-range, range) ;
+  jitter.y = random(-range, range) ;
+  return jitter ;
+}
+Vec2 jitterVec2(int range_x, int range_y) {
+  Vec2 jitter = Vec2() ;
+  jitter.x = random(-range_x, range_x) ;
+  jitter.y = random(-range_y, range_y) ;
+  return jitter ;
+}
+// Vec3
+Vec3 jitterVec3(int range) {
+  Vec3 jitter = Vec3() ;
+  jitter.x = random(-range, range) ;
+  jitter.y = random(-range, range) ;
+  jitter.z = random(-range, range) ;
+  return jitter ;
+}
+Vec3 jitterVec3(int range_x, int range_y, int range_z) {
+  Vec3 jitter = Vec3() ;
+  jitter.x = random(-range_x, range_x) ;
+  jitter.y = random(-range_y, range_y) ;
+  jitter.z = random(-range_z, range_z) ;
+  return jitter ;
+}
+// Vec4
+Vec4 jitterVec4(int range) {
+  Vec4 jitter = Vec4() ;
+  jitter.x = random(-range, range) ;
+  jitter.y = random(-range, range) ;
+  jitter.z = random(-range, range) ;
+  return jitter ;
+}
+Vec4 jitterVec4(int range_x, int range_y, int range_z, int range_w) {
+  Vec4 jitter = Vec4() ;
+  jitter.x = random(-range_x, range_x) ;
+  jitter.y = random(-range_y, range_y) ;
+  jitter.z = random(-range_z, range_z) ;
+  jitter.w = random(-range_w, range_w) ;
+  return jitter ;
+}
+// END JITTER
+/////////////
+
+
 
 
 
