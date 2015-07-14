@@ -8,11 +8,11 @@ class Anillos extends Romanesco {
     romanescoVersion = "Version 0.0.2";
     romanescoPack = "Workshop june 2015" ;
     romanescoMode = "" ; // separate the differentes mode by "/"
-    romanescoSlider = "Hue fill,Saturation fill,Brightness fill,Alpha fill,Hue stroke,Saturation stroke,Brightness stroke,Alpha stroke,Thickness,Size X,Quantity,Angle,Amplitude,Analyze" ;
+    romanescoSlider = "Hue fill,Saturation fill,Brightness fill,Alpha fill,Hue stroke,Saturation stroke,Brightness stroke,Alpha stroke,Thickness,Size X,Quantity,Angle,Amplitude" ;
   }
     // declare VAR
   //////////////
-  float R = 10;
+  float radius = .1;
   float S = 10;
   float T = 10;
   
@@ -28,7 +28,7 @@ class Anillos extends Romanesco {
  
   // setup
   void setting() {
-    startPosition(IDobj, width/2, height/2, 0) ;
+    startPosition(IDobj, width/2, height/3, -height) ;
     anillos_setting(num_anillos) ;
    
    }
@@ -45,16 +45,14 @@ class Anillos extends Romanesco {
    
     inter(mouse_pos, num_anillos) ;
     // display
-    if(mode[IDobj] == 0 ) ;
-    if(mode[IDobj] == 1 ) ;
    
 
  
     num_anillos = int( NUM_ANNILOS_MAX * quantityObj[IDobj] ) ;
    
     if( num_anillos != num_ref_anillos) {
-        anillos_setting(num_anillos) ;
-        num_ref_anillos = num_anillos ;
+      anillos_setting(num_anillos) ;
+      num_ref_anillos = num_anillos ;
     }
   }
    
@@ -81,7 +79,6 @@ class Anillos extends Romanesco {
   }
 
   void inter(Vec3 pos, int N)  {
-    //println("je suis là", frameCount) ;
     // calcul pos y
     for (int i = 0; i < N; i++) {
       ringY[i] += 0.2 * (N - i) * (pos.x - ringY[i]) / N;
@@ -92,9 +89,9 @@ class Anillos extends Romanesco {
    
 
     // diam
-    float diam = R *sizeXObj[IDobj] *allBeats(IDobj) ;
-    float effevtiveS = S *map(angleObj[IDobj],0,360,0,1);
-    float effevtiveT = T *analyzeObj[IDobj];
+    float diam = radius *sizeXObj[IDobj] *allBeats(IDobj) ;
+    float orientation = S *map(angleObj[IDobj],0,360,-PI,PI);
+    float effevtiveT = T *1;
    
     // render
     for (int i = N - 1; i >= 0; i--) {
@@ -102,7 +99,7 @@ class Anillos extends Romanesco {
       float x = ringX[i] -(ringX[i] /2) ;
       float y = ringY[i] -(ringY[i] / 2) ;
       Vec3 new_pos = Vec3(x ,  y, pos.z) ;
-      drawCurl(new_pos, diam *ringK[i], -effevtiveS *ringK[i], effevtiveT);
+      drawCurl(new_pos, diam *ringK[i], -orientation *ringK[i], effevtiveT);
     }
    
      for (int i = 0; i < N; i++) {
@@ -110,7 +107,7 @@ class Anillos extends Romanesco {
       float x = ringX[i] -(ringX[i] /2) ;
       float y = ringY[i] -(ringY[i] / 2) ;
       Vec3 new_pos = Vec3(x ,  y, pos.z) ;
-      drawCurl(new_pos, diam * ringK[i], +effevtiveS *ringK[i], effevtiveT);
+      drawCurl(new_pos, diam *ringK[i], +orientation *ringK[i], effevtiveT);
     }
    
    

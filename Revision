@@ -123,6 +123,9 @@ load
 * Lignes: add slider angle and alignment
 * Stars Spray: Add star when the list is empty
 * Damier: change the range of quantity for the pattern
+* Horloge: add speed slider
+* Horloge: add motion function
+* Horloge: add reverse function
 
 /// BUG FIXE OBJ
 * Arbre : fix bug size when there is no sound

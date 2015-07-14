@@ -1,11 +1,11 @@
 
   //////////////////////////////////////////////////////////////////
- // Romanesco Unu 1.0.2 / version 27 / made with Processing 305 ///
+ // Romanesco Unu 1.1.0 / version 27 / made with Processing 305 ///
 //////////////////////////////////////////////////////////////////
 /* 14.500 lines of code the 4th may 2015 !!!! */
 String version = ("27") ;
 String IAM = ("Prescene") ;
-String prettyVersion = ("1.0.2") ;
+String prettyVersion = ("1.1.0") ;
 String nameVersion = ("Romanesco Unu") ;
 String preferencesPath = sketchPath("")+"preferences/" ;
 //to work in dev, test phase

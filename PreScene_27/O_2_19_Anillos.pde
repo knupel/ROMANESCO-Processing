@@ -8,7 +8,7 @@ class Anillos extends Romanesco {
     romanescoVersion = "Version 0.0.2";
     romanescoPack = "Workshop june 2015" ;
     romanescoMode = "" ; // separate the differentes mode by "/"
-    romanescoSlider = "Hue fill,Saturation fill,Brightness fill,Alpha fill,Hue stroke,Saturation stroke,Brightness stroke,Alpha stroke,Thickness,Size X,Quantity,Angle,Amplitude,Analyze" ;
+    romanescoSlider = "Hue fill,Saturation fill,Brightness fill,Alpha fill,Hue stroke,Saturation stroke,Brightness stroke,Alpha stroke,Thickness,Size X,Quantity,Angle,Amplitude" ;
   }
     // declare VAR
   //////////////
@@ -91,7 +91,7 @@ class Anillos extends Romanesco {
     // diam
     float diam = radius *sizeXObj[IDobj] *allBeats(IDobj) ;
     float orientation = S *map(angleObj[IDobj],0,360,-PI,PI);
-    float effevtiveT = T *analyzeObj[IDobj];
+    float effevtiveT = T *1;
    
     // render
     for (int i = N - 1; i >= 0; i--) {

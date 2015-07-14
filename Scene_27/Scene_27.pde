@@ -1,12 +1,12 @@
   //////////////////////////////////////////////////////////////////
- // Romanesco Unu 1.0.2 / version 27 / made with Processing 305 ///
+ // Romanesco Unu 1.1.0 / version 27 / made with Processing 305 ///
 //////////////////////////////////////////////////////////////////
 /* 14.750 lines of code the 4th may !!!! */
 
 String nameVersion = ("Romanesco Unu") ;
 String IAM = ("Scene") ;
 String version = ("27") ;
-String prettyVersion = ("1.0.2") ;
+String prettyVersion = ("1.1.0") ;
 String preferencesPath = sketchPath("")+"preferences/" ;
 // security must be link with the controler in the next release
 
