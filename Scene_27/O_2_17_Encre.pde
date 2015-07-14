@@ -9,7 +9,7 @@ class Spray extends Romanesco {
     IDobj = 17 ;
     IDgroup = 2 ;
     romanescoAuthor  = "Stan le Punk";
-    romanescoVersion = "version 1.1";
+    romanescoVersion = "version 1.1.1";
     romanescoPack = "Base" ;
     romanescoRender = "P3D" ;
     romanescoMode = "Star/Spray" ;
@@ -38,14 +38,16 @@ class Spray extends Romanesco {
     if(xTouch) changeColor = !changeColor ;
     
     
-    if(mode[IDobj] == 0 && clickLongLeft[IDobj] && nLongTouch ) starProduction() ;
-    if(mode[IDobj] == 0 ) displayStar() ;
+    if(mode[IDobj] == 0 ) {
+      if(clickLongLeft[IDobj] && nLongTouch || starList.size()<1 ) starProduction() ;
+      displayStar() ;
+    }
     if(mode[IDobj] == 1 ) encre() ;
     
     // info display
     String whichColor = ("") ;
-    if(changeColor) whichColor =("Original Color") ; else whichColor =("Color from Controller") ;
-    objectInfo[IDobj] = ("Quantity Ink " +encreList.size() +" Quantity Star " + starList.size() + " / " + whichColor ) ;
+    if(changeColor) whichColor =("Original Color") ; else whichColor =("Colsor from Controller") ;
+    objectInfo[IDobj] = ("Quantity ink " +encreList.size() +" Quantity stars " + starList.size() + " / " + whichColor ) ;
     
     
   }
@@ -219,7 +221,7 @@ class Spray extends Romanesco {
 
       
       //put the pixel in the list to use peacefully
-      encreList.add( new Pixel( mouse[IDobj], diffusion, colorInk)) ;
+      encreList.add( new Pixel(mouse[IDobj], diffusion, colorInk)) ;
     }
   }
   

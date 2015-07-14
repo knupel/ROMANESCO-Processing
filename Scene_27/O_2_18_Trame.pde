@@ -7,7 +7,7 @@ class Damier extends Romanesco {
     IDobj = 18 ;
     IDgroup = 2 ;
     romanescoAuthor  = "Stan le Punk";
-    romanescoVersion = "Version 1.1";
+    romanescoVersion = "Version 1.1.1";
     romanescoPack = "Base" ;
     romanescoRender = "classic" ;
     romanescoMode = "Rectangle/Ellipse/Box" ;
@@ -19,11 +19,10 @@ class Damier extends Romanesco {
   float angleTrame = 0 ;
   float angle = 0 ;
   float speed = 0 ;
-  boolean reverse = false ;
 
   //SETUP
   void setting() {
-    startPosition(IDobj, width/2, height/2, 0) ;
+    startPosition(IDobj, width/2, height/2, -width) ;
     trame = new Trame() ;
 
   }
@@ -53,8 +52,7 @@ class Damier extends Romanesco {
     //orientation / deg
     //speed
     speed = map(speedObj[IDobj], 0,1,0, 0.5 );
-    if(rTouch) reverse = !reverse ;
-    if(reverse) speed = speed *1 ; else speed = speed * -1 ;
+    if(reverse[IDobj]) speed = speed *1 ; else speed = speed * -1 ;
     if (speed != 0 && motion[IDobj]) angleTrame += speed *tempo[IDobj] ;
     
     
@@ -62,10 +60,12 @@ class Damier extends Romanesco {
     if (action[IDobj]) angle = map(angleObj[IDobj], 0,100, 0, TAU) ; 
     
     //quantity
-    int q = int(map(quantityObj[IDobj], 0, 1, 2, 15)) ;
+    int q = int(map(quantityObj[IDobj], 0, 1, 2, 9)) ;
+    if(fullRendering) q *= q ;
 
     //amp
-    float amp = map(amplitudeObj[IDobj],0,1, .1, height /200) ;
+    float amp = map(amplitudeObj[IDobj],0,1, .3, width *.007) ;
+    amp *= amp ;
     
     //MODE DISPLAY
     if(mode[IDobj] == 0 || mode[IDobj] == 255) trame.drawTrameRect(mouse[IDobj], angleTrame, angle, size , q, g, d, amp) ;
@@ -96,7 +96,7 @@ class Trame {
   void drawTrameRect (PVector axe, float angleTrame, float angleObj, PVector size, int nbrlgn, float gauche, float droite, float amp ) {
     pushMatrix() ;
     translate(axe.x, axe.y) ;
-    //calcul the position of each object
+    // calcul the position of each object
     for (int i=1 ; i < nbrlgn ; i++) {
       for (int j=1 ; j < nbrlgn ; j++) { 
         PVector pos = new PVector (  (i *width *amp) / nbrlgn, (j *height *amp ) / nbrlgn )  ;
@@ -114,7 +114,7 @@ class Trame {
   void drawTrameDisc (PVector axe, float angleTrame, float angleObj, PVector size, int nbrlgn, float gauche, float droite, float amp   ) {
     pushMatrix() ;
     translate(axe.x, axe.y) ;
-    //calcul the position of each object
+    // calcul the position of each object
     for (int i=1 ; i < nbrlgn ; i++) {
       for (int j=1 ; j < nbrlgn ; j++) {
         PVector pos = new PVector (  (i *width *amp ) / nbrlgn, (j * height *amp ) / nbrlgn )  ;

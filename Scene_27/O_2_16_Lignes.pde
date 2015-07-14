@@ -17,7 +17,6 @@ class Lignes extends Romanesco {
   float ampLine  =1.0 ;
   float speed ;
   float thicknessLine ;
-  Boolean reverse = false ;
   //SETUP
   void setting() {
     startPosition(IDobj, 0, 0, -width) ;

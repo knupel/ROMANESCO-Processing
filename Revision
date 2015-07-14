@@ -121,7 +121,8 @@ load
 * Balise: remove the move on the space touch
 * Lignes: add modes to display few grid lignes
 * Lignes: add slider angle and alignment
-
+* Stars Spray: Add star when the list is empty
+* Damier: change the range of quantity for the pattern
 
 /// BUG FIXE OBJ
 * Arbre : fix bug size when there is no sound
