@@ -7,7 +7,7 @@ class Honeycomb extends Romanesco {
     IDobj = 21 ;
     IDgroup = 2 ;
     romanescoAuthor  = "Amnon Owed";
-    romanescoVersion = "Version 0.1";
+    romanescoVersion = "Version 0.1.1";
     romanescoPack = "Base" ;
     romanescoRender = "P3D" ;
     romanescoMode = "" ;
@@ -95,7 +95,7 @@ class Honeycomb extends Romanesco {
     
     // new honeycomb
     //if((action[IDobj] && xTouch) || allBeats(IDobj) >= 3.125 ) newHoneycomb = true ;
-    if((action[IDobj] && xTouch)) newHoneycomb = true ;
+    if((action[IDobj] && nTouch)) newHoneycomb = true ;
     
     if(newHoneycomb) {
       float r = random(1000000); // random number that is used by all the hexagon cells...

@@ -6,7 +6,7 @@ class Webcam extends Romanesco {
     IDobj = 22 ;
     IDgroup = 2 ;
     romanescoAuthor  = "Stan le Punk";
-    romanescoVersion = "Version 1.2";
+    romanescoVersion = "Version 1.2.1";
     romanescoPack = "Base" ;
     romanescoRender = "P3D" ;
     romanescoMode = "Rectangle color/Rectangle mono/Point color/Point mono/Box color/Box mono" ;
@@ -51,9 +51,13 @@ class Webcam extends Romanesco {
     factorDisplayCam.x = width / factorCalcul.x ; 
     factorDisplayCam.y = height / factorCalcul.y ;
     
+    // size
     float minVal = 0.1 ;
     float maxVal = height / 50 ;
-    PVector factorSizePix = new PVector(map(sizeXObj[IDobj],0.1,width, minVal, maxVal), map(sizeYObj[IDobj],0.1,width, minVal, maxVal), map(sizeZObj[IDobj],0.1,width, minVal, maxVal)) ; 
+    float size_x = map(sizeXObj[IDobj],0.1,width, minVal, maxVal) *snare[IDobj] ;
+    float size_y = map(sizeYObj[IDobj],0.1,width, minVal, maxVal) *kick[IDobj] ;
+    float size_z = map(sizeZObj[IDobj],0.1,width, minVal, maxVal) *hat[IDobj] ;
+    PVector factorSizePix = new PVector(size_x, size_y, size_z) ; 
     factorDisplayPixel = new PVector(factorDisplayCam.x *factorSizePix.x , factorDisplayCam.y *factorSizePix.y, factorSizePix.z) ;//PARAMETER THAT YOU CAN USE
     
     //PART TWO

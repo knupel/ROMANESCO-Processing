@@ -126,6 +126,8 @@ load
 * Horloge: add speed slider
 * Horloge: add motion function
 * Horloge: add reverse function
+* Nid d'abeilles : change shortcut "x" to "n"
+* Webcam: add beat reactivity
 
 /// BUG FIXE OBJ
 * Arbre : fix bug size when there is no sound
