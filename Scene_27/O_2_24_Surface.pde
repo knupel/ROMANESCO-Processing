@@ -7,7 +7,7 @@ class Surface extends Romanesco {
     romanescoVersion = "Version 1.0.0";
     romanescoPack = "Base" ;
     romanescoMode = "Surfimage/Vague/Vague++" ; // separate the differentes mode by "/"
-    romanescoSlider = "Hue fill,Saturation fill,Brightness fill,Alpha fill,Hue stroke,Saturation stroke,Brightness stroke,Alpha stroke,Thickness,Influence,Width,Canvas X,Canvas Y,Analyze,Amplitude,Speed" ;
+    romanescoSlider = "Hue fill,Saturation fill,Brightness fill,Alpha fill,Hue stroke,Saturation stroke,Brightness stroke,Alpha stroke,Thickness,Influence,Width,Canvas X,Canvas Y,Analyze,Amplitude,Speed,Size X" ;
   }
   
   // Main method image 
@@ -68,7 +68,7 @@ class Surface extends Romanesco {
     if(mode[IDobj] != 0 ) {
       //size pixel triangle
       int sizePixMin = 7 ;
-      int sizePix_grid_simple = int(sizePixMin +sizeXObj[IDobj] /33) ;
+      int sizePix_grid_simple = int(sizePixMin +sizeXObj[IDobj] /11) ;
       if(!fullRendering) sizePix_grid_simple *= 3 ;
       //size canvas grid
       Vec2 newCanvas = Vec2(canvasXObj[IDobj],canvasYObj[IDobj]) ;
@@ -80,7 +80,7 @@ class Surface extends Romanesco {
       int maxStep = (int)map(influenceObj[IDobj],0,1,2,50) ;
       step = map(noise(5),0,1,0,maxStep) ; // break the linear mode of the wave
       // amplitude
-      amplitude_simple_grid = amplitudeObj[IDobj] *height *.07 *beat[IDobj] *mix[IDobj]  ;
+      amplitude_simple_grid = amplitudeObj[IDobj] *height *.07 *allBeats(IDobj)  ;
       amplitude_simple_grid *= amplitude_simple_grid  ;
       
       // clear the list
@@ -111,7 +111,7 @@ class Surface extends Romanesco {
     // update image grid
     if(motion[IDobj]) {
       float speed_image = speedObj[IDobj] * .2 ;
-      float amplitude_image = amplitudeObj[IDobj] *width *2 *mix[IDobj] ;
+      float amplitude_image = amplitudeObj[IDobj] *width *2 *allBeats(IDobj) ;
       altitude_image = int(sin(frameCount *speed_image) *amplitude_image) ;
     }
     

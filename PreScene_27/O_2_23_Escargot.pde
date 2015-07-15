@@ -5,7 +5,7 @@ class Escargot extends Romanesco {
     IDobj = 23 ;
     IDgroup = 2 ;
     romanescoAuthor  = "Stan le Punk";
-    romanescoVersion = "version 1.4.1";
+    romanescoVersion = "version 1.4.2";
     romanescoPack = "Base" ;
     romanescoRender = "P3D" ;
     romanescoMode = "Original/Raw/Point/Ellipse/Rectangle/Box/Cross/SVG/Vitraux" ;
@@ -102,7 +102,7 @@ class Escargot extends Romanesco {
   void setting() {
     startPosition(IDobj, 0, 0, 0) ;
     loadImg(IDobj) ;
-    if(!scene) maxVoronoiPoints = 250 ;
+    if(!fullRendering) maxVoronoiPoints = 250 ;
     //load pattern SVG to display a Pixel pattern you create in Illustrator or other software
     pathSVG = preferencesPath +"pixel/model.svg" ;
     shapeSVGsetting(pathSVG) ;
@@ -142,6 +142,7 @@ class Escargot extends Romanesco {
       //MOTION
       windForce = (int)map(speedObj[IDobj],0,1,0,13) ;
       windDirection = (int)directionObj[IDobj] ;
+      if(reverse[IDobj]) windDirection += 180 ;
       objMotion = int(map(repulsionObj[IDobj],0,1, 0,20) *(1.0 + pen[IDobj].z)) ;
       motionInfo.y = windForce ;
       //PEN
@@ -184,7 +185,7 @@ class Escargot extends Romanesco {
   
       
        //security for the droping img from external folder
-       if(parameter[IDobj] && rTouch ) ratioImg = !ratioImg ;
+       if(parameter[IDobj] && aTouch ) ratioImg = !ratioImg ;
        if(img[IDobj] != null && img[IDobj].width > 3 && ratioImg ) {
          analyzeImg(pixelAnalyzeSize) ;
          // ratioImgWindow = new PVector ((float)width / (float)img.width , (float)height / (float)img.height ) ;
