@@ -61,6 +61,8 @@ class Boids extends Romanesco {
       float pos_y = cos(frameCount *.003) *canvasYObj[IDobj] ;
       flock.goal(pos_x,pos_y, depthGoal);
     }
+
+
     
     // INFLUENCE of the boid around him
     float ratioInfluence = influenceObj[IDobj] *400 +1 ;
@@ -71,7 +73,7 @@ class Boids extends Romanesco {
     float speed = map(speedObj[IDobj],0,1,.1,7) ;
     speed *= speed ;
     if(sound[IDobj] )speed *= (map(mix[IDobj],0,1,.00000001,7)) ;
-    if(!motion[IDobj] || getTimeTrack() < .2) speed = .00000001 ;
+    if(!motion[IDobj] || (sound[IDobj] && getTimeTrack() < .2)) speed = .00000001 ;
     flock.speed(speed) ;
     
     // cage size

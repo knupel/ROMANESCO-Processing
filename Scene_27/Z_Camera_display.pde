@@ -380,7 +380,7 @@ void setVariableCamera(boolean authorization) {
   /* this method need to be on the Prescene sketch and on the window.
   1. boolean prescene : On prescene, because on Scene we don't need to have a global view : boolean prescene
   2. boolean MOUSE_IN_OUT : because if we mode out the sketch the keyevent is not updated, and the camera stay in camera view */
-  if(fullRendering || (cLongTouch && MOUSE_IN_OUT && prescene)) variableCameraFullrendering(authorization) ; else variableCameraPresceneRendering() ;
+  if(fullRendering || (cLongTouch && (MOUSE_IN_OUT || clickLongLeft[0] || clickLongRight[0]) && prescene)) variableCameraFullrendering(authorization) ; else variableCameraPresceneRendering() ;
 }
 
 void variableCameraFullrendering(boolean authorization) {

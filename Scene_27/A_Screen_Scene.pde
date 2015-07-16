@@ -265,54 +265,7 @@ void updateSizeDisplay(PImage imgDisplay) {
 
 
 
-// MIROIR
-/////////
-Miroir miroir;
-boolean syphon  ;
 
-void miroirSetup() {
-  //if (syphon) miroir = new Miroir(this);
-  miroir = new Miroir(this);
-}
-
-void miroirDraw() {
-  if(yTouch) syphon = !syphon ;
-  if (syphon) miroir.update();
-}
-
-
-
-
-class Miroir {
-  public PGraphics canvas;
-  public SyphonServer server;
-  PApplet that;
-  Miroir(PApplet that) {
-    this.that = that;
-    canvas = createGraphics(that.width, that.height, P3D);
-    // Create syhpon server to send frames out.
-    //server = new SyphonServer(that, "Processing Syphon");
-    server = new SyphonServer(that, "Romanesco");
-  }
-  void update() {
-    that.loadPixels();
-    canvas.loadPixels();
-    //mirror effect
-    /*
-    for(int i=0;i<that.pixels.length;i++){
-      canvas.pixels[i] = that.pixels[i];
-    }
-    */
-    for(int x = 0; x < that.width; x++) {
-     for(int y = 0; y < that.height; y++) {
-         canvas.pixels[((that.height-y-1)*that.width+x)] = that.pixels[y*that.width+x];
-     }
-   }
-    canvas.updatePixels();
-    server.sendImage(canvas);
-  }
-}
-//END MIROIR
 
 
   //////////////////////////////////////

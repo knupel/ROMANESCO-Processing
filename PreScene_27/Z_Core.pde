@@ -276,6 +276,58 @@ String whichSentence(String txt, int whichChapter, int whichSentence) {
 
 
 
+// MIROIR
+/////////
+
+boolean syphon  ;
+
+SyphonServer server;
+void miroirSetup() {
+  server = new SyphonServer(this, nameVersion + " " + prettyVersion +"."+version);
+}
+void miroirDraw() {
+  if(yTouch) syphon = !syphon ;
+  if (syphon) server.sendScreen();
+}
+
+// Old Syphon
+/**
+Miroir miroir;
+void miroirSetup() {
+  miroir = new Miroir(this);
+}
+void miroirDraw() {
+  if(yTouch) syphon = !syphon ;
+  if (syphon) miroir.update();
+}
+class Miroir {
+  public PGraphics canvas;
+  public SyphonServer server;
+  PApplet that;
+  Miroir(PApplet that) {
+    this.that = that;
+    canvas = createGraphics(that.width, that.height, P3D);
+    // Create syhpon server to send frames out.
+    //server = new SyphonServer(that, "Processing Syphon");
+    server = new SyphonServer(that, "Romanesco");
+  }
+  void update() {
+    that.loadPixels();
+    canvas.loadPixels();
+    for(int x = 0; x < that.width; x++) {
+     for(int y = 0; y < that.height; y++) {
+         canvas.pixels[((that.height-y-1)*that.width+x)] = that.pixels[y*that.width+x];
+     }
+   }
+    canvas.updatePixels();
+    server.sendImage(canvas);
+  }
+}
+*/
+//END MIROIR
+
+
+
 
 
 
@@ -313,6 +365,9 @@ void displayInfoScene() {
   String infoRendering =("");
   if(fullRendering) infoRendering = ("Full rendering") ; else infoRendering = ("Preview rendering") ;
   text("Size " + width + "x" + height + " / "  + infoRendering + " / Render mode " + displayModeInfo + " / FrameRate " + (int)frameRate, 15,15) ;
+  // INFO SYPHON
+  text("Syphon " +syphon + " / press “y“ to on/off the Syphon",15, 15 *posInfo ) ;
+  posInfo += 1 ;
   //INFO MOUSE and PEN
   text("Mouse " + mouseX + " / " + mouseY + " molette " + wheel[0] + " pen orientation " + (int)deg360(pen[0]) +"°   stylet pressur " + int(pen[0].z *10),15, 15 *posInfo ) ;  
   posInfo += 1 ;

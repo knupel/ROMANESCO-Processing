@@ -29,6 +29,8 @@ import toxi.util.datatypes.*;
 import toxi.processing.*;
 // METEO
 import com.onformative.yahooweather.*;
+// SYPHON
+import codeanticode.syphon.*;
 
 //CALLING class or library in Other Class, you must call the PApplet too in your class
 PApplet callingClass = this ;

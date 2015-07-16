@@ -1,4 +1,3 @@
-import codeanticode.syphon.*;
 // remove menu bar apple
 /*
 import japplemenubar.*;

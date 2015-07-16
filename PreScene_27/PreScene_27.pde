@@ -34,6 +34,7 @@ void setup() {
   OSCSetup() ;
   //common setup
   colorSetup() ;
+  miroirSetup() ;
   varObjSetup() ;
   fontSetup() ;
   // here we ask for the testRomanesco true, because the Minim Library talk too much in the consol
@@ -48,6 +49,7 @@ void draw() {
   frame.setTitle(nameVersion + " " +prettyVersion+"."+version+ " | Préscène | FPS: "+round(frameRate));
   //setting
   initDraw() ;
+  miroirDraw() ;
   // here we ask for the testRomanesco true, because the Minim Library talk too much in the consol
   if(fullRendering && !testRomanesco) soundDraw() ;
   updateVarRaw() ;
