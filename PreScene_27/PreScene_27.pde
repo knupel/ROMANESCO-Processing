@@ -18,7 +18,7 @@ used sound
  maximum possibility of the object
  full frame rate
 */
-boolean fullRendering = true ;
+boolean fullRendering = false ;
 
   
 void setup() {

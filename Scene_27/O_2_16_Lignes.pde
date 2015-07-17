@@ -57,10 +57,10 @@ class Lignes extends Romanesco {
     for(int i = 0 ; i < num_grid ; i++) {
       int angle = step *i ;
       float rotation_grid = step_rotate *i ;
-      popMatrix() ;
+      pushMatrix() ;
       rotateX(rotation_grid) ;
       display_line(canvas, num, speed / (i +1), thicknessLine,angle) ;
-      pushMatrix() ;
+      popMatrix() ;
     }
   }
 
@@ -73,6 +73,7 @@ class Lignes extends Romanesco {
     rotation(direction, 0, 0) ;
     //display
     line.drawLine (speed, num, fillObj[IDobj], thickness, canvas) ;
+
   }
 }
 //end 
