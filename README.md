@@ -1,4 +1,4 @@
-##ROMANESCO 28 / Romanesco Unu 1.1.1.28
+##Romanesco Unu 1.1.1.28
 Romanesco is a Generative Live Art Application, but can be
 your object manager to test your sketch in a P3D world.
 Those sketches are the progress work. 
