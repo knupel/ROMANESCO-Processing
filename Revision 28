@@ -1,4 +1,15 @@
 ///////////////////////
+ROMANESCO 28 Revision
+
+/// CORE /////
+--------------
+> remove graphic enviroment 
+> remove Maverick detection
+> add fullscreen() method from processing
+
+
+
+///////////////////////
 ROMANESCO 27 Revision
 
 /// CORE ///
