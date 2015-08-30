@@ -22,7 +22,7 @@ void setup() {
   checkImageFolder() ;
   checkFileTextFolder() ;
   fontSetup() ;
-  //midiSetup() ;
+  // midiSetup() ;
   importPicButtonSetup() ;
   sliderSettingVar() ;
   buttonSetup() ;
@@ -45,7 +45,7 @@ void draw() {
   textDraw() ;
   sliderDraw() ;
   buttonDraw() ;
-  //midiDraw() ;
+  // midiDraw() ;
   sendOSCdraw() ;
   initVarSliderDynamic() ;
   

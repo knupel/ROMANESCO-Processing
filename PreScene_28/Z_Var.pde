@@ -50,7 +50,7 @@ int NUM_OBJ ;
 
 
 
-boolean videoSignal = false ;
+
 //variable for the tracking
 boolean nextPrevious = false ;
 int nextPreviousInt = 0 ; // for send to Syphon

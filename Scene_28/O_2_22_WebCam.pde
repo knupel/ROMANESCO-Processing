@@ -1,4 +1,3 @@
-
 class Webcam extends Romanesco {
   public Webcam() {
     //from the index_objects.csv
@@ -6,26 +5,20 @@ class Webcam extends Romanesco {
     IDobj = 22 ;
     IDgroup = 2 ;
     romanescoAuthor  = "Stan le Punk";
-    romanescoVersion = "Version 1.2.1";
+    romanescoVersion = "Version 1.2.2";
     romanescoPack = "Base" ;
-    romanescoRender = "P3D" ;
     romanescoMode = "Rectangle color/Rectangle mono/Point color/Point mono/Box color/Box mono" ;
     romanescoSlider = "Hue fill,Saturation fill,Brightness fill,Alpha fill,Size X,Size Y,Size Z,Canvas X,Canvas Y" ;
   }
   //GLOBAL
   int cameraStatut = 0 ;
-  //class
-  Capture cam;
-  //Cameras
-  int [] [] sizeCam = { {640,480}, {160,120}, {176,144}, {320,240}, {352,288} } ;
-  int whichSizeCam = 4 ; // choice the resolution size of camera
-  String whichCam = "1" ; // "1" to search an external webcam, the device "0" is the native webcam on mac
-  boolean nativeWebCam ;
-  int testDeviceCam ;
+
+
+
   
   PVector factorDisplayCam = new PVector (0,0) ;
   PVector factorDisplayPixel = new PVector (0,0) ;
-  PVector factorCalcul = new PVector (0,0) ;
+  // PVector factorCalcul = new PVector (0,0) ;
   
   color colorPixelCam ;
   
@@ -37,19 +30,14 @@ class Webcam extends Romanesco {
   //SETUP
   void setting() {
     startPosition(IDobj, width/2, height/2, 0) ;
-    cam = new Capture(callingClass, sizeCam [whichSizeCam][0], sizeCam [whichSizeCam][1], whichCam);
-    
-    //Logitech / 640x480 / 160x120 / 176x144 / 320x240 / 352x288
-    // Imac 640x480 / 160x120 / 176x144 / 320x240 / 352x288
   }
   //DRAW
   void display() {
     //PART ONE
-    factorCalcul.x = sizeCam [whichSizeCam][0] ;
-    factorCalcul.y = sizeCam [whichSizeCam][1] ;
+   // factorCalcul = CAM_SIZE.copy() ; ;
     //calcul the ration between the size of camera and the size of the scene
-    factorDisplayCam.x = width / factorCalcul.x ; 
-    factorDisplayCam.y = height / factorCalcul.y ;
+    factorDisplayCam.x = width / CAM_SIZE.x ; 
+    factorDisplayCam.y = height / CAM_SIZE.y ;
     
     // size
     float minVal = 0.1 ;
@@ -61,7 +49,7 @@ class Webcam extends Romanesco {
     factorDisplayPixel = new PVector(factorDisplayCam.x *factorSizePix.x , factorDisplayCam.y *factorSizePix.y, factorSizePix.z) ;//PARAMETER THAT YOU CAN USE
     
     //PART TWO
-    cam.start();
+
     if(fullRendering) {
       cellSizeX = int(map(canvasYObj[IDobj],width/10, width, 50, 1))  ; 
       cellSizeY = int(map(canvasXObj[IDobj],width/10, width, 50, 1))  ;
@@ -72,10 +60,12 @@ class Webcam extends Romanesco {
     if(cellSizeX < 1 ) cellSizeX = 1 ;
     if(cellSizeY < 1 ) cellSizeY = 1 ;
     
-    cols = sizeCam [whichSizeCam][0] / cellSizeX; // before the resizing
-    rows = sizeCam [whichSizeCam][1] / cellSizeY;
-    if (testCam()) {
+    cols = (int)CAM_SIZE.x / cellSizeX; // before the resizing
+    rows = (int)CAM_SIZE.y / cellSizeY;
+
+    if (CAMERA_AVAILABLE) {
       cam.read();
+      cam.loadPixels();
       for (int i = 0; i < cols ; i++) {
         for (int j = 0; j < rows  ; j++) {
           // Where are we, pixel-wise?
@@ -92,24 +82,9 @@ class Webcam extends Romanesco {
           displayPix(mode[IDobj],hsb) ; 
         }
       } 
-    } else if (!testCam() && testDeviceCam < 180 )  {
-      fill(0) ;
-      testDeviceCam += 1 ;
-      text("No external video signal, Romanesco try on the native Camera", 10 , 20 ) ;
-    } 
+    }
     
-    //TEST CAM
-    // testDeviceCam += 1 ;
-    if(!testCam() && nativeWebCam && testDeviceCam > 90  ) {
-      cam = new Capture(callingClass, sizeCam [whichSizeCam][0], sizeCam [whichSizeCam][1], ("0")); 
-     // if(testCam() )  nativeWebCam = true ; 
-    } else {
-      nativeWebCam = true ;
-    }
-    if(!testCam() && testDeviceCam == 180 ) {
-      fill(0) ;
-      text("No camera available on your stuff my Friend !", mouse[0].x , mouse[0].y ) ;
-    }
+
     
     rectMode (CORNER) ; 
     ////////////////////
@@ -133,7 +108,7 @@ class Webcam extends Romanesco {
     
     float newCellSizeX = cellSizeX *factorDisplayPixel.x *left[IDobj] ;
     float newCellSizeY = cellSizeY *factorDisplayPixel.y *right[IDobj] ;
-    float factorSizeZ = map(sizeZObj[IDobj], .1, width, .5, 10) ;
+    float factorSizeZ = map(sizeZObj[IDobj], .1, width, .01, height/100) ;
     PVector newCellSize = new PVector (newCellSizeX, newCellSizeY, factorSizeZ ) ;
     //init the position of image on the middle of the screen
     PVector posMouseCam = new PVector ( width / 2, height /2) ;
@@ -209,8 +184,7 @@ class Webcam extends Romanesco {
   }
   //
   void boxMonochrome(PVector pos, PVector size, PVector hsb) {
-    size = checkSize(size).copy() ;
-    float depth = (hsb.z +1) *size.z ;
+    float depth = (hsb.z +.05) *size.z ;
     if(horizon[IDobj]) translate(pos.x, pos.y, depth *.5); else translate(pos.x, pos.y, pos.z);
     monochrome(hsb) ;
     fill(colorPixelCam) ;
@@ -220,8 +194,7 @@ class Webcam extends Romanesco {
   }
   //
   void boxColour(PVector pos, PVector size, PVector hsb) {
-    size = checkSize(size).copy() ;
-    float depth = (hsb.z +1) *size.z ;
+    float depth = (hsb.z +.05) *size.z ;
     if(horizon[IDobj]) translate(pos.x, pos.y, depth *.5); else translate(pos.x, pos.y, pos.z);
     colour(hsb) ;
     fill(colorPixelCam) ;
@@ -235,7 +208,7 @@ class Webcam extends Romanesco {
   
   // security size 
   PVector checkSize(PVector size) {
-    float minSize = 2.0 ;
+    float minSize = .5 ;
     if (size.x < minSize ) size.x = minSize ;
     if (size.y < minSize ) size.y = minSize ;
     if (size.z < minSize ) size.z = minSize ;
@@ -254,23 +227,5 @@ class Webcam extends Romanesco {
     float newBrigth = hsb.z *map(brightness(fillObj[IDobj]),0,100,0,1) ;
     //display the result
     colorPixelCam = color(newHue, newSat, newBrigth, alpha(fillObj[IDobj]));
-  }
-  
-  
-  
-  
-  
-  
-  
-  
-  // test camera
-  int testCam ;
-  boolean testCam() {
-    if (cam.available()) testCam =+ 30 ; else testCam -= 1 ;
-    if ( testCam < 1 ) testCam = 0 ;
-    
-    if ( testCam > 2 ) videoSignal = true ; else videoSignal = false ;
-    // boolean returned
-    if ( testCam > 2 ) return true ;  else return false ;
   }
 }

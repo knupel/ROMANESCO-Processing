@@ -114,8 +114,7 @@ void checkFileTextFolder() {
   if(frameCount%180 == 0) {
     countFileTextSelection++ ;
     textFiles.clear() ;
-    // String path = sketchPath("") +"/" +preferencesPath +"Karaoke" ;
-    println(preferencesPath) ;
+    
     String path = preferencesPath +"Karaoke" ;
     
     ArrayList allFiles = listFilesRecursive(path);

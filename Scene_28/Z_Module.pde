@@ -1,4 +1,113 @@
-////////////
+//Tab: Z_Module
+
+
+
+// CAMERA
+/////////
+Capture cam;
+String[] cameras ;
+String[] cam_name ;
+PVector[] cam_size ;
+int[] cam_fps ;
+int which_cam ;
+PVector CAM_SIZE ;
+boolean CAMERA_AVAILABLE ;
+
+boolean new_cam = true ;
+boolean stop_cam = false ;
+boolean init_cam = false ;
+
+
+
+// Main method camera
+void camera_video_setup() {
+  list_cameras() ;
+  if(new_cam) launch_camera() ;
+}
+
+void camera_video_draw() {
+  if (new_cam) launch_camera() ;
+  if (cam.available()) cam.read();
+  camera_stop() ;
+}
+
+
+
+
+
+// annexe methode camera
+void launch_camera() {
+  if(CAMERA_AVAILABLE) {
+    if(fullRendering) which_cam = 0 ; else which_cam = 7 ; // 4 is normal camera around 800x600 or 640x360 with 30 fps
+    if(!init_cam) {
+      init_camera(which_cam) ;
+      init_cam = true ;
+    }
+    CAM_SIZE = cam_size[which_cam].copy() ;
+    println("Camera ",which_cam, cam_name [which_cam], cam_size[which_cam], cam_fps[which_cam]) ;
+    // surface.setSize((int)cam_size[which_cam].x, (int)cam_size[which_cam].y) ;
+    new_cam = false ;
+  }
+}
+
+void camera_stop() {
+  if(stop_cam) { 
+    cam.stop() ;
+    init_cam = false ;
+  }
+}
+
+
+
+
+void init_camera(int which_camra) {
+  cam = new Capture(this, cameras[which_camra]);
+  cam.start();     
+}
+
+void list_cameras() {
+  cameras = Capture.list();
+  cam_name = new String[cameras.length] ;
+  cam_size = new PVector[cameras.length] ;
+  cam_fps = new int[cameras.length] ;
+  
+  // about the camera
+  if (cameras.length != 0) {
+    CAMERA_AVAILABLE = true ;
+    // println("Available cameras:");
+    for(int i = 0 ; i < cameras.length ; i++) {
+      String cam_data [] = split(cameras[i],",") ;
+      // camera name
+      cam_name[i] = cam_data [0].substring(5,cam_data[0].length()) ;
+      // size camera
+      String size = cam_data [1].substring(5,cam_data[1].length()) ;
+      String [] sizeXY = split(size,"x") ;
+      cam_size[i] = new PVector(Integer.parseInt(sizeXY[0]), Integer.parseInt(sizeXY[1])) ;  // Integer.parseInt("1234");
+      // fps
+      String fps = cam_data [2].substring(4,cam_data[2].length()) ;
+      cam_fps[i] = Integer.parseInt(fps) ;
+      // info
+      // println(i, cam_name [i], cam_size[i], cam_fps[i]) ;
+    }
+  } else {
+    CAMERA_AVAILABLE = false ;
+    // println("There are no cameras available for capture.");
+  }
+}
+// END CAMERA
+/////////////
+
+
+
+
+
+
+
+
+
+
+
+
 ///////
 //METEO
 //GLOBAL

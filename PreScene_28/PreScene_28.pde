@@ -18,7 +18,7 @@ used sound
  maximum possibility of the object
  full frame rate
 */
-boolean fullRendering = true ;
+boolean fullRendering = false ;
 
 void settings() {
   size(600,400,P3D) ;
@@ -26,6 +26,7 @@ void settings() {
 
   
 void setup() {
+  camera_video_setup() ;
   preferencesPath = sketchPath("")+"preferences/" ;
   if(fullRendering) frameRateRomanesco = 60 ; else frameRateRomanesco = 15 ;
 
@@ -43,11 +44,12 @@ void setup() {
   //common setup
   colorSetup() ;
   // miroirSetup() ;
+
   
   varObjSetup() ;
   fontSetup() ;
   // here we ask for the testRomanesco true, because the Minim Library talk too much in the consol
-  if(fullRendering && !testRomanesco) soundSetup() ;
+  if(!testRomanesco) soundSetup() ;
   P3DSetup(modeP3D, numObj, numSettingCamera, numSettingOrientationObject) ;
 
 }
@@ -60,8 +62,9 @@ void draw() {
   //setting
   initDraw() ;
   // miroirDraw() ;
+  camera_video_draw() ;
   // here we ask for the testRomanesco true, because the Minim Library talk too much in the consol
-  if(fullRendering && !testRomanesco) soundDraw() ;
+  if(!testRomanesco) soundDraw() ;
   updateVarRaw() ;
   OSCDraw() ;
   backgroundRomanesco() ;
@@ -74,7 +77,7 @@ void draw() {
   lightPosition() ;
   //use romanesco object
   romanescoManager.displayObject(ORDER_ONE, ORDER_TWO, ORDER_THREE) ;
-  if(modeP3D) createGridCamera() ;
+  createGridCamera() ;
   stopCamera() ;
   
   //annexe

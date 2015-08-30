@@ -19,6 +19,7 @@ void settings() {
 
 
 void setup() {
+  camera_video_setup() ;
   preferencesPath = sketchPath("")+"preferences/" ;
   if(fullRendering) frameRateRomanesco = 60 ; else frameRateRomanesco = 15 ;
   romanescoSetup() ;
@@ -27,7 +28,7 @@ void setup() {
   initVarScene() ;
   displaySetup(frameRateRomanesco) ; // the int give the frameRate
   colorSetup() ;
-  miroirSetup() ;
+  // miroirSetup() ;
   fontSetup() ;
 
   soundSetup() ;
@@ -44,7 +45,8 @@ void draw() {
   
   if(!syphon) surface.setTitle(nameVersion + " " +prettyVersion+"."+version+ " | Scéne | FPS: "+round(frameRate)); else frame.setTitle(nameVersion + " " +prettyVersion+"."+version+ " | Miroir | FPS: "+round(frameRate));
   initDraw() ;
-  miroirDraw() ;
+  // miroirDraw() ;
+  camera_video_draw() ;
   soundDraw() ;
   meteoDraw() ;
   updateVarRaw() ;

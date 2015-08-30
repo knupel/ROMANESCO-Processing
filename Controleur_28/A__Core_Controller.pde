@@ -19,6 +19,8 @@ int numObj ;
 // Midi
 import promidi.*;
 MidiIO midiIO;
+
+
 int sliderMidi, valMidi ;
 int numMidi = -1 ;
 boolean saveMidi ;
@@ -158,7 +160,6 @@ void check_Keyboard_save_controller_CURRENT_path() {
 // CTRL + SHIFT + E
 void check_Keyboard_save_controller_NEW_path() {
   if(checkKeyboard(CONTROL) && checkKeyboard(SHIFT) && checkKeyboard(KeyEvent.VK_E) ) {
-    println(savePathSetting) ;
     showAllSliders = true ; 
     File tempFileName = new File ("your_controller_setting.csv");
     selectOutput("Save setting", "saveSetting", tempFileName);
