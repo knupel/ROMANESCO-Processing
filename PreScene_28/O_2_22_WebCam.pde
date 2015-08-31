@@ -7,6 +7,7 @@ class Webcam extends Romanesco {
     romanescoAuthor  = "Stan le Punk";
     romanescoVersion = "Version 1.2.2";
     romanescoPack = "Base" ;
+    romanescoVideo = "YES" ;
     romanescoMode = "Rectangle color/Rectangle mono/Point color/Point mono/Box color/Box mono" ;
     romanescoSlider = "Hue fill,Saturation fill,Brightness fill,Alpha fill,Size X,Size Y,Size Z,Canvas X,Canvas Y" ;
   }

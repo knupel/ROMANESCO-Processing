@@ -35,8 +35,8 @@ PVector posBackgroundButton, sizeBackgroundButton,
 
 
 // DROPDOWN button font and shader background
-int EtatFont, EtatBackgroundShader, EtatImage, EtatFileText ;
-PVector posButtonFont, posButtonBackground, posButtonImage, posButtonFileText ; 
+int EtatFont, EtatBackgroundShader, EtatImage, EtatFileText, EtatCameraVideo ;
+PVector posButtonFont, posButtonBackground, posButtonImage, posButtonFileText, posButtonCameraVideo ; 
 
 // MIDI, CURTAIN
 int EtatMidiButton, EtatCurtainButton, EtatBbeat, EtatBkick, EtatBsnare, EtatBhat ; ;
@@ -112,10 +112,10 @@ int correctionCurtainY = 0 ;
 // MENU TOP DROPDOWN
 int correctionHeaderDropdownY = +4 ;
 int correctionHeaderDropdownBackgroundX = -3 ;
-int correctionHeaderDropdownFontX = 100 ;
-int correctionHeaderDropdownImageX = 200 ;
-int correctionHeaderDropdownFileTextX = 255 ;
-
+int correctionHeaderDropdownFontX = 110 ;
+int correctionHeaderDropdownImageX = 220 ;
+int correctionHeaderDropdownFileTextX = 330 ;
+int correctionHeaderDropdownCameraVideoX = 440 ;
 
 //GROUP ZERO
 int correctionSliderPos = 12 ;
@@ -893,21 +893,21 @@ void constructorButton() {
   PVector pos = new PVector() ;
   PVector size = new PVector() ;
   // we don't use the BOf[0], BTf[0] and BTYf[0] must he must be init in case we add object in Scene and this one has never use before and don't exist in the save pref
-  BOf[0] = new Simple(pos, size, boutonONin, boutonONout, boutonOFFin, boutonOFFout, gris, grisNoir, false) ;
-  BTf[0] = new Simple(pos, size, boutonONin, boutonONout, boutonOFFin, boutonOFFout, gris, grisNoir, false) ;
+  button_G1[0] = new Simple(pos, size, boutonONin, boutonONout, boutonOFFin, boutonOFFout, gris, grisNoir, false) ;
+  button_G2[0] = new Simple(pos, size, boutonONin, boutonONout, boutonOFFin, boutonOFFout, gris, grisNoir, false) ;
   // init the object library
   for(int i = 1 ; i < NUM_GROUP_SLIDER ; i++) {
     int num = numButton[i] ;
     for ( int j = 11 ; j < 10+num ; j++) {
       if(numGroup[1] > 0 && i == 1) {
-        pos = new PVector(posWidthBOf[j], posHeightBOf[j]) ;
-        size = new PVector(longueurBOf[j], hauteurBOf[j]) ; 
-        BOf[j] = new Simple(pos, size, boutonONin, boutonONout, boutonOFFin, boutonOFFout, gris, grisNoir, false) ;
+        pos = new PVector(pos_button_width_G1[j], pos_button_height_G1[j]) ;
+        size = new PVector(width_button_G1[j], height_button_G1[j]) ; 
+        button_G1[j] = new Simple(pos, size, boutonONin, boutonONout, boutonOFFin, boutonOFFout, gris, grisNoir, false) ;
       } 
       if(numGroup[2] > 0 && i == 2) {
-        pos = new PVector(posWidthBTf[j], posHeightBTf[j]) ;
-        size = new PVector(longueurBTf[j], hauteurBTf[j]) ; 
-        BTf[j] = new Simple(pos, size, boutonONin, boutonONout, boutonOFFin, boutonOFFout, gris, grisNoir, false) ;
+        pos = new PVector(pos_button_width_G2[j], pos_button_height_G2[j]) ;
+        size = new PVector(width_button_G2[j], height_button_G2[j]) ; 
+        button_G2[j] = new Simple(pos, size, boutonONin, boutonONout, boutonOFFin, boutonOFFout, gris, grisNoir, false) ;
       }
     }
 
@@ -977,28 +977,18 @@ PVector posRelativeActionButton = new PVector (4,25) ;
 void groupOneButton(int buttonPositionY) {
   //position and area for the rollover
   for (int i = 1 ; i <= numGroup[1] ; i++) {
-    posWidthBOf[i*10+1] = margeLeft +((i-1)*40) +(int)posRelativeMainButton.x    ; posHeightBOf[i*10+1] = buttonPositionY +(int)posRelativeMainButton.y     ; longueurBOf[i*10+1] = 20 ; hauteurBOf[i*10+1] = 20 ;  //main
-    posWidthBOf[i*10+2] = margeLeft +((i-1)*40) +(int)posRelativeSettingButton.x ; posHeightBOf[i*10+2] = buttonPositionY +(int)posRelativeSettingButton.y  ; longueurBOf[i*10+2] = 19 ; hauteurBOf[i*10+2] = 6 ; //setting
-    posWidthBOf[i*10+3] = margeLeft +((i-1)*40) +(int)posRelativeSoundButton.x   ; posHeightBOf[i*10+3] = buttonPositionY +(int)posRelativeSoundButton.y    ; longueurBOf[i*10+3] = 10 ; hauteurBOf[i*10+3] = 6 ; //sound
-    posWidthBOf[i*10+4] = margeLeft +((i-1)*40) +(int)posRelativeActionButton.x  ; posHeightBOf[i*10+4] = buttonPositionY +(int)posRelativeActionButton.y   ; longueurBOf[i*10+4] = 10 ; hauteurBOf[i*10+4] = 6 ; //action
+    pos_button_width_G1[i*10+1] = margeLeft +((i-1)*40) +(int)posRelativeMainButton.x    ; pos_button_height_G1[i*10+1] = buttonPositionY +(int)posRelativeMainButton.y     ; width_button_G1[i*10+1] = 20 ; height_button_G1[i*10+1] = 20 ;  //main
+    pos_button_width_G1[i*10+2] = margeLeft +((i-1)*40) +(int)posRelativeSettingButton.x ; pos_button_height_G1[i*10+2] = buttonPositionY +(int)posRelativeSettingButton.y  ; width_button_G1[i*10+2] = 19 ; height_button_G1[i*10+2] = 6 ; //setting
+    pos_button_width_G1[i*10+3] = margeLeft +((i-1)*40) +(int)posRelativeSoundButton.x   ; pos_button_height_G1[i*10+3] = buttonPositionY +(int)posRelativeSoundButton.y    ; width_button_G1[i*10+3] = 10 ; height_button_G1[i*10+3] = 6 ; //sound
+    pos_button_width_G1[i*10+4] = margeLeft +((i-1)*40) +(int)posRelativeActionButton.x  ; pos_button_height_G1[i*10+4] = buttonPositionY +(int)posRelativeActionButton.y   ; width_button_G1[i*10+4] = 10 ; height_button_G1[i*10+4] = 6 ; //action
   }
 }
 void groupTwoButton(int buttonPositionY) {
   for (int i = 1 ; i <= numGroup[2] ; i++ ) {
-    posWidthBTf[i*10+1] = margeLeft +((i-1)*40) +(int)posRelativeMainButton.x    ; posHeightBTf[i*10+1] = buttonPositionY +(int)posRelativeMainButton.y     ; longueurBTf[i*10+1] = 20 ; hauteurBTf[i*10+1] = 20 ; //main
-    posWidthBTf[i*10+2] = margeLeft +((i-1)*40) +(int)posRelativeSettingButton.x ; posHeightBTf[i*10+2] = buttonPositionY +(int)posRelativeSettingButton.y  ; longueurBTf[i*10+2] = 19 ; hauteurBTf[i*10+2] = 6 ; //setting
-    posWidthBTf[i*10+3] = margeLeft +((i-1)*40) +(int)posRelativeSoundButton.x   ; posHeightBTf[i*10+3] = buttonPositionY +(int)posRelativeSoundButton.y    ; longueurBTf[i*10+3] = 10 ; hauteurBTf[i*10+3] = 6 ; //sound
-    posWidthBTf[i*10+4] = margeLeft +((i-1)*40) +(int)posRelativeActionButton.x  ; posHeightBTf[i*10+4] = buttonPositionY +(int)posRelativeActionButton.y   ; longueurBTf[i*10+4] = 10 ; hauteurBTf[i*10+4] = 6 ; //action
-  }
-}
-
-void groupThreeButton(int buttonPositionY) {
-  //paramètre habillage couleur du bouton cercle BTY
-  for (int i = 1 ; i <= numGroup[3] ; i++ ) {
-    posWidthBTYf[i*10+1] = margeLeft +((i-1)*40) +(int)posRelativeMainButton.x    ; posHeightBTYf[i*10+1] = buttonPositionY +(int)posRelativeMainButton.y     ; longueurBTYf[i*10+1] = 20 ; hauteurBTYf[i*10+1] = 20 ; //main
-    posWidthBTYf[i*10+2] = margeLeft +((i-1)*40) +(int)posRelativeSettingButton.x ; posHeightBTYf[i*10+2] = buttonPositionY +(int)posRelativeSettingButton.y  ; longueurBTYf[i*10+2] = 19 ; hauteurBTYf[i*10+2] = 6 ; //setting
-    posWidthBTYf[i*10+3] = margeLeft +((i-1)*40) +(int)posRelativeSoundButton.x   ; posHeightBTYf[i*10+3] = buttonPositionY +(int)posRelativeSoundButton.y    ; longueurBTYf[i*10+3] = 10 ; hauteurBTYf[i*10+3] = 6 ; //sound
-    posWidthBTYf[i*10+4] = margeLeft +((i-1)*40) +(int)posRelativeActionButton.x  ; posHeightBTYf[i*10+4] = buttonPositionY +(int)posRelativeActionButton.y   ; longueurBTYf[i*10+4] = 10 ; hauteurBTYf[i*10+4] = 6 ; //action
+    pos_button_width_G2[i*10+1] = margeLeft +((i-1)*40) +(int)posRelativeMainButton.x    ; pos_button_height_G2[i*10+1] = buttonPositionY +(int)posRelativeMainButton.y     ; width_button_G2[i*10+1] = 20 ; height_button_G2[i*10+1] = 20 ; //main
+    pos_button_width_G2[i*10+2] = margeLeft +((i-1)*40) +(int)posRelativeSettingButton.x ; pos_button_height_G2[i*10+2] = buttonPositionY +(int)posRelativeSettingButton.y  ; width_button_G2[i*10+2] = 19 ; height_button_G2[i*10+2] = 6 ; //setting
+    pos_button_width_G2[i*10+3] = margeLeft +((i-1)*40) +(int)posRelativeSoundButton.x   ; pos_button_height_G2[i*10+3] = buttonPositionY +(int)posRelativeSoundButton.y    ; width_button_G2[i*10+3] = 10 ; height_button_G2[i*10+3] = 6 ; //sound
+    pos_button_width_G2[i*10+4] = margeLeft +((i-1)*40) +(int)posRelativeActionButton.x  ; pos_button_height_G2[i*10+4] = buttonPositionY +(int)posRelativeActionButton.y   ; width_button_G2[i*10+4] = 10 ; height_button_G2[i*10+4] = 6 ; //action
   }
 }
 
@@ -1057,11 +1047,11 @@ void buttonDrawGroupZero() {
 void buttonDrawGroupOne() {
   int rankThumbnail = 0 ;
   for( int i = 1 ; i <= numGroup[1] ; i++ ) {
-    BOf[i*10 +1].buttonPicSerie(OFF_in_thumbnail, OFF_out_thumbnail, ON_in_thumbnail, ON_out_thumbnail, i +rankThumbnail ) ; 
-    BOf[i*10 +2].buttonPic(picSetting) ;
-    BOf[i*10 +3].buttonPic(picSound) ; 
-    BOf[i*10 +4].buttonPic(picAction) ; 
-    PVector pos = new PVector (posWidthBOf[i*10 +2], posHeightBOf[i*10 +1] +10) ;
+    button_G1[i*10 +1].buttonPicSerie(OFF_in_thumbnail, OFF_out_thumbnail, ON_in_thumbnail, ON_out_thumbnail, i +rankThumbnail ) ; 
+    button_G1[i*10 +2].buttonPic(picSetting) ;
+    button_G1[i*10 +3].buttonPic(picSound) ; 
+    button_G1[i*10 +4].buttonPic(picAction) ; 
+    PVector pos = new PVector (pos_button_width_G1[i*10 +2], pos_button_height_G1[i*10 +1] +10) ;
     PVector size = new PVector (20, 30) ;
     rolloverInfoVignette(pos, size, i, 1) ;
   }
@@ -1071,11 +1061,11 @@ void buttonDrawGroupTwo() {
   // var use to find the good thumbnail
   int rankThumbnail = numGroup[1] ;
   for( int i = 1 ; i <= numGroup[2] ; i++ ) {
-    BTf[i*10 +1].buttonPicSerie(OFF_in_thumbnail, OFF_out_thumbnail, ON_in_thumbnail, ON_out_thumbnail, i +rankThumbnail) ; 
-    BTf[i*10 +2].buttonPic(picSetting) ;
-    BTf[i*10 +3].buttonPic(picSound) ; 
-    BTf[i*10 +4].buttonPic(picAction) ;     
-    PVector pos = new PVector (posWidthBTf[i*10 +2], posHeightBTf[i*10 +1] +10) ;
+    button_G2[i*10 +1].buttonPicSerie(OFF_in_thumbnail, OFF_out_thumbnail, ON_in_thumbnail, ON_out_thumbnail, i +rankThumbnail) ; 
+    button_G2[i*10 +2].buttonPic(picSetting) ;
+    button_G2[i*10 +3].buttonPic(picSound) ; 
+    button_G2[i*10 +4].buttonPic(picAction) ;     
+    PVector pos = new PVector (pos_button_width_G2[i*10 +2], pos_button_height_G2[i*10 +1] +10) ;
     PVector size = new PVector (20, 30) ;
     rolloverInfoVignette(pos, size, i, 2) ;
   }
@@ -1109,8 +1099,8 @@ void buttonCheckDraw() {
   for(int i = 1 ; i < NUM_GROUP_SLIDER ; i++) {
     int num = numButton[i] +10 ;
     for( int j = 11 ; j < num ; j++) {
-      if(numGroup[1] > 0 && i == 1 ) EtatBOf[j-10] = BOf[j].getOnOff() ;
-      if(numGroup[2] > 0 && i == 2 ) EtatBTf[j-10] = BTf[j].getOnOff() ;
+      if(numGroup[1] > 0 && i == 1 ) on_off_group_one[j-10] = button_G1[j].getOnOff() ;
+      if(numGroup[2] > 0 && i == 2 ) on_off_group_two[j-10] = button_G2[j].getOnOff() ;
     }
   }
 }
@@ -1146,26 +1136,27 @@ void buttonCheckDraw() {
 
 // DROPDOWN
 ////////////
-int refSizeImageDropdown, refSizeFileTextDropdown ;
-PVector posTextDropdownImage, posTextDropdownFileText ; 
+int refSizeImageDropdown, refSizeFileTextDropdown, refSizeCameraVideoDropdown ;
+PVector posTextDropdownImage, posTextDropdownFileText, posTextDropdownCameraVideo ; 
 color selectedText ;
 color colorBoxIn, colorBoxOut, colorBoxText, colorDropdownBG, colorDropdownTitleIn, colorDropdownTitleOut ;
 int sizeToRenderTheBoxDropdown = 15 ;
 
 void dropdownSetup() {
 
-  posButtonBackground = new PVector(colOne +correctionHeaderDropdownBackgroundX, lineMenuTopDropdown +correctionHeaderDropdownY)  ;
-  posButtonFont =       new PVector(colOne +correctionHeaderDropdownFontX,  lineMenuTopDropdown +correctionHeaderDropdownY)  ; 
-  posButtonImage =      new PVector(colOne +correctionHeaderDropdownImageX,  lineMenuTopDropdown +correctionHeaderDropdownY)  ; 
-  posButtonFileText =   new PVector(colOne +correctionHeaderDropdownFileTextX,  lineMenuTopDropdown +correctionHeaderDropdownY)  ; 
-   //dropdown
-   colorDropdownBG = rougeTresFonce ;
-   colorDropdownTitleIn = jaune ;
-   colorDropdownTitleOut = orange ;
-   colorBoxIn = jaune ; 
-   colorBoxOut = orange ;
-   colorBoxText = rougeFonce ;
-   selectedText = vertFonce ;
+  posButtonBackground =     new PVector(colOne +correctionHeaderDropdownBackgroundX,      lineMenuTopDropdown +correctionHeaderDropdownY)  ;
+  posButtonFont =           new PVector(colOne +correctionHeaderDropdownFontX,            lineMenuTopDropdown +correctionHeaderDropdownY)  ; 
+  posButtonImage =          new PVector(colOne +correctionHeaderDropdownImageX,           lineMenuTopDropdown +correctionHeaderDropdownY)  ; 
+  posButtonFileText =       new PVector(colOne +correctionHeaderDropdownFileTextX,        lineMenuTopDropdown +correctionHeaderDropdownY)  ; 
+  posButtonCameraVideo =    new PVector(colOne +correctionHeaderDropdownCameraVideoX,     lineMenuTopDropdown +correctionHeaderDropdownY)  ; 
+  //dropdown
+  colorDropdownBG = rougeTresFonce ;
+  colorDropdownTitleIn = jaune ;
+  colorDropdownTitleOut = orange ;
+  colorBoxIn = jaune ; 
+  colorBoxOut = orange ;
+  colorBoxText = rougeFonce ;
+  selectedText = vertFonce ;
 
   //load the external list  for each mode and split to read in the interface
   for (int i = 0 ; i<objectList.getRowCount() ; i++) {
@@ -1212,6 +1203,14 @@ void dropdownSetup() {
   refSizeFileTextDropdown = fileTextDropdownList.length ;
   dropdownFileText = new Dropdown("Text", fileTextDropdownList, posDropdownFileText, sizeDropdownFileText, posTextDropdownFileText, colorDropdownBG, colorDropdownTitleIn, colorDropdownTitleOut, colorBoxIn, colorBoxOut, colorBoxText, sizeToRenderTheBoxDropdown) ;
   
+  // Camera Video Dropdown
+  //////////////////
+  posDropdownCameraVideo = new PVector(posButtonCameraVideo.x, posButtonCameraVideo.y, 0.1)  ; // x y is pos anz z is marge between the dropdown and the header
+  sizeDropdownCameraVideo = new PVector (100, sizeToRenderTheBoxDropdown, 10 ) ; // z is the num of line you show
+  posTextDropdownCameraVideo = new PVector(3, 10)  ;
+  refSizeCameraVideoDropdown = cameraVideoDropdownList.length ;
+  dropdownCameraVideo = new Dropdown("Camera Video", cameraVideoDropdownList, posDropdownCameraVideo, sizeDropdownCameraVideo, posTextDropdownCameraVideo, colorDropdownBG, colorDropdownTitleIn, colorDropdownTitleOut, colorBoxIn, colorBoxOut, colorBoxText, sizeToRenderTheBoxDropdown) ;
+  
   
   
   //MODE Dropdown
@@ -1255,21 +1254,71 @@ boolean dropdownActivity ;
 int dropdownActivityCount ;
 
 void dropdownDraw() {
+  // update content
+  update_dropdown_content() ;
+  // update dropdown
   checkTheDropdownDrawObject(startLoopObject, endLoopObject) ;
   checkTheDropdownDrawObject(startLoopTexture, endLoopTexture) ;
-  checkTheDropdownDrawObject(startLoopTypo, endLoopTypo) ;
-  dropdownBackground() ;
-  dropdownFont() ;
-  dropdownImage() ;
-  dropdownFileText() ;
+
+  dropdown_update_background() ;
+  dropdown_update(sizeDropdownFileText, posDropdownFileText, dropdownFileText, fileTextDropdownList, titleDropdownMedium) ;
+  dropdown_update(sizeDropdownImage, posDropdownImage, dropdownImage, imageDropdownList, titleDropdownMedium) ;
+  dropdown_update(sizeDropdownFont, posDropdownFont, dropdownFont, policeDropdownList, titleDropdownMedium) ;
+  dropdown_update(sizeDropdownCameraVideo, posDropdownCameraVideo, dropdownCameraVideo, cameraVideoDropdownList, titleDropdownMedium) ;
   // check the activity o the dropdown
   if(dropdownActivityCount > 0 ) dropdownActivity = true ; else dropdownActivity = false ;
   dropdownActivityCount = 0 ;
 }
 // END MAIN
 
-// SHADER Background
-void dropdownBackground() {
+
+
+
+
+// Annexe method
+
+void update_dropdown_content() {
+    // update file text content
+  if(fileTextDropdownList.length != refSizeFileTextDropdown ) {
+    dropdownFileText = new Dropdown("Text", fileTextDropdownList, posDropdownFileText, sizeDropdownFileText, posTextDropdownFileText, colorDropdownBG, colorDropdownTitleIn, colorDropdownTitleOut, colorBoxIn, colorBoxOut, colorBoxText, sizeToRenderTheBoxDropdown) ;
+    refSizeFileTextDropdown = fileTextDropdownList.length ;
+  }
+   // update content picture
+  if(imageDropdownList.length != refSizeImageDropdown ) {
+    dropdownImage = new Dropdown("Image", imageDropdownList, posDropdownImage, sizeDropdownImage, posTextDropdownImage, colorDropdownBG, colorDropdownTitleIn, colorDropdownTitleOut, colorBoxIn, colorBoxOut, colorBoxText, sizeToRenderTheBoxDropdown) ;
+    refSizeImageDropdown = imageDropdownList.length ;
+  }
+}
+
+
+
+// global update for the classic dropdown
+void dropdown_update(PVector size, PVector pos, Dropdown dropdown_menu, String [] menu_list, PFont font) {
+  dropdown_menu.dropdownUpdate(font, textUsual_1);
+  if (dropdownOpen) dropdownActivityCount = +1 ;
+  margeAroundDropdown = size.y  ;
+  //give the size of menu recalculate with the size of the word inside
+  PVector new_size = dropdown_menu.sizeBoxDropdownMenu ;
+  //compare the standard size of dropdown with the number of element of the list.
+  int heightDropdown = 0 ;
+  if(menu_list.length < size.z ) heightDropdown = menu_list.length ; else heightDropdown = (int)size.z ;
+  PVector total_size = new PVector ( new_size.x +(margeAroundDropdown *1.5), size.y *(heightDropdown +1) +margeAroundDropdown) ; // we must add +1 to the size of the dropdown for the title plus the item list
+  //new pos to include the slider
+  PVector new_pos = new PVector (pos.x -margeAroundDropdown, pos.y) ;
+  if (!insideRect(new_pos, total_size)) dropdown_menu.locked = false ;
+  
+  if(!dropdown_menu.locked && menu_list.length > 0) {
+    fill(selectedText) ;
+    // display the selection
+    EtatFileText = dropdown_menu.getSelection() ;
+    textFont(textUsual_2) ;
+    text(menu_list[dropdown_menu.getSelection()], pos.x +3 , pos.y +22) ;
+  }
+}
+
+
+// update for the special content dropdown
+void dropdown_update_background() {
   
   dropdownBackground.dropdownUpdate(titleDropdownMedium, textUsual_1);
   if (dropdownOpen) dropdownActivityCount = +1 ;
@@ -1279,10 +1328,10 @@ void dropdownBackground() {
   //compare the standard size of dropdown with the number of element of the list.
   int heightDropdown = 0 ;
   if(shaderBackgroundName.length < sizeDropdownBackground.z ) heightDropdown = shaderBackgroundName.length ; else heightDropdown = (int)sizeDropdownBackground.z ;
-  totalSizeDropdown = new PVector ( newSizeFont.x +(margeAroundDropdown *1.5), sizeDropdownBackground.y *(heightDropdown +1) +margeAroundDropdown) ; // we must add +1 to the size of the dropdown for the title plus the item list
+  PVector total_size = new PVector ( newSizeFont.x +(margeAroundDropdown *1.5), sizeDropdownBackground.y *(heightDropdown +1) +margeAroundDropdown) ; // we must add +1 to the size of the dropdown for the title plus the item list
   //new pos to include the slider
-  newPosDropdown = new PVector (posDropdownBackground.x -margeAroundDropdown, posDropdownBackground.y) ;
-  if (!insideRect(newPosDropdown, totalSizeDropdown)) dropdownBackground.locked = false ;
+  PVector new_pos = new PVector (posDropdownBackground.x -margeAroundDropdown, posDropdownBackground.y) ;
+  if (!insideRect(new_pos, total_size)) dropdownBackground.locked = false ;
   // display the selection
   
   if(!dropdownBackground.locked) {
@@ -1298,91 +1347,7 @@ void dropdownBackground() {
   }
 }
 
-// FONT
-void dropdownFont() {
-  dropdownFont.dropdownUpdate(titleDropdownMedium, textUsual_1);
-  if (dropdownOpen) dropdownActivityCount = +1 ;
-  margeAroundDropdown = sizeDropdownFont.y  ;
-  //give the size of menu recalculate with the size of the word inside
-  PVector newSizeFont = dropdownFont.sizeBoxDropdownMenu ;
-  //compare the standard size of dropdown with the number of element of the list.
-  int heightDropdown = 0 ;
-  if(policeDropdownList.length < sizeDropdownFont.z ) heightDropdown = policeDropdownList.length ; else heightDropdown = (int)sizeDropdownFont.z ;
-  totalSizeDropdown = new PVector (newSizeFont.x +(margeAroundDropdown *1.5), sizeDropdownFont.y *(heightDropdown +1) +margeAroundDropdown) ; // we must add +1 to the size of the dropdown for the title plus the item list
-  //new pos to include the slider
-  newPosDropdown = new PVector (posDropdownFont.x -margeAroundDropdown, posDropdownFont.y) ;
-  if (!insideRect(newPosDropdown, totalSizeDropdown)) dropdownFont.locked = false ;
-  
-  if(!dropdownFont.locked) {
-    fill(selectedText) ;
-    // display the selection
-    textFont(textUsual_2) ;
-    text(policeDropdownList[dropdownFont.getSelection()], posDropdownFont.x +3 , posDropdownFont.y +22) ;
-  }
-}
 
-// IMAGE
-
-void dropdownImage() {
-  // live update of the content
-  if(imageDropdownList.length != refSizeImageDropdown ) {
-    dropdownImage = new Dropdown("Image", imageDropdownList, posDropdownImage, sizeDropdownImage, posTextDropdownImage, colorDropdownBG, colorDropdownTitleIn, colorDropdownTitleOut, colorBoxIn, colorBoxOut, colorBoxText, sizeToRenderTheBoxDropdown) ;
-    refSizeImageDropdown = imageDropdownList.length ;
-  }
-  
-  dropdownImage.dropdownUpdate(titleDropdownMedium, textUsual_1);
-  if (dropdownOpen) dropdownActivityCount = +1 ;
-  margeAroundDropdown = sizeDropdownImage.y  ;
-  //give the size of menu recalculate with the size of the word inside
-  PVector newSizeImage = dropdownImage.sizeBoxDropdownMenu ;
-  //compare the standard size of dropdown with the number of element of the list.
-  int heightDropdown = 0 ;
-  if(imageDropdownList.length < sizeDropdownImage.z ) heightDropdown = imageDropdownList.length ; else heightDropdown = (int)sizeDropdownImage.z ;
-  totalSizeDropdown = new PVector (newSizeImage.x +(margeAroundDropdown *1.5), sizeDropdownImage.y *(heightDropdown +1) +margeAroundDropdown) ; // we must add +1 to the size of the dropdown for the title plus the item list
-  //new pos to include the slider
-  newPosDropdown = new PVector (posDropdownImage.x -margeAroundDropdown, posDropdownImage.y) ;
-  if (!insideRect(newPosDropdown, totalSizeDropdown)) dropdownImage.locked = false ;
-  
-  if(!dropdownImage.locked && imageDropdownList.length > 0) {
-    fill(selectedText) ;
-    EtatImage = dropdownImage.getSelection() ;
-    textFont(textUsual_2) ;
-    text(imageDropdownList[dropdownImage.getSelection()], posDropdownImage.x +3, posDropdownImage.y +22) ;
-  }
-}
-
-
-// FILE TEXT
-void dropdownFileText() {
-  // live update of the content
-  if(fileTextDropdownList.length != refSizeFileTextDropdown ) {
-    dropdownFileText = new Dropdown("Text", fileTextDropdownList, posDropdownFileText, sizeDropdownFileText, posTextDropdownFileText, colorDropdownBG, colorDropdownTitleIn, colorDropdownTitleOut, colorBoxIn, colorBoxOut, colorBoxText, sizeToRenderTheBoxDropdown) ;
-    refSizeFileTextDropdown = fileTextDropdownList.length ;
-  }
-  
-  dropdownFileText.dropdownUpdate(titleDropdownMedium, textUsual_1);
-  if (dropdownOpen) dropdownActivityCount = +1 ;
-  margeAroundDropdown = sizeDropdownFileText.y  ;
-  //give the size of menu recalculate with the size of the word inside
-  PVector newSizeFileText = dropdownFileText.sizeBoxDropdownMenu ;
-  //compare the standard size of dropdown with the number of element of the list.
-  int heightDropdown = 0 ;
-  if(fileTextDropdownList.length < sizeDropdownFileText.z ) heightDropdown = fileTextDropdownList.length ; else heightDropdown = (int)sizeDropdownFileText.z ;
-  totalSizeDropdown = new PVector ( newSizeFileText.x +(margeAroundDropdown *1.5), sizeDropdownFileText.y *(heightDropdown +1) +margeAroundDropdown) ; // we must add +1 to the size of the dropdown for the title plus the item list
-  //new pos to include the slider
-  newPosDropdown = new PVector (posDropdownFileText.x -margeAroundDropdown, posDropdownFileText.y) ;
-  if (!insideRect(newPosDropdown, totalSizeDropdown)) dropdownFileText.locked = false ;
-  
-  if(!dropdownFileText.locked && fileTextDropdownList.length > 0) {
-    fill(selectedText) ;
-    // display the selection
-    EtatFileText = dropdownFileText.getSelection() ;
-    textFont(textUsual_2) ;
-    text(fileTextDropdownList[dropdownFileText.getSelection()], posDropdownFileText.x +3 , posDropdownFileText.y +22) ;
-  }
-}
-
-// OBJECT
 void checkTheDropdownDrawObject( int start, int end ) {
   for ( int i = start ; i < end ; i ++ ) {
     if(modeListRomanesco[i] != null ) {
@@ -1395,10 +1360,10 @@ void checkTheDropdownDrawObject( int start, int end ) {
         PVector newSizeModeTypo = dropdown[i].sizeBoxDropdownMenu ;
          int heightDropdown = 0 ;
         if(dropdown[i].listItem.length < sizeDropdownMode.z ) heightDropdown = dropdown[i].listItem.length ; else heightDropdown = (int)sizeDropdownMode.z ;
-        totalSizeDropdown = new PVector (newSizeModeTypo.x + (margeAroundDropdown *1.5) , sizeDropdownMode.y * (heightDropdown +1)  + margeAroundDropdown   ) ; // we must add +1 to the size of the dropdown for the title plus the item list
+        PVector total_size = new PVector (newSizeModeTypo.x + (margeAroundDropdown *1.5) , sizeDropdownMode.y * (heightDropdown +1)  + margeAroundDropdown   ) ; // we must add +1 to the size of the dropdown for the title plus the item list
          //new pos to include the slider
-        newPosDropdown = new PVector (posDropdown[i].x - margeAroundDropdown, posDropdown[i].y) ;
-        if ( !insideRect(newPosDropdown, totalSizeDropdown)) {
+        PVector new_pos = new PVector (posDropdown[i].x - margeAroundDropdown, posDropdown[i].y) ;
+        if ( !insideRect(new_pos, total_size)) {
           dropdown[i].locked = false;
         }
       }
@@ -1409,94 +1374,58 @@ void checkTheDropdownDrawObject( int start, int end ) {
     }
   }
 }
+
 //END DROPDOWN DRAW
+///////////////////
 
 
 
-//MOUSEPRESSED
+
+
+
+
+// DROPDOWN MOUSEPRESSED
+////////////////////////
 void dropdownMousepressed() {
-  checkDropdownBackground() ;
-  checkDropdownFont() ;
-  checkDropdownImage() ;
-  checkDropdownFileText() ;
-  // group One
-  checkTheDropdownObjectMousepressed(startLoopObject, endLoopObject ) ;
-  // group Two
-  checkTheDropdownObjectMousepressed(startLoopTexture, endLoopTexture ) ;
-  //group one
-  checkTheDropdownObjectMousepressed(startLoopTypo, endLoopTypo ) ;
+  // top menu
+  check_dropdown_mousepressed (posDropdownBackground,  sizeDropdownBackground,  dropdownBackground) ;
+  check_dropdown_mousepressed (posDropdownFont,        sizeDropdownFont,        dropdownFont) ;
+  check_dropdown_mousepressed (posDropdownImage,       sizeDropdownImage,       dropdownImage) ;
+  check_dropdown_mousepressed (posDropdownFileText,    sizeDropdownFileText,    dropdownFileText) ;
+  check_dropdown_mousepressed (posDropdownCameraVideo, sizeDropdownCameraVideo, dropdownCameraVideo) ;
+  // group one and two
+  check_dropdown_object_mousepressed(startLoopObject, endLoopObject ) ;
+  check_dropdown_object_mousepressed(startLoopTexture, endLoopTexture ) ;
 }
 // END MAIN
 
 
-void checkDropdownBackground() {
-  if (dropdownBackground != null) {
-    if (insideRect(posDropdownBackground, sizeDropdownBackground) && !dropdownBackground.locked  ) {
-      dropdownBackground.locked = true;
-    } else if (dropdownBackground.locked) {
-      float newWidthDropdown = dropdownBackground.sizeBoxDropdownMenu.x ;
-      int line = dropdownBackground.selectDropdownLine(newWidthDropdown);
+
+
+
+void check_dropdown_mousepressed(PVector pos, PVector size, Dropdown dropdown_menu) {
+  if (dropdown_menu != null) {
+    if (insideRect(pos, size) && !dropdown_menu.locked  ) {
+      dropdown_menu.locked = true;
+    } else if (dropdown_menu.locked) {
+      float new_width = dropdown_menu.sizeBoxDropdownMenu.x ;
+      int line = dropdown_menu.selectDropdownLine(new_width);
       if (line > -1 ) {
-        dropdownBackground.whichDropdownLine(line);
+        dropdown_menu.whichDropdownLine(line);
         //to close the dropdown
-        dropdownBackground.locked = false;        
+        dropdown_menu.locked = false;        
       } 
     }
   }
 }
 
-// FONT
-void checkDropdownFont() {
-  if (dropdownFont != null) {
-    if (insideRect(posDropdownFont, sizeDropdownFont) && !dropdownFont.locked  ) {
-      dropdownFont.locked = true;
-    } else if (dropdownFont.locked) {
-      float newWidthDropdown = dropdownFont.sizeBoxDropdownMenu.x ;
-      int line = dropdownFont.selectDropdownLine(newWidthDropdown);
-      if (line > -1 ) {
-        dropdownFont.whichDropdownLine(line);
-        //to close the dropdown
-        dropdownFont.locked = false;        
-      } 
-    }
-  }
-}
 
-// IMAGE
-void checkDropdownImage() {
-  if (dropdownImage != null) {
-    if (insideRect(posDropdownImage, sizeDropdownImage) && !dropdownImage.locked  ) {
-      dropdownImage.locked = true;
-    } else if (dropdownImage.locked) {
-      float newWidthDropdown = dropdownImage.sizeBoxDropdownMenu.x ;
-      int line = dropdownImage.selectDropdownLine(newWidthDropdown);
-      if (line > -1 ) {
-        dropdownImage.whichDropdownLine(line);
-        //to close the dropdown
-        dropdownImage.locked = false;        
-      } 
-    }
-  }
-}
 
-// FILE TEXT
-void checkDropdownFileText() {
-  if (dropdownFileText != null) {
-    if (insideRect(posDropdownFileText, sizeDropdownFileText) && !dropdownFileText.locked  ) {
-      dropdownFileText.locked = true;
-    } else if (dropdownFileText.locked) {
-      float newWidthDropdown = dropdownFileText.sizeBoxDropdownMenu.x ;
-      int line = dropdownFileText.selectDropdownLine(newWidthDropdown);
-      if (line > -1 ) {
-        dropdownFileText.whichDropdownLine(line);
-        //to close the dropdown
-        dropdownFileText.locked = false;        
-      } 
-    }
-  }
-}
+// OBJECT dropdown
+//////////////////
 
-void checkTheDropdownObjectMousepressed( int start, int end ) {
+
+void check_dropdown_object_mousepressed( int start, int end ) {
   for ( int i = start ; i < end ; i ++ ) { 
     if (dropdown[i] != null) {
       if (insideRect(posDropdown[i], sizeDropdownMode) && !dropdown[i].locked  ) {

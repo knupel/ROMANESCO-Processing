@@ -46,36 +46,37 @@ Simple  BOmidi, BOcurtain,
         Bbeat, Bkick, Bsnare, Bhat;
         
 //button group one
-Simple[] BOf  ;
-int transparenceBordBOf[], epaisseurBordBOf[], transparenceBoutonBOf[], posWidthBOf[], posHeightBOf[], longueurBOf[], hauteurBOf[]  ;
+Simple[] button_G1  ;
+int pos_button_width_G1[], pos_button_height_G1[], width_button_G1[], height_button_G1[]  ;
+// int opacity_button_G1[], posWidthBOf[], posHeightBOf[], longueurBOf[], hauteurBOf[]  ;
+// int thickness_stroke_G1[], transparenceBoutonBOf[], posWidthBOf[], posHeightBOf[], longueurBOf[], hauteurBOf[]  ;
+// int opacity_stroke_G1[], epaisseurBordBOf[], transparenceBoutonBOf[], posWidthBOf[], posHeightBOf[], longueurBOf[], hauteurBOf[]  ;
+// int transparenceBordBOf[], epaisseurBordBOf[], transparenceBoutonBOf[], posWidthBOf[], posHeightBOf[], longueurBOf[], hauteurBOf[]  ;
 //button group two
-Simple[] BTf  ;
-int transparenceBordBTf[], epaisseurBordBTf[], transparenceBoutonBTf[], posWidthBTf[],posHeightBTf[], longueurBTf[], hauteurBTf[]  ;
-//bouton group three
-Simple[] BTYf  ;
-int transparenceBordBTYf[], epaisseurBordBTYf[], transparenceBoutonBTYf[], posWidthBTYf[], posHeightBTYf[], longueurBTYf[], hauteurBTYf[]  ;
+Simple[] button_G2  ;
+int pos_button_width_G2[], pos_button_height_G2[], width_button_G2[], height_button_G2[]  ;
+// int transparenceBordBTf[], epaisseurBordBTf[], transparenceBoutonBTf[], posWidthBTf[],posHeightBTf[], longueurBTf[], hauteurBTf[]  ;
+
 
 
 //Variable must be send to Scene
-//paramètre bouton
-int EtatBOf[], EtatBTf[], EtatBTYf[] ; 
-// int EtatBIf[] ;
+///////////////////////////////////////
+// statement on_of for the object group
+int on_off_group_one[], on_off_group_two[] ; 
 
 
 //////////
 //DROPDOWN
-int startLoopObject, endLoopObject, startLoopTexture, endLoopTexture, startLoopTypo, endLoopTypo ;
+int startLoopObject, endLoopObject, startLoopTexture, endLoopTexture ;
 //GLOBAL
-Dropdown dropdown[], dropdownFont, dropdownBackground, dropdownImage, dropdownFileText  ;
+Dropdown dropdown[], dropdownFont, dropdownBackground, dropdownImage, dropdownFileText, dropdownCameraVideo  ;
 
-PVector posDropdownFont, posDropdownBackground, posDropdownImage, posDropdownFileText, posDropdown[] ;
-PVector sizeDropdownFont, sizeDropdownBackground, sizeDropdownImage, sizeDropdownFileText, sizeDropdownMode ;
+PVector posDropdownFont, posDropdownBackground, posDropdownImage, posDropdownFileText, posDropdownCameraVideo, posDropdown[] ;
+PVector sizeDropdownFont, sizeDropdownBackground, sizeDropdownImage, sizeDropdownFileText, sizeDropdownCameraVideo, sizeDropdownMode ;
 PVector posTextDropdown = new PVector(2,8)  ;
 
-PVector totalSizeDropdown = new PVector () ;
-PVector newPosDropdown = new PVector () ;
 
-String [] modeListRomanesco, policeDropdownList, imageDropdownList, fileTextDropdownList, listDropdown, listDropdownBackground;
+String [] modeListRomanesco, policeDropdownList, imageDropdownList, fileTextDropdownList,  cameraVideoDropdownList, listDropdown, listDropdownBackground;
 
 float margeAroundDropdown ;
 
@@ -135,30 +136,24 @@ void initVarButton() {
   valueButtonGroup_1 = new int[numButton[1]] ;
   valueButtonGroup_2 = new int[numButton[2]] ;
   // Group one
-  BOf = new Simple[numButton[1] +10] ;
-  transparenceBordBOf =      new int[numButton[1] +10] ;
-  epaisseurBordBOf =         new int[numButton[1] +10] ;
-  transparenceBoutonBOf =    new int[numButton[1] +10] ;
-  posWidthBOf =              new int[numButton[1] +10] ;
-  posHeightBOf =             new int[numButton[1] +10] ;
-  longueurBOf =              new int[numButton[1] +10] ;
-  hauteurBOf =               new int[numButton[1] +10] ;
+  button_G1 = new Simple[numButton[1] +10] ;
+  pos_button_width_G1 =              new int[numButton[1] +10] ;
+  pos_button_height_G1 =             new int[numButton[1] +10] ;
+  width_button_G1 =              new int[numButton[1] +10] ;
+  height_button_G1 =               new int[numButton[1] +10] ;
   
   // group two
-  BTf = new Simple[numButton[2] +10] ;
-  transparenceBordBTf =      new int[numButton[2] +10] ;
-  epaisseurBordBTf =         new int[numButton[2] +10] ;
-  transparenceBoutonBTf =    new int[numButton[2] +10] ;
-  posWidthBTf =              new int[numButton[2] +10] ;
-  posHeightBTf =             new int[numButton[2] +10] ;
-  longueurBTf =              new int[numButton[2] +10] ;
-  hauteurBTf =               new int[numButton[2] +10] ;
+  button_G2 = new Simple[numButton[2] +10] ;
+  pos_button_width_G2 =              new int[numButton[2] +10] ;
+  pos_button_height_G2 =             new int[numButton[2] +10] ;
+  width_button_G2 =              new int[numButton[2] +10] ;
+  height_button_G2 =               new int[numButton[2] +10] ;
   
 
   
   //paramètre bouton
-  EtatBOf = new int[numButton[1]] ;
-  EtatBTf = new int[numButton[2]] ;
+  on_off_group_one = new int[numButton[1]] ;
+  on_off_group_two = new int[numButton[2]] ;
   
   //dropdown
   modeListRomanesco = new String[numDropdown] ;
@@ -453,11 +448,6 @@ void setttingSliderSave(int whichOne) {
   slider[whichOne].setMidi((int)infoSliderTemp.b) ; 
   slider[whichOne].setMolette(infoSliderTemp.c) ; 
   slider[whichOne].setMinMax(infoSliderTemp.d, infoSliderTemp.e) ;
-  /*
-  slider[whichOne].insideMin() ;
-  slider[whichOne].insideMax() ;
-  slider[whichOne].updateMinMax() ;
-  */
 }
 
 
@@ -513,8 +503,8 @@ void setButtonSave() {
     for (int j = 1 ; j <= BUTTON_BY_OBJECT ; j++) {
       rank++ ;
       buttonRank = (int)infoButton[rank].x ;
-      if(infoButton[rank].z == 1.0 && buttonRank == (i*10)+j) BOf[buttonRank].onOff = true ; else BOf[buttonRank].onOff = false ; 
-      BOf[buttonRank].IDmidi = (int)infoButton[rank].y ; 
+      if(infoButton[rank].z == 1.0 && buttonRank == (i*10)+j) button_G1[buttonRank].onOff = true ; else button_G1[buttonRank].onOff = false ; 
+      button_G1[buttonRank].IDmidi = (int)infoButton[rank].y ; 
     }
   }
   whichGroup = 2 ; 
@@ -522,8 +512,8 @@ void setButtonSave() {
     for (int j = 1 ; j <= BUTTON_BY_OBJECT ; j++) {
       rank++ ;
       buttonRank = (int)infoButton[rank].x ;
-      if(infoButton[rank].z == 1.0 && buttonRank == (i*10)+j) BTf[buttonRank].onOff = true ; else BTf[buttonRank].onOff = false ; 
-      BTf[buttonRank].IDmidi = (int)infoButton[rank].y ; 
+      if(infoButton[rank].z == 1.0 && buttonRank == (i*10)+j) button_G2[buttonRank].onOff = true ; else button_G2[buttonRank].onOff = false ; 
+      button_G2[buttonRank].IDmidi = (int)infoButton[rank].y ; 
     } 
   }
 }

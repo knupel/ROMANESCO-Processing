@@ -1,6 +1,8 @@
 // Tab: A_Core_Controller
 import java.awt.event.KeyEvent;
-// import processing.net.*;
+import java.awt.image.* ;
+import java.awt.* ;
+
 // CONSTANT VAR
 final int NUM_COL_SLIDER = 3 ;
 final int BUTTON_BY_OBJECT = 4 ;

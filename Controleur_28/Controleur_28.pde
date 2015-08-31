@@ -21,6 +21,7 @@ void setup() {
   setDisplaySlider() ;
   checkImageFolder() ;
   checkFileTextFolder() ;
+  check_camera_device() ;
   fontSetup() ;
   // midiSetup() ;
   importPicButtonSetup() ;
@@ -31,6 +32,7 @@ void setup() {
   constructorSlider() ;
   sendOSCsetup() ;
   settingDataFromSave() ;
+
 }
 
 
@@ -59,8 +61,8 @@ void draw() {
 void mousePressed () {
   //object
   if(!dropdownActivity) {
-    if(numGroup[1] > 0 ) for( int i = 11 ; i < numGroup[1] *10 + 6 ; i++ ) BOf[i].mousePressed()  ;
-    if(numGroup[2] > 0 ) for( int i = 11 ; i < numGroup[2] *10 + 6 ; i++)  BTf[i].mousePressed() ;
+    if(numGroup[1] > 0 ) for( int i = 11 ; i < numGroup[1] *10 + 6 ; i++ ) button_G1[i].mousePressed()  ;
+    if(numGroup[2] > 0 ) for( int i = 11 ; i < numGroup[2] *10 + 6 ; i++)  button_G2[i].mousePressed() ;
   
     buttonBackground.mousePressedText() ;
         //LIGHT ONE

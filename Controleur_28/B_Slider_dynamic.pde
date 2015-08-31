@@ -258,7 +258,7 @@ void checkObjectOnOff() {
   for(int i = 0 ; i < numGroup[1] ; i++ ) {
     int whichOne = i*10 +2 ;
     witnessActivity = activityButtonParameter ;
-    if (EtatBOf[whichOne] == 1) {
+    if (on_off_group_one[whichOne] == 1) {
       objectActive[i+1] = true ; 
       if(mousePressed)  activityButtonParameter = !activityButtonParameter ;
     } else { 
@@ -271,7 +271,7 @@ void checkObjectOnOff() {
   }
   for(int i = 0 ; i < numGroup[2] ; i++ ) {
     int whichOne = i*10 +2 ;
-    if (EtatBTf[whichOne] == 1) { 
+    if (on_off_group_two[whichOne] == 1) { 
       objectActive[i +numGroup[1] +1] = true ; 
       if(mousePressed)  activityButtonParameter = !activityButtonParameter ;
       } else { 

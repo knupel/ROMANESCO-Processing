@@ -7,7 +7,8 @@ ROMANESCO 28 Revision
 > remove Maverick detection
 > add fullscreen() method from processing
 > add librairie processing.video at the root of Romanesco, now you just need to call the fonction with cam.methode()
->improve a little bit the object webCam
+> improve a little bit the object webCam
+> add dropdown menu to Controller to choice your camera device
 
 
 

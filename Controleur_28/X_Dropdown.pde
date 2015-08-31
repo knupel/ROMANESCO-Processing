@@ -47,8 +47,9 @@ public class Dropdown {
     // difference between the total list item and what is possible to display
     missing = listItem.length - endingDropdown  ;
    
-    //size of the dropdow, for the bottom part
-    sizeBoxDropdownMenu = new PVector (longestWord(listItem, 1, listItem.length) *sizeBox *.46, sizeBox) ; 
+    //size of the dropdow, for the item part
+    float ratio = .95 ;
+    sizeBoxDropdownMenu = new PVector (longest_word_in_pixel(listItem) *ratio, sizeBox) ;
     
     
     //slider dropdown
@@ -83,6 +84,7 @@ public class Dropdown {
       //loop to display the item list
       for ( int i = startingDropdown +updateDropdown ; i < endingDropdown +updateDropdown ; i++) {
         //bottom rendering
+
         renderBox(listItem[i], step++, sizeBoxDropdownMenu, dropdownFont, colorTextBox);
         //Slider dropdown
         if (slider) {
@@ -98,6 +100,9 @@ public class Dropdown {
       titleWithoutBox(title, 1, size, titleFont);
     }
   }
+
+
+
 
 
   //DISPLAY
@@ -121,7 +126,7 @@ public class Dropdown {
     noStroke() ;
     if (insideRect(newPosDropdown, size)) fill(boxIn); else fill(boxOut) ;
     int sizeWidthMin = 60 ;
-    int sizeWidthMax = 120 ;
+    int sizeWidthMax = 300 ;
     if (sizeBoxDropdown.x < sizeWidthMin ) sizeBoxDropdown.x = sizeWidthMin ; else if(sizeBoxDropdown.x > sizeWidthMax ) sizeBoxDropdown.x = sizeWidthMax ;
     rect(pos.x, yLevel, sizeBoxDropdown.x, sizeBoxDropdown.y);
     fill(textColor);

@@ -107,11 +107,11 @@ void translateDataToSend() {
   //BUTTON GROUP ONE
   if(numGroup[1] > 0 ) {
     for ( int i = 0 ; i < numGroup[1]   ; i ++) {
-      valueButtonGroup_1[i *10 +1] = EtatBOf[i *10 +1] ;
-      valueButtonGroup_1[i *10 +2] = EtatBOf[i *10 +2] ;
-      valueButtonGroup_1[i *10 +3] = EtatBOf[i *10 +3] ;
-      valueButtonGroup_1[i *10 +4] = EtatBOf[i *10 +4] ;
-      valueButtonGroup_1[i *10 +5] = EtatBOf[i *10 +5] ;
+      valueButtonGroup_1[i *10 +1] = on_off_group_one[i *10 +1] ;
+      valueButtonGroup_1[i *10 +2] = on_off_group_one[i *10 +2] ;
+      valueButtonGroup_1[i *10 +3] = on_off_group_one[i *10 +3] ;
+      valueButtonGroup_1[i *10 +4] = on_off_group_one[i *10 +4] ;
+      valueButtonGroup_1[i *10 +5] = on_off_group_one[i *10 +5] ;
       if (dropdown[i+1] != null) valueButtonGroup_1[i *10 +9] = dropdown[i+1].getSelection() ;
     }
   }
@@ -119,11 +119,11 @@ void translateDataToSend() {
   //BUTTON GROUP TWO
   if(numGroup[2] > 0 ) {
     for ( int i = 0 ; i < numGroup[2] ; i ++) {
-      valueButtonGroup_2[i *10 +1] = EtatBTf[i *10 +1] ;
-      valueButtonGroup_2[i *10 +2] = EtatBTf[i *10 +2] ;
-      valueButtonGroup_2[i *10 +3] = EtatBTf[i *10 +3] ;
-      valueButtonGroup_2[i *10 +4] = EtatBTf[i *10 +4] ;
-      valueButtonGroup_2[i *10 +5] = EtatBTf[i *10 +5] ;
+      valueButtonGroup_2[i *10 +1] = on_off_group_two[i *10 +1] ;
+      valueButtonGroup_2[i *10 +2] = on_off_group_two[i *10 +2] ;
+      valueButtonGroup_2[i *10 +3] = on_off_group_two[i *10 +3] ;
+      valueButtonGroup_2[i *10 +4] = on_off_group_two[i *10 +4] ;
+      valueButtonGroup_2[i *10 +5] = on_off_group_two[i *10 +5] ;
       int whichDropdown = i+1 +numGroup[1] ;
       if (dropdown[whichDropdown] != null) valueButtonGroup_2[i *10 +9] = dropdown[whichDropdown].getSelection() ;
     }

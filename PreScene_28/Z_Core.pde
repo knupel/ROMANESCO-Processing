@@ -296,11 +296,44 @@ void miroirSetup() {
   server = new SyphonServer(this, nameVersion + " " + prettyVersion +"."+version);
 }
 void miroirDraw() {
-  if (yTouch) syphon = !syphon ;
+  if(yTouch) syphon = !syphon ;
   if (syphon) server.sendScreen();
 }
 
-
+// Old Syphon
+/**
+Miroir miroir;
+void miroirSetup() {
+  miroir = new Miroir(this);
+}
+void miroirDraw() {
+  if(yTouch) syphon = !syphon ;
+  if (syphon) miroir.update();
+}
+class Miroir {
+  public PGraphics canvas;
+  public SyphonServer server;
+  PApplet that;
+  Miroir(PApplet that) {
+    this.that = that;
+    canvas = createGraphics(that.width, that.height, P3D);
+    // Create syhpon server to send frames out.
+    //server = new SyphonServer(that, "Processing Syphon");
+    server = new SyphonServer(that, "Romanesco");
+  }
+  void update() {
+    that.loadPixels();
+    canvas.loadPixels();
+    for(int x = 0; x < that.width; x++) {
+     for(int y = 0; y < that.height; y++) {
+         canvas.pixels[((that.height-y-1)*that.width+x)] = that.pixels[y*that.width+x];
+     }
+   }
+    canvas.updatePixels();
+    server.sendImage(canvas);
+  }
+}
+*/
 //END MIROIR
 
 
@@ -653,7 +686,7 @@ int tracking(int t, int n) {
 
 
 
-
+/*
 ///////////////////////////////////////////
 //TRANSLATOR INT to String, FLOAT to STRING
 //truncate
@@ -661,9 +694,9 @@ float truncate( float x ) {
     return round( x * 100.0f ) / 100.0f;
 }
 //Int to String with array list
-/*
-@ return String
-*/
+
+// @ return String
+
 String joinIntToString(int []data) {
   String intString ;
   String [] dataString = new String [data.length] ;
@@ -703,5 +736,6 @@ String IntToString(int data) {
   newData = Integer.toString(data ) ;
   return newData ;
 }
+*/
 //END TRANSLATOR
 ///////////////

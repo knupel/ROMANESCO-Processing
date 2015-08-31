@@ -1,33 +1,16 @@
 // Tab: X_Utils
-//STRING SPLIT
-String [] splitText(String textToSplit, String separator) {
-  String [] text = textToSplit.split(separator) ;
-  return text  ;
-}
-//STRING COMPARE LIST SORT
-//raw compare
-int longestWord( String[] listWordsToSort) {
-  int sizeWord = 0 ;
-  for ( int i = 0 ; i < listWordsToSort.length ; i++) {
-    if (listWordsToSort[i].length() > sizeWord )  sizeWord = listWordsToSort[i].length() ;
-  }
-  return  sizeWord ;
-}
-//with starting and end keypoint in the String must be sort
-int longestWord( String[] listWordsToSort, int start, int finish ) {
-  int sizeWord = 0 ;
-  for ( int i = start ; i < finish ; i++) {
-    if (listWordsToSort[i].length() > sizeWord )  sizeWord = listWordsToSort[i].length() ;
-  }
-  return  sizeWord ;
-}
-//END STRING COMPARE
-////////////////////
+
+
+
+
+
+
+
 
 
 
 // MOUSE DETECTION
-// CIRLCLE
+// CIRCLE
 
 boolean insideCircle (PVector pos, int diam) {
   if (dist(pos.x, pos.y, mouseX, mouseY) < diam) return true  ; else return false ;
@@ -78,7 +61,7 @@ int minClock() {
 }
 
 
-
+/*
 //TRANSLATOR to String
 String joinIntToString(int []data) {
   String intString ;
@@ -106,3 +89,4 @@ String FloatToString(float data) {
   newData = String.format("%.2f", data ) ;
   return newData ;
 }
+*/

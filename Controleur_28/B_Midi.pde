@@ -47,6 +47,12 @@ void midiDraw() {
 // ANNEXE METHODE
 /////////////////
 
+////MIDI/////////////////
+void controllerIn(promidi.Controller controller, int device, int channel){
+  numMidi = controller.getNumber();
+  valMidi = controller.getValue();
+}
+
 // DISPLAY INFO MIDI INPUT
 //////////////////////////
 void midi_device_choice(PVector pos, int spacing) {
@@ -187,18 +193,18 @@ void midiButtonManager(boolean saveButton) {
   int whichGroup = 1 ;
   for( int i = 1 ; i <= numGroup[whichGroup ] ; i++ ) {
     rank = 1 ;
-    midiButton(BOf[posRankButton(i,rank)], posRankButton(i,rank), saveButton) ; rank++ ;
-    midiButton(BOf[posRankButton(i,rank)], posRankButton(i,rank), saveButton) ; rank++ ;
-    midiButton(BOf[posRankButton(i,rank)], posRankButton(i,rank), saveButton) ; rank++ ;
-    midiButton(BOf[posRankButton(i,rank)], posRankButton(i,rank), saveButton) ;
+    midiButton(button_G1[posRankButton(i,rank)], posRankButton(i,rank), saveButton) ; rank++ ;
+    midiButton(button_G1[posRankButton(i,rank)], posRankButton(i,rank), saveButton) ; rank++ ;
+    midiButton(button_G1[posRankButton(i,rank)], posRankButton(i,rank), saveButton) ; rank++ ;
+    midiButton(button_G1[posRankButton(i,rank)], posRankButton(i,rank), saveButton) ;
   }
   whichGroup = 2 ; 
   for( int i = 1 ; i <= numGroup[whichGroup] ; i++ ) {
     rank = 1 ;
-    midiButton(BTf[posRankButton(i,rank)], posRankButton(i,rank), saveButton) ; rank++ ;
-    midiButton(BTf[posRankButton(i,rank)], posRankButton(i,rank), saveButton) ; rank++ ;
-    midiButton(BTf[posRankButton(i,rank)], posRankButton(i,rank), saveButton) ; rank++ ; 
-    midiButton(BTf[posRankButton(i,rank)], posRankButton(i,rank), saveButton) ;     
+    midiButton(button_G2[posRankButton(i,rank)], posRankButton(i,rank), saveButton) ; rank++ ;
+    midiButton(button_G2[posRankButton(i,rank)], posRankButton(i,rank), saveButton) ; rank++ ;
+    midiButton(button_G2[posRankButton(i,rank)], posRankButton(i,rank), saveButton) ; rank++ ; 
+    midiButton(button_G2[posRankButton(i,rank)], posRankButton(i,rank), saveButton) ;     
   }
 }
 

@@ -1,3 +1,4 @@
+
 // Tab: Z_VAR
 // GLOBAL SETTING ////
 
@@ -7,6 +8,7 @@ import java.util.*;
 import java.awt.*;
 import java.util.Iterator;
 import java.lang.reflect.*; 
+import java.awt.image.* ;
 
 import processing.video.*;
 import oscP5.*;

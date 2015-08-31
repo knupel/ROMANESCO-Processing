@@ -8,23 +8,44 @@ Guide to code the object
 °°°°°°°°°°°°°°°°°°°°°°°°
 
 
-________________
-FAMILY OBJECT
-°°°°°°°°°°°°°°°°
+
+FAMILY and ID Object
+=====================
 int IDfamily = # ;
  and give too the family ID
- 1 for simple
- 2 for texture
- 3 for typo
+ 1 for family one
+ 2 for family 2
+
+INFO Object
+=====================
+romanescoName = "Unknown" ;
+romanescoAuthor = "Anonymous";
+romanescoVersion = "Alpha";
+romanescoPack = "Base" ; 
+
+romanescoVideo = "NO" or "YES" ; elp the controller to manage the computer camera
+
+romanescoMode = "mode name/mode name" ; separate the name by a slash and write the next mode immadialtly after this one.
+
+romanescoSlider = 	"all" 
+
+					or choice in the list bellow, the case is very important, no "space" after or before the word. The word must be separate by a comma
+
+					"Hue fill,Saturation fill,Brightness fill,Alpha fill,
+					Hue stroke,Saturation stroke,Brightness stroke,
+					Alpha stroke,Thickness,
+					Size X,Size Y,Size Z,
+					Canvas X,Canvas Y,Canvas Z,
+					Family,Quantity,Life,
+					Speed,Direction,Angle,
+					Amplitude,Attraction,Repulsion,
+					Alignment,Influence,Analyze" ;
 
 
-________________________________
-SLIDER CONTROLLER ACTIVATION
-°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°
- remove the slider you don't want display
- romanescoSlider = "Hue fill,Saturation fill,Brightness fill,Alpha fill,Hue stroke,Saturation stroke,Brightness stroke,
- 					Alpha stroke,Thickness,Size X,Size Y,Size Z,Canvas X,Canvas Y,Canvas Z,Quantity,Speed,Direction,
- 					Angle,Amplitude,Analyze,Family,Life,Force" ;
+
+
+
+
 
 ________________
 VOID
@@ -130,6 +151,9 @@ CAMERA
 ---------------------
 You can call the video capture directly, you don't need to write code about the librairy.
 you can use directly the Capture methode of the processing.video.*
+
+In the description of the object write 
+romanescoVideo = "YES" ;
 
 PVector CAM_SIZE ; @return the width and the height of the current video capture
 boolean CAMERA_AVAILABLE ; #return the statement of the device camera
@@ -325,7 +349,7 @@ REVERSE DIRECTION
 boolean reverse[IDobj] use to reverse direction or what you want, activa by "r" key - boolean rTouch -
 
 
-INFO
+DISPLAY INFO on SCENE
 –––––––––––––––––––––––––––––––––––––––––––––––––––––––––
 boolean objectInfoDisplay[IDobj] use to display info or what you want show on Prescene or Scene from your object, activate by "i" key - boolean iTouch
 

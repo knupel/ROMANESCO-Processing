@@ -49,24 +49,115 @@ void colorSetup() {
 
 }
 //END COLOR
+/////////////
 
 
 
-//DRAW
-//////RETURN////////////
+
+
+
+
+
+// VIDEO CAMERA MENU
+////////////////////
+import processing.video.*;
+Capture cam;
+String[] cameras, cam_name ;
+int[] cam_width, cam_height, cam_fps ;
+
+void list_cameras_controller() {
+  cameras = Capture.list();
+  cam_name = new String[cameras.length] ;
+  cam_width = new int[cameras.length] ;
+  cam_height = new int[cameras.length] ;
+  cam_fps = new int[cameras.length] ;
+  
+  // about the camera
+  if (cameras.length != 0) {
+    println("Available cameras:");
+    for(int i = 0 ; i < cameras.length ; i++) {
+      String cam_data [] = split(cameras[i],",") ;
+      // camera name
+      cam_name[i] = cam_data [0].substring(5,cam_data[0].length()) ;
+      // size camera
+      String size = cam_data [1].substring(5,cam_data[1].length()) ;
+      String [] sizeXY = split(size,"x") ;
+      cam_width[i] = Integer.parseInt(sizeXY[0]) ;
+      cam_height[i] = Integer.parseInt(sizeXY[1]) ; 
+      // fps
+      String fps = cam_data [2].substring(4,cam_data[2].length()) ;
+      cam_fps[i] = Integer.parseInt(fps) ;
+      // info
+      println(i, cam_name [i], cam_width[i] +"x" +cam_height[i], cam_fps[i]) ;
+    }
+  } else {
+    println("There are no cameras available for capture.");
+  }
+}
+
+
+void change_camera_name() {
+  for(int i = 0 ; i < cameras.length ; i++ ) {
+    if(research_in_String("FaceTime", cam_name[i])) cam_name[i] = "Internal Camera" ; else cam_name[i] = "External Camera" ;
+  }
+}
+
+
+void check_camera_device() {
+  //camera
+  list_cameras_controller() ;
+  change_camera_name() ;
+  // num of camera available for the user
+  int num_cam_video = 0 ;
+  for(int i = 0 ; i < cam_name.length ; i++) {
+    if(cam_fps[i] >= 30 && cam_width[i] > 100 ) num_cam_video += 1 ;
+  }
+
+  cameraVideoDropdownList = new String[num_cam_video] ;
+  int which_cam_video = 0 ;
+
+  for(int i = 0 ; i < cam_name.length ; i++) {
+    if(cam_fps[i] >= 30 && cam_width[i] > 100 ) {
+      cameraVideoDropdownList[which_cam_video] = cam_name[i] + " | " + cam_width[i]+"x"+ cam_height[i]+" | " + cam_fps[i] + " fps" ;
+      println(cameraVideoDropdownList[which_cam_video], cameraVideoDropdownList.length) ;
+      which_cam_video += 1 ;
+    }
+  }
+}
+
+
+
+
+// END VIDEO CAMERA MENU
+/////////////////////////
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/////////////////////////////
+////// KEYBOARD ////////////
 boolean checkKeyboard(int c) {
   if (keyboard.length >= c) {
     return keyboard[c];  
   }
   return false;
 }
-////////VOID/////////////
+// END KEYBOARD
+///////////////
 
-////MIDI/////////////////
-void controllerIn(promidi.Controller controller, int device, int channel){
-  numMidi = controller.getNumber();
-  valMidi = controller.getValue();
-}
+
+
 
 
 //////////////
