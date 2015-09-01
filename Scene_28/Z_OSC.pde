@@ -96,6 +96,7 @@ void translateDataFromController () {
   choiceFont(valueButtonGlobal[5]) ;
   whichImage[0] = valueButtonGlobal[15] ;
   whichText[0] = valueButtonGlobal[16] ;
+  which_cam = valueButtonGlobal[17] ;
   
   //OBJECTS
   for ( int i = 0 ; i < numObj-1 ; i++) {

@@ -7,7 +7,7 @@ public PFont
       titleMedium, titleBig,
       
       titleButtonMedium,
-      titleDropdownMedium,
+      title_dropdown_medium,
       
       FuturaExtraBold_9, FuturaExtraBold_10,
       FuturaCondLight_10, FuturaCondLight_11,FuturaCondLight_12,
@@ -33,5 +33,5 @@ void fontSetup() {
   titleBig = FuturaStencil_20 ;
   
   titleButtonMedium = titleMedium ;
-  titleDropdownMedium = titleMedium ;
+  title_dropdown_medium = titleMedium ;
 }

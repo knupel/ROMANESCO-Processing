@@ -78,7 +78,7 @@ void setSliderDynamic() {
 void recoverActiveSliderFromObj() {
   sliderObjRaw[0] = ("not used") ;
   for(int i = 1 ; i <= numObj ; i++) {
-    sliderObjRaw[i] = objectSlider[objectID[i]] ;
+    sliderObjRaw[i] = object_slider[object_ID[i]] ;
   }
 }
 
@@ -176,7 +176,7 @@ void checkSliderObject() {
    // check the group slider
    for ( int i = 1 ; i <= numObj ; i++) {
     if (objectActive[i]) {
-      showSliderGroup[objectGroup[i]] = true ;
+      showSliderGroup[object_group[i]] = true ;
     }
   }
   
@@ -206,7 +206,7 @@ void checkSliderObject() {
       for ( int i = 1 ; i <= numObj ; i++) {
         if (objectActive[i]) {
           for (int j = 1 ; j < NUM_GROUP_SLIDER ; j++) {
-           if (objectGroup[i] == j) { IDgroup = j ;
+           if (object_group[i] == j) { IDgroup = j ;
               for(int k = 1 ; k < NUM_SLIDER_OBJ ; k++) {
                 if (firstCheck[j])  {
                   if((sliderControler.get(k).equals(sliderObj[i].get(k)) || sliderObj[i].get(k).equals("all"))) displaySlider[IDgroup][k] = true ; else displaySlider[IDgroup][k] = false ;
@@ -258,7 +258,7 @@ void checkObjectOnOff() {
   for(int i = 0 ; i < numGroup[1] ; i++ ) {
     int whichOne = i*10 +2 ;
     witnessActivity = activityButtonParameter ;
-    if (on_off_group_one[whichOne] == 1) {
+    if (on_off_G1[whichOne] == 1) {
       objectActive[i+1] = true ; 
       if(mousePressed)  activityButtonParameter = !activityButtonParameter ;
     } else { 
@@ -271,7 +271,7 @@ void checkObjectOnOff() {
   }
   for(int i = 0 ; i < numGroup[2] ; i++ ) {
     int whichOne = i*10 +2 ;
-    if (on_off_group_two[whichOne] == 1) { 
+    if (on_off_G2[whichOne] == 1) { 
       objectActive[i +numGroup[1] +1] = true ; 
       if(mousePressed)  activityButtonParameter = !activityButtonParameter ;
       } else { 

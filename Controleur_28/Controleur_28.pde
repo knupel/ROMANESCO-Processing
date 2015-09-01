@@ -21,7 +21,7 @@ void setup() {
   setDisplaySlider() ;
   checkImageFolder() ;
   checkFileTextFolder() ;
-  check_camera_device() ;
+  select_camera_device(30, 100) ; // methode(int min_fps, int min_width)
   fontSetup() ;
   // midiSetup() ;
   importPicButtonSetup() ;
@@ -64,25 +64,25 @@ void mousePressed () {
     if(numGroup[1] > 0 ) for( int i = 11 ; i < numGroup[1] *10 + 6 ; i++ ) button_G1[i].mousePressed()  ;
     if(numGroup[2] > 0 ) for( int i = 11 ; i < numGroup[2] *10 + 6 ; i++)  button_G2[i].mousePressed() ;
   
-    buttonBackground.mousePressedText() ;
+    button_bg.mousePressedText() ;
         //LIGHT ONE
-    buttonLightAmbient.mousePressedText() ;
-    buttonLightAmbientAction.mousePressedText() ;
+    button_light_ambient.mousePressedText() ;
+    button_light_ambient_action.mousePressedText() ;
     //LIGHT ONE
-    buttonLightOne.mousePressedText() ;
-    buttonLightOneAction.mousePressedText() ;
+    button_light_1.mousePressedText() ;
+    button_light_1_action.mousePressedText() ;
     // LIGHT TWO
-    buttonLightTwo.mousePressedText() ;
-    buttonLightTwoAction.mousePressedText() ;
+    button_light_2.mousePressedText() ;
+    button_light_2_action.mousePressedText() ;
     //son
-    Bbeat.mousePressedText() ;
-    Bkick.mousePressedText() ;
-    Bsnare.mousePressedText() ;
-    Bhat.mousePressedText() ;
+    button_beat.mousePressedText() ;
+    button_kick.mousePressedText() ;
+    button_snare.mousePressedText() ;
+    button_hat.mousePressedText() ;
     //midi
-    BOmidi.mousePressed() ;
+    button_midi.mousePressed() ;
     //curtain
-    BOcurtain.mousePressed() ;
+    button_curtain.mousePressed() ;
   }
   //dropdown
   dropdownMousepressed() ;

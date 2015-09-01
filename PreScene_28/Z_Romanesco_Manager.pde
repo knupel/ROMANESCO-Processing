@@ -461,7 +461,7 @@ class ObjectRomanescoManager {
 ////////////////////////
 //SUPER CLASS ROMANESCO
 abstract class Romanesco {
-  String romanescoName, romanescoAuthor, romanescoVersion, romanescoPack, romanescoRender, romanescoMode, romanescoSlider, romanescoVideo ;
+  String romanescoName, romanescoAuthor, romanescoVersion, romanescoPack, romanescoRender, romanescoMode, romanescoSlider ;
   int IDobj, IDgroup ;
   //object manager return
   ObjectRomanescoManager orm ;
@@ -472,7 +472,6 @@ abstract class Romanesco {
     romanescoVersion = "Alpha";
     romanescoPack = "Base" ;
     romanescoRender = "classic" ;
-    romanescoVideo = "NO" ;
     romanescoMode = "" ; // separate the name by a slash and write the next mode immadialtly after this one.
     romanescoSlider = "all" ;
     IDgroup = 0 ;

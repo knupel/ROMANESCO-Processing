@@ -7,7 +7,6 @@ class Webcam extends Romanesco {
     romanescoAuthor  = "Stan le Punk";
     romanescoVersion = "Version 1.2.2";
     romanescoPack = "Base" ;
-    romanescoVideo = "YES" ;
     romanescoMode = "Rectangle color/Rectangle mono/Point color/Point mono/Box color/Box mono" ;
     romanescoSlider = "Hue fill,Saturation fill,Brightness fill,Alpha fill,Size X,Size Y,Size Z,Canvas X,Canvas Y" ;
   }
@@ -35,7 +34,6 @@ class Webcam extends Romanesco {
   //DRAW
   void display() {
     //PART ONE
-   // factorCalcul = CAM_SIZE.copy() ; ;
     //calcul the ration between the size of camera and the size of the scene
     factorDisplayCam.x = width / CAM_SIZE.x ; 
     factorDisplayCam.y = height / CAM_SIZE.y ;
@@ -63,9 +61,7 @@ class Webcam extends Romanesco {
     
     cols = (int)CAM_SIZE.x / cellSizeX; // before the resizing
     rows = (int)CAM_SIZE.y / cellSizeY;
-
-    if (CAMERA_AVAILABLE) {
-      cam.read();
+    if (cam.available()) {
       cam.loadPixels();
       for (int i = 0; i < cols ; i++) {
         for (int j = 0; j < rows  ; j++) {
@@ -73,7 +69,7 @@ class Webcam extends Romanesco {
           posPixelX = i *cellSizeX  ;
           posPixelY = j *cellSizeY  ;
           //// display pixel 
-          int  loc = posPixelX  + posPixelY *cam.width; // classic
+          int  loc = posPixelX  +posPixelY *cam.width; // classic
           //  int loc = (cam.width - x - 1) + y*cam.width; // mirror
           //make pixel
           PVector hsb = new PVector (hue(cam.pixels[loc]), saturation(cam.pixels[loc]), brightness(cam.pixels[loc]) ) ;
@@ -83,6 +79,10 @@ class Webcam extends Romanesco {
           displayPix(mode[IDobj],hsb) ; 
         }
       } 
+    } else {
+      fill(fillObj[IDobj]) ;
+      textSize(sizeXObj[IDobj]/10) ;
+      text("Big Brother stops watching you, you're so boring !",0,0) ;
     }
     
 

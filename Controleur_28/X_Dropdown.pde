@@ -70,7 +70,7 @@ public class Dropdown {
   }
   
   //DRAW
-  void dropdownUpdate(PFont titleFont, PFont dropdownFont) {
+  void dropdownUpdate(PFont titleFont, PFont dropdown_font) {
     //to be sure of the position
     rectMode(CORNER);
     //Dropdown
@@ -85,7 +85,7 @@ public class Dropdown {
       for ( int i = startingDropdown +updateDropdown ; i < endingDropdown +updateDropdown ; i++) {
         //bottom rendering
 
-        renderBox(listItem[i], step++, sizeBoxDropdownMenu, dropdownFont, colorTextBox);
+        renderBox(listItem[i], step++, sizeBoxDropdownMenu, dropdown_font, colorTextBox);
         //Slider dropdown
         if (slider) {
           sliderDropdown.insideMol_Rect() ;

@@ -8,8 +8,7 @@ String IAM = ("Prescene") ;
 String prettyVersion = ("1.1.1") ;
 String nameVersion = ("Romanesco Unu") ;
 String preferencesPath ;
-//to work in dev, test phase
-boolean testRomanesco = false ;
+
 
 /*
 Use true when you want 
@@ -19,6 +18,8 @@ used sound
  full frame rate
 */
 boolean fullRendering = false ;
+//to work in dev, test phase
+boolean testRomanesco = false ;
 
 void settings() {
   size(600,400,P3D) ;

@@ -9,7 +9,8 @@ String[] cameras ;
 String[] cam_name ;
 PVector[] cam_size ;
 int[] cam_fps ;
-int which_cam ;
+int which_cam = 0;
+int ref_cam = -1 ;
 PVector CAM_SIZE ;
 boolean CAMERA_AVAILABLE ;
 
@@ -22,13 +23,19 @@ boolean init_cam = false ;
 // Main method camera
 void camera_video_setup() {
   list_cameras() ;
-  if(new_cam) launch_camera() ;
+  if(new_cam && which_cam > -1) launch_camera(which_cam) ;
 }
 
 void camera_video_draw() {
-  if (new_cam) launch_camera() ;
+  if(ref_cam != which_cam || which_cam == -1) {
+    new_cam = true ;
+    camera_stop() ;
+  }
+  ref_cam = which_cam ;
+  if (new_cam && which_cam > -1 ) launch_camera(which_cam) ;
   if (cam.available()) cam.read();
-  camera_stop() ;
+
+
 }
 
 
@@ -36,9 +43,9 @@ void camera_video_draw() {
 
 
 // annexe methode camera
-void launch_camera() {
+void launch_camera(int which_cam) {
   if(CAMERA_AVAILABLE) {
-    if(fullRendering) which_cam = 0 ; else which_cam = 7 ; // 4 is normal camera around 800x600 or 640x360 with 30 fps
+    // if(fullRendering) which_cam = 0 ; else which_cam = 7 ; // 4 is normal camera around 800x600 or 640x360 with 30 fps
     if(!init_cam) {
       init_camera(which_cam) ;
       init_cam = true ;
@@ -47,23 +54,26 @@ void launch_camera() {
     println("Camera ",which_cam, cam_name [which_cam], cam_size[which_cam], cam_fps[which_cam]) ;
     // surface.setSize((int)cam_size[which_cam].x, (int)cam_size[which_cam].y) ;
     new_cam = false ;
+
   }
 }
 
 void camera_stop() {
-  if(stop_cam) { 
-    cam.stop() ;
-    init_cam = false ;
-  }
+  cam.stop() ;
+  init_cam = false ;
 }
 
 
 
 
 void init_camera(int which_camra) {
+  println("ça tourne") ;
   cam = new Capture(this, cameras[which_camra]);
   cam.start();     
+  cam.read(); 
+  println(cam.available(), cam.width) ;;
 }
+
 
 void list_cameras() {
   cameras = Capture.list();

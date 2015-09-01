@@ -32,7 +32,7 @@ void midiDraw() {
     midi_device_choice(pos_midi_info, spacing_midi_info) ;
   }
 
-  if (EtatMidiButton == 1) selectMidi = true ; else selectMidi = false ;
+  if (state_midi_button == 1) selectMidi = true ; else selectMidi = false ;
 
 }
 
@@ -177,18 +177,18 @@ void midiButtonManager(boolean saveButton) {
   // close loop for load save button
   // see void buttonSetSaveSetting()
   int rank = 0 ;
-  midiButton(buttonBackground, rank++, saveButton) ;
-  midiButton(BOcurtain, rank++, saveButton) ;
+  midiButton(button_bg, rank++, saveButton) ;
+  midiButton(button_curtain, rank++, saveButton) ;
   
-  midiButton(buttonLightOne, rank++, saveButton) ;
-  midiButton(buttonLightOneAction, rank++, saveButton) ;
-  midiButton(buttonLightTwo, rank++, saveButton) ;
-  midiButton(buttonLightTwoAction, rank++, saveButton) ;
+  midiButton(button_light_1, rank++, saveButton) ;
+  midiButton(button_light_1_action, rank++, saveButton) ;
+  midiButton(button_light_2, rank++, saveButton) ;
+  midiButton(button_light_2_action, rank++, saveButton) ;
   
-  midiButton(Bbeat, rank++, saveButton) ;
-  midiButton(Bkick, rank++, saveButton) ;
-  midiButton(Bsnare, rank++, saveButton) ;
-  midiButton(Bhat, rank++, saveButton) ;
+  midiButton(button_beat, rank++, saveButton) ;
+  midiButton(button_kick, rank++, saveButton) ;
+  midiButton(button_snare, rank++, saveButton) ;
+  midiButton(button_hat, rank++, saveButton) ;
   
   int whichGroup = 1 ;
   for( int i = 1 ; i <= numGroup[whichGroup ] ; i++ ) {

@@ -97,32 +97,40 @@ void list_cameras_controller() {
 
 
 void change_camera_name() {
-  for(int i = 0 ; i < cameras.length ; i++ ) {
-    if(research_in_String("FaceTime", cam_name[i])) cam_name[i] = "Internal Camera" ; else cam_name[i] = "External Camera" ;
+  if(cameras.length > 0) {
+    for(int i = 0 ; i < cameras.length ; i++ ) {
+      if(research_in_String("FaceTime", cam_name[i])) cam_name[i] = "Apple" ; else cam_name[i] = "Alien" ;
+    }
+  } else {
+    cam_name[0] = "No cameras to look at you" ;
   }
 }
 
 
-void check_camera_device() {
+void select_camera_device(int fps, int min_width) {
   //camera
   list_cameras_controller() ;
   change_camera_name() ;
   // num of camera available for the user
   int num_cam_video = 0 ;
   for(int i = 0 ; i < cam_name.length ; i++) {
-    if(cam_fps[i] >= 30 && cam_width[i] > 100 ) num_cam_video += 1 ;
+    if(cam_fps[i] >= fps && cam_width[i] > min_width ) num_cam_video += 1 ;
   }
 
-  cameraVideoDropdownList = new String[num_cam_video] ;
+  name_camera_video_dropdown_list = new String[num_cam_video +1] ;
+  ID_camera_video_list = new int[num_cam_video +1] ;
   int which_cam_video = 0 ;
 
   for(int i = 0 ; i < cam_name.length ; i++) {
-    if(cam_fps[i] >= 30 && cam_width[i] > 100 ) {
-      cameraVideoDropdownList[which_cam_video] = cam_name[i] + " | " + cam_width[i]+"x"+ cam_height[i]+" | " + cam_fps[i] + " fps" ;
-      println(cameraVideoDropdownList[which_cam_video], cameraVideoDropdownList.length) ;
+    if(cam_fps[i] >= fps && cam_width[i] > min_width ) {
+      name_camera_video_dropdown_list[which_cam_video] = cam_name[i] + " " + cam_width[i]+"x"+ cam_height[i] ;
+      ID_camera_video_list [which_cam_video] = i ;
+      println(name_camera_video_dropdown_list[which_cam_video], name_camera_video_dropdown_list.length) ;
       which_cam_video += 1 ;
     }
   }
+  name_camera_video_dropdown_list[which_cam_video] = "Cut" ;
+  ID_camera_video_list [which_cam_video] = -1 ;
 }
 
 
@@ -236,19 +244,19 @@ void checkFileTextFolder() {
 
 
 void initLiveData() {
-  imageDropdownList = new String[imageFiles.size()] ;
-  for(int i = 0 ; i< imageDropdownList.length ; i++) {
+  image_dropdown_list = new String[imageFiles.size()] ;
+  for(int i = 0 ; i< image_dropdown_list.length ; i++) {
     File f = (File) imageFiles.get(i);
-    imageDropdownList[i] = f.getName() ;
-    imageDropdownList[i] = imageDropdownList[i].substring(0,imageDropdownList[i].length() -4) ;
+    image_dropdown_list[i] = f.getName() ;
+    image_dropdown_list[i] = image_dropdown_list[i].substring(0,image_dropdown_list[i].length() -4) ;
   }
   
   //text
-  fileTextDropdownList = new String[textFiles.size()] ;
-  for(int i = 0 ; i< fileTextDropdownList.length ; i++) {
+  file_text_dropdown_list = new String[textFiles.size()] ;
+  for(int i = 0 ; i< file_text_dropdown_list.length ; i++) {
     File f = (File) textFiles.get(i);
-    fileTextDropdownList[i] = f.getName() ;
-    fileTextDropdownList[i] = fileTextDropdownList[i].substring(0, fileTextDropdownList[i].length() -4) ;
+    file_text_dropdown_list[i] = f.getName() ;
+    file_text_dropdown_list[i] = file_text_dropdown_list[i].substring(0, file_text_dropdown_list[i].length() -4) ;
   }
 }
 

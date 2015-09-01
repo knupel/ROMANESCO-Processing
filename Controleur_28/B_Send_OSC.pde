@@ -28,9 +28,9 @@ void sendOSCdraw() {
   translateDataToSend() ;
   
   //BUTTON 
-  toPreScene[0] = joinIntToString(valueButtonGroup_0) ; 
-  toPreScene[1] = joinIntToString(valueButtonGroup_1) ;
-  toPreScene[2] = joinIntToString(valueButtonGroup_2) ;
+  toPreScene[0] = joinIntToString(value_button_G0) ; 
+  toPreScene[1] = joinIntToString(value_button_G1) ;
+  toPreScene[2] = joinIntToString(value_button_G2) ;
   
   
   // SLIDER
@@ -79,53 +79,51 @@ void sendOSCdraw() {
 void translateDataToSend() {
   //BUTTON GLOBAL
   //sound
-  valueButtonGroup_0[1] = EtatBbeat ;
-  valueButtonGroup_0[2] = EtatBkick ;
-  valueButtonGroup_0[3] = EtatBsnare ;
-  valueButtonGroup_0[4] = EtatBhat ;
+  value_button_G0[1] = state_button_beat ;
+  value_button_G0[2] = state_button_kick ;
+  value_button_G0[3] = state_button_snare ;
+  value_button_G0[4] = state_button_hat ;
 
-  valueButtonGroup_0[5] = dropdownFont.getSelection() +1 ; ;
-  valueButtonGroup_0[6] = EtatCurtainButton ;
-  valueButtonGroup_0[7] = EtatBackgroundButton ;
+  value_button_G0[5] = dropdown_font.getSelection() +1 ; ;
+  value_button_G0[6] = state_curtain_button ;
+  value_button_G0[7] = state_BackgroundButton ;
   
-  valueButtonGroup_0[8] = EtatLightOneButton ;
-  valueButtonGroup_0[9] = EtatLightTwoButton ;
-  valueButtonGroup_0[10] = EtatLightAmbientButton ;
-  valueButtonGroup_0[11] = EtatLightOneAction ;
-  valueButtonGroup_0[12] = EtatLightTwoAction ;
-  valueButtonGroup_0[13] = EtatLightAmbientAction ;
+  value_button_G0[8] = state_LightOneButton ;
+  value_button_G0[9] = state_LightTwoButton ;
+  value_button_G0[10] = state_LightAmbientButton ;
+  value_button_G0[11] = state_LightOneAction ;
+  value_button_G0[12] = state_LightTwoAction ;
+  value_button_G0[13] = state_LightAmbientAction ;
+
   
-  valueButtonGroup_0[14] = EtatBackgroundShader ;
-  valueButtonGroup_0[15] = EtatImage ;
-  valueButtonGroup_0[16] = EtatFileText ;
-  /*
-  valueButtonGroup_0[12] = EtatBackground ;
-  valueButtonGroup_0[13] = EtatImage ;
-  valueButtonGroup_0[14] = EtatFileText ;
-  */
+  if(state_bg_shader > SWITCH_VALUE_FOR_DROPDOWN)     value_button_G0[14] = state_bg_shader ;
+  if(state_image > SWITCH_VALUE_FOR_DROPDOWN)         value_button_G0[15] = state_image ;
+  if(state_file_text > SWITCH_VALUE_FOR_DROPDOWN)     value_button_G0[16] = state_file_text ;
+  if(state_camera_video > SWITCH_VALUE_FOR_DROPDOWN)  value_button_G0[17] = ID_camera_video_list[state_camera_video] ;
+
   
   //BUTTON GROUP ONE
   if(numGroup[1] > 0 ) {
     for ( int i = 0 ; i < numGroup[1]   ; i ++) {
-      valueButtonGroup_1[i *10 +1] = on_off_group_one[i *10 +1] ;
-      valueButtonGroup_1[i *10 +2] = on_off_group_one[i *10 +2] ;
-      valueButtonGroup_1[i *10 +3] = on_off_group_one[i *10 +3] ;
-      valueButtonGroup_1[i *10 +4] = on_off_group_one[i *10 +4] ;
-      valueButtonGroup_1[i *10 +5] = on_off_group_one[i *10 +5] ;
-      if (dropdown[i+1] != null) valueButtonGroup_1[i *10 +9] = dropdown[i+1].getSelection() ;
+      value_button_G1[i *10 +1] = on_off_G1[i *10 +1] ;
+      value_button_G1[i *10 +2] = on_off_G1[i *10 +2] ;
+      value_button_G1[i *10 +3] = on_off_G1[i *10 +3] ;
+      value_button_G1[i *10 +4] = on_off_G1[i *10 +4] ;
+      value_button_G1[i *10 +5] = on_off_G1[i *10 +5] ;
+      if (dropdown[i+1] != null) value_button_G1[i *10 +9] = dropdown[i+1].getSelection() ;
     }
   }
   
   //BUTTON GROUP TWO
   if(numGroup[2] > 0 ) {
     for ( int i = 0 ; i < numGroup[2] ; i ++) {
-      valueButtonGroup_2[i *10 +1] = on_off_group_two[i *10 +1] ;
-      valueButtonGroup_2[i *10 +2] = on_off_group_two[i *10 +2] ;
-      valueButtonGroup_2[i *10 +3] = on_off_group_two[i *10 +3] ;
-      valueButtonGroup_2[i *10 +4] = on_off_group_two[i *10 +4] ;
-      valueButtonGroup_2[i *10 +5] = on_off_group_two[i *10 +5] ;
+      value_button_G2[i *10 +1] = on_off_G2[i *10 +1] ;
+      value_button_G2[i *10 +2] = on_off_G2[i *10 +2] ;
+      value_button_G2[i *10 +3] = on_off_G2[i *10 +3] ;
+      value_button_G2[i *10 +4] = on_off_G2[i *10 +4] ;
+      value_button_G2[i *10 +5] = on_off_G2[i *10 +5] ;
       int whichDropdown = i+1 +numGroup[1] ;
-      if (dropdown[whichDropdown] != null) valueButtonGroup_2[i *10 +9] = dropdown[whichDropdown].getSelection() ;
+      if (dropdown[whichDropdown] != null) value_button_G2[i *10 +9] = dropdown[whichDropdown].getSelection() ;
     }
   }
 }
