@@ -81,20 +81,6 @@ void opening() {
 }
 
 
-//INIT in real time and re-init the default setting of the display window
-
-
-void initDraw() {
-  //Default display shape and text
-  rectMode (CORNER) ; 
-  textAlign(LEFT) ;
-}
-
-
-
-
-
-
 
 
 
@@ -292,7 +278,10 @@ void keyboardTrue() {
   
   if (key == 'a'  || key == 'A' ) aTouch = true ;
   if (key == 'b'  || key == 'B' ) bTouch = true ;
-  if (key == 'c'  || key == 'C' ) { cTouch = true ; cLongTouch = true ; }
+  if (key == 'c'  || key == 'C' ) { 
+    cTouch = true ; 
+    cLongTouch = true ; 
+  }
   if (key == 'd'  || key == 'D' ) dTouch = true ;
   if (key == 'e'  || key == 'E' ) eTouch = true ;
   if (key == 'f'  || key == 'F' ) fTouch = true ;
@@ -301,9 +290,15 @@ void keyboardTrue() {
   if (key == 'i'  || key == 'I' ) iTouch = true ;
   if (key == 'j'  || key == 'J' ) jTouch = true ;
   if (key == 'k'  || key == 'K' ) kTouch = true ;
-  if (key == 'l'  || key == 'L' ) { lTouch = true ; lLongTouch = true ; }
+  if (key == 'l'  || key == 'L' ) { 
+    lTouch = true ; 
+    lLongTouch = true ; 
+  }
   if (key == 'm'  || key == 'M' ) mTouch = true ;
-  if (key == 'n'  || key == 'N' ) { nTouch = true ; nLongTouch = true ; }
+  if (key == 'n'  || key == 'N' ) { 
+    nTouch = true ; 
+    nLongTouch = true ; 
+  }
   if (key == 'o'  || key == 'O' ) oTouch = true ;
   if (key == 'p'  || key == 'P' ) pTouch = true ;
   if (key == 'q'  || key == 'Q' ) qTouch = true ;
@@ -311,7 +306,10 @@ void keyboardTrue() {
   if (key == 's'  || key == 'S' ) sTouch = true ;
   if (key == 't'  || key == 'T' ) tTouch = true ;
   if (key == 'u'  || key == 'U' ) uTouch = true ;
-  if (key == 'v'  || key == 'V' ) { vTouch = true ; vLongTouch = true ; }
+  if (key == 'v'  || key == 'V' ) { 
+    vTouch = true ; 
+    vLongTouch = true ; 
+  }
   if (key == 'w'  || key == 'W' ) wTouch = true ;
   if (key == 'x'  || key == 'X' ) xTouch = true ;
   if (key == 'y'  || key == 'Y' ) yTouch = true ;
@@ -330,7 +328,10 @@ void keyboardTrue() {
   
   if (keyCode == BACKSPACE ) backspaceTouch = true ;
   if (keyCode == DELETE ) deleteTouch = true ;
-  if (keyCode == SHIFT ) shiftTouch = true ;
+  if (keyCode == SHIFT ) {
+    shiftTouch = true ;
+    shiftLongTouch = true ;
+  }
   if (keyCode == ALT ) altTouch = true ;
   if (keyCode == RETURN ) returnTouch = true ;
   if (keyCode == ENTER ) enterTouch = true ;
@@ -349,6 +350,8 @@ void keyboardLongFalse() {
   if (key == 'l'  || key == 'L' ) lLongTouch = false ;
   if (key == 'n'  || key == 'N' ) nLongTouch = false ;
   if (key == 'v'  || key == 'V' ) vLongTouch = false ;
+
+  if (keyCode == SHIFT ) shiftLongTouch = false ;
 }
 
 

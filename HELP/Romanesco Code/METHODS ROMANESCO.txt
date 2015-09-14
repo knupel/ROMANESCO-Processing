@@ -10,7 +10,11 @@
 
 
 // FLOAT METHOD
-float truncate( float x ) @return float
+float decimal(float var, float num_decimal ) 
+@return float
+retrun a specific number of decimal after comma
+
+
 
 String joinIntToString(int []data) @return the int list in a String separate by "/" must be improve, to add a choice in separator
 

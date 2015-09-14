@@ -4,10 +4,9 @@
 
 ///////////////////////////////////////////
 //TRANSLATOR INT to String, FLOAT to STRING
-//truncate
-float truncate( float x ) {
-    return round( x * 100.0f ) / 100.0f;
-}
+
+
+
 //Int to String with array list
 /*
 @ return String

@@ -1,4 +1,5 @@
 // Tab: Z_Camera_display
+// Camera.display 1.b
 //travelling
 boolean gotoCameraPosition, gotoCameraEye, travellingPriority ;
 
@@ -22,15 +23,11 @@ PVector sizeBackgroundP3D  ;
 
 // P3D SETUP
 ////////////
-void P3DSetup(boolean modeP3D, int numObj, int numSettingCamera, int numSettingOrientationObject) {
-      
-  if(modeP3D) {
-    sizeBackgroundP3D = new PVector(width *100, height *100, height *7.5) ;
+void P3D_setup(int numObj, int numSettingCamera, int numSettingOrientationObject) {
     settingAllCameras (numSettingCamera) ;
     settingObjManipulation (numObj) ;
     settingObjectManipulation(numObj, numSettingCamera, numSettingOrientationObject) ;
     initVariableCamera() ;
-  }
 }
 
 
@@ -188,7 +185,6 @@ PVector updatePosObj(PVector pos, int ID, boolean authorization) {
   Vec3 polarObj = toPolar(deltaObjPos) ;
   
   // info 
-  // println("real pos cam ", sceneCamera) ;
   float magCam =  height/2 ;
   Vec3 posCamCorrection = new Vec3( sceneCamera.x, sceneCamera.y, sceneCamera.z + magCam) ;
 
@@ -218,7 +214,6 @@ PVector updatePosObj(PVector pos, int ID, boolean authorization) {
                                     
                                     Vec3 cart_sol_2 = toCartesian3D ( Vec2 (mouse[0].x,mouse[0].y), Vec2(width,height), magCam) ;
   point(cart_sol_2.x,cart_sol_2.y ,cart_sol_2.z ) ;
-  println("cartesian Alternative Eye ",(int)cart_sol_2.x, (int)cart_sol_2.y, (int)cart_sol_2.z) ;
   
   // *************************************
   ///////////////////////////////////

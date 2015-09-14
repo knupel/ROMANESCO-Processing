@@ -31,7 +31,6 @@ void displaySetup(int speed) {
   colorMode(HSB, HSBmode.r, HSBmode.g, HSBmode.b, HSBmode.a) ;
   
   loadPropertyScene() ;
-  sizeScene() ;
   
   backgroundSetup() ;
   backgroundShaderSetup(modeP3D) ;
@@ -54,7 +53,13 @@ void loadPropertyScene() {
   sceneWidth = row.getInt("width") ;
   sceneHeight =  row.getInt("height")  ;
   //SYPHON
-  if(row.getString("miroir").equals("TRUE") || row.getString("miroir").equals("true")) syphon = true ; else syphon = false ;
+  if(row.getString("miroir").equals("TRUE") || row.getString("miroir").equals("true")) {
+    miroir_on_off = true ; 
+    syphon_on_off = true ;
+  } else {
+    miroir_on_off = false ;
+    syphon_on_off = false ;
+  }
   
   // type of renderer
   modeP3D = true ; 
@@ -63,8 +68,14 @@ void loadPropertyScene() {
 
 
 
-void sizeScene() {
-  if (fullScreen) fullScreen(whichScreen) ; else surface.setSize(sceneWidth, sceneHeight);
+void size_scene() {
+  if (fullScreen && !check_size) { 
+    fullScreen(whichScreen) ;
+    check_size = true ; 
+  } else if (!fullScreen && !check_size || (width != sceneWidth && height != sceneHeight)) {
+    check_size = true ;
+    surface.setSize(sceneWidth, sceneHeight); 
+  }
 }
 // END size scene
 
@@ -99,7 +110,7 @@ void updateSizeDisplay(PImage imgDisplay) {
     setSize((int)newSizeSketch.x, (int)newSizeSketch.y) ;
     newSizeWindow = new PVector ( Math.max( newSizeSketch.x, MIN_WINDOW_WIDTH)  + insets.left + insets.right, 
                                           Math.max( newSizeSketch.y, MIN_WINDOW_HEIGHT) + insets.top  + insets.bottom) ;
-    frame.setSize((int)newSizeWindow.x, (int)newSizeWindow.y);
+    surface.setSize((int)newSizeWindow.x, (int)newSizeWindow.y);
   }
 }
 /**

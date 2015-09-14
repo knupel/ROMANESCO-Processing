@@ -187,9 +187,10 @@ void encapsuleDataPrescene(){
    if (lLongTouch) dataPreScene [62] = ("1") ; else dataPreScene [62] = ("0") ;
    if (nLongTouch) dataPreScene [63] = ("1") ; else dataPreScene [63] = ("0") ;
    if (vLongTouch) dataPreScene [64] = ("1") ; else dataPreScene [64] = ("0") ;
+
+   if (shiftLongTouch) dataPreScene [65] = ("1") ; else dataPreScene [65] = ("0") ;
    
    // FREE
-   dataPreScene [65] = ("") ;
    dataPreScene [66] = ("") ;
    dataPreScene [67] = ("") ;
    dataPreScene [68] = ("") ;

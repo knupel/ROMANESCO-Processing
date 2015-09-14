@@ -17,12 +17,13 @@ used sound
  maximum possibility of the object
  full frame rate
 */
-boolean fullRendering = false ;
+boolean fullRendering = true ;
 //to work in dev, test phase
 boolean testRomanesco = false ;
 
 void settings() {
   size(600,400,P3D) ;
+  syphon_settings() ;
 }
 
   
@@ -44,14 +45,22 @@ void setup() {
   OSCSetup() ;
   //common setup
   colorSetup() ;
-  // miroirSetup() ;
+  syphon_setup() ;
+
 
   
   varObjSetup() ;
   fontSetup() ;
   // here we ask for the testRomanesco true, because the Minim Library talk too much in the consol
   if(!testRomanesco) soundSetup() ;
-  P3DSetup(modeP3D, numObj, numSettingCamera, numSettingOrientationObject) ;
+  P3D_setup(numObj, numSettingCamera, numSettingOrientationObject) ;
+
+  // Light and shader setup
+  light_position_setup() ;
+  light_setup() ;
+  if(fullRendering) {
+    shader_setup() ;
+  }
 
 }
 
@@ -61,8 +70,8 @@ void setup() {
 void draw() {
   surface.setTitle(nameVersion + " " +prettyVersion+"."+version+ " | Préscène | FPS: "+round(frameRate));
   //setting
-  initDraw() ;
-  // miroirDraw() ;
+  init_and_update_diplay_var() ;
+  syphon_draw() ;
   camera_video_draw() ;
   // here we ask for the testRomanesco true, because the Minim Library talk too much in the consol
   if(!testRomanesco) soundDraw() ;
@@ -75,11 +84,22 @@ void draw() {
   
   //ROMANESCO
   cameraDraw() ;
-  lightPosition() ;
+  
+  // LIGHT
+  light_position_draw(mouse[0], wheel[0]) ; // not in the conditional because we need to display in the info box
+  light_update_position_direction() ;
+  if(fullRendering) {
+    light_call_shader() ;
+    light_display() ;
+    shader_draw() ;
+  }
+
+
   //use romanesco object
   romanescoManager.displayObject(ORDER_ONE, ORDER_TWO, ORDER_THREE) ;
   createGridCamera() ;
   stopCamera() ;
+
   
   //annexe
   info() ;
@@ -88,11 +108,12 @@ void draw() {
   // misc
   updateVarTemp() ;
   cursorDraw() ;
-
+  
   // change to false if the information has be sent to Scene...but how ????
   keyboardFalse() ;
-  
   opening() ;
+
+
 }
 //END DRAW
 

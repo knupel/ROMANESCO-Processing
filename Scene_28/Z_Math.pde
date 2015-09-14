@@ -13,6 +13,14 @@ float roots(float valueToRoots, int n) {
 }
 
 
+// Decimal
+// @return a specific quantity of decimal after comma
+float decimale (float var, int n) {
+  float div = pow(10, abs(n)) ;
+  return Math.round(var *div) / div;
+}
+
+
 
 
 

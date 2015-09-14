@@ -1,5 +1,4 @@
-// Tab: Z_Vec
-// CLASS VEC 0.1.11
+// CLASS VEC 0.1.14
 ///////////////////
 // inspireted by GLSL code and PVector
 
@@ -198,8 +197,6 @@ class Vec2 {
   PVector copyVecToPVector() {
     return new PVector(x,y) ;
   }
-  
-
 }
 // END VEC 2
 ////////////
@@ -691,6 +688,35 @@ class Vec5 {
 ////////////
 
 
+class Vec6 {
+  float a,b,c,d,e,f = 0 ;
+
+  
+  Vec6 () {}
+  
+  Vec6(float value) {
+    this.a = this.b = this.c = this.d = this.e = this.f =value ;
+  }
+  
+  Vec6(float a, float b, float c, float d, float e, float f) {
+    this.a = a ;
+    this.b = b ;
+    this.c = c ;
+    this.d = d ;
+    this.e = e ;
+    this.f = f ;
+  }
+  // catch info
+  /////////////
+  Vec6 copy() {
+    return new Vec6(a,b,c,d,e,f) ;
+  }
+}
+
+// END VEC 5
+////////////
+
+
 
 
 
@@ -772,7 +798,11 @@ Vec4 div(Vec4 v_a, Vec4 v_b) {
 }
 
 
-// compare two vectors Vec
+
+
+// Compare Vector with or without area
+
+// compare two vectors Vec without area
 /*
 @ return boolean
 */
@@ -797,6 +827,41 @@ boolean compare(Vec3 v_a, Vec3 v_b) {
 boolean compare(Vec4 v_a, Vec4 v_b) {
   if( v_a != null && v_b != null ) {
     if((v_a.x == v_b.x) && (v_a.y == v_b.y) && (v_a.z == v_b.z) && (v_a.w == v_b.w)) {
+            return true ; 
+    } else return false ;
+  } else return false ;
+}
+
+
+/* 
+compare if the first vector is in the area of the second vector, 
+the area of the second vector is define by a Vec area, 
+that give the possibility of different size for each component
+*/
+/*
+@ return boolean
+*/
+// Vec method
+// Vec2 compare with area
+boolean compare(Vec2 v_a, Vec2 v_b, Vec2 area) {
+  if( v_a != null && v_b != null && area != null ) {
+    if((v_a.x >= v_b.x -area.x && v_a.x <= v_b.x +area.x) && (v_a.y >= v_b.y -area.y && v_a.y <= v_b.y +area.y)) {
+      return true ; 
+    } else return false ;
+  } else return false ;
+}
+// Vec3 compare with area
+boolean compare(Vec3 v_a, Vec3 v_b, Vec3 area) {
+  if( v_a != null && v_b != null && area != null ) {
+    if((v_a.x >= v_b.x -area.x && v_a.x <= v_b.x +area.x) && (v_a.y >= v_b.y -area.y && v_a.y <= v_b.y +area.y) && (v_a.z >= v_b.z -area.z && v_a.z <= v_b.z +area.z)) {
+      return true ; 
+    } else return false ;
+  } else return false ;
+}
+// Vec4 compare with area
+boolean compare(Vec4 v_a, Vec4 v_b, Vec4 area) {
+  if( v_a != null && v_b != null && area != null ) {
+    if((v_a.x >= v_b.x -area.x && v_a.x <= v_b.x +area.x) && (v_a.y >= v_b.y -area.y && v_a.y <= v_b.y +area.y) && (v_a.z >= v_b.z -area.z && v_a.z <= v_b.z +area.z) && (v_a.w >= v_b.w -area.w && v_a.w <= v_b.w +area.w)) {
             return true ; 
     } else return false ;
   } else return false ;
@@ -995,6 +1060,22 @@ Vec4 jitterVec4(int range_x, int range_y, int range_z, int range_w) {
 
 
 
+// VEC 2 from angle
+///////////////////
+Vec2 fromRadians(float angle) {
+  float x = (float)Math.cos(angle) ;
+  float y = (float)Math.sin(angle) ;
+  return Vec2(x,y) ;
+}
+
+Vec2 fromDegrees(float angle) {
+  angle = radians(angle) ;
+  float x = (float)Math.cos(angle) ;
+  float y = (float)Math.sin(angle) ;
+  return Vec2(x,y) ;
+}
+// END VEC FROM ANGLE
+/////////////////////
 
 
 

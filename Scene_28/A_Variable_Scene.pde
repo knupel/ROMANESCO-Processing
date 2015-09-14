@@ -1,11 +1,12 @@
 // Tab: A_Variable_Scene
 boolean scene = true ;
 boolean prescene = false ;
-boolean testRomanesco = false ;
+boolean miroir_on_off = false ;
+
+boolean check_size = false ;
 
 
 // In the Miroir and Scene sketch presceneOnly must be true for the final work.
-boolean fullRendering = true ;
 Boolean internet = true ;
 String bigBrother = ("BIG BROTHER DON'T WATCHING YOU !!") ;
 

@@ -6,11 +6,6 @@ GRAPHIC CONFIGURATION
 MIRROIR
 
 */
-void initDraw() {
-  rectMode (CORNER) ;
-  textAlign(LEFT) ;
-}
-
 //CURSOR, PEN, LEAP MOTION
 
 void cursorDraw() {

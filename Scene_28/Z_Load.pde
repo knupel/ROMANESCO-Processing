@@ -19,10 +19,10 @@ void loadDataObject(String path) {
 	colorBackgroundRef = colorBackground.copy() ;
 
 	// color ambient light
-	colourAmbient.r = dataWorld.getFloat("hue ambient") ;
-	colourAmbient.g = dataWorld.getFloat("saturation ambient") ;
-	colourAmbient.b = dataWorld.getFloat("brightness ambient") ;
-	colourAmbient.a = dataWorld.getFloat("alpha ambient") ;
+	color_light[0].r = dataWorld.getFloat("hue ambient") ;
+	color_light[0].g = dataWorld.getFloat("saturation ambient") ;
+	color_light[0].b = dataWorld.getFloat("brightness ambient") ;
+	color_light[0].a = dataWorld.getFloat("alpha ambient") ;
 	// pos ambient light
 	/**
 	Not use at this time
@@ -31,23 +31,23 @@ void loadDataObject(String path) {
 	dataWorld.setFloat("pos z ambient", value) ;
 	*/
 	// color light one
-	colorLightDir_1.r = dataWorld.getFloat("hue light 1") ;
-	colorLightDir_1.g = dataWorld.getFloat("saturation light 1") ;
-	colorLightDir_1.b = dataWorld.getFloat("brightness light 1") ;
-	colorLightDir_1.a = dataWorld.getFloat("alpha light 1") ;
+	color_light[1].r = dataWorld.getFloat("hue light 1") ;
+	color_light[1].g = dataWorld.getFloat("saturation light 1") ;
+	color_light[1].b = dataWorld.getFloat("brightness light 1") ;
+	color_light[1].a = dataWorld.getFloat("alpha light 1") ;
 	// pos light one
-	dirLightDir_1.x = dataWorld.getFloat("pos x light 1") ;
-	dirLightDir_1.y = dataWorld.getFloat("pos y light 1") ;
-	dirLightDir_1.z = dataWorld.getFloat("pos z light 1") ;
+	pos_light[1].x = dataWorld.getFloat("pos x light 1") ;
+	pos_light[1].y = dataWorld.getFloat("pos y light 1") ;
+	pos_light[1].z = dataWorld.getFloat("pos z light 1") ;
 	// color light two
-	colorLightDir_2.r = dataWorld.getFloat("hue light 2") ;
-	colorLightDir_2.g = dataWorld.getFloat("saturation light 2") ;
-	colorLightDir_2.b = dataWorld.getFloat("brightness light 2") ;
-	colorLightDir_2.a = dataWorld.getFloat("alpha light 2") ;
+	color_light[2].r = dataWorld.getFloat("hue light 2") ;
+	color_light[2].g = dataWorld.getFloat("saturation light 2") ;
+	color_light[2].b = dataWorld.getFloat("brightness light 2") ;
+	color_light[2].a = dataWorld.getFloat("alpha light 2") ;
 	// pos light two
-	dirLightDir_2.x = dataWorld.getFloat("pos x light 2") ;
-	dirLightDir_2.y = dataWorld.getFloat("pos y light 2") ;
-	dirLightDir_2.z = dataWorld.getFloat("pos z light 2") ;
+	pos_light[2].x = dataWorld.getFloat("pos x light 2") ;
+	pos_light[2].y = dataWorld.getFloat("pos y light 2") ;
+	pos_light[2].z = dataWorld.getFloat("pos z light 2") ;
 	// sound
 	/**
 	// I don't know, if it's pertinent to save this data ?

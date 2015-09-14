@@ -78,7 +78,7 @@ float margeAroundDropdown ;
  /////////
 void buildLibrary() {
   objectList = loadTable(sketchPath("")+"preferences/objects/index_romanesco_objects.csv", "header") ;
-  shaderBackgroundList = loadTable(sketchPath("")+"preferences/shaderBackgroundList.csv", "header") ;
+  shaderBackgroundList = loadTable(sketchPath("")+"preferences/shader/shaderBackgroundList.csv", "header") ;
   numByGroup() ;
   initVarObject() ;
   initVarSlider() ;

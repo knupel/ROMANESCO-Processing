@@ -4,8 +4,7 @@ OscP5 osc_1, osc_2;
 //SETUP
 void OSCSetup() {
   osc_1 = new OscP5(this, 9000);
-  if(syphon) osc_2 = new OscP5(this, 9002); else osc_2 = new OscP5(this, 9001);
-
+  if(miroir_on_off) osc_2 = new OscP5(this, 9002); else osc_2 = new OscP5(this, 9001);
 }
 
 void oscEvent(OscMessage receive) {
@@ -66,7 +65,6 @@ void splitDataLoadSavePrescene() {
   String [] booleanSave  ;
   
   booleanSave = split(from_prescene_boolean_load_save, '/') ;
-  // println(booleanSave) ;
   // convert string to boolean
   load_SCENE_Setting_order_from_presecene = Boolean.valueOf(booleanSave[0]).booleanValue();
   save_Current_SCENE_Setting_order_from_presecene = Boolean.valueOf(booleanSave[1]).booleanValue();
@@ -160,6 +158,8 @@ void translateDataFromPrescene() {
   if(valueTempPrescene[62].equals("0")) lLongTouch = false ; else lLongTouch = true ;
   if(valueTempPrescene[63].equals("0")) nLongTouch = false ; else nLongTouch = true ;
   if(valueTempPrescene[64].equals("0")) vLongTouch = false ; else vLongTouch = true ;
+
+  if(valueTempPrescene[65].equals("0")) shiftLongTouch = false ; else shiftLongTouch = true ;
   
   
 

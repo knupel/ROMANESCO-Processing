@@ -1,4 +1,5 @@
 // Tab: Z_Core
+// Z_Core 1.1
 /*
 Here you findPath
 LIGHT POSITION
@@ -8,18 +9,7 @@ CHECK FOLDER
 
 
 
-// LIGHT POSITION
-/*
-This void is necessary to diplay the info, not directly for the light because you don't use Light in the Prescene
-*/
-PVector lightPos = new PVector() ;
-void lightPosition() {
-  if(modeP3D && lLongTouch) {
-    lightPos.x = mouse[0].x ;
-    lightPos.y = mouse[0].y ;
-    lightPos.z -= wheel[0] ;
-  }
-}
+
 
 
 //////////////
@@ -40,6 +30,12 @@ int countImageSelection, countFileTextSelection ;
 int refImageNumFiles, refTextNumFiles ;
 
 
+
+void init_and_update_diplay_var() {
+  rectMode (CORNER) ;
+  textAlign(LEFT) ;
+  sizeBackgroundP3D = new PVector(width *100, height *100, height *7.5) ;
+}
 
 // main void
 void loadImg(int ID) {
@@ -289,51 +285,23 @@ String whichSentence(String txt, int whichChapter, int whichSentence) {
 // MIROIR
 /////////
 
-boolean syphon  ;
+boolean syphon_on_off  ;
+SyphonServer server ;
 
-SyphonServer server;
-void miroirSetup() {
-  server = new SyphonServer(this, nameVersion + " " + prettyVersion +"."+version);
-}
-void miroirDraw() {
-  if(yTouch) syphon = !syphon ;
-  if (syphon) server.sendScreen();
+
+void syphon_settings() {
+  PJOGL.profile=1;
 }
 
-// Old Syphon
-/**
-Miroir miroir;
-void miroirSetup() {
-  miroir = new Miroir(this);
+void syphon_setup() {
+  String name_syphon = (nameVersion + " " + prettyVersion +"."+version) ;
+  server = new SyphonServer(this, name_syphon);
 }
-void miroirDraw() {
-  if(yTouch) syphon = !syphon ;
-  if (syphon) miroir.update();
+
+void syphon_draw() {
+  if(yTouch) syphon_on_off = !syphon_on_off ;
+  if(syphon_on_off) server.sendScreen();
 }
-class Miroir {
-  public PGraphics canvas;
-  public SyphonServer server;
-  PApplet that;
-  Miroir(PApplet that) {
-    this.that = that;
-    canvas = createGraphics(that.width, that.height, P3D);
-    // Create syhpon server to send frames out.
-    //server = new SyphonServer(that, "Processing Syphon");
-    server = new SyphonServer(that, "Romanesco");
-  }
-  void update() {
-    that.loadPixels();
-    canvas.loadPixels();
-    for(int x = 0; x < that.width; x++) {
-     for(int y = 0; y < that.height; y++) {
-         canvas.pixels[((that.height-y-1)*that.width+x)] = that.pixels[y*that.width+x];
-     }
-   }
-    canvas.updatePixels();
-    server.sendImage(canvas);
-  }
-}
-*/
 //END MIROIR
 
 
@@ -352,22 +320,24 @@ int posInfo = 2 ;
 
 
 void info() {
+  color color_text = color(0,0,100) ;
+  color color_bg = color(0,100,100,50) ;
   if (displayInfo) {
     //perspective() ;
-    displayInfoScene() ;
-    displayInfoObject() ;
+    displayInfoScene(color_bg,color_text) ;
+    displayInfoObject(color_bg,color_text) ;
   }
-  if (modeP3D && displayInfo3D) displayInfo3D() ;
+  if (displayInfo3D) displayInfo3D(color_text) ;
 }
 
-void displayInfoScene() {
+void displayInfoScene(color bg_txt, color txt) {
   noStroke() ;
-  fill(0,100,0, 50) ;
+  fill(bg_txt) ;
   rectMode(CORNER) ;
   textAlign(LEFT) ;
   rect(0,-5,width, 15*posInfo) ;
   posInfo = 2 ;
-  fill(0,0,100) ;
+  fill(txt) ;
   textFont(SansSerif10, 10) ;
   //INFO SIZE and RENDERER
   String displayModeInfo ;
@@ -376,13 +346,15 @@ void displayInfoScene() {
   if(fullRendering) infoRendering = ("Full rendering") ; else infoRendering = ("Preview rendering") ;
   text("Size " + width + "x" + height + " / "  + infoRendering + " / Render mode " + displayModeInfo + " / FrameRate " + (int)frameRate, 15,15) ;
   // INFO SYPHON
-  text("Syphon " +syphon + " / press “y“ to on/off the Syphon",15, 15 *posInfo ) ;
+  text("Syphon " +syphon_on_off + " / press “y“ to on/off the Syphon",15, 15 *posInfo ) ;
   posInfo += 1 ;
   //INFO MOUSE and PEN
   text("Mouse " + mouseX + " / " + mouseY + " molette " + wheel[0] + " pen orientation " + (int)deg360(pen[0]) +"°   stylet pressur " + int(pen[0].z *10),15, 15 *posInfo ) ;  
   posInfo += 1 ;
   // LIGHT INFO
-  text("Light Position " + lightPos.x + " / " + lightPos.y + " / "+ lightPos.z,15, 15 *posInfo  ) ;
+  text("Directional light ONE || pos " + int(pos_light[1].x)+ " / " + int(pos_light[1].y) + " / "+ int(pos_light[1].z) + " || dir " + decimale(dir_light[1].x,2) + " / " + decimale(dir_light[1].y,2) + " / "+ decimale(dir_light[1].z,2),15, 15 *posInfo  ) ;
+  posInfo += 1 ;
+  text("Directional light TWO || pos " + int(pos_light[2].x)+ " / " + int(pos_light[2].y) + " / "+ int(pos_light[2].z) + " || dir " + decimale(dir_light[2].x,2) + " / " + decimale(dir_light[2].y,2) + " / "+ decimale(dir_light[2].z,2),15, 15 *posInfo  ) ;
   posInfo += 1 ;
   //INFO SOUND
   if (getTimeTrack() > 1 ) text("the track play until " +getTimeTrack() + "  Tempo " + getTempoRef() , 15,15 *(posInfo)) ; else text("no track detected ", 15, 15 *(posInfo)) ;
@@ -395,14 +367,14 @@ void displayInfoScene() {
 
 int posInfoObj = 1 ;
 
-void displayInfoObject() {
+void displayInfoObject(color bg_txt, color txt) {
   noStroke() ;
-  fill(0,100,0, 50) ;
+  fill(bg_txt) ;
   rectMode(CORNER) ;
   textAlign(LEFT) ;
   float heightBox = 15*posInfoObj ;
   rect(0, height -heightBox,width, heightBox) ;
-  fill(0,0,100) ;
+  fill(txt) ;
   textFont(SansSerif10, 10) ;
   
   posInfoObj = 1 ;
@@ -420,10 +392,10 @@ void displayInfoObject() {
 
 
 //INFO 3D
-void displayInfo3D() {
+void displayInfo3D(color txt) {
    String posCam = ( int(-1 *sceneCamera.x ) + " / " + int(sceneCamera.y) + " / " +  int(sceneCamera.z -height/2)) ;
    String eyeDirectionCam = ( int(eyeCamera.x) + " / " + int(eyeCamera.y) ) ;
-  fill(0,0,100) ; 
+  fill(txt) ; 
   textFont(SansSerif10, 10) ;
   textAlign(RIGHT) ;
   text("Position " +posCam, width/2 -30 , height/2 -30) ;
@@ -545,6 +517,7 @@ void OSMavericksCheck() {
 }
 
 
+
 // END MISC
 ///////////
 
@@ -564,7 +537,8 @@ boolean aTouch, bTouch, cTouch, dTouch, eTouch, fTouch, gTouch, hTouch, iTouch, 
         touch0, touch1, touch2, touch3, touch4, touch5, touch6, touch7, touch8, touch9, 
         backspaceTouch, deleteTouch, enterTouch, returnTouch, shiftTouch, altTouch, escTouch, ctrlTouch, cmdTouch ;
 //long touch
-boolean spaceTouch, cLongTouch, lLongTouch, nLongTouch, vLongTouch ;  
+boolean cLongTouch, lLongTouch, nLongTouch, vLongTouch,
+        spaceTouch, shiftLongTouch ;  
 
 //END KEYBOARD
 //////////////

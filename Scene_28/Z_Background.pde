@@ -1,5 +1,5 @@
 // Tab: Z_background
-// Z BACKGROUND
+// Z BACKGROUND 1.1
 //////////////////////////////////////////////////////////////////
 Vec4  colorBackground, colorBackgroundRef, colorBackgroundPrescene;
 
@@ -71,7 +71,7 @@ void backgroundClassic(Vec4 c) {
 ////////////
 void backgroundP3D(Vec4 c) {
   // I don't remember why there is an alpha comparaison with under or upper 90 ?
-  if(c.a < 90 ) {
+  if(c.a < 95 ) {
     fill(c.r, c.g, c.b, c.a) ;
     noStroke() ;
     pushMatrix() ;
@@ -94,7 +94,7 @@ PShader blurOne, blurTwo, cellular, damierEllipse, heart, necklace,  psy, sinLig
 
 void backgroundShaderSetup(boolean renderP3D) {
   if(renderP3D) {
-    String pathShaderBG = preferencesPath +"background_shader/" ;
+    String pathShaderBG = preferencesPath +"shader/shader_bg/" ;
     
 
     blurOne = loadShader(pathShaderBG+"blurOneFrag.glsl") ;

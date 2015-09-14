@@ -51,7 +51,6 @@ void launch_camera(int which_cam) {
       init_cam = true ;
     }
     CAM_SIZE = cam_size[which_cam].copy() ;
-    println("Camera ",which_cam, cam_name [which_cam], cam_size[which_cam], cam_fps[which_cam]) ;
     // surface.setSize((int)cam_size[which_cam].x, (int)cam_size[which_cam].y) ;
     new_cam = false ;
 
@@ -67,11 +66,9 @@ void camera_stop() {
 
 
 void init_camera(int which_camra) {
-  println("ça tourne") ;
   cam = new Capture(this, cameras[which_camra]);
   cam.start();     
   cam.read(); 
-  println(cam.available(), cam.width) ;;
 }
 
 
@@ -96,12 +93,9 @@ void list_cameras() {
       // fps
       String fps = cam_data [2].substring(4,cam_data[2].length()) ;
       cam_fps[i] = Integer.parseInt(fps) ;
-      // info
-      // println(i, cam_name [i], cam_size[i], cam_fps[i]) ;
     }
   } else {
     CAMERA_AVAILABLE = false ;
-    // println("There are no cameras available for capture.");
   }
 }
 // END CAMERA
