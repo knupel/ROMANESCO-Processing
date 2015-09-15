@@ -1,73 +1,135 @@
 // Tab: B_Midi
+// MIDI controller version 2.0
+import themidibus.*; //Import the library
+MidiBus [] myBus; // The MidiBus
+int  num_midi_input ;
+int which_midi_input = -1 ;
 //SETUP
-void midiSetup() {
-  midiIO = MidiIO.getInstance(this);
+void midi_init() {
+  check_midi_input() ;
+  open_midi_bus() ;
+  select_first_midi_input() ;
 }
 
-//DRAW
-boolean init_midi ;
+void midi_update() {
+  midi_select() ;
+  use_specific_midi_input(which_midi_input) ;
 
-void midiDraw() {
-  /* 
-  Button to activate the midi setting > mapping + choice the midi deveice
-  */
-   if(selectMidi || !init_midi) {
-    check_midi_input() ;
-    int midi_channel = 0 ;
-    open_input_midi(which_midi_input, midi_channel) ;
-    init_midi = true ;
+}
+
+
+
+// MAIN METHODE
+//////////////
+
+
+// this method catch the first device found
+boolean choice_midi_device, choice_midi_default_device ;
+String [] name_midi_input ;
+String [] ID_midi_input ;
+
+void check_midi_input() {
+  name_midi_input = MidiBus.availableInputs() ;
+  num_midi_input = name_midi_input.length ;
+  ID_midi_input = new String[num_midi_input] ;
+}
+
+
+void open_midi_bus() {
+  myBus = new MidiBus[num_midi_input] ;
+  for(int i = 0 ; i < num_midi_input ; i++) {
+    myBus [i] = new MidiBus(this, i, "Java Sound Synthesizer");
+    ID_midi_input [i] = myBus [i].getBusName() ;
   }
+}
 
-  if(selectMidi) {
-    
-    if(midiIO.numberOfInputDevices() < 1 ) fill(rougeFonce) ; else fill(grisTresFonce) ;
-    stroke(jaune) ;
-    strokeWeight(1.5) ;
-    window_midi_info(pos_midi_info, size_x_window_info_midi, spacing_midi_info) ;
-    noStroke() ;
+void select_first_midi_input() {
+  if (num_midi_input > 0 && !choice_midi_device && !choice_midi_default_device) which_midi_input = 0 ;
+}
 
-    textFont(textUsual_1);  textAlign(LEFT);
-    if(midiIO.numberOfInputDevices() < 1 ) fill(blanc) ; else fill(grisClair) ;
-    display_select_midi_device(pos_midi_info, spacing_midi_info) ;
-    midi_device_choice(pos_midi_info, spacing_midi_info) ;
+void close_midi_input_bus() {
+  for(int i = 0 ; i < num_midi_input ; i++) {
+      myBus [i].close() ;
   }
-
-  if (state_midi_button == 1) selectMidi = true ; else selectMidi = false ;
-
 }
 
 
 
-
-
-
-
-
-
-// ANNEXE METHODE
-/////////////////
-
-////MIDI/////////////////
-void controllerIn(promidi.Controller controller, int device, int channel){
-  numMidi = controller.getNumber();
-  valMidi = controller.getValue();
+// info from controller midi device
+int midi_channel, midi_CC, midi_value ; 
+long long_timestamp ;
+String midi_bus_name ;
+void controllerChange(int channel, int CC, int value, long timestamp, String bus_name) {
+  midi_channel = channel ;
+  midi_CC = CC ;
+  midi_value = value ;
+  midi_bus_name = bus_name ;
+  long_timestamp = timestamp ;
 }
+
+
+
+// END MAIN METHODE
+///////////////////
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// ROMANESCO METHODE MIDI
+//////////////////////////
+
+void use_specific_midi_input(int ID) {
+  if(ID_midi_input != null && ID >= 0) {
+    if(ID_midi_input [ID].equals(midi_bus_name)) {
+      midi_channel_romanesco = midi_channel ;
+      midi_CC_romanesco = midi_CC ;
+      midi_value_romanesco = midi_value ;
+    }
+  }
+}
+
+
 
 // DISPLAY INFO MIDI INPUT
 //////////////////////////
-void midi_device_choice(PVector pos, int spacing) {
+void display_midi_device_available(PVector pos, int spacing) {
   int num_line = 0 ;
   if (!choice_midi_device || !choice_midi_default_device) {
     text("Press the ID number to select an input Midi", pos.x, pos.y) ;
 
-    text(midiIO.numberOfInputDevices() + " device(s) available(s)", pos.x, pos.y +spacing) ;
-    for (int i = 0; i < midiIO.numberOfInputDevices(); i++) {
+    text(num_midi_input + " device(s) available(s)", pos.x, pos.y +spacing) ;
+    for (int i = 0; i < num_midi_input; i++) {
       num_line = i +2 ;
       // to make something clean for the reading
       String ID_input = "" +i ;
       if (i > 9 ) ID_input = nf(i, 2) ;
       //
-      text("input device "+ID_input+": "+midiIO.getInputDeviceName(i), pos.x, pos.y +(num_line *spacing));
+      text("input device "+ID_input+": "+name_midi_input [i], pos.x, pos.y +(num_line *spacing));
     }
   }
 }
@@ -75,9 +137,9 @@ void midi_device_choice(PVector pos, int spacing) {
 
 
 void display_select_midi_device(PVector pos, int spacing) {
-  if(which_midi_input < midiIO.numberOfInputDevices() ) {
+  if(which_midi_input < num_midi_input ) {
     if (which_midi_input >= 0 && (choice_midi_device || choice_midi_default_device)) {
-      text("Current midi device is " + midiIO.getInputDeviceName(which_midi_input), pos.x, pos.y) ;
+      text("Current midi device is " + name_midi_input [which_midi_input], pos.x, pos.y) ;
       text("If you want choice an other input press “N“ ", pos.x, pos.y + spacing) ;
     }
   } else {
@@ -92,7 +154,7 @@ void window_midi_info(PVector pos, int size_x, int spacing) {
   int pos_y = (int)pos.y -spacing ;
   int size_y = 0 ;
   if (!choice_midi_device || !choice_midi_default_device) {
-    size_y = int(spacing *2.5 +(spacing *(midiIO.numberOfInputDevices() *1.2))) ;
+    size_y = int(spacing *2.5 +(spacing *(num_midi_input *1.2))) ;
   } else {
     size_y = int(spacing *2.5) ;
   }
@@ -109,19 +171,75 @@ void window_midi_info(PVector pos, int size_x, int spacing) {
 
 
 
-// SELECT MIDI DEVICE
-/////////////////////
-// check midi input
-boolean choice_midi_device, choice_midi_default_device ;
-int which_midi_input = -1 ;
-void check_midi_input() {
-  if (midiIO.numberOfInputDevices() > 0 && !choice_midi_device && !choice_midi_default_device) {
-    for (int i = 0; i < midiIO.numberOfInputDevices (); i++) {
-      which_midi_input = i ;
-      break ;
-    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+// ANNEXE don't need MIDI LIBRARIE CODE
+boolean init_midi ;
+
+void midi_select() {
+  /* 
+  Button to activate the midi setting > mapping + choice the midi deveice
+  */
+   if(selectMidi || !init_midi) {
+    //check_midi_input() ;
+    open_input_midi(which_midi_input) ;
+    init_midi = true ;
+  }
+
+  if(selectMidi) {
+    
+    if(num_midi_input < 1 ) fill(rougeFonce) ; else fill(grisTresFonce) ;
+    stroke(jaune) ;
+    strokeWeight(1.5) ;
+    window_midi_info(pos_midi_info, size_x_window_info_midi, spacing_midi_info) ;
+    noStroke() ;
+
+    textFont(textUsual_1);  textAlign(LEFT);
+    if(num_midi_input < 1 ) fill(blanc) ; else fill(grisClair) ;
+    display_select_midi_device(pos_midi_info, spacing_midi_info) ;
+    display_midi_device_available(pos_midi_info, spacing_midi_info) ;
+  }
+
+  if (state_midi_button == 1) selectMidi = true ; else selectMidi = false ;
+
+}
+
+
+// OPEN AND CLOSE INPUT MIDI
+/////////////////////////////////////////////////////
+
+void open_input_midi(int whichOne) {
+  if ((!choice_midi_device || !choice_midi_default_device) &&  whichOne != -1 && whichOne < num_midi_input ) {
+    use_specific_midi_input(whichOne) ;
+    choice_midi_default_device = true ;
+    choice_midi_device = true ;
   }
 }
+
+//
+void open_new_input_midi() {
+  if (which_midi_input >= 0 ) {
+    which_midi_input = -1 ;
+    choice_midi_device = false ;
+  }
+}
+// END OPEN AND CLOSE INPUT MIDI
+////////////////////////////////
+
+
+
+
 
 void select_midi_device() {
   if (key == '0') which_midi_input = 0 ;
@@ -147,24 +265,22 @@ void midi_keyPressed() {
 
 
 
-// OPEN AND CLOSE INPUT MIDI
-/////////////////////////////////////////////////////
-void open_input_midi(int whichOne, int whichChannel) {
-  if ((!choice_midi_device || !choice_midi_default_device) &&  whichOne != -1 && whichOne < midiIO.numberOfInputDevices() ) {
-    midiIO.openInput(whichOne, whichChannel);
-    choice_midi_default_device = true ;
-    choice_midi_device = true ;
-  }
-}
-//
-void open_new_input_midi() {
-  if (which_midi_input >= 0 ) {
-    which_midi_input = -1 ;
-    choice_midi_device = false ;
-  }
-}
-// END OPEN AND CLOSE INPUT MIDI
-////////////////////////////////
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -223,14 +339,14 @@ void midiButton(Button b, int IDbutton, boolean saveButton) {
 
 //
 void setttingMidiButton(Button b) {
-  if(selectMidi && b.inside && mousePressed) b.selectIDmidi(numMidi) ;
+  if(selectMidi && b.inside && mousePressed) b.selectIDmidi(midi_CC_romanesco) ;
 }
 
 //
 void updateMidiButton(Button b) {
-   if(valMidi == 127 && numMidi == b.IDmidi()) {
+   if(midi_value_romanesco == 127 && midi_CC_romanesco == b.IDmidi()) {
     b.onOff = !b.onOff ;
-    valMidi = 0 ;
+    midi_value_romanesco = 0 ;
   }
 }
 
@@ -242,19 +358,19 @@ void updateMidiButton(Button b) {
 //give which button is active and check is this button have a same IDmidi that Object
 void sliderMidiUpdate(int whichOne) {
   // update info from midi controller
-  if (numMidi == slider[whichOne].IDmidi()) slider[whichOne].updateMidi(valMidi) ;
+  if (midi_CC_romanesco == slider[whichOne].IDmidi()) slider[whichOne].updateMidi(midi_value_romanesco) ;
 
   
   if(selectMidi && slider[whichOne].lockedMol()) {
     for(int i = 0 ; i <infoSlider.length ; i++) {
       if(whichOne == (int)infoSlider[i].a) {
-        infoSlider[i].b = numMidi  ;
+        infoSlider[i].b = midi_CC_romanesco  ;
       }
     }
   }
   
   //ID midi from controller midi button setting
-  if (selectMidi && slider[whichOne].lockedMol()) slider[whichOne].selectIDmidi(numMidi) ;
+  if (selectMidi && slider[whichOne].lockedMol()) slider[whichOne].selectIDmidi(midi_CC_romanesco) ;
   
   //ID midi from save
   if(loadSaveSetting) slider[whichOne].selectIDmidi((int)infoSaveFromRawList(infoSlider, whichOne).b) ;

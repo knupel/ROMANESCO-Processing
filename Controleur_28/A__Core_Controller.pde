@@ -18,13 +18,10 @@ final int SLIDER_BY_COL = 9 ;
 // Obj
 int numObj ;
 
-// Midi
-import promidi.*;
-MidiIO midiIO;
 
 
-int sliderMidi, valMidi ;
-int numMidi = -1 ;
+int sliderMidi, midi_value_romanesco, midi_channel_romanesco ;
+int midi_CC_romanesco = -1 ;
 boolean saveMidi ;
 boolean selectMidi = false ;
 //curtain

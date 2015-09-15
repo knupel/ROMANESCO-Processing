@@ -23,7 +23,7 @@ void setup() {
   checkFileTextFolder() ;
   select_camera_device(30, 100) ; // methode(int min_fps, int min_width)
   fontSetup() ;
-  // midiSetup() ;
+  midi_init() ;
   importPicButtonSetup() ;
   sliderSettingVar() ;
   buttonSetup() ;
@@ -47,7 +47,7 @@ void draw() {
   textDraw() ;
   sliderDraw() ;
   buttonDraw() ;
-  // midiDraw() ;
+  midi_update() ;
   sendOSCdraw() ;
   initVarSliderDynamic() ;
   

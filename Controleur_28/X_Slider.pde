@@ -14,7 +14,7 @@ public class Slider {
   protected float minNorm = 0 ;
   protected float maxNorm = 1 ;
   // advance slider
-  protected int newValMidi ;
+  protected int newmidi_value_romanesco ;
   protected int IDmidi = -2 ;
   protected String moletteShapeType = ("") ;
   
@@ -288,8 +288,8 @@ public class Slider {
  // update position from midi controller
   void updateMidi(int val) {
     //update the Midi position only if the Midi Button move
-    if (newValMidi != val) { 
-      newValMidi = val ; 
+    if (newmidi_value_romanesco != val) { 
+      newmidi_value_romanesco = val ; 
       newPosMol.x = map(val, 1, 127, posMin.x, posMax.x) ;
     }
   }

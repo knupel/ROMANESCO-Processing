@@ -7,7 +7,7 @@ class Button {
   boolean inside ;
   boolean onOff = false ;  
   //MIDI
-  int newValMidi ;
+  int newmidi_value_romanesco ;
   //int IDbutton ;
   int IDmidi = -2 ;
   
