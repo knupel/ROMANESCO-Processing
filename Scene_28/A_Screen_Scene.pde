@@ -10,7 +10,7 @@ GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
 GraphicsDevice[] screenDevice = ge.getScreenDevices();
 */
 //FULLSCREEN
-boolean undecorated = false ;
+// boolean undecorated = false ;
 boolean fullScreen = false ;
 boolean displaySizeByImage ;
 String displayMode = ("") ;
@@ -48,7 +48,7 @@ void loadPropertyScene() {
   //display on specific screen
   whichScreen = row.getInt("whichScreen") -1 ;
   //decorated the scene
-  if (row.getString("decorated").equals("FALSE") || row.getString("decorated").equals("false") || fullScreen ) undecorated = true ; else undecorated = false ;
+  // if (row.getString("decorated").equals("FALSE") || row.getString("decorated").equals("false") || fullScreen ) undecorated = true ; else undecorated = false ;
   //size of the scene when it's not fullscreen
   sceneWidth = row.getInt("width") ;
   sceneHeight =  row.getInt("height")  ;
@@ -70,6 +70,8 @@ void loadPropertyScene() {
 
 void size_scene() {
   if (fullScreen && !check_size) { 
+    println(whichScreen) ;
+    
     fullScreen(whichScreen) ;
     check_size = true ; 
   } else if (!fullScreen && !check_size || (width != sceneWidth && height != sceneHeight)) {
@@ -124,47 +126,3 @@ End of optional size methode
 
 
 
-// MAVERICK
-/*
-PVector[] screenInfo ;
-
-
-void fullscreenWithMavericks() {
-  initNumberScreen() ;
-  infoScreen() ;
-  sizeScene() ;
-}
-
-
-void sketchPosition(int whichOne) {
-  if (whichOne > screenDevice.length )  whichOne = 0 ;
-  GraphicsDevice displayOnThisDevice = screenDevice[whichOne];
-  GraphicsConfiguration[] graphicsConfigurationOfThisDevice = displayOnThisDevice.getConfigurations();
-  
-  
-  // loop with a single element the screen selected above
-  for ( int i = 0 ; i < graphicsConfigurationOfThisDevice.length ; i++ ) {
-    Rectangle gcBounds = graphicsConfigurationOfThisDevice[i].getBounds() ;
-    frame.setLocation(gcBounds.x, gcBounds.y) ;
-  }
-}
-
-
-
-
-
-
-public void initNumberScreen() {
-  screenInfo = new PVector [screenDevice.length] ;
-  for ( int i = 0 ; i < screenInfo.length ; i++)  screenInfo [i] = new PVector () ;
-}
-
-public void infoScreen() {
-  for (int i = 0; i < screenInfo.length; i++) {
-    screenInfo [i].x =  screenDevice[i].getDisplayMode().getWidth() ;
-    screenInfo [i].y =  screenDevice[i].getDisplayMode().getHeight() ;
-  }
-}
-// END MAVERICK
-
-*/

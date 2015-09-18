@@ -65,7 +65,7 @@ void mousePressed () {
     if(numGroup[2] > 0 ) for( int i = 11 ; i < numGroup[2] *10 + 6 ; i++)  button_G2[i].mousePressed() ;
   
     button_bg.mousePressedText() ;
-        //LIGHT ONE
+    //LIGHT ONE
     button_light_ambient.mousePressedText() ;
     button_light_ambient_action.mousePressedText() ;
     //LIGHT ONE

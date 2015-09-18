@@ -1,10 +1,8 @@
 // Tab: B_Midi
 // MIDI controller version 2.0
-import themidibus.*; //Import the library
-MidiBus [] myBus; // The MidiBus
-int  num_midi_input ;
-int which_midi_input = -1 ;
-//SETUP
+
+// TOP METHOD
+/////////////
 void midi_init() {
   check_midi_input() ;
   open_midi_bus() ;
@@ -12,21 +10,27 @@ void midi_init() {
 }
 
 void midi_update() {
-  midi_select() ;
+  midi_select(which_midi_input, num_midi_input) ;
   use_specific_midi_input(which_midi_input) ;
-
 }
+// END TOP METHOD
+/////////////////
+
+
 
 
 
 // MAIN METHODE
 //////////////
-
-
-// this method catch the first device found
+import themidibus.*; //Import the library
+MidiBus [] myBus; // The MidiBus
+int  num_midi_input ;
+int which_midi_input = -1 ;
 boolean choice_midi_device, choice_midi_default_device ;
 String [] name_midi_input ;
 String [] ID_midi_input ;
+
+
 
 void check_midi_input() {
   name_midi_input = MidiBus.availableInputs() ;
@@ -59,6 +63,7 @@ void close_midi_input_bus() {
 int midi_channel, midi_CC, midi_value ; 
 long long_timestamp ;
 String midi_bus_name ;
+// this void is an upper method like draw, setup, setting...
 void controllerChange(int channel, int CC, int value, long timestamp, String bus_name) {
   midi_channel = channel ;
   midi_CC = CC ;
@@ -66,8 +71,6 @@ void controllerChange(int channel, int CC, int value, long timestamp, String bus
   midi_bus_name = bus_name ;
   long_timestamp = timestamp ;
 }
-
-
 
 // END MAIN METHODE
 ///////////////////
@@ -103,6 +106,7 @@ void controllerChange(int channel, int CC, int value, long timestamp, String bus
 // ROMANESCO METHODE MIDI
 //////////////////////////
 
+// give the midi info to the romanesco variable
 void use_specific_midi_input(int ID) {
   if(ID_midi_input != null && ID >= 0) {
     if(ID_midi_input [ID].equals(midi_bus_name)) {
@@ -112,6 +116,30 @@ void use_specific_midi_input(int ID) {
     }
   }
 }
+
+
+// Give new midi device to Romanesco
+void open_input_midi(int which_one, int num) {
+  if ((!choice_midi_device || !choice_midi_default_device) &&  which_one != -1 && which_one < num) {
+    use_specific_midi_input(which_one) ;
+    choice_midi_default_device = true ;
+    choice_midi_device = true ;
+  }
+}
+
+// reset 
+void reset_input_midi_device() {
+  if (which_midi_input >= 0 ) {
+    which_midi_input = -1 ;
+    choice_midi_device = false ;
+  }
+}
+
+
+
+
+
+
 
 
 
@@ -187,26 +215,26 @@ void window_midi_info(PVector pos, int size_x, int spacing) {
 // ANNEXE don't need MIDI LIBRARIE CODE
 boolean init_midi ;
 
-void midi_select() {
+void midi_select(int which_one, int num) {
   /* 
   Button to activate the midi setting > mapping + choice the midi deveice
   */
    if(selectMidi || !init_midi) {
     //check_midi_input() ;
-    open_input_midi(which_midi_input) ;
+    open_input_midi(which_one, num) ;
     init_midi = true ;
   }
 
   if(selectMidi) {
     
-    if(num_midi_input < 1 ) fill(rougeFonce) ; else fill(grisTresFonce) ;
+    if(num < 1 ) fill(rougeFonce) ; else fill(grisTresFonce) ;
     stroke(jaune) ;
     strokeWeight(1.5) ;
     window_midi_info(pos_midi_info, size_x_window_info_midi, spacing_midi_info) ;
     noStroke() ;
 
     textFont(textUsual_1);  textAlign(LEFT);
-    if(num_midi_input < 1 ) fill(blanc) ; else fill(grisClair) ;
+    if(num < 1 ) fill(blanc) ; else fill(grisClair) ;
     display_select_midi_device(pos_midi_info, spacing_midi_info) ;
     display_midi_device_available(pos_midi_info, spacing_midi_info) ;
   }
@@ -216,32 +244,13 @@ void midi_select() {
 }
 
 
-// OPEN AND CLOSE INPUT MIDI
-/////////////////////////////////////////////////////
-
-void open_input_midi(int whichOne) {
-  if ((!choice_midi_device || !choice_midi_default_device) &&  whichOne != -1 && whichOne < num_midi_input ) {
-    use_specific_midi_input(whichOne) ;
-    choice_midi_default_device = true ;
-    choice_midi_device = true ;
-  }
-}
-
-//
-void open_new_input_midi() {
-  if (which_midi_input >= 0 ) {
-    which_midi_input = -1 ;
-    choice_midi_device = false ;
-  }
-}
-// END OPEN AND CLOSE INPUT MIDI
-////////////////////////////////
 
 
 
 
 
-void select_midi_device() {
+
+void select_input_midi_device() {
   if (key == '0') which_midi_input = 0 ;
   if (key == '1') which_midi_input = 1 ;
   if (key == '2') which_midi_input = 2 ;
@@ -255,8 +264,8 @@ void select_midi_device() {
 }
 
 void midi_keyPressed() {
-  if (!choice_midi_device) select_midi_device() ;
-  if (key =='n' && choice_midi_device) open_new_input_midi() ;
+  if (!choice_midi_device) select_input_midi_device() ;
+  if (key =='n' && choice_midi_device) reset_input_midi_device() ;
 }
 
 // END SELECT MIDI DEVICE
