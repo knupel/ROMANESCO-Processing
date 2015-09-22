@@ -1,4 +1,5 @@
 // Tab: Z_Utils.pde
+// Z_Utils 1.11
 
 
 
@@ -89,23 +90,38 @@ int longestWord( String[] listWordsToSort, int start, int finish ) {
 
 
 
-
-int longest_word_in_pixel( String[] listWordsToSort) {
+// with the same size_text for each line
+int longest_word_in_pixel(String[] listWordsToSort, int size_font) {
   int sizeWord = 0 ;
-  int ratio = 10 ;
   for ( int i = 0 ; i < listWordsToSort.length ; i++) {
-    if (length_String_in_pixel(listWordsToSort[i], ratio) > sizeWord )  sizeWord = length_String_in_pixel(listWordsToSort[i],ratio) ;
-    // if (listWordsToSort[i].length() > sizeWord )  sizeWord = listWordsToSort[i].length() ;
+    if (length_String_in_pixel(listWordsToSort[i], size_font) > sizeWord )  sizeWord = length_String_in_pixel(listWordsToSort[i],size_font) ;
   }
   return  sizeWord ;
 }
 
-int longest_word_in_pixel( String[] listWordsToSort, int start, int finish ) {
+// with the same size_text for each line, choice the which line you check
+int longest_word_in_pixel( String[] listWordsToSort, int size_font, int start, int finish ) {
   int sizeWord = 0 ;
-  int ratio = 10 ;
-  for ( int i = start ; i < finish ; i++) {
-    if (length_String_in_pixel(listWordsToSort[i], ratio) > sizeWord )  sizeWord = length_String_in_pixel(listWordsToSort[i],ratio) ;
-    // if (listWordsToSort[i].length() > sizeWord )  sizeWord = listWordsToSort[i].length() ;
+  for ( int i = start ; i <= finish ; i++) {
+    if (length_String_in_pixel(listWordsToSort[i], size_font) > sizeWord )  sizeWord = length_String_in_pixel(listWordsToSort[i],size_font) ;
+  }
+  return  sizeWord ;
+}
+
+// with list of size_text for each line
+int longest_word_in_pixel( String[] listWordsToSort, int [] size_font) {
+  int sizeWord = 0 ;
+  for ( int i = 0 ; i < listWordsToSort.length ; i++) {
+    if (length_String_in_pixel(listWordsToSort[i], size_font[i]) > sizeWord )  sizeWord = length_String_in_pixel(listWordsToSort[i],size_font[i]) ;
+  }
+  return  sizeWord ;
+}
+
+// with list of size_text for each line, choice the which line you check
+int longest_word_in_pixel( String[] listWordsToSort, int [] size_font, int start, int finish ) {
+  int sizeWord = 0 ;
+  for ( int i = start ; i <= finish ; i++) {
+    if (length_String_in_pixel(listWordsToSort[i], size_font[i]) > sizeWord )  sizeWord = length_String_in_pixel(listWordsToSort[i],size_font[i]) ;
   }
   return  sizeWord ;
 }

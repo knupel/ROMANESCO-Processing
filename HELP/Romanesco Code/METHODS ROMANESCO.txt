@@ -5,10 +5,6 @@
 // STRING METHOD
 ////////////////
 
-
-
-
-
 // FLOAT METHOD
 float decimal(float var, float num_decimal ) 
 @return float
@@ -16,27 +12,91 @@ retrun a specific number of decimal after comma
 
 
 
-String joinIntToString(int []data) @return the int list in a String separate by "/" must be improve, to add a choice in separator
+String joinIntToString(int []data) 
+@return the int list in a String separate by "/" must be improve, to add a choice in separator
 
-String joinFloatToString(float []data) @return the float list in a String separate by "/" must be improve, to add a choice in separator
+String joinFloatToString(float []data) 
+@return the float list in a String separate by "/" must be improve, to add a choice in separator
 
-String FloatToString(float data) @translate a float to String with "1" float or with "3", weird must look inside
+String FloatToString(float data) 
+@translate a float to String with "1" float or with "3", weird must look inside
 
-String IntToString(int data) @translate an Integer in String
+String IntToString(int data) 
+@translate an Integer in String
 
-String [] splitText(String textToSplit, String separator) @return a list of String
+String [] splitText(String textToSplit, String separator) 
+@return a list of String
 
-int longestWord( String[] listWordsToSort) @return the num of Char of String
 
-int longestWord( String[] listWordsToSort, int start, int finish ) @return the num of Char of String between two points
+String remove_part_String(String research, String target) 
+@return a String without the part of your choice, if it's possible. If it's not possible return info to explain.
 
-int longest_word_in_pixel( String[] listWordsToSort) @return length in Pix of biggest String in a String list for an font size of 10
+boolean research_in_String(String research, String target) 
+@return a boolean if String is find in an other String
 
-int longest_word_in_pixel( String[] listWordsToSort, int start, int finish ) @return length in Pix of biggest String in a String list for an font size of 10, between two points
 
-int length_String_in_pixel(String target, int ratio) @return a length in Pix of one String
 
-boolean research_in_String(String research, String target) @return a boolean if String is find in an other String
+
+
+// CHECK SIZE OF STRING
+////////////////////////
+
+// in letter
+------------
+int longestWord( String[] listWordsToSort) 
+@return the num of Char of String
+
+int longestWord( String[] listWordsToSort, int start, int finish ) 
+@return the num of Char of String between two points
+
+
+// in pixel
+------------
+// with same size of text for each line
+int longest_word_in_pixel( String[] listWordsToSort, int size_text) 
+@return length in Pix of biggest String in a String list for an font size of 10
+
+int longest_word_in_pixel( String[] listWordsToSort, int size_text, int start, int finish ) 
+@return length in Pix of biggest String in a String list for an font size of 10, between two points
+
+
+
+// with different size of text for each line
+int longest_word_in_pixel( String[] listWordsToSort, int [] size_text) 
+@return length in Pix of biggest String in a String list for an font size of 10
+
+int longest_word_in_pixel( String[] listWordsToSort, int [] size_text, int start, int finish ) 
+@return length in Pix of biggest String in a String list for an font size of 10, between two points
+
+
+
+
+
+int length_String_in_pixel(String target, int ratio) 
+@return a length in Pix of one String
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 // PVECTOR
@@ -51,6 +111,13 @@ PVector [] circle (PVector pos, int d, int num, float jitter) // same function w
 
 PVector pointOnCirlcle(int r, float angle) // return the position of the point on the perimeter of the circle. The first param is the radius, the second is the angle in radian (PI scale)
 
+
+
+
+
+
+
+// MATH
 float perimeterCircle (int r) return perimeter
 
 float radiusSurface(int surface) return the radius with a speficic surface

@@ -49,7 +49,8 @@ public class Dropdown {
    
     //size of the dropdow, for the item part
     float ratio = .95 ;
-    sizeBoxDropdownMenu = new PVector (longest_word_in_pixel(listItem) *ratio, sizeBox) ;
+    int size_text = 10 ;
+    sizeBoxDropdownMenu = new PVector (longest_word_in_pixel(listItem, size_text) *ratio, sizeBox) ;
     
     
     //slider dropdown

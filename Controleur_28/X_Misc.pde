@@ -74,7 +74,7 @@ void list_cameras_controller() {
   
   // about the camera
   if (cameras.length != 0) {
-    println("Available cameras:");
+   // println("Available cameras:");
     for(int i = 0 ; i < cameras.length ; i++) {
       String cam_data [] = split(cameras[i],",") ;
       // camera name
@@ -88,7 +88,7 @@ void list_cameras_controller() {
       String fps = cam_data [2].substring(4,cam_data[2].length()) ;
       cam_fps[i] = Integer.parseInt(fps) ;
       // info
-      println(i, cam_name [i], cam_width[i] +"x" +cam_height[i], cam_fps[i]) ;
+     // println(i, cam_name [i], cam_width[i] +"x" +cam_height[i], cam_fps[i]) ;
     }
   } else {
     println("There are no cameras available for capture.");

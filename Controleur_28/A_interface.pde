@@ -1016,11 +1016,52 @@ void buttonDraw() {
 
 // DRAW LOCAL METHOD
 void buttonInfoOnTheTop() {
-  fill(jaune) ;
-   textFont(FuturaStencil_20) ;
-  if(button_midi.rollover()) text("Midi Setting",   mouseX -20, mouseY -20 ) ;
-  if(button_curtain.rollover()) text("Cut",   mouseX -20, mouseY -20 ) ;
+    // background window
+  Vec2 pos_window = Vec2(mouseX , mouseY -20) ;
+  Vec2 ratio_size = Vec2( 1.6, 1.3) ;
+  int speed = 7 ;
+  int size_angle = 2 ;
+  Vec2 range_check = Vec2(0,0) ;
+ 
+
+  String [] text = new String[1] ;
+  int [] size_text = new int[1] ;
+  size_text [0] = 20 ;
+  
+
+
+
+  
+  textFont(FuturaStencil_20) ;
+  if(button_midi.rollover()) {
+    
+    text [0] = ("MIDI") ;
+    fill(grisTresFonce, 180) ;
+    background_text_list(Vec2(pos_window.x, pos_window.y), text, size_text, size_angle, speed, ratio_size, range_check) ;
+    fill(jaune) ;
+    text(text [0],pos_window.x, pos_window.y) ;
+  }
+  if(button_curtain.rollover()) {
+
+    text [0] = ("CUT") ;
+    fill(grisTresFonce, 180) ;
+    background_text_list(Vec2(pos_window.x, pos_window.y), text, size_text, size_angle, speed, ratio_size,range_check) ;
+    fill(jaune) ;
+    text(text [0], pos_window.x, pos_window.y) ;
+
+
+  }
 }
+
+
+
+
+
+
+
+
+
+
 
 // GROUP ZERO
 void buttonDrawGroupZero() {
@@ -1056,7 +1097,7 @@ void buttonDrawGroupOne() {
     button_G1[i*10 +4].buttonPic(picAction) ; 
     PVector pos = new PVector (pos_button_width_G1[i*10 +2], pos_button_height_G1[i*10 +1] +10) ;
     PVector size = new PVector (20, 30) ;
-    rolloverInfoVignette(pos, size, i, 1) ;
+    text_info_object(pos, size, i, 1) ;
   }
 }
 // GROUP TWO
@@ -1070,7 +1111,7 @@ void buttonDrawGroupTwo() {
     button_G2[i*10 +4].buttonPic(picAction) ;     
     PVector pos = new PVector (pos_button_width_G2[i*10 +2], pos_button_height_G2[i*10 +1] +10) ;
     PVector size = new PVector (20, 30) ;
-    rolloverInfoVignette(pos, size, i, 2) ;
+    text_info_object(pos, size, i, 2) ;
   }
 }
 
@@ -1473,7 +1514,7 @@ void check_dropdown_object_mousepressed( int start, int end ) {
 // OTHER METHOD 
 //ANNEXE VOID
 //show info
-void rolloverInfoVignette(PVector pos, PVector size, int IDorder, int IDfamily) {
+void text_info_object(PVector pos, PVector size, int IDorder, int IDfamily) {
   if (mouseX > pos.x && mouseX < (size.x + pos.x ) && mouseY > pos.y - 10 && mouseY <  (size.y + pos.y) -20 ) {
     PVector fontPos = new PVector(-10, -20 ) ;
     
@@ -1483,13 +1524,17 @@ void rolloverInfoVignette(PVector pos, PVector size, int IDorder, int IDfamily) 
         if ( IDfamily == 1 ) rank = IDorder ;
         if ( IDfamily == 2 ) rank = IDorder +numGroup[1] ;
         if ( IDfamily == 3 ) rank = IDorder +numGroup[1] +numGroup[2] ;  
-        lookAndDisplayInfo(rank, fontPos) ;
+        display_info_object(rank, fontPos) ;
       }
     }
   }
 }
 
-void lookAndDisplayInfo(int IDorder, PVector pos) {
+
+
+
+
+void display_info_object(int IDorder, PVector pos) {
   int whichLine = 0 ;
   int num = objectList.getRowCount() ;
   for ( int j = 0 ; j < num ; j++) {
@@ -1500,19 +1545,112 @@ void lookAndDisplayInfo(int IDorder, PVector pos) {
     }
   }
   TableRow displayInfo = objectList.getRow(whichLine) ;
-  String NameObj = displayInfo.getString("Name") ;
-  String AuthorObj = displayInfo.getString("Author") ;
-  String VersionObj = displayInfo.getString("Version") ;
-  String PackObj = displayInfo.getString("Pack") ; 
+  int num_line = 4 ;
+  String [] text = new String[num_line] ;
+  int [] size_text = new int[num_line] ;
+  text[0] = displayInfo.getString("Name") ;
+  text[1] = displayInfo.getString("Author") ;
+  text[2] = displayInfo.getString("Version") ;
+  text[3] = displayInfo.getString("Pack") ;
+  size_text [0] = 20 ;
+  size_text [1] = 15 ;
+  size_text [2] = 10 ;
+  size_text [3] = 10 ;
+
+  // background window
+  int pos_correction_y = -30 ;
+  Vec2 pos_window = Vec2(pos.x +mouseX , pos.y + mouseY +pos_correction_y) ;
+  Vec2 ratio_size = Vec2( 1.4, 1.3) ;
+  int speed = 7 ;
+  int size_angle = 2 ;
+  fill(rougeFonce, 150) ;
+  Vec2 range_check = Vec2(0,1) ;
+  background_text_list(Vec2(pos_window.x +2, pos_window.y), text, size_text, size_angle, speed, ratio_size, range_check) ;
+
+
+  // text
   fill(jaune) ;  
-  textSize(20 ) ;
+  textSize(size_text [0] ) ;
   textFont(FuturaStencil_20) ;
-  text(NameObj, mouseX +pos.x, mouseY +pos.y -25) ;
-  textSize(15 ) ;
-  text(AuthorObj, mouseX +pos.x, mouseY +pos.y -10) ;
-  textSize(10 ) ;
-  text(VersionObj, mouseX +pos.x, mouseY +pos.y +0) ;
-  text(PackObj, mouseX +pos.x, mouseY +pos.y +10) ;
+  text(text[0], pos_window.x, pos_window.y +5) ;
+  textSize(size_text [1] ) ;
+  text(text[1], pos_window.x, pos_window.y +20) ;
+  textSize(size_text [2] ) ;
+  text(text[2], pos_window.x, pos_window.y +30) ;
+  text(text[3], pos_window.x, pos_window.y +40) ;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// ANNEXE METHODE
+/////////////////
+
+void background_text_list(Vec2 pos, String [] list, int [] size_text, int size_angle, int speed_rotation, Vec2 ratio_size, Vec2 start_end) {
+  // create the starting point of the shape
+  pos = Vec2(pos.x -(size_text[0] *.5), pos.y -size_text[0]) ;
+
+  // spacing
+  float spacing = 0 ;
+  for(int i = 0 ; i < size_text.length ; i++) {
+    spacing += size_text[i] ;
+  }
+  spacing /= size_text.length ;
+  spacing *= ratio_size.y;
+
+  //define the size of the background
+  int start_point_list = int(start_end.x) ;
+  int end_point_list = int(start_end.y) ;
+  
+  int size_word = int(longest_word_in_pixel(list, size_text, start_point_list, end_point_list)) ;
+  float width_rect =  size_word *ratio_size.x ;
+  int height_rect = list.length *(int)spacing ;
+  
+  // create the point to build the background
+  int diam = size_angle ;
+  int speed = speed_rotation ;
+  Vec2 a = Vec2(pos.x + 0,pos.y + 0).circular(diam *3, speed/2) ;
+  Vec2 b = Vec2(pos.x + width_rect, pos.y + 0).circular(int(diam *1.5), speed) ;
+  Vec2 c = Vec2(pos.x + width_rect, pos.y + height_rect).circular(diam *2, int(speed *1.2)) ;
+  Vec2 d = Vec2(pos.x + 0, pos.y + height_rect).circular(diam, int(speed *.7)) ;
+  
+  // display background
+  beginShape() ;
+  vertex(a.x, a.y) ;
+  vertex(b.x, b.y) ;
+  vertex(c.x, c.y) ;
+  vertex(d.x, d.y) ;
+  endShape(CLOSE) ;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 // END DISPLAY INFO OBJECT
 //////////////////////////
