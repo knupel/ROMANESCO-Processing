@@ -43,7 +43,12 @@ If you want code in Romanesco there few compulsory variables, methods and functi
  * shaderBackgroundList.csv file 
  * sliderListEN.csv file
  * sliderListFR.csv file
-* Export all your Apps, put the "Launcher.app" in the main Folder, in "sources" drop the Scene, Prescene and the Controleur. You must embeded Java when you export your differents app, because with Java 8 there is a bug with the window display.
+* Export all your sketches
+  * For the Scene, you must export the sketch two times. In the first you must comment the line ````fullScreen()```` after you add "_fullscreen" to the end of the name file. After you make the second export uncomment ````fullScreen()````and comment the line ````size()````. When the export is done, add "_window"  to the end of the name file.
+  * For the other exportation nothing in particular.
+  * Put the "Launcher.app" in the main Folder
+  * For the other "Controleur_##", "Prescene_##", "Scene_##_window" and "Scene_##_fullscreen" in "sources" drop it in the "sources" folder. 
+  * *You can embeded Java when you export your differents app. That make bigger file but easiest to use on other platform.
 * Check your internet connexion and run.
 
 ##Built Romanesco on Linux
@@ -53,14 +58,16 @@ If you want code in Romanesco there few compulsory variables, methods and functi
 * ?
 
 ##Libraries used for the application
-* [OSC](http://www.sojamo.de/libraries/oscp5/)
-* [YahooWeather](http://www.onformative.com/lab/google-weather-library-for-processing/)
+* OSC, add from libraries Manager of Processing.
+* YahooWeather, add from libraries Manager of Processing.
 * [Geomerative](http://www.ricardmarxer.com/geomerative/)
 * [Leapmotion] (https://github.com/heuermh/leap-motion-processing)
 * [Tablet] (http://interfaze.info/libraries/tablet/)
-* [Syphon] (https://github.com/Syphon/Processing)
-* [GSVideo] (http://sourceforge.net/projects/gsvideo/files/gsvideo/1.0/)
-* [Minim, Promidi, Romefeeder, Toxilib and Twitter] (https://www.dropbox.com/s/jl0kr6tug7daut5/libraries_romanesco.zip?dl=0)
+* Syphon, add from libraries Manager of Processing.
+* Video, add from libraries Manager of Processing.
+* Minim, add from libraries Manager of Processing.
+* The Midi Bus, add from libraries Manager of Processing.
+* [Romefeeder, Toxilib and Twitter] (https://www.dropbox.com/s/jl0kr6tug7daut5/libraries_romanesco.zip?dl=0)
 
 
 ##LICENCE
