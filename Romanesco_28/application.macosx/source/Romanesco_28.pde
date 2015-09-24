@@ -66,6 +66,3 @@ void mousePressed() {
 void mouseReleased() {
   if(buttonFullscreen.OnOff) whichScreenReleased() ;
 }
-
-
-

@@ -1,4 +1,5 @@
-//Tab: Z_Module
+// Tab: Z_Module
+// Z_Module 1.1
 
 
 
@@ -69,7 +70,6 @@ void init_camera(int which_camra) {
   cam = new Capture(this, cameras[which_camra]);
   cam.start();     
   cam.read(); 
-  println(cam.available(), cam.width) ;;
 }
 
 

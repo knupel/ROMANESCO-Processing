@@ -143,6 +143,13 @@ void launchMiroir() {
   MiroirSetting = true ;
   SceneSetting = false ;
   fullscreen_or_window() ;
+  /*
+  screen = ("false") ;
+  buttonWindow.OnOff = true ;
+  sizeWindow() ;
+  */
+
+
   addressLocal(pos_local_adress.x,pos_local_adress.y) ;
   //last step
   launchApp() ;

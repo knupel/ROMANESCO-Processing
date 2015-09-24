@@ -14,7 +14,8 @@ boolean fullRendering = true ;
 
 
 void settings() {
-  size(256,256,P3D) ;
+  fullScreen(P3D,2) ;
+  // size(124,124,P3D) ;
   syphon_settings() ;
 }
 
@@ -46,12 +47,13 @@ void setup() {
   if(fullRendering) {
     shader_setup() ;
   }
+  size_scene() ;
 }
 
 //DRAW
 void draw() {
   if(!syphon_on_off) surface.setTitle(nameVersion + " " +prettyVersion+"."+version+ " | Scéne | FPS: "+round(frameRate)); else frame.setTitle(nameVersion + " " +prettyVersion+"."+version+ " | Miroir | FPS: "+round(frameRate));
-  size_scene() ;
+  // size_scene() ;
   init_and_update_diplay_var() ;
 
   syphon_draw() ;
