@@ -1,7 +1,7 @@
 ##Romanesco Unu 1.1.1.28
-Romanesco is a Generative Live Art Application, but can be
-your object manager to test your sketch in a P3D world.
-Those sketches are the progress work. 
+Romanesco is a Generative Live Art Application.
+Those sketches are the progress work, write for Processing 3.
+
 To download the last built version [app 1.1.0.27](http://romanescoproject.wordpress.com/download/)
 
 ##Architecture Sketches
