@@ -171,6 +171,20 @@ boolean prescene
 
 
 
+LEAP MOTION or MOUSE ORDER
+–––––––––––––––––––––––––––
+boolean ORDER_ONE ; return "true" the leftClick or when only one finger are in the leapmotion field	
+boolean ORDER_TWO ; return "true" the rightClick or when only two fingers are in the leapmotion field	
+boolean ORDER_THREE ; return "true" when three fingers are in the leapmotion field
+
+
+
+
+
+
+
+
+
 
 
 
