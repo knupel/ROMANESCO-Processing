@@ -81,7 +81,6 @@ void backgroundP3D(Vec4 c) {
   } else {
     background(c.r, c.g, c.b, c.a) ;
   }
-  
 }
 
 
