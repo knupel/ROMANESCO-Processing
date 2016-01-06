@@ -91,7 +91,7 @@ class Atome extends Romanesco {
       if(spaceTouch && action[IDobj]) {
         newDirection = new PVector (-pen[IDobj].x, -pen[IDobj].y ) ;
       } else { 
-        newDirection = normalDir(int(directionObj[IDobj])) ;
+        newDirection = normal_direction(int(directionObj[IDobj])) ;
       }
     } else {
       newDirection = new PVector () ;

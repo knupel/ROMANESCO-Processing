@@ -1,12 +1,16 @@
   ////////////////////////////////////////////////////////////////////
- // Romanesco Unu 1.1.1 / version 28 / made with Processing 3.0b5 ///
+ // Romanesco Unu 1.1.1 / version 28 / made with Processing 3.0.1 ///
 ////////////////////////////////////////////////////////////////////
 /* 14.750 lines of code the 4th may !!!! */
+// CONSTANT NUMBER
+final float PHI = (1 + sqrt(5))/2; //a number of polys use the golden ratio...
+final float ROOT2 = sqrt(2); //...and the square root of two, the famous first irrationnal number by Pythagore
+final float EULER = 2.718281828459045235360287471352; // Constant d'Euler
 
 String nameVersion = ("Romanesco Unu") ;
 String IAM = ("Scene") ;
-String version = ("27") ;
-String prettyVersion = ("1.1.0") ;
+String version = ("28") ;
+String prettyVersion = ("1.1.1") ;
 String preferencesPath  ;
 // security must be link with the controler in the next release
 boolean testRomanesco = false ;

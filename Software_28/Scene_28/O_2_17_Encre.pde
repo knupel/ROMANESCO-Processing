@@ -140,7 +140,7 @@ class Spray extends Romanesco {
         PVector posFinal = new PVector(0,0) ;
         
         PVector dir = new PVector (0,0) ;
-        dir = normalDir((int)floatDirection) ;
+        dir = normal_direction((int)floatDirection) ;
         //distrubution in each branch
         float factor = random(0,1) ;
         float newDistance = 0 ;

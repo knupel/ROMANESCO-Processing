@@ -103,6 +103,33 @@ void controllerChange(int channel, int CC, int value, long timestamp, String bus
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 // ROMANESCO METHODE MIDI
 //////////////////////////
 

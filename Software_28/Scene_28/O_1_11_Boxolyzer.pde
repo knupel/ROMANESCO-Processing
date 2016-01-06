@@ -60,7 +60,7 @@ class Boxolyzer extends Romanesco {
   void boxolyzerCircle(Vec3 size, int diam, boolean groundPosition, float dir) {
     if( action[IDobj] && rTouch ) orientation = !orientation ;
     int surface = diam*diam ; // surface is equale of square surface where is the cirlcke...make sens ?
-    int radius = ceil(radiusSurface(surface)) ;
+    int radius = ceil(radius_from_circle_surface(surface)) ;
     
     int n = boiteList.size() ;
     float factorSpectrum = 0 ;
@@ -70,8 +70,8 @@ class Boxolyzer extends Romanesco {
       if(  i < band.length) factorSpectrum = band [IDobj][i] ;
       float stepAngle = map(i, 0, n, 0, 2*PI) ; 
       float angle =  2*PI - stepAngle;
-      if(orientation) pos = new PVector(pointOnCirlcle(radius, angle).x + pos.x, pointOnCirlcle(radius, angle).y + pos.y ) ;
-      else  pos = new PVector(pointOnCirlcle(radius, angle).x + pos.x, 0, pointOnCirlcle(radius, angle).y + pos.z) ;
+      if(orientation) pos = new PVector(projection_on_cirlcle_with_radius(radius, angle).x + pos.x, projection_on_cirlcle_with_radius(radius, angle).y + pos.y ) ;
+      else  pos = new PVector(projection_on_cirlcle_with_radius(radius, angle).x + pos.x, 0, projection_on_cirlcle_with_radius(radius, angle).y + pos.z) ;
 
       BOITEaMUSIQUE boiteAmusique = (BOITEaMUSIQUE) boiteList.get(i) ;
       boiteAmusique.showTheBoite(pos, size, factorSpectrum, groundPosition, dir) ;

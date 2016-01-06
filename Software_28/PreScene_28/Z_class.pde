@@ -187,7 +187,7 @@ class Pixel {
   
   //UPDATE POSITION with the wind
   void updatePosPixel(PVector effectPosition, PImage pic) {
-    PVector dir = normalDir((int)effectPosition.x) ;
+    PVector dir = normal_direction((int)effectPosition.x) ;
     
     wind = new PVector (1.0 *dir.x *effectPosition.y  + random(-effectPosition.z, effectPosition.z) ,   1.0 *dir.y *effectPosition.y  + random(-effectPosition.z, effectPosition.z))   ;
     pos.add(wind) ;
@@ -202,7 +202,7 @@ class Pixel {
   
   //return position with display size
   PVector posPixel(PVector effectPosition, PImage pic) {
-    PVector dir = normalDir((int)effectPosition.x) ;
+    PVector dir = normal_direction((int)effectPosition.x) ;
 
     newPos = pos ;
     

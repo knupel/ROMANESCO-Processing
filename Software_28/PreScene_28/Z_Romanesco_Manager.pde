@@ -372,6 +372,7 @@ class ObjectRomanescoManager {
     try {
       Class c = objectRomanescoList.get(i);
       Constructor[] constructors = c.getConstructors();
+      println(f,i, constructors.length, parent) ;
       f = (Romanesco) constructors[0].newInstance(parent);
     }
     catch (InvocationTargetException e) {
