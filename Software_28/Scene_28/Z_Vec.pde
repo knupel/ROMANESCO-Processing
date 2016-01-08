@@ -1,6 +1,11 @@
-// CLASS VEC 0.1.14
+// CLASS VEC 0.1.21
 ///////////////////
-// inspireted by GLSL code and PVector
+/**
+inspireted by GLSL code and PVector
+https://github.com/StanLepunK/Vec
+*/
+
+
 
 // VEC 2
 ////////////////
@@ -20,6 +25,45 @@ class Vec2 {
     this.ref_x = this.x = this.s = this.u = x ;
     this.ref_y = this.y = this.t = this.v = y ;
   }
+  
+  // random generator for the Vec
+  Vec2(String key_random, int r1) {
+    if(key_random.equals("RANDOM")) {
+    this.ref_x = this.x = this.s = this.u = random(-r1,r1) ;
+    this.ref_y = this.y = this.t = this.v = random(-r1,r1) ;
+    } else {
+      this.ref_x = this.ref_y = this.x = this.y = this.s = this.t = this.u = this.v = 0 ;
+      println("the key word for the random is not available use the String 'RANDOM'") ;
+    }
+  }
+  
+  Vec2(String key_random, int r1, int r2) {
+    if(key_random.equals("RANDOM")) {
+    this.ref_x = this.x = this.s = this.u = random(-r1,r1) ;
+    this.ref_y = this.y = this.t = this.v = random(-r2,r2) ;
+    } else {
+      this.ref_x = this.ref_y = this.x = this.y = this.s = this.t = this.u = this.v = 0 ;
+      println("the key word for the random is not available use the String 'RANDOM'") ;
+    }
+  }
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
   
   
   // multiplication
@@ -89,6 +133,15 @@ class Vec2 {
     t = v = y ;
     return new Vec2(x,y)  ;
   }
+
+  Vec2 add(float value_a, float value_b) {
+    x += value_a ;
+    y += value_b ;
+    // update value
+    s = u = x ;
+    t = v = y ;
+    return new Vec2(x,y)  ;
+  }
   /* add Vector */
   Vec2 add(Vec2 v_a) {
     x += v_a.x ;
@@ -109,8 +162,27 @@ class Vec2 {
   }
   
   
+    /* normalize
+  return mapping vector
+  @return Vec2
+  */
+  Vec2 normalize(Vec2 min, Vec2 max) {
+    x = map(x, min.x, max.x, 0, 1) ;
+    y = map(y, min.y, max.y, 0, 1) ;
+    // update value
+    s = u = x ;
+    t = v = y ;
+    return new Vec2(x,y) ;
+  }
   
-  
+  Vec2 normalize(Vec2 max) {
+    x = map(x, 0, max.x, 0, 1) ;
+    y = map(y, 0, max.y, 0, 1) ;
+    // update value
+    s = u = x ;
+    t = v = y ;
+    return new Vec2(x,y) ;
+  }
   /* mapping
   return mapping vector
   @return Vec2
@@ -181,17 +253,36 @@ class Vec2 {
   }
   
   
+  // Circular motion
+  //////////////////
+  /* create a circular motion effect */
+  Vec2 circular(int diam, int speed) {
+    /* may be change by 
+    float new_speed = speed *.01 ;
+    */
+    float new_speed = speed /100. ; 
+    x = ref_x ;
+    y = ref_y ;
+    float m_x = sin(frameCount *new_speed) ;
+    float m_y = cos(frameCount *new_speed) ;
+    m_x *= diam ;
+    m_y *= diam ;
+    
+    return new Vec2(x +m_x, y +m_y) ;
+  }
+  
+  
   
   /*catch info
   /////////////
-  return all the componant of Vec
+  return all the component of Vec
   @return Vec2
   */
   Vec2 copy() {
     return new Vec2(x,y) ;
   }
   /*
-  return all the componant of Vec in type PVector
+  return all the component of Vec in type PVector
   @return PVector
   */
   PVector copyVecToPVector() {
@@ -207,8 +298,6 @@ class Vec2 {
 
 
 
-
-
 // VEC 3
 ////////////////
 class Vec3 {
@@ -217,6 +306,10 @@ class Vec3 {
   float r, g, b = 0 ;
   float s, t, p = 0 ;
   
+  
+  
+  
+  // CONSTRUCTOR
   Vec3() {}
   
   Vec3(float value) {
@@ -229,6 +322,42 @@ class Vec3 {
     this.ref_z = this.z = this.b = this.p =z ;
   }
   
+  
+  // random generator for the Vec
+  Vec3(String key_random, int r1) {
+    if(key_random.equals("RANDOM")) {
+    this.ref_x = this.x = this.r =this.s = random(-r1,r1) ;
+    this.ref_y = this.y = this.g =this.t = random(-r1,r1) ;
+    this.ref_z = this.z = this.b = this.p = random(-r1,r1) ;
+    } else {
+      this.ref_x = this.ref_y = this.ref_z = this.x = this.y = this.z  = this.r = this.g = this.b =this.s = this.t = this.p = 0 ;
+      println("the key word for the random is not available use the String 'RANDOM'") ;
+    }
+  }
+  
+  Vec3(String key_random, int r1, int r2, int r3) {
+    if(key_random.equals("RANDOM")) {
+    this.ref_x = this.x = this.r =this.s = random(-r1,r1) ;
+    this.ref_y = this.y = this.g =this.t = random(-r2,r2) ;
+    this.ref_z = this.z = this.b = this.p = random(-r3,r3) ;
+    } else {
+      this.ref_x = this.ref_y = this.ref_z = this.x = this.y = this.z  = this.r = this.g = this.b =this.s = this.t = this.p = 0 ;
+      println("the key word for the random is not available use the String 'RANDOM'") ;
+    }
+  }
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  // METHOD
+  //////////////////////
   // multiplication
   /* multiply Vector by a same float value */
   Vec3 mult(float mult) {
@@ -300,6 +429,16 @@ class Vec3 {
     b = p = z ;
     return new Vec3(x,y,z)  ;
   }
+  Vec3 add(float value_a,float value_b,float value_c) {
+    x += value_a ;
+    y += value_b ;
+    z += value_c ;
+    // update value
+    r = s = x ;
+    g = t = y ;
+    b = p = z ;
+    return new Vec3(x,y,z)  ;
+  }
   /* add one Vector */
   Vec3 add(Vec3 v_a) {
     x += v_a.x ;
@@ -325,7 +464,32 @@ class Vec3 {
   }
   
   
+  /*
+  normalization
+  return mapping vector
+  @return Vec3
+  */
+  Vec3 normalize(Vec3 min, Vec3 max) {
+    x = map(x, min.x, max.x, 0, 1) ;
+    y = map(y, min.y, max.y, 0, 1) ;
+    z = map(z, min.z, max.z, 0, 1) ;
+    // update value
+    r = s = x ;
+    g = t = y ;
+    b = p = z ;
+    return new Vec3(x,y,z) ;
+  }
   
+  Vec3 normalize(Vec3 max) {
+    x = map(x, 0, max.x, 0, 1) ;
+    y = map(y, 0, max.y, 0, 1) ;
+    z = map(z, 0, max.z, 0, 1) ;
+    // update value
+    r = s = x ;
+    g = t = y ;
+    b = p = z ;
+    return new Vec3(x,y,z) ;
+  }
   /*
   mapping
   return mapping vector
@@ -409,6 +573,8 @@ class Vec3 {
     return new Vec3(x,y,z) ;
   }
   
+
+
   
   
   // catch info
@@ -459,6 +625,45 @@ class Vec4 {
     this.ref_w = this.w = this.a = this.q = w ;
   }
   
+  // random generator for the Vec
+  Vec4(String key_random, int r1) {
+    if(key_random.equals("RANDOM")) {
+    this.ref_x = this.x = this.r =this.s = random(-r1,r1) ;
+    this.ref_y = this.y = this.g =this.t = random(-r1,r1) ;
+    this.ref_z = this.z = this.b = this.p = random(-r1,r1) ;
+    this.ref_w = this.w = this.a = this.q = random(-r1,r1) ;
+    } else {
+      this.ref_x = this.ref_y = this.ref_z = this.ref_w = this.x = this.y = this.z = this.w = this.r = this.g = this.b = this.a =this.s = this.t = this.p = this.q = 0 ;
+      println("the key word for the random is not available use the String 'RANDOM'") ;
+    }
+  }
+  
+  Vec4(String key_random, int r1, int r2, int r3, int r4) {
+    if(key_random.equals("RANDOM")) {
+    this.ref_x = this.x = this.r =this.s = random(-r1,r1) ;
+    this.ref_y = this.y = this.g =this.t = random(-r2,r2) ;
+    this.ref_z = this.z = this.b = this.p = random(-r3,r3) ;
+    this.ref_w = this.w = this.a = this.q = random(-r4,r4) ;
+    } else {
+      this.ref_x = this.ref_y = this.ref_z = this.ref_w = this.x = this.y = this.z = this.w = this.r = this.g = this.b = this.a =this.s = this.t = this.p = this.q = 0 ;
+      println("the key word for the random is not available use the String 'RANDOM'") ;
+    }
+  }
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  // METHOD
   
   // multiplication
   // mult by a same float
@@ -534,6 +739,18 @@ class Vec4 {
     a = q = w ;
     return new Vec4(x,y,z,w)  ;
   }
+  Vec4 add(float value_a,float value_b,float value_c,float value_d) {
+    x += value_a ;
+    y += value_b ;
+    z += value_c ;
+    w += value_d ;
+    // update value
+    r = s = x ;
+    g = t = y ;
+    b = p = z ;
+    a = q = w ;
+    return new Vec4(x,y,z,w)  ;
+  }
   /* add vec */
   Vec4 add(Vec4 v_a) {
     x += v_a.x ;
@@ -561,6 +778,38 @@ class Vec4 {
     return new Vec4(x,y,z,w)  ;
   }
   
+  
+  
+  /*
+  normalization
+  return mapping vector
+  @return Vec3
+  */
+  Vec4 normalize(Vec4 min, Vec4 max) {
+    x = map(x, min.x, max.x, 0, 1) ;
+    y = map(y, min.y, max.y, 0, 1) ;
+    z = map(z, min.z, max.z, 0, 1) ;
+    w = map(w, min.w, max.w, 0, 1) ;
+    // update value
+    r = s = x ;
+    g = t = y ;
+    b = p = z ;
+    a = q = w ;
+    return new Vec4(x,y,z,w) ;
+  }
+  
+  Vec4 normalize(Vec4 max) {
+    x = map(x, 0, max.x, 0, 1) ;
+    y = map(y, 0, max.y, 0, 1) ;
+    z = map(z, 0, max.z, 0, 1) ;
+    w = map(w, 0, max.w, 0, 1) ;
+    // update value
+    r = s = x ;
+    g = t = y ;
+    b = p = z ;
+    a = q = w ;
+    return new Vec4(x,y,z,w) ;
+  }
   /* mapping
   return mapping vector
   @return Vec4
@@ -659,7 +908,6 @@ class Vec4 {
 
 // CLASS Vec5
 /////////////
-
 class Vec5 {
   float a,b,c,d,e = 0 ;
 
@@ -677,6 +925,39 @@ class Vec5 {
     this.d = d ;
     this.e = e ;
   }
+  
+  
+  
+  
+  // random generator for the Vec
+  Vec5(String key_random, int r1) {
+    if(key_random.equals("RANDOM")) {
+    this.a = random(-r1,r1) ;
+    this.b = random(-r1,r1) ;
+    this.c = random(-r1,r1) ;
+    this.d = random(-r1,r1) ;
+    this.e = random(-r1,r1) ;
+    } else {
+      this.a = this.b = this.c = this.d = this.e = 0 ;
+      println("the key word for the random is not available use the String 'RANDOM'") ;
+    }
+  }
+  
+  Vec5(String key_random, int r1, int r2, int r3, int r4, int r5) {
+    if(key_random.equals("RANDOM")) {
+    this.a = random(-r1,r1) ;
+    this.b = random(-r2,r2) ;
+    this.c = random(-r3,r3) ;
+    this.d = random(-r4,r4) ;
+    this.e = random(-r5,r5) ;
+    } else {
+      this.a = this.b = this.c = this.d = this.e = 0 ;
+      println("the key word for the random is not available use the String 'RANDOM'") ;
+    }
+  }
+  
+  
+  
   // catch info
   /////////////
   Vec5 copy() {
@@ -688,6 +969,9 @@ class Vec5 {
 ////////////
 
 
+
+// CLASS Vec6
+/////////////
 class Vec6 {
   float a,b,c,d,e,f = 0 ;
 
@@ -695,7 +979,7 @@ class Vec6 {
   Vec6 () {}
   
   Vec6(float value) {
-    this.a = this.b = this.c = this.d = this.e = this.f =value ;
+    this.a = this.b = this.c = this.d = this.e = this.f = value ;
   }
   
   Vec6(float a, float b, float c, float d, float e, float f) {
@@ -705,6 +989,34 @@ class Vec6 {
     this.d = d ;
     this.e = e ;
     this.f = f ;
+  }
+  
+  
+  Vec6(String key_random, int r1) {
+    if(key_random.equals("RANDOM")) {
+    this.a = random(-r1,r1) ;
+    this.b = random(-r1,r1) ;
+    this.c = random(-r1,r1) ;
+    this.d = random(-r1,r1) ;
+    this.e = random(-r1,r1) ;
+    } else {
+      this.a = this.b = this.c = this.d = this.e = this.f = 0 ;
+      println("the key word for the random is not available use the String 'RANDOM'") ;
+    }
+  }
+  
+  Vec6(String key_random, int r1, int r2, int r3, int r4, int r5, int r6) {
+    if(key_random.equals("RANDOM")) {
+    this.a = random(-r1,r1) ;
+    this.b = random(-r2,r2) ;
+    this.c = random(-r3,r3) ;
+    this.d = random(-r4,r4) ;
+    this.e = random(-r5,r5) ;
+    this.f = random(-r6,r6) ;
+    } else {
+      this.a = this.b = this.c = this.d = this.e = this.f = 0 ;
+      println("the key word for the random is not available use the String 'RANDOM'") ;
+    }
   }
   // catch info
   /////////////
@@ -796,6 +1108,12 @@ Vec4 div(Vec4 v_a, Vec4 v_b) {
     float w = v_a.w / v_b.w ;
     return new Vec4(x,y,z, w)  ;
 }
+
+
+
+
+
+
 
 
 
@@ -1059,20 +1377,42 @@ Vec4 jitterVec4(int range_x, int range_y, int range_z, int range_w) {
 /////////////
 
 
-
+// NORMALIZE DIRECTION
 // VEC 2 from angle
 ///////////////////
-Vec2 fromRadians(float angle) {
+Vec2 norm_rad(float angle) {
   float x = (float)Math.cos(angle) ;
   float y = (float)Math.sin(angle) ;
   return Vec2(x,y) ;
 }
 
-Vec2 fromDegrees(float angle) {
+Vec2 norm_deg(float angle) {
   angle = radians(angle) ;
   float x = (float)Math.cos(angle) ;
   float y = (float)Math.sin(angle) ;
   return Vec2(x,y) ;
+}
+
+
+// normalize direction
+
+Vec2 norm_dir(String type, float direction) {
+  float x, y = 0 ;
+  if(type.equals("DEG")) {
+    float angle = TWO_PI/360.;
+    direction = 360-direction;
+    direction += 180;
+    x = sin(angle *direction) ;
+    y = cos(angle *direction);
+  } else if (type.equals("RAD")) {
+    x = sin(direction) ;
+    y = cos(direction);
+  } else {
+    println("the type must be 'RAD' for radians or 'DEG' for degrees") ;
+    x = 0 ;
+    y = 0 ;
+  }
+  return new Vec2(x,y) ;
 }
 // END VEC FROM ANGLE
 /////////////////////

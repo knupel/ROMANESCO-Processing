@@ -1,4 +1,4 @@
-// CLASS VEC 0.1.18
+// CLASS VEC 0.1.21
 ///////////////////
 /**
 inspireted by GLSL code and PVector
@@ -133,6 +133,15 @@ class Vec2 {
     t = v = y ;
     return new Vec2(x,y)  ;
   }
+
+  Vec2 add(float value_a, float value_b) {
+    x += value_a ;
+    y += value_b ;
+    // update value
+    s = u = x ;
+    t = v = y ;
+    return new Vec2(x,y)  ;
+  }
   /* add Vector */
   Vec2 add(Vec2 v_a) {
     x += v_a.x ;
@@ -153,8 +162,27 @@ class Vec2 {
   }
   
   
+    /* normalize
+  return mapping vector
+  @return Vec2
+  */
+  Vec2 normalize(Vec2 min, Vec2 max) {
+    x = map(x, min.x, max.x, 0, 1) ;
+    y = map(y, min.y, max.y, 0, 1) ;
+    // update value
+    s = u = x ;
+    t = v = y ;
+    return new Vec2(x,y) ;
+  }
   
-  
+  Vec2 normalize(Vec2 max) {
+    x = map(x, 0, max.x, 0, 1) ;
+    y = map(y, 0, max.y, 0, 1) ;
+    // update value
+    s = u = x ;
+    t = v = y ;
+    return new Vec2(x,y) ;
+  }
   /* mapping
   return mapping vector
   @return Vec2
@@ -401,6 +429,16 @@ class Vec3 {
     b = p = z ;
     return new Vec3(x,y,z)  ;
   }
+  Vec3 add(float value_a,float value_b,float value_c) {
+    x += value_a ;
+    y += value_b ;
+    z += value_c ;
+    // update value
+    r = s = x ;
+    g = t = y ;
+    b = p = z ;
+    return new Vec3(x,y,z)  ;
+  }
   /* add one Vector */
   Vec3 add(Vec3 v_a) {
     x += v_a.x ;
@@ -426,7 +464,32 @@ class Vec3 {
   }
   
   
+  /*
+  normalization
+  return mapping vector
+  @return Vec3
+  */
+  Vec3 normalize(Vec3 min, Vec3 max) {
+    x = map(x, min.x, max.x, 0, 1) ;
+    y = map(y, min.y, max.y, 0, 1) ;
+    z = map(z, min.z, max.z, 0, 1) ;
+    // update value
+    r = s = x ;
+    g = t = y ;
+    b = p = z ;
+    return new Vec3(x,y,z) ;
+  }
   
+  Vec3 normalize(Vec3 max) {
+    x = map(x, 0, max.x, 0, 1) ;
+    y = map(y, 0, max.y, 0, 1) ;
+    z = map(z, 0, max.z, 0, 1) ;
+    // update value
+    r = s = x ;
+    g = t = y ;
+    b = p = z ;
+    return new Vec3(x,y,z) ;
+  }
   /*
   mapping
   return mapping vector
@@ -676,6 +739,18 @@ class Vec4 {
     a = q = w ;
     return new Vec4(x,y,z,w)  ;
   }
+  Vec4 add(float value_a,float value_b,float value_c,float value_d) {
+    x += value_a ;
+    y += value_b ;
+    z += value_c ;
+    w += value_d ;
+    // update value
+    r = s = x ;
+    g = t = y ;
+    b = p = z ;
+    a = q = w ;
+    return new Vec4(x,y,z,w)  ;
+  }
   /* add vec */
   Vec4 add(Vec4 v_a) {
     x += v_a.x ;
@@ -703,6 +778,38 @@ class Vec4 {
     return new Vec4(x,y,z,w)  ;
   }
   
+  
+  
+  /*
+  normalization
+  return mapping vector
+  @return Vec3
+  */
+  Vec4 normalize(Vec4 min, Vec4 max) {
+    x = map(x, min.x, max.x, 0, 1) ;
+    y = map(y, min.y, max.y, 0, 1) ;
+    z = map(z, min.z, max.z, 0, 1) ;
+    w = map(w, min.w, max.w, 0, 1) ;
+    // update value
+    r = s = x ;
+    g = t = y ;
+    b = p = z ;
+    a = q = w ;
+    return new Vec4(x,y,z,w) ;
+  }
+  
+  Vec4 normalize(Vec4 max) {
+    x = map(x, 0, max.x, 0, 1) ;
+    y = map(y, 0, max.y, 0, 1) ;
+    z = map(z, 0, max.z, 0, 1) ;
+    w = map(w, 0, max.w, 0, 1) ;
+    // update value
+    r = s = x ;
+    g = t = y ;
+    b = p = z ;
+    a = q = w ;
+    return new Vec4(x,y,z,w) ;
+  }
   /* mapping
   return mapping vector
   @return Vec4

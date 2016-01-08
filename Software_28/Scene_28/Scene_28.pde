@@ -18,8 +18,9 @@ boolean fullRendering = true ;
 
 
 void settings() {
-  fullScreen(P3D,2) ;
-  // size(124,124,P3D) ;
+  // When you build Romanesco you must create two versions : fullscreen and normal
+  // fullScreen(P3D,2) ;
+  size(124,124,P3D) ;
   syphon_settings() ;
 }
 
@@ -65,7 +66,7 @@ void draw() {
   if(!testRomanesco) soundDraw() ;
   meteoDraw() ;
   updateVarRaw() ;
-  backgroundRomanesco() ; 
+  background_romanesco() ; 
   loadScene() ;
   saveScene() ;
   

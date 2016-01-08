@@ -32,8 +32,8 @@ void displaySetup(int speed) {
   colorMode(HSB, HSBmode.r, HSBmode.g, HSBmode.b, HSBmode.a) ;
   loadPropertyPrescene() ;
   sizePrescene() ;
-  backgroundSetup() ;
-  backgroundShaderSetup(modeP3D) ;
+  background_setup() ;
+  background_shader_setup(modeP3D) ;
 }
 //END DISPLAY START
 //////////////////

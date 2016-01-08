@@ -356,7 +356,7 @@ void brightSpectrumPalette(int [] brightP, int sizeSpectrum) {
 //CHANGE COLOR pixel in the list of Pixel
 void changeColorOfPixel(ArrayList listMustBeChange ) {
   for( int i = 0 ; i<listMustBeChange.size() ; i++) {
-    Pixel p = (Pixel) listMustBeChange.get(i) ;
+    Old_Pixel p = (Old_Pixel) listMustBeChange.get(i) ;
     p.changeHue   (HSBmode, huePalette, hueStart, hueEnd) ;
     p.changeSat   (HSBmode, satPalette, satStart, satEnd) ; 
     p.changeBright(HSBmode, brightPalette, brightStart, brightEnd) ;
@@ -368,15 +368,24 @@ void changeColorOfPixel(ArrayList listMustBeChange ) {
 
 
 //convert color HSB to RVB
-PVector HSBtoRGB(float hue, float saturation, float brightness) {
-  PVector PVectorRGB = new PVector() ;
-  
-  color c = color (hue, saturation, brightness);
-  colorMode(RGB,255) ;
-  PVectorRGB = new PVector (red(c), green(c), blue(c)) ;
-  colorMode(HSB,HSBmode.r,HSBmode.r,HSBmode.b,HSBmode.a) ;
-  return PVectorRGB ;
+Vec3 HSB_to_RGB(float hue, float saturation, float brightness) {
+  Vec4 vecRGB = HSBa_to_RGBa(hue, saturation, brightness, g.colorModeA).copy() ;
+  return Vec3(vecRGB.x,vecRGB.y,vecRGB.z) ;
 }
+
+Vec4 HSBa_to_RGBa(float hue, float saturation, float brightness, float alpha) {
+  Vec4 previousColorMode = Vec4(g.colorModeX, g.colorModeY, g.colorModeY, g.colorModeA) ;
+  color c = color (hue, saturation, brightness, alpha);
+
+  colorMode(RGB,255) ;
+  Vec4 vecRGBa = Vec4 (red(c), green(c), blue(c), alpha(c)) ;
+  // return to the previous colorMode
+  // colorMode(HSB,HSBmode.r,HSBmode.r,HSBmode.b,HSBmode.a) ;
+  colorMode(HSB,previousColorMode.r, previousColorMode.g, previousColorMode.b, previousColorMode.a) ;
+  return vecRGBa ;
+}
+
+
 
 
 

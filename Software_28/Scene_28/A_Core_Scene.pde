@@ -41,8 +41,8 @@ void displaySetup(int speed) {
   
   loadPropertyScene() ;
   
-  backgroundSetup() ;
-  backgroundShaderSetup(modeP3D) ;
+  background_setup() ;
+  background_shader_setup(modeP3D) ;
 }
 
 

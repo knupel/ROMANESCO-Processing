@@ -22,7 +22,7 @@ used sound
  maximum possibility of the object
  full frame rate
 */
-boolean fullRendering = false ;
+boolean fullRendering = true ;
 //to work in dev, test phase
 boolean testRomanesco = false ;
 
@@ -82,7 +82,7 @@ void draw() {
   if(!testRomanesco) soundDraw() ;
   updateVarRaw() ;
   OSCDraw() ;
-  backgroundRomanesco() ;
+  background_romanesco() ;
   updateCommand() ;
   leapMotionUpdate() ;
   loadPrescene() ;

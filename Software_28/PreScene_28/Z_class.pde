@@ -2,7 +2,8 @@
 /////////////
 //CLASS PIXEL
 /////////////
-class Pixel {
+
+class Old_Pixel {
   color colour, newColour ;
   PVector newC = new PVector (0,0,0) ; ;
   PVector pos ;
@@ -18,44 +19,44 @@ class Pixel {
   //DIFFERENT CONSTRUCTOR
   
   //classic pixel
-  Pixel(PVector pos) {
+  Old_Pixel(PVector pos) {
     this.pos = new PVector(pos.x, pos.y, pos.z) ;
   }
   
-  Pixel(PVector pos, color colour) {
+  Old_Pixel(PVector pos, color colour) {
     this.pos = new PVector(pos.x, pos.y, pos.z) ;
     this.colour = colour ;
   }
   
-  Pixel(PVector pos, PVector size) {
+  Old_Pixel(PVector pos, PVector size) {
     this.pos = new PVector(pos.x, pos.y, pos.z) ;
     this.size = new PVector(size.x, size.y, size.z) ;
   }
   
   //pixel with size
-  Pixel(PVector pos, PVector size, color colour) {
+  Old_Pixel(PVector pos, PVector size, color colour) {
     this.pos = new PVector(pos.x, pos.y, pos.z) ;
     this.size = new PVector(size.x, size.y, size.z) ;
     this.colour = colour ;
   }
   
   //INK CONSTRUCTOR
-  Pixel(PVector pos, float field, color colour) {
+  Old_Pixel(PVector pos, float field, color colour) {
     this.pos = new PVector(pos.x, pos.y, pos.z) ;
     this.field = field ;
     this.colour = colour ;
   }
-  Pixel(PVector pos, float field) {
+  Old_Pixel(PVector pos, float field) {
     this.pos = new PVector(pos.x, pos.y, pos.z) ;
     this.field = field ;
   }
   
   //RANK PIXEL CONSTRUCTOR
-  Pixel(int rank, PVector gridPos) {
+  Old_Pixel(int rank, PVector gridPos) {
     this.rank = rank ;
     this.gridPos = gridPos ;
   }
-  Pixel(int rank) {
+  Old_Pixel(int rank) {
     this.rank = rank ;
   }
   
