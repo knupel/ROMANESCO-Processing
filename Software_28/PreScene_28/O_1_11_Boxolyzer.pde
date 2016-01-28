@@ -7,7 +7,7 @@ class Boxolyzer extends Romanesco {
     IDobj = 11 ;
     IDgroup = 1 ;
     romanescoAuthor  = "Stan le Punk";
-    romanescoVersion = "Version 1.0.2";
+    romanescoVersion = "Version 1.0.3";
     romanescoPack = "Base" ;
     romanescoRender = "P3D" ;
     romanescoMode ="Classic/Circle" ;
@@ -64,14 +64,14 @@ class Boxolyzer extends Romanesco {
     
     int n = boiteList.size() ;
     float factorSpectrum = 0 ;
-    PVector pos = new PVector(0,0,0) ;
+    PVector pos = new PVector() ;
     
     for(int i=0; i < n; i++) {
       if(  i < band.length) factorSpectrum = band [IDobj][i] ;
       float stepAngle = map(i, 0, n, 0, 2*PI) ; 
       float angle =  2*PI - stepAngle;
-      if(orientation) pos = new PVector(projection_on_cirlcle_with_radius(radius, angle).x + pos.x, projection_on_cirlcle_with_radius(radius, angle).y + pos.y ) ;
-      else  pos = new PVector(projection_on_cirlcle_with_radius(radius, angle).x + pos.x, 0, projection_on_cirlcle_with_radius(radius, angle).y + pos.z) ;
+      if(orientation) pos = new PVector(projection(angle, radius).x + pos.x, projection(angle, radius).y + pos.y ) ;
+      else  pos = new PVector(projection(angle, radius).x + pos.x, 0, projection(angle, radius).y + pos.z) ;
 
       BOITEaMUSIQUE boiteAmusique = (BOITEaMUSIQUE) boiteList.get(i) ;
       boiteAmusique.showTheBoite(pos, size, factorSpectrum, groundPosition, dir) ;

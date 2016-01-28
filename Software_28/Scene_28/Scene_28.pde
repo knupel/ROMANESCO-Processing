@@ -2,10 +2,7 @@
  // Romanesco Unu 1.1.1 / version 28 / made with Processing 3.0.1 ///
 ////////////////////////////////////////////////////////////////////
 /* 14.750 lines of code the 4th may !!!! */
-// CONSTANT NUMBER
-final float PHI = (1 + sqrt(5))/2; //a number of polys use the golden ratio...
-final float ROOT2 = sqrt(2); //...and the square root of two, the famous first irrationnal number by Pythagore
-final float EULER = 2.718281828459045235360287471352; // Constant d'Euler
+
 
 String nameVersion = ("Romanesco Unu") ;
 String IAM = ("Scene") ;
@@ -19,8 +16,8 @@ boolean fullRendering = true ;
 
 void settings() {
   // When you build Romanesco you must create two versions : fullscreen and normal
-  // fullScreen(P3D,2) ;
-  size(124,124,P3D) ;
+  fullScreen(P3D,2) ;
+  // size(124,124,P3D) ;
   syphon_settings() ;
 }
 

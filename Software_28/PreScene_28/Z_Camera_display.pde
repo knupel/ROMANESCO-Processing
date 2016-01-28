@@ -1,5 +1,5 @@
 // Tab: Z_Camera_display
-// Camera.display 1.b
+// Camera.display 1.0.1
 //travelling
 boolean gotoCameraPosition, gotoCameraEye, travellingPriority ;
 
@@ -226,7 +226,7 @@ PVector updatePosObj(PVector pos, int ID, boolean authorization) {
   ////////////////////////////
   */
 
-  PVector delta = deltaObjPos.copyVecToPVector() ;
+  PVector delta = deltaObjPos.copy_PVector() ;
   // final position
   pos = PVector.add(posObjRef[ID], delta) ;
   return pos ;

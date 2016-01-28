@@ -1,7 +1,10 @@
-// Tab: Z_Math 1.6
+// Tab: Z_Math 1.8.0
+// CONSTANT NUMBER must be here to be generate before all
+/////////////////////////////////////////////////////////
+final float PHI = (1 + sqrt(5))/2; //a number of polys use the golden ratio...
+final float ROOT2 = sqrt(2); //...and the square root of two, the famous first irrationnal number by Pythagore
+final float EULER = 2.718281828459045235360287471352; // Constant d'Euler
 // about constant https://en.wikipedia.org/wiki/Mathematical_constant
-
-
 
 
 // ALGEBRE
@@ -26,9 +29,8 @@ float decimale (float var, int n) {
 //////////
 
 // EQUATION CIRLCE
-float perimeter_disc( int r ) {
-  float p = 2*r*PI  ;
-  return p ;
+float perimeter_disc(int r) {
+  return 2 *r *PI ;
 }
 
 
@@ -43,6 +45,17 @@ float radius_from_circle_surface(int surface) {
 
 
 // GEOMETRY POLAR and CARTESIAN
+
+/**
+Info
+http://mathinsight.org/vectors_cartesian_coordinates_2d_3d
+http://zone.ni.com/reference/en-XX/help/371361H-01/gmath/3d_cartesian_coordinate_rotation_euler/
+http://www.mathsisfun.com/polar-cartesian-coordinates.html
+https://en.wikipedia.org/wiki/Spherical_coordinate_system
+http://stackoverflow.com/questions/20769011/converting-3d-polar-coordinates-to-cartesian-coordinates
+http://www.vias.org/comp_geometry/math_coord_convert_3d.htm
+http://mathworld.wolfram.com/Sphere.html
+*/
 /*
 
 @return float
@@ -53,6 +66,29 @@ float longitude(float x, float range) {
 float latitude(float y, float range) {
   return map(y, 0,range, 0, TAU) ;
 }
+float angle_radians(float y, float range) {
+  return map(y, 0,range, 0, TAU) ;
+}
+float angle_degrees(float y, float range) {
+  return map(y, 0,range, 0, 360) ;
+}
+
+float angle_vec(Vec2 a, Vec2 b) {
+  return atan2( b.y -a.y, b.x -a.x );
+}
+
+
+
+  
+
+Vec2 rotation_lattice(Vec2 ref, Vec2 lattice, float angle) {
+  float a = angle_vec( lattice, ref ) + angle;
+  float d = dist( lattice, ref );
+  float x = lattice.x + cos( a ) * d;
+  float y = lattice.y + sin( a ) * d;
+  return Vec2(x,y);
+}
+
 
 
 /* 
@@ -61,15 +97,17 @@ return a vector info : radius,longitude, latitude
 */
 Vec3 to_polar(Vec3 cart) {
   float radius = sqrt(cart.x * cart.x + cart.y * cart.y + cart.z * cart.z);
-  float longitude = acos(cart.x / sqrt(cart.x * cart.x + cart.y * cart.y)) * (cart.y < 0 ? -1 : 1);
-  float latitude = acos(cart.z / radius) * (cart.z < 0 ? -1 : 1);
+  float phi = acos(cart.x / sqrt(cart.x * cart.x + cart.y * cart.y)) * (cart.y < 0 ? -1 : 1);
+  float theta = acos(cart.z / radius) * (cart.z < 0 ? -1 : 1);
   // check NaN result
-  if (Float.isNaN(longitude)) longitude = 0 ;
-  if (Float.isNaN(latitude)) latitude = 0 ;
+  if (Float.isNaN(phi)) phi = 0 ;
+  if (Float.isNaN(theta)) theta = 0 ;
   if (Float.isNaN(radius)) radius = 0 ;
   // result
-  return new Vec3(radius, longitude, latitude) ;
+  //return new Vec3(radius, longitude, latitude) ;
+  return new Vec3(phi, theta, radius) ;
 }
+
 
 ///////////////
 // Cartesian 3D
@@ -88,15 +126,29 @@ Vec3 to_cartesian_3D(Vec2 pos, Vec2 range, float sizeField)  {
   float horizontalZ = to_cartesian_2D(pos.x, Vec2(0,range.x), Vec2(0,TAU), sizeField).y  ;
   Vec3 posHorizontal = new Vec3(horizontalX, 0, horizontalZ) ;
   
-  return projection_on_sphere_with_radius(middle(posVertical,posHorizontal), sizeField) ;
+  return projection(middle(posVertical, posHorizontal), sizeField) ;
 }
 
-Vec3 to_cartesian_3D(float longitude, float latitude) {
+Vec3 to_cartesian_3D(float latitude, float longitude) {
   float radius_normal = 1 ;
-  return to_cartesian_3D(longitude, latitude, radius_normal);
+  return to_cartesian_3D(latitude, longitude, radius_normal);
 }
 
 // main method
+Vec3 to_cartesian_3D(float latitude, float longitude,  float radius) {
+  // https://en.wikipedia.org/wiki/List_of_common_coordinate_transformations
+  /**
+  Must be improve is not really good in the border versus direct polar rotation with the matrix
+  */ 
+  float theta = longitude%TAU ;
+  float phi = latitude%PI ;
+
+  float x = radius *sin(theta) *cos(phi);
+  float y = radius *sin(theta) *sin(phi);
+  float z = radius *cos(theta);
+  return new Vec3(x, y, z);
+}
+/*
 Vec3 to_cartesian_3D(float longitude, float latitude, float radius) {
   // https://en.wikipedia.org/wiki/List_of_common_coordinate_transformations
   float x = radius *sin(latitude) *cos(longitude);
@@ -104,13 +156,14 @@ Vec3 to_cartesian_3D(float longitude, float latitude, float radius) {
   float z = radius *cos(latitude);
   return new Vec3(x, y, z);
 }
+*/
 
 
 
 //Step 1 : translate the mouse position x and y  on the sphere, we must do that separately
 /*
 @ return Vec2 
-return lineat value on the circle perimeter
+return linear value on the circle perimeter
 */
 Vec2 to_cartesian_2D (float posMouse, Vec2 range, Vec2 targetRadian, float distance) {
   float rotationPlan = map(posMouse, range.x, range.y, targetRadian.x, targetRadian.y)  ;
@@ -134,30 +187,61 @@ Vec2 to_cartesian_2D (float angle, float radius) {
 
 
 
-//bisectorProjection
-/* 
-@ return Vec3
-calculte the projection position on the sphere, we supose the center of the sphere is 0,0,0
 
-the bisector is the midlle position of two points who are on the surface of sphere
+/**
+// Projection
 */
-Vec3 projection_on_sphere_with_radius(Vec3 point, float radius ) {
-  Vec3 center = new Vec3(0) ;
-  float distance_center_bisector = point.dist(center) ;
-  float rapport = radius /distance_center_bisector ;
-  point.mult(rapport) ;
-  return point ;
+// Cartesian projection 2D
+Vec2 projection(Vec2 target) {
+  return projection(target, Vec2(), 1.) ;
 }
 
-Vec2 projection_on_cirlcle_with_radius(int r, float angle) {
+Vec2 projection(Vec2 target, float radius) {
+  return projection(target, Vec2(), radius) ;
+}
+Vec2 projection(Vec2 direction, Vec2 origin, float radius) {
+  // Vec3 p = point_to_project.normalize(origin) ;
+  Vec2 ref = direction.copy() ;
+  Vec2 p = ref.dir(origin) ;
+  p.mult(radius) ;
+  p.add(origin) ;
+  return p ;
+}
+// polar projection 2D
+Vec2 projection(float angle) {
+  return projection(angle, 1) ;
+}
+Vec2 projection(float angle, int r) {
   return Vec2(cos(angle) *r, sin(angle) *r) ;
 }
+// cartesian projection 3D
+Vec3 projection(Vec3 target) {
+  return projection(target, Vec3(), 1.) ;
+}
+
+Vec3 projection(Vec3 target, float radius) {
+  return projection(target, Vec3(), radius) ;
+}
+
+Vec3 projection(Vec3 direction, Vec3 origin, float radius) {
+  Vec3 ref = direction.copy() ;
+  Vec3 p = ref.dir(origin) ;
+  p.mult(radius) ;
+  p.add(origin) ;
+  return p ;
+}
 
 
 
-// FIBONACCI SPHERE PROJECTION
-// CARTESIAN  FIBONACCI SPHERE
-Vec3 [] distribution_cartesian_fibonacci_sphere (int num, float step, float root) {
+
+
+/**
+SPHERE PROJECTION
+*/
+/**
+// FIBONACCI SPHERE PROJECTION CARTESIAN
+*/
+Vec3 [] list_cartesian_fibonacci_sphere (int num, float step, float root) {
   float root_sphere = root *num ;
   Vec3 [] list_points = new Vec3[num] ;
   for (int i = 0; i < list_points.length ; i++) list_points[i] = distribution_cartesian_fibonacci_sphere(i, num, step, root_sphere) ;
@@ -170,29 +254,40 @@ float root_cartesian_fibonnaci(int num) {
 */
 
 Vec3 distribution_cartesian_fibonacci_sphere(int n, int num, float step, float root) {
-  float offset = 2. / num ;
-  float y  = (n *offset) -1 + (offset / 2.) ;
-  float r = sqrt(1 - pow(y,2)) ;
-  float phi = ((n +root)%num) * step ;
-  
-  float x = cos(phi) *r ;
-  float z = sin(phi) *r ;
-  
-  return Vec3(x,y,z) ;
+  if(n<num) {
+    float offset = 2. / num ;
+    float y  = (n *offset) -1 + (offset / 2.) ;
+    float r = sqrt(1 - pow(y,2)) ;
+    float phi = ((n +root)%num) * step ;
+    
+    float x = cos(phi) *r ;
+    float z = sin(phi) *r ;
+    
+    return Vec3(x,y,z) ;
+  } else return Vec3() ;
 }
 
+/**
 // POLAR PROJECTION FIBONACCI SPHERE
+*/
+Vec2 [] list_polar_fibonacci_sphere(int num, float step) {
+  Vec2 [] list_points = new Vec2[num] ;
+  for (int i = 0; i < list_points.length ; i++) list_points[i] = distribution_polar_fibonacci_sphere(i, num, step) ;
+  return list_points ;
+}
 Vec2 distribution_polar_fibonacci_sphere(int n, int num, float step) {
-  float longitude = PHI *TAU *n;
-  longitude /= step ;
-  // like a normalization of the result ?
-  longitude -= floor(longitude); 
-  longitude *= TAU;
-  if (longitude > PI)  longitude -= TAU;
-  // Convert dome height (which is proportional to surface area) to latitude
-  float latitude = asin(-1 + 2*n/(float)num);
-  
-  return Vec2(longitude, latitude) ;
+  if(n<num) {
+    float longitude = PHI *TAU *n;
+    longitude /= step ;
+    // like a normalization of the result ?
+    longitude -= floor(longitude); 
+    longitude *= TAU;
+    if (longitude > PI)  longitude -= TAU;
+    // Convert dome height (which is proportional to surface area) to latitude
+    float latitude = asin(-1 + 2*n/(float)num);
+    return Vec2(longitude, latitude) ;
+  } else return Vec2() ;
+
 }
 
 
@@ -222,27 +317,8 @@ float deg360 (PVector dir) {
 
 //ROTATION
 //GLOBAL
-PVector resultPositionOfRotation = new PVector() ;
+
 //DRAW
-
-PVector rotation(PVector ref, PVector lattice, float angle) {
-  float a = angle( lattice, ref ) + angle;
-  float d = distance( lattice, ref );
-  
-  resultPositionOfRotation.x = lattice.x + cos( a ) * d;
-  resultPositionOfRotation.y = lattice.y + sin( a ) * d;
-  //
-  return resultPositionOfRotation;
-}
-
-float angle(PVector p0, PVector p1) {
-  return atan2( p1.y - p0.y, p1.x - p0.x );
-}
-  
-float distance(PVector p0, PVector p1) {
-  return sqrt( ( p0.x -p1.x) *( p0.x -p1.x) +( p0.y -p1.y) *( p0.y -p1.y));
-}
-
 
 //other Rotation
 //Rotation Objet
@@ -264,7 +340,7 @@ void rotation (float angle, float posX, float posY ) {
 
 
 // PRIMITIVE 2D
-///////////////
+//////////////
 
 
 
@@ -297,7 +373,7 @@ void chromatic_circle(PVector pos, int d) {
       //color
       color c = color (i, 100,100) ;
       //display
-      set(int(projection_on_cirlcle_with_radius(radius, angle).x + pos.x) , int(projection_on_cirlcle_with_radius(radius, angle).y + pos.y), c);
+      set(int(projection(angle, radius).x + pos.x) , int(projection(angle, radius).y + pos.y), c);
   }
 }
 
@@ -305,56 +381,133 @@ void chromatic_circle(PVector pos, int d) {
 
 
 // PRIMITIVE  with "n" summits
-void primitive(int x, int y, int radius, int summits) {
-  if(summits < 3) summits = 3 ;
-  PVector pos = new PVector (x,y) ;
-  PVector [] summit = new PVector[summits] ;
-  // create coord of the shape
-  for (int i = 0 ; i < summits ; i++) {
-    summit[i] = circle(pos, radius, summits)[i].copy() ; 
-  }
-  
-  //draw the shape
-  beginShape() ;
-  for (int i = 0 ; i < summits ; i++) {
-    vertex(summit[i].x, summit[i].y) ;
-  }
-  vertex(summit[0].x, summit[0].y) ;
-  endShape() ;
+void primitive(float radius, int summits) {
+  Vec3 pos = new Vec3 () ;
+  float orientation = 0 ;
+  Vec2 dir = Vec2() ;
+  primitive(pos, radius, summits, orientation, dir) ;
 }
+
+void primitive(Vec2 p, float radius, int summits) {
+  Vec3 pos = new Vec3 (p.x,p.y,0) ;
+  float orientation = 0 ;
+  Vec2 dir = Vec2() ;
+  primitive(pos, radius, summits, orientation, dir) ;
+}
+void primitive(Vec2 p, float radius, int summits, float orientation) {
+  Vec3 pos = new Vec3 (p.x,p.y,0) ;
+  Vec2 dir = Vec2() ;
+  primitive(pos, radius, summits, orientation, dir) ;
+}
+
 // Primitive with Vec method
-void primitive(Vec3 pos, int radius, int summits) {
-  if(summits < 3) summits = 3 ;
-  Vec3 [] summit = new Vec3[summits] ;
-  // create coord of the shape
-  for (int i = 0 ; i < summits ; i++) {
-    summit[i] = circle(pos, radius, summits)[i].copy() ; 
-  }
-  
-  //draw the shape
-  beginShape() ;
-  for (int i = 0 ; i < summits ; i++) {
-    vertex(summit[i].x, summit[i].y) ;
-  }
-  vertex(summit[0].x, summit[0].y) ;
-  endShape() ;
+void primitive(Vec3 pos, float radius, int summits) {
+  float orientation = 0 ;
+  Vec2 dir = Vec2() ;
+  primitive(pos, radius, summits, orientation, dir) ;
 }
+
+void primitive(Vec3 pos, float radius, int summits, Vec2 dir) {
+  float orientation = 0 ;
+  primitive(pos, radius, summits, orientation, dir) ;
+}
+
+void primitive(Vec3 pos, float radius, int summits, float orientation) {
+  Vec2 dir = Vec2() ;
+  primitive(pos, radius, summits, orientation, dir) ;
+}
+
 // Primitive with Vec method and angle to display
-void primitive(Vec3 pos, int radius, int summits, float angle) {
-  if(summits < 3) summits = 3 ;
-  Vec3 [] summit = new Vec3[summits] ;
+void primitive(Vec3 pos, float radius, int summits, float orientation, Vec2 dir) {
+  //  if(summits < 3) summits = 3 ;
+  if(summits < 2) summits = 2 ;
+  Vec3 [] points = new Vec3[summits] ;
   // create coord of the shape
-  for (int i = 0 ; i < summits ; i++) {
-    summit[i] = circle(pos, radius, summits, angle)[i].copy() ; 
+  if(dir == null ) {
+    // call POLYGON 2D
+    for (int i = 0 ; i < summits ; i++) points[i] = polygon_2D(summits, orientation)[i].copy() ;
+  } else if (dir != null && renderer_P3D()) {
+    /**
+    // call POLYGON 3D
+    but must be refactoring because the metod polygon_3D is a little shitty !!!!!
+    for (int i = 0 ; i < summits ; i++) {points[i] = polygon_3D(summits, orientation, dir)[i].copy() ;
+    */
+    // for (int i = 0 ; i < summits ; i++) points[i] = polygon_3D(pos, radius, summits, orientation, dir)[i].copy() ;
+    /**
+    // classic version with polygon_2D method
+    */
+    // matrix_3D_start(pos, dir) ;
+    for (int i = 0 ; i < summits ; i++) points[i] = polygon_2D(summits, orientation)[i].copy() ;
+    // matrix_end() ;
+  } else {
+    for (int i = 0 ; i < summits ; i++) points[i] = polygon_2D(summits, orientation)[i].copy() ;
   }
-  
   //draw the shape
+  /**
+  this rotate part must be integrate with a cartesian method in the circle method
+  */
+  draw_primitive(pos, dir, radius, points) ;
+  /**
+  With advance shitty version of Polygon_3D
+  */
+  // if(dir == null ) draw_primitive(pos, radius, points) ; else if (dir != null && renderer_P3D()) draw_primitive( points) ;
+}
+
+
+// local method
+void draw_primitive (Vec3 [] pts) {
+  Vec3 pos = Vec3() ;
+  // Vec2 dir_polar = Vec2() ;
+  int radius = 1 ;
+  draw_primitive (pos, radius, pts) ;
+}
+
+void draw_primitive (float radius, Vec3 [] pts) {
+  Vec3 pos = Vec3() ;
+  // Vec2 dir_polar = Vec2() ;
+  draw_primitive (pos, radius, pts) ;
+}
+
+void draw_primitive (Vec3 pos, Vec2 dir, float radius, Vec3 [] pts) {
+  // special one because we have direction for the polygone, so we must use the matrix system until have a good algorithm for the cartesian direction
+  if(renderer_P3D()) matrix_3D_start(pos, dir) ; else matrix_2D_start(Vec2(pos.x, pos.y), 0) ;
+  draw_primitive (radius, pts) ;
+  matrix_end() ;
+}
+
+// main draw primitive
+void draw_primitive (Vec3 pos, float radius, Vec3 [] pts) {
   beginShape() ;
-  for (int i = 0 ; i < summits ; i++) {
-    vertex(summit[i].x, summit[i].y) ;
+  for (int i = 0 ; i < pts.length ; i++) {
+    if (pts[i] != null ) {
+      pts[i].mult(radius) ;
+      pts[i].add(pos) ;
+      // test the rendering and if the shape if a line or not, to coice between vertex and line display
+      if(renderer_P3D())  {
+        if ( pts.length <= 2 && pts.length > 1 ) {
+          // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> here we make an exception in the structure code for the pts[i+1] because this one haven't make .mult() and .add() method to the final position
+          if (i < pts.length -1) line(pts[i], pts[i+1].mult(radius).add(pos)) ;
+        } else {
+          vertex(pts[i]) ;
+        }
+      // 2D  
+      } else {
+        if ( pts.length <= 2 && pts.length > 1 ) {
+          
+          if (i < pts.length -1) {
+            // >>>>>>>>>>>>>here we make an exception in the structure code for the pts[i+1] because this one haven't make .mult() and .add() method to the final position
+            Vec2 point_b = new Vec2(pts[i+1].x, pts[i+1].y) ;
+            point_b.mult(radius).add(Vec2(pos.x, pos.y)) ;
+            line(pts[i].x,pts[i].y, point_b.x, point_b.y) ;
+
+          } 
+        } else {
+          vertex(pts[i].x, pts[i].y) ;
+        }
+      }
+    }
   }
-  vertex(summit[0].x, summit[0].y) ;
-  endShape() ;
+  endShape(CLOSE) ;
 }
 
 
@@ -366,94 +519,101 @@ void primitive(Vec3 pos, int radius, int summits, float angle) {
 
 
 
-// summits around the circle
-PVector [] circle (PVector pos, int d, int num) {
-  PVector [] p = new PVector [num] ;
-  int surface = d*d ; 
-  int radius = ceil(radius_from_circle_surface(surface)) ;
-  
-  // choice your starting point
-  float startingAnglePos = PI*.5;
-  if(num == 4) startingAnglePos = PI*.25;
-  
-  for( int i=0 ; i < num ; i++) {
-    float stepAngle = map(i, 0, num, 0, TAU) ; 
-    float angle =  TAU - stepAngle -startingAnglePos;
-    p[i] = new PVector(projection_on_cirlcle_with_radius(radius, angle).x +pos.x,projection_on_cirlcle_with_radius(radius, angle).y + pos.y) ;
-  }
-  return p ;
-}
-
-PVector [] circle (PVector pos, int d, int num, float jitter) {
-  PVector [] p = new PVector [num] ;
-  int surface = d*d ; 
-  int radius = ceil(radius_from_circle_surface(surface)) ;
-  
-  // choice your starting point
-  float startingAnglePos = PI*.5;
-  if(num == 4) startingAnglePos = PI*.25;
-  
-  float angleCorrection ; // this correction is cosmetic, when we'he a pair beam this one is stable for your eyes :)
-  for( int i=0 ; i < num ; i++) {
-    int beam = num /2 ;
-    if ( beam%2 == 0 ) angleCorrection = PI / num ; else angleCorrection = 0.0 ;
-    if ( num%2 == 0 ) jitter *= -1 ; else jitter *= 1 ; // the beam have two points at the top and each one must go to the opposate...
-    
-    float stepAngle = map(i, 0, num, 0, TAU) ;
-    float jitterAngle = map(jitter, -1, 1, -PI/num, PI/num) ;
-    float angle =  TAU -stepAngle +jitterAngle +angleCorrection -startingAnglePos;
-    
-    p[i] = new PVector(projection_on_cirlcle_with_radius(radius, angle).x +pos.x, projection_on_cirlcle_with_radius(radius, angle ).y +pos.y) ;
-  }
-  return p ;
+/**
+POLYGON
+*/
+// summits around the polygon 2D
+Vec3 [] polygon_2D (int num) {
+  float new_orientation = 0 ;
+  return polygon_2D (num, new_orientation) ;
 }
 
 
-
-// summits around the circle
-Vec3 [] circle (Vec3 pos, int d, int num) {
+// main method
+Vec3 [] polygon_2D (int num, float new_orientation) {
   Vec3 [] p = new Vec3 [num] ;
-  int surface = d*d ; 
-  int radius = ceil(radius_from_circle_surface(surface)) ;
-  
   // choice your starting point
-  float startingAnglePos = PI*.5;
-  if(num == 4) startingAnglePos = PI*.25;
-  
+  float startingAnglePos = PI*.5 +new_orientation;
+  if(num == 4) startingAnglePos = PI*.25 +new_orientation;
   // calcul the position of each summit, step by step
   for( int i=0 ; i < num ; i++) {
     float stepAngle = map(i, 0, num, 0, TAU) ; 
-    float angle =  TAU -stepAngle -startingAnglePos ;
-    p[i] = Vec3(to_cartesian_2D(angle).x, to_cartesian_2D(angle).y, 0) ;
-    p[i].mult(radius) ;
-    p[i].add(pos) ;
-
+    float orientation = TAU -stepAngle -startingAnglePos ;
+    Vec2 temp_orientation_xy = to_cartesian_2D(orientation) ;
+    
+    float x = temp_orientation_xy.x  ;
+    float y = temp_orientation_xy.y  ;
+    float z = 0 ;
+    p[i] = Vec3(x,y,z) ;
   }
   return p ;
 }
+/**
+POLYGON 3D
+but must be refactoring because the metod is a little shitty !!!!!
+*/
+// polygon with 3D direction in cartesian world
+Vec3 [] polygon_3D (int num, float new_orientation, Vec3 dir) {
+  Vec3 pos = Vec3() ;
+  int radius = 1 ;
+  return polygon_3D (pos, radius, num, new_orientation, dir) ;
+}
 
+Vec3 [] polygon_3D (Vec3 pos, float radius, int num, float new_orientation, Vec3 dir) {
+  /*
+  Inspirated by : Creating a polygon perpendicular to a line segment Written by Paul Bourke February 1997
+  http://paulbourke.net/geometry/circlesphere/
+  */
+  Vec3 p1 = dir.copy() ;
+  Vec3 p2 = to_cartesian_3D(PI,PI) ;
+  Vec3 support = to_cartesian_3D(PI,PI) ;
+  /*
+  Vec3 p2 = Vec3(0,0,1) ;
+  Vec3 support = Vec3 (1,0,0) ;
+  */
+  // prepare the vector direction
+  Vec3 r = Vec3() ;
+  Vec3 s = Vec3() ;
+  Vec3 p2_sub_p1 = sub(p1,p2);
 
-// summits around the circle
-Vec3 [] circle (Vec3 pos, int d, int num, float new_angle) {
-  Vec3 [] p = new Vec3 [num] ;
-  int surface = d*d ; 
-  int radius = ceil(radius_from_circle_surface(surface)) ;
+  r = cross(p2_sub_p1, support, r) ;
+  s = cross(p2_sub_p1, r, s) ;
+  r.dir() ;
+  s.dir() ;
+
+  // prepare polygone in 3D world
+  Vec3 plane = new Vec3();
+  int num_temp = num +1 ;
+  Vec3 [] p ;
+  p = new Vec3 [num_temp] ;
+
+  // init Vec3 p
+  for(int i = 0 ; i < num_temp ; i++) p[i] = Vec3() ;
   
-  // choice your starting point
-  float startingAnglePos = PI*.5 +new_angle;
-  if(num == 4) startingAnglePos = PI*.25 +new_angle;
-  
-  // calcul the position of each summit, step by step
-  for( int i=0 ; i < num ; i++) {
-    float stepAngle = map(i, 0, num, 0, TAU) ; 
-    float angle =  TAU -stepAngle -startingAnglePos ;
-    p[i] = Vec3(to_cartesian_2D(angle).x, to_cartesian_2D(angle).y, 0) ;
-    p[i].mult(radius) ;
-    p[i].add(pos) ;
+  // create normal direction for the point
+  float theta, delta;
+  delta = TAU / num;
+  int step = 0 ;
+  for (theta = 0 ; theta < TAU ; theta += delta) {
+    plane.x = p1.x + r.x * cos(theta +delta) + s.x * sin(theta +delta);
+    plane.y = p1.y + r.y * cos(theta +delta) + s.y * sin(theta +delta);
+    plane.z = p1.z + r.z * cos(theta +delta) + s.z * sin(theta +delta);
+    /**
+    plane is not a normal value, it's big problem :(((((((
+    */
+    plane.mult(radius) ;
+    plane.add(pos) ;
+    // write summits
+    p[step] = plane.copy() ;
 
+    step ++ ;
   }
+
   return p ;
 }
+/**
+END POLYGON
+*/
 
 
 
@@ -472,74 +632,42 @@ Vec3 [] circle (Vec3 pos, int d, int num, float new_angle) {
 
 
 
-//full cirlce
-void circle(color c, PVector pos, int d) {
-  int surface = d*d ; // surface is equale of square surface where is the cirlcke...make sens ?
 
-  int radius = ceil(radius_from_circle_surface(surface)) ;
-  int numPoints = ceil(perimeter_disc(radius)) ;
-  for(int i=0; i < numPoints; i++) {
-      float stepAngle = map(i, 0, numPoints, 0, 2*PI) ; 
-      float angle =  2*PI - stepAngle;
-      set(int(projection_on_cirlcle_with_radius(radius, angle).x + pos.x) , int(projection_on_cirlcle_with_radius(radius, angle).y + pos.y), c);
-  }
+// TRIANGLE
+void triangle(float x_a, float y_a, float z_a, float x_b, float y_b, float z_b, float x_c, float y_c, float z_c) {
+  Vec3 a = Vec3(x_a, y_a, z_a) ;
+  Vec3 b = Vec3(x_b, y_b, z_b) ;
+  Vec3 c = Vec3(x_c, y_c, z_c) ;
+  triangle(a, b, c) ;
+}
+void triangle(float x_a, float y_a, float x_b, float y_b, float x_c, float y_c) {
+  Vec3 a = Vec3(x_a, y_a, 0) ;
+  Vec3 b = Vec3(x_b, y_b, 0) ;
+  Vec3 c = Vec3(x_c, y_c, 0) ;
+  triangle(a, b, c) ;
 }
 
-//circle with a specific quantity points
-void circle(color c, PVector pos, int d, int num) {
-  int surface = d*d ; // surface is equale of square surface where is the cirlcke...make sens ?
-
-  int radius = ceil(radius_from_circle_surface(surface)) ;
-  for(int i=0; i < num; i++) {
-      float stepAngle = map(i, 0, num, 0, 2*PI) ; 
-      float angle =  2*PI - stepAngle;
-      set(int(projection_on_cirlcle_with_radius(radius, angle).x + pos.x) , int(projection_on_cirlcle_with_radius(radius, angle).y + pos.y), c);
-  }
+void triangle(Vec2 aa, Vec2 bb, Vec2 cc) {
+  Vec3 a = Vec3(aa.x, aa.y, 0) ;
+  Vec3 b = Vec3(bb.x, bb.y, 0) ;
+  Vec3 c = Vec3(cc.x, cc.y, 0) ;
+  triangle(a, b, c) ;
 }
 
-
-//circle with a specific quantity points and specific shape for each point
-void circle(PVector pos, int d, int num, PVector size, String shape) {
-  int surface = d*d ; // surface is equale of square surface where is the cirlcke...make sens ?
-  int whichShape = 0 ;
-  if (shape.equals("point") )  whichShape = 0;
-  else if (shape.equals("ellipse") )  whichShape = 1 ;
-  else if (shape.equals("rect") )  whichShape = 2 ;
-  else if (shape.equals("box") )  whichShape = 3 ;
-  else if (shape.equals("sphere") )  whichShape = 4 ;
-  else whichShape = 0 ;
-
-  int radius = ceil(radius_from_circle_surface(surface)) ;
-  for(int i=0; i < num; i++) {
-    float stepAngle = map(i, 0, num, 0, 2*PI) ; 
-    float angle =  2*PI - stepAngle;
-    PVector newPos = new PVector(projection_on_cirlcle_with_radius(radius, angle).x + pos.x, projection_on_cirlcle_with_radius(radius, angle).y + pos.y) ;
-    if(whichShape == 0 ) point(newPos.x, newPos.y) ;
-    if(whichShape == 1 ) ellipse(newPos.x, newPos.y, size.x, size.y) ;
-    if(whichShape == 2 ) rect(newPos.x, newPos.y, size.x, size.y) ;
-    if(whichShape == 3 ) {
-      pushMatrix() ;
-      translate(newPos.x, newPos.y,0) ;
-      box(size.x, size.y, size.z) ;
-      popMatrix() ;
-    }
-    if(whichShape == 4 ) {
-      pushMatrix() ;
-      translate(newPos.x, newPos.y,0) ;
-      int detail = (int)size.x /4 ;
-      if (detail > 10 ) detail = 10 ;
-      sphereDetail(detail) ;
-      sphere(size.x) ;
-      popMatrix() ;
-    }
+void triangle(Vec3 a, Vec3 b, Vec3 c) {
+  beginShape() ;
+  if(renderer_P3D()) {
+    vertex(a.x, a.y, a.z) ;
+    vertex(b.x, b.y, b.z) ;
+    vertex(c.x, c.y, c.z) ;
+  } else {
+    vertex(a.x, a.y) ;
+    vertex(b.x, b.y) ;
+    vertex(c.x, c.y) ;
   }
+  endShape(CLOSE) ;
 }
-
-
-
-
-
-
+// END TRIANGLE
 
 
 
@@ -555,19 +683,18 @@ void circle(PVector pos, int d, int num, PVector size, String shape) {
 
 
 
+
+
+
+
+
+
+
+
+/**
 //PRIMITIVE 3D
 //////////////
-
-// this triangle is a primitive 2D in 3D world
-void triangle(float x1, float y1, float z1, float x2, float y2, float z2, float x3, float y3, float z3) {
-  beginShape() ;
-  vertex(x1, y1, z1) ;
-  vertex(x2, y2, z2) ;
-  vertex(x3, y3, z3) ;
-  endShape(CLOSE) ;
-}
-
-
+*/
 
 // SIMPLE TETRAHEDRON
 /////////////////////
@@ -998,10 +1125,10 @@ void addVerts(float x, float y, float z) {
 
 
 
-
+/**
 // MISC
 ////////
-
+*/
 // MAP
 ///////
 /*
@@ -1119,61 +1246,68 @@ PVector follow(PVector target, float speed) {
 }
 
 
-//////////////////////////////////////////////
-// THIS PART MUST BE DEPRECaTED in the future
-
-// CALCULATE THE POS of PVector Traveller
-PVector gotoTarget(PVector origin,  PVector finish, float speed) {
-  PVector pos = new PVector() ;
-  if(origin.x > finish.x) pos.x = origin.x  -distanceDone(origin, finish, speed).x ; else pos.x = origin.x  +distanceDone(origin, finish, speed).x ; 
-  if(origin.y > finish.y) pos.y = origin.y  -distanceDone(origin, finish, speed).y ; else pos.y = origin.y  +distanceDone(origin, finish, speed).y ; 
-  if(origin.z > finish.z) pos.z = origin.z  -distanceDone(origin, finish, speed).z ; else pos.z = origin.z  +distanceDone(origin, finish, speed).z ; 
-  return pos ;
-}
-// end calcultate
 
 
 
 
-// DISTANCE DONE
-PVector distance, distanceToDo ;
-PVector distanceDone = new PVector() ;
 
-PVector distanceDone(PVector origin,  PVector finish, float speedRef) {
-  PVector dist = new PVector() ;
-  PVector distance = new PVector() ;
-  boolean stopX = false ;
-  boolean stopY = false ;
-  boolean stopZ = false ;
-  distance.x = abs(finish.x - origin.x) ;
-  distance.y = abs(finish.y - origin.y) ;
-  distance.z = abs(finish.z - origin.z) ;
-  //calcul the speed for XYZ
-  PVector speed = new PVector(speedMoveTo(distance.x, speedRef), speedMoveTo(distance.y, speedRef), speedMoveTo(distance.z, speedRef)) ;
-  // for the X
-  dist.x = distance.x -distanceDone.x ;
-  if(dist.x <= 0 ) stopX = true ; else stopX = false ;
-  if(speed.x > dist.x ) speed.x = dist.x ;
-  if(!stopX) distanceDone.x += speed.x ; else distanceDone.x = distance.x ;
-  // for the Y
-  dist.y = distance.y -distanceDone.y ;
-  if(dist.y <= 0 ) stopY = true ; else stopY = false ;
-  if(speed.y > dist.y ) speed.y = dist.y ;
-  if(!stopY) distanceDone.y += speed.y ; else distanceDone.y = distance.y ;
-  // for the Z
-  dist.z = distance.z -distanceDone.z ;
-  if(dist.z <= 0 ) stopZ = true ; else stopZ = false ;
-  if(speed.z > dist.z ) speed.z = dist.z ;
-  if(!stopZ) distanceDone.z += speed.z ; else distanceDone.z = distance.z ;
-  //
-  return distanceDone ;
+
+
+
+/**
+// UTIL for math to check if the renderer is in 3D or 2D
+Is not a real good place for those methods bellow, but it's very usefull to have this method here to export and use this tab in other sketches
+*/
+boolean renderer_P3D() {
+if(get_renderer_name(getGraphics()).equals("processing.opengl.PGraphics3D")) return true ; else return false ;
 }
 
 
-float speedMoveTo(float distance, float speed) {
-  return distance *1 *speed ;
+String get_renderer_name(final PGraphics graph) {
+  try {
+    if (Class.forName(JAVA2D).isInstance(graph))  return JAVA2D;
+    if (Class.forName(FX2D).isInstance(graph))    return FX2D;
+    if (Class.forName(P2D).isInstance(graph))     return P2D;
+    if (Class.forName(P3D).isInstance(graph))     return P3D;
+    if (Class.forName(PDF).isInstance(graph))     return PDF;
+    if (Class.forName(DXF).isInstance(graph))     return DXF;
+  }
+
+  catch (ClassNotFoundException ex) {
+  }
+  return "Unknown";
 }
 
 
-// END of the deprecated function
-/////////////////////////////////
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

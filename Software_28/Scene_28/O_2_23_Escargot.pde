@@ -5,7 +5,7 @@ class Escargot extends Romanesco {
     IDobj = 23 ;
     IDgroup = 2 ;
     romanescoAuthor  = "Stan le Punk";
-    romanescoVersion = "version 1.4.2";
+    romanescoVersion = "version 1.4.3";
     romanescoPack = "Base" ;
     romanescoRender = "P3D" ;
     romanescoMode = "Original/Raw/Point/Ellipse/Rectangle/Box/Cross/SVG/Vitraux" ;
@@ -154,11 +154,11 @@ class Escargot extends Romanesco {
          motionInfo.x = deg360(convertTilt) ;
        }
        
-       // if (!spaceTouch) for( Pixel p : listEscargot) {
+       // if (!spaceTouch) for( Old_Pixel p : listEscargot) {
        //alternat beween the pen and the controleur
        // if( pen[IDobj].x == 0 && pen[IDobj].y == 0 ) newDirection = normalDir(int(map(valueObj[IDobj][18],0,100,0,360))) ; else newDirection = new PVector (-pen[IDobj].x  , -pen[IDobj].y ) ;
        
-       if (!motion[IDobj]) for(Pixel p : listEscargot) {
+       if (!motion[IDobj]) for(Old_Pixel p : listEscargot) {
          p.updatePosPixel(motionInfo, img[IDobj]) ;
        }
       ////////////////
@@ -295,7 +295,7 @@ class Escargot extends Romanesco {
     float factorSat = map(saturation(cIn),0,100,0,1) ;
     float factorBright = map(brightness(cIn),0,100,0,1) ;
     
-    for (Pixel p : listPixelRaw) {
+    for (Old_Pixel p : listPixelRaw) {
       //display
       stroke(hue(p.colour),saturation(p.colour)*factorSat,brightness(p.colour)*factorBright, alpha(cIn)) ;
       float newSize = 0 ;
@@ -315,7 +315,7 @@ class Escargot extends Romanesco {
     // we must create a PVector because i'm lazy to creat an other void beatReactivity for one float
     PVector sizePixCtrl = new PVector (0,0,sizeP) ;
     
-    for ( Pixel p : listPixelRaw ) {
+    for ( Old_Pixel p : listPixelRaw ) {
       if (p.ID == 1 ) {
         //color
         if ( colorPixDisplay ) c = p.newColour ; else c = p.colour ;
@@ -339,7 +339,7 @@ class Escargot extends Romanesco {
     // we must create a PVector because i'm lazy to creat an other void beatReactivity for one float
     //PVector sizePixCtrl = new PVector (0,0,size.x) ;
 
-    for ( Pixel p : listEscargot ) {
+    for (Old_Pixel p : listEscargot ) {
       //check if we must display original color or the new palette
       int x = (int)p.pos.x ; int y = (int)p.pos.y ;
       if ( colorPixDisplay ) c = p.newColour ; else c = get(x , y) ;
@@ -372,7 +372,7 @@ class Escargot extends Romanesco {
     float factorSatOut = map(saturation(cIn),0,100,0,1) ;
     float factorBrightOut = map(brightness(cIn),0,100,0,1) ;
    
-    for (Pixel p : listEscargot) {
+    for (Old_Pixel p : listEscargot) {
       
       if (colorPixDisplay) c = p.newColour ; else c = p.colour ;
       p.changeHue   (HSBmode, huePalette, hueStart, hueEnd) ;
@@ -408,7 +408,7 @@ class Escargot extends Romanesco {
     float factorSatOut = map(saturation(cIn),0,100,0,1) ;
     float factorBrightOut = map(brightness(cIn),0,100,0,1) ;
     
-    for (Pixel p : listEscargot) {
+    for (Old_Pixel p : listEscargot) {
       if ( colorPixDisplay ) c = p.newColour ; else c = p.colour ;
       p.changeHue   (HSBmode, huePalette, hueStart, hueEnd) ;
       p.changeSat   (HSBmode, satPalette, satStart, satEnd) ; 
@@ -441,7 +441,7 @@ class Escargot extends Romanesco {
     float factorSatOut = map(saturation(cIn),0,100,0,1) ;
     float factorBrightOut = map(brightness(cIn),0,100,0,1) ;
     
-    for (Pixel p : listEscargot) {
+    for (Old_Pixel p : listEscargot) {
       if ( colorPixDisplay ) c = p.newColour ; else c = p.colour ;
       p.changeHue   (HSBmode, huePalette, hueStart, hueEnd) ;
       p.changeSat   (HSBmode, satPalette, satStart, satEnd) ; 
@@ -490,7 +490,7 @@ class Escargot extends Romanesco {
     float factorSat = map(saturation(cIn),0,100,0,1) ;
     float factorBright = map(brightness(cIn),0,100,0,1) ;
     
-    for (Pixel p : listEscargot) {
+    for (Old_Pixel p : listEscargot) {
       
       if ( colorPixDisplay ) c = p.newColour ; else c = p.colour ;
       p.changeHue   (HSBmode, huePalette, hueStart, hueEnd) ;
@@ -521,7 +521,7 @@ class Escargot extends Romanesco {
     float factorSatOut = map(saturation(cIn),0,100,0,1) ;
     float factorBrightOut = map(brightness(cIn),0,100,0,1) ;
     
-    for (Pixel p : listEscargot) { 
+    for (Old_Pixel p : listEscargot) { 
       //check if we must display original color or the new palette
       int x = (int)p.pos.x ; int y = (int)p.pos.y ;
       if (colorPixDisplay) c = p.newColour ; else c = get(x , y) ;
@@ -574,7 +574,7 @@ class Escargot extends Romanesco {
     //colorStrokeVoronoi = stroke ;
   
   
-    for (Pixel b : listEscargot) {
+    for (Old_Pixel b : listEscargot) {
       //security against the NaN result
       if (Float.isNaN(b.pos.x)) ; else voronoi.addPoint(new Vec2D(b.pos.x *ratio.x, b.pos.y *ratio.y));
     }
@@ -593,7 +593,7 @@ class Escargot extends Romanesco {
           
           //look the color in the list
           if(posInList < listPixelRaw.size() ) {
-            Pixel p = (Pixel) listPixelRaw.get(posInList) ;
+            Old_Pixel p = (Old_Pixel) listPixelRaw.get(posInList) ;
             
             if (whichColorVoronoi) {
               //change the color with the new palette
@@ -780,11 +780,11 @@ int [] matricePosPixel = new int [10] ;
 int getPixelEscargotAnalyze ;
 //Barycentre
 PVector barycenterEscargot = new PVector(0,0 ) ;
-ArrayList<Pixel> listEscargot =  new ArrayList<Pixel>()   ;
+ArrayList<Old_Pixel> listEscargot =  new ArrayList<Old_Pixel>()   ;
 //Temp Array List
-ArrayList<Pixel> listPixelTemp =  new ArrayList<Pixel>()   ;
-ArrayList<Pixel> listPixelByCol =  new ArrayList<Pixel>()  ;
-ArrayList<Pixel> listPixelByRow =  new ArrayList<Pixel>() ;
+ArrayList<Old_Pixel> listPixelTemp =  new ArrayList<Old_Pixel>()   ;
+ArrayList<Old_Pixel> listPixelByCol =  new ArrayList<Old_Pixel>()  ;
+ArrayList<Old_Pixel> listPixelByRow =  new ArrayList<Old_Pixel>() ;
 
 //lattice pixel
 int startingPixelToAnalyze ;
@@ -815,7 +815,7 @@ void escargotAnalyze(int pivot, int max, String mode, boolean whichColor, int si
   for (int i = 0 ; i< lockEscargot.length ; i++) lockEscargot[i] = 0 ;
   
   if(listPixelRaw.size() > 0 && pivot < listPixelRaw.size() ) {
-    Pixel pixelRef = (Pixel) listPixelRaw.get(pivot) ;
+    Old_Pixel pixelRef = (Old_Pixel) listPixelRaw.get(pivot) ;
 
 
     if (pixelRef.ID == 0 ) {
@@ -833,7 +833,7 @@ void escargotAnalyze(int pivot, int max, String mode, boolean whichColor, int si
             getPixelEscargotAnalyze = escargot(escargotPos, pivot, snailLevel, rows, listPixelRaw.size() ) ; // find the position of the pixel target in the list
             
             if (getPixelEscargotAnalyze > 0 && getPixelEscargotAnalyze < listPixelRaw.size()  ) {  // check if the pixel is valid for the list
-              Pixel pixelEscargotAnalyze = (Pixel) listPixelRaw.get(getPixelEscargotAnalyze) ; //look the pixel in the list
+              Old_Pixel pixelEscargotAnalyze = (Old_Pixel) listPixelRaw.get(getPixelEscargotAnalyze) ; //look the pixel in the list
               
               //check the color by field hue, saturation, brightness
               if (mode.equals("hsb"))    hueSaturationBrightnessCheck(escargotPos, colorRef, pixelEscargotAnalyze, whichColor) ; 
@@ -883,7 +883,7 @@ void escargotAnalyze(int pivot, int max, String mode, boolean whichColor, boolea
   for (int i = 0 ; i< lockEscargot.length ; i++) lockEscargot[i] = 0 ;
   
   if(listPixelRaw.size() > 0 && pivot < listPixelRaw.size() ) {
-    Pixel pixelRef = (Pixel) listPixelRaw.get(pivot) ;
+    Old_Pixel pixelRef = (Old_Pixel) listPixelRaw.get(pivot) ;
 
 
     if (pixelRef.ID == 0 && analyzeGO ) {
@@ -902,7 +902,7 @@ void escargotAnalyze(int pivot, int max, String mode, boolean whichColor, boolea
             getPixelEscargotAnalyze = escargot(escargotPos, pivot, snailLevel, rows, listPixelRaw.size() ) ; // find the position of the pixel target in the list
             
             if (getPixelEscargotAnalyze > 0 && getPixelEscargotAnalyze < listPixelRaw.size()  ) {  // check if the pixel is valid for the list
-              Pixel pixelEscargotAnalyze = (Pixel) listPixelRaw.get(getPixelEscargotAnalyze) ; //look the pixel in the list
+              Old_Pixel pixelEscargotAnalyze = (Old_Pixel) listPixelRaw.get(getPixelEscargotAnalyze) ; //look the pixel in the list
               
               //check the color by field hue, saturation, brightness
               if (mode.equals("hsb"))    hueSaturationBrightnessCheck(escargotPos, colorRef, pixelEscargotAnalyze, whichColor) ; 
@@ -964,29 +964,29 @@ private void checkPixelInCol() {
   
   for ( int whichCol = 1 ; whichCol <= cols ; whichCol++) {
     for ( int j = 0 ; j< listPixelTemp.size() ; j++) {
-      Pixel pixTemp = (Pixel) listPixelTemp.get(j) ;
+      Old_Pixel pixTemp = (Old_Pixel) listPixelTemp.get(j) ;
       if( pixTemp.gridPos.x == whichCol ) {
         numPixInCol += 1 ;
-        listPixelByCol.add(new Pixel(pixTemp.rank)) ;
+        listPixelByCol.add(new Old_Pixel(pixTemp.rank)) ;
       }
     }
     //Changez the ID "ZERO" to "ONE" of pixel if there is more of one point in col
     if(numPixInCol > 1  ) {
       int [] pixPosInCol = new int [numPixInCol] ;
       for ( int k = 0 ; k < listPixelByCol.size() ; k++) {
-        Pixel pixByCol = (Pixel) listPixelByCol.get(k) ;
+        Old_Pixel pixByCol = (Old_Pixel) listPixelByCol.get(k) ;
         pixPosInCol[k] = pixByCol.rank ;
       }
       pixPosInCol = sort(pixPosInCol) ;
       for(int l = pixPosInCol[0] ; l < pixPosInCol[pixPosInCol.length -1] ; l++) {
-        Pixel pix = (Pixel) listPixelRaw.get(l) ;
+        Old_Pixel pix = (Old_Pixel) listPixelRaw.get(l) ;
         if(pix.ID == 0) {
           // git a new ID "ONE" to say this Pixel has been checked, and now don'k try to make something with her
           pix.changeID(1) ;
           //complet the temp list completed
           PVector posInTheGrid = gridPosition(l) ;
       //    listPixelTempCompleted.add(new Pixel(l, posInTheGrid)) ;
-          listPixelTemp.add(new Pixel(l, posInTheGrid)) ;
+          listPixelTemp.add(new Old_Pixel(l, posInTheGrid)) ;
         }
       }
     }
@@ -1002,10 +1002,10 @@ private void checkPixelInRow() {
   int numPixInRow = 0 ;
   for ( int whichRow = 1 ; whichRow <= rows ; whichRow++) {
     for ( int j = 0 ; j< listPixelTemp.size() ; j++) {
-      Pixel pixTemp = (Pixel) listPixelTemp.get(j) ;
+      Old_Pixel pixTemp = (Old_Pixel) listPixelTemp.get(j) ;
       if( pixTemp.gridPos.y == whichRow ) { 
         numPixInRow += 1 ;
-        listPixelByRow.add(new Pixel(pixTemp.rank, pixTemp.gridPos)) ;
+        listPixelByRow.add(new Old_Pixel(pixTemp.rank, pixTemp.gridPos)) ;
       }
     }
     //Changez the ID "ZERO" to "ONE" of pixel if there is more of one point in col
@@ -1013,7 +1013,7 @@ private void checkPixelInRow() {
       int [] pixPosInRow = new int [numPixInRow] ;
       int [] whichColForPix = new int [numPixInRow] ;
       for ( int k = 0 ; k < listPixelByRow.size() ; k++) {
-        Pixel pixByRow = (Pixel) listPixelByRow.get(k) ;
+        Old_Pixel pixByRow = (Old_Pixel) listPixelByRow.get(k) ;
         pixPosInRow[k] = pixByRow.rank ;
         whichColForPix[k] = (int)pixByRow.gridPos.x ;
       }
@@ -1024,14 +1024,14 @@ private void checkPixelInRow() {
 
       for(int l = startPoint ; l < lastPoint  ; l++) {
         int whichPixel = (l-1) * rows + pixPosInRow[0] %rows ;
-        Pixel pix = (Pixel) listPixelRaw.get(whichPixel) ;
+        Old_Pixel pix = (Old_Pixel) listPixelRaw.get(whichPixel) ;
         if(pix.ID == 0) {
           // git a new ID "ONE" to say this Pixel has been checked, and now don'k try to make something with her
           pix.changeID(1) ;
           //complet the temp list completed
           PVector posInTheGrid = gridPosition(whichPixel) ;
           //listPixelTempCompleted.add(new Pixel(whichPixel, posInTheGrid)) ;
-          listPixelTemp.add(new Pixel(whichPixel, posInTheGrid)) ;
+          listPixelTemp.add(new Old_Pixel(whichPixel, posInTheGrid)) ;
         } 
       }
     }
@@ -1044,7 +1044,7 @@ private void checkPixelInRow() {
 ////////////
 //BARYCENTER
 void findEscargot(color cRef, int pixSize) {
-  for ( Pixel p :  listPixelTemp ) {
+  for ( Old_Pixel p :  listPixelTemp ) {
     PVector posInTheGrid = p.gridPos ;
     barycenterEscargot.x += posInDisplay(posInTheGrid.x, pixSize) ;
     barycenterEscargot.y += posInDisplay(posInTheGrid.y, pixSize) ;
@@ -1055,7 +1055,7 @@ void findEscargot(color cRef, int pixSize) {
 
   PVector sizeBarycenter = new PVector(numberPixelAnalyze, numberPixelAnalyze) ;
   //add barycenter in the list
-  listEscargot.add(new Pixel(barycenterEscargot, sizeBarycenter, cRef)); 
+  listEscargot.add(new Old_Pixel(barycenterEscargot, sizeBarycenter, cRef)); 
 }
 
 
@@ -1091,7 +1091,7 @@ PVector gridPosition(int posPixel) {
 color wichColorCheck ;
 //HSB CHECK
 //by hsb
-void hueSaturationBrightnessCheck(int escargotPos_n, color cRef, Pixel pixelEscargotAnalyze, boolean whichPix) {
+void hueSaturationBrightnessCheck(int escargotPos_n, color cRef, Old_Pixel pixelEscargotAnalyze, boolean whichPix) {
   //choice the ref color in pix Class a original color or the new one
   if( !whichPix ) wichColorCheck = pixelEscargotAnalyze.colour ; else wichColorCheck = pixelEscargotAnalyze.newColour ;
   if( pixelEscargotAnalyze.ID == 0 // check if the pixel is never analyze before
@@ -1103,7 +1103,7 @@ void hueSaturationBrightnessCheck(int escargotPos_n, color cRef, Pixel pixelEsca
     //return the coordinate in the grid system rows and cols
     PVector posInTheGrid = gridPosition(getPixelEscargotAnalyze) ;
     
-    listPixelTemp.add( new Pixel(getPixelEscargotAnalyze, posInTheGrid)) ;
+    listPixelTemp.add( new Old_Pixel(getPixelEscargotAnalyze, posInTheGrid)) ;
     
     numberPixelAnalyze += 1 ; // count of pixel has be analyzing
   } else {
@@ -1113,7 +1113,7 @@ void hueSaturationBrightnessCheck(int escargotPos_n, color cRef, Pixel pixelEsca
 }
 
 //by hue
-void hueCheck(int escargotPos_n, color cRef, Pixel pixelEscargotAnalyze, boolean whichPix) {
+void hueCheck(int escargotPos_n, color cRef, Old_Pixel pixelEscargotAnalyze, boolean whichPix) {
   //choice the ref color in pix Class a original color or the new one
   if( !whichPix ) wichColorCheck = pixelEscargotAnalyze.colour ; else wichColorCheck = pixelEscargotAnalyze.newColour ;
   if( pixelEscargotAnalyze.ID == 0 && hue(wichColorCheck) == hue(cRef) ) { // check if the pixel is never analyze before and if the hue is good
@@ -1122,7 +1122,7 @@ void hueCheck(int escargotPos_n, color cRef, Pixel pixelEscargotAnalyze, boolean
     //return the coordinate in the grid system rows and cols
     PVector posInTheGrid = gridPosition(getPixelEscargotAnalyze) ;
     
-    listPixelTemp.add( new Pixel(getPixelEscargotAnalyze, posInTheGrid)) ;
+    listPixelTemp.add( new Old_Pixel(getPixelEscargotAnalyze, posInTheGrid)) ;
     
     numberPixelAnalyze += 1 ; // count of pixel has be analyzing
   } else {
@@ -1132,7 +1132,7 @@ void hueCheck(int escargotPos_n, color cRef, Pixel pixelEscargotAnalyze, boolean
 }
 
 //by saturation
-void saturationCheck(int escargotPos_n, color cRef, Pixel pixelEscargotAnalyze, boolean whichPix) {
+void saturationCheck(int escargotPos_n, color cRef, Old_Pixel pixelEscargotAnalyze, boolean whichPix) {
   //choice the ref color in pix Class a original color or the new one
   if( !whichPix ) wichColorCheck = pixelEscargotAnalyze.colour ; else wichColorCheck = pixelEscargotAnalyze.newColour ;
   if( pixelEscargotAnalyze.ID == 0 && saturation(wichColorCheck) == saturation(cRef) ) // check if the pixel is never analyze before and if the hue is good
@@ -1143,7 +1143,7 @@ void saturationCheck(int escargotPos_n, color cRef, Pixel pixelEscargotAnalyze, 
     //return the coordinate in the grid system rows and cols
     PVector posInTheGrid = gridPosition(getPixelEscargotAnalyze) ;
     
-    listPixelTemp.add( new Pixel(getPixelEscargotAnalyze, posInTheGrid)) ;
+    listPixelTemp.add( new Old_Pixel(getPixelEscargotAnalyze, posInTheGrid)) ;
     
     numberPixelAnalyze += 1 ; // count of pixel has be analyzing
   } else {
@@ -1153,7 +1153,7 @@ void saturationCheck(int escargotPos_n, color cRef, Pixel pixelEscargotAnalyze, 
 }
 
 //by brightness
-void brightnessCheck(int escargotPos_n, color cRef, Pixel pixelEscargotAnalyze, boolean whichPix) {
+void brightnessCheck(int escargotPos_n, color cRef, Old_Pixel pixelEscargotAnalyze, boolean whichPix) {
   //choice the ref color in pix Class a original color or the new one
   if( !whichPix ) wichColorCheck = pixelEscargotAnalyze.colour ; else wichColorCheck = pixelEscargotAnalyze.newColour ;
   if( pixelEscargotAnalyze.ID == 0 && brightness(wichColorCheck) == brightness(cRef) ) // check if the pixel is never analyze before and if the hue is good
@@ -1163,7 +1163,7 @@ void brightnessCheck(int escargotPos_n, color cRef, Pixel pixelEscargotAnalyze, 
     //return the coordinate in the grid system rows and cols
     PVector posInTheGrid = gridPosition(getPixelEscargotAnalyze) ;
     
-    listPixelTemp.add( new Pixel(getPixelEscargotAnalyze, posInTheGrid)) ;
+    listPixelTemp.add( new Old_Pixel(getPixelEscargotAnalyze, posInTheGrid)) ;
     
     numberPixelAnalyze += 1 ; // count of pixel has be analyzing
   } else {
@@ -1172,7 +1172,7 @@ void brightnessCheck(int escargotPos_n, color cRef, Pixel pixelEscargotAnalyze, 
   }
 }
 //by hue and saturation
-void hueSaturationCheck(int escargotPos_n, color cRef, Pixel pixelEscargotAnalyze, boolean whichPix) {
+void hueSaturationCheck(int escargotPos_n, color cRef, Old_Pixel pixelEscargotAnalyze, boolean whichPix) {
   //choice the ref color in pix Class a original color or the new one
   if( !whichPix ) wichColorCheck = pixelEscargotAnalyze.colour ; else wichColorCheck = pixelEscargotAnalyze.newColour ;
   if( pixelEscargotAnalyze.ID == 0 // check if the pixel is never analyze before
@@ -1184,7 +1184,7 @@ void hueSaturationCheck(int escargotPos_n, color cRef, Pixel pixelEscargotAnalyz
     //return the coordinate in the grid system rows and cols
     PVector posInTheGrid = gridPosition(getPixelEscargotAnalyze) ;
     
-    listPixelTemp.add( new Pixel(getPixelEscargotAnalyze, posInTheGrid)) ;
+    listPixelTemp.add( new Old_Pixel(getPixelEscargotAnalyze, posInTheGrid)) ;
     
     numberPixelAnalyze += 1 ; // count of pixel has be analyzing
   } else {
@@ -1194,7 +1194,7 @@ void hueSaturationCheck(int escargotPos_n, color cRef, Pixel pixelEscargotAnalyz
 }
 
 // by hue and brigthness
-void hueBrightnessCheck(int escargotPos_n, color cRef, Pixel pixelEscargotAnalyze, boolean whichPix) {
+void hueBrightnessCheck(int escargotPos_n, color cRef, Old_Pixel pixelEscargotAnalyze, boolean whichPix) {
   //choice the ref color in pix Class a original color or the new one
   if( !whichPix ) wichColorCheck = pixelEscargotAnalyze.colour ; else wichColorCheck = pixelEscargotAnalyze.newColour ;
   if( pixelEscargotAnalyze.ID == 0 // check if the pixel is never analyze before
@@ -1205,7 +1205,7 @@ void hueBrightnessCheck(int escargotPos_n, color cRef, Pixel pixelEscargotAnalyz
     //return the coordinate in the grid system rows and cols
     PVector posInTheGrid = gridPosition(getPixelEscargotAnalyze) ;
     
-    listPixelTemp.add( new Pixel(getPixelEscargotAnalyze, posInTheGrid)) ;
+    listPixelTemp.add( new Old_Pixel(getPixelEscargotAnalyze, posInTheGrid)) ;
     
     numberPixelAnalyze += 1 ; // count of pixel has be analyzing
   } else {
@@ -1215,7 +1215,7 @@ void hueBrightnessCheck(int escargotPos_n, color cRef, Pixel pixelEscargotAnalyz
 }
 
 //by saturation and brightness
-void saturationBrightnessCheck(int escargotPos_n, color cRef, Pixel pixelEscargotAnalyze, boolean whichPix) {
+void saturationBrightnessCheck(int escargotPos_n, color cRef, Old_Pixel pixelEscargotAnalyze, boolean whichPix) {
   //choice the ref color in pix Class a original color or the new one
   if( !whichPix ) wichColorCheck = pixelEscargotAnalyze.colour ; else wichColorCheck = pixelEscargotAnalyze.newColour ;
   if( pixelEscargotAnalyze.ID == 0 // check if the pixel is never analyze before
@@ -1226,7 +1226,7 @@ void saturationBrightnessCheck(int escargotPos_n, color cRef, Pixel pixelEscargo
     //return the coordinate in the grid system rows and cols
     PVector posInTheGrid = gridPosition(getPixelEscargotAnalyze) ;
     
-    listPixelTemp.add( new Pixel(getPixelEscargotAnalyze, posInTheGrid)) ;
+    listPixelTemp.add( new Old_Pixel(getPixelEscargotAnalyze, posInTheGrid)) ;
     
     numberPixelAnalyze += 1 ; // count of pixel has be analyzing
   } else {
@@ -1286,7 +1286,7 @@ int escargot(int escargotPos_n, int start, int level, int numRows, int sizeList 
 ////////////////
 //PIXEL ANALYZE
 ///////////////
-ArrayList<Pixel> listPixelRaw = new ArrayList<Pixel>() ;
+ArrayList<Old_Pixel> listPixelRaw = new ArrayList<Old_Pixel>() ;
 // Number of columns and rows in our system
 int cols, rows ; 
 float ratioCols, ratioRows;
@@ -1332,7 +1332,7 @@ void recordPixelRaw(int cellSize, PImage imgRecord, boolean mirror) {
         color c = color(h, s, b);
         PVector pos = new PVector(x+cellSize/2, y+cellSize/2 ) ;
         //add position and color of the pixel in the list
-        listPixelRaw.add(new Pixel(pos, c)) ;
+        listPixelRaw.add(new Old_Pixel(pos, c)) ;
       }
     }
     analyzeDone = true ;
@@ -1366,7 +1366,7 @@ void recordPixelRaw(int cellSize, PImage imgRecord, float time, boolean mirror) 
         color c = color(h, s, b);
         PVector pos = new PVector(x+cellSize/2, y+cellSize/2 ) ;
         //add position and color of the pixel in the list
-        listPixelRaw.add(new Pixel(pos, c)) ;
+        listPixelRaw.add(new Old_Pixel(pos, c)) ;
       }
     }
   }
@@ -1510,7 +1510,6 @@ void choiceSVG(File selection) {
     println("no pattern selected");
   } else {
     pathSVGescargot  = selection.getAbsolutePath() ;
-    println(pathSVGescargot) ;
     shapeSVGsetting(pathSVGescargot) ;
 
   }

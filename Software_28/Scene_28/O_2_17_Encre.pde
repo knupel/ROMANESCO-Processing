@@ -1,6 +1,6 @@
 // Tab: O_2_17_Encre
-ArrayList<Pixel> encreList = new ArrayList<Pixel>(); ;
-ArrayList<Pixel> starList = new ArrayList<Pixel>();
+ArrayList<Old_Pixel> encreList = new ArrayList<Old_Pixel>(); ;
+ArrayList<Old_Pixel> starList = new ArrayList<Old_Pixel>();
 
 //object one
 class Spray extends Romanesco {
@@ -75,7 +75,7 @@ class Spray extends Romanesco {
     thicknessSoundEffect = 1 + jitterOne ;
       
       
-    for (Pixel p : starList) {
+    for (Old_Pixel p : starList) {
       strokeWeight(thicknessObj[IDobj] *thicknessSoundEffect) ;  
       if(changeColor) stroke(hue(p.colour), saturation(p.colour), brightness(p.colour), alpha(fillObj[IDobj])); else stroke(fillObj[IDobj]) ;
       point(p.pos.x +jitterOne, p.pos.y +jitterTwo, p.pos.z +jitterThree) ;
@@ -149,7 +149,7 @@ class Spray extends Romanesco {
         
         posFinal.add(posAroundTheStar) ;
         posFinal.add(pos) ;
-        starList.add(new Pixel(posFinal, colour)) ;
+        starList.add(new Old_Pixel(posFinal, colour)) ;
         posAroundTheStar = new PVector(0,0) ;
       }
     }
@@ -187,7 +187,7 @@ class Spray extends Romanesco {
    if (action[IDobj] && nLongTouch && clickLongLeft[0] && encreList.size() < security) addEncre(factorPressure, sprayDirection, angleSpray, spray, inkDiffusion, inkFlux, fillObj[IDobj]) ; 
   
     //display
-    for ( Pixel e :  encreList ) {
+    for ( Old_Pixel e :  encreList ) {
       if (action[IDobj]) e.drying(var, timeDry) ;
       strokeWeight(thicknessPoint) ;
       noFill() ;
@@ -222,7 +222,7 @@ class Spray extends Romanesco {
 
       
       //put the pixel in the list to use peacefully
-      encreList.add( new Pixel(mouse[IDobj], diffusion, colorInk)) ;
+      encreList.add( new Old_Pixel(mouse[IDobj], diffusion, colorInk)) ;
     }
   }
   

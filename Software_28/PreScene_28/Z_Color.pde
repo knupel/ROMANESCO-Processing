@@ -1,4 +1,4 @@
-// Tab: Z_Color
+// Tab: Z_Color 1.0.1
 //COLOR for internal use
 color fond ;
 color rouge, orange, jaune, vert, bleu, noir, blanc, gris  ;

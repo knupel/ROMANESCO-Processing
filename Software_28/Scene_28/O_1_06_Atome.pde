@@ -9,7 +9,7 @@ class Atome extends Romanesco {
     IDobj = 6 ;
     IDgroup = 1 ;
     romanescoAuthor  = "Stan le Punk";
-    romanescoVersion = "version 1.3.1";
+    romanescoVersion = "version 1.3.2";
     romanescoPack = "Base" ;
     romanescoRender = "P3D" ;
     romanescoMode = "Chemical Name/File text/Electronic cloud/Ellipse circle/Ellipse triangle/Ellipse cloud/Triangle circle/Triangle triangle/Triangle cloud/Rectangle rectangle/Rectangle cloud" ;
@@ -959,7 +959,7 @@ class Atom {
   // ANNEXE DISPLAY
   // CORE 2D
   void coreTriangle(PVector size) {
-    primitive(0,0,int(size.x),3) ;
+    primitive(Vec2(),size.x,3) ;
   }
   void coreEllipse(PVector size) {
     ellipse(0,0,size.x, size.y) ;
@@ -1014,8 +1014,9 @@ class Atom {
   void cloudTriangle(float newAmplitudeElectrocField) {
     electronicInfo() ;
     noFill() ; 
-    primitive(0,0,int(radiusElectronicFieldCovalent() *newAmplitudeElectrocField),3) ;
-    primitive(0,0,int(radiusElectronicField() *newAmplitudeElectrocField),3) ;
+    float radius = radiusElectronicFieldCovalent() *newAmplitudeElectrocField ;
+    primitive(Vec2(),radius,3) ;
+    primitive(Vec2(),radius,3) ;
   }
   
   // CLOUD POINT

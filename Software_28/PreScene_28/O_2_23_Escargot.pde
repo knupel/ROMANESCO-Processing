@@ -5,7 +5,7 @@ class Escargot extends Romanesco {
     IDobj = 23 ;
     IDgroup = 2 ;
     romanescoAuthor  = "Stan le Punk";
-    romanescoVersion = "version 1.4.2";
+    romanescoVersion = "version 1.4.3";
     romanescoPack = "Base" ;
     romanescoRender = "P3D" ;
     romanescoMode = "Original/Raw/Point/Ellipse/Rectangle/Box/Cross/SVG/Vitraux" ;

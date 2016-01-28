@@ -1,4 +1,4 @@
-// Tab: Z_Color
+// Tab: Z_Color 1.0.1
 //COLOR for internal use
 color fond ;
 color rouge, orange, jaune, vert, bleu, noir, blanc, gris  ;
@@ -356,7 +356,7 @@ void brightSpectrumPalette(int [] brightP, int sizeSpectrum) {
 //CHANGE COLOR pixel in the list of Pixel
 void changeColorOfPixel(ArrayList listMustBeChange ) {
   for( int i = 0 ; i<listMustBeChange.size() ; i++) {
-    Pixel p = (Pixel) listMustBeChange.get(i) ;
+    Old_Pixel p = (Old_Pixel) listMustBeChange.get(i) ;
     p.changeHue   (HSBmode, huePalette, hueStart, hueEnd) ;
     p.changeSat   (HSBmode, satPalette, satStart, satEnd) ; 
     p.changeBright(HSBmode, brightPalette, brightStart, brightEnd) ;
