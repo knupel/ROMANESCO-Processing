@@ -225,7 +225,6 @@ class FingerLeap {
     if(infoPos.y > 1.0) infoPos.y /= 2.0 ;
     if(infoPos.z > 1.0) infoPos.z /= 2.0 ;
     //smooth the result
-    // pos = new PVector(follow(pos, speed).x, follow(pos, speed).y, follow(pos, speed).z) ;
     pos = follow(infoPos, speed).copy() ;
     // pos = infoPos.copy() ;
     return pos ;

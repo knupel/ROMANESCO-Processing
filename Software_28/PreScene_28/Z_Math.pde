@@ -1,4 +1,4 @@
-// Tab: Z_Math 1.8.0
+// Tab: Z_Math 1.8.1
 // CONSTANT NUMBER must be here to be generate before all
 /////////////////////////////////////////////////////////
 final float PHI = (1 + sqrt(5))/2; //a number of polys use the golden ratio...
@@ -338,15 +338,16 @@ void rotation (float angle, float posX, float posY ) {
 
 
 
-
+/**
 // PRIMITIVE 2D
 //////////////
+*/
 
 
-
-
+/**
 //DISC
-void disc( PVector pos, int diam, color c ) {
+*/
+void disc( PVector pos, int diam, int c ) {
   for ( int i = 1 ; i < diam +1 ; i++) {
     circle(c, pos, i) ;
   }
@@ -359,8 +360,9 @@ void chromatic_disc( PVector pos, int diam ) {
 }
 
 
-
+/**
 //CIRCLE
+*/
 void chromatic_circle(PVector pos, int d) {
   int surface = d*d ; // surface is equale of square surface where is the cirlcke...make sens ?
 
@@ -377,10 +379,125 @@ void chromatic_circle(PVector pos, int d) {
   }
 }
 
-// END DISC
+
+//full cirlce
+void circle(color c, PVector pos, int d) {
+  int surface = d*d ; // surface is equale of square surface where is the cirlcke...make sens ?
+
+  int radius = ceil(radius_from_circle_surface(surface)) ;
+  int numPoints = ceil(perimeter_disc(radius)) ;
+  for(int i=0; i < numPoints; i++) {
+      float stepAngle = map(i, 0, numPoints, 0, 2*PI) ; 
+      float angle =  2*PI - stepAngle;
+      set(int(projection(angle, radius).x + pos.x) , int(projection(angle, radius).y + pos.y), c);
+  }
+}
+
+//circle with a specific quantity points
+void circle(color c, PVector pos, int d, int num) {
+  int surface = d*d ; // surface is equale of square surface where is the cirlcke...make sens ?
+
+  int radius = ceil(radius_from_circle_surface(surface)) ;
+  for(int i=0; i < num; i++) {
+      float stepAngle = map(i, 0, num, 0, 2*PI) ; 
+      float angle =  2*PI - stepAngle;
+      set(int(projection(angle, radius).x + pos.x) , int(projection(angle, radius).y + pos.y), c);
+  }
+}
+//circle with a specific quantity points and specific shape for each point
+void circle(PVector pos, int d, int num, PVector size, String shape) {
+  int surface = d*d ; // surface is equale of square surface where is the cirlcke...make sens ?
+  int whichShape = 0 ;
+  if (shape.equals("point") )  whichShape = 0;
+  else if (shape.equals("ellipse") )  whichShape = 1 ;
+  else if (shape.equals("rect") )  whichShape = 2 ;
+  else if (shape.equals("box") )  whichShape = 3 ;
+  else if (shape.equals("sphere") )  whichShape = 4 ;
+  else whichShape = 0 ;
+
+  int radius = ceil(radius_from_circle_surface(surface)) ;
+  for(int i=0; i < num; i++) {
+    float stepAngle = map(i, 0, num, 0, 2*PI) ; 
+    float angle =  2*PI - stepAngle;
+    PVector newPos = new PVector(projection(angle, radius).x + pos.x, projection(angle, radius).y + pos.y) ;
+    if(whichShape == 0 ) point(newPos.x, newPos.y) ;
+    if(whichShape == 1 ) ellipse(newPos.x, newPos.y, size.x, size.y) ;
+    if(whichShape == 2 ) rect(newPos.x, newPos.y, size.x, size.y) ;
+    if(whichShape == 3 ) {
+      pushMatrix() ;
+      translate(newPos.x, newPos.y,0) ;
+      box(size.x, size.y, size.z) ;
+      popMatrix() ;
+    }
+    if(whichShape == 4 ) {
+      pushMatrix() ;
+      translate(newPos.x, newPos.y,0) ;
+      int detail = (int)size.x /4 ;
+      if (detail > 10 ) detail = 10 ;
+      sphereDetail(detail) ;
+      sphere(size.x) ;
+      popMatrix() ;
+    }
+  }
+}
+// summits around the circle
+PVector [] circle (PVector pos, int d, int num) {
+  PVector [] p = new PVector [num] ;
+  int surface = d*d ; 
+  int radius = ceil(radius_from_circle_surface(surface)) ;
+  
+  // choice your starting point
+  float startingAnglePos = PI*.5;
+  if(num == 4) startingAnglePos = PI*.25;
+  
+  for( int i=0 ; i < num ; i++) {
+    float stepAngle = map(i, 0, num, 0, TAU) ; 
+    float angle =  TAU - stepAngle -startingAnglePos;
+    p[i] = new PVector(projection(angle, radius).x +pos.x,projection(angle, radius).y + pos.y) ;
+  }
+  return p ;
+}
+
+PVector [] circle (PVector pos, int d, int num, float jitter) {
+  PVector [] p = new PVector [num] ;
+  int surface = d*d ; 
+  int radius = ceil(radius_from_circle_surface(surface)) ;
+  
+  // choice your starting point
+  float startingAnglePos = PI*.5;
+  if(num == 4) startingAnglePos = PI*.25;
+  
+  float angleCorrection ; // this correction is cosmetic, when we'he a pair beam this one is stable for your eyes :)
+  for( int i=0 ; i < num ; i++) {
+    int beam = num /2 ;
+    if ( beam%2 == 0 ) angleCorrection = PI / num ; else angleCorrection = 0.0 ;
+    if ( num%2 == 0 ) jitter *= -1 ; else jitter *= 1 ; // the beam have two points at the top and each one must go to the opposate...
+    
+    float stepAngle = map(i, 0, num, 0, TAU) ;
+    float jitterAngle = map(jitter, -1, 1, -PI/num, PI/num) ;
+    float angle =  TAU -stepAngle +jitterAngle +angleCorrection -startingAnglePos;
+    
+    p[i] = new PVector(projection(angle, radius).x +pos.x, projection(angle, radius).y +pos.y) ;
+  }
+  return p ;
+}
+/**
+// END DISC and CIRCLE
+*/
 
 
+
+
+
+
+
+
+
+
+
+/**
 // PRIMITIVE  with "n" summits
+*/
 void primitive(float radius, int summits) {
   Vec3 pos = new Vec3 () ;
   float orientation = 0 ;
@@ -1218,31 +1335,16 @@ float mapEndStartSmooth(float value, float sourceMin, float sourceMax, float tar
 
 
 
-// MATH PVECTOR
-///////////////
-// FOLLOW PVECTOR
-PVector goToPosFollow = new PVector() ;
-// CALCULATE THE POS of PVector Traveller, give the target pos and the speed to go.
-PVector follow(PVector target, float speed) {
-  // calcul X pos
-  float targetX = target.x;
-  float dx = targetX - goToPosFollow.x;
-  if(abs(dx) != 0) {
-    goToPosFollow.x += dx * speed;
-  }
-  // calcul Y pos
-  float targetY = target.y;
-  float dy = targetY - goToPosFollow.y;
-  if(abs(dy) != 0) {
-    goToPosFollow.y += dy * speed;
-  }
-  // calcul Z pos
-  float targetZ = target.z;
-  float dz = targetZ - goToPosFollow.z;
-  if(abs(dz) != 0) {
-    goToPosFollow.z += dz * speed;
-  }
-  return goToPosFollow ;
+/**
+// TARGET direction
+*/
+// Target direction return the normal direction of the target from the origin
+Vec2 target_direction(Vec2 target, Vec2 my_position) {
+  return projection(target, my_position, 1).sub(my_position) ;
+}
+
+Vec3 target_direction(Vec3 target, Vec3 my_position) {
+  return projection(target, my_position, 1).sub(my_position) ;
 }
 
 
