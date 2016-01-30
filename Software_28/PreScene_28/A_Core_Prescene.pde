@@ -72,7 +72,9 @@ void opening() {
     } else {
       count_to_open_controller += 1 ;
     }
-    if (openControleur && count_to_open_controller > (time_int_second_to_open_controller *frameRateRomanesco) ) { 
+
+    int time_factor_to_open = 15 ;
+    if (openControleur && count_to_open_controller > (time_int_second_to_open_controller *time_factor_to_open) ) { 
       launch(sketchPath("")+"Controleur_"+version+".app") ; 
       openControleur = false ; 
     } 

@@ -1,5 +1,5 @@
   ////////////////////////////////////////////////////////////////////
- // Romanesco Unu 1.1.1 / version 28 / made with Processing 3.0b7 ///
+ // Romanesco Unu 1.1.1 / version 28 / made with Processing 3.0.1 ///
 ////////////////////////////////////////////////////////////////////
 /* 730 lines of code the 4th may !!!! */
 String version = ("28") ;
@@ -66,6 +66,3 @@ void mousePressed() {
 void mouseReleased() {
   if(buttonFullscreen.OnOff) whichScreenReleased() ;
 }
-
-
-

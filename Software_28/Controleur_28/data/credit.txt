@@ -1,5 +1,5 @@
 Romanesco Unu
-2011-2015 - version 1.0.2.27 
+2011-2016 - version 1.1.1.28 
 Romanesco is free and free, but for the commercial use that can be good to do a donation !
 Romanesco is under CeCill License - http://www.cecill.info/licences/Licence_CeCILL_V2-en.html -
 
@@ -21,13 +21,13 @@ Financial support: Laetitia Natali aka Lalou
 Network support: Ludovic Laurent, Tutoprocessing, Le Collagiste, Processing Lyon, Processing Rennes,
 Free Art Bureau, VJUnion.
 
-Forum Processing answer: AmnonP5, Datguy, R. Brauer, Adrock42, Philho.
+Forum Processing answer: AmnonP5, Datguy, R. Brauer, Adrock42, Philho, GotoLoop.
 
 Library and Mode from: Daniel Shiffman, Marius Waltz, Andres Colubri, Andreas Schlegel, 
 Ricard Marxer, Michael Heuer, Manindra Moharana.
 
 Processing Organisation: Casey Reas, Ben Fry.
 
-Special Thanks: Ludovic Laurent and Mark Webster for the Processing workshop.
+Special Thanks: Mark Webster for the Processing Paris workshop.
 
 

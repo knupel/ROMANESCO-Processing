@@ -1,6 +1,6 @@
 
   ////////////////////////////////////////////////////////////////////
- // Romanesco Unu 1.1.0 / version 27 / made with Processing 3.0.1 ///
+ // Romanesco Unu 1.1.1 / version 28 / made with Processing 3.0.1 ///
 ////////////////////////////////////////////////////////////////////
 /* 14.500 lines of code the 4th may 2015 !!!! */
 
@@ -18,7 +18,7 @@ used sound
  maximum possibility of the object
  full frame rate
 */
-boolean fullRendering = true ;
+boolean fullRendering = false ;
 //to work in dev, test phase
 boolean testRomanesco = false ;
 
@@ -31,8 +31,8 @@ void settings() {
 void setup() {
   camera_video_setup() ;
   preferencesPath = sketchPath("")+"preferences/" ;
-  if(fullRendering) frameRateRomanesco = 60 ; else frameRateRomanesco = 15 ;
-
+  // if(fullRendering) frameRateRomanesco = 60 ; else frameRateRomanesco = 15 ;
+  int frameRateRomanesco = 60 ;
   displaySetup(frameRateRomanesco) ; // the int value is the frameRate
   RG.init(this);  // Geomerative
   // common setup
@@ -98,7 +98,7 @@ void draw() {
 
   //use romanesco object
   romanescoManager.displayObject(ORDER_ONE, ORDER_TWO, ORDER_THREE) ;
-  createGridCamera() ;
+  createGridCamera(displayInfo3D) ;
   stopCamera() ;
 
   

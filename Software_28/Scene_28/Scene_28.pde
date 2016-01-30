@@ -16,8 +16,8 @@ boolean fullRendering = true ;
 
 void settings() {
   // When you build Romanesco you must create two versions : fullscreen and normal
-  fullScreen(P3D,2) ;
-  // size(124,124,P3D) ;
+  //fullScreen(P3D,2) ;
+  size(124,124,P3D) ;
   syphon_settings() ;
 }
 
@@ -27,11 +27,12 @@ void settings() {
 void setup() {
   camera_video_setup() ;
   preferencesPath = sketchPath("")+"preferences/" ;
-  if(fullRendering) frameRateRomanesco = 60 ; else frameRateRomanesco = 15 ;
+
   romanescoSetup() ;
   RG.init(this); // GEOMERATIVE
   createVar() ;
   initVarScene() ;
+  int frameRateRomanesco = 60 ;
   displaySetup(frameRateRomanesco) ; // the int give the frameRate
   colorSetup() ;
   syphon_setup() ;
@@ -79,7 +80,7 @@ void draw() {
   }
 
   romanescoManager.displayObject(ORDER_ONE, ORDER_TWO, ORDER_THREE) ;
-  createGridCamera() ;
+  createGridCamera(displayInfo3D) ;
   stopCamera() ;
   
   //ANNEXE

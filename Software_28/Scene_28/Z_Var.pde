@@ -1,5 +1,7 @@
-
-// Tab: Z_VAR
+/** 
+Tab: Z_VAR
+Version 1.0.1
+*/
 // GLOBAL SETTING ////
 
 import java.net.*;
@@ -39,8 +41,6 @@ PApplet callingClass = this ;
 // use for the border of window (top and right)
 java.awt.Insets insets; 
 
-// framerate of the scene
-int frameRateRomanesco ;
 
 
 int MIN_WINDOW_WIDTH = 128 ; 

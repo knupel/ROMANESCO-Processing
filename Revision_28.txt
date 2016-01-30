@@ -1,21 +1,27 @@
-///////////////////////
+
 ROMANESCO 28 Revision
+---------------------
 
 /// CORE /////
 --------------
 > remove graphic enviroment 
 > remove Maverick detection
-> add fullscreen() method from processing
+> remove native full screen method
+> add fullscreen() method from Processing
 > add librairie processing.video at the root of Romanesco, now you just need to call the fonction with cam.methode()
 > improve a little bit the object webCam
 > add dropdown menu to Controller to choice your camera device
 > Change the system to call the Scene in window or in full screen
 > Miroir : you can choice between full screen or window displaying
+> Fix the memory leak
+> update library Vec
+> update library Math
 
 
 
-///////////////////////
+
 ROMANESCO 27 Revision
+---------------------
 
 /// CORE ///
 -----------
@@ -166,8 +172,9 @@ load
 
 
 
-///////////////////////
+
 ROMANESCO 26 Revision
+---------------------
 
 /// CORE ///
 /// ADD ///
@@ -210,10 +217,16 @@ ROMANESCO 26 Revision
 
 
 
-////////////////////////
-ROMANESCO 25 Revision
-///////////////////////
 
+
+
+
+
+
+
+
+ROMANESCO 25 Revision
+---------------------
 
 /// ADD ///
 
