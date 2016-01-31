@@ -1,6 +1,6 @@
-##Romanesco Unu 1.1.1.28
+##Romanesco Unu 1.1.2.29
 Romanesco is a Generative Live Art Application.
-Those sketches are the progress work, write for Processing 3.
+Those sketches are the progress work, write for Processing 3.0.1.
 
 To download the last built version [app 1.1.0.27](http://romanescoproject.wordpress.com/download/)
 
@@ -9,7 +9,7 @@ To download the last built version [app 1.1.0.27](http://romanescoproject.wordpr
 * Controleur : interface slider to use the objects and the different parameters.
 * Prescene : use to move the object in the 3D space.
 * Scene : Display the result, we can use this one to send to syphon or not.
-* Romanesco must be coded with Processing 3.0a5
+* Romanesco must be coded with Processing 3.0.1
 
 
 ##Memory
