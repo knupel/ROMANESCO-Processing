@@ -16,6 +16,7 @@ ROMANESCO 28 Revision
 > Fix the memory leak
 > update library Vec
 > update library Math
+> update background method
 
 
 
