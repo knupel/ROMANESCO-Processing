@@ -1,4 +1,6 @@
-// Tab: O_1_01_Letter
+/**
+LETTER || 2012 || 1.2.0
+*/
 class Letter extends Romanesco {
   public Letter() {
     //from the index_objects.csv

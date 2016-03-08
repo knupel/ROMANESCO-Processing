@@ -1,4 +1,6 @@
-// Tab: O_2_16_Lignes
+/**
+SPIRALE  || 2011 || 1.1.1
+*/
 Line line ;
 //object three
 class Lignes extends Romanesco {
@@ -6,7 +8,7 @@ class Lignes extends Romanesco {
     //from the index_objects.csv
     romanescoName = "Lignes" ;
     IDobj = 16 ;
-    IDgroup = 2 ;
+    IDgroup = 1 ;
     romanescoAuthor  = "Stan le Punk";
     romanescoVersion = "Version 1.1.1";
     romanescoPack = "Base" ;

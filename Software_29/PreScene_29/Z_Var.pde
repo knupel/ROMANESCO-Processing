@@ -93,7 +93,7 @@ int NUM_BANDS = 16 ;
 //font
 int numFont = 50 ;
 //quantity of group object slider
-int NUM_GROUP = 2 ;
+int NUM_GROUP = 1 ;
 
 int NUM_SLIDER_MISC = 30 ;
 int NUM_SLIDER_OBJ = 30 ;

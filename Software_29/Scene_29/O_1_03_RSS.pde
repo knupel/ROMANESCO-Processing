@@ -1,6 +1,6 @@
-// Tab: O_1_03_RSS
-//////////////////
-//OBJECT ROMANESCO
+/**
+RSS 1.1.0
+*/
 class RSS extends Romanesco {
   public RSS() {
     //from the index_objects.csv

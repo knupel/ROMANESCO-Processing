@@ -1,4 +1,7 @@
-// Tab: O_2_19_Anillos
+/**
+ANILLOS 0.0.2
+*/
+
 class Anillos extends Romanesco {
  
   public Anillos() {

@@ -3,7 +3,7 @@
 /////////////////////////
 // RECEIVE INFO from CONTROLLER
 ////////////////////////////////
-int numOfPartSendByController = 7 ; 
+int numOfPartSendByController = 5 ; 
 String fromController [] = new String [numOfPartSendByController] ;
 //EVENT to check what else is receive by the receiver
 

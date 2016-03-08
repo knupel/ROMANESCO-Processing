@@ -1,5 +1,5 @@
   ////////////////////////////////////////////////////////////////////
- // Romanesco Unu 1.1.2 / version 29 / made with Processing 3.0.1 ///
+ // Romanesco Unu 1.2.0 / version 29 / made with Processing 3.0.2 ///
 ////////////////////////////////////////////////////////////////////
 /* 14.750 lines of code the 4th may !!!! */
 
@@ -7,7 +7,7 @@
 String nameVersion = ("Romanesco Unu") ;
 String IAM = ("Scene") ;
 String version = ("29") ;
-String prettyVersion = ("1.1.2") ;
+String prettyVersion = ("1.2.0") ;
 String preferencesPath  ;
 // security must be link with the controler in the next release
 boolean testRomanesco = false ;

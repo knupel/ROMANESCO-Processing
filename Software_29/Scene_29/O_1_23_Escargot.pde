@@ -1,9 +1,12 @@
+/**
+ESCARGOT 1.4.3
+*/
 class Escargot extends Romanesco {
   public Escargot() {
     //from the index_objects.csv
     romanescoName = "Image" ;
     IDobj = 23 ;
-    IDgroup = 2 ;
+    IDgroup = 1 ;
     romanescoAuthor  = "Stan le Punk";
     romanescoVersion = "version 1.4.3";
     romanescoPack = "Base" ;

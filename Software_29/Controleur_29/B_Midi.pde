@@ -342,21 +342,12 @@ void midiButtonManager(boolean saveButton) {
   midiButton(button_snare, rank++, saveButton) ;
   midiButton(button_hat, rank++, saveButton) ;
   
-  int whichGroup = 1 ;
-  for( int i = 1 ; i <= numGroup[whichGroup ] ; i++ ) {
+  for( int i = 1 ; i <= NUM_ITEM ; i++ ) {
     rank = 1 ;
-    midiButton(button_G1[posRankButton(i,rank)], posRankButton(i,rank), saveButton) ; rank++ ;
-    midiButton(button_G1[posRankButton(i,rank)], posRankButton(i,rank), saveButton) ; rank++ ;
-    midiButton(button_G1[posRankButton(i,rank)], posRankButton(i,rank), saveButton) ; rank++ ;
-    midiButton(button_G1[posRankButton(i,rank)], posRankButton(i,rank), saveButton) ;
-  }
-  whichGroup = 2 ; 
-  for( int i = 1 ; i <= numGroup[whichGroup] ; i++ ) {
-    rank = 1 ;
-    midiButton(button_G2[posRankButton(i,rank)], posRankButton(i,rank), saveButton) ; rank++ ;
-    midiButton(button_G2[posRankButton(i,rank)], posRankButton(i,rank), saveButton) ; rank++ ;
-    midiButton(button_G2[posRankButton(i,rank)], posRankButton(i,rank), saveButton) ; rank++ ; 
-    midiButton(button_G2[posRankButton(i,rank)], posRankButton(i,rank), saveButton) ;     
+    midiButton(button_item[posRankButton(i,rank)], posRankButton(i,rank), saveButton) ; rank++ ;
+    midiButton(button_item[posRankButton(i,rank)], posRankButton(i,rank), saveButton) ; rank++ ;
+    midiButton(button_item[posRankButton(i,rank)], posRankButton(i,rank), saveButton) ; rank++ ;
+    midiButton(button_item[posRankButton(i,rank)], posRankButton(i,rank), saveButton) ;
   }
 }
 

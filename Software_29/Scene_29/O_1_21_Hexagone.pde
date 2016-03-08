@@ -1,3 +1,6 @@
+/**
+HONEYCOMB 0.1.1
+*/
 ArrayList <Hexagon> grid = new ArrayList <Hexagon> (); // the arrayList to store the whole grid of cells
 
 class Honeycomb extends Romanesco {
@@ -5,7 +8,7 @@ class Honeycomb extends Romanesco {
     //from the index_objects.csv
     romanescoName = "Nid d'abeille" ;
     IDobj = 21 ;
-    IDgroup = 2 ;
+    IDgroup = 1 ;
     romanescoAuthor  = "Amnon Owed";
     romanescoVersion = "Version 0.1.1";
     romanescoPack = "Base" ;

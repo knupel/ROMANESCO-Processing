@@ -1,10 +1,10 @@
   ////////////////////////////////////////////////////////////////////
- // Romanesco Unu 1.1.2 / version 29 / made with Processing 3.0.1 ///
+ // Romanesco Unu 1.2.0 / version 29 / made with Processing 3.0.2 ///
 ////////////////////////////////////////////////////////////////////
 /* 4.100 lines of code the 4th may 2015 !!!! */
 String version = ("29") ;
 String IAM = ("Controller") ;
-String prettyVersion = ("1.1.2") ;
+String prettyVersion = ("1.2.0") ;
 String nameVersion = ("Romanesco Unu") ;
 boolean test = false ;
 String preferencesPath  ;
@@ -61,8 +61,7 @@ void draw() {
 void mousePressed () {
   //object
   if(!dropdownActivity) {
-    if(numGroup[1] > 0 ) for( int i = 11 ; i < numGroup[1] *10 + 6 ; i++ ) button_G1[i].mousePressed()  ;
-    if(numGroup[2] > 0 ) for( int i = 11 ; i < numGroup[2] *10 + 6 ; i++)  button_G2[i].mousePressed() ;
+    if(NUM_ITEM > 0 ) for( int i = 11 ; i < NUM_ITEM *10 + 6 ; i++ ) button_item[i].mousePressed()  ;
   
     button_bg.mousePressedText() ;
     //LIGHT ONE

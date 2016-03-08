@@ -1,4 +1,7 @@
-// Tab: O_1_09_Rubis
+/**
+RUBIS 1.0.1
+*/
+
 class MesAmis extends Romanesco {
   public MesAmis() {
     //from the index_objects.csv

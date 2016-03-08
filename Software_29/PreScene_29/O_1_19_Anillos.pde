@@ -1,10 +1,13 @@
-// Tab: O_2_19_Anillos
+/**
+ANILLOS || 2015 || 0.0.2
+*/
+
 class Anillos extends Romanesco {
  
   public Anillos() {
     romanescoName = "Anillos" ;
     IDobj = 19 ;
-    IDgroup = 2 ;
+    IDgroup = 1 ;
     romanescoAuthor  = "David Robayo";
     romanescoVersion = "Version 0.0.2";
     romanescoPack = "Workshop june 2015" ;

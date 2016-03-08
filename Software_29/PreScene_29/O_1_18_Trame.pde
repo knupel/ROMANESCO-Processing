@@ -1,4 +1,7 @@
-// Tab: O_2_18_Trame
+/**
+TRAME || 2011 || 1.1.1
+*/
+
 Trame trame ;
 //object three
 class Damier extends Romanesco {
@@ -6,7 +9,7 @@ class Damier extends Romanesco {
     //from the index_objects.csv
     romanescoName = "Damier" ;
     IDobj = 18 ;
-    IDgroup = 2 ;
+    IDgroup = 1 ;
     romanescoAuthor  = "Stan le Punk";
     romanescoVersion = "Version 1.1.1";
     romanescoPack = "Base" ;

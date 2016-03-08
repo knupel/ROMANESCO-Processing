@@ -1,4 +1,7 @@
-// Tab: O_2_18_Trame
+/**
+TRAME 1.1.1
+*/
+
 Trame trame ;
 //object three
 class Damier extends Romanesco {

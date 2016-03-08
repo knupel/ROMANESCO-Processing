@@ -1,4 +1,7 @@
-// Tab: O_1_05_Boids
+/**
+BOIDS 1.0.1
+*/
+
 class Boids extends Romanesco {
   public Boids() {
     romanescoName = "Boids" ;

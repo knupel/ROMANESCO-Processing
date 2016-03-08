@@ -1,6 +1,7 @@
-// Tab: O_1_02_Horloge
-//////////////////
-//OBJECT ROMANESCO
+/**
+HORLOGE || 2012 || 2.0.1
+*/
+
 class Horloge extends Romanesco {
   public Horloge() {
     //from the index_objects.csv

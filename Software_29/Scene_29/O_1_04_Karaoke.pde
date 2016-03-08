@@ -1,6 +1,7 @@
-// Tab: O_1_04_Karaoke
-//////////////////
-//OBJECT ROMANESCO
+/**
+KARAOKE 2.0.0
+*/
+
 class Karaoke extends Romanesco {
   public Karaoke() {
     //from the index_objects.csv

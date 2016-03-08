@@ -1,4 +1,7 @@
-// Tab: O_1_05_Orbital
+/**
+ORBITAL 0.0.2
+*/
+
 class Orbital extends Romanesco {
  
   // Diameter max

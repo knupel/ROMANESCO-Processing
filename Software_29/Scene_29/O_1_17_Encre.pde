@@ -1,4 +1,6 @@
-// Tab: O_2_17_Encre
+/**
+ENCRE  || 2012 || 1.1.1
+*/
 ArrayList<Old_Pixel> encreList = new ArrayList<Old_Pixel>(); ;
 ArrayList<Old_Pixel> starList = new ArrayList<Old_Pixel>();
 
@@ -8,7 +10,7 @@ class Spray extends Romanesco {
     //from the index_objects.csv
     romanescoName = "Stars Spray" ;
     IDobj = 17 ;
-    IDgroup = 2 ;
+    IDgroup = 1 ;
     romanescoAuthor  = "Stan le Punk";
     romanescoVersion = "version 1.1.1";
     romanescoPack = "Base" ;

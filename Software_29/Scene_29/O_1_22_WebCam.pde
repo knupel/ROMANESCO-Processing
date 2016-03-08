@@ -1,9 +1,12 @@
+/**
+WEBCAM 1.2.2
+*/
 class Webcam extends Romanesco {
   public Webcam() {
     //from the index_objects.csv
     romanescoName = "Webcam" ;
     IDobj = 22 ;
-    IDgroup = 2 ;
+    IDgroup = 1 ;
     romanescoAuthor  = "Stan le Punk";
     romanescoVersion = "Version 1.2.2";
     romanescoPack = "Base" ;

@@ -1,3 +1,6 @@
+/**
+SPIRALE  || 2011 || 1.3.1
+*/
 Spirale spirale ; 
 //object three
 class SpiraleRomanesco extends Romanesco {
@@ -5,7 +8,7 @@ class SpiraleRomanesco extends Romanesco {
     //from the index_objects.csv
     romanescoName = "Spirale" ;
     IDobj = 13 ;
-    IDgroup = 2 ;
+    IDgroup = 1 ;
     romanescoAuthor  = "Stan le Punk";
     romanescoVersion = "Version 1.3.1";
     romanescoPack = "Base" ;

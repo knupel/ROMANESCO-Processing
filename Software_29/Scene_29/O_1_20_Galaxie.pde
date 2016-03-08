@@ -1,10 +1,13 @@
-// Tab: O_2_20_Galaxie
+/**
+GALAXIE 1.3.0
+*/
+
 class Galaxie extends Romanesco {
   public Galaxie() {
     //from the index_objects.csv
     romanescoName = "Galaxie" ;
     IDobj = 20 ;
-    IDgroup = 2 ;
+    IDgroup = 1 ;
     romanescoAuthor  = "Stan le Punk";
     romanescoVersion = "Version 1.3";
     romanescoPack = "Base" ;

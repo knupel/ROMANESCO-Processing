@@ -7,7 +7,7 @@ import netP5.*;
 // local
 String IPadress = ("127.0.0.1") ;
 // Message to Prescene
-String toPreScene [] = new String [7] ;
+String toPreScene [] = new String [5] ;
 
 
 OscP5 osc_1, osc_2;
@@ -29,28 +29,23 @@ void sendOSCdraw() {
   
   //BUTTON 
   toPreScene[0] = joinIntToString(value_button_G0) ; 
-  toPreScene[1] = joinIntToString(value_button_G1) ;
-  toPreScene[2] = joinIntToString(value_button_G2) ;
+  toPreScene[1] = joinIntToString(value_button_item) ;
   
   
   // SLIDER
   /* Catch the value slider to send to Prescene
   @return value to the prescene between 0 to 99
   */
-  // group 0
+  // group general
   int[] dataGroupZero = new int[NUM_SLIDER_MISC] ;
   for ( int i = 1   ; i < NUM_SLIDER_MISC -1 ; i++) dataGroupZero[i-1] = floor(valueSlider[i]) ;
-    toPreScene[3] = joinIntToString(dataGroupZero) ;
+    toPreScene[2] = joinIntToString(dataGroupZero) ;
 
-  // group 1
+  // group item
   int[] dataGroupOne = new int[NUM_SLIDER_OBJ] ;
   for ( int i = 101   ; i < 101 +NUM_SLIDER_OBJ ; i++) dataGroupOne[i-101] = floor(valueSlider[i]) ; 
-  toPreScene[4] = joinIntToString(dataGroupOne);
+  toPreScene[3] = joinIntToString(dataGroupOne);
 
-  // group 2
-  int[] dataGroupTwo = new int[NUM_SLIDER_OBJ] ;
-  for ( int i = 201 ; i < 201 +NUM_SLIDER_OBJ ; i++) dataGroupTwo[i-201] = floor(valueSlider[i]) ;
-  toPreScene[5] = joinIntToString(dataGroupTwo) ;
 
 
   // LOAD SAVE SCENE ORDER
@@ -60,7 +55,7 @@ void sendOSCdraw() {
   // we change to false boolean load and data to false each 2 second to have a time to load and save
   if(frameCount%60 == 0) load_Scene_Setting = save_Current_Scene_Setting = save_New_Scene_Setting = false ;
 
-  toPreScene[6] = load + "/" +  saveCurrent + "/" + saveNew;
+  toPreScene[4] = load + "/" +  saveCurrent + "/" + saveNew;
   
   //add to OSC
   for ( int i = 0 ; i < toPreScene.length ; i++) {
@@ -103,27 +98,14 @@ void translateDataToSend() {
 
   
   //BUTTON GROUP ONE
-  if(numGroup[1] > 0 ) {
-    for ( int i = 0 ; i < numGroup[1]   ; i ++) {
-      value_button_G1[i *10 +1] = on_off_G1[i *10 +1] ;
-      value_button_G1[i *10 +2] = on_off_G1[i *10 +2] ;
-      value_button_G1[i *10 +3] = on_off_G1[i *10 +3] ;
-      value_button_G1[i *10 +4] = on_off_G1[i *10 +4] ;
-      value_button_G1[i *10 +5] = on_off_G1[i *10 +5] ;
-      if (dropdown[i+1] != null) value_button_G1[i *10 +9] = dropdown[i+1].getSelection() ;
-    }
-  }
-  
-  //BUTTON GROUP TWO
-  if(numGroup[2] > 0 ) {
-    for ( int i = 0 ; i < numGroup[2] ; i ++) {
-      value_button_G2[i *10 +1] = on_off_G2[i *10 +1] ;
-      value_button_G2[i *10 +2] = on_off_G2[i *10 +2] ;
-      value_button_G2[i *10 +3] = on_off_G2[i *10 +3] ;
-      value_button_G2[i *10 +4] = on_off_G2[i *10 +4] ;
-      value_button_G2[i *10 +5] = on_off_G2[i *10 +5] ;
-      int whichDropdown = i+1 +numGroup[1] ;
-      if (dropdown[whichDropdown] != null) value_button_G2[i *10 +9] = dropdown[whichDropdown].getSelection() ;
+  if(NUM_ITEM > 0 ) {
+    for ( int i = 0 ; i < NUM_ITEM   ; i ++) {
+      value_button_item[i *10 +1] = on_off_item[i *10 +1] ;
+      value_button_item[i *10 +2] = on_off_item[i *10 +2] ;
+      value_button_item[i *10 +3] = on_off_item[i *10 +3] ;
+      value_button_item[i *10 +4] = on_off_item[i *10 +4] ;
+      value_button_item[i *10 +5] = on_off_item[i *10 +5] ;
+      if (dropdown[i+1] != null) value_button_item[i *10 +9] = dropdown[i+1].getSelection() ;
     }
   }
 }

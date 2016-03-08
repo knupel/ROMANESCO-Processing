@@ -6,7 +6,7 @@ import java.awt.* ;
 // CONSTANT VAR
 final int NUM_COL_SLIDER = 3 ;
 final int BUTTON_BY_OBJECT = 4 ;
-final int NUM_GROUP_SLIDER = 3 ;
+final int NUM_GROUP_SLIDER = 2 ; // '1' for the global, an other for the item
 final int NUM_SLIDER_MISC = 30 ;
 final int NUM_SLIDER_TOTAL = 250 ;
 final int NUM_SLIDER_OBJ = 30 ;
@@ -16,7 +16,7 @@ final int SLIDER_BY_COL = 9 ;
 
 
 // Obj
-int numObj ;
+int NUM_ITEM ;
 
 
 
@@ -29,6 +29,7 @@ boolean curtainOpenClose ;
 //GLOBAL
 
 // Save Setting var
+Vec2 [] info_item ; 
 Vec5 [] infoSlider ; 
 PVector [] infoButton ;
 

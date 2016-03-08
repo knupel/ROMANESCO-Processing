@@ -1,9 +1,12 @@
-// Tab: O_2_24_Surface
+/**
+SURFACE || 2014 || 1.0.0
+*/
+
 class Surface extends Romanesco {
   public Surface() {
     romanescoName = "Surface" ;
     IDobj = 24 ;
-    IDgroup = 2 ;
+    IDgroup = 1 ;
     romanescoAuthor  = "Stan le Punk";
     romanescoVersion = "Version 1.0.0";
     romanescoPack = "Base" ;

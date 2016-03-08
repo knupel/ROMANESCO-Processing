@@ -1,4 +1,6 @@
-// Tab: B_setting_load_save
+/**
+SETTING SAVE and LOAD 2.1.1
+*/
 
 //SETUP
 void loadSetup() {
@@ -22,8 +24,8 @@ void loadSetup() {
 /////////////////////////////////////
 Table objectList, shaderBackgroundList;
 int numGroup [] ; 
-int [] object_library_sort, object_ID, object_group, object_camera_video_on_off ;
-String  [] object_name , object_author, object_version, object_pack, object_load_name, object_slider ; 
+int [] item_library_sort, item_ID, item_group, item_camera_video_on_off, item_GUI_on_off ;
+String  [] item_name , item_author, item_version, item_pack, item_load_name, item_slider ; 
 // String  [] object_render ; 
 // boolean [] object_classic, object_P2D, object_P3D ;
 String [] shader_bg_name, shader_bg_author ;
@@ -35,7 +37,7 @@ int numButton [] ;
 int numButtonTotalObjects ;
 int lastDropdown, numDropdown ;
 //BUTTON
-int value_button_G0[], value_button_G1[], value_button_G2[] ; 
+int value_button_G0[], value_button_item[] ; 
 Simple  button_midi, button_curtain,
         button_bg, 
         button_light_ambient, button_light_ambient_action,
@@ -44,22 +46,20 @@ Simple  button_midi, button_curtain,
         button_beat, button_kick, button_snare, button_hat;
         
 //button group one and two
-Simple[] button_G1, button_G2  ;
-int pos_button_width_G1[], pos_button_height_G1[], width_button_G1[], height_button_G1[]  ;
-int pos_button_width_G2[], pos_button_height_G2[], width_button_G2[], height_button_G2[]  ;
-
+Simple[] button_item ;
+int pos_button_width_item[], pos_button_height_item[], width_button_item[], height_button_item[]  ;
 
 
 
 //Variable must be send to Scene
 ///////////////////////////////////////
 // statement on_of for the object group
-int on_off_G1[], on_off_G2[] ; 
+int on_off_item[], on_off_G2[] ; 
 
 
 //////////
 //DROPDOWN
-int start_loop_G1, end_loop_G1, start_loop_G2, end_loop_G2 ;
+int start_loop_item, end_loop_item, start_loop_G2, end_loop_G2 ;
 //GLOBAL
 Dropdown dropdown[], dropdown_font, dropdownBackground, dropdown_image, dropdown_file_text, dropdown_camera_video  ;
 
@@ -74,8 +74,10 @@ int  [] ID_camera_video_list ;
 float margeAroundDropdown ;
 
 
-//SETTING
- /////////
+
+/**
+SETTING
+*/
 void buildLibrary() {
   objectList = loadTable(sketchPath("")+"preferences/objects/index_romanesco_objects.csv", "header") ;
   shaderBackgroundList = loadTable(sketchPath("")+"preferences/shader/shaderBackgroundList.csv", "header") ;
@@ -96,21 +98,18 @@ void initVarSlider() {
 
 void initVarObject() {
 
-  object_library_sort = new int [numObj +1] ;
-  object_ID = new int [numObj +1] ;
-  object_group = new int [numObj +1] ;
-  object_name = new String [numObj +1] ;
-  object_author = new String [numObj +1] ;
-  object_version = new String [numObj +1] ;
-  object_pack = new String [numObj +1] ;
-  //  object_render = new String [numObj +1] ;
-  object_load_name = new String [numObj +1] ;
-  /*
-  object_classic = new boolean [numObj +1] ;
-  object_P2D = new boolean [numObj +1] ;
-  object_P3D = new boolean [numObj +1] ;
-  */
-  object_slider = new String [numObj +1] ;
+  item_library_sort = new int [NUM_ITEM +1] ;
+  item_ID = new int [NUM_ITEM +1] ;
+  item_group = new int [NUM_ITEM +1] ;
+  item_GUI_on_off = new int [NUM_ITEM +1] ;
+
+  item_name = new String [NUM_ITEM +1] ;
+  item_author = new String [NUM_ITEM +1] ;
+  item_version = new String [NUM_ITEM +1] ;
+  item_pack = new String [NUM_ITEM +1] ;
+  item_load_name = new String [NUM_ITEM +1] ;
+  item_slider = new String [NUM_ITEM +1] ;
+
 }
 
 
@@ -120,44 +119,33 @@ void initVarButton() {
   
   numButton[0] = 18 ;
   for (int i = 1 ; i < NUM_GROUP_SLIDER ; i++ ) {
-    numButton[i] = numGroup[i]*10 ;
-    numButtonTotalObjects += numGroup[i] ;
+    numButton[i] = NUM_ITEM *10 ;
+    numButtonTotalObjects += NUM_ITEM ;
   }
 
-  numDropdown = numObj +1 ; // add one for the dropdownmenu
+  numDropdown = NUM_ITEM +1 ; // add one for the dropdownmenu
   lastDropdown = numDropdown -1 ;
   
   value_button_G0 = new int[numButton[0]] ;
-  value_button_G1 = new int[numButton[1]] ;
-  value_button_G2 = new int[numButton[2]] ;
-  // Group one
-  button_G1 = new Simple[numButton[1] +10] ;
-  pos_button_width_G1 =              new int[numButton[1] +10] ;
-  pos_button_height_G1 =             new int[numButton[1] +10] ;
-  width_button_G1 =              new int[numButton[1] +10] ;
-  height_button_G1 =               new int[numButton[1] +10] ;
-  
-  // group two
-  button_G2 = new Simple[numButton[2] +10] ;
-  pos_button_width_G2 =              new int[numButton[2] +10] ;
-  pos_button_height_G2 =             new int[numButton[2] +10] ;
-  width_button_G2 =              new int[numButton[2] +10] ;
-  height_button_G2 =               new int[numButton[2] +10] ;
-  
+  value_button_item = new int[numButton[1]] ;
 
-  
-  //paramètre bouton
-  on_off_G1 = new int[numButton[1]] ;
-  on_off_G2 = new int[numButton[2]] ;
+  button_item = new Simple[numButton[1] +10] ;
+  pos_button_width_item =              new int[numButton[1] +10] ;
+  pos_button_height_item =             new int[numButton[1] +10] ;
+  width_button_item =              new int[numButton[1] +10] ;
+  height_button_item =               new int[numButton[1] +10] ;
+
+
+  // button param
+  on_off_item = new int[numButton[1]] ;
+
   
   //dropdown
   modeListRomanesco = new String[numDropdown] ;
   dropdown = new Dropdown[numDropdown] ;
   posDropdown = new PVector[numDropdown] ;
-  start_loop_G1 = 1 ;
-  end_loop_G1 = 1 +numGroup[1] ;
-  start_loop_G2 = end_loop_G1 ; 
-  end_loop_G2 = start_loop_G2 +numGroup[2] ;
+  start_loop_item = 1 ;
+  end_loop_item = 1 +NUM_ITEM ;
 
 }
 
@@ -174,21 +162,21 @@ void infoShaderBackground() {
 }
 
 void infoByObject() {
-  for(int i = 0 ; i < numObj ; i++) {
+  for(int i = 0 ; i < NUM_ITEM ; i++) {
     TableRow lookFor = objectList.getRow(i) ;
     int ID = lookFor.getInt("ID") ;
-    for(int j = 0 ; j <= numObj ; j++) {
+    for(int j = 0 ; j <= NUM_ITEM ; j++) {
       if(ID == j ) { 
-        object_library_sort[j] =lookFor.getInt("Library Order") ;
-        object_ID [j] = lookFor.getInt("ID") ;
-        object_group[j] = lookFor.getInt("Group");
-        object_pack[j] = lookFor.getString("Pack");
+        item_library_sort[j] =lookFor.getInt("Library Order") ;
+        item_ID [j] = lookFor.getInt("ID") ;
+        item_group[j] = lookFor.getInt("Group");
+        item_pack[j] = lookFor.getString("Pack");
         // object_render[j] = lookFor.getString("Render");
-        object_author[j] = lookFor.getString("Author");
-        object_version[j] = lookFor.getString("Version");
-        object_load_name[j] = lookFor.getString("Class name");
-        object_name[j] = lookFor.getString("Name");
-        object_slider[j] = lookFor.getString("Slider") ;
+        item_author[j] = lookFor.getString("Author");
+        item_version[j] = lookFor.getString("Version");
+        item_load_name[j] = lookFor.getString("Class name");
+        item_name[j] = lookFor.getString("Name");
+        item_slider[j] = lookFor.getString("Slider") ;
       }
     }
   }
@@ -197,15 +185,13 @@ void infoByObject() {
 
 
 void numByGroup() {
-  numGroup  = new int[NUM_GROUP_SLIDER] ;
+  // numGroup  = new int[NUM_GROUP_SLIDER] ;
   for (TableRow row : objectList.rows()) {
-    int object_group = row.getInt("Group");
-    for (int i = 0 ; i < NUM_SLIDER_TOTAL ;i++) {
-      if (object_group == i) numGroup[i] += 1 ;
+    int item_group = row.getInt("Group");
+    for (int i = 0 ; i < NUM_SLIDER_TOTAL ; i++) {
+      if (item_group == i) NUM_ITEM += 1 ;
     }
   }
-  //give the num total of objects
-  numObj = numGroup[1] +numGroup[2] ;
 }
 // END BUILD LIBRARY
 ////////////////////
@@ -220,28 +206,27 @@ void numByGroup() {
 
 
 
-//////////////////////////////////
-// SETTING INFO BUTTON AND SLIDER
+/**
+SETTING INFO BUTTON AND SLIDER
+*/
 
 // create var info for the button and the slider
-
 void createInfoButtonAndSlider(String path) {
   Table table = loadTable(path, "header");
-  // create the good num of Var info about slider and button
-  int countButton = 0 ;
+  // create the var info for the slider we need
   int countSlider = 0 ;
-  
   for (TableRow row : table.rows()) {
     String s = row.getString("Type") ;
     if( s.equals("Slider")) countSlider++ ; 
   }
   infoSlider = new Vec5 [countSlider] ;
+  // create the var info for the item we need
+  info_item = new Vec2 [NUM_ITEM +1] ;
   
   // we don't count from the save in case we add object and this one has never use before and he don't exist in the data base
-  infoButton = new PVector [numObj*4 +10] ; 
+  infoButton = new PVector [NUM_ITEM *4 +10] ; 
   for(int i = 0 ; i < infoButton.length ; i++) infoButton[i] = new PVector() ;
 }
-//////////////////////////////////
 
 
 
@@ -251,11 +236,13 @@ void createInfoButtonAndSlider(String path) {
 
 
 
-/////////////
-// SAVE LOAD
 
-// SAVE
-///////
+/**
+SAVE & LOAD
+*/
+/**
+SAVE
+*/
 String savePathSetting = ("") ;
 void saveSetting(File selection) {
   savePathSetting = selection.getAbsolutePath() ;
@@ -264,8 +251,9 @@ void saveSetting(File selection) {
 
 void saveSetting(String path) {
   saveInfoSlider() ;
+  save_info_item() ;
   midiButtonManager(true) ;
-  saveTable(saveSetting, path+".csv");
+  saveTable(saveSetting, path);
   saveSetting.clearRows() ;
 }
 
@@ -303,6 +291,15 @@ void saveInfoSlider() {
   showAllSliders = false ;
 }
 
+void save_info_item() {
+  for(int i = 0 ; i < NUM_ITEM ; i++) {
+    int ID = (int)info_item[i].x ;
+    boolean on_off ;
+    if((int)info_item[i].y == 1) on_off = true ; else on_off = false ;
+    set_item(ID, on_off) ;
+  }
+}
+
 
 
 
@@ -327,6 +324,16 @@ void setSlider(int IDslider, int IDmidi, float value, float min, float max) {
   sliderSetting.setFloat("Max slider", max) ; 
 }
 
+void set_item(int ID_item, boolean display_obj) {
+  TableRow item_setting = saveSetting.addRow() ;
+  item_setting.setString("Type", "Item") ;
+  item_setting.setInt("Item ID", ID_item) ;
+  if(display_obj) item_setting.setInt("Item On Off", 1) ; 
+  else item_setting.setInt("Item On Off", 0) ;
+
+
+}
+
 void buildSaveTable() {
   saveSetting = new Table() ;
   saveSetting.addColumn("Type") ;
@@ -337,6 +344,8 @@ void buildSaveTable() {
   saveSetting.addColumn("ID button") ;
   saveSetting.addColumn("On Off") ;
   saveSetting.addColumn("ID midi") ;
+  saveSetting.addColumn("Item ID") ;
+  saveSetting.addColumn("Item On Off") ;
 }
 
 
@@ -348,9 +357,9 @@ void buildSaveTable() {
 
 
 
-
-//LOAD setting
-//////
+/**
+LOAD
+*/
 void loadSettingController(File selection) {
   if (selection != null) {
     String loadPathControllerSetting = selection.getAbsolutePath();
@@ -375,6 +384,7 @@ void loadSaveController(String path) {
   // re-init the counter for the new loop
   int countButton = 0 ;
   int countSlider = 0 ;
+  int count_item = 0 ;
   for (TableRow row : settingTable.rows()) {
     String s = row.getString("Type") ;
     // button
@@ -393,8 +403,17 @@ void loadSaveController(String path) {
      float valueSlider = row.getFloat("Value slider") ; 
      float min = row.getFloat("Min slider") ;
      float max = row.getFloat("Max slider") ;
-     infoSlider[countSlider] = new Vec5(IDslider,IDmidi,valueSlider,min,max) ;
+     infoSlider[countSlider] = Vec5(IDslider,IDmidi,valueSlider,min,max) ;
      countSlider++ ;
+    }
+
+    if(s.equals("Item")) {
+      // we count before because the item list start at '1' not '0'
+      count_item++ ;
+      int item_ID = row.getInt("Item ID") ;
+      int item_on_off = row.getInt("Item On Off") ;
+      info_item[count_item] = Vec2(item_ID,item_on_off) ;
+
     }
   }
 }
@@ -492,24 +511,15 @@ void setButtonSave() {
   rank--  ;
   //
   
-  int whichGroup = 1 ;
+  // int whichGroup = 1 ;
   int buttonRank ;
-  for( int i = 1 ; i <= numGroup[whichGroup] ; i++ ) {
+  for( int i = 1 ; i <= NUM_ITEM ; i++ ) {
     for (int j = 1 ; j <= BUTTON_BY_OBJECT ; j++) {
       rank++ ;
       buttonRank = (int)infoButton[rank].x ;
-      if(infoButton[rank].z == 1.0 && buttonRank == (i*10)+j) button_G1[buttonRank].onOff = true ; else button_G1[buttonRank].onOff = false ; 
-      button_G1[buttonRank].IDmidi = (int)infoButton[rank].y ; 
+      if(infoButton[rank].z == 1.0 && buttonRank == (i*10)+j) button_item[buttonRank].onOff = true ; else button_item[buttonRank].onOff = false ; 
+      button_item[buttonRank].IDmidi = (int)infoButton[rank].y ; 
     }
-  }
-  whichGroup = 2 ; 
-  for( int i = 1 ; i <= numGroup[whichGroup] ; i++ ) {
-    for (int j = 1 ; j <= BUTTON_BY_OBJECT ; j++) {
-      rank++ ;
-      buttonRank = (int)infoButton[rank].x ;
-      if(infoButton[rank].z == 1.0 && buttonRank == (i*10)+j) button_G2[buttonRank].onOff = true ; else button_G2[buttonRank].onOff = false ; 
-      button_G2[buttonRank].IDmidi = (int)infoButton[rank].y ; 
-    } 
   }
 }
 
@@ -537,8 +547,10 @@ Vec5 infoSaveFromRawList(Vec5[] list, int pos) {
   }
   return info ;
 }
-// END SETTING SAVE
-///////////////////
+/**
+END LOAD SAVE
+*/
+
 
 
 
@@ -610,14 +622,14 @@ void importPicButtonSetup() {
     picAction[i]   = loadImage("picto/picto_action_"+i+".png") ;
   }
   // load thumbnail
-  int num = numGroup[1] +numGroup[2] +1 ;
+  int num = NUM_ITEM +1 ;
   OFF_in_thumbnail = new PImage[num] ;
   OFF_out_thumbnail = new PImage[num] ;
   ON_in_thumbnail = new PImage[num] ;
   ON_out_thumbnail = new PImage[num] ;
   for(int i=0 ;  i<num ; i++ ) {
     String className = ("0") ;
-    if (object_load_name[i] != null ) className = object_load_name[i] ;
+    if (item_load_name[i] != null ) className = item_load_name[i] ;
     OFF_in_thumbnail[i] = loadImage("thumbnail/OFF_in/OFF_in_"+className+".png") ;
     OFF_out_thumbnail[i] = loadImage("thumbnail/OFF_out/OFF_out_"+className+".png") ;
     ON_in_thumbnail[i] = loadImage("thumbnail/ON_in/ON_in_"+className+".png") ;

@@ -1,10 +1,12 @@
-// Tab: O_2_15_Kofosphere
+/**
+KOFOSPHERE || 2013 || 1.0.1
+*/
 class Kofosphere extends Romanesco {
   public Kofosphere() {
     //from the index_objects.csv
     romanescoName = "Kofosphere" ;
     IDobj = 15 ;
-    IDgroup = 2 ;
+    IDgroup = 1 ;
     romanescoAuthor  = "Kof";
     romanescoVersion = "Version 1.0.1";
     romanescoPack = "Base" ;

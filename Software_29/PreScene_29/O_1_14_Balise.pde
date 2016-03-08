@@ -1,4 +1,6 @@
-// Tab: O_2_14_Balise
+/**
+BALISE || 2011 || 1.2.1
+*/
 Balise balise ;
 //object three
 class BaliseRomanesco extends Romanesco {
@@ -6,7 +8,7 @@ class BaliseRomanesco extends Romanesco {
     //from the index_objects.csv
     romanescoName = "Balise" ;
     IDobj = 14 ;
-    IDgroup = 2 ;
+    IDgroup = 1 ;
     romanescoAuthor  = "Stan le Punk";
     romanescoVersion = "Version 1.2.1";
     romanescoPack = "Base" ;

@@ -1,11 +1,13 @@
-// Tab: O_2_12_Soleil
-//object three
+/**
+SOLEIL || 2012 || 1.1.1
+*/
+
 class Soleil extends Romanesco {
   public Soleil() {
     //from the index_objects.csv
     romanescoName = "Soleil" ;
     IDobj = 12 ;
-    IDgroup = 2 ;
+    IDgroup = 1 ;
     romanescoAuthor  = "Stan le Punk";
     romanescoVersion = "Version 1.1.1";
     romanescoPack = "Base" ;

@@ -1,4 +1,7 @@
-// Tab: A_interface
+/**
+Interface 3.0.0
+Romanesco Processing Environment
+*/
 // VARIABLE declaration
 ////////////////////////////////////
 PImage[] OFF_in_thumbnail ;
@@ -12,10 +15,12 @@ PImage[] picAction = new PImage[4] ;
 PImage[] picCurtain = new PImage[4] ;
 PImage[] picMidi = new PImage[4] ;
 
+// String[] name_item ;
+
 
 
 SliderAdjustable [] slider = new SliderAdjustable [NUM_SLIDER_TOTAL] ;
-int []suivitSlider ; 
+// int []suivitSlider ; 
 PVector [] sizeSlider = new PVector[NUM_SLIDER_TOTAL] ;
 PVector [] posSlider = new PVector[NUM_SLIDER_TOTAL] ; 
 
@@ -51,7 +56,7 @@ PVector pos_midi_button, size_midi_button, pos_midi_info,
         pos_hat_button, size_hat_button ;
 
 
-//paramètres réglette couleur
+// slider position column
 int posXSlider[] = new int[NUM_SLIDER_TOTAL *2] ;
 
 // END variables declaration
@@ -92,9 +97,9 @@ int margeLeft  = colOne +15 ;
 // this not a position but the height of the rectangle
 int lineHeader = 30 ;
 int lineMenuTopDropdown = 65 ;
-int lineGroupZero = 95 ;
-int lineGroupOne = 320 ;
-int lineGroupTwo = lineGroupOne +205 ;
+int line_global = 95 ;
+int line_item_button_slider = 320 ;
+int line_item_menu_text = line_item_button_slider +240 ;
 
 
 int spacingBetweenSlider = 13 ;
@@ -122,41 +127,41 @@ int correctionHeaderdropdown_camera_videoX = 440 ;
 
 //GROUP ZERO
 int correctionSliderPos = 12 ;
-int correctionGroupZeroY = 13 ;
+int set_item_pos_y = 13 ;
 // GROUP BG
 int correctionBGX = colOne ;
-int correctionBGY = lineGroupZero +correctionGroupZeroY +2 ;
+int correctionBGY = line_global +set_item_pos_y +2 ;
 
 // GROUP LIGHT
 
 // ambient light
 int correctionLightAmbientX = colOne ;
-int correctionLightAmbientY = lineGroupZero +correctionGroupZeroY +73 ;
+int correctionLightAmbientY = line_global +set_item_pos_y +73 ;
 
 // directional light one
 int correctionLightOneX = colTwo ;
-int correctionLightOneY = lineGroupZero +correctionGroupZeroY +13 ;
+int correctionLightOneY = line_global +set_item_pos_y +13 ;
 // directional light two
 int correctionLightTwoX = colTwo ;
-int correctionLightTwoY = lineGroupZero +correctionGroupZeroY +73 ;
+int correctionLightTwoY = line_global +set_item_pos_y +73 ;
 
 // GROUP CAMERA
 int correctionCameraX = colThree ;
-int correctionCameraY = lineGroupZero +correctionGroupZeroY -5 ;
+int correctionCameraY = line_global +set_item_pos_y -5 ;
 
 
 
 
 // GROUP SOUND
 int correctionSoundX = colOne ;
-int correctionSoundY = lineGroupZero +160 ;
+int correctionSoundY = line_global +160 ;
 
 
 
-// GROUP OBJECT
-int correctionSliderObject = 65 ;
-int correctionButtonObject = 3 ;
-int correctionDropdownObject = 43 ;
+// GROUP ITEM
+int correction_slider_item = 65 ;
+int correction_button_item = 3 ;
+int correction_dropdown_item = 43 ;
 
 
 // GROUP MIDI
@@ -199,9 +204,9 @@ void structureDraw() {
   //background
   
   int correctionheight = 14 ;
-  fill(grisClair) ; rect(0, 0, width, height ) ; //GROUP object  ONE and TWO
-  fill(gris) ; rect(0, 0, width, lineGroupOne -correctionheight) ; // //GROUP global ZERO
-  fill(grisNoir) ; rect(0, lineMenuTopDropdown, width, lineGroupZero -lineMenuTopDropdown) ; // main band
+  fill(grisClair) ; rect(0, 0, width, height ) ; //GROUP ITEM
+  fill(gris) ; rect(0, 0, width, line_item_button_slider -correctionheight) ; // //GROUP CONTROLLER
+  fill(grisNoir) ; rect(0, lineMenuTopDropdown, width, line_global -lineMenuTopDropdown) ; // main band
   
   //the decoration line
   fill(jauneOrange) ;
@@ -223,7 +228,7 @@ void structureDraw() {
   // GROUP ZERO
   int thicknessDecoration = 5 ;
   fill(noir) ;
-  rect(0,lineGroupZero , width, 2) ;
+  rect(0,line_global , width, 2) ;
   
   // LINE SOUND
   fill(grisFonce) ;
@@ -231,17 +236,17 @@ void structureDraw() {
   fill(grisTresFonce) ;
   rect(0, correctionSoundY -18, width, 2) ;
   
-  //GROUP ONE
+  //GROUP ITEM
   fill(jauneOrange) ;
-  rect(0, lineGroupOne -22, width, 8) ; 
+  rect(0, line_item_button_slider -22, width, 8) ; 
   fill(rougeFonce) ;
-  rect(0, lineGroupOne -20, width, 4) ; 
+  rect(0, line_item_button_slider -20, width, 4) ; 
   
-  // GROUP TWO
+  // GROUP BOTTOM
   fill(gris) ;
-  rect(0, lineGroupTwo -24 +thicknessDecoration, width, thicknessDecoration) ; 
+  rect(0, line_item_menu_text -24 +thicknessDecoration, width, thicknessDecoration) ; 
   fill(grisTresFonce) ;
-  rect(0, lineGroupTwo -16, width, 2) ;
+  rect(0, line_item_menu_text -16, width, 2) ;
   
   
 
@@ -258,9 +263,11 @@ void textDraw() {
   textFont(FuturaStencil_20,16); textAlign(RIGHT);
   text(nf(hour(),2)   + ":" +nf(minute(),2) , width -10, posTextY);
   
-  dispayTextSliderGroupZero( lineGroupZero +64) ;
+  dispay_text_slider_top( line_global +64) ;
   
-  dislayTextSlider() ;
+  dislay_text_slider_item() ;
+
+  display_list_item_name() ;
 }
 
 //END STRUCTURE DRAW
@@ -287,8 +294,10 @@ void textDraw() {
 
 
 
-///////////////////
-// SLIDER
+/**
+SLIDER
+
+*/
 void constructorSlider() {
   //slider
   for ( int i = 1 ; i < NUM_SLIDER_TOTAL ; i++ ) {
@@ -307,9 +316,8 @@ void constructorSlider() {
 // SLIDER SETUP
 // MAIN METHOD SLIDER SETUP
 void sliderSettingVar() {
-  groupZeroSlider (correctionSliderPos) ;
-  groupOneSlider (lineGroupOne +correctionSliderObject) ;
-  groupTwoSlider (lineGroupTwo +correctionSliderObject) ;
+  group_top_slider (correctionSliderPos) ;
+  group_item_slider (line_item_button_slider +correction_slider_item) ;
 }
 
 
@@ -317,7 +325,7 @@ void sliderSettingVar() {
 
 // group zero, global slider for camera, sound, light, background...
 ////////////////////////////////////////////////////////////////////
-void groupZeroSlider(int correctionY) {
+void group_top_slider(int correctionY) {
   // background slider
   int startLoop = 1 ;
   for(int i = startLoop ; i <= startLoop +3 ;i++) {
@@ -363,7 +371,7 @@ void groupZeroSlider(int correctionY) {
   // CAMERA
   //////////
 //  int correctionCameraX = colThree ;
-//int correctionCameraY = lineGroupZero +15 ;
+//int correctionCameraY = line_global +15 ;
    startLoop = 20 ;
   for(int i = startLoop ; i <= startLoop +8 ;i++) {
     float posY = correctionCameraY +correctionY +((i-startLoop) *spacingBetweenSlider) ;
@@ -376,7 +384,7 @@ void groupZeroSlider(int correctionY) {
 
 // Object group
 ///////////////////////////////////////////
-void groupOneSlider(int sliderPositionY) {
+void group_item_slider(int sliderPositionY) {
   // where the controleur must display the slider
   for( int i = 0 ; i < SLIDER_BY_COL ; i++ ) {
     for (int j = 0 ; j < NUM_COL_SLIDER ; j++) {
@@ -395,27 +403,6 @@ void groupOneSlider(int sliderPositionY) {
     }
   }
 }
-
-//
-void groupTwoSlider(int sliderPositionY) {
-  // where the controller must display the slider
-  for( int i = 0 ; i < SLIDER_BY_COL ; i++ ) {
-    for (int j = 0 ; j < NUM_COL_SLIDER ; j++) {
-      int whichSlider = i +201 +(j*10) ;
-      int posX = 0 ;
-      switch(j) {
-        case 0 : posX = colOne; 
-        break;
-        case 1 : posX = colTwo;
-        break;
-        case 2 : posX = colThree;
-        break ;
-      }
-    posSlider   [whichSlider] = new PVector(posX, sliderPositionY +i *spacingBetweenSlider) ;
-    sizeSlider  [whichSlider] = new PVector(sliderWidth, sliderHeight) ;
-    }
-  }
-}
 // END SLIDER SETUP
 
 
@@ -428,10 +415,10 @@ void sliderDraw() {
   
   /* Loop to display the false background slider instead the usual class Slider background,
   we use it the methode to display a particular background, like the rainbowcolor... */
-  for(int i = 1 ; i < NUM_GROUP_SLIDER ; i++) {
+ // for(int i = 1 ; i < NUM_GROUP_SLIDER ; i++) {
     // sliderDisplayObject(i) ;
-    displayBackgroundSliderGroupObject(i) ;
-  }
+    displayBackgroundSliderGroupObject(1) ;
+ //  }
   
 
   // UPDATE and DISPLAY SLIDER GROUP ONE, TWO, THREE
@@ -444,13 +431,13 @@ void sliderDraw() {
   // group one, two, three
   whichGroup = 1 ;
   if(!showAllSliders) {
-    for (int i = 1 ; i <= numObj ; i++) {
+    for (int i = 1 ; i <= NUM_ITEM ; i++) {
       if (objectActive[i] ) {
         for (int j = 1 ; j < NUM_GROUP_SLIDER ; j++) {
-          if (showSliderGroup[j] && object_group[i] == j) { 
+          if (showSliderGroup[j] && item_group[i] == j) { 
             for(int k = 1 ; k < NUM_SLIDER_OBJ ; k++) {
               if (displaySlider[j][k]) {
-                int whichOne = object_group[i] *100 +k ;
+                int whichOne = item_group[i] *100 +k ;
                 sliderUpdate(whichOne) ; 
                 sliderDisplayMoletteCurrentMinMax(whichOne, whichGroup) ; 
               }
@@ -541,7 +528,7 @@ void sliderDisplayCurrentMolette(int whichOne, color colorMolIn, color colorMolO
 
 // TEXT slider
 ///////////////
-void dispayTextSliderGroupZero(int pos) {
+void dispay_text_slider_top(int pos) {
   // GROUP ZERO
   textAlign(LEFT);
   textFont(textUsual_1) ; 
@@ -556,7 +543,7 @@ void dispayTextSliderGroupZero(int pos) {
   //BACKGROUND
   int correctionY = 3 ;
   int correctionX = sliderWidth + 5 ;
-  // BACKGROUND and SOUND
+  // SOUND
   for(int i = 1 ; i < 7 ; i++ ) {
     text(genTxtGUI[i], posSlider[i].x +correctionX, posSlider[i].y +correctionY);
   }
@@ -582,34 +569,20 @@ void dispayTextSliderGroupZero(int pos) {
 
 
 
-void dislayTextSlider() {
+void dislay_text_slider_item() {
   //GROUP ONE
   textFont(FuturaStencil_20,20); textAlign(RIGHT);
-  fill(grisFonce) ;
-  pushMatrix () ; rotate (-PI/2) ;  text("GROUP ONE", -lineGroupOne, 20); popMatrix() ;
-  fill (colorTextUsual) ;
-  textFont(textUsual_1);  textAlign(LEFT);
-  
-  // GROUP TWO
-  textFont(FuturaStencil_20,20);  textAlign(RIGHT);
-  fill(grisFonce) ;
-  pushMatrix () ; rotate (-PI/2) ;  text("GROUP TWO", -lineGroupTwo, 20); popMatrix() ;
   fill (colorTextUsual) ;
   textFont(textUsual_1);  textAlign(LEFT);
   
   
-  // Legend text slider position
-  int correctionY = correctionSliderObject +4 ;
+  // Legend text slider position for the item
+  int correctionY = correction_slider_item +4 ;
   int correctionX = sliderWidth + 5 ;
   for ( int i = 0 ; i < SLIDER_BY_COL ; i++) {
-    //group one
-    text(sliderNameOne[i +1], colOne +correctionX, lineGroupOne +correctionY +(i*spacingBetweenSlider));
-    text(sliderNameTwo[i +1], colTwo +correctionX, lineGroupOne +correctionY +(i*spacingBetweenSlider));
-    text(sliderNameThree[i +1], colThree +correctionX, lineGroupOne +correctionY +(i*spacingBetweenSlider));
-    //group two
-    text(sliderNameOne[i +1], colOne +correctionX, lineGroupTwo +correctionY +(i*spacingBetweenSlider));
-    text(sliderNameTwo[i +1], colTwo +correctionX, lineGroupTwo +correctionY +(i*spacingBetweenSlider));
-    text(sliderNameThree[i +1], colThree +correctionX, lineGroupTwo +correctionY +(i*spacingBetweenSlider));
+    text(sliderNameOne[i +1], colOne +correctionX, line_item_button_slider +correctionY +(i*spacingBetweenSlider));
+    text(sliderNameTwo[i +1], colTwo +correctionX, line_item_button_slider +correctionY +(i*spacingBetweenSlider));
+    text(sliderNameThree[i +1], colThree +correctionX, line_item_button_slider +correctionY +(i*spacingBetweenSlider));
   }
 }
 // end text
@@ -691,16 +664,6 @@ void sliderHSBglobalDisplay(int start) {
 }
 // end slider display for group zero
 ////////////////////////////////////
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -815,7 +778,6 @@ void saturationSliderBG (float posX, float posY, float heightSlider, float width
   for ( int i=0 ; i < widthSlider ; i++ ) {
     for ( int j=0 ; j <=heightSlider ; j++ ) {
       float cr = map(i, 0, widthSlider, 0, 100 ) ;
-      // float sat = map(s, 0, largeur, 0, 100 ) ;
       float dens = map(d, 0, widthSlider, 0, 100 ) ;
       fill (colour, cr, dens) ;
       rect ( i, j, 1,1 ) ;
@@ -832,20 +794,16 @@ void brightnessSliderBG (float posX, float posY, float heightSlider, float width
     for ( int j=0 ; j <=heightSlider ; j++ ) {
       float cr = map(i, 0, widthSlider, 0, 100 ) ;
       float sat = map(s, 0, widthSlider, 0, 100 ) ;
-      // float dens = map(d, 0, largeur, 0, 100 ) ;
       fill (colour, sat, cr) ;
       rect (i, j, 1,1) ;
     }
   }
   popMatrix() ;
 }
-// End SLIDER background
+/**
+END SLIDER
 
-
-// END SLIDER
-//////////////////
-
-
+*/
 
 
 
@@ -862,10 +820,27 @@ void brightnessSliderBG (float posX, float posY, float heightSlider, float width
 
 
 
-/////////////////////
-// BUTTON
 
-// BUTTON CONSTRUCTOR
+
+
+
+
+
+
+
+
+
+
+
+
+
+/**
+BUTTON
+
+*/
+/**
+BUTTON CONSTRUCTOR
+*/
 void constructorButton() {
   color OnInColor = vert ;
   color OnOutColor = vertTresFonce ;
@@ -892,33 +867,30 @@ void constructorButton() {
   //curtain
   button_curtain  = new Simple(pos_curtain_button, size_curtain_button, false) ;
   
-  //button object, texture, typography
+
+
+  //button Object
   PVector pos = new PVector() ;
   PVector size = new PVector() ;
   // we don't use the BOf[0], BTf[0] and BTYf[0] must he must be init in case we add object in Scene and this one has never use before and don't exist in the save pref
-  button_G1[0] = new Simple(pos, size, boutonONin, boutonONout, boutonOFFin, boutonOFFout, gris, grisNoir, false) ;
-  button_G2[0] = new Simple(pos, size, boutonONin, boutonONout, boutonOFFin, boutonOFFout, gris, grisNoir, false) ;
+  button_item[0] = new Simple(pos, size, boutonONin, boutonONout, boutonOFFin, boutonOFFout, gris, grisNoir, false) ;
+
   // init the object library
   for(int i = 1 ; i < NUM_GROUP_SLIDER ; i++) {
     int num = numButton[i] ;
-    for ( int j = 11 ; j < 10+num ; j++) {
-      if(numGroup[1] > 0 && i == 1) {
-        pos = new PVector(pos_button_width_G1[j], pos_button_height_G1[j]) ;
-        size = new PVector(width_button_G1[j], height_button_G1[j]) ; 
-        button_G1[j] = new Simple(pos, size, boutonONin, boutonONout, boutonOFFin, boutonOFFout, gris, grisNoir, false) ;
+    for ( int j = 11 ; j < 10 +num ; j++) {
+      if(NUM_ITEM > 0 && i == 1) {
+        pos = new PVector(pos_button_width_item[j], pos_button_height_item[j]) ;
+        size = new PVector(width_button_item[j], height_button_item[j]) ; 
+        button_item[j] = new Simple(pos, size, boutonONin, boutonONout, boutonOFFin, boutonOFFout, gris, grisNoir, false) ;
       } 
-      if(numGroup[2] > 0 && i == 2) {
-        pos = new PVector(pos_button_width_G2[j], pos_button_height_G2[j]) ;
-        size = new PVector(width_button_G2[j], height_button_G2[j]) ; 
-        button_G2[j] = new Simple(pos, size, boutonONin, boutonONout, boutonOFFin, boutonOFFout, gris, grisNoir, false) ;
-      }
     }
 
   }
 }
-
-// BUTTON SETUP
-//////////////////
+/**
+Setting button
+*/
 // Main METHOD SETUP
 void buttonSetup() {
   // MIDI CURTAIN
@@ -929,18 +901,17 @@ void buttonSetup() {
   pos_curtain_button = new PVector(colOne +correctionCurtainX, lineHeader +correctionCurtainY -1) ; 
   
   
-  // GROUP ZERO
-  // background 
+  // BACKGROUND
   posBackgroundButton = new PVector(correctionBGX, correctionBGY +correctionButtonSliderTextY) ;
   sizeBackgroundButton = new PVector(120,10) ;
   
-  // light
+  // LIGHT
   // ambient button
   posLightAmbientButton = new PVector(correctionLightAmbientX, correctionLightAmbientY +correctionButtonSliderTextY) ;
   sizeLightAmbientButton = new PVector(80,10) ;
   posLightAmbientAction = new PVector(correctionLightAmbientX +90, posLightAmbientButton.y) ; // for the y we take the y of the button
   sizeLightAmbientAction = new PVector(45,10) ;
-  // one button
+  // light one button
   posLightOneButton = new PVector(correctionLightOneX, correctionLightOneY +correctionButtonSliderTextY) ;
   sizeLightOneButton = new PVector(80,10) ;
   posLightOneAction = new PVector(correctionLightOneX +90, posLightOneButton.y) ; // for the y we take the y of the button
@@ -967,8 +938,8 @@ void buttonSetup() {
   
   
 
-  groupOneButton(lineGroupOne +correctionButtonObject) ;
-  groupTwoButton(lineGroupTwo +correctionButtonObject) ;
+  groupOneButton(line_item_button_slider +correction_button_item) ;
+
 }
 
 // LOCAL METHOD SETUP
@@ -979,31 +950,24 @@ PVector posRelativeActionButton = new PVector (4,25) ;
 //////////////
 void groupOneButton(int buttonPositionY) {
   //position and area for the rollover
-  for (int i = 1 ; i <= numGroup[1] ; i++) {
-    pos_button_width_G1[i*10+1] = margeLeft +((i-1)*40) +(int)posRelativeMainButton.x    ; pos_button_height_G1[i*10+1] = buttonPositionY +(int)posRelativeMainButton.y     ; width_button_G1[i*10+1] = 20 ; height_button_G1[i*10+1] = 20 ;  //main
-    pos_button_width_G1[i*10+2] = margeLeft +((i-1)*40) +(int)posRelativeSettingButton.x ; pos_button_height_G1[i*10+2] = buttonPositionY +(int)posRelativeSettingButton.y  ; width_button_G1[i*10+2] = 19 ; height_button_G1[i*10+2] = 6 ; //setting
-    pos_button_width_G1[i*10+3] = margeLeft +((i-1)*40) +(int)posRelativeSoundButton.x   ; pos_button_height_G1[i*10+3] = buttonPositionY +(int)posRelativeSoundButton.y    ; width_button_G1[i*10+3] = 10 ; height_button_G1[i*10+3] = 6 ; //sound
-    pos_button_width_G1[i*10+4] = margeLeft +((i-1)*40) +(int)posRelativeActionButton.x  ; pos_button_height_G1[i*10+4] = buttonPositionY +(int)posRelativeActionButton.y   ; width_button_G1[i*10+4] = 10 ; height_button_G1[i*10+4] = 6 ; //action
-  }
-}
-void groupTwoButton(int buttonPositionY) {
-  for (int i = 1 ; i <= numGroup[2] ; i++ ) {
-    pos_button_width_G2[i*10+1] = margeLeft +((i-1)*40) +(int)posRelativeMainButton.x    ; pos_button_height_G2[i*10+1] = buttonPositionY +(int)posRelativeMainButton.y     ; width_button_G2[i*10+1] = 20 ; height_button_G2[i*10+1] = 20 ; //main
-    pos_button_width_G2[i*10+2] = margeLeft +((i-1)*40) +(int)posRelativeSettingButton.x ; pos_button_height_G2[i*10+2] = buttonPositionY +(int)posRelativeSettingButton.y  ; width_button_G2[i*10+2] = 19 ; height_button_G2[i*10+2] = 6 ; //setting
-    pos_button_width_G2[i*10+3] = margeLeft +((i-1)*40) +(int)posRelativeSoundButton.x   ; pos_button_height_G2[i*10+3] = buttonPositionY +(int)posRelativeSoundButton.y    ; width_button_G2[i*10+3] = 10 ; height_button_G2[i*10+3] = 6 ; //sound
-    pos_button_width_G2[i*10+4] = margeLeft +((i-1)*40) +(int)posRelativeActionButton.x  ; pos_button_height_G2[i*10+4] = buttonPositionY +(int)posRelativeActionButton.y   ; width_button_G2[i*10+4] = 10 ; height_button_G2[i*10+4] = 6 ; //action
+  for (int i = 1 ; i <= NUM_ITEM ; i++) {
+    pos_button_width_item[i*10+1] = margeLeft +((i-1)*40) +(int)posRelativeMainButton.x    ; pos_button_height_item[i*10+1] = buttonPositionY +(int)posRelativeMainButton.y     ; width_button_item[i*10+1] = 20 ; height_button_item[i*10+1] = 20 ;  //main
+    pos_button_width_item[i*10+2] = margeLeft +((i-1)*40) +(int)posRelativeSettingButton.x ; pos_button_height_item[i*10+2] = buttonPositionY +(int)posRelativeSettingButton.y  ; width_button_item[i*10+2] = 19 ; height_button_item[i*10+2] = 6 ; //setting
+    pos_button_width_item[i*10+3] = margeLeft +((i-1)*40) +(int)posRelativeSoundButton.x   ; pos_button_height_item[i*10+3] = buttonPositionY +(int)posRelativeSoundButton.y    ; width_button_item[i*10+3] = 10 ; height_button_item[i*10+3] = 6 ; //sound
+    pos_button_width_item[i*10+4] = margeLeft +((i-1)*40) +(int)posRelativeActionButton.x  ; pos_button_height_item[i*10+4] = buttonPositionY +(int)posRelativeActionButton.y   ; width_button_item[i*10+4] = 10 ; height_button_item[i*10+4] = 6 ; //action
   }
 }
 
 
-
-// BUTTON DRAW
+/**
+Display Button
+*/
 // DRAW MAIN METHOD
 void buttonDraw() {
   textFont(textUsual_1) ;
   buttonDrawGroupZero() ;
   buttonDrawGroupOne() ;
-  buttonDrawGroupTwo() ;
+
   buttonCheckDraw() ;
   dropdownDraw() ;
   buttonInfoOnTheTop() ;
@@ -1063,7 +1027,7 @@ void buttonInfoOnTheTop() {
 
 
 
-// GROUP ZERO
+// GROUP GLOBAL
 void buttonDrawGroupZero() {
   button_bg.buttonText(shader_bg_name[state_bg_shader] + " on/off", posBackgroundButton, titleButtonMedium, sizeTitleButton) ;
   button_bg.buttonText(shader_bg_name[state_bg_shader] + " on/off", posBackgroundButton, titleButtonMedium, sizeTitleButton) ;
@@ -1087,34 +1051,23 @@ void buttonDrawGroupZero() {
   button_midi.buttonPic(picMidi) ;
   button_curtain.buttonPic(picCurtain) ;
 }
-//GROUP ONE
+
+// ITEM GROUP
 void buttonDrawGroupOne() {
   int rankThumbnail = 0 ;
-  for( int i = 1 ; i <= numGroup[1] ; i++ ) {
-    button_G1[i*10 +1].buttonPicSerie(OFF_in_thumbnail, OFF_out_thumbnail, ON_in_thumbnail, ON_out_thumbnail, i +rankThumbnail ) ; 
-    button_G1[i*10 +2].buttonPic(picSetting) ;
-    button_G1[i*10 +3].buttonPic(picSound) ; 
-    button_G1[i*10 +4].buttonPic(picAction) ; 
-    PVector pos = new PVector (pos_button_width_G1[i*10 +2], pos_button_height_G1[i*10 +1] +10) ;
-    PVector size = new PVector (20, 30) ;
-    text_info_object(pos, size, i, 1) ;
-  }
-}
-// GROUP TWO
-void buttonDrawGroupTwo() {
-  // var use to find the good thumbnail
-  int rankThumbnail = numGroup[1] ;
-  for( int i = 1 ; i <= numGroup[2] ; i++ ) {
-    button_G2[i*10 +1].buttonPicSerie(OFF_in_thumbnail, OFF_out_thumbnail, ON_in_thumbnail, ON_out_thumbnail, i +rankThumbnail) ; 
-    button_G2[i*10 +2].buttonPic(picSetting) ;
-    button_G2[i*10 +3].buttonPic(picSound) ; 
-    button_G2[i*10 +4].buttonPic(picAction) ;     
-    PVector pos = new PVector (pos_button_width_G2[i*10 +2], pos_button_height_G2[i*10 +1] +10) ;
-    PVector size = new PVector (20, 30) ;
-    text_info_object(pos, size, i, 2) ;
-  }
-}
 
+  for( int i = 1 ; i <= NUM_ITEM ; i++ ) {
+    if(info_item[i].y == 1) {
+      button_item[i*10 +1].buttonPicSerie(OFF_in_thumbnail, OFF_out_thumbnail, ON_in_thumbnail, ON_out_thumbnail, i +rankThumbnail ) ; 
+      button_item[i*10 +2].buttonPic(picSetting) ;
+      button_item[i*10 +3].buttonPic(picSound) ; 
+      button_item[i*10 +4].buttonPic(picAction) ; 
+      PVector pos = new PVector (pos_button_width_item[i*10 +2], pos_button_height_item[i*10 +1] +10) ;
+      PVector size = new PVector (20, 30) ;
+      text_info_object(pos, size, i, 1) ;
+    }
+  }
+}
 
 
 
@@ -1143,14 +1096,15 @@ void buttonCheckDraw() {
   for(int i = 1 ; i < NUM_GROUP_SLIDER ; i++) {
     int num = numButton[i] +10 ;
     for( int j = 11 ; j < num ; j++) {
-      if(numGroup[1] > 0 && i == 1 ) on_off_G1[j-10] = button_G1[j].getOnOff() ;
-      if(numGroup[2] > 0 && i == 2 ) on_off_G2[j-10] = button_G2[j].getOnOff() ;
+      if(NUM_ITEM > 0 && i == 1 ) on_off_item[j-10] = button_item[j].getOnOff() ;
     }
   }
 }
 
-// END BUTTON
-/////////////
+/**
+END BUTTON
+
+*/
 
 
 
@@ -1177,9 +1131,10 @@ void buttonCheckDraw() {
 
 
 
+/**
+DROPDOWN
 
-// DROPDOWN
-////////////
+*/
 int refSizeImageDropdown, refSizeFileTextDropdown, refSizeCameraVideoDropdown ;
 PVector posTextdropdown_image, posTextdropdown_file_text, posTextdropdown_camera_video ; 
 color selectedText ;
@@ -1264,12 +1219,10 @@ void dropdownSetup() {
   //common param
   int numLineDisplayByTheDropdownObj = 8 ;
   sizeDropdownMode = new PVector (20, sizeToRenderTheBoxDropdown, numLineDisplayByTheDropdownObj) ;
-  // int correctionDropdownObject +correctionButtonObject
-  PVector newPos = new PVector( -8, correctionDropdownObject ) ;
+  // int correction_dropdown_item +correction_button_item
+  PVector newPos = new PVector( -8, correction_dropdown_item ) ;
   // group one
-  checkTheDropdownSetupObject(start_loop_G1, end_loop_G1, margeLeft +newPos.x, lineGroupOne +newPos.y) ;
-  // group two
-  checkTheDropdownSetupObject(start_loop_G2, end_loop_G2, margeLeft +newPos.x, lineGroupTwo +newPos.y) ;
+  checkTheDropdownSetupObject(start_loop_item, end_loop_item, margeLeft +newPos.x, line_item_button_slider +newPos.y) ;
 }
 
 void checkTheDropdownSetupObject( int start, int end, float posWidth, float posHeight) {
@@ -1300,9 +1253,9 @@ int dropdownActivityCount ;
 void dropdownDraw() {
   // update content
   update_dropdown_content() ;
-  // update dropdown
-  checkTheDropdownDrawObject(start_loop_G1, end_loop_G1) ;
-  checkTheDropdownDrawObject(start_loop_G2, end_loop_G2) ;
+  // update dropdown item
+  checkTheDropdownDrawObject(start_loop_item, end_loop_item) ;
+
 
   dropdown_update_background() ;
   state_file_text       = dropdown_update(size_dropdown_file_text, pos_dropdown_file_text, dropdown_file_text, file_text_dropdown_list, title_dropdown_medium) ;
@@ -1398,26 +1351,28 @@ void dropdown_update_background() {
 
 void checkTheDropdownDrawObject( int start, int end ) {
   for ( int i = start ; i < end ; i ++ ) {
-    if(modeListRomanesco[i] != null ) {
-      String m [] = split(modeListRomanesco[i], "/") ;
-      if ( m.length > 1) {
-        dropdown[i].dropdownUpdate(title_dropdown_medium, textUsual_1);
-        if (dropdownOpen) dropdownActivityCount = +1 ;
-        margeAroundDropdown = sizeDropdownMode.y  ;
-        //give the size of menu recalculate with the size of the word inside
-        PVector newSizeModeTypo = dropdown[i].sizeBoxDropdownMenu ;
-         int heightDropdown = 0 ;
-        if(dropdown[i].listItem.length < sizeDropdownMode.z ) heightDropdown = dropdown[i].listItem.length ; else heightDropdown = (int)sizeDropdownMode.z ;
-        PVector total_size = new PVector (newSizeModeTypo.x + (margeAroundDropdown *1.5) , sizeDropdownMode.y * (heightDropdown +1)  + margeAroundDropdown   ) ; // we must add +1 to the size of the dropdown for the title plus the item list
-         //new pos to include the slider
-        PVector new_pos = new PVector (posDropdown[i].x - margeAroundDropdown, posDropdown[i].y) ;
-        if ( !insideRect(new_pos, total_size)) {
-          dropdown[i].locked = false;
+    if(info_item[i].y == 1) {
+      if(modeListRomanesco[i] != null ) {
+        String m [] = split(modeListRomanesco[i], "/") ;
+        if ( m.length > 1) {
+          dropdown[i].dropdownUpdate(title_dropdown_medium, textUsual_1);
+          if (dropdownOpen) dropdownActivityCount = +1 ;
+          margeAroundDropdown = sizeDropdownMode.y  ;
+          //give the size of menu recalculate with the size of the word inside
+          PVector newSizeModeTypo = dropdown[i].sizeBoxDropdownMenu ;
+           int heightDropdown = 0 ;
+          if(dropdown[i].listItem.length < sizeDropdownMode.z ) heightDropdown = dropdown[i].listItem.length ; else heightDropdown = (int)sizeDropdownMode.z ;
+          PVector total_size = new PVector (newSizeModeTypo.x + (margeAroundDropdown *1.5) , sizeDropdownMode.y * (heightDropdown +1)  + margeAroundDropdown   ) ; // we must add +1 to the size of the dropdown for the title plus the item list
+           //new pos to include the slider
+          PVector new_pos = new PVector (posDropdown[i].x - margeAroundDropdown, posDropdown[i].y) ;
+          if ( !insideRect(new_pos, total_size)) {
+            dropdown[i].locked = false;
+          }
         }
-      }
-      if (dropdown[i].getSelection() > -1 && m.length > 1) {
-        textFont(title_dropdown_medium) ;
-        text(dropdown[i].getSelection() +1, posDropdown[i].x +12 , posDropdown[i].y +8) ;
+        if (dropdown[i].getSelection() > -1 && m.length > 1) {
+          textFont(title_dropdown_medium) ;
+          text(dropdown[i].getSelection() +1, posDropdown[i].x +12 , posDropdown[i].y +8) ;
+        }
       }
     }
   }
@@ -1435,15 +1390,15 @@ void checkTheDropdownDrawObject( int start, int end ) {
 // DROPDOWN MOUSEPRESSED
 ////////////////////////
 void dropdownMousepressed() {
-  // top menu
+  // global menu
   check_dropdown_mousepressed (posDropdownBackground,  sizeDropdownBackground,  dropdownBackground) ;
   check_dropdown_mousepressed (pos_dropdown_font,        size_dropdown_font,        dropdown_font) ;
   check_dropdown_mousepressed (pos_dropdown_image,       size_dropdown_image,       dropdown_image) ;
   check_dropdown_mousepressed (pos_dropdown_file_text,    size_dropdown_file_text,    dropdown_file_text) ;
   check_dropdown_mousepressed (pos_dropdown_camera_video, size_dropdown_camera_video, dropdown_camera_video) ;
-  // group one and two
-  check_dropdown_object_mousepressed(start_loop_G1, end_loop_G1 ) ;
-  check_dropdown_object_mousepressed(start_loop_G2, end_loop_G2 ) ;
+  
+  // Item menu
+  check_dropdown_object_mousepressed(start_loop_item, end_loop_item ) ;
 }
 // END MAIN
 
@@ -1491,8 +1446,10 @@ void check_dropdown_object_mousepressed( int start, int end ) {
   }
 }
 
-// END DROPDOWN
-///////////////
+/**
+END DROPDOWN
+
+*/
 
 
 
@@ -1510,22 +1467,17 @@ void check_dropdown_object_mousepressed( int start, int end ) {
 
 
 
+/**
+OTHER METHOD 
 
-// OTHER METHOD 
-//ANNEXE VOID
+*/
 //show info
 void text_info_object(PVector pos, PVector size, int IDorder, int IDfamily) {
   if (mouseX > pos.x && mouseX < (size.x + pos.x ) && mouseY > pos.y - 10 && mouseY <  (size.y + pos.y) -20 ) {
     PVector fontPos = new PVector(-10, -20 ) ;
     
-    for ( int i = 1 ; i < NUM_GROUP_SLIDER ; i++) {
-      if (IDfamily == i && numGroup[i]>0 ) {
-        int rank = 0 ;
-        if ( IDfamily == 1 ) rank = IDorder ;
-        if ( IDfamily == 2 ) rank = IDorder +numGroup[1] ;
-        if ( IDfamily == 3 ) rank = IDorder +numGroup[1] +numGroup[2] ;  
-        display_info_object(rank, fontPos) ;
-      }
+    if (NUM_ITEM > 0 ) {
+      display_info_object(IDorder, fontPos) ;
     }
   }
 }
@@ -1591,6 +1543,45 @@ void display_info_object(int IDorder, PVector pos) {
 
 
 
+// Display the list of all the item available
+void display_list_item_name() {
+  fill(rougeFonce) ;
+  textFont(textUsual_1) ;
+  int text_size = 10 ;
+  int max_by_col = 10 ;
+  int max_size_col =  (max_by_col *text_size) + (text_size /3 );
+  textSize(text_size) ;
+  
+  if(item_name.length > 0  ) {
+    for(int i = 0 ; i < item_name.length ; i++) {
+      int step = (i *text_size) + (text_size /3 );
+      if(item_name[i] != null ) {
+        if(i < max_by_col ) {
+          text (item_name[i], colOne, line_item_menu_text +step) ; 
+
+        } else if (i > max_by_col && i < max_by_col *2)  {
+          text (item_name[i], colOne *3, line_item_menu_text +step -max_size_col) ; 
+          
+        } else if (i > max_by_col*2 && i < max_by_col *3)  {
+          text (item_name[i], colOne *6, line_item_menu_text +step -(max_size_col *2)) ; 
+        }
+        
+      }
+    }
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -1621,10 +1612,10 @@ void background_text_list(Vec2 pos, String [] list, int [] size_text, int size_a
   // create the point to build the background
   int diam = size_angle ;
   int speed = speed_rotation ;
-  Vec2 a = Vec2(pos.x + 0,pos.y + 0).circular(diam *3, speed/2) ;
-  Vec2 b = Vec2(pos.x + width_rect, pos.y + 0).circular(int(diam *1.5), speed) ;
-  Vec2 c = Vec2(pos.x + width_rect, pos.y + height_rect).circular(diam *2, int(speed *1.2)) ;
-  Vec2 d = Vec2(pos.x + 0, pos.y + height_rect).circular(diam, int(speed *.7)) ;
+  Vec2 a = Vec2(pos.x + 0,pos.y + 0).revolution(diam *3, speed/2) ;
+  Vec2 b = Vec2(pos.x + width_rect, pos.y + 0).revolution(int(diam *1.5), speed) ;
+  Vec2 c = Vec2(pos.x + width_rect, pos.y + height_rect).revolution(diam *2, int(speed *1.2)) ;
+  Vec2 d = Vec2(pos.x + 0, pos.y + height_rect).revolution(diam, int(speed *.7)) ;
   
   // display background
   beginShape() ;
@@ -1641,16 +1632,3 @@ void background_text_list(Vec2 pos, String [] list, int [] size_text, int size_a
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-// END DISPLAY INFO OBJECT
-//////////////////////////

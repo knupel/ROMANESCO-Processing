@@ -1,4 +1,7 @@
-  ArrayList<BOITEaMUSIQUE> boiteList ;
+/**
+BOXOLYZER || 2012|| 1.0.3
+*/
+ArrayList<BOITEaMUSIQUE> boiteList ;
   
 class Boxolyzer extends Romanesco {
   public Boxolyzer() {
