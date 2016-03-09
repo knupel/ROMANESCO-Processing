@@ -120,17 +120,17 @@ boolean objectParameter[] ;
 
 //VAR object
 //raw
-int [] fill_hue_raw, fill_sat_raw, fill_bright_raw, fill_alpha_raw ;
-int [] stroke_hue_raw, stroke_sat_raw, stroke_bright_raw, stroke_alpha_raw ;
-float [] thicknessRaw ; 
-float [] sizeXRaw, sizeYRaw, sizeZRaw, canvasXRaw, canvasYRaw, canvasZRaw ;
-float [] familyRaw, quantityRaw, lifeRaw ;
-float [] speedRaw ;
-float [] directionRaw, angleRaw ;
-float [] amplitudeRaw, attractionRaw, repulsionRaw ;
-float [] alignmentRaw, influenceRaw, analyzeRaw ;
+int fill_hue_raw, fill_sat_raw, fill_bright_raw, fill_alpha_raw ;
+int stroke_hue_raw, stroke_sat_raw, stroke_bright_raw, stroke_alpha_raw ;
+float thicknessRaw ; 
+float sizeXRaw, sizeYRaw, sizeZRaw, canvasXRaw, canvasYRaw, canvasZRaw ;
+float familyRaw, quantityRaw, lifeRaw ;
+float speedRaw ;
+float directionRaw, angleRaw ;
+float amplitudeRaw, attractionRaw, repulsionRaw ;
+float alignmentRaw, influenceRaw, analyzeRaw ;
 /* used in this time with sizeXObj */
-float []fontSizeRaw ;
+float fontSizeRaw ;
 /*
 //add in the next version when there is 30 slider by group
 //future slider available now ;
@@ -140,17 +140,17 @@ float [] curveRaw ;
 
 // temp
 /* value used to know if the value slider have change or nor */
-int [] fill_hue_temp, fill_sat_temp, fill_bright_temp, fill_alpha_temp ;
-int [] stroke_hue_temp, stroke_sat_temp, stroke_bright_temp, stroke_alpha_temp ;
-float [] thicknessTemp ; 
-float [] sizeXTemp, sizeYTemp, sizeZTemp, canvasXTemp, canvasYTemp, canvasZTemp ;
-float [] familyTemp, quantityTemp, lifeTemp ;
-float [] speedTemp ;
-float [] directionTemp, angleTemp ;
-float [] amplitudeTemp, attractionTemp, repulsionTemp ;
-float [] alignmentTemp, influenceTemp, analyzeTemp ;
+int fill_hue_temp, fill_sat_temp, fill_bright_temp, fill_alpha_temp ;
+int stroke_hue_temp, stroke_sat_temp, stroke_bright_temp, stroke_alpha_temp ;
+float thicknessTemp ; 
+float sizeXTemp, sizeYTemp, sizeZTemp, canvasXTemp, canvasYTemp, canvasZTemp ;
+float familyTemp, quantityTemp, lifeTemp ;
+float speedTemp ;
+float directionTemp, angleTemp ;
+float amplitudeTemp, attractionTemp, repulsionTemp ;
+float alignmentTemp, influenceTemp, analyzeTemp ;
 /* used in this time with sizeXObj */
-float []fontSizeTemp ;
+float fontSizeTemp ;
 /*
 //add in the next version when there is 30 slider by group
 //future slider available now ;
@@ -396,6 +396,7 @@ void createVarButton() {
 
 void createVarObject() {
   // RAW
+  /*
   fill_hue_raw = new int[NUM_GROUP] ;   fill_sat_raw = new int[NUM_GROUP] ;   fill_bright_raw = new int[NUM_GROUP] ;    fill_alpha_raw = new int[NUM_GROUP] ;
   stroke_hue_raw = new int[NUM_GROUP] ; stroke_sat_raw = new int[NUM_GROUP] ; stroke_bright_raw = new int[NUM_GROUP] ;  stroke_alpha_raw = new int[NUM_GROUP] ;
   thicknessRaw = new float[NUM_GROUP] ;
@@ -411,12 +412,14 @@ void createVarObject() {
   alignmentRaw = new float[NUM_GROUP] ;
   influenceRaw = new float[NUM_GROUP] ;
   analyzeRaw = new float[NUM_GROUP] ;
+  */
   //future slider
   /* used in this time with the sizeXobj */
-  fontSizeRaw = new float[NUM_GROUP] ;
+  //fontSizeRaw = new float[NUM_GROUP] ;
   
   // Temp
   /* used to compare the value slider, to know if the value of the obhject must be updated orn ot */
+  /*
   fill_hue_temp = new int[NUM_GROUP] ;    fill_sat_temp = new int[NUM_GROUP] ;    fill_bright_temp = new int[NUM_GROUP] ;   fill_alpha_temp = new int[NUM_GROUP] ;
   stroke_hue_temp = new int[NUM_GROUP] ;  stroke_sat_temp = new int[NUM_GROUP] ;  stroke_bright_temp = new int[NUM_GROUP] ; stroke_alpha_temp = new int[NUM_GROUP] ;
   thicknessTemp = new float[NUM_GROUP] ;
@@ -432,9 +435,10 @@ void createVarObject() {
   alignmentTemp = new float[NUM_GROUP] ;
   influenceTemp = new float[NUM_GROUP] ;
   analyzeTemp = new float[NUM_GROUP] ;
+  */
   //future slider
   /* used in this time with the sizeXobj */
-  fontSizeTemp = new float[NUM_GROUP] ;
+ // fontSizeTemp = new float[NUM_GROUP] ;
   
   // VAR object
   firstOpeningObj = new boolean[numObj] ; // used to check if this object is already opening before
@@ -489,96 +493,96 @@ UPDATE DATA from CONTROLER and PRESCENE
 Those value are used to updated the object data value, and updated at the end of the loop the temp value
 */
 void updateVarRaw() {
-  for(int i = 0 ; i < NUM_GROUP ; i++) {
+ // for(int i = 0 ; i < NUM_GROUP ; i++) {
     int minSource = 0 ;
     // int maxSource = 1 ;
     float minSize = .1 ;
     // fill
-    fill_hue_raw[i] = (int)valueSlider[i+1][0] ;
-    fill_sat_raw[i] = (int)map(valueSlider[i+1][1],0,MAX_VALUE_SLIDER,0,HSBmode.g);    
-    fill_bright_raw[i] = (int)map(valueSlider[i+1][2],0,MAX_VALUE_SLIDER,0,HSBmode.b) ;   
-    fill_alpha_raw[i] = (int)map(valueSlider[i+1][3],0,MAX_VALUE_SLIDER,0,HSBmode.a);
+    fill_hue_raw = (int)valueSlider[1][0] ;
+    fill_sat_raw = (int)map(valueSlider[1][1],0,MAX_VALUE_SLIDER,0,HSBmode.g);    
+    fill_bright_raw = (int)map(valueSlider[1][2],0,MAX_VALUE_SLIDER,0,HSBmode.b) ;   
+    fill_alpha_raw = (int)map(valueSlider[1][3],0,MAX_VALUE_SLIDER,0,HSBmode.a);
     // stroke
-    stroke_hue_raw[i] = (int)valueSlider[i+1][4] ; 
-    stroke_sat_raw[i] = (int)map(valueSlider[i+1][5],0,MAX_VALUE_SLIDER,0,HSBmode.g);  
-    stroke_bright_raw[i] = (int)map(valueSlider[i+1][6],0,MAX_VALUE_SLIDER,0,HSBmode.b) ; 
-    stroke_alpha_raw[i] = (int)map(valueSlider[i+1][7],0,MAX_VALUE_SLIDER,0,HSBmode.a);
+    stroke_hue_raw = (int)valueSlider[1][4] ; 
+    stroke_sat_raw = (int)map(valueSlider[1][5],0,MAX_VALUE_SLIDER,0,HSBmode.g);  
+    stroke_bright_raw = (int)map(valueSlider[1][6],0,MAX_VALUE_SLIDER,0,HSBmode.b) ; 
+    stroke_alpha_raw = (int)map(valueSlider[1][7],0,MAX_VALUE_SLIDER,0,HSBmode.a);
     // 
-    thicknessRaw[i] = mapStartSmooth(valueSlider[i+1][8], minSource, MAX_VALUE_SLIDER, minSize, (height*.33), 2) ;
+    thicknessRaw = mapStartSmooth(valueSlider[1][8], minSource, MAX_VALUE_SLIDER, minSize, (height*.33), 2) ;
 
     // size
-    sizeXRaw[i] = map(valueSlider[i+1][10], minSource, MAX_VALUE_SLIDER, minSize, width) ;
-    sizeYRaw[i] = map(valueSlider[i+1][11], minSource, MAX_VALUE_SLIDER, minSize, width) ;
-    sizeZRaw[i] = map(valueSlider[i+1][12], minSource, MAX_VALUE_SLIDER, minSize, width) ;
+    sizeXRaw = map(valueSlider[1][10], minSource, MAX_VALUE_SLIDER, minSize, width) ;
+    sizeYRaw = map(valueSlider[1][11], minSource, MAX_VALUE_SLIDER, minSize, width) ;
+    sizeZRaw = map(valueSlider[1][12], minSource, MAX_VALUE_SLIDER, minSize, width) ;
     // canvas
-    canvasXRaw[i] = map(valueSlider[i+1][13], minSource, MAX_VALUE_SLIDER, width *minSize, width) ;
-    canvasYRaw[i] = map(valueSlider[i+1][14], minSource, MAX_VALUE_SLIDER, width *minSize, width) ;
-    canvasZRaw[i] = map(valueSlider[i+1][15], minSource, MAX_VALUE_SLIDER, width *minSize, width) ;
+    canvasXRaw = map(valueSlider[1][13], minSource, MAX_VALUE_SLIDER, width *minSize, width) ;
+    canvasYRaw = map(valueSlider[1][14], minSource, MAX_VALUE_SLIDER, width *minSize, width) ;
+    canvasZRaw = map(valueSlider[1][15], minSource, MAX_VALUE_SLIDER, width *minSize, width) ;
     // misc
-    familyRaw[i] = map(valueSlider[i+1][16],minSource, MAX_VALUE_SLIDER, 0, 1) ;
-    quantityRaw[i] = map(valueSlider[i+1][17], minSource, MAX_VALUE_SLIDER, 0, 1) ;
-    lifeRaw[i] = map(valueSlider[i+1][18],minSource, MAX_VALUE_SLIDER,0,1) ;
+    familyRaw = map(valueSlider[1][16],minSource, MAX_VALUE_SLIDER, 0, 1) ;
+    quantityRaw = map(valueSlider[1][17], minSource, MAX_VALUE_SLIDER, 0, 1) ;
+    lifeRaw = map(valueSlider[1][18],minSource, MAX_VALUE_SLIDER,0,1) ;
     //column 3
-    speedRaw[i] = map(valueSlider[i+1][20],minSource, MAX_VALUE_SLIDER,0,1) ;
-    directionRaw[i] = map(valueSlider[i+1][21],minSource, MAX_VALUE_SLIDER,0,360) ;
-    angleRaw[i] = map(valueSlider[i+1][22],minSource, MAX_VALUE_SLIDER,0,360) ;
-    amplitudeRaw[i] = map(valueSlider[i+1][23],minSource, MAX_VALUE_SLIDER,0,1) ;
+    speedRaw = map(valueSlider[1][20],minSource, MAX_VALUE_SLIDER,0,1) ;
+    directionRaw = map(valueSlider[1][21],minSource, MAX_VALUE_SLIDER,0,360) ;
+    angleRaw = map(valueSlider[1][22],minSource, MAX_VALUE_SLIDER,0,360) ;
+    amplitudeRaw = map(valueSlider[1][23],minSource, MAX_VALUE_SLIDER,0,1) ;
     // force
-    attractionRaw[i] = map(valueSlider[i+1][24],minSource, MAX_VALUE_SLIDER,0,1) ;
-    repulsionRaw[i] = map(valueSlider[i+1][25],minSource, MAX_VALUE_SLIDER,0,1) ;
-    alignmentRaw[i] = map(valueSlider[i+1][26],minSource, MAX_VALUE_SLIDER,0,1) ;
-    influenceRaw[i] = map(valueSlider[i+1][27],minSource, MAX_VALUE_SLIDER,0,1) ;
-    analyzeRaw[i] = map(valueSlider[i+1][28],minSource, MAX_VALUE_SLIDER,0 , 1) ;
+    attractionRaw = map(valueSlider[1][24],minSource, MAX_VALUE_SLIDER,0,1) ;
+    repulsionRaw = map(valueSlider[1][25],minSource, MAX_VALUE_SLIDER,0,1) ;
+    alignmentRaw = map(valueSlider[1][26],minSource, MAX_VALUE_SLIDER,0,1) ;
+    influenceRaw = map(valueSlider[1][27],minSource, MAX_VALUE_SLIDER,0,1) ;
+    analyzeRaw = map(valueSlider[1][28],minSource, MAX_VALUE_SLIDER,0 , 1) ;
 
     /* used in this time with sizeXObj */
-    fontSizeRaw[i] = map(sizeXRaw[i], minSize, width, 1, (float)height *.025) ;
-    fontSizeRaw[i] = 3 +(fontSizeRaw[i] *fontSizeRaw[i]) ;
-  }
+    fontSizeRaw = map(sizeXRaw, minSize, width, 1, (float)height *.025) ;
+    fontSizeRaw = 3 +(fontSizeRaw *fontSizeRaw) ;
+ // }
 }
 
 
 /* Those temp value are used to know is the object value must be updated */
 void updateVarTemp() {
-    for(int i = 0 ; i < NUM_GROUP ; i++) {
+  //  for(int i = 0 ; i < NUM_GROUP ; i++) {
     // fill
-    fill_hue_temp[i] = fill_hue_raw[i] ;
-    fill_sat_temp[i] = fill_sat_raw[i] ;    
-    fill_bright_temp[i] = fill_bright_raw[i] ;   
-    fill_alpha_temp[i] = fill_alpha_raw[i] ;
+    fill_hue_temp = fill_hue_raw ;
+    fill_sat_temp = fill_sat_raw ;    
+    fill_bright_temp = fill_bright_raw ;   
+    fill_alpha_temp = fill_alpha_raw ;
     // stroke
-    stroke_hue_temp[i] = stroke_hue_raw[i] ; 
-    stroke_sat_temp[i] = stroke_sat_raw[i] ;  
-    stroke_bright_temp[i] = stroke_bright_raw[i] ; 
-    stroke_alpha_temp[i] = stroke_alpha_raw[i] ;
+    stroke_hue_temp = stroke_hue_raw ; 
+    stroke_sat_temp = stroke_sat_raw ;  
+    stroke_bright_temp = stroke_bright_raw ; 
+    stroke_alpha_temp = stroke_alpha_raw ;
     //
-    thicknessTemp[i] = thicknessRaw[i] ;
+    thicknessTemp = thicknessRaw ;
     //size
-    sizeXTemp[i] = sizeXRaw[i] ;
-    sizeYTemp[i] = sizeYRaw[i] ;
-    sizeZTemp[i] = sizeZRaw[i] ;
+    sizeXTemp = sizeXRaw ;
+    sizeYTemp = sizeYRaw ;
+    sizeZTemp = sizeZRaw ;
     // canvas
-    canvasXTemp[i] = canvasXRaw[i] ;
-    canvasYTemp[i] = canvasYRaw[i] ;
-    canvasZTemp[i] = canvasZRaw[i] ;
+    canvasXTemp = canvasXRaw ;
+    canvasYTemp = canvasYRaw ;
+    canvasZTemp = canvasZRaw ;
     // misc
-    familyTemp[i] = familyRaw[i] ;
-    quantityTemp[i] = quantityRaw[i] ;
-    lifeTemp[i] = lifeRaw[i] ;
+    familyTemp = familyRaw ;
+    quantityTemp = quantityRaw ;
+    lifeTemp = lifeRaw ;
     //column 3
-    speedTemp[i] = speedRaw[i] ;
-    directionTemp[i] = directionRaw[i] ;
-    angleTemp[i] = angleRaw[i] ;
-    amplitudeTemp[i] = amplitudeRaw[i] ;
+    speedTemp = speedRaw ;
+    directionTemp = directionRaw ;
+    angleTemp = angleRaw ;
+    amplitudeTemp = amplitudeRaw ;
     // force
-    attractionTemp[i] = attractionRaw[i] ;
-    repulsionTemp[i] = repulsionRaw[i] ;
-    influenceTemp[i] = influenceRaw[i] ;
-    alignmentTemp[i] = alignmentRaw[i] ;
-    analyzeTemp[i] = analyzeRaw[i] ;
+    attractionTemp = attractionRaw ;
+    repulsionTemp = repulsionRaw ;
+    influenceTemp = influenceRaw ;
+    alignmentTemp = alignmentRaw ;
+    analyzeTemp = analyzeRaw ;
 
     /* used in this time with sizeXObj */
-    fontSizeTemp[i] = fontSizeRaw[i] ;
-  }
+    fontSizeTemp = fontSizeRaw ;
+//  }
 }
 
 

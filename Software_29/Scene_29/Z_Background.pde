@@ -1,19 +1,13 @@
-// Tab: Z_background
-// Z BACKGROUND 1.1
-
-
-// GENERIC BACKGROUND METHOD for 2D and 3D
-//////////////////////////////////////////
-// Background jan 2016 version 0.3
-
+/**
+BACKGROUND 1.1.1
+Romanesco Processing Environment
+*/
 float MAX_RATIO_DEPTH = 6.9 ;
 
+/*
+Normalize background
+*/
 
-// BACKGROUND 3D
-////////////////
-
-// Background normal
-////////////////////
 void background_norm_P3D(Vec4 bg) {
   background_norm_P3D(bg.x, bg.y, bg.z, bg.a) ;
 }
@@ -34,8 +28,7 @@ void background_norm_P3D(float r,float g, float b) {
   background_norm_P3D(r, g, b, 1) ;
 }
 
-
-
+// Main method
 void background_norm_P3D(float r_c, float g_c, float b_c, float a_c) {
   float x = map(r_c,0,1, 0, g.colorModeX) ;
   float y = map(g_c,0,1, 0, g.colorModeY) ;
@@ -57,81 +50,12 @@ void background_norm_P3D(float r_c, float g_c, float b_c, float a_c) {
 
 
 
-// BACKGROUND 2D
-/////////////////
-
-void background_norm(Vec4 bg) {
-  background_norm(bg.x,bg.y,bg.z,bg.a) ;
-}
 
 
-void background_norm(Vec3 bg) {
-  background_norm(bg.x,bg.y,bg.z,1) ;
-}
+/**
+ROMANESCO BACKGROUND
 
-void background_norm(float c) {
-  background_norm(c,c,c,1) ;
-}
-
-void background_norm(float c, float a) {
-  background_norm(c,c,c,a) ;
-}
-
-void background_norm(float r,float g,float b) {
-  background_norm(r,g,b,1) ;
-}
-
-
-void background_norm(float r_c,float g_c,float b_c,float a_c) {
-  float x = map(r_c,0,1, 0, g.colorModeX) ;
-  float y = map(g_c,0,1, 0, g.colorModeY) ;
-  float z = map(b_c,0,1, 0, g.colorModeZ) ;
-  float a = map(a_c,0,1, 0, g.colorModeA) ;
-  noStroke() ;
-  fill(x, y, z, a) ;
-  rect(0,0,width, height) ;
-}
-//diffenrent background
-/*
-void background_classic(Vec4 c) {
-  //DISPLAY FINAL
-  noStroke() ;
-  fill(c.r,c.g, c.b, c.a) ;
-  rect (0,0, width, height) ;
-}
-
-//P3D
-//BACKGROUND
-////////////
-void background_P3D(Vec4 c) {
-  // I don't remember why there is an alpha comparaison with under or upper 90 ?
-  if(c.a < 95 ) {
-    fill(c.r, c.g, c.b, c.a) ;
-    noStroke() ;
-    int pos_z = int( -height *MAX_RATIO_DEPTH) ;
-    pushMatrix() ;
-    translate(-sizeBackgroundP3D.x *.5,-sizeBackgroundP3D.y *.5 , pos_z) ;
-    rect(0,0, sizeBackgroundP3D.x, sizeBackgroundP3D.y) ;
-    popMatrix() ;
-  } else {
-    background(c.r, c.g, c.b, c.a) ;
-  }
-}
 */
-
-
-
-
-
-
-
-
-
-
-
-// ROMANESCO BACKGROUND
-///////////////////////
-//////////////////////////////////////////////////////////////////
 Vec4  colorBackground, colorBackgroundRef, colorBackgroundPrescene;
 
 
