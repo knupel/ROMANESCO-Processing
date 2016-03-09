@@ -56,8 +56,8 @@ color rouge, rougeFonce, rougeTresFonce,
       blanc, blancGrisClair, blancGris, gris, grisClair, grisFonce, grisTresFonce, grisNoir, noirGris, noir,
       
       colorTextUsual, colorTitle,
-      //bouton
-      boutonOFFin, boutonOFFout, boutonONin, boutonONout ;
+      //button 
+      button_off_in, button_off_out, bouton_on_in, bouton_on_out ;
       //for the dropdown
 
 
@@ -87,8 +87,8 @@ void colorSetup() {
    jaune = color(50,100,100) ;
    
    colorTextUsual = grisNoir ; colorTitle = noirGris ;
-   boutonOFFin = orange ; boutonOFFout = rougeFonce ;
-   boutonONin = vert ; boutonONout = vertFonce ;
+   button_off_in = orange ; button_off_out = rougeFonce ;
+   bouton_on_in = vert ; bouton_on_out = vertFonce ;
    
 
 }

@@ -38,7 +38,7 @@ int numButtonTotalObjects ;
 int lastDropdown, numDropdown ;
 //BUTTON
 int value_button_G0[], value_button_item[] ; 
-Simple  button_midi, button_curtain,
+Button_plus  button_midi, button_curtain,
         button_bg, 
         button_light_ambient, button_light_ambient_action,
         button_light_1, button_light_1_action,
@@ -46,7 +46,7 @@ Simple  button_midi, button_curtain,
         button_beat, button_kick, button_snare, button_hat;
         
 //button group one and two
-Simple[] button_item ;
+Button_plus[] button_item ;
 int pos_button_width_item[], pos_button_height_item[], width_button_item[], height_button_item[]  ;
 
 
@@ -129,7 +129,7 @@ void initVarButton() {
   value_button_G0 = new int[numButton[0]] ;
   value_button_item = new int[numButton[1]] ;
 
-  button_item = new Simple[numButton[1] +10] ;
+  button_item = new Button_plus[numButton[1] +10] ;
   pos_button_width_item =              new int[numButton[1] +10] ;
   pos_button_height_item =             new int[numButton[1] +10] ;
   width_button_item =              new int[numButton[1] +10] ;
@@ -175,7 +175,7 @@ void infoByObject() {
         item_author[j] = lookFor.getString("Author");
         item_version[j] = lookFor.getString("Version");
         item_load_name[j] = lookFor.getString("Class name");
-        item_name[j] = lookFor.getString("Name");
+        if (item_ID [j] < 10 ) item_name[j] =  "0" + item_ID [j] + lookFor.getString("Name") ; else item_name[j] = item_ID [j] + lookFor.getString("Name")  ;
         item_slider[j] = lookFor.getString("Slider") ;
       }
     }

@@ -46,7 +46,7 @@ void draw() {
   initLiveData() ;
   textDraw() ;
   sliderDraw() ;
-  buttonDraw() ;
+  button_draw() ;
   midi_update() ;
   sendOSCdraw() ;
   initVarSliderDynamic() ;

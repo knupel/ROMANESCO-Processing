@@ -269,18 +269,7 @@ void checkObjectOnOff() {
     //check ctivity
     if(witnessActivity != activityButtonParameter ) activityParameter = true ;
   }
-  /*
-  for(int i = 0 ; i < numGroup[2] ; i++ ) {
-    int whichOne = i*10 +2 ;
-    if (on_off_G2[whichOne] == 1) { 
-      objectActive[i +NUM_ITEM +1] = true ; 
-      if(mousePressed)  activityButtonParameter = !activityButtonParameter ;
-      } else { 
-      objectActive[i+NUM_ITEM +1] = false ; 
-      if(mousePressed)  activityButtonParameter = !activityButtonParameter ;
-    }
-  }
-  */
+
   
   if(activityParameter) resetSlider = true ;
   activityParameter = false ;

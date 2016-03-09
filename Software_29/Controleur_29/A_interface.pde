@@ -15,12 +15,10 @@ PImage[] picAction = new PImage[4] ;
 PImage[] picCurtain = new PImage[4] ;
 PImage[] picMidi = new PImage[4] ;
 
-// String[] name_item ;
-
 
 
 SliderAdjustable [] slider = new SliderAdjustable [NUM_SLIDER_TOTAL] ;
-// int []suivitSlider ; 
+
 PVector [] sizeSlider = new PVector[NUM_SLIDER_TOTAL] ;
 PVector [] posSlider = new PVector[NUM_SLIDER_TOTAL] ; 
 
@@ -172,12 +170,9 @@ int correction_info_midi_x = 60 ;
 int correction_info_midi_y = 10 ;
 int size_x_window_info_midi = 200 ;
 
-
-
-
-
-// END PARAMETER
-//////////////////////////////////
+/**
+END PARAMETER
+*/
 
 
 
@@ -198,8 +193,10 @@ int size_x_window_info_midi = 200 ;
 
 
 
-// STRUCTURE DRAW
-////////////////////////
+/**
+STRUCTURE DRAW
+
+*/
 void structureDraw() {
   //background
   
@@ -225,7 +222,7 @@ void structureDraw() {
   rect(0,lineMenuTopDropdown, width, 2) ;
   
   // LINE DECORATION
-  // GROUP ZERO
+  // GROUP GENERAL
   int thicknessDecoration = 5 ;
   fill(noir) ;
   rect(0,line_global , width, 2) ;
@@ -247,9 +244,6 @@ void structureDraw() {
   rect(0, line_item_menu_text -24 +thicknessDecoration, width, thicknessDecoration) ; 
   fill(grisTresFonce) ;
   rect(0, line_item_menu_text -16, width, 2) ;
-  
-  
-
 }
 
 //TEXT
@@ -269,9 +263,10 @@ void textDraw() {
 
   display_list_item_name() ;
 }
+/**
+END STRUCTURE DRAW
 
-//END STRUCTURE DRAW
-////////////////////////
+*/
 
 
 
@@ -428,7 +423,7 @@ void sliderDraw() {
      sliderUpdate(i) ;
      sliderDisplayMoletteCurrentMinMax(i, whichGroup) ;
   }
-  // group one, two, three
+  // group item
   whichGroup = 1 ;
   if(!showAllSliders) {
     for (int i = 1 ; i <= NUM_ITEM ; i++) {
@@ -847,25 +842,25 @@ void constructorButton() {
   color OffInColor = orange ;
   color OffOutColor = rougeFonce ;
   
-  button_bg = new Simple(posBackgroundButton, sizeBackgroundButton, OnInColor, OnOutColor, OffInColor, OffOutColor, true) ;
+  button_bg = new Button_plus(posBackgroundButton, sizeBackgroundButton, OnInColor, OnOutColor, OffInColor, OffOutColor, true) ;
   // LIGHT AMBIENT
-  button_light_ambient =       new Simple(posLightAmbientButton, sizeLightAmbientButton, OnInColor, OnOutColor, OffInColor, OffOutColor, false) ;
-  button_light_ambient_action = new Simple(posLightAmbientAction, sizeLightAmbientAction, OnInColor, OnOutColor, OffInColor, OffOutColor, false) ;
+  button_light_ambient =       new Button_plus(posLightAmbientButton, sizeLightAmbientButton, OnInColor, OnOutColor, OffInColor, OffOutColor, false) ;
+  button_light_ambient_action = new Button_plus(posLightAmbientAction, sizeLightAmbientAction, OnInColor, OnOutColor, OffInColor, OffOutColor, false) ;
   // LIGHT ONE
-  button_light_1 = new Simple(posLightOneButton, sizeLightOneButton, OnInColor, OnOutColor, OffInColor, OffOutColor, false) ;
-  button_light_1_action = new Simple(posLightOneAction, sizeLightOneAction, OnInColor, OnOutColor, OffInColor, OffOutColor, false) ;
+  button_light_1 = new Button_plus(posLightOneButton, sizeLightOneButton, OnInColor, OnOutColor, OffInColor, OffOutColor, false) ;
+  button_light_1_action = new Button_plus(posLightOneAction, sizeLightOneAction, OnInColor, OnOutColor, OffInColor, OffOutColor, false) ;
   // LIGHT TWO 
-  button_light_2 = new Simple(posLightTwoButton, sizeLightTwoButton, OnInColor, OnOutColor, OffInColor, OffOutColor, false) ;
-  button_light_2_action = new Simple(posLightTwoAction, sizeLightTwoAction, OnInColor, OnOutColor, OffInColor, OffOutColor, false) ;
+  button_light_2 = new Button_plus(posLightTwoButton, sizeLightTwoButton, OnInColor, OnOutColor, OffInColor, OffOutColor, false) ;
+  button_light_2_action = new Button_plus(posLightTwoAction, sizeLightTwoAction, OnInColor, OnOutColor, OffInColor, OffOutColor, false) ;
   //button beat
-  button_beat = new Simple(pos_beat_button, size_beat_button, OnInColor, OnOutColor, OffInColor, OffOutColor, false) ;
-  button_kick = new Simple(pos_kick_button, size_kick_button, OnInColor, OnOutColor, OffInColor, OffOutColor, false) ;
-  button_snare = new Simple(pos_snare_button, size_snare_button, OnInColor, OnOutColor, OffInColor, OffOutColor, false) ;
-  button_hat = new Simple(pos_hat_button, size_hat_button, OnInColor, OnOutColor, OffInColor, OffOutColor, false) ;
+  button_beat = new Button_plus(pos_beat_button, size_beat_button, OnInColor, OnOutColor, OffInColor, OffOutColor, false) ;
+  button_kick = new Button_plus(pos_kick_button, size_kick_button, OnInColor, OnOutColor, OffInColor, OffOutColor, false) ;
+  button_snare = new Button_plus(pos_snare_button, size_snare_button, OnInColor, OnOutColor, OffInColor, OffOutColor, false) ;
+  button_hat = new Button_plus(pos_hat_button, size_hat_button, OnInColor, OnOutColor, OffInColor, OffOutColor, false) ;
   //MIDI
-  button_midi  = new Simple(pos_midi_button, size_midi_button, false) ;
+  button_midi  = new Button_plus(pos_midi_button, size_midi_button, false) ;
   //curtain
-  button_curtain  = new Simple(pos_curtain_button, size_curtain_button, false) ;
+  button_curtain  = new Button_plus(pos_curtain_button, size_curtain_button, false) ;
   
 
 
@@ -873,7 +868,7 @@ void constructorButton() {
   PVector pos = new PVector() ;
   PVector size = new PVector() ;
   // we don't use the BOf[0], BTf[0] and BTYf[0] must he must be init in case we add object in Scene and this one has never use before and don't exist in the save pref
-  button_item[0] = new Simple(pos, size, boutonONin, boutonONout, boutonOFFin, boutonOFFout, gris, grisNoir, false) ;
+  button_item[0] = new Button_plus(pos, size, bouton_on_in, bouton_on_out, button_off_in, button_off_out, gris, grisNoir, false) ;
 
   // init the object library
   for(int i = 1 ; i < NUM_GROUP_SLIDER ; i++) {
@@ -882,10 +877,9 @@ void constructorButton() {
       if(NUM_ITEM > 0 && i == 1) {
         pos = new PVector(pos_button_width_item[j], pos_button_height_item[j]) ;
         size = new PVector(width_button_item[j], height_button_item[j]) ; 
-        button_item[j] = new Simple(pos, size, boutonONin, boutonONout, boutonOFFin, boutonOFFout, gris, grisNoir, false) ;
+        button_item[j] = new Button_plus(pos, size, bouton_on_in, bouton_on_out, button_off_in, button_off_out, gris, grisNoir, false) ;
       } 
     }
-
   }
 }
 /**
@@ -936,10 +930,7 @@ void buttonSetup() {
   pos_snare_button = new PVector(pos_kick_button.x +size_kick_button.x +5, correctionSoundY +correctionButtonSliderTextY) ; 
   pos_hat_button = new PVector(pos_snare_button.x +size_snare_button.x +5, correctionSoundY +correctionButtonSliderTextY) ;
   
-  
-
-  groupOneButton(line_item_button_slider +correction_button_item) ;
-
+  group_item_button(line_item_button_slider +correction_button_item) ;
 }
 
 // LOCAL METHOD SETUP
@@ -948,7 +939,7 @@ PVector posRelativeSettingButton = new PVector (-8,14) ;
 PVector posRelativeSoundButton = new PVector (-8,25) ;
 PVector posRelativeActionButton = new PVector (4,25) ;
 //////////////
-void groupOneButton(int buttonPositionY) {
+void group_item_button(int buttonPositionY) {
   //position and area for the rollover
   for (int i = 1 ; i <= NUM_ITEM ; i++) {
     pos_button_width_item[i*10+1] = margeLeft +((i-1)*40) +(int)posRelativeMainButton.x    ; pos_button_height_item[i*10+1] = buttonPositionY +(int)posRelativeMainButton.y     ; width_button_item[i*10+1] = 20 ; height_button_item[i*10+1] = 20 ;  //main
@@ -963,10 +954,10 @@ void groupOneButton(int buttonPositionY) {
 Display Button
 */
 // DRAW MAIN METHOD
-void buttonDraw() {
+void button_draw() {
   textFont(textUsual_1) ;
-  buttonDrawGroupZero() ;
-  buttonDrawGroupOne() ;
+  button_draw_group_general() ;
+  button_draw_group_item() ;
 
   buttonCheckDraw() ;
   dropdownDraw() ;
@@ -1028,40 +1019,40 @@ void buttonInfoOnTheTop() {
 
 
 // GROUP GLOBAL
-void buttonDrawGroupZero() {
-  button_bg.buttonText(shader_bg_name[state_bg_shader] + " on/off", posBackgroundButton, titleButtonMedium, sizeTitleButton) ;
-  button_bg.buttonText(shader_bg_name[state_bg_shader] + " on/off", posBackgroundButton, titleButtonMedium, sizeTitleButton) ;
+void button_draw_group_general() {
+  button_bg.button_text(shader_bg_name[state_bg_shader] + " on/off", posBackgroundButton, titleButtonMedium, sizeTitleButton) ;
+  button_bg.button_text(shader_bg_name[state_bg_shader] + " on/off", posBackgroundButton, titleButtonMedium, sizeTitleButton) ;
   // Light ambient
-  button_light_ambient.buttonText("Ambient on/off", posLightAmbientButton, titleButtonMedium, sizeTitleButton) ;
-  button_light_ambient_action.buttonText("action", posLightAmbientAction, titleButtonMedium, sizeTitleButton) ;
+  button_light_ambient.button_text("Ambient on/off", posLightAmbientButton, titleButtonMedium, sizeTitleButton) ;
+  button_light_ambient_action.button_text("action", posLightAmbientAction, titleButtonMedium, sizeTitleButton) ;
   //LIGHT ONE
-  button_light_1.buttonText("Light on/off", posLightOneButton, titleButtonMedium, sizeTitleButton) ;
-  button_light_1_action.buttonText("action", posLightOneAction, titleButtonMedium, sizeTitleButton) ;
+  button_light_1.button_text("Light on/off", posLightOneButton, titleButtonMedium, sizeTitleButton) ;
+  button_light_1_action.button_text("action", posLightOneAction, titleButtonMedium, sizeTitleButton) ;
   // LIGHT TWO
-  button_light_2.buttonText("Light on/off",  posLightTwoButton, titleButtonMedium, sizeTitleButton) ;
-  button_light_2_action.buttonText("action",  posLightTwoAction, titleButtonMedium, sizeTitleButton) ;
+  button_light_2.button_text("Light on/off",  posLightTwoButton, titleButtonMedium, sizeTitleButton) ;
+  button_light_2_action.button_text("action",  posLightTwoAction, titleButtonMedium, sizeTitleButton) ;
   
   // SOUND
-  button_beat.buttonText("BEAT", pos_beat_button, titleButtonMedium, sizeTitleButton) ;
-  button_kick.buttonText("KICK", pos_kick_button, titleButtonMedium, sizeTitleButton) ;
-  button_snare.buttonText("SNARE", pos_snare_button, titleButtonMedium, sizeTitleButton) ;
-  button_hat.buttonText("HAT", pos_hat_button, titleButtonMedium, sizeTitleButton) ;
+  button_beat.button_text("BEAT", pos_beat_button, titleButtonMedium, sizeTitleButton) ;
+  button_kick.button_text("KICK", pos_kick_button, titleButtonMedium, sizeTitleButton) ;
+  button_snare.button_text("SNARE", pos_snare_button, titleButtonMedium, sizeTitleButton) ;
+  button_hat.button_text("HAT", pos_hat_button, titleButtonMedium, sizeTitleButton) ;
   
   //MIDI / CURTAIN
-  button_midi.buttonPic(picMidi) ;
-  button_curtain.buttonPic(picCurtain) ;
+  button_midi.button_pic(picMidi) ;
+  button_curtain.button_pic(picCurtain) ;
 }
 
 // ITEM GROUP
-void buttonDrawGroupOne() {
+void button_draw_group_item() {
   int rankThumbnail = 0 ;
 
   for( int i = 1 ; i <= NUM_ITEM ; i++ ) {
     if(info_item[i].y == 1) {
-      button_item[i*10 +1].buttonPicSerie(OFF_in_thumbnail, OFF_out_thumbnail, ON_in_thumbnail, ON_out_thumbnail, i +rankThumbnail ) ; 
-      button_item[i*10 +2].buttonPic(picSetting) ;
-      button_item[i*10 +3].buttonPic(picSound) ; 
-      button_item[i*10 +4].buttonPic(picAction) ; 
+      button_item[i*10 +1].button_pic_serie(OFF_in_thumbnail, OFF_out_thumbnail, ON_in_thumbnail, ON_out_thumbnail, i +rankThumbnail ) ; 
+      button_item[i*10 +2].button_pic(picSetting) ;
+      button_item[i*10 +3].button_pic(picSound) ; 
+      button_item[i*10 +4].button_pic(picAction) ; 
       PVector pos = new PVector (pos_button_width_item[i*10 +2], pos_button_height_item[i*10 +1] +10) ;
       PVector size = new PVector (20, 30) ;
       text_info_object(pos, size, i, 1) ;
@@ -1232,7 +1223,6 @@ void checkTheDropdownSetupObject( int start, int end, float posWidth, float posH
       //Split the dropdown to display in the dropdown
       listDropdown = split(modeListRomanesco[i], "/" ) ;
       //to change the title of the header dropdown
-
       posDropdown[i] = new PVector(posWidth +space, posHeight , 0.1)  ; // x y is pos anz z is marge between the dropdown and the header
       dropdown[i] = new Dropdown("M", listDropdown, posDropdown[i], sizeDropdownMode, posTextDropdown, colorDropdownBG, colorDropdownTitleIn, colorDropdownTitleOut, colorBoxIn, colorBoxOut, colorBoxText, sizeToRenderTheBoxDropdown) ;
     }
@@ -1426,8 +1416,6 @@ void check_dropdown_mousepressed(PVector pos, PVector size, Dropdown dropdown_me
 
 // OBJECT dropdown
 //////////////////
-
-
 void check_dropdown_object_mousepressed( int start, int end ) {
   for ( int i = start ; i < end ; i ++ ) { 
     if (dropdown[i] != null) {
@@ -1546,26 +1534,41 @@ void display_info_object(int IDorder, PVector pos) {
 // Display the list of all the item available
 void display_list_item_name() {
   fill(rougeFonce) ;
-  textFont(textUsual_1) ;
-  int text_size = 10 ;
+  textFont(textUsual_3) ;
+  int col_size_list_item = 80 ;
+  int text_size = 12 ;
   int max_by_col = 10 ;
-  int max_size_col =  (max_by_col *text_size) + (text_size /3 );
+  int spacing = text_size + (text_size /4 ) ;
+  int max_size_col =  max_by_col *spacing;
   textSize(text_size) ;
-  
+
+  int left_flag = colOne +10 ;
+  int top_text =  line_item_menu_text - 10 ;
+
+  String temp_item_name [] = new String[item_name.length] ;
+
   if(item_name.length > 0  ) {
     for(int i = 0 ; i < item_name.length ; i++) {
-      int step = (i *text_size) + (text_size /3 );
+      temp_item_name[i] = "" ;
+      if(item_name[i] != null ) {
+        temp_item_name[i] = item_name[i].substring(2) ;
+      }
+    }
+
+    temp_item_name = sort(temp_item_name) ;
+    
+    for(int i = 0 ; i < item_name.length ; i++) {
+      int step = i *spacing;
       if(item_name[i] != null ) {
         if(i < max_by_col ) {
-          text (item_name[i], colOne, line_item_menu_text +step) ; 
+          text (temp_item_name[i], left_flag, top_text +step) ; 
 
         } else if (i > max_by_col && i < max_by_col *2)  {
-          text (item_name[i], colOne *3, line_item_menu_text +step -max_size_col) ; 
+          text (temp_item_name[i], left_flag +col_size_list_item, top_text +step -max_size_col) ; 
           
         } else if (i > max_by_col*2 && i < max_by_col *3)  {
-          text (item_name[i], colOne *6, line_item_menu_text +step -(max_size_col *2)) ; 
+          text (temp_item_name[i], left_flag +(col_size_list_item *2), top_text +step -(max_size_col *2)) ; 
         }
-        
       }
     }
   }
