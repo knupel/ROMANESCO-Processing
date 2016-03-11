@@ -2,7 +2,7 @@
 Romanesco is a Generative Live Art Application.
 Those sketches are the progress work, write for Processing 3.0.1.
 
-To download the last built version [app 1.1.0.27](http://romanescoproject.wordpress.com/download/)
+To download the last built version [app 1.1.0.28](http://romanescoproject.wordpress.com/download/)
 
 ##Architecture Sketches
 * Romanesco : Sketch to set the Romanesco application.
