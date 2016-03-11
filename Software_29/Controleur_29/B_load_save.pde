@@ -25,176 +25,47 @@ void loadSetup() {
 Table objectList, shaderBackgroundList;
 int numGroup [] ; 
 int [] item_library_sort, item_ID, item_group, item_camera_video_on_off, item_GUI_on_off ;
-String  [] item_name , item_author, item_version, item_pack, item_load_name, item_slider ; 
-// String  [] object_render ; 
-// boolean [] object_classic, object_P2D, object_P3D ;
+String [] item_name , item_author, item_version, item_pack, item_load_name, item_slider ; 
 String [] shader_bg_name, shader_bg_author ;
 
 
 
-//BOUTON
+//BUTTON
 int numButton [] ;
 int numButtonTotalObjects ;
 int lastDropdown, numDropdown ;
-//BUTTON
-int value_button_G0[], value_button_item[] ; 
-Button_plus  button_midi, button_curtain,
-        button_bg, 
-        button_light_ambient, button_light_ambient_action,
-        button_light_1, button_light_1_action,
-        button_light_2, button_light_2_action,
-        button_beat, button_kick, button_snare, button_hat;
-        
-//button group one and two
-Button_plus[] button_item ;
-int pos_button_width_item[], pos_button_height_item[], width_button_item[], height_button_item[]  ;
+int [] value_button_G0, value_button_item ; 
+int [] pos_button_width_item, pos_button_height_item, width_button_item, height_button_item  ;
 
 
 
 //Variable must be send to Scene
 ///////////////////////////////////////
 // statement on_of for the object group
-int on_off_item[], on_off_G2[] ; 
+int [] on_off_item ;
+boolean [] on_off_item_menu ; 
 
 
 //////////
 //DROPDOWN
-int start_loop_item, end_loop_item, start_loop_G2, end_loop_G2 ;
 //GLOBAL
-Dropdown dropdown[], dropdown_font, dropdownBackground, dropdown_image, dropdown_file_text, dropdown_camera_video  ;
+Dropdown dropdown [] ;
+Dropdown dropdown_font, dropdown_bg, dropdown_image, dropdown_file_text, dropdown_camera_video  ;
 
-PVector pos_dropdown_font, posDropdownBackground, pos_dropdown_image, pos_dropdown_file_text, pos_dropdown_camera_video, posDropdown[] ;
-PVector size_dropdown_font, sizeDropdownBackground, size_dropdown_image, size_dropdown_file_text, size_dropdown_camera_video, sizeDropdownMode ;
+PVector pos_dropdown[] ;
+PVector pos_dropdown_font, pos_dropdownBackground, pos_dropdown_image, pos_dropdown_file_text, pos_dropdown_camera_video ;
+PVector size_dropdown_font, sizeDropdownBackground, size_dropdown_image, size_dropdown_file_text, size_dropdown_camera_video, size_dropdown_mode ;
 PVector posTextDropdown = new PVector(2,8)  ;
 
 
-String [] modeListRomanesco, font_dropdown_list, image_dropdown_list, file_text_dropdown_list,  name_camera_video_dropdown_list, listDropdown, listDropdownBackground;
+String [] modeListRomanesco, font_dropdown_list, image_dropdown_list, file_text_dropdown_list,  name_camera_video_dropdown_list, list_dropdown ;
 int  [] ID_camera_video_list ;
 
-float margeAroundDropdown ;
+float marge_around_dropdown ;
 
 
 
-/**
-SETTING
-*/
-void buildLibrary() {
-  objectList = loadTable(sketchPath("")+"preferences/objects/index_romanesco_objects.csv", "header") ;
-  shaderBackgroundList = loadTable(sketchPath("")+"preferences/shader/shaderBackgroundList.csv", "header") ;
-  numByGroup() ;
-  initVarObject() ;
-  initVarSlider() ;
-  initVarButton() ;
-  infoByObject() ;
-  infoShaderBackground() ;
-}
 
-void initVarSlider() {
-  for (int i = 0 ; i < NUM_SLIDER_TOTAL ;i++) {
-    sizeSlider[i] = new PVector() ;
-    posSlider[i] = new PVector() ; 
-  }
-}
-
-void initVarObject() {
-
-  item_library_sort = new int [NUM_ITEM +1] ;
-  item_ID = new int [NUM_ITEM +1] ;
-  item_group = new int [NUM_ITEM +1] ;
-  item_GUI_on_off = new int [NUM_ITEM +1] ;
-
-  item_name = new String [NUM_ITEM +1] ;
-  item_author = new String [NUM_ITEM +1] ;
-  item_version = new String [NUM_ITEM +1] ;
-  item_pack = new String [NUM_ITEM +1] ;
-  item_load_name = new String [NUM_ITEM +1] ;
-  item_slider = new String [NUM_ITEM +1] ;
-
-}
-
-
-
-void initVarButton() {
-  numButton = new int[NUM_GROUP_SLIDER] ;
-  
-  numButton[0] = 18 ;
-  for (int i = 1 ; i < NUM_GROUP_SLIDER ; i++ ) {
-    numButton[i] = NUM_ITEM *10 ;
-    numButtonTotalObjects += NUM_ITEM ;
-  }
-
-  numDropdown = NUM_ITEM +1 ; // add one for the dropdownmenu
-  lastDropdown = numDropdown -1 ;
-  
-  value_button_G0 = new int[numButton[0]] ;
-  value_button_item = new int[numButton[1]] ;
-
-  button_item = new Button_plus[numButton[1] +10] ;
-  pos_button_width_item =              new int[numButton[1] +10] ;
-  pos_button_height_item =             new int[numButton[1] +10] ;
-  width_button_item =              new int[numButton[1] +10] ;
-  height_button_item =               new int[numButton[1] +10] ;
-
-
-  // button param
-  on_off_item = new int[numButton[1]] ;
-
-  
-  //dropdown
-  modeListRomanesco = new String[numDropdown] ;
-  dropdown = new Dropdown[numDropdown] ;
-  posDropdown = new PVector[numDropdown] ;
-  start_loop_item = 1 ;
-  end_loop_item = 1 +NUM_ITEM ;
-
-}
-
-
-void infoShaderBackground() {
-  int n = shaderBackgroundList.getRowCount() ;
-  shader_bg_name = new String[n] ;
-  shader_bg_author = new String[n] ;
-  for (int i = 0 ; i < n ; i++ ) {
-     TableRow row = shaderBackgroundList.getRow(i) ;
-     shader_bg_name[i] = row.getString("Name") ;
-     shader_bg_author[i] = row.getString("Author") ;
-  }
-}
-
-void infoByObject() {
-  for(int i = 0 ; i < NUM_ITEM ; i++) {
-    TableRow lookFor = objectList.getRow(i) ;
-    int ID = lookFor.getInt("ID") ;
-    for(int j = 0 ; j <= NUM_ITEM ; j++) {
-      if(ID == j ) { 
-        item_library_sort[j] =lookFor.getInt("Library Order") ;
-        item_ID [j] = lookFor.getInt("ID") ;
-        item_group[j] = lookFor.getInt("Group");
-        item_pack[j] = lookFor.getString("Pack");
-        // object_render[j] = lookFor.getString("Render");
-        item_author[j] = lookFor.getString("Author");
-        item_version[j] = lookFor.getString("Version");
-        item_load_name[j] = lookFor.getString("Class name");
-        if (item_ID [j] < 10 ) item_name[j] =  "0" + item_ID [j] + lookFor.getString("Name") ; else item_name[j] = item_ID [j] + lookFor.getString("Name")  ;
-        item_slider[j] = lookFor.getString("Slider") ;
-      }
-    }
-  }
-}
-
-
-
-void numByGroup() {
-  // numGroup  = new int[NUM_GROUP_SLIDER] ;
-  for (TableRow row : objectList.rows()) {
-    int item_group = row.getInt("Group");
-    for (int i = 0 ; i < NUM_SLIDER_TOTAL ; i++) {
-      if (item_group == i) NUM_ITEM += 1 ;
-    }
-  }
-}
-// END BUILD LIBRARY
-////////////////////
 
 
 
@@ -473,37 +344,37 @@ void setButtonSave() {
   // see void midiButtonManager(boolean saveButton)
   int rank = 0 ;
   // Background and Curtain
-  if(infoButton[rank].z  == 1.0) button_bg.onOff = true ; else button_bg.onOff = false ;
+  if(infoButton[rank].z  == 1.0) button_bg.on_off = true ; else button_bg.on_off = false ;
   button_bg.IDmidi = (int)infoButton[rank].y ; 
   rank++ ;
-  if(infoButton[rank].z == 1.0) button_curtain.onOff = true ; else button_curtain.onOff = false ;
+  if(infoButton[rank].z == 1.0) button_curtain.on_off = true ; else button_curtain.on_off = false ;
   button_curtain.IDmidi = (int)infoButton[rank].y ; 
   rank++ ;
   //LIGHT ONE
-  if(infoButton[rank].z == 1.0) button_light_1.onOff = true ; else button_light_1.onOff = false ;
+  if(infoButton[rank].z == 1.0) button_light_1.on_off = true ; else button_light_1.on_off = false ;
   button_light_1.IDmidi = (int)infoButton[rank].y ; 
   rank++ ;
-  if(infoButton[rank].z == 1.0) button_light_1_action.onOff = true ; else button_light_1_action.onOff = false ;
+  if(infoButton[rank].z == 1.0) button_light_1_action.on_off = true ; else button_light_1_action.on_off = false ;
   button_light_1_action.IDmidi = (int)infoButton[rank].y ; 
   rank++ ;
   // LIGHT TWO
-  if(infoButton[rank].z == 1.0) button_light_2.onOff = true ; else button_light_2.onOff = false ;
+  if(infoButton[rank].z == 1.0) button_light_2.on_off = true ; else button_light_2.on_off = false ;
   button_light_2.IDmidi = (int)infoButton[rank].y ; 
   rank++ ;
-  if(infoButton[rank].z == 1.0) button_light_2_action.onOff = true ; else button_light_2_action.onOff = false ;
+  if(infoButton[rank].z == 1.0) button_light_2_action.on_off = true ; else button_light_2_action.on_off = false ;
   button_light_2_action.IDmidi = (int)infoButton[rank].y ; 
   rank++ ;
   //SOUND
-  if(infoButton[rank].z == 1.0) button_beat.onOff = true ; else button_beat.onOff = false ;
+  if(infoButton[rank].z == 1.0) button_beat.on_off = true ; else button_beat.on_off = false ;
   button_beat.IDmidi = (int)infoButton[rank].y ;
  rank++ ; 
-  if(infoButton[rank].z == 1.0) button_kick.onOff = true ; else button_kick.onOff = false ;
+  if(infoButton[rank].z == 1.0) button_kick.on_off = true ; else button_kick.on_off = false ;
   button_kick.IDmidi = (int)infoButton[rank].y ; 
   rank++ ;
-  if(infoButton[rank].z == 1.0) button_snare.onOff = true ; else button_snare.onOff = false ;
+  if(infoButton[rank].z == 1.0) button_snare.on_off = true ; else button_snare.on_off = false ;
   button_snare.IDmidi = (int)infoButton[rank].y ;
   rank++ ;
-  if(infoButton[rank].z == 1.0) button_hat.onOff = true ; else button_hat.onOff = false ;
+  if(infoButton[rank].z == 1.0) button_hat.on_off = true ; else button_hat.on_off = false ;
   button_hat.IDmidi = (int)infoButton[rank].y ; 
   rank++ ;
   
@@ -517,7 +388,7 @@ void setButtonSave() {
     for (int j = 1 ; j <= BUTTON_BY_OBJECT ; j++) {
       rank++ ;
       buttonRank = (int)infoButton[rank].x ;
-      if(infoButton[rank].z == 1.0 && buttonRank == (i*10)+j) button_item[buttonRank].onOff = true ; else button_item[buttonRank].onOff = false ; 
+      if(infoButton[rank].z == 1.0 && buttonRank == (i*10)+j) button_item[buttonRank].on_off = true ; else button_item[buttonRank].on_off = false ; 
       button_item[buttonRank].IDmidi = (int)infoButton[rank].y ; 
     }
   }

@@ -22,14 +22,16 @@ void setup() {
   checkImageFolder() ;
   checkFileTextFolder() ;
   select_camera_device(30, 100) ; // methode(int min_fps, int min_width)
-  fontSetup() ;
+  set_font() ;
   midi_init() ;
   importPicButtonSetup() ;
-  sliderSettingVar() ;
-  buttonSetup() ;
-  dropdownSetup() ;
-  constructorButton() ;
-  constructorSlider() ;
+  set_var_slider() ;
+  set_var_button() ;
+  set_var_dropdown() ;
+
+  build_button() ;
+  build_slider() ;
+
   sendOSCsetup() ;
   settingDataFromSave() ;
 
@@ -49,7 +51,7 @@ void draw() {
   button_draw() ;
   midi_update() ;
   sendOSCdraw() ;
-  initVarSliderDynamic() ;
+  init_sliderDynamic() ;
   
   credit() ;
 }
@@ -59,9 +61,16 @@ void draw() {
 ////////////////////
 
 void mousePressed () {
-  //object
+  // Item
   if(!dropdownActivity) {
-    if(NUM_ITEM > 0 ) for( int i = 11 ; i < NUM_ITEM *10 + 6 ; i++ ) button_item[i].mousePressed()  ;
+    if(NUM_ITEM > 0 ) {
+      for( int i = 11 ; i < NUM_ITEM *10 + 6 ; i++ ) { 
+        button_item[i].mousePressed()  ;
+      }
+      for(int i = 1 ; i < button_item_menu.length ; i++ ) { 
+        button_item_menu[i].mousePressed() ;
+      }
+    }
   
     button_bg.mousePressedText() ;
     //LIGHT ONE

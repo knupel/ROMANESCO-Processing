@@ -17,7 +17,7 @@ public PFont
       FuturaStencil_20 ;
       
 //SETUP
-void fontSetup() {
+void set_font() {
   //controleur Font
   String fontPathVLW = sketchPath("")+"preferences/Font/typoVLW/" ;
   FuturaStencil_20 = loadFont(fontPathVLW+"FuturaStencilICG-20.vlw");
@@ -47,7 +47,7 @@ void fontSetup() {
 //COLOR
 //GLOBAL
 */
-color rouge, rougeFonce, rougeTresFonce,   
+color rouge, rougeFonce, rougeTresFonce, rougeTresTresFonce,  
       orange, jauneOrange, jaune, 
       vert, vertClair, vertFonce, vertTresFonce,
       bleu,
@@ -55,11 +55,7 @@ color rouge, rougeFonce, rougeTresFonce,
        
       blanc, blancGrisClair, blancGris, gris, grisClair, grisFonce, grisTresFonce, grisNoir, noirGris, noir,
       
-      colorTextUsual, colorTitle,
-      //button 
-      button_off_in, button_off_out, bouton_on_in, bouton_on_out ;
-      //for the dropdown
-
+      colorTextUsual, colorTitle ;
 
 
 //SETUP
@@ -80,15 +76,15 @@ void colorSetup() {
    vertFonce = color(100,100,50) ; 
    vertTresFonce = color(100,100,30) ;
    rougeTresFonce = color(10, 100, 50) ; 
+   rougeTresTresFonce = color(10, 100, 46) ; 
    rougeFonce = color (10, 100, 70) ;  
    rouge = color(10,100,100) ;            
    orange = color (35,100,100) ; 
    jauneOrange = color (42,100,100) ; 
    jaune = color(50,100,100) ;
    
-   colorTextUsual = grisNoir ; colorTitle = noirGris ;
-   button_off_in = orange ; button_off_out = rougeFonce ;
-   bouton_on_in = vert ; bouton_on_out = vertFonce ;
+   colorTextUsual = grisNoir ; 
+   colorTitle = noirGris ;
    
 
 }
@@ -118,7 +114,6 @@ void list_cameras_controller() {
   
   // about the camera
   if (cameras.length != 0) {
-   // println("Available cameras:");
     for(int i = 0 ; i < cameras.length ; i++) {
       String cam_data [] = split(cameras[i],",") ;
       // camera name
@@ -131,8 +126,6 @@ void list_cameras_controller() {
       // fps
       String fps = cam_data [2].substring(4,cam_data[2].length()) ;
       cam_fps[i] = Integer.parseInt(fps) ;
-      // info
-     // println(i, cam_name [i], cam_width[i] +"x" +cam_height[i], cam_fps[i]) ;
     }
   } else {
     println("There are no cameras available for capture.");
@@ -363,8 +356,9 @@ void recurseDir(ArrayList a, String dir) {
 
 
 
-/////////
-// CREDIT
+/**
+CREDIT
+*/
 boolean insideNameversion ;
 void credit() {
   if(mouseX > 2 && mouseX < 160 && mouseY > 3 && mouseY < 26 ) insideNameversion = true ; else insideNameversion = false ;
@@ -382,3 +376,119 @@ void credit() {
   }
 }
 // END CREDIT
+
+
+
+
+
+
+
+
+/**
+Keyboard
+
+*/
+// SHORTCUTS & KEYBOARD ACTION
+//////////////////////////////
+void shortCutsController() {
+  keyboard[keyCode] = true;
+  // slider display command
+  if(checkKeyboard(CONTROL) && checkKeyboard(KeyEvent.VK_X) ) {
+    sliderModeDisplay += 1 ;
+    if(sliderModeDisplay > 2 ) sliderModeDisplay = 0 ;
+  }
+
+  // save Scene
+  check_Keyboard_save_scene_CURRENT_path() ;
+  check_Keyboard_save_scene_NEW_path() ;
+  // save controller
+  check_Keyboard_save_controller_CURRENT_path() ;
+  check_Keyboard_save_controller_NEW_path() ;
+  // load
+  check_Keyboard_load_scene() ;
+  check_Keyboard_load_controller() ;
+}
+
+
+
+
+// ANNEXE shortcut method
+//////////////////////////
+
+// SCENE
+boolean load_Scene_Setting, save_Current_Scene_Setting, save_New_Scene_Setting ;
+// Scene load
+// CTRL + O
+void check_Keyboard_load_scene() {
+  if(checkKeyboard(CONTROL) && !checkKeyboard(SHIFT) && checkKeyboard(KeyEvent.VK_O) ) { 
+    load_Scene_Setting = true ;
+    keyboard[keyCode] = false;   //
+    
+  }
+}
+
+// Scene current save
+// CTRL + S
+void check_Keyboard_save_scene_CURRENT_path() {
+  if(checkKeyboard(CONTROL) && !checkKeyboard(SHIFT) && checkKeyboard(KeyEvent.VK_S) ) {
+    save_Current_Scene_Setting = true ;
+    keyboard[keyCode] = false ;   // just open one window, when use only the keyboard, if you don't use that open all the windows save and open
+   }
+}
+// Scene new save
+// CTRL + SHIFT + S
+void check_Keyboard_save_scene_NEW_path() {
+  if(checkKeyboard(CONTROL) && checkKeyboard(SHIFT) && checkKeyboard(KeyEvent.VK_S) ) {
+    save_New_Scene_Setting = true ;
+    keyboard[keyCode] = false ;   // just open one window, when use only the keyboard, if you don't use that open all the windows save and open
+  }
+}
+
+
+
+
+
+
+
+
+// CONTROLLER 
+//////////////////
+// Controller load
+
+// CTRL + SHIFT + O
+void check_Keyboard_load_controller() {
+  if(checkKeyboard(CONTROL) && checkKeyboard(SHIFT) && checkKeyboard(KeyEvent.VK_O) ) { 
+    selectInput("Load setting controller", "loadSettingController"); // ("display info in the window" , "name of the method callingBack" )
+    keyboard[keyCode] = false;   //
+    
+  }
+}
+
+// Controller current save
+// CTRL + E
+void check_Keyboard_save_controller_CURRENT_path() {
+  if(checkKeyboard(CONTROL) && !checkKeyboard(SHIFT) && checkKeyboard(KeyEvent.VK_E) ) {
+    showAllSliders = true ;
+    if (savePathSetting.equals("")) {
+      File tempFileName = new File ("your_controller_setting.csv");
+      selectOutput("Save setting", "saveSetting", tempFileName);
+    } else saveSetting(savePathSetting) ;
+
+    keyboard[keyCode] = false ;   // just open one window, when use only the keyboard, if you don't use that open all the windows save and open
+  }
+}
+// Controller new save
+// CTRL + SHIFT + E
+void check_Keyboard_save_controller_NEW_path() {
+  if(checkKeyboard(CONTROL) && checkKeyboard(SHIFT) && checkKeyboard(KeyEvent.VK_E) ) {
+    showAllSliders = true ; 
+    File tempFileName = new File ("your_controller_setting.csv");
+    selectOutput("Save setting", "saveSetting", tempFileName);
+    keyboard[keyCode] = false ;   // just open one window, when use only the keyboard, if you don't use that open all the windows save and open
+  }
+
+}
+
+
+// END SHORTCUTS
+/////////////////

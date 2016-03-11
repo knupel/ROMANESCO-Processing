@@ -1,16 +1,16 @@
 /**
-CLASS BUTTON 1.0.1
+CLASS BUTTON 1.0.2
 */
 class Button {
-  color couleurBouton, couleurONoffCarre, couleurONoffCercle ;
-  PVector pos = new PVector() ; 
-  PVector size = new PVector() ;
+  color color_bg, color_on_off ;
+  int  pos_ref_x, pos_ref_y ;
+  Vec2 pos, size ;
   
   boolean inside ;
-  boolean onOff = false ;  
+  boolean on_off = false ;  
   //MIDI
   int newmidi_value_romanesco ;
-  //int IDbutton ;
+  // IDbutton ;
   int IDmidi = -2 ;
   
   
@@ -18,18 +18,32 @@ class Button {
   //simple
   Button () {}
   //complexe
-  Button (int posWidth, int posHeight, int widthButton, int heightButton, boolean onOff) {
-    this.onOff = onOff ;
-    pos.x = posWidth ;
-    pos.y = posHeight ;
+  Button (int pos_x, int pos_y, int widthButton, int heightButton) {
+    this.on_off = on_off ;
+    this.pos = Vec2(pos_x, pos_y) ;
+    pos_ref_x = pos_x ;
+    pos_ref_y = pos_y ;
     size.x = widthButton ;
     size.y = heightButton ;
-    pos.x =  posWidth ; pos.y = posHeight ; size.x = widthButton ; size.y = heightButton ;
+
   }
-  Button (PVector pos, PVector size, boolean onOff) {
-    this.onOff = onOff ;
-    this.pos = pos.copy() ;
-    this.size = size.copy() ;
+  Button (Vec2 pos, Vec2 size) {
+    this.on_off = on_off ;
+    this.pos = pos ;
+    pos_ref_x = (int)pos.x ;
+    pos_ref_y = (int)pos.y ;
+    this.size = size ;
+  }
+
+  
+  // Set button
+  void set_statement(boolean on_off) {
+    this.on_off = on_off ;
+  }
+
+  void change_pos(int x, int y) {
+    pos.set(pos_ref_x, pos_ref_y) ;
+    pos.add(x,y) ;
   }
   
 
@@ -71,11 +85,11 @@ class Button {
   
   //CLIC
   void mousePressedText() {
-    if (rollover((int)size.y) ) if (onOff) onOff = false ; else onOff = true ; 
+    if (rollover((int)size.y)) on_off  =(!on_off) ? true : false ;
   }
   //
   void mousePressed() {
-    if (rollover()) if (onOff) onOff = false ; else onOff = true ;
+    if (rollover()) on_off  =(!on_off) ? true : false ;
   }
   
   // MIDI
@@ -95,30 +109,58 @@ class Button {
 BUTTON
 */
 class Button_plus extends Button {
-  color cBINonBO, cBOUTonBO, cBINoffBO, cBOUToffBO, cBEinBO, cBEoutBO ;
+  color color_in_ON, color_out_ON, color_in_OFF, color_out_OFF ; 
+  color color_bg_in, color_bg_out ;
+
   
   //CONSTRUCTOR
-  Button_plus(PVector pos, PVector size, boolean onOff) {
-    super(pos, size, onOff) ;
+  Button_plus() {
+    super() ;
+  }
+
+  Button_plus(Vec2 pos, Vec2 size) {
+    super(pos, size) ;
   }
   
-  //
-  Button_plus (PVector pos, PVector size, color BoutonINonBO, color BoutonOUTonBO, color BoutonINoffBO, color BoutonOUToffBO, color BoutonEnsembleINBO, color BoutonEnsembleOUTBO, boolean onOff) {
-    super(pos, size, onOff) ;
-    cBINonBO = BoutonINonBO ; cBOUTonBO = BoutonOUTonBO ; cBINoffBO = BoutonINoffBO ; cBOUToffBO = BoutonOUToffBO ;
-    cBEinBO = BoutonEnsembleINBO ; cBEoutBO = BoutonEnsembleOUTBO ;
+
+
+  /**
+  SETTING
+  */
+  void set_color_on_off(color color_in_ON, color color_out_ON, color color_in_OFF, color color_out_OFF) {
+    this.color_in_ON = color_in_ON ; 
+    this.color_out_ON = color_out_ON ; 
+    this.color_in_OFF = color_in_OFF ; 
+    this.color_out_OFF = color_out_OFF ;
+  }
+  void set_color_bg(color color_bg_in, color color_bg_out) {
+    this.color_bg_in = color_bg_in ; 
+    this.color_bg_out = color_bg_out ;
   }
 
-  Button_plus (PVector pos, PVector size, color BoutonINonBO, color BoutonOUTonBO, color BoutonINoffBO, color BoutonOUToffBO, boolean onOff)  {
-    super(pos, size, onOff) ;
-    cBINonBO = BoutonINonBO ; cBOUTonBO = BoutonOUTonBO ; cBINoffBO = BoutonINoffBO ; cBOUToffBO = BoutonOUToffBO ;
-  }
 
-  //VOID
+  /**
+  MISC
+  */
   void background_button() {
-    fill(couleurBouton) ;
+    fill(color_bg) ;
     rect(pos.x, pos.y, size.x, size.y) ;
   }
+
+  // return the statement of the button is this one is ON or OFF
+  boolean get_on_off() { 
+    return on_off ;
+  }
+  
+  //MIDI
+  int IDmidi() { 
+    return IDmidi ; 
+  }
+
+
+
+
+
 
   /**
   IMAGE BUTTON
@@ -126,7 +168,7 @@ class Button_plus extends Button {
   void button_pic_serie(PImage[] OFF_in, PImage[] OFF_out, PImage[] ON_in, PImage[] ON_out, int whichOne) {
     int correctionX = -1 ;
     if(ON_in[whichOne] != null && ON_out[whichOne] != null && OFF_in[whichOne] != null && OFF_out[whichOne] != null ) {
-      if (onOff) {
+      if (on_off) {
         if (rollover() && !dropdownActivity) image(ON_in[whichOne],pos.x +correctionX, pos.y) ; else image(ON_out[whichOne],pos.x +correctionX, pos.y) ;
       } else {
         if (rollover() && !dropdownActivity) image(OFF_in[whichOne],pos.x +correctionX, pos.y) ; else image(OFF_out[whichOne],pos.x +correctionX, pos.y) ;
@@ -137,10 +179,10 @@ class Button_plus extends Button {
   void button_pic(PImage [] pic) {
     int correctionX = -1 ;
     if(pic[0] != null && pic[1] != null && pic[2] != null && pic[3] != null ) {
-      if (onOff) {
-        if (rollover() && !dropdownActivity) image(pic[1],pos.x +correctionX, pos.y ) ; else image(pic[0],pos.x +correctionX, pos.y ) ;
+      if (on_off) {
+        if (rollover() && !dropdownActivity) image(pic[1],pos.x +correctionX, pos.y) ; else image(pic[0],pos.x +correctionX, pos.y) ;
       } else {
-        if (rollover() && !dropdownActivity) image(pic[3],pos.x +correctionX, pos.y ) ; else image(pic[2],pos.x +correctionX, pos.y) ;
+        if (rollover() && !dropdownActivity) image(pic[3],pos.x +correctionX, pos.y) ; else image(pic[2],pos.x +correctionX, pos.y) ;
       }
     }
   }
@@ -148,14 +190,14 @@ class Button_plus extends Button {
     fill(jaune) ;
     textFont(FuturaStencil_20) ;
     int correctionX = -1 ;
-    if ( onOff ) {
+    if ( on_off ) {
       if (rollover() && !dropdownActivity) {
-        image(pic[1],pos.x +correctionX, pos.y ) ;
+        image(pic[1],pos.x +correctionX, pos.y) ;
         text(text,   mouseX -20, mouseY -20 ) ;
-      } else image(pic[0],pos.x +correctionX, pos.y ) ;
+      } else image(pic[0],pos.x +correctionX, pos.y) ;
     } else {
       if (rollover() && !dropdownActivity) { 
-        image(pic[3],pos.x +correctionX, pos.y ) ; 
+        image(pic[3],pos.x +correctionX, pos.y) ; 
         text(text,   mouseX -20, mouseY -20 ) ;
       } else image(pic[2],pos.x +correctionX, pos.y) ;
     }
@@ -165,56 +207,46 @@ class Button_plus extends Button {
   TEXT BUTTON
   */
   void button_text(String s, int x, int y) {
-    if (onOff) {
+    if (on_off) {
       stroke(vertTresFonce) ;
-      if (rollover() && !dropdownActivity) couleurONoffCarre = cBINonBO ; else couleurONoffCarre = cBOUTonBO ;
+      if (rollover() && !dropdownActivity) color_on_off = color_in_ON ; else color_on_off = color_out_ON ;
     } else {
       stroke(rougeTresFonce) ; 
-      if (rollover() && !dropdownActivity) couleurONoffCarre = cBINoffBO ; else couleurONoffCarre = cBOUToffBO ;
+      if (rollover() && !dropdownActivity) color_on_off = color_in_OFF ; else color_on_off = color_out_OFF ;
     }
 
-    fill(couleurONoffCarre) ;
+    fill(color_on_off) ;
     text(s, x, y) ;
   }
  
-  void button_text(String s, PVector pos, PFont font, int sizeFont) {
-    if (onOff) {
-      if (rollover(sizeFont) && !dropdownActivity) couleurONoffCarre = cBINonBO ; else couleurONoffCarre = cBOUTonBO ;
+  void button_text(String s, Vec2 pos, PFont font, int sizeFont) {
+    if (on_off) {
+      if (rollover(sizeFont) && !dropdownActivity) color_on_off = color_in_ON ; else color_on_off = color_out_ON ;
     } else {
-      if (rollover(sizeFont) && !dropdownActivity) couleurONoffCarre = cBINoffBO ; else couleurONoffCarre = cBOUToffBO ;
+      if (rollover(sizeFont) && !dropdownActivity) color_on_off = color_in_OFF ; else color_on_off = color_out_OFF ;
     }
-    fill(couleurONoffCarre) ;
+    fill(color_on_off) ;
     textFont(font) ;
     textSize(sizeFont) ;
     text(s, pos.x, pos.y) ;
   }
  
   ////////////////////////////////////
-  void button_rect(String s, PVector localpos) {
+  void button_rect(String s) {
     strokeWeight (1) ;
-    if (onOff) {
+    if (on_off) {
       stroke(vertTresFonce) ;
-      if (rollover() && !dropdownActivity)couleurONoffCarre = cBINonBO ; else couleurONoffCarre = cBOUTonBO ;
+      if (rollover() && !dropdownActivity)color_on_off = color_in_ON ; else color_on_off = color_out_ON ;
     } else {
       stroke(rougeTresFonce) ; 
-      if (rollover() && !dropdownActivity) couleurONoffCarre = cBINoffBO ; else couleurONoffCarre = cBOUToffBO ;
+      if (rollover() && !dropdownActivity) color_on_off = color_in_OFF ; else color_on_off = color_out_OFF ;
     }
 
-    fill(couleurONoffCarre) ;
+    fill(color_on_off) ;
     rect(pos.x, pos.y, size.x, size.y) ;
     fill(blanc) ;
-    text(s, pos.x +localpos.x, pos.y + localpos.y) ;
+    text(s, pos.x, pos.y) ;
     noStroke() ;
   }
 
-
-  // return the statement of the button is this one is ON or OFF
-  int getOnOff() { 
-    if (!onOff) return 0 ; else return 1 ;
-  }
-  
-  //MIDI
-  int IDmidi() { 
-    return IDmidi ; 
-  }
 }

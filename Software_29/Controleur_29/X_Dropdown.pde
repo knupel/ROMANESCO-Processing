@@ -1,4 +1,7 @@
-// Tab: X_Dropdown
+/**
+DROPDOWN 1.0.1
+– ROMANESCO PROCESSIN ENVIRONMENT –
+*/
 // DROPDOWN february 2015 adaptation of version 2c work with SLIDER 5g by Stan le Punk
 
 
@@ -18,6 +21,8 @@ public class Dropdown {
   private final color colorTitleIn, colorTitleOut, colorBG, colorTextBox ; 
   private final color boxIn, boxOut ;
   private PVector pos, size, posText;
+  int pos_ref_x, pos_ref_y ;
+  private Vec2 change_pos = Vec2() ;
   private float factorPos  ; // use to calculate the margin between the box
   int sizeBox ;
   private int startingDropdown = 0 ;
@@ -31,6 +36,9 @@ public class Dropdown {
     this.title = title ;
     this.listItem = listItem;
     this.pos = pos;
+    pos_ref_x = (int)pos.x ;
+    pos_ref_y = (int)pos.y ;
+    
     this.posText = posText ;
 
     this.size = size; // header size
@@ -69,8 +77,16 @@ public class Dropdown {
        sliderDropdown.setting() ;
     }
   }
+
+
   
   //DRAW
+  void change_pos(int x, int y) {
+    pos.set(pos_ref_x, pos_ref_y) ;
+    pos.add(x,y) ;
+  }
+
+
   void dropdownUpdate(PFont titleFont, PFont dropdown_font) {
     //to be sure of the position
     rectMode(CORNER);
@@ -114,7 +130,7 @@ public class Dropdown {
     PVector newPosDropdown = new PVector (pos.x, yLevel) ;
     if (insideRect(newPosDropdown, size)) fill(colorTitleIn); else fill(colorTitleOut) ;
     textFont(font);
-    text(title, pos.x +posText.x , yLevel +posText.y);
+    text(title, pos.x +posText.x, yLevel +posText.y);
   }
   
   public void renderBox(String label, int step, PVector sizeBoxDropdown, PFont font, color textColor) {
@@ -132,7 +148,7 @@ public class Dropdown {
     rect(pos.x, yLevel, sizeBoxDropdown.x, sizeBoxDropdown.y);
     fill(textColor);
     textFont(font);
-    text(label, pos.x +posText.x , yLevel +sizeBox -(ceil(sizeBox*.2)));
+    text(label, pos.x +posText.x, yLevel +sizeBox -(ceil(sizeBox*.2)));
   }
   
   
@@ -143,7 +159,7 @@ public class Dropdown {
   public int selectDropdownLine(float newWidth) {
     if(mouseX >= pos.x && mouseX <= pos.x +newWidth && mouseY >= pos.y && mouseY <= ((listItem.length+1) *size.y) +pos.y) {
       //choice the line
-      int line = floor( (mouseY - (pos.y +size.y )) / size.y ) +updateDropdown;
+      int line = floor( (mouseY - (pos.y +size.y)) / size.y ) +updateDropdown;
       return line;
     } else {
       return -1; 

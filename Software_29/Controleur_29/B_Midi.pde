@@ -172,7 +172,7 @@ void reset_input_midi_device() {
 
 // DISPLAY INFO MIDI INPUT
 //////////////////////////
-void display_midi_device_available(PVector pos, int spacing) {
+void display_midi_device_available(Vec2 pos, int spacing) {
   int num_line = 0 ;
   if (!choice_midi_device || !choice_midi_default_device) {
     text("Press the ID number to select an input Midi", pos.x, pos.y) ;
@@ -191,7 +191,7 @@ void display_midi_device_available(PVector pos, int spacing) {
 
 
 
-void display_select_midi_device(PVector pos, int spacing) {
+void display_select_midi_device(Vec2 pos, int spacing) {
   if(which_midi_input < num_midi_input ) {
     if (which_midi_input >= 0 && (choice_midi_device || choice_midi_default_device)) {
       text("Current midi device is " + name_midi_input [which_midi_input], pos.x, pos.y) ;
@@ -204,7 +204,7 @@ void display_select_midi_device(PVector pos, int spacing) {
 
 
 
-void window_midi_info(PVector pos, int size_x, int spacing) {
+void window_midi_info(Vec2 pos, int size_x, int spacing) {
   int pos_x = (int)pos.x -(spacing/2) ;
   int pos_y = (int)pos.y -spacing ;
   int size_y = 0 ;
@@ -361,7 +361,7 @@ int posRankButton(int pos, int rank) {
 void midiButton(Button b, int IDbutton, boolean saveButton) {
   setttingMidiButton(b) ;
   updateMidiButton(b) ;
-  if(saveButton) setButton(IDbutton, b.IDmidi(), b.onOff) ;
+  if(saveButton) setButton(IDbutton, b.IDmidi(), b.on_off) ;
 }
 
 //
@@ -372,7 +372,7 @@ void setttingMidiButton(Button b) {
 //
 void updateMidiButton(Button b) {
    if(midi_value_romanesco == 127 && midi_CC_romanesco == b.IDmidi()) {
-    b.onOff = !b.onOff ;
+    b.on_off = !b.on_off ;
     midi_value_romanesco = 0 ;
   }
 }

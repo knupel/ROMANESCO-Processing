@@ -13,13 +13,12 @@ String toPreScene [] = new String [5] ;
 OscP5 osc_1, osc_2;
 NetAddress target_1, target_2 ;
 void sendOSCsetup() {
- osc_1 = new OscP5(this, 10000);
- osc_2 = new OscP5(this, 9000);
- target_1 = new NetAddress(IPadress,10000);
- target_2 = new NetAddress(IPadress,9000);
-
-
+  osc_1 = new OscP5(this, 10000);
+  osc_2 = new OscP5(this, 9000);
+  target_1 = new NetAddress(IPadress,10000);
+  target_2 = new NetAddress(IPadress,9000);
 }
+
 
 void sendOSCdraw() {
   OscMessage RomanescoController = new OscMessage("Controller");
