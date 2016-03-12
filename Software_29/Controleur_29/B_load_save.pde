@@ -1,5 +1,5 @@
 /**
-SETTING SAVE and LOAD 2.1.1
+SETTING SAVE and LOAD 2.1.2
 */
 
 //SETUP
@@ -92,7 +92,7 @@ void createInfoButtonAndSlider(String path) {
   }
   infoSlider = new Vec5 [countSlider] ;
   // create the var info for the item we need
-  info_item = new Vec2 [NUM_ITEM +1] ;
+  info_list_item_ID = new int [NUM_ITEM] ;
   
   // we don't count from the save in case we add object and this one has never use before and he don't exist in the data base
   infoButton = new PVector [NUM_ITEM *4 +10] ; 
@@ -110,6 +110,7 @@ void createInfoButtonAndSlider(String path) {
 
 /**
 SAVE & LOAD
+
 */
 /**
 SAVE
@@ -164,10 +165,7 @@ void saveInfoSlider() {
 
 void save_info_item() {
   for(int i = 0 ; i < NUM_ITEM ; i++) {
-    int ID = (int)info_item[i].x ;
-    boolean on_off ;
-    if((int)info_item[i].y == 1) on_off = true ; else on_off = false ;
-    set_item(ID, on_off) ;
+    set_item(info_list_item_ID[i]) ;
   }
 }
 
@@ -195,14 +193,15 @@ void setSlider(int IDslider, int IDmidi, float value, float min, float max) {
   sliderSetting.setFloat("Max slider", max) ; 
 }
 
-void set_item(int ID_item, boolean display_obj) {
+// void set_item(int ID_item, boolean display_item_on_off) {
+void set_item(int ID_item) {
   TableRow item_setting = saveSetting.addRow() ;
   item_setting.setString("Type", "Item") ;
   item_setting.setInt("Item ID", ID_item) ;
-  if(display_obj) item_setting.setInt("Item On Off", 1) ; 
+
+  println(on_off_item_menu[ID_item +1]) ;
+  if(on_off_item_menu[ID_item +1]) item_setting.setInt("Item On Off", 1) ; 
   else item_setting.setInt("Item On Off", 0) ;
-
-
 }
 
 void buildSaveTable() {
@@ -277,14 +276,11 @@ void loadSaveController(String path) {
      infoSlider[countSlider] = Vec5(IDslider,IDmidi,valueSlider,min,max) ;
      countSlider++ ;
     }
-
+    // item list
     if(s.equals("Item")) {
-      // we count before because the item list start at '1' not '0'
+      info_list_item_ID[count_item] = row.getInt("Item ID") ;
+      if(row.getInt("Item On Off") == 1) on_off_item_menu[count_item +1] = true ; else on_off_item_menu[count_item +1] = false ;
       count_item++ ;
-      int item_ID = row.getInt("Item ID") ;
-      int item_on_off = row.getInt("Item On Off") ;
-      info_item[count_item] = Vec2(item_ID,item_on_off) ;
-
     }
   }
 }

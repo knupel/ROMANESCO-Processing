@@ -1,5 +1,5 @@
 /**
-Build interface 3.0.1
+Build interface 3.0.2
 Romanesco Processing Environment
 */
 /**
@@ -35,7 +35,7 @@ boolean curtainOpenClose ;
 //GLOBAL
 
 // Save Setting var
-Vec2 [] info_item ; 
+int [] info_list_item_ID ; 
 Vec5 [] infoSlider ; 
 PVector [] infoButton ;
 
@@ -1079,9 +1079,11 @@ void build_button() {
   color col_on_out = vertTresFonce ;
   color col_off_in = orange ;
   color col_off_out = rougeFonce ;
-  
+  /**
+  General
+  */  
   button_bg = new Button_plus(pos_bg_button, size_bg_button) ;
-  button_bg.set_statement(true) ;
+  button_bg.set_on_off(true) ;
   button_bg.set_color_on_off(col_on_in, col_on_out, col_off_in, col_off_out) ;
   // LIGHT AMBIENT
   button_light_ambient = new Button_plus(posLightAmbientButton, sizeLightAmbientButton) ;
@@ -1124,8 +1126,11 @@ void build_button() {
   button_item[0] = new Button_plus(pos, size) ;
   button_item[0].set_color_on_off(col_on_in, col_on_out, col_off_in, col_off_out) ;
   button_item[0].set_color_bg(gris, grisNoir) ;
+  
 
-  // init the object library
+  /**
+  // item setting
+  */
   int num = numButton[1] ;
   for ( int j = 11 ; j < 10 +num ; j++) {
     if(NUM_ITEM > 0) {
@@ -1138,8 +1143,9 @@ void build_button() {
   }
 
 
-
+  /**
   // Item menu list
+  */
   int text_size = 12 ;
   int max_by_col = 10 ;
   int spacing = text_size + (text_size /4 ) ;
@@ -1160,19 +1166,23 @@ void build_button() {
         size = Vec2(length_String_in_pixel(item_name[i], ratio_rollover_x ), text_size) ;
         button_item_menu[i] = new Button_plus(pos, size) ;
         button_item_menu[i].set_color_on_off(col_on_in, col_on_out, col_off_in, col_off_out_menu_item) ;
+        button_item_menu[i].set_on_off(on_off_item_menu[i]) ;
 
       } else if (i > max_by_col && i <= max_by_col *2)  {
         pos = Vec2(left_flag +col_size_list_item, top_text +step -max_size_col) ;
         size = Vec2(length_String_in_pixel(item_name[i], ratio_rollover_x ), text_size) ;
         button_item_menu[i] = new Button_plus(pos, size) ;
         button_item_menu[i].set_color_on_off(col_on_in, col_on_out, col_off_in, col_off_out_menu_item) ;
+        button_item_menu[i].set_on_off(on_off_item_menu[i]) ;
         
       } else if (i > max_by_col*2 && i <= max_by_col *3)  {
         pos = Vec2(left_flag +(col_size_list_item *2), top_text +step -(max_size_col *2)) ;
         size = Vec2(length_String_in_pixel(item_name[i], ratio_rollover_x ), text_size) ;
         button_item_menu[i] = new Button_plus(pos, size) ;
         button_item_menu[i].set_color_on_off(col_on_in, col_on_out, col_off_in, col_off_out_menu_item) ;
+        button_item_menu[i].set_on_off(on_off_item_menu[i]) ;
       }
+
     }
   }
 }
@@ -1234,13 +1244,15 @@ void set_var_button() {
   group_item_button(line_item_button_slider +correction_button_item) ;
 }
 
-
+/**
+Setting item button
+*/
 // LOCAL METHOD SETUP
 PVector posRelativeMainButton = new PVector (-8, -10) ;
 PVector posRelativeSettingButton = new PVector (-8,14) ;
 PVector posRelativeSoundButton = new PVector (-8,25) ;
 PVector posRelativeActionButton = new PVector (4,25) ;
-//////////////
+
 void group_item_button(int pos_y) {
   //position and area for the rollover
   for (int i = 1 ; i <= NUM_ITEM ; i++) {
@@ -1300,25 +1312,19 @@ void buttonInfoOnTheTop() {
   int speed = 7 ;
   int size_angle = 2 ;
   Vec2 range_check = Vec2(0,0) ;
- 
-
   String [] text = new String[1] ;
   int [] size_text = new int[1] ;
   size_text [0] = 20 ;
-  
-
-
-
-  
   textFont(FuturaStencil_20) ;
+
   if(button_midi.rollover()) {
-    
     text [0] = ("MIDI") ;
     fill(grisTresFonce, 180) ;
     background_text_list(Vec2(pos_window.x, pos_window.y), text, size_text, size_angle, speed, ratio_size, range_check) ;
     fill(jaune) ;
     text(text [0],pos_window.x, pos_window.y) ;
   }
+
   if(button_curtain.rollover()) {
 
     text [0] = ("CUT") ;
@@ -1326,8 +1332,6 @@ void buttonInfoOnTheTop() {
     background_text_list(Vec2(pos_window.x, pos_window.y), text, size_text, size_angle, speed, ratio_size,range_check) ;
     fill(jaune) ;
     text(text [0], pos_window.x, pos_window.y) ;
-
-
   }
 }
 
@@ -1340,8 +1344,9 @@ void buttonInfoOnTheTop() {
 
 
 
-
-// GROUP GLOBAL
+/**
+// GROUP General
+*/
 void button_draw_general() {
   button_bg.button_text(shader_bg_name[state_bg_shader] + " on/off", pos_bg_button, titleButtonMedium, sizeTitleButton) ;
   button_bg.button_text(shader_bg_name[state_bg_shader] + " on/off", pos_bg_button, titleButtonMedium, sizeTitleButton) ;
@@ -1366,7 +1371,9 @@ void button_draw_general() {
   button_curtain.button_pic(picCurtain) ;
 }
 
-// ITEM GROUP
+/**
+// ITEM 
+*/
 void button_draw_selected_item() {
   int rankThumbnail = 0 ;
   int pointer = 0 ;
@@ -1374,7 +1381,7 @@ void button_draw_selected_item() {
 
   for( int i = 1 ; i <= NUM_ITEM ; i++ ) {
     if(on_off_item_menu[i]) {
-      if(info_item[i].y == 1) {
+    //  if(info_item[i].y == 1) {
         int distance = pointer *STEP_ITEM ;
         // update pos 
         button_item[i *10 + 1].change_pos(distance, 0) ;
@@ -1390,11 +1397,13 @@ void button_draw_selected_item() {
         PVector size = new PVector (20, 30) ;
         text_info_object(pos, size, i, 1) ;
         pointer ++ ;
-      }
+    //  }
     }
   }
 }
-
+/**
+ITEM LIST
+*/
 // Display the list of all the item available
 void button_draw_list_item() {
   textFont(textUsual_3) ;
@@ -1714,7 +1723,7 @@ void dropdown_update_background() {
 void dropdown_update_item() {
   int pointer = 0 ;
   for ( int i = 1 ; i <= NUM_ITEM ; i ++ ) {
-    if(info_item[i].y == 1) {
+    //if(on_off_item_menu[i]) {
       if(modeListRomanesco[i] != null && on_off_item_menu[i] ) {
         int distance = pointer *STEP_ITEM ;
         pointer ++ ;
@@ -1750,7 +1759,7 @@ void dropdown_update_item() {
           text(dropdown[i].getSelection() +1, pos_dropdown[i].x +12 , pos_dropdown[i].y +8) ;
         }
       }
-    }
+  //  }
   }
 }
 

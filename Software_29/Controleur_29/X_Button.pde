@@ -1,5 +1,5 @@
 /**
-CLASS BUTTON 1.0.2
+CLASS BUTTON 1.0.3
 */
 class Button {
   color color_bg, color_on_off ;
@@ -37,7 +37,7 @@ class Button {
 
   
   // Set button
-  void set_statement(boolean on_off) {
+  void set_on_off(boolean on_off) {
     this.on_off = on_off ;
   }
 
