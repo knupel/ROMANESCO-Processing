@@ -67,8 +67,8 @@ void mousePressed () {
       for( int i = 11 ; i < NUM_ITEM *10 + 6 ; i++ ) { 
         button_item[i].mousePressed()  ;
       }
-      for(int i = 1 ; i < button_item_menu.length ; i++ ) { 
-        button_item_menu[i].mousePressed() ;
+      for(int i = 1 ; i < button_item_list.length ; i++ ) { 
+        button_item_list[i].mousePressed() ;
       }
     }
   

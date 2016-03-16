@@ -24,8 +24,9 @@ void loadSetup() {
 /////////////////////////////////////
 Table objectList, shaderBackgroundList;
 int numGroup [] ; 
-int [] item_library_sort, item_ID, item_group, item_camera_video_on_off, item_GUI_on_off ;
-String [] item_name , item_author, item_version, item_pack, item_load_name, item_slider ; 
+int [] item_rank, item_ID, item_group, item_camera_video_on_off, item_GUI_on_off ;
+String [] item_info ;
+String [] item_name, item_author, item_version, item_pack, item_load_name, item_slider ; 
 String [] shader_bg_name, shader_bg_author ;
 
 
@@ -165,7 +166,8 @@ void saveInfoSlider() {
 
 void save_info_item() {
   for(int i = 0 ; i < NUM_ITEM ; i++) {
-    set_item(info_list_item_ID[i]) ;
+    println("save", i, item_ID[i] +1) ;
+    set_item(item_ID[i] +1) ;
   }
 }
 
@@ -199,8 +201,8 @@ void set_item(int ID_item) {
   item_setting.setString("Type", "Item") ;
   item_setting.setInt("Item ID", ID_item) ;
 
-  println(on_off_item_menu[ID_item +1]) ;
-  if(on_off_item_menu[ID_item +1]) item_setting.setInt("Item On Off", 1) ; 
+  println(on_off_item_menu[ID_item]) ;
+  if(on_off_item_menu[ID_item]) item_setting.setInt("Item On Off", 1) ; 
   else item_setting.setInt("Item On Off", 0) ;
 }
 
@@ -218,9 +220,19 @@ void buildSaveTable() {
   saveSetting.addColumn("Item On Off") ;
 }
 
+/**
+END SAVE
 
-// END SAVE
-///////////
+*/
+
+
+
+
+
+
+
+
+
 
 
 
@@ -229,6 +241,7 @@ void buildSaveTable() {
 
 /**
 LOAD
+
 */
 void loadSettingController(File selection) {
   if (selection != null) {
@@ -238,12 +251,6 @@ void loadSettingController(File selection) {
     setSave = true ;
   } 
 }
-
-
-
-
-
-
 
 
 
@@ -279,7 +286,14 @@ void loadSaveController(String path) {
     // item list
     if(s.equals("Item")) {
       info_list_item_ID[count_item] = row.getInt("Item ID") ;
-      if(row.getInt("Item On Off") == 1) on_off_item_menu[count_item +1] = true ; else on_off_item_menu[count_item +1] = false ;
+      int which_one = info_list_item_ID[count_item] ;
+      String [] temp_item_info_split = split(item_info[which_one], "/") ;
+      int ID =  Integer.parseInt(temp_item_info_split[2]) ;
+      
+      if(row.getInt("Item On Off") == 1) {
+        println(count_item, ID) ;
+        on_off_item_menu[ID] = true ; 
+      } else on_off_item_menu[ID] = false ;
       count_item++ ;
     }
   }
@@ -415,7 +429,8 @@ Vec5 infoSaveFromRawList(Vec5[] list, int pos) {
   return info ;
 }
 /**
-END LOAD SAVE
+END LOAD
+
 */
 
 

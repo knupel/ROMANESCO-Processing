@@ -5,6 +5,7 @@ class Button {
   color color_bg, color_on_off ;
   int  pos_ref_x, pos_ref_y ;
   Vec2 pos, size ;
+  String name = "" ;
   
   boolean inside ;
   boolean on_off = false ;  
@@ -39,6 +40,10 @@ class Button {
   // Set button
   void set_on_off(boolean on_off) {
     this.on_off = on_off ;
+  }
+
+  void set_name(String name) {
+    this.name = name ;
   }
 
   void change_pos(int x, int y) {
@@ -111,6 +116,7 @@ BUTTON
 class Button_plus extends Button {
   color color_in_ON, color_out_ON, color_in_OFF, color_out_OFF ; 
   color color_bg_in, color_bg_out ;
+  int ID, rank ;
 
   
   //CONSTRUCTOR
@@ -147,12 +153,21 @@ class Button_plus extends Button {
     rect(pos.x, pos.y, size.x, size.y) ;
   }
 
+  void set_rank(int rank) {
+    this.rank = rank;
+  }
+
+  void set_ID(int ID) {
+    this.ID = ID ;
+  }
+
   // return the statement of the button is this one is ON or OFF
   boolean get_on_off() { 
     return on_off ;
   }
+
   
-  //MIDI
+  // MIDI
   int IDmidi() { 
     return IDmidi ; 
   }
@@ -206,6 +221,10 @@ class Button_plus extends Button {
   /**
   TEXT BUTTON
   */
+  void button_text(int x, int y)  {
+    button_text(name, x, y) ;
+  }
+  
   void button_text(String s, int x, int y) {
     if (on_off) {
       stroke(vertTresFonce) ;

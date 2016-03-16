@@ -1,19 +1,19 @@
 /**
-THE ABBYSS 2.1.0
+The ABBYSS || 2014 || 2.1.1
 */
 
 CreatureManager creatureManager ;
 boolean useBackdrop = false;
 
 //object one
-class Abbyss extends Romanesco {
-  public Abbyss() {
+class The_Abbyss extends Romanesco {
+  public The_Abbyss() {
     //from the index_objects.csv
     romanescoName = "The Abbyss" ;
     IDobj = 7 ;
     IDgroup = 1 ;
     romanescoAuthor  = "Andreas Gysin";
-    romanescoVersion = "version 2.1";
+    romanescoVersion = "version 2.1.1";
     romanescoPack = "Base" ;
     romanescoRender = "P3D" ;
     romanescoMode = "Box Fish/Cubus/Floater/Radio/Worm/Sea Fly/Breather/Spider/Manta/Father/Super Nova" ;// separate the name by a slash and write the next mode immadialtly after this one.

@@ -77,6 +77,7 @@ void setSliderDynamic() {
 
 void recoverActiveSliderFromObj() {
   sliderObjRaw[0] = ("not used") ;
+
   for(int i = 1 ; i <= NUM_ITEM ; i++) {
     sliderObjRaw[i] = item_slider[item_ID[i]] ;
   }
