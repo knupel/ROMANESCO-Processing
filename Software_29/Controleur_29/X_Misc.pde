@@ -57,6 +57,8 @@ color rouge, rougeFonce, rougeTresFonce, rougeTresTresFonce,
       
       colorTextUsual, colorTitle ;
 
+color col_on_in, col_on_out, col_off_in, col_off_out ;
+
 
 //SETUP
 void colorSetup() {
@@ -85,6 +87,12 @@ void colorSetup() {
    
    colorTextUsual = grisNoir ; 
    colorTitle = noirGris ;
+   
+   // color button
+   col_on_in = vert ;
+   col_on_out = vertTresFonce ;
+   col_off_in = orange ;
+   col_off_out = rougeFonce ;
    
 
 }

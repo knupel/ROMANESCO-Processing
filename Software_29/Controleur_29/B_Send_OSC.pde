@@ -36,13 +36,13 @@ void sendOSCdraw() {
   @return value to the prescene between 0 to 99
   */
   // group general
-  int[] dataGroupZero = new int[NUM_SLIDER_MISC] ;
-  for ( int i = 1   ; i < NUM_SLIDER_MISC -1 ; i++) dataGroupZero[i-1] = floor(valueSlider[i]) ;
+  int[] dataGroupZero = new int[NUM_SLIDER_GENERAL] ;
+  for ( int i = 1   ; i < NUM_SLIDER_GENERAL -1 ; i++) dataGroupZero[i-1] = floor(valueSlider[i]) ;
     toPreScene[2] = joinIntToString(dataGroupZero) ;
 
   // group item
-  int[] dataGroupOne = new int[NUM_SLIDER_OBJ] ;
-  for ( int i = 101   ; i < 101 +NUM_SLIDER_OBJ ; i++) dataGroupOne[i-101] = floor(valueSlider[i]) ; 
+  int[] dataGroupOne = new int[NUM_SLIDER_ITEM] ;
+  for ( int i = 101   ; i < 101 +NUM_SLIDER_ITEM ; i++) dataGroupOne[i-101] = floor(valueSlider[i]) ; 
   toPreScene[3] = joinIntToString(dataGroupOne);
 
 
@@ -99,11 +99,11 @@ void translateDataToSend() {
   //BUTTON GROUP ONE
   if(NUM_ITEM > 0 ) {
     for ( int i = 0 ; i < NUM_ITEM   ; i ++) {
-      value_button_item[i *10 +1] = on_off_item[i *10 +1] ;
-      value_button_item[i *10 +2] = on_off_item[i *10 +2] ;
-      value_button_item[i *10 +3] = on_off_item[i *10 +3] ;
-      value_button_item[i *10 +4] = on_off_item[i *10 +4] ;
-      value_button_item[i *10 +5] = on_off_item[i *10 +5] ;
+      value_button_item[i *10 +1] = on_off_item_console[i *10 +1] ;
+      value_button_item[i *10 +2] = on_off_item_console[i *10 +2] ;
+      value_button_item[i *10 +3] = on_off_item_console[i *10 +3] ;
+      value_button_item[i *10 +4] = on_off_item_console[i *10 +4] ;
+      value_button_item[i *10 +5] = on_off_item_console[i *10 +5] ;
       if (dropdown[i+1] != null) value_button_item[i *10 +9] = dropdown[i+1].getSelection() ;
     }
   }

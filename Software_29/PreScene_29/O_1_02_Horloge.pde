@@ -1,5 +1,5 @@
 /**
-HORLOGE || 2012 || 2.0.1
+HORLOGE || 2012 || 2.0.2
 */
 
 class Horloge extends Romanesco {
@@ -13,7 +13,7 @@ class Horloge extends Romanesco {
     romanescoPack = "Base" ;
     romanescoRender = "classic" ;
     romanescoMode = "Ellipse Clock 12/Ellipse Clock 24/Line Clock 12/Line Clock 24/minutes/secondes" ;// separate the name by a slash and write the next mode immadialtly after this one.
-    romanescoSlider = "Hue fill,Saturation fill,Brightness fill,Alpha fill,Width,Direction,Amplitude,Speed,Size X" ;
+    romanescoSlider = "Hue fill,Saturation fill,Brightness fill,Alpha fill,Canvas X,Direction,Amplitude,Speed,Size X" ;
   }
   //GLOBAL
   Vec3 pos_clock = Vec3() ; 

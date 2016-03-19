@@ -16,7 +16,7 @@ void settings() {
 void setup() {
   preferencesPath = sketchPath("")+"preferences/" ;
   setting() ;
-  buildLibrary() ;
+  build_item_library() ;
   loadSetup() ;
   setDisplaySlider() ;
   checkImageFolder() ;
@@ -25,11 +25,14 @@ void setup() {
   set_font() ;
   midi_init() ;
   importPicButtonSetup() ;
-  set_var_slider() ;
-  set_var_button() ;
+  set_slider() ;
+  set_button_general() ;
+  set_button_item_console() ;
   set_var_dropdown() ;
 
-  build_button() ;
+  build_button_general() ;
+  build_button_item_console() ;
+  build_button_item_list() ;
   build_slider() ;
 
   sendOSCsetup() ;
@@ -42,12 +45,12 @@ void draw() {
   surface.setTitle(nameVersion + " " +prettyVersion+"."+version+ " - Controller");
   settingDataFromSave() ;
   structureDraw() ;
-  checkSliderObject() ;
+  check_slider_item() ;
   checkImageFolder() ;
   checkFileTextFolder() ;
   initLiveData() ;
   textDraw() ;
-  sliderDraw() ;
+  slider_display() ;
   button_draw() ;
   midi_update() ;
   sendOSCdraw() ;
@@ -61,40 +64,14 @@ void draw() {
 ////////////////////
 
 void mousePressed () {
-  // Item
-  if(!dropdownActivity) {
-    if(NUM_ITEM > 0 ) {
-      for( int i = 11 ; i < NUM_ITEM *10 + 6 ; i++ ) { 
-        button_item[i].mousePressed()  ;
-      }
-      for(int i = 1 ; i < button_item_list.length ; i++ ) { 
-        button_item_list[i].mousePressed() ;
-      }
-    }
-  
-    button_bg.mousePressedText() ;
-    //LIGHT ONE
-    button_light_ambient.mousePressedText() ;
-    button_light_ambient_action.mousePressedText() ;
-    //LIGHT ONE
-    button_light_1.mousePressedText() ;
-    button_light_1_action.mousePressedText() ;
-    // LIGHT TWO
-    button_light_2.mousePressedText() ;
-    button_light_2_action.mousePressedText() ;
-    //son
-    button_beat.mousePressedText() ;
-    button_kick.mousePressedText() ;
-    button_snare.mousePressedText() ;
-    button_hat.mousePressedText() ;
-    //midi
-    button_midi.mousePressed() ;
-    //curtain
-    button_curtain.mousePressed() ;
-  }
+  button_mousePressed_general() ;
+  button_mousePressed_item_console() ;
+  button_mousePressed_item_list() ;
   //dropdown
   dropdownMousepressed() ;
 }
+
+
 
 
 //KEYPRESSED

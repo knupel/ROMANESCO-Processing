@@ -22,7 +22,7 @@ void loadSetup() {
 
 // LOAD INFO OBJECT from the PRESCENE
 /////////////////////////////////////
-Table objectList, shaderBackgroundList;
+Table item_list_table, shaderBackgroundList;
 int numGroup [] ; 
 int [] item_rank, item_ID, item_group, item_camera_video_on_off, item_GUI_on_off ;
 String [] item_info ;
@@ -43,8 +43,8 @@ int [] pos_button_width_item, pos_button_height_item, width_button_item, height_
 //Variable must be send to Scene
 ///////////////////////////////////////
 // statement on_of for the object group
-int [] on_off_item ;
-boolean [] on_off_item_menu ; 
+int [] on_off_item_console ;
+boolean [] on_off_item_console_list ; 
 
 
 //////////
@@ -136,7 +136,7 @@ void saveSetting(String path) {
 // save the position and the ID of the slider molette
 void saveInfoSlider() {
   //group zero
-  for (int i = 1 ; i < NUM_SLIDER_MISC ; i++) {
+  for (int i = 1 ; i < NUM_SLIDER_GENERAL ; i++) {
      // set PVector info Slider
      int temp = i-1 ;
      infoSlider[temp].c = slider[i].getValue() ;
@@ -147,7 +147,7 @@ void saveInfoSlider() {
   
   // the group one, two, three
   for (int i = 1 ; i < NUM_GROUP_SLIDER ; i++) { 
-    for(int j = 1 ; j < NUM_SLIDER_OBJ ; j++) {
+    for(int j = 1 ; j < NUM_SLIDER_ITEM ; j++) {
       // set PVector info Slider
       int IDslider = j +(i *100) ;
       // third loop to check and find the good PVector array in the list
@@ -166,7 +166,6 @@ void saveInfoSlider() {
 
 void save_info_item() {
   for(int i = 0 ; i < NUM_ITEM ; i++) {
-    println("save", i, item_ID[i] +1) ;
     set_item(item_ID[i] +1) ;
   }
 }
@@ -201,8 +200,7 @@ void set_item(int ID_item) {
   item_setting.setString("Type", "Item") ;
   item_setting.setInt("Item ID", ID_item) ;
 
-  println(on_off_item_menu[ID_item]) ;
-  if(on_off_item_menu[ID_item]) item_setting.setInt("Item On Off", 1) ; 
+  if(on_off_item_console_list[ID_item]) item_setting.setInt("Item On Off", 1) ; 
   else item_setting.setInt("Item On Off", 0) ;
 }
 
@@ -291,9 +289,8 @@ void loadSaveController(String path) {
       int ID =  Integer.parseInt(temp_item_info_split[2]) ;
       
       if(row.getInt("Item On Off") == 1) {
-        println(count_item, ID) ;
-        on_off_item_menu[ID] = true ; 
-      } else on_off_item_menu[ID] = false ;
+        on_off_item_console_list[ID] = true ; 
+      } else on_off_item_console_list[ID] = false ;
       count_item++ ;
     }
   }
@@ -319,25 +316,26 @@ Boolean setSave = true ;
 void settingDataFromSave() {
   if(setSave) {
     setButtonSave() ;
-    setSliderSave() ;
+    set_slider_save() ;
     setSave = false ;
   }
 }
 
 
 // Setting SLIDER from save
-void setSliderSave() {
-  for (int i = 1 ; i < NUM_SLIDER_MISC ; i++) {
+void set_slider_save() {
+  // general
+  for (int i = 1 ; i < NUM_SLIDER_GENERAL ; i++) {
     setttingSliderSave(i) ;
   }
-  for (int i = 1 ; i < NUM_GROUP_SLIDER ; i++) { 
-    for(int j = 1 ; j < NUM_SLIDER_OBJ ; j++) {
-      int whichOne = j +(i *100) ;
-      setttingSliderSave(whichOne) ;
-    }
+  // item
+  for(int j = 1 ; j < NUM_SLIDER_ITEM ; j++) {
+    setttingSliderSave(j +100) ;
   }
 }
-// local method of setSliderSave()
+
+
+// local method of set_slider_save()
 void setttingSliderSave(int whichOne) {
   Vec5 infoSliderTemp = infoSaveFromRawList(infoSlider, whichOne).copy() ;
   slider[whichOne].setMidi((int)infoSliderTemp.b) ; 
@@ -395,10 +393,14 @@ void setButtonSave() {
   // int whichGroup = 1 ;
   int buttonRank ;
   for( int i = 1 ; i <= NUM_ITEM ; i++ ) {
-    for (int j = 1 ; j <= BUTTON_BY_OBJECT ; j++) {
+    for (int j = 1 ; j <= BUTTON_ITEM_CONSOLE ; j++) {
       rank++ ;
       buttonRank = (int)infoButton[rank].x ;
-      if(infoButton[rank].z == 1.0 && buttonRank == (i*10)+j) button_item[buttonRank].on_off = true ; else button_item[buttonRank].on_off = false ; 
+      if(infoButton[rank].z == 1.0 && buttonRank == (i*10)+j) {
+        button_item[buttonRank].on_off = true ; 
+      } else {
+        button_item[buttonRank].on_off = false ; 
+      }
       button_item[buttonRank].IDmidi = (int)infoButton[rank].y ; 
     }
   }

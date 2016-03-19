@@ -1,12 +1,12 @@
 // Tab: B_Slider_dynamic
 StringList sliderControler = new StringList() ;
 
-StringList [] sliderObj  ;
-String [] sliderObjRaw  ;
+StringList [] slider_item  ;
+String [] slider_item_raw  ;
 
-String [][] sliderObjListRaw  ;
-boolean [] objectActive ;
-boolean [][] displaySlider  ;
+String [][] slider_itemListRaw  ;
+boolean [] item_active ;
+boolean [][] display_slider  ;
 
 boolean [] showSliderGroup = new boolean[NUM_GROUP_SLIDER] ;
 
@@ -67,19 +67,19 @@ void setDisplaySlider() {
 }
 
 void setSliderDynamic() {
-  sliderObj = new StringList [NUM_ITEM +1] ;
-  sliderObjRaw = new String [NUM_ITEM +1] ;
-  sliderObjListRaw = new String [NUM_ITEM +1][NUM_SLIDER_OBJ +1] ;
-  objectActive = new boolean[NUM_ITEM +1] ;
-  displaySlider = new boolean [NUM_GROUP_SLIDER] [NUM_SLIDER_OBJ +1] ;
+  slider_item = new StringList [NUM_ITEM +1] ;
+  slider_item_raw = new String [NUM_ITEM +1] ;
+  slider_itemListRaw = new String [NUM_ITEM +1][NUM_SLIDER_ITEM +1] ;
+  item_active = new boolean[NUM_ITEM +1] ;
+  display_slider = new boolean [NUM_GROUP_SLIDER] [NUM_SLIDER_ITEM +1] ;
 }
 
 
 void recoverActiveSliderFromObj() {
-  sliderObjRaw[0] = ("not used") ;
+  slider_item_raw[0] = ("not used") ;
 
   for(int i = 1 ; i <= NUM_ITEM ; i++) {
-    sliderObjRaw[i] = item_slider[item_ID[i]] ;
+    slider_item_raw[i] = item_slider[item_ID[i]] ;
   }
 }
 
@@ -96,25 +96,25 @@ void init_sliderDynamic() {
 
 void listSliderObject() {
   //create the String list for each object
-  for ( int i = 0 ; i < sliderObj.length ; i++) {
-    sliderObj[i] = new  StringList() ;
+  for ( int i = 0 ; i < slider_item.length ; i++) {
+    slider_item[i] = new  StringList() ;
   }
 
   //setting the list to don't have a null value
-  for (int i = 0 ; i < sliderObj.length ; i++) {
-    for( int j = 0 ; j < NUM_SLIDER_OBJ ; j++ ) {
-      sliderObj[i].append("") ;
+  for (int i = 0 ; i < slider_item.length ; i++) {
+    for( int j = 0 ; j < NUM_SLIDER_ITEM ; j++ ) {
+      slider_item[i].append("") ;
     }
   }
   // had value to the slider list object
   for (int i = 0 ; i <= NUM_ITEM ; i++) {
-    String [] listSliderTemp = splitText(sliderObjRaw[i], (",")) ;
-    for( int j = 0 ; j < NUM_SLIDER_OBJ ; j++ ) {
+    String [] listSliderTemp = splitText(slider_item_raw[i], (",")) ;
+    for( int j = 0 ; j < NUM_SLIDER_ITEM ; j++ ) {
       for ( int k = 0 ; k < listSliderTemp.length ; k++ ) {
         if(listSliderTemp[k].equals(sliderControler.get(j))) {
-          sliderObj[i].set(j,listSliderTemp[k]) ;
+          slider_item[i].set(j,listSliderTemp[k]) ;
         } else if(listSliderTemp[k].equals("all") ) {
-          sliderObj[i].set(j,"all") ;
+          slider_item[i].set(j,"all") ;
         }
       }
     }
@@ -171,12 +171,12 @@ void listSliderInterface() {
 
 
 // DRAW
-void checkSliderObject() {
-   checkObjectOnOff() ;
+void check_slider_item() {
+   check_item_parameter_on_off() ;
    whichSliderMustBeDisplay() ;
    // check the group slider
    for ( int i = 1 ; i <= NUM_ITEM ; i++) {
-    if (objectActive[i]) {
+    if (item_active[i]) {
       showSliderGroup[item_group[i]] = true ;
     }
   }
@@ -190,40 +190,47 @@ void checkSliderObject() {
     //reset slider for new check
     for(int i = 1 ; i < NUM_GROUP_SLIDER ; i++) {
       firstCheck [i] = true ;
-      for(int j = 0 ; j <NUM_SLIDER_OBJ ; j++) {
-        displaySlider[i][j] = false ;
+      for(int j = 0 ; j < NUM_SLIDER_ITEM ; j++) {
+        display_slider[i][j] = false ;
       }
     }
    
     //active slider
     int IDgroup = 0 ;
      if (showAllSliders) {
-      for ( int i = 1 ; i < NUM_GROUP_SLIDER ; i++) {
-        for ( int j = 1 ; j < NUM_SLIDER_OBJ ; j++) {
-        displaySlider[i][j] = true ;
-        }
+      for ( int i = 1 ; i < NUM_SLIDER_ITEM ; i++) {
+        display_slider[1][i] = true ;
       }
     } else {
       for ( int i = 1 ; i <= NUM_ITEM ; i++) {
-        if (objectActive[i]) {
-          for (int j = 1 ; j < NUM_GROUP_SLIDER ; j++) {
-           if (item_group[i] == j) { IDgroup = j ;
-              for(int k = 1 ; k < NUM_SLIDER_OBJ ; k++) {
-                if (firstCheck[j])  {
-                  if((sliderControler.get(k).equals(sliderObj[i].get(k)) || sliderObj[i].get(k).equals("all"))) displaySlider[IDgroup][k] = true ; else displaySlider[IDgroup][k] = false ;
+
+        if (item_active[i]) {
+          IDgroup = 1 ;
+          for(int j = 1 ; j < NUM_SLIDER_ITEM ; j++) {
+            if (firstCheck[1])  {
+              if((sliderControler.get(j).equals(slider_item[i].get(j)) || slider_item[i].get(j).equals("all"))) {
+                display_slider[IDgroup][j] = true ; 
+              } else display_slider[IDgroup][j] = false ;
+            } else {
+              if (!allSliderUsed) { 
+                if((sliderControler.get(j).equals(slider_item[i].get(j)) || slider_item[i].get(j).equals("all")) && display_slider[IDgroup][j]) {
+                  display_slider[IDgroup][j] = true ; 
                 } else {
-                  if (!allSliderUsed) { 
-                    if((sliderControler.get(k).equals(sliderObj[i].get(k)) || sliderObj[i].get(k).equals("all")) && displaySlider[IDgroup][k]) displaySlider[IDgroup][k] = true ; else displaySlider[IDgroup][k] = false ;
-                  } else if (allSliderUsed) {
-                    if (!displaySlider[IDgroup][k]) if (sliderControler.get(k).equals(sliderObj[i].get(k)) || sliderObj[i].get(k).equals("all")) displaySlider[IDgroup][k] = true ; else displaySlider[IDgroup][k] = false ;
-                  }
+                  display_slider[IDgroup][j] = false ;
+                }
+              } else if (allSliderUsed) {
+                if (!display_slider[IDgroup][j]) if (sliderControler.get(j).equals(slider_item[i].get(j)) || slider_item[i].get(j).equals("all")) {
+                  display_slider[IDgroup][j] = true ; 
+                } else {
+                  display_slider[IDgroup][j] = false ;
                 }
               }
             }
           }
         }
+
         // wait the first cross of active object to change
-        if (objectActive[i]) firstCheck[IDgroup] = false ;
+        if (item_active[i]) firstCheck[IDgroup] = false ;
       }
     }
     //firstCheck = false ;
@@ -255,15 +262,15 @@ void whichSliderMustBeDisplay() {
 
 boolean activityButtonParameter, witnessActivity, activityParameter ; 
 
-void checkObjectOnOff() {
+void check_item_parameter_on_off() {
   for(int i = 0 ; i < NUM_ITEM ; i++ ) {
     int whichOne = i*10 +2 ;
     witnessActivity = activityButtonParameter ;
-    if (on_off_item[whichOne] == 1) {
-      objectActive[i+1] = true ; 
+    if (on_off_item_console[whichOne] == 1) {
+      item_active[i+1] = true ;
       if(mousePressed)  activityButtonParameter = !activityButtonParameter ;
     } else { 
-      objectActive[i+1] = false ;
+      item_active[i+1] = false ;
       if(mousePressed) activityButtonParameter = !activityButtonParameter  ;
       
     }
