@@ -11,20 +11,22 @@ String preferencesPath  ;
 
 void settings() {
   size(670,725);
+  size_ref = Vec2(width,height) ;
 }
 
 void setup() {
   preferencesPath = sketchPath("")+"preferences/" ;
   setting() ;
+  init_button_general() ;
   build_item_library() ;
   loadSetup() ;
-  setDisplaySlider() ;
-  checkImageFolder() ;
-  checkFileTextFolder() ;
+  set_display_slider() ;
+  check_image_folder() ;
+  check_file_text_folder() ;
   select_camera_device(30, 100) ; // methode(int min_fps, int min_width)
   set_font() ;
-  midi_init() ;
-  importPicButtonSetup() ;
+  init_midi() ;
+  set_import_pic_button() ;
   set_slider() ;
   set_button_general() ;
   set_button_item_console() ;
@@ -35,26 +37,34 @@ void setup() {
   build_button_item_list() ;
   build_slider() ;
 
-  sendOSCsetup() ;
-  settingDataFromSave() ;
+  set_item_list() ;
 
+  set_OSC() ;
+  set_data_from_save() ;
+  INIT_INTERFACE = false ;
 }
 
 
 void draw() {
+  init_interface() ;
   surface.setTitle(nameVersion + " " +prettyVersion+"."+version+ " - Controller");
-  settingDataFromSave() ;
-  structureDraw() ;
+  set_data_from_save() ;
+  display_structure() ;
   check_slider_item() ;
-  checkImageFolder() ;
-  checkFileTextFolder() ;
-  initLiveData() ;
-  textDraw() ;
-  slider_display() ;
-  button_draw() ;
-  midi_update() ;
-  sendOSCdraw() ;
-  init_sliderDynamic() ;
+  check_image_folder() ;
+  check_file_text_folder() ;
+  check_button() ;
+
+  init_live_data() ;
+  display_text() ;
+  display_slider() ;
+  display_button() ;
+
+  update_midi() ;
+  draw_send_OSC() ;
+  init_slider_dynamic() ;
+
+  finish_decoration() ;
   
   credit() ;
 }
@@ -64,11 +74,10 @@ void draw() {
 ////////////////////
 
 void mousePressed () {
-  button_mousePressed_general() ;
-  button_mousePressed_item_console() ;
-  button_mousePressed_item_list() ;
-  //dropdown
-  dropdownMousepressed() ;
+  mousepressed_button_general() ;
+  mousepressed_button_item_console() ;
+  mousepressed_button_item_list() ;
+  mousepressed_dropdown() ;
 }
 
 
@@ -76,9 +85,9 @@ void mousePressed () {
 
 //KEYPRESSED
 void keyPressed() {
-  midi_keyPressed() ;
+  keypressed_midi() ;
   //OpenClose save
-  shortCutsController() ;
+  shortcuts_controller() ;
 }
 
 //KEYRELEASED

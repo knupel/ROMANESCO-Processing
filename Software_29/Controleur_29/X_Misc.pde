@@ -224,7 +224,7 @@ int countImageSelection, countFileTextSelection ;
 
 // main void
 // check what's happen in the selected folder
-void checkImageFolder() {
+void check_image_folder() {
   if(frameCount%180 == 0) {
     countImageSelection++ ;
     imageFiles.clear() ;
@@ -254,7 +254,7 @@ void checkImageFolder() {
   }
 }
 
-void checkFileTextFolder() {
+void check_file_text_folder() {
   if(frameCount%180 == 0) {
     countFileTextSelection++ ;
     textFiles.clear() ;
@@ -288,7 +288,7 @@ void checkFileTextFolder() {
 
 
 
-void initLiveData() {
+void init_live_data() {
   image_dropdown_list = new String[imageFiles.size()] ;
   for(int i = 0 ; i< image_dropdown_list.length ; i++) {
     File f = (File) imageFiles.get(i);
@@ -398,7 +398,7 @@ Keyboard
 */
 // SHORTCUTS & KEYBOARD ACTION
 //////////////////////////////
-void shortCutsController() {
+void shortcuts_controller() {
   keyboard[keyCode] = true;
   // slider display command
   if(checkKeyboard(CONTROL) && checkKeyboard(KeyEvent.VK_X) ) {

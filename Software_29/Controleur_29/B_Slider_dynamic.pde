@@ -58,7 +58,7 @@ int analyzeRank = 29 ;
 
 
 
-void setDisplaySlider() {
+void set_display_slider() {
   setSliderDynamic() ;
   giveNameSliderUsedByObject() ;
   listSliderInterface() ;
@@ -84,7 +84,7 @@ void recoverActiveSliderFromObj() {
 }
 
 
-void init_sliderDynamic() {
+void init_slider_dynamic() {
   for ( int j = 1 ; j < NUM_GROUP_SLIDER ; j++) {
     showSliderGroup[j] = false ;
   }

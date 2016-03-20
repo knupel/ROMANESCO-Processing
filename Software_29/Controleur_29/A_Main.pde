@@ -9,11 +9,18 @@ import java.awt.* ;
 // CONSTANT VAR
 final int NUM_COL_SLIDER = 3 ;
 final int NUM_GROUP_SLIDER = 2 ; // '0' for general / '1' for the item
-final int NUM_SLIDER_TOTAL = 200 ;
-final int NUM_SLIDER_GENERAL = 30 ;
-final int NUM_SLIDER_ITEM = 30 ;
-final int SLIDER_BY_COL = 9 ;
 
+final int NUM_SLIDER_GENERAL = 30 ;
+final int NUM_SLIDER_ITEM = 45 ;
+final int NUM_SLIDER_TOTAL = 1 +100 +NUM_SLIDER_ITEM ;
+final int SLIDER_BY_COL = NUM_SLIDER_ITEM / NUM_COL_SLIDER ;
+final int SLIDER_BY_COL_PLUS_ONE = SLIDER_BY_COL +1 ;
+
+
+
+
+
+Vec2 size_ref ;
 
 int sliderMidi, midi_value_romanesco, midi_channel_romanesco ;
 int midi_CC_romanesco = -1 ;
@@ -33,6 +40,7 @@ int sliderModeDisplay = 0 ;
 boolean[] keyboard = new boolean[526];
 boolean loadSaveSetting = false ;
 boolean ouvrirFichier = false ;
+boolean INIT_INTERFACE = true ;
 
 //LOAD PICTURE VIGNETTE
 int numVignette ;
@@ -70,16 +78,13 @@ Vec2 pos_button_font, pos_button_bg, pos_button_image, pos_button_file_text, pos
 
 // MIDI, CURTAIN
 int state_midi_button, state_curtain_button, state_button_beat, state_button_kick, state_button_snare, state_button_hat ; ;
-Vec2 pos_midi_button, size_midi_button, pos_midi_info,
-        pos_curtain_button, size_curtain_button,
-        pos_beat_button, size_beat_button,
-        pos_kick_button, size_kick_button,
-        pos_snare_button, size_snare_button,
-        pos_hat_button, size_hat_button ;
+Vec2  pos_midi_button, size_midi_button, pos_midi_info,
+      pos_curtain_button, size_curtain_button,
+      pos_beat_button, size_beat_button,
+      pos_kick_button, size_kick_button,
+      pos_snare_button, size_snare_button,
+      pos_hat_button, size_hat_button ;
 
-
-// slider position column
-int posXSlider[] = new int[NUM_SLIDER_TOTAL *2] ;
 
 // END variables declaration
 ////////////////////////////////////
@@ -110,7 +115,7 @@ int lineHeader = 30 ;
 int lineMenuTopDropdown = 65 ;
 int line_global = 95 ;
 int line_item_button_slider = 320 ;
-int line_item_menu_text = line_item_button_slider +230 ;
+int line_item_menu_text = line_item_button_slider +260 ;
 
 
 int spacingBetweenSlider = 13 ;
@@ -119,14 +124,9 @@ int spacingBetweenSlider = 13 ;
 int sizeTitleButton = 10 ;
 int correctionButtonSliderTextY = 1 ;
 
-
-
 // CURTAIN
 int correctionCurtainX = 0 ;
 int correctionCurtainY = 0 ;
-
-
-
 
 // MENU TOP DROPDOWN
 int correctionHeaderDropdownY = +4 ;
@@ -136,19 +136,18 @@ int correctionHeaderdropdown_imageX = 220 ;
 int correctionHeaderdropdown_file_textX = 330 ;
 int correctionHeaderdropdown_camera_videoX = 440 ;
 
-//GROUP ZERO
+//GROUP GENERAL
 int correctionSliderPos = 12 ;
 int set_item_pos_y = 13 ;
+
 // GROUP BG
 int correctionBGX = colOne ;
 int correctionBGY = line_global +set_item_pos_y +2 ;
 
 // GROUP LIGHT
-
 // ambient light
 int correctionLightAmbientX = colOne ;
 int correctionLightAmbientY = line_global +set_item_pos_y +73 ;
-
 // directional light one
 int correctionLightOneX = colTwo ;
 int correctionLightOneY = line_global +set_item_pos_y +13 ;
@@ -160,20 +159,9 @@ int correctionLightTwoY = line_global +set_item_pos_y +73 ;
 int correctionCameraX = colThree ;
 int correctionCameraY = line_global +set_item_pos_y -5 ;
 
-
-
-
 // GROUP SOUND
 int correctionSoundX = colOne ;
 int correctionSoundY = line_global +160 ;
-
-
-
-// GROUP ITEM
-int correction_slider_item = 65 ;
-int correction_button_item = 3 ;
-int correction_dropdown_item = 43 ;
-
 
 // GROUP MIDI
 int correctionMidiX = 40 ;
@@ -182,6 +170,11 @@ int spacing_midi_info = 13 ;
 int correction_info_midi_x = 60 ;
 int correction_info_midi_y = 10 ;
 int size_x_window_info_midi = 200 ;
+
+// GROUP ITEM
+int correction_slider_item = 65 ;
+int correction_button_item = 3 ;
+int correction_dropdown_item = 43 ;
 
 /**
 END VARIABLES declaration
@@ -210,39 +203,29 @@ SETTING
 */
 
 void setting() {
-  // size(670,725); 
   colorSetup() ;  
 
   frameRate(60) ; 
   noStroke () ; 
   surface.setResizable(true);
   background(gris);
-  //init the string value
-  for ( int i = 0 ; i < numCol ; i++ ) {
+  // general
+  for ( int i = 0 ; i <  SLIDER_BY_COL ; i++ ) {
     genTxtGUI[i] = ("") ;
     sliderNameCamera[i] = ("") ;
-    sliderNameOne[i] = ("") ;
-    sliderNameTwo[i] = ("") ;
-    sliderNameThree[i] = ("") ;
+  }
+  // item
+  for ( int i = 0 ; i <  SLIDER_BY_COL_PLUS_ONE ; i++ ) {
+    slider_name_col_one[i] = ("") ;
+    slider_name_col_two[i] = ("") ;
+    slider_name_col_three[i] = ("") ;
   }
 }
 
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-void infoShaderBackground() {
+void info_bg_shader() {
   int n = shaderBackgroundList.getRowCount() ;
   shader_bg_name = new String[n] ;
   shader_bg_author = new String[n] ;
@@ -297,10 +280,10 @@ END setting
 
 
 /**
-STRUCTURE DRAW
+STRUCTURE DESIGN
 
 */
-void structureDraw() {
+void display_structure() {
   noStroke() ;
   
   int correctionheight = 14 ;
@@ -345,15 +328,11 @@ void structureDraw() {
   rect(0, line_item_menu_text +2, width, 2) ;
 
 
-  // bottom line
-  fill (jauneOrange) ;
-  rect(0,height-9, width, 2) ;
-  fill (rougeFonce) ;
-  rect(0,height-7, width, 7) ;
+
 }
 
 //TEXT
-void textDraw() {
+void display_text() {
   if(insideNameversion) fill (jaune) ; else fill(orange) ;
   int posTextY = 18 ;
   textFont(FuturaStencil_20,16); 
@@ -366,10 +345,29 @@ void textDraw() {
   dispay_text_slider_top( line_global +64) ;
   
   dislay_text_slider_item() ;
+}
+
+
+void finish_decoration() {
+  noStroke() ;
+  fill (jauneOrange) ;
+  rect(0,height-9, width, 2) ;
+  fill (rougeFonce) ;
+  rect(0,height-7, width, 7) ;
 
 }
+
+
+
+void init_interface() {
+  if(size_ref.x != width || size_ref.y != height) {
+    build_button_item_list() ;
+    set_item_list() ;
+    size_ref.set(width, height) ;
+  }
+}
 /**
-END STRUCTURE DRAW
+END STRUCTURE DESIGN
 
 */
 
@@ -518,7 +516,7 @@ void set_slider_item_console(int sliderPositionY) {
 
 
 // SLIDER DRAW
-void slider_display() {
+void display_slider() {
   /* different way to display depend the displaying mode. 
   Can change with "ctrl+x" */
   int whichGroup = 0 ;
@@ -660,7 +658,6 @@ void dispay_text_slider_top(int pos) {
 
 
 void dislay_text_slider_item() {
-  //GROUP ONE
   textFont(FuturaStencil_20,20); textAlign(RIGHT);
   fill (colorTextUsual) ;
   textFont(textUsual_1);  textAlign(LEFT);
@@ -669,10 +666,10 @@ void dislay_text_slider_item() {
   // Legend text slider position for the item
   int correctionY = correction_slider_item +4 ;
   int correctionX = sliderWidth + 5 ;
-  for ( int i = 0 ; i < SLIDER_BY_COL ; i++) {
-    text(sliderNameOne[i +1], colOne +correctionX, line_item_button_slider +correctionY +(i*spacingBetweenSlider));
-    text(sliderNameTwo[i +1], colTwo +correctionX, line_item_button_slider +correctionY +(i*spacingBetweenSlider));
-    text(sliderNameThree[i +1], colThree +correctionX, line_item_button_slider +correctionY +(i*spacingBetweenSlider));
+  for ( int i = 0 ; i < SLIDER_BY_COL_PLUS_ONE ; i++) {
+    text(slider_name_col_one[i], colOne +correctionX, line_item_button_slider +correctionY +(i*spacingBetweenSlider));
+    text(slider_name_col_two[i], colTwo +correctionX, line_item_button_slider +correctionY +(i*spacingBetweenSlider));
+    text(slider_name_col_three[i], colThree +correctionX, line_item_button_slider +correctionY +(i*spacingBetweenSlider));
   }
 }
 // end text
@@ -938,45 +935,13 @@ Button  button_midi, button_curtain,
 
 
 // init button
-void init_button() {
+void init_button_general() {
   numButton = new int[NUM_GROUP_SLIDER] ;
-  
   // General
   numButton[0] = 18 ;
   value_button_G0 = new int[numButton[0]] ;
-
-  
-  // dropdown
-  numDropdown = NUM_ITEM +1 ; // add one for the dropdownmenu
-  lastDropdown = numDropdown -1 ;
-  
-
-  // item
-  numButton[1] = NUM_ITEM *10 ;
-  numButtonTotalObjects = NUM_ITEM ;
-  value_button_item = new int[numButton[1]] ;
-  // button main menu
-  button_item = new Button_dynamic[numButton[1] +10] ;
-  pos_button_width_item = new int[numButton[1] +10] ;
-  pos_button_height_item = new int[numButton[1] +10] ;
-  width_button_item = new int[numButton[1] +10] ;
-  height_button_item = new int[numButton[1] +10] ;
-  on_off_item_console = new int[numButton[1]] ;
-
-  // button menu list to choice which item you want display on the controller
-  button_item_list = new Button[NUM_ITEM +1] ;
-  on_off_item_console_list = new boolean[NUM_ITEM +1] ;
-
-  // button param
- 
-
-
-  
-  //dropdown
-  modeListRomanesco = new String[numDropdown] ;
-  dropdown = new Dropdown[numDropdown] ;
-  pos_dropdown = new PVector[numDropdown] ;
 }
+
 
 // build button
 void build_button_general() {
@@ -1091,20 +1056,23 @@ Display Button
 /**
 MAIN METHOD
 */
-void button_draw() {
-  button_draw_general() ;
-  button_draw_item_console() ;
-  button_draw_item_list() ;
+void display_button() {
+  display_button_general() ;
+  display_button_item_console() ;
+  display_button_item_list() ;
+  display_dropdown() ;
 
-  button_check_general() ;
-  button_check_item_console() ;
-  button_check_item_list() ;
-  dropdown_draw() ;
   buttonInfoOnTheTop() ;
   midiButtonManager(false) ;
 }
 
-void button_mousePressed_general() {
+void check_button() {
+  check_button_general() ;
+  check_button_item_console() ;
+  check_button_item_list() ;
+}
+
+void mousepressed_button_general() {
   if(!dropdownActivity) {
     button_bg.mousePressedText() ;
     //LIGHT ONE
@@ -1169,7 +1137,7 @@ void buttonInfoOnTheTop() {
 
 
 
-void button_draw_general() {
+void display_button_general() {
   button_bg.button_text(shader_bg_name[state_bg_shader] + " on/off", pos_bg_button, titleButtonMedium, sizeTitleButton) ;
   button_bg.button_text(shader_bg_name[state_bg_shader] + " on/off", pos_bg_button, titleButtonMedium, sizeTitleButton) ;
   // Light ambient
@@ -1195,7 +1163,7 @@ void button_draw_general() {
 
 
 
-void button_check_general() {
+void check_button_general() {
   /* Check to send by OSC to Scene and Prescene */
   if(button_bg.on_off) state_BackgroundButton = 1 ; else state_BackgroundButton = 0 ;
   //LIGHT ONE
@@ -1259,6 +1227,17 @@ color selectedText ;
 color colorBoxIn, colorBoxOut, colorBoxText, colorDropdownBG, colorDropdownTitleIn, colorDropdownTitleOut ;
 int sizeToRenderTheBoxDropdown = 15 ;
 
+
+void init_dropdown() {
+  // dropdown
+  numDropdown = NUM_ITEM +1 ; // add one for the dropdownmenu
+  lastDropdown = numDropdown -1 ;
+  //dropdown
+  modeListRomanesco = new String[numDropdown] ;
+  dropdown = new Dropdown[numDropdown] ;
+  pos_dropdown = new PVector[numDropdown] ;
+}
+
 void set_var_dropdown() {
 
   pos_button_bg = Vec2(colOne +correctionHeaderDropdownBackgroundX,      lineMenuTopDropdown +correctionHeaderDropdownY)  ;
@@ -1286,7 +1265,7 @@ void set_var_dropdown() {
   font_dropdown_list = split(policeList, "/") ;
   
   //image
-  initLiveData() ;
+  init_live_data() ;
  
   //SHADER backgorund dropdown
   
@@ -1367,18 +1346,18 @@ void dropdown_setting_item(float posWidth, float posHeight) {
 boolean dropdownActivity ;
 int dropdownActivityCount ;
 
-void dropdown_draw() {
+void display_dropdown() {
   // update content
   update_dropdown_content() ;
   // update dropdown item
-  dropdown_update_item() ;
+  update_dropdown_item() ;
 
 
-  dropdown_update_background() ;
-  state_file_text       = dropdown_update_general(size_dropdown_file_text, pos_dropdown_file_text, dropdown_file_text, file_text_dropdown_list, title_dropdown_medium) ;
-  state_image           = dropdown_update_general(size_dropdown_image, pos_dropdown_image, dropdown_image, image_dropdown_list, title_dropdown_medium) ;
-  state_font            = dropdown_update_general(size_dropdown_font, pos_dropdown_font, dropdown_font, font_dropdown_list, title_dropdown_medium) ;
-  state_camera_video    = dropdown_update_general(size_dropdown_camera_video, pos_dropdown_camera_video, dropdown_camera_video, name_camera_video_dropdown_list, title_dropdown_medium) ;
+  update_dropdown_background() ;
+  state_file_text       = update_dropdown_general(size_dropdown_file_text, pos_dropdown_file_text, dropdown_file_text, file_text_dropdown_list, title_dropdown_medium) ;
+  state_image           = update_dropdown_general(size_dropdown_image, pos_dropdown_image, dropdown_image, image_dropdown_list, title_dropdown_medium) ;
+  state_font            = update_dropdown_general(size_dropdown_font, pos_dropdown_font, dropdown_font, font_dropdown_list, title_dropdown_medium) ;
+  state_camera_video    = update_dropdown_general(size_dropdown_camera_video, pos_dropdown_camera_video, dropdown_camera_video, name_camera_video_dropdown_list, title_dropdown_medium) ;
 
   // check the activity o the dropdown
   if(dropdownActivityCount > 0 ) dropdownActivity = true ; else dropdownActivity = false ;
@@ -1409,7 +1388,7 @@ void update_dropdown_content() {
 
 // global update for the classic dropdown
 
-int dropdown_update_general(PVector size, PVector pos, Dropdown dropdown_menu, String [] menu_list, PFont font) {
+int update_dropdown_general(PVector size, PVector pos, Dropdown dropdown_menu, String [] menu_list, PFont font) {
   int state = SWITCH_VALUE_FOR_DROPDOWN  ;
   dropdown_menu.dropdownUpdate(font, textUsual_1);
   if (dropdownOpen) dropdownActivityCount = +1 ;
@@ -1438,7 +1417,7 @@ int dropdown_update_general(PVector size, PVector pos, Dropdown dropdown_menu, S
 
 
 // update for the special content dropdown
-void dropdown_update_background() {
+void update_dropdown_background() {
   
   dropdown_bg.dropdownUpdate(title_dropdown_medium, textUsual_1);
   if (dropdownOpen) dropdownActivityCount = +1 ;
@@ -1468,10 +1447,10 @@ void dropdown_update_background() {
 }
 
 
-void dropdown_update_item() {
+void update_dropdown_item() {
   int pointer = 0 ;
   for ( int i = 1 ; i <= NUM_ITEM ; i ++ ) {
-    if(modeListRomanesco[i] != null && on_off_item_console_list[i] ) {
+    if(modeListRomanesco[i] != null && on_off_item_list[i] ) {
       int distance = pointer *STEP_ITEM ;
       pointer ++ ;
       // update pos 
@@ -1520,7 +1499,7 @@ void dropdown_update_item() {
 
 // DROPDOWN MOUSEPRESSED
 ////////////////////////
-void dropdownMousepressed() {
+void mousepressed_dropdown() {
   // global menu
   check_dropdown_mousepressed (pos_dropdownBackground,  sizeDropdownBackground,  dropdown_bg) ;
   check_dropdown_mousepressed (pos_dropdown_font,        size_dropdown_font,        dropdown_font) ;

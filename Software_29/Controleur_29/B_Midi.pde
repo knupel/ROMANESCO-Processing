@@ -3,13 +3,13 @@
 
 // TOP METHOD
 /////////////
-void midi_init() {
+void init_midi() {
   check_midi_input() ;
   open_midi_bus() ;
   select_first_midi_input() ;
 }
 
-void midi_update() {
+void update_midi() {
   midi_select(which_midi_input, num_midi_input) ;
   use_specific_midi_input(which_midi_input) ;
 }
@@ -290,7 +290,7 @@ void select_input_midi_device() {
   if (key == '9') which_midi_input = 9 ;
 }
 
-void midi_keyPressed() {
+void keypressed_midi() {
   if (!choice_midi_device) select_input_midi_device() ;
   if (key =='n' && choice_midi_device) reset_input_midi_device() ;
 }

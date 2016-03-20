@@ -1,5 +1,5 @@
 /**
-ITEM 1.0.0
+ITEM 1.0.1
 */
 // Obj
 int NUM_ITEM ;
@@ -52,9 +52,11 @@ void build_item_library() {
   numByGroup() ;
   init_var_item() ;
   init_slider() ;
-  init_button() ;
+  init_button_item_list() ;
+  init_button_item_console() ;
+  init_dropdown() ;
   info_item() ;
-  infoShaderBackground() ;
+  info_bg_shader() ;
 }
 
 void init_var_item() {
@@ -76,9 +78,25 @@ void init_var_item() {
 
 
 /**
-Item console 1.0.0
+Item console
 */
 Button_dynamic[] button_item ;
+
+void init_button_item_console() {
+  numButton[1] = NUM_ITEM *10 ;
+  numButtonTotalObjects = NUM_ITEM ;
+  value_button_item = new int[numButton[1]] ;
+  // button item
+  button_item = new Button_dynamic[numButton[1] +10] ;
+  pos_button_width_item = new int[numButton[1] +10] ;
+  pos_button_height_item = new int[numButton[1] +10] ;
+  width_button_item = new int[numButton[1] +10] ;
+  height_button_item = new int[numButton[1] +10] ;
+  on_off_item_console = new int[numButton[1]] ;
+  on_off_item_list = new boolean[NUM_ITEM +1] ;
+}
+
+
 void build_button_item_console() {
     //button item
   Vec2 pos = Vec2() ;
@@ -150,16 +168,16 @@ void set_button_item_console() {
 
 
 
-void button_draw_item_console() {
+void display_button_item_console() {
   int pointer = 0 ;
 
 
   for( int i = 1 ; i <= NUM_ITEM ; i++ ) {
-    if(on_off_item_console_list[i]) {
+    if(on_off_item_list[i]) {
       int distance = pointer *STEP_ITEM ;
       for(int j = 1 ; j <= BUTTON_ITEM_CONSOLE ; j++) {
       	button_item[i *10 + j].change_pos(distance, 0) ;
-      	button_item[i *10 + j].update_pos(on_off_item_console_list[i]) ;
+      	button_item[i *10 + j].update_pos(on_off_item_list[i]) ;
       	if(j == 1) button_item[i*10 +j].button_pic_serie(OFF_in_thumbnail, OFF_out_thumbnail, ON_in_thumbnail, ON_out_thumbnail, i) ; 
       	if(j == 2) button_item[i*10 +j].button_pic(picSetting) ;
       	if(j == 3) button_item[i*10 +j].button_pic(picSound) ; 
@@ -175,7 +193,7 @@ void button_draw_item_console() {
 }
 
 
-void button_check_item_console() {
+void check_button_item_console() {
   // Item check
   if( NUM_ITEM > 0){
     // item available
@@ -188,10 +206,10 @@ void button_check_item_console() {
   }
 }
 
-void button_mousePressed_item_console() {
+void mousepressed_button_item_console() {
   if(!dropdownActivity && NUM_ITEM > 0 ) {
     for( int i = 11 ; i < NUM_ITEM *10 +BUTTON_ITEM_CONSOLE ; i++ ) { 
-      button_item[i].update_pos(on_off_item_console_list[i /10]) ;
+      button_item[i].update_pos(on_off_item_list[i /10]) ;
       button_item[i].mousePressed()  ;
     }
   }
@@ -212,56 +230,106 @@ void button_mousePressed_item_console() {
 ITEM LIST
 */
 Button[] button_item_list ;
+boolean [] on_off_item_list_save ;
+
+
+void init_button_item_list() {
+  button_item_list = new Button[NUM_ITEM +1] ;
+  on_off_item_list_save = new boolean[NUM_ITEM +1] ;
+}
+
+
 
 void build_button_item_list() {
+
   Vec2 pos = Vec2() ;
   Vec2 size = Vec2() ;
 
   int text_size = 12 ;
-  int max_by_col = 10 ;
   int spacing = text_size + (text_size /4 ) ;
-  int max_size_col =  max_by_col *spacing;
+  int num_item_by_col = int(float(height -line_item_menu_text) /(spacing *1.2)) ;
+
+
+
+
+  int max_size_col = num_item_by_col *spacing;
   int col_size_list_item = 80 ;
   int left_flag = colOne +10 ;
   int top_text =  line_item_menu_text -5 ;
   int ratio_rollover_x = 9 ;
 
-  color col_off_out_menu_item = rougeTresTresFonce ;
+
   item_info = sort(item_info) ;
   // build button
   for( int i = 0 ; i < button_item_list.length ; i++) {
     int step = i *spacing;
     String [] temp_item_info_split = split(item_info[i], "/") ;
     if(temp_item_info_split[0] != "" ) {
-      if(i <= max_by_col ) {
+      if(i <= num_item_by_col) {
         pos = Vec2(left_flag, top_text +step) ;
         size = Vec2(length_String_in_pixel(temp_item_info_split[0], ratio_rollover_x ), text_size) ;
         button_item_list[i] = new Button(pos, size) ;
-      } else if (i > max_by_col && i <= max_by_col *2)  {
+      } else if (i > num_item_by_col && i <= num_item_by_col *2)  {
         pos = Vec2(left_flag +col_size_list_item, top_text +step -max_size_col) ;
         size = Vec2(length_String_in_pixel(temp_item_info_split[0], ratio_rollover_x ), text_size) ;
         button_item_list[i] = new Button(pos, size) ;
-      } else if (i > max_by_col*2 && i <= max_by_col *3)  {
+      } else if (i > num_item_by_col *2 && i <= num_item_by_col *3)  {
         pos = Vec2(left_flag +(col_size_list_item *2), top_text +step -(max_size_col *2)) ;
+        size = Vec2(length_String_in_pixel(temp_item_info_split[0], ratio_rollover_x ), text_size) ;
+        button_item_list[i] = new Button(pos, size) ;
+      } else if (i > num_item_by_col *3 && i <= num_item_by_col *4)  {
+        pos = Vec2(left_flag +(col_size_list_item *3), top_text +step -(max_size_col *3)) ;
+        size = Vec2(length_String_in_pixel(temp_item_info_split[0], ratio_rollover_x ), text_size) ;
+        button_item_list[i] = new Button(pos, size) ;
+      } else if (i > num_item_by_col *4 && i <= num_item_by_col *5)  {
+        pos = Vec2(left_flag +(col_size_list_item *4), top_text +step -(max_size_col *4)) ;
+        size = Vec2(length_String_in_pixel(temp_item_info_split[0], ratio_rollover_x ), text_size) ;
+        button_item_list[i] = new Button(pos, size) ;
+      } else if (i > num_item_by_col *5 && i <= num_item_by_col *6)  {
+        pos = Vec2(left_flag +(col_size_list_item *5), top_text +step -(max_size_col *5)) ;
+        size = Vec2(length_String_in_pixel(temp_item_info_split[0], ratio_rollover_x ), text_size) ;
+        button_item_list[i] = new Button(pos, size) ;
+      } else if (i > num_item_by_col *6 && i <= num_item_by_col *7)  {
+        pos = Vec2(left_flag +(col_size_list_item *6), top_text +step -(max_size_col *6)) ;
+        size = Vec2(length_String_in_pixel(temp_item_info_split[0], ratio_rollover_x ), text_size) ;
+        button_item_list[i] = new Button(pos, size) ;
+      } else if (i > num_item_by_col *7 && i <= num_item_by_col *8)  {
+        pos = Vec2(left_flag +(col_size_list_item *7), top_text +step -(max_size_col *7)) ;
+        size = Vec2(length_String_in_pixel(temp_item_info_split[0], ratio_rollover_x ), text_size) ;
+        button_item_list[i] = new Button(pos, size) ;
+      } else if (i > num_item_by_col *8 && i <= num_item_by_col *9)  {
+        pos = Vec2(left_flag +(col_size_list_item *8), top_text +step -(max_size_col *8)) ;
+        size = Vec2(length_String_in_pixel(temp_item_info_split[0], ratio_rollover_x ), text_size) ;
+        button_item_list[i] = new Button(pos, size) ;
+      } else if (i > num_item_by_col *9 && i <= num_item_by_col *10)  {
+        pos = Vec2(left_flag +(col_size_list_item *9), top_text +step -(max_size_col *9)) ;
         size = Vec2(length_String_in_pixel(temp_item_info_split[0], ratio_rollover_x ), text_size) ;
         button_item_list[i] = new Button(pos, size) ;
       }
     }
   }
-  // set button
+}
+
+void set_item_list() {
+  color col_off_out_menu_item = rougeTresTresFonce ;
   for( int i = 0 ; i < button_item_list.length ; i++) {
     if(item_info[i] != "" ) {
       String [] temp_item_info_split = split(item_info[i], "/") ;
       button_item_list[i].set_color_on_off(col_on_in, col_on_out, col_off_in, col_off_out_menu_item) ;
-      button_item_list[i].set_on_off(on_off_item_console_list[i]) ;
+      // IDprintln(i, on_off_item_list[i]) ;
+      // button_item_list[i].set_on_off(on_off_item_list_save[i]) ;
+      if(!INIT_INTERFACE) button_item_list[i].set_on_off(on_off_item_list[i]) ; else button_item_list[i].set_on_off(on_off_item_list_save[i]) ;
       button_item_list[i].set_name(temp_item_info_split[0]) ;
       button_item_list[i].set_ID(Integer.parseInt(temp_item_info_split[1])) ;
       button_item_list[i].set_rank(Integer.parseInt(temp_item_info_split[2])) ;
     }
   }
 }
+
+
+
 // Display the list of all the item available
-void button_draw_item_list() {
+void display_button_item_list() {
   textFont(textUsual_3) ;
   int text_size = 12 ;
   textSize(text_size) ;  
@@ -275,18 +343,19 @@ void button_draw_item_list() {
   }
 }
 
-void button_check_item_list() {
+void check_button_item_list() {
   /*
   Check to display or not the item in the controller
   */
-  if( NUM_ITEM > 0) {
+  if(NUM_ITEM > 0) {
     for(int i = 1 ; i < button_item_list.length ; i++) {
       // here it's boolean not an int because we don't need to send it via OSC.
       int ID = button_item_list[i].ID ;
+//      println(i, ID, button_item_list[i].on_off, button_item_list[i].name) ;
       if(button_item_list[i].on_off) {
-        on_off_item_console_list[ID] = true ; // use ID item
+        on_off_item_list[ID] = true ; // use ID item
       } else { 
-        on_off_item_console_list[ID] = false ;
+        on_off_item_list[ID] = false ;
       }
     }
   }
@@ -294,8 +363,16 @@ void button_check_item_list() {
 
 
 
-void button_mousePressed_item_list() {
-  if(!dropdownActivity && NUM_ITEM > 0 ) 
-    for(int i = 1 ; i < button_item_list.length ; i++ ) 
+void mousepressed_button_item_list() {
+  if(!dropdownActivity && NUM_ITEM > 0 ) {
+    for(int i = 1 ; i < button_item_list.length ; i++ ) {
       button_item_list[i].mousePressed() ;
+    }
+    
+    for(int i = 0 ; i < on_off_item_list_save.length ; i++ ) {
+      println(i, "save", frameCount) ;
+      on_off_item_list_save[i] = on_off_item_list[i] ;
+    }
+    
+  }
 }

@@ -44,7 +44,7 @@ int [] pos_button_width_item, pos_button_height_item, width_button_item, height_
 ///////////////////////////////////////
 // statement on_of for the object group
 int [] on_off_item_console ;
-boolean [] on_off_item_console_list ; 
+boolean [] on_off_item_list ; 
 
 
 //////////
@@ -145,22 +145,21 @@ void saveInfoSlider() {
      setSlider(i, (int)infoSlider[temp].b, infoSlider[temp].c,infoSlider[temp].d,infoSlider[temp].e) ;
    }
   
-  // the group one, two, three
-  for (int i = 1 ; i < NUM_GROUP_SLIDER ; i++) { 
-    for(int j = 1 ; j < NUM_SLIDER_ITEM ; j++) {
-      // set PVector info Slider
-      int IDslider = j +(i *100) ;
-      // third loop to check and find the good PVector array in the list
-      for(int k = 0 ; k < infoSlider.length ;k++) {
-        if( (int)infoSlider[k].a ==IDslider) {
-          infoSlider[k].c = slider[IDslider].getValue() ;
-          infoSlider[k].d = slider[IDslider].getValueMin() ;
-          infoSlider[k].e = slider[IDslider].getValueMax() ;
-          setSlider(IDslider, (int)infoSlider[k].b, infoSlider[k].c,infoSlider[k].d,infoSlider[k].e) ;
-        }
+  // item info slider
+  for(int i = 1 ; i < NUM_SLIDER_ITEM ; i++) {
+    // set PVector info Slider
+    int IDslider = i +100 ;
+    // third loop to check and find the good PVector array in the list
+    for(int j = 0 ; j < infoSlider.length ;j++) {
+      if( (int)infoSlider[j].a ==IDslider) {
+        infoSlider[j].c = slider[IDslider].getValue() ;
+        infoSlider[j].d = slider[IDslider].getValueMin() ;
+        infoSlider[j].e = slider[IDslider].getValueMax() ;
+        setSlider(IDslider, (int)infoSlider[j].b, infoSlider[j].c,infoSlider[j].d,infoSlider[j].e) ;
       }
     }
   }
+
   showAllSliders = false ;
 }
 
@@ -200,7 +199,7 @@ void set_item(int ID_item) {
   item_setting.setString("Type", "Item") ;
   item_setting.setInt("Item ID", ID_item) ;
 
-  if(on_off_item_console_list[ID_item]) item_setting.setInt("Item On Off", 1) ; 
+  if(on_off_item_list[ID_item]) item_setting.setInt("Item On Off", 1) ; 
   else item_setting.setInt("Item On Off", 0) ;
 }
 
@@ -289,8 +288,8 @@ void loadSaveController(String path) {
       int ID =  Integer.parseInt(temp_item_info_split[2]) ;
       
       if(row.getInt("Item On Off") == 1) {
-        on_off_item_console_list[ID] = true ; 
-      } else on_off_item_console_list[ID] = false ;
+        on_off_item_list[ID] = true ; 
+      } else on_off_item_list[ID] = false ;
       count_item++ ;
     }
   }
@@ -313,7 +312,7 @@ void loadSaveController(String path) {
 // SETTING SAVE
 /////////////////////////
 Boolean setSave = true ;
-void settingDataFromSave() {
+void set_data_from_save() {
   if(setSave) {
     setButtonSave() ;
     set_slider_save() ;
@@ -397,7 +396,7 @@ void setButtonSave() {
       rank++ ;
       buttonRank = (int)infoButton[rank].x ;
       if(infoButton[rank].z == 1.0 && buttonRank == (i*10)+j) {
-        button_item[buttonRank].on_off = true ; 
+        button_item[buttonRank].on_off = true ;
       } else {
         button_item[buttonRank].on_off = false ; 
       }
@@ -448,15 +447,14 @@ END LOAD
 
 //LOAD text Interface
 Table textGUI;
-int numCol = 15 ;
-String[] genTxtGUI = new String[numCol] ;
-String[] sliderNameLight = new String[numCol] ;
-String[] sliderNameCamera = new String[numCol] ;
-String[] sliderNameOne = new String[numCol] ;
-String[] sliderNameTwo = new String[numCol] ;
-String[] sliderNameThree = new String[numCol] ;
+String[] genTxtGUI = new String[SLIDER_BY_COL] ;
+String[] sliderNameLight = new String[SLIDER_BY_COL] ;
+String[] sliderNameCamera = new String[SLIDER_BY_COL] ;
+String[] slider_name_col_one = new String[SLIDER_BY_COL_PLUS_ONE] ;
+String[] slider_name_col_two = new String[SLIDER_BY_COL_PLUS_ONE] ;
+String[] slider_name_col_three = new String[SLIDER_BY_COL_PLUS_ONE] ;
 
-TableRow [] row = new TableRow[numCol+1] ;
+TableRow [] row = new TableRow[SLIDER_BY_COL +1] ;
 
 String lang[] ;
 
@@ -474,17 +472,20 @@ void textGUI() {
     textGUI = loadTable(sketchPath("")+"preferences/sliderListEN.csv", "header") ;
   }
     
-  for ( int i = 0 ; i < numCol ; i++) {
+  for ( int i = 0 ; i <  SLIDER_BY_COL ; i++) {
 
     row[i] = textGUI.getRow(i) ;
-    for ( int j = 1 ; j < numCol ; j++) {
+    for ( int j = 1 ; j <  SLIDER_BY_COL ; j++) {
       String whichCol = Integer.toString(j) ;
       if ( i == 0 ) genTxtGUI[j] = row[i].getString("Column "+whichCol) ;
       if ( i == 1 ) sliderNameLight[j] = row[i].getString("Column "+whichCol) ;
       if ( i == 2 ) sliderNameCamera[j] = row[i].getString("Column "+whichCol) ;
-      if ( i == 3 ) sliderNameOne[j] = row[i].getString("Column "+whichCol) ;
-      if ( i == 4 ) sliderNameTwo[j] = row[i].getString("Column "+whichCol) ;
-      if ( i == 5 ) sliderNameThree[j] = row[i].getString("Column "+whichCol) ;
+    }
+    for ( int j = 1 ; j <  SLIDER_BY_COL_PLUS_ONE ; j++) {
+      String whichCol = Integer.toString(j) ;
+      if ( i == 3 ) slider_name_col_one[j -1] = row[i].getString("Column "+whichCol) ;
+      if ( i == 4 ) slider_name_col_two[j -1] = row[i].getString("Column "+whichCol) ;
+      if ( i == 5 ) slider_name_col_three[j -1] = row[i].getString("Column "+whichCol) ;
     }
   }
 }
@@ -494,7 +495,7 @@ void textGUI() {
 
 
 //IMPORT VIGNETTE
-void importPicButtonSetup() {
+void set_import_pic_button() {
 
   
   //picto setting
