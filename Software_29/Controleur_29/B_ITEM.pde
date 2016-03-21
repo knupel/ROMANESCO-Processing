@@ -316,9 +316,11 @@ void set_item_list() {
     if(item_info[i] != "" ) {
       String [] temp_item_info_split = split(item_info[i], "/") ;
       button_item_list[i].set_color_on_off(col_on_in, col_on_out, col_off_in, col_off_out_menu_item) ;
-      // IDprintln(i, on_off_item_list[i]) ;
-      // button_item_list[i].set_on_off(on_off_item_list_save[i]) ;
-      if(!INIT_INTERFACE) button_item_list[i].set_on_off(on_off_item_list[i]) ; else button_item_list[i].set_on_off(on_off_item_list_save[i]) ;
+      button_item_list[i].set_on_off(on_off_item_list_save[i]) ;
+      if(!INIT_INTERFACE) button_item_list[i].set_on_off(on_off_item_list[i]) ; else {
+        button_item_list[i].set_on_off(on_off_item_list_save[i]) ;
+        on_off_item_list[i] = on_off_item_list_save[i] ;
+      }
       button_item_list[i].set_name(temp_item_info_split[0]) ;
       button_item_list[i].set_ID(Integer.parseInt(temp_item_info_split[1])) ;
       button_item_list[i].set_rank(Integer.parseInt(temp_item_info_split[2])) ;
@@ -351,7 +353,6 @@ void check_button_item_list() {
     for(int i = 1 ; i < button_item_list.length ; i++) {
       // here it's boolean not an int because we don't need to send it via OSC.
       int ID = button_item_list[i].ID ;
-//      println(i, ID, button_item_list[i].on_off, button_item_list[i].name) ;
       if(button_item_list[i].on_off) {
         on_off_item_list[ID] = true ; // use ID item
       } else { 
@@ -368,11 +369,8 @@ void mousepressed_button_item_list() {
     for(int i = 1 ; i < button_item_list.length ; i++ ) {
       button_item_list[i].mousePressed() ;
     }
-    
-    for(int i = 0 ; i < on_off_item_list_save.length ; i++ ) {
-      println(i, "save", frameCount) ;
-      on_off_item_list_save[i] = on_off_item_list[i] ;
+    for(int i = 1 ; i < on_off_item_list_save.length ; i++ ) {
+      on_off_item_list_save[i] = button_item_list[i].on_off ;
     }
-    
   }
 }

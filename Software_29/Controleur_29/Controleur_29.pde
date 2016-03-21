@@ -44,34 +44,34 @@ void setup() {
   INIT_INTERFACE = false ;
 }
 
-
 void draw() {
-  init_interface() ;
-  surface.setTitle(nameVersion + " " +prettyVersion+"."+version+ " - Controller");
-  set_data_from_save() ;
-  display_structure() ;
+  check_interface() ;
   check_slider_item() ;
   check_image_folder() ;
   check_file_text_folder() ;
   check_button() ;
 
+  init_interface() ;
   init_live_data() ;
+  init_slider_dynamic() ;
+
+  surface.setTitle(nameVersion + " " +prettyVersion+"."+version+ " - Controller");
+
+  set_data_from_save() ;
+
+  display_structure() ;
   display_text() ;
   display_slider() ;
   display_button() ;
 
   update_midi() ;
   draw_send_OSC() ;
-  init_slider_dynamic() ;
 
   finish_decoration() ;
-  
+
   credit() ;
+  INIT_INTERFACE = false ;
 }
-
-
-
-////////////////////
 
 void mousePressed () {
   mousepressed_button_general() ;
@@ -80,17 +80,13 @@ void mousePressed () {
   mousepressed_dropdown() ;
 }
 
-
-
-
-//KEYPRESSED
 void keyPressed() {
   keypressed_midi() ;
   //OpenClose save
   shortcuts_controller() ;
 }
 
-//KEYRELEASED
+
 void keyReleased() { 
   keyboard[keyCode] = false;
 }

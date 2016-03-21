@@ -359,8 +359,12 @@ void finish_decoration() {
 
 
 
+void check_interface() {
+  if(size_ref.x != width || size_ref.y != height) INIT_INTERFACE = true ;
+}
+
 void init_interface() {
-  if(size_ref.x != width || size_ref.y != height) {
+  if(INIT_INTERFACE) {
     build_button_item_list() ;
     set_item_list() ;
     size_ref.set(width, height) ;
