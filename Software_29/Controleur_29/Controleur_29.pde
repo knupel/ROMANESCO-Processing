@@ -7,7 +7,7 @@ String IAM = ("Controller") ;
 String prettyVersion = ("1.2.0") ;
 String nameVersion = ("Romanesco Unu") ;
 boolean test = false ;
-String preferencesPath  ;
+String preference_path, import_path  ;
 
 void settings() {
   size(670,725);
@@ -15,13 +15,15 @@ void settings() {
 }
 
 void setup() {
-  preferencesPath = sketchPath("")+"preferences/" ;
+  preference_path = sketchPath("")+"preferences/" ;
+  import_path = sketchPath("")+"import/" ;
   setting() ;
   init_button_general() ;
   build_item_library() ;
   loadSetup() ;
   set_display_slider() ;
-  check_image_folder() ;
+  check_image_bitmap_folder() ;
+  check_image_svg_folder() ;
   check_file_text_folder() ;
   select_camera_device(30, 100) ; // methode(int min_fps, int min_width)
   set_font() ;
@@ -30,7 +32,8 @@ void setup() {
   set_slider() ;
   set_button_general() ;
   set_button_item_console() ;
-  set_var_dropdown() ;
+  set_dropdown_general() ;
+  set_dropdown_item_selected() ;
 
   build_button_general() ;
   build_button_item_console() ;
@@ -47,7 +50,9 @@ void setup() {
 void draw() {
   check_interface() ;
   check_slider_item() ;
-  check_image_folder() ;
+  check_image_bitmap_folder() ;
+  check_image_svg_folder() ;
+  check_movie_folder() ;
   check_file_text_folder() ;
   check_button() ;
 
@@ -59,15 +64,24 @@ void draw() {
 
   set_data_from_save() ;
 
-  display_structure() ;
+  display_structure_header() ;
+  display_structure_top_button() ;
+  display_structure_dropdown_menu_general() ;
+  display_structure_general() ;
+  //display_structure_menu_sound() ;
+  //display_structure_item_selected() ;
+  //display_structure_item_list() ;
+
   display_text() ;
-  display_slider() ;
-  display_button() ;
+
+  display_slider_general() ;
+  display_slider_item() ;
+  display_button_and_dropdown() ;
 
   update_midi() ;
   draw_send_OSC() ;
 
-  finish_decoration() ;
+  display_structure_bottom() ;
 
   credit() ;
   INIT_INTERFACE = false ;

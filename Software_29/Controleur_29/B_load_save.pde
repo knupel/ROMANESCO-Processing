@@ -51,15 +51,15 @@ boolean [] on_off_item_list ;
 //DROPDOWN
 //GLOBAL
 Dropdown dropdown [] ;
-Dropdown dropdown_font, dropdown_bg, dropdown_image, dropdown_file_text, dropdown_camera_video  ;
+Dropdown dropdown_font, dropdown_bg, dropdown_image_bitmap, dropdown_image_svg, dropdown_movie, dropdown_file_text, dropdown_camera_video  ;
 
 PVector pos_dropdown[] ;
-PVector pos_dropdown_font, pos_dropdownBackground, pos_dropdown_image, pos_dropdown_file_text, pos_dropdown_camera_video ;
-PVector size_dropdown_font, sizeDropdownBackground, size_dropdown_image, size_dropdown_file_text, size_dropdown_camera_video, size_dropdown_mode ;
+PVector pos_dropdown_font, pos_dropdown_bg, pos_dropdown_image_bitmap, pos_dropdown_image_svg, pos_dropdown_movie, pos_dropdown_file_text, pos_dropdown_camera_video ;
+PVector size_dropdown_font, size_dropdown_bg, size_dropdown_image_bitmap, size_dropdown_image_svg, size_dropdown_movie, size_dropdown_file_text, size_dropdown_camera_video, size_dropdown_mode ;
 PVector posTextDropdown = new PVector(2,8)  ;
 
 
-String [] modeListRomanesco, font_dropdown_list, image_dropdown_list, file_text_dropdown_list,  name_camera_video_dropdown_list, list_dropdown ;
+String [] modeListRomanesco, font_dropdown_list, image_bitmap_dropdown_list, image_svg_dropdown_list, movie_dropdown_list, file_text_dropdown_list,  name_camera_video_dropdown_list, list_dropdown ;
 int  [] ID_camera_video_list ;
 
 float marge_around_dropdown ;

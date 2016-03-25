@@ -19,7 +19,7 @@ public PFont
 //SETUP
 void set_font() {
   //controleur Font
-  String fontPathVLW = sketchPath("")+"preferences/Font/typoVLW/" ;
+  String fontPathVLW = sketchPath("")+"import/font/typoVLW/" ;
   FuturaStencil_20 = loadFont(fontPathVLW+"FuturaStencilICG-20.vlw");
   FuturaExtraBold_9 = loadFont(fontPathVLW+"Futura-ExtraBold-9.vlw");
   FuturaExtraBold_10 = loadFont(fontPathVLW+"Futura-ExtraBold-10.vlw");
@@ -215,21 +215,22 @@ boolean checkKeyboard(int c) {
 
 //////////////
 //CHECK FOLDER
-ArrayList imageFiles = new ArrayList();
+ArrayList image_bitmap_files = new ArrayList();
+ArrayList image_svg_files = new ArrayList();
+ArrayList movie_files = new ArrayList();
 ArrayList textFiles = new ArrayList();
-boolean folderImageIsSelected = true ;
-boolean folderFileTextIsSelected = true ;
-int countImageSelection, countFileTextSelection ;
+boolean folder_image_bitmap_selected = true ;
+boolean folder_image_svg_selected = true ;
+boolean folder_movie_selected = true ;
+boolean folder_text_selected = true ;
 
 
 // main void
 // check what's happen in the selected folder
-void check_image_folder() {
+void check_image_bitmap_folder() {
   if(frameCount%180 == 0) {
-    countImageSelection++ ;
-    imageFiles.clear() ;
-    // String path = sketchPath("") +"/" +preferencesPath +"Images" ; 
-    String path = preferencesPath +"Images" ;
+    image_bitmap_files.clear() ;
+    String path = import_path +"bitmap" ;
     
     ArrayList allFiles = listFilesRecursive(path);
   
@@ -241,25 +242,80 @@ void check_image_folder() {
       if (f.isDirectory() == false) {
         String lastThree = fileName.substring(fileName.length()-3, fileName.length());
         if (lastThree.equals("PNG") || lastThree.equals("png") || lastThree.equals("JPG") || lastThree.equals("jpg") || lastThree.equals("GIF") || lastThree.equals("gif")) {
-          imageFiles.add(f);
+          image_bitmap_files.add(f);
         }
       }
     }
     // show the info name file
-    for (int i = 0; i < imageFiles.size(); i++) {
-      File f = (File) imageFiles.get(i); 
+    for (int i = 0; i < image_bitmap_files.size(); i++) {
+      File f = (File) image_bitmap_files.get(i); 
     }
     // to don't loop with this void
-    folderImageIsSelected = false ;
+    folder_image_bitmap_selected = false ;
+  }
+}
+
+void check_image_svg_folder() {
+  if(frameCount%180 == 0) {
+    image_svg_files.clear() ;
+    String path = import_path +"svg" ;
+    
+    ArrayList allFiles = listFilesRecursive(path);
+  
+    String fileName = "";
+    for (int i = 0; i < allFiles.size(); i++) {
+      File f = (File) allFiles.get(i);   
+      fileName = f.getName(); 
+      // Add it to the list if it's not a directory
+      if (f.isDirectory() == false) {
+        String lastThree = fileName.substring(fileName.length()-3, fileName.length());
+        if (lastThree.equals("SVG") || lastThree.equals("svg")) {
+          image_svg_files.add(f);
+        }
+      }
+    }
+    // show the info name file
+    for (int i = 0; i < image_svg_files.size(); i++) {
+      File f = (File) image_svg_files.get(i); 
+    }
+    // to don't loop with this void
+    folder_image_svg_selected = false ;
+  }
+}
+
+void check_movie_folder() {
+  if(frameCount%180 == 0) {
+    movie_files.clear() ;
+    String path = import_path +"movie" ;
+    
+    ArrayList allFiles = listFilesRecursive(path);
+  
+    String fileName = "";
+    for (int i = 0; i < allFiles.size(); i++) {
+      File f = (File) allFiles.get(i);   
+      fileName = f.getName(); 
+      // Add it to the list if it's not a directory
+      if (f.isDirectory() == false) {
+        String lastThree = fileName.substring(fileName.length()-3, fileName.length());
+        if (lastThree.equals("MOV") || lastThree.equals("mov")) {
+          movie_files.add(f);
+        }
+      }
+    }
+    // show the info name file
+    for (int i = 0; i < movie_files.size(); i++) {
+      File f = (File) movie_files.get(i); 
+    }
+    // to don't loop with this void
+    folder_movie_selected = false ;
   }
 }
 
 void check_file_text_folder() {
   if(frameCount%180 == 0) {
-    countFileTextSelection++ ;
     textFiles.clear() ;
     
-    String path = preferencesPath +"Karaoke" ;
+    String path = import_path +"Karaoke" ;
     
     ArrayList allFiles = listFilesRecursive(path);
   
@@ -281,7 +337,7 @@ void check_file_text_folder() {
     }
     
     // to don't loop with this void
-    folderFileTextIsSelected = false ;
+    folder_text_selected = false ;
   }
 }
 // end main void
@@ -289,11 +345,28 @@ void check_file_text_folder() {
 
 
 void init_live_data() {
-  image_dropdown_list = new String[imageFiles.size()] ;
-  for(int i = 0 ; i< image_dropdown_list.length ; i++) {
-    File f = (File) imageFiles.get(i);
-    image_dropdown_list[i] = f.getName() ;
-    image_dropdown_list[i] = image_dropdown_list[i].substring(0,image_dropdown_list[i].length() -4) ;
+  // bitmap
+  image_bitmap_dropdown_list = new String[image_bitmap_files.size()] ;
+  for(int i = 0 ; i< image_bitmap_dropdown_list.length ; i++) {
+    File f = (File) image_bitmap_files.get(i);
+    image_bitmap_dropdown_list[i] = f.getName() ;
+    image_bitmap_dropdown_list[i] = image_bitmap_dropdown_list[i].substring(0,image_bitmap_dropdown_list[i].length() -4) ;
+  }
+
+  // svg
+  image_svg_dropdown_list = new String[image_svg_files.size()] ;
+  for(int i = 0 ; i< image_svg_dropdown_list.length ; i++) {
+    File f = (File) image_svg_files.get(i);
+    image_svg_dropdown_list[i] = f.getName() ;
+    image_svg_dropdown_list[i] = image_svg_dropdown_list[i].substring(0,image_svg_dropdown_list[i].length() -4) ;
+  }
+
+  // Movie
+  movie_dropdown_list = new String[movie_files.size()] ;
+  for(int i = 0 ; i < movie_dropdown_list.length ; i++) {
+    File f = (File) movie_files.get(i);
+    movie_dropdown_list[i] = f.getName() ;
+    movie_dropdown_list[i] = movie_dropdown_list[i].substring(0,movie_dropdown_list[i].length() -4) ;
   }
   
   //text

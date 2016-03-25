@@ -138,7 +138,8 @@ PVector posRelativeSoundButton = new PVector (-8,25) ;
 PVector posRelativeActionButton = new PVector (4,25) ;
 
 void set_button_item_console() {
-  int pos_y = line_item_button_slider +correction_button_item ;
+  // int pos_y = pos_y_item_selected +correction_button_item ;
+  int pos_y = pos_y_item_selected ;
   //position and area for the rollover
   for (int i = 1 ; i <= NUM_ITEM ; i++) {
     //main
@@ -244,18 +245,17 @@ void build_button_item_list() {
 
   Vec2 pos = Vec2() ;
   Vec2 size = Vec2() ;
+  height_item_list = height -pos_y_item_list ;
 
   int text_size = 12 ;
   int spacing = text_size + (text_size /4 ) ;
-  int num_item_by_col = int(float(height -line_item_menu_text) /(spacing *1.2)) ;
-
-
+  int num_item_by_col = int(float(height_item_list) /(spacing *1.2)) ;
 
 
   int max_size_col = num_item_by_col *spacing;
   int col_size_list_item = 80 ;
   int left_flag = colOne +10 ;
-  int top_text =  line_item_menu_text -5 ;
+  int top_text = pos_y_item_list -5 ;
   int ratio_rollover_x = 9 ;
 
 

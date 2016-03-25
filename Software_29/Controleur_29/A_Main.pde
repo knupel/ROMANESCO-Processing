@@ -8,10 +8,11 @@ import java.awt.* ;
 
 // CONSTANT VAR
 final int NUM_COL_SLIDER = 3 ;
+final int NUM_SLIDER_BY_COL_ITEM = 16 ;
 final int NUM_GROUP_SLIDER = 2 ; // '0' for general / '1' for the item
 
 final int NUM_SLIDER_GENERAL = 30 ;
-final int NUM_SLIDER_ITEM = 45 ;
+final int NUM_SLIDER_ITEM = NUM_SLIDER_BY_COL_ITEM *NUM_COL_SLIDER ;
 final int NUM_SLIDER_TOTAL = 1 +100 +NUM_SLIDER_ITEM ;
 final int SLIDER_BY_COL = NUM_SLIDER_ITEM / NUM_COL_SLIDER ;
 final int SLIDER_BY_COL_PLUS_ONE = SLIDER_BY_COL +1 ;
@@ -73,8 +74,8 @@ Vec2 pos_bg_button, size_bg_button,
 
 
 // DROPDOWN button font and shader background
-int state_font, state_bg_shader, state_image, state_file_text, state_camera_video ;
-Vec2 pos_button_font, pos_button_bg, pos_button_image, pos_button_file_text, pos_button_camera_video ; 
+int state_font, state_bg_shader, state_image_bitmap, state_image_svg, state_movie, state_file_text, state_camera_video ;
+Vec2 pos_button_font, pos_button_bg, pos_button_image_bitmap, pos_button_image_svg, pos_button_movie, pos_button_file_text, pos_button_camera_video ; 
 
 // MIDI, CURTAIN
 int state_midi_button, state_curtain_button, state_button_beat, state_button_kick, state_button_snare, state_button_hat ; ;
@@ -94,8 +95,10 @@ Vec2  pos_midi_button, size_midi_button, pos_midi_info,
 GUI VARIABLE SETTING
 */
 float ratioNormSizeMolette = 1.3 ; 
+int height_item_console = 125 ;
 int sliderWidth = 140 ;
 int sliderHeight = 10 ;
+int spacingBetweenSlider = 13 ;
 int roundedSlider = 5 ;
 /*  the position is calculated in ratio of the slider position. Not optimize for the vertical slider */
 float normPosSliderAdjustable = .5 ; 
@@ -111,14 +114,31 @@ int margeLeft  = colOne +15 ;
 // horizontal grid
 
 // this not a position but the height of the rectangle
-int lineHeader = 30 ;
-int lineMenuTopDropdown = 65 ;
-int line_global = 95 ;
-int line_item_button_slider = 320 ;
-int line_item_menu_text = line_item_button_slider +260 ;
+int height_header = 23 ;
+
+int height_top_button = 42 ;
+int pos_y_top_button = height_header  ;
+
+int height_dropdown_menu_general = 30 ;
+int pos_y_dropdown_menu_general = height_header +height_top_button ;
+
+int height_general = 95 ;
+int pos_y_general = height_header +height_top_button +height_dropdown_menu_general ;
+
+int height_menu_sound = 60 ;
+int pos_y_menu_sound = height_header +height_top_button +height_dropdown_menu_general +height_general ;
+
+int height_item_selected = spacingBetweenSlider *NUM_SLIDER_BY_COL_ITEM +height_item_console;
+int pos_y_item_selected = height_header +height_top_button +height_dropdown_menu_general +height_general +height_menu_sound ;
+
+int pos_y_item_list = height_header +height_top_button +height_dropdown_menu_general +height_general +height_menu_sound +height_item_selected ;
+// this value depend of the size of the scene, indeed we must calculate this one later.
+int height_item_list = 100 ;
+// int pos_y_item_list = height_constant ;
 
 
-int spacingBetweenSlider = 13 ;
+
+
 
 // button slider
 int sizeTitleButton = 10 ;
@@ -126,15 +146,25 @@ int correctionButtonSliderTextY = 1 ;
 
 // CURTAIN
 int correctionCurtainX = 0 ;
-int correctionCurtainY = 0 ;
+int correctionCurtainY = 8 ;
+// GROUP MIDI
+int correctionMidiX = 40 ;
+int correctionMidiY = 9 ;
+int spacing_midi_info = 13 ;
+int correction_info_midi_x = 60 ;
+int correction_info_midi_y = 10 ;
+int size_x_window_info_midi = 200 ;
+
 
 // MENU TOP DROPDOWN
-int correctionHeaderDropdownY = +4 ;
-int correctionHeaderDropdownBackgroundX = -3 ;
-int correctionHeaderdropdown_fontX = 110 ;
-int correctionHeaderdropdown_imageX = 220 ;
-int correctionHeaderdropdown_file_textX = 330 ;
-int correctionHeaderdropdown_camera_videoX = 440 ;
+int correction_dropdown_top_menu_y = 39 ;
+int correction_dropdown_bg_x = -3 ;
+int correction_dropdown_font_x = 105 ;
+int correction_dropdown_txt_x = 195 ;
+int correction_dropdown_image_bitmap_x = 270 ;
+int correction_dropdown_image_svg_x = 368 ;
+int correction_dropdown_movie_x = 450 ;
+int correction_dropdown_camera_x = 520 ;
 
 //GROUP GENERAL
 int correctionSliderPos = 12 ;
@@ -142,39 +172,31 @@ int set_item_pos_y = 13 ;
 
 // GROUP BG
 int correctionBGX = colOne ;
-int correctionBGY = line_global +set_item_pos_y +2 ;
+int correctionBGY = height_general +set_item_pos_y +2 ;
 
 // GROUP LIGHT
 // ambient light
 int correctionLightAmbientX = colOne ;
-int correctionLightAmbientY = line_global +set_item_pos_y +73 ;
+int correctionLightAmbientY = height_general +set_item_pos_y +73 ;
 // directional light one
 int correctionLightOneX = colTwo ;
-int correctionLightOneY = line_global +set_item_pos_y +13 ;
+int correctionLightOneY = height_general +set_item_pos_y +13 ;
 // directional light two
 int correctionLightTwoX = colTwo ;
-int correctionLightTwoY = line_global +set_item_pos_y +73 ;
+int correctionLightTwoY = height_general +set_item_pos_y +73 ;
 
 // GROUP CAMERA
 int correctionCameraX = colThree ;
-int correctionCameraY = line_global +set_item_pos_y -5 ;
+int correctionCameraY = height_general +set_item_pos_y -5 ;
 
 // GROUP SOUND
 int correctionSoundX = colOne ;
-int correctionSoundY = line_global +160 ;
-
-// GROUP MIDI
-int correctionMidiX = 40 ;
-int correctionMidiY = 0 ;
-int spacing_midi_info = 13 ;
-int correction_info_midi_x = 60 ;
-int correction_info_midi_y = 10 ;
-int size_x_window_info_midi = 200 ;
+int correctionSoundY = height_general +160 ;
 
 // GROUP ITEM
-int correction_slider_item = 65 ;
-int correction_button_item = 3 ;
-int correction_dropdown_item = 43 ;
+int correction_dropdown_item = 15 ;
+int correction_slider_item = 40 ;
+
 
 /**
 END VARIABLES declaration
@@ -283,55 +305,97 @@ END setting
 STRUCTURE DESIGN
 
 */
-void display_structure() {
+
+int line_decoration_small = 2 ;
+int line_decoration_medium = 4 ;
+int line_decoration_big = 6 ;
+
+void display_structure_header() {
   noStroke() ;
-  
-  int correctionheight = 14 ;
-  fill(grisClair) ; rect(0, 0, width, height ) ; //GROUP ITEM
-  fill(gris) ; rect(0, 0, width, line_item_button_slider -correctionheight) ; // //GROUP CONTROLLER
-  fill(grisNoir) ; rect(0, lineMenuTopDropdown, width, line_global -lineMenuTopDropdown) ; // main band
-  
-  //the decoration line
-  fill(jauneOrange) ;
-  rect(0,0, width, lineHeader-6) ;
+
   fill (rougeFonce) ; 
-  rect(0,0, width, lineHeader-8) ;
-  
-
-  
-  // LINE MENU TOP DROPDOWN
-  fill (jauneOrange) ;
-  rect(0,lineMenuTopDropdown, width, 2) ;
-  
-  // LINE DECORATION
-  // GROUP GENERAL
-  int thicknessDecoration = 5 ;
-  fill(noir) ;
-  rect(0,line_global , width, 2) ;
-  
-  // LINE SOUND
-  fill(grisFonce) ;
-  rect(0, correctionSoundY -26 +thicknessDecoration, width, thicknessDecoration) ; 
-  fill(grisTresFonce) ;
-  rect(0, correctionSoundY -18, width, 2) ;
-  
-  //GROUP ITEM
+  rect(0,0, width, height_header) ;
+}
+void display_structure_top_button() {
+ //  int height_top_button = 55 ;
+  noStroke() ;
+  //background
+  fill(gris) ; 
+  rect(0, pos_y_top_button, width, height_top_button) ; // main band
+  //decoration
   fill(jauneOrange) ;
-  rect(0, line_item_button_slider -22, width, 8) ; 
-  fill(rougeFonce) ;
-  rect(0, line_item_button_slider -20, width, 4) ; 
-  
-  // MENU ITEM
-  fill(gris) ;
-  rect(0, line_item_menu_text , width, height) ; 
-  fill(grisTresFonce) ;
-  rect(0, line_item_menu_text +2, width, 2) ;
-
-
-
+  rect(0,pos_y_top_button, width, line_decoration_small) ;
+}
+void display_structure_dropdown_menu_general() {
+  noStroke() ;
+  // backgorund
+  fill(grisNoir) ; 
+  rect(0, pos_y_dropdown_menu_general, width, height_dropdown_menu_general) ; // main band
+  //decoration
+  fill (jauneOrange) ;
+  rect(0,pos_y_dropdown_menu_general, width, line_decoration_small) ;
 }
 
-//TEXT
+
+void display_structure_general() {
+  noStroke() ;
+  // background
+  fill(gris) ; 
+  rect(0,pos_y_general , width, height_general) ;
+  // LINE DECORATION
+  fill(noir) ;
+  rect(0,pos_y_general , width, line_decoration_small) ;
+}
+
+
+void display_structure_menu_sound() {
+  noStroke() ;
+  int thicknessDecoration = 5 ;
+    // background
+  fill(grisClair) ;
+  rect(0, pos_y_menu_sound, width, height_menu_sound) ; 
+  // top decoration
+  fill(grisFonce) ;
+  // rect(0, correctionSoundY -26 +thicknessDecoration, width, thicknessDecoration) ; 
+  rect(0, pos_y_menu_sound, width, thicknessDecoration) ; 
+  fill(grisTresFonce) ;
+  rect(0, pos_y_menu_sound, width, thicknessDecoration*2) ; 
+  // rect(0, correctionSoundY -18, width, 2) ;
+}
+
+void display_structure_item_selected() {
+  noStroke() ;
+  // background
+  fill(grisClair) ;
+  rect(0, pos_y_item_selected, width, height_item_selected) ; 
+  // top decoration
+  fill(jauneOrange) ;
+  rect(0, pos_y_item_selected, width, 8) ; 
+  fill(rougeFonce) ;
+  rect(0, pos_y_item_selected, width, 4) ; 
+}
+void display_structure_item_list() {
+  noStroke() ;
+  // background
+  fill(gris) ;
+  rect(0, height_item_list , width, height) ; 
+  // top decoration
+  fill(grisTresFonce) ;
+  rect(0, height_item_list +2, width, 2) ;
+}
+
+void display_structure_bottom() {
+  noStroke() ;
+  // bottom decoration
+  fill (jauneOrange) ;
+  rect(0,height-9, width, 2) ;
+  fill (rougeFonce) ;
+  rect(0,height-7, width, 7) ;
+}
+
+/**
+TEXT
+*/
 void display_text() {
   if(insideNameversion) fill (jaune) ; else fill(orange) ;
   int posTextY = 18 ;
@@ -342,20 +406,13 @@ void display_text() {
   textFont(FuturaStencil_20,16); textAlign(RIGHT);
   text(nf(hour(),2)   + ":" +nf(minute(),2) , width -10, posTextY);
   
-  dispay_text_slider_top( line_global +64) ;
+  dispay_text_slider_top( height_general +64) ;
   
   dislay_text_slider_item() ;
 }
 
 
-void finish_decoration() {
-  noStroke() ;
-  fill (jauneOrange) ;
-  rect(0,height-9, width, 2) ;
-  fill (rougeFonce) ;
-  rect(0,height-7, width, 7) ;
 
-}
 
 
 
@@ -428,7 +485,7 @@ void build_slider() {
 // MAIN METHOD SLIDER SETUP
 void set_slider() {
   set_slider_general(correctionSliderPos) ;
-  set_slider_item_console(line_item_button_slider +correction_slider_item) ;
+  set_slider_item_console(height_item_selected +correction_slider_item) ;
 }
 
 
@@ -482,7 +539,7 @@ void set_slider_general(int correctionY) {
   // CAMERA
   //////////
 //  int correctionCameraX = colThree ;
-//int correctionCameraY = line_global +15 ;
+//int correctionCameraY = height_general +15 ;
    startLoop = 20 ;
   for(int i = startLoop ; i <= startLoop +8 ;i++) {
     float posY = correctionCameraY +correctionY +((i-startLoop) *spacingBetweenSlider) ;
@@ -520,18 +577,20 @@ void set_slider_item_console(int sliderPositionY) {
 
 
 // SLIDER DRAW
-void display_slider() {
-  /* different way to display depend the displaying mode. 
-  Can change with "ctrl+x" */
+void display_slider_general() {
   int whichGroup = 0 ;
   display_bg_slider_general() ;
   for (int i = 1 ; i < NUM_SLIDER_GENERAL ; i++) {
      sliderUpdate(i) ;
      sliderDisplayMoletteCurrentMinMax(i, whichGroup) ;
   }
-  // group item
+}
+
+void display_slider_item() {
+  /* different way to display depend the displaying mode. 
+  Can change with "ctrl+x" */
   display_bg_slider_item() ;
-  whichGroup = 1 ;
+  int whichGroup = 1 ;
   if(!showAllSliders) {
     for (int i = 1 ; i <= NUM_ITEM ; i++) {
       if (item_active[i]) {
@@ -671,9 +730,9 @@ void dislay_text_slider_item() {
   int correctionY = correction_slider_item +4 ;
   int correctionX = sliderWidth + 5 ;
   for ( int i = 0 ; i < SLIDER_BY_COL_PLUS_ONE ; i++) {
-    text(slider_name_col_one[i], colOne +correctionX, line_item_button_slider +correctionY +(i*spacingBetweenSlider));
-    text(slider_name_col_two[i], colTwo +correctionX, line_item_button_slider +correctionY +(i*spacingBetweenSlider));
-    text(slider_name_col_three[i], colThree +correctionX, line_item_button_slider +correctionY +(i*spacingBetweenSlider));
+    text(slider_name_col_one[i], colOne +correctionX, height_item_selected +correctionY +(i*spacingBetweenSlider));
+    text(slider_name_col_two[i], colTwo +correctionX, height_item_selected +correctionY +(i*spacingBetweenSlider));
+    text(slider_name_col_three[i], colThree +correctionX, height_item_selected +correctionY +(i*spacingBetweenSlider));
   }
 }
 // end text
@@ -942,7 +1001,7 @@ Button  button_midi, button_curtain,
 void init_button_general() {
   numButton = new int[NUM_GROUP_SLIDER] ;
   // General
-  numButton[0] = 18 ;
+  numButton[0] = 20 ;
   value_button_G0 = new int[numButton[0]] ;
 }
 
@@ -1008,12 +1067,14 @@ Setting button
 */
 // Main METHOD SETUP
 void set_button_general() {
-  // MIDI CURTAIN
-  size_curtain_button = Vec2(30,30) ;
+  // MIDI
+
   size_midi_button = Vec2(50,26) ;
-  pos_midi_button = Vec2(colOne +correctionMidiX, lineHeader +correctionMidiY +1) ;
+  pos_midi_button = Vec2(colOne +correctionMidiX, pos_y_top_button +correctionMidiY) ;
   pos_midi_info =Vec2(pos_midi_button.x +correction_info_midi_x, pos_midi_button.y +correction_info_midi_y) ;
-  pos_curtain_button = Vec2(colOne +correctionCurtainX, lineHeader +correctionCurtainY -1) ; 
+  // CURTAIN
+  size_curtain_button = Vec2(30,30) ;
+  pos_curtain_button = Vec2(colOne +correctionCurtainX, pos_y_top_button +correctionCurtainY) ; 
   
   
   // BACKGROUND
@@ -1060,7 +1121,7 @@ Display Button
 /**
 MAIN METHOD
 */
-void display_button() {
+void display_button_and_dropdown() {
   display_button_general() ;
   display_button_item_console() ;
   display_button_item_list() ;
@@ -1225,8 +1286,8 @@ END BUTTON
 DROPDOWN
 
 */
-int refSizeImageDropdown, refSizeFileTextDropdown, refSizeCameraVideoDropdown ;
-PVector posTextdropdown_image, posTextdropdown_file_text, posTextdropdown_camera_video ; 
+int ref_size_image_bitmap_dropdown, ref_size_image_svg_dropdown, ref_size_movie_dropdown, refSizeFileTextDropdown, refSizeCameraVideoDropdown ;
+PVector pos_text_dropdown_image_bitmap, pos_text_dropdown_image_svg, pos_text_dropdown_movie, posTextdropdown_file_text, posTextdropdown_camera_video ; 
 color selectedText ;
 color colorBoxIn, colorBoxOut, colorBoxText, colorDropdownBG, colorDropdownTitleIn, colorDropdownTitleOut ;
 int sizeToRenderTheBoxDropdown = 15 ;
@@ -1240,15 +1301,21 @@ void init_dropdown() {
   modeListRomanesco = new String[numDropdown] ;
   dropdown = new Dropdown[numDropdown] ;
   pos_dropdown = new PVector[numDropdown] ;
+
+  for(int i = 0 ; i < numDropdown  ; i++) {
+    pos_dropdown[i] = new PVector() ;
+  }
 }
 
-void set_var_dropdown() {
+void set_dropdown_general() {
 
-  pos_button_bg = Vec2(colOne +correctionHeaderDropdownBackgroundX,      lineMenuTopDropdown +correctionHeaderDropdownY)  ;
-  pos_button_font = Vec2(colOne +correctionHeaderdropdown_fontX,            lineMenuTopDropdown +correctionHeaderDropdownY)  ; 
-  pos_button_image =  Vec2(colOne +correctionHeaderdropdown_imageX,           lineMenuTopDropdown +correctionHeaderDropdownY)  ; 
-  pos_button_file_text = Vec2(colOne +correctionHeaderdropdown_file_textX,        lineMenuTopDropdown +correctionHeaderDropdownY)  ; 
-  pos_button_camera_video = Vec2(colOne +correctionHeaderdropdown_camera_videoX,     lineMenuTopDropdown +correctionHeaderDropdownY)  ; 
+  pos_button_bg = Vec2(colOne +correction_dropdown_bg_x,      height_dropdown_menu_general +correction_dropdown_top_menu_y)  ;
+  pos_button_font = Vec2(colOne +correction_dropdown_font_x,            height_dropdown_menu_general +correction_dropdown_top_menu_y)  ; 
+  pos_button_image_bitmap =  Vec2(colOne +correction_dropdown_image_bitmap_x,           height_dropdown_menu_general +correction_dropdown_top_menu_y)  ; 
+  pos_button_image_svg =  Vec2(colOne +correction_dropdown_image_svg_x,           height_dropdown_menu_general +correction_dropdown_top_menu_y)  ; 
+  pos_button_movie =  Vec2(colOne +correction_dropdown_movie_x,           height_dropdown_menu_general +correction_dropdown_top_menu_y)  ; 
+  pos_button_file_text = Vec2(colOne +correction_dropdown_txt_x,        height_dropdown_menu_general +correction_dropdown_top_menu_y)  ; 
+  pos_button_camera_video = Vec2(colOne +correction_dropdown_camera_x,     height_dropdown_menu_general +correction_dropdown_top_menu_y)  ; 
   //dropdown
   colorDropdownBG = rougeTresFonce ;
   colorDropdownTitleIn = jaune ;
@@ -1264,7 +1331,7 @@ void set_var_dropdown() {
     modeListRomanesco [row.getInt("ID")] = row.getString("Mode"); 
   }
   //font
-  String pList [] = loadStrings(sketchPath("")+"preferences/Font/fontList.txt") ;
+  String pList [] = loadStrings(sketchPath("")+"import/font/fontList.txt") ;
   String policeList = join(pList, "") ;
   font_dropdown_list = split(policeList, "/") ;
   
@@ -1274,27 +1341,43 @@ void set_var_dropdown() {
   //SHADER backgorund dropdown
   
   ///////////////
-  pos_dropdownBackground = new PVector(pos_button_bg.x, pos_button_bg.y, 0.1)  ; // x y is pos anz z is marge between the dropdown and the header
-  sizeDropdownBackground = new PVector (75, sizeToRenderTheBoxDropdown, 10) ; // z is the num of line you show
+  pos_dropdown_bg = new PVector(pos_button_bg.x, pos_button_bg.y, 0.1)  ; // x y is pos anz z is marge between the dropdown and the header
+  size_dropdown_bg = new PVector (75, sizeToRenderTheBoxDropdown, 10) ; // z is the num of line you show
   PVector posTextDropdownBackground = new PVector(3, 10)  ;
-  dropdown_bg = new Dropdown("Background", shader_bg_name, pos_dropdownBackground, sizeDropdownBackground, posTextDropdownBackground, colorDropdownBG, colorDropdownTitleIn, colorDropdownTitleOut, colorBoxIn, colorBoxOut, colorBoxText, sizeToRenderTheBoxDropdown) ;
+  dropdown_bg = new Dropdown("Background", shader_bg_name, pos_dropdown_bg, size_dropdown_bg, posTextDropdownBackground, colorDropdownBG, colorDropdownTitleIn, colorDropdownTitleOut, colorBoxIn, colorBoxOut, colorBoxText, sizeToRenderTheBoxDropdown) ;
   
   
-  //FONT dropdown
+  // FONT dropdown
   ///////////////
   pos_dropdown_font = new PVector(pos_button_font.x, pos_button_font.y, 0.1)  ; // x y is pos anz z is marge between the dropdown and the header
   size_dropdown_font = new PVector (40, sizeToRenderTheBoxDropdown, 10 ) ; // z is the num of line you show
   PVector posTextDropdownTypo = new PVector(3, 10)  ;
   dropdown_font = new Dropdown("Font", font_dropdown_list,   pos_dropdown_font , size_dropdown_font, posTextDropdownTypo, colorDropdownBG, colorDropdownTitleIn, colorDropdownTitleOut, colorBoxIn, colorBoxOut, colorBoxText, sizeToRenderTheBoxDropdown) ;
   
-  // Image Dropdown
+  // Image bitmap Dropdown
   //////////////////
-  pos_dropdown_image = new PVector(pos_button_image.x, pos_button_image.y, 0.1)  ; // x y is pos anz z is marge between the dropdown and the header
-  size_dropdown_image = new PVector (60, sizeToRenderTheBoxDropdown, 10 ) ; // z is the num of line you show
-  posTextdropdown_image = new PVector(3, 10)  ;
-  refSizeImageDropdown = image_dropdown_list.length ;
-  dropdown_image = new Dropdown("Image", image_dropdown_list, pos_dropdown_image, size_dropdown_image, posTextdropdown_image, colorDropdownBG, colorDropdownTitleIn, colorDropdownTitleOut, colorBoxIn, colorBoxOut, colorBoxText, sizeToRenderTheBoxDropdown) ;
+  pos_dropdown_image_bitmap = new PVector(pos_button_image_bitmap.x, pos_button_image_bitmap.y, 0.1)  ; // x y is pos anz z is marge between the dropdown and the header
+  size_dropdown_image_bitmap = new PVector (60, sizeToRenderTheBoxDropdown, 10 ) ; // z is the num of line you show
+  pos_text_dropdown_image_bitmap = new PVector(3, 10)  ;
+  ref_size_image_bitmap_dropdown = image_bitmap_dropdown_list.length ;
+  dropdown_image_bitmap = new Dropdown("Image bitmap", image_bitmap_dropdown_list, pos_dropdown_image_bitmap, size_dropdown_image_bitmap, pos_text_dropdown_image_bitmap, colorDropdownBG, colorDropdownTitleIn, colorDropdownTitleOut, colorBoxIn, colorBoxOut, colorBoxText, sizeToRenderTheBoxDropdown) ;
   
+  // Image svg Dropdown
+  //////////////////
+  pos_dropdown_image_svg = new PVector(pos_button_image_svg.x, pos_button_image_svg.y, 0.1)  ; // x y is pos anz z is marge between the dropdown and the header
+  size_dropdown_image_svg = new PVector (60, sizeToRenderTheBoxDropdown, 10 ) ; // z is the num of line you show
+  pos_text_dropdown_image_svg = new PVector(3, 10)  ;
+  ref_size_image_svg_dropdown = image_svg_dropdown_list.length ;
+  dropdown_image_svg = new Dropdown("Image svg", image_svg_dropdown_list, pos_dropdown_image_svg, size_dropdown_image_svg, pos_text_dropdown_image_svg, colorDropdownBG, colorDropdownTitleIn, colorDropdownTitleOut, colorBoxIn, colorBoxOut, colorBoxText, sizeToRenderTheBoxDropdown) ;
+ 
+  // Movie Dropdown
+  //////////////////
+  pos_dropdown_movie = new PVector(pos_button_movie.x, pos_button_movie.y, 0.1)  ; // x y is pos anz z is marge between the dropdown and the header
+  size_dropdown_movie = new PVector (60, sizeToRenderTheBoxDropdown, 10 ) ; // z is the num of line you show
+  pos_text_dropdown_movie = new PVector(3, 10)  ;
+  ref_size_movie_dropdown = movie_dropdown_list.length ;
+  dropdown_movie = new Dropdown("Movie", movie_dropdown_list, pos_dropdown_movie, size_dropdown_movie, pos_text_dropdown_movie, colorDropdownBG, colorDropdownTitleIn, colorDropdownTitleOut, colorBoxIn, colorBoxOut, colorBoxText, sizeToRenderTheBoxDropdown) ;
+ 
   // File text Dropdown
   //////////////////
   pos_dropdown_file_text = new PVector(pos_button_file_text.x, pos_button_file_text.y, 0.1)  ; // x y is pos anz z is marge between the dropdown and the header
@@ -1310,33 +1393,28 @@ void set_var_dropdown() {
   posTextdropdown_camera_video = new PVector(3, 10)  ;
   refSizeCameraVideoDropdown = name_camera_video_dropdown_list.length ;
   dropdown_camera_video = new Dropdown("Camera Video", name_camera_video_dropdown_list, pos_dropdown_camera_video, size_dropdown_camera_video, posTextdropdown_camera_video, colorDropdownBG, colorDropdownTitleIn, colorDropdownTitleOut, colorBoxIn, colorBoxOut, colorBoxText, sizeToRenderTheBoxDropdown) ;
-  
-  
-  
-  //MODE Dropdown
-  ///////////////
+}
+
+void set_dropdown_item_selected() {
   colorDropdownTitleIn = rouge ;
   colorDropdownTitleOut = rougeFonce ;
   //common param
   int numLineDisplayByTheDropdownObj = 8 ;
   size_dropdown_mode = new PVector (20, sizeToRenderTheBoxDropdown, numLineDisplayByTheDropdownObj) ;
   // int correction_dropdown_item +correction_button_item
-  PVector newPos = new PVector( -8, correction_dropdown_item ) ;
+  PVector newPos = new PVector(margeLeft + -8, height_item_selected +correction_dropdown_item, .1 ) ;
   // group item
-  dropdown_setting_item(margeLeft +newPos.x, line_item_button_slider +newPos.y) ;
-}
-
-void dropdown_setting_item(float posWidth, float posHeight) {
   for ( int i = 0 ; i <= NUM_ITEM ; i++ ) {
     if(modeListRomanesco[i] != null) {
       //Split the dropdown to display in the dropdown
       list_dropdown = split(modeListRomanesco[i], "/" ) ;
       //to change the title of the header dropdown
-      pos_dropdown[i] = new PVector(posWidth, posHeight , 0.1)  ; // x y is pos anz z is marge between the dropdown and the header
+      pos_dropdown[i].set(newPos.x, newPos.y, newPos.z) ; // x y is pos anz z is marge between the dropdown and the header
       dropdown[i] = new Dropdown("M", list_dropdown, pos_dropdown[i], size_dropdown_mode, posTextDropdown, colorDropdownBG, colorDropdownTitleIn, colorDropdownTitleOut, colorBoxIn, colorBoxOut, colorBoxText, sizeToRenderTheBoxDropdown) ;
     }
   }
 }
+
 
 
 
@@ -1359,7 +1437,9 @@ void display_dropdown() {
 
   update_dropdown_background() ;
   state_file_text       = update_dropdown_general(size_dropdown_file_text, pos_dropdown_file_text, dropdown_file_text, file_text_dropdown_list, title_dropdown_medium) ;
-  state_image           = update_dropdown_general(size_dropdown_image, pos_dropdown_image, dropdown_image, image_dropdown_list, title_dropdown_medium) ;
+  state_image_bitmap           = update_dropdown_general(size_dropdown_image_bitmap, pos_dropdown_image_bitmap, dropdown_image_bitmap, image_bitmap_dropdown_list, title_dropdown_medium) ;
+  state_image_svg           = update_dropdown_general(size_dropdown_image_svg, pos_dropdown_image_svg, dropdown_image_svg, image_svg_dropdown_list, title_dropdown_medium) ;
+  state_movie          = update_dropdown_general(size_dropdown_movie, pos_dropdown_movie, dropdown_movie, movie_dropdown_list, title_dropdown_medium) ;
   state_font            = update_dropdown_general(size_dropdown_font, pos_dropdown_font, dropdown_font, font_dropdown_list, title_dropdown_medium) ;
   state_camera_video    = update_dropdown_general(size_dropdown_camera_video, pos_dropdown_camera_video, dropdown_camera_video, name_camera_video_dropdown_list, title_dropdown_medium) ;
 
@@ -1381,10 +1461,15 @@ void update_dropdown_content() {
     dropdown_file_text = new Dropdown("Text", file_text_dropdown_list, pos_dropdown_file_text, size_dropdown_file_text, posTextdropdown_file_text, colorDropdownBG, colorDropdownTitleIn, colorDropdownTitleOut, colorBoxIn, colorBoxOut, colorBoxText, sizeToRenderTheBoxDropdown) ;
     refSizeFileTextDropdown = file_text_dropdown_list.length ;
   }
-   // update content picture
-  if(image_dropdown_list.length != refSizeImageDropdown ) {
-    dropdown_image = new Dropdown("Image", image_dropdown_list, pos_dropdown_image, size_dropdown_image, posTextdropdown_image, colorDropdownBG, colorDropdownTitleIn, colorDropdownTitleOut, colorBoxIn, colorBoxOut, colorBoxText, sizeToRenderTheBoxDropdown) ;
-    refSizeImageDropdown = image_dropdown_list.length ;
+  // update content bitmap
+  if(image_bitmap_dropdown_list.length != ref_size_image_bitmap_dropdown ) {
+    dropdown_image_bitmap = new Dropdown("Image bitmap", image_bitmap_dropdown_list, pos_dropdown_image_bitmap, size_dropdown_image_bitmap, pos_text_dropdown_image_bitmap, colorDropdownBG, colorDropdownTitleIn, colorDropdownTitleOut, colorBoxIn, colorBoxOut, colorBoxText, sizeToRenderTheBoxDropdown) ;
+    ref_size_image_bitmap_dropdown = image_bitmap_dropdown_list.length ;
+  }
+  // update content svg
+  if(image_svg_dropdown_list.length != ref_size_image_svg_dropdown ) {
+    dropdown_image_svg = new Dropdown("Image svg", image_svg_dropdown_list, pos_dropdown_image_svg, size_dropdown_image_svg, pos_text_dropdown_image_svg, colorDropdownBG, colorDropdownTitleIn, colorDropdownTitleOut, colorBoxIn, colorBoxOut, colorBoxText, sizeToRenderTheBoxDropdown) ;
+    ref_size_image_svg_dropdown = image_svg_dropdown_list.length ;
   }
 }
 
@@ -1430,10 +1515,10 @@ void update_dropdown_background() {
   PVector newSizeFont = dropdown_bg.sizeBoxDropdownMenu ;
   //compare the standard size of dropdown with the number of element of the list.
   int heightDropdown = 0 ;
-  if(shader_bg_name.length < sizeDropdownBackground.z ) heightDropdown = shader_bg_name.length ; else heightDropdown = (int)sizeDropdownBackground.z ;
-  PVector total_size = new PVector ( newSizeFont.x +(marge_around_dropdown *1.5), sizeDropdownBackground.y *(heightDropdown +1) +marge_around_dropdown) ; // we must add +1 to the size of the dropdown for the title plus the item list
+  if(shader_bg_name.length < size_dropdown_bg.z ) heightDropdown = shader_bg_name.length ; else heightDropdown = (int)size_dropdown_bg.z ;
+  PVector total_size = new PVector ( newSizeFont.x +(marge_around_dropdown *1.5), size_dropdown_bg.y *(heightDropdown +1) +marge_around_dropdown) ; // we must add +1 to the size of the dropdown for the title plus the item list
   //new pos to include the slider
-  PVector new_pos = new PVector (pos_dropdownBackground.x -marge_around_dropdown, pos_dropdownBackground.y) ;
+  PVector new_pos = new PVector (pos_dropdown_bg.x -marge_around_dropdown, pos_dropdown_bg.y) ;
   if (!insideRect(new_pos, total_size)) dropdown_bg.locked = false ;
   // display the selection
   
@@ -1442,9 +1527,9 @@ void update_dropdown_background() {
     textFont(textUsual_2) ;
     state_bg_shader = dropdown_bg.getSelection() ;
     if (dropdown_bg.getSelection() != 0 ) {
-      text(shader_bg_name[state_bg_shader] +" by " +shader_bg_author[dropdown_bg.getSelection()], pos_dropdownBackground.x +3 , pos_dropdownBackground.y +22) ;
+      text(shader_bg_name[state_bg_shader] +" by " +shader_bg_author[dropdown_bg.getSelection()], pos_dropdown_bg.x +3 , pos_dropdown_bg.y +22) ;
     } else {
-      text(shader_bg_name[state_bg_shader], pos_dropdownBackground.x +3 , pos_dropdownBackground.y +22) ;
+      text(shader_bg_name[state_bg_shader], pos_dropdown_bg.x +3 , pos_dropdown_bg.y +22) ;
     }
       
   }
@@ -1505,9 +1590,10 @@ void update_dropdown_item() {
 ////////////////////////
 void mousepressed_dropdown() {
   // global menu
-  check_dropdown_mousepressed (pos_dropdownBackground,  sizeDropdownBackground,  dropdown_bg) ;
+  check_dropdown_mousepressed (pos_dropdown_bg,  size_dropdown_bg,  dropdown_bg) ;
   check_dropdown_mousepressed (pos_dropdown_font,        size_dropdown_font,        dropdown_font) ;
-  check_dropdown_mousepressed (pos_dropdown_image,       size_dropdown_image,       dropdown_image) ;
+  check_dropdown_mousepressed (pos_dropdown_image_bitmap,       size_dropdown_image_bitmap,       dropdown_image_bitmap) ;
+  check_dropdown_mousepressed (pos_dropdown_image_svg,       size_dropdown_image_svg,       dropdown_image_svg) ;
   check_dropdown_mousepressed (pos_dropdown_file_text,    size_dropdown_file_text,    dropdown_file_text) ;
   check_dropdown_mousepressed (pos_dropdown_camera_video, size_dropdown_camera_video, dropdown_camera_video) ;
   

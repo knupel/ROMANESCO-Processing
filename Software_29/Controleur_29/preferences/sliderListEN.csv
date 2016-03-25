@@ -1,7 +1,8 @@
-Slider Name,Column 1,Column 2,Column 3,Column 4,Column 5,Column 6,Column 7,Column 8,Column 9,Column 10,Column 11,Column 12,Column 13,Column 14,Column 15
-général,Hue,Saturation,Brigthness,Refresh,Left,Rigth,TYPOGRAPHY,CURTAIN,,,,,,,
-Light,Hue,Saturation,Brigthness,,,,,,,,,,,,
-camera,Focal 28-200,Deformation,Direction X,Direction Y,Direction Z,Position X,Position Y,Position Z,Pitch,,,,,,
-slider 1,Hue,Saturation,Brigthness,Opacity,Hue,Saturation,Brigthness,Opacity,Thickness,Size X,Size Y,Size Z,Canvas X,Canvas Y,Canvas Z
-slider 2,Speed X,Speed Y,Speed Z,Direction X,Direction Y,Direction Z,Jitter X,Jitter Y,Jitter Z,Swing X,Swing Y,Swing Z,,,
-slider 3,Angle,Amplitude,Attraction,Repulsion,Alignment,Influence,Analyze,Family,Quantity,Life,,,,,
+Slider Name,Column 1,Column 2,Column 3,Column 4,Column 5,Column 6,Column 7,Column 8,Column 9,Column 10,Column 11,Column 12,Column 13,Column 14,Column 15,Column 16
+général,Hue,Saturation,Brigthness,Refresh,Left,Rigth,TYPOGRAPHY,CURTAIN,,,,,,,,
+Light,Hue,Saturation,Brigthness,,,,,,,,,,,,,
+camera,Focal 28-200,Deformation,Direction X,Direction Y,Direction Z,Position X,Position Y,Position Z,Pitch,,,,,,,
+slider 1,Hue,Saturation,Brigthness,Opacity,Hue,Saturation,Brigthness,Opacity,Thickness,Size X,Size Y,Size Z,Canvas X,Canvas Y,Canvas Z,
+slider 2,Reactivity,Speed X,Speed Y,Speed Z,Spurt X,Spurt Y,Spurt Z,Direction X,Direction Y,Direction Z,Jitter X,Jitter Y,Jitter Z,Swing X,Swing Y,Swing Z,
+slider 3,Quantity,Variety,Life,Fertility,Quality,Area,Angle,Scope,Scan,Aligmnent,Repulsion,Attraction,Charge – +,Influence,Calm,Appetit
+
