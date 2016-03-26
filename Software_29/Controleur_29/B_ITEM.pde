@@ -139,7 +139,7 @@ PVector posRelativeActionButton = new PVector (4,25) ;
 
 void set_button_item_console() {
   // int pos_y = pos_y_item_selected +correction_button_item ;
-  int pos_y = pos_y_item_selected ;
+  int pos_y = pos_y_item_selected +correction_button_item_selected ;
   //position and area for the rollover
   for (int i = 1 ; i <= NUM_ITEM ; i++) {
     //main

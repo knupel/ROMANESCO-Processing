@@ -95,7 +95,7 @@ Vec2  pos_midi_button, size_midi_button, pos_midi_info,
 GUI VARIABLE SETTING
 */
 float ratioNormSizeMolette = 1.3 ; 
-int height_item_console = 125 ;
+
 int sliderWidth = 140 ;
 int sliderHeight = 10 ;
 int spacingBetweenSlider = 13 ;
@@ -116,22 +116,23 @@ int margeLeft  = colOne +15 ;
 // this not a position but the height of the rectangle
 int height_header = 23 ;
 
-int height_top_button = 42 ;
-int pos_y_top_button = height_header  ;
+int height_button_top = 44 ;
+int pos_y_button_top = height_header ;
 
-int height_dropdown_menu_general = 30 ;
-int pos_y_dropdown_menu_general = height_header +height_top_button ;
+int height_dropdown_top = 32 ;
+int pos_y_dropdown_top = height_header +height_button_top ;
 
-int height_general = 95 ;
-int pos_y_general = height_header +height_top_button +height_dropdown_menu_general ;
+int height_menu_general = 138 ;
+int pos_y_menu_general = height_header +height_button_top +height_dropdown_top ;
 
-int height_menu_sound = 60 ;
-int pos_y_menu_sound = height_header +height_top_button +height_dropdown_menu_general +height_general ;
+int height_menu_sound = 52 ;
+int pos_y_menu_sound = height_header +height_button_top +height_dropdown_top +height_menu_general ;
 
-int height_item_selected = spacingBetweenSlider *NUM_SLIDER_BY_COL_ITEM +height_item_console;
-int pos_y_item_selected = height_header +height_top_button +height_dropdown_menu_general +height_general +height_menu_sound ;
+int height_item_button_console = 95 ;
+int height_item_selected = spacingBetweenSlider *NUM_SLIDER_BY_COL_ITEM +height_item_button_console;
+int pos_y_item_selected = height_header +height_button_top +height_dropdown_top +height_menu_general +height_menu_sound ;
 
-int pos_y_item_list = height_header +height_top_button +height_dropdown_menu_general +height_general +height_menu_sound +height_item_selected ;
+int pos_y_item_list = height_header +height_button_top +height_dropdown_top +height_menu_general +height_menu_sound +height_item_selected ;
 // this value depend of the size of the scene, indeed we must calculate this one later.
 int height_item_list = 100 ;
 // int pos_y_item_list = height_constant ;
@@ -142,7 +143,8 @@ int height_item_list = 100 ;
 
 // button slider
 int sizeTitleButton = 10 ;
-int correctionButtonSliderTextY = 1 ;
+int correction_button_txt_y = 1 ;
+int correction_slider_txt_y = 1 ;
 
 // CURTAIN
 int correctionCurtainX = 0 ;
@@ -167,35 +169,36 @@ int correction_dropdown_movie_x = 450 ;
 int correction_dropdown_camera_x = 520 ;
 
 //GROUP GENERAL
-int correctionSliderPos = 12 ;
+int correction_slider_general_pos_y = 12 ;
 int set_item_pos_y = 13 ;
 
 // GROUP BG
 int correctionBGX = colOne ;
-int correctionBGY = height_general +set_item_pos_y +2 ;
+int correctionBGY = pos_y_menu_general +set_item_pos_y +2 ;
 
 // GROUP LIGHT
 // ambient light
 int correctionLightAmbientX = colOne ;
-int correctionLightAmbientY = height_general +set_item_pos_y +73 ;
+int correctionLightAmbientY = pos_y_menu_general +set_item_pos_y +73 ;
 // directional light one
 int correctionLightOneX = colTwo ;
-int correctionLightOneY = height_general +set_item_pos_y +13 ;
+int correctionLightOneY = pos_y_menu_general +set_item_pos_y +13 ;
 // directional light two
 int correctionLightTwoX = colTwo ;
-int correctionLightTwoY = height_general +set_item_pos_y +73 ;
+int correctionLightTwoY = pos_y_menu_general +set_item_pos_y +73 ;
 
 // GROUP CAMERA
 int correctionCameraX = colThree ;
-int correctionCameraY = height_general +set_item_pos_y -5 ;
+int correctionCameraY = pos_y_menu_general +set_item_pos_y -5 ;
 
 // GROUP SOUND
 int correctionSoundX = colOne ;
-int correctionSoundY = height_general +160 ;
+int correction_menu_sound_y = pos_y_menu_sound +15 ;
 
 // GROUP ITEM
-int correction_dropdown_item = 15 ;
-int correction_slider_item = 40 ;
+int correction_button_item_selected = 20 ;
+int correction_dropdown_item_selected = 50 ;
+int correction_slider_item_selected = 73 ;
 
 
 /**
@@ -317,23 +320,23 @@ void display_structure_header() {
   rect(0,0, width, height_header) ;
 }
 void display_structure_top_button() {
- //  int height_top_button = 55 ;
+ //  int height_button_top = 55 ;
   noStroke() ;
   //background
   fill(gris) ; 
-  rect(0, pos_y_top_button, width, height_top_button) ; // main band
+  rect(0, pos_y_button_top, width, height_button_top) ; // main band
   //decoration
   fill(jauneOrange) ;
-  rect(0,pos_y_top_button, width, line_decoration_small) ;
+  rect(0,pos_y_button_top, width, line_decoration_small) ;
 }
 void display_structure_dropdown_menu_general() {
   noStroke() ;
   // backgorund
   fill(grisNoir) ; 
-  rect(0, pos_y_dropdown_menu_general, width, height_dropdown_menu_general) ; // main band
+  rect(0, pos_y_dropdown_top, width, height_dropdown_top) ; // main band
   //decoration
   fill (jauneOrange) ;
-  rect(0,pos_y_dropdown_menu_general, width, line_decoration_small) ;
+  rect(0,pos_y_dropdown_top, width, line_decoration_small) ;
 }
 
 
@@ -341,47 +344,44 @@ void display_structure_general() {
   noStroke() ;
   // background
   fill(gris) ; 
-  rect(0,pos_y_general , width, height_general) ;
+  rect(0,pos_y_menu_general , width, height_menu_general) ;
   // LINE DECORATION
   fill(noir) ;
-  rect(0,pos_y_general , width, line_decoration_small) ;
+  rect(0,pos_y_menu_general , width, line_decoration_small) ;
 }
 
 
 void display_structure_menu_sound() {
   noStroke() ;
-  int thicknessDecoration = 5 ;
     // background
-  fill(grisClair) ;
+  fill(gris) ;
   rect(0, pos_y_menu_sound, width, height_menu_sound) ; 
   // top decoration
-  fill(grisFonce) ;
-  // rect(0, correctionSoundY -26 +thicknessDecoration, width, thicknessDecoration) ; 
-  rect(0, pos_y_menu_sound, width, thicknessDecoration) ; 
   fill(grisTresFonce) ;
-  rect(0, pos_y_menu_sound, width, thicknessDecoration*2) ; 
-  // rect(0, correctionSoundY -18, width, 2) ;
+  rect(0, pos_y_menu_sound, width, line_decoration_medium) ; 
+  fill(grisFonce) ;
+  rect(0, pos_y_menu_sound, width, line_decoration_small) ; 
 }
 
 void display_structure_item_selected() {
   noStroke() ;
   // background
-  fill(grisClair) ;
+  fill(grisFonce) ;
   rect(0, pos_y_item_selected, width, height_item_selected) ; 
   // top decoration
   fill(jauneOrange) ;
-  rect(0, pos_y_item_selected, width, 8) ; 
+  rect(0, pos_y_item_selected, width, line_decoration_medium) ; 
   fill(rougeFonce) ;
-  rect(0, pos_y_item_selected, width, 4) ; 
+  rect(0, pos_y_item_selected, width, line_decoration_small) ; 
 }
 void display_structure_item_list() {
   noStroke() ;
   // background
   fill(gris) ;
-  rect(0, height_item_list , width, height) ; 
+  rect(0, pos_y_item_list , width, height) ; 
   // top decoration
   fill(grisTresFonce) ;
-  rect(0, height_item_list +2, width, 2) ;
+  rect(0, pos_y_item_list, width, line_decoration_small) ;
 }
 
 void display_structure_bottom() {
@@ -406,7 +406,7 @@ void display_text() {
   textFont(FuturaStencil_20,16); textAlign(RIGHT);
   text(nf(hour(),2)   + ":" +nf(minute(),2) , width -10, posTextY);
   
-  dispay_text_slider_top( height_general +64) ;
+  dispay_text_slider_top( height_menu_general +64) ;
   
   dislay_text_slider_item() ;
 }
@@ -484,8 +484,8 @@ void build_slider() {
 // SLIDER SETUP
 // MAIN METHOD SLIDER SETUP
 void set_slider() {
-  set_slider_general(correctionSliderPos) ;
-  set_slider_item_console(height_item_selected +correction_slider_item) ;
+  set_slider_general(correction_slider_general_pos_y) ;
+  set_slider_item_console(height_item_selected +correction_slider_item_selected) ;
 }
 
 
@@ -493,21 +493,15 @@ void set_slider() {
 
 // group zero, global slider for camera, sound, light, background...
 ////////////////////////////////////////////////////////////////////
-void set_slider_general(int correctionY) {
+void set_slider_general(int correction_local_y) {
   // background slider
   int startLoop = 1 ;
   for(int i = startLoop ; i <= startLoop +3 ;i++) {
-    float posY = correctionBGY +correctionY +((i-1) *spacingBetweenSlider) ;
+    float posY = correctionBGY +correction_local_y +((i-1) *spacingBetweenSlider) ;
     posSlider[i] = new PVector(colOne, posY) ;
     sizeSlider[i] = new PVector(sliderWidth,sliderHeight) ;
   }
-  // SOUND
-  startLoop = 5 ;
-  for(int i = startLoop ; i <= startLoop +1 ;i++) {
-    float posY = correctionSoundY +correctionY +((i-startLoop) *spacingBetweenSlider) ;
-    posSlider[i] = new PVector(correctionSoundX, posY) ;
-    sizeSlider[i] = new PVector(sliderWidth,sliderHeight) ;
-  }
+
   
   
   //LIGHT
@@ -515,14 +509,14 @@ void set_slider_general(int correctionY) {
   // Directional light one
   startLoop = 7 ;
   for(int i = startLoop ; i <= startLoop +2 ;i++) {
-    float posY = correctionLightOneY +correctionY +((i-startLoop) *spacingBetweenSlider) ;
+    float posY = correctionLightOneY +correction_local_y +((i-startLoop) *spacingBetweenSlider) ;
     posSlider[i] = new PVector(correctionLightOneX, posY) ;
     sizeSlider[i] = new PVector(sliderWidth,sliderHeight) ;
   }
   // Directional light two
   startLoop = 10 ;
   for(int i = startLoop ; i <= startLoop +2 ;i++) {
-    float posY = correctionLightTwoY +correctionY +((i-startLoop) *spacingBetweenSlider) ;
+    float posY = correctionLightTwoY +correction_local_y +((i-startLoop) *spacingBetweenSlider) ;
     posSlider[i] = new PVector(correctionLightTwoX, posY) ;
     sizeSlider[i] = new PVector(sliderWidth,sliderHeight) ;
   }
@@ -530,7 +524,7 @@ void set_slider_general(int correctionY) {
   // Ambient light
   startLoop = 13 ;
   for(int i = startLoop ; i <= startLoop +2 ;i++) {
-    float posY = correctionLightAmbientY +correctionY +((i-startLoop) *spacingBetweenSlider) ;
+    float posY = correctionLightAmbientY +correction_local_y +((i-startLoop) *spacingBetweenSlider) ;
     posSlider[i] = new PVector(correctionLightAmbientX, posY) ;
     sizeSlider[i] = new PVector(sliderWidth,sliderHeight) ;
   }
@@ -539,11 +533,20 @@ void set_slider_general(int correctionY) {
   // CAMERA
   //////////
 //  int correctionCameraX = colThree ;
-//int correctionCameraY = height_general +15 ;
+//int correctionCameraY = height_menu_general +15 ;
    startLoop = 20 ;
   for(int i = startLoop ; i <= startLoop +8 ;i++) {
-    float posY = correctionCameraY +correctionY +((i-startLoop) *spacingBetweenSlider) ;
+    float posY = correctionCameraY +correction_local_y +((i-startLoop) *spacingBetweenSlider) ;
     posSlider[i] = new PVector(correctionCameraX, posY) ;
+    sizeSlider[i] = new PVector(sliderWidth,sliderHeight) ;
+  }
+
+
+    // SOUND
+  startLoop = 5 ;
+  for(int i = startLoop ; i <= startLoop +1 ;i++) {
+    float posY = correction_menu_sound_y +correction_local_y +((i-startLoop) *spacingBetweenSlider) ;
+    posSlider[i] = new PVector(correctionSoundX, posY) ;
     sizeSlider[i] = new PVector(sliderWidth,sliderHeight) ;
   }
 }
@@ -692,29 +695,29 @@ void dispay_text_slider_top(int pos) {
   fill (colorTextUsual) ;
 
   //BACKGROUND
-  int correctionY = 3 ;
-  int correctionX = sliderWidth + 5 ;
+  int correction_local_y = 3 ;
+  int correction_local_x = sliderWidth + 5 ;
   // SOUND
   for(int i = 1 ; i < 7 ; i++ ) {
-    text(genTxtGUI[i], posSlider[i].x +correctionX, posSlider[i].y +correctionY);
+    text(genTxtGUI[i], posSlider[i].x +correction_local_x, posSlider[i].y +correction_local_y);
   }
   
 
   // light
   for(int i = 0 ; i < 3 ; i++ ) {
     // directional one
-    text(sliderNameLight[i+1], posSlider[i +7].x +correctionX, posSlider[i+7].y +correctionY);
+    text(sliderNameLight[i+1], posSlider[i +7].x +correction_local_x, posSlider[i+7].y +correction_local_y);
     // directional two
-    text(sliderNameLight[i+1], posSlider[i +10].x +correctionX, posSlider[i+10].y +correctionY);
+    text(sliderNameLight[i+1], posSlider[i +10].x +correction_local_x, posSlider[i+10].y +correction_local_y);
     // ambient
-    text(sliderNameLight[i+1], posSlider[i +13].x +correctionX, posSlider[i+13].y +correctionY);
+    text(sliderNameLight[i+1], posSlider[i +13].x +correction_local_x, posSlider[i+13].y +correction_local_y);
   }
   
   
   // CAMERA
   int numSliderCorrection = 19 ;
   for(int i = 1 ; i < sliderNameCamera.length ; i++ ) {
-    text(sliderNameCamera[i], posSlider[i+numSliderCorrection].x +correctionX, posSlider[i+numSliderCorrection].y +correctionY);
+    text(sliderNameCamera[i], posSlider[i+numSliderCorrection].x +correction_local_x, posSlider[i+numSliderCorrection].y +correction_local_y);
   }
 }
 
@@ -727,12 +730,12 @@ void dislay_text_slider_item() {
   
   
   // Legend text slider position for the item
-  int correctionY = correction_slider_item +4 ;
-  int correctionX = sliderWidth + 5 ;
+  int correction_local_y = correction_slider_item_selected +4 ;
+  int correction_local_x = sliderWidth + 5 ;
   for ( int i = 0 ; i < SLIDER_BY_COL_PLUS_ONE ; i++) {
-    text(slider_name_col_one[i], colOne +correctionX, height_item_selected +correctionY +(i*spacingBetweenSlider));
-    text(slider_name_col_two[i], colTwo +correctionX, height_item_selected +correctionY +(i*spacingBetweenSlider));
-    text(slider_name_col_three[i], colThree +correctionX, height_item_selected +correctionY +(i*spacingBetweenSlider));
+    text(slider_name_col_one[i], colOne +correction_local_x, height_item_selected +correction_local_y +(i*spacingBetweenSlider));
+    text(slider_name_col_two[i], colTwo +correction_local_x, height_item_selected +correction_local_y +(i*spacingBetweenSlider));
+    text(slider_name_col_three[i], colThree +correction_local_x, height_item_selected +correction_local_y +(i*spacingBetweenSlider));
   }
 }
 // end text
@@ -1010,8 +1013,17 @@ void init_button_general() {
 void build_button_general() {
 
   /**
+  Top menu
+  */
+
+    //MIDI
+  button_midi  = new Button(pos_midi_button, size_midi_button) ;
+  //curtain
+  button_curtain  = new Button(pos_curtain_button, size_curtain_button) ;
+  /**
   General
-  */  
+  */
+
   button_bg = new Button(pos_bg_button, size_bg_button) ;
   button_bg.set_on_off(true) ;
   button_bg.set_color_on_off(col_on_in, col_on_out, col_off_in, col_off_out) ;
@@ -1032,7 +1044,10 @@ void build_button_general() {
   button_light_2.set_color_on_off(col_on_in, col_on_out, col_off_in, col_off_out) ;
   button_light_2_action = new Button(posLightTwoAction, sizeLightTwoAction) ;
   button_light_2_action.set_color_on_off(col_on_in, col_on_out, col_off_in, col_off_out) ;
-  //button beat
+  
+  /**
+  Sound
+  *///button beat
   button_beat = new Button(pos_beat_button, size_beat_button) ;
   button_beat.set_color_on_off(col_on_in, col_on_out, col_off_in, col_off_out) ;
 
@@ -1044,10 +1059,7 @@ void build_button_general() {
 
   button_hat = new Button(pos_hat_button, size_hat_button) ;
   button_hat.set_color_on_off(col_on_in, col_on_out, col_off_in, col_off_out) ;
-  //MIDI
-  button_midi  = new Button(pos_midi_button, size_midi_button) ;
-  //curtain
-  button_curtain  = new Button(pos_curtain_button, size_curtain_button) ;
+
 }
 
 
@@ -1070,30 +1082,30 @@ void set_button_general() {
   // MIDI
 
   size_midi_button = Vec2(50,26) ;
-  pos_midi_button = Vec2(colOne +correctionMidiX, pos_y_top_button +correctionMidiY) ;
+  pos_midi_button = Vec2(colOne +correctionMidiX, pos_y_button_top +correctionMidiY) ;
   pos_midi_info =Vec2(pos_midi_button.x +correction_info_midi_x, pos_midi_button.y +correction_info_midi_y) ;
   // CURTAIN
   size_curtain_button = Vec2(30,30) ;
-  pos_curtain_button = Vec2(colOne +correctionCurtainX, pos_y_top_button +correctionCurtainY) ; 
+  pos_curtain_button = Vec2(colOne +correctionCurtainX, pos_y_button_top +correctionCurtainY) ; 
   
   
   // BACKGROUND
-  pos_bg_button = Vec2(correctionBGX, correctionBGY +correctionButtonSliderTextY) ;
+  pos_bg_button = Vec2(correctionBGX, correctionBGY +correction_button_txt_y) ;
   size_bg_button = Vec2(120,10) ;
   
   // LIGHT
   // ambient button
-  posLightAmbientButton = Vec2(correctionLightAmbientX, correctionLightAmbientY +correctionButtonSliderTextY) ;
+  posLightAmbientButton = Vec2(correctionLightAmbientX, correctionLightAmbientY +correction_button_txt_y) ;
   sizeLightAmbientButton = Vec2(80,10) ;
   posLightAmbientAction = Vec2(correctionLightAmbientX +90, posLightAmbientButton.y) ; // for the y we take the y of the button
   sizeLightAmbientAction = Vec2(45,10) ;
   // light one button
-  posLightOneButton = Vec2(correctionLightOneX, correctionLightOneY +correctionButtonSliderTextY) ;
+  posLightOneButton = Vec2(correctionLightOneX, correctionLightOneY +correction_button_txt_y) ;
   sizeLightOneButton = Vec2(80,10) ;
   posLightOneAction = Vec2(correctionLightOneX +90, posLightOneButton.y) ; // for the y we take the y of the button
   sizeLightOneAction = Vec2(45,10) ;
   // light two button
-  posLightTwoButton = Vec2(correctionLightTwoX, correctionLightTwoY +correctionButtonSliderTextY) ;
+  posLightTwoButton = Vec2(correctionLightTwoX, correctionLightTwoY +correction_button_txt_y) ;
   sizeLightTwoButton = Vec2(80,10) ;
   posLightTwoAction = Vec2(correctionLightTwoX +90, posLightTwoButton.y) ; // for the y we take the y of the button
   sizeLightTwoAction = Vec2(45,10) ;
@@ -1104,10 +1116,10 @@ void set_button_general() {
   size_snare_button = Vec2(40,10) ; 
   size_hat_button = Vec2(30,10) ;
   
-  pos_beat_button = Vec2(correctionSoundX, correctionSoundY +correctionButtonSliderTextY) ; 
-  pos_kick_button = Vec2(pos_beat_button.x +size_beat_button.x +5, correctionSoundY +correctionButtonSliderTextY) ; 
-  pos_snare_button = Vec2(pos_kick_button.x +size_kick_button.x +5, correctionSoundY +correctionButtonSliderTextY) ; 
-  pos_hat_button = Vec2(pos_snare_button.x +size_snare_button.x +5, correctionSoundY +correctionButtonSliderTextY) ;
+  pos_beat_button = Vec2(correctionSoundX, correction_menu_sound_y +correction_button_txt_y) ; 
+  pos_kick_button = Vec2(pos_beat_button.x +size_beat_button.x +5, correction_menu_sound_y +correction_button_txt_y) ; 
+  pos_snare_button = Vec2(pos_kick_button.x +size_kick_button.x +5, correction_menu_sound_y +correction_button_txt_y) ; 
+  pos_hat_button = Vec2(pos_snare_button.x +size_snare_button.x +5, correction_menu_sound_y +correction_button_txt_y) ;
 }
 
 
@@ -1309,13 +1321,13 @@ void init_dropdown() {
 
 void set_dropdown_general() {
 
-  pos_button_bg = Vec2(colOne +correction_dropdown_bg_x,      height_dropdown_menu_general +correction_dropdown_top_menu_y)  ;
-  pos_button_font = Vec2(colOne +correction_dropdown_font_x,            height_dropdown_menu_general +correction_dropdown_top_menu_y)  ; 
-  pos_button_image_bitmap =  Vec2(colOne +correction_dropdown_image_bitmap_x,           height_dropdown_menu_general +correction_dropdown_top_menu_y)  ; 
-  pos_button_image_svg =  Vec2(colOne +correction_dropdown_image_svg_x,           height_dropdown_menu_general +correction_dropdown_top_menu_y)  ; 
-  pos_button_movie =  Vec2(colOne +correction_dropdown_movie_x,           height_dropdown_menu_general +correction_dropdown_top_menu_y)  ; 
-  pos_button_file_text = Vec2(colOne +correction_dropdown_txt_x,        height_dropdown_menu_general +correction_dropdown_top_menu_y)  ; 
-  pos_button_camera_video = Vec2(colOne +correction_dropdown_camera_x,     height_dropdown_menu_general +correction_dropdown_top_menu_y)  ; 
+  pos_button_bg = Vec2(colOne +correction_dropdown_bg_x,      height_dropdown_top +correction_dropdown_top_menu_y)  ;
+  pos_button_font = Vec2(colOne +correction_dropdown_font_x,            height_dropdown_top +correction_dropdown_top_menu_y)  ; 
+  pos_button_image_bitmap =  Vec2(colOne +correction_dropdown_image_bitmap_x,           height_dropdown_top +correction_dropdown_top_menu_y)  ; 
+  pos_button_image_svg =  Vec2(colOne +correction_dropdown_image_svg_x,           height_dropdown_top +correction_dropdown_top_menu_y)  ; 
+  pos_button_movie =  Vec2(colOne +correction_dropdown_movie_x,           height_dropdown_top +correction_dropdown_top_menu_y)  ; 
+  pos_button_file_text = Vec2(colOne +correction_dropdown_txt_x,        height_dropdown_top +correction_dropdown_top_menu_y)  ; 
+  pos_button_camera_video = Vec2(colOne +correction_dropdown_camera_x,     height_dropdown_top +correction_dropdown_top_menu_y)  ; 
   //dropdown
   colorDropdownBG = rougeTresFonce ;
   colorDropdownTitleIn = jaune ;
@@ -1401,8 +1413,8 @@ void set_dropdown_item_selected() {
   //common param
   int numLineDisplayByTheDropdownObj = 8 ;
   size_dropdown_mode = new PVector (20, sizeToRenderTheBoxDropdown, numLineDisplayByTheDropdownObj) ;
-  // int correction_dropdown_item +correction_button_item
-  PVector newPos = new PVector(margeLeft + -8, height_item_selected +correction_dropdown_item, .1 ) ;
+  // int correction_dropdown_item_selected +correction_button_item
+  PVector newPos = new PVector(margeLeft + -8, height_item_selected +correction_dropdown_item_selected, .1 ) ;
   // group item
   for ( int i = 0 ; i <= NUM_ITEM ; i++ ) {
     if(modeListRomanesco[i] != null) {

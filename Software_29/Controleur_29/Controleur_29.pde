@@ -15,19 +15,20 @@ void settings() {
 }
 
 void setup() {
-  preference_path = sketchPath("")+"preferences/" ;
-  import_path = sketchPath("")+"import/" ;
   setting() ;
   init_button_general() ;
+  init_midi() ;
+
   build_item_library() ;
   loadSetup() ;
-  set_display_slider() ;
+
   check_image_bitmap_folder() ;
   check_image_svg_folder() ;
   check_file_text_folder() ;
   select_camera_device(30, 100) ; // methode(int min_fps, int min_width)
+  
   set_font() ;
-  init_midi() ;
+  set_display_slider() ;
   set_import_pic_button() ;
   set_slider() ;
   set_button_general() ;
@@ -41,9 +42,9 @@ void setup() {
   build_slider() ;
 
   set_item_list() ;
-
   set_OSC() ;
   set_data_from_save() ;
+
   INIT_INTERFACE = false ;
 }
 
@@ -68,9 +69,9 @@ void draw() {
   display_structure_top_button() ;
   display_structure_dropdown_menu_general() ;
   display_structure_general() ;
-  //display_structure_menu_sound() ;
-  //display_structure_item_selected() ;
-  //display_structure_item_list() ;
+  display_structure_menu_sound() ;
+  display_structure_item_selected() ;
+  display_structure_item_list() ;
 
   display_text() ;
 
