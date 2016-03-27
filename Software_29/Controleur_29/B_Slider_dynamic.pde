@@ -20,37 +20,70 @@ boolean showAllSliders = false ;
 
 
 
+// col 1
+int hue_fill_rank = 1 ;
+int sat_fill_rank = 2 ;
+int bright_fill_rank = 3 ;
+int alpha_fill_rank = 4 ;
 
-int hueFillRank = 1 ;
-int saturationFillRank = 2 ;
-int brightnessFillRank = 3 ;
-int alphaFillRank = 4 ;
-int hueStrokeRank = 5 ;
-int saturationStrokeRank = 6 ;
-int brightnessStrokeRank = 7 ;
-int alphaStrokeRank = 8 ;
-int thicknessRank = 9 ;
+int hue_stroke_rank = 5 ;
+int sat_stroke_rank = 6 ;
+int bright_stroke_rank = 7 ;
+int alpha_stroke_rank = 8 ;
+int thickness_rank = 9 ;
 
-int widthObjRank = 11 ;
-int heightObjRank = 12 ;
-int depthObjRank = 13 ;
-int canvasXRank = 14 ;
-int canvasYRank = 15 ;
-int canvasZRank = 16 ;
-int familyRank = 17 ;
-int quantityRank = 18 ;
-int lifeRank = 19 ;
+int size_x_rank = 10 ;
+int size_y_rank = 11 ;
+int size_z_rank = 12 ;
 
-int speedRank = 21 ;
-int directionRank = 22 ;
-int angleRank = 23 ;
-int amplitudeRank = 24 ;
-int attractionRank = 25 ;
-int repulsionRank = 26 ;
-int influenceRank = 27 ;
-int alignmentRank = 28 ;
-int analyzeRank = 29 ;
+int canvas_x_rank = 13 ;
+int canvas_y_rank = 14 ;
+int canvas_z_rank = 15 ;
 
+// col 2
+int reactivity_rank = 17 ;
+
+int speed_x_rank = 18 ;
+int speed_y_rank = 19 ;
+int speed_z_rank = 20 ;
+
+int spurt_x_rank = 21 ;
+int spurt_y_rank = 22 ;
+int spurt_z_rank = 23 ;
+
+int dir_x_rank = 24 ;
+int dir_y_rank = 25 ;
+int dir_z_rank = 26 ;
+
+int jitter_x_rank = 27 ;
+int jitter_y_rank = 28 ;
+int jitter_z_rank = 29 ;
+
+int swing_x_rank = 30 ;
+int swing_y_rank = 31 ;
+int swing_z_rank = 32 ;
+
+// col 3
+int quantity_rank = 33 ;
+int variety_rank = 34 ;
+
+int life_rank = 35 ;
+int fertility_rank = 36 ;
+int quality_rank = 37 ;
+
+int area_rank = 38 ;
+int angle_rank = 39 ;
+int scope_rank = 40 ;
+int scan_rank = 41 ;
+
+int alignment_rank = 42 ;
+int repulsion_rank = 43 ;
+int attraction_rank = 44 ;
+int charge_rank = 45 ;
+
+int influence_rank = 46 ;
+int calm_rank = 47 ;
+int appetit_rank = 48 ;
 
 
 
@@ -198,7 +231,7 @@ void check_slider_item() {
     //active slider
     int IDgroup = 0 ;
      if (showAllSliders) {
-      for ( int i = 1 ; i < NUM_SLIDER_ITEM ; i++) {
+      for ( int i = 1 ; i <= NUM_SLIDER_ITEM ; i++) {
         display_slider[1][i] = true ;
       }
     } else {
