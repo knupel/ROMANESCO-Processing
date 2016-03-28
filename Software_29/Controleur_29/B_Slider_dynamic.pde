@@ -1,10 +1,10 @@
 // Tab: B_Slider_dynamic
-StringList sliderControler = new StringList() ;
+StringList slider_item_controller = new StringList() ;
 
 StringList [] slider_item  ;
 String [] slider_item_raw  ;
 
-String [][] slider_itemListRaw  ;
+String [][] slider_item_list_raw  ;
 boolean [] item_active ;
 boolean [][] display_slider  ;
 
@@ -83,7 +83,7 @@ int charge_rank = 45 ;
 
 int influence_rank = 46 ;
 int calm_rank = 47 ;
-int appetit_rank = 48 ;
+int need_rank = 48 ;
 
 
 
@@ -93,24 +93,22 @@ int appetit_rank = 48 ;
 
 void set_display_slider() {
   setSliderDynamic() ;
-  giveNameSliderUsedByObject() ;
-  listSliderInterface() ;
-  recoverActiveSliderFromObj() ;
-  listSliderObject() ;
+  list_item_slider_gui() ;
+  recover_active_slider_from_item() ;
+  list_slider_item() ;
 }
 
 void setSliderDynamic() {
   slider_item = new StringList [NUM_ITEM +1] ;
   slider_item_raw = new String [NUM_ITEM +1] ;
-  slider_itemListRaw = new String [NUM_ITEM +1][NUM_SLIDER_ITEM +1] ;
+  slider_item_list_raw = new String [NUM_ITEM +1][NUM_SLIDER_ITEM +1] ;
   item_active = new boolean[NUM_ITEM +1] ;
   display_slider = new boolean [NUM_GROUP_SLIDER] [NUM_SLIDER_ITEM +1] ;
 }
 
 
-void recoverActiveSliderFromObj() {
+void recover_active_slider_from_item() {
   slider_item_raw[0] = ("not used") ;
-
   for(int i = 1 ; i <= NUM_ITEM ; i++) {
     slider_item_raw[i] = item_slider[item_ID[i]] ;
   }
@@ -127,24 +125,24 @@ void init_slider_dynamic() {
 
 
 
-void listSliderObject() {
-  //create the String list for each object
+void list_slider_item() {
+  //create the String list for each item
   for ( int i = 0 ; i < slider_item.length ; i++) {
-    slider_item[i] = new  StringList() ;
+    slider_item[i] = new StringList() ;
   }
 
   //setting the list to don't have a null value
   for (int i = 0 ; i < slider_item.length ; i++) {
-    for( int j = 0 ; j < NUM_SLIDER_ITEM ; j++ ) {
+    for( int j = 0 ; j <= NUM_SLIDER_ITEM ; j++ ) {
       slider_item[i].append("") ;
     }
   }
   // had value to the slider list object
-  for (int i = 0 ; i <= NUM_ITEM ; i++) {
+  for (int i = 1 ; i <= NUM_ITEM ; i++) {
     String [] listSliderTemp = splitText(slider_item_raw[i], (",")) ;
     for( int j = 0 ; j < NUM_SLIDER_ITEM ; j++ ) {
       for ( int k = 0 ; k < listSliderTemp.length ; k++ ) {
-        if(listSliderTemp[k].equals(sliderControler.get(j))) {
+        if(listSliderTemp[k].equals(slider_item_controller.get(j))) {
           slider_item[i].set(j,listSliderTemp[k]) ;
         } else if(listSliderTemp[k].equals("all") ) {
           slider_item[i].set(j,"all") ;
@@ -155,49 +153,11 @@ void listSliderObject() {
 }
 
 
-String  sliderName [] = new String[NUM_SLIDER_TOTAL +1] ;
 
 
-void giveNameSliderUsedByObject() {
-  sliderName[0] = ("not used") ;
-  sliderName[1] = ("Hue fill") ;
-  sliderName[2] = ("Saturation fill") ;
-  sliderName[3] = ("Brightness fill") ;
-  sliderName[4] = ("Alpha fill") ;
-  sliderName[5] = ("Hue stroke") ;
-  sliderName[6] = ("Saturation stroke") ;
-  sliderName[7] = ("Brightness stroke") ;
-  sliderName[8] = ("Alpha stroke") ;
-  sliderName[9] = ("Thickness") ;
-  sliderName[10] = ("not used") ;
-
-  sliderName[11] = ("Size X") ;
-  sliderName[12] = ("Size Y") ;
-  sliderName[13] = ("Size Z") ;
-  sliderName[14] = ("Canvas X") ;
-  sliderName[15] = ("Canvas Y") ;
-  sliderName[16] = ("Canvas Z") ;
-  sliderName[17] = ("Family") ;
-  sliderName[18] = ("Quantity") ;
-  sliderName[19] = ("Life") ;
-  sliderName[20] = ("not used") ;
-
-  sliderName[21] = ("Speed") ;
-  sliderName[22] = ("Direction") ;
-  sliderName[23] = ("Angle") ;
-  sliderName[24] = ("Amplitude") ;
-  sliderName[25] = ("Attraction") ;
-  sliderName[26] = ("Repulsion") ;
-  sliderName[27] = ("Alignment") ;
-  sliderName[28] = ("Influence") ;
-  sliderName[29] = ("Analyze") ;
-  sliderName[30] = ("not used") ;
-}
-
-
-void listSliderInterface() {
-  for(int i = 0 ; i <NUM_SLIDER_TOTAL ; i++) {
-    sliderControler.append(sliderName[i]) ;
+void list_item_slider_gui() {
+  for(int i = 0 ; i <= NUM_SLIDER_ITEM ; i++) {
+    slider_item_controller.append(slider_item_name[i]) ;
   }
 }
 
@@ -205,10 +165,10 @@ void listSliderInterface() {
 
 // DRAW
 void check_slider_item() {
-   check_item_parameter_on_off() ;
-   whichSliderMustBeDisplay() ;
-   // check the group slider
-   for ( int i = 1 ; i <= NUM_ITEM ; i++) {
+  check_item_parameter_on_off() ;
+  whichSliderMustBeDisplay() ;
+  // check the group slider
+  for ( int i = 1 ; i <= NUM_ITEM ; i++) {
     if (item_active[i]) {
       showSliderGroup[item_group[i]] = true ;
     }
@@ -236,23 +196,22 @@ void check_slider_item() {
       }
     } else {
       for ( int i = 1 ; i <= NUM_ITEM ; i++) {
-
         if (item_active[i]) {
           IDgroup = 1 ;
-          for(int j = 1 ; j < NUM_SLIDER_ITEM ; j++) {
+          for(int j = 1 ; j <= NUM_SLIDER_ITEM ; j++) {
             if (firstCheck[1])  {
-              if((sliderControler.get(j).equals(slider_item[i].get(j)) || slider_item[i].get(j).equals("all"))) {
+              if((slider_item_controller.get(j).equals(slider_item[i].get(j)) || slider_item[i].get(j).equals("all"))) {
                 display_slider[IDgroup][j] = true ; 
               } else display_slider[IDgroup][j] = false ;
             } else {
               if (!allSliderUsed) { 
-                if((sliderControler.get(j).equals(slider_item[i].get(j)) || slider_item[i].get(j).equals("all")) && display_slider[IDgroup][j]) {
+                if((slider_item_controller.get(j).equals(slider_item[i].get(j)) || slider_item[i].get(j).equals("all")) && display_slider[IDgroup][j]) {
                   display_slider[IDgroup][j] = true ; 
                 } else {
                   display_slider[IDgroup][j] = false ;
                 }
               } else if (allSliderUsed) {
-                if (!display_slider[IDgroup][j]) if (sliderControler.get(j).equals(slider_item[i].get(j)) || slider_item[i].get(j).equals("all")) {
+                if (!display_slider[IDgroup][j]) if (slider_item_controller.get(j).equals(slider_item[i].get(j)) || slider_item[i].get(j).equals("all")) {
                   display_slider[IDgroup][j] = true ; 
                 } else {
                   display_slider[IDgroup][j] = false ;
@@ -261,7 +220,6 @@ void check_slider_item() {
             }
           }
         }
-
         // wait the first cross of active object to change
         if (item_active[i]) firstCheck[IDgroup] = false ;
       }

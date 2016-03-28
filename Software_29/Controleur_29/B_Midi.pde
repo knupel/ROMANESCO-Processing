@@ -383,7 +383,7 @@ void updateMidiButton(Button b) {
 
 
 //give which button is active and check is this button have a same IDmidi that Object
-void sliderMidiUpdate(int whichOne) {
+void update_midi_slider(int whichOne) {
   // update info from midi controller
   if (midi_CC_romanesco == slider[whichOne].IDmidi()) slider[whichOne].updateMidi(midi_value_romanesco) ;
 
@@ -400,7 +400,7 @@ void sliderMidiUpdate(int whichOne) {
   if (selectMidi && slider[whichOne].lockedMol()) slider[whichOne].selectIDmidi(midi_CC_romanesco) ;
   
   //ID midi from save
-  if(loadSaveSetting) slider[whichOne].selectIDmidi((int)infoSaveFromRawList(infoSlider, whichOne).b) ;
+  if(loadSaveSetting) slider[whichOne].selectIDmidi((int)info_save_raw_list(infoSlider, whichOne).b) ;
 }
 // END MIDI MANAGER
 ///////////////////

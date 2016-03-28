@@ -37,10 +37,6 @@ void init_and_update_diplay_var() {
   sizeBackgroundP3D = new PVector(width *100, height *100, height *7.5) ;
 }
 
-
-
-
-
 // main void
 void loadImg(int ID) {
   checkImageFolder() ;
@@ -73,7 +69,7 @@ void loadText(int ID) {
 // check what's happen in the selected folder
 void checkImageFolder() {
   // String path = sketchPath("") +"/" +preferencesPath +"Images" ;
-  String path = preferencesPath +"Images" ;
+  String path = import_path +"bitmap" ;
 
   // String path = preferencesPath +"Images" ;
   ArrayList allFiles = listFilesRecursive(path);
@@ -113,7 +109,7 @@ void checkImageFolder() {
 
 void checkFileTextFolder() {
   // String path = sketchPath("") +"/" +preferencesPath +"Karaoke" ;
-  String path = preferencesPath +"Karaoke" ;
+  String path = import_path +"karaoke" ;
   ArrayList allFiles = listFilesRecursive(path);
   
   //check if something happen in the folder

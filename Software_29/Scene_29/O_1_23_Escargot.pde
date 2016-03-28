@@ -1,5 +1,5 @@
 /**
-ESCARGOT 1.4.3
+ESCARGOT || 2011 || 1.4.3
 */
 class Escargot extends Romanesco {
   public Escargot() {
@@ -12,7 +12,7 @@ class Escargot extends Romanesco {
     romanescoPack = "Base" ;
     romanescoRender = "P3D" ;
     romanescoMode = "Original/Raw/Point/Ellipse/Rectangle/Box/Cross/SVG/Vitraux" ;
-    romanescoSlider = "Hue fill,Saturation fill,Brightness fill,Alpha fill,Hue stroke,Saturation stroke,Brightness stroke,Alpha stroke,Thickness,Size X,Size Y,Size Z,Speed,Direction,Amplitude,Analyze,Quantity,Repulsion" ;
+    romanescoSlider = "Fill hue,Fill sat,Fill bright,Fill alpha,Stroke hue,Stroke sat,Stroke bright,Stroke alpha,Thickness,Size X,Size Y,Size Z,Speed X,Direction X,Canvas X,Quality,Quantity,Repulsion" ;
   }
   //GLOBAL
   String pathSVG ;
@@ -107,7 +107,7 @@ class Escargot extends Romanesco {
     loadImg(IDobj) ;
     if(!fullRendering) maxVoronoiPoints = 250 ;
     //load pattern SVG to display a Pixel pattern you create in Illustrator or other software
-    pathSVG = preferencesPath +"pixel/model.svg" ;
+    pathSVG = prefenrece_path +"pixel/model.svg" ;
     shapeSVGsetting(pathSVG) ;
     
     //random palette

@@ -88,6 +88,10 @@ Vec2  pos_midi_button, size_midi_button, pos_midi_info,
       pos_hat_button, size_hat_button ;
 
 
+// ITEM
+String  slider_item_name [] = new String[NUM_SLIDER_TOTAL +1] ;
+
+
 // END variables declaration
 ////////////////////////////////////
 
@@ -126,7 +130,7 @@ int pos_y_dropdown_top = height_header +height_button_top ;
 int height_menu_general = 138 ;
 int pos_y_menu_general = height_header +height_button_top +height_dropdown_top ;
 
-int height_menu_sound = 52 ;
+int height_menu_sound = 55 ;
 int pos_y_menu_sound = height_header +height_button_top +height_dropdown_top +height_menu_general ;
 
 int height_item_button_console = 95 ;
@@ -194,7 +198,7 @@ int correctionCameraY = pos_y_menu_general +set_item_pos_y -5 ;
 
 // GROUP SOUND
 int correctionSoundX = colOne ;
-int correction_menu_sound_y = pos_y_menu_sound +15 ;
+int correction_menu_sound_y = pos_y_menu_sound +17 ;
 
 // GROUP ITEM
 int correction_button_item_selected = 20 ;
@@ -238,14 +242,13 @@ void setting() {
   // general
   for ( int i = 0 ; i <  SLIDER_BY_COL ; i++ ) {
     genTxtGUI[i] = ("") ;
-    sliderNameCamera[i] = ("") ;
+    slider_item_nameCamera[i] = ("") ;
   }
-  // item
-  for ( int i = 0 ; i <  SLIDER_BY_COL_PLUS_ONE ; i++ ) {
-    slider_name_col_one[i] = ("") ;
-    slider_name_col_two[i] = ("") ;
-    slider_name_col_three[i] = ("") ;
-  }
+}
+
+void reset() {
+  init_slider_dynamic() ;
+  INIT_INTERFACE = false ;
 }
 
 
@@ -459,7 +462,7 @@ SLIDER
 */
 
 void init_slider() {
-  for (int i = 0 ; i < NUM_SLIDER_TOTAL ;i++) {
+  for (int i = 0 ; i < NUM_SLIDER_TOTAL ; i++) {
     sizeSlider[i] = new PVector() ;
     posSlider[i] = new PVector() ; 
   }
@@ -468,13 +471,13 @@ void init_slider() {
 
 void build_slider() {
   //slider
-  for ( int i = 1 ; i < NUM_SLIDER_TOTAL ; i++ ) {
+  for ( int i = 1 ; i < NUM_SLIDER_TOTAL ; i++) {
     PVector sizeMol = new PVector (sizeSlider[i].y *ratioNormSizeMolette, sizeSlider[i].y *ratioNormSizeMolette) ;
     // we use the var posMol here just to init the Slider, because we load data from save further.
     PVector posMol = new PVector() ;
     PVector tempPosSlider = new PVector(posSlider[i].x, posSlider[i].y -(sliderHeight *.6)) ;
-    if(infoSaveFromRawList(infoSlider,i).a > -1 ) {
-      slider[i] = new SliderAdjustable  (tempPosSlider, posMol, sizeSlider[i], sizeMol, "ELLIPSE");
+    if(info_save_raw_list(infoSlider,i).a > -1 ) {
+      slider[i] = new SliderAdjustable (tempPosSlider, posMol, sizeSlider[i], sizeMol, "ELLIPSE");
     }
     if(slider[i] != null) slider[i].setting() ;
   } 
@@ -585,39 +588,12 @@ void display_slider_general() {
   int whichGroup = 0 ;
   display_bg_slider_general() ;
   for (int i = 1 ; i < NUM_SLIDER_GENERAL ; i++) {
-     sliderUpdate(i) ;
-     sliderDisplayMoletteCurrentMinMax(i, whichGroup) ;
+     update_slider(i) ;
+     display_current_slider_engine(i, whichGroup) ;
   }
 }
 
-void display_slider_item() {
-  /* different way to display depend the displaying mode. 
-  Can change with "ctrl+x" */
-  display_bg_slider_item() ;
-  int whichGroup = 1 ;
-  if(!showAllSliders) {
-    for (int i = 1 ; i <= NUM_ITEM ; i++) {
-      if (item_active[i]) {
-        if (showSliderGroup[1] && item_group[i] == 1) { 
-          for(int j = 1 ; j < NUM_SLIDER_ITEM ; j++) {
-            if (display_slider[1][j]) {
-              int whichOne = item_group[i] *100 +j ;
-              sliderUpdate(whichOne) ; 
-              sliderDisplayMoletteCurrentMinMax(whichOne, whichGroup) ; 
-            }
-          }
-        }
-      }
-    }
-  // if it ask to show all slider  
-  } else {
-    for(int i = 1 ; i < NUM_SLIDER_ITEM ; i++) {
-      int which_one = i +100 ;
-      sliderUpdate(which_one) ;
-      sliderDisplayMoletteCurrentMinMax(which_one, whichGroup) ;
-    }
-  }
-}
+
 
 
 
@@ -626,13 +602,11 @@ void display_slider_item() {
 
 
 // SLIDER UPDATE
-void sliderUpdate(int whichOne) {
-  
+void update_slider(int whichOne) {
   //MIDI update
-  sliderMidiUpdate(whichOne) ;
-  
+  update_midi_slider(whichOne) ;
 
-   // MIN and MAX molette
+  // MIN and MAX molette
   //check
   if(!slider[whichOne].lockedMol && !slider[whichOne].insideMol ) {
     // min molette
@@ -664,21 +638,22 @@ void sliderUpdate(int whichOne) {
 }
 
 
-void sliderDisplayMoletteCurrentMinMax(int whichOne, int whichGroup) {
+void display_current_slider_engine(int whichOne, int whichGroup) {
   if (whichGroup == 0) {
-    sliderDisplayMinMaxMolette(whichOne, grisTresFonce, gris) ;
-    sliderDisplayCurrentMolette(whichOne, blanc, blancGris) ;
+    display_min_max_slider(whichOne, grisTresFonce, gris) ;
+    display_current_mollette(whichOne, blanc, blancGris) ;
   } else {
-    sliderDisplayMinMaxMolette(whichOne, grisFonce, grisClair) ;
-    sliderDisplayCurrentMolette(whichOne, blanc, blancGris) ;
+    display_min_max_slider(whichOne, grisFonce, grisClair) ;
+    display_current_mollette(whichOne, blanc, blancGris) ;
   }
 }
 // local method
-void sliderDisplayMinMaxMolette(int whichOne,  color colorIn, color colorOut) {
+void display_min_max_slider(int whichOne,  color colorIn, color colorOut) {
   float thickness = 0 ;
   slider[whichOne].displayMinMax(normPosSliderAdjustable, normSizeSliderAdjustable, colorIn, colorOut, colorIn, colorOut, thickness) ;
 }
-void sliderDisplayCurrentMolette(int whichOne, color colorMolIn, color colorMolOut) {
+
+void display_current_mollette(int whichOne, color colorMolIn, color colorMolOut) {
   slider[whichOne].displayMolette(colorMolIn,colorMolOut, colorMolIn,colorMolOut, 1) ;
 }
 // end local method
@@ -686,6 +661,20 @@ void sliderDisplayCurrentMolette(int whichOne, color colorMolIn, color colorMolO
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+/**
+SLIDER DISPLAY GENERAL
+*/
 // TEXT slider
 ///////////////
 void dispay_text_slider_top(int pos) {
@@ -707,36 +696,18 @@ void dispay_text_slider_top(int pos) {
   // light
   for(int i = 0 ; i < 3 ; i++ ) {
     // directional one
-    text(sliderNameLight[i+1], posSlider[i +7].x +correction_local_x, posSlider[i+7].y +correction_local_y);
+    text(slider_item_nameLight[i+1], posSlider[i +7].x +correction_local_x, posSlider[i+7].y +correction_local_y);
     // directional two
-    text(sliderNameLight[i+1], posSlider[i +10].x +correction_local_x, posSlider[i+10].y +correction_local_y);
+    text(slider_item_nameLight[i+1], posSlider[i +10].x +correction_local_x, posSlider[i+10].y +correction_local_y);
     // ambient
-    text(sliderNameLight[i+1], posSlider[i +13].x +correction_local_x, posSlider[i+13].y +correction_local_y);
+    text(slider_item_nameLight[i+1], posSlider[i +13].x +correction_local_x, posSlider[i+13].y +correction_local_y);
   }
   
   
   // CAMERA
   int numSliderCorrection = 19 ;
-  for(int i = 1 ; i < sliderNameCamera.length ; i++ ) {
-    text(sliderNameCamera[i], posSlider[i+numSliderCorrection].x +correction_local_x, posSlider[i+numSliderCorrection].y +correction_local_y);
-  }
-}
-
-
-
-void dislay_text_slider_item() {
-  textFont(FuturaStencil_20,20); textAlign(RIGHT);
-  fill (colorTextUsual) ;
-  textFont(textUsual_1);  textAlign(LEFT);
-  
-  
-  // Legend text slider position for the item
-  int correction_local_y = correction_slider_item_selected +4 ;
-  int correction_local_x = sliderWidth + 5 ;
-  for ( int i = 0 ; i < SLIDER_BY_COL_PLUS_ONE ; i++) {
-    text(slider_name_col_one[i], colOne +correction_local_x, height_item_selected +correction_local_y +(i*spacingBetweenSlider));
-    text(slider_name_col_two[i], colTwo +correction_local_x, height_item_selected +correction_local_y +(i*spacingBetweenSlider));
-    text(slider_name_col_three[i], colThree +correction_local_x, height_item_selected +correction_local_y +(i*spacingBetweenSlider));
+  for(int i = 1 ; i < slider_item_nameCamera.length ; i++ ) {
+    text(slider_item_nameCamera[i], posSlider[i+numSliderCorrection].x +correction_local_x, posSlider[i+numSliderCorrection].y +correction_local_y);
   }
 }
 // end text
@@ -745,9 +716,7 @@ void dislay_text_slider_item() {
 
 
 
-/////////////////
-// SLIDER DISPLAY
-////////////////////////////////////////////////////////////////////////////////
+
 // Slider display for the global slider background, camera, light, sound....
 /*
 When you add a new sliders, you must change the starting value from 'NAN' to a value between 0 and 1 in the file 'defaultSetting.csv' in the 'preferences/setting' folder.
@@ -826,13 +795,65 @@ void slider_HSB_general_display(int start) {
 
 
 /**
-Slider display for the item slider
+Item selected slider
 */
 /*
 When you add a new sliders, you must change the starting value from 'NAN' to a value between 0 and 1 in the file 'defaultSetting.csv' in the 'preferences/setting' folder.
 And you must add the name of this one in the 'preferences/'  folder sliderListEN.csv' and in the 'sliderListFR' file
 */
 
+void display_slider_item() {
+  /* different way to display depend the displaying mode. 
+  Can change with "ctrl+x" */
+  display_bg_slider_item() ;
+  int whichGroup = 1 ;
+  if(!showAllSliders) {
+    for (int i = 1 ; i <= NUM_ITEM ; i++) {
+      if (item_active[i]) {
+        if (showSliderGroup[1] && item_group[i] == 1) { 
+          for(int j = 1 ; j < NUM_SLIDER_ITEM ; j++) {
+            println(display_slider[1][j], j) ;
+            if (display_slider[1][j]) {
+              int whichOne = item_group[i] *100 +j ;
+              update_slider(whichOne) ; 
+              display_current_slider_engine(whichOne, whichGroup) ; 
+            }
+          }
+        }
+      }
+    }
+  // if it ask to show all slider  
+  } else {
+    for(int i = 1 ; i <= NUM_SLIDER_ITEM ; i++) {
+      int which_one = i +100 ;
+      update_slider(which_one) ;
+      display_current_slider_engine(which_one, whichGroup) ;
+    }
+  }
+}
+
+
+
+
+void dislay_text_slider_item() {
+  textFont(FuturaStencil_20,20); textAlign(RIGHT);
+  fill (colorTextUsual) ;
+  textFont(textUsual_1);  textAlign(LEFT);
+  
+  
+  // Legend text slider position for the item
+  int correction_local_y = correction_slider_item_selected +4 ;
+  int correction_local_x = sliderWidth + 5 ;
+  for ( int i = 1 ; i <= SLIDER_BY_COL ; i++) {
+    int which_one = i+(SLIDER_BY_COL *0);
+    int which_two = i+(SLIDER_BY_COL *1);
+    int which_three = i+(SLIDER_BY_COL *2);
+    int factor = i -1 ;
+    text(slider_item_name[which_one], colOne +correction_local_x, height_item_selected +correction_local_y +(factor *spacingBetweenSlider));
+    text(slider_item_name[which_two], colTwo +correction_local_x, height_item_selected +correction_local_y +(factor *spacingBetweenSlider));
+    text(slider_item_name[which_three], colThree +correction_local_x, height_item_selected +correction_local_y +(factor *spacingBetweenSlider));
+  }
+}
 /* Loop to display the false background slider instead the usual class Slider background,
 we use it the methode to display a particular background, like the rainbowcolor... */
 void display_bg_slider_item() {
@@ -919,8 +940,8 @@ void display_bg_slider_item() {
   if(display_slider[whichGroup][influence_rank]) sliderBG ( posSlider[whichOne +influence_rank].x, posSlider[whichOne +influence_rank].y, sizeSlider[whichOne +influence_rank].y, sizeSlider[whichOne +influence_rank].x, roundedSlider, blancGrisClair) ;
   // calm
   if(display_slider[whichGroup][calm_rank]) sliderBG ( posSlider[whichOne +calm_rank].x, posSlider[whichOne +calm_rank].y, sizeSlider[whichOne +calm_rank].y, sizeSlider[whichOne +calm_rank].x, roundedSlider, blancGrisClair) ;
-  // appetit
-  if(display_slider[whichGroup][appetit_rank]) sliderBG ( posSlider[whichOne +appetit_rank].x, posSlider[whichOne +appetit_rank].y, sizeSlider[whichOne +appetit_rank].y, sizeSlider[whichOne +appetit_rank].x, roundedSlider, blancGrisClair) ;
+  // need
+  if(display_slider[whichGroup][need_rank]) sliderBG ( posSlider[whichOne +need_rank].x, posSlider[whichOne +need_rank].y, sizeSlider[whichOne +need_rank].y, sizeSlider[whichOne +need_rank].x, roundedSlider, blancGrisClair) ;
 }
 
 // local void to display the HSB slider and display the specific color of this one

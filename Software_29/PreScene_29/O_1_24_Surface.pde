@@ -11,7 +11,7 @@ class Surface extends Romanesco {
     romanescoVersion = "Version 1.0.0";
     romanescoPack = "Base" ;
     romanescoMode = "Surfimage/Vague/Vague++" ; // separate the differentes mode by "/"
-    romanescoSlider = "Hue fill,Saturation fill,Brightness fill,Alpha fill,Hue stroke,Saturation stroke,Brightness stroke,Alpha stroke,Thickness,Influence,Width,Canvas X,Canvas Y,Analyze,Amplitude,Speed,Size X" ;
+    romanescoSlider = "Fill hue,Fill sat,Fill bright,Fill alpha,Stroke hue,Stroke sat,Stroke bright,Stroke alpha,Thickness,Influence,Canvas X,Canvas Y,Quality,Canvas X,Speed X,Size X" ;
   }
   
   // Main method image 

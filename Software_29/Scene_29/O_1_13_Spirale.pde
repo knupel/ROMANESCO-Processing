@@ -1,3 +1,6 @@
+/**
+SPIRALE  || 2011 || 1.3.1
+*/
 Spirale spirale ; 
 //object three
 class SpiraleRomanesco extends Romanesco {
@@ -5,13 +8,13 @@ class SpiraleRomanesco extends Romanesco {
     //from the index_objects.csv
     romanescoName = "Spirale" ;
     IDobj = 13 ;
-    IDgroup = 2 ;
+    IDgroup = 1 ;
     romanescoAuthor  = "Stan le Punk";
     romanescoVersion = "Version 1.3.1";
     romanescoPack = "Base" ;
     romanescoRender = "P3D" ;
     romanescoMode = "Rectangle/Ellipse/Box" ;
-    romanescoSlider = "Hue fill,Saturation fill,Brightness fill,Alpha fill,Hue stroke,Saturation stroke,Brightness stroke,Alpha stroke,Thickness,Size X,Size Y,Size Z,Quantity,Speed,Canvas X,Canvas Y,Alignment" ;
+    romanescoSlider = "Fill hue,Fill sat,Fill bright,Fill alpha,Stroke hue,Stroke sat,Stroke bright,Stroke alpha,Thickness,Size X,Size Y,Size Z,Quantity,Speed X,Canvas X,Canvas Y,Alignment" ;
   }
   //GLOBAL
      

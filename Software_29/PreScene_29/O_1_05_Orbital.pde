@@ -41,7 +41,7 @@ class Orbital extends Romanesco {
     Size X,Size Y,Size Z,Canvas X,Canvas Y,Canvas Z,Quantity,
     Speed,Direction,Angle,Amplitude,Analyze,Family,Life,Force" ; 
     */
-    romanescoSlider = "Hue fill,Saturation fill,Brightness fill,Alpha fill,Hue stroke,Saturation stroke,Brightness stroke,Alpha stroke,Quantity,Speed" ;
+    romanescoSlider = "Fill hue,Fill sat,Fill bright,Fill alpha,Stroke hue,Stroke sat,Stroke bright,Stroke alpha,Quantity,Speed X" ;
   }
  
   // Main method

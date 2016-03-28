@@ -1,4 +1,6 @@
-// Tab: O_2_14_Balise
+/**
+BALISE || 2011 || 1.2.1
+*/
 Balise balise ;
 //object three
 class BaliseRomanesco extends Romanesco {
@@ -6,13 +8,13 @@ class BaliseRomanesco extends Romanesco {
     //from the index_objects.csv
     romanescoName = "Balise" ;
     IDobj = 14 ;
-    IDgroup = 2 ;
+    IDgroup = 1 ;
     romanescoAuthor  = "Stan le Punk";
     romanescoVersion = "Version 1.2.1";
     romanescoPack = "Base" ;
     romanescoRender = "P3D" ;
     romanescoMode = "Disc/Rectangle/Box/Box Snake" ;
-    romanescoSlider = "Hue fill,Saturation fill,Brightness fill,Alpha fill,Hue stroke,Saturation stroke,Brightness stroke,Alpha stroke,Thickness,Size X,Size Y,Size Z,Quantity,Speed,Amplitude,Repulsion" ;
+    romanescoSlider = "Fill hue,Fill sat,Fill bright,Fill alpha,Stroke hue,Stroke sat,Stroke bright,Stroke alpha,Thickness,Size X,Size Y,Size Z,Quantity,Speed X,Canvas X,Repulsion" ;
   }
   //GLOBAL
   float speed ;

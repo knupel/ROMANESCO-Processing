@@ -48,7 +48,7 @@ boolean [] on_off_light, on_off_light_action ;
 
 
 void shader_setup() {
-  String path = (preferencesPath +"shader/shader_light/") ;
+  String path = (prefenrece_path +"shader/shader_light/") ;
   pixShader = loadShader(path+"light_pix_frag_romanesco.glsl", path+"light_pix_vert_romanesco.glsl");
   shader(pixShader);
 }

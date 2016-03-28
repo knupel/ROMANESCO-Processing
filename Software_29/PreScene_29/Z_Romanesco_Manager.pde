@@ -248,7 +248,7 @@ class ObjectRomanescoManager {
   
   //////////////////////////////////////
   // INDEX and INFO OBJECT FROM CLASSES
-  String pathObjects = preferencesPath+"objects/" ;
+  String pathObjects = prefenrece_path+"objects/" ;
   
   ////////////////
   // INTERN VOID

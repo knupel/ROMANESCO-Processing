@@ -14,7 +14,7 @@ class Honeycomb extends Romanesco {
     romanescoPack = "Base" ;
     romanescoRender = "P3D" ;
     romanescoMode = "" ;
-    romanescoSlider = "Saturation fill,Brightness fill,Alpha fill,Thickness,Size X,Canvas X,Canvas Y" ;
+    romanescoSlider = "Fill hue,Fill sat,Fill bright,Fill alpha,Thickness,Size X,Canvas X,Canvas Y" ;
   }
   //GLOBAL
   boolean newHoneycomb  ;

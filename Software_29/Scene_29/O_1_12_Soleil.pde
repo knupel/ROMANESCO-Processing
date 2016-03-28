@@ -1,5 +1,5 @@
 /**
-SOLEIL 1.1.1
+SOLEIL || 2012 || 1.1.1
 */
 
 class Soleil extends Romanesco {
@@ -13,7 +13,7 @@ class Soleil extends Romanesco {
     romanescoPack = "Base" ;
     romanescoRender = "P3D" ;
     romanescoMode = "Beam/Lie'Bro'One/Lie'Bro'Two/Lie'Bro Noisy" ;
-    romanescoSlider = "Hue fill,Saturation fill,Brightness fill,Alpha fill,Hue stroke,Saturation stroke,Brightness stroke,Alpha stroke,Thickness,Canvas X,Quantity,Speed,Angle,Amplitude" ;
+    romanescoSlider = "Fill hue,Fill sat,Fill bright,Fill alpha,Stroke hue,Stroke sat,Stroke bright,Stroke alpha,Thickness,Canvas X,Quantity,Speed X,Angle,Canvas X" ;
   }
   //GLOBAL
   float jitter ;

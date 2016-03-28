@@ -1,5 +1,5 @@
 /**
-BOXOLYZER 1.0.3
+BOXOLYZER || 2012|| 1.0.3
 */
 ArrayList<BOITEaMUSIQUE> boiteList ;
   
@@ -14,7 +14,7 @@ class Boxolyzer extends Romanesco {
     romanescoPack = "Base" ;
     romanescoRender = "P3D" ;
     romanescoMode ="Classic/Circle" ;
-    romanescoSlider = "Hue fill,Saturation fill,Brightness fill,Alpha fill,Hue stroke,Saturation stroke,Brightness stroke,Alpha stroke,Thickness,Size X,Size Y,Size Z,Canvas X,Quantity,Direction" ;
+    romanescoSlider = "Fill hue,Fill sat,Fill bright,Fill alpha,Stroke hue,Stroke sat,Stroke bright,Stroke alpha,Thickness,Size X,Size Y,Size Z,Canvas X,Quantity,Direction X" ;
   }
   //GLOBAL
   boolean newDistribution ;

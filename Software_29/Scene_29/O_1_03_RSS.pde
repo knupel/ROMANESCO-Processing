@@ -1,5 +1,5 @@
 /**
-RSS 1.1.0
+RSS || 2012 || 1.1.0
 */
 class RSS extends Romanesco {
   public RSS() {
@@ -12,7 +12,7 @@ class RSS extends Romanesco {
     romanescoPack = "Base" ;
     romanescoRender = "classic" ;
     romanescoMode = "" ; // separate the name by a slash and write the next mode immadialtly after this one.
-    romanescoSlider = "Hue fill,Saturation fill,Brightness fill,Alpha fill,Size X,Canvas X,Canvas Y,Canvas Z,Direction" ;
+    romanescoSlider = "Fill hue,Fill sat,Fill bright,Fill alpha,Size X,Canvas X,Canvas Y,Canvas Z,Direction X" ;
   }
   //GLOBAL
   FeedReader flux;
@@ -28,7 +28,7 @@ class RSS extends Romanesco {
     
     
     if(internet) {
-      String [] fluxRSS = loadStrings(preferencesPath+"network/RSSReference.txt") ;
+      String [] fluxRSS = loadStrings(prefenrece_path+"network/RSSReference.txt") ;
       String RSS = join(fluxRSS, "") ;
       flux = new FeedReader(RSS);
     }

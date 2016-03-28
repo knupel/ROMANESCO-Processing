@@ -19,7 +19,7 @@ void OSCSetup() {
   if (youCanSendToScene) targetScene = new NetAddress(sendToScene,9001);
   //send to the miroir
   if (!testRomanesco) {
-    String [] addressIP = loadStrings(preferencesPath+"network/IP_local_miroir.txt") ;
+    String [] addressIP = loadStrings(prefenrece_path+"network/IP_local_miroir.txt") ;
     sendToMiroir = join(addressIP, "") ;
     targetMiroir = new NetAddress(sendToMiroir,9002);
   } else if (testRomanesco && youCanSendToMiroir )  {

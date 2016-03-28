@@ -45,7 +45,8 @@ void setup() {
   set_OSC() ;
   set_data_from_save() ;
 
-  INIT_INTERFACE = false ;
+  reset() ;
+  //INIT_INTERFACE = false ;
 }
 
 void draw() {
@@ -59,7 +60,7 @@ void draw() {
 
   init_interface() ;
   init_live_data() ;
-  init_slider_dynamic() ;
+  
 
   surface.setTitle(nameVersion + " " +prettyVersion+"."+version+ " - Controller");
 
@@ -84,9 +85,13 @@ void draw() {
 
   display_structure_bottom() ;
 
+  reset() ;
+
   credit() ;
-  INIT_INTERFACE = false ;
+
 }
+
+
 
 void mousePressed () {
   mousepressed_button_general() ;

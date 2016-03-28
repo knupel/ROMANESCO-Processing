@@ -1,5 +1,5 @@
 /**
-RUBIS 1.0.1
+RUBIS || 2012 || 1.0.1
 */
 
 class MesAmis extends Romanesco {
@@ -14,7 +14,7 @@ class MesAmis extends Romanesco {
     romanescoRender = "P3D" ;
     //romanescoMode = "1 full/2 lines" but the line is not really interesting
     romanescoMode = "" ; // separate the name by a slash and write the next mode immadialtly after this one.
-    romanescoSlider = "Hue fill,Saturation fill,Brightness fill,Alpha fill,Hue stroke,Saturation stroke,Brightness stroke,Alpha stroke,Thickness,Canvas X,Speed,Quantity,Amplitude" ;
+    romanescoSlider = "Fill hue,Fill sat,Fill bright,Fill alpha,Stroke hue,Stroke sat,Stroke bright,Stroke alpha,Thickness,Canvas X,Speed X,Quantity,Canvas X" ;
   }
   //GLOBAL
   IntList IDpeople = new IntList() ;

@@ -1,5 +1,5 @@
 /**
-ANILLOS 0.0.2
+ANILLOS || 2015 || 0.0.2
 */
 
 class Anillos extends Romanesco {
@@ -7,12 +7,12 @@ class Anillos extends Romanesco {
   public Anillos() {
     romanescoName = "Anillos" ;
     IDobj = 19 ;
-    IDgroup = 2 ;
+    IDgroup = 1 ;
     romanescoAuthor  = "David Robayo";
     romanescoVersion = "Version 0.0.2";
     romanescoPack = "Workshop june 2015" ;
     romanescoMode = "" ; // separate the differentes mode by "/"
-    romanescoSlider = "Hue fill,Saturation fill,Brightness fill,Alpha fill,Hue stroke,Saturation stroke,Brightness stroke,Alpha stroke,Thickness,Size X,Quantity,Angle,Amplitude" ;
+    romanescoSlider = "Fill hue,Fill sat,Fill bright,Fill alpha,Stroke hue,Stroke sat,Stroke bright,Stroke alpha,Thickness,Size X,Quantity,Angle,Area" ;
   }
     // declare VAR
   //////////////

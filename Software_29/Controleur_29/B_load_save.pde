@@ -336,7 +336,7 @@ void set_slider_save() {
 
 // local method of set_slider_save()
 void setttingSliderSave(int whichOne) {
-  Vec5 infoSliderTemp = infoSaveFromRawList(infoSlider, whichOne).copy() ;
+  Vec5 infoSliderTemp = info_save_raw_list(infoSlider, whichOne).copy() ;
   slider[whichOne].setMidi((int)infoSliderTemp.b) ; 
   slider[whichOne].setMolette(infoSliderTemp.c) ; 
   slider[whichOne].setMinMax(infoSliderTemp.d, infoSliderTemp.e) ;
@@ -408,8 +408,8 @@ void setButtonSave() {
 
 
 
-// infoSaveFromRawList read info to translate and give a good position
-Vec5 infoSaveFromRawList(Vec5[] list, int pos) {
+// info_save_raw_list read info to translate and give a good position
+Vec5 info_save_raw_list(Vec5[] list, int pos) {
   Vec5 info = new Vec5() ;
   float valueSlider = 0 ;
   float valueSliderMin = 0 ;
@@ -448,11 +448,8 @@ END LOAD
 //LOAD text Interface
 Table textGUI;
 String[] genTxtGUI = new String[SLIDER_BY_COL] ;
-String[] sliderNameLight = new String[SLIDER_BY_COL] ;
-String[] sliderNameCamera = new String[SLIDER_BY_COL] ;
-String[] slider_name_col_one = new String[SLIDER_BY_COL_PLUS_ONE] ;
-String[] slider_name_col_two = new String[SLIDER_BY_COL_PLUS_ONE] ;
-String[] slider_name_col_three = new String[SLIDER_BY_COL_PLUS_ONE] ;
+String[] slider_item_nameLight = new String[SLIDER_BY_COL] ;
+String[] slider_item_nameCamera = new String[SLIDER_BY_COL] ;
 
 TableRow [] row = new TableRow[SLIDER_BY_COL +1] ;
 
@@ -478,14 +475,14 @@ void textGUI() {
     for ( int j = 1 ; j <  SLIDER_BY_COL ; j++) {
       String whichCol = Integer.toString(j) ;
       if ( i == 0 ) genTxtGUI[j] = row[i].getString("Column "+whichCol) ;
-      if ( i == 1 ) sliderNameLight[j] = row[i].getString("Column "+whichCol) ;
-      if ( i == 2 ) sliderNameCamera[j] = row[i].getString("Column "+whichCol) ;
+      if ( i == 1 ) slider_item_nameLight[j] = row[i].getString("Column "+whichCol) ;
+      if ( i == 2 ) slider_item_nameCamera[j] = row[i].getString("Column "+whichCol) ;
     }
     for ( int j = 1 ; j <  SLIDER_BY_COL_PLUS_ONE ; j++) {
       String whichCol = Integer.toString(j) ;
-      if ( i == 3 ) slider_name_col_one[j -1] = row[i].getString("Column "+whichCol) ;
-      if ( i == 4 ) slider_name_col_two[j -1] = row[i].getString("Column "+whichCol) ;
-      if ( i == 5 ) slider_name_col_three[j -1] = row[i].getString("Column "+whichCol) ;
+      if ( i == 3 ) slider_item_name[j +(SLIDER_BY_COL *0)] = row[i].getString("Column "+whichCol) ;
+      if ( i == 4 ) slider_item_name[j +(SLIDER_BY_COL *1)] = row[i].getString("Column "+whichCol) ;
+      if ( i == 5 ) slider_item_name[j +(SLIDER_BY_COL *2)] = row[i].getString("Column "+whichCol) ;
     }
   }
 }

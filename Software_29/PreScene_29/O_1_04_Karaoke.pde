@@ -13,7 +13,7 @@ class Karaoke extends Romanesco {
     romanescoPack = "Base" ;
     romanescoRender = "classic" ;
     romanescoMode = "" ; // separate the name by a slash and write the next mode immadialtly after this one.
-    romanescoSlider = "Hue fill,Saturation fill,Brightness fill,Alpha fill,Size X,Canvas X,Canvas Y,Direction" ;
+    romanescoSlider = "Fill hue,Fill sat,Fill bright,Fill alpha,Size X,Canvas X,Canvas Y,Direction X" ;
   }
   //GLOBAL
   int chapter, sentence ;

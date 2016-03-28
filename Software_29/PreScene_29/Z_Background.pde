@@ -125,7 +125,7 @@ PShader blurOne, blurTwo, cellular, damierEllipse, heart, necklace,  psy, sinLig
 
 void background_shader_setup(boolean renderP3D) {
   if(renderP3D) {
-    String pathShaderBG = preferencesPath +"shader/shader_bg/" ;
+    String pathShaderBG = prefenrece_path +"shader/shader_bg/" ;
     
 
     blurOne = loadShader(pathShaderBG+"blurOneFrag.glsl") ;

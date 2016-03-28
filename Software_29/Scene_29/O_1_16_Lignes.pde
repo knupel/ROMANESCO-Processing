@@ -1,4 +1,6 @@
-// Tab: O_2_16_Lignes
+/**
+SPIRALE  || 2011 || 1.1.1
+*/
 Line line ;
 //object three
 class Lignes extends Romanesco {
@@ -6,13 +8,13 @@ class Lignes extends Romanesco {
     //from the index_objects.csv
     romanescoName = "Lignes" ;
     IDobj = 16 ;
-    IDgroup = 2 ;
+    IDgroup = 1 ;
     romanescoAuthor  = "Stan le Punk";
     romanescoVersion = "Version 1.1.1";
     romanescoPack = "Base" ;
     romanescoRender = "classic" ;
     romanescoMode = "Lines 1/Lines 2/Lines 3/Lines 4/Lines 5/Lines 6" ;
-    romanescoSlider = "Hue fill,Saturation fill,Brightness fill,Alpha fill,Thickness,Quantity,Speed,Direction,Canvas X,Angle,Alignment" ;
+    romanescoSlider = "Fill hue,Fill sat,Fill bright,Fill alpha,Thickness,Quantity,Speed X,Direction X,Canvas X,Angle,Alignment" ;
   }
   //GLOBAL
   float ampLine  =1.0 ;

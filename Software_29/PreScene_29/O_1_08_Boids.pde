@@ -11,7 +11,7 @@ class Boids extends Romanesco {
     romanescoVersion = "Version 1.0.1";
     romanescoPack = "Base" ;
     romanescoMode = "Tetra monochrome/Tetra camaieu" ; // separate the differentes mode by "/"
-    romanescoSlider = "Hue fill,Saturation fill,Brightness fill,Alpha fill,Hue stroke,Saturation stroke,Brightness stroke,Alpha stroke,Thickness,Size X,Canvas X,Canvas Y,Canvas Z,Quantity,Attraction,Repulsion,Influence,Alignment,Width,Speed" ;
+    romanescoSlider = "Fill hue,Fill sat,Fill bright,Fill alpha,Stroke hue,Stroke sat,Stroke bright,Stroke alpha,Thickness,Size X,Canvas X,Canvas Y,Canvas Z,Quantity,Attraction,Repulsion,Influence,Alignment,Speed X" ;
   }
   
   Flock flock;

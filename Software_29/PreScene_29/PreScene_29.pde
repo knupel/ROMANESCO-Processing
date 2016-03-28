@@ -8,7 +8,7 @@ String version = ("29") ;
 String IAM = ("Prescene") ;
 String prettyVersion = ("1.2.0") ;
 String nameVersion = ("Romanesco Unu") ;
-String preferencesPath ;
+String prefenrece_path, import_path ;
 
 
 /*
@@ -30,7 +30,8 @@ void settings() {
   
 void setup() {
   camera_video_setup() ;
-  preferencesPath = sketchPath("")+"preferences/" ;
+  prefenrece_path = sketchPath("")+"preferences/" ;
+  import_path = sketchPath("")+"import/" ;
   // if(fullRendering) frameRateRomanesco = 60 ; else frameRateRomanesco = 15 ;
   int frameRateRomanesco = 60 ;
   displaySetup(frameRateRomanesco) ; // the int value is the frameRate

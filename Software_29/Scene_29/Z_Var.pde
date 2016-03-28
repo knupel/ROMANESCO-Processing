@@ -639,7 +639,7 @@ PFont SansSerif10,
       
 //SETUP
 void fontSetup() {
-  String fontPathVLW = preferencesPath +"Font/typoVLW/" ;
+  String fontPathVLW = import_path +"font/typoVLW/" ;
 
   //write font path
   pathFontVLW[1] = fontPathVLW+"AmericanTypewriter-96.vlw";
@@ -669,7 +669,7 @@ void fontSetup() {
   SansSerif10 = loadFont(fontPathVLW+"SansSerif-10.vlw" );
   
   // write font path for TTF
-  String prefixTTF = preferencesPath +"Font/typoTTF/" ;
+  String prefixTTF = prefenrece_path +"Font/typoTTF/" ;
   //by default
   pathFontTTF[0] = prefixTTF+"FuturaStencil.ttf";
   // type

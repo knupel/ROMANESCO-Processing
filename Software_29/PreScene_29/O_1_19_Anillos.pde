@@ -12,7 +12,7 @@ class Anillos extends Romanesco {
     romanescoVersion = "Version 0.0.2";
     romanescoPack = "Workshop june 2015" ;
     romanescoMode = "" ; // separate the differentes mode by "/"
-    romanescoSlider = "Hue fill,Saturation fill,Brightness fill,Alpha fill,Hue stroke,Saturation stroke,Brightness stroke,Alpha stroke,Thickness,Size X,Quantity,Angle,Amplitude" ;
+    romanescoSlider = "Fill hue,Fill sat,Fill bright,Fill alpha,Stroke hue,Stroke sat,Stroke bright,Stroke alpha,Thickness,Size X,Quantity,Angle,Area" ;
   }
     // declare VAR
   //////////////
