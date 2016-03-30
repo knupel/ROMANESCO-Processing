@@ -874,10 +874,13 @@ void display_bg_slider_item() {
   if(display_slider[whichGroup][size_x_rank])  sliderBG (posSlider[whichOne +size_x_rank].x, posSlider[whichOne +size_x_rank].y, sizeSlider[whichOne +size_x_rank].y, sizeSlider[whichOne +size_x_rank].x, roundedSlider, blancGrisClair) ;
   if(display_slider[whichGroup][size_y_rank]) sliderBG (posSlider[whichOne +size_y_rank].x, posSlider[whichOne +size_y_rank].y, sizeSlider[whichOne +size_y_rank].y, sizeSlider[whichOne +size_y_rank].x, roundedSlider, blancGrisClair) ;
   if(display_slider[whichGroup][size_z_rank])  sliderBG (posSlider[whichOne +size_z_rank].x, posSlider[whichOne +size_z_rank].y, sizeSlider[whichOne +size_z_rank].y, sizeSlider[whichOne +size_z_rank].x, roundedSlider, blancGrisClair) ;
+  // Font size
+  if(display_slider[whichGroup][font_size_rank]) sliderBG (posSlider[whichOne +font_size_rank].x, posSlider[whichOne +font_size_rank].y, sizeSlider[whichOne +font_size_rank].y, sizeSlider[whichOne +font_size_rank].x, roundedSlider, blancGrisClair) ;
   // canvas
   if(display_slider[whichGroup][canvas_x_rank]) sliderBG (posSlider[whichOne +canvas_x_rank].x, posSlider[whichOne +canvas_x_rank].y, sizeSlider[whichOne +canvas_x_rank].y, sizeSlider[whichOne +canvas_x_rank].x, roundedSlider, blanc) ;
   if(display_slider[whichGroup][canvas_y_rank]) sliderBG (posSlider[whichOne +canvas_y_rank].x, posSlider[whichOne +canvas_y_rank].y, sizeSlider[whichOne +canvas_y_rank].y, sizeSlider[whichOne +canvas_y_rank].x, roundedSlider, blanc) ;
   if(display_slider[whichGroup][canvas_z_rank]) sliderBG (posSlider[whichOne +canvas_z_rank].x, posSlider[whichOne +canvas_z_rank].y, sizeSlider[whichOne +canvas_z_rank].y, sizeSlider[whichOne +canvas_z_rank].x, roundedSlider, blanc) ;
+
   
 
   // COL 2
@@ -1068,7 +1071,7 @@ void init_button_general() {
   numButton = new int[NUM_GROUP_SLIDER] ;
   // General
   numButton[0] = 20 ;
-  value_button_G0 = new int[numButton[0]] ;
+  value_button_general = new int[numButton[0]] ;
 }
 
 

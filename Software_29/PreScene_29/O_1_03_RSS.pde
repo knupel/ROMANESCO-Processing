@@ -40,12 +40,12 @@ class RSS extends Romanesco {
   
   //DRAW
   void display() {
-    float sizeFont = fontSizeObj[IDobj] ;
+    float sizeFont = font_size_item[IDobj] ;
     textFont(font[IDobj], sizeFont + ( sizeFont *mix[IDobj]) *allBeats(IDobj) );
     // couleur du texte
-    float t = alpha(fillObj[IDobj]) * abs(mix[IDobj]) ;
-    if ( sound[IDobj] ) { t = alpha(fillObj[IDobj]) ; } 
-    color c = color(hue(fillObj[IDobj]), saturation(fillObj[IDobj]), brightness(fillObj[IDobj]), t ) ;
+    float t = alpha(fill_item[IDobj]) * abs(mix[IDobj]) ;
+    if ( sound[IDobj] ) { t = alpha(fill_item[IDobj]) ; } 
+    color c = color(hue(fill_item[IDobj]), saturation(fill_item[IDobj]), brightness(fill_item[IDobj]), t ) ;
     // security against the blavk bug opacity
     if (alpha(c) == 0 ) {
       noFill() ; 
@@ -58,8 +58,8 @@ class RSS extends Romanesco {
     float ratioTextBox ;
     ratioTextBox = allBeats(IDobj) *.25 ;
     if(ratioTextBox < 1 ) ratioTextBox = 1. ;
-    float largeur = canvasXObj[IDobj] *ratioTextBox ;
-    float hauteur = canvasYObj[IDobj] *ratioTextBox ;    
+    float largeur = canvas_x_item[IDobj] *ratioTextBox ;
+    float hauteur = canvas_y_item[IDobj] *ratioTextBox ;    
       
     for( int i=info; i < info + 1; i++) {
       //internet = false ;
@@ -70,7 +70,7 @@ class RSS extends Romanesco {
       if ( i > 9 ) r =2 ; else if( i > 0 && i < 10 ) r =1 ; else r =0 ; 
       String hune = messageRSS.substring(r);
       //rotation / degré
-      rotation(directionObj[IDobj], mouse[IDobj].x, mouse[IDobj].y) ;
+      rotation(dir_x_item[IDobj], mouse[IDobj].x, mouse[IDobj].y) ;
       if(horizon[IDobj]) textAlign(CENTER) ; else textAlign(LEFT) ;
       text(hune, 0, 0, largeur, hauteur );
     }

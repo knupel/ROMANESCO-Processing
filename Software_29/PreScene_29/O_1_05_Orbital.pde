@@ -69,7 +69,7 @@ class Orbital extends Romanesco {
   // draw
   void display() {
     // it's nice to code the variable from the sliders or from sound... here to see easily what's happen in your object.
-    float quantity = quantityObj[IDobj] *2. ;
+    float quantity = quantity_item[IDobj] *2. ;
 
     // display
     orbital_1(quantity) ;
@@ -89,9 +89,9 @@ class Orbital extends Romanesco {
   
     checkControls();
   
-    rotationToReach.x += rfactors.x * vel * speedObj[IDobj];
-    rotationToReach.y += rfactors.y * vel * speedObj[IDobj];
-    rotationToReach.z += rfactors.z * vel * speedObj[IDobj];
+    rotationToReach.x += rfactors.x * vel * speed_x_item[IDobj];
+    rotationToReach.y += rfactors.y * vel * speed_x_item[IDobj];
+    rotationToReach.z += rfactors.z * vel * speed_x_item[IDobj];
     rotation.x += (rotationToReach.x - rotation.x) * smoothf;
     rotation.y += (rotationToReach.y - rotation.y) * smoothf;
     rotation.z += (rotationToReach.z - rotation.z) * smoothf;
@@ -135,15 +135,15 @@ class Orbital extends Romanesco {
  
   void render() {
       //flock.render();
-      flock.render(hue(fillObj[IDobj]),
-                   saturation(fillObj[IDobj]),
-                   brightness(fillObj[IDobj]),
-                   alpha(fillObj[IDobj]),
+      flock.render(hue(fill_item[IDobj]),
+                   saturation(fill_item[IDobj]),
+                   brightness(fill_item[IDobj]),
+                   alpha(fill_item[IDobj]),
                   
-                   hue(strokeObj[IDobj]),
-                   saturation(strokeObj[IDobj]),
-                   brightness(strokeObj[IDobj]),
-                   alpha(strokeObj[IDobj])
+                   hue(stroke_item[IDobj]),
+                   saturation(stroke_item[IDobj]),
+                   brightness(stroke_item[IDobj]),
+                   alpha(stroke_item[IDobj])
                );
                  
   }

@@ -36,9 +36,12 @@ int size_x_rank = 10 ;
 int size_y_rank = 11 ;
 int size_z_rank = 12 ;
 
-int canvas_x_rank = 13 ;
-int canvas_y_rank = 14 ;
-int canvas_z_rank = 15 ;
+int font_size_rank = 13 ;
+
+int canvas_x_rank = 14 ;
+int canvas_y_rank = 15 ;
+int canvas_z_rank = 16 ;
+
 
 // col 2
 int reactivity_rank = 17 ;

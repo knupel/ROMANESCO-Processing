@@ -77,7 +77,7 @@ void draw() {
   camera_video_draw() ;
   // here we ask for the testRomanesco true, because the Minim Library talk too much in the consol
   if(!testRomanesco) soundDraw() ;
-  updateVarRaw() ;
+  update_raw_value() ;
   OSCDraw() ;
   background_romanesco() ;
   updateCommand() ;
@@ -108,7 +108,7 @@ void draw() {
   if(fullRendering && !testRomanesco) curtain() ;
   
   // misc
-  updateVarTemp() ;
+  update_temp_value() ;
   cursorDraw() ;
   
   // change to false if the information has be sent to Scene...but how ????

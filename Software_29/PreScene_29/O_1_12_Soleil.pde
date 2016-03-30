@@ -29,16 +29,16 @@ class Soleil extends Romanesco {
     aspect(IDobj) ;
     //
     if(spaceTouch && action[IDobj]) pos = new PVector(mouse[IDobj].x -width/2, mouse[IDobj].y -height/2,0) ; else pos = new PVector(0,0,0) ;
-    int diam = int(map(canvasXObj[IDobj], width/10, width, width/10, width *1.2) *allBeats(IDobj) ) ;
-    int numBeam = (int)(quantityObj[IDobj] *180 +1) ;
+    int diam = int(map(canvas_x_item[IDobj], width/10, width, width/10, width *1.2) *allBeats(IDobj) ) ;
+    int numBeam = (int)(quantity_item[IDobj] *180 +1) ;
     if(!fullRendering) numBeam /= 20 ;
     if(numBeam < 2 ) numBeam = 2 ;
     // Jitter
-    jitter += (angleObj[IDobj] *.001 ) ;
+    jitter += (angle_item[IDobj] *.001 ) ;
     float jitting = cos(jitter) *tempo[IDobj] ;
      //noise
      PVector noise = new PVector() ;
-     float amp = sq(amplitudeObj[IDobj] *10.0) ;
+     float amp = sq(swing_x_item[IDobj] *10.0) ;
      float rightNoise =  ((right[IDobj] *right[IDobj] *5) *amp) ;
      float leftNoise = ((left[IDobj] *left[IDobj] *5) *amp) ;
      if (sound[IDobj]) noise = new PVector(rightNoise, leftNoise) ; else noise = new PVector(amp,amp) ;
@@ -48,7 +48,7 @@ class Soleil extends Romanesco {
      if(!motion[IDobj]) direction = 0 ;
     // rotation speed
     float speedRotation = 0 ;
-    speedRotation = sq(speedObj[IDobj] *10.0 *tempo[IDobj]) *direction ;
+    speedRotation = sq(speed_x_item[IDobj] *10.0 *tempo[IDobj]) *direction ;
     angleRotation += speedRotation ;
     rotate (radians(angleRotation)) ;
 

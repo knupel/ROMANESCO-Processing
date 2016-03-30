@@ -133,7 +133,7 @@ class Pix implements Pixel_Constants{
     this.dir = Vec3(x,y,z) ;
   }
 
-  void direction_x(float x) {
+  void dir_x(float x) {
     dir.x = x ;
   }
 

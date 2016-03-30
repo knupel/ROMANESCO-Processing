@@ -35,7 +35,7 @@ String [] shader_bg_name, shader_bg_author ;
 int numButton [] ;
 int numButtonTotalObjects ;
 int lastDropdown, numDropdown ;
-int [] value_button_G0, value_button_item ; 
+int [] value_button_general, value_button_item ; 
 int [] pos_button_width_item, pos_button_height_item, width_button_item, height_button_item  ;
 
 

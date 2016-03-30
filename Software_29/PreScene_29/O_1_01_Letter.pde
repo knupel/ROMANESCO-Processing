@@ -45,7 +45,7 @@ class Letter extends Romanesco {
       pathFontObjTTF[IDobj] = pathFontObjTTF[0] ;
     }
     //init and re-init Geomerative if few stuff change about this line like text, font and the size of the font
-    sizeFont = int(fontSizeObj[IDobj]) ;
+    sizeFont = int(font_size_item[IDobj]) ;
     //text
     String sentence = whichSentence(textImport[IDobj], 0, 0) ;
     
@@ -78,28 +78,28 @@ class Letter extends Romanesco {
     
     //speed
     float speed ;
-    if(motion[IDobj]) speed = map(speedObj[IDobj], 0,1, 0.000, 0.3 ) *tempo[IDobj]  ; else speed = 0.0 ;
+    if(motion[IDobj]) speed = map(speed_x_item[IDobj], 0,1, 0.000, 0.3 ) *tempo[IDobj]  ; else speed = 0.0 ;
     //to stop the move
     if (!action[IDobj]) speed = 0.0 ; 
     if(clickLongLeft[IDobj] || spaceTouch) speed = -speed ;
     
     //num letter to display
-    numLetter = (int)map(quantityObj[IDobj],0,1, 0,grp.countChildren() +1) ;
+    numLetter = (int)map(quantity_item[IDobj],0,1, 0,grp.countChildren() +1) ;
     
     //DISPLAY
     // thickness
-    float thicknessLetter = map(thicknessObj[IDobj], .1, height/3, 0.1, height /10) ; ;
+    float thicknessLetter = map(thickness_item[IDobj], .1, height/3, 0.1, height /10) ; ;
 
     // color
     if(mode[IDobj] <= 1) {
-      noFill() ; stroke(fillObj[IDobj]) ; strokeWeight(thicknessLetter) ;
+      noFill() ; stroke(fill_item[IDobj]) ; strokeWeight(thicknessLetter) ;
     } else {
-      fill(fillObj[IDobj]) ; stroke(strokeObj[IDobj]) ; strokeWeight(thicknessLetter) ;
+      fill(fill_item[IDobj]) ; stroke(stroke_item[IDobj]) ; strokeWeight(thicknessLetter) ;
     }
     //jitter
-    float jitterX = map(canvasXObj[IDobj],width/10, width, 0, width/40) ;
-    float jitterY = map(canvasYObj[IDobj],width/10, width, 0, width/40) ;
-    float jitterZ = map(canvasZObj[IDobj],width/10, width, 0, width/40) ;
+    float jitterX = map(canvas_x_item[IDobj],width/10, width, 0, width/40) ;
+    float jitterY = map(canvas_y_item[IDobj],width/10, width, 0, width/40) ;
+    float jitterZ = map(canvas_z_item[IDobj],width/10, width, 0, width/40) ;
     PVector jitter = new PVector (jitterX *jitterX, jitterY *jitterY, jitterZ *jitterZ) ;
     
 

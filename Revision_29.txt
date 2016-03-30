@@ -1,4 +1,16 @@
 
+
+ROMANESCO 29 Revision
+---------------------
+// CONTROLLER
+> add new item slider : font size, jitter, swing, spurt, variety, quality, direction y, direction z, speed y, speed z, fertility, area, scope, scan, charge, calm and need
+> remove slider analyze, amplitude
+> remove the second group of item
+> add menu to selected item
+> add dropdown to selected SVG file
+> add dropdown to selected movie
+
+
 ROMANESCO 28 Revision
 ---------------------
 

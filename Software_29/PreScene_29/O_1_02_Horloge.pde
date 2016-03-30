@@ -32,13 +32,13 @@ class Horloge extends Romanesco {
   void display() {
     textAlign(CENTER);
     // typo
-    float sizeFont = fontSizeObj[IDobj] +12 ;
+    float sizeFont = font_size_item[IDobj] +12 ;
     textFont(font[IDobj], sizeFont *allBeats(IDobj));
     
     // couleur du texte
-    float t = alpha(fillObj[IDobj]) * abs(mix[IDobj]) ;
-    if (sound[IDobj]) t = alpha(fillObj[IDobj]) ;
-    color c = color(hue(fillObj[IDobj]), saturation(fillObj[IDobj]), brightness(fillObj[IDobj]), t ) ;
+    float t = alpha(fill_item[IDobj]) * abs(mix[IDobj]) ;
+    if (sound[IDobj]) t = alpha(fill_item[IDobj]) ;
+    color c = color(hue(fill_item[IDobj]), saturation(fill_item[IDobj]), brightness(fill_item[IDobj]), t ) ;
     // security against the blavk bug opacity
     if (alpha(c) == 0 ) {
       noFill() ; 
@@ -48,18 +48,18 @@ class Horloge extends Romanesco {
     }
     
     //rotation / deg
-    float angle = map(directionObj[IDobj], 0,360, 0, TAU) ;
+    float angle = map(dir_x_item[IDobj], 0,360, 0, TAU) ;
     //amplitude
-    float amp = map(amplitudeObj[IDobj],0,1, 1, height  / 4) ;
+    float amp = map(swing_x_item[IDobj],0,1, 1, height  / 4) ;
 
     // pos clock
     if(motion[IDobj]) {
       local_frameCount += 1 ;
       int direction = 1 ;
       if(reverse[IDobj]) direction = -1 ;
-      float speed_x = speedObj[IDobj] *.02 ;
-      float speed_y = speedObj[IDobj] *.01 ;
-      float speed_z = speedObj[IDobj] *.03 ;
+      float speed_x = speed_x_item[IDobj] *.02 ;
+      float speed_y = speed_x_item[IDobj] *.01 ;
+      float speed_z = speed_x_item[IDobj] *.03 ;
       float pos_x = sin(local_frameCount *speed_x *direction) *width *.5  +(width/2)  ;
       float pos_y = cos(local_frameCount *speed_y *direction) *height *.5 +(height/2) ;
       float pos_z = sin(local_frameCount *speed_z *direction) *height ;

@@ -35,11 +35,11 @@ class Kofosphere extends Romanesco {
   //DRAW
   void display() {
     float beatFactor = map(allBeats(IDobj), 1,12, 1., 3.5) ;
-    float radius = map(canvasXObj[IDobj], width/10, width, .01, 1.1) ;
+    float radius = map(canvas_x_item[IDobj], width/10, width, .01, 1.1) ;
     if(sound[IDobj]) radius = sq(radius) *beatFactor ; 
     
     // quantity of particules
-    float quantity = map(quantityObj[IDobj],0 ,1, 10,200);
+    float quantity = map(quantity_item[IDobj],0 ,1, 10,200);
     // methode to limit the number of particules for the prescene
     if(!fullRendering) quantity /= 10. ;
     // methode to limit the number of particules for the complexe shape, in this case for the boxes
@@ -47,7 +47,7 @@ class Kofosphere extends Romanesco {
     
     // speed
     float ratio_speed = .1 ;
-    float norm_speed = map(speedObj[IDobj],0,1,0,1.5) ;
+    float norm_speed = map(speed_x_item[IDobj],0,1,0,1.5) ;
     norm_speed *= norm_speed ;
     if(reverse[IDobj]) norm_speed *= ratio_speed ; else norm_speed *= -ratio_speed ;
     Vec2 speed = Vec2(norm_speed) ;
@@ -55,13 +55,13 @@ class Kofosphere extends Romanesco {
 
     // size for the box
     float factorSizeDivide = .025 ;
-    float newSizeX = sizeXObj[IDobj] *factorSizeDivide ;
-    float newSizeY = sizeYObj[IDobj] *factorSizeDivide ;
-    float newSizeZ = sizeZObj[IDobj] *factorSizeDivide ;
+    float newSizeX = size_x_item[IDobj] *factorSizeDivide ;
+    float newSizeY = size_y_item[IDobj] *factorSizeDivide ;
+    float newSizeZ = size_z_item[IDobj] *factorSizeDivide ;
     // we make a square size to smooth the growth
     PVector size = new PVector(newSizeX *newSizeX, newSizeY *newSizeY,newSizeZ *newSizeZ) ; 
     
-    sphere.drawSpheres(size, speed, radius, quantity, thicknessObj[IDobj], fillObj[IDobj], strokeObj[IDobj],mode[IDobj]);
+    sphere.drawSpheres(size, speed, radius, quantity, thickness_item[IDobj], fill_item[IDobj], stroke_item[IDobj],mode[IDobj]);
     
 
     

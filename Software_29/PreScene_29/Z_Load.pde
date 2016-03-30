@@ -117,35 +117,35 @@ void loadDataObject(String path) {
         float a_stroke = dataObj.getFloat("alpha stroke") ;
 
         if(fullRendering) {
-        	fillObj[ID] = color(h_fill, s_fill, b_fill, a_fill) ;
-			strokeObj[ID] = color(h_stroke, s_stroke, b_stroke, a_stroke) ;
-			thicknessObj[ID] = dataObj.getFloat("thickness") *height ;
+        	fill_item[ID] = color(h_fill, s_fill, b_fill, a_fill) ;
+			stroke_item[ID] = color(h_stroke, s_stroke, b_stroke, a_stroke) ;
+			thickness_item[ID] = dataObj.getFloat("thickness") *height ;
 		} else {
 			// preview display
-			fillObj[ID] = COLOR_FILL_OBJ_PREVIEW ;
-			strokeObj[ID] =  COLOR_STROKE_OBJ_PREVIEW ;
-			thicknessObj[ID] = THICKNESS_OBJ_PREVIEW ;
+			fill_item[ID] = COLOR_FILL_OBJ_PREVIEW ;
+			stroke_item[ID] =  COLOR_STROKE_OBJ_PREVIEW ;
+			thickness_item[ID] = THICKNESS_OBJ_PREVIEW ;
 	    }
 
-		sizeXObj[ID] = dataObj.getFloat("width") *width ;
-		sizeYObj[ID] = dataObj.getFloat("height") *width ;
-		sizeZObj[ID] = dataObj.getFloat("depth") *width ;
-		canvasXObj[ID] = dataObj.getFloat("canvas x") *width ;
-		canvasYObj[ID] = dataObj.getFloat("canvas y") *width ;
-		canvasZObj[ID] = dataObj.getFloat("canvas z") *width ;
-		familyObj[ID] = dataObj.getFloat("family") ;
-		quantityObj[ID] = dataObj.getFloat("quantity") ;
-		lifeObj[ID] = dataObj.getFloat("life") ;
+		size_x_item[ID] = dataObj.getFloat("width") *width ;
+		size_y_item[ID] = dataObj.getFloat("height") *width ;
+		size_z_item[ID] = dataObj.getFloat("depth") *width ;
+		canvas_x_item[ID] = dataObj.getFloat("canvas x") *width ;
+		canvas_y_item[ID] = dataObj.getFloat("canvas y") *width ;
+		canvas_z_item[ID] = dataObj.getFloat("canvas z") *width ;
+		variety_item[ID] = dataObj.getFloat("family") ;
+		quantity_item[ID] = dataObj.getFloat("quantity") ;
+		life_item[ID] = dataObj.getFloat("life") ;
 
-		speedObj[ID] = dataObj.getFloat("speed") ;
-		directionObj[ID] = dataObj.getFloat("direction") ;
-		angleObj[ID] = dataObj.getFloat("angle") ;
-		amplitudeObj[ID] = dataObj.getFloat("amplitude") ;
-		attractionObj[ID] = dataObj.getFloat("attraction") ;
-		repulsionObj[ID] = dataObj.getFloat("repulsion") ;
-		alignmentObj[ID] = dataObj.getFloat("aligmnent") ;
-		influenceObj[ID] = dataObj.getFloat("influence") ;
-		analyzeObj[ID] = dataObj.getFloat("analyze") ;
+		speed_x_item[ID] = dataObj.getFloat("speed") ;
+		dir_x_item[ID] = dataObj.getFloat("direction") ;
+		angle_item[ID] = dataObj.getFloat("angle") ;
+		swing_x_item[ID] = dataObj.getFloat("amplitude") ;
+		attraction_item[ID] = dataObj.getFloat("attraction") ;
+		repulsion_item[ID] = dataObj.getFloat("repulsion") ;
+		alignment_item[ID] = dataObj.getFloat("aligmnent") ;
+		influence_item[ID] = dataObj.getFloat("influence") ;
+		quality_item[ID] = dataObj.getFloat("analyze") ;
 
 		posObjX[ID]	= dataObj.getFloat("pos x obj") *width ;
 		posObjY[ID]	= dataObj.getFloat("pos y obj") *width ;

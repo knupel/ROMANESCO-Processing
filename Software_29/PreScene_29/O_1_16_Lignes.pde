@@ -28,26 +28,26 @@ class Lignes extends Romanesco {
   //DRAW
   void display() {
     if( beat[IDobj] > 1 ) {
-      ampLine = beat[IDobj] *(map(amplitudeObj[IDobj], 0,1, 0, 3)) ;
-      thicknessLine = (thicknessObj[IDobj] *ampLine ) ;
+      ampLine = beat[IDobj] *(map(swing_x_item[IDobj], 0,1, 0, 3)) ;
+      thicknessLine = (thickness_item[IDobj] *ampLine ) ;
     } else {
-      thicknessLine = thicknessObj[IDobj] ;
+      thicknessLine = thickness_item[IDobj] ;
     }
 
     //speed
-    if(motion[IDobj]) speed = map(speedObj[IDobj], 0,1, 0, height/20 ) * tempo[IDobj]  ; else speed = 0.0 ;
+    if(motion[IDobj]) speed = map(speed_x_item[IDobj], 0,1, 0, height/20 ) * tempo[IDobj]  ; else speed = 0.0 ;
     
     if(reverse[IDobj]) speed = speed *1 ; else speed = speed * -1 ;
     //to stop the move
     if (action[IDobj]  && spaceTouch ) speed = 0.0 ;
     
     // size canvas
-    PVector canvas = new PVector (map(canvasXObj[IDobj],width/10, width, height, height *5),map(canvasXObj[IDobj],width/10, width, width, width *5)) ; 
+    PVector canvas = new PVector (map(canvas_x_item[IDobj],width/10, width, height, height *5),map(canvas_x_item[IDobj],width/10, width, width, width *5)) ; 
     //quantity
-    int num = (int)map(quantityObj[IDobj], 0, 1, canvas.x *.5, canvas.y *.05) ;
+    int num = (int)map(quantity_item[IDobj], 0, 1, canvas.x *.5, canvas.y *.05) ;
 
-    int step_angle = (int)angleObj[IDobj] ;
-    float step_rotate = map(alignmentObj[IDobj],0,1,0,TAU)  ;
+    int step_angle = (int)angle_item[IDobj] ;
+    float step_rotate = map(alignment_item[IDobj],0,1,0,TAU)  ;
     
     for(int i = 0 ; i < 6 ; i++) {
       int num_grid = i +1 ;
@@ -70,12 +70,12 @@ class Lignes extends Romanesco {
   
 
   void display_line(PVector canvas, int num, float speed, float thickness, int start_angle_deg) {
-    float direction = directionObj[IDobj] +start_angle_deg ;
+    float direction = dir_x_item[IDobj] +start_angle_deg ;
     //rotation
     // rotation(direction, canvas.x *.5, canvas.y *.5 ) ;
     rotation(direction, 0, 0) ;
     //display
-    line.drawLine (speed, num, fillObj[IDobj], thickness, canvas) ;
+    line.drawLine (speed, num, fill_item[IDobj], thickness, canvas) ;
 
   }
 }

@@ -80,7 +80,7 @@ class Atome extends Romanesco {
     if(parameter[IDobj] & dTouch) threeDimension = !threeDimension ;
     
     //speed
-    float speed = (speedObj[IDobj] *100) *(speedObj[IDobj] *100) ;
+    float speed = (speed_x_item[IDobj] *100) *(speed_x_item[IDobj] *100) ;
     float velLimit = tempo[IDobj] *5.0 ; // max of speed Atom
     if (velLimit < 1.1 ) velLimit = 1.1 ;
     //the atom temperature give the speed 
@@ -94,7 +94,7 @@ class Atome extends Romanesco {
       if(spaceTouch && action[IDobj]) {
         newDirection = new PVector (-pen[IDobj].x, -pen[IDobj].y ) ;
       } else { 
-        newDirection = normal_direction(int(directionObj[IDobj])) ;
+        newDirection = normal_direction(int(dir_x_item[IDobj])) ;
       }
     } else {
       newDirection = new PVector () ;
@@ -114,23 +114,23 @@ class Atome extends Romanesco {
     PVector changeVelocity = new PVector (velocityX, velocityY) ;
     
     // FACTOR SOUND REACTIVITY
-    float maxBeat = map(amplitudeObj[IDobj],0,1,1,15) ;
+    float maxBeat = map(swing_x_item[IDobj],0,1,1,15) ;
     beat[IDobj] = map(beat[IDobj],1,10, 1,maxBeat) ;
     kick[IDobj] = map(kick[IDobj],1,10, 1,maxBeat) ;
     snare[IDobj] = map(snare[IDobj],1,10, 1,maxBeat) ;
     hat[IDobj] = map(hat[IDobj],1,10, 1,maxBeat) ;
     
     // thickness
-    float thickness = map(thicknessObj[IDobj],0, width/3, 0, width/20) ;
+    float thickness = map(thickness_item[IDobj],0, width/3, 0, width/20) ;
     
     // TEXT
-    float sizeFont = fontSizeObj[IDobj] *1.5 ;
+    float sizeFont = font_size_item[IDobj] *1.5 ;
     PVector posText = new PVector ( 0.0, 0.0, 0.0 ) ;
     int sizeTextName = int(sizeFont) ;
     int sizeTextInfo = int(sizeFont *.5) ;
 
     //Canvas
-    PVector marge = new PVector(map(canvasXObj[IDobj], width/10, width, width/20, width *3) , map(canvasYObj[IDobj], height/10, height, height/20, height *3) ) ;
+    PVector marge = new PVector(map(canvas_x_item[IDobj], width/10, width, width/20, width *3) , map(canvas_y_item[IDobj], height/10, height, height/20, height *3) ) ;
       
       
       
@@ -142,9 +142,9 @@ class Atome extends Romanesco {
       atm.covalentCollision (atomList);
       
       // SIZE
-      float sizeAtomeRawX = map (sizeXObj[IDobj], .1, width, .2, width *.05) ;
-      float sizeAtomeRawY = map (sizeYObj[IDobj], .1, width, .2, width *.05) ;
-      float sizeAtomeRawZ = map (sizeZObj[IDobj], .1, width, .2, width *.05) ;
+      float sizeAtomeRawX = map (size_x_item[IDobj], .1, width, .2, width *.05) ;
+      float sizeAtomeRawY = map (size_y_item[IDobj], .1, width, .2, width *.05) ;
+      float sizeAtomeRawZ = map (size_z_item[IDobj], .1, width, .2, width *.05) ;
       float sizeAtomeX = sizeAtomeRawX *beatSizeProton ;
       float sizeAtomeY = sizeAtomeRawY *beatSizeProton ;
       float sizeAtomeZ = sizeAtomeRawZ *beatSizeProton ;
@@ -152,7 +152,7 @@ class Atome extends Romanesco {
       //diameter
       float factorSizeField = sizeAtomeX *1.2 ; // factor size of the electronic Atom's Cloud
        //width
-      float posTextInfo = map(sizeYObj[IDobj], .1, width,sizeAtomeRawX*.2, width*.2) + (beat[IDobj] *2.0)  ;
+      float posTextInfo = map(size_y_item[IDobj], .1, width,sizeAtomeRawX*.2, width*.2) + (beat[IDobj] *2.0)  ;
 
     
       
@@ -192,35 +192,35 @@ class Atome extends Romanesco {
       //MODE OF DISPLAY
       //romanescoMode = "Chemical Name/File text/Electronic cloud/Ellipse schema/Ellipse cloud/Triangle schema/Triangle cloud/Rectangle schema/Rectangle cloud/Box schema/Box cloud/Sphere schema/Sphere cloud" ;
       if (mode[IDobj] == 0 || mode[IDobj] == 255 ) 
-      atm.titleAtom2D (fillObj[IDobj], strokeObj[IDobj], font[IDobj], sizeTextName, sizeTextInfo, posTextInfo, angleObj[IDobj]) ; // (color name, color Info, PFont, int sizeTextName,int  sizeTextInfo )
+      atm.titleAtom2D (fill_item[IDobj], stroke_item[IDobj], font[IDobj], sizeTextName, sizeTextInfo, posTextInfo, angle_item[IDobj]) ; // (color name, color Info, PFont, int sizeTextName,int  sizeTextInfo )
       else if (mode[IDobj] == 1 ) { 
-        atm.title2D(fillObj[IDobj], font[IDobj], sizeTextName, posText, angleObj[IDobj]) ;
+        atm.title2D(fill_item[IDobj], font[IDobj], sizeTextName, posText, angle_item[IDobj]) ;
       } else if (mode[IDobj] == 2 ) {
-        atm.display("", "POINT", sizeAtomeXYZ, fillObj[IDobj], strokeObj[IDobj], thickness, angleObj[IDobj]) ;
+        atm.display("", "POINT", sizeAtomeXYZ, fill_item[IDobj], stroke_item[IDobj], thickness, angle_item[IDobj]) ;
       } else if (mode[IDobj] == 3 ) {
-        if(threeDimension) atm.display("SPHERE", "ELLIPSE", sizeAtomeXYZ, fillObj[IDobj], strokeObj[IDobj], thickness, angleObj[IDobj]) ;
-        else atm.display("ELLIPSE", "ELLIPSE", sizeAtomeXYZ, fillObj[IDobj], strokeObj[IDobj], thickness, angleObj[IDobj]) ;
+        if(threeDimension) atm.display("SPHERE", "ELLIPSE", sizeAtomeXYZ, fill_item[IDobj], stroke_item[IDobj], thickness, angle_item[IDobj]) ;
+        else atm.display("ELLIPSE", "ELLIPSE", sizeAtomeXYZ, fill_item[IDobj], stroke_item[IDobj], thickness, angle_item[IDobj]) ;
       } else if (mode[IDobj] == 4 ) {
-        if(threeDimension) atm.display("SPHERE", "TRIANGLE", sizeAtomeXYZ, fillObj[IDobj], strokeObj[IDobj], thickness, angleObj[IDobj]) ;
-        else atm.display("ELLIPSE", "TRIANGLE", sizeAtomeXYZ, fillObj[IDobj], strokeObj[IDobj], thickness, angleObj[IDobj]) ;
+        if(threeDimension) atm.display("SPHERE", "TRIANGLE", sizeAtomeXYZ, fill_item[IDobj], stroke_item[IDobj], thickness, angle_item[IDobj]) ;
+        else atm.display("ELLIPSE", "TRIANGLE", sizeAtomeXYZ, fill_item[IDobj], stroke_item[IDobj], thickness, angle_item[IDobj]) ;
       } else if (mode[IDobj] == 5 ) {
-        if(threeDimension) atm.display("SPHERE", "POINT", sizeAtomeXYZ, fillObj[IDobj], strokeObj[IDobj], thickness, angleObj[IDobj]) ;
-        else atm.display("ELLIPSE", "POINT", sizeAtomeXYZ, fillObj[IDobj], strokeObj[IDobj], thickness, angleObj[IDobj]) ;
+        if(threeDimension) atm.display("SPHERE", "POINT", sizeAtomeXYZ, fill_item[IDobj], stroke_item[IDobj], thickness, angle_item[IDobj]) ;
+        else atm.display("ELLIPSE", "POINT", sizeAtomeXYZ, fill_item[IDobj], stroke_item[IDobj], thickness, angle_item[IDobj]) ;
       } else if (mode[IDobj] == 6 ) {
-        if(threeDimension) atm.display("TETRA", "ELLIPSE", sizeAtomeXYZ, fillObj[IDobj], strokeObj[IDobj], thickness, angleObj[IDobj]) ;
-        else atm.display("TRIANGLE", "ELLIPSE", sizeAtomeXYZ, fillObj[IDobj], strokeObj[IDobj], thickness, angleObj[IDobj]) ;
+        if(threeDimension) atm.display("TETRA", "ELLIPSE", sizeAtomeXYZ, fill_item[IDobj], stroke_item[IDobj], thickness, angle_item[IDobj]) ;
+        else atm.display("TRIANGLE", "ELLIPSE", sizeAtomeXYZ, fill_item[IDobj], stroke_item[IDobj], thickness, angle_item[IDobj]) ;
       } else if (mode[IDobj] == 7 ) {
-        if(threeDimension) atm.display("TETRA", "TRIANGLE", sizeAtomeXYZ, fillObj[IDobj], strokeObj[IDobj], thickness, angleObj[IDobj]) ;
-        else atm.display("TRIANGLE", "TRIANGLE", sizeAtomeXYZ, fillObj[IDobj], strokeObj[IDobj], thickness, angleObj[IDobj]) ;
+        if(threeDimension) atm.display("TETRA", "TRIANGLE", sizeAtomeXYZ, fill_item[IDobj], stroke_item[IDobj], thickness, angle_item[IDobj]) ;
+        else atm.display("TRIANGLE", "TRIANGLE", sizeAtomeXYZ, fill_item[IDobj], stroke_item[IDobj], thickness, angle_item[IDobj]) ;
       } else if (mode[IDobj] == 8 ) {
-        if(threeDimension) atm.display("TETRA", "POINT", sizeAtomeXYZ, fillObj[IDobj], strokeObj[IDobj], thickness, angleObj[IDobj]) ;
-        else atm.display("TRIANGLE", "POINT", sizeAtomeXYZ, fillObj[IDobj], strokeObj[IDobj], thickness, angleObj[IDobj]) ;
+        if(threeDimension) atm.display("TETRA", "POINT", sizeAtomeXYZ, fill_item[IDobj], stroke_item[IDobj], thickness, angle_item[IDobj]) ;
+        else atm.display("TRIANGLE", "POINT", sizeAtomeXYZ, fill_item[IDobj], stroke_item[IDobj], thickness, angle_item[IDobj]) ;
       } else if (mode[IDobj] == 9 ) {
-        if(threeDimension) atm.display("BOX", "RECTANGLE", sizeAtomeXYZ, fillObj[IDobj], strokeObj[IDobj], thickness, angleObj[IDobj]) ;
-        else atm.display("RECTANGLE", "RECTANGLE", sizeAtomeXYZ, fillObj[IDobj], strokeObj[IDobj], thickness, angleObj[IDobj]) ;
+        if(threeDimension) atm.display("BOX", "RECTANGLE", sizeAtomeXYZ, fill_item[IDobj], stroke_item[IDobj], thickness, angle_item[IDobj]) ;
+        else atm.display("RECTANGLE", "RECTANGLE", sizeAtomeXYZ, fill_item[IDobj], stroke_item[IDobj], thickness, angle_item[IDobj]) ;
       } else if (mode[IDobj] == 10 ) {
-        if(threeDimension) atm.display("BOX", "POINT", sizeAtomeXYZ, fillObj[IDobj], strokeObj[IDobj], thickness, angleObj[IDobj]) ;
-        else atm.display("RECTANGLE", "POINT", sizeAtomeXYZ, fillObj[IDobj], strokeObj[IDobj], thickness, angleObj[IDobj]) ;
+        if(threeDimension) atm.display("BOX", "POINT", sizeAtomeXYZ, fill_item[IDobj], stroke_item[IDobj], thickness, angle_item[IDobj]) ;
+        else atm.display("RECTANGLE", "POINT", sizeAtomeXYZ, fill_item[IDobj], stroke_item[IDobj], thickness, angle_item[IDobj]) ;
       }
  
 
@@ -240,7 +240,7 @@ class Atome extends Romanesco {
     //ADD ATOM
     int maxValueReproduction = 25 ;
     if(fullRendering) maxValueReproduction = 1 ; else maxValueReproduction = 25 ;
-    int speedReproduction = round(map(quantityObj[IDobj],0, 1, 30, maxValueReproduction));
+    int speedReproduction = round(map(quantity_item[IDobj],0, 1, 30, maxValueReproduction));
     if(action[IDobj] && nLongTouch && clickLongLeft[IDobj] && frameCount % speedReproduction == 0) atomAdd(giveNametoAtom(), startingPosition[IDobj]) ;
     
     if(atomList.size()<1) {
@@ -276,7 +276,7 @@ class Atome extends Romanesco {
     //data
     //amplitude
     //give the field of type of atome must be create
-    float numP = map(familyObj[IDobj], 0,1,1,118) ; //
+    float numP = map(variety_item[IDobj], 0,1,1,118) ; //
     int Z = int(random (1,numP)) ; // Z is the number of protons give the number of electrons max knew is 118
     int ion = round(random(0,0)); // number of electron(s) less(Anion)   more(Cation)   / give the magnetism & conductivity of the atome cannot be equal or sup to "Z"proton
     

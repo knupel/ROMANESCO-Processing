@@ -34,8 +34,12 @@ romanescoSlider = 	"all"
 					"Hue fill,Saturation fill,Brightness fill,Alpha fill,
 					Hue stroke,Saturation stroke,Brightness stroke,
 					Alpha stroke,Thickness,
+					Font Size,
 					Size X,Size Y,Size Z,
 					Canvas X,Canvas Y,Canvas Z,
+
+					Reactivity,
+
 					Family,Quantity,Life,
 					Speed,Direction,Angle,
 					Amplitude,Attraction,Repulsion,

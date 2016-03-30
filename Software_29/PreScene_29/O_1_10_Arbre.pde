@@ -34,9 +34,9 @@ class ArbreRomanesco extends Romanesco {
     int forkA = maxFork ; 
     int forkB = maxFork ;
     
-    int n = int(map(quantityObj[IDobj],0,1,2,maxFork*2)) ;
+    int n = int(map(quantity_item[IDobj],0,1,2,maxFork*2)) ;
     
-    float epaisseur = thicknessObj[IDobj] ;
+    float epaisseur = thickness_item[IDobj] ;
     float ratioLeft = map(left[IDobj], 0, 1, .5, 2) ;
     float ratioRight = map(right[IDobj], 0, 1, .5, 2) ;
     if(!fullRendering) {
@@ -61,29 +61,29 @@ class ArbreRomanesco extends Romanesco {
     
     //size
     int div_size = 20 ;
-    float x = map(sizeXObj[IDobj],.1,width,.1,width /div_size) ;
-    float y = map(sizeYObj[IDobj],.1,width,.1,width /div_size) ;
-    float z = map(sizeZObj[IDobj],.1,width,.1,width /div_size) ;
+    float x = map(size_x_item[IDobj],.1,width,.1,width /div_size) ;
+    float y = map(size_y_item[IDobj],.1,width,.1,width /div_size) ;
+    float z = map(size_z_item[IDobj],.1,width,.1,width /div_size) ;
     x = x *x *ratioMix ;
     y = y *y *ratioMix ;
     z = z *z *ratioMix ;
 
     PVector size  = new PVector(x,y,z) ;
     //orientation
-    float direction = directionObj[IDobj] ;
+    float direction = dir_x_item[IDobj] ;
     //amplitude
-    float amplitude = map(amplitudeObj[IDobj], 0,1, 0.1,width *.6) ;
+    float amplitude = map(swing_x_item[IDobj], 0,1, 0.1,width *.6) ;
     if(fullRendering) amplitude = amplitude *allBeats(IDobj) ;
     
 
 
 
     // angle
-    // float angle = map(angleObj[IDobj],0,360,0,180);
+    // float angle = map(angle_item[IDobj],0,360,0,180);
     float angle = 90 ; // but this function must be remove because it give no effect
     // speed
     if(motion[IDobj] && fullRendering) {
-      float s = map(speedObj[IDobj],0,1,0,2) ;
+      float s = map(speed_x_item[IDobj],0,1,0,2) ;
       s *= s ;
       speed = s *tempo[IDobj] ; 
     } else if (!motion[IDobj] && fullRendering){ 

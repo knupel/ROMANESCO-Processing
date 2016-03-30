@@ -27,7 +27,7 @@ void draw_send_OSC() {
   translateDataToSend() ;
   
   //BUTTON 
-  toPreScene[0] = joinIntToString(value_button_G0) ; 
+  toPreScene[0] = joinIntToString(value_button_general) ; 
   toPreScene[1] = joinIntToString(value_button_item) ;
   
   
@@ -36,14 +36,14 @@ void draw_send_OSC() {
   @return value to the prescene between 0 to 99
   */
   // group general
-  int[] dataGroupZero = new int[NUM_SLIDER_GENERAL] ;
-  for ( int i = 1   ; i < NUM_SLIDER_GENERAL -1 ; i++) dataGroupZero[i-1] = floor(valueSlider[i]) ;
-    toPreScene[2] = joinIntToString(dataGroupZero) ;
+  int[] data_OSC_general = new int[NUM_SLIDER_GENERAL] ;
+  for ( int i = 1   ; i < NUM_SLIDER_GENERAL -1 ; i++) data_OSC_general[i-1] = floor(valueSlider[i]) ;
+    toPreScene[2] = joinIntToString(data_OSC_general) ;
 
   // group item
-  int[] dataGroupOne = new int[NUM_SLIDER_ITEM] ;
-  for ( int i = 101   ; i < 101 +NUM_SLIDER_ITEM ; i++) dataGroupOne[i-101] = floor(valueSlider[i]) ; 
-  toPreScene[3] = joinIntToString(dataGroupOne);
+  int[] data_OSC_item = new int[NUM_SLIDER_ITEM] ;
+  for ( int i = 101   ; i < 101 +NUM_SLIDER_ITEM ; i++) data_OSC_item[i-101] = floor(valueSlider[i]) ; 
+  toPreScene[3] = joinIntToString(data_OSC_item);
 
 
 
@@ -73,29 +73,29 @@ void draw_send_OSC() {
 void translateDataToSend() {
   //BUTTON GLOBAL
   //sound
-  value_button_G0[1] = state_button_beat ;
-  value_button_G0[2] = state_button_kick ;
-  value_button_G0[3] = state_button_snare ;
-  value_button_G0[4] = state_button_hat ;
+  value_button_general[1] = state_button_beat ;
+  value_button_general[2] = state_button_kick ;
+  value_button_general[3] = state_button_snare ;
+  value_button_general[4] = state_button_hat ;
 
-  value_button_G0[5] = dropdown_font.getSelection() +1 ; ;
-  value_button_G0[6] = state_curtain_button ;
-  value_button_G0[7] = state_BackgroundButton ;
+  value_button_general[5] = dropdown_font.getSelection() +1 ; ;
+  value_button_general[6] = state_curtain_button ;
+  value_button_general[7] = state_BackgroundButton ;
   
-  value_button_G0[8] = state_LightOneButton ;
-  value_button_G0[9] = state_LightTwoButton ;
-  value_button_G0[10] = state_LightAmbientButton ;
-  value_button_G0[11] = state_LightOneAction ;
-  value_button_G0[12] = state_LightTwoAction ;
-  value_button_G0[13] = state_LightAmbientAction ;
+  value_button_general[8] = state_LightOneButton ;
+  value_button_general[9] = state_LightTwoButton ;
+  value_button_general[10] = state_LightAmbientButton ;
+  value_button_general[11] = state_LightOneAction ;
+  value_button_general[12] = state_LightTwoAction ;
+  value_button_general[13] = state_LightAmbientAction ;
 
   
-  if(state_bg_shader > SWITCH_VALUE_FOR_DROPDOWN)     value_button_G0[14] = state_bg_shader ;
-  if(state_image_bitmap > SWITCH_VALUE_FOR_DROPDOWN)  value_button_G0[15] = state_image_bitmap ;
-  if(state_image_svg > SWITCH_VALUE_FOR_DROPDOWN)     value_button_G0[16] = state_image_svg ;
-  if(state_file_text > SWITCH_VALUE_FOR_DROPDOWN)     value_button_G0[17] = state_file_text ;
-  if(state_file_text > SWITCH_VALUE_FOR_DROPDOWN)     value_button_G0[18] = state_file_text ;
-  if(state_camera_video > SWITCH_VALUE_FOR_DROPDOWN)  value_button_G0[19] = ID_camera_video_list[state_camera_video] ;
+  if(state_bg_shader > SWITCH_VALUE_FOR_DROPDOWN)     value_button_general[14] = state_bg_shader ;
+  if(state_image_bitmap > SWITCH_VALUE_FOR_DROPDOWN)  value_button_general[15] = state_image_bitmap ;
+  if(state_image_svg > SWITCH_VALUE_FOR_DROPDOWN)     value_button_general[16] = state_image_svg ;
+  if(state_file_text > SWITCH_VALUE_FOR_DROPDOWN)     value_button_general[17] = state_file_text ;
+  if(state_file_text > SWITCH_VALUE_FOR_DROPDOWN)     value_button_general[18] = state_file_text ;
+  if(state_camera_video > SWITCH_VALUE_FOR_DROPDOWN)  value_button_general[19] = ID_camera_video_list[state_camera_video] ;
 
   
   //BUTTON GROUP ONE

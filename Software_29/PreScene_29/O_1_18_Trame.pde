@@ -45,9 +45,9 @@ class Damier extends Romanesco {
       m = 1.0 ;
     }
     float penPressure = map(pen[IDobj].z,0,1,1,width/100) ;
-    float sizeXtemp = map(sizeXObj[IDobj],.1,width,.1,width/33) ;
-    float sizeYtemp = map(sizeYObj[IDobj],.1,width,.1,width/33) ;
-    float sizeZtemp = map(sizeZObj[IDobj],.1,width,.1,width/33) ;
+    float sizeXtemp = map(size_x_item[IDobj],.1,width,.1,width/33) ;
+    float sizeYtemp = map(size_y_item[IDobj],.1,width,.1,width/33) ;
+    float sizeZtemp = map(size_z_item[IDobj],.1,width,.1,width/33) ;
     size.x = ((sizeXtemp *sizeXtemp) *penPressure *allBeats(IDobj) ) *g ;
     size.y = ((sizeYtemp *sizeYtemp) *penPressure *allBeats(IDobj)) *d ;
     size.z = ((sizeZtemp *sizeZtemp) *penPressure *allBeats(IDobj)) *m  ;
@@ -55,20 +55,20 @@ class Damier extends Romanesco {
 
     //orientation / deg
     //speed
-    speed = map(speedObj[IDobj], 0,1,0, 0.5 );
+    speed = map(speed_x_item[IDobj], 0,1,0, 0.5 );
     if(reverse[IDobj]) speed = speed *1 ; else speed = speed * -1 ;
     if (speed != 0 && motion[IDobj]) angleTrame += speed *tempo[IDobj] ;
     
     
     //rotation of the single shape
-    if (action[IDobj]) angle = map(angleObj[IDobj], 0,100, 0, TAU) ; 
+    if (action[IDobj]) angle = map(angle_item[IDobj], 0,100, 0, TAU) ; 
     
     //quantity
-    int q = int(map(quantityObj[IDobj], 0, 1, 2, 9)) ;
+    int q = int(map(quantity_item[IDobj], 0, 1, 2, 9)) ;
     if(fullRendering) q *= q ;
 
     //amp
-    float amp = map(amplitudeObj[IDobj],0,1, .3, width *.007) ;
+    float amp = map(swing_x_item[IDobj],0,1, .3, width *.007) ;
     amp *= amp ;
     
     //MODE DISPLAY
@@ -97,7 +97,7 @@ class Trame {
   int vitesse ;
   
   //TRAME RECTANGLEe multiple
-  void drawTrameRect (PVector axe, float angleTrame, float angleObj, PVector size, int nbrlgn, float gauche, float droite, float amp ) {
+  void drawTrameRect (PVector axe, float angleTrame, float angle_item, PVector size, int nbrlgn, float gauche, float droite, float amp ) {
     pushMatrix() ;
     translate(axe.x, axe.y) ;
     // calcul the position of each object
@@ -105,7 +105,7 @@ class Trame {
       for (int j=1 ; j < nbrlgn ; j++) { 
         PVector pos = new PVector (  (i *width *amp) / nbrlgn, (j *height *amp ) / nbrlgn )  ;
         PVector newPosAfterRotation = rotation(pos, axe, angleTrame) ;        
-        rectangleTrame (newPosAfterRotation, size.x, size.y, gauche, droite, angleObj ) ;      
+        rectangleTrame (newPosAfterRotation, size.x, size.y, gauche, droite, angle_item ) ;      
       }
     }
     popMatrix() ;  
@@ -115,7 +115,7 @@ class Trame {
   
   
   //TRAME DISC multiple
-  void drawTrameDisc (PVector axe, float angleTrame, float angleObj, PVector size, int nbrlgn, float gauche, float droite, float amp   ) {
+  void drawTrameDisc (PVector axe, float angleTrame, float angle_item, PVector size, int nbrlgn, float gauche, float droite, float amp   ) {
     pushMatrix() ;
     translate(axe.x, axe.y) ;
     // calcul the position of each object
@@ -123,7 +123,7 @@ class Trame {
       for (int j=1 ; j < nbrlgn ; j++) {
         PVector pos = new PVector (  (i *width *amp ) / nbrlgn, (j * height *amp ) / nbrlgn )  ;
         PVector newPosAfterRotation = rotation(pos, axe, angleTrame) ;        
-        disqueTrame (newPosAfterRotation, size.x, size.y, gauche, droite, angleObj ) ;      
+        disqueTrame (newPosAfterRotation, size.x, size.y, gauche, droite, angle_item ) ;      
       }
     }
     popMatrix() ;  
@@ -131,7 +131,7 @@ class Trame {
   
   
   //TRAME BOX
-  void drawTrameBox (PVector axe, float angleTrame, float angleObj, PVector size, int nbrlgn, float gauche, float droite, float amp   ) {
+  void drawTrameBox (PVector axe, float angleTrame, float angle_item, PVector size, int nbrlgn, float gauche, float droite, float amp   ) {
     pushMatrix() ;
     translate(axe.x, axe.y) ;
     //calcul the position of each object
@@ -139,7 +139,7 @@ class Trame {
       for (int j=1 ; j < nbrlgn ; j++) {
         PVector pos = new PVector (  (i *width *amp ) / nbrlgn, (j * height *amp ) / nbrlgn )  ;
         PVector newPosAfterRotation = rotation(pos, axe, angleTrame) ;        
-        boxTrame (newPosAfterRotation, size, gauche, droite, angleObj ) ;      
+        boxTrame (newPosAfterRotation, size, gauche, droite, angle_item ) ;      
       }
     }
     popMatrix() ;  
