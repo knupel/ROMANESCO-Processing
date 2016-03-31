@@ -49,7 +49,7 @@ class Galaxie extends Romanesco {
   void display() {
     
     //surface
-    PVector marge = new PVector(map(canvasXObj[IDobj],width/10, width, width/20, width*10), map(canvasYObj[IDobj],width/10, width, height/20, height*10), map(canvasZObj[IDobj], width/10, width, width/10, width *10))  ;
+    PVector marge = new PVector(map(canvas_x_item[IDobj],width/10, width, width/20, width*10), map(canvas_y_item[IDobj],width/10, width, height/20, height*10), map(canvas_z_item[IDobj], width/10, width, width/10, width *10))  ;
     PVector surface = new PVector(marge.x *2 +width, marge.y *2 +height) ;
     
     //quantity of star
@@ -59,7 +59,7 @@ class Galaxie extends Romanesco {
       min = 30 ;
       max = 150 ;
     }
-    float quantity = map(quantityObj[IDobj],0,1,min,max) ;
+    float quantity = map(quantity_item[IDobj],0,1,min,max) ;
     if (mode[IDobj] == 0 ) numFromController = int(quantity *10) ; else numFromController = int(quantity) ;
     
 
@@ -77,7 +77,7 @@ class Galaxie extends Romanesco {
     deformationGrain = orientationStyletGrain.copy() ; ;
     
     // speed / vitesse
-     speedDust = map(speedObj[IDobj],0,1, 0.00005 ,.5) ; 
+     speedDust = map(speed_x_item[IDobj],0,1, 0.00005 ,.5) ; 
      if(sound[IDobj]) speedDust *= 3 ;
         
     vitesseGrainA = map(left[IDobj],0,1, 1, 17) ;
@@ -97,19 +97,19 @@ class Galaxie extends Romanesco {
     
     // force
     int maxInfluence = 11 ;
-    variableRayonGrain = map(influenceObj[IDobj], 0,1, 0, maxInfluence ) ;
+    variableRayonGrain = map(influence_item[IDobj], 0,1, 0, maxInfluence ) ;
     
     //size
-    float objWidth =  .1 +sizeXObj[IDobj] *mix[IDobj] ;
-    float objHeight = .1 +sizeYObj[IDobj] *mix[IDobj] ;
-    float objDepth = .1 +sizeZObj[IDobj] *mix[IDobj] ;
+    float objWidth =  .1 +size_x_item[IDobj] *mix[IDobj] ;
+    float objHeight = .1 +size_y_item[IDobj] *mix[IDobj] ;
+    float objDepth = .1 +size_z_item[IDobj] *mix[IDobj] ;
     PVector size = new PVector(objWidth, objHeight,objDepth) ;
     
     //thickness / épaisseur
-    float e = thicknessObj[IDobj] ;
+    float e = thickness_item[IDobj] ;
 
-    color colorIn = fillObj[IDobj] ;
-    color colorOut = strokeObj[IDobj] ;
+    color colorIn = fill_item[IDobj] ;
+    color colorOut = stroke_item[IDobj] ;
     
 
     
@@ -127,7 +127,7 @@ class Galaxie extends Romanesco {
     
     /////////
     //UPDATE
-    if(motion[IDobj]) if (speedObj[IDobj] >= 0.01) updateGrain(upTouch, downTouch, leftTouch, rightTouch, clickLongLeft[IDobj], marge);
+    if(motion[IDobj]) if (speed_x_item[IDobj] >= 0.01) updateGrain(upTouch, downTouch, leftTouch, rightTouch, clickLongLeft[IDobj], marge);
     
     //////////////
     //DISPLAY MODE

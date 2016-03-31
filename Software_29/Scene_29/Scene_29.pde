@@ -8,7 +8,7 @@ String nameVersion = ("Romanesco Unu") ;
 String IAM = ("Scene") ;
 String version = ("29") ;
 String prettyVersion = ("1.2.0") ;
-String preferencesPath  ;
+String preference_path, import_path ;
 // security must be link with the controler in the next release
 boolean testRomanesco = false ;
 boolean fullRendering = true ;
@@ -26,7 +26,8 @@ void settings() {
 
 void setup() {
   camera_video_setup() ;
-  preferencesPath = sketchPath("")+"preferences/" ;
+  preference_path = sketchPath("")+"preferences/" ;
+  import_path = sketchPath("")+"import/" ;
 
   romanescoSetup() ;
   RG.init(this); // GEOMERATIVE
@@ -63,7 +64,7 @@ void draw() {
   camera_video_draw() ;
   if(!testRomanesco) soundDraw() ;
   meteoDraw() ;
-  updateVarRaw() ;
+  update_raw_value() ;
   background_romanesco() ; 
   loadScene() ;
   saveScene() ;
@@ -86,7 +87,7 @@ void draw() {
   //ANNEXE
   info() ;
   curtain() ;  
-  updateVarTemp() ;
+  update_temp_value() ;
 
   nextPreviousKeypressed() ;
   init_value_temp_prescene() ;

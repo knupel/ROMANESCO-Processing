@@ -29,10 +29,10 @@ class Boxolyzer extends Romanesco {
   //DRAW
   void display() {
     //CLASSIC DISPLAY
-    int numBox = int(map(quantityObj[IDobj],0, 1, 1, 16)) ;
+    int numBox = int(map(quantity_item[IDobj],0, 1, 1, 16)) ;
     if (numBox != numBoxRef ) newDistribution = true ;
     numBoxRef = numBox ;
-    Vec3 size = Vec3(sizeXObj[IDobj],sizeYObj[IDobj],sizeZObj[IDobj]) ;
+    Vec3 size = Vec3(size_x_item[IDobj],size_y_item[IDobj],size_z_item[IDobj]) ;
     size.mult(2) ;
 
     // color and thickness
@@ -42,8 +42,8 @@ class Boxolyzer extends Romanesco {
     
     // MODE DISPLAY with the dropdown menu of controler
     /////////////////////
-    if        (mode[IDobj] ==0) { boxolyzerClassic(size, horizon[IDobj] , directionObj[IDobj]) ;
-    } else if (mode[IDobj] ==1) { boxolyzerCircle(size, (int)canvasXObj[IDobj], horizon[IDobj], directionObj[IDobj]) ;
+    if        (mode[IDobj] ==0) { boxolyzerClassic(size, horizon[IDobj] , dir_x_item[IDobj]) ;
+    } else if (mode[IDobj] ==1) { boxolyzerCircle(size, (int)canvas_x_item[IDobj], horizon[IDobj], dir_x_item[IDobj]) ;
     } 
 
 
@@ -89,7 +89,7 @@ class Boxolyzer extends Romanesco {
     float factorSpectrum = 0 ;
     int n = boiteList.size() ;
     // int canvasFinal = width ;
-    int canvasFinal = (int)map(canvasXObj[IDobj], width/10, width, width/2,width*3)  ;
+    int canvasFinal = (int)map(canvas_x_item[IDobj], width/10, width, width/2,width*3)  ;
     int displacement_symetric = int(width *.5 -canvasFinal *.5) ;
     for( int i = 0 ; i < n ; i++) {
       pos.x = (i *canvasFinal/n) + (canvasFinal /(n *2)) +displacement_symetric ;

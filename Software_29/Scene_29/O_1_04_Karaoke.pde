@@ -30,13 +30,13 @@ class Karaoke extends Romanesco {
   void display() {
     loadText(IDobj) ;
     
-    float sizeFont = fontSizeObj[IDobj] ;
+    float sizeFont = font_size_item[IDobj] ;
     
     textFont(font[IDobj], sizeFont + ( sizeFont *mix[IDobj]) *allBeats(IDobj) );
     // couleur du texte
-    float t = alpha(fillObj[IDobj]) * abs(mix[IDobj]) ;
-    if ( sound[IDobj] ) { t = alpha(fillObj[IDobj]) ; } 
-    color c = color(hue(fillObj[IDobj]), saturation(fillObj[IDobj]), brightness(fillObj[IDobj]), t ) ;
+    float t = alpha(fill_item[IDobj]) * abs(mix[IDobj]) ;
+    if ( sound[IDobj] ) { t = alpha(fill_item[IDobj]) ; } 
+    color c = color(hue(fill_item[IDobj]), saturation(fill_item[IDobj]), brightness(fill_item[IDobj]), t ) ;
     // security against the blavk bug opacity
     if (alpha(c) == 0 ) {
       noFill() ; 
@@ -46,8 +46,8 @@ class Karaoke extends Romanesco {
     }
     
     //hauteur largeur, height & width
-    float largeur = canvasXObj[IDobj] *15 ;
-    float hauteur = canvasYObj[IDobj] *15 ;
+    float largeur = canvas_x_item[IDobj] *15 ;
+    float hauteur = canvas_y_item[IDobj] *15 ;
     
     //tracking chapter
     String karaokeChapters [] = split(textImport[IDobj], "*") ;
@@ -89,7 +89,7 @@ class Karaoke extends Romanesco {
         sentence = sentence + tracking(sentence, karaokeSentences.length ) ;
         trackerUpdate = 0 ;
       }
-      rotation(directionObj[IDobj], mouse[IDobj].x, mouse[IDobj].y) ;
+      rotation(dir_x_item[IDobj], mouse[IDobj].x, mouse[IDobj].y) ;
       //DISPLAY
       textAlign(CORNER);
       textFont(font[IDobj], sizeFont+ (mix[IDobj]) *6 *beat[IDobj]);

@@ -95,8 +95,8 @@ void translateDataFromController () {
   // list choice
    whichShader = valueButtonGlobal[14] ;
   choiceFont(valueButtonGlobal[5]) ;
-  whichImage[0] = valueButtonGlobal[15] ;
-  whichText[0] = valueButtonGlobal[16] ;
+  which_bitmap[0] = valueButtonGlobal[15] ;
+  which_text[0] = valueButtonGlobal[16] ;
   which_cam = valueButtonGlobal[17] ;
   
   //OBJECTS

@@ -171,40 +171,75 @@ void saveDataObject(String path) {
 		dataObj.setString("Pack obj                   ", objectPack[i]) ; // big space to read easily the JSON
 		// external data obj
 		dataObj.setInt("which font", 0) ; // problem with PFont
-		dataObj.setInt("which picture", whichImage[i]) ; // problem with var whichPicture[]
-		dataObj.setInt("which text", whichText[i]) ; // problem with var whichText[]
+		dataObj.setInt("which picture", which_bitmap[i]) ; // problem with var whichPicture[]
+		dataObj.setInt("which text", which_text[i]) ; // problem with var which_text[]
         // display mode
 		dataObj.setInt("Mode obj", mode[i]) ;
         // slider 
-		dataObj.setFloat("hue fill", hue(fillObj[i])) ;
-		dataObj.setFloat("saturation fill", saturation(fillObj[i])) ;
-		dataObj.setFloat("brightness fill", brightness(fillObj[i])) ;
-		dataObj.setFloat("alpha fill", alpha(fillObj[i])) ;
-		dataObj.setFloat("hue stroke", hue(strokeObj[i])) ;
-		dataObj.setFloat("saturation stroke", saturation(strokeObj[i])) ;
-		dataObj.setFloat("brightness stroke", brightness(strokeObj[i])) ;
-		dataObj.setFloat("alpha stroke", alpha(strokeObj[i])) ;
-		dataObj.setFloat("thickness", thicknessObj[i] /height) ;
+		dataObj.setFloat(fill_hue_name, hue(fill_item[i])) ;
+		dataObj.setFloat(fill_sat_name, saturation(fill_item[i])) ;
+		dataObj.setFloat(fill_bright_name, brightness(fill_item[i])) ;
+		dataObj.setFloat(fill_alpha_name, alpha(fill_item[i])) ;
 
-		dataObj.setFloat("width", sizeXObj[i] /width) ;
-		dataObj.setFloat("height", sizeYObj[i] /width) ;
-		dataObj.setFloat("depth", sizeZObj[i] /width) ;
-		dataObj.setFloat("canvas x", canvasXObj[i] /width) ;
-		dataObj.setFloat("canvas y", canvasYObj[i] /width) ;
-		dataObj.setFloat("canvas z", canvasZObj[i] /width) ;
-		dataObj.setFloat("family", familyObj[i]) ;
-		dataObj.setFloat("quantity", quantityObj[i]) ;
-		dataObj.setFloat("life", lifeObj[i]) ;
+		dataObj.setFloat(stroke_hue_name, hue(stroke_item[i])) ;
+		dataObj.setFloat(stroke_sat_name, saturation(stroke_item[i])) ;
+		dataObj.setFloat(stroke_bright_name, brightness(stroke_item[i])) ;
+		dataObj.setFloat(stroke_alpha_name, alpha(stroke_item[i])) ;
 
-		dataObj.setFloat("speed", speedObj[i]) ;
-		dataObj.setFloat("direction", directionObj[i]) ;
-		dataObj.setFloat("angle", angleObj[i]) ;
-		dataObj.setFloat("amplitude", amplitudeObj[i]) ;
-		dataObj.setFloat("attraction", attractionObj[i]) ;
-		dataObj.setFloat("repulsion", repulsionObj[i]) ;
-		dataObj.setFloat("aligmnent", alignmentObj[i]) ;
-		dataObj.setFloat("influence", influenceObj[i]) ;
-		dataObj.setFloat("analyze", analyzeObj[i]) ;
+		dataObj.setFloat(thickness_name, thickness_item[i] /height) ;
+
+		dataObj.setFloat(size_x_name, size_x_item[i] /width) ;
+		dataObj.setFloat(size_y_name, size_y_item[i] /width) ;
+		dataObj.setFloat(size_z_name, size_z_item[i] /width) ;
+
+		dataObj.setFloat(font_size_name, font_size_item[i] /width) ; // check the size
+
+		dataObj.setFloat(canvas_x_name, canvas_x_item[i] /width) ;
+		dataObj.setFloat(canvas_y_name, canvas_y_item[i] /width) ;
+		dataObj.setFloat(canvas_z_name, canvas_z_item[i] /width) ;
+
+		dataObj.setFloat(reactivity_name, reactivity_item[i]) ;
+
+		dataObj.setFloat(speed_x_name, speed_x_item[i]) ;
+		dataObj.setFloat(speed_y_name, speed_y_item[i]) ;
+		dataObj.setFloat(speed_z_name, speed_z_item[i]) ;
+
+		dataObj.setFloat(spurt_x_name, spurt_x_item[i]) ;
+		dataObj.setFloat(spurt_y_name, spurt_y_item[i]) ;
+		dataObj.setFloat(spurt_z_name, spurt_z_item[i]) ;
+
+		dataObj.setFloat(dir_x_name, dir_x_item[i]) ;
+		dataObj.setFloat(dir_y_name, dir_y_item[i]) ;
+		dataObj.setFloat(dir_z_name, dir_z_item[i]) ;
+
+		dataObj.setFloat(jitter_x_name, jitter_x_item[i]) ;
+		dataObj.setFloat(jitter_y_name, jitter_y_item[i]) ;
+		dataObj.setFloat(jitter_z_name, jitter_z_item[i]) ;
+
+		dataObj.setFloat(swing_x_name, swing_x_item[i]) ;
+		dataObj.setFloat(swing_y_name, swing_y_item[i]) ;
+		dataObj.setFloat(swing_z_name, swing_z_item[i]) ;
+
+		dataObj.setFloat(quantity_name, quantity_item[i]) ;
+		dataObj.setFloat(variety_name, variety_item[i]) ;
+
+		dataObj.setFloat(life_name, life_item[i]) ;
+		dataObj.setFloat(fertility_name, fertility_item[i]) ;
+		dataObj.setFloat(quality_name, quality_item[i]) ;
+
+		dataObj.setFloat(area_name, area_item[i] /width) ;
+		dataObj.setFloat(angle_name, angle_item[i]) ;
+		dataObj.setFloat(scope_name, scope_item[i] /width) ;
+		dataObj.setFloat(scan_name, scan_item[i]) ;
+
+		dataObj.setFloat(alignment_name, alignment_item[i]) ;
+		dataObj.setFloat(repulsion_name, repulsion_item[i]) ;
+		dataObj.setFloat(attraction_name, attraction_item[i]) ;
+		dataObj.setFloat(charge_name, charge_item[i]) ;
+
+		dataObj.setFloat(influence_name, influence_item[i]) ;
+		dataObj.setFloat(calm_name, calm_item[i]) ;
+		dataObj.setFloat(need_name, need_item[i]) ;
         
         // position & orientation
 		dataObj.setFloat("pos x obj", posObjX[i] /width) ;

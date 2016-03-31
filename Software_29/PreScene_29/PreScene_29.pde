@@ -8,7 +8,7 @@ String version = ("29") ;
 String IAM = ("Prescene") ;
 String prettyVersion = ("1.2.0") ;
 String nameVersion = ("Romanesco Unu") ;
-String prefenrece_path, import_path ;
+String preference_path, import_path ;
 
 
 /*
@@ -18,7 +18,7 @@ used sound
  maximum possibility of the object
  full frame rate
 */
-boolean fullRendering = true ;
+boolean fullRendering = false ;
 //to work in dev, test phase
 boolean testRomanesco = false ;
 
@@ -30,7 +30,7 @@ void settings() {
   
 void setup() {
   camera_video_setup() ;
-  prefenrece_path = sketchPath("")+"preferences/" ;
+  preference_path = sketchPath("")+"preferences/" ;
   import_path = sketchPath("")+"import/" ;
   // if(fullRendering) frameRateRomanesco = 60 ; else frameRateRomanesco = 15 ;
   int frameRateRomanesco = 60 ;

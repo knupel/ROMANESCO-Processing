@@ -44,20 +44,20 @@ class Webcam extends Romanesco {
     // size
     float minVal = 0.1 ;
     float maxVal = height / 50 ;
-    float size_x = map(sizeXObj[IDobj],0.1,width, minVal, maxVal) *snare[IDobj] ;
-    float size_y = map(sizeYObj[IDobj],0.1,width, minVal, maxVal) *kick[IDobj] ;
-    float size_z = map(sizeZObj[IDobj],0.1,width, minVal, maxVal) *hat[IDobj] ;
+    float size_x = map(size_x_item[IDobj],0.1,width, minVal, maxVal) *snare[IDobj] ;
+    float size_y = map(size_y_item[IDobj],0.1,width, minVal, maxVal) *kick[IDobj] ;
+    float size_z = map(size_z_item[IDobj],0.1,width, minVal, maxVal) *hat[IDobj] ;
     PVector factorSizePix = new PVector(size_x, size_y, size_z) ; 
     factorDisplayPixel = new PVector(factorDisplayCam.x *factorSizePix.x , factorDisplayCam.y *factorSizePix.y, factorSizePix.z) ;//PARAMETER THAT YOU CAN USE
     
     //PART TWO
 
     if(fullRendering) {
-      cellSizeX = int(map(canvasYObj[IDobj],width/10, width, 50, 1))  ; 
-      cellSizeY = int(map(canvasXObj[IDobj],width/10, width, 50, 1))  ;
+      cellSizeX = int(map(canvas_y_item[IDobj],width/10, width, 50, 1))  ; 
+      cellSizeY = int(map(canvas_x_item[IDobj],width/10, width, 50, 1))  ;
     } else {
-      cellSizeX = int(map(canvasYObj[IDobj],width/10, width, 50, 20))  ; 
-      cellSizeY = int(map(canvasXObj[IDobj],width/10, width, 50, 20))  ;
+      cellSizeX = int(map(canvas_y_item[IDobj],width/10, width, 50, 20))  ; 
+      cellSizeY = int(map(canvas_x_item[IDobj],width/10, width, 50, 20))  ;
     }
     if(cellSizeX < 1 ) cellSizeX = 1 ;
     if(cellSizeY < 1 ) cellSizeY = 1 ;
@@ -83,8 +83,8 @@ class Webcam extends Romanesco {
         }
       } 
     } else {
-      fill(fillObj[IDobj]) ;
-      textSize(sizeXObj[IDobj]/10) ;
+      fill(fill_item[IDobj]) ;
+      textSize(size_x_item[IDobj]/10) ;
       text("Big Brother stops watching you, you're so boring !",0,0) ;
     }
     
@@ -112,7 +112,7 @@ class Webcam extends Romanesco {
     
     float newCellSizeX = cellSizeX *factorDisplayPixel.x *left[IDobj] ;
     float newCellSizeY = cellSizeY *factorDisplayPixel.y *right[IDobj] ;
-    float factorSizeZ = map(sizeZObj[IDobj], .1, width, .01, height/100) ;
+    float factorSizeZ = map(size_z_item[IDobj], .1, width, .01, height/100) ;
     PVector newCellSize = new PVector (newCellSizeX, newCellSizeY, factorSizeZ ) ;
     //init the position of image on the middle of the screen
     PVector posMouseCam = new PVector ( width / 2, height /2) ;
@@ -220,16 +220,16 @@ class Webcam extends Romanesco {
   }
   
   void colour(PVector hsb) {
-    float newSat = hsb.y *map(saturation(fillObj[IDobj]),0,100,0,1) ;
-    float newBrigth = hsb.z *map(brightness(fillObj[IDobj]),0,100,0,1) ;
-    colorPixelCam = color(hsb.x, newSat, newBrigth, alpha(fillObj[IDobj]));
+    float newSat = hsb.y *map(saturation(fill_item[IDobj]),0,100,0,1) ;
+    float newBrigth = hsb.z *map(brightness(fill_item[IDobj]),0,100,0,1) ;
+    colorPixelCam = color(hsb.x, newSat, newBrigth, alpha(fill_item[IDobj]));
   }
   
   void monochrome(PVector hsb) {
-    float newHue = hue(fillObj[IDobj]) ;
-    float newSat = hsb.y *map(saturation(fillObj[IDobj]),0,100,0,1) ;
-    float newBrigth = hsb.z *map(brightness(fillObj[IDobj]),0,100,0,1) ;
+    float newHue = hue(fill_item[IDobj]) ;
+    float newSat = hsb.y *map(saturation(fill_item[IDobj]),0,100,0,1) ;
+    float newBrigth = hsb.z *map(brightness(fill_item[IDobj]),0,100,0,1) ;
     //display the result
-    colorPixelCam = color(newHue, newSat, newBrigth, alpha(fillObj[IDobj]));
+    colorPixelCam = color(newHue, newSat, newBrigth, alpha(fill_item[IDobj]));
   }
 }

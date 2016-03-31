@@ -41,18 +41,18 @@ class Honeycomb extends Romanesco {
   //DRAW
   void display() {
     neighbourDistance = hexagonRadius *2;
-    hexagonStroke = thicknessObj[IDobj] ;
-    hexagonRadius = map(sizeXObj[IDobj],.1,width, width /40, width/15)  ;
+    hexagonStroke = thickness_item[IDobj] ;
+    hexagonRadius = map(size_x_item[IDobj],.1,width, width /40, width/15)  ;
 
     
     // limitation for the preview
     int minSize = width/80 ;
     if(fullRendering) {
-      sliderCanvasX = map(canvasXObj[IDobj], width/10, width, minSize, width *4) ;
-      sliderCanvasY = map(canvasYObj[IDobj], width/10, width, minSize, width *4) ;      
+      sliderCanvasX = map(canvas_x_item[IDobj], width/10, width, minSize, width *4) ;
+      sliderCanvasY = map(canvas_y_item[IDobj], width/10, width, minSize, width *4) ;      
     } else {
-      sliderCanvasX = map(canvasXObj[IDobj], width/10, width, minSize, width) ;
-      sliderCanvasY = map(canvasYObj[IDobj], width/10, width, minSize, width) ;
+      sliderCanvasX = map(canvas_x_item[IDobj], width/10, width, minSize, width) ;
+      sliderCanvasY = map(canvas_y_item[IDobj], width/10, width, minSize, width) ;
     }
     
     
@@ -92,7 +92,7 @@ class Honeycomb extends Romanesco {
     
     for (Hexagon h : grid) {
       h.changeColor();
-      h.display(v, fillObj[IDobj],soundSizeFactor);
+      h.display(v, fill_item[IDobj],soundSizeFactor);
     }
     popMatrix() ;
     

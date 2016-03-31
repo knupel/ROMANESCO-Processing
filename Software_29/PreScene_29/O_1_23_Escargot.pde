@@ -107,7 +107,7 @@ class Escargot extends Romanesco {
     loadImg(IDobj) ;
     if(!fullRendering) maxVoronoiPoints = 250 ;
     //load pattern SVG to display a Pixel pattern you create in Illustrator or other software
-    pathSVG = prefenrece_path +"pixel/model.svg" ;
+    pathSVG = preference_path +"pixel/model.svg" ;
     shapeSVGsetting(pathSVG) ;
     
     //random palette
@@ -219,11 +219,11 @@ class Escargot extends Romanesco {
 
        
        // update image
-       if(parameter[IDobj] && imgPathRef != imagePath[whichImage[IDobj]] ) {
+       if(parameter[IDobj] && imgPathRef != imagePath[which_bitmap[IDobj]] ) {
          analyzeDone = false ;
          escargotGOanalyze = false ;
          escargotClear() ;
-         imgPathRef = imagePath[whichImage[IDobj]] ;
+         imgPathRef = imagePath[which_bitmap[IDobj]] ;
        }
       
       

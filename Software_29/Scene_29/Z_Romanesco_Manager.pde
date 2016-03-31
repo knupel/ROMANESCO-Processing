@@ -1,4 +1,6 @@
-// Tab: Z_Romanesco_Manager
+/**
+Romanesco Manager 2.0.1
+*/
 ObjectRomanescoManager romanescoManager ;
 // CLASS ROMANESCO MANAGER
 void romanescoSetup() {
@@ -19,10 +21,12 @@ void updateObject(int ID) {
   }
   if(!initValueControleur[ID]) {
     font[ID] = font[0] ;
-    updateSliderValue(ID) ;
+    update_slider_value(ID) ;
     initValueControleur[ID] = true ;
-    whichImage[ID] = whichImage[0] ;
-    whichText[ID] = whichText[0] ;
+    which_bitmap[ID] = which_bitmap[0] ;
+    which_text[ID] = which_text[0] ;
+    which_svg[ID] = which_svg[0] ;
+    which_movie[ID] = which_movie[0] ;
   }
   
   // info
@@ -30,10 +34,12 @@ void updateObject(int ID) {
   
   
   if(parameter[ID]) {
-    whichImage[ID] = whichImage[0] ;
-    whichText[ID] = whichText[0] ;
+    which_bitmap[ID] = which_bitmap[0] ;
+    which_text[ID] = which_text[0] ;
+    which_svg[ID] = which_svg[0] ;
+    which_movie[ID] = which_movie[0] ;
     font[ID] = font[0] ;
-    updateSliderValue(ID) ;
+    update_slider_value(ID) ;
   }
   updateSound(ID) ;
   
@@ -60,61 +66,91 @@ void updateObject(int ID) {
 
 
 //
-void updateSliderValue(int ID) {
- // for ( int i = 0 ; i <= NUM_GROUP ; i++) if( group == i ) {
-  //  int which_group = i-1 ;
+void update_slider_value(int ID) {
     if(fullRendering) {
       /**
       Changer : le fill et le stroke doivent se calculer sur des valeurs séparée, hue, sat, bright and alpha, sinon quand on les change cela change tout d'une seul coup.
       */
       // fill obj
-      if      ( !firstOpeningObj[ID] ) fillObj[ID]               = color ( fill_hue_raw, fill_sat_raw,  fill_bright_raw, fill_alpha_raw) ; 
-      else if ( fill_hue_temp != fill_hue_raw) fillObj[ID]       = color ( fill_hue_raw,      saturation(fillObj[ID]),    brightness(fillObj[ID]),  alpha(fillObj[ID])) ;
-      else if ( fill_sat_temp != fill_sat_raw) fillObj[ID]       = color ( hue(fillObj[ID]),  fill_sat_raw,               brightness(fillObj[ID]),  alpha(fillObj[ID])) ; 
-      else if ( fill_bright_temp != fill_bright_raw) fillObj[ID] = color ( hue(fillObj[ID]),  saturation(fillObj[ID]),    fill_bright_raw,          alpha(fillObj[ID])) ;   
-      else if ( fill_alpha_temp != fill_alpha_raw) fillObj[ID]   = color ( hue(fillObj[ID]),  saturation(fillObj[ID]),    brightness(fillObj[ID]),  fill_alpha_raw) ;  
+      if      ( !first_opening_item[ID] ) fill_item[ID]               = color ( fill_hue_raw, fill_sat_raw,  fill_bright_raw, fill_alpha_raw) ; 
+      else if ( fill_hue_temp != fill_hue_raw) fill_item[ID]       = color ( fill_hue_raw,      saturation(fill_item[ID]),    brightness(fill_item[ID]),  alpha(fill_item[ID])) ;
+      else if ( fill_sat_temp != fill_sat_raw) fill_item[ID]       = color ( hue(fill_item[ID]),  fill_sat_raw,               brightness(fill_item[ID]),  alpha(fill_item[ID])) ; 
+      else if ( fill_bright_temp != fill_bright_raw) fill_item[ID] = color ( hue(fill_item[ID]),  saturation(fill_item[ID]),    fill_bright_raw,          alpha(fill_item[ID])) ;   
+      else if ( fill_alpha_temp != fill_alpha_raw) fill_item[ID]   = color ( hue(fill_item[ID]),  saturation(fill_item[ID]),    brightness(fill_item[ID]),  fill_alpha_raw) ;  
       // stroke obj
-      if      ( !firstOpeningObj[ID] ) strokeObj[ID]                   = color (stroke_hue_raw, stroke_sat_raw, stroke_bright_raw, stroke_alpha_raw) ; 
-      else if ( stroke_hue_temp != stroke_hue_raw) strokeObj[ID]       = color ( stroke_hue_raw,      saturation(strokeObj[ID]),  brightness(strokeObj[ID]),  alpha(strokeObj[ID])) ;
-      else if ( stroke_sat_temp != stroke_sat_raw) strokeObj[ID]       = color ( hue(strokeObj[ID]),  stroke_sat_raw,             brightness(strokeObj[ID]),  alpha(strokeObj[ID])) ; 
-      else if ( stroke_bright_temp != stroke_bright_raw) strokeObj[ID] = color ( hue(strokeObj[ID]),  saturation(strokeObj[ID]),  stroke_bright_raw,          alpha(strokeObj[ID])) ;   
-      else if ( stroke_alpha_temp != stroke_alpha_raw) strokeObj[ID]   = color ( hue(strokeObj[ID]),  saturation(strokeObj[ID]),  brightness(strokeObj[ID]),  stroke_alpha_raw) ;  
+      if      ( !first_opening_item[ID] ) stroke_item[ID]                   = color (stroke_hue_raw, stroke_sat_raw, stroke_bright_raw, stroke_alpha_raw) ; 
+      else if ( stroke_hue_temp != stroke_hue_raw) stroke_item[ID]       = color ( stroke_hue_raw,      saturation(stroke_item[ID]),  brightness(stroke_item[ID]),  alpha(stroke_item[ID])) ;
+      else if ( stroke_sat_temp != stroke_sat_raw) stroke_item[ID]       = color ( hue(stroke_item[ID]),  stroke_sat_raw,             brightness(stroke_item[ID]),  alpha(stroke_item[ID])) ; 
+      else if ( stroke_bright_temp != stroke_bright_raw) stroke_item[ID] = color ( hue(stroke_item[ID]),  saturation(stroke_item[ID]),  stroke_bright_raw,          alpha(stroke_item[ID])) ;   
+      else if ( stroke_alpha_temp != stroke_alpha_raw) stroke_item[ID]   = color ( hue(stroke_item[ID]),  saturation(stroke_item[ID]),  brightness(stroke_item[ID]),  stroke_alpha_raw) ;  
       // thickness
-      if (thicknessRaw != thicknessTemp || !firstOpeningObj[ID]) thicknessObj[ID] = thicknessRaw ;
+      if (thickness_raw != thickness_temp|| !first_opening_item[ID]) thickness_item[ID] = thickness_raw ;
     } else {
       // preview display
-      fillObj[ID] = COLOR_FILL_OBJ_PREVIEW ;
-      strokeObj[ID] =  COLOR_STROKE_OBJ_PREVIEW ;
-      thicknessObj[ID] = THICKNESS_OBJ_PREVIEW ;
+      fill_item[ID] = COLOR_FILL_OBJ_PREVIEW ;
+      stroke_item[ID] =  COLOR_STROKE_OBJ_PREVIEW ;
+      thickness_item[ID] = THICKNESS_OBJ_PREVIEW ;
     }
-    // column 2
-    if (sizeXRaw != sizeXTemp || !firstOpeningObj[ID]) sizeXObj[ID] = sizeXRaw ; 
-    if (sizeYRaw != sizeYTemp || !firstOpeningObj[ID]) sizeYObj[ID] = sizeYRaw ; 
-    if (sizeZRaw != sizeZTemp || !firstOpeningObj[ID]) sizeZObj[ID] = sizeZRaw ;
-    if (canvasXRaw != canvasXTemp || !firstOpeningObj[ID]) canvasXObj[ID] = canvasXRaw ; 
-    if (canvasYRaw != canvasYTemp || !firstOpeningObj[ID]) canvasYObj[ID] = canvasYRaw ; 
-    if (canvasZRaw != canvasZTemp || !firstOpeningObj[ID]) canvasZObj[ID] = canvasZRaw ;
-    if (familyRaw != familyTemp || !firstOpeningObj[ID]) familyObj[ID] = familyRaw ;
-    if (quantityRaw != quantityTemp || !firstOpeningObj[ID]) quantityObj[ID] = quantityRaw ;
-    if (lifeRaw != lifeTemp || !firstOpeningObj[ID]) lifeObj[ID] = lifeRaw ;
-    //column 3
-    if (speedRaw != speedTemp || !firstOpeningObj[ID]) speedObj[ID] = speedRaw ;
-    if (directionRaw != directionTemp || !firstOpeningObj[ID]) directionObj[ID] = directionRaw ;
-    if (angleRaw != angleTemp || !firstOpeningObj[ID]) angleObj[ID] = angleRaw ;
-    if (amplitudeRaw != amplitudeTemp || !firstOpeningObj[ID]) amplitudeObj[ID] = amplitudeRaw ;
-    if (attractionRaw != attractionTemp || !firstOpeningObj[ID]) attractionObj[ID] = attractionRaw ;
-    if (repulsionRaw != repulsionTemp || !firstOpeningObj[ID]) repulsionObj[ID] = repulsionRaw ;
-    if (alignmentRaw != alignmentTemp || !firstOpeningObj[ID]) alignmentObj[ID] = alignmentRaw ;
-    if (influenceRaw != influenceTemp || !firstOpeningObj[ID]) influenceObj[ID] = influenceRaw ;
-    if (analyzeRaw != analyzeTemp || !firstOpeningObj[ID]) analyzeObj[ID] = analyzeRaw ; 
+    if (size_x_raw != size_x_temp || !first_opening_item[ID]) size_x_item[ID] = size_x_raw ; 
+    if (size_y_raw != size_y_temp || !first_opening_item[ID]) size_y_item[ID] = size_y_raw ; 
+    if (size_z_raw != size_z_temp || !first_opening_item[ID]) size_z_item[ID] = size_z_raw ;
 
-    //future slider ???
-    if (fontSizeRaw != fontSizeTemp || !firstOpeningObj[ID]) fontSizeObj[ID] = fontSizeRaw ;
-//  }
+    if (font_size_raw != font_size_temp || !first_opening_item[ID]) font_size_item[ID] = font_size_raw ; 
+
+    if (canvas_x_raw != canvas_x_temp || !first_opening_item[ID]) canvas_x_item[ID] = canvas_x_raw ; 
+    if (canvas_y_raw != canvas_y_temp || !first_opening_item[ID]) canvas_y_item[ID] = canvas_y_raw ; 
+    if (canvas_z_raw != canvas_z_temp || !first_opening_item[ID]) canvas_z_item[ID] = canvas_z_raw ;
+
+
+    // column 2
+    if (speed_x_raw != speed_x_temp || !first_opening_item[ID]) speed_x_item[ID] = speed_x_raw ; 
+    if (speed_y_raw != speed_y_temp || !first_opening_item[ID]) speed_y_item[ID] = speed_y_raw ; 
+    if (speed_z_raw != speed_z_temp || !first_opening_item[ID]) speed_z_item[ID] = speed_z_raw ;
+
+    if (spurt_x_raw != spurt_x_temp || !first_opening_item[ID]) spurt_x_item[ID] = spurt_x_raw ; 
+    if (spurt_y_raw != spurt_y_temp || !first_opening_item[ID]) spurt_y_item[ID] = spurt_y_raw ; 
+    if (spurt_z_raw != spurt_z_temp || !first_opening_item[ID]) spurt_z_item[ID] = spurt_z_raw ;
+
+    if (dir_x_raw != dir_x_temp || !first_opening_item[ID]) dir_x_item[ID] = dir_x_raw ; 
+    if (dir_y_raw != dir_y_temp || !first_opening_item[ID]) dir_y_item[ID] = dir_y_raw ; 
+    if (dir_z_raw != dir_z_temp || !first_opening_item[ID]) dir_z_item[ID] = dir_z_raw ;
+
+    if (jitter_x_raw != jitter_x_temp || !first_opening_item[ID]) jitter_x_item[ID] = jitter_x_raw ; 
+    if (jitter_y_raw != jitter_y_temp || !first_opening_item[ID]) jitter_y_item[ID] = jitter_y_raw ; 
+    if (jitter_z_raw != jitter_z_temp || !first_opening_item[ID]) jitter_z_item[ID] = jitter_z_raw ;
+
+    if (swing_x_raw != swing_x_temp || !first_opening_item[ID]) swing_x_item[ID] = swing_x_raw ; 
+    if (swing_y_raw != swing_y_temp || !first_opening_item[ID]) swing_y_item[ID] = swing_y_raw ; 
+    if (swing_z_raw != swing_z_temp || !first_opening_item[ID]) swing_z_item[ID] = swing_z_raw ;
+
+    // col 3
+    if (quantity_raw != quantity_temp || !first_opening_item[ID]) quantity_item[ID] = quantity_raw ;
+    if (variety_raw != variety_temp || !first_opening_item[ID]) variety_item[ID] = variety_raw ;
+
+    if (life_raw != life_temp || !first_opening_item[ID]) life_item[ID] = life_raw ;
+    if (fertility_raw != fertility_temp || !first_opening_item[ID]) fertility_item[ID] = fertility_raw ;
+    if (quality_raw != quality_temp || !first_opening_item[ID]) quality_item[ID] = quality_raw ;
+
+    if (area_raw != area_temp || !first_opening_item[ID]) area_item[ID] = area_raw ;
+    if (angle_raw != angle_temp || !first_opening_item[ID]) angle_item[ID] = angle_raw ;
+    if (scope_raw != scope_temp || !first_opening_item[ID]) scope_item[ID] = scope_raw ;
+    if (scan_raw != scan_temp || !first_opening_item[ID]) scan_item[ID] = scan_raw ;
+
+    if (alignment_raw != alignment_temp || !first_opening_item[ID]) alignment_item[ID] = alignment_raw ;
+    if (repulsion_raw != repulsion_temp || !first_opening_item[ID]) repulsion_item[ID] = repulsion_raw ;
+    if (attraction_raw != attraction_temp || !first_opening_item[ID]) attraction_item[ID] = attraction_raw ;
+    if (charge_raw != charge_temp || !first_opening_item[ID]) charge_item[ID] = charge_raw ;
+
+    if (influence_raw != influence_temp || !first_opening_item[ID]) influence_item[ID] = influence_raw ;
+    if (calm_raw != calm_temp || !first_opening_item[ID]) calm_item[ID] = calm_raw ;
+    if (need_raw != need_temp || !first_opening_item[ID]) need_item[ID] = need_raw ;
+
+
+
   /** 
   make the obj has be never update in the future except by the moving slider 
   */
-  firstOpeningObj[ID] = true ; 
+  first_opening_item[ID] = true ; 
 
 }
 
@@ -248,7 +284,7 @@ class ObjectRomanescoManager {
   
   //////////////////////////////////////
   // INDEX and INFO OBJECT FROM CLASSES
-  String pathObjects = preferencesPath+"objects/" ;
+  String pathObjects = preference_path+"objects/" ;
   
   ////////////////
   // INTERN VOID

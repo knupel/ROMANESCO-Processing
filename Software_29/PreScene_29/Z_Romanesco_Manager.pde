@@ -1,4 +1,6 @@
-// Tab: Z_Romanesco_Manager
+/**
+Romanesco Manager 2.0.1
+*/
 ObjectRomanescoManager romanescoManager ;
 // CLASS ROMANESCO MANAGER
 void romanescoSetup() {
@@ -21,8 +23,10 @@ void updateObject(int ID) {
     font[ID] = font[0] ;
     update_slider_value(ID) ;
     initValueControleur[ID] = true ;
-    whichImage[ID] = whichImage[0] ;
-    whichText[ID] = whichText[0] ;
+    which_bitmap[ID] = which_bitmap[0] ;
+    which_text[ID] = which_text[0] ;
+    which_svg[ID] = which_svg[0] ;
+    which_movie[ID] = which_movie[0] ;
   }
   
   // info
@@ -30,8 +34,10 @@ void updateObject(int ID) {
   
   
   if(parameter[ID]) {
-    whichImage[ID] = whichImage[0] ;
-    whichText[ID] = whichText[0] ;
+    which_bitmap[ID] = which_bitmap[0] ;
+    which_text[ID] = which_text[0] ;
+    which_svg[ID] = which_svg[0] ;
+    which_movie[ID] = which_movie[0] ;
     font[ID] = font[0] ;
     update_slider_value(ID) ;
   }
@@ -278,7 +284,7 @@ class ObjectRomanescoManager {
   
   //////////////////////////////////////
   // INDEX and INFO OBJECT FROM CLASSES
-  String pathObjects = prefenrece_path+"objects/" ;
+  String pathObjects = preference_path+"objects/" ;
   
   ////////////////
   // INTERN VOID

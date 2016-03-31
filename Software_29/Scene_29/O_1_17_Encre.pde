@@ -78,8 +78,8 @@ class Spray extends Romanesco {
       
       
     for (Old_Pixel p : starList) {
-      strokeWeight(thicknessObj[IDobj] *thicknessSoundEffect) ;  
-      if(changeColor) stroke(hue(p.colour), saturation(p.colour), brightness(p.colour), alpha(fillObj[IDobj])); else stroke(fillObj[IDobj]) ;
+      strokeWeight(thickness_item[IDobj] *thicknessSoundEffect) ;  
+      if(changeColor) stroke(hue(p.colour), saturation(p.colour), brightness(p.colour), alpha(fill_item[IDobj])); else stroke(fill_item[IDobj]) ;
       point(p.pos.x +jitterOne, p.pos.y +jitterTwo, p.pos.z +jitterThree) ;
     }
     if (resetAction(IDobj)) starList.clear() ;
@@ -87,15 +87,15 @@ class Spray extends Romanesco {
   
   // the orderer
   void starProduction() {
-    float depth = map(canvasZObj[IDobj], width/10, width, 0, width *3) ;
+    float depth = map(canvas_z_item[IDobj], width/10, width, 0, width *3) ;
     PVector pos = new PVector(mouse[0].x - startingPosition[IDobj].x, mouse[0].y - startingPosition[IDobj].y, depth ) ;
     //tha first value must be smaller than second
     
-    int sizeMin = (int)map(sizeXObj[IDobj],0.1,width,1,20) ;
-    int sizeMax = (int)map(sizeYObj[IDobj],0.1,width,20, width *2) ;
+    int sizeMin = (int)map(size_x_item[IDobj],0.1,width,1,20) ;
+    int sizeMax = (int)map(size_y_item[IDobj],0.1,width,20, width *2) ;
     PVector size = new PVector(sizeMin,sizeMax) ;
     
-    int numP = (int)map(quantityObj[IDobj],0,1,10,width) ;
+    int numP = (int)map(quantity_item[IDobj],0,1,10,width) ;
     // limitation for the prescene rendering
     if(!fullRendering) {
       numP *= .001 ;
@@ -104,12 +104,12 @@ class Spray extends Romanesco {
     
     PVector numPoints = new PVector(numP/10,numP) ;
     
-    int branchMin = (int)map(canvasXObj[IDobj], width/10, width,1,30) ;
-    int branchMax = (int)map(canvasYObj[IDobj], width/10, width, 1, 30) ;
+    int branchMin = (int)map(canvas_x_item[IDobj], width/10, width,1,30) ;
+    int branchMax = (int)map(canvas_y_item[IDobj], width/10, width, 1, 30) ;
     PVector numBranchs = new PVector(branchMin,branchMax) ;
 
-    color colour = fillObj[IDobj] ;
-    int varAngle = (int)map(angleObj[IDobj], 0,360,0,180) ;
+    color colour = fill_item[IDobj] ;
+    int varAngle = (int)map(angle_item[IDobj], 0,360,0,180) ;
     PVector angle = new PVector(0,varAngle) ; // 0-360 degree
     starProducer(pos, size, numPoints, numBranchs, angle, colour) ;
   }
@@ -166,17 +166,17 @@ class Spray extends Romanesco {
   void encre() {
     factorPressure = map(pen[0].z, 0, 1, 1, 50 ) ;
     sprayDirection = new PVector (pen[0].x,pen[0].y) ;
-    inkDiffusion = map (speedObj[IDobj] , 0,1, 0, 100 *tempo[IDobj]  ) ; // speed / vitesse
+    inkDiffusion = map (speed_x_item[IDobj] , 0,1, 0, 100 *tempo[IDobj]  ) ; // speed / vitesse
     
-    float flux = map (quantityObj[IDobj], 0,1, 10,1000) ; // ink quantity
+    float flux = map (quantity_item[IDobj], 0,1, 10,1000) ; // ink quantity
     if(!fullRendering) flux = 10 ; // limitation for the prescene rendering
     
-    float thicknessPoint = thicknessObj[IDobj]*.1 ;
+    float thicknessPoint = thickness_item[IDobj]*.1 ;
     inkFlux = int(flux) ;
-    angleSpray   = map (angleObj[IDobj], 0,360, 0,180 ) ; // angle
-    dry = (int)map(lifeObj[IDobj], 0,1, frameRate , 100000) ; // durée
+    angleSpray   = map (angle_item[IDobj], 0,360, 0,180 ) ; // angle
+    dry = (int)map(life_item[IDobj], 0,1, frameRate , 100000) ; // durée
     float spr ;
-    spr = map(repulsionObj[IDobj],0,1, 1, width) ; // force de diffusion
+    spr = map(repulsion_item[IDobj],0,1, 1, width) ; // force de diffusion
     spray = int(spr) ;
     
     // INK DRY
@@ -186,14 +186,14 @@ class Spray extends Romanesco {
    // add encre
    int security ;
    if (fullRendering) security = 1000000 ; else security = 5000 ;
-   if (action[IDobj] && nLongTouch && clickLongLeft[0] && encreList.size() < security) addEncre(factorPressure, sprayDirection, angleSpray, spray, inkDiffusion, inkFlux, fillObj[IDobj]) ; 
+   if (action[IDobj] && nLongTouch && clickLongLeft[0] && encreList.size() < security) addEncre(factorPressure, sprayDirection, angleSpray, spray, inkDiffusion, inkFlux, fill_item[IDobj]) ; 
   
     //display
     for ( Old_Pixel e :  encreList ) {
       if (action[IDobj]) e.drying(var, timeDry) ;
       strokeWeight(thicknessPoint) ;
       noFill() ;
-      if(changeColor) stroke(hue(e.colour), saturation(e.colour), brightness(e.colour), alpha(fillObj[IDobj])); else stroke(fillObj[IDobj]) ;
+      if(changeColor) stroke(hue(e.colour), saturation(e.colour), brightness(e.colour), alpha(fill_item[IDobj])); else stroke(fill_item[IDobj]) ;
       point(e.pos.x, e.pos.y) ;
     }
     

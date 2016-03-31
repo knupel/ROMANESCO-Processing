@@ -28,8 +28,8 @@ class The_Abbyss extends Romanesco {
   }
   //DRAW
   void display() {
-    if(alpha(strokeObj[IDobj]) == 0 ) thicknessObj[IDobj] = 0 ;
-    creatureManager.loop(fillObj[IDobj], strokeObj[IDobj], thicknessObj[IDobj], speedObj[IDobj] *100.0);
+    if(alpha(stroke_item[IDobj]) == 0 ) thickness_item[IDobj] = 0 ;
+    creatureManager.loop(fill_item[IDobj], stroke_item[IDobj], thickness_item[IDobj], speed_x_item[IDobj] *100.0);
     
     
     

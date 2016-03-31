@@ -146,7 +146,7 @@ void saveInfoSlider() {
    }
   
   // item info slider
-  for(int i = 1 ; i < NUM_SLIDER_ITEM ; i++) {
+  for(int i = 1 ; i <= NUM_SLIDER_ITEM ; i++) {
     // set PVector info Slider
     int IDslider = i +100 ;
     // third loop to check and find the good PVector array in the list

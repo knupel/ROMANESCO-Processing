@@ -107,7 +107,7 @@ class Escargot extends Romanesco {
     loadImg(IDobj) ;
     if(!fullRendering) maxVoronoiPoints = 250 ;
     //load pattern SVG to display a Pixel pattern you create in Illustrator or other software
-    pathSVG = prefenrece_path +"pixel/model.svg" ;
+    pathSVG = preference_path +"pixel/model.svg" ;
     shapeSVGsetting(pathSVG) ;
     
     //random palette
@@ -143,10 +143,10 @@ class Escargot extends Romanesco {
 
     if(img[IDobj] != null) {  
       //MOTION
-      windForce = (int)map(speedObj[IDobj],0,1,0,13) ;
-      windDirection = (int)directionObj[IDobj] ;
+      windForce = (int)map(speed_x_item[IDobj],0,1,0,13) ;
+      windDirection = (int)dir_x_item[IDobj] ;
       if(reverse[IDobj]) windDirection += 180 ;
-      objMotion = int(map(repulsionObj[IDobj],0,1, 0,20) *(1.0 + pen[IDobj].z)) ;
+      objMotion = int(map(repulsion_item[IDobj],0,1, 0,20) *(1.0 + pen[IDobj].z)) ;
       motionInfo.y = windForce ;
       //PEN
        if (pen[IDobj].z == 1 ) pen[IDobj].z = 0 ; else pen[IDobj].z = pen[IDobj].z ;
@@ -174,14 +174,14 @@ class Escargot extends Romanesco {
       radiusAnalyzeRef = radiusAnalyze ;
       maxEntryPointsRef = maxEntryPoints ;
       
-      int n = int(map(quantityObj[IDobj],0,1,10,150)) ;
+      int n = int(map(quantity_item[IDobj],0,1,10,150)) ;
       maxEntryPoints = n *n ;
       
       // security for the voronoï displaying, because if you change the analyze in the voronoi process, Romanesco make the Arraylist error
       if(mode[IDobj] != 8 || (maxEntryPoints != maxEntryPointsRef && scene) ) {
         //if (maxEntryPoints > listPixelRaw.size() / 4 ) maxEntryPoints = listPixelRaw.size() ;
-        radiusAnalyze = int(map(amplitudeObj[IDobj],0,1,2,100));
-        pixelAnalyzeSize = int(map(analyzeObj[IDobj],0,1,100,2));
+        radiusAnalyze = int(map(swing_x_item[IDobj],0,1,2,100));
+        pixelAnalyzeSize = int(map(quality_item[IDobj],0,1,100,2));
       } else {
         if(maxEntryPoints > maxVoronoiPoints) maxEntryPoints = maxVoronoiPoints  ;
       }
@@ -201,9 +201,9 @@ class Escargot extends Romanesco {
        }
        
        //size and thickness
-       PVector sizePix = new PVector (map(sizeXObj[IDobj],.1,width, 1, height/30 ), map(sizeYObj[IDobj],.1,width, 1, height/30 ), map(sizeZObj[IDobj],.1,width, 1, height/30 )) ;
-       float sizePoint = map(sizeXObj[IDobj],.1,width, 1, height/6 ) ;
-       float thickPix = map(thicknessObj[IDobj],0.1,height *.33, 0.1, height/10 ) ;
+       PVector sizePix = new PVector (map(size_x_item[IDobj],.1,width, 1, height/30 ), map(size_y_item[IDobj],.1,width, 1, height/30 ), map(size_z_item[IDobj],.1,width, 1, height/30 )) ;
+       float sizePoint = map(size_x_item[IDobj],.1,width, 1, height/6 ) ;
+       float thickPix = map(thickness_item[IDobj],0.1,height *.33, 0.1, height/10 ) ;
        
        // range 100
        float soundHundredMin = random(80) ;
@@ -215,15 +215,15 @@ class Escargot extends Romanesco {
        PVector rangeReactivitySoundThreeHundredSixty = new PVector (soundThreeHundredSixtyMin, soundThreeHundredSixtyMax) ;
        //Music factor
        PVector musicFactor = new PVector ( allBeats(IDobj) *left[IDobj], allBeats(IDobj) *right[IDobj]) ;
-       forceBeat = (int)map(repulsionObj[IDobj],0,1,1,40) ;
+       forceBeat = (int)map(repulsion_item[IDobj],0,1,1,40) ;
 
        
        // update image
-       if(parameter[IDobj] && imgPathRef != imagePath[whichImage[IDobj]] ) {
+       if(parameter[IDobj] && imgPathRef != imagePath[which_bitmap[IDobj]] ) {
          analyzeDone = false ;
          escargotGOanalyze = false ;
          escargotClear() ;
-         imgPathRef = imagePath[whichImage[IDobj]] ;
+         imgPathRef = imagePath[which_bitmap[IDobj]] ;
        }
       
       
@@ -257,25 +257,25 @@ class Escargot extends Romanesco {
       translate(-img[IDobj].width /4, -img[IDobj].height /4) ;
       
       if (mode[IDobj] == 0 || mode[IDobj] == 255 ) {
-        displayRawPixel(sizePoint, fillObj[IDobj], rangeReactivitySoundHundred, rangeReactivitySoundThreeHundredSixty, musicFactor, ratioImgWindow) ;
+        displayRawPixel(sizePoint, fill_item[IDobj], rangeReactivitySoundHundred, rangeReactivitySoundThreeHundredSixty, musicFactor, ratioImgWindow) ;
       } else if (mode[IDobj] == 1 ) {
-        escargotRaw(sizePoint, fillObj[IDobj], rangeReactivitySoundHundred, rangeReactivitySoundThreeHundredSixty, musicFactor, ratioImgWindow) ;
+        escargotRaw(sizePoint, fill_item[IDobj], rangeReactivitySoundHundred, rangeReactivitySoundThreeHundredSixty, musicFactor, ratioImgWindow) ;
       } else if (mode[IDobj] == 2 ) {
-        escargotPoint(sizePix, fillObj[IDobj], rangeReactivitySoundHundred, rangeReactivitySoundThreeHundredSixty, musicFactor, ratioImgWindow) ;
+        escargotPoint(sizePix, fill_item[IDobj], rangeReactivitySoundHundred, rangeReactivitySoundThreeHundredSixty, musicFactor, ratioImgWindow) ;
       } else if (mode[IDobj] == 3 ) {
-        escargotEllipse(sizePix, thickPix, fillObj[IDobj], strokeObj[IDobj], rangeReactivitySoundHundred, rangeReactivitySoundThreeHundredSixty, musicFactor, ratioImgWindow) ;
+        escargotEllipse(sizePix, thickPix, fill_item[IDobj], stroke_item[IDobj], rangeReactivitySoundHundred, rangeReactivitySoundThreeHundredSixty, musicFactor, ratioImgWindow) ;
       } else if (mode[IDobj] == 4 ) {
-        escargotRect(sizePix, thickPix, fillObj[IDobj], strokeObj[IDobj], rangeReactivitySoundHundred, rangeReactivitySoundThreeHundredSixty, musicFactor, ratioImgWindow) ;
+        escargotRect(sizePix, thickPix, fill_item[IDobj], stroke_item[IDobj], rangeReactivitySoundHundred, rangeReactivitySoundThreeHundredSixty, musicFactor, ratioImgWindow) ;
       }else if (mode[IDobj] == 5 ) {
-        escargotBox(sizePix, thickPix, fillObj[IDobj], strokeObj[IDobj], rangeReactivitySoundHundred, rangeReactivitySoundThreeHundredSixty, musicFactor, ratioImgWindow, horizon[IDobj]) ;
+        escargotBox(sizePix, thickPix, fill_item[IDobj], stroke_item[IDobj], rangeReactivitySoundHundred, rangeReactivitySoundThreeHundredSixty, musicFactor, ratioImgWindow, horizon[IDobj]) ;
       } else if (mode[IDobj] == 6 ) {
-        escargotCross(sizePix, thickPix, fillObj[IDobj], rangeReactivitySoundHundred, rangeReactivitySoundThreeHundredSixty, musicFactor, ratioImgWindow) ;
+        escargotCross(sizePix, thickPix, fill_item[IDobj], rangeReactivitySoundHundred, rangeReactivitySoundThreeHundredSixty, musicFactor, ratioImgWindow) ;
       } else if (mode[IDobj] == 7 ) {
-        escargotSVG(sizePix, thickPix, fillObj[IDobj], strokeObj[IDobj], rangeReactivitySoundHundred, rangeReactivitySoundThreeHundredSixty, musicFactor, ratioImgWindow) ;
+        escargotSVG(sizePix, thickPix, fill_item[IDobj], stroke_item[IDobj], rangeReactivitySoundHundred, rangeReactivitySoundThreeHundredSixty, musicFactor, ratioImgWindow) ;
       } else if (mode[IDobj] == 8 ) {
         //if( listEscargot.size() < 600) {
         if( listEscargot.size() < maxVoronoiPoints + maxVoronoiPoints/10) {
-          voronoiStatic(fillObj[IDobj], strokeObj[IDobj], thickPix, useNewPalettePixColorToDisplay, ratioImgWindow) ; 
+          voronoiStatic(fill_item[IDobj], stroke_item[IDobj], thickPix, useNewPalettePixColorToDisplay, ratioImgWindow) ; 
         } else {
           text("Too much points to net voronoï connection", 20, height -20) ;
         }

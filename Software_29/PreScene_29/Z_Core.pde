@@ -1,10 +1,5 @@
-// Tab: Z_Core
-// Z_Core 1.1
-/*
-Here you findPath
-LIGHT POSITION
-
-CHECK FOLDER
+/**
+CORE SCENE and PRESCENE 1.1.1
 */
 
 
@@ -40,24 +35,24 @@ void init_and_update_diplay_var() {
 // main void
 void loadImg(int ID) {
   checkImageFolder() ;
-  // whichImage is the int return from the dropdown menu
-  if(whichImage[ID] > imagePath.length ) whichImage[ID] = 0 ;
+  // which_bitmap is the int return from the dropdown menu
+  if(which_bitmap[ID] > imagePath.length ) which_bitmap[ID] = 0 ;
 
   if(imagePath != null && imagePath.length > 0) {
-    String image_current_path = imagePath[whichImage[ID]] ;
-    if(!image_current_path.equals(image_path_ref[ID])) {
-      img[ID] = loadImage(image_current_path) ;
+    String bitmap_current_path = imagePath[which_bitmap[ID]] ;
+    if(!bitmap_current_path.equals(bitmap_path_ref[ID])) {
+      img[ID] = loadImage(bitmap_current_path) ;
     }
-    image_path_ref[ID] = image_current_path ;
+    bitmap_path_ref[ID] = bitmap_current_path ;
   }
 }
 
 void loadText(int ID) {
   checkFileTextFolder() ;
-  // whichText is the int return from the dropdown menu
+  // which_text is the int return from the dropdown menu
   if(textPath != null && textPath.length > 0) {
-    if(whichText[ID] > textPath.length ) whichText[ID] = 0 ;
-    textImport[ID] = importText(textPath[whichText[ID]]) ;
+    if(which_text[ID] > textPath.length ) which_text[ID] = 0 ;
+    textImport[ID] = importText(textPath[which_text[ID]]) ;
   } else {
     textImport[ID] = "Big Brother has been burning all the books, it's not possible to read anything" ;
   }
@@ -68,10 +63,10 @@ void loadText(int ID) {
 
 // check what's happen in the selected folder
 void checkImageFolder() {
-  // String path = sketchPath("") +"/" +preferencesPath +"Images" ;
+  // String path = sketchPath("") +"/" +preference_path +"Images" ;
   String path = import_path +"bitmap" ;
 
-  // String path = preferencesPath +"Images" ;
+  // String path = preference_path +"Images" ;
   ArrayList allFiles = listFilesRecursive(path);
   //check if something happen in the folder
   if(refImageNumFiles != allFiles.size() ) {
@@ -108,7 +103,7 @@ void checkImageFolder() {
 }
 
 void checkFileTextFolder() {
-  // String path = sketchPath("") +"/" +preferencesPath +"Karaoke" ;
+  // String path = sketchPath("") +"/" +preference_path +"Karaoke" ;
   String path = import_path +"karaoke" ;
   ArrayList allFiles = listFilesRecursive(path);
   

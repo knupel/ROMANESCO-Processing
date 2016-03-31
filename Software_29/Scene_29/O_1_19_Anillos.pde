@@ -52,7 +52,7 @@ class Anillos extends Romanesco {
    
 
  
-    num_anillos = int( NUM_ANNILOS_MAX * quantityObj[IDobj] ) ;
+    num_anillos = int( NUM_ANNILOS_MAX * quantity_item[IDobj] ) ;
    
     if( num_anillos != num_ref_anillos) {
       anillos_setting(num_anillos) ;
@@ -74,12 +74,12 @@ class Anillos extends Romanesco {
   // annexe void
   void aspect()   {
     stroke(
-        hue(strokeObj[IDobj]),
-        saturation(strokeObj[IDobj]),
-        brightness(strokeObj[IDobj]),
-        map(alpha(strokeObj[IDobj]),0.0, 100.0, 0, 30.0)
+        hue(stroke_item[IDobj]),
+        saturation(stroke_item[IDobj]),
+        brightness(stroke_item[IDobj]),
+        map(alpha(stroke_item[IDobj]),0.0, 100.0, 0, 30.0)
         );
-    strokeWeight(map(thicknessObj[IDobj], 0.1 , height/3, 0, width/12));
+    strokeWeight(map(thickness_item[IDobj], 0.1 , height/3, 0, width/12));
   }
 
   void inter(Vec3 pos, int N)  {
@@ -93,13 +93,13 @@ class Anillos extends Romanesco {
    
 
     // diam
-    float diam = radius *sizeXObj[IDobj] *allBeats(IDobj) ;
-    float orientation = S *map(angleObj[IDobj],0,360,-PI,PI);
+    float diam = radius *size_x_item[IDobj] *allBeats(IDobj) ;
+    float orientation = S *map(angle_item[IDobj],0,360,-PI,PI);
     float effevtiveT = T *1;
    
     // render
     for (int i = N - 1; i >= 0; i--) {
-      fill(hue(0+fillObj[IDobj]), saturation(fillObj[IDobj]), brightness(fillObj[IDobj]), alpha(fillObj[IDobj]));
+      fill(hue(0+fill_item[IDobj]), saturation(fill_item[IDobj]), brightness(fill_item[IDobj]), alpha(fill_item[IDobj]));
       float x = ringX[i] -(ringX[i] /2) ;
       float y = ringY[i] -(ringY[i] / 2) ;
       Vec3 new_pos = Vec3(x ,  y, pos.z) ;
@@ -107,7 +107,7 @@ class Anillos extends Romanesco {
     }
    
      for (int i = 0; i < N; i++) {
-      fill(hue(360-fillObj[IDobj]), saturation(fillObj[IDobj]), brightness(fillObj[IDobj]), alpha(fillObj[IDobj]));
+      fill(hue(360-fill_item[IDobj]), saturation(fill_item[IDobj]), brightness(fill_item[IDobj]), alpha(fill_item[IDobj]));
       float x = ringX[i] -(ringX[i] /2) ;
       float y = ringY[i] -(ringY[i] / 2) ;
       Vec3 new_pos = Vec3(x ,  y, pos.z) ;

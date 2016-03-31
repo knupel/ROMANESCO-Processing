@@ -42,15 +42,15 @@ class BaliseRomanesco extends Romanesco {
 
 
 
-    if (motion[IDobj]) speed = (map(speedObj[IDobj], 0,1, 0,20)) *tempo_balise *rotation_direction ; else speed = 0.0 ;
+    if (motion[IDobj]) speed = (map(speed_x_item[IDobj], 0,1, 0,20)) *tempo_balise *rotation_direction ; else speed = 0.0 ;
     // color and thickness
     aspect(IDobj) ;
 
     //amplitude
-    float amp = map(amplitudeObj[IDobj], 0,1, 0, width *9) ;
+    float amp = map(swing_x_item[IDobj], 0,1, 0, width *9) ;
     
     //factor size
-    float factor = map(repulsionObj[IDobj],0,1,1,100) *(allBeats(IDobj) *.2) ;
+    float factor = map(repulsion_item[IDobj],0,1,1,100) *(allBeats(IDobj) *.2) ;
     if(factor < 1.0 ) factor = 1.0 ;
 
 
@@ -62,10 +62,10 @@ class BaliseRomanesco extends Romanesco {
     // SIZE
     float factorBeat = .5 ;
     float tempoEffect = 1 + ((beat[IDobj] *factorBeat) + (kick[IDobj] *factorBeat) + (snare[IDobj] *factorBeat) + (hat[IDobj] *factorBeat));
-    PVector sizeBalise = new PVector(sizeXObj[IDobj],sizeYObj[IDobj],sizeZObj[IDobj]) ;
+    PVector sizeBalise = new PVector(size_x_item[IDobj],size_y_item[IDobj],size_z_item[IDobj]) ;
     PVector var = new PVector(1,1) ;
     if(authorization) {
-      sizeBalise  = new PVector (sizeXObj[IDobj] *tempoEffect, sizeYObj[IDobj] *tempoEffect, sizeZObj[IDobj] ) ;
+      sizeBalise  = new PVector (size_x_item[IDobj] *tempoEffect, size_y_item[IDobj] *tempoEffect, size_z_item[IDobj] ) ;
       // variable position
       var = new PVector(left[IDobj] *5,right[IDobj] *5) ;
     }
@@ -75,7 +75,7 @@ class BaliseRomanesco extends Romanesco {
     //quantity
     int maxBalise = 511 ;
     if(!fullRendering) maxBalise = 64 ;
-    float radiusBalise = map(quantityObj[IDobj], 0,1, 2, maxBalise); // here the value max is 511 because we work with buffersize with 512 field
+    float radiusBalise = map(quantity_item[IDobj], 0,1, 2, maxBalise); // here the value max is 511 because we work with buffersize with 512 field
     
     PVector newPos = new PVector() ;
     balise.actualisation(newPos, speed) ;

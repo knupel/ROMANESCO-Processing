@@ -812,7 +812,6 @@ void display_slider_item() {
       if (item_active[i]) {
         if (showSliderGroup[1] && item_group[i] == 1) { 
           for(int j = 1 ; j < NUM_SLIDER_ITEM ; j++) {
-            println(display_slider[1][j], j) ;
             if (display_slider[1][j]) {
               int whichOne = item_group[i] *100 +j ;
               update_slider(whichOne) ; 

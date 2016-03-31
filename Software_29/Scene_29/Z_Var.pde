@@ -1,6 +1,6 @@
 /** 
 Tab: Z_VAR
-Version 1.0.1
+Version 1.0.2
 */
 // GLOBAL SETTING ////
 
@@ -96,11 +96,10 @@ int numFont = 50 ;
 int NUM_GROUP = 1 ;
 
 int NUM_SLIDER_MISC = 30 ;
-int NUM_SLIDER_OBJ = 30 ;
+int NUM_SLIDER_OBJ = 48 ;
 
 int numButtonGlobal = 21 ; // group zero
-int numButtonObj  ; // group one, two and three
-
+int numButtonObj  ; 
 // VAR obj
 color COLOR_FILL_OBJ_PREVIEW  ; 
 color COLOR_STROKE_OBJ_PREVIEW ;
@@ -118,65 +117,156 @@ int objectLeapID[] ;
 //BUTTON CONTROLER
 boolean objectParameter[] ;
 
-//VAR object
+/**
+Var item
+*/
 //raw
 int fill_hue_raw, fill_sat_raw, fill_bright_raw, fill_alpha_raw ;
 int stroke_hue_raw, stroke_sat_raw, stroke_bright_raw, stroke_alpha_raw ;
-float thicknessRaw ; 
-float sizeXRaw, sizeYRaw, sizeZRaw, canvasXRaw, canvasYRaw, canvasZRaw ;
-float familyRaw, quantityRaw, lifeRaw ;
-float speedRaw ;
-float directionRaw, angleRaw ;
-float amplitudeRaw, attractionRaw, repulsionRaw ;
-float alignmentRaw, influenceRaw, analyzeRaw ;
-/* used in this time with sizeXObj */
-float fontSizeRaw ;
-/*
-//add in the next version when there is 30 slider by group
-//future slider available now ;
-//for the next relase
-float [] curveRaw ;
-*/
+float thickness_raw ; 
+float size_x_raw, size_y_raw, size_z_raw ;
+float canvas_x_raw, canvas_y_raw, canvas_z_raw ;
+float font_size_raw ;
+
+float reactivity_raw ;
+float speed_x_raw, speed_y_raw, speed_z_raw ;
+float spurt_x_raw, spurt_y_raw, spurt_z_raw ;
+float dir_x_raw, dir_y_raw, dir_z_raw ;
+float jitter_x_raw, jitter_y_raw, jitter_z_raw ;
+float swing_x_raw, swing_y_raw, swing_z_raw ;
+
+float quantity_raw, variety_raw ; 
+float life_raw, fertility_raw, quality_raw ;
+
+float area_raw, angle_raw, scope_raw, scan_raw ;
+float alignment_raw, repulsion_raw, attraction_raw, charge_raw ;
+
+float influence_raw, calm_raw, need_raw ;
+
+
+
+
+// String name
+String fill_hue_name = "fill_hue" ;     
+String fill_sat_name = "fill_sat" ;     
+String fill_bright_name= "fill_bright" ;     
+String fill_alpha_name = "fill_alpha" ;
+
+String stroke_hue_name = "stroke_hue" ; 
+String stroke_sat_name = "stroke_sat" ; 
+String stroke_bright_name= "stroke_bright" ; 
+String stroke_alpha_name = "stroke_alpha" ;
+
+String thickness_name = "thickness" ; 
+
+String size_x_name = "size_x" ;     
+String size_y_name = "size_y" ;     
+String size_z_name = "size_z" ;
+
+String font_size_name = "font_size";
+
+String canvas_x_name = "canvas_x" ; 
+String canvas_y_name = "canvas_y" ; 
+String canvas_z_name = "canvas_z" ;
+
+String reactivity_name = "reactivity" ;
+
+String speed_x_name = "speed_x" ; 
+String speed_y_name = "speed_y" ; 
+String speed_z_name = "speed_z" ;
+
+String spurt_x_name = "spurt_x" ; 
+String spurt_y_name= "spurt_y"; 
+String spurt_z_name = "spurt_z" ;
+
+String dir_x_name = "dir_x" ; 
+String dir_y_name = "dir_y" ; 
+String dir_z_name = "dir_z" ;
+
+String jitter_x_name = "jitter_x" ; 
+String jitter_y_name = "jitter_y" ; 
+String jitter_z_name = "jitter_z" ;
+
+String swing_x_name = "swing_x" ; 
+String swing_y_name = "swing_y" ; 
+String swing_z_name = "swing_z";
+
+String quantity_name = "quantity" ; 
+String variety_name = "variety"; 
+
+String life_name = "life" ; 
+String fertility_name = "fertility" ; 
+String quality_name = "quality";
+
+String area_name= "area" ; 
+String angle_name = "angle" ; 
+String scope_name = "scope" ; 
+String scan_name = "scan" ;
+
+String alignment_name = "alignment" ; 
+String repulsion_name = "repulsion" ; 
+String attraction_name = "attraction" ; 
+String charge_name = "charge" ;
+
+String influence_name = "influence" ; 
+String calm_name = "calm" ; 
+String need_name = "need" ;
+
+
+
+
 
 // temp
 /* value used to know if the value slider have change or nor */
 int fill_hue_temp, fill_sat_temp, fill_bright_temp, fill_alpha_temp ;
 int stroke_hue_temp, stroke_sat_temp, stroke_bright_temp, stroke_alpha_temp ;
-float thicknessTemp ; 
-float sizeXTemp, sizeYTemp, sizeZTemp, canvasXTemp, canvasYTemp, canvasZTemp ;
-float familyTemp, quantityTemp, lifeTemp ;
-float speedTemp ;
-float directionTemp, angleTemp ;
-float amplitudeTemp, attractionTemp, repulsionTemp ;
-float alignmentTemp, influenceTemp, analyzeTemp ;
-/* used in this time with sizeXObj */
-float fontSizeTemp ;
-/*
-//add in the next version when there is 30 slider by group
-//future slider available now ;
-//for the next relase
-float [] curveTemp ;
-*/
+float thickness_temp; 
+float size_x_temp, size_y_temp, size_z_temp ;
+float canvas_x_temp, canvas_y_temp, canvas_z_temp ;
+float font_size_temp ;
+
+float reactivity_temp ;
+float speed_x_temp, speed_y_temp, speed_z_temp ;
+float spurt_x_temp, spurt_y_temp, spurt_z_temp ;
+float dir_x_temp, dir_y_temp,dir_z_temp ;
+float jitter_x_temp, jitter_y_temp, jitter_z_temp ;
+float swing_x_temp, swing_y_temp, swing_z_temp ;
+
+float quantity_temp, variety_temp ;
+float life_temp, fertility_temp, quality_temp ;
+float area_temp, angle_temp, scope_temp, scan_temp ;
+
+float alignment_temp, repulsion_temp, attraction_temp, charge_temp ;
+float influence_temp, calm_temp, need_temp ;
 
 
 
-//object
-boolean [] firstOpeningObj ; // used to check if this object is already opening before
-color [] fillObj, strokeObj ;
-float [] thicknessObj ; 
-float [] sizeXObj, sizeYObj, sizeZObj, canvasXObj, canvasYObj, canvasZObj ;
-float [] familyObj, quantityObj, lifeObj ;
-float [] speedObj ;
-float [] directionObj, angleObj ;
-float [] amplitudeObj, attractionObj, repulsionObj ;
-float [] alignmentObj, influenceObj, analyzeObj ;
-/* used in this time with sizeXObj */
-float []fontSizeObj ;
-/*
-//add in the next version when there is 30 slider by group
-//future slider available now ;
-//for the next relase
-float []curveObj ;
+
+// item target final
+boolean [] first_opening_item ; // used to check if this object is already opening before
+color [] fill_item, stroke_item ;
+float [] thickness_item ; 
+float [] size_x_item, size_y_item, size_z_item ;
+float [] font_size_item ;
+float [] canvas_x_item, canvas_y_item, canvas_z_item ;
+
+
+float [] reactivity_item ;
+float [] speed_x_item, speed_y_item, speed_z_item ;
+float [] spurt_x_item, spurt_y_item, spurt_z_item ;
+float [] dir_x_item, dir_y_item, dir_z_item ;
+float [] jitter_x_item, jitter_y_item, jitter_z_item ;
+float [] swing_x_item, swing_y_item, swing_z_item ;
+
+float [] quantity_item, variety_item ;
+float [] life_item, fertility_item, quality_item ;
+
+float [] area_item, angle_item, scope_item, scan_item ;
+float [] alignment_item, repulsion_item, attraction_item, charge_item ;
+float [] influence_item, calm_item, need_item ;
+
+/**
+End var item
 */
 
 //font
@@ -187,16 +277,19 @@ PFont police ;
 //OSC VAR
 // button
 int whichFont ;
-// int eBeat, eKick, eSnare, eHat, eCurtain, eBackground ;
+
 boolean onOffBeat, onOffKick, onOffSnare, onOffHat, onOffCurtain, onOffBackground ;
 boolean onOffDirLightOne,       onOffDirLightTwo,       onOffLightAmbient,
         onOffDirLightOneAction, onOffDirLightTwoAction, onOffLightAmbientAction ;
 
-// int eLightOne, eLightTwo, eLightAmbient,
- //   eLightOneAction, eLightTwoAction, eLightAmbientAction ;
+
 int whichShader ; 
-int [] whichImage, whichText ;
-String [] image_path_ref  ;
+int [] which_bitmap, which_text, which_svg, which_movie ;
+/**
+No text_path_ref ???????
+*/
+String [] bitmap_path_ref, svg_path_ref, movie_path_ref  ;
+
 int [] objectButton,soundButton, actionButton, parameterButton ;
 boolean [] show_object, sound, action, parameter ;
 
@@ -284,7 +377,7 @@ void createVar() {
   createVarSound() ;
   createVarP3D(numObj, numSettingCamera, numSettingOrientationObject) ;
   createVarCursor() ;
-  createVarObject() ;
+  create_var_item() ;
 
   
   romanescoManager.initObj() ;
@@ -305,11 +398,17 @@ void createMiscVar() {
    reverse = new boolean [numObj] ;
    // IMAGE
    img = new PImage[numObj] ;
-   whichImage = new int[numObj] ;
-   image_path_ref = new String[numObj] ;
+   which_bitmap = new int[numObj] ;
+   bitmap_path_ref = new String[numObj] ;
+   // SVG
+   which_svg = new int[numObj] ;
+   svg_path_ref = new String[numObj] ;
+   // Movie
+   which_movie = new int[numObj] ;
+   movie_path_ref = new String[numObj] ;
    // TEXT
    textImport = new String [numObj] ;
-   whichText = new int[numObj] ;
+   which_text = new int[numObj] ;
   //main font for each object
    font = new PFont[numObj] ;
    pathFontObjTTF = new String[numObj] ;
@@ -394,76 +493,69 @@ void createVarButton() {
 
 }
 
-void createVarObject() {
-  // RAW
-  /*
-  fill_hue_raw = new int[NUM_GROUP] ;   fill_sat_raw = new int[NUM_GROUP] ;   fill_bright_raw = new int[NUM_GROUP] ;    fill_alpha_raw = new int[NUM_GROUP] ;
-  stroke_hue_raw = new int[NUM_GROUP] ; stroke_sat_raw = new int[NUM_GROUP] ; stroke_bright_raw = new int[NUM_GROUP] ;  stroke_alpha_raw = new int[NUM_GROUP] ;
-  thicknessRaw = new float[NUM_GROUP] ;
-  sizeXRaw = new float[NUM_GROUP] ;   sizeYRaw = new float[NUM_GROUP] ;    sizeZRaw = new float[NUM_GROUP] ;
-  canvasXRaw = new float[NUM_GROUP] ; canvasYRaw = new float[NUM_GROUP] ;  canvasZRaw = new float[NUM_GROUP] ;
-  familyRaw = new float[NUM_GROUP] ;  quantityRaw = new float[NUM_GROUP] ; lifeRaw = new float[NUM_GROUP] ;
-  speedRaw = new float[NUM_GROUP] ;
-  directionRaw = new float[NUM_GROUP] ;
-  angleRaw = new float[NUM_GROUP] ;
-  amplitudeRaw = new float[NUM_GROUP] ;
-  attractionRaw = new float[NUM_GROUP] ;
-  repulsionRaw = new float[NUM_GROUP] ;
-  alignmentRaw = new float[NUM_GROUP] ;
-  influenceRaw = new float[NUM_GROUP] ;
-  analyzeRaw = new float[NUM_GROUP] ;
-  */
-  //future slider
-  /* used in this time with the sizeXobj */
-  //fontSizeRaw = new float[NUM_GROUP] ;
-  
-  // Temp
-  /* used to compare the value slider, to know if the value of the obhject must be updated orn ot */
-  /*
-  fill_hue_temp = new int[NUM_GROUP] ;    fill_sat_temp = new int[NUM_GROUP] ;    fill_bright_temp = new int[NUM_GROUP] ;   fill_alpha_temp = new int[NUM_GROUP] ;
-  stroke_hue_temp = new int[NUM_GROUP] ;  stroke_sat_temp = new int[NUM_GROUP] ;  stroke_bright_temp = new int[NUM_GROUP] ; stroke_alpha_temp = new int[NUM_GROUP] ;
-  thicknessTemp = new float[NUM_GROUP] ;
-  sizeXTemp = new float[NUM_GROUP] ;   sizeYTemp = new float[NUM_GROUP] ;    sizeZTemp = new float[NUM_GROUP] ;
-  canvasXTemp = new float[NUM_GROUP] ; canvasYTemp = new float[NUM_GROUP] ;  canvasZTemp = new float[NUM_GROUP] ;
-  familyTemp = new float[NUM_GROUP] ;  quantityTemp = new float[NUM_GROUP] ; lifeTemp = new float[NUM_GROUP] ;
-  speedTemp = new float[NUM_GROUP] ;
-  directionTemp = new float[NUM_GROUP] ;
-  angleTemp = new float[NUM_GROUP] ;
-  amplitudeTemp = new float[NUM_GROUP] ;
-  attractionTemp = new float[NUM_GROUP] ;
-  repulsionTemp = new float[NUM_GROUP] ;
-  alignmentTemp = new float[NUM_GROUP] ;
-  influenceTemp = new float[NUM_GROUP] ;
-  analyzeTemp = new float[NUM_GROUP] ;
-  */
-  //future slider
-  /* used in this time with the sizeXobj */
- // fontSizeTemp = new float[NUM_GROUP] ;
-  
+void create_var_item() {
+ 
   // VAR object
-  firstOpeningObj = new boolean[numObj] ; // used to check if this object is already opening before
-  fillObj = new color[numObj] ;
-  strokeObj = new color[numObj] ;
+  first_opening_item = new boolean[numObj] ; // used to check if this object is already opening before
+  fill_item = new color[numObj] ;
+  stroke_item = new color[numObj] ;
   // column 2
-  thicknessObj = new float[numObj] ; ;
-  sizeXObj = new float[numObj] ; sizeYObj = new float[numObj] ; sizeZObj = new float[numObj] ;
-  canvasXObj = new float[numObj] ; canvasYObj = new float[numObj] ; canvasZObj = new float[numObj] ;
-  familyObj = new float[numObj] ; quantityObj = new float[numObj] ; lifeObj = new float[numObj] ;
-   //column 3
-  speedObj = new float[numObj] ;
-  directionObj = new float[numObj] ;
-  angleObj = new float[numObj] ;
-  amplitudeObj = new float[numObj] ;
-  attractionObj = new float[numObj] ;
-  repulsionObj = new float[numObj] ;
-  alignmentObj = new float[numObj] ;
-  influenceObj = new float[numObj] ;
-  analyzeObj = new float[numObj] ;
-  
+  thickness_item = new float[numObj] ; 
 
-    //future slider
-  /* used in this time with the sizeXobj */
-  fontSizeObj = new float[numObj] ;
+  size_x_item = new float[numObj] ; 
+  size_y_item = new float[numObj] ; 
+  size_z_item = new float[numObj] ;
+
+  font_size_item = new float[numObj] ;
+
+  canvas_x_item = new float[numObj] ; 
+  canvas_y_item = new float[numObj] ; 
+  canvas_z_item = new float[numObj] ;
+
+   //column 3
+  reactivity_item = new float[numObj] ;
+
+  speed_x_item = new float[numObj] ; 
+  speed_y_item = new float[numObj] ;
+  speed_z_item = new float[numObj] ;
+
+  spurt_x_item = new float[numObj] ; 
+  spurt_y_item = new float[numObj] ;
+  spurt_z_item = new float[numObj] ;
+
+  dir_x_item = new float[numObj] ; 
+  dir_y_item = new float[numObj] ;
+  dir_z_item = new float[numObj] ;
+
+  jitter_x_item = new float[numObj] ; 
+  jitter_y_item = new float[numObj] ;
+  jitter_z_item = new float[numObj] ;
+
+  swing_x_item = new float[numObj] ; 
+  swing_y_item = new float[numObj] ;
+  swing_z_item = new float[numObj] ;
+
+  quantity_item = new float[numObj] ; 
+  variety_item = new float[numObj] ; 
+
+  life_item = new float[numObj] ;
+  fertility_item = new float[numObj] ;
+  quality_item = new float[numObj] ;
+
+  area_item = new float[numObj] ;
+  angle_item = new float[numObj] ;
+  scope_item = new float[numObj] ;
+  scan_item = new float[numObj] ;
+
+  alignment_item = new float[numObj] ;
+  repulsion_item = new float[numObj] ;
+  attraction_item = new float[numObj] ;
+  charge_item = new float[numObj] ;
+
+
+  influence_item = new float[numObj] ;
+  calm_item = new float[numObj] ;
+  need_item = new float[numObj] ;
 }
 // END CREATE VAR
 //////////////////
@@ -492,7 +584,7 @@ void varObjSetup() {
 UPDATE DATA from CONTROLER and PRESCENE
 Those value are used to updated the object data value, and updated at the end of the loop the temp value
 */
-void updateVarRaw() {
+void update_raw_value() {
  // for(int i = 0 ; i < NUM_GROUP ; i++) {
     int minSource = 0 ;
     // int maxSource = 1 ;
@@ -508,81 +600,136 @@ void updateVarRaw() {
     stroke_bright_raw = (int)map(valueSlider[1][6],0,MAX_VALUE_SLIDER,0,HSBmode.b) ; 
     stroke_alpha_raw = (int)map(valueSlider[1][7],0,MAX_VALUE_SLIDER,0,HSBmode.a);
     // 
-    thicknessRaw = mapStartSmooth(valueSlider[1][8], minSource, MAX_VALUE_SLIDER, minSize, (height*.33), 2) ;
+    thickness_raw = mapStartSmooth(valueSlider[1][8], minSource, MAX_VALUE_SLIDER, minSize, (height*.33), 2) ;
 
     // size
-    sizeXRaw = map(valueSlider[1][10], minSource, MAX_VALUE_SLIDER, minSize, width) ;
-    sizeYRaw = map(valueSlider[1][11], minSource, MAX_VALUE_SLIDER, minSize, width) ;
-    sizeZRaw = map(valueSlider[1][12], minSource, MAX_VALUE_SLIDER, minSize, width) ;
+    size_x_raw = map(valueSlider[1][9], minSource, MAX_VALUE_SLIDER, minSize, width) ;
+    size_y_raw = map(valueSlider[1][10], minSource, MAX_VALUE_SLIDER, minSize, width) ;
+    size_z_raw = map(valueSlider[1][11], minSource, MAX_VALUE_SLIDER, minSize, width) ;
+    // size font
+    font_size_raw = map(valueSlider[1][12], minSource, MAX_VALUE_SLIDER, 4, (float)height *.025) ;
     // canvas
-    canvasXRaw = map(valueSlider[1][13], minSource, MAX_VALUE_SLIDER, width *minSize, width) ;
-    canvasYRaw = map(valueSlider[1][14], minSource, MAX_VALUE_SLIDER, width *minSize, width) ;
-    canvasZRaw = map(valueSlider[1][15], minSource, MAX_VALUE_SLIDER, width *minSize, width) ;
-    // misc
-    familyRaw = map(valueSlider[1][16],minSource, MAX_VALUE_SLIDER, 0, 1) ;
-    quantityRaw = map(valueSlider[1][17], minSource, MAX_VALUE_SLIDER, 0, 1) ;
-    lifeRaw = map(valueSlider[1][18],minSource, MAX_VALUE_SLIDER,0,1) ;
-    //column 3
-    speedRaw = map(valueSlider[1][20],minSource, MAX_VALUE_SLIDER,0,1) ;
-    directionRaw = map(valueSlider[1][21],minSource, MAX_VALUE_SLIDER,0,360) ;
-    angleRaw = map(valueSlider[1][22],minSource, MAX_VALUE_SLIDER,0,360) ;
-    amplitudeRaw = map(valueSlider[1][23],minSource, MAX_VALUE_SLIDER,0,1) ;
-    // force
-    attractionRaw = map(valueSlider[1][24],minSource, MAX_VALUE_SLIDER,0,1) ;
-    repulsionRaw = map(valueSlider[1][25],minSource, MAX_VALUE_SLIDER,0,1) ;
-    alignmentRaw = map(valueSlider[1][26],minSource, MAX_VALUE_SLIDER,0,1) ;
-    influenceRaw = map(valueSlider[1][27],minSource, MAX_VALUE_SLIDER,0,1) ;
-    analyzeRaw = map(valueSlider[1][28],minSource, MAX_VALUE_SLIDER,0 , 1) ;
+    canvas_x_raw = map(valueSlider[1][13], minSource, MAX_VALUE_SLIDER, width *minSize, width) ;
+    canvas_y_raw = map(valueSlider[1][14], minSource, MAX_VALUE_SLIDER, width *minSize, width) ;
+    canvas_z_raw = map(valueSlider[1][15], minSource, MAX_VALUE_SLIDER, width *minSize, width) ;
 
-    /* used in this time with sizeXObj */
-    fontSizeRaw = map(sizeXRaw, minSize, width, 1, (float)height *.025) ;
-    fontSizeRaw = 3 +(fontSizeRaw *fontSizeRaw) ;
- // }
+    // size font
+    reactivity_raw = map(valueSlider[1][16], minSource, MAX_VALUE_SLIDER, 0, 1) ;
+    // speed
+    speed_x_raw = map(valueSlider[1][17],minSource, MAX_VALUE_SLIDER,0,1) ;
+    speed_y_raw = map(valueSlider[1][18],minSource, MAX_VALUE_SLIDER,0,1) ;
+    speed_z_raw = map(valueSlider[1][19],minSource, MAX_VALUE_SLIDER,0,1) ;
+    // spurt
+    spurt_x_raw = map(valueSlider[1][20],minSource, MAX_VALUE_SLIDER,0,1) ;
+    spurt_y_raw = map(valueSlider[1][21],minSource, MAX_VALUE_SLIDER,0,1) ;
+    spurt_z_raw = map(valueSlider[1][22],minSource, MAX_VALUE_SLIDER,0,1) ;
+    // direction
+    dir_x_raw = map(valueSlider[1][23],minSource, MAX_VALUE_SLIDER,0,360) ;
+    dir_y_raw = map(valueSlider[1][24],minSource, MAX_VALUE_SLIDER,0,360) ;
+    dir_z_raw = map(valueSlider[1][25],minSource, MAX_VALUE_SLIDER,0,360) ;
+    // jitter
+    jitter_x_raw = map(valueSlider[1][26],minSource, MAX_VALUE_SLIDER,0,1) ;
+    jitter_y_raw = map(valueSlider[1][27],minSource, MAX_VALUE_SLIDER,0,1) ;
+    jitter_z_raw = map(valueSlider[1][28],minSource, MAX_VALUE_SLIDER,0,1) ;
+    // spurt
+    swing_x_raw = map(valueSlider[1][29],minSource, MAX_VALUE_SLIDER,0,1) ;
+    swing_y_raw = map(valueSlider[1][30],minSource, MAX_VALUE_SLIDER,0,1) ;
+    swing_z_raw = map(valueSlider[1][31],minSource, MAX_VALUE_SLIDER,0,1) ;
+
+    // misc
+    quantity_raw = map(valueSlider[1][32], minSource, MAX_VALUE_SLIDER, 0, 1) ;
+    variety_raw = map(valueSlider[1][33],minSource, MAX_VALUE_SLIDER, 0, 1) ;
+    // bio
+    life_raw = map(valueSlider[1][34],minSource, MAX_VALUE_SLIDER,0,1) ;
+    fertility_raw = map(valueSlider[1][35],minSource, MAX_VALUE_SLIDER,0,1) ;
+    quality_raw = map(valueSlider[1][36],minSource, MAX_VALUE_SLIDER,0,1) ;
+    // radar
+    area_raw = map(valueSlider[1][37],minSource, MAX_VALUE_SLIDER,width *minSize, width) ;
+    angle_raw = map(valueSlider[1][38],minSource, MAX_VALUE_SLIDER,0,360) ;
+    scope_raw = map(valueSlider[1][39],minSource, MAX_VALUE_SLIDER,width *minSize, width) ;
+    scan_raw = map(valueSlider[1][40],minSource, MAX_VALUE_SLIDER,0,360) ;
+
+    // force or behavior
+    alignment_raw = map(valueSlider[1][41],minSource, MAX_VALUE_SLIDER,0,1) ;
+    repulsion_raw = map(valueSlider[1][42],minSource, MAX_VALUE_SLIDER,0,1) ;
+    attraction_raw = map(valueSlider[1][43],minSource, MAX_VALUE_SLIDER,0,1) ;
+    charge_raw = map(valueSlider[1][44],minSource, MAX_VALUE_SLIDER,0,1) ;
+
+
+    influence_raw = map(valueSlider[1][45],minSource, MAX_VALUE_SLIDER,0,1) ;
+    calm_raw = map(valueSlider[1][46],minSource, MAX_VALUE_SLIDER,0,1) ;
+    need_raw = map(valueSlider[1][47],minSource, MAX_VALUE_SLIDER,0,1) ; 
+
 }
 
 
 /* Those temp value are used to know is the object value must be updated */
-void updateVarTemp() {
-  //  for(int i = 0 ; i < NUM_GROUP ; i++) {
-    // fill
-    fill_hue_temp = fill_hue_raw ;
-    fill_sat_temp = fill_sat_raw ;    
-    fill_bright_temp = fill_bright_raw ;   
-    fill_alpha_temp = fill_alpha_raw ;
-    // stroke
-    stroke_hue_temp = stroke_hue_raw ; 
-    stroke_sat_temp = stroke_sat_raw ;  
-    stroke_bright_temp = stroke_bright_raw ; 
-    stroke_alpha_temp = stroke_alpha_raw ;
-    //
-    thicknessTemp = thicknessRaw ;
-    //size
-    sizeXTemp = sizeXRaw ;
-    sizeYTemp = sizeYRaw ;
-    sizeZTemp = sizeZRaw ;
-    // canvas
-    canvasXTemp = canvasXRaw ;
-    canvasYTemp = canvasYRaw ;
-    canvasZTemp = canvasZRaw ;
-    // misc
-    familyTemp = familyRaw ;
-    quantityTemp = quantityRaw ;
-    lifeTemp = lifeRaw ;
-    //column 3
-    speedTemp = speedRaw ;
-    directionTemp = directionRaw ;
-    angleTemp = angleRaw ;
-    amplitudeTemp = amplitudeRaw ;
-    // force
-    attractionTemp = attractionRaw ;
-    repulsionTemp = repulsionRaw ;
-    influenceTemp = influenceRaw ;
-    alignmentTemp = alignmentRaw ;
-    analyzeTemp = analyzeRaw ;
+void update_temp_value() {
+  // fill
+  fill_hue_temp = fill_hue_raw ;
+  fill_sat_temp = fill_sat_raw ;    
+  fill_bright_temp = fill_bright_raw ;   
+  fill_alpha_temp = fill_alpha_raw ;
+  // stroke
+  stroke_hue_temp = stroke_hue_raw ; 
+  stroke_sat_temp = stroke_sat_raw ;  
+  stroke_bright_temp = stroke_bright_raw ; 
+  stroke_alpha_temp = stroke_alpha_raw ;
+  //
+  thickness_temp= thickness_raw ;
+  //size
+  size_x_temp = size_x_raw ;
+  size_y_temp = size_y_raw ;
+  size_z_temp = size_z_raw ;
+  // font size
+  font_size_temp = font_size_raw ;
+  // canvas
+  canvas_x_temp = canvas_x_raw ;
+  canvas_y_temp = canvas_y_raw ;
+  canvas_z_temp = canvas_z_raw ;
+  // misc
+  reactivity_temp = reactivity_raw ;
+  // speed
+  speed_x_temp = speed_x_raw ;
+  speed_y_temp = speed_y_raw ;
+  speed_z_temp = speed_z_raw ;
+  // spurt
+  spurt_x_temp = spurt_x_raw ;
+  spurt_y_temp = spurt_y_raw ;
+  spurt_z_temp = spurt_z_raw ;
+  // direction
+  dir_x_temp = dir_x_raw ;
+  dir_y_temp = dir_y_raw ;
+  dir_z_temp = dir_z_raw ;
+  // jitter
+  jitter_x_temp = jitter_x_raw ;
+  jitter_y_temp = jitter_y_raw ;
+  jitter_z_temp = jitter_z_raw ;
+  // direction
+  swing_x_temp = swing_x_raw ;
+  swing_y_temp = swing_y_raw ;
+  swing_z_temp = swing_z_raw ;
 
-    /* used in this time with sizeXObj */
-    fontSizeTemp = fontSizeRaw ;
-//  }
+  quantity_temp = quantity_raw ;
+  variety_temp = variety_raw ;
+
+  life_temp = life_raw ;
+  fertility_temp = fertility_raw ;
+  quality_temp = quality_raw ;
+
+  area_temp = area_raw ;
+  angle_temp = angle_raw ;
+  scope_temp = scope_raw ;
+  scan_temp = scan_raw ;
+  // force
+  alignment_temp = alignment_raw ;
+  repulsion_temp = repulsion_raw ;
+  attraction_temp = attraction_raw ;
+  charge_temp = charge_raw ;
+
+  influence_temp = influence_raw ;
+  calm_temp = calm_raw ;
+  need_temp = need_raw ;
 }
 
 
@@ -594,9 +741,9 @@ float allBeats(int ID) {
 // ASPECT
 
 void aspect(int ID) {
-  if(alpha(fillObj[ID]) == 0 ) noFill() ; else fill(fillObj[ID]) ;
-  if(alpha(strokeObj[ID]) == 0 ) noStroke() ; else stroke(strokeObj[ID]) ;
-  strokeWeight(thicknessObj[ID]) ;
+  if(alpha(fill_item[ID]) == 0 ) noFill() ; else fill(fill_item[ID]) ;
+  if(alpha(stroke_item[ID]) == 0 ) noStroke() ; else stroke(stroke_item[ID]) ;
+  strokeWeight(thickness_item[ID]) ;
 }
 
 
@@ -669,7 +816,7 @@ void fontSetup() {
   SansSerif10 = loadFont(fontPathVLW+"SansSerif-10.vlw" );
   
   // write font path for TTF
-  String prefixTTF = prefenrece_path +"Font/typoTTF/" ;
+  String prefixTTF = preference_path +"Font/typoTTF/" ;
   //by default
   pathFontTTF[0] = prefixTTF+"FuturaStencil.ttf";
   // type

@@ -44,7 +44,7 @@ class MesAmis extends Romanesco {
 
     
     // speed
-    float speed = map(speedObj[IDobj],0,1, .0001, .2);
+    float speed = map(speed_x_item[IDobj],0,1, .0001, .2);
     speed = speed*speed ;
     if(sound[IDobj]) speed *= allBeats(IDobj) ;
 
@@ -60,8 +60,8 @@ class MesAmis extends Romanesco {
     }
 
     // size of the rubis
-    float radiusMax = map(canvasXObj[IDobj], width/10, width, width/4, width *1.5) ;
-    float radiusMin = map(amplitudeObj[IDobj], 0, 1, radiusMax, radiusMax /10) ;
+    float radiusMax = map(canvas_x_item[IDobj], width/10, width, width/4, width *1.5) ;
+    float radiusMin = map(swing_x_item[IDobj], 0, 1, radiusMax, radiusMax /10) ;
 
 
      // stop motion
@@ -75,10 +75,10 @@ class MesAmis extends Romanesco {
 
     
     // new population
-    if(!fullRendering)  quantityObj[IDobj] *= .1 ;
-    numPeople = (int)map(quantityObj[IDobj],0, 1, 10, 70) ; 
+    if(!fullRendering)  quantity_item[IDobj] *= .1 ;
+    numPeople = (int)map(quantity_item[IDobj],0, 1, 10, 70) ; 
     if ( numPeople != refNumPeople ) newPopulation = true ;
-    refNumPeople = (int)map(quantityObj[IDobj],0, 1, 10, 70) ;
+    refNumPeople = (int)map(quantity_item[IDobj],0, 1, 10, 70) ;
     if(newPopulation) {
       listPeople.clear() ;
       amiSetting(numPeople, rangePeople) ;

@@ -127,7 +127,7 @@ int sunRise, sunSet ;
 //SETUP
 void meteoSetup() {
   if (meteo) {
-    String [] md = loadStrings (prefenrece_path+"meteo.txt")  ;
+    String [] md = loadStrings (preference_path+"meteo.txt")  ;
     String meteoData  = join(md, "") ;
     String splitMeteoData [] = split(meteoData, '/') ;
   

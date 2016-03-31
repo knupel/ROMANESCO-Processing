@@ -1,6 +1,6 @@
 /** 
 Tab: Z_VAR
-Version 1.0.1
+Version 1.0.2
 */
 // GLOBAL SETTING ////
 
@@ -99,8 +99,7 @@ int NUM_SLIDER_MISC = 30 ;
 int NUM_SLIDER_OBJ = 48 ;
 
 int numButtonGlobal = 21 ; // group zero
-int numButtonObj  ; // group one, two and three
-
+int numButtonObj  ; 
 // VAR obj
 color COLOR_FILL_OBJ_PREVIEW  ; 
 color COLOR_STROKE_OBJ_PREVIEW ;
@@ -118,7 +117,9 @@ int objectLeapID[] ;
 //BUTTON CONTROLER
 boolean objectParameter[] ;
 
-//VAR object
+/**
+Var item
+*/
 //raw
 int fill_hue_raw, fill_sat_raw, fill_bright_raw, fill_alpha_raw ;
 int stroke_hue_raw, stroke_sat_raw, stroke_bright_raw, stroke_alpha_raw ;
@@ -142,18 +143,77 @@ float alignment_raw, repulsion_raw, attraction_raw, charge_raw ;
 
 float influence_raw, calm_raw, need_raw ;
 
-/* used in this time with size_x_item */
 
-/*
-//add in the next version when there is 30 slider by group
-//future slider available now ;
-//for the next relase
-float [] curveRaw ;
-*/
-/**
-deprecated
-*/
-float amplitudeRaw,  analyzeRaw ;
+
+
+// String name
+String fill_hue_name = "fill_hue" ;     
+String fill_sat_name = "fill_sat" ;     
+String fill_bright_name= "fill_bright" ;     
+String fill_alpha_name = "fill_alpha" ;
+
+String stroke_hue_name = "stroke_hue" ; 
+String stroke_sat_name = "stroke_sat" ; 
+String stroke_bright_name= "stroke_bright" ; 
+String stroke_alpha_name = "stroke_alpha" ;
+
+String thickness_name = "thickness" ; 
+
+String size_x_name = "size_x" ;     
+String size_y_name = "size_y" ;     
+String size_z_name = "size_z" ;
+
+String font_size_name = "font_size";
+
+String canvas_x_name = "canvas_x" ; 
+String canvas_y_name = "canvas_y" ; 
+String canvas_z_name = "canvas_z" ;
+
+String reactivity_name = "reactivity" ;
+
+String speed_x_name = "speed_x" ; 
+String speed_y_name = "speed_y" ; 
+String speed_z_name = "speed_z" ;
+
+String spurt_x_name = "spurt_x" ; 
+String spurt_y_name= "spurt_y"; 
+String spurt_z_name = "spurt_z" ;
+
+String dir_x_name = "dir_x" ; 
+String dir_y_name = "dir_y" ; 
+String dir_z_name = "dir_z" ;
+
+String jitter_x_name = "jitter_x" ; 
+String jitter_y_name = "jitter_y" ; 
+String jitter_z_name = "jitter_z" ;
+
+String swing_x_name = "swing_x" ; 
+String swing_y_name = "swing_y" ; 
+String swing_z_name = "swing_z";
+
+String quantity_name = "quantity" ; 
+String variety_name = "variety"; 
+
+String life_name = "life" ; 
+String fertility_name = "fertility" ; 
+String quality_name = "quality";
+
+String area_name= "area" ; 
+String angle_name = "angle" ; 
+String scope_name = "scope" ; 
+String scan_name = "scan" ;
+
+String alignment_name = "alignment" ; 
+String repulsion_name = "repulsion" ; 
+String attraction_name = "attraction" ; 
+String charge_name = "charge" ;
+
+String influence_name = "influence" ; 
+String calm_name = "calm" ; 
+String need_name = "need" ;
+
+
+
 
 
 // temp
@@ -178,22 +238,11 @@ float area_temp, angle_temp, scope_temp, scan_temp ;
 
 float alignment_temp, repulsion_temp, attraction_temp, charge_temp ;
 float influence_temp, calm_temp, need_temp ;
-/* used in this time with size_x_item */
-
-/*
-//add in the next version when there is 30 slider by group
-//future slider available now ;
-//for the next relase
-float [] curveTemp ;
-*/
-/**
-deprecated
-*/
-float amplitudeTemp,  analyzeTemp ;
 
 
 
-//object
+
+// item target final
 boolean [] first_opening_item ; // used to check if this object is already opening before
 color [] fill_item, stroke_item ;
 float [] thickness_item ; 
@@ -215,16 +264,9 @@ float [] life_item, fertility_item, quality_item ;
 float [] area_item, angle_item, scope_item, scan_item ;
 float [] alignment_item, repulsion_item, attraction_item, charge_item ;
 float [] influence_item, calm_item, need_item ;
-/* used in this time with size_x_item */
 
-/*
-//add in the next version when there is 30 slider by group
-//future slider available now ;
-//for the next relase
-float []curveObj ;
-*/
 /**
-deprecated
+End var item
 */
 
 //font
@@ -235,16 +277,19 @@ PFont police ;
 //OSC VAR
 // button
 int whichFont ;
-// int eBeat, eKick, eSnare, eHat, eCurtain, eBackground ;
+
 boolean onOffBeat, onOffKick, onOffSnare, onOffHat, onOffCurtain, onOffBackground ;
 boolean onOffDirLightOne,       onOffDirLightTwo,       onOffLightAmbient,
         onOffDirLightOneAction, onOffDirLightTwoAction, onOffLightAmbientAction ;
 
-// int eLightOne, eLightTwo, eLightAmbient,
- //   eLightOneAction, eLightTwoAction, eLightAmbientAction ;
+
 int whichShader ; 
-int [] whichImage, whichText ;
-String [] image_path_ref  ;
+int [] which_bitmap, which_text, which_svg, which_movie ;
+/**
+No text_path_ref ???????
+*/
+String [] bitmap_path_ref, svg_path_ref, movie_path_ref  ;
+
 int [] objectButton,soundButton, actionButton, parameterButton ;
 boolean [] show_object, sound, action, parameter ;
 
@@ -332,7 +377,7 @@ void createVar() {
   createVarSound() ;
   createVarP3D(numObj, numSettingCamera, numSettingOrientationObject) ;
   createVarCursor() ;
-  createVarObject() ;
+  create_var_item() ;
 
   
   romanescoManager.initObj() ;
@@ -353,11 +398,17 @@ void createMiscVar() {
    reverse = new boolean [numObj] ;
    // IMAGE
    img = new PImage[numObj] ;
-   whichImage = new int[numObj] ;
-   image_path_ref = new String[numObj] ;
+   which_bitmap = new int[numObj] ;
+   bitmap_path_ref = new String[numObj] ;
+   // SVG
+   which_svg = new int[numObj] ;
+   svg_path_ref = new String[numObj] ;
+   // Movie
+   which_movie = new int[numObj] ;
+   movie_path_ref = new String[numObj] ;
    // TEXT
    textImport = new String [numObj] ;
-   whichText = new int[numObj] ;
+   which_text = new int[numObj] ;
   //main font for each object
    font = new PFont[numObj] ;
    pathFontObjTTF = new String[numObj] ;
@@ -442,52 +493,8 @@ void createVarButton() {
 
 }
 
-void createVarObject() {
-  // RAW
-  /*
-  fill_hue_raw = new int[NUM_GROUP] ;   fill_sat_raw = new int[NUM_GROUP] ;   fill_bright_raw = new int[NUM_GROUP] ;    fill_alpha_raw = new int[NUM_GROUP] ;
-  stroke_hue_raw = new int[NUM_GROUP] ; stroke_sat_raw = new int[NUM_GROUP] ; stroke_bright_raw = new int[NUM_GROUP] ;  stroke_alpha_raw = new int[NUM_GROUP] ;
-  thickness_raw = new float[NUM_GROUP] ;
-  size_x_raw = new float[NUM_GROUP] ;   size_y_raw = new float[NUM_GROUP] ;    size_z_raw = new float[NUM_GROUP] ;
-  canvas_x_raw = new float[NUM_GROUP] ; canvas_y_raw = new float[NUM_GROUP] ;  canvas_z_raw = new float[NUM_GROUP] ;
-  variety_raw = new float[NUM_GROUP] ;  quantity_raw = new float[NUM_GROUP] ; life_raw = new float[NUM_GROUP] ;
-  speed_x_raw = new float[NUM_GROUP] ;
-  dir_x_raw = new float[NUM_GROUP] ;
-  angle_raw = new float[NUM_GROUP] ;
-  amplitudeRaw = new float[NUM_GROUP] ;
-  attraction_raw = new float[NUM_GROUP] ;
-  repulsion_raw = new float[NUM_GROUP] ;
-  alignment_raw = new float[NUM_GROUP] ;
-  influence_raw = new float[NUM_GROUP] ;
-  analyzeRaw = new float[NUM_GROUP] ;
-  */
-  //future slider
-  /* used in this time with the sizeXobj */
-  //font_size_raw = new float[NUM_GROUP] ;
-  
-  // Temp
-  /* used to compare the value slider, to know if the value of the obhject must be updated orn ot */
-  /*
-  fill_hue_temp = new int[NUM_GROUP] ;    fill_sat_temp = new int[NUM_GROUP] ;    fill_bright_temp = new int[NUM_GROUP] ;   fill_alpha_temp = new int[NUM_GROUP] ;
-  stroke_hue_temp = new int[NUM_GROUP] ;  stroke_sat_temp = new int[NUM_GROUP] ;  stroke_bright_temp = new int[NUM_GROUP] ; stroke_alpha_temp = new int[NUM_GROUP] ;
-  thickness_temp= new float[NUM_GROUP] ;
-  size_x_temp = new float[NUM_GROUP] ;   size_y_temp = new float[NUM_GROUP] ;    size_z_temp = new float[NUM_GROUP] ;
-  canvas_x_temp = new float[NUM_GROUP] ; canvas_y_temp = new float[NUM_GROUP] ;  canvas_z_temp = new float[NUM_GROUP] ;
-  variety_temp = new float[NUM_GROUP] ;  quantity_temp = new float[NUM_GROUP] ; life_temp = new float[NUM_GROUP] ;
-  speed_x_temp = new float[NUM_GROUP] ;
-  dir_x_temp = new float[NUM_GROUP] ;
-  angle_temp = new float[NUM_GROUP] ;
-  amplitudeTemp = new float[NUM_GROUP] ;
-  attraction_temp = new float[NUM_GROUP] ;
-  repulsion_temp = new float[NUM_GROUP] ;
-  alignment_temp = new float[NUM_GROUP] ;
-  influence_temp = new float[NUM_GROUP] ;
-  analyzeTemp = new float[NUM_GROUP] ;
-  */
-  //future slider
-  /* used in this time with the sizeXobj */
- // font_size_temp = new float[NUM_GROUP] ;
-  
+void create_var_item() {
+ 
   // VAR object
   first_opening_item = new boolean[numObj] ; // used to check if this object is already opening before
   fill_item = new color[numObj] ;
@@ -809,7 +816,7 @@ void fontSetup() {
   SansSerif10 = loadFont(fontPathVLW+"SansSerif-10.vlw" );
   
   // write font path for TTF
-  String prefixTTF = prefenrece_path +"Font/typoTTF/" ;
+  String prefixTTF = preference_path +"Font/typoTTF/" ;
   //by default
   pathFontTTF[0] = prefixTTF+"FuturaStencil.ttf";
   // type

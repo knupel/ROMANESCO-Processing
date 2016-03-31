@@ -100,8 +100,8 @@ void loadDataObject(String path) {
 		int fontRefID = dataObj.getInt("which font") ;
 		whichFont[ID] = 
 		*/
-		whichImage[ID] = dataObj.getInt("which picture") ;
-		whichText[ID] = dataObj.getInt("which text") ;
+		which_bitmap[ID] = dataObj.getInt("which picture") ;
+		which_text[ID] = dataObj.getInt("which text") ;
         // display mode
 		mode[ID] = dataObj.getInt("Mode obj") ;
 		
@@ -141,11 +141,10 @@ void loadDataObject(String path) {
 		dir_x_item[ID] = dataObj.getFloat("direction") ;
 		angle_item[ID] = dataObj.getFloat("angle") ;
 		swing_x_item[ID] = dataObj.getFloat("amplitude") ;
-		attraction_item[ID] = dataObj.getFloat("attraction") ;
 		repulsion_item[ID] = dataObj.getFloat("repulsion") ;
+		attraction_item[ID] = dataObj.getFloat("attraction") ;
 		alignment_item[ID] = dataObj.getFloat("aligmnent") ;
 		influence_item[ID] = dataObj.getFloat("influence") ;
-		quality_item[ID] = dataObj.getFloat("analyze") ;
 
 		posObjX[ID]	= dataObj.getFloat("pos x obj") *width ;
 		posObjY[ID]	= dataObj.getFloat("pos y obj") *width ;
