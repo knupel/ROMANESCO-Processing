@@ -20,7 +20,7 @@ PImage[] picAction = new PImage[4] ;
 
 void info_item() {
 
-  item_info[0] = ("") ;
+  item_info_raw[0] = item_info[0] = ("") ;
   // the list start from '1' so we must init the '0'
   for(int i = 0 ; i < NUM_ITEM ; i++) {
     TableRow lookFor = item_list_table.getRow(i) ;
@@ -28,7 +28,12 @@ void info_item() {
     for(int j = 0 ; j <= NUM_ITEM ; j++) {
       if(ID == j ) { 
 
-        item_info[j] = lookFor.getString("Name") + "/" +lookFor.getInt("ID") + "/" +lookFor.getInt("Library Order") ;
+        /* item_info_raw is used to call the save in the order of the item labrary ID, not alphabetic
+           item_info is used to display in the alphabetic order, but when is calling the order alphabetic don't exist,
+           and it's necessary ot order it, but after that is not possible to back on original order, it's a reason
+           to creat a raw list for the next loading item list :( very messy :( */
+        item_info_raw[j] = lookFor.getString("Name") + "/" +lookFor.getInt("ID") + "/" +lookFor.getInt("Library Order") ;
+        item_info[j] = item_info_raw[j] ;
 
         item_ID [j] = lookFor.getInt("ID") ;
 
@@ -64,6 +69,7 @@ void init_var_item() {
   item_group = new int [NUM_ITEM +1] ;
   item_GUI_on_off = new int [NUM_ITEM +1] ;
 
+  item_info_raw = new String [NUM_ITEM +1] ;
   item_info = new String [NUM_ITEM +1] ;
   item_ID = new int [NUM_ITEM +1] ;
 
@@ -171,8 +177,6 @@ void set_button_item_console() {
 
 void display_button_item_console() {
   int pointer = 0 ;
-
-
   for( int i = 1 ; i <= NUM_ITEM ; i++ ) {
     if(on_off_item_list[i]) {
       int distance = pointer *STEP_ITEM ;
@@ -239,9 +243,13 @@ void init_button_item_list() {
   on_off_item_list_save = new boolean[NUM_ITEM +1] ;
 }
 
-
-
 void build_button_item_list() {
+  for( int i = 0 ; i < button_item_list.length ; i++) {
+    button_item_list[i] = new Button() ;
+  }
+}
+
+void set_button_item_list() {
 
   Vec2 pos = Vec2() ;
   Vec2 size = Vec2() ;
@@ -265,46 +273,57 @@ void build_button_item_list() {
     int step = i *spacing;
     String [] temp_item_info_split = split(item_info[i], "/") ;
     if(temp_item_info_split[0] != "" ) {
+      // Must bo optimized, it's very very very too long, too much, too bad, too too...
       if(i <= num_item_by_col) {
         pos = Vec2(left_flag, top_text +step) ;
         size = Vec2(length_String_in_pixel(temp_item_info_split[0], ratio_rollover_x ), text_size) ;
-        button_item_list[i] = new Button(pos, size) ;
+        button_item_list[i].set_pos(pos) ;
+        button_item_list[i].set_size(size) ;
       } else if (i > num_item_by_col && i <= num_item_by_col *2)  {
         pos = Vec2(left_flag +col_size_list_item, top_text +step -max_size_col) ;
         size = Vec2(length_String_in_pixel(temp_item_info_split[0], ratio_rollover_x ), text_size) ;
-        button_item_list[i] = new Button(pos, size) ;
+        button_item_list[i].set_pos(pos) ;
+        button_item_list[i].set_size(size) ;
       } else if (i > num_item_by_col *2 && i <= num_item_by_col *3)  {
         pos = Vec2(left_flag +(col_size_list_item *2), top_text +step -(max_size_col *2)) ;
         size = Vec2(length_String_in_pixel(temp_item_info_split[0], ratio_rollover_x ), text_size) ;
-        button_item_list[i] = new Button(pos, size) ;
+        button_item_list[i].set_pos(pos) ;
+        button_item_list[i].set_size(size) ;
       } else if (i > num_item_by_col *3 && i <= num_item_by_col *4)  {
         pos = Vec2(left_flag +(col_size_list_item *3), top_text +step -(max_size_col *3)) ;
         size = Vec2(length_String_in_pixel(temp_item_info_split[0], ratio_rollover_x ), text_size) ;
-        button_item_list[i] = new Button(pos, size) ;
+        button_item_list[i].set_pos(pos) ;
+        button_item_list[i].set_size(size) ;
       } else if (i > num_item_by_col *4 && i <= num_item_by_col *5)  {
         pos = Vec2(left_flag +(col_size_list_item *4), top_text +step -(max_size_col *4)) ;
         size = Vec2(length_String_in_pixel(temp_item_info_split[0], ratio_rollover_x ), text_size) ;
-        button_item_list[i] = new Button(pos, size) ;
+        button_item_list[i].set_pos(pos) ;
+        button_item_list[i].set_size(size) ;
       } else if (i > num_item_by_col *5 && i <= num_item_by_col *6)  {
         pos = Vec2(left_flag +(col_size_list_item *5), top_text +step -(max_size_col *5)) ;
         size = Vec2(length_String_in_pixel(temp_item_info_split[0], ratio_rollover_x ), text_size) ;
-        button_item_list[i] = new Button(pos, size) ;
+        button_item_list[i].set_pos(pos) ;
+        button_item_list[i].set_size(size) ;
       } else if (i > num_item_by_col *6 && i <= num_item_by_col *7)  {
         pos = Vec2(left_flag +(col_size_list_item *6), top_text +step -(max_size_col *6)) ;
         size = Vec2(length_String_in_pixel(temp_item_info_split[0], ratio_rollover_x ), text_size) ;
-        button_item_list[i] = new Button(pos, size) ;
+        button_item_list[i].set_pos(pos) ;
+        button_item_list[i].set_size(size) ;
       } else if (i > num_item_by_col *7 && i <= num_item_by_col *8)  {
         pos = Vec2(left_flag +(col_size_list_item *7), top_text +step -(max_size_col *7)) ;
         size = Vec2(length_String_in_pixel(temp_item_info_split[0], ratio_rollover_x ), text_size) ;
-        button_item_list[i] = new Button(pos, size) ;
+        button_item_list[i].set_pos(pos) ;
+        button_item_list[i].set_size(size) ;
       } else if (i > num_item_by_col *8 && i <= num_item_by_col *9)  {
         pos = Vec2(left_flag +(col_size_list_item *8), top_text +step -(max_size_col *8)) ;
         size = Vec2(length_String_in_pixel(temp_item_info_split[0], ratio_rollover_x ), text_size) ;
-        button_item_list[i] = new Button(pos, size) ;
+        button_item_list[i].set_pos(pos) ;
+        button_item_list[i].set_size(size) ;
       } else if (i > num_item_by_col *9 && i <= num_item_by_col *10)  {
         pos = Vec2(left_flag +(col_size_list_item *9), top_text +step -(max_size_col *9)) ;
         size = Vec2(length_String_in_pixel(temp_item_info_split[0], ratio_rollover_x ), text_size) ;
-        button_item_list[i] = new Button(pos, size) ;
+        button_item_list[i].set_pos(pos) ;
+        button_item_list[i].set_size(size) ;
       }
     }
   }
@@ -312,21 +331,31 @@ void build_button_item_list() {
 
 void set_item_list() {
   color col_off_out_menu_item = rougeTresTresFonce ;
+  // reset statement
+  for( int i = 0 ; i < button_item_list.length ; i++) {
+  }
+  
+
+  // give the the good statement
   for( int i = 0 ; i < button_item_list.length ; i++) {
     if(item_info[i] != "" ) {
       String [] temp_item_info_split = split(item_info[i], "/") ;
       button_item_list[i].set_color_on_off(col_on_in, col_on_out, col_off_in, col_off_out_menu_item) ;
-      button_item_list[i].set_on_off(on_off_item_list_save[i]) ;
-      if(!INIT_INTERFACE) button_item_list[i].set_on_off(on_off_item_list[i]) ; else {
+
+      if(INIT_INTERFACE) button_item_list[i].set_on_off(on_off_item_list[i]) ; 
+      else {
         button_item_list[i].set_on_off(on_off_item_list_save[i]) ;
         on_off_item_list[i] = on_off_item_list_save[i] ;
       }
+
       button_item_list[i].set_name(temp_item_info_split[0]) ;
       button_item_list[i].set_ID(Integer.parseInt(temp_item_info_split[1])) ;
       button_item_list[i].set_rank(Integer.parseInt(temp_item_info_split[2])) ;
     }
   }
 }
+
+
 
 
 
@@ -340,7 +369,9 @@ void display_button_item_list() {
   // display the list
   if(item_info.length > 0  ) {
     for(int i = 0 ; i < item_info.length ; i++) {
-      if(item_info[i] != "" ) button_item_list[i].button_text((int)button_item_list[i].pos.x , (int)button_item_list[i].pos.y +text_size) ;
+      if(item_info[i] != "" && button_item_list[i].pos != null) {
+        button_item_list[i].button_text((int)button_item_list[i].pos.x , (int)button_item_list[i].pos.y +text_size) ;
+      }
     }
   }
 }
@@ -349,7 +380,7 @@ void check_button_item_list() {
   /*
   Check to display or not the item in the controller
   */
-  if(NUM_ITEM > 0) {
+  if(NUM_ITEM > 0 && !INIT_INTERFACE ) {
     for(int i = 1 ; i < button_item_list.length ; i++) {
       // here it's boolean not an int because we don't need to send it via OSC.
       int ID = button_item_list[i].ID ;

@@ -400,7 +400,7 @@ void update_midi_slider(int whichOne) {
   if (selectMidi && slider[whichOne].lockedMol()) slider[whichOne].selectIDmidi(midi_CC_romanesco) ;
   
   //ID midi from save
-  if(loadSaveSetting) slider[whichOne].selectIDmidi((int)info_save_raw_list(infoSlider, whichOne).b) ;
+  if(LOAD_SETTING) slider[whichOne].selectIDmidi((int)info_save_raw_list(infoSlider, whichOne).b) ;
 }
 // END MIDI MANAGER
 ///////////////////

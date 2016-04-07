@@ -539,7 +539,7 @@ void check_Keyboard_save_scene_NEW_path() {
 // CTRL + SHIFT + O
 void check_Keyboard_load_controller() {
   if(checkKeyboard(CONTROL) && checkKeyboard(SHIFT) && checkKeyboard(KeyEvent.VK_O) ) { 
-    selectInput("Load setting controller", "loadSettingController"); // ("display info in the window" , "name of the method callingBack" )
+    selectInput("Load setting controller", "load_setting_controller"); // ("display info in the window" , "name of the method callingBack" )
     keyboard[keyCode] = false;   //
     
   }

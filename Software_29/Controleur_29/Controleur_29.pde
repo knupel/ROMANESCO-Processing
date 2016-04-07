@@ -20,7 +20,7 @@ void setup() {
   init_midi() ;
 
   build_item_library() ;
-  loadSetup() ;
+  load_setup() ;
 
   check_image_bitmap_folder() ;
   check_image_svg_folder() ;
@@ -36,17 +36,16 @@ void setup() {
   set_dropdown_general() ;
   set_dropdown_item_selected() ;
 
+
   build_button_general() ;
   build_button_item_console() ;
   build_button_item_list() ;
   build_slider() ;
 
-  set_item_list() ;
   set_OSC() ;
   set_data_from_save() ;
 
   reset() ;
-  //INIT_INTERFACE = false ;
 }
 
 void draw() {
@@ -102,7 +101,6 @@ void mousePressed () {
 
 void keyPressed() {
   keypressed_midi() ;
-  //OpenClose save
   shortcuts_controller() ;
 }
 

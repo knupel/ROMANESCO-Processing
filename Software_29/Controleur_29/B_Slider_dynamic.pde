@@ -122,7 +122,7 @@ void init_slider_dynamic() {
   for ( int j = 1 ; j < NUM_GROUP_SLIDER ; j++) {
     showSliderGroup[j] = false ;
   }
-  loadSaveSetting = false ;
+  LOAD_SETTING = false ;
 }
 
 

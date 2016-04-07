@@ -3,10 +3,10 @@ SETTING SAVE and LOAD 2.1.2
 */
 
 //SETUP
-void loadSetup() {
+void load_setup() {
   buildSaveTable() ;
   createInfoButtonAndSlider(sketchPath("")+"preferences/setting/defaultSetting.csv") ;
-  loadSaveController(sketchPath("")+"preferences/setting/defaultSetting.csv") ;
+  load_saved_file_controller(sketchPath("")+"preferences/setting/defaultSetting.csv") ;
   
   //load text interface 
   // 0 is French
@@ -25,7 +25,7 @@ void loadSetup() {
 Table item_list_table, shaderBackgroundList;
 int numGroup [] ; 
 int [] item_rank, item_ID, item_group, item_camera_video_on_off, item_GUI_on_off ;
-String [] item_info ;
+String [] item_info, item_info_raw ;
 String [] item_name, item_author, item_version, item_pack, item_load_name, item_slider ; 
 String [] shader_bg_name, shader_bg_author ;
 
@@ -240,19 +240,19 @@ END SAVE
 LOAD
 
 */
-void loadSettingController(File selection) {
+void load_setting_controller(File selection) {
   if (selection != null) {
     String loadPathControllerSetting = selection.getAbsolutePath();
-    loadSaveController(loadPathControllerSetting) ;
-    loadSaveSetting = true ;
-    setSave = true ;
+    load_saved_file_controller(loadPathControllerSetting) ;
+    INIT_INTERFACE = true ;
+    LOAD_SETTING = true ;
   } 
 }
 
 
 
 // loadSave(path) read info from save file
-void loadSaveController(String path) {
+void load_saved_file_controller(String path) {
   
   Table settingTable = loadTable(path, "header");
   // re-init the counter for the new loop
@@ -284,7 +284,7 @@ void loadSaveController(String path) {
     if(s.equals("Item")) {
       info_list_item_ID[count_item] = row.getInt("Item ID") ;
       int which_one = info_list_item_ID[count_item] ;
-      String [] temp_item_info_split = split(item_info[which_one], "/") ;
+      String [] temp_item_info_split = split(item_info_raw[which_one], "/") ;
       int ID =  Integer.parseInt(temp_item_info_split[2]) ;
       
       if(row.getInt("Item On Off") == 1) {
@@ -311,12 +311,15 @@ void loadSaveController(String path) {
 
 // SETTING SAVE
 /////////////////////////
-Boolean setSave = true ;
+
 void set_data_from_save() {
-  if(setSave) {
-    setButtonSave() ;
+  if(INIT_INTERFACE) {
+    set_button_item_list() ;
+    set_item_list() ;
+    set_button_from_saved_file() ;
     set_slider_save() ;
-    setSave = false ;
+
+    INIT_INTERFACE = false ;
   }
 }
 
@@ -346,7 +349,7 @@ void setttingSliderSave(int whichOne) {
 
 
 //setting BUTTON from save
-void setButtonSave() {
+void set_button_from_saved_file() {
   // close loop to save the button statement, 
   // see void midiButtonManager(boolean saveButton)
   int rank = 0 ;

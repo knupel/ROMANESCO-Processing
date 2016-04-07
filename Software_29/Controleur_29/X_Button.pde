@@ -26,7 +26,7 @@ class Button {
   Button () {}
   //complexe
   Button (int pos_x, int pos_y, int widthButton, int heightButton) {
-    this.on_off = on_off ;
+    //this.on_off = on_off ;
     this.pos = Vec2(pos_x, pos_y) ;
     pos_ref_x = pos_x ;
     pos_ref_y = pos_y ;
@@ -35,7 +35,7 @@ class Button {
 
   }
   Button (Vec2 pos, Vec2 size) {
-    this.on_off = on_off ;
+    //this.on_off = on_off ;
     this.pos = pos ;
     pos_ref_x = (int)pos.x ;
     pos_ref_y = (int)pos.y ;
@@ -51,6 +51,15 @@ class Button {
 
   void set_name(String name) {
     this.name = name ;
+  }
+
+  void set_size(Vec2 size) {
+    this.size = size ;
+  }
+  void set_pos(Vec2 pos) {
+    this.pos = pos ;
+    pos_ref_x = (int)pos.x ;
+    pos_ref_y = (int)pos.y ;
   }
 
 

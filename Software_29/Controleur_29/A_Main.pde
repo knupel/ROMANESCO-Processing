@@ -40,8 +40,8 @@ Vec5 [] infoSlider ;
 int sliderModeDisplay = 0 ;
 
 boolean[] keyboard = new boolean[526];
-boolean loadSaveSetting = false ;
-boolean ouvrirFichier = false ;
+boolean LOAD_SETTING = false ;
+
 boolean INIT_INTERFACE = true ;
 
 //LOAD PICTURE VIGNETTE
@@ -251,9 +251,6 @@ void reset() {
   INIT_INTERFACE = false ;
 }
 
-
-
-
 void info_bg_shader() {
   int n = shaderBackgroundList.getRowCount() ;
   shader_bg_name = new String[n] ;
@@ -265,10 +262,6 @@ void info_bg_shader() {
   }
 }
 
-
-
-
-
 void numByGroup() {
   for (TableRow row : item_list_table.rows()) {
     int item_group = row.getInt("Group");
@@ -277,8 +270,6 @@ void numByGroup() {
     }
   }
 }
-// END BUILD LIBRARY
-////////////////////
 /**
 END setting
 
