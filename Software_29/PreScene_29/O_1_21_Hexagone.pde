@@ -6,15 +6,14 @@ ArrayList <Hexagon> grid = new ArrayList <Hexagon> (); // the arrayList to store
 class Honeycomb extends Romanesco {
   public Honeycomb() {
     //from the index_objects.csv
-    romanescoName = "Nid d'abeille" ;
-    IDobj = 21 ;
-    IDgroup = 1 ;
-    romanescoAuthor  = "Amnon Owed";
-    romanescoVersion = "Version 0.1.1";
-    romanescoPack = "Base" ;
-    romanescoRender = "P3D" ;
-    romanescoMode = "" ;
-    romanescoSlider = "Fill hue,Fill sat,Fill bright,Fill alpha,Thickness,Size X,Canvas X,Canvas Y" ;
+    RPE_name = "Nid d'abeille" ;
+    ID_item = 21 ;
+    ID_group = 1 ;
+    RPE_author  = "Amnon Owed";
+    RPE_version = "Version 0.1.1";
+    RPE_pack = "Base" ;
+    RPE_mode = "" ;
+    RPE_slider = "Fill hue,Fill sat,Fill bright,Fill alpha,Thickness,Size X,Canvas X,Canvas Y" ;
   }
   //GLOBAL
   boolean newHoneycomb  ;
@@ -33,7 +32,7 @@ class Honeycomb extends Romanesco {
 
   //SETUP
   void setting() {
-    startPosition(IDobj, width/2, height/2, 0) ;
+    startPosition(ID_item, width/2, height/2, 0) ;
     canvas = new PVector(width, height) ;
     canvasRef = canvas.copy();
     initGrid(canvas); // initialize the CA grid of hexagons (including neighbour search and creation of hexagon vertex positions)
@@ -41,18 +40,18 @@ class Honeycomb extends Romanesco {
   //DRAW
   void display() {
     neighbourDistance = hexagonRadius *2;
-    hexagonStroke = thickness_item[IDobj] ;
-    hexagonRadius = map(size_x_item[IDobj],.1,width, width /40, width/15)  ;
+    hexagonStroke = thickness_item[ID_item] ;
+    hexagonRadius = map(size_x_item[ID_item],.1,width, width /40, width/15)  ;
 
     
     // limitation for the preview
     int minSize = width/80 ;
     if(fullRendering) {
-      sliderCanvasX = map(canvas_x_item[IDobj], width/10, width, minSize, width *4) ;
-      sliderCanvasY = map(canvas_y_item[IDobj], width/10, width, minSize, width *4) ;      
+      sliderCanvasX = map(canvas_x_item[ID_item], width/10, width, minSize, width *4) ;
+      sliderCanvasY = map(canvas_y_item[ID_item], width/10, width, minSize, width *4) ;      
     } else {
-      sliderCanvasX = map(canvas_x_item[IDobj], width/10, width, minSize, width) ;
-      sliderCanvasY = map(canvas_y_item[IDobj], width/10, width, minSize, width) ;
+      sliderCanvasX = map(canvas_x_item[ID_item], width/10, width, minSize, width) ;
+      sliderCanvasY = map(canvas_y_item[ID_item], width/10, width, minSize, width) ;
     }
     
     
@@ -70,7 +69,7 @@ class Honeycomb extends Romanesco {
     
     // music factor
     float soundSizeFactor ;
-    if(getTimeTrack() > 0.2) soundSizeFactor = allBeats(IDobj) ; else soundSizeFactor = 1.0 ;
+    if(getTimeTrack() > 0.2) soundSizeFactor = allBeats(ID_item) ; else soundSizeFactor = 1.0 ;
     
 
     if(hexagonRadius != radiusRef || hexagonStroke != strokeRef || (canvas.x != canvasRef.x || canvas.y != canvasRef.y) ) {
@@ -92,13 +91,13 @@ class Honeycomb extends Romanesco {
     
     for (Hexagon h : grid) {
       h.changeColor();
-      h.display(v, fill_item[IDobj],soundSizeFactor);
+      h.display(v, fill_item[ID_item],soundSizeFactor);
     }
     popMatrix() ;
     
     // new honeycomb
-    //if((action[IDobj] && xTouch) || allBeats(IDobj) >= 3.125 ) newHoneycomb = true ;
-    if((action[IDobj] && nTouch)) newHoneycomb = true ;
+    //if((action[ID_item] && xTouch) || allBeats(ID_item) >= 3.125 ) newHoneycomb = true ;
+    if((action[ID_item] && nTouch)) newHoneycomb = true ;
     
     if(newHoneycomb) {
       float r = random(1000000); // random number that is used by all the hexagon cells...
@@ -108,7 +107,7 @@ class Honeycomb extends Romanesco {
     
     
     // INFO
-    objectInfo[IDobj] = (grid.size() + " hexagons") ;
+    objectInfo[ID_item] = (grid.size() + " hexagons") ;
   }
   
   

@@ -1,13 +1,13 @@
 /**
-Romanesco Manager 2.0.1
+Romanesco Manager 2.0.2
 */
-ObjectRomanescoManager romanescoManager ;
+RPE_MANAGER rpe_manager ;
 // CLASS ROMANESCO MANAGER
 void romanescoSetup() {
-  romanescoManager = new ObjectRomanescoManager(this);
-  romanescoManager.addObjectRomanesco() ;
-  romanescoManager.finishIndex() ;
-  romanescoManager.writeInfoUser() ;
+  rpe_manager = new RPE_MANAGER(this);
+  rpe_manager.addObjectRomanesco() ;
+  rpe_manager.finishIndex() ;
+  rpe_manager.writeInfoUser() ;
 }
 
 
@@ -103,6 +103,8 @@ void update_slider_value(int ID) {
 
 
     // column 2
+    if (reactivity_raw != reactivity_temp || !first_opening_item[ID]) reactivity_item[ID] = reactivity_raw ; 
+
     if (speed_x_raw != speed_x_temp || !first_opening_item[ID]) speed_x_item[ID] = speed_x_raw ; 
     if (speed_y_raw != speed_y_temp || !first_opening_item[ID]) speed_y_item[ID] = speed_y_raw ; 
     if (speed_z_raw != speed_z_temp || !first_opening_item[ID]) speed_z_item[ID] = speed_z_raw ;
@@ -128,7 +130,7 @@ void update_slider_value(int ID) {
     if (variety_raw != variety_temp || !first_opening_item[ID]) variety_item[ID] = variety_raw ;
 
     if (life_raw != life_temp || !first_opening_item[ID]) life_item[ID] = life_raw ;
-    if (fertility_raw != fertility_temp || !first_opening_item[ID]) fertility_item[ID] = fertility_raw ;
+    if (flow_raw != flow_temp || !first_opening_item[ID]) flow_item[ID] = flow_raw ;
     if (quality_raw != quality_temp || !first_opening_item[ID]) quality_item[ID] = quality_raw ;
 
     if (area_raw != area_temp || !first_opening_item[ID]) area_item[ID] = area_raw ;
@@ -228,7 +230,7 @@ boolean resetParameter(int ID) {
 
 //CLASS
 // inspired from Andreas Gysin work from The Abyss Project
-class ObjectRomanescoManager {
+class RPE_MANAGER {
   private ArrayList<Romanesco>RomanescoList ;
   private ArrayList<Class>objectRomanescoList;
   
@@ -237,7 +239,7 @@ class ObjectRomanescoManager {
   String classRomanescoName [] ;
   int numClasses ;
   
-  ObjectRomanescoManager(PApplet parent) {
+  RPE_MANAGER(PApplet parent) {
     this.parent = parent;
     RomanescoList = new ArrayList<Romanesco>() ;
     //scan the existant classes
@@ -343,7 +345,7 @@ class ObjectRomanescoManager {
   ////////////////
   /**
   EXTERNAL  VOID
-  * romanescoManager.finishIndex() ;
+  * rpe_manager.finishIndex() ;
   * use with in romanescoSetup() {}
   */
   //finish index
@@ -351,22 +353,22 @@ class ObjectRomanescoManager {
       // catch the different parameter from object class Romanesco
     for (int i=0 ; i < RomanescoList.size() ; i++ ) {
       Romanesco objR = (Romanesco) RomanescoList.get(i) ;
-      rowIndexObject[i].setString("Name", objR.romanescoName) ;
-      rowIndexObject[i].setInt("ID", objR.IDobj) ;
-      rowIndexObject[i].setInt("Group", objR.IDgroup) ;
-      rowIndexObject[i].setString("Author", objR.romanescoAuthor) ;
-      rowIndexObject[i].setString("Version", objR.romanescoVersion) ;
+      rowIndexObject[i].setString("Name", objR.RPE_name) ;
+      rowIndexObject[i].setInt("ID", objR.ID_item) ;
+      rowIndexObject[i].setInt("Group", objR.ID_group) ;
+      rowIndexObject[i].setString("Author", objR.RPE_author) ;
+      rowIndexObject[i].setString("Version", objR.RPE_version) ;
       rowIndexObject[i].setString("Render", objR.romanescoRender) ;
-      rowIndexObject[i].setString("Pack", objR.romanescoPack) ;
-      rowIndexObject[i].setString("Mode", objR.romanescoMode) ;
-      rowIndexObject[i].setString("Slider", objR.romanescoSlider) ;
+      rowIndexObject[i].setString("Pack", objR.RPE_pack) ;
+      rowIndexObject[i].setString("Mode", objR.RPE_mode) ;
+      rowIndexObject[i].setString("Slider", objR.RPE_slider) ;
     }
     saveTable(indexObjects, pathObjects+"index_romanesco_objects.csv") ; 
     NUM_OBJ = RomanescoList.size() ;
   }
   
   /*
-  * romanescoManager.writeInfoUser() ;
+  * rpe_manager.writeInfoUser() ;
   * use with in romanescoSetup() {}
   */
   //ADD info for the user
@@ -374,11 +376,11 @@ class ObjectRomanescoManager {
       // catch the different parameter from object class Romanesco
     for (int i=0 ; i < RomanescoList.size() ; i++ ) {
       Romanesco objR = (Romanesco) RomanescoList.get(i) ;
-      objectID[objR.IDobj] = objR.IDobj ;
-      objectName[objR.IDobj] = objR.romanescoName ;
-      objectAuthor[objR.IDobj] = objR.romanescoAuthor ;
-      objectVersion[objR.IDobj] = objR.romanescoVersion ;
-      objectPack[objR.IDobj] = objR.romanescoPack ;
+      objectID[objR.ID_item] = objR.ID_item ;
+      objectName[objR.ID_item] = objR.RPE_name ;
+      objectAuthor[objR.ID_item] = objR.RPE_author ;
+      objectVersion[objR.ID_item] = objR.RPE_version ;
+      objectPack[objR.ID_item] = objR.RPE_pack ;
     }
   }
     
@@ -442,10 +444,10 @@ class ObjectRomanescoManager {
   // INIT ROMANESCO OBJECT
   void initObj() {
     for (Romanesco objR : RomanescoList) {
-      motion[objR.IDobj] = true ;
-      initValueMouse[objR.IDobj] = true ;
+      motion[objR.ID_item] = true ;
+      initValueMouse[objR.ID_item] = true ;
       objR.setting() ;
-      posObjRef[objR.IDobj] = startingPosition[objR.IDobj].copy() ;
+      posObjRef[objR.ID_item] = startingPosition[objR.ID_item].copy() ;
     }
   }
   
@@ -467,12 +469,12 @@ class ObjectRomanescoManager {
     //the method
     if (show_object != null) {
       for (Romanesco objR : RomanescoList) {
-        if (show_object[objR.IDobj]) {
-          updateObject(objR.IDobj) ;
+        if (show_object[objR.ID_item]) {
+          updateObject(objR.ID_item) ;
           pushMatrix() ;
-          addRefObj(objR.IDobj) ;
-          if(vLongTouch && action[objR.IDobj] ) objectMove(movePos, moveDir, objR.IDobj) ;
-          P3DmoveObj(objR.IDobj) ;
+          addRefObj(objR.ID_item) ;
+          if(vLongTouch && action[objR.ID_item] ) objectMove(movePos, moveDir, objR.ID_item) ;
+          P3DmoveObj(objR.ID_item) ;
           objR.display() ;
           popMatrix() ;
         }
@@ -498,25 +500,25 @@ class ObjectRomanescoManager {
 ////////////////////////
 //SUPER CLASS ROMANESCO
 abstract class Romanesco {
-  String romanescoName, romanescoAuthor, romanescoVersion, romanescoPack, romanescoRender, romanescoMode, romanescoSlider ;
-  int IDobj, IDgroup ;
+  String RPE_name, RPE_author, RPE_version, RPE_pack, romanescoRender, RPE_mode, RPE_slider ;
+  int ID_item, ID_group ;
   //object manager return
-  ObjectRomanescoManager orm ;
+  RPE_MANAGER orm ;
   
   public Romanesco() {
-    romanescoName = "Unknown" ;
-    romanescoAuthor = "Anonymous";
-    romanescoVersion = "Alpha";
-    romanescoPack = "Base" ;
+    RPE_name = "Unknown" ;
+    RPE_author = "Anonymous";
+    RPE_version = "Alpha";
+    RPE_pack = "Base" ;
     romanescoRender = "classic" ;
-    romanescoMode = "" ; // separate the name by a slash and write the next mode immadialtly after this one.
-    romanescoSlider = "all" ;
-    IDgroup = 0 ;
-    IDobj = 0 ;
+    RPE_mode = "" ; // separate the name by a slash and write the next mode immadialtly after this one.
+    RPE_slider = "all" ;
+    ID_group = 0 ;
+    ID_item = 0 ;
   }
   
   //manager return
-  void setManagerReference(ObjectRomanescoManager orm) {
+  void setManagerReference(RPE_MANAGER orm) {
     this.orm = orm;
   }
   

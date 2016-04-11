@@ -8,15 +8,14 @@ ArrayList<Old_Pixel> starList = new ArrayList<Old_Pixel>();
 class Spray extends Romanesco {
   public Spray() {
     //from the index_objects.csv
-    romanescoName = "Stars Spray" ;
-    IDobj = 17 ;
-    IDgroup = 1 ;
-    romanescoAuthor  = "Stan le Punk";
-    romanescoVersion = "version 1.1.1";
-    romanescoPack = "Base" ;
-    romanescoRender = "P3D" ;
-    romanescoMode = "Star/Spray" ;
-    romanescoSlider = "Fill hue,Fill sat,Fill bright,Fill alpha,Thickness,Size X,Size Y,Canvas X,Canvas Y,Quantity,Speed X,Angle,Life,Repulsion" ;
+    RPE_name = "Stars Spray" ;
+    ID_item = 17 ;
+    ID_group = 1 ;
+    RPE_author  = "Stan le Punk";
+    RPE_version = "version 1.1.1";
+    RPE_pack = "Base" ;
+    RPE_mode = "Star/Spray" ;
+    RPE_slider = "Fill hue,Fill sat,Fill bright,Fill alpha,Thickness,Size X,Size Y,Canvas X,Canvas Y,Quantity,Speed X,Angle,Life,Repulsion" ;
   }
   //GLOBAL
   // INK
@@ -33,7 +32,7 @@ class Spray extends Romanesco {
   
   //SETUP
   void setting() {
-    startPosition(IDobj, width/2, height/2, 0) ;
+    startPosition(ID_item, width/2, height/2, 0) ;
   }
   //DRAW
   void display() {
@@ -41,16 +40,16 @@ class Spray extends Romanesco {
     if(xTouch) changeColor = !changeColor ;
     
     
-    if(mode[IDobj] == 0 ) {
-      if(clickLongLeft[IDobj] && nLongTouch || starList.size()<1 ) starProduction() ;
+    if(mode[ID_item] == 0 ) {
+      if(clickLongLeft[ID_item] && nLongTouch || starList.size()<1 ) starProduction() ;
       displayStar() ;
     }
-    if(mode[IDobj] == 1 ) encre() ;
+    if(mode[ID_item] == 1 ) encre() ;
     
     // info display
     String whichColor = ("") ;
     if(changeColor) whichColor =("Original Color") ; else whichColor =("Colsor from Controller") ;
-    objectInfo[IDobj] = ("Quantity ink " +encreList.size() +" Quantity stars " + starList.size() + " / " + whichColor ) ;
+    objectInfo[ID_item] = ("Quantity ink " +encreList.size() +" Quantity stars " + starList.size() + " / " + whichColor ) ;
     
     
   }
@@ -63,11 +62,11 @@ class Spray extends Romanesco {
   float thicknessSoundEffect ;
   // display
   void displayStar() {
-    if(sound[IDobj]) {
-      jitterOne = 5* random(-beat[IDobj],beat[IDobj]) ;
-      jitterTwo = 5* random(-kick[IDobj],kick[IDobj]) ;
-      jitterThree = 5* random(-snare[IDobj],snare[IDobj]) ;
-      jitterFour = 5* random(-hat[IDobj],hat[IDobj]) ; 
+    if(sound[ID_item]) {
+      jitterOne = 5* random(-beat[ID_item],beat[ID_item]) ;
+      jitterTwo = 5* random(-kick[ID_item],kick[ID_item]) ;
+      jitterThree = 5* random(-snare[ID_item],snare[ID_item]) ;
+      jitterFour = 5* random(-hat[ID_item],hat[ID_item]) ; 
     } else {
       jitterOne = 0 ; 
       jitterTwo = 0 ;
@@ -78,24 +77,24 @@ class Spray extends Romanesco {
       
       
     for (Old_Pixel p : starList) {
-      strokeWeight(thickness_item[IDobj] *thicknessSoundEffect) ;  
-      if(changeColor) stroke(hue(p.colour), saturation(p.colour), brightness(p.colour), alpha(fill_item[IDobj])); else stroke(fill_item[IDobj]) ;
+      strokeWeight(thickness_item[ID_item] *thicknessSoundEffect) ;  
+      if(changeColor) stroke(hue(p.colour), saturation(p.colour), brightness(p.colour), alpha(fill_item[ID_item])); else stroke(fill_item[ID_item]) ;
       point(p.pos.x +jitterOne, p.pos.y +jitterTwo, p.pos.z +jitterThree) ;
     }
-    if (resetAction(IDobj)) starList.clear() ;
+    if (resetAction(ID_item)) starList.clear() ;
   }
   
   // the orderer
   void starProduction() {
-    float depth = map(canvas_z_item[IDobj], width/10, width, 0, width *3) ;
-    PVector pos = new PVector(mouse[0].x - startingPosition[IDobj].x, mouse[0].y - startingPosition[IDobj].y, depth ) ;
+    float depth = map(canvas_z_item[ID_item], width/10, width, 0, width *3) ;
+    PVector pos = new PVector(mouse[0].x - startingPosition[ID_item].x, mouse[0].y - startingPosition[ID_item].y, depth ) ;
     //tha first value must be smaller than second
     
-    int sizeMin = (int)map(size_x_item[IDobj],0.1,width,1,20) ;
-    int sizeMax = (int)map(size_y_item[IDobj],0.1,width,20, width *2) ;
+    int sizeMin = (int)map(size_x_item[ID_item],0.1,width,1,20) ;
+    int sizeMax = (int)map(size_y_item[ID_item],0.1,width,20, width *2) ;
     PVector size = new PVector(sizeMin,sizeMax) ;
     
-    int numP = (int)map(quantity_item[IDobj],0,1,10,width) ;
+    int numP = (int)map(quantity_item[ID_item],0,1,10,width) ;
     // limitation for the prescene rendering
     if(!fullRendering) {
       numP *= .001 ;
@@ -104,12 +103,12 @@ class Spray extends Romanesco {
     
     PVector numPoints = new PVector(numP/10,numP) ;
     
-    int branchMin = (int)map(canvas_x_item[IDobj], width/10, width,1,30) ;
-    int branchMax = (int)map(canvas_y_item[IDobj], width/10, width, 1, 30) ;
+    int branchMin = (int)map(canvas_x_item[ID_item], width/10, width,1,30) ;
+    int branchMax = (int)map(canvas_y_item[ID_item], width/10, width, 1, 30) ;
     PVector numBranchs = new PVector(branchMin,branchMax) ;
 
-    color colour = fill_item[IDobj] ;
-    int varAngle = (int)map(angle_item[IDobj], 0,360,0,180) ;
+    color colour = fill_item[ID_item] ;
+    int varAngle = (int)map(angle_item[ID_item], 0,360,0,180) ;
     PVector angle = new PVector(0,varAngle) ; // 0-360 degree
     starProducer(pos, size, numPoints, numBranchs, angle, colour) ;
   }
@@ -166,40 +165,40 @@ class Spray extends Romanesco {
   void encre() {
     factorPressure = map(pen[0].z, 0, 1, 1, 50 ) ;
     sprayDirection = new PVector (pen[0].x,pen[0].y) ;
-    inkDiffusion = map (speed_x_item[IDobj] , 0,1, 0, 100 *tempo[IDobj]  ) ; // speed / vitesse
+    inkDiffusion = map (speed_x_item[ID_item] , 0,1, 0, 100 *tempo[ID_item]  ) ; // speed / vitesse
     
-    float flux = map (quantity_item[IDobj], 0,1, 10,1000) ; // ink quantity
+    float flux = map (quantity_item[ID_item], 0,1, 10,1000) ; // ink quantity
     if(!fullRendering) flux = 10 ; // limitation for the prescene rendering
     
-    float thicknessPoint = thickness_item[IDobj]*.1 ;
+    float thicknessPoint = thickness_item[ID_item]*.1 ;
     inkFlux = int(flux) ;
-    angleSpray   = map (angle_item[IDobj], 0,360, 0,180 ) ; // angle
-    dry = (int)map(life_item[IDobj], 0,1, frameRate , 100000) ; // durée
+    angleSpray   = map (angle_item[ID_item], 0,360, 0,180 ) ; // angle
+    dry = (int)map(life_item[ID_item], 0,1, frameRate , 100000) ; // durée
     float spr ;
-    spr = map(repulsion_item[IDobj],0,1, 1, width) ; // force de diffusion
+    spr = map(repulsion_item[ID_item],0,1, 1, width) ; // force de diffusion
     spray = int(spr) ;
     
     // INK DRY
-    float var = tempo[IDobj] ;
+    float var = tempo[ID_item] ;
     float timeDry = 1.0 / float(dry) ;
   
    // add encre
    int security ;
    if (fullRendering) security = 1000000 ; else security = 5000 ;
-   if (action[IDobj] && nLongTouch && clickLongLeft[0] && encreList.size() < security) addEncre(factorPressure, sprayDirection, angleSpray, spray, inkDiffusion, inkFlux, fill_item[IDobj]) ; 
+   if (action[ID_item] && nLongTouch && clickLongLeft[0] && encreList.size() < security) addEncre(factorPressure, sprayDirection, angleSpray, spray, inkDiffusion, inkFlux, fill_item[ID_item]) ; 
   
     //display
     for ( Old_Pixel e :  encreList ) {
-      if (action[IDobj]) e.drying(var, timeDry) ;
+      if (action[ID_item]) e.drying(var, timeDry) ;
       strokeWeight(thicknessPoint) ;
       noFill() ;
-      if(changeColor) stroke(hue(e.colour), saturation(e.colour), brightness(e.colour), alpha(fill_item[IDobj])); else stroke(fill_item[IDobj]) ;
+      if(changeColor) stroke(hue(e.colour), saturation(e.colour), brightness(e.colour), alpha(fill_item[ID_item])); else stroke(fill_item[ID_item]) ;
       point(e.pos.x, e.pos.y) ;
     }
     
     /////////////////////////////
     //CLEAR THE LIST IF NECESSARY 
-    if (resetAction(IDobj)) encreList.clear() ;
+    if (resetAction(ID_item)) encreList.clear() ;
   }
   void addEncre(float fp, PVector d, float a, int spray, float diffusion, int flux, int colorInk) {
     for ( int i = 0 ; i < flux *fp ; i++ ) {
@@ -218,13 +217,13 @@ class Spray extends Romanesco {
       PVector posTilt = new PVector ( mouse[0].x - tilt.x , mouse[0].y - tilt.y  ) ;
       
       //calcul the final position to display
-      mouse[IDobj].x = rotation(posTilt, mouse[0], angle).x ;
-      mouse[IDobj].y = rotation(posTilt, mouse[0], angle).y ;
-      mouse[IDobj].sub(startingPosition[IDobj]) ;
+      mouse[ID_item].x = rotation(posTilt, mouse[0], angle).x ;
+      mouse[ID_item].y = rotation(posTilt, mouse[0], angle).y ;
+      mouse[ID_item].sub(startingPosition[ID_item]) ;
 
       
       //put the pixel in the list to use peacefully
-      encreList.add( new Old_Pixel(mouse[IDobj], diffusion, colorInk)) ;
+      encreList.add( new Old_Pixel(mouse[ID_item], diffusion, colorInk)) ;
     }
   }
   

@@ -5,16 +5,15 @@ RUBIS || 2012 || 1.0.1
 class MesAmis extends Romanesco {
   public MesAmis() {
     //from the index_objects.csv
-    romanescoName = "Rubis" ;
-    IDobj = 9 ;
-    IDgroup = 1 ;
-    romanescoAuthor  = "Stan le Punk";
-    romanescoVersion = "version 1.0.1";
-    romanescoPack = "Base" ;
-    romanescoRender = "P3D" ;
-    //romanescoMode = "1 full/2 lines" but the line is not really interesting
-    romanescoMode = "" ; // separate the name by a slash and write the next mode immadialtly after this one.
-    romanescoSlider = "Fill hue,Fill sat,Fill bright,Fill alpha,Stroke hue,Stroke sat,Stroke bright,Stroke alpha,Thickness,Canvas X,Speed X,Quantity,Canvas X" ;
+    RPE_name = "Rubis" ;
+    ID_item = 9 ;
+    ID_group = 1 ;
+    RPE_author  = "Stan le Punk";
+    RPE_version = "version 1.0.1";
+    RPE_pack = "Base" ;
+    //RPE_mode = "1 full/2 lines" but the line is not really interesting
+    RPE_mode = "" ; // separate the name by a slash and write the next mode immadialtly after this one.
+    RPE_slider = "Fill hue,Fill sat,Fill bright,Fill alpha,Stroke hue,Stroke sat,Stroke bright,Stroke alpha,Thickness,Canvas X,Speed X,Quantity,Canvas X" ;
   }
   //GLOBAL
   IntList IDpeople = new IntList() ;
@@ -27,7 +26,7 @@ class MesAmis extends Romanesco {
   
   //SETUP
   void setting() {
-    startPosition(IDobj, width/2, height/2, 0) ;
+    startPosition(ID_item, width/2, height/2, 0) ;
     int num = (int)random(15,25)  ;
     rangePeople = width/2 ;
     amiSetting(num, rangePeople) ;
@@ -44,28 +43,28 @@ class MesAmis extends Romanesco {
 
     
     // speed
-    float speed = map(speed_x_item[IDobj],0,1, .0001, .2);
+    float speed = map(speed_x_item[ID_item],0,1, .0001, .2);
     speed = speed*speed ;
-    if(sound[IDobj]) speed *= allBeats(IDobj) ;
+    if(sound[ID_item]) speed *= allBeats(ID_item) ;
 
 
 
     PVector jitter = new PVector() ;
-    if(sound[IDobj] && getTimeTrack() > 0.2 ) {
+    if(sound[ID_item] && getTimeTrack() > 0.2 ) {
       float factor = .2 ;
-      float valueX = left[IDobj]*factor *(width / 2 ) ;
-      float valueY = right[IDobj]*factor *(height / 2 ) ;
-      float valueZ = mix[IDobj]*factor *(height / 2 ) ;
+      float valueX = left[ID_item]*factor *(width / 2 ) ;
+      float valueY = right[ID_item]*factor *(height / 2 ) ;
+      float valueZ = mix[ID_item]*factor *(height / 2 ) ;
       jitter = new PVector(valueX,valueY,valueZ) ;
     }
 
     // size of the rubis
-    float radiusMax = map(canvas_x_item[IDobj], width/10, width, width/4, width *1.5) ;
-    float radiusMin = map(swing_x_item[IDobj], 0, 1, radiusMax, radiusMax /10) ;
+    float radiusMax = map(canvas_x_item[ID_item], width/10, width, width/4, width *1.5) ;
+    float radiusMin = map(swing_x_item[ID_item], 0, 1, radiusMax, radiusMax /10) ;
 
 
      // stop motion
-    if(!motion[IDobj]) { 
+    if(!motion[ID_item]) { 
       speed = 0 ; 
       jitter = new PVector(0,0,0) ;
     }
@@ -75,10 +74,10 @@ class MesAmis extends Romanesco {
 
     
     // new population
-    if(!fullRendering)  quantity_item[IDobj] *= .1 ;
-    numPeople = (int)map(quantity_item[IDobj],0, 1, 10, 70) ; 
+    if(!fullRendering)  quantity_item[ID_item] *= .1 ;
+    numPeople = (int)map(quantity_item[ID_item],0, 1, 10, 70) ; 
     if ( numPeople != refNumPeople ) newPopulation = true ;
-    refNumPeople = (int)map(quantity_item[IDobj],0, 1, 10, 70) ;
+    refNumPeople = (int)map(quantity_item[ID_item],0, 1, 10, 70) ;
     if(newPopulation) {
       listPeople.clear() ;
       amiSetting(numPeople, rangePeople) ;
@@ -86,8 +85,8 @@ class MesAmis extends Romanesco {
     }
     
     
-    aspect(IDobj) ;
-    amiDrawHeartMove(center, speed, radiusMin, radiusMax, jitter, mode[IDobj]) ;
+    aspect_rpe(ID_item) ;
+    amiDrawHeartMove(center, speed, radiusMin, radiusMax, jitter, mode[ID_item]) ;
 
   }
   
@@ -145,7 +144,7 @@ class MesAmis extends Romanesco {
     }
     
     // info
-    objectInfo[IDobj] =(numPeople + " summits") ;
+    objectInfo[ID_item] =(numPeople + " summits") ;
   }
   
   

@@ -9,27 +9,26 @@ boolean useBackdrop = false;
 class The_Abbyss extends Romanesco {
   public The_Abbyss() {
     //from the index_objects.csv
-    romanescoName = "The Abbyss" ;
-    IDobj = 7 ;
-    IDgroup = 1 ;
-    romanescoAuthor  = "Andreas Gysin";
-    romanescoVersion = "version 2.1.1";
-    romanescoPack = "Base" ;
-    romanescoRender = "P3D" ;
-    romanescoMode = "Box Fish/Cubus/Floater/Radio/Worm/Sea Fly/Breather/Spider/Manta/Father/Super Nova" ;// separate the name by a slash and write the next mode immadialtly after this one.
-    romanescoSlider = "Fill hue,Fill sat,Fill bright,Fill alpha,Stroke hue,Stroke sat,Stroke bright,Stroke alpha,Thickness" ;
+    RPE_name = "The Abbyss" ;
+    ID_item = 7 ;
+    ID_group = 1 ;
+    RPE_author  = "Andreas Gysin";
+    RPE_version = "version 2.1.1";
+    RPE_pack = "Base" ;
+    RPE_mode = "Box Fish/Cubus/Floater/Radio/Worm/Sea Fly/Breather/Spider/Manta/Father/Super Nova" ;// separate the name by a slash and write the next mode immadialtly after this one.
+    RPE_slider = "Fill hue,Fill sat,Fill bright,Fill alpha,Stroke hue,Stroke sat,Stroke bright,Stroke alpha,Thickness" ;
   }
   //GLOBAL
   
   //SETUP
   void setting() {
-    startPosition(IDobj, width/2, height/2, 0) ;
+    startPosition(ID_item, width/2, height/2, 0) ;
     creatureManager = new CreatureManager(callingClass);
   }
   //DRAW
   void display() {
-    if(alpha(stroke_item[IDobj]) == 0 ) thickness_item[IDobj] = 0 ;
-    creatureManager.loop(fill_item[IDobj], stroke_item[IDobj], thickness_item[IDobj], speed_x_item[IDobj] *100.0);
+    if(alpha(stroke_item[ID_item]) == 0 ) thickness_item[ID_item] = 0 ;
+    creatureManager.loop(fill_item[ID_item], stroke_item[ID_item], thickness_item[ID_item], speed_x_item[ID_item] *100.0);
     
     
     
@@ -37,22 +36,22 @@ class The_Abbyss extends Romanesco {
     //CHANGE MODE DISPLAY
     /////////////////////
     int whichCreature ; 
-    if (mode[IDobj] == 0 || mode[IDobj] == 255 ) whichCreature = 0 ;
-    else if (mode[IDobj] == 1 ) whichCreature = 1 ;
-    else if (mode[IDobj] == 2 ) whichCreature = 2 ;
-    else if (mode[IDobj] == 3 ) whichCreature = 3 ;
-    else if (mode[IDobj] == 4 ) whichCreature = 4 ;
-    else if (mode[IDobj] == 5 ) whichCreature = 5 ;
-    else if (mode[IDobj] == 6 ) whichCreature = 6 ;
-    else if (mode[IDobj] == 7 ) whichCreature = 7 ;
-    else if (mode[IDobj] == 8 ) whichCreature = 8 ;
-    else if (mode[IDobj] == 9 ) whichCreature = 9 ;
-    else if (mode[IDobj] == 10 ) whichCreature = 10 ;
-    else if (mode[IDobj] == 11 ) whichCreature = 11 ;
-    else if (mode[IDobj] == 12 ) whichCreature = 12 ;
+    if (mode[ID_item] == 0 || mode[ID_item] == 255 ) whichCreature = 0 ;
+    else if (mode[ID_item] == 1 ) whichCreature = 1 ;
+    else if (mode[ID_item] == 2 ) whichCreature = 2 ;
+    else if (mode[ID_item] == 3 ) whichCreature = 3 ;
+    else if (mode[ID_item] == 4 ) whichCreature = 4 ;
+    else if (mode[ID_item] == 5 ) whichCreature = 5 ;
+    else if (mode[ID_item] == 6 ) whichCreature = 6 ;
+    else if (mode[ID_item] == 7 ) whichCreature = 7 ;
+    else if (mode[ID_item] == 8 ) whichCreature = 8 ;
+    else if (mode[ID_item] == 9 ) whichCreature = 9 ;
+    else if (mode[ID_item] == 10 ) whichCreature = 10 ;
+    else if (mode[ID_item] == 11 ) whichCreature = 11 ;
+    else if (mode[ID_item] == 12 ) whichCreature = 12 ;
     else whichCreature = 0 ;
     
-    if(action[IDobj]) {
+    if(action[ID_item]) {
       if (nLongTouch && frameCount % 3 == 0) creatureManager.addCurrentCreature(whichCreature);
       //to cennect the creature to the camera
       if(cLongTouch) {
@@ -61,10 +60,10 @@ class The_Abbyss extends Romanesco {
       }
     }
     //
-    if (resetAction(IDobj)) creatureManager.killAll(whichCreature);
+    if (resetAction(ID_item)) creatureManager.killAll(whichCreature);
     
     // info display
-    objectInfo[IDobj] = ("Creatures "+ creatureManager.creatures.size()) ;
+    objectInfo[ID_item] = ("Creatures "+ creatureManager.creatures.size()) ;
 
   }
 }

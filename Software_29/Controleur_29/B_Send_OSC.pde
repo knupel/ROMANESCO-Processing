@@ -91,11 +91,11 @@ void translateDataToSend() {
 
   
   if(state_bg_shader > SWITCH_VALUE_FOR_DROPDOWN)     value_button_general[14] = state_bg_shader ;
-  if(state_image_bitmap > SWITCH_VALUE_FOR_DROPDOWN)  value_button_general[15] = state_image_bitmap ;
-  if(state_image_svg > SWITCH_VALUE_FOR_DROPDOWN)     value_button_general[16] = state_image_svg ;
-  if(state_file_text > SWITCH_VALUE_FOR_DROPDOWN)     value_button_general[17] = state_file_text ;
-  if(state_file_text > SWITCH_VALUE_FOR_DROPDOWN)     value_button_general[18] = state_file_text ;
-  if(state_camera_video > SWITCH_VALUE_FOR_DROPDOWN)  value_button_general[19] = ID_camera_video_list[state_camera_video] ;
+  if(state_bitmap > SWITCH_VALUE_FOR_DROPDOWN)  value_button_general[15] = state_bitmap ;
+  if(state_svg > SWITCH_VALUE_FOR_DROPDOWN)     value_button_general[16] = state_svg ;
+  if(state_text > SWITCH_VALUE_FOR_DROPDOWN)     value_button_general[17] = state_text ;
+  if(state_movie > SWITCH_VALUE_FOR_DROPDOWN)     value_button_general[18] = state_movie ;
+  if(state_camera > SWITCH_VALUE_FOR_DROPDOWN)  value_button_general[19] = ID_camera_video_list[state_camera] ;
 
   
   //BUTTON GROUP ONE

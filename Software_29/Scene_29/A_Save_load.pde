@@ -224,7 +224,7 @@ void saveDataObject(String path) {
 		dataObj.setFloat(variety_name, variety_item[i]) ;
 
 		dataObj.setFloat(life_name, life_item[i]) ;
-		dataObj.setFloat(fertility_name, fertility_item[i]) ;
+		dataObj.setFloat(flow_name, flow_item[i]) ;
 		dataObj.setFloat(quality_name, quality_item[i]) ;
 
 		dataObj.setFloat(area_name, area_item[i] /width) ;

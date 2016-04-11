@@ -6,15 +6,14 @@ Spirale spirale ;
 class SpiraleRomanesco extends Romanesco {
   public SpiraleRomanesco() {
     //from the index_objects.csv
-    romanescoName = "Spirale" ;
-    IDobj = 13 ;
-    IDgroup = 1 ;
-    romanescoAuthor  = "Stan le Punk";
-    romanescoVersion = "Version 1.3.1";
-    romanescoPack = "Base" ;
-    romanescoRender = "P3D" ;
-    romanescoMode = "Rectangle/Ellipse/Box" ;
-    romanescoSlider = "Fill hue,Fill sat,Fill bright,Fill alpha,Stroke hue,Stroke sat,Stroke bright,Stroke alpha,Thickness,Size X,Size Y,Size Z,Quantity,Speed X,Canvas X,Canvas Y,Alignment" ;
+    RPE_name = "Spirale" ;
+    ID_item = 13 ;
+    ID_group = 1 ;
+    RPE_author  = "Stan le Punk";
+    RPE_version = "Version 1.3.1";
+    RPE_pack = "Base" ;
+    RPE_mode = "Rectangle/Ellipse/Box" ;
+    RPE_slider = "Fill hue,Fill sat,Fill bright,Fill alpha,Stroke hue,Stroke sat,Stroke bright,Stroke alpha,Thickness,Size X,Size Y,Size Z,Quantity,Speed X,Canvas X,Canvas Y,Alignment" ;
   }
   //GLOBAL
      
@@ -22,17 +21,17 @@ class SpiraleRomanesco extends Romanesco {
     boolean reverseSpeed;
   //SETUP
   void setting() {
-    startPosition(IDobj, width/2, height/2, 0) ;
+    startPosition(ID_item, width/2, height/2, 0) ;
     spirale = new Spirale() ;
   }
   //DRAW
   void display() {
-    aspect(IDobj) ;
-    strokeWeight(thickness_item[IDobj]*.02) ;
+    aspect_rpe(ID_item) ;
+    strokeWeight(thickness_item[ID_item]*.02) ;
     //quantity
     int n ;
     int nMax = 1 ;
-     nMax = 1 + int(quantity_item[IDobj] *300) ; 
+     nMax = 1 + int(quantity_item[ID_item] *300) ; 
     if(!fullRendering) nMax *= .1 ;
     n = nMax ;
 
@@ -40,32 +39,32 @@ class SpiraleRomanesco extends Romanesco {
     float z = max ;
     //speed
     
-    // if(reverse[IDobj]) reverseSpeed = !reverseSpeed ;
+    // if(reverse[ID_item]) reverseSpeed = !reverseSpeed ;
     
-    if(motion[IDobj]) {
-      float s = map(speed_x_item[IDobj],0,1,0,8) ;
+    if(motion[ID_item]) {
+      float s = map(speed_x_item[ID_item],0,1,0,8) ;
       s *= s ;
-      if(reverse[IDobj]) speed = s *tempo[IDobj] ; else speed = s *tempo[IDobj] *-1. ;
+      if(reverse[ID_item]) speed = s *tempo[ID_item] ; else speed = s *tempo[ID_item] *-1. ;
     } else { 
       speed = 0.0 ;
     }
     //sound volume
     float minValueVol = .8 ;
     float maxValueVol = 5.5 ;
-    if(!sound[IDobj]) maxValueVol = 1 ;
-    float volumeLeft = map (left[IDobj], 0,1, minValueVol, maxValueVol ) ;
-    float volumeRight = map (right[IDobj], 0,1, minValueVol, maxValueVol ) ;
-    float volumeMix = map (mix[IDobj], 0,1, minValueVol, maxValueVol ) ;
+    if(!sound[ID_item]) maxValueVol = 1 ;
+    float volumeLeft = map (left[ID_item], 0,1, minValueVol, maxValueVol ) ;
+    float volumeRight = map (right[ID_item], 0,1, minValueVol, maxValueVol ) ;
+    float volumeMix = map (mix[ID_item], 0,1, minValueVol, maxValueVol ) ;
     
     
     //SIZE
-    float beatMap = map(beat[IDobj] +snare[IDobj] +hat[IDobj],1,9,1,50) ;
+    float beatMap = map(beat[ID_item] +snare[ID_item] +hat[ID_item],1,9,1,50) ;
     float minValueSize = .5 ;
     float maxValueSize = width *.003 ;
     
-    float widthTemp = map(size_x_item[IDobj], .1, width, minValueSize, maxValueSize) ;
-    float heightTemp = map(size_y_item[IDobj], .1, width, minValueSize, maxValueSize) ;
-    float depthTemp  = map(size_z_item[IDobj], .1, width, minValueSize, maxValueSize) ;
+    float widthTemp = map(size_x_item[ID_item], .1, width, minValueSize, maxValueSize) ;
+    float heightTemp = map(size_y_item[ID_item], .1, width, minValueSize, maxValueSize) ;
+    float depthTemp  = map(size_z_item[ID_item], .1, width, minValueSize, maxValueSize) ;
     
     widthTemp *= widthTemp ;
     heightTemp *= heightTemp ;
@@ -80,18 +79,18 @@ class SpiraleRomanesco extends Romanesco {
     
     //amplitude of the translate
     float minValueCanvas = .01 ;
-    float maxValueCanvas = 3 *(kick[IDobj] *.7) ;
-    float canvasXtemp = map(canvas_x_item[IDobj], width *.1, width,minValueCanvas,maxValueCanvas) ;
-    float canvasYtemp = map(canvas_y_item[IDobj], width *.1, width,minValueCanvas,maxValueCanvas) ;
-    // float canvasZtemp = map(canvas_z_item[IDobj], width *.1, width,minValueCanvas,maxValueCanvas) ;
+    float maxValueCanvas = 3 *(kick[ID_item] *.7) ;
+    float canvasXtemp = map(canvas_x_item[ID_item], width *.1, width,minValueCanvas,maxValueCanvas) ;
+    float canvasYtemp = map(canvas_y_item[ID_item], width *.1, width,minValueCanvas,maxValueCanvas) ;
+    // float canvasZtemp = map(canvas_z_item[ID_item], width *.1, width,minValueCanvas,maxValueCanvas) ;
     PVector canvas = new PVector(canvasXtemp, canvasYtemp)  ;
     
     PVector pos = new PVector() ; // we write that because the first part of the void is not available any more.
     spirale.actualisation (pos, speed) ;
-    spirale.affichage (n, nMax, size, z, canvas, mode[IDobj], horizon[IDobj], alignment_item[IDobj]) ;
+    spirale.affichage (n, nMax, size, z, canvas, mode[ID_item], horizon[ID_item], alignment_item[ID_item]) ;
     
     // info display
-    objectInfo[IDobj] = ("Speed "+speed+ " - Amplitude " + map(z, 1.01, 1.27, 1,100) + " - Quantity " + nMax) ;
+    objectInfo[ID_item] = ("Speed "+speed+ " - Amplitude " + map(z, 1.01, 1.27, 1,100) + " - Quantity " + nMax) ;
   }
 }
 

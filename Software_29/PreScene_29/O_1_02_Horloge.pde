@@ -5,15 +5,15 @@ HORLOGE || 2012 || 2.0.2
 class Horloge extends Romanesco {
   public Horloge() {
     //from the index_objects.csv
-    romanescoName = "Horloge" ;
-    IDobj = 2 ;
-    IDgroup = 1 ;
-    romanescoAuthor  = "Stan Le Punk";
-    romanescoVersion = "Version 2.0.1";
-    romanescoPack = "Base" ;
+    RPE_name = "Horloge" ;
+    ID_item = 2 ;
+    ID_group = 1 ;
+    RPE_author  = "Stan Le Punk";
+    RPE_version = "Version 2.0.1";
+    RPE_pack = "Base" ;
     romanescoRender = "classic" ;
-    romanescoMode = "Ellipse Clock 12/Ellipse Clock 24/Line Clock 12/Line Clock 24/minutes/secondes" ;// separate the name by a slash and write the next mode immadialtly after this one.
-    romanescoSlider = "Fill hue,Fill sat,Fill bright,Fill alpha,Canvas X,Direction X,Area,Speed X,Size X" ;
+    RPE_mode = "Ellipse Clock 12/Ellipse Clock 24/Line Clock 12/Line Clock 24/minutes/secondes" ;// separate the name by a slash and write the next mode immadialtly after this one.
+    RPE_slider = "Fill hue,Fill sat,Fill bright,Fill alpha,Canvas X,Direction X,Area,Speed X,Size X" ;
   }
   //GLOBAL
   Vec3 pos_clock = Vec3() ; 
@@ -21,7 +21,7 @@ class Horloge extends Romanesco {
   
   //SETUP
   void setting() {
-    startPosition(IDobj, width/2, height/2, -width) ;
+    startPosition(ID_item, width/2, height/2, -width) ;
     pos_clock = Vec3(width/2,height/2,0) ;
   }
   
@@ -32,13 +32,13 @@ class Horloge extends Romanesco {
   void display() {
     textAlign(CENTER);
     // typo
-    float sizeFont = font_size_item[IDobj] +12 ;
-    textFont(font[IDobj], sizeFont *allBeats(IDobj));
+    float sizeFont = font_size_item[ID_item] +12 ;
+    textFont(font[ID_item], sizeFont *allBeats(ID_item));
     
     // couleur du texte
-    float t = alpha(fill_item[IDobj]) * abs(mix[IDobj]) ;
-    if (sound[IDobj]) t = alpha(fill_item[IDobj]) ;
-    color c = color(hue(fill_item[IDobj]), saturation(fill_item[IDobj]), brightness(fill_item[IDobj]), t ) ;
+    float t = alpha(fill_item[ID_item]) * abs(mix[ID_item]) ;
+    if (sound[ID_item]) t = alpha(fill_item[ID_item]) ;
+    color c = color(hue(fill_item[ID_item]), saturation(fill_item[ID_item]), brightness(fill_item[ID_item]), t ) ;
     // security against the blavk bug opacity
     if (alpha(c) == 0 ) {
       noFill() ; 
@@ -48,18 +48,18 @@ class Horloge extends Romanesco {
     }
     
     //rotation / deg
-    float angle = map(dir_x_item[IDobj], 0,360, 0, TAU) ;
+    float angle = map(dir_x_item[ID_item], 0,360, 0, TAU) ;
     //amplitude
-    float amp = map(swing_x_item[IDobj],0,1, 1, height  / 4) ;
+    float amp = map(swing_x_item[ID_item],0,1, 1, height  / 4) ;
 
     // pos clock
-    if(motion[IDobj]) {
+    if(motion[ID_item]) {
       local_frameCount += 1 ;
       int direction = 1 ;
-      if(reverse[IDobj]) direction = -1 ;
-      float speed_x = speed_x_item[IDobj] *.02 ;
-      float speed_y = speed_x_item[IDobj] *.01 ;
-      float speed_z = speed_x_item[IDobj] *.03 ;
+      if(reverse[ID_item]) direction = -1 ;
+      float speed_x = speed_x_item[ID_item] *.02 ;
+      float speed_y = speed_x_item[ID_item] *.01 ;
+      float speed_z = speed_x_item[ID_item] *.03 ;
       float pos_x = sin(local_frameCount *speed_x *direction) *width *.5  +(width/2)  ;
       float pos_y = cos(local_frameCount *speed_y *direction) *height *.5 +(height/2) ;
       float pos_z = sin(local_frameCount *speed_z *direction) *height ;
@@ -69,17 +69,17 @@ class Horloge extends Romanesco {
     
     //CHANGE MODE DISPLAY
     /////////////////////
-    if (mode[IDobj] == 0 ) {
+    if (mode[ID_item] == 0 ) {
       horlogeCercle (pos_clock, angle, amp, 12 ) ; // on 12 hours model english clock
-    } else if (mode[IDobj] == 1 ) {
+    } else if (mode[ID_item] == 1 ) {
       horlogeCercle (pos_clock, angle,  amp, 24 ) ; // on 24 hours model international clock
-    } else if (mode[IDobj] == 2 ) {
+    } else if (mode[ID_item] == 2 ) {
       horlogeLigne  (pos_clock, angle, amp, 12 ) ; // on 12 hours model english clock
-    } else if (mode[IDobj] == 3 ) {
+    } else if (mode[ID_item] == 3 ) {
       horlogeLigne  (pos_clock, angle, amp, 24 ) ; // on 24 hours model international clock
-    } else if (mode[IDobj] == 4 ) {
+    } else if (mode[ID_item] == 4 ) {
       horlogeMinute(pos_clock, angle) ;
-    } else if (mode[IDobj] == 5 ) {
+    } else if (mode[ID_item] == 5 ) {
       horlogeSeconde(pos_clock, angle) ;
     }
 

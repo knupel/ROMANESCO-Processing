@@ -1,14 +1,15 @@
-// CLASS VEC 1.1.0
-///////////////////
 /**
-inspireted by GLSL code and PVector from Daniel Shiffman
-https://github.com/StanLepunK/Vec
+CLASS VEC 1.2.0
+RPE – Romanesco Processing Environment –
+* @author Stan le Punk
+* @see https://github.com/StanLepunK/Vec
+* inspireted by GLSL code and PVector from Daniel Shiffman
 */
 
 
 /**
-// VEC 2
-////////////////
+VEC 2
+
 */
 class Vec2 {
   float ref_x, ref_y = 0 ;
@@ -26,15 +27,16 @@ class Vec2 {
     this.ref_x = this.x = this.s = this.u = x ;
     this.ref_y = this.y = this.t = this.v = y ;
   }
-  
-  // random generator for the Vec
+  /**
+  Random constructor
+  */
   Vec2(String key_random, int r1) {
     if(key_random.equals("RANDOM")) {
-    this.ref_x = this.x = this.s = this.u = random(-r1,r1) ;
-    this.ref_y = this.y = this.t = this.v = random(-r1,r1) ;
+      this.ref_x = this.x = this.s = this.u = random(-r1,r1) ;
+      this.ref_y = this.y = this.t = this.v = random(-r1,r1) ;
     } else if(key_random.equals("RANDOM ZERO")) {
-    this.ref_x = this.x = this.s = this.u = random(0,r1) ;
-    this.ref_y = this.y = this.t = this.v = random(0,r1) ;
+      this.ref_x = this.x = this.s = this.u = random(0,r1) ;
+      this.ref_y = this.y = this.t = this.v = random(0,r1) ;
     } else {
       this.ref_x = this.ref_y = this.x = this.y = this.s = this.t = this.u = this.v = 0 ;
       println("the key word for the random is not available use the String 'RANDOM' or 'RANDOM ZERO' ") ;
@@ -43,22 +45,49 @@ class Vec2 {
   
   Vec2(String key_random, int r1, int r2) {
     if(key_random.equals("RANDOM")) {
-    this.ref_x = this.x = this.s = this.u = random(-r1,r1) ;
-    this.ref_y = this.y = this.t = this.v = random(-r2,r2) ;
+      this.ref_x = this.x = this.s = this.u = random(-r1,r1) ;
+      this.ref_y = this.y = this.t = this.v = random(-r2,r2) ;
     } else if(key_random.equals("RANDOM ZERO")) {
-    this.ref_x = this.x = this.s = this.u = random(0,r1) ;
-    this.ref_y = this.y = this.t = this.v = random(0,r2) ;
+      this.ref_x = this.x = this.s = this.u = random(0,r1) ;
+      this.ref_y = this.y = this.t = this.v = random(0,r2) ;
+    } else if(key_random.equals("RANDOM RANGE")) {
+      this.ref_x = this.x = this.s = this.u = random(r1,r2) ;
+      this.ref_y = this.y = this.t = this.v = random(r1,r2) ;
     } else {
       this.ref_x = this.ref_y = this.x = this.y = this.s = this.t = this.u = this.v = 0 ;
-      println("the key word for the random is not available use the String 'RANDOM' or 'RANDOM ZERO' ") ;
+      println("the key word for the random is not available use the String 'RANDOM' or 'RANDOM ZERO' or 'RANDOM RANGE' ") ;
     }
   }
 
-  // Set Vector
+  Vec2(String key_random, int a1, int a2, int b1, int b2) {
+    if(key_random.equals("RANDOM RANGE")) {
+      this.ref_x = this.x = this.s = this.u = random(a1,a2) ;
+      this.ref_y = this.y = this.t = this.v = random(b1,b2) ;
+    } else {
+      this.ref_x = this.ref_y = this.x = this.y = this.s = this.t = this.u = this.v = 0 ;
+      println("the key word for the random is not available use the String 'RANDOM RANGE' ") ;
+    }
+  }
+  /**
+  Set
+  */
    /**
    * Sets components of the vector using two or three separate
    * variables, the data from a Vec, or the values from a float array.
    */
+  public Vec2 set(float value) {
+     this.x = this.s = this.u = this.y = this.t = this.v = value ;
+     /*
+    this.x = value ;
+    this.s = value ;
+    this.u = value ;
+
+    this.y = value ;
+    this.t = value ;
+    this.v = value ;
+    */
+    return this;
+  }
   public Vec2 set(float x, float y) {
     this.x = x ;
     this.s = x ;
@@ -75,13 +104,13 @@ class Vec2 {
    * @param v any variable of type Vec
    */
   public Vec2 set(Vec2 value) {
-    x = value.x ;
-    s = value.x ;
-    u = value.x ;
+    this.x = value.x ;
+    this.s = value.x ;
+    this.u = value.x ;
 
-    y = value.y ;
-    t = value.y ;
-    v = value.y ;
+    this.y = value.y ;
+    this.t = value.y ;
+    this.v = value.y ;
     return this;
   }
 
@@ -91,13 +120,13 @@ class Vec2 {
    * @param source array to copy from
    */
   public Vec2 set(float[] source) {
-    x = source[0];
-    s = source[0];
-    u = source[0];
+    this.x = source[0];
+    this.s = source[0];
+    this.u = source[0];
 
-    y = source[1];
-    t = source[1];
-    v = source[1];
+    this.y = source[1];
+    this.t = source[1];
+    this.v = source[1];
     return this;
   }
 
@@ -109,8 +138,9 @@ class Vec2 {
   
   
   
-  
-  // multiplication
+  /**
+  multiplication
+  */
   /* multiply Vector by a same float value */
   Vec2 mult(float mult) {
     x *= mult ; 
@@ -138,9 +168,9 @@ class Vec2 {
     return new Vec2(x,y);
   }
   
-  
-    // division
-  ///////////
+  /**
+  division
+  */
   /*
   divide Vector by a float value */
   Vec2 div(float div) {
@@ -160,8 +190,8 @@ class Vec2 {
   }
   
   
-  /* Addition
-  @return Vec2
+  /** 
+  Addition
   */
   /* add float value */
   Vec2 add(float value) {
@@ -197,7 +227,9 @@ class Vec2 {
   }
 
 
-  // substraction
+  /**
+  Substraction
+  */
     /* add float value */
   Vec2 sub(float value) {
     x -= value ;
@@ -232,7 +264,9 @@ class Vec2 {
   }
 
 
-    // dot
+    /**
+  Dot
+  */
   public float dot(Vec2 v) {
     return x*v.x + y*v.y;
   }
@@ -242,7 +276,9 @@ class Vec2 {
 
   
   
-  //direction of vector
+  /**
+  Direction
+  */
   //return mapping vector
   // @return Vec2
   Vec2 dir() {
@@ -261,7 +297,9 @@ class Vec2 {
   }
 
 
-  // tangent Vector
+  /**
+  Tangent
+  */
   Vec2 tan() {
     return tan(Vec2(x,y)) ;
   }
@@ -280,7 +318,9 @@ class Vec2 {
   }
   
 
-
+  /**
+  Min Max
+  */
     // find the min and the max value in the vector list
   // @ float
   float max_vec() {
@@ -291,7 +331,11 @@ class Vec2 {
     float [] list = { x, y} ;
     return min(list) ;
   }
-  /* normalize
+
+  /**
+  Normalize
+  */
+  /*
   return mapping vector
   @return Vec2
   */
@@ -310,7 +354,11 @@ class Vec2 {
     set(x,y) ;
     return new Vec2(x,y) ;
   }
-  /* mapping
+
+  /**
+ Map
+  */
+  /*
   return mapping vector
   @return Vec2
   */
@@ -322,10 +370,12 @@ class Vec2 {
     return new Vec2(x,y) ;
   }
   
+   /**
+  Mag
+  */
   /* magnitude or length of Vec2
   @ return float
   */
-  /////////////////////
   float mag() {
     x *= x ;
     y *= y ; 
@@ -339,8 +389,9 @@ class Vec2 {
   }
   
   
-  // Distance
-  ////////////
+  /**
+  Distance
+  */
   /*
   @ return float
   distance between himself and an other vector
@@ -352,18 +403,16 @@ class Vec2 {
   }
   
   
-  // Jitter
-  ////////////
+  /**
+  Jitter
+  */
   /* create jitter effect around the vector position */
   /* with global range */
   Vec2 jitter(int range) {
-    x = ref_x ;
-    y = ref_y ;
-    x += random(-range, range) ;
-    y += random(-range, range) ;
-    
-    set(x,y) ;
-    return new Vec2(x,y) ;
+    return jitter(range,range) ;
+  }
+  Vec2 jitter(Vec2 range) {
+    return jitter((int)range.x,(int)range.y) ;
   }
   /* with specific range */
   Vec2 jitter(int range_x,int range_y) {
@@ -377,25 +426,25 @@ class Vec2 {
   }
   
   
-  // Circular motion
-  //////////////////
+  /**
+  Circular
+  */
   /* create a circular motion effect */
-  Vec2 circular(int diam, int speed) {
-    /* may be change by 
-    float new_speed = speed *.01 ;
-    */
-    float new_speed = speed /100. ; 
+  Vec2 revolution(int radius, float speed) {
+    float new_speed = speed *.01 ; 
     x = ref_x ;
     y = ref_y ;
     float m_x = sin(frameCount *new_speed) ;
     float m_y = cos(frameCount *new_speed) ;
-    m_x *= diam ;
-    m_y *= diam ;
+    m_x *=radius ;
+    m_y *=radius ;
     
     return new Vec2(x +m_x, y +m_y) ;
   }
   
-  // compare
+  /**
+  Compare
+  */
   boolean compare(Vec2 target) {
     if(target != null ) {
       if((x == target.x) && (y == target.y)) {
@@ -417,8 +466,10 @@ class Vec2 {
   
   
   
-  /*catch info
-  /////////////
+  /**
+  Copy
+  */
+  /*
   return all the component of Vec
   @return Vec2
   */
@@ -434,7 +485,9 @@ class Vec2 {
   }
 
 
-  // print info
+  /**
+  Print info
+  */
   @ Override String toString() {
     return "[ " + x + ", " + y + " ]";
   }
@@ -448,8 +501,8 @@ class Vec2 {
 
 
 /**
-// VEC 3
-////////////////
+VEC 3
+
 */
 class Vec3 {
   float ref_x, ref_y, ref_z = 0 ;
@@ -459,8 +512,9 @@ class Vec3 {
   
   
   
-  
-  // CONSTRUCTOR
+  /**
+  Constructor
+  */
   Vec3() {}
   
   Vec3(float value) {
@@ -468,22 +522,30 @@ class Vec3 {
   }
   
   Vec3(float x, float y, float z) {
-    this.ref_x = this.x = this.r =this.s = x ;
-    this.ref_y = this.y = this.g =this.t = y ;
-    this.ref_z = this.z = this.b = this.p =z ;
+    this.ref_x = this.x = this.r = this.s = x ;
+    this.ref_y = this.y = this.g = this.t = y ;
+    this.ref_z = this.z = this.b = this.p = z ;
+  }
+
+  Vec3(Vec2 v) {
+    this.ref_x = this.x = this.r = this.s = v.x ;
+    this.ref_y = this.y = this.g = this.t = v.y ;
+    this.ref_z = this.z = this.b = this.p = 0 ;
   }
   
-  
+   /**
+  Random constructor
+  */ 
   // random generator for the Vec
   Vec3(String key_random, int r1) {
     if(key_random.equals("RANDOM")) {
-    this.ref_x = this.x = this.r =this.s = random(-r1,r1) ;
-    this.ref_y = this.y = this.g =this.t = random(-r1,r1) ;
-    this.ref_z = this.z = this.b = this.p = random(-r1,r1) ;
+      this.ref_x = this.x = this.r = this.s = random(-r1,r1) ;
+      this.ref_y = this.y = this.g = this.t = random(-r1,r1) ;
+      this.ref_z = this.z = this.b = this.p = random(-r1,r1) ;
     } else if(key_random.equals("RANDOM ZERO")) {
-    this.ref_x = this.x = this.r =this.s = random(0,r1) ;
-    this.ref_y = this.y = this.g =this.t = random(0,r1) ;
-    this.ref_z = this.z = this.b = this.p = random(0,r1) ;
+      this.ref_x = this.x = this.r = this.s = random(0,r1) ;
+      this.ref_y = this.y = this.g = this.t = random(0,r1) ;
+      this.ref_z = this.z = this.b = this.p = random(0,r1) ;
     } else {
       this.ref_x = this.ref_y = this.ref_z = this.x = this.y = this.z  = this.r = this.g = this.b =this.s = this.t = this.p = 0 ;
       println("the key word for the random is not available use the String 'RANDOM' or 'RANDOM ZERO' ") ;
@@ -492,32 +554,62 @@ class Vec3 {
   
   Vec3(String key_random, int r1, int r2, int r3) {
     if(key_random.equals("RANDOM")) {
-    this.ref_x = this.x = this.r =this.s = random(-r1,r1) ;
-    this.ref_y = this.y = this.g =this.t = random(-r2,r2) ;
-    this.ref_z = this.z = this.b = this.p = random(-r3,r3) ;
+      this.ref_x = this.x = this.r = this.s = random(-r1,r1) ;
+      this.ref_y = this.y = this.g = this.t = random(-r2,r2) ;
+      this.ref_z = this.z = this.b = this.p = random(-r3,r3) ;
+    } else if(key_random.equals("RANDOM ZERO")) {
+      this.ref_x = this.x = this.r = this.s = random(0,r1) ;
+      this.ref_y = this.y = this.g = this.t = random(0,r2) ;
+      this.ref_z = this.z = this.b = this.p = random(0,r3) ;
     } else {
       this.ref_x = this.ref_y = this.ref_z = this.x = this.y = this.z  = this.r = this.g = this.b =this.s = this.t = this.p = 0 ;
       println("the key word for the random is not available use the String 'RANDOM' or 'RANDOM ZERO' ") ;
     }
   }
 
+  Vec3(String key_random, int a1, int a2, int b1, int b2, int c1, int c2) {
+    if(key_random.equals("RANDOM RANGE")) {
+      this.ref_x = this.x = this.r = this.s = random(a1,a2) ;
+      this.ref_y = this.y = this.g = this.t = random(b1,b2) ;
+      this.ref_z = this.z = this.b = this.p = random(c1,c2) ;
+    } else {
+      this.ref_x = this.ref_y = this.ref_z = this.x = this.y = this.z  = this.r = this.g = this.b =this.s = this.t = this.p = 0 ;
+      println("the key word for the random is not available use the String 'RANDOM RANGE' ") ;
+    }
+  }
 
 
-    // Set Vector
+
+  /**
+  Set
+  */
    /**
    * Sets components of the vector using two or three separate
    * variables, the data from a Vec, or the values from a float array.
    */
+   
+   public Vec3 set(float value) {
+    this.x = value ;
+    this.r = value ;
+    this.s = value ;
+    this.y = value;
+    this.g = value;
+    this.t = value ;
+    this.z = value;
+    this.b = value;
+    this.p = value ;
+    return this;
+  }
   public Vec3 set(float x, float y, float z) {
     this.x = x ;
-    r = x ;
-    s = x ;
+    this.r = x ;
+    this.s = x ;
     this.y = y;
-    g = y;
-    t = y ;
+    this.g = y;
+    this.t = y ;
     this.z = z;
-    b = z;
-    p = z ;
+    this.b = z;
+    this.p = z ;
     return this;
   }
 
@@ -526,17 +618,17 @@ class Vec3 {
    * @param v any variable of type Vec
    */
   public Vec3 set(Vec3 value) {
-    x = value.x ;
-    r = value.x ;
-    s = value.x ;
+    this.x = value.x ;
+    this.r = value.x ;
+    this.s = value.x ;
 
-    y = value.y ;
-    g = value.y ;
-    t = value.y ;
+    this.y = value.y ;
+    this.g = value.y ;
+    this.t = value.y ;
 
-    z = value.z ;
-    b = value.z ;
-    p = value.z ;
+    this.z = value.z ;
+    this.b = value.z ;
+    this.p = value.z ;
     return this;
   }
 
@@ -546,17 +638,17 @@ class Vec3 {
    * @param source array to copy from
    */
   public Vec3 set(float[] source) {
-    x = source[0] ;
-    r = source[0] ;
-    s = source[0] ;
+    this.x = source[0] ;
+    this.r = source[0] ;
+    this.s = source[0] ;
 
-    y = source[1] ;
-    g = source[1] ;
-    t = source[1] ;
+    this.y = source[1] ;
+    this.g = source[1] ;
+    this.t = source[1] ;
 
-    z = source[2] ;
-    b = source[2] ;
-    p = source[2] ;
+    this.z = source[2] ;
+    this.b = source[2] ;
+    this.p = source[2] ;
     return this;
   }
   
@@ -570,9 +662,12 @@ class Vec3 {
   
   
   
-  // METHOD
-  //////////////////////
-  // multiplication
+  /**
+  METHOD
+  */
+  /**
+  Mult
+  */
   /* multiply Vector by a same float value */
   Vec3 mult(float mult) {
     x *= mult ; y *= mult ; z *= mult ;
@@ -599,8 +694,9 @@ class Vec3 {
   
   
   
-  // division
-  ///////////
+  /**
+  Division
+  */
   /*
   @ return Vec
   divide Vector by a float value */
@@ -621,7 +717,9 @@ class Vec3 {
   
   
   
-  // addition
+  /**
+  Addition
+  */
     /* add float value */
   Vec3 add(float value) {
     x += value ;
@@ -661,7 +759,9 @@ class Vec3 {
 
 
 
-  // substraction
+  /**
+  Substraction
+  */
     /* add float value */
   Vec3 sub(float value) {
     x -= value ;
@@ -700,7 +800,9 @@ class Vec3 {
   }
 
 
-  // dot
+  /**
+  Dot
+  */
   public float dot(Vec3 v) {
     return x*v.x + y*v.y + z*v.z;
   }
@@ -708,8 +810,9 @@ class Vec3 {
     return this.x*x + this.y*y + this.z*z;
   }
 
-  // CROSS
-  /////////
+  /**
+  Cross
+  */
   Vec3 cross(Vec3 v) {
     return cross(v, null);
   }
@@ -732,8 +835,9 @@ class Vec3 {
   }
   
 
-
-  // direction cartesian
+  /**
+  Direction cartesian
+  */
   Vec3 dir() {
     return dir(Vec3(0)) ;
   }
@@ -751,7 +855,9 @@ class Vec3 {
   
   
 
-  // tangent Vector
+  /**
+  Tangent
+  */
   // to find the tangent you need to associate an other vector of your dir vector to create a reference plane.
   Vec3 tan(float float_to_make_plane_ref_x, float float_to_make_plane_ref_y, float float_to_make_plane_ref_z) {
     return tan(Vec3(float_to_make_plane_ref_x, float_to_make_plane_ref_y, float_to_make_plane_ref_z)) ;
@@ -763,7 +869,9 @@ class Vec3 {
   }
   
 
-
+  /**
+  Map
+  */
   // find the min and the max value in the vector list
   // @ float
   float max_vec() {
@@ -779,9 +887,10 @@ class Vec3 {
 
 
 
-
+  /**
+  Normalize
+  */
   /*
-  normalization
   return mapping vector
   @return Vec3
   */
@@ -802,8 +911,11 @@ class Vec3 {
     set(x,y,z) ;
     return new Vec3(x,y,z) ;
   }
+
+  /**
+  Map
+  */
   /*
-  mapping
   return mapping vector
   @return Vec3
   */
@@ -818,8 +930,9 @@ class Vec3 {
   
   
   
-  // Magnitude
-  ////////////
+  /**
+  Magnitude
+  */
   /* Magnitude or length of Vec3
   @ return float
   */
@@ -838,8 +951,9 @@ class Vec3 {
     return sqrt(new_x +new_y +new_z) ;
   }
   
-  // Distance
-  ////////////
+  /**
+  Distance
+  */
   /*
   @ return float
   distance himself and an other vector
@@ -851,20 +965,16 @@ class Vec3 {
     return (float) Math.sqrt(dx*dx + dy*dy + dz*dz);
   }
   
-  // Jitter
-  ////////////
+  /**
+  Jitter
+  */
   /* create jitter effect around the vector position */
   /* with global range */
   Vec3 jitter(int range) {
-    x = ref_x ;
-    y = ref_y ;
-    z = ref_z ;
-    x += random(-range, range) ;
-    y += random(-range, range) ;
-    z += random(-range, range) ;
-
-    set(x,y,z) ;
-    return new Vec3(x,y,z) ;
+    return jitter(range,range,range) ;
+  }
+  Vec3 jitter(Vec3 range) {
+    return jitter((int)range.x,(int)range.y,(int)range.z) ;
   }
   /* with specific range */
   Vec3 jitter(int range_x,int range_y,int range_z) {
@@ -880,7 +990,66 @@ class Vec3 {
   }
   
   
-  // compare
+  
+  /**
+  Circular
+  */
+  /* create a circular motion effect */
+  Vec3 revolutionX(int rx, int ry, float speed) {
+    return revolutionX(Vec2(rx,ry), speed) ;
+  }
+  Vec3 revolutionX(int r, float speed) {
+    return revolutionX(Vec2(r,r), speed) ;
+  }
+  Vec3 revolutionX(Vec2 radius, float speed) {
+    float new_speed = speed *.01 ; 
+    x = ref_x ;
+    y = ref_y ;
+    float m_x = sin(frameCount *new_speed) ;
+    float m_y = cos(frameCount *new_speed) ;
+    m_x *=radius.x ;
+    m_y *=radius.y ;
+    return new Vec3(x +m_x, y +m_y, z) ;
+  }
+  //
+  Vec3 revolutionY(int rx, int ry, float speed) {
+    return revolutionY(Vec2(rx,ry), speed) ;
+  }
+  Vec3 revolutionY(int r, float speed) {
+    return revolutionY(Vec2(r,r), speed) ;
+  }
+  Vec3 revolutionY(Vec2 radius, float speed) {
+    float new_speed = speed *.01 ; 
+    x = ref_x ;
+    z = ref_z ;
+    float m_x = sin(frameCount *new_speed) ;
+    float m_z = cos(frameCount *new_speed) ;
+    m_x *=radius.x ;
+    m_z *=radius.y ;
+    return new Vec3(x +m_x, y, z +m_z) ;
+  }
+  //
+  Vec3 revolutionZ(int rx, int ry, float speed) {
+    return revolutionZ(Vec2(rx,ry), speed) ;
+  }
+    Vec3 revolutionZ(int r, float speed) {
+    return revolutionZ(Vec2(r,r), speed) ;
+  }
+  Vec3 revolutionZ(Vec2 radius, float speed) {
+    float new_speed = speed *.01 ; 
+    y = ref_y ;
+    z = ref_z ;
+    float m_y = sin(frameCount *new_speed) ;
+    float m_z = cos(frameCount *new_speed) ;
+    m_y *=radius.x ;
+    m_z *=radius.y ;
+    return new Vec3(x, y +m_y, z +m_z) ;
+  }
+  
+  
+  /**
+  Compare
+  */
   boolean compare(Vec3 target) {
     if(target != null ) {
       if((x == target.x) && (y == target.y) && (z == target.z)) {
@@ -905,8 +1074,9 @@ class Vec3 {
 
   
   
-  // catch info
-  /////////////
+  /**
+  Copy
+  */
   /*
   return all the component of Vec
   @return Vec3
@@ -922,7 +1092,9 @@ class Vec3 {
     return new PVector(x,y,z) ;
   }
 
-  // print info
+  /**
+  Print info
+  */
   @ Override String toString() {
     return "[ " + x + ", " + y + ", " + z + " ]";
   }
@@ -937,15 +1109,17 @@ class Vec3 {
 
 
 /**
-// VEC 4
-////////
+VEC 4
+
 */
 class Vec4 {
   float ref_x, ref_y, ref_z, ref_w = 0 ;
   float x,y,z,w = 0 ;
   float r, g, b, a = 0 ;
   float s, t, p, q = 0 ;
-  
+  /**
+  Constructor
+  */
   Vec4 () {}
   
   Vec4(float value) {
@@ -954,23 +1128,50 @@ class Vec4 {
   
   Vec4(float x, float y, float z, float w) {
     this.ref_x = this.x = this.r = this.s = x ;
-    this.ref_y = this.y = this.g = this.t =y ;
-    this.ref_z = this.z = this.b = this.p =z ;
+    this.ref_y = this.y = this.g = this.t = y ;
+    this.ref_z = this.z = this.b = this.p = z ;
     this.ref_w = this.w = this.a = this.q = w ;
   }
-  
+
+  Vec4(Vec3 v) {
+    this.ref_x = this.x = this.r = this.s = v.x ;
+    this.ref_y = this.y = this.g = this.t = v.y ;
+    this.ref_z = this.z = this.b = this.p = v.z ;
+    this.ref_w = this.w = this.a = this.q = 0 ;
+  }
+
+  Vec4(Vec2 v) {
+    this.ref_x = this.x = this.r = this.s = v.x ;
+    this.ref_y = this.y = this.g = this.t = v.y ;
+    this.ref_z = this.z = this.b = this.p = 0 ;
+    this.ref_w = this.w = this.a = this.q = 0 ;
+  }
+
+  Vec4(Vec2 v1, Vec2 v2) {
+    this.ref_x = this.x = this.r = this.s = v1.x ;
+    this.ref_y = this.y = this.g = this.t = v1.y ;
+    this.ref_z = this.z = this.b = this.p = v2.x ;
+    this.ref_w = this.w = this.a = this.q = v2.y ;
+  }
+
+
+
+
+  /**
+  Random constructor
+  */ 
   // random generator for the Vec
   Vec4(String key_random, int r1) {
     if(key_random.equals("RANDOM")) {
-    this.ref_x = this.x = this.r =this.s = random(-r1,r1) ;
-    this.ref_y = this.y = this.g =this.t = random(-r1,r1) ;
-    this.ref_z = this.z = this.b = this.p = random(-r1,r1) ;
-    this.ref_w = this.w = this.a = this.q = random(-r1,r1) ;
+      this.ref_x = this.x = this.r =this.s = random(-r1,r1) ;
+      this.ref_y = this.y = this.g =this.t = random(-r1,r1) ;
+      this.ref_z = this.z = this.b = this.p = random(-r1,r1) ;
+      this.ref_w = this.w = this.a = this.q = random(-r1,r1) ;
     } else if(key_random.equals("RANDOM ZERO")) {
-    this.ref_x = this.x = this.r =this.s = random(0,r1) ;
-    this.ref_y = this.y = this.g =this.t = random(0,r1) ;
-    this.ref_z = this.z = this.b = this.p = random(0,r1) ;
-    this.ref_w = this.w = this.a = this.q = random(0,r1) ;
+      this.ref_x = this.x = this.r =this.s = random(0,r1) ;
+      this.ref_y = this.y = this.g =this.t = random(0,r1) ;
+      this.ref_z = this.z = this.b = this.p = random(0,r1) ;
+      this.ref_w = this.w = this.a = this.q = random(0,r1) ;
     } else {
       this.ref_x = this.ref_y = this.ref_z = this.ref_w = this.x = this.y = this.z = this.w = this.r = this.g = this.b = this.a =this.s = this.t = this.p = this.q = 0 ;
       println("the key word for the random is not available use the String 'RANDOM' or 'RANDOM ZERO' ") ;
@@ -979,39 +1180,70 @@ class Vec4 {
   
   Vec4(String key_random, int r1, int r2, int r3, int r4) {
     if(key_random.equals("RANDOM")) {
-    this.ref_x = this.x = this.r =this.s = random(-r1,r1) ;
-    this.ref_y = this.y = this.g =this.t = random(-r2,r2) ;
-    this.ref_z = this.z = this.b = this.p = random(-r3,r3) ;
-    this.ref_w = this.w = this.a = this.q = random(-r4,r4) ;
-    } else if(key_random.equals("RANDOM")) {
-    this.ref_x = this.x = this.r =this.s = random(0,r1) ;
-    this.ref_y = this.y = this.g =this.t = random(0,r2) ;
-    this.ref_z = this.z = this.b = this.p = random(0,r3) ;
-    this.ref_w = this.w = this.a = this.q = random(0,r4) ;
+      this.ref_x = this.x = this.r =this.s = random(-r1,r1) ;
+      this.ref_y = this.y = this.g =this.t = random(-r2,r2) ;
+      this.ref_z = this.z = this.b = this.p = random(-r3,r3) ;
+      this.ref_w = this.w = this.a = this.q = random(-r4,r4) ;
+    } else if(key_random.equals("RANDOM ZERO")) {
+      this.ref_x = this.x = this.r =this.s = random(0,r1) ;
+      this.ref_y = this.y = this.g =this.t = random(0,r2) ;
+      this.ref_z = this.z = this.b = this.p = random(0,r3) ;
+      this.ref_w = this.w = this.a = this.q = random(0,r4) ;
     } else {
       this.ref_x = this.ref_y = this.ref_z = this.ref_w = this.x = this.y = this.z = this.w = this.r = this.g = this.b = this.a =this.s = this.t = this.p = this.q = 0 ;
       println("the key word for the random is not available use the String 'RANDOM' or 'RANDOM ZERO' ") ;
     }
   }
+
+  Vec4(String key_random, int a1, int a2, int b1, int b2, int c1, int c2, int d1, int d2) {
+    if(key_random.equals("RANDOM RANGE")) {
+      this.ref_x = this.x = this.r = this.s = random(a1,a2) ;
+      this.ref_y = this.y = this.g = this.t = random(b1,b2) ;
+      this.ref_z = this.z = this.b = this.p = random(c1,c2) ;
+      this.ref_w = this.w = this.a = this.q = random(d1,d2) ;
+    } else {
+      this.ref_x = this.ref_y = this.ref_z = this.x = this.y = this.z  = this.r = this.g = this.b =this.s = this.t = this.p = 0 ;
+      println("the key word for the random is not available use the String 'RANDOM RANGE' ") ;
+    }
+  }
   
-  // Set Vector
+  /**
+  Set
+  */
    /**
    * Sets components of the vector using two or three separate
    * variables, the data from a Vec, or the values from a float array.
    */
+  public Vec4 set(float value) {
+    this.x = value ;
+    this.r = value ;
+    this.s = value ;
+    this.y = value ;
+    this.g = value ;
+    this.t = value ;
+    this.z = value ;
+    this.b = value ;
+    this.p = value ;
+    this.w = value ;
+    this.a = value ;
+    this.q = value ;
+    return this;
+  }
+  
+  
   public Vec4 set(float x, float y, float z, float w) {
     this.x = x ;
-    r = x ;
-    s = x ;
-    this.y = y;
-    g = y;
-    t = y ;
-    this.z = z;
-    b = z;
-    p = z ;
-    this.w = w;
-    a = w ;
-    q = w ;
+    this.r = x ;
+    this.s = x ;
+    this.y = y ;
+    this.g = y ;
+    this.t = y ;
+    this.z = z ;
+    this.b = z ;
+    this.p = z ;
+    this.w = w ;
+    this.a = w ;
+    this.q = w ;
     return this;
   }
 
@@ -1020,21 +1252,21 @@ class Vec4 {
    * @param v any variable of type Vec
    */
   public Vec4 set(Vec4 value) {
-    x = value.x ;
-    r = value.x ;
-    s = value.x ;
+    this.x = value.x ;
+    this.r = value.x ;
+    this.s = value.x ;
 
-    y = value.y ;
-    g = value.y ;
-    t = value.y ;
+    this.y = value.y ;
+    this.g = value.y ;
+    this.t = value.y ;
 
-    z = value.z ;
-    b = value.z ;
-    p = value.z ;
+    this.z = value.z ;
+    this.b = value.z ;
+    this.p = value.z ;
 
-    w = value.w ;
-    a = value.w ;
-    q = value.w ;
+    this.w = value.w ;
+    this.a = value.w ;
+    this.q = value.w ;
     return this;
   }
 
@@ -1044,31 +1276,32 @@ class Vec4 {
    * @param source array to copy from
    */
   public Vec4 set(float[] source) {
-    x = source[0] ;
-    r = source[0] ;
-    s = source[0] ;
+    this.x = source[0] ;
+    this.r = source[0] ;
+    this.s = source[0] ;
 
-    y = source[1] ;
-    g = source[1] ;
-    t = source[1] ;
+    this.y = source[1] ;
+    this.g = source[1] ;
+    this.t = source[1] ;
 
-    z = source[2] ;
-    b = source[2] ;
-    p = source[2] ;
+    this.z = source[2] ;
+    this.b = source[2] ;
+    this.p = source[2] ;
 
-    w = source[3] ;
-    a = source[3] ;
-    q = source[3] ;
+    this.w = source[3] ;
+    this.a = source[3] ;
+    this.q = source[3] ;
     return this;
   }
-  
-  
-  
-  
-  
-  // METHOD
-  
-  // multiplication
+
+
+
+  /** 
+  METHOD
+  */
+  /**
+  Multiplication
+  */
   // mult by a same float
   Vec4 mult(float mult) {
     x *= mult ; y *= mult ; z *= mult ; w *= mult ;
@@ -1094,8 +1327,9 @@ class Vec4 {
   }
   
   
-    // division
-  ///////////
+  /**
+  Division
+  */
   /*
   @ return Vec
   divide Vector by a float value */
@@ -1115,7 +1349,9 @@ class Vec4 {
   }
   
   
-  // addition
+  /**
+  Addition
+  */
     /* add float value */
   Vec4 add(float value) {
     x += value ;
@@ -1156,7 +1392,9 @@ class Vec4 {
     return new Vec4(x,y,z,w) ;
   }
 
-    // substraction
+  /**
+  Substraction
+  */
     /* add float value */
   Vec4 sub(float value) {
     x -= value ;
@@ -1198,7 +1436,9 @@ class Vec4 {
     return new Vec4(x,y,z,w) ;
   }
 
-    // dot
+  /**
+  Dot
+  */
   public float dot(Vec4 v) {
     return x*v.x + y*v.y + z*v.z + w*this.w;
   }
@@ -1208,7 +1448,9 @@ class Vec4 {
 
 
 
-    // return cartesian direction
+  /**
+  Direction cartesian
+  */
   Vec4 dir() {
     return dir(Vec4(0)) ;
   }
@@ -1225,7 +1467,9 @@ class Vec4 {
     return new Vec4(x,y,z,w) ;
   }
   
-  
+  /**
+  Min Max
+  */
     // find the min and the max value in the vector list
   // @ float
   float max_vec() {
@@ -1236,8 +1480,11 @@ class Vec4 {
     float [] list = { x, y, z,w } ;
     return min(list) ;
   }
+
+  /**
+  Normalize
+  */
   /*
-  normalization
   return mapping vector
   @return Vec3
   */
@@ -1251,6 +1498,7 @@ class Vec4 {
     return new Vec4(x,y,z,w) ;
   }
   
+
   Vec4 normalize(Vec4 max) {
     x = map(x, 0, max.x, 0, 1) ;
     y = map(y, 0, max.y, 0, 1) ;
@@ -1260,6 +1508,10 @@ class Vec4 {
     set(x,y,z,w) ;
     return new Vec4(x,y,z,w) ;
   }
+
+  /**
+  Map
+  */
   /* mapping
   return mapping vector
   @return Vec4
@@ -1274,8 +1526,9 @@ class Vec4 {
     return new Vec4(x,y,z,w) ;
   }
   
-  // magnitude or length
-  /////////////////////
+  /**
+  Magnitude or length
+ */
   float mag() {
     x *= x ;
     y *= y ; 
@@ -1292,8 +1545,9 @@ class Vec4 {
     return sqrt(new_x +new_y +new_z +new_w) ;
   }
   
-  // Distance
-  ////////////
+  /**
+  Distance
+  */
   // distance himself and an other vector
   float dist(Vec4 v_target) {
     float dx = x - v_target.x;
@@ -1304,22 +1558,16 @@ class Vec4 {
   }
   
   
-    // Jitter
-  ////////////
+  /**
+  Jitter
+  */
   /* create jitter effect around the vector position */
   /* with global range */
   Vec4 jitter(int range) {
-    x = ref_x ;
-    y = ref_y ;
-    z = ref_z ;
-    w = ref_w ;
-    x += random(-range, range) ;
-    y += random(-range, range) ;
-    z += random(-range, range) ;
-    w += random(-range, range) ;
-    
-    set(x,y,z,w) ;
-    return new Vec4(x,y,z,w) ;
+    return jitter(range,range,range,range) ;
+  }
+  Vec4 jitter(Vec4 range) {
+    return jitter((int)range.x,(int)range.y,(int)range.z,(int)range.w) ;
   }
   /* with specific range */
   Vec4 jitter(int range_x,int range_y,int range_z,int range_w) {
@@ -1337,7 +1585,9 @@ class Vec4 {
   }
   
    
-  // compare
+  /**
+  Compare
+  */
   boolean compare(Vec4 target) {
     if(target != null ) {
       if((x == target.x) && (y == target.y) && (z == target.z) && (w == target.w)) {
@@ -1357,13 +1607,16 @@ class Vec4 {
     else return false ;
   }
   
-  // catch info
-  /////////////
+  /**
+  Copy
+  */
   Vec4 copy() {
     return new Vec4(x,y,z,w) ;
   }
 
-    // print info
+  /**
+  Print info
+  */
   @ Override String toString() {
     return "[ " + x + ", " + y + ", " + z + ", " + w + " ]";
   }
@@ -1373,13 +1626,15 @@ class Vec4 {
 
 
 /**
-// CLASS Vec5
-/////////////
+CLASS Vec5
+
 */
 class Vec5 {
   float a,b,c,d,e = 0 ;
 
-  
+  /**
+  Constructor
+  */
   Vec5 () {}
   
   Vec5(float value) {
@@ -1393,24 +1648,74 @@ class Vec5 {
     this.d = d ;
     this.e = e ;
   }
+
+  Vec5(Vec4 v) {
+    this.a = v.x ;
+    this.b = v.y ;
+    this.c = v.z ;
+    this.d = v.w ;
+    this.e = 0 ;
+  }
+
+  Vec5(Vec3 v) {
+    this.a = v.x ;
+    this.b = v.y ;
+    this.c = v.z ;
+    this.d = 0 ;
+    this.e = 0 ;
+  }
+
+  Vec5(Vec2 v) {
+    this.a = v.x ;
+    this.b = v.y ;
+    this.c = 0 ;
+    this.d = 0 ;
+    this.e = 0 ;
+  }
+
+  Vec5(Vec2 v1, Vec2 v2) {
+    this.a = v1.x ;
+    this.b = v1.y ;
+    this.c = v2.x ;
+    this.d = v2.y ;
+    this.e = 0 ;
+  }
+
+  Vec5(Vec3 v1, Vec2 v2) {
+    this.a = v1.x ;
+    this.b = v1.y ;
+    this.c = v1.z ;
+    this.d = v2.x ;
+    this.e = v2.y ;
+  }
+
+  Vec5(Vec2 v1, Vec3 v2) {
+    this.a = v1.x ;
+    this.b = v1.y ;
+    this.c = v2.x ;
+    this.d = v2.y ;
+    this.e = v2.z ;
+  }
   
   
   
-  
+  /**
+  Random Constructor
+  */
   // random generator for the Vec
   Vec5(String key_random, int r1) {
     if(key_random.equals("RANDOM")) {
-    this.a = random(-r1,r1) ;
-    this.b = random(-r1,r1) ;
-    this.c = random(-r1,r1) ;
-    this.d = random(-r1,r1) ;
-    this.e = random(-r1,r1) ;
+      this.a = random(-r1,r1) ;
+      this.b = random(-r1,r1) ;
+      this.c = random(-r1,r1) ;
+      this.d = random(-r1,r1) ;
+      this.e = random(-r1,r1) ;
     } else if(key_random.equals("RANDOM ZERO")) {
-    this.a = random(0,r1) ;
-    this.b = random(0,r1) ;
-    this.c = random(0,r1) ;
-    this.d = random(0,r1) ;
-    this.e = random(0,r1) ;
+      this.a = random(0,r1) ;
+      this.b = random(0,r1) ;
+      this.c = random(0,r1) ;
+      this.d = random(0,r1) ;
+      this.e = random(0,r1) ;
     } else {
       this.a = this.b = this.c = this.d = this.e = 0 ;
       println("the key word for the random is not available use the String 'RANDOM' or 'RANDOM ZERO' ") ;
@@ -1419,29 +1724,54 @@ class Vec5 {
   
   Vec5(String key_random, int r1, int r2, int r3, int r4, int r5) {
     if(key_random.equals("RANDOM")) {
-    this.a = random(-r1,r1) ;
-    this.b = random(-r2,r2) ;
-    this.c = random(-r3,r3) ;
-    this.d = random(-r4,r4) ;
-    this.e = random(-r5,r5) ;
+      this.a = random(-r1,r1) ;
+      this.b = random(-r2,r2) ;
+      this.c = random(-r3,r3) ;
+      this.d = random(-r4,r4) ;
+      this.e = random(-r5,r5) ;
     } else if(key_random.equals("RANDOM ZERO")) {
-    this.a = random(0,r1) ;
-    this.b = random(0,r2) ;
-    this.c = random(0,r3) ;
-    this.d = random(0,r4) ;
-    this.e = random(0,r5) ;
+      this.a = random(0,r1) ;
+      this.b = random(0,r2) ;
+      this.c = random(0,r3) ;
+      this.d = random(0,r4) ;
+      this.e = random(0,r5) ;
     } else {
       this.a = this.b = this.c = this.d = this.e = 0 ;
       println("the key word for the random is not available use the String 'RANDOM' or 'RANDOM ZERO' ") ;
     }
   }
 
+  Vec5(String key_random, int a1, int a2, int b1, int b2, int c1, int c2, int d1, int d2, int e1, int e2) {
+    if(key_random.equals("RANDOM RANGE")) {
+      this.a = random(a1,a2) ;
+      this.b = random(b1,b2) ;
+      this.c = random(c1,c2) ;
+      this.d = random(d1,d2) ;
+      this.e = random(e1,e2) ;
+    } else {
+      this.a = this.b = this.c = this.d = this.e = 0 ;
+      println("the key word for the random is not available use the String 'RANDOM RANGE' ") ;
+    }
+  }
 
-   // Set Vector
+
+  /**
+  Set
+  */
    /**
    * Sets components of the vector using two or three separate
    * variables, the data from a Vec, or the values from a float array.
    */
+   
+   public Vec5 set(float value) {
+    this.a = value ;
+    this.b = value;
+    this.c = value;
+    this.d = value;
+    this.e = value;
+    return this;
+  }
+  
   public Vec5 set(float a, float b, float c, float d, float e) {
     this.a = a ;
     this.b = b;
@@ -1477,7 +1807,10 @@ class Vec5 {
     e = source[4] ;
     return this;
   }
-  
+
+  /**
+  Min Max
+  */
     // find the min and the max value in the vector list
   // @ float
   float max_vec() {
@@ -1489,13 +1822,16 @@ class Vec5 {
     return min(list) ;
   }
   
-  // catch info
-  /////////////
+  /**
+  Copy
+  */
   Vec5 copy() {
     return new Vec5(a,b,c,d,e) ;
   }
   
-  // print info
+  /**
+  Print info
+  */
   @ Override String toString() {
     return "[ " + a + ", " + b + ", " + c + ", " + d + ", " + e + " ]";
   }
@@ -1506,13 +1842,15 @@ class Vec5 {
 
 
 /**
-// CLASS Vec6
-/////////////
+CLASS Vec6
+
 */
 class Vec6 {
   float a,b,c,d,e,f = 0 ;
 
-  
+  /**
+  Constructor
+  */
   Vec6 () {}
   
   Vec6(float value) {
@@ -1527,21 +1865,124 @@ class Vec6 {
     this.e = e ;
     this.f = f ;
   }
+
+  Vec6(Vec5 v) {
+    this.a = v.a ;
+    this.b = v.b ;
+    this.c = v.c ;
+    this.d = v.d ;
+    this.e = v.e ;
+    this.f = 0 ;
+
+  }
+
+
+  Vec6(Vec4 v) {
+    this.a = v.x ;
+    this.b = v.y ;
+    this.c = v.z ;
+    this.d = v.w ;
+    this.e = 0 ;
+    this.f = 0 ;
+  }
+
+  Vec6(Vec3 v) {
+    this.a = v.x ;
+    this.b = v.y ;
+    this.c = v.z ;
+    this.d = 0 ;
+    this.e = 0 ;
+    this.f = 0 ;
+  }
+
+  Vec6(Vec2 v) {
+    this.a = v.x ;
+    this.b = v.y ;
+    this.c = 0 ;
+    this.d = 0 ;
+    this.e = 0 ;
+    this.f = 0 ;
+  }
+
+  Vec6(Vec2 v1, Vec2 v2) {
+    this.a = v1.x ;
+    this.b = v1.y ;
+    this.c = v2.x ;
+    this.d = v2.y ;
+    this.e = 0 ;
+    this.f = 0 ;
+  }
+
+  Vec6(Vec3 v1, Vec3 v2) {
+    this.a = v1.x ;
+    this.b = v1.y ;
+    this.c = v1.z ;
+    this.d = v2.x ;
+    this.e = v2.y ;
+    this.f = v2.z ;
+  }
+
+  Vec6(Vec2 v1, Vec2 v2, Vec2 v3) {
+    this.a = v1.x ;
+    this.b = v1.y ;
+    this.c = v2.x ;
+    this.d = v2.y ;
+    this.e = v3.x ;
+    this.f = v3.y ;
+  }
   
+  Vec6(Vec4 v1, Vec2 v2) {
+    this.a = v1.x ;
+    this.b = v1.y ;
+    this.c = v1.z ;
+    this.d = v1.w ;
+    this.e = v2.x ;
+    this.f = v2.y ;
+  }
+
+  Vec6(Vec3 v1, Vec2 v2) {
+    this.a = v1.x ;
+    this.b = v1.y ;
+    this.c = v1.z ;
+    this.d = v2.x ;
+    this.e = v2.y ;
+    this.f = 0 ;
+  }
+
+  Vec6(Vec2 v1, Vec3 v2) {
+    this.a = v1.x ;
+    this.b = v1.y ;
+    this.c = v2.x ;
+    this.d = v2.y ;
+    this.e = v2.z ;
+    this.f = 0 ;
+  }
+
+  Vec6(Vec2 v1, Vec4 v2) {
+    this.a = v1.x ;
+    this.b = v1.y ;
+    this.c = v2.x ;
+    this.d = v2.y ;
+    this.e = v2.z ;
+    this.f = v2.w ;
+  }
   
+  /**
+  Random Constructor
+  */
   Vec6(String key_random, int r1) {
     if(key_random.equals("RANDOM")) {
-    this.a = random(-r1,r1) ;
-    this.b = random(-r1,r1) ;
-    this.c = random(-r1,r1) ;
-    this.d = random(-r1,r1) ;
-    this.e = random(-r1,r1) ;
+      this.a = random(-r1,r1) ;
+      this.b = random(-r1,r1) ;
+      this.c = random(-r1,r1) ;
+      this.d = random(-r1,r1) ;
+      this.e = random(-r1,r1) ;
     } else if(key_random.equals("RANDOM ZERO")) {
-    this.a = random(0,r1) ;
-    this.b = random(0,r1) ;
-    this.c = random(0,r1) ;
-    this.d = random(0,r1) ;
-    this.e = random(0,r1) ;
+      this.a = random(0,r1) ;
+      this.b = random(0,r1) ;
+      this.c = random(0,r1) ;
+      this.d = random(0,r1) ;
+      this.e = random(0,r1) ;
     } else {
       this.a = this.b = this.c = this.d = this.e = this.f = 0 ;
       println("the key word for the random is not available use the String 'RANDOM' or 'RANDOM ZERO' ") ;
@@ -1550,26 +1991,42 @@ class Vec6 {
   
   Vec6(String key_random, int r1, int r2, int r3, int r4, int r5, int r6) {
     if(key_random.equals("RANDOM")) {
-    this.a = random(-r1,r1) ;
-    this.b = random(-r2,r2) ;
-    this.c = random(-r3,r3) ;
-    this.d = random(-r4,r4) ;
-    this.e = random(-r5,r5) ;
-    this.f = random(-r6,r6) ;
+      this.a = random(-r1,r1) ;
+      this.b = random(-r2,r2) ;
+      this.c = random(-r3,r3) ;
+      this.d = random(-r4,r4) ;
+      this.e = random(-r5,r5) ;
+      this.f = random(-r6,r6) ;
     } else if(key_random.equals("RANDOM")) {
-    this.a = random(0,r1) ;
-    this.b = random(0,r2) ;
-    this.c = random(0,r3) ;
-    this.d = random(0,r4) ;
-    this.e = random(0,r5) ;
-    this.f = random(0,r6) ;
+      this.a = random(0,r1) ;
+      this.b = random(0,r2) ;
+      this.c = random(0,r3) ;
+      this.d = random(0,r4) ;
+      this.e = random(0,r5) ;
+      this.f = random(0,r6) ;
     } else {
       this.a = this.b = this.c = this.d = this.e = this.f = 0 ;
       println("the key word for the random is not available use the String 'RANDOM' or 'RANDOM ZERO' ") ;
     }
   }
 
-     // Set Vector
+  Vec6(String key_random, int a1, int a2, int b1, int b2, int c1, int c2, int d1, int d2, int e1, int e2, int f1, int f2) {
+    if(key_random.equals("RANDOM RANGE")) {
+      this.a = random(a1,a2) ;
+      this.b = random(b1,b2) ;
+      this.c = random(c1,c2) ;
+      this.d = random(d1,d2) ;
+      this.e = random(e1,e2) ;
+      this.f = random(f1,f2) ;
+    } else {
+      this.a = this.b = this.c = this.d = this.e = this.f = 0 ;
+      println("the key word for the random is not available use the String 'RANDOM RANGE' ") ;
+    }
+  }
+
+  /**
+  Set
+  */
    /**
    * Sets components of the vector using two or three separate
    * variables, the data from a Vec, or the values from a float array.
@@ -1614,7 +2071,9 @@ class Vec6 {
   }
 
 
-
+  /**
+  Min Max
+  */
       // find the min and the max value in the vector list
   // @ float
   float max_vec() {
@@ -1625,19 +2084,23 @@ class Vec6 {
     float [] list = {a,b,c,d,e,f} ;
     return min(list) ;
   }
-  // catch info
-  /////////////
+
+  /**
+  Copy
+  */
   Vec6 copy() {
     return new Vec6(a,b,c,d,e,f) ;
   }
 
-    // print info
+  /**
+  Print info
+  */
   @ Override String toString() {
     return "[ " + a + ", " + b + ", " + c + ", " + d + ", " + e + ", " + f + " ]" ;
   }
 }
 
-// END VEC 5
+// END VEC 6
 ////////////
 
 
@@ -1650,13 +2113,18 @@ class Vec6 {
 
 
 
+
+
+
+
+
 /**
-// External Methods VEC
-///////////////////////
+External Methods VEC
+
 */
-
-
-// Addition
+/**
+Addition
+*/
 // return the resultat of vector addition
 Vec2 add(Vec2 v_a, Vec2 v_b) {
     float x = v_a.x + v_b.x ;
@@ -1678,7 +2146,9 @@ Vec4 add(Vec4 v_a, Vec4 v_b) {
 }
 
 
-// Multiplication
+/**
+Multiplication
+*/
 // return the resultat of vector multiplication
 Vec2 mult(Vec2 v_a, Vec2 v_b) {
     float x = v_a.x * v_b.x ;
@@ -1700,7 +2170,9 @@ Vec4 mult(Vec4 v_a, Vec4 v_b) {
 }
 
 
-// Division
+/**
+Division
+*/
 // return the resultat of vector addition
 Vec2 div(Vec2 v_a, Vec2 v_b) {
     float x = v_a.x / v_b.x ;
@@ -1722,7 +2194,9 @@ Vec4 div(Vec4 v_a, Vec4 v_b) {
 }
 
 
-// Addition
+/**
+Substraction
+*/
 // return the resultat of vector substraction
 Vec2 sub(Vec2 v_a, Vec2 v_b) {
     float x = v_a.x - v_b.x ;
@@ -1744,7 +2218,9 @@ Vec4 sub(Vec4 v_a, Vec4 v_b) {
 }
 
 
-
+/**
+Cross
+*/
 Vec3 cross(Vec3 v1, Vec3 v2, Vec3 target) {
   float crossX = v1.y * v2.z - v2.y * v1.z;
   float crossY = v1.z * v2.x - v2.z * v1.x;
@@ -1762,14 +2238,15 @@ Vec3 cross(Vec3 v1, Vec3 v2, Vec3 target) {
 
 
 
-
-// Compare Vector with or without area
-
-// compare two vectors Vec without area
+/**
+Compare
+*/
 /*
+Compare Vector with or without area
+compare two vectors Vec without area
+
 @ return boolean
 */
-// Vec method
 // Vec2 compare
 boolean compare(Vec2 v_a, Vec2 v_b) {
   return compare(Vec4(v_a.x,v_a.y,0,0),Vec4(v_b.x,v_b.y,0,0)) ;
@@ -1820,7 +2297,10 @@ boolean compare(Vec4 v_a, Vec4 v_b, Vec4 area) {
 
 
 
-/* Map
+/**
+Map
+*/
+/*
 return mapping vector
 @return Vec2, Vec3 or Vec4
 */
@@ -1843,8 +2323,9 @@ Vec4 mapVec(Vec4 v,float minIn, float maxIn, float minOut, float maxOut) {
   return new Vec4(x,y,z,w) ;
 }
 
-
-// Magnitude or Length Vector
+/**
+Magnitude or length
+*/
 /*
 @return float
 */
@@ -1896,7 +2377,9 @@ float mag(Vec4 v_a, Vec4 v_b) {
 
 
 
-// Distance
+/**
+Distance
+*/
 /*
 return float
 return the distance beatwen two vectors
@@ -1921,8 +2404,9 @@ float dist(Vec4 v_a, Vec4 v_b) {
 }
 
 
-// Middle
-////////
+/**
+Middle
+*/
 /*
 @ return Vec2, Vec3 or Vec4
 return the middle between two Vector
@@ -1943,7 +2427,7 @@ Vec2 middle(Vec2 [] list)  {
   return middle ;
 }
 
-Vec3 middle(Vec3 p1, Vec3 p2)  {
+Vec3 middle(Vec3 p1, Vec3 p2) {
   Vec3 middle ;
   middle = add(p1, p2);
   middle.div(2) ;
@@ -1980,7 +2464,9 @@ Vec4 middle(Vec4 [] list)  {
 
 
 
-// Copy 
+/**
+Copy
+*/
 /*
 @ return Vec3
 Transform PVector in Vec
@@ -1991,30 +2477,30 @@ Vec3 copyPVectorToVec(PVector p) {
 
 
 
-// JITTER
-/////////
+/**
+Jitter
+*/
 // Vec2
-Vec2 jitterVec2(int range) {
-  Vec2 jitter = Vec2() ;
-  jitter.x = random(-range, range) ;
-  jitter.y = random(-range, range) ;
-  return jitter ;
+Vec2 jitter_2D(int range) {
+  return jitter_2D(range, range) ;
 }
-Vec2 jitterVec2(int range_x, int range_y) {
+Vec2 jitter_2D(Vec2 range) {
+  return jitter_2D((int)range.x, (int)range.y) ;
+}
+Vec2 jitter_2D(int range_x, int range_y) {
   Vec2 jitter = Vec2() ;
   jitter.x = random(-range_x, range_x) ;
   jitter.y = random(-range_y, range_y) ;
   return jitter ;
 }
 // Vec3
-Vec3 jitterVec3(int range) {
-  Vec3 jitter = Vec3() ;
-  jitter.x = random(-range, range) ;
-  jitter.y = random(-range, range) ;
-  jitter.z = random(-range, range) ;
-  return jitter ;
+Vec3 jitter_3D(int range) {
+  return jitter_3D(range, range, range) ;
 }
-Vec3 jitterVec3(int range_x, int range_y, int range_z) {
+Vec3 jitter_3D(Vec3 range) {
+  return jitter_3D((int)range.x, (int)range.y, (int)range.z) ;
+}
+Vec3 jitter_3D(int range_x, int range_y, int range_z) {
   Vec3 jitter = Vec3() ;
   jitter.x = random(-range_x, range_x) ;
   jitter.y = random(-range_y, range_y) ;
@@ -2022,14 +2508,13 @@ Vec3 jitterVec3(int range_x, int range_y, int range_z) {
   return jitter ;
 }
 // Vec4
-Vec4 jitterVec4(int range) {
-  Vec4 jitter = Vec4() ;
-  jitter.x = random(-range, range) ;
-  jitter.y = random(-range, range) ;
-  jitter.z = random(-range, range) ;
-  return jitter ;
+Vec4 jitter_4D(int range) {
+  return jitter_4D(range, range, range, range) ;
 }
-Vec4 jitterVec4(int range_x, int range_y, int range_z, int range_w) {
+Vec4 jitter_4D(Vec4 range) {
+  return jitter_4D((int)range.x, (int)range.y, (int)range.z, (int)range.w) ;
+}
+Vec4 jitter_4D(int range_x, int range_y, int range_z, int range_w) {
   Vec4 jitter = Vec4() ;
   jitter.x = random(-range_x, range_x) ;
   jitter.y = random(-range_y, range_y) ;
@@ -2041,7 +2526,9 @@ Vec4 jitterVec4(int range_x, int range_y, int range_z, int range_w) {
 /////////////
 
 
-// NORMALIZE DIRECTION
+/**
+Normalize
+*/
 // VEC 2 from angle
 ///////////////////
 Vec2 norm_rad(float angle) {
@@ -2087,69 +2574,9 @@ Vec2 norm_dir(String type, float direction) {
 /**
 Return a new Vec
 */
-
-// Vec 6
-////////
-Vec6 Vec6(float a, float b, float c, float d, float e, float f) {
-  return new Vec6(a,b,c,d,e,f) ;
-}
-
-Vec6 Vec6(float v) {
-  return new Vec6(v) ;
-}
-
-Vec6 Vec6() {
-  return new Vec6(0.) ;
-}
-
-// Vec 5
-////////
-Vec5 Vec5(float a, float b, float c, float d, float e) {
-  return new Vec5(a,b,c,d,e) ;
-}
-
-Vec5 Vec5(float v) {
-  return new Vec5(v) ;
-}
-
-Vec5 Vec5() {
-  return new Vec5(0.) ;
-}
-
-// Vec 4
-////////
-Vec4 Vec4(float x, float y, float z, float w) {
-  return new Vec4(x,y,z,w) ;
-}
-
-Vec4 Vec4(float v) {
-  return new Vec4(v) ;
-}
-
-Vec4 Vec4() {
-  return new Vec4(0.) ;
-}
-
-// Vec 3
-////////
-Vec3 Vec3(float x, float y, float z) {
-  return new Vec3(x,y,z) ;
-}
-
-Vec3 Vec3(float v) {
-  return new Vec3(v) ;
-}
-
-Vec3 Vec3(PVector p) {
-  return new Vec3(p.x, p.y, p.z) ;
-}
-
-Vec3 Vec3() {
-  return new Vec3(0.) ;
-}
-
-// Vec 2
-////////
+/**
+Vec 2
+*/
 Vec2 Vec2(float x, float y) { 
   return new Vec2(x,y) ;
 }
@@ -2162,30 +2589,298 @@ Vec2 Vec2(PVector p) {
   return new Vec2(p.x, p.y) ;
 }
 
-Vec2 Vec2() {
-  return new Vec2(0.) ;
+Vec2 Vec2(Vec2 p) {
+  return new Vec2(p.x, p.y) ;
 }
-// END CLASS VEC
-///////////////
+
+Vec2 Vec2() {
+  return new Vec2() ;
+}
+
+Vec2 Vec2(String s, int x, int y) { 
+  return new Vec2(s,x,y) ;
+}
+
+Vec2 Vec2(String s, int a, int b, int c, int d) { 
+  return new Vec2(s,a,b,c,d) ;
+}
+
+Vec2 Vec2(String s, int v) {
+  return new Vec2(s,v) ;
+}
+/**
+Vec 3
+*/
+Vec3 Vec3(float x, float y, float z) {
+  return new Vec3(x,y,z) ;
+}
+
+Vec3 Vec3(float v) {
+  return new Vec3(v) ;
+}
+
+Vec3 Vec3(PVector p) {
+  return new Vec3(p.x, p.y, p.z) ;
+}
+
+Vec3 Vec3(Vec3 p) {
+  return new Vec3(p.x, p.y, p.z) ;
+}
+
+Vec3 Vec3(Vec2 p) {
+  return new Vec3(p) ;
+}
+
+Vec3 Vec3() {
+  return new Vec3() ;
+}
+
+Vec3 Vec3(String s, int x, int y, int z) { 
+  return new Vec3(s,x,y,z) ;
+}
+
+Vec3 Vec3(String s, int a, int b, int c, int d, int e, int f) { 
+  return new Vec3(s,a,b,c,d,e,f) ;
+}
+
+Vec3 Vec3(String s, int v) {
+  return new Vec3(s,v) ;
+}
+/**
+Vec 4
+*/
+Vec4 Vec4() {
+  return new Vec4() ;
+}
+
+Vec4 Vec4(float x, float y, float z, float w) {
+  return new Vec4(x,y,z,w) ;
+}
+
+Vec4 Vec4(float v) {
+  return new Vec4(v) ;
+}
+
+// build with Vec
+Vec4 Vec4(Vec4 p) {
+  return new Vec4(p.x,p.y,p.z,p.w) ;
+}
+Vec4 Vec4(Vec3 p) {
+  return new Vec4(p) ;
+}
+Vec4 Vec4(Vec2 p) {
+  return new Vec4(p) ;
+}
+Vec4 Vec4(Vec2 p1,Vec2 p2) {
+  return new Vec4(p1,p2) ;
+}
+
+
+Vec4 Vec4(String s, int x, int y, int z, int w) { 
+  return new Vec4(s,x,y,z,w) ;
+}
+
+Vec4 Vec4(String s, int a, int b, int c, int d, int e, int f, int g, int h) { 
+  return new Vec4(s,a,b,c,d,e,f,g,h) ;
+}
+
+Vec4 Vec4(String s, int v) {
+  return new Vec4(s,v) ;
+}
+/**
+Vec 5
+*/
+Vec5 Vec5() {
+  return new Vec5() ;
+}
+
+Vec5 Vec5(float a, float b, float c, float d, float e) {
+  return new Vec5(a,b,c,d,e) ;
+}
+
+Vec5 Vec5(float v) {
+  return new Vec5(v) ;
+}
+
+// build with Vec
+Vec5 Vec5(Vec5 p) {
+  return new Vec5(p.a,p.b,p.c,p.d,p.e) ;
+}
+Vec5 Vec5(Vec4 p) {
+  return new Vec5(p) ;
+}
+Vec5 Vec5(Vec3 p) {
+  return new Vec5(p) ;
+}
+Vec5 Vec5(Vec2 p) {
+  return new Vec5(p) ;
+}
+Vec5 Vec5(Vec2 p1,Vec2 p2) {
+  return new Vec5(p1,p2) ;
+}
+Vec5 Vec5(Vec3 p1,Vec2 p2) {
+  return new Vec5(p1,p2) ;
+}
+Vec5 Vec5(Vec2 p1,Vec3 p2) {
+  return new Vec5(p1,p2) ;
+}
+
+Vec5 Vec5(String s, int a, int b, int c, int d, int e) { 
+  return new Vec5(s,a,b,c,d,e) ;
+}
+
+Vec5 Vec5(String s, int a, int b, int c, int d, int e, int f, int g, int h, int i, int j) { 
+  return new Vec5(s,a,b,c,d,e,f,g,h,i,j) ;
+}
+
+Vec5 Vec5(String s, int v) {
+  return new Vec5(s,v) ;
+}
+/**
+Vec 6
+*/
+Vec6 Vec6() {
+  return new Vec6(0.) ;
+}
+
+Vec6 Vec6(float a, float b, float c, float d, float e, float f) {
+  return new Vec6(a,b,c,d,e,f) ;
+}
+
+Vec6 Vec6(float v) {
+  return new Vec6(v) ;
+}
+
+// build with vec
+Vec6 Vec6(Vec6 p) {
+  return new Vec6(p.a, p.b, p.c, p.d, p.e, p.f) ;
+}
+Vec6 Vec6(Vec5 p) {
+  return new Vec6(p) ;
+}
+Vec6 Vec6(Vec4 p) {
+  return new Vec6(p) ;
+}
+Vec6 Vec6(Vec3 p) {
+  return new Vec6(p) ;
+}
+Vec6 Vec6(Vec2 p) {
+  return new Vec6(p) ;
+}
+Vec6 Vec6(Vec2 p1,Vec2 p2) {
+  return new Vec6(p1,p2) ;
+}
+Vec6 Vec6(Vec2 p1,Vec3 p2) {
+  return new Vec6(p1,p2) ;
+}
+Vec6 Vec6(Vec3 p1,Vec2 p2) {
+  return new Vec6(p1,p2) ;
+}
+Vec6 Vec6(Vec4 p1,Vec2 p2) {
+  return new Vec6(p1,p2) ;
+}
+Vec6 Vec6(Vec2 p1,Vec4 p2) {
+  return new Vec6(p1,p2) ;
+}
+Vec6 Vec6(Vec2 p1,Vec2 p2, Vec2 p3) {
+  return new Vec6(p1,p2,p3) ;
+}
+Vec6 Vec6(Vec3 p1,Vec3 p2) {
+  return new Vec6(p1,p2) ;
+}
+
+
+
+Vec6 Vec6(String s, int a, int b, int c, int d, int e, int f) { 
+  return new Vec6(s,a,b,c,d,e,f) ;
+}
+
+Vec6 Vec6(String s, int a, int b, int c, int d, int e, int f, int g, int h, int i, int j, int k, int l) { 
+  return new Vec6(s,a,b,c,d,e,f,g,h,i,j,k,l) ;
+}
+
+Vec6 Vec6(String s, int v) {
+  return new Vec6(s,v) ;
+}
+
+
+
+
+
+
+
+
 
 
 /**
-// PROCESSING METHOD in VEC mode
-*/
+PROCESSING METHOD in VEC mode
 
-// display
+*/
+/**
+background
+*/
+void background(Vec4 c) {
+  background(c.r,c.g,c.b,c.a) ;
+}
+
+void background(Vec3 c) {
+  background(c.r,c.g,c.b) ;
+}
+
+void background(Vec2 c) {
+  background(c.x,c.y) ;
+}
+
+/**
+Ellipse
+*/
+void ellipse(Vec2 p, Vec2 s) {
+  ellipse(p.x, p.y, s.x, s.y) ;
+}
+void ellipse(Vec3 p, Vec2 s) {
+  matrix_start() ;
+  translate(p.x, p.y, p.z) ;
+  ellipse(0,0, s.x, s.y) ;
+  matrix_end() ;
+}
+
+
+
+/**
+Rect
+*/
+void rect(Vec2 p, Vec2 s) {
+  rect(p.x, p.y, s.x, s.y) ;
+}
+void rect(Vec3 p, Vec2 s) {
+  matrix_start() ;
+  translate(p.x, p.y,p.z) ;
+  rect(0,0, s.x, s.y) ;
+  matrix_end() ;
+}
+
+
+/**
+Point
+*/
 void point(Vec2 p) {
   point(p.x, p.y) ;
 }
 void point(Vec3 p) {
   point(p.x, p.y, p.z) ;
 }
+/**
+Line
+*/
 void line(Vec2 a, Vec2 b){
   line(a.x, a.y, b.x,b.y) ;
 }
 void line(Vec3 a, Vec3 b){
   line(a.x, a.y, a.z, b.x,b.y, b.z) ;
 }
+/**
+Vertex
+*/
 void vertex(Vec2 a){
   vertex(a.x, a.y) ;
 }
@@ -2193,16 +2888,51 @@ void vertex(Vec3 a){
   vertex(a.x, a.y, a.z) ;
 }
 
+/**
+Bezier Vertex
+*/
+void bezierVertex(Vec2 a, Vec2 b, Vec2 c) {
+  bezierVertex(a.x, a.y, b.x, b.y, c.x, c.y) ;
+}
+
+void bezierVertex(Vec3 a, Vec3 b, Vec3 c) {
+  bezierVertex(a.x, a.y, a.z, b.x, b.y, b.z, c.x, c.y, c.z) ;
+}
+
+/**
+Quadratic Vertex
+*/
+void quadraticVertex(Vec2 a, Vec2 b) {
+  quadraticVertex(a.x, a.y, b.x, b.y) ;
+}
+
+void quadraticVertex(Vec3 a, Vec3 b) {
+  quadraticVertex(a.x, a.y, a.z, b.x, b.y, b.z) ;
+}
+
+/**
+Curve Vertex
+*/
+void curveVertex(Vec2 a){
+  curveVertex(a.x, a.y) ;
+}
+void curveVertex(Vec3 a){
+  curveVertex(a.x, a.y, a.z) ;
+}
 
 
-// color
+/**
+Fill
+*/
 void fill(Vec3 c) {
   fill(c.r,c.g,c.b) ;
 }
 void fill(Vec4 c) {
   if( c.a > 0) fill(c.r,c.g,c.b,c.a) ; else noFill() ;
 }
-
+/**
+Stroke
+*/
 void stroke(Vec3 c) {
   stroke(c.r,c.g,c.b) ;
 }
@@ -2212,16 +2942,20 @@ void stroke(Vec4 c) {
 
 
 
-// TRANSLATE and ROTATE Matrix method
 
-// position
+
+/**
+Translate
+*/
 void translate(Vec3 t){
   translate(t.x, t.y, t.z) ;
 }
 void translate(Vec2 t){
   translate(t.x, t.y) ;
 }
-
+/**
+Rotate
+*/
 void rotateXY(Vec2 rot) {
   rotateX(rot.x) ;
   rotateY(rot.y) ;
@@ -2242,7 +2976,9 @@ void rotateXYZ(Vec3 rot) {
   rotateZ(rot.z) ;
 }
 
-
+/**
+Matrix
+*/
 void matrix_3D_start(Vec3 pos, Vec3 dir_cart) {
   Vec3 dir = dir_cart.copy() ;
   pushMatrix() ;
@@ -2277,5 +3013,3 @@ void matrix_end() {
 void matrix_start() {
   pushMatrix() ;
 }
-
-

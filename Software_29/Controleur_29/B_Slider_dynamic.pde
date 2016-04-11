@@ -71,7 +71,7 @@ int quantity_rank = 33 ;
 int variety_rank = 34 ;
 
 int life_rank = 35 ;
-int fertility_rank = 36 ;
+int flow_rank = 36 ;
 int quality_rank = 37 ;
 
 int area_rank = 38 ;

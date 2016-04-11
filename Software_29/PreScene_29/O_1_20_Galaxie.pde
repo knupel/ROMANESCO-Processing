@@ -5,15 +5,14 @@ GALAXIE || 2012 || 1.3.0
 class Galaxie extends Romanesco {
   public Galaxie() {
     //from the index_objects.csv
-    romanescoName = "Galaxie" ;
-    IDobj = 20 ;
-    IDgroup = 1 ;
-    romanescoAuthor  = "Stan le Punk";
-    romanescoVersion = "Version 1.3";
-    romanescoPack = "Base" ;
-    romanescoRender = "classic" ;
-    romanescoMode ="Point/Ellipse/Rectangle/Box" ;
-    romanescoSlider = "Fill hue,Fill sat,Fill bright,Fill alpha,Stroke hue,Stroke sat,Stroke bright,Stroke alpha,Thickness,Size X,Size Y,Size Z,Canvas X,Canvas Y,Quantity,Speed X,Influence" ;
+    RPE_name = "Galaxie" ;
+    ID_item = 20 ;
+    ID_group = 1 ;
+    RPE_author  = "Stan le Punk";
+    RPE_version = "Version 1.3";
+    RPE_pack = "Base" ;
+    RPE_mode ="Point/Ellipse/Rectangle/Box" ;
+    RPE_slider = "Fill hue,Fill sat,Fill bright,Fill alpha,Stroke hue,Stroke sat,Stroke bright,Stroke alpha,Thickness,Size X,Size Y,Size Z,Canvas X,Canvas Y,Quantity,Speed X,Influence" ;
   }
   //GLOBAL
     boolean makeSand = true ;
@@ -43,13 +42,13 @@ class Galaxie extends Romanesco {
   
   //SETUP
   void setting() {
-    startPosition(IDobj, 0, 0, 0) ;
+    startPosition(ID_item, 0, 0, 0) ;
   }
   //DRAW
   void display() {
     
     //surface
-    PVector marge = new PVector(map(canvas_x_item[IDobj],width/10, width, width/20, width*10), map(canvas_y_item[IDobj],width/10, width, height/20, height*10), map(canvas_z_item[IDobj], width/10, width, width/10, width *10))  ;
+    PVector marge = new PVector(map(canvas_x_item[ID_item],width/10, width, width/20, width*10), map(canvas_y_item[ID_item],width/10, width, height/20, height*10), map(canvas_z_item[ID_item], width/10, width, width/10, width *10))  ;
     PVector surface = new PVector(marge.x *2 +width, marge.y *2 +height) ;
     
     //quantity of star
@@ -59,11 +58,11 @@ class Galaxie extends Romanesco {
       min = 30 ;
       max = 150 ;
     }
-    float quantity = map(quantity_item[IDobj],0,1,min,max) ;
-    if (mode[IDobj] == 0 ) numFromController = int(quantity *10) ; else numFromController = int(quantity) ;
+    float quantity = map(quantity_item[ID_item],0,1,min,max) ;
+    if (mode[ID_item] == 0 ) numFromController = int(quantity *10) ; else numFromController = int(quantity) ;
     
 
-    if ((numGrains != numFromController && parameterButton[IDobj] == 1) || resetAction(IDobj) ) makeSand = true ;
+    if ((numGrains != numFromController && parameterButton[ID_item] == 1) || resetAction(ID_item) ) makeSand = true ;
     
     if (makeSand) {
       numGrains = numFromController ;
@@ -72,22 +71,22 @@ class Galaxie extends Romanesco {
     }
  
     //give back the pen info
-    float pressionGrain = sq(1 + pen[IDobj].z) ;
-    orientationStyletGrain = new PVector ( pen[IDobj].x *10.0 , pen[IDobj].y *10.0 ) ;
+    float pressionGrain = sq(1 + pen[ID_item].z) ;
+    orientationStyletGrain = new PVector ( pen[ID_item].x *10.0 , pen[ID_item].y *10.0 ) ;
     deformationGrain = orientationStyletGrain.copy() ; ;
     
     // speed / vitesse
-     speedDust = map(speed_x_item[IDobj],0,1, 0.00005 ,.5) ; 
-     if(sound[IDobj]) speedDust *= 3 ;
+     speedDust = map(speed_x_item[ID_item],0,1, 0.00005 ,.5) ; 
+     if(sound[ID_item]) speedDust *= 3 ;
         
-    vitesseGrainA = map(left[IDobj],0,1, 1, 17) ;
-    vitesseGrainB = map(right[IDobj],0,1, 1, 17) ;
+    vitesseGrainA = map(left[ID_item],0,1, 1, 17) ;
+    vitesseGrainB = map(right[ID_item],0,1, 1, 17) ;
     
 
     
-    vitesseGrain.x = vitesseGrainA *speedDust *tempo[IDobj] *pressionGrain  ;
-    vitesseGrain.y = vitesseGrainB *speedDust *tempo[IDobj] *pressionGrain  ;
-    if(reverse[IDobj]) {
+    vitesseGrain.x = vitesseGrainA *speedDust *tempo[ID_item] *pressionGrain  ;
+    vitesseGrain.y = vitesseGrainB *speedDust *tempo[ID_item] *pressionGrain  ;
+    if(reverse[ID_item]) {
       vitesseGrain.x = vitesseGrain.x *1 ; 
       vitesseGrain.y = vitesseGrain.y *1 ; 
     } else {
@@ -97,24 +96,24 @@ class Galaxie extends Romanesco {
     
     // force
     int maxInfluence = 11 ;
-    variableRayonGrain = map(influence_item[IDobj], 0,1, 0, maxInfluence ) ;
+    variableRayonGrain = map(influence_item[ID_item], 0,1, 0, maxInfluence ) ;
     
     //size
-    float objWidth =  .1 +size_x_item[IDobj] *mix[IDobj] ;
-    float objHeight = .1 +size_y_item[IDobj] *mix[IDobj] ;
-    float objDepth = .1 +size_z_item[IDobj] *mix[IDobj] ;
+    float objWidth =  .1 +size_x_item[ID_item] *mix[ID_item] ;
+    float objHeight = .1 +size_y_item[ID_item] *mix[ID_item] ;
+    float objDepth = .1 +size_z_item[ID_item] *mix[ID_item] ;
     PVector size = new PVector(objWidth, objHeight,objDepth) ;
     
     //thickness / épaisseur
-    float e = thickness_item[IDobj] ;
+    float e = thickness_item[ID_item] ;
 
-    color colorIn = fill_item[IDobj] ;
-    color colorOut = stroke_item[IDobj] ;
+    color colorIn = fill_item[ID_item] ;
+    color colorOut = stroke_item[ID_item] ;
     
 
     
     // Axe rotation
-    posCenterGrain = mouse[IDobj].copy() ;
+    posCenterGrain = mouse[ID_item].copy() ;
     //ratio transformation du canvas
     float ratioX = surface.x / float(width) ;
     float ratioY = surface.y / float(height) ;
@@ -127,17 +126,17 @@ class Galaxie extends Romanesco {
     
     /////////
     //UPDATE
-    if(motion[IDobj]) if (speed_x_item[IDobj] >= 0.01) updateGrain(upTouch, downTouch, leftTouch, rightTouch, clickLongLeft[IDobj], marge);
+    if(motion[ID_item]) if (speed_x_item[ID_item] >= 0.01) updateGrain(upTouch, downTouch, leftTouch, rightTouch, clickLongLeft[ID_item], marge);
     
     //////////////
     //DISPLAY MODE
-    if (mode[IDobj] == 0) {
+    if (mode[ID_item] == 0) {
       pointSable(e, colorIn) ;
-    } else if (mode[IDobj] == 1 ) {
+    } else if (mode[ID_item] == 1 ) {
       ellipseSable(size,e , colorIn, colorOut) ;
-    } else if (mode[IDobj] == 2 ) {
+    } else if (mode[ID_item] == 2 ) {
       rectSable(size,e , colorIn, colorOut) ;
-    } else if (mode[IDobj] == 3 ) {
+    } else if (mode[ID_item] == 3 ) {
       boxSable(size,e , colorIn, colorOut) ;
     } else {
       pointSable(objWidth, colorIn) ;
@@ -147,8 +146,8 @@ class Galaxie extends Romanesco {
     
     
     // INFO DISPLAY
-    objectInfo[IDobj] =("Quantity " +numGrains + " - Canvas " + (int)surface.x + "x" + (int)surface.y + " - Center Galaxy " + int(posCenterGrain.x +marge.x) + "x" + int(posCenterGrain.y +marge.y) + " - speed" +int(speedDust *200.)) ;
-    if (objectInfoDisplay[IDobj]) {
+    objectInfo[ID_item] =("Quantity " +numGrains + " - Canvas " + (int)surface.x + "x" + (int)surface.y + " - Center Galaxy " + int(posCenterGrain.x +marge.x) + "x" + int(posCenterGrain.y +marge.y) + " - speed" +int(speedDust *200.)) ;
+    if (objectInfoDisplay[ID_item]) {
       strokeWeight(1) ;
       stroke(blanc) ;
       noFill() ;
@@ -236,8 +235,8 @@ class Galaxie extends Romanesco {
     for(int i = 0; i < grain.length; i++) {
       // newRayonGrain = newRayonGrain -variableRayonGrain ;
       
-      motionGrain.x = grain[i].x -posCenterGrain.x -(deformationGrain.x +right[IDobj]) +variableRayonGrain ;
-      motionGrain.y = grain[i].y -posCenterGrain.y -(deformationGrain.y +left[IDobj] ) +variableRayonGrain ;
+      motionGrain.x = grain[i].x -posCenterGrain.x -(deformationGrain.x +right[ID_item]) +variableRayonGrain ;
+      motionGrain.y = grain[i].y -posCenterGrain.y -(deformationGrain.y +left[ID_item] ) +variableRayonGrain ;
   
       PVector posGrain = new PVector () ;
       float r = dist(grain[i].x/vitesseGrain.x, grain[i].y /vitesseGrain.x, int(posCenterGrain.x) /vitesseGrain.x, int(posCenterGrain.y) /vitesseGrain.x);

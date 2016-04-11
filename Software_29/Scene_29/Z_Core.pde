@@ -7,76 +7,55 @@ CORE SCENE and PRESCENE 1.1.1
 
 
 
-//////////////
-//CHECK FOLDER
-PImage imgDefault ;
-PImage[] img ;
-ArrayList imageFiles = new ArrayList();
-
-String textRaw ;
-String[] textImport ;
-ArrayList textFiles = new ArrayList();
-
-String [] imagePath, textPath ;
-boolean folderImageIsSelected = true ;
-boolean folderFileTextIsSelected = true ;
-// use when we open manuelly the folder
-int countImageSelection, countFileTextSelection ;
-int refImageNumFiles, refTextNumFiles ;
-
-
-
+/**
+CHECK FOLDER
+*/
 void init_and_update_diplay_var() {
   rectMode (CORNER) ;
   textAlign(LEFT) ;
   sizeBackgroundP3D = new PVector(width *100, height *100, height *7.5) ;
 }
 
-// main void
-void loadImg(int ID) {
-  checkImageFolder() ;
-  // which_bitmap is the int return from the dropdown menu
-  if(which_bitmap[ID] > imagePath.length ) which_bitmap[ID] = 0 ;
+/**
+bitmap
+*/
+PImage[] bitmap_import ;
+ArrayList bitmap_files = new ArrayList();
+boolean folder_bitmap_is_selected = true ;
+String [] bitmap_path ;
+int count_bitmap_selection ;
+int ref_bitmap_num_files ;
 
-  if(imagePath != null && imagePath.length > 0) {
-    String bitmap_current_path = imagePath[which_bitmap[ID]] ;
+
+void load_bitmap(int ID) {
+  check_bitmap_folder_scene() ;
+  // which_bitmap is the int return from the dropdown menu
+  if(which_bitmap[ID] > bitmap_path.length ) which_bitmap[ID] = 0 ;
+
+  if(bitmap_path != null && bitmap_path.length > 0) {
+    String bitmap_current_path = bitmap_path[which_bitmap[ID]] ;
     if(!bitmap_current_path.equals(bitmap_path_ref[ID])) {
-      img[ID] = loadImage(bitmap_current_path) ;
+      bitmap_import[ID] = loadImage(bitmap_current_path) ;
     }
     bitmap_path_ref[ID] = bitmap_current_path ;
   }
 }
 
-void loadText(int ID) {
-  checkFileTextFolder() ;
-  // which_text is the int return from the dropdown menu
-  if(textPath != null && textPath.length > 0) {
-    if(which_text[ID] > textPath.length ) which_text[ID] = 0 ;
-    textImport[ID] = importText(textPath[which_text[ID]]) ;
-  } else {
-    textImport[ID] = "Big Brother has been burning all the books, it's not possible to read anything" ;
-  }
-    
-}
-
-
-
-// check what's happen in the selected folder
-void checkImageFolder() {
+void check_bitmap_folder_scene() {
   // String path = sketchPath("") +"/" +preference_path +"Images" ;
   String path = import_path +"bitmap" ;
 
   // String path = preference_path +"Images" ;
   ArrayList allFiles = listFilesRecursive(path);
   //check if something happen in the folder
-  if(refImageNumFiles != allFiles.size() ) {
-    folderImageIsSelected = true ;
-    refImageNumFiles = allFiles.size() ;
+  if(ref_bitmap_num_files != allFiles.size() ) {
+    folder_bitmap_is_selected = true ;
+    ref_bitmap_num_files = allFiles.size() ;
   }
   // If something happen, algorithm work 
-  if(folderImageIsSelected) {
-    countImageSelection++ ;
-    imageFiles.clear() ;
+  if(folder_bitmap_is_selected) {
+    count_bitmap_selection++ ;
+    bitmap_files.clear() ;
     String fileName = "";
     for (int i = 0; i < allFiles.size(); i++) {
       File f = (File) allFiles.get(i);   
@@ -86,36 +65,132 @@ void checkImageFolder() {
       if (f.isDirectory() == false) {
         String lastThree = fileName.substring(fileName.length()-3, fileName.length());
         if (lastThree.equals("PNG") || lastThree.equals("png") || lastThree.equals("JPG") || lastThree.equals("jpg") || lastThree.equals("GIF") || lastThree.equals("gif")) {
-          imageFiles.add(f);
+          bitmap_files.add(f);
         }
       }
     }
     // edit the image path
-    imagePath = new String[imageFiles.size()] ;
-    for (int i = 0; i < imageFiles.size(); i++) {
-      File f = (File) imageFiles.get(i);
-      imagePath[i] = f.getAbsolutePath() ;
+    bitmap_path = new String[bitmap_files.size()] ;
+    for (int i = 0; i < bitmap_files.size(); i++) {
+      File f = (File) bitmap_files.get(i);
+      bitmap_path[i] = f.getAbsolutePath() ;
     }
     
     // to don't loop with this void
-    folderImageIsSelected = false ;
+    folder_bitmap_is_selected = false ;
   }
 }
 
-void checkFileTextFolder() {
+
+/**
+svg
+*/
+
+RPEsvg[] svg_import ;
+ArrayList svg_files = new ArrayList();
+boolean folder_svg_is_selected = true ;
+String [] svg_path ;
+int count_svg_selection ;
+int ref_svg_num_files ;
+
+
+void load_svg(int ID) {
+  check_svg_folder_scene() ;
+  // which_bitmap is the int return from the dropdown menu
+  if(which_svg[ID] > svg_path.length ) which_svg[ID] = 0 ;
+
+  if(svg_path != null && svg_path.length > 0) {
+    String svg_current_path = svg_path[which_svg[ID]] ;
+    if(!svg_current_path.equals(svg_path_ref[ID])) {
+      println(svg_current_path) ;
+      svg_import[ID] = new RPEsvg(svg_current_path, svg_current_path) ;
+    }
+    svg_path_ref[ID] = svg_current_path ;
+  }
+}
+
+void check_svg_folder_scene() {
+  // String path = sketchPath("") +"/" +preference_path +"Images" ;
+  String path = import_path +"svg" ;
+
+  // String path = preference_path +"Images" ;
+  ArrayList allFiles = listFilesRecursive(path);
+  //check if something happen in the folder
+  if(ref_bitmap_num_files != allFiles.size() ) {
+    folder_svg_is_selected = true ;
+    ref_svg_num_files = allFiles.size() ;
+  }
+  // If something happen, algorithm work 
+  if(folder_svg_is_selected) {
+    count_svg_selection++ ;
+    svg_files.clear() ;
+    String fileName = "";
+    for (int i = 0; i < allFiles.size(); i++) {
+      File f = (File) allFiles.get(i);   
+      fileName = f.getName(); 
+  
+      // Add it to the list if it's not a directory
+      if (f.isDirectory() == false) {
+        String lastThree = fileName.substring(fileName.length()-3, fileName.length());
+        if (lastThree.equals("SVG") || lastThree.equals("svg")) {
+          svg_files.add(f);
+        }
+      }
+    }
+    // edit the image path
+    svg_path = new String[svg_files.size()] ;
+    for (int i = 0; i < svg_files.size(); i++) {
+      File f = (File) svg_files.get(i);
+      svg_path[i] = f.getAbsolutePath() ;
+    }
+    
+    // to don't loop with this void
+    folder_svg_is_selected = false ;
+  }
+}
+
+
+
+
+/**
+text
+*/
+String[] text_import ;
+ArrayList text_files = new ArrayList();
+boolean folder_text_is_selected = true ;
+String [] text_path ;
+int count_text_selection ;
+int ref_text_num_files ;
+
+void load_txt(int ID) {
+  check_text_folder_scene() ;
+  // which_text is the int return from the dropdown menu
+  if(text_path != null && text_path.length > 0) {
+    if(which_text[ID] > text_path.length ) which_text[ID] = 0 ;
+    text_import[ID] = importText(text_path[which_text[ID]]) ;
+  } else {
+    text_import[ID] = "Big Brother has been burning all the books, it's not possible to read anything" ;
+  }
+    
+}
+
+
+
+
+void check_text_folder_scene() {
   // String path = sketchPath("") +"/" +preference_path +"Karaoke" ;
   String path = import_path +"karaoke" ;
   ArrayList allFiles = listFilesRecursive(path);
   
   //check if something happen in the folder
-  if(refTextNumFiles != allFiles.size() ) {
-    folderFileTextIsSelected = true ;
-    refTextNumFiles = allFiles.size() ; 
+  if(ref_text_num_files != allFiles.size() ) {
+    folder_text_is_selected = true ;
+    ref_text_num_files = allFiles.size() ; 
   }
   // If something happen, algorithm work 
-  if(folderFileTextIsSelected) {
-    countFileTextSelection++ ;
-    textFiles.clear() ;
+  if(folder_text_is_selected) {
+    count_text_selection++ ;
+    text_files.clear() ;
     String fileName = "";
     for (int i = 0; i < allFiles.size(); i++) {
       File f = (File) allFiles.get(i);   
@@ -125,26 +200,44 @@ void checkFileTextFolder() {
       if (f.isDirectory() == false) {
         String lastThree = fileName.substring(fileName.length()-3, fileName.length());
         if (lastThree.equals("TXT") || lastThree.equals("txt")) {
-          textFiles.add(f);
+          text_files.add(f);
         }
       }
     }
     // edit the path file
-    textPath = new String[textFiles.size()] ;
-    for (int i = 0; i < textFiles.size(); i++) {
-      File f = (File) textFiles.get(i); 
-      textPath[i] = f.getAbsolutePath() ;
+    text_path = new String[text_files.size()] ;
+    for (int i = 0; i < text_files.size(); i++) {
+      File f = (File) text_files.get(i); 
+      text_path[i] = f.getAbsolutePath() ;
     }
     
     // to don't loop with this void
-    folderFileTextIsSelected = false ;
+    folder_text_is_selected = false ;
   }
 }
-// end main void
+
+
+/**
+movie
+*/
+Movie[] movie_import ;
+ArrayList movie_files = new ArrayList();
+boolean folder_movie_is_selected = true ;
+String [] movie_path ;
+int count_movie_selection ;
+int ref_movie_num_files ;
+
+void load_movie() {
+}
+void check_movie_folder_scene() {
+
+}
 
 
 
-
+/**
+method to check folder
+*/
 // This function returns all the files in a directory as an array of Strings  
 String[] listFileNames(String dir) {
   File file = new File(dir);
@@ -195,8 +288,9 @@ void recurseDir(ArrayList a, String dir) {
     a.add(file);
   }
 }
-//END CHECK FOLDER
-/////////////////
+/**
+END CHECK FOLDER
+*/
 
 
 
@@ -207,6 +301,25 @@ void recurseDir(ArrayList a, String dir) {
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/**
+Text manager
+*/
 // NEW VOID TEXT
 String importRaw [] ;
 
@@ -267,8 +380,9 @@ String whichSentence(String txt, int whichChapter, int whichSentence) {
   return repartition[whichChapter][whichSentence] ;
 }
 
-// END TEXT
-//////////
+/**
+End text manager
+*/
 
 
 
@@ -277,8 +391,17 @@ String whichSentence(String txt, int whichChapter, int whichSentence) {
 
 
 
-// MIROIR
-/////////
+
+
+
+
+
+
+
+
+/**
+MIROIR
+*/
 
 boolean syphon_on_off  ;
 SyphonServer server ;
@@ -297,7 +420,9 @@ void syphon_draw() {
   if(yTouch) syphon_on_off = !syphon_on_off ;
   if(syphon_on_off) server.sendScreen();
 }
-//END MIROIR
+/**
+END MIROIR
+*/
 
 
 
@@ -308,8 +433,9 @@ void syphon_draw() {
 
 
 
-//////////////
-//DISPLAY INFO
+/**
+DISPLAY INFO
+*/
 boolean displayInfo, displayInfo3D ;
 int posInfo = 2 ;
 
@@ -424,8 +550,9 @@ void repere(int size) {
 
 //END P3D
 /////////
-////////////////
-//END DISPLAY INFO
+/**
+END DISPLAY INFO
+*/
 
 
 
@@ -654,57 +781,3 @@ int tracking(int t, int n) {
 
 
 
-
-/*
-///////////////////////////////////////////
-//TRANSLATOR INT to String, FLOAT to STRING
-//truncate
-float truncate( float x ) {
-    return round( x * 100.0f ) / 100.0f;
-}
-//Int to String with array list
-
-// @ return String
-
-String joinIntToString(int []data) {
-  String intString ;
-  String [] dataString = new String [data.length] ;
-  for ( int i = 0 ; i < data.length ; i++) dataString[i] = Integer.toString(data[i]) ;
-  intString = join(dataString,"/") ;
-  
-  return intString ;
-}
-
-//float to String with array list
-String joinFloatToString(float []data) {
-  String floatString ;
-  String [] dataString = new String [data.length] ;
-  //for ( int i = 0 ; i < data.length ; i++) dataString[i] = Float.toString(data[i]) ;
-  //we must use just one decimal after coma, to dodge the outBoundIndex blablabla
-  for ( int i = 0 ; i < data.length ; i++) dataString[i] = String.format("%.1f" ,data[i]) ;
-  floatString = join(dataString,"/") ;
-  
-  return floatString ;
-}
-
-//Translater to String
-String FloatToString(float data) {
-  String newData ;
-  newData = String.format("%.1f", data ) ;
-  return newData ;
-}
-//
-String FloatToStringWithThree(float data) {
-  String newData ;
-  newData = String.format("%.3f", data ) ;
-  return newData ;
-}
-//
-String IntToString(int data) {
-  String newData ;
-  newData = Integer.toString(data ) ;
-  return newData ;
-}
-*/
-//END TRANSLATOR
-///////////////

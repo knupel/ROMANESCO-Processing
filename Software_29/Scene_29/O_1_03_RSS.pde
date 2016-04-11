@@ -4,15 +4,15 @@ RSS || 2012 || 1.1.0
 class RSS extends Romanesco {
   public RSS() {
     //from the index_objects.csv
-    romanescoName = "RSS" ;
-    IDobj = 3 ;
-    IDgroup = 1 ;
-    romanescoAuthor  = "Stan Le Punk";
-    romanescoVersion = "version 1.1";
-    romanescoPack = "Base" ;
+    RPE_name = "RSS" ;
+    ID_item = 3 ;
+    ID_group = 1 ;
+    RPE_author  = "Stan Le Punk";
+    RPE_version = "version 1.1";
+    RPE_pack = "Base" ;
     romanescoRender = "classic" ;
-    romanescoMode = "" ; // separate the name by a slash and write the next mode immadialtly after this one.
-    romanescoSlider = "Fill hue,Fill sat,Fill bright,Fill alpha,Size X,Canvas X,Canvas Y,Canvas Z,Direction X" ;
+    RPE_mode = "" ; // separate the name by a slash and write the next mode immadialtly after this one.
+    RPE_slider = "Fill hue,Fill sat,Fill bright,Fill alpha,Size X,Canvas X,Canvas Y,Canvas Z,Direction X" ;
   }
   //GLOBAL
   FeedReader flux;
@@ -24,7 +24,7 @@ class RSS extends Romanesco {
   
   //SETUP
   void setting() {
-    startPosition(IDobj,width/10, height/2, 0) ;
+    startPosition(ID_item,width/10, height/2, 0) ;
     
     
     if(internet) {
@@ -40,12 +40,12 @@ class RSS extends Romanesco {
   
   //DRAW
   void display() {
-    float sizeFont = font_size_item[IDobj] ;
-    textFont(font[IDobj], sizeFont + ( sizeFont *mix[IDobj]) *allBeats(IDobj) );
+    float sizeFont = font_size_item[ID_item] ;
+    textFont(font[ID_item], sizeFont + ( sizeFont *mix[ID_item]) *allBeats(ID_item) );
     // couleur du texte
-    float t = alpha(fill_item[IDobj]) * abs(mix[IDobj]) ;
-    if ( sound[IDobj] ) { t = alpha(fill_item[IDobj]) ; } 
-    color c = color(hue(fill_item[IDobj]), saturation(fill_item[IDobj]), brightness(fill_item[IDobj]), t ) ;
+    float t = alpha(fill_item[ID_item]) * abs(mix[ID_item]) ;
+    if ( sound[ID_item] ) { t = alpha(fill_item[ID_item]) ; } 
+    color c = color(hue(fill_item[ID_item]), saturation(fill_item[ID_item]), brightness(fill_item[ID_item]), t ) ;
     // security against the blavk bug opacity
     if (alpha(c) == 0 ) {
       noFill() ; 
@@ -56,10 +56,10 @@ class RSS extends Romanesco {
     
     //hauteur largeur, height & width
     float ratioTextBox ;
-    ratioTextBox = allBeats(IDobj) *.25 ;
+    ratioTextBox = allBeats(ID_item) *.25 ;
     if(ratioTextBox < 1 ) ratioTextBox = 1. ;
-    float largeur = canvas_x_item[IDobj] *ratioTextBox ;
-    float hauteur = canvas_y_item[IDobj] *ratioTextBox ;    
+    float largeur = canvas_x_item[ID_item] *ratioTextBox ;
+    float hauteur = canvas_y_item[ID_item] *ratioTextBox ;    
       
     for( int i=info; i < info + 1; i++) {
       //internet = false ;
@@ -70,13 +70,13 @@ class RSS extends Romanesco {
       if ( i > 9 ) r =2 ; else if( i > 0 && i < 10 ) r =1 ; else r =0 ; 
       String hune = messageRSS.substring(r);
       //rotation / degré
-      rotation(dir_x_item[IDobj], mouse[IDobj].x, mouse[IDobj].y) ;
-      if(horizon[IDobj]) textAlign(CENTER) ; else textAlign(LEFT) ;
+      rotation(dir_x_item[ID_item], mouse[ID_item].x, mouse[ID_item].y) ;
+      if(horizon[ID_item]) textAlign(CENTER) ; else textAlign(LEFT) ;
       text(hune, 0, 0, largeur, hauteur );
     }
     
     // BUTTON
-    if(action[IDobj] && nTouch ) {
+    if(action[ID_item] && nTouch ) {
       Rinfo = random (1,24) ;
       info = round(Rinfo) ;
     }

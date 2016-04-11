@@ -7,22 +7,21 @@ Arbre arbre ;
 class ArbreRomanesco extends Romanesco {
   public ArbreRomanesco() {
     //from the index_objects.csv
-    romanescoName = "Arbre" ;
-    IDobj = 10 ;
-    IDgroup = 1 ;
-    romanescoAuthor  = "Stan le Punk";
-    romanescoVersion = "Version 1.3.1";
-    romanescoPack = "Base" ;
-    romanescoRender = "classic" ;
-    romanescoMode = "Line/Disc/Disc line/Rectangle/Rectangle line/Box" ;
-    romanescoSlider = "Fill hue,Fill sat,Fill bright,Fill alpha,Stroke hue,Stroke sat,Stroke bright,Stroke alpha,Thickness,Size X,Size Y,Size Z,Quantity,Speed X,Direction X,Canvas X" ;
+    RPE_name = "Arbre" ;
+    ID_item = 10 ;
+    ID_group = 1 ;
+    RPE_author  = "Stan le Punk";
+    RPE_version = "Version 1.3.1";
+    RPE_pack = "Base" ;
+    RPE_mode = "Line/Disc/Disc line/Rectangle/Rectangle line/Box" ;
+    RPE_slider = "Fill hue,Fill sat,Fill bright,Fill alpha,Stroke hue,Stroke sat,Stroke bright,Stroke alpha,Thickness,Size X,Size Y,Size Z,Quantity,Speed X,Direction X,Canvas X" ;
   }
   //GLOBAL
   float speed ;
   PVector posArbre = new PVector () ;
   //SETUP
   void setting() {
-    startPosition(IDobj, width/2, height/3, 0) ;
+    startPosition(ID_item, width/2, height/3, 0) ;
     arbre = new Arbre () ;
   }
   //DRAW
@@ -34,11 +33,11 @@ class ArbreRomanesco extends Romanesco {
     int forkA = maxFork ; 
     int forkB = maxFork ;
     
-    int n = int(map(quantity_item[IDobj],0,1,2,maxFork*2)) ;
+    int n = int(map(quantity_item[ID_item],0,1,2,maxFork*2)) ;
     
-    float epaisseur = thickness_item[IDobj] ;
-    float ratioLeft = map(left[IDobj], 0, 1, .5, 2) ;
-    float ratioRight = map(right[IDobj], 0, 1, .5, 2) ;
+    float epaisseur = thickness_item[ID_item] ;
+    float ratioLeft = map(left[ID_item], 0, 1, .5, 2) ;
+    float ratioRight = map(right[ID_item], 0, 1, .5, 2) ;
     if(!fullRendering) {
       ratioLeft = .75 ;
       ratioRight = .75 ;
@@ -50,7 +49,7 @@ class ArbreRomanesco extends Romanesco {
     //size of the shape
     float divA = .66 ;
     float divB = .66 ;
-    if(sound[IDobj]) {
+    if(sound[ID_item]) {
       divA = ratioLeft ;
       divB = ratioRight  ;
     } else {
@@ -61,45 +60,45 @@ class ArbreRomanesco extends Romanesco {
     
     //size
     int div_size = 20 ;
-    float x = map(size_x_item[IDobj],.1,width,.1,width /div_size) ;
-    float y = map(size_y_item[IDobj],.1,width,.1,width /div_size) ;
-    float z = map(size_z_item[IDobj],.1,width,.1,width /div_size) ;
+    float x = map(size_x_item[ID_item],.1,width,.1,width /div_size) ;
+    float y = map(size_y_item[ID_item],.1,width,.1,width /div_size) ;
+    float z = map(size_z_item[ID_item],.1,width,.1,width /div_size) ;
     x = x *x *ratioMix ;
     y = y *y *ratioMix ;
     z = z *z *ratioMix ;
 
     PVector size  = new PVector(x,y,z) ;
     //orientation
-    float direction = dir_x_item[IDobj] ;
+    float direction = dir_x_item[ID_item] ;
     //amplitude
-    float amplitude = map(swing_x_item[IDobj], 0,1, 0.1,width *.6) ;
-    if(fullRendering) amplitude = amplitude *allBeats(IDobj) ;
+    float amplitude = map(swing_x_item[ID_item], 0,1, 0.1,width *.6) ;
+    if(fullRendering) amplitude = amplitude *allBeats(ID_item) ;
     
 
 
 
     // angle
-    // float angle = map(angle_item[IDobj],0,360,0,180);
+    // float angle = map(angle_item[ID_item],0,360,0,180);
     float angle = 90 ; // but this function must be remove because it give no effect
     // speed
-    if(motion[IDobj] && fullRendering) {
-      float s = map(speed_x_item[IDobj],0,1,0,2) ;
+    if(motion[ID_item] && fullRendering) {
+      float s = map(speed_x_item[ID_item],0,1,0,2) ;
       s *= s ;
-      speed = s *tempo[IDobj] ; 
-    } else if (!motion[IDobj] && fullRendering){ 
+      speed = s *tempo[ID_item] ; 
+    } else if (!motion[ID_item] && fullRendering){ 
       speed = 0.0 ;
     } else {
       speed = 1.0 ;
 
     }
     
-    aspect(IDobj) ;
+    aspect_rpe(ID_item) ;
     
     arbre.affichage (direction) ;
-    arbre.actualisation(posArbre, epaisseur, size, divA, divB, forkA, forkB, amplitude, n, mode[IDobj], angle, speed, IDobj) ;
+    arbre.actualisation(posArbre, epaisseur, size, divA, divB, forkA, forkB, amplitude, n, mode[ID_item], angle, speed, ID_item) ;
     
     //info
-    objectInfo[IDobj] = ("Nodes " +(n-1) + " - Amplitude " + (int)amplitude + " - Orientation " +direction +  " - Speed " + (int)map(speed,0,4,0,100) );
+    objectInfo[ID_item] = ("Nodes " +(n-1) + " - Amplitude " + (int)amplitude + " - Orientation " +direction +  " - Speed " + (int)map(speed,0,4,0,100) );
     
   }
 }

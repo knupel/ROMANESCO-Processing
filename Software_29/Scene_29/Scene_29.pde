@@ -80,7 +80,7 @@ void draw() {
     shader_draw() ;
   }
 
-  romanescoManager.displayObject(ORDER_ONE, ORDER_TWO, ORDER_THREE) ;
+  rpe_manager.displayObject(ORDER_ONE, ORDER_TWO, ORDER_THREE) ;
   createGridCamera(displayInfo3D) ;
   stopCamera() ;
   

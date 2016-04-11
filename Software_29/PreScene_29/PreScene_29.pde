@@ -18,7 +18,7 @@ used sound
  maximum possibility of the object
  full frame rate
 */
-boolean fullRendering = false ;
+boolean fullRendering = true ;
 //to work in dev, test phase
 boolean testRomanesco = false ;
 
@@ -98,7 +98,7 @@ void draw() {
 
 
   //use romanesco object
-  romanescoManager.displayObject(ORDER_ONE, ORDER_TWO, ORDER_THREE) ;
+  rpe_manager.displayObject(ORDER_ONE, ORDER_TWO, ORDER_THREE) ;
   createGridCamera(displayInfo3D) ;
   stopCamera() ;
 

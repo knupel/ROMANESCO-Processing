@@ -28,26 +28,26 @@ class Orbital extends Romanesco {
   Flock_Orbital flock;
  
   public Orbital() {
-    romanescoName = "Orbital" ;
-    IDobj = 5 ;
-    IDgroup = 1 ;
-    romanescoAuthor  = "Alexandre Petit";
-    romanescoVersion = "Version 0.0.2";
-    romanescoPack = "Workshop" ;
-    romanescoMode = "" ; // separate the differentes mode by "/"
+    RPE_name = "Orbital" ;
+    ID_item = 5 ;
+    ID_group = 1 ;
+    RPE_author  = "Alexandre Petit";
+    RPE_version = "Version 0.0.2";
+    RPE_pack = "Workshop" ;
+    RPE_mode = "" ; // separate the differentes mode by "/"
     /** 
     List of the available sliders
     "Hue fill,Saturation fill,Brightness fill,Alpha fill,Hue stroke,Saturation stroke,Brightness stroke,Alpha stroke,Thickness,
     Size X,Size Y,Size Z,Canvas X,Canvas Y,Canvas Z,Quantity,
     Speed,Direction,Angle,Amplitude,Analyze,Family,Life,Force" ; 
     */
-    romanescoSlider = "Fill hue,Fill sat,Fill bright,Fill alpha,Stroke hue,Stroke sat,Stroke bright,Stroke alpha,Quantity,Speed X" ;
+    RPE_slider = "Fill hue,Fill sat,Fill bright,Fill alpha,Stroke hue,Stroke sat,Stroke bright,Stroke alpha,Quantity,Speed X" ;
   }
  
   // Main method
   // setup
   void setting() {
-    startPosition(IDobj, width/2, height/2, 0);
+    startPosition(ID_item, width/2, height/2, 0);
   
     flock = new Flock_Orbital();
   
@@ -69,12 +69,12 @@ class Orbital extends Romanesco {
   // draw
   void display() {
     // it's nice to code the variable from the sliders or from sound... here to see easily what's happen in your object.
-    float quantity = quantity_item[IDobj] *2. ;
+    float quantity = quantity_item[ID_item] *2. ;
 
     // display
     orbital_1(quantity) ;
 
-    objectInfo[IDobj] = ("There is " + flock.size() + " orbital shape") ;
+    objectInfo[ID_item] = ("There is " + flock.size() + " orbital shape") ;
     
 
   }
@@ -89,9 +89,9 @@ class Orbital extends Romanesco {
   
     checkControls();
   
-    rotationToReach.x += rfactors.x * vel * speed_x_item[IDobj];
-    rotationToReach.y += rfactors.y * vel * speed_x_item[IDobj];
-    rotationToReach.z += rfactors.z * vel * speed_x_item[IDobj];
+    rotationToReach.x += rfactors.x * vel * speed_x_item[ID_item];
+    rotationToReach.y += rfactors.y * vel * speed_x_item[ID_item];
+    rotationToReach.z += rfactors.z * vel * speed_x_item[ID_item];
     rotation.x += (rotationToReach.x - rotation.x) * smoothf;
     rotation.y += (rotationToReach.y - rotation.y) * smoothf;
     rotation.z += (rotationToReach.z - rotation.z) * smoothf;
@@ -99,23 +99,23 @@ class Orbital extends Romanesco {
   
   
     Boid_Orbital b;
-    PVector force = new PVector(initialForce *kick[IDobj], 0, 0);
+    PVector force = new PVector(initialForce *kick[ID_item], 0, 0);
     int it = ceil(iterations *quantity);
     if(!fullRendering) it /= 10 ;
     float lSpreadL = 1 ;
     float lSpreadW = 1 ;
     for(int i = 0; i < it; i++) {
-        if (sound[IDobj] && i < NUM_BANDS) {
-            lSpreadL = spreadL * band[IDobj][i];
-            lSpreadW = spreadW * band[IDobj][i];
+        if (sound[ID_item] && i < NUM_BANDS) {
+            lSpreadL = spreadL * band[ID_item][i];
+            lSpreadW = spreadW * band[ID_item][i];
         }
-        b = new Boid_Orbital(offset + (float)i/iterations * (rad * mix[IDobj]), 0, 0, rotation, spreadW, lSpreadL);
+        b = new Boid_Orbital(offset + (float)i/iterations * (rad * mix[ID_item]), 0, 0, rotation, spreadW, lSpreadL);
         b.applyForce(force);
         flock.addBoid(b);
       
        
         rotation.mult(-1);
-        b = new Boid_Orbital(offset + (float)i/iterations * (rad * mix[IDobj]), 0, 0, rotation, spreadW, lSpreadW);
+        b = new Boid_Orbital(offset + (float)i/iterations * (rad * mix[ID_item]), 0, 0, rotation, spreadW, lSpreadW);
         b.applyForce(force);
         flock.addBoid(b);
         rotation.mult(-1);
@@ -125,25 +125,25 @@ class Orbital extends Romanesco {
   }
  
   void checkControls() {
-     if      (rTouch && action[IDobj]) changeDir();
-     else if (xTouch && action[IDobj]) randomDir();
-     else if (nTouch && action[IDobj]) randomPos();
+     if      (rTouch && action[ID_item]) changeDir();
+     else if (xTouch && action[ID_item]) randomDir();
+     else if (nTouch && action[ID_item]) randomPos();
      // else if (jTouch) ;//randomiserad = D_MIN + random(D_MAX - D_MIN);
-     else if (kTouch && action[IDobj]) resetOrbit();
-     else if (jTouch && action[IDobj]) jump();
+     else if (kTouch && action[ID_item]) resetOrbit();
+     else if (jTouch && action[ID_item]) jump();
   }
  
   void render() {
       //flock.render();
-      flock.render(hue(fill_item[IDobj]),
-                   saturation(fill_item[IDobj]),
-                   brightness(fill_item[IDobj]),
-                   alpha(fill_item[IDobj]),
+      flock.render(hue(fill_item[ID_item]),
+                   saturation(fill_item[ID_item]),
+                   brightness(fill_item[ID_item]),
+                   alpha(fill_item[ID_item]),
                   
-                   hue(stroke_item[IDobj]),
-                   saturation(stroke_item[IDobj]),
-                   brightness(stroke_item[IDobj]),
-                   alpha(stroke_item[IDobj])
+                   hue(stroke_item[ID_item]),
+                   saturation(stroke_item[ID_item]),
+                   brightness(stroke_item[ID_item]),
+                   alpha(stroke_item[ID_item])
                );
                  
   }

@@ -6,15 +6,14 @@ ArrayList<BOITEaMUSIQUE> boiteList ;
 class Boxolyzer extends Romanesco {
   public Boxolyzer() {
     //from the index_objects.csv
-    romanescoName = "Boxolyzer" ;
-    IDobj = 11 ;
-    IDgroup = 1 ;
-    romanescoAuthor  = "Stan le Punk";
-    romanescoVersion = "Version 1.0.3";
-    romanescoPack = "Base" ;
-    romanescoRender = "P3D" ;
-    romanescoMode ="Classic/Circle" ;
-    romanescoSlider = "Fill hue,Fill sat,Fill bright,Fill alpha,Stroke hue,Stroke sat,Stroke bright,Stroke alpha,Thickness,Size X,Size Y,Size Z,Canvas X,Quantity,Direction X" ;
+    RPE_name = "Boxolyzer" ;
+    ID_item = 11 ;
+    ID_group = 1 ;
+    RPE_author  = "Stan le Punk";
+    RPE_version = "Version 1.0.3";
+    RPE_pack = "Base" ;
+    RPE_mode ="Classic/Circle" ;
+    RPE_slider = "Fill hue,Fill sat,Fill bright,Fill alpha,Stroke hue,Stroke sat,Stroke bright,Stroke alpha,Thickness,Size X,Size Y,Size Z,Canvas X,Quantity,Direction X" ;
   }
   //GLOBAL
   boolean newDistribution ;
@@ -22,33 +21,33 @@ class Boxolyzer extends Romanesco {
 
   //SETUP
   void setting() {
-    startPosition(IDobj, 0, height/4, 0) ;
+    startPosition(ID_item, 0, height/4, 0) ;
     
     boitesSetting() ;
   }
   //DRAW
   void display() {
     //CLASSIC DISPLAY
-    int numBox = int(map(quantity_item[IDobj],0, 1, 1, 16)) ;
+    int numBox = int(map(quantity_item[ID_item],0, 1, 1, 16)) ;
     if (numBox != numBoxRef ) newDistribution = true ;
     numBoxRef = numBox ;
-    Vec3 size = Vec3(size_x_item[IDobj],size_y_item[IDobj],size_z_item[IDobj]) ;
+    Vec3 size = Vec3(size_x_item[ID_item],size_y_item[ID_item],size_z_item[ID_item]) ;
     size.mult(2) ;
 
     // color and thickness
-    aspect(IDobj) ; 
+    aspect_rpe(ID_item) ; 
     //
     distribution(numBox, newDistribution) ;
     
     // MODE DISPLAY with the dropdown menu of controler
     /////////////////////
-    if        (mode[IDobj] ==0) { boxolyzerClassic(size, horizon[IDobj] , dir_x_item[IDobj]) ;
-    } else if (mode[IDobj] ==1) { boxolyzerCircle(size, (int)canvas_x_item[IDobj], horizon[IDobj], dir_x_item[IDobj]) ;
+    if        (mode[ID_item] ==0) { boxolyzerClassic(size, horizon[ID_item] , dir_x_item[ID_item]) ;
+    } else if (mode[ID_item] ==1) { boxolyzerCircle(size, (int)canvas_x_item[ID_item], horizon[ID_item], dir_x_item[ID_item]) ;
     } 
 
 
     // INFO
-    objectInfo[IDobj] = ("There is " +numBox + " bands analyzed");
+    objectInfo[ID_item] = ("There is " +numBox + " bands analyzed");
     
   }
   
@@ -61,7 +60,7 @@ class Boxolyzer extends Romanesco {
   boolean orientation ;
   // BOXLIZER CIRCLE
   void boxolyzerCircle(Vec3 size, int diam, boolean groundPosition, float dir) {
-    if( action[IDobj] && rTouch ) orientation = !orientation ;
+    if( action[ID_item] && rTouch ) orientation = !orientation ;
     int surface = diam*diam ; // surface is equale of square surface where is the cirlcke...make sens ?
     int radius = ceil(radius_from_circle_surface(surface)) ;
     
@@ -70,7 +69,7 @@ class Boxolyzer extends Romanesco {
     PVector pos = new PVector() ;
     
     for(int i=0; i < n; i++) {
-      if(  i < band.length) factorSpectrum = band [IDobj][i] ;
+      if(  i < band.length) factorSpectrum = band [ID_item][i] ;
       float stepAngle = map(i, 0, n, 0, 2*PI) ; 
       float angle =  2*PI - stepAngle;
       if(orientation) pos = new PVector(projection(angle, radius).x + pos.x, projection(angle, radius).y + pos.y ) ;
@@ -89,11 +88,11 @@ class Boxolyzer extends Romanesco {
     float factorSpectrum = 0 ;
     int n = boiteList.size() ;
     // int canvasFinal = width ;
-    int canvasFinal = (int)map(canvas_x_item[IDobj], width/10, width, width/2,width*3)  ;
+    int canvasFinal = (int)map(canvas_x_item[ID_item], width/10, width, width/2,width*3)  ;
     int displacement_symetric = int(width *.5 -canvasFinal *.5) ;
     for( int i = 0 ; i < n ; i++) {
       pos.x = (i *canvasFinal/n) + (canvasFinal /(n *2)) +displacement_symetric ;
-      if( i < band.length) factorSpectrum = band [IDobj][i] ;
+      if( i < band.length) factorSpectrum = band [ID_item][i] ;
       BOITEaMUSIQUE boiteAmusique = (BOITEaMUSIQUE) boiteList.get(i) ;
       if(!fullRendering) factorSpectrum = .5 ;
       boiteAmusique.showTheBoite(pos, size, factorSpectrum, groundPosition, dir) ;

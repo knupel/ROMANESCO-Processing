@@ -75,7 +75,7 @@ Vec2 pos_bg_button, size_bg_button,
 
 
 // DROPDOWN button font and shader background
-int state_font, state_bg_shader, state_image_bitmap, state_image_svg, state_movie, state_file_text, state_camera_video ;
+int state_font, state_bg_shader, state_bitmap, state_svg, state_movie, state_text, state_camera ;
 Vec2 pos_button_font, pos_button_bg, pos_button_image_bitmap, pos_button_image_svg, pos_button_movie, pos_button_file_text, pos_button_camera_video ; 
 
 // MIDI, CURTAIN
@@ -907,7 +907,7 @@ void display_bg_slider_item() {
   // life
   if(display_slider[whichGroup][life_rank]) sliderBG ( posSlider[whichOne +life_rank].x, posSlider[whichOne +life_rank].y, sizeSlider[whichOne +life_rank].y, sizeSlider[whichOne +life_rank].x, roundedSlider, blancGrisClair) ;
   // fertility
-  if(display_slider[whichGroup][fertility_rank]) sliderBG ( posSlider[whichOne +fertility_rank].x, posSlider[whichOne +fertility_rank].y, sizeSlider[whichOne +fertility_rank].y, sizeSlider[whichOne +fertility_rank].x, roundedSlider, blancGrisClair) ;
+  if(display_slider[whichGroup][flow_rank]) sliderBG ( posSlider[whichOne +flow_rank].x, posSlider[whichOne +flow_rank].y, sizeSlider[whichOne +flow_rank].y, sizeSlider[whichOne +flow_rank].x, roundedSlider, blancGrisClair) ;
   // quality
   if(display_slider[whichGroup][quality_rank]) sliderBG ( posSlider[whichOne +quality_rank].x, posSlider[whichOne +quality_rank].y, sizeSlider[whichOne +quality_rank].y, sizeSlider[whichOne +quality_rank].x, roundedSlider, blancGrisClair) ;
   
@@ -1504,12 +1504,12 @@ void display_dropdown() {
 
 
   update_dropdown_background() ;
-  state_file_text       = update_dropdown_general(size_dropdown_file_text, pos_dropdown_file_text, dropdown_file_text, file_text_dropdown_list, title_dropdown_medium) ;
-  state_image_bitmap           = update_dropdown_general(size_dropdown_image_bitmap, pos_dropdown_image_bitmap, dropdown_image_bitmap, image_bitmap_dropdown_list, title_dropdown_medium) ;
-  state_image_svg           = update_dropdown_general(size_dropdown_image_svg, pos_dropdown_image_svg, dropdown_image_svg, image_svg_dropdown_list, title_dropdown_medium) ;
+  state_text       = update_dropdown_general(size_dropdown_file_text, pos_dropdown_file_text, dropdown_file_text, file_text_dropdown_list, title_dropdown_medium) ;
+  state_bitmap           = update_dropdown_general(size_dropdown_image_bitmap, pos_dropdown_image_bitmap, dropdown_image_bitmap, image_bitmap_dropdown_list, title_dropdown_medium) ;
+  state_svg           = update_dropdown_general(size_dropdown_image_svg, pos_dropdown_image_svg, dropdown_image_svg, image_svg_dropdown_list, title_dropdown_medium) ;
   state_movie          = update_dropdown_general(size_dropdown_movie, pos_dropdown_movie, dropdown_movie, movie_dropdown_list, title_dropdown_medium) ;
   state_font            = update_dropdown_general(size_dropdown_font, pos_dropdown_font, dropdown_font, font_dropdown_list, title_dropdown_medium) ;
-  state_camera_video    = update_dropdown_general(size_dropdown_camera_video, pos_dropdown_camera_video, dropdown_camera_video, name_camera_video_dropdown_list, title_dropdown_medium) ;
+  state_camera    = update_dropdown_general(size_dropdown_camera_video, pos_dropdown_camera_video, dropdown_camera_video, name_camera_video_dropdown_list, title_dropdown_medium) ;
 
   // check the activity o the dropdown
   if(dropdownActivityCount > 0 ) dropdownActivity = true ; else dropdownActivity = false ;

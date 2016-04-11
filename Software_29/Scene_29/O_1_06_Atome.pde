@@ -8,15 +8,14 @@ ArrayList<Atom> atomList ;
 class Atome extends Romanesco {
   public Atome() {
     //from the index_objects.csv
-    romanescoName = "Atome" ;
-    IDobj = 6 ;
-    IDgroup = 1 ;
-    romanescoAuthor  = "Stan le Punk";
-    romanescoVersion = "version 1.3.2";
-    romanescoPack = "Base" ;
-    romanescoRender = "P3D" ;
-    romanescoMode = "Chemical Name/File text/Electronic cloud/Ellipse circle/Ellipse triangle/Ellipse cloud/Triangle circle/Triangle triangle/Triangle cloud/Rectangle rectangle/Rectangle cloud" ;
-    romanescoSlider = "Fill hue,Fill sat,Fill bright,Fill alpha,Stroke hue,Stroke sat,Stroke bright,Stroke alpha,Thickness,Size X,Size Y,Size Z,Canvas X,Canvas Y,Speed X,Direction X,Variety,Quantity,Area,Angle" ;
+    RPE_name = "Atome" ;
+    ID_item = 6 ;
+    ID_group = 1 ;
+    RPE_author  = "Stan le Punk";
+    RPE_version = "version 1.3.2";
+    RPE_pack = "Base" ;
+    RPE_mode = "Chemical Name/File text/Electronic cloud/Ellipse circle/Ellipse triangle/Ellipse cloud/Triangle circle/Triangle triangle/Triangle cloud/Rectangle rectangle/Rectangle cloud" ;
+    RPE_slider = "Fill hue,Fill sat,Fill bright,Fill alpha,Stroke hue,Stroke sat,Stroke bright,Stroke alpha,Thickness,Size X,Size Y,Size Z,Canvas X,Canvas Y,Speed X,Direction X,Variety,Quantity,Area,Angle" ;
   }
   
   //GLOBAL
@@ -54,7 +53,7 @@ class Atome extends Romanesco {
   
   //SETUP
   void setting() {
-    startPosition(IDobj, width/2, height/2, 0) ;
+    startPosition(ID_item, width/2, height/2, 0) ;
     
     atomList = new ArrayList<Atom>();
     
@@ -65,7 +64,7 @@ class Atome extends Romanesco {
    int ion = round(random(0,0));
    float rebound = 0.5 ;
    int diam = 5 ;
-   int Kstart = int(abs( mix[IDobj]) *1000) ; // Temperature of Atom, influence the mouvement behavior
+   int Kstart = int(abs( mix[ID_item]) *1000) ; // Temperature of Atom, influence the mouvement behavior
    //motion
    
    Atom atm = new Atom( pos, vel, Z, ion, rebound, diam,  Kstart) ; 
@@ -75,62 +74,62 @@ class Atome extends Romanesco {
   //DRAW
   void display() {
     // SETTING PARAMETER
-    loadText(IDobj) ;
+    load_txt(ID_item) ;
     // 3D or 2D
-    if(parameter[IDobj] & dTouch) threeDimension = !threeDimension ;
+    if(parameter[ID_item] & dTouch) threeDimension = !threeDimension ;
     
     //speed
-    float speed = (speed_x_item[IDobj] *100) *(speed_x_item[IDobj] *100) ;
-    float velLimit = tempo[IDobj] *5.0 ; // max of speed Atom
+    float speed = (speed_x_item[ID_item] *100) *(speed_x_item[ID_item] *100) ;
+    float velLimit = tempo[ID_item] *5.0 ; // max of speed Atom
     if (velLimit < 1.1 ) velLimit = 1.1 ;
     //the atom temperature give the speed 
-    if(sound[IDobj]) atomTemperature =  floor(speed *tempo[IDobj]) ; else atomTemperature = round(speed) ;
+    if(sound[ID_item]) atomTemperature =  floor(speed *tempo[ID_item]) ; else atomTemperature = round(speed) ;
     //ratio evolution for atom temperature...give an idea to change the speed of this one
     //because the temp of atom is linked with velocity of this one.
     float tempAbs = 10.0 ;
     
     //VELOCITY and DIRECTION of atom
-    if(motion[IDobj]) {
-      if(spaceTouch && action[IDobj]) {
-        newDirection = new PVector (-pen[IDobj].x, -pen[IDobj].y ) ;
+    if(motion[ID_item]) {
+      if(spaceTouch && action[ID_item]) {
+        newDirection = new PVector (-pen[ID_item].x, -pen[ID_item].y ) ;
       } else { 
-        newDirection = normal_direction(int(dir_x_item[IDobj])) ;
+        newDirection = normal_direction(int(dir_x_item[ID_item])) ;
       }
     } else {
       newDirection = new PVector () ;
     }
     
-    PVector newVelocity = new PVector (sq(tempo[IDobj]) *1000., sq(tempo[IDobj]) *1000.);
+    PVector newVelocity = new PVector (sq(tempo[ID_item]) *1000., sq(tempo[ID_item]) *1000.);
     //security if the value is null to don't stop the move
     float acceleration ; 
-    if(pen[IDobj].z == 0 ) acceleration = 1. ; else acceleration = pen[IDobj].z *1000. ;
+    if(pen[ID_item].z == 0 ) acceleration = 1. ; else acceleration = pen[ID_item].z *1000. ;
     
     
     PVector soundDirection = new PVector() ;
-    if(sound[IDobj]) soundDirection = new PVector(right[IDobj], left[IDobj]) ; else soundDirection = new PVector(0, 0) ;
+    if(sound[ID_item]) soundDirection = new PVector(right[ID_item], left[ID_item]) ; else soundDirection = new PVector(0, 0) ;
 
     float velocityX = newDirection.x *newVelocity.x *acceleration ;
     float velocityY = newDirection.y *newVelocity.y *acceleration ;
     PVector changeVelocity = new PVector (velocityX, velocityY) ;
     
     // FACTOR SOUND REACTIVITY
-    float maxBeat = map(swing_x_item[IDobj],0,1,1,15) ;
-    beat[IDobj] = map(beat[IDobj],1,10, 1,maxBeat) ;
-    kick[IDobj] = map(kick[IDobj],1,10, 1,maxBeat) ;
-    snare[IDobj] = map(snare[IDobj],1,10, 1,maxBeat) ;
-    hat[IDobj] = map(hat[IDobj],1,10, 1,maxBeat) ;
+    float maxBeat = map(swing_x_item[ID_item],0,1,1,15) ;
+    beat[ID_item] = map(beat[ID_item],1,10, 1,maxBeat) ;
+    kick[ID_item] = map(kick[ID_item],1,10, 1,maxBeat) ;
+    snare[ID_item] = map(snare[ID_item],1,10, 1,maxBeat) ;
+    hat[ID_item] = map(hat[ID_item],1,10, 1,maxBeat) ;
     
     // thickness
-    float thickness = map(thickness_item[IDobj],0, width/3, 0, width/20) ;
+    float thickness = map(thickness_item[ID_item],0, width/3, 0, width/20) ;
     
     // TEXT
-    float sizeFont = font_size_item[IDobj] *1.5 ;
+    float sizeFont = font_size_item[ID_item] *1.5 ;
     PVector posText = new PVector ( 0.0, 0.0, 0.0 ) ;
     int sizeTextName = int(sizeFont) ;
     int sizeTextInfo = int(sizeFont *.5) ;
 
     //Canvas
-    PVector marge = new PVector(map(canvas_x_item[IDobj], width/10, width, width/20, width *3) , map(canvas_y_item[IDobj], height/10, height, height/20, height *3) ) ;
+    PVector marge = new PVector(map(canvas_x_item[ID_item], width/10, width, width/20, width *3) , map(canvas_y_item[ID_item], height/10, height, height/20, height *3) ) ;
       
       
       
@@ -142,9 +141,9 @@ class Atome extends Romanesco {
       atm.covalentCollision (atomList);
       
       // SIZE
-      float sizeAtomeRawX = map (size_x_item[IDobj], .1, width, .2, width *.05) ;
-      float sizeAtomeRawY = map (size_y_item[IDobj], .1, width, .2, width *.05) ;
-      float sizeAtomeRawZ = map (size_z_item[IDobj], .1, width, .2, width *.05) ;
+      float sizeAtomeRawX = map (size_x_item[ID_item], .1, width, .2, width *.05) ;
+      float sizeAtomeRawY = map (size_y_item[ID_item], .1, width, .2, width *.05) ;
+      float sizeAtomeRawZ = map (size_z_item[ID_item], .1, width, .2, width *.05) ;
       float sizeAtomeX = sizeAtomeRawX *beatSizeProton ;
       float sizeAtomeY = sizeAtomeRawY *beatSizeProton ;
       float sizeAtomeZ = sizeAtomeRawZ *beatSizeProton ;
@@ -152,7 +151,7 @@ class Atome extends Romanesco {
       //diameter
       float factorSizeField = sizeAtomeX *1.2 ; // factor size of the electronic Atom's Cloud
        //width
-      float posTextInfo = map(size_y_item[IDobj], .1, width,sizeAtomeRawX*.2, width*.2) + (beat[IDobj] *2.0)  ;
+      float posTextInfo = map(size_y_item[ID_item], .1, width,sizeAtomeRawX*.2, width*.2) + (beat[ID_item] *2.0)  ;
 
     
       
@@ -160,7 +159,7 @@ class Atome extends Romanesco {
       //PARAMETER FROM ROMANESCO
       //the proton change the with the beat of music
       int max = 118 ;
-      if( (nTouch && action[IDobj]) || rangeA == 0 ) {
+      if( (nTouch && action[ID_item]) || rangeA == 0 ) {
         rangeA = round(random(0,max-80)) ;
         rangeB = round(random(rangeA,max-40)) ;
         rangeC = round(random(rangeB,max)) ;
@@ -168,59 +167,59 @@ class Atome extends Romanesco {
       
 
       if ( atm.getProton() < rangeA ) { 
-        beatSizeProton = beat[IDobj] ;
+        beatSizeProton = beat[ID_item] ;
       } else if ( atm.getProton() > rangeA && atm.getProton() < rangeB ) {
-        beatSizeProton = kick[IDobj] ;
+        beatSizeProton = kick[ID_item] ;
       } else if ( atm.getProton() > rangeB && atm.getProton() < rangeC ) {
-        beatSizeProton = snare[IDobj] ;
+        beatSizeProton = snare[ID_item] ;
       } else if ( atm.getProton()  > rangeC ) {
-        beatSizeProton = hat[IDobj] ;
+        beatSizeProton = hat[ID_item] ;
       }
       /////////////////CLOUD///////////////////////////////////////
       if ( atm.getProton() < 41 ) { 
-        beatThicknessCloud = beat[IDobj] ;
+        beatThicknessCloud = beat[ID_item] ;
       } else if ( atm.getProton() > 40 && atm.getProton() < 66 ) {
-        beatThicknessCloud = kick[IDobj] ;
+        beatThicknessCloud = kick[ID_item] ;
       } else if ( atm.getProton() > 65 && atm.getProton() < 91 ) {
-        beatThicknessCloud = snare[IDobj] ;
+        beatThicknessCloud = snare[ID_item] ;
       } else if ( atm.getProton()  > 90 ) {
-        beatThicknessCloud = hat[IDobj] ;
+        beatThicknessCloud = hat[ID_item] ;
       }
 
       
 
       //MODE OF DISPLAY
-      //romanescoMode = "Chemical Name/File text/Electronic cloud/Ellipse schema/Ellipse cloud/Triangle schema/Triangle cloud/Rectangle schema/Rectangle cloud/Box schema/Box cloud/Sphere schema/Sphere cloud" ;
-      if (mode[IDobj] == 0 || mode[IDobj] == 255 ) 
-      atm.titleAtom2D (fill_item[IDobj], stroke_item[IDobj], font[IDobj], sizeTextName, sizeTextInfo, posTextInfo, angle_item[IDobj]) ; // (color name, color Info, PFont, int sizeTextName,int  sizeTextInfo )
-      else if (mode[IDobj] == 1 ) { 
-        atm.title2D(fill_item[IDobj], font[IDobj], sizeTextName, posText, angle_item[IDobj]) ;
-      } else if (mode[IDobj] == 2 ) {
-        atm.display("", "POINT", sizeAtomeXYZ, fill_item[IDobj], stroke_item[IDobj], thickness, angle_item[IDobj]) ;
-      } else if (mode[IDobj] == 3 ) {
-        if(threeDimension) atm.display("SPHERE", "ELLIPSE", sizeAtomeXYZ, fill_item[IDobj], stroke_item[IDobj], thickness, angle_item[IDobj]) ;
-        else atm.display("ELLIPSE", "ELLIPSE", sizeAtomeXYZ, fill_item[IDobj], stroke_item[IDobj], thickness, angle_item[IDobj]) ;
-      } else if (mode[IDobj] == 4 ) {
-        if(threeDimension) atm.display("SPHERE", "TRIANGLE", sizeAtomeXYZ, fill_item[IDobj], stroke_item[IDobj], thickness, angle_item[IDobj]) ;
-        else atm.display("ELLIPSE", "TRIANGLE", sizeAtomeXYZ, fill_item[IDobj], stroke_item[IDobj], thickness, angle_item[IDobj]) ;
-      } else if (mode[IDobj] == 5 ) {
-        if(threeDimension) atm.display("SPHERE", "POINT", sizeAtomeXYZ, fill_item[IDobj], stroke_item[IDobj], thickness, angle_item[IDobj]) ;
-        else atm.display("ELLIPSE", "POINT", sizeAtomeXYZ, fill_item[IDobj], stroke_item[IDobj], thickness, angle_item[IDobj]) ;
-      } else if (mode[IDobj] == 6 ) {
-        if(threeDimension) atm.display("TETRA", "ELLIPSE", sizeAtomeXYZ, fill_item[IDobj], stroke_item[IDobj], thickness, angle_item[IDobj]) ;
-        else atm.display("TRIANGLE", "ELLIPSE", sizeAtomeXYZ, fill_item[IDobj], stroke_item[IDobj], thickness, angle_item[IDobj]) ;
-      } else if (mode[IDobj] == 7 ) {
-        if(threeDimension) atm.display("TETRA", "TRIANGLE", sizeAtomeXYZ, fill_item[IDobj], stroke_item[IDobj], thickness, angle_item[IDobj]) ;
-        else atm.display("TRIANGLE", "TRIANGLE", sizeAtomeXYZ, fill_item[IDobj], stroke_item[IDobj], thickness, angle_item[IDobj]) ;
-      } else if (mode[IDobj] == 8 ) {
-        if(threeDimension) atm.display("TETRA", "POINT", sizeAtomeXYZ, fill_item[IDobj], stroke_item[IDobj], thickness, angle_item[IDobj]) ;
-        else atm.display("TRIANGLE", "POINT", sizeAtomeXYZ, fill_item[IDobj], stroke_item[IDobj], thickness, angle_item[IDobj]) ;
-      } else if (mode[IDobj] == 9 ) {
-        if(threeDimension) atm.display("BOX", "RECTANGLE", sizeAtomeXYZ, fill_item[IDobj], stroke_item[IDobj], thickness, angle_item[IDobj]) ;
-        else atm.display("RECTANGLE", "RECTANGLE", sizeAtomeXYZ, fill_item[IDobj], stroke_item[IDobj], thickness, angle_item[IDobj]) ;
-      } else if (mode[IDobj] == 10 ) {
-        if(threeDimension) atm.display("BOX", "POINT", sizeAtomeXYZ, fill_item[IDobj], stroke_item[IDobj], thickness, angle_item[IDobj]) ;
-        else atm.display("RECTANGLE", "POINT", sizeAtomeXYZ, fill_item[IDobj], stroke_item[IDobj], thickness, angle_item[IDobj]) ;
+      //RPE_mode = "Chemical Name/File text/Electronic cloud/Ellipse schema/Ellipse cloud/Triangle schema/Triangle cloud/Rectangle schema/Rectangle cloud/Box schema/Box cloud/Sphere schema/Sphere cloud" ;
+      if (mode[ID_item] == 0 || mode[ID_item] == 255 ) 
+      atm.titleAtom2D (fill_item[ID_item], stroke_item[ID_item], font[ID_item], sizeTextName, sizeTextInfo, posTextInfo, angle_item[ID_item]) ; // (color name, color Info, PFont, int sizeTextName,int  sizeTextInfo )
+      else if (mode[ID_item] == 1 ) { 
+        atm.title2D(fill_item[ID_item], font[ID_item], sizeTextName, posText, angle_item[ID_item]) ;
+      } else if (mode[ID_item] == 2 ) {
+        atm.display("", "POINT", sizeAtomeXYZ, fill_item[ID_item], stroke_item[ID_item], thickness, angle_item[ID_item]) ;
+      } else if (mode[ID_item] == 3 ) {
+        if(threeDimension) atm.display("SPHERE", "ELLIPSE", sizeAtomeXYZ, fill_item[ID_item], stroke_item[ID_item], thickness, angle_item[ID_item]) ;
+        else atm.display("ELLIPSE", "ELLIPSE", sizeAtomeXYZ, fill_item[ID_item], stroke_item[ID_item], thickness, angle_item[ID_item]) ;
+      } else if (mode[ID_item] == 4 ) {
+        if(threeDimension) atm.display("SPHERE", "TRIANGLE", sizeAtomeXYZ, fill_item[ID_item], stroke_item[ID_item], thickness, angle_item[ID_item]) ;
+        else atm.display("ELLIPSE", "TRIANGLE", sizeAtomeXYZ, fill_item[ID_item], stroke_item[ID_item], thickness, angle_item[ID_item]) ;
+      } else if (mode[ID_item] == 5 ) {
+        if(threeDimension) atm.display("SPHERE", "POINT", sizeAtomeXYZ, fill_item[ID_item], stroke_item[ID_item], thickness, angle_item[ID_item]) ;
+        else atm.display("ELLIPSE", "POINT", sizeAtomeXYZ, fill_item[ID_item], stroke_item[ID_item], thickness, angle_item[ID_item]) ;
+      } else if (mode[ID_item] == 6 ) {
+        if(threeDimension) atm.display("TETRA", "ELLIPSE", sizeAtomeXYZ, fill_item[ID_item], stroke_item[ID_item], thickness, angle_item[ID_item]) ;
+        else atm.display("TRIANGLE", "ELLIPSE", sizeAtomeXYZ, fill_item[ID_item], stroke_item[ID_item], thickness, angle_item[ID_item]) ;
+      } else if (mode[ID_item] == 7 ) {
+        if(threeDimension) atm.display("TETRA", "TRIANGLE", sizeAtomeXYZ, fill_item[ID_item], stroke_item[ID_item], thickness, angle_item[ID_item]) ;
+        else atm.display("TRIANGLE", "TRIANGLE", sizeAtomeXYZ, fill_item[ID_item], stroke_item[ID_item], thickness, angle_item[ID_item]) ;
+      } else if (mode[ID_item] == 8 ) {
+        if(threeDimension) atm.display("TETRA", "POINT", sizeAtomeXYZ, fill_item[ID_item], stroke_item[ID_item], thickness, angle_item[ID_item]) ;
+        else atm.display("TRIANGLE", "POINT", sizeAtomeXYZ, fill_item[ID_item], stroke_item[ID_item], thickness, angle_item[ID_item]) ;
+      } else if (mode[ID_item] == 9 ) {
+        if(threeDimension) atm.display("BOX", "RECTANGLE", sizeAtomeXYZ, fill_item[ID_item], stroke_item[ID_item], thickness, angle_item[ID_item]) ;
+        else atm.display("RECTANGLE", "RECTANGLE", sizeAtomeXYZ, fill_item[ID_item], stroke_item[ID_item], thickness, angle_item[ID_item]) ;
+      } else if (mode[ID_item] == 10 ) {
+        if(threeDimension) atm.display("BOX", "POINT", sizeAtomeXYZ, fill_item[ID_item], stroke_item[ID_item], thickness, angle_item[ID_item]) ;
+        else atm.display("RECTANGLE", "POINT", sizeAtomeXYZ, fill_item[ID_item], stroke_item[ID_item], thickness, angle_item[ID_item]) ;
       }
  
 
@@ -232,21 +231,21 @@ class Atome extends Romanesco {
     }
     
     // info display
-    objectInfo[IDobj] = ("Atoms "+atomList.size()) ;
+    objectInfo[ID_item] = ("Atoms "+atomList.size()) ;
     
 
     //CLEAR
-    if (resetAction(IDobj)) atomList.clear() ;
+    if (resetAction(ID_item)) atomList.clear() ;
     //ADD ATOM
     int maxValueReproduction = 25 ;
     if(fullRendering) maxValueReproduction = 1 ; else maxValueReproduction = 25 ;
-    int speedReproduction = round(map(quantity_item[IDobj],0, 1, 30, maxValueReproduction));
-    if(action[IDobj] && nLongTouch && clickLongLeft[IDobj] && frameCount % speedReproduction == 0) atomAdd(giveNametoAtom(), startingPosition[IDobj]) ;
+    int speedReproduction = round(map(quantity_item[ID_item],0, 1, 30, maxValueReproduction));
+    if(action[ID_item] && nLongTouch && clickLongLeft[ID_item] && frameCount % speedReproduction == 0) atomAdd(giveNametoAtom(), startingPosition[ID_item]) ;
     
     if(atomList.size()<1) {
       int num = int(random(1,9)) ;
       for(int i = 0 ; i < num ; i++ ) {
-        atomAdd(giveNametoAtom(), startingPosition[IDobj]) ;
+        atomAdd(giveNametoAtom(), startingPosition[ID_item]) ;
       }
     }
 
@@ -263,10 +262,10 @@ class Atome extends Romanesco {
   //give name to the atom from the file.txt in the source repository
   String giveNametoAtom() {
     String s = ("") ;
-    int whichChapter = floor(random(numChapters(textImport[IDobj]))) ;
-    int whichSentence = floor(random(numMaxSentencesByChapter(textImport[IDobj]))) ;
+    int whichChapter = floor(random(numChapters(text_import[ID_item]))) ;
+    int whichSentence = floor(random(numMaxSentencesByChapter(text_import[ID_item]))) ;
     //give a random name, is this one is null in the array, give the tittle name of text
-    if(whichSentence(textImport[IDobj], whichChapter, whichSentence) != null ) s = whichSentence(textImport[IDobj], whichChapter, whichSentence) ; else s = whichSentence(textImport[IDobj], 0, 0) ;
+    if(whichSentence(text_import[ID_item], whichChapter, whichSentence) != null ) s = whichSentence(text_import[ID_item], whichChapter, whichSentence) ; else s = whichSentence(text_import[ID_item], 0, 0) ;
     return s ;
   }
   
@@ -276,11 +275,11 @@ class Atome extends Romanesco {
     //data
     //amplitude
     //give the field of type of atome must be create
-    float numP = map(variety_item[IDobj], 0,1,1,118) ; //
+    float numP = map(variety_item[ID_item], 0,1,1,118) ; //
     int Z = int(random (1,numP)) ; // Z is the number of protons give the number of electrons max knew is 118
     int ion = round(random(0,0)); // number of electron(s) less(Anion)   more(Cation)   / give the magnetism & conductivity of the atome cannot be equal or sup to "Z"proton
     
-    int Kstart = int(abs( mix[IDobj]) *1000) ; // Temperature of Atom, influence the mouvement behavior
+    int Kstart = int(abs( mix[ID_item]) *1000) ; // Temperature of Atom, influence the mouvement behavior
 
     if (Kstart > 500 ) Kstart = 500 ;
     // physic action & display in the Univers

@@ -101,6 +101,8 @@ void loadDataObject(String path) {
 		whichFont[ID] = 
 		*/
 		which_bitmap[ID] = dataObj.getInt("which picture") ;
+		which_svg[ID] = dataObj.getInt("which svg") ;
+		which_movie[ID] = dataObj.getInt("which movie") ;
 		which_text[ID] = dataObj.getInt("which text") ;
         // display mode
 		mode[ID] = dataObj.getInt("Mode obj") ;

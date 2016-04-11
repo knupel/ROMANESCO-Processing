@@ -5,22 +5,21 @@ KARAOKE || 2011 || 2.0.0
 class Karaoke extends Romanesco {
   public Karaoke() {
     //from the index_objects.csv
-    romanescoName = "Karaoke" ;
-    IDobj = 4 ;
-    IDgroup = 1 ;
-    romanescoAuthor  = "Stan LePunk";
-    romanescoVersion = "Version 2.0";
-    romanescoPack = "Base" ;
-    romanescoRender = "classic" ;
-    romanescoMode = "" ; // separate the name by a slash and write the next mode immadialtly after this one.
-    romanescoSlider = "Fill hue,Fill sat,Fill bright,Fill alpha,Size X,Canvas X,Canvas Y,Direction X" ;
+    RPE_name = "Karaoke" ;
+    ID_item = 4 ;
+    ID_group = 1 ;
+    RPE_author  = "Stan LePunk";
+    RPE_version = "Version 2.0";
+    RPE_pack = "Base" ;
+    RPE_mode = "" ; // separate the name by a slash and write the next mode immadialtly after this one.
+    RPE_slider = "Fill hue,Fill sat,Fill bright,Fill alpha,Size X,Canvas X,Canvas Y,Direction X" ;
   }
   //GLOBAL
   int chapter, sentence ;
   
   //SETUP
   void setting() {
-    startPosition(IDobj, width/2, height/2, 0) ;
+    startPosition(ID_item, width/2, height/2, 0) ;
   }
   
   
@@ -28,15 +27,15 @@ class Karaoke extends Romanesco {
   
   //DRAW
   void display() {
-    loadText(IDobj) ;
+    load_txt(ID_item) ;
     
-    float sizeFont = font_size_item[IDobj] ;
+    float sizeFont = font_size_item[ID_item] ;
     
-    textFont(font[IDobj], sizeFont + ( sizeFont *mix[IDobj]) *allBeats(IDobj) );
+    textFont(font[ID_item], sizeFont + ( sizeFont *mix[ID_item]) *allBeats(ID_item) );
     // couleur du texte
-    float t = alpha(fill_item[IDobj]) * abs(mix[IDobj]) ;
-    if ( sound[IDobj] ) { t = alpha(fill_item[IDobj]) ; } 
-    color c = color(hue(fill_item[IDobj]), saturation(fill_item[IDobj]), brightness(fill_item[IDobj]), t ) ;
+    float t = alpha(fill_item[ID_item]) * abs(mix[ID_item]) ;
+    if ( sound[ID_item] ) { t = alpha(fill_item[ID_item]) ; } 
+    color c = color(hue(fill_item[ID_item]), saturation(fill_item[ID_item]), brightness(fill_item[ID_item]), t ) ;
     // security against the blavk bug opacity
     if (alpha(c) == 0 ) {
       noFill() ; 
@@ -46,13 +45,13 @@ class Karaoke extends Romanesco {
     }
     
     //hauteur largeur, height & width
-    float largeur = canvas_x_item[IDobj] *15 ;
-    float hauteur = canvas_y_item[IDobj] *15 ;
+    float largeur = canvas_x_item[ID_item] *15 ;
+    float hauteur = canvas_y_item[ID_item] *15 ;
     
     //tracking chapter
-    String karaokeChapters [] = split(textImport[IDobj], "*") ;
+    String karaokeChapters [] = split(text_import[ID_item], "*") ;
     //security button
-    if(action[IDobj] && nLongTouch ) {
+    if(action[ID_item] && nLongTouch ) {
       
       if (chapter > -1 && chapter < karaokeChapters.length  && nextPrevious && (leftTouch || rightTouch  )) {
         chapter = chapter + tracking(chapter, karaokeChapters.length ) ;
@@ -89,10 +88,10 @@ class Karaoke extends Romanesco {
         sentence = sentence + tracking(sentence, karaokeSentences.length ) ;
         trackerUpdate = 0 ;
       }
-      rotation(dir_x_item[IDobj], mouse[IDobj].x, mouse[IDobj].y) ;
+      rotation(dir_x_item[ID_item], mouse[ID_item].x, mouse[ID_item].y) ;
       //DISPLAY
       textAlign(CORNER);
-      textFont(font[IDobj], sizeFont+ (mix[IDobj]) *6 *beat[IDobj]);
+      textFont(font[ID_item], sizeFont+ (mix[ID_item]) *6 *beat[ID_item]);
       text(karaokeSentences[sentence], 0, 0, largeur, hauteur) ;
     }
 

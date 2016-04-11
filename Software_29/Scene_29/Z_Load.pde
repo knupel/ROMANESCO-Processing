@@ -106,82 +106,45 @@ void loadDataObject(String path) {
 		mode[ID] = dataObj.getInt("Mode obj") ;
 		
         // slider fill
-        float h_fill = dataObj.getFloat(fill_hue_name) ;
-        float s_fill = dataObj.getFloat(fill_sat_name) ;
-        float b_fill = dataObj.getFloat(fill_bright_name) ;
-        float a_fill = dataObj.getFloat(fill_alpha_name) ;
+        float h_fill = dataObj.getFloat("hue fill") ;
+        float s_fill = dataObj.getFloat("saturation fill") ;
+        float b_fill = dataObj.getFloat("brightness fill") ;
+        float a_fill = dataObj.getFloat("alpha fill") ;
 		// slider stroke
-		float h_stroke = dataObj.getFloat(stroke_hue_name) ;
-        float s_stroke = dataObj.getFloat(stroke_sat_name) ;
-        float b_stroke = dataObj.getFloat(stroke_bright_name) ;
-        float a_stroke = dataObj.getFloat(stroke_alpha_name) ;
+		float h_stroke = dataObj.getFloat("hue stroke") ;
+        float s_stroke = dataObj.getFloat("saturation stroke") ;
+        float b_stroke = dataObj.getFloat("brightness stroke") ;
+        float a_stroke = dataObj.getFloat("alpha stroke") ;
 
         if(fullRendering) {
         	fill_item[ID] = color(h_fill, s_fill, b_fill, a_fill) ;
 			stroke_item[ID] = color(h_stroke, s_stroke, b_stroke, a_stroke) ;
-			thickness_item[ID] = dataObj.getFloat(thickness_name) *height ;
+			thickness_item[ID] = dataObj.getFloat("thickness") *height ;
 		} else {
 			// preview display
 			fill_item[ID] = COLOR_FILL_OBJ_PREVIEW ;
 			stroke_item[ID] =  COLOR_STROKE_OBJ_PREVIEW ;
 			thickness_item[ID] = THICKNESS_OBJ_PREVIEW ;
-		}
+	    }
 
- 
-		size_x_item[ID] = dataObj.getFloat(size_x_name) *width ;
-		size_y_item[ID] = dataObj.getFloat(size_y_name) *width ;
-		size_z_item[ID] = dataObj.getFloat(size_z_name) *width ;
+		size_x_item[ID] = dataObj.getFloat("width") *width ;
+		size_y_item[ID] = dataObj.getFloat("height") *width ;
+		size_z_item[ID] = dataObj.getFloat("depth") *width ;
+		canvas_x_item[ID] = dataObj.getFloat("canvas x") *width ;
+		canvas_y_item[ID] = dataObj.getFloat("canvas y") *width ;
+		canvas_z_item[ID] = dataObj.getFloat("canvas z") *width ;
+		variety_item[ID] = dataObj.getFloat("family") ;
+		quantity_item[ID] = dataObj.getFloat("quantity") ;
+		life_item[ID] = dataObj.getFloat("life") ;
 
-		font_size_item[ID] = dataObj.getFloat(font_size_name) *width ;
-
-		canvas_x_item[ID] = dataObj.getFloat(canvas_x_name) *width ;
-		canvas_y_item[ID] = dataObj.getFloat(canvas_y_name) *width ;
-		canvas_z_item[ID] = dataObj.getFloat(canvas_z_name) *width ;
-
-		reactivity_item[ID] = dataObj.getFloat(reactivity_name) ;
-
-		speed_x_item[ID] = dataObj.getFloat(speed_x_name) ;
-		speed_y_item[ID] = dataObj.getFloat(speed_y_name) ;
-		speed_z_item[ID] = dataObj.getFloat(speed_z_name) ;
-
-		spurt_x_item[ID] = dataObj.getFloat(spurt_x_name) ;
-		spurt_y_item[ID] = dataObj.getFloat(spurt_y_name) ;
-		spurt_z_item[ID] = dataObj.getFloat(spurt_z_name) ;
-
-		dir_x_item[ID] = dataObj.getFloat(dir_x_name) ;
-		dir_y_item[ID] = dataObj.getFloat(dir_y_name) ;
-		dir_z_item[ID] = dataObj.getFloat(dir_z_name) ;
-
-		jitter_x_item[ID] = dataObj.getFloat(jitter_x_name) ;
-		jitter_y_item[ID] = dataObj.getFloat(jitter_y_name) ;
-		jitter_z_item[ID] = dataObj.getFloat(jitter_z_name) ;
-
-		swing_x_item[ID] = dataObj.getFloat(swing_x_name) ;
-		swing_y_item[ID] = dataObj.getFloat(swing_y_name) ;
-		swing_z_item[ID] = dataObj.getFloat(swing_z_name) ;
-
-		quantity_item[ID] = dataObj.getFloat(quantity_name) ;
-		variety_item[ID] = dataObj.getFloat(variety_name) ;
-
-		life_item[ID] = dataObj.getFloat(life_name) ;
-		fertility_item[ID] = dataObj.getFloat(fertility_name) ;
-		quality_item[ID] = dataObj.getFloat(quality_name) ;
-
-		area_item[ID] = dataObj.getFloat(area_name) ;
-		angle_item[ID] = dataObj.getFloat(angle_name) ;
-		scope_item[ID] = dataObj.getFloat(scope_name) ;
-		scan_item[ID] = dataObj.getFloat(scan_name) ;
-
-		alignment_item[ID] = dataObj.getFloat(alignment_name) ;
-		repulsion_item[ID] = dataObj.getFloat(repulsion_name) ;
-		attraction_item[ID] = dataObj.getFloat(attraction_name) ;
-		charge_item[ID] = dataObj.getFloat(charge_name) ;
-
-		influence_item[ID] = dataObj.getFloat(influence_name) ;
-		calm_item[ID] = dataObj.getFloat(calm_name) ;
-		need_item[ID] = dataObj.getFloat(need_name) ;
-
-      // pos and other data item
+		speed_x_item[ID] = dataObj.getFloat("speed") ;
+		dir_x_item[ID] = dataObj.getFloat("direction") ;
+		angle_item[ID] = dataObj.getFloat("angle") ;
+		swing_x_item[ID] = dataObj.getFloat("amplitude") ;
+		repulsion_item[ID] = dataObj.getFloat("repulsion") ;
+		attraction_item[ID] = dataObj.getFloat("attraction") ;
+		alignment_item[ID] = dataObj.getFloat("aligmnent") ;
+		influence_item[ID] = dataObj.getFloat("influence") ;
 
 		posObjX[ID]	= dataObj.getFloat("pos x obj") *width ;
 		posObjY[ID]	= dataObj.getFloat("pos y obj") *width ;
