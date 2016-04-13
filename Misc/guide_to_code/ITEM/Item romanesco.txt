@@ -94,153 +94,7 @@ yhis boolean is false on the Prescene and true on the Scene.
 
 
 
-____________
-VARIABLES
-°°°°°°°°°°°°°
 
-BUTTON
-––––––
-mode[ID_item] 
-@return int the number of the displaying mode
-
-action[ID_item] 
-@return boolean / we use this one for the mouse move + vTouch in Romanesco application
-
-sound[ID_item] 
-@return boolean 
-
-parameter[ID_item] 
-@return boolean 
-
-
-
-
-
-
-
-ITEM SLIDER VALUE
------------------
-
-float value from silder controller, use with the ID of your item
-––––––––––––––––––––––-------------------------------------------
-
-hue(fill_item[ID_item]) ; @return float value 0.0 > 360.0
-saturation(fill_item[ID_item]) ; @return float value 0.0 > 100.0
-brightness(fill_item[ID_item]) ;  @return float value 0.0 > 100.0
-alpha(fill_item[ID_item])  ; @return float value 0.0 > 100.0
-> fill_item[ID_item] = @return int arg color
-
-hue(stroke_item[ID_item]) ; @return float value 0.0 > 360.0
-saturation(stroke_item[ID_item]) ; @return float value 0.0 > 100.0
-brightness(stroke_item[ID_item]) ; @return float value 0.0 > 100.0
-alpha(stroke_item[ID_item]) ; @return float value 0.0 > 100.0
-> stroke_item[ID_item] = @return int arg color
-
-thickness_item[ID_item] @return float value 0.1 > height/3
-
-size_x_item[ID_item] ; @return float value 0.1 > width
-size_y_item[ID_item]  ;  @return float value 0.1 > width
-size_z_item[ID_item]  = ; @return float value 0.1 > width
-
-font_size_item[ID_item]  = ; 
-
-canvas_x_item[ID_item]  ; @return float value width/10  > width
-canvas_y_item[ID_item]  ; @return float value width/10  > width
-canvas_z_item[ID_item]  ; @return float value width/10  > width
-
-reactivity_item[[ID_item]  ;  
-
-speed_x_item[ID_item] ;
-speed_y_item[ID_item] ;
-speed_z_item[ID_item] ;
-
-spurt_x_item[ID_item] ;
-spurt_y_item[ID_item] ;
-spurt_z_item[ID_item] ;
-
-dir_x_item[ID_item] ;
-dir_y_item[ID_item] ;
-dir_z_item[ID_item] ;
-
-jitter_x_item[ID_item] ;
-jitter_y_item[ID_item] ;
-jitter_z_item[ID_item] ;
-
-swing_x_item[ID_item] ;
-swing_y_item[ID_item] ;
-swing_z_item[ID_item] ;
-
-quantity_item[ID_item]  ; 
-variety_item[ID_item]  ; 
-
-life_item[ID_item]  ; 
-flow_item[ID_item]  ; 
-quality_item[ID_item]  ; 
-
-area_item[ID_item]  ; 
-angle_item[ID_item]  ; 
-scope_item[ID_item]  ; 
-scan_item[ID_item]  ; 
-
-alignment_item[ID_item]  ; 
-repulsion_item[ID_item]  ; 
-attraction_item[ID_item]  ; 
-charge_item[ID_item]  ; 
-
-influence_item[ID_item]  ; 
-calm_item[ID_item]  ; 
-need_item[ID_item]  ; 
-
-
-
-Min max value of the slider in Vec2
---------------------------------------
-fill_hue_min_max >>> 0,360
-fill_sat_min_max, fill_bright_min_max, fill_alpha_min_max >>> 0, color max of your environment
-
-stroke_hue_min_max >>> 0,360
-stroke_sat_min_max, stroke_bright_min_max, stroke_alpha_min_max >>> 0, color max of your environment
-
-thickness_min_max >>> 0.1, height*.33
-
-size_x_min_max, size_y_min_max, size_z_min_max >>> width *min_size, width
-
-font_size_min_max >>> eight *.005, height *.05
-
-canvas_x_min_max, canvas_y_min_max, canvas_z_min_max >>> width *min_size, width
-
-reactivity_min_max >>> 0,1
-
-speed_x_min_max, speed_y_min_max, speed_z_min_max >>> 0,1
-
-spurt_x_min_max,spurt_y_min_max, spurt_z_min_max  >>> 0,1
-
-dir_x_min_max, dir_y_min_max, dir_z_min_max >>> 0,360
-
-jitter_x_min_max, jitter_y_min_max, jitter_z_min_max >>> 0,1
-
-swing_x_min_max, swing_y_min_max, swing_z_min_max >>> 0,1
-
-quantity_min_max >>> 0,1
-variety_min_max >>> 0,1
-
-life_min_max >>> 0,1
-flow_min_max >>> 0,1 
-quality_min_max >>> 0,1
-
-area_min_max >>> width *min_size, width
-angle_min_max >>> 0,360
-scope_min_max >>> width *min_size, width
-scan_min_max >>> 0,360
-
-alignment_min_max >>> 0,1 
-repulsion_min_max >>> 0,1 
-attraction_min_max >>> 0,1
-charge_min_max >>> 0,1
-
-influence_min_max >>> 0,1 
-calm_min_max >>> 0,1 
-need_min_max >>> 0,1
 
 
 
@@ -291,78 +145,11 @@ int which_cam ; @return the ID of the current camera
 
 
 
-SOUND 
-–––––––––––––––––––
-VAR from the sound
-
-Volume
-left[ID_item]  @return float value 0 > 1 / 1 when it's the sound is off
-right[ID_item] @return float value 0 > 1 / 1 when it's the sound is off
-mix[ID_item]   @return float value 0 > 1 / 1 when it's the sound is off
-
-Beat
-beat[ID_item] @return float value 1 > 3 / last value when the sound is off
-kick[ID_item] @return float value 1 > 3 / last value when the sound is off
-snare[ID_item] @return float value 1 > 3 / last value when the sound is off
-hat[ID_item]   @return float value 1 > 3 / last value when the sound is off
-allBeats(ID_item) @return float value 1 > 12 / last value when the sound is off
-??????????????????????????
-????? it's weird because normally the value return must be between 1 to 10 for single value and 1 to 40 for the sum 
-
-Tempo
-tempo[ID_item] @return float value 0 > 1 / 1 when it's the sound is off
-tempoBeat[ID_item]  @return float value 0 > 1 / 1 when it's the sound is off
-tempoKick[ID_item]  @return float value 0 > 1 / 1 when it's the sound is off
-tempoSnare[ID_item] @return float value 0 > 1 / 1 when it's the sound is off
-tempoHat[ID_item]   @return float value 0 > 1 / 1 when it's the sound is off
-
-float getTimeTrack()  if the track is ON return the time elapse from the beginning play to now, if the track is OFF return value < 0.2
-
-float band [ID_item][whichBand] // whichBand give the information of the band where catch the info
-usualy there is 16 bands, to know the number :
-bandSpectrum.length ;
 
 
 
-COMMON EXTERNAL DEVICE
-––––––––––––––––––––––––––––––––––––––
-VAR from the mouse, pen and leapmotion
 
 
-POINTER XYZ
-––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
-PVector mouse[ID_item] refresh with space touch
-mouse[0].x // mouse[0].y // absolute position of the mouse
-mouse[0].z // return info from the z axis when the leapmotion is active
-mouse[ID_item].x // mouse[ID_item].y // mouse[ID_item].z // same info than mouse[0] but this one is refresh when you press the space
-
-MOUSE WHEEL
-––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
-int wheel[ID_item]
-wheel[0] and wheel[ID_item]
-or use the void zoom() and take the float value getCountZoom...this value is more reactive !
-
-PMOUSE
-––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
-PVector pmouse[ID_item]
-pmouse[0] and pmouse[ID_item]
-
-
-PEN
-––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
-PVector pen[ID_item] or pen[0] refresh with space touch
-pen[ID_item].x pen[ID_item].y   // information from the tablet tilt : orientation of the pen 
-pen[ID_item].z - value to 0 to 1 - information from tablet : pressure pen 
-
-
-MOUSE CLICK BOOLEAN
-–––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
-Short click just for one shot
-	boolean clickShortLeft[ID_item] ;
-	boolean clickShortRight[ID_item] ;
-Active after one mousePressed, be inactive after the mouse Released
-	boolean clickLongLeft[ID_item] ;
-	boolean clickLongLeft[ID_item] ;
 
 
 
@@ -471,6 +258,17 @@ REVERSE DIRECTION
 boolean reverse[ID_item] use to reverse direction or what you want, activa by "r" key - boolean rTouch -
 
 
+
+
+
+
+
+
+
+
+
+
+
 DISPLAY INFO on SCENE
 –––––––––––––––––––––––––––––––––––––––––––––––––––––––––
 boolean objectInfoDisplay[ID_item] use to display info or what you want show on Prescene or Scene from your object, activate by "i" key - boolean iTouch
@@ -480,6 +278,11 @@ String objectName[ID_item] return the name of your object
 String objectInfo[ID_item]  can be use to add info who can be display in the info option when you push "i" on the prescene
 
 int objectID[ID_item] return the ID of the object
+
+
+
+
+
 
 
 

@@ -1,5 +1,3 @@
-IMPORT SVG.txt
-
 Method to load and use svg, from the dropdown menu of the controller
 
 load_svg(ID_item) ;
