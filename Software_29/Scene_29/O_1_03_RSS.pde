@@ -28,9 +28,17 @@ class RSS extends Romanesco {
     
     
     if(internet) {
+      println("je suis RSS problem 1") ;
       String [] fluxRSS = loadStrings(preference_path+"network/RSSReference.txt") ;
+      println("je suis RSS problem 2") ;
       String RSS = join(fluxRSS, "") ;
-      flux = new FeedReader(RSS);
+      println("je suis RSS problem 3") ;
+      try {
+        // flux = new FeedReader(RSS);
+      } catch(Exception e) {
+        println("je suis RSS problem 4") ;
+        e.printStackTrace() ;
+      }
     }
     
   }

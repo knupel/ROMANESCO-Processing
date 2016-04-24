@@ -1,5 +1,5 @@
 /**
-RPE SVG 1.0.4
+RPE SVG 1.0.9
 RPE – Romanesco Processing Environment – 
 * @author Stan le Punk
 * @see other Processing work on https://github.com/StanLepunK
@@ -13,10 +13,16 @@ class RPEsvg {
   int ID_brick ;
   String saved_path_svg = "" ;
 
-  boolean bool_pos_svg, bool_jitter_svg, bool_scale_svg, bool_style_svg ;
+  boolean bool_pos_svg, bool_jitter_svg, bool_scale_svg ;
   boolean keep_change ;
-  boolean display_fill = true ;
-  boolean display_stroke = true ;
+
+  boolean display_fill_original = true ;
+  boolean display_stroke_original = true ;
+  boolean display_thickness_original = true ;
+
+  boolean display_fill_custom = false ;
+  boolean display_stroke_custom = false ;
+  boolean display_thickness_custom = false ;
   // 2D var
   Vec2 pos_svg_2D = Vec2() ;
   Vec2 jitter_svg_2D = Vec2() ;
@@ -25,6 +31,14 @@ class RPEsvg {
   Vec3 pos_svg_3D = Vec3() ;
   Vec3 jitter_svg_3D = Vec3() ;
   Vec3 scale_svg_3D = Vec3() ;
+
+  // Aspect default
+  Vec4 fill_custom = Vec4(0,0,0,g.colorModeA) ;
+  Vec4 stroke_custom = Vec4(g.colorModeX,g.colorModeY,g.colorModeZ,g.colorModeA) ;
+  float thickness_custom = 1 ;
+
+  Vec4 fill_factor = Vec4(1) ;
+  Vec4 stroke_factor = Vec4(1) ;
 
 
 
@@ -54,6 +68,7 @@ class RPEsvg {
 
   /**
   PUBLIC METHOD
+
   */
   void build(String path) {
     shape_SVG = loadShape(path) ;
@@ -100,8 +115,7 @@ class RPEsvg {
   void draw_3D(int ID) {
     reset() ;
     draw_SVG (pos_svg_3D, scale_svg_3D, jitter_svg_3D, ID) ;
-    change_boolean_to_false() ;
-  
+    change_boolean_to_false() ;  
   }
   
 
@@ -176,6 +190,60 @@ class RPEsvg {
     reset() ;
   }
 
+
+  /**
+  ASPECT
+  */
+
+  void original_style(boolean fill, boolean stroke) {
+    display_fill_original = fill ;
+    display_stroke_original = stroke ;
+    display_thickness_original = stroke ;
+  }
+
+  void original_fill(boolean fill) {
+    display_fill_original = fill ;
+  }
+
+  void original_stroke(boolean stroke) {
+    display_stroke_original = stroke ;
+    display_thickness_original = stroke ;
+  }
+
+  void fill_custom(int x, int y, int z, int a) {
+    display_fill_original = false ;
+    display_fill_custom = true ;
+    fill_custom.set(x,y,z,a) ;
+  }
+
+  void stroke_custom(int x, int y, int z, int a) {
+    display_stroke_original = false ;
+    display_stroke_custom = true ;
+    stroke_custom.set(x,y,z,a) ;
+  }
+
+  void thickness_custom(float x) {
+    display_thickness_original = false ;
+    display_thickness_custom = true ;
+    thickness_custom = x ;
+  }
+
+  void fill_factor(float x, float y, float z, float a) {
+    fill_factor.set(x,y,z,a) ;
+  }
+
+  void stroke_factor(float x, float y, float z, float a) {
+    stroke_factor.set(x,y,z,a) ;
+  }
+
+  void fill_factor(Vec4 f) {
+    fill_factor.set(f.x,f.y,f.z,f.a) ;
+  }
+
+  void stroke_factor(Vec4 f) {
+    stroke_factor.set(f.x,f.y,f.z,f.a) ;
+  }
+
   /**
   PERMANENTE CHANGE
   This change modify the original points
@@ -209,9 +277,7 @@ class RPEsvg {
     return name ;
   }
   
-  /*
-  return quantity of brick
-  */
+  /* return quantity of brick */
   int num_brick() {
     return list_brick_SVG.size() ;
   }
@@ -259,13 +325,13 @@ class RPEsvg {
   String [] name_brick() {
     return name_brick_SVG(list_brick_SVG) ;
   }
+
   String name_brick(int target) {
     if(list_brick_SVG.size() > 0 && target < list_brick_SVG.size()) {
       Brick_SVG b = (Brick_SVG) list_brick_SVG.get(target) ;
       return b.brick_name ;
 
     } else return "No idea for this ID !" ;
-
   }
 
   String [] family_brick() {
@@ -291,13 +357,9 @@ class RPEsvg {
   }
 
 
-  /**
-  Aspect
-  */
-  void original_style(boolean fill, boolean stroke) {
-    display_fill = fill ;
-    display_stroke = stroke ;
-  }
+
+
+
   
   
 
@@ -367,6 +429,7 @@ class RPEsvg {
   /**
   // END PUBLIC METHOD
 
+
   */
   
 
@@ -421,10 +484,6 @@ class RPEsvg {
         scale_svg_2D.set(1) ;
         scale_svg_3D.set(1) ;
       }
-      if(!bool_style_svg) {
-        display_fill = true ;
-        display_stroke = true ;
-      }
     }
   }
   
@@ -432,7 +491,6 @@ class RPEsvg {
     bool_pos_svg = false ;
     bool_scale_svg = false ;
     bool_jitter_svg = false ;
-    bool_style_svg = false ;
   }
   /**
   Draw all shape
@@ -441,9 +499,8 @@ class RPEsvg {
   void draw_SVG(Vec2 pos, Vec2 scale, Vec2 jitter) {
     for(int i = 0 ; i < list_brick_SVG.size() ; i++) {
       Brick_SVG b = (Brick_SVG) list_brick_SVG.get(i) ;
-  
       float average_scale = (scale.x + scale.y) *.5 ;
-      b.aspect(display_fill, display_stroke, average_scale) ;
+      aspect(b, average_scale) ;
       display_shape_2D(b, pos, scale, jitter) ;
     }
   }
@@ -453,7 +510,7 @@ class RPEsvg {
     for(int i = 0 ; i < list_brick_SVG.size() ; i++) {
       Brick_SVG b = (Brick_SVG) list_brick_SVG.get(i) ;
       float average_scale = (scale.x + scale.y + scale.z) *.333 ;
-      b.aspect(display_fill, display_stroke, average_scale)  ;
+      aspect(b, average_scale) ;
       display_shape_3D(b, pos, scale, jitter) ;
     }
   }
@@ -467,7 +524,7 @@ class RPEsvg {
     if(ID < list_brick_SVG.size()) {
       Brick_SVG b = (Brick_SVG) list_brick_SVG.get(ID) ;
       float average_scale = (scale.x + scale.y) *.5 ;
-      b.aspect(display_fill, display_stroke, average_scale) ;
+      aspect(b, average_scale) ;
       display_shape_2D(b, pos, scale, jitter) ;
     }
   }
@@ -475,8 +532,8 @@ class RPEsvg {
   void draw_SVG (Vec3 pos, Vec3 scale, Vec3 jitter, int ID) {
     if(ID < list_brick_SVG.size()) {
       Brick_SVG b = (Brick_SVG) list_brick_SVG.get(ID) ;
-      float average_scale = (scale.x + scale.y) *.5 ;
-      b.aspect(display_fill, display_stroke, average_scale) ;
+      float average_scale = (scale.x + scale.y + scale.z) *.333 ;
+      aspect(b, average_scale) ;
       display_shape_3D(b, pos, scale, jitter) ;
     }
   }
@@ -494,7 +551,7 @@ class RPEsvg {
       if( b.family_name.contains(layer_name)) {
         // build_path(pos, scale, jitter, v) ;
         float average_scale = (scale.x + scale.y) *.5 ;
-        b.aspect(display_fill, display_stroke, average_scale) ;
+        aspect(b, average_scale) ;
         display_shape_2D(b, pos, scale, jitter) ;
       }
     }
@@ -506,7 +563,7 @@ class RPEsvg {
       if( b.family_name.contains(layer_name)) {
         // build_path(pos, scale, jitter, v) ;
         float average_scale = (scale.x + scale.y) *.5 ;
-        b.aspect(display_fill, display_stroke, average_scale) ;
+        aspect(b, average_scale) ;
         display_shape_3D(b, pos, scale, jitter) ;
       }
     }
@@ -515,9 +572,37 @@ class RPEsvg {
   END DRAW METHOD
 
   */
+
+
+  /**
+  ASPECT
+  */
+  void aspect(Brick_SVG b, float scale_thickness) {
+    aspect_original(b, scale_thickness) ;
+    aspect_custom() ;
+  }
+
+
+  void aspect_original(Brick_SVG b, float scale_thickness) {
+    if(display_fill_original) b.aspect_fill(fill_factor) ; else noFill() ;
+    if(display_stroke_original && display_thickness_original) b.aspect_stroke(scale_thickness,stroke_factor) ; else noStroke() ;
+  }
+
+  void aspect_custom() {
+    if(fill_custom.a > 0 && display_fill_custom && !display_fill_original) fill(fill_custom.r *fill_factor.x,fill_custom.g *fill_factor.y, fill_custom.b *fill_factor.y, fill_custom.a *fill_factor.w) ; 
+    if(stroke_custom.a > 0 || thickness_custom > 0 && display_stroke_custom && !display_stroke_original) {
+      stroke(stroke_custom.r *stroke_factor.x,stroke_custom.g *stroke_factor.y,stroke_custom.b *stroke_factor.z, stroke_custom.a *stroke_factor.w) ;
+      strokeWeight(thickness_custom) ;
+    }
+    if(!display_fill_original && !display_fill_custom) noFill() ;
+    if(!display_stroke_original && !display_stroke_custom) noStroke() ;
+  }
+
+
+
   
   
-  
+
 
 
 
@@ -602,7 +687,6 @@ BUILD
   /**
   Build list point of SVG
   */
-  
   void build_SVG(ArrayList<Brick_SVG> list) {
     PShape [] children = new PShape[list.size()] ;
     for(int i = 0 ; i < list.size() ; i++) {
@@ -835,7 +919,7 @@ BUILD
           vertex(temp_pos_a);
           index++;
           break;
-          //--------------------
+          // QUADRATIC_VERTEX
           case QUADRATIC_VERTEX:
           temp_pos_a = Vec2(v.vert[index].x,v.vert[index].y) ;
           temp_pos_b = Vec2(v.vert[index +1].x,v.vert[index +1].y) ;
@@ -865,7 +949,7 @@ BUILD
           quadraticVertex(temp_pos_a, temp_pos_b);
           index += 2;
           break;
-          //-----------------       
+          // BEZIER_VERTEX     
           case BEZIER_VERTEX:
           temp_pos_a = Vec2(v.vert[index].x,v.vert[index].y) ;
           temp_pos_b = Vec2(v.vert[index +1].x,v.vert[index +1].y) ;
@@ -901,7 +985,7 @@ BUILD
           bezierVertex(temp_pos_a, temp_pos_b, temp_pos_c);
           index += 3;
           break;
-          //----------------
+          // CURVE_VERTEX
           case CURVE_VERTEX:
           temp_pos_a = Vec2(v.vert[index].x,v.vert[index].y) ;
           //
@@ -919,7 +1003,7 @@ BUILD
           curveVertex(temp_pos_a);
           index++;
           break;
-          //---------
+          // BREAK
           case BREAK:
           if (insideContour) {
             endContour();
@@ -989,7 +1073,7 @@ BUILD
           vertex(temp_pos_a);
           index++;
           break;
-        //--------------------
+        // QUADRATIC_VERTEX
           case QUADRATIC_VERTEX:
           temp_pos_a = v.vert[index].copy() ;
           temp_pos_b = v.vert[index +1].copy() ;
@@ -1019,7 +1103,7 @@ BUILD
           quadraticVertex(temp_pos_a, temp_pos_b);
           index += 2;
           break;
-          //-----------------
+          // BEZIER_VERTEX
           case BEZIER_VERTEX:
           temp_pos_a = v.vert[index].copy() ;
           temp_pos_b = v.vert[index +1].copy() ;
@@ -1055,7 +1139,7 @@ BUILD
           bezierVertex(temp_pos_a, temp_pos_b, temp_pos_c);
           index += 3;
           break;
-          //----------------
+          // CURVE_VERTEX
           case CURVE_VERTEX:
           temp_pos_a = v.vert[index].copy() ;
           //
@@ -1073,7 +1157,7 @@ BUILD
           curveVertex(temp_pos_a);
           index++;
           break;
-          //---------
+          // BREAK
           case BREAK:
           if (insideContour) {
             endContour();
@@ -1118,7 +1202,7 @@ BUILD
           vertex(temp_pos_a);
           index++;
           break;
-          //--------------------
+          // QUADRATIC_VERTEX
           case QUADRATIC_VERTEX:
           temp_pos_a = v.vert[index].copy() ;
           temp_pos_b = v.vert[index +1].copy() ;
@@ -1126,23 +1210,22 @@ BUILD
           quadraticVertex(temp_pos_a, temp_pos_b);
           index += 2;
           break;
-          //-----------------
+          // BEZIER_VERTEX
           case BEZIER_VERTEX:
           temp_pos_a = v.vert[index].copy() ;
           temp_pos_b = v.vert[index +1].copy() ;
           temp_pos_c = v.vert[index +2].copy() ;
           //
-          //
           bezierVertex(temp_pos_a, temp_pos_b, temp_pos_c);
           index += 3;
           break;
-          //----------------
+          // CURVE_VERTEX
           case CURVE_VERTEX:
           temp_pos_a = v.vert[index].copy() ;
           curveVertex(temp_pos_a);
           index++;
           break;
-          //---------
+          // BREAK
           case BREAK:
         }
       }
@@ -1242,7 +1325,8 @@ BUILD
 
     ID_brick = 0 ;
     String primal_name =("") ;
-    deep_analyze_SVG(header_svg, target, primal_name) ;
+    String primal_opacity = ("none") ;
+    deep_analyze_SVG(header_svg, target, primal_name, primal_opacity) ;
   }
   
   void save_brick_SVG() {
@@ -1258,7 +1342,7 @@ BUILD
   
   
   // Local method
-  void deep_analyze_SVG(String header, XML target, String ancestral_name) {
+  void deep_analyze_SVG(String header, XML target, String ancestral_name, String opacity_group) {
     String ID_xml =("") ;
     ID_xml = get_kind_SVG(target) ;
     // check for group or layer shape
@@ -1267,45 +1351,48 @@ BUILD
       if(g_group.length > 0) {
         for(int i = 0 ; i < g_group.length ; i++) {
           String new_name = ancestral_name + g_group[i].getString("id") ;
-          deep_analyze_SVG(header, g_group[i], new_name) ;
+          // check if there is opacity for the group or not
+          if(opacity_group == null || opacity_group == "none")  opacity_group = g_group[i].getString("opacity") ;
+          deep_analyze_SVG(header, g_group[i], new_name, opacity_group) ;
         }
       }
     }
     // catch the shape
-    if(check_kind_SVG(target)) add_brick_SVG(header_svg, target, ancestral_name) ;
+    // add the opacity here for the brick ????
+    if(check_kind_SVG(target)) add_brick_SVG(header_svg, target, ancestral_name, opacity_group) ;
   }
   
   
   
-  void add_brick_SVG(String header, XML target, String ancestral_name) {
+  void add_brick_SVG(String header, XML target, String ancestral_name, String opacity_group) {
     XML [] g_rect = target.getChildren("rect") ;
     if(g_rect.length > 0) {
       for(int i = 0 ; i < g_rect.length ; i++) {
-        catch_brick_shape(header, g_rect[i], ancestral_name) ;
+        catch_brick_shape(header, g_rect[i], ancestral_name, opacity_group) ;
       }
     }
     XML [] g_circle = target.getChildren("circle") ;
     if(g_circle.length > 0) {
       for(int i = 0 ; i < g_circle.length ; i++) {
-        catch_brick_shape(header, g_circle[i], ancestral_name) ;
+        catch_brick_shape(header, g_circle[i], ancestral_name, opacity_group) ;
       }
     }
     XML [] g_ellipse = target.getChildren("ellipse") ;
     if(g_ellipse.length > 0) {
       for(int i = 0 ; i < g_ellipse.length ; i++) {
-        catch_brick_shape(header, g_ellipse[i], ancestral_name) ;
+        catch_brick_shape(header, g_ellipse[i], ancestral_name, opacity_group) ;
       }
     }
     XML [] g_polygon = target.getChildren("polygon") ;
     if(g_polygon.length > 0) {
       for(int i = 0 ; i < g_polygon.length ; i++) {
-        catch_brick_shape(header, g_polygon[i], ancestral_name) ;
+        catch_brick_shape(header, g_polygon[i], ancestral_name, opacity_group) ;
       }
     }
     XML [] g_path = target.getChildren("path") ;
     if(g_path.length > 0) {
       for(int i = 0 ; i < g_path.length ; i++) {
-        catch_brick_shape(header, g_path[i], ancestral_name) ;
+        catch_brick_shape(header, g_path[i], ancestral_name, opacity_group) ;
       }
     }
   }
@@ -1326,8 +1413,8 @@ BUILD
   }
   
   
-  void catch_brick_shape(String header, XML target, String ancestral_name) {
-    Brick_SVG new_brick = new Brick_SVG(header, target, ID_brick, ancestral_name) ;
+  void catch_brick_shape(String header, XML target, String ancestral_name, String opacity_group) {
+    Brick_SVG new_brick = new Brick_SVG(header, target, ID_brick, ancestral_name, opacity_group) ;
     list_brick_SVG.add(new_brick) ;
     ID_brick++ ;
   }
@@ -1418,11 +1505,12 @@ BUILD
     int ID ;
     int fill, stroke ;
     float strokeWeight ;
+    float opacity, opacity_group ;
     int width, height ;
     XML full_xml_SVG ;
     String built_svg_file = "" ;
    
-    Brick_SVG(String header, XML brick_xml, int ID, String ancestral_name) {
+    Brick_SVG(String header, XML brick_xml, int ID, String ancestral_name, String str_opacity_group) {
   
       this.ID = ID ;
       built_svg_file = header + brick_xml.toString() + "</svg>" ;
@@ -1431,6 +1519,7 @@ BUILD
       brick_name = get_name(brick_xml) ;
       family_name = ancestral_name + "_" + get_name(full_xml_SVG) ;
       this.kind = get_kind_SVG(full_xml_SVG) ;
+      if(str_opacity_group != "none" && str_opacity_group != null) opacity_group = Float.valueOf(str_opacity_group.trim()).floatValue(); else opacity_group = 1. ;
       set_aspect(brick_xml) ;
     }
   
@@ -1439,11 +1528,14 @@ BUILD
       if(target.getString("id") != null) name = target.getString("id") ;
       return name ;
     }
-  
+    /**
+    aspect
+    */
     void set_aspect(XML target) {
       String fill_str =  target.getString("fill") ;        
       String stroke_str =  target.getString("stroke") ;
       String strokeWeight_str =  target.getString("stroke-width") ;
+      String opacity_str =  target.getString("opacity") ; 
       // fill
       if(fill_str == null || fill_str.contains("none")) fill = #FFFFFF ; 
       else {
@@ -1461,35 +1553,68 @@ BUILD
       // strokeWeight
       if(strokeWeight_str == null  || strokeWeight_str.contains("none")) strokeWeight = 1. ; 
       else strokeWeight = Float.valueOf(strokeWeight_str.trim()).floatValue();
+      // opacity
+      if(opacity_str == null || opacity_str.contains("none")) opacity = 1. ; 
+      else opacity = Float.valueOf(opacity_str.trim()).floatValue();
+      if(opacity == 1. && opacity_group != 1.) opacity = opacity_group ;
     }
     
     
     
-    void aspect(boolean fill_display, boolean stroke_display, float scale) {
+    void aspect_fill(Vec4 factor) {
+      // HSB mmode
+      if(g.colorMode == 3) {
+        fill(hue(fill) *factor.x, saturation(fill) *factor.y, brightness(fill) *factor.z, opacity *g.colorModeA *factor.w) ;
+      // RGB mmode
+      } else if( g.colorMode == 1 ) {
+        float red_col = red(fill) *factor.x ;
+        float alpha_col = opacity *g.colorModeA *factor.w ;
+        alpha_col = opacity *g.colorModeA *factor.w  ;
+        println(alpha_col) ;
+        fill(red_col, green(fill) *factor.y, blue(fill) *factor.z, alpha_col) ;
+      }
+    }
+
+    void aspect_stroke(float scale, Vec4 factor) {
       float thickness = strokeWeight ;
       if(scale != 1 ) thickness *= scale ;
       // HSB mmode
       if(g.colorMode == 3) {
-        if(fill_display) fill(hue(fill), saturation(fill), brightness(fill)) ; else noFill() ;
-        if(!stroke_display || strokeWeight <= 0)  {
+        if(strokeWeight <= 0)  {
           noStroke() ;
         } else {
           strokeWeight(thickness) ;
-          stroke(red(stroke), green(stroke), blue(stroke)) ; 
+          stroke(hue(stroke) *factor.x, saturation(stroke) *factor.y, brightness(stroke) *factor.z, opacity *g.colorModeA *factor.w) ; 
         }
       // RGB mmode
       } else if( g.colorMode == 1 ) {
-        if(fill_display) fill(red(fill), green(fill), blue(fill)) ; else noFill() ; 
-        if(!stroke_display || strokeWeight <= 0)  {
+        if(strokeWeight <= 0)  {
           noStroke() ;
         } else {
           strokeWeight(thickness) ;
-          stroke(red(stroke), green(stroke), blue(stroke)) ; 
+          stroke(red(stroke) *factor.x, green(stroke) *factor.y, blue(stroke) *factor.z, opacity *g.colorModeA *factor.w) ; 
         }
       }
     }
   }
   
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     
   

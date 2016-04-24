@@ -442,14 +442,12 @@ void createVar() {
   numObj = rpe_manager.numClasses + 1 ;
   //BUTTON CONTROLER
   numButtonObj = numObj*10 ;
-    createMiscVar() ;
+  createMiscVar() ;
   createVarButton() ;
   createVarSound() ;
   createVarP3D(numObj, numSettingCamera, numSettingOrientationObject) ;
   createVarCursor() ;
   create_var_item() ;
-
-  
   rpe_manager.initObj() ;
 }
 // misc var

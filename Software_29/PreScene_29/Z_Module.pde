@@ -25,6 +25,7 @@ boolean init_cam = false ;
 void camera_video_setup() {
   list_cameras() ;
   if(new_cam && which_cam > -1) launch_camera(which_cam) ;
+  
 }
 
 void camera_video_draw() {
@@ -35,8 +36,6 @@ void camera_video_draw() {
   ref_cam = which_cam ;
   if (new_cam && which_cam > -1 ) launch_camera(which_cam) ;
   if (cam.available()) cam.read();
-
-
 }
 
 

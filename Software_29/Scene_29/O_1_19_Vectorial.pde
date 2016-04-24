@@ -11,21 +11,35 @@ class Vectorial extends Romanesco {
     RPE_author  = "Stan le Punk";
     RPE_version = "Version 0.0.1";
     RPE_pack = "Base 2016" ;
-    RPE_mode = "" ; // separate the differentes mode by "/"
-    RPE_slider = "Fill hue,Fill sat,Fill bright,Fill alpha,Stroke hue,Stroke sat,Stroke bright,Stroke alpha,Thickness,Jitter X,Jitter Y,Jitter Z,Canvas X,Canvas Y" ;
+    RPE_mode = "Classic/Walker" ; // separate the differentes mode by "/"
+    RPE_slider = "Fill hue,Fill sat,Fill bright,Fill alpha,Stroke hue,Stroke sat,Stroke bright,Stroke alpha,Thickness,Jitter X,Jitter Y,Jitter Z,Canvas X,Canvas Y,Swing X,Swing Y,Swing Z" ;
   }
 
  
   // setup
   void setting() {
     startPosition(ID_item, 0, 0, -height) ;
-     load_svg(ID_item) ;
+    load_svg(ID_item) ;
     svg_import[ID_item].svg_mode(CENTER) ;
   }
 
 
   void display() {
-    if(parameter[ID_item]) load_bitmap(ID_item) ;
+    if(parameter[ID_item]) {
+      load_svg(ID_item) ;
+      svg_import[ID_item].svg_mode(CENTER) ;
+    }
+    // color
+    float factor_sat_fill = map(saturation(fill_item[ID_item]), 0,100,0,1) ;
+    float factor_bright_fill = map(brightness(fill_item[ID_item]), 0,100,0,1) ;
+    float factor_alpha_fill = map(alpha(fill_item[ID_item]), 0,100,0,1) ;
+    Vec4 factor_fill = Vec4(1,factor_sat_fill,factor_bright_fill, factor_alpha_fill) ;
+
+    float factor_sat_stroke = map(saturation(stroke_item[ID_item]), 0,100,0,1) ;
+    float factor_bright_stroke = map(brightness(stroke_item[ID_item]), 0,100,0,1) ;
+    float factor_alpha_stroke = map(alpha(stroke_item[ID_item]), 0,100,0,1) ;
+    Vec4 factor_stroke = Vec4(1,factor_sat_stroke,factor_bright_stroke, factor_alpha_stroke) ;
+
 
     // scale
     float scale_x = map(canvas_x_item[ID_item], canvas_x_min_max.x, canvas_x_min_max.y, .1, 8);
@@ -41,15 +55,41 @@ class Vectorial extends Romanesco {
     Vec3 pos_3D = Vec3 (mouse[ID_item].x,mouse[ID_item].y, mouse[ID_item].z); 
     
     // display
-    full_svg_3D(pos_3D, scale_3D, jitting, svg_import[ID_item]) ;
+    if(mode[ID_item] == 0 ) full_svg_3D(pos_3D, scale_3D, jitting, svg_import[ID_item], factor_fill, factor_stroke) ;
+    else if(mode[ID_item] == 1 ) walker_svg_3D(pos_3D, scale_3D, svg_import[ID_item], factor_fill, factor_stroke) ;
+  }
 
-   }
 
-   void full_svg_3D(Vec3 pos_3D, Vec3 scale_3D, Vec3 jitter_3D, RPEsvg svg) {
+
+  // annexe
+  void walker_svg_3D(Vec3 pos_3D, Vec3 scale_3D, RPEsvg svg, Vec4 factor_fill, Vec4 factor_stroke) {
+    Vec3 swing = Vec3(swing_x_item[ID_item],swing_y_item[ID_item],swing_z_item[ID_item]) ;
+    swing.mult(height /20) ;
+    for(int ID = 0 ; ID < svg.num_brick() ; ID++ ) {
+      int length = svg.list_points_of_interest(ID).length ;
+      Vec3 [] value = new Vec3[length] ;
+      for(int i = 0 ; i < value.length ; i++) {
+        value[i] = new Vec3("RANDOM", (int)swing.x, (int)swing.y,(int)swing.z) ;
+        value[i].mult(.1) ;
+      }
+      svg.add_def(ID, value) ;
+      svg.pos(pos_3D) ;
+      svg.scale(scale_3D) ;
+      svg.original_style(true, true) ;
+      svg.fill_factor(factor_fill) ; 
+      svg.stroke_factor(factor_stroke) ; 
+      svg.draw_3D(ID) ;
+    }
+  }
+
+   // 
+   void full_svg_3D(Vec3 pos_3D, Vec3 scale_3D, Vec3 jitter_3D, RPEsvg svg, Vec4 factor_fill, Vec4 factor_stroke) {
     svg.pos(pos_3D) ;
     svg.scale(scale_3D) ;
     svg.jitter(jitter_3D) ;
     svg.original_style(true, true) ;
+    svg.fill_factor(factor_fill) ; 
+    svg.stroke_factor(factor_stroke) ; 
     svg.draw_3D() ;
   }
 }
