@@ -1,0 +1,10 @@
+User guide 0.0.1
+
+Item
+----
+Vectorial :
+Slider
+> Fill hue,Fill sat,Fill bright,Fill alpha,Stroke hue,Stroke sat,Stroke bright,Stroke alpha,Thickness,Jitter X,Jitter Y,Jitter Z,Canvas X,Canvas Y,Swing X,Swing Y,Swing Z 
+Mode 1
+Mode 2 
+> "N" reset the shape

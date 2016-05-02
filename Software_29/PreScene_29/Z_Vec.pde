@@ -1,6 +1,6 @@
 /**
-CLASS VEC 1.2.0
-RPE – Romanesco Processing Environment –
+CLASS VEC 1.2.2
+RPE – Romanesco Processing Environment – 2015 – 2016
 * @author Stan le Punk
 * @see https://github.com/StanLepunK/Vec
 * inspireted by GLSL code and PVector from Daniel Shiffman
@@ -2838,10 +2838,12 @@ void ellipse(Vec2 p, Vec2 s) {
   ellipse(p.x, p.y, s.x, s.y) ;
 }
 void ellipse(Vec3 p, Vec2 s) {
-  matrix_start() ;
-  translate(p.x, p.y, p.z) ;
-  ellipse(0,0, s.x, s.y) ;
-  matrix_end() ;
+  if(renderer_P3D()) {
+    matrix_start() ;
+    translate(p.x, p.y, p.z) ;
+    ellipse(0,0, s.x, s.y) ;
+    matrix_end() ;
+  } else ellipse(p.x, p.y, s.x, s.y) ;
 }
 
 
@@ -2853,10 +2855,12 @@ void rect(Vec2 p, Vec2 s) {
   rect(p.x, p.y, s.x, s.y) ;
 }
 void rect(Vec3 p, Vec2 s) {
-  matrix_start() ;
-  translate(p.x, p.y,p.z) ;
-  rect(0,0, s.x, s.y) ;
-  matrix_end() ;
+  if(renderer_P3D()) {
+    matrix_start() ;
+    translate(p.x, p.y,p.z ) ;
+    rect(0,0, s.x, s.y) ;
+    matrix_end() ;
+  } else rect(p.x, p.y, s.x, s.y) ;
 }
 
 
@@ -2867,7 +2871,7 @@ void point(Vec2 p) {
   point(p.x, p.y) ;
 }
 void point(Vec3 p) {
-  point(p.x, p.y, p.z) ;
+  if(renderer_P3D()) point(p.x, p.y, p.z) ; else  point(p.x, p.y) ;
 }
 /**
 Line
@@ -2876,7 +2880,7 @@ void line(Vec2 a, Vec2 b){
   line(a.x, a.y, b.x,b.y) ;
 }
 void line(Vec3 a, Vec3 b){
-  line(a.x, a.y, a.z, b.x,b.y, b.z) ;
+  if(renderer_P3D()) line(a.x, a.y, a.z, b.x,b.y, b.z) ; else line(a.x, a.y, b.x,b.y) ;
 }
 /**
 Vertex
@@ -2885,7 +2889,7 @@ void vertex(Vec2 a){
   vertex(a.x, a.y) ;
 }
 void vertex(Vec3 a){
-  vertex(a.x, a.y, a.z) ;
+  if(renderer_P3D()) vertex(a.x, a.y, a.z) ; else vertex(a.x, a.y) ;
 }
 
 /**
@@ -2896,7 +2900,7 @@ void bezierVertex(Vec2 a, Vec2 b, Vec2 c) {
 }
 
 void bezierVertex(Vec3 a, Vec3 b, Vec3 c) {
-  bezierVertex(a.x, a.y, a.z, b.x, b.y, b.z, c.x, c.y, c.z) ;
+  if(renderer_P3D()) bezierVertex(a.x, a.y, a.z, b.x, b.y, b.z, c.x, c.y, c.z) ; else bezierVertex(a.x, a.y, b.x, b.y, c.x, c.y) ;
 }
 
 /**
@@ -2907,7 +2911,7 @@ void quadraticVertex(Vec2 a, Vec2 b) {
 }
 
 void quadraticVertex(Vec3 a, Vec3 b) {
-  quadraticVertex(a.x, a.y, a.z, b.x, b.y, b.z) ;
+  if(renderer_P3D()) quadraticVertex(a.x, a.y, a.z, b.x, b.y, b.z) ; else quadraticVertex(a.x, a.y, b.x, b.y) ;
 }
 
 /**
@@ -2917,13 +2921,16 @@ void curveVertex(Vec2 a){
   curveVertex(a.x, a.y) ;
 }
 void curveVertex(Vec3 a){
-  curveVertex(a.x, a.y, a.z) ;
+  if(renderer_P3D()) curveVertex(a.x, a.y, a.z) ; else curveVertex(a.x, a.y) ;
 }
 
 
 /**
 Fill
 */
+void fill(Vec2 c) {
+  fill(c.x, c.y) ;
+}
 void fill(Vec3 c) {
   fill(c.r,c.g,c.b) ;
 }
@@ -2933,6 +2940,9 @@ void fill(Vec4 c) {
 /**
 Stroke
 */
+void stroke(Vec2 c) {
+  stroke(c.x, c.y) ;
+}
 void stroke(Vec3 c) {
   stroke(c.r,c.g,c.b) ;
 }
@@ -2948,7 +2958,7 @@ void stroke(Vec4 c) {
 Translate
 */
 void translate(Vec3 t){
-  translate(t.x, t.y, t.z) ;
+  if(renderer_P3D()) translate(t.x, t.y, t.z) ; else translate(t.x, t.y) ;
 }
 void translate(Vec2 t){
   translate(t.x, t.y) ;

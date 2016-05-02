@@ -1,10 +1,39 @@
-// Tab: Z_Utils.pde
-// Z_Utils 1.11
+/**
+RPE UTILS 1.12
+*/
 
 
 
-///////////////////////////////////////////
-//TRANSLATOR INT to String, FLOAT to STRING
+
+/**
+UTIL for math to check if the renderer is in 3D or 2D
+Is not a real good place for those methods bellow, but it's very usefull to have this method here to export and use this tab in other sketches
+*/
+boolean renderer_P3D() {
+if(get_renderer_name(getGraphics()).equals("processing.opengl.PGraphics3D")) return true ; else return false ;
+}
+
+
+String get_renderer_name(final PGraphics graph) {
+  try {
+    if (Class.forName(JAVA2D).isInstance(graph))  return JAVA2D;
+    if (Class.forName(FX2D).isInstance(graph))    return FX2D;
+    if (Class.forName(P2D).isInstance(graph))     return P2D;
+    if (Class.forName(P3D).isInstance(graph))     return P3D;
+    if (Class.forName(PDF).isInstance(graph))     return PDF;
+    if (Class.forName(DXF).isInstance(graph))     return DXF;
+  }
+
+  catch (ClassNotFoundException ex) {
+  }
+  return "Unknown";
+}
+
+
+
+/**
+TRANSLATOR INT to String, FLOAT to STRING
+*/
 //truncate
 float truncate( float x ) {
     return round( x * 100.0f ) / 100.0f;
@@ -58,9 +87,9 @@ String IntToString(int data) {
 
 
 
-
-// STRING UTILS
-/////////////////
+/**
+STRING UTILS
+*/
 
 //STRING SPLIT
 String [] splitText(String textToSplit, String separator) {
@@ -127,6 +156,12 @@ int longest_word_in_pixel( String[] listWordsToSort, int [] size_font, int start
 }
 
 
+
+
+import java.awt.Font; 
+import java.awt.image.BufferedImage ;
+import java.awt.FontMetrics ;
+
 int length_String_in_pixel(String target, int ratio) {
   Font font = new Font("defaultFont", Font.BOLD, ratio) ;
   BufferedImage img = new BufferedImage(1, 1, BufferedImage.TYPE_INT_ARGB);
@@ -147,6 +182,4 @@ boolean research_in_String(String research, String target) {
   return result ;
 }
 
-// END STRING UTILS
-/////////////////////
 

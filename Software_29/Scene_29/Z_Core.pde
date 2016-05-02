@@ -102,7 +102,6 @@ void load_svg(int ID) {
   if(svg_path != null && svg_path.length > 0) {
     String svg_current_path = svg_path[which_svg[ID]] ;
     if(!svg_current_path.equals(svg_path_ref[ID])) {
-      println(svg_current_path) ;
       svg_import[ID] = new RPEsvg(svg_current_path, svg_current_path) ;
     }
     svg_path_ref[ID] = svg_current_path ;

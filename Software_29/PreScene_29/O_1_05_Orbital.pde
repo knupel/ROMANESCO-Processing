@@ -153,7 +153,6 @@ class Orbital extends Romanesco {
     do aux = (int)random(3);
     while(aux == dir);
     dir = aux;
-    // println("changeDir:"+dir);
   
     rfactors.set(0,0,0);
   

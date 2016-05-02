@@ -15,11 +15,17 @@ class Vectorial extends Romanesco {
     RPE_slider = "Fill hue,Fill sat,Fill bright,Fill alpha,Stroke hue,Stroke sat,Stroke bright,Stroke alpha,Thickness,Jitter X,Jitter Y,Jitter Z,Canvas X,Canvas Y,Swing X,Swing Y,Swing Z" ;
   }
 
+
+
+  boolean walker  ;
+  float beat_factor = 1 ;
+
  
   // setup
   void setting() {
     startPosition(ID_item, 0, 0, -height) ;
     load_svg(ID_item) ;
+    svg_import[ID_item].build() ;
     svg_import[ID_item].svg_mode(CENTER) ;
   }
 
@@ -44,19 +50,34 @@ class Vectorial extends Romanesco {
     // scale
     float scale_x = map(canvas_x_item[ID_item], canvas_x_min_max.x, canvas_x_min_max.y, .1, 8);
     float scale_y = map(canvas_y_item[ID_item], canvas_y_min_max.x, canvas_y_min_max.y, .1, 8);
-    Vec3 scale_3D = Vec3(scale_x, scale_y,0) ;
+    Vec3 scale_3D = Vec3(scale_x, scale_y,1) ;
+
+    // beat factor
+    if(sound[ID_item]) beat_factor = allBeats(ID_item) ; else beat_factor = 1. ;
+
 
     
     // jitter
     Vec3 jitting = Vec3(jitter_x_item[ID_item],jitter_y_item[ID_item],jitter_z_item[ID_item]);
-    jitting.mult((int)height/2) ;
+    jitting.mult((int)height/2 *beat_factor) ;
 
     // pos
     Vec3 pos_3D = Vec3 (mouse[ID_item].x,mouse[ID_item].y, mouse[ID_item].z); 
     
-    // display
-    if(mode[ID_item] == 0 ) full_svg_3D(pos_3D, scale_3D, jitting, svg_import[ID_item], factor_fill, factor_stroke) ;
-    else if(mode[ID_item] == 1 ) walker_svg_3D(pos_3D, scale_3D, svg_import[ID_item], factor_fill, factor_stroke) ;
+    // display and mode
+    if(mode[ID_item] == 0 ) {
+      if(walker) {
+        svg_import[ID_item].build() ;
+        walker = false ;
+      }
+      full_svg_3D(pos_3D, scale_3D, jitting, svg_import[ID_item], factor_fill, factor_stroke) ;
+    }
+    else if(mode[ID_item] == 1 ) {
+      walker = true ;
+      walker_svg_3D(pos_3D, scale_3D, svg_import[ID_item], factor_fill, factor_stroke) ;
+      if(nTouch ) svg_import[ID_item].build() ;
+      if(beat_factor > 5 && fullRendering) svg_import[ID_item].build() ;
+    }
   }
 
 
@@ -64,7 +85,7 @@ class Vectorial extends Romanesco {
   // annexe
   void walker_svg_3D(Vec3 pos_3D, Vec3 scale_3D, RPEsvg svg, Vec4 factor_fill, Vec4 factor_stroke) {
     Vec3 swing = Vec3(swing_x_item[ID_item],swing_y_item[ID_item],swing_z_item[ID_item]) ;
-    swing.mult(height /20) ;
+    swing.mult(height /5 *beat_factor) ;
     for(int ID = 0 ; ID < svg.num_brick() ; ID++ ) {
       int length = svg.list_points_of_interest(ID).length ;
       Vec3 [] value = new Vec3[length] ;

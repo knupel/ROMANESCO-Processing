@@ -1,4 +1,4 @@
-// Tab: Z_Math 1.8.1
+// Tab: Z_Math 1.8.2
 // CONSTANT NUMBER must be here to be generate before all
 /////////////////////////////////////////////////////////
 final float PHI = (1 + sqrt(5))/2; //a number of polys use the golden ratio...
@@ -1356,29 +1356,7 @@ Vec3 target_direction(Vec3 target, Vec3 my_position) {
 
 
 
-/**
-// UTIL for math to check if the renderer is in 3D or 2D
-Is not a real good place for those methods bellow, but it's very usefull to have this method here to export and use this tab in other sketches
-*/
-boolean renderer_P3D() {
-if(get_renderer_name(getGraphics()).equals("processing.opengl.PGraphics3D")) return true ; else return false ;
-}
 
-
-String get_renderer_name(final PGraphics graph) {
-  try {
-    if (Class.forName(JAVA2D).isInstance(graph))  return JAVA2D;
-    if (Class.forName(FX2D).isInstance(graph))    return FX2D;
-    if (Class.forName(P2D).isInstance(graph))     return P2D;
-    if (Class.forName(P3D).isInstance(graph))     return P3D;
-    if (Class.forName(PDF).isInstance(graph))     return PDF;
-    if (Class.forName(DXF).isInstance(graph))     return DXF;
-  }
-
-  catch (ClassNotFoundException ex) {
-  }
-  return "Unknown";
-}
 
 
 

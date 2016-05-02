@@ -1,5 +1,5 @@
 /**
-RPE SVG 1.0.9
+Class RPEsvg 1.1.0
 RPE – Romanesco Processing Environment – 
 * @author Stan le Punk
 * @see other Processing work on https://github.com/StanLepunK
@@ -7,6 +7,7 @@ RPE – Romanesco Processing Environment –
 
 class RPEsvg {
   PShape shape_SVG ;
+  String path = "" ;
   String name = "" ;
   ArrayList<Brick_SVG> list_brick_SVG = new ArrayList<Brick_SVG>() ;
   String header_svg = "" ;
@@ -51,8 +52,9 @@ class RPEsvg {
   */
   RPEsvg(String path, String name) {
     this.name = name ;
+    this.path = path ;
     saved_path_svg = "RPE_SVG/" + name + "/" ;
-    build(path) ;
+    // build() ;
   }
   
 
@@ -70,7 +72,13 @@ class RPEsvg {
   PUBLIC METHOD
 
   */
-  void build(String path) {
+
+  void build() {
+    list_brick_SVG.clear() ;
+    list_ellipse_SVG.clear() ;
+    list_rectangle_SVG.clear() ;
+    list_vertice_SVG.clear() ;
+    
     shape_SVG = loadShape(path) ;
     // name_SVG = shape_SVG.getName() ;
     // list_vertex(shape_SVG, name_SVG) ;
@@ -78,8 +86,7 @@ class RPEsvg {
     analyze_SVG(svg_info) ;
     save_brick_SVG() ;
     build_SVG(list_brick_SVG) ;
-  }
-  
+  } 
   /**
   METHOD to draw all the SVG
   */
@@ -464,7 +471,7 @@ class RPEsvg {
 
 
   */
-  
+
   /**
   DRAW
 
@@ -1570,7 +1577,6 @@ BUILD
         float red_col = red(fill) *factor.x ;
         float alpha_col = opacity *g.colorModeA *factor.w ;
         alpha_col = opacity *g.colorModeA *factor.w  ;
-        println(alpha_col) ;
         fill(red_col, green(fill) *factor.y, blue(fill) *factor.z, alpha_col) ;
       }
     }
