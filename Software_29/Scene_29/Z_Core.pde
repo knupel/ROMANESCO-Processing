@@ -168,7 +168,7 @@ void load_txt(int ID) {
     if(which_text[ID] > text_path.length ) which_text[ID] = 0 ;
     text_import[ID] = importText(text_path[which_text[ID]]) ;
   } else {
-    text_import[ID] = "Big Brother has been burning all the books, it's not possible to read anything" ;
+    text_import[ID] = "Big Brother has been burning all books, it's not possible to read anything" ;
   }
     
 }
@@ -219,17 +219,83 @@ void check_text_folder_scene() {
 /**
 movie
 */
-Movie[] movie_import ;
+Movie[] movieImport ;
 ArrayList movie_files = new ArrayList();
 boolean folder_movie_is_selected = true ;
-String [] movie_path ;
+String [] movie_path, movieImportPath ;
 int count_movie_selection ;
 int ref_movie_num_files ;
 
-void load_movie() {
+void load_movie(int ID) {
+  check_movie_folder_scene() ;
+  if(movie_path != null && movie_path.length > 0) {
+    if(which_movie[ID] > movie_path.length ) which_movie[ID] = 0 ;
+    movieImportPath[ID] = movie_path[which_text[ID]] ;
+  } else {
+    movieImportPath[ID] = "no movie" ;
+  }
+  setting_movie(ID) ;
 }
-void check_movie_folder_scene() {
 
+
+
+// Movie Manager
+void setting_movie(int ID_item) {
+  String lastThree = movieImportPath[ID_item].substring(movieImportPath[ID_item].length()-3, movieImportPath[ID_item].length());
+  if (lastThree.equals("MOV") || lastThree.equals("mov")) {
+    movieImport[ID_item] = new Movie(this, movieImportPath[ID_item]);
+    movieImport[ID_item].loop();
+    movieImport[ID_item].read();
+  } else {
+    println("BIG BROTHER don't find any movie, that's can became a proble, a real problem for you !") ;
+    /**
+    bug between OSC and the text, but only in Romanesco, not in isolated sketch see folder Processing 3.0.2 bug
+    */
+    // text("BIG BROTHER disagree your movie and burn it !", width/2, height/2) ;
+  }
+}
+
+
+
+
+
+void check_movie_folder_scene() {
+  // String path = sketchPath("") +"/" +preference_path +"Karaoke" ;
+  String path = import_path +"movie" ;
+  ArrayList allFiles = listFilesRecursive(path);
+  
+  //check if something happen in the folder
+  if(ref_movie_num_files != allFiles.size() ) {
+    folder_movie_is_selected = true ;
+    ref_movie_num_files = allFiles.size() ; 
+  }
+  // If something happen, algorithm work 
+  if(folder_movie_is_selected) {
+    count_movie_selection++ ;
+    movie_files.clear() ;
+    String fileName = "";
+    for (int i = 0; i < allFiles.size(); i++) {
+      File f = (File) allFiles.get(i);   
+      fileName = f.getName(); 
+  
+      // Add it to the list if it's not a directory
+      if (f.isDirectory() == false) {
+        String lastThree = fileName.substring(fileName.length()-3, fileName.length());
+        if (lastThree.equals("MOV") || lastThree.equals("mov")) {
+          movie_files.add(f);
+        }
+      }
+    }
+    // edit the path file
+    movie_path = new String[movie_files.size()] ;
+    for (int i = 0; i < movie_files.size(); i++) {
+      File f = (File) movie_files.get(i); 
+      movie_path[i] = f.getAbsolutePath() ;
+    }
+    
+    // to don't loop with this void
+    folder_movie_is_selected = false ;
+  }
 }
 
 
@@ -290,6 +356,17 @@ void recurseDir(ArrayList a, String dir) {
 /**
 END CHECK FOLDER
 */
+
+
+
+
+
+
+
+
+
+
+
 
 
 

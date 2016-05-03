@@ -96,8 +96,10 @@ void translateDataFromController () {
    whichShader = valueButtonGlobal[14] ;
   choiceFont(valueButtonGlobal[5]) ;
   which_bitmap[0] = valueButtonGlobal[15] ;
-  which_text[0] = valueButtonGlobal[16] ;
-  which_cam = valueButtonGlobal[17] ;
+  which_svg[0] = valueButtonGlobal[16] ;
+  which_text[0] = valueButtonGlobal[17] ;
+  which_movie[0] = valueButtonGlobal[18] ;
+  which_cam = valueButtonGlobal[19] ;
   
   //OBJECTS
   for ( int i = 0 ; i < numObj-1 ; i++) {

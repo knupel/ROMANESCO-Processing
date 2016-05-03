@@ -472,8 +472,12 @@ void createMiscVar() {
    svg_import = new RPEsvg[numObj] ;
    which_svg = new int[numObj] ;
    svg_path_ref = new String[numObj] ;
+   
    // Movie
-   movie_import = new Movie[numObj] ;
+   /**
+   */
+   movieImport = new Movie[numObj] ;
+   movieImportPath = new String[numObj] ;
    which_movie = new int[numObj] ;
    movie_path_ref = new String[numObj] ;
    // TEXT

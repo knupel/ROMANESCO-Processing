@@ -30,7 +30,7 @@ void settings() {
   
 void setup() {
   camera_video_setup() ;
-
+  
   preference_path = sketchPath("")+"preferences/" ;
   import_path = sketchPath("")+"import/" ;
   // if(fullRendering) frameRateRomanesco = 60 ; else frameRateRomanesco = 15 ;
@@ -44,30 +44,24 @@ void setup() {
   //specific setup
   presceneSetup() ; // the varObject setup of the Scene is more simple
   leapMotionSetup() ;
-  OSCSetup() ;
+  
   //common setup
   colorSetup() ;
 
   syphon_setup() ;
 
-
-  
   varObjSetup() ;
   fontSetup() ;
 
   // here we ask for the testRomanesco true, because the Minim Library talk too much in the consol
   if(!testRomanesco) soundSetup() ;
   P3D_setup(numObj, numSettingCamera, numSettingOrientationObject) ;
-
   // Light and shader setup
   light_position_setup() ;
-
   light_setup() ;
-  if(fullRendering) {
-    shader_setup() ;
-  }
+  if(fullRendering) shader_setup() ;
 
-
+  OSCSetup() ;
 }
 
 
@@ -78,7 +72,7 @@ void draw() {
   //setting
   init_and_update_diplay_var() ;
   syphon_draw() ;
-  camera_video_draw() ;
+  // camera_video_draw() ;
   // here we ask for the testRomanesco true, because the Minim Library talk too much in the consol
   if(!testRomanesco) soundDraw() ;
   update_raw_value() ;

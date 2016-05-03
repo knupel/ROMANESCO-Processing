@@ -14,7 +14,6 @@ OscP5 osc;
 //SETUP
 void OSCSetup() {
   osc = new OscP5(this, 10000);
-  
   //send to the Scène
   if (youCanSendToScene) targetScene = new NetAddress(sendToScene,9001);
   //send to the miroir
@@ -25,6 +24,7 @@ void OSCSetup() {
   } else if (testRomanesco && youCanSendToMiroir )  {
     targetMiroir = new NetAddress(sendToMiroir,9002);
   }
+  println("OSC setup", 3) ;
 }
 
 

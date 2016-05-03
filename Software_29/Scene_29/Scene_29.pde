@@ -28,13 +28,13 @@ void setup() {
   camera_video_setup() ;
   preference_path = sketchPath("")+"preferences/" ;
   import_path = sketchPath("")+"import/" ;
-
+  int frameRateRomanesco = 60 ;
+  displaySetup(frameRateRomanesco) ; // the int give the frameRate
+  
   romanescoSetup() ;
   RG.init(this); // GEOMERATIVE
   createVar() ;
   initVarScene() ;
-  int frameRateRomanesco = 60 ;
-  displaySetup(frameRateRomanesco) ; // the int give the frameRate
   colorSetup() ;
   syphon_setup() ;
   fontSetup() ;

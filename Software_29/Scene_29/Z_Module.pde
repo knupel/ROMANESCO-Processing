@@ -31,12 +31,10 @@ void camera_video_draw() {
   if(ref_cam != which_cam || which_cam == -1) {
     new_cam = true ;
     camera_stop() ;
+    ref_cam = which_cam ;
+    if (new_cam && which_cam > -1 ) launch_camera(which_cam) ;
+    if (cam.available()) cam.read();
   }
-  ref_cam = which_cam ;
-  if (new_cam && which_cam > -1 ) launch_camera(which_cam) ;
-  if (cam.available()) cam.read();
-
-
 }
 
 
@@ -70,6 +68,7 @@ void init_camera(int which_camra) {
   cam = new Capture(this, cameras[which_camra]);
   cam.start();     
   cam.read(); 
+
 }
 
 

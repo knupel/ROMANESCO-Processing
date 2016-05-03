@@ -442,14 +442,12 @@ void createVar() {
   numObj = rpe_manager.numClasses + 1 ;
   //BUTTON CONTROLER
   numButtonObj = numObj*10 ;
-    createMiscVar() ;
+  createMiscVar() ;
   createVarButton() ;
   createVarSound() ;
   createVarP3D(numObj, numSettingCamera, numSettingOrientationObject) ;
   createVarCursor() ;
   create_var_item() ;
-
-  
   rpe_manager.initObj() ;
 }
 // misc var
@@ -474,8 +472,12 @@ void createMiscVar() {
    svg_import = new RPEsvg[numObj] ;
    which_svg = new int[numObj] ;
    svg_path_ref = new String[numObj] ;
+   
    // Movie
-   movie_import = new Movie[numObj] ;
+   /**
+   */
+   movieImport = new Movie[numObj] ;
+   movieImportPath = new String[numObj] ;
    which_movie = new int[numObj] ;
    movie_path_ref = new String[numObj] ;
    // TEXT
