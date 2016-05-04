@@ -47,6 +47,15 @@ int [] on_off_item_console ;
 // boolean [] on_off_item_list ; 
 ItemOnOff [] on_off_item_list ;
 
+class ItemOnOff {
+  String name = "" ;
+  boolean on_off = false ;
+  ItemOnOff(String name, boolean on_off) {
+    this.name = name ;
+    this.on_off = on_off ;
+  }
+}
+
 
 //////////
 //DROPDOWN
@@ -67,14 +76,7 @@ float marge_around_dropdown ;
 
 
 
-class ItemOnOff {
-  String name = "" ;
-  boolean on_off = false ;
-  ItemOnOff(String name, boolean on_off) {
-    this.name = name ;
-    this.on_off = on_off ;
-  }
-}
+
 
 
 

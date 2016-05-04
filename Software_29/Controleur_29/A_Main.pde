@@ -1195,7 +1195,7 @@ void display_button_and_dropdown() {
   display_button_item_list() ;
   display_dropdown() ;
 
-  buttonInfoOnTheTop() ;
+  button_header() ;
   midiButtonManager(false) ;
 }
 
@@ -1237,7 +1237,7 @@ void mousepressed_button_general() {
 /**
 DRAW LOCAL METHOD
 */
-void buttonInfoOnTheTop() {
+void button_header() {
     // background window
   Vec2 pos_window = Vec2(mouseX , mouseY -20) ;
   Vec2 ratio_size = Vec2( 1.6, 1.3) ;
@@ -1249,9 +1249,13 @@ void buttonInfoOnTheTop() {
   size_text [0] = 20 ;
   textFont(FuturaStencil_20) ;
 
+  noStroke() ;
+  int alpha_bg_rollover = int(g.colorModeA *.8) ;
+
   if(button_midi.rollover()) {
     text [0] = ("MIDI") ;
-    fill(grisTresFonce, 180) ;
+    
+    fill(grisTresFonce, alpha_bg_rollover) ;
     background_text_list(Vec2(pos_window.x, pos_window.y), text, size_text, size_angle, speed, ratio_size, range_check) ;
     fill(jaune) ;
     text(text [0],pos_window.x, pos_window.y) ;
@@ -1260,7 +1264,8 @@ void buttonInfoOnTheTop() {
   if(button_curtain.rollover()) {
 
     text [0] = ("CUT") ;
-    fill(grisTresFonce, 180) ;
+    noStroke() ;
+    fill(grisTresFonce, alpha_bg_rollover) ;
     background_text_list(Vec2(pos_window.x, pos_window.y), text, size_text, size_angle, speed, ratio_size,range_check) ;
     fill(jaune) ;
     text(text [0], pos_window.x, pos_window.y) ;
@@ -1357,7 +1362,10 @@ DROPDOWN
 int ref_size_image_bitmap_dropdown, ref_size_image_svg_dropdown, ref_size_movie_dropdown, refSizeFileTextDropdown, refSizeCameraVideoDropdown ;
 PVector pos_text_dropdown_image_bitmap, pos_text_dropdown_image_svg, pos_text_dropdown_movie, posTextdropdown_file_text, posTextdropdown_camera_video ; 
 color selectedText ;
-color colorBoxIn, colorBoxOut, colorBoxText, colorDropdownBG, colorDropdownTitleIn, colorDropdownTitleOut ;
+color colorBoxIn, colorBoxOut, colorBoxText ;
+color colorDropdownBG ;
+color color_dropdown_header_in, color_dropdown_header_out ;
+color color_dropdown_item_in, color_dropdown_item_out ;
 int sizeToRenderTheBoxDropdown = 15 ;
 
 
@@ -1386,8 +1394,10 @@ void set_dropdown_general() {
   pos_button_camera_video = Vec2(colOne +correction_dropdown_camera_x,     height_dropdown_top +correction_dropdown_top_menu_y)  ; 
   //dropdown
   colorDropdownBG = rougeTresFonce ;
-  colorDropdownTitleIn = jaune ;
-  colorDropdownTitleOut = orange ;
+  color_dropdown_header_in = jaune ;
+  color_dropdown_header_out = orange ;
+  color_dropdown_item_in = rouge ;
+  color_dropdown_item_out = rougeTresFonce ;
   colorBoxIn = jaune ; 
   colorBoxOut = orange ;
   colorBoxText = rougeFonce ;
@@ -1412,7 +1422,7 @@ void set_dropdown_general() {
   pos_dropdown_bg = new PVector(pos_button_bg.x, pos_button_bg.y, 0.1)  ; // x y is pos anz z is marge between the dropdown and the header
   size_dropdown_bg = new PVector (75, sizeToRenderTheBoxDropdown, 10) ; // z is the num of line you show
   PVector posTextDropdownBackground = new PVector(3, 10)  ;
-  dropdown_bg = new Dropdown("Background", shader_bg_name, pos_dropdown_bg, size_dropdown_bg, posTextDropdownBackground, colorDropdownBG, colorDropdownTitleIn, colorDropdownTitleOut, colorBoxIn, colorBoxOut, colorBoxText, sizeToRenderTheBoxDropdown) ;
+  dropdown_bg = new Dropdown("Background", shader_bg_name, pos_dropdown_bg, size_dropdown_bg, posTextDropdownBackground, colorDropdownBG, color_dropdown_header_in, color_dropdown_header_out, colorBoxIn, colorBoxOut, colorBoxText, sizeToRenderTheBoxDropdown) ;
   
   
   // FONT dropdown
@@ -1420,7 +1430,7 @@ void set_dropdown_general() {
   pos_dropdown_font = new PVector(pos_button_font.x, pos_button_font.y, 0.1)  ; // x y is pos anz z is marge between the dropdown and the header
   size_dropdown_font = new PVector (40, sizeToRenderTheBoxDropdown, 10 ) ; // z is the num of line you show
   PVector posTextDropdownTypo = new PVector(3, 10)  ;
-  dropdown_font = new Dropdown("Font", font_dropdown_list,   pos_dropdown_font , size_dropdown_font, posTextDropdownTypo, colorDropdownBG, colorDropdownTitleIn, colorDropdownTitleOut, colorBoxIn, colorBoxOut, colorBoxText, sizeToRenderTheBoxDropdown) ;
+  dropdown_font = new Dropdown("Font", font_dropdown_list,   pos_dropdown_font , size_dropdown_font, posTextDropdownTypo, colorDropdownBG, color_dropdown_header_in, color_dropdown_header_out, colorBoxIn, colorBoxOut, colorBoxText, sizeToRenderTheBoxDropdown) ;
   
   // Image bitmap Dropdown
   //////////////////
@@ -1428,7 +1438,7 @@ void set_dropdown_general() {
   size_dropdown_image_bitmap = new PVector (60, sizeToRenderTheBoxDropdown, 10 ) ; // z is the num of line you show
   pos_text_dropdown_image_bitmap = new PVector(3, 10)  ;
   ref_size_image_bitmap_dropdown = image_bitmap_dropdown_list.length ;
-  dropdown_image_bitmap = new Dropdown("Image bitmap", image_bitmap_dropdown_list, pos_dropdown_image_bitmap, size_dropdown_image_bitmap, pos_text_dropdown_image_bitmap, colorDropdownBG, colorDropdownTitleIn, colorDropdownTitleOut, colorBoxIn, colorBoxOut, colorBoxText, sizeToRenderTheBoxDropdown) ;
+  dropdown_image_bitmap = new Dropdown("Image bitmap", image_bitmap_dropdown_list, pos_dropdown_image_bitmap, size_dropdown_image_bitmap, pos_text_dropdown_image_bitmap, colorDropdownBG, color_dropdown_header_in, color_dropdown_header_out, colorBoxIn, colorBoxOut, colorBoxText, sizeToRenderTheBoxDropdown) ;
   
   // Image svg Dropdown
   //////////////////
@@ -1436,7 +1446,7 @@ void set_dropdown_general() {
   size_dropdown_image_svg = new PVector (60, sizeToRenderTheBoxDropdown, 10 ) ; // z is the num of line you show
   pos_text_dropdown_image_svg = new PVector(3, 10)  ;
   ref_size_image_svg_dropdown = image_svg_dropdown_list.length ;
-  dropdown_image_svg = new Dropdown("Image svg", image_svg_dropdown_list, pos_dropdown_image_svg, size_dropdown_image_svg, pos_text_dropdown_image_svg, colorDropdownBG, colorDropdownTitleIn, colorDropdownTitleOut, colorBoxIn, colorBoxOut, colorBoxText, sizeToRenderTheBoxDropdown) ;
+  dropdown_image_svg = new Dropdown("Image svg", image_svg_dropdown_list, pos_dropdown_image_svg, size_dropdown_image_svg, pos_text_dropdown_image_svg, colorDropdownBG, color_dropdown_header_in, color_dropdown_header_out, colorBoxIn, colorBoxOut, colorBoxText, sizeToRenderTheBoxDropdown) ;
  
   // Movie Dropdown
   //////////////////
@@ -1444,7 +1454,7 @@ void set_dropdown_general() {
   size_dropdown_movie = new PVector (60, sizeToRenderTheBoxDropdown, 10 ) ; // z is the num of line you show
   pos_text_dropdown_movie = new PVector(3, 10)  ;
   ref_size_movie_dropdown = movie_dropdown_list.length ;
-  dropdown_movie = new Dropdown("Movie", movie_dropdown_list, pos_dropdown_movie, size_dropdown_movie, pos_text_dropdown_movie, colorDropdownBG, colorDropdownTitleIn, colorDropdownTitleOut, colorBoxIn, colorBoxOut, colorBoxText, sizeToRenderTheBoxDropdown) ;
+  dropdown_movie = new Dropdown("Movie", movie_dropdown_list, pos_dropdown_movie, size_dropdown_movie, pos_text_dropdown_movie, colorDropdownBG, color_dropdown_header_in, color_dropdown_header_out, colorBoxIn, colorBoxOut, colorBoxText, sizeToRenderTheBoxDropdown) ;
  
   // File text Dropdown
   //////////////////
@@ -1452,7 +1462,7 @@ void set_dropdown_general() {
   size_dropdown_file_text = new PVector (40, sizeToRenderTheBoxDropdown, 10 ) ; // z is the num of line you show
   posTextdropdown_file_text = new PVector(3, 10)  ;
   refSizeFileTextDropdown = file_text_dropdown_list.length ;
-  dropdown_file_text = new Dropdown("Text", file_text_dropdown_list, pos_dropdown_file_text, size_dropdown_file_text, posTextdropdown_file_text, colorDropdownBG, colorDropdownTitleIn, colorDropdownTitleOut, colorBoxIn, colorBoxOut, colorBoxText, sizeToRenderTheBoxDropdown) ;
+  dropdown_file_text = new Dropdown("Text", file_text_dropdown_list, pos_dropdown_file_text, size_dropdown_file_text, posTextdropdown_file_text, colorDropdownBG, color_dropdown_header_in, color_dropdown_header_out, colorBoxIn, colorBoxOut, colorBoxText, sizeToRenderTheBoxDropdown) ;
   
   // Camera Video Dropdown
   //////////////////
@@ -1460,12 +1470,10 @@ void set_dropdown_general() {
   size_dropdown_camera_video = new PVector (100, sizeToRenderTheBoxDropdown, 10 ) ; // z is the num of line you show
   posTextdropdown_camera_video = new PVector(3, 10)  ;
   refSizeCameraVideoDropdown = name_camera_video_dropdown_list.length ;
-  dropdown_camera_video = new Dropdown("Camera Video", name_camera_video_dropdown_list, pos_dropdown_camera_video, size_dropdown_camera_video, posTextdropdown_camera_video, colorDropdownBG, colorDropdownTitleIn, colorDropdownTitleOut, colorBoxIn, colorBoxOut, colorBoxText, sizeToRenderTheBoxDropdown) ;
+  dropdown_camera_video = new Dropdown("Camera Video", name_camera_video_dropdown_list, pos_dropdown_camera_video, size_dropdown_camera_video, posTextdropdown_camera_video, colorDropdownBG, color_dropdown_header_in, color_dropdown_header_out, colorBoxIn, colorBoxOut, colorBoxText, sizeToRenderTheBoxDropdown) ;
 }
 
 void set_dropdown_item_selected() {
-  colorDropdownTitleIn = rouge ;
-  colorDropdownTitleOut = rougeFonce ;
   //common param
   int numLineDisplayByTheDropdownObj = 8 ;
   size_dropdown_mode = new PVector (20, sizeToRenderTheBoxDropdown, numLineDisplayByTheDropdownObj) ;
@@ -1478,7 +1486,13 @@ void set_dropdown_item_selected() {
       list_dropdown = split(modeListRomanesco[i], "/" ) ;
       //to change the title of the header dropdown
       pos_dropdown[i].set(newPos.x, newPos.y, newPos.z) ; // x y is pos anz z is marge between the dropdown and the header
-      dropdown[i] = new Dropdown("M", list_dropdown, pos_dropdown[i], size_dropdown_mode, posTextDropdown, colorDropdownBG, colorDropdownTitleIn, colorDropdownTitleOut, colorBoxIn, colorBoxOut, colorBoxText, sizeToRenderTheBoxDropdown) ;
+      dropdown[i] = new Dropdown("M", 
+                                  list_dropdown, 
+                                  pos_dropdown[i], 
+                                  size_dropdown_mode, 
+                                  posTextDropdown, 
+                                  colorDropdownBG, color_dropdown_item_in, color_dropdown_item_out, colorBoxIn, colorBoxOut, colorBoxText, 
+                                  sizeToRenderTheBoxDropdown) ;
     }
   }
 }
@@ -1504,11 +1518,11 @@ void display_dropdown() {
 
 
   update_dropdown_background() ;
+  state_font            = update_dropdown_general(size_dropdown_font, pos_dropdown_font, dropdown_font, font_dropdown_list, title_dropdown_medium) ;
   state_text       = update_dropdown_general(size_dropdown_file_text, pos_dropdown_file_text, dropdown_file_text, file_text_dropdown_list, title_dropdown_medium) ;
   state_bitmap           = update_dropdown_general(size_dropdown_image_bitmap, pos_dropdown_image_bitmap, dropdown_image_bitmap, image_bitmap_dropdown_list, title_dropdown_medium) ;
   state_svg           = update_dropdown_general(size_dropdown_image_svg, pos_dropdown_image_svg, dropdown_image_svg, image_svg_dropdown_list, title_dropdown_medium) ;
   state_movie          = update_dropdown_general(size_dropdown_movie, pos_dropdown_movie, dropdown_movie, movie_dropdown_list, title_dropdown_medium) ;
-  state_font            = update_dropdown_general(size_dropdown_font, pos_dropdown_font, dropdown_font, font_dropdown_list, title_dropdown_medium) ;
   state_camera    = update_dropdown_general(size_dropdown_camera_video, pos_dropdown_camera_video, dropdown_camera_video, name_camera_video_dropdown_list, title_dropdown_medium) ;
 
   // check the activity o the dropdown
@@ -1526,17 +1540,35 @@ void display_dropdown() {
 void update_dropdown_content() {
     // update file text content
   if(file_text_dropdown_list.length != refSizeFileTextDropdown ) {
-    dropdown_file_text = new Dropdown("Text", file_text_dropdown_list, pos_dropdown_file_text, size_dropdown_file_text, posTextdropdown_file_text, colorDropdownBG, colorDropdownTitleIn, colorDropdownTitleOut, colorBoxIn, colorBoxOut, colorBoxText, sizeToRenderTheBoxDropdown) ;
+    dropdown_file_text = new Dropdown("Text", 
+                                      file_text_dropdown_list, 
+                                      pos_dropdown_file_text, 
+                                      size_dropdown_file_text, 
+                                      posTextdropdown_file_text,
+                                      colorDropdownBG, color_dropdown_header_in, color_dropdown_header_out, colorBoxIn, colorBoxOut, colorBoxText, 
+                                      sizeToRenderTheBoxDropdown) ;
     refSizeFileTextDropdown = file_text_dropdown_list.length ;
   }
   // update content bitmap
   if(image_bitmap_dropdown_list.length != ref_size_image_bitmap_dropdown ) {
-    dropdown_image_bitmap = new Dropdown("Image bitmap", image_bitmap_dropdown_list, pos_dropdown_image_bitmap, size_dropdown_image_bitmap, pos_text_dropdown_image_bitmap, colorDropdownBG, colorDropdownTitleIn, colorDropdownTitleOut, colorBoxIn, colorBoxOut, colorBoxText, sizeToRenderTheBoxDropdown) ;
+    dropdown_image_bitmap = new Dropdown("Image bitmap", 
+                                          image_bitmap_dropdown_list, 
+                                          pos_dropdown_image_bitmap, 
+                                          size_dropdown_image_bitmap, 
+                                          pos_text_dropdown_image_bitmap, 
+                                          colorDropdownBG, color_dropdown_header_in, color_dropdown_header_out, colorBoxIn, colorBoxOut, colorBoxText, 
+                                          sizeToRenderTheBoxDropdown) ;
     ref_size_image_bitmap_dropdown = image_bitmap_dropdown_list.length ;
   }
   // update content svg
   if(image_svg_dropdown_list.length != ref_size_image_svg_dropdown ) {
-    dropdown_image_svg = new Dropdown("Image svg", image_svg_dropdown_list, pos_dropdown_image_svg, size_dropdown_image_svg, pos_text_dropdown_image_svg, colorDropdownBG, colorDropdownTitleIn, colorDropdownTitleOut, colorBoxIn, colorBoxOut, colorBoxText, sizeToRenderTheBoxDropdown) ;
+    dropdown_image_svg = new Dropdown("Image svg", 
+                                      image_svg_dropdown_list, 
+                                      pos_dropdown_image_svg, 
+                                      size_dropdown_image_svg, 
+                                      pos_text_dropdown_image_svg, 
+                                      colorDropdownBG, color_dropdown_header_in, color_dropdown_header_out, colorBoxIn, colorBoxOut, colorBoxText, 
+                                      sizeToRenderTheBoxDropdown) ;
     ref_size_image_svg_dropdown = image_svg_dropdown_list.length ;
   }
 }

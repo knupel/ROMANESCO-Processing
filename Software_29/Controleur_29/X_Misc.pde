@@ -1,11 +1,11 @@
 /**
-MISC 1.0.1
+MISC 1.0.2
 */
 /**
 FONT
 */
 public PFont 
-      //controleur font
+      ///controller Font
       textUsual_1, textUsual_2, textUsual_3,
       titleMedium, titleBig,
       
@@ -18,7 +18,7 @@ public PFont
       
 //SETUP
 void set_font() {
-  //controleur Font
+  //controller Font
   String fontPathVLW = sketchPath("")+"import/font/typoVLW/" ;
   FuturaStencil_20 = loadFont(fontPathVLW+"FuturaStencilICG-20.vlw");
   FuturaExtraBold_9 = loadFont(fontPathVLW+"Futura-ExtraBold-9.vlw");
@@ -43,9 +43,23 @@ void set_font() {
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /**
-//COLOR
-//GLOBAL
+COLOR
+
 */
 color rouge, rougeFonce, rougeTresFonce, rougeTresTresFonce,  
       orange, jauneOrange, jaune, 
@@ -106,8 +120,29 @@ void colorSetup() {
 
 
 
-// VIDEO CAMERA MENU
-////////////////////
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/**
+VIDEO CAMERA MENU
+
+*/
 import processing.video.*;
 Capture cam;
 String[] cameras, cam_name ;
@@ -177,10 +212,6 @@ void select_camera_device(int fps, int min_width) {
   name_camera_video_dropdown_list[which_cam_video] = "Cut" ;
   ID_camera_video_list [which_cam_video] = -1 ;
 }
-
-
-
-
 // END VIDEO CAMERA MENU
 /////////////////////////
 
@@ -198,23 +229,15 @@ void select_camera_device(int fps, int min_width) {
 
 
 
-/////////////////////////////
-////// KEYBOARD ////////////
-boolean checkKeyboard(int c) {
-  if (keyboard.length >= c) {
-    return keyboard[c];  
-  }
-  return false;
-}
-// END KEYBOARD
-///////////////
 
 
 
 
 
-//////////////
-//CHECK FOLDER
+
+/**
+CHECK FOLDER
+*/
 ArrayList image_bitmap_files = new ArrayList();
 ArrayList image_svg_files = new ArrayList();
 ArrayList movie_files = new ArrayList();
@@ -437,6 +460,52 @@ void recurseDir(ArrayList a, String dir) {
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+/**
+DETECTION CURSOR
+*/
+//Ellipse
+boolean insideCircle (PVector pos, int diam) {
+  if (dist(pos.x, pos.y, mouseX, mouseY) < diam) return true  ; else return false ;
+}
+
+//RECTANGLE
+boolean insideRect(PVector pos, PVector size) { 
+    if(mouseX > pos.x && mouseX < pos.x + size.x && mouseY >  pos.y && mouseY < pos.y + size.y) return true ; else return false ;
+}
+
+//LOCKED
+boolean locked ( boolean inside ) {
+  if ( inside  && mousePressed ) return true ; else return false ;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /**
 CREDIT
 */
@@ -465,11 +534,26 @@ void credit() {
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
 /**
-Keyboard
+Keyboard and Shortcut
 
 */
-// SHORTCUTS & KEYBOARD ACTION
+
+/**
+SHORTCUTS
+*/
 //////////////////////////////
 void shortcuts_controller() {
   keyboard[keyCode] = true;
@@ -492,10 +576,15 @@ void shortcuts_controller() {
 
 
 
-
-// ANNEXE shortcut method
-//////////////////////////
-
+/**
+Keyboard
+*/
+boolean checkKeyboard(int c) {
+  if (keyboard.length >= c) {
+    return keyboard[c];  
+  }
+  return false;
+}
 // SCENE
 boolean load_Scene_Setting, save_Current_Scene_Setting, save_New_Scene_Setting ;
 // Scene load

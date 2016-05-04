@@ -1,65 +1,39 @@
+/**
+RPE UTILS 1.12.0
+*/
 
-// MOUSE DETECTION
-// CIRCLE
 
-boolean insideCircle (PVector pos, int diam) {
-  if (dist(pos.x, pos.y, mouseX, mouseY) < diam) return true  ; else return false ;
-}
 
-//RECTANGLE
-boolean insideRect(PVector pos, PVector size) { 
-    if(mouseX > pos.x && mouseX < pos.x + size.x && mouseY >  pos.y && mouseY < pos.y + size.y) return true ; else return false ;
-}
 
-//LOCKED
-boolean locked ( boolean inside ) {
-  if ( inside  && mousePressed ) return true ; else return false ;
+/**
+UTIL for math to check if the renderer is in 3D or 2D
+Is not a real good place for those methods bellow, but it's very usefull to have this method here to export and use this tab in other sketches
+*/
+boolean renderer_P3D() {
+if(get_renderer_name(getGraphics()).equals("processing.opengl.PGraphics3D")) return true ; else return false ;
 }
 
 
-
-
-//EQUATION
-float perimeterCircle ( float r ){
-  //calcul du perimetre
-  float p = r*TWO_PI  ;
-  return p ;
-}
-
-//EQUATION
-float radiusSurface(int s) {
-  // calcul du rayon par rapport au nombre de point
-  float  r = sqrt(s/PI) ;
-  return r ;
-}
-
-color colorW ;
-//ROLLOVER TEXT ON BACKGROUNG CHANGE
-color colorWrite(color colorRef, int threshold, color clear, color deep) {
-  if( brightness( colorRef ) < threshold ) {
-    colorW = color(clear) ;
-  } else {
-    colorW = color(deep) ;
+String get_renderer_name(final PGraphics graph) {
+  try {
+    if (Class.forName(JAVA2D).isInstance(graph))  return JAVA2D;
+    if (Class.forName(FX2D).isInstance(graph))    return FX2D;
+    if (Class.forName(P2D).isInstance(graph))     return P2D;
+    if (Class.forName(P3D).isInstance(graph))     return P3D;
+    if (Class.forName(PDF).isInstance(graph))     return PDF;
+    if (Class.forName(DXF).isInstance(graph))     return DXF;
   }
-  return colorW ;
+
+  catch (ClassNotFoundException ex) {
+  }
+  return "Unknown";
 }
 
 
-//TIME
-int minClock() {
-  return hour()*60 + minute() ;
-}
 
-
-
-
-
-
-
-
-
-///////////////////////////////////////////
-//TRANSLATOR INT to String, FLOAT to STRING
+/**
+TRANSLATOR INT to String, FLOAT to STRING
+*/
 //truncate
 float truncate( float x ) {
     return round( x * 100.0f ) / 100.0f;
@@ -113,9 +87,9 @@ String IntToString(int data) {
 
 
 
-
-// STRING UTILS
-/////////////////
+/**
+STRING UTILS
+*/
 
 //STRING SPLIT
 String [] splitText(String textToSplit, String separator) {
@@ -182,6 +156,12 @@ int longest_word_in_pixel( String[] listWordsToSort, int [] size_font, int start
 }
 
 
+
+
+import java.awt.Font; 
+import java.awt.image.BufferedImage ;
+import java.awt.FontMetrics ;
+
 int length_String_in_pixel(String target, int ratio) {
   Font font = new Font("defaultFont", Font.BOLD, ratio) ;
   BufferedImage img = new BufferedImage(1, 1, BufferedImage.TYPE_INT_ARGB);
@@ -201,8 +181,5 @@ boolean research_in_String(String research, String target) {
   }
   return result ;
 }
-
-// END STRING UTILS
-/////////////////////
 
 
