@@ -34,7 +34,7 @@ void info_item() {
            to creat a raw list for the next loading item list :( very messy :( */
         item_info_raw[j] = lookFor.getString("Name") + "/" +lookFor.getInt("ID") + "/" +lookFor.getInt("Library Order") ;
         item_info[j] = item_info_raw[j] ;
-
+        item_name[j] = lookFor.getString("Name");
         item_ID [j] = lookFor.getInt("ID") ;
 
         item_group[j] = lookFor.getInt("Group");
@@ -74,6 +74,7 @@ void init_var_item() {
   item_ID = new int [NUM_ITEM +1] ;
 
   item_author = new String [NUM_ITEM +1] ;
+  item_name = new String [NUM_ITEM +1] ;
   item_version = new String [NUM_ITEM +1] ;
   item_pack = new String [NUM_ITEM +1] ;
   item_load_name = new String [NUM_ITEM +1] ;
@@ -99,7 +100,11 @@ void init_button_item_console() {
   width_button_item = new int[numButton[1] +10] ;
   height_button_item = new int[numButton[1] +10] ;
   on_off_item_console = new int[numButton[1]] ;
-  on_off_item_list = new boolean[NUM_ITEM +1] ;
+  // on_off_item_list = new boolean[NUM_ITEM +1] ;
+  on_off_item_list = new ItemOnOff[NUM_ITEM +1] ;
+  for(int i = 0 ; i < on_off_item_list.length ; i++ ) {
+    on_off_item_list[i] = new ItemOnOff("", true) ;
+  }
 }
 
 
@@ -178,11 +183,12 @@ void set_button_item_console() {
 void display_button_item_console() {
   int pointer = 0 ;
   for( int i = 1 ; i <= NUM_ITEM ; i++ ) {
-    if(on_off_item_list[i]) {
+    if(on_off_item_list[i].on_off) {
       int distance = pointer *STEP_ITEM ;
       for(int j = 1 ; j <= BUTTON_ITEM_CONSOLE ; j++) {
       	button_item[i *10 + j].change_pos(distance, 0) ;
-      	button_item[i *10 + j].update_pos(on_off_item_list[i]) ;
+        button_item[i *10 + j].update_pos(on_off_item_list[i].on_off) ;
+      	// button_item[i *10 + j].update_pos(on_off_item_list[i]) ;
       	if(j == 1) button_item[i*10 +j].button_pic_serie(OFF_in_thumbnail, OFF_out_thumbnail, ON_in_thumbnail, ON_out_thumbnail, i) ; 
       	if(j == 2) button_item[i*10 +j].button_pic(picSetting) ;
       	if(j == 3) button_item[i*10 +j].button_pic(picSound) ; 
@@ -213,8 +219,9 @@ void check_button_item_console() {
 
 void mousepressed_button_item_console() {
   if(!dropdownActivity && NUM_ITEM > 0 ) {
-    for( int i = 11 ; i < NUM_ITEM *10 +BUTTON_ITEM_CONSOLE ; i++ ) { 
-      button_item[i].update_pos(on_off_item_list[i /10]) ;
+    for( int i = 11 ; i <= NUM_ITEM *10 +BUTTON_ITEM_CONSOLE ; i++ ) { 
+      // button_item[i].update_pos(on_off_item_list[i /10]) ;
+      button_item[i].update_pos(on_off_item_list[i /10].on_off) ;
       button_item[i].mousePressed()  ;
     }
   }
@@ -331,26 +338,25 @@ void set_button_item_list() {
 
 void set_item_list() {
   color col_off_out_menu_item = rougeTresTresFonce ;
-  // reset statement
-  for( int i = 0 ; i < button_item_list.length ; i++) {
-  }
-  
-
   // give the the good statement
   for( int i = 0 ; i < button_item_list.length ; i++) {
     if(item_info[i] != "" ) {
-      String [] temp_item_info_split = split(item_info[i], "/") ;
       button_item_list[i].set_color_on_off(col_on_in, col_on_out, col_off_in, col_off_out_menu_item) ;
 
-      if(INIT_INTERFACE) button_item_list[i].set_on_off(on_off_item_list[i]) ; 
-      else {
-        button_item_list[i].set_on_off(on_off_item_list_save[i]) ;
-        on_off_item_list[i] = on_off_item_list_save[i] ;
-      }
-
+      String [] temp_item_info_split = split(item_info[i], "/") ;
       button_item_list[i].set_name(temp_item_info_split[0]) ;
       button_item_list[i].set_ID(Integer.parseInt(temp_item_info_split[1])) ;
       button_item_list[i].set_rank(Integer.parseInt(temp_item_info_split[2])) ;
+      // start a second loop to check again if the saved name is ok with the alphabetical sort of the item.
+      for(int j = 0 ; j < on_off_item_list.length ; j++) {
+        if(on_off_item_list[j].name.equals(button_item_list[i].name) ) {
+          if(INIT_INTERFACE) button_item_list[i].set_on_off(on_off_item_list[j].on_off) ;
+          else {
+            button_item_list[i].set_on_off(on_off_item_list_save[i]) ;
+            on_off_item_list[j].on_off = on_off_item_list_save[i] ;
+          }
+        }
+      }
     }
   }
 }
@@ -385,9 +391,9 @@ void check_button_item_list() {
       // here it's boolean not an int because we don't need to send it via OSC.
       int ID = button_item_list[i].ID ;
       if(button_item_list[i].on_off) {
-        on_off_item_list[ID] = true ; // use ID item
+        on_off_item_list[ID].on_off = true ; // use ID item
       } else { 
-        on_off_item_list[ID] = false ;
+        on_off_item_list[ID].on_off = false ;
       }
     }
   }

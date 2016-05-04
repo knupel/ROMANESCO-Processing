@@ -1607,7 +1607,8 @@ void update_dropdown_background() {
 void update_dropdown_item() {
   int pointer = 0 ;
   for ( int i = 1 ; i <= NUM_ITEM ; i ++ ) {
-    if(modeListRomanesco[i] != null && on_off_item_list[i] ) {
+    // if(modeListRomanesco[i] != null && on_off_item_list[i] ) {
+    if(modeListRomanesco[i] != null && on_off_item_list[i].on_off ) {
       int distance = pointer *STEP_ITEM ;
       pointer ++ ;
       // update pos 

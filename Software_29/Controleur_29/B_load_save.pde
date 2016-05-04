@@ -1,5 +1,5 @@
 /**
-SETTING SAVE and LOAD 2.1.2
+SETTING SAVE and LOAD 2.1.3
 */
 
 //SETUP
@@ -44,7 +44,8 @@ int [] pos_button_width_item, pos_button_height_item, width_button_item, height_
 ///////////////////////////////////////
 // statement on_of for the object group
 int [] on_off_item_console ;
-boolean [] on_off_item_list ; 
+// boolean [] on_off_item_list ; 
+ItemOnOff [] on_off_item_list ;
 
 
 //////////
@@ -66,7 +67,14 @@ float marge_around_dropdown ;
 
 
 
-
+class ItemOnOff {
+  String name = "" ;
+  boolean on_off = false ;
+  ItemOnOff(String name, boolean on_off) {
+    this.name = name ;
+    this.on_off = on_off ;
+  }
+}
 
 
 
@@ -199,8 +207,11 @@ void set_item(int ID_item) {
   item_setting.setString("Type", "Item") ;
   item_setting.setInt("Item ID", ID_item) ;
 
-  if(on_off_item_list[ID_item]) item_setting.setInt("Item On Off", 1) ; 
+  // if(on_off_item_list[ID_item]) item_setting.setInt("Item On Off", 1) ; 
+  if(on_off_item_list[ID_item].on_off) item_setting.setInt("Item On Off", 1) ; 
   else item_setting.setInt("Item On Off", 0) ;
+  item_setting.setString("Item Name", item_name[ID_item]) ;
+  item_setting.setString("Item Class Name", item_load_name[ID_item]) ;
 }
 
 void buildSaveTable() {
@@ -215,6 +226,8 @@ void buildSaveTable() {
   saveSetting.addColumn("ID midi") ;
   saveSetting.addColumn("Item ID") ;
   saveSetting.addColumn("Item On Off") ;
+  saveSetting.addColumn("Item Name") ;
+  saveSetting.addColumn("Item Class Name") ;
 }
 
 /**
@@ -255,41 +268,48 @@ void load_setting_controller(File selection) {
 void load_saved_file_controller(String path) {
   
   Table settingTable = loadTable(path, "header");
+  
   // re-init the counter for the new loop
   int countButton = 0 ;
   int countSlider = 0 ;
   int count_item = 0 ;
+
+
   for (TableRow row : settingTable.rows()) {
     String s = row.getString("Type") ;
     // button
     if( s.equals("Button")){ 
-     int IDbutton = row.getInt("ID button") ;
-     int IDmidi = row.getInt("ID midi") ;
-     int onOff = row.getInt("On Off") ;
-     /* if(countButton < infoButton.length) is used in case that the number is inferior at the number of object in save file */
-     if(countButton < infoButton.length) infoButton[countButton] = new PVector(IDbutton,IDmidi,onOff) ;
-     countButton++ ; 
+      int IDbutton = row.getInt("ID button") ;
+      int IDmidi = row.getInt("ID midi") ;
+      int onOff = row.getInt("On Off") ;
+      /* if(countButton < infoButton.length) is used in case that the number is inferior at the number of object in save file */
+      if(countButton < infoButton.length) infoButton[countButton] = new PVector(IDbutton,IDmidi,onOff) ;
+      countButton++ ; 
     }
+
     // slider
-    if( s.equals("Slider")){
-     int IDslider = row.getInt("ID slider") ;
-     int IDmidi = row.getInt("ID midi") ;
-     float valueSlider = row.getFloat("Value slider") ; 
-     float min = row.getFloat("Min slider") ;
-     float max = row.getFloat("Max slider") ;
-     infoSlider[countSlider] = Vec5(IDslider,IDmidi,valueSlider,min,max) ;
-     countSlider++ ;
+    if( s.equals("Slider")) {
+      int IDslider = row.getInt("ID slider") ;
+      int IDmidi = row.getInt("ID midi") ;
+      float valueSlider = row.getFloat("Value slider") ; 
+      float min = row.getFloat("Min slider") ;
+      float max = row.getFloat("Max slider") ;
+      infoSlider[countSlider] = Vec5(IDslider,IDmidi,valueSlider,min,max) ;
+      countSlider++ ;
     }
+    
     // item list
     if(s.equals("Item")) {
       info_list_item_ID[count_item] = row.getInt("Item ID") ;
-      int which_one = info_list_item_ID[count_item] ;
-      String [] temp_item_info_split = split(item_info_raw[which_one], "/") ;
+
+      String [] temp_item_info_split = split(item_info_raw[count_item +1], "/") ;
       int ID =  Integer.parseInt(temp_item_info_split[2]) ;
-      
-      if(row.getInt("Item On Off") == 1) {
-        on_off_item_list[ID] = true ; 
-      } else on_off_item_list[ID] = false ;
+      // int ID =  count_item +1 ;
+      boolean on_off = false ;
+      if( row.getInt("Item On Off") == 1) on_off = true ; else  on_off = false ;
+
+      on_off_item_list[ID].name = item_name[count_item +1] ; 
+      on_off_item_list[ID].on_off = on_off ; 
       count_item++ ;
     }
   }
