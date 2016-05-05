@@ -22,10 +22,11 @@ void setup() {
   build_item_library() ;
   load_setup() ;
 
+  select_camera_device(30, 100) ; // methode(int min_fps, int min_width)
   check_image_bitmap_folder() ;
   check_image_svg_folder() ;
   check_file_text_folder() ;
-  select_camera_device(30, 100) ; // methode(int min_fps, int min_width)
+  
   
   set_font() ;
   set_display_slider() ;
@@ -60,7 +61,6 @@ void draw() {
   init_interface() ;
   init_live_data() ;
   
-
   surface.setTitle(nameVersion + " " +prettyVersion+"."+version+ " - Controller");
 
   set_data_from_save() ;
@@ -87,7 +87,6 @@ void draw() {
   reset() ;
 
   credit() ;
-
 }
 
 

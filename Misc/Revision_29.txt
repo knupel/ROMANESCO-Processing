@@ -7,6 +7,8 @@ ROMANESCO 29 Revision
 > add item Vectorial
 > add method to load svg file.svg
 > add method to load movie file.mov
+> add item Movisco
+
 // CONTROLLER
 > add new item slider : font size, jitter, swing, spurt, variety, quality, direction y, direction z, speed y, speed z, fertility, area, scope, scan, charge, calm and need
 > remove slider analyze, amplitude
@@ -14,6 +16,7 @@ ROMANESCO 29 Revision
 > add menu to selected item
 > add dropdown to selected SVG file
 > add dropdown to selected movie
+> fix display bug
 
 
 

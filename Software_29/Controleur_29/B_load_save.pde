@@ -1,5 +1,5 @@
 /**
-SETTING SAVE and LOAD 2.1.3
+SETTING SAVE and LOAD 2.1.4
 */
 
 //SETUP
@@ -270,7 +270,6 @@ void load_setting_controller(File selection) {
 void load_saved_file_controller(String path) {
   
   Table settingTable = loadTable(path, "header");
-  
   // re-init the counter for the new loop
   int countButton = 0 ;
   int countSlider = 0 ;
@@ -484,18 +483,12 @@ void textGUI() {
   if (!test)lang = loadStrings(sketchPath("") +"preferences/language.txt") ; else lang = loadStrings("preferences/language.txt") ;
   String l = join(lang,"") ;
   int language = Integer.parseInt(l);
-
   
-  if( language == 0 ) { 
-    textGUI = loadTable(sketchPath("")+"preferences/sliderListFR.csv", "header") ;
-  } else if (language == 1 ) {
-    textGUI = loadTable(sketchPath("")+"preferences/sliderListEN.csv", "header") ;
-  } else {
-    textGUI = loadTable(sketchPath("")+"preferences/sliderListEN.csv", "header") ;
-  }
+  if( language == 0 ) textGUI = loadTable(sketchPath("")+"preferences/sliderListFR.csv", "header") ;
+  else if (language == 1 ) textGUI = loadTable(sketchPath("")+"preferences/sliderListEN.csv", "header") ;
+  else textGUI = loadTable(sketchPath("")+"preferences/sliderListEN.csv", "header") ;
     
   for ( int i = 0 ; i <  SLIDER_BY_COL ; i++) {
-
     row[i] = textGUI.getRow(i) ;
     for ( int j = 1 ; j <  SLIDER_BY_COL ; j++) {
       String whichCol = Integer.toString(j) ;

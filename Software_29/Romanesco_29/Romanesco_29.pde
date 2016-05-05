@@ -1,9 +1,9 @@
   ////////////////////////////////////////////////////////////////////
- // Romanesco Unu 1.1.2 / version 29 / made with Processing 3.0.1 ///
+ // Romanesco Unu 1.2.0 / version 29 / made with Processing 3.0.2 ///
 ////////////////////////////////////////////////////////////////////
 /* 730 lines of code the 4th may !!!! */
 String version = ("29") ;
-String prettyVersion = ("1.1.2") ;
+String prettyVersion = ("1.2.0") ;
 String nameVersion = ("Romanesco Unu") ;
 
 
