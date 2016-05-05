@@ -1,4 +1,4 @@
-##Romanesco Unu 1.1.2.29
+##Romanesco Unu 1.2.0.29
 Romanesco is a Generative Live Art Application.
 Those sketches are the progress work, write for Processing 3.0.2
 
