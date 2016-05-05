@@ -1,6 +1,6 @@
 ##Romanesco Unu 1.1.2.29
 Romanesco is a Generative Live Art Application.
-Those sketches are the progress work, write for Processing 3.0.1.
+Those sketches are the progress work, write for Processing 3.0.2
 
 To download the last built version [app 1.1.0.28](http://romanescoproject.wordpress.com/download/)
 
@@ -9,20 +9,20 @@ To download the last built version [app 1.1.0.28](http://romanescoproject.wordpr
 * Controleur : interface slider to use the objects and the different parameters.
 * Prescene : use to move the object in the 3D space.
 * Scene : Display the result, we can use this one to send to syphon or not.
-* Romanesco must be coded with Processing 3.0.1
+* Romanesco must be coded with Processing 3.0.2
 
 
 ##Memory
 Romanesco Prescene and Scene need a lot of memory to run in Processing. May be you will need to increase the Processing memory.
 
 ##Help to code
-If you want code in Romanesco there few compulsory variables, methods and functions.  You find the different files in the folder "HELP/Romanesco Code/" and others who can help you.
+If you want code in Romanesco there few compulsory variables, methods and functions. You find the different helpful files in the folder "Misc".
 
 ##Code and Export
 * Create a new tab with a clean sub class "SuperRomanesco" in Prescene Sketch
-* Give number ID to this one, this number must be in the series of the other. No interruption from the first Obj ID to the last ID.
-* When your code is done, run the Prescene to create the index of yours objects in the folder : index_romanesco_objects.csv :  "Prescene-#/preferences/objects" paste this one in the to the folder "Controleur-#/preferences/objects".
-* Change or add a thumbnail for your object "Controleur_##/data/thumbnail/.../name+IDnumber+png" there is 4 pic for each object. Size 22x22 pixel in png mode. You can use the illustrator file in the main folder.
+* Give number ID to this one, this number must be in the series of the other. No interruption from the first Item ID to the last ID.
+* When your code is done, run the Prescene to create the index of yours items in the folder : index_romanesco_objects.csv :  "Prescene-#/preferences/objects" paste this one in the to the folder "Controleur-#/preferences/objects".
+* Change or add a thumbnail for your object "Controleur_##/data/thumbnail/.../file"+className + ".png" there is 4 pic for each object. Size 22x22 pixel in png mode. You can use the illustrator file in the "design/picto" folder.
 * Run the sketch Controleur
 * If your code work fine, you can past your brick in the folder "Scene-##"
 
@@ -43,6 +43,9 @@ If you want code in Romanesco there few compulsory variables, methods and functi
  * shaderBackgroundList.csv file 
  * sliderListEN.csv file
  * sliderListFR.csv file
+* In "sources" you create "import" folder
+ * In "import" folder, you drop your "font" folder and you can drop or add "bitmap", "karaoke", "movie" and "svg" folder. After you can use this folder to add your files.svg in "svg", files.mov in "movie", files.txt in "karaoke", files.png or files.jpg in "bitmap" folder.
+* Becaraful, if you change or add new sliders in the file "sliderListEN.csv" or "sliderListFR.csv" don't forget to copy in your folder application, because if you don't do that the controler make a crash and you don't know why :)
 * Export all your sketches
   * For the Scene, you must export the sketch two times. In the first you must comment the line ````fullScreen()```` after you add "_fullscreen" to the end of the name file. After you make the second export uncomment ````fullScreen()````and comment the line ````size()````. When the export is done, add "_window"  to the end of the name file.
   * For the other exportation nothing in particular.
