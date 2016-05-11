@@ -1,8 +1,8 @@
-##Romanesco Unu 1.2.0.29
+##Romanesco Unu 1.2.0.30
 Romanesco is a Generative Live Art Application.
 Those sketches are the progress work, write for Processing 3.0.2
 
-To download the last built version [app 1.1.0.28](http://romanescoproject.wordpress.com/download/)
+To download the last built version [app 1.1.0.29](http://romanescoproject.wordpress.com/download/)
 
 ##Architecture Sketches
 * Romanesco : Sketch to set the Romanesco application.
