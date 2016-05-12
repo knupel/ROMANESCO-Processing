@@ -42,7 +42,7 @@ void displaySetup(int speed) {
   loadPropertyScene() ;
   
   background_setup() ;
-  background_shader_setup(modeP3D) ;
+  background_shader_setup() ;
 }
 
 
@@ -53,7 +53,7 @@ void loadPropertyScene() {
   configurationScene = loadTable(sketchPath("") + pathScenePropertySetting, "header");
   row = configurationScene.getRow(0);
   //fullscreen 
-  if (row.getString("fullscreen").equals("TRUE") || row.getString("fullscreen").equals("true")) FULL_SCREEN = true ; else FULL_SCREEN = false ;
+  if(!TEST_ROMANESCO) if (row.getString("fullscreen").equals("TRUE") || row.getString("fullscreen").equals("true")) FULL_SCREEN = true ; else FULL_SCREEN = false ;
   //display on specific screen
   whichScreen = row.getInt("whichScreen") ;
 
@@ -68,9 +68,6 @@ void loadPropertyScene() {
     miroir_on_off = false ;
     syphon_on_off = false ;
   }
-  
-  // type of renderer
-  modeP3D = true ; 
 }
 // end load property
 

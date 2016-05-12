@@ -87,7 +87,7 @@ boolean load_SCENE_Setting_GLOBAL, save_Current_SCENE_Setting_GLOBAL, save_New_S
 
 
 // HIGH VAR
-boolean modeP3D, modeP2D, modeOPENGL, modeClassic ;
+//boolean modeP3D, modeP2D, modeOPENGL, modeClassic ;
 //spectrum band
 int NUM_BANDS = 16 ;
 //font
@@ -913,9 +913,8 @@ void fontSetup() {
   // special font
   pathFontTTF[49] = prefixTTF+"FuturaStencil.ttf";
   // load
-    println("avant load font") ;
+
   AmericanTypewriter=loadFont      (pathFontVLW[1]);
- println("après load font") ;
   AmericanTypewriterBold=loadFont  (pathFontVLW[2]);
   Banco=loadFont                   (pathFontVLW[3]);
   Cinquenta=loadFont               (pathFontVLW[4]);

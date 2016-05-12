@@ -18,7 +18,7 @@ boolean FULL_SCREEN = false ;
 void settings() {
   // When you build Romanesco you must create two versions : fullscreen and normal
   
-  // fullScreen(P3D,2) ;
+  //fullScreen(P3D,2) ;
   size(124,124,P3D) ;
   syphon_settings() ;
 }
@@ -27,7 +27,7 @@ void settings() {
 
 
 void setup() {
-  // FULL_SCREEN = true ;
+  // if(TEST_ROMANESCO) FULL_SCREEN = true ;
   
   camera_video_setup() ;
   preference_path = sketchPath("")+"preferences/" ;
@@ -35,7 +35,7 @@ void setup() {
   int frameRateRomanesco = 60 ;
   displaySetup(frameRateRomanesco) ; // the int give the frameRate
   
-  OSCSetup() ;
+
   
 
  romanescoSetup() ;
@@ -61,15 +61,16 @@ void setup() {
   light_position_setup() ;
   light_setup() ;
   if(FULL_RENDERING) shader_setup() ;
+
   if (!FULL_SCREEN) size_scene() ;
+
+  OSCSetup() ;
 
   println("setup done") ;
 }
 
 //DRAW
 void draw() {
-  println(frameCount) ;
-  
   if(!syphon_on_off) surface.setTitle(nameVersion + " " +prettyVersion+"."+version+ " | Scéne | FPS: "+round(frameRate)); else frame.setTitle(nameVersion + " " +prettyVersion+"."+version+ " | Miroir | FPS: "+round(frameRate));
   if (!FULL_SCREEN) size_scene() ;
   init_and_update_diplay_var() ;
@@ -81,6 +82,7 @@ void draw() {
   update_OSC_data() ;
   update_raw_value() ;
   background_romanesco() ; 
+
   loadScene() ;
   saveScene() ;
   
@@ -106,7 +108,6 @@ void draw() {
 
   nextPreviousKeypressed() ;
   init_value_temp_prescene() ;
-
 }
 //END DRAW
 

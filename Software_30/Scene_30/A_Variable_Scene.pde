@@ -11,7 +11,7 @@ Boolean internet = true ;
 String bigBrother = ("BIG BROTHER DON'T WATCHING YOU !!") ;
 
 //specific at the Scene
-String valueTempPrescene[] = new String [71] ;
+String valueTempPrescene[] = new String [100] ;
 //Special var for the Scene and the Miroir
 
 /*
@@ -36,4 +36,5 @@ void variables_setup() {
     mouse[i] = Vec3() ;
     wheel[i] = 0 ;
   }
+  println("variables setup done") ;
 }

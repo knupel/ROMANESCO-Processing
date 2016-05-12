@@ -86,7 +86,7 @@ void background_romanesco() {
         } 
         background_norm_P3D(colorBackground.normalize(Vec4(g.colorModeX,g.colorModeY,g.colorModeZ,g.colorModeA ))) ;
       } else {
-        background_shader_draw(modeP3D, whichShader) ;
+        background_shader_draw(whichShader) ;
       }
     }
   }
@@ -123,34 +123,32 @@ Vec4 update_background() {
 PShader blurOne, blurTwo, cellular, damierEllipse, heart, necklace,  psy, sinLight, snow ;
 //PShader bizarre, water, psyTwo, psyThree ;
 
-void background_shader_setup(boolean renderP3D) {
-  if(renderP3D) {
-    String pathShaderBG = preference_path +"shader/shader_bg/" ;
-    
+void background_shader_setup() {
+  String pathShaderBG = preference_path +"shader/shader_bg/" ;
 
-    blurOne = loadShader(pathShaderBG+"blurOneFrag.glsl") ;
-    blurTwo = loadShader(pathShaderBG+"blurTwoFrag.glsl") ;
-    cellular = loadShader(pathShaderBG+"cellularFrag.glsl") ;
-    damierEllipse = loadShader(pathShaderBG+"damierEllipseFrag.glsl") ;
-    heart = loadShader(pathShaderBG+"heartFrag.glsl") ;
-    necklace = loadShader(pathShaderBG+"necklaceFrag.glsl") ;
-    psy = loadShader(pathShaderBG+"psyFrag.glsl") ;
-    sinLight = loadShader(pathShaderBG+"sinLightFrag.glsl") ;
-    snow = loadShader(pathShaderBG+"snowFrag.glsl") ;
+  blurOne = loadShader(pathShaderBG+"blurOneFrag.glsl") ;
+  blurTwo = loadShader(pathShaderBG+"blurTwoFrag.glsl") ;
+  cellular = loadShader(pathShaderBG+"cellularFrag.glsl") ;
+  damierEllipse = loadShader(pathShaderBG+"damierEllipseFrag.glsl") ;
+  heart = loadShader(pathShaderBG+"heartFrag.glsl") ;
+  necklace = loadShader(pathShaderBG+"necklaceFrag.glsl") ;
+  psy = loadShader(pathShaderBG+"psyFrag.glsl") ;
+  sinLight = loadShader(pathShaderBG+"sinLightFrag.glsl") ;
+  snow = loadShader(pathShaderBG+"snowFrag.glsl") ;
 
-    /*
-    bizarre = loadShader(pathShaderBG+"bizarreFrag.glsl") ; // work bad
-    water = loadShader(pathShaderBG+"waterFrag.glsl") ; // problem
-    psyTwo = loadShader(pathShaderBG+"psyTwoFrag.glsl") ; // problem
-    psyThree = loadShader(pathShaderBG+"psyThreeFrag.glsl") ; // problem
-    */
-  }
+  /*
+  bizarre = loadShader(pathShaderBG+"bizarreFrag.glsl") ; // work bad
+  water = loadShader(pathShaderBG+"waterFrag.glsl") ; // problem
+  psyTwo = loadShader(pathShaderBG+"psyTwoFrag.glsl") ; // problem
+  psyThree = loadShader(pathShaderBG+"psyThreeFrag.glsl") ; // problem
+  */
+
 }
 
 
 
-void background_shader_draw(boolean renderP3D, int whichOne) {
-  if( (renderP3D && TEST_ROMANESCO) ||  (renderP3D && FULL_RENDERING) ) {
+void background_shader_draw(int whichOne) {
+  if(TEST_ROMANESCO || FULL_RENDERING) {
     PVector posBGshader = new PVector(0,0) ;
     PVector sizeBGshader = new PVector(width,height, height) ; 
     fill(0) ; noStroke() ;

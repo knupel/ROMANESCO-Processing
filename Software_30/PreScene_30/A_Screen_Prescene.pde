@@ -33,7 +33,7 @@ void displaySetup(int speed) {
   loadPropertyPrescene() ;
   sizePrescene() ;
   background_setup() ;
-  background_shader_setup(modeP3D) ;
+  background_shader_setup() ;
 }
 //END DISPLAY START
 //////////////////
@@ -51,9 +51,6 @@ void loadPropertyPrescene() {
   myScreenToDisplayMySketch = row.getInt("whichScreen") -1 ;
   //decorated the scene
   if (row.getString("decorated").equals("FALSE") || row.getString("decorated").equals("false") || fullScreen ) undecorated = true ; else undecorated = false ;
-
-  // type of renderer
-  modeP3D = true ;
 }
 
 

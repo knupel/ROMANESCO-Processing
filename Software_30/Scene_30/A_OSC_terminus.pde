@@ -11,29 +11,17 @@ void OSCSetup() {
 }
 
 void oscEvent(OscMessage receive) {
-  println(0, "here") ;
   if(receive.addrPattern().equals("Controller")) {
     catchDataFromController(receive) ;
-    //
     splitDataButton() ;
     splitDataSlider() ;
     splitDataLoadSaveController() ;
   }
-  println(1, "here") ;
   if(receive.addrPattern().equals("Prescene")) {
     catchDataFromPrescene(receive) ;
-    //
     splitDataFromPrescene() ;
     splitDataLoadSavePrescene() ;
   }
-  println(2, "here") ;
-  /**
-  // may be is not a good place for that
-  */
- // translateDataFromController_buttonGlobal() ;
- // translateDataFromController_buttonItem() ;
- // translateDataFromPrescene() ;
-  println(3, "here") ;
 }
 
 void update_OSC_data() {

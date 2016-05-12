@@ -28,6 +28,7 @@ void P3D_setup(int numObj, int numSettingCamera, int numSettingOrientationObject
     settingObjManipulation (numObj) ;
     settingObjectManipulation(numObj, numSettingCamera, numSettingOrientationObject) ;
     initVariableCamera() ;
+    println("P3D setup done") ;
 }
 
 
@@ -264,10 +265,8 @@ void P3DmoveObj(int ID) {
 
 //Create ref position
 void addRefObj(int ID) {
-  if(modeP3D) {
-    posObj[ID] = new PVector (posObjX[ID], posObjY[ID],posObjZ[ID]) ;
-    dirObj[ID] = new PVector (dirObjX[ID], dirObjY[ID]);
-  }
+  posObj[ID] = new PVector (posObjX[ID], posObjY[ID],posObjZ[ID]) ;
+  dirObj[ID] = new PVector (dirObjX[ID], dirObjY[ID]);
 }
 
 
