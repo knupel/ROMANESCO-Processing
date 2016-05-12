@@ -1,4 +1,6 @@
-// Tab: Z_Math 1.8.3
+/**
+Z_Math 1.8.4
+*/
 // CONSTANT NUMBER must be here to be generate before all
 /////////////////////////////////////////////////////////
 final float PHI = (1 + sqrt(5))/2; //a number of polys use the golden ratio...
@@ -1305,7 +1307,6 @@ float mapLocked(float value, float sourceMin, float sourceMax, float targetMin, 
 
 // to map not linear, start the curve slowly to finish hardly
 float mapStartSmooth(float value, float sourceMin, float sourceMax, float targetMin, float targetMax, int level) {
-  if(sourceMax >= targetMax ) sourceMax = targetMax ;
   if (value < sourceMin ) value = sourceMin ;
   if (value > sourceMax ) value = sourceMax ;
   float newMax = sourceMax - sourceMin ;
@@ -1318,7 +1319,6 @@ float mapStartSmooth(float value, float sourceMin, float sourceMax, float target
 
 // to map not linear, start the curve hardly to finish slowly
 float mapEndSmooth(float value, float sourceMin, float sourceMax, float targetMin, float targetMax, int level) {
-  if(sourceMax >= targetMax ) sourceMax = targetMax ;
   if (value < sourceMin ) value = sourceMin ;
   if (value > sourceMax ) value = sourceMax ;
   float newMax = sourceMax - sourceMin ;
@@ -1331,7 +1331,6 @@ float mapEndSmooth(float value, float sourceMin, float sourceMax, float targetMi
 
 // to map not linear, like a "S"
 float mapEndStartSmooth(float value, float sourceMin, float sourceMax, float targetMin, float targetMax, int level) {
-  if(sourceMax >= targetMax ) sourceMax = targetMax ;
   if (value < sourceMin ) value = sourceMin ;
   if (value > sourceMax ) value = sourceMax ;
   float newMax = sourceMax - sourceMin ;

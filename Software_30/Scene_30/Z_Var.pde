@@ -1,6 +1,6 @@
 /** 
 Tab: Z_VAR
-Version 1.0.4
+Version 1.0.5
 */
 // GLOBAL SETTING ////
 
@@ -227,7 +227,7 @@ Vec2 stroke_sat_min_max = Vec2(0,HSBmode.g) ;
 Vec2 stroke_bright_min_max = Vec2(0,HSBmode.b); 
 Vec2 stroke_alpha_min_max = Vec2(0,HSBmode.a) ;
 
-Vec2 thickness_min_max = Vec2(min_size, height*.33) ; 
+Vec2 thickness_min_max = Vec2(min_size, float(height)*.33) ; 
 
 Vec2 size_x_min_max = Vec2(min_size, width) ;     
 Vec2 size_y_min_max = Vec2(min_size, width) ;     

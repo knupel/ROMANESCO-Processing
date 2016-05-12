@@ -1,5 +1,5 @@
 /**
-RUBIS || 2012 || 1.0.1
+RUBIS || 2013 || 1.0.2
 */
 
 class MesAmis extends Romanesco {
@@ -9,11 +9,11 @@ class MesAmis extends Romanesco {
     ID_item = 9 ;
     ID_group = 1 ;
     RPE_author  = "Stan le Punk";
-    RPE_version = "version 1.0.1";
+    RPE_version = "version 1.0.2";
     RPE_pack = "Base" ;
     //RPE_mode = "1 full/2 lines" but the line is not really interesting
-    RPE_mode = "" ; // separate the name by a slash and write the next mode immadialtly after this one.
-    RPE_slider = "Fill hue,Fill sat,Fill bright,Fill alpha,Stroke hue,Stroke sat,Stroke bright,Stroke alpha,Thickness,Canvas X,Speed X,Quantity,Canvas X" ;
+    RPE_mode = "Vertex/Point" ; // separate the name by a slash and write the next mode immadialtly after this one.
+    RPE_slider = "Fill hue,Fill sat,Fill bright,Fill alpha,Stroke hue,Stroke sat,Stroke bright,Stroke alpha,Thickness,Canvas X,Speed X,Jitter X,Jitter Y,Jitter Z,Quantity,Swing X" ;
   }
   //GLOBAL
   IntList IDpeople = new IntList() ;
@@ -38,10 +38,8 @@ class MesAmis extends Romanesco {
   //DRAW
   void display() {
     
-    PVector center = new PVector() ;
-    
+    Vec3 center = Vec3() ;
 
-    
     // speed
     float speed = map(speed_x_item[ID_item],0,1, .0001, .2);
     speed = speed*speed ;
@@ -49,24 +47,23 @@ class MesAmis extends Romanesco {
 
 
 
-    PVector jitter = new PVector() ;
+    Vec3 jitter = Vec3() ;
     if(sound[ID_item] && getTimeTrack() > 0.2 ) {
-      float factor = .2 ;
-      float valueX = left[ID_item]*factor *(width / 2 ) ;
-      float valueY = right[ID_item]*factor *(height / 2 ) ;
-      float valueZ = mix[ID_item]*factor *(height / 2 ) ;
-      jitter = new PVector(valueX,valueY,valueZ) ;
+      float valueX = left[ID_item] *jitter_x_item[ID_item] *width ;
+      float valueY = right[ID_item] *jitter_y_item[ID_item] *width ;
+      float valueZ = mix[ID_item] *jitter_z_item[ID_item] *width ;
+      jitter.set(valueX,valueY,valueZ) ;
     }
 
     // size of the rubis
-    float radiusMax = map(canvas_x_item[ID_item], width/10, width, width/4, width *1.5) ;
+    float radiusMax = canvas_x_item[ID_item] *3 ;
     float radiusMin = map(swing_x_item[ID_item], 0, 1, radiusMax, radiusMax /10) ;
 
 
      // stop motion
     if(!motion[ID_item]) { 
       speed = 0 ; 
-      jitter = new PVector(0,0,0) ;
+      jitter.set(0) ;
     }
 
  
@@ -74,10 +71,11 @@ class MesAmis extends Romanesco {
 
     
     // new population
+    int max_people = 150 ;
     if(!FULL_RENDERING)  quantity_item[ID_item] *= .1 ;
-    numPeople = (int)map(quantity_item[ID_item],0, 1, 10, 70) ; 
+    numPeople = (int)map(quantity_item[ID_item],0, 1, 10, max_people) ; 
     if ( numPeople != refNumPeople ) newPopulation = true ;
-    refNumPeople = (int)map(quantity_item[ID_item],0, 1, 10, 70) ;
+    refNumPeople = (int)map(quantity_item[ID_item],0, 1, 10, max_people) ;
     if(newPopulation) {
       listPeople.clear() ;
       amiSetting(numPeople, rangePeople) ;
@@ -86,7 +84,7 @@ class MesAmis extends Romanesco {
     
     
     aspect_rpe(ID_item) ;
-    amiDrawHeartMove(center, speed, radiusMin, radiusMax, jitter, mode[ID_item]) ;
+    ami_heart_move(center, speed, radiusMin, radiusMax, jitter, mode[ID_item]) ;
 
   }
   
@@ -117,7 +115,7 @@ class MesAmis extends Romanesco {
   }
   //draw
   //different points
-  void amiDrawHeartMove(PVector posCenter, float speed, float distMin, float distMax, PVector jitter, int mode) {
+  void ami_heart_move(Vec3 posCenter, float speed, float distMin, float distMax, Vec3 jitter, int mode) {
     // new distribution
     if(newPeoplePosition) {
       for(int i = 0 ; i < listPeople.size() ; i++) {
@@ -139,7 +137,7 @@ class MesAmis extends Romanesco {
       peopleOrigin.pos = heartMove(peopleOrigin.pos, target, distMin, speed) ;
       //draw
       if(mode == 0 ) triangleFriends(peopleOrigin) ;
-      //if(mode == 1 ) lineFriends(peopleOrigin) ;
+      if(mode == 1 ) pointFriends() ;
 
     }
     
@@ -171,18 +169,23 @@ class MesAmis extends Romanesco {
   
   
   // CONNECT YOUR FRIEND with line
-  /*
-  void lineFriends(Ami ami) {
-    if (ami.friendList.length > 0 ) {
-      PVector origin = ami.pos ;
-      for ( int f = 0 ; f < ami.friendList.length ; f++) {
-        Ami peopleDestination = listPeople.get(ami.friendList[f]) ; 
-        PVector destination = peopleDestination.pos ;
-        line(origin.x, origin.y, origin.z, destination.x, destination.y, destination.z) ;
+  void pointFriends() {
+    if (listPeople.size() > 1 ) {
+      //PVector me = ami.pos ;
+      // f += 2
+     for (Ami ami : listPeople) {
+        //Ami amiOne = listPeople.get(ami.friendList[f]) ;
+        // Ami amiTwo ;
+        //if (ami.friendList[f] +1 >= listPeople.size() )  amiTwo = listPeople.get(ami.friendList[0]) ; else amiTwo = listPeople.get(ami.friendList[f] +1) ; 
+        //PVector posAmiOne = amiOne.pos.copy() ;
+        //PVector posAmiTwo = amiTwo.pos.copy() ;
+        //display
+        point(ami.pos.x, ami.pos.y, ami.pos.z) ;
+        //point(posAmiOne.x, posAmiOne.y, posAmiOne.z) ;
+        // point(posAmiTwo.x, posAmiTwo.y, posAmiTwo.z) ;
       }
     }
   }
-  */
   // END CONNECT YOUR FRIEND with line
   
   // CONNECT YOUR FRIEND with triangle

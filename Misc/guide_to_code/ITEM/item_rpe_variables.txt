@@ -49,57 +49,57 @@ alpha(stroke_item[ID_item]) ; @return float value 0.0 > 100.0
 thickness_item[ID_item] @return float value 0.1 > height/3
 
 size_x_item[ID_item] ; @return float value 0.1 > width
-size_y_item[ID_item]  ;  @return float value 0.1 > width
-size_z_item[ID_item]  = ; @return float value 0.1 > width
+size_y_item[ID_item] ;  @return float value 0.1 > width
+size_z_item[ID_item]  ; @return float value 0.1 > width
 
-font_size_item[ID_item]  = ; 
+font_size_item[ID_item]  ; @return float value height *.005 > height *.05;
 
 canvas_x_item[ID_item]  ; @return float value width/10  > width
 canvas_y_item[ID_item]  ; @return float value width/10  > width
 canvas_z_item[ID_item]  ; @return float value width/10  > width
 
-reactivity_item[[ID_item]  ;  
+reactivity_item[[ID_item]  ; @return float value 0 > 1
 
-speed_x_item[ID_item] ;
-speed_y_item[ID_item] ;
-speed_z_item[ID_item] ;
+speed_x_item[ID_item] ; @return float value 0 > 1
+speed_y_item[ID_item] ; @return float value 0 > 1
+speed_z_item[ID_item] ; @return float value 0 > 1
 
-spurt_x_item[ID_item] ;
-spurt_y_item[ID_item] ;
-spurt_z_item[ID_item] ;
+spurt_x_item[ID_item] ; @return float value 0 > 1
+spurt_y_item[ID_item] ; @return float value 0 > 1
+spurt_z_item[ID_item] ; @return float value 0 > 1
 
-dir_x_item[ID_item] ;
-dir_y_item[ID_item] ;
-dir_z_item[ID_item] ;
+dir_x_item[ID_item] ; @return float value 0 > 1
+dir_y_item[ID_item] ; @return float value 0 > 1
+dir_z_item[ID_item] ; @return float value 0 > 1
 
-jitter_x_item[ID_item] ;
-jitter_y_item[ID_item] ;
-jitter_z_item[ID_item] ;
+jitter_x_item[ID_item] ; @return float value 0 > 1
+jitter_y_item[ID_item] ; @return float value 0 > 1
+jitter_z_item[ID_item] ; @return float value 0 > 1
 
-swing_x_item[ID_item] ;
-swing_y_item[ID_item] ;
-swing_z_item[ID_item] ;
+swing_x_item[ID_item] ; @return float value 0 > 1
+swing_y_item[ID_item] ; @return float value 0 > 1
+swing_z_item[ID_item] ; @return float value 0 > 1
 
-quantity_item[ID_item]  ; 
-variety_item[ID_item]  ; 
+quantity_item[ID_item]  ; @return float value 0 > 1
+variety_item[ID_item]  ; @return float value 0 > 1
 
-life_item[ID_item]  ; 
-flow_item[ID_item]  ; 
-quality_item[ID_item]  ; 
+life_item[ID_item]  ; @return float value 0 > 1
+flow_item[ID_item]  ; @return float value 0 > 1
+quality_item[ID_item] ; @return float value 0 > 1
 
-area_item[ID_item]  ; 
-angle_item[ID_item]  ; 
-scope_item[ID_item]  ; 
-scan_item[ID_item]  ; 
+area_item[ID_item]  ; @return loat value width *.1 > width
+angle_item[ID_item]  ; @return float value 0.0 > 360.0
+scope_item[ID_item]  ; @return loat value width *.1 > width
+scan_item[ID_item]  ; @return float value 0.0 > 360.0 
 
-alignment_item[ID_item]  ; 
-repulsion_item[ID_item]  ; 
-attraction_item[ID_item]  ; 
-charge_item[ID_item]  ; 
+alignment_item[ID_item] ; @return float value 0 > 1
+repulsion_item[ID_item] ; @return float value 0 > 1 
+attraction_item[ID_item] ; @return float value 0 > 1
+charge_item[ID_item] ; @return float value 0 > 1
 
-influence_item[ID_item]  ; 
-calm_item[ID_item]  ; 
-need_item[ID_item]  ; 
+influence_item[ID_item] ; @return float value 0 > 1
+calm_item[ID_item] ; @return float value 0 > 1
+need_item[ID_item] ; @return float value 0 > 1
 
 
 
