@@ -31,7 +31,7 @@ String bigBrother = ("BIG BROTHER DON'T WATCHING YOU !!") ;
 
 
 // CURSOR SPEED
-int speedWheel = 5 ;
+int speedWheel = 4 ; // 5 is too quick
 float speedLeapmotion = .15 ; // between 0.000001 and 1 : can be good between 0.1 and 0.4
 
 // END VARIABLE

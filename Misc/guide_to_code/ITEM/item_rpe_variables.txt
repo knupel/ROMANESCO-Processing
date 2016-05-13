@@ -33,6 +33,7 @@ ITEM SLIDER VALUE
 
 float value from silder controller, use with the ID of your item
 ––––––––––––––––––––––-------------------------------------------
+PHI value aroud (1 + sqrt(5))/2 = 1.618034
 
 hue(fill_item[ID_item]) ; @return float value 0.0 > 360.0
 saturation(fill_item[ID_item]) ; @return float value 0.0 > 100.0
@@ -54,9 +55,9 @@ size_z_item[ID_item]  ; @return float value 0.1 > width
 
 font_size_item[ID_item]  ; @return float value height *.005 > height *.05;
 
-canvas_x_item[ID_item]  ; @return float value width/10  > width
-canvas_y_item[ID_item]  ; @return float value width/10  > width
-canvas_z_item[ID_item]  ; @return float value width/10  > width
+canvas_x_item[ID_item]  ; @return float value width/10  > width *PHI
+canvas_y_item[ID_item]  ; @return float value width/10  > width *PHI
+canvas_z_item[ID_item]  ; @return float value width/10  > width *PHI
 
 reactivity_item[[ID_item]  ; @return float value 0 > 1
 
@@ -87,9 +88,9 @@ life_item[ID_item]  ; @return float value 0 > 1
 flow_item[ID_item]  ; @return float value 0 > 1
 quality_item[ID_item] ; @return float value 0 > 1
 
-area_item[ID_item]  ; @return loat value width *.1 > width
+area_item[ID_item]  ; @return loat value width *.1 > width *PHI
 angle_item[ID_item]  ; @return float value 0.0 > 360.0
-scope_item[ID_item]  ; @return loat value width *.1 > width
+scope_item[ID_item]  ; @return loat value width *.1 > width *PHI
 scan_item[ID_item]  ; @return float value 0.0 > 360.0 
 
 alignment_item[ID_item] ; @return float value 0 > 1

@@ -14,14 +14,7 @@ String bigBrother = ("BIG BROTHER DON'T WATCHING YOU !!") ;
 String valueTempPrescene[] = new String [100] ;
 //Special var for the Scene and the Miroir
 
-/*
-Vec3 mouseCamera ; 
 
-
-void initVarScene() {
-  mouseCamera = Vec3() ;
-}
-*/
 
 
 //init var

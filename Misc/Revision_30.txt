@@ -8,6 +8,8 @@ ROMANESCO 30 Revision
 > add method to load svg file.svg
 > add method to load movie file.mov
 > add item Movisco
+> fix buf orientation camera when you reset position of the camera or of the items
+> improve the growth curve for the size, canvas and area sliders
 
 // CONTROLLER
 > add new item slider : font size, jitter, swing, spurt, variety, quality, direction y, direction z, speed y, speed z, fertility, area, scope, scan, charge, calm and need
@@ -16,7 +18,7 @@ ROMANESCO 30 Revision
 > add menu to selected item
 > add dropdown to selected SVG file
 > add dropdown to selected movie
-> fix display bug
+> fix display bug 
 
 
 

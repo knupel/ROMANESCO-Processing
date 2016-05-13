@@ -1,7 +1,6 @@
-// Tab: Z_Camera_Engine
-/////////////////////////////
-// Camera Engine version 6.a
-////////////////////////////
+/**
+Camera Engine version 6.0.2
+*/
 private PVector posSceneMouseRef = new PVector() ;
 private PVector posEyeMouseRef = new PVector() ;
 private PVector posSceneCameraRef= new PVector() ;
@@ -42,23 +41,23 @@ PVector updatePosCamera(boolean authorization, boolean leapMotionDetected, Vec3 
 
 
 // Update Camera EYE position
-PVector updateEyeCamera(boolean authorization, PVector posMouse) {
-  // PVector refEyeCamera = new PVector()  ;
+PVector updateEyeCamera(boolean authorization, PVector pos) {
   if(authorization) {
     //create the ref to calcul the new position of the Scene
     if(newRefEyeMouse) {
-      posEyeCameraRef = tempEyeCamera ;
-      posEyeMouseRef = posMouse.copy() ;
+      posEyeCameraRef.set(tempEyeCamera) ;
+      posEyeMouseRef.set(pos) ;
     }
     //to create a only one ref position
     newRefEyeMouse = false ;
+    
     //create the delta between the ref and the mouse position
-    deltaEyePos = PVector.sub(posMouse, posEyeMouseRef) ;
+    deltaEyePos = PVector.sub(pos, posEyeMouseRef) ;
     tempEyeCamera = PVector.add(deltaEyePos, posEyeCameraRef ) ;
 
     //rotation of the camera
     // return eyeClassic(tempEyeCamera) ;
-    return eyeClassic(tempEyeCamera).copy() ;
+    return eyeClassic(tempEyeCamera) ;
   } else {
     //change the boolean to true for the next mousepressed
     newRefEyeMouse = true ;

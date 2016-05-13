@@ -1,5 +1,5 @@
 /**
-RUBIS || 2013 || 1.0.2
+RUBIS || 2013 || 1.0.3
 */
 
 class MesAmis extends Romanesco {
@@ -56,7 +56,7 @@ class MesAmis extends Romanesco {
     }
 
     // size of the rubis
-    float radiusMax = canvas_x_item[ID_item] *3 ;
+    float radiusMax = canvas_x_item[ID_item] *.7 ;
     float radiusMin = map(swing_x_item[ID_item], 0, 1, radiusMax, radiusMax /10) ;
 
 

@@ -1,5 +1,6 @@
-// Tab: Z_Camera_display
-// Camera.display 1.0.3
+/**
+Camera display 1.0.5
+*/
 //travelling
 boolean gotoCameraPosition, gotoCameraEye, travellingPriority ;
 
@@ -105,8 +106,12 @@ void objectMove(boolean movePos, boolean moveDir, int ID) {
     posObjX[ID] = posObjSetting [0][ID].x ;
     posObjY[ID] = posObjSetting [0][ID].y ;
     posObjZ[ID] = posObjSetting [0][ID].z ;
+
     dirObjX[ID] = dirObjSetting [0][ID].x ;
     dirObjY[ID] = dirObjSetting [0][ID].y ;
+
+    P3DdirectionMouseRef.set(0,0,0) ;
+    tempObjDir.set(0,0,0) ;
   }
   addRefObj(ID) ;
 }
@@ -124,7 +129,7 @@ PVector  P3DdirectionMouseRef = new PVector() ;
 PVector updateDirObj(PVector speed, int ID, boolean authorization) {
   if(authorization) {
     if(newObjRefDir) {
-      dirObjRef = tempObjDir.copy() ;
+      if(dirObjRef == null) dirObjRef =tempObjDir.copy() ; else dirObjRef.set(tempObjDir) ;
       P3DdirectionMouseRef.set(new PVector(mouse[0].x,mouse[0].y,mouse[0].z)) ;
     }
     //to create a only one ref position
@@ -279,6 +284,7 @@ void startPosition(int ID, int x, int y, int z) {
   posObjZ[ID] = z ;
   
   posObjSetting [0][ID] = new PVector(posObjX[ID], posObjY[ID], posObjZ[ID] ) ;
+  dirObjSetting [0][ID] = new PVector(dirObjX[ID], dirObjY[ID]) ;
   mouse[ID] = Vec3(x,y,z) ;
 }
 // END MOVE OBJECT
@@ -517,7 +523,6 @@ void startCamera() {
 void updateCamera(boolean scene, boolean eye, boolean leapMotion, boolean authorization) {
   if(authorization) {
     // update the world position
-
     /* We cannot use the method copy() of the PVector, because we must preserve the "Z" parameter of this PVector to move the Scene with the wheel */
     sceneCamera.x = updatePosCamera(scene, leapMotion, mouse[0]).x ;
     sceneCamera.y = updatePosCamera(scene, leapMotion, mouse[0]).y ;
@@ -535,8 +540,10 @@ void moveCamera(PVector origin, PVector target, float speed) {
 
 // CHANGE CAMERA POSITION
 void changeCameraPosition(int ID) {
-  eyeCamera = eyeCameraSetting[ID].copy() ;
-  sceneCamera = sceneCameraSetting[ID].copy() ;
+  eyeCamera.set(eyeCameraSetting[ID]) ;
+  sceneCamera.set(sceneCameraSetting[ID]) ;
+  updateEyeCamera(true, new PVector()) ;
+  tempEyeCamera.set(0,0,0) ;
   gotoCameraPosition = false ;
   gotoCameraEye = false ;
 }

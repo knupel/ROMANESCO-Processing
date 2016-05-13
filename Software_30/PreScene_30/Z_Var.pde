@@ -1,6 +1,6 @@
 /** 
 Tab: Z_VAR
-Version 1.0.5
+Version 1.0.7
 */
 // GLOBAL SETTING ////
 
@@ -215,75 +215,26 @@ String need_name = "need" ;
 
 
 // MIN MAX MAP SLIDER
-float min_size = .1 ;
+Vec2 fill_hue_min_max, fill_sat_min_max , fill_bright_min_max , fill_alpha_min_max ;
+Vec2 stroke_hue_min_max, stroke_sat_min_max, stroke_bright_min_max, stroke_alpha_min_max  ;
+Vec2 thickness_min_max ; 
+Vec2 size_x_min_max, size_y_min_max, size_z_min_max ;
+Vec2 font_size_min_max ;
+Vec2 canvas_x_min_max, canvas_y_min_max, canvas_z_min_max ;
 
-Vec2 fill_hue_min_max = Vec2(0,360) ; // data from controller value 0 - 360
-Vec2 fill_sat_min_max = Vec2(0,HSBmode.g) ;     
-Vec2 fill_bright_min_max = Vec2(0,HSBmode.b) ;     
-Vec2 fill_alpha_min_max = Vec2(0,HSBmode.a) ;
+Vec2 reactivity_min_max ;
+Vec2 speed_x_min_max, speed_y_min_max, speed_z_min_max ;
+Vec2 spurt_x_min_max, spurt_y_min_max, spurt_z_min_max ;
+Vec2 dir_x_min_max, dir_y_min_max, dir_z_min_max  ; 
+Vec2 jitter_x_min_max, jitter_y_min_max, jitter_z_min_max ;
+Vec2 swing_x_min_max, swing_y_min_max, swing_z_min_max ;
 
-Vec2 stroke_hue_min_max = Vec2(0,360) ; // data from controller value 0 - 360
-Vec2 stroke_sat_min_max = Vec2(0,HSBmode.g) ; 
-Vec2 stroke_bright_min_max = Vec2(0,HSBmode.b); 
-Vec2 stroke_alpha_min_max = Vec2(0,HSBmode.a) ;
+Vec2 quantity_min_max, variety_min_max ; 
+Vec2 life_min_max, flow_min_max, quality_min_max ;
+Vec2 area_min_max, angle_min_max, scope_min_max, scan_min_max ; 
 
-Vec2 thickness_min_max = Vec2(min_size, float(height)*.33) ; 
-
-Vec2 size_x_min_max = Vec2(min_size, width) ;     
-Vec2 size_y_min_max = Vec2(min_size, width) ;     
-Vec2 size_z_min_max = Vec2(min_size, width) ;
-
-Vec2 font_size_min_max = Vec2((float)height *.005, (float)height *.05);
-
-Vec2 canvas_x_min_max = Vec2(width *min_size, width) ; 
-Vec2 canvas_y_min_max = Vec2(width *min_size, width); 
-Vec2 canvas_z_min_max = Vec2(width *min_size, width) ;
-
-Vec2 reactivity_min_max = Vec2(0,1) ;
-
-Vec2 speed_x_min_max = Vec2(0,1) ; 
-Vec2 speed_y_min_max = Vec2(0,1) ; 
-Vec2 speed_z_min_max = Vec2(0,1) ;
-
-Vec2 spurt_x_min_max = Vec2(0,1) ; 
-Vec2 spurt_y_min_max = Vec2(0,1) ; 
-Vec2 spurt_z_min_max = Vec2(0,1) ;
-
-Vec2 dir_x_min_max = Vec2(0,360) ; // data from controller value 0 - 360 
-Vec2 dir_y_min_max = Vec2(0,360) ; //  data from controller value 0 - 360
-Vec2 dir_z_min_max = Vec2(0,360) ; // data from controller value 0 - 360
-
-Vec2 jitter_x_min_max = Vec2(0,1) ; 
-Vec2 jitter_y_min_max = Vec2(0,1) ; 
-Vec2 jitter_z_min_max = Vec2(0,1) ;
-
-Vec2 swing_x_min_max = Vec2(0,1) ; 
-Vec2 swing_y_min_max = Vec2(0,1) ; 
-Vec2 swing_z_min_max = Vec2(0,1) ;
-
-Vec2 quantity_min_max = Vec2(0,1) ; 
-Vec2 variety_min_max = Vec2(0,1) ; 
-
-Vec2 life_min_max = Vec2(0,1) ; 
-Vec2 flow_min_max = Vec2(0,1) ; 
-Vec2 quality_min_max = Vec2(0,1) ;
-
-Vec2 area_min_max = Vec2(width *min_size, width) ; 
-Vec2 angle_min_max = Vec2(0,360) ;  // data from controller value 0 - 360
-Vec2 scope_min_max = Vec2(width *min_size, width) ; 
-Vec2 scan_min_max = Vec2(0,360) ; // data from controller value 0 - 360
-
-Vec2 alignment_min_max = Vec2(0,1) ; 
-Vec2 repulsion_min_max = Vec2(0,1) ; 
-Vec2 attraction_min_max = Vec2(0,1) ; 
-Vec2 charge_min_max = Vec2(0,1) ;
-
-Vec2 influence_min_max = Vec2(0,1) ; 
-Vec2 calm_min_max = Vec2(0,1) ; 
-Vec2 need_min_max = Vec2(0,1) ;
-
-
-
+Vec2 alignment_min_max, repulsion_min_max, attraction_min_max, charge_min_max ;
+Vec2 influence_min_max, calm_min_max, need_min_max ;
 
 
 // temp
@@ -319,7 +270,6 @@ float [] thickness_item ;
 float [] size_x_item, size_y_item, size_z_item ;
 float [] font_size_item ;
 float [] canvas_x_item, canvas_y_item, canvas_z_item ;
-
 
 float [] reactivity_item ;
 float [] speed_x_item, speed_y_item, speed_z_item ;
@@ -636,18 +586,88 @@ void create_var_item() {
 
 // SETTING VAR
 //SETUP
-void varObjSetup() {
+void init_variable_item() {
   dirObjRef = new PVector() ;
   for (int i = 0 ; i < numObj ; i++ ) {
     pen[i] = Vec3() ;
     // use the 250 value for "z" to keep the position light on the front
     mouse[i] = Vec3() ;
     wheel[i] = 0 ;
-
   }
     // init global var for the color obj preview mode display
   COLOR_FILL_OBJ_PREVIEW = color (0,0,100,30) ; 
   COLOR_STROKE_OBJ_PREVIEW = color (0,0,100,30) ;
+}
+
+
+void init_variable_item_min_max() {
+  float min_size = .1 ;
+  float factor_area = PHI ;
+
+  fill_hue_min_max = Vec2(0,360) ; // data from controller value 0 - 360
+  fill_sat_min_max = Vec2(0,HSBmode.g) ;     
+  fill_bright_min_max = Vec2(0,HSBmode.b) ;     
+  fill_alpha_min_max = Vec2(0,HSBmode.a) ;
+
+  stroke_hue_min_max = Vec2(0,360) ; // data from controller value 0 - 360
+  stroke_sat_min_max = Vec2(0,HSBmode.g) ; 
+  stroke_bright_min_max = Vec2(0,HSBmode.b); 
+  stroke_alpha_min_max = Vec2(0,HSBmode.a) ;
+
+  thickness_min_max = Vec2(min_size, float(height)*.33) ; 
+
+  size_x_min_max = Vec2(min_size, width) ;     
+  size_y_min_max = Vec2(min_size, width) ;     
+  size_z_min_max = Vec2(min_size, width) ;
+
+  font_size_min_max = Vec2((float)height *.005, (float)height *.05);
+
+  canvas_x_min_max = Vec2(width *min_size, width *factor_area) ; 
+  canvas_y_min_max = Vec2(width *min_size, width *factor_area); 
+  canvas_z_min_max = Vec2(width *min_size, width *factor_area) ;
+
+  reactivity_min_max = Vec2(0,1) ;
+
+  speed_x_min_max = Vec2(0,1) ; 
+  speed_y_min_max = Vec2(0,1) ; 
+  speed_z_min_max = Vec2(0,1) ;
+
+  spurt_x_min_max = Vec2(0,1) ; 
+  spurt_y_min_max = Vec2(0,1) ; 
+  spurt_z_min_max = Vec2(0,1) ;
+
+  dir_x_min_max = Vec2(0,360) ; // data from controller value 0 - 360 
+  dir_y_min_max = Vec2(0,360) ; //  data from controller value 0 - 360
+  dir_z_min_max = Vec2(0,360) ; // data from controller value 0 - 360
+
+  jitter_x_min_max = Vec2(0,1) ; 
+  jitter_y_min_max = Vec2(0,1) ; 
+  jitter_z_min_max = Vec2(0,1) ;
+
+  swing_x_min_max = Vec2(0,1) ; 
+  swing_y_min_max = Vec2(0,1) ; 
+  swing_z_min_max = Vec2(0,1) ;
+
+  quantity_min_max = Vec2(0,1) ; 
+  variety_min_max = Vec2(0,1) ; 
+
+  life_min_max = Vec2(0,1) ; 
+  flow_min_max = Vec2(0,1) ; 
+  quality_min_max = Vec2(0,1) ;
+
+  area_min_max = Vec2(width *min_size, width *factor_area) ; 
+  angle_min_max = Vec2(0,360) ;  // data from controller value 0 - 360
+  scope_min_max = Vec2(width *min_size, width *factor_area) ; 
+  scan_min_max = Vec2(0,360) ; // data from controller value 0 - 360
+
+  alignment_min_max = Vec2(0,1) ; 
+  repulsion_min_max = Vec2(0,1) ; 
+  attraction_min_max = Vec2(0,1) ; 
+  charge_min_max = Vec2(0,1) ;
+
+  influence_min_max = Vec2(0,1) ; 
+  calm_min_max = Vec2(0,1) ; 
+  need_min_max = Vec2(0,1) ;
 }
 // END SETTING AR
 
@@ -658,77 +678,76 @@ Those value are used to updated the object data value, and updated at the end of
 */
 void update_raw_value() {
    int minSource = 0 ;
-    // fill
-    fill_hue_raw = (int)map(valueSlider[1][0], minSource, MAX_VALUE_SLIDER, fill_hue_min_max.x, fill_hue_min_max.y);
-    fill_sat_raw = (int)map(valueSlider[1][1], minSource, MAX_VALUE_SLIDER, fill_sat_min_max.x, fill_sat_min_max.y);    
-    fill_bright_raw = (int)map(valueSlider[1][2], minSource, MAX_VALUE_SLIDER, fill_bright_min_max.x, fill_bright_min_max.y) ;   
-    fill_alpha_raw = (int)map(valueSlider[1][3], minSource, MAX_VALUE_SLIDER, fill_alpha_min_max.x, fill_alpha_min_max.y);
-    // stroke
-    stroke_hue_raw = (int)map(valueSlider[1][4], minSource, MAX_VALUE_SLIDER, stroke_hue_min_max.x,stroke_hue_min_max.y);   
-    stroke_sat_raw = (int)map(valueSlider[1][5], minSource, MAX_VALUE_SLIDER, stroke_sat_min_max.x,stroke_sat_min_max.y);  
-    stroke_bright_raw = (int)map(valueSlider[1][6], minSource, MAX_VALUE_SLIDER, stroke_bright_min_max.x, stroke_bright_min_max.y) ; 
-    stroke_alpha_raw = (int)map(valueSlider[1][7], minSource, MAX_VALUE_SLIDER, stroke_alpha_min_max.x, stroke_alpha_min_max.y);
-    // 
-    int smooth_slider = 2 ;
-    thickness_raw = mapStartSmooth(valueSlider[1][8], minSource, MAX_VALUE_SLIDER, thickness_min_max.x, thickness_min_max.y, smooth_slider) ;
+   int smooth_slider = 2 ;
+  // fill
+  fill_hue_raw = (int)map(valueSlider[1][0], minSource, MAX_VALUE_SLIDER, fill_hue_min_max.x, fill_hue_min_max.y);
+  fill_sat_raw = (int)map(valueSlider[1][1], minSource, MAX_VALUE_SLIDER, fill_sat_min_max.x, fill_sat_min_max.y);    
+  fill_bright_raw = (int)map(valueSlider[1][2], minSource, MAX_VALUE_SLIDER, fill_bright_min_max.x, fill_bright_min_max.y) ;   
+  fill_alpha_raw = (int)map(valueSlider[1][3], minSource, MAX_VALUE_SLIDER, fill_alpha_min_max.x, fill_alpha_min_max.y);
+  // stroke
+  stroke_hue_raw = (int)map(valueSlider[1][4], minSource, MAX_VALUE_SLIDER, stroke_hue_min_max.x,stroke_hue_min_max.y);   
+  stroke_sat_raw = (int)map(valueSlider[1][5], minSource, MAX_VALUE_SLIDER, stroke_sat_min_max.x,stroke_sat_min_max.y);  
+  stroke_bright_raw = (int)map(valueSlider[1][6], minSource, MAX_VALUE_SLIDER, stroke_bright_min_max.x, stroke_bright_min_max.y) ; 
+  stroke_alpha_raw = (int)map(valueSlider[1][7], minSource, MAX_VALUE_SLIDER, stroke_alpha_min_max.x, stroke_alpha_min_max.y);
+  // 
+  thickness_raw = mapStartSmooth(valueSlider[1][8], minSource, MAX_VALUE_SLIDER, thickness_min_max.x, thickness_min_max.y, smooth_slider) ;
+  // size
+  size_x_raw = mapStartSmooth(valueSlider[1][9], minSource, MAX_VALUE_SLIDER, size_x_min_max.x, size_x_min_max.y, smooth_slider) ;
+  size_y_raw = mapStartSmooth(valueSlider[1][10], minSource, MAX_VALUE_SLIDER, size_y_min_max.x, size_y_min_max.y, smooth_slider) ;
+  size_z_raw = mapStartSmooth(valueSlider[1][11], minSource, MAX_VALUE_SLIDER, size_z_min_max.x, size_z_min_max.y, smooth_slider) ;
+  // size font
+  font_size_raw = map(valueSlider[1][12], minSource, MAX_VALUE_SLIDER, font_size_min_max.x, font_size_min_max.y) ;
+  // canvas
+  canvas_x_raw = mapStartSmooth(valueSlider[1][13], minSource, MAX_VALUE_SLIDER, canvas_x_min_max.x, canvas_x_min_max.y, smooth_slider) ;
+  canvas_y_raw = mapStartSmooth(valueSlider[1][14], minSource, MAX_VALUE_SLIDER, canvas_y_min_max.x, canvas_y_min_max.y, smooth_slider) ;
+  canvas_z_raw = mapStartSmooth(valueSlider[1][15], minSource, MAX_VALUE_SLIDER, canvas_z_min_max.x, canvas_z_min_max.y, smooth_slider) ;
 
-    // size
-    size_x_raw = map(valueSlider[1][9], minSource, MAX_VALUE_SLIDER, size_x_min_max.x, size_x_min_max.y) ;
-    size_y_raw = map(valueSlider[1][10], minSource, MAX_VALUE_SLIDER, size_y_min_max.x, size_y_min_max.y) ;
-    size_z_raw = map(valueSlider[1][11], minSource, MAX_VALUE_SLIDER, size_z_min_max.x, size_z_min_max.y) ;
-    // size font
-    font_size_raw = map(valueSlider[1][12], minSource, MAX_VALUE_SLIDER, font_size_min_max.x, font_size_min_max.y) ;
-    // canvas
-    canvas_x_raw = map(valueSlider[1][13], minSource, MAX_VALUE_SLIDER, canvas_x_min_max.x, canvas_x_min_max.y) ;
-    canvas_y_raw = map(valueSlider[1][14], minSource, MAX_VALUE_SLIDER, canvas_y_min_max.x, canvas_y_min_max.y) ;
-    canvas_z_raw = map(valueSlider[1][15], minSource, MAX_VALUE_SLIDER, canvas_z_min_max.x, canvas_z_min_max.y) ;
+  // size font
+  reactivity_raw = map(valueSlider[1][16], minSource, MAX_VALUE_SLIDER, reactivity_min_max.x, reactivity_min_max.y) ;
+  // speed
+  speed_x_raw = map(valueSlider[1][17], minSource, MAX_VALUE_SLIDER, speed_x_min_max.x, speed_x_min_max.y) ;
+  speed_y_raw = map(valueSlider[1][18], minSource, MAX_VALUE_SLIDER, speed_y_min_max.x, speed_y_min_max.y) ;
+  speed_z_raw = map(valueSlider[1][19], minSource, MAX_VALUE_SLIDER, speed_z_min_max.x, speed_z_min_max.y) ;
+  // spurt
+  spurt_x_raw = map(valueSlider[1][20], minSource, MAX_VALUE_SLIDER, spurt_x_min_max.x, spurt_x_min_max.y) ;
+  spurt_y_raw = map(valueSlider[1][21], minSource, MAX_VALUE_SLIDER, spurt_y_min_max.x, spurt_y_min_max.y) ;
+  spurt_z_raw = map(valueSlider[1][22], minSource, MAX_VALUE_SLIDER, spurt_z_min_max.x, spurt_z_min_max.y) ;
+  // direction
+  dir_x_raw = map(valueSlider[1][23], minSource, MAX_VALUE_SLIDER, dir_x_min_max.x, dir_x_min_max.y) ;
+  dir_y_raw = map(valueSlider[1][24], minSource, MAX_VALUE_SLIDER, dir_y_min_max.x, dir_y_min_max.y) ;
+  dir_z_raw = map(valueSlider[1][25], minSource, MAX_VALUE_SLIDER, dir_z_min_max.x, dir_z_min_max.y) ;
+  // jitter
+  jitter_x_raw = map(valueSlider[1][26], minSource, MAX_VALUE_SLIDER, jitter_x_min_max.x, jitter_x_min_max.y) ;
+  jitter_y_raw = map(valueSlider[1][27], minSource, MAX_VALUE_SLIDER, jitter_y_min_max.x, jitter_y_min_max.y) ;
+  jitter_z_raw = map(valueSlider[1][28], minSource, MAX_VALUE_SLIDER, jitter_z_min_max.x, jitter_z_min_max.y) ;
+  // spurt
+  swing_x_raw = map(valueSlider[1][29], minSource, MAX_VALUE_SLIDER, swing_x_min_max.x, swing_x_min_max.y) ;
+  swing_y_raw = map(valueSlider[1][30], minSource, MAX_VALUE_SLIDER, swing_y_min_max.x, swing_y_min_max.y) ;
+  swing_z_raw = map(valueSlider[1][31], minSource, MAX_VALUE_SLIDER, swing_z_min_max.x, swing_z_min_max.y) ;
 
-    // size font
-    reactivity_raw = map(valueSlider[1][16], minSource, MAX_VALUE_SLIDER, reactivity_min_max.x, reactivity_min_max.y) ;
-    // speed
-    speed_x_raw = map(valueSlider[1][17], minSource, MAX_VALUE_SLIDER, speed_x_min_max.x, speed_x_min_max.y) ;
-    speed_y_raw = map(valueSlider[1][18], minSource, MAX_VALUE_SLIDER, speed_y_min_max.x, speed_y_min_max.y) ;
-    speed_z_raw = map(valueSlider[1][19], minSource, MAX_VALUE_SLIDER, speed_z_min_max.x, speed_z_min_max.y) ;
-    // spurt
-    spurt_x_raw = map(valueSlider[1][20], minSource, MAX_VALUE_SLIDER, spurt_x_min_max.x, spurt_x_min_max.y) ;
-    spurt_y_raw = map(valueSlider[1][21], minSource, MAX_VALUE_SLIDER, spurt_y_min_max.x, spurt_y_min_max.y) ;
-    spurt_z_raw = map(valueSlider[1][22], minSource, MAX_VALUE_SLIDER, spurt_z_min_max.x, spurt_z_min_max.y) ;
-    // direction
-    dir_x_raw = map(valueSlider[1][23], minSource, MAX_VALUE_SLIDER, dir_x_min_max.x, dir_x_min_max.y) ;
-    dir_y_raw = map(valueSlider[1][24], minSource, MAX_VALUE_SLIDER, dir_y_min_max.x, dir_y_min_max.y) ;
-    dir_z_raw = map(valueSlider[1][25], minSource, MAX_VALUE_SLIDER, dir_z_min_max.x, dir_z_min_max.y) ;
-    // jitter
-    jitter_x_raw = map(valueSlider[1][26], minSource, MAX_VALUE_SLIDER, jitter_x_min_max.x, jitter_x_min_max.y) ;
-    jitter_y_raw = map(valueSlider[1][27], minSource, MAX_VALUE_SLIDER, jitter_y_min_max.x, jitter_y_min_max.y) ;
-    jitter_z_raw = map(valueSlider[1][28], minSource, MAX_VALUE_SLIDER, jitter_z_min_max.x, jitter_z_min_max.y) ;
-    // spurt
-    swing_x_raw = map(valueSlider[1][29], minSource, MAX_VALUE_SLIDER, swing_x_min_max.x, swing_x_min_max.y) ;
-    swing_y_raw = map(valueSlider[1][30], minSource, MAX_VALUE_SLIDER, swing_y_min_max.x, swing_y_min_max.y) ;
-    swing_z_raw = map(valueSlider[1][31], minSource, MAX_VALUE_SLIDER, swing_z_min_max.x, swing_z_min_max.y) ;
+  // misc
+  quantity_raw = map(valueSlider[1][32], minSource, MAX_VALUE_SLIDER, quantity_min_max.x, quantity_min_max.y) ;
+  variety_raw = map(valueSlider[1][33], minSource, MAX_VALUE_SLIDER, variety_min_max.x, variety_min_max.y) ;
+  // bio
+  life_raw = map(valueSlider[1][34], minSource, MAX_VALUE_SLIDER, life_min_max.x, life_min_max.y) ;
+  flow_raw = map(valueSlider[1][35], minSource, MAX_VALUE_SLIDER, flow_min_max.x, flow_min_max.y) ;
+  quality_raw = map(valueSlider[1][36], minSource, MAX_VALUE_SLIDER, quality_min_max.x, quality_min_max.y) ;
+  // radar
+  area_raw = mapStartSmooth(valueSlider[1][37], minSource, MAX_VALUE_SLIDER, area_min_max.x, area_min_max.y, smooth_slider) ;
+  angle_raw = map(valueSlider[1][38], minSource, MAX_VALUE_SLIDER, angle_min_max.x, angle_min_max.y) ;
+  scope_raw = map(valueSlider[1][39], minSource, MAX_VALUE_SLIDER, scope_min_max.x, scope_min_max.y) ;
+  scan_raw = map(valueSlider[1][40], minSource, MAX_VALUE_SLIDER, scan_min_max.x, scan_min_max.y) ;
 
-    // misc
-    quantity_raw = map(valueSlider[1][32], minSource, MAX_VALUE_SLIDER, quantity_min_max.x, quantity_min_max.y) ;
-    variety_raw = map(valueSlider[1][33], minSource, MAX_VALUE_SLIDER, variety_min_max.x, variety_min_max.y) ;
-    // bio
-    life_raw = map(valueSlider[1][34], minSource, MAX_VALUE_SLIDER, life_min_max.x, life_min_max.y) ;
-    flow_raw = map(valueSlider[1][35], minSource, MAX_VALUE_SLIDER, flow_min_max.x, flow_min_max.y) ;
-    quality_raw = map(valueSlider[1][36], minSource, MAX_VALUE_SLIDER, quality_min_max.x, quality_min_max.y) ;
-    // radar
-    area_raw = map(valueSlider[1][37], minSource, MAX_VALUE_SLIDER, area_min_max.x, area_min_max.y) ;
-    angle_raw = map(valueSlider[1][38], minSource, MAX_VALUE_SLIDER, angle_min_max.x, angle_min_max.y) ;
-    scope_raw = map(valueSlider[1][39], minSource, MAX_VALUE_SLIDER, scope_min_max.x, scope_min_max.y) ;
-    scan_raw = map(valueSlider[1][40], minSource, MAX_VALUE_SLIDER, scan_min_max.x, scan_min_max.y) ;
-
-    // force or behavior
-    alignment_raw = map(valueSlider[1][41], minSource, MAX_VALUE_SLIDER, alignment_min_max.x, alignment_min_max.y) ;
-    repulsion_raw = map(valueSlider[1][42], minSource, MAX_VALUE_SLIDER, repulsion_min_max.x, repulsion_min_max.y) ;
-    attraction_raw = map(valueSlider[1][43], minSource, MAX_VALUE_SLIDER, attraction_min_max.x, attraction_min_max.y) ;
-    charge_raw = map(valueSlider[1][44], minSource, MAX_VALUE_SLIDER, charge_min_max.x, charge_min_max.y) ;
+  // force or behavior
+  alignment_raw = map(valueSlider[1][41], minSource, MAX_VALUE_SLIDER, alignment_min_max.x, alignment_min_max.y) ;
+  repulsion_raw = map(valueSlider[1][42], minSource, MAX_VALUE_SLIDER, repulsion_min_max.x, repulsion_min_max.y) ;
+  attraction_raw = map(valueSlider[1][43], minSource, MAX_VALUE_SLIDER, attraction_min_max.x, attraction_min_max.y) ;
+  charge_raw = map(valueSlider[1][44], minSource, MAX_VALUE_SLIDER, charge_min_max.x, charge_min_max.y) ;
 
 
-    influence_raw = map(valueSlider[1][45], minSource, MAX_VALUE_SLIDER, influence_min_max.x, influence_min_max.y) ;
-    calm_raw = map(valueSlider[1][46], minSource, MAX_VALUE_SLIDER, calm_min_max.x, calm_min_max.y) ;
-    need_raw = map(valueSlider[1][47], minSource, MAX_VALUE_SLIDER, need_min_max.x, need_min_max.y) ; 
+  influence_raw = map(valueSlider[1][45], minSource, MAX_VALUE_SLIDER, influence_min_max.x, influence_min_max.y) ;
+  calm_raw = map(valueSlider[1][46], minSource, MAX_VALUE_SLIDER, calm_min_max.x, calm_min_max.y) ;
+  need_raw = map(valueSlider[1][47], minSource, MAX_VALUE_SLIDER, need_min_max.x, need_min_max.y) ; 
 
 }
 

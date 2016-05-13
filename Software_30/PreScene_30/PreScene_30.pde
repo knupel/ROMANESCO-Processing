@@ -46,10 +46,11 @@ void setup() {
   
   //common setup
   colorSetup() ;
-
   syphon_setup() ;
 
-  varObjSetup() ;
+  init_variable_item_min_max() ; 
+  init_variable_item() ;
+
   fontSetup() ;
 
   // here we ask for the TEST_ROMANESCO true, because the Minim Library talk too much in the consol

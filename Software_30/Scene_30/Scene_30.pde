@@ -34,26 +34,23 @@ void setup() {
   import_path = sketchPath("")+"import/" ;
   int frameRateRomanesco = 60 ;
   displaySetup(frameRateRomanesco) ; // the int give the frameRate
-  
+  if (!FULL_SCREEN) size_scene() ;
 
-  
-
- romanescoSetup() ;
+  romanescoSetup() ;
 
   RG.init(this); // GEOMERATIVE
 
   createVar() ;
-  
-  // initVarScene() ;
 
   colorSetup() ;
   syphon_setup() ;
+
+  init_variable_item_min_max() ;
   
   fontSetup() ;
 
   if(!TEST_ROMANESCO) soundSetup() ;
   variables_setup() ; // the varObject setup of the Scene is more simple
-
 
   P3D_setup(numObj, numSettingCamera, numSettingOrientationObject) ;
   
@@ -62,11 +59,9 @@ void setup() {
   light_setup() ;
   if(FULL_RENDERING) shader_setup() ;
 
-  if (!FULL_SCREEN) size_scene() ;
+  
 
   OSCSetup() ;
-
-  println("setup done") ;
 }
 
 //DRAW
