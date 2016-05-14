@@ -87,7 +87,7 @@ class Spray extends Romanesco {
   // the orderer
   void starProduction() {
     float depth = map(canvas_z_item[ID_item], width/10, width, 0, width *3) ;
-    PVector pos = new PVector(mouse[0].x - startingPosition[ID_item].x, mouse[0].y - startingPosition[ID_item].y, depth ) ;
+    PVector pos = new PVector(mouse[0].x - item_setting_position[0][ID_item].x, mouse[0].y - item_setting_position[0][ID_item].y, depth ) ;
     //tha first value must be smaller than second
     
     int sizeMin = (int)map(size_x_item[ID_item],0.1,width,1,20) ;
@@ -219,7 +219,7 @@ class Spray extends Romanesco {
       //calcul the final position to display
       mouse[ID_item].x = rotation(posTilt, Vec2(mouse[0].x, mouse[0].y), angle).x ;
       mouse[ID_item].y = rotation(posTilt, Vec2(mouse[0].x, mouse[0].y), angle).y ;
-      mouse[ID_item].sub(Vec3(startingPosition[ID_item])) ;
+      mouse[ID_item].sub(Vec3(item_setting_position[0][ID_item])) ;
 
       
       //put the pixel in the list to use peacefully

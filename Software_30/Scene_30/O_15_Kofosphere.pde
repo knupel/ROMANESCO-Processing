@@ -25,7 +25,7 @@ class Kofosphere extends Romanesco {
     
     float startingRadius = width ;
     
-    sphere = new Sphere( new PVector(startingPosition[ID_item].x,startingPosition[ID_item].y),startingRadius);
+    sphere = new Sphere( new PVector(item_setting_position[0][ID_item].x,item_setting_position[0][ID_item].y),startingRadius);
   }
   
   

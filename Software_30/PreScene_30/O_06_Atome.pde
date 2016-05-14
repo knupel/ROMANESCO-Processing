@@ -240,12 +240,12 @@ class Atome extends Romanesco {
     int maxValueReproduction = 25 ;
     if(FULL_RENDERING) maxValueReproduction = 1 ; else maxValueReproduction = 25 ;
     int speedReproduction = round(map(quantity_item[ID_item],0, 1, 30, maxValueReproduction));
-    if(action[ID_item] && nLongTouch && clickLongLeft[ID_item] && frameCount % speedReproduction == 0) atomAdd(giveNametoAtom(), startingPosition[ID_item]) ;
+    if(action[ID_item] && nLongTouch && clickLongLeft[ID_item] && frameCount % speedReproduction == 0) atomAdd(giveNametoAtom(), item_setting_position[0][ID_item]) ;
     
     if(atomList.size()<1) {
       int num = int(random(1,9)) ;
       for(int i = 0 ; i < num ; i++ ) {
-        atomAdd(giveNametoAtom(), startingPosition[ID_item]) ;
+        atomAdd(giveNametoAtom(), item_setting_position[0][ID_item]) ;
       }
     }
 

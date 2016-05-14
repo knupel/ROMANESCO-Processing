@@ -450,7 +450,7 @@ class RPE_MANAGER {
       num ++ ;
       objR.setting() ;
       if(posObjRef[objR.ID_item] == null) posObjRef[objR.ID_item] = Vec3() ;
-      posObjRef[objR.ID_item].set(startingPosition[objR.ID_item]) ;
+      posObjRef[objR.ID_item].set(item_setting_position[0][objR.ID_item]) ;
     }
   }
   

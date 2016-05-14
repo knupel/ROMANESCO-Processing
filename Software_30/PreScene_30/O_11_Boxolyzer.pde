@@ -21,7 +21,7 @@ class Boxolyzer extends Romanesco {
 
   //SETUP
   void setting() {
-    startPosition(ID_item, 0, height/4, 0) ;
+    startPosition(ID_item, 0, 0, 0) ;
     
     boitesSetting() ;
   }

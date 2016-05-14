@@ -1,5 +1,11 @@
 BESTIARY of the Romanesco world
 
+// COSTUME
+@ see chapter COSTUME in METHOD_RPE tap
+
+
+
+
 -- Tetrahedron --
 > This group of method are present in Mathematic chapter and in Bestiary
 void tetrahedronAdd() ; // this method add the four points in a arraylist of point, the shape create have a size of "1"

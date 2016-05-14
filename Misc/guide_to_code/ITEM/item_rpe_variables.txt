@@ -193,6 +193,15 @@ bandSpectrum.length ;
 
 
 
+Coord
+-----------
+item_setting_position[0][ID_item] @ return original position
+item_setting_direction[0][ID_item] @ return original orientation
+
+
+
+
+
 
 
 

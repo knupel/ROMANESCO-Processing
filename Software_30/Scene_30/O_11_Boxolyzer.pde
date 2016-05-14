@@ -10,7 +10,7 @@ class Boxolyzer extends Romanesco {
     ID_item = 11 ;
     ID_group = 1 ;
     RPE_author  = "Stan le Punk";
-    RPE_version = "Version 1.0.3";
+    RPE_version = "Version 1.0.4";
     RPE_pack = "Base" ;
     RPE_mode ="Classic/Circle" ;
     RPE_slider = "Fill hue,Fill sat,Fill bright,Fill alpha,Stroke hue,Stroke sat,Stroke bright,Stroke alpha,Thickness,Size X,Size Y,Size Z,Canvas X,Quantity,Direction X" ;
@@ -21,7 +21,7 @@ class Boxolyzer extends Romanesco {
 
   //SETUP
   void setting() {
-    startPosition(ID_item, 0, height/4, 0) ;
+    startPosition(ID_item, 0, 0, 0) ;
     
     boitesSetting() ;
   }
@@ -41,9 +41,9 @@ class Boxolyzer extends Romanesco {
     
     // MODE DISPLAY with the dropdown menu of controler
     /////////////////////
-    if        (mode[ID_item] ==0) { boxolyzerClassic(size, horizon[ID_item] , dir_x_item[ID_item]) ;
-    } else if (mode[ID_item] ==1) { boxolyzerCircle(size, (int)canvas_x_item[ID_item], horizon[ID_item], dir_x_item[ID_item]) ;
-    } 
+    if  (mode[ID_item] ==0) boxolyzerClassic(size, horizon[ID_item] , dir_x_item[ID_item]) ;
+    else if (mode[ID_item] ==1) boxolyzerCircle(size, (int)canvas_x_item[ID_item], horizon[ID_item], dir_x_item[ID_item]) ;
+
 
 
     // INFO
@@ -66,14 +66,14 @@ class Boxolyzer extends Romanesco {
     
     int n = boiteList.size() ;
     float factorSpectrum = 0 ;
-    PVector pos = new PVector() ;
+    Vec3 pos = Vec3() ;
     
     for(int i=0; i < n; i++) {
       if(  i < band.length) factorSpectrum = band [ID_item][i] ;
       float stepAngle = map(i, 0, n, 0, 2*PI) ; 
       float angle =  2*PI - stepAngle;
-      if(orientation) pos = new PVector(projection(angle, radius).x + pos.x, projection(angle, radius).y + pos.y ) ;
-      else  pos = new PVector(projection(angle, radius).x + pos.x, 0, projection(angle, radius).y + pos.z) ;
+      if(orientation) pos.set(projection(angle, radius).x +pos.x, projection(angle, radius).y +pos.y, pos.z) ;
+      else  pos.set(projection(angle, radius).x +pos.x, 0, projection(angle, radius).y +pos.z) ;
 
       BOITEaMUSIQUE boiteAmusique = (BOITEaMUSIQUE) boiteList.get(i) ;
       boiteAmusique.showTheBoite(pos, size, factorSpectrum, groundPosition, dir) ;
@@ -84,7 +84,7 @@ class Boxolyzer extends Romanesco {
 
   // EQUALIZER CLASSIC
   void boxolyzerClassic(Vec3 size, boolean groundPosition, float dir) {
-    PVector pos = new PVector(0,height *.5 ,0) ;
+    Vec3 pos = Vec3(0,height *.5 ,0) ;
     float factorSpectrum = 0 ;
     int n = boiteList.size() ;
     // int canvasFinal = width ;
@@ -116,7 +116,7 @@ class Boxolyzer extends Romanesco {
   }
   //
   void addBoite(int ID) {
-    Vec3 size = Vec3(1,1,1) ;
+    Vec3 size = Vec3(1) ;
     BOITEaMUSIQUE boiteAmusique = new BOITEaMUSIQUE(size, ID) ; 
     boiteList.add(boiteAmusique) ;
   }
@@ -133,7 +133,7 @@ class Boxolyzer extends Romanesco {
 ///////
 //CLASS
 class BOITEaMUSIQUE {
-  PVector pos = new PVector(0,0,0) ;
+  //PVector pos = new PVector(0,0,0) ;
   Vec3 size ;
   int ID ;
   
@@ -144,13 +144,13 @@ class BOITEaMUSIQUE {
   
   
   
-  void showTheBoite(PVector pos, Vec3 size, float factor, boolean groundLine, float dir) {
-    Vec3 newSize = Vec3(size.x, size.y *factor,size.z *factor ) ;
+  void showTheBoite(Vec3 pos, Vec3 size, float factor, boolean groundLine, float dir) {
+    Vec3 newSize = Vec3(size.x, size.y *factor, size.z *factor) ;
     //put the box on the ground !
 
     pushMatrix() ;
     if (!groundLine) {
-      translate(pos.x, pos.y, pos.z) ; 
+      translate(pos) ; 
     } else {
       float horizon = pos.y -(newSize.z *.5) ;  
       translate(pos.x, horizon, pos.z) ;

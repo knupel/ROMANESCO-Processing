@@ -155,12 +155,12 @@ class Surface extends Romanesco {
   // SURFACE SIMPLE
   void create_surface_simple(int sizePix, Vec2 canvas) {
     /*
-    PVector startingPosition give the starting position for the drawing grid, the value is -1 to 1
+    PVector setting_position give the starting position for the drawing grid, the value is -1 to 1
     if you start with (0,0) the canvas start from the center, if you use the extreme value, the draw start from corner.
     this value can be interesting for the rotation axes.
     */
-    PVector startingPosition = new PVector(0, 0) ; 
-    surfaceGrid(sizePix, canvas, startingPosition, grid_surface_simple) ;
+    PVector pos = new PVector(0, 0) ; 
+    surfaceGrid(sizePix, canvas, pos, grid_surface_simple) ;
   }
   
   
@@ -242,13 +242,13 @@ class Surface extends Romanesco {
   // annexe method
   void surface_build_image_grid(float x, float y, int altitude, int sizeTriangle, ArrayList<Polygon> gridTriangle, Vec4 color_fill, Vec4 color_stroke, float thickness) {
       //setting grid
-    PVector startingPosition = new PVector(x, y) ; 
+    PVector pos = new PVector(x, y) ; 
     /*
-    PVector startingPosition give the starting position for the drawing grid, the value is -1 to 1
+    PVector setting_position give the starting position for the drawing grid, the value is -1 to 1
      if you start with (0,0) the canvas start from the center, if you use the extreme value, the draw start from corner.
      this value can be interesting for the rotation axes.
      */
-    surfaceGridImg(sizeTriangle, startingPosition, image, gridTriangle) ;
+    surfaceGridImg(sizeTriangle, pos, image, gridTriangle) ;
     if(gridTriangle.size() > 0 ) {
       if(TEST_ROMANESCO) println("compute Surface grid");
       surfaceImgColor(gridTriangle, color_fill, color_stroke, thickness) ;
@@ -263,7 +263,7 @@ class Surface extends Romanesco {
   PImage imgSurface ;
   
   
-  void surfaceGridImg(int sizePix, PVector startingPosition, PImage imgSurface, ArrayList<Polygon> gridTriangle) {
+  void surfaceGridImg(int sizePix, PVector pos, PImage imgSurface, ArrayList<Polygon> gridTriangle) {
     if(imgSurface != null) {
       // find info from image
       this.imgSurface = imgSurface ;
@@ -273,7 +273,7 @@ class Surface extends Romanesco {
       
       //classic grid method
       Vec2 canvas = Vec2(imgSurface.width, imgSurface.height);
-      surfaceGrid(sizePix, canvas, startingPosition, gridTriangle) ;
+      surfaceGrid(sizePix, canvas, pos, gridTriangle) ;
     }
   }
   
@@ -383,8 +383,8 @@ class Surface extends Romanesco {
 ArrayList<PVector> listTrianglePoint = new ArrayList<PVector>() ;
 
 // Main void
-void surfaceGrid(int triangleSize, Vec2 canvas, PVector startingPositionToDraw, ArrayList<Polygon> gridTriangle) {
-  buildTriangleGrid(triangleSize, canvas, startingPositionToDraw, gridTriangle) ;
+void surfaceGrid(int triangleSize, Vec2 canvas, PVector pos, ArrayList<Polygon> gridTriangle) {
+  buildTriangleGrid(triangleSize, canvas, pos, gridTriangle) ;
   selectCommonSummit(gridTriangle) ;
 }
 

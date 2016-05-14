@@ -24,10 +24,10 @@ PVector sizeBackgroundP3D  ;
 
 // P3D SETUP
 ////////////
-void P3D_setup(int numObj, int numSettingCamera, int numSettingOrientationObject) {
+void P3D_setup(int numObj, int numSettingCamera, int numSettingItem) {
     settingAllCameras (numSettingCamera) ;
     settingObjManipulation (numObj) ;
-    settingObjectManipulation(numObj, numSettingCamera, numSettingOrientationObject) ;
+    settingObjectManipulation(numObj, numSettingItem) ;
     initVariableCamera() ;
     println("P3D setup done") ;
 }
@@ -44,12 +44,12 @@ void settingObjManipulation (int numObj) {
   }
 }
 
-void settingObjectManipulation (int numObj, int numSettingCamera, int numSettingOrientationObject) {
+void settingObjectManipulation (int numObj, int numSetting) {
   // object orientation
-  for ( int i = 0 ; i < numSettingOrientationObject ; i++ ) {
+  for ( int i = 0 ; i < numSetting ; i++ ) {
     for (int j = 0 ; j < numObj ; j++ ) {
-       posObjSetting [i][j] = new PVector() ;
-       dirObjSetting [i][j] = new PVector() ;
+       item_setting_position [i][j] = Vec3() ;
+       item_setting_direction [i][j] = Vec2() ;
      }
    }
 }
@@ -103,12 +103,12 @@ void objectMove(boolean movePos, boolean moveDir, int ID) {
   
   //RESET
   if(touch0) {
-    posObjX[ID] = posObjSetting [0][ID].x ;
-    posObjY[ID] = posObjSetting [0][ID].y ;
-    posObjZ[ID] = posObjSetting [0][ID].z ;
+    posObjX[ID] = item_setting_position [0][ID].x ;
+    posObjY[ID] = item_setting_position [0][ID].y ;
+    posObjZ[ID] = item_setting_position [0][ID].z ;
 
-    dirObjX[ID] = dirObjSetting [0][ID].x ;
-    dirObjY[ID] = dirObjSetting [0][ID].y ;
+    dirObjX[ID] = item_setting_direction [0][ID].x ;
+    dirObjY[ID] = item_setting_direction [0][ID].y ;
 
     P3DdirectionMouseRef.set(0,0,0) ;
     tempObjDir.set(0,0,0) ;
@@ -278,13 +278,13 @@ void addRefObj(int ID) {
 
 //starting position
 void startPosition(int ID, int x, int y, int z) {
-  startingPosition[ID] = Vec3(x,y,z) ;
+  // tartingPosition[ID] = Vec3(x,y,z) ;
   posObjX[ID] = x -(width/2) ;
   posObjY[ID] = y -(height/2) ;
   posObjZ[ID] = z ;
   
-  posObjSetting [0][ID] = new PVector(posObjX[ID], posObjY[ID], posObjZ[ID] ) ;
-  dirObjSetting [0][ID] = new PVector(dirObjX[ID], dirObjY[ID]) ;
+  item_setting_position [0][ID] = Vec3(posObjX[ID], posObjY[ID], posObjZ[ID] ) ;
+  item_setting_direction [0][ID] = Vec2(dirObjX[ID], dirObjY[ID]) ;
   mouse[ID] = Vec3(x,y,z) ;
 }
 // END MOVE OBJECT

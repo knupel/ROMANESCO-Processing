@@ -1,5 +1,15 @@
-// GLOBAL methods or variables for CONTROLLER, SCENE and PRESCENE
-//////////////////////////////////////////////////////////////////
+/**
+A few method to code in RPE – Romanesco Processing Environment –
+*/
+
+// COSTUME
+//////////
+a few method to display a specicif form from a various catalogue of shape, creature... actualy only five :)
+form 1 to 5
+costume(Vec3 pos, int size,  int which_costume) ;
+costume(Vec3 pos, int size, Vec3 dir, int which_costume) ;
+
+
 
 
 // STRING METHOD

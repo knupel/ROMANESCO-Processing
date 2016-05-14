@@ -10,6 +10,10 @@ ROMANESCO 30 Revision
 > add item Movisco
 > fix buf orientation camera when you reset position of the camera or of the items
 > improve the growth curve for the size, canvas and area sliders
+> add mode to rubis item
+> add jitter slider for rubis item
+> add item ecosysteme
+
 
 // CONTROLLER
 > add new item slider : font size, jitter, swing, spurt, variety, quality, direction y, direction z, speed y, speed z, fertility, area, scope, scan, charge, calm and need

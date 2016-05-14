@@ -39,7 +39,8 @@ void setup() {
   romanescoSetup() ;
 
   RG.init(this); // GEOMERATIVE
-
+  
+  P3D_setup(numObj, numSettingCamera, numSettingOrientationObject) ;
   createVar() ;
 
   colorSetup() ;
@@ -52,7 +53,7 @@ void setup() {
   if(!TEST_ROMANESCO) soundSetup() ;
   variables_setup() ; // the varObject setup of the Scene is more simple
 
-  P3D_setup(numObj, numSettingCamera, numSettingOrientationObject) ;
+
   
   // LIGHT AND SHADER
   light_position_setup() ;

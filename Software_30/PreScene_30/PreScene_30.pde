@@ -39,6 +39,7 @@ void setup() {
   // common setup
 
   romanescoSetup() ;
+  P3D_setup(numObj, numSettingCamera, numSettingOrientationObject) ;
   createVar() ;
   //specific setup
   presceneSetup() ; // the varObject setup of the Scene is more simple
@@ -55,7 +56,7 @@ void setup() {
 
   // here we ask for the TEST_ROMANESCO true, because the Minim Library talk too much in the consol
   if(!TEST_ROMANESCO) soundSetup() ;
-  P3D_setup(numObj, numSettingCamera, numSettingOrientationObject) ;
+ //  P3D_setup(numObj, numSettingCamera, numSettingOrientationObject) ;
   // Light and shader setup
   light_position_setup() ;
   light_setup() ;

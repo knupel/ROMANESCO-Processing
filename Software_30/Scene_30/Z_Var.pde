@@ -342,11 +342,13 @@ float [] tempo, tempoBeat, tempoKick, tempoSnare, tempoHat ;
 //setting and save
 int numSettingCamera = 1 ;
 int numSettingOrientationObject = 1 ;
-PVector [][] posObjSetting, dirObjSetting ;
+Vec3 [][] item_setting_position ;
+Vec2 [][] item_setting_direction ;
 PVector [] eyeCameraSetting, sceneCameraSetting ;
 //position
-Vec3 startingPosition [] ;
+// Vec3 setting_position [] ;
 float [] posObjX, posObjY, posObjZ ;
+// Vec3 [] pos_item ;
 
 // PVector posObjRef ;
 boolean newObjRefPos ;
@@ -460,10 +462,10 @@ void createVarP3D(int numObj, int numSettingCamera, int numSettingOrientationObj
    eyeCameraSetting = new PVector [numSettingCamera] ;
    sceneCameraSetting = new PVector [numSettingCamera] ;
 
-   posObjSetting = new PVector [numSettingOrientationObject] [numObj] ;
-   dirObjSetting = new PVector [numSettingOrientationObject] [numObj] ;
+   item_setting_position = new Vec3 [numSettingOrientationObject] [numObj] ;
+   item_setting_direction = new Vec2 [numSettingOrientationObject] [numObj] ;
    //
-   startingPosition = new Vec3[numObj] ;
+   // setting_position = new Vec3[numObj] ;
    posObjX = new float[numObj] ;
    posObjY = new float[numObj] ;
    posObjZ = new float[numObj] ;

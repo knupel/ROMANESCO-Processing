@@ -116,7 +116,7 @@ class Webcam extends Romanesco {
     PVector newCellSize = new PVector (newCellSizeX, newCellSizeY, factorSizeZ ) ;
     //init the position of image on the middle of the screen
     Vec3 posMouseCam = Vec3( width / 2, height /2, 0) ;
-    if (mouse[ID_item].x >= -startingPosition[ID_item].x && mouse[ID_item].y >= -startingPosition[ID_item].y) posMouseCam.set(mouse[ID_item]) ;
+    if (mouse[ID_item].x >= -item_setting_position[0][ID_item].x && mouse[ID_item].y >= -item_setting_position[0][ID_item].y) posMouseCam.set(mouse[ID_item]) ;
     //create the ratio for the translate position in functiun of the size of the Scene, not really good algorythm
     float ratioDisplay = (float)width / (float)height ;
     float factorDisplacementRatioSizeOfTheDisplay = map(width, 0, 2000, .6, .2 ) ;
