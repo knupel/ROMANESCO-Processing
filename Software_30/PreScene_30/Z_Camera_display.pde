@@ -197,8 +197,8 @@ PVector updatePosObj(PVector pos, int ID, boolean authorization) {
   
   // polar info for the obj and the camera
   Vec3 polarObj = toPolar(deltaObjPos) ;
-  float norm360longitude = mapCycle(eyeCamera.x,0,360) ;
-  float norm360latitude = mapCycle(eyeCamera.y ,0,360) ;
+  float norm360longitude = map_cycle(eyeCamera.x,0,360) ;
+  float norm360latitude = map_cycle(eyeCamera.y ,0,360) ;
   // transform value 0-360 to 0-2PI
   float longitude = map(norm360longitude,0,360, 0, TAU) ;
   float latitude = map(norm360latitude, 0,360,0,TAU) ;

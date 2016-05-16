@@ -2,113 +2,6 @@
 A few method to code in RPE – Romanesco Processing Environment –
 */
 
-// COSTUME
-//////////
-a few method to display a specicif form from a various catalogue of shape, creature... actualy only five :)
-form 1 to 5
-costume(Vec3 pos, int size,  int which_costume) ;
-costume(Vec3 pos, int size, Vec3 dir, int which_costume) ;
-
-
-
-
-// STRING METHOD
-////////////////
-
-// FLOAT METHOD
-float decimal(float var, float num_decimal ) 
-@return float
-retrun a specific number of decimal after comma
-
-
-
-String joinIntToString(int []data) 
-@return the int list in a String separate by "/" must be improve, to add a choice in separator
-
-String joinFloatToString(float []data) 
-@return the float list in a String separate by "/" must be improve, to add a choice in separator
-
-String FloatToString(float data) 
-@translate a float to String with "1" float or with "3", weird must look inside
-
-String IntToString(int data) 
-@translate an Integer in String
-
-String [] splitText(String textToSplit, String separator) 
-@return a list of String
-
-
-String remove_part_String(String research, String target) 
-@return a String without the part of your choice, if it's possible. If it's not possible return info to explain.
-
-boolean research_in_String(String research, String target) 
-@return a boolean if String is find in an other String
-
-
-
-
-
-// CHECK SIZE OF STRING
-////////////////////////
-
-// in letter
-------------
-int longestWord( String[] listWordsToSort) 
-@return the num of Char of String
-
-int longestWord( String[] listWordsToSort, int start, int finish ) 
-@return the num of Char of String between two points
-
-
-// in pixel
-------------
-// with same size of text for each line
-int longest_word_in_pixel( String[] listWordsToSort, int size_text) 
-@return length in Pix of biggest String in a String list for an font size of 10
-
-int longest_word_in_pixel( String[] listWordsToSort, int size_text, int start, int finish ) 
-@return length in Pix of biggest String in a String list for an font size of 10, between two points
-
-
-
-// with different size of text for each line
-int longest_word_in_pixel( String[] listWordsToSort, int [] size_text) 
-@return length in Pix of biggest String in a String list for an font size of 10
-
-int longest_word_in_pixel( String[] listWordsToSort, int [] size_text, int start, int finish ) 
-@return length in Pix of biggest String in a String list for an font size of 10, between two points
-
-
-
-
-
-int length_String_in_pixel(String target, int ratio) 
-@return a length in Pix of one String
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // PVECTOR
 ///////////
 PVector gotoTarget(PVector origin,  PVector finish, float speed) // nice for a static travel when the start and the arrival is knew, work with XYZ
@@ -126,21 +19,6 @@ PVector pointOnCirlcle(int r, float angle) // return the position of the point o
 
 
 
-
-// MATH
-float perimeterCircle (int r) return perimeter
-
-float radiusSurface(int surface) return the radius with a speficic surface
-
-float angle(PVector p0, PVector p1) calcul the angle between two PVectors
-
-PVector normalDir(int direction) // return a direction between -1 / 1 from 360° direction
-
-
-
-
-
-
 // TIME
 ///////
 float cycle(float add) // return value between -1 et 1 , nice to try with value like 0.1
@@ -148,9 +26,6 @@ float cycle(float add) // return value between -1 et 1 , nice to try with value 
 int timer(float tempo) // return an add value from float <1 ;
 
 int minClock() // return the time of the day in minutes
-
-
-
 
 
 
@@ -186,39 +61,6 @@ LEAP MOTION or MOUSE ORDER
 boolean ORDER_ONE ; return "true" the leftClick or when only one finger are in the leapmotion field	
 boolean ORDER_TWO ; return "true" the rightClick or when only two fingers are in the leapmotion field	
 boolean ORDER_THREE ; return "true" when three fingers are in the leapmotion field
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

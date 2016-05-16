@@ -142,7 +142,7 @@ void list_slider_item() {
   }
   // had value to the slider list object
   for (int i = 1 ; i <= NUM_ITEM ; i++) {
-    String [] listSliderTemp = splitText(slider_item_raw[i], (",")) ;
+    String [] listSliderTemp = split_text(slider_item_raw[i], (",")) ;
     for( int j = 0 ; j < NUM_SLIDER_ITEM ; j++ ) {
       for ( int k = 0 ; k < listSliderTemp.length ; k++ ) {
         if(listSliderTemp[k].equals(slider_item_controller.get(j))) {

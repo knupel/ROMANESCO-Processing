@@ -1,16 +1,101 @@
 /**
-RPE UTILS 1.12.0
+RPE UTILS 1.12.6
 */
 
+
+// MAP
+///////
+/*
+map the value between the min and the max
+@ return float
+*/
+float map_cycle(float value, float min, float max) {
+  max += .000001 ;
+  float newValue ;
+  if(min < 0 && max >= 0 ) {
+    float tempMax = max +abs(min) ;
+    value += abs(min) ;
+    float tempMin = 0 ;
+    newValue =  tempMin +abs(value)%(tempMax - tempMin)  ;
+    newValue -= abs(min) ;
+    return newValue ;
+  } else if ( min < 0 && max < 0) {
+    newValue = abs(value)%(abs(max)+min) -max ;
+    return newValue ;
+  } else {
+    newValue = min + abs(value)%(max - min) ;
+    return newValue ;
+  }
+}
+
+
+
+
+/*
+map the value between the min and the max, but this value is lock between the min and the max
+@ return float
+*/
+float map_locked(float value, float sourceMin, float sourceMax, float targetMin, float targetMax) {
+  if(sourceMax >= targetMax ) sourceMax = targetMax ;
+  if (value < sourceMin ) value = sourceMin ;
+  if (value > sourceMax ) value = sourceMax ;
+  float newMax = sourceMax - sourceMin ;
+  float deltaTarget = targetMax - targetMin ;
+  float ratio = ((value - sourceMin) / newMax ) ;
+  float result = targetMin +deltaTarget *ratio;
+  return result; 
+}
+
+// to map not linear, start the curve slowly to finish hardly
+float map_smooth_start(float value, float sourceMin, float sourceMax, float targetMin, float targetMax, int level) {
+  if (value < sourceMin ) value = sourceMin ;
+  if (value > sourceMax ) value = sourceMax ;
+  float newMax = sourceMax - sourceMin ;
+  float deltaTarget = targetMax - targetMin ;
+  float ratio = ((value - sourceMin) / newMax ) ;
+  ratio = pow(ratio, level) ;
+  float result = targetMin +deltaTarget *ratio;
+  return result;
+}
+
+// to map not linear, start the curve hardly to finish slowly
+float map_smooth_end(float value, float sourceMin, float sourceMax, float targetMin, float targetMax, int level) {
+  if (value < sourceMin ) value = sourceMin ;
+  if (value > sourceMax ) value = sourceMax ;
+  float newMax = sourceMax - sourceMin ;
+  float deltaTarget = targetMax - targetMin ;
+  float ratio = ((value - sourceMin) / newMax ) ;
+  // ratio = roots(ratio, level) ; // the method roots is use in math util
+  ratio = pow(ratio, 1.0/level) ;
+  float result = targetMin +deltaTarget *ratio;
+  return result;
+}
+
+// to map not linear, like a "S"
+float map_smooth(float value, float sourceMin, float sourceMax, float targetMin, float targetMax, int level) {
+  if (value < sourceMin ) value = sourceMin ;
+  if (value > sourceMax ) value = sourceMax ;
+  float newMax = sourceMax - sourceMin ;
+  float deltaTarget = targetMax - targetMin ;
+  float ratio = ((value - sourceMin) / newMax ) ;
+  ratio = map(ratio,0,1, -1, 1 ) ;
+  int correction = 1 ;
+  if(level % 2 == 1 ) correction = 1 ; else correction = -1 ;
+  if (ratio < 0 ) ratio = pow(ratio, level) *correction  ; else ratio = pow(ratio, level)  ;
+  ratio = map(ratio, -1,1, 0,1) ;
+  float result = targetMin +deltaTarget *ratio;
+  return result;
+}
+// END MAP
+//////////
 
 
 
 /**
-UTIL for math to check if the renderer is in 3D or 2D
-Is not a real good place for those methods bellow, but it's very usefull to have this method here to export and use this tab in other sketches
+Check renderer
 */
 boolean renderer_P3D() {
-if(get_renderer_name(getGraphics()).equals("processing.opengl.PGraphics3D")) return true ; else return false ;
+  if(get_renderer_name(getGraphics()).equals("processing.opengl.PGraphics3D")) return true ; else return false ;
 }
 
 
@@ -42,7 +127,7 @@ float truncate( float x ) {
 /*
 @ return String
 */
-String joinIntToString(int []data) {
+String join_int_to_String(int []data) {
   String intString ;
   String [] dataString = new String [data.length] ;
   for ( int i = 0 ; i < data.length ; i++) dataString[i] = Integer.toString(data[i]) ;
@@ -52,7 +137,7 @@ String joinIntToString(int []data) {
 }
 
 //float to String with array list
-String joinFloatToString(float []data) {
+String join_float_to_String(float []data) {
   String floatString ;
   String [] dataString = new String [data.length] ;
   //for ( int i = 0 ; i < data.length ; i++) dataString[i] = Float.toString(data[i]) ;
@@ -64,19 +149,25 @@ String joinFloatToString(float []data) {
 }
 
 //Translater to String
-String FloatToString(float data) {
+String float_to_String_1(float data) {
   String newData ;
   newData = String.format("%.1f", data ) ;
   return newData ;
 }
 //
-String FloatToStringWithThree(float data) {
+String float_to_String_2(float data) {
+  String newData ;
+  newData = String.format("%.2f", data ) ;
+  return newData ;
+}
+//
+String float_to_String_3(float data) {
   String newData ;
   newData = String.format("%.3f", data ) ;
   return newData ;
 }
 //
-String IntToString(int data) {
+String int_to_String(int data) {
   String newData ;
   newData = Integer.toString(data ) ;
   return newData ;
@@ -92,7 +183,7 @@ STRING UTILS
 */
 
 //STRING SPLIT
-String [] splitText(String textToSplit, String separator) {
+String [] split_text(String textToSplit, String separator) {
   String [] text = textToSplit.split(separator) ;
   return text  ;
 }
@@ -100,7 +191,7 @@ String [] splitText(String textToSplit, String separator) {
 
 //STRING COMPARE LIST SORT
 //raw compare
-int longestWord( String[] listWordsToSort) {
+int longest_word( String[] listWordsToSort) {
   int sizeWord = 0 ;
   for ( int i = 0 ; i < listWordsToSort.length ; i++) {
     if (listWordsToSort[i].length() > sizeWord )  sizeWord = listWordsToSort[i].length() ;
@@ -108,7 +199,7 @@ int longestWord( String[] listWordsToSort) {
   return  sizeWord ;
 }
 //with starting and end keypoint in the String must be sort
-int longestWord( String[] listWordsToSort, int start, int finish ) {
+int longest_word( String[] listWordsToSort, int start, int finish ) {
   int sizeWord = 0 ;
 
   for ( int i = start ; i < finish ; i++) {

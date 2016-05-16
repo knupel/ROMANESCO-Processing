@@ -27,8 +27,8 @@ void draw_send_OSC() {
   translateDataToSend() ;
   
   //BUTTON 
-  toPreScene[0] = joinIntToString(value_button_general) ; 
-  toPreScene[1] = joinIntToString(value_button_item) ;
+  toPreScene[0] = join_int_to_String(value_button_general) ; 
+  toPreScene[1] = join_int_to_String(value_button_item) ;
   
   
   // SLIDER
@@ -38,12 +38,12 @@ void draw_send_OSC() {
   // group general
   int[] data_OSC_general = new int[NUM_SLIDER_GENERAL] ;
   for ( int i = 1   ; i < NUM_SLIDER_GENERAL -1 ; i++) data_OSC_general[i-1] = floor(valueSlider[i]) ;
-    toPreScene[2] = joinIntToString(data_OSC_general) ;
+    toPreScene[2] = join_int_to_String(data_OSC_general) ;
 
   // group item
   int[] data_OSC_item = new int[NUM_SLIDER_ITEM] ;
   for ( int i = 101   ; i < 101 +NUM_SLIDER_ITEM ; i++) data_OSC_item[i-101] = floor(valueSlider[i]) ; 
-  toPreScene[3] = joinIntToString(data_OSC_item);
+  toPreScene[3] = join_int_to_String(data_OSC_item);
 
 
 

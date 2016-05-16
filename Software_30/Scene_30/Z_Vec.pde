@@ -1,5 +1,5 @@
 /**
-CLASS VEC 1.2.2
+CLASS VEC 1.2.3
 RPE – Romanesco Processing Environment – 2015 – 2016
 * @author Stan le Punk
 * @see https://github.com/StanLepunK/Vec
@@ -2863,6 +2863,12 @@ void rect(Vec3 p, Vec2 s) {
   } else rect(p.x, p.y, s.x, s.y) ;
 }
 
+/**
+Box
+*/
+void box(Vec3 p) {
+  box(p.x, p.y, p.z) ;
+}
 
 /**
 Point

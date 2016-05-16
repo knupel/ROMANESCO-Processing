@@ -1,5 +1,5 @@
 /**
-Z_Math 1.8.4
+Z_Math 1.8.5
 */
 // CONSTANT NUMBER must be here to be generate before all
 /////////////////////////////////////////////////////////
@@ -83,13 +83,7 @@ float angle(Vec2 a, Vec2 b) {
 
   
 
-Vec2 rotation_lattice(Vec2 ref, Vec2 lattice, float angle) {
-  float a = angle( lattice, ref ) + angle;
-  float d = dist( lattice, ref );
-  float x = lattice.x + cos( a ) * d;
-  float y = lattice.y + sin( a ) * d;
-  return Vec2(x,y);
-}
+
 
 
 
@@ -330,8 +324,12 @@ float deg360 (Vec2 dir) {
 
 //other Rotation
 //Rotation Objet
-void rotation (float angle, float posX, float posY ) {
+void rotation (float angle, float posX, float posY) {
   translate(posX, posY ) ;
+  rotate (radians(angle) ) ;
+}
+void rotation (float angle, Vec2 pos) {
+  translate(pos.x, pos.y) ;
   rotate (radians(angle) ) ;
 }
 
@@ -339,13 +337,22 @@ void rotation (float angle, float posX, float posY ) {
 
 Vec2 rotation (Vec2 ref, Vec2 lattice, float angle) {
   float a = angle(lattice, ref) + angle;
-  // float d = distance(lattice, ref);
   float d = lattice.dist(ref);
   float x = lattice.x + cos( a ) * d;
   float y = lattice.y + sin( a ) * d;
   return Vec2(x,y);
 }
 
+/**
+May be must push to deprecated
+*/
+Vec2 rotation_lattice(Vec2 ref, Vec2 lattice, float angle) {
+  float a = angle( lattice, ref ) + angle;
+  float d = dist( lattice, ref );
+  float x = lattice.x + cos( a ) * d;
+  float y = lattice.y + sin( a ) * d;
+  return Vec2(x,y);
+}
 //END OF ROTATION
 
 
@@ -1265,87 +1272,7 @@ void addVerts(float x, float y, float z) {
 // MISC
 ////////
 */
-// MAP
-///////
-/*
-map the value between the min and the max
-@ return float
-*/
-float mapCycle(float value, float min, float max) {
-  max += .000001 ;
-  float newValue ;
-  if(min < 0 && max >= 0 ) {
-    float tempMax = max + abs(min) ;
-    value += abs(min) ;
-    float tempMin = 0 ;
-    newValue =  tempMin +abs(value)%(tempMax - tempMin)  ;
-    newValue -= abs(min) ;
-    return newValue ;
-  } else if ( min < 0 && max < 0) {
-    newValue = abs(value)%(abs(max)+min) -max ;
-    return newValue ;
-  } else {
-    newValue = min + abs(value)%(max - min) ;
-    return newValue ;
-  }
-}
 
-/*
-map the value between the min and the max, but this value is lock between the min and the max
-@ return float
-*/
-float mapLocked(float value, float sourceMin, float sourceMax, float targetMin, float targetMax) {
-  if(sourceMax >= targetMax ) sourceMax = targetMax ;
-  if (value < sourceMin ) value = sourceMin ;
-  if (value > sourceMax ) value = sourceMax ;
-  float newMax = sourceMax - sourceMin ;
-  float deltaTarget = targetMax - targetMin ;
-  float ratio = ((value - sourceMin) / newMax ) ;
-  float result = targetMin +deltaTarget *ratio;
-  return result; 
-}
-
-// to map not linear, start the curve slowly to finish hardly
-float mapStartSmooth(float value, float sourceMin, float sourceMax, float targetMin, float targetMax, int level) {
-  if (value < sourceMin ) value = sourceMin ;
-  if (value > sourceMax ) value = sourceMax ;
-  float newMax = sourceMax - sourceMin ;
-  float deltaTarget = targetMax - targetMin ;
-  float ratio = ((value - sourceMin) / newMax ) ;
-  ratio = pow(ratio, level) ;
-  float result = targetMin +deltaTarget *ratio;
-  return result;
-}
-
-// to map not linear, start the curve hardly to finish slowly
-float mapEndSmooth(float value, float sourceMin, float sourceMax, float targetMin, float targetMax, int level) {
-  if (value < sourceMin ) value = sourceMin ;
-  if (value > sourceMax ) value = sourceMax ;
-  float newMax = sourceMax - sourceMin ;
-  float deltaTarget = targetMax - targetMin ;
-  float ratio = ((value - sourceMin) / newMax ) ;
-  ratio = roots(ratio, level) ;
-  float result = targetMin +deltaTarget *ratio;
-  return result;
-}
-
-// to map not linear, like a "S"
-float mapEndStartSmooth(float value, float sourceMin, float sourceMax, float targetMin, float targetMax, int level) {
-  if (value < sourceMin ) value = sourceMin ;
-  if (value > sourceMax ) value = sourceMax ;
-  float newMax = sourceMax - sourceMin ;
-  float deltaTarget = targetMax - targetMin ;
-  float ratio = ((value - sourceMin) / newMax ) ;
-  ratio = map(ratio,0,1, -1, 1 ) ;
-  int correction = 1 ;
-  if(level % 2 == 1 ) correction = 1 ; else correction = -1 ;
-  if (ratio < 0 ) ratio = pow(ratio, level) *correction  ; else ratio = pow(ratio, level)  ;
-  ratio = map(ratio, -1,1, 0,1) ;
-  float result = targetMin +deltaTarget *ratio;
-  return result;
-}
-// END MAP
-//////////
 
 
 

@@ -167,15 +167,15 @@ void encapsuleDataPrescene(){
    if (ctrlTouch) dataPreScene [37] = ("1") ; else dataPreScene [37] = ("0") ;
    
    // MOUSE
-   dataPreScene[40] = FloatToStringWithThree(pen[0].x) ; dataPreScene[41] = FloatToStringWithThree(pen[0].y) ; dataPreScene[42] = FloatToString(pen[0].z) ; 
-   dataPreScene[43] = FloatToStringWithThree(norm(mouse[0].x, 0, width)) ; 
-   dataPreScene[44] = FloatToStringWithThree(norm(mouse[0].y,0,height)) ;
-   dataPreScene[45] = FloatToStringWithThree(norm(mouse[0].z,-depth,depth)) ;
+   dataPreScene[40] = float_to_String_3(pen[0].x) ; dataPreScene[41] = float_to_String_3(pen[0].y) ; dataPreScene[42] = float_to_String_1(pen[0].z) ; 
+   dataPreScene[43] = float_to_String_3(norm(mouse[0].x, 0, width)) ; 
+   dataPreScene[44] = float_to_String_3(norm(mouse[0].y,0,height)) ;
+   dataPreScene[45] = float_to_String_3(norm(mouse[0].z,-depth,depth)) ;
    if (clickShortLeft[0]) dataPreScene [46] = ("1") ; else dataPreScene [46] = ("0") ;
    if (clickShortRight[0]) dataPreScene [47] = ("1") ; else dataPreScene [47] = ("0") ;
    if (clickLongLeft[0]) dataPreScene [48] = ("1") ; else dataPreScene [48] = ("0") ;
    if (clickLongRight[0]) dataPreScene [49] = ("1") ; else dataPreScene [49] = ("0") ;
-   dataPreScene[50] = IntToString(wheel[0]) ;
+   dataPreScene[50] = int_to_String(wheel[0]) ;
    
    // NUMBER
    if (touch1)     dataPreScene [51] = ("1") ; else dataPreScene [51] = ("0") ;
