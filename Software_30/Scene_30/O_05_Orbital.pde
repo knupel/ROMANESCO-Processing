@@ -47,7 +47,7 @@ class Orbital extends Romanesco {
  
   // Main method
   // setup
-  void setting() {
+  void setup() {
     startPosition(ID_item, width/2, height/2, 0);
   
     flock = new Flock_Orbital();
@@ -68,7 +68,7 @@ class Orbital extends Romanesco {
   }
  
   // draw
-  void display() {
+  void draw() {
     // it's nice to code the variable from the sliders or from sound... here to see easily what's happen in your object.
     float quantity = quantity_item[ID_item] *2. ;
 

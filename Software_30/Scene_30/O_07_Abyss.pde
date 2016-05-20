@@ -21,12 +21,12 @@ class The_Abbyss extends Romanesco {
   //GLOBAL
   
   //SETUP
-  void setting() {
+  void setup() {
     startPosition(ID_item, width/2, height/2, 0) ;
     creatureManager = new CreatureManager(callingClass);
   }
   //DRAW
-  void display() {
+  void draw() {
     if(alpha(stroke_item[ID_item]) == 0 ) thickness_item[ID_item] = 0 ;
     creatureManager.loop(fill_item[ID_item], stroke_item[ID_item], thickness_item[ID_item], speed_x_item[ID_item] *100.0);
     

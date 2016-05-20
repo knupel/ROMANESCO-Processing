@@ -3,7 +3,7 @@
 color fond ;
 color rouge, orange, jaune, vert, bleu, noir, blanc, gris  ;
 
-void colorSetup() {
+void color_setup() {
   rouge = color(10,100,100);
   orange = color(25,100,100);
   jaune = color(50,100,100) ;

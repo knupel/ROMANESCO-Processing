@@ -18,7 +18,7 @@ class Kofosphere extends Romanesco {
   Sphere sphere;
   
   //SETUP
-  void setting() {
+  void setup() {
    // very strange start position to be in the middle of the Scene
    startPosition(ID_item, width/2 -(width/4), height/2 -(height/4), 0) ;
     // startPosition(ID_item, 0, width/2, -(height *2)) ;
@@ -32,7 +32,7 @@ class Kofosphere extends Romanesco {
   
   
   //DRAW
-  void display() {
+  void draw() {
     float beatFactor = map(allBeats(ID_item), 1,12, 1., 3.5) ;
     float radius = map(canvas_x_item[ID_item], width/10, width, .01, 1.1) ;
     if(sound[ID_item]) radius = sq(radius) *beatFactor ; 

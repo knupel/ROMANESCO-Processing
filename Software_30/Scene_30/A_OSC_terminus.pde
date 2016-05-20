@@ -4,7 +4,7 @@ OSC TERMINUS 1.0.1
 
 OscP5 osc_1, osc_2;
 //SETUP
-void OSCSetup() {
+void OSC_setup() {
   osc_1 = new OscP5(this, 9000);
   if(miroir_on_off) osc_2 = new OscP5(this, 9002); 
   else osc_2 = new OscP5(this, 9001);

@@ -25,7 +25,7 @@ class MesAmis extends Romanesco {
   
   
   //SETUP
-  void setting() {
+  void setup() {
     startPosition(ID_item, width/2, height/2, 0) ;
     int num = (int)random(15,25)  ;
     rangePeople = width/2 ;
@@ -36,7 +36,7 @@ class MesAmis extends Romanesco {
   
 
   //DRAW
-  void display() {
+  void draw() {
     
     Vec3 center = Vec3() ;
 

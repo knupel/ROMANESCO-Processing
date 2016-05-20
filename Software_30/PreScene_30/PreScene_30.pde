@@ -1,6 +1,6 @@
 
   ////////////////////////////////////////////////////////////////////
- // Romanesco Unu 1.2.0 / version 30 / made with Processing 3.0.2 ///
+ // Romanesco Unu 1.2.0 / version 30 / made with Processing 3.1.1 ///
 ////////////////////////////////////////////////////////////////////
 /* 14.500 lines of code the 4th may 2015 !!!! */
 
@@ -19,10 +19,11 @@ used sound
  full frame rate
 */
 boolean TEST_ROMANESCO = false ;
-boolean FULL_RENDERING = true ;
+boolean FULL_RENDERING = false ;
 
 void settings() {
   size(600,400,P3D) ;
+  pixelDensity(displayDensity()) ;
   syphon_settings() ;
 }
 
@@ -32,37 +33,36 @@ void setup() {
   
   preference_path = sketchPath("")+"preferences/" ;
   import_path = sketchPath("")+"import/" ;
-  // if(FULL_RENDERING) frameRateRomanesco = 60 ; else frameRateRomanesco = 15 ;
-  int frameRateRomanesco = 60 ;
-  displaySetup(frameRateRomanesco) ; // the int value is the frameRate
+
+  display_setup(60) ; // the int value is the frameRate
   RG.init(this);  // Geomerative
   // common setup
 
-  romanescoSetup() ;
+  romanesco_setup() ;
   P3D_setup(numObj, numSettingCamera, numSettingOrientationObject) ;
-  createVar() ;
+  create_variable() ;
   //specific setup
-  presceneSetup() ; // the varObject setup of the Scene is more simple
-  leapMotionSetup() ;
+  prescene_setup() ; // the varObject setup of the Scene is more simple
+  leapmotion_setup() ;
   
   //common setup
-  colorSetup() ;
+  color_setup() ;
   syphon_setup() ;
 
   init_variable_item_min_max() ; 
   init_variable_item() ;
 
-  fontSetup() ;
+  font_setup() ;
 
   // here we ask for the TEST_ROMANESCO true, because the Minim Library talk too much in the consol
-  if(!TEST_ROMANESCO) soundSetup() ;
+  if(!TEST_ROMANESCO) sound_setup() ;
  //  P3D_setup(numObj, numSettingCamera, numSettingOrientationObject) ;
   // Light and shader setup
   light_position_setup() ;
   light_setup() ;
   if(FULL_RENDERING) shader_setup() ;
 
-  OSCSetup() ;
+  OSC_setup() ;
 }
 
 

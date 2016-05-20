@@ -31,14 +31,14 @@ class Honeycomb extends Romanesco {
   PVector[] v = new PVector[6]; // an array to store the 6 pre-calculated vertex positions of a hexagon
 
   //SETUP
-  void setting() {
+  void setup() {
     startPosition(ID_item, width/2, height/2, 0) ;
     canvas = new PVector(width, height) ;
     canvasRef = canvas.copy();
     initGrid(canvas); // initialize the CA grid of hexagons (including neighbour search and creation of hexagon vertex positions)
   }
   //DRAW
-  void display() {
+  void draw() {
     neighbourDistance = hexagonRadius *2;
     hexagonStroke = thickness_item[ID_item] ;
     hexagonRadius = map(size_x_item[ID_item],.1,width, width /40, width/15)  ;

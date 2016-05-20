@@ -35,7 +35,7 @@ void updateLeapCommand() {
 // LEAP MOTION
 FingerLeap finger ;
 
-void leapMotionSetup() {
+void leapmotion_setup() {
   finger = new FingerLeap() ;
 }
 

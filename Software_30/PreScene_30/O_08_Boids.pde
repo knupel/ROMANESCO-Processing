@@ -22,7 +22,7 @@ class Boids extends Romanesco {
   int numOfBoid ;
   // Main method
   // setup
-  void setting() {
+  void setup() {
    startPosition(ID_item, width/2, height/2, -width) ;
    // build the canvas where the boid can move
    PVector pos = new PVector (0, 0, 0) ;
@@ -38,7 +38,7 @@ class Boids extends Romanesco {
   }
   
   // draw
-  void display() {
+  void draw() {
     // MAIN method
     float thickness = map(thickness_item[ID_item],0,width/3,0,width/30 ) ;
     int size = (int)map(size_x_item[ID_item],.1,width, 2,width/10) ;

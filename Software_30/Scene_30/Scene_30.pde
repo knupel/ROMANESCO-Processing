@@ -1,5 +1,5 @@
   ////////////////////////////////////////////////////////////////////
- // Romanesco Unu 1.2.0 / version 30 / made with Processing 3.0.2 ///
+ // Romanesco Unu 1.2.0 / version 30 / made with Processing 3.1.1 ///
 ////////////////////////////////////////////////////////////////////
 /* 14.750 lines of code the 4th may !!!! */
 
@@ -20,6 +20,7 @@ void settings() {
   
   //fullScreen(P3D,2) ;
   size(124,124,P3D) ;
+  pixelDensity(displayDensity()) ;
   syphon_settings() ;
 }
 
@@ -33,22 +34,22 @@ void setup() {
   preference_path = sketchPath("")+"preferences/" ;
   import_path = sketchPath("")+"import/" ;
   int frameRateRomanesco = 60 ;
-  displaySetup(frameRateRomanesco) ; // the int give the frameRate
+  display_setup(frameRateRomanesco) ; // the int give the frameRate
   if (!FULL_SCREEN) size_scene() ;
 
-  romanescoSetup() ;
+  romanesco_setup() ;
 
   RG.init(this); // GEOMERATIVE
   
   P3D_setup(numObj, numSettingCamera, numSettingOrientationObject) ;
-  createVar() ;
+  create_variable() ;
 
-  colorSetup() ;
+  color_setup() ;
   syphon_setup() ;
 
   init_variable_item_min_max() ;
   
-  fontSetup() ;
+  font_setup() ;
 
   if(!TEST_ROMANESCO) soundSetup() ;
   variables_setup() ; // the varObject setup of the Scene is more simple
@@ -60,9 +61,7 @@ void setup() {
   light_setup() ;
   if(FULL_RENDERING) shader_setup() ;
 
-  
-
-  OSCSetup() ;
+  OSC_setup() ;
 }
 
 //DRAW

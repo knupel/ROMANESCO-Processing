@@ -31,11 +31,11 @@ class Spray extends Romanesco {
   //GALAXIE
   
   //SETUP
-  void setting() {
+  void setup() {
     startPosition(ID_item, width/2, height/2, 0) ;
   }
   //DRAW
-  void display() {
+  void draw() {
     // change color pallete
     if(xTouch) changeColor = !changeColor ;
     

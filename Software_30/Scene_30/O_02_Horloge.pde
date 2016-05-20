@@ -20,7 +20,7 @@ class Horloge extends Romanesco {
   int local_frameCount ;
   
   //SETUP
-  void setting() {
+  void setup() {
     startPosition(ID_item, width/2, height/2, -width) ;
     pos_clock = Vec3(width/2,height/2,0) ;
   }
@@ -29,7 +29,7 @@ class Horloge extends Romanesco {
   
   
   //DRAW
-  void display() {
+  void draw() {
     textAlign(CENTER);
     // typo
     float sizeFont = font_size_item[ID_item] +12 ;

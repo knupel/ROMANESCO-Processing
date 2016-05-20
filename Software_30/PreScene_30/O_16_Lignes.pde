@@ -20,12 +20,12 @@ class Lignes extends Romanesco {
   float speed ;
   float thicknessLine ;
   //SETUP
-  void setting() {
+  void setup() {
     startPosition(ID_item, 0, 0, -width) ;
     line = new Line() ;
   }
   //DRAW
-  void display() {
+  void draw() {
     if( beat[ID_item] > 1 ) {
       ampLine = beat[ID_item] *(map(swing_x_item[ID_item], 0,1, 0, 3)) ;
       thicknessLine = (thickness_item[ID_item] *ampLine ) ;

@@ -20,13 +20,13 @@ class Boxolyzer extends Romanesco {
   int numBoxRef ;
 
   //SETUP
-  void setting() {
+  void setup() {
     startPosition(ID_item, 0, 0, 0) ;
     
     boitesSetting() ;
   }
   //DRAW
-  void display() {
+  void draw() {
     //CLASSIC DISPLAY
     int numBox = int(map(quantity_item[ID_item],0, 1, 1, 16)) ;
     if (numBox != numBoxRef ) newDistribution = true ;

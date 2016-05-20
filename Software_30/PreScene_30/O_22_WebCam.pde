@@ -31,11 +31,11 @@ class Webcam extends Romanesco {
   
   
   //SETUP
-  void setting() {
+  void setup() {
     startPosition(ID_item, width/2, height/2, 0) ;
   }
   //DRAW
-  void display() {
+  void draw() {
     //PART ONE
     //calcul the ration between the size of camera and the size of the scene
     factorDisplayCam.x = width / CAM_SIZE.x ; 

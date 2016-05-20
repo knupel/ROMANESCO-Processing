@@ -23,7 +23,7 @@ class RSS extends Romanesco {
   
   
   //SETUP
-  void setting() {
+  void setup() {
     
     startPosition(ID_item,width/10, height/2, 0) ;
     
@@ -51,7 +51,7 @@ class RSS extends Romanesco {
   
   
   //DRAW
-  void display() {
+  void draw() {
     float sizeFont = font_size_item[ID_item] ;
     textFont(font[ID_item], sizeFont + ( sizeFont *mix[ID_item]) *allBeats(ID_item) );
     // couleur du texte

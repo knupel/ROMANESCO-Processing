@@ -101,7 +101,7 @@ class Escargot extends Romanesco {
   
   
   //SETUP
-  void setting() {
+  void setup() {
     startPosition(ID_item, 0, 0, 0) ;
     load_bitmap(ID_item) ;
     if(!FULL_RENDERING) maxVoronoiPoints = 250 ;
@@ -129,7 +129,7 @@ class Escargot extends Romanesco {
   String imgPathRef = ("") ;
   boolean firstSettingPosition = true ;
   //DRAW
-  void display() {
+  void draw() {
     /*
     if(firstSettingPosition && startingPos[ID_item].x == 0.0 && startingPos[ID_item].y == 0.0 ) {
       startingPos[ID_item].x = img[ID_item].width /4 ;

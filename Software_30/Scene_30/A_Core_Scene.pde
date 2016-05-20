@@ -33,7 +33,7 @@ TableRow row ;
 Table configurationScene;
 
 //SETUP
-void displaySetup(int speed) {
+void display_setup(int speed) {
   background(0) ;
   frameRate(speed) ; 
   noCursor () ;

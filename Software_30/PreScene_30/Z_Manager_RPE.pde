@@ -3,7 +3,7 @@ Romanesco Processing Environment Manager – RPE Manager 2.0.4
 */
 RPE_MANAGER rpe_manager ;
 // CLASS ROMANESCO MANAGER
-void romanescoSetup() {
+void romanesco_setup() {
   rpe_manager = new RPE_MANAGER(this);
   rpe_manager.addObjectRomanesco() ;
   rpe_manager.finishIndex() ;
@@ -347,7 +347,7 @@ class RPE_MANAGER {
   /**
   EXTERNAL  VOID
   * rpe_manager.finishIndex() ;
-  * use with in romanescoSetup() {}
+  * use with in romanesco_setup() {}
   */
   //finish index
   void finishIndex() {
@@ -370,7 +370,7 @@ class RPE_MANAGER {
   
   /*
   * rpe_manager.writeInfoUser() ;
-  * use with in romanescoSetup() {}
+  * use with in romanesco_setup() {}
   */
   //ADD info for the user
   void writeInfoUser() {
@@ -448,7 +448,7 @@ class RPE_MANAGER {
       motion[objR.ID_item] = true ;
       initValueMouse[objR.ID_item] = true ;
       num ++ ;
-      objR.setting() ;
+      objR.setup() ;
       if(posObjRef[objR.ID_item] == null) posObjRef[objR.ID_item] = Vec3() ;
       posObjRef[objR.ID_item].set(item_setting_position[0][objR.ID_item]) ;
     }
@@ -478,7 +478,7 @@ class RPE_MANAGER {
           addRefObj(objR.ID_item) ;
           if(vLongTouch && action[objR.ID_item] ) objectMove(movePos, moveDir, objR.ID_item) ;
           P3DmoveObj(objR.ID_item) ;
-          objR.display() ;
+          objR.draw() ;
           popMatrix() ;
         }
       }
@@ -527,8 +527,8 @@ abstract class Romanesco {
   
   //IMPORTANT
   //declared the void use in the sub-classes here
-  abstract void setting();
-  abstract void display();
+  abstract void setup();
+  abstract void draw();
 }
 // END SUPER ROMANESCO
 ///////////////////////

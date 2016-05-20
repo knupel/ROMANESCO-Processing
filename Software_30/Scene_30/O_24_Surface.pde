@@ -23,7 +23,7 @@ class Surface extends Romanesco {
   ArrayList<Polygon> grid_surface_simple = new ArrayList<Polygon>();
   
   // setup
-  void setting() {
+  void setup() {
     startPosition(ID_item, width/2, height/2, 0) ;
     load_bitmap(ID_item) ;
   }
@@ -43,7 +43,7 @@ class Surface extends Romanesco {
   
   
   // draw
-  void display() {
+  void draw() {
     // color to Vec4 composant
     fill_color = Vec4(hue(fill_item[ID_item]),saturation(fill_item[ID_item]),brightness(fill_item[ID_item]),alpha(fill_item[ID_item])) ;
     stroke_color = Vec4(hue(stroke_item[ID_item]),saturation(stroke_item[ID_item]),brightness(stroke_item[ID_item]),alpha(stroke_item[ID_item])) ;

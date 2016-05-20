@@ -18,13 +18,13 @@ class Soleil extends Romanesco {
   float jitter ;
   float angleRotation ;
   //SETUP
-  void setting() {
+  void setup() {
     startPosition(ID_item, width/2, height/2, 0) ;
     
   }
   PVector pos = new PVector() ;
   //DRAW
-  void display() {
+  void draw() {
     aspect_rpe(ID_item) ;
     //
     if(spaceTouch && action[ID_item]) pos = new PVector(mouse[ID_item].x -width/2, mouse[ID_item].y -height/2,0) ; else pos = new PVector(0,0,0) ;

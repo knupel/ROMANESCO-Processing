@@ -24,3 +24,16 @@ Mode 2
 --
 Keyboard
 > "N" reset the shape
+
+
+Ecosysteme
+--
+Slider
+
+--
+Mode 1
+Mode 2
+Mode 5 > info
+--
+Keyboard
+> "N" reset ecosystem

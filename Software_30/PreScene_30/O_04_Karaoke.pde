@@ -18,7 +18,7 @@ class Karaoke extends Romanesco {
   int chapter, sentence ;
   
   //SETUP
-  void setting() {
+  void setup() {
     startPosition(ID_item, width/2, height/2, 0) ;
   }
   
@@ -26,7 +26,7 @@ class Karaoke extends Romanesco {
   
   
   //DRAW
-  void display() {
+  void draw() {
     load_txt(ID_item) ;
     
     float sizeFont = font_size_item[ID_item] ;

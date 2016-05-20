@@ -1,5 +1,5 @@
 /**
-CLASS VEC 1.2.3
+CLASS VEC 1.2.4
 RPE – Romanesco Processing Environment – 2015 – 2016
 * @author Stan le Punk
 * @see https://github.com/StanLepunK/Vec
@@ -2966,9 +2966,24 @@ Translate
 void translate(Vec3 t){
   if(renderer_P3D()) translate(t.x, t.y, t.z) ; else translate(t.x, t.y) ;
 }
+
 void translate(Vec2 t){
   translate(t.x, t.y) ;
 }
+
+void translateX(float t){
+  translate(t, 0) ;
+}
+
+void translateY(float t){
+  translate(0, t) ;
+}
+
+void translateZ(float t){
+  translate(0, 0, t) ;
+}
+
+
 /**
 Rotate
 */

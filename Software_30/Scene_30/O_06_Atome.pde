@@ -52,7 +52,7 @@ class Atome extends Romanesco {
   
   
   //SETUP
-  void setting() {
+  void setup() {
     startPosition(ID_item, width/2, height/2, 0) ;
     
     atomList = new ArrayList<Atom>();
@@ -72,7 +72,7 @@ class Atome extends Romanesco {
    
   }
   //DRAW
-  void display() {
+  void draw() {
     // SETTING PARAMETER
     load_txt(ID_item) ;
     // 3D or 2D

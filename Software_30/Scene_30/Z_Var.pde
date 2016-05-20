@@ -391,18 +391,18 @@ PFont font[]  ;
 
 
 //init var
-void createVar() {
+void create_variable() {
   numObj = rpe_manager.numClasses + 1 ;
   //BUTTON CONTROLER
   numButtonObj = numObj*10 ;
   createMiscVar() ;
-  createVarButton() ;
-  createVarSound() ;
-  createVarP3D(numObj, numSettingCamera, numSettingOrientationObject) ;
-  createVarCursor() ;
+  create_variableButton() ;
+  create_variableSound() ;
+  create_variableP3D(numObj, numSettingCamera, numSettingOrientationObject) ;
+  create_variableCursor() ;
   create_var_item() ;
   rpe_manager.initObj() ;
-  println("createVar done") ;
+  println("create_variable done") ;
 }
 // misc var
 void createMiscVar() {
@@ -445,7 +445,7 @@ void createMiscVar() {
   initValueControleur = new boolean [numObj]  ;
 }
 // var cursor
-void createVarCursor() {
+void create_variableCursor() {
   //position of object and wheel
    mouse  = new Vec3[numObj] ;
    clickShortLeft = new boolean [numObj] ;
@@ -457,7 +457,7 @@ void createVarCursor() {
    pen = new Vec3[numObj] ;
 }
 // P3D
-void createVarP3D(int numObj, int numSettingCamera, int numSettingOrientationObject) {
+void create_variableP3D(int numObj, int numSettingCamera, int numSettingOrientationObject) {
    // setting and save
    eyeCameraSetting = new PVector [numSettingCamera] ;
    sceneCameraSetting = new PVector [numSettingCamera] ;
@@ -478,7 +478,7 @@ void createVarP3D(int numObj, int numSettingCamera, int numSettingOrientationObj
    dirObj = new PVector[numObj] ;
 }
 
-void createVarSound() {
+void create_variableSound() {
   // volume 
    left = new float [numObj] ;
    right = new float [numObj] ;
@@ -500,7 +500,7 @@ void createVarSound() {
 //
 
 //
-void createVarButton() {
+void create_variableButton() {
   objectButton = new int [numObj] ;
   soundButton = new int [numObj] ;
   actionButton = new int [numObj] ;
@@ -876,7 +876,7 @@ PFont SansSerif10,
 
       
 //SETUP
-void fontSetup() {
+void font_setup() {
   String fontPathVLW = import_path +"font/typoVLW/" ;
   //write font path
   pathFontVLW[1] = fontPathVLW+"AmericanTypewriter-96.vlw";

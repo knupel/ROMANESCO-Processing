@@ -41,11 +41,11 @@ class Galaxie extends Romanesco {
   
   
   //SETUP
-  void setting() {
+  void setup() {
     startPosition(ID_item, 0, 0, 0) ;
   }
   //DRAW
-  void display() {
+  void draw() {
     
     //surface
     PVector marge = new PVector(map(canvas_x_item[ID_item],width/10, width, width/20, width*10), map(canvas_y_item[ID_item],width/10, width, height/20, height*10), map(canvas_z_item[ID_item], width/10, width, width/10, width *10))  ;

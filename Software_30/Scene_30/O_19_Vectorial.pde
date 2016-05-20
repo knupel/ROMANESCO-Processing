@@ -22,7 +22,7 @@ class Vectorial extends Romanesco {
 
  
   // setup
-  void setting() {
+  void setup() {
     startPosition(ID_item, 0, 0, -height) ;
     load_svg(ID_item) ;
     svg_import[ID_item].build() ;
@@ -30,7 +30,7 @@ class Vectorial extends Romanesco {
   }
 
 
-  void display() {
+  void draw() {
     if(parameter[ID_item]) {
       load_svg(ID_item) ;
       svg_import[ID_item].svg_mode(CENTER) ;

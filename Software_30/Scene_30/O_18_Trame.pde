@@ -24,13 +24,13 @@ class Damier extends Romanesco {
   float speed = 0 ;
 
   //SETUP
-  void setting() {
+  void setup() {
     startPosition(ID_item, width/2, height/2, -width) ;
     trame = new Trame() ;
 
   }
   //DRAW
-  void display() {
+  void draw() {
     // color and thickness
     aspect_rpe(ID_item) ;
     

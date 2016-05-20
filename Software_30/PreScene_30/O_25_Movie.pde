@@ -26,7 +26,7 @@ class Movisco extends Romanesco {
 	int pix_step ;
 
 	// setup
-	void setting() {
+	void setup() {
 		startPosition(ID_item, width/2, height/2, 0) ;
 		load_movie(ID_item) ;
 
@@ -39,7 +39,7 @@ class Movisco extends Romanesco {
 	}
 
 	// draw
-	void display() {
+	void draw() {
 		if(movieImport[ID_item] != null) {
 			analyze_movie_pixel(ID_item) ;
 			int size_cloud_pix = int(pix_step *2) ;

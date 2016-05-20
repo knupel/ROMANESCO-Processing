@@ -27,7 +27,7 @@ int divSizePreScene = 2 ;
 
 
 //SETUP
-void displaySetup(int speed) {
+void display_setup(int speed) {
   frameRate(speed) ;  // Le frameRate doit être le même dans tous les Sketches
   colorMode(HSB, HSBmode.r, HSBmode.g, HSBmode.b, HSBmode.a) ;
   loadPropertyPrescene() ;

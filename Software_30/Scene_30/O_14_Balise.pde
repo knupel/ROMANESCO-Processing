@@ -19,12 +19,12 @@ class BaliseRomanesco extends Romanesco {
   float speed ;
   boolean change_rotation_direction ;
   //SETUP
-  void setting() {
+  void setup() {
     startPosition(ID_item, width/2, height/2, 0) ;
     balise = new Balise() ;
   }
   //DRAW
-  void display() {
+  void draw() {
     // authorization to make something with the sound in Prescene mode
     boolean authorization = false ;
     float tempo_balise = 1 ;

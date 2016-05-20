@@ -21,12 +21,12 @@ class ArbreRomanesco extends Romanesco {
   float speed ;
   PVector posArbre = new PVector () ;
   //SETUP
-  void setting() {
+  void setup() {
     startPosition(ID_item, width/2, height/3, 0) ;
     arbre = new Arbre () ;
   }
   //DRAW
-  void display() {
+  void draw() {
     int maxFork ;
     if(FULL_RENDERING) maxFork = 8 ; else maxFork = 4 ; // we can go beyond but by after the calcul slowing too much the computer... 14 is a good limit
     // int maxNode = 32 ; // 

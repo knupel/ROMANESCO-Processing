@@ -47,7 +47,7 @@ float speedLeapmotion = .15 ; // between 0.000001 and 1 : can be good between 0.
 import codeanticode.tablet.*;
 Tablet tablet;
 */
-void presceneSetup() {
+void prescene_setup() {
   leap = new com.leapmotion.leap.Controller();
  //  tablet = new Tablet(this);
   if(FULL_RENDERING) displayInfo3D = false ; else displayInfo3D = true ;

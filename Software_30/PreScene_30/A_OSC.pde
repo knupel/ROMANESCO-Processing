@@ -14,7 +14,7 @@ String toScene = ("Message from Prescene to Scene") ;
 
 OscP5 osc;
 //SETUP
-void OSCSetup() {
+void OSC_setup() {
   osc = new OscP5(this, 10000);
   //send to the Scène
   if (youCanSendToScene) targetScene = new NetAddress(sendToScene,9001);
@@ -26,7 +26,7 @@ void OSCSetup() {
   } else if (TEST_ROMANESCO && youCanSendToMiroir )  {
     targetMiroir = new NetAddress(sendToMiroir,9002);
   }
-  println("OSC setup", 3) ;
+  println("OSC setup done") ;
 }
 
 

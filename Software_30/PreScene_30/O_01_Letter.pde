@@ -29,7 +29,7 @@ class Letter extends Romanesco {
 
   
   //SETUP
-  void setting() {
+  void setup() {
     startPosition(ID_item, width/2, height/2, 0) ;
   }
   
@@ -37,7 +37,7 @@ class Letter extends Romanesco {
   
   
   //DRAW
-  void display() {
+  void draw() {
     load_txt(ID_item) ;
     
     if (parameter[ID_item] || pathFontObjTTF[ID_item] == null ) { 

@@ -20,12 +20,12 @@ class SpiraleRomanesco extends Romanesco {
     float speed ; 
     boolean reverseSpeed;
   //SETUP
-  void setting() {
+  void setup() {
     startPosition(ID_item, width/2, height/2, 0) ;
     spirale = new Spirale() ;
   }
   //DRAW
-  void display() {
+  void draw() {
     aspect_rpe(ID_item) ;
     strokeWeight(thickness_item[ID_item]*.02) ;
     //quantity
