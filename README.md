@@ -51,7 +51,7 @@ If you want code in Romanesco there few compulsory variables, methods and functi
    * Change boolean TEST_ROMANESCO = false ;
    * Change boolean OPEN_APP = true ;
    * Change boolean TEST_FULL_SCREEN = false ;
-   * you must export the sketch two times. In the first you must comment the line ````fullScreen()```` after you add "_fullscreen" to the end of the name file. After you make the second export uncomment ````fullScreen()````and comment the line ````size()````. When the export is done, add "_window"  to the end of the name file.
+   * you must export the sketch Scene two times. In the first you must comment the line ````fullScreen()```` after you add "_fullscreen" to the end of the name file. After you make the second export uncomment ````fullScreen()````and comment the line ````size()````. When the export is done, add "_window"  to the end of the name file.
   * For the other exportation nothing in particular.
   * Put the "Launcher.app" in the main Folder
   * For the other "Controleur_##", "Prescene_##", "Scene_##_window" and "Scene_##_fullscreen" in "sources" drop it in the "sources" folder. 
