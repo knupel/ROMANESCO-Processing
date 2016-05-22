@@ -45,9 +45,13 @@ If you want code in Romanesco there few compulsory variables, methods and functi
  * sliderListFR.csv file
 * In "sources" you create "import" folder
  * In "import" folder, you drop your "font" folder and you can drop or add "bitmap", "karaoke", "movie" and "svg" folder. After you can use this folder to add your files.svg in "svg", files.mov in "movie", files.txt in "karaoke", files.png or files.jpg in "bitmap" folder.
-* Becaraful, if you change or add new sliders in the file "sliderListEN.csv" or "sliderListFR.csv" don't forget to copy in your folder application, because if you don't do that the controler make a crash and you don't know why :)
+* Becareful, if you change or add new sliders in the file "sliderListEN.csv" or "sliderListFR.csv" don't forget to copy in your folder application, because if you don't do that the controler make a crash and you don't know why :)
 * Export all your sketches
-  * For the Scene, you must export the sketch two times. In the first you must comment the line ````fullScreen()```` after you add "_fullscreen" to the end of the name file. After you make the second export uncomment ````fullScreen()````and comment the line ````size()````. When the export is done, add "_window"  to the end of the name file.
+  * In Scene :
+   * Change boolean TEST_ROMANESCO = false ;
+   * Change boolean OPEN_APP = true ;
+   * Change boolean TEST_FULL_SCREEN = false ;
+   * you must export the sketch two times. In the first you must comment the line ````fullScreen()```` after you add "_fullscreen" to the end of the name file. After you make the second export uncomment ````fullScreen()````and comment the line ````size()````. When the export is done, add "_window"  to the end of the name file.
   * For the other exportation nothing in particular.
   * Put the "Launcher.app" in the main Folder
   * For the other "Controleur_##", "Prescene_##", "Scene_##_window" and "Scene_##_fullscreen" in "sources" drop it in the "sources" folder. 
