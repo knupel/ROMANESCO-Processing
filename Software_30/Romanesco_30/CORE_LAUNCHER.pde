@@ -125,6 +125,7 @@ void choiceMiroirOrScene() {
 
 // LAUNCH
 ////////////
+boolean openScene ;
 // Scene launcher
 void launchScene() {
   MiroirSetting = false ;
@@ -138,7 +139,6 @@ void launchScene() {
 
 
 void launchMiroir() {
-  openScene = false ;
   MiroirSetting = true ;
   SceneSetting = false ;
   fullscreen_or_window() ;
@@ -185,8 +185,8 @@ void launchApp() {
 
 
 // OPEN APP
-void openApp(boolean openTheScene) {
-  if(openTheScene) launch(pathPrescene); else launch(pathScene) ;
+void openApp() {
+  launch(pathScene) ;
 }
 
 

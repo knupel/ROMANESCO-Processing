@@ -11,6 +11,9 @@ String prettyVersion = ("1.2.0") ;
 String preference_path, import_path ;
 // security must be link with the controler in the next release
 boolean TEST_ROMANESCO = false ;
+boolean OPEN_APP = true ;
+boolean TEST_FULL_SCREEN = false ;
+
 boolean FULL_RENDERING = true ;
 boolean FULL_SCREEN = false ;
 
@@ -18,7 +21,8 @@ boolean FULL_SCREEN = false ;
 void settings() {
   // When you build Romanesco you must create two versions : fullscreen and normal
   
-  //fullScreen(P3D,2) ;
+  // fullScreen(P3D,2) ;
+  // FULL_SCREEN = true ;
   size(124,124,P3D) ;
   pixelDensity(displayDensity()) ;
   syphon_settings() ;
@@ -28,11 +32,14 @@ void settings() {
 
 
 void setup() {
-  // if(TEST_ROMANESCO) FULL_SCREEN = true ;
-  
   camera_video_setup() ;
   preference_path = sketchPath("")+"preferences/" ;
   import_path = sketchPath("")+"import/" ;
+
+  /**
+  // The fullscreen option from the external file is disable, because the fullScreen() method cannot be choice in second time, that be must the first line of programm
+  // So I disable the line in loadPropertyScene() in display_setup()
+  */
   int frameRateRomanesco = 60 ;
   display_setup(frameRateRomanesco) ; // the int give the frameRate
   if (!FULL_SCREEN) size_scene() ;
@@ -54,9 +61,6 @@ void setup() {
   if(!TEST_ROMANESCO) soundSetup() ;
   variables_setup() ; // the varObject setup of the Scene is more simple
 
-
-  
-  // LIGHT AND SHADER
   light_position_setup() ;
   light_setup() ;
   if(FULL_RENDERING) shader_setup() ;
@@ -66,6 +70,7 @@ void setup() {
 
 //DRAW
 void draw() {
+  
   if(!syphon_on_off) surface.setTitle(nameVersion + " " +prettyVersion+"."+version+ " | Scéne | FPS: "+round(frameRate)); else frame.setTitle(nameVersion + " " +prettyVersion+"."+version+ " | Miroir | FPS: "+round(frameRate));
   if (!FULL_SCREEN) size_scene() ;
   init_and_update_diplay_var() ;
@@ -75,6 +80,7 @@ void draw() {
   if(!TEST_ROMANESCO) soundDraw() ;
   meteoDraw() ;
   update_OSC_data() ;
+
   update_raw_value() ;
   background_romanesco() ; 
 
@@ -103,6 +109,22 @@ void draw() {
 
   nextPreviousKeypressed() ;
   init_value_temp_prescene() ;
+
+  if (!miroir_on_off) opening() ;
+
+
+
+  // TEST 
+  if(TEST_FULL_SCREEN) {
+    int c = int(map(mouseX,0,width,0,360)) ;
+    fill(c,100,100,100) ;
+    rect(0,0, width,height) ;
+  }
+
+  if(TEST_ROMANESCO) {
+    println(frameCount) ;
+  }
+
 }
 //END DRAW
 

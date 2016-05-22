@@ -1,17 +1,70 @@
-// Tab: A_core_scene
-// Core_scene 1.4
-/*
-Here you find : 
-CURSOR, PEN, LEAP MOTION, GRAPHIC CONFIGURATION
+/** 
+Tab: A_core_scene
+Core_scene 1.4.1
+*/
+
+
+/**
+OPENING
+*/
+boolean open_controller = true ;
+boolean open_prescene = true ;
+int count_to_open_controller = 0 ;
+int time_int_second_to_open_controller = 12  ; // the scene run at 15 frame / second.
+
+void opening() {
+  if (open_controller || open_prescene) {
+    if (OPEN_APP && open_controller) {
+      message_opening() ;
+    }
+
+    if (OPEN_APP) { 
+      if (open_prescene)      {
+        launch(sketchPath("")+"PreScene_"+version+".app") ; 
+        open_prescene = false ; 
+      } else {
+        count_to_open_controller += 1 ;
+      }
+
+      int time_factor_to_open = 15 ;
+      if (open_controller && count_to_open_controller > (time_int_second_to_open_controller *time_factor_to_open) ) { 
+        launch(sketchPath("")+"Controleur_"+version+".app") ; 
+        open_controller = false ; 
+      } 
+    }
+  }
+}
+
+
+void message_opening() {
+  fill(blanc) ;
+  stroke(blanc) ;
+  textSize(48) ;
+  text("Romanesco Unu release" + version, abs(sin(frameCount * .05)) *width, height/2 ) ;
+}
+/**
+End Opening
+*/
 
 
 
 
 
 
-// GRAPHIC CONFIGURATION 
-///////////////////////////////////
 
+
+
+
+
+
+
+
+
+
+
+/**
+GRAPHIC CONFIGURATION 
+*/
 
 //SCREEN CHOICE and FULLSCREEN
 /*
@@ -38,8 +91,11 @@ void display_setup(int speed) {
   frameRate(speed) ; 
   noCursor () ;
   colorMode(HSB, HSBmode.r, HSBmode.g, HSBmode.b, HSBmode.a) ;
-  
-  loadPropertyScene() ;
+  /**
+  // The fullscreen option from the external file is disable, because the fullScreen() method cannot be choice in second time, that be must the first line of programm
+  // So I disable the line in loadPropertyScene() in display_setup()
+  */
+  loadPropertyScene() ; 
   
   background_setup() ;
   background_shader_setup() ;
@@ -52,8 +108,11 @@ void display_setup(int speed) {
 void loadPropertyScene() {
   configurationScene = loadTable(sketchPath("") + pathScenePropertySetting, "header");
   row = configurationScene.getRow(0);
-  //fullscreen 
-  if(!TEST_ROMANESCO) if (row.getString("fullscreen").equals("TRUE") || row.getString("fullscreen").equals("true")) FULL_SCREEN = true ; else FULL_SCREEN = false ;
+  /**
+  //The fullscreen option from the external file is disable, because the fullScreen() method cannot be choice in second time, that be must the first line of programm
+  // So I disable the line in oadPropertyScene()
+  // if(!TEST_ROMANESCO) if (row.getString("fullscreen").equals("TRUE") || row.getString("fullscreen").equals("true")) FULL_SCREEN = true ; else FULL_SCREEN = false ;
+  */
   //display on specific screen
   whichScreen = row.getInt("whichScreen") ;
 
@@ -63,10 +122,8 @@ void loadPropertyScene() {
   //SYPHON
   if(row.getString("miroir").equals("TRUE") || row.getString("miroir").equals("true")) {
     miroir_on_off = true ; 
-    syphon_on_off = true ;
   } else {
     miroir_on_off = false ;
-    syphon_on_off = false ;
   }
 }
 // end load property
@@ -162,8 +219,9 @@ void catch_display_position() {
     }
   }
 }
-// END GRAPHIC CONFIGURATION
-////////////////////////////
+/**
+END GRAPHIC CONFIGURATION
+*/
 
 
 

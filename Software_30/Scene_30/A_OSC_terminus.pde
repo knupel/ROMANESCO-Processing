@@ -1,13 +1,16 @@
 /**
-OSC TERMINUS 1.0.1
+OSC TERMINUS 1.0.2
 */
 
-OscP5 osc_1, osc_2;
+OscP5 osc_controller, osc_mirroir, osc_classic;
+
 //SETUP
 void OSC_setup() {
-  osc_1 = new OscP5(this, 9000);
-  if(miroir_on_off) osc_2 = new OscP5(this, 9002); 
-  else osc_2 = new OscP5(this, 9001);
+  osc_controller = new OscP5(this, 9000);
+
+  if(miroir_on_off) osc_mirroir = new OscP5(this, 9002); 
+  else osc_classic = new OscP5(this, 9001);
+  // osc_classic = new OscP5(this, 9001);
 }
 
 void oscEvent(OscMessage receive) {
@@ -23,6 +26,7 @@ void oscEvent(OscMessage receive) {
     splitDataLoadSavePrescene() ;
   }
 }
+
 
 void update_OSC_data() {
   translateDataFromController_buttonGlobal() ;

@@ -1,5 +1,5 @@
   ////////////////////////////////////////////////////////////////////
- // Romanesco Unu 1.2.0 / version 30 / made with Processing 3.0.2 ///
+ // Romanesco Unu 1.2.0 / version 30 / made with Processing 3.1.1 ///
 ////////////////////////////////////////////////////////////////////
 /* 730 lines of code the 4th may !!!! */
 String version = ("30") ;
@@ -56,7 +56,7 @@ void mousePressed() {
   buttonStart.mouseClic() ;
   if(buttonStart.OnOff ) {
     saveProperty() ;
-    openApp(openScene) ;
+    openApp() ;
   }
   buttonStart.OnOff = false ;
 }

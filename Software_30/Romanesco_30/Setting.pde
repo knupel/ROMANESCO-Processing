@@ -8,36 +8,35 @@ PVector pos_choice = new PVector(10.0, 60.0) ;
 
 
 //which size SCENE for the MIROIR
-PVector posButtonScene = new PVector ( 99, 40 ) ;
-PVector sizeButtonScene = new PVector ( 85, 20 ) ;
-PVector posButtonMiroir = new PVector ( 210, 40 ) ;
-PVector sizeButtonMiroir = new PVector ( 85, 20 ) ;
+PVector posButtonScene = new PVector (99, 40) ;
+PVector sizeButtonScene = new PVector (85, 20) ;
+PVector posButtonMiroir = new PVector (210, 40) ;
+PVector sizeButtonMiroir = new PVector (85, 20) ;
 //which size WINDOW or FULL SCREEN
-PVector posButtonWindow = new PVector ( 10, 70 ) ;
-PVector sizeButtonWindow = new PVector ( 180, 20 ) ;
-PVector posButtonFullscreen = new PVector ( 200, 70 ) ;
-PVector sizeButtonFullscreen = new PVector ( 180, 20 ) ;
+PVector posButtonWindow = new PVector (10, 70) ;
+PVector sizeButtonWindow = new PVector (180, 20) ;
+PVector posButtonFullscreen = new PVector (200, 70) ;
+PVector sizeButtonFullscreen = new PVector (180, 20) ;
 //which size for window
-PVector posSliderWidth = new PVector( 10, 134 ) ;
+PVector posSliderWidth = new PVector(10, 134) ;
 PVector posMoletteWidth = posSliderWidth ;
-PVector posSliderHeight = new PVector( 200, 134 ) ;
+PVector posSliderHeight = new PVector(200, 134) ;
 PVector posMoletteHeight = posSliderHeight ;
-PVector sizeSlider = new PVector ( 180, 16 ) ;
+PVector sizeSlider = new PVector (180, 16 ) ;
 //button start
 PVector posButtonStart = new PVector (10, 190) ;
-PVector sizeButtonStart = new PVector (210, 20 ) ;
+PVector sizeButtonStart = new PVector (210, 20) ;
 // "X" and  "Y" componant give the button position    "Z" componant = space between the button
-PVector posWhichScreenButton = new PVector (150, 100, 23 ) ;
+PVector posWhichScreenButton = new PVector (150, 100, 23) ;
 
-int [] standardSizeWidth = {0,160,240,320,480,640,800,964,1024,1280,1344,1366,1400,1600,1920,2048,2560,3840,4096,5120,6400,7680,8192,16384} ;
-int [] standardSizeHeight = {0,120,160,240,320,480,544,576,600,720,768,800,960,1000,1008,1024,1050,1080,1200,1536,2048,2400,3072,4096,4320,4800,6144,12288} ;
+int [] standardSizeWidth = {160,240,320,480,640,800,964,1024,1280,1344,1366,1400,1440,1600,1680,1920,2048,2560,2880,3840,4096,5120,6400,7680,8192,16384} ;
+int [] standardSizeHeight = {120,160,240,320,480,544,576,600,640,720,768,800,900,960,1000,1008,1024,1050,1080,1200,1536,1600,1800,2048,2304,2400,2880,3072,4096,4320,4800,6144,12288} ;
 
 
 
 
 boolean test = false ;
 
-boolean openScene ;
 
 PFont FuturaStencil, EmigreEight ;
 
