@@ -22,7 +22,14 @@ class Ecosysteme extends Romanesco {
 		RPE_slider = "Fill hue,Fill sat,Fill bright,Fill alpha,Stroke hue,Stroke sat,Stroke bright,Stroke alpha,Thickness,Size X,Canvas X,Canvas Y,Canvas Z,Speed X,Quantity,Scope,Life" ;
 	}
 
+   float size_ref_flora = .01 ;
+   float size_ref_herbivore = .15 ;
+   float size_ref_carnivore = .45 ;
+   float size_ref_bacterium = .01 ;
 
+   int velocity_ref_herbivore = 6 ;
+   int velocity_ref_carnivore = 12 ;
+   int velocity_ref_bacterium = 2 ;
 
 
 
@@ -126,12 +133,21 @@ class Ecosysteme extends Romanesco {
       fill_corpse.z *= .3 ;
 		stroke_corpse.z *= .3 ;
 
+		// size
+		float scale = map(size_x_item[ID_item], .1, width, .1, 3) ;
+		scale_flora(FLORA_LIST, scale) ;
+		scale_herbivore(HERBIVORE_LIST, scale *snare[ID_item]) ;
+		scale_carnivore(CARNIVORE_LIST, scale *beat[ID_item]) ;
+		scale_bacterium(BACTERIUM_LIST, scale *kick[ID_item]) ;
+		scale_corpse(CORPSE_LIST, scale *hat[ID_item]) ;
 
-		set_colour_flora(fill_flora, stroke_flora, thickness_item[ID_item]) ;
-		set_colour_herbivore(fill_herbivore, stroke_herbivore, thickness_item[ID_item]) ;
-		set_colour_carnivore(fill_carnivore, stroke_carnivore, thickness_item[ID_item]) ;
-		set_colour_bacterium(fill_bacterium, stroke_bacterium, thickness_item[ID_item]) ;
-		set_colour_corpse(fill_corpse, stroke_corpse, thickness_item[ID_item]) ;
+
+      // aspect
+		set_aspect_flora(fill_flora, stroke_flora, thickness_item[ID_item]) ;
+		set_aspect_herbivore(fill_herbivore, stroke_herbivore, thickness_item[ID_item]) ;
+		set_aspect_carnivore(fill_carnivore, stroke_carnivore, thickness_item[ID_item]) ;
+		set_aspect_bacterium(fill_bacterium, stroke_bacterium, thickness_item[ID_item]) ;
+		set_aspect_corpse(fill_corpse, stroke_corpse, thickness_item[ID_item]) ;
 
 		fill_corpse.y = temp_fill_corps_y ;
 		stroke_corpse.y = temp_stroke_corps_y ;
@@ -181,6 +197,15 @@ class Ecosysteme extends Romanesco {
 	}
 
 
+
+
+
+   
+   /**
+  GENERIC METHODE of ECOSYSTEM
+
+   */
+
 	void ecosystem_setting(float quantity, float life, float size, float speed, float scope) {
 		clear_ecosystem() ;
 		// QUANTITY
@@ -198,10 +223,11 @@ class Ecosysteme extends Romanesco {
 		Vec4 colour_bacterium = Vec4(30,0,30,100) ;
 
 		// Size
-		int size_flora = ceil(.01 *size) ;
-		int size_herbivore = ceil(.15 *size) ;
-		int size_carnivore = ceil(.45 *size);
-		int size_bacterium = ceil(.01 *size) ;
+		float global_size = map(size, .1, width, width/10, width *EULER) ;
+		int size_flora = ceil(size_ref_flora *global_size) ;
+		int size_herbivore = ceil(size_ref_herbivore *global_size) ;
+		int size_carnivore = ceil(size_ref_carnivore *global_size);
+		int size_bacterium = ceil(size_ref_bacterium *global_size) ;
 
 		// Life
 		int life_herbivore = ceil(500 *life) ;
@@ -209,9 +235,9 @@ class Ecosysteme extends Romanesco {
 		int life_bacterium = ceil(10000  *life) ;
 
 		// Velocity
-		int velocity_herbivore = ceil(6 *speed) ;
-		int velocity_carnivore = ceil(12 *speed) ;
-		int velocity_bacterium = ceil(2 *speed) ;
+		int velocity_herbivore = ceil(velocity_ref_herbivore *speed) ;
+		int velocity_carnivore = ceil(velocity_ref_carnivore *speed) ;
+		int velocity_bacterium = ceil(velocity_ref_bacterium *speed) ;
 
 		//Radar
 		float radar_herbivore = .01 *scope;
@@ -248,23 +274,21 @@ class Ecosysteme extends Romanesco {
 	/**
 	ANNEXE METHODE
 	*/
-	/**
-	UPDATE ECOSYSTEME 0.0.3
-	*/
+  /**
+  UPDATE ECOSYSTEME 0.0.6
+  */
 
-	/**
-	BIOTOPE
-	*/
-	Vec4 biotope_colour() {
-	  float normal_humus_level = 1 - HUMUS / HUMUS_MAX ;
-	  float var_colour_ground = 90 *normal_humus_level ;
-	  return Vec4(40,90, 5 +var_colour_ground,100) ;
-	}
-	/**
-	End biotope
-	*/
-
-
+  /**
+  BIOTOPE
+  */
+  Vec4 biotope_colour() {
+    float normal_humus_level = 1 - HUMUS / HUMUS_MAX ;
+    float var_colour_ground = 90 *normal_humus_level ;
+    return Vec4(40,90, 5 +var_colour_ground,100) ;
+  }
+  /**
+  End biotope
+  */
 
 
 
@@ -276,51 +300,48 @@ class Ecosysteme extends Romanesco {
 
 
 
-	/**
-	Flora update 0.0.2
-	*/
-	void flora(ArrayList<Flora> list_f, boolean info, int which_costume) {
+  /**
+  UPDATE AGENT 
 
-	  // remove
-	  for(Flora f : list_f) {
-	    if(f.life < 0 ) {
-	      list_f.remove(f) ;
-	      break ;
-	    }
-	  }
+  */
+  /**
+  Flora update 0.0.3
+  */
+  void flora(ArrayList<Flora> list_f, boolean info, int which_costume) {
 
-	  // life of the agent
-	  for(Flora f : list_f) {
-	    // info
-	    float ratio = float(f.size) / float(f.size_ref) ;
-	    float alpha = g.colorModeA *ratio ;
-	    if(alpha <= 0) alpha = .001 ;
-	    f.colour.set(f.colour.r, f.colour.g, f.colour.b, alpha) ;
-	    // update
-	    f.growth() ;
-	    f.statement() ;
+    // remove
+    for(Flora f : list_f) {
+      if(f.life < 0 ) {
+        list_f.remove(f) ;
+        break ;
+      }
+    }
 
-	    // display
-	    if(original_flora_aspect) f.aspect(f.colour, f.colour, 1) ; else f.aspect(fill_colour_flora, stroke_colour_flora, thickness_flora) ;
-	    if(!info) f.costume_agent(which_costume) ; 
-	    else f.info_visual_text(f.colour, SIZE_TEXT_INFO) ; 
-	  }
-	}
-	 /**
-	 set colour
-	 */
-	boolean original_flora_aspect = true ;
-	Vec4 fill_colour_flora, stroke_colour_flora ;
-	float thickness_flora ; 
-	void set_colour_flora(Vec4 fill_colour, Vec4 stroke_colour, float thickness) {
-	  original_flora_aspect = false ;
-	  if(fill_colour_flora == null) fill_colour_flora = Vec4(fill_colour) ; else fill_colour_flora.set(fill_colour) ;
-	  if(stroke_colour_flora == null) stroke_colour_flora = Vec4(stroke_colour) ; else stroke_colour_flora.set(stroke_colour) ;
-	  thickness_flora = thickness ;
-	}
-	/**
-	End flora
-	*/
+    // life of the agent
+    for(Flora f : list_f) {
+      // info
+      float ratio = float(f.size) / float(f.size_ref) ;
+      float alpha = g.colorModeA *ratio ;
+      if(alpha <= 0) alpha = .001 ;
+      f.colour_fill.set(f.colour_fill.r, f.colour_fill.g, f.colour_fill.b, alpha) ;
+      f.colour_stroke.set(f.colour_stroke.r, f.colour_stroke.g, f.colour_stroke.b, alpha) ;
+      // update
+      f.growth() ;
+      f.statement() ;
+
+      // display
+      if(original_flora_aspect) {
+        f.aspect(f.colour_fill, f.colour_stroke, 1) ; 
+      } else {
+        f.aspect(fill_colour_flora, stroke_colour_flora, thickness_flora) ;
+      }
+      if(!info) f.costume_agent(which_costume) ; 
+      else f.info_visual_text(f.colour_fill, SIZE_TEXT_INFO) ; 
+    }
+  }
+  /**
+  End flora
+  */
 
 
 
@@ -329,97 +350,74 @@ class Ecosysteme extends Romanesco {
 
 
 
+  /**
+  HERBIVORE update 0.0.4
+  */
+  void herbivore(ArrayList<Herbivore> list_h, ArrayList<Flora> list_f, boolean info, int which_costume) {
 
+    // remove and add in the corpse list of dead body
+    for(Herbivore h : list_h) {
+      if(!h.alive) {
+        CORPSE_LIST.add(h) ;
+        list_h.remove(h) ;
+        break ;
+      }
+    }
 
+    // life of the agent
+    for(Herbivore h : list_h) {
+      int radius = h.size ;
+      // motion
+      h.rebound(LIMIT, REBOUND) ;
+      h.motion() ;
+      h.set_position() ;
+      h.set_starving(4) ;
 
+      // pick
+      if(!h.calm) pick_static_agent(h, list_f, info) ;
 
+      // time to eat
+      eat_flora(h, list_f, info) ;
 
+      // statement
+      h.statement() ;
+      h.hunger() ;
 
-
-
-
-
-
-
-
-
-	/**
-	HERBIVORE update 0.0.2
-	*/
-	void herbivore(ArrayList<Herbivore> list_h, ArrayList<Flora> list_f, boolean info, int which_costume) {
-
-	  // remove and add in the corpse list of dead body
-	  for(Herbivore h : list_h) {
-	    if(!h.alive) {
-	      CORPSE_LIST.add(h) ;
-	      list_h.remove(h) ;
-	      break ;
-	    }
-	  }
-
-	  // life of the agent
-	  for(Herbivore h : list_h) {
-	    int radius = h.size ;
-	    // motion
-	    h.rebound(LIMIT, REBOUND) ;
-	    h.motion() ;
-	    h.set_position() ;
-	    h.set_starving(4) ;
-
-	    // pick
-	    if(!h.calm) pick_static_agent(h, list_f, info) ;
-
-	    // time to eat
-	    eat_flora(h, list_f, info) ;
-
-	    // statement
-	    h.statement() ;
-	    h.hunger() ;
-
-	    // display
-	    if(original_herbivore_aspect) h.aspect(h.colour, h.colour, 1)  ; else h.aspect(fill_colour_herbivore, stroke_colour_herbivore, thickness_herbivore) ;
-	    if(!info) h.costume_agent(which_costume) ; 
-	    else h.info(h.colour, SIZE_TEXT_INFO) ;
-	  }
-	}
-	 /**
-	 set colour
-	 */
-	boolean original_herbivore_aspect = true ;
-	Vec4 fill_colour_herbivore, stroke_colour_herbivore ;
-	float thickness_herbivore ; 
-	void set_colour_herbivore(Vec4 fill_colour, Vec4 stroke_colour, float thickness) {
-	  original_herbivore_aspect = false ;
-	  if(fill_colour_herbivore == null) fill_colour_herbivore = Vec4(fill_colour) ; else fill_colour_herbivore.set(fill_colour) ;
-	  if(stroke_colour_herbivore == null) stroke_colour_herbivore = Vec4(stroke_colour) ; else stroke_colour_herbivore.set(stroke_colour) ;
-	  thickness_herbivore = thickness ;
-	}
-	 /**
-	local method
-	*/
+      // display
+      if(original_herbivore_aspect) h.aspect(h.colour_fill, h.colour_stroke, 1)  ; else h.aspect(fill_colour_herbivore, stroke_colour_herbivore, thickness_herbivore) ;
+      if(!info) h.costume_agent(which_costume) ; 
+      else h.info(h.colour_fill, SIZE_TEXT_INFO) ;
+    }
+  }
+  /**
+  local method
+  */
 	void eat_flora(Herbivore h, ArrayList<Flora> list_flora_target, boolean info) {
-	  if(h.eating) {
-	    Flora target ;
-	    target = list_flora_target.get((int)h.ID_target.x) ;
-	    h.eat(target, info) ;
-	  } else {
-	    for(Flora target : list_flora_target) {
-	      h.eat(target, info) ;
-	      if(h.eating) {
-	        h.ID_target.set(list_flora_target.indexOf(target),target.ID) ;
-	        break ;
-	      }
-	    }
-	  }
+		if(h.eating) {
+			Flora target ;
+			if((int)h.ID_target.x < list_flora_target.size()) {
+				target = list_flora_target.get((int)h.ID_target.x) ;
+				h.eat(target, info) ;
+			}
+		} else {
+			for(Flora target : list_flora_target) {
+				h.eat(target, info) ;
+				if(h.eating) {
+					if((int)h.ID_target.x < list_flora_target.size()) {
+						h.ID_target.set(list_flora_target.indexOf(target),target.ID) ;
+						break ;
+					}
+				}
+			}
+		}	
 	}
-
 
 	void pick_static_agent(Herbivore h, ArrayList<Flora> list_flora_target, boolean info) {
-	  for(Flora target : list_flora_target) {
-	    h.watch(target, info) ;
-	    h.pick(target) ;
-	    if(h.picking()) break ;
-	  }
+		for(Flora target : list_flora_target) {
+			h.watch(target, info) ;
+			h.pick(target) ;
+			if(h.picking()) break ;
+		}
 	}
 	/**
 	End herbivore update
@@ -437,6 +435,694 @@ class Ecosysteme extends Romanesco {
 
 
 
+  /**
+  CARNIVORE update 0.0.3
+  */
+  void carnivore(ArrayList<Carnivore> list_carnivore, ArrayList<Herbivore> list_herbivore, ArrayList<Agent_dynamic> list_dead_body, boolean info, int which_costume) {
+
+    /// remove and add in the corpse list of dead body
+    for(Carnivore c : list_carnivore) {
+      if(!c.alive) {
+        CORPSE_LIST.add(c) ;
+        list_carnivore.remove(c) ;
+        break ;
+      }
+    }
+
+    // life of the agent
+    for(Carnivore c : list_carnivore) {
+      // motion
+      c.motion() ;
+      int radius = c.size ;
+      c.rebound(LIMIT, REBOUND) ;
+      c.set_position() ;
+      c.set_starving(8) ;
+
+      
+
+      // hunt
+      if(!c.calm) hunt_dynamic_agent(c, list_herbivore, info) ;    
+      // eat after hunt, if this order is not respect the carnivore prefere hunt to eat and finish to die :)
+      if(list_dead_body.size() >= 0 ) eat_meat(c, list_dead_body, info) ; else c.eating = false ;
+
+
+      c.statement() ;
+      c.hunger() ;
+
+
+      // display
+      if(original_carnivore_aspect) c.aspect(c.colour_fill, c.colour_stroke, 1) ; else c.aspect(fill_colour_carnivore, stroke_colour_carnivore, thickness_carnivore) ;
+      if(!info) c.costume_agent(which_costume) ; 
+      else c.info(c.colour_fill, SIZE_TEXT_INFO) ;
+    }
+  }
+
+
+  /**
+  local method eat
+  */
+  void eat_meat(Carnivore c, ArrayList<Agent_dynamic> list_agent_target, boolean info) {
+    // first eat the agent who eat just before without look in the list
+    if(c.eating) {
+      int pointer = (int)c.ID_target.x ;
+      int ID_target = (int)c.ID_target.y ;
+      /* here we point directly in a specific point of the list, 
+      if the pointer is superior of the list, 
+      because if it's inferior a corpse can be eat by an other Agent */
+      if(pointer < list_agent_target.size() ) {
+        Agent_dynamic target = list_agent_target.get((int)c.ID_target.x) ;
+        /* if the entry point of the list return an agent 
+        with a same ID than a ID_target corpse eat just before, 
+        the Carnivore can continue the lunch */
+        if (target.ID == ID_target ) c.eat(target, info) ; 
+        else {
+          /* If the ID returned is different, a corpse was leave from the list, 
+          and it's necessary to check in the full ist to find if any corpse have a seme ID */
+          for(Agent_dynamic target_in_list : list_agent_target) {
+            if (target_in_list.ID == ID_target ) c.eat(target_in_list, info) ; else c.eating = false ;
+          }
+        }
+      }
+    /* If the last research don't find the corpse, may be this one is return to dust ! */
+    } else {
+      for(Agent_dynamic target : list_agent_target) {
+        c.eat(target, info) ;
+        if(c.eating) {
+          c.ID_target.set(list_agent_target.indexOf(target),target.ID) ;
+          break ;
+        }
+      }
+    }
+  }
+
+
+
+
+  /**
+  local method hunt
+  */
+
+  void hunt_dynamic_agent(Carnivore c, ArrayList<Herbivore> list_herbivore_target, boolean info) {
+    // first watch the agent who watch just before without look in the list
+    if(c.watching) find_target(c, list_herbivore_target, info) ;
+    if(c.tracking && c.max_time_track > c.time_track) focus_on_target(c, list_herbivore_target, info) ; else c.hunt_stop() ;
+  }
+
+
+
+  // Local method : The hunt is launching !
+  void focus_on_target(Carnivore c, ArrayList<Herbivore> list_herbivore_target, boolean info) {
+    int pointer = (int)c.ID_target.x ;
+    int ID_target = (int)c.ID_target.y ;
+    /* here we point directly in a specific point of the list, 
+    if the pointer is superior of the list, 
+    because if it's inferior a corpse can be watch by an other Agent */
+    if(pointer < list_herbivore_target.size() ) {
+      Herbivore target = list_herbivore_target.get((int)c.ID_target.x) ;
+      /* if the entry point of the list return an agent 
+      with a same ID than a ID_target agent watch just before, 
+      the Carnivore can continue the track */
+      if (target.ID == ID_target ) {
+        hunt_and_kill(c, target, info) ; 
+      } else {
+        /* If the ID returned is different, a target was leave from the list, 
+        and it's necessary to check in the full ist to find if any agent have a same ID */
+        for(Herbivore target_in_list : list_herbivore_target) {
+          if (target_in_list.ID == ID_target ) {
+            hunt_and_kill(c, target_in_list, info) ;
+          } else {
+            c.hunt_stop() ;
+          } 
+        }
+      }
+    } else c.hunt_stop() ;
+  }
+  // super local method
+  void hunt_and_kill(Carnivore c, Agent_dynamic target, boolean info) {
+    if(c.dist_to_target(target, info) < c.radar) {
+      c.hunt(target, info) ; 
+      c.kill(target, info) ;
+    } else c.hunt_stop() ;
+  }
+
+
+
+
+  // Local method : Find target is the Big Carnivore Brother is watching you !
+  void find_target(Carnivore c, ArrayList<Herbivore> list_herbivore_target, boolean info) {
+    // float [] dist_list = new float[0] ;
+    ArrayList <Vec3> closest_target = new ArrayList<Vec3>() ;
+    // find the closest target 
+    for(Herbivore target : list_herbivore_target) {
+      if(c.dist_to_target(target, info) < c.radar) {
+        float dist = c.dist_to_target(target, info) ;
+        /*catch distance to compare with the last one
+        plus catch index in the list and the ID target
+        and add in the nice target list
+        */
+        Vec3 new_target = Vec3(dist, list_herbivore_target.indexOf(target), target.ID) ;
+        closest_target.add(new_target) ;
+        // compare the target to see which one is the closest.
+        if(closest_target.size() > 1) if (closest_target.get(1).x <= closest_target.get(0).x ) closest_target.remove(0) ; else closest_target.remove(1) ;
+      } 
+    }
+    // Start the hunt party with the selected target
+    if(closest_target.size() > 0 ) {
+      Herbivore target = list_herbivore_target.get((int)closest_target.get(0).y) ;
+      c.hunt(target, info) ;
+      c.kill(target, info) ;
+      if(c.tracking) c.ID_target.set(list_herbivore_target.indexOf(target),target.ID) ;
+    }
+  }
+  /**
+  End carnivore update
+  */
+
+
+
+
+
+
+
+
+
+
+
+  /**
+  Bacterium update 0.0.3
+  */
+  void bacterium(ArrayList<Bacterium> list_bacterium, ArrayList<Agent_dynamic> list_dead_body, boolean info, int which_costume) {
+    // remove bacterium
+    for(Bacterium b : list_bacterium) {
+      if(b.size < 0 ) {
+        list_bacterium.remove(b) ;
+        break ;
+      }
+    }
+
+
+    // life of the agent
+    for(Bacterium b : list_bacterium) {
+      int radius = b.size ;
+      // motion
+      b.rebound(LIMIT, REBOUND) ;
+      b.motion() ;
+      b.set_position() ;
+      b.set_starving(2) ;
+
+      // hunt
+      if(!b.calm) hunt_static_agent(b, list_dead_body, info) ;
+      // eat
+      if(list_dead_body.size() >= 0 ) eat_corpse(b, list_dead_body, info) ; else b.eating = false ;
+      
+      // statement
+      b.statement() ;
+      b.hunger() ;
+
+      // display
+      if(original_bacterium_aspect) b.aspect(b.colour_fill, b.colour_stroke, 1) ; else b.aspect(fill_colour_bacterium, stroke_colour_bacterium, thickness_bacterium) ;
+      if(!info) b.costume_agent(which_costume) ; 
+      else b.info(b.colour_fill, SIZE_TEXT_INFO) ;
+    }
+  }
+
+
+
+
+  // local method
+  void eat_corpse(Bacterium b, ArrayList<Agent_dynamic> list_corpse_target, boolean info) {
+  // first eat the agent who eat just before without look in the list
+    if(b.eating) {
+      int pointer = (int)b.ID_target.x ;
+      int ID_target = (int)b.ID_target.y ;
+      /* here we point directly in a specific point of the list, 
+      if the pointer is superior of the list, 
+      because if it's inferior a corpse can be eat by an other Agent */
+      if(pointer < list_corpse_target.size() ) {
+        Agent_dynamic target = list_corpse_target.get((int)b.ID_target.x) ;
+        /* if the entry point of the list return an agent 
+        with a same ID than a ID_target corpse eat just before, 
+        the Carnivore can continue the lunch */
+        if (target.ID == ID_target ) b.eat(target, info) ; 
+        else {
+          /* If the ID returned is different, a corpse was leave from the list, 
+          and it's necessary to check in the full ist to find if any corpse have a seme ID */
+          for(Agent_dynamic target_in_list : list_corpse_target) {
+            if (target_in_list.ID == ID_target ) b.eat(target_in_list, info) ; else b.eating = false ;
+          }
+        }
+      }
+    /* If the last research don't find the corpse, may be this one is return to dust ! */
+    } else {
+      for(Agent_dynamic target : list_corpse_target) {
+        b.eat(target, info) ;
+        if(b.eating) {
+          b.ID_target.set(list_corpse_target.indexOf(target),target.ID) ;
+          break ;
+        }
+      }
+    }
+  }
+
+
+  void hunt_static_agent(Bacterium b, ArrayList<Agent_dynamic> list_target, boolean info) {
+    for(Agent_dynamic target : list_target) {
+      b.watch(target, info) ;
+      b.pick(target) ;
+      if(b.picking()) break ;
+    }
+  }
+  /**
+  End bacterium
+  */
+  /**
+  CORPSE || DEAD BODY update 0.0.3
+  */
+  void corpse(ArrayList<Agent_dynamic> list_dead_body, boolean info, int which_costume) {
+    // the dead body is burried !
+    for(Agent_dynamic corpse : list_dead_body) {
+      if(corpse.size < 0) {
+        list_dead_body.remove(corpse) ;
+        break ;
+      }
+    }
+    // Dead bobies is undead
+    for(Agent_dynamic corpse : list_dead_body) {
+      Vec4 colour_of_death = Vec4(0,0,30,g.colorModeA); 
+
+      corpse.set_fill(colour_of_death) ;
+      corpse.set_stroke(colour_of_death) ;
+      corpse.carrion() ;
+
+      // display
+      if(original_corpse_aspect) corpse.aspect(corpse.colour_fill, corpse.colour_stroke, 1) ; else corpse.aspect(fill_colour_corpse, stroke_colour_corpse, thickness_corpse) ;
+      if(!info) corpse.costume_agent(which_costume) ; 
+      else {
+        corpse.info_visual(corpse.colour_fill) ;
+        corpse.info_text(corpse.colour_fill, SIZE_TEXT_INFO) ;
+      }
+    }
+  }
+
+  /**
+  END CORPSE || DEAD BODY update
+  */
+
+
+
+
+
+
+
+
+
+   /**
+   SCALE 0.0.1
+   */
+  void scale_flora(ArrayList<Flora> list_f, float scale) {
+    for(Flora f : list_f) {
+      f.size = f.size_ref ;
+      f.size *= scale ;
+    }
+  }
+  void scale_herbivore(ArrayList<Herbivore> list_h, float scale) {
+    for(Herbivore h : list_h) {
+      h.size = h.size_ref ;
+      h.size *= scale ;
+    }
+  }
+  void scale_carnivore(ArrayList<Carnivore> list_c, float scale) {
+    for(Carnivore c : list_c) {
+      c.size = c.size_ref ;
+      c.size *= scale ;
+    }
+  }
+  void scale_bacterium(ArrayList<Bacterium> list_b, float scale) {
+    for(Bacterium b : list_b) {
+      b.size = b.size_ref ;
+      b.size *= scale ;
+    }
+  }
+
+  void scale_corpse(ArrayList<Agent_dynamic> list_body, float scale) {
+    for(Agent_dynamic body : list_body) {
+      body.size = body.size_ref ;
+      body.size *= scale ;
+    }
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  /**
+  SET – UPDATE – ASPECT AGEBT
+
+  */
+  /**
+   set aspect flora
+   */
+  boolean original_flora_aspect = true ;
+  Vec4 fill_colour_flora, stroke_colour_flora ;
+  float thickness_flora ; 
+  void set_aspect_flora(Vec4 fill_colour, Vec4 stroke_colour, float thickness) {
+    original_flora_aspect = false ;
+    if(fill_colour_flora == null) fill_colour_flora = Vec4(fill_colour) ; else fill_colour_flora.set(fill_colour) ;
+    if(stroke_colour_flora == null) stroke_colour_flora = Vec4(stroke_colour) ; else stroke_colour_flora.set(stroke_colour) ;
+    thickness_flora = thickness ;
+  }
+  /**
+   set colour herbivore
+   */
+  boolean original_herbivore_aspect = true ;
+  Vec4 fill_colour_herbivore, stroke_colour_herbivore ;
+  float thickness_herbivore ; 
+  void set_aspect_herbivore(Vec4 fill_colour, Vec4 stroke_colour, float thickness) {
+    original_herbivore_aspect = false ;
+    if(fill_colour_herbivore == null) fill_colour_herbivore = Vec4(fill_colour) ; else fill_colour_herbivore.set(fill_colour) ;
+    if(stroke_colour_herbivore == null) stroke_colour_herbivore = Vec4(stroke_colour) ; else stroke_colour_herbivore.set(stroke_colour) ;
+    thickness_herbivore = thickness ;
+  }
+  /**
+  set colour carnivor
+  */
+  boolean original_carnivore_aspect = true ;
+  Vec4 fill_colour_carnivore, stroke_colour_carnivore ;
+  float thickness_carnivore ; 
+  void set_aspect_carnivore(Vec4 fill_colour, Vec4 stroke_colour, float thickness) {
+    original_carnivore_aspect = false ;
+    if(fill_colour_carnivore == null) fill_colour_carnivore = Vec4(fill_colour) ; else fill_colour_carnivore.set(fill_colour) ;
+    if(stroke_colour_carnivore == null) stroke_colour_carnivore = Vec4(stroke_colour) ; else stroke_colour_carnivore.set(stroke_colour) ;
+    thickness_carnivore = thickness ;
+  }
+
+  /**
+  set colour corspe
+  */
+  boolean original_corpse_aspect = true ;
+  Vec4 fill_colour_corpse, stroke_colour_corpse ;
+  float thickness_corpse ; 
+  void set_aspect_corpse(Vec4 fill_colour, Vec4 stroke_colour, float thickness) {
+    original_corpse_aspect = false ;
+    if(fill_colour_corpse == null) fill_colour_corpse = Vec4(fill_colour) ; else fill_colour_corpse.set(fill_colour) ;
+    if(stroke_colour_corpse == null) stroke_colour_corpse = Vec4(stroke_colour) ; else stroke_colour_corpse.set(stroke_colour) ;
+    thickness_corpse = thickness ;
+  }
+
+  /**
+  set colour bacterium
+  */
+  boolean original_bacterium_aspect = true ;
+  Vec4 fill_colour_bacterium, stroke_colour_bacterium ;
+  float thickness_bacterium ; 
+  void set_aspect_bacterium(Vec4 fill_colour, Vec4 stroke_colour, float thickness) {
+    original_bacterium_aspect = false ;
+    if(fill_colour_bacterium == null) fill_colour_bacterium = Vec4(fill_colour) ; else fill_colour_bacterium.set(fill_colour) ;
+    if(stroke_colour_bacterium == null) stroke_colour_bacterium = Vec4(stroke_colour) ; else stroke_colour_bacterium.set(stroke_colour) ;
+    thickness_bacterium = thickness ;
+  }
+  /**
+  End set aspect
+  */
+
+  /**
+  END UPDATE ECOSYSTEME
+  */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  /**
+   MANAGE ECOSYSTEM BUILT 0.0.6
+  */
+  /**
+  LIST
+  */
+  ArrayList<Flora> FLORA_LIST = new ArrayList<Flora>() ;
+  ArrayList<Bacterium> BACTERIUM_LIST = new ArrayList<Bacterium>() ;
+  ArrayList<Herbivore> HERBIVORE_LIST = new ArrayList<Herbivore>() ;
+  ArrayList<Carnivore> CARNIVORE_LIST = new ArrayList<Carnivore>() ;
+  ArrayList<Agent_dynamic> CORPSE_LIST = new ArrayList<Agent_dynamic>() ;
+
+
+  /**
+  Clear ecosysteme
+  */
+  void clear_ecosystem() {
+    FLORA_LIST.clear() ;
+    BACTERIUM_LIST.clear() ;
+    HERBIVORE_LIST.clear() ;
+    CARNIVORE_LIST.clear() ;
+    CORPSE_LIST.clear() ;
+  }
+
+
+  /**
+  ENVIRONMENT
+  */
+  Vec3 BOX = Vec3(100,100,100) ;
+  Vec3 BOX_POS = Vec3() ;
+  Vec6 LIMIT = Vec6(0,BOX.x,0,BOX.y,0,BOX.z) ;
+  boolean REBOUND ;
+  int SIZE_TEXT_INFO ;
+  float HUMUS, HUMUS_MAX ;
+  int ENVIRONMENT = 3 ; // 2 is for 2D, 3 for 3D
+  boolean DISPLAY_INFO = false ;
+  /**
+  * Create enviromnent where the ecosystem will be live
+  */
+  void build_environment(Vec2 pos, Vec2 size) {
+    Vec3 pos_3D = Vec3(pos.x, pos.y,0) ;
+    Vec3 size_3D = Vec3(size.x, size.y,0) ;
+    build_environment(pos_3D, size_3D) ;
+    // write here to be sure the Environment have a good info
+    ENVIRONMENT = 2 ; 
+  }
+
+  void build_environment(Vec3 pos, Vec3 size) {
+    BOX_POS.set(pos) ;
+    BOX.set(size) ;
+
+    float left = BOX_POS.x - (BOX.x *.5) ;
+    float right = BOX_POS.x + (BOX.x *.5) ;
+    float top = BOX_POS.y - (BOX.y *.5) ;
+    float bottom = BOX_POS.y + (BOX.y *.5) ;
+    float front = BOX_POS.z - (BOX.z *.5) ;
+    float back = BOX_POS.z + (BOX.z *.5) ;
+    LIMIT.set(left,right, top, bottom, front, back) ;
+
+    REBOUND = false ;
+    SIZE_TEXT_INFO = 18 ;
+    HUMUS_MAX = HUMUS = BOX.x *BOX.y *.01 ;
+  }
+
+
+
+
+
+
+
+
+  /**
+  FLORA
+  */
+  /**
+  * build the plant of the ecosystem
+  */
+  void build_flora(int size_template, Vec4 colour, int num) {
+    for(int i = 0 ; i < num ; i++) {
+      int size = int(random(ceil(size_template *.5), ceil(size_template*3))) ;
+      String name = "salad" ;
+      if(ENVIRONMENT == 2 ) {
+        Vec2 pos = Vec2("RANDOM RANGE",(int)LIMIT.a, (int)LIMIT.b, (int)LIMIT.c, (int)LIMIT.d) ;
+        add_flora(pos, size, name, colour) ;
+      } else if (ENVIRONMENT == 3 ) {
+        Vec3 pos = Vec3("RANDOM RANGE",(int)LIMIT.a, (int)LIMIT.b, (int)LIMIT.c, (int)LIMIT.d, (int)LIMIT.e, (int)LIMIT.f) ;
+        add_flora(pos, size, name, colour) ;
+      }
+    }
+  }
+
+  void add_flora(Vec2 pos, int size, String name, Vec4 colour) {
+     Vec3 final_pos =  Vec3(pos.x,pos.y,0) ;
+     add_flora(final_pos, size, name, colour) ;
+  }
+  void add_flora(Vec3 pos, int size, String name, Vec4 colour) {
+     Flora f = new Flora(pos, size, name) ;
+     FLORA_LIST.add(f) ;
+     f.set_fill(colour) ;
+     f.set_stroke(colour) ;
+     f.set_growth(2) ;
+     f.set_need(.5) ;
+  }
+
+
+  /**
+  // AGENT
+  */
+  /**
+  // BACTERIUM
+  */
+  void build_bacterium(int size, int life, int velocity, float radar, Vec4 colour, int num) {
+    for(int i = 0 ; i < num ; i++) {
+      String name = "bacterium" ;
+      if(ENVIRONMENT == 2 ) {
+        Vec2 pos = Vec2("RANDOM RANGE",(int)LIMIT.a, (int)LIMIT.b, (int)LIMIT.c, (int)LIMIT.d) ;
+        add_bacterium(pos, size, life, velocity, radar, name, colour) ;
+      } else {
+        Vec3 pos = Vec3("RANDOM RANGE",(int)LIMIT.a, (int)LIMIT.b, (int)LIMIT.c, (int)LIMIT.d, (int)LIMIT.e, (int)LIMIT.f) ;
+        add_bacterium(pos, size, life, velocity, radar, name, colour) ;
+
+      }
+    }
+  }
+
+  void add_bacterium(Vec2 pos, int size, int life, int velocity, float radar, String name, Vec4 colour) {
+    Vec3 final_pos = Vec3(pos) ;
+    add_bacterium(final_pos, size, life, velocity, radar, name, colour) ;
+  }
+
+  void add_bacterium(Vec3 pos, int size, int life, int velocity, float radar, String name, Vec4 colour) {
+    Bacterium b = new Bacterium(pos, size, life, velocity, radar, name) ;
+    BACTERIUM_LIST.add(b) ;
+    b.set_fill(colour) ;
+    b.set_stroke(colour) ;
+  }
+
+
+
+
+  /**
+  // HERBIVORE
+  */
+
+  void build_herbivore(int size, int life, int velocity, float radar, Vec4 colour, int num) {
+    for(int i = 0 ; i < num ; i++) {
+      String name = "human" ;
+      if(ENVIRONMENT == 2 ) {
+        Vec2 pos = Vec2("RANDOM RANGE",(int)LIMIT.a, (int)LIMIT.b, (int)LIMIT.c, (int)LIMIT.d) ;
+        add_herbivore(pos, size, life, velocity, radar, name, colour) ;
+      } else {
+        Vec3 pos = Vec3("RANDOM RANGE",(int)LIMIT.a, (int)LIMIT.b, (int)LIMIT.c, (int)LIMIT.d, (int)LIMIT.e, (int)LIMIT.f) ;
+        add_herbivore(pos, size, life, velocity, radar, name, colour) ;
+      }
+    }
+  }
+
+  void add_herbivore(Vec2 pos, int size, int life, int velocity, float radar, String name, Vec4 colour) {
+     Vec3 final_pos = Vec3(pos) ;
+     add_herbivore(final_pos, size, life, velocity, radar, name, colour) ;
+  }
+
+  void add_herbivore(Vec3 pos, int size, int life, int velocity, float radar, String name, Vec4 colour) {
+     Herbivore h = new Herbivore(pos, size, life, velocity, radar, name) ;
+     HERBIVORE_LIST.add(h) ;
+     h.set_meat_quality(4) ;
+     h.set_fill(colour) ;
+     h.set_stroke(colour) ;
+     h.set_gourmet(3.5) ;
+  }
+
+
+
+  /**
+  // CARNIVORE
+  */
+
+  void build_carnivore(int size, int life, int velocity, float radar, Vec4 colour, int num) {
+    for(int i = 0 ; i < num ; i++) {
+      String name = "ALIEN" ;
+      if(ENVIRONMENT == 2 ) {
+        Vec2 pos = Vec2("RANDOM RANGE",(int)LIMIT.a, (int)LIMIT.b, (int)LIMIT.c, (int)LIMIT.d) ;
+        add_carnivore(pos, size, life, velocity, radar, name, colour) ;
+      } else {
+        Vec3 pos = Vec3("RANDOM RANGE",(int)LIMIT.a, (int)LIMIT.b, (int)LIMIT.c, (int)LIMIT.d, (int)LIMIT.e, (int)LIMIT.f) ;
+        add_carnivore(pos, size, life, velocity, radar, name, colour) ;
+      }
+    }
+  }
+
+  void add_carnivore(Vec2 pos, int size, int life, int velocity, float radar, String name, Vec4 colour) {
+     Vec3 final_pos = Vec3(pos) ;
+     add_carnivore(final_pos, size, life, velocity, radar, name, colour) ;
+  }
+  void add_carnivore(Vec3 pos, int size, int life, int velocity, float radar, String name, Vec4 colour) {
+     Carnivore c = new Carnivore(pos, size, life, velocity, radar, name) ;
+     CARNIVORE_LIST.add(c) ;
+     c.set_attack(10) ;
+     c.set_fill(colour) ;
+     c.set_stroke(colour) ;
+     c.set_gourmet(2.5) ;
+  }
+  /**
+  END MANAGE ECOSYSTEM BUILT 
+  */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -452,642 +1138,15 @@ class Ecosysteme extends Romanesco {
 
 
 	/**
-	CARNIVORE update 0.0.2
-	*/
-	void carnivore(ArrayList<Carnivore> list_carnivore, ArrayList<Herbivore> list_herbivore, ArrayList<Agent> list_dead_body, boolean info, int which_costume) {
+	CLASS AGENT MOTHER 
+	DYNAMIC & STATIC agent
 
-	  /// remove and add in the corpse list of dead body
-	  for(Carnivore c : list_carnivore) {
-	    if(!c.alive) {
-	      CORPSE_LIST.add(c) ;
-	      list_carnivore.remove(c) ;
-	      break ;
-	    }
-	  }
-
-	  // life of the agent
-	  for(Carnivore c : list_carnivore) {
-	    // motion
-	    c.motion() ;
-	    int radius = c.size ;
-	    c.rebound(LIMIT, REBOUND) ;
-	    c.set_position() ;
-	    c.set_starving(8) ;
-
-	    
-
-	    // hunt
-	    if(!c.calm) hunt_dynamic_agent(c, list_herbivore, info) ;    
-	    // eat after hunt, if this order is not respect the carnivore prefere hunt to eat and finish to die :)
-	    if(list_dead_body.size() >= 0 ) eat_meat(c, list_dead_body, info) ; else c.eating = false ;
-
-
-	    c.statement() ;
-	    c.hunger() ;
-
-
-	    // display
-	    if(original_carnivore_aspect) c.aspect(c.colour, c.colour, 1) ; else c.aspect(fill_colour_carnivore, stroke_colour_carnivore, thickness_carnivore) ;
-	    if(!info) c.costume_agent(which_costume) ; 
-	    else c.info(c.colour, SIZE_TEXT_INFO) ;
-	  }
-	}
-	 /**
-	 set colour
-	 */
-	boolean original_carnivore_aspect = true ;
-	 Vec4 fill_colour_carnivore, stroke_colour_carnivore ;
-	 float thickness_carnivore ; 
-	void set_colour_carnivore(Vec4 fill_colour, Vec4 stroke_colour, float thickness) {
-	  original_carnivore_aspect = false ;
-	  if(fill_colour_carnivore == null) fill_colour_carnivore = Vec4(fill_colour) ; else fill_colour_carnivore.set(fill_colour) ;
-	  if(stroke_colour_carnivore == null) stroke_colour_carnivore = Vec4(stroke_colour) ; else stroke_colour_carnivore.set(stroke_colour) ;
-	  thickness_carnivore = thickness ;
-	}
-
-	/**
-	local method eat
-	*/
-	void eat_meat(Carnivore c, ArrayList<Agent> list_agent_target, boolean info) {
-	  // first eat the agent who eat just before without look in the list
-	  if(c.eating) {
-	    int pointer = (int)c.ID_target.x ;
-	    int ID_target = (int)c.ID_target.y ;
-	    /* here we point directly in a specific point of the list, 
-	    if the pointer is superior of the list, 
-	    because if it's inferior a corpse can be eat by an other Agent */
-	    if(pointer < list_agent_target.size() ) {
-	      Agent target = list_agent_target.get((int)c.ID_target.x) ;
-	      /* if the entry point of the list return an agent 
-	      with a same ID than a ID_target corpse eat just before, 
-	      the Carnivore can continue the lunch */
-	      if (target.ID == ID_target ) c.eat(target, info) ; 
-	      else {
-	        /* If the ID returned is different, a corpse was leave from the list, 
-	        and it's necessary to check in the full ist to find if any corpse have a seme ID */
-	        for(Agent target_in_list : list_agent_target) {
-	          if (target_in_list.ID == ID_target ) c.eat(target_in_list, info) ; else c.eating = false ;
-	        }
-	      }
-	    }
-	  /* If the last research don't find the corpse, may be this one is return to dust ! */
-	  } else {
-	    for(Agent target : list_agent_target) {
-	      c.eat(target, info) ;
-	      if(c.eating) {
-	        c.ID_target.set(list_agent_target.indexOf(target),target.ID) ;
-	        break ;
-	      }
-	    }
-	  }
-	}
-
-
-
-
-	/**
-	local method hunt
-	*/
-
-	void hunt_dynamic_agent(Carnivore c, ArrayList<Herbivore> list_herbivore_target, boolean info) {
-	  // first watch the agent who watch just before without look in the list
-	  if(c.watching) find_target(c, list_herbivore_target, info) ;
-	  if(c.tracking && c.max_time_track > c.time_track) focus_on_target(c, list_herbivore_target, info) ; else c.hunt_stop() ;
-	}
-
-
-
-	// Local method : The hunt is launching !
-	void focus_on_target(Carnivore c, ArrayList<Herbivore> list_herbivore_target, boolean info) {
-	  int pointer = (int)c.ID_target.x ;
-	  int ID_target = (int)c.ID_target.y ;
-	  /* here we point directly in a specific point of the list, 
-	  if the pointer is superior of the list, 
-	  because if it's inferior a corpse can be watch by an other Agent */
-	  if(pointer < list_herbivore_target.size() ) {
-	    Herbivore target = list_herbivore_target.get((int)c.ID_target.x) ;
-	    /* if the entry point of the list return an agent 
-	    with a same ID than a ID_target agent watch just before, 
-	    the Carnivore can continue the track */
-	    if (target.ID == ID_target ) {
-	      hunt_and_kill(c, target, info) ; 
-	    } else {
-	      /* If the ID returned is different, a target was leave from the list, 
-	      and it's necessary to check in the full ist to find if any agent have a same ID */
-	      for(Herbivore target_in_list : list_herbivore_target) {
-	        if (target_in_list.ID == ID_target ) {
-	          hunt_and_kill(c, target_in_list, info) ;
-	        } else {
-	          c.hunt_stop() ;
-	        } 
-	      }
-	    }
-	  } else c.hunt_stop() ;
-	}
-	// super local method
-	void hunt_and_kill(Carnivore c, Agent target, boolean info) {
-	  if(c.dist_to_target(target, info) < c.radar) {
-	    c.hunt(target, info) ; 
-	    c.kill(target, info) ;
-	  } else c.hunt_stop() ;
-	}
-
-
-
-
-	// Local method : Find target is the Big Carnivore Brother is watching you !
-	void find_target(Carnivore c, ArrayList<Herbivore> list_herbivore_target, boolean info) {
-	  // float [] dist_list = new float[0] ;
-	  ArrayList <Vec3> closest_target = new ArrayList<Vec3>() ;
-	  // find the closest target 
-	  for(Herbivore target : list_herbivore_target) {
-	    if(c.dist_to_target(target, info) < c.radar) {
-	      float dist = c.dist_to_target(target, info) ;
-	      /*catch distance to compare with the last one
-	      plus catch index in the list and the ID target
-	      and add in the nice target list
-	      */
-	      Vec3 new_target = Vec3(dist, list_herbivore_target.indexOf(target), target.ID) ;
-	      closest_target.add(new_target) ;
-	      // compare the target to see which one is the closest.
-	      if(closest_target.size() > 1) if (closest_target.get(1).x <= closest_target.get(0).x ) closest_target.remove(0) ; else closest_target.remove(1) ;
-	    } 
-	  }
-	  // Start the hunt party with the selected target
-	  if(closest_target.size() > 0 ) {
-	    Herbivore target = list_herbivore_target.get((int)closest_target.get(0).y) ;
-	    c.hunt(target, info) ;
-	    c.kill(target, info) ;
-	    if(c.tracking) c.ID_target.set(list_herbivore_target.indexOf(target),target.ID) ;
-	  }
-	}
-
-	/**
-	End carnivore update
-	*/
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-	/**
-	Bacterium update 0.0.2
-	*/
-	void bacterium(ArrayList<Bacterium> list_bacterium, ArrayList<Agent> list_dead_body, boolean info, int which_costume) {
-	  // remove bacterium
-	  for(Bacterium b : list_bacterium) {
-	    if(b.size < 0 ) {
-	      list_bacterium.remove(b) ;
-	      break ;
-	    }
-	  }
-
-
-	  // life of the agent
-	  for(Bacterium b : list_bacterium) {
-	    int radius = b.size ;
-	    // motion
-	    b.rebound(LIMIT, REBOUND) ;
-	    b.motion() ;
-	    b.set_position() ;
-	    b.set_starving(2) ;
-
-	    // hunt
-	    if(!b.calm) hunt_static_agent(b, list_dead_body, info) ;
-	    // eat
-	    if(list_dead_body.size() >= 0 ) eat_corpse(b, list_dead_body, info) ; else b.eating = false ;
-	    
-	    // statement
-	    b.statement() ;
-	    b.hunger() ;
-
-	    // display
-	    if(original_bacterium_aspect) b.aspect(b.colour, b.colour, 1) ; else b.aspect(fill_colour_bacterium, stroke_colour_bacterium, thickness_bacterium) ;
-	    if(!info) b.costume_agent(which_costume) ; 
-	    else b.info(b.colour, SIZE_TEXT_INFO) ;
-	  }
-	}
-
-	 /**
-	set colour
-	*/
-	boolean original_bacterium_aspect = true ;
-	 Vec4 fill_colour_bacterium, stroke_colour_bacterium ;
-	 float thickness_bacterium ; 
-	void set_colour_bacterium(Vec4 fill_colour, Vec4 stroke_colour, float thickness) {
-	  original_bacterium_aspect = false ;
-	  if(fill_colour_bacterium == null) fill_colour_bacterium = Vec4(fill_colour) ; else fill_colour_bacterium.set(fill_colour) ;
-	  if(stroke_colour_bacterium == null) stroke_colour_bacterium = Vec4(stroke_colour) ; else stroke_colour_bacterium.set(stroke_colour) ;
-	  thickness_bacterium = thickness ;
-	}
-
-
-	// local method
-	void eat_corpse(Bacterium b, ArrayList<Agent> list_corpse_target, boolean info) {
-	// first eat the agent who eat just before without look in the list
-	  if(b.eating) {
-	    int pointer = (int)b.ID_target.x ;
-	    int ID_target = (int)b.ID_target.y ;
-	    /* here we point directly in a specific point of the list, 
-	    if the pointer is superior of the list, 
-	    because if it's inferior a corpse can be eat by an other Agent */
-	    if(pointer < list_corpse_target.size() ) {
-	      Agent target = list_corpse_target.get((int)b.ID_target.x) ;
-	      /* if the entry point of the list return an agent 
-	      with a same ID than a ID_target corpse eat just before, 
-	      the Carnivore can continue the lunch */
-	      if (target.ID == ID_target ) b.eat(target, info) ; 
-	      else {
-	        /* If the ID returned is different, a corpse was leave from the list, 
-	        and it's necessary to check in the full ist to find if any corpse have a seme ID */
-	        for(Agent target_in_list : list_corpse_target) {
-	          if (target_in_list.ID == ID_target ) b.eat(target_in_list, info) ; else b.eating = false ;
-	        }
-	      }
-	    }
-	  /* If the last research don't find the corpse, may be this one is return to dust ! */
-	  } else {
-	    for(Agent target : list_corpse_target) {
-	      b.eat(target, info) ;
-	      if(b.eating) {
-	        b.ID_target.set(list_corpse_target.indexOf(target),target.ID) ;
-	        break ;
-	      }
-	    }
-	  }
-	}
-
-
-	void hunt_static_agent(Bacterium b, ArrayList<Agent> list_target, boolean info) {
-	  for(Agent target : list_target) {
-	    b.watch(target, info) ;
-	    b.pick(target) ;
-	    if(b.picking()) break ;
-	  }
-	}
-	/**
-	End bacterium
-	*/
-
-
-
-
-
-
-
-
-
-
-
-
-
-	/**
-	CORPSE || DEAD BODY update 0.0.2
-	*/
-	void corpse(ArrayList<Agent> list_dead_body, boolean info, int which_costume) {
-	  // the dead body is burried !
-	  for(Agent corpse : list_dead_body) {
-	    if(corpse.size < 0) {
-	      list_dead_body.remove(corpse) ;
-	      break ;
-	    }
-	  }
-	  // Dead bobies is undead
-	  for(Agent corpse : list_dead_body) {
-	    Vec4 colour_of_death = Vec4(0,0,30,g.colorModeA); 
-
-	    corpse.set_colour(colour_of_death) ;
-	    corpse.carrion() ;
-
-	    // display
-	    if(original_corpse_aspect) corpse.aspect(corpse.colour, corpse.colour, 1) ; else corpse.aspect(fill_colour_corpse, stroke_colour_corpse, thickness_corpse) ;
-	    if(!info) corpse.costume_agent(which_costume) ; 
-	    else {
-	      corpse.info_visual(corpse.colour) ;
-	      corpse.info_text(corpse.colour, SIZE_TEXT_INFO) ;
-	    }
-	  }
-	}
-	 /**
-	set colour
-	*/
-	boolean original_corpse_aspect = true ;
-	 Vec4 fill_colour_corpse, stroke_colour_corpse ;
-	 float thickness_corpse ; 
-	void set_colour_corpse(Vec4 fill_colour, Vec4 stroke_colour, float thickness) {
-	  original_corpse_aspect = false ;
-	  if(fill_colour_corpse == null) fill_colour_corpse = Vec4(fill_colour) ; else fill_colour_corpse.set(fill_colour) ;
-	  if(stroke_colour_corpse == null) stroke_colour_corpse = Vec4(stroke_colour) ; else stroke_colour_corpse.set(stroke_colour) ;
-	  thickness_corpse = thickness ;
-	}
-	/**
-	END CORPSE || DEAD BODY update 0.0.2
-	*/
-	/**
-	END UPDATE ECOSYSTEME 0.0.3
-	*/
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-	/**
-	MANAGE ECOSYSTEM BUILT 0.0.5
-	*/
-	/**
-	LIST
-	*/
-	ArrayList<Flora> FLORA_LIST = new ArrayList<Flora>() ;
-	ArrayList<Bacterium> BACTERIUM_LIST = new ArrayList<Bacterium>() ;
-	ArrayList<Herbivore> HERBIVORE_LIST = new ArrayList<Herbivore>() ;
-	ArrayList<Carnivore> CARNIVORE_LIST = new ArrayList<Carnivore>() ;
-	ArrayList<Agent> CORPSE_LIST = new ArrayList<Agent>() ;
-
-
-	/**
-	Clear ecosysteme
-	*/
-	void clear_ecosystem() {
-	  FLORA_LIST.clear() ;
-	  BACTERIUM_LIST.clear() ;
-	  HERBIVORE_LIST.clear() ;
-	  CARNIVORE_LIST.clear() ;
-	  CORPSE_LIST.clear() ;
-	}
-
-
-	/**
-	ENVIRONMENT
-	*/
-	Vec3 BOX = Vec3(100,100,100) ;
-	Vec3 BOX_POS = Vec3() ;
-	Vec6 LIMIT = Vec6(0,BOX.x,0,BOX.y,0,BOX.z) ;
-	boolean REBOUND ;
-	int SIZE_TEXT_INFO ;
-	float HUMUS, HUMUS_MAX ;
-	int ENVIRONMENT = 3 ; // 2 is for 2D, 3 for 3D
-	boolean DISPLAY_INFO = false ;
-	/**
-	* Create enviromnent where the ecosystem will be live
-	*/
-	void build_environment(Vec2 pos, Vec2 size) {
-	  Vec3 pos_3D = Vec3(pos.x, pos.y,0) ;
-	  Vec3 size_3D = Vec3(size.x, size.y,0) ;
-	  build_environment(pos_3D, size_3D) ;
-	  // write here to be sure the Environment have a good info
-	  ENVIRONMENT = 2 ; 
-	}
-
-	void build_environment(Vec3 pos, Vec3 size) {
-	  BOX_POS.set(pos) ;
-	  BOX.set(size) ;
-
-	  float left = BOX_POS.x - (BOX.x *.5) ;
-	  float right = BOX_POS.x + (BOX.x *.5) ;
-	  float top = BOX_POS.y - (BOX.y *.5) ;
-	  float bottom = BOX_POS.y + (BOX.y *.5) ;
-	  float front = BOX_POS.z - (BOX.z *.5) ;
-	  float back = BOX_POS.z + (BOX.z *.5) ;
-	  LIMIT.set(left,right, top, bottom, front, back) ;
-
-	  REBOUND = false ;
-	  SIZE_TEXT_INFO = 18 ;
-	  HUMUS_MAX = HUMUS = BOX.x *BOX.y *.01 ;
-	}
-
-
-
-
-
-
-
-
-	/**
-	FLORA
-	*/
-	/**
-	* build the plant of the ecosystem
-	*/
-	void build_flora(int size_template, Vec4 colour, int num) {
-	  for(int i = 0 ; i < num ; i++) {
-	    int size = int(random(ceil(size_template *.5), ceil(size_template*3))) ;
-	    String name = "salad" ;
-	    if(ENVIRONMENT == 2 ) {
-	      Vec2 pos = Vec2("RANDOM RANGE",(int)LIMIT.a, (int)LIMIT.b, (int)LIMIT.c, (int)LIMIT.d) ;
-	      add_flora(pos, size, name, colour) ;
-	    } else if (ENVIRONMENT == 3 ) {
-	      Vec3 pos = Vec3("RANDOM RANGE",(int)LIMIT.a, (int)LIMIT.b, (int)LIMIT.c, (int)LIMIT.d, (int)LIMIT.e, (int)LIMIT.f) ;
-	      add_flora(pos, size, name, colour) ;
-	    }
-	  }
-	}
-
-	void add_flora(Vec2 pos, int size, String name, Vec4 colour) {
-	   Vec3 final_pos =  Vec3(pos.x,pos.y,0) ;
-	   add_flora(final_pos, size, name, colour) ;
-	}
-	void add_flora(Vec3 pos, int size, String name, Vec4 colour) {
-	   Flora f = new Flora(pos, size, name) ;
-	   FLORA_LIST.add(f) ;
-	   f.set_colour(colour) ;
-	   f.set_growth(2) ;
-	   f.set_need(.5) ;
-	}
-
-
-	/**
-	// AGENT
-	*/
-	/**
-	// BACTERIUM
-	*/
-	void build_bacterium(int size, int life, int velocity, float radar, Vec4 colour, int num) {
-		for(int i = 0 ; i < num ; i++) {
-			String name = "bacterium" ;
-			if(ENVIRONMENT == 2 ) {
-				Vec2 pos = Vec2("RANDOM RANGE",(int)LIMIT.a, (int)LIMIT.b, (int)LIMIT.c, (int)LIMIT.d) ;
-				add_bacterium(pos, size, life, velocity, radar, name, colour) ;
-			} else {
-				Vec3 pos = Vec3("RANDOM RANGE",(int)LIMIT.a, (int)LIMIT.b, (int)LIMIT.c, (int)LIMIT.d, (int)LIMIT.e, (int)LIMIT.f) ;
-				add_bacterium(pos, size, life, velocity, radar, name, colour) ;
-
-			}
-		}
-	}
-
-	void add_bacterium(Vec2 pos, int size, int life, int velocity, float radar, String name, Vec4 colour) {
-		Vec3 final_pos = Vec3(pos) ;
-		add_bacterium(final_pos, size, life, velocity, radar, name, colour) ;
-	}
-
-	void add_bacterium(Vec3 pos, int size, int life, int velocity, float radar, String name, Vec4 colour) {
-	  Bacterium b = new Bacterium(pos, size, life, velocity, radar, name) ;
-	  BACTERIUM_LIST.add(b) ;
-	  b.set_colour(colour) ;
-	}
-
-
-
-
-	/**
-	// HERBIVORE
-	*/
-
-	void build_herbivore(int size, int life, int velocity, float radar, Vec4 colour, int num) {
-		for(int i = 0 ; i < num ; i++) {
-			String name = "human" ;
-			if(ENVIRONMENT == 2 ) {
-				Vec2 pos = Vec2("RANDOM RANGE",(int)LIMIT.a, (int)LIMIT.b, (int)LIMIT.c, (int)LIMIT.d) ;
-				add_herbivore(pos, size, life, velocity, radar, name, colour) ;
-			} else {
-				Vec3 pos = Vec3("RANDOM RANGE",(int)LIMIT.a, (int)LIMIT.b, (int)LIMIT.c, (int)LIMIT.d, (int)LIMIT.e, (int)LIMIT.f) ;
-				add_herbivore(pos, size, life, velocity, radar, name, colour) ;
-			}
-		}
-	}
-
-	void add_herbivore(Vec2 pos, int size, int life, int velocity, float radar, String name, Vec4 colour) {
-	   Vec3 final_pos = Vec3(pos) ;
-	   add_herbivore(final_pos, size, life, velocity, radar, name, colour) ;
-	}
-
-	void add_herbivore(Vec3 pos, int size, int life, int velocity, float radar, String name, Vec4 colour) {
-	   Herbivore h = new Herbivore(pos, size, life, velocity, radar, name) ;
-	   HERBIVORE_LIST.add(h) ;
-	   h.set_meat_quality(4) ;
-	   h.set_colour(colour) ;
-	   h.set_gourmet(3.5) ;
-	}
-
-
-
-	/**
-	// CARNIVORE
-	*/
-
-	void build_carnivore(int size, int life, int velocity, float radar, Vec4 colour, int num) {
-		for(int i = 0 ; i < num ; i++) {
-			String name = "ALIEN" ;
-			if(ENVIRONMENT == 2 ) {
-				Vec2 pos = Vec2("RANDOM RANGE",(int)LIMIT.a, (int)LIMIT.b, (int)LIMIT.c, (int)LIMIT.d) ;
-				add_carnivore(pos, size, life, velocity, radar, name, colour) ;
-			} else {
-				Vec3 pos = Vec3("RANDOM RANGE",(int)LIMIT.a, (int)LIMIT.b, (int)LIMIT.c, (int)LIMIT.d, (int)LIMIT.e, (int)LIMIT.f) ;
-				add_carnivore(pos, size, life, velocity, radar, name, colour) ;
-			}
-		}
-	}
-
-	void add_carnivore(Vec2 pos, int size, int life, int velocity, float radar, String name, Vec4 colour) {
-	   Vec3 final_pos = Vec3(pos) ;
-	   add_carnivore(final_pos, size, life, velocity, radar, name, colour) ;
-	}
-	void add_carnivore(Vec3 pos, int size, int life, int velocity, float radar, String name, Vec4 colour) {
-	   Carnivore c = new Carnivore(pos, size, life, velocity, radar, name) ;
-	   CARNIVORE_LIST.add(c) ;
-	   c.set_colour(colour) ;
-	   c.set_gourmet(2.5) ;
-	}
-	/**
-	END BUILT
-	*/
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-	/**
-	CLASS AGENT
 
 	*/
   /**
-  CLASS AGENT 0.0.5
+  CLASS AGENT DYNAMIC 0.0.8
   */
-  class Agent implements RULES_ECOSYSTEME {
+  class Agent_dynamic implements RULES_ECOSYSTEME {
     String name ;
     int ID = 0 ;
     Vec2 ID_target = Vec2(-1) ;
@@ -1105,12 +1164,15 @@ class Ecosysteme extends Romanesco {
     int dead_since = 0 ;
     int life, life_max ;
 
+    Vec4 colour_fill = Vec4(0,0,0,g.colorModeA) ;
+    Vec4 colour_stroke = Vec4(0,0,0,g.colorModeA) ;
+    float thickness = 1 ;
+
     Vec3 pos, motion, direction ;
     Vec3 velocity_xyz ;
-    Vec4 colour = Vec4(0,0,0,g.colorModeA) ;
     int velocity, velocity_ref ;
 
-    int size, size_ref ;
+    int size, size_ref, size_max ;
 
     int meat_quality ;
 
@@ -1131,15 +1193,14 @@ class Ecosysteme extends Romanesco {
     int hunger  ;
     int starving = 1 ;
 
-    Agent(Vec3 pos, int size, int life, int velocity, String name) {
+    Agent_dynamic(Vec3 pos, int size, int life, int velocity, String name) {
       this.name = name ;
       this.ID = int(random(1000000)) ;
-      this.colour.set(colour) ;
 
-      this.size = this.size_ref = size ;
+      this.size = this.size_ref = this.size_max = size ;
       this.life_max = this.life = life ;
 
-      this.pos = pos ;
+      this.pos = Vec3(pos) ;
       this.velocity = this.velocity_ref = velocity ;
       motion = Vec3(pos) ; ;
       direction = Vec3("RANDOM",1) ;
@@ -1156,13 +1217,17 @@ class Ecosysteme extends Romanesco {
     /**
     //SET AGENT
     */
+    
+
+
+    // Food setting behavior
     void set_agent(int step_hunger, int hunger, int meat_quality, int speed_eating) {
       set_meat_quality(meat_quality) ;
       set_step_hunger(step_hunger) ;
       set_hunger(hunger) ;
       set_speed_eating(speed_eating) ;
     }
-    
+
 
     void set_greed(int greed) {
       this.greed = int(greed *CLOCK) ;
@@ -1192,8 +1257,41 @@ class Ecosysteme extends Romanesco {
       this.speed_eating = 1 ;
     }
 
-    void set_colour(Vec4 colour) {
-      this.colour.set(colour) ;
+    void set_digestion(int digestion) {
+      if(digestion <= 0) {
+        println("Please use a positive value !") ;
+        this.digestion = 1 ;
+      } else {
+        this.digestion = digestion ;
+      }
+    }
+
+   
+    // set misc behavior
+    void set_aspect(Vec4 colour_fill, Vec4 colour_stroke, float thickness) {
+      this.colour_fill.set(colour_fill) ;
+      this.colour_stroke.set(colour_stroke) ;
+      this.thickness = thickness ;
+    }
+
+    void set_fill(Vec4 colour_fill) {
+      this.colour_fill.set(colour_fill) ;
+    }
+
+    void set_stroke(Vec4 colour_stroke) {
+      this.colour_stroke.set(colour_stroke) ;
+    }
+
+    void set_thickness(float thickness) {
+      this.thickness = thickness ;
+    }
+
+
+
+    // set caracteristic
+
+    void set_size(int size) {
+      this.size = size ;
     }
 
     void set_alive(boolean alive) {
@@ -1204,14 +1302,7 @@ class Ecosysteme extends Romanesco {
       this.max_watching = max_watching ;
     }
 
-    void set_digestion(int digestion) {
-      if(digestion <= 0) {
-        println("Please use a positive value !") ;
-        this.digestion = 1 ;
-      } else {
-        this.digestion = digestion ;
-      }
-    }
+
 
 
 
@@ -1377,11 +1468,11 @@ class Ecosysteme extends Romanesco {
     void aspect(float thickness) {
       if(thickness <= 0) { 
         noStroke() ;
-        fill(colour.r,colour.g,colour.b,colour.a) ;
+        fill(colour_fill) ;
       } else { 
         strokeWeight(thickness) ;
-        stroke(colour) ;
-        fill(colour) ;
+        stroke(colour_stroke) ;
+        fill(colour_fill) ;
       }
     }
     void aspect(Vec4 c_fill, Vec4 c_stroke, float thickness) {
@@ -1480,8 +1571,114 @@ class Ecosysteme extends Romanesco {
     }
   }
   /**
-  END AGENT
+  END AGENT DYNAMIC
   */
+
+
+   /**
+  Agent Static 0.0.2
+  */
+  class Agent_static implements RULES_ECOSYSTEME {
+    String name ;
+    int ID = 0 ;
+
+    Vec3 pos ;
+    int size, size_ref, size_max ;
+
+    Vec4 colour_fill = new Vec4(0,0,0,g.colorModeA) ;
+    Vec4 colour_stroke = new Vec4(0,0,0,g.colorModeA) ;
+    float thickness = 1 ;
+
+    /**
+    Constructor
+    */
+    Agent_static(Vec3 pos, int size, String name) {
+      this.name = name ;
+      this.ID = int(random(1000000)) ;
+      this.size = this.size_ref = this.size_max  = size ;
+      this.pos = pos ;
+    }
+    
+    /**
+    Set Agent Static
+    */
+    void set_aspect(Vec4 colour_fill, Vec4 colour_stroke, float thickness) {
+      this.colour_fill.set(colour_fill) ;
+      this.colour_stroke.set(colour_stroke) ;
+      this.thickness = thickness ;
+    }
+    void set_fill(Vec4 colour_fill) {
+      this.colour_fill.set(colour_fill) ;
+    }
+
+    void set_stroke(Vec4 colour_stroke) {
+      this.colour_stroke.set(colour_stroke) ;
+    }
+
+    void set_thickness(float thivkness) {
+      this.thickness = thickness ;
+    }
+
+    /**
+    Set misc
+    */
+    void set_size(int size) {
+      this.size = size ;
+    }
+
+
+
+
+    /**
+    Aspect
+    */
+    void aspect(float thickness) {
+      if(thickness <= 0) { 
+        noStroke() ;
+        fill(colour_fill) ;
+      } else { 
+        strokeWeight(thickness) ;
+        stroke(colour_stroke) ;
+        fill(colour_fill) ;
+      }
+    }
+    
+    void aspect(Vec4 c_fill, Vec4 c_stroke, float thickness) {
+      if(thickness <= 0) { 
+        noStroke() ;
+        fill(c_fill) ;
+      } else { 
+        strokeWeight(thickness) ;
+        stroke(c_stroke) ;
+        fill(c_fill) ;
+      }
+    }
+
+
+    /**
+    // costume
+    */
+    void costume_agent(int ID_costume) {
+      costume(pos, size, ID_costume) ;
+    }
+  }
+  /**
+  END Agent Static
+  */
+
+
+
+
+  /**
+  END AGENT
+
+
+  */
+
+
+
+
+
 
 
 
@@ -1508,90 +1705,91 @@ class Ecosysteme extends Romanesco {
 
 	/**
 	CLASS CHILDREN AGENT
+	DYNAMIC & STATIC
 
 	*/
-	/**
-	SUB CLASS BACTERIUM 0.0.2
-	*/
-	class Bacterium extends Agent {
-	  float humus_prod = .25 ;
-	  // boolean eating   ;
-	  Bacterium(Vec3 pos, int size, int life, int velocity, float radar, String name) {
-	    super(pos, size, life, velocity, name) ;
-	    this.radar = int(size *radar) ;
-	    eat_zone = int(size *2) + size ;
-	  }
+  /**
+  SUB CLASS BACTERIUM 0.0.3
+  */
+  class Bacterium extends Agent_dynamic {
+    float humus_prod = .25 ;
+    // boolean eating   ;
+    Bacterium(Vec3 pos, int size, int life, int velocity, float radar, String name) {
+      super(pos, size, life, velocity, name) ;
+      this.radar = int(size *radar) ;
+      eat_zone = int(size *2) + size ;
+    }
 
-	  void set_humus_prod(float prod) {
-	    this.humus_prod = prod ;
-	  }
-
-
-
-	  void watch(Agent a, boolean info) {
-	    // Vec3 pos_target = a.pos.copy() ;
-	    if(dist(a.pos,pos) < radar && !a.alive ) {
-	      if(info) {
-	        stroke(colour) ;
-	        strokeWeight(1) ;
-	        line(a.pos, pos) ;
-	      }
-	      watching = false ; 
-	    } else watching = true ;
-	  }
+    void set_humus_prod(float prod) {
+      this.humus_prod = prod ;
+    }
 
 
 
-
-	   // Method
-	  void eat(Agent a, boolean info) {
-	    if(dist(a.pos,pos) < eat_zone ) {
-	      if(info) line(a.pos, pos) ;
-	      float calories = speed_eating *humus_prod ;
-	      a.size -= speed_eating ;
-	      hunger += (calories *digestion) ;
-	      HUMUS += (calories *humus_prod) ;
-	      life += (calories *.75) ;
-	      eating = true ;
-	    } else eating = false ;
-	  }
+    void watch(Agent_dynamic a, boolean info) {
+      // Vec3 pos_target = a.pos.copy() ;
+      if(dist(a.pos,pos) < radar && !a.alive ) {
+        if(info) {
+          stroke(colour_stroke) ;
+          strokeWeight(1) ;
+          line(a.pos, pos) ;
+        }
+        watching = false ; 
+      } else watching = true ;
+    }
 
 
-	  void pick(Agent a) {
-	    if (!watching) direction.set(target_direction(a.pos,pos)) ; 
-	  }
-
-	  boolean picking() {
-	    if (watching) return false ; else return true ;
-	  }
-
-	  // info
-	  void info(Vec4 colour, int size_text) {
-	    info_visual_bacterium(colour) ;
-	    info_text(colour, size_text) ;
-	  }
-
-	  void info_visual_bacterium(Vec4 colour) {
-	    aspect(Vec4(), colour, 1) ;
-	    Vec3 pos_temp = Vec3 (0) ;
-	    matrix_start() ;
-	    translate(pos) ;
-	    ellipse(pos_temp.x, pos_temp.y, radar*2, radar*2) ;
-	    ellipse(pos_temp.x, pos_temp.y, eat_zone *2, eat_zone *2) ;
-	    ellipse(pos_temp.x, pos_temp.y, size *2, size *2) ;
-	    matrix_end() ;
-	  }
 
 
-	  // print
-	  void info_print_bacterium() {
-	    println("INFO",this.name) ;
-	    println("No particular info for the moment") ;
-	  }
-	}
-	/**
-	END SUB CLASS BACTERIUM
-	*/
+     // Method
+    void eat(Agent_dynamic a, boolean info) {
+      if(dist(a.pos,pos) < eat_zone ) {
+        if(info) line(a.pos, pos) ;
+        float calories = speed_eating *humus_prod ;
+        a.size -= speed_eating ;
+        hunger += (calories *digestion) ;
+        HUMUS += (calories *humus_prod) ;
+        life += (calories *.75) ;
+        eating = true ;
+      } else eating = false ;
+    }
+
+
+    void pick(Agent_dynamic a) {
+      if (!watching) direction.set(target_direction(a.pos,pos)) ; 
+    }
+
+    boolean picking() {
+      if (watching) return false ; else return true ;
+    }
+
+    // info
+    void info(Vec4 colour, int size_text) {
+      info_visual_bacterium(colour) ;
+      info_text(colour, size_text) ;
+    }
+
+    void info_visual_bacterium(Vec4 colour) {
+      aspect(Vec4(), colour, 1) ;
+      Vec3 pos_temp = Vec3 (0) ;
+      matrix_start() ;
+      translate(pos) ;
+      ellipse(pos_temp.x, pos_temp.y, radar*2, radar*2) ;
+      ellipse(pos_temp.x, pos_temp.y, eat_zone *2, eat_zone *2) ;
+      ellipse(pos_temp.x, pos_temp.y, size *2, size *2) ;
+      matrix_end() ;
+    }
+
+
+    // print
+    void info_print_bacterium() {
+      println("INFO",this.name) ;
+      println("No particular info for the moment") ;
+    }
+  }
+  /**
+  END SUB CLASS BACTERIUM
+  */
 
 
 
@@ -1622,9 +1820,9 @@ class Ecosysteme extends Romanesco {
 
 
   /**
-  SUB CLASS CARNIVORE 0.0.2
+  SUB CLASS CARNIVORE 0.0.3
   */
-  class Carnivore extends Agent {
+  class Carnivore extends Agent_dynamic {
     boolean killing   ;
     int attack = 1 ;
     int kill_zone ;
@@ -1657,7 +1855,7 @@ class Ecosysteme extends Romanesco {
 
 
     // hunt
-    void hunt(Agent a, boolean info) {
+    void hunt(Agent_dynamic a, boolean info) {
       if(a.alive) {
         hunt_in_progress() ;
         follow(a, info) ;
@@ -1666,10 +1864,10 @@ class Ecosysteme extends Romanesco {
       } 
     }
 
-    void kill(Agent a, boolean info) {
+    void kill(Agent_dynamic a, boolean info) {
       if(dist(a.pos,pos) < kill_zone && a.alive ) {
         if(info) {
-          stroke(colour) ;
+          stroke(colour_stroke) ;
           strokeWeight(1) ;
           line(a.pos, pos) ;
         }
@@ -1678,20 +1876,20 @@ class Ecosysteme extends Romanesco {
       }
     }
 
-    void follow(Agent a, boolean info) {
+    void follow(Agent_dynamic a, boolean info) {
       if(info) {
-        stroke(colour) ;
+        stroke(colour_stroke) ;
         strokeWeight(1) ;
         line(a.pos, pos) ;
       }
       direction.set(target_direction(a.pos, pos)) ;
     }
 
-    float dist_to_target(Agent a, boolean info) {
+    float dist_to_target(Agent_dynamic a, boolean info) {
       float dist = dist(a.pos,pos) ;
       if(dist < radar) {
         if(info) {
-          stroke(colour) ;
+          stroke(colour_stroke) ;
           strokeWeight(1) ;
           line(a.pos, pos) ;
         }
@@ -1718,10 +1916,10 @@ class Ecosysteme extends Romanesco {
 
 
     // heat
-    void eat(Agent a, boolean info) {
+    void eat(Agent_dynamic a, boolean info) {
       if(dist(a.pos,pos) < eat_zone && !a.alive && threshold_quality_meat(a, gourmet)) {
         if(info) {
-          stroke(colour) ;
+          stroke(colour_stroke) ;
           strokeWeight(1) ;
           line(a.pos, pos) ;
         }
@@ -1735,7 +1933,7 @@ class Ecosysteme extends Romanesco {
 
 
 
-    boolean threshold_quality_meat(Agent a, float step) {
+    boolean threshold_quality_meat(Agent_dynamic a, float step) {
       if(a.size > a.size_ref / step ) return true ; else return false ;
     }
 
@@ -1770,7 +1968,7 @@ class Ecosysteme extends Romanesco {
     }
   }
   /**
-  END SUB CLASS CARNIVORE 0.0.2
+  END SUB CLASS CARNIVORE
 */
 
 
@@ -1796,9 +1994,9 @@ class Ecosysteme extends Romanesco {
 
 
   /**
-  SUB CLASS HERBIVORE 0.0.2
+  SUB CLASS HERBIVORE 0.0.3
   */
-  class Herbivore extends Agent {
+  class Herbivore extends Agent_dynamic {
     // boolean eating   ;
     Herbivore(Vec3 pos, int size, int life, int velocity, float radar, String name) {
       super(pos, size, life, velocity, name) ;
@@ -1812,7 +2010,7 @@ class Ecosysteme extends Romanesco {
       if(time_watching < max_watching) {
         if(dist(f.pos,pos) < radar && threshold_quality_food(f, gourmet) && f.size >= size_target) {
           if(info) {
-            stroke(colour) ;
+            stroke(colour_stroke) ;
             strokeWeight(1) ;
             line(f.pos, pos) ;
           }
@@ -1888,7 +2086,7 @@ class Ecosysteme extends Romanesco {
     }
   }
   /**
-  SUB CLASS HERBIVORE 0.0.2
+  SUB CLASS HERBIVORE
   */
 
 
@@ -1909,129 +2107,81 @@ class Ecosysteme extends Romanesco {
 
 
 
-  /**
-  Flora 0.0.4
-  */
-  class Flora implements RULES_ECOSYSTEME {
-    String name ;
-    int ID = 0 ;
-
-    Vec3 pos ;
-    int size, size_ref, size_max ;
-    int speed_growth = 1 ;
-    int life, life_max ;
-
-    Vec4 colour = new Vec4(0,0,0,g.colorModeA) ;
-
-    int nutrient_quality ;
-    float need = 1. ;
-    /**
-    Constructor
-    */
-    Flora(Vec3 pos, int size, String name) {
-      this.name = name ;
-      this.ID = int(random(1000000)) ;
-
-      this.size = this.size_ref = this.size_max  = size ;
-      this.life = this.life_max = size ;
-      this.colour.set(colour);
-
-      this.pos = pos ;
-
-      this.nutrient_quality = 1 ;
-    }
-    /**
-    Set Flora
-    */
-    void set_Flora_quality(int nutrient_quality) {
-       this.nutrient_quality =  nutrient_quality ;
-    }
-    void set_colour(Vec4 colour) {
-      this.colour.set(colour) ;
-    }
-
-    void set_growth(int speed) {
-      this.speed_growth = speed ;
-    }
-
-    void set_need(float need) {
-      this.need = need ;
-    }
 
 
 
-   void statement() {
-     if(size > size_max) size = size_max ;
-     if(life > life_max) life = life_max ;
-   }
-    
+   /**
+   SUB CLASS FLORA 0.1.0
+   */
 
-    void growth() {
-      if(frameCount%(180 *CLOCK) == 0 ) {
-        this.size += speed_growth ;
-        this.life += speed_growth ;
-        HUMUS -= need ;
-      } 
-    }
+   class Flora extends Agent_static {
+   	int speed_growth = 1 ;
+   	int life, life_max ;
 
+   	int nutrient_quality = 1  ;
+   	float need = 1. ;
 
-    /**
-    Aspect
-    */
-    void aspect(float thickness) {
-      if(thickness <= 0) { 
-        noStroke() ;
-        fill(colour.r,colour.g,colour.b,colour.a) ;
-      } else { 
-        strokeWeight(thickness) ;
-        stroke(colour) ;
-        fill(colour) ;
+   	Flora(Vec3 pos, int size, String name) {
+         super(pos, size, name) ;
+         this.life = this.life_max = size ;
       }
-    }
-    
-    void aspect(Vec4 c_fill, Vec4 c_stroke, float thickness) {
-      if(thickness <= 0) { 
-        noStroke() ;
-        fill(c_fill) ;
-      } else { 
-        strokeWeight(thickness) ;
-        stroke(c_stroke) ;
-        fill(c_fill) ;
+      /**
+      Set Flora
+      */
+      void set_Flora_quality(int nutrient_quality) {
+      	this.nutrient_quality =  nutrient_quality ;
       }
-    }
-    /**
-    // costume
-    */
-    void costume_agent(int ID_costume) {
-      costume(pos, size, ID_costume) ;
-    }
-    
-    /**
-    // info
-    */
-    void info_visual_text(Vec4 colour, int size_text) {
-      aspect(colour,colour, 1) ;
-      textSize(size_text) ;
-      textAlign(CENTER) ;
-      
-      Vec2 pos_text = Vec2(0) ;
 
-      matrix_start() ;
-      translate(pos) ;
-      text(name, pos_text.x, pos_text.y) ;
-      text(life, pos_text.x, pos_text.y +(size_text *1.2) ) ;
-      matrix_end() ;
-    }
+      void set_growth(int speed) {
+      	this.speed_growth = speed ;
+      }
+
+      void set_need(float need) {
+      	this.need = need ;
+      }
+
+
+      // Statement
+      void statement() {
+        if(size > size_max) size = size_max ;
+        if(life > life_max) life = life_max ;
+      }
+
+      // update
+      void growth() {
+      	if(frameCount%(180 *CLOCK) == 0 ) {
+      		this.size += speed_growth ;
+      		this.life += speed_growth ;
+      		HUMUS -= need ;
+      	} 
+      }
 
       // print
-    void info_print_flora() {
-      println("INFO",this.name) ;
-      println("No particular info for the moment") ;
-    }
-  }
-  /**
-  END Flora 0.0.4
-  */
+      /**
+      // info
+      */
+      void info_visual_text(Vec4 colour, int size_text) {
+         aspect(colour,colour, 1) ;
+         textSize(size_text) ;
+         textAlign(CENTER) ;
+         
+         Vec2 pos_text = Vec2(0) ;
+
+         matrix_start() ;
+         translate(pos) ;
+         text(name, pos_text.x, pos_text.y) ;
+         text(life, pos_text.x, pos_text.y +(size_text *1.2) ) ;
+         matrix_end() ;
+      }
+      
+      void info_print_flora() {
+      	println("INFO",this.name) ;
+         println("No particular info for the moment") ;
+      }
+   }
+   /**
+   END SUB CLASS FLORA
+   */
 
 
 

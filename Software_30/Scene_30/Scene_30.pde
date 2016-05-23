@@ -21,9 +21,9 @@ boolean FULL_SCREEN = false ;
 void settings() {
   // When you build Romanesco you must create two versions : fullscreen and normal
   
-  // fullScreen(P3D,2) ;
-  // FULL_SCREEN = true ;
-  size(124,124,P3D) ;
+  fullScreen(P3D,2) ;
+  FULL_SCREEN = true ;
+  // size(124,124,P3D) ;
   pixelDensity(displayDensity()) ;
   syphon_settings() ;
 }
@@ -42,6 +42,7 @@ void setup() {
   */
   int frameRateRomanesco = 60 ;
   display_setup(frameRateRomanesco) ; // the int give the frameRate
+
   if (!FULL_SCREEN) size_scene() ;
 
   romanesco_setup() ;

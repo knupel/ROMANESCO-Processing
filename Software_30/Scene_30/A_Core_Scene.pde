@@ -131,10 +131,14 @@ void loadPropertyScene() {
 
 
 void size_scene() {
+  /*
   if (FULL_SCREEN && !check_size) { 
+    // deprecated by fullScreen() method of Processing
     set_fullScreen(whichScreen, true) ;
     check_size = true ; 
-  } else if (!FULL_SCREEN && !check_size || (width != sceneWidth && height != sceneHeight)) {
+  } else
+  */ 
+  if (!FULL_SCREEN && !check_size || (width != sceneWidth && height != sceneHeight)) {
     catch_display_position() ;
     check_size = true ;
     int which = whichScreen ;
@@ -154,23 +158,7 @@ void size_scene() {
 GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
 GraphicsDevice[] screenDevice = ge.getScreenDevices();
 
-// fullscreen method
-void set_fullScreen(int which_screen, boolean change_setting) {
-  if(change_setting ) {
-    catch_display_position() ;
-    int which = which_screen -1 ;
-    if(which < screenDevice.length) {
-      int size_x = display_size_x[which] ;
-      int size_y = display_size_y[which] ;
-      set_display(0, 0, size_x, size_y, which_screen) ;
-    } else {
-      int size_x = display_size_x[0] ;
-      int size_y = display_size_y[0] ;
-      set_display(0, 0, size_x, size_y, 0) ;
-      println("You try to use an unvailable display") ;
-    }
-  }
-}
+
 
 // window method
 void set_display_sketch(int pos_x, int pos_y, int size_x, int size_y, int which_screen, boolean change_setting) {
@@ -185,12 +173,16 @@ void set_display(int pos_x, int pos_y, int size_x, int size_y, int which_screen)
   int which = which_screen - 1 ;
   if(which < 0 ) which = 0 ;
   if(which < screenDevice.length ) {
-    surface.setSize(size_x,size_y) ;
+    println("Surface set location",pos_x +display_pos_x[which],pos_y +display_pos_y[which]) ;
     surface.setLocation(pos_x +display_pos_x[which],pos_y +display_pos_y[which]) ;
+    // surface.setLocation(20,20) ;
+    surface.setSize(size_x,size_y) ;
+    // surface.setLocation(pos_x +display_pos_x[which],pos_y +display_pos_y[which]) ;
+
   } else {
     println("You try to use an unvailable display") ;
     surface.setSize(size_x,size_y) ;
-    surface.setLocation(0,0) ;
+    surface.setLocation(20,20) ;
   }
 }
 
@@ -219,6 +211,30 @@ void catch_display_position() {
     }
   }
 }
+
+
+
+// Deprecated by fullScreen() method of Processing
+// fullscreen method
+/*
+void set_fullScreen(int which_screen, boolean change_setting) {
+  if(change_setting ) {
+    catch_display_position() ;
+    int which = which_screen -1 ;
+    if(which < screenDevice.length) {
+      int size_x = display_size_x[which] ;
+      int size_y = display_size_y[which] ;
+      set_display(0, 0, size_x, size_y, which_screen) ;
+    } else {
+      int size_x = display_size_x[0] ;
+      int size_y = display_size_y[0] ;
+      set_display(0, 0, size_x, size_y, 0) ;
+      println("You try to use an unvailable display") ;
+    }
+  }
+}
+*/
+
 /**
 END GRAPHIC CONFIGURATION
 */
