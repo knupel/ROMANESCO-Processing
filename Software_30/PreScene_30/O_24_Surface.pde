@@ -209,8 +209,8 @@ class Surface extends Romanesco {
   
   // BUILD SURFACE IMAGE
   ////////////////////////////////////////////////////////////////////
-  Vec4 stroke_ref = new Vec4()  ;
-  Vec4 fill_ref = new Vec4()  ;
+  Vec4 stroke_ref = Vec4()  ;
+  Vec4 fill_ref = Vec4()  ;
   // float alpha_fill_ref  ;
   float thickness_ref  ;
   int altitude_ref ;

@@ -1,5 +1,5 @@
 /**
-Movisco || 2016 || 0.01
+Movisco || 2016 || 0.0.2
 */
 
 class Movisco extends Romanesco {
@@ -8,7 +8,7 @@ class Movisco extends Romanesco {
 		ID_item = 25 ;
 		ID_group = 1 ;
 		RPE_author  = "Stan le Punk";
-		RPE_version = "Version 0.0.1";
+		RPE_version = "Version 0.0.2";
 		RPE_pack = "Base" ;
 		RPE_mode = "" ; // separate the differentes mode by "/"
 		RPE_slider = "Fill hue,Fill sat,Fill bright,Fill alpha,Stroke hue,Stroke sat,Stroke bright,Stroke alpha,Thickness,Influence,Canvas X,Canvas Y,Quality,Canvas X,Speed X,Size X" ;
@@ -27,7 +27,8 @@ class Movisco extends Romanesco {
 
 	// setup
 	void setup() {
-		startPosition(ID_item, width/2, height/2, 0) ;
+		// startPosition(ID_item, width/2, height/2, 0) ;
+		startPosition(ID_item, 0, 0, 0) ;
 		load_movie(ID_item) ;
 
 		pix_step = 50 ;
@@ -40,23 +41,34 @@ class Movisco extends Romanesco {
 
 	// draw
 	void draw() {
-		if(movieImport[ID_item] != null) {
-			analyze_movie_pixel(ID_item) ;
-			int size_cloud_pix = int(pix_step *2) ;
-			float comp_1 = 1 ; // red or hue
-			float comp_2 = 1 ; // green or saturation
-			float comp_3 = 1 ;  // blue or brightnes
-			float comp_4 = .9 ; // alpha
-			float comp_5 = .9 ; // pixel density in case or the pixel are particle system
-			Vec5 density = Vec5(comp_1,comp_2,comp_3,comp_4,comp_5) ; // Vec5(red,green,blue,alpha, pixel density) value factor between 0 and 1
+		if(!FULL_RENDERING) {
+			canvas_movisco(movieImport[ID_item].width -pix_step , movieImport[ID_item].height -(pix_step/2)) ;
+		} else {
+			if(movieImport[ID_item] != null) {
+				analyze_movie_pixel(ID_item) ;
+				int size_cloud_pix = int(pix_step *2) ;
+				float comp_1 = 1 ; // red or hue
+				float comp_2 = 1 ; // green or saturation
+				float comp_3 = 1 ;  // blue or brightnes
+				float comp_4 = .9 ; // alpha
+				float comp_5 = .9 ; // pixel density in case or the pixel are particle system
+				Vec5 density = Vec5(comp_1,comp_2,comp_3,comp_4,comp_5) ; // Vec5(red,green,blue,alpha, pixel density) value factor between 0 and 1
 
-			float size_pix = 1 ;
-			String pattern = "4_RANDOM" ;
-			float depth = 0 ;
-			display_movie_cloud(size_pix, size_cloud_pix, pattern, density, depth) ;
+				float size_pix = 1 ;
+				String pattern = "4_RANDOM" ;
+				float depth = 0 ;
+				display_movie_cloud(size_pix, size_cloud_pix, pattern, density, depth) ;
+			}
 		}
 	}
+   
 
+   void canvas_movisco(int x, int y) {
+   	strokeWeight(1) ;
+   	stroke(0) ;
+   	fill(0, g.colorModeA *.1) ;
+		rect(0, 0, x, y) ;
+	}
 	// Annexe method
 	void set_grid_movie(int pix_step, int ID_item) {
 		step_grid = pix_step ;

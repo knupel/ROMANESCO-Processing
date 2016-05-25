@@ -1,5 +1,5 @@
 /**
-CLASS VEC 1.2.4
+CLASS VEC 1.3.0
 RPE – Romanesco Processing Environment – 2015 – 2016
 * @author Stan le Punk
 * @see https://github.com/StanLepunK/Vec
@@ -16,13 +16,8 @@ class Vec2 {
   float x,y = 0;
   float s,t = 0;
   float u,v = 0;
-  
-  Vec2() {}
-  
-  Vec2(float value) {
-    this.ref_x = this.ref_y = this.x = this.y = this.s = this.t = this.u = this.v = value ;
-  }
-  
+
+
   Vec2(float x, float y) {
     this.ref_x = this.x = this.s = this.u = x ;
     this.ref_y = this.y = this.t = this.v = y ;
@@ -75,27 +70,14 @@ class Vec2 {
    * Sets components of the vector using two or three separate
    * variables, the data from a Vec, or the values from a float array.
    */
-  public Vec2 set(float value) {
-     this.x = this.s = this.u = this.y = this.t = this.v = value ;
-     /*
-    this.x = value ;
-    this.s = value ;
-    this.u = value ;
-
-    this.y = value ;
-    this.t = value ;
-    this.v = value ;
-    */
+  public Vec2 set(float v) {
+    this.x = this.s = this.u = v;
+    this.y = this.t = this.v = v ;
     return this;
   }
   public Vec2 set(float x, float y) {
-    this.x = x ;
-    this.s = x ;
-    this.u = x ;
-
-    this.y = y ;
-    this.t = y ;
-    this.v = y ;
+    this.x = this.s = this.u = x ;
+    this.y = this.t = this.v = y ;
     return this;
   }
 
@@ -103,15 +85,16 @@ class Vec2 {
   /**
    * @param v any variable of type Vec
    */
-  public Vec2 set(Vec2 value) {
-    this.x = value.x ;
-    this.s = value.x ;
-    this.u = value.x ;
-
-    this.y = value.y ;
-    this.t = value.y ;
-    this.v = value.y ;
-    return this;
+  public Vec2 set(Vec2 v) {
+    if(v == null) {
+      this.x = this.s = this.u = 0 ;
+      this.y = this.t = this.v = 0 ;
+      return this;
+    } else {
+      this.x = this.s = this.u = v.x ;
+      this.y = this.t = this.v = v.y ;
+      return this;
+    }
   }
 
 
@@ -120,13 +103,8 @@ class Vec2 {
    * @param source array to copy from
    */
   public Vec2 set(float[] source) {
-    this.x = source[0];
-    this.s = source[0];
-    this.u = source[0];
-
-    this.y = source[1];
-    this.t = source[1];
-    this.v = source[1];
+    this.x = this.s = this.u = source[0];
+    this.y = this.t = this.v = source[1];
     return this;
   }
 
@@ -355,6 +333,14 @@ class Vec2 {
     return new Vec2(x,y) ;
   }
 
+  Vec2 normalize() {
+    float m = mag();
+    if (m != 0 && m != 1) {
+      div(m);
+    }
+    return new Vec2(x,y) ;
+  }
+
   /**
  Map
   */
@@ -515,22 +501,10 @@ class Vec3 {
   /**
   Constructor
   */
-  Vec3() {}
-  
-  Vec3(float value) {
-    this.ref_x = this.ref_y = this.ref_z = this.x = this.y = this.z  = this.r = this.g = this.b =this.s = this.t = this.p = value ;
-  }
-  
   Vec3(float x, float y, float z) {
     this.ref_x = this.x = this.r = this.s = x ;
     this.ref_y = this.y = this.g = this.t = y ;
     this.ref_z = this.z = this.b = this.p = z ;
-  }
-
-  Vec3(Vec2 v) {
-    this.ref_x = this.x = this.r = this.s = v.x ;
-    this.ref_y = this.y = this.g = this.t = v.y ;
-    this.ref_z = this.z = this.b = this.p = 0 ;
   }
   
    /**
@@ -588,28 +562,16 @@ class Vec3 {
    * variables, the data from a Vec, or the values from a float array.
    */
    
-   public Vec3 set(float value) {
-    this.x = value ;
-    this.r = value ;
-    this.s = value ;
-    this.y = value;
-    this.g = value;
-    this.t = value ;
-    this.z = value;
-    this.b = value;
-    this.p = value ;
+   public Vec3 set(float v) {
+    this.x = this.r = this.s = v ;
+    this.y = this.g = this.t = v ;
+    this.z = this.b = this.p = v ;
     return this;
   }
   public Vec3 set(float x, float y, float z) {
-    this.x = x ;
-    this.r = x ;
-    this.s = x ;
-    this.y = y;
-    this.g = y;
-    this.t = y ;
-    this.z = z;
-    this.b = z;
-    this.p = z ;
+    this.x = this.r = this.s = x ;
+    this.y = this.g = this.t = y ;
+    this.z = this.b = this.p = z ;
     return this;
   }
 
@@ -617,19 +579,27 @@ class Vec3 {
   /**
    * @param v any variable of type Vec
    */
-  public Vec3 set(Vec3 value) {
-    this.x = value.x ;
-    this.r = value.x ;
-    this.s = value.x ;
+  public Vec3 set(Vec3 v) {
+    if(v == null) {
+      this.x = this.r = this.s = 0 ;
+      this.y = this.g = this.t = 0 ;
+      this.z = this.b = this.p = 0 ;
+      return this;
+    } else {
+      this.x = v.x ;
+      this.r = v.x ;
+      this.s = v.x ;
 
-    this.y = value.y ;
-    this.g = value.y ;
-    this.t = value.y ;
+      this.y = v.y ;
+      this.g = v.y ;
+      this.t = v.y ;
 
-    this.z = value.z ;
-    this.b = value.z ;
-    this.p = value.z ;
-    return this;
+      this.z = v.z ;
+      this.b = v.z ;
+      this.p = v.z ;
+      return this;
+
+    }
   }
 
 
@@ -912,6 +882,14 @@ class Vec3 {
     return new Vec3(x,y,z) ;
   }
 
+  Vec3 normalize() {
+    float m = mag();
+    if (m != 0 && m != 1) {
+      div(m);
+    }
+    return new Vec3(x,y,z) ;
+  }
+
   /**
   Map
   */
@@ -1120,11 +1098,6 @@ class Vec4 {
   /**
   Constructor
   */
-  Vec4 () {}
-  
-  Vec4(float value) {
-    this.ref_x = this.ref_y = this.ref_z = this.ref_w = this.x = this.y = this.z = this.w = this.r = this.g = this.b = this.a =this.s = this.t = this.p = this.q = value ;
-  }
   
   Vec4(float x, float y, float z, float w) {
     this.ref_x = this.x = this.r = this.s = x ;
@@ -1132,28 +1105,6 @@ class Vec4 {
     this.ref_z = this.z = this.b = this.p = z ;
     this.ref_w = this.w = this.a = this.q = w ;
   }
-
-  Vec4(Vec3 v) {
-    this.ref_x = this.x = this.r = this.s = v.x ;
-    this.ref_y = this.y = this.g = this.t = v.y ;
-    this.ref_z = this.z = this.b = this.p = v.z ;
-    this.ref_w = this.w = this.a = this.q = 0 ;
-  }
-
-  Vec4(Vec2 v) {
-    this.ref_x = this.x = this.r = this.s = v.x ;
-    this.ref_y = this.y = this.g = this.t = v.y ;
-    this.ref_z = this.z = this.b = this.p = 0 ;
-    this.ref_w = this.w = this.a = this.q = 0 ;
-  }
-
-  Vec4(Vec2 v1, Vec2 v2) {
-    this.ref_x = this.x = this.r = this.s = v1.x ;
-    this.ref_y = this.y = this.g = this.t = v1.y ;
-    this.ref_z = this.z = this.b = this.p = v2.x ;
-    this.ref_w = this.w = this.a = this.q = v2.y ;
-  }
-
 
 
 
@@ -1214,36 +1165,20 @@ class Vec4 {
    * Sets components of the vector using two or three separate
    * variables, the data from a Vec, or the values from a float array.
    */
-  public Vec4 set(float value) {
-    this.x = value ;
-    this.r = value ;
-    this.s = value ;
-    this.y = value ;
-    this.g = value ;
-    this.t = value ;
-    this.z = value ;
-    this.b = value ;
-    this.p = value ;
-    this.w = value ;
-    this.a = value ;
-    this.q = value ;
+  public Vec4 set(float v) {
+    this.x = this.r = this.s = v ;
+    this.y = this.g = this.t = v ;
+    this.z = this.b = this.p = v ;
+    this.w = this.a = this.q = v ;
     return this;
   }
   
   
   public Vec4 set(float x, float y, float z, float w) {
-    this.x = x ;
-    this.r = x ;
-    this.s = x ;
-    this.y = y ;
-    this.g = y ;
-    this.t = y ;
-    this.z = z ;
-    this.b = z ;
-    this.p = z ;
-    this.w = w ;
-    this.a = w ;
-    this.q = w ;
+    this.x = this.r = this.s = x ;
+    this.y = this.g = this.t = y ;
+    this.z = this.b = this.p = z ;
+    this.w = this.a = this.q = w ;
     return this;
   }
 
@@ -1251,23 +1186,20 @@ class Vec4 {
   /**
    * @param v any variable of type Vec
    */
-  public Vec4 set(Vec4 value) {
-    this.x = value.x ;
-    this.r = value.x ;
-    this.s = value.x ;
-
-    this.y = value.y ;
-    this.g = value.y ;
-    this.t = value.y ;
-
-    this.z = value.z ;
-    this.b = value.z ;
-    this.p = value.z ;
-
-    this.w = value.w ;
-    this.a = value.w ;
-    this.q = value.w ;
-    return this;
+  public Vec4 set(Vec4 v) {
+    if ( v == null) {
+      this.x = this.r = this.s = 0 ;
+      this.y = this.g = this.t = 0 ;
+      this.z = this.b = this.p = 0 ;
+      this.w = this.a =  this.q = 0 ;
+      return this;
+    } else {
+      this.x = this.r = this.s = v.x ;
+      this.y = this.g = this.t = v.y ;
+      this.z = this.b = this.p = v.z ;
+      this.w = this.a = this.q = v.w ;
+      return this;
+    }
   }
 
 
@@ -1276,21 +1208,10 @@ class Vec4 {
    * @param source array to copy from
    */
   public Vec4 set(float[] source) {
-    this.x = source[0] ;
-    this.r = source[0] ;
-    this.s = source[0] ;
-
-    this.y = source[1] ;
-    this.g = source[1] ;
-    this.t = source[1] ;
-
-    this.z = source[2] ;
-    this.b = source[2] ;
-    this.p = source[2] ;
-
-    this.w = source[3] ;
-    this.a = source[3] ;
-    this.q = source[3] ;
+    this.x = this.r = this.s = source[0] ;
+    this.y = this.g = this.t = source[1] ;
+    this.z = this.b = this.p = source[2] ;
+    this.w = this.a = this.q = source[3] ;
     return this;
   }
 
@@ -1509,6 +1430,15 @@ class Vec4 {
     return new Vec4(x,y,z,w) ;
   }
 
+
+  Vec4 normalize() {
+    float m = mag();
+    if (m != 0 && m != 1) {
+      div(m);
+    }
+    return new Vec4(x,y,z,w) ;
+  }
+
   /**
   Map
   */
@@ -1635,11 +1565,6 @@ class Vec5 {
   /**
   Constructor
   */
-  Vec5 () {}
-  
-  Vec5(float value) {
-    this.a = this.b = this.c = this.d = this.e = value ;
-  }
   
   Vec5(float a, float b, float c, float d, float e) {
     this.a = a ;
@@ -1647,54 +1572,6 @@ class Vec5 {
     this.c = c ;
     this.d = d ;
     this.e = e ;
-  }
-
-  Vec5(Vec4 v) {
-    this.a = v.x ;
-    this.b = v.y ;
-    this.c = v.z ;
-    this.d = v.w ;
-    this.e = 0 ;
-  }
-
-  Vec5(Vec3 v) {
-    this.a = v.x ;
-    this.b = v.y ;
-    this.c = v.z ;
-    this.d = 0 ;
-    this.e = 0 ;
-  }
-
-  Vec5(Vec2 v) {
-    this.a = v.x ;
-    this.b = v.y ;
-    this.c = 0 ;
-    this.d = 0 ;
-    this.e = 0 ;
-  }
-
-  Vec5(Vec2 v1, Vec2 v2) {
-    this.a = v1.x ;
-    this.b = v1.y ;
-    this.c = v2.x ;
-    this.d = v2.y ;
-    this.e = 0 ;
-  }
-
-  Vec5(Vec3 v1, Vec2 v2) {
-    this.a = v1.x ;
-    this.b = v1.y ;
-    this.c = v1.z ;
-    this.d = v2.x ;
-    this.e = v2.y ;
-  }
-
-  Vec5(Vec2 v1, Vec3 v2) {
-    this.a = v1.x ;
-    this.b = v1.y ;
-    this.c = v2.x ;
-    this.d = v2.y ;
-    this.e = v2.z ;
   }
   
   
@@ -1758,17 +1635,12 @@ class Vec5 {
   /**
   Set
   */
-   /**
-   * Sets components of the vector using two or three separate
-   * variables, the data from a Vec, or the values from a float array.
-   */
-   
-   public Vec5 set(float value) {
-    this.a = value ;
-    this.b = value;
-    this.c = value;
-    this.d = value;
-    this.e = value;
+  /**
+  * Sets components of the vector using two or three separate
+  * variables, the data from a Vec, or the values from a float array.
+  */
+  public Vec5 set(float value) {
+    this.a = this.b = this.c = this.d = this.e = value;
     return this;
   }
   
@@ -1785,13 +1657,18 @@ class Vec5 {
   /**
    * @param v any variable of type Vec
    */
-  public Vec5 set(Vec5 value) {
-    a = value.a ;
-    b = value.b ;
-    c = value.c ;
-    d = value.d ;
-    e = value.e ;
-    return this;
+  public Vec5 set(Vec5 v) {
+    if( v == null) {
+      a = b = c = d = e = 0 ;
+      return this;
+    } else {
+      a = v.a ;
+      b = v.b ;
+      c = v.c ;
+      d = v.d ;
+      e = v.e ;
+      return this;
+    }
   }
 
 
@@ -1851,12 +1728,6 @@ class Vec6 {
   /**
   Constructor
   */
-  Vec6 () {}
-  
-  Vec6(float value) {
-    this.a = this.b = this.c = this.d = this.e = this.f = value ;
-  }
-  
   Vec6(float a, float b, float c, float d, float e, float f) {
     this.a = a ;
     this.b = b ;
@@ -1866,106 +1737,6 @@ class Vec6 {
     this.f = f ;
   }
 
-  Vec6(Vec5 v) {
-    this.a = v.a ;
-    this.b = v.b ;
-    this.c = v.c ;
-    this.d = v.d ;
-    this.e = v.e ;
-    this.f = 0 ;
-
-  }
-
-
-  Vec6(Vec4 v) {
-    this.a = v.x ;
-    this.b = v.y ;
-    this.c = v.z ;
-    this.d = v.w ;
-    this.e = 0 ;
-    this.f = 0 ;
-  }
-
-  Vec6(Vec3 v) {
-    this.a = v.x ;
-    this.b = v.y ;
-    this.c = v.z ;
-    this.d = 0 ;
-    this.e = 0 ;
-    this.f = 0 ;
-  }
-
-  Vec6(Vec2 v) {
-    this.a = v.x ;
-    this.b = v.y ;
-    this.c = 0 ;
-    this.d = 0 ;
-    this.e = 0 ;
-    this.f = 0 ;
-  }
-
-  Vec6(Vec2 v1, Vec2 v2) {
-    this.a = v1.x ;
-    this.b = v1.y ;
-    this.c = v2.x ;
-    this.d = v2.y ;
-    this.e = 0 ;
-    this.f = 0 ;
-  }
-
-  Vec6(Vec3 v1, Vec3 v2) {
-    this.a = v1.x ;
-    this.b = v1.y ;
-    this.c = v1.z ;
-    this.d = v2.x ;
-    this.e = v2.y ;
-    this.f = v2.z ;
-  }
-
-  Vec6(Vec2 v1, Vec2 v2, Vec2 v3) {
-    this.a = v1.x ;
-    this.b = v1.y ;
-    this.c = v2.x ;
-    this.d = v2.y ;
-    this.e = v3.x ;
-    this.f = v3.y ;
-  }
-  
-  Vec6(Vec4 v1, Vec2 v2) {
-    this.a = v1.x ;
-    this.b = v1.y ;
-    this.c = v1.z ;
-    this.d = v1.w ;
-    this.e = v2.x ;
-    this.f = v2.y ;
-  }
-
-  Vec6(Vec3 v1, Vec2 v2) {
-    this.a = v1.x ;
-    this.b = v1.y ;
-    this.c = v1.z ;
-    this.d = v2.x ;
-    this.e = v2.y ;
-    this.f = 0 ;
-  }
-
-  Vec6(Vec2 v1, Vec3 v2) {
-    this.a = v1.x ;
-    this.b = v1.y ;
-    this.c = v2.x ;
-    this.d = v2.y ;
-    this.e = v2.z ;
-    this.f = 0 ;
-  }
-
-  Vec6(Vec2 v1, Vec4 v2) {
-    this.a = v1.x ;
-    this.b = v1.y ;
-    this.c = v2.x ;
-    this.d = v2.y ;
-    this.e = v2.z ;
-    this.f = v2.w ;
-  }
   
   /**
   Random Constructor
@@ -2027,10 +1798,15 @@ class Vec6 {
   /**
   Set
   */
-   /**
-   * Sets components of the vector using two or three separate
-   * variables, the data from a Vec, or the values from a float array.
-   */
+  /**
+  * Sets components of the vector using two or three separate
+  * variables, the data from a Vec, or the values from a float array.
+  */
+  public Vec6 set(float v) {
+    this.a = this.b = this.c = this.d = this.e = this.f = v;
+    return this;
+  }
+
   public Vec6 set(float a, float b, float c, float d, float e, float f) {
     this.a = a ;
     this.b = b ;
@@ -2045,14 +1821,19 @@ class Vec6 {
   /**
    * @param v any variable of type Vec
    */
-  public Vec6 set(Vec6 value) {
-    a = value.a ;
-    b = value.b ;
-    c = value.c ;
-    d = value.d ;
-    e = value.e ;
-    f = value.f ;
-    return this;
+  public Vec6 set(Vec6 v) {
+    if ( v == null) {    
+      a = b = c = d = e = f = 0 ;
+      return this ;
+    } else {
+      a = v.a ;
+      b = v.b ;
+      c = v.c ;
+      d = v.d ;
+      e = v.e ;
+      f = v.f ;
+      return this ;
+    }
   }
 
 
@@ -2131,17 +1912,40 @@ Vec2 add(Vec2 v_a, Vec2 v_b) {
     float y = v_a.y + v_b.y ;
     return new Vec2(x,y) ;
 }
+
 Vec3 add(Vec3 v_a, Vec3 v_b) {
     float x = v_a.x + v_b.x ;
     float y = v_a.y + v_b.y ;
     float z = v_a.z + v_b.z ;
     return new Vec3(x,y,z)  ;
 }
+
 Vec4 add(Vec4 v_a, Vec4 v_b) {
     float x = v_a.x + v_b.x ;
     float y = v_a.y + v_b.y ;
     float z = v_a.z + v_b.z ;
     float w = v_a.w + v_b.w ;
+    return new Vec4(x,y,z, w)  ;
+}
+
+Vec2 add(Vec2 v_a, float v) {
+    float x = v_a.x +v ;
+    float y = v_a.y +v ;
+    return new Vec2(x,y) ;
+}
+
+Vec3 add(Vec3 v_a, float v) {
+    float x = v_a.x +v ;
+    float y = v_a.y +v ;
+    float z = v_a.z +v ;
+    return new Vec3(x,y,z)  ;
+}
+
+Vec4 add(Vec4 v_a, float v) {
+    float x = v_a.x +v ;
+    float y = v_a.y +v ;
+    float z = v_a.z +v ;
+    float w = v_a.w +v ;
     return new Vec4(x,y,z, w)  ;
 }
 
@@ -2155,17 +1959,40 @@ Vec2 mult(Vec2 v_a, Vec2 v_b) {
     float y = v_a.y * v_b.y ;
     return new Vec2(x,y) ;
 }
+
 Vec3 mult(Vec3 v1, Vec3 v_b) {
     float x = v1.x * v_b.x ;
     float y = v1.y * v_b.y ;
     float z = v1.z * v_b.z ;
     return new Vec3(x,y,z)  ;
 }
+
 Vec4 mult(Vec4 v_a, Vec4 v_b) {
     float x = v_a.x * v_b.x ;
     float y = v_a.y * v_b.y ;
     float z = v_a.z * v_b.z ;
     float w = v_a.w * v_b.w ;
+    return new Vec4(x,y,z, w)  ;
+}
+
+Vec2 mult(Vec2 v_a, float v) {
+    float x = v_a.x *v ;
+    float y = v_a.y *v ;
+    return new Vec2(x,y) ;
+}
+
+Vec3 mult(Vec3 v1, float v) {
+    float x = v1.x *v ;
+    float y = v1.y *v ;
+    float z = v1.z *v ;
+    return new Vec3(x,y,z)  ;
+}
+
+Vec4 mult(Vec4 v_a, float v) {
+    float x = v_a.x *v ;
+    float y = v_a.y *v ;
+    float z = v_a.z *v ;
+    float w = v_a.w *v ;
     return new Vec4(x,y,z, w)  ;
 }
 
@@ -2179,17 +2006,41 @@ Vec2 div(Vec2 v_a, Vec2 v_b) {
     float y = v_a.y / v_b.y ;
     return new Vec2(x,y) ;
 }
+
 Vec3 div(Vec3 v1, Vec3 v_b) {
     float x = v1.x / v_b.x ;
     float y = v1.y / v_b.y ;
     float z = v1.z / v_b.z ;
     return new Vec3(x,y,z)  ;
 }
+
 Vec4 div(Vec4 v_a, Vec4 v_b) {
     float x = v_a.x / v_b.x ;
     float y = v_a.y / v_b.y ;
     float z = v_a.z / v_b.z ;
     float w = v_a.w / v_b.w ;
+    return new Vec4(x,y,z, w)  ;
+}
+
+
+Vec2 div(Vec2 v_a, float v) {
+    float x = v_a.x /v ;
+    float y = v_a.y /v ;
+    return new Vec2(x,y) ;
+}
+
+Vec3 div(Vec3 v1, float v) {
+    float x = v1.x /v ;
+    float y = v1.y /v ;
+    float z = v1.z /v ;
+    return new Vec3(x,y,z)  ;
+}
+
+Vec4 div(Vec4 v_a, float v) {
+    float x = v_a.x /v ;
+    float y = v_a.y /v ;
+    float z = v_a.z /v ;
+    float w = v_a.w /v;
     return new Vec4(x,y,z, w)  ;
 }
 
@@ -2203,17 +2054,40 @@ Vec2 sub(Vec2 v_a, Vec2 v_b) {
     float y = v_a.y - v_b.y ;
     return new Vec2(x,y) ;
 }
+
 Vec3 sub(Vec3 v_a, Vec3 v_b) {
     float x = v_a.x - v_b.x ;
     float y = v_a.y - v_b.y ;
     float z = v_a.z - v_b.z ;
     return new Vec3(x,y,z)  ;
 }
+
 Vec4 sub(Vec4 v_a, Vec4 v_b) {
     float x = v_a.x - v_b.x ;
     float y = v_a.y - v_b.y ;
     float z = v_a.z - v_b.z ;
     float w = v_a.w - v_b.w ;
+    return new Vec4(x,y,z, w)  ;
+}
+
+Vec2 sub(Vec2 v_a, float v) {
+    float x = v_a.x -v ;
+    float y = v_a.y -v ;
+    return new Vec2(x,y) ;
+}
+
+Vec3 sub(Vec3 v_a, float v) {
+    float x = v_a.x -v ;
+    float y = v_a.y -v ;
+    float z = v_a.z -v ;
+    return new Vec3(x,y,z)  ;
+}
+
+Vec4 sub(Vec4 v_a, float v) {
+    float x = v_a.x -v ;
+    float y = v_a.y -v ;
+    float z = v_a.z -v ;
+    float w = v_a.w -v ;
     return new Vec4(x,y,z, w)  ;
 }
 
@@ -2464,16 +2338,7 @@ Vec4 middle(Vec4 [] list)  {
 
 
 
-/**
-Copy
-*/
-/*
-@ return Vec3
-Transform PVector in Vec
-*/
-Vec3 copyPVectorToVec(PVector p) {
-  return new Vec3(p.x,p.y,p.z) ;
-}
+
 
 
 
@@ -2577,25 +2442,36 @@ Return a new Vec
 /**
 Vec 2
 */
+Vec2 Vec2() {
+  return new Vec2(0,0) ;
+}
+
 Vec2 Vec2(float x, float y) { 
   return new Vec2(x,y) ;
 }
 
 Vec2 Vec2(float v) {
-  return new Vec2(v) ;
+  return new Vec2(v,v) ;
 }
 
 Vec2 Vec2(PVector p) {
-  return new Vec2(p.x, p.y) ;
+  if(p == null) {
+    println("PVector null, instead '0' is used to build Vec2") ;
+    return new Vec2(0,0) ;
+  } else {
+    return new Vec2(p.x, p.y) ;
+  }
 }
 
 Vec2 Vec2(Vec2 p) {
-  return new Vec2(p.x, p.y) ;
+  if(p == null) {
+    println("Vec2 null, instead '0' is used to build Vec2") ;
+    return new Vec2(0,0) ;
+  } else {
+    return new Vec2(p.x, p.y) ;
+  }
 }
 
-Vec2 Vec2() {
-  return new Vec2() ;
-}
 
 Vec2 Vec2(String s, int x, int y) { 
   return new Vec2(s,x,y) ;
@@ -2611,28 +2487,43 @@ Vec2 Vec2(String s, int v) {
 /**
 Vec 3
 */
+Vec3 Vec3() {
+  return new Vec3(0,0,0) ;
+}
+
 Vec3 Vec3(float x, float y, float z) {
   return new Vec3(x,y,z) ;
 }
 
 Vec3 Vec3(float v) {
-  return new Vec3(v) ;
+  return new Vec3(v,v,v) ;
 }
 
 Vec3 Vec3(PVector p) {
-  return new Vec3(p.x, p.y, p.z) ;
+  if(p == null) {
+    println("PVector null, instead '0' is used to build Vec3") ;
+    return new Vec3(0,0,0) ;
+  } else {
+    return new Vec3(p.x, p.y, p.z) ;
+  }
 }
 
 Vec3 Vec3(Vec3 p) {
-  return new Vec3(p.x, p.y, p.z) ;
+  if(p == null) {
+    println("Vec3 null, instead '0' is used to build Vec3") ;
+    return new Vec3(0,0,0) ;
+  } else {
+    return new Vec3(p.x, p.y, p.z) ;
+  }
 }
 
 Vec3 Vec3(Vec2 p) {
-  return new Vec3(p) ;
-}
-
-Vec3 Vec3() {
-  return new Vec3() ;
+  if(p == null) {
+    println("Vec2 null, instead '0' is used to build Vec3") ;
+    return new Vec3(0,0,0) ;
+  } else {
+    return new Vec3(p.x, p.y, 0) ;
+  }
 }
 
 Vec3 Vec3(String s, int x, int y, int z) { 
@@ -2650,7 +2541,7 @@ Vec3 Vec3(String s, int v) {
 Vec 4
 */
 Vec4 Vec4() {
-  return new Vec4() ;
+  return new Vec4(0,0,0,0) ;
 }
 
 Vec4 Vec4(float x, float y, float z, float w) {
@@ -2658,21 +2549,48 @@ Vec4 Vec4(float x, float y, float z, float w) {
 }
 
 Vec4 Vec4(float v) {
-  return new Vec4(v) ;
+  return new Vec4(v,v,v,v) ;
 }
 
 // build with Vec
 Vec4 Vec4(Vec4 p) {
-  return new Vec4(p.x,p.y,p.z,p.w) ;
+  if(p == null) {
+    println("Vec4 null, instead '0' is used to build Vec4") ;
+    return new Vec4(0,0,0,0) ;
+  } else {
+    return new Vec4(p.x, p.y, p.z, p.w) ;
+  }
 }
 Vec4 Vec4(Vec3 p) {
-  return new Vec4(p) ;
+  if(p == null) {
+    println("Vec3 null, instead '0' is used to build Vec4") ;
+    return new Vec4(0,0,0,0) ;
+  } else {
+    return new Vec4(p.x, p.y, p.z, 0) ;
+  }
 }
 Vec4 Vec4(Vec2 p) {
-  return new Vec4(p) ;
+  if(p == null) {
+    println("Vec2 null, instead '0' is used to build Vec4") ;
+    return new Vec4(0,0,0,0) ;
+  } else {
+    return new Vec4(p.x, p.y, 0, 0) ;
+  }
 }
+
 Vec4 Vec4(Vec2 p1,Vec2 p2) {
-  return new Vec4(p1,p2) ;
+  if(p1 == null) {
+    println("first Vec2 null, instead '0' is used to build Vec4") ;
+    return new Vec4(0,0, p2.x, p2.y) ;
+  } else if (p2 == null) {
+    println("second Vec2 null, instead '0' is used to build Vec4") ;
+    return new Vec4(p1.x, p1.y, 0, 0) ;
+  }  else if (p1 == null && p2 == null) {
+    println("all Vec2 null, instead '0' is used to build Vec4") ;
+    return new Vec4(0,0,0,0) ;
+  } else {
+    return new Vec4(p1.x, p1.y, p2.x, p2.y) ;
+  }
 }
 
 
@@ -2691,7 +2609,7 @@ Vec4 Vec4(String s, int v) {
 Vec 5
 */
 Vec5 Vec5() {
-  return new Vec5() ;
+  return new Vec5(0,0,0,0,0) ;
 }
 
 Vec5 Vec5(float a, float b, float c, float d, float e) {
@@ -2699,31 +2617,89 @@ Vec5 Vec5(float a, float b, float c, float d, float e) {
 }
 
 Vec5 Vec5(float v) {
-  return new Vec5(v) ;
+  return new Vec5(v,v,v,v,v) ;
 }
 
 // build with Vec
 Vec5 Vec5(Vec5 p) {
-  return new Vec5(p.a,p.b,p.c,p.d,p.e) ;
+  if(p == null) {
+    println("Vec5 null, instead '0' is used to build Vec5") ;
+    return new Vec5(0,0,0,0,0) ;
+  } else {
+    return new Vec5(p.a,p.b,p.c,p.d,p.e) ;
+  }
 }
+
 Vec5 Vec5(Vec4 p) {
-  return new Vec5(p) ;
+  if(p == null) {
+    println("Vec4 null, instead '0' is used to build Vec5") ;
+    return new Vec5(0,0,0,0,0) ;
+  } else {
+    return new Vec5(p.x,p.y,p.z,p.w,0) ;
+  }
 }
 Vec5 Vec5(Vec3 p) {
-  return new Vec5(p) ;
+  if(p == null) {
+    println("Vec3 null, instead '0' is used to build Vec5") ;
+    return new Vec5(0,0,0,0,0) ;
+  } else {
+    return new Vec5(p.x,p.y,p.z,0,0) ;
+  }
 }
 Vec5 Vec5(Vec2 p) {
-  return new Vec5(p) ;
+  if(p == null) {
+    println("Vec2 null, instead '0' is used to build Vec5") ;
+    return new Vec5(0,0,0,0,0) ;
+  } else {
+    return new Vec5(p.x,p.y,0,0,0) ;
+  }
 }
+
 Vec5 Vec5(Vec2 p1,Vec2 p2) {
-  return new Vec5(p1,p2) ;
-}
-Vec5 Vec5(Vec3 p1,Vec2 p2) {
-  return new Vec5(p1,p2) ;
+  if(p1 == null) {
+    println("first Vec2 null, instead '0' is used to build Vec5") ;
+    return new Vec5(0,0, p2.x, p2.y, 0) ;
+  } else if (p2 == null) {
+    println("second Vec2 null, instead '0' is used to build Vec5") ;
+    return new Vec5(p1.x, p1.y, 0, 0, 0) ;
+  }  else if (p1 == null && p2 == null) {
+    println("all Vec2 null, instead '0' is used to build Vec4") ;
+    return new Vec5(0,0,0,0,0) ;
+  } else {
+    return new Vec5(p1.x,p1.y,p2.x,p2.y,0) ;
+  }
 }
 Vec5 Vec5(Vec2 p1,Vec3 p2) {
-  return new Vec5(p1,p2) ;
+  if(p1 == null) {
+    println("first Vec2 null, instead '0' is used to build Vec5") ;
+    return new Vec5(0, 0, p2.x, p2.y, p2.z) ;
+  } else if (p2 == null) {
+    println("second Vec3 null, instead '0' is used to build Vec5") ;
+    return new Vec5(p1.x, p1.y, 0, 0, 0) ;
+  }  else if (p1 == null && p2 == null) {
+    println("Vec2 and Vec3 null, instead '0' is used to build Vec4") ;
+    return new Vec5(0,0,0,0,0) ;
+  } else {
+    return new Vec5(p1.x,p1.y,p2.x,p2.y,p2.z) ;
+  }
 }
+
+Vec5 Vec5(Vec3 p1,Vec2 p2) {
+  if(p1 == null) {
+    println("first Vec3 null, instead '0' is used to build Vec5") ;
+    return new Vec5(0, 0, 0, p2.x, p2.y) ;
+  } else if (p2 == null) {
+    println("second Vec2 null, instead '0' is used to build Vec5") ;
+    return new Vec5(p1.x, p1.y, p1.z, 0, 0) ;
+  }  else if (p1 == null && p2 == null) {
+    println("Vec3 and Vec2 null, instead '0' is used to build Vec4") ;
+    return new Vec5(0,0,0,0,0) ;
+  } else {
+    return new Vec5(p1.x,p1.y,p1.z,p2.x,p2.y) ;
+  }
+}
+
+
 
 Vec5 Vec5(String s, int a, int b, int c, int d, int e) { 
   return new Vec5(s,a,b,c,d,e) ;
@@ -2740,7 +2716,7 @@ Vec5 Vec5(String s, int v) {
 Vec 6
 */
 Vec6 Vec6() {
-  return new Vec6(0.) ;
+  return new Vec6(0,0,0,0,0,0) ;
 }
 
 Vec6 Vec6(float a, float b, float c, float d, float e, float f) {
@@ -2748,45 +2724,162 @@ Vec6 Vec6(float a, float b, float c, float d, float e, float f) {
 }
 
 Vec6 Vec6(float v) {
-  return new Vec6(v) ;
+  return new Vec6(v,v,v,v,v,v) ;
 }
 
 // build with vec
 Vec6 Vec6(Vec6 p) {
-  return new Vec6(p.a, p.b, p.c, p.d, p.e, p.f) ;
+  if(p == null) {
+    println("Vec6 null, instead '0' is used to build Vec6") ;
+    return new Vec6(0,0,0,0,0,0) ;
+  } else {
+    return new Vec6(p.a,p.b,p.c,p.d,p.e,p.f) ;
+  }
 }
 Vec6 Vec6(Vec5 p) {
-  return new Vec6(p) ;
+  if(p == null) {
+    println("Vec5 null, instead '0' is used to build Vec6") ;
+    return new Vec6(0,0,0,0,0,0) ;
+  } else {
+    return new Vec6(p.a,p.b,p.c,p.d,p.e,0) ;
+  }
 }
 Vec6 Vec6(Vec4 p) {
-  return new Vec6(p) ;
+  if(p == null) {
+    println("Vec4 null, instead '0' is used to build Vec6") ;
+    return new Vec6(0,0,0,0,0,0) ;
+  } else {
+    return new Vec6(p.x,p.y,p.z,p.w,0,0) ;
+  }
 }
 Vec6 Vec6(Vec3 p) {
-  return new Vec6(p) ;
+  if(p == null) {
+    println("Vec3 null, instead '0' is used to build Vec6") ;
+    return new Vec6(0,0,0,0,0,0) ;
+  } else {
+    return new Vec6(p.x,p.y,p.z,0,0,0) ;
+  }
 }
 Vec6 Vec6(Vec2 p) {
-  return new Vec6(p) ;
+  if(p == null) {
+    println("Vec2 null, instead '0' is used to build Vec6") ;
+    return new Vec6(0,0,0,0,0,0) ;
+  } else {
+    return new Vec6(p.x,p.y,0,0,0,0) ;
+  }
 }
 Vec6 Vec6(Vec2 p1,Vec2 p2) {
-  return new Vec6(p1,p2) ;
+  if(p1 == null) {
+    println("first Vec2 null, instead '0' is used to build Vec6") ;
+    return new Vec6(0,0, p2.x, p2.y, 0,0) ;
+  } else if (p2 == null) {
+    println("second Vec2 null, instead '0' is used to build Vec6") ;
+    return new Vec6(p1.x, p1.y, 0, 0, 0,0) ;
+  }  else if (p1 == null && p2 == null) {
+    println("all Vec2 null, instead '0' is used to build Vec6") ;
+    return new Vec6(0,0,0,0,0,0) ;
+  } else {
+    return new Vec6(p1.x,p1.y,p2.x,p2.y,0,0) ;
+  }
 }
 Vec6 Vec6(Vec2 p1,Vec3 p2) {
-  return new Vec6(p1,p2) ;
+  if(p1 == null) {
+    println("first Vec2 null, instead '0' is used to build Vec6") ;
+    return new Vec6(0, 0, p2.x, p2.y, p2.z,0) ;
+  } else if (p2 == null) {
+    println("second Vec3 null, instead '0' is used to build Vec6") ;
+    return new Vec6(p1.x, p1.y, 0, 0, 0,0) ;
+  }  else if (p1 == null && p2 == null) {
+    println("Vec2 and Vec3 null, instead '0' is used to build Vec6") ;
+    return new Vec6(0,0,0,0,0,0) ;
+  } else {
+    return new Vec6(p1.x,p1.y,p2.x,p2.y,p2.z, 0) ;
+  }
 }
 Vec6 Vec6(Vec3 p1,Vec2 p2) {
-  return new Vec6(p1,p2) ;
-}
-Vec6 Vec6(Vec4 p1,Vec2 p2) {
-  return new Vec6(p1,p2) ;
+  if(p1 == null) {
+    println("first Vec3 null, instead '0' is used to build Vec6") ;
+    return new Vec6(0, 0, 0, p2.x, p2.y,0) ;
+  } else if (p2 == null) {
+    println("second Vec2 null, instead '0' is used to build Vec6") ;
+    return new Vec6(p1.x, p1.y, p1.z, 0, 0, 0) ;
+  }  else if (p1 == null && p2 == null) {
+    println("Vec3 and Vec2 null, instead '0' is used to build Vec6") ;
+    return new Vec6(0,0,0,0,0,0) ;
+  } else {
+    return new Vec6(p1.x,p1.y,p1.z,p2.x,p2.y,0) ;
+  }
 }
 Vec6 Vec6(Vec2 p1,Vec4 p2) {
-  return new Vec6(p1,p2) ;
+  if(p1 == null) {
+    println("first Vec2 null, instead '0' is used to build Vec6") ;
+    return new Vec6(0, 0, p2.x, p2.y, p2.z, p2.w) ;
+  } else if (p2 == null) {
+    println("second Vec4 null, instead '0' is used to build Vec6") ;
+    return new Vec6(p1.x, p1.y, 0, 0, 0, 0) ;
+  }  else if (p1 == null && p2 == null) {
+    println("Vec2 and Vec4 null, instead '0' is used to build Vec6") ;
+    return new Vec6(0,0,0,0,0,0) ;
+  } else {
+    return new Vec6(p1.x,p1.y,p2.x,p2.y,p2.z, p2.w) ;
+  }
 }
+
+Vec6 Vec6(Vec4 p1,Vec2 p2) {
+  if(p1 == null) {
+    println("first Vec4 null, instead '0' is used to build Vec6") ;
+    return new Vec6(0, 0, 0, 0, p2.x, p2.y) ;
+  } else if (p2 == null) {
+    println("second Vec2 null, instead '0' is used to build Vec6") ;
+    return new Vec6(p1.x, p1.y, p1.z, p1.w, 0, 0) ;
+  }  else if (p1 == null && p2 == null) {
+    println("Vec4 and Vec2 null, instead '0' is used to build Vec6") ;
+    return new Vec6(0,0,0,0,0,0) ;
+  } else {
+    return new Vec6(p1.x,p1.y,p1.z,p1.w, p2.x,p2.y) ;
+  }
+}
+
 Vec6 Vec6(Vec2 p1,Vec2 p2, Vec2 p3) {
-  return new Vec6(p1,p2,p3) ;
+  if(p1 == null && p2!= null && p3 != null) {
+    println("first Vec2 null, instead '0' is used to build Vec6") ;
+    return new Vec6(0,0, p2.x, p2.y,p3.x,p3.y) ;
+  } else if (p1 != null && p2 == null && p3 != null) {
+    println("second Vec2 null, instead '0' is used to build Vec6") ;
+    return new Vec6(p1.x, p1.y, 0, 0, p3.x,p3.y) ;
+  } else if (p1 != null && p2 != null && p3 == null) {
+    println("third Vec2 null, instead '0' is used to build Vec6") ;
+    return new Vec6(p1.x, p1.y, p2.x, p2.y ,0,0) ;
+  } else if (p1 == null && p2 == null && p3 != null) {
+    println("first and second Vec2 null, instead '0' is used to build Vec6") ;
+    return new Vec6(0, 0, 0, 0,p3.x,p3.y) ;
+  } else if (p1 == null && p2 != null && p3 == null) {
+    println("first and third Vec2 null, instead '0' is used to build Vec6") ;
+    return new Vec6(0, 0, p2.x, p2.y, 0, 0) ;
+  } else if (p1 != null && p2 == null && p3 == null) {
+    println("second and third Vec2 null, instead '0' is used to build Vec6") ;
+    return new Vec6(p1.x, p1.y, 0,0, 0, 0) ;
+  } else if (p1 == null && p2 == null && p3 == null) {
+    println("all Vec2 null, instead '0' is used to build Vec6") ;
+    return new Vec6(0,0,0,0,0,0) ;
+  } else {
+    return new Vec6(p1.x,p1.y,p2.x,p2.y,p3.x,p3.y) ;
+  }
 }
+
 Vec6 Vec6(Vec3 p1,Vec3 p2) {
-  return new Vec6(p1,p2) ;
+  if(p1 == null) {
+    println("first Vec3 null, instead '0' is used to build Vec6") ;
+    return new Vec6(0,0, 0, p2.x, p2.y, p2.z) ;
+  } else if (p2 == null) {
+    println("second Vec3 null, instead '0' is used to build Vec6") ;
+    return new Vec6(p1.x, p1.y, p1.z, 0, 0,0) ;
+  }  else if (p1 == null && p2 == null) {
+    println("all Vec3 null, instead '0' is used to build Vec6") ;
+    return new Vec6(0,0,0,0,0,0) ;
+  } else {
+    return new Vec6(p1.x,p1.y,p2.x,p2.y,0,0) ;
+  }
 }
 
 

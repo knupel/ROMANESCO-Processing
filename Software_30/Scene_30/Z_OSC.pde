@@ -102,7 +102,7 @@ void translateDataFromController_buttonGlobal() {
   which_cam = valueButtonGlobal[19] ;
 }
 void translateDataFromController_buttonItem() {
-  for ( int i = 0 ; i < numObj-1 ; i++) {
+  for ( int i = 0 ; i < NUM_ITEM -1 ; i++) {
     int iPlusOne = i+1 ;
     objectButton   [iPlusOne] = valueButtonObj[i *10 +1] ;
     parameterButton[iPlusOne] = valueButtonObj[i *10 +2] ;

@@ -451,6 +451,10 @@ class RPE_MANAGER {
       objR.setup() ;
       if(posObjRef[objR.ID_item] == null) posObjRef[objR.ID_item] = Vec3() ;
       posObjRef[objR.ID_item].set(item_setting_position[0][objR.ID_item]) ;
+      /*
+      if(dir_reference_all_items[objR.ID_item] == null) dir_reference_all_items[objR.ID_item] = Vec3() ;
+      dir_reference_all_items[objR.ID_item].set(item_setting_direction[0][objR.ID_item]) ;
+      */
     }
   }
   
@@ -462,7 +466,7 @@ class RPE_MANAGER {
   
   ////////
   // DRAW
-  void displayObject(boolean movePos, boolean moveDir, boolean movePosAndDir) {
+  void display_item(boolean movePos, boolean moveDir, boolean movePosAndDir) {
     // when you use the third order Romanesco understand the the first and the second are true
     if(movePosAndDir) {
       moveDir = true ;
@@ -476,8 +480,8 @@ class RPE_MANAGER {
           updateObject(objR.ID_item) ;
           pushMatrix() ;
           addRefObj(objR.ID_item) ;
-          if(vLongTouch && action[objR.ID_item] ) objectMove(movePos, moveDir, objR.ID_item) ;
-          P3DmoveObj(objR.ID_item) ;
+          if(vLongTouch && action[objR.ID_item] ) item_move(movePos, moveDir, objR.ID_item) ;
+          final_pos_item(objR.ID_item) ;
           objR.draw() ;
           popMatrix() ;
         }

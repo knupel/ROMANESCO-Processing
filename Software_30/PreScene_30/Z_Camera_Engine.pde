@@ -1,15 +1,15 @@
 /**
 Camera Engine version 6.0.2
 */
-private PVector posSceneMouseRef = new PVector() ;
-private PVector posEyeMouseRef = new PVector() ;
-private PVector posSceneCameraRef= new PVector() ;
-private PVector posEyeCameraRef = new PVector() ;
-private PVector eyeCamera = new PVector() ;
-private PVector sceneCamera = new PVector() ;
-private PVector deltaScenePos = new PVector() ;
-private PVector deltaEyePos = new PVector() ;
-private PVector tempEyeCamera = new PVector() ;
+private Vec3 posSceneMouseRef = Vec3 () ;
+private Vec3 posEyeMouseRef = Vec3 () ;
+private Vec3 posSceneCameraRef= Vec3 () ;
+private Vec3 posEyeCameraRef = Vec3 () ;
+private Vec3 eyeCamera = Vec3 () ;
+private Vec3 sceneCamera = Vec3 () ;
+private Vec3 deltaScenePos = Vec3 () ;
+private Vec3 deltaEyePos = Vec3 () ;
+private Vec3 tempEyeCamera = Vec3 () ;
 private boolean newRefSceneMouse = true ;
 private boolean newRefEyeMouse = true ;
 
@@ -17,20 +17,24 @@ private boolean newRefEyeMouse = true ;
 /* We move the scene 
 */
 
-PVector updatePosCamera(boolean authorization, boolean leapMotionDetected, Vec3 posDevice) {
+Vec3 updatePosCamera(boolean authorization, boolean leapMotionDetected, Vec3 posDevice) {
   if(authorization) {
     //create the ref to calcul the new position of the Scene
     if(newRefSceneMouse) {
       posSceneCameraRef.set(sceneCamera) ;
-      posSceneMouseRef.set(new PVector(posDevice.x,posDevice.y,posDevice.z)) ;
+      posSceneMouseRef.set(posDevice) ;
       //to create a only one ref position
       newRefSceneMouse = false ;
     }
 
     //create the delta between the ref and the mouse position
-    deltaScenePos = PVector.sub(new PVector(posDevice.x,posDevice.y,posDevice.z), posSceneMouseRef) ;
-    if (leapMotionDetected) return      PVector.add(PVector.mult(deltaScenePos,-1), posSceneCameraRef ) ; 
-                            else return PVector.add(deltaScenePos, posSceneCameraRef ) ;
+    deltaScenePos = sub(posDevice, posSceneMouseRef) ;
+    if (leapMotionDetected) {
+      //return add(mult(deltaScenePos,-1), posSceneCameraRef ) ; 
+      return add(deltaScenePos.mult(-1), posSceneCameraRef ) ; 
+    } else {
+      return add(deltaScenePos, posSceneCameraRef ) ;
+    }
   } else {
     //change the boolean to true for the next mousepressed
     newRefSceneMouse = true ;
@@ -41,7 +45,7 @@ PVector updatePosCamera(boolean authorization, boolean leapMotionDetected, Vec3 
 
 
 // Update Camera EYE position
-PVector updateEyeCamera(boolean authorization, PVector pos) {
+Vec3 updateEyeCamera(boolean authorization, Vec3 pos) {
   if(authorization) {
     //create the ref to calcul the new position of the Scene
     if(newRefEyeMouse) {
@@ -52,8 +56,8 @@ PVector updateEyeCamera(boolean authorization, PVector pos) {
     newRefEyeMouse = false ;
     
     //create the delta between the ref and the mouse position
-    deltaEyePos = PVector.sub(pos, posEyeMouseRef) ;
-    tempEyeCamera = PVector.add(deltaEyePos, posEyeCameraRef ) ;
+    deltaEyePos = sub(pos, posEyeMouseRef) ;
+    tempEyeCamera = add(deltaEyePos, posEyeCameraRef ) ;
 
     //rotation of the camera
     // return eyeClassic(tempEyeCamera) ;
@@ -75,10 +79,11 @@ Solution 1
 We must use this one with le leapmotion information, because with the leapmotion device
 there is no "pmouse" information.
 */
-PVector eyeMemory ;
-PVector eyeClassic(PVector tempEye) {
-  PVector eyeP3D = new PVector() ;
-  eyeP3D = new PVector(map(tempEye.y, 0, width, 0, 360), map(tempEye.x, 0, height, 0, 360)) ; 
+Vec3 eyeMemory ;
+Vec3 eyeClassic(Vec3 tempEye) {
+  float temp_eye_x = map(tempEye.y, 0, width, 0, 360) ;
+  float temp_eye_y = map(tempEye.x, 0, height, 0, 360) ;
+  Vec3 eyeP3D =Vec3(temp_eye_x, temp_eye_y, 0) ;
   return eyeP3D ;
 }
 

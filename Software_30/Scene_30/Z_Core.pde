@@ -577,11 +577,11 @@ void displayInfoObject(color bg_txt, color txt) {
   
   posInfoObj = 1 ;
   // for (Romanesco objR : RomanescoList)
-  for(int i = 0 ; i < numObj ; i++) {
+  for(int i = 0 ; i < NUM_ITEM ; i++) {
     
     if(show_object[i]) {
       posInfoObj += 1 ;
-      String position = ("x:" +(int)posObjX[i] + " y:" + (int)posObjY[i]+ " z:" + (int)posObjZ[i]) ;
+      String position = ("x:" +(int)posObj[i].x + " y:" + (int)posObj[i].y+ " z:" + (int)posObj[i].z) ;
       text(objectName[i] + " - Coord " + position + " - " + objectInfo[objectID[i]], 10, height -(15 *(posInfoObj -1))) ;
     }
   }

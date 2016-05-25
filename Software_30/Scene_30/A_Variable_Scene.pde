@@ -24,7 +24,7 @@ void variables_setup() {
     valueTempPrescene[i] = ("0") ;
   }
   
-  for (int i = 0 ; i < numObj ; i++ ) {
+  for (int i = 0 ; i < NUM_ITEM ; i++ ) {
     pen[i] = Vec3() ;
     mouse[i] = Vec3() ;
     wheel[i] = 0 ;

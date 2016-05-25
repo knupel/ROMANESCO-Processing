@@ -18,7 +18,7 @@ used sound
  maximum possibility of the object
  full frame rate
 */
-boolean TEST_ROMANESCO = false ;
+boolean TEST_ROMANESCO = true ;
 boolean FULL_RENDERING = false ;
 
 void settings() {
@@ -39,8 +39,9 @@ void setup() {
   // common setup
 
   romanesco_setup() ;
-  P3D_setup(numObj, numSettingCamera, numSettingOrientationObject) ;
   create_variable() ;
+
+  P3D_setup() ;
   //specific setup
   prescene_setup() ; // the varObject setup of the Scene is more simple
   leapmotion_setup() ;
@@ -73,7 +74,7 @@ void draw() {
   //setting
   init_and_update_diplay_var() ;
   syphon_draw() ;
-  // camera_video_draw() ;
+  camera_video_draw() ;
   // here we ask for the TEST_ROMANESCO true, because the Minim Library talk too much in the consol
   if(!TEST_ROMANESCO) soundDraw() ;
   
@@ -101,7 +102,7 @@ void draw() {
 
 
   //use romanesco object
-  rpe_manager.displayObject(ORDER_ONE, ORDER_TWO, ORDER_THREE) ;
+  rpe_manager.display_item(ORDER_ONE, ORDER_TWO, ORDER_THREE) ;
   createGridCamera(displayInfo3D) ;
   stopCamera() ;
 

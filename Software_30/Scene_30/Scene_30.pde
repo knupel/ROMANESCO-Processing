@@ -21,9 +21,9 @@ boolean FULL_SCREEN = false ;
 void settings() {
   // When you build Romanesco you must create two versions : fullscreen and normal
   
-  fullScreen(P3D,2) ;
-  FULL_SCREEN = true ;
-  // size(124,124,P3D) ;
+  //fullScreen(P3D,2) ;
+  //FULL_SCREEN = true ;
+  size(124,124,P3D) ;
   pixelDensity(displayDensity()) ;
   syphon_settings() ;
 }
@@ -49,7 +49,7 @@ void setup() {
 
   RG.init(this); // GEOMERATIVE
   
-  P3D_setup(numObj, numSettingCamera, numSettingOrientationObject) ;
+  P3D_setup() ; ;
   create_variable() ;
 
   color_setup() ;
@@ -99,7 +99,7 @@ void draw() {
     shader_draw() ;
   }
 
-  rpe_manager.displayObject(ORDER_ONE, ORDER_TWO, ORDER_THREE) ;
+  rpe_manager.display_item(ORDER_ONE, ORDER_TWO, ORDER_THREE) ;
   createGridCamera(displayInfo3D) ;
   stopCamera() ;
   

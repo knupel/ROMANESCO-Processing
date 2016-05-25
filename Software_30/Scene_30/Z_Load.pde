@@ -101,6 +101,8 @@ void loadDataObject(String path) {
 		whichFont[ID] = 
 		*/
 		which_bitmap[ID] = dataObj.getInt("which picture") ;
+		which_svg[ID] = dataObj.getInt("which svg") ;
+		which_movie[ID] = dataObj.getInt("which movie") ;
 		which_text[ID] = dataObj.getInt("which text") ;
         // display mode
 		mode[ID] = dataObj.getInt("Mode obj") ;
@@ -146,12 +148,12 @@ void loadDataObject(String path) {
 		alignment_item[ID] = dataObj.getFloat("aligmnent") ;
 		influence_item[ID] = dataObj.getFloat("influence") ;
 
-		posObjX[ID]	= dataObj.getFloat("pos x obj") *width ;
-		posObjY[ID]	= dataObj.getFloat("pos y obj") *width ;
-		posObjZ[ID]	= dataObj.getFloat("pos z obj") *width ;
+		posObj[ID].x	= dataObj.getFloat("pos x obj") *width ;
+		posObj[ID].y	= dataObj.getFloat("pos y obj") *width ;
+		posObj[ID].z	= dataObj.getFloat("pos z obj") *width ;
 
-		dirObjX[ID]	= dataObj.getFloat("longitude obj") ;
-		dirObjY[ID]	= dataObj.getFloat("latitude obj") ;
+		dirObj[ID].x	= dataObj.getFloat("longitude obj") ;
+		dirObj[ID].y	= dataObj.getFloat("latitude obj") ;
 	}
 
 }

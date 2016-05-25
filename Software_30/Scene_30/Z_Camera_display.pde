@@ -9,63 +9,57 @@ float speedMoveOfCamera = 0.1 ;
 //CAMERA Stuff
 private boolean moveScene, moveEye ;
 
-PVector targetPosCam = new PVector() ;
+Vec3 targetPosCam = Vec3() ;
 
 //P3D ROMANESCO STUFF
 PVector speedDirectionOfObject  ;
-// PVector  P3DpositionMouseRef = new PVector() ;
-
 
 PVector deltaObjDir = new PVector() ;
 
-PVector tempObjDir = new PVector() ;
+Vec3 tempObjDir = Vec3() ;
 PVector sizeBackgroundP3D  ;
 
 
 // P3D SETUP
 ////////////
-void P3D_setup(int numObj, int numSettingCamera, int numSettingItem) {
-    settingAllCameras (numSettingCamera) ;
-    settingObjManipulation (numObj) ;
-    settingObjectManipulation(numObj, numSettingItem) ;
+void P3D_setup() {
+    camara_setting (NUM_SETTING_CAMERA) ;
+    item_manipulation () ;
+    item_manipulation_setting(NUM_SETTING_ITEM) ;
     initVariableCamera() ;
     println("P3D setup done") ;
 }
 
 
 // ANNEXE setting object manipulation
-void settingObjManipulation (int numObj) {
+void item_manipulation () {
   //P3D for all ROMANESCO object
-  for ( int i = 0 ; i < numObj ; i++ ) {
-    posObj[i] = new PVector() ; 
-    dirObj[i] = new PVector () ;
-    dirObjX [i] = 0 ;
-    dirObjY [i] = 0 ;
+  for ( int i = 0 ; i < NUM_ITEM ; i++ ) {
+    posObj[i] = Vec3() ; 
+    dirObj[i] = Vec3() ;
+    dir_item_old[i] = Vec3(0) ;
   }
 }
 
-void settingObjectManipulation (int numObj, int numSetting) {
+void item_manipulation_setting (int num_setting_item) {
   // object orientation
-  for ( int i = 0 ; i < numSetting ; i++ ) {
-    for (int j = 0 ; j < numObj ; j++ ) {
-       item_setting_position [i][j] = Vec3() ;
-       item_setting_direction [i][j] = Vec2() ;
+  for ( int i = 0 ; i < num_setting_item ; i++ ) {
+    for (int j = 0 ; j < NUM_ITEM ; j++ ) {
+       if(item_setting_position [i][j] == null) item_setting_position [i][j] = Vec3() ;
+       if(item_setting_direction [i][j] == null) item_setting_direction [i][j] = Vec3() ;
      }
    }
 }
 
 // ANNEXE setting camera manipulation
-void settingAllCameras (int numSettingCamera) {
+void camara_setting (int numSettingCamera) {
   if (eyeCameraSetting != null && sceneCameraSetting != null ) {
     for ( int i = 0 ; i < numSettingCamera ; i++ ) {
-       eyeCameraSetting[i] = new PVector () ;
-       sceneCameraSetting[i] = new PVector () ;
+       eyeCameraSetting[i] = Vec3() ;
+       sceneCameraSetting[i] = Vec3() ;
     }
   }
 }
-  
-
-
 //END SETUP
 ///////////
 
@@ -85,30 +79,27 @@ void settingAllCameras (int numSettingCamera) {
 //OBJECT position and direction
 // MAIN
 // final direction and oriention with object ID
-void objectMove(boolean movePos, boolean moveDir, int ID) {
+void item_move(boolean movePos, boolean moveDir, int ID) {
   //UPDATE
   //position
   if (!movePos)  newObjRefPos = true ;
-  PVector newPos = updatePosObj(posObj[ID], ID, movePos) ;
-  posObjX[ID] = newPos.x ;
-  posObjY[ID] = newPos.y ;
-  posObjZ[ID] = newPos.z ;
+  Vec3 newPos = update_pos_item(posObj[ID], ID, movePos) ;
+  pos_item_old[ID].set(newPos) ;
+
   //rotation
   if (!moveDir) newObjRefDir = true ;
     //speed rotation
   float speed = 100.0 ; // 150 is medium speed rotation
   speedDirectionOfObject = new PVector(speed /(float)width, speed /(float)height) ; 
-  dirObjX[ID] = updateDirObj(speedDirectionOfObject, ID, moveDir).x ; 
-  dirObjY[ID] = updateDirObj(speedDirectionOfObject, ID, moveDir).y ;
+  dir_item_old[ID].x = updateDirObj(speedDirectionOfObject, ID, moveDir).x ; 
+  dir_item_old[ID].y = updateDirObj(speedDirectionOfObject, ID, moveDir).y ;
   
   //RESET
   if(touch0) {
-    posObjX[ID] = item_setting_position [0][ID].x ;
-    posObjY[ID] = item_setting_position [0][ID].y ;
-    posObjZ[ID] = item_setting_position [0][ID].z ;
+    pos_item_old[ID].set(item_setting_position [0][ID]);
 
-    dirObjX[ID] = item_setting_direction [0][ID].x ;
-    dirObjY[ID] = item_setting_direction [0][ID].y ;
+    dir_item_old[ID].x = item_setting_direction [0][ID].x ;
+    dir_item_old[ID].y = item_setting_direction [0][ID].y ;
 
     P3DdirectionMouseRef.set(0,0,0) ;
     tempObjDir.set(0,0,0) ;
@@ -129,21 +120,23 @@ PVector  P3DdirectionMouseRef = new PVector() ;
 PVector updateDirObj(PVector speed, int ID, boolean authorization) {
   if(authorization) {
     if(newObjRefDir) {
-      if(dirObjRef == null) dirObjRef =tempObjDir.copy() ; else dirObjRef.set(tempObjDir) ;
+      if(dir_reference_all_items == null) dir_reference_all_items =tempObjDir.copy() ; else dir_reference_all_items.set(tempObjDir) ;
       P3DdirectionMouseRef.set(new PVector(mouse[0].x,mouse[0].y,mouse[0].z)) ;
     }
     //to create a only one ref position
     newObjRefDir = false ;
     //create the delta between the ref and the mouse position
     deltaObjDir = PVector.sub(new PVector(mouse[0].x,mouse[0].y,mouse[0].z), P3DdirectionMouseRef) ;
-    tempObjDir = PVector.add(deltaObjDir, dirObjRef) ;
+
+    PVector temp = PVector.add(deltaObjDir, new PVector(dir_reference_all_items.x, dir_reference_all_items.y, dir_reference_all_items.z)) ;
+    tempObjDir = Vec3(temp) ;
     
     //rotation of the camera
     dirObj[ID] = eyeClassic(tempObjDir).copy() ;
   } else {
     newObjRefDir = true ;
   }
-  return dirObj[ID] ;
+  return new PVector(dirObj[ID].x,dirObj[ID].y,dirObj[ID].z) ;
 }
 // end update direction obj
 ////////////////////////////
@@ -154,8 +147,8 @@ PVector updateDirObj(PVector speed, int ID, boolean authorization) {
 //////////////////////
 PVector P3DpositionMouseRef = new PVector() ;
 
-PVector updatePosObj(PVector pos, int ID, boolean authorization) {
-  Vec3 deltaObjPos = new Vec3() ;
+Vec3 update_pos_item(Vec3 pos, int ID, boolean authorization) {
+  Vec3 deltaObjPos = Vec3() ;
   // we must re-init the Z value because the behavior of the wheel is different than coordonate of the mouse who are permanent.
   P3DpositionMouseRef.z = 0 ;
 
@@ -182,59 +175,17 @@ PVector updatePosObj(PVector pos, int ID, boolean authorization) {
 
   // special op with the wheel value
   deltaObjPos.z *= -1. ;
-  /**
-  // WORK AROUND CAMERA, to find the position of the camera when we Rotate the camera...
-  // VERY HARD !!!!!
-  // mag obg
-  float magObj = mag(deltaObjPos) ;
-  // polar info for the obj and the camera
-  Vec3 polarObj = toPolar(deltaObjPos) ;
-  
-  // info 
-  float magCam =  height/2 ;
-  Vec3 posCamCorrection = new Vec3( sceneCamera.x, sceneCamera.y, sceneCamera.z + magCam) ;
 
-  
-  // polar info for the obj and the camera
-  Vec3 polarObj = toPolar(deltaObjPos) ;
-  float norm360longitude = mapCycle(eyeCamera.x,0,360) ;
-  float norm360latitude = mapCycle(eyeCamera.y ,0,360) ;
-  // transform value 0-360 to 0-2PI
-  float longitude = map(norm360longitude,0,360, 0, TAU) ;
-  float latitude = map(norm360latitude, 0,360,0,TAU) ;
-  // finalize calcul for the cartesian position of camera
-
-
-
- 
-  Vec3 cart_sol_1 = toCartesian(longitude, latitude, magCam) ;
-  strokeWeight (10) ;
-  stroke (0,0,100) ;
-  int ratio = 2 ;
-  point(cart_sol_1.x *ratio,cart_sol_1.y *ratio,cart_sol_1.z *ratio) ;
-  // cartEye.x *= -1 ;
-  
-  println("cartesian classic Eye ", (int)cart_sol_1.x, 
-                                    (int)cart_sol_1.y, 
-                                    (int)cart_sol_1.z ) ;
-                                    
-                                    Vec3 cart_sol_2 = toCartesian3D ( Vec2 (mouse[0].x,mouse[0].y), Vec2(width,height), magCam) ;
-  point(cart_sol_2.x,cart_sol_2.y ,cart_sol_2.z ) ;
-  
-  // *************************************
-  ///////////////////////////////////
-  // TRY THIS SOLUTION, same than sceneCamera ???????
-  
-  // if(!moveScene) sceneCamera = (follow(origin, target, speed)) ;
-
-  
-  // END WORK around the camera
-  ////////////////////////////
-  */
 
   PVector delta = deltaObjPos.copy_PVector() ;
   // final position
-  pos = PVector.add(new PVector(posObjRef[ID].x,posObjRef[ID].y,posObjRef[ID].z), delta) ;
+
+  PVector temp_pos = PVector.add(new PVector(posObjRef[ID].x,posObjRef[ID].y,posObjRef[ID].z), delta) ;
+  pos = Vec3(temp_pos) ;
+    println("old") ;
+  println("ref", posObjRef[ID]) ;
+  println("pos",pos) ;
+  println("delta", delta) ;
   return pos ;
 }
 // end update position obj
@@ -249,10 +200,10 @@ PVector updatePosObj(PVector pos, int ID, boolean authorization) {
 
 
 //go to the new position
-void P3DmoveObj(int ID) {
-  translate(posObjX[ID], posObjY[ID], posObjZ[ID]) ;
-  rotateX(radians(dirObjX[ID])) ;
-  rotateY(radians(dirObjY[ID])) ;
+void final_pos_item(int ID) {
+  translate(pos_item_old[ID]) ;
+  rotateX(radians(dir_item_old[ID].x)) ;
+  rotateY(radians(dir_item_old[ID].y)) ;
 }
 
 
@@ -270,22 +221,29 @@ void P3DmoveObj(int ID) {
 
 //Create ref position
 void addRefObj(int ID) {
-  posObj[ID] = new PVector (posObjX[ID], posObjY[ID],posObjZ[ID]) ;
-  dirObj[ID] = new PVector (dirObjX[ID], dirObjY[ID]);
+  posObj[ID] = Vec3(pos_item_old[ID]) ;
+  dirObj[ID] = Vec3(dir_item_old[ID]);
 }
 
 
-
+/**
 //starting position
-void startPosition(int ID, int x, int y, int z) {
-  // tartingPosition[ID] = Vec3(x,y,z) ;
-  posObjX[ID] = x -(width/2) ;
-  posObjY[ID] = y -(height/2) ;
-  posObjZ[ID] = z ;
-  
-  item_setting_position [0][ID] = Vec3(posObjX[ID], posObjY[ID], posObjZ[ID] ) ;
-  item_setting_direction [0][ID] = Vec2(dirObjX[ID], dirObjY[ID]) ;
-  mouse[ID] = Vec3(x,y,z) ;
+Must be refactoring in two method
+position and direction
+*/
+void startPosition(int ID, int pos_x, int pos_y, int pos_z) {
+  // startingPosition[ID] = Vec3(x,y,z) ;
+  if(pos_item_old[ID] == null) pos_item_old[ID] = Vec3() ;
+  pos_item_old[ID].x = pos_x -(width/2) ;
+  pos_item_old[ID].y = pos_y -(height/2) ;
+  pos_item_old[ID].z = pos_z ;
+  if(item_setting_position [0][ID] == null) item_setting_position [0][ID] = Vec3() ;
+  item_setting_position [0][ID] = Vec3(pos_item_old[ID]) ;
+
+  if(dir_item_old[ID] == null) dir_item_old[ID] = Vec3() ;
+  if(item_setting_direction [0][ID] == null) item_setting_direction [0][ID] = Vec3() ;
+  item_setting_direction [0][ID] = Vec3(dir_item_old[ID]) ;
+  mouse[ID] = Vec3(pos_x, pos_y, pos_z) ;
 }
 // END MOVE OBJECT
 ///////////////////////////////////////////
@@ -462,8 +420,8 @@ void variableCameraPresceneRendering() {
 
 
 //CATCH a ref position and direction of the camera
-PVector posCamRef = new PVector() ;
-PVector eyeCamRef = new PVector() ;
+Vec3 posCamRef = Vec3() ;
+Vec3 eyeCamRef = Vec3() ;
 //boolean security to catch the reference camera when you reset the position of this one
 boolean catchCam = true ;
 
@@ -526,13 +484,13 @@ void updateCamera(boolean scene, boolean eye, boolean leapMotion, boolean author
     /* We cannot use the method copy() of the PVector, because we must preserve the "Z" parameter of this PVector to move the Scene with the wheel */
     sceneCamera.x = updatePosCamera(scene, leapMotion, mouse[0]).x ;
     sceneCamera.y = updatePosCamera(scene, leapMotion, mouse[0]).y ;
-    eyeCamera.set(updateEyeCamera(eye, new PVector(mouse[0].x,mouse[0].y,mouse[0].z))) ;
+    eyeCamera.set(updateEyeCamera(eye, mouse[0])) ;
   }
 }
 
 
 // move camera to target
-void moveCamera(PVector origin, PVector target, float speed) {
+void moveCamera(Vec3 origin, Vec3 target, float speed) {
   if(!moveScene) sceneCamera = follow(origin, target, speed) ;
   if(!moveEye && (gotoCameraPosition || gotoCameraEye)) eyeCamera = backEye()  ;
 }
@@ -542,7 +500,7 @@ void moveCamera(PVector origin, PVector target, float speed) {
 void changeCameraPosition(int ID) {
   eyeCamera.set(eyeCameraSetting[ID]) ;
   sceneCamera.set(sceneCameraSetting[ID]) ;
-  updateEyeCamera(true, new PVector()) ;
+  updateEyeCamera(true, Vec3()) ;
   tempEyeCamera.set(0,0,0) ;
   gotoCameraPosition = false ;
   gotoCameraEye = false ;
@@ -591,18 +549,18 @@ boolean checkMouseMove( boolean authorization) {
 
 
 //GET
-PVector getEyeCamera() { return eyeCamera ; }
-PVector getPosCamera() { return sceneCamera ; }
+Vec3 getEyeCamera() { return eyeCamera ; }
+Vec3 getPosCamera() { return sceneCamera ; }
 
 
 
 
 //INIT FOLLOW
 float distFollowRef = 0 ;
-PVector eyeBackRef = new PVector() ;
+Vec3 eyeBackRef = Vec3() ;
 //travelling with only camera position
-void travelling(PVector target) {
-  distFollowRef = PVector.dist(target, sceneCamera) ;
+void travelling(Vec3 target) {
+  distFollowRef = dist(target, sceneCamera) ;
   
   targetPosCam = target ; 
   eyeBackRef = getEyeCamera() ;
@@ -617,8 +575,8 @@ void travelling(PVector target) {
 float speedX  ;
 float speedY  ;
     
-PVector backEye() {
-  PVector eye = new PVector() ;
+Vec3 backEye() {
+  Vec3 eye = Vec3() ;
 
   if(gotoCameraEye) {
     if(currentDistToTarget > 2 ) {
@@ -664,6 +622,12 @@ PVector distToTargetUpdated = new PVector () ;
 float currentDistToTarget = 0 ;
 PVector currentPosition = new PVector() ;
 PVector absPosition = new PVector() ;
+
+Vec3 follow(Vec3 origin, Vec3 target, float speed) {
+  PVector PVorigin = new PVector(origin.x, origin.y, origin.z) ;
+  PVector PVtarget = new PVector(target.x, target.y, target.z) ;
+  return Vec3(follow(PVorigin, PVtarget, speed)) ;
+}
 
 PVector follow(PVector origin, PVector target, float speed) {
   //very weird I must inverse the value to have the good result !

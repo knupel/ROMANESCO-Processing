@@ -104,7 +104,8 @@ int numButtonObj  ;
 color COLOR_FILL_OBJ_PREVIEW  ; 
 color COLOR_STROKE_OBJ_PREVIEW ;
 int THICKNESS_OBJ_PREVIEW = 2 ;
-int numObj ;
+int NUM_ITEM ;
+int NUM_SETTING_ITEM ;
 Table indexObjects ;
 TableRow [] rowIndexObject ;
 //MISC var
@@ -340,23 +341,27 @@ float [] tempo, tempoBeat, tempoKick, tempoSnare, tempoHat ;
 
 //P3D OBJECT
 //setting and save
-int numSettingCamera = 1 ;
+int NUM_SETTING_CAMERA  ;
 int numSettingOrientationObject = 1 ;
 Vec3 [][] item_setting_position ;
-Vec2 [][] item_setting_direction ;
-PVector [] eyeCameraSetting, sceneCameraSetting ;
+Vec3 [][] item_setting_direction ;
+Vec3 [] eyeCameraSetting, sceneCameraSetting ;
 //position
 // Vec3 setting_position [] ;
-float [] posObjX, posObjY, posObjZ ;
+// float [] posObjX, posObjY, posObjZ ;
+Vec3 [] pos_item_old ;
 // Vec3 [] pos_item ;
 
 // PVector posObjRef ;
 boolean newObjRefPos ;
-PVector [] posObj, dirObj ;
+Vec3 [] posObj ;
+Vec3 [] dirObj ;
 Vec3 [] posObjRef ;
 //orientation
-float [] dirObjX, dirObjY ;
-PVector dirObjRef ;
+// float [] dirObjX, dirObjY ;
+Vec3 [] dir_item_old ;
+Vec3 dir_reference_all_items ;
+//Vec3 dir_referance ;
 boolean newObjRefDir ;
 
 //position of object and wheel
@@ -392,194 +397,198 @@ PFont font[]  ;
 
 //init var
 void create_variable() {
-  numObj = rpe_manager.numClasses + 1 ;
-  //BUTTON CONTROLER
-  numButtonObj = numObj*10 ;
+  NUM_ITEM = rpe_manager.numClasses +1 ;
+  NUM_SETTING_ITEM = 1 ;
+  NUM_SETTING_CAMERA = 1 ;
+  numButtonObj = NUM_ITEM *10 ;
+
   createMiscVar() ;
   create_variableButton() ;
   create_variableSound() ;
-  create_variableP3D(numObj, numSettingCamera, numSettingOrientationObject) ;
+  create_variable_P3D(NUM_SETTING_CAMERA) ;
   create_variableCursor() ;
   create_var_item() ;
+  create_var_item_manipulation(NUM_SETTING_ITEM) ;
   rpe_manager.initObj() ;
+  
   println("create_variable done") ;
 }
 // misc var
 void createMiscVar() {
-  objectLeapID = new int[numObj] ;
-  objectInfoDisplay = new boolean[numObj] ;
+  objectLeapID = new int[NUM_ITEM] ;
+  objectInfoDisplay = new boolean[NUM_ITEM] ;
 
-  setting = new boolean [numObj]  ;
+  setting = new boolean [NUM_ITEM]  ;
   // boolean clear
-  clearList = new boolean[numObj] ;
-  motion = new boolean [numObj]  ;
-  horizon = new boolean [numObj]  ;
-  reverse = new boolean [numObj] ;
+  clearList = new boolean[NUM_ITEM] ;
+  motion = new boolean [NUM_ITEM]  ;
+  horizon = new boolean [NUM_ITEM]  ;
+  reverse = new boolean [NUM_ITEM] ;
 
   // IMAGE
-  bitmap_import = new PImage[numObj] ;
-  which_bitmap = new int[numObj] ;
-  bitmap_path_ref = new String[numObj] ;
+  bitmap_import = new PImage[NUM_ITEM] ;
+  which_bitmap = new int[NUM_ITEM] ;
+  bitmap_path_ref = new String[NUM_ITEM] ;
   // SVG
-  svg_import = new RPEsvg[numObj] ;
-  which_svg = new int[numObj] ;
-  svg_path_ref = new String[numObj] ;
+  svg_import = new RPEsvg[NUM_ITEM] ;
+  which_svg = new int[NUM_ITEM] ;
+  svg_path_ref = new String[NUM_ITEM] ;
 
   // Movie
-  movieImport = new Movie[numObj] ;
-  movieImportPath = new String[numObj] ;
-  which_movie = new int[numObj] ;
-  movie_path_ref = new String[numObj] ;
+  movieImport = new Movie[NUM_ITEM] ;
+  movieImportPath = new String[NUM_ITEM] ;
+  which_movie = new int[NUM_ITEM] ;
+  movie_path_ref = new String[NUM_ITEM] ;
   // TEXT
-  text_import = new String [numObj] ;
-  which_text = new int[numObj] ;
+  text_import = new String [NUM_ITEM] ;
+  which_text = new int[NUM_ITEM] ;
   //main font for each object
-  font = new PFont[numObj] ;
-  pathFontObjTTF = new String[numObj] ;
+  font = new PFont[NUM_ITEM] ;
+  pathFontObjTTF = new String[NUM_ITEM] ;
   pathFontTTF = new String [numFont] ;  
   pathFontVLW = new String [numFont] ;
   font = new PFont[numFont] ;
   //MISC
   //var to init the data of the object when is switch ON for the first time
-  initValueMouse = new boolean [numObj]  ;
-  initValueControleur = new boolean [numObj]  ;
+  initValueMouse = new boolean [NUM_ITEM]  ;
+  initValueControleur = new boolean [NUM_ITEM]  ;
 }
 // var cursor
 void create_variableCursor() {
   //position of object and wheel
-   mouse  = new Vec3[numObj] ;
-   clickShortLeft = new boolean [numObj] ;
-   clickShortRight = new boolean [numObj] ;
-   clickLongLeft = new boolean [numObj] ;
-   clickLongRight = new boolean [numObj] ;
-   wheel = new int [numObj] ;
+   mouse  = new Vec3[NUM_ITEM] ;
+   clickShortLeft = new boolean [NUM_ITEM] ;
+   clickShortRight = new boolean [NUM_ITEM] ;
+   clickLongLeft = new boolean [NUM_ITEM] ;
+   clickLongRight = new boolean [NUM_ITEM] ;
+   wheel = new int [NUM_ITEM] ;
   //pen info
-   pen = new Vec3[numObj] ;
+   pen = new Vec3[NUM_ITEM] ;
 }
-// P3D
-void create_variableP3D(int numObj, int numSettingCamera, int numSettingOrientationObject) {
-   // setting and save
-   eyeCameraSetting = new PVector [numSettingCamera] ;
-   sceneCameraSetting = new PVector [numSettingCamera] ;
 
-   item_setting_position = new Vec3 [numSettingOrientationObject] [numObj] ;
-   item_setting_direction = new Vec2 [numSettingOrientationObject] [numObj] ;
-   //
-   // setting_position = new Vec3[numObj] ;
-   posObjX = new float[numObj] ;
-   posObjY = new float[numObj] ;
-   posObjZ = new float[numObj] ;
-   
-   // orientation
-   dirObjX = new float[numObj] ;
-   dirObjY = new float[numObj] ;
-   posObjRef = new Vec3[numObj] ;
-   posObj = new PVector[numObj] ;
-   dirObj = new PVector[numObj] ;
+
+// P3D
+// void create_variable_P3D(int numObj, int numSettingCamera, int numSettingOrientationObject) {
+void create_variable_P3D(int num_setting_camera) {
+   // setting and save
+   eyeCameraSetting = new Vec3 [num_setting_camera] ;
+   sceneCameraSetting = new Vec3 [num_setting_camera] ;
+
+   posObjRef = new Vec3[NUM_ITEM] ;
+   posObj = new Vec3[NUM_ITEM] ;
+   dirObj = new Vec3[NUM_ITEM] ;
 }
 
 void create_variableSound() {
   // volume 
-   left = new float [numObj] ;
-   right = new float [numObj] ;
-   mix  = new float [numObj] ;
+   left = new float [NUM_ITEM] ;
+   right = new float [NUM_ITEM] ;
+   mix  = new float [NUM_ITEM] ;
    // beat
-   beat  = new float [numObj] ;
-   kick  = new float [numObj] ;
-   snare  = new float [numObj] ;
-   hat  = new float [numObj] ;
+   beat  = new float [NUM_ITEM] ;
+   kick  = new float [NUM_ITEM] ;
+   snare  = new float [NUM_ITEM] ;
+   hat  = new float [NUM_ITEM] ;
    // spectrum
-   band = new float [numObj][NUM_BANDS] ;
+   band = new float [NUM_ITEM][NUM_BANDS] ;
    // tempo
-   tempo = new float [numObj] ;
-   tempoBeat = new float [numObj] ;
-   tempoKick = new float [numObj] ;
-   tempoSnare = new float [numObj] ;
-   tempoHat = new float [numObj] ;
+   tempo = new float [NUM_ITEM] ;
+   tempoBeat = new float [NUM_ITEM] ;
+   tempoKick = new float [NUM_ITEM] ;
+   tempoSnare = new float [NUM_ITEM] ;
+   tempoHat = new float [NUM_ITEM] ;
 }
 //
 
 //
 void create_variableButton() {
-  objectButton = new int [numObj] ;
-  soundButton = new int [numObj] ;
-  actionButton = new int [numObj] ;
-  parameterButton = new int [numObj] ;
-  show_object = new boolean [numObj] ;
-  sound = new boolean [numObj] ;
-  action = new boolean [numObj] ;
-  parameter = new boolean [numObj] ;
-  mode = new int [numObj] ;
+  objectButton = new int [NUM_ITEM] ;
+  soundButton = new int [NUM_ITEM] ;
+  actionButton = new int [NUM_ITEM] ;
+  parameterButton = new int [NUM_ITEM] ;
+  show_object = new boolean [NUM_ITEM] ;
+  sound = new boolean [NUM_ITEM] ;
+  action = new boolean [NUM_ITEM] ;
+  parameter = new boolean [NUM_ITEM] ;
+  mode = new int [NUM_ITEM] ;
   
   // you must init this var, because we launch this part of code before the controller. And if we don't init the value is NaN and return an error.
   valueButtonGlobal = new int[numButtonGlobal] ;
-  valueButtonObj = new int[numObj*10] ;
+  valueButtonObj = new int[numButtonObj] ;
 
+}
+
+
+void create_var_item_manipulation(int num_item_setting) {
+  pos_item_old = new Vec3 [NUM_ITEM] ;
+  dir_item_old = new Vec3 [NUM_ITEM] ;
+  item_setting_position = new Vec3 [num_item_setting] [NUM_ITEM] ;
+  item_setting_direction = new Vec3 [num_item_setting] [NUM_ITEM] ;
 }
 
 void create_var_item() {
  
   // VAR object
-  first_opening_item = new boolean[numObj] ; // used to check if this object is already opening before
-  fill_item = new color[numObj] ;
-  stroke_item = new color[numObj] ;
+  first_opening_item = new boolean[NUM_ITEM] ; // used to check if this object is already opening before
+  fill_item = new color[NUM_ITEM] ;
+  stroke_item = new color[NUM_ITEM] ;
   // column 2
-  thickness_item = new float[numObj] ; 
+  thickness_item = new float[NUM_ITEM] ; 
 
-  size_x_item = new float[numObj] ; 
-  size_y_item = new float[numObj] ; 
-  size_z_item = new float[numObj] ;
+  size_x_item = new float[NUM_ITEM] ; 
+  size_y_item = new float[NUM_ITEM] ; 
+  size_z_item = new float[NUM_ITEM] ;
 
-  font_size_item = new float[numObj] ;
+  font_size_item = new float[NUM_ITEM] ;
 
-  canvas_x_item = new float[numObj] ; 
-  canvas_y_item = new float[numObj] ; 
-  canvas_z_item = new float[numObj] ;
+  canvas_x_item = new float[NUM_ITEM] ; 
+  canvas_y_item = new float[NUM_ITEM] ; 
+  canvas_z_item = new float[NUM_ITEM] ;
 
    //column 3
-  reactivity_item = new float[numObj] ;
+  reactivity_item = new float[NUM_ITEM] ;
 
-  speed_x_item = new float[numObj] ; 
-  speed_y_item = new float[numObj] ;
-  speed_z_item = new float[numObj] ;
+  speed_x_item = new float[NUM_ITEM] ; 
+  speed_y_item = new float[NUM_ITEM] ;
+  speed_z_item = new float[NUM_ITEM] ;
 
-  spurt_x_item = new float[numObj] ; 
-  spurt_y_item = new float[numObj] ;
-  spurt_z_item = new float[numObj] ;
+  spurt_x_item = new float[NUM_ITEM] ; 
+  spurt_y_item = new float[NUM_ITEM] ;
+  spurt_z_item = new float[NUM_ITEM] ;
 
-  dir_x_item = new float[numObj] ; 
-  dir_y_item = new float[numObj] ;
-  dir_z_item = new float[numObj] ;
+  dir_x_item = new float[NUM_ITEM] ; 
+  dir_y_item = new float[NUM_ITEM] ;
+  dir_z_item = new float[NUM_ITEM] ;
 
-  jitter_x_item = new float[numObj] ; 
-  jitter_y_item = new float[numObj] ;
-  jitter_z_item = new float[numObj] ;
+  jitter_x_item = new float[NUM_ITEM] ; 
+  jitter_y_item = new float[NUM_ITEM] ;
+  jitter_z_item = new float[NUM_ITEM] ;
 
-  swing_x_item = new float[numObj] ; 
-  swing_y_item = new float[numObj] ;
-  swing_z_item = new float[numObj] ;
+  swing_x_item = new float[NUM_ITEM] ; 
+  swing_y_item = new float[NUM_ITEM] ;
+  swing_z_item = new float[NUM_ITEM] ;
 
-  quantity_item = new float[numObj] ; 
-  variety_item = new float[numObj] ; 
+  quantity_item = new float[NUM_ITEM] ; 
+  variety_item = new float[NUM_ITEM] ; 
 
-  life_item = new float[numObj] ;
-  flow_item = new float[numObj] ;
-  quality_item = new float[numObj] ;
+  life_item = new float[NUM_ITEM] ;
+  flow_item = new float[NUM_ITEM] ;
+  quality_item = new float[NUM_ITEM] ;
 
-  area_item = new float[numObj] ;
-  angle_item = new float[numObj] ;
-  scope_item = new float[numObj] ;
-  scan_item = new float[numObj] ;
+  area_item = new float[NUM_ITEM] ;
+  angle_item = new float[NUM_ITEM] ;
+  scope_item = new float[NUM_ITEM] ;
+  scan_item = new float[NUM_ITEM] ;
 
-  alignment_item = new float[numObj] ;
-  repulsion_item = new float[numObj] ;
-  attraction_item = new float[numObj] ;
-  charge_item = new float[numObj] ;
+  alignment_item = new float[NUM_ITEM] ;
+  repulsion_item = new float[NUM_ITEM] ;
+  attraction_item = new float[NUM_ITEM] ;
+  charge_item = new float[NUM_ITEM] ;
 
 
-  influence_item = new float[numObj] ;
-  calm_item = new float[numObj] ;
-  need_item = new float[numObj] ;
+  influence_item = new float[NUM_ITEM] ;
+  calm_item = new float[NUM_ITEM] ;
+  need_item = new float[NUM_ITEM] ;
 }
 // END CREATE VAR
 //////////////////
@@ -589,8 +598,8 @@ void create_var_item() {
 // SETTING VAR
 //SETUP
 void init_variable_item() {
-  dirObjRef = new PVector() ;
-  for (int i = 0 ; i < numObj ; i++ ) {
+  dir_reference_all_items = Vec3() ;
+  for (int i = 0 ; i < NUM_ITEM ; i++ ) {
     pen[i] = Vec3() ;
     // use the 250 value for "z" to keep the position light on the front
     mouse[i] = Vec3() ;

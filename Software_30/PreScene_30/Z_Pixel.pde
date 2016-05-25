@@ -1,4 +1,4 @@
-// CLASS PIX 0.1.5
+// CLASS PIX 0.1.6
 /////////////////////
 /**
 https://github.com/StanLepunK/Pixel
@@ -75,7 +75,7 @@ class Pix implements Pixel_Constants{
   // RETURN color in Vec4
   // test the color mode to return the good data for each component
   Vec4 int_color_to_vec4_color(int c) {
-    Vec4 color_temp = new Vec4() ;
+    Vec4 color_temp = Vec4() ;
     /*
     if(g.colorMode == 3 ) color_temp = Vec4(hue(c), saturation(c), brightness(c),g.colorModeA) ;
     else color_temp = Vec4(red(c),green(c), blue(c),g.colorModeA) ;
@@ -133,7 +133,7 @@ class Pix implements Pixel_Constants{
     this.dir = Vec3(x,y,z) ;
   }
 
-  void dir_x(float x) {
+  void direction_x(float x) {
     dir.x = x ;
   }
 
