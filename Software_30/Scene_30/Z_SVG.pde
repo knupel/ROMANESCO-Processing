@@ -78,7 +78,7 @@ class RPEsvg {
     list_ellipse_SVG.clear() ;
     list_rectangle_SVG.clear() ;
     list_vertice_SVG.clear() ;
-    
+
     shape_SVG = loadShape(path) ;
     // name_SVG = shape_SVG.getName() ;
     // list_vertex(shape_SVG, name_SVG) ;

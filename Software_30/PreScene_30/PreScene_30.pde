@@ -18,8 +18,8 @@ used sound
  maximum possibility of the object
  full frame rate
 */
-boolean TEST_ROMANESCO = true ;
-boolean FULL_RENDERING = false ;
+boolean TEST_ROMANESCO = false ;
+boolean FULL_RENDERING = true ;
 
 void settings() {
   size(600,400,P3D) ;

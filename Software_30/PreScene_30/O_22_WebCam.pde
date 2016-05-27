@@ -32,7 +32,7 @@ class Webcam extends Romanesco {
   
   //SETUP
   void setup() {
-    startPosition(ID_item, width/2, height/2, 0) ;
+    setting_start_position(ID_item, width/2, height/2, 0) ;
   }
   //DRAW
   void draw() {
@@ -75,11 +75,11 @@ class Webcam extends Romanesco {
           int  loc = posPixelX  +posPixelY *cam.width; // classic
           //  int loc = (cam.width - x - 1) + y*cam.width; // mirror
           //make pixel
-          PVector hsb = new PVector (hue(cam.pixels[loc]), saturation(cam.pixels[loc]), brightness(cam.pixels[loc]) ) ;
-
-          
-          // Make a new color with an alpha component
-          displayPix(mode[ID_item],hsb) ; 
+          if(cam.pixels.length > 0) {
+            PVector hsb = new PVector (hue(cam.pixels[loc]), saturation(cam.pixels[loc]), brightness(cam.pixels[loc]) ) ;
+            // Make a new color with an alpha component
+            displayPix(mode[ID_item],hsb) ; 
+          }
         }
       } 
     } else {

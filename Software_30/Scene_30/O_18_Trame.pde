@@ -25,7 +25,8 @@ class Damier extends Romanesco {
 
   //SETUP
   void setup() {
-    startPosition(ID_item, width/2, height/2, -width) ;
+    setting_start_position(ID_item, width/2, height/2, -width) ;
+    setting_start_direction(ID_item, 0,90) ;
     trame = new Trame() ;
 
   }

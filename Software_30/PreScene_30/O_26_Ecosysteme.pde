@@ -38,7 +38,7 @@ class Ecosysteme extends Romanesco {
 	setting
 	*/
 	void setup() {
-		startPosition(ID_item, width/2, height/2, 0) ;
+		setting_start_position(ID_item, width/2, height/2, 0) ;
 		DISPLAY_INFO = false ; ;
 		ENVIRONMENT = 3 ;
 		if (ENVIRONMENT == 3 ) {

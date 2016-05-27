@@ -1,6 +1,5 @@
-// CLASS PIX 0.1.5
-/////////////////////
 /**
+CLASS PIX 0.1.7
 https://github.com/StanLepunK/Pixel
 */
 public interface Pixel_Constants {
@@ -53,7 +52,10 @@ class Pix implements Pixel_Constants{
   Vec3 grid_position ;
   int ID, rank ;
   String costume  ;
-  Vec4 colour, new_colour   ;
+  Vec4 colour, new_colour  ;
+  
+  // use for the motion
+  float field = 1.0 ;
 
 
   void init_mother_arg() {
@@ -75,14 +77,10 @@ class Pix implements Pixel_Constants{
   // RETURN color in Vec4
   // test the color mode to return the good data for each component
   Vec4 int_color_to_vec4_color(int c) {
-    Vec4 color_temp = new Vec4() ;
-    /*
-    if(g.colorMode == 3 ) color_temp = Vec4(hue(c), saturation(c), brightness(c),g.colorModeA) ;
-    else color_temp = Vec4(red(c),green(c), blue(c),g.colorModeA) ;
-    */
+    Vec4 color_temp = Vec4() ;
     if(g.colorMode == 3 ) color_temp = Vec4(hue(c), saturation(c), brightness(c),alpha(c)) ;
     else color_temp = Vec4(red(c),green(c), blue(c),alpha(c)) ;
-    return color_temp ;
+    return Vec4(color_temp) ;
   }
 
 
@@ -90,13 +88,17 @@ class Pix implements Pixel_Constants{
 
 
 
-    // ID
- //change ID after analyze if this one is good
+  /** 
+  ID
+  change ID after analyze if this one is good
+  */
   void changeID(int ID) {  
     this.ID = ID ; 
   }
   
-  // change size
+  /**
+  size
+  */
   void size(float size_pix) {
     size = Vec3(size_pix,size_pix,size_pix) ;
   }
@@ -114,8 +116,9 @@ class Pix implements Pixel_Constants{
     size = Vec3(size_pix.x,size_pix.y,size_pix.z) ;
   }
 
-
-  // angle
+  /**
+  angle
+  */
   void angle(float angle_x) {
     this.angle = Vec2(angle_x,0) ;
   }
@@ -123,8 +126,10 @@ class Pix implements Pixel_Constants{
   void angle(Vec2 angle) {
     this.angle = angle ;
   }
-
-  // normal direction
+  
+  /**
+  normal direction
+  */
   void direction(Vec3 dir) {
     this.dir = dir ;
   }
@@ -150,11 +155,11 @@ class Pix implements Pixel_Constants{
 
 
 
-  // COSTUME
-  //////////
-  
-  
-  
+
+
+  /**
+  COSTUME
+  */
   // mother method
   void costume_2D(Vec3 p, Vec3 s, Vec2 ang) {
     if (costume == POINT) point(p.x, p.y) ;
@@ -553,8 +558,7 @@ class Pixel_cloud extends Pix implements Pixel_Constants {
     }
   }
 
-
-    void cartesian_pos_2D(String order_or_chaos) {
+  void cartesian_pos_2D(String order_or_chaos) {
     float angle = TAU / num ;
     float tetha  = angle ;
     for(int i = 0 ; i < num ; i++ ) {
@@ -889,8 +893,8 @@ class Pixel extends Pix implements Pixel_Constants {
   Pixel(Vec2 pos_2D, Vec4 color_vec) {
     init_mother_arg() ;
     this.pos = new Vec3(pos_2D.x,pos_2D.y, 0)  ;
-    colour = color_vec.copy() ;
-    new_colour = colour.copy() ;
+    colour = Vec4(color_vec) ;
+    new_colour = Vec4(colour) ;
     
   }
 
@@ -898,8 +902,8 @@ class Pixel extends Pix implements Pixel_Constants {
     init_mother_arg() ;
     this.pos = new Vec3(pos_2D.x,pos_2D.y, 0)  ;
     this.size = new Vec3(size_2D.x,size_2D.y,0) ;
-    colour = color_vec.copy() ;
-    new_colour = colour.copy() ;
+    colour = Vec4(color_vec) ;
+    new_colour = Vec4(colour) ;
   }
 
   // Constructor with costume indication
@@ -929,6 +933,24 @@ class Pixel extends Pix implements Pixel_Constants {
     new_colour = colour.copy() ;
   }
 
+  // Constructor plus color components
+  Pixel(Vec2 pos_2D, int colour_int, String costume) {
+    init_mother_arg() ;
+    this.costume = costume ;
+    this.pos = new Vec3(pos_2D.x,pos_2D.y, 0)  ;
+    colour = int_color_to_vec4_color(colour_int) ;
+    new_colour = Vec4(colour) ;
+  }
+
+  Pixel(Vec2 pos_2D, Vec2 size_2D, int colour_int, String costume) {
+    init_mother_arg() ;
+    this.costume = costume ;
+    this.pos = new Vec3(pos_2D.x,pos_2D.y, 0)  ;
+    this.size = new Vec3(size_2D.x,size_2D.y,0) ;
+    colour = int_color_to_vec4_color(colour_int) ;
+    new_colour = Vec4(colour) ;
+  }
+
   // Constructor with costume indication
   Pixel(Vec2 pos_2D, Vec2 size_2D, int summits) {
     init_mother_arg() ;
@@ -955,7 +977,6 @@ class Pixel extends Pix implements Pixel_Constants {
     colour = color_vec.copy() ;
     new_colour = colour.copy() ;
   }
-
 
   //PIXEL 3D
   Pixel(Vec3 pos_3D) {
@@ -1033,7 +1054,88 @@ class Pixel extends Pix implements Pixel_Constants {
     colour = color_vec.copy() ;
     new_colour = colour.copy() ;
   }
+/*
+  Pixel(Vec2 pos_2D, int colour_int) {
+    init_mother_arg() ;
+    this.pos = new Vec3(pos_2D.x,pos_2D.y, 0)  ;
+    colour = int_color_to_vec4_color(colour_int) ;
+    new_colour = Vec4(colour) ;
+  }
 
+  Pixel(Vec2 pos_2D, Vec2 size_2D, int colour_int) {
+    init_mother_arg() ;
+    this.pos = new Vec3(pos_2D.x,pos_2D.y, 0)  ;
+    this.size = new Vec3(size_2D.x,size_2D.y,0) ;
+    colour = int_color_to_vec4_color(colour_int) ;
+    new_colour = Vec4(colour) ;
+  }
+  Pixel(Vec2 pos_2D, int colour_int, int summits) {
+    init_mother_arg() ;
+    choice_costume(summits) ;
+    this.pos = new Vec3(pos_2D.x,pos_2D.y, 0)  ;
+    colour = int_color_to_vec4_color(colour_int) ;
+    new_colour = Vec4(colour) ;
+  }
+
+  Pixel(Vec2 pos_2D, Vec2 size_2D, int colour_int , int summits) {
+    init_mother_arg() ;
+    choice_costume(summits) ;
+    this.pos = new Vec3(pos_2D.x,pos_2D.y, 0)  ;
+    this.size = new Vec3(size_2D.x,size_2D.y,0) ;
+    colour = int_color_to_vec4_color(colour_int) ;
+    new_colour = Vec4(colour) ;
+  }
+
+  Pixel(Vec3 pos_3D,  int colour_int) {
+    init_mother_arg() ;
+    this.pos = pos_3D ;
+    colour = int_color_to_vec4_color(colour_int) ;
+    new_colour = Vec4(colour) ;
+  }
+  
+  Pixel(Vec3 pos_3D, Vec3 size_3D, int colour_int) {
+    init_mother_arg() ;
+    this.pos = pos_3D ;
+    this.size = size_3D ;
+    colour = int_color_to_vec4_color(colour_int) ;
+    new_colour = Vec4(colour) ;
+  }
+
+  Pixel(Vec3 pos_3D,  int colour_int, String costume) {
+    init_mother_arg() ;
+    this.costume = costume ;
+    this.pos = pos_3D ;
+    colour = int_color_to_vec4_color(colour_int) ;
+    new_colour = Vec4(colour) ;
+  }
+  
+  Pixel(Vec3 pos_3D, Vec3 size_3D, int colour_int, String costume) {
+    init_mother_arg() ;
+    this.costume = costume ;
+    this.pos = pos_3D ;
+    this.size = size_3D ;
+    colour = int_color_to_vec4_color(colour_int) ;
+    new_colour = Vec4(colour) ;
+  }
+
+
+  Pixel(Vec3 pos_3D,  int colour_int, int summits) {
+    init_mother_arg() ;
+    choice_costume(summits) ;
+    this.pos = pos_3D ;
+    colour = int_color_to_vec4_color(colour_int) ;
+    new_colour = Vec4(colour) ;
+  }
+  
+  Pixel(Vec3 pos_3D, Vec3 size_3D, int colour_int, int summits) {
+    init_mother_arg() ;
+    choice_costume(summits) ;
+    this.pos = pos_3D ;
+    this.size = size_3D ;
+    colour = int_color_to_vec4_color(colour_int) ;
+    new_colour = Vec4(colour) ;
+  }
+*/
 
 
   
@@ -1135,31 +1237,69 @@ class Pixel_motion extends Pix implements Pixel_Constants {
   float life = 1.0 ;
 
 
-    //INK CONSTRUCTOR
+  // CONSTRUCTOR
+  Pixel_motion(Vec3 pos, float field, int colour_int) {
+    init_mother_arg() ;
+    this.pos = Vec3(pos) ;
+    this.field = field ;
+    colour = int_color_to_vec4_color(colour_int) ;
+    new_colour = Vec4(colour) ;
+  }
+
+  Pixel_motion(Vec3 pos, float field, Vec4 colour_vec) {
+    init_mother_arg() ;
+    this.pos = Vec3(pos) ;
+    this.field = field ;
+    colour = Vec4(colour_vec) ;
+    new_colour = Vec4(colour) ;
+  }
+
+  Pixel_motion(Vec3 pos, float field) {
+    init_mother_arg() ;
+    this.pos = Vec3(pos) ;
+    this.field = field ;
+  }
+
+
   /**
-  Pixel(Vec2 pos_2D, float field, int color_pixel_in_int) {
-    init_mother_arg() ;
-    this.pos_2D = pos_2D ;
-    this.field = field ;
-    this.color_pixel_in_int = color_pixel_in_int ;
-    colour = int_color_to_vec4_color(color_pixel_in_int).copy() ;
-  }
-  Pixel(Vec2 pos_2D, float field) {
-    init_mother_arg() ;
-    this.pos_2D = pos_2D ;
-    this.field = field ;
-  }
+  Motion ink
   */
+  void motion_ink_2D() {
+    int size_field = 1 ;
+    float speed_dry = 0 ;
+    motion_ink_2D(size_field, speed_dry) ;
+  }
+
+  void motion_ink_2D(float speed_dry) {
+    int size_field = 1 ;
+    motion_ink_2D(size_field, speed_dry) ;
+  }
+
+  void motion_ink_2D(int size_field) {
+    float speed_dry = 0 ;
+    motion_ink_2D(size_field, speed_dry) ;
+  }
+
+
+  // with external var
+  void motion_ink_2D(int size_field, float speed_dry) {
+    if (field > 0 ) { 
+      if(speed_dry != 0 ) field -= abs(speed_dry) ;
+      float rad;
+      float angle;
+      rad = random(-1,1) *field *size_field;
+      angle = random(-1,1) *TAU;
+      pos.x += rad * cos(angle);
+      pos.y += rad * sin(angle);
+    }
+  }
 
 
 
 
   
-  // DRYING
-  //drying is like jitter but with time effect, it's very subtil so we use a float timer.
-    // classic
-  void stop_motion_2D(float timePast) {
-  }
+
+
   
   
   

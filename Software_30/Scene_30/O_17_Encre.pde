@@ -1,8 +1,8 @@
 /**
 ENCRE  || 2012 || 1.1.1
 */
-ArrayList<Old_Pixel> encreList = new ArrayList<Old_Pixel>(); ;
-ArrayList<Old_Pixel> starList = new ArrayList<Old_Pixel>();
+ArrayList<Pixel_motion> encreList = new ArrayList<Pixel_motion>(); ;
+ArrayList<Pixel_motion> starList = new ArrayList<Pixel_motion>();
 
 //object one
 class Spray extends Romanesco {
@@ -32,7 +32,7 @@ class Spray extends Romanesco {
   
   //SETUP
   void setup() {
-    startPosition(ID_item, width/2, height/2, 0) ;
+    setting_start_position(ID_item, 0, 0, 0) ;
   }
   //DRAW
   void draw() {
@@ -76,9 +76,10 @@ class Spray extends Romanesco {
     thicknessSoundEffect = 1 + jitterOne ;
       
       
-    for (Old_Pixel p : starList) {
+    for (Pixel_motion p : starList) {
       strokeWeight(thickness_item[ID_item] *thicknessSoundEffect) ;  
-      if(changeColor) stroke(hue(p.colour), saturation(p.colour), brightness(p.colour), alpha(fill_item[ID_item])); else stroke(fill_item[ID_item]) ;
+      // if(changeColor) stroke(hue(p.colour), saturation(p.colour), brightness(p.colour), alpha(fill_item[ID_item])); else stroke(fill_item[ID_item]) ;
+      if(changeColor) stroke(p.colour.r, p.colour.g, p.colour.b, alpha(fill_item[ID_item])); else stroke(fill_item[ID_item]) ;
       point(p.pos.x +jitterOne, p.pos.y +jitterTwo, p.pos.z +jitterThree) ;
     }
     if (resetAction(ID_item)) starList.clear() ;
@@ -87,7 +88,8 @@ class Spray extends Romanesco {
   // the orderer
   void starProduction() {
     float depth = map(canvas_z_item[ID_item], width/10, width, 0, width *3) ;
-    PVector pos = new PVector(mouse[0].x - item_setting_position[0][ID_item].x, mouse[0].y - item_setting_position[0][ID_item].y, depth ) ;
+    // PVector pos = new PVector(mouse[0].x - item_setting_position[0][ID_item].x, mouse[0].y - item_setting_position[0][ID_item].y, depth ) ;
+    PVector pos = new PVector(mouse[0].x, mouse[0].y, depth ) ;
     //tha first value must be smaller than second
     
     int sizeMin = (int)map(size_x_item[ID_item],0.1,width,1,20) ;
@@ -150,7 +152,7 @@ class Spray extends Romanesco {
         
         posFinal.add(posAroundTheStar) ;
         posFinal.add(pos) ;
-        starList.add(new Old_Pixel(posFinal, colour)) ;
+        starList.add(new Pixel_motion(Vec3(posFinal), colour)) ;
         posAroundTheStar = new PVector(0,0) ;
       }
     }
@@ -179,7 +181,7 @@ class Spray extends Romanesco {
     spray = int(spr) ;
     
     // INK DRY
-    float var = tempo[ID_item] ;
+    int size_field = (int)tempo[ID_item] ;
     float timeDry = 1.0 / float(dry) ;
   
    // add encre
@@ -188,11 +190,11 @@ class Spray extends Romanesco {
    if (action[ID_item] && nLongTouch && clickLongLeft[0] && encreList.size() < security) addEncre(factorPressure, sprayDirection, angleSpray, spray, inkDiffusion, inkFlux, fill_item[ID_item]) ; 
   
     //display
-    for ( Old_Pixel e :  encreList ) {
-      if (action[ID_item]) e.drying(var, timeDry) ;
+    for ( Pixel_motion e :  encreList ) {
+      if (action[ID_item]) e.motion_ink_2D(size_field, timeDry) ;
       strokeWeight(thicknessPoint) ;
       noFill() ;
-      if(changeColor) stroke(hue(e.colour), saturation(e.colour), brightness(e.colour), alpha(fill_item[ID_item])); else stroke(fill_item[ID_item]) ;
+      if(changeColor) stroke(e.colour.r, e.colour.g, e.colour.b, alpha(fill_item[ID_item])); else stroke(fill_item[ID_item]) ;
       point(e.pos.x, e.pos.y) ;
     }
     
@@ -223,7 +225,7 @@ class Spray extends Romanesco {
 
       
       //put the pixel in the list to use peacefully
-      encreList.add( new Old_Pixel(new PVector(mouse[ID_item].x,mouse[ID_item].y,mouse[ID_item].z), diffusion, colorInk)) ;
+      encreList.add( new Pixel_motion(mouse[ID_item], diffusion, colorInk)) ;
     }
   }
   

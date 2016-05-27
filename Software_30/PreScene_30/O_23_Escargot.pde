@@ -102,7 +102,7 @@ class Escargot extends Romanesco {
   
   //SETUP
   void setup() {
-    startPosition(ID_item, 0, 0, 0) ;
+    setting_start_position(ID_item, width/2, height/2, 0) ;
     load_bitmap(ID_item) ;
     if(!FULL_RENDERING) maxVoronoiPoints = 250 ;
     //load pattern SVG to display a Pixel pattern you create in Illustrator or other software

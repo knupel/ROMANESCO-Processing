@@ -21,7 +21,7 @@ class SpiraleRomanesco extends Romanesco {
     boolean reverseSpeed;
   //SETUP
   void setup() {
-    startPosition(ID_item, width/2, height/2, 0) ;
+    setting_start_position(ID_item, width/2, height/2, 0) ;
     spirale = new Spirale() ;
   }
   //DRAW

@@ -1,5 +1,5 @@
 /**
-CLASS VEC 1.3.0
+CLASS VEC 1.3.1
 RPE – Romanesco Processing Environment – 2015 – 2016
 * @author Stan le Punk
 * @see https://github.com/StanLepunK/Vec
@@ -3028,11 +3028,16 @@ void curveVertex(Vec3 a){
 Fill
 */
 void fill(Vec2 c) {
-  fill(c.x, c.y) ;
+  if( c.y > 0) fill(c.x, c.y) ; else noFill() ;
 }
 void fill(Vec3 c) {
   fill(c.r,c.g,c.b) ;
 }
+
+void fill(Vec3 c, float a) {
+  if( a > 0)  fill(c.r,c.g,c.b, a) ; else noFill() ;
+}
+
 void fill(Vec4 c) {
   if( c.a > 0) fill(c.r,c.g,c.b,c.a) ; else noFill() ;
 }
@@ -3040,11 +3045,16 @@ void fill(Vec4 c) {
 Stroke
 */
 void stroke(Vec2 c) {
-  stroke(c.x, c.y) ;
+  if(c.y > 0) stroke(c.x, c.y) ; else noStroke() ;
 }
 void stroke(Vec3 c) {
   stroke(c.r,c.g,c.b) ;
 }
+
+void stroke(Vec3 c, float a) {
+  if( a > 0)  stroke(c.r,c.g,c.b, a) ; else noStroke() ;
+}
+
 void stroke(Vec4 c) {
   if(c.a > 0) stroke(c.r,c.g,c.b,c.a) ; else noStroke() ;
 }

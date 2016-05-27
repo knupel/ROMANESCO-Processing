@@ -22,7 +22,7 @@ int left_volume_info = 0 ;
 
 //////////////
 // SOUND SETUP
-void soundSetup() {
+void sound_setup() {
   //Sound
   minim = new Minim(this);
   //sound from outside

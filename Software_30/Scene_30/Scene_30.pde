@@ -59,7 +59,7 @@ void setup() {
   
   font_setup() ;
 
-  if(!TEST_ROMANESCO) soundSetup() ;
+  if(!TEST_ROMANESCO) sound_setup() ;
   variables_setup() ; // the varObject setup of the Scene is more simple
 
   light_position_setup() ;

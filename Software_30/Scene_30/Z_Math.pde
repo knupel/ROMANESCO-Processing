@@ -1,5 +1,5 @@
 /**
-Z_Math 1.8.5
+Z_Math 1.8.6
 */
 // CONSTANT NUMBER must be here to be generate before all
 /////////////////////////////////////////////////////////
@@ -525,20 +525,20 @@ PVector [] circle (PVector pos, int d, int num, float jitter) {
 // PRIMITIVE  with "n" summits
 */
 void primitive(float radius, int summits) {
-  Vec3 pos = new Vec3 () ;
+  Vec3 pos = Vec3 () ;
   float orientation = 0 ;
   Vec2 dir = Vec2() ;
   primitive(pos, radius, summits, orientation, dir) ;
 }
 
 void primitive(Vec2 p, float radius, int summits) {
-  Vec3 pos = new Vec3 (p.x,p.y,0) ;
+  Vec3 pos = Vec3 (p.x,p.y,0) ;
   float orientation = 0 ;
   Vec2 dir = Vec2() ;
   primitive(pos, radius, summits, orientation, dir) ;
 }
 void primitive(Vec2 p, float radius, int summits, float orientation) {
-  Vec3 pos = new Vec3 (p.x,p.y,0) ;
+  Vec3 pos = Vec3 (p.x,p.y,0) ;
   Vec2 dir = Vec2() ;
   primitive(pos, radius, summits, orientation, dir) ;
 }
@@ -725,7 +725,7 @@ Vec3 [] polygon_3D (Vec3 pos, float radius, int num, float new_orientation, Vec3
   s.dir() ;
 
   // prepare polygone in 3D world
-  Vec3 plane = new Vec3();
+  Vec3 plane = Vec3();
   int num_temp = num +1 ;
   Vec3 [] p ;
   p = new Vec3 [num_temp] ;

@@ -347,22 +347,16 @@ Vec3 [][] item_setting_position ;
 Vec3 [][] item_setting_direction ;
 Vec3 [] eyeCameraSetting, sceneCameraSetting ;
 //position
-// Vec3 setting_position [] ;
-// float [] posObjX, posObjY, posObjZ ;
 Vec3 [] pos_item_old ;
-// Vec3 [] pos_item ;
 
-// PVector posObjRef ;
-boolean newObjRefPos ;
 Vec3 [] posObj ;
 Vec3 [] dirObj ;
 Vec3 [] posObjRef ;
 //orientation
-// float [] dirObjX, dirObjY ;
+boolean [] reset_camera_direction_item ;
+Vec3 [] temp_item_canvas_direction ;
 Vec3 [] dir_item_old ;
 Vec3 dir_reference_all_items ;
-//Vec3 dir_referance ;
-boolean newObjRefDir ;
 
 //position of object and wheel
 Vec3 [] mouse, pen ;
@@ -395,7 +389,9 @@ PFont font[]  ;
 
 
 
-//init var
+/**
+CREATE VAR
+*/
 void create_variable() {
   NUM_ITEM = rpe_manager.numClasses +1 ;
   NUM_SETTING_ITEM = 1 ;
@@ -413,6 +409,8 @@ void create_variable() {
   
   println("create_variable done") ;
 }
+
+
 // misc var
 void createMiscVar() {
   objectLeapID = new int[NUM_ITEM] ;
@@ -453,6 +451,7 @@ void createMiscVar() {
   initValueMouse = new boolean [NUM_ITEM]  ;
   initValueControleur = new boolean [NUM_ITEM]  ;
 }
+
 // var cursor
 void create_variableCursor() {
   //position of object and wheel
@@ -473,7 +472,8 @@ void create_variable_P3D(int num_setting_camera) {
    // setting and save
    eyeCameraSetting = new Vec3 [num_setting_camera] ;
    sceneCameraSetting = new Vec3 [num_setting_camera] ;
-
+   
+   reset_camera_direction_item = new boolean[NUM_ITEM] ;
    posObjRef = new Vec3[NUM_ITEM] ;
    posObj = new Vec3[NUM_ITEM] ;
    dirObj = new Vec3[NUM_ITEM] ;
@@ -522,6 +522,7 @@ void create_variableButton() {
 void create_var_item_manipulation(int num_item_setting) {
   pos_item_old = new Vec3 [NUM_ITEM] ;
   dir_item_old = new Vec3 [NUM_ITEM] ;
+  temp_item_canvas_direction = new Vec3 [NUM_ITEM] ;
   item_setting_position = new Vec3 [num_item_setting] [NUM_ITEM] ;
   item_setting_direction = new Vec3 [num_item_setting] [NUM_ITEM] ;
 }
@@ -595,11 +596,14 @@ void create_var_item() {
 
 
 
-// SETTING VAR
-//SETUP
+/**
+INIT VAR
+*/
 void init_variable_item() {
   dir_reference_all_items = Vec3() ;
   for (int i = 0 ; i < NUM_ITEM ; i++ ) {
+    reset_camera_direction_item[i] = true ;
+    temp_item_canvas_direction[i] = Vec3() ;
     pen[i] = Vec3() ;
     // use the 250 value for "z" to keep the position light on the front
     mouse[i] = Vec3() ;

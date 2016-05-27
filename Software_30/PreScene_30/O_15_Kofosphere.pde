@@ -20,8 +20,8 @@ class Kofosphere extends Romanesco {
   //SETUP
   void setup() {
    // very strange start position to be in the middle of the Scene
-   startPosition(ID_item, width/2 -(width/4), height/2 -(height/4), 0) ;
-    // startPosition(ID_item, 0, width/2, -(height *2)) ;
+   setting_start_position(ID_item, width/2, height/2, 0) ;
+    // setting_start_position(ID_item, 0, width/2, -(height *2)) ;
     
     float startingRadius = width ;
     

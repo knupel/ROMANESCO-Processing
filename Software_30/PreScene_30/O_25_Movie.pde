@@ -27,8 +27,8 @@ class Movisco extends Romanesco {
 
 	// setup
 	void setup() {
-		// startPosition(ID_item, width/2, height/2, 0) ;
-		startPosition(ID_item, 0, 0, 0) ;
+		// setting_start_position(ID_item, width/2, height/2, 0) ;
+		setting_start_position(ID_item, 0, 0, 0) ;
 		load_movie(ID_item) ;
 
 		pix_step = 50 ;

@@ -42,7 +42,7 @@ class Galaxie extends Romanesco {
   
   //SETUP
   void setup() {
-    startPosition(ID_item, 0, 0, 0) ;
+    setting_start_position(ID_item, 0, 0, 0) ;
   }
   //DRAW
   void draw() {

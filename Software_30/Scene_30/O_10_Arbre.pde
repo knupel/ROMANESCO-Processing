@@ -22,7 +22,7 @@ class ArbreRomanesco extends Romanesco {
   PVector posArbre = new PVector () ;
   //SETUP
   void setup() {
-    startPosition(ID_item, width/2, height/3, 0) ;
+    setting_start_position(ID_item, width/2, height/3, 0) ;
     arbre = new Arbre () ;
   }
   //DRAW

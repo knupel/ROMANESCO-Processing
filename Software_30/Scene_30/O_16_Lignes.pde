@@ -21,7 +21,7 @@ class Lignes extends Romanesco {
   float thicknessLine ;
   //SETUP
   void setup() {
-    startPosition(ID_item, 0, 0, -width) ;
+    setting_start_position(ID_item, 0, 0, -width) ;
     line = new Line() ;
   }
   //DRAW

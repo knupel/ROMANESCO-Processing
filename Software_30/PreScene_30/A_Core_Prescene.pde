@@ -187,6 +187,7 @@ void updateMouseZ() {
 /**
 May be not used
 */
+/*
 String nameNumber(String name) {
   String numPict ;
   int year = year() -2000 ;
@@ -199,6 +200,7 @@ String nameNumber(String name) {
   
   return numPict ;
 }
+*/
 
 
 
