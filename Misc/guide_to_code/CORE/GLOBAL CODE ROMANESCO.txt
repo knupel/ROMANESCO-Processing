@@ -1,7 +1,9 @@
- 
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////// ROMANESCO PROJECT /////////////////////////////////////////////////////////////////
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+January 2014 / Romanesco 26
+---------------------------
+---------------------------
+
+
 The main sketch is the Prescene, it receive slider information from Contrôleur, mouse, leapmotion, midi-controller, pen apply this one
 and send a major part of the result to Scene or Miroir, who're just a slave !
 
@@ -112,11 +114,7 @@ boolean prescene
 
 //
 boolean internet // say if internet is available
-boolean modeP3D  // say if P3D render is available
 
-int IDfamilly ;  // 1 is the simple object first sliders
-                 // 2 is the texture family second group of sliders
-                 // 3 is typo family third groud of sliders
 
 
 
@@ -148,7 +146,7 @@ final float PHI = (1 + sqrt(5))/2; // the golden ratio
 final float ROOT2 = sqrt(2); // the number of Pythagore
 final float EULER = 2.718281828459045235360287471352; // Constant d'auler
 
-// METHODE
+// METHOD
 float distance(PVector p0, PVector p1 ) calcul distance between two PVectors
 
 float deg360 (PVector dir) // return a 360 direction from PVector direction value between -1 to 1 ;

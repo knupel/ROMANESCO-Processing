@@ -1,6 +1,9 @@
-
-PRESCENE
-/////////
+ROMANESC0 1.2.0.30
+ITEM
+ROMANESCO PROCESSING ENVIRONMENT 
+--
+IMPORT TEXT
+--
 Romanesco call fileText.txt from the folder Karaoke from the preferences folder,
 so you can write on it when you use Romanesco split function
 "*" to separate the chapter 
@@ -34,6 +37,16 @@ textPath[which_text] ; text from the dropdown menu
 int numMaxSentencesByChapter(String text_import[ID_item]) give the number of sentences of the chapter have the most sentences
 
 String whichSentence(String txt, int whichChapter, int whichSentence) return String
+
+
+
+
+
+
+
+// DEPRECATED / UNKNOW / USELESS ????
+
+textPath[whichText] ; text from the dropdown menu
 
 
 

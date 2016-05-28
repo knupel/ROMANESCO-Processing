@@ -74,7 +74,7 @@ void draw() {
   
   if(!syphon_on_off) surface.setTitle(nameVersion + " " +prettyVersion+"."+version+ " | Scéne | FPS: "+round(frameRate)); else frame.setTitle(nameVersion + " " +prettyVersion+"."+version+ " | Miroir | FPS: "+round(frameRate));
   if (!FULL_SCREEN) size_scene() ;
-  init_and_update_diplay_var() ;
+  init_RPE() ;
 
   syphon_draw() ;
   camera_video_draw() ;

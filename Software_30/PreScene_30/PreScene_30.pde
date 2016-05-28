@@ -71,8 +71,8 @@ void setup() {
 //DRAW
 void draw() {
   surface.setTitle(nameVersion + " " +prettyVersion+"."+version+ " | Préscène | FPS: "+round(frameRate));
-  //setting
-  init_and_update_diplay_var() ;
+  init_RPE() ;
+
   syphon_draw() ;
   camera_video_draw() ;
   // here we ask for the TEST_ROMANESCO true, because the Minim Library talk too much in the consol

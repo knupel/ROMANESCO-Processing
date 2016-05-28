@@ -1,3 +1,9 @@
+ROMANESC0 1.2.0.30
+ITEM
+ROMANESCO PROCESSING ENVIRONMENT 
+--
+IMPORT SVG
+--
 Method to load and use svg, from the dropdown menu of the controller
 
 load_svg(ID_item) ;

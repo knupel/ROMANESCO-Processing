@@ -42,9 +42,14 @@ PApplet callingClass = this ;
 java.awt.Insets insets; 
 
 
-
+// WINDOW VAR
+PVector SIZE_BG  ;
 int MIN_WINDOW_WIDTH = 128 ; 
 int MIN_WINDOW_HEIGHT = 128 ;
+
+
+
+
 // Max value whi is return from the slider controller
 int MAX_VALUE_SLIDER = 360 ;
 // num obj count in Romanesco Manager
@@ -346,17 +351,18 @@ int numSettingOrientationObject = 1 ;
 Vec3 [][] item_setting_position ;
 Vec3 [][] item_setting_direction ;
 Vec3 [] eyeCameraSetting, sceneCameraSetting ;
+
 //position
 Vec3 [] pos_item_old ;
-
 Vec3 [] posObj ;
-Vec3 [] dirObj ;
 Vec3 [] posObjRef ;
-//orientation
+
+// direction
 boolean [] reset_camera_direction_item ;
+Vec3 [] dirObj ;
 Vec3 [] temp_item_canvas_direction ;
 Vec3 [] dir_item_old ;
-Vec3 dir_reference_all_items ;
+Vec3 [] dir_reference_items ;
 
 //position of object and wheel
 Vec3 [] mouse, pen ;
@@ -521,9 +527,11 @@ void create_variableButton() {
 
 void create_var_item_manipulation(int num_item_setting) {
   pos_item_old = new Vec3 [NUM_ITEM] ;
-  dir_item_old = new Vec3 [NUM_ITEM] ;
-  temp_item_canvas_direction = new Vec3 [NUM_ITEM] ;
   item_setting_position = new Vec3 [num_item_setting] [NUM_ITEM] ;
+
+  dir_item_old = new Vec3 [NUM_ITEM] ;
+  dir_reference_items = new Vec3 [NUM_ITEM] ;
+  temp_item_canvas_direction = new Vec3 [NUM_ITEM] ;
   item_setting_direction = new Vec3 [num_item_setting] [NUM_ITEM] ;
 }
 
@@ -600,8 +608,7 @@ void create_var_item() {
 INIT VAR
 */
 void init_variable_item() {
-  dir_reference_all_items = Vec3() ;
-  for (int i = 0 ; i < NUM_ITEM ; i++ ) {
+  for (int i = 0 ; i < NUM_ITEM ; i++ ) {     
     reset_camera_direction_item[i] = true ;
     temp_item_canvas_direction[i] = Vec3() ;
     pen[i] = Vec3() ;

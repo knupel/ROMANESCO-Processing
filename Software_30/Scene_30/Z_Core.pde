@@ -1,7 +1,27 @@
 /**
 CORE SCENE and PRESCENE 1.1.1
 */
+/**
+INIT RPE
+*/
+boolean init_RPE = true ;
+void init_RPE() {
+  rectMode (CORNER) ;
+  textAlign(LEFT) ;
+  
+  if(init_RPE) {
+    SIZE_BG = new PVector(width *100, height *100, height *7.5) ;
 
+    int which_setting = 0 ;
+    for(int i = 0 ; i < NUM_ITEM ; i ++) {
+      reset_direction_item (which_setting, i) ;
+      update_ref_direction(i) ;
+      // check for null before start
+      if(dir_item_old[i] == null ) dir_item_old[i] = Vec3() ;
+    }
+    init_RPE = false ;
+  }
+}
 
 
 
@@ -10,11 +30,7 @@ CORE SCENE and PRESCENE 1.1.1
 /**
 CHECK FOLDER
 */
-void init_and_update_diplay_var() {
-  rectMode (CORNER) ;
-  textAlign(LEFT) ;
-  sizeBackgroundP3D = new PVector(width *100, height *100, height *7.5) ;
-}
+
 
 /**
 bitmap

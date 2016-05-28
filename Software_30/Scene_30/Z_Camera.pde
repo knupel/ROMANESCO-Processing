@@ -31,17 +31,10 @@ private boolean moveScene, moveEye ;
 
 Vec3 targetPosCam = Vec3() ;
 
-//P3D ROMANESCO STUFF
 
-
-
-
-// temp_item_canvas_direction
-PVector sizeBackgroundP3D  ;
-
-
-// P3D SETUP
-////////////
+/**
+P3D SETUP
+*/
 void P3D_setup() {
     camara_setting (NUM_SETTING_CAMERA) ;
     item_manipulation () ;
@@ -85,32 +78,45 @@ void camara_setting (int numSettingCamera) {
 /**
 Start setting position and direction
 */
+// direction
 void setting_start_direction(int ID, Vec2 dir) {
-  setting_start_direction(ID, (int)dir.x, (int)dir.y) ;
+  int which_setting = 0 ;
+  setting_start_direction(ID, which_setting, (int)dir.x, (int)dir.y) ;
 }
 
 void setting_start_direction(int ID, int dir_x, int dir_y) {
-  if(dir_item_old[ID] == null) dir_item_old[ID] = Vec3() ;
-  dir_item_old[ID].set(dir_x, dir_y,0) ;
-  if(item_setting_direction [0][ID] == null) item_setting_direction [0][ID] = Vec3() ;
-  item_setting_direction [0][ID] = Vec3(dir_item_old[ID]) ;
-  if(temp_item_canvas_direction[ID] == null) temp_item_canvas_direction[ID] = Vec3() ;
-  temp_item_canvas_direction[ID].x = map(item_setting_direction [0][ID].y, 0, 360, 0, width) ;
-  temp_item_canvas_direction[ID].y = map(item_setting_direction [0][ID].x, 0, 360, 0, height) ;
+  int which_setting = 0 ;
+  setting_start_direction(ID, which_setting, dir_x, dir_y) ;
 }
 
+void setting_start_direction(int ID, int which_setting, int dir_x, int dir_y) {
+  if(dir_item_old[ID] == null) dir_item_old[ID] = Vec3() ;
+  dir_item_old[ID].set(dir_x, dir_y,0) ;
+  if(item_setting_direction [0][ID] == null) item_setting_direction [which_setting][ID] = Vec3() ;
+  item_setting_direction [0][ID] = Vec3(dir_item_old[ID]) ;
+  if(temp_item_canvas_direction[ID] == null) temp_item_canvas_direction[ID] = Vec3() ;
+  temp_item_canvas_direction[ID].x = map(item_setting_direction [which_setting][ID].y, 0, 360, 0, width) ;
+  temp_item_canvas_direction[ID].y = map(item_setting_direction [which_setting][ID].x, 0, 360, 0, height) ;
+}
+
+// position
 void setting_start_position(int ID, Vec3 pos) {
-  setting_start_position(ID, (int)pos.x, (int)pos.y, (int)pos.z) ;
+  int which_setting = 0 ;
+  setting_start_position(ID, which_setting, (int)pos.x, (int)pos.y, (int)pos.z) ;
 }
 
 void setting_start_position(int ID, int pos_x, int pos_y, int pos_z) {
-  // startingPosition[ID] = Vec3(x,y,z) ;
+  int which_setting = 0 ;
+  setting_start_position(ID, which_setting, pos_x, pos_y, pos_z) ;
+}
+
+void setting_start_position(int ID, int which_setting, int pos_x, int pos_y, int pos_z) {
   if(pos_item_old[ID] == null) pos_item_old[ID] = Vec3() ;
   pos_item_old[ID].x = pos_x -(width/2) ;
   pos_item_old[ID].y = pos_y -(height/2) ;
   pos_item_old[ID].z = pos_z ;
-  if(item_setting_position [0][ID] == null) item_setting_position [0][ID] = Vec3() ;
-  item_setting_position [0][ID] = Vec3(pos_item_old[ID]) ;
+  if(item_setting_position [which_setting][ID] == null) item_setting_position [which_setting][ID] = Vec3() ;
+  item_setting_position [which_setting][ID] = Vec3(pos_item_old[ID]) ;
   mouse[ID] = Vec3(pos_x, pos_y, pos_z) ;
 }
 /**
@@ -182,18 +188,10 @@ void add_ref_item(int ID) {
 reset
 */
 void reset_direction_item (int which_setting, int ID) {
-  println(reset_camera_direction_item[ID]) ;
   if(reset_camera_direction_item[ID]) {
-    
     temp_item_canvas_direction[ID].x = map(item_setting_direction [which_setting][ID].y, 0, 360, 0, width) ;
     temp_item_canvas_direction[ID].y = map(item_setting_direction [which_setting][ID].x, 0, 360, 0, height) ;
-    
-   // temp_item_canvas_direction[ID].set(item_setting_direction [which_setting][ID]) ;
-    println(ID, "item_setting_direction", item_setting_direction [0][ID]) ;
-    println(ID, "tempObj", temp_item_canvas_direction[ID]) ;
     update_ref_direction_mouse() ;
-
-    // reset_camera_direction_item[ID] = false ;
   }
 }
 
@@ -208,6 +206,9 @@ Update direction item
 Vec3 direction_mouse_ref = Vec3() ;
 
 void update_ref_direction_mouse() {
+  if(direction_mouse_ref == null) direction_mouse_ref = Vec3() ;
+  if(mouse[0] == null) mouse[0] = Vec3() ;
+
   direction_mouse_ref.x = mouse[0].x ;
   direction_mouse_ref.y = mouse[0].y ;
   // special op with the wheel value, because this value is not constant
@@ -217,10 +218,10 @@ void update_ref_direction_mouse() {
 
 
 void update_ref_direction(int ID) {
-  if(dir_reference_all_items == null) {
-    dir_reference_all_items = temp_item_canvas_direction[ID].copy() ; 
+  if(dir_reference_items[ID] == null) {
+    dir_reference_items[ID] = Vec3(temp_item_canvas_direction[ID]) ; 
   } else {
-    dir_reference_all_items.set(temp_item_canvas_direction[ID]) ;
+    dir_reference_items[ID].set(temp_item_canvas_direction[ID]) ;
   }
 }
 
@@ -232,16 +233,13 @@ Vec3 update_direction_item(Vec2 speed, int ID, boolean authorization) {
     Vec3 delta = Vec3() ;
     if(!reset_camera_direction_item[ID]) {
       delta = sub(mouse[0], direction_mouse_ref) ;
-      temp_item_canvas_direction[ID] = add(delta, dir_reference_all_items) ;
+      temp_item_canvas_direction[ID] = add(delta, dir_reference_items[ID]) ;
       //rotation of the camera
       dirObj[ID].set(direction_canvas_to_polar(temp_item_canvas_direction[ID])) ;
     } else {
       dirObj[ID].set(direction_canvas_to_polar(temp_item_canvas_direction[ID])) ;
       reset_camera_direction_item[ID] = false ;
-
     }
-
-    println(ID, "normal",dirObj[ID], temp_item_canvas_direction[ID]) ;
   } 
   return dirObj[ID] ;
 }
@@ -858,7 +856,7 @@ void createGridCamera(boolean showGrid) {
 
 
     // Very weird it's necessary to pass by PVector, if we don't do that when we use camera the grid disappear
-    PVector size =  PVector.mult(sizeBackgroundP3D,.2) ;
+    PVector size =  PVector.mult(SIZE_BG,.2) ;
     Vec3 size_grid = Vec3(size) ;
     size_grid.mult(1,1,5) ;
 

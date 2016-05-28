@@ -451,10 +451,6 @@ class RPE_MANAGER {
       objR.setup() ;
       if(posObjRef[objR.ID_item] == null) posObjRef[objR.ID_item] = Vec3() ;
       posObjRef[objR.ID_item].set(item_setting_position[0][objR.ID_item]) ;
-      /*
-      if(dir_reference_all_items[objR.ID_item] == null) dir_reference_all_items[objR.ID_item] = Vec3() ;
-      dir_reference_all_items[objR.ID_item].set(item_setting_direction[0][objR.ID_item]) ;
-      */
     }
   }
   

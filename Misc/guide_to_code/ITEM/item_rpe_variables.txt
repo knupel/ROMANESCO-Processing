@@ -1,12 +1,10 @@
-item_rpe_variables.txt
-
-
-
-
-
-____________
+ROMANESC0 1.2.0.30
+ITEM
+ROMANESCO PROCESSING ENVIRONMENT 
+--
 VARIABLES
-°°°°°°°°°°°°°
+--
+
 
 BUTTON
 ––––––
