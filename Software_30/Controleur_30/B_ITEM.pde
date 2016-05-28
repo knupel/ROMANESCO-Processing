@@ -19,7 +19,6 @@ PImage[] picAction = new PImage[4] ;
 
 
 void info_item() {
-
   item_info_raw[0] = item_info[0] = ("") ;
   // the list start from '1' so we must init the '0'
   for(int i = 0 ; i < NUM_ITEM ; i++) {
@@ -188,7 +187,7 @@ void display_button_item_console() {
       for(int j = 1 ; j <= BUTTON_ITEM_CONSOLE ; j++) {
       	button_item[i *10 + j].change_pos(distance, 0) ;
         button_item[i *10 + j].update_pos(on_off_item_list[i].on_off) ;
-      	// button_item[i *10 + j].update_pos(on_off_item_list[i]) ;
+
       	if(j == 1) button_item[i*10 +j].button_pic_serie(OFF_in_thumbnail, OFF_out_thumbnail, ON_in_thumbnail, ON_out_thumbnail, i) ; 
       	if(j == 2) button_item[i*10 +j].button_pic(picSetting) ;
       	if(j == 3) button_item[i*10 +j].button_pic(picSound) ; 
@@ -199,6 +198,13 @@ void display_button_item_console() {
       PVector size = new PVector (20, 30) ;
       text_info_object(pos, size, i, 1) ;
       pointer ++ ;
+    } else {
+      for(int j = 1 ; j <= BUTTON_ITEM_CONSOLE ; j++) {
+        if(j == 1) button_item[i*10 +j].on_off = false ; 
+        if(j == 2) button_item[i*10 +j].on_off = false ;
+        if(j == 3) button_item[i*10 +j].on_off = false ;
+        if(j == 4) button_item[i*10 +j].on_off = false ;
+      }
     }
   }
 }
@@ -257,7 +263,6 @@ void build_button_item_list() {
 }
 
 void set_button_item_list() {
-
   Vec2 pos = Vec2() ;
   Vec2 size = Vec2() ;
   height_item_list = height -pos_y_item_list ;

@@ -1374,7 +1374,7 @@ void init_dropdown() {
   numDropdown = NUM_ITEM +1 ; // add one for the dropdownmenu
   lastDropdown = numDropdown -1 ;
   //dropdown
-  modeListRomanesco = new String[numDropdown] ;
+  mode_list_RPE = new String[numDropdown] ;
   dropdown = new Dropdown[numDropdown] ;
   pos_dropdown = new PVector[numDropdown] ;
 
@@ -1406,7 +1406,7 @@ void set_dropdown_general() {
   //load the external list  for each mode and split to read in the interface
   for (int i = 0 ; i<item_list_table.getRowCount() ; i++) {
     TableRow row = item_list_table.getRow(i);
-    modeListRomanesco [row.getInt("ID")] = row.getString("Mode"); 
+    mode_list_RPE [row.getInt("ID")] = row.getString("Mode"); 
   }
   //font
   String pList [] = loadStrings(sketchPath("")+"import/font/fontList.txt") ;
@@ -1481,9 +1481,9 @@ void set_dropdown_item_selected() {
   PVector newPos = new PVector(margeLeft + -8, height_item_selected +correction_dropdown_item_selected, .1 ) ;
   // group item
   for ( int i = 0 ; i <= NUM_ITEM ; i++ ) {
-    if(modeListRomanesco[i] != null) {
+    if(mode_list_RPE[i] != null) {
       //Split the dropdown to display in the dropdown
-      list_dropdown = split(modeListRomanesco[i], "/" ) ;
+      list_dropdown = split(mode_list_RPE[i], "/" ) ;
       //to change the title of the header dropdown
       pos_dropdown[i].set(newPos.x, newPos.y, newPos.z) ; // x y is pos anz z is marge between the dropdown and the header
       dropdown[i] = new Dropdown("M", 
@@ -1511,12 +1511,8 @@ boolean dropdownActivity ;
 int dropdownActivityCount ;
 
 void display_dropdown() {
-  // update content
   update_dropdown_content() ;
-  // update dropdown item
   update_dropdown_item() ;
-
-
   update_dropdown_background() ;
   state_font            = update_dropdown_general(size_dropdown_font, pos_dropdown_font, dropdown_font, font_dropdown_list, title_dropdown_medium) ;
   state_text       = update_dropdown_general(size_dropdown_file_text, pos_dropdown_file_text, dropdown_file_text, file_text_dropdown_list, title_dropdown_medium) ;
@@ -1638,41 +1634,41 @@ void update_dropdown_background() {
 
 void update_dropdown_item() {
   int pointer = 0 ;
-  for ( int i = 1 ; i <= NUM_ITEM ; i ++ ) {
-    // if(modeListRomanesco[i] != null && on_off_item_list[i] ) {
-    if(modeListRomanesco[i] != null && on_off_item_list[i].on_off ) {
+  for (int i = 1 ; i <= NUM_ITEM ; i++) {
+    if(mode_list_RPE[i] != null && on_off_item_list[i].on_off) {
       int distance = pointer *STEP_ITEM ;
       pointer ++ ;
-      // update pos 
+
       dropdown[i].change_pos(distance, 0) ;
 
-
-      String m [] = split(modeListRomanesco[i], "/") ;
+      String m [] = split(mode_list_RPE[i], "/") ;
       if ( m.length > 1) {
         dropdown[i].dropdownUpdate(title_dropdown_medium, textUsual_1);
-        if (dropdownOpen) dropdownActivityCount = +1 ;
+        if (dropdownOpen) dropdownActivityCount++ ;
         marge_around_dropdown = size_dropdown_mode.y  ;
+
         //give the size of menu recalculate with the size of the word inside
         PVector newSizeModeTypo = dropdown[i].sizeBoxDropdownMenu ;
-         int heightDropdown = 0 ;
+        int heightDropdown = 0 ;
 
-        if(dropdown[i].listItem.length < size_dropdown_mode.z ) {
+        if(dropdown[i].listItem.length < size_dropdown_mode.z) {
           heightDropdown = dropdown[i].listItem.length ; 
         } else {
           heightDropdown = (int)size_dropdown_mode.z ;
         }
 
-        PVector total_size = new PVector (newSizeModeTypo.x + (marge_around_dropdown *1.5) , size_dropdown_mode.y * (heightDropdown +1)  + marge_around_dropdown   ) ; // we must add +1 to the size of the dropdown for the title plus the item list
-         //new pos to include the slider
+        PVector total_size = new PVector (newSizeModeTypo.x +(marge_around_dropdown *1.5), size_dropdown_mode.y *(heightDropdown +1) +marge_around_dropdown) ; // we must add +1 to the size of the dropdown for the title plus the item list
+        
+        //new pos to include the slider
         PVector new_pos = new PVector (pos_dropdown[i].x -marge_around_dropdown, pos_dropdown[i].y) ;
-        if ( !insideRect(new_pos, total_size)) {
+        if (!insideRect(new_pos, total_size)) {
           dropdown[i].locked = false;
         }
       }
       // display which element is selected
       if (dropdown[i].getSelection() > -1 && m.length > 1) {
         textFont(title_dropdown_medium) ;
-        text(dropdown[i].getSelection() +1, pos_dropdown[i].x +12 , pos_dropdown[i].y +8) ;
+        text(dropdown[i].getSelection() +1, pos_dropdown[i].x +12, pos_dropdown[i].y +8) ;
       }
     }
   }

@@ -1,5 +1,7 @@
-// Tab: X_Slider
-// SLIDER may 2015 version 5g by Stan le Punk
+/**
+SLIDER may 2015 version 5g by Stan le Punk
+SLIDER may 2016 1.5.8 
+*/
 ////////////////
 // CLASS SLIDER
 public class Slider {
@@ -78,7 +80,10 @@ public class Slider {
   }
   
   // END CONSTRUCTOR
-  
+  void update_pos_molette(PVector pos, PVector pos_mol) {
+    this.posMol.set(pos.x +(pos_mol.x *size.x), pos.y +(pos_mol.y *size.y)) ;
+    this.newPosMol.set(posMol.x, posMol.y) ;
+  }
   
 
   
