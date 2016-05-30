@@ -19,10 +19,7 @@ if you use other void you must call this one in one of them
 
 
 
-ID group
-=====================
-int ID_group = # ;
-use '1'
+
 
 ID item
 =======
@@ -39,28 +36,6 @@ RPE_pack = "Base 2016" ;
 romanescoVideo = "NO" or "YES" ; elp the controller to manage the computer camera
 
 RPE_mode = "mode name/mode name" ; separate the name by a slash and write the next mode immadialtly after this one.
-
-RPE_slider = "all" 
-
-or choice in the list bellow, the case is very important, no "space" after or before the word. The word must be separate by a comma
-
-"Fill hue,Fill sat,Fill bright,Fill alpha,
-Stroke hue,Stroke sat,Stroke bright,Stroke alpha,
-Thickness,
-Size X,Size Y,Size Z,
-Font size,
-Canvas X,Canvas Y,Canvas Z,
-Reactivity,
-Speed X,Speed Y,Speed Z,
-Spurt X,Spurt Y,Spurt Z,
-Direction X,Direction Y,Direction Z,
-Jitter X,Jitter Y,Jitter Z,
-Swing X,Swing Y,Swing Z,
-Quantity,Variety,
-Life,Flow,Quality,
-Area,Angle,Scope,Scan,
-Alignment,Repulsion,Attraction,Charge – +,
-Influence,Calm,Need"
 
 
 

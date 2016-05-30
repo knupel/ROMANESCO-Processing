@@ -11,7 +11,7 @@ class Escargot extends Romanesco {
     RPE_version = "version 1.4.3";
     RPE_pack = "Base" ;
     RPE_mode = "Original/Raw/Point/Ellipse/Rectangle/Box/Cross/SVG/Vitraux" ;
-    RPE_slider = "Fill hue,Fill sat,Fill bright,Fill alpha,Stroke hue,Stroke sat,Stroke bright,Stroke alpha,Thickness,Size X,Size Y,Size Z,Speed X,Direction X,Canvas X,Quality,Quantity,Repulsion" ;
+    RPE_slider = "Fill hue,Fill sat,Fill bright,Fill alpha,Stroke hue,Stroke sat,Stroke bright,Stroke alpha,Thickness,Size X,Size Y,Size Z,Speed X,Direction X,Canvas X,Quality,Quantity,Calm" ;
   }
   //GLOBAL
   String pathSVG ;
@@ -68,8 +68,8 @@ class Escargot extends Romanesco {
   //Wind force, direction
   int windDirection = 25; //direction between 1 and 360
   int windForce = 3 ; //use the natural code of the wind 0 to 9 is good
-  int objMotion = 1 ; //motion of the pixel is under influence of the wind, if the wind is strong the pixel motion become low
-  PVector motionInfo = new PVector(windDirection, windForce, objMotion)  ;
+  float internal_motion_pixel = 1 ; //motion of the pixel is under influence of the wind, if the wind is strong the pixel motion become low
+  PVector motionInfo = new PVector(windDirection, windForce, internal_motion_pixel)  ;
   //ratio for the image, say if the picture must be adapted to the size window or not
   boolean ratioImg = true ;
   
@@ -145,8 +145,9 @@ class Escargot extends Romanesco {
       windForce = (int)map(speed_x_item[ID_item],0,1,0,13) ;
       windDirection = (int)dir_x_item[ID_item] ;
       if(reverse[ID_item]) windDirection += 180 ;
-      objMotion = int(map(repulsion_item[ID_item],0,1, 0,20) *(1.0 + pen[ID_item].z)) ;
+      internal_motion_pixel = map(calm_item[ID_item],0,1, 0,20) *(1.0 + pen[ID_item].z) ;
       motionInfo.y = windForce ;
+      motionInfo.z = internal_motion_pixel ;
       //PEN
        if (pen[ID_item].z == 1 ) pen[ID_item].z = 0 ; else pen[ID_item].z = pen[ID_item].z ;
        if( (pen[ID_item].x == 1.0 && pen[ID_item].y == 1.0) || (pen[ID_item].x == 0.0 && pen[ID_item].y == 0.0) ) {

@@ -1,5 +1,5 @@
 /**
-KARAOKE || 2011 || 2.0.0
+KARAOKE || 2011 || 2.0.1
 */
 
 class Karaoke extends Romanesco {
@@ -12,14 +12,14 @@ class Karaoke extends Romanesco {
     RPE_version = "Version 2.0";
     RPE_pack = "Base" ;
     RPE_mode = "" ; // separate the name by a slash and write the next mode immadialtly after this one.
-    RPE_slider = "Fill hue,Fill sat,Fill bright,Fill alpha,Size X,Canvas X,Canvas Y,Direction X" ;
+    RPE_slider = "Fill hue,Fill sat,Fill bright,Fill alpha,Canvas X,Canvas Y,Direction X,Font size" ;
   }
   //GLOBAL
   int chapter, sentence ;
   
   //SETUP
   void setup() {
-    setting_start_position(ID_item, width/2, height/2, 0) ;
+    setting_start_position(ID_item, width/8, height/8, 0) ;
   }
   
   
@@ -31,18 +31,18 @@ class Karaoke extends Romanesco {
     
     float sizeFont = font_size_item[ID_item] ;
     
-    textFont(font[ID_item], sizeFont + ( sizeFont *mix[ID_item]) *allBeats(ID_item) );
+    textFont(font[ID_item], sizeFont *mix[ID_item] *allBeats(ID_item) );
+    
     // couleur du texte
-    float t = alpha(fill_item[ID_item]) * abs(mix[ID_item]) ;
-    if ( sound[ID_item] ) { t = alpha(fill_item[ID_item]) ; } 
-    color c = color(hue(fill_item[ID_item]), saturation(fill_item[ID_item]), brightness(fill_item[ID_item]), t ) ;
     // security against the blavk bug opacity
-    if (alpha(c) == 0 ) {
+    if (alpha(fill_item[ID_item]) <= 0 ) {
       noFill() ; 
       noStroke() ; 
     } else {     
-      fill (c) ; 
+      fill (fill_item[ID_item]) ; 
     }
+
+
     
     //hauteur largeur, height & width
     float largeur = canvas_x_item[ID_item] *15 ;

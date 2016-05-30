@@ -1,6 +1,6 @@
 
 /**
-ARBRE || 2012 || 1.3.1
+ARBRE || 2012 || 1.3.2
 */
 
 Arbre arbre ;
@@ -12,10 +12,10 @@ class ArbreRomanesco extends Romanesco {
     ID_item = 10 ;
     ID_group = 1 ;
     RPE_author  = "Stan le Punk";
-    RPE_version = "Version 1.3.1";
+    RPE_version = "Version 1.3.2";
     RPE_pack = "Base" ;
     RPE_mode = "Line/Disc/Disc line/Rectangle/Rectangle line/Box" ;
-    RPE_slider = "Fill hue,Fill sat,Fill bright,Fill alpha,Stroke hue,Stroke sat,Stroke bright,Stroke alpha,Thickness,Size X,Size Y,Size Z,Quantity,Speed X,Direction X,Canvas X" ;
+    RPE_slider = "Fill hue,Fill sat,Fill bright,Fill alpha,Stroke hue,Stroke sat,Stroke bright,Stroke alpha,Thickness,Size X,Size Y,Size Z,Quantity,Speed X,Direction X,Canvas X,Alignment" ;
   }
   //GLOBAL
   float speed ;
@@ -72,7 +72,7 @@ class ArbreRomanesco extends Romanesco {
     //orientation
     float direction = dir_x_item[ID_item] ;
     //amplitude
-    float amplitude = map(swing_x_item[ID_item], 0,1, 0.1,width *.6) ;
+    float amplitude = canvas_x_item[ID_item] *.5 ;
     if(FULL_RENDERING) amplitude = amplitude *allBeats(ID_item) ;
     
 
@@ -97,6 +97,7 @@ class ArbreRomanesco extends Romanesco {
     
     arbre.affichage (direction) ;
     arbre.actualisation(posArbre, epaisseur, size, divA, divB, forkA, forkB, amplitude, n, mode[ID_item], angle, speed, ID_item) ;
+    if(horizon[ID_item]) arbre.set_horizon(0) ; else arbre.set_horizon(map(alignment_item[ID_item], 0,1, 0,3)) ;
     
     //info
     objectInfo[ID_item] = ("Nodes " +(n-1) + " - Amplitude " + (int)amplitude + " - Orientation " +direction +  " - Speed " + (int)map(speed,0,4,0,100) );
@@ -119,10 +120,15 @@ class Arbre {
   float theta, angleDirection ;
   float rotation = 90.0  ;
   float direction   ;
+  float deep = 0 ;
  
 //::::::::::::::::::::  
   void affichage (float d) {
     direction = d ;
+  }
+
+  void set_horizon(float deep) {
+    this.deep = deep ;
   }
 //::::::::::::::::::::::::::::  
   void actualisation (PVector posArbre, float e, PVector size, float divA, float divB, int forkA, int forkB, float amplitude, int n, int mode, float angle, float speed, int ID) {
@@ -177,18 +183,11 @@ class Arbre {
       if (mode == 1 )  ellipse(0,0, newSize.x , newSize.y) ;
       if (mode == 3 )  rect(0,0, newSize.x, newSize.y) ;
       if (mode == 5  ) box(newSize.x, newSize.y, newSize.z) ;
-      if (!horizon[ID]) {
-        //pushMatrix() ;
-        float factor = 0.0 ;
-        if(!vTouch && pen[0].z != 0) factor = map(pen[0].z,0.01,1, -.5,.5) ; else factor = 0 ;
-        translate(0,0, -newSize.z *factor) ; 
-      } else {
-        //pushMatrix() ;
-        float factor = 0.0 ;
-        if(!vTouch && pen[0].z != 0)factor = .15 + map(pen[0].z,0.01,1, 1.2,-1.2) ; else factor = .15 ;
-        translate(0,0, -newSize.z *factor) ;
-        //popMatrix() ;
-      }
+      // horizon
+      float factor = 0.0 ;
+      if(!vTouch && pen[0].z != 0) factor = deep + map(pen[0].z,0.01,1, 1.2,-1.2) ; else factor = deep ;
+      translate(0,0, -newSize.z *factor) ;
+     
     }
     translate(0, -amplitude); // Move to the end of the branch
     branch(e, newSize, propA, propB, fourcheA, fourcheB, amplitude, n, mode, ID);       // Ok, now call myself to draw two new branches!!

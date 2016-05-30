@@ -3,25 +3,39 @@
 ROMANESCO 30 Revision
 ---------------------
 // PRESCENE & SCENE
-> remove item Anillos
+MAJOR
+--
 > add item Vectorial
+> add item Movisco
+> add item ecosysteme
+
+MINOR
+--
+> remove item Anillos
 > add method to load svg file.svg
 > add method to load movie file.mov
-> add item Movisco
-> fix buf orientation camera when you reset position of the camera or of the items
+> fix bug orientation camera when you reset position of the camera or of the items
 > improve the growth curve for the size, canvas and area sliders
 > add mode to rubis item
 > add jitter slider for rubis item
-> add item ecosysteme
+> add slider font size for Atome item
+> method to set direction item
+> fix bug reset direction and position item
+> update item letter, change slider and shortcut
 
 
 // CONTROLLER
-> add new item slider : font size, jitter, swing, spurt, variety, quality, direction y, direction z, speed y, speed z, fertility, area, scope, scan, charge, calm and need
-> remove slider analyze, amplitude
-> remove the second group of item
+MAJOR
+--
 > add menu to selected item
 > add dropdown to selected SVG file
 > add dropdown to selected movie
+
+MINOR
+--
+> add new item slider : font size, jitter, swing, spurt, variety, quality, direction y, direction z, speed y, speed z, fertility, area, scope, scan, charge, calm and need
+> remove slider analyze, amplitude
+> remove the second group of item
 > fix display bug 
 
 
@@ -256,12 +270,6 @@ ROMANESCO 26 Revision
 
 
 
-
-
-
-
-
-ROMANESCO 25 Revision
 ---------------------
 
 /// ADD ///

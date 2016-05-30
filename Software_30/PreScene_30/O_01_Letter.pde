@@ -1,5 +1,5 @@
 /**
-LETTER || 2012 || 1.2.0
+LETTER || 2012 || 1.2.1
 */
 class Letter extends Romanesco {
   public Letter() {
@@ -8,11 +8,11 @@ class Letter extends Romanesco {
     ID_item = 1 ;
     ID_group = 1 ;
     RPE_author  = "Stan le Punk";
-    RPE_version = "Version 1.2";
+    RPE_version = "Version 1.2.1";
     RPE_pack = "Base" ;
     romanescoRender = "P3D" ;
     RPE_mode = "Point/Line/Triangle" ;
-    RPE_slider = "Fill hue,Fill sat,Fill bright,Fill alpha,Stroke hue,Stroke sat,Stroke bright,Stroke alpha,Thickness,Size X,Canvas X,Canvas Y,Canvas Z,Quantity,Speed X" ;
+    RPE_slider = "Fill hue,Fill sat,Fill bright,Fill alpha,Stroke hue,Stroke sat,Stroke bright,Stroke alpha,Thickness,Jitter X,Jitter Y,Jitter Z,Quantity,Speed X,Font size" ;
   }
   //GLOBAL
   RFont f;
@@ -40,31 +40,34 @@ class Letter extends Romanesco {
   void draw() {
     load_txt(ID_item) ;
     
-    if (parameter[ID_item] || pathFontObjTTF[ID_item] == null ) { 
+    if (parameter[ID_item] || path_font_item_TTF[ID_item] == null ) { 
       font[ID_item] = font[0] ;
-      pathFontObjTTF[ID_item] = pathFontObjTTF[0] ;
+      path_font_item_TTF[ID_item] = path_font_item_TTF[0] ;
     }
     //init and re-init Geomerative if few stuff change about this line like text, font and the size of the font
-    sizeFont = int(font_size_item[ID_item]) ;
+    sizeFont = int(map(font_size_item[ID_item],font_size_min_max.x, font_size_min_max.y, (float)height *.01, (float)height *.7)) ;
     //text
     String sentence = whichSentence(text_import[ID_item], 0, 0) ;
     
 
     
     //check if something change to update the RG.getText
-    if ( sizeRef == sizeFont && sentenceRef.equals(sentence) && pathRef.equals(pathFontObjTTF[ID_item])) newSetting = true  ; else newSetting = false ;
+    if (sizeRef == sizeFont && sentenceRef.equals(sentence) && pathRef.equals(path_font_item_TTF[ID_item])) newSetting = true  ; else newSetting = false ;
     sizeRef = sizeFont ;
     sentenceRef = (sentence) ;
-    pathRef = (pathFontObjTTF[ID_item]) ;
+    pathRef = (path_font_item_TTF[ID_item]) ;
     if(!newSetting || resetParameter(ID_item)) {
-     
-      grp = RG.getText(sentence, pathFontObjTTF[ID_item], (int)sizeFont, CENTER); 
+      grp = RG.getText(sentence, path_font_item_TTF[ID_item], (int)sizeFont, CENTER); 
       newSetting = true ;
       axeLetter = int(random (grp.countChildren())) ;
     }
     if(resetParameter(ID_item)) {
       int choiceDir = floor(random(2)) ;
-      if(choiceDir == 0 ) startDirection = -1 ; else startDirection = 1 ;
+      if(choiceDir == 0 ) {
+        startDirection = -1 ; 
+      } else {
+        startDirection = 1 ;
+      }
     }
     
     if(allBeats(ID_item) > 10 || nTouch ) axeLetter = int(random (grp.countChildren())) ;
@@ -80,8 +83,8 @@ class Letter extends Romanesco {
     float speed ;
     if(motion[ID_item]) speed = map(speed_x_item[ID_item], 0,1, 0.000, 0.3 ) *tempo[ID_item]  ; else speed = 0.0 ;
     //to stop the move
-    if (!action[ID_item]) speed = 0.0 ; 
-    if(clickLongLeft[ID_item] || spaceTouch) speed = -speed ;
+    //if (!action[ID_item]) speed = 0.0 ; 
+    if(reverse[ID_item]) speed = -speed ;
     
     //num letter to display
     numLetter = (int)map(quantity_item[ID_item],0,1, 0,grp.countChildren() +1) ;
@@ -97,12 +100,10 @@ class Letter extends Romanesco {
       fill(fill_item[ID_item]) ; stroke(stroke_item[ID_item]) ; strokeWeight(thicknessLetter) ;
     }
     //jitter
-    float jitterX = map(canvas_x_item[ID_item],width/10, width, 0, width/40) ;
-    float jitterY = map(canvas_y_item[ID_item],width/10, width, 0, width/40) ;
-    float jitterZ = map(canvas_z_item[ID_item],width/10, width, 0, width/40) ;
+    float jitterX = map(jitter_x_item[ID_item],0,1, 0, (float)width *.1) ;
+    float jitterY = map(jitter_y_item[ID_item],0,1, 0, (float)width *.1) ;
+    float jitterZ = map(jitter_z_item[ID_item],0,1, 0, (float)width *.1) ;
     PVector jitter = new PVector (jitterX *jitterX, jitterY *jitterY, jitterZ *jitterZ) ;
-    
-
 
     letters(speed, axeLetter, jitter) ;
     //END YOUR WORK

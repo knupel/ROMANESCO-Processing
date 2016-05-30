@@ -12,7 +12,7 @@ class RSS extends Romanesco {
     RPE_pack = "Base" ;
     romanescoRender = "classic" ;
     RPE_mode = "" ; // separate the name by a slash and write the next mode immadialtly after this one.
-    RPE_slider = "Fill hue,Fill sat,Fill bright,Fill alpha,Size X,Canvas X,Canvas Y,Canvas Z,Direction X" ;
+    RPE_slider = "Fill hue,Fill sat,Fill bright,Fill alpha,Size X,Canvas X,Canvas Y,Canvas Z,Direction X,Font size" ;
   }
   //GLOBAL
   FeedReader flux;

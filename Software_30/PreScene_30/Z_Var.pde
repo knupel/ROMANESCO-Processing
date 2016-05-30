@@ -374,7 +374,7 @@ int wheel[] ;
 boolean [] motion, horizon, setting, reverse, clearList ;
 
 //main font for each object
-String [] pathFontTTF, pathFontVLW, pathFontObjTTF ;
+String [] path_font_TTF, pathFontVLW, path_font_item_TTF ;
 PFont font[]  ;
 
 
@@ -448,8 +448,8 @@ void createMiscVar() {
   which_text = new int[NUM_ITEM] ;
   //main font for each object
   font = new PFont[NUM_ITEM] ;
-  pathFontObjTTF = new String[NUM_ITEM] ;
-  pathFontTTF = new String [numFont] ;  
+  path_font_item_TTF = new String[NUM_ITEM] ;
+  path_font_TTF = new String [numFont] ;  
   pathFontVLW = new String [numFont] ;
   font = new PFont[numFont] ;
   //MISC
@@ -624,6 +624,7 @@ void init_variable_item() {
 
 void init_variable_item_min_max() {
   float min_size = .1 ;
+  float super_min_size = .05 ;
   float factor_area = PHI ;
 
   fill_hue_min_max = Vec2(0,360) ; // data from controller value 0 - 360
@@ -638,14 +639,14 @@ void init_variable_item_min_max() {
 
   thickness_min_max = Vec2(min_size, float(height)*.33) ; 
 
-  size_x_min_max = Vec2(min_size, width) ;     
-  size_y_min_max = Vec2(min_size, width) ;     
-  size_z_min_max = Vec2(min_size, width) ;
+  size_x_min_max = Vec2(width *super_min_size, width) ;     
+  size_y_min_max = Vec2(width *super_min_size, width) ;     
+  size_z_min_max = Vec2(width *super_min_size, width) ;
 
-  font_size_min_max = Vec2((float)height *.005, (float)height *.05);
+  font_size_min_max = Vec2((float)height *.025, height);
 
   canvas_x_min_max = Vec2(width *min_size, width *factor_area) ; 
-  canvas_y_min_max = Vec2(width *min_size, width *factor_area); 
+  canvas_y_min_max = Vec2(width *min_size, width *factor_area) ; 
   canvas_z_min_max = Vec2(width *min_size, width *factor_area) ;
 
   reactivity_min_max = Vec2(0,1) ;
@@ -925,34 +926,34 @@ void font_setup() {
   pathFontVLW[49] = fontPathVLW+"DIN-Regular-10.vlw";
   SansSerif10 = loadFont(fontPathVLW+"SansSerif-10.vlw" );
   // write font path for TTF
-  String prefixTTF = preference_path +"Font/typoTTF/" ;
+  String prefixTTF = import_path +"font/typoTTF/" ;
   //by default
-  pathFontTTF[0] = prefixTTF+"FuturaStencil.ttf";
+  path_font_TTF[0] = prefixTTF+"FuturaStencil.ttf";
   // type
-  pathFontTTF[1] = prefixTTF+"AmericanTypewriter.ttf";
-  pathFontTTF[2] = prefixTTF+"AmericanTypewriter.ttf";
-  pathFontTTF[3] = prefixTTF+"Banco.ttf";
-  pathFontTTF[4] = prefixTTF+"Cinquenta.ttf";
-  pathFontTTF[5] = prefixTTF+"FuturaStencil.ttf";
-  pathFontTTF[6] = prefixTTF+"FuturaStencil.ttf";
-  pathFontTTF[7] = prefixTTF+"Digital2.ttf";
-  pathFontTTF[8] = prefixTTF+"FuturaStencil.ttf";
-  pathFontTTF[9] = prefixTTF+"FuturaStencil.ttf";
-  pathFontTTF[10] = prefixTTF+"FuturaStencil.ttf";
-  pathFontTTF[11] = prefixTTF+"FuturaStencil.ttf";
-  pathFontTTF[12] = prefixTTF+"FetteFraktur.ttf";
-  pathFontTTF[13] = prefixTTF+"GangBangCrime.ttf";
-  pathFontTTF[14] = prefixTTF+"JuanitaITC.ttf";
-  pathFontTTF[15] = prefixTTF+"Komikahuna.ttf";
-  pathFontTTF[16] = prefixTTF+"FuturaStencil.ttf";
-  pathFontTTF[17] = prefixTTF+"FuturaStencil.ttf";
-  pathFontTTF[18] = prefixTTF+"FuturaStencil.ttf";
-  pathFontTTF[19] = prefixTTF+"3Hardway.ttf";
-  pathFontTTF[20] = prefixTTF+"FuturaStencil.ttf";
-  pathFontTTF[21] = prefixTTF+"MinionWebPro.ttf";
-  pathFontTTF[22] = prefixTTF+"MinionWebPro.ttf";
+  path_font_TTF[1] = prefixTTF+"AmericanTypewriter.ttf";
+  path_font_TTF[2] = prefixTTF+"AmericanTypewriter.ttf";
+  path_font_TTF[3] = prefixTTF+"Banco.ttf";
+  path_font_TTF[4] = prefixTTF+"Cinquenta.ttf";
+  path_font_TTF[5] = prefixTTF+"FuturaStencil.ttf";
+  path_font_TTF[6] = prefixTTF+"FuturaStencil.ttf";
+  path_font_TTF[7] = prefixTTF+"Digital2.ttf";
+  path_font_TTF[8] = prefixTTF+"FuturaStencil.ttf";
+  path_font_TTF[9] = prefixTTF+"FuturaStencil.ttf";
+  path_font_TTF[10] = prefixTTF+"FuturaStencil.ttf";
+  path_font_TTF[11] = prefixTTF+"FuturaStencil.ttf";
+  path_font_TTF[12] = prefixTTF+"FetteFraktur.ttf";
+  path_font_TTF[13] = prefixTTF+"GangBangCrime.ttf";
+  path_font_TTF[14] = prefixTTF+"JuanitaITC.ttf";
+  path_font_TTF[15] = prefixTTF+"Komikahuna.ttf";
+  path_font_TTF[16] = prefixTTF+"FuturaStencil.ttf";
+  path_font_TTF[17] = prefixTTF+"FuturaStencil.ttf";
+  path_font_TTF[18] = prefixTTF+"FuturaStencil.ttf";
+  path_font_TTF[19] = prefixTTF+"3Hardway.ttf";
+  path_font_TTF[20] = prefixTTF+"FuturaStencil.ttf";
+  path_font_TTF[21] = prefixTTF+"MinionWebPro.ttf";
+  path_font_TTF[22] = prefixTTF+"MinionWebPro.ttf";
   // special font
-  pathFontTTF[49] = prefixTTF+"FuturaStencil.ttf";
+  path_font_TTF[49] = prefixTTF+"FuturaStencil.ttf";
   // load
 
   AmericanTypewriter=loadFont      (pathFontVLW[1]);
@@ -981,7 +982,7 @@ void font_setup() {
   // default and special font
   DinRegular10=loadFont            (pathFontVLW[49]);
   font[0] = FuturaStencil ;
-  pathFontObjTTF[0] = pathFontTTF[0] ;
+  path_font_item_TTF[0] = path_font_TTF[0] ;
   // 
   println("font setup done") ;
 }
@@ -990,29 +991,29 @@ void font_setup() {
 
 
 void choiceFont( int whichOne)  { 
-  if (whichOne == 1 )     { pathFontObjTTF[0] = pathFontTTF[1] ; font[0] = AmericanTypewriter ;  }
-  else if (whichOne ==2 ) { pathFontObjTTF[0] = pathFontTTF[2] ; font[0] = AmericanTypewriterBold ; }
-  else if (whichOne == 3) { pathFontObjTTF[0] = pathFontTTF[3] ; font[0] = Banco ; }
-  else if (whichOne ==4)  { pathFontObjTTF[0] = pathFontTTF[4] ; font[0] = Cinquenta ; }
-  else if (whichOne ==5)  { pathFontObjTTF[0] = pathFontTTF[5] ; font[0] = ContainerRegular ; }
-  else if (whichOne ==6)  { pathFontObjTTF[0] = pathFontTTF[6] ; font[0] = Diesel ; }
-  else if (whichOne ==7)  { pathFontObjTTF[0] = pathFontTTF[7] ; font[0] = Digital ; }
-  else if (whichOne ==8)  { pathFontObjTTF[0] = pathFontTTF[8] ; font[0] = DinRegular ; }
-  else if (whichOne ==9)  { pathFontObjTTF[0] = pathFontTTF[9] ; font[0] = DinBold ; }
-  else if (whichOne ==10) { pathFontObjTTF[0] = pathFontTTF[10] ; font[0] = EastBloc ; }
-  else if (whichOne ==11) { pathFontObjTTF[0] = pathFontTTF[11] ; font[0] = FetteFraktur ; }
-  else if (whichOne ==12) { pathFontObjTTF[0] = pathFontTTF[12] ; font[0] = FuturaStencil ; }
-  else if (whichOne ==13) { pathFontObjTTF[0] = pathFontTTF[13] ; font[0] = GangBangCrime ; }
-  else if (whichOne ==14) { pathFontObjTTF[0] = pathFontTTF[14] ; font[0] = JuanitaOutline ; }   
-  else if (whichOne ==15) { pathFontObjTTF[0] = pathFontTTF[15] ; font[0] = Komikahuna ; }
-  else if (whichOne ==16) { pathFontObjTTF[0] = pathFontTTF[16] ; font[0] = Mesquite ; }
-  else if (whichOne ==17) { pathFontObjTTF[0] = pathFontTTF[17] ; font[0] = Minion ; }
-  else if (whichOne ==18) { pathFontObjTTF[0] = pathFontTTF[18] ; font[0] = MinionBold ; }
-  else if (whichOne ==19) { pathFontObjTTF[0] = pathFontTTF[19] ; font[0] = NanumBrush ; }
-  else if (whichOne ==20) { pathFontObjTTF[0] = pathFontTTF[20] ; font[0] = Rosewood ; }
-  else if (whichOne ==21) { pathFontObjTTF[0] = pathFontTTF[21] ; font[0] = TheHardwayRMX ; }
-  else if (whichOne ==22) { pathFontObjTTF[0] = pathFontTTF[22] ; font[0] = TokyoOne ; } 
-  else                     { pathFontObjTTF[0] = pathFontTTF[49]  ; font[0] = AmericanTypewriter ; }
+  if (whichOne == 1 )     { path_font_item_TTF[0] = path_font_TTF[1] ; font[0] = AmericanTypewriter ;  }
+  else if (whichOne ==2 ) { path_font_item_TTF[0] = path_font_TTF[2] ; font[0] = AmericanTypewriterBold ; }
+  else if (whichOne == 3) { path_font_item_TTF[0] = path_font_TTF[3] ; font[0] = Banco ; }
+  else if (whichOne ==4)  { path_font_item_TTF[0] = path_font_TTF[4] ; font[0] = Cinquenta ; }
+  else if (whichOne ==5)  { path_font_item_TTF[0] = path_font_TTF[5] ; font[0] = ContainerRegular ; }
+  else if (whichOne ==6)  { path_font_item_TTF[0] = path_font_TTF[6] ; font[0] = Diesel ; }
+  else if (whichOne ==7)  { path_font_item_TTF[0] = path_font_TTF[7] ; font[0] = Digital ; }
+  else if (whichOne ==8)  { path_font_item_TTF[0] = path_font_TTF[8] ; font[0] = DinRegular ; }
+  else if (whichOne ==9)  { path_font_item_TTF[0] = path_font_TTF[9] ; font[0] = DinBold ; }
+  else if (whichOne ==10) { path_font_item_TTF[0] = path_font_TTF[10] ; font[0] = EastBloc ; }
+  else if (whichOne ==11) { path_font_item_TTF[0] = path_font_TTF[11] ; font[0] = FetteFraktur ; }
+  else if (whichOne ==12) { path_font_item_TTF[0] = path_font_TTF[12] ; font[0] = FuturaStencil ; }
+  else if (whichOne ==13) { path_font_item_TTF[0] = path_font_TTF[13] ; font[0] = GangBangCrime ; }
+  else if (whichOne ==14) { path_font_item_TTF[0] = path_font_TTF[14] ; font[0] = JuanitaOutline ; }   
+  else if (whichOne ==15) { path_font_item_TTF[0] = path_font_TTF[15] ; font[0] = Komikahuna ; }
+  else if (whichOne ==16) { path_font_item_TTF[0] = path_font_TTF[16] ; font[0] = Mesquite ; }
+  else if (whichOne ==17) { path_font_item_TTF[0] = path_font_TTF[17] ; font[0] = Minion ; }
+  else if (whichOne ==18) { path_font_item_TTF[0] = path_font_TTF[18] ; font[0] = MinionBold ; }
+  else if (whichOne ==19) { path_font_item_TTF[0] = path_font_TTF[19] ; font[0] = NanumBrush ; }
+  else if (whichOne ==20) { path_font_item_TTF[0] = path_font_TTF[20] ; font[0] = Rosewood ; }
+  else if (whichOne ==21) { path_font_item_TTF[0] = path_font_TTF[21] ; font[0] = TheHardwayRMX ; }
+  else if (whichOne ==22) { path_font_item_TTF[0] = path_font_TTF[22] ; font[0] = TokyoOne ; } 
+  else                     { path_font_item_TTF[0] = path_font_TTF[49]  ; font[0] = AmericanTypewriter ; }
 }
 //END FONT
 

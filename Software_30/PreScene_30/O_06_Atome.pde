@@ -1,5 +1,5 @@
 /**
-ATOME || 2012 || 1.3.2
+ATOME || 2012 || 1.3.3
 */
 
 ArrayList<Atom> atomList ;
@@ -12,10 +12,10 @@ class Atome extends Romanesco {
     ID_item = 6 ;
     ID_group = 1 ;
     RPE_author  = "Stan le Punk";
-    RPE_version = "version 1.3.2";
+    RPE_version = "version 1.3.3";
     RPE_pack = "Base" ;
     RPE_mode = "Chemical Name/File text/Electronic cloud/Ellipse circle/Ellipse triangle/Ellipse cloud/Triangle circle/Triangle triangle/Triangle cloud/Rectangle rectangle/Rectangle cloud" ;
-    RPE_slider = "Fill hue,Fill sat,Fill bright,Fill alpha,Stroke hue,Stroke sat,Stroke bright,Stroke alpha,Thickness,Size X,Size Y,Size Z,Canvas X,Canvas Y,Speed X,Direction X,Variety,Quantity,Area,Angle" ;
+    RPE_slider = "Fill hue,Fill sat,Fill bright,Fill alpha,Stroke hue,Stroke sat,Stroke bright,Stroke alpha,Thickness,Size X,Size Y,Size Z,Canvas X,Canvas Y,Speed X,Direction X,Variety,Quantity,Area,Angle,Font size" ;
   }
   
   //GLOBAL
@@ -56,21 +56,20 @@ class Atome extends Romanesco {
     setting_start_position(ID_item, width/2, height/2, 0) ;
     
     atomList = new ArrayList<Atom>();
-    
+
     //add one atom to the start
-   PVector pos = new PVector (random(width), random(height), 0) ;
-   PVector vel = new PVector ( random(-1, 1), random(-1, 1), random(-1, 1) ) ;
-   int Z = 1 ; // 1 is the hydrogen ID, you can choice between 1 to 118 the last atom knew
-   int ion = round(random(0,0));
-   float rebound = 0.5 ;
-   int diam = 5 ;
-   int Kstart = int(abs( mix[ID_item]) *1000) ; // Temperature of Atom, influence the mouvement behavior
-   //motion
-   
-   Atom atm = new Atom( pos, vel, Z, ion, rebound, diam,  Kstart) ; 
-   atomList.add(atm) ;
-   
+    PVector pos = new PVector (random(width), random(height), 0) ;
+    PVector vel = new PVector ( random(-1, 1), random(-1, 1), random(-1, 1) ) ;
+    int Z = 1 ; // 1 is the hydrogen ID, you can choice between 1 to 118 the last atom knew
+    int ion = round(random(0,0));
+    float rebound = 0.5 ;
+    int diam = 5 ;
+    int Kstart = int(abs( mix[ID_item]) *1000) ; // Temperature of Atom, influence the mouvement behavior
+    //motion
+    Atom atm = new Atom( pos, vel, Z, ion, rebound, diam,  Kstart) ; 
+    atomList.add(atm) ;
   }
+
   //DRAW
   void draw() {
     // SETTING PARAMETER
@@ -123,14 +122,28 @@ class Atome extends Romanesco {
     float thickness = map(thickness_item[ID_item],0, width/3, 0, width/20) ;
     
     // TEXT
-    float sizeFont = font_size_item[ID_item] *1.5 ;
-    PVector posText = new PVector ( 0.0, 0.0, 0.0 ) ;
-    int sizeTextName = int(sizeFont) ;
-    int sizeTextInfo = int(sizeFont *.5) ;
+
+    PVector posText = new PVector (0,0,0) ;
 
     //Canvas
     PVector marge = new PVector(map(canvas_x_item[ID_item], width/10, width, width/20, width *3) , map(canvas_y_item[ID_item], height/10, height, height/20, height *3) ) ;
-      
+    
+    // SIZE
+    float sizeFont = font_size_item[ID_item] ;
+    int sizeTextName = int(sizeFont) ;
+    int sizeTextInfo = int(sizeFont *.5) ;
+
+    float sizeAtomeRawX = map (size_x_item[ID_item], .1, width, .2, width *.05) ;
+    float sizeAtomeRawY = map (size_y_item[ID_item], .1, width, .2, width *.05) ;
+    float sizeAtomeRawZ = map (size_z_item[ID_item], .1, width, .2, width *.05) ;
+    float sizeAtomeX = sizeAtomeRawX *beatSizeProton ;
+    float sizeAtomeY = sizeAtomeRawY *beatSizeProton ;
+    float sizeAtomeZ = sizeAtomeRawZ *beatSizeProton ;
+    PVector sizeAtomeXYZ = new PVector(sizeAtomeX,sizeAtomeY,sizeAtomeZ) ;
+    //diameter
+    float factorSizeField = sizeAtomeX *1.2 ; // factor size of the electronic Atom's Cloud
+     //width
+    float posTextInfo = map(size_y_item[ID_item], .1, width,sizeAtomeRawX*.2, width*.2) + (beat[ID_item] *2.0)  ; 
       
       
     
@@ -139,22 +152,7 @@ class Atome extends Romanesco {
       // main method
       atm.update (atomTemperature, velLimit, changeVelocity, tempAbs, soundDirection) ; // obligation to use this void, in the atomic univers
       atm.covalentCollision (atomList);
-      
-      // SIZE
-      float sizeAtomeRawX = map (size_x_item[ID_item], .1, width, .2, width *.05) ;
-      float sizeAtomeRawY = map (size_y_item[ID_item], .1, width, .2, width *.05) ;
-      float sizeAtomeRawZ = map (size_z_item[ID_item], .1, width, .2, width *.05) ;
-      float sizeAtomeX = sizeAtomeRawX *beatSizeProton ;
-      float sizeAtomeY = sizeAtomeRawY *beatSizeProton ;
-      float sizeAtomeZ = sizeAtomeRawZ *beatSizeProton ;
-      PVector sizeAtomeXYZ = new PVector(sizeAtomeX,sizeAtomeY,sizeAtomeZ) ;
-      //diameter
-      float factorSizeField = sizeAtomeX *1.2 ; // factor size of the electronic Atom's Cloud
-       //width
-      float posTextInfo = map(size_y_item[ID_item], .1, width,sizeAtomeRawX*.2, width*.2) + (beat[ID_item] *2.0)  ;
 
-    
-      
       //DISPLAY
       //PARAMETER FROM ROMANESCO
       //the proton change the with the beat of music
@@ -190,9 +188,9 @@ class Atome extends Romanesco {
 
       //MODE OF DISPLAY
       //RPE_mode = "Chemical Name/File text/Electronic cloud/Ellipse schema/Ellipse cloud/Triangle schema/Triangle cloud/Rectangle schema/Rectangle cloud/Box schema/Box cloud/Sphere schema/Sphere cloud" ;
-      if (mode[ID_item] == 0 || mode[ID_item] == 255 ) 
-      atm.titleAtom2D (fill_item[ID_item], stroke_item[ID_item], font[ID_item], sizeTextName, sizeTextInfo, posTextInfo, angle_item[ID_item]) ; // (color name, color Info, PFont, int sizeTextName,int  sizeTextInfo )
-      else if (mode[ID_item] == 1 ) { 
+      if (mode[ID_item] == 0 || mode[ID_item] == 255 ) {
+        atm.titleAtom2D (fill_item[ID_item], stroke_item[ID_item], font[ID_item], sizeTextName, sizeTextInfo, posTextInfo, angle_item[ID_item]) ; // (color name, color Info, PFont, int sizeTextName,int  sizeTextInfo )
+      } else if (mode[ID_item] == 1 ) { 
         atm.title2D(fill_item[ID_item], font[ID_item], sizeTextName, posText, angle_item[ID_item]) ;
       } else if (mode[ID_item] == 2 ) {
         atm.display("", "POINT", sizeAtomeXYZ, fill_item[ID_item], stroke_item[ID_item], thickness, angle_item[ID_item]) ;

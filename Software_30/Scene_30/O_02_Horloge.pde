@@ -13,7 +13,7 @@ class Horloge extends Romanesco {
     RPE_pack = "Base" ;
     romanescoRender = "classic" ;
     RPE_mode = "Ellipse Clock 12/Ellipse Clock 24/Line Clock 12/Line Clock 24/minutes/secondes" ;// separate the name by a slash and write the next mode immadialtly after this one.
-    RPE_slider = "Fill hue,Fill sat,Fill bright,Fill alpha,Canvas X,Direction X,Area,Speed X,Size X" ;
+    RPE_slider = "Fill hue,Fill sat,Fill bright,Fill alpha,Angle,Speed X,Speed Y,Speed Z,Font size,Area,Canvas X,Canvas Y,Canvas Z" ;
   }
   //GLOBAL
   Vec3 pos_clock = Vec3() ; 
@@ -48,21 +48,21 @@ class Horloge extends Romanesco {
     }
     
     //rotation / deg
-    float angle = map(dir_x_item[ID_item], 0,360, 0, TAU) ;
+    float angle = map(angle_item[ID_item], 0,360, 0, TAU) ;
     //amplitude
-    float amp = map(swing_x_item[ID_item],0,1, 1, height  / 4) ;
+    float amp = map(area_item[ID_item], area_min_max.x,area_min_max.y, area_min_max.x *.4, area_min_max.y *.2) ;
 
     // pos clock
     if(motion[ID_item]) {
       local_frameCount += 1 ;
       int direction = 1 ;
       if(reverse[ID_item]) direction = -1 ;
-      float speed_x = speed_x_item[ID_item] *.02 ;
-      float speed_y = speed_x_item[ID_item] *.01 ;
-      float speed_z = speed_x_item[ID_item] *.03 ;
-      float pos_x = sin(local_frameCount *speed_x *direction) *width *.5  +(width/2)  ;
-      float pos_y = cos(local_frameCount *speed_y *direction) *height *.5 +(height/2) ;
-      float pos_z = sin(local_frameCount *speed_z *direction) *height ;
+      float speed_x = speed_x_item[ID_item] *.1 ;
+      float speed_y = speed_y_item[ID_item] *.1 ;
+      float speed_z = speed_z_item[ID_item] *.1 ;
+      float pos_x = sin(local_frameCount *speed_x *direction) *map(canvas_x_item[ID_item],width/10,width *PHI,0,width *PHI) ;
+      float pos_y = cos(local_frameCount *speed_y *direction) *map(canvas_y_item[ID_item],width/10,width *PHI,0,width *PHI) ;
+      float pos_z = sin(local_frameCount *speed_z *direction) *map(canvas_z_item[ID_item],width/10,width *PHI,0,width *PHI) ;
       pos_clock = Vec3(pos_x,pos_y,pos_z) ;
     }
 

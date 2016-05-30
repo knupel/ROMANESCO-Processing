@@ -95,7 +95,9 @@ class BaliseRomanesco extends Romanesco {
 // CLASS BALISE
 class Balise extends Rotation {  
   
-  Balise () { super () ; }
+  Balise () { 
+    super () ; 
+  }
   
   void display (float amp, PVector var, PVector sizeBalise, float factor, int max, boolean authorization, int mode) {
     pushMatrix() ;

@@ -58,7 +58,6 @@ void load_bitmap(int ID) {
 }
 
 void check_bitmap_folder_scene() {
-  // String path = sketchPath("") +"/" +preference_path +"Images" ;
   String path = import_path +"bitmap" ;
 
   // String path = preference_path +"Images" ;
@@ -125,10 +124,7 @@ void load_svg(int ID) {
 }
 
 void check_svg_folder_scene() {
-  // String path = sketchPath("") +"/" +preference_path +"Images" ;
   String path = import_path +"svg" ;
-
-  // String path = preference_path +"Images" ;
   ArrayList allFiles = listFilesRecursive(path);
   //check if something happen in the folder
   if(ref_bitmap_num_files != allFiles.size() ) {
@@ -193,7 +189,6 @@ void load_txt(int ID) {
 
 
 void check_text_folder_scene() {
-  // String path = sketchPath("") +"/" +preference_path +"Karaoke" ;
   String path = import_path +"karaoke" ;
   ArrayList allFiles = listFilesRecursive(path);
   
@@ -276,7 +271,6 @@ void setting_movie(int ID_item) {
 
 
 void check_movie_folder_scene() {
-  // String path = sketchPath("") +"/" +preference_path +"Karaoke" ;
   String path = import_path +"movie" ;
   ArrayList allFiles = listFilesRecursive(path);
   
