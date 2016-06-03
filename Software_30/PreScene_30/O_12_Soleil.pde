@@ -1,5 +1,5 @@
 /**
-SOLEIL || 2012 || 1.1.1
+SOLEIL || 2012 || 1.1.2
 */
 
 class Soleil extends Romanesco {
@@ -9,13 +9,13 @@ class Soleil extends Romanesco {
     ID_item = 12 ;
     ID_group = 1 ;
     RPE_author  = "Stan le Punk";
-    RPE_version = "Version 1.1.1";
+    RPE_version = "Version 1.1.2";
     RPE_pack = "Base" ;
     RPE_mode = "Beam/Lie'Bro'One/Lie'Bro'Two/Lie'Bro Noisy" ;
-    RPE_slider = "Fill hue,Fill sat,Fill bright,Fill alpha,Stroke hue,Stroke sat,Stroke bright,Stroke alpha,Thickness,Canvas X,Quantity,Speed X,Angle,Canvas X" ;
+    RPE_slider = "Fill hue,Fill sat,Fill bright,Fill alpha,Stroke hue,Stroke sat,Stroke bright,Stroke alpha,Thickness,Canvas X,Quantity,Speed X,Spurt X,Canvas X,Jitter Z" ;
   }
   //GLOBAL
-  float jitter ;
+  float jitter, spurt ;
   float angleRotation ;
   //SETUP
   void setup() {
@@ -26,40 +26,51 @@ class Soleil extends Romanesco {
   //DRAW
   void draw() {
     aspect_rpe(ID_item) ;
-    //
-    if(spaceTouch && action[ID_item]) pos = new PVector(mouse[ID_item].x -width/2, mouse[ID_item].y -height/2,0) ; else pos = new PVector(0,0,0) ;
-    int diam = int(map(canvas_x_item[ID_item], width/10, width, width/10, width *1.2) *allBeats(ID_item) ) ;
-    int numBeam = (int)(quantity_item[ID_item] *180 +1) ;
+    // orbital revolution
+    if((spaceTouch && action[ID_item]) || orbit[ID_item]) pos.set(mouse[ID_item].x -width/2, mouse[ID_item].y -height/2,0) ; else pos.set(0,0,0) ;
+    // diam
+    int diam = int(canvas_x_item[ID_item] *allBeats(ID_item)) ;
+    // num beam
+    float num_temp = quantity_item[ID_item] *quantity_item[ID_item] ;
+    int numBeam = (int)(num_temp *87 +1) ;
     if(!FULL_RENDERING) numBeam /= 20 ;
     if(numBeam < 2 ) numBeam = 2 ;
-    // Jitter
-    jitter += (angle_item[ID_item] *.001 ) ;
-    float jitting = cos(jitter) *tempo[ID_item] ;
-     //noise
-     PVector noise = new PVector() ;
-     float amp = sq(swing_x_item[ID_item] *10.0) ;
-     float rightNoise =  ((right[ID_item] *right[ID_item] *5) *amp) ;
-     float leftNoise = ((left[ID_item] *left[ID_item] *5) *amp) ;
-     if (sound[ID_item]) noise = new PVector(rightNoise, leftNoise) ; else noise = new PVector(amp,amp) ;
-     // rotation direction
-     int direction = 1 ;
-     if(reverse[ID_item]) direction = 1 ; else direction = -1 ;
-     if(!motion[ID_item]) direction = 0 ;
+    
+    // spurt
+    float ratio_spurt = (spurt_x_item[ID_item] *spurt_x_item[ID_item]) +.005 ;
+    spurt += (ratio_spurt *.33)  ;
+    float spurting = cos(spurt) *tempo[ID_item] ;
+
+    // jitter
+    PVector jitter = new PVector() ;
+    float ratio_jitter = jitter_z_item[ID_item] *jitter_z_item[ID_item] ;
+    float amp = sq(ratio_jitter *(height /10)) ;
+    float right_jit =  ((right[ID_item] *right[ID_item] *5) *amp) ;
+    float left_jit = ((left[ID_item] *left[ID_item] *5) *amp) ;
+    if (sound[ID_item]) jitter = new PVector(right_jit, left_jit) ; else jitter = new PVector(amp,amp) ;
+
+    // rotation direction
+    int direction = 1 ;
+    if(reverse[ID_item]) direction = 1 ; else direction = -1 ;
+    if(!motion[ID_item]) direction = 0 ;
+    
     // rotation speed
     float speedRotation = 0 ;
-    speedRotation = sq(speed_x_item[ID_item] *10.0 *tempo[ID_item]) *direction ;
+    float ratio_speed = (speed_x_item[ID_item] *speed_x_item[ID_item]) +.05 ;
+    if(speed_x_item[ID_item] <= 0) ratio_speed = 0 ;
+    speedRotation = sq(ratio_speed *8.0 *tempo[ID_item]) *direction ;
     angleRotation += speedRotation ;
     rotate (radians(angleRotation)) ;
 
     // mode
     if(mode[ID_item] == 0) soleil(pos, diam, numBeam) ;
-    if(mode[ID_item] == 1) soleil(pos, diam, numBeam, jitting) ;
-    if(mode[ID_item] == 2) soleil(pos, diam, numBeam, jitter) ;
-    if(mode[ID_item] == 3) soleil(pos, diam, numBeam, jitter, noise) ;
+    if(mode[ID_item] == 1) soleil(pos, diam, numBeam, spurting) ;
+    if(mode[ID_item] == 2) soleil(pos, diam, numBeam, spurt) ;
+    if(mode[ID_item] == 3) soleil(pos, diam, numBeam, spurt, jitter) ;
     
     // info display
     String revolution = ("") ;
-    if(spaceTouch && action[ID_item]) revolution =("false") ; else revolution = ("true") ;
+    if((spaceTouch && action[ID_item]) || orbit[ID_item]) revolution =("false") ; else revolution = ("true") ;
     objectInfo[ID_item] = ("The sun have " + numBeam + " beams - Motion "+revolution ) ;
     
     
@@ -67,14 +78,14 @@ class Soleil extends Romanesco {
   
   // ANNEXE
   // soleil with jitter
-  void soleil(PVector pos, int diam, int numBeam, float jitter, PVector noise) {
+  void soleil(PVector pos, int diam, int numBeam, float spurt, PVector jitter) {
     int numPoints = numBeam *2 ;
     for (int i = 0 ; i < numPoints -1 ; i = i +2) {
-      float vibration = random(-noise.x, noise.y) ;
+      float vibration = random(-jitter.x, jitter.y) ;
       PVector p1 = new PVector() ;
       PVector p2 = new PVector() ;
-      p1 = circle(pos, diam, numPoints, jitter)[i].copy() ;
-      p2 = circle(pos, diam, numPoints, jitter)[i +1].copy() ;
+      p1 = circle(pos, diam, numPoints, spurt)[i].copy() ;
+      p2 = circle(pos, diam, numPoints, spurt)[i +1].copy() ;
   
       beginShape() ;
       vertex(pos.x, pos.y, pos.z) ;

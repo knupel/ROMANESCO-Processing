@@ -1,6 +1,6 @@
 
 /**
-ORBITAL || 2015 || 0.0.2
+ORBITAL || 2015 || 0.0.3
 */
 class Orbital extends Romanesco {
  
@@ -33,7 +33,7 @@ class Orbital extends Romanesco {
     ID_item = 5 ;
     ID_group = 1 ;
     RPE_author  = "Alexandre Petit";
-    RPE_version = "Version 0.0.2";
+    RPE_version = "Version 0.0.3";
     RPE_pack = "Workshop" ;
     RPE_mode = "" ; // separate the differentes mode by "/"
     /** 
@@ -49,6 +49,7 @@ class Orbital extends Romanesco {
   // setup
   void setup() {
     setting_start_position(ID_item, width/2, height/2, 0);
+    setting_start_direction(ID_item, 45, 45);
   
     flock = new Flock_Orbital();
   
@@ -70,7 +71,7 @@ class Orbital extends Romanesco {
   // draw
   void draw() {
     // it's nice to code the variable from the sliders or from sound... here to see easily what's happen in your object.
-    float quantity = quantity_item[ID_item] *2. ;
+    float quantity = map(quantity_item[ID_item], 0, 1, .001, 1) ;
 
     // display
     orbital_1(quantity) ;
@@ -126,12 +127,10 @@ class Orbital extends Romanesco {
   }
  
   void checkControls() {
-     if      (rTouch && action[ID_item]) changeDir();
-     else if (xTouch && action[ID_item]) randomDir();
-     else if (nTouch && action[ID_item]) randomPos();
+     if (nTouch && action[ID_item]) randomPos();
      // else if (jTouch) ;//randomiserad = D_MIN + random(D_MAX - D_MIN);
-     else if (kTouch && action[ID_item]) resetOrbit();
-     else if (jTouch && action[ID_item]) jump();
+     else if (oTouch && action[ID_item]) resetOrbit();
+     else if (reverse[ID_item]) jump();
   }
  
   void render() {

@@ -43,13 +43,13 @@ float speedLeapmotion = .15 ; // between 0.000001 and 1 : can be good between 0.
 // METHOD
 /////////
 
-/*
+
 import codeanticode.tablet.*;
 Tablet tablet;
-*/
+
 void prescene_setup() {
   leap = new com.leapmotion.leap.Controller();
- //  tablet = new Tablet(this);
+  if(TABLET) tablet = new Tablet(this);
   if(FULL_RENDERING) displayInfo3D = false ; else displayInfo3D = true ;
 }
 
@@ -130,7 +130,7 @@ Vec3 posRef = Vec3() ;
 int mouseZ ;
 
 
-void cursorDraw() {
+void cursor_update() {
   updateLeapCommand() ;
   updateMouseZ() ;
   
@@ -138,8 +138,12 @@ void cursorDraw() {
   if(ORDER_ONE || ORDER_TWO || ORDER_THREE) ORDER = true ; else ORDER = false ;
   
   //check the tablet
-  // pen[0] = new PVector (norm(tablet.getTiltX(),0,1), norm(tablet.getTiltY(),0,1), tablet.getPressure()) ;
-  pen[0] = Vec3() ;
+  if(TABLET) {
+    //pen[0] = Vec3 (norm(tablet.getTiltX(),0,1), norm(tablet.getTiltY(),0,1), tablet.getPressure()) ; 
+    pen[0] = Vec3 (tablet.getTiltX(), tablet.getTiltY(), tablet.getPressure()) ; 
+  } else {
+    pen[0] = Vec3(0,0,.02) ;
+  }
   
   // Leap and mouse move
   if (orderOneLeap || orderTwoLeap) {

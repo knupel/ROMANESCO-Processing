@@ -10,7 +10,7 @@ class Lignes extends Romanesco {
     ID_item = 16 ;
     ID_group = 1 ;
     RPE_author  = "Stan le Punk";
-    RPE_version = "Version 1.1.1";
+    RPE_version = "Version 1.1.2";
     RPE_pack = "Base" ;
     RPE_mode = "Lines 1/Lines 2/Lines 3/Lines 4/Lines 5/Lines 6" ;
     RPE_slider = "Fill hue,Fill sat,Fill bright,Fill alpha,Thickness,Quantity,Speed X,Direction X,Canvas X,Angle,Alignment" ;
@@ -37,8 +37,7 @@ class Lignes extends Romanesco {
     if(motion[ID_item]) speed = map(speed_x_item[ID_item], 0,1, 0, height/20 ) * tempo[ID_item]  ; else speed = 0.0 ;
     
     if(reverse[ID_item]) speed = speed *1 ; else speed = speed * -1 ;
-    //to stop the move
-    if (action[ID_item]  && spaceTouch ) speed = 0.0 ;
+
     
     // size canvas
     PVector canvas = new PVector (map(canvas_x_item[ID_item],width/10, width, height, height *5),map(canvas_x_item[ID_item],width/10, width, width, width *5)) ; 

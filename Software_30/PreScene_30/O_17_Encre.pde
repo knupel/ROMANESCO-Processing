@@ -1,5 +1,5 @@
 /**
-ENCRE  || 2012 || 1.1.1
+ENCRE  || 2012 || 1.1.2
 */
 ArrayList<Pixel_motion> encreList = new ArrayList<Pixel_motion>(); ;
 ArrayList<Pixel_motion> starList = new ArrayList<Pixel_motion>();
@@ -12,20 +12,25 @@ class Spray extends Romanesco {
     ID_item = 17 ;
     ID_group = 1 ;
     RPE_author  = "Stan le Punk";
-    RPE_version = "version 1.1.1";
+    RPE_version = "version 1.1.2";
     RPE_pack = "Base" ;
-    RPE_mode = "Star/Spray" ;
-    RPE_slider = "Fill hue,Fill sat,Fill bright,Fill alpha,Thickness,Size X,Size Y,Canvas X,Canvas Y,Quantity,Speed X,Angle,Life,Repulsion" ;
+    RPE_mode = "Star/Spray Pen/Spray Mouse" ;
+    RPE_slider = "Fill hue,Fill sat,Fill bright,Fill alpha,Thickness,Size X,Size Y,Canvas X,Canvas Y,Quantity,Reactivity,Angle,Life,Spurt X,Flow,Direction X,Direction Y" ;
   }
   //GLOBAL
   // INK
-  int dry = 100; // time to dry the ink, and pixel stop to move
-  float  inkDiffusion = 0.5 ; // size of spray 1 to 8 is good
-  int  spray = 10 ; // power of the spray
-  int inkFlux = 10 ; // flux is quantity ink for the pen or number of particules create each frame
-  float angleSpray = 10.0 ; // like is write
-  float factorPressure ;
-  PVector sprayDirection ;
+
+  // float  inkDiffusion = 0.5 ; // size of spray 1 to 8 is good
+  int ink_flux ;
+  float ink_diffusion ;
+  int ink_dry ; 
+  int spray_power ; 
+  float spray_angle ;
+  PVector spray_direction ;
+  float factor_pressure ;
+  
+  // float factorPressure ;
+  // PVector sprayDirection ;
   boolean changeColor ;
   
   //GALAXIE
@@ -38,13 +43,44 @@ class Spray extends Romanesco {
   void draw() {
     // change color pallete
     if(xTouch) changeColor = !changeColor ;
+
+    // thickness
+    float thickness = thickness_item[ID_item] ;
+
+
+
+    // spray
+    int max_flux = 5 ;
+    if(!FULL_RENDERING) max_flux = 5 ; else max_flux = 100 ;// limitation for the prescene rendering
+    if(mode[ID_item] == 1 || mode[ID_item] == 2) {
+      ink_flux = (int)map (quantity_item[ID_item], 0, 1, 1, max_flux) ; ; // flux is quantity ink for the pen or number of particules create each frame
+      ink_diffusion = map (reactivity_item[ID_item], 0, 1, 0, 20) ; // speed / vitesse
+      ink_dry = (int)map(life_item[ID_item], 0, 1, frameRate , 100000) ; // time to dry the ink, and pixel stop to move
+      spray_power = (int)map(flow_item[ID_item], 0, 1, 1, width) ;  // power of the spray
+      println(spray_power) ;
+      spray_angle = map (angle_item[ID_item], 0, 360, 0, 180) ;
+    }
+
+    if(mode[ID_item] == 1) {
+      // PEN MODE
+      spray_direction = new PVector (pen[0].x,pen[0].y) ;
+      factor_pressure = map(pen[0].z, 0, 1, 1, 50 ) ;
+    } else if(mode[ID_item] == 2 ) {
+      // MOUSE MODE
+      spray_direction = new PVector (map(dir_x_item[ID_item],0,360, -1, 1),map(dir_y_item[ID_item],0,360, -1, 1)) ;
+      println(spray_direction) ;
+      float factor_spurt = spurt_x_item[ID_item] *spurt_x_item[ID_item] ;
+      factor_pressure = map(factor_spurt, 0, 1, 1, 50 ) ;
+    }
+
     
     
     if(mode[ID_item] == 0 ) {
       if(clickLongLeft[ID_item] && nLongTouch || starList.size()<1 ) starProduction() ;
       displayStar() ;
     }
-    if(mode[ID_item] == 1 ) encre() ;
+    else if(mode[ID_item] == 1 ) encre(ink_flux, ink_diffusion, ink_dry, spray_power, spray_angle, spray_direction, factor_pressure, thickness, fill_item[ID_item]) ;
+    else if(mode[ID_item] == 2 ) encre(ink_flux, ink_diffusion, ink_dry, spray_power, spray_angle, spray_direction, factor_pressure, thickness, fill_item[ID_item]) ;
     
     // info display
     String whichColor = ("") ;
@@ -82,7 +118,7 @@ class Spray extends Romanesco {
       if(changeColor) stroke(p.colour.r, p.colour.g, p.colour.b, alpha(fill_item[ID_item])); else stroke(fill_item[ID_item]) ;
       point(p.pos.x +jitterOne, p.pos.y +jitterTwo, p.pos.z +jitterThree) ;
     }
-    if (resetAction(ID_item)) starList.clear() ;
+    if (reset(ID_item)) starList.clear() ;
   }
   
   // the orderer
@@ -164,43 +200,32 @@ class Spray extends Romanesco {
   
   /////
   //INK
-  void encre() {
-    factorPressure = map(pen[0].z, 0, 1, 1, 50 ) ;
-    sprayDirection = new PVector (pen[0].x,pen[0].y) ;
-    inkDiffusion = map (speed_x_item[ID_item] , 0,1, 0, 100 *tempo[ID_item]  ) ; // speed / vitesse
-    
-    float flux = map (quantity_item[ID_item], 0,1, 10,1000) ; // ink quantity
-    if(!FULL_RENDERING) flux = 10 ; // limitation for the prescene rendering
-    
-    float thicknessPoint = thickness_item[ID_item]*.1 ;
-    inkFlux = int(flux) ;
-    angleSpray   = map (angle_item[ID_item], 0,360, 0,180 ) ; // angle
-    dry = (int)map(life_item[ID_item], 0,1, frameRate , 100000) ; // durée
-    float spr ;
-    spr = map(repulsion_item[ID_item],0,1, 1, width) ; // force de diffusion
-    spray = int(spr) ;
-    
+  void encre(int inkFlux, float inkDiffusion, int dry, int spray, float angleSpray, PVector sprayDirection, float factorPressure, float thicknessPoint, int new_colour) {
     // INK DRY
     int size_field = (int)tempo[ID_item] ;
     float timeDry = 1.0 / float(dry) ;
   
    // add encre
    int security ;
-   if (FULL_RENDERING) security = 1000000 ; else security = 5000 ;
-   if (action[ID_item] && nLongTouch && clickLongLeft[0] && encreList.size() < security) addEncre(factorPressure, sprayDirection, angleSpray, spray, inkDiffusion, inkFlux, fill_item[ID_item]) ; 
+   if (FULL_RENDERING) security = 500000 ; else security = 5000 ;
+   if (action[ID_item] && nLongTouch && clickLongLeft[0] && encreList.size() < security) {
+    addEncre(factorPressure, sprayDirection, angleSpray, spray, inkDiffusion, inkFlux, new_colour) ; 
+  }
   
     //display
     for ( Pixel_motion e :  encreList ) {
-      if (action[ID_item]) e.motion_ink_2D(size_field, timeDry) ;
+      if (action[ID_item]) {
+        e.motion_ink_3D(size_field, timeDry) ;
+      }
       strokeWeight(thicknessPoint) ;
       noFill() ;
       if(changeColor) stroke(e.colour.r, e.colour.g, e.colour.b, alpha(fill_item[ID_item])); else stroke(fill_item[ID_item]) ;
-      point(e.pos.x, e.pos.y) ;
+      point(e.pos) ;
     }
     
     /////////////////////////////
     //CLEAR THE LIST IF NECESSARY 
-    if (resetAction(ID_item)) encreList.clear() ;
+    if (reset(ID_item)) encreList.clear() ;
   }
   void addEncre(float fp, PVector d, float a, int spray, float diffusion, int flux, int colorInk) {
     for ( int i = 0 ; i < flux *fp ; i++ ) {
@@ -209,19 +234,19 @@ class Spray extends Romanesco {
       float distribution = random(1) *random(1) ;
       //distribution pixel on the axe, before splash on the angle distribution
       // also we use to the strong push of the pen to the spray longer 
-      float distance = spray * fp * distribution  ;
+      float distance = spray *fp * distribution  ;
       //angle projection spray
       float angleDeg = random(-a, a);
       float angle = radians(angleDeg) ;
       // calcul of the absolute position of each pixel
-      Vec2 tilt = Vec2 ( pen[0].x *distance, pen[0].y *distance ) ;
+      Vec2 tilt = Vec2 (pen[0].x *distance, pen[0].y *distance) ;
       //position the pixel around the laticce, pivot...
       Vec2 posTilt = Vec2( mouse[0].x - tilt.x , mouse[0].y - tilt.y  ) ;
       
       //calcul the final position to display
       mouse[ID_item].x = rotation(posTilt, Vec2(mouse[0].x, mouse[0].y), angle).x ;
       mouse[ID_item].y = rotation(posTilt, Vec2(mouse[0].x, mouse[0].y), angle).y ;
-      mouse[ID_item].sub(Vec3(item_setting_position[0][ID_item])) ;
+      // mouse[ID_item].sub(Vec3(item_setting_position[0][ID_item])) ;
 
       
       //put the pixel in the list to use peacefully

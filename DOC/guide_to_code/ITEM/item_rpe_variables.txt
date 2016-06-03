@@ -24,9 +24,10 @@ parameter[ID_item]
 
 BOOLEAN
 -------
-reverse[ID_item]
-motion[ID_item]
-horizon[ID_item]
+reverse[ID_item] > from keyboard "R"
+motion[ID_item] > from keyboard "M"
+horizon[ID_item] > from keyboard "H"
+orbit[ID_item] > from keyboard "O"
 
 
 
@@ -194,12 +195,14 @@ need_min_max >>> 0,1
 sound
 -----------
 
-Volume
+VOLUME
+--
 left[ID_item]  @return float value 0 > 1 / 1 when it's the sound is off
 right[ID_item] @return float value 0 > 1 / 1 when it's the sound is off
 mix[ID_item]   @return float value 0 > 1 / 1 when it's the sound is off
 
-Beat
+BEAT
+--
 beat[ID_item] @return float value 1 > 3 / last value when the sound is off
 kick[ID_item] @return float value 1 > 3 / last value when the sound is off
 snare[ID_item] @return float value 1 > 3 / last value when the sound is off
@@ -208,15 +211,21 @@ allBeats(ID_item) @return float value 1 > 12 / last value when the sound is off
 ??????????????????????????
 ????? it's weird because normally the value return must be between 1 to 10 for single value and 1 to 40 for the sum 
 
-Tempo
+TEMPO
+--
 tempo[ID_item] @return float value 0 > 1 / 1 when it's the sound is off
 tempoBeat[ID_item]  @return float value 0 > 1 / 1 when it's the sound is off
 tempoKick[ID_item]  @return float value 0 > 1 / 1 when it's the sound is off
 tempoSnare[ID_item] @return float value 0 > 1 / 1 when it's the sound is off
 tempoHat[ID_item]   @return float value 0 > 1 / 1 when it's the sound is off
 
+TRACK
+--
+boolean SOUND_PLAY ; return if there is sound play
 float getTimeTrack()  if the track is ON return the time elapse from the beginning play to now, if the track is OFF return value < 0.2
 
+BAND / SPECTRUM
+--
 float band [ID_item][whichBand] // whichBand give the information of the band where catch the info
 usualy there is 16 bands, to know the number :
 bandSpectrum.length ;
@@ -225,10 +234,22 @@ bandSpectrum.length ;
 
 
 
-Coord
+
+
+
+
+
+
+COORD ITEM 
 -----------
-item_setting_position[0][ID_item] @ return original position
-item_setting_direction[0][ID_item] @ return original orientation
+Vec3 pos_item_old[ID_item]
+Vec2 dir_item_old[ID_item]
+
+COORD ITEM REF
+--
+Vec3 item_setting_position[0][ID_item] @ return original position
+Vec2 item_setting_direction[0][ID_item] @ return original orientation
+
 
 
 
@@ -245,12 +266,25 @@ COMMON EXTERNAL DEVICE
 VAR from the mouse, pen and leapmotion
 
 
+
+
+
+
+
+
+
+
 POINTER XYZ
 ––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
-PVector mouse[ID_item] refresh with space touch
+Vec3 mouse[ID_item] refresh with space touch
 mouse[0].x // mouse[0].y // absolute position of the mouse
 mouse[0].z // return info from the z axis when the leapmotion is active
 mouse[ID_item].x // mouse[ID_item].y // mouse[ID_item].z // same info than mouse[0] but this one is refresh when you press the space
+
+
+
+
+
 
 MOUSE WHEEL
 ––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
@@ -258,17 +292,54 @@ int wheel[ID_item]
 wheel[0] and wheel[ID_item]
 or use the void zoom() and take the float value getCountZoom...this value is more reactive !
 
-PMOUSE
+
+
+
+
+
+
+
+
+PMOUSE disable
 ––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
 PVector pmouse[ID_item]
 pmouse[0] and pmouse[ID_item]
 
 
-PEN
+
+
+
+
+
+
+
+PEN disable
 ––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
-PVector pen[ID_item] or pen[0] refresh with space touch
-pen[ID_item].x pen[ID_item].y   // information from the tablet tilt : orientation of the pen 
-pen[ID_item].z - value to 0 to 1 - information from tablet : pressure pen 
+Vec3 pen[ID_item] or pen[0] refresh with space touch
+
+information from the tablet tilt : orientation of the pen 
+pen[ID_item].x > return float around -1, 1
+pen[ID_item].y > return float around -1, 1
+
+information from tablet : pressure pen 
+pen[ID_item].z - value to 0 to 1 - 
+
+  ////////////////////////////////
+ // BE CAREFULL PEN is disable //
+////////////////////////////////
+instead we use vlue by default
+pen[Ø].x = 0 ; tilt x
+pen[Ø].y = 0 ; tilt y
+pen[Ø].z = .02 ; pressure
+
+
+
+
+
+
+
+
+
 
 
 MOUSE CLICK BOOLEAN
@@ -279,6 +350,12 @@ Short click just for one shot
 Active after one mousePressed, be inactive after the mouse Released
 	boolean clickLongLeft[ID_item] ;
 	boolean clickLongLeft[ID_item] ;
+
+
+
+
+
+
 
 
 

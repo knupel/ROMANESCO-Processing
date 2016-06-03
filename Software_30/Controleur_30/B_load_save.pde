@@ -69,7 +69,7 @@ PVector size_dropdown_font, size_dropdown_bg, size_dropdown_image_bitmap, size_d
 PVector posTextDropdown = new PVector(2,8)  ;
 
 
-String [] mode_list_RPE, font_dropdown_list, image_bitmap_dropdown_list, image_svg_dropdown_list, movie_dropdown_list, file_text_dropdown_list,  name_camera_video_dropdown_list, list_dropdown ;
+String [] mode_list_RPE, font_dropdown_list, bitmap_dropdown_list, svg_dropdown_list, movie_dropdown_list, file_text_dropdown_list,  name_camera_video_dropdown_list, list_dropdown ;
 int  [] ID_camera_video_list ;
 
 float marge_around_dropdown ;

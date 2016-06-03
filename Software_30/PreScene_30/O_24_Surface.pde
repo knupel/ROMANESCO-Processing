@@ -1,5 +1,5 @@
 /**
-SURFACE || 2014 || 1.0.0
+SURFACE || 2014 || 1.0.1
 */
 
 class Surface extends Romanesco {
@@ -8,10 +8,10 @@ class Surface extends Romanesco {
     ID_item = 24 ;
     ID_group = 1 ;
     RPE_author  = "Stan le Punk";
-    RPE_version = "Version 1.0.0";
+    RPE_version = "Version 1.0.1";
     RPE_pack = "Base" ;
     RPE_mode = "Surfimage/Vague/Vague++" ; // separate the differentes mode by "/"
-    RPE_slider = "Fill hue,Fill sat,Fill bright,Fill alpha,Stroke hue,Stroke sat,Stroke bright,Stroke alpha,Thickness,Influence,Canvas X,Canvas Y,Quality,Canvas X,Speed X,Size X" ;
+    RPE_slider = "Fill hue,Fill sat,Fill bright,Fill alpha,Stroke hue,Stroke sat,Stroke bright,Stroke alpha,Thickness,Influence,Canvas X,Canvas Y,Quality,Canvas X,Speed X,Size X,Swing X" ;
   }
   
   // Main method image 
@@ -24,7 +24,8 @@ class Surface extends Romanesco {
   
   // setup
   void setup() {
-    setting_start_position(ID_item, width/2, height/2, 0) ;
+    setting_start_position(ID_item, width/2, height/2, -height/2) ;
+    setting_start_direction(ID_item, 45, -10) ;
     load_bitmap(ID_item) ;
   }
   
@@ -36,6 +37,7 @@ class Surface extends Romanesco {
   int altitude_image ;
   // GRID SIMPLE
   float amplitude_simple_grid = 30 ;
+  float ratio_swing = 4 ;
   float step  = .01 ;  
   float refSizeTriangle ;
   Vec2 canvasRef ;
@@ -50,8 +52,27 @@ class Surface extends Romanesco {
     // load image
     if(parameter[ID_item]) load_bitmap(ID_item) ;
 
+    //ratio speed
+    float ratio_speed = speed_x_item[ID_item] *speed_x_item[ID_item] *speed_x_item[ID_item] ;
 
-    if(motion[ID_item]) speed = speed_x_item[ID_item] *.7 ; else speed = 0 ;
+    //speed
+    if(motion[ID_item] ) {
+      speed = ratio_speed ; 
+    } else { 
+      speed = 0 ;
+    }
+    // swing
+    if(sound[ID_item] && SOUND_PLAY ) { 
+      ratio_swing = allBeats(ID_item) ; 
+    } else {
+      ratio_swing = 2 ;
+    }
+    // update motion
+    if(motion[ID_item]) {
+      float speed_image = ratio_speed ;
+      float amplitude_image = swing_x_item[ID_item] *width *ratio_swing ;
+      altitude_image = int(sin(frameCount *speed_image) *amplitude_image) ;
+    }
     
     
     
@@ -78,30 +99,30 @@ class Surface extends Romanesco {
       Vec2 newCanvas = Vec2(canvas_x_item[ID_item],canvas_y_item[ID_item]) ;
       newCanvas.mult(4.5) ;
       // create grid if there is no grid
-      if( grid_surface_simple.size() < 1) create_surface_simple(sizePix_grid_simple,newCanvas) ;
+      if(grid_surface_simple.size() < 1) create_surface_simple(sizePix_grid_simple,newCanvas) ;
       
       // from of the wave
       int maxStep = (int)map(influence_item[ID_item],0,1,2,50) ;
       step = map(noise(5),0,1,0,maxStep) ; // break the linear mode of the wave
       // amplitude
-      amplitude_simple_grid = swing_x_item[ID_item] *height *.07 *allBeats(ID_item)  ;
+      amplitude_simple_grid = swing_x_item[ID_item] *height *.07 *ratio_swing  ;
       amplitude_simple_grid *= amplitude_simple_grid  ;
       
       // clear the list
-      if(resetAction(ID_item)) {
+      if(refSizeTriangle != size_x_item[ID_item] || !compare(canvasRef,newCanvas)) {
         grid_surface_simple.clear() ;
       }
       
       // Vague + clear
       if(mode[ID_item] == 1 ) {
-        if( refSizeTriangle != size_x_item[ID_item] || !compare(canvasRef,newCanvas) ) {
+        if(refSizeTriangle != size_x_item[ID_item] || !compare(canvasRef,newCanvas) ) {
           if(mode[ID_item] == 1 ) grid_surface_simple.clear() ;
           create_surface_simple(sizePix_grid_simple,newCanvas) ;
         }
       }
       // vague ++
       if(mode[ID_item] == 2) {
-        if( refSizeTriangle != size_x_item[ID_item] || !compare(canvasRef,newCanvas) ) {
+        if(refSizeTriangle != size_x_item[ID_item] || !compare(canvasRef,newCanvas) ) {
           create_surface_simple(sizePix_grid_simple,newCanvas) ;
         }
       }
@@ -112,12 +133,7 @@ class Surface extends Romanesco {
     // END simple grid param
     ////////////////////////
     
-    // update image grid
-    if(motion[ID_item]) {
-      float speed_image = speed_x_item[ID_item] * .2 ;
-      float amplitude_image = swing_x_item[ID_item] *width *2 *allBeats(ID_item) ;
-      altitude_image = int(sin(frameCount *speed_image) *amplitude_image) ;
-    }
+
     
     
     // update all mode

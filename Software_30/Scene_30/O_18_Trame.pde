@@ -1,5 +1,5 @@
 /**
-TRAME || 2012 || 1.1.1
+TRAME || 2012 || 1.1.2
 */
 
 Trame trame ;
@@ -11,10 +11,10 @@ class Damier extends Romanesco {
     ID_item = 18 ;
     ID_group = 1 ;
     RPE_author  = "Stan le Punk";
-    RPE_version = "Version 1.1.1";
+    RPE_version = "Version 1.1.2";
     RPE_pack = "Base" ;
     RPE_mode = "Rectangle/Ellipse/Box" ;
-    RPE_slider = "Fill hue,Fill sat,Fill bright,Fill alpha,Stroke hue,Stroke sat,Stroke bright,Stroke alpha,Thickness,Size X,Size Y,Size Z,Quantity,Speed X,Canvas X" ;
+    RPE_slider = "Fill hue,Fill sat,Fill bright,Fill alpha,Stroke hue,Stroke sat,Stroke bright,Stroke alpha,Thickness,Size X,Size Y,Size Z,Quantity,Speed X,Swing X,Angle" ;
   }
   //GLOBAL
   float d, g, m ;
@@ -23,11 +23,15 @@ class Damier extends Romanesco {
   float angle = 0 ;
   float speed = 0 ;
 
+  Vec3 lattice = Vec3(0) ;
+
   //SETUP
   void setup() {
-    setting_start_position(ID_item, width/2, height/2, -width) ;
-    setting_start_direction(ID_item, 0,90) ;
+    setting_start_position(ID_item, width/2, height/2, 0) ;
+    setting_start_direction(ID_item, 45,45) ;
     trame = new Trame() ;
+    // lattice = Vec3(width *2, height *2, 0) ;
+    lattice = Vec3(0) ;
 
   }
   //DRAW
@@ -61,20 +65,26 @@ class Damier extends Romanesco {
     
     
     //rotation of the single shape
-    if (action[ID_item]) angle = map(angle_item[ID_item], 0,100, 0, TAU) ; 
+    if (action[ID_item]) angle = map(angle_item[ID_item], 0,360, 0, TAU) ; 
     
     //quantity
-    int q = int(map(quantity_item[ID_item], 0, 1, 2, 9)) ;
+    float ratio_num = quantity_item[ID_item] *quantity_item[ID_item] ;
+    int q = int(map(ratio_num, 0, 1, 2, 9)) ;
     if(FULL_RENDERING) q *= q ;
 
     //amp
     float amp = map(swing_x_item[ID_item],0,1, .3, width *.007) ;
     amp *= amp ;
-    
+
+    // axe de rotation
+    // if(spaceTouch) lattice = Vec3(mouse[ID_item].x +width/2,mouse[ID_item].y +height/2, mouse[ID_item].z) ;
+    if(spaceTouch) lattice = Vec3(mouse[ID_item]) ;
+    println("lattice", lattice, width, height) ;
+    println("pos item", pos_item_final[ID_item]) ;
     //MODE DISPLAY
-    if(mode[ID_item] == 0 || mode[ID_item] == 255) trame.drawTrameRect(mouse[ID_item], angleTrame, angle, size , q, g, d, amp) ;
-    else if (mode[ID_item] == 1) trame.drawTrameDisc(mouse[ID_item], angleTrame, angle, size , q, g, d, amp) ;
-    else if (mode[ID_item] == 2) trame.drawTrameBox(mouse[ID_item], angleTrame, angle, size , q, g, d, amp) ;
+    if(mode[ID_item] == 0 || mode[ID_item] == 255) trame.drawTrameRect(lattice, angleTrame, angle, size , q, g, d, amp) ;
+    else if (mode[ID_item] == 1) trame.drawTrameDisc(lattice, angleTrame, angle, size , q, g, d, amp) ;
+    else if (mode[ID_item] == 2) trame.drawTrameBox(lattice, angleTrame, angle, size , q, g, d, amp) ;
     
     //INFO
     objectInfo[ID_item] =("Quantity " + q + " shapes / Angle " + (int)angle + " Speed " + int(speed *100) + " Amplitude " + int(amp *100)) ;
@@ -103,9 +113,8 @@ class Trame {
     // calcul the position of each object
     for (int i=1 ; i < nbrlgn ; i++) {
       for (int j=1 ; j < nbrlgn ; j++) { 
-        Vec2 pos = Vec2 ((i *width *amp) / nbrlgn, (j *height *amp ) / nbrlgn )  ;
-        Vec2 newPosAfterRotation = rotation(pos, Vec2(axe.x,axe.y), angleTrame) ;        
-        rectangleTrame (newPosAfterRotation, size.x, size.y, gauche, droite, angle_item ) ;      
+        Vec2 new_pos = pos_rotation(axe, angleTrame, i, j, nbrlgn, amp) ;      
+        rectangleTrame (new_pos, size.x, size.y, gauche, droite, angle_item ) ;      
       }
     }
     popMatrix() ;  
@@ -121,13 +130,14 @@ class Trame {
     // calcul the position of each object
     for (int i=1 ; i < nbrlgn ; i++) {
       for (int j=1 ; j < nbrlgn ; j++) {
-        Vec2 pos = Vec2 (  (i *width *amp ) / nbrlgn, (j * height *amp ) / nbrlgn )  ;
-        Vec2 newPosAfterRotation = rotation(pos, Vec2(axe.x,axe.y), angleTrame) ;        
-        disqueTrame (newPosAfterRotation, size.x, size.y, gauche, droite, angle_item ) ;      
+        Vec2 new_pos = pos_rotation(axe, angleTrame, i, j, nbrlgn, amp) ;
+        disqueTrame (new_pos, size.x, size.y, gauche, droite, angle_item ) ;      
       }
     }
     popMatrix() ;  
   }
+
+
   
   
   //TRAME BOX
@@ -137,9 +147,8 @@ class Trame {
     //calcul the position of each object
     for (int i=1 ; i < nbrlgn ; i++) {
       for (int j=1 ; j < nbrlgn ; j++) {
-        Vec2 pos = Vec2 (  (i *width *amp ) / nbrlgn, (j * height *amp ) / nbrlgn )  ;
-        Vec2 newPosAfterRotation = rotation(pos, Vec2(axe.x,axe.y), angleTrame) ;        
-        boxTrame (newPosAfterRotation, size, gauche, droite, angle_item ) ;      
+        Vec2 new_pos = pos_rotation(axe, angleTrame, i, j, nbrlgn, amp) ;      
+        boxTrame (new_pos, size, gauche, droite, angle_item ) ;      
       }
     }
     popMatrix() ;  
@@ -171,5 +180,21 @@ class Trame {
     rotate(aObj) ;
     box (pow(size.x,1.4), pow(size.y,1.4), pow(size.z,1.4)) ;
     popMatrix() ;
+  }
+
+
+  Vec2 pos_rotation(Vec3 lattice, float angle_trame, int row, int col, int num, float amp) {
+    Vec2 pos = Vec2(row *width, col *height) ;
+    pos.mult(amp) ;
+    pos.div(num) ;
+    Vec2 displacement = mult(pos, .5) ;
+    pos.sub(displacement) ;
+
+    Vec2 lattice_2D = Vec2(lattice.x, lattice.y) ;
+    lattice_2D.x = map(lattice_2D.x, 0, width, -displacement.x, displacement.x) ;
+    lattice_2D.y = map(lattice_2D.y, 0, height, -displacement.y, displacement.y) ;
+    
+    Vec2 final_pos = rotation(pos, lattice_2D, angle_trame) ;  
+    return final_pos ;
   }
 }

@@ -60,7 +60,7 @@ class The_Abbyss extends Romanesco {
       }
     }
     //
-    if (resetAction(ID_item)) creatureManager.killAll(whichCreature);
+    if (reset(ID_item)) creatureManager.killAll(whichCreature);
     
     // info display
     objectInfo[ID_item] = ("Creatures "+ creatureManager.creatures.size()) ;

@@ -1,5 +1,5 @@
 /**
-SPIRALE  || 2011 || 1.3.1
+SPIRALE  || 2011 || 1.3.2
 */
 Spirale spirale ; 
 //object three
@@ -10,18 +10,21 @@ class SpiraleRomanesco extends Romanesco {
     ID_item = 13 ;
     ID_group = 1 ;
     RPE_author  = "Stan le Punk";
-    RPE_version = "Version 1.3.1";
+    RPE_version = "Version 1.3.2";
     RPE_pack = "Base" ;
     RPE_mode = "Rectangle/Ellipse/Box" ;
-    RPE_slider = "Fill hue,Fill sat,Fill bright,Fill alpha,Stroke hue,Stroke sat,Stroke bright,Stroke alpha,Thickness,Size X,Size Y,Size Z,Quantity,Speed X,Canvas X,Canvas Y,Alignment" ;
+    RPE_slider = "Fill hue,Fill sat,Fill bright,Fill alpha,Stroke hue,Stroke sat,Stroke bright,Stroke alpha,Thickness,Size X,Size Y,Size Z,Quantity,Speed X,Canvas X,Canvas Y,Swing X,Alignment" ;
   }
   //GLOBAL
      
     float speed ; 
     boolean reverseSpeed;
+    float pos_swing ;
+    int dir_swing = 1 ;
   //SETUP
   void setup() {
     setting_start_position(ID_item, width/2, height/2, 0) ;
+    setting_start_direction(ID_item, 135,45) ;
     spirale = new Spirale() ;
   }
   //DRAW
@@ -84,10 +87,30 @@ class SpiraleRomanesco extends Romanesco {
     float canvasYtemp = map(canvas_y_item[ID_item], width *.1, width,minValueCanvas,maxValueCanvas) ;
     // float canvasZtemp = map(canvas_z_item[ID_item], width *.1, width,minValueCanvas,maxValueCanvas) ;
     PVector canvas = new PVector(canvasXtemp, canvasYtemp)  ;
+
+    // alignement
+    float max_align = alignment_item[ID_item] *(height/10) ;
+    if(swing_x_item[ID_item] > 0 && motion[ID_item] && horizon[ID_item]) {
+      float align ;
+      float speed_swing = swing_x_item[ID_item] *swing_x_item[ID_item] ;
+      println(speed_swing) ;
+      if(pos_swing > max_align || pos_swing < -max_align || allBeats(ID_item) > 8) {
+        dir_swing *= -1 ;
+      }
+      if(pos_swing > max_align +1) pos_swing = max_align ;
+      if(pos_swing < -max_align -1) pos_swing = -max_align ;
+      speed_swing *= dir_swing ;
+      pos_swing += speed_swing ;
+
+
+    } else {
+      pos_swing = max_align ;
+    }
+
     
     PVector pos = new PVector() ; // we write that because the first part of the void is not available any more.
     spirale.actualisation (pos, speed) ;
-    spirale.affichage (n, nMax, size, z, canvas, mode[ID_item], horizon[ID_item], alignment_item[ID_item]) ;
+    spirale.affichage (n, nMax, size, z, canvas, mode[ID_item], horizon[ID_item], pos_swing) ;
     
     // info display
     objectInfo[ID_item] = ("Speed "+speed+ " - Amplitude " + map(z, 1.01, 1.27, 1,100) + " - Quantity " + nMax) ;

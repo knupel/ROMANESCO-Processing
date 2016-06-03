@@ -1,0 +1,732 @@
+User guide 0.0.2
+
+Item
+----
+
+
+
+
+
+----------
+1 / Letter
+by Stan le Punk
+
+--
+SLIDER
+--
+> Fill hue,Fill sat,Fill bright,Fill alpha,Stroke hue,Stroke sat,Stroke bright,Stroke alpha,Thickness,Jitter X,Jitter Y,Jitter Z,Quantity,Speed X,Font size
+
+MODE
+--
+Mode 1
+Mode 2
+Mode 3
+
+
+KEYBOARD
+--
+> "R" reverse direction
+> "M" stop motion
+> "N" new reference rotation
+> DELETE reset letters distribution
+
+SOUND
+--
+YES
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+----------
+2 / Horloge
+by Stan le Punk
+
+--
+SLIDER
+--
+> Fill hue,Fill sat,Fill bright,Fill alpha,Angle,Speed X,Speed Y,Speed Z,Font size,Area,Canvas X,Canvas Y,Canvas Z
+
+MODE
+--
+Mode 1
+Mode 2
+Mode 3
+Mode 4
+Mode 5
+
+
+KEYBOARD
+--
+> "R" reverse direction
+> "M" stop motion
+
+SOUND
+--
+YES
+
+
+
+
+
+
+
+
+----------
+4 / Karaoke
+by Stan le Punk
+
+--
+SLIDER
+--
+> Fill hue,Fill sat,Fill bright,Fill alpha,Canvas X,Canvas Y,Direction X,Font size
+
+MODE
+--
+Mode 1
+
+
+KEYBOARD
+--
+> "Arrow up, down, left, right" change line and paragraphe
+
+SOUND
+--
+YES
+
+
+
+
+
+
+
+
+
+
+----------
+5 / Orbital
+by Alexandre Petit
+inspirated by Nature of Code / Daniel Shiffman
+
+--
+SLIDER
+--
+> Fill hue,Fill sat,Fill bright,Fill alpha,Stroke hue,Stroke sat,Stroke bright,Stroke alpha,Quantity,Speed X
+
+MODE
+--
+Mode 1
+
+
+KEYBOARD
+--
+> "R" change direction
+> "N" new distribution
+> "O" change orbit
+
+SOUND
+--
+YES
+
+
+
+
+
+
+
+
+
+
+
+
+
+---------
+6 / Atome
+by Stan le Punk
+
+--
+SLIDER
+--
+> Fill hue,Fill sat,Fill bright,Fill alpha,Stroke hue,Stroke sat,Stroke bright,Stroke alpha,Thickness,Size X,Size Y,Size Z,Canvas X,Canvas Y,Speed X,Direction X,Variety,Quantity,Area,Angle,Font size
+
+MODE
+--
+Mode 1
+Mode 2
+Mode 3
+Mode 4
+Mode 5
+Mode 6
+Mode 7
+Mode 8
+Mode 9
+Mode 10
+Mode 11
+
+
+KEYBOARD
+--
+> "M" stop motion
+
+SOUND
+--
+YES
+
+
+
+
+
+
+
+
+
+
+---------
+7 / The abbyss
+by Andreas Gysin
+
+--
+SLIDER
+--
+Fill hue
+Fill sat
+Fill bright
+Fill alpha
+Stroke hue
+Stroke sat
+Stroke bright
+Stroke alpha
+Thickness
+
+MODE
+--
+Box Fish
+Cubus
+Floater
+Radio
+Worm
+Sea Fly
+Breather
+Spider
+Manta
+Father
+Super Nova
+
+
+KEYBOARD
+--
+> "N" + "ACTION" add creatures
+> "DELETE" or "BACKSPACE" delete all creature
+> "C" and "ARROW UP" or "ARROW DOWN" move global camera to next creature
+
+SOUND
+--
+YES
+
+
+
+
+
+
+
+
+
+
+--------------------
+9 / Rubis
+by Stan le Punk
+
+--
+SLIDER
+--
+> Fill hue,Fill sat,Fill bright,Fill alpha,Stroke hue,Stroke sat,Stroke bright,Stroke alpha,Thickness,Canvas X,Speed X,Jitter X,Jitter Y,Jitter Z,Quantity,Swing X
+
+MODE
+--
+mode 1
+mode 2
+
+
+KEYBOARD
+--
+> "M" stop motion
+
+SOUND
+--
+YES
+
+
+
+
+
+
+
+
+
+
+
+
+-------------------
+10 / Arbre
+by Stan le Punk
+--
+
+SLIDER
+--
+> Fill hue,Fill sat,Fill bright,Fill alpha,Stroke hue,Stroke sat,Stroke bright,Stroke alpha,Thickness,Size X,Size Y,Size Z,Quantity,Speed X,Direction X,Canvas X,Alignment
+
+MODE
+--
+Mode 1
+Mode 2
+Mode 3
+Mode 4
+Mode 5
+Mode 6
+--
+
+KEYBOARD
+--
+> "M" stop motion
+> "H" create horizon and deep
+--
+
+SOUND
+--
+YES
+
+
+
+
+----------
+11 / Boxolyzer
+by Stan le Punk
+
+--
+SLIDER
+--
+> Fill hue,Fill sat,Fill bright,Fill alpha,Stroke hue,Stroke sat,Stroke bright,Stroke alpha,Thickness,Size X,Size Y,Size Z,Canvas X,Quantity,Direction X
+
+MODE
+--
+Mode 1
+Mode 2
+
+
+KEYBOARD
+--
+
+
+SOUND
+--
+YES
+
+
+
+
+
+
+
+
+
+
+
+----------
+12 / Soleil
+by Stan le Punk
+
+--
+SLIDER
+--
+> Fill hue,Fill sat,Fill bright,Fill alpha,Stroke hue,Stroke sat,Stroke bright,Stroke alpha,Thickness,Canvas X,Quantity,Speed X,Spurt X,Canvas X,Jitter Z
+
+MODE
+--
+Mode 1
+Mode 2
+Mode 3
+Mode 4
+
+
+KEYBOARD
+--
+> "R" reverse direction
+> "M" motion
+> "O" orbital move
+> "SPACE" + "ACTION BUTTON" set the orbital revolution
+
+SOUND
+--
+YES
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+----------
+13 / Spirale
+by Stan le Punk
+
+--
+SLIDER
+--
+> Fill hue,Fill sat,Fill bright,Fill alpha,Stroke hue,Stroke sat,Stroke bright,Stroke alpha,Thickness,Size X,Size Y,Size Z,Quantity,Speed X,Canvas X,Canvas Y,Swing X,Alignment
+
+MODE
+--
+Mode 1
+Mode 2
+Mode 3
+
+
+KEYBOARD
+--
+> "H" flat or pyramidal move
+> "R" reverse direction
+> "M" motion
+> "SPACE" + "ACTION BUTTON" set the orbital revolution
+
+SOUND
+--
+YES
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+----------------------
+14 / Balise
+by Stan le Punk
+--
+
+SLIDER
+--
+> Fill hue,Fill sat,Fill bright,Fill alpha,Stroke hue,Stroke sat,Stroke bright,Stroke alpha,Thickness,Size X,Size Y,Size Z,Quantity,Speed X,Canvas X,Repulsion
+
+MODE
+--
+Mode 1
+Mode 2
+Mode 3
+Mode 4
+--
+
+KEYBOARD
+--
+> "M" stop motion
+> "R" reverse rotation
+--
+
+SOUND
+--
+YES
+
+
+
+
+
+
+
+----------
+16 / Lines
+by Stan le Punk
+
+--
+SLIDER
+--
+> Fill hue,Fill sat,Fill bright,Fill alpha,Thickness,Quantity,Speed X,Direction X,Canvas X,Angle,Alignment
+
+MODE
+--
+Mode 1
+Mode 2
+Mode 3
+Mode 4
+Mode 5
+Mode 6
+
+
+KEYBOARD
+--
+> "M" stop motion
+> "R" reverse rotation
+
+SOUND
+--
+YES
+
+
+
+
+
+
+
+----------
+17 / Spray
+by Stan le Punk
+
+--
+SLIDER
+--
+> Fill hue,Fill sat,Fill bright,Fill alpha,Thickness,Size X,Size Y,Canvas X,Canvas Y,Quantity,Reactivity,Angle,Life,Spurt X,Flow,Direction X,Direction Y
+
+MODE
+--
+Mode 1 star
+Mode 2 spray pen mode
+Mode 3 spray mouse mode
+
+
+KEYBOARD
+--
+> "N" new diffusion
+> "DELETE" + "ACTION BUTTON" remove ink
+
+SOUND
+--
+YES
+
+
+
+
+
+
+
+
+
+
+
+
+
+----------
+18 / Damier
+by Stan le Punk
+
+--
+SLIDER
+--
+> Fill hue,Fill sat,Fill bright,Fill alpha,Stroke hue,Stroke sat,Stroke bright,Stroke alpha,Thickness,Size X,Size Y,Size Z,Quantity,Speed X,Swing X,Angle
+
+MODE
+--
+Mode 1
+Mode 2
+Mode 3
+
+
+KEYBOARD
+--
+> "M" stop motion
+> "R" reverse rotation
+> "SPACE" change rotation axe / lattice
+
+SOUND
+--
+YES
+
+
+
+
+
+
+
+
+
+
+--------------------------
+19 / Vectorial
+by Stan le Punk
+--
+
+SLIDER
+--
+> Fill hue,Fill sat,Fill bright,Fill alpha,Stroke hue,Stroke sat,Stroke bright,Stroke alpha,Thickness,Jitter X,Jitter Y,Jitter Z,Canvas X,Canvas Y,Swing X,Swing Y,Swing Z 
+
+
+MODE
+--
+Mode 1
+Mode 2 
+
+
+KEYBOARD
+--
+> "N" reset the shape
+
+SOUND
+--
+NO
+
+
+
+
+
+
+
+
+--------------------------
+21 / Nid d'abeille
+by Amnon Owed
+--
+
+SLIDER
+--
+> Fill hue,Fill sat,Fill bright,Fill alpha,Thickness,Size X,Canvas X,Canvas Y
+
+
+MODE
+--
+Mode 1
+
+
+KEYBOARD
+--
+
+
+SOUND
+--
+YES
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+------------------------
+23 / Escargot
+by Stan le Punk
+--
+
+SLIDER
+--
+> Fill hue,Fill sat,Fill bright,Fill alpha,Stroke hue,Stroke sat,Stroke bright,Stroke alpha,Thickness,Size X,Size Y,Size Z,Speed X,Direction X,Canvas X,Quality,Quantity,Calm
+
+
+MODE
+--
+Mode 1
+Mode 2
+Mode 3
+Mode 4
+Mode 5
+Mode 6
+Mode 7
+Mode 8
+Mode 9
+
+KEYBOARD
+--
+> "M" motion for few mode
+> "R" reverse direction
+
+SOUND
+--
+YES
+
+
+
+
+
+
+
+
+------------------------
+24 / Surface
+by Stan le Punk
+--
+
+SLIDER
+--
+> Fill hue,Fill sat,Fill bright,Fill alpha,Stroke hue,Stroke sat,Stroke bright,Stroke alpha,Thickness,Influence,Canvas X,Canvas Y,Quality,Canvas X,Speed X,Size X,Swing X
+
+
+MODE
+--
+Mode 1 > image
+Mode 2 > surface
+Mode 3 > surface
+
+KEYBOARD
+--
+> "M" motion for few mode
+
+SOUND
+--
+YES
+
+
+
+
+
+
+
+
+
+
+
+
+------------------------
+26 / Ecosysteme
+--
+SLIDER
+--
+
+MODE
+--
+Mode 1
+Mode 2
+Mode 5 > info
+
+KEYBOARD
+--
+> "N" reset ecosystem
+
+
+SOUND
+--

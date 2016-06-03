@@ -1,5 +1,5 @@
   ////////////////////////////////////////////////////////////////////
- // Romanesco Unu 1.2.0 / version 30 / made with Processing 3.0.2 ///
+ // Romanesco Unu 1.2.0 / version 30 / made with Processing 3.1.1 ///
 ////////////////////////////////////////////////////////////////////
 /* 4.100 lines of code the 4th may 2015 !!!! */
 String version = ("30") ;
@@ -23,11 +23,9 @@ void setup() {
   load_setup() ;
 
   select_camera_device(30, 100) ; // methode(int min_fps, int min_width)
-  check_image_bitmap_folder() ;
-  check_image_svg_folder() ;
-  check_file_text_folder() ;
-  
-  
+
+  check_media_folder() ;
+
   set_font() ;
   set_display_slider() ;
   set_import_pic_button() ;
@@ -52,10 +50,7 @@ void setup() {
 void draw() {
   check_interface() ;
   check_slider_item() ;
-  check_image_bitmap_folder() ;
-  check_image_svg_folder() ;
-  check_movie_folder() ;
-  check_file_text_folder() ;
+  check_media_folder() ;
   check_button() ;
 
   init_interface() ;

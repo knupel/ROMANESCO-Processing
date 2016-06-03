@@ -50,7 +50,7 @@ void item_manipulation () {
   for ( int i = 0 ; i < NUM_ITEM ; i++ ) {
     posObj[i] = Vec3() ; 
     dirObj[i] = Vec3() ;
-    if(dir_item_old[i] == null) dir_item_old[i] = Vec3() ;
+    if(dir_item_final[i] == null) dir_item_final[i] = Vec3() ;
   }
 }
 
@@ -90,10 +90,10 @@ void setting_start_direction(int ID, int dir_x, int dir_y) {
 }
 
 void setting_start_direction(int ID, int which_setting, int dir_x, int dir_y) {
-  if(dir_item_old[ID] == null) dir_item_old[ID] = Vec3() ;
-  dir_item_old[ID].set(dir_x, dir_y,0) ;
+  if(dir_item_final[ID] == null) dir_item_final[ID] = Vec3() ;
+  dir_item_final[ID].set(dir_x, dir_y,0) ;
   if(item_setting_direction [0][ID] == null) item_setting_direction [which_setting][ID] = Vec3() ;
-  item_setting_direction [0][ID] = Vec3(dir_item_old[ID]) ;
+  item_setting_direction [0][ID] = Vec3(dir_item_final[ID]) ;
   if(temp_item_canvas_direction[ID] == null) temp_item_canvas_direction[ID] = Vec3() ;
   temp_item_canvas_direction[ID].x = map(item_setting_direction [which_setting][ID].y, 0, 360, 0, width) ;
   temp_item_canvas_direction[ID].y = map(item_setting_direction [which_setting][ID].x, 0, 360, 0, height) ;
@@ -111,12 +111,12 @@ void setting_start_position(int ID, int pos_x, int pos_y, int pos_z) {
 }
 
 void setting_start_position(int ID, int which_setting, int pos_x, int pos_y, int pos_z) {
-  if(pos_item_old[ID] == null) pos_item_old[ID] = Vec3() ;
-  pos_item_old[ID].x = pos_x -(width/2) ;
-  pos_item_old[ID].y = pos_y -(height/2) ;
-  pos_item_old[ID].z = pos_z ;
+  if(pos_item_final[ID] == null) pos_item_final[ID] = Vec3() ;
+  pos_item_final[ID].x = pos_x -(width/2) ;
+  pos_item_final[ID].y = pos_y -(height/2) ;
+  pos_item_final[ID].z = pos_z ;
   if(item_setting_position [which_setting][ID] == null) item_setting_position [which_setting][ID] = Vec3() ;
-  item_setting_position [which_setting][ID] = Vec3(pos_item_old[ID]) ;
+  item_setting_position [which_setting][ID] = Vec3(pos_item_final[ID]) ;
   mouse[ID] = Vec3(pos_x, pos_y, pos_z) ;
 }
 /**
@@ -147,7 +147,7 @@ void item_move(boolean movePos, boolean moveDir, int ID) {
     update_ref_position(posObj[ID], ID) ;
   }
   Vec3 newPos = update_position_item(posObj[ID], ID, movePos) ;
-  pos_item_old[ID].set(newPos) ;
+  pos_item_final[ID].set(newPos) ;
 
   //direction
   if (!moveDir) {
@@ -158,13 +158,13 @@ void item_move(boolean movePos, boolean moveDir, int ID) {
   float speed = 100.0 ; // 150 is medium speed rotation
   Vec2 speedDirectionOfObject = Vec2(speed /(float)width, speed /(float)height) ;
   
-  dir_item_old[ID].set(update_direction_item(speedDirectionOfObject, ID, moveDir)) ;
+  dir_item_final[ID].set(update_direction_item(speedDirectionOfObject, ID, moveDir)) ;
 
 
   //RESET
   if(touch0) {
-    pos_item_old[ID].set(item_setting_position [0][ID]);
-    dir_item_old[ID].set(item_setting_direction [0][ID]) ;
+    pos_item_final[ID].set(item_setting_position [0][ID]);
+    dir_item_final[ID].set(item_setting_direction [0][ID]) ;
 
     temp_item_canvas_direction[ID].set(0) ;
     reset_camera_direction_item[ID] = true ;
@@ -180,8 +180,8 @@ void item_move(boolean movePos, boolean moveDir, int ID) {
 Create ref position
 */
 void add_ref_item(int ID) {
-  posObj[ID] = Vec3(pos_item_old[ID]) ;
-  dirObj[ID] = Vec3(dir_item_old[ID]);
+  posObj[ID] = Vec3(pos_item_final[ID]) ;
+  dirObj[ID] = Vec3(dir_item_final[ID]);
 }
 
 /**
@@ -296,9 +296,9 @@ nd update position item
 FINAL POSITION
 */
 void final_pos_item(int ID) {
-  translate(pos_item_old[ID]) ;
-  rotateX(radians(dir_item_old[ID].x)) ;
-  rotateY(radians(dir_item_old[ID].y)) ;
+  translate(pos_item_final[ID]) ;
+  rotateX(radians(dir_item_final[ID].x)) ;
+  rotateY(radians(dir_item_final[ID].y)) ;
 }
 
 

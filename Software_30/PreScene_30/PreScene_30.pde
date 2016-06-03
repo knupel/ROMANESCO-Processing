@@ -19,7 +19,8 @@ used sound
  full frame rate
 */
 boolean TEST_ROMANESCO = false ;
-boolean FULL_RENDERING = true ;
+boolean FULL_RENDERING = false ;
+boolean TABLET = false ; // now tablet library don't work in OPENGL renderer
 
 void settings() {
   size(600,400,P3D) ;
@@ -113,7 +114,7 @@ void draw() {
   
   // misc
   update_temp_value() ;
-  cursorDraw() ;
+  cursor_update() ;
   
   // change to false if the information has be sent to Scene...but how ????
   keyboardFalse() ;

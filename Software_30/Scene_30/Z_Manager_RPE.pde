@@ -52,6 +52,7 @@ void updateObject(int ID) {
     if (mTouch) motion[ID] = !motion[ID] ;
     if (hTouch) horizon[ID] = !horizon[ID] ;
     if (rTouch) reverse[ID] = !reverse[ID] ;
+    if (oTouch) orbit[ID] = !orbit[ID] ;
     /*
     clickLongLeft[ID] = clickLongLeft[0] ;
     clickLongRight[ID] = clickLongRight[0] ;
@@ -207,21 +208,12 @@ void updateSound(int ID) {
 
 // RESET list and Object
 // by action
-boolean resetAction(int ID) {
+boolean reset(int ID) {
   boolean e = false ;
   //global delete
   if (backspaceTouch) e = true ;
   //SPECIFIC DELETE when the paramer button of contrôleur is ON
-  else if (deleteTouch) if ( action[ID]) e = true ;
-  return e ;
-}
-// by parameter
-boolean resetParameter(int ID) {
-  boolean e = false ;
-  //global delete
-  if (backspaceTouch) e = true ;
-  //SPECIFIC DELETE when the paramer button of contrôleur is ON
-  else if (deleteTouch) if (parameter[ID]) e = true ;
+  else if (deleteTouch) if (action[ID] || parameter[ID]) e = true ;
   return e ;
 }
 ///////////////////////////////////////
@@ -229,8 +221,18 @@ boolean resetParameter(int ID) {
 
 
 
-//CLASS
-// inspired from Andreas Gysin work from The Abyss Project
+
+
+
+
+
+
+
+
+/**
+Class RPE_MANAGER
+inspired from Andreas Gysin work from The Abyss Project
+*/
 class RPE_MANAGER {
   private ArrayList<Romanesco>RomanescoList ;
   private ArrayList<Class>objectRomanescoList;

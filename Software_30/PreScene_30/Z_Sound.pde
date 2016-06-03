@@ -1,5 +1,6 @@
-// Tab: Z_Sound
-//////////////////////////////MINIM///////////////////////////////////
+/**
+SOUND RPE 1.0.1
+*/
 //GLOBAL PARAMETER Minim
 Minim minim;
 AudioInput input; // music from outside
@@ -19,6 +20,9 @@ float maxBeat = 10.0  ;
 int right_volume_info = 0 ;
 int left_volume_info = 0 ;
 
+
+// boolean
+boolean SOUND_PLAY ;
 
 //////////////
 // SOUND SETUP
@@ -47,6 +51,7 @@ void soundDraw() {
   soundRomanesco() ;
   right_volume_info = int(input.right.get(1)  *100) ; 
   left_volume_info = int(input.left.get(1)  *100) ;
+  time_track() ;
 }
 // END SOUND DRAW
 /////////////////
@@ -334,13 +339,16 @@ float tempoAverage() {
 //TIME TRACK
 ////////////
 //GLOBAL
-int timeTrack  ;
+int time_track_elapse  ;
+void time_track() {
+  if(getTimeTrack() > .2 ) SOUND_PLAY = true ; else SOUND_PLAY = false ;
+}
 //RETURN
 float getTimeTrack() {
   float t ; 
-  timeTrack += millis() % 10 ;
-  t = timeTrack *.01 ;
-  if ( getTotalSpectrum(NUM_BANDS) < 0.1 ) timeTrack = 0 ;
+  time_track_elapse += millis() % 10 ;
+  t = time_track_elapse *.01 ;
+  if ( getTotalSpectrum(NUM_BANDS) < 0.1 ) time_track_elapse = 0 ;
   return round( t * 10.0f ) / 10.0f; 
 }
 ////////////////

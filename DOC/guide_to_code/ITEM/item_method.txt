@@ -49,9 +49,17 @@ void setting_start_position(int ID_item, int pos_x, int pos_y, int pos_z)
 
 
 
-COMMAND  / BOOLEAN metohd
+COMMAND  / BOOLEAN method
 ------------------------------------------
-use to make a specific effect to the item
+reset(ID_item) 
+> from keyboard "BACKSPACE" and "DELETE"
+> CONDITION 1 : if the button "BACKSPACE" is pressed and "ACTION" or "PARAMETER" and is ON
+> CONDITION 2 : if the button "DELETE" is pressed
+
+
+
+
+
 
 --
 MOTION

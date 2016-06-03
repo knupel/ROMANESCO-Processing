@@ -238,8 +238,8 @@ void select_camera_device(int fps, int min_width) {
 /**
 CHECK FOLDER
 */
-ArrayList image_bitmap_files = new ArrayList();
-ArrayList image_svg_files = new ArrayList();
+ArrayList bitmap_files = new ArrayList();
+ArrayList svg_files = new ArrayList();
 ArrayList movie_files = new ArrayList();
 ArrayList textFiles = new ArrayList();
 boolean folder_image_bitmap_selected = true ;
@@ -247,12 +247,19 @@ boolean folder_image_svg_selected = true ;
 boolean folder_movie_selected = true ;
 boolean folder_text_selected = true ;
 
+void check_media_folder() {
+  check_image_bitmap_folder() ;
+  check_image_svg_folder() ;
+  check_movie_folder() ;
+  check_file_text_folder() ;
+}
+
 
 // main void
 // check what's happen in the selected folder
 void check_image_bitmap_folder() {
   if(frameCount%180 == 0) {
-    image_bitmap_files.clear() ;
+    bitmap_files.clear() ;
     String path = import_path +"bitmap" ;
     
     ArrayList allFiles = listFilesRecursive(path);
@@ -265,13 +272,13 @@ void check_image_bitmap_folder() {
       if (f.isDirectory() == false) {
         String lastThree = fileName.substring(fileName.length()-3, fileName.length());
         if (lastThree.equals("PNG") || lastThree.equals("png") || lastThree.equals("JPG") || lastThree.equals("jpg") || lastThree.equals("GIF") || lastThree.equals("gif")) {
-          image_bitmap_files.add(f);
+          bitmap_files.add(f);
         }
       }
     }
     // show the info name file
-    for (int i = 0; i < image_bitmap_files.size(); i++) {
-      File f = (File) image_bitmap_files.get(i); 
+    for (int i = 0; i < bitmap_files.size(); i++) {
+      File f = (File) bitmap_files.get(i); 
     }
     // to don't loop with this void
     folder_image_bitmap_selected = false ;
@@ -280,7 +287,7 @@ void check_image_bitmap_folder() {
 
 void check_image_svg_folder() {
   if(frameCount%180 == 0) {
-    image_svg_files.clear() ;
+    svg_files.clear() ;
     String path = import_path +"svg" ;
     
     ArrayList allFiles = listFilesRecursive(path);
@@ -293,13 +300,13 @@ void check_image_svg_folder() {
       if (f.isDirectory() == false) {
         String lastThree = fileName.substring(fileName.length()-3, fileName.length());
         if (lastThree.equals("SVG") || lastThree.equals("svg")) {
-          image_svg_files.add(f);
+          svg_files.add(f);
         }
       }
     }
     // show the info name file
-    for (int i = 0; i < image_svg_files.size(); i++) {
-      File f = (File) image_svg_files.get(i); 
+    for (int i = 0; i < svg_files.size(); i++) {
+      File f = (File) svg_files.get(i); 
     }
     // to don't loop with this void
     folder_image_svg_selected = false ;
@@ -369,19 +376,19 @@ void check_file_text_folder() {
 
 void init_live_data() {
   // bitmap
-  image_bitmap_dropdown_list = new String[image_bitmap_files.size()] ;
-  for(int i = 0 ; i< image_bitmap_dropdown_list.length ; i++) {
-    File f = (File) image_bitmap_files.get(i);
-    image_bitmap_dropdown_list[i] = f.getName() ;
-    image_bitmap_dropdown_list[i] = image_bitmap_dropdown_list[i].substring(0,image_bitmap_dropdown_list[i].length() -4) ;
+  bitmap_dropdown_list = new String[bitmap_files.size()] ;
+  for(int i = 0 ; i< bitmap_dropdown_list.length ; i++) {
+    File f = (File) bitmap_files.get(i);
+    bitmap_dropdown_list[i] = f.getName() ;
+    bitmap_dropdown_list[i] = bitmap_dropdown_list[i].substring(0,bitmap_dropdown_list[i].length() -4) ;
   }
 
   // svg
-  image_svg_dropdown_list = new String[image_svg_files.size()] ;
-  for(int i = 0 ; i< image_svg_dropdown_list.length ; i++) {
-    File f = (File) image_svg_files.get(i);
-    image_svg_dropdown_list[i] = f.getName() ;
-    image_svg_dropdown_list[i] = image_svg_dropdown_list[i].substring(0,image_svg_dropdown_list[i].length() -4) ;
+  svg_dropdown_list = new String[svg_files.size()] ;
+  for(int i = 0 ; i< svg_dropdown_list.length ; i++) {
+    File f = (File) svg_files.get(i);
+    svg_dropdown_list[i] = f.getName() ;
+    svg_dropdown_list[i] = svg_dropdown_list[i].substring(0,svg_dropdown_list[i].length() -4) ;
   }
 
   // Movie

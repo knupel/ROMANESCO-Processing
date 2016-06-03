@@ -56,12 +56,12 @@ class Letter extends Romanesco {
     sizeRef = sizeFont ;
     sentenceRef = (sentence) ;
     pathRef = (path_font_item_TTF[ID_item]) ;
-    if(!newSetting || resetParameter(ID_item)) {
+    if(!newSetting || reset(ID_item)) {
       grp = RG.getText(sentence, path_font_item_TTF[ID_item], (int)sizeFont, CENTER); 
       newSetting = true ;
       axeLetter = int(random (grp.countChildren())) ;
     }
-    if(resetParameter(ID_item)) {
+    if(reset(ID_item)) {
       int choiceDir = floor(random(2)) ;
       if(choiceDir == 0 ) {
         startDirection = -1 ; 

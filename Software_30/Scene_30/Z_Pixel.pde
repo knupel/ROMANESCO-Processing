@@ -1,5 +1,5 @@
 /**
-CLASS PIX 0.1.7
+CLASS PIX 0.1.8
 https://github.com/StanLepunK/Pixel
 */
 public interface Pixel_Constants {
@@ -1226,9 +1226,9 @@ class Pixel extends Pix implements Pixel_Constants {
 
 
 
-
-// PIXEL MOTION
-///////////////
+/**
+PIXEL MOTION 0.0.2
+*/
 class Pixel_motion extends Pix implements Pixel_Constants {
     /**
     Not sure I must keep the arg field and life
@@ -1236,8 +1236,30 @@ class Pixel_motion extends Pix implements Pixel_Constants {
   float field = 1.0 ;
   float life = 1.0 ;
 
+  // CONSTRUCTOR 2D
+  Pixel_motion(Vec2 pos_2D, float field, int colour_int) {
+    init_mother_arg() ;
+    this.pos = Vec3(pos_2D) ;
+    this.field = field ;
+    colour = int_color_to_vec4_color(colour_int) ;
+    new_colour = Vec4(colour) ;
+  }
 
-  // CONSTRUCTOR
+  Pixel_motion(Vec2 pos_2D, float field, Vec4 colour_vec) {
+    init_mother_arg() ;
+    this.pos = Vec3(pos_2D) ;
+    this.field = field ;
+    colour = Vec4(colour_vec) ;
+    new_colour = Vec4(colour) ;
+  }
+
+  Pixel_motion(Vec2 pos_2D, float field) {
+    init_mother_arg() ;
+    this.pos = Vec3(pos_2D) ;
+    this.field = field ;
+  }
+  
+  // CONSTRUCTOR 3D
   Pixel_motion(Vec3 pos, float field, int colour_int) {
     init_mother_arg() ;
     this.pos = Vec3(pos) ;
@@ -1259,6 +1281,9 @@ class Pixel_motion extends Pix implements Pixel_Constants {
     this.pos = Vec3(pos) ;
     this.field = field ;
   }
+
+
+  
 
 
   /**
@@ -1291,6 +1316,39 @@ class Pixel_motion extends Pix implements Pixel_Constants {
       angle = random(-1,1) *TAU;
       pos.x += rad * cos(angle);
       pos.y += rad * sin(angle);
+    }
+  }
+
+
+
+  // 3D
+  void motion_ink_3D() {
+    int size_field = 1 ;
+    float speed_dry = 0 ;
+    motion_ink_3D(size_field, speed_dry) ;
+  }
+
+  void motion_ink_3D(float speed_dry) {
+    int size_field = 1 ;
+    motion_ink_3D(size_field, speed_dry) ;
+  }
+
+  void motion_ink_3D(int size_field) {
+    float speed_dry = 0 ;
+    motion_ink_3D(size_field, speed_dry) ;
+  }
+
+  // with external var
+  void motion_ink_3D(int size_field, float speed_dry) {
+    if (field > 0 ) { 
+      if(speed_dry != 0 ) field -= abs(speed_dry) ;
+      float rad;
+      float angle;
+      rad = random(-1,1) *field *size_field;
+      angle = random(-1,1) *TAU;
+      pos.x += rad * cos(angle);
+      pos.y += rad * sin(angle);
+      pos.z += rad * cos(angle);
     }
   }
 

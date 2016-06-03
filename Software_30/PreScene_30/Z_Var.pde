@@ -353,7 +353,7 @@ Vec3 [][] item_setting_direction ;
 Vec3 [] eyeCameraSetting, sceneCameraSetting ;
 
 //position
-Vec3 [] pos_item_old ;
+Vec3 [] pos_item_final ;
 Vec3 [] posObj ;
 Vec3 [] posObjRef ;
 
@@ -361,7 +361,7 @@ Vec3 [] posObjRef ;
 boolean [] reset_camera_direction_item ;
 Vec3 [] dirObj ;
 Vec3 [] temp_item_canvas_direction ;
-Vec3 [] dir_item_old ;
+Vec3 [] dir_item_final ;
 Vec3 [] dir_reference_items ;
 
 //position of object and wheel
@@ -371,7 +371,7 @@ int wheel[] ;
 //pen info
 
 //boolean object
-boolean [] motion, horizon, setting, reverse, clearList ;
+boolean [] motion, horizon, setting, reverse, orbit, clearList ;
 
 //main font for each object
 String [] path_font_TTF, pathFontVLW, path_font_item_TTF ;
@@ -428,6 +428,7 @@ void createMiscVar() {
   motion = new boolean [NUM_ITEM]  ;
   horizon = new boolean [NUM_ITEM]  ;
   reverse = new boolean [NUM_ITEM] ;
+  orbit = new boolean [NUM_ITEM] ;
 
   // IMAGE
   bitmap_import = new PImage[NUM_ITEM] ;
@@ -526,10 +527,10 @@ void create_variableButton() {
 
 
 void create_var_item_manipulation(int num_item_setting) {
-  pos_item_old = new Vec3 [NUM_ITEM] ;
+  pos_item_final = new Vec3 [NUM_ITEM] ;
   item_setting_position = new Vec3 [num_item_setting] [NUM_ITEM] ;
 
-  dir_item_old = new Vec3 [NUM_ITEM] ;
+  dir_item_final = new Vec3 [NUM_ITEM] ;
   dir_reference_items = new Vec3 [NUM_ITEM] ;
   temp_item_canvas_direction = new Vec3 [NUM_ITEM] ;
   item_setting_direction = new Vec3 [num_item_setting] [NUM_ITEM] ;

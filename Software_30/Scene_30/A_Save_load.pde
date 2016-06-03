@@ -242,12 +242,12 @@ void saveDataObject(String path) {
 		dataObj.setFloat(need_name, need_item[i]) ;
         
         // position & orientation
-		dataObj.setFloat("pos x obj", pos_item_old[i].x /width) ;
-		dataObj.setFloat("pos y obj", pos_item_old[i].y /width) ;
-		dataObj.setFloat("pos z obj", pos_item_old[i].z /width) ;
+		dataObj.setFloat("pos x obj", pos_item_final[i].x /width) ;
+		dataObj.setFloat("pos y obj", pos_item_final[i].y /width) ;
+		dataObj.setFloat("pos z obj", pos_item_final[i].z /width) ;
 
-		dataObj.setFloat("longitude obj", dir_item_old[i].x) ;
-		dataObj.setFloat("latitude obj", dir_item_old[i].y) ;
+		dataObj.setFloat("longitude obj", dir_item_final[i].x) ;
+		dataObj.setFloat("latitude obj", dir_item_final[i].y) ;
 		// save in the JSON Array
 		save.setJSONObject(startPosJSONDataObj +i,dataObj) ;
 	}

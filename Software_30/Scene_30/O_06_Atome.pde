@@ -233,7 +233,7 @@ class Atome extends Romanesco {
     
 
     //CLEAR
-    if (resetAction(ID_item)) atomList.clear() ;
+    if (reset(ID_item)) atomList.clear() ;
     //ADD ATOM
     int maxValueReproduction = 25 ;
     if(FULL_RENDERING) maxValueReproduction = 1 ; else maxValueReproduction = 25 ;

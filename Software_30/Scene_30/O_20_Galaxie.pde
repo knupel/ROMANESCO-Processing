@@ -62,7 +62,7 @@ class Galaxie extends Romanesco {
     if (mode[ID_item] == 0 ) numFromController = int(quantity *10) ; else numFromController = int(quantity) ;
     
 
-    if ((numGrains != numFromController && parameterButton[ID_item] == 1) || resetAction(ID_item) ) makeSand = true ;
+    if ((numGrains != numFromController && parameterButton[ID_item] == 1) || reset(ID_item) ) makeSand = true ;
     
     if (makeSand) {
       numGrains = numFromController ;

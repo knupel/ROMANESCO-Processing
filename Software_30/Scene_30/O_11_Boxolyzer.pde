@@ -1,5 +1,5 @@
 /**
-BOXOLYZER || 2012|| 1.0.3
+BOXOLYZER || 2012|| 1.0.4
 */
 ArrayList<BOITEaMUSIQUE> boiteList ;
   
@@ -21,7 +21,7 @@ class Boxolyzer extends Romanesco {
 
   //SETUP
   void setup() {
-    setting_start_position(ID_item, 0, 0, 0) ;
+    setting_start_position(ID_item, width/2, height/2, 0) ;
     
     boitesSetting() ;
   }
@@ -32,7 +32,7 @@ class Boxolyzer extends Romanesco {
     if (numBox != numBoxRef ) newDistribution = true ;
     numBoxRef = numBox ;
     Vec3 size = Vec3(size_x_item[ID_item],size_y_item[ID_item],size_z_item[ID_item]) ;
-    size.mult(2) ;
+    // size.mult(2) ;
 
     // color and thickness
     aspect_rpe(ID_item) ; 
@@ -90,12 +90,15 @@ class Boxolyzer extends Romanesco {
     // int canvasFinal = width ;
     int canvasFinal = (int)map(canvas_x_item[ID_item], width/10, width, width/2,width*3)  ;
     int displacement_symetric = int(width *.5 -canvasFinal *.5) ;
+    Vec3 temp_pos = Vec3() ;
+    Vec3 displacement = Vec3(width/2, height/2, 0) ;
     for( int i = 0 ; i < n ; i++) {
       pos.x = (i *canvasFinal/n) + (canvasFinal /(n *2)) +displacement_symetric ;
       if( i < band.length) factorSpectrum = band [ID_item][i] ;
       BOITEaMUSIQUE boiteAmusique = (BOITEaMUSIQUE) boiteList.get(i) ;
       if(!FULL_RENDERING) factorSpectrum = .5 ;
-      boiteAmusique.showTheBoite(pos, size, factorSpectrum, groundPosition, dir) ;
+      temp_pos.set(sub(pos, displacement)) ;
+      boiteAmusique.showTheBoite(temp_pos, size, factorSpectrum, groundPosition, dir) ;
     }
   }
   // END EQUALIZER

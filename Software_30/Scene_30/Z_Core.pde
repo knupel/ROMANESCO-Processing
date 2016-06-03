@@ -17,7 +17,12 @@ void init_RPE() {
       reset_direction_item (which_setting, i) ;
       update_ref_direction(i) ;
       // check for null before start
-      if(dir_item_old[i] == null ) dir_item_old[i] = Vec3() ;
+      if(dir_item_final[i] == null) dir_item_final[i] = Vec3() ;
+      if(pos_item_final[i] == null) {
+        float x = -(width/2) ;
+        float y = -(height/2) ;
+        pos_item_final[i] = Vec3(x,y,0) ;
+      }
     }
     init_RPE = false ;
   }

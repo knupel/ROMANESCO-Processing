@@ -22,6 +22,9 @@ MINOR
 > method to set direction item
 > fix bug reset direction and position item
 > update item letter, change slider and shortcut
+> add boolean orbit[ID_item] from keyboard "O"
+> update item soleil : add spurt jitter, adjust float ration for speed, swing, jitting and beams num
+> item boxolyzer, fix bug rotation on line box
 
 
 // CONTROLLER
