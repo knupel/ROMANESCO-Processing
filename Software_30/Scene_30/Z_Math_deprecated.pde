@@ -96,8 +96,3 @@ PVector follow(PVector target, float speed) {
   }
   return goToPosFollow ;
 }
-
-
-
-
-

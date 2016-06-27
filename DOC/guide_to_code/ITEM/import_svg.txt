@@ -11,9 +11,10 @@ load_svg(ID_item) ;
 
 the common use is like this, in association with the button parameter of the item selected menu
 
-void display() {
+void setup() {
 	if(parameter[ID_item]) {
       load_svg(ID_item) ;
+      svg_import[ID_item].build(svg_current_path, svg_bricks_saved) ;
       svg_import[ID_item].svg_mode(CENTER) ;
    }
    .../...

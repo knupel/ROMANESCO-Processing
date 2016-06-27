@@ -23,7 +23,7 @@ void settings() {
   
   fullScreen(P3D,2) ;
   FULL_SCREEN = true ;
-  //size(124,124,P3D) ;
+  // size(124,124,P3D) ;
   pixelDensity(displayDensity()) ;
   syphon_settings() ;
 }
@@ -32,6 +32,7 @@ void settings() {
 
 
 void setup() {
+  OSC_setup() ;
   camera_video_setup() ;
   preference_path = sketchPath("")+"preferences/" ;
   import_path = sketchPath("")+"import/" ;
@@ -66,7 +67,7 @@ void setup() {
   light_setup() ;
   if(FULL_RENDERING) shader_setup() ;
 
-  OSC_setup() ;
+
 }
 
 //DRAW
@@ -110,8 +111,10 @@ void draw() {
 
   nextPreviousKeypressed() ;
   init_value_temp_prescene() ;
-
-  if (!miroir_on_off) opening() ;
+  
+  if (!miroir_on_off) {
+    opening() ;
+  }
 
 
 

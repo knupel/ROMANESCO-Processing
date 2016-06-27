@@ -10,7 +10,13 @@ void OSC_setup() {
 
   if(miroir_on_off) osc_mirroir = new OscP5(this, 9002); 
   else osc_classic = new OscP5(this, 9001);
-  // osc_classic = new OscP5(this, 9001);
+  // must stop the process to give a time to initialization for the OSC process
+  try { 
+    Thread.sleep(6000); 
+  } 
+  catch (InterruptedException e) { 
+  }
+  println("OSC setup done") ;
 }
 
 void oscEvent(OscMessage receive) {

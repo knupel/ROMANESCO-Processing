@@ -30,12 +30,11 @@ void settings() {
 
   
 void setup() {
-  
-  camera_video_setup() ;
- 
   preference_path = sketchPath("")+"preferences/" ;
   import_path = sketchPath("")+"import/" ;
   
+  OSC_setup() ;
+  camera_video_setup() ;
   display_setup(60) ; // the int value is the frameRate
   RG.init(this);  // Geomerative
 
@@ -65,9 +64,6 @@ void setup() {
   light_position_setup() ;
   light_setup() ;
   if(FULL_RENDERING) shader_setup() ;
-
-  OSC_setup() ;
-
 }
 
 

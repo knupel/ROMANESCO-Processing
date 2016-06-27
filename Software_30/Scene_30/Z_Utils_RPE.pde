@@ -272,5 +272,3 @@ boolean research_in_String(String research, String target) {
   }
   return result ;
 }
-
-

@@ -26,6 +26,12 @@ void OSC_setup() {
   } else if (TEST_ROMANESCO && youCanSendToMiroir )  {
     targetMiroir = new NetAddress(sendToMiroir,9002);
   }
+  // must stop the process to give a time to initialization for the OSC process
+  try { 
+    Thread.sleep(6000); 
+  } 
+  catch (InterruptedException e) { 
+  }
   println("OSC setup done") ;
 }
 
