@@ -15,7 +15,7 @@ boolean OPEN_APP = true ;
 boolean TEST_FULL_SCREEN = false ;
 
 boolean FULL_RENDERING = true ;
-boolean FULL_SCREEN = true ;
+boolean FULL_SCREEN = false ;
 
 
 void settings() {

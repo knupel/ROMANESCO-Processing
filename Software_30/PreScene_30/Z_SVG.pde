@@ -1,5 +1,5 @@
 /**
-Class RPEsvg 1.1.0
+Class RPEsvg 1.1.2
 RPE – Romanesco Processing Environment – 
 * @author Stan le Punk
 * @see other Processing work on https://github.com/StanLepunK
@@ -12,7 +12,7 @@ class RPEsvg {
   ArrayList<Brick_SVG> list_brick_SVG = new ArrayList<Brick_SVG>() ;
   String header_svg = "" ;
   int ID_brick ;
-  String saved_path_svg = "" ;
+  String saved_path_bricks_svg = "" ;
 
   boolean bool_pos_svg, bool_jitter_svg, bool_scale_svg ;
   boolean keep_change ;
@@ -53,7 +53,7 @@ class RPEsvg {
   RPEsvg(String path, String name) {
     this.name = name ;
     this.path = path ;
-    saved_path_svg = "RPE_SVG/" + name + "/" ;
+    saved_path_bricks_svg = "RPE_SVG/" + name + "/" ;
     // build() ;
   }
   
@@ -72,21 +72,32 @@ class RPEsvg {
   PUBLIC METHOD
 
   */
-
-  void build() {
+  void build(String path_import, String path_brick) {
     list_brick_SVG.clear() ;
     list_ellipse_SVG.clear() ;
     list_rectangle_SVG.clear() ;
     list_vertice_SVG.clear() ;
 
-    shape_SVG = loadShape(path) ;
+    shape_SVG = loadShape(path_import) ;
     // name_SVG = shape_SVG.getName() ;
     // list_vertex(shape_SVG, name_SVG) ;
-    XML svg_info = loadXML(path) ;
+    XML svg_info = loadXML(path_import) ;
     analyze_SVG(svg_info) ;
     save_brick_SVG() ;
-    build_SVG(list_brick_SVG) ;
+    build_SVG(list_brick_SVG, path_brick) ;
+
+  }
+
+  void build() {
+    build(path, saved_path_bricks_svg) ;
   } 
+
+
+
+
+
+
+  
   /**
   METHOD to draw all the SVG
   */
@@ -694,10 +705,10 @@ BUILD
   /**
   Build list point of SVG
   */
-  void build_SVG(ArrayList<Brick_SVG> list) {
+  void build_SVG(ArrayList<Brick_SVG> list, String path_brick) {
     PShape [] children = new PShape[list.size()] ;
     for(int i = 0 ; i < list.size() ; i++) {
-      PShape mother = loadShape( saved_path_svg + name + "_" + i + ".svg") ;
+      PShape mother = loadShape(path_brick + name + "_" + i + ".svg") ;
       children = mother.getChildren() ;
       Brick_SVG b = (Brick_SVG) list.get(i) ;
       if( b.kind == "polygon" || b.kind == "path")  vertex_count(children[0], mother.getName(), b.ID) ;
@@ -780,8 +791,8 @@ BUILD
   void rectangle_count(XML xml_shape, String geom_name, int ID) {
     float x = xml_shape.getChild(0).getFloat("x") ;
     float y = xml_shape.getChild(0).getFloat("y") ;
-    int width_rect = xml_shape.getChild(0).getInt("width") ;
-    int height_rect = xml_shape.getChild(0).getInt("height") ;
+    float width_rect = xml_shape.getChild(0).getFloat("width") ;
+    float height_rect = xml_shape.getChild(0).getFloat("height") ;
   
     Rectangle r = new Rectangle(x, y, width_rect, height_rect, ID) ;
     list_rectangle_SVG.add(r) ;
@@ -1342,7 +1353,7 @@ BUILD
     */
     for(int i = 0 ; i < list_brick_SVG.size() ; i++) {
       Brick_SVG shape = (Brick_SVG) list_brick_SVG.get(i) ;
-      saveXML(shape.full_xml_SVG,  saved_path_svg + name + "_" + i + ".svg") ;
+      saveXML(shape.full_xml_SVG,  saved_path_bricks_svg + name + "_" + i + ".svg") ;
     }
   }
   
@@ -1705,7 +1716,7 @@ BUILD
     Vec2 size ;
     int ID ;
   
-    Rectangle(float x, float y,  int width_rect, int height_rect, int ID) {
+    Rectangle(float x, float y,  float width_rect, float height_rect, int ID) {
       this.ID = ID ;
       this.pos = Vec3(x, y,0) ;
       this.size = Vec2(width_rect, height_rect) ;

@@ -48,9 +48,10 @@ class Orbital extends Romanesco {
   // Main method
   // setup
   void setup() {
+
     setting_start_position(ID_item, width/2, height/2, 0);
     setting_start_direction(ID_item, 45, 45);
-  
+
     flock = new Flock_Orbital();
   
     dir = 0;
@@ -64,8 +65,6 @@ class Orbital extends Romanesco {
     r_max = max(width, height) * .8;
     r_min = max(width, height) * .2;
     resetOrbit();
-  
-  
   }
  
   // draw

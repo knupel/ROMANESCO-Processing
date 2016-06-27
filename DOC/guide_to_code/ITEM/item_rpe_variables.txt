@@ -242,8 +242,8 @@ bandSpectrum.length ;
 
 COORD ITEM 
 -----------
-Vec3 pos_item_old[ID_item]
-Vec2 dir_item_old[ID_item]
+Vec3 pos_item_final[ID_item]
+Vec2 dir_item_final[ID_item]
 
 COORD ITEM REF
 --

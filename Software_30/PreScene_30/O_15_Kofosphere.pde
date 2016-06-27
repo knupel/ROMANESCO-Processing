@@ -19,14 +19,10 @@ class Kofosphere extends Romanesco {
   
   //SETUP
   void setup() {
-   // very strange start position to be in the middle of the Scene
    setting_start_position(ID_item, width/2, height/2, 0) ;
-    // setting_start_position(ID_item, 0, width/2, -(height *2)) ;
-    
-    float startingRadius = width ;
-    
-    sphere = new Sphere( new PVector(item_setting_position[0][ID_item].x,item_setting_position[0][ID_item].y),startingRadius);
-  }
+   float startingRadius = width ;
+   sphere = new Sphere( new PVector(item_setting_position[0][ID_item].x,item_setting_position[0][ID_item].y),startingRadius);
+ }
   
   
   

@@ -223,21 +223,3 @@ class Old_Pixel {
 }
 // END CLASS PIXEL
 /////////////////
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

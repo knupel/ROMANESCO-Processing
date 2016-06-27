@@ -57,7 +57,6 @@ class Spray extends Romanesco {
       ink_diffusion = map (reactivity_item[ID_item], 0, 1, 0, 20) ; // speed / vitesse
       ink_dry = (int)map(life_item[ID_item], 0, 1, frameRate , 100000) ; // time to dry the ink, and pixel stop to move
       spray_power = (int)map(flow_item[ID_item], 0, 1, 1, width) ;  // power of the spray
-      println(spray_power) ;
       spray_angle = map (angle_item[ID_item], 0, 360, 0, 180) ;
     }
 
@@ -68,7 +67,6 @@ class Spray extends Romanesco {
     } else if(mode[ID_item] == 2 ) {
       // MOUSE MODE
       spray_direction = new PVector (map(dir_x_item[ID_item],0,360, -1, 1),map(dir_y_item[ID_item],0,360, -1, 1)) ;
-      println(spray_direction) ;
       float factor_spurt = spurt_x_item[ID_item] *spurt_x_item[ID_item] ;
       factor_pressure = map(factor_spurt, 0, 1, 1, 50 ) ;
     }

@@ -24,7 +24,6 @@ class RSS extends Romanesco {
   
   //SETUP
   void setup() {
-    
     setting_start_position(ID_item,width/10, height/2, 0) ;
     
     /*

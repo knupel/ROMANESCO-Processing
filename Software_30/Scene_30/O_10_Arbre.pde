@@ -25,6 +25,7 @@ class ArbreRomanesco extends Romanesco {
     setting_start_position(ID_item, width/2, height/3, 0) ;
     arbre = new Arbre () ;
   }
+  
   //DRAW
   void draw() {
     int maxFork ;

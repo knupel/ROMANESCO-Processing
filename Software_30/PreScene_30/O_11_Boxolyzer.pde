@@ -22,9 +22,9 @@ class Boxolyzer extends Romanesco {
   //SETUP
   void setup() {
     setting_start_position(ID_item, width/2, height/2, 0) ;
-    
     boitesSetting() ;
   }
+  
   //DRAW
   void draw() {
     //CLASSIC DISPLAY

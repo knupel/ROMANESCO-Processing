@@ -20,8 +20,8 @@ class Soleil extends Romanesco {
   //SETUP
   void setup() {
     setting_start_position(ID_item, width/2, height/2, 0) ;
-    
   }
+  
   PVector pos = new PVector() ;
   //DRAW
   void draw() {

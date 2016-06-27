@@ -24,6 +24,7 @@ class Lignes extends Romanesco {
     setting_start_position(ID_item, 0, 0, -width) ;
     line = new Line() ;
   }
+  
   //DRAW
   void draw() {
     if( beat[ID_item] > 1 ) {

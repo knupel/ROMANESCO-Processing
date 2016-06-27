@@ -109,6 +109,7 @@ svg
 RPEsvg[] svg_import ;
 ArrayList svg_files = new ArrayList();
 boolean folder_svg_is_selected = true ;
+String svg_current_path ;
 String [] svg_path ;
 int count_svg_selection ;
 int ref_svg_num_files ;
@@ -120,9 +121,9 @@ void load_svg(int ID) {
   if(which_svg[ID] > svg_path.length ) which_svg[ID] = 0 ;
 
   if(svg_path != null && svg_path.length > 0) {
-    String svg_current_path = svg_path[which_svg[ID]] ;
+    svg_current_path = svg_path[which_svg[ID]] ;
     if(!svg_current_path.equals(svg_path_ref[ID])) {
-      svg_import[ID] = new RPEsvg(svg_current_path, svg_current_path) ;
+      svg_import[ID] = new RPEsvg(svg_current_path, "bricks") ;
     }
     svg_path_ref[ID] = svg_current_path ;
   }
@@ -866,10 +867,3 @@ int tracking(int t, int n) {
   return trackerUpdate ;
 }
 //END nextPrevious
-
-
-
-
-
-
-

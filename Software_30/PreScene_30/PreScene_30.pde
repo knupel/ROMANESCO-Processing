@@ -30,16 +30,18 @@ void settings() {
 
   
 void setup() {
-  camera_video_setup() ;
   
+  camera_video_setup() ;
+ 
   preference_path = sketchPath("")+"preferences/" ;
   import_path = sketchPath("")+"import/" ;
-
+  
   display_setup(60) ; // the int value is the frameRate
   RG.init(this);  // Geomerative
-  // common setup
 
+  // common setup
   romanesco_setup() ;
+
   create_variable() ;
 
   P3D_setup() ;
@@ -65,6 +67,7 @@ void setup() {
   if(FULL_RENDERING) shader_setup() ;
 
   OSC_setup() ;
+
 }
 
 
@@ -118,9 +121,6 @@ void draw() {
   
   // change to false if the information has be sent to Scene...but how ????
   keyboardFalse() ;
-
-  // deprecated, now the Scene must open in first.
-  // opening() ;
 }
 //END DRAW
 

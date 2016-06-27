@@ -27,9 +27,8 @@ class Movisco extends Romanesco {
 
 	// setup
 	void setup() {
-		// setting_start_position(ID_item, width/2, height/2, 0) ;
-		setting_start_position(ID_item, 0, 0, 0) ;
-		load_movie(ID_item) ;
+    setting_start_position(ID_item, 0, 0, 0) ;
+    load_movie(ID_item) ;
 
 		pix_step = 50 ;
 		if(movieImport[ID_item] != null) {
@@ -37,6 +36,7 @@ class Movisco extends Romanesco {
 			full_window_movie(ID_item) ;
 			center_movie_in_the_height(ID_item) ;
 		}
+
 	}
 
 	// draw
@@ -203,4 +203,3 @@ class Movisco extends Romanesco {
 	  } 
 	}
 }
-

@@ -213,13 +213,3 @@ void encapsuleDataPrescene(){
    toScene = join(dataPreScene, "/") ;
 
 }
-
-
-
-
-
-
-
-
-
-

@@ -30,10 +30,9 @@ class Damier extends Romanesco {
     setting_start_position(ID_item, width/2, height/2, 0) ;
     setting_start_direction(ID_item, 45,45) ;
     trame = new Trame() ;
-    // lattice = Vec3(width *2, height *2, 0) ;
     lattice = Vec3(0) ;
-
   }
+  
   //DRAW
   void draw() {
     // color and thickness
@@ -79,8 +78,6 @@ class Damier extends Romanesco {
     // axe de rotation
     // if(spaceTouch) lattice = Vec3(mouse[ID_item].x +width/2,mouse[ID_item].y +height/2, mouse[ID_item].z) ;
     if(spaceTouch) lattice = Vec3(mouse[ID_item]) ;
-    println("lattice", lattice, width, height) ;
-    println("pos item", pos_item_final[ID_item]) ;
     //MODE DISPLAY
     if(mode[ID_item] == 0 || mode[ID_item] == 255) trame.drawTrameRect(lattice, angleTrame, angle, size , q, g, d, amp) ;
     else if (mode[ID_item] == 1) trame.drawTrameDisc(lattice, angleTrame, angle, size , q, g, d, amp) ;

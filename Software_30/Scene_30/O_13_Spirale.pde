@@ -27,6 +27,7 @@ class SpiraleRomanesco extends Romanesco {
     setting_start_direction(ID_item, 135,45) ;
     spirale = new Spirale() ;
   }
+  
   //DRAW
   void draw() {
     aspect_rpe(ID_item) ;
@@ -93,7 +94,6 @@ class SpiraleRomanesco extends Romanesco {
     if(swing_x_item[ID_item] > 0 && motion[ID_item] && horizon[ID_item]) {
       float align ;
       float speed_swing = swing_x_item[ID_item] *swing_x_item[ID_item] ;
-      println(speed_swing) ;
       if(pos_swing > max_align || pos_swing < -max_align || allBeats(ID_item) > 8) {
         dir_swing *= -1 ;
       }

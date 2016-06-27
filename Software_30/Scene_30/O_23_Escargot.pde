@@ -103,6 +103,7 @@ class Escargot extends Romanesco {
   //SETUP
   void setup() {
     setting_start_position(ID_item, width/2, height/2, 0) ;
+
     load_bitmap(ID_item) ;
     if(!FULL_RENDERING) maxVoronoiPoints = 250 ;
     //load pattern SVG to display a Pixel pattern you create in Illustrator or other software
@@ -112,16 +113,9 @@ class Escargot extends Romanesco {
     //random palette
     paletteRandom(HSBpalette, HSBmode ) ; // you must give the number of color and the size spectre color, here it's 360 for the hue and 100 for the rest
     
-    //palette from you
-    /*
-    for ( int i = 0 ; i < (int)HSBpalette.x ; i++ ) hueColor[i] =    i * int(HSBmode.x /HSBpalette.x) ; // not minus by one because it's a whell system
-    for ( int i = 0 ; i < (int)HSBpalette.y ; i++ ) satColor[i] =    i * int(HSBmode.y /(HSBpalette.y -1)) ;
-    for ( int i = 0 ; i < (int)HSBpalette.z ; i++ ) brightColor[i] = i * int(HSBmode.z /(HSBpalette.z -1)) ;
-    paletteClassic(hueColor, satColor, brightColor, HSBmode) ;
-    */
-  
     //step 2 if you use Voronoi
     voronoiToxicSetup() ;
+
   }
   
   

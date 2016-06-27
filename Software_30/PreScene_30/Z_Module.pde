@@ -81,7 +81,6 @@ void list_cameras() {
   // about the camera
   if (cameras.length != 0) {
     CAMERA_AVAILABLE = true ;
-    // println("Available cameras:");
     for(int i = 0 ; i < cameras.length ; i++) {
       String cam_data [] = split(cameras[i],",") ;
       // camera name

@@ -1,7 +1,13 @@
-// Tab: A_Screen_Prescene
-///////////////////////////////////////////////
+/**
+A_Screen_Prescene
 //GRAPHIC CONFIGURATION OF THE SCENE DISPLAYING
 //SCREEN CHOICE and FULLSCREEN
+*/
+
+/**
+MUST BE CLEAR
+
+*/
 /*
 GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
 GraphicsDevice[] gs = ge.getScreenDevices();
@@ -30,8 +36,14 @@ int divSizePreScene = 2 ;
 void display_setup(int speed) {
   frameRate(speed) ;  // Le frameRate doit être le même dans tous les Sketches
   colorMode(HSB, HSBmode.r, HSBmode.g, HSBmode.b, HSBmode.a) ;
-  loadPropertyPrescene() ;
-  sizePrescene() ;
+  // loadPropertyPrescene() ;
+  
+    depth = height ;
+  //resizable frame by loading external image
+  
+  //resize by cursor
+  surface.setResizable(true);
+  
   background_setup() ;
   background_shader_setup() ;
 }
@@ -41,7 +53,8 @@ void display_setup(int speed) {
 
 //load property from table
 
-
+// deprecated
+/*
 void loadPropertyPrescene() {
   configurationScene = loadTable(sketchPath("") + pathScenePropertySetting, "header");
   row = configurationScene.getRow(0);
@@ -52,26 +65,4 @@ void loadPropertyPrescene() {
   //decorated the scene
   if (row.getString("decorated").equals("FALSE") || row.getString("decorated").equals("false") || fullScreen ) undecorated = true ; else undecorated = false ;
 }
-
-
-
-
-
-// SIZE SCENE
-void sizePrescene() {
-  depth = height ;
-  //resizable frame by loading external image
-  if (row.getString("resizable").equals("TRUE")) {
-    frame.pack();  
-    insets = frame.getInsets(); // use for the border of window (top and right)
-    displaySizeByImage = true ;
-  }
-  
-  //resize by cursor
-  surface.setResizable(true);
-}
-// END SIZE SCENE
-
-    
-// END OF GRAPHIC CONFIGURATION
-///////////////////////////////
+*/

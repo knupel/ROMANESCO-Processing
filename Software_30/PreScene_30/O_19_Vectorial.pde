@@ -19,14 +19,14 @@ class Vectorial extends Romanesco {
 
   boolean walker  ;
   float beat_factor = 1 ;
-
+  String svg_bricks_saved = "RPE_SVG/bricks/"  ;
  
   // setup
   void setup() {
     setting_start_position(ID_item, width/2, height/2 +height/4, -height) ;
     setting_start_direction(ID_item, 30,-20) ;
     load_svg(ID_item) ;
-    svg_import[ID_item].build() ;
+    svg_import[ID_item].build(svg_current_path, svg_bricks_saved) ;
     svg_import[ID_item].svg_mode(CENTER) ;
   }
 

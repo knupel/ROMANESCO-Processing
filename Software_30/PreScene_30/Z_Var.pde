@@ -400,6 +400,7 @@ CREATE VAR
 */
 void create_variable() {
   NUM_ITEM = rpe_manager.numClasses +1 ;
+
   NUM_SETTING_ITEM = 1 ;
   NUM_SETTING_CAMERA = 1 ;
   numButtonObj = NUM_ITEM *10 ;
@@ -407,13 +408,16 @@ void create_variable() {
   createMiscVar() ;
   create_variableButton() ;
   create_variableSound() ;
+
   create_variable_P3D(NUM_SETTING_CAMERA) ;
   create_variableCursor() ;
   create_var_item() ;
   create_var_item_manipulation(NUM_SETTING_ITEM) ;
+
   rpe_manager.initObj() ;
-  
+          /*
   println("create_variable done") ;
+  */
 }
 
 
