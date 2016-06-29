@@ -123,6 +123,7 @@ public class Slider {
   
   // UPDATE
   // update molette position
+
   void updateMolette() {
     // move the molette is this one is locked
     // security
@@ -136,13 +137,30 @@ public class Slider {
       if (newPosMol.y > posMax.y ) newPosMol.y = posMax.y ;
     }
     
-    
-    if (lockedMol()) lockedMol = true ;
-    if (!mousePressed) lockedMol = false ; 
+    println(mousePressed, lockedMol) ;
+  //  println("selected", molette_selected) ;
+    if (lockedMol() && mousePressed) {
+      lockedMol = true ;
+    } else {
+     // lockedMol = false ; 
+
+    }
+    if (!mousePressed) { 
+      lockedMol = false ; 
+    }
+    /*
+    if (!mousePressed) { 
+      lockedMol = false ; 
+    }
+    */
+
     if (lockedMol) {  
       if (size.x >= size.y) newPosMol.x = constrain(mouseX -(sizeMol.x *.5), posMin.x, posMax.x) ; else newPosMol.y = constrain(mouseY -(sizeMol.y *.5), posMin.y, posMax.y) ;
     }
   }
+
+
+
   
 
   
@@ -275,7 +293,7 @@ public class Slider {
   
   //locked
   boolean lockedMol() {
-    if (insideMol && mousePressed ) return true ; else return false ;
+    if (insideMol && mousePressed) return true ; else return false ;
   }
   
   // END CLASSIC METHOD

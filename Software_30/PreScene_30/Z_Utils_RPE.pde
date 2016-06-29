@@ -1,11 +1,332 @@
 /**
-RPE UTILS 1.12.6
+RPE UTILS 1.13.7
 */
 
+/**
+CONSTANT NUMBER must be here to be generate before all
+*/
+/////////////////////////////////////////////////////////
+final float PHI = (1 + sqrt(5))/2; //a number of polys use the golden ratio...
+final float ROOT2 = sqrt(2); //...and the square root of two, the famous first irrationnal number by Pythagore
+final float EULER = 2.718281828459045235360287471352; // Constant d'Euler
+final int  INT_MAX = 2147483647 ;
+// about constant https://en.wikipedia.org/wiki/Mathematical_constant
 
-// MAP
-///////
-/*
+/**
+Class info
+*/
+class Info {
+  String name ;
+  String s_a, s_b, s_c, s_d, s_e, s_f ;
+  float f_a, f_b, f_c, f_d, f_e, f_f = Float.NaN ;
+  int i_a, i_b, i_c, i_d, i_e, i_f = INT_MAX  ;
+  int num_value ;
+  boolean float_bool ;
+  boolean integer ;
+  boolean string ;
+  
+  
+  /**
+  String value
+  */
+  Info(String name, String a) {
+    num_value = 1 ;
+    string = true ;
+    this.name = name ;
+    this.s_a = a ;
+  }
+   
+  Info(String name, String a, String b) {
+    num_value = 2 ;
+    string = true ;
+    this.name = name ;
+    this.s_a = a ;
+    this.s_b = b ;
+  }
+
+  Info(String name, String a, String b, String c) {
+    num_value = 3 ;
+    string = true ;
+    this.name = name ;
+    this.s_a = a ;
+    this.s_b = b ;
+    this.s_c = c ;
+  }
+
+  Info(String name, String a, String b, String c, String d) {
+    num_value = 4 ;
+    string = true ;
+    this.name = name ;
+    this.s_a = a ;
+    this.s_b = b ;
+    this.s_c = c ;
+    this.s_d = d ;
+  }
+
+  Info(String name, String a, String b, String c, String d, String e) {
+    num_value = 5 ;
+    string = true ;
+    this.name = name ;
+    this.s_a = a ;
+    this.s_b = b ;
+    this.s_c = c ;
+    this.s_d = d ;
+    this.s_e = e ;
+  }
+
+  Info(String name, String a, String b, String c, String d, String e, String f) {
+    num_value = 6 ;
+    string = true ;
+    this.name = name ;
+    this.s_a = a ;
+    this.s_b = b ;
+    this.s_c = c ;
+    this.s_d = d ;
+    this.s_e = e ;
+    this.s_f = f ;
+  }
+
+
+
+  /**
+  Float value
+  */
+  Info(String name, float a) {
+    num_value = 1 ;
+    float_bool = true ;
+    this.name = name ;
+    this.f_a = a ;
+  }
+   
+  Info(String name, float a, float b) {
+    num_value = 2 ;
+    float_bool = true ;
+    this.name = name ;
+    this.f_a = a ;
+    this.f_b = b ;
+  }
+
+  Info(String name, float a, float b, float c) {
+    num_value = 3 ;
+    float_bool = true ;
+    this.name = name ;
+    this.f_a = a ;
+    this.f_b = b ;
+    this.f_c = c ;
+  }
+
+  Info(String name, float a, float b, float c, float d) {
+    num_value = 4 ;
+    float_bool = true ;
+    this.name = name ;
+    this.f_a = a ;
+    this.f_b = b ;
+    this.f_c = c ;
+    this.f_d = d ;
+  }
+
+  Info(String name, float a, float b, float c, float d, float e) {
+    num_value = 5 ;
+    float_bool = true ;
+    this.name = name ;
+    this.f_a = a ;
+    this.f_b = b ;
+    this.f_c = c ;
+    this.f_d = d ;
+    this.f_e = e ;
+  }
+
+  Info(String name, float a, float b, float c, float d, float e, float f) {
+    num_value = 6 ;
+    float_bool = true ;
+    this.name = name ;
+    this.f_a = a ;
+    this.f_b = b ;
+    this.f_c = c ;
+    this.f_d = d ;
+    this.f_e = e ;
+    this.f_f = f ;
+  }
+
+  /**
+  Integare value
+  */
+  Info(String name, int a) {
+    num_value = 1 ;
+    integer = true ;
+    this.name = name ;
+    this.i_a = a ;
+  }
+
+  Info(String name, int a, int b) {
+    num_value = 2 ;
+    integer = true ;
+    this.name = name ;
+    this.i_a = a ;
+    this.i_b = b ;
+  }
+
+  Info(String name, int a, int b, int c) {
+    num_value = 3 ;
+    integer = true ;
+    this.name = name ;
+    this.i_a = a ;
+    this.i_b = b ;
+    this.i_c = c ;
+  }
+
+  Info(String name, int a, int b, int c, int d) {
+    num_value = 4 ;
+    integer = true ;
+    this.name = name ;
+    this.i_a = a ;
+    this.i_b = b ;
+    this.i_c = c ;
+    this.i_d = d ;
+  }
+
+  Info(String name, int a, int b, int c, int d, int e) {
+    num_value = 5 ;
+    integer = true ;
+    this.name = name ;
+    this.i_a = a ;
+    this.i_b = b ;
+    this.i_c = c ;
+    this.i_d = d ;
+    this.i_e = e ;
+  }
+
+  Info(String name, int a, int b, int c, int d, int e, int f) {
+    num_value = 6 ;
+    integer = true ;
+    this.name = name ;
+    this.i_a = a ;
+    this.i_b = b ;
+    this.i_c = c ;
+    this.i_d = d ;
+    this.i_e = e ;
+    this.i_f = f ;
+  }
+
+  /**
+  Vec variable
+  */
+  Info(String name, Vec2 v) {
+    num_value = 2 ;
+    float_bool = true ;
+    this.name = name ;
+    this.f_a = v.x ;
+    this.f_b = v.y ;
+  }
+
+  Info(String name, Vec3 v) {
+    num_value = 3 ;
+    float_bool = true ;
+    this.name = name ;
+    this.f_a = v.x ;
+    this.f_b = v.y ;
+    this.f_c = v.z ;
+  }
+
+  Info(String name, Vec4 v) {
+    num_value = 4 ;
+    float_bool = true ;
+    this.name = name ;
+    this.f_a = v.x ;
+    this.f_b = v.y ;
+    this.f_c = v.z ;
+    this.f_d = v.w ;
+  }
+
+  Info(String name, Vec5 v) {
+    num_value = 5 ;
+    float_bool = true ;
+    this.name = name ;
+    this.f_a = v.a ;
+    this.f_b = v.b ;
+    this.f_c = v.c ;
+    this.f_d = v.d ;
+    this.f_e = v.e ;
+  }
+
+  Info(String name, Vec6 v) {
+    num_value = 6 ;
+    float_bool = true ;
+    this.name = name ;
+    this.f_a = v.a ;
+    this.f_b = v.b ;
+    this.f_c = v.c ;
+    this.f_d = v.d ;
+    this.f_e = v.e ;
+    this.f_f = v.f ;
+  }
+
+
+
+  /**
+  Print info
+  */
+  @ Override String toString() {
+    if(num_value == 1 && float_bool) {
+      return "[ " + name + ": " + f_a + " ]";
+    } else if(num_value == 2 && float_bool) {
+      return "[ " + name + ": " + f_a + ", " + f_b + " ]";
+    } else if(num_value == 3 && float_bool) {
+      return "[ " + name + ": " + f_a + ", " + f_b + ", " + f_c + " ]";
+    } else if(num_value == 4 && float_bool) {
+      return "[ " + name + ": " + f_a + ", " + f_b + ", " + f_c + ", " + f_d + " ]";
+    } else if(num_value == 5 && float_bool) {
+      return "[ " + name + ": " + f_a + ", " + f_b + ", " + f_c + ", " + f_d + ", " + f_e + " ]";
+    } else if(num_value == 6 && float_bool) {
+      return "[ " + name + ": " + f_a + ", " + f_b + ", " + f_c + ", " + f_d + ", " + f_e + ", " + f_f + " ]";
+    } else if(num_value == 1 && integer) {
+      return "[ " + name + ": " + i_a + " ]";
+    } else if(num_value == 2 && integer) {
+      return "[ " + name + ": " + i_a + ", " + i_b + " ]";
+    } else if(num_value == 3 && integer) {
+      return "[ " + name + ": " + i_a + ", " + i_b + ", " + i_c + " ]";
+    } else if(num_value == 4 && integer) {
+      return "[ " + name + ": " + i_a + ", " + i_b + ", " + i_c + ", " + i_d + " ]";
+    } else if(num_value == 5 && integer) {
+      return "[ " + name + ": " + i_a + ", " + i_b + ", " + i_c + ", " + i_d + ", " + i_e + " ]";
+    } else if(num_value == 6 && integer) {
+      return "[ " + name + ": " + i_a + ", " + i_b + ", " + i_c + ", " + i_d + ", " + i_e + ", " + i_f + " ]";
+    } else if(num_value == 1 && string) {
+      return "[ " + name + ": " + s_a + " ]";
+    } else if(num_value == 2 && string) {
+      return "[ " + name + ": " + s_a + ", " + s_b + " ]";
+    } else if(num_value == 3 && string) {
+      return "[ " + name + ": " + s_a + ", " + s_b + ", " + s_c + " ]";
+    } else if(num_value == 4 && string) {
+      return "[ " + name + ": " + s_a + ", " + s_b + ", " + s_c + ", " + s_d + " ]";
+    } else if(num_value == 5 && string) {
+      return "[ " + name + ": " + s_a + ", " + s_b + ", " + s_c + ", " + s_d + ", " + s_e + " ]";
+    } else if(num_value == 6 && string) {
+      return "[ " + name + ": " + s_a + ", " + s_b + ", " + s_c + ", " + s_d + ", " + s_e + ", " + s_f + " ]";
+    }
+    else {
+      return "hmmm hmmm there is problem with your stuff mate";
+    }
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/**
+MAP
 map the value between the min and the max
 @ return float
 */
@@ -91,6 +412,18 @@ float map_smooth(float value, float sourceMin, float sourceMax, float targetMin,
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
 /**
 Check renderer
 */
@@ -113,6 +446,25 @@ String get_renderer_name(final PGraphics graph) {
   }
   return "Unknown";
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -150,30 +502,65 @@ String join_float_to_String(float []data) {
 
 //Translater to String
 String float_to_String_1(float data) {
-  String newData ;
-  newData = String.format("%.1f", data ) ;
-  return newData ;
+  String float_string_value ;
+  float_string_value = String.format("%.1f", data ) ;
+  String [] temp = split(float_string_value, ",") ;
+  float_string_value = temp[0] +"." + temp[1] ;
+  return float_string_value ;
 }
 //
 String float_to_String_2(float data) {
-  String newData ;
-  newData = String.format("%.2f", data ) ;
-  return newData ;
+  String float_string_value ;
+  float_string_value = String.format("%.2f", data ) ;
+  String [] temp = split(float_string_value, ",") ;
+  float_string_value = temp[0] +"." + temp[1] ;
+  return float_string_value ;
 }
 //
 String float_to_String_3(float data) {
-  String newData ;
-  newData = String.format("%.3f", data ) ;
-  return newData ;
+  String float_string_value ;
+  float_string_value = String.format("%.3f", data ) ;
+  String [] temp = split(float_string_value, ",") ;
+  float_string_value = temp[0] +"." + temp[1] ;
+  return float_string_value ;
+}
+
+//
+String float_to_String_4(float data) {
+  String float_string_value ;
+  float_string_value = String.format("%.4f", data ) ;
+  String [] temp = split(float_string_value, ",") ;
+  float_string_value = temp[0] +"." + temp[1] ;
+  return float_string_value ;
 }
 //
 String int_to_String(int data) {
-  String newData ;
-  newData = Integer.toString(data ) ;
-  return newData ;
+  String float_string_value ;
+  float_string_value = Integer.toString(data ) ;
+  return float_string_value ;
 }
 //END TRANSLATOR
 ///////////////
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -272,3 +659,19 @@ boolean research_in_String(String research, String target) {
   }
   return result ;
 }
+
+
+
+
+
+// remove the path of your file
+String file_name(String s) {
+  String file_name = "" ;
+  String [] split_path = s.split("/") ;
+  file_name = split_path[split_path.length -1] ;
+  return file_name ;
+}
+
+
+
+

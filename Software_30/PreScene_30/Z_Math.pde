@@ -1,12 +1,7 @@
 /**
-Z_Math 1.8.6
+Z_Math 1.8.8
 */
-// CONSTANT NUMBER must be here to be generate before all
-/////////////////////////////////////////////////////////
-final float PHI = (1 + sqrt(5))/2; //a number of polys use the golden ratio...
-final float ROOT2 = sqrt(2); //...and the square root of two, the famous first irrationnal number by Pythagore
-final float EULER = 2.718281828459045235360287471352; // Constant d'Euler
-// about constant https://en.wikipedia.org/wiki/Mathematical_constant
+
 
 
 // ALGEBRE
@@ -1289,3 +1284,48 @@ Vec2 target_direction(Vec2 target, Vec2 my_position) {
 Vec3 target_direction(Vec3 target, Vec3 my_position) {
   return projection(target, my_position, 1).sub(my_position) ;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

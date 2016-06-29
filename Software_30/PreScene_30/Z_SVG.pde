@@ -1,5 +1,5 @@
 /**
-Class RPEsvg 1.1.2
+Class RPEsvg 1.1.5
 RPE – Romanesco Processing Environment – 
 * @author Stan le Punk
 * @see other Processing work on https://github.com/StanLepunK
@@ -8,8 +8,9 @@ RPE – Romanesco Processing Environment –
 class RPEsvg {
   PShape shape_SVG ;
   String path = "" ;
-  String name = "" ;
+  String folder_brick_name = "brick" ;
   ArrayList<Brick_SVG> list_brick_SVG = new ArrayList<Brick_SVG>() ;
+  String name = "" ;
   String header_svg = "" ;
   int ID_brick ;
   String saved_path_bricks_svg = "" ;
@@ -50,12 +51,21 @@ class RPEsvg {
   CONSTRUCTOR
 
   */
-  RPEsvg(String path, String name) {
-    this.name = name ;
+  RPEsvg(String path, String folder_brick_name) {
+    this.name = file_name(path) ;
+    this.folder_brick_name = folder_brick_name ;
     this.path = path ;
-    saved_path_bricks_svg = "RPE_SVG/" + name + "/" ;
-    // build() ;
+    saved_path_bricks_svg = "RPE_SVG/" + folder_brick_name + "/" ;
   }
+
+  RPEsvg(String path) {
+    this.name = file_name(path) ;
+    this.path = path ;
+    saved_path_bricks_svg = "RPE_SVG/" + folder_brick_name + "/" ;
+  }
+
+
+
   
 
   
@@ -214,30 +224,49 @@ class RPEsvg {
   */
 
   void original_style(boolean fill, boolean stroke) {
+    display_fill_custom = false ;
+    display_stroke_custom = false ;
     display_fill_original = fill ;
     display_stroke_original = stroke ;
     display_thickness_original = stroke ;
   }
 
   void original_fill(boolean fill) {
+    display_fill_custom = false ;
     display_fill_original = fill ;
   }
 
   void original_stroke(boolean stroke) {
+    display_stroke_custom = false ;
     display_stroke_original = stroke ;
     display_thickness_original = stroke ;
   }
 
-  void fill_custom(int x, int y, int z, int a) {
+
+
+  // aspect custom
+  void fill_custom(float x, float y, float z, float a) {
     display_fill_original = false ;
     display_fill_custom = true ;
-    fill_custom.set(x,y,z,a) ;
+    fill_custom.set(g.colorModeX *x, g.colorModeY *y, g.colorModeZ *z, g.colorModeA *a) ;
   }
 
-  void stroke_custom(int x, int y, int z, int a) {
+  void fill_custom(Vec4 c) {
+    display_fill_original = false ;
+    display_fill_custom = true ;
+    fill_custom.set(g.colorModeX *c.x, g.colorModeY *c.y, g.colorModeZ *c.z, g.colorModeA *c.a) ;
+  }
+
+  void stroke_custom(float x, float y, float z, float a) {
     display_stroke_original = false ;
     display_stroke_custom = true ;
-    stroke_custom.set(x,y,z,a) ;
+    stroke_custom.set(g.colorModeX *x, g.colorModeY *y, g.colorModeZ *z, g.colorModeA *a) ;
+  }
+
+  void stroke_custom(Vec4 c) {
+    display_stroke_original = false ;
+    display_stroke_custom = true ;
+    stroke_custom.set(g.colorModeX *c.x, g.colorModeY *c.y, g.colorModeZ *c.z, g.colorModeA *c.a) ;
   }
 
   void thickness_custom(float x) {
@@ -245,7 +274,10 @@ class RPEsvg {
     display_thickness_custom = true ;
     thickness_custom = x ;
   }
+  
 
+
+  // aspect factor
   void fill_factor(float x, float y, float z, float a) {
     fill_factor.set(x,y,z,a) ;
   }
@@ -291,9 +323,7 @@ class RPEsvg {
   /**
   SVG info
   */
-  String name() {
-    return name ;
-  }
+
   
   /* return quantity of brick */
   int num_brick() {
@@ -340,11 +370,17 @@ class RPEsvg {
   /*
   method to return different definition about the brick
   */
-  String [] name_brick() {
+
+  String folder_brick_name() {
+    return folder_brick_name ;
+  }
+
+
+  String [] brick_name_list() {
     return name_brick_SVG(list_brick_SVG) ;
   }
 
-  String name_brick(int target) {
+  String brick_name(int target) {
     if(list_brick_SVG.size() > 0 && target < list_brick_SVG.size()) {
       Brick_SVG b = (Brick_SVG) list_brick_SVG.get(target) ;
       return b.brick_name ;
@@ -596,25 +632,65 @@ class RPEsvg {
   ASPECT
   */
   void aspect(Brick_SVG b, float scale_thickness) {
-    aspect_original(b, scale_thickness) ;
-    aspect_custom() ;
-  }
-
-
-  void aspect_original(Brick_SVG b, float scale_thickness) {
-    if(display_fill_original) b.aspect_fill(fill_factor) ; else noFill() ;
-    if(display_stroke_original && display_thickness_original) b.aspect_stroke(scale_thickness,stroke_factor) ; else noStroke() ;
-  }
-
-  void aspect_custom() {
-    if(fill_custom.a > 0 && display_fill_custom && !display_fill_original) fill(fill_custom.r *fill_factor.x,fill_custom.g *fill_factor.y, fill_custom.b *fill_factor.y, fill_custom.a *fill_factor.w) ; 
-    if(stroke_custom.a > 0 || thickness_custom > 0 && display_stroke_custom && !display_stroke_original) {
-      stroke(stroke_custom.r *stroke_factor.x,stroke_custom.g *stroke_factor.y,stroke_custom.b *stroke_factor.z, stroke_custom.a *stroke_factor.w) ;
-      strokeWeight(thickness_custom) ;
+    if(!display_fill_custom && !display_fill_original) {
+      noFill() ;
+    } else {
+      if(display_fill_original && !display_fill_custom) {
+        fill_original(b) ;
+      } else if(!display_fill_original && display_fill_custom) {
+        fill_custom() ;
+      } 
     }
-    if(!display_fill_original && !display_fill_custom) noFill() ;
-    if(!display_stroke_original && !display_stroke_custom) noStroke() ;
+    if(!display_stroke_custom && !display_stroke_original) {
+      noStroke() ;
+    } else {
+      if(display_stroke_original && !display_stroke_custom) {
+        stroke_original(b, scale_thickness) ;
+      } else if(!display_stroke_original && display_stroke_custom) {
+        stroke_custom() ;
+      } 
+    }
   }
+
+
+
+
+  // original aspect
+  void fill_original(Brick_SVG b) {
+    if(b.opacity > 0 ) {
+      b.aspect_fill(fill_factor) ; 
+    } else noFill() ;
+  }
+
+  void stroke_original(Brick_SVG b, float scale_thickness) {
+    if(b.opacity > 0 && b.strokeWeight > 0) {
+      b.aspect_stroke(scale_thickness,stroke_factor) ; 
+    } else {
+      noStroke() ;
+    }
+  }
+
+
+  // custom aspect
+  void fill_custom() {
+    if(fill_custom.a > 0 ) {
+      fill(fill_custom.r *fill_factor.x, fill_custom.g *fill_factor.y, fill_custom.b *fill_factor.y, fill_custom.a *fill_factor.w) ; 
+    } else {
+      noFill() ;
+    }
+  }
+
+  void stroke_custom() {
+    if(stroke_custom.a > 0 && thickness_custom > 0 ) {
+      stroke(stroke_custom.r *stroke_factor.x, stroke_custom.g *stroke_factor.y, stroke_custom.b *stroke_factor.z, stroke_custom.a *stroke_factor.w) ;
+      strokeWeight(thickness_custom) ;
+    } else {
+      noStroke() ;
+    }
+  }
+
+
+
 
 
 
@@ -708,7 +784,7 @@ BUILD
   void build_SVG(ArrayList<Brick_SVG> list, String path_brick) {
     PShape [] children = new PShape[list.size()] ;
     for(int i = 0 ; i < list.size() ; i++) {
-      PShape mother = loadShape(path_brick + name + "_" + i + ".svg") ;
+      PShape mother = loadShape(path_brick + folder_brick_name + "_" + i + ".svg") ;
       children = mother.getChildren() ;
       Brick_SVG b = (Brick_SVG) list.get(i) ;
       if( b.kind == "polygon" || b.kind == "path")  vertex_count(children[0], mother.getName(), b.ID) ;
@@ -1353,7 +1429,7 @@ BUILD
     */
     for(int i = 0 ; i < list_brick_SVG.size() ; i++) {
       Brick_SVG shape = (Brick_SVG) list_brick_SVG.get(i) ;
-      saveXML(shape.full_xml_SVG,  saved_path_bricks_svg + name + "_" + i + ".svg") ;
+      saveXML(shape.full_xml_SVG,  saved_path_bricks_svg + folder_brick_name + "_" + i + ".svg") ;
     }
   }
   
@@ -1597,7 +1673,7 @@ BUILD
       if(scale != 1 ) thickness *= scale ;
       // HSB mmode
       if(g.colorMode == 3) {
-        if(strokeWeight <= 0)  {
+        if(thickness <= 0)  {
           noStroke() ;
         } else {
           strokeWeight(thickness) ;
@@ -1605,7 +1681,7 @@ BUILD
         }
       // RGB mmode
       } else if( g.colorMode == 1 ) {
-        if(strokeWeight <= 0)  {
+        if(thickness <= 0)  {
           noStroke() ;
         } else {
           strokeWeight(thickness) ;
