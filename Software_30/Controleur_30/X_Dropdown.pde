@@ -109,7 +109,8 @@ public class Dropdown {
           sliderDropdown.pos.set(pos.x -sizeSliderDropdown.x -(pos.z *2.0), pos.y +sizeBox +(1.8 *pos.z)) ;
           sliderDropdown.update_pos_molette(sliderDropdown.pos, posMoletteDropdown) ;
           sliderDropdown.insideMol_Rect() ;
-          sliderDropdown.updateMolette() ;
+          sliderDropdown.select_molette() ;
+          sliderDropdown.update_pos_molette() ;
           sliderDropdown.sliderDisplay(colorBG,colorBG,0) ;
           sliderDropdown.displayMolette(jaune, orange, jaune, orange, 0) ;
         }

@@ -1,5 +1,50 @@
-User guide 0.0.2
+User guide 0.0.3
 
+---------------------
+Controller
+----------------
+
+Slider
+--
+select
+--
+select few slider click left + SHIFT
+
+set
+--
+You can set the min max of the slider by clicking the extremity of the middle line of the slider
+
+
+
+
+
+
+
+
+
+--------------
+Prescene / Scene
+
+Syphon
+--
+> press "y"
+
+Grid 3d
+--
+> press "g"
+
+
+Info item
+--
+> press "i"
+
+
+
+
+
+
+
+------------
 Item
 ----
 

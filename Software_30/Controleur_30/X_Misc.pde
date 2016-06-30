@@ -579,12 +579,21 @@ void shortcuts_controller() {
   // load
   check_Keyboard_load_scene() ;
   check_Keyboard_load_controller() ;
+
+
+  check_keyboard_shift() ;
 }
+
+
+
+
+
 
 
 
 /**
 Keyboard
+
 */
 boolean checkKeyboard(int c) {
   if (keyboard.length >= c) {
@@ -592,6 +601,22 @@ boolean checkKeyboard(int c) {
   }
   return false;
 }
+/**
+simple touch
+*/
+boolean shift_key ;
+void check_keyboard_shift() {
+  if(checkKeyboard(SHIFT)) { 
+    shift_key = true ;
+    keyboard[keyCode] = false ; 
+  }
+}
+
+void key_false() {
+  shift_key = false ;
+}
+
+
 // SCENE
 boolean load_Scene_Setting, save_Current_Scene_Setting, save_New_Scene_Setting ;
 // Scene load

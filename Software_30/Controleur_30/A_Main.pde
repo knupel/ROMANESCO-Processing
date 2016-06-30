@@ -603,23 +603,26 @@ void update_slider(int whichOne) {
     // min molette
     if(!slider[whichOne].insideMax() && !slider[whichOne].lockedMax) {
       slider[whichOne].insideMin() ;
-      slider[whichOne].updateMin() ;
+      slider[whichOne].select_min() ;
+      slider[whichOne].update_min() ;
     }
     // max molette
     if(!slider[whichOne].insideMin() && !slider[whichOne].lockedMin) {
       slider[whichOne].insideMax() ;
-      slider[whichOne].updateMax() ;
+      slider[whichOne].select_max() ;
+      slider[whichOne].update_max() ;
     }
   }
   // update 
-  slider[whichOne].updateMinMax() ;
+  slider[whichOne].update_min_max() ;
   
   
   // CURRENT molette
   // check
   if(!slider[whichOne].lockedMax  && !slider[whichOne].lockedMax) slider[whichOne].insideMol_Ellipse() ;
   // update
-  slider[whichOne].updateMolette() ;
+  slider[whichOne].select_molette() ;
+  slider[whichOne].update_pos_molette() ;
   
   // translate float value to int, to use OSC easily without problem of Array Outbound...blablah
   int valueMax = 360 ;

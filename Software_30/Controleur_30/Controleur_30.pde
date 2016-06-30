@@ -81,6 +81,7 @@ void draw() {
 
   reset() ;
 
+
   credit() ;
 }
 
@@ -100,5 +101,6 @@ void keyPressed() {
 
 
 void keyReleased() { 
+  key_false() ;
   keyboard[keyCode] = false;
 }

@@ -1,9 +1,15 @@
 /**
 SLIDER may 2015 version 5g by Stan le Punk
-SLIDER may 2016 1.5.8 
+SLIDER may 2016 1.5.9 
+SLIDER june 2016 1.6.0
 */
-////////////////
-// CLASS SLIDER
+boolean molette_already_selected ;
+
+
+/**
+CLASS SLIDER
+
+*/
 public class Slider {
   protected PVector pos, size, posMol, posText, sizeMol, posMin, posMax ;
   protected PVector newPosMol = new PVector() ;
@@ -122,9 +128,12 @@ public class Slider {
   
   
   // UPDATE
-  // update molette position
+  void select_molette() {
+    lockedMol = select(lockedMol(), lockedMol) ;
+  }
 
-  void updateMolette() {
+  // update molette position
+  void update_pos_molette() {
     // move the molette is this one is locked
     // security
     if(size.x >= size.y) {
@@ -136,27 +145,31 @@ public class Slider {
       if (newPosMol.y < posMin.y ) newPosMol.y = posMin.y ;
       if (newPosMol.y > posMax.y ) newPosMol.y = posMax.y ;
     }
-    
-    println(mousePressed, lockedMol) ;
-  //  println("selected", molette_selected) ;
-    if (lockedMol() && mousePressed) {
-      lockedMol = true ;
-    } else {
-     // lockedMol = false ; 
-
-    }
-    if (!mousePressed) { 
-      lockedMol = false ; 
-    }
-    /*
-    if (!mousePressed) { 
-      lockedMol = false ; 
-    }
-    */
 
     if (lockedMol) {  
       if (size.x >= size.y) newPosMol.x = constrain(mouseX -(sizeMol.x *.5), posMin.x, posMax.x) ; else newPosMol.y = constrain(mouseY -(sizeMol.y *.5), posMin.y, posMax.y) ;
     }
+  }
+
+  // privat method
+  boolean select(boolean locked_method, boolean result) {
+    // boolean result = original ;
+    if(!molette_already_selected) {
+      if (locked_method) {
+        molette_already_selected = true ;
+        result = true ;
+      }
+    } else {
+      if (locked_method && shift_key) {
+        result = true ;
+      }
+    }
+
+    if (!mousePressed) { 
+      result = false ; 
+      molette_already_selected = false ;
+    }
+    return result ;
   }
 
 
@@ -303,11 +316,7 @@ public class Slider {
  
  
  
- 
- 
- 
- 
- 
+
  ///////////////////
  // ADVANCED METHOD
  // update position from midi controller
@@ -332,11 +341,9 @@ public class Slider {
   //give the IDmidi 
   int IDmidi() { return IDmidi ; }
 }
-
-// END SLIDER
-/////////////
-
-
+/**
+END SLIDER
+*/
 
 
 
@@ -352,8 +359,15 @@ public class Slider {
 
 
 
-////////////////////////////////////////////////////
-// SLIDER ADJUSTABLE : extends class of class Slider
+
+
+
+
+
+/**
+SLIDER ADJUSTABLE : extends class of class Slider
+
+*/
 public class SliderAdjustable extends Slider {
   // size
   protected PVector sizeMinMax = new PVector() ;
@@ -403,7 +417,7 @@ public class SliderAdjustable extends Slider {
   /////////
   // METHOD
   
-  void updateMinMax() {
+  void update_min_max() {
     float newNormSize = maxNorm -minNorm ;
     
     if (size.x >= size.y) sizeMinMax = new PVector (size.x *newNormSize, size.y) ; else sizeMinMax = new PVector (size.y *newNormSize, size.x) ;
@@ -415,11 +429,17 @@ public class SliderAdjustable extends Slider {
   
   // update Min and Max value
   // update min value
-  void updateMin() {
+
+  void select_min() {
+    lockedMin = select(lockedMin(), lockedMin) ;
+  }
+  void update_min() {
     float range = sizeMol.x *1.5 ;
     //
+    /*
     if (lockedMin()) lockedMin = true ;
     if (!mousePressed) lockedMin = false ; 
+    */
     
     if (lockedMin) {  
       if (size.x >= size.y) {
@@ -434,13 +454,16 @@ public class SliderAdjustable extends Slider {
     }
   }
   
-  
+  void select_max() {
+    lockedMax = select(lockedMax(), lockedMax) ;
+  }
   // update maxvalue
-  void updateMax() {
+  void update_max() {
     float range = sizeMol.x *1.5 ;
-    //
+    /*
     if (lockedMax()) lockedMax = true ;
     if (!mousePressed) lockedMax = false ; 
+    */
     
     if (lockedMax) {  // this line is not reworking for the vertical slider
       if (size.x >= size.y) {

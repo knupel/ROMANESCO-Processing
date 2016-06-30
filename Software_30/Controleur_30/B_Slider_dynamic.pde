@@ -95,13 +95,13 @@ int need_rank = 48 ;
 
 
 void set_display_slider() {
-  setSliderDynamic() ;
+  set_dynamic_slider() ;
   list_item_slider_gui() ;
   recover_active_slider_from_item() ;
   list_slider_item() ;
 }
 
-void setSliderDynamic() {
+void set_dynamic_slider() {
   slider_item = new StringList [NUM_ITEM +1] ;
   slider_item_raw = new String [NUM_ITEM +1] ;
   slider_item_list_raw = new String [NUM_ITEM +1][NUM_SLIDER_ITEM +1] ;
@@ -169,7 +169,7 @@ void list_item_slider_gui() {
 // DRAW
 void check_slider_item() {
   check_item_parameter_on_off() ;
-  whichSliderMustBeDisplay() ;
+  which_slider_display() ;
   // check the group slider
   for ( int i = 1 ; i <= NUM_ITEM ; i++) {
     if (item_active[i]) {
@@ -235,7 +235,7 @@ void check_slider_item() {
 
 
 // CHOICE which slider must be display after checking the keyboard
-void whichSliderMustBeDisplay() {
+void which_slider_display() {
   switch(sliderModeDisplay) {
     case 0 : 
     resetSlider = true ;
