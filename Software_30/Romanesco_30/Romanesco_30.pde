@@ -1,7 +1,10 @@
   ////////////////////////////////////////////////////////////////////
  // Romanesco Unu 1.2.0 / version 30 / made with Processing 3.1.1 ///
 ////////////////////////////////////////////////////////////////////
-/* 730 lines of code the 4th may !!!! */
+/**
+2015 730 lines of code the 4th may !!!! 
+2016 830 lines
+ */
 String version = ("30") ;
 String prettyVersion = ("1.2.0") ;
 String nameVersion = ("Romanesco Unu") ;

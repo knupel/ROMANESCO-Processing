@@ -1,24 +1,35 @@
 /**
-CLASS VEC 1.3.1
+CLASS VEC 1.4.0
 RPE – Romanesco Processing Environment – 2015 – 2016
 * @author Stan le Punk
 * @see https://github.com/StanLepunK/Vec
 * inspireted by GLSL code and PVector from Daniel Shiffman
 */
+/**
+Vec Master
 
+*/
+abstract class Vec {
+  float ref_x, ref_y, ref_z, ref_w = Float.NaN  ;
+  float x,y,z,w = Float.NaN ;
+  float a,b,c,d,e,f = Float.NaN  ;
+  float r,g = Float.NaN ;
+  float s,t,p,q = Float.NaN ;
+  float u,v = Float.NaN;
+
+  // Vec2 constructor
+  Vec() {}
+
+}
 
 /**
 VEC 2
 
 */
-class Vec2 {
-  float ref_x, ref_y = 0 ;
-  float x,y = 0;
-  float s,t = 0;
-  float u,v = 0;
-
+class Vec2 extends Vec {
 
   Vec2(float x, float y) {
+    super() ;
     this.ref_x = this.x = this.s = this.u = x ;
     this.ref_y = this.y = this.t = this.v = y ;
   }
@@ -26,6 +37,7 @@ class Vec2 {
   Random constructor
   */
   Vec2(String key_random, int r1) {
+    super() ;
     if(key_random.equals("RANDOM")) {
       this.ref_x = this.x = this.s = this.u = random(-r1,r1) ;
       this.ref_y = this.y = this.t = this.v = random(-r1,r1) ;
@@ -39,6 +51,7 @@ class Vec2 {
   }
   
   Vec2(String key_random, int r1, int r2) {
+    super() ;
     if(key_random.equals("RANDOM")) {
       this.ref_x = this.x = this.s = this.u = random(-r1,r1) ;
       this.ref_y = this.y = this.t = this.v = random(-r2,r2) ;
@@ -55,6 +68,7 @@ class Vec2 {
   }
 
   Vec2(String key_random, int a1, int a2, int b1, int b2) {
+    super() ;
     if(key_random.equals("RANDOM RANGE")) {
       this.ref_x = this.x = this.s = this.u = random(a1,a2) ;
       this.ref_y = this.y = this.t = this.v = random(b1,b2) ;
@@ -490,18 +504,13 @@ class Vec2 {
 VEC 3
 
 */
-class Vec3 {
-  float ref_x, ref_y, ref_z = 0 ;
-  float x,y,z  = 0 ;
-  float r, g, b = 0 ;
-  float s, t, p = 0 ;
-  
-  
-  
+class Vec3 extends Vec {
+ 
   /**
   Constructor
   */
   Vec3(float x, float y, float z) {
+    super() ;
     this.ref_x = this.x = this.r = this.s = x ;
     this.ref_y = this.y = this.g = this.t = y ;
     this.ref_z = this.z = this.b = this.p = z ;
@@ -512,6 +521,7 @@ class Vec3 {
   */ 
   // random generator for the Vec
   Vec3(String key_random, int r1) {
+    super() ;
     if(key_random.equals("RANDOM")) {
       this.ref_x = this.x = this.r = this.s = random(-r1,r1) ;
       this.ref_y = this.y = this.g = this.t = random(-r1,r1) ;
@@ -527,6 +537,7 @@ class Vec3 {
   }
   
   Vec3(String key_random, int r1, int r2, int r3) {
+    super() ;
     if(key_random.equals("RANDOM")) {
       this.ref_x = this.x = this.r = this.s = random(-r1,r1) ;
       this.ref_y = this.y = this.g = this.t = random(-r2,r2) ;
@@ -542,6 +553,7 @@ class Vec3 {
   }
 
   Vec3(String key_random, int a1, int a2, int b1, int b2, int c1, int c2) {
+    super() ;
     if(key_random.equals("RANDOM RANGE")) {
       this.ref_x = this.x = this.r = this.s = random(a1,a2) ;
       this.ref_y = this.y = this.g = this.t = random(b1,b2) ;
@@ -1090,16 +1102,13 @@ class Vec3 {
 VEC 4
 
 */
-class Vec4 {
-  float ref_x, ref_y, ref_z, ref_w = 0 ;
-  float x,y,z,w = 0 ;
-  float r, g, b, a = 0 ;
-  float s, t, p, q = 0 ;
+class Vec4 extends Vec {
   /**
   Constructor
   */
   
   Vec4(float x, float y, float z, float w) {
+    super() ;
     this.ref_x = this.x = this.r = this.s = x ;
     this.ref_y = this.y = this.g = this.t = y ;
     this.ref_z = this.z = this.b = this.p = z ;
@@ -1113,6 +1122,7 @@ class Vec4 {
   */ 
   // random generator for the Vec
   Vec4(String key_random, int r1) {
+    super() ;
     if(key_random.equals("RANDOM")) {
       this.ref_x = this.x = this.r =this.s = random(-r1,r1) ;
       this.ref_y = this.y = this.g =this.t = random(-r1,r1) ;
@@ -1130,6 +1140,7 @@ class Vec4 {
   }
   
   Vec4(String key_random, int r1, int r2, int r3, int r4) {
+    super() ;
     if(key_random.equals("RANDOM")) {
       this.ref_x = this.x = this.r =this.s = random(-r1,r1) ;
       this.ref_y = this.y = this.g =this.t = random(-r2,r2) ;
@@ -1147,6 +1158,7 @@ class Vec4 {
   }
 
   Vec4(String key_random, int a1, int a2, int b1, int b2, int c1, int c2, int d1, int d2) {
+    super() ;
     if(key_random.equals("RANDOM RANGE")) {
       this.ref_x = this.x = this.r = this.s = random(a1,a2) ;
       this.ref_y = this.y = this.g = this.t = random(b1,b2) ;
@@ -1559,28 +1571,26 @@ class Vec4 {
 CLASS Vec5
 
 */
-class Vec5 {
-  float a,b,c,d,e = 0 ;
+class Vec5 extends Vec{
 
   /**
   Constructor
   */
-  
   Vec5(float a, float b, float c, float d, float e) {
+    super() ;
     this.a = a ;
     this.b = b ;
     this.c = c ;
     this.d = d ;
     this.e = e ;
   }
-  
-  
-  
+
   /**
   Random Constructor
   */
   // random generator for the Vec
   Vec5(String key_random, int r1) {
+    super() ;
     if(key_random.equals("RANDOM")) {
       this.a = random(-r1,r1) ;
       this.b = random(-r1,r1) ;
@@ -1600,6 +1610,7 @@ class Vec5 {
   }
   
   Vec5(String key_random, int r1, int r2, int r3, int r4, int r5) {
+    super() ;
     if(key_random.equals("RANDOM")) {
       this.a = random(-r1,r1) ;
       this.b = random(-r2,r2) ;
@@ -1619,6 +1630,7 @@ class Vec5 {
   }
 
   Vec5(String key_random, int a1, int a2, int b1, int b2, int c1, int c2, int d1, int d2, int e1, int e2) {
+    super() ;
     if(key_random.equals("RANDOM RANGE")) {
       this.a = random(a1,a2) ;
       this.b = random(b1,b2) ;
@@ -1722,13 +1734,13 @@ class Vec5 {
 CLASS Vec6
 
 */
-class Vec6 {
-  float a,b,c,d,e,f = 0 ;
+class Vec6 extends Vec {
 
   /**
   Constructor
   */
   Vec6(float a, float b, float c, float d, float e, float f) {
+    super() ;
     this.a = a ;
     this.b = b ;
     this.c = c ;
@@ -1742,6 +1754,7 @@ class Vec6 {
   Random Constructor
   */
   Vec6(String key_random, int r1) {
+    super() ;
     if(key_random.equals("RANDOM")) {
       this.a = random(-r1,r1) ;
       this.b = random(-r1,r1) ;
@@ -1761,6 +1774,7 @@ class Vec6 {
   }
   
   Vec6(String key_random, int r1, int r2, int r3, int r4, int r5, int r6) {
+    super() ;
     if(key_random.equals("RANDOM")) {
       this.a = random(-r1,r1) ;
       this.b = random(-r2,r2) ;
@@ -1782,6 +1796,7 @@ class Vec6 {
   }
 
   Vec6(String key_random, int a1, int a2, int b1, int b2, int c1, int c2, int d1, int d2, int e1, int e2, int f1, int f2) {
+    super() ;
     if(key_random.equals("RANDOM RANGE")) {
       this.a = random(a1,a2) ;
       this.b = random(b1,b2) ;

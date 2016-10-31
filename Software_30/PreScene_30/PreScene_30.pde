@@ -2,7 +2,10 @@
   ////////////////////////////////////////////////////////////////////
  // Romanesco Unu 1.2.0 / version 30 / made with Processing 3.1.1 ///
 ////////////////////////////////////////////////////////////////////
-/* 27.500 lines of code the 4th may 2016 !!!! */
+/**
+2015 may 15.000 lines
+2016 may 27.500 lines of code the 4th may 2016 !!!!
+ */
 
 String version = ("30") ;
 String IAM = ("Prescene") ;

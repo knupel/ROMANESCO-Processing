@@ -1,7 +1,10 @@
   ////////////////////////////////////////////////////////////////////
  // Romanesco Unu 1.2.0 / version 30 / made with Processing 3.1.1 ///
 ////////////////////////////////////////////////////////////////////
-/* 4.100 lines of code the 4th may 2015 !!!! */
+/**
+2015 may 4.100 
+2016 september 8.700
+ */
 String version = ("30") ;
 String IAM = ("Controller") ;
 String prettyVersion = ("1.2.0") ;
