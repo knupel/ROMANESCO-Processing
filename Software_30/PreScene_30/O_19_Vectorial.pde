@@ -1,5 +1,5 @@
 /**
-VECTORIAL || 2015 || 0.0.2
+VECTORIAL || 2015 || 0.0.3
 */
 
 class Vectorial extends Romanesco {
@@ -9,7 +9,7 @@ class Vectorial extends Romanesco {
     ID_item = 19 ;
     ID_group = 1 ;
     RPE_author  = "Stan le Punk";
-    RPE_version = "Version 0.0.2";
+    RPE_version = "Version 0.0.3";
     RPE_pack = "Base 2016" ;
     RPE_mode = "Classic original/Classic custom/Walker original/Walker custom" ; // separate the differentes mode by "/"
     RPE_slider = "Fill hue,Fill sat,Fill bright,Fill alpha,Stroke hue,Stroke sat,Stroke bright,Stroke alpha,Thickness,Jitter X,Jitter Y,Jitter Z,Canvas X,Canvas Y,Swing X,Swing Y,Swing Z" ;
@@ -33,7 +33,7 @@ class Vectorial extends Romanesco {
 
     load_svg(ID_item) ;
     svg_import[ID_item].build(svg_current_path, svg_bricks_saved) ;
-    svg_import[ID_item].svg_mode(CENTER) ;
+    svg_import[ID_item].mode(CENTER) ;
     ref_name = svg_import[ID_item].name ;
   }
 
@@ -45,7 +45,7 @@ class Vectorial extends Romanesco {
       if(!svg_import[ID_item].name.equals(ref_name)) {
         ref_name = svg_import[ID_item].name ;
         svg_import[ID_item].build(svg_current_path, svg_bricks_saved) ;
-        svg_import[ID_item].svg_mode(CENTER) ;
+        svg_import[ID_item].mode(CENTER) ;
       }
     } 
     
@@ -134,16 +134,16 @@ class Vectorial extends Romanesco {
 
 
   // annexe
-  void walker_svg_3D(Vec3 pos_3D, Vec3 scale_3D, RPEsvg svg, Vec4 factor_fill, Vec4 factor_stroke, boolean original_colour) {
+  void walker_svg_3D(Vec3 pos_3D, Vec3 scale_3D, ROPE_svg svg, Vec4 factor_fill, Vec4 factor_stroke, boolean original_colour) {
     float thickness = 1 ;
     walker_svg_3D(pos_3D, scale_3D, svg, factor_fill, factor_stroke, thickness, original_colour) ;
 
   }
-  void walker_svg_3D(Vec3 pos_3D, Vec3 scale_3D, RPEsvg svg, Vec4 factor_fill, Vec4 factor_stroke, float thickness, boolean original_colour) {
+  void walker_svg_3D(Vec3 pos_3D, Vec3 scale_3D, ROPE_svg svg, Vec4 factor_fill, Vec4 factor_stroke, float thickness, boolean original_colour) {
     Vec3 swing = Vec3(swing_x_item[ID_item],swing_y_item[ID_item],swing_z_item[ID_item]) ;
     swing.mult(height /5 *beat_factor) ;
     for(int ID = 0 ; ID < svg.num_brick() ; ID++ ) {
-      int length = svg.list_points_of_interest(ID).length ;
+      int length = svg.list_svg_Vec(ID).length ;
       Vec3 [] value = new Vec3[length] ;
       for(int i = 0 ; i < value.length ; i++) {
         value[i] = new Vec3("RANDOM", (int)swing.x, (int)swing.y,(int)swing.z) ;
@@ -151,29 +151,29 @@ class Vectorial extends Romanesco {
       }
       svg.add_def(ID, value) ;
       svg.pos(pos_3D) ;
-      svg.scale(scale_3D) ;
+      svg.scaling(scale_3D) ;
       if(original_colour) {
         svg.original_style(true, true) ;
         svg.fill_factor(factor_fill) ; 
         svg.stroke_factor(factor_stroke) ; 
       } else {
         svg.original_style(false, false) ;
-        svg.fill_custom(factor_fill) ; 
-        svg.stroke_custom(factor_stroke) ; 
-        svg.thickness_custom(thickness) ; 
+        svg.fill(factor_fill) ; 
+        svg.stroke(factor_stroke) ; 
+        svg.strokeWeight(thickness) ; 
       }
-      svg.draw_3D(ID) ;
+      svg.draw(ID) ;
     }
   }
 
   // 
-  void full_svg_3D(Vec3 pos_3D, Vec3 scale_3D, Vec3 jitter_3D, RPEsvg svg, Vec4 factor_fill, Vec4 factor_stroke, boolean original_colour) {
+  void full_svg_3D(Vec3 pos_3D, Vec3 scale_3D, Vec3 jitter_3D, ROPE_svg svg, Vec4 factor_fill, Vec4 factor_stroke, boolean original_colour) {
     float thickness = 1 ;
     full_svg_3D(pos_3D, scale_3D, jitter_3D, svg, factor_fill, factor_stroke, thickness, original_colour) ;
   }
-  void full_svg_3D(Vec3 pos_3D, Vec3 scale_3D, Vec3 jitter_3D, RPEsvg svg, Vec4 factor_fill, Vec4 factor_stroke, float thickness, boolean original_colour) {
+  void full_svg_3D(Vec3 pos_3D, Vec3 scale_3D, Vec3 jitter_3D, ROPE_svg svg, Vec4 factor_fill, Vec4 factor_stroke, float thickness, boolean original_colour) {
     svg.pos(pos_3D) ;
-    svg.scale(scale_3D) ;
+    svg.scaling(scale_3D) ;
     svg.jitter(jitter_3D) ;
     if(original_colour) {
       svg.original_style(true, true) ;
@@ -181,10 +181,10 @@ class Vectorial extends Romanesco {
       svg.stroke_factor(factor_stroke) ; 
     } else {
       svg.original_style(false, false) ;
-      svg.fill_custom(factor_fill) ; 
-      svg.stroke_custom(factor_stroke) ; 
-      svg.thickness_custom(thickness) ; 
+      svg.fill(factor_fill) ; 
+      svg.stroke(factor_stroke) ; 
+      svg.strokeWeight(thickness) ; 
     }
-    svg.draw_3D() ;
+    svg.draw() ;
   }
 }

@@ -84,13 +84,13 @@ class Ecosysteme extends Romanesco {
 		// print_info_carnivore(CARNIVORE_LIST) ;
 		// costume
 		if(tetra_face) {
-			flora_costume = corpse_costume = carnivore_costume = herbivore_costume = bacterium_costume = TETRAHEDRON_RPE ;
+			flora_costume = corpse_costume = carnivore_costume = herbivore_costume = bacterium_costume = TETRAHEDRON_ROPE ;
 		} else if (poly_face) {
-			flora_costume = SPHERE_LOW_RPE ;
-			herbivore_costume = TETRAHEDRON_RPE ;
-			carnivore_costume = CROSS_3_RPE ;
-			bacterium_costume = CROSS_2_RPE ;
-			corpse_costume = BOX_RPE ;
+			flora_costume = SPHERE_LOW_ROPE ;
+			herbivore_costume = TETRAHEDRON_ROPE ;
+			carnivore_costume = CROSS_3_ROPE ;
+			bacterium_costume = CROSS_2_ROPE ;
+			corpse_costume = BOX_ROPE ;
 		} else if (poly_line) {
 			flora_costume = 1002 ;
 			herbivore_costume = 1002 ;
@@ -1492,7 +1492,7 @@ class Ecosysteme extends Romanesco {
     // costume
     */
     void costume_agent(int ID_costume) {
-      costume(pos, size, ID_costume) ;
+      costume_rope(pos, size, ID_costume) ;
     }
     
     
@@ -1661,7 +1661,7 @@ class Ecosysteme extends Romanesco {
     // costume
     */
     void costume_agent(int ID_costume) {
-      costume(pos, size, ID_costume) ;
+      costume_rope(pos, size, ID_costume) ;
     }
   }
   /**

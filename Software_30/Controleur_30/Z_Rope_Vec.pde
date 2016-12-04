@@ -1,29 +1,35 @@
 /**
-CLASS VEC 1.2.0
-RPE – Romanesco Processing Environment –
+CLASS OPE VEC 1.6.0
+Rope – Romanesco Processing Environment – 2015 – 2016
 * @author Stan le Punk
 * @see https://github.com/StanLepunK/Vec
 * inspireted by GLSL code and PVector from Daniel Shiffman
+* ROPE is not add before Vec, because is too long, and little too much to have something like
+* that RopeVec(), ROVec(), RPEVec() or RVec(), plus there is no confusion with PVector, so stay simple !
 */
+/**
+Vec Master
 
+*/
+abstract class Vec {
+  float ref_x, ref_y, ref_z, ref_w = Float.NaN  ;
+  float x,y,z,w = Float.NaN ;
+  float a,b,c,d,e,f = Float.NaN  ;
+  float r,g = Float.NaN ;
+  float s,t,p,q = Float.NaN ;
+  float u,v = Float.NaN;
+
+  Vec() {}
+}
 
 /**
 VEC 2
 
 */
-class Vec2 {
-  float ref_x, ref_y = 0 ;
-  float x,y = 0;
-  float s,t = 0;
-  float u,v = 0;
-  
-  Vec2() {}
-  
-  Vec2(float value) {
-    this.ref_x = this.ref_y = this.x = this.y = this.s = this.t = this.u = this.v = value ;
-  }
-  
+class Vec2 extends Vec {
+
   Vec2(float x, float y) {
+    super() ;
     this.ref_x = this.x = this.s = this.u = x ;
     this.ref_y = this.y = this.t = this.v = y ;
   }
@@ -31,6 +37,7 @@ class Vec2 {
   Random constructor
   */
   Vec2(String key_random, int r1) {
+    super() ;
     if(key_random.equals("RANDOM")) {
       this.ref_x = this.x = this.s = this.u = random(-r1,r1) ;
       this.ref_y = this.y = this.t = this.v = random(-r1,r1) ;
@@ -44,6 +51,7 @@ class Vec2 {
   }
   
   Vec2(String key_random, int r1, int r2) {
+    super() ;
     if(key_random.equals("RANDOM")) {
       this.ref_x = this.x = this.s = this.u = random(-r1,r1) ;
       this.ref_y = this.y = this.t = this.v = random(-r2,r2) ;
@@ -60,6 +68,7 @@ class Vec2 {
   }
 
   Vec2(String key_random, int a1, int a2, int b1, int b2) {
+    super() ;
     if(key_random.equals("RANDOM RANGE")) {
       this.ref_x = this.x = this.s = this.u = random(a1,a2) ;
       this.ref_y = this.y = this.t = this.v = random(b1,b2) ;
@@ -75,27 +84,14 @@ class Vec2 {
    * Sets components of the vector using two or three separate
    * variables, the data from a Vec, or the values from a float array.
    */
-  public Vec2 set(float value) {
-     this.x = this.s = this.u = this.y = this.t = this.v = value ;
-     /*
-    this.x = value ;
-    this.s = value ;
-    this.u = value ;
-
-    this.y = value ;
-    this.t = value ;
-    this.v = value ;
-    */
+  public Vec2 set(float v) {
+    this.x = this.s = this.u = v;
+    this.y = this.t = this.v = v ;
     return this;
   }
   public Vec2 set(float x, float y) {
-    this.x = x ;
-    this.s = x ;
-    this.u = x ;
-
-    this.y = y ;
-    this.t = y ;
-    this.v = y ;
+    this.x = this.s = this.u = x ;
+    this.y = this.t = this.v = y ;
     return this;
   }
 
@@ -103,15 +99,16 @@ class Vec2 {
   /**
    * @param v any variable of type Vec
    */
-  public Vec2 set(Vec2 value) {
-    this.x = value.x ;
-    this.s = value.x ;
-    this.u = value.x ;
-
-    this.y = value.y ;
-    this.t = value.y ;
-    this.v = value.y ;
-    return this;
+  public Vec2 set(Vec2 v) {
+    if(v == null) {
+      this.x = this.s = this.u = 0 ;
+      this.y = this.t = this.v = 0 ;
+      return this;
+    } else {
+      this.x = this.s = this.u = v.x ;
+      this.y = this.t = this.v = v.y ;
+      return this;
+    }
   }
 
 
@@ -120,13 +117,8 @@ class Vec2 {
    * @param source array to copy from
    */
   public Vec2 set(float[] source) {
-    this.x = source[0];
-    this.s = source[0];
-    this.u = source[0];
-
-    this.y = source[1];
-    this.t = source[1];
-    this.v = source[1];
+    this.x = this.s = this.u = source[0];
+    this.y = this.t = this.v = source[1];
     return this;
   }
 
@@ -160,10 +152,11 @@ class Vec2 {
   }
   
   // mult by vector
-  Vec2 mult(Vec2 v_a) {
-    x *= v_a.x ; 
-    y *= v_a.y ; 
-
+  Vec2 mult(Vec2 v) {
+    if(v != null) {
+      x *= v.x ; 
+      y *= v.y ; 
+    }
     set(x,y) ;
     return new Vec2(x,y);
   }
@@ -174,7 +167,8 @@ class Vec2 {
   /*
   divide Vector by a float value */
   Vec2 div(float div) {
-    x /= div ; y /= div ; 
+    x /= div ; 
+    y /= div ; 
     
     set(x,y) ;
     return new Vec2(x,y);
@@ -182,9 +176,11 @@ class Vec2 {
   }
   
   // divide by vector
-  Vec2 div(Vec2 v_a) {
-    x /= v_a.x ; y /= v_a.y ;  
-    
+  Vec2 div(Vec2 v) {
+    if(v != null) {
+      x /= v.x ; 
+      y /= v.y ;
+    }  
     set(x,y) ;
     return new Vec2(x,y);
   }
@@ -210,18 +206,20 @@ class Vec2 {
     return new Vec2(x,y);
   }
   /* add Vector */
-  Vec2 add(Vec2 v_a) {
-    x += v_a.x ;
-    y += v_a.y ;
-    
+  Vec2 add(Vec v) {
+    if(v != null) {
+      x += v.x ;
+      y += v.y ;
+    }
     set(x,y) ;
     return new Vec2(x,y);
   }
   /* add two Vector together */
-  Vec2 add(Vec2 v_a, Vec2 v_b) {
-    x = v_a.x + v_b.x ;
-    y = v_a.y + v_b.y ;
-    
+  Vec2 add(Vec v_a, Vec v_b) {
+    if(v_a != null &&  v_b != null) {
+      x = v_a.x + v_b.x ;
+      y = v_a.y + v_b.y ;
+    }
     set(x,y) ;
     return new Vec2(x,y);
   }
@@ -246,19 +244,21 @@ class Vec2 {
     return new Vec2(x,y);
   }
   /* add one Vector */
-  Vec2 sub(Vec2 v_a) {
-    x -= v_a.x ;
-    y -= v_a.y ;
-    
+  Vec2 sub(Vec v) {
+    if(v != null) {
+      x -= v.x ;
+      y -= v.y ;
+    }
     set(x,y) ;
     return new Vec2(x,y);
   }
   
   /* add two Vector together */
-  Vec2 sub(Vec2 v_a, Vec2 v_b) {
-    x = v_a.x - v_b.x ;
-    y = v_a.y - v_b.y ;
-    
+  Vec2 sub(Vec v_a, Vec v_b) {
+    if(v_a != null &&  v_b != null) {
+      x = v_a.x - v_b.x ;
+      y = v_a.y - v_b.y ;
+    }
     set(x,y) ;
     return new Vec2(x,y);
   }
@@ -268,7 +268,12 @@ class Vec2 {
   Dot
   */
   public float dot(Vec2 v) {
-    return x*v.x + y*v.y;
+    if(v != null) {
+      return x*v.x + y*v.y ;
+    } else {
+      println("Your Vec arg is", null) ;
+      return x *0 + y *0  ;
+    }
   }
   public float dot(float x, float y) {
     return this.x*x + this.y*y ;
@@ -288,10 +293,11 @@ class Vec2 {
     return dir(Vec2(a_x,a_y)) ;
   }
   Vec2 dir(Vec2 origin) {
-    float dist = dist(origin) ;
-    sub(origin) ;
-    div(dist) ;
-
+    if(origin != null) {
+      float dist = dist(origin) ;
+      sub(origin) ;
+      div(dist) ;
+    }
     set(x,y) ;
     return new Vec2(x,y);
   }
@@ -308,11 +314,12 @@ class Vec2 {
   }
 
   Vec2 tan(Vec2 target) {
-    float mag = mag() ;
-    target.div(mag) ;
-    x = -target.y ;
-    y = target.x ;
-
+    if(target != null) {
+      float mag = mag() ;
+      target.div(mag) ;
+      x = -target.y ;
+      y = target.x ;
+    }
     set(x,y) ;
     return new Vec2(x,y) ;
   }
@@ -339,19 +346,29 @@ class Vec2 {
   return mapping vector
   @return Vec2
   */
-  Vec2 normalize(Vec2 min, Vec2 max) {
-    x = map(x, min.x, max.x, 0, 1) ;
-    y = map(y, min.y, max.y, 0, 1) ;
-    
+  Vec2 normalize(Vec min, Vec max) {
+    if(min != null && max != null) {
+      x = map(x, min.x, max.x, 0, 1) ;
+      y = map(y, min.y, max.y, 0, 1) ;
+    }
     set(x,y) ;
     return new Vec2(x,y) ;
   }
   
-  Vec2 normalize(Vec2 max) {
-    x = map(x, 0, max.x, 0, 1) ;
-    y = map(y, 0, max.y, 0, 1) ;
-    
+  Vec2 normalize(Vec max) {
+    if(max != null) {
+      x = map(x, 0, max.x, 0, 1) ;
+      y = map(y, 0, max.y, 0, 1) ;
+    }
     set(x,y) ;
+    return new Vec2(x,y) ;
+  }
+
+  Vec2 normalize() {
+    float m = mag();
+    if (m != 0 && m != 1) {
+      div(m);
+    }
     return new Vec2(x,y) ;
   }
 
@@ -382,10 +399,15 @@ class Vec2 {
     return sqrt(x+y) ;
   }
 
-  float mag(Vec2 v_target) {
-    float new_x = (v_target.x -x) *(v_target.x -x) ;
-    float new_y = (v_target.y -y) *(v_target.y -y) ;
-    return sqrt(new_x +new_y) ;
+  float mag(Vec v_target) {
+    if(v_target != null) {
+      float new_x = (v_target.x -x) *(v_target.x -x) ;
+      float new_y = (v_target.y -y) *(v_target.y -y) ;
+      return sqrt(new_x +new_y) ;
+    } else {
+      println("Your Vec arg is", null) ;
+      return 0 ;
+    }
   }
   
   
@@ -396,10 +418,16 @@ class Vec2 {
   @ return float
   distance between himself and an other vector
   */
-  float dist(Vec2 v_target) {
-    float dx = x - v_target.x;
-    float dy = y - v_target.y;
-    return (float) Math.sqrt(dx*dx + dy*dy);
+  float dist(Vec v_target) {
+    if(v_target != null) {
+      float dx = x - v_target.x;
+      float dy = y - v_target.y;
+      return (float) Math.sqrt(dx*dx + dy*dy);
+    } else {
+      println("Your Vec arg is", null) ;
+      return 0 ;
+    }
+ 
   }
   
   
@@ -412,7 +440,12 @@ class Vec2 {
     return jitter(range,range) ;
   }
   Vec2 jitter(Vec2 range) {
-    return jitter((int)range.x,(int)range.y) ;
+    if(range != null) {
+      return jitter((int)range.x,(int)range.y) ;
+    } else {
+      return jitter(0,0) ;
+    }
+    
   }
   /* with specific range */
   Vec2 jitter(int range_x,int range_y) {
@@ -445,14 +478,15 @@ class Vec2 {
   /**
   Compare
   */
-  boolean compare(Vec2 target) {
+  boolean compare(Vec target) {
     if(target != null ) {
       if((x == target.x) && (y == target.y)) {
-              return true ; 
+        return true ; 
       } else return false ;
     } else return false ;
   }
-    boolean compare(float target) {
+
+  boolean compare(float target) {
     if((x == target) && (y == target)) 
     return true ; 
     else return false ;
@@ -504,33 +538,16 @@ class Vec2 {
 VEC 3
 
 */
-class Vec3 {
-  float ref_x, ref_y, ref_z = 0 ;
-  float x,y,z  = 0 ;
-  float r, g, b = 0 ;
-  float s, t, p = 0 ;
-  
-  
-  
+class Vec3 extends Vec {
+ 
   /**
   Constructor
   */
-  Vec3() {}
-  
-  Vec3(float value) {
-    this.ref_x = this.ref_y = this.ref_z = this.x = this.y = this.z  = this.r = this.g = this.b =this.s = this.t = this.p = value ;
-  }
-  
   Vec3(float x, float y, float z) {
+    super() ;
     this.ref_x = this.x = this.r = this.s = x ;
     this.ref_y = this.y = this.g = this.t = y ;
     this.ref_z = this.z = this.b = this.p = z ;
-  }
-
-  Vec3(Vec2 v) {
-    this.ref_x = this.x = this.r = this.s = v.x ;
-    this.ref_y = this.y = this.g = this.t = v.y ;
-    this.ref_z = this.z = this.b = this.p = 0 ;
   }
   
    /**
@@ -538,6 +555,7 @@ class Vec3 {
   */ 
   // random generator for the Vec
   Vec3(String key_random, int r1) {
+    super() ;
     if(key_random.equals("RANDOM")) {
       this.ref_x = this.x = this.r = this.s = random(-r1,r1) ;
       this.ref_y = this.y = this.g = this.t = random(-r1,r1) ;
@@ -553,6 +571,7 @@ class Vec3 {
   }
   
   Vec3(String key_random, int r1, int r2, int r3) {
+    super() ;
     if(key_random.equals("RANDOM")) {
       this.ref_x = this.x = this.r = this.s = random(-r1,r1) ;
       this.ref_y = this.y = this.g = this.t = random(-r2,r2) ;
@@ -568,6 +587,7 @@ class Vec3 {
   }
 
   Vec3(String key_random, int a1, int a2, int b1, int b2, int c1, int c2) {
+    super() ;
     if(key_random.equals("RANDOM RANGE")) {
       this.ref_x = this.x = this.r = this.s = random(a1,a2) ;
       this.ref_y = this.y = this.g = this.t = random(b1,b2) ;
@@ -588,28 +608,16 @@ class Vec3 {
    * variables, the data from a Vec, or the values from a float array.
    */
    
-   public Vec3 set(float value) {
-    this.x = value ;
-    this.r = value ;
-    this.s = value ;
-    this.y = value;
-    this.g = value;
-    this.t = value ;
-    this.z = value;
-    this.b = value;
-    this.p = value ;
+   public Vec3 set(float v) {
+    this.x = this.r = this.s = v ;
+    this.y = this.g = this.t = v ;
+    this.z = this.b = this.p = v ;
     return this;
   }
   public Vec3 set(float x, float y, float z) {
-    this.x = x ;
-    this.r = x ;
-    this.s = x ;
-    this.y = y;
-    this.g = y;
-    this.t = y ;
-    this.z = z;
-    this.b = z;
-    this.p = z ;
+    this.x = this.r = this.s = x ;
+    this.y = this.g = this.t = y ;
+    this.z = this.b = this.p = z ;
     return this;
   }
 
@@ -617,19 +625,26 @@ class Vec3 {
   /**
    * @param v any variable of type Vec
    */
-  public Vec3 set(Vec3 value) {
-    this.x = value.x ;
-    this.r = value.x ;
-    this.s = value.x ;
+  public Vec3 set(Vec3 v) {
+    if(v == null) {
+      this.x = this.r = this.s = 0 ;
+      this.y = this.g = this.t = 0 ;
+      this.z = this.b = this.p = 0 ;
+      return this;
+    } else {
+      this.x = v.x ;
+      this.r = v.x ;
+      this.s = v.x ;
 
-    this.y = value.y ;
-    this.g = value.y ;
-    this.t = value.y ;
+      this.y = v.y ;
+      this.g = v.y ;
+      this.t = v.y ;
 
-    this.z = value.z ;
-    this.b = value.z ;
-    this.p = value.z ;
-    return this;
+      this.z = v.z ;
+      this.b = v.z ;
+      this.p = v.z ;
+      return this;
+    }
   }
 
 
@@ -685,9 +700,12 @@ class Vec3 {
   }
   
   // mult by vector
-  Vec3 mult(Vec3 v_a) {
-    x *= v_a.x ; y *= v_a.y ; z *= v_a.z ; 
-    
+  Vec3 mult(Vec3 v) {
+    if(v != null) {
+      x *= v.x ; 
+      y *= v.y ; 
+      z *= v.z ; 
+    }
     set(x,y,z) ;
     return new Vec3(x,y,z) ;
   }
@@ -701,16 +719,21 @@ class Vec3 {
   @ return Vec
   divide Vector by a float value */
   Vec3 div(float div) {
-    x /= div ; y /= div ; z /= div ;
+    x /= div ; 
+    y /= div ; 
+    z /= div ;
     
     set(x,y,z) ;
     return new Vec3(x,y,z) ;
   }
   
   // divide by vector
-  Vec3 div(Vec3 v_a) {
-    x /= v_a.x ; y /= v_a.y ; z /= v_a.z ; 
-    
+  Vec3 div(Vec3 v) {
+    if(v != null) {
+      x /= v.x ; 
+      y /= v.y ; 
+      z /= v.z ; 
+    }
     set(x,y,z) ;
     return new Vec3(x,y,z) ;
   }
@@ -738,21 +761,23 @@ class Vec3 {
     return new Vec3(x,y,z) ;
   }
   /* add one Vector */
-  Vec3 add(Vec3 v_a) {
-    x += v_a.x ;
-    y += v_a.y ;
-    z += v_a.z ;
-    
+  Vec3 add(Vec v) {
+    if(v != null) {
+      x += v.x ;
+      y += v.y ;
+      z += v.z ;
+    }
     set(x,y,z) ;
     return new Vec3(x,y,z) ;
   }
   
   /* add two Vector together */
-  Vec3 add(Vec3 v_a, Vec3 v_b) {
-    x = v_a.x + v_b.x ;
-    y = v_a.y + v_b.y ;
-    z = v_a.z + v_b.z ;
-
+  Vec3 add(Vec v_a, Vec v_b) {
+    if(v_a != null &&  v_b != null) {
+      x = v_a.x + v_b.x ;
+      y = v_a.y + v_b.y ;
+      z = v_a.z + v_b.z ;
+    }
     set(x,y,z) ;
     return new Vec3(x,y,z) ;
   }
@@ -780,21 +805,23 @@ class Vec3 {
     return new Vec3(x,y,z) ;
   }
   /* add one Vector */
-  Vec3 sub(Vec3 v_a) {
-    x -= v_a.x ;
-    y -= v_a.y ;
-    z -= v_a.z ;
-
+  Vec3 sub(Vec v) {
+    if(v != null) {
+      x -= v.x ;
+      y -= v.y ;
+      z -= v.z ;
+    }
     set(x,y,z) ;
     return new Vec3(x,y,z) ;
   }
   
   /* add two Vector together */
-  Vec3 sub(Vec3 v_a, Vec3 v_b) {
-    x = v_a.x - v_b.x ;
-    y = v_a.y - v_b.y ;
-    z = v_a.z - v_b.z ;
-
+  Vec3 sub(Vec v_a, Vec v_b) {
+    if(v_a != null &&  v_b != null) {
+      x = v_a.x - v_b.x ;
+      y = v_a.y - v_b.y ;
+      z = v_a.z - v_b.z ;
+    }
     set(x,y,z) ;
     return new Vec3(x,y,z) ;
   }
@@ -804,7 +831,13 @@ class Vec3 {
   Dot
   */
   public float dot(Vec3 v) {
-    return x*v.x + y*v.y + z*v.z;
+    if(v != null) {
+      return x*v.x + y*v.y + z*v.z;
+    } else {
+      println("Your Vec arg is", null) ;
+      return 0 ;
+    }
+    
   }
   public float dot(float x, float y, float z) {
     return this.x*x + this.y*y + this.z*z;
@@ -814,7 +847,10 @@ class Vec3 {
   Cross
   */
   Vec3 cross(Vec3 v) {
-    return cross(v, null);
+    if(v != null) {
+      return cross(v, null);
+    } else return null ;
+    
   }
   Vec3 cross(float x, float y, float z) {
     Vec3 v = Vec3(x,y,z) ;
@@ -822,16 +858,18 @@ class Vec3 {
   }
 
   Vec3 cross(Vec3 v, Vec3 target) {
-    float crossX = y*v.z - v.y*z;
-    float crossY = z*v.x - v.z*x;
-    float crossZ = x*v.y - v.x*y;
+    if(v != null && target != null) {
+      float crossX = y*v.z - v.y*z;
+      float crossY = z*v.x - v.z*x;
+      float crossZ = x*v.y - v.x*y;
+      if (target == null) {
+        target = Vec3(crossX, crossY, crossZ);
+      } else {
+        target.set(crossX, crossY, crossZ);
+      }
+      return target;
+    } else return null ;
 
-    if (target == null) {
-      target = Vec3(crossX, crossY, crossZ);
-    } else {
-      target.set(crossX, crossY, crossZ);
-    }
-    return target;
   }
   
 
@@ -845,10 +883,11 @@ class Vec3 {
     return dir(Vec3(a_x,a_y,a_z)) ;
   }
   Vec3 dir(Vec3 origin) {
-    float dist = dist(origin) ;
-    sub(origin) ;
-    div(dist) ;
-
+    if(origin != null) {
+      float dist = dist(origin) ;
+      sub(origin) ;
+      div(dist) ;
+    }
     set(x,y,z) ;
     return new Vec3(x,y,z) ;
   }
@@ -864,8 +903,10 @@ class Vec3 {
   }
 
   Vec3 tan(Vec3 vector_to_make_plane_ref) {
-    Vec3 tangent = cross(vector_to_make_plane_ref) ;
-    return tangent ;
+    if(vector_to_make_plane_ref != null) {
+      Vec3 tangent = cross(vector_to_make_plane_ref) ;
+      return tangent ;
+    } else return null ;
   }
   
 
@@ -894,21 +935,31 @@ class Vec3 {
   return mapping vector
   @return Vec3
   */
-  Vec3 normalize(Vec3 min, Vec3 max) {
-    x = map(x, min.x, max.x, 0, 1) ;
-    y = map(y, min.y, max.y, 0, 1) ;
-    z = map(z, min.z, max.z, 0, 1) ;
-    
+  Vec3 normalize(Vec min, Vec max) {
+    if(min != null && max != null) {
+      x = map(x, min.x, max.x, 0, 1) ;
+      y = map(y, min.y, max.y, 0, 1) ;
+      z = map(z, min.z, max.z, 0, 1) ;
+    }
     set(x,y,z) ;
     return new Vec3(x,y,z) ;
   }
   
-  Vec3 normalize(Vec3 max) {
-    x = map(x, 0, max.x, 0, 1) ;
-    y = map(y, 0, max.y, 0, 1) ;
-    z = map(z, 0, max.z, 0, 1) ;
-
+  Vec3 normalize(Vec max) {
+    if(max != null) {
+      x = map(x, 0, max.x, 0, 1) ;
+      y = map(y, 0, max.y, 0, 1) ;
+      z = map(z, 0, max.z, 0, 1) ;
+    }
     set(x,y,z) ;
+    return new Vec3(x,y,z) ;
+  }
+
+  Vec3 normalize() {
+    float m = mag();
+    if (m != 0 && m != 1) {
+      div(m);
+    }
     return new Vec3(x,y,z) ;
   }
 
@@ -945,10 +996,15 @@ class Vec3 {
   }
 
   float mag(Vec3 v_target) {
-    float new_x = (v_target.x -x) *(v_target.x -x) ;
-    float new_y = (v_target.y -y) *(v_target.y -y) ;
-    float new_z = (v_target.z -z) *(v_target.z -z) ;
-    return sqrt(new_x +new_y +new_z) ;
+    if(v_target != null) {
+      float new_x = (v_target.x -x) *(v_target.x -x) ;
+      float new_y = (v_target.y -y) *(v_target.y -y) ;
+      float new_z = (v_target.z -z) *(v_target.z -z) ;
+      return sqrt(new_x +new_y +new_z) ;
+    } else {
+      println("Your Vec arg is", null) ;
+      return 0 ;
+    }
   }
   
   /**
@@ -958,11 +1014,16 @@ class Vec3 {
   @ return float
   distance himself and an other vector
   */
-  float dist(Vec3 v_target) {
-    float dx = x - v_target.x;
-    float dy = y - v_target.y;
-    float dz = z - v_target.z;
-    return (float) Math.sqrt(dx*dx + dy*dy + dz*dz);
+  float dist(Vec v_target) {
+    if(v_target != null) {
+      float dx = x - v_target.x;
+      float dy = y - v_target.y;
+      float dz = z - v_target.z;
+      return (float) Math.sqrt(dx*dx + dy*dy + dz*dz);
+    } else {
+      println("Your Vec arg is", null) ;
+      return 0 ;
+    }
   }
   
   /**
@@ -974,7 +1035,10 @@ class Vec3 {
     return jitter(range,range,range) ;
   }
   Vec3 jitter(Vec3 range) {
-    return jitter((int)range.x,(int)range.y,(int)range.z) ;
+    if(range != null) {
+      return jitter((int)range.x,(int)range.y,(int)range.z) ;
+    } else return jitter(0, 0, 0) ;
+    
   }
   /* with specific range */
   Vec3 jitter(int range_x,int range_y,int range_z) {
@@ -1002,14 +1066,17 @@ class Vec3 {
     return revolutionX(Vec2(r,r), speed) ;
   }
   Vec3 revolutionX(Vec2 radius, float speed) {
-    float new_speed = speed *.01 ; 
-    x = ref_x ;
-    y = ref_y ;
-    float m_x = sin(frameCount *new_speed) ;
-    float m_y = cos(frameCount *new_speed) ;
-    m_x *=radius.x ;
-    m_y *=radius.y ;
-    return new Vec3(x +m_x, y +m_y, z) ;
+    if(radius != null) {
+      float new_speed = speed *.01 ; 
+      x = ref_x ;
+      y = ref_y ;
+      float m_x = sin(frameCount *new_speed) ;
+      float m_y = cos(frameCount *new_speed) ;
+      m_x *=radius.x ;
+      m_y *=radius.y ;
+      return new Vec3(x +m_x, y +m_y, z) ;
+    } else return null ;
+
   }
   //
   Vec3 revolutionY(int rx, int ry, float speed) {
@@ -1019,14 +1086,16 @@ class Vec3 {
     return revolutionY(Vec2(r,r), speed) ;
   }
   Vec3 revolutionY(Vec2 radius, float speed) {
-    float new_speed = speed *.01 ; 
-    x = ref_x ;
-    z = ref_z ;
-    float m_x = sin(frameCount *new_speed) ;
-    float m_z = cos(frameCount *new_speed) ;
-    m_x *=radius.x ;
-    m_z *=radius.y ;
-    return new Vec3(x +m_x, y, z +m_z) ;
+    if(radius != null) {
+      float new_speed = speed *.01 ; 
+      x = ref_x ;
+      z = ref_z ;
+      float m_x = sin(frameCount *new_speed) ;
+      float m_z = cos(frameCount *new_speed) ;
+      m_x *=radius.x ;
+      m_z *=radius.y ;
+      return new Vec3(x +m_x, y, z +m_z) ;
+    } else return null ;
   }
   //
   Vec3 revolutionZ(int rx, int ry, float speed) {
@@ -1036,14 +1105,16 @@ class Vec3 {
     return revolutionZ(Vec2(r,r), speed) ;
   }
   Vec3 revolutionZ(Vec2 radius, float speed) {
-    float new_speed = speed *.01 ; 
-    y = ref_y ;
-    z = ref_z ;
-    float m_y = sin(frameCount *new_speed) ;
-    float m_z = cos(frameCount *new_speed) ;
-    m_y *=radius.x ;
-    m_z *=radius.y ;
-    return new Vec3(x, y +m_y, z +m_z) ;
+    if(radius != null) {
+      float new_speed = speed *.01 ; 
+      y = ref_y ;
+      z = ref_z ;
+      float m_y = sin(frameCount *new_speed) ;
+      float m_z = cos(frameCount *new_speed) ;
+      m_y *=radius.x ;
+      m_z *=radius.y ;
+      return new Vec3(x, y +m_y, z +m_z) ;
+    } else return null ;
   }
   
   
@@ -1051,9 +1122,9 @@ class Vec3 {
   Compare
   */
   boolean compare(Vec3 target) {
-    if(target != null ) {
+    if(target != null) {
       if((x == target.x) && (y == target.y) && (z == target.z)) {
-              return true ; 
+        return true ; 
       } else return false ;
     } else return false ;
   }
@@ -1112,48 +1183,18 @@ class Vec3 {
 VEC 4
 
 */
-class Vec4 {
-  float ref_x, ref_y, ref_z, ref_w = 0 ;
-  float x,y,z,w = 0 ;
-  float r, g, b, a = 0 ;
-  float s, t, p, q = 0 ;
+class Vec4 extends Vec {
   /**
   Constructor
   */
-  Vec4 () {}
-  
-  Vec4(float value) {
-    this.ref_x = this.ref_y = this.ref_z = this.ref_w = this.x = this.y = this.z = this.w = this.r = this.g = this.b = this.a =this.s = this.t = this.p = this.q = value ;
-  }
   
   Vec4(float x, float y, float z, float w) {
+    super() ;
     this.ref_x = this.x = this.r = this.s = x ;
     this.ref_y = this.y = this.g = this.t = y ;
     this.ref_z = this.z = this.b = this.p = z ;
     this.ref_w = this.w = this.a = this.q = w ;
   }
-
-  Vec4(Vec3 v) {
-    this.ref_x = this.x = this.r = this.s = v.x ;
-    this.ref_y = this.y = this.g = this.t = v.y ;
-    this.ref_z = this.z = this.b = this.p = v.z ;
-    this.ref_w = this.w = this.a = this.q = 0 ;
-  }
-
-  Vec4(Vec2 v) {
-    this.ref_x = this.x = this.r = this.s = v.x ;
-    this.ref_y = this.y = this.g = this.t = v.y ;
-    this.ref_z = this.z = this.b = this.p = 0 ;
-    this.ref_w = this.w = this.a = this.q = 0 ;
-  }
-
-  Vec4(Vec2 v1, Vec2 v2) {
-    this.ref_x = this.x = this.r = this.s = v1.x ;
-    this.ref_y = this.y = this.g = this.t = v1.y ;
-    this.ref_z = this.z = this.b = this.p = v2.x ;
-    this.ref_w = this.w = this.a = this.q = v2.y ;
-  }
-
 
 
 
@@ -1162,6 +1203,7 @@ class Vec4 {
   */ 
   // random generator for the Vec
   Vec4(String key_random, int r1) {
+    super() ;
     if(key_random.equals("RANDOM")) {
       this.ref_x = this.x = this.r =this.s = random(-r1,r1) ;
       this.ref_y = this.y = this.g =this.t = random(-r1,r1) ;
@@ -1179,6 +1221,7 @@ class Vec4 {
   }
   
   Vec4(String key_random, int r1, int r2, int r3, int r4) {
+    super() ;
     if(key_random.equals("RANDOM")) {
       this.ref_x = this.x = this.r =this.s = random(-r1,r1) ;
       this.ref_y = this.y = this.g =this.t = random(-r2,r2) ;
@@ -1196,6 +1239,7 @@ class Vec4 {
   }
 
   Vec4(String key_random, int a1, int a2, int b1, int b2, int c1, int c2, int d1, int d2) {
+    super() ;
     if(key_random.equals("RANDOM RANGE")) {
       this.ref_x = this.x = this.r = this.s = random(a1,a2) ;
       this.ref_y = this.y = this.g = this.t = random(b1,b2) ;
@@ -1214,36 +1258,20 @@ class Vec4 {
    * Sets components of the vector using two or three separate
    * variables, the data from a Vec, or the values from a float array.
    */
-  public Vec4 set(float value) {
-    this.x = value ;
-    this.r = value ;
-    this.s = value ;
-    this.y = value ;
-    this.g = value ;
-    this.t = value ;
-    this.z = value ;
-    this.b = value ;
-    this.p = value ;
-    this.w = value ;
-    this.a = value ;
-    this.q = value ;
+  public Vec4 set(float v) {
+    this.x = this.r = this.s = v ;
+    this.y = this.g = this.t = v ;
+    this.z = this.b = this.p = v ;
+    this.w = this.a = this.q = v ;
     return this;
   }
   
   
   public Vec4 set(float x, float y, float z, float w) {
-    this.x = x ;
-    this.r = x ;
-    this.s = x ;
-    this.y = y ;
-    this.g = y ;
-    this.t = y ;
-    this.z = z ;
-    this.b = z ;
-    this.p = z ;
-    this.w = w ;
-    this.a = w ;
-    this.q = w ;
+    this.x = this.r = this.s = x ;
+    this.y = this.g = this.t = y ;
+    this.z = this.b = this.p = z ;
+    this.w = this.a = this.q = w ;
     return this;
   }
 
@@ -1251,23 +1279,20 @@ class Vec4 {
   /**
    * @param v any variable of type Vec
    */
-  public Vec4 set(Vec4 value) {
-    this.x = value.x ;
-    this.r = value.x ;
-    this.s = value.x ;
-
-    this.y = value.y ;
-    this.g = value.y ;
-    this.t = value.y ;
-
-    this.z = value.z ;
-    this.b = value.z ;
-    this.p = value.z ;
-
-    this.w = value.w ;
-    this.a = value.w ;
-    this.q = value.w ;
-    return this;
+  public Vec4 set(Vec4 v) {
+    if ( v == null) {
+      this.x = this.r = this.s = 0 ;
+      this.y = this.g = this.t = 0 ;
+      this.z = this.b = this.p = 0 ;
+      this.w = this.a =  this.q = 0 ;
+      return this;
+    } else {
+      this.x = this.r = this.s = v.x ;
+      this.y = this.g = this.t = v.y ;
+      this.z = this.b = this.p = v.z ;
+      this.w = this.a = this.q = v.w ;
+      return this;
+    }
   }
 
 
@@ -1276,21 +1301,10 @@ class Vec4 {
    * @param source array to copy from
    */
   public Vec4 set(float[] source) {
-    this.x = source[0] ;
-    this.r = source[0] ;
-    this.s = source[0] ;
-
-    this.y = source[1] ;
-    this.g = source[1] ;
-    this.t = source[1] ;
-
-    this.z = source[2] ;
-    this.b = source[2] ;
-    this.p = source[2] ;
-
-    this.w = source[3] ;
-    this.a = source[3] ;
-    this.q = source[3] ;
+    this.x = this.r = this.s = source[0] ;
+    this.y = this.g = this.t = source[1] ;
+    this.z = this.b = this.p = source[2] ;
+    this.w = this.a = this.q = source[3] ;
     return this;
   }
 
@@ -1319,9 +1333,13 @@ class Vec4 {
   }
   
   // mult by vector
-  Vec4 mult(Vec4 v_a) {
-    x *= v_a.x ; y *= v_a.y ; z *= v_a.z ; w *= v_a.w ;
-
+  Vec4 mult(Vec4 v) {
+    if(v != null) {
+      x *= v.x ; 
+      y *= v.y ; 
+      z *= v.z ; 
+      w *= v.w ;
+    }
     set(x,y,z,w) ;
     return new Vec4(x,y,z,w) ;
   }
@@ -1341,9 +1359,13 @@ class Vec4 {
   }
   
   // divide by vector
-  Vec4 div(Vec4 v_a) {
-    x /= v_a.x ; y /= v_a.y ; z /= v_a.z ; w /= v_a.w ;
-    
+  Vec4 div(Vec4 v) {
+    if(v != null) {
+      x /= v.x ; 
+      y /= v.y ; 
+      z /= v.z ; 
+      w /= v.w ;
+    }
     set(x,y,z,w) ;
     return new Vec4(x,y,z,w) ;
   }
@@ -1372,22 +1394,24 @@ class Vec4 {
     return new Vec4(x,y,z,w) ;
   }
   /* add vec */
-  Vec4 add(Vec4 v_a) {
-    x += v_a.x ;
-    y += v_a.y ;
-    z += v_a.z ;
-    w += v_a.w ;
-    
+  Vec4 add(Vec v) {
+    if(v != null) {
+      x += v.x ;
+      y += v.y ;
+      z += v.z ;
+      w += v.w ;
+    }
     set(x,y,z,w) ;
     return new Vec4(x,y,z,w)  ;
   }
   /* add two Vector together */
-  Vec4 add(Vec4 v_a, Vec4 v_b) {
-    x = v_a.x + v_b.x ;
-    y = v_a.y + v_b.y ;
-    z = v_a.z + v_b.z ;
-    w = v_a.w + v_b.w ;
-    
+  Vec4 add(Vec v_a, Vec v_b) {
+    if(v_a != null && v_b != null) {
+      x = v_a.x + v_b.x ;
+      y = v_a.y + v_b.y ;
+      z = v_a.z + v_b.z ;
+      w = v_a.w + v_b.w ;
+    }
     set(x,y,z,w) ;
     return new Vec4(x,y,z,w) ;
   }
@@ -1415,23 +1439,25 @@ class Vec4 {
     return new Vec4(x,y,z,w) ;
   }
   /* add one Vector */
-  Vec4 sub(Vec4 v_a) {
-    x -= v_a.x ;
-    y -= v_a.y ;
-    z -= v_a.z ;
-    w -= v_a.w ;
-    
+  Vec4 sub(Vec v) {
+    if(v != null) {
+      x -= v.x ;
+      y -= v.y ;
+      z -= v.z ;
+      w -= v.w ;
+    }
     set(x,y,z,w) ;
     return new Vec4(x,y,z,w) ;
   }
   
   /* add two Vector together */
-  Vec4 sub(Vec4 v_a, Vec4 v_b) {
-    x = v_a.x - v_b.x ;
-    y = v_a.y - v_b.y ;
-    z = v_a.z - v_b.z ;
-    w = v_a.w - v_b.w ;
-    
+  Vec4 sub(Vec v_a, Vec v_b) {
+    if(v_a != null &&  v_b != null) {
+      x = v_a.x - v_b.x ;
+      y = v_a.y - v_b.y ;
+      z = v_a.z - v_b.z ;
+      w = v_a.w - v_b.w ;
+    }
     set(x,y,z,w) ;
     return new Vec4(x,y,z,w) ;
   }
@@ -1440,7 +1466,13 @@ class Vec4 {
   Dot
   */
   public float dot(Vec4 v) {
-    return x*v.x + y*v.y + z*v.z + w*this.w;
+    if(v != null) {
+      return x*v.x + y*v.y + z*v.z + w*this.w;
+    } else {
+      println("Your Vec arg is", null) ;
+      return 0 ;
+    }
+    
   }
   public float dot(float x, float y, float z, float w) {
     return this.x*x + this.y*y + this.z*z + this.w*w;
@@ -1458,11 +1490,11 @@ class Vec4 {
     return dir(Vec4(a_x,a_y,a_z,a_w)) ;
   }
   Vec4 dir(Vec4 origin) {
-    float dist = dist(origin) ;
-    sub(origin) ;
-    div(dist) ;
-
-    
+    if(origin != null) {
+      float dist = dist(origin) ;
+      sub(origin) ;
+      div(dist) ;
+    }
     set(x,y,z,w) ;
     return new Vec4(x,y,z,w) ;
   }
@@ -1488,24 +1520,35 @@ class Vec4 {
   return mapping vector
   @return Vec3
   */
-  Vec4 normalize(Vec4 min, Vec4 max) {
-    x = map(x, min.x, max.x, 0, 1) ;
-    y = map(y, min.y, max.y, 0, 1) ;
-    z = map(z, min.z, max.z, 0, 1) ;
-    w = map(w, min.w, max.w, 0, 1) ;
-    
+  Vec4 normalize(Vec min, Vec max) {
+    if(min != null && max != null) {
+      x = map(x, min.x, max.x, 0, 1) ;
+      y = map(y, min.y, max.y, 0, 1) ;
+      z = map(z, min.z, max.z, 0, 1) ;
+      w = map(w, min.w, max.w, 0, 1) ;
+    }
     set(x,y,z,w) ;
     return new Vec4(x,y,z,w) ;
   }
   
 
-  Vec4 normalize(Vec4 max) {
-    x = map(x, 0, max.x, 0, 1) ;
-    y = map(y, 0, max.y, 0, 1) ;
-    z = map(z, 0, max.z, 0, 1) ;
-    w = map(w, 0, max.w, 0, 1) ;
-    
+  Vec4 normalize(Vec max) {
+    if(max != null) {
+      x = map(x, 0, max.x, 0, 1) ;
+      y = map(y, 0, max.y, 0, 1) ;
+      z = map(z, 0, max.z, 0, 1) ;
+      w = map(w, 0, max.w, 0, 1) ;
+    }
     set(x,y,z,w) ;
+    return new Vec4(x,y,z,w) ;
+  }
+
+
+  Vec4 normalize() {
+    float m = mag();
+    if (m != 0 && m != 1) {
+      div(m);
+    }
     return new Vec4(x,y,z,w) ;
   }
 
@@ -1538,11 +1581,16 @@ class Vec4 {
   }
 
   float mag(Vec4 v_target) {
-    float new_x = (v_target.x -x) *(v_target.x -x) ;
-    float new_y = (v_target.y -y) *(v_target.y -y) ;
-    float new_z = (v_target.z -z) *(v_target.z -z) ;
-    float new_w = (v_target.w -w) *(v_target.w -w) ;
-    return sqrt(new_x +new_y +new_z +new_w) ;
+    if(v_target != null) {
+      float new_x = (v_target.x -x) *(v_target.x -x) ;
+      float new_y = (v_target.y -y) *(v_target.y -y) ;
+      float new_z = (v_target.z -z) *(v_target.z -z) ;
+      float new_w = (v_target.w -w) *(v_target.w -w) ;
+      return sqrt(new_x +new_y +new_z +new_w) ;
+    } else {
+      println("Your Vec arg is", null) ;
+      return 0 ;
+    }
   }
   
   /**
@@ -1550,11 +1598,16 @@ class Vec4 {
   */
   // distance himself and an other vector
   float dist(Vec4 v_target) {
-    float dx = x - v_target.x;
-    float dy = y - v_target.y;
-    float dz = z - v_target.z;
-    float dw = w - v_target.w;
-    return (float) Math.sqrt(dx*dx + dy*dy + dz*dz + dw*dw);
+    if(v_target != null) {
+      float dx = x - v_target.x;
+      float dy = y - v_target.y;
+      float dz = z - v_target.z;
+      float dw = w - v_target.w;
+      return (float) Math.sqrt(dx*dx + dy*dy + dz*dz + dw*dw);
+    } else {
+      println("Your Vec arg is", null) ;
+      return 0 ;
+    }
   }
   
   
@@ -1567,7 +1620,9 @@ class Vec4 {
     return jitter(range,range,range,range) ;
   }
   Vec4 jitter(Vec4 range) {
-    return jitter((int)range.x,(int)range.y,(int)range.z,(int)range.w) ;
+    if(range != null) {
+      return jitter((int)range.x,(int)range.y,(int)range.z,(int)range.w) ;
+    } else return jitter(0) ;
   }
   /* with specific range */
   Vec4 jitter(int range_x,int range_y,int range_z,int range_w) {
@@ -1591,7 +1646,7 @@ class Vec4 {
   boolean compare(Vec4 target) {
     if(target != null ) {
       if((x == target.x) && (y == target.y) && (z == target.z) && (w == target.w)) {
-              return true ; 
+        return true ; 
       } else return false ;
     } else return false ;
   }
@@ -1629,19 +1684,13 @@ class Vec4 {
 CLASS Vec5
 
 */
-class Vec5 {
-  float a,b,c,d,e = 0 ;
+class Vec5 extends Vec{
 
   /**
   Constructor
   */
-  Vec5 () {}
-  
-  Vec5(float value) {
-    this.a = this.b = this.c = this.d = this.e = value ;
-  }
-  
   Vec5(float a, float b, float c, float d, float e) {
+    super() ;
     this.a = a ;
     this.b = b ;
     this.c = c ;
@@ -1649,61 +1698,12 @@ class Vec5 {
     this.e = e ;
   }
 
-  Vec5(Vec4 v) {
-    this.a = v.x ;
-    this.b = v.y ;
-    this.c = v.z ;
-    this.d = v.w ;
-    this.e = 0 ;
-  }
-
-  Vec5(Vec3 v) {
-    this.a = v.x ;
-    this.b = v.y ;
-    this.c = v.z ;
-    this.d = 0 ;
-    this.e = 0 ;
-  }
-
-  Vec5(Vec2 v) {
-    this.a = v.x ;
-    this.b = v.y ;
-    this.c = 0 ;
-    this.d = 0 ;
-    this.e = 0 ;
-  }
-
-  Vec5(Vec2 v1, Vec2 v2) {
-    this.a = v1.x ;
-    this.b = v1.y ;
-    this.c = v2.x ;
-    this.d = v2.y ;
-    this.e = 0 ;
-  }
-
-  Vec5(Vec3 v1, Vec2 v2) {
-    this.a = v1.x ;
-    this.b = v1.y ;
-    this.c = v1.z ;
-    this.d = v2.x ;
-    this.e = v2.y ;
-  }
-
-  Vec5(Vec2 v1, Vec3 v2) {
-    this.a = v1.x ;
-    this.b = v1.y ;
-    this.c = v2.x ;
-    this.d = v2.y ;
-    this.e = v2.z ;
-  }
-  
-  
-  
   /**
   Random Constructor
   */
   // random generator for the Vec
   Vec5(String key_random, int r1) {
+    super() ;
     if(key_random.equals("RANDOM")) {
       this.a = random(-r1,r1) ;
       this.b = random(-r1,r1) ;
@@ -1723,6 +1723,7 @@ class Vec5 {
   }
   
   Vec5(String key_random, int r1, int r2, int r3, int r4, int r5) {
+    super() ;
     if(key_random.equals("RANDOM")) {
       this.a = random(-r1,r1) ;
       this.b = random(-r2,r2) ;
@@ -1742,6 +1743,7 @@ class Vec5 {
   }
 
   Vec5(String key_random, int a1, int a2, int b1, int b2, int c1, int c2, int d1, int d2, int e1, int e2) {
+    super() ;
     if(key_random.equals("RANDOM RANGE")) {
       this.a = random(a1,a2) ;
       this.b = random(b1,b2) ;
@@ -1758,17 +1760,12 @@ class Vec5 {
   /**
   Set
   */
-   /**
-   * Sets components of the vector using two or three separate
-   * variables, the data from a Vec, or the values from a float array.
-   */
-   
-   public Vec5 set(float value) {
-    this.a = value ;
-    this.b = value;
-    this.c = value;
-    this.d = value;
-    this.e = value;
+  /**
+  * Sets components of the vector using two or three separate
+  * variables, the data from a Vec, or the values from a float array.
+  */
+  public Vec5 set(float value) {
+    this.a = this.b = this.c = this.d = this.e = value;
     return this;
   }
   
@@ -1785,13 +1782,18 @@ class Vec5 {
   /**
    * @param v any variable of type Vec
    */
-  public Vec5 set(Vec5 value) {
-    a = value.a ;
-    b = value.b ;
-    c = value.c ;
-    d = value.d ;
-    e = value.e ;
-    return this;
+  public Vec5 set(Vec5 v) {
+    if( v == null) {
+      a = b = c = d = e = 0 ;
+      return this;
+    } else {
+      a = v.a ;
+      b = v.b ;
+      c = v.c ;
+      d = v.d ;
+      e = v.e ;
+      return this;
+    }
   }
 
 
@@ -1845,19 +1847,13 @@ class Vec5 {
 CLASS Vec6
 
 */
-class Vec6 {
-  float a,b,c,d,e,f = 0 ;
+class Vec6 extends Vec {
 
   /**
   Constructor
   */
-  Vec6 () {}
-  
-  Vec6(float value) {
-    this.a = this.b = this.c = this.d = this.e = this.f = value ;
-  }
-  
   Vec6(float a, float b, float c, float d, float e, float f) {
+    super() ;
     this.a = a ;
     this.b = b ;
     this.c = c ;
@@ -1866,111 +1862,12 @@ class Vec6 {
     this.f = f ;
   }
 
-  Vec6(Vec5 v) {
-    this.a = v.a ;
-    this.b = v.b ;
-    this.c = v.c ;
-    this.d = v.d ;
-    this.e = v.e ;
-    this.f = 0 ;
-
-  }
-
-
-  Vec6(Vec4 v) {
-    this.a = v.x ;
-    this.b = v.y ;
-    this.c = v.z ;
-    this.d = v.w ;
-    this.e = 0 ;
-    this.f = 0 ;
-  }
-
-  Vec6(Vec3 v) {
-    this.a = v.x ;
-    this.b = v.y ;
-    this.c = v.z ;
-    this.d = 0 ;
-    this.e = 0 ;
-    this.f = 0 ;
-  }
-
-  Vec6(Vec2 v) {
-    this.a = v.x ;
-    this.b = v.y ;
-    this.c = 0 ;
-    this.d = 0 ;
-    this.e = 0 ;
-    this.f = 0 ;
-  }
-
-  Vec6(Vec2 v1, Vec2 v2) {
-    this.a = v1.x ;
-    this.b = v1.y ;
-    this.c = v2.x ;
-    this.d = v2.y ;
-    this.e = 0 ;
-    this.f = 0 ;
-  }
-
-  Vec6(Vec3 v1, Vec3 v2) {
-    this.a = v1.x ;
-    this.b = v1.y ;
-    this.c = v1.z ;
-    this.d = v2.x ;
-    this.e = v2.y ;
-    this.f = v2.z ;
-  }
-
-  Vec6(Vec2 v1, Vec2 v2, Vec2 v3) {
-    this.a = v1.x ;
-    this.b = v1.y ;
-    this.c = v2.x ;
-    this.d = v2.y ;
-    this.e = v3.x ;
-    this.f = v3.y ;
-  }
-  
-  Vec6(Vec4 v1, Vec2 v2) {
-    this.a = v1.x ;
-    this.b = v1.y ;
-    this.c = v1.z ;
-    this.d = v1.w ;
-    this.e = v2.x ;
-    this.f = v2.y ;
-  }
-
-  Vec6(Vec3 v1, Vec2 v2) {
-    this.a = v1.x ;
-    this.b = v1.y ;
-    this.c = v1.z ;
-    this.d = v2.x ;
-    this.e = v2.y ;
-    this.f = 0 ;
-  }
-
-  Vec6(Vec2 v1, Vec3 v2) {
-    this.a = v1.x ;
-    this.b = v1.y ;
-    this.c = v2.x ;
-    this.d = v2.y ;
-    this.e = v2.z ;
-    this.f = 0 ;
-  }
-
-  Vec6(Vec2 v1, Vec4 v2) {
-    this.a = v1.x ;
-    this.b = v1.y ;
-    this.c = v2.x ;
-    this.d = v2.y ;
-    this.e = v2.z ;
-    this.f = v2.w ;
-  }
   
   /**
   Random Constructor
   */
   Vec6(String key_random, int r1) {
+    super() ;
     if(key_random.equals("RANDOM")) {
       this.a = random(-r1,r1) ;
       this.b = random(-r1,r1) ;
@@ -1990,6 +1887,7 @@ class Vec6 {
   }
   
   Vec6(String key_random, int r1, int r2, int r3, int r4, int r5, int r6) {
+    super() ;
     if(key_random.equals("RANDOM")) {
       this.a = random(-r1,r1) ;
       this.b = random(-r2,r2) ;
@@ -2011,6 +1909,7 @@ class Vec6 {
   }
 
   Vec6(String key_random, int a1, int a2, int b1, int b2, int c1, int c2, int d1, int d2, int e1, int e2, int f1, int f2) {
+    super() ;
     if(key_random.equals("RANDOM RANGE")) {
       this.a = random(a1,a2) ;
       this.b = random(b1,b2) ;
@@ -2027,10 +1926,15 @@ class Vec6 {
   /**
   Set
   */
-   /**
-   * Sets components of the vector using two or three separate
-   * variables, the data from a Vec, or the values from a float array.
-   */
+  /**
+  * Sets components of the vector using two or three separate
+  * variables, the data from a Vec, or the values from a float array.
+  */
+  public Vec6 set(float v) {
+    this.a = this.b = this.c = this.d = this.e = this.f = v;
+    return this;
+  }
+
   public Vec6 set(float a, float b, float c, float d, float e, float f) {
     this.a = a ;
     this.b = b ;
@@ -2045,14 +1949,19 @@ class Vec6 {
   /**
    * @param v any variable of type Vec
    */
-  public Vec6 set(Vec6 value) {
-    a = value.a ;
-    b = value.b ;
-    c = value.c ;
-    d = value.d ;
-    e = value.e ;
-    f = value.f ;
-    return this;
+  public Vec6 set(Vec6 v) {
+    if ( v == null) {    
+      a = b = c = d = e = f = 0 ;
+      return this ;
+    } else {
+      a = v.a ;
+      b = v.b ;
+      c = v.c ;
+      d = v.d ;
+      e = v.e ;
+      f = v.f ;
+      return this ;
+    }
   }
 
 
@@ -2131,17 +2040,40 @@ Vec2 add(Vec2 v_a, Vec2 v_b) {
     float y = v_a.y + v_b.y ;
     return new Vec2(x,y) ;
 }
+
 Vec3 add(Vec3 v_a, Vec3 v_b) {
     float x = v_a.x + v_b.x ;
     float y = v_a.y + v_b.y ;
     float z = v_a.z + v_b.z ;
     return new Vec3(x,y,z)  ;
 }
+
 Vec4 add(Vec4 v_a, Vec4 v_b) {
     float x = v_a.x + v_b.x ;
     float y = v_a.y + v_b.y ;
     float z = v_a.z + v_b.z ;
     float w = v_a.w + v_b.w ;
+    return new Vec4(x,y,z, w)  ;
+}
+
+Vec2 add(Vec2 v_a, float v) {
+    float x = v_a.x +v ;
+    float y = v_a.y +v ;
+    return new Vec2(x,y) ;
+}
+
+Vec3 add(Vec3 v_a, float v) {
+    float x = v_a.x +v ;
+    float y = v_a.y +v ;
+    float z = v_a.z +v ;
+    return new Vec3(x,y,z)  ;
+}
+
+Vec4 add(Vec4 v_a, float v) {
+    float x = v_a.x +v ;
+    float y = v_a.y +v ;
+    float z = v_a.z +v ;
+    float w = v_a.w +v ;
     return new Vec4(x,y,z, w)  ;
 }
 
@@ -2155,17 +2087,40 @@ Vec2 mult(Vec2 v_a, Vec2 v_b) {
     float y = v_a.y * v_b.y ;
     return new Vec2(x,y) ;
 }
+
 Vec3 mult(Vec3 v1, Vec3 v_b) {
     float x = v1.x * v_b.x ;
     float y = v1.y * v_b.y ;
     float z = v1.z * v_b.z ;
     return new Vec3(x,y,z)  ;
 }
+
 Vec4 mult(Vec4 v_a, Vec4 v_b) {
     float x = v_a.x * v_b.x ;
     float y = v_a.y * v_b.y ;
     float z = v_a.z * v_b.z ;
     float w = v_a.w * v_b.w ;
+    return new Vec4(x,y,z, w)  ;
+}
+
+Vec2 mult(Vec2 v_a, float v) {
+    float x = v_a.x *v ;
+    float y = v_a.y *v ;
+    return new Vec2(x,y) ;
+}
+
+Vec3 mult(Vec3 v1, float v) {
+    float x = v1.x *v ;
+    float y = v1.y *v ;
+    float z = v1.z *v ;
+    return new Vec3(x,y,z)  ;
+}
+
+Vec4 mult(Vec4 v_a, float v) {
+    float x = v_a.x *v ;
+    float y = v_a.y *v ;
+    float z = v_a.z *v ;
+    float w = v_a.w *v ;
     return new Vec4(x,y,z, w)  ;
 }
 
@@ -2179,17 +2134,41 @@ Vec2 div(Vec2 v_a, Vec2 v_b) {
     float y = v_a.y / v_b.y ;
     return new Vec2(x,y) ;
 }
+
 Vec3 div(Vec3 v1, Vec3 v_b) {
     float x = v1.x / v_b.x ;
     float y = v1.y / v_b.y ;
     float z = v1.z / v_b.z ;
     return new Vec3(x,y,z)  ;
 }
+
 Vec4 div(Vec4 v_a, Vec4 v_b) {
     float x = v_a.x / v_b.x ;
     float y = v_a.y / v_b.y ;
     float z = v_a.z / v_b.z ;
     float w = v_a.w / v_b.w ;
+    return new Vec4(x,y,z, w)  ;
+}
+
+
+Vec2 div(Vec2 v_a, float v) {
+    float x = v_a.x /v ;
+    float y = v_a.y /v ;
+    return new Vec2(x,y) ;
+}
+
+Vec3 div(Vec3 v1, float v) {
+    float x = v1.x /v ;
+    float y = v1.y /v ;
+    float z = v1.z /v ;
+    return new Vec3(x,y,z)  ;
+}
+
+Vec4 div(Vec4 v_a, float v) {
+    float x = v_a.x /v ;
+    float y = v_a.y /v ;
+    float z = v_a.z /v ;
+    float w = v_a.w /v;
     return new Vec4(x,y,z, w)  ;
 }
 
@@ -2203,17 +2182,40 @@ Vec2 sub(Vec2 v_a, Vec2 v_b) {
     float y = v_a.y - v_b.y ;
     return new Vec2(x,y) ;
 }
+
 Vec3 sub(Vec3 v_a, Vec3 v_b) {
     float x = v_a.x - v_b.x ;
     float y = v_a.y - v_b.y ;
     float z = v_a.z - v_b.z ;
     return new Vec3(x,y,z)  ;
 }
+
 Vec4 sub(Vec4 v_a, Vec4 v_b) {
     float x = v_a.x - v_b.x ;
     float y = v_a.y - v_b.y ;
     float z = v_a.z - v_b.z ;
     float w = v_a.w - v_b.w ;
+    return new Vec4(x,y,z, w)  ;
+}
+
+Vec2 sub(Vec2 v_a, float v) {
+    float x = v_a.x -v ;
+    float y = v_a.y -v ;
+    return new Vec2(x,y) ;
+}
+
+Vec3 sub(Vec3 v_a, float v) {
+    float x = v_a.x -v ;
+    float y = v_a.y -v ;
+    float z = v_a.z -v ;
+    return new Vec3(x,y,z)  ;
+}
+
+Vec4 sub(Vec4 v_a, float v) {
+    float x = v_a.x -v ;
+    float y = v_a.y -v ;
+    float z = v_a.z -v ;
+    float w = v_a.w -v ;
     return new Vec4(x,y,z, w)  ;
 }
 
@@ -2405,7 +2407,7 @@ float dist(Vec4 v_a, Vec4 v_b) {
 
 
 /**
-Middle
+Deprecated Middle
 */
 /*
 @ return Vec2, Vec3 or Vec4
@@ -2415,6 +2417,7 @@ Vec2 middle(Vec2 p1, Vec2 p2)  {
   Vec2 middle ;
   middle = add(p1, p2);
   middle.div(2) ;
+  println("The method middle is deprecated instead use barycenter(Vec... arg)") ;
   return middle ;
 }
 
@@ -2424,6 +2427,7 @@ Vec2 middle(Vec2 [] list)  {
     middle.add(list[i]);
   }
   middle.div(list.length) ;
+  println("The method middle is deprecated instead use barycenter(Vec... arg)") ;
   return middle ;
 }
 
@@ -2440,6 +2444,7 @@ Vec3 middle(Vec3 [] list)  {
     middle.add(list[i]);
   }
   middle.div(list.length) ;
+  println("The method middle is deprecated instead use barycenter(Vec... arg)") ;
   return middle ;
 }
 
@@ -2447,6 +2452,7 @@ Vec4 middle(Vec4 p1, Vec4 p2)  {
   Vec4 middle ;
   middle = add(p1, p2);
   middle.div(2) ;
+  println("The method middle is deprecated instead use barycenter(Vec... arg)") ;
   return middle ;
 }
 
@@ -2456,24 +2462,48 @@ Vec4 middle(Vec4 [] list)  {
     middle.add(list[i]);
   }
   middle.div(list.length) ;
+  println("The method middle is deprecated instead use barycenter(Vec... arg)") ;
   return middle ;
 }
 
 
-
-
-
-
 /**
-Copy
+barycenter
 */
-/*
-@ return Vec3
-Transform PVector in Vec
-*/
-Vec3 copyPVectorToVec(PVector p) {
-  return new Vec3(p.x,p.y,p.z) ;
+Vec2 barycenter(Vec2... v) {
+  int div_num = v.length ;
+  Vec2 sum = Vec2() ;
+  for(int i = 0 ; i < div_num ; i++) {
+    sum.add(v[i]) ;
+  }
+  return sum.div(div_num) ;
 }
+
+ 
+Vec3 barycenter(Vec3... v) {
+  int div_num = v.length ;
+  Vec3 sum = Vec3() ;
+  for(int i = 0 ; i < div_num ; i++) {
+    sum.add(v[i]) ;
+  }
+  return sum.div(div_num) ;
+}
+
+Vec4 barycenter(Vec4... v) {
+  int div_num = v.length ;
+  Vec4 sum = Vec4() ;
+  for(int i = 0 ; i < div_num ; i++) {
+    sum.add(v[i]) ;
+  }
+  return sum.div(div_num) ;
+}
+
+
+
+
+
+
+
 
 
 
@@ -2577,25 +2607,36 @@ Return a new Vec
 /**
 Vec 2
 */
+Vec2 Vec2() {
+  return new Vec2(0,0) ;
+}
+
 Vec2 Vec2(float x, float y) { 
   return new Vec2(x,y) ;
 }
 
 Vec2 Vec2(float v) {
-  return new Vec2(v) ;
+  return new Vec2(v,v) ;
 }
 
 Vec2 Vec2(PVector p) {
-  return new Vec2(p.x, p.y) ;
+  if(p == null) {
+    println("PVector null, instead '0' is used to build Vec2") ;
+    return new Vec2(0,0) ;
+  } else {
+    return new Vec2(p.x, p.y) ;
+  }
 }
 
 Vec2 Vec2(Vec2 p) {
-  return new Vec2(p.x, p.y) ;
+  if(p == null) {
+    println("Vec2 null, instead '0' is used to build Vec2") ;
+    return new Vec2(0,0) ;
+  } else {
+    return new Vec2(p.x, p.y) ;
+  }
 }
 
-Vec2 Vec2() {
-  return new Vec2() ;
-}
 
 Vec2 Vec2(String s, int x, int y) { 
   return new Vec2(s,x,y) ;
@@ -2611,28 +2652,43 @@ Vec2 Vec2(String s, int v) {
 /**
 Vec 3
 */
+Vec3 Vec3() {
+  return new Vec3(0,0,0) ;
+}
+
 Vec3 Vec3(float x, float y, float z) {
   return new Vec3(x,y,z) ;
 }
 
 Vec3 Vec3(float v) {
-  return new Vec3(v) ;
+  return new Vec3(v,v,v) ;
 }
 
 Vec3 Vec3(PVector p) {
-  return new Vec3(p.x, p.y, p.z) ;
+  if(p == null) {
+    println("PVector null, instead '0' is used to build Vec3") ;
+    return new Vec3(0,0,0) ;
+  } else {
+    return new Vec3(p.x, p.y, p.z) ;
+  }
 }
 
 Vec3 Vec3(Vec3 p) {
-  return new Vec3(p.x, p.y, p.z) ;
+  if(p == null) {
+    println("Vec3 null, instead '0' is used to build Vec3") ;
+    return new Vec3(0,0,0) ;
+  } else {
+    return new Vec3(p.x, p.y, p.z) ;
+  }
 }
 
 Vec3 Vec3(Vec2 p) {
-  return new Vec3(p) ;
-}
-
-Vec3 Vec3() {
-  return new Vec3() ;
+  if(p == null) {
+    println("Vec2 null, instead '0' is used to build Vec3") ;
+    return new Vec3(0,0,0) ;
+  } else {
+    return new Vec3(p.x, p.y, 0) ;
+  }
 }
 
 Vec3 Vec3(String s, int x, int y, int z) { 
@@ -2650,7 +2706,7 @@ Vec3 Vec3(String s, int v) {
 Vec 4
 */
 Vec4 Vec4() {
-  return new Vec4() ;
+  return new Vec4(0,0,0,0) ;
 }
 
 Vec4 Vec4(float x, float y, float z, float w) {
@@ -2658,21 +2714,48 @@ Vec4 Vec4(float x, float y, float z, float w) {
 }
 
 Vec4 Vec4(float v) {
-  return new Vec4(v) ;
+  return new Vec4(v,v,v,v) ;
 }
 
 // build with Vec
 Vec4 Vec4(Vec4 p) {
-  return new Vec4(p.x,p.y,p.z,p.w) ;
+  if(p == null) {
+    println("Vec4 null, instead '0' is used to build Vec4") ;
+    return new Vec4(0,0,0,0) ;
+  } else {
+    return new Vec4(p.x, p.y, p.z, p.w) ;
+  }
 }
 Vec4 Vec4(Vec3 p) {
-  return new Vec4(p) ;
+  if(p == null) {
+    println("Vec3 null, instead '0' is used to build Vec4") ;
+    return new Vec4(0,0,0,0) ;
+  } else {
+    return new Vec4(p.x, p.y, p.z, 0) ;
+  }
 }
 Vec4 Vec4(Vec2 p) {
-  return new Vec4(p) ;
+  if(p == null) {
+    println("Vec2 null, instead '0' is used to build Vec4") ;
+    return new Vec4(0,0,0,0) ;
+  } else {
+    return new Vec4(p.x, p.y, 0, 0) ;
+  }
 }
+
 Vec4 Vec4(Vec2 p1,Vec2 p2) {
-  return new Vec4(p1,p2) ;
+  if(p1 == null) {
+    println("first Vec2 null, instead '0' is used to build Vec4") ;
+    return new Vec4(0,0, p2.x, p2.y) ;
+  } else if (p2 == null) {
+    println("second Vec2 null, instead '0' is used to build Vec4") ;
+    return new Vec4(p1.x, p1.y, 0, 0) ;
+  }  else if (p1 == null && p2 == null) {
+    println("all Vec2 null, instead '0' is used to build Vec4") ;
+    return new Vec4(0,0,0,0) ;
+  } else {
+    return new Vec4(p1.x, p1.y, p2.x, p2.y) ;
+  }
 }
 
 
@@ -2691,7 +2774,7 @@ Vec4 Vec4(String s, int v) {
 Vec 5
 */
 Vec5 Vec5() {
-  return new Vec5() ;
+  return new Vec5(0,0,0,0,0) ;
 }
 
 Vec5 Vec5(float a, float b, float c, float d, float e) {
@@ -2699,31 +2782,89 @@ Vec5 Vec5(float a, float b, float c, float d, float e) {
 }
 
 Vec5 Vec5(float v) {
-  return new Vec5(v) ;
+  return new Vec5(v,v,v,v,v) ;
 }
 
 // build with Vec
 Vec5 Vec5(Vec5 p) {
-  return new Vec5(p.a,p.b,p.c,p.d,p.e) ;
+  if(p == null) {
+    println("Vec5 null, instead '0' is used to build Vec5") ;
+    return new Vec5(0,0,0,0,0) ;
+  } else {
+    return new Vec5(p.a,p.b,p.c,p.d,p.e) ;
+  }
 }
+
 Vec5 Vec5(Vec4 p) {
-  return new Vec5(p) ;
+  if(p == null) {
+    println("Vec4 null, instead '0' is used to build Vec5") ;
+    return new Vec5(0,0,0,0,0) ;
+  } else {
+    return new Vec5(p.x,p.y,p.z,p.w,0) ;
+  }
 }
 Vec5 Vec5(Vec3 p) {
-  return new Vec5(p) ;
+  if(p == null) {
+    println("Vec3 null, instead '0' is used to build Vec5") ;
+    return new Vec5(0,0,0,0,0) ;
+  } else {
+    return new Vec5(p.x,p.y,p.z,0,0) ;
+  }
 }
 Vec5 Vec5(Vec2 p) {
-  return new Vec5(p) ;
+  if(p == null) {
+    println("Vec2 null, instead '0' is used to build Vec5") ;
+    return new Vec5(0,0,0,0,0) ;
+  } else {
+    return new Vec5(p.x,p.y,0,0,0) ;
+  }
 }
+
 Vec5 Vec5(Vec2 p1,Vec2 p2) {
-  return new Vec5(p1,p2) ;
-}
-Vec5 Vec5(Vec3 p1,Vec2 p2) {
-  return new Vec5(p1,p2) ;
+  if(p1 == null) {
+    println("first Vec2 null, instead '0' is used to build Vec5") ;
+    return new Vec5(0,0, p2.x, p2.y, 0) ;
+  } else if (p2 == null) {
+    println("second Vec2 null, instead '0' is used to build Vec5") ;
+    return new Vec5(p1.x, p1.y, 0, 0, 0) ;
+  }  else if (p1 == null && p2 == null) {
+    println("all Vec2 null, instead '0' is used to build Vec4") ;
+    return new Vec5(0,0,0,0,0) ;
+  } else {
+    return new Vec5(p1.x,p1.y,p2.x,p2.y,0) ;
+  }
 }
 Vec5 Vec5(Vec2 p1,Vec3 p2) {
-  return new Vec5(p1,p2) ;
+  if(p1 == null) {
+    println("first Vec2 null, instead '0' is used to build Vec5") ;
+    return new Vec5(0, 0, p2.x, p2.y, p2.z) ;
+  } else if (p2 == null) {
+    println("second Vec3 null, instead '0' is used to build Vec5") ;
+    return new Vec5(p1.x, p1.y, 0, 0, 0) ;
+  }  else if (p1 == null && p2 == null) {
+    println("Vec2 and Vec3 null, instead '0' is used to build Vec4") ;
+    return new Vec5(0,0,0,0,0) ;
+  } else {
+    return new Vec5(p1.x,p1.y,p2.x,p2.y,p2.z) ;
+  }
 }
+
+Vec5 Vec5(Vec3 p1,Vec2 p2) {
+  if(p1 == null) {
+    println("first Vec3 null, instead '0' is used to build Vec5") ;
+    return new Vec5(0, 0, 0, p2.x, p2.y) ;
+  } else if (p2 == null) {
+    println("second Vec2 null, instead '0' is used to build Vec5") ;
+    return new Vec5(p1.x, p1.y, p1.z, 0, 0) ;
+  }  else if (p1 == null && p2 == null) {
+    println("Vec3 and Vec2 null, instead '0' is used to build Vec4") ;
+    return new Vec5(0,0,0,0,0) ;
+  } else {
+    return new Vec5(p1.x,p1.y,p1.z,p2.x,p2.y) ;
+  }
+}
+
+
 
 Vec5 Vec5(String s, int a, int b, int c, int d, int e) { 
   return new Vec5(s,a,b,c,d,e) ;
@@ -2740,7 +2881,7 @@ Vec5 Vec5(String s, int v) {
 Vec 6
 */
 Vec6 Vec6() {
-  return new Vec6(0.) ;
+  return new Vec6(0,0,0,0,0,0) ;
 }
 
 Vec6 Vec6(float a, float b, float c, float d, float e, float f) {
@@ -2748,45 +2889,162 @@ Vec6 Vec6(float a, float b, float c, float d, float e, float f) {
 }
 
 Vec6 Vec6(float v) {
-  return new Vec6(v) ;
+  return new Vec6(v,v,v,v,v,v) ;
 }
 
 // build with vec
 Vec6 Vec6(Vec6 p) {
-  return new Vec6(p.a, p.b, p.c, p.d, p.e, p.f) ;
+  if(p == null) {
+    println("Vec6 null, instead '0' is used to build Vec6") ;
+    return new Vec6(0,0,0,0,0,0) ;
+  } else {
+    return new Vec6(p.a,p.b,p.c,p.d,p.e,p.f) ;
+  }
 }
 Vec6 Vec6(Vec5 p) {
-  return new Vec6(p) ;
+  if(p == null) {
+    println("Vec5 null, instead '0' is used to build Vec6") ;
+    return new Vec6(0,0,0,0,0,0) ;
+  } else {
+    return new Vec6(p.a,p.b,p.c,p.d,p.e,0) ;
+  }
 }
 Vec6 Vec6(Vec4 p) {
-  return new Vec6(p) ;
+  if(p == null) {
+    println("Vec4 null, instead '0' is used to build Vec6") ;
+    return new Vec6(0,0,0,0,0,0) ;
+  } else {
+    return new Vec6(p.x,p.y,p.z,p.w,0,0) ;
+  }
 }
 Vec6 Vec6(Vec3 p) {
-  return new Vec6(p) ;
+  if(p == null) {
+    println("Vec3 null, instead '0' is used to build Vec6") ;
+    return new Vec6(0,0,0,0,0,0) ;
+  } else {
+    return new Vec6(p.x,p.y,p.z,0,0,0) ;
+  }
 }
 Vec6 Vec6(Vec2 p) {
-  return new Vec6(p) ;
+  if(p == null) {
+    println("Vec2 null, instead '0' is used to build Vec6") ;
+    return new Vec6(0,0,0,0,0,0) ;
+  } else {
+    return new Vec6(p.x,p.y,0,0,0,0) ;
+  }
 }
 Vec6 Vec6(Vec2 p1,Vec2 p2) {
-  return new Vec6(p1,p2) ;
+  if(p1 == null) {
+    println("first Vec2 null, instead '0' is used to build Vec6") ;
+    return new Vec6(0,0, p2.x, p2.y, 0,0) ;
+  } else if (p2 == null) {
+    println("second Vec2 null, instead '0' is used to build Vec6") ;
+    return new Vec6(p1.x, p1.y, 0, 0, 0,0) ;
+  }  else if (p1 == null && p2 == null) {
+    println("all Vec2 null, instead '0' is used to build Vec6") ;
+    return new Vec6(0,0,0,0,0,0) ;
+  } else {
+    return new Vec6(p1.x,p1.y,p2.x,p2.y,0,0) ;
+  }
 }
 Vec6 Vec6(Vec2 p1,Vec3 p2) {
-  return new Vec6(p1,p2) ;
+  if(p1 == null) {
+    println("first Vec2 null, instead '0' is used to build Vec6") ;
+    return new Vec6(0, 0, p2.x, p2.y, p2.z,0) ;
+  } else if (p2 == null) {
+    println("second Vec3 null, instead '0' is used to build Vec6") ;
+    return new Vec6(p1.x, p1.y, 0, 0, 0,0) ;
+  }  else if (p1 == null && p2 == null) {
+    println("Vec2 and Vec3 null, instead '0' is used to build Vec6") ;
+    return new Vec6(0,0,0,0,0,0) ;
+  } else {
+    return new Vec6(p1.x,p1.y,p2.x,p2.y,p2.z, 0) ;
+  }
 }
 Vec6 Vec6(Vec3 p1,Vec2 p2) {
-  return new Vec6(p1,p2) ;
-}
-Vec6 Vec6(Vec4 p1,Vec2 p2) {
-  return new Vec6(p1,p2) ;
+  if(p1 == null) {
+    println("first Vec3 null, instead '0' is used to build Vec6") ;
+    return new Vec6(0, 0, 0, p2.x, p2.y,0) ;
+  } else if (p2 == null) {
+    println("second Vec2 null, instead '0' is used to build Vec6") ;
+    return new Vec6(p1.x, p1.y, p1.z, 0, 0, 0) ;
+  }  else if (p1 == null && p2 == null) {
+    println("Vec3 and Vec2 null, instead '0' is used to build Vec6") ;
+    return new Vec6(0,0,0,0,0,0) ;
+  } else {
+    return new Vec6(p1.x,p1.y,p1.z,p2.x,p2.y,0) ;
+  }
 }
 Vec6 Vec6(Vec2 p1,Vec4 p2) {
-  return new Vec6(p1,p2) ;
+  if(p1 == null) {
+    println("first Vec2 null, instead '0' is used to build Vec6") ;
+    return new Vec6(0, 0, p2.x, p2.y, p2.z, p2.w) ;
+  } else if (p2 == null) {
+    println("second Vec4 null, instead '0' is used to build Vec6") ;
+    return new Vec6(p1.x, p1.y, 0, 0, 0, 0) ;
+  }  else if (p1 == null && p2 == null) {
+    println("Vec2 and Vec4 null, instead '0' is used to build Vec6") ;
+    return new Vec6(0,0,0,0,0,0) ;
+  } else {
+    return new Vec6(p1.x,p1.y,p2.x,p2.y,p2.z, p2.w) ;
+  }
 }
+
+Vec6 Vec6(Vec4 p1,Vec2 p2) {
+  if(p1 == null) {
+    println("first Vec4 null, instead '0' is used to build Vec6") ;
+    return new Vec6(0, 0, 0, 0, p2.x, p2.y) ;
+  } else if (p2 == null) {
+    println("second Vec2 null, instead '0' is used to build Vec6") ;
+    return new Vec6(p1.x, p1.y, p1.z, p1.w, 0, 0) ;
+  }  else if (p1 == null && p2 == null) {
+    println("Vec4 and Vec2 null, instead '0' is used to build Vec6") ;
+    return new Vec6(0,0,0,0,0,0) ;
+  } else {
+    return new Vec6(p1.x,p1.y,p1.z,p1.w, p2.x,p2.y) ;
+  }
+}
+
 Vec6 Vec6(Vec2 p1,Vec2 p2, Vec2 p3) {
-  return new Vec6(p1,p2,p3) ;
+  if(p1 == null && p2!= null && p3 != null) {
+    println("first Vec2 null, instead '0' is used to build Vec6") ;
+    return new Vec6(0,0, p2.x, p2.y,p3.x,p3.y) ;
+  } else if (p1 != null && p2 == null && p3 != null) {
+    println("second Vec2 null, instead '0' is used to build Vec6") ;
+    return new Vec6(p1.x, p1.y, 0, 0, p3.x,p3.y) ;
+  } else if (p1 != null && p2 != null && p3 == null) {
+    println("third Vec2 null, instead '0' is used to build Vec6") ;
+    return new Vec6(p1.x, p1.y, p2.x, p2.y ,0,0) ;
+  } else if (p1 == null && p2 == null && p3 != null) {
+    println("first and second Vec2 null, instead '0' is used to build Vec6") ;
+    return new Vec6(0, 0, 0, 0,p3.x,p3.y) ;
+  } else if (p1 == null && p2 != null && p3 == null) {
+    println("first and third Vec2 null, instead '0' is used to build Vec6") ;
+    return new Vec6(0, 0, p2.x, p2.y, 0, 0) ;
+  } else if (p1 != null && p2 == null && p3 == null) {
+    println("second and third Vec2 null, instead '0' is used to build Vec6") ;
+    return new Vec6(p1.x, p1.y, 0,0, 0, 0) ;
+  } else if (p1 == null && p2 == null && p3 == null) {
+    println("all Vec2 null, instead '0' is used to build Vec6") ;
+    return new Vec6(0,0,0,0,0,0) ;
+  } else {
+    return new Vec6(p1.x,p1.y,p2.x,p2.y,p3.x,p3.y) ;
+  }
 }
+
 Vec6 Vec6(Vec3 p1,Vec3 p2) {
-  return new Vec6(p1,p2) ;
+  if(p1 == null) {
+    println("first Vec3 null, instead '0' is used to build Vec6") ;
+    return new Vec6(0,0, 0, p2.x, p2.y, p2.z) ;
+  } else if (p2 == null) {
+    println("second Vec3 null, instead '0' is used to build Vec6") ;
+    return new Vec6(p1.x, p1.y, p1.z, 0, 0,0) ;
+  }  else if (p1 == null && p2 == null) {
+    println("all Vec3 null, instead '0' is used to build Vec6") ;
+    return new Vec6(0,0,0,0,0,0) ;
+  } else {
+    return new Vec6(p1.x,p1.y,p2.x,p2.y,0,0) ;
+  }
 }
 
 
@@ -2838,10 +3096,12 @@ void ellipse(Vec2 p, Vec2 s) {
   ellipse(p.x, p.y, s.x, s.y) ;
 }
 void ellipse(Vec3 p, Vec2 s) {
-  matrix_start() ;
-  translate(p.x, p.y, p.z) ;
-  ellipse(0,0, s.x, s.y) ;
-  matrix_end() ;
+  if(renderer_P3D()) {
+    start_matrix() ;
+    translate(p.x, p.y, p.z) ;
+    ellipse(0,0, s.x, s.y) ;
+    stop_matrix() ;
+  } else ellipse(p.x, p.y, s.x, s.y) ;
 }
 
 
@@ -2853,12 +3113,20 @@ void rect(Vec2 p, Vec2 s) {
   rect(p.x, p.y, s.x, s.y) ;
 }
 void rect(Vec3 p, Vec2 s) {
-  matrix_start() ;
-  translate(p.x, p.y,p.z) ;
-  rect(0,0, s.x, s.y) ;
-  matrix_end() ;
+  if(renderer_P3D()) {
+    start_matrix() ;
+    translate(p.x, p.y,p.z ) ;
+    rect(0,0, s.x, s.y) ;
+    stop_matrix() ;
+  } else rect(p.x, p.y, s.x, s.y) ;
 }
 
+/**
+Box
+*/
+void box(Vec3 p) {
+  box(p.x, p.y, p.z) ;
+}
 
 /**
 Point
@@ -2867,7 +3135,7 @@ void point(Vec2 p) {
   point(p.x, p.y) ;
 }
 void point(Vec3 p) {
-  point(p.x, p.y, p.z) ;
+  if(renderer_P3D()) point(p.x, p.y, p.z) ; else  point(p.x, p.y) ;
 }
 /**
 Line
@@ -2876,7 +3144,7 @@ void line(Vec2 a, Vec2 b){
   line(a.x, a.y, b.x,b.y) ;
 }
 void line(Vec3 a, Vec3 b){
-  line(a.x, a.y, a.z, b.x,b.y, b.z) ;
+  if(renderer_P3D()) line(a.x, a.y, a.z, b.x,b.y, b.z) ; else line(a.x, a.y, b.x,b.y) ;
 }
 /**
 Vertex
@@ -2885,7 +3153,7 @@ void vertex(Vec2 a){
   vertex(a.x, a.y) ;
 }
 void vertex(Vec3 a){
-  vertex(a.x, a.y, a.z) ;
+  if(renderer_P3D()) vertex(a.x, a.y, a.z) ; else vertex(a.x, a.y) ;
 }
 
 /**
@@ -2896,7 +3164,7 @@ void bezierVertex(Vec2 a, Vec2 b, Vec2 c) {
 }
 
 void bezierVertex(Vec3 a, Vec3 b, Vec3 c) {
-  bezierVertex(a.x, a.y, a.z, b.x, b.y, b.z, c.x, c.y, c.z) ;
+  if(renderer_P3D()) bezierVertex(a.x, a.y, a.z, b.x, b.y, b.z, c.x, c.y, c.z) ; else bezierVertex(a.x, a.y, b.x, b.y, c.x, c.y) ;
 }
 
 /**
@@ -2907,7 +3175,7 @@ void quadraticVertex(Vec2 a, Vec2 b) {
 }
 
 void quadraticVertex(Vec3 a, Vec3 b) {
-  quadraticVertex(a.x, a.y, a.z, b.x, b.y, b.z) ;
+  if(renderer_P3D()) quadraticVertex(a.x, a.y, a.z, b.x, b.y, b.z) ; else quadraticVertex(a.x, a.y, b.x, b.y) ;
 }
 
 /**
@@ -2917,27 +3185,117 @@ void curveVertex(Vec2 a){
   curveVertex(a.x, a.y) ;
 }
 void curveVertex(Vec3 a){
-  curveVertex(a.x, a.y, a.z) ;
+  if(renderer_P3D()) curveVertex(a.x, a.y, a.z) ; else curveVertex(a.x, a.y) ;
 }
 
 
 /**
 Fill
 */
+void fill(Vec2 c) {
+  if( c.y > 0) fill(c.x, c.y) ; else noFill() ;
+}
 void fill(Vec3 c) {
   fill(c.r,c.g,c.b) ;
 }
+
+void fill(Vec3 c, float a) {
+  if( a > 0)  fill(c.r,c.g,c.b, a) ; else noFill() ;
+}
+
 void fill(Vec4 c) {
   if( c.a > 0) fill(c.r,c.g,c.b,c.a) ; else noFill() ;
 }
 /**
 Stroke
 */
+void stroke(Vec2 c) {
+  if(c.y > 0) stroke(c.x, c.y) ; else noStroke() ;
+}
 void stroke(Vec3 c) {
   stroke(c.r,c.g,c.b) ;
 }
+
+void stroke(Vec3 c, float a) {
+  if( a > 0)  stroke(c.r,c.g,c.b, a) ; else noStroke() ;
+}
+
 void stroke(Vec4 c) {
   if(c.a > 0) stroke(c.r,c.g,c.b,c.a) ; else noStroke() ;
+}
+
+
+
+/**
+text
+*/
+void text(String s, Vec pos) {
+  if(pos instanceof Vec2) {
+    Vec2 p = (Vec2) pos ;
+    text(s, p.x, p.y) ;
+  } else if(pos instanceof Vec3) {
+    Vec3 p = (Vec3) pos ;
+    text(s, p.x, p.x, p.z) ;
+  }
+}
+
+void text(char c, Vec pos) {
+  if(pos instanceof Vec2) {
+    Vec2 p = (Vec2) pos ;
+    text(c, p.x, p.y) ;
+  } else if(pos instanceof Vec3) {
+    Vec3 p = (Vec3) pos ;
+    text(c, p.x, p.x, p.z) ;
+  }
+}
+
+void text(int num, Vec pos) {
+  if(pos instanceof Vec2) {
+    Vec2 p = (Vec2) pos ;
+    text(num, p.x, p.y) ;
+  } else if(pos instanceof Vec3) {
+    Vec3 p = (Vec3) pos ;
+    text(num, p.x, p.x, p.z) ;
+  }
+}
+
+void text(float num, Vec pos) {
+  if(pos instanceof Vec2) {
+    Vec2 p = (Vec2) pos ;
+    text(num, p.x, p.y) ;
+  } else if(pos instanceof Vec3) {
+    Vec3 p = (Vec3) pos ;
+    text(num, p.x, p.x, p.z) ;
+  }
+}
+
+/**
+image
+*/
+void image(PImage img, Vec pos) {
+  if(pos instanceof Vec2) {
+    Vec2 p = (Vec2) pos ;
+    image(img, p.x, p.y) ;
+  } else if(pos instanceof Vec3) {
+    Vec3 p = (Vec3) pos ;
+    start_matrix() ;
+    translate(p) ;
+    image(img, 0,0) ;
+    stop_matrix() ;
+  }
+}
+
+void image(PImage img, Vec pos, Vec2 size) {
+  if(pos instanceof Vec2) {
+    Vec2 p = (Vec2) pos ;
+    image(img, p.x, p.y, size.x, size.y) ;
+  } else if(pos instanceof Vec3) {
+    Vec3 p = (Vec3) pos ;
+    start_matrix() ;
+    translate(p) ;
+    image(img, 0,0, size.x, size.y) ;
+    stop_matrix() ;
+  }
 }
 
 
@@ -2948,11 +3306,26 @@ void stroke(Vec4 c) {
 Translate
 */
 void translate(Vec3 t){
-  translate(t.x, t.y, t.z) ;
+  if(renderer_P3D()) translate(t.x, t.y, t.z) ; else translate(t.x, t.y) ;
 }
+
 void translate(Vec2 t){
   translate(t.x, t.y) ;
 }
+
+void translateX(float t){
+  translate(t, 0) ;
+}
+
+void translateY(float t){
+  translate(0, t) ;
+}
+
+void translateZ(float t){
+  translate(0, 0, t) ;
+}
+
+
 /**
 Rotate
 */
@@ -2978,6 +3351,79 @@ void rotateXYZ(Vec3 rot) {
 
 /**
 Matrix
+
+*/
+
+void start_matrix_3D(Vec pos, Vec3 dir_cart) {
+  Vec3 dir = dir_cart.copy() ;
+  pushMatrix() ;
+  if(pos instanceof Vec2) {
+    Vec2 p = (Vec2) pos ;
+    translate(p) ;
+  } else if(pos instanceof Vec3) {
+    Vec3 p = (Vec3) pos ;
+    translate(p) ;
+  } else {
+    System.err.println("error in start_matrix_3D(), Vec pos is not an instance of Vec2 or Vec3, the matrix don't translate your object") ;
+    exit() ;
+  }
+  float radius = sqrt(dir.x * dir.x + dir.y * dir.y + dir.z * dir.z);
+  float longitude = acos(dir.x / sqrt(dir.x * dir.x + dir.y * dir.y)) * (dir.y < 0 ? -1 : 1);
+  float latitude = acos(dir.z / radius) * (dir.z < 0 ? -1 : 1);
+  // check NaN result
+  if (Float.isNaN(longitude)) longitude = 0 ;
+  if (Float.isNaN(latitude)) latitude = 0 ;
+  if (Float.isNaN(radius)) radius = 0 ;
+  rotateX(latitude) ;
+  rotateY(longitude) ;
+}
+
+void start_matrix_3D(Vec pos, Vec2 dir_polar) {
+  if(pos instanceof Vec2) {
+    Vec2 p = (Vec2) pos ;
+    pushMatrix() ;
+    translate(p) ;
+    rotateXY(dir_polar) ;
+  } else if(pos instanceof Vec3) {
+    Vec3 p = (Vec3) pos ;
+    pushMatrix() ;
+    translate(p) ;
+    rotateXY(dir_polar) ;
+  } else {
+    System.err.println("error in start_matrix_3D(), Vec pos is not an instance of Vec2 or Vec3, the matrix cannot be init") ;
+    exit() ;
+  }
+}
+
+void start_matrix_2D(Vec pos, float orientation) {
+  if(pos instanceof Vec2) {
+    Vec2 p = (Vec2) pos ;
+    pushMatrix() ;
+    translate(p) ;
+    rotate(orientation) ;
+  } else if(pos instanceof Vec3) {
+    Vec3 p = (Vec3) pos ;
+    pushMatrix() ;
+    translate(p.x, p.y) ;
+    rotate(orientation) ;
+  } else {
+    System.err.println("Vec pos is not an instance of Vec2 or Vec3, the matrix cannot be init") ;
+    exit() ;
+  }
+}
+
+void stop_matrix() {
+  popMatrix() ;
+}
+
+void start_matrix() {
+  pushMatrix() ;
+}
+
+
+/**
+Matrix 
+deprecated
 */
 void matrix_3D_start(Vec3 pos, Vec3 dir_cart) {
   Vec3 dir = dir_cart.copy() ;
@@ -2992,24 +3438,29 @@ void matrix_3D_start(Vec3 pos, Vec3 dir_cart) {
   if (Float.isNaN(radius)) radius = 0 ;
   rotateX(latitude) ;
   rotateY(longitude) ;
+  System.err.println("Deprecated method matrix_3D_start(Vec3 arg, Vec3 cartesian_dir) is deprecated instead use start_matrix_3D(Vec3 arg, Vec3 cartesian_dir)") ;
 }
 
 void matrix_3D_start(Vec3 pos, Vec2 dir_polar) {
   pushMatrix() ;
   translate(pos) ;
   rotateXY(dir_polar) ;
+  System.err.println("Deprecated method matrix_3D_start(Vec3 arg, Vec3 polar_dir) is deprecated instead use start_matrix_3D(Vec3 arg, Vec2 polar_dir)") ;
 }
 
 void matrix_2D_start(Vec2 pos, float orientation) {
   pushMatrix() ;
   translate(pos) ;
   rotate(orientation) ;
+  System.err.println("Deprecated method matrix_2D_start(Vec2 pos, float orientation) is deprecated instead use start_matrix_2D(Vec2 pos, float orientation)") ;
 }
 
 void matrix_end() {
   popMatrix() ;
+  System.err.println("Deprecated method matrix_end() is deprecated instead use stop_matrix()") ;
 }
 
 void matrix_start() {
   pushMatrix() ;
+  System.err.println("Deprecated method matrix_start() is deprecated instead use start_matrix()") ;
 }

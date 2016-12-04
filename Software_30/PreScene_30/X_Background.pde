@@ -2,12 +2,10 @@
 BACKGROUND 1.1.1
 Romanesco Processing Environment
 */
-float MAX_RATIO_DEPTH = 6.9 ;
 
 /*
 Normalize background
 */
-
 void background_norm_P3D(Vec4 bg) {
   background_norm_P3D(bg.x, bg.y, bg.z, bg.a) ;
 }

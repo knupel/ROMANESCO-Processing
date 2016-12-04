@@ -288,52 +288,52 @@ void set_button_item_list() {
       // Must bo optimized, it's very very very too long, too much, too bad, too too...
       if(i <= num_item_by_col) {
         pos = Vec2(left_flag, top_text +step) ;
-        size = Vec2(length_String_in_pixel(temp_item_info_split[0], ratio_rollover_x ), text_size) ;
+        size = Vec2(width_String(temp_item_info_split[0], ratio_rollover_x ), text_size) ;
         button_item_list[i].set_pos(pos) ;
         button_item_list[i].set_size(size) ;
       } else if (i > num_item_by_col && i <= num_item_by_col *2)  {
         pos = Vec2(left_flag +col_size_list_item, top_text +step -max_size_col) ;
-        size = Vec2(length_String_in_pixel(temp_item_info_split[0], ratio_rollover_x ), text_size) ;
+        size = Vec2(width_String(temp_item_info_split[0], ratio_rollover_x ), text_size) ;
         button_item_list[i].set_pos(pos) ;
         button_item_list[i].set_size(size) ;
       } else if (i > num_item_by_col *2 && i <= num_item_by_col *3)  {
         pos = Vec2(left_flag +(col_size_list_item *2), top_text +step -(max_size_col *2)) ;
-        size = Vec2(length_String_in_pixel(temp_item_info_split[0], ratio_rollover_x ), text_size) ;
+        size = Vec2(width_String(temp_item_info_split[0], ratio_rollover_x ), text_size) ;
         button_item_list[i].set_pos(pos) ;
         button_item_list[i].set_size(size) ;
       } else if (i > num_item_by_col *3 && i <= num_item_by_col *4)  {
         pos = Vec2(left_flag +(col_size_list_item *3), top_text +step -(max_size_col *3)) ;
-        size = Vec2(length_String_in_pixel(temp_item_info_split[0], ratio_rollover_x ), text_size) ;
+        size = Vec2(width_String(temp_item_info_split[0], ratio_rollover_x ), text_size) ;
         button_item_list[i].set_pos(pos) ;
         button_item_list[i].set_size(size) ;
       } else if (i > num_item_by_col *4 && i <= num_item_by_col *5)  {
         pos = Vec2(left_flag +(col_size_list_item *4), top_text +step -(max_size_col *4)) ;
-        size = Vec2(length_String_in_pixel(temp_item_info_split[0], ratio_rollover_x ), text_size) ;
+        size = Vec2(width_String(temp_item_info_split[0], ratio_rollover_x ), text_size) ;
         button_item_list[i].set_pos(pos) ;
         button_item_list[i].set_size(size) ;
       } else if (i > num_item_by_col *5 && i <= num_item_by_col *6)  {
         pos = Vec2(left_flag +(col_size_list_item *5), top_text +step -(max_size_col *5)) ;
-        size = Vec2(length_String_in_pixel(temp_item_info_split[0], ratio_rollover_x ), text_size) ;
+        size = Vec2(width_String(temp_item_info_split[0], ratio_rollover_x ), text_size) ;
         button_item_list[i].set_pos(pos) ;
         button_item_list[i].set_size(size) ;
       } else if (i > num_item_by_col *6 && i <= num_item_by_col *7)  {
         pos = Vec2(left_flag +(col_size_list_item *6), top_text +step -(max_size_col *6)) ;
-        size = Vec2(length_String_in_pixel(temp_item_info_split[0], ratio_rollover_x ), text_size) ;
+        size = Vec2(width_String(temp_item_info_split[0], ratio_rollover_x ), text_size) ;
         button_item_list[i].set_pos(pos) ;
         button_item_list[i].set_size(size) ;
       } else if (i > num_item_by_col *7 && i <= num_item_by_col *8)  {
         pos = Vec2(left_flag +(col_size_list_item *7), top_text +step -(max_size_col *7)) ;
-        size = Vec2(length_String_in_pixel(temp_item_info_split[0], ratio_rollover_x ), text_size) ;
+        size = Vec2(width_String(temp_item_info_split[0], ratio_rollover_x ), text_size) ;
         button_item_list[i].set_pos(pos) ;
         button_item_list[i].set_size(size) ;
       } else if (i > num_item_by_col *8 && i <= num_item_by_col *9)  {
         pos = Vec2(left_flag +(col_size_list_item *8), top_text +step -(max_size_col *8)) ;
-        size = Vec2(length_String_in_pixel(temp_item_info_split[0], ratio_rollover_x ), text_size) ;
+        size = Vec2(width_String(temp_item_info_split[0], ratio_rollover_x ), text_size) ;
         button_item_list[i].set_pos(pos) ;
         button_item_list[i].set_size(size) ;
       } else if (i > num_item_by_col *9 && i <= num_item_by_col *10)  {
         pos = Vec2(left_flag +(col_size_list_item *9), top_text +step -(max_size_col *9)) ;
-        size = Vec2(length_String_in_pixel(temp_item_info_split[0], ratio_rollover_x ), text_size) ;
+        size = Vec2(width_String(temp_item_info_split[0], ratio_rollover_x ), text_size) ;
         button_item_list[i].set_pos(pos) ;
         button_item_list[i].set_size(size) ;
       }

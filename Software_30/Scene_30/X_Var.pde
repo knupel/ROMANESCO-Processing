@@ -1,6 +1,6 @@
 /** 
 Tab: Z_VAR
-Version 1.0.8
+Version 1.0.9
 */
 // GLOBAL SETTING ////
 
@@ -439,7 +439,7 @@ void createMiscVar() {
   which_bitmap = new int[NUM_ITEM] ;
   bitmap_path_ref = new String[NUM_ITEM] ;
   // SVG
-  svg_import = new RPEsvg[NUM_ITEM] ;
+  svg_import = new ROPE_svg[NUM_ITEM] ;
   which_svg = new int[NUM_ITEM] ;
   svg_path_ref = new String[NUM_ITEM] ;
 

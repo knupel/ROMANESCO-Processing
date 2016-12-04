@@ -1,6 +1,6 @@
 /** 
 Tab: Z_VAR
-Version 1.0.8
+Version 1.0.9
 */
 // GLOBAL SETTING ////
 
@@ -400,6 +400,7 @@ CREATE VAR
 */
 void create_variable() {
   NUM_ITEM = rpe_manager.numClasses +1 ;
+
   NUM_SETTING_ITEM = 1 ;
   NUM_SETTING_CAMERA = 1 ;
   numButtonObj = NUM_ITEM *10 ;
@@ -407,13 +408,16 @@ void create_variable() {
   createMiscVar() ;
   create_variableButton() ;
   create_variableSound() ;
+
   create_variable_P3D(NUM_SETTING_CAMERA) ;
   create_variableCursor() ;
   create_var_item() ;
   create_var_item_manipulation(NUM_SETTING_ITEM) ;
+
   rpe_manager.initObj() ;
-  
+          /*
   println("create_variable done") ;
+  */
 }
 
 
@@ -435,7 +439,7 @@ void createMiscVar() {
   which_bitmap = new int[NUM_ITEM] ;
   bitmap_path_ref = new String[NUM_ITEM] ;
   // SVG
-  svg_import = new RPEsvg[NUM_ITEM] ;
+  svg_import = new ROPE_svg[NUM_ITEM] ;
   which_svg = new int[NUM_ITEM] ;
   svg_path_ref = new String[NUM_ITEM] ;
 

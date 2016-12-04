@@ -389,17 +389,7 @@ Vec4 HSBa_to_RGBa(float hue, float saturation, float brightness, float alpha) {
 
 
 
-// camaieu
-// return hue or other date in range of specific data float
-int camaieu(int max, float colorRef, int range) {
-  float camaieu = 0 ;
-  float whichColor = random(-range, range) ;
-  camaieu = colorRef +whichColor ;
-  if(camaieu < 0 ) camaieu = max +camaieu ;
-  if(camaieu > max) camaieu = camaieu -max ;
- 
-  return (int)camaieu ;
-}
+
 
 
 

@@ -1,5 +1,7 @@
 /**
-Z_Math 1.8.8
+Math rope 1.8.11.1
+* @author Stan le Punk
+* @see https://github.com/StanLepunK/Math_rope
 */
 
 
@@ -17,6 +19,8 @@ float decimale (float var, int n) {
   float div = pow(10, abs(n)) ;
   return Math.round(var *div) / div;
 }
+
+
 
 
 
@@ -60,18 +64,21 @@ http://mathworld.wolfram.com/Sphere.html
 float longitude(float x, float range) {
   return map(x, 0,range, 0, TAU) ;
 }
+
 float latitude(float y, float range) {
   return map(y, 0,range, 0, TAU) ;
 }
+
 float angle_radians(float y, float range) {
   return map(y, 0,range, 0, TAU) ;
 }
+
 float angle_degrees(float y, float range) {
   return map(y, 0,range, 0, 360) ;
 }
 
 float angle(Vec2 a, Vec2 b) {
-  return atan2( b.y -a.y, b.x -a.x );
+  return atan2(b.y -a.y, b.x -a.x);
 }
 
 
@@ -180,15 +187,15 @@ Vec2 to_cartesian_2D (float angle, float radius) {
 
 
 /**
-// Projection
+Projection
 */
 // Cartesian projection 2D
-Vec2 projection(Vec2 target) {
-  return projection(target, Vec2(), 1.) ;
+Vec2 projection(Vec2 direction) {
+  return projection(direction, Vec2(), 1.) ;
 }
 
-Vec2 projection(Vec2 target, float radius) {
-  return projection(target, Vec2(), radius) ;
+Vec2 projection(Vec2 direction, float radius) {
+  return projection(direction, Vec2(), radius) ;
 }
 Vec2 projection(Vec2 direction, Vec2 origin, float radius) {
   // Vec3 p = point_to_project.normalize(origin) ;
@@ -202,16 +209,16 @@ Vec2 projection(Vec2 direction, Vec2 origin, float radius) {
 Vec2 projection(float angle) {
   return projection(angle, 1) ;
 }
-Vec2 projection(float angle, int r) {
-  return Vec2(cos(angle) *r, sin(angle) *r) ;
+Vec2 projection(float angle, float radius) {
+  return Vec2(cos(angle) *radius, sin(angle) *radius) ;
 }
 // cartesian projection 3D
-Vec3 projection(Vec3 target) {
-  return projection(target, Vec3(), 1.) ;
+Vec3 projection(Vec3 direction) {
+  return projection(direction, Vec3(), 1.) ;
 }
 
-Vec3 projection(Vec3 target, float radius) {
-  return projection(target, Vec3(), radius) ;
+Vec3 projection(Vec3 direction, float radius) {
+  return projection(direction, Vec3(), radius) ;
 }
 
 Vec3 projection(Vec3 direction, Vec3 origin, float radius) {
@@ -574,9 +581,9 @@ void primitive(Vec3 pos, float radius, int summits, float orientation, Vec2 dir)
     /**
     // classic version with polygon_2D method
     */
-    // matrix_3D_start(pos, dir) ;
+    // start_matrix_3D(pos, dir) ;
     for (int i = 0 ; i < summits ; i++) points[i] = polygon_2D(summits, orientation)[i].copy() ;
-    // matrix_end() ;
+    // stop_matrix() ;
   } else {
     for (int i = 0 ; i < summits ; i++) points[i] = polygon_2D(summits, orientation)[i].copy() ;
   }
@@ -608,9 +615,9 @@ void draw_primitive (float radius, Vec3 [] pts) {
 
 void draw_primitive (Vec3 pos, Vec2 dir, float radius, Vec3 [] pts) {
   // special one because we have direction for the polygone, so we must use the matrix system until have a good algorithm for the cartesian direction
-  if(renderer_P3D()) matrix_3D_start(pos, dir) ; else matrix_2D_start(Vec2(pos.x, pos.y), 0) ;
+  if(renderer_P3D()) start_matrix_3D(pos, dir) ; else start_matrix_2D(Vec2(pos.x, pos.y), 0) ;
   draw_primitive (radius, pts) ;
-  matrix_end() ;
+  stop_matrix() ;
 }
 
 // main draw primitive
@@ -1284,33 +1291,6 @@ Vec2 target_direction(Vec2 target, Vec2 my_position) {
 Vec3 target_direction(Vec3 target, Vec3 my_position) {
   return projection(target, my_position, 1).sub(my_position) ;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

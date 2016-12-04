@@ -434,7 +434,7 @@ void set_button_from_saved_file() {
 
 // info_save_raw_list read info to translate and give a good position
 Vec5 info_save_raw_list(Vec5[] list, int pos) {
-  Vec5 info = new Vec5() ;
+  Vec5 info = Vec5() ;
   float valueSlider = 0 ;
   float valueSliderMin = 0 ;
   float valueSliderMax = 1 ;
@@ -445,10 +445,10 @@ Vec5 info_save_raw_list(Vec5[] list, int pos) {
       valueSliderMin = list[i].d ;
       valueSliderMax = list[i].e ;
       IDmidi = list[i].b ;
-      info = new Vec5(pos, IDmidi,valueSlider,valueSliderMin,valueSliderMax) ;
+      info = Vec5(pos, IDmidi,valueSlider,valueSliderMin,valueSliderMax) ;
       break;
     } else {
-      info = new Vec5(-1,-1,-1,-1,-1) ;
+      info = Vec5(-1) ;
     }
   }
   return info ;

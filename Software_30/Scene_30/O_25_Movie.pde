@@ -170,17 +170,17 @@ class Movisco extends Romanesco {
 	  p.beat(20) ;
 	  p.pattern(pattern) ;
 	  p.distribution(Vec3(pos.x +(step_grid /2),pos.y,pos.z), radius) ;
-	  p.costume() ;
+	  p.show() ;
 	}
 
-
-	void pixel_classic(Vec3 pos, int size_int, Vec4 colour, String costume) {
+/*
+	void pixel_classic(Vec3 pos, int size_int, Vec4 colour, int costume) {
 	  Vec3 size = Vec3(size_int) ;
 	  Pixel p = new Pixel(pos, size, colour, costume) ;
 	  p.angle(p.colour.z) ;
-	  p.costume() ;
+	  p.show() ;
 	}
-
+*/
 
 
 

@@ -1,8 +1,8 @@
 /**
-CORE SCENE and PRESCENE 1.1.1
+CORE Rope SCENE and PRESCENE 1.1.2
 */
 /**
-INIT RPE
+INIT Rope
 */
 boolean init_RPE = true ;
 void init_RPE() {
@@ -106,7 +106,7 @@ void check_bitmap_folder_scene() {
 svg
 */
 
-RPEsvg[] svg_import ;
+ROPE_svg[] svg_import ;
 ArrayList svg_files = new ArrayList();
 boolean folder_svg_is_selected = true ;
 String svg_current_path ;
@@ -123,7 +123,7 @@ void load_svg(int ID) {
   if(svg_path != null && svg_path.length > 0) {
     svg_current_path = svg_path[which_svg[ID]] ;
     if(!svg_current_path.equals(svg_path_ref[ID])) {
-      svg_import[ID] = new RPEsvg(svg_current_path, "bricks") ;
+      svg_import[ID] = new ROPE_svg(this, svg_current_path, "bricks") ;
     }
     svg_path_ref[ID] = svg_current_path ;
   }
