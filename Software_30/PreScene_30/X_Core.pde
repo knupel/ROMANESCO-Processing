@@ -743,9 +743,10 @@ void OSMavericksCheck() {
 
 
 
-//////////
-//KEYBOARD
 
+/**
+KEYBOARD
+*/
 //short Touch
 boolean aTouch, bTouch, cTouch, dTouch, eTouch, fTouch, gTouch, hTouch, iTouch, jTouch, kTouch, lTouch, mTouch, nTouch, oTouch, pTouch, qTouch, rTouch, sTouch, tTouch, uTouch, vTouch, wTouch, xTouch, yTouch, zTouch,
         leftTouch, rightTouch, upTouch, downTouch, 
@@ -755,8 +756,9 @@ boolean aTouch, bTouch, cTouch, dTouch, eTouch, fTouch, gTouch, hTouch, iTouch, 
 boolean cLongTouch, lLongTouch, nLongTouch, vLongTouch,
         spaceTouch, shiftLongTouch ;  
 
-//END KEYBOARD
-//////////////
+/**
+END KEYBOARD
+*/
 
 
 

@@ -1,5 +1,5 @@
   ////////////////////////////////////////////////////////////////////
- // Romanesco Unu 1.2.0 / version 30 / made with Processing 3.1.1 ///
+ // Romanesco Unu 1.2.0 / version 30 / made with Processing 3.2.3 ///
 ////////////////////////////////////////////////////////////////////
 /* 14.750 lines of code the 4th may !!!! */
 
@@ -21,9 +21,9 @@ boolean FULL_SCREEN = false ;
 void settings() {
   // When you build Romanesco you must create two versions : fullscreen and normal
   
-  //fullScreen(P3D,2) ;
-  //FULL_SCREEN = true ;
-  size(124,124,P3D) ;
+  fullScreen(P3D,2) ;
+  FULL_SCREEN = true ;
+  // size(124,124,P3D) ;
   pixelDensity(displayDensity()) ;
   syphon_settings() ;
 }
@@ -126,7 +126,7 @@ void draw() {
   }
 
   if(TEST_ROMANESCO) {
-    println(frameCount) ;
+    printTempo(60, "TEST_ROMANESCO, printempo 60", frameCount) ;
   }
 
 }

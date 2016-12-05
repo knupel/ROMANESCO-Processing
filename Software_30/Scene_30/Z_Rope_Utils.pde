@@ -1,5 +1,5 @@
 /**
-RPE UTILS 1.21.0
+RPE UTILS 1.21.0.1
 Rope – Romanesco Processing Environment – 2015–2016
 * @author Stan le Punk
 * @see https://github.com/StanLepunK/Utils_rope
@@ -223,12 +223,13 @@ END EXPORT FILE PDF / PNG
 
 /**
 Rope – Romanesco Processing environment – 
-BACKGROUND_2D_3D 0.0.3
+BACKGROUND_2D_3D 0.1.0
 * @author Stan le Punk
 * @see other Processing work on https://github.com/StanLepunK
 */
 
 float MAX_RATIO_DEPTH = 6.9 ;
+// int MAX_DEPTH = 1000 ;
 
 /**
 Normalize background
@@ -267,21 +268,22 @@ void background_norm(float r_c, float g_c, float b_c, float a_c) {
   float a = map(a_c,0,1, 0, g.colorModeA) ;
   noStroke() ;
   fill(x, y, z, a) ;
-  int canvas_x = width ;
-  int canvas_y = height ;
+  Vec2 canvas_bg = Vec2(width, height) ;
   if(renderer_P3D()) {
-    canvas_x = width *100 ;
-    canvas_y = height *100 ;
-    int pos_x = - canvas_x /2 ;
-    int pos_y = - canvas_y /2 ;
+    canvas_bg.mult(100) ;
+    Vec2 pos_bg = Vec2(canvas_bg) ;
+    pos_bg.mult(-1) ;
+    pos_bg.div(2) ;
     // this problem of depth is not clarify, is must refactoring
-    int pos_z = int( -height *MAX_RATIO_DEPTH) ;
+    float depth  = int(height *MAX_RATIO_DEPTH)  ;
+    // if(depth > MAX_DEPTH) depth = MAX_DEPTH ;
+
     pushMatrix() ;
-    translate(0,0,pos_z) ;
-    rect(pos_x,pos_y,canvas_x, canvas_y) ;
+    translate(pos_bg.x,pos_bg.y,-depth) ;
+    rect(Vec2(0),canvas_bg) ;
     popMatrix() ;
   } else {
-    rect(0,0,canvas_x, canvas_y) ;
+    rect(Vec2(0),canvas_bg) ;
   }
   // HSB mode
   if(g.colorMode == 3) {
@@ -291,7 +293,6 @@ void background_norm(float r_c, float g_c, float b_c, float a_c) {
   } else if (g.colorMode == 1) {
     fill(g.colorModeX, g.colorModeY, g.colorModeZ) ;
     stroke(0) ;
-
   }
   strokeWeight(1) ; 
 }

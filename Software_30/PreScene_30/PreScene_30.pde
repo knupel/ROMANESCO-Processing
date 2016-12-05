@@ -81,8 +81,9 @@ void draw() {
   // here we ask for the TEST_ROMANESCO true, because the Minim Library talk too much in the consol
   if(!TEST_ROMANESCO) soundDraw() ;
   
-  update_OSC_data() ;
-  OSC_send() ;
+  update_OSC_data_crontroller() ;
+  // OSC_send() ;
+  write_osc_data_prescene() ;
 
   update_raw_value() ;
 
@@ -119,7 +120,7 @@ void draw() {
   cursor_update() ;
   
   // change to false if the information has be sent to Scene...but how ????
-  keyboardFalse() ;
+  OSC_send() ;
 }
 //END DRAW
 
