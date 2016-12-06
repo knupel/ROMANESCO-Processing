@@ -198,7 +198,6 @@ void write_osc_data_prescene(){
   if (clickLongLeft[0]) dataPreScene [48] = ("1") ; else dataPreScene [48] = ("0") ;
   if (clickLongRight[0]) dataPreScene [49] = ("1") ; else dataPreScene [49] = ("0") ;
   dataPreScene[50] = int_to_String(wheel[0]) ;
-  println("write_osc_data_prescene()()", wheel[0]) ;
 
   // NUMBER
   if (touch1)     dataPreScene [51] = ("1") ; else dataPreScene [51] = ("0") ;

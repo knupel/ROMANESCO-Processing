@@ -32,10 +32,29 @@ void init_RPE() {
 
 
 
-/**
-CHECK FOLDER
-*/
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/**
+
+CHECK FOLDER
+
+*/
 
 /**
 bitmap
@@ -410,7 +429,9 @@ END CHECK FOLDER
 
 
 /**
-Text manager
+TEXT MANAGER
+
+
 */
 // NEW VOID TEXT
 String importRaw [] ;
@@ -473,8 +494,18 @@ String whichSentence(String txt, int whichChapter, int whichSentence) {
 }
 
 /**
-End text manager
+TEXT MANAGER END
+
 */
+
+
+
+
+
+
+
+
+
 
 
 
@@ -516,6 +547,217 @@ void syphon_draw() {
 /**
 END MIROIR
 */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/**
+
+LOAD
+
+*/
+void loadDataObject(String path) {
+  JSONArray load = new JSONArray() ;
+  load = loadJSONArray(path);
+  // init counter
+  int startPosJSONDataWorld = 0 ;
+  int startPosJSONDataCam = 1 ;
+  int startPosJSONDataObj = 0;
+    
+    // PART ONE
+  JSONObject dataWorld = load.getJSONObject(startPosJSONDataWorld);
+  onOffBackground = dataWorld.getBoolean("on/off") ;
+
+
+  colorBackground.r = dataWorld.getFloat("hue background") ;
+  colorBackground.g = dataWorld.getFloat("saturation background");
+  colorBackground.b = dataWorld.getFloat("brightness background") ;
+  colorBackground.a = dataWorld.getFloat("refresh background") ;
+  colorBackgroundRef = colorBackground.copy() ;
+
+  // color ambient light
+  color_light[0].r = dataWorld.getFloat("hue ambient") ;
+  color_light[0].g = dataWorld.getFloat("saturation ambient") ;
+  color_light[0].b = dataWorld.getFloat("brightness ambient") ;
+  color_light[0].a = dataWorld.getFloat("alpha ambient") ;
+  // pos ambient light
+  /**
+  Not use at this time
+  dataWorld.setFloat("pos x ambient", value) ;
+  dataWorld.setFloat("pos y ambient", value) ;
+  dataWorld.setFloat("pos z ambient", value) ;
+  */
+  // color light one
+  color_light[1].r = dataWorld.getFloat("hue light 1") ;
+  color_light[1].g = dataWorld.getFloat("saturation light 1") ;
+  color_light[1].b = dataWorld.getFloat("brightness light 1") ;
+  color_light[1].a = dataWorld.getFloat("alpha light 1") ;
+  // pos light one
+  dir_light[1].x = dataWorld.getFloat("pos x light 1") ;
+  dir_light[1].y = dataWorld.getFloat("pos y light 1") ;
+  dir_light[1].z = dataWorld.getFloat("pos z light 1") ;
+  // color light two
+  color_light[2].r = dataWorld.getFloat("hue light 2") ;
+  color_light[2].g = dataWorld.getFloat("saturation light 2") ;
+  color_light[2].b = dataWorld.getFloat("brightness light 2") ;
+  color_light[2].a = dataWorld.getFloat("alpha light 2") ;
+  // dir light two
+  dir_light[2].x = dataWorld.getFloat("pos x light 2") ;
+  dir_light[2].y = dataWorld.getFloat("pos y light 2") ;
+  dir_light[2].z = dataWorld.getFloat("pos z light 2") ;
+  // sound
+  /**
+  // I don't know, if it's pertinent to save this data ?
+  dataWorld.setFloat("sound left", value) ;
+  dataWorld.setFloat("sound right", value) ;
+  dataWorld.setBoolean("beat", value) ;
+  dataWorld.setBoolean("kick", value) ;
+  dataWorld.setBoolean("snare", value) ;
+  dataWorld.setBoolean("hat", value) ;
+  */
+
+
+
+
+
+  // PART TWO
+  int numCamera = 1 ;
+  for (int i = startPosJSONDataCam ; i < startPosJSONDataCam + numCamera ; i++ ) {
+    JSONObject dataCam = load.getJSONObject(i);
+    // lenz
+    focal = dataCam.getFloat("focal") ;
+    deformation = dataCam.getFloat("deformation") ;
+        // camera orientation
+    dirCamX = dataCam.getFloat("eye x") ;
+    dirCamY = dataCam.getFloat("eye y") ;
+    dirCamZ = dataCam.getFloat("eye z") ;
+    centerCamX = dataCam.getFloat("pos x") ;
+    centerCamY = dataCam.getFloat("pos y") ;
+    centerCamY = dataCam.getFloat("pos z") ;
+    upX = dataCam.getFloat("upX");
+    /**
+    // not use in this time, maybe for the future
+    upY = dataCam.getFloat("upY"); ;
+    upZ = dataCam.getFloat("upZ"); ;
+    */
+        // curent position
+    finalSceneCamera.x = dataCam.getFloat("scene x") *width ;
+    finalSceneCamera.y = dataCam.getFloat("scene y") *width ;
+    finalSceneCamera.z = dataCam.getFloat("scene z") *width ;
+    finalEyeCamera.x = dataCam.getFloat("longitude") ;
+    finalEyeCamera.y = dataCam.getFloat("latitude") ;
+  }
+    
+
+    // PART THREE
+  for (int i = 2 ; i < load.size() ;i++) {
+    JSONObject dataObj = load.getJSONObject(i) ;
+    int ID = dataObj.getInt("ID obj") ;
+    /**
+    int fontRefID = dataObj.getInt("which font") ;
+    whichFont[ID] = 
+    */
+    which_bitmap[ID] = dataObj.getInt("which picture") ;
+    which_svg[ID] = dataObj.getInt("which svg") ;
+    which_movie[ID] = dataObj.getInt("which movie") ;
+    which_text[ID] = dataObj.getInt("which text") ;
+        // display mode
+    mode[ID] = dataObj.getInt("Mode obj") ;
+    
+        // slider fill
+        float h_fill = dataObj.getFloat("hue fill") ;
+        float s_fill = dataObj.getFloat("saturation fill") ;
+        float b_fill = dataObj.getFloat("brightness fill") ;
+        float a_fill = dataObj.getFloat("alpha fill") ;
+    // slider stroke
+    float h_stroke = dataObj.getFloat("hue stroke") ;
+        float s_stroke = dataObj.getFloat("saturation stroke") ;
+        float b_stroke = dataObj.getFloat("brightness stroke") ;
+        float a_stroke = dataObj.getFloat("alpha stroke") ;
+
+        if(FULL_RENDERING) {
+          fill_item[ID] = color(h_fill, s_fill, b_fill, a_fill) ;
+      stroke_item[ID] = color(h_stroke, s_stroke, b_stroke, a_stroke) ;
+      thickness_item[ID] = dataObj.getFloat("thickness") *height ;
+    } else {
+      // preview display
+      fill_item[ID] = COLOR_FILL_OBJ_PREVIEW ;
+      stroke_item[ID] =  COLOR_STROKE_OBJ_PREVIEW ;
+      thickness_item[ID] = THICKNESS_OBJ_PREVIEW ;
+      }
+
+    size_x_item[ID] = dataObj.getFloat("width") *width ;
+    size_y_item[ID] = dataObj.getFloat("height") *width ;
+    size_z_item[ID] = dataObj.getFloat("depth") *width ;
+    canvas_x_item[ID] = dataObj.getFloat("canvas x") *width ;
+    canvas_y_item[ID] = dataObj.getFloat("canvas y") *width ;
+    canvas_z_item[ID] = dataObj.getFloat("canvas z") *width ;
+    variety_item[ID] = dataObj.getFloat("family") ;
+    quantity_item[ID] = dataObj.getFloat("quantity") ;
+    life_item[ID] = dataObj.getFloat("life") ;
+
+    speed_x_item[ID] = dataObj.getFloat("speed") ;
+    dir_x_item[ID] = dataObj.getFloat("direction") ;
+    angle_item[ID] = dataObj.getFloat("angle") ;
+    swing_x_item[ID] = dataObj.getFloat("amplitude") ;
+    repulsion_item[ID] = dataObj.getFloat("repulsion") ;
+    attraction_item[ID] = dataObj.getFloat("attraction") ;
+    alignment_item[ID] = dataObj.getFloat("aligmnent") ;
+    influence_item[ID] = dataObj.getFloat("influence") ;
+
+    posObj[ID].x  = dataObj.getFloat("pos x obj") *width ;
+    posObj[ID].y  = dataObj.getFloat("pos y obj") *width ;
+    posObj[ID].z  = dataObj.getFloat("pos z obj") *width ;
+
+    dirObj[ID].x  = dataObj.getFloat("longitude obj") ;
+    dirObj[ID].y  = dataObj.getFloat("latitude obj") ;
+  }
+}
+/**
+
+END LOAD
+
+*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -639,10 +881,6 @@ void repere(int size) {
   line(0,0,-size,0,0,size) ;
 }
 
-
-
-//END P3D
-/////////
 /**
 END DISPLAY INFO
 */
@@ -651,43 +889,6 @@ END DISPLAY INFO
 
 
 
-//DRAWING
-//CROSS
-void crossPoint2D(PVector pos, color colorCross, int e, int size) {
-  stroke(colorCross) ;
-  strokeWeight(e) ;
-  
-  line(pos.x, pos.y -size, pos.x, pos.y +size) ;
-  line(pos.x +size, pos.y, pos.x -size, pos.y) ;
-}
-
-
-// other cross
-void crossPoint2D(PVector pos, PVector size, color colorCross, float e ) {
-  if (e <0.1) e = 0.1 ;
-  stroke(colorCross) ;
-  strokeWeight(e) ;
-  //horizontal
-  line(pos.x, pos.y -size.x, pos.x, pos.y +size.x) ;
-  //vertical
-  line(pos.x +size.y, pos.y, pos.x -size.y, pos.y) ;
-}
-void crossPoint3D(PVector pos, PVector size, color colorCross, float e ) {
-  if (e <0.1) e = 0.1 ;
-  stroke(colorCross) ;
-  strokeWeight(e) ;
-  //horizontal
-  line(pos.x, pos.y -size.x,0, pos.x, pos.y +size.x,0) ;
-  //vertical
-  line(pos.x +size.y, pos.y,0, pos.x -size.y, pos.y,0) ;
-  //depth
-  line(pos.x, pos.y,size.z, pos.x, pos.y,-size.z) ;
-}
-//
-
-
-//END DRAWING
-////////////
 
 
 
@@ -704,37 +905,6 @@ void crossPoint3D(PVector pos, PVector size, color colorCross, float e ) {
 
 
 
-// MISC
-///////
-
-
-//curtain
-void curtain() {
-  if(!onOffCurtain) {
-    rectMode(CORNER) ;
-    fill (0) ; 
-    noStroke() ;
-    rect(-1,-1, width+2, height+2);
-  }
-}
-//end curtain
-
-
-
-// OS mac DETECTION
-boolean mavericks = false ;
-void OSMavericksCheck() {
-  // check OSX version
-  String OS = System.getProperty("os.version") ;
-  OS  = OS.replace(".","");
-  int OSversion = Integer.parseInt(OS);
-  if(OSversion >= 1090  ) mavericks = true ; else mavericks = false ;
-}
-
-
-
-// END MISC
-///////////
 
 
 
@@ -743,9 +913,21 @@ void OSMavericksCheck() {
 
 
 
-//////////
-//KEYBOARD
 
+
+
+
+/**
+
+UTIL CORE
+
+*/
+
+
+
+/**
+keyboard
+*/
 //short Touch
 boolean aTouch, bTouch, cTouch, dTouch, eTouch, fTouch, gTouch, hTouch, iTouch, jTouch, kTouch, lTouch, mTouch, nTouch, oTouch, pTouch, qTouch, rTouch, sTouch, tTouch, uTouch, vTouch, wTouch, xTouch, yTouch, zTouch,
         leftTouch, rightTouch, upTouch, downTouch, 
@@ -755,15 +937,11 @@ boolean aTouch, bTouch, cTouch, dTouch, eTouch, fTouch, gTouch, hTouch, iTouch, 
 boolean cLongTouch, lLongTouch, nLongTouch, vLongTouch,
         spaceTouch, shiftLongTouch ;  
 
-//END KEYBOARD
-//////////////
 
 
-
-
-
-
-//DETECTION
+/**
+detection
+*/
 //CIRLCLE
 boolean insideCircle (PVector pos, int diam) {
   if (dist(pos.x, pos.y, mouseX, mouseY) < diam) return true  ; else return false ;
@@ -773,18 +951,14 @@ boolean insideCircle (PVector pos, int diam) {
 boolean insideRect(PVector pos, PVector size) { 
     if(mouse[0].x > pos.x && mouse[0].x < pos.x + size.x && mouse[0].y >  pos.y && mouse[0].y < pos.y + size.y) return true ; else return false ;
 }
-//DETECTION
 
 
-
-
-
-////////
-//TIME
+/**
+time
+*/
 int minClock() {
   return hour()*60 + minute() ;
 }
-
 
 //timer
 int chrnmtr, chronometer, newChronometer ;
@@ -807,13 +981,10 @@ float cycle(float add) {
 }
 
 
-//END TIME
-///////////
 
-
-
-// EASING
-////////
+/**
+easing
+*/
 PVector targetIN = new PVector () ;
 //Pen
 PVector easingIN = new PVector () ;
@@ -836,18 +1007,19 @@ PVector easing(PVector targetOUT, float effectOUT) {
 void resetEasing(PVector targetOUT) {
   easingIN.x = targetOUT.x ; easingIN.y = targetOUT.y ;
 }
-//end easing
 
 
-
-
-//////////////////
-//tracking with pad
+/**
+NEXT PREVIOUS
+*/
 void nextPreviousKeypressed() {
     //tracking
   nextPrevious = true ;
 }
-//
+
+/**
+tracking with pad
+*/
 int tracking(int t, int n) {
   if (nextPrevious) {
     if (downTouch && t < n-1 ) {
@@ -866,4 +1038,1463 @@ int tracking(int t, int n) {
   nextPrevious = false ;
   return trackerUpdate ;
 }
-//END nextPrevious
+
+
+/**
+curtain
+*/
+void curtain() {
+  if(!onOffCurtain) {
+    rectMode(CORNER) ;
+    fill (0) ; 
+    noStroke() ;
+    rect(-1,-1, width+2, height+2);
+  }
+}
+
+/**
+OS mac DETECTION
+*/
+boolean mavericks = false ;
+void OSMavericksCheck() {
+  // check OSX version
+  String OS = System.getProperty("os.version") ;
+  OS  = OS.replace(".","");
+  int OSversion = Integer.parseInt(OS);
+  if(OSversion >= 1090  ) mavericks = true ; else mavericks = false ;
+}
+
+
+/**
+
+UTIL CORE END
+
+
+*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/**
+
+ROMANESCO BACKGROUND 1.0.1
+
+*/
+Vec4 colorBackground, colorBackgroundRef, colorBackgroundPrescene;
+
+
+void background_setup() {
+  colorBackgroundRef = Vec4() ;
+  colorBackground = Vec4() ;
+  colorBackgroundPrescene = Vec4(0,0,20,g.colorModeA) ;
+}
+
+
+void background_romanesco() {
+  // in preview mode the background is always on, to remove the trace effect
+  if(!FULL_RENDERING) { 
+    onOffBackground = false ;
+    colorBackground = colorBackgroundPrescene.copy() ;
+    background_norm(colorBackground.normalize(Vec4(g.colorModeX,g.colorModeY,g.colorModeZ,g.colorModeA ))) ;
+  } else {
+    if(onOffBackground) {
+      if(whichShader == 0) {
+        // check if the color model is changed after the shader used
+        if(g.colorMode != 3 || g.colorModeX != 360 || g.colorModeY != 100 || g.colorModeZ !=100 || g.colorModeA !=100) colorMode(HSB,360,100,100,100) ;
+        // choice the rendering color palette for the classic background
+        if(FULL_RENDERING) {
+          // check if the slider background are move, if it's true update the color background
+          if(!compare(colorBackgroundRef,update_background())) {
+            colorBackground.set(update_background()) ;
+          } else {
+            colorBackgroundRef.set(update_background()) ;
+          }
+          background_norm(colorBackground.normalize(Vec4(g.colorModeX,g.colorModeY,g.colorModeZ,g.colorModeA))) ;
+        }
+        background_norm(colorBackground.normalize(Vec4(g.colorModeX,g.colorModeY,g.colorModeZ,g.colorModeA))) ;
+      } else {
+        background_shader_draw(whichShader) ;
+      }
+    }
+  }
+}
+
+
+
+
+
+
+// ANNEXE VOID BACKGROUND
+Vec4 update_background() {
+  //to smooth the curve of transparency background
+  // HSB
+  float hue_bg =         map(valueSlider[0][0],0,MAX_VALUE_SLIDER,0,HSBmode.r) ;
+  float saturation_bg =  map(valueSlider[0][1],0,MAX_VALUE_SLIDER,0,HSBmode.g) ;
+  float brigthness_bg =  map(valueSlider[0][2],0,MAX_VALUE_SLIDER,0,HSBmode.b) ;
+  // ALPHA
+  float factorSmooth = 2.5 ;
+  float nx = norm(valueSlider[0][3], 0.0 , MAX_VALUE_SLIDER) ;
+  float alpha = pow (nx, factorSmooth);
+  alpha = map(alpha, 0, 1, 0.8, HSBmode.a) ;
+  return Vec4(hue_bg,saturation_bg,brigthness_bg,alpha) ;
+}
+
+
+
+
+
+
+
+// BACKGROUND SHADER
+PShader blurOne, blurTwo, cellular, damierEllipse, heart, necklace,  psy, sinLight, snow ;
+//PShader bizarre, water, psyTwo, psyThree ;
+
+void background_shader_setup() {
+  String pathShaderBG = preference_path +"shader/shader_bg/" ;
+
+  blurOne = loadShader(pathShaderBG+"blurOneFrag.glsl") ;
+  blurTwo = loadShader(pathShaderBG+"blurTwoFrag.glsl") ;
+  cellular = loadShader(pathShaderBG+"cellularFrag.glsl") ;
+  damierEllipse = loadShader(pathShaderBG+"damierEllipseFrag.glsl") ;
+  heart = loadShader(pathShaderBG+"heartFrag.glsl") ;
+  necklace = loadShader(pathShaderBG+"necklaceFrag.glsl") ;
+  psy = loadShader(pathShaderBG+"psyFrag.glsl") ;
+  sinLight = loadShader(pathShaderBG+"sinLightFrag.glsl") ;
+  snow = loadShader(pathShaderBG+"snowFrag.glsl") ;
+
+  /*
+  bizarre = loadShader(pathShaderBG+"bizarreFrag.glsl") ; // work bad
+  water = loadShader(pathShaderBG+"waterFrag.glsl") ; // problem
+  psyTwo = loadShader(pathShaderBG+"psyTwoFrag.glsl") ; // problem
+  psyThree = loadShader(pathShaderBG+"psyThreeFrag.glsl") ; // problem
+  */
+
+}
+
+
+
+void background_shader_draw(int whichOne) {
+  if(TEST_ROMANESCO || FULL_RENDERING) {
+    PVector posBGshader = new PVector(0,0) ;
+    PVector sizeBGshader = new PVector(width,height, height) ; 
+    fill(0) ; noStroke() ;
+
+    if     (whichOne ==1) rectangle(posBGshader, sizeBGshader, blurOne ) ;
+    else if(whichOne ==2) rectangle(posBGshader, sizeBGshader, blurTwo ) ;
+    else if(whichOne ==3) rectangle(posBGshader, sizeBGshader, cellular) ;
+    else if(whichOne ==4) rectangle(posBGshader, sizeBGshader, damierEllipse) ;
+    else if(whichOne ==5) rectangle(posBGshader, sizeBGshader, heart) ;
+    else if(whichOne ==6) rectangle(posBGshader, sizeBGshader, necklace) ;
+    else if(whichOne ==7) rectangle(posBGshader, sizeBGshader, psy) ;
+    else if(whichOne ==8) rectangle(posBGshader, sizeBGshader, snow ) ;
+    else if(whichOne ==9) rectangle(posBGshader, sizeBGshader, sinLight ) ;
+    
+    
+    //rectangle(posBGshader, sizeBGshader, bizarre) ;  // work bad
+    //rectangle(posBGshader, sizeBGshader, water) ; // problem
+    //rectangle(posBGshader, sizeBGshader, psyTwo) ; // problem
+    //rectangle(posBGshader, sizeBGshader, psyThree) ; // problem
+  }  else if (whichOne != 0  ) {
+    background_norm(1) ;
+    int sizeText = 14 ;
+    textSize(sizeText) ;
+    fill(orange) ; noStroke() ;
+    text("Shader is ON", sizeText, height/3) ;
+  } 
+
+}
+
+float shaderMouseX, shaderMouseY ;
+void rectangle(PVector pos, PVector size, PShader s) {
+  int factorSize = 10 ;
+  size.mult(factorSize) ;
+  pushMatrix() ;
+  translate(-size.x *.5,-size.y *.5 , -size.z*.5) ;
+  shader(s) ;
+
+  Vec4 RGBbackground = HSBa_to_RGBa( map(valueSlider[0][0],0,MAX_VALUE_SLIDER,0,g.colorModeX), 
+                                map(valueSlider[0][1],0,MAX_VALUE_SLIDER,0,g.colorModeY), 
+                                map(valueSlider[0][2],0,MAX_VALUE_SLIDER,0,g.colorModeZ),
+                                map(valueSlider[0][3],0,MAX_VALUE_SLIDER,0,g.colorModeA)  ) ;
+  float redNorm = map(RGBbackground.x,0,255,0,1) ;
+  float greenNorm = map(RGBbackground.y,0,255,0,1) ;
+  float blueNorm = map(RGBbackground.z,0,255,0,1) ;
+  float alphaNorm = map(RGBbackground.w,0,255,0,1) ;
+  float varTime = (float)millis() *.001 ;
+  if(spaceTouch) {
+    shaderMouseX = map(mouse[0].x,0,width,0,1) ;
+    shaderMouseY = map(mouse[0].y,0,height,0,1) ;
+  }
+  
+  s.set("colorBG",redNorm, greenNorm, blueNorm, alphaNorm) ; 
+  s.set("mixSound", mix[0]) ;
+  s.set("timeTrack", getTimeTrack()) ;
+  s.set("tempo", tempo[0]) ;
+  s.set("beat", allBeats(0)) ;
+  s.set("mouse",shaderMouseX, shaderMouseY) ;
+  s.set("resolution",size.x/factorSize, size.y/factorSize) ;
+  s.set("time", varTime);
+  
+  beginShape(QUADS) ;
+  vertex(pos.x,pos.y) ;
+  vertex(pos.x +size.x,pos.y) ;
+  vertex(pos.x +size.x,pos.y +size.y) ;
+  vertex(pos.x,pos.y +size.y) ;
+  endShape() ;
+  resetShader() ;
+  popMatrix() ;
+}
+
+/**
+
+END BACKGROUND
+
+*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/**
+
+SOUND rope 1.0.1
+
+*/
+//GLOBAL PARAMETER Minim
+Minim minim;
+AudioInput input; // music from outside
+// spectrum
+FFT fft; 
+
+//beat
+BeatDetect beatEnergy, beatFrequency;
+BeatListener bl;
+
+
+float beatData, kickData, snareData, hatData ;
+float minBeat = 1.0 ;
+float maxBeat = 10.0  ;
+
+//volume
+int right_volume_info = 0 ;
+int left_volume_info = 0 ;
+
+
+// boolean
+boolean SOUND_PLAY ;
+
+//////////////
+// SOUND SETUP
+void sound_setup() {
+  //Sound
+  minim = new Minim(this);
+  //sound from outside
+  minim.debugOn();
+  input = minim.getLineIn(Minim.STEREO, 512);
+  
+  spectrumSetup(NUM_BANDS) ;
+  beatSetup() ;
+}
+// END SOUND SETUP
+//////////////////
+
+
+
+
+/////////////
+// SOUND DRAW
+void soundDraw() {
+  spectrum(input.mix, NUM_BANDS) ;
+  beatEnergy.detect(input.mix);
+  initTempo() ;
+  soundRomanesco() ;
+  right_volume_info = int(input.right.get(1)  *100) ; 
+  left_volume_info = int(input.left.get(1)  *100) ;
+  time_track() ;
+}
+// END SOUND DRAW
+/////////////////
+
+
+
+
+
+
+//specific stuff from romanesco
+//////////////////////////////
+void soundRomanesco() {
+  int sound = 1 ;
+    
+  float volumeControleurG = map(valueSlider[0][4], 0,MAX_VALUE_SLIDER, 0, 1.3 ) ;
+  left[0] = map(input.left.get(sound),  -0.07,0.1,  0, volumeControleurG);
+  
+  float volumeControleurD = map(valueSlider[0][5], 0,MAX_VALUE_SLIDER, 0, 1.3 ) ;
+  right[0] = map(input.right.get(sound),  -0.07,0.1,  0, volumeControleurD);
+  
+  float volumeControleurM = map(( (valueSlider[0][4] + valueSlider[0][5]) *.5), 0,MAX_VALUE_SLIDER, 0, 1.3 ) ;
+  mix[0] = map(input.mix.get(sound),  -0.07,0.1,  0, volumeControleurM);
+  
+  //volume
+  if(left[0] < 0 ) left[0] = 0 ;
+  if(left[0] > 1 ) left[0] = 1.0 ; 
+  if(right[0] < 0 ) right[0] = 0 ;
+  if(right[0] > 1 ) right[0] = 1.0 ; 
+  if(mix[0] < 0 ) mix[0] = 0 ;
+  if(mix[0] > 1 ) mix[0] = 1.0 ;
+  
+  //Beat
+  beat[0] = getBeat(onOffBeat) ;
+  kick[0] = getKick(onOffKick) ;
+  snare[0] = getSnare(onOffSnare) ;
+  hat[0] = getHat(onOffHat) ;
+  
+  
+  //spectrum
+  for ( int i = 0 ; i < NUM_BANDS ; i++ ) {
+    band[0][i] = bandSprectrum[i] ;
+  }
+  
+  //tempo
+  tempo[0] = getTempoRef() ;
+  tempoKick[0] = getTempoKickRef() ;
+  tempoSnare[0] = getTempoSnareRef() ;
+  tempoHat[0] = getTempoHatRef() ;
+}
+  
+
+
+
+//////
+//BEAT
+//GLOBAL
+int beatNum, kickNum, snareNum, hatNum ;
+//setup
+void beatSetup() {
+  //Beat Frequency
+  beatFrequency = new BeatDetect(input.bufferSize(), input.sampleRate());
+  beatFrequency.setSensitivity(300);
+  kickData = snareData = hatData = minBeat; 
+  bl = new BeatListener(beatFrequency, input); 
+  
+  //Beat energy
+  beatEnergy = new BeatDetect();
+  beatData = 1.0 ;
+}
+//RETURN
+//BEAT QUANTITY
+int getBeatNum() {
+  if ( beatEnergy.isOnset() ) beatNum += 1 ; else if (  getTotalSpectrum(NUM_BANDS) < 0.03 ) beatNum = 0 ;
+  return beatNum ;
+}
+int getKickNum() {
+  if ( beatFrequency.isKick()  ) kickNum += 1 ; else if (  getTotalSpectrum(NUM_BANDS) < 0.03 ) kickNum = 0 ;
+  return kickNum ;
+}
+int getSnareNum() {
+  if ( beatFrequency.isSnare()  ) snareNum += 1 ; else if (  getTotalSpectrum(NUM_BANDS) < 0.03 ) snareNum = 0 ;
+  return snareNum ;
+}
+int getHatNum() {
+  if ( beatFrequency.isHat()  ) hatNum += 1 ; else if (  getTotalSpectrum(NUM_BANDS) < 0.03 ) hatNum = 0 ;
+  return hatNum ;
+}
+
+//RESULT
+float getBeat(boolean beat) {
+  if (beat) {
+    if ( beatEnergy.isOnset() ) beatData = maxBeat;
+    beatData *= 0.95;
+    if ( beatData < minBeat ) beatData = minBeat;
+  } else beatData = 1.0 ;
+  
+  return beatData ;
+}
+
+float getKick(boolean kick) {
+  if (kick) {
+    if ( beatFrequency.isKick() )  kickData = maxBeat;
+    kickData = constrain(kickData * 0.95, minBeat, maxBeat);
+  } else kickData = 1.0 ;
+  //
+  return kickData ;
+}
+
+float getSnare(boolean snare) {
+  if (snare) {
+    if ( beatFrequency.isSnare() )  snareData = maxBeat;
+    snareData = constrain(snareData * 0.95, minBeat, maxBeat);
+  } else snareData = 1.0 ;
+  //
+  return snareData ;
+}
+
+float getHat(boolean hat) {
+  if (hat) {
+    if ( beatFrequency.isHat() )  hatData = maxBeat;
+    hatData = constrain(hatData * 0.95, minBeat, maxBeat);
+  } else hatData = 1.0 ;
+  //
+  return hatData ;
+}
+//END BEAT
+/////////
+
+
+
+
+
+
+
+///////
+//TEMPO
+float tempoMin = 0.01 ;
+float tempoMax = 1.0 ;
+int maxSpecific = 1 ;
+
+// float tempoBeat = 0.005 ;
+float mesure ; 
+boolean refresh = false ;
+
+//Direct Specific Analyze
+//GLOBAL
+
+float tempoBeatRef = 1 ;
+float tempoKickRef = 1 ; 
+float tempoSnareRef = 1 ; 
+float tempoHatRef = 1 ; // for Beat, Kick, Snare, Hat
+float tempoB, tempoK,  tempoS,  tempoH  ;
+float tempoBeatAdd  = 0.005 ;
+float tempoKickAdd  = 0.005 ;
+float tempoSnareAdd = 0.005 ;
+float tempoHatAdd   = 0.005 ;
+//RETURN
+
+
+
+//INITIALIZATION
+
+void initTempo() {
+  // this weird float who's not used must be here, we must work around !
+  float init = getTempoBeat() + getTempoKick()  + getTempoHat() + getTempoSnare() ;
+}
+
+
+//return global tempo
+float getTempoRef() {
+  // I remove the snare because is very bad information and slow down the the speed
+  float tempoRef = 1 - (getTempoBeatRef() + getTempoKickRef()  + getTempoHatRef() ) *.33 ;
+  return tempoRef ;
+}
+//get tempo
+float getTempo() {
+  // I remove the snare because is very bad information and slow down the the speed
+  float tempo = (getTempoBeat() + getTempoKick()  + getTempoHat() ) *.33 ;
+  return tempo ;
+}
+// return direct BEAT
+float getTempoBeat() {
+  if ( beatEnergy.isOnset()  ) {
+    if( tempoB != 0 ) tempoBeatRef = tempoB ;
+    tempoB = 0 ; 
+  } else {
+    tempoB += tempoBeatAdd  ;
+  }
+  return tempoB ;
+}
+float getTempoBeatRef() {
+  if (tempoBeatRef > maxSpecific || getTotalSpectrum(NUM_BANDS) < 0.03  ) tempoBeatRef = maxSpecific  ; 
+  return  tempoBeatRef ;
+}
+
+
+// return direct KICK
+float getTempoKick() {
+  if ( beatFrequency.isKick()  ) {
+    if( tempoK != 0 ) tempoKickRef = tempoK ;
+    tempoK = 0 ; 
+  } else {
+    tempoK += tempoKickAdd  ;
+  }
+  return tempoK ;
+}
+float getTempoKickRef() {
+  if (tempoKickRef > maxSpecific || getTotalSpectrum(NUM_BANDS) < 0.03  ) tempoKickRef = maxSpecific  ; 
+  return  tempoKickRef ;
+}
+
+// return direct SNARE
+float getTempoSnare() {
+  if ( beatFrequency.isSnare()  ) {
+    if( tempoS != 0 ) tempoSnareRef = tempoS ;
+    tempoS = 0 ; 
+  } else {
+    tempoS += tempoSnareAdd  ;
+  }
+  return tempoS ;
+}
+float getTempoSnareRef() {
+  if (tempoSnareRef > maxSpecific || getTotalSpectrum(NUM_BANDS) < 0.03  ) tempoSnareRef = maxSpecific  ; 
+  return  tempoSnareRef ;
+}
+
+// return direct Hat
+float getTempoHat() {
+  if ( beatFrequency.isHat()  ) {
+    if( tempoH != 0 ) tempoHatRef = tempoH ;
+    tempoH = 0 ; 
+  } else {
+    tempoH += tempoHatAdd  ;
+  }
+  return tempoH ;
+}
+float getTempoHatRef() {
+  if (tempoHatRef > maxSpecific || getTotalSpectrum(NUM_BANDS) < 0.03  ) tempoHatRef = maxSpecific  ; 
+  return  tempoHatRef ;
+}
+
+
+
+
+//Average Analyze
+//GLOBAL
+float tempoAverage, tempoAverageRef  ;
+float tempoBeatAverage = 0.05 ;
+//RETURN
+float tempoAverageRef() {
+  //regulation du tempo
+  if ( mesure == 0 && !refresh ) {
+    tempoAverageRef = tempoAverage()  ;
+    tempoAverage = 0.01 ;
+    refresh = true ;
+  }
+  if ( mesure != 0 ) refresh = false ;
+  
+  return tempoAverageRef ;
+}
+
+
+float tempoAverage() {
+  mesure = second()%2 ;
+  
+  if ( beatEnergy.isOnset() || beatFrequency.isKick() || beatFrequency.isSnare() || beatFrequency.isHat()  )  tempoAverage += tempoBeatAverage  ;
+  if ( tempoAverage > 1.0 ) tempoAverage = 1.0 ;
+  
+  //regulation du tempo
+  if ( mesure == 0 && !refresh ) {
+    tempoAverageRef = tempoAverage  ;
+    tempoAverage = 0.01 ;
+    refresh = true ;
+  }
+  
+  if ( mesure != 0 ) refresh = false ;
+  
+  return tempoAverage ;
+}
+
+//END TEMPO
+//////////
+
+
+//TIME TRACK
+////////////
+//GLOBAL
+int time_track_elapse  ;
+void time_track() {
+  if(getTimeTrack() > .2 ) SOUND_PLAY = true ; else SOUND_PLAY = false ;
+}
+//RETURN
+float getTimeTrack() {
+  float t ; 
+  time_track_elapse += millis() % 10 ;
+  t = time_track_elapse *.01 ;
+  if ( getTotalSpectrum(NUM_BANDS) < 0.1 ) time_track_elapse = 0 ;
+  return round( t * 10.0f ) / 10.0f; 
+}
+////////////////
+//END TIME TRACK
+
+
+//SPECTRUM
+//////////
+//SPECTRUM
+//info text band
+float [] bandSprectrum  ;
+//SETUP
+void spectrumSetup(int n) {
+  //spectrum
+  bandSprectrum = new float [n] ;
+  fft = new FFT(input.bufferSize(), input.sampleRate());
+  fft.linAverages(n);
+}
+
+//DRAW
+//just create spectrum
+void spectrum(AudioBuffer fftData, int n) {
+  fft.forward(fftData) ;
+  for(int i = 0; i < n ; i++)
+  {
+    fft.scaleBand(i, 0.5 ) ;
+    bandSprectrum[i] = fft.getBand(i) ;
+  }
+}
+
+//ANNEXE VOID
+float getTotalSpectrum(int NUM_BANDS) {
+  float t = 0 ;
+  if (bandSprectrum != null ) {
+   for ( int i = 0 ; i < NUM_BANDS ; i++ ) {
+     //  if(bandSprectrum[i] != null ) t += bandSprectrum[i] ;
+      t += bandSprectrum[i] ;
+    }
+  }
+  return t ;
+}
+//END SPECTRUM
+//////////////
+
+
+
+
+
+//CLASS to use the beat analyze
+class BeatListener implements AudioListener {
+  private BeatDetect beatFrequency;
+  private AudioInput source;
+  
+  BeatListener(BeatDetect beatFrequency, AudioInput source) {
+    this.source = source;
+    this.source.addListener(this);
+    this.beatFrequency = beatFrequency;
+  }
+  
+  void samples(float[] samps) {
+    beatFrequency.detect(source.mix);
+  }
+  
+  void samples(float[] sampsL, float[] sampsR) {
+    beatFrequency.detect(source.mix);
+  }
+}
+
+
+
+//END MINIM
+void stop() {
+  input.close() ;
+  minim.stop() ;
+  super.stop() ;
+}
+
+/**
+
+SOUND END
+*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/**
+
+CAMERA COMPUTER 1.0.0
+
+*/
+Capture cam;
+String[] cameras ;
+String[] cam_name ;
+PVector[] cam_size ;
+int[] cam_fps ;
+int which_cam = 0;
+int ref_cam = -1 ;
+PVector CAM_SIZE ;
+boolean CAMERA_AVAILABLE ;
+
+boolean new_cam = true ;
+boolean stop_cam = false ;
+boolean init_cam = false ;
+
+
+
+// Main method camera
+void camera_video_setup() {
+  list_cameras() ;
+  if(new_cam && which_cam > -1) launch_camera(which_cam) ;
+}
+
+void camera_video_draw() {
+  if(ref_cam != which_cam || which_cam == -1) {
+    new_cam = true ;
+    camera_stop() ;
+    ref_cam = which_cam ;
+    if (new_cam && which_cam > -1 ) launch_camera(which_cam) ;
+    if (cam.available()) cam.read();
+  }
+}
+
+
+
+
+
+// annexe methode camera
+void launch_camera(int which_cam) {
+  if(CAMERA_AVAILABLE) {
+    // if(FULL_RENDERING) which_cam = 0 ; else which_cam = 7 ; // 4 is normal camera around 800x600 or 640x360 with 30 fps
+    if(!init_cam) {
+      init_camera(which_cam) ;
+      init_cam = true ;
+    }
+    CAM_SIZE = cam_size[which_cam].copy() ;
+    // surface.setSize((int)cam_size[which_cam].x, (int)cam_size[which_cam].y) ;
+    new_cam = false ;
+
+  }
+}
+
+void camera_stop() {
+  cam.stop() ;
+  init_cam = false ;
+}
+
+
+
+
+void init_camera(int which_camra) {
+  cam = new Capture(this, cameras[which_camra]);
+  cam.start();     
+  cam.read(); 
+
+}
+
+
+void list_cameras() {
+  cameras = Capture.list();
+  cam_name = new String[cameras.length] ;
+  cam_size = new PVector[cameras.length] ;
+  cam_fps = new int[cameras.length] ;
+  
+  // about the camera
+  if (cameras.length != 0) {
+    CAMERA_AVAILABLE = true ;
+    for(int i = 0 ; i < cameras.length ; i++) {
+      String cam_data [] = split(cameras[i],",") ;
+      // camera name
+      cam_name[i] = cam_data [0].substring(5,cam_data[0].length()) ;
+      // size camera
+      String size = cam_data [1].substring(5,cam_data[1].length()) ;
+      String [] sizeXY = split(size,"x") ;
+      cam_size[i] = new PVector(Integer.parseInt(sizeXY[0]), Integer.parseInt(sizeXY[1])) ;  // Integer.parseInt("1234");
+      // fps
+      String fps = cam_data [2].substring(4,cam_data[2].length()) ;
+      cam_fps[i] = Integer.parseInt(fps) ;
+    }
+  } else {
+    CAMERA_AVAILABLE = false ;
+  }
+}
+/**
+END COMPUTER CAMERA
+*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/**
+
+Color 1.0.1
+
+*/
+//COLOR for internal use
+color fond ;
+color rouge, orange, jaune, vert, bleu, noir, blanc, gris  ;
+
+void color_setup() {
+  rouge = color(10,100,100);
+  orange = color(25,100,100);
+  jaune = color(50,100,100) ;
+  vert = color(150,100,100);
+  bleu = color(235,100,100);
+  noir = color(10,100,0);
+  gris = color(10,50,50);
+  blanc = color(0,0,100);
+}
+
+//ROLLOVER TEXT ON BACKGROUNG CHANGE
+color colorW ;
+//
+color colorWrite(color colorRef, int threshold, color clear, color deep) {
+  if( brightness( colorRef ) < threshold ) {
+    colorW = color(clear) ;
+  } else {
+    colorW = color(deep) ;
+  }
+  return colorW ;
+}
+
+
+
+
+
+
+
+////////////////////
+// Void antiBugBlack
+void antiBugFillBlack(color c) {
+      if (alpha(c) == 0 ) {
+    noFill() ; 
+    noStroke() ; 
+  } else {     
+    fill (c) ; 
+  }
+}
+
+
+// activate the fill, stroke and set the the strokeWeight
+void appearance(color colorFill, color colorStroke, float thickness) {
+  //check the color
+  if(alpha(colorFill) <=0)  noFill() ; else fill(colorFill) ;
+  
+  if(alpha(colorStroke) <=0) noStroke() ;
+  else {
+    stroke(colorStroke) ;
+    strokeWeight(thickness) ;
+  }
+}
+  
+
+  
+// PALETTE COLOR
+//GLOBAL
+//Range of each component HSB to change the color palette of image
+//HUE
+int [] hueStart  ;
+int [] hueEnd  ;
+int [] huePalette, huePaletteRef ;
+
+//SATURATION
+int [] satStart  ;
+int [] satEnd  ;
+int [] satPalette, satPaletteRef ;
+//BRIGHTNESS
+int [] brightStart  ;
+int [] brightEnd  ;
+int [] brightPalette, brightPaletteRef ;
+
+
+//DRAW OR SETUP
+//MAKE PALETTE
+// random hue Palette
+void paletteRandom(PVector n, Vec4 spectrum) {
+  huePalette = new int [(int)n.x] ;
+  huePaletteRef = new int [(int)n.x] ;
+  for (int i = 0 ; i < (int)n.x ; i++) huePalette [i] = huePaletteRef [i] = (int)random(spectrum.x) ;
+  huePalette = sort(huePalette) ;
+  huePaletteRef = sort(huePaletteRef) ;
+  //calcul of the value range of each color on color wheel
+  hueSpectrumPalette(huePalette, (int)spectrum.x) ;
+  
+  //saturation
+  satPalette = new int [(int)n.y] ;
+  satPaletteRef = new int [(int)n.y] ;
+  for (int i = 0 ; i < (int)n.y ; i++) satPalette [i] = satPaletteRef [i] = (int)random(spectrum.y) ;
+  satPalette = sort(satPalette) ;
+  satPaletteRef = sort(satPaletteRef) ;
+  //calcul of the value range of each color on color wheel
+  satSpectrumPalette(satPalette, (int)spectrum.y) ;
+  
+  //brightness
+  brightPalette = new int [(int)n.z] ;
+  brightPaletteRef = new int [(int)n.z] ;
+  for (int i = 0 ; i < (int)n.z ; i++) brightPalette [i] = brightPaletteRef [i] = (int)random(spectrum.z) ;
+  brightPalette = sort(brightPalette) ;
+  brightPaletteRef = sort(brightPaletteRef) ;
+  //calcul of the value range of each color on color wheel
+  brightSpectrumPalette(brightPalette, (int)spectrum.z) ;
+  
+}
+
+//palette with color from you !!!!
+void paletteClassic(int [] hueList, int[] satList, int[] brightList, PVector spectrum) {
+  huePalette = new int [hueList.length] ;
+  huePaletteRef = new int [hueList.length] ;
+  for (int i = 0 ; i < hueList.length ; i++) huePalette [i] = huePaletteRef [i] = hueList[i] ;
+  huePalette = sort(huePalette) ;
+  huePaletteRef = sort(huePaletteRef) ;
+  //calcul of the value range of each color on color wheel
+  hueSpectrumPalette(huePalette, (int)spectrum.x) ;
+  
+  //saturation
+  satPalette = new int [satList.length] ;
+  satPaletteRef = new int [satList.length] ;
+  for (int i = 0 ; i < satList.length ; i++) satPalette [i] = satPaletteRef [i] = satList[i] ;
+  satPalette = sort(satPalette) ;
+  satPaletteRef = sort(satPaletteRef) ;
+  //calcul of the value range of each color on color wheel
+  satSpectrumPalette(satPalette, (int)spectrum.y) ;
+  
+  //brightness
+  brightPalette = new int [brightList.length] ;
+  brightPaletteRef = new int [brightList.length] ;
+  for (int i = 0 ; i < brightList.length ; i++) brightPalette [i] = brightPaletteRef [i] = brightList [i];
+  brightPalette = sort(brightPalette) ;
+  brightPaletteRef = sort(brightPaletteRef) ;
+  //calcul of the value range of each color on color wheel
+  brightSpectrumPalette(brightPalette, (int)spectrum.z) ;
+  
+}
+
+
+
+
+
+//ANNEXE VOID
+
+//for the live modification
+//HSB void
+void paletteHSB(PVector hueVar, PVector satVar, PVector brightVar) {
+ paletteHue(hueVar ) ;
+ paletteSat(satVar ) ;
+ paletteBright(brightVar ) ;
+}
+
+//hue void
+void paletteHue(PVector hueInfo )  {
+  float cycle = cycle(hueInfo.y) ;
+  float factor = map(cycle, -1,1, hueInfo.z,1) ;
+  for ( int i = 0 ; i < huePalette.length ; i++ ) {
+     huePalette [i] = int(hueInfo.x + (factor * (huePaletteRef [i] - hueInfo.x))) ;
+  }
+  hueSpectrumPalette(huePalette, (int)HSBmode.x) ;
+}
+
+//saturation void
+void paletteSat(PVector satInfo )  {
+  float cycle = cycle(satInfo.y) ;
+  float factor = map(cycle, -1,1, satInfo.z,1) ;
+  for ( int i = 0 ; i < satPalette.length ; i++ ) {
+     satPalette [i] = int(satInfo.x + (factor * (satPaletteRef [i] - satInfo.x))) ;
+  }
+  satSpectrumPalette(satPalette, (int)HSBmode.y) ;
+}
+
+//brightness void
+void paletteBright(PVector brightInfo )  {
+  float cycle = cycle(brightInfo.y) ;
+  float factor = map(cycle, -1,1, brightInfo.z,1) ;
+  for ( int i = 0 ; i < brightPalette.length ; i++ ) {
+     brightPalette [i] = int(brightInfo.x + (factor * (brightPaletteRef [i] - brightInfo.x))) ;
+  }
+  brightSpectrumPalette(brightPalette, (int)HSBmode.z) ;
+}
+
+
+
+
+
+
+//hue Spectrum
+void hueSpectrumPalette(int [] hueP, int sizeSpectrum) {  
+  if( hueP.length > 0 ) {
+    int max = hueP.length  ;
+    hueStart = new int [max] ;
+    hueEnd = new int [max] ;
+    int [] zoneLeftHue = new int [max] ;
+    int [] zoneRightHue = new int [max] ;
+    int [] zoneHue = new int [max] ;
+  
+    
+    // int total = 0 ;
+    if(max >1 ) {
+      for ( int i = 0 ; i < max ; i++ ) {
+        if ( i == 0 ) {
+          zoneLeftHue[i] = (hueP[i] + sizeSpectrum - hueP[max -1 ]  ) /2  ;
+          zoneRightHue[i] = (hueP[i+1] - hueP[i] ) / 2 ;
+          
+          if (hueP[i] < zoneLeftHue[i] ) hueStart[i] = sizeSpectrum - ( zoneLeftHue[i] - hueP[i]) ; else hueStart[i] = hueP[i] - zoneLeftHue[i] ;
+          hueEnd[i] = hueP[i] + zoneRightHue[i] ;
+          
+          zoneHue[i] = zoneLeftHue[i] + zoneRightHue[i] ;
+          
+        } else if ( i > 0 && i < max-1 ) {
+          zoneLeftHue[i] = (hueP[i] - hueP[i-1]  ) / 2  ;
+          zoneRightHue[i] = (hueP[i+1] - hueP[i] ) / 2 ;
+          
+          hueStart[i] = hueP[i] - zoneLeftHue[i] ;
+          hueEnd[i] = hueP[i] + zoneRightHue[i] ;
+          
+          zoneHue[i] = zoneLeftHue[i] + zoneRightHue[i] ;
+          
+        } else if ( i == max -1 ) { 
+          zoneLeftHue[i] = (hueP[i] - hueP[i-1]  ) / 2  ;
+          zoneRightHue[i] = (sizeSpectrum - hueP[max -1] + hueP[0] ) / 2 ;
+          
+          hueStart[i] = hueP[i] - zoneLeftHue[i] ;
+          if( hueP[i] + zoneRightHue[i] > sizeSpectrum ) hueEnd[i] = (hueP[i] + zoneRightHue[i]) -sizeSpectrum ; else hueEnd[i] = hueP[i] + zoneRightHue[i] ;
+          
+          zoneHue[i] = zoneLeftHue[i] + zoneRightHue[i] ;
+        }
+      }
+    } else {
+      zoneLeftHue[0] = hueP[0]  ;
+      zoneRightHue[0] = sizeSpectrum - hueP[0]  ;
+      hueStart[0] = 0 ;
+      hueEnd[0] = sizeSpectrum ;
+    }
+  }
+}
+
+//saturation Spectrum
+void satSpectrumPalette(int [] satP, int sizeSpectrum) {  
+  if(satP.length > 0 ) {
+    int max = satP.length  ;
+    satStart = new int [max] ;
+    satEnd = new int [max] ;
+    int [] zoneLeftSat = new int [max] ;
+    int [] zoneRightSat = new int [max] ;
+    int [] zoneSat = new int [max] ;
+  
+    
+    //int total = 0 ;
+    if (max > 1 ) {
+      for ( int i = 0 ; i < max ; i++ ) {
+        if ( i == 0 ) {
+          zoneLeftSat[i] = (satP[i] + sizeSpectrum - satP[max -1 ]  ) /2  ;
+          zoneRightSat[i] = (satP[i+1] - satP[i] ) / 2 ;
+          
+          if (satP[i] < zoneLeftSat[i] ) satStart[i] = sizeSpectrum - ( zoneLeftSat[i] - satP[i]) ; else satStart[i] = satP[i] - zoneLeftSat[i] ;
+          satEnd[i] = satP[i] + zoneRightSat[i] ;
+          
+          zoneSat[i] = zoneLeftSat[i] + zoneRightSat[i] ;
+          
+        } else if ( i > 0 && i < max-1 ) {
+          zoneLeftSat[i] = (satP[i] - satP[i-1]  ) / 2  ;
+          zoneRightSat[i] = (satP[i+1] - satP[i] ) / 2 ;
+          
+          satStart[i] = satP[i] - zoneLeftSat[i] ;
+          satEnd[i] = satP[i] + zoneRightSat[i] ;
+          
+          zoneSat[i] = zoneLeftSat[i] + zoneRightSat[i] ;
+          
+        } else if ( i == max -1 ) { 
+          zoneLeftSat[i] = (satP[i] - satP[i-1]  ) / 2  ;
+          zoneRightSat[i] = (sizeSpectrum - satP[max -1] + satP[0] ) / 2 ;
+          
+          satStart[i] = satP[i] - zoneLeftSat[i] ;
+          if( satP[i] + zoneRightSat[i] > sizeSpectrum ) satEnd[i] = (satP[i] + zoneRightSat[i]) -sizeSpectrum ; else satEnd[i] = satP[i] + zoneRightSat[i] ;
+          
+          zoneSat[i] = zoneLeftSat[i] + zoneRightSat[i] ;
+        }
+      }
+    } else {
+      zoneLeftSat[0] = satP[0]  ;
+      zoneRightSat[0] = sizeSpectrum - satP[0]  ;
+      satStart[0] = 0 ;
+      satEnd[0] = sizeSpectrum ;
+    }
+  }
+}
+
+
+
+
+//brightness Spectrum
+void brightSpectrumPalette(int [] brightP, int sizeSpectrum) {  
+  if(brightP.length > 0 ) {
+    int max = brightP.length  ;
+    brightStart = new int [max] ;
+    brightEnd = new int [max] ;
+    int [] zoneLeftBright = new int [max] ;
+    int [] zoneRightBright = new int [max] ;
+    int [] zoneBright = new int [max] ;
+  
+    
+    //int total = 0 ;
+    if ( max > 1 ) {
+      for ( int i = 0 ; i < max ; i++ ) {
+        if ( i == 0 ) {
+          zoneLeftBright[i] = (brightP[i] + sizeSpectrum - brightP[max -1 ]  ) /2  ;
+          zoneRightBright[i] = (brightP[i+1] - brightP[i] ) / 2 ;
+          
+          if (brightP[i] < zoneLeftBright[i] ) brightStart[i] = sizeSpectrum - ( zoneLeftBright[i] - brightP[i]) ; else brightStart[i] = brightP[i] - zoneLeftBright[i] ;
+          brightEnd[i] = brightP[i] + zoneRightBright[i] ;
+          
+          zoneBright[i] = zoneLeftBright[i] + zoneRightBright[i] ;
+          
+        } else if ( i > 0 && i < max-1 ) {
+          zoneLeftBright[i] = (brightP[i] - brightP[i-1]  ) / 2  ;
+          zoneRightBright[i] = (brightP[i+1] - brightP[i] ) / 2 ;
+          
+          brightStart[i] = brightP[i] - zoneLeftBright[i] ;
+          brightEnd[i] = brightP[i] + zoneRightBright[i] ;
+          
+          zoneBright[i] = zoneLeftBright[i] + zoneRightBright[i] ;
+          
+        } else if ( i == max -1 ) { 
+          zoneLeftBright[i] = (brightP[i] - brightP[i-1]  ) / 2  ;
+          zoneRightBright[i] = (sizeSpectrum - brightP[max -1] + brightP[0] ) / 2 ;
+          
+          brightStart[i] = brightP[i] - zoneLeftBright[i] ;
+          if( brightP[i] + zoneRightBright[i] > sizeSpectrum ) brightEnd[i] = (brightP[i] + zoneRightBright[i]) -sizeSpectrum ; else brightEnd[i] = brightP[i] + zoneRightBright[i] ;
+          
+          zoneBright[i] = zoneLeftBright[i] + zoneRightBright[i] ;
+        }
+      } 
+    } else {
+      zoneLeftBright[0] = brightP[0]  ;
+      zoneRightBright[0] = sizeSpectrum - brightP[0]  ;
+      brightStart[0] = 0 ;
+      brightEnd[0] = sizeSpectrum ;
+    }
+  }
+}
+
+
+
+
+//CHANGE COLOR pixel in the list of Pixel
+void changeColorOfPixel(ArrayList listMustBeChange ) {
+  for( int i = 0 ; i<listMustBeChange.size() ; i++) {
+    Old_Pixel p = (Old_Pixel) listMustBeChange.get(i) ;
+    p.changeHue   (HSBmode, huePalette, hueStart, hueEnd) ;
+    p.changeSat   (HSBmode, satPalette, satStart, satEnd) ; 
+    p.changeBright(HSBmode, brightPalette, brightStart, brightEnd) ;
+    
+    p.updatePalette() ; 
+  }
+}
+
+
+
+//convert color HSB to RVB
+Vec3 HSB_to_RGB(float hue, float saturation, float brightness) {
+  Vec4 vecRGB = HSBa_to_RGBa(hue, saturation, brightness, g.colorModeA).copy() ;
+  return Vec3(vecRGB.x,vecRGB.y,vecRGB.z) ;
+}
+
+Vec4 HSBa_to_RGBa(float hue, float saturation, float brightness, float alpha) {
+  Vec4 previousColorMode = Vec4(g.colorModeX, g.colorModeY, g.colorModeY, g.colorModeA) ;
+  color c = color (hue, saturation, brightness, alpha);
+
+  colorMode(RGB,255) ;
+  Vec4 vecRGBa = Vec4 (red(c), green(c), blue(c), alpha(c)) ;
+  // return to the previous colorMode
+  // colorMode(HSB,HSBmode.r,HSBmode.r,HSBmode.b,HSBmode.a) ;
+  colorMode(HSB,previousColorMode.r, previousColorMode.g, previousColorMode.b, previousColorMode.a) ;
+  return vecRGBa ;
+}
+
+
+
+/**
+COLOR END
+
+*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+/**
+OSC CORE Version 1.1.1
+*/
+/////////////////////////
+// RECEIVE INFO from CONTROLLER
+////////////////////////////////
+int numOfPartSendByController = 5 ; 
+String fromController [] = new String [numOfPartSendByController] ;
+//EVENT to check what else is receive by the receiver
+
+
+
+
+
+// ANNEXE VOID of OSC RECEIVE
+
+// catch raw osc data
+void catchDataFromController(OscMessage receive) {
+  for ( int i = 0 ; i < fromController.length ; i++ ) {
+    fromController [i] = receive.get(i).stringValue() ;
+  }
+}
+
+// split data button
+void splitDataButton() {
+  //Split data from the String Data
+  valueButtonGlobal = int(split(fromController [0], '/')) ;
+  // stick the Int(String) chain from the group object "one" and "two" is single chain integer(String).
+  String fullChainValueButtonObj =("") ;
+  for ( int i = 1 ; i <= NUM_GROUP ; i++ ) {
+    fullChainValueButtonObj += fromController [i]+"/" ;
+  }
+  valueButtonObj = int(split(fullChainValueButtonObj, '/')) ;
+}
+
+// split data slider
+void splitDataSlider() {
+    //SLIDER
+  //split String value from controller
+  int numTotalGroup = NUM_GROUP +1 ;
+  for ( int i = 0 ; i < numTotalGroup ; i++ ) {
+    valueSliderTemp [i] = split(fromController [i +numTotalGroup], '/') ;
+  }
+  // translate the String value to the float var to use
+  for ( int i = 0 ; i < NUM_GROUP +1 ; i++ ) {
+    // security because there not same quantity of slider in the group MISC "zero" and OBJECT group "one and two".
+    int n = 0 ;
+    if ( i < 1 ) n = NUM_SLIDER_MISC ; else n = NUM_SLIDER_OBJ ;
+    for (int j = 0 ; j < n ; j++) {
+      valueSlider[i][j] = Float.valueOf(valueSliderTemp[i][j]) ;
+    }
+  }
+}
+
+
+// split data boolean to give load or save order
+void splitDataLoadSaveController() {
+    // LOAD SAVE
+
+  /*
+  +1 for the global group
+  *2 because there is one group for the button and an other one for the slider
+  */
+  int whichOne = (NUM_GROUP +1) *2 ;
+  String [] booleanSave  ;
+
+  booleanSave = split(fromController[whichOne], '/') ;
+  // convert string to boolean
+  load_SCENE_Setting_GLOBAL = Boolean.valueOf(booleanSave[0]).booleanValue();
+  save_Current_SCENE_Setting_GLOBAL = Boolean.valueOf(booleanSave[1]).booleanValue();
+  save_New_SCENE_Setting_GLOBAL = Boolean.valueOf(booleanSave[2]).booleanValue();
+}
+
+
+
+// TRANSFORM info from controler to use in the PRESCENE
+void translateDataFromController_buttonGlobal() {
+  // sound option on/off
+  if(valueButtonGlobal[1] == 1 ) onOffBeat = true ; else onOffBeat = false ;
+  if(valueButtonGlobal[2] == 1 ) onOffKick = true ; else onOffKick = false ;
+  if(valueButtonGlobal[3] == 1 ) onOffSnare = true ; else onOffSnare = false ;
+  if(valueButtonGlobal[4] == 1 ) onOffHat = true ; else onOffHat = false ;
+  // backgound option on/off
+  if(valueButtonGlobal[6] == 1 ) onOffCurtain = true ; else onOffCurtain = false ;
+  if(valueButtonGlobal[7] == 1 ) onOffBackground = true ; else onOffBackground = false ;
+  // light on/off
+  if(valueButtonGlobal[8] == 1 ) onOffDirLightOne = true ; else onOffDirLightOne = false ;
+  if(valueButtonGlobal[9] == 1 ) onOffDirLightTwo = true ; else onOffDirLightTwo = false ;
+  if(valueButtonGlobal[10] == 1 ) onOffLightAmbient = true ; else onOffLightAmbient = false ;
+  // light move light on/off
+  if(valueButtonGlobal[11] == 1 ) onOffDirLightOneAction = true ; else onOffDirLightOneAction = false ;
+  if(valueButtonGlobal[12] == 1 ) onOffDirLightTwoAction = true ; else onOffDirLightTwoAction = false ;
+  if(valueButtonGlobal[13] == 1 ) onOffLightAmbientAction = true ; else onOffLightAmbientAction = false ;
+  
+  // list choice
+   whichShader = valueButtonGlobal[14] ;
+  choiceFont(valueButtonGlobal[5]) ;
+  which_bitmap[0] = valueButtonGlobal[15] ;
+  which_svg[0] = valueButtonGlobal[16] ;
+  which_text[0] = valueButtonGlobal[17] ;
+  which_movie[0] = valueButtonGlobal[18] ;
+  which_cam = valueButtonGlobal[19] ;
+}
+void translateDataFromController_buttonItem() {
+  for ( int i = 0 ; i < NUM_ITEM -1 ; i++) {
+    int iPlusOne = i+1 ;
+    objectButton   [iPlusOne] = valueButtonObj[i *10 +1] ;
+    parameterButton[iPlusOne] = valueButtonObj[i *10 +2] ;
+    soundButton    [iPlusOne] = valueButtonObj[i *10 +3] ;
+    actionButton   [iPlusOne] = valueButtonObj[i *10 +4] ;
+    mode     [iPlusOne] = valueButtonObj[i *10 +9] ;
+    if (objectButton[iPlusOne] == 1 ) show_object[iPlusOne] = true ; else show_object[iPlusOne] = false ;
+    if (parameterButton[iPlusOne] == 1 ) parameter[iPlusOne] = true ; else parameter[iPlusOne] = false ;
+    if (soundButton[iPlusOne] == 1 ) sound[iPlusOne] = true ; else sound[iPlusOne] = false ;
+    if (actionButton[iPlusOne] == 1 ) action[iPlusOne] = true ; else action[iPlusOne] = false ;
+  }
+}
+
+
+/**
+OSC CORE END
+
+*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//////
+//END
