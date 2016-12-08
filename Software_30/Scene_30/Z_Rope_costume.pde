@@ -1,5 +1,5 @@
 /**
-RPE Costume 0.4.0 – 2016-2016
+Rope Costume 0.4.1.1 – 2016-2016
 * @author Stan le Punk
 * @see https://github.com/StanLepunK/Costume_rope
 */
@@ -27,6 +27,22 @@ final int SPHERE_MEDIUM_ROPE = 101 ;
 final int SPHERE_HIGH_ROPE = 102 ;
 final int TETRAHEDRON_ROPE = 103 ;
 final int BOX_ROPE = 104 ;
+
+
+final int STAR_4_ROPE = 504 ;
+final int STAR_5_ROPE = 505 ;
+final int STAR_6_ROPE = 506 ;
+final int STAR_7_ROPE = 507 ;
+final int STAR_8_ROPE = 508 ;
+final int STAR_9_ROPE = 509 ;
+final int STAR_10_ROPE = 510 ;
+final int STAR_11_ROPE = 511 ;
+final int STAR_12_ROPE = 512 ;
+
+final int SUPER_STAR_8_ROPE = 608 ;
+final int SUPER_STAR_12_ROPE = 612 ;
+
+
 
 final int TETRAHEDRON_LINE_ROPE = 1001 ;
 final int CUBE_LINE_ROPE = 1002 ;
@@ -116,11 +132,26 @@ void costume_list() {
 		costume_dict.add("TETRAHEDRON_ROPE", TETRAHEDRON_ROPE, 3, 0) ;
 		costume_dict.add("BOX_ROPE", BOX_ROPE, 3, 0) ;
 
-		costume_dict.add("TETRAHEDRON_LINE_ROPE", TETRAHEDRON_LINE_ROPE, 3, 3) ;
-		costume_dict.add("CUBE_LINE_ROPE", CUBE_LINE_ROPE, 3, 3) ;
-		costume_dict.add("OCTOHEDRON_LINE_ROPE", OCTOHEDRON_LINE_ROPE, 3, 3) ;
-		costume_dict.add("RHOMBIC_COSI_DODECAHEDRON_SMALL_LINE_ROPE", RHOMBIC_COSI_DODECAHEDRON_SMALL_LINE_ROPE, 3, 3) ;
-		costume_dict.add("ICOSI_DODECAHEDRON_LINE_ROPE", ICOSI_DODECAHEDRON_LINE_ROPE, 3, 3) ;
+
+		costume_dict.add("SPHERE_LOW_ROPE", SPHERE_LOW_ROPE, 3, 0) ;
+		costume_dict.add("SPHERE_MEDIUM_ROPE", SPHERE_MEDIUM_ROPE, 3, 0) ;
+		costume_dict.add("SPHERE_HIGH_ROPE", SPHERE_HIGH_ROPE, 3, 0) ;
+		costume_dict.add("TETRAHEDRON_ROPE", TETRAHEDRON_ROPE, 3, 0) ;
+		costume_dict.add("BOX_ROPE", BOX_ROPE, 3, 0) ;
+
+		costume_dict.add("STAR_4_ROPE", STAR_4_ROPE, 2, 3) ;
+		costume_dict.add("STAR_5_ROPE", STAR_5_ROPE, 2, 3) ;
+		costume_dict.add("STAR_6_ROPE", STAR_6_ROPE, 2, 3) ;
+		costume_dict.add("STAR_7_ROPE", STAR_7_ROPE, 2, 3) ;
+		costume_dict.add("STAR_8_ROPE", STAR_8_ROPE, 2, 3) ;
+		costume_dict.add("STAR_9_ROPE", STAR_9_ROPE, 2, 3) ;
+		costume_dict.add("STAR_10_ROPE", STAR_10_ROPE, 2, 3) ;
+		costume_dict.add("STAR_11_ROPE", STAR_11_ROPE, 2, 3) ;
+		costume_dict.add("STAR_12_ROPE", STAR_12_ROPE, 2, 3) ;
+
+		costume_dict.add("SUPER_STAR_8_ROPE", SUPER_STAR_8_ROPE, 2, 3) ;
+		costume_dict.add("SUPER_STAR_12_ROPE", SUPER_STAR_12_ROPE, 2, 3) ;
+
 
     costume_dict.add("VIRUS_2_2_0_ROPE", VIRUS_2_2_0_ROPE, 3, 0) ;
 		costume_dict.add("VIRUS_2_2_1_ROPE", VIRUS_2_2_1_ROPE, 3, 0) ;
@@ -564,9 +595,46 @@ void costume_rope(Vec3 pos, Vec3 size, float angle, Vec dir, int which_costume) 
 		stop_matrix() ;
 	} 
 
+	else if (which_costume == STAR_4_ROPE) {
+		float [] ratio = {.38} ;
+		star(pos, size, 4, angle, ratio) ;
+	}  else if (which_costume == STAR_5_ROPE) {
+		float [] ratio = {.38} ;
+		star(pos, size, 5, angle, ratio) ;
+	} else if (which_costume == STAR_6_ROPE) {
+		float [] ratio = {.38} ;
+		star(pos, size, 6, angle, ratio) ;
+	} else if (which_costume == STAR_7_ROPE) {
+		float [] ratio = {.38} ;
+		star(pos, size, 7, angle, ratio) ;
+	} else if (which_costume == STAR_8_ROPE) {
+		float [] ratio = {.38} ;
+		star(pos, size, 8, angle, ratio) ;
+	} else if (which_costume == STAR_9_ROPE) {
+		float [] ratio = {.38} ;
+		star(pos, size, 9, angle, ratio) ;
+	} else if (which_costume == STAR_10_ROPE) {
+		float [] ratio = {.38} ;
+		star(pos, size, 10, angle, ratio) ;
+	} else if (which_costume == STAR_11_ROPE) {
+		float [] ratio = {.38} ;
+		star(pos, size, 11, angle, ratio) ;
+	} else if (which_costume == STAR_12_ROPE) {
+		float [] ratio = {.38} ;
+		star(pos, size, 12, angle, ratio) ;
+	} 
 
 
-		else if (which_costume == TETRAHEDRON_LINE_ROPE) {
+
+	else if (which_costume == SUPER_STAR_8_ROPE) {
+		star(pos, size, 8, angle, 2., .5, 1., .5) ;
+	} else if (which_costume == SUPER_STAR_12_ROPE) {
+		star(pos, size, 12, angle, 2., .5, 1., .5, 1., .5) ;
+	}
+
+
+
+	else if (which_costume == TETRAHEDRON_LINE_ROPE) {
 		start_matrix() ;
 		translate(pos) ;
 		if(angle != .0) rotate(angle) ;
@@ -740,9 +808,122 @@ void costume_rope(Vec3 pos, Vec3 size, float angle, Vec dir, int which_costume) 
 
 
 /**
+
+
 ANNEXE COSTUME
+
+SHAPE CATALOGUE
+
+
 */
-// CROSS
+/**
+STAR
+*/
+
+void star(Vec position, int size_XY, int summits) {
+	float [] ratio = new float[1]; 
+	ratio[0] = .38 ;
+	float angle = 0 ;
+	Vec2 size = Vec2(size_XY, size_XY) ;
+	star(position, size, summits, angle, ratio) ;
+}
+
+void star(Vec position, int size_XY, int summits, float... data) {
+	float angle = data[0] ;
+	float [] ratio = new float[data.length -1] ;
+	ratio[0] = .38 ;
+	if(data.length > 1) {
+		for( int i = 0 ; i < ratio.length ; i++) {
+			ratio[i] = data[i+1] ;
+		}
+	}
+	Vec2 size = Vec2(size_XY, size_XY) ;
+	star(position, size, summits, angle, ratio) ;
+}
+
+
+
+void star(Vec position, Vec size, int summits) {
+		float [] ratio = new float[1];
+	ratio[0] = .38 ;
+	float angle = 0 ;
+	star(position, size, summits, angle, ratio) ;
+}
+
+
+void star(Vec position, Vec size, int summits, float... data) {
+	float angle = data[0] ;
+	float [] ratio = new float[data.length -1] ;
+	ratio[0] = .38 ;
+	if(data.length > 1) {
+		for( int i = 0 ; i < ratio.length ; i++) {
+			ratio[i] = data[i+1] ;
+		}
+	}
+	star(position, size, summits, angle, ratio) ;
+}
+
+
+void star(Vec position, Vec size_raw, int summits, float angle, float[] ratio) {
+	Vec3 pos = Vec3(0) ;
+	Vec3 size = Vec3(1) ;
+	if(position instanceof Vec2) {
+		Vec2 p = (Vec2) position ;
+		pos.set(p.x, p.y, 0) ;
+	} else if(position instanceof Vec3) {
+		Vec3 p = (Vec3) position ;
+		pos.set(p) ;
+	}
+
+	if(size_raw instanceof Vec2) {
+		Vec2 s = (Vec2) size_raw ;
+		size.set(s.x, s.y, 1) ;
+	} else if(size_raw instanceof Vec3) {
+		Vec3 s = (Vec3) size_raw ;
+		size.set(s.x, s.y, 1) ;
+	}
+
+
+
+	if(pos.z != 0) {
+		start_matrix() ;
+		translate(0,0,pos.z) ;
+	}
+
+	Vec3 [] p = polygon_2D(summits *2, angle) ;
+	int count_ratio = 0 ;
+	
+	for(int i = 0 ; i < p.length ; i++) {
+		// make a star, change the interior radius
+		if(ratio.length <= 1 ) {
+			if(i%2 != 0) p[i].mult(ratio[0]) ;
+		} else {
+			if(i%(ratio.length) == 0) {
+				count_ratio = 0 ;
+
+			}
+			p[i].mult(ratio[count_ratio]) ;
+			count_ratio ++ ;
+		}
+		p[i].mult(size) ;
+		p[i].add(pos) ;
+	}
+	// draww star
+	beginShape() ;
+	for(int i = 0 ; i < p.length ; i++) {
+		vertex(p[i]) ;
+	}
+	endShape(CLOSE) ;
+
+	if(pos.z != 0) {
+		stop_matrix() ;
+	}
+}
+
+
+/**
+CROSS
+*/
 void cross_2(Vec3 size) {
 	float ratio_cross = .3 ;
 	float scale_cross = (size.x + size.y + size.z) *.3 ;

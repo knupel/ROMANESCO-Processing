@@ -1,5 +1,5 @@
 /**
-GENETIC 0.5.0
+GENETIC 0.5.0.1
 * @author Stan le Punk
 * @see https://github.com/StanLepunK/Digital-Life-Processing/tree/master/GENETIC_SYSTEM
 */
@@ -8,7 +8,7 @@ GENETIC 0.5.0
 
 
 /**
-DNA display shape 0.0.3
+DNA display shape 0.0.4
 */
 class Helix_DNA {
   Strand_DNA [] strand ;
@@ -34,6 +34,7 @@ class Helix_DNA {
     this.num_nucleotide = num_nucleotide ;
     this.num_strand = num_strand ;
     this.level = (int) num_nucleotide / nucleotide_by_revolution ;
+    if(level < 1) level = 1 ;
     strand = new Strand_DNA [num_strand] ;
     float start_angle = 0 ;
     float angle = TAU / num_strand ;

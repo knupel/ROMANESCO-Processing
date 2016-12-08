@@ -1,31 +1,17 @@
 /**
 Ecosysteme || 2016 || 0.0.6
 */
-
-interface RULES_ECOSYSTEME {
-  float CLOCK = 1.5 ;
-  int TIME_TO_BE_CARRION = 10 ;
-}
-
-
-
-
 class Ecosysteme extends Romanesco {
   public Ecosysteme() {
     RPE_name = "Ecosysteme" ;
     ID_item = 26 ;
     ID_group = 1 ;
     RPE_author  = "Stan le Punk";
-    RPE_version = "Version 0.0.5";
+    RPE_version = "Version 0.0.6";
     RPE_pack = "Base" ;
-    RPE_mode = "Tetra/Face/Line/Info" ; // separate the differentes mode by "/"
+    RPE_mode = "Shape/DNA" ; // separate the differentes mode by "/"
     RPE_slider = "Fill hue,Fill sat,Fill bright,Fill alpha,Stroke hue,Stroke sat,Stroke bright,Stroke alpha,Thickness,Size X,Canvas X,Canvas Y,Canvas Z,Speed X,Quantity,Scope,Life" ;
   }
-
-
-
-
-
 
 
   void setup() {
@@ -34,14 +20,25 @@ class Ecosysteme extends Romanesco {
     load_nucleotide_table("preferences/ecosystem/code.csv") ;
     set_environment() ;
     set_horizon(true) ;
-    create_decorum() ; 
   }
 
-
+  int mode_ref = 0 ;
 
   void draw() {
+    speed_rotation_dna = speed_x_item[ID_item] *speed_x_item[ID_item];
+    if(reverse[ID_item]) direction_dna = 1 ; else direction_dna = -1 ;
+    if(motion[ID_item]) rotation_bool_dna = true ; else rotation_bool_dna = false ;
+    if(FULL_RENDERING) if(kTouch && parameter[ID_item]) info_agent = true ; else info_agent = false ;
+
+
+
+    if(mode[ID_item] != mode_ref) {
+      mode_ref = mode[ID_item] ;
+      init_ecosystem() ;
+    }
+
     if(init_ecosystem) {
-      ecosystem_setting(biomass) ;
+      ecosystem_setting(biomass, mode_ref) ;
       init_ecosystem = false ;
       first_save = true ;
     }
@@ -49,9 +46,12 @@ class Ecosysteme extends Romanesco {
     update_list() ;
     info_agent(info_agent) ;
 
-    update_flora_position_from_adn() ;
+    if(mode[ID_item] == 1) {
+      update_flora_position_from_adn() ;
+      show_decorum(speed_rotation_dna, direction_dna, ELLIPSE_ROPE, info_agent) ;
+    }
     show_agent() ;
-    show_decorum(speed_rotation_dna, direction_dna, info_agent) ;
+    
 
   }
 
@@ -62,6 +62,25 @@ class Ecosysteme extends Romanesco {
   int direction_dna = 1 ;
   float speed_rotation_dna = .01 ;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -96,11 +115,11 @@ ArrayList<Agent> CARNIVORE_MALE_LIST = new ArrayList<Agent>() ;
 ArrayList<Dead> DEAD_LIST = new ArrayList<Dead>() ;
 
 // QUANTITY
-int num_flora = 60 ;
-int num_herbivore = 100 ; 
+int num_flora = 0 ;
+int num_herbivore = 0 ; 
 int num_omnivore = 0 ; 
-int num_carnivore = 10 ; 
-int num_bacterium = 10 ;
+int num_carnivore = 0 ; 
+int num_bacterium = 0 ;
 int num_dead = 0 ;
 
 // Colour
@@ -122,8 +141,13 @@ Info_dict dead_carac = new Info_dict() ;
 
 
 // main method
-void ecosystem_setting(Biomass b) {
+void ecosystem_setting(Biomass b, int mode) {
   clear_agent() ;
+  // order of quantity for set_num_agents(int... num)"  ;
+  // num_flora / num_herbivore / num_omnivore / num_carnivore / num_bacterium / num_dead  ;
+  int div_pop = 1 ;
+  if(!FULL_RENDERING) div_pop= 10 ;
+  set_num_agents(40 /div_pop, 80/div_pop, 10/div_pop, 10/div_pop, 10/div_pop, 0/div_pop) ;
   set_caracteristic_agent() ;
   b.set_humus(BOX.x *BOX.y *.01) ;
   
@@ -144,28 +168,28 @@ void ecosystem_setting(Biomass b) {
   style_flora = new Info_obj("Flora Aspect", costume, fill_flora, stroke_flora, thickness, alpha_behavior_flora) ;  
 
   // HERBIVORE
-  costume = POINT_ROPE ;
+  costume = STAR_5_ROPE ;
   Vec4 fill_herbivore = Vec4(color_herbivore) ;
   Vec4 stroke_herbivore = Vec4(color_herbivore) ;
   Vec3 alpha_behavior_herbivore = Vec3(0, -1, 1) ;
   style_herbivore = new Info_obj("Herbivore Aspect", costume, fill_herbivore, stroke_herbivore, thickness, alpha_behavior_herbivore) ;
   
   // OMNIVORE
-  costume = PENTAGON_ROPE ;
+  costume = STAR_12_ROPE ;
   Vec4 fill_omnivore = Vec4(150, 100, 80, 100) ;
   Vec4 stroke_omnivore = Vec4(150, 100, 80, 100) ;
   Vec3 alpha_behavior_omnivore = Vec3(0, -1, 1) ;
   style_omnivore = new Info_obj("Omnivore Aspect", costume, fill_omnivore, stroke_omnivore, thickness, alpha_behavior_omnivore) ;
 
   // CARNIVORE
-  costume = HEPTAGON_ROPE ;
+  costume = SUPER_STAR_12_ROPE ;
   Vec4 fill_carnivore = Vec4(0, 100, 100, 100) ;
   Vec4 stroke_carnivore = Vec4(0, 100, 100, 100) ;
   Vec3 alpha_behavior_carnivore = Vec3(0, -1, 1) ;
   style_carnivore = new Info_obj("Carnivore Aspect", costume, fill_carnivore, stroke_carnivore, thickness, alpha_behavior_carnivore) ;
   
   // BACTERIUM
-  costume = ELLIPSE_ROPE ;
+  costume = TRIANGLE_ROPE ;
   Vec4 fill_bacterium = Vec4(30, 0, 30, 100) ;
   Vec4 stroke_bacterium = Vec4(30, 0, 30, 100) ;
   Vec3 alpha_behavior_bacterium = Vec3(0, -1, 1) ;
@@ -178,16 +202,16 @@ void ecosystem_setting(Biomass b) {
   Vec4 stroke_dead = Vec4(0, 0, 30, 100) ;
   Vec3 alpha_behavior_dead = Vec3(0, -1, 1) ;
   style_dead = new Info_obj("Dead Aspect", costume, fill_dead, stroke_dead, thickness, alpha_behavior_dead) ;
-  
 
 
-
-
-  // classic radom drop zone
-  // build_flora(FLORA_LIST, flora_carac, style_flora, num_flora) ;
-
-  //drop zone from list of point
-  build_flora(FLORA_LIST, flora_carac, style_flora, num_flora, drop_zone_flora_list) ;
+  if(mode == 0) {
+    // classic radom drop zone
+    build_flora(FLORA_LIST, flora_carac, style_flora, num_flora) ;
+  } else if(mode == 1) {
+    //drop zone from list of point
+    create_decorum() ; 
+    build_flora(FLORA_LIST, flora_carac, style_flora, num_flora, drop_zone_flora_list) ;
+  }
 
   build_herbivore(HERBIVORE_CHILD_LIST, herbivore_carac, style_herbivore, num_herbivore) ;
   build_omnivore(OMNIVORE_CHILD_LIST, omnivore_carac, style_omnivore, num_omnivore) ;
@@ -196,6 +220,16 @@ void ecosystem_setting(Biomass b) {
   build_dead(DEAD_LIST, dead_carac, style_dead, num_dead) ;
 }
 
+
+// set num
+void set_num_agents(int... num) {
+  if(num.length > 0) num_flora = num[0] ;
+  if(num.length > 1) num_herbivore = num[1] ; 
+  if(num.length > 2) num_omnivore = num[2] ; 
+  if(num.length > 3) num_carnivore = num[3] ; 
+  if(num.length > 4) num_bacterium = num[4] ;
+  if(num.length > 5) num_dead = num[5] ; 
+}
 
 
 
@@ -263,7 +297,7 @@ void clear_agent() {
 void set_caracteristic_agent() {
   flora_carac.add("name", "Salad") ;
   flora_carac.add("size", 50) ;
-  flora_carac.add("life_expectancy", 1000000 *60) ;
+  flora_carac.add("life_expectancy", 100000 *60) ;
   flora_carac.add("nutrient_quality", 15) ;
   flora_carac.add("speed_growth", 2) ; // size point per cycle
   flora_carac.add("need", .3) ;
@@ -394,6 +428,10 @@ SET ENVIRONMENT
 */
 Biomass biomass ;
 boolean init_ecosystem = true ;
+
+void init_ecosystem() {
+  init_ecosystem = true ;
+}
 
 void set_environment() {
   ENVIRONMENT = 3 ;
@@ -658,7 +696,7 @@ void update_flora_position_from_adn() {
 float rotation_dna = 0 ;
 boolean rotation_bool_dna = false ;
 
-void show_decorum(float speed_rotation_dna, int direction_dna, boolean info) {
+void show_decorum(float speed_rotation_dna, int direction_dna, int which_costume, boolean info) {
 
   // show DNA
   if(size_dna > 0 ) {
@@ -672,12 +710,12 @@ void show_decorum(float speed_rotation_dna, int direction_dna, boolean info) {
     }  
 
     for(int i = 0 ; i < strand_DNA.length() ; i++) {
-      costume_DNA(strand_DNA, i, pos_final_dna, info) ;
+      costume_DNA(strand_DNA, i, pos_final_dna, which_costume, info) ;
     }
   }
 }
 
-void costume_DNA(Helix_DNA helix, int target, Vec3 pos_final, boolean info) {
+void costume_DNA(Helix_DNA helix, int target, Vec3 pos_final, int which_costume, boolean info) {
   Vec3 pos_a = helix.get_pos(0)[target] ;
   Vec3 pos_b = helix.get_pos(1)[target] ;
 
@@ -712,10 +750,10 @@ void costume_DNA(Helix_DNA helix, int target, Vec3 pos_final, boolean info) {
   } else {
     noFill() ;
     stroke(color_strand_a, alpha_a) ;
-    costume_rope(pos_a, size, POINT_ROPE) ;
+    costume_rope(pos_a, size, which_costume) ;
     noFill() ;
     stroke(color_strand_b, alpha_b) ;
-    costume_rope(pos_b, size, POINT_ROPE) ;
+    costume_rope(pos_b, size, which_costume) ;
   }
   
 }

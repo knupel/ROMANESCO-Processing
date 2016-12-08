@@ -22,7 +22,7 @@ used sound
  full frame rate
 */
 boolean TEST_ROMANESCO = false ;
-boolean FULL_RENDERING = true ;
+boolean FULL_RENDERING = false ;
 boolean TABLET = false ; // now tablet library don't work in OPENGL renderer
 
 void settings() {
