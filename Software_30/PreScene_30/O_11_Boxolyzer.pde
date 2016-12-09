@@ -35,7 +35,7 @@ class Boxolyzer extends Romanesco {
     // size.mult(2) ;
 
     // color and thickness
-    aspect_rpe(ID_item) ; 
+    aspect_rope(ID_item) ; 
     //
     distribution(numBox, newDistribution) ;
     

@@ -1,5 +1,5 @@
 /**
-ESCARGOT || 2011 || 1.4.3
+ESCARGOT || 2011 || 1.4.4
 */
 class Escargot extends Romanesco {
   public Escargot() {
@@ -8,7 +8,7 @@ class Escargot extends Romanesco {
     ID_item = 23 ;
     ID_group = 1 ;
     RPE_author  = "Stan le Punk";
-    RPE_version = "version 1.4.3";
+    RPE_version = "version 1.4.4";
     RPE_pack = "Base" ;
     RPE_mode = "Original/Raw/Point/Ellipse/Rectangle/Box/Cross/SVG/Vitraux" ;
     RPE_slider = "Fill hue,Fill sat,Fill bright,Fill alpha,Stroke hue,Stroke sat,Stroke bright,Stroke alpha,Thickness,Size X,Size Y,Size Z,Speed X,Direction X,Canvas X,Quality,Quantity,Calm" ;
@@ -189,9 +189,9 @@ class Escargot extends Romanesco {
          ratioImgWindow = new PVector ((float)width / (float)bitmap_import[ID_item].width , (float)width / (float)bitmap_import[ID_item].width ) ;
        } else if (bitmap_import[ID_item] != null && bitmap_import[ID_item].width > 3 && !ratioImg) {
          analyzeImg(pixelAnalyzeSize) ;
-         ratioImgWindow = new PVector(1,1) ;
+         ratioImgWindow.set(1,1) ;
        } else {
-         ratioImgWindow = new PVector(1,1) ;
+         ratioImgWindow.set(1,1) ;
        }
        
        //size and thickness

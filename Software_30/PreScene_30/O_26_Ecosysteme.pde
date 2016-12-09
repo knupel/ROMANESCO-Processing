@@ -28,7 +28,7 @@ class Ecosysteme extends Romanesco {
     speed_rotation_dna = speed_x_item[ID_item] *speed_x_item[ID_item];
     if(reverse[ID_item]) direction_dna = 1 ; else direction_dna = -1 ;
     if(motion[ID_item]) rotation_bool_dna = true ; else rotation_bool_dna = false ;
-    if(FULL_RENDERING) if(kTouch && parameter[ID_item]) info_agent = true ; else info_agent = false ;
+    if(FULL_RENDERING) if(special[ID_item]) info_agent = true ; else info_agent = false ;
 
 
 

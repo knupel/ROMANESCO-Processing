@@ -1,18 +1,57 @@
 /**
-SPIRALE  || 2011 || 1.3.2
+SPIRALE  || 2011 || 1.3.3
 */
+/**
+    int POINT_MODE = 0 ;
+    int ELLIPSE_MODE = 1 ;
+    int TRIANGLE_MODE = 2 ;
+    int RECT_MODE = 3 ;
+    int STAR_4_MODE = 4 ;
+    int STAR_5_MODE = 5 ;
+    int STAR_7_MODE = 6 ;
+    int STAR_9_MODE = 7 ;
+    int SUPER_STAR_8_MODE = 8 ;
+    int SUPER_STAR_12_MODE = 9 ;
+    int TETRA_MODE = 10 ;
+    int BOX_MODE = 11 ;
+    int CROSS_2_MODE = 12 ;
+    int CROSS_3_MODE = 13 ;
+    int SPHERE_LOW_MODE = 14 ;
+    int SPHERE_MEDIUM_MODE = 15 ;
+    int SPHERE_HIGH_MODE = 16 ;
+    */
 Spirale spirale ; 
 //object three
 class SpiraleRomanesco extends Romanesco {
+  int POINT_M, ELLIPSE_M, TRIANGLE_M, SQUARE_M, RECT_M, 
+  STAR_4_M, STAR_5_M, STAR_7_M, STAR_9_M, 
+  SUPER_STAR_8_M, SUPER_STAR_12_M,
+  TETRAHEDRON_M, BOX_M, 
+  CROSS_2_M, CROSS_3_M, 
+  SPHERE_LOW_M, SPHERE_MEDIUM_M, SPHERE_HIGH_M = MAX_INT ;
+
   public SpiraleRomanesco() {
     //from the index_objects.csv
     RPE_name = "Spirale" ;
     ID_item = 13 ;
     ID_group = 1 ;
     RPE_author  = "Stan le Punk";
-    RPE_version = "Version 1.3.2";
+    RPE_version = "Version 1.3.3";
     RPE_pack = "Base" ;
-    RPE_mode = "Rectangle/Ellipse/Box" ;
+    /*
+    RPE_mode = "Point/Ellipse/Triangle/Rectangle/Star 4/Star 5/Star 9/Super Star 8/Super Star 12/Tetra/Box/Cross 2/Cross 3/Sphere low/Sphere medium/Sphere high" ;
+    */
+    RPE_mode = "Ellipse/Triangle/Rectangle/Star 5/Super Star 12/Tetra/Box/Cross 3/Sphere low/Sphere medium" ;
+    ELLIPSE_M = 0 ;
+    TRIANGLE_M = 1 ;
+    RECT_M = 2 ;
+    STAR_5_M = 3 ;
+    SUPER_STAR_12_M = 4 ;
+    TETRAHEDRON_M = 5 ;
+    BOX_M = 6 ;
+    CROSS_3_M = 7 ;
+    SPHERE_LOW_M = 8 ;
+    SPHERE_MEDIUM_M = 9 ;
     RPE_slider = "Fill hue,Fill sat,Fill bright,Fill alpha,Stroke hue,Stroke sat,Stroke bright,Stroke alpha,Thickness,Size X,Size Y,Size Z,Quantity,Speed X,Canvas X,Canvas Y,Swing X,Alignment" ;
   }
   //GLOBAL
@@ -30,7 +69,8 @@ class SpiraleRomanesco extends Romanesco {
   
   //DRAW
   void draw() {
-    aspect_rpe(ID_item) ;
+    int which_costume = which_costume(mode[ID_item]) ;
+    aspect_rope(ID_item, which_costume) ;
     strokeWeight(thickness_item[ID_item]*.02) ;
     //quantity
     int n ;
@@ -106,16 +146,65 @@ class SpiraleRomanesco extends Romanesco {
     } else {
       pos_swing = max_align ;
     }
-
+    // mode[ID_item]
     
-    PVector pos = new PVector() ; // we write that because the first part of the void is not available any more.
-    spirale.actualisation (pos, speed) ;
-    spirale.affichage (n, nMax, size, z, canvas, mode[ID_item], horizon[ID_item], pos_swing) ;
+    Vec3 pos = Vec3() ; // we write that because the first part of the void is not available any more.
+    spirale.update(pos, speed) ;
+    spirale.show(n, nMax, size, z, canvas, which_costume, horizon[ID_item], pos_swing) ;
     
     // info display
     objectInfo[ID_item] = ("Speed "+speed+ " - Amplitude " + map(z, 1.01, 1.27, 1,100) + " - Quantity " + nMax) ;
   }
+
+  int which_costume(int mode) {
+    int which_costume = POINT_ROPE ;
+    //
+    if(mode == POINT_M) {
+      which_costume = POINT_ROPE ;
+    } else if(mode == ELLIPSE_M) {
+      which_costume = ELLIPSE_ROPE ;
+    } else if(mode == TRIANGLE_M) {
+      which_costume = TRIANGLE_ROPE ;
+    } else if(mode == SQUARE_M) {
+      which_costume = SQUARE_ROPE ;
+    } else if(mode == RECT_M) {
+      which_costume = RECT_ROPE ;
+    } else if(mode == STAR_4_M) {
+      which_costume = STAR_4_ROPE ;
+    } else if(mode == STAR_5_M) {
+      which_costume = STAR_5_ROPE ;
+    } else if(mode == STAR_7_M) {
+      which_costume = STAR_7_ROPE ;
+    } else if(mode == STAR_9_M) {
+      which_costume = STAR_9_ROPE ;
+    } else if(mode == SUPER_STAR_8_M) {
+      which_costume = SUPER_STAR_8_ROPE ;
+    } else if(mode == SUPER_STAR_12_M) {
+      which_costume = SUPER_STAR_12_ROPE ;
+    } else if(mode == TETRAHEDRON_M) {
+      which_costume = TETRAHEDRON_ROPE ;
+    } else if(mode == BOX_M) {
+      which_costume = BOX_ROPE ;
+    } else if(mode == CROSS_2_M) {
+      which_costume = CROSS_2_ROPE ;
+    } else if(mode == CROSS_3_M) {
+      which_costume = CROSS_3_ROPE ;
+    } else if(mode == SPHERE_LOW_M) {
+      which_costume = SPHERE_LOW_ROPE ;
+    } else if(mode == SPHERE_MEDIUM_M) {
+      which_costume = SPHERE_MEDIUM_ROPE ;
+    } else if(mode == SPHERE_HIGH_M) {
+      which_costume = SPHERE_HIGH_ROPE ;
+    }
+    //
+    return which_costume ;
+  }
 }
+
+
+
+
+
 
 
 
@@ -129,7 +218,7 @@ class Spirale extends Rotation {
   float translate = 1. ;
   float ratioSize = 1. ;
 
-  void affichage (int n, int nMax, PVector size, float z, PVector canvas, int mode, boolean horizon, float alignment) {
+  void show (int n, int nMax, PVector size, float z, PVector canvas, int which_costume, boolean horizon, float alignment) {
     n = n-1 ;
     
     translate += z ;
@@ -139,12 +228,13 @@ class Spirale extends Rotation {
     if(FULL_RENDERING) ratioRendering = 1. ; else ratioRendering = 6. ;
     
     
-    PVector newSize = new PVector (size.x *ratioSize *ratioRendering, size.y *ratioSize *ratioRendering, size.z *ratioSize *ratioRendering) ;
+    Vec3 size_final = Vec3(size.x *ratioSize *ratioRendering, size.y *ratioSize *ratioRendering, size.z *ratioSize *ratioRendering) ;
+
+
 
     //display Mode
-    if (mode == 0 )      rect (0,0, newSize.x, newSize.y ) ;
-    else if (mode == 1 ) ellipse (0,0,newSize.x,newSize.y) ;
-    else if (mode == 2 ) box (newSize.x,newSize.y,newSize.z) ;
+    Vec3 pos = Vec3() ;
+    costume_rope(pos, size_final, which_costume) ;
     //
     
     float new_pos_x = translate *canvas.x *ratioRendering ;
@@ -156,7 +246,7 @@ class Spirale extends Rotation {
     rotate ( PI/6 ) ;
 
     if ( n > 0) { 
-      affichage (n, nMax, size, z, canvas, mode, horizon, alignment) ; 
+      show(n, nMax, size, z, canvas, which_costume, horizon, alignment) ; 
     } else{
       translate = 1. ;
       ratioSize = 1. ;

@@ -2,7 +2,7 @@
 Here you find 
 */
 /**
-Camera Engine version 6.0.2
+Camera Engine version 6.0.2.1
 */
 /**
 and
@@ -165,7 +165,7 @@ void item_move(boolean movePos, boolean moveDir, int ID) {
   if(touch0) {
     pos_item_final[ID].set(item_setting_position [0][ID]);
     dir_item_final[ID].set(item_setting_direction [0][ID]) ;
-
+    
     temp_item_canvas_direction[ID].set(0) ;
     reset_camera_direction_item[ID] = true ;
     int which = 0 ;
@@ -189,7 +189,11 @@ reset
 */
 void reset_direction_item (int which_setting, int ID) {
   if(reset_camera_direction_item[ID]) {
+    if(item_setting_direction[which_setting][ID] == null) {
+      item_setting_direction[which_setting][ID] = Vec3() ;
+    }
     temp_item_canvas_direction[ID].x = map(item_setting_direction [which_setting][ID].y, 0, 360, 0, width) ;
+
     temp_item_canvas_direction[ID].y = map(item_setting_direction [which_setting][ID].x, 0, 360, 0, height) ;
     update_ref_direction_mouse() ;
   }

@@ -83,7 +83,7 @@ class MesAmis extends Romanesco {
     }
     
     
-    aspect_rpe(ID_item) ;
+    aspect_rope(ID_item) ;
     ami_heart_move(center, speed, radiusMin, radiusMax, jitter, mode[ID_item]) ;
 
   }

@@ -1,6 +1,6 @@
 
   ////////////////////////////////////////////////////////////////////
- // Romanesco Unu 1.2.0 / version 30 / made with Processing 3.1.1 ///
+ // Romanesco Unu 1.2.0 / version 30 / made with Processing 3.2.3 ///
 ////////////////////////////////////////////////////////////////////
 /**
 2015 may 15.000 lines
@@ -27,6 +27,8 @@ boolean TABLET = false ; // now tablet library don't work in OPENGL renderer
 
 void settings() {
   size(600,400,P3D) ;
+  // size(1200,700,P3D) ;
+  // fullScreen(P3D,2) ;
   pixelDensity(displayDensity()) ;
   syphon_settings() ;
 }

@@ -52,6 +52,7 @@ void updateObject(int ID) {
     if (mTouch) motion[ID] = !motion[ID] ;
     if (hTouch) horizon[ID] = !horizon[ID] ;
     if (rTouch) reverse[ID] = !reverse[ID] ;
+    if (kTouch) special[ID] = !special[ID] ;
     if (oTouch) orbit[ID] = !orbit[ID] ;
     /*
     clickLongLeft[ID] = clickLongLeft[0] ;

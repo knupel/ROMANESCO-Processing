@@ -52,6 +52,7 @@ void updateObject(int ID) {
     if (mTouch) motion[ID] = !motion[ID] ;
     if (hTouch) horizon[ID] = !horizon[ID] ;
     if (rTouch) reverse[ID] = !reverse[ID] ;
+    if (kTouch) special[ID] = !special[ID] ;
     if (oTouch) orbit[ID] = !orbit[ID] ;
     /*
     clickLongLeft[ID] = clickLongLeft[0] ;
@@ -453,6 +454,7 @@ class RPE_MANAGER {
       objR.setup() ;
       if(posObjRef[objR.ID_item] == null) posObjRef[objR.ID_item] = Vec3() ;
       posObjRef[objR.ID_item].set(item_setting_position[0][objR.ID_item]) ;
+
     }
   }
   

@@ -371,7 +371,7 @@ int wheel[] ;
 //pen info
 
 //boolean object
-boolean [] motion, horizon, setting, reverse, orbit, clearList ;
+boolean [] motion, horizon, setting, reverse, special, orbit, clearList ;
 
 //main font for each object
 String [] path_font_TTF, pathFontVLW, path_font_item_TTF ;
@@ -432,6 +432,7 @@ void createMiscVar() {
   motion = new boolean [NUM_ITEM]  ;
   horizon = new boolean [NUM_ITEM]  ;
   reverse = new boolean [NUM_ITEM] ;
+  special = new boolean [NUM_ITEM] ;
   orbit = new boolean [NUM_ITEM] ;
 
   // IMAGE
@@ -855,12 +856,26 @@ void update_temp_value() {
 float allBeats(int ID) {
   return (beat[ID]*.25) +(kick[ID]*.25) +(hat[ID]*.25) +(snare[ID]*.25) ;
 }
-// ASPECT
 
-void aspect_rpe(int ID) {
+/**
+ASPECT 0.0.2
+*/
+void aspect_rope(int ID) {
   if(alpha(fill_item[ID]) == 0 ) noFill() ; else fill(fill_item[ID]) ;
   if(alpha(stroke_item[ID]) == 0 ) noStroke() ; else stroke(stroke_item[ID]) ;
   strokeWeight(thickness_item[ID]) ;
+}
+
+void aspect_rope(int ID, int which_costume) {
+  if(which_costume != POINT_ROPE) {
+    if(alpha(fill_item[ID]) == 0) noFill() ; else fill(fill_item[ID]) ;
+    if(alpha(stroke_item[ID]) == 0) noStroke() ; else stroke(stroke_item[ID]) ;
+    strokeWeight(thickness_item[ID]) ;
+  } else {
+    if(alpha(fill_item[ID]) == 0) noStroke() ; else stroke(fill_item[ID]) ;
+    noFill() ;
+    strokeWeight(thickness_item[ID]) ;
+  }
 }
 
 

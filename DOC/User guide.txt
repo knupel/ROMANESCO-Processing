@@ -1,8 +1,21 @@
-User guide 0.0.3
-
----------------------
-Controller
+User guide 0.1.0
+--
+CONTROLLER
 ----------------
+SAVE
+-- 
+Save controller setting
+ctrl + R : save on the last save controller
+ctrl + E : new save controller
+Save Scene setting
+ctrl + D : save on the current path
+ctrl + S : new save for Scene
+
+LOAD
+-- 
+ctrl + O : load save Controller
+ctrl + L : load save Scene
+
 
 Slider
 --
@@ -50,23 +63,16 @@ Item
 
 
 
-
-
-----------
-1 / Letter
-by Stan le Punk
-
+1 / LETTER by Stan le Punk
 --
+
 SLIDER
 --
 > Fill hue,Fill sat,Fill bright,Fill alpha,Stroke hue,Stroke sat,Stroke bright,Stroke alpha,Thickness,Jitter X,Jitter Y,Jitter Z,Quantity,Speed X,Font size
 
 MODE
 --
-Mode 1
-Mode 2
-Mode 3
-
+Yes
 
 KEYBOARD
 --
@@ -93,23 +99,17 @@ YES
 
 
 
-----------
-2 / Horloge
-by Stan le Punk
 
+2 / HORLOGE–CLOCK by Stan le Punk
 --
+
 SLIDER
 --
 > Fill hue,Fill sat,Fill bright,Fill alpha,Angle,Speed X,Speed Y,Speed Z,Font size,Area,Canvas X,Canvas Y,Canvas Z
 
 MODE
 --
-Mode 1
-Mode 2
-Mode 3
-Mode 4
-Mode 5
-
+Yes
 
 KEYBOARD
 --
@@ -127,11 +127,11 @@ YES
 
 
 
-----------
-4 / Karaoke
-by Stan le Punk
 
+4 / KARAOKE by Stan le Punk
 --
+
+
 SLIDER
 --
 > Fill hue,Fill sat,Fill bright,Fill alpha,Canvas X,Canvas Y,Direction X,Font size
@@ -139,7 +139,6 @@ SLIDER
 MODE
 --
 Mode 1
-
 
 KEYBOARD
 --
@@ -158,10 +157,9 @@ YES
 
 
 
-----------
-5 / Orbital
-by Alexandre Petit
-inspirated by Nature of Code / Daniel Shiffman
+
+5 / ORBITAL by Alexandre Petit / inspirated by Nature of Code / Daniel Shiffman
+--
 
 --
 SLIDER
@@ -170,8 +168,7 @@ SLIDER
 
 MODE
 --
-Mode 1
-
+no
 
 KEYBOARD
 --
@@ -195,29 +192,17 @@ YES
 
 
 
----------
-6 / Atome
-by Stan le Punk
 
+6 / ATOME by Stan le Punk
 --
+
 SLIDER
 --
 > Fill hue,Fill sat,Fill bright,Fill alpha,Stroke hue,Stroke sat,Stroke bright,Stroke alpha,Thickness,Size X,Size Y,Size Z,Canvas X,Canvas Y,Speed X,Direction X,Variety,Quantity,Area,Angle,Font size
 
 MODE
 --
-Mode 1
-Mode 2
-Mode 3
-Mode 4
-Mode 5
-Mode 6
-Mode 7
-Mode 8
-Mode 9
-Mode 10
-Mode 11
-
+Yes
 
 KEYBOARD
 --
@@ -236,11 +221,10 @@ YES
 
 
 
----------
-7 / The abbyss
-by Andreas Gysin
 
+7 / THE ABBYSS by Andreas Gysin
 --
+
 SLIDER
 --
 Fill hue
@@ -255,18 +239,7 @@ Thickness
 
 MODE
 --
-Box Fish
-Cubus
-Floater
-Radio
-Worm
-Sea Fly
-Breather
-Spider
-Manta
-Father
-Super Nova
-
+Yes
 
 KEYBOARD
 --
@@ -285,22 +258,16 @@ YES
 
 
 
-
-
---------------------
-9 / Rubis
-by Stan le Punk
-
+9 / RUBIS by Stan le Punk
 --
+
 SLIDER
 --
 > Fill hue,Fill sat,Fill bright,Fill alpha,Stroke hue,Stroke sat,Stroke bright,Stroke alpha,Thickness,Canvas X,Speed X,Jitter X,Jitter Y,Jitter Z,Quantity,Swing X
 
 MODE
 --
-mode 1
-mode 2
-
+Yes
 
 KEYBOARD
 --
@@ -317,13 +284,7 @@ YES
 
 
 
-
-
-
-
--------------------
-10 / Arbre
-by Stan le Punk
+10 / ARBRE by Stan le Punk
 --
 
 SLIDER
@@ -332,18 +293,13 @@ SLIDER
 
 MODE
 --
-Mode 1
-Mode 2
-Mode 3
-Mode 4
-Mode 5
-Mode 6
---
+Yes
 
 KEYBOARD
 --
-> "M" stop motion
-> "H" create horizon and deep
+>"m" stop motion
+>"h" create horizon and deep
+>"k" display line
 --
 
 SOUND
@@ -353,24 +309,20 @@ YES
 
 
 
-----------
-11 / Boxolyzer
-by Stan le Punk
 
+11 / BOXOLYZER by Stan le Punk
 --
+
 SLIDER
 --
 > Fill hue,Fill sat,Fill bright,Fill alpha,Stroke hue,Stroke sat,Stroke bright,Stroke alpha,Thickness,Size X,Size Y,Size Z,Canvas X,Quantity,Direction X
 
 MODE
 --
-Mode 1
-Mode 2
-
+Yes
 
 KEYBOARD
 --
-
 
 SOUND
 --
@@ -382,26 +334,16 @@ YES
 
 
 
-
-
-
-
-----------
-12 / Soleil
-by Stan le Punk
-
+12 / SOLEIL by Stan le Punk
 --
+
 SLIDER
 --
 > Fill hue,Fill sat,Fill bright,Fill alpha,Stroke hue,Stroke sat,Stroke bright,Stroke alpha,Thickness,Canvas X,Quantity,Speed X,Spurt X,Canvas X,Jitter Z
 
 MODE
 --
-Mode 1
-Mode 2
-Mode 3
-Mode 4
-
+Yes
 
 KEYBOARD
 --
@@ -424,13 +366,7 @@ YES
 
 
 
-
-
-
-
-----------
-13 / Spirale
-by Stan le Punk
+13 / SPIRALE by Stan le Punk
 
 --
 SLIDER
@@ -439,10 +375,7 @@ SLIDER
 
 MODE
 --
-Mode 1
-Mode 2
-Mode 3
-
+Yes
 
 KEYBOARD
 --
@@ -466,19 +399,7 @@ YES
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-----------------------
-14 / Balise
+14 / BALISE
 by Stan le Punk
 --
 
@@ -488,17 +409,12 @@ SLIDER
 
 MODE
 --
-Mode 1
-Mode 2
-Mode 3
-Mode 4
---
+Yes
 
 KEYBOARD
 --
 > "M" stop motion
 > "R" reverse rotation
---
 
 SOUND
 --
@@ -510,9 +426,8 @@ YES
 
 
 
-----------
-16 / Lines
-by Stan le Punk
+
+16 / LINES by Stan le Punk
 
 --
 SLIDER
@@ -521,13 +436,7 @@ SLIDER
 
 MODE
 --
-Mode 1
-Mode 2
-Mode 3
-Mode 4
-Mode 5
-Mode 6
-
+Yes
 
 KEYBOARD
 --
@@ -544,9 +453,8 @@ YES
 
 
 
-----------
-17 / Spray
-by Stan le Punk
+
+17 / SPRAY by Stan le Punk
 
 --
 SLIDER
@@ -555,10 +463,7 @@ SLIDER
 
 MODE
 --
-Mode 1 star
-Mode 2 spray pen mode
-Mode 3 spray mouse mode
-
+Yes
 
 KEYBOARD
 --
@@ -574,27 +479,17 @@ YES
 
 
 
-
-
-
-
-
-
-
-----------
-18 / Damier
-by Stan le Punk
+18 / DAMIER by Stan le Punk
 
 --
 SLIDER
 --
 > Fill hue,Fill sat,Fill bright,Fill alpha,Stroke hue,Stroke sat,Stroke bright,Stroke alpha,Thickness,Size X,Size Y,Size Z,Quantity,Speed X,Swing X,Angle
 
+
 MODE
 --
-Mode 1
-Mode 2
-Mode 3
+Yes
 
 
 KEYBOARD
@@ -616,21 +511,16 @@ YES
 
 
 
---------------------------
-19 / Vectorial
-by Stan le Punk
+19 / VECTORIAL by Stan le Punk
 --
 
 SLIDER
 --
 > Fill hue,Fill sat,Fill bright,Fill alpha,Stroke hue,Stroke sat,Stroke bright,Stroke alpha,Thickness,Jitter X,Jitter Y,Jitter Z,Canvas X,Canvas Y,Swing X,Swing Y,Swing Z 
 
-
 MODE
 --
-Mode 1
-Mode 2 
-
+Yes
 
 KEYBOARD
 --
@@ -644,27 +534,19 @@ NO
 
 
 
-
-
-
---------------------------
-21 / Nid d'abeille
-by Amnon Owed
+21 / NID D'ABEILLE by Amnon Owed
 --
 
 SLIDER
 --
 > Fill hue,Fill sat,Fill bright,Fill alpha,Thickness,Size X,Canvas X,Canvas Y
 
-
 MODE
 --
-Mode 1
-
+No
 
 KEYBOARD
 --
-
 
 SOUND
 --
@@ -675,35 +557,16 @@ YES
 
 
 
-
-
-
-
-
-
-
-
-------------------------
-23 / Escargot
-by Stan le Punk
+23 / ESCARGOT by Stan le Punk
 --
 
 SLIDER
 --
 > Fill hue,Fill sat,Fill bright,Fill alpha,Stroke hue,Stroke sat,Stroke bright,Stroke alpha,Thickness,Size X,Size Y,Size Z,Speed X,Direction X,Canvas X,Quality,Quantity,Calm
 
-
 MODE
 --
-Mode 1
-Mode 2
-Mode 3
-Mode 4
-Mode 5
-Mode 6
-Mode 7
-Mode 8
-Mode 9
+Yes
 
 KEYBOARD
 --
@@ -721,21 +584,16 @@ YES
 
 
 
-------------------------
-24 / Surface
-by Stan le Punk
---
+
+24 / SURFACE by Stan le Punk
 
 SLIDER
 --
 > Fill hue,Fill sat,Fill bright,Fill alpha,Stroke hue,Stroke sat,Stroke bright,Stroke alpha,Thickness,Influence,Canvas X,Canvas Y,Quality,Canvas X,Speed X,Size X,Swing X
 
-
 MODE
 --
-Mode 1 > image
-Mode 2 > surface
-Mode 3 > surface
+Yes
 
 KEYBOARD
 --
@@ -756,21 +614,20 @@ YES
 
 
 
-------------------------
-26 / Ecosysteme
+--
+26 / ECOSYSTEME by Stan le Punk
 --
 SLIDER
 --
 
 MODE
 --
-Mode 1
-Mode 2
-Mode 5 > info
+Yes
 
 KEYBOARD
 --
-> "N" reset ecosystem
+>"n" reset ecosystem
+>"k" info mode
 
 
 SOUND

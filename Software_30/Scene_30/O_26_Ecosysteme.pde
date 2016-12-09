@@ -2,16 +2,16 @@
 Ecosysteme || 2016 || 0.0.6
 */
 class Ecosysteme extends Romanesco {
-  public Ecosysteme() {
-    RPE_name = "Ecosysteme" ;
-    ID_item = 26 ;
-    ID_group = 1 ;
-    RPE_author  = "Stan le Punk";
-    RPE_version = "Version 0.0.6";
-    RPE_pack = "Base" ;
-    RPE_mode = "Shape/DNA" ; // separate the differentes mode by "/"
-    RPE_slider = "Fill hue,Fill sat,Fill bright,Fill alpha,Stroke hue,Stroke sat,Stroke bright,Stroke alpha,Thickness,Size X,Canvas X,Canvas Y,Canvas Z,Speed X,Quantity,Scope,Life" ;
-  }
+	public Ecosysteme() {
+		RPE_name = "Ecosysteme" ;
+		ID_item = 26 ;
+		ID_group = 1 ;
+		RPE_author  = "Stan le Punk";
+		RPE_version = "Version 0.0.6";
+		RPE_pack = "Base" ;
+		RPE_mode = "Shape/DNA" ; // separate the differentes mode by "/"
+		RPE_slider = "Fill hue,Fill sat,Fill bright,Fill alpha,Stroke hue,Stroke sat,Stroke bright,Stroke alpha,Thickness,Size X,Canvas X,Canvas Y,Canvas Z,Speed X,Quantity,Scope,Life" ;
+	}
 
 
   void setup() {
@@ -24,11 +24,11 @@ class Ecosysteme extends Romanesco {
 
   int mode_ref = 0 ;
 
-  void draw() {
+	void draw() {
     speed_rotation_dna = speed_x_item[ID_item] *speed_x_item[ID_item];
     if(reverse[ID_item]) direction_dna = 1 ; else direction_dna = -1 ;
     if(motion[ID_item]) rotation_bool_dna = true ; else rotation_bool_dna = false ;
-    if(FULL_RENDERING) if(kTouch && parameter[ID_item]) info_agent = true ; else info_agent = false ;
+    if(FULL_RENDERING) if(special[ID_item]) info_agent = true ; else info_agent = false ;
 
 
 
@@ -37,30 +37,30 @@ class Ecosysteme extends Romanesco {
       init_ecosystem() ;
     }
 
-    if(init_ecosystem) {
-      ecosystem_setting(biomass, mode_ref) ;
-      init_ecosystem = false ;
-      first_save = true ;
-    }
+		if(init_ecosystem) {
+			ecosystem_setting(biomass, mode_ref) ;
+			init_ecosystem = false ;
+			first_save = true ;
+		}
 
-    update_list() ;
-    info_agent(info_agent) ;
+		update_list() ;
+		info_agent(info_agent) ;
 
-    if(mode[ID_item] == 1) {
+		if(mode[ID_item] == 1) {
       update_flora_position_from_adn() ;
       show_decorum(speed_rotation_dna, direction_dna, ELLIPSE_ROPE, info_agent) ;
     }
-    show_agent() ;
-    
+		show_agent() ;
+		
 
-  }
+	}
 
-  boolean info_agent = false ;
-  boolean decorum_display = true ;
-  boolean agent_display = true ;
-  boolean bg_refresh = true ;
-  int direction_dna = 1 ;
-  float speed_rotation_dna = .01 ;
+	boolean info_agent = false ;
+	boolean decorum_display = true ;
+	boolean agent_display = true ;
+	boolean bg_refresh = true ;
+	int direction_dna = 1 ;
+	float speed_rotation_dna = .01 ;
 }
 
 

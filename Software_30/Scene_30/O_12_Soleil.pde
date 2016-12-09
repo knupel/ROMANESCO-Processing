@@ -25,7 +25,7 @@ class Soleil extends Romanesco {
   PVector pos = new PVector() ;
   //DRAW
   void draw() {
-    aspect_rpe(ID_item) ;
+    aspect_rope(ID_item) ;
     // orbital revolution
     if((spaceTouch && action[ID_item]) || orbit[ID_item]) pos.set(mouse[ID_item].x -width/2, mouse[ID_item].y -height/2,0) ; else pos.set(0,0,0) ;
     // diam

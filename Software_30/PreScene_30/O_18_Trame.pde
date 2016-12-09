@@ -36,7 +36,7 @@ class Damier extends Romanesco {
   //DRAW
   void draw() {
     // color and thickness
-    aspect_rpe(ID_item) ;
+    aspect_rope(ID_item) ;
     
     if ( sound[ID_item]) {
       g = map(left[ID_item],0,1,1,5) ; 

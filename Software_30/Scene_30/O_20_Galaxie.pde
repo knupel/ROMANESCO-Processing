@@ -1,17 +1,36 @@
 /**
-GALAXIE || 2012 || 1.3.0
+GALAXIE – 2012-2016 – 1.4.0
 */
 
 class Galaxie extends Romanesco {
+  int POINT_M, ELLIPSE_M, TRIANGLE_M, SQUARE_M, RECT_M = MAX_INT ;
+  int STAR_4_M, STAR_5_M, STAR_7_M, STAR_9_M = MAX_INT ;
+  int SUPER_STAR_8_M, SUPER_STAR_12_M = MAX_INT ;
+  int TETRAHEDRON_M, BOX_M = MAX_INT ;
+  int CROSS_2_M, CROSS_3_M = MAX_INT ; 
+  int SPHERE_LOW_M, SPHERE_MEDIUM_M, SPHERE_HIGH_M = MAX_INT ;
+
   public Galaxie() {
     //from the index_objects.csv
     RPE_name = "Galaxie" ;
     ID_item = 20 ;
     ID_group = 1 ;
     RPE_author  = "Stan le Punk";
-    RPE_version = "Version 1.3";
+    RPE_version = "Version 1.4.0";
     RPE_pack = "Base" ;
-    RPE_mode ="Point/Ellipse/Rectangle/Box" ;
+    // RPE_mode ="Point/Ellipse/Rectangle/Box" ;
+    RPE_mode = "Ellipse/Triangle/Rectangle/Star 5/Super Star 12/Tetra/Box/Cross 3/Sphere low/Sphere medium" ;
+    ELLIPSE_M = 0 ;
+    TRIANGLE_M = 1 ;
+    RECT_M = 2 ;
+    STAR_5_M = 3 ;
+    SUPER_STAR_12_M = 4 ;
+    TETRAHEDRON_M = 5 ;
+    BOX_M = 6 ;
+    CROSS_3_M = 7 ;
+    SPHERE_LOW_M = 8 ;
+    SPHERE_MEDIUM_M = 9 ;
+
     RPE_slider = "Fill hue,Fill sat,Fill bright,Fill alpha,Stroke hue,Stroke sat,Stroke bright,Stroke alpha,Thickness,Size X,Size Y,Size Z,Canvas X,Canvas Y,Quantity,Speed X,Influence" ;
   }
   //GLOBAL
@@ -102,13 +121,13 @@ class Galaxie extends Romanesco {
     float objWidth =  .1 +size_x_item[ID_item] *mix[ID_item] ;
     float objHeight = .1 +size_y_item[ID_item] *mix[ID_item] ;
     float objDepth = .1 +size_z_item[ID_item] *mix[ID_item] ;
-    PVector size = new PVector(objWidth, objHeight,objDepth) ;
+    Vec3 size = Vec3(objWidth, objHeight,objDepth) ;
     
     //thickness / épaisseur
-    float e = thickness_item[ID_item] ;
+    float thickness = thickness_item[ID_item] ;
 
-    color colorIn = fill_item[ID_item] ;
-    color colorOut = stroke_item[ID_item] ;
+    int colorIn = fill_item[ID_item] ;
+    int colorOut = stroke_item[ID_item] ;
     
 
     
@@ -130,17 +149,9 @@ class Galaxie extends Romanesco {
     
     //////////////
     //DISPLAY MODE
-    if (mode[ID_item] == 0) {
-      pointSable(e, colorIn) ;
-    } else if (mode[ID_item] == 1 ) {
-      ellipseSable(size,e , colorIn, colorOut) ;
-    } else if (mode[ID_item] == 2 ) {
-      rectSable(size,e , colorIn, colorOut) ;
-    } else if (mode[ID_item] == 3 ) {
-      boxSable(size,e , colorIn, colorOut) ;
-    } else {
-      pointSable(objWidth, colorIn) ;
-    }
+    int which_costume = which_costume(mode[ID_item]) ;
+    aspect_rope(ID_item, which_costume) ;
+    show(size, thickness, which_costume) ;
     
    
     
@@ -156,9 +167,55 @@ class Galaxie extends Romanesco {
       line(posCenterGrain.x, -marge.y,       posCenterGrain.x, marge.y +height ) ;
       
       rect(-marge.x, -marge.y, marge.x *2 + width, marge.y *2 + height) ;
-    }
+    }   
+
   }
   // END DISPLAY
+
+
+  int which_costume(int mode) {
+    int which_costume = POINT_ROPE ;
+    //
+    if(mode == POINT_M) {
+      which_costume = POINT_ROPE ;
+    } else if(mode == ELLIPSE_M) {
+      which_costume = ELLIPSE_ROPE ;
+    } else if(mode == TRIANGLE_M) {
+      which_costume = TRIANGLE_ROPE ;
+    } else if(mode == SQUARE_M) {
+      which_costume = SQUARE_ROPE ;
+    } else if(mode == RECT_M) {
+      which_costume = RECT_ROPE ;
+    } else if(mode == STAR_4_M) {
+      which_costume = STAR_4_ROPE ;
+    } else if(mode == STAR_5_M) {
+      which_costume = STAR_5_ROPE ;
+    } else if(mode == STAR_7_M) {
+      which_costume = STAR_7_ROPE ;
+    } else if(mode == STAR_9_M) {
+      which_costume = STAR_9_ROPE ;
+    } else if(mode == SUPER_STAR_8_M) {
+      which_costume = SUPER_STAR_8_ROPE ;
+    } else if(mode == SUPER_STAR_12_M) {
+      which_costume = SUPER_STAR_12_ROPE ;
+    } else if(mode == TETRAHEDRON_M) {
+      which_costume = TETRAHEDRON_ROPE ;
+    } else if(mode == BOX_M) {
+      which_costume = BOX_ROPE ;
+    } else if(mode == CROSS_2_M) {
+      which_costume = CROSS_2_ROPE ;
+    } else if(mode == CROSS_3_M) {
+      which_costume = CROSS_3_ROPE ;
+    } else if(mode == SPHERE_LOW_M) {
+      which_costume = SPHERE_LOW_ROPE ;
+    } else if(mode == SPHERE_MEDIUM_M) {
+      which_costume = SPHERE_MEDIUM_ROPE ;
+    } else if(mode == SPHERE_HIGH_M) {
+      which_costume = SPHERE_HIGH_ROPE ;
+    }
+    //
+    return which_costume ;
+  }
   
   
   
@@ -172,53 +229,19 @@ class Galaxie extends Romanesco {
   
   //ANNEXE VOID
   //DISPLAY MODE
-  void pointSable(float diam, color c) {
-    for(int j = 0; j < grain.length; j++) {
-      strokeWeight(diam) ;
-      stroke(c) ;
-      point(grain[j].x, grain[j].y);
-      //set(int(grain[j].x), int(grain[j].y), colorIn);
-    }
-  }
-  //
-  void ellipseSable(PVector size, float e, color cIn, color cOut) {
-    for(int j = 0; j < grain.length; j++) {
-      strokeWeight(e) ;
-      stroke(cOut) ;
-      fill(cIn) ;
-      ellipse(grain[j].x, grain[j].y, size.x, size.y);
-      //set(int(grain[j].x), int(grain[j].y), colorIn);
-    }
-  }
-  // rect
-  void rectSable(PVector size, float e, color cIn, color cOut) {
-    for(int j = 0; j < grain.length; j++) {
-      strokeWeight(e) ;
-      stroke(cOut) ;
-      fill(cIn) ;
-      rect(grain[j].x, grain[j].y, size.x, size.y);
-      //set(int(grain[j].x), int(grain[j].y), colorIn);
-    }
-  }
-  
-  void boxSable(PVector size, float e, color cIn, color cOut) {
-    /* we change a little bit the z position, to have a good rendering when there is superpostion of the shape */
-    float modificationPosZ = 0 ;
+
+  void show(Vec3 size, float thickness, int which_costume) {
+    float z_pos = 0 ;
     float ratio = .001 ;
-    for(int j = 0; j < grain.length; j++) {
-       modificationPosZ += ratio ;
-      strokeWeight(e) ;
-      stroke(cOut) ;
-      fill(cIn) ;
-      
-      pushMatrix() ;
-      translate(grain[j].x, grain[j].y, modificationPosZ) ;
-      box(size.x, size.y, size.z);
-      popMatrix() ;
-      //set(int(grain[j].x), int(grain[j].y), colorIn);
+    for(int i = 0; i < grain.length; i++) {
+      // ratio is used to don't have "moirage" problem
+      z_pos += ratio ;
+      Vec3 pos = Vec3(grain[i].x, grain[i].y, z_pos) ;
+      costume_rope(pos, size, which_costume) ;
+
     }
   }
-  
+
   //SETUP
   void grainSetup(int num, PVector marge) {
     grain = new PVector [num] ;

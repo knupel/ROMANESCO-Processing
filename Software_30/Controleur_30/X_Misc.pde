@@ -566,6 +566,7 @@ void shortcuts_controller() {
   keyboard[keyCode] = true;
   // slider display command
   if(checkKeyboard(CONTROL) && checkKeyboard(KeyEvent.VK_X) ) {
+    println("CTRL + X", frameCount) ;
     sliderModeDisplay += 1 ;
     if(sliderModeDisplay > 2 ) sliderModeDisplay = 0 ;
   }
@@ -592,7 +593,8 @@ void shortcuts_controller() {
 
 
 /**
-Keyboard
+
+KEYBOARD CONTROLLER 1.0.1
 
 */
 boolean checkKeyboard(int c) {
@@ -616,60 +618,56 @@ void key_false() {
   shift_key = false ;
 }
 
-
-// SCENE
+/**
+LOAD SAVE
+*/
 boolean load_Scene_Setting, save_Current_Scene_Setting, save_New_Scene_Setting ;
-// Scene load
-// CTRL + O
+/**
+LOAD
+*/
 void check_Keyboard_load_scene() {
-  if(checkKeyboard(CONTROL) && !checkKeyboard(SHIFT) && checkKeyboard(KeyEvent.VK_O) ) { 
+  if(checkKeyboard(CONTROL) && checkKeyboard(KeyEvent.VK_L) ) { 
+    println("CTRL + L", frameCount) ;
     load_Scene_Setting = true ;
     keyboard[keyCode] = false;   //
     
   }
 }
 
-// Scene current save
-// CTRL + S
-void check_Keyboard_save_scene_CURRENT_path() {
-  if(checkKeyboard(CONTROL) && !checkKeyboard(SHIFT) && checkKeyboard(KeyEvent.VK_S) ) {
-    save_Current_Scene_Setting = true ;
-    keyboard[keyCode] = false ;   // just open one window, when use only the keyboard, if you don't use that open all the windows save and open
-   }
-}
-// Scene new save
-// CTRL + SHIFT + S
-void check_Keyboard_save_scene_NEW_path() {
-  if(checkKeyboard(CONTROL) && checkKeyboard(SHIFT) && checkKeyboard(KeyEvent.VK_S) ) {
-    save_New_Scene_Setting = true ;
-    keyboard[keyCode] = false ;   // just open one window, when use only the keyboard, if you don't use that open all the windows save and open
-  }
-}
-
-
-
-
-
-
-
-
-// CONTROLLER 
-//////////////////
-// Controller load
-
-// CTRL + SHIFT + O
 void check_Keyboard_load_controller() {
-  if(checkKeyboard(CONTROL) && checkKeyboard(SHIFT) && checkKeyboard(KeyEvent.VK_O) ) { 
+  if(checkKeyboard(CONTROL) && checkKeyboard(KeyEvent.VK_O) ) { 
+    println("CTRL + O", frameCount) ;
     selectInput("Load setting controller", "load_setting_controller"); // ("display info in the window" , "name of the method callingBack" )
     keyboard[keyCode] = false;   //
     
   }
 }
 
-// Controller current save
-// CTRL + E
+
+
+/**
+SAVE
+*/
+void check_Keyboard_save_scene_CURRENT_path() {
+  if(checkKeyboard(CONTROL) && checkKeyboard(KeyEvent.VK_D) ) {
+    println("CTRL + D", frameCount) ;
+    save_Current_Scene_Setting = true ;
+    keyboard[keyCode] = false ;   // just open one window, when use only the keyboard, if you don't use that open all the windows save and open
+   }
+}
+// Scene new save
+void check_Keyboard_save_scene_NEW_path() {
+  if(checkKeyboard(CONTROL) && checkKeyboard(KeyEvent.VK_S) ) {
+    println("CTRL + S", frameCount) ;
+    save_New_Scene_Setting = true ;
+    keyboard[keyCode] = false ;   // just open one window, when use only the keyboard, if you don't use that open all the windows save and open
+  }
+}
+
+
 void check_Keyboard_save_controller_CURRENT_path() {
-  if(checkKeyboard(CONTROL) && !checkKeyboard(SHIFT) && checkKeyboard(KeyEvent.VK_E) ) {
+  if(checkKeyboard(CONTROL) && checkKeyboard(KeyEvent.VK_R) ) {
+    println("CTRL + R", frameCount) ;
     showAllSliders = true ;
     if (savePathSetting.equals("")) {
       File tempFileName = new File ("your_controller_setting.csv");
@@ -682,7 +680,8 @@ void check_Keyboard_save_controller_CURRENT_path() {
 // Controller new save
 // CTRL + SHIFT + E
 void check_Keyboard_save_controller_NEW_path() {
-  if(checkKeyboard(CONTROL) && checkKeyboard(SHIFT) && checkKeyboard(KeyEvent.VK_E) ) {
+  if(checkKeyboard(CONTROL) && checkKeyboard(KeyEvent.VK_E) ) {
+    println("CTRL + E", frameCount) ;
     showAllSliders = true ; 
     File tempFileName = new File ("your_controller_setting.csv");
     selectOutput("Save setting", "saveSetting", tempFileName);
