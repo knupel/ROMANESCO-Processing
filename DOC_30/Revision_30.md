@@ -2,12 +2,15 @@
 
 ROMANESCO 30 Revision
 ---------------------
-// PRESCENE & SCENE
+PRESCENE & SCENE
+--
 MAJOR
 --
 > add item Vectorial
 > add item Movisco
 > add item ecosysteme
+> add method to make screenshot by press 'p' touch keyboard
+> add library costume_rope and improve few items with it.
 
 MINOR
 --
@@ -27,7 +30,8 @@ MINOR
 > item boxolyzer, fix bug rotation on line box
 
 
-// CONTROLLER
+CONTROLLER
+--
 MAJOR
 --
 > add menu to selected item

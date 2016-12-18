@@ -226,19 +226,6 @@ void window_midi_info(Vec2 pos, int size_x, int spacing) {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 // ANNEXE don't need MIDI LIBRARIE CODE
 boolean init_midi ;
 

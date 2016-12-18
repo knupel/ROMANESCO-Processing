@@ -27,7 +27,7 @@ boolean TABLET = false ; // now tablet library don't work in OPENGL renderer
 
 void settings() {
   size(600,400,P3D) ;
-  // size(1200,700,P3D) ;
+ // size(1200,700,P3D) ;
   // fullScreen(P3D,2) ;
   pixelDensity(displayDensity()) ;
   syphon_settings() ;
@@ -77,6 +77,7 @@ void setup() {
 void draw() {
   surface.setTitle(nameVersion + " " +prettyVersion+"."+version+ " | Préscène | FPS: "+round(frameRate));
   init_RPE() ;
+  if(FULL_RENDERING) start_PNG("screenshot Romanesco prescene", "Romanesco_"+year()+"_"+month()+"_"+day()+"_"+hour()+"_"+minute()+"_"+second()) ;
 
   syphon_draw() ;
   camera_video_draw() ;
@@ -116,6 +117,12 @@ void draw() {
   //annexe
   info() ;
   if(FULL_RENDERING && !TEST_ROMANESCO) curtain() ;
+  // save screenshot
+  if(FULL_RENDERING) {
+    save_PNG() ;
+  }
+  // this method is outside de bracket (FULL_RENDERING) to give the possibility to send the order to Scene
+  if(pTouch) event_PNG() ;
   
   // misc
   update_temp_value() ;
@@ -129,13 +136,6 @@ void draw() {
 
 
 
-
-
-
-
-
-// MOUSE EVENT 
-////////////////////
 
 // MOUSEPRESSED
 void mousePressed() {
@@ -173,7 +173,6 @@ void mouseWheel(MouseEvent event) {
 //END MOUSEWHEEL
 
 
-/////KEY/////
 //KEYPRESSED
 void keyPressed () {
   shortCutsPrescene() ;

@@ -1,21 +1,21 @@
 /**
 Ecosysteme || 2016 || 0.0.6
 */
-class Ecosysteme extends Romanesco {
-	public Ecosysteme() {
-		RPE_name = "Ecosysteme" ;
+class Ecosystem_agent extends Romanesco {
+	public Ecosystem_agent() {
+		RPE_name = "Eco Agents" ;
 		ID_item = 26 ;
 		ID_group = 1 ;
 		RPE_author  = "Stan le Punk";
-		RPE_version = "Version 0.0.6";
+		RPE_version = "Version 0.1.1";
 		RPE_pack = "Base" ;
-		RPE_mode = "Shape/DNA" ; // separate the differentes mode by "/"
-		RPE_slider = "Fill hue,Fill sat,Fill bright,Fill alpha,Stroke hue,Stroke sat,Stroke bright,Stroke alpha,Thickness,Size X,Canvas X,Canvas Y,Canvas Z,Speed X,Quantity,Scope,Life" ;
+		RPE_mode = "Free/Host" ; // separate the differentes mode by "/"
+		RPE_slider = "Fill hue,Fill sat,Fill bright,Fill alpha,Stroke hue,Stroke sat,Stroke bright,Stroke alpha,Thickness" ;
 	}
 
 
   void setup() {
-    setting_start_position(ID_item, width/2, height/2, 0) ;
+    setting_start_position(ID_item, 0, 0, 0) ;
 
     load_nucleotide_table("preferences/ecosystem/code.csv") ;
     set_environment() ;
@@ -23,13 +23,22 @@ class Ecosysteme extends Romanesco {
   }
 
   int mode_ref = 0 ;
+  boolean host_mode = false ;
 
 	void draw() {
-    speed_rotation_dna = speed_x_item[ID_item] *speed_x_item[ID_item];
-    if(reverse[ID_item]) direction_dna = 1 ; else direction_dna = -1 ;
-    if(motion[ID_item]) rotation_bool_dna = true ; else rotation_bool_dna = false ;
-    if(FULL_RENDERING) if(special[ID_item]) info_agent = true ; else info_agent = false ;
+    if(mode[ID_item] == 1) {
+      host_mode = true ;
+    } else {
+      host_mode = false ;
+    }
 
+    speed_rotation_dna = speed_x_item[ID_item] *speed_x_item[ID_item];
+    /*
+    if(reverse[ID_item]) direction_host = 1 ; else direction_host = -1 ;
+    if(motion[ID_item]) rotation_bool_host = true ; else rotation_bool_host = false ;
+    */
+    if(FULL_RENDERING) if(special[ID_item]) info_agent = true ; else info_agent = false ;
+ 
 
 
     if(mode[ID_item] != mode_ref) {
@@ -38,21 +47,22 @@ class Ecosysteme extends Romanesco {
     }
 
 		if(init_ecosystem) {
-			ecosystem_setting(biomass, mode_ref) ;
+			ecosystem_setting(biomass, host_mode) ;
 			init_ecosystem = false ;
 			first_save = true ;
 		}
 
 		update_list() ;
 		info_agent(info_agent) ;
+    
 
-		if(mode[ID_item] == 1) {
-      update_flora_position_from_adn() ;
-      show_decorum(speed_rotation_dna, direction_dna, ELLIPSE_ROPE, info_agent) ;
+
+    if(host_mode) {
+      sync_symbiosis() ;
+      update_symbiosis() ;
     }
-		show_agent() ;
-		
 
+		show_agent() ;		
 	}
 
 	boolean info_agent = false ;
@@ -141,7 +151,7 @@ Info_dict dead_carac = new Info_dict() ;
 
 
 // main method
-void ecosystem_setting(Biomass b, int mode) {
+void ecosystem_setting(Biomass b, boolean host_mode) {
   clear_agent() ;
   // order of quantity for set_num_agents(int... num)"  ;
   // num_flora / num_herbivore / num_omnivore / num_carnivore / num_bacterium / num_dead  ;
@@ -161,8 +171,8 @@ void ecosystem_setting(Biomass b, int mode) {
   Vec4 stroke_flora = Vec4(color_flora) ;
 
   Vec3 alpha_behavior_flora = Vec3(0, -1, 1) ; // it's like 100% all the time
-  if(pos_final_dna != null) {
-    alpha_behavior_flora = Vec3(pos_final_dna.z, -.4, .8) ;
+  if(get_pos_host() != null) {
+    alpha_behavior_flora = Vec3(get_pos_host().z, -.4, .8) ;
   }
   
   style_flora = new Info_obj("Flora Aspect", costume, fill_flora, stroke_flora, thickness, alpha_behavior_flora) ;  
@@ -204,13 +214,13 @@ void ecosystem_setting(Biomass b, int mode) {
   style_dead = new Info_obj("Dead Aspect", costume, fill_dead, stroke_dead, thickness, alpha_behavior_dead) ;
 
 
-  if(mode == 0) {
+  if(!host_mode) {
     // classic radom drop zone
     build_flora(FLORA_LIST, flora_carac, style_flora, num_flora) ;
-  } else if(mode == 1) {
+  } else {
     //drop zone from list of point
-    create_decorum() ; 
-    build_flora(FLORA_LIST, flora_carac, style_flora, num_flora, drop_zone_flora_list) ;
+    build_flora(FLORA_LIST, flora_carac, style_flora, num_flora, get_symbiosis_area_pos()) ;
+    symbiosis(FLORA_LIST, get_symbiosis_area_pos(), get_host_address()) ;
   }
 
   build_herbivore(HERBIVORE_CHILD_LIST, herbivore_carac, style_herbivore, num_herbivore) ;
@@ -593,9 +603,6 @@ DECORUM
 Vec4 color_flora = Vec4(0, 100, 80, 100) ;
 Vec4 color_herbivore = Vec4(110, 100, 70, 100) ;
 
-Vec3 color_strand_a = Vec3(30, 10, 80) ;
-Vec3 color_strand_b = Vec3(0, 10, 20) ;
-
 
 boolean new_costume_virus = false ;
 void set_virus_costume() {
@@ -635,144 +642,9 @@ void set_virus_costume() {
   float thickness = 1. ;
 
 
-  Vec3 alpha_behavior_flora = Vec3(pos_final_dna.z, -.4, .8) ;
+  Vec3 alpha_behavior_flora = Vec3(get_pos_host().z, -.4, .8) ;
   style_flora = new Info_obj("Flora Aspect", costume, fill_flora, stroke_flora, thickness, alpha_behavior_flora) ;  
 }
-
-
-
-
-
-
-/**
-ADN
-
-*/
-
-Vec3 [] drop_zone_flora_list ;
-Helix_DNA strand_DNA ;
-Vec3 pos_final_dna ;
-int radius_dna ;
-int size_dna ;
-int [] target_nucleotide ;
-
-void create_decorum() {
-  //flora
-  int revolution = 60 ;
-  int nucleotide = num_flora *2 ;
-  size_dna = int(height *1.5) ;
-  radius_dna = abs(HORIZON) / 8 ;
-  int num_strand = 2 ;
-
-  pos_final_dna = Vec3(width / 2, -size_dna/3, -radius_dna) ;
-
-  strand_DNA = new Helix_DNA(num_strand, nucleotide, revolution) ;
-  strand_DNA.set_radius(radius_dna) ;
-  strand_DNA.set_height(size_dna) ;
-  strand_DNA.set_pos(pos_final_dna) ;
-
-  drop_zone_flora_list = new Vec3[num_flora] ;
-  target_nucleotide = new int[num_flora] ;
-
-  for(int i = 0 ; i < drop_zone_flora_list.length ; i++) {
-    drop_zone_flora_list[i] = Vec3() ;
-    int where = (int)random(strand_DNA.get_pos().length) ;
-    target_nucleotide[i] = where ;
-    drop_zone_flora_list[i].set(strand_DNA.get_pos()[where]) ;
-  }
-
-}
-
-
-
-void update_flora_position_from_adn() {
-  for(int i = 0 ; i < FLORA_LIST.size() ; i++) {
-    Agent flora = FLORA_LIST.get(i) ;
-    flora.set_pos(strand_DNA.get_pos()[target_nucleotide[i]]) ;
-  }
-}
-
-
-float rotation_dna = 0 ;
-boolean rotation_bool_dna = false ;
-
-void show_decorum(float speed_rotation_dna, int direction_dna, int which_costume, boolean info) {
-
-  // show DNA
-  if(size_dna > 0 ) {
-    if(rotation_bool_dna) {
-      rotation_dna += abs(speed_rotation_dna) *direction_dna ;
-      // rotation_dna = abs(rotation_dna) *direction_dna ;
-      strand_DNA.rotation(rotation_dna) ;
-      strand_DNA.set_radius(radius_dna) ;
-      strand_DNA.set_height(size_dna) ;
-      strand_DNA.set_pos(pos_final_dna) ;
-    }  
-
-    for(int i = 0 ; i < strand_DNA.length() ; i++) {
-      costume_DNA(strand_DNA, i, pos_final_dna, which_costume, info) ;
-    }
-  }
-}
-
-void costume_DNA(Helix_DNA helix, int target, Vec3 pos_final, int which_costume, boolean info) {
-  Vec3 pos_a = helix.get_pos(0)[target] ;
-  Vec3 pos_b = helix.get_pos(1)[target] ;
-
-  int size = 36 ;
-  int size_link = 1 ;
-
-  float radius = helix.get_radius().x ;
-  float alpha_min = .01 ;
-  float alpha_max = .8 ;
-
-  stroke(80, 8) ;
-  strokeWeight(size_link) ;
-  line(pos_a, pos_b) ;
-
-  float ratio_a = map(pos_a.z -pos_final_dna.z , -radius, radius, 0 +alpha_min, alpha_max) ;
-  float alpha_a = g.colorModeA * ratio_a ;
-  
-  
-
-
-  float ratio_b = map(pos_b.z -pos_final_dna.z, -radius, radius, 0 +alpha_min, alpha_max) ;
-  float alpha_b = g.colorModeA *ratio_b ;
-
-
-  if(info) {
-    fill(color_strand_a, alpha_a) ;
-    String nuc_a = "" +helix.get_DNA(0).sequence_a.get(target).nac ;
-    costume_rope(pos_a, size, nuc_a) ;
-    fill(color_strand_b, alpha_b) ;
-    String nuc_b = "" +helix.get_DNA(0).sequence_a.get(target).nac ;
-    costume_rope(pos_b, size, nuc_b) ;
-  } else {
-    noFill() ;
-    stroke(color_strand_a, alpha_a) ;
-    costume_rope(pos_a, size, which_costume) ;
-    noFill() ;
-    stroke(color_strand_b, alpha_b) ;
-    costume_rope(pos_b, size, which_costume) ;
-  }
-  
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

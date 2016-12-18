@@ -21,9 +21,9 @@ boolean FULL_SCREEN = false ;
 void settings() {
   // When you build Romanesco you must create two versions : fullscreen and normal
   
-  // fullScreen(P3D,2) ;
-  // FULL_SCREEN = true ;
-  size(124,124,P3D) ;
+  fullScreen(P3D,2) ;
+  FULL_SCREEN = true ;
+  // size(124,124,P3D) ;
   pixelDensity(displayDensity()) ;
   syphon_settings() ;
 }
@@ -76,6 +76,7 @@ void draw() {
   if(!syphon_on_off) surface.setTitle(nameVersion + " " +prettyVersion+"."+version+ " | Scéne | FPS: "+round(frameRate)); else frame.setTitle(nameVersion + " " +prettyVersion+"."+version+ " | Miroir | FPS: "+round(frameRate));
   if (!FULL_SCREEN) size_scene() ;
   init_RPE() ;
+  if(FULL_RENDERING) start_PNG("screenshot Romanesco scene", "Romanesco_"+year()+"_"+month()+"_"+day()+"_"+hour()+"_"+minute()+"_"+second()) ;
 
   syphon_draw() ;
   camera_video_draw() ;
@@ -106,7 +107,11 @@ void draw() {
   
   //ANNEXE
   info() ;
-  curtain() ;  
+  curtain() ; 
+  // save screenshot
+  save_PNG() ;
+  if(pTouch) event_PNG() ;
+
   update_temp_value() ;
 
   nextPreviousKeypressed() ;

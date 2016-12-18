@@ -1,10 +1,10 @@
 /**
-CLASS AGENT 0.1.1.1
+CLASS AGENT 0.1.3.0
 */
 /**
 
 
-INTERFACE AGENT 0.0.2
+INTERFACE AGENT 0.1.0
 
 
 */
@@ -23,9 +23,17 @@ interface Agent {
   Vec3 get_pos() ;
   int get_size() ;
 
+
   int get_alpha_cursor() ;
   float get_alpha_back() ;
   float get_alpha_front() ;
+
+  /**
+  get home
+  */
+  Vec4 get_home() ;
+  Vec3 get_home_pos() ;
+  int get_home_id() ;
 
 
   /**
@@ -51,6 +59,14 @@ interface Agent {
   SET
   */
   /**
+  set home
+  */
+  void set_home(Vec4 home) ;
+  void set_home(Vec3 pos, int id_home) ;
+  void set_home_pos(Vec3 pos) ;
+  void set_home_ID(int id_home) ;
+
+  /**
   set aspect
   */
   void set_aspect(Vec4 colour_fill, Vec4 colour_stroke, float thickness) ;
@@ -66,6 +82,7 @@ interface Agent {
   set caracterictic
   */
   void set_nutrient_quality(int nutrient_quality) ;
+
   /**
   INFO
   */
@@ -98,7 +115,7 @@ END INTERFACE AGENT
 
 
 
-Agent_model ABSTRACT CLASS 0.1.0
+Agent_model ABSTRACT CLASS 0.1.2
 
 */
 abstract class Agent_model implements Agent {
@@ -156,6 +173,47 @@ abstract class Agent_model implements Agent {
   Vec3 pos = Vec3() ;
 
   /**
+  home
+  */
+  Vec4 home ;
+
+
+ /**
+ home
+  */
+  void set_home(Vec4 home) {
+    if(this.home != null) {
+      this.home.set(home) ;
+    } else {
+      this.home = home.copy() ;
+    }
+  }
+
+  void set_home(Vec3 pos, int id_home) {
+    if(this.home != null) {
+      this.home.set(pos.x, pos.y, pos.z, id_home) ;
+    } else {
+      this.home = Vec4(pos.x, pos.y, pos.z, id_home) ;
+    }
+  }
+
+  void set_home_pos(Vec3 pos) {
+    if(this.home != null) {
+      this.home.set(pos.x, pos.y, pos.z, this.home.w) ;
+    } else {
+      this.home = Vec4(pos.x, pos.y, pos.z, -1) ;
+    }
+  }
+
+  void set_home_ID(int id_home) {
+    if(this.home != null) {
+      this.home.set(this.home.x, this.home.y, this.home.z, id_home) ;
+    } else {
+      this.home = Vec4(0, 0, 0, id_home) ;
+    }
+  }
+
+  /**
   reproduction
   */
   Genome genome ;
@@ -200,6 +258,29 @@ abstract class Agent_model implements Agent {
     return stamina ; 
   }
 
+  Vec3 get_pos() { 
+    return pos ;
+  }
+
+ /**
+  get home
+  */
+  Vec4 get_home() { 
+    return home ;
+  }
+
+  Vec3 get_home_pos() { 
+    if(home != null) return Vec3(home.x, home.y, home.z) ; else return null ;
+  }
+
+  int get_home_id() { 
+    if(home != null) return (int)home.w ; else return -1 ;
+  }
+
+  
+  /**
+  get style
+  */
   int get_costume() { 
     return costume ; 
   }
@@ -213,10 +294,10 @@ abstract class Agent_model implements Agent {
     return thickness ; 
   }
 
-  Vec3 get_pos() { 
-    return pos ;
-  }
 
+  /**
+  get alpha
+  */
   int get_alpha_cursor() {
     return alpha_cursor ;
   }
@@ -311,6 +392,7 @@ abstract class Agent_model implements Agent {
   void set_life(int life_expectancy) {
     this.life_expectancy = life_expectancy ;
   }
+
 
   /**
   set misc
@@ -567,6 +649,7 @@ abstract class Agent_dynamic extends Agent_model {
   Vec2 ID_target = Vec2(-1) ;
   Vec3 pos_target = Vec3(0) ;
   Agent target ;
+
 
   /**
   carnivore
@@ -884,6 +967,7 @@ abstract class Agent_dynamic extends Agent_model {
   SET
    
   */
+
   /**
   internal set
   */
@@ -904,13 +988,7 @@ abstract class Agent_dynamic extends Agent_model {
       this.sex_appeal = int(size *sex_appeal_ratio.y) ; 
     }
   }
-
-
-
-
-
-
-
+ 
 
   /**
   set food
@@ -936,8 +1014,6 @@ abstract class Agent_dynamic extends Agent_model {
     if(hunger <= 0) hunger = abs(hunger) ;
     this.hunger = (int)hunger ;
   }
-
-
 
 
 
@@ -1018,8 +1094,6 @@ abstract class Agent_dynamic extends Agent_model {
   Vec3 get_pos() {
     return pos ;
   }
-
-
 
 
 

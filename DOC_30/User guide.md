@@ -1,20 +1,24 @@
-User guide 0.1.0
+User guide 0.1.1
 --
 CONTROLLER
-----------------
+--
 SAVE
 -- 
 Save controller setting
-ctrl + R : save on the last save controller
-ctrl + E : new save controller
+>ctrl + R : save on the last save controller
+
+>ctrl + E : new save controller
+
 Save Scene setting
-ctrl + D : save on the current path
-ctrl + S : new save for Scene
+>ctrl + D : save on the current path
+
+>ctrl + S : new save for Scene
 
 LOAD
 -- 
-ctrl + O : load save Controller
-ctrl + L : load save Scene
+>ctrl + O : load save Controller
+
+>ctrl + L : load save Scene
 
 
 Slider
@@ -30,26 +34,26 @@ You can set the min max of the slider by clicking the extremity of the middle li
 
 
 
+PRESCENE
+--
+Screenshot
+>touch 'P' save png a window Scene or Prescene is on a full rendering mode
 
 
 
 
 
---------------
-Prescene / Scene
+SCENE / PRESCENE
 
 Syphon
---
-> press "y"
+>touch 'Y' disable or enable Syphon mode
 
 Grid 3d
---
-> press "g"
+>touch 'G' disable or enable grid
 
 
 Info item
---
-> press "i"
+>touch 'I' display a window info
 
 
 
@@ -76,10 +80,11 @@ Yes
 
 KEYBOARD
 --
-> "R" reverse direction
-> "M" stop motion
-> "N" new reference rotation
-> DELETE reset letters distribution
+>'R' reverse direction
+>'M' enable or disable motion
+>'N' new event, creature...any way something new for your item
+
+>DELETE reset letters distribution
 
 SOUND
 --
@@ -113,8 +118,8 @@ Yes
 
 KEYBOARD
 --
-> "R" reverse direction
-> "M" stop motion
+>'R' reverse direction
+>'M' enable or disable motion
 
 SOUND
 --
@@ -172,7 +177,7 @@ no
 
 KEYBOARD
 --
-> "R" change direction
+>'R' reverse direction
 > "N" new distribution
 > "O" change orbit
 
@@ -206,7 +211,7 @@ Yes
 
 KEYBOARD
 --
-> "M" stop motion
+>'M' enable or disable motion
 
 SOUND
 --
@@ -271,7 +276,7 @@ Yes
 
 KEYBOARD
 --
-> "M" stop motion
+>'M' enable or disable motion
 
 SOUND
 --
@@ -297,7 +302,7 @@ Yes
 
 KEYBOARD
 --
->"m" stop motion
+>'M' enable or disable motion
 >"h" create horizon and deep
 >"k" display line
 --
@@ -347,8 +352,8 @@ Yes
 
 KEYBOARD
 --
-> "R" reverse direction
-> "M" motion
+>'R' reverse direction
+>'M' enable or disable motion
 > "O" orbital move
 > "SPACE" + "ACTION BUTTON" set the orbital revolution
 
@@ -380,8 +385,8 @@ Yes
 KEYBOARD
 --
 > "H" flat or pyramidal move
-> "R" reverse direction
-> "M" motion
+>'R' reverse direction
+>'M' enable or disable motion
 > "SPACE" + "ACTION BUTTON" set the orbital revolution
 
 SOUND
@@ -413,8 +418,8 @@ Yes
 
 KEYBOARD
 --
-> "M" stop motion
-> "R" reverse rotation
+>'M' enable or disable motion
+>'R' reverse rotation
 
 SOUND
 --
@@ -440,8 +445,8 @@ Yes
 
 KEYBOARD
 --
-> "M" stop motion
-> "R" reverse rotation
+>'R' reverse direction
+>'M' enable or disable motion
 
 SOUND
 --
@@ -494,8 +499,8 @@ Yes
 
 KEYBOARD
 --
-> "M" stop motion
-> "R" reverse rotation
+>'R' reverse direction
+>'M' enable or disable motion
 > "SPACE" change rotation axe / lattice
 
 SOUND
@@ -570,8 +575,8 @@ Yes
 
 KEYBOARD
 --
-> "M" motion for few mode
-> "R" reverse direction
+>'R' reverse direction
+>'M' enable or disable motion
 
 SOUND
 --
@@ -597,7 +602,7 @@ Yes
 
 KEYBOARD
 --
-> "M" motion for few mode
+>'M' enable or disable motion
 
 SOUND
 --

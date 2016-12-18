@@ -1,5 +1,5 @@
 /**
-RPE UTILS 1.21.0.1
+RPE UTILS 1.21.1.0
 Rope – Romanesco Processing Environment – 2015–2016
 * @author Stan le Punk
 * @see https://github.com/StanLepunK/Utils_rope
@@ -15,11 +15,19 @@ final float EULER = 2.718281828459045235360287471352; // Constant d'Euler
 // about constant https://en.wikipedia.org/wiki/Mathematical_constant
 
 /**
-COLOR 0.0.1
+COLOR 0.0.2
 I MUST clean the Z_Color of Romanesco and keed what is good 
 */
 // camaieu
 // return hue or other date in range of specific data float
+int [] camaieu(int max, float colorRef, int range, int num) {
+  int [] camaieu = new int[num] ;
+  for(int i = 0 ; i < camaieu.length ; i++) {
+    camaieu[i] = camaieu(max, colorRef, range) ;
+  }
+  return camaieu ;
+} 
+
 int camaieu(int max, float colorRef, int range) {
   float camaieu = 0 ;
   float whichColor = random(-range, range) ;

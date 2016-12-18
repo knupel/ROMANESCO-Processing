@@ -614,11 +614,11 @@ STATIC SUB METHOD
 
 */
 /**
-METHOD FLORA 1.0.0
+METHOD FLORA 1.1.0
 
 */
 /**
-build 0.1.0
+build 0.2.0
 */
 // main method
 void build_flora(ArrayList<Agent> list_f, Info_dict carac, Info_obj style, int num) {
@@ -634,25 +634,36 @@ void build_flora(ArrayList<Agent> list_f, Info_dict carac, Info_obj style, int n
 }
 
 void build_flora(ArrayList<Agent> list_f, Info_dict carac, Info_obj style, int num, Vec... area) {
+  println("num", num, "area length", area.length) ;
   for(int i = 0 ; i < num ; i++) {
-    if(ENVIRONMENT == 2) {
-      if(area[i] instanceof Vec2) {
-        Vec2 spawn_pos = (Vec2) area[i] ;
-        add_flora(list_f, spawn_pos, carac, style) ;
+    // it's not possible to give home to everybody, sorry
+    if(i < area.length) {
+      if(ENVIRONMENT == 2) {
+        if(area[i] instanceof Vec2) {
+          Vec2 spawn_pos = (Vec2) area[i] ;
+          add_flora(list_f, spawn_pos, carac, style) ;
+        }
+        if(area[i] instanceof Vec3) {
+          Vec3 spawn_pos = (Vec3) area[i] ;
+          add_flora(list_f, Vec2(spawn_pos.x, spawn_pos.y), carac, style) ;
+        } else {
+          System.err.println("Arg area in not an instance of Vec2 or Vec3, no agent can be add") ;
+        }  
+      } else if (ENVIRONMENT == 3) {
+        if(area[i] instanceof Vec2) {
+          Vec2 spawn_pos = (Vec2) area[i] ;
+          add_flora(list_f, Vec3(spawn_pos.x, spawn_pos.y, 0), carac, style) ;
+        }
+        if(area[i] instanceof Vec3) {
+          Vec3 spawn_pos = (Vec3) area[i] ;
+          add_flora(list_f, spawn_pos, carac, style) ;
+        } else {
+          System.err.println("Arg area in not an instance of Vec2 or Vec3, no agent can be add") ;
+        } 
       }
-      if(area[i] instanceof Vec3) {
-        Vec3 spawn_pos = (Vec3) area[i] ;
-        add_flora(list_f, Vec2(spawn_pos.x, spawn_pos.y), carac, style) ;
-      }  
-    } else if (ENVIRONMENT == 3) {
-      if(area[i] instanceof Vec2) {
-        Vec2 spawn_pos = (Vec2) area[i] ;
-        add_flora(list_f, Vec3(spawn_pos.x, spawn_pos.y, 0), carac, style) ;
-      }
-      if(area[i] instanceof Vec3) {
-        Vec3 spawn_pos = (Vec3) area[i] ;
-        add_flora(list_f, spawn_pos, carac, style) ;
-      }  
+    // it's not possible to give home to everybody, sorry
+    } else {
+      System.err.println("the population is above the home place") ;
     }
   }
 }

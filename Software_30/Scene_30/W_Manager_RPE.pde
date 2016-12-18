@@ -1,5 +1,5 @@
 /**
-Romanesco Processing Environment Manager – RPE Manager 2.0.4
+Romanesco Processing Environment Manager – RPE Manager 2.0.4.1
 */
 RPE_MANAGER rpe_manager ;
 // CLASS ROMANESCO MANAGER
@@ -49,6 +49,7 @@ void updateObject(int ID) {
       pen[ID].set(pen[0]) ;
       mouse[ID].set(mouse[0]) ;
     }
+    if (nTouch) birth[ID] = !birth[ID] ;
     if (mTouch) motion[ID] = !motion[ID] ;
     if (hTouch) horizon[ID] = !horizon[ID] ;
     if (rTouch) reverse[ID] = !reverse[ID] ;

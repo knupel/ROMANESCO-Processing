@@ -1,6 +1,6 @@
 /** 
 Tab: Z_VAR
-Version 1.0.9
+Version 1.0.9.1
 */
 // GLOBAL SETTING ////
 
@@ -371,7 +371,7 @@ int wheel[] ;
 //pen info
 
 //boolean object
-boolean [] motion, horizon, setting, reverse, special, orbit, clearList ;
+boolean [] motion, horizon, setting, reverse, special, orbit, clearList, birth ;
 
 //main font for each object
 String [] path_font_TTF, pathFontVLW, path_font_item_TTF ;
@@ -429,6 +429,7 @@ void createMiscVar() {
   setting = new boolean [NUM_ITEM]  ;
   // boolean clear
   clearList = new boolean[NUM_ITEM] ;
+  birth = new boolean[NUM_ITEM] ;
   motion = new boolean [NUM_ITEM]  ;
   horizon = new boolean [NUM_ITEM]  ;
   reverse = new boolean [NUM_ITEM] ;
