@@ -1,5 +1,5 @@
 /**
-Romanesco Processing Environment Manager – RPE Manager 2.0.4.1
+Romanesco Processing Environment Manager – RPE Manager 2.0.4.2
 */
 RPE_MANAGER rpe_manager ;
 // CLASS ROMANESCO MANAGER
@@ -55,6 +55,7 @@ void update_var_items(int ID) {
     if (rTouch) reverse[ID] = !reverse[ID] ;
     if (kTouch) special[ID] = !special[ID] ;
     if (oTouch) orbit[ID] = !orbit[ID] ;
+    if (xTouch) colour[ID] = !colour[ID] ;
     /*
     clickLongLeft[ID] = clickLongLeft[0] ;
     clickLongRight[ID] = clickLongRight[0] ;

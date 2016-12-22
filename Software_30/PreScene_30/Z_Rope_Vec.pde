@@ -1,5 +1,5 @@
 /**
-CLASS OPE VEC 1.6.0
+CLASS OPE VEC 1.6.1
 Rope – Romanesco Processing Environment – 2015 – 2016
 * @author Stan le Punk
 * @see https://github.com/StanLepunK/Vec
@@ -3071,9 +3071,15 @@ Vec6 Vec6(String s, int v) {
 
 
 /**
-PROCESSING METHOD in VEC mode
+PROCESSING VEC METHOD 1.0.1
 
 */
+/**
+random
+*/
+float random (Vec2 v) {
+  return random(v.x, v.y) ;
+}
 /**
 background
 */

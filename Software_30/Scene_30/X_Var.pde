@@ -1,6 +1,5 @@
 /** 
-Tab: Z_VAR
-Version 1.0.9.1
+VARIABLE 1.1.1
 */
 // GLOBAL SETTING ////
 
@@ -271,7 +270,7 @@ float influence_temp, calm_temp, need_temp ;
 
 // item target final
 boolean [] first_opening_item ; // used to check if this object is already opening before
-color [] fill_item, stroke_item ;
+int [] fill_item, stroke_item ;
 float [] thickness_item ; 
 float [] size_x_item, size_y_item, size_z_item ;
 float [] font_size_item ;
@@ -371,7 +370,7 @@ int wheel[] ;
 //pen info
 
 //boolean object
-boolean [] motion, horizon, setting, reverse, special, orbit, clearList, birth ;
+boolean [] motion, horizon, setting, reverse, special, orbit, clearList, birth, colour ;
 
 //main font for each object
 String [] path_font_TTF, pathFontVLW, path_font_item_TTF ;
@@ -396,10 +395,11 @@ PFont font[]  ;
 
 
 /**
-CREATE VAR
+CREATE VAR 1.0.1
 */
 void create_variable() {
-  NUM_ITEM = rpe_manager.numClasses +1 ;
+  // here add 2, because we don't use the item '0' + and same for all the var, so we add '1' more for that too
+  NUM_ITEM = rpe_manager.size() +2 ;
 
   NUM_SETTING_ITEM = 1 ;
   NUM_SETTING_CAMERA = 1 ;
@@ -413,12 +413,12 @@ void create_variable() {
   create_variableCursor() ;
   create_var_item() ;
   create_var_item_manipulation(NUM_SETTING_ITEM) ;
-
-  rpe_manager.initObj() ;
-          /*
-  println("create_variable done") ;
-  */
+  // rpe_manager.init_items() ;
+  println("variables setup done") ;
 }
+
+
+
 
 
 // misc var
@@ -429,12 +429,14 @@ void createMiscVar() {
   setting = new boolean [NUM_ITEM]  ;
   // boolean clear
   clearList = new boolean[NUM_ITEM] ;
+  // boolean action from keyboard
   birth = new boolean[NUM_ITEM] ;
   motion = new boolean [NUM_ITEM]  ;
   horizon = new boolean [NUM_ITEM]  ;
   reverse = new boolean [NUM_ITEM] ;
   special = new boolean [NUM_ITEM] ;
   orbit = new boolean [NUM_ITEM] ;
+  colour = new boolean [NUM_ITEM] ;
 
   // IMAGE
   bitmap_import = new PImage[NUM_ITEM] ;
@@ -543,8 +545,6 @@ void create_var_item_manipulation(int num_item_setting) {
 }
 
 void create_var_item() {
- 
-  // VAR object
   first_opening_item = new boolean[NUM_ITEM] ; // used to check if this object is already opening before
   fill_item = new color[NUM_ITEM] ;
   stroke_item = new color[NUM_ITEM] ;
@@ -611,24 +611,34 @@ void create_var_item() {
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /**
-INIT VAR
+INIT VAR 1.0.1
 */
-void init_variable_item() {
-  for (int i = 0 ; i < NUM_ITEM ; i++ ) {     
-    reset_camera_direction_item[i] = true ;
-    temp_item_canvas_direction[i] = Vec3() ;
-    pen[i] = Vec3() ;
-    // use the 250 value for "z" to keep the position light on the front
-    mouse[i] = Vec3() ;
-    wheel[i] = 0 ;
-  }
-    // init global var for the color obj preview mode display
-  COLOR_FILL_OBJ_PREVIEW = color (0,0,100,30) ; 
-  COLOR_STROKE_OBJ_PREVIEW = color (0,0,100,30) ;
-}
-
-
 void init_variable_item_min_max() {
   float min_size = .1 ;
   float super_min_size = .05 ;
@@ -699,10 +709,117 @@ void init_variable_item_min_max() {
   calm_min_max = Vec2(0,1) ; 
   need_min_max = Vec2(0,1) ;
 }
-// END SETTING AR
 
 
-/* 
+// init var item
+void init_variable_item() {
+  for (int i = 0 ; i < NUM_ITEM ; i++ ) {     
+    reset_camera_direction_item[i] = true ;
+    temp_item_canvas_direction[i] = Vec3() ;
+    pen[i] = Vec3() ;
+    // use the 250 value for "z" to keep the position light on the front
+    mouse[i] = Vec3() ;
+    wheel[i] = 0 ;
+    // init slider var item except fill and stroke
+    thickness_item [i] =1. ; 
+
+    size_x_item [i] = (float)width *.05 ; 
+    size_y_item [i] = (float)width *.05 ; 
+    size_z_item [i] = (float)width *.05 ;
+
+    font_size_item [i] = 10 ;
+
+    canvas_x_item [i] = width ; 
+    canvas_y_item [i] = width ; 
+    canvas_z_item [i] = width ;
+
+    reactivity_item[i] = 0 ;
+
+    speed_x_item [i] = 0 ; 
+    speed_y_item [i] = 0 ; 
+    speed_z_item [i] = 0 ;
+
+    spurt_x_item [i] = 0 ; 
+    spurt_y_item [i] = 0 ; 
+    spurt_z_item [i] = 0 ; 
+
+    dir_x_item [i] = 0 ; 
+    dir_y_item [i] = 0 ; 
+    dir_z_item [i] = 0 ; 
+
+    jitter_x_item [i] = 0 ; 
+    jitter_y_item [i] = 0 ; 
+    jitter_z_item [i] = 0 ; 
+
+    swing_x_item [i] = 0 ; 
+    swing_y_item [i] = 0 ; 
+    swing_z_item [i] = 0 ; 
+
+    quantity_item [i] = .1 ; 
+
+    variety_item [i] = 0 ; 
+
+    life_item [i] = .1 ;
+    flow_item [i] = 0 ; 
+    quality_item [i] = .1 ;
+
+    area_item [i] = width ; 
+    angle_item [i] = 0 ; 
+    scope_item [i] = width ;
+    scan_item [i] = 90 ; 
+
+    alignment_item [i] = 0 ; 
+    repulsion_item [i] = 0 ;  
+    attraction_item [i] = 0 ; 
+    charge_item [i] = 0 ; 
+
+    influence_item [i] = 0 ; 
+    calm_item [i] = 0 ; 
+    need_item [i] = 0 ; 
+  }
+    // init global var for the color obj preview mode display
+  COLOR_FILL_OBJ_PREVIEW = color (0,0,100,30) ; 
+  COLOR_STROKE_OBJ_PREVIEW = color (0,0,100,30) ;
+}
+
+
+
+void init_items() {
+  rpe_manager.init_items() ;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/**
 UPDATE DATA from CONTROLER and PRESCENE
 Those value are used to updated the object data value, and updated at the end of the loop the temp value
 */

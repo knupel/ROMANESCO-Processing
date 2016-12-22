@@ -370,7 +370,7 @@ int wheel[] ;
 //pen info
 
 //boolean object
-boolean [] motion, horizon, setting, reverse, special, orbit, clearList, birth ;
+boolean [] motion, horizon, setting, reverse, special, orbit, clearList, birth, colour ;
 
 //main font for each object
 String [] path_font_TTF, pathFontVLW, path_font_item_TTF ;
@@ -395,7 +395,7 @@ PFont font[]  ;
 
 
 /**
-CREATE VAR
+CREATE VAR 1.0.1
 */
 void create_variable() {
   // here add 2, because we don't use the item '0' + and same for all the var, so we add '1' more for that too
@@ -429,12 +429,14 @@ void createMiscVar() {
   setting = new boolean [NUM_ITEM]  ;
   // boolean clear
   clearList = new boolean[NUM_ITEM] ;
+  // boolean action from keyboard
   birth = new boolean[NUM_ITEM] ;
   motion = new boolean [NUM_ITEM]  ;
   horizon = new boolean [NUM_ITEM]  ;
   reverse = new boolean [NUM_ITEM] ;
   special = new boolean [NUM_ITEM] ;
   orbit = new boolean [NUM_ITEM] ;
+  colour = new boolean [NUM_ITEM] ;
 
   // IMAGE
   bitmap_import = new PImage[NUM_ITEM] ;

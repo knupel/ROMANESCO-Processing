@@ -1,5 +1,5 @@
 /**
-RPE UTILS 1.21.0.1
+RPE UTILS 1.21.3
 Rope – Romanesco Processing Environment – 2015–2016
 * @author Stan le Punk
 * @see https://github.com/StanLepunK/Utils_rope
@@ -15,50 +15,148 @@ final float EULER = 2.718281828459045235360287471352; // Constant d'Euler
 // about constant https://en.wikipedia.org/wiki/Mathematical_constant
 
 /**
-COLOR 0.0.1
-I MUST clean the Z_Color of Romanesco and keed what is good 
+
+COLOR 0.2.0
+
 */
-// camaieu
+/**
+aspect 0.0.1
+*/
+void aspect(int fill, int stroke, float thickness) {
+  //checkfill color
+  if(alpha(fill) <=0)  {
+    noFill() ; 
+  } else {
+    fill(fill) ;
+  } 
+  //check stroke color
+  if(alpha(stroke) <=0 || thickness <= 0 ) {
+    noStroke() ;
+  } else {
+    stroke(stroke) ;
+    strokeWeight(thickness) ;
+  }
+}
+/**
+camaieu 0.1.1
+*/
 // return hue or other date in range of specific data float
-int camaieu(int max, float colorRef, int range) {
+float camaieu(float max, float color_ref, float range) {
   float camaieu = 0 ;
-  float whichColor = random(-range, range) ;
-  camaieu = colorRef +whichColor ;
+  float which_color = random(-range, range) ;
+  camaieu = color_ref +which_color ;
   if(camaieu < 0 ) camaieu = max +camaieu ;
   if(camaieu > max) camaieu = camaieu -max ;
- 
-  return (int)camaieu ;
+  return camaieu ;
+}
+
+/**
+color pool 0.1.1
+*/
+int [] color_pool(int num) {
+  Vec2 sat_range = Vec2(g.colorModeY) ;
+  Vec2 bright_range = Vec2(g.colorModeZ) ;
+  Vec2 alpha_range = Vec2(g.colorModeA) ;
+  float range = g.colorModeX *.5 ;
+  int num_group = 1 ;
+  float key_hue = -1 ;
+  return color_pool(num, num_group, key_hue, range, sat_range, bright_range, alpha_range) ;
+}
+
+int [] color_pool(int num, int num_group, float hue_range) {
+  Vec2 sat_range = Vec2(g.colorModeY) ;
+  Vec2 bright_range = Vec2(g.colorModeZ) ;
+  Vec2 alpha_range = Vec2(g.colorModeA) ;
+  float key_hue = -1 ;
+  return color_pool(num, num_group, key_hue, hue_range, sat_range, bright_range, alpha_range) ;
+}
+
+int [] color_pool(int num, int num_group, float hue_range, Vec2 sat_range, Vec2 bright_range, Vec2 alpha_range) {
+  float key_hue = -1 ;
+  return color_pool(num, num_group, key_hue, hue_range, sat_range, bright_range, alpha_range) ;
+
+}
+
+
+// color pool by group
+int [] color_pool(int num, int num_group, float key_hue, float hue_range, Vec2 sat_range, Vec2 bright_range, Vec2 alpha_range) {
+  int ref = g.colorMode ;
+  float x = g.colorModeX ;
+  float y = g.colorModeY ;
+  float z = g.colorModeZ ;
+  float a = g.colorModeA ;
+  colorMode(HSB,360,100,100,100) ;
+
+  float [] color_ref = new float[num_group] ;
+  if(key_hue >= 0 ) {
+    color_ref[0] = key_hue ;
+  } else {
+    color_ref[0] = random(g.colorModeX) ;
+  }
+  if(num_group > 1) {
+    float step = g.colorModeX / num_group ;
+    for(int i = 1 ; i < num_group ; i++) {
+      color_ref[i] = color_ref[i -1] + step ;
+      if(color_ref[i] > g.colorModeX) {
+        color_ref[i] = color_ref[i] - g.colorModeX ;
+      }
+    }
+  }
+
+
+  int [] list = new int[num] ;
+  int count = 0 ;
+  int step = num / num_group ;
+  int next_stop = step ; ;
+  for(int i = 0 ; i < list.length ; i++) {
+    if(i > next_stop) {
+      count++ ;
+      next_stop += step ;
+    }
+    float saturation = random(sat_range) ;
+    float brightness = random(bright_range) ;
+    float alpha = random(alpha_range) ;
+    float hue = camaieu(g.colorModeX, color_ref[count], hue_range) ;
+    list[i] = color(hue, saturation,brightness, alpha) ;
+  }
+  colorMode(ref,x,y,z,a) ;
+  return list ;
 }
 
 
 
+
+
+/**
+componenet range
+*/
 boolean alpha_range(float min, float max, int colour) {
   float alpha = alpha(colour) ;
   return in_range(min, max, alpha) ;
 }
 
 boolean red_range(float min, float max, int colour) {
-  float  r = alpha(colour) ;
+  float  r = red(colour) ;
   return in_range(min, max, r) ;
 }
 
 boolean green_range(float min, float max, int colour) {
-  float  g = alpha(colour) ;
+  float  g = green(colour) ;
   return in_range(min, max, g) ;
 }
 
 boolean blue_range(float min, float max, int colour) {
-  float  b = alpha(colour) ;
+  float  b = blue(colour) ;
   return in_range(min, max, b) ;
 }
 
 boolean saturation_range(float min, float max, int colour) {
-  float  s = alpha(colour) ;
+  float  s = saturation(colour) ;
   return in_range(min, max, s) ;
 }
 
 boolean brightness_range(float min, float max, int colour) {
-  float  b = alpha(colour) ;
+  float  b = brightness(colour) ;
   return in_range(min, max, b) ;
 }
 
@@ -79,6 +177,63 @@ boolean hue_range(float min, float max, int colour) {
   colorMode(c_m, c_x, c_y, c_z, c_a) ;
   return result ;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+/**
+convert color
+*/
+//convert color HSB to RVB
+Vec3 HSB_to_RGB(float hue, float saturation, float brightness) {
+  Vec4 vecRGB = HSB_to_RGB(hue, saturation, brightness, g.colorModeA).copy() ;
+  return Vec3(vecRGB.x,vecRGB.y,vecRGB.z) ;
+}
+
+Vec4 HSB_to_RGB(float hue, float saturation, float brightness, float alpha) {
+  Vec4 ref = Vec4(g.colorModeX, g.colorModeY, g.colorModeY, g.colorModeA) ;
+  color c = color (hue, saturation, brightness, alpha);
+
+  colorMode(RGB,255) ;
+  Vec4 vecRGBa = Vec4 (red(c), green(c), blue(c), alpha(c)) ;
+  // return to the previous colorMode
+  // colorMode(HSB,HSBmode.r,HSBmode.r,HSBmode.b,HSBmode.a) ;
+  colorMode(HSB,ref.r, ref.g, ref.b, ref.a) ;
+  return vecRGBa ;
+}
+
+
+
+// color context
+/*
+* good when the text is on different background
+*/
+int color_context(int colorRef, int threshold, int clear, int dark) {
+  int new_color ;
+  if( brightness( colorRef ) < threshold ) {
+    new_color = clear;
+  } else {
+    new_color = dark ;
+  }
+  return new_color ;
+}
+/**
+
+END COLOR
+
+*/
+
+
+
+
 
 
 
@@ -223,13 +378,12 @@ END EXPORT FILE PDF / PNG
 
 /**
 Rope – Romanesco Processing environment – 
-BACKGROUND_2D_3D 0.1.0
+BACKGROUND_2D_3D 0.0.3
 * @author Stan le Punk
 * @see other Processing work on https://github.com/StanLepunK
 */
 
 float MAX_RATIO_DEPTH = 6.9 ;
-// int MAX_DEPTH = 1000 ;
 
 /**
 Normalize background
@@ -268,22 +422,21 @@ void background_norm(float r_c, float g_c, float b_c, float a_c) {
   float a = map(a_c,0,1, 0, g.colorModeA) ;
   noStroke() ;
   fill(x, y, z, a) ;
-  Vec2 canvas_bg = Vec2(width, height) ;
+  int canvas_x = width ;
+  int canvas_y = height ;
   if(renderer_P3D()) {
-    canvas_bg.mult(100) ;
-    Vec2 pos_bg = Vec2(canvas_bg) ;
-    pos_bg.mult(-1) ;
-    pos_bg.div(2) ;
+    canvas_x = width *100 ;
+    canvas_y = height *100 ;
+    int pos_x = - canvas_x /2 ;
+    int pos_y = - canvas_y /2 ;
     // this problem of depth is not clarify, is must refactoring
-    float depth  = int(height *MAX_RATIO_DEPTH)  ;
-    // if(depth > MAX_DEPTH) depth = MAX_DEPTH ;
-
+    int pos_z = int( -height *MAX_RATIO_DEPTH) ;
     pushMatrix() ;
-    translate(pos_bg.x,pos_bg.y,-depth) ;
-    rect(Vec2(0),canvas_bg) ;
+    translate(0,0,pos_z) ;
+    rect(pos_x,pos_y,canvas_x, canvas_y) ;
     popMatrix() ;
   } else {
-    rect(Vec2(0),canvas_bg) ;
+    rect(0,0,canvas_x, canvas_y) ;
   }
   // HSB mode
   if(g.colorMode == 3) {
@@ -293,6 +446,7 @@ void background_norm(float r_c, float g_c, float b_c, float a_c) {
   } else if (g.colorMode == 1) {
     fill(g.colorModeX, g.colorModeY, g.colorModeZ) ;
     stroke(0) ;
+
   }
   strokeWeight(1) ; 
 }
@@ -433,12 +587,18 @@ void write_row(TableRow row, String col_name, Object o) {
 
 
 /**
-print tempo
+print tempo 0.0.2
 
 */
 void printTempo(int tempo, Object... var) {
   if(frameCount%tempo == 0 ) {
     println(var) ;
+  }
+}
+
+void printArrayTempo(int tempo, Object[] var) {
+  if(frameCount%tempo == 0 ) {
+    printArray(var) ;
   }
 }
 

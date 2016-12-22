@@ -96,8 +96,10 @@ class Honeycomb extends Romanesco {
     popMatrix() ;
     
     // new honeycomb
-    //if((action[ID_item] && xTouch) || allBeats(ID_item) >= 3.125 ) newHoneycomb = true ;
-    if((action[ID_item] && nTouch)) newHoneycomb = true ;
+    if((birth[ID_item])) {
+      newHoneycomb = true ;
+      birth[ID_item] = false ;
+    }
     
     if(newHoneycomb) {
       float r = random(1000000); // random number that is used by all the hexagon cells...

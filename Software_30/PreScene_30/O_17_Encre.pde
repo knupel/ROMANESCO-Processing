@@ -42,7 +42,10 @@ class Spray extends Romanesco {
   //DRAW
   void draw() {
     // change color pallete
-    if(xTouch) changeColor = !changeColor ;
+    if(colour[ID_item]) {
+      changeColor = !changeColor ;
+      colour[ID_item] = false ;
+    }
 
     // thickness
     float thickness = thickness_item[ID_item] ;
