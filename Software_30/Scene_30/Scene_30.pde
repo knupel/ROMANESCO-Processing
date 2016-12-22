@@ -21,9 +21,9 @@ boolean FULL_SCREEN = false ;
 void settings() {
   // When you build Romanesco you must create two versions : fullscreen and normal
   
-  fullScreen(P3D,2) ;
-  FULL_SCREEN = true ;
-  // size(124,124,P3D) ;
+  // fullScreen(P3D,2) ;
+  // FULL_SCREEN = true ;
+  size(124,124,P3D) ;
   pixelDensity(displayDensity()) ;
   syphon_settings() ;
 }
@@ -109,7 +109,10 @@ void draw() {
   info() ;
   curtain() ; 
   // save screenshot
-  save_PNG() ;
+  if(FULL_RENDERING) {
+    save_PNG() ;
+  }
+  // this method is outside de bracket (FULL_RENDERING) to give the possibility to send the order to Scene
   if(pTouch) event_PNG() ;
 
   update_temp_value() ;

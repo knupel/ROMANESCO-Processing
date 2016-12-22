@@ -1,5 +1,5 @@
 /**
-CLASS AGENT 0.1.3.0
+CLASS AGENT 1.0.0.0
 */
 /**
 
@@ -916,6 +916,21 @@ abstract class Agent_dynamic extends Agent_model {
     genome = archetype(data_float, data_string, gender) ;
   }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   /**
   INIT
   */
@@ -964,10 +979,9 @@ abstract class Agent_dynamic extends Agent_model {
 
 
   /**
-  SET
+  SET 1.0.0
    
   */
-
   /**
   internal set
   */
@@ -993,7 +1007,6 @@ abstract class Agent_dynamic extends Agent_model {
   /**
   set food
  */
-
 
   void set_starving(int starving) {
     if(starving <= 0) starving = abs(starving) ;
@@ -1025,8 +1038,6 @@ abstract class Agent_dynamic extends Agent_model {
       this.digestion = digestion ;
     }
   }
-
-
 
   /**
   set motion
@@ -1075,6 +1086,18 @@ abstract class Agent_dynamic extends Agent_model {
   void set_max_time_track(int max) {
     this.max_time_track = int(max *CLOCK) ;
   }
+  /**
+
+  */
+
+
+
+
+
+
+
+
+
 
 
 
@@ -1094,6 +1117,21 @@ abstract class Agent_dynamic extends Agent_model {
   Vec3 get_pos() {
     return pos ;
   }
+  /**
+
+  */
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -1313,7 +1351,7 @@ COMMON HUNT & SEARCH
 
 
   /**
-   FOODING, EATING, STARVING & Co
+   FOODING, EATING, STARVING & Co 0.5.0
 
   */
   /**
@@ -1348,8 +1386,6 @@ COMMON HUNT & SEARCH
       eating = false ;
     }
   }
-  
-
 
   /**
   remove stamina
@@ -1380,9 +1416,6 @@ COMMON HUNT & SEARCH
   }
 
 
-
-
-
 //  int start_eating ;
   void time_to_eat() {
     if(hunger_bool) {
@@ -1403,6 +1436,23 @@ COMMON HUNT & SEARCH
   float ratio_food (float size, float size_ref, float nutrient_quality, float step) {
     return (size -(size_ref / step )) *nutrient_quality ;
   }
+  /**
+
+  */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -1415,76 +1465,9 @@ COMMON HUNT & SEARCH
 
   
   /**
-  MOTION
+  MOTION 1.0.1
 
   */
-  void rebound(Vec6 l, boolean rebound_on_limit) {
-    if(ENVIRONMENT == 2 ) rebound(l.a, l.b, l.c, l.d, 0, 0, rebound_on_limit) ;
-    else if(ENVIRONMENT == 3) rebound(l.a, l.b, l.c, l.d, l.e, l.f,  rebound_on_limit) ;
-  }
-  
-  void rebound(float left, float right, float top, float bottom, float front, float back, boolean rebound_on_limit) {
-    Vec3 pos_temp = Vec3(pos.x, pos.y,pos.z);
-    Vec3 dir_temp = Vec3(dir.x, dir.y, dir.z);
-    
-    if(rebound_on_limit) {
-      dir_temp.set(rebound(left, right, top, bottom, front, back, pos_temp, dir_temp)) ;
-      dir.set(dir_temp) ;
-    } else {
-      Vec3 motion_temp = Vec3(motion.x, motion.y,motion.z) ;
-      motion_temp.set(jump(left, right, top, bottom, front, back, motion_temp)) ;
-      motion.set(motion_temp) ;
-    }
-  }
-
-
-  // local method
-  Vec3 rebound(float left, float right, float top, float bottom, float front, float back, Vec3 pos, Vec3 dir) {
-    // here we use size to have a physical rebound
-    int effect = size ;
-    left -=effect ;
-    right +=effect ;
-    top -=effect ;
-    bottom +=effect ;
-    front -=effect;
-    back +=effect;
-
-    // detection x
-    if(pos.x > right ) dir.x *= -1 ;
-    else if (pos.x < left ) dir.x *= -1 ;
-    // detection y
-    if(pos.y > bottom) dir.y *= -1 ;
-    else if (pos.y < top ) dir.y *= -1 ;
-    // detection z
-    if(pos.z > front) dir.z *= -1 ;
-    else if (pos.z < back ) dir.z *= -1 ;
-    return Vec3(dir) ;
-  }
-
-
-  Vec3 jump(float left, float right, float top, float bottom, float front, float back, Vec3 motion) {
-    // here we use sense_range to find a good jump
-    int effect = sense_range ;
-    left -=effect ;
-    right +=effect ;
-    top -=effect ;
-    bottom +=effect ;
-    front -=effect;
-    back +=effect;
-
-    if(motion.x > right ) motion.x = left ;
-    else if (motion.x < left ) motion.x = right ;
-    // detection y
-    if(motion.y > bottom) motion.y = top ;
-    else if (motion.y < top ) motion.y = bottom  ;
-    // detection z
-    if(motion.z > back) motion.z = front ;
-    else if (motion.z < front ) motion.z = back ;
-    return Vec3(motion) ;
-  }
-
-
-
   void motion() {
     velocity_update() ;
     velocity_xyz.set(velocity) ;
@@ -1529,6 +1512,126 @@ COMMON HUNT & SEARCH
     }
     this.velocity = this.velocity_ref *ratio ;
   }
+  void rebound(Vec6 limit, boolean rebound_on_limit) {
+    if(ENVIRONMENT == 2 ) {
+      rebound(limit.a, limit.b, limit.c, limit.d, 0, 0, rebound_on_limit) ;
+    } else if(ENVIRONMENT == 3) {
+      rebound(limit.a, limit.b, limit.c, limit.d, limit.e, limit.f, rebound_on_limit) ;
+    }
+  }
+  
+  void rebound(float left, float right, float top, float bottom, float front, float back, boolean rebound_on_limit) {
+    Vec3 pos_temp = Vec3(pos.x, pos.y, pos.z);
+    Vec3 dir_temp = Vec3(dir.x, dir.y, dir.z);
+    
+    if(rebound_on_limit) {
+      dir_temp.set(rebound(left, right, top, bottom, front, back, pos_temp, dir_temp)) ;
+      dir.set(dir_temp) ;
+    } else {
+      Vec3 motion_temp = Vec3(motion.x, motion.y,motion.z) ;
+      motion_temp.set(jump(left, right, top, bottom, front, back, motion_temp)) ;
+      motion.set(motion_temp) ;
+    }
+  }
+
+
+  // rebound
+  Vec3 rebound(float left, float right, float top, float bottom, float front, float back, Vec3 pos, Vec3 dir) {
+    // here we use size to have a physical rebound
+    int effect = size ;
+    effect = 0 ;
+    left -=effect ;
+    right +=effect ;
+    top -=effect ;
+    bottom +=effect ;
+    front -=effect;
+    back +=effect;
+    
+
+    // detection x
+    if(pos.x > right) {
+      dir.x *= -1 ;
+      pos.x = right ;
+    } else if (pos.x < left) {
+      dir.x *= -1 ;
+      pos.x = left ;
+    } 
+    // detection y
+    if(pos.y > bottom) {
+      dir.y *= -1 ;
+      pos.y = bottom ;
+    } else if (pos.y < top) {
+      dir.y *= -1 ;
+      pos.y = top ;
+    } 
+    // detection z
+    if(pos.z > back) {
+      dir.z *= -1 ;
+      pos.z = front ;
+    } else if (pos.z < front) {
+      dir.z *= -1 ;
+      pos.z = back ;
+    } 
+    return Vec3(dir) ;
+  }
+
+  // jump
+  Vec3 jump(float left, float right, float top, float bottom, float front, float back, Vec3 motion) {
+    // here we use sense_range to find a good jump
+    int effect = sense_range ;
+    effect = 0 ;
+    left -=effect ;
+    right +=effect ;
+    top -=effect ;
+    bottom +=effect ;
+    front -=effect;
+    back +=effect;
+
+    if(pos.x > right) {
+      motion.x = left ;
+    } else if (pos.x < left) {
+      motion.x = right ;
+    }
+    // detection y
+    if(pos.y > bottom) {
+      motion.y = top ;
+    } else if (pos.y < top) {
+      motion.y = bottom  ;
+    }
+    // detection z
+    if(pos.z > back) {
+      motion.z = front ;
+    } else if (pos.z < front) {
+      motion.z = back ;
+    }
+    return Vec3(motion) ;
+  }
+  /**
+
+  */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -1539,7 +1642,6 @@ COMMON HUNT & SEARCH
 
   /**
   STATEMENT
-
 
   */
 
@@ -1576,7 +1678,6 @@ COMMON HUNT & SEARCH
 
   /**
   BEHAVIOR GLOBAL
-
 
   */
   /**
@@ -1850,7 +1951,7 @@ COMMON HUNT & SEARCH
 
 /**
 
-END AGENT DYNAMIC
+END AGENT DYNAMIC CLASS
 
 */
 

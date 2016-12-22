@@ -22,13 +22,13 @@ used sound
  full frame rate
 */
 boolean TEST_ROMANESCO = false ;
-boolean FULL_RENDERING = false ;
+boolean FULL_RENDERING = true ;
 boolean TABLET = false ; // now tablet library don't work in OPENGL renderer
 
 void settings() {
-  size(600,400,P3D) ;
- // size(1200,700,P3D) ;
-  // fullScreen(P3D,2) ;
+  // size(600,400,P3D) ;
+  // size(1200,700,P3D) ;
+  fullScreen(P3D,2) ;
   pixelDensity(displayDensity()) ;
   syphon_settings() ;
 }
@@ -43,8 +43,7 @@ void setup() {
   display_setup(60) ; // the int value is the frameRate
   RG.init(this);  // Geomerative
 
-  // common setup
-  romanesco_setup() ;
+  romanesco_build_item() ;
 
   create_variable() ;
 
@@ -59,6 +58,8 @@ void setup() {
 
   init_variable_item_min_max() ; 
   init_variable_item() ;
+  init_items() ;
+
 
   font_setup() ;
 
@@ -116,6 +117,7 @@ void draw() {
   
   //annexe
   info() ;
+  // curtain
   if(FULL_RENDERING && !TEST_ROMANESCO) curtain() ;
   // save screenshot
   if(FULL_RENDERING) {

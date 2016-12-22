@@ -3,7 +3,7 @@ Romanesco Processing Environment Manager – RPE Manager 2.0.4.1
 */
 RPE_MANAGER rpe_manager ;
 // CLASS ROMANESCO MANAGER
-void romanesco_setup() {
+void romanesco_build_item() {
   rpe_manager = new RPE_MANAGER(this);
   rpe_manager.addObjectRomanesco() ;
   rpe_manager.finishIndex() ;
@@ -13,7 +13,7 @@ void romanesco_setup() {
 
 
 //Update the var of the object
-void updateObject(int ID) {
+void update_var_items(int ID) {
   //initialization
   if(!initValueMouse[ID]) { 
     mouse[ID] = mouse[0].copy() ;
@@ -42,7 +42,7 @@ void updateObject(int ID) {
     font[ID] = font[0] ;
     update_slider_value(ID) ;
   }
-  updateSound(ID) ;
+  update_var_sound(ID) ;
   
   if(action[ID] ){
     if(spaceTouch) {
@@ -165,7 +165,7 @@ void update_slider_value(int ID) {
 
 
 //
-void updateSound(int ID) {
+void update_var_sound(int ID) {
   if(sound[ID]) {
     left[ID]  = left[0] ;// value(0,1)
     right[ID] = right[0] ;//float value(0,1)
@@ -395,7 +395,9 @@ class RPE_MANAGER {
   
   
   
-  
+  int size() {
+    return floor(objectRomanescoList.size()-1) ;
+  }
   
   
   
@@ -446,16 +448,17 @@ class RPE_MANAGER {
   ////////
   //SETUP
   // INIT ROMANESCO OBJECT
-  void initObj() {
+  void init_items() {
     int num = 0 ;
     for (Romanesco objR : RomanescoList) {
       motion[objR.ID_item] = true ;
       initValueMouse[objR.ID_item] = true ;
       num ++ ;
       objR.setup() ;
-      if(posObjRef[objR.ID_item] == null) posObjRef[objR.ID_item] = Vec3() ;
+      if(posObjRef[objR.ID_item] == null) {
+        posObjRef[objR.ID_item] = Vec3() ;
+      }
       posObjRef[objR.ID_item].set(item_setting_position[0][objR.ID_item]) ;
-
     }
   }
   
@@ -478,10 +481,12 @@ class RPE_MANAGER {
     if (show_object != null) {
       for (Romanesco objR : RomanescoList) {
         if (show_object[objR.ID_item]) {
-          updateObject(objR.ID_item) ;
+          update_var_items(objR.ID_item) ;
           pushMatrix() ;
           add_ref_item(objR.ID_item) ;
-          if(vLongTouch && action[objR.ID_item] ) item_move(movePos, moveDir, objR.ID_item) ;
+          if(vLongTouch && action[objR.ID_item] ) {
+            item_move(movePos, moveDir, objR.ID_item) ;
+          }
           final_pos_item(objR.ID_item) ;
           objR.draw() ;
           popMatrix() ;

@@ -1,6 +1,6 @@
 /**
 
-ECOSYSTEM UTIL 0.1.0
+ECOSYSTEM UTIL 1.0.0
 
 * HOST and SYMBIOSIS
 * WORLD
@@ -231,51 +231,63 @@ void sync_symbiosis(ArrayList<Agent> symbiotic_agent_list) {
 
 /**
 
-WORLD 0.1.0
+WORLD 0.1.1
 
 */
 boolean HORIZON_ALPHA = false ;
 int HORIZON = 0 ;
 int ENVIRONMENT = 2 ; // 2 is for 2D, 3 for 3D
-Vec3 BOX = Vec3(100,100,100) ;
-Vec3 BOX_POS = Vec3() ;
-Vec6 LIMIT = Vec6(0,BOX.x,0,BOX.y,0,BOX.z) ;
+Vec3 ECO_BOX_SIZE = Vec3(100,100,100) ;
+Vec3 ECO_BOX_POS = Vec3() ;
+Vec6 LIMIT = Vec6(0, ECO_BOX_SIZE.x, 0, ECO_BOX_SIZE.y, 0, ECO_BOX_SIZE.z) ;
 
 boolean REBOUND ;
 int SIZE_TEXT_INFO ;
 
 
-void set_environment(String renderer) {
-  if(renderer.equals(P3D)) ENVIRONMENT = 3 ; else ENVIRONMENT = 2 ;
+void set_renderer(String renderer) {
+  if(renderer.equals(P3D)) {
+    ENVIRONMENT = 3 ; 
+  } else {
+    ENVIRONMENT = 2 ;
+  }
 }
 
 
-void set_horizon(boolean horizon) {
+void use_horizon(boolean horizon) {
   HORIZON_ALPHA = horizon ;
 }
 
-void set_horizon_depth(int value) {
+void set_horizon(int value) {
    HORIZON = value ;
 }
 
-void set_rebound(boolean rebound) {
+void use_rebound(boolean rebound) {
   REBOUND = rebound ;
 }
 
 Vec3 get_box_pos() {
-  return BOX_POS ;
+  return ECO_BOX_POS ;
 }
 
 Vec3 get_box_size() {
-  return BOX ;
+  return ECO_BOX_SIZE ;
 }
 
 void build_box(Vec3 pos, Vec3 size) {
-  BOX_POS.set(pos) ;
-  BOX.set(size) ;
+  set_pos_box(pos) ;
+  set_size_box(size) ;
 }
 
-void set_box(float left, float right, float top, float bottom, float front, float back) {
+void set_size_box(Vec3 size) {
+  ECO_BOX_SIZE.set(size) ;
+}
+
+void set_pos_box(Vec3 pos) {
+  ECO_BOX_POS.set(pos) ;
+}
+
+void set_limit_box(float left, float right, float top, float bottom, float front, float back) {
   LIMIT.set(left,right, top, bottom, front, back) ;
 }
 

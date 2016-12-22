@@ -1,5 +1,5 @@
 /**
-Ecosysteme || 2016 || 0.0.6
+Ecosysteme || 2016 || 0.1.2
 */
 class Ecosystem_agent extends Romanesco {
 	public Ecosystem_agent() {
@@ -7,10 +7,10 @@ class Ecosystem_agent extends Romanesco {
 		ID_item = 26 ;
 		ID_group = 1 ;
 		RPE_author  = "Stan le Punk";
-		RPE_version = "Version 0.1.1";
+		RPE_version = "Version 0.1.2";
 		RPE_pack = "Base" ;
 		RPE_mode = "Free/Host" ; // separate the differentes mode by "/"
-		RPE_slider = "Fill hue,Fill sat,Fill bright,Fill alpha,Stroke hue,Stroke sat,Stroke bright,Stroke alpha,Thickness" ;
+		RPE_slider = "Fill hue,Fill sat,Fill bright,Fill alpha,Stroke hue,Stroke sat,Stroke bright,Stroke alpha,Thickness,Canvas X,Canvas Y,Canvas Z,Speed X,Quantity,Life,Area" ;
 	}
 
 
@@ -18,8 +18,22 @@ class Ecosystem_agent extends Romanesco {
     setting_start_position(ID_item, 0, 0, 0) ;
 
     load_nucleotide_table("preferences/ecosystem/code.csv") ;
-    set_environment() ;
-    set_horizon(true) ;
+    Vec3 pos = Vec3(width/2, height/2, 0) ;
+    Vec3 canvas = Vec3(canvas_x_item[ID_item], canvas_y_item[ID_item], canvas_z_item[ID_item]) ;
+        //population
+    int div_pop = 1 ;
+    if(!FULL_RENDERING) div_pop= 10 ;
+    set_pop_flora(100/div_pop) ;
+    set_pop_herbivore(50/div_pop) ;
+    set_pop_carnivore(2/div_pop) ;
+    set_pop_omnivore(4/div_pop) ;
+    set_pop_dead(0/div_pop) ;
+    set_pop_bacterium(1/div_pop) ;
+    
+    init_environment(pos, canvas) ;
+    use_horizon(true) ;
+    use_rebound(false) ;
+
   }
 
   int mode_ref = 0 ;
@@ -32,17 +46,72 @@ class Ecosystem_agent extends Romanesco {
       host_mode = false ;
     }
 
-    speed_rotation_dna = speed_x_item[ID_item] *speed_x_item[ID_item];
+    speed_agent = speed_x_item[ID_item] *speed_x_item[ID_item];
     /*
     if(reverse[ID_item]) direction_host = 1 ; else direction_host = -1 ;
     if(motion[ID_item]) rotation_bool_host = true ; else rotation_bool_host = false ;
     */
     if(FULL_RENDERING) if(special[ID_item]) info_agent = true ; else info_agent = false ;
+
+    Vec4 fill_common = Vec4(hue(fill_item[ID_item]), saturation(fill_item[ID_item]), brightness(fill_item[ID_item]), alpha(fill_item[ID_item])) ;
+    Vec4 stroke_common = Vec4(hue(stroke_item[ID_item]), saturation(stroke_item[ID_item]), brightness(stroke_item[ID_item]), alpha(stroke_item[ID_item])) ;
+    float thickness_common = thickness_item[ID_item] ;
+
+    Vec4 fill_flora = fill_common.copy() ;
+    Vec4 stroke_flora = stroke_common.copy() ;
+
+    Vec4 fill_herbivore = fill_common.copy() ;
+    Vec4 stroke_herbivore = stroke_common.copy() ;
+
+    Vec4 fill_omnivore = fill_common.copy() ;
+    Vec4 stroke_omnivore = stroke_common.copy() ;
+
+    Vec4 fill_carnivore = fill_common.copy() ;
+    Vec4 stroke_carnivore = stroke_common.copy() ;
+
+    Vec4 fill_dead = fill_common.copy() ;
+    Vec4 stroke_dead = stroke_common.copy() ;
+
+    Vec4 fill_bacterium = fill_common.copy() ;
+    Vec4 stroke_bacterium = stroke_common.copy() ;
+
+    Vec3 alpha_behavior_common = Vec3(0, -1, 1) ;
+
+    int costume_flora = TRIANGLE_ROPE ;
+    int costume_herbivore = TRIANGLE_ROPE ;
+    int costume_carnivore = TRIANGLE_ROPE ;
+    int costume_omnivore = TRIANGLE_ROPE ;
+    int costume_bacterium = POINT_ROPE ;
+    int costume_dead = CROSS_3_ROPE ;
+
+    // style_flora = update_style(style_flora, "flora", TRIANGLE_ROPE, fill_flora, stroke_flora, thickness_common, alpha_behavior_common) ;
+    style_carnivore = update_style(style_carnivore, "carnivore", TRIANGLE_ROPE, fill_carnivore, stroke_carnivore, thickness_common, alpha_behavior_common) ;
+    style_herbivore = update_style(style_herbivore, "herbivore", TRIANGLE_ROPE, fill_herbivore, stroke_herbivore, thickness_common, alpha_behavior_common) ;
+    style_omnivore = update_style(style_omnivore, "omnivore", TRIANGLE_ROPE, fill_omnivore, stroke_omnivore, thickness_common, alpha_behavior_common) ;
+    style_dead = update_style(style_dead, "dead", TRIANGLE_ROPE, fill_dead, stroke_dead, thickness_common, alpha_behavior_common) ;
+    style_bacterium = update_style(style_bacterium, "bacterium", TRIANGLE_ROPE, fill_bacterium, stroke_bacterium, thickness_common, alpha_behavior_common) ;
+
+    //population
+    int div_pop = 1 ;
+    if(!FULL_RENDERING) div_pop= 10 ;
+    set_pop_flora(10 +int(1500 *quantity_item[ID_item])/div_pop) ;
+    set_pop_herbivore(20 +int(300 *quantity_item[ID_item])/div_pop) ;
+    set_pop_carnivore(2 +int(20 *quantity_item[ID_item])/div_pop) ;
+    set_pop_omnivore(4 +int(40 *quantity_item[ID_item])/div_pop) ;
+    set_pop_dead(0 +int(500 *quantity_item[ID_item])/div_pop) ;
+    set_pop_bacterium(1 +int(20 *quantity_item[ID_item])/div_pop) ;
+
+
+
+
+
+
  
 
 
-    if(mode[ID_item] != mode_ref) {
+    if(mode[ID_item] != mode_ref || birth[ID_item]) {
       mode_ref = mode[ID_item] ;
+      birth[ID_item] = false ;
       init_ecosystem() ;
     }
 
@@ -62,15 +131,24 @@ class Ecosystem_agent extends Romanesco {
       update_symbiosis() ;
     }
 
-		show_agent() ;		
+    Vec3 canvas = Vec3(canvas_x_item[ID_item], canvas_y_item[ID_item], canvas_z_item[ID_item]) ;
+    set_canvas_environment(canvas) ;
+		show_agent() ;	
+
+
+    // info 
+    if (objectInfoDisplay[ID_item]) {
+      strokeWeight(1) ;
+      stroke(blanc) ;
+      noFill() ;
+      costume_rope(ECO_BOX_POS, ECO_BOX_SIZE, BOX_ROPE) ;
+    }   	
 	}
 
 	boolean info_agent = false ;
-	boolean decorum_display = true ;
-	boolean agent_display = true ;
-	boolean bg_refresh = true ;
-	int direction_dna = 1 ;
-	float speed_rotation_dna = .01 ;
+	// boolean agent_display = true ;
+	//boolean bg_refresh = true ;
+	float speed_agent = .01 ;
 }
 
 
@@ -154,12 +232,10 @@ Info_dict dead_carac = new Info_dict() ;
 void ecosystem_setting(Biomass b, boolean host_mode) {
   clear_agent() ;
   // order of quantity for set_num_agents(int... num)"  ;
-  // num_flora / num_herbivore / num_omnivore / num_carnivore / num_bacterium / num_dead  ;
-  int div_pop = 1 ;
-  if(!FULL_RENDERING) div_pop= 10 ;
-  set_num_agents(40 /div_pop, 80/div_pop, 10/div_pop, 10/div_pop, 10/div_pop, 0/div_pop) ;
+
+
   set_caracteristic_agent() ;
-  b.set_humus(BOX.x *BOX.y *.01) ;
+  // b.set_humus(ECO_BOX_SIZE.x *ECO_BOX_SIZE.y *.01) ;
   
 
   // FLORA
@@ -231,15 +307,38 @@ void ecosystem_setting(Biomass b, boolean host_mode) {
 }
 
 
-// set num
-void set_num_agents(int... num) {
-  if(num.length > 0) num_flora = num[0] ;
-  if(num.length > 1) num_herbivore = num[1] ; 
-  if(num.length > 2) num_omnivore = num[2] ; 
-  if(num.length > 3) num_carnivore = num[3] ; 
-  if(num.length > 4) num_bacterium = num[4] ;
-  if(num.length > 5) num_dead = num[5] ; 
+Info_obj update_style(Info_obj style, String name, int costume, Vec4 fill, Vec4 stroke, float thickness, Vec3 alpha_behavior) {
+  // style.clear() ;
+ return new Info_obj(name, costume, fill, stroke, thickness, alpha_behavior) ;
 }
+
+
+// set num
+void set_pop_flora(int num) {
+  num_flora = num ;
+}
+
+void set_pop_herbivore(int num) {
+  num_herbivore = num ;
+}
+
+void set_pop_carnivore(int num) {
+  num_carnivore = num ;
+}
+
+void set_pop_omnivore(int num) {
+  num_omnivore = num ;
+}
+
+void set_pop_bacterium(int num) {
+  num_bacterium = num ;
+}
+
+void set_pop_dead(int num) {
+  num_dead= num ;
+}
+
+
 
 
 
@@ -353,7 +452,6 @@ void set_caracteristic_agent() {
   carnivore_carac.add("sex_appeal", Vec2(30, 10)) ;
   carnivore_carac.add("multiple_pregnancy", 5.5) ;
 
-
   bacterium_carac.add("name", "Gnak Gnak") ;
   bacterium_carac.add("size", 2) ;
   bacterium_carac.add("stamina", 200) ;
@@ -363,7 +461,6 @@ void set_caracteristic_agent() {
   bacterium_carac.add("sense_range", 500) ;
   bacterium_carac.add("starving", 2) ;
   bacterium_carac.add("digestion", 12.5) ;
-
 
   dead_carac.add("name", "UNDEAD") ;
   dead_carac.add("size", 25) ;
@@ -396,7 +493,7 @@ void spawn_carnivore(int num_carnivore) {
 
 
 /**
-ENVIRONMENT 0.0.3
+ENVIRONMENT 0.0.4
 
 */
 
@@ -408,27 +505,46 @@ void build_environment(Vec2 pos, Vec2 size) {
   Vec3 size_3D = Vec3(size.x, size.y,0) ;
   build_environment(pos_3D, size_3D) ;
   // write here to be sure the Environment have a good info
-  set_environment(P3D) ;
 }
 
 void build_environment(Vec3 pos, Vec3 size) {
   build_box(pos, size) ;
 
-  float left = get_box_pos().x - (get_box_size().x *.5) ;
-  float right = get_box_pos().x + (get_box_size().x *.5) ;
-  float top = get_box_pos().y - (get_box_size().y *.5) ;
-  float bottom = get_box_pos().y + (get_box_size().y *.5) ;
-  float front = get_box_pos().z - (get_box_size().z *.5) ;
-  float back = get_box_pos().z + (get_box_size().z *.5) ;
+  float front = box_front() ;
+  float back = box_back() ;
 
-  set_box(left, right, top,  bottom, front, back) ;
-  set_horizon_depth(int(abs(back) +abs(front))) ;
-  set_rebound(false) ;
+  set_limit_box(box_left() , box_right(), box_top(),  box_bottom(), front, back) ;
+  int dist_to_horizon = int(abs(back) +abs(front)) ;
+  set_horizon(dist_to_horizon) ;
+  // use_rebound(true) ;
   set_textSize_info(18) ; 
   // b.set_humus(BOX.x *BOX.y *.01) ;
   // b.humus_max = b.humus = BOX.x *BOX.y *.01 ;
 }
 
+float box_left() {
+  return get_box_pos().x - (get_box_size().x *.5) ;
+}
+
+float box_right() {
+  return get_box_pos().x + (get_box_size().x *.5) ;
+}
+
+float box_top() {
+  return get_box_pos().y - (get_box_size().y *.5) ;
+}
+
+float box_bottom() {
+  return get_box_pos().y + (get_box_size().y *.5) ;
+}
+
+float box_front() {
+  return get_box_pos().z - (get_box_size().z *.5) ;
+}
+
+float box_back() {
+  return get_box_pos().z + (get_box_size().z *.5) ;
+}
 
 
 
@@ -443,32 +559,63 @@ void init_ecosystem() {
   init_ecosystem = true ;
 }
 
-void set_environment() {
-  ENVIRONMENT = 3 ;
-  biomass = new Biomass() ;
-  
-  if (ENVIRONMENT == 3) {
-    Vec3 pos_box = Vec3(width/2,height/2,0) ;
-    int scale_box = 2 ;
-    Vec3 size_box = Vec3(width *scale_box,height *scale_box,width *scale_box) ;
-    build_environment(pos_box, size_box) ;
+
+
+// set
+void set_environment(Vec pos, Vec canvas) {
+  if(pos instanceof Vec3 && canvas instanceof Vec3 && renderer_P3D()) {
+    Vec3 p = (Vec3) pos ;
+    Vec3 c = (Vec3) canvas ;
+    build_environment(p, c) ;
+    set_renderer(P3D) ;
+  } else if(pos instanceof Vec2 && canvas instanceof Vec2 && renderer_P3D()) {
+    Vec2 p = (Vec2) pos ;
+    Vec2 c = (Vec2) canvas ;
+    build_environment(p, c) ;
+  } else if(pos instanceof Vec2 && canvas instanceof Vec2 && !renderer_P3D()) {
+    Vec2 p = (Vec2) pos ;
+    Vec2 c = (Vec2) canvas ;
+    build_environment(p, c) ;
   } else {
-    Vec2 pos_box = Vec2(width/2,height/2) ;
-    Vec2 size_box = Vec2(width,height) ;
-    build_environment(pos_box, size_box) ;
+    System.err.println("Something wrong in your universe, the both Vec must be Vec2 or Vec3, plus the Vec3 pos and canvas work only in P3D renderer") ;
   }
 }
 
+
+void set_canvas_environment(Vec size) {
+  if(size instanceof Vec3) {
+    Vec3 s = (Vec3) size ;
+    set_size_box(s) ;
+    set_limit_box(box_left() , box_right(), box_top(),  box_bottom(), box_front(), box_back()) ;
+  } else if (size instanceof Vec2) {
+    Vec2 s = (Vec2) size ;
+    Vec3 def_size = Vec3(s.x,s.y,0) ;
+    set_size_box(def_size) ;
+    set_limit_box(box_left() , box_right(), box_top(),  box_bottom(), box_front(), box_back()) ;
+  }  
+}
+
+
+
+
+
+// build
+void init_environment(Vec pos, Vec canvas) {
+  biomass = new Biomass() ;
+  set_environment(pos, canvas) ;  
+}
 
 
 /**
 BIOTOPE 
 */
+/*
 Vec4 biotope_colour(Biomass b) {
   float normal_humus_level = 1 - b.humus / b.humus_max ;
   float var_colour_ground = 90 *normal_humus_level ;
   return Vec4(40,90, 5 +var_colour_ground,100) ;
 }
+*/
 
 
 
