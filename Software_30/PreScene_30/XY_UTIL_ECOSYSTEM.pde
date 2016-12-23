@@ -1121,8 +1121,12 @@ void show_agent_dynamic(Info_obj style, ArrayList<Agent>... all_list) {
 
 
 /**
-Aspect
+Aspect 1.0.1
 */
+boolean use_style = true ;
+void use_style(boolean style) {
+  use_style = style ;
+}
 /**
 update aspect
 */
@@ -1132,10 +1136,33 @@ void update_aspect(Info_obj style, ArrayList list) {
   Vec4 stroke_vec = (Vec4)style.catch_obj(2) ; 
   float thickness = (float)style.catch_obj(3) ;
 
+
+
   for(Object o : list) {
     if(o instanceof Agent) {
       Agent a = (Agent) o ;
       boolean original_aspect = true ;
+      Vec4 fill_temp ;
+      Vec4 stroke_temp ;
+      /**
+
+
+      THE WORK IS HERE
+
+
+
+      */
+      if(use_style) {
+        fill_temp = a.get_fill().copy() ;
+        fill_temp.mult(a.get_first_colour()) ;
+        stroke_temp = a.get_stroke().copy() ;
+        stroke_temp.mult(a.get_first_colour()) ;
+      }
+      /**
+
+
+
+      */
 
       if(costume_ID != a.get_costume() || fill_vec != a.get_fill() || stroke_vec != a.get_stroke() || thickness != a.get_thickness()) {
         original_aspect = false ;

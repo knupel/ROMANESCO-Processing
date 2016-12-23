@@ -9,7 +9,7 @@ class Ecosystem_agent extends Romanesco {
 		RPE_author  = "Stan le Punk";
 		RPE_version = "Version 0.1.2";
 		RPE_pack = "Base" ;
-		RPE_mode = "Free/Host" ; // separate the differentes mode by "/"
+		RPE_mode = "Virus/Human/Alien/Other" ; // separate the differentes mode by "/"
 		RPE_slider = "Fill hue,Fill sat,Fill bright,Fill alpha,Stroke hue,Stroke sat,Stroke bright,Stroke alpha,Thickness,Canvas X,Canvas Y,Canvas Z,Speed X,Quantity,Life,Area" ;
 	}
 
@@ -20,7 +20,7 @@ class Ecosystem_agent extends Romanesco {
   float [] hue_stroke = new float[type_agents] ;
   float hue_fill_ref, hue_stroke_ref ;
 
-  boolean info_agent = false ;
+  // boolean info_agent = false ;
   // boolean agent_display = true ;
   //boolean bg_refresh = true ;
   float speed_agent = .01 ;
@@ -29,10 +29,12 @@ class Ecosystem_agent extends Romanesco {
   void setup() {
     setting_start_position(ID_item, 0, 0, 0) ;
 
+
     load_nucleotide_table("preferences/ecosystem/code.csv") ;
     Vec3 pos = Vec3(width/2, height/2, 0) ;
     Vec3 canvas = Vec3(canvas_x_item[ID_item], canvas_y_item[ID_item], canvas_z_item[ID_item]) ;
         //population
+        /*
     int div_pop = 1 ;
     if(!FULL_RENDERING) div_pop= 10 ;
     set_pop_flora(100/div_pop) ;
@@ -41,6 +43,7 @@ class Ecosystem_agent extends Romanesco {
     set_pop_omnivore(4/div_pop) ;
     set_pop_dead(0/div_pop) ;
     set_pop_bacterium(1/div_pop) ;
+    */
     
     init_environment(pos, canvas) ;
     use_horizon(true) ;
@@ -52,7 +55,8 @@ class Ecosystem_agent extends Romanesco {
 
 
 	void draw() {
-    if(mode[ID_item] == 1) {
+    if(orbit[ID_item]) {
+      // link with the host
       host_mode = true ;
     } else {
       host_mode = false ;
@@ -60,7 +64,7 @@ class Ecosystem_agent extends Romanesco {
 
     speed_agent = speed_x_item[ID_item] *speed_x_item[ID_item];
 
-    if(FULL_RENDERING) if(special[ID_item]) info_agent = true ; else info_agent = false ;
+    
 
     float thickness_common = thickness_item[ID_item] ;
     
@@ -127,15 +131,9 @@ class Ecosystem_agent extends Romanesco {
     style_dead = update_style(style_dead, "dead", costume_bacterium, fill_dead, stroke_dead, thickness_common, alpha_behavior_common) ;
     style_bacterium = update_style(style_bacterium, "bacterium", costume_dead, fill_bacterium, stroke_bacterium, thickness_common, alpha_behavior_common) ;
 
-    //population
-    int div_pop = 1 ;
-    if(!FULL_RENDERING) div_pop= 10 ;
-    set_pop_flora(10 +int(1500 *quantity_item[ID_item])/div_pop) ;
-    set_pop_herbivore(20 +int(300 *quantity_item[ID_item])/div_pop) ;
-    set_pop_carnivore(2 +int(20 *quantity_item[ID_item])/div_pop) ;
-    set_pop_omnivore(4 +int(40 *quantity_item[ID_item])/div_pop) ;
-    set_pop_dead(0 +int(500 *quantity_item[ID_item])/div_pop) ;
-    set_pop_bacterium(1 +int(10 *quantity_item[ID_item])/div_pop) ;
+
+
+
 
 
 
@@ -148,6 +146,15 @@ class Ecosystem_agent extends Romanesco {
     if(mode[ID_item] != mode_ref || birth[ID_item]) {
       mode_ref = mode[ID_item] ;
       birth[ID_item] = false ;
+      if(mode[ID_item] == 0) {
+        set_pop(true, false, false, false, false) ;
+      } else if(mode[ID_item] == 1) {
+        set_pop(true, true, false, false, true) ;
+      } else if(mode[ID_item] == 2) {
+        set_pop(true, true, true, false, true) ;
+      } else if(mode[ID_item] == 3) {
+        set_pop(true, true, true, true, true) ;
+      } 
       init_ecosystem() ;
     }
 
@@ -158,7 +165,13 @@ class Ecosystem_agent extends Romanesco {
 		}
 
 		update_list() ;
-		info_agent(info_agent) ;
+    if(FULL_RENDERING) {
+      if(special[ID_item]) {
+        info_agent(true) ;
+      } else {
+        info_agent(false) ;
+      } 
+    }
     
 
 
@@ -195,6 +208,29 @@ class Ecosystem_agent extends Romanesco {
       hue_stroke[i] = hue_stroke[i -1] +(i*step) ;
       if(hue_stroke[i] > g.colorModeX) hue_stroke[i] = hue_stroke[i] -g.colorModeX ;
     }
+  }
+
+  void set_pop(boolean use_flora, boolean use_herbivore, boolean use_carnivore, boolean use_omnivore, boolean use_bacterium) {
+    int div_pop = 1 ;
+    if(!FULL_RENDERING) div_pop= 20 ;
+    if(use_flora) {
+      set_pop_flora(10 +int(1500 *quantity_item[ID_item])/div_pop) ;
+    } else set_pop_flora(0) ;
+    if(use_herbivore) {
+      set_pop_herbivore(20 +int(300 *quantity_item[ID_item])/div_pop) ;
+    } else set_pop_herbivore(0) ;
+    if(use_carnivore) {
+      set_pop_carnivore(2 +int(20 *quantity_item[ID_item])/div_pop) ;
+    } else set_pop_carnivore(0) ;
+    if(use_omnivore) {
+      set_pop_omnivore(4 +int(40 *quantity_item[ID_item])/div_pop) ;
+    } else set_pop_omnivore(0) ;
+    if(use_bacterium) {
+      set_pop_bacterium(1 +int(10 *quantity_item[ID_item])/div_pop) ;
+    } else set_pop_bacterium(0) ;
+    
+    set_pop_dead(0/div_pop) ;
+
   }
 }
 
@@ -287,28 +323,30 @@ Info_dict dead_carac = new Info_dict() ;
 
 // main method
 void ecosystem_setting(Biomass b, boolean host_mode) {
+    // b.set_humus(ECO_BOX_SIZE.x *ECO_BOX_SIZE.y *.01) ;
+
   clear_agent() ;
   // order of quantity for set_num_agents(int... num)"  ;
 
 
   set_caracteristic_agent() ;
-  // b.set_humus(ECO_BOX_SIZE.x *ECO_BOX_SIZE.y *.01) ;
-  
 
-  // FLORA
-  // int costume = ELLIPSE_ROPE ;
-  int costume = VIRUS_3_4_64_ROPE ;
+  int costume = 0 ;
   float thickness = 1. ;
-
-  Vec4 fill_flora = Vec4(color_flora) ;
-  Vec4 stroke_flora = Vec4(color_flora) ;
-
   Vec3 alpha_behavior_flora = Vec3(0, -1, 1) ; // it's like 100% all the time
+
   if(get_pos_host() != null) {
+
     alpha_behavior_flora = Vec3(get_pos_host().z, -.4, .8) ;
   }
   
-  if(style_flora == null ) style_flora = new Info_obj("Flora Aspect", costume, fill_flora, stroke_flora, thickness, alpha_behavior_flora) ;  
+  if(style_flora == null ) {
+    costume = VIRUS_3_4_64_ROPE ;
+    thickness = 1. ;
+    Vec4 fill_flora = Vec4(color_flora) ;
+    Vec4 stroke_flora = Vec4(color_flora) ;
+    style_flora = new Info_obj("Flora Aspect", costume, fill_flora, stroke_flora, thickness, alpha_behavior_flora) ;  
+  }
 
   // HERBIVORE
   if(style_herbivore == null ) {
@@ -475,14 +513,15 @@ void clear_agent() {
 
 
 void set_caracteristic_agent() {
-  flora_carac.add("name", "Salad") ;
+  flora_carac.add("name", "Virus") ;
   flora_carac.add("size", 50) ;
   flora_carac.add("life_expectancy", 100000 *60) ;
   flora_carac.add("nutrient_quality", 15) ;
   flora_carac.add("speed_growth", 2) ; // size point per cycle
   flora_carac.add("need", .3) ;
+  flora_carac.add("first_colour", Vec4(1)) ;
 
-  herbivore_carac.add("name", "Sheep") ;
+  herbivore_carac.add("name", "Hippie") ;
   herbivore_carac.add("size", 20) ;
   herbivore_carac.add("stamina", 100) ;
   herbivore_carac.add("life_expectancy", 1000 *60) ;
@@ -494,8 +533,9 @@ void set_caracteristic_agent() {
   herbivore_carac.add("digestion", 2.5) ;
   herbivore_carac.add("sex_appeal", Vec2(40, 5)) ;
   herbivore_carac.add("multiple_pregnancy", 50.) ;
+  herbivore_carac.add("first_colour", Vec4(1)) ;
 
-  omnivore_carac.add("name", "Human") ;
+  omnivore_carac.add("name", "Punk") ;
   omnivore_carac.add("size", 25) ; // in pixel
   omnivore_carac.add("stamina", 200) ; // point of life
   omnivore_carac.add("life_expectancy", 800 *60) ; // frame of live before die
@@ -508,6 +548,8 @@ void set_caracteristic_agent() {
   omnivore_carac.add("digestion", 6.5) ; // calorie multiplicator, hight is good.
   omnivore_carac.add("sex_appeal", Vec2(45, 4)) ; // multe the size to give the range in pixel
   omnivore_carac.add("multiple_pregnancy", 10.5) ; // chance to have twin or better in pourcent
+  omnivore_carac.add("colour", 1) ;
+  omnivore_carac.add("first_colour", Vec4(1)) ;
 
   carnivore_carac.add("name", "Alien") ;
   carnivore_carac.add("size", 40) ;
@@ -522,6 +564,8 @@ void set_caracteristic_agent() {
   carnivore_carac.add("digestion", 4.5) ;
   carnivore_carac.add("sex_appeal", Vec2(30, 10)) ;
   carnivore_carac.add("multiple_pregnancy", 5.5) ;
+  carnivore_carac.add("colour", 1) ;
+  carnivore_carac.add("first_colour", Vec4(1)) ;
 
   bacterium_carac.add("name", "Gnak Gnak") ;
   bacterium_carac.add("size", 2) ;
@@ -532,10 +576,14 @@ void set_caracteristic_agent() {
   bacterium_carac.add("sense_range", 500) ;
   bacterium_carac.add("starving", 2) ;
   bacterium_carac.add("digestion", 12.5) ;
+  bacterium_carac.add("colour", 1) ;
+  bacterium_carac.add("first_colour", Vec4(1)) ;
 
   dead_carac.add("name", "UNDEAD") ;
   dead_carac.add("size", 25) ;
   dead_carac.add("nutrient_quality", 40) ;
+  dead_carac.add("colour", 1) ;
+  dead_carac.add("first_colour", Vec4(1)) ;
 }
 
 

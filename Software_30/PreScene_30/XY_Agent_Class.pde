@@ -1,5 +1,5 @@
 /**
-CLASS AGENT 1.0.0.0
+CLASS AGENT 1.0.1
 */
 /**
 
@@ -53,6 +53,10 @@ interface Agent {
   Vec4 get_fill() ;
   Vec4 get_stroke() ;
   float get_thickness() ;
+
+  Vec4 get_first_colour() ;
+  Vec4 get_second_colour() ;
+  Vec4 get_third_colour() ;
 
 
   /**
@@ -155,8 +159,13 @@ abstract class Agent_model implements Agent {
   int nutrient_quality = 1 ;
   // size
   int size, size_ref, size_max ;
-    /**
-  aspect
+  /**
+  colour transmit by ADN
+  */
+  Vec4 first_colour, second_colour, third_colour ;
+  /**
+  aspect 
+  not use in the ADN, just for display
   */
   Vec4 colour_fill = Vec4(0,0,0,g.colorModeA) ;
   Vec4 colour_stroke = Vec4(0,0,0,g.colorModeA) ;
@@ -292,6 +301,15 @@ abstract class Agent_model implements Agent {
   }
   float get_thickness() { 
     return thickness ; 
+  }
+  Vec4 get_first_colour() { 
+    return first_colour ; 
+  }
+  Vec4 get_second_colour() { 
+    return second_colour ; 
+  }
+  Vec4 get_third_colour() { 
+    return third_colour ; 
   }
 
 
@@ -637,10 +655,9 @@ END CLASS AGENT METHOD
 
 /**
 
-CLASS AGENT DYNAMIC 0.2.0
-
+CLASS AGENT DYNAMIC 0.2.1
 @author Stan le Punk
-@version 0.1.1
+
 */
 abstract class Agent_dynamic extends Agent_model {
   /**
@@ -695,12 +712,12 @@ abstract class Agent_dynamic extends Agent_model {
   //behavior
   int max_watching = 600 ;
 
-
   // STATEMENT
   boolean watching = true ;
   boolean eating ;
   boolean tracking ;
   boolean tracking_partner ;
+
   /**
   motion, pos, coord
   */
@@ -756,12 +773,39 @@ abstract class Agent_dynamic extends Agent_model {
     int species_life_cycle = MAX_INT ;
     Vec2 temp_sex_appeal = Vec2(1) ;
     float temp_multiple_pregnancy = 0 ;
+    
+    Vec4 temp_first = Vec4(1) ;
+    Vec4 temp_second = Vec4(1) ;
+    Vec4 temp_third = Vec4(1) ;
+    
 
     if (carac.get("name") != null) temp_name = (String) carac.get("name")[0].catch_obj(0) ;
     if (carac.get("size") != null) temp_size = (int) random_gaussian((int)carac.get("size")[0].catch_obj(0)) ;
     if (carac.get("stamina") != null) temp_stamina = (int) random_gaussian((int)carac.get("stamina")[0].catch_obj(0)) ;
     if (carac.get("velocity") != null) temp_velocity = (int) random_gaussian((int)carac.get("velocity")[0].catch_obj(0)) ;
     if (carac.get("sense_range") != null) temp_sense_range = (int) random_gaussian((int)carac.get("sense_range")[0].catch_obj(0)) ;
+    // colour
+    if (carac.get("first_colour") != null) {
+      temp_first = (Vec4)carac.get("first_colour")[0].catch_obj(0) ;
+      temp_first.x = random_gaussian(temp_first.x) ;
+      temp_first.y = random_gaussian(temp_first.y) ;
+      temp_first.z = random_gaussian(temp_first.z) ;
+      temp_first.a = random_gaussian(temp_first.a) ;
+    }
+    if (carac.get("second_colour") != null) {
+      temp_second = (Vec4)carac.get("second_colour")[0].catch_obj(0) ;
+      temp_second.x = random_gaussian(temp_second.x) ;
+      temp_second.y = random_gaussian(temp_second.y) ;
+      temp_second.z = random_gaussian(temp_second.z) ;
+      temp_second.a = random_gaussian(temp_second.a) ;
+    }
+    if (carac.get("third_colour") != null) {
+      temp_third = (Vec4)carac.get("second_colour")[0].catch_obj(0) ;
+      temp_third.x = random_gaussian(temp_third.x) ;
+      temp_third.y = random_gaussian(temp_third.y) ;
+      temp_third.z = random_gaussian(temp_third.z) ;
+      temp_third.a = random_gaussian(temp_third.a) ;
+    }
     // agent
     if (carac.get("life_expectancy") != null) temp_life_expectancy = (int) random_gaussian((int)carac.get("life_expectancy")[0].catch_obj(0)) ;
     // species
@@ -789,6 +833,10 @@ abstract class Agent_dynamic extends Agent_model {
     this.name = temp_name ;
     this.sense_range = this.size + temp_sense_range ;
     this.multiple_pregnancy = temp_multiple_pregnancy ;
+
+    this.first_colour = temp_first.copy() ;
+    this.second_colour = temp_second.copy() ;
+    this.third_colour = temp_third.copy() ;
 
     this.gender = gender ;
     /**
@@ -825,6 +873,9 @@ abstract class Agent_dynamic extends Agent_model {
                             temp_sex_appeal,
                             temp_multiple_pregnancy,
                             species_life_cycle,
+                            temp_first,
+                            temp_second,
+                            temp_third,
                             generation,  
                             gender) ;
 
@@ -875,6 +926,9 @@ abstract class Agent_dynamic extends Agent_model {
     // cycle life
     int species_life_cycle = int((Float)genome.get_gene_product(0,9).catch_obj(0)) ;
 
+    this.first_colour = Vec4((Float)genome.get_gene_product(0,10).catch_obj(0), (Float)genome.get_gene_product(0,11).catch_obj(0),(Float)genome.get_gene_product(0,12).catch_obj(0), (Float)genome.get_gene_product(0,13).catch_obj(0)) ;
+    this.second_colour = Vec4((Float)genome.get_gene_product(0,14).catch_obj(0), (Float)genome.get_gene_product(0,15).catch_obj(0),(Float)genome.get_gene_product(0,16).catch_obj(0), (Float)genome.get_gene_product(0,17).catch_obj(0)) ;
+    this.third_colour = Vec4((Float)genome.get_gene_product(0,18).catch_obj(0), (Float)genome.get_gene_product(0,19).catch_obj(0),(Float)genome.get_gene_product(0,20).catch_obj(0), (Float)genome.get_gene_product(0,21).catch_obj(0)) ;
 
     
     up_generation() ;
@@ -899,7 +953,7 @@ abstract class Agent_dynamic extends Agent_model {
   /**
   GENOME
   */
-  void build_archetype_genome(int size, int life_expectancy, int velocity, int sense_range, String name, Vec2 sex_appeal, float multiple_pregnancy, int species_life_cycle, int generation, int gender) {
+  void build_archetype_genome(int size, int life_expectancy, int velocity, int sense_range, String name, Vec2 sex_appeal, float multiple_pregnancy, int species_life_cycle, Vec4 first_c, Vec4 second_c, Vec4 third_c, int generation, int gender) {
     float [] data_float = new float[10] ;
     data_float[0] = size ;
     data_float[1] = generation ;
@@ -911,6 +965,21 @@ abstract class Agent_dynamic extends Agent_model {
     data_float[7] = sex_appeal.y ;
     data_float[8] = multiple_pregnancy ;
     data_float[9] = species_life_cycle ;
+
+    data_float[10] = first_c.x ;
+    data_float[11] = first_c.y ;
+    data_float[12] = first_c.z ;
+    data_float[13] = first_c.a ;
+
+    data_float[14] = second_c.x ;
+    data_float[15] = second_c.y ;
+    data_float[16] = second_c.z ;
+    data_float[17] = second_c.a ;
+
+    data_float[18] = third_c.x ;
+    data_float[19] = third_c.y ;
+    data_float[20] = third_c.z ;
+    data_float[21] = third_c.a ;
     String [] data_string = new String[1] ;
     data_string[0] = name ;
     genome = archetype(data_float, data_string, gender) ;
@@ -1315,12 +1384,22 @@ COMMON HUNT & SEARCH
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
   /**
   HUNTING METHOD – for the carnivore by the way
 
   */
-
-
   void kill(Agent_dynamic target) {
     if(dist(target.pos,pos) < kill_zone && target.alive ) {
       pos_target.set(target.pos) ;
@@ -1439,17 +1518,6 @@ COMMON HUNT & SEARCH
   /**
 
   */
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -1609,20 +1677,6 @@ COMMON HUNT & SEARCH
   /**
 
   */
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -1984,10 +2038,20 @@ END AGENT DYNAMIC CLASS
 
 
 
+
+
+
+
+
+
+
+
+
+
 /**
 
 
-Agent Static 0.2.0
+Agent Static 0.2.1
 
 
 */
@@ -2014,12 +2078,45 @@ abstract class Agent_static extends Agent_model {
   Agent_static(Info_dict carac, Info_obj style, int gender) {
     String temp_name = "Nobody" ;
     int temp_size = 1 ;
+    Vec4 temp_first = Vec4(1) ;
+    Vec4 temp_second = Vec4(1) ;
+    Vec4 temp_third = Vec4(1) ;
+
+
     this.ID = (short) Math.round(random(Short.MAX_VALUE)) ;
     if (carac.get("name") != null) temp_name = (String) carac.get("name")[0].catch_obj(0) ;
     if (carac.get("size") != null) temp_size = (int) random_gaussian((int)carac.get("size")[0].catch_obj(0)) ;
 
+    
+    if (carac.get("first_colour") != null) {
+      temp_first = (Vec4)carac.get("first_colour")[0].catch_obj(0) ;
+      temp_first.x = random_gaussian(temp_first.x) ;
+      temp_first.y = random_gaussian(temp_first.y) ;
+      temp_first.z = random_gaussian(temp_first.z) ;
+      temp_first.a = random_gaussian(temp_first.a) ;
+    }
+    if (carac.get("second_colour") != null) {
+      temp_second = (Vec4)carac.get("second_colour")[0].catch_obj(0) ;
+      temp_second.x = random_gaussian(temp_second.x) ;
+      temp_second.y = random_gaussian(temp_second.y) ;
+      temp_second.z = random_gaussian(temp_second.z) ;
+      temp_second.a = random_gaussian(temp_second.a) ;
+    }
+    if (carac.get("third_colour") != null) {
+      temp_third = (Vec4)carac.get("second_colour")[0].catch_obj(0) ;
+      temp_third.x = random_gaussian(temp_third.x) ;
+      temp_third.y = random_gaussian(temp_third.y) ;
+      temp_third.z = random_gaussian(temp_third.z) ;
+      temp_third.a = random_gaussian(temp_third.a) ;
+    }
+
     this.name = temp_name ;
     this.size = this.size_ref = this.size_max = temp_size ;
+
+    this.first_colour = temp_first.copy() ;
+    this.second_colour = temp_second.copy() ;
+    this.third_colour = temp_third.copy() ;
+
     this.gender = gender ;
   }
   
