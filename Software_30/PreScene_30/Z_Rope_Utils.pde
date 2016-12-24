@@ -1,5 +1,5 @@
 /**
-RPE UTILS 1.21.3
+RPE UTILS 1.21.4.1
 Rope – Romanesco Processing Environment – 2015–2016
 * @author Stan le Punk
 * @see https://github.com/StanLepunK/Utils_rope
@@ -1798,10 +1798,24 @@ Random around value
 */
 
 float random_gaussian(float value) {
-  float distrib = random(-1, 1) ;
-  return (pow(distrib,5)) *(value*.4) +value ;
+  return random_gaussian( value, .4) ;
 }
 
+
+float random_gaussian(float value, float range) {
+  range = abs(range) ;
+  float distrib = random(-1, 1) ;
+  float result = 0 ;
+  if(value == 0) {
+    value = 1 ;
+    result = (pow(distrib,5)) *(value *range) +value ;
+    result-- ;
+  } else {
+    result = (pow(distrib,5)) *(value *range) +value ;
+  }
+   
+  return  result;
+}
 
 
 

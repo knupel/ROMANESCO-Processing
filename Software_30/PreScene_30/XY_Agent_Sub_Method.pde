@@ -678,9 +678,14 @@ void add_flora(ArrayList<Agent> list_f, Vec2 pos, Info_dict carac, Info_obj styl
 void add_flora(ArrayList<Agent> list_f, Vec3 pos, Info_dict carac, Info_obj style) {
     // recover data
   String name = (String) carac.get("name")[0].catch_obj(0) ;
-  int size_template = (int) carac.get("size")[0].catch_obj(0) ;
+  Vec3 size_template = (Vec3) carac.get("size")[0].catch_obj(0) ;
   int life_expectancy = (int) carac.get("life_expectancy")[0].catch_obj(0) ;
-  int size = int(random(ceil(size_template *.5), ceil(size_template*3))) ;
+
+  float s_x = random(ceil(size_template.x *.5), ceil(size_template.x *3)) ;
+  float s_y = random(ceil(size_template.y *.5), ceil(size_template.y *3)) ;
+  float s_z = random(ceil(size_template.z *.5), ceil(size_template.z *3)) ;
+  Vec3 size = Vec3(s_x, s_y, s_z) ;
+
   int nutrient_quality = (int) carac.get("nutrient_quality")[0].catch_obj(0) ;
   int speed_growth = (int) carac.get("speed_growth")[0].catch_obj(0) ;
   float need = (Float) carac.get("need")[0].catch_obj(0) ;
@@ -783,11 +788,11 @@ void flora_update_opacity(ArrayList<Agent> list_f) {
   for(Agent a : list_f) {
     if(a instanceof Flora) {
       Flora f = (Flora) a ;
-      float ratio = float(f.size) / float(f.size_ref) ;
+      float ratio = float(f.mass) / float(f.mass_ref) ;
       float alpha = g.colorModeA *ratio ;
       if(alpha <= 0) alpha = .001 ;
-      f.colour_fill.set(f.colour_fill.r, f.colour_fill.g, f.colour_fill.b, alpha) ;
-      f.colour_stroke.set(f.colour_stroke.r, f.colour_stroke.g, f.colour_stroke.b, alpha) ;
+      f.fill_style.set(f.fill_style.r, f.fill_style.g, f.fill_style.b, alpha) ;
+      f.stroke_style.set(f.stroke_style.r, f.stroke_style.g, f.stroke_style.b, alpha) ;
     }
   }
 }
@@ -799,7 +804,7 @@ void flora_update_aspect(ArrayList<Agent> list_f) {
     if(a instanceof Flora) {
       Flora f = (Flora) a ;
       if(original_flora_aspect) {
-        f.aspect(f.colour_fill, f.colour_stroke, 1) ; 
+        f.aspect(f.fill_style, f.stroke_style, 1) ; 
       } else {
         f.aspect(fill_colour_flora, stroke_colour_flora, thickness_flora) ;
       }
@@ -938,7 +943,7 @@ update dead body / corpse
 */
 void dead_remove(ArrayList<Dead> list) {
   for(Dead dead : list) {
-    if(dead.get_size() <= 0) {
+    if(dead.get_mass() <= 0) {
       list.remove(dead) ;
       break ;
     }

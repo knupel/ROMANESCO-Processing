@@ -26,6 +26,8 @@ BOOLEAN
 --
 birth[ID_item] > from keyboard "N"
 
+colour[ID_item] > from keyboard "X"
+
 horizon[ID_item] > from keyboard "H"
 
 motion[ID_item] > from keyboard "M"

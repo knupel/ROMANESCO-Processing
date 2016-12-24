@@ -514,7 +514,7 @@ void clear_agent() {
 
 void set_caracteristic_agent() {
   flora_carac.add("name", "Virus") ;
-  flora_carac.add("size", 50) ;
+  flora_carac.add("size", Vec3(50)) ;
   flora_carac.add("life_expectancy", 100000 *60) ;
   flora_carac.add("nutrient_quality", 15) ;
   flora_carac.add("speed_growth", 2) ; // size point per cycle
@@ -522,7 +522,7 @@ void set_caracteristic_agent() {
   flora_carac.add("first_colour", Vec4(1)) ;
 
   herbivore_carac.add("name", "Hippie") ;
-  herbivore_carac.add("size", 20) ;
+  herbivore_carac.add("size", Vec3(20)) ;
   herbivore_carac.add("stamina", 100) ;
   herbivore_carac.add("life_expectancy", 1000 *60) ;
   herbivore_carac.add("velocity", 6) ;
@@ -536,7 +536,7 @@ void set_caracteristic_agent() {
   herbivore_carac.add("first_colour", Vec4(1)) ;
 
   omnivore_carac.add("name", "Punk") ;
-  omnivore_carac.add("size", 25) ; // in pixel
+  omnivore_carac.add("size", Vec3(25)) ; // in pixel
   omnivore_carac.add("stamina", 200) ; // point of life
   omnivore_carac.add("life_expectancy", 800 *60) ; // frame of live before die
   omnivore_carac.add("velocity", 8) ; // in pixel
@@ -552,7 +552,7 @@ void set_caracteristic_agent() {
   omnivore_carac.add("first_colour", Vec4(1)) ;
 
   carnivore_carac.add("name", "Alien") ;
-  carnivore_carac.add("size", 40) ;
+  carnivore_carac.add("size", Vec3(40)) ;
   carnivore_carac.add("stamina", 400) ;
   carnivore_carac.add("life_expectancy", 1200 *60) ;
   carnivore_carac.add("velocity", 10) ;
@@ -568,7 +568,7 @@ void set_caracteristic_agent() {
   carnivore_carac.add("first_colour", Vec4(1)) ;
 
   bacterium_carac.add("name", "Gnak Gnak") ;
-  bacterium_carac.add("size", 2) ;
+  bacterium_carac.add("size", Vec3(2)) ;
   bacterium_carac.add("stamina", 200) ;
   bacterium_carac.add("life_expectancy", 800 *60) ;
   bacterium_carac.add("velocity", 5) ;
@@ -580,7 +580,7 @@ void set_caracteristic_agent() {
   bacterium_carac.add("first_colour", Vec4(1)) ;
 
   dead_carac.add("name", "UNDEAD") ;
-  dead_carac.add("size", 25) ;
+  dead_carac.add("size", Vec3(25)) ;
   dead_carac.add("nutrient_quality", 40) ;
   dead_carac.add("colour", 1) ;
   dead_carac.add("first_colour", Vec4(1)) ;

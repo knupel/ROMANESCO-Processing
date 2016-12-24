@@ -1,5 +1,5 @@
 /**
-CLASS OPE VEC 1.6.1
+CLASS OPE VEC 1.8.0
 Rope – Romanesco Processing Environment – 2015 – 2016
 * @author Stan le Punk
 * @see https://github.com/StanLepunK/Vec
@@ -263,6 +263,13 @@ class Vec2 extends Vec {
     return new Vec2(x,y);
   }
 
+  /**
+  Average
+  */
+  float average() {
+    return (this.x + this.y) *.5 ;
+  }
+
 
     /**
   Dot
@@ -474,9 +481,35 @@ class Vec2 extends Vec {
     
     return new Vec2(x +m_x, y +m_y) ;
   }
+
+  /**
+  Equals
+  */
+  boolean equals(Vec target) {
+    if(target != null ) {
+      if((x == target.x) && (y == target.y)) {
+        return true ; 
+      } else return false ;
+    } else return false ;
+  }
+
+  boolean equals(float target) {
+    if((x == target) && (y == target)) 
+    return true ; 
+    else return false ;
+  }
+  
+  boolean equals(float t_x,float t_y) {
+    if((x == t_x) && (y == t_y)) 
+    return true ; 
+    else return false ;
+  }
+
+
+
   
   /**
-  Compare
+  Compare deprecated
   */
   boolean compare(Vec target) {
     if(target != null ) {
@@ -828,6 +861,14 @@ class Vec3 extends Vec {
 
 
   /**
+  Average
+  */
+  float average() {
+    return (this.x + this.y +this.z) *.333 ;
+  }
+
+
+  /**
   Dot
   */
   public float dot(Vec3 v) {
@@ -1101,7 +1142,8 @@ class Vec3 extends Vec {
   Vec3 revolutionZ(int rx, int ry, float speed) {
     return revolutionZ(Vec2(rx,ry), speed) ;
   }
-    Vec3 revolutionZ(int r, float speed) {
+
+  Vec3 revolutionZ(int r, float speed) {
     return revolutionZ(Vec2(r,r), speed) ;
   }
   Vec3 revolutionZ(Vec2 radius, float speed) {
@@ -1116,10 +1158,34 @@ class Vec3 extends Vec {
       return new Vec3(x, y +m_y, z +m_z) ;
     } else return null ;
   }
+
+
+  /**
+  Equals
+  */
+  boolean equals(Vec3 target) {
+    if(target != null) {
+      if((x == target.x) && (y == target.y) && (z == target.z)) {
+        return true ; 
+      } else return false ;
+    } else return false ;
+  }
+  
+  boolean equals(float target) {
+    if((x == target) && (y == target) && (z == target)) 
+    return true ; 
+    else return false ;
+  }
+  
+  boolean equals(float t_x,float t_y,float t_z) {
+    if((x == t_x) && (y == t_y) && (z == t_z)) 
+    return true ; 
+    else return false ;
+  }
   
   
   /**
-  Compare
+  Compare deprecated
   */
   boolean compare(Vec3 target) {
     if(target != null) {
@@ -1462,6 +1528,14 @@ class Vec4 extends Vec {
     return new Vec4(x,y,z,w) ;
   }
 
+
+  /**
+  Average
+  */
+  float average() {
+    return (this.x + this.y +this.z +this.w) *.25 ;
+  }
+
   /**
   Dot
   */
@@ -1638,10 +1712,35 @@ class Vec4 extends Vec {
     set(x,y,z,w) ;
     return new Vec4(x,y,z,w) ;
   }
+
+
+    /**
+  Equals
+  */
+  boolean equals(Vec4 target) {
+    if(target != null ) {
+      if((x == target.x) && (y == target.y) && (z == target.z) && (w == target.w)) {
+        return true ; 
+      } else return false ;
+    } else return false ;
+  }
+  boolean equals(float target) {
+    if((x == target) && (y == target) && (z == target) && (w == target)) 
+    return true ; 
+    else return false ;
+  }
+  
+  boolean equals(float t_x,float t_y,float t_z,float t_w) {
+    if((x == t_x) && (y == t_y) && (z == t_z)&& (w == t_w)) 
+    return true ; 
+    else return false ;
+  }
+
+
   
    
   /**
-  Compare
+  Compare deprecated
   */
   boolean compare(Vec4 target) {
     if(target != null ) {
@@ -2237,11 +2336,69 @@ Vec3 cross(Vec3 v1, Vec3 v2, Vec3 target) {
 }
 
 
+/**
+Equals
+*/
+/*
+Compare Vector with or without area
+compare two vectors Vec without area
+
+@ return boolean
+*/
+// Vec2 compare
+boolean equals(Vec2 v_a, Vec2 v_b) {
+  return compare(Vec4(v_a.x,v_a.y,0,0),Vec4(v_b.x,v_b.y,0,0)) ;
+}
+
+// Vec3 compare
+boolean equals(Vec3 v_a, Vec3 v_b) {
+  return compare(Vec4(v_a.x, v_a.y, v_a.z, 0),Vec4(v_b.x, v_b.y, v_b.z, 0)) ;
+}
+// Vec4 compare
+boolean equals(Vec4 v_a, Vec4 v_b) {
+  if( v_a != null && v_b != null ) {
+    if((v_a.x == v_b.x) && (v_a.y == v_b.y) && (v_a.z == v_b.z) && (v_a.w == v_b.w)) {
+            return true ; 
+    } else return false ;
+  } else return false ;
+}
+
+
+/* 
+compare if the first vector is in the area of the second vector, 
+the area of the second vector is define by a Vec area, 
+that give the possibility of different size for each component
+*/
+/*
+@ return boolean
+*/
+// Vec method
+// Vec2 compare with area
+boolean equals(Vec2 v_a, Vec2 v_b, Vec2 area) {
+  return compare(Vec4(v_a.x, v_a.y, 0, 0),Vec4(v_b.x, v_b.y, 0, 0),Vec4(area.x, area.y, 0, 0)) ;
+}
+// Vec3 compare with area
+boolean equals(Vec3 v_a, Vec3 v_b, Vec3 area) {
+  return compare(Vec4(v_a.x, v_a.y, v_a.z, 0),Vec4(v_b.x, v_b.y, v_b.z, 0),Vec4(area.x, area.y, area.z, 0)) ;
+}
+// Vec4 compare with area
+boolean equals(Vec4 v_a, Vec4 v_b, Vec4 area) {
+  if( v_a != null && v_b != null && area != null ) {
+    if(    (v_a.x >= v_b.x -area.x && v_a.x <= v_b.x +area.x) 
+        && (v_a.y >= v_b.y -area.y && v_a.y <= v_b.y +area.y) 
+        && (v_a.z >= v_b.z -area.z && v_a.z <= v_b.z +area.z) 
+        && (v_a.w >= v_b.w -area.w && v_a.w <= v_b.w +area.w)) {
+            return true ; 
+    } else return false ;
+  } else return false ;
+}
+
+
 
 
 
 /**
-Compare
+Compare deprecated
 */
 /*
 Compare Vector with or without area
@@ -2307,22 +2464,28 @@ return mapping vector
 @return Vec2, Vec3 or Vec4
 */
 Vec2 mapVec(Vec2 v,float minIn, float maxIn, float minOut, float maxOut) {
-  float x = map(v.x, minIn, maxIn, minOut, maxOut) ;
-  float y = map(v.y, minIn, maxIn, minOut, maxOut) ;
-  return new Vec2(x,y) ;
+  if(v != null) {
+    float x = map(v.x, minIn, maxIn, minOut, maxOut) ;
+    float y = map(v.y, minIn, maxIn, minOut, maxOut) ;
+    return new Vec2(x,y) ;
+  } else return null ;
 }
 Vec3 mapVec(Vec3 v,float minIn, float maxIn, float minOut, float maxOut) {
-  float x = map(v.x, minIn, maxIn, minOut, maxOut) ;
-  float y = map(v.y, minIn, maxIn, minOut, maxOut) ;
-  float z = map(v.z, minIn, maxIn, minOut, maxOut) ;
-  return new Vec3(x,y,z) ;
+  if(v != null) {
+    float x = map(v.x, minIn, maxIn, minOut, maxOut) ;
+    float y = map(v.y, minIn, maxIn, minOut, maxOut) ;
+    float z = map(v.z, minIn, maxIn, minOut, maxOut) ;
+    return new Vec3(x,y,z) ;
+  } else return null ;
 }
 Vec4 mapVec(Vec4 v,float minIn, float maxIn, float minOut, float maxOut) {
-  float x = map(v.x, minIn, maxIn, minOut, maxOut) ;
-  float y = map(v.y, minIn, maxIn, minOut, maxOut) ;
-  float z = map(v.z, minIn, maxIn, minOut, maxOut) ;
-  float w = map(v.w, minIn, maxIn, minOut, maxOut) ;
-  return new Vec4(x,y,z,w) ;
+  if(v != null) {
+    float x = map(v.x, minIn, maxIn, minOut, maxOut) ;
+    float y = map(v.y, minIn, maxIn, minOut, maxOut) ;
+    float z = map(v.z, minIn, maxIn, minOut, maxOut) ;
+    float w = map(v.w, minIn, maxIn, minOut, maxOut) ;
+    return new Vec4(x,y,z,w) ;
+  } else return null ;
 }
 
 /**

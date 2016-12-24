@@ -1142,72 +1142,65 @@ void update_aspect(Info_obj style, ArrayList list) {
     if(o instanceof Agent) {
       Agent a = (Agent) o ;
       boolean original_aspect = true ;
-      Vec4 fill_temp ;
-      Vec4 stroke_temp ;
-      /**
+      Vec4 fill_def ;
+      Vec4 stroke_def ;
+      float thickness_def ;
 
-
-      THE WORK IS HERE
-
-
-
-      */
-      if(use_style) {
-        fill_temp = a.get_fill().copy() ;
-        fill_temp.mult(a.get_first_colour()) ;
-        stroke_temp = a.get_stroke().copy() ;
-        stroke_temp.mult(a.get_first_colour()) ;
-      }
-      /**
-
-
-
-      */
-
-      if(costume_ID != a.get_costume() || fill_vec != a.get_fill() || stroke_vec != a.get_stroke() || thickness != a.get_thickness()) {
+      if(fill_vec != a.get_fill_style() || stroke_vec != a.get_stroke_style() || thickness != a.get_thickness()) {
         original_aspect = false ;
       }
+
       if(original_aspect) {
-        if(HORIZON_ALPHA) {
-          Vec4 new_fill = Vec4(a.get_fill().x, a.get_fill().y, a.get_fill().z, alpha(a)) ;
-          Vec4 new_stroke = Vec4(a.get_stroke().x, a.get_stroke().y, a.get_stroke().z, alpha(a)) ;
-          a.aspect(new_fill, new_stroke, thickness) ;
-        } else {
-          a.aspect(a.get_fill(), a.get_stroke(), a.get_thickness()) ;
-        }
-        
-        a.costume() ;
-
+        fill_def = a.get_fill_style().copy() ;
+        stroke_def = a.get_stroke_style().copy() ;
+        thickness_def = a.get_thickness() ;
       } else {
-        if(HORIZON_ALPHA) {
-          Vec4 new_fill = Vec4(fill_vec.x, fill_vec.y, fill_vec.z, alpha(a)) ;
-          Vec4 new_stroke = Vec4(stroke_vec.x, stroke_vec.y, stroke_vec.z, alpha(a)) ;
-          a.aspect(new_fill, new_stroke, thickness) ;
-        } else {
-          a.aspect(fill_vec, stroke_vec, thickness) ;
-        }
+        fill_def = fill_vec.copy() ;
+        stroke_def = stroke_vec.copy() ;
+        thickness_def = thickness ;
+      }
 
-        if(costume_ID != a.get_costume()) {
-          a.costume(costume_ID) ; 
-        } else {
-          a.costume() ;
+
+      if(use_style) {
+        if(a.get_melanin() != null) {
+          Vec4 map = mapVec(a.get_melanin(), -1, 1, 0, 2) ;
+          fill_def.mult(map) ;
+          stroke_def.mult(map) ;
+        }
+        if(g.colorMode == 3) {
+          if(fill_def.x > g.colorModeX) fill_def.x = fill_def.x - g.colorModeX ;
+          if(stroke_def.x > g.colorModeX) stroke_def.x = stroke_def.x - g.colorModeX ;
         }
       }
+
+      if(HORIZON_ALPHA) {
+        if(fill_def != null) fill_def.set(fill_def.x, fill_def.y, fill_def.z, alpha(a)) ;
+        if(stroke_def != null) stroke_def.set(stroke_def.x, stroke_def.y, stroke_def.z, alpha(a)) ;
+      }
+
+      // display
+      a.aspect(fill_def, stroke_def, thickness_def) ;
+      if(costume_ID != a.get_costume()) {
+        a.costume(costume_ID) ; 
+      } else {
+        a.costume() ;
+      }
     }
+    /*
     if(o instanceof Dead) {
       Dead d = (Dead) o ;
       boolean original_aspect = true ;
 
-      if(costume_ID != d.get_costume() || fill_vec != d.get_fill() || stroke_vec != d.get_stroke() || thickness != d.get_thickness()) {
+      if(costume_ID != d.get_costume() || fill_vec != d.get_fill_style() || stroke_vec != d.get_stroke_style() || thickness != d.get_thickness()) {
         original_aspect = false ;
       }
       if(original_aspect) {
         if(HORIZON_ALPHA) {
-          Vec4 new_fill = Vec4(d.get_fill().x, d.get_fill().y, d.get_fill().z, alpha(d)) ;
-          Vec4 new_stroke = Vec4(d.get_stroke().x, d.get_stroke().y, d.get_stroke().z, alpha(d)) ;
+          Vec4 new_fill = Vec4(d.get_fill_style().x, d.get_fill_style().y, d.get_fill_style().z, alpha(d)) ;
+          Vec4 new_stroke = Vec4(d.get_stroke_style().x, d.get_stroke_style().y, d.get_stroke_style().z, alpha(d)) ;
           d.aspect(new_fill, new_stroke, thickness) ;
         } else {
-          d.aspect(d.get_fill(), d.get_stroke(), d.get_thickness()) ;
+          d.aspect(d.get_fill_style(), d.get_stroke_style(), d.get_thickness()) ;
         }
         d.costume() ;
 
@@ -1226,7 +1219,8 @@ void update_aspect(Info_obj style, ArrayList list) {
           d.costume() ;
         }
       }
-    }   
+    } 
+    */  
   }
 }
 
@@ -1275,7 +1269,7 @@ INFO
 /*
 void info_agent(ArrayList<Agent> list) {
   for(Agent a : list) {
-    a.info(a.get_fill(), SIZE_TEXT_INFO) ;
+    a.info(a.get_fill_style(), SIZE_TEXT_INFO) ;
   }
 }
 */
@@ -1292,10 +1286,10 @@ void info_agent(ArrayList list) {
   for(Object o : list) {
     if(o instanceof Agent) {
       Agent a = (Agent) o ;
-      a.info(a.get_fill(), SIZE_TEXT_INFO) ;
+      a.info(a.get_fill_style(), SIZE_TEXT_INFO) ;
     } else if(o instanceof Dead) {
       Dead d = (Dead) o ;
-      d.info(d.get_fill(), SIZE_TEXT_INFO) ;
+      d.info(d.get_fill_style(), SIZE_TEXT_INFO) ;
 
     }
    
@@ -1306,19 +1300,19 @@ void info_agent_track_line(ArrayList<Agent> list) {
   for(Agent a : list) {
     if(a instanceof Carnivore) {
       Carnivore c = (Carnivore) a ;
-      track_line(c.pos, c.pos_target, c.colour_info(c.get_stroke())) ;
+      track_line(c.pos, c.pos_target, c.colour_info(c.get_stroke_style())) ;
       c.pos_target.set(MAX_INT) ;
     } else if (a instanceof Herbivore) {
       Herbivore h = (Herbivore) a ;
-      track_line(h.pos, h.pos_target, h.colour_info(h.get_stroke())) ;
+      track_line(h.pos, h.pos_target, h.colour_info(h.get_stroke_style())) ;
       h.pos_target.set(MAX_INT) ;
     } else if (a instanceof Omnivore) {
       Omnivore o = (Omnivore) a ;
-      track_line(o.pos, o.pos_target, o.colour_info(o.get_stroke())) ;
+      track_line(o.pos, o.pos_target, o.colour_info(o.get_stroke_style())) ;
       o.pos_target.set(MAX_INT) ;
     } else if (a instanceof Bacterium) {
       Bacterium b = (Bacterium) a ;
-      track_line(b.pos, b.pos_target, b.colour_info(b.get_stroke())) ;
+      track_line(b.pos, b.pos_target, b.colour_info(b.get_stroke_style())) ;
       b.pos_target.set(MAX_INT) ;
     }
   }
@@ -1392,7 +1386,7 @@ void update_die(ArrayList<Dead> list_dead, ArrayList<Agent> list) {
 
   //disapear, retrun to the oblivion no return as possible !
   for(Agent a : list) {
-    if(a.get_size() < 0) {
+    if(a.get_mass() < 0) {
       if(PRINT_DEATH_AGENT_DYNAMIC) {
         println("GO TO OBLIVION") ;
       }
