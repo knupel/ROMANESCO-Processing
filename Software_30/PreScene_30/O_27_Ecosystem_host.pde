@@ -13,16 +13,19 @@ class Ecosystem_Host extends Romanesco {
 		RPE_slider = "Fill hue,Fill sat,Fill bright,Fill alpha,Stroke hue,Stroke sat,Stroke bright,Stroke alpha,Thickness,Size X,Size Y,Size Z,Canvas X,Canvas Y,Canvas Z,Speed X,Quantity" ;
 	}
 
-  Vec3 canvas, radius, size, pos ;
+  Vec3 canvas, radius, size ;
   int min_host = 5 ;
   int max_host = 200 ;
 
   void setup() {
-    setting_start_position(ID_item, 0, 0, 0) ;
+    setting_start_position(ID_item, width/2, height/2, 0) ;
 
     load_nucleotide_table("preferences/ecosystem/code.csv") ;
+
+    canvas = Vec3(canvas_x_item[ID_item], canvas_y_item[ID_item], canvas_z_item[ID_item]) ;
+    size = Vec3(size_x_item[ID_item], size_y_item[ID_item], size_z_item[ID_item]) ;
     
-    set_host() ;
+    set_host(size, canvas) ;
     init_symbiosis() ;
 
   }
@@ -40,15 +43,12 @@ class Ecosystem_Host extends Romanesco {
     if(reverse[ID_item]) direction_host = 1 ; else direction_host = -1 ;
     if(motion[ID_item]) motion_bool_host = true ; else motion_bool_host = false ;
     if(birth[ID_item]) {
-    	// int num = num_host(min_host, max_host) ;
-    	// create_host(num, pos, size, canvas, radius) ; 
-      set_host() ;
+      set_host(size, canvas) ;
       init_symbiosis() ;
     	birth[ID_item] = false ;
 
     }
-
-    show_host(pos, size, canvas, radius, speed_rotation_host, direction_host, ELLIPSE_ROPE, motion_bool_host, info_agent) ;
+    show_host(size, canvas, radius, speed_rotation_host, direction_host, ELLIPSE_ROPE, motion_bool_host, info_agent) ;
 		
 	}
 
@@ -62,11 +62,14 @@ class Ecosystem_Host extends Romanesco {
 
 
 
-  void set_host() {
+  void set_host(Vec3 size, Vec3 canvas) {
+    /*
     size = Vec3(int(height *1.5)) ;
     canvas = Vec3(abs(HORIZON) / 8, height *1.5, abs(HORIZON) / 8) ;
+    */
     radius = Vec3(canvas) ;
-    pos = Vec3(width / 2, height/2, -radius.x) ;
+    //pos = Vec3(width/2, height/2, -radius.x) ;
+    Vec3 pos = Vec3(0, 0, -radius.x) ;
     int num = num_host(min_host, max_host) ;
     create_host(num, pos, size, canvas, radius) ; 
   }
@@ -154,9 +157,10 @@ void create_dna(int num_helix, int num, Vec3 pos, Vec3 size, int height_dna, int
 SHOW
 */
 
-void show_host(Vec3 pos, Vec3 size, Vec3 canvas, Vec3 radius, float speed_rotation_host, int direction_host, int which_costume, boolean rotation_bool_host, boolean info) {
+void show_host(Vec3 size, Vec3 canvas, Vec3 radius, float speed_rotation_host, int direction_host, int which_costume, boolean rotation_bool_host, boolean info) {
 	int height_dna = (int)canvas.y ;
 	int radius_dna = (int)radius.x ;
+  Vec3 pos = Vec3(0,  -(height_dna *.25), 0) ;
   show_dna(pos, height_dna, radius_dna, speed_rotation_host, direction_host, which_costume, rotation_bool_host, info) ;
 }
 
@@ -172,9 +176,7 @@ void show_dna(Vec3 pos, int height_dna, int radius_dna, float speed_rotation_dna
       strand_DNA.rotation(rotation_dna) ;
       strand_DNA.set_radius(radius_dna) ;
       strand_DNA.set_height(height_dna) ;
-      strand_DNA.set_final_pos(pos) ;
     }  
-
     for(int i = 0 ; i < strand_DNA.length() ; i++) {
       costume_DNA(strand_DNA, i, pos, which_costume, info) ;
     }
@@ -186,6 +188,8 @@ void show_dna(Vec3 pos, int height_dna, int radius_dna, float speed_rotation_dna
 void costume_DNA(Helix_DNA helix, int target, Vec3 pos, int which_costume, boolean info) {
   Vec3 pos_a = helix.get_nuc_pos(0)[target] ;
   Vec3 pos_b = helix.get_nuc_pos(1)[target] ;
+  pos_a.add(pos) ;
+  pos_b.add(pos) ;
 
   int size = 36 ;
   int size_link = 1 ;

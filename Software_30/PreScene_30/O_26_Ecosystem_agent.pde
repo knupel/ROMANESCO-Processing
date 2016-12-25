@@ -24,6 +24,7 @@ class Ecosystem_agent extends Romanesco {
   // boolean agent_display = true ;
   //boolean bg_refresh = true ;
   float speed_agent = .01 ;
+  boolean host_mode_ref ;
 
 
   void setup() {
@@ -44,7 +45,7 @@ class Ecosystem_agent extends Romanesco {
     set_pop_dead(0/div_pop) ;
     set_pop_bacterium(1/div_pop) ;
     */
-    
+    host_mode_ref = orbit[ID_item] ;
     init_environment(pos, canvas) ;
     use_horizon(true) ;
     use_rebound(false) ;
@@ -53,18 +54,10 @@ class Ecosystem_agent extends Romanesco {
 
 
 
-
+  
 	void draw() {
-    if(orbit[ID_item]) {
-      // link with the host
-      host_mode = true ;
-    } else {
-      host_mode = false ;
-    }
-
+    // SETTING
     speed_agent = speed_x_item[ID_item] *speed_x_item[ID_item];
-
-    
 
     float thickness_common = thickness_item[ID_item] ;
     
@@ -83,16 +76,11 @@ class Ecosystem_agent extends Romanesco {
       colour[ID_item] = false ;
     }
 
-
     if(horizon[ID_item]) {
       use_horizon(true) ; 
     } else {
       use_horizon(false) ;
     }
-
-    
-
-
 
     Vec4 fill_flora = Vec4(hue_fill[0], saturation(fill_item[ID_item]), brightness(fill_item[ID_item]), alpha(fill_item[ID_item])) ;
     Vec4 stroke_flora = Vec4(hue_stroke[0], saturation(stroke_item[ID_item]), brightness(stroke_item[ID_item]), alpha(stroke_item[ID_item])) ;
@@ -142,7 +130,7 @@ class Ecosystem_agent extends Romanesco {
 
  
 
-
+    // INIT
     if(mode[ID_item] != mode_ref || birth[ID_item]) {
       mode_ref = mode[ID_item] ;
       birth[ID_item] = false ;
@@ -163,7 +151,9 @@ class Ecosystem_agent extends Romanesco {
 			init_ecosystem = false ;
 			first_save = true ;
 		}
+    
 
+    // UPDATE
 		update_list() ;
     if(FULL_RENDERING) {
       if(special[ID_item]) {
@@ -173,19 +163,33 @@ class Ecosystem_agent extends Romanesco {
       } 
     }
     
-
+    // HOST MODE
+    if(orbit[ID_item]) {
+      host_mode = true ;
+    } else {
+      host_mode = false ;
+    }
 
     if(host_mode) {
       sync_symbiosis() ;
       update_symbiosis() ;
     }
 
+    if(host_mode_ref != host_mode) {
+      init_ecosystem() ;
+      host_mode_ref = host_mode ;
+    }
+    
+
+    // CANVAS
     Vec3 canvas = Vec3(canvas_x_item[ID_item], canvas_y_item[ID_item], canvas_z_item[ID_item]) ;
     set_canvas_environment(canvas) ;
+
+    // SHOW
 		show_agent() ;	
 
 
-    // info 
+    // INFO
     if (objectInfoDisplay[ID_item]) {
       strokeWeight(1) ;
       stroke(blanc) ;
