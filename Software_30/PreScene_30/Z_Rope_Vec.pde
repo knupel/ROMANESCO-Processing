@@ -1,5 +1,5 @@
 /**
-CLASS OPE VEC 1.8.0
+CLASS OPE VEC 1.8.1
 Rope – Romanesco Processing Environment – 2015 – 2016
 * @author Stan le Punk
 * @see https://github.com/StanLepunK/Vec
@@ -2760,6 +2760,28 @@ Vec2 norm_dir(String type, float direction) {
 }
 // END VEC FROM ANGLE
 /////////////////////
+
+
+
+/**
+translate int color to Vec4 color
+*/
+Vec4 color_HSB_a(int c) {
+  return Vec4(hue(c), saturation(c), brightness(c), alpha(c)) ;
+}
+
+Vec4 color_RGB_a(int c) {
+  return Vec4(red(c), green(c), blue(c), alpha(c)) ;
+}
+
+Vec3 color_HSB(int c) {
+  return Vec3(hue(c), saturation(c), brightness(c)) ;
+}
+
+Vec3 color_RGB(int c) {
+  return Vec3(red(c), green(c), blue(c)) ;
+}
+
 
 
 

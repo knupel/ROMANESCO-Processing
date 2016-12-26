@@ -1,5 +1,5 @@
 /**
-RPE UTILS 1.21.4.1
+RPE UTILS 1.21.5.2
 Rope – Romanesco Processing Environment – 2015–2016
 * @author Stan le Punk
 * @see https://github.com/StanLepunK/Utils_rope
@@ -20,7 +20,7 @@ COLOR 0.2.0
 
 */
 /**
-aspect 0.0.1
+aspect 0.0.2
 */
 void aspect(int fill, int stroke, float thickness) {
   //checkfill color
@@ -31,6 +31,22 @@ void aspect(int fill, int stroke, float thickness) {
   } 
   //check stroke color
   if(alpha(stroke) <=0 || thickness <= 0 ) {
+    noStroke() ;
+  } else {
+    stroke(stroke) ;
+    strokeWeight(thickness) ;
+  }
+}
+
+void aspect(Vec4 fill, Vec4 stroke, float thickness) {
+  //checkfill color
+  if(fill.a <=0)  {
+    noFill() ; 
+  } else {
+    fill(fill) ;
+  } 
+  //check stroke color
+  if(stroke.a <=0 || thickness <= 0 ) {
     noStroke() ;
   } else {
     stroke(stroke) ;
@@ -51,8 +67,113 @@ float camaieu(float max, float color_ref, float range) {
 }
 
 /**
-color pool 0.1.1
+color pool 0.2.0
 */
+// color pool Vec4 RGB
+Vec4 [] color_pool_RGB(int num) {
+  Vec2 sat_range = Vec2(g.colorModeY) ;
+  Vec2 bright_range = Vec2(g.colorModeZ) ;
+  Vec2 alpha_range = Vec2(g.colorModeA) ;
+  float range = g.colorModeX *.5 ;
+  int num_group = 1 ;
+  float key_hue = -1 ;
+  return color_pool_RGB(num, num_group, key_hue, range, sat_range, bright_range, alpha_range) ;
+}
+
+Vec4 [] color_pool_RGB(int num, float key_hue) {
+  Vec2 sat_range = Vec2(g.colorModeY) ;
+  Vec2 bright_range = Vec2(g.colorModeZ) ;
+  Vec2 alpha_range = Vec2(g.colorModeA) ;
+  float range = g.colorModeX *.5 ;
+  int num_group = 1 ;
+  return color_pool_RGB(num, num_group, key_hue, range, sat_range, bright_range, alpha_range) ;
+}
+
+
+Vec4 [] color_pool_RGB(int num, int num_group, float hue_range) {
+  Vec2 sat_range = Vec2(g.colorModeY) ;
+  Vec2 bright_range = Vec2(g.colorModeZ) ;
+  Vec2 alpha_range = Vec2(g.colorModeA) ;
+  float key_hue = -1 ;
+  return color_pool_RGB(num, num_group, key_hue, hue_range, sat_range, bright_range, alpha_range) ;
+}
+
+
+Vec4 [] color_pool_RGB(int num, int num_group, float key_hue, float hue_range) {
+  Vec2 sat_range = Vec2(g.colorModeY) ;
+  Vec2 bright_range = Vec2(g.colorModeZ) ;
+  Vec2 alpha_range = Vec2(g.colorModeA) ;
+  return color_pool_RGB(num, num_group, key_hue, hue_range, sat_range, bright_range, alpha_range) ;
+}
+
+Vec4 [] color_pool_RGB(int num, int num_group, float hue_range, Vec2 sat_range, Vec2 bright_range, Vec2 alpha_range) {
+  float key_hue = -1 ;
+  return color_pool_RGB(num, num_group, key_hue, hue_range, sat_range, bright_range, alpha_range) ;
+}
+
+
+Vec4 [] color_pool_RGB(int num, int num_group, float key_hue, float hue_range, Vec2 sat_range, Vec2 bright_range, Vec2 alpha_range) {
+  Vec4 [] list = new Vec4[num]  ;
+  int [] c = color_pool(num, num_group, key_hue, hue_range, sat_range, bright_range, alpha_range) ;
+  for(int i = 0 ; i <list.length ; i++) {
+    list[i] = new Vec4(red(c[i]),green(c[i]),blue(c[i]),alpha(c[i])) ;
+  }
+  return list ;
+}
+
+// color pool Vec4 HSB
+Vec4 [] color_pool_HSB(int num) {
+  Vec2 sat_range = Vec2(g.colorModeY) ;
+  Vec2 bright_range = Vec2(g.colorModeZ) ;
+  Vec2 alpha_range = Vec2(g.colorModeA) ;
+  float range = g.colorModeX *.5 ;
+  int num_group = 1 ;
+  float key_hue = -1 ;
+  return color_pool_HSB(num, num_group, key_hue, range, sat_range, bright_range, alpha_range) ;
+}
+
+Vec4 [] color_pool_HSB(int num, float key_hue) {
+  Vec2 sat_range = Vec2(g.colorModeY) ;
+  Vec2 bright_range = Vec2(g.colorModeZ) ;
+  Vec2 alpha_range = Vec2(g.colorModeA) ;
+  float range = g.colorModeX *.5 ;
+  int num_group = 1 ;
+  return color_pool_HSB(num, num_group, key_hue, range, sat_range, bright_range, alpha_range) ;
+}
+
+
+Vec4 [] color_pool_HSB(int num, int num_group, float hue_range) {
+  Vec2 sat_range = Vec2(g.colorModeY) ;
+  Vec2 bright_range = Vec2(g.colorModeZ) ;
+  Vec2 alpha_range = Vec2(g.colorModeA) ;
+  float key_hue = -1 ;
+  return color_pool_HSB(num, num_group, key_hue, hue_range, sat_range, bright_range, alpha_range) ;
+}
+
+
+Vec4 [] color_pool_HSB(int num, int num_group, float key_hue, float hue_range) {
+  Vec2 sat_range = Vec2(g.colorModeY) ;
+  Vec2 bright_range = Vec2(g.colorModeZ) ;
+  Vec2 alpha_range = Vec2(g.colorModeA) ;
+  return color_pool_HSB(num, num_group, key_hue, hue_range, sat_range, bright_range, alpha_range) ;
+}
+
+Vec4 [] color_pool_HSB(int num, int num_group, float hue_range, Vec2 sat_range, Vec2 bright_range, Vec2 alpha_range) {
+  float key_hue = -1 ;
+  return color_pool_HSB(num, num_group, key_hue, hue_range, sat_range, bright_range, alpha_range) ;
+}
+
+
+Vec4 [] color_pool_HSB(int num, int num_group, float key_hue, float hue_range, Vec2 sat_range, Vec2 bright_range, Vec2 alpha_range) {
+  Vec4 [] list = new Vec4[num]  ;
+  int [] c = color_pool(num, num_group, key_hue, hue_range, sat_range, bright_range, alpha_range) ;
+  for(int i = 0 ; i <list.length ; i++) {
+    list[i] = new Vec4(hue(c[i]),saturation(c[i]),brightness(c[i]),alpha(c[i])) ;
+  }
+  return list ;
+}
+
+// color pool int
 int [] color_pool(int num) {
   Vec2 sat_range = Vec2(g.colorModeY) ;
   Vec2 bright_range = Vec2(g.colorModeZ) ;
@@ -60,6 +181,15 @@ int [] color_pool(int num) {
   float range = g.colorModeX *.5 ;
   int num_group = 1 ;
   float key_hue = -1 ;
+  return color_pool(num, num_group, key_hue, range, sat_range, bright_range, alpha_range) ;
+}
+
+int [] color_pool(int num, float key_hue) {
+  Vec2 sat_range = Vec2(g.colorModeY) ;
+  Vec2 bright_range = Vec2(g.colorModeZ) ;
+  Vec2 alpha_range = Vec2(g.colorModeA) ;
+  float range = g.colorModeX *.5 ;
+  int num_group = 1 ;
   return color_pool(num, num_group, key_hue, range, sat_range, bright_range, alpha_range) ;
 }
 
@@ -71,12 +201,18 @@ int [] color_pool(int num, int num_group, float hue_range) {
   return color_pool(num, num_group, key_hue, hue_range, sat_range, bright_range, alpha_range) ;
 }
 
+int [] color_pool(int num, int num_group, float key_hue, float hue_range) {
+  Vec2 sat_range = Vec2(g.colorModeY) ;
+  Vec2 bright_range = Vec2(g.colorModeZ) ;
+  Vec2 alpha_range = Vec2(g.colorModeA) ;
+  return color_pool(num, num_group, key_hue, hue_range, sat_range, bright_range, alpha_range) ;
+}
+
 int [] color_pool(int num, int num_group, float hue_range, Vec2 sat_range, Vec2 bright_range, Vec2 alpha_range) {
   float key_hue = -1 ;
   return color_pool(num, num_group, key_hue, hue_range, sat_range, bright_range, alpha_range) ;
 
 }
-
 
 // color pool by group
 int [] color_pool(int num, int num_group, float key_hue, float hue_range, Vec2 sat_range, Vec2 bright_range, Vec2 alpha_range) {
@@ -99,10 +235,9 @@ int [] color_pool(int num, int num_group, float key_hue, float hue_range, Vec2 s
       color_ref[i] = color_ref[i -1] + step ;
       if(color_ref[i] > g.colorModeX) {
         color_ref[i] = color_ref[i] - g.colorModeX ;
-      }
+      }      
     }
   }
-
 
   int [] list = new int[num] ;
   int count = 0 ;
@@ -110,7 +245,6 @@ int [] color_pool(int num, int num_group, float key_hue, float hue_range, Vec2 s
   int next_stop = step ; ;
   for(int i = 0 ; i < list.length ; i++) {
     if(i > next_stop) {
-      count++ ;
       next_stop += step ;
     }
     float saturation = random(sat_range) ;
@@ -118,6 +252,9 @@ int [] color_pool(int num, int num_group, float key_hue, float hue_range, Vec2 s
     float alpha = random(alpha_range) ;
     float hue = camaieu(g.colorModeX, color_ref[count], hue_range) ;
     list[i] = color(hue, saturation,brightness, alpha) ;
+    count++ ;
+    if(count >= color_ref.length) count = 0 ;
+
   }
   colorMode(ref,x,y,z,a) ;
   return list ;
@@ -587,7 +724,7 @@ void write_row(TableRow row, String col_name, Object o) {
 
 
 /**
-print tempo 0.0.2
+print tempo 0.0.3
 
 */
 void printTempo(int tempo, Object... var) {
@@ -601,6 +738,25 @@ void printArrayTempo(int tempo, Object[] var) {
     printArray(var) ;
   }
 }
+
+void printArrayTempo(int tempo, float[] var) {
+  if(frameCount%tempo == 0 ) {
+    printArray(var) ;
+  }
+}
+
+void printArrayTempo(int tempo, int[] var) {
+  if(frameCount%tempo == 0 ) {
+    printArray(var) ;
+  }
+}
+
+void printArrayTempo(int tempo, String[] var) {
+  if(frameCount%tempo == 0 ) {
+    printArray(var) ;
+  }
+}
+
 
 
 

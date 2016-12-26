@@ -10,10 +10,12 @@ class Ecosystem_agent extends Romanesco {
 		RPE_version = "Version 0.1.2";
 		RPE_pack = "Base" ;
 		RPE_mode = "Virus/Human/Alien/Other" ; // separate the differentes mode by "/"
-		RPE_slider = "Fill hue,Fill sat,Fill bright,Fill alpha,Stroke hue,Stroke sat,Stroke bright,Stroke alpha,Thickness,Canvas X,Canvas Y,Canvas Z,Speed X,Quantity,Life,Area" ;
+		RPE_slider = "Fill hue,Fill sat,Fill bright,Fill alpha,Stroke hue,Stroke sat,Stroke bright,Stroke alpha,Thickness,Canvas X,Canvas Y,Canvas Z,Speed X,Quantity,Angle,Life,Area" ;
 	}
 
   int type_agents = 6 ;
+  int colour_groups = type_agents ;
+  float range_colour = 0 ;
   int mode_ref = 0 ;
   boolean host_mode = false ;
   float [] hue_fill = new float[type_agents] ;
@@ -61,18 +63,52 @@ class Ecosystem_agent extends Romanesco {
 
     float thickness_common = thickness_item[ID_item] ;
     
+    if(action[ID_item]) {
+      if(touch1) {
+        colour_groups = 1 ;
+      }
+      if(touch2) {
+        colour_groups = 2 ;
+      }
+      if(touch3) {
+        colour_groups = 3 ;
+      }
+      if(touch4) {
+        colour_groups = 4 ;
+      }
+      if(touch5) {
+        colour_groups = 5 ;
+      }
+      if(touch6) {
+        colour_groups = 6 ;
+      }
+    } 
+
+    float max = 360 / colour_groups ;
+    range_colour = map(angle_item[ID_item],0,360,0,max) ;
+
+    
     if(hue_fill_ref != hue(fill_item[ID_item])) {
+      Vec4 [] pool_fill = color_pool_HSB(type_agents, colour_groups, hue(fill_item[ID_item]), range_colour) ;
+      for(int i = 0 ; i < hue_fill.length ; i++) {
+        hue_fill[i] = pool_fill[i].x ;
+      }
       hue_fill_ref = hue_fill[0] = hue(fill_item[ID_item]) ;
-      update_hue() ;
     }
     if(hue_stroke_ref != hue(stroke_item[ID_item])) {
+      Vec4 [] pool_stroke = color_pool_HSB(type_agents, colour_groups, hue(stroke_item[ID_item]), range_colour) ;
+      for(int i = 0 ; i < hue_stroke.length ; i++) {
+        hue_stroke[i] = pool_stroke[i].x ;
+      }
       hue_stroke_ref = hue_stroke[0] = hue(stroke_item[ID_item]) ;
-      update_hue() ;
     }
     if(colour[ID_item]) {
-      hue_fill[0] = random(g.colorModeX) ;
-      hue_stroke[0] = random(g.colorModeX) ;
-      update_hue() ;
+      Vec4 [] pool_fill = color_pool_HSB(type_agents, colour_groups, random(g.colorModeX), range_colour) ;
+      Vec4 [] pool_stroke = color_pool_HSB(type_agents, colour_groups, random(g.colorModeX), range_colour) ;
+      for(int i = 0 ; i < type_agents ; i++) {
+        hue_fill[i] = pool_fill[i].x ;
+        hue_stroke[i] = pool_stroke[i].x ;
+      }
       colour[ID_item] = false ;
     }
 
@@ -81,24 +117,28 @@ class Ecosystem_agent extends Romanesco {
     } else {
       use_horizon(false) ;
     }
-
+    // 1 / FLORA VIRUS
     Vec4 fill_flora = Vec4(hue_fill[0], saturation(fill_item[ID_item]), brightness(fill_item[ID_item]), alpha(fill_item[ID_item])) ;
     Vec4 stroke_flora = Vec4(hue_stroke[0], saturation(stroke_item[ID_item]), brightness(stroke_item[ID_item]), alpha(stroke_item[ID_item])) ;
+    // 2 / DEAD
+    Vec4 fill_dead = Vec4(hue_fill[1], saturation(fill_item[ID_item]), brightness(fill_item[ID_item]), alpha(fill_item[ID_item])) ;
+    Vec4 stroke_dead = Vec4(hue_stroke[1], saturation(stroke_item[ID_item]), brightness(stroke_item[ID_item]), alpha(stroke_item[ID_item])) ;
+    // 3 / BACTERIUM
+    Vec4 fill_bacterium = Vec4(hue_fill[2], saturation(fill_item[ID_item]), brightness(fill_item[ID_item]), alpha(fill_item[ID_item])) ;
+    Vec4 stroke_bacterium = Vec4(hue_stroke[2], saturation(stroke_item[ID_item]), brightness(stroke_item[ID_item]), alpha(stroke_item[ID_item])) ;
+    // 4 / HERBIVORE
+    Vec4 fill_herbivore = Vec4(hue_fill[3], saturation(fill_item[ID_item]), brightness(fill_item[ID_item]), alpha(fill_item[ID_item])) ;
+    Vec4 stroke_herbivore = Vec4(hue_stroke[3], saturation(stroke_item[ID_item]), brightness(stroke_item[ID_item]), alpha(stroke_item[ID_item])) ;
+    // 5 / OMNIVORE
+    Vec4 fill_omnivore = Vec4(hue_fill[4], saturation(fill_item[ID_item]), brightness(fill_item[ID_item]), alpha(fill_item[ID_item])) ;
+    Vec4 stroke_omnivore = Vec4(hue_stroke[4], saturation(stroke_item[ID_item]), brightness(stroke_item[ID_item]), alpha(stroke_item[ID_item])) ;
+    // 6 / CARNIVORE
+    Vec4 fill_carnivore = Vec4(hue_fill[5], saturation(fill_item[ID_item]), brightness(fill_item[ID_item]), alpha(fill_item[ID_item])) ;
+    Vec4 stroke_carnivore = Vec4(hue_stroke[5], saturation(stroke_item[ID_item]), brightness(stroke_item[ID_item]), alpha(stroke_item[ID_item])) ;
 
-    Vec4 fill_herbivore = Vec4(hue_fill[1], saturation(fill_item[ID_item]), brightness(fill_item[ID_item]), alpha(fill_item[ID_item])) ;
-    Vec4 stroke_herbivore = Vec4(hue_stroke[1], saturation(stroke_item[ID_item]), brightness(stroke_item[ID_item]), alpha(stroke_item[ID_item])) ;
 
-    Vec4 fill_omnivore = Vec4(hue_fill[2], saturation(fill_item[ID_item]), brightness(fill_item[ID_item]), alpha(fill_item[ID_item])) ;
-    Vec4 stroke_omnivore = Vec4(hue_stroke[2], saturation(stroke_item[ID_item]), brightness(stroke_item[ID_item]), alpha(stroke_item[ID_item])) ;
 
-    Vec4 fill_carnivore = Vec4(hue_fill[3], saturation(fill_item[ID_item]), brightness(fill_item[ID_item]), alpha(fill_item[ID_item])) ;
-    Vec4 stroke_carnivore = Vec4(hue_stroke[3], saturation(stroke_item[ID_item]), brightness(stroke_item[ID_item]), alpha(stroke_item[ID_item])) ;
 
-    Vec4 fill_dead = Vec4(hue_fill[4], saturation(fill_item[ID_item]), brightness(fill_item[ID_item]), alpha(fill_item[ID_item])) ;
-    Vec4 stroke_dead = Vec4(hue_stroke[4], saturation(stroke_item[ID_item]), brightness(stroke_item[ID_item]), alpha(stroke_item[ID_item])) ;
-
-    Vec4 fill_bacterium = Vec4(hue_fill[5], saturation(fill_item[ID_item]), brightness(fill_item[ID_item]), alpha(fill_item[ID_item])) ;
-    Vec4 stroke_bacterium = Vec4(hue_stroke[5], saturation(stroke_item[ID_item]), brightness(stroke_item[ID_item]), alpha(stroke_item[ID_item])) ;
 
     Vec3 alpha_behavior_common = Vec3(0, -1, 1) ;
 
@@ -198,21 +238,6 @@ class Ecosystem_agent extends Romanesco {
     }   	
 	}
 
-
-
-
-
-
-
-  void update_hue() {
-    int step = int(g.colorModeX / type_agents) ;
-    for(int i = 1 ; i < type_agents ; i++) {
-      hue_fill[i] = hue_fill[i -1] +(i*step) ;
-      if(hue_fill[i] > g.colorModeX) hue_fill[i] = hue_fill[i] -g.colorModeX ;
-      hue_stroke[i] = hue_stroke[i -1] +(i*step) ;
-      if(hue_stroke[i] > g.colorModeX) hue_stroke[i] = hue_stroke[i] -g.colorModeX ;
-    }
-  }
 
   void set_pop(boolean use_flora, boolean use_herbivore, boolean use_carnivore, boolean use_omnivore, boolean use_bacterium) {
     int div_pop = 1 ;

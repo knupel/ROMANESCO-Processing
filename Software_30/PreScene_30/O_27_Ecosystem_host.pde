@@ -48,7 +48,7 @@ class Ecosystem_Host extends Romanesco {
     	birth[ID_item] = false ;
 
     }
-    show_host(size, canvas, radius, speed_rotation_host, direction_host, ELLIPSE_ROPE, motion_bool_host, info_agent) ;
+    show_host(size, canvas, radius, speed_rotation_host, direction_host, ELLIPSE_ROPE, fill_item[ID_item], stroke_item[ID_item], thickness_item[ID_item], motion_bool_host, info_agent) ;
 		
 	}
 
@@ -129,8 +129,7 @@ void sync_symbiosis() {
 DNA
 */
 // DNA host
-Vec3 color_strand_a = Vec3(30, 10, 80) ;
-Vec3 color_strand_b = Vec3(0, 10, 20) ;
+
 
 Helix_DNA strand_DNA ;
 
@@ -157,17 +156,17 @@ void create_dna(int num_helix, int num, Vec3 pos, Vec3 size, int height_dna, int
 SHOW
 */
 
-void show_host(Vec3 size, Vec3 canvas, Vec3 radius, float speed_rotation_host, int direction_host, int which_costume, boolean rotation_bool_host, boolean info) {
+void show_host(Vec3 size, Vec3 canvas, Vec3 radius, float speed_rotation_host, int direction_host, int which_costume, int fill, int stroke, float thickness, boolean rotation_bool_host, boolean info) {
 	int height_dna = (int)canvas.y ;
 	int radius_dna = (int)radius.x ;
   Vec3 pos = Vec3(0,  -(height_dna *.25), 0) ;
-  show_dna(pos, height_dna, radius_dna, speed_rotation_host, direction_host, which_costume, rotation_bool_host, info) ;
+  show_dna(pos, height_dna, radius_dna, speed_rotation_host, direction_host, which_costume, fill, stroke, thickness, rotation_bool_host, info) ;
 }
 
 
 
 float rotation_dna = 0 ;
-void show_dna(Vec3 pos, int height_dna, int radius_dna, float speed_rotation_dna, int direction_dna, int which_costume, boolean rotation_bool_dna, boolean info) {
+void show_dna(Vec3 pos, int height_dna, int radius_dna, float speed_rotation_dna, int direction_dna, int which_costume, int fill, int stroke, float thickness, boolean rotation_bool_dna, boolean info) {
 	// show DNA
   if(height_dna > 0 ) {
     if(rotation_bool_dna) {
@@ -178,14 +177,14 @@ void show_dna(Vec3 pos, int height_dna, int radius_dna, float speed_rotation_dna
       strand_DNA.set_height(height_dna) ;
     }  
     for(int i = 0 ; i < strand_DNA.length() ; i++) {
-      costume_DNA(strand_DNA, i, pos, which_costume, info) ;
+      costume_DNA(strand_DNA, i, pos, which_costume, fill, stroke, thickness, info) ;
     }
   }
 }
 
 
 
-void costume_DNA(Helix_DNA helix, int target, Vec3 pos, int which_costume, boolean info) {
+void costume_DNA(Helix_DNA helix, int target, Vec3 pos, int which_costume, int fill_int, int stroke_int, float thickness, boolean info) {
   Vec3 pos_a = helix.get_nuc_pos(0)[target] ;
   Vec3 pos_b = helix.get_nuc_pos(1)[target] ;
   pos_a.add(pos) ;
@@ -198,33 +197,56 @@ void costume_DNA(Helix_DNA helix, int target, Vec3 pos, int which_costume, boole
   float alpha_min = .01 ;
   float alpha_max = .8 ;
 
-  stroke(80, 8) ;
-  strokeWeight(size_link) ;
+  stroke(stroke_int) ;
+  strokeWeight(thickness) ;
   line(pos_a, pos_b) ;
+  
 
+  Vec4 fill = color_HSB_a(fill_int) ;
+  Vec4 stroke = color_HSB_a(stroke_int) ;
+  // alpha
   float ratio_a = map(pos_a.z -pos.z , -radius, radius, 0 +alpha_min, alpha_max) ;
-  float alpha_a = g.colorModeA * ratio_a ;
-  
-  
+  float alpha_a = g.colorModeA * ratio_a  ;
+  float fill_alpha_a = alpha_a * map(fill.w, 0,100,0,1) ;
+  float stroke_alpha_a = alpha_a * map(stroke.w, 0,100,0,1) ;
 
 
+  Vec4 fill_strand_a = Vec4(fill.x, fill.y, fill.z, fill_alpha_a) ;
+  Vec4 stroke_strand_a = Vec4(stroke.x, stroke.y, stroke.z, stroke_alpha_a) ;
+
+  // change for the opposite color
+  float hue_fill = fill.x +(g.colorModeX *.5) ;
+  float hue_stroke = stroke.x +(g.colorModeX *.5) ;
+  if(hue_fill > g.colorModeX) hue_fill = hue_fill - g.colorModeX ;
+  if(hue_stroke > g.colorModeX) hue_stroke = hue_stroke - g.colorModeX ;
+
+  // alpha
   float ratio_b = map(pos_b.z -pos.z, -radius, radius, 0 +alpha_min, alpha_max) ;
   float alpha_b = g.colorModeA *ratio_b ;
+  float fill_alpha_b = alpha_b * map(fill.w, 0,100,0,1) ;
+  float stroke_alpha_b = alpha_b * map(stroke.w, 0,100,0,1) ;
+
+  Vec4 fill_strand_b = Vec4(hue_fill, fill.y, fill.z, fill_alpha_b) ;
+  Vec4 stroke_strand_b = Vec4(hue_stroke, stroke.y, stroke.z, stroke_alpha_b) ;
+  
+  
+
+
+
 
 
   if(info) {
-    fill(color_strand_a, alpha_a) ;
+    fill( fill_strand_a) ;
     String nuc_a = "" +helix.get_DNA(0).sequence_a.get(target).nac ;
     costume_rope(pos_a, size, nuc_a) ;
-    fill(color_strand_b, alpha_b) ;
+    fill( fill_strand_b) ;
     String nuc_b = "" +helix.get_DNA(0).sequence_a.get(target).nac ;
     costume_rope(pos_b, size, nuc_b) ;
   } else {
-    noFill() ;
-    stroke(color_strand_a, alpha_a) ;
+    aspect(fill_strand_a, stroke_strand_a, thickness) ;
     costume_rope(pos_a, size, which_costume) ;
-    noFill() ;
-    stroke(color_strand_b, alpha_b) ;
+    
+    aspect(fill_strand_b, stroke_strand_b, thickness) ;
     costume_rope(pos_b, size, which_costume) ;
   }
 }
