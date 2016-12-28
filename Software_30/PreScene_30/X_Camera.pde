@@ -76,7 +76,7 @@ void camara_setting (int numSettingCamera) {
 
 
 /**
-Start setting position and direction
+Start setting position and direction 0.0.1
 */
 // direction
 void setting_start_direction(int ID, Vec2 dir) {
@@ -119,8 +119,38 @@ void setting_start_position(int ID, int which_setting, int pos_x, int pos_y, int
   item_setting_position [which_setting][ID] = Vec3(pos_item_final[ID]) ;
   mouse[ID] = Vec3(pos_x, pos_y, pos_z) ;
 }
+
+
 /**
 END SETUP
+*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/**
+GET
+*/
+Vec3 get_pos_item(int id_item) {
+  Vec3 pos = pos_item_final[id_item].copy() ;
+  return pos.add(width/2, height/2,0) ;
+}
+
+Vec3 get_dir_item(int id_item) {
+  return dir_item_final[id_item] ;
+}
+/**
+
 */
 
 

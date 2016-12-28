@@ -28,6 +28,8 @@ birth[ID_item] > from keyboard "N"
 
 colour[ID_item] > from keyboard "X"
 
+dimension[ID_item] > from keyboard "D"
+
 horizon[ID_item] > from keyboard "H"
 
 motion[ID_item] > from keyboard "M"

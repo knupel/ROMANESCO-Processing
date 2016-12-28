@@ -51,6 +51,7 @@ class Ecosystem_agent extends Romanesco {
     init_environment(pos, canvas) ;
     use_horizon(true) ;
     use_rebound(false) ;
+    init_ecosystem() ;
 
   }
 
@@ -209,11 +210,9 @@ class Ecosystem_agent extends Romanesco {
     } else {
       host_mode = false ;
     }
+    
 
-    if(host_mode) {
-      sync_symbiosis() ;
-      update_symbiosis() ;
-    }
+
 
     if(host_mode_ref != host_mode) {
       init_ecosystem() ;
@@ -225,8 +224,25 @@ class Ecosystem_agent extends Romanesco {
     Vec3 canvas = Vec3(canvas_x_item[ID_item], canvas_y_item[ID_item], canvas_z_item[ID_item]) ;
     set_canvas_environment(canvas) ;
 
+    // UPDATE HOST POSITION
+    Vec2 dir_host = Vec2() ;
+    if(host_mode) {
+      int id_item_host = 27 ;
+      sync_symbiosis(id_item_host) ;
+      dir_host.set(get_dir_item(id_item_host).x,get_dir_item(id_item_host).y) ;
+      update_symbiosis() ;
+    } 
+
     // SHOW
-		show_agent() ;	
+    if(!dir_host.equals(Vec2())) {
+      start_matrix() ;
+      rotateXY(dir_host) ;
+    }
+		show_agent() ;
+
+    if(!dir_host.equals(Vec2())) {
+      stop_matrix() ;
+    }
 
 
     // INFO

@@ -862,7 +862,7 @@ class Atom {
   ////////////////////
   //DISPLAY
   void display(String core, String cloud, PVector size, color colorFill, color colorStroke, float thickness, float orientation) {
-    aspect(colorFill, colorStroke, thickness) ;
+    aspect_rope(colorFill, colorStroke, thickness) ;
     //check size
     size.x *= diamAtom ;
     size.y *= diamAtom ;
@@ -889,7 +889,7 @@ class Atom {
       stroke(colorFill) ;
       strokeWeight(thickness *2.) ;
       cloudPoint(size.x *.2) ;
-      aspect(colorFill, colorStroke,thickness) ;
+      aspect_rope(colorFill, colorStroke,thickness) ;
     }
     
     popMatrix() ;

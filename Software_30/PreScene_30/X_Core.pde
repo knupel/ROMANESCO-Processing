@@ -1,5 +1,5 @@
 /**
-CORE Rope SCENE and PRESCENE 1.1.2
+CORE Rope SCENE and PRESCENE 1.1.3
 */
 /**
 INIT Rope
@@ -27,6 +27,73 @@ void init_RPE() {
     init_RPE = false ;
   }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/**
+
+COSTUME
+
+*/
+int select_costume_via_mode(int id, int max_mode) {
+  if(mode[id] == 0 && mode[id] < max_mode) {
+    if(!dimension[id]) costume[id] = POINT_ROPE ; else costume[id] = SPHERE_LOW_ROPE ;
+  } else if(mode[id] == 1 && mode[id] < max_mode) {
+    if(!dimension[id]) costume[id] = ELLIPSE_ROPE ; else costume[id] = SPHERE_MEDIUM_ROPE ;
+  } else if(mode[id] == 2 && mode[id] < max_mode) {
+    if(!dimension[id]) costume[id] = TRIANGLE_ROPE ; else costume[id] = TETRAHEDRON_ROPE ;
+  } else if(mode[id] == 3 && mode[id] < max_mode) {
+    if(!dimension[id]) costume[id] = RECT_ROPE ; else costume[id] = BOX_ROPE ;
+  } else if(mode[id] == 4 && mode[id] < max_mode) {
+    if(!dimension[id]) costume[id] = CROSS_2_ROPE ; else costume[id] = CROSS_3_ROPE ;
+  } else if(mode[id] == 5 && mode[id] < max_mode) {
+    if(!dimension[id]) costume[id] = STAR_4_ROPE ; else costume[id] = SUPER_STAR_8_ROPE ;
+  } else if(mode[id] == 6 && mode[id] < max_mode) {
+    if(!dimension[id]) costume[id] = STAR_5_ROPE ; else costume[id] = SUPER_STAR_12_ROPE ;
+  } else if(mode[id] == 7 && mode[id] < max_mode) {
+    if(!dimension[id]) costume[id] = STAR_8_ROPE ; else costume[id] = SUPER_STAR_12_ROPE ;
+  } else {
+    costume[id] = MAX_INT ;
+  }
+  return costume[id] ;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

@@ -1,5 +1,5 @@
 /**
-GALAXIE – 2012-2016 – 1.4.0
+GALAXIE – 2012-2016 – 1.4.1
 */
 
 class Galaxie extends Romanesco {
@@ -16,10 +16,10 @@ class Galaxie extends Romanesco {
     ID_item = 20 ;
     ID_group = 1 ;
     RPE_author  = "Stan le Punk";
-    RPE_version = "Version 1.4.0";
+    RPE_version = "Version 1.4.1";
     RPE_pack = "Base" ;
     // RPE_mode ="Point/Ellipse/Rectangle/Box" ;
-    RPE_mode = "Ellipse/Triangle/Rectangle/Star 5/Super Star 12/Tetra/Box/Cross 3/Sphere low/Sphere medium" ;
+    RPE_mode = "Point/Ellipse/Triangle/Rectangle/Cross/Simple Star/Star/Super Star" ;
     ELLIPSE_M = 0 ;
     TRIANGLE_M = 1 ;
     RECT_M = 2 ;
@@ -149,9 +149,10 @@ class Galaxie extends Romanesco {
     
     //////////////
     //DISPLAY MODE
-    int which_costume = which_costume(mode[ID_item]) ;
-    aspect_rope(ID_item, which_costume) ;
-    show(size, thickness, which_costume) ;
+    // int which_costume = which_costume(mode[ID_item]) ;
+    select_costume_via_mode(ID_item, 8) ;
+    aspect_rope(fill_item[ID_item], stroke_item[ID_item], thickness_item[ID_item], costume[ID_item]) ;
+    show(size, thickness, costume[ID_item]) ;
     
    
     

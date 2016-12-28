@@ -1,5 +1,5 @@
 /** 
-VARIABLE 1.1.1
+VARIABLE 1.1.3
 */
 // GLOBAL SETTING ////
 
@@ -343,7 +343,7 @@ float band[][] ;
 float [] tempo, tempoBeat, tempoKick, tempoSnare, tempoHat ;
 
 
-//P3D OBJECT
+// ITEM
 //setting and save
 int NUM_SETTING_CAMERA  ;
 int numSettingOrientationObject = 1 ;
@@ -355,6 +355,9 @@ Vec3 [] eyeCameraSetting, sceneCameraSetting ;
 Vec3 [] pos_item_final ;
 Vec3 [] posObj ;
 Vec3 [] posObjRef ;
+
+// costume
+int [] costume ;
 
 // direction
 boolean [] reset_camera_direction_item ;
@@ -370,7 +373,8 @@ int wheel[] ;
 //pen info
 
 //boolean object
-boolean [] motion, horizon, setting, reverse, special, orbit, clearList, birth, colour ;
+boolean [] birth, colour, dimension, horizon, motion, orbit, reverse, special ;
+boolean [] setting, clearList ;
 
 //main font for each object
 String [] path_font_TTF, pathFontVLW, path_font_item_TTF ;
@@ -431,12 +435,17 @@ void createMiscVar() {
   clearList = new boolean[NUM_ITEM] ;
   // boolean action from keyboard
   birth = new boolean[NUM_ITEM] ;
-  motion = new boolean [NUM_ITEM]  ;
+  colour = new boolean [NUM_ITEM] ;
+  dimension = new boolean [NUM_ITEM] ;
   horizon = new boolean [NUM_ITEM]  ;
+  motion = new boolean [NUM_ITEM]  ;
+  orbit = new boolean [NUM_ITEM] ;
   reverse = new boolean [NUM_ITEM] ;
   special = new boolean [NUM_ITEM] ;
-  orbit = new boolean [NUM_ITEM] ;
-  colour = new boolean [NUM_ITEM] ;
+
+  // costume
+  costume = new int[NUM_ITEM] ;
+
 
   // IMAGE
   bitmap_import = new PImage[NUM_ITEM] ;
@@ -720,6 +729,9 @@ void init_variable_item() {
     // use the 250 value for "z" to keep the position light on the front
     mouse[i] = Vec3() ;
     wheel[i] = 0 ;
+
+    // costume 
+    costume[i] = ELLIPSE_ROPE ;
     // init slider var item except fill and stroke
     thickness_item [i] =1. ; 
 
@@ -975,40 +987,42 @@ float allBeats(int ID) {
   return (beat[ID]*.25) +(kick[ID]*.25) +(hat[ID]*.25) +(snare[ID]*.25) ;
 }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /**
-ASPECT 0.0.2
+
+FONT and TEXT MANAGER 1.0.0
+
 */
-void aspect_rope(int ID) {
-  if(alpha(fill_item[ID]) == 0 ) noFill() ; else fill(fill_item[ID]) ;
-  if(alpha(stroke_item[ID]) == 0 ) noStroke() ; else stroke(stroke_item[ID]) ;
-  strokeWeight(thickness_item[ID]) ;
-}
-
-void aspect_rope(int ID, int which_costume) {
-  if(which_costume != POINT_ROPE) {
-    if(alpha(fill_item[ID]) == 0) noFill() ; else fill(fill_item[ID]) ;
-    if(alpha(stroke_item[ID]) == 0) noStroke() ; else stroke(stroke_item[ID]) ;
-    strokeWeight(thickness_item[ID]) ;
-  } else {
-    if(alpha(fill_item[ID]) == 0) noStroke() ; else stroke(fill_item[ID]) ;
-    noFill() ;
-    strokeWeight(thickness_item[ID]) ;
-  }
-}
-
-
-
-
-
-
-
-
-
-
-
-
-////////////////////////
-// FONT and TEXT MANAGER
 
 //FONT
 PFont SansSerif10,

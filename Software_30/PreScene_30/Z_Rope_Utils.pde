@@ -1,5 +1,5 @@
 /**
-RPE UTILS 1.21.5.2
+RPE UTILS 1.21.7
 Rope – Romanesco Processing Environment – 2015–2016
 * @author Stan le Punk
 * @see https://github.com/StanLepunK/Utils_rope
@@ -19,40 +19,6 @@ final float EULER = 2.718281828459045235360287471352; // Constant d'Euler
 COLOR 0.2.0
 
 */
-/**
-aspect 0.0.2
-*/
-void aspect(int fill, int stroke, float thickness) {
-  //checkfill color
-  if(alpha(fill) <=0)  {
-    noFill() ; 
-  } else {
-    fill(fill) ;
-  } 
-  //check stroke color
-  if(alpha(stroke) <=0 || thickness <= 0 ) {
-    noStroke() ;
-  } else {
-    stroke(stroke) ;
-    strokeWeight(thickness) ;
-  }
-}
-
-void aspect(Vec4 fill, Vec4 stroke, float thickness) {
-  //checkfill color
-  if(fill.a <=0)  {
-    noFill() ; 
-  } else {
-    fill(fill) ;
-  } 
-  //check stroke color
-  if(stroke.a <=0 || thickness <= 0 ) {
-    noStroke() ;
-  } else {
-    stroke(stroke) ;
-    strokeWeight(thickness) ;
-  }
-}
 /**
 camaieu 0.1.1
 */

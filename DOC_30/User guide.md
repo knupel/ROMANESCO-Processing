@@ -34,17 +34,13 @@ You can set the min max of the slider by clicking the extremity of the middle li
 
 
 
-PRESCENE
+SCREEN SHOT
 --
-Screenshot
 >touch 'P' save png a window Scene or Prescene is on a full rendering mode
 
 
-
-
-
-SCENE / PRESCENE
-
+SHORTCUT SCENE
+--
 Syphon
 >touch 'Y' disable or enable Syphon mode
 
@@ -52,8 +48,27 @@ Grid 3d
 >touch 'G' disable or enable grid
 
 
+SHORTCUT ITEM SCENE
+--
+If it's available
+
 Info item
 >touch 'I' display a window info
+
+orbit item
+>orbit from keyboard "O"
+
+colour item
+> add boolean colour[ID_item] from keyboard "X"
+
+special item
+> add boolean special[ID_item] from keyboard "K"
+
+horizon item
+> add boolean horizon[ID_item] from keyboard "H"
+
+dimension
+> add boolean dimension[ID_item] from keyboard "D"
 
 
 

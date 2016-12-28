@@ -1,36 +1,20 @@
 /**
-BALISE || 2011 || 1.3.0
+BALISE || 2011 || 1.3.1
 */
 Balise balise ;
 //object three
 class BaliseRomanesco extends Romanesco {
-  int POINT_M, ELLIPSE_M, TRIANGLE_M, SQUARE_M, RECT_M = MAX_INT ;
-  int STAR_4_M, STAR_5_M, STAR_7_M, STAR_9_M = MAX_INT ;
-  int SUPER_STAR_8_M, SUPER_STAR_12_M = MAX_INT ;
-  int TETRAHEDRON_M, BOX_M = MAX_INT ;
-  int CROSS_2_M, CROSS_3_M = MAX_INT ; 
-  int SPHERE_LOW_M, SPHERE_MEDIUM_M, SPHERE_HIGH_M = MAX_INT ;
-
   public BaliseRomanesco() {
     //from the index_objects.csv
     RPE_name = "Balise" ;
     ID_item = 14 ;
     ID_group = 1 ;
     RPE_author  = "Stan le Punk";
-    RPE_version = "Version 1.3.0";
+    RPE_version = "Version 1.3.1";
     RPE_pack = "Base" ;
     // RPE_mode = "Disc/Rectangle/Box/Box Snake" ;
-    RPE_mode = "Ellipse/Triangle/Rectangle/Star 5/Super Star 12/Tetra/Box/Cross 3/Sphere low/Sphere medium" ;
-    ELLIPSE_M = 0 ;
-    TRIANGLE_M = 1 ;
-    RECT_M = 2 ;
-    STAR_5_M = 3 ;
-    SUPER_STAR_12_M = 4 ;
-    TETRAHEDRON_M = 5 ;
-    BOX_M = 6 ;
-    CROSS_3_M = 7 ;
-    SPHERE_LOW_M = 8 ;
-    SPHERE_MEDIUM_M = 9 ;
+    RPE_mode = "Point/Ellipse/Triangle/Rectangle/Cross/Simple Star/Star/Super Star" ;
+
     RPE_slider = "Fill hue,Fill sat,Fill bright,Fill alpha,Stroke hue,Stroke sat,Stroke bright,Stroke alpha,Thickness,Size X,Size Y,Size Z,Quantity,Speed X,Canvas X,Repulsion" ;
   }
   //GLOBAL
@@ -60,9 +44,11 @@ class BaliseRomanesco extends Romanesco {
 
 
     if (motion[ID_item]) speed = (map(speed_x_item[ID_item], 0,1, 0,20)) *tempo_balise *rotation_direction ; else speed = 0.0 ;
-    // color and thickness
-    int which_costume = which_costume(mode[ID_item]) ;
-    aspect_rope(ID_item, which_costume) ;
+
+    // costume
+    select_costume_via_mode(ID_item, 8) ;
+    // aspect
+    //aspect_rope(fill_item[ID_item], stroke_item[ID_item], thickness_item[ID_item], costume[ID_item]) ;
 
     //amplitude
     float amp = map(swing_x_item[ID_item], 0,1, 0, width *9) ;
@@ -74,6 +60,9 @@ class BaliseRomanesco extends Romanesco {
     // snake mode
     boolean snake_mode = false ;
     if(special[ID_item]) snake_mode = true ; else snake_mode = false ;
+
+    // aspect
+    aspect_rope(fill_item[ID_item], stroke_item[ID_item], thickness_item[ID_item], costume[ID_item]) ;
 
     
     
@@ -98,56 +87,11 @@ class BaliseRomanesco extends Romanesco {
     
     Vec3 pos = Vec3() ;
     balise.update(pos, speed) ;
-    balise.display(amp, var, sizeBalise, factor, int(radiusBalise), authorization, which_costume, snake_mode) ;
+    balise.display(amp, var, sizeBalise, factor, int(radiusBalise), authorization, costume[ID_item], snake_mode) ;
     
     
     objectInfo[ID_item] = ("Size "+(int)sizeBalise.x + " / " + (int)sizeBalise.y + " / " + (int)sizeBalise.z  + " Radius " + int(radiusBalise) ) ;
   }
-
-  int which_costume(int mode) {
-    int which_costume = POINT_ROPE ;
-    //
-    if(mode == POINT_M) {
-      which_costume = POINT_ROPE ;
-    } else if(mode == ELLIPSE_M) {
-      which_costume = ELLIPSE_ROPE ;
-    } else if(mode == TRIANGLE_M) {
-      which_costume = TRIANGLE_ROPE ;
-    } else if(mode == SQUARE_M) {
-      which_costume = SQUARE_ROPE ;
-    } else if(mode == RECT_M) {
-      which_costume = RECT_ROPE ;
-    } else if(mode == STAR_4_M) {
-      which_costume = STAR_4_ROPE ;
-    } else if(mode == STAR_5_M) {
-      which_costume = STAR_5_ROPE ;
-    } else if(mode == STAR_7_M) {
-      which_costume = STAR_7_ROPE ;
-    } else if(mode == STAR_9_M) {
-      which_costume = STAR_9_ROPE ;
-    } else if(mode == SUPER_STAR_8_M) {
-      which_costume = SUPER_STAR_8_ROPE ;
-    } else if(mode == SUPER_STAR_12_M) {
-      which_costume = SUPER_STAR_12_ROPE ;
-    } else if(mode == TETRAHEDRON_M) {
-      which_costume = TETRAHEDRON_ROPE ;
-    } else if(mode == BOX_M) {
-      which_costume = BOX_ROPE ;
-    } else if(mode == CROSS_2_M) {
-      which_costume = CROSS_2_ROPE ;
-    } else if(mode == CROSS_3_M) {
-      which_costume = CROSS_3_ROPE ;
-    } else if(mode == SPHERE_LOW_M) {
-      which_costume = SPHERE_LOW_ROPE ;
-    } else if(mode == SPHERE_MEDIUM_M) {
-      which_costume = SPHERE_MEDIUM_ROPE ;
-    } else if(mode == SPHERE_HIGH_M) {
-      which_costume = SPHERE_HIGH_ROPE ;
-    }
-    //
-    return which_costume ;
-  }
-
 }
 //end object two
 
@@ -156,8 +100,9 @@ class BaliseRomanesco extends Romanesco {
 
 
 
-
-// CLASS BALISE
+/**
+CLASS BALISE
+*/
 class Balise extends Rotation {  
   
   Balise () { 

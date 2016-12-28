@@ -8,9 +8,11 @@ MAJOR
 --
 > add item Vectorial
 > add item Movisco
-> add item ecosysteme
+> add item ecosysteme agent
+> add item ecosyteme host
 > add method to make screenshot by press 'p' touch keyboard
 > add library costume_rope and improve few items with it.
+
 
 MINOR
 --
@@ -28,6 +30,12 @@ MINOR
 > add boolean orbit[ID_item] from keyboard "O"
 > update item soleil : add spurt jitter, adjust float ration for speed, swing, jitting and beams num
 > item boxolyzer, fix bug rotation on line box
+> add method to select costume
+> add var item costume[ID_item]
+> add boolean colour[ID_item] from keyboard "X"
+> add boolean special[ID_item] from keyboard "K"
+> add boolean horizon[ID_item] from keyboard "H"
+> add boolean dimension[ID_item] from keyboard "D"
 
 
 CONTROLLER

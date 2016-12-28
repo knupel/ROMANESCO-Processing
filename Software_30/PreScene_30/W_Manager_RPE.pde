@@ -1,5 +1,5 @@
 /**
-Romanesco Processing Environment Manager – RPE Manager 2.0.4.2
+Romanesco Processing Environment Manager – RPE Manager 2.0.4.3
 */
 RPE_MANAGER rpe_manager ;
 // CLASS ROMANESCO MANAGER
@@ -50,12 +50,15 @@ void update_var_items(int ID) {
       mouse[ID].set(mouse[0]) ;
     }
     if (nTouch) birth[ID] = !birth[ID] ;
-    if (mTouch) motion[ID] = !motion[ID] ;
+    if (xTouch) colour[ID] = !colour[ID] ;
+    if (dTouch) dimension[ID] = !dimension[ID] ;
     if (hTouch) horizon[ID] = !horizon[ID] ;
+    if (mTouch) motion[ID] = !motion[ID] ;
+    if (oTouch) orbit[ID] = !orbit[ID] ;
     if (rTouch) reverse[ID] = !reverse[ID] ;
     if (kTouch) special[ID] = !special[ID] ;
-    if (oTouch) orbit[ID] = !orbit[ID] ;
-    if (xTouch) colour[ID] = !colour[ID] ;
+
+
     /*
     clickLongLeft[ID] = clickLongLeft[0] ;
     clickLongRight[ID] = clickLongRight[0] ;
