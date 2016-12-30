@@ -1,5 +1,5 @@
 /**
-CLASS OPE VEC 1.8.1
+CLASS ROPE VEC 1.8.2.1
 Rope – Romanesco Processing Environment – 2015 – 2016
 * @author Stan le Punk
 * @see https://github.com/StanLepunK/Vec
@@ -12,6 +12,9 @@ Vec Master
 
 */
 abstract class Vec {
+  /**
+  may be remove ref in the future
+  */
   float ref_x, ref_y, ref_z, ref_w = Float.NaN  ;
   float x,y,z,w = Float.NaN ;
   float a,b,c,d,e,f = Float.NaN  ;
@@ -456,11 +459,13 @@ class Vec2 extends Vec {
   }
   /* with specific range */
   Vec2 jitter(int range_x,int range_y) {
+    println("jitter 1", x, y) ;
+    /*
     x = ref_x ;
     y = ref_y ;
+    */
     x += random(-range_x, range_x) ;
     y += random(-range_y, range_y) ;
-    
     set(x,y) ;
     return new Vec2(x,y) ;
   }
@@ -471,9 +476,11 @@ class Vec2 extends Vec {
   */
   /* create a circular motion effect */
   Vec2 revolution(int radius, float speed) {
-    float new_speed = speed *.01 ; 
+    float new_speed = speed *.01 ;
+    /*
     x = ref_x ;
     y = ref_y ;
+    */
     float m_x = sin(frameCount *new_speed) ;
     float m_y = cos(frameCount *new_speed) ;
     m_x *=radius ;
@@ -1083,9 +1090,11 @@ class Vec3 extends Vec {
   }
   /* with specific range */
   Vec3 jitter(int range_x,int range_y,int range_z) {
+    /*
     x = ref_x ;
     y = ref_y ;
     z = ref_z ;
+    */
     x += random(-range_x, range_x) ;
     y += random(-range_y, range_y) ;
     z += random(-range_z, range_z) ;
@@ -1109,8 +1118,10 @@ class Vec3 extends Vec {
   Vec3 revolutionX(Vec2 radius, float speed) {
     if(radius != null) {
       float new_speed = speed *.01 ; 
+      /*
       x = ref_x ;
       y = ref_y ;
+      */
       float m_x = sin(frameCount *new_speed) ;
       float m_y = cos(frameCount *new_speed) ;
       m_x *=radius.x ;
@@ -1129,8 +1140,10 @@ class Vec3 extends Vec {
   Vec3 revolutionY(Vec2 radius, float speed) {
     if(radius != null) {
       float new_speed = speed *.01 ; 
+      /*
       x = ref_x ;
       z = ref_z ;
+      */
       float m_x = sin(frameCount *new_speed) ;
       float m_z = cos(frameCount *new_speed) ;
       m_x *=radius.x ;
@@ -1149,8 +1162,10 @@ class Vec3 extends Vec {
   Vec3 revolutionZ(Vec2 radius, float speed) {
     if(radius != null) {
       float new_speed = speed *.01 ; 
+      /*
       y = ref_y ;
       z = ref_z ;
+      */
       float m_y = sin(frameCount *new_speed) ;
       float m_z = cos(frameCount *new_speed) ;
       m_y *=radius.x ;
@@ -1700,10 +1715,12 @@ class Vec4 extends Vec {
   }
   /* with specific range */
   Vec4 jitter(int range_x,int range_y,int range_z,int range_w) {
+    /*
     x = ref_x ;
     y = ref_y ;
     z = ref_z ;
     w = ref_w ;
+    */
     x += random(-range_x, range_x) ;
     y += random(-range_y, range_y) ;
     z += random(-range_z, range_z) ;

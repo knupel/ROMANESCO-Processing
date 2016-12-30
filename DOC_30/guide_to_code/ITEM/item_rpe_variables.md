@@ -77,107 +77,106 @@ ITEM SLIDER VALUE
 
 float value from silder controller, use with the ID of your item
 ––––––––––––––––––––––-------------------------------------------
-PHI value aroud (1 + sqrt(5))/2 = 1.618034
 
-hue(fill_item[ID_item]) ; @return float value 0, 360.0
+hue(fill_item[ID_item]) ; @return float value: 0, 360.0
 
-saturation(fill_item[ID_item]) ; @return float value 0, 100.0
+saturation(fill_item[ID_item]) ; @return float value: 0, 100.0
 
-brightness(fill_item[ID_item]) ;  @return float value 0, 100.0
+brightness(fill_item[ID_item]) ;  @return float value: 0, 100.0
 
-alpha(fill_item[ID_item])  ; @return float value 0, 100.0
+alpha(fill_item[ID_item])  ; @return float value: 0, 100.0
 
 > fill_item[ID_item] = @return int arg color
 
-hue(stroke_item[ID_item]) ; @return float value 0, 360.0
+hue(stroke_item[ID_item]) ; @return float value: 0, 360.0
 
-saturation(stroke_item[ID_item]) ; @return float value 0, 100.0
+saturation(stroke_item[ID_item]) ; @return float: value 0, 100.0
 
-brightness(stroke_item[ID_item]) ; @return float value 0, 100.0
+brightness(stroke_item[ID_item]) ; @return float: value 0, 100.0
 
-alpha(stroke_item[ID_item]) ; @return float value 0,100.0
+alpha(stroke_item[ID_item]) ; @return float value: 0,100.0
 
 > stroke_item[ID_item] = @return int arg color
 
-thickness_item[ID_item] @return float value 0.1, height/3
+thickness_item[ID_item] @return float value: 0.1, width *.01
 
-size_x_item[ID_item] ; @return float value (float)width *.05, width
+size_x_item[ID_item] ; @return float value: width *.01, width
 
-size_y_item[ID_item] ;  @return float value (float)width *.05, width
+size_y_item[ID_item] ;  @return float value: width *.01, width
 
-size_z_item[ID_item]  ; @return float value (float)width *.05, width
+size_z_item[ID_item]  ; @return float value: width *.01, width
 
-font_size_item[ID_item]  ; @return float value (float)height *.025,height;
+font_size_item[ID_item]  ; @return float value: width *.01, width
 
-canvas_x_item[ID_item]  ; @return float value (float)width *.1, (float)width *PHI
+canvas_x_item[ID_item]  ; @return float value: width *.1, (float)width *2PI
 
-canvas_y_item[ID_item]  ; @return float value (float)width *.1, (float)width *PHI
+canvas_y_item[ID_item]  ; @return float value: width *.1, (float)width *2PI
 
-canvas_z_item[ID_item]  ; @return float value (float)width *.1, (float)width *PHI
+canvas_z_item[ID_item]  ; @return float value: width *.1, (float)width *2PI
 
-reactivity_item[[ID_item]  ; @return float value 0, 1
+reactivity_item[[ID_item]  ; @return float: value 0, 1
 
-speed_x_item[ID_item] ; @return float value 0, 1
+speed_x_item[ID_item] ; @return float value: 0, 1
 
-speed_y_item[ID_item] ; @return float value 0, 1
+speed_y_item[ID_item] ; @return float value: 0, 1
 
-speed_z_item[ID_item] ; @return float value 0, 1
+speed_z_item[ID_item] ; @return float value: 0, 1
 
-spurt_x_item[ID_item] ; @return float value 0, 1
+spurt_x_item[ID_item] ; @return float value: 0, 1
 
-spurt_y_item[ID_item] ; @return float value 0, 1
+spurt_y_item[ID_item] ; @return float value: 0, 1
 
-spurt_z_item[ID_item] ; @return float value 0, 1
+spurt_z_item[ID_item] ; @return float value: 0, 1
 
-dir_x_item[ID_item] ; @return float value 0, 1
+dir_x_item[ID_item] ; @return float value: 0, 1
 
-dir_y_item[ID_item] ; @return float value 0, 1
+dir_y_item[ID_item] ; @return float value: 0, 1
 
-dir_z_item[ID_item] ; @return float value 0, 1
+dir_z_item[ID_item] ; @return float value: 0, 1
 
-jitter_x_item[ID_item] ; @return float value 0, 1
+jitter_x_item[ID_item] ; @return float value: 0, 1
 
-jitter_y_item[ID_item] ; @return float value 0, 1
+jitter_y_item[ID_item] ; @return float value: 0, 1
 
-jitter_z_item[ID_item] ; @return float value 0, 1
+jitter_z_item[ID_item] ; @return float value: 0, 1
 
-swing_x_item[ID_item] ; @return float value 0, 1
+swing_x_item[ID_item] ; @return float value: 0, 1
 
-swing_y_item[ID_item] ; @return float value 0, 1
+swing_y_item[ID_item] ; @return float value: 0, 1
 
-swing_z_item[ID_item] ; @return float value 0, 1
+swing_z_item[ID_item] ; @return float value: 0, 1
 
-quantity_item[ID_item]  ; @return float value 0, 1
+quantity_item[ID_item]  ; @return float value:0, 1
 
-variety_item[ID_item]  ; @return float value 0, 1
+variety_item[ID_item]  ; @return float value: 0, 1
 
-life_item[ID_item]  ; @return float value 0, 1
+life_item[ID_item]  ; @return float value: 0, 1
 
-flow_item[ID_item]  ; @return float value 0, 1
+flow_item[ID_item]  ; @return float value: 0, 1
 
-quality_item[ID_item] ; @return float value 0, 1
+quality_item[ID_item] ; @return float value: 0, 1
 
-area_item[ID_item]  ; @return loat value (float)width *.1, (float)width *PHI
+area_item[ID_item]  ; @return loat value: width *.1, width *PHI
 
-angle_item[ID_item]  ; @return float value 0, 360.0
+angle_item[ID_item]  ; @return float value: 0, 360.0
 
-scope_item[ID_item]  ; @return loat value (float)width *.1, (float)width *PHI
+scope_item[ID_item]  ; @return loat value: width *.1, width *PHI
 
-scan_item[ID_item]  ; @return float value 0, 360.0 
+scan_item[ID_item]  ; @return float value: 0, 360.0 
 
-alignment_item[ID_item] ; @return float value 0, 1
+alignment_item[ID_item] ; @return float: value 0, 1
 
-repulsion_item[ID_item] ; @return float value 0, 1
+repulsion_item[ID_item] ; @return float: value 0, 1
 
-attraction_item[ID_item] ; @return float value 0, 1
+attraction_item[ID_item] ; @return float: value 0, 1
 
-charge_item[ID_item] ; @return float value 0, 1
+density_item[ID_item] ; @return float: value 0, 1
 
-influence_item[ID_item] ; @return float value 0, 1
+influence_item[ID_item] ; @return float: value 0, 1
 
-calm_item[ID_item] ; @return float value 0, 1
+calm_item[ID_item] ; @return float: value 0, 1
 
-need_item[ID_item] ; @return float value 0, 1
+spectrum_item[ID_item] ; @return float: value 0, 360
 
 
 

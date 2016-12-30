@@ -8,9 +8,9 @@ class Ecosystem_agent extends Romanesco {
 		ID_group = 1 ;
 		RPE_author  = "Stan le Punk";
 		RPE_version = "Version 0.1.2";
-		RPE_pack = "Base" ;
+		RPE_pack = "Ecosystem" ;
 		RPE_mode = "Virus/Human/Alien/Other" ; // separate the differentes mode by "/"
-		RPE_slider = "Fill hue,Fill sat,Fill bright,Fill alpha,Stroke hue,Stroke sat,Stroke bright,Stroke alpha,Thickness,Canvas X,Canvas Y,Canvas Z,Speed X,Quantity,Angle,Life,Area" ;
+		RPE_slider = "Fill hue,Fill sat,Fill bright,Fill alpha,Stroke hue,Stroke sat,Stroke bright,Stroke alpha,Thickness,Canvas X,Canvas Y,Canvas Z,Speed X,Quantity,Spectrum,Life" ;
 	}
 
   int type_agents = 6 ;
@@ -36,17 +36,7 @@ class Ecosystem_agent extends Romanesco {
     load_nucleotide_table("preferences/ecosystem/code.csv") ;
     Vec3 pos = Vec3(width/2, height/2, 0) ;
     Vec3 canvas = Vec3(canvas_x_item[ID_item], canvas_y_item[ID_item], canvas_z_item[ID_item]) ;
-        //population
-        /*
-    int div_pop = 1 ;
-    if(!FULL_RENDERING) div_pop= 10 ;
-    set_pop_flora(100/div_pop) ;
-    set_pop_herbivore(50/div_pop) ;
-    set_pop_carnivore(2/div_pop) ;
-    set_pop_omnivore(4/div_pop) ;
-    set_pop_dead(0/div_pop) ;
-    set_pop_bacterium(1/div_pop) ;
-    */
+
     host_mode_ref = orbit[ID_item] ;
     init_environment(pos, canvas) ;
     use_horizon(true) ;
@@ -86,7 +76,7 @@ class Ecosystem_agent extends Romanesco {
     } 
 
     float max = 360 / colour_groups ;
-    range_colour = map(angle_item[ID_item],0,360,0,max) ;
+    range_colour = map(spectrum_item[ID_item],0,360,0,max) ;
 
     
     if(hue_fill_ref != hue(fill_item[ID_item])) {

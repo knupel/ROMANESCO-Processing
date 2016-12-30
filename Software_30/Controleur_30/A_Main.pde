@@ -69,9 +69,9 @@ int state_BackgroundButton,
     state_LightOneButton, state_LightOneAction, 
     state_LightTwoButton, state_LightTwoAction ;
 Vec2 pos_bg_button, size_bg_button,
-        posLightAmbientAction, sizeLightAmbientAction, posLightAmbientButton, sizeLightAmbientButton,
-        posLightOneAction, sizeLightOneAction, posLightOneButton, sizeLightOneButton,
-        posLightTwoAction, sizeLightTwoAction, posLightTwoButton, sizeLightTwoButton ;
+     posLightAmbientAction, sizeLightAmbientAction, posLightAmbientButton, sizeLightAmbientButton,
+     posLightOneAction, sizeLightOneAction, posLightOneButton, sizeLightOneButton,
+     posLightTwoAction, sizeLightTwoAction, posLightTwoButton, sizeLightTwoButton ;
 
 
 // DROPDOWN button font and shader background
@@ -800,12 +800,13 @@ void display_slider_item() {
   /* different way to display depend the displaying mode. 
   Can change with "ctrl+x" */
   display_bg_slider_item() ;
+  
   int whichGroup = 1 ;
   if(!showAllSliders) {
     for (int i = 1 ; i <= NUM_ITEM ; i++) {
       if (item_active[i]) {
         if (showSliderGroup[1] && item_group[i] == 1) { 
-          for(int j = 1 ; j < NUM_SLIDER_ITEM ; j++) {
+          for(int j = 1 ; j <= NUM_SLIDER_ITEM ; j++) {
             if (display_slider[1][j]) {
               int whichOne = item_group[i] *100 +j ;
               update_slider(whichOne) ; 
@@ -823,6 +824,7 @@ void display_slider_item() {
       display_current_slider_engine(which_one, whichGroup) ;
     }
   }
+  
 }
 
 
@@ -929,15 +931,15 @@ void display_bg_slider_item() {
   if(display_slider[whichGroup][repulsion_rank]) sliderBG ( posSlider[whichOne +repulsion_rank].x, posSlider[whichOne +repulsion_rank].y, sizeSlider[whichOne +repulsion_rank].y, sizeSlider[whichOne +repulsion_rank].x, roundedSlider, blancGrisClair) ;
   // attraction
   if(display_slider[whichGroup][attraction_rank]) sliderBG ( posSlider[whichOne +attraction_rank].x, posSlider[whichOne +attraction_rank].y, sizeSlider[whichOne +attraction_rank].y, sizeSlider[whichOne +attraction_rank].x, roundedSlider, blancGrisClair) ;
-  // charge
-  if(display_slider[whichGroup][charge_rank]) sliderBG ( posSlider[whichOne +charge_rank].x, posSlider[whichOne +charge_rank].y, sizeSlider[whichOne +charge_rank].y, sizeSlider[whichOne +charge_rank].x, roundedSlider, blancGrisClair) ;
+  // density
+  if(display_slider[whichGroup][density_rank]) sliderBG ( posSlider[whichOne +density_rank].x, posSlider[whichOne +density_rank].y, sizeSlider[whichOne +density_rank].y, sizeSlider[whichOne +density_rank].x, roundedSlider, blancGrisClair) ;
   
   // influence
   if(display_slider[whichGroup][influence_rank]) sliderBG ( posSlider[whichOne +influence_rank].x, posSlider[whichOne +influence_rank].y, sizeSlider[whichOne +influence_rank].y, sizeSlider[whichOne +influence_rank].x, roundedSlider, blancGrisClair) ;
   // calm
   if(display_slider[whichGroup][calm_rank]) sliderBG ( posSlider[whichOne +calm_rank].x, posSlider[whichOne +calm_rank].y, sizeSlider[whichOne +calm_rank].y, sizeSlider[whichOne +calm_rank].x, roundedSlider, blancGrisClair) ;
-  // need
-  if(display_slider[whichGroup][need_rank]) sliderBG ( posSlider[whichOne +need_rank].x, posSlider[whichOne +need_rank].y, sizeSlider[whichOne +need_rank].y, sizeSlider[whichOne +need_rank].x, roundedSlider, blancGrisClair) ;
+  // spectrum
+  if(display_slider[whichGroup][spectrum_rank]) sliderBG ( posSlider[whichOne +spectrum_rank].x, posSlider[whichOne +spectrum_rank].y, sizeSlider[whichOne +spectrum_rank].y, sizeSlider[whichOne +spectrum_rank].x, roundedSlider, blancGrisClair) ;
 }
 
 // local void to display the HSB slider and display the specific color of this one

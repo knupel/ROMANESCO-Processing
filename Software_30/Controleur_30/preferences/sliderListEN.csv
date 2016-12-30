@@ -4,5 +4,5 @@ Light,Hue,Saturation,Brigthness,,,,,,,,,,,,,
 camera,Focal 28-200,Deformation,Direction X,Direction Y,Direction Z,Position X,Position Y,Position Z,Pitch,,,,,,,
 slider 1,Fill hue,Fill sat,Fill bright,Fill alpha,Stroke hue,Stroke sat,Stroke bright,Stroke alpha,Thickness,Size X,Size Y,Size Z,Font size,Canvas X,Canvas Y,Canvas Z
 slider 2,Reactivity,Speed X,Speed Y,Speed Z,Spurt X,Spurt Y,Spurt Z,Direction X,Direction Y,Direction Z,Jitter X,Jitter Y,Jitter Z,Swing X,Swing Y,Swing Z,
-slider 3,Quantity,Variety,Life,Flow,Quality,Area,Angle,Scope,Scan,Alignment,Repulsion,Attraction,Charge – +,Influence,Calm,Need
+slider 3,Quantity,Variety,Life,Flow,Quality,Area,Angle,Scope,Scan,Alignment,Repulsion,Attraction,Density,Influence,Calm,Spectrum
 

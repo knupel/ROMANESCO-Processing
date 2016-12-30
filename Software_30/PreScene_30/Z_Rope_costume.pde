@@ -1,5 +1,5 @@
 /**
-Rope Costume 0.5.0.3 – 2016-2016
+Rope Costume 0.5.0.4 – 2016-2016
 * @author Stan le Punk
 * @see https://github.com/StanLepunK/Costume_rope
 */
@@ -274,7 +274,7 @@ int costumes_size() {
 
 
 /**
-ASPECT 0.0.3
+ASPECT 0.0.4
 */
 void aspect_rope(int fill, int stroke, float strokeWeight) {
   //checkfill color
@@ -293,14 +293,22 @@ void aspect_rope(int fill, int stroke, float strokeWeight) {
 }
 
 void aspect_rope(int fill, int stroke, float strokeWeight, int costume) {
-  if(costume != POINT_ROPE || costume != LINE_ROPE) {
+  if(costume != POINT_ROPE) {
     if(alpha(fill) == 0) noFill() ; else fill(fill) ;
-    if(alpha(stroke) == 0) noStroke() ; else stroke(stroke) ;
-    strokeWeight(strokeWeight) ;
-  } else {
-    if(alpha(fill) == 0) noStroke() ; else stroke(fill) ;
-    noFill() ;
-    strokeWeight(strokeWeight) ;
+    if(alpha(stroke) == 0  || strokeWeight <= 0) {
+    	noStroke() ; 
+    } else {
+    	stroke(stroke) ;
+      strokeWeight(strokeWeight) ;
+    }   
+  } else  {
+    if(alpha(fill) == 0) {
+    	noStroke() ; 
+    } else {
+    	stroke(fill) ;
+    	strokeWeight(strokeWeight) ;
+    }
+    noFill() ;   
   }
 }
 
@@ -323,14 +331,22 @@ void aspect_rope(Vec4 fill, Vec4 stroke, float strokeWeight) {
 }
 
 void aspect_rope(Vec4  fill, Vec4  stroke, float strokeWeight, int costume) {
-  if(costume != POINT_ROPE || costume != LINE_ROPE) {
+  if(costume != POINT_ROPE) {
     if(fill.w <= 0) noFill() ; else fill(fill) ;
-    if(stroke.w <= 0) noStroke() ; else stroke(stroke) ;
-    strokeWeight(strokeWeight) ;
+    if(stroke.w <= 0  || strokeWeight <= 0 ) {
+    	noStroke() ; 
+    } else {
+    	stroke(stroke) ;
+    	strokeWeight(strokeWeight) ;
+    }   
   } else {
-    if(fill.w <= 0) noStroke() ; else stroke(fill) ;
-    noFill() ;
-    strokeWeight(strokeWeight) ;
+    if(fill.w <= 0) {
+    	noStroke() ; 
+    } else {
+    	stroke(fill) ;
+    	strokeWeight(strokeWeight) ;
+    }
+    noFill() ;   
   }
 }
 

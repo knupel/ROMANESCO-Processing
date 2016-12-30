@@ -10,6 +10,7 @@ MAJOR
 > add item Movisco
 > add item ecosysteme agent
 > add item ecosyteme host
+> add item Lorenz attractor
 > add method to make screenshot by press 'p' touch keyboard
 > add library costume_rope and improve few items with it.
 
@@ -51,7 +52,10 @@ MINOR
 > add new item slider : font size, jitter, swing, spurt, variety, quality, direction y, direction z, speed y, speed z, fertility, area, scope, scan, charge, calm and need
 > remove slider analyze, amplitude
 > remove the second group of item
-> fix display bug 
+> fix display bug
+> slider charge became density
+> slider need became spectrum
+> fixe displaying bug for the last slider
 
 
 

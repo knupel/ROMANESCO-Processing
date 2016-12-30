@@ -144,14 +144,15 @@ float quantity_raw, variety_raw ;
 float life_raw, flow_raw, quality_raw ;
 
 float area_raw, angle_raw, scope_raw, scan_raw ;
-float alignment_raw, repulsion_raw, attraction_raw, charge_raw ;
+float alignment_raw, repulsion_raw, attraction_raw, density_raw ;
 
-float influence_raw, calm_raw, need_raw ;
+float influence_raw, calm_raw, spectrum_raw ;
 
 
 
 
 // String name
+/*
 String fill_hue_name = "fill_hue" ;     
 String fill_sat_name = "fill_sat" ;     
 String fill_bright_name= "fill_bright" ;     
@@ -211,11 +212,12 @@ String scan_name = "scan" ;
 String alignment_name = "alignment" ; 
 String repulsion_name = "repulsion" ; 
 String attraction_name = "attraction" ; 
-String charge_name = "charge" ;
+String density_name = "density" ;
 
 String influence_name = "influence" ; 
 String calm_name = "calm" ; 
-String need_name = "need" ;
+String spectrum_name = "spectrum" ;
+*/
 
 
 
@@ -238,8 +240,9 @@ Vec2 quantity_min_max, variety_min_max ;
 Vec2 life_min_max, flow_min_max, quality_min_max ;
 Vec2 area_min_max, angle_min_max, scope_min_max, scan_min_max ; 
 
-Vec2 alignment_min_max, repulsion_min_max, attraction_min_max, charge_min_max ;
-Vec2 influence_min_max, calm_min_max, need_min_max ;
+Vec2 alignment_min_max, repulsion_min_max, attraction_min_max, density_min_max ;
+Vec2 influence_min_max, calm_min_max ;
+Vec2 spectrum_min_max ;
 
 
 // temp
@@ -287,8 +290,8 @@ float [] quantity_item, variety_item ;
 float [] life_item, flow_item, quality_item ;
 
 float [] area_item, angle_item, scope_item, scan_item ;
-float [] alignment_item, repulsion_item, attraction_item, charge_item ;
-float [] influence_item, calm_item, need_item ;
+float [] alignment_item, repulsion_item, attraction_item, density_item ;
+float [] influence_item, calm_item, spectrum_item ;
 
 /**
 End var item
@@ -608,12 +611,12 @@ void create_var_item() {
   alignment_item = new float[NUM_ITEM] ;
   repulsion_item = new float[NUM_ITEM] ;
   attraction_item = new float[NUM_ITEM] ;
-  charge_item = new float[NUM_ITEM] ;
+  density_item = new float[NUM_ITEM] ;
 
 
   influence_item = new float[NUM_ITEM] ;
   calm_item = new float[NUM_ITEM] ;
-  need_item = new float[NUM_ITEM] ;
+  spectrum_item = new float[NUM_ITEM] ;
 }
 // END CREATE VAR
 //////////////////
@@ -650,8 +653,9 @@ INIT VAR 1.0.1
 */
 void init_variable_item_min_max() {
   float min_size = .1 ;
-  float super_min_size = .05 ;
-  float factor_area = PHI ;
+  float super_min_size = .01 ;
+  float factor_area = TAU ;
+  float max = width ;
 
   fill_hue_min_max = Vec2(0,360) ; // data from controller value 0 - 360
   fill_sat_min_max = Vec2(0,HSBmode.g) ;     
@@ -663,17 +667,17 @@ void init_variable_item_min_max() {
   stroke_bright_min_max = Vec2(0,HSBmode.b); 
   stroke_alpha_min_max = Vec2(0,HSBmode.a) ;
 
-  thickness_min_max = Vec2(min_size, float(height)*.33) ; 
+  thickness_min_max = Vec2(min_size, max *super_min_size) ; 
 
-  size_x_min_max = Vec2(width *super_min_size, width) ;     
-  size_y_min_max = Vec2(width *super_min_size, width) ;     
-  size_z_min_max = Vec2(width *super_min_size, width) ;
+  size_x_min_max = Vec2(max *super_min_size, max) ;     
+  size_y_min_max = Vec2(max *super_min_size, max) ;     
+  size_z_min_max = Vec2(max *super_min_size, max) ;
 
-  font_size_min_max = Vec2((float)height *.025, height);
+  font_size_min_max = Vec2(max *super_min_size, max);
 
-  canvas_x_min_max = Vec2(width *min_size, width *factor_area) ; 
-  canvas_y_min_max = Vec2(width *min_size, width *factor_area) ; 
-  canvas_z_min_max = Vec2(width *min_size, width *factor_area) ;
+  canvas_x_min_max = Vec2(max *min_size, max *factor_area) ; 
+  canvas_y_min_max = Vec2(max *min_size, max *factor_area) ; 
+  canvas_z_min_max = Vec2(max *min_size, max *factor_area) ;
 
   reactivity_min_max = Vec2(0,1) ;
 
@@ -704,19 +708,19 @@ void init_variable_item_min_max() {
   flow_min_max = Vec2(0,1) ; 
   quality_min_max = Vec2(0,1) ;
 
-  area_min_max = Vec2(width *min_size, width *factor_area) ; 
+  area_min_max = Vec2(max *min_size, max *factor_area) ; 
   angle_min_max = Vec2(0,360) ;  // data from controller value 0 - 360
-  scope_min_max = Vec2(width *min_size, width *factor_area) ; 
+  scope_min_max = Vec2(max *min_size, max *factor_area) ; 
   scan_min_max = Vec2(0,360) ; // data from controller value 0 - 360
 
   alignment_min_max = Vec2(0,1) ; 
   repulsion_min_max = Vec2(0,1) ; 
   attraction_min_max = Vec2(0,1) ; 
-  charge_min_max = Vec2(0,1) ;
+  density_min_max = Vec2(0,1) ;
 
   influence_min_max = Vec2(0,1) ; 
   calm_min_max = Vec2(0,1) ; 
-  need_min_max = Vec2(0,1) ;
+  spectrum_min_max = Vec2(0,360) ;
 }
 
 
@@ -783,11 +787,11 @@ void init_variable_item() {
     alignment_item [i] = 0 ; 
     repulsion_item [i] = 0 ;  
     attraction_item [i] = 0 ; 
-    charge_item [i] = 0 ; 
+    density_item [i] = 0 ; 
 
     influence_item [i] = 0 ; 
     calm_item [i] = 0 ; 
-    need_item [i] = 0 ; 
+    spectrum_item [i] = 0 ; 
   }
     // init global var for the color obj preview mode display
   COLOR_FILL_OBJ_PREVIEW = color (0,0,100,30) ; 
@@ -901,12 +905,12 @@ void update_raw_value() {
   alignment_raw = map(valueSlider[1][41], minSource, MAX_VALUE_SLIDER, alignment_min_max.x, alignment_min_max.y) ;
   repulsion_raw = map(valueSlider[1][42], minSource, MAX_VALUE_SLIDER, repulsion_min_max.x, repulsion_min_max.y) ;
   attraction_raw = map(valueSlider[1][43], minSource, MAX_VALUE_SLIDER, attraction_min_max.x, attraction_min_max.y) ;
-  charge_raw = map(valueSlider[1][44], minSource, MAX_VALUE_SLIDER, charge_min_max.x, charge_min_max.y) ;
+  density_raw = map(valueSlider[1][44], minSource, MAX_VALUE_SLIDER, density_min_max.x, density_min_max.y) ;
 
 
   influence_raw = map(valueSlider[1][45], minSource, MAX_VALUE_SLIDER, influence_min_max.x, influence_min_max.y) ;
   calm_raw = map(valueSlider[1][46], minSource, MAX_VALUE_SLIDER, calm_min_max.x, calm_min_max.y) ;
-  need_raw = map(valueSlider[1][47], minSource, MAX_VALUE_SLIDER, need_min_max.x, need_min_max.y) ; 
+  spectrum_raw = map(valueSlider[1][47], minSource, MAX_VALUE_SLIDER, spectrum_min_max.x, spectrum_min_max.y) ; 
 
 }
 
@@ -973,11 +977,11 @@ void update_temp_value() {
   alignment_temp = alignment_raw ;
   repulsion_temp = repulsion_raw ;
   attraction_temp = attraction_raw ;
-  charge_temp = charge_raw ;
+  charge_temp = density_raw ;
 
   influence_temp = influence_raw ;
   calm_temp = calm_raw ;
-  need_temp = need_raw ;
+  need_temp = spectrum_raw ;
 }
 
 

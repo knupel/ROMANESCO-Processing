@@ -82,11 +82,11 @@ int scan_rank = 41 ;
 int alignment_rank = 42 ;
 int repulsion_rank = 43 ;
 int attraction_rank = 44 ;
-int charge_rank = 45 ;
+int density_rank = 45 ;
 
 int influence_rank = 46 ;
 int calm_rank = 47 ;
-int need_rank = 48 ;
+int spectrum_rank = 48 ;
 
 
 
@@ -143,7 +143,7 @@ void list_slider_item() {
   // had value to the slider list object
   for (int i = 1 ; i <= NUM_ITEM ; i++) {
     String [] listSliderTemp = split_text(slider_item_raw[i], (",")) ;
-    for( int j = 0 ; j < NUM_SLIDER_ITEM ; j++ ) {
+    for( int j = 0 ; j <= NUM_SLIDER_ITEM ; j++ ) {
       for ( int k = 0 ; k < listSliderTemp.length ; k++ ) {
         if(listSliderTemp[k].equals(slider_item_controller.get(j))) {
           slider_item[i].set(j,listSliderTemp[k]) ;
@@ -186,7 +186,7 @@ void check_slider_item() {
     //reset slider for new check
     for(int i = 1 ; i < NUM_GROUP_SLIDER ; i++) {
       firstCheck [i] = true ;
-      for(int j = 0 ; j < NUM_SLIDER_ITEM ; j++) {
+      for(int j = 0 ; j <= NUM_SLIDER_ITEM ; j++) {
         display_slider[i][j] = false ;
       }
     }
@@ -207,7 +207,7 @@ void check_slider_item() {
                 display_slider[IDgroup][j] = true ; 
               } else display_slider[IDgroup][j] = false ;
             } else {
-              if (!allSliderUsed) { 
+              if (!allSliderUsed) {
                 if((slider_item_controller.get(j).equals(slider_item[i].get(j)) || slider_item[i].get(j).equals("all")) && display_slider[IDgroup][j]) {
                   display_slider[IDgroup][j] = true ; 
                 } else {

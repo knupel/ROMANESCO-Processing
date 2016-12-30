@@ -149,11 +149,11 @@ void update_slider_value(int ID) {
     if (alignment_raw != alignment_temp || !first_opening_item[ID]) alignment_item[ID] = alignment_raw ;
     if (repulsion_raw != repulsion_temp || !first_opening_item[ID]) repulsion_item[ID] = repulsion_raw ;
     if (attraction_raw != attraction_temp || !first_opening_item[ID]) attraction_item[ID] = attraction_raw ;
-    if (charge_raw != charge_temp || !first_opening_item[ID]) charge_item[ID] = charge_raw ;
+    if (density_raw != charge_temp || !first_opening_item[ID]) density_item[ID] = density_raw ;
 
     if (influence_raw != influence_temp || !first_opening_item[ID]) influence_item[ID] = influence_raw ;
     if (calm_raw != calm_temp || !first_opening_item[ID]) calm_item[ID] = calm_raw ;
-    if (need_raw != need_temp || !first_opening_item[ID]) need_item[ID] = need_raw ;
+    if (spectrum_raw != need_temp || !first_opening_item[ID]) spectrum_item[ID] = spectrum_raw ;
 
 
 
