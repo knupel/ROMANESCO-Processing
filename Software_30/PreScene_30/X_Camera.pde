@@ -2,14 +2,12 @@
 Here you find 
 */
 /**
-Camera Engine version 6.0.2.1
-*/
-/**
+Camera Engine version 
+
 and
+
+Camera Rope
 */
-/**
-Camera RPE 1.1.2
-*/
 
 
 
@@ -18,7 +16,7 @@ Camera RPE 1.1.2
 
 
 /**
-Camera RPE 1.1.2
+Camera Rope 1.1.3
 
 */
 //travelling
@@ -166,8 +164,12 @@ Vec3 get_dir_item(int id_item) {
 
 
 /**
-ITEM position and direction
+POSITION – DIRECTION 1.0.1
+ITEM
 final position and direction for the items
+
+Master and follower updating
+
 */
 
 void item_move(boolean movePos, boolean moveDir, int ID) {
@@ -185,11 +187,18 @@ void item_move(boolean movePos, boolean moveDir, int ID) {
     update_ref_direction(ID) ;
   }
   //speed rotation
-  float speed = 100.0 ; // 150 is medium speed rotation
+  float speed = width / 10 ; // 150 is medium speed rotation
   Vec2 speedDirectionOfObject = Vec2(speed /(float)width, speed /(float)height) ;
   
   dir_item_final[ID].set(update_direction_item(speedDirectionOfObject, ID, moveDir)) ;
 
+
+
+
+/*
+  master_ID = new int[NUM_ITEM] ;
+  follower = new boolean[NUM_ITEM] ;
+  */
 
   //RESET
   if(touch0) {
@@ -201,7 +210,19 @@ void item_move(boolean movePos, boolean moveDir, int ID) {
     int which = 0 ;
     reset_direction_item(which, ID) ; 
   }
+
   add_ref_item(ID) ;
+}
+
+
+
+void item_follower(int ID) {
+  if(follower[ID]) {
+    pos_item_final[ID].set(pos_item_final[master_ID[ID]]) ;
+    dir_item_final[ID].set(dir_item_final[master_ID[ID]]) ;
+  }
+  add_ref_item(ID) ;
+
 }
 
 

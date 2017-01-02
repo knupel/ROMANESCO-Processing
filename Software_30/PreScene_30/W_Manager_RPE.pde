@@ -1,5 +1,5 @@
 /**
-Romanesco Processing Environment Manager – RPE Manager 2.0.4.3
+Rope Manager 2.0.4.4
 */
 RPE_MANAGER rpe_manager ;
 // CLASS ROMANESCO MANAGER
@@ -491,6 +491,7 @@ class RPE_MANAGER {
           if(vLongTouch && action[objR.ID_item] ) {
             item_move(movePos, moveDir, objR.ID_item) ;
           }
+          item_follower(objR.ID_item) ;
           final_pos_item(objR.ID_item) ;
           objR.draw() ;
           popMatrix() ;

@@ -43,6 +43,23 @@ special[ID_item] > from keyboard "K"
 
 
 
+
+
+
+
+
+
+MASTER and FOLLOWER
+--
+boolean follower[ID_item] ;
+>if it's true, the item became a follower and need an a master, after you must choice the ID of this master.
+
+int master_ID[ID_item]  ;
+>choice the ID  of the item master, the item follower will be following the camera move of the master
+
+
+
+
 VARIABLE NAME
 --
 RPE_slider = "all" 

@@ -204,7 +204,7 @@ void sync_symbiosis(ArrayList<Agent> symbiotic_agent_list, Vec3 pos) {
       a.set_home_pos(get_symbiosis_area_pos()[a.get_home_id()]) ;
       a.set_pos(a.get_home_pos().add(pos)) ;
     } else {
-      System.err.println("ID home is equal to -1, need to init your symbiotic ecosystem before sync it") ;
+      // System.err.println("ID home is equal to -1, need to init your symbiotic ecosystem before sync it") ;
     }
   }
 }

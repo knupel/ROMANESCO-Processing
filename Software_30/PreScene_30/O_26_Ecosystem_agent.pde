@@ -17,7 +17,7 @@ class Ecosystem_agent extends Romanesco {
   int colour_groups = type_agents ;
   float range_colour = 0 ;
   int mode_ref = 0 ;
-  boolean host_mode = false ;
+  //boolean host_mode = false ;
   float [] hue_fill = new float[type_agents] ;
   float [] hue_stroke = new float[type_agents] ;
   float hue_fill_ref, hue_stroke_ref ;
@@ -49,6 +49,31 @@ class Ecosystem_agent extends Romanesco {
 
   
 	void draw() {
+    // Master and Follower item 
+    if(orbit[ID_item]) {
+      follower[ID_item] = true ;
+    } else {
+      follower[ID_item] = false ;
+    }
+    
+
+
+
+    if(host_mode_ref != follower[ID_item]) {
+      init_ecosystem() ;
+      host_mode_ref = follower[ID_item] ;
+    }
+
+    if(follower[ID_item]) {
+      master_ID[ID_item] = 27 ;
+      sync_symbiosis(master_ID[ID_item]) ;
+      update_symbiosis() ;
+    } else {
+       master_ID[ID_item] = 0 ;
+    }
+
+
+
     // SETTING
     speed_agent = speed_x_item[ID_item] *speed_x_item[ID_item];
 
@@ -178,7 +203,7 @@ class Ecosystem_agent extends Romanesco {
     }
 
 		if(init_ecosystem) {
-			ecosystem_setting(biomass, host_mode) ;
+			ecosystem_setting(biomass, follower[ID_item]) ;
 			init_ecosystem = false ;
 			first_save = true ;
 		}
@@ -194,45 +219,29 @@ class Ecosystem_agent extends Romanesco {
       } 
     }
     
-    // HOST MODE
-    if(orbit[ID_item]) {
-      host_mode = true ;
-    } else {
-      host_mode = false ;
-    }
-    
 
-
-
-    if(host_mode_ref != host_mode) {
-      init_ecosystem() ;
-      host_mode_ref = host_mode ;
-    }
     
 
     // CANVAS
     Vec3 canvas = Vec3(canvas_x_item[ID_item], canvas_y_item[ID_item], canvas_z_item[ID_item]) ;
     set_canvas_environment(canvas) ;
 
-    // UPDATE HOST POSITION
-    Vec2 dir_host = Vec2() ;
-    if(host_mode) {
-      int id_item_host = 27 ;
-      sync_symbiosis(id_item_host) ;
-      dir_host.set(get_dir_item(id_item_host).x,get_dir_item(id_item_host).y) ;
-      update_symbiosis() ;
-    } 
+
+
 
     // SHOW
+    /*
     if(!dir_host.equals(Vec2())) {
       start_matrix() ;
       rotateXY(dir_host) ;
     }
+    */
 		show_agent() ;
-
+    /*
     if(!dir_host.equals(Vec2())) {
       stop_matrix() ;
     }
+    */
 
 
     // INFO

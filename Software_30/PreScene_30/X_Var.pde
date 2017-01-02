@@ -151,76 +151,6 @@ float influence_raw, calm_raw, spectrum_raw ;
 
 
 
-// String name
-/*
-String fill_hue_name = "fill_hue" ;     
-String fill_sat_name = "fill_sat" ;     
-String fill_bright_name= "fill_bright" ;     
-String fill_alpha_name = "fill_alpha" ;
-
-String stroke_hue_name = "stroke_hue" ; 
-String stroke_sat_name = "stroke_sat" ; 
-String stroke_bright_name= "stroke_bright" ; 
-String stroke_alpha_name = "stroke_alpha" ;
-
-String thickness_name = "thickness" ; 
-
-String size_x_name = "size_x" ;     
-String size_y_name = "size_y" ;     
-String size_z_name = "size_z" ;
-
-String font_size_name = "font_size";
-
-String canvas_x_name = "canvas_x" ; 
-String canvas_y_name = "canvas_y" ; 
-String canvas_z_name = "canvas_z" ;
-
-String reactivity_name = "reactivity" ;
-
-String speed_x_name = "speed_x" ; 
-String speed_y_name = "speed_y" ; 
-String speed_z_name = "speed_z" ;
-
-String spurt_x_name = "spurt_x" ; 
-String spurt_y_name= "spurt_y"; 
-String spurt_z_name = "spurt_z" ;
-
-String dir_x_name = "dir_x" ; 
-String dir_y_name = "dir_y" ; 
-String dir_z_name = "dir_z" ;
-
-String jitter_x_name = "jitter_x" ; 
-String jitter_y_name = "jitter_y" ; 
-String jitter_z_name = "jitter_z" ;
-
-String swing_x_name = "swing_x" ; 
-String swing_y_name = "swing_y" ; 
-String swing_z_name = "swing_z";
-
-String quantity_name = "quantity" ; 
-String variety_name = "variety"; 
-
-String life_name = "life" ; 
-String flow_name = "flow" ; 
-String quality_name = "quality";
-
-String area_name = "area" ; 
-String angle_name = "angle" ; 
-String scope_name = "scope" ; 
-String scan_name = "scan" ;
-
-String alignment_name = "alignment" ; 
-String repulsion_name = "repulsion" ; 
-String attraction_name = "attraction" ; 
-String density_name = "density" ;
-
-String influence_name = "influence" ; 
-String calm_name = "calm" ; 
-String spectrum_name = "spectrum" ;
-*/
-
-
-
 // MIN MAX MAP SLIDER
 Vec2 fill_hue_min_max, fill_sat_min_max , fill_bright_min_max , fill_alpha_min_max ;
 Vec2 stroke_hue_min_max, stroke_sat_min_max, stroke_bright_min_max, stroke_alpha_min_max  ;
@@ -346,7 +276,12 @@ float band[][] ;
 float [] tempo, tempoBeat, tempoKick, tempoSnare, tempoHat ;
 
 
-// ITEM
+/**
+ITEM
+*/
+// master and follower
+int [] master_ID ;
+boolean [] follower ;
 //setting and save
 int NUM_SETTING_CAMERA  ;
 int numSettingOrientationObject = 1 ;
@@ -418,9 +353,9 @@ void create_variable() {
 
   create_variable_P3D(NUM_SETTING_CAMERA) ;
   create_variableCursor() ;
-  create_var_item() ;
+  create_var_item_slider() ;
   create_var_item_manipulation(NUM_SETTING_ITEM) ;
-  // rpe_manager.init_items() ;
+
   println("variables setup done") ;
 }
 
@@ -554,9 +489,16 @@ void create_var_item_manipulation(int num_item_setting) {
   dir_reference_items = new Vec3 [NUM_ITEM] ;
   temp_item_canvas_direction = new Vec3 [NUM_ITEM] ;
   item_setting_direction = new Vec3 [num_item_setting] [NUM_ITEM] ;
-}
 
-void create_var_item() {
+  // master and follower
+  master_ID = new int[NUM_ITEM] ;
+  follower = new boolean[NUM_ITEM] ;
+
+}  
+
+void create_var_item_slider() {
+
+
   first_opening_item = new boolean[NUM_ITEM] ; // used to check if this object is already opening before
   fill_item = new color[NUM_ITEM] ;
   stroke_item = new color[NUM_ITEM] ;
@@ -726,7 +668,11 @@ void init_variable_item_min_max() {
 
 // init var item
 void init_variable_item() {
-  for (int i = 0 ; i < NUM_ITEM ; i++ ) {     
+  for (int i = 0 ; i < NUM_ITEM ; i++ ) {
+    // master follower
+    master_ID[i] = 0 ;
+    follower[i] = false ;
+
     reset_camera_direction_item[i] = true ;
     temp_item_canvas_direction[i] = Vec3() ;
     pen[i] = Vec3() ;
