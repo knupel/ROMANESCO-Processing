@@ -488,10 +488,12 @@ class RPE_MANAGER {
           update_var_items(objR.ID_item) ;
           pushMatrix() ;
           add_ref_item(objR.ID_item) ;
+          item_follower(objR.ID_item) ;
           if(vLongTouch && action[objR.ID_item] ) {
+
             item_move(movePos, moveDir, objR.ID_item) ;
           }
-          item_follower(objR.ID_item) ;
+
           final_pos_item(objR.ID_item) ;
           objR.draw() ;
           popMatrix() ;

@@ -13,20 +13,20 @@ class Ecosystem_DNA extends Romanesco {
 		RPE_slider = "Fill hue,Fill sat,Fill bright,Fill alpha,Stroke hue,Stroke sat,Stroke bright,Stroke alpha,Thickness,Size X,Size Y,Size Z,Canvas X,Canvas Y,Canvas Z,Speed X,Quantity,Density,Spectrum" ;
 	}
 
-  Vec3 canvas, radius, size ;
+  Vec3 pos, canvas, radius, size ;
   int min_host = 5 ;
   int max_host = 1000 ;
 
   void setup() {
-    setting_start_position(ID_item, width/2, height/2, 0) ;
-    // setting_start_position(ID_item, 0, 0, 0) ;
-
+    // here we cannot use the setting pos, because it's too much ling with the item 26 !!!
+    setting_start_position(ID_item, 0,0,0) ;
     load_nucleotide_table("preferences/ecosystem/code.csv") ;
 
     canvas = Vec3(canvas_x_item[ID_item], canvas_y_item[ID_item], canvas_z_item[ID_item]) ;
     size = Vec3(size_x_item[ID_item], size_y_item[ID_item], size_z_item[ID_item]) ;
+    pos = Vec3(width/2, height/2, 0) ;
     
-    set_host(size, canvas, quantity_item[ID_item]) ;
+    set_host(pos, size, canvas, quantity_item[ID_item]) ;
     init_symbiosis() ;
 
   }
@@ -44,7 +44,7 @@ class Ecosystem_DNA extends Romanesco {
     if(reverse[ID_item]) direction_host = 1 ; else direction_host = -1 ;
     if(motion[ID_item]) motion_bool_host = true ; else motion_bool_host = false ;
     if(birth[ID_item]) {
-      set_host(size, canvas, quantity_item[ID_item]) ;
+      set_host(pos, size, canvas, quantity_item[ID_item]) ;
       init_symbiosis() ;
     	birth[ID_item] = false ;
     }
@@ -66,9 +66,8 @@ class Ecosystem_DNA extends Romanesco {
 
 
 
-  void set_host(Vec3 size, Vec3 canvas, float ratio_quantity) {
+  void set_host(Vec3 pos, Vec3 size, Vec3 canvas, float ratio_quantity) {
     radius = Vec3(canvas) ;
-    Vec3 pos = Vec3(0, 0, -radius.x) ;
     int num = num_host(min_host, max_host, ratio_quantity) ;
     create_host(num, density_item[ID_item], pos, size, canvas, radius) ; 
   }
@@ -90,6 +89,7 @@ CREATE
 */
 void create_host(int num, float density, Vec3 pos, Vec3 size, Vec3 canvas, Vec3 radius) {
   // host
+  // pos.y -= (canvas.y *.5) ;
   pos_host(pos) ;
   size_host(size) ;
   canvas_host(canvas) ;
@@ -102,6 +102,7 @@ void create_host(int num, float density, Vec3 pos, Vec3 size, Vec3 canvas, Vec3 
 
   init_host_target(num *num_helix) ;
   int by_revolution = 11 + int(density *74) ;
+
   create_dna(num_helix, num_nucleotide, by_revolution, pos, size, height_dna, radius_dna) ;
 }
 
@@ -121,7 +122,8 @@ void update_symbiosis() {
 
 
 void sync_symbiosis(int id_item) {
-  sync_symbiosis(FLORA_LIST, get_pos_item(id_item)) ;
+  // sync_symbiosis(FLORA_LIST, get_pos_item(id_item)) ;
+  sync_symbiosis(FLORA_LIST) ;
 }
 
 
@@ -158,7 +160,6 @@ SHOW
 void show_host(Vec3 size, Vec3 canvas, Vec3 radius, float speed_rotation_host, int direction_host, int which_costume, int fill, int stroke, float thickness, float spectrum, boolean rotation_bool_host, boolean info) {
 	int height_dna = (int)canvas.y ;
 	int radius_dna = (int)radius.x ;
-  // Vec3 pos = Vec3(0,  -(height_dna *.25), 0) ;
   show_dna(size, height_dna, radius_dna, speed_rotation_host, direction_host, which_costume, fill, stroke, thickness, spectrum, rotation_bool_host, info) ;
 }
 
@@ -186,6 +187,8 @@ void show_dna(Vec3 size, int height_dna, int radius_dna, float speed_rotation_dn
 void costume_DNA(Helix_DNA helix, int target, Vec3 size, int which_costume, int fill_int, int stroke_int, float thickness, float spectrum, boolean info) {
   Vec3 pos_a = helix.get_nuc_pos(0)[target] ;
   Vec3 pos_b = helix.get_nuc_pos(1)[target] ;
+//   pos_a.y -= (helix.get_height() *.5) ;
+//  pos_b.y -= (helix.get_height() *.5) ;
   // pos_a.add(pos) ;
   // pos_b.add(pos) ;
 

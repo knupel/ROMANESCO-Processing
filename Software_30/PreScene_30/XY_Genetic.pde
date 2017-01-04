@@ -1,5 +1,5 @@
 /**
-GENETIC 0.5.0.3
+GENETIC 0.5.0.4
 * @author Stan le Punk
 * @see https://github.com/StanLepunK/Digital-Life-Processing/tree/master/GENETIC_SYSTEM
 */
@@ -8,7 +8,7 @@ GENETIC 0.5.0.3
 
 
 /**
-DNA display shape 0.1.0
+DNA display shape 0.1.0.1
 */
 class Helix_DNA {
   Strand_DNA [] strand ;
@@ -46,37 +46,7 @@ class Helix_DNA {
   }
 
 
-  // info
-  int size() {
-    return strand.length ;
-  }
 
-  int num() {
-    return strand.length *strand[0].size() ;
-  }
-
-  int length(int which_strand) {
-    if(which_strand > num_strand) {
-      return strand[which_strand].size() ;
-    } else return 0 ;
-  }
-
-  int length() {
-    return strand[0].size() ;
-  }
-
-  Vec3 get_radius() {
-    if(radius == null) radius = Vec3(1) ;
-    return radius ;
-  }
-
-  DNA get_DNA(int which_strand) {
-    if(which_strand < num_strand) {
-      return dna_seq[which_strand] ;
-    } else {
-      return null ;
-    }
-  }
 
 
 
@@ -113,7 +83,6 @@ class Helix_DNA {
   void set_height(int height_strand) {
     int size_h = height_strand / level ;
     for(int i = 0 ; i < strand.length ; i++) {
-
       for(int k = 0 ; k < strand[i].size() ; k++) {
         strand[i].get_pos(k).y *= size_h ;
       }
@@ -135,8 +104,48 @@ class Helix_DNA {
   }
   
   /**
-   get strand
+  GET
+
    */
+
+     // info
+  int size() {
+    return strand.length ;
+  }
+
+  int num() {
+    return strand.length *strand[0].size() ;
+  }
+
+  int length(int which_strand) {
+    if(which_strand > num_strand) {
+      return strand[which_strand].size() ;
+    } else return 0 ;
+  }
+
+  int length() {
+    return strand[0].size() ;
+  }
+
+  Vec3 get_radius() {
+    if(radius == null) radius = Vec3(1) ;
+    return radius ;
+  }
+
+  DNA get_DNA(int which_strand) {
+    if(which_strand < num_strand) {
+      return dna_seq[which_strand] ;
+    } else {
+      return null ;
+    }
+  }
+
+
+
+
+
+
+
   Strand_DNA [] get() {
     return strand ;
   }
@@ -162,6 +171,9 @@ class Helix_DNA {
       for(int k = 0 ; k < num_nucleotide ; k++) {
         pos[count] = Vec3() ;
         pos[count].set(strand[i].get_pos(k)) ;
+        pos[count].add(final_pos) ;
+        // center the helix
+        pos[count].add(0, -get_height() *.5,0) ;
         count ++ ;
       }
     }
@@ -174,6 +186,9 @@ class Helix_DNA {
       for(int i = 0 ; i < num_nucleotide ; i++) {
         pos[i] = Vec3() ;
         pos[i].set(strand[which_strand].get_pos(i)) ;
+        pos[i].add(final_pos) ;
+        // center the helix
+        pos[i].add(0, -get_height() *.5,0) ;
       }
       return pos ;
     } else {
@@ -182,10 +197,24 @@ class Helix_DNA {
   }
 
 
+  float get_height() {
+    int last_nuc = strand[0].size() -1;
+    return strand[0].get_pos(last_nuc).y ;
+  }
+
+  float get_width() {
+    return radius.x *2;
+  }
+
+  float get_depth() {
+    return radius.z *2;
+  }
+
+
 
 
   /**
-  private class Strand_DNA 0.1.0
+  private class Strand_DNA 0.1.1
   */
   private class Strand_DNA {
     private Vec3 [] pos ;
@@ -215,7 +244,16 @@ class Helix_DNA {
         Vec3 [] temp_pos = new Vec3[pos.length] ;
         temp_pos = helix(num_nucleotide, nucleotide_by_revolution, spacing, radius, start_angle) ;
         for(int i = 0 ; i < temp_pos.length ; i++) {
-          pos[i].set(temp_pos[i]) ;
+          if(pos[i] == null ) {
+            // pos[i].set(temp_pos[i]) ;
+            pos[i] = Vec3(temp_pos[i]) ;
+          } else {
+            // pos[i].add(temp_pos[i]) ;
+            pos[i].set(temp_pos[i]) ;
+            // pos[i].add()
+
+
+          }
         }
       }
     }
@@ -227,7 +265,7 @@ class Helix_DNA {
     }
 
     void add(int target, Vec3 v) {
-      if( target < pos.length) {
+      if(target < pos.length) {
         pos[target].add(v) ;
       } 
     }
@@ -249,7 +287,6 @@ Vec3 [] helix(int num, int revolution, float spacing, float radius, float start_
   if(num > 0) {
     for(int i = 0 ; i <= level ; i++) {
       for(int k = 0 ; k < revolution ; k ++) {
-
         float angle_projection = k *angle +start_angle ;
         Vec2 pos_XY = projection(angle_projection, radius) ;
         z += spacing ;

@@ -218,11 +218,10 @@ void item_move(boolean movePos, boolean moveDir, int ID) {
 
 void item_follower(int ID) {
   if(follower[ID]) {
-    pos_item_final[ID].set(pos_item_final[master_ID[ID]]) ;
-    dir_item_final[ID].set(dir_item_final[master_ID[ID]]) ;
+    int ID_master = master_ID[ID] ;
+    action[ID] = action[ID_master] ; 
   }
   add_ref_item(ID) ;
-
 }
 
 
@@ -857,8 +856,7 @@ PVector follow(PVector origin, PVector target, float speed) {
 
 
 /**
-// PERSPECTIVE
-//////////////
+PERSPECTIVE
 */
 void paralaxe() {
   float aspect = float(width)/float(height) ;
@@ -901,8 +899,7 @@ void stopParalaxe() {
 
 
 /**
-// GRID CAMERA WORLD
-/////////////////////
+GRID CAMERA WORLD
 */
 //repere camera
 void createGridCamera(boolean showGrid) {

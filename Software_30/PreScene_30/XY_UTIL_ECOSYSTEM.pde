@@ -1,6 +1,6 @@
 /**
 
-ECOSYSTEM UTIL 1.0.1
+ECOSYSTEM UTIL 1.0.2
 
 * HOST and SYMBIOSIS
 * WORLD
@@ -182,7 +182,7 @@ void update_symbiosis_area(Vec3 [] target_host_list) {
 }
 
 /**
-symbiosis 0.0.2
+symbiosis 0.0.3
 */
 void symbiosis(ArrayList<Agent> symbiotic_agent_list, Vec3 [] list_coord_host, int [] address) {
   if(list_coord_host.length > 0 && address.length > 0 && symbiotic_agent_list.size() > 0) {
@@ -202,7 +202,11 @@ void sync_symbiosis(ArrayList<Agent> symbiotic_agent_list, Vec3 pos) {
   for(Agent a : symbiotic_agent_list) {
     if(a.get_home_id() != -1) {
       a.set_home_pos(get_symbiosis_area_pos()[a.get_home_id()]) ;
-      a.set_pos(a.get_home_pos().add(pos)) ;
+      if(pos != null && !pos.equals(Vec3(0))) {
+        a.set_pos(a.get_home_pos().add(pos)) ;
+      } else {
+        a.set_pos(a.get_home_pos()) ;
+      }
     } else {
       // System.err.println("ID home is equal to -1, need to init your symbiotic ecosystem before sync it") ;
     }

@@ -30,8 +30,8 @@ class Ecosystem_agent extends Romanesco {
 
 
   void setup() {
+    // here we cannot use the setting pos, because it's too much ling with the item 27 !!!
     setting_start_position(ID_item, 0, 0, 0) ;
-
 
     load_nucleotide_table("preferences/ecosystem/code.csv") ;
     Vec3 pos = Vec3(width/2, height/2, 0) ;
