@@ -3,7 +3,7 @@
 boolean orderOneLeap, orderTwoLeap ;
 
 
-void updateLeapCommand() {
+void update_leap_command() {
   // move the object
   if(finger.activefingers == 1 ) {
     orderOneLeap = true ; 

@@ -99,7 +99,7 @@ void draw() {
   loadPrescene() ;
   
   //ROMANESCO
-  cameraDraw() ;
+  camera_romanesco_draw() ;
   
   // LIGHT
   light_position_draw(mouse[0], wheel[0]) ; // not in the conditional because we need to display in the info box
@@ -130,7 +130,7 @@ void draw() {
   
   // misc
   update_temp_value() ;
-  cursor_update() ;
+  device_update() ;
   
   // change to false if the information has be sent to Scene...but how ????
   OSC_send() ;

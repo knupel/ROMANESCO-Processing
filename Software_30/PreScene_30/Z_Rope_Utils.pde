@@ -1,6 +1,6 @@
 /**
-RPE UTILS 1.21.7
-Rope – Romanesco Processing Environment – 2015–2016
+RPE UTILS 1.22.0.3
+Rope – Romanesco Processing Environment – 2015–2017
 * @author Stan le Punk
 * @see https://github.com/StanLepunK/Utils_rope
 */
@@ -13,6 +13,113 @@ final float PHI = (1 + sqrt(5))/2; //a number of polys use the golden ratio...
 final float ROOT2 = sqrt(2); //...and the square root of two, the famous first irrationnal number by Pythagore
 final float EULER = 2.718281828459045235360287471352; // Constant d'Euler
 // about constant https://en.wikipedia.org/wiki/Mathematical_constant
+
+
+/**
+
+MOTION 0.0.3
+
+*/
+/**
+inertia 0.0.3
+*/
+void stop_inertia() {
+  inertia(Vec3(), 0, 0) ;
+}
+
+boolean inertia_is() {
+  if(vel_in != 0) return true ; else return false ;
+}
+
+float get_vel_inertia() {
+  return vel_in ;
+}
+
+// apply_intertia
+Vec3 mouse_ref_apply_in ; 
+
+Vec2 apply_inertia(Vec2 current_pos, Vec2 my_pos, float braking, float max_speed) {
+  Vec3 current_pos_3D = Vec3(current_pos) ;
+  Vec3 my_pos_3D = Vec3(my_pos) ;
+  Vec3 apply = apply_inertia(current_pos_3D, my_pos_3D, braking, max_speed) ;
+  return Vec2(apply.x, apply.y) ;
+}
+
+Vec3 apply_inertia(Vec3 current_pos, Vec3 my_pos, float braking, float max_speed) {
+  if(mouse_ref_apply_in == null) mouse_ref_apply_in = Vec3(my_pos) ;
+
+  Vec3 inertia = inertia(current_pos, braking, max_speed) ;
+  if(inertia.equals(Vec3(0))) {
+    my_pos.sub(sub(mouse_ref_apply_in, current_pos)) ; ;
+  } else {
+    my_pos.add(inertia) ;
+  }
+  mouse_ref_apply_in.set(current_pos) ;
+  return my_pos ;
+}
+
+
+
+// intertia
+float vel_in ;
+Vec3 dir_in  ;
+Vec3 for_vel_in ;
+Vec3 for_dir_in ;
+Vec3 mouse_in ;
+
+
+
+Vec2 inertia(Vec2 current_pos, float braking, float max_speed) {
+  Vec3 current_pos_3D = Vec3(current_pos) ;
+  Vec3 inertia = inertia(current_pos_3D, braking, max_speed) ;
+  return Vec2(inertia.x, inertia.y) ;
+}
+
+Vec3 inertia(Vec3 current_pos, float braking, float max_speed) {
+  // init var
+  if(dir_in == null) dir_in = Vec3() ;
+  if(for_vel_in == null) for_vel_in = Vec3() ;
+  if(for_dir_in == null) for_dir_in = Vec3() ;
+  if(mouse_in == null) mouse_in = Vec3() ;
+
+
+  Vec3 inertia = Vec3() ;
+  mouse_in.set(current_pos) ;
+
+  if(for_vel_in.equals(mouse_in)) {
+    // limit speed
+    if (abs(vel_in) > max_speed) {
+      if(vel_in < 0) {
+        vel_in = -max_speed ;
+      } else {
+        vel_in = max_speed ;
+      }
+    }
+     // braking
+    if(vel_in > 0) {
+      vel_in -= braking ;
+      if(vel_in < 0) vel_in = 0 ;
+    } else if(vel_in < 0 ) {
+      vel_in += braking ;
+      if(vel_in > 0) vel_in = 0 ;
+    }
+
+    // update pos
+    inertia = mult(dir_in, vel_in) ;
+  } else {
+    vel_in = dist(mouse_in, for_vel_in) ;
+    dir_in = sub(mouse_in,for_dir_in) ;
+    dir_in.normalize() ;
+  }
+  for_vel_in.set(current_pos) ;
+  println("inertia vel", vel_in) ;
+  if(frameCount%15 == 0) for_dir_in.set(current_pos) ;
+  //
+  return inertia ;
+}
+
+
+
 
 /**
 

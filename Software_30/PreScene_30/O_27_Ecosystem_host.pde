@@ -187,10 +187,7 @@ void show_dna(Vec3 size, int height_dna, int radius_dna, float speed_rotation_dn
 void costume_DNA(Helix_DNA helix, int target, Vec3 size, int which_costume, int fill_int, int stroke_int, float thickness, float spectrum, boolean info) {
   Vec3 pos_a = helix.get_nuc_pos(0)[target] ;
   Vec3 pos_b = helix.get_nuc_pos(1)[target] ;
-//   pos_a.y -= (helix.get_height() *.5) ;
-//  pos_b.y -= (helix.get_height() *.5) ;
-  // pos_a.add(pos) ;
-  // pos_b.add(pos) ;
+
 
   //int size = 36 ;
   int size_link = 1 ;

@@ -1,6 +1,6 @@
 /**
-CLASS ROPE VEC 1.8.2.1
-Rope – Romanesco Processing Environment – 2015 – 2016
+CLASS ROPE VEC 1.8.3.1
+Rope – Romanesco Processing Environment: 2015 – 2017
 * @author Stan le Punk
 * @see https://github.com/StanLepunK/Vec
 * inspireted by GLSL code and PVector from Daniel Shiffman
@@ -142,7 +142,7 @@ class Vec2 extends Vec {
     y *= mult ;
 
     set(x,y) ;
-    return new Vec2(x,y);
+    return this ;
   }
   
   /* multiply Vector by different float value */
@@ -151,7 +151,7 @@ class Vec2 extends Vec {
     y *= mult_y ;
 
     set(x,y) ;
-    return new Vec2(x,y);
+    return this;
   }
   
   // mult by vector
@@ -161,7 +161,7 @@ class Vec2 extends Vec {
       y *= v.y ; 
     }
     set(x,y) ;
-    return new Vec2(x,y);
+    return this;
   }
   
   /**
@@ -174,7 +174,7 @@ class Vec2 extends Vec {
     y /= div ; 
     
     set(x,y) ;
-    return new Vec2(x,y);
+    return this;
     
   }
   
@@ -185,7 +185,7 @@ class Vec2 extends Vec {
       y /= v.y ;
     }  
     set(x,y) ;
-    return new Vec2(x,y);
+    return this;
   }
   
   
@@ -198,7 +198,7 @@ class Vec2 extends Vec {
     y += value ;
     
     set(x,y) ;
-    return new Vec2(x,y);
+    return this ;
   }
 
   Vec2 add(float value_a, float value_b) {
@@ -206,7 +206,7 @@ class Vec2 extends Vec {
     y += value_b ;
     
     set(x,y) ;
-    return new Vec2(x,y);
+    return this ;
   }
   /* add Vector */
   Vec2 add(Vec v) {
@@ -215,7 +215,7 @@ class Vec2 extends Vec {
       y += v.y ;
     }
     set(x,y) ;
-    return new Vec2(x,y);
+    return this ;
   }
   /* add two Vector together */
   Vec2 add(Vec v_a, Vec v_b) {
@@ -224,7 +224,7 @@ class Vec2 extends Vec {
       y = v_a.y + v_b.y ;
     }
     set(x,y) ;
-    return new Vec2(x,y);
+    return this ;
   }
 
 
@@ -237,14 +237,14 @@ class Vec2 extends Vec {
     y -= value ;
     
     set(x,y) ;
-    return new Vec2(x,y);
+    return this ;
   }
   Vec2 sub(float value_a,float value_b) {
     x -= value_a ;
     y -= value_b ;
     
     set(x,y) ;
-    return new Vec2(x,y);
+    return this ;
   }
   /* add one Vector */
   Vec2 sub(Vec v) {
@@ -253,7 +253,7 @@ class Vec2 extends Vec {
       y -= v.y ;
     }
     set(x,y) ;
-    return new Vec2(x,y);
+    return this ;
   }
   
   /* add two Vector together */
@@ -263,7 +263,7 @@ class Vec2 extends Vec {
       y = v_a.y - v_b.y ;
     }
     set(x,y) ;
-    return new Vec2(x,y);
+    return this ;
   }
 
   /**
@@ -309,7 +309,7 @@ class Vec2 extends Vec {
       div(dist) ;
     }
     set(x,y) ;
-    return new Vec2(x,y);
+    return this ;
   }
 
 
@@ -331,7 +331,7 @@ class Vec2 extends Vec {
       y = target.x ;
     }
     set(x,y) ;
-    return new Vec2(x,y) ;
+    return this ;
   }
   
 
@@ -356,22 +356,29 @@ class Vec2 extends Vec {
   return mapping vector
   @return Vec2
   */
-  Vec2 normalize(Vec min, Vec max) {
+  /*
+  Vec2 normalize(Vec2 min, Vec2 max) {
     if(min != null && max != null) {
       x = map(x, min.x, max.x, 0, 1) ;
       y = map(y, min.y, max.y, 0, 1) ;
     }
     set(x,y) ;
-    return new Vec2(x,y) ;
+    return this ;
   }
+  */
   
-  Vec2 normalize(Vec max) {
-    if(max != null) {
-      x = map(x, 0, max.x, 0, 1) ;
-      y = map(y, 0, max.y, 0, 1) ;
+  
+  Vec2 normalize(Vec2 target) {
+    if (target == null) {
+      target = Vec2();
     }
-    set(x,y) ;
-    return new Vec2(x,y) ;
+    float m = mag();
+    if (m > 0) {
+      target.set(x/m, y/m);
+    } else {
+      target.set(x, y);
+    }
+    return target;
   }
 
   Vec2 normalize() {
@@ -379,7 +386,7 @@ class Vec2 extends Vec {
     if (m != 0 && m != 1) {
       div(m);
     }
-    return new Vec2(x,y) ;
+    return this ;
   }
 
   /**
@@ -394,7 +401,7 @@ class Vec2 extends Vec {
     y = map(y,minIn, maxIn, minOut, maxOut) ;
     
     set(x,y) ;
-    return new Vec2(x,y) ;
+    return this ;
   }
   
    /**
@@ -404,9 +411,7 @@ class Vec2 extends Vec {
   @ return float
   */
   float mag() {
-    x *= x ;
-    y *= y ; 
-    return sqrt(x+y) ;
+    return sqrt(x*x + y*y) ;
   }
 
   float mag(Vec v_target) {
@@ -467,7 +472,7 @@ class Vec2 extends Vec {
     x += random(-range_x, range_x) ;
     y += random(-range_y, range_y) ;
     set(x,y) ;
-    return new Vec2(x,y) ;
+    return this ;
   }
   
   
@@ -486,13 +491,13 @@ class Vec2 extends Vec {
     m_x *=radius ;
     m_y *=radius ;
     
-    return new Vec2(x +m_x, y +m_y) ;
+    return this ;
   }
 
   /**
   Equals
   */
-  boolean equals(Vec target) {
+  boolean equals(Vec2 target) {
     if(target != null ) {
       if((x == target.x) && (y == target.y)) {
         return true ; 
@@ -518,7 +523,7 @@ class Vec2 extends Vec {
   /**
   Compare deprecated
   */
-  boolean compare(Vec target) {
+  boolean compare(Vec2 target) {
     if(target != null ) {
       if((x == target.x) && (y == target.y)) {
         return true ; 
@@ -652,13 +657,13 @@ class Vec3 extends Vec {
     this.x = this.r = this.s = v ;
     this.y = this.g = this.t = v ;
     this.z = this.b = this.p = v ;
-    return this;
+    return this ;
   }
   public Vec3 set(float x, float y, float z) {
     this.x = this.r = this.s = x ;
     this.y = this.g = this.t = y ;
     this.z = this.b = this.p = z ;
-    return this;
+    return this ;
   }
 
 
@@ -670,7 +675,7 @@ class Vec3 extends Vec {
       this.x = this.r = this.s = 0 ;
       this.y = this.g = this.t = 0 ;
       this.z = this.b = this.p = 0 ;
-      return this;
+      return this ;
     } else {
       this.x = v.x ;
       this.r = v.x ;
@@ -683,7 +688,7 @@ class Vec3 extends Vec {
       this.z = v.z ;
       this.b = v.z ;
       this.p = v.z ;
-      return this;
+      return this ;
     }
   }
 
@@ -704,7 +709,7 @@ class Vec3 extends Vec {
     this.z = source[2] ;
     this.b = source[2] ;
     this.p = source[2] ;
-    return this;
+    return this ;
   }
   
   
@@ -728,7 +733,7 @@ class Vec3 extends Vec {
     x *= mult ; y *= mult ; z *= mult ;
     
     set(x,y,z) ;
-    return new Vec3(x,y,z) ;
+    return this ;
   }
   
   /* multiply Vector by a different float value */
@@ -736,7 +741,7 @@ class Vec3 extends Vec {
     x *= mult_x ; y *= mult_y ; z *= mult_z ;
     
     set(x,y,z) ;
-    return new Vec3(x,y,z) ;
+    return this ;
   }
   
   // mult by vector
@@ -747,7 +752,7 @@ class Vec3 extends Vec {
       z *= v.z ; 
     }
     set(x,y,z) ;
-    return new Vec3(x,y,z) ;
+    return this ;
   }
   
   
@@ -764,7 +769,7 @@ class Vec3 extends Vec {
     z /= div ;
     
     set(x,y,z) ;
-    return new Vec3(x,y,z) ;
+    return this ;
   }
   
   // divide by vector
@@ -775,7 +780,7 @@ class Vec3 extends Vec {
       z /= v.z ; 
     }
     set(x,y,z) ;
-    return new Vec3(x,y,z) ;
+    return this ;
   }
   
   
@@ -790,7 +795,7 @@ class Vec3 extends Vec {
     z += value ;
     
     set(x,y,z) ;
-    return new Vec3(x,y,z) ;
+    return this ;
   }
   Vec3 add(float value_a,float value_b,float value_c) {
     x += value_a ;
@@ -798,7 +803,7 @@ class Vec3 extends Vec {
     z += value_c ;
     
     set(x,y,z) ;
-    return new Vec3(x,y,z) ;
+    return this ;
   }
   /* add one Vector */
   Vec3 add(Vec v) {
@@ -808,7 +813,7 @@ class Vec3 extends Vec {
       z += v.z ;
     }
     set(x,y,z) ;
-    return new Vec3(x,y,z) ;
+    return this ;
   }
   
   /* add two Vector together */
@@ -819,7 +824,7 @@ class Vec3 extends Vec {
       z = v_a.z + v_b.z ;
     }
     set(x,y,z) ;
-    return new Vec3(x,y,z) ;
+    return this ;
   }
 
 
@@ -834,7 +839,7 @@ class Vec3 extends Vec {
     z -= value ;
     
     set(x,y,z) ;
-    return new Vec3(x,y,z) ;
+    return this ;
   }
   Vec3 sub(float value_a,float value_b,float value_c) {
     x -= value_a ;
@@ -842,7 +847,7 @@ class Vec3 extends Vec {
     z -= value_c ;
 
     set(x,y,z) ;
-    return new Vec3(x,y,z) ;
+    return this ;
   }
   /* add one Vector */
   Vec3 sub(Vec v) {
@@ -852,7 +857,7 @@ class Vec3 extends Vec {
       z -= v.z ;
     }
     set(x,y,z) ;
-    return new Vec3(x,y,z) ;
+    return this ;
   }
   
   /* add two Vector together */
@@ -863,7 +868,7 @@ class Vec3 extends Vec {
       z = v_a.z - v_b.z ;
     }
     set(x,y,z) ;
-    return new Vec3(x,y,z) ;
+    return this ;
   }
 
 
@@ -937,7 +942,7 @@ class Vec3 extends Vec {
       div(dist) ;
     }
     set(x,y,z) ;
-    return new Vec3(x,y,z) ;
+    return this ;
   }
   
   
@@ -980,9 +985,10 @@ class Vec3 extends Vec {
   Normalize
   */
   /*
-  return mapping vector
+  return normalize vector with length of 1
   @return Vec3
   */
+  /*
   Vec3 normalize(Vec min, Vec max) {
     if(min != null && max != null) {
       x = map(x, min.x, max.x, 0, 1) ;
@@ -992,23 +998,27 @@ class Vec3 extends Vec {
     set(x,y,z) ;
     return new Vec3(x,y,z) ;
   }
+  */
   
-  Vec3 normalize(Vec max) {
-    if(max != null) {
-      x = map(x, 0, max.x, 0, 1) ;
-      y = map(y, 0, max.y, 0, 1) ;
-      z = map(z, 0, max.z, 0, 1) ;
+  public Vec3 normalize(Vec3 target) {
+    if (target == null) {
+      target = Vec3();
     }
-    set(x,y,z) ;
-    return new Vec3(x,y,z) ;
+    float m = mag();
+    if (m > 0) {
+      target.set(x/m, y/m, z/m);
+    } else {
+      target.set(x, y, z);
+    }
+    return target;
   }
 
-  Vec3 normalize() {
+  public Vec3 normalize() {
     float m = mag();
     if (m != 0 && m != 1) {
       div(m);
     }
-    return new Vec3(x,y,z) ;
+    return this ;
   }
 
   /**
@@ -1024,7 +1034,7 @@ class Vec3 extends Vec {
     z = map(z, minIn, maxIn, minOut, maxOut) ;
 
     set(x,y,z) ;
-    return new Vec3(x,y,z) ;
+    return this ;
   }
   
   
@@ -1037,11 +1047,9 @@ class Vec3 extends Vec {
   */
   /////////////////////
   float mag() {
-    x *= x ;
-    y *= y ; 
-    z *= z ;
-    return sqrt(x+y+z) ;
+    return sqrt(x*x + y*y + z*z) ;
   }
+
 
   float mag(Vec3 v_target) {
     if(v_target != null) {
@@ -1100,7 +1108,7 @@ class Vec3 extends Vec {
     z += random(-range_z, range_z) ;
 
     set(x,y,z) ;
-    return new Vec3(x,y,z) ;
+    return this ;
   }
   
   
@@ -1344,7 +1352,7 @@ class Vec4 extends Vec {
     this.y = this.g = this.t = v ;
     this.z = this.b = this.p = v ;
     this.w = this.a = this.q = v ;
-    return this;
+    return this ;
   }
   
   
@@ -1353,7 +1361,7 @@ class Vec4 extends Vec {
     this.y = this.g = this.t = y ;
     this.z = this.b = this.p = z ;
     this.w = this.a = this.q = w ;
-    return this;
+    return this ;
   }
 
 
@@ -1366,13 +1374,13 @@ class Vec4 extends Vec {
       this.y = this.g = this.t = 0 ;
       this.z = this.b = this.p = 0 ;
       this.w = this.a =  this.q = 0 ;
-      return this;
+      return this ;
     } else {
       this.x = this.r = this.s = v.x ;
       this.y = this.g = this.t = v.y ;
       this.z = this.b = this.p = v.z ;
       this.w = this.a = this.q = v.w ;
-      return this;
+      return this ;
     }
   }
 
@@ -1386,7 +1394,7 @@ class Vec4 extends Vec {
     this.y = this.g = this.t = source[1] ;
     this.z = this.b = this.p = source[2] ;
     this.w = this.a = this.q = source[3] ;
-    return this;
+    return this ;
   }
 
 
@@ -1402,7 +1410,7 @@ class Vec4 extends Vec {
     x *= mult ; y *= mult ; z *= mult ; w *= mult ;
 
     set(x,y,z,w) ;
-    return new Vec4(x,y,z,w) ;
+    return this ;
   }
   
     // mult by a different float
@@ -1410,7 +1418,7 @@ class Vec4 extends Vec {
     x *= mult_x ; y *= mult_y ; z *= mult_z ; w *= mult_w ;
 
     set(x,y,z,w) ;
-    return new Vec4(x,y,z,w) ;
+    return this ;
   }
   
   // mult by vector
@@ -1422,7 +1430,7 @@ class Vec4 extends Vec {
       w *= v.w ;
     }
     set(x,y,z,w) ;
-    return new Vec4(x,y,z,w) ;
+    return this ;
   }
   
   
@@ -1434,9 +1442,8 @@ class Vec4 extends Vec {
   divide Vector by a float value */
   Vec4 div(float div) {
     x /= div ; y /= div ; z /= div ; w /= div ;
-    
     set(x,y,z,w) ;
-    return new Vec4(x,y,z,w) ;
+    return this ;
   }
   
   // divide by vector
@@ -1448,7 +1455,7 @@ class Vec4 extends Vec {
       w /= v.w ;
     }
     set(x,y,z,w) ;
-    return new Vec4(x,y,z,w) ;
+    return this ;
   }
   
   
@@ -1463,7 +1470,7 @@ class Vec4 extends Vec {
     w += value ;
     
     set(x,y,z,w) ;
-    return new Vec4(x,y,z,w) ;
+    return this ;
   }
   Vec4 add(float value_a,float value_b,float value_c,float value_d) {
     x += value_a ;
@@ -1472,7 +1479,7 @@ class Vec4 extends Vec {
     w += value_d ;
     
     set(x,y,z,w) ;
-    return new Vec4(x,y,z,w) ;
+    return this ;
   }
   /* add vec */
   Vec4 add(Vec v) {
@@ -1483,7 +1490,7 @@ class Vec4 extends Vec {
       w += v.w ;
     }
     set(x,y,z,w) ;
-    return new Vec4(x,y,z,w)  ;
+    return this  ;
   }
   /* add two Vector together */
   Vec4 add(Vec v_a, Vec v_b) {
@@ -1494,7 +1501,7 @@ class Vec4 extends Vec {
       w = v_a.w + v_b.w ;
     }
     set(x,y,z,w) ;
-    return new Vec4(x,y,z,w) ;
+    return this ;
   }
 
   /**
@@ -1508,7 +1515,7 @@ class Vec4 extends Vec {
     w -= value ;
     
     set(x,y,z,w) ;
-    return new Vec4(x,y,z,w) ;
+    return this ;
   }
   Vec4 sub(float value_a,float value_b,float value_c, float value_d) {
     x -= value_a ;
@@ -1517,7 +1524,7 @@ class Vec4 extends Vec {
     w -= value_d ;
     
     set(x,y,z,w) ;
-    return new Vec4(x,y,z,w) ;
+    return this ;
   }
   /* add one Vector */
   Vec4 sub(Vec v) {
@@ -1528,7 +1535,7 @@ class Vec4 extends Vec {
       w -= v.w ;
     }
     set(x,y,z,w) ;
-    return new Vec4(x,y,z,w) ;
+    return this ;
   }
   
   /* add two Vector together */
@@ -1540,7 +1547,7 @@ class Vec4 extends Vec {
       w = v_a.w - v_b.w ;
     }
     set(x,y,z,w) ;
-    return new Vec4(x,y,z,w) ;
+    return this ;
   }
 
 
@@ -1585,7 +1592,7 @@ class Vec4 extends Vec {
       div(dist) ;
     }
     set(x,y,z,w) ;
-    return new Vec4(x,y,z,w) ;
+    return this ;
   }
   
   /**
@@ -1602,13 +1609,18 @@ class Vec4 extends Vec {
     return min(list) ;
   }
 
-  /**
+
+
+
+
+    /**
   Normalize
   */
   /*
-  return mapping vector
-  @return Vec3
+  return normalize vector with length of 1
+  @return Vec4
   */
+  /*
   Vec4 normalize(Vec min, Vec max) {
     if(min != null && max != null) {
       x = map(x, min.x, max.x, 0, 1) ;
@@ -1619,26 +1631,28 @@ class Vec4 extends Vec {
     set(x,y,z,w) ;
     return new Vec4(x,y,z,w) ;
   }
+  */
   
 
-  Vec4 normalize(Vec max) {
-    if(max != null) {
-      x = map(x, 0, max.x, 0, 1) ;
-      y = map(y, 0, max.y, 0, 1) ;
-      z = map(z, 0, max.z, 0, 1) ;
-      w = map(w, 0, max.w, 0, 1) ;
+  public Vec4 normalize(Vec4 target) {
+    if (target == null) {
+      target = Vec4();
     }
-    set(x,y,z,w) ;
-    return new Vec4(x,y,z,w) ;
+    float m = mag();
+    if (m > 0) {
+      target.set(x/m, y/m, z/m, w/m);
+    } else {
+      target.set(x, y, z, w);
+    }
+    return target;
   }
 
-
-  Vec4 normalize() {
+  public Vec4 normalize() {
     float m = mag();
     if (m != 0 && m != 1) {
       div(m);
     }
-    return new Vec4(x,y,z,w) ;
+    return this ;
   }
 
   /**
@@ -1655,18 +1669,14 @@ class Vec4 extends Vec {
     w = map(w, minIn, maxIn, minOut, maxOut) ;
     
     set(x,y,z,w) ;
-    return new Vec4(x,y,z,w) ;
+    return this ;
   }
   
   /**
   Magnitude or length
  */
   float mag() {
-    x *= x ;
-    y *= y ; 
-    z *= z ;
-    w *= w ;  ;
-    return sqrt(x+y+z+w) ;
+    return sqrt(x*x + y*y + z*z + w*w) ;
   }
 
   float mag(Vec4 v_target) {
@@ -1727,7 +1737,7 @@ class Vec4 extends Vec {
     w += random(-range_z, range_z) ;
     
     set(x,y,z,w) ;
-    return new Vec4(x,y,z,w) ;
+    return this ;
   }
 
 
@@ -1882,7 +1892,7 @@ class Vec5 extends Vec{
   */
   public Vec5 set(float value) {
     this.a = this.b = this.c = this.d = this.e = value;
-    return this;
+    return this ;
   }
   
   public Vec5 set(float a, float b, float c, float d, float e) {
@@ -1891,7 +1901,7 @@ class Vec5 extends Vec{
     this.c = c;
     this.d = d;
     this.e = e;
-    return this;
+    return this ;
   }
 
 
@@ -1901,14 +1911,14 @@ class Vec5 extends Vec{
   public Vec5 set(Vec5 v) {
     if( v == null) {
       a = b = c = d = e = 0 ;
-      return this;
+      return this ;
     } else {
       a = v.a ;
       b = v.b ;
       c = v.c ;
       d = v.d ;
       e = v.e ;
-      return this;
+      return this ;
     }
   }
 
@@ -1923,7 +1933,7 @@ class Vec5 extends Vec{
     c = source[2] ;
     d = source[3] ;
     e = source[4] ;
-    return this;
+    return this ;
   }
 
   /**
@@ -2092,7 +2102,7 @@ class Vec6 extends Vec {
     d = source[3] ;
     e = source[4] ;
     f = source[5] ;
-    return this;
+    return this ;
   }
 
 

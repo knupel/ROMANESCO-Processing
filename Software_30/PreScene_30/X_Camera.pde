@@ -164,8 +164,10 @@ Vec3 get_dir_item(int id_item) {
 
 
 /**
+ITEM CAMERA
+
 POSITION – DIRECTION 1.0.1
-ITEM
+
 final position and direction for the items
 
 Master and follower updating
@@ -395,14 +397,15 @@ void initVariableCamera() {
 
 
 
+/**
+MOVE CAMERA 1.0.1
 
-// MOVE CAMERA
-//////////////
-void cameraDraw() {
-  updateCamera(moveScene, moveEye, LEAPMOTION_DETECTED, cLongTouch) ;
+*/
+void camera_romanesco_draw() {
+  update_camera_romanesco(moveScene, moveEye, LEAPMOTION_DETECTED, cLongTouch) ;
   // set camera variable
   /* look if the user is on the Prescene or not, and other stuff to display the good views */
-  setVariableCamera(cLongTouch) ;
+  set_var_camera_romanesco(cLongTouch) ;
 
   // deformation and focal of the lenz camera
   paralaxe(focal, deformation) ;
@@ -425,30 +428,15 @@ void cameraDraw() {
   //catch ref camera
   catchCameraInfo() ;
 }
-//END CAMERA DRAW
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
 
 
 /**
-// Annexe method of the method cameraDraw()
-///////////////////////////////////////////
+Annexe method of the method camera_romanesco_draw() 1.0.1
 */
-void setVariableCamera(boolean authorization) {
+void set_var_camera_romanesco(boolean authorization) {
   // float focal = map(valueSlider[0][19],0,360,28,200) ;
 
   /* this method need to be on the Prescene sketch and on the window.
@@ -475,23 +463,42 @@ void variableCameraFullrendering(boolean authorization) {
   upZ = 0 ; // not interesting
 
   // displacement of the scene
-  int displacement_scene_x = width/2 ;
-  int displacement_scene_y = height/2 ;
-  int displacement_scene_z = 0 ;
+  Vec3 displacement_scene = Vec3(width/2, height/2, 0) ;
   
   // Check the special move camera
-  float compare_pos_scene_x = finalSceneCamera.x - sceneCamera.x ;
-  float compare_pos_scene_y = finalSceneCamera.y - sceneCamera.y ;
-  float compare_pos_scene_z = finalSceneCamera.z - sceneCamera.z ;
-  boolean specialMoveCamera ;
-  if( compare_pos_scene_x != displacement_scene_x || 
-      compare_pos_scene_y != displacement_scene_y || 
-      compare_pos_scene_z != displacement_scene_y ) specialMoveCamera = true ; else specialMoveCamera = false ;
+  Vec3 compare_pos_scene = sub(finalSceneCamera, sceneCamera) ;
   
+
+
+
+  boolean specialMoveCamera = false ; ;
+  // displacement scene
+  if(!compare_pos_scene.equals(displacement_scene)) {
+    specialMoveCamera = true ; 
+  } 
+  // inertia
+  if(inertia_is()) {
+    specialMoveCamera = true ; 
+  }
+  
+
+
+
+
   // final camera position
-  if (checkMouseMove(authorization) || specialMoveCamera) {
-    finalSceneCamera = new Vec3 (sceneCamera.x +displacement_scene_x, sceneCamera.y +displacement_scene_y, sceneCamera.z +displacement_scene_z) ;
-    finalEyeCamera = new Vec2 (radians(eyeCamera.x), radians(eyeCamera.y) ) ;
+  if (check_cursor(authorization) || specialMoveCamera) {
+    if(finalSceneCamera == null) {
+      finalSceneCamera = Vec3 (add(sceneCamera, displacement_scene)) ;
+    } else {
+      finalSceneCamera.set(add(sceneCamera, displacement_scene)) ;
+    }
+    
+    if(finalEyeCamera == null) {
+      finalEyeCamera = Vec2 (radians(eyeCamera.x), radians(eyeCamera.y) ) ;
+    } else {
+      finalEyeCamera.set(radians(eyeCamera.x), radians(eyeCamera.y) ) ;
+    }
+    
   }
 }
 
@@ -578,7 +585,9 @@ void startCamera() {
   camera(dirCamX, dirCamY, dirCamZ, centerCamX, centerCamY, centerCamZ, upX, upY, upZ) ;
   beginCamera() ;
   // scene position
-  translate(finalSceneCamera.x, finalSceneCamera.y, finalSceneCamera.z) ;
+  println("mis à jour position", finalSceneCamera) ;
+  translate(finalSceneCamera) ;
+  // translate(0,0,0) ;
   // scene orientation direction
   /* eyeCamera, is not a good terminilogy because the real eye camera is not use here. Here we just move the world. */
   rotateX(finalEyeCamera.x) ;
@@ -593,15 +602,68 @@ void startCamera() {
 
 
 // update the position of the scene (camera) and the orientation
-void updateCamera(boolean scene, boolean eye, boolean leapMotion, boolean authorization) {
-  if(authorization) {
+Vec3 cursor_final ;
+Vec3 mouse_ref_inertia ;
+Vec3 mouseCheckRef  ;
+int wheelCheckRef = 0 ;
+
+
+
+void update_camera_romanesco(boolean scene_move_is, boolean eye_move_is, boolean leapMotion, boolean keyboard_is) {
+  if(cursor_final == null) cursor_final = mouse[0].copy() ;
+  if(mouse_ref_inertia == null) mouse_ref_inertia = mouse[0].copy() ;
+
+  if(keyboard_is) {
+    if(scene_move_is || eye_move_is) {
+      mouse_ref_inertia = mouse[0].copy() ; 
+    }
+
+    
+    float max_speed = width / 100 ;
+    float braking = max_speed *.001 ;
+    Vec3 new_pos = apply_inertia(mouse_ref_inertia, cursor_final, braking, max_speed) ;
+    cursor_final.set(new_pos) ;
     // update the world position
     /* We cannot use the method copy() of the PVector, because we must preserve the "Z" parameter of this PVector to move the Scene with the wheel */
-    sceneCamera.x = update_position_camera(scene, leapMotion, mouse[0]).x ;
-    sceneCamera.y = update_position_camera(scene, leapMotion, mouse[0]).y ;
-    eyeCamera.set(update_direction_camera(eye, mouse[0])) ;
+    // scene / translate
+    boolean cursor_move_scene_is = false ;
+    if(scene_move_is || inertia_is()) {
+      cursor_move_scene_is = true ;
+    }
+    update_position_camera(cursor_move_scene_is, leapMotion, cursor_final) ;
+    
+    // eye / rotate
+    boolean cursor_move_eye_is = false ;
+    if(eye_move_is || inertia_is()) {
+      cursor_move_eye_is = true ;
+    }
+    eyeCamera.set(update_direction_camera(cursor_move_eye_is, cursor_final)) ;
   }
 }
+
+
+// check if the mouse move or not, it's use to update or not the position of the world.
+// we must use that to don't update the scene when we load the save scene setting
+boolean check_cursor(boolean authorization) {
+  boolean cursor_move_is ;
+  if(authorization && (!compare(mouseCheckRef, cursor_final) || wheelCheckRef != wheel[0])) {
+    cursor_move_is = true ; 
+  } else {
+    cursor_move_is = false ;
+  }
+
+  // create ref
+  wheelCheckRef = wheel[0] ;
+  if(mouseCheckRef == null) {
+    mouseCheckRef = cursor_final.copy();
+  } else {
+    mouseCheckRef.set(cursor_final) ;
+  }
+  return cursor_move_is ;
+}
+
+
+
 
 
 // move camera to target
@@ -630,19 +692,7 @@ void stopCamera() {
 }
 
 
-// check if the mouse move or not, it's use to update or not the position of the world.
-// we must use that to don't update the scene when we load the save scene setting
-Vec3 mouseCheckRef = Vec3() ;
-int wheelCheckRef = 0 ;
 
-boolean checkMouseMove( boolean authorization) {
-  boolean mouseMove ;
-  if( authorization && (!compare(mouseCheckRef, Vec3(mouse[0])) || wheelCheckRef != wheel[0])) mouseMove = true ; else mouseMove = false ;
-  // create ref
-  wheelCheckRef = wheel[0] ;
-  mouseCheckRef = Vec3(mouse[0]) ;
-  return mouseMove ;
-}
 
 
 
@@ -1030,46 +1080,44 @@ private boolean newRefEyeMouse = true ;
 /* We move the scene 
 */
 
-Vec3 update_position_camera(boolean authorization, boolean leapMotionDetected, Vec3 posDevice) {
+void update_position_camera(boolean authorization, boolean leapMotionDetected, Vec3 pos_cursor) {
   if(authorization) {
     //create the ref to calcul the new position of the Scene
     if(newRefSceneMouse) {
       posSceneCameraRef.set(sceneCamera) ;
-      posSceneMouseRef.set(posDevice) ;
+      posSceneMouseRef.set(pos_cursor) ;
       //to create a only one ref position
       newRefSceneMouse = false ;
     }
 
     //create the delta between the ref and the mouse position
-    deltaScenePos = sub(posDevice, posSceneMouseRef) ;
+    deltaScenePos = sub(pos_cursor, posSceneMouseRef) ;
     if (leapMotionDetected) {
-      //return add(mult(deltaScenePos,-1), posSceneCameraRef ) ; 
-      return add(deltaScenePos.mult(-1), posSceneCameraRef ) ; 
+      sceneCamera = add(deltaScenePos.mult(-1), posSceneCameraRef) ;
     } else {
-      return add(deltaScenePos, posSceneCameraRef ) ;
+      sceneCamera = add(deltaScenePos, posSceneCameraRef) ;
     }
   } else {
     //change the boolean to true for the next mousepressed
     newRefSceneMouse = true ;
-    return sceneCamera ;
   }
 }
 //
 
 
 // Update Camera EYE position
-Vec3 update_direction_camera(boolean authorization, Vec3 pos) {
+Vec3 update_direction_camera(boolean authorization, Vec3 pos_cursor) {
   if(authorization) {
     //create the ref to calcul the new position of the Scene
     if(newRefEyeMouse) {
       posEyeCameraRef.set(tempEyeCamera) ;
-      posEyeMouseRef.set(pos) ;
+      posEyeMouseRef.set(pos_cursor) ;
     }
     //to create a only one ref position
     newRefEyeMouse = false ;
     
     //create the delta between the ref and the mouse position
-    deltaEyePos = sub(pos, posEyeMouseRef) ;
+    deltaEyePos = sub(pos_cursor, posEyeMouseRef) ;
     tempEyeCamera = add(deltaEyePos, posEyeCameraRef ) ;
 
     // direction of the camera

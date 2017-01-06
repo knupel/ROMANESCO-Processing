@@ -1,6 +1,6 @@
 /**
 
-ECOSYSTEM UTIL 1.0.2
+ECOSYSTEM UTIL 1.0.3
 
 * HOST and SYMBIOSIS
 * WORLD
@@ -15,7 +15,7 @@ ECOSYSTEM UTIL 1.0.2
 */
 /**
 
-HOST SYMBIOSIS MANAGEMENT 0.0.4
+HOST SYMBIOSIS MANAGEMENT 0.0.5
 
 */
 int [] target_host ;
@@ -24,6 +24,11 @@ Vec3 pos_host, radius_host, canvas_host, size_host ;
 
 Vec4 [] get_symbiosis_area() {
   if(symbiosis_area != null) return symbiosis_area ; else return null ;
+}
+
+int symbiosis_area_size() {
+  if(symbiosis_area != null) return symbiosis_area.length ;
+  else return -1 ;
 }
 
 Vec3 [] get_symbiosis_area_pos() {
@@ -182,7 +187,7 @@ void update_symbiosis_area(Vec3 [] target_host_list) {
 }
 
 /**
-symbiosis 0.0.3
+symbiosis 0.0.4
 */
 void symbiosis(ArrayList<Agent> symbiotic_agent_list, Vec3 [] list_coord_host, int [] address) {
   if(list_coord_host.length > 0 && address.length > 0 && symbiotic_agent_list.size() > 0) {
@@ -201,7 +206,12 @@ void symbiosis(ArrayList<Agent> symbiotic_agent_list, Vec3 [] list_coord_host, i
 void sync_symbiosis(ArrayList<Agent> symbiotic_agent_list, Vec3 pos) {
   for(Agent a : symbiotic_agent_list) {
     if(a.get_home_id() != -1) {
-      a.set_home_pos(get_symbiosis_area_pos()[a.get_home_id()]) ;
+      if(symbiosis_area_size() > a.get_home_id()) {
+        a.set_home_pos(get_symbiosis_area_pos()[a.get_home_id()]) ;
+      } else {
+        symbiotic_agent_list.remove(a) ;
+        break ;
+      }
       if(pos != null && !pos.equals(Vec3(0))) {
         a.set_pos(a.get_home_pos().add(pos)) ;
       } else {

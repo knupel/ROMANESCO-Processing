@@ -125,32 +125,29 @@ void updateCommand() {
 
 
 
-
+/**
+update cursor 1.0.1
+*/
 Vec3 posRef = Vec3() ;
 int mouseZ ;
 
-
-void cursor_update() {
-  updateLeapCommand() ;
-  updateMouseZ() ;
+void device_update() {
+  update_leap_command() ;
+  update_wheel() ;
   
   //mousePressed
-  if(ORDER_ONE || ORDER_TWO || ORDER_THREE) ORDER = true ; else ORDER = false ;
-  
-  //check the tablet
-  if(TABLET) {
-    //pen[0] = Vec3 (norm(tablet.getTiltX(),0,1), norm(tablet.getTiltY(),0,1), tablet.getPressure()) ; 
-    pen[0] = Vec3 (tablet.getTiltX(), tablet.getTiltY(), tablet.getPressure()) ; 
+  if(ORDER_ONE || ORDER_TWO || ORDER_THREE) {
+    ORDER = true ; 
   } else {
-    pen[0] = Vec3(0,0,.02) ;
+    ORDER = false ;
   }
   
-  // Leap and mouse move
-  if (orderOneLeap || orderTwoLeap) {
-    mouse[0] = Vec3(averageTranslatePosition(speedLeapmotion).x, -averageTranslatePosition(speedLeapmotion).y,averageTranslatePosition(speedLeapmotion).z)  ;
-  } else if(posRef.x != mouseX || posRef.y != mouseY) {
-    mouse[0] = Vec3(mouseX,mouseY,0) ;
-    posRef.set(mouse[0]) ;
+  update_tablet() ;
+
+  if(orderOneLeap || orderTwoLeap) {
+    update_leapmotion() ;
+  } else if (posRef.x != mouseX || posRef.y != mouseY) {
+    update_mouse() ;
   }
   
 
@@ -168,42 +165,31 @@ void cursor_update() {
 
 
 // ANNEXE VOID
-void updateMouseZ() {
+void update_wheel() {
   mouseZ -= wheel[0] ;
 }
 
 
-// END CURSOR DRAW
-//////////////////
-
-
-
-
-
-
-
-
-
-////////////////////////////////////////////////////////////
-//MISC // MISC // MISC // MISC //
-
-//file name for save
-/**
-May be not used
-*/
-/*
-String nameNumber(String name) {
-  String numPict ;
-  int year = year() -2000 ;
-  String newYear = String.valueOf(year) ;
-  String newMonth = String.valueOf(month()) ;
-  String newDay = String.valueOf(day()) ;
-  
-  String newSecond = String.valueOf((hour() *60 *60) + (minute() *60 ) + second()) ;
-  numPict = (name + newYear + "_" + newMonth + "_" + newDay + "_" +newSecond) ;
-  
-  return numPict ;
+void update_tablet() {
+  if(TABLET) {
+    //pen[0] = Vec3 (norm(tablet.getTiltX(),0,1), norm(tablet.getTiltY(),0,1), tablet.getPressure()) ; 
+    pen[0] = Vec3 (tablet.getTiltX(), tablet.getTiltY(), tablet.getPressure()) ; 
+  } else {
+    pen[0] = Vec3(0,0,.02) ;
+  }
 }
+
+
+void update_mouse() {
+  mouse[0] = Vec3(mouseX,mouseY,0) ;
+  posRef.set(mouse[0]) ;
+}
+
+void update_leapmotion() {
+  mouse[0] = Vec3(averageTranslatePosition(speedLeapmotion).x, -averageTranslatePosition(speedLeapmotion).y,averageTranslatePosition(speedLeapmotion).z)  ;
+}
+/**
+end update cursor
 */
 
 
@@ -214,8 +200,15 @@ String nameNumber(String name) {
 
 
 
-// KEYBOARD & SHORTCUTS
-///////////////////////
+
+/**
+MISC
+
+*/
+
+/**
+KEYBOARD & SHORTCUTS
+*/
 //GLOBAL
 import java.awt.event.KeyEvent;
 boolean[] keyboard = new boolean[526];
