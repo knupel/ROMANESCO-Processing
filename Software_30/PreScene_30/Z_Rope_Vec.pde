@@ -1,5 +1,5 @@
 /**
-CLASS ROPE VEC 1.8.3.1
+CLASS ROPE VEC 1.8.4.0
 Rope – Romanesco Processing Environment: 2015 – 2017
 * @author Stan le Punk
 * @see https://github.com/StanLepunK/Vec
@@ -477,7 +477,7 @@ class Vec2 extends Vec {
   
   
   /**
-  Circular
+  Revolution
   */
   /* create a circular motion effect */
   Vec2 revolution(int radius, float speed) {
@@ -490,6 +490,36 @@ class Vec2 extends Vec {
     float m_y = cos(frameCount *new_speed) ;
     m_x *=radius ;
     m_y *=radius ;
+    
+    return this ;
+  }
+
+
+  Vec2 revolution(int r_x, int r_y, float speed) {
+    float new_speed = speed *.01 ;
+    /*
+    x = ref_x ;
+    y = ref_y ;
+    */
+    float m_x = sin(frameCount *new_speed) ;
+    float m_y = cos(frameCount *new_speed) ;
+    m_x *=r_x ;
+    m_y *=r_y ;
+    
+    return this ;
+  }
+
+  Vec2 revolution(Vec2 radius, float speed) {
+    float new_speed = speed *.01 ;
+    /*
+    x = ref_x ;
+    y = ref_y ;
+    */
+    float m_x = sin(frameCount *new_speed) ;
+    float m_y = cos(frameCount *new_speed) ;
+
+    m_x *=radius.x ;
+    m_y *=radius.y ;
     
     return this ;
   }
@@ -580,6 +610,7 @@ class Vec2 extends Vec {
 
 
 /**
+
 VEC 3
 
 */
@@ -1114,7 +1145,7 @@ class Vec3 extends Vec {
   
   
   /**
-  Circular
+  Revolution
   */
   /* create a circular motion effect */
   Vec3 revolutionX(int rx, int ry, float speed) {
@@ -2162,45 +2193,70 @@ Addition
 */
 // return the resultat of vector addition
 Vec2 add(Vec2 v_a, Vec2 v_b) {
+  if(v_a == null || v_b == null) {
+    return null ;
+  } else {
     float x = v_a.x + v_b.x ;
     float y = v_a.y + v_b.y ;
     return new Vec2(x,y) ;
+  }
+
 }
 
 Vec3 add(Vec3 v_a, Vec3 v_b) {
+  if(v_a == null || v_b == null) {
+    return null ;
+  } else {
     float x = v_a.x + v_b.x ;
     float y = v_a.y + v_b.y ;
     float z = v_a.z + v_b.z ;
     return new Vec3(x,y,z)  ;
+  }
 }
 
-Vec4 add(Vec4 v_a, Vec4 v_b) {
+Vec4 add(Vec4 v_a, Vec4 v_b) {  
+  if(v_a == null || v_b == null) {
+    return null ;
+  } else {
     float x = v_a.x + v_b.x ;
     float y = v_a.y + v_b.y ;
     float z = v_a.z + v_b.z ;
     float w = v_a.w + v_b.w ;
     return new Vec4(x,y,z, w)  ;
+  }
 }
 
-Vec2 add(Vec2 v_a, float v) {
+Vec2 add(Vec2 v_a, float v) {  
+  if(v_a == null ) {
+    return null ;
+  } else {
     float x = v_a.x +v ;
     float y = v_a.y +v ;
     return new Vec2(x,y) ;
+  }
 }
 
 Vec3 add(Vec3 v_a, float v) {
+  if(v_a == null ) {
+    return null ;
+  } else {
     float x = v_a.x +v ;
     float y = v_a.y +v ;
     float z = v_a.z +v ;
     return new Vec3(x,y,z)  ;
+  }
 }
 
 Vec4 add(Vec4 v_a, float v) {
+  if(v_a == null ) {
+    return null ;
+  } else {
     float x = v_a.x +v ;
     float y = v_a.y +v ;
     float z = v_a.z +v ;
     float w = v_a.w +v ;
     return new Vec4(x,y,z, w)  ;
+  }
 }
 
 
@@ -2209,45 +2265,69 @@ Multiplication
 */
 // return the resultat of vector multiplication
 Vec2 mult(Vec2 v_a, Vec2 v_b) {
+  if(v_a == null || v_b == null) {
+    return null ;
+  } else {
     float x = v_a.x * v_b.x ;
     float y = v_a.y * v_b.y ;
     return new Vec2(x,y) ;
+  }
 }
 
-Vec3 mult(Vec3 v1, Vec3 v_b) {
-    float x = v1.x * v_b.x ;
-    float y = v1.y * v_b.y ;
-    float z = v1.z * v_b.z ;
+Vec3 mult(Vec3 v_a, Vec3 v_b) {
+  if(v_a == null || v_b == null) {
+    return null ;
+  } else {
+    float x = v_a.x * v_b.x ;
+    float y = v_a.y * v_b.y ;
+    float z = v_a.z * v_b.z ;
     return new Vec3(x,y,z)  ;
+  }
 }
 
 Vec4 mult(Vec4 v_a, Vec4 v_b) {
+  if(v_a == null || v_b == null) {
+    return null ;
+  } else {
     float x = v_a.x * v_b.x ;
     float y = v_a.y * v_b.y ;
     float z = v_a.z * v_b.z ;
     float w = v_a.w * v_b.w ;
     return new Vec4(x,y,z, w)  ;
+  }
 }
 
 Vec2 mult(Vec2 v_a, float v) {
+  if(v_a == null) {
+    return null ;
+  } else {
     float x = v_a.x *v ;
     float y = v_a.y *v ;
     return new Vec2(x,y) ;
+  }
 }
 
-Vec3 mult(Vec3 v1, float v) {
-    float x = v1.x *v ;
-    float y = v1.y *v ;
-    float z = v1.z *v ;
+Vec3 mult(Vec3 v_a, float v) {
+  if(v_a == null) {
+    return null ;
+  } else {
+    float x = v_a.x *v ;
+    float y = v_a.y *v ;
+    float z = v_a.z *v ;
     return new Vec3(x,y,z)  ;
+  }
 }
 
 Vec4 mult(Vec4 v_a, float v) {
+  if(v_a == null) {
+    return null ;
+  } else {
     float x = v_a.x *v ;
     float y = v_a.y *v ;
     float z = v_a.z *v ;
     float w = v_a.w *v ;
     return new Vec4(x,y,z, w)  ;
+  }
 }
 
 
@@ -2256,46 +2336,70 @@ Division
 */
 // return the resultat of vector addition
 Vec2 div(Vec2 v_a, Vec2 v_b) {
+  if(v_a == null || v_b == null) {
+    return null ;
+  } else {
     float x = v_a.x / v_b.x ;
     float y = v_a.y / v_b.y ;
     return new Vec2(x,y) ;
+  }
 }
 
-Vec3 div(Vec3 v1, Vec3 v_b) {
-    float x = v1.x / v_b.x ;
-    float y = v1.y / v_b.y ;
-    float z = v1.z / v_b.z ;
+Vec3 div(Vec3 v_a, Vec3 v_b) {
+  if(v_a == null || v_b == null) {
+    return null ;
+  } else {
+    float x = v_a.x / v_b.x ;
+    float y = v_a.y / v_b.y ;
+    float z = v_a.z / v_b.z ;
     return new Vec3(x,y,z)  ;
+  }
 }
 
 Vec4 div(Vec4 v_a, Vec4 v_b) {
+  if(v_a == null || v_b == null) {
+    return null ;
+  } else {
     float x = v_a.x / v_b.x ;
     float y = v_a.y / v_b.y ;
     float z = v_a.z / v_b.z ;
     float w = v_a.w / v_b.w ;
     return new Vec4(x,y,z, w)  ;
+  }
 }
 
 
 Vec2 div(Vec2 v_a, float v) {
+  if(v_a == null) {
+    return null ;
+  } else {
     float x = v_a.x /v ;
     float y = v_a.y /v ;
     return new Vec2(x,y) ;
+  }
 }
 
-Vec3 div(Vec3 v1, float v) {
-    float x = v1.x /v ;
-    float y = v1.y /v ;
-    float z = v1.z /v ;
+Vec3 div(Vec3 v_a, float v) {
+  if(v_a == null) {
+    return null ;
+  } else {
+    float x = v_a.x /v ;
+    float y = v_a.y /v ;
+    float z = v_a.z /v ;
     return new Vec3(x,y,z)  ;
+  }
 }
 
 Vec4 div(Vec4 v_a, float v) {
+  if(v_a == null) {
+    return null ;
+  } else {
     float x = v_a.x /v ;
     float y = v_a.y /v ;
     float z = v_a.z /v ;
     float w = v_a.w /v;
     return new Vec4(x,y,z, w)  ;
+  }
 }
 
 
@@ -2304,45 +2408,69 @@ Substraction
 */
 // return the resultat of vector substraction
 Vec2 sub(Vec2 v_a, Vec2 v_b) {
+  if(v_a == null || v_b == null) {
+    return null ;
+  } else {
     float x = v_a.x - v_b.x ;
     float y = v_a.y - v_b.y ;
     return new Vec2(x,y) ;
+  }
 }
 
 Vec3 sub(Vec3 v_a, Vec3 v_b) {
+  if(v_a == null || v_b == null) {
+    return null ;
+  } else {
     float x = v_a.x - v_b.x ;
     float y = v_a.y - v_b.y ;
     float z = v_a.z - v_b.z ;
     return new Vec3(x,y,z)  ;
+  }
 }
 
 Vec4 sub(Vec4 v_a, Vec4 v_b) {
+  if(v_a == null || v_b == null) {
+    return null ;
+  } else {
     float x = v_a.x - v_b.x ;
     float y = v_a.y - v_b.y ;
     float z = v_a.z - v_b.z ;
     float w = v_a.w - v_b.w ;
     return new Vec4(x,y,z, w)  ;
+  }
 }
 
 Vec2 sub(Vec2 v_a, float v) {
+  if(v_a == null) {
+    return null ;
+  } else {
     float x = v_a.x -v ;
     float y = v_a.y -v ;
     return new Vec2(x,y) ;
+  }
 }
 
 Vec3 sub(Vec3 v_a, float v) {
+  if(v_a == null) {
+    return null ;
+  } else {
     float x = v_a.x -v ;
     float y = v_a.y -v ;
     float z = v_a.z -v ;
     return new Vec3(x,y,z)  ;
+  }
 }
 
 Vec4 sub(Vec4 v_a, float v) {
+  if(v_a == null) {
+    return null ;
+  } else {
     float x = v_a.x -v ;
     float y = v_a.y -v ;
     float z = v_a.z -v ;
     float w = v_a.w -v ;
     return new Vec4(x,y,z, w)  ;
+  }
 }
 
 
@@ -2350,16 +2478,20 @@ Vec4 sub(Vec4 v_a, float v) {
 Cross
 */
 Vec3 cross(Vec3 v1, Vec3 v2, Vec3 target) {
-  float crossX = v1.y * v2.z - v2.y * v1.z;
-  float crossY = v1.z * v2.x - v2.z * v1.x;
-  float crossZ = v1.x * v2.y - v2.x * v1.y;
-
-  if (target == null) {
-    target = Vec3(crossX, crossY, crossZ);
+  if(v1 == null ||  v2 == null || target == null) {
+    return null ;
   } else {
-    target.set(crossX, crossY, crossZ);
-  }
-  return target;
+    float crossX = v1.y * v2.z - v2.y * v1.z;
+    float crossY = v1.z * v2.x - v2.z * v1.x;
+    float crossZ = v1.x * v2.y - v2.x * v1.y;
+
+    if (target == null) {
+      target = Vec3(crossX, crossY, crossZ);
+    } else {
+      target.set(crossX, crossY, crossZ);
+    }
+    return target ;
+  }  
 }
 
 

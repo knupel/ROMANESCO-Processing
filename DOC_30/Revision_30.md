@@ -13,6 +13,7 @@ MAJOR
 > add item Lorenz attractor
 > add method to make screenshot by press 'p' touch keyboard
 > add library costume_rope and improve few items with it.
+> add intertia method for the main camera
 
 
 MINOR
