@@ -1,7 +1,8 @@
 
 
-ROMANESCO 30 Revision
----------------------
+Romanesco unu
+revision 30
+--
 PRESCENE & SCENE
 --
 MAJOR
@@ -13,7 +14,9 @@ MAJOR
 > add item Lorenz attractor
 > add method to make screenshot by press 'p' touch keyboard
 > add library costume_rope and improve few items with it.
-> add intertia method for the main camera
+> add library Motion_rope
+> add iniertia method for the main camera
+> add master and follower system to link item between them from core code, not from the controller GUI
 
 
 MINOR
@@ -38,6 +41,7 @@ MINOR
 > add boolean special[ID_item] from keyboard "K"
 > add boolean horizon[ID_item] from keyboard "H"
 > add boolean dimension[ID_item] from keyboard "D"
+> fix a main part of bug for the camera reset 
 
 
 CONTROLLER
@@ -60,19 +64,33 @@ MINOR
 
 
 
-ROMANESCO 29 Revision
----------------------
+
+
+
+
+
+
+
+
+Romanesco unu
+revision 29
+--
 > new build for the last OSX 10.11.3
 > fix Scene position and display, when there is only one screen connected – thx VKING for the report – 
 > remove fullscreen when there is only one screen detected
 
 
 
-ROMANESCO 28 Revision
----------------------
 
-/// CORE /////
---------------
+
+
+
+
+Romanesco unu
+revision 28
+--
+CORE
+--
 > remove graphic enviroment 
 > remove Maverick detection
 > remove native full screen method
@@ -90,14 +108,22 @@ ROMANESCO 28 Revision
 
 
 
-ROMANESCO 27 Revision
----------------------
 
-/// CORE ///
------------
 
-/// ADD ///
-//////////
+
+
+
+
+
+
+
+Romanesco unu
+revision 27
+--
+CORE
+--
+ADD
+
 * SLIDER
 --------
 * slider attraction
@@ -110,17 +136,14 @@ ROMANESCO 27 Revision
 ------
 * add option to change midi device
 
-
 * CAMERA
 --------
 * Global view of your Prescene. Now when you don't use the camera to move or rotate you've a global view of the world.
 * Add slider to set your camera.
 
-
 * LIGHT
 -------
 * add an ambient light
-
 
 ** CLASS
 --------
@@ -141,8 +164,6 @@ ROMANESCO 27 Revision
 -------
 * void camaieu
 
-
-
 ** SAVE
 -------
 * Now you can save you Scene setting, not only you Controler setting. And it's very big step.
@@ -156,15 +177,16 @@ load
 > CTRL + SHIFT + O 	> load Controller setting
 
 
-/// REMOVE ///////
-//////////////////
+REMOVE
+--
 * slider force
 * remove the old class slider
 * curtain on Prescene
 * aspect in the prescene, now all the object are white, with stroke of one without alpha.
 * remove pmouse
 
-/// IMPROVE ///
+IMPROVE
+--
 * normalize slider family 
 * normalize slider quantity
 * grid camera
@@ -172,35 +194,32 @@ load
 * Best rending for the light, is not optimum but is better.
 
 
-/// BUG FIXE
+BUG FIXE
+--
 * remove the bug on the boolean objectInfoDisplay[ID], now the boolean is independant between the scène and the préscène
 * rotation and move jump camera with the mouse
 * fixe the loading bug
 * fixe bug camera special move, like return to the origin
 
 
-/// END CORE ///
----------------
-
-
-
-
-
-/// OBJECT ///
---------------
-/// ADD OBJ ///
+ITEM
+--
+ADD
+--
 * Anillos
 * Boids
 * Orbital
 * Surface
 
 
-// REMOVE OBJ //
+REMOVE OBJ
+--
 * Rideau
 * Curtain
 
 
-// CHANGE OBJ
+CHANGE OBJ
+--
 * Balise: add reverse
 * Balise: add stop motion function
 * Arbre: adjustement of the amplitude and size proportion
@@ -243,32 +262,38 @@ load
 
 
 
-ROMANESCO 26 Revision
----------------------
-
-/// CORE ///
-/// ADD ///
+Romanesco unu
+revision 26
+--
+ADD
+--
 * void primitive(int x, int y, int radius, int summits) to create regulare polygone with "n" summits
 * void appearance(color colorFill, color colorStroke, float thickness) to check the color fill and stroke to disable the fill() or the stroke() and display
 * void polyhedron(String whichPolyhedron, String whichStyleToDraw, int size) to create different kind of polyhedron > read "CODE GLOBAL.txt" Primitive 3D part
 
-/// REMOVE ///////
+REMOVE
+--
 * the option to drop image on the Scene
 * save PDF and PNG
-/// IMPROVE ///
-*
-/// BUG FIXE
+
+IMPROVE
+--
+BUG FIXE
+--
 * Midi save and load slider
 * Leapmotion camera and objects position and direction
 * remove the method to remove the menu bar in fullscreen, because it's a crash reason for the Scene.
 
 
-/// OBJECT ///
-/// ADD OBJ ///
+OBJECT
+--
+ADD OBJ
+--
 * Kofosphere object 3D
 * template to code object
 
-// CHANGE OBJ
+CHANGE OBJ
+--
 * Atom : add new mode
 * Atom : optimize the code to growth the speed rate
 * Letters : add mode triangle face
@@ -278,33 +303,30 @@ ROMANESCO 26 Revision
 * Atom : slider depth for the size box
 * Atom : left, right sound to add jitter direction for each atom
 
-/// BUG FIXE OBJ
+BUG FIXE OBJ
+--
 * HEXAGONE : fixe canvas bug when this one displayed too much shapes
 * Balise : display shape with acceptable size when the sound is off
 * RSS : fixe the outbound index in case where there is no info.
 * Escargot : Rotation image by the center, not by the corner.
 
 
-
-
-
-
-
----------------------
-
-/// ADD ///
-
+ADD
+--
 LAUNCHER
+--
 * launch MIROIR from the launcher
 * preset to choice the size for the Scene
 
 CONTROLLER
+--
 * Dropdown menu picture
 * Dropdown menu text
 * Dropdown menu shader Background
 * Menu Light one and two
 
-SCENE 
+SCENE
+-- 
 * Math : Few Polyhedrons
 * Math : Tetrahedron
 * Math : Triangle vertex P3D mode
@@ -321,31 +343,32 @@ SCENE
 * Info object String
 
 LIBRARY
+--
 * "MES AMIS"
 * "SOLEIL"
 * "HONNEY COMB"
 * "LES VIEUX" special place for the objects remove from their place but not from Romanesco
 
-
-
-/// REMOVE ///////
-
-CONTROLEUR 
+REMOVE 
+--
+CONTROLEUR
+--
 * remove the weather button
 
 SCENE
+--
 * Weather API function
 * Object Twittos
 * space touch to move the Object
 
-
-
-/// IMPROVE ///
-
+IMPROVE
+--
 CONTROLEUR
+--
 * growth the size of the slider
 * Change the organization of the sliders 
 
 SCENE
+--
 * leapmotion control
 * start to corect the color bug with the color value (0,0,0,0)

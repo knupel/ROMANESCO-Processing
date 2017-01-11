@@ -1,10 +1,10 @@
-
-
 CAMERA
-///////////////
+--
+Not updated :( very old
+--
 
 
-//SAVE and SETTING Camera and Object orientation and position
+SAVE and SETTING Camera and Object orientation and position
 
 whichSetting is 0
 afor Romanesco alpha 25 there is only one save setting is 0
@@ -13,21 +13,24 @@ createVarP3D() in the tab Variable_Common
 
 
 PVector P3DpositionSetting [whichSetting][ID_item] ;
+
 PVector P3DdirectionSetting [whichSetting][ID_item] ;
 
 PVector eyeCameraSetting[whichSetting] ;
+
 PVector sceneCameraSetting[whichSetting] ;
 
 
-// GRID CAMERA
+GRID CAMERA
+--
 gridCamera(PVector sizeBackgroundP3D) ; 
 
 
 
 
 
-// PARALAXE
-
+PARALAXE
+--
 void paralaxe()
 /* give to the world a human vision */
 

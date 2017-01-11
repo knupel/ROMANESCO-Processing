@@ -99,6 +99,7 @@ void camera_setting (int numSettingCamera) {
 
 
 /**
+Item
 Start setting position and direction 0.0.1
 */
 // direction
@@ -395,24 +396,48 @@ void final_pos_item(int ID) {
 
 
 
-// METHOD Variable update variable camera
-/////////////////////////////////////////
-float dirCamX,dirCamY,dirCamZ,
-      centerCamX,centerCamY,centerCamZ,
-      upX,upY,upZ ;
-float focal, deformation ;
-
-Vec3 finalSceneCamera ;
-Vec2 finalEyeCamera ;
 
 
 
 
 
-// init var
-void initVariableCamera() {
-  variableCameraPresceneRendering() ;
-}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -423,8 +448,32 @@ void initVariableCamera() {
 
 
 /**
-MOVE CAMERA GLOBAL 1.1.0
+MOVE CAMERA GLOBAL 1.1.1
 
+*/
+
+
+
+/**
+METHOD Variable update variable camera
+*/
+float dirCamX,dirCamY,dirCamZ,
+      centerCamX,centerCamY,centerCamZ,
+      upX,upY,upZ ;
+float focal, deformation ;
+
+Vec3 finalSceneCamera ;
+Vec2 finalEyeCamera ;
+
+boolean reset_camera_romanesco ;
+
+// init var
+void initVariableCamera() {
+  final_camera_low_rendering() ;
+}
+
+/**
+Main method camera draw
 */
 void camera_romanesco_draw() {
   update_camera_romanesco(LEAPMOTION_DETECTED) ;
@@ -454,7 +503,7 @@ void camera_romanesco_draw() {
 
 
 /**
-Annexe method of the method camera_romanesco_draw() 1.0.1
+Annexe method of the method camera_romanesco_draw() 1.0.2
 */
 void set_var_camera_romanesco() {
   // float focal = map(valueSlider[0][19],0,360,28,200) ;
@@ -463,13 +512,13 @@ void set_var_camera_romanesco() {
   1. boolean prescene : On prescene, because on Scene we don't need to have a global view : boolean prescene
   2. boolean MOUSE_IN_OUT : because if we mode out the sketch the keyevent is not updated, and the camera stay in camera view */
   if(FULL_RENDERING || (cLongTouch && (MOUSE_IN_OUT || clickLongLeft[0] || clickLongRight[0]) && prescene)) {
-    variableCameraFullrendering(cLongTouch) ; 
+    final_camera_full_rendering() ; 
   } else {
-    variableCameraPresceneRendering() ;
+    final_camera_low_rendering() ;
   }
 }
 
-void variableCameraFullrendering(boolean authorization) {
+void final_camera_full_rendering() {
     // world rendering
   focal = map(valueSlider[0][19],0,360,28,200) ;
   deformation = map(valueSlider[0][20],0,360,-1,1) ;
@@ -504,13 +553,18 @@ void variableCameraFullrendering(boolean authorization) {
   if(motion_translate.velocity_is() || motion_rotate.velocity_is()) {
     specialMoveCamera = true ; 
   }
+
+  if(reset_camera_romanesco) {
+    specialMoveCamera = true ; 
+    reset_camera_romanesco = false ;
+  }
   
 
 
 
 
   // final camera translate postion
-  if (check_cursor_translate(authorization) || specialMoveCamera) {
+  if (check_cursor_translate(cLongTouch) || specialMoveCamera ) {
     if(finalSceneCamera == null) {
       finalSceneCamera = Vec3 (add(sceneCamera, displacement_scene)) ;
     } else {
@@ -518,18 +572,17 @@ void variableCameraFullrendering(boolean authorization) {
     }
   }
   // final camera rotate position / eye camera
-  if (check_cursor_rotate(authorization) || specialMoveCamera) { 
+  if (check_cursor_rotate(cLongTouch) || specialMoveCamera ) { 
     if(finalEyeCamera == null) {
       finalEyeCamera = Vec2 (radians(eyeCamera.x), radians(eyeCamera.y) ) ;
     } else {
       finalEyeCamera.set(radians(eyeCamera.x), radians(eyeCamera.y) ) ;
-    }
-    
+    }    
   }
 }
 
 
-void variableCameraPresceneRendering() {
+void final_camera_low_rendering() {
       // default setting camera from Processing.org example, like the camera above
     /*
     float dirCamX = width/2.0 ; // eye X
@@ -606,7 +659,7 @@ void order_camera() {
     // change camera position
     if(enterTouch) travelling(posCamRef) ;
     if (touch0) {
-      set_camera_position(0) ;
+      reset_camera(0) ;
     }
   } else if (!authorization || (ORDER_ONE && ORDER_ONE && ORDER_THREE) ) {
     moveScene = false ;
@@ -615,7 +668,9 @@ void order_camera() {
 }
 
 
-//startCamera with speed setting
+//start camera with speed setting
+boolean switch_rotate_YZ ;
+
 void startCamera() {
   pushMatrix() ;
   camera(dirCamX, dirCamY, dirCamZ, centerCamX, centerCamY, centerCamZ, upX, upY, upZ) ;
@@ -626,10 +681,30 @@ void startCamera() {
   // scene orientation direction
   /* eyeCamera, is not a good terminilogy because the real eye camera is not use here. Here we just move the world. */
   rotateX(finalEyeCamera.x) ;
-  rotateY(finalEyeCamera.y) ;
-  /**  
+  if(bTouch) {
+    if(switch_rotate_YZ) {
+      switch_rotate_YZ = false; 
+    } else {
+      switch_rotate_YZ = true ;
+    }
+  }
+
+  if(switch_rotate_YZ) {
+    rotateY(finalEyeCamera.y) ;
+    rotateZ(0) ;
+  } else {
+    rotateY(0) ;
+    rotateZ(finalEyeCamera.y) ;
+  }
+
   // you find popMatrix() in the method stopCamera() ;
-  */
+}
+
+//stop
+void stopCamera() {
+  popMatrix() ;
+  endCamera() ;
+  stopParalaxe() ;
 }
 
 
@@ -644,49 +719,72 @@ Vec3 mouse_ref_inertia_rotate ;
 
 int wheelCheckRef = 0 ;
 
+boolean reset_inertia = true ;
+boolean cursor_move_scene_is = false ;
+boolean cursor_move_eye_is = false ;
+
 void update_camera_romanesco(boolean leapMotion) {
   if(cursor_final_translate == null) cursor_final_translate = mouse[0].copy() ;
   if(cursor_final_rotate == null) cursor_final_rotate = mouse[0].copy() ;
   if(mouse_ref_inertia_translate == null) mouse_ref_inertia_translate = mouse[0].copy() ;
   if(mouse_ref_inertia_rotate == null) mouse_ref_inertia_translate = mouse[0].copy() ;
 
-
-
+  // make ref
   if(cLongTouch) {
-    // make ref
     if (moveScene) {
       mouse_ref_inertia_translate = mouse[0].copy() ; 
     } 
     if (moveEye) {
       mouse_ref_inertia_rotate = mouse[0].copy() ; 
-    } 
-    
-    // scene / translate
-    boolean cursor_move_scene_is = false ;
-    if(moveScene || motion_translate.velocity_is()) {
-      Vec3 new_pos_translate = motion_translate.leading(mouse_ref_inertia_translate, cursor_final_translate) ;
-      cursor_final_translate.set(new_pos_translate) ;
-      cursor_move_scene_is = true ;
     }
-    update_position_camera(cursor_move_scene_is, leapMotion, cursor_final_translate) ;
-    
-
+  } 
+  
+  // create new pos
+  if(cLongTouch) { 
+    // scene / translate
+    if(moveScene || motion_translate.velocity_is()) {
+      cursor_final_translate.set(update_cursor(motion_translate, mouse_ref_inertia_translate, cursor_final_translate)) ;
+      cursor_move_scene_is = true ;
+    } else {
+      cursor_move_scene_is = false ;
+    }
 
     // eye / rotate
-    boolean cursor_move_eye_is = false ;
     if(moveEye || motion_rotate.velocity_is()) {
-      Vec3 new_pos_rotate = motion_rotate.leading(mouse_ref_inertia_rotate, cursor_final_rotate) ;
-      cursor_final_rotate.set(new_pos_rotate) ;
+      cursor_final_rotate.set(update_cursor(motion_rotate, mouse_ref_inertia_rotate, cursor_final_rotate)) ;
       cursor_move_eye_is = true ;
+    } else {
+      cursor_move_eye_is = false ;
     }
-    update_direction_camera(cursor_move_eye_is, cursor_final_rotate) ;
-  } 
+  } else {
+    if(motion_translate.velocity_is()) {
+      cursor_final_translate.set(update_cursor(motion_translate, mouse_ref_inertia_translate, cursor_final_translate)) ;
+    }
 
+    // eye / rotate
+    if(motion_rotate.velocity_is()) {
+      cursor_final_rotate.set(update_cursor(motion_rotate, mouse_ref_inertia_rotate, cursor_final_rotate)) ;
+    } 
+  }
 
-  if(!cLongTouch && !spaceTouch) {
+  //update pos
+  update_position_camera(cursor_move_scene_is, leapMotion, cursor_final_translate) ;
+  update_direction_camera(cursor_move_eye_is, cursor_final_rotate) ;
+
+  // reset inertia
+  if(reset_inertia) {
     motion_translate.reset() ;
     motion_rotate.reset() ;
+    reset_inertia = false ;
   } 
+
+  if(spaceTouch) {
+    reset_inertia = true ;   
+  } 
+}
+
+Vec3 update_cursor(Motion motion, Vec3 ref, Vec3 cursor_final) {
+  return motion.leading(ref, cursor_final) ;
 }
 
 /**
@@ -751,35 +849,27 @@ void moveCamera(Vec3 origin, Vec3 target, float speed) {
 
 
 // CHANGE CAMERA POSITION
-void set_camera_position(int ID) {
+void reset_camera(int ID) {
   eyeCamera.set(eyeCameraSetting[ID]) ;
   sceneCamera.set(sceneCameraSetting[ID]) ;
 
-  tempEyeCamera.set(0,0,0) ;
+  tempEyeCamera.set(0) ;
   gotoCameraPosition = false ;
   gotoCameraEye = false ;
+
+  motion_translate.reset() ;
+  motion_rotate.reset() ;
+
+  cursor_final_translate.set(mouse[0]) ;
+  cursor_final_rotate.set(mouse[0]) ;
+  mouse_ref_inertia_translate.set(mouse[0]) ;
+  mouse_ref_inertia_translate.set(mouse[0]) ;
+
+  reset_camera_romanesco = true ;
 
   update_direction_camera(true, eyeCamera) ;
   update_position_camera(true, false, sceneCamera) ;
 }
-
-
-//stop
-void stopCamera() {
-  popMatrix() ;
-  endCamera() ;
-  stopParalaxe() ;
-}
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -954,10 +1044,16 @@ PVector follow(PVector origin, PVector target, float speed) {
   
   return currentPosition ;
 }
+/**
+
+END END MAIN CAMERA
+
+*/
 
 
-// END CAMERA P3D
-/////////////////
+
+
+
 
 
 
@@ -986,7 +1082,9 @@ PVector follow(PVector origin, PVector target, float speed) {
 
 
 /**
+
 PERSPECTIVE
+
 */
 void paralaxe() {
   float aspect = float(width)/float(height) ;
@@ -1015,8 +1113,20 @@ void paralaxe(float focal, float deformation) {
 void stopParalaxe() {
   perspective() ;
 }
-// END PERSPECTIVE
-//////////////////
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -1029,7 +1139,9 @@ void stopParalaxe() {
 
 
 /**
-GRID CAMERA WORLD
+
+GRID CAMERA WORLD 0.0.1
+
 */
 //repere camera
 void createGridCamera(boolean showGrid) {
@@ -1142,7 +1254,9 @@ END display camera
 
 
 /**
+
 Camera Engine version 6.0.3
+
 */
 private Vec3 posSceneMouseRef = Vec3 () ;
 private Vec3 posEyeMouseRef = Vec3 () ;
@@ -1210,8 +1324,6 @@ void update_direction_camera(boolean authorization, Vec3 pos_cursor) {
 }
 
 
-
-
 // EYE POSITION two solutions
 /*
 Solution 1
@@ -1245,7 +1357,9 @@ PVector eyeAdvanced(PVector PreviousPos, PVector pos, PVector speed) {
   if(eyeP3D.y < 0) eyeP3D.y = 360 ;
   return eyeP3D ;
 }
-/**
-END Camera Engine version 6.0.2
 
-*/
+
+
+
+
+

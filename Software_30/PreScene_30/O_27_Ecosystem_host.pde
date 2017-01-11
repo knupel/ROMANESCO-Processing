@@ -37,8 +37,11 @@ class Ecosystem_DNA extends Romanesco {
     float speed_rotation_host = speed_x_item[ID_item] *speed_x_item[ID_item];
     int direction_host = 1 ;
     boolean motion_bool_host = true ;
-    canvas.set(canvas_x_item[ID_item], canvas_y_item[ID_item], canvas_z_item[ID_item]) ;
+
+    float radius_x = canvas_x_item[ID_item] *allBeats(ID_item) ;
+    canvas.set(radius_x, canvas_y_item[ID_item], canvas_z_item[ID_item]) ;
     radius.set(canvas) ;
+    
     size.set(size_x_item[ID_item], size_y_item[ID_item], size_z_item[ID_item]) ;
 
     if(reverse[ID_item]) direction_host = 1 ; else direction_host = -1 ;

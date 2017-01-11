@@ -5,31 +5,67 @@ CONTROLLER
 SAVE
 -- 
 Save controller setting
->ctrl + R : save on the last save controller
+--
+ctrl + R 
+>save on the last save controller
 
->ctrl + E : new save controller
+ctrl + E
+>new save controller
 
 Save Scene setting
->ctrl + D : save on the current path
+--
+ctrl + D
+>save on the current path
 
->ctrl + S : new save for Scene
+>ctrl + S
+>new save for Scene
 
 LOAD
 -- 
->ctrl + O : load save Controller
+ctrl + O 
+>load save Controller
 
->ctrl + L : load save Scene
+ctrl + L
+>load save Scene
 
 
-Slider
---
-select
+SLIDER
 --
 select few slider click left + SHIFT
 
 set
 --
 You can set the min max of the slider by clicking the extremity of the middle line of the slider
+
+
+CAMERA
+--
+'C' + click left 
+>translate main camera
+
+'C' + click right
+>rotate main camera
+
+'C' + '0' 
+>back to the preset settting camera
+
+'B'
+>swich rotateY and rotate2 of main camera
+
+'SPACE'
+>stop and reset inertia
+
+'V' + click left 
+>translate item camera
+
+'V' + click right
+>rotate item camera
+
+'V' + '0' 
+>back to the preset settting camera
+
+
+
 
 
 
@@ -76,11 +112,9 @@ dimension
 
 
 
-------------
-Item
-----
 
-
+ITEMS
+--
 
 1 / LETTER by Stan le Punk
 --

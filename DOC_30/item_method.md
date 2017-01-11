@@ -2,16 +2,7 @@ ROMANESC0 1.2.0.30
 ITEM
 ROMANESCO PROCESSING ENVIRONMENT
 --
-METHODS
---
-
-
-
-
-
-IMPORTANT
---
-there is TWO MAINS VOID in class ROMANESCO like PROCESSING
+METHOD
 --
 void setup()
 --
@@ -19,14 +10,6 @@ void draw()
 --
 if you use other void you must call this one in one of them
 
-
-
-
-
-
-
-
----
 
 
 
@@ -75,18 +58,6 @@ dimension[ID_item] == true and mode[Id_item] = 0, 1, 2...
 
 dimension[ID_item] == false and mode[Id_item] = 0, 1, 2...
 >costume[ID_item] == SPHERE_LOW_ROPE, SPHERE_MEDIUM_ROPE, TETRAHEDRON_ROPE, BOX_ROPE, CROSS_3_ROPE, SUPER_STAR_8_ROPE, SUPER_STAR_12_ROPE, SUPER_STAR_12_ROPE ;
-
-
-Aspect
---
-void aspect_romanesco(int ID_item) 
-> change the fill, stroke and strokeWeight og your item, the reason why you need send the ID arg
-
-
-void aspect_romanesco(int ID, int which_costume) ;
->it's good to use this method in case the costume is a POINT or a LINE
-
-
 
 
 

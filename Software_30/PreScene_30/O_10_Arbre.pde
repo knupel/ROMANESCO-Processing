@@ -1,6 +1,6 @@
 
 /**
-ARBRE 2012-2016 1.3.2.1
+ARBRE 2012-2016 1.3.2.2
 */
 
 Arbre arbre ;
@@ -13,7 +13,7 @@ class ArbreRomanesco extends Romanesco {
     ID_item = 10 ;
     ID_group = 1 ;
     RPE_author  = "Stan le Punk";
-    RPE_version = "Version 1.3.2.1";
+    RPE_version = "Version 1.3.2.2";
     RPE_pack = "Base" ;
     RPE_mode = "Point/Ellipse/Triangle/Rectangle/Cross/Simple Star/Star/Super Star" ;
     RPE_slider = "Fill hue,Fill sat,Fill bright,Fill alpha,Stroke hue,Stroke sat,Stroke bright,Stroke alpha,Thickness,Size X,Size Y,Size Z,Quantity,Speed X,Direction X,Canvas X,Alignment" ;
@@ -176,7 +176,8 @@ class Arbre {
     start_matrix();    // Save the current state of transformation (i.e. where are we now)
     rotate(t);   // Rotate by theta
 
-    strokeWeight (e) ;
+    // strokeWeight (e) ;
+    aspect_rope(fill_item[ID], stroke_item[ID], e, which_costume) ;
     
     if (bool_line) {
       line(0, 0, 0, -amplitude);  
