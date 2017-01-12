@@ -1,5 +1,5 @@
 /** 
-VARIABLE 1.1.3
+VARIABLE 1.1.5
 */
 // GLOBAL SETTING ////
 
@@ -195,8 +195,8 @@ float quantity_temp, variety_temp ;
 float life_temp, flow_temp, quality_temp ;
 float area_temp, angle_temp, scope_temp, scan_temp ;
 
-float alignment_temp, repulsion_temp, attraction_temp, charge_temp ;
-float influence_temp, calm_temp, need_temp ;
+float alignment_temp, repulsion_temp, attraction_temp, density_temp ;
+float influence_temp, calm_temp, spectrum_temp ;
 
 
 
@@ -222,6 +222,78 @@ float [] life_item, flow_item, quality_item ;
 float [] area_item, angle_item, scope_item, scan_item ;
 float [] alignment_item, repulsion_item, attraction_item, density_item ;
 float [] influence_item, calm_item, spectrum_item ;
+
+/**
+String name
+Used for SCENE don't delete
+*/
+String fill_hue_name = "fill_hue" ;     
+String fill_sat_name = "fill_sat" ;     
+String fill_bright_name= "fill_bright" ;     
+String fill_alpha_name = "fill_alpha" ;
+
+String stroke_hue_name = "stroke_hue" ; 
+String stroke_sat_name = "stroke_sat" ; 
+String stroke_bright_name= "stroke_bright" ; 
+String stroke_alpha_name = "stroke_alpha" ;
+
+String thickness_name = "thickness" ; 
+
+String size_x_name = "size_x" ;     
+String size_y_name = "size_y" ;     
+String size_z_name = "size_z" ;
+
+String font_size_name = "font_size";
+
+String canvas_x_name = "canvas_x" ; 
+String canvas_y_name = "canvas_y" ; 
+String canvas_z_name = "canvas_z" ;
+
+String reactivity_name = "reactivity" ;
+
+String speed_x_name = "speed_x" ; 
+String speed_y_name = "speed_y" ; 
+String speed_z_name = "speed_z" ;
+
+String spurt_x_name = "spurt_x" ; 
+String spurt_y_name= "spurt_y"; 
+String spurt_z_name = "spurt_z" ;
+
+String dir_x_name = "dir_x" ; 
+String dir_y_name = "dir_y" ; 
+String dir_z_name = "dir_z" ;
+
+String jitter_x_name = "jitter_x" ; 
+String jitter_y_name = "jitter_y" ; 
+String jitter_z_name = "jitter_z" ;
+
+String swing_x_name = "swing_x" ; 
+String swing_y_name = "swing_y" ; 
+String swing_z_name = "swing_z";
+
+String quantity_name = "quantity" ; 
+String variety_name = "variety"; 
+
+String life_name = "life" ; 
+String flow_name = "flow" ; 
+String quality_name = "quality";
+
+String area_name = "area" ; 
+String angle_name = "angle" ; 
+String scope_name = "scope" ; 
+String scan_name = "scan" ;
+
+String alignment_name = "alignment" ; 
+String repulsion_name = "repulsion" ; 
+String attraction_name = "attraction" ; 
+String density_name = "density" ;
+
+String influence_name = "influence" ; 
+String calm_name = "calm" ; 
+String spectrum_name = "spectrum" ;
+
+
+
 
 /**
 End var item
@@ -923,11 +995,11 @@ void update_temp_value() {
   alignment_temp = alignment_raw ;
   repulsion_temp = repulsion_raw ;
   attraction_temp = attraction_raw ;
-  charge_temp = density_raw ;
+  density_temp = density_raw ;
 
   influence_temp = influence_raw ;
   calm_temp = calm_raw ;
-  need_temp = spectrum_raw ;
+  spectrum_temp = spectrum_raw ;
 }
 
 

@@ -1,5 +1,5 @@
   ////////////////////////////////////////////////////////////////////
- // Romanesco Unu 1.2.0 / version 30 / made with Processing 3.1.1 ///
+ // Romanesco Unu 1.2.0 / version 30 / made with Processing 3.2.3 ///
 ////////////////////////////////////////////////////////////////////
 /**
 2015 730 lines of code the 4th may !!!! 
@@ -19,15 +19,19 @@ void setup() {
   colorSetup() ;
   diplaySetup() ;
   
-  structureSetup() ;
-  loadSetup() ;
+  set_structure() ;
+  set_data() ;
 }
+
+
+
 void draw() {
   surface.setTitle(nameVersion + " " +prettyVersion+"."+version+ " - Launcher");
-  displayDraw() ;
-  launcherDraw() ;
+  launcher_background() ;
+  launcher_update() ;
+  open_controller() ;
 }
-// END DRAW
+
 
 
 
@@ -40,15 +44,25 @@ void draw() {
 void mousePressed() {
   //which type of SCENE display full screen or window
   //to re-init the button
-  if (buttonFullscreen.inside || buttonWindow.inside || buttonScene.inside || buttonMiroir.inside) {
+  if (buttonFullscreen.inside || buttonWindow.inside || renderer[0].inside || renderer[1].inside || renderer[2].inside) {
+    for(int i = 0 ; i < renderer.length ; i++) {
+      renderer[i].OnOff = false ;
+    }
+    /*
     buttonScene.OnOff = false ;
     buttonMiroir.OnOff = false ;
+    */
     buttonFullscreen.OnOff = false ;
     buttonWindow.OnOff = false ;
   }
   // after the re-init we can check what's happen on the button
+  for(int i = 0 ; i < renderer.length ; i++) {
+    renderer[i].mouseClic() ;
+  }
+  /*
   buttonScene.mouseClic() ;
   buttonMiroir.mouseClic() ;
+  */
   buttonFullscreen.mouseClic() ;
   buttonWindow.mouseClic() ;
   

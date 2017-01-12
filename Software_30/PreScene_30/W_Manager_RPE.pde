@@ -1,5 +1,5 @@
 /**
-Rope Manager 2.0.4.4
+Rope Manager 2.0.4.6
 */
 RPE_MANAGER rpe_manager ;
 // CLASS ROMANESCO MANAGER
@@ -149,11 +149,11 @@ void update_slider_value(int ID) {
     if (alignment_raw != alignment_temp || !first_opening_item[ID]) alignment_item[ID] = alignment_raw ;
     if (repulsion_raw != repulsion_temp || !first_opening_item[ID]) repulsion_item[ID] = repulsion_raw ;
     if (attraction_raw != attraction_temp || !first_opening_item[ID]) attraction_item[ID] = attraction_raw ;
-    if (density_raw != charge_temp || !first_opening_item[ID]) density_item[ID] = density_raw ;
+    if (density_raw != density_temp || !first_opening_item[ID]) density_item[ID] = density_raw ;
 
     if (influence_raw != influence_temp || !first_opening_item[ID]) influence_item[ID] = influence_raw ;
     if (calm_raw != calm_temp || !first_opening_item[ID]) calm_item[ID] = calm_raw ;
-    if (spectrum_raw != need_temp || !first_opening_item[ID]) spectrum_item[ID] = spectrum_raw ;
+    if (spectrum_raw != spectrum_temp || !first_opening_item[ID]) spectrum_item[ID] = spectrum_raw ;
 
 
 
@@ -405,7 +405,6 @@ class RPE_MANAGER {
   
   
   
-  /////////////////////////////////
   //ADD OBJECT from the sub-classes
   void addObjectRomanesco() {
     int n = floor(objectRomanescoList.size()-1) ;
@@ -444,14 +443,11 @@ class RPE_MANAGER {
     objR.setManagerReference(this);
     RomanescoList.add(objR);
   }
-  //END ADD OBJECT
-  ////////////////
   
   
   
-  ////////
-  //SETUP
-  // INIT ROMANESCO OBJECT
+
+  // SETUP
   void init_items() {
     int num = 0 ;
     for (Romanesco objR : RomanescoList) {
@@ -459,20 +455,16 @@ class RPE_MANAGER {
       initValueMouse[objR.ID_item] = true ;
       num ++ ;
       objR.setup() ;
+      println("setup of", objR.RPE_name, objR.ID_item, "is done") ;
       if(posObjRef[objR.ID_item] == null) {
         posObjRef[objR.ID_item] = Vec3() ;
       }
       posObjRef[objR.ID_item].set(item_setting_position[0][objR.ID_item]) ;
     }
   }
+
   
 
-  // END SETUP
-  ////////////
-  
-  
-  
-  ////////
   // DRAW
   void display_item(boolean movePos, boolean moveDir, boolean movePosAndDir) {
     // when you use the third order Romanesco understand the the first and the second are true
@@ -504,7 +496,21 @@ class RPE_MANAGER {
   // END DRAW
   //////////
 }
-//END OBJECT ROMANESCO MANAGER
+/**
+END OBJECT ROMANESCO MANAGER
+*/
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

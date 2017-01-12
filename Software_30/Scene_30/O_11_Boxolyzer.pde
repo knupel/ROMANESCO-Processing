@@ -1,5 +1,5 @@
 /**
-BOXOLYZER || 2012|| 1.0.4
+BOXOLYZER || 2012|| 1.0.5
 */
 ArrayList<BOITEaMUSIQUE> boiteList ;
   
@@ -10,7 +10,7 @@ class Boxolyzer extends Romanesco {
     ID_item = 11 ;
     ID_group = 1 ;
     RPE_author  = "Stan le Punk";
-    RPE_version = "Version 1.0.4";
+    RPE_version = "Version 1.0.5";
     RPE_pack = "Base" ;
     RPE_mode ="Classic/Circle" ;
     RPE_slider = "Fill hue,Fill sat,Fill bright,Fill alpha,Stroke hue,Stroke sat,Stroke bright,Stroke alpha,Thickness,Size X,Size Y,Size Z,Canvas X,Quantity,Direction X" ;
@@ -35,7 +35,7 @@ class Boxolyzer extends Romanesco {
     // size.mult(2) ;
 
     // color and thickness
-    aspect_rope(ID_item) ; 
+    aspect_rope(fill_item[ID_item], stroke_item[ID_item], thickness_item[ID_item]) ; 
     //
     distribution(numBox, newDistribution) ;
     

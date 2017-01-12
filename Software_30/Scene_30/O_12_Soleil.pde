@@ -1,5 +1,5 @@
 /**
-SOLEIL || 2012 || 1.1.2
+SOLEIL || 2012 || 1.1.3
 */
 
 class Soleil extends Romanesco {
@@ -9,7 +9,7 @@ class Soleil extends Romanesco {
     ID_item = 12 ;
     ID_group = 1 ;
     RPE_author  = "Stan le Punk";
-    RPE_version = "Version 1.1.2";
+    RPE_version = "Version 1.1.3";
     RPE_pack = "Base" ;
     RPE_mode = "Beam/Lie'Bro'One/Lie'Bro'Two/Lie'Bro Noisy" ;
     RPE_slider = "Fill hue,Fill sat,Fill bright,Fill alpha,Stroke hue,Stroke sat,Stroke bright,Stroke alpha,Thickness,Canvas X,Quantity,Speed X,Spurt X,Canvas X,Jitter Z" ;
@@ -25,7 +25,7 @@ class Soleil extends Romanesco {
   PVector pos = new PVector() ;
   //DRAW
   void draw() {
-    aspect_rope(ID_item) ;
+    aspect_rope(fill_item[ID_item], stroke_item[ID_item], thickness_item[ID_item]) ;
     // orbital revolution
     if((spaceTouch && action[ID_item]) || orbit[ID_item]) pos.set(mouse[ID_item].x -width/2, mouse[ID_item].y -height/2,0) ; else pos.set(0,0,0) ;
     // diam

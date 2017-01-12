@@ -1,5 +1,5 @@
 /**
-CORE Rope SCENE and PRESCENE 1.1.2
+CORE Rope SCENE and PRESCENE 1.1.3
 */
 /**
 INIT Rope
@@ -27,6 +27,73 @@ void init_RPE() {
     init_RPE = false ;
   }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/**
+
+COSTUME
+
+*/
+int select_costume_via_mode(int id, int max_mode) {
+  if(mode[id] == 0 && mode[id] < max_mode) {
+    if(!dimension[id]) costume[id] = POINT_ROPE ; else costume[id] = SPHERE_LOW_ROPE ;
+  } else if(mode[id] == 1 && mode[id] < max_mode) {
+    if(!dimension[id]) costume[id] = ELLIPSE_ROPE ; else costume[id] = SPHERE_MEDIUM_ROPE ;
+  } else if(mode[id] == 2 && mode[id] < max_mode) {
+    if(!dimension[id]) costume[id] = TRIANGLE_ROPE ; else costume[id] = TETRAHEDRON_ROPE ;
+  } else if(mode[id] == 3 && mode[id] < max_mode) {
+    if(!dimension[id]) costume[id] = RECT_ROPE ; else costume[id] = BOX_ROPE ;
+  } else if(mode[id] == 4 && mode[id] < max_mode) {
+    if(!dimension[id]) costume[id] = CROSS_2_ROPE ; else costume[id] = CROSS_3_ROPE ;
+  } else if(mode[id] == 5 && mode[id] < max_mode) {
+    if(!dimension[id]) costume[id] = STAR_4_ROPE ; else costume[id] = SUPER_STAR_8_ROPE ;
+  } else if(mode[id] == 6 && mode[id] < max_mode) {
+    if(!dimension[id]) costume[id] = STAR_5_ROPE ; else costume[id] = SUPER_STAR_12_ROPE ;
+  } else if(mode[id] == 7 && mode[id] < max_mode) {
+    if(!dimension[id]) costume[id] = STAR_8_ROPE ; else costume[id] = SUPER_STAR_12_ROPE ;
+  } else {
+    costume[id] = MAX_INT ;
+  }
+  return costume[id] ;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -1090,7 +1157,7 @@ UTIL CORE END
 
 /**
 
-ROMANESCO BACKGROUND 1.0.1
+ROMANESCO BACKGROUND 1.0.1.3
 
 */
 Vec4 colorBackground, colorBackgroundRef, colorBackgroundPrescene;
@@ -1108,7 +1175,7 @@ void background_romanesco() {
   if(!FULL_RENDERING) { 
     onOffBackground = false ;
     colorBackground = colorBackgroundPrescene.copy() ;
-    background_norm(colorBackground.normalize(Vec4(g.colorModeX,g.colorModeY,g.colorModeZ,g.colorModeA ))) ;
+    background_rope(0,0,g.colorModeZ *.2,g.colorModeA) ;
   } else {
     if(onOffBackground) {
       if(whichShader == 0) {
@@ -1117,14 +1184,14 @@ void background_romanesco() {
         // choice the rendering color palette for the classic background
         if(FULL_RENDERING) {
           // check if the slider background are move, if it's true update the color background
-          if(!compare(colorBackgroundRef,update_background())) {
+          if(!equals(colorBackgroundRef,update_background())) {
             colorBackground.set(update_background()) ;
           } else {
             colorBackgroundRef.set(update_background()) ;
           }
-          background_norm(colorBackground.normalize(Vec4(g.colorModeX,g.colorModeY,g.colorModeZ,g.colorModeA))) ;
+          background_rope(colorBackground) ;
         }
-        background_norm(colorBackground.normalize(Vec4(g.colorModeX,g.colorModeY,g.colorModeZ,g.colorModeA))) ;
+        background_rope(colorBackground) ;
       } else {
         background_shader_draw(whichShader) ;
       }
@@ -1225,7 +1292,7 @@ void rectangle(PVector pos, PVector size, PShader s) {
   translate(-size.x *.5,-size.y *.5 , -size.z*.5) ;
   shader(s) ;
 
-  Vec4 RGBbackground = HSBa_to_RGBa( map(valueSlider[0][0],0,MAX_VALUE_SLIDER,0,g.colorModeX), 
+  Vec4 RGBbackground = HSB_to_RGB( map(valueSlider[0][0],0,MAX_VALUE_SLIDER,0,g.colorModeX), 
                                 map(valueSlider[0][1],0,MAX_VALUE_SLIDER,0,g.colorModeY), 
                                 map(valueSlider[0][2],0,MAX_VALUE_SLIDER,0,g.colorModeZ),
                                 map(valueSlider[0][3],0,MAX_VALUE_SLIDER,0,g.colorModeA)  ) ;
@@ -1912,7 +1979,7 @@ END COMPUTER CAMERA
 
 /**
 
-Color 1.0.1
+Color Romanesco 1.0.1.1
 
 */
 //COLOR for internal use
@@ -1931,16 +1998,8 @@ void color_setup() {
 }
 
 //ROLLOVER TEXT ON BACKGROUNG CHANGE
-color colorW ;
+
 //
-color colorWrite(color colorRef, int threshold, color clear, color deep) {
-  if( brightness( colorRef ) < threshold ) {
-    colorW = color(clear) ;
-  } else {
-    colorW = color(deep) ;
-  }
-  return colorW ;
-}
 
 
 
@@ -1948,358 +2007,33 @@ color colorWrite(color colorRef, int threshold, color clear, color deep) {
 
 
 
-////////////////////
-// Void antiBugBlack
-void antiBugFillBlack(color c) {
-      if (alpha(c) == 0 ) {
-    noFill() ; 
-    noStroke() ; 
-  } else {     
-    fill (c) ; 
-  }
-}
 
 
-// activate the fill, stroke and set the the strokeWeight
-void appearance(color colorFill, color colorStroke, float thickness) {
-  //check the color
-  if(alpha(colorFill) <=0)  noFill() ; else fill(colorFill) ;
-  
-  if(alpha(colorStroke) <=0) noStroke() ;
-  else {
-    stroke(colorStroke) ;
-    strokeWeight(thickness) ;
-  }
-}
   
 
   
-// PALETTE COLOR
-//GLOBAL
-//Range of each component HSB to change the color palette of image
-//HUE
-int [] hueStart  ;
-int [] hueEnd  ;
-int [] huePalette, huePaletteRef ;
-
-//SATURATION
-int [] satStart  ;
-int [] satEnd  ;
-int [] satPalette, satPaletteRef ;
-//BRIGHTNESS
-int [] brightStart  ;
-int [] brightEnd  ;
-int [] brightPalette, brightPaletteRef ;
-
-
-//DRAW OR SETUP
-//MAKE PALETTE
-// random hue Palette
-void paletteRandom(PVector n, Vec4 spectrum) {
-  huePalette = new int [(int)n.x] ;
-  huePaletteRef = new int [(int)n.x] ;
-  for (int i = 0 ; i < (int)n.x ; i++) huePalette [i] = huePaletteRef [i] = (int)random(spectrum.x) ;
-  huePalette = sort(huePalette) ;
-  huePaletteRef = sort(huePaletteRef) ;
-  //calcul of the value range of each color on color wheel
-  hueSpectrumPalette(huePalette, (int)spectrum.x) ;
-  
-  //saturation
-  satPalette = new int [(int)n.y] ;
-  satPaletteRef = new int [(int)n.y] ;
-  for (int i = 0 ; i < (int)n.y ; i++) satPalette [i] = satPaletteRef [i] = (int)random(spectrum.y) ;
-  satPalette = sort(satPalette) ;
-  satPaletteRef = sort(satPaletteRef) ;
-  //calcul of the value range of each color on color wheel
-  satSpectrumPalette(satPalette, (int)spectrum.y) ;
-  
-  //brightness
-  brightPalette = new int [(int)n.z] ;
-  brightPaletteRef = new int [(int)n.z] ;
-  for (int i = 0 ; i < (int)n.z ; i++) brightPalette [i] = brightPaletteRef [i] = (int)random(spectrum.z) ;
-  brightPalette = sort(brightPalette) ;
-  brightPaletteRef = sort(brightPaletteRef) ;
-  //calcul of the value range of each color on color wheel
-  brightSpectrumPalette(brightPalette, (int)spectrum.z) ;
-  
-}
-
-//palette with color from you !!!!
-void paletteClassic(int [] hueList, int[] satList, int[] brightList, PVector spectrum) {
-  huePalette = new int [hueList.length] ;
-  huePaletteRef = new int [hueList.length] ;
-  for (int i = 0 ; i < hueList.length ; i++) huePalette [i] = huePaletteRef [i] = hueList[i] ;
-  huePalette = sort(huePalette) ;
-  huePaletteRef = sort(huePaletteRef) ;
-  //calcul of the value range of each color on color wheel
-  hueSpectrumPalette(huePalette, (int)spectrum.x) ;
-  
-  //saturation
-  satPalette = new int [satList.length] ;
-  satPaletteRef = new int [satList.length] ;
-  for (int i = 0 ; i < satList.length ; i++) satPalette [i] = satPaletteRef [i] = satList[i] ;
-  satPalette = sort(satPalette) ;
-  satPaletteRef = sort(satPaletteRef) ;
-  //calcul of the value range of each color on color wheel
-  satSpectrumPalette(satPalette, (int)spectrum.y) ;
-  
-  //brightness
-  brightPalette = new int [brightList.length] ;
-  brightPaletteRef = new int [brightList.length] ;
-  for (int i = 0 ; i < brightList.length ; i++) brightPalette [i] = brightPaletteRef [i] = brightList [i];
-  brightPalette = sort(brightPalette) ;
-  brightPaletteRef = sort(brightPaletteRef) ;
-  //calcul of the value range of each color on color wheel
-  brightSpectrumPalette(brightPalette, (int)spectrum.z) ;
-  
-}
-
-
-
-
-
-//ANNEXE VOID
-
-//for the live modification
-//HSB void
-void paletteHSB(PVector hueVar, PVector satVar, PVector brightVar) {
- paletteHue(hueVar ) ;
- paletteSat(satVar ) ;
- paletteBright(brightVar ) ;
-}
-
-//hue void
-void paletteHue(PVector hueInfo )  {
-  float cycle = cycle(hueInfo.y) ;
-  float factor = map(cycle, -1,1, hueInfo.z,1) ;
-  for ( int i = 0 ; i < huePalette.length ; i++ ) {
-     huePalette [i] = int(hueInfo.x + (factor * (huePaletteRef [i] - hueInfo.x))) ;
-  }
-  hueSpectrumPalette(huePalette, (int)HSBmode.x) ;
-}
-
-//saturation void
-void paletteSat(PVector satInfo )  {
-  float cycle = cycle(satInfo.y) ;
-  float factor = map(cycle, -1,1, satInfo.z,1) ;
-  for ( int i = 0 ; i < satPalette.length ; i++ ) {
-     satPalette [i] = int(satInfo.x + (factor * (satPaletteRef [i] - satInfo.x))) ;
-  }
-  satSpectrumPalette(satPalette, (int)HSBmode.y) ;
-}
-
-//brightness void
-void paletteBright(PVector brightInfo )  {
-  float cycle = cycle(brightInfo.y) ;
-  float factor = map(cycle, -1,1, brightInfo.z,1) ;
-  for ( int i = 0 ; i < brightPalette.length ; i++ ) {
-     brightPalette [i] = int(brightInfo.x + (factor * (brightPaletteRef [i] - brightInfo.x))) ;
-  }
-  brightSpectrumPalette(brightPalette, (int)HSBmode.z) ;
-}
 
 
 
 
 
 
-//hue Spectrum
-void hueSpectrumPalette(int [] hueP, int sizeSpectrum) {  
-  if( hueP.length > 0 ) {
-    int max = hueP.length  ;
-    hueStart = new int [max] ;
-    hueEnd = new int [max] ;
-    int [] zoneLeftHue = new int [max] ;
-    int [] zoneRightHue = new int [max] ;
-    int [] zoneHue = new int [max] ;
-  
-    
-    // int total = 0 ;
-    if(max >1 ) {
-      for ( int i = 0 ; i < max ; i++ ) {
-        if ( i == 0 ) {
-          zoneLeftHue[i] = (hueP[i] + sizeSpectrum - hueP[max -1 ]  ) /2  ;
-          zoneRightHue[i] = (hueP[i+1] - hueP[i] ) / 2 ;
-          
-          if (hueP[i] < zoneLeftHue[i] ) hueStart[i] = sizeSpectrum - ( zoneLeftHue[i] - hueP[i]) ; else hueStart[i] = hueP[i] - zoneLeftHue[i] ;
-          hueEnd[i] = hueP[i] + zoneRightHue[i] ;
-          
-          zoneHue[i] = zoneLeftHue[i] + zoneRightHue[i] ;
-          
-        } else if ( i > 0 && i < max-1 ) {
-          zoneLeftHue[i] = (hueP[i] - hueP[i-1]  ) / 2  ;
-          zoneRightHue[i] = (hueP[i+1] - hueP[i] ) / 2 ;
-          
-          hueStart[i] = hueP[i] - zoneLeftHue[i] ;
-          hueEnd[i] = hueP[i] + zoneRightHue[i] ;
-          
-          zoneHue[i] = zoneLeftHue[i] + zoneRightHue[i] ;
-          
-        } else if ( i == max -1 ) { 
-          zoneLeftHue[i] = (hueP[i] - hueP[i-1]  ) / 2  ;
-          zoneRightHue[i] = (sizeSpectrum - hueP[max -1] + hueP[0] ) / 2 ;
-          
-          hueStart[i] = hueP[i] - zoneLeftHue[i] ;
-          if( hueP[i] + zoneRightHue[i] > sizeSpectrum ) hueEnd[i] = (hueP[i] + zoneRightHue[i]) -sizeSpectrum ; else hueEnd[i] = hueP[i] + zoneRightHue[i] ;
-          
-          zoneHue[i] = zoneLeftHue[i] + zoneRightHue[i] ;
-        }
-      }
-    } else {
-      zoneLeftHue[0] = hueP[0]  ;
-      zoneRightHue[0] = sizeSpectrum - hueP[0]  ;
-      hueStart[0] = 0 ;
-      hueEnd[0] = sizeSpectrum ;
-    }
-  }
-}
-
-//saturation Spectrum
-void satSpectrumPalette(int [] satP, int sizeSpectrum) {  
-  if(satP.length > 0 ) {
-    int max = satP.length  ;
-    satStart = new int [max] ;
-    satEnd = new int [max] ;
-    int [] zoneLeftSat = new int [max] ;
-    int [] zoneRightSat = new int [max] ;
-    int [] zoneSat = new int [max] ;
-  
-    
-    //int total = 0 ;
-    if (max > 1 ) {
-      for ( int i = 0 ; i < max ; i++ ) {
-        if ( i == 0 ) {
-          zoneLeftSat[i] = (satP[i] + sizeSpectrum - satP[max -1 ]  ) /2  ;
-          zoneRightSat[i] = (satP[i+1] - satP[i] ) / 2 ;
-          
-          if (satP[i] < zoneLeftSat[i] ) satStart[i] = sizeSpectrum - ( zoneLeftSat[i] - satP[i]) ; else satStart[i] = satP[i] - zoneLeftSat[i] ;
-          satEnd[i] = satP[i] + zoneRightSat[i] ;
-          
-          zoneSat[i] = zoneLeftSat[i] + zoneRightSat[i] ;
-          
-        } else if ( i > 0 && i < max-1 ) {
-          zoneLeftSat[i] = (satP[i] - satP[i-1]  ) / 2  ;
-          zoneRightSat[i] = (satP[i+1] - satP[i] ) / 2 ;
-          
-          satStart[i] = satP[i] - zoneLeftSat[i] ;
-          satEnd[i] = satP[i] + zoneRightSat[i] ;
-          
-          zoneSat[i] = zoneLeftSat[i] + zoneRightSat[i] ;
-          
-        } else if ( i == max -1 ) { 
-          zoneLeftSat[i] = (satP[i] - satP[i-1]  ) / 2  ;
-          zoneRightSat[i] = (sizeSpectrum - satP[max -1] + satP[0] ) / 2 ;
-          
-          satStart[i] = satP[i] - zoneLeftSat[i] ;
-          if( satP[i] + zoneRightSat[i] > sizeSpectrum ) satEnd[i] = (satP[i] + zoneRightSat[i]) -sizeSpectrum ; else satEnd[i] = satP[i] + zoneRightSat[i] ;
-          
-          zoneSat[i] = zoneLeftSat[i] + zoneRightSat[i] ;
-        }
-      }
-    } else {
-      zoneLeftSat[0] = satP[0]  ;
-      zoneRightSat[0] = sizeSpectrum - satP[0]  ;
-      satStart[0] = 0 ;
-      satEnd[0] = sizeSpectrum ;
-    }
-  }
-}
 
 
 
 
-//brightness Spectrum
-void brightSpectrumPalette(int [] brightP, int sizeSpectrum) {  
-  if(brightP.length > 0 ) {
-    int max = brightP.length  ;
-    brightStart = new int [max] ;
-    brightEnd = new int [max] ;
-    int [] zoneLeftBright = new int [max] ;
-    int [] zoneRightBright = new int [max] ;
-    int [] zoneBright = new int [max] ;
-  
-    
-    //int total = 0 ;
-    if ( max > 1 ) {
-      for ( int i = 0 ; i < max ; i++ ) {
-        if ( i == 0 ) {
-          zoneLeftBright[i] = (brightP[i] + sizeSpectrum - brightP[max -1 ]  ) /2  ;
-          zoneRightBright[i] = (brightP[i+1] - brightP[i] ) / 2 ;
-          
-          if (brightP[i] < zoneLeftBright[i] ) brightStart[i] = sizeSpectrum - ( zoneLeftBright[i] - brightP[i]) ; else brightStart[i] = brightP[i] - zoneLeftBright[i] ;
-          brightEnd[i] = brightP[i] + zoneRightBright[i] ;
-          
-          zoneBright[i] = zoneLeftBright[i] + zoneRightBright[i] ;
-          
-        } else if ( i > 0 && i < max-1 ) {
-          zoneLeftBright[i] = (brightP[i] - brightP[i-1]  ) / 2  ;
-          zoneRightBright[i] = (brightP[i+1] - brightP[i] ) / 2 ;
-          
-          brightStart[i] = brightP[i] - zoneLeftBright[i] ;
-          brightEnd[i] = brightP[i] + zoneRightBright[i] ;
-          
-          zoneBright[i] = zoneLeftBright[i] + zoneRightBright[i] ;
-          
-        } else if ( i == max -1 ) { 
-          zoneLeftBright[i] = (brightP[i] - brightP[i-1]  ) / 2  ;
-          zoneRightBright[i] = (sizeSpectrum - brightP[max -1] + brightP[0] ) / 2 ;
-          
-          brightStart[i] = brightP[i] - zoneLeftBright[i] ;
-          if( brightP[i] + zoneRightBright[i] > sizeSpectrum ) brightEnd[i] = (brightP[i] + zoneRightBright[i]) -sizeSpectrum ; else brightEnd[i] = brightP[i] + zoneRightBright[i] ;
-          
-          zoneBright[i] = zoneLeftBright[i] + zoneRightBright[i] ;
-        }
-      } 
-    } else {
-      zoneLeftBright[0] = brightP[0]  ;
-      zoneRightBright[0] = sizeSpectrum - brightP[0]  ;
-      brightStart[0] = 0 ;
-      brightEnd[0] = sizeSpectrum ;
-    }
-  }
-}
 
 
 
 
-//CHANGE COLOR pixel in the list of Pixel
-void changeColorOfPixel(ArrayList listMustBeChange ) {
-  for( int i = 0 ; i<listMustBeChange.size() ; i++) {
-    Old_Pixel p = (Old_Pixel) listMustBeChange.get(i) ;
-    p.changeHue   (HSBmode, huePalette, hueStart, hueEnd) ;
-    p.changeSat   (HSBmode, satPalette, satStart, satEnd) ; 
-    p.changeBright(HSBmode, brightPalette, brightStart, brightEnd) ;
-    
-    p.updatePalette() ; 
-  }
-}
 
 
 
-//convert color HSB to RVB
-Vec3 HSB_to_RGB(float hue, float saturation, float brightness) {
-  Vec4 vecRGB = HSBa_to_RGBa(hue, saturation, brightness, g.colorModeA).copy() ;
-  return Vec3(vecRGB.x,vecRGB.y,vecRGB.z) ;
-}
-
-Vec4 HSBa_to_RGBa(float hue, float saturation, float brightness, float alpha) {
-  Vec4 previousColorMode = Vec4(g.colorModeX, g.colorModeY, g.colorModeY, g.colorModeA) ;
-  color c = color (hue, saturation, brightness, alpha);
-
-  colorMode(RGB,255) ;
-  Vec4 vecRGBa = Vec4 (red(c), green(c), blue(c), alpha(c)) ;
-  // return to the previous colorMode
-  // colorMode(HSB,HSBmode.r,HSBmode.r,HSBmode.b,HSBmode.a) ;
-  colorMode(HSB,previousColorMode.r, previousColorMode.g, previousColorMode.b, previousColorMode.a) ;
-  return vecRGBa ;
-}
 
 
 
-/**
-COLOR END
 
-*/
+
 
 
 

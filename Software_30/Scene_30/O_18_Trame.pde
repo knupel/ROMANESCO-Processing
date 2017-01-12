@@ -1,5 +1,5 @@
 /**
-TRAME || 2012 || 1.1.2
+TRAME || 2012 || 1.1.3
 */
 
 Trame trame ;
@@ -11,7 +11,7 @@ class Damier extends Romanesco {
     ID_item = 18 ;
     ID_group = 1 ;
     RPE_author  = "Stan le Punk";
-    RPE_version = "Version 1.1.2";
+    RPE_version = "Version 1.1.3";
     RPE_pack = "Base" ;
     RPE_mode = "Rectangle/Ellipse/Box" ;
     RPE_slider = "Fill hue,Fill sat,Fill bright,Fill alpha,Stroke hue,Stroke sat,Stroke bright,Stroke alpha,Thickness,Size X,Size Y,Size Z,Quantity,Speed X,Swing X,Angle" ;
@@ -36,7 +36,7 @@ class Damier extends Romanesco {
   //DRAW
   void draw() {
     // color and thickness
-    aspect_rope(ID_item) ;
+    aspect_rope(fill_item[ID_item], stroke_item[ID_item], thickness_item[ID_item]) ;
     
     if ( sound[ID_item]) {
       g = map(left[ID_item],0,1,1,5) ; 

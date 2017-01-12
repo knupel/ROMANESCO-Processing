@@ -235,11 +235,11 @@ void saveDataObject(String path) {
 		dataObj.setFloat(alignment_name, alignment_item[i]) ;
 		dataObj.setFloat(repulsion_name, repulsion_item[i]) ;
 		dataObj.setFloat(attraction_name, attraction_item[i]) ;
-		dataObj.setFloat(charge_name, charge_item[i]) ;
+		dataObj.setFloat(density_name, density_item[i]) ;
 
 		dataObj.setFloat(influence_name, influence_item[i]) ;
 		dataObj.setFloat(calm_name, calm_item[i]) ;
-		dataObj.setFloat(need_name, need_item[i]) ;
+		dataObj.setFloat(spectrum_name, spectrum_item[i]) ;
         
         // position & orientation
 		dataObj.setFloat("pos x obj", pos_item_final[i].x /width) ;

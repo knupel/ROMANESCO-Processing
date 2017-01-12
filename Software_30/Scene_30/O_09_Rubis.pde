@@ -1,5 +1,5 @@
 /**
-RUBIS || 2013 || 1.0.3
+RUBIS || 2013 || 1.0.4
 */
 
 class MesAmis extends Romanesco {
@@ -9,7 +9,7 @@ class MesAmis extends Romanesco {
     ID_item = 9 ;
     ID_group = 1 ;
     RPE_author  = "Stan le Punk";
-    RPE_version = "version 1.0.2";
+    RPE_version = "version 1.0.4";
     RPE_pack = "Base" ;
     //RPE_mode = "1 full/2 lines" but the line is not really interesting
     RPE_mode = "Vertex/Point" ; // separate the name by a slash and write the next mode immadialtly after this one.
@@ -83,8 +83,14 @@ class MesAmis extends Romanesco {
     }
     
     
-    aspect_rope(ID_item) ;
+    if(mode[ID_item] == 1) {
+      aspect_rope(fill_item[ID_item], stroke_item[ID_item], thickness_item[ID_item], POINT_ROPE) ;
+    } else {
+      aspect_rope(fill_item[ID_item], stroke_item[ID_item], thickness_item[ID_item]) ;
+    }
+
     ami_heart_move(center, speed, radiusMin, radiusMax, jitter, mode[ID_item]) ;
+
 
   }
   

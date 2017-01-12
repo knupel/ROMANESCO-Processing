@@ -2,6 +2,9 @@
 CORE LAUNCHER 1.0.1
 */
 
+/**
+setup
+*/
 void diplaySetup() {
   background(grisTresFonce);
 }
@@ -29,18 +32,36 @@ void colorSetup() {
 }
 
 
-void structureSetup() {
-  String textScene = ("Scène") ;
-  String textMiroir = ("Miroir") ;
-  String textFullscreen = ("in Fullscreen") ;
-  String textWindow = ("in the Window") ;
-  String textButtonStart = ("Launch Romanesco") ;
+void set_structure() {
+  // renderer
+  Vec2 pos_home = Vec2(99, 40) ;
+  Vec2 pos_live = Vec2 (200, 40) ;
+  Vec2 pos_mirror = Vec2 (280, 40) ;
+
+  Vec2 size_home = Vec2(85, 20) ;
+  Vec2 size_live = Vec2(85, 20) ;
+  Vec2 size_mirror = Vec2(85, 20) ;
+
+  renderer[0] = new Button(pos_home, size_home, c1, c2, c3, c4, "Home") ;
+  renderer[1] = new Button(pos_live, size_live, c1, c2, c3, c4, "Live") ;
+  renderer[2] = new Button(pos_mirror, size_mirror, c1, c2, c3, c4, "Mirror") ;
   
-  buttonScene = new Button(posButtonScene, sizeButtonScene, c1, c2, c3, c4, textScene) ;
-  buttonMiroir = new Button(posButtonMiroir, sizeButtonMiroir, c1, c2, c3, c4, textMiroir) ;
-  buttonWindow = new Button(posButtonWindow, sizeButtonWindow, c1, c2, c3, c4, textWindow) ;
-  buttonFullscreen = new Button(posButtonFullscreen, sizeButtonFullscreen, c1, c2, c3, c4, textFullscreen) ;
-  buttonStart = new Button(posButtonStart, sizeButtonStart, colorIN, colorOUT, colorIN, colorOUT, textButtonStart ) ;
+  
+  // size and display type
+  Vec2 pos_window = Vec2(10, 70) ;
+  Vec2 pos_fullscreen = Vec2(200, 70) ;
+
+  Vec2 size_window = Vec2(180, 20) ;
+  Vec2 size_fullscreen = Vec2(180, 20) ;
+
+  buttonWindow = new Button(pos_window, size_window, c1, c2, c3, c4, "in the Window") ;
+  buttonFullscreen = new Button(pos_fullscreen, size_fullscreen, c1, c2, c3, c4, "in Fullscreen") ;
+  
+  // start
+  Vec2 pos_start = Vec2(10, 190) ;
+  Vec2 size_start = Vec2(210, 20) ;
+
+  buttonStart = new Button(pos_start, size_start, colorIN, colorOUT, colorIN, colorOUT, "Launch Romanesco") ;
 
   //quantityScreen count the number of screen available
   int quantityScreen = devices.length ;
@@ -58,124 +79,149 @@ void structureSetup() {
 
 
 
-void loadSetup() {
+void set_data() {
   FuturaStencil =loadFont ("FuturaStencilICG-20.vlw") ;
   EmigreEight = loadFont ("EmigreEight-14.vlw") ;
+
+  path_controller = (sketchPath("") + "sources/Controleur_"+version+".app");
   // path to OPENING APP
-  pathPrescene = (sketchPath("") + "sources/Prescene_"+version+".app");
-  pathScene_window = (sketchPath("") + "sources/Scene_"+version+"_window.app");
-  pathScene_fullscreen = (sketchPath("") + "sources/Scene_"+version+"_fullscreen.app");
+  path_prescene_window = (sketchPath("") + "sources/Prescene_"+version+"_window.app");
+  path_prescene_fullscreen  = (sketchPath("") + "sources/Prescene_"+version+"_fullscreen.app");
+
+  path_scene_window = (sketchPath("") + "sources/Scene_"+version+"_window.app");
+  path_scene_fullscreen = (sketchPath("") + "sources/Scene_"+version+"_fullscreen.app");
 
   String[] l = split( ("1"), " ") ;
   saveStrings(sketchPath("")+"sources/preferences/language.txt", l) ;
 }
-// END SETUP
-////////////
 
 
 
-// DRAW
-///////
-void displayDraw() {
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/**
+draw launcher
+*/
+void launcher_background() {
   background(grisTresFonce) ;
   fill(orange) ;
   textFont(FuturaStencil,20);
-}
-
-boolean MiroirSetting, SceneSetting ;
-
-void launcherDraw() {
   fill(rougeFonce) ;
   rect(0,0, width, 30) ;
   fill(orange) ;
   rect(0,30,width,2) ;
   fill(blanc) ;
   text(nameVersion, pos_name_version.x, pos_name_version.y);
+}
+
+
+void launcher_update() {
   textFont(EmigreEight,14);
   text("Version " +prettyVersion + "."+version, pos_pretty_version.x, pos_pretty_version.y);
   fill(grisClair) ;
   textFont(FuturaStencil,20);
 
-  text("Choice                or ", pos_choice.x, pos_choice.y);
-  choiceMiroirOrScene() ;
+  text("Choice", pos_choice.x, pos_choice.y);
+  choice_rendering() ;
   //fork choice menu
-  if (buttonScene.OnOff || SceneSetting) launchScene() ;
-  if (buttonMiroir.OnOff || MiroirSetting) launchMiroir() ;
-}
-// END DRAW
-///////////
-
-
-
-
-
-//ANNEXE
-////////
-void choiceMiroirOrScene() {
-  buttonScene.displayButton(SceneSetting) ;
-  buttonMiroir.displayButton(MiroirSetting) ;
-  if(MiroirSetting) whichAppOpeningTheScene =("true") ; else whichAppOpeningTheScene =("false") ;
+  for(int i = 0 ; i < num_renderer ; i++) {
+     if (renderer[i].OnOff || renderer_setting[i]) {
+      select_renderer_to_launch_app(i) ;
+    }
+  }
 }
 
 
 
 
+void choice_rendering() {
+  for(int i = 0 ; i < num_renderer ; i++) {
+    renderer[i].displayButton(renderer_setting[i]) ;
+  }
+  // 
+  if(renderer_setting[2]) {
+    bool_open_scene =("true") ; 
+  } else {
+    bool_open_scene =("false") ;
+  } 
+}
 
 
 
-// LAUNCH
-////////////
-boolean openScene ;
-// Scene launcher
-void launchScene() {
-  MiroirSetting = false ;
-  SceneSetting = true ;
+
+
+
+
+/**
+LAUNCH
+*/
+/**
+select renderer
+*/
+void select_renderer_to_launch_app(int which_one) {
+  if(which_one == 0) {
+    select_renderer_home(which_one) ;
+  } else if(which_one == 1) {
+    select_renderer_live(which_one) ;
+  } else if(which_one == 2) {
+    select_renderer_live(which_one) ;
+  }
+}
+
+void select_renderer_home(int which_one) {
+  renderer_is(which_one) ;
+  launch_home = true ;
   fullscreen_or_window() ;
-  //last step
-  openScene = true ;
-  launchApp() ;
-  
+  ready_to_launch() ; 
+}
+
+void select_renderer_live(int which_one) {
+  renderer_is(which_one) ;
+  launch_home = false ;
+  fullscreen_or_window() ;
+  ready_to_launch() ; 
 }
 
 
-void launchMiroir() {
-  MiroirSetting = true ;
-  SceneSetting = false ;
+void select_renderer_mirror(int which_one) {
+  renderer_is(which_one) ;
+  launch_home = false ;
   fullscreen_or_window() ;
   addressLocal(pos_local_adress.x,pos_local_adress.y) ;
-  //last step
-  launchApp() ;
+  ready_to_launch() ;
 }
 
-
-
-
-// choice your display WINDOW or FULLSCREEN
-void fullscreen_or_window() {
-  buttonWindow.displayButton() ;
-  if(screenNum > 1 ) buttonFullscreen.displayButton() ;
-  
-  if (buttonWindow.OnOff) {
-    pathScene = pathScene_window ;
-    screen = ("false") ; 
-  } else if (buttonFullscreen.OnOff) {
-    pathScene = pathScene_fullscreen ;
-    screen = ("true") ;
-  }
-  if (buttonFullscreen.OnOff) {
-    choice_screen_for_full_screen() ;
-  } else if (buttonWindow.OnOff) {
-    screen = ("false") ;
-    sizeWindow() ;
-  }
+void renderer_is(int which_one) {
+  for(int i = 0 ; i < num_renderer ; i++) {
+    if(i == which_one) {
+      renderer_setting[i] = true ;
+    } else {
+      renderer_setting[i] = false ;
+    }
+  }  
 }
 
-
-void launchApp() {
+void ready_to_launch() {
   if (buttonWhichScreenOnOff > 0 && buttonFullscreen.OnOff) {
     buttonStart.displayButton() ;
-  //window mode the user must choice a window size  
-  } else if ( buttonWindow.OnOff && heightSlider>1 & widthSlider>1 ) {
+    // window mode the user must choice a window size  
+  } else if (buttonWindow.OnOff && heightSlider > 1 & widthSlider > 1) {
     buttonStart.displayButton() ;
   } else {
     fill(orange) ;
@@ -184,15 +230,76 @@ void launchApp() {
 }
 
 
+
+
+
+
+/**
+selected display rendering
+*/
+// choice your display WINDOW or FULLSCREEN
+void fullscreen_or_window() {
+  buttonWindow.displayButton() ;
+  if(screenNum > 1 ) {
+    buttonFullscreen.displayButton() ;
+  }
+  
+  if (buttonWindow.OnOff) {
+    path_scene = path_scene_window ;
+    path_prescene = path_prescene_window ;
+
+    // I think we used this method long time ago, when Processing is more cool with the fullscreen and size() management :)
+    screen = ("false") ; 
+  } else if (buttonFullscreen.OnOff) {
+    path_scene = path_scene_fullscreen ;
+    path_prescene = path_prescene_fullscreen ;
+
+    // I think we used this method long time ago, when Processing is more cool with the fullscreen and size() management :)
+    screen = ("true") ;
+  }
+
+  // I think we used this method long time ago, when Processing is more cool with the fullscreen and size() management :)
+  if (buttonFullscreen.OnOff) {
+    choice_screen_for_fullscreen() ;
+  } else if (buttonWindow.OnOff) {
+    screen = ("false") ;
+    sizeWindow() ;
+  }
+}
+
+
 // OPEN APP
+boolean launch_home ;
 void openApp() {
-  launch(pathScene) ;
+  if(launch_home) {
+    println("Prescene is launch") ;
+    launch(path_prescene) ;
+    launch_controller = true ;
+  } else {
+    println("Scene is launch") ;
+    launch(path_scene) ;
+  }
+}
+
+boolean launch_controller ;
+int time_to_open_controller = 180 ;
+int count_to_open_controller = 0 ;
+
+void open_controller() {
+  if(launch_controller) {
+    count_to_open_controller++ ;
+    if(count_to_open_controller > time_to_open_controller) {
+      launch_controller = false ;
+      count_to_open_controller = 0 ;
+      println("Controller is launch") ;
+      launch(path_controller) ;
+    }
+  }
+
 }
 
 
 
-// END LAUNCH 
-/////////////////
 
 
 
@@ -210,8 +317,14 @@ void openApp() {
 
 
 
-// SAVE DISPLAY PROPERTY
-////////////////////////
+
+
+
+/**
+SAVE DISPLAY PROPERTY
+
+a lot of datas here ara deprecated, but I'm very lazzy to manage that !
+*/
 Table sceneProperty;
 String pathScenePropertySetting = sketchPath("")+"sources/preferences/sceneProperty.csv" ;
 
@@ -246,7 +359,7 @@ void saveProperty() {
   newRow.setInt(colFive, standardSizeWidth[widthSlider-1]);
   newRow.setInt(colSix, standardSizeHeight[heightSlider -1]);
   newRow.setString(colSeven, "P3D"); // obsolete
-  newRow.setString(colHeight, whichAppOpeningTheScene);
+  newRow.setString(colHeight, bool_open_scene);
   //
   saveTable(sceneProperty, pathScenePropertySetting);
 }
@@ -265,8 +378,9 @@ void saveProperty() {
 
 
 
-// ADDRESS IP for MIROIR
-////////////////////////
+/**
+ADDRESS IP for Mirror
+*/
 void addressLocal(float x, float y) {
   fill(orange) ;
   try {
@@ -276,8 +390,6 @@ void addressLocal(float x, float y) {
   }
   catch(Exception e) {}
 }
-// END ADDRESS IP
-//////////////////
 
 
 
@@ -292,130 +404,3 @@ void addressLocal(float x, float y) {
 
 
 
-
-
-
-
-// SIZE WINDOW
-////////////////
-void sizeWindow() {
-  //setting the Scene size
-  sliderHeight.sliderUpdate() ;
-  sliderWidth.sliderUpdate() ;
-  
-  heightSlider = int(map(sliderHeight.getValue(),0,1,1,standardSizeHeight.length))  ;
-  widthSlider = int(map(sliderWidth.getValue(),0,1,1,standardSizeWidth.length))  ;
-  String h = Integer.toString(standardSizeHeight[heightSlider -1]) ;
-  String w = Integer.toString(standardSizeWidth[widthSlider-1]) ;
-  //check the width
-  int correctionPosY = -14 ;
-  if ( widthSlider <= 1 ) {
-    fill(rougeFonce) ;
-    text("Width " + w, posSliderWidth.x, posSliderWidth.y +correctionPosY);
-  } else {
-    fill(vertFonce) ;
-    text("Width " + w, posSliderWidth.x, posSliderWidth.y +correctionPosY);
-  }
-  //check the height
-  if ( heightSlider <= 1 ) {
-    fill(rougeFonce) ;
-    text("Heigth " + h, posSliderHeight.x, posSliderHeight.y +correctionPosY);
-  } else {
-    fill(vertFonce) ;
-    text("Heigth " + h, posSliderHeight.x, posSliderHeight.y +correctionPosY);
-  }
-}
-
-// END SIZE WINDOW
-//////////////////
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// WHICH SCREEN
-//////////////
-int screenNum  ;
-//SETUP 
-void whichScreenSetup(int n , PVector infoPos) {
-  //quantity of button choice
-  screenNum = n ;
-  whichScreenButton = new Button [screenNum] ;
-  //position of the button  
-  int x = (int)infoPos.x ;
-  int y = (int)infoPos.y ;
-  int space = (int)infoPos.z ;
-  
-  for ( int i = 0 ; i <  screenNum ; i++) {
-    PVector pos = new PVector( x +( i *space), y ) ;
-    PVector size = new PVector (20,20) ;
-    String title = Integer.toString(i+1) ;
-    whichScreenButton[i] = new Button(pos, size, c1, c2, c3, c4, title) ;
-  }
-}
-
-//DRAW
-
-void choice_screen_for_full_screen() {
-/**
-    // With Processing 3.0b7 we cannot use this method to choose on which screen display the full screen
-    // On which screen display the window
-    fill(orange) ;
-    text("on screen", 10.0, 120.0);
-    whichScreenDraw() ;
-    */
-    /**
-    // Instead to use fullscreen method choice, we say is always true
-    */
-    buttonWhichScreenOnOff = 1 ;
-}
-
-
-void whichScreenDraw() {
-  for(int i = 0 ; i <screenNum ; i++) {
-    whichScreenButton[i].displayButton() ;
-  }
-}
-
-//MOUSEPRESSED
-void whichScreenPressed() {
-  for(int i =0 ; i< screenNum ; i++ ) {
-    if (whichScreenButton[i].inside ) {
-      for( int j =0 ; j < screenNum ; j++ ) whichScreenButton[j].OnOff = false ;
-    }
-  }
-}
-
-//MOUSERELEASED
-int buttonWhichScreenOnOff ;
-
-void whichScreenReleased() {
-  buttonWhichScreenOnOff = 0 ;
-  for(int i = 0 ; i<screenNum ; i++ ) {
-    whichScreenButton[i].mouseClic() ;
-    if(whichScreenButton[i].OnOff) buttonWhichScreenOnOff += 1 ;
-  }
-}
-
-//ID screen
-int IDscreen = 0 ;
-int IDscreenSelected() {
-  for (int i = 0 ; i < screenNum ; i++ ) { 
-    if (whichScreenButton[i].OnOff == true ) IDscreen = i+1 ; else IDscreen = 1 ;
-  }
-  return IDscreen ;
-}
-
-// END CHOICE SCREEN
-////////////////////

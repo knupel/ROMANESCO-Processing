@@ -14,18 +14,18 @@ class Herbivore extends Agent_dynamic {
     // super(size, stamina, life_expectancy, velocity, sense_range, name, sex_appeal, gender) ;
     super(carac, style, gender) ;
     // not in the genome
-    set_kill_skill(size) ;
+    set_kill_skill(this.mass) ;
   }
 
 
   Herbivore(Genome mother, Genome father, Info_obj style) {
     super(mother,father, style) ;
     // not in the genome
-    set_kill_skill(size) ;
+    set_kill_skill(this.mass) ;
   }
 
-  void set_kill_skill(int size) {
-    eat_zone = int(size *1.2) ;
+  void set_kill_skill(int mass) {
+    eat_zone = int(mass *1.2) ;
   }
 
 
@@ -40,7 +40,7 @@ class Herbivore extends Agent_dynamic {
     translate(pos) ;
     ellipse(pos_temp.x, pos_temp.y, sense_range*2, sense_range*2) ;
     ellipse(pos_temp.x, pos_temp.y, eat_zone *2, eat_zone *2) ;
-    ellipse(pos_temp.x, pos_temp.y, size *2, size *2) ;
+    ellipse(pos_temp.x, pos_temp.y, mass *2, mass *2) ;
     stop_matrix() ;
   }
   
@@ -75,19 +75,19 @@ class Omnivore extends Agent_dynamic {
   Omnivore(Info_dict carac, Info_obj style, int gender) {
     super(carac, style, gender) ;
     // not in the genome
-    set_kill_skill(size) ;
+    set_kill_skill(this.mass) ;
   }
 
 
   Omnivore(Genome mother, Genome father, Info_obj style) {
     super(mother,father, style) ;
     // not in the genome
-    set_kill_skill(size) ;
+    set_kill_skill(this.mass) ;
   }
 
-  void set_kill_skill(int size) {
-  	kill_zone = int(size *2) +size ;
-  	eat_zone = int(size *1.2) ;
+  void set_kill_skill(int mass) {
+  	kill_zone = int(mass *2) +mass ;
+  	eat_zone = int(mass *1.2) ;
   }
 
   /**
@@ -100,7 +100,7 @@ class Omnivore extends Agent_dynamic {
     translate(pos) ;
     ellipse(pos_temp.x, pos_temp.y, sense_range*2, sense_range*2) ;
     ellipse(pos_temp.x, pos_temp.y, eat_zone *2, eat_zone *2) ;
-    ellipse(pos_temp.x, pos_temp.y, size *2, size *2) ;
+    ellipse(pos_temp.x, pos_temp.y, mass *2, mass *2) ;
     stop_matrix() ;
   }
   
@@ -136,20 +136,20 @@ class Carnivore extends Agent_dynamic {
   Carnivore(Info_dict carac, Info_obj style, int gender) {
     super(carac, style, gender) ;
     // not in the genome
-    set_kill_skill(size) ;
+    set_kill_skill(this.mass) ;
 
   }
 
   Carnivore(Genome mother, Genome father, Info_obj style) {
     super(mother,father, style) ;
     // not in the genome
-    set_kill_skill(size) ;
+    set_kill_skill(this.mass) ;
   }
 
 
-  void set_kill_skill(int size) {
-    kill_zone = int(size *2) +size ;
-    eat_zone = int(size *1.2) ;
+  void set_kill_skill(int mass) {
+    kill_zone = int(mass *2) +mass ;
+    eat_zone = int(mass *1.2) ;
   }
 
   /**
@@ -164,7 +164,7 @@ class Carnivore extends Agent_dynamic {
     ellipse(pos_temp.x, pos_temp.y, sense_range*2, sense_range*2) ;
     ellipse(pos_temp.x, pos_temp.y, kill_zone *2, kill_zone *2) ;
     ellipse(pos_temp.x, pos_temp.y, eat_zone *2, eat_zone *2) ;
-    ellipse(pos_temp.x, pos_temp.y, size *2, size *2) ;
+    ellipse(pos_temp.x, pos_temp.y, mass *2, mass *2) ;
     // info reproduction
     stop_matrix() ;
   }
@@ -210,12 +210,12 @@ class Bacterium extends Agent_dynamic {
     */
   Bacterium(Info_dict carac, Info_obj style, int gender) {
     super(carac, style, gender) ;
-    set_kill_skill(size) ;
+    set_kill_skill(this.mass) ;
   }
   
   // intern
-  void set_kill_skill(int size) {
-    eat_zone = int(size *2) ;
+  void set_kill_skill(int mass) {
+    eat_zone = int(mass *2) ;
   }
   
   // extern
@@ -244,7 +244,8 @@ class Bacterium extends Agent_dynamic {
       pos_target.set(target.pos) ;
       float calories = speed_feeding *humus_prod_ratio ;
 
-      target.size -= speed_feeding ;
+      target.mass -= speed_feeding ;
+      target.size.sub(speed_feeding *.33) ;
       hunger += (calories *digestion) ;
       humus_production = calories *humus_prod_ratio ;
       stamina += (calories *.75) ;
@@ -278,7 +279,7 @@ class Bacterium extends Agent_dynamic {
     translate(pos) ;
     ellipse(pos_temp.x, pos_temp.y, sense_range*2, sense_range*2) ;
     ellipse(pos_temp.x, pos_temp.y, eat_zone *2, eat_zone *2) ;
-    ellipse(pos_temp.x, pos_temp.y, size *2, size *2) ;
+    ellipse(pos_temp.x, pos_temp.y, mass *2, mass *2) ;
     stop_matrix() ;
   }
 
@@ -334,9 +335,10 @@ SUB CLASS FLORA 0.2.0
 */
 class Flora extends Agent_static {
 
-   Flora(Vec3 pos, int size, int life_expectancy,  String name) {
+   Flora(Vec3 pos, Vec3 size, int life_expectancy,  String name) {
       super(pos, size, life_expectancy, name) ;
-      this.stamina = this.stamina_ref = size ;
+      this.mass = int((size.x + size.y + size.z) *.33) ;
+      this.stamina = this.stamina_ref = this.mass ;
    }
    /**
    Set Flora
@@ -352,14 +354,18 @@ class Flora extends Agent_static {
    // Statement
    void statement() {
      // if(size > size_max) size = size_max ;
-     if(size > size_ref) size = size_ref ;
+     if(!size.equals(size_ref)) {
+      size_ref.set(size) ;
+      mass = int(size.average()) ;
+     }
      if(stamina > stamina_ref) stamina = stamina_ref ;
    }
 
    void feeding(Biomass biomass) {
       if(biomass.humus > 0) {
          if(frameCount%(180 *CLOCK) == 0 ) {
-            this.size += speed_growth ;
+            this.mass += speed_growth ;
+            this.size.add(speed_growth *.33) ;
             this.stamina += speed_growth ;
             biomass.humus_update(-need) ;
          }
@@ -408,16 +414,17 @@ class Dead extends Agent_static {
    /**
    MUST BE IMPROVE
    */
-	Dead(Vec3 pos, int size, int size_ref, int nutrient_quality, String name) {
+	Dead(Vec3 pos, Vec3 size, Vec3 size_ref, int nutrient_quality, String name) {
     // int life = 0 ;
     super(pos, size, 0, name + " dead") ;
 
 		this.nutrient_quality = nutrient_quality ;
 		this.size_ref = size_ref ;
+    this.mass = (int)size.average() ;
 		this.alive = false ;
 		Vec4 colour_of_death = Vec4(0,0,30,g.colorModeA);
-		colour_fill.set(colour_of_death) ;
-		colour_stroke.set(colour_of_death) ;
+		fill_style.set(colour_of_death) ;
+		stroke_style.set(colour_of_death) ;
 
 	}
 

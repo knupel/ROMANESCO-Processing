@@ -1,5 +1,5 @@
 /** 
-VARIABLE 1.1.1
+VARIABLE 1.1.5
 */
 // GLOBAL SETTING ////
 
@@ -144,14 +144,89 @@ float quantity_raw, variety_raw ;
 float life_raw, flow_raw, quality_raw ;
 
 float area_raw, angle_raw, scope_raw, scan_raw ;
-float alignment_raw, repulsion_raw, attraction_raw, charge_raw ;
+float alignment_raw, repulsion_raw, attraction_raw, density_raw ;
 
-float influence_raw, calm_raw, need_raw ;
-
-
+float influence_raw, calm_raw, spectrum_raw ;
 
 
-// String name
+
+
+// MIN MAX MAP SLIDER
+Vec2 fill_hue_min_max, fill_sat_min_max , fill_bright_min_max , fill_alpha_min_max ;
+Vec2 stroke_hue_min_max, stroke_sat_min_max, stroke_bright_min_max, stroke_alpha_min_max  ;
+Vec2 thickness_min_max ; 
+Vec2 size_x_min_max, size_y_min_max, size_z_min_max ;
+Vec2 font_size_min_max ;
+Vec2 canvas_x_min_max, canvas_y_min_max, canvas_z_min_max ;
+
+Vec2 reactivity_min_max ;
+Vec2 speed_x_min_max, speed_y_min_max, speed_z_min_max ;
+Vec2 spurt_x_min_max, spurt_y_min_max, spurt_z_min_max ;
+Vec2 dir_x_min_max, dir_y_min_max, dir_z_min_max  ; 
+Vec2 jitter_x_min_max, jitter_y_min_max, jitter_z_min_max ;
+Vec2 swing_x_min_max, swing_y_min_max, swing_z_min_max ;
+
+Vec2 quantity_min_max, variety_min_max ; 
+Vec2 life_min_max, flow_min_max, quality_min_max ;
+Vec2 area_min_max, angle_min_max, scope_min_max, scan_min_max ; 
+
+Vec2 alignment_min_max, repulsion_min_max, attraction_min_max, density_min_max ;
+Vec2 influence_min_max, calm_min_max ;
+Vec2 spectrum_min_max ;
+
+
+// temp
+/* value used to know if the value slider have change or nor */
+int fill_hue_temp, fill_sat_temp, fill_bright_temp, fill_alpha_temp ;
+int stroke_hue_temp, stroke_sat_temp, stroke_bright_temp, stroke_alpha_temp ;
+float thickness_temp; 
+float size_x_temp, size_y_temp, size_z_temp ;
+float canvas_x_temp, canvas_y_temp, canvas_z_temp ;
+float font_size_temp ;
+
+float reactivity_temp ;
+float speed_x_temp, speed_y_temp, speed_z_temp ;
+float spurt_x_temp, spurt_y_temp, spurt_z_temp ;
+float dir_x_temp, dir_y_temp,dir_z_temp ;
+float jitter_x_temp, jitter_y_temp, jitter_z_temp ;
+float swing_x_temp, swing_y_temp, swing_z_temp ;
+
+float quantity_temp, variety_temp ;
+float life_temp, flow_temp, quality_temp ;
+float area_temp, angle_temp, scope_temp, scan_temp ;
+
+float alignment_temp, repulsion_temp, attraction_temp, density_temp ;
+float influence_temp, calm_temp, spectrum_temp ;
+
+
+
+
+// item target final
+boolean [] first_opening_item ; // used to check if this object is already opening before
+int [] fill_item, stroke_item ;
+float [] thickness_item ; 
+float [] size_x_item, size_y_item, size_z_item ;
+float [] font_size_item ;
+float [] canvas_x_item, canvas_y_item, canvas_z_item ;
+
+float [] reactivity_item ;
+float [] speed_x_item, speed_y_item, speed_z_item ;
+float [] spurt_x_item, spurt_y_item, spurt_z_item ;
+float [] dir_x_item, dir_y_item, dir_z_item ;
+float [] jitter_x_item, jitter_y_item, jitter_z_item ;
+float [] swing_x_item, swing_y_item, swing_z_item ;
+
+float [] quantity_item, variety_item ;
+float [] life_item, flow_item, quality_item ;
+
+float [] area_item, angle_item, scope_item, scan_item ;
+float [] alignment_item, repulsion_item, attraction_item, density_item ;
+float [] influence_item, calm_item, spectrum_item ;
+
+/**
+String name
+Used for SCENE don't delete
+*/
 String fill_hue_name = "fill_hue" ;     
 String fill_sat_name = "fill_sat" ;     
 String fill_bright_name= "fill_bright" ;     
@@ -211,84 +286,14 @@ String scan_name = "scan" ;
 String alignment_name = "alignment" ; 
 String repulsion_name = "repulsion" ; 
 String attraction_name = "attraction" ; 
-String charge_name = "charge" ;
+String density_name = "density" ;
 
 String influence_name = "influence" ; 
 String calm_name = "calm" ; 
-String need_name = "need" ;
+String spectrum_name = "spectrum" ;
 
 
 
-// MIN MAX MAP SLIDER
-Vec2 fill_hue_min_max, fill_sat_min_max , fill_bright_min_max , fill_alpha_min_max ;
-Vec2 stroke_hue_min_max, stroke_sat_min_max, stroke_bright_min_max, stroke_alpha_min_max  ;
-Vec2 thickness_min_max ; 
-Vec2 size_x_min_max, size_y_min_max, size_z_min_max ;
-Vec2 font_size_min_max ;
-Vec2 canvas_x_min_max, canvas_y_min_max, canvas_z_min_max ;
-
-Vec2 reactivity_min_max ;
-Vec2 speed_x_min_max, speed_y_min_max, speed_z_min_max ;
-Vec2 spurt_x_min_max, spurt_y_min_max, spurt_z_min_max ;
-Vec2 dir_x_min_max, dir_y_min_max, dir_z_min_max  ; 
-Vec2 jitter_x_min_max, jitter_y_min_max, jitter_z_min_max ;
-Vec2 swing_x_min_max, swing_y_min_max, swing_z_min_max ;
-
-Vec2 quantity_min_max, variety_min_max ; 
-Vec2 life_min_max, flow_min_max, quality_min_max ;
-Vec2 area_min_max, angle_min_max, scope_min_max, scan_min_max ; 
-
-Vec2 alignment_min_max, repulsion_min_max, attraction_min_max, charge_min_max ;
-Vec2 influence_min_max, calm_min_max, need_min_max ;
-
-
-// temp
-/* value used to know if the value slider have change or nor */
-int fill_hue_temp, fill_sat_temp, fill_bright_temp, fill_alpha_temp ;
-int stroke_hue_temp, stroke_sat_temp, stroke_bright_temp, stroke_alpha_temp ;
-float thickness_temp; 
-float size_x_temp, size_y_temp, size_z_temp ;
-float canvas_x_temp, canvas_y_temp, canvas_z_temp ;
-float font_size_temp ;
-
-float reactivity_temp ;
-float speed_x_temp, speed_y_temp, speed_z_temp ;
-float spurt_x_temp, spurt_y_temp, spurt_z_temp ;
-float dir_x_temp, dir_y_temp,dir_z_temp ;
-float jitter_x_temp, jitter_y_temp, jitter_z_temp ;
-float swing_x_temp, swing_y_temp, swing_z_temp ;
-
-float quantity_temp, variety_temp ;
-float life_temp, flow_temp, quality_temp ;
-float area_temp, angle_temp, scope_temp, scan_temp ;
-
-float alignment_temp, repulsion_temp, attraction_temp, charge_temp ;
-float influence_temp, calm_temp, need_temp ;
-
-
-
-
-// item target final
-boolean [] first_opening_item ; // used to check if this object is already opening before
-int [] fill_item, stroke_item ;
-float [] thickness_item ; 
-float [] size_x_item, size_y_item, size_z_item ;
-float [] font_size_item ;
-float [] canvas_x_item, canvas_y_item, canvas_z_item ;
-
-float [] reactivity_item ;
-float [] speed_x_item, speed_y_item, speed_z_item ;
-float [] spurt_x_item, spurt_y_item, spurt_z_item ;
-float [] dir_x_item, dir_y_item, dir_z_item ;
-float [] jitter_x_item, jitter_y_item, jitter_z_item ;
-float [] swing_x_item, swing_y_item, swing_z_item ;
-
-float [] quantity_item, variety_item ;
-float [] life_item, flow_item, quality_item ;
-
-float [] area_item, angle_item, scope_item, scan_item ;
-float [] alignment_item, repulsion_item, attraction_item, charge_item ;
-float [] influence_item, calm_item, need_item ;
 
 /**
 End var item
@@ -343,7 +348,12 @@ float band[][] ;
 float [] tempo, tempoBeat, tempoKick, tempoSnare, tempoHat ;
 
 
-//P3D OBJECT
+/**
+ITEM
+*/
+// master and follower
+int [] master_ID ;
+boolean [] follower ;
 //setting and save
 int NUM_SETTING_CAMERA  ;
 int numSettingOrientationObject = 1 ;
@@ -355,6 +365,9 @@ Vec3 [] eyeCameraSetting, sceneCameraSetting ;
 Vec3 [] pos_item_final ;
 Vec3 [] posObj ;
 Vec3 [] posObjRef ;
+
+// costume
+int [] costume ;
 
 // direction
 boolean [] reset_camera_direction_item ;
@@ -370,7 +383,8 @@ int wheel[] ;
 //pen info
 
 //boolean object
-boolean [] motion, horizon, setting, reverse, special, orbit, clearList, birth, colour ;
+boolean [] birth, colour, dimension, horizon, motion, orbit, reverse, special ;
+boolean [] setting, clearList ;
 
 //main font for each object
 String [] path_font_TTF, pathFontVLW, path_font_item_TTF ;
@@ -411,9 +425,9 @@ void create_variable() {
 
   create_variable_P3D(NUM_SETTING_CAMERA) ;
   create_variableCursor() ;
-  create_var_item() ;
+  create_var_item_slider() ;
   create_var_item_manipulation(NUM_SETTING_ITEM) ;
-  // rpe_manager.init_items() ;
+
   println("variables setup done") ;
 }
 
@@ -431,12 +445,17 @@ void createMiscVar() {
   clearList = new boolean[NUM_ITEM] ;
   // boolean action from keyboard
   birth = new boolean[NUM_ITEM] ;
-  motion = new boolean [NUM_ITEM]  ;
+  colour = new boolean [NUM_ITEM] ;
+  dimension = new boolean [NUM_ITEM] ;
   horizon = new boolean [NUM_ITEM]  ;
+  motion = new boolean [NUM_ITEM]  ;
+  orbit = new boolean [NUM_ITEM] ;
   reverse = new boolean [NUM_ITEM] ;
   special = new boolean [NUM_ITEM] ;
-  orbit = new boolean [NUM_ITEM] ;
-  colour = new boolean [NUM_ITEM] ;
+
+  // costume
+  costume = new int[NUM_ITEM] ;
+
 
   // IMAGE
   bitmap_import = new PImage[NUM_ITEM] ;
@@ -542,9 +561,16 @@ void create_var_item_manipulation(int num_item_setting) {
   dir_reference_items = new Vec3 [NUM_ITEM] ;
   temp_item_canvas_direction = new Vec3 [NUM_ITEM] ;
   item_setting_direction = new Vec3 [num_item_setting] [NUM_ITEM] ;
-}
 
-void create_var_item() {
+  // master and follower
+  master_ID = new int[NUM_ITEM] ;
+  follower = new boolean[NUM_ITEM] ;
+
+}  
+
+void create_var_item_slider() {
+
+
   first_opening_item = new boolean[NUM_ITEM] ; // used to check if this object is already opening before
   fill_item = new color[NUM_ITEM] ;
   stroke_item = new color[NUM_ITEM] ;
@@ -599,12 +625,12 @@ void create_var_item() {
   alignment_item = new float[NUM_ITEM] ;
   repulsion_item = new float[NUM_ITEM] ;
   attraction_item = new float[NUM_ITEM] ;
-  charge_item = new float[NUM_ITEM] ;
+  density_item = new float[NUM_ITEM] ;
 
 
   influence_item = new float[NUM_ITEM] ;
   calm_item = new float[NUM_ITEM] ;
-  need_item = new float[NUM_ITEM] ;
+  spectrum_item = new float[NUM_ITEM] ;
 }
 // END CREATE VAR
 //////////////////
@@ -641,8 +667,9 @@ INIT VAR 1.0.1
 */
 void init_variable_item_min_max() {
   float min_size = .1 ;
-  float super_min_size = .05 ;
-  float factor_area = PHI ;
+  float super_min_size = .01 ;
+  float factor_area = TAU ;
+  float max = width ;
 
   fill_hue_min_max = Vec2(0,360) ; // data from controller value 0 - 360
   fill_sat_min_max = Vec2(0,HSBmode.g) ;     
@@ -654,17 +681,17 @@ void init_variable_item_min_max() {
   stroke_bright_min_max = Vec2(0,HSBmode.b); 
   stroke_alpha_min_max = Vec2(0,HSBmode.a) ;
 
-  thickness_min_max = Vec2(min_size, float(height)*.33) ; 
+  thickness_min_max = Vec2(min_size, max *super_min_size) ; 
 
-  size_x_min_max = Vec2(width *super_min_size, width) ;     
-  size_y_min_max = Vec2(width *super_min_size, width) ;     
-  size_z_min_max = Vec2(width *super_min_size, width) ;
+  size_x_min_max = Vec2(max *super_min_size, max) ;     
+  size_y_min_max = Vec2(max *super_min_size, max) ;     
+  size_z_min_max = Vec2(max *super_min_size, max) ;
 
-  font_size_min_max = Vec2((float)height *.025, height);
+  font_size_min_max = Vec2(max *super_min_size, max);
 
-  canvas_x_min_max = Vec2(width *min_size, width *factor_area) ; 
-  canvas_y_min_max = Vec2(width *min_size, width *factor_area) ; 
-  canvas_z_min_max = Vec2(width *min_size, width *factor_area) ;
+  canvas_x_min_max = Vec2(max *min_size, max *factor_area) ; 
+  canvas_y_min_max = Vec2(max *min_size, max *factor_area) ; 
+  canvas_z_min_max = Vec2(max *min_size, max *factor_area) ;
 
   reactivity_min_max = Vec2(0,1) ;
 
@@ -695,31 +722,38 @@ void init_variable_item_min_max() {
   flow_min_max = Vec2(0,1) ; 
   quality_min_max = Vec2(0,1) ;
 
-  area_min_max = Vec2(width *min_size, width *factor_area) ; 
+  area_min_max = Vec2(max *min_size, max *factor_area) ; 
   angle_min_max = Vec2(0,360) ;  // data from controller value 0 - 360
-  scope_min_max = Vec2(width *min_size, width *factor_area) ; 
+  scope_min_max = Vec2(max *min_size, max *factor_area) ; 
   scan_min_max = Vec2(0,360) ; // data from controller value 0 - 360
 
   alignment_min_max = Vec2(0,1) ; 
   repulsion_min_max = Vec2(0,1) ; 
   attraction_min_max = Vec2(0,1) ; 
-  charge_min_max = Vec2(0,1) ;
+  density_min_max = Vec2(0,1) ;
 
   influence_min_max = Vec2(0,1) ; 
   calm_min_max = Vec2(0,1) ; 
-  need_min_max = Vec2(0,1) ;
+  spectrum_min_max = Vec2(0,360) ;
 }
 
 
 // init var item
 void init_variable_item() {
-  for (int i = 0 ; i < NUM_ITEM ; i++ ) {     
+  for (int i = 0 ; i < NUM_ITEM ; i++ ) {
+    // master follower
+    master_ID[i] = 0 ;
+    follower[i] = false ;
+
     reset_camera_direction_item[i] = true ;
     temp_item_canvas_direction[i] = Vec3() ;
     pen[i] = Vec3() ;
     // use the 250 value for "z" to keep the position light on the front
     mouse[i] = Vec3() ;
     wheel[i] = 0 ;
+
+    // costume 
+    costume[i] = ELLIPSE_ROPE ;
     // init slider var item except fill and stroke
     thickness_item [i] =1. ; 
 
@@ -771,11 +805,11 @@ void init_variable_item() {
     alignment_item [i] = 0 ; 
     repulsion_item [i] = 0 ;  
     attraction_item [i] = 0 ; 
-    charge_item [i] = 0 ; 
+    density_item [i] = 0 ; 
 
     influence_item [i] = 0 ; 
     calm_item [i] = 0 ; 
-    need_item [i] = 0 ; 
+    spectrum_item [i] = 0 ; 
   }
     // init global var for the color obj preview mode display
   COLOR_FILL_OBJ_PREVIEW = color (0,0,100,30) ; 
@@ -889,12 +923,12 @@ void update_raw_value() {
   alignment_raw = map(valueSlider[1][41], minSource, MAX_VALUE_SLIDER, alignment_min_max.x, alignment_min_max.y) ;
   repulsion_raw = map(valueSlider[1][42], minSource, MAX_VALUE_SLIDER, repulsion_min_max.x, repulsion_min_max.y) ;
   attraction_raw = map(valueSlider[1][43], minSource, MAX_VALUE_SLIDER, attraction_min_max.x, attraction_min_max.y) ;
-  charge_raw = map(valueSlider[1][44], minSource, MAX_VALUE_SLIDER, charge_min_max.x, charge_min_max.y) ;
+  density_raw = map(valueSlider[1][44], minSource, MAX_VALUE_SLIDER, density_min_max.x, density_min_max.y) ;
 
 
   influence_raw = map(valueSlider[1][45], minSource, MAX_VALUE_SLIDER, influence_min_max.x, influence_min_max.y) ;
   calm_raw = map(valueSlider[1][46], minSource, MAX_VALUE_SLIDER, calm_min_max.x, calm_min_max.y) ;
-  need_raw = map(valueSlider[1][47], minSource, MAX_VALUE_SLIDER, need_min_max.x, need_min_max.y) ; 
+  spectrum_raw = map(valueSlider[1][47], minSource, MAX_VALUE_SLIDER, spectrum_min_max.x, spectrum_min_max.y) ; 
 
 }
 
@@ -961,11 +995,11 @@ void update_temp_value() {
   alignment_temp = alignment_raw ;
   repulsion_temp = repulsion_raw ;
   attraction_temp = attraction_raw ;
-  charge_temp = charge_raw ;
+  density_temp = density_raw ;
 
   influence_temp = influence_raw ;
   calm_temp = calm_raw ;
-  need_temp = need_raw ;
+  spectrum_temp = spectrum_raw ;
 }
 
 
@@ -975,40 +1009,42 @@ float allBeats(int ID) {
   return (beat[ID]*.25) +(kick[ID]*.25) +(hat[ID]*.25) +(snare[ID]*.25) ;
 }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /**
-ASPECT 0.0.2
+
+FONT and TEXT MANAGER 1.0.0
+
 */
-void aspect_rope(int ID) {
-  if(alpha(fill_item[ID]) == 0 ) noFill() ; else fill(fill_item[ID]) ;
-  if(alpha(stroke_item[ID]) == 0 ) noStroke() ; else stroke(stroke_item[ID]) ;
-  strokeWeight(thickness_item[ID]) ;
-}
-
-void aspect_rope(int ID, int which_costume) {
-  if(which_costume != POINT_ROPE) {
-    if(alpha(fill_item[ID]) == 0) noFill() ; else fill(fill_item[ID]) ;
-    if(alpha(stroke_item[ID]) == 0) noStroke() ; else stroke(stroke_item[ID]) ;
-    strokeWeight(thickness_item[ID]) ;
-  } else {
-    if(alpha(fill_item[ID]) == 0) noStroke() ; else stroke(fill_item[ID]) ;
-    noFill() ;
-    strokeWeight(thickness_item[ID]) ;
-  }
-}
-
-
-
-
-
-
-
-
-
-
-
-
-////////////////////////
-// FONT and TEXT MANAGER
 
 //FONT
 PFont SansSerif10,

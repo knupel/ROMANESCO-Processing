@@ -7,16 +7,11 @@ PVector pos_pretty_version = new PVector(205.0, 23.0) ;
 PVector pos_choice = new PVector(10.0, 60.0) ;
 
 
-//which size SCENE for the MIROIR
-PVector posButtonScene = new PVector (99, 40) ;
-PVector sizeButtonScene = new PVector (85, 20) ;
-PVector posButtonMiroir = new PVector (210, 40) ;
-PVector sizeButtonMiroir = new PVector (85, 20) ;
-//which size WINDOW or FULL SCREEN
-PVector posButtonWindow = new PVector (10, 70) ;
-PVector sizeButtonWindow = new PVector (180, 20) ;
-PVector posButtonFullscreen = new PVector (200, 70) ;
-PVector sizeButtonFullscreen = new PVector (180, 20) ;
+int num_renderer = 3 ;
+//Home / Live / Mirror
+
+
+
 //which size for window
 PVector posSliderWidth = new PVector(10, 134) ;
 PVector posMoletteWidth = posSliderWidth ;
@@ -24,8 +19,10 @@ PVector posSliderHeight = new PVector(200, 134) ;
 PVector posMoletteHeight = posSliderHeight ;
 PVector sizeSlider = new PVector (180, 16 ) ;
 //button start
+/*
 PVector posButtonStart = new PVector (10, 190) ;
 PVector sizeButtonStart = new PVector (210, 20) ;
+*/
 // "X" and  "Y" componant give the button position    "Z" componant = space between the button
 PVector posWhichScreenButton = new PVector (150, 100, 23) ;
 
@@ -47,14 +44,24 @@ GraphicsDevice[] devices = g.getScreenDevices();
 
 color c1, c2, c3, c4 ;
 color colorOUT, colorIN ;
-String pathControleur;
-String pathPrescene, pathScene, pathScene_window, pathScene_fullscreen;
+
+// path
+String path_controller;
+String path_prescene ;
+String path_prescene_window, path_prescene_fullscreen ;
+String path_scene ;
+String path_scene_window, path_scene_fullscreen ;
+
 boolean open ;
 
 //
 String screen = ("") ; // for the saved table information
-String whichAppOpeningTheScene = ("") ; // for the saved table information
-Button buttonScene, buttonMiroir  ;
+String bool_open_scene = ("") ; // for the saved table information
+// Button buttonScene, buttonMiroir  ;
+
+Button [] renderer = new Button [num_renderer] ;
+boolean [] renderer_setting = new boolean[num_renderer] ;
+
 Button buttonWindow, buttonFullscreen  ;
 
 //which screen var

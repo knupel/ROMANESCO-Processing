@@ -1,5 +1,5 @@
 /**
-SURFACE || 2014 || 1.0.1
+SURFACE || 2014 || 1.0.2
 */
 
 class Surface extends Romanesco {
@@ -8,7 +8,7 @@ class Surface extends Romanesco {
     ID_item = 24 ;
     ID_group = 1 ;
     RPE_author  = "Stan le Punk";
-    RPE_version = "Version 1.0.1";
+    RPE_version = "Version 1.0.2";
     RPE_pack = "Base" ;
     RPE_mode = "Surfimage/Vague/Vague++" ; // separate the differentes mode by "/"
     RPE_slider = "Fill hue,Fill sat,Fill bright,Fill alpha,Stroke hue,Stroke sat,Stroke bright,Stroke alpha,Thickness,Influence,Canvas X,Canvas Y,Quality,Canvas X,Speed X,Size X,Swing X" ;
@@ -109,20 +109,20 @@ class Surface extends Romanesco {
       amplitude_simple_grid *= amplitude_simple_grid  ;
       
       // clear the list
-      if(refSizeTriangle != size_x_item[ID_item] || !compare(canvasRef,newCanvas)) {
+      if(refSizeTriangle != size_x_item[ID_item] || !canvasRef.equals(newCanvas)) {
         grid_surface_simple.clear() ;
       }
       
       // Vague + clear
       if(mode[ID_item] == 1 ) {
-        if(refSizeTriangle != size_x_item[ID_item] || !compare(canvasRef,newCanvas) ) {
+        if(refSizeTriangle != size_x_item[ID_item] || !canvasRef.equals(newCanvas)) {
           if(mode[ID_item] == 1 ) grid_surface_simple.clear() ;
           create_surface_simple(sizePix_grid_simple,newCanvas) ;
         }
       }
       // vague ++
       if(mode[ID_item] == 2) {
-        if(refSizeTriangle != size_x_item[ID_item] || !compare(canvasRef,newCanvas) ) {
+        if(refSizeTriangle != size_x_item[ID_item] || !canvasRef.equals(newCanvas)) {
           create_surface_simple(sizePix_grid_simple,newCanvas) ;
         }
       }
@@ -233,7 +233,7 @@ class Surface extends Romanesco {
   boolean refresh_surface ;
     // advice method
   void update_surface_image(int sizePix, Vec4 color_fill, Vec4 color_stroke, float thickness, int altitude) {
-    if( !compare(stroke_ref,color_stroke) || !compare(fill_ref,color_fill) || thickness_ref != thickness || altitude_ref != altitude) refresh_surface = true ;
+    if( !stroke_ref.equals(color_stroke) || !fill_ref.equals(color_fill) || thickness_ref != thickness || altitude_ref != altitude) refresh_surface = true ;
     stroke_ref = color_stroke.copy() ;
     fill_ref = color_fill.copy() ;
     altitude_ref = altitude ;

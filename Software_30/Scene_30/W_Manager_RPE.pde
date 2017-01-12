@@ -1,5 +1,5 @@
 /**
-Romanesco Processing Environment Manager – RPE Manager 2.0.4.2
+Rope Manager 2.0.4.6
 */
 RPE_MANAGER rpe_manager ;
 // CLASS ROMANESCO MANAGER
@@ -50,12 +50,15 @@ void update_var_items(int ID) {
       mouse[ID].set(mouse[0]) ;
     }
     if (nTouch) birth[ID] = !birth[ID] ;
-    if (mTouch) motion[ID] = !motion[ID] ;
+    if (xTouch) colour[ID] = !colour[ID] ;
+    if (dTouch) dimension[ID] = !dimension[ID] ;
     if (hTouch) horizon[ID] = !horizon[ID] ;
+    if (mTouch) motion[ID] = !motion[ID] ;
+    if (oTouch) orbit[ID] = !orbit[ID] ;
     if (rTouch) reverse[ID] = !reverse[ID] ;
     if (kTouch) special[ID] = !special[ID] ;
-    if (oTouch) orbit[ID] = !orbit[ID] ;
-    if (xTouch) colour[ID] = !colour[ID] ;
+
+
     /*
     clickLongLeft[ID] = clickLongLeft[0] ;
     clickLongRight[ID] = clickLongRight[0] ;
@@ -146,11 +149,11 @@ void update_slider_value(int ID) {
     if (alignment_raw != alignment_temp || !first_opening_item[ID]) alignment_item[ID] = alignment_raw ;
     if (repulsion_raw != repulsion_temp || !first_opening_item[ID]) repulsion_item[ID] = repulsion_raw ;
     if (attraction_raw != attraction_temp || !first_opening_item[ID]) attraction_item[ID] = attraction_raw ;
-    if (charge_raw != charge_temp || !first_opening_item[ID]) charge_item[ID] = charge_raw ;
+    if (density_raw != density_temp || !first_opening_item[ID]) density_item[ID] = density_raw ;
 
     if (influence_raw != influence_temp || !first_opening_item[ID]) influence_item[ID] = influence_raw ;
     if (calm_raw != calm_temp || !first_opening_item[ID]) calm_item[ID] = calm_raw ;
-    if (need_raw != need_temp || !first_opening_item[ID]) need_item[ID] = need_raw ;
+    if (spectrum_raw != spectrum_temp || !first_opening_item[ID]) spectrum_item[ID] = spectrum_raw ;
 
 
 
@@ -402,7 +405,6 @@ class RPE_MANAGER {
   
   
   
-  /////////////////////////////////
   //ADD OBJECT from the sub-classes
   void addObjectRomanesco() {
     int n = floor(objectRomanescoList.size()-1) ;
@@ -441,14 +443,11 @@ class RPE_MANAGER {
     objR.setManagerReference(this);
     RomanescoList.add(objR);
   }
-  //END ADD OBJECT
-  ////////////////
   
   
   
-  ////////
-  //SETUP
-  // INIT ROMANESCO OBJECT
+
+  // SETUP
   void init_items() {
     int num = 0 ;
     for (Romanesco objR : RomanescoList) {
@@ -456,20 +455,16 @@ class RPE_MANAGER {
       initValueMouse[objR.ID_item] = true ;
       num ++ ;
       objR.setup() ;
+      println("setup of", objR.RPE_name, objR.ID_item, "is done") ;
       if(posObjRef[objR.ID_item] == null) {
         posObjRef[objR.ID_item] = Vec3() ;
       }
       posObjRef[objR.ID_item].set(item_setting_position[0][objR.ID_item]) ;
     }
   }
+
   
 
-  // END SETUP
-  ////////////
-  
-  
-  
-  ////////
   // DRAW
   void display_item(boolean movePos, boolean moveDir, boolean movePosAndDir) {
     // when you use the third order Romanesco understand the the first and the second are true
@@ -485,9 +480,12 @@ class RPE_MANAGER {
           update_var_items(objR.ID_item) ;
           pushMatrix() ;
           add_ref_item(objR.ID_item) ;
+          item_follower(objR.ID_item) ;
           if(vLongTouch && action[objR.ID_item] ) {
+
             item_move(movePos, moveDir, objR.ID_item) ;
           }
+
           final_pos_item(objR.ID_item) ;
           objR.draw() ;
           popMatrix() ;
@@ -498,7 +496,21 @@ class RPE_MANAGER {
   // END DRAW
   //////////
 }
-//END OBJECT ROMANESCO MANAGER
+/**
+END OBJECT ROMANESCO MANAGER
+*/
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

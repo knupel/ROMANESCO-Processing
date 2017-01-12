@@ -1157,7 +1157,7 @@ UTIL CORE END
 
 /**
 
-ROMANESCO BACKGROUND 1.0.1.1
+ROMANESCO BACKGROUND 1.0.1.3
 
 */
 Vec4 colorBackground, colorBackgroundRef, colorBackgroundPrescene;
@@ -1175,7 +1175,7 @@ void background_romanesco() {
   if(!FULL_RENDERING) { 
     onOffBackground = false ;
     colorBackground = colorBackgroundPrescene.copy() ;
-    background_norm(colorBackground.normalize(Vec4(g.colorModeX,g.colorModeY,g.colorModeZ,g.colorModeA ))) ;
+    background_rope(0,0,g.colorModeZ *.2,g.colorModeA) ;
   } else {
     if(onOffBackground) {
       if(whichShader == 0) {
@@ -1184,14 +1184,14 @@ void background_romanesco() {
         // choice the rendering color palette for the classic background
         if(FULL_RENDERING) {
           // check if the slider background are move, if it's true update the color background
-          if(!compare(colorBackgroundRef,update_background())) {
+          if(!equals(colorBackgroundRef,update_background())) {
             colorBackground.set(update_background()) ;
           } else {
             colorBackgroundRef.set(update_background()) ;
           }
-          background_norm(colorBackground.normalize(Vec4(g.colorModeX,g.colorModeY,g.colorModeZ,g.colorModeA))) ;
+          background_rope(colorBackground) ;
         }
-        background_norm(colorBackground.normalize(Vec4(g.colorModeX,g.colorModeY,g.colorModeZ,g.colorModeA))) ;
+        background_rope(colorBackground) ;
       } else {
         background_shader_draw(whichShader) ;
       }

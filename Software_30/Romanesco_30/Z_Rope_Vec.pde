@@ -1,6 +1,6 @@
 /**
-CLASS ROPE VEC 1.8.5.0
-Rope – Romanesco Processing Environment: 2015–2017
+CLASS ROPE VEC 1.8.4.0
+Rope – Romanesco Processing Environment: 2015 – 2017
 * @author Stan le Punk
 * @see https://github.com/StanLepunK/Vec
 * inspireted by GLSL code and PVector from Daniel Shiffman
@@ -2504,36 +2504,22 @@ compare two vectors Vec without area
 
 @ return boolean
 */
-// Vec2 equals
+// Vec2 compare
 boolean equals(Vec2 v_a, Vec2 v_b) {
-  if(v_a == null || v_b == null) {
-    println("Is not possible to compare", v_a, "to", v_b) ;
-    return false ;
-  } else {
-    return equals(Vec4(v_a.x,v_a.y,0,0),Vec4(v_b.x,v_b.y,0,0)) ;
-  }
+  return compare(Vec4(v_a.x,v_a.y,0,0),Vec4(v_b.x,v_b.y,0,0)) ;
 }
 
 // Vec3 compare
 boolean equals(Vec3 v_a, Vec3 v_b) {
-    if(v_a == null || v_b == null) {
-    println("Is not possible to compare", v_a, "to", v_b) ;
-    return false ;
-  } else {
-    return equals(Vec4(v_a.x, v_a.y, v_a.z, 0),Vec4(v_b.x, v_b.y, v_b.z, 0)) ;
-  }
+  return compare(Vec4(v_a.x, v_a.y, v_a.z, 0),Vec4(v_b.x, v_b.y, v_b.z, 0)) ;
 }
 // Vec4 compare
 boolean equals(Vec4 v_a, Vec4 v_b) {
-  if(v_a != null && v_b != null ) {
+  if( v_a != null && v_b != null ) {
     if((v_a.x == v_b.x) && (v_a.y == v_b.y) && (v_a.z == v_b.z) && (v_a.w == v_b.w)) {
             return true ; 
-    } else {
-      return false ;
-    }
-  } else {
-    return false ;
-  } 
+    } else return false ;
+  } else return false ;
 }
 
 
@@ -2548,43 +2534,84 @@ that give the possibility of different size for each component
 // Vec method
 // Vec2 compare with area
 boolean equals(Vec2 v_a, Vec2 v_b, Vec2 area) {
-  if(v_a == null || v_b == null || area == null) {
-    println("Is not possible to compare", v_a, "with", v_b, "with", area) ;
-    return false ;
-  } else {
-    return equals(Vec4(v_a.x, v_a.y, 0, 0),Vec4(v_b.x, v_b.y, 0, 0),Vec4(area.x, area.y, 0, 0)) ;
-  }
+  return compare(Vec4(v_a.x, v_a.y, 0, 0),Vec4(v_b.x, v_b.y, 0, 0),Vec4(area.x, area.y, 0, 0)) ;
 }
 // Vec3 compare with area
 boolean equals(Vec3 v_a, Vec3 v_b, Vec3 area) {
-    if(v_a == null || v_b == null || area == null) {
-    println("Is not possible to compare", v_a, "with", v_b, "with", area) ;
-    return false ;
-  } else {
-    return equals(Vec4(v_a.x, v_a.y, v_a.z, 0),Vec4(v_b.x, v_b.y, v_b.z, 0),Vec4(area.x, area.y, area.z, 0)) ;
-  }
+  return compare(Vec4(v_a.x, v_a.y, v_a.z, 0),Vec4(v_b.x, v_b.y, v_b.z, 0),Vec4(area.x, area.y, area.z, 0)) ;
 }
 // Vec4 compare with area
 boolean equals(Vec4 v_a, Vec4 v_b, Vec4 area) {
-  if(v_a != null && v_b != null && area != null ) {
+  if( v_a != null && v_b != null && area != null ) {
     if(    (v_a.x >= v_b.x -area.x && v_a.x <= v_b.x +area.x) 
         && (v_a.y >= v_b.y -area.y && v_a.y <= v_b.y +area.y) 
         && (v_a.z >= v_b.z -area.z && v_a.z <= v_b.z +area.z) 
         && (v_a.w >= v_b.w -area.w && v_a.w <= v_b.w +area.w)) {
             return true ; 
-    } else {
-      return false ;
-    }
-  } else {
-    return false ;
-  }
+    } else return false ;
+  } else return false ;
 }
 
 
 
 
 
+/**
+Compare deprecated
+*/
+/*
+Compare Vector with or without area
+compare two vectors Vec without area
 
+@ return boolean
+*/
+// Vec2 compare
+boolean compare(Vec2 v_a, Vec2 v_b) {
+  return compare(Vec4(v_a.x,v_a.y,0,0),Vec4(v_b.x,v_b.y,0,0)) ;
+}
+
+// Vec3 compare
+boolean compare(Vec3 v_a, Vec3 v_b) {
+  return compare(Vec4(v_a.x, v_a.y, v_a.z, 0),Vec4(v_b.x, v_b.y, v_b.z, 0)) ;
+}
+// Vec4 compare
+boolean compare(Vec4 v_a, Vec4 v_b) {
+  if( v_a != null && v_b != null ) {
+    if((v_a.x == v_b.x) && (v_a.y == v_b.y) && (v_a.z == v_b.z) && (v_a.w == v_b.w)) {
+            return true ; 
+    } else return false ;
+  } else return false ;
+}
+
+
+/* 
+compare if the first vector is in the area of the second vector, 
+the area of the second vector is define by a Vec area, 
+that give the possibility of different size for each component
+*/
+/*
+@ return boolean
+*/
+// Vec method
+// Vec2 compare with area
+boolean compare(Vec2 v_a, Vec2 v_b, Vec2 area) {
+  return compare(Vec4(v_a.x, v_a.y, 0, 0),Vec4(v_b.x, v_b.y, 0, 0),Vec4(area.x, area.y, 0, 0)) ;
+}
+// Vec3 compare with area
+boolean compare(Vec3 v_a, Vec3 v_b, Vec3 area) {
+  return compare(Vec4(v_a.x, v_a.y, v_a.z, 0),Vec4(v_b.x, v_b.y, v_b.z, 0),Vec4(area.x, area.y, area.z, 0)) ;
+}
+// Vec4 compare with area
+boolean compare(Vec4 v_a, Vec4 v_b, Vec4 area) {
+  if( v_a != null && v_b != null && area != null ) {
+    if(    (v_a.x >= v_b.x -area.x && v_a.x <= v_b.x +area.x) 
+        && (v_a.y >= v_b.y -area.y && v_a.y <= v_b.y +area.y) 
+        && (v_a.z >= v_b.z -area.z && v_a.z <= v_b.z +area.z) 
+        && (v_a.w >= v_b.w -area.w && v_a.w <= v_b.w +area.w)) {
+            return true ; 
+    } else return false ;
+  } else return false ;
+}
 
 
 

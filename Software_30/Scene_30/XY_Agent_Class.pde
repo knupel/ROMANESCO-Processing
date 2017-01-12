@@ -1,5 +1,5 @@
 /**
-CLASS AGENT 1.0.0.0
+CLASS AGENT 1.0.1
 */
 /**
 
@@ -21,7 +21,10 @@ interface Agent {
   Genome get_genome() ;
   boolean get_alive() ;
   Vec3 get_pos() ;
-  int get_size() ;
+
+  Vec3 get_size() ;
+  int get_mass() ;
+  float get_density() ;
 
 
   int get_alpha_cursor() ;
@@ -50,9 +53,15 @@ interface Agent {
   void aspect(Vec4 f, Vec4 s, float t) ;
 
   int get_costume() ;
-  Vec4 get_fill() ;
-  Vec4 get_stroke() ;
+  Vec4 get_fill_style() ;
+  Vec4 get_stroke_style() ;
   float get_thickness() ;
+
+  Vec4 get_melanin() ;
+
+  Vec4 get_first_colour() ;
+  Vec4 get_second_colour() ;
+  Vec4 get_third_colour() ;
 
 
   /**
@@ -69,9 +78,9 @@ interface Agent {
   /**
   set aspect
   */
-  void set_aspect(Vec4 colour_fill, Vec4 colour_stroke, float thickness) ;
-  void set_fill(Vec4 colour_fill) ;
-  void set_stroke(Vec4 colour_stroke) ;
+  void set_aspect(Vec4 fill_style, Vec4 stroke_style, float thickness) ;
+  void set_fill(Vec4 fill_style) ;
+  void set_stroke(Vec4 stroke_style) ;
   void set_thickness(float thickness) ;
   void set_alpha(Vec3 alpha_behavior) ;
   /**
@@ -94,6 +103,20 @@ interface Agent {
 END INTERFACE AGENT
 
 */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -154,12 +177,20 @@ abstract class Agent_model implements Agent {
   int stamina, stamina_ref ;
   int nutrient_quality = 1 ;
   // size
-  int size, size_ref, size_max ;
-    /**
-  aspect
+  Vec3 size, size_ref, size_max ;
+  int mass, mass_ref ;
+  float density = 1 ;
+  /**
+  colour use by ADN
   */
-  Vec4 colour_fill = Vec4(0,0,0,g.colorModeA) ;
-  Vec4 colour_stroke = Vec4(0,0,0,g.colorModeA) ;
+  Vec4 melanin ;
+  Vec4 first_colour, second_colour, third_colour ;
+  /**
+  aspect 
+  not use in the ADN, just for display
+  */
+  Vec4 fill_style = Vec4(0,0,0,g.colorModeA) ;
+  Vec4 stroke_style = Vec4(0,0,0,g.colorModeA) ;
   float thickness = 1 ;
 
   int costume = 0 ; // costume 0 is point in Z_costume_rope library
@@ -251,11 +282,19 @@ abstract class Agent_model implements Agent {
   boolean get_alive() { 
     return alive ;
   }
-  int get_size() { 
+  Vec3 get_size() { 
     return size ; 
   }
   int get_stamina() { 
     return stamina ; 
+  }
+
+  int get_mass() { 
+    return mass ; 
+  }
+
+  float get_density() { 
+    return density ; 
   }
 
   Vec3 get_pos() { 
@@ -284,14 +323,28 @@ abstract class Agent_model implements Agent {
   int get_costume() { 
     return costume ; 
   }
-  Vec4 get_fill() { 
-    return colour_fill ; 
+  Vec4 get_fill_style() { 
+    return fill_style ; 
   }
-  Vec4 get_stroke() { 
-    return colour_stroke ; 
+  Vec4 get_stroke_style() { 
+    return stroke_style ; 
   }
   float get_thickness() { 
     return thickness ; 
+  }
+
+  Vec4 get_melanin() { 
+    return first_colour ; 
+  }
+
+  Vec4 get_first_colour() { 
+    return first_colour ; 
+  }
+  Vec4 get_second_colour() { 
+    return second_colour ; 
+  }
+  Vec4 get_third_colour() { 
+    return third_colour ; 
   }
 
 
@@ -356,18 +409,18 @@ abstract class Agent_model implements Agent {
   /**
   set aspect
   */
-  void set_aspect(Vec4 colour_fill, Vec4 colour_stroke, float thickness) {
-    this.colour_fill.set(colour_fill) ;
-    this.colour_stroke.set(colour_stroke) ;
+  void set_aspect(Vec4 fill_style, Vec4 stroke_style, float thickness) {
+    this.fill_style.set(fill_style) ;
+    this.stroke_style.set(stroke_style) ;
     this.thickness = thickness ;
   }
 
-  void set_fill(Vec4 colour_fill) {
-    this.colour_fill.set(colour_fill) ;
+  void set_fill(Vec4 fill_style) {
+    this.fill_style.set(fill_style) ;
   }
 
-  void set_stroke(Vec4 colour_stroke) {
-    this.colour_stroke.set(colour_stroke) ;
+  void set_stroke(Vec4 stroke_style) {
+    this.stroke_style.set(stroke_style) ;
   }
 
   void set_thickness(float thickness) {
@@ -385,8 +438,20 @@ abstract class Agent_model implements Agent {
   /**
   set caracteristic
   */
+  void set_density(float density) {
+    this.density = density ;
+  }
+
   void set_size(int size) {
-    this.size = size ;
+    if(this.size != null) {
+      this.size = Vec3(size) ;
+    } else this.size.set(size) ;
+  }
+
+  void set_size(Vec3 size) {
+    if(this.size != null) {
+      this.size = Vec3(size) ;
+    } else this.size.set(size) ;
   }
 
   void set_life(int life_expectancy) {
@@ -492,11 +557,11 @@ abstract class Agent_model implements Agent {
   void aspect(float thickness) {
     if(thickness <= 0) { 
       noStroke() ;
-      fill(colour_fill) ;
+      fill(fill_style) ;
     } else { 
       strokeWeight(thickness) ;
-      stroke(colour_stroke) ;
-      fill(colour_fill) ;
+      stroke(stroke_style) ;
+      fill(fill_style) ;
     }
   }
   
@@ -635,12 +700,25 @@ END CLASS AGENT METHOD
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /**
 
-CLASS AGENT DYNAMIC 0.2.0
-
+CLASS AGENT DYNAMIC 0.2.1
 @author Stan le Punk
-@version 0.1.1
+
 */
 abstract class Agent_dynamic extends Agent_model {
   /**
@@ -695,12 +773,12 @@ abstract class Agent_dynamic extends Agent_model {
   //behavior
   int max_watching = 600 ;
 
-
   // STATEMENT
   boolean watching = true ;
   boolean eating ;
   boolean tracking ;
   boolean tracking_partner ;
+
   /**
   motion, pos, coord
   */
@@ -748,7 +826,9 @@ abstract class Agent_dynamic extends Agent_model {
 
     // catch caracteristic
     String temp_name = "Nobody" ;
-    int temp_size = 1 ;
+    Vec3 temp_size = Vec3(1) ;
+    float temp_density = 1 ;
+
     int temp_stamina = 1 ;
     int temp_velocity = 0 ;
     int temp_sense_range = 1 ;
@@ -756,12 +836,61 @@ abstract class Agent_dynamic extends Agent_model {
     int species_life_cycle = MAX_INT ;
     Vec2 temp_sex_appeal = Vec2(1) ;
     float temp_multiple_pregnancy = 0 ;
+    
+    Vec4 temp_first = Vec4(1) ;
+    Vec4 temp_second = Vec4(1) ;
+    Vec4 temp_third = Vec4(1) ;
+
+    Vec4 temp_melanin = Vec4(0) ;
+    //
+    float range_norm = .15 ;
+    //
 
     if (carac.get("name") != null) temp_name = (String) carac.get("name")[0].catch_obj(0) ;
-    if (carac.get("size") != null) temp_size = (int) random_gaussian((int)carac.get("size")[0].catch_obj(0)) ;
+
+    if (carac.get("size") != null && carac.get("size")[0].catch_obj(0) instanceof Vec3) {
+      temp_size = (Vec3)carac.get("size")[0].catch_obj(0) ;
+      temp_size.x = random_gaussian(temp_size.x) ;
+      temp_size.y = random_gaussian(temp_size.y) ;
+      temp_size.z = random_gaussian(temp_size.z) ;
+    }
+    if (carac.get("density") != null) temp_density = random_gaussian((int)carac.get("density")[0].catch_obj(0), range_norm) ;
+
     if (carac.get("stamina") != null) temp_stamina = (int) random_gaussian((int)carac.get("stamina")[0].catch_obj(0)) ;
     if (carac.get("velocity") != null) temp_velocity = (int) random_gaussian((int)carac.get("velocity")[0].catch_obj(0)) ;
     if (carac.get("sense_range") != null) temp_sense_range = (int) random_gaussian((int)carac.get("sense_range")[0].catch_obj(0)) ;
+    // colour
+    
+    if (carac.get("first_colour") != null && carac.get("first_colour")[0].catch_obj(0) instanceof Vec4) {
+      temp_first = (Vec4)carac.get("first_colour")[0].catch_obj(0) ;
+      temp_first.x = random_gaussian(temp_first.x, range_norm) ;
+      temp_first.y = random_gaussian(temp_first.y, range_norm) ;
+      temp_first.z = random_gaussian(temp_first.z, range_norm) ;
+      temp_first.a = random_gaussian(temp_first.a, range_norm) ;
+    }
+    if (carac.get("second_colour") != null && carac.get("second_colour")[0].catch_obj(0) instanceof Vec4) {
+      temp_second = (Vec4)carac.get("second_colour")[0].catch_obj(0) ;
+      temp_second.x = random_gaussian(temp_second.x, range_norm) ;
+      temp_second.y = random_gaussian(temp_second.y, range_norm) ;
+      temp_second.z = random_gaussian(temp_second.z, range_norm) ;
+      temp_second.a = random_gaussian(temp_second.a, range_norm) ;
+    }
+    if (carac.get("third_colour") != null && carac.get("third_colour")[0].catch_obj(0) instanceof Vec4) {
+      temp_third = (Vec4)carac.get("third_colour")[0].catch_obj(0) ;
+      temp_third.x = random_gaussian(temp_third.x, range_norm) ;
+      temp_third.y = random_gaussian(temp_third.y, range_norm) ;
+      temp_third.z = random_gaussian(temp_third.z, range_norm) ;
+      temp_third.a = random_gaussian(temp_third.a, range_norm) ;
+    }
+    // melanin
+    if (carac.get("melanin") != null && carac.get("melanin")[0].catch_obj(0) instanceof Vec4) {
+      temp_melanin = (Vec4)carac.get("melanin")[0].catch_obj(0) ;
+      temp_melanin.x = random_gaussian(temp_melanin.x, range_norm) ;
+      temp_melanin.y = random_gaussian(temp_melanin.y, range_norm) ;
+      temp_melanin.z = random_gaussian(temp_melanin.z, range_norm) ;
+      temp_melanin.a = random_gaussian(temp_melanin.a, range_norm) ;
+    }
+
     // agent
     if (carac.get("life_expectancy") != null) temp_life_expectancy = (int) random_gaussian((int)carac.get("life_expectancy")[0].catch_obj(0)) ;
     // species
@@ -780,15 +909,24 @@ abstract class Agent_dynamic extends Agent_model {
 
     if(carac.get("multiple_pregnancy") != null) temp_multiple_pregnancy = random_gaussian((Float)carac.get("multiple_pregnancy")[0].catch_obj(0)) ;
 
-    init_var_life_cycle(temp_life_expectancy, species_life_cycle) ;
+    init_var_life_cycle(temp_life_expectancy, species_life_cycle, temp_size, temp_density) ;
 
     // genome info
     this.size = this.size_ref = this.size_max = temp_size ;
+    this.density = temp_density ;
+    this.mass = this.mass_ref = int((size.x +size.y +size.z) *.3 *this.density) ;
+
     this.stamina_ref = this.stamina = temp_stamina ;
     this.velocity = this.velocity_ref = temp_velocity ;
     this.name = temp_name ;
-    this.sense_range = this.size + temp_sense_range ;
+    this.sense_range = this.mass + temp_sense_range ;
     this.multiple_pregnancy = temp_multiple_pregnancy ;
+
+    this.first_colour = temp_first.copy() ;
+    this.second_colour = temp_second.copy() ;
+    this.third_colour = temp_third.copy() ;
+
+    this.melanin = temp_melanin.copy() ;
 
     this.gender = gender ;
     /**
@@ -818,6 +956,7 @@ abstract class Agent_dynamic extends Agent_model {
     set_hunger_cycle() ;
     
     build_archetype_genome( temp_size, 
+                            temp_density,
                             temp_life_expectancy,
                             temp_velocity, 
                             temp_sense_range, 
@@ -825,6 +964,10 @@ abstract class Agent_dynamic extends Agent_model {
                             temp_sex_appeal,
                             temp_multiple_pregnancy,
                             species_life_cycle,
+                            temp_first,
+                            temp_second,
+                            temp_third,
+                            temp_melanin,
                             generation,  
                             gender) ;
 
@@ -858,30 +1001,45 @@ abstract class Agent_dynamic extends Agent_model {
    
     
     // setting
-    // chromosome Float
-    this.size = int((Float)genome.get_gene_product(0,0).catch_obj(0)) ;
-    this.stamina_ref = this.stamina = int((Float)genome.get_gene_product(0,2).catch_obj(0));
-    int life_expectancy_temp = int((Float)genome.get_gene_product(0,3).catch_obj(0)) ;
-
-    this.velocity = this.velocity_ref = int((Float)genome.get_gene_product(0,4).catch_obj(0)) ;
-    this.sense_range = int(size +int((Float)genome.get_gene_product(0,5).catch_obj(0))) ;
     // chromosome String
     this.name = (String) genome.get_gene_product(1,0).catch_obj(0) ;
+
+
+    // chromosome Float
+    this.size = Vec3((Float)genome.get_gene_product(0,0).catch_obj(0), (Float)genome.get_gene_product(0,1).catch_obj(0), (Float)genome.get_gene_product(0,2).catch_obj(0)) ;
+
+
+    // generation is genome.get_gene_product(0,3).catch_obj(0)
+    this.stamina_ref = this.stamina = int((Float)genome.get_gene_product(0,4).catch_obj(0));
+    int life_expectancy_temp = int((Float)genome.get_gene_product(0,5).catch_obj(0)) ;
+
+    this.velocity = this.velocity_ref = int((Float)genome.get_gene_product(0,6).catch_obj(0)) ;
+
+    /*
+    * this var is updated in the method init_var_life_cycle()
+    */
+    this.sense_range = int( (Float)genome.get_gene_product(0,7).catch_obj(0)) ;
     // sex appeal
-    Vec2 sex_appeal = Vec2((Float)genome.get_gene_product(0,6).catch_obj(0), (Float)genome.get_gene_product(0,7).catch_obj(0)) ;
+    Vec2 sex_appeal = Vec2((Float)genome.get_gene_product(0,8).catch_obj(0), (Float)genome.get_gene_product(0,9).catch_obj(0)) ;
     // multi_pregnancy
-    this.multiple_pregnancy = (Float)genome.get_gene_product(0,8).catch_obj(0) ;
+    this.multiple_pregnancy = (Float)genome.get_gene_product(0,10).catch_obj(0) ;
 
     // cycle life
-    int species_life_cycle = int((Float)genome.get_gene_product(0,9).catch_obj(0)) ;
+    int species_life_cycle = int((Float)genome.get_gene_product(0,11).catch_obj(0)) ;
 
+    this.first_colour = Vec4((Float)genome.get_gene_product(0,12).catch_obj(0), (Float)genome.get_gene_product(0,13).catch_obj(0),(Float)genome.get_gene_product(0,14).catch_obj(0), (Float)genome.get_gene_product(0,15).catch_obj(0)) ;
+    this.second_colour = Vec4((Float)genome.get_gene_product(0,16).catch_obj(0), (Float)genome.get_gene_product(0,17).catch_obj(0),(Float)genome.get_gene_product(0,18).catch_obj(0), (Float)genome.get_gene_product(0,19).catch_obj(0)) ;
+    this.third_colour = Vec4((Float)genome.get_gene_product(0,20).catch_obj(0), (Float)genome.get_gene_product(0,21).catch_obj(0),(Float)genome.get_gene_product(0,22).catch_obj(0), (Float)genome.get_gene_product(0,23).catch_obj(0)) ;
 
+    this.melanin = Vec4((Float)genome.get_gene_product(0,24).catch_obj(0), (Float)genome.get_gene_product(0,25).catch_obj(0),(Float)genome.get_gene_product(0,26).catch_obj(0), (Float)genome.get_gene_product(0,27).catch_obj(0)) ;
+    
+    this.density = (Float)genome.get_gene_product(0,28).catch_obj(0) ;
     
     up_generation() ;
     genome.mutation_data(0, 1, String.valueOf(generation), true, true);
 
 
-    init_var_life_cycle(life_expectancy_temp, species_life_cycle) ;
+    init_var_life_cycle(life_expectancy_temp, species_life_cycle, this.size, this.density) ;
     set_reproduction(sex_appeal) ;
 
     set_hunger_cycle() ;
@@ -899,18 +1057,49 @@ abstract class Agent_dynamic extends Agent_model {
   /**
   GENOME
   */
-  void build_archetype_genome(int size, int life_expectancy, int velocity, int sense_range, String name, Vec2 sex_appeal, float multiple_pregnancy, int species_life_cycle, int generation, int gender) {
-    float [] data_float = new float[10] ;
-    data_float[0] = size ;
-    data_float[1] = generation ;
-    data_float[2] = stamina ;
-    data_float[3] = life_expectancy ;
-    data_float[4] = velocity ;
-    data_float[5] = sense_range ;
-    data_float[6] = sex_appeal.x ;
-    data_float[7] = sex_appeal.y ;
-    data_float[8] = multiple_pregnancy ;
-    data_float[9] = species_life_cycle ;
+  void build_archetype_genome(Vec3 size, float density, int life_expectancy, int velocity, int sense_range, String name, Vec2 sex_appeal, float multiple_pregnancy, int species_life_cycle, 
+                              Vec4 first_colour, Vec4 second_colour, Vec4 third_colour, Vec4 melanin, 
+                              int generation, int gender) {
+    float [] data_float = new float[42] ;
+    data_float[0] = size.x ;
+    data_float[1] = size.y ;
+    data_float[2] = size.z ;
+
+    data_float[3] = generation ;
+    data_float[4] = stamina ;
+    data_float[5] = life_expectancy ;
+    data_float[6] = velocity ;
+
+    data_float[7] = sense_range ;
+
+    data_float[8] = sex_appeal.x ;
+    data_float[9] = sex_appeal.y ;
+
+    data_float[10] = multiple_pregnancy ;
+    data_float[11] = species_life_cycle ;
+
+    data_float[12] = first_colour.x ;
+    data_float[13] = first_colour.y ;
+    data_float[14] = first_colour.z ;
+    data_float[15] = first_colour.a ;
+
+    data_float[16] = second_colour.x ;
+    data_float[17] = second_colour.y ;
+    data_float[18] = second_colour.z ;
+    data_float[19] = second_colour.a ;
+
+    data_float[20] = third_colour.x ;
+    data_float[21] = third_colour.y ;
+    data_float[22] = third_colour.z ;
+    data_float[23] = third_colour.a ;
+
+    data_float[24] = melanin.x ;
+    data_float[25] = melanin.y ;
+    data_float[26] = melanin.z ;
+    data_float[27] = melanin.a ;
+
+    data_float[28] = density ;
+
     String [] data_string = new String[1] ;
     data_string[0] = name ;
     genome = archetype(data_float, data_string, gender) ;
@@ -938,7 +1127,7 @@ abstract class Agent_dynamic extends Agent_model {
   internal setting for constructor
   based on arbitrary life cycle model
   */
-  void init_var_life_cycle(int life_expectancy, int species_life_expectancy) {
+  void init_var_life_cycle(int life_expectancy, int species_life_expectancy, Vec3 size, float density) {
 
     this.life_expectancy = life_expectancy ;
     this.life = life_expectancy ;
@@ -950,6 +1139,10 @@ abstract class Agent_dynamic extends Agent_model {
 
     this.threshold_satisfation = this.life_expectancy /10 ;
     this.threshold_dissatisfaction = this.life_expectancy /10  ;
+
+    this.mass = this.mass_ref = int((size.x +size.y +size.z) *.3 *density) ;
+
+    this.sense_range = this.mass +this.sense_range ;
 
   }
   void init_ID() {
@@ -986,7 +1179,7 @@ abstract class Agent_dynamic extends Agent_model {
   internal set
   */
   void set_hunger_cycle() {
-    set_step_hunger(this.size +this.stamina)  ;
+    set_step_hunger(this.mass +this.stamina)  ;
     set_leptin(2.5) ;
     set_hunger(this.step_hunger *2.) ;
     if(hunger > step_hunger) satiate = true ;
@@ -995,11 +1188,11 @@ abstract class Agent_dynamic extends Agent_model {
 
   void set_reproduction(Vec2 sex_appeal_ratio) {
     if(this.gender == 0) {
-      this.reproduction_area = size *2 ; 
-      this.sex_appeal = int(size *sex_appeal_ratio.x) ; 
+      this.reproduction_area = this.mass *2 ; 
+      this.sex_appeal = int(this.mass *sex_appeal_ratio.x) ; 
     } else if (this.gender == 1) { 
-      this.reproduction_area = size *2 ; 
-      this.sex_appeal = int(size *sex_appeal_ratio.y) ; 
+      this.reproduction_area = this.mass *2 ; 
+      this.sex_appeal = int(this.mass *sex_appeal_ratio.y) ; 
     }
   }
  
@@ -1257,7 +1450,7 @@ COMMON HUNT & SEARCH
       } else if (!starving_bool) {
         // search for target
         boolean ratio_food = false ;
-        if(ratio_food_ref < ratio_food (f.size, f.size_ref, f.nutrient_quality, gourmet)) {
+        if(ratio_food_ref < ratio_food (f.mass, f.mass_ref, f.nutrient_quality, gourmet)) {
           ratio_food = true ;
         }
         targeting(f, list_target, ratio_food) ;
@@ -1271,7 +1464,7 @@ COMMON HUNT & SEARCH
   // local method
   void targeting(Flora target, ArrayList<Agent> list_target, boolean ratio_food) {
     float dist = dist(target.pos,pos) ;
-    boolean threshold_quantity = threshold_food_quantity(target.size, target.size_ref, gourmet) ;
+    boolean threshold_quantity = threshold_food_quantity(target.mass, target.mass_ref, gourmet) ;
     /*
     if(!watching && !eating && !satiate && !tracking) {
       int tempo = 30 ;
@@ -1303,7 +1496,7 @@ COMMON HUNT & SEARCH
   // set target
   void set_target(Flora f) {
     // make ref of the best target / pray
-    ratio_food_ref = ratio_food(f.size, f.size_ref, f.nutrient_quality, gourmet) ;
+    ratio_food_ref = ratio_food(f.mass, f.mass_ref, f.nutrient_quality, gourmet) ;
     dist_ref_watch_flora = dist(f.pos,pos) ;
     // 
     pos_target.set(f.pos) ;
@@ -1315,12 +1508,22 @@ COMMON HUNT & SEARCH
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
   /**
   HUNTING METHOD – for the carnivore by the way
 
   */
-
-
   void kill(Agent_dynamic target) {
     if(dist(target.pos,pos) < kill_zone && target.alive ) {
       pos_target.set(target.pos) ;
@@ -1358,10 +1561,11 @@ COMMON HUNT & SEARCH
   add stamina
   */
   void eat_flesh(Agent_static a) {
-    if(dist(a.pos,pos) < eat_zone && !a.alive && threshold_food_quantity(a.size, a.size_ref, gourmet)) {
+    if(dist(a.pos,pos) < eat_zone && !a.alive && threshold_food_quantity(a.mass, a.mass_ref, gourmet)) {
       pos_target.set(a.pos) ;
       float calories = a.nutrient_quality *speed_feeding *digestion ;
-      a.size -= speed_feeding ;
+      a.mass -= speed_feeding ;
+      a.size.sub(speed_feeding *.33) ;
       hunger += calories ;
       stamina += calories ;
       eating = true ;
@@ -1371,11 +1575,12 @@ COMMON HUNT & SEARCH
   }
 
   void eat_veg(Flora f) {
-    if(dist(f.pos,pos) < eat_zone && threshold_food_quantity(f.size, f.size_ref, gourmet) ) {
+    if(dist(f.pos,pos) < eat_zone && threshold_food_quantity(f.mass, f.mass_ref, gourmet) ) {
       pos_target.set(f.pos) ;
       float calories = f.nutrient_quality *speed_feeding *digestion ;
       f.stamina -= (speed_feeding *.01);
-      f.size -= (speed_feeding *.01);
+      f.mass -= (speed_feeding *.01) ;
+      f.size.sub(speed_feeding *.0033) ;
       hunger += calories ;
       stamina += calories ;
       eating = true ;
@@ -1439,17 +1644,6 @@ COMMON HUNT & SEARCH
   /**
 
   */
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -1538,8 +1732,8 @@ COMMON HUNT & SEARCH
   // rebound
   Vec3 rebound(float left, float right, float top, float bottom, float front, float back, Vec3 pos, Vec3 dir) {
     // here we use size to have a physical rebound
-    int effect = size ;
-    effect = 0 ;
+    float effect = this.mass ;
+
     left -=effect ;
     right +=effect ;
     top -=effect ;
@@ -1578,8 +1772,8 @@ COMMON HUNT & SEARCH
   // jump
   Vec3 jump(float left, float right, float top, float bottom, float front, float back, Vec3 motion) {
     // here we use sense_range to find a good jump
-    int effect = sense_range ;
-    effect = 0 ;
+    int effect = this.mass ;
+    // effect = 0 ;
     left -=effect ;
     right +=effect ;
     top -=effect ;
@@ -1609,20 +1803,6 @@ COMMON HUNT & SEARCH
   /**
 
   */
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -1737,7 +1917,7 @@ COMMON HUNT & SEARCH
     aspect(Vec4(0), colour_info(colour, satiate, pregnant, fertility), 1) ;
     start_matrix() ;
     translate(pos) ;
-    ellipse(pos_temp.x, pos_temp.y, size *2, size *2) ;
+    ellipse(pos_temp.x, pos_temp.y, size.x *2, size.y *2) ;
     stop_matrix() ;
   }
 
@@ -1984,10 +2164,20 @@ END AGENT DYNAMIC CLASS
 
 
 
+
+
+
+
+
+
+
+
+
+
 /**
 
 
-Agent Static 0.2.0
+Agent Static 0.2.1
 
 
 */
@@ -1998,28 +2188,87 @@ abstract class Agent_static extends Agent_model {
   int speed_growth = 1 ;
   float need = 1. ;
 
+
   /**
   Constructor
 
   */
-  Agent_static(Vec3 pos, int size, int life_expectancy, String name) {
+  Agent_static(Vec3 pos, Vec3 size, int life_expectancy, String name) {
     this.pos.set(pos) ;
     this.life_expectancy = life_expectancy ;
     this.life = life_expectancy ;
     this.name = name ;
     this.ID = (short) Math.round(random(Short.MAX_VALUE)) ;
     this.size = this.size_ref = this.size_max  = size ;
+    density = 1 ;
+    this.mass = this.mass_ref = int((size.x +size.y +size.z) *.3 *this.density) ;
   }
 
   Agent_static(Info_dict carac, Info_obj style, int gender) {
     String temp_name = "Nobody" ;
-    int temp_size = 1 ;
+    Vec3 temp_size = Vec3(1) ;
+    float temp_density = 1 ;
+
+    Vec4 temp_first = Vec4(1) ;
+    Vec4 temp_second = Vec4(1) ;
+    Vec4 temp_third = Vec4(1) ;
+    Vec4 temp_melanin = Vec4(1) ;
+    // 
+    float range_norm = .15 ;
+    // 
+
     this.ID = (short) Math.round(random(Short.MAX_VALUE)) ;
     if (carac.get("name") != null) temp_name = (String) carac.get("name")[0].catch_obj(0) ;
-    if (carac.get("size") != null) temp_size = (int) random_gaussian((int)carac.get("size")[0].catch_obj(0)) ;
+
+    if (carac.get("size") != null && carac.get("size")[0].catch_obj(0) instanceof Vec3) {
+      temp_size = (Vec3)carac.get("size")[0].catch_obj(0) ;
+      temp_size.x = random_gaussian(temp_size.x) ;
+      temp_size.y = random_gaussian(temp_size.y) ;
+      temp_size.z = random_gaussian(temp_size.z) ;
+    }
+    if (carac.get("density") != null) temp_density = random_gaussian((int)carac.get("density")[0].catch_obj(0), range_norm) ;
+
+    
+    if (carac.get("first_colour") != null) {
+      temp_first = (Vec4)carac.get("first_colour")[0].catch_obj(0) ;
+      temp_first.x = random_gaussian(temp_first.x, range_norm) ;
+      temp_first.y = random_gaussian(temp_first.y, range_norm) ;
+      temp_first.z = random_gaussian(temp_first.z, range_norm) ;
+      temp_first.a = random_gaussian(temp_first.a, range_norm) ;
+    }
+    if (carac.get("second_colour") != null) {
+      temp_second = (Vec4)carac.get("second_colour")[0].catch_obj(0) ;
+      temp_second.x = random_gaussian(temp_second.x, range_norm) ;
+      temp_second.y = random_gaussian(temp_second.y, range_norm) ;
+      temp_second.z = random_gaussian(temp_second.z, range_norm) ;
+      temp_second.a = random_gaussian(temp_second.a, range_norm) ;
+    }
+    if (carac.get("third_colour") != null) {
+      temp_third = (Vec4)carac.get("second_colour")[0].catch_obj(0) ;
+      temp_third.x = random_gaussian(temp_third.x, range_norm) ;
+      temp_third.y = random_gaussian(temp_third.y, range_norm) ;
+      temp_third.z = random_gaussian(temp_third.z, range_norm) ;
+      temp_third.a = random_gaussian(temp_third.a, range_norm) ;
+    }
+
+     // melanin
+    if (carac.get("melanin") != null && carac.get("melanin")[0].catch_obj(0) instanceof Vec4) {
+      temp_melanin = (Vec4)carac.get("melanin")[0].catch_obj(0) ;
+      temp_melanin.x = random_gaussian(temp_melanin.x, range_norm) ;
+      temp_melanin.y = random_gaussian(temp_melanin.y, range_norm) ;
+      temp_melanin.z = random_gaussian(temp_melanin.z, range_norm) ;
+      temp_melanin.a = random_gaussian(temp_melanin.a, range_norm) ;
+    }
 
     this.name = temp_name ;
     this.size = this.size_ref = this.size_max = temp_size ;
+    this.density = temp_density ;
+    this.mass = this.mass_ref = int((size.x +size.y +size.z) *.3 *this.density) ;
+
+    this.first_colour = temp_first.copy() ;
+    this.second_colour = temp_second.copy() ;
+    this.third_colour = temp_third.copy() ;
+
     this.gender = gender ;
   }
   
@@ -2046,7 +2295,7 @@ abstract class Agent_static extends Agent_model {
     int threshold = 2 ;
     if(!alive) {
       dead_since += int(1. *CLOCK) ;
-      if(size < size_ref / threshold || dead_since > TIME_TO_BE_CARRION) carrion = true ; 
+      if(this.mass < this.mass_ref / threshold || dead_since > TIME_TO_BE_CARRION) carrion = true ; 
       else carrion = false ;
     } 
   }
@@ -2062,7 +2311,7 @@ abstract class Agent_static extends Agent_model {
     textSize(size_text) ;
     textAlign(CENTER) ;
     text(name, pos_text.x, pos_text.y) ;
-    text(stamina + " " + size + " " + size_ref, pos_text.x, pos_text.y +(size_text *1.2) ) ;
+    text(stamina + " " + mass + " " + mass_ref, pos_text.x, pos_text.y +(size_text *1.2) ) ;
     textSize(16) ;
     if(alive) {
       text("I'm alive", pos_text.x, pos_text.y +(size_text *2.4) ) ;

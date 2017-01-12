@@ -1,39 +1,21 @@
 
 /**
-ARBRE 2012-2016 1.3.2.1
+ARBRE 2012-2016 1.3.2.2
 */
 
 Arbre arbre ;
 //object three
 class ArbreRomanesco extends Romanesco {
-  int POINT_M, ELLIPSE_M, TRIANGLE_M, SQUARE_M, RECT_M = MAX_INT ;
-  int STAR_4_M, STAR_5_M, STAR_7_M, STAR_9_M = MAX_INT ;
-  int SUPER_STAR_8_M, SUPER_STAR_12_M = MAX_INT ;
-  int TETRAHEDRON_M, BOX_M = MAX_INT ;
-  int CROSS_2_M, CROSS_3_M = MAX_INT ; 
-  int SPHERE_LOW_M, SPHERE_MEDIUM_M, SPHERE_HIGH_M = MAX_INT ;
   
-
   public ArbreRomanesco() {
     //from the index_objects.csv
     RPE_name = "Arbre" ;
     ID_item = 10 ;
     ID_group = 1 ;
     RPE_author  = "Stan le Punk";
-    RPE_version = "Version 1.3.2.1";
+    RPE_version = "Version 1.3.2.2";
     RPE_pack = "Base" ;
-    RPE_mode = "Ellipse/Triangle/Rectangle/Star 5/Super Star 12/Tetra/Box/Cross 3/Sphere low/Sphere medium" ;
-    ELLIPSE_M = 0 ;
-    TRIANGLE_M = 1 ;
-    RECT_M = 2 ;
-    STAR_5_M = 3 ;
-    SUPER_STAR_12_M = 4 ;
-    TETRAHEDRON_M = 5 ;
-    BOX_M = 6 ;
-    CROSS_3_M = 7 ;
-    SPHERE_LOW_M = 8 ;
-    SPHERE_MEDIUM_M = 9 ;
-
+    RPE_mode = "Point/Ellipse/Triangle/Rectangle/Cross/Simple Star/Star/Super Star" ;
     RPE_slider = "Fill hue,Fill sat,Fill bright,Fill alpha,Stroke hue,Stroke sat,Stroke bright,Stroke alpha,Thickness,Size X,Size Y,Size Z,Quantity,Speed X,Direction X,Canvas X,Alignment" ;
   }
   //GLOBAL
@@ -118,66 +100,18 @@ class ArbreRomanesco extends Romanesco {
     if(special[ID_item]) bool_line = true ; else bool_line = false ;
     
 
-    int which_costume = which_costume(mode[ID_item]) ;
-    aspect_rope(ID_item, which_costume) ;
+    select_costume_via_mode(ID_item, 8) ;
+
     arbre.show(direction) ;
-    arbre.update(posArbre, epaisseur, size, divA, divB, forkA, forkB, amplitude, n, which_costume, bool_line, angle, speed, ID_item) ;
+    arbre.update(posArbre, epaisseur, size, divA, divB, forkA, forkB, amplitude, n, costume[ID_item], bool_line, angle, speed, ID_item) ;
     if(horizon[ID_item]) arbre.set_horizon(0) ; else arbre.set_horizon(map(alignment_item[ID_item], 0,1, 0,3)) ;
     
     //info
     objectInfo[ID_item] = ("Nodes " +(n-1) + " - Amplitude " + (int)amplitude + " - Orientation " +direction +  " - Speed " + (int)map(speed,0,4,0,100) );
     
-  }
-
-  int which_costume(int mode) {
-    int which_costume = POINT_ROPE ;
-    //
-    if(mode == POINT_M) {
-      which_costume = POINT_ROPE ;
-    } else if(mode == ELLIPSE_M) {
-      which_costume = ELLIPSE_ROPE ;
-    } else if(mode == TRIANGLE_M) {
-      which_costume = TRIANGLE_ROPE ;
-    } else if(mode == SQUARE_M) {
-      which_costume = SQUARE_ROPE ;
-    } else if(mode == RECT_M) {
-      which_costume = RECT_ROPE ;
-    } else if(mode == STAR_4_M) {
-      which_costume = STAR_4_ROPE ;
-    } else if(mode == STAR_5_M) {
-      which_costume = STAR_5_ROPE ;
-    } else if(mode == STAR_7_M) {
-      which_costume = STAR_7_ROPE ;
-    } else if(mode == STAR_9_M) {
-      which_costume = STAR_9_ROPE ;
-    } else if(mode == SUPER_STAR_8_M) {
-      which_costume = SUPER_STAR_8_ROPE ;
-    } else if(mode == SUPER_STAR_12_M) {
-      which_costume = SUPER_STAR_12_ROPE ;
-    } else if(mode == TETRAHEDRON_M) {
-      which_costume = TETRAHEDRON_ROPE ;
-    } else if(mode == BOX_M) {
-      which_costume = BOX_ROPE ;
-    } else if(mode == CROSS_2_M) {
-      which_costume = CROSS_2_ROPE ;
-    } else if(mode == CROSS_3_M) {
-      which_costume = CROSS_3_ROPE ;
-    } else if(mode == SPHERE_LOW_M) {
-      which_costume = SPHERE_LOW_ROPE ;
-    } else if(mode == SPHERE_MEDIUM_M) {
-      which_costume = SPHERE_MEDIUM_ROPE ;
-    } else if(mode == SPHERE_HIGH_M) {
-      which_costume = SPHERE_HIGH_ROPE ;
-    }
-    //
-    return which_costume ;
-  }
+  } 
 }
 //end object two
-
-
-
-
 
 
 
@@ -242,7 +176,8 @@ class Arbre {
     start_matrix();    // Save the current state of transformation (i.e. where are we now)
     rotate(t);   // Rotate by theta
 
-    strokeWeight (e) ;
+    // strokeWeight (e) ;
+    aspect_rope(fill_item[ID], stroke_item[ID], e, which_costume) ;
     
     if (bool_line) {
       line(0, 0, 0, -amplitude);  

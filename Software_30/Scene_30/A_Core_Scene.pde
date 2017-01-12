@@ -1,6 +1,6 @@
 /** 
-Tab: A_core_scene
-Core_scene 1.4.1
+Core_scene 1.4.1.1 
+2013-2017
 */
 
 
@@ -20,7 +20,7 @@ void opening() {
 
     if (OPEN_APP) { 
       if (open_prescene)      {
-        launch(sketchPath("")+"PreScene_"+version+".app") ; 
+        launch(sketchPath("")+"PreScene_"+version+"window.app") ; 
         open_prescene = false ; 
       } else {
         count_to_open_controller += 1 ;

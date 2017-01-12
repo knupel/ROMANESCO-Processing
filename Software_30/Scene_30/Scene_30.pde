@@ -21,9 +21,9 @@ boolean FULL_SCREEN = false ;
 void settings() {
   // When you build Romanesco you must create two versions : fullscreen and normal
   
-  // fullScreen(P3D,2) ;
-  // FULL_SCREEN = true ;
-  size(124,124,P3D) ;
+  fullScreen(P3D,2) ;
+  FULL_SCREEN = true ;
+  //size(124,124,P3D) ;
   pixelDensity(displayDensity()) ;
   syphon_settings() ;
 }
@@ -46,7 +46,7 @@ void setup() {
 
   if (!FULL_SCREEN) size_scene() ;
 
-  romanesco_setup() ;
+  romanesco_build_item() ;
 
   RG.init(this); // GEOMERATIVE
   
@@ -57,6 +57,8 @@ void setup() {
   syphon_setup() ;
 
   init_variable_item_min_max() ;
+  init_variable_item() ;
+  init_items() ;
   
   font_setup() ;
 
@@ -91,7 +93,7 @@ void draw() {
   saveScene() ;
   
   //ROMANESCO
-  cameraDraw() ;
+  camera_romanesco_draw() ;
   // LIGHT
   light_position_draw(mouse[0], wheel[0]) ; // not in the conditional because we need to display in the info box
   light_update_position_direction() ;

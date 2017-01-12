@@ -288,7 +288,7 @@ void add_log_agent_global(Table table, String name, ArrayList... pop_list) {
           new_row.setInt("Homozygous", a.num_homozygous) ;
           new_row.setInt("Life", a.get_life()) ;
           new_row.setInt("Stamina", a.get_stamina()) ;
-          new_row.setInt("Size", a.get_size()) ;
+          new_row.setInt("Mass", a.get_mass()) ;
           new_row.setInt("Hunger", a.hunger) ;
           new_row.setString("Starving", String.valueOf(a.starving_bool)) ;
         }
@@ -302,7 +302,7 @@ void add_log_eco_agent(Table table, String name, ArrayList... pop_list) {
   int pop_total = 0 ;
   int stamina_total = 0 ;
   int life_total = 0 ;
-  int size_total = 0 ;
+  int mass_total = 0 ;
   // find data
   for(int i = 0 ; i < pop_list.length ; i++) {
     pop_total += pop_list[i].size() ;
@@ -315,7 +315,7 @@ void add_log_eco_agent(Table table, String name, ArrayList... pop_list) {
           Agent a = (Agent) obj ;
           stamina_total += a.get_stamina() ;
           life_total += a.get_life() ;
-          size_total += a.get_size() ;
+          mass_total += a.get_mass() ;
         }
       }
     }
@@ -327,7 +327,7 @@ void add_log_eco_agent(Table table, String name, ArrayList... pop_list) {
     new_row.setInt("Time", SEQUENCE_LOG) ;
     new_row.setInt("Stamina", stamina_total) ;
     if(life_total >= 0 ) new_row.setInt("Life", life_total) ;
-    new_row.setInt("Size", size_total) ;
+    new_row.setInt("Mass", mass_total) ;
     // witout male or female
     if(pop_list.length == 1) {
       new_row.setInt("Population", pop_total) ;

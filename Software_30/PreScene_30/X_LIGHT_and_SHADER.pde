@@ -1,6 +1,7 @@
-// Tab: Z_LIGHT and SHADER
-// version 1.3.2 //////////
-//////////////////////////
+/**
+LIGHT SHADER 1.3.3
+2015-2017
+*/
 // LIGHT POSITION
 PVector var_light_pos  ;
 PVector var_light_dir  ;
@@ -143,7 +144,7 @@ void light_display() {
   // ambient light
   if(on_off_light[0]){ 
     Vec4 newRef = Vec4(map(color_setting [0].r,0,MAX_VALUE_SLIDER,0,HSBmode.r), map(color_setting [0].g,0,MAX_VALUE_SLIDER,0,HSBmode.g), map(color_setting [0].b,0,MAX_VALUE_SLIDER,0,HSBmode.b),HSBmode.a) ;
-    if(!compare(newRef, color_light_ref[0])) color_light[0] = newRef.copy() ;
+    if(!equals(newRef, color_light_ref[0])) color_light[0] = newRef.copy() ;
     color_light_ref[0] = newRef.copy() ;
     ambientLightPix(color_light[0]) ;
   }
@@ -303,7 +304,7 @@ void light_spot_display(Vec4 rgba, Vec3 pos, Vec3 dir, float angle, float concen
 // update color
 Vec4 light_color(Vec3 value, int max, Vec4 color_univers, Vec4 color_light, Vec4 color_light_ref) {
   Vec4 newRefColor = Vec4(map(value.x, 0, max, 0, color_univers.x), map(value.y,0, max, 0, color_univers.y), map(value.z, 0, max, 0, color_univers.z),color_univers.w) ;
-  if(!compare(newRefColor, color_light_ref)) color_light = newRefColor.copy() ;
+  if(!equals(newRefColor, color_light_ref)) color_light = newRefColor.copy() ;
   return newRefColor ;
 }
 
@@ -312,7 +313,7 @@ Vec3 light_direction(PVector var, Vec6 range3D, boolean authorization, Vec3 dir,
   if(authorization) {
     
     Vec3 newRefDir = Vec3(map(var.x,range3D.a,range3D.b, -1,1),map(var.y,range3D.c,range3D.d, -1,1),map(var.z,range3D.e,range3D.f, -1,1)) ;
-    if(!compare(newRefDir, dir_ref)) dir = newRefDir.copy() ;
+    if(!equals(newRefDir, dir_ref)) dir = newRefDir.copy() ;
     dir_ref = newRefDir.copy() ; 
   }
   return dir_ref  ;
@@ -323,7 +324,7 @@ Vec3 light_direction(PVector var, Vec6 range3D, boolean authorization, Vec3 dir,
 Vec3 light_position(PVector var, Vec6 range3D, Vec6 range3D_target,boolean authorization, Vec3 pos, Vec3 pos_ref) {
   if(authorization) {
     Vec3 newRefPos = Vec3(map(var.x,range3D.a,range3D.b, range3D_target.a,range3D_target.b),map(var.y,range3D.c,range3D.d, range3D_target.c,range3D_target.d),map(var.z,range3D.e,range3D.f, range3D_target.e,range3D_target.f)) ;
-    if(!compare(newRefPos, pos_ref)) pos = newRefPos.copy() ;
+    if(!equals(newRefPos, pos_ref)) pos = newRefPos.copy() ;
     pos_ref = newRefPos.copy() ; 
   }
   return pos_ref  ;

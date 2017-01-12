@@ -448,7 +448,7 @@ void final_pos_item(int ID) {
 
 
 /**
-MOVE CAMERA GLOBAL 1.1.1
+MOVE CAMERA GLOBAL 1.1.2
 
 */
 
@@ -503,7 +503,7 @@ void camera_romanesco_draw() {
 
 
 /**
-Annexe method of the method camera_romanesco_draw() 1.0.2
+Annexe method of the method camera_romanesco_draw() 1.0.3
 */
 void set_var_camera_romanesco() {
   // float focal = map(valueSlider[0][19],0,360,28,200) ;
@@ -797,7 +797,7 @@ check camera
 Vec3 mouse_camera_translate_ref  ;
 boolean check_cursor_translate(boolean authorization) {
   boolean cursor_move_is ;
-  if(authorization && (!compare(mouse_camera_translate_ref, cursor_final_translate) || wheelCheckRef != wheel[0])) {
+  if(authorization && (!equals(mouse_camera_translate_ref, cursor_final_translate) || wheelCheckRef != wheel[0])) {
     cursor_move_is = true ; 
   } else {
     cursor_move_is = false ;
@@ -817,7 +817,7 @@ boolean check_cursor_translate(boolean authorization) {
 Vec3 mouse_camera_rotate_ref  ;
 boolean check_cursor_rotate(boolean authorization) {
   boolean cursor_move_is ;
-  if(authorization && (!compare(mouse_camera_rotate_ref, cursor_final_rotate) || wheelCheckRef != wheel[0])) {
+  if(authorization && (!equals(mouse_camera_rotate_ref, cursor_final_rotate) || wheelCheckRef != wheel[0])) {
     cursor_move_is = true ; 
   } else {
     cursor_move_is = false ;

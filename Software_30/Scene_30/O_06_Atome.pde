@@ -1,5 +1,5 @@
 /**
-ATOME || 2012 || 1.3.3
+ATOME || 2012 || 1.3.4
 */
 
 ArrayList<Atom> atomList ;
@@ -12,7 +12,7 @@ class Atome extends Romanesco {
     ID_item = 6 ;
     ID_group = 1 ;
     RPE_author  = "Stan le Punk";
-    RPE_version = "version 1.3.3";
+    RPE_version = "version 1.3.4";
     RPE_pack = "Base" ;
     RPE_mode = "Chemical Name/File text/Electronic cloud/Ellipse circle/Ellipse triangle/Ellipse cloud/Triangle circle/Triangle triangle/Triangle cloud/Rectangle rectangle/Rectangle cloud" ;
     RPE_slider = "Fill hue,Fill sat,Fill bright,Fill alpha,Stroke hue,Stroke sat,Stroke bright,Stroke alpha,Thickness,Size X,Size Y,Size Z,Canvas X,Canvas Y,Speed X,Direction X,Variety,Quantity,Area,Angle,Font size" ;
@@ -862,7 +862,7 @@ class Atom {
   ////////////////////
   //DISPLAY
   void display(String core, String cloud, PVector size, color colorFill, color colorStroke, float thickness, float orientation) {
-    appearance(colorFill, colorStroke,thickness) ;
+    aspect_rope(colorFill, colorStroke, thickness) ;
     //check size
     size.x *= diamAtom ;
     size.y *= diamAtom ;
@@ -889,7 +889,7 @@ class Atom {
       stroke(colorFill) ;
       strokeWeight(thickness *2.) ;
       cloudPoint(size.x *.2) ;
-      appearance(colorFill, colorStroke,thickness) ;
+      aspect_rope(colorFill, colorStroke,thickness) ;
     }
     
     popMatrix() ;

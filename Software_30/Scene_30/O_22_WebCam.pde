@@ -1,5 +1,5 @@
 /**
-WEBCAM || 2011 || 1.2.2
+WEBCAM || 2011 || 1.2.3
 */
 class Webcam extends Romanesco {
   public Webcam() {
@@ -8,7 +8,7 @@ class Webcam extends Romanesco {
     ID_item = 22 ;
     ID_group = 1 ;
     RPE_author  = "Stan le Punk";
-    RPE_version = "Version 1.2.2";
+    RPE_version = "Version 1.2.3";
     RPE_pack = "Base" ;
     RPE_mode = "Rectangle color/Rectangle mono/Point color/Point mono/Box color/Box mono" ;
     RPE_slider = "Fill hue,Fill sat,Fill bright,Fill alpha,Size X,Size Y,Size Z,Canvas X,Canvas Y" ;
@@ -206,8 +206,17 @@ class Webcam extends Romanesco {
     noStroke() ;
     box(size.x, size.y, depth) ;
   }
-  
-  
+
+  void antiBugFillBlack(color c) {
+    if (alpha(c) == 0 ) {
+      noFill() ; 
+      noStroke() ; 
+    } else {     
+      fill (c) ; 
+    }
+  }
+    
+    
   //Annexe
   
   // security size 
