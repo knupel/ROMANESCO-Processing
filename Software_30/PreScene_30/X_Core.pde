@@ -1,5 +1,6 @@
 /**
-CORE Rope SCENE and PRESCENE 1.1.3
+CORE Rope SCENE and PRESCENE 
+v 1.1.3.1
 */
 /**
 INIT Rope
@@ -53,30 +54,116 @@ void init_RPE() {
 
 /**
 
-COSTUME
+Select Costume Romanesco
+v 0.0.2
 
 */
-int select_costume_via_mode(int id, int max_mode) {
-  if(mode[id] == 0 && mode[id] < max_mode) {
-    if(!dimension[id]) costume[id] = POINT_ROPE ; else costume[id] = SPHERE_LOW_ROPE ;
-  } else if(mode[id] == 1 && mode[id] < max_mode) {
-    if(!dimension[id]) costume[id] = ELLIPSE_ROPE ; else costume[id] = SPHERE_MEDIUM_ROPE ;
-  } else if(mode[id] == 2 && mode[id] < max_mode) {
-    if(!dimension[id]) costume[id] = TRIANGLE_ROPE ; else costume[id] = TETRAHEDRON_ROPE ;
-  } else if(mode[id] == 3 && mode[id] < max_mode) {
-    if(!dimension[id]) costume[id] = RECT_ROPE ; else costume[id] = BOX_ROPE ;
-  } else if(mode[id] == 4 && mode[id] < max_mode) {
-    if(!dimension[id]) costume[id] = CROSS_2_ROPE ; else costume[id] = CROSS_3_ROPE ;
-  } else if(mode[id] == 5 && mode[id] < max_mode) {
-    if(!dimension[id]) costume[id] = STAR_4_ROPE ; else costume[id] = SUPER_STAR_8_ROPE ;
-  } else if(mode[id] == 6 && mode[id] < max_mode) {
-    if(!dimension[id]) costume[id] = STAR_5_ROPE ; else costume[id] = SUPER_STAR_12_ROPE ;
-  } else if(mode[id] == 7 && mode[id] < max_mode) {
-    if(!dimension[id]) costume[id] = STAR_8_ROPE ; else costume[id] = SUPER_STAR_12_ROPE ;
-  } else {
-    costume[id] = MAX_INT ;
+/*
+Max mode is used for what, to give the possibility to have other mode without costume rope ?????
+*/
+void select_costume(int id_item,  String rpe_name) {
+
+  String mode_list = null ;
+  String [] mode_split =new String[1] ;
+  for(int i = 0 ; i < rpe_manager.RomanescoList.size() ; i++) {
+    Romanesco item = (Romanesco) rpe_manager.RomanescoList.get(i) ;
+    if(rpe_name.equals(item.RPE_name)) {
+      mode_list = item.RPE_mode ;
+      mode_split = split(mode_list, "/") ;
+    }
   }
-  return costume[id] ;
+
+  String costume_romanesco = "unknow" ;
+  if(mode_split[0] != null) {
+    costume_romanesco = mode_split[mode[id_item]] ;
+  } 
+
+  if(costume_romanesco.equals("point") || costume_romanesco.equals("POINT") || costume_romanesco.equals("Point")) {
+    if(!dimension[id_item]) {
+      costume[id_item] = POINT_ROPE ; 
+    } else {
+      costume[id_item] = SPHERE_LOW_ROPE ;
+    }
+  } else if(costume_romanesco.equals("ellipse") || costume_romanesco.equals("ELLIPSE") || costume_romanesco.equals("Ellipse") || costume_romanesco.equals("disc") || costume_romanesco.equals("DISC") || costume_romanesco.equals("Disc")) {
+    if(!dimension[id_item]) {
+      costume[id_item] = ELLIPSE_ROPE ; 
+    } else {
+      costume[id_item] = SPHERE_MEDIUM_ROPE ;
+    }
+  } else if(costume_romanesco.equals("triangle") || costume_romanesco.equals("TRIANGLE") || costume_romanesco.equals("Triangle")) {
+    if(!dimension[id_item]) {
+      costume[id_item] = TRIANGLE_ROPE ; 
+    } else {
+      costume[id_item] = TETRAHEDRON_ROPE ;
+    }
+  } else if(costume_romanesco.equals("rectangle") || costume_romanesco.equals("RECTANGLE") || costume_romanesco.equals("Rectangle") || costume_romanesco.equals("rect") || costume_romanesco.equals("RECT") || costume_romanesco.equals("Rect")) {
+    if(!dimension[id_item]) {
+      costume[id_item] = RECT_ROPE ; 
+    } else {
+      costume[id_item] = BOX_ROPE ;
+    }
+  } else if(costume_romanesco.equals("cross") || costume_romanesco.equals("CROSS") || costume_romanesco.equals("Cross")) {
+    if(!dimension[id_item]) {
+      costume[id_item] = CROSS_2_ROPE ; 
+    } else {
+      costume[id_item] = CROSS_3_ROPE ;
+    }
+  } else if(costume_romanesco.equals("star 4") || costume_romanesco.equals("STAR 4") || costume_romanesco.equals("Star 4")) {
+    if(!dimension[id_item]) {
+      costume[id_item] = STAR_4_ROPE ; 
+    } else {
+      costume[id_item] = STAR_4_ROPE ;
+    }
+  } else if(costume_romanesco.equals("star 5") || costume_romanesco.equals("STAR 5") || costume_romanesco.equals("Star 5")) {
+    if(!dimension[id_item]) {
+      costume[id_item] = STAR_5_ROPE ; 
+    } else {
+      costume[id_item] = STAR_5_ROPE ;
+    }
+  } else if(costume_romanesco.equals("star 6") || costume_romanesco.equals("STAR 6") || costume_romanesco.equals("Star 6")) {
+    if(!dimension[id_item]) {
+      costume[id_item] = STAR_6_ROPE ; 
+    } else {
+      costume[id_item] = STAR_6_ROPE ;
+    }
+  } else if(costume_romanesco.equals("star 7") || costume_romanesco.equals("STAR 7") || costume_romanesco.equals("Star 7")) {
+    if(!dimension[id_item]) {
+      costume[id_item] = STAR_7_ROPE ; 
+    } else {
+      costume[id_item] = STAR_7_ROPE ;
+    }
+  }
+  else if(costume_romanesco.equals("star 8") || costume_romanesco.equals("STAR 8") || costume_romanesco.equals("Star 8")) {
+    if(!dimension[id_item]) {
+      costume[id_item] = STAR_8_ROPE ; 
+    } else {
+      costume[id_item] = STAR_8_ROPE ;
+    }
+  } else if(costume_romanesco.equals("super star 8") || costume_romanesco.equals("SUPER STAR 8") || costume_romanesco.equals("Super Star 8")) {
+    if(!dimension[id_item]) {
+      costume[id_item] = SUPER_STAR_8_ROPE ; 
+    } else {
+      costume[id_item] = SUPER_STAR_8_ROPE ;
+    }
+  } else if(costume_romanesco.equals("super star 12") || costume_romanesco.equals("SUPER STAR 12") || costume_romanesco.equals("Super Star 12")) {
+    if(!dimension[id_item]) {
+      costume[id_item] = SUPER_STAR_12_ROPE ; 
+    } else {
+      costume[id_item] = SUPER_STAR_12_ROPE ;
+    }
+  } else if(costume_romanesco.equals("abc") || costume_romanesco.equals("ABC") || costume_romanesco.equals("Abc")) {
+    if(!dimension[id_item]) {
+      costume[id_item] = TEXT_ROPE ; 
+    } else {
+      costume[id_item] = TEXT_ROPE ;
+    }
+  }else {
+    if(!dimension[id_item]) {
+      costume[id_item] = POINT_ROPE ; 
+    } else {
+      costume[id_item] = SPHERE_LOW_ROPE ;
+    }
+  }
 }
 
 
@@ -120,6 +207,7 @@ int select_costume_via_mode(int id, int max_mode) {
 /**
 
 CHECK FOLDER
+v 0.1.0
 
 */
 

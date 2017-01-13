@@ -28,9 +28,9 @@ boolean FULL_RENDERING = true ;
 boolean TABLET = false ; // now tablet library don't work in OPENGL renderer
 
 void settings() {
-  size(600,400,P3D) ;
+  // size(600,400,P3D) ;
   // size(1200,700,P3D) ;
-  // fullScreen(P3D,2) ;
+  fullScreen(P3D,2) ;
   pixelDensity(displayDensity()) ;
   syphon_settings() ;
 }

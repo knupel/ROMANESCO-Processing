@@ -396,6 +396,15 @@ class RPE_MANAGER {
   
   //END of the INDEX
   //////////////////
+  int id_item_from_library(int index) {
+    int id = -1 ;
+    if(index < RomanescoList.size()) {
+      Romanesco item = (Romanesco) RomanescoList.get(index) ;
+      id = item.ID_item ;
+    }
+    
+    return id ;
+  }
   
   
   

@@ -13,7 +13,7 @@ class BaliseRomanesco extends Romanesco {
     RPE_version = "Version 1.3.1";
     RPE_pack = "Base" ;
     // RPE_mode = "Disc/Rectangle/Box/Box Snake" ;
-    RPE_mode = "Point/Ellipse/Triangle/Rectangle/Cross/Simple Star/Star/Super Star" ;
+    RPE_mode = "Point/Ellipse/Triangle/Rectangle/Cross/Star 5/Star 7/Super Star 8/Super Star 12" ;
 
     RPE_slider = "Fill hue,Fill sat,Fill bright,Fill alpha,Stroke hue,Stroke sat,Stroke bright,Stroke alpha,Thickness,Size X,Size Y,Size Z,Quantity,Speed X,Canvas X,Repulsion" ;
   }
@@ -46,7 +46,7 @@ class BaliseRomanesco extends Romanesco {
     if (motion[ID_item]) speed = (map(speed_x_item[ID_item], 0,1, 0,20)) *tempo_balise *rotation_direction ; else speed = 0.0 ;
 
     // costume
-    select_costume_via_mode(ID_item, 8) ;
+    select_costume(ID_item, RPE_name) ;
     // aspect
     //aspect_rope(fill_item[ID_item], stroke_item[ID_item], thickness_item[ID_item], costume[ID_item]) ;
 

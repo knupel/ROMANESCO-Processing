@@ -1,5 +1,5 @@
 /**
-Rope Costume 0.5.0.4 – 2016-2016
+Rope Costume 0.5.1.0 – 2016-2017
 * @author Stan le Punk
 * @see https://github.com/StanLepunK/Costume_rope
 */
@@ -19,6 +19,8 @@ final int DECAGON_ROPE = 20 ;
 final int HENDECAGON_ROPE = 21 ;
 final int DODECAGON_ROPE = 22 ;
 
+final int TEXT_ROPE = 26 ;
+
 final int CROSS_2_ROPE = 52 ;
 final int CROSS_3_ROPE = 53 ;
 
@@ -27,7 +29,6 @@ final int SPHERE_MEDIUM_ROPE = 101 ;
 final int SPHERE_HIGH_ROPE = 102 ;
 final int TETRAHEDRON_ROPE = 103 ;
 final int BOX_ROPE = 104 ;
-
 
 final int STAR_4_ROPE = 504 ;
 final int STAR_5_ROPE = 505 ;
@@ -41,8 +42,6 @@ final int STAR_12_ROPE = 512 ;
 
 final int SUPER_STAR_8_ROPE = 608 ;
 final int SUPER_STAR_12_ROPE = 612 ;
-
-
 
 final int TETRAHEDRON_LINE_ROPE = 1001 ;
 final int CUBE_LINE_ROPE = 1002 ;
@@ -101,11 +100,14 @@ final int VIRUS_3_8_256_ROPE = 3_008_256 ;
 Info_int_dict costume_dict = new Info_int_dict() ;
 boolean list_costume_is_built = false ;
 int ref_size_pic = -1 ;
+
 void costume_list() {
 	if(!list_costume_is_built) {
 		/* 
 		* add(name, code, renderer, type)
-		* type : 0 = shape ; 1 = bytemap ; 2 = svg  ; 3 = shape with just stroke component
+		* code: int constante to access directly
+		* render: 2 = 2D ; 3 = 3D ;
+		* type : 0 = shape ; 1 = bitmap ; 2 = svg  ; 3 = shape with just stroke component ; 4 = text
 		*/
 		costume_dict.add("POINT_ROPE", POINT_ROPE, 2, 0) ;
 		costume_dict.add("ELLIPSE_ROPE", ELLIPSE_ROPE, 2, 0) ;
@@ -122,6 +124,8 @@ void costume_list() {
 		costume_dict.add("DECAGON_ROPE", DECAGON_ROPE, 2, 0) ;
 		costume_dict.add("HENDECAGON_ROPE", HENDECAGON_ROPE, 2, 0) ;
 		costume_dict.add("DODECAGON_ROPE", DODECAGON_ROPE, 2, 0) ;
+
+		costume_dict.add("TEXT_ROPE", TEXT_ROPE, 2, 4) ;
 
 		costume_dict.add("CROSS_2_ROPE", CROSS_2_ROPE, 3, 0) ;
 		costume_dict.add("CROSS_3_ROPE", CROSS_3_ROPE, 3, 0) ;
@@ -355,6 +359,16 @@ void aspect_rope(Vec4  fill, Vec4  stroke, float strokeWeight, int costume) {
 
 
 
+/**
+simple text 
+v 0.0.1
+*/
+String costume_text_rope = null ;
+
+void costume_text(String s) {
+	costume_text_rope = s ;
+}
+
 
 
 
@@ -366,7 +380,8 @@ void aspect_rope(Vec4  fill, Vec4  stroke, float strokeWeight, int costume) {
 
 
 /**
-add pic
+add pic 
+v 0.0.1
 */
 ArrayList <Costume_pic> costume_pic_list = new ArrayList<Costume_pic>() ;
 
@@ -587,13 +602,15 @@ void costume_rope(Vec3 pos, Vec3 size, float angle, Vec dir, String sentence) {
 
 /**
 MAIN METHOD 
-WHICH COSTUME
+V.0.0.2
+Which costume ?
 
 Change the method for method with 
 case and which_costume
 and 
 break
 */
+
 void costume_rope(Vec3 pos, Vec3 size, float angle, Vec dir, int which_costume) {
 
 	if(dir instanceof Vec2) {
@@ -662,6 +679,22 @@ void costume_rope(Vec3 pos, Vec3 size, float angle, Vec dir, int which_costume) 
 		cross_3(size) ;
 		stop_matrix() ;
 	}
+
+
+
+	  else if(which_costume == TEXT_ROPE) {
+	  	start_matrix() ;
+	  	translate(pos) ;
+	  	if(angle != 0) rotate(angle) ;
+	  	textSize(size.x) ;
+	  	if(costume_text_rope != null) {
+	  		text(costume_text_rope, 0, 0) ;
+	  	} else {
+	  		costume_text_rope = "ROPE" ;
+	  		text(costume_text_rope, 0, 0) ;
+	  	}
+	  	stop_matrix() ;
+	  }
 
 
 

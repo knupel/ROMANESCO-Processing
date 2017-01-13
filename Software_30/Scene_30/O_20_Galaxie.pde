@@ -19,7 +19,7 @@ class Galaxie extends Romanesco {
     RPE_version = "Version 1.4.1";
     RPE_pack = "Base" ;
     // RPE_mode ="Point/Ellipse/Rectangle/Box" ;
-    RPE_mode = "Point/Ellipse/Triangle/Rectangle/Cross/Simple Star/Star/Super Star" ;
+    RPE_mode = "Point/Ellipse/Triangle/Rectangle/Cross/Star 5/Star 7/Super Star 8/Super Star 12" ;
     ELLIPSE_M = 0 ;
     TRIANGLE_M = 1 ;
     RECT_M = 2 ;
@@ -150,7 +150,7 @@ class Galaxie extends Romanesco {
     //////////////
     //DISPLAY MODE
     // int which_costume = which_costume(mode[ID_item]) ;
-    select_costume_via_mode(ID_item, 8) ;
+    select_costume(ID_item, RPE_name) ;
     aspect_rope(fill_item[ID_item], stroke_item[ID_item], thickness_item[ID_item], costume[ID_item]) ;
     show(size, thickness, costume[ID_item]) ;
     

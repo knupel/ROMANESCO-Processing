@@ -39,25 +39,69 @@ Vec3 get_dir_item(int id_item) ;
 
 MODE ASPECT COSTUME
 --
-Basic RPE_mode = "Point/Ellipse/Triangle/Rectangle/Cross/Simple Star/Star/Super Star" ;
+You must use a coorect spelling to write:
+
+costume 1
+>"point" "POINT" "Point"
+
+costume 2
+>"ellipse" "ELLIPSE" "Ellipse" "disc" "DISC" "Disc")
+
+costume 3
+>"triangle" "TRIANGLE""Triangle")
+
+costume 4
+>"rectangle" "RECTANGLE" "Rectangle" "rect" "RECT" "Rect"
+
+costume 5
+>"cross" "CROSS" "Cross"
+
+costume 6
+>"star 4" "STAR 4" "Star 4"
+
+costume 7
+>"star 5" "STAR 5" "Star 5"
+
+costume 8
+>"star 6" "STAR 6" "Star 6"
+
+costume 9
+>"star 7" "STAR 7" "Star 7"
+
+costume 10
+>"star 8" "STAR 8" "Star 8"
+
+costume 11
+>"super star 8" "SUPER STAR 8" "Super Star 8"
+
+costume 12
+>"super star 12" "SUPER STAR 12" "Super Star 12"
+
+costume 13
+>"ABC" "abc" "Abc"
+
 --
-int select_costume_via_mode(int ID, int max_mode) ;
+void select_costume(int ID_item, String RPE_name) ;
 >method can be used to simply the acces to set the var costume[ID_item], this method set the var with a global variable used by the method costume_rope()
 >You can use the return var to have the int ID of the selected costume, if the mode[ID_item] is upper of max_mode the method return a value equal to MAX_INT
 
 >int ID, is the ID of your item
 
->int max_mode, if mode[ID_item] is upper of this value the method return MAX_INT value
+>String RPE_name, to help the algo find the good item :)
 
 >set int costume[ID_item], work with the boolean dimension[ID_item] and the mode[ID_item], it's a default mode setting
 
 >it good to use this method in relation with the method costume_rope()
 
-dimension[ID_item] == true and mode[Id_item] = 0, 1, 2...
->costume[ID_item] == POINT_ROPE, ELLIPSE_ROPE, TRIANGLE_ROPE, RECT_ROPE, CROSS_2_ROPE, STAR_4, STAR_5, STAR_8
+dimension[ID_item] 
+swith costume from 2D to 3D,
+POINT > SPHERE_LOW
+ELLIPSE > SPHERE_MEDIUM
+TRIANGLE > TETRAHEDRON
+RECT > BOX
+CROSS 2D > CROSS 3D
 
-dimension[ID_item] == false and mode[Id_item] = 0, 1, 2...
->costume[ID_item] == SPHERE_LOW_ROPE, SPHERE_MEDIUM_ROPE, TETRAHEDRON_ROPE, BOX_ROPE, CROSS_3_ROPE, SUPER_STAR_8_ROPE, SUPER_STAR_12_ROPE, SUPER_STAR_12_ROPE ;
+the other mode don't use a 3D costume in this time, but the future is not write !
 
 
 

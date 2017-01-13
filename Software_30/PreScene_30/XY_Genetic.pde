@@ -1,5 +1,5 @@
 /**
-GENETIC 0.5.0.4
+GENETIC 0.5.1.0
 * @author Stan le Punk
 * @see https://github.com/StanLepunK/Digital-Life-Processing/tree/master/GENETIC_SYSTEM
 */
@@ -8,7 +8,7 @@ GENETIC 0.5.0.4
 
 
 /**
-DNA display shape 0.1.0.1
+DNA display shape 0.1.1.0
 */
 class Helix_DNA {
   Strand_DNA [] strand ;
@@ -1578,7 +1578,7 @@ END GENETIC
 
 /**
 
-DNA 0.1.1
+DNA 0.1.2
 
 */
 
@@ -1662,10 +1662,10 @@ class DNA {
     for(int i = 0 ; i < strand.size() ; i++) {
       Nucleotide nuc = strand.get(i) ;
       Nucleotide partner ;
-      if(nuc.nac == 'c') partner = new Guanine() ;
-      else if(nuc.nac == 'g') partner = new Cytosine() ;
-      else if(nuc.nac == 't') partner = new Adenine() ;
-      else if(nuc.nac == 'a') partner = new Thymine() ;
+      if(nuc.nac == 'c' || nuc.nac == 'C') partner = new Guanine() ;
+      else if(nuc.nac == 'g' || nuc.nac == 'G') partner = new Cytosine() ;
+      else if(nuc.nac == 't' || nuc.nac == 'T') partner = new Adenine() ;
+      else if(nuc.nac == 'a'|| nuc.nac == 'A') partner = new Thymine() ;
       else partner = new Masked() ;
       seq.add(partner) ;
     }

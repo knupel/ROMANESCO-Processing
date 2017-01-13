@@ -15,7 +15,7 @@ class ArbreRomanesco extends Romanesco {
     RPE_author  = "Stan le Punk";
     RPE_version = "Version 1.3.2.2";
     RPE_pack = "Base" ;
-    RPE_mode = "Point/Ellipse/Triangle/Rectangle/Cross/Simple Star/Star/Super Star" ;
+    RPE_mode = "Point/Ellipse/Triangle/Rectangle/Cross/Star 5/Star 7/Super Star 8/Super Star 12" ;
     RPE_slider = "Fill hue,Fill sat,Fill bright,Fill alpha,Stroke hue,Stroke sat,Stroke bright,Stroke alpha,Thickness,Size X,Size Y,Size Z,Quantity,Speed X,Direction X,Canvas X,Alignment" ;
   }
   //GLOBAL
@@ -100,7 +100,7 @@ class ArbreRomanesco extends Romanesco {
     if(special[ID_item]) bool_line = true ; else bool_line = false ;
     
 
-    select_costume_via_mode(ID_item, 8) ;
+    select_costume(ID_item, RPE_name) ;
 
     arbre.show(direction) ;
     arbre.update(posArbre, epaisseur, size, divA, divB, forkA, forkB, amplitude, n, costume[ID_item], bool_line, angle, speed, ID_item) ;

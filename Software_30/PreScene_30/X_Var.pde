@@ -753,7 +753,7 @@ void init_variable_item() {
     wheel[i] = 0 ;
 
     // costume 
-    costume[i] = ELLIPSE_ROPE ;
+    costume[i] = POINT_ROPE ;
     // init slider var item except fill and stroke
     thickness_item [i] =1. ; 
 

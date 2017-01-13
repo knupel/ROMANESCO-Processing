@@ -16,7 +16,7 @@ class SpiraleRomanesco extends Romanesco {
     /*
     RPE_mode = "Point/Ellipse/Triangle/Rectangle/Star 4/Star 5/Star 9/Super Star 8/Super Star 12/Tetra/Box/Cross 2/Cross 3/Sphere low/Sphere medium/Sphere high" ;
     */
-    RPE_mode = "Point/Ellipse/Triangle/Rectangle/Cross/Simple Star/Star/Super Star" ;
+    RPE_mode = "Point/Ellipse/Triangle/Rectangle/Cross/Star 5/Star 7/Super Star 8/Super Star 12" ;
 
     RPE_slider = "Fill hue,Fill sat,Fill bright,Fill alpha,Stroke hue,Stroke sat,Stroke bright,Stroke alpha,Thickness,Size X,Size Y,Size Z,Quantity,Speed X,Canvas X,Canvas Y,Swing X,Alignment" ;
   }
@@ -118,7 +118,7 @@ class SpiraleRomanesco extends Romanesco {
 
     
     // mode
-    select_costume_via_mode(ID_item, 8) ;
+    select_costume(ID_item, RPE_name) ;
     
     Vec3 pos = Vec3() ; // we write that because the first part of the void is not available any more.
     spirale.update(pos, speed) ;

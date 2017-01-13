@@ -2,16 +2,16 @@
 Ecosysteme || 2016 || 0.0.6
 */
 class Ecosystem_DNA extends Romanesco {
-  public Ecosystem_DNA() {
-    RPE_name = "Eco DNA" ;
-    ID_item = 27 ;
-    ID_group = 1 ;
-    RPE_author  = "Stan le Punk";
-    RPE_version = "Version 0.0.3";
-    RPE_pack = "Ecosystem" ;
-    RPE_mode = "Point/Ellipse/Triangle/Rect/Cross/Letter/Word" ; // separate the differentes mode by "/"
-    RPE_slider = "Fill hue,Fill sat,Fill bright,Fill alpha,Stroke hue,Stroke sat,Stroke bright,Stroke alpha,Thickness,Size X,Size Y,Size Z,Canvas X,Canvas Y,Canvas Z,Speed X,Quantity,Density,Spectrum" ;
-  }
+	public Ecosystem_DNA() {
+		RPE_name = "Eco DNA" ;
+		ID_item = 27 ;
+		ID_group = 1 ;
+		RPE_author  = "Stan le Punk";
+		RPE_version = "Version 0.0.3";
+		RPE_pack = "Ecosystem" ;
+		RPE_mode = "Point/Ellipse/Triangle/Rect/Cross/ABC" ; // separate the differentes mode by "/"
+		RPE_slider = "Fill hue,Fill sat,Fill bright,Fill alpha,Stroke hue,Stroke sat,Stroke bright,Stroke alpha,Thickness,Size X,Size Y,Size Z,Canvas X,Canvas Y,Canvas Z,Speed X,Quantity,Density,Spectrum" ;
+	}
 
   Vec3 pos, canvas, radius, size ;
   int min_host = 5 ;
@@ -33,7 +33,7 @@ class Ecosystem_DNA extends Romanesco {
 
 
   boolean rebuilt_host = false ;
-  void draw() {
+	void draw() {
     float speed_rotation_host = speed_x_item[ID_item] *speed_x_item[ID_item];
     int direction_host = 1 ;
     boolean motion_bool_host = true ;
@@ -49,22 +49,25 @@ class Ecosystem_DNA extends Romanesco {
     if(birth[ID_item]) {
       set_host(pos, size, canvas, quantity_item[ID_item]) ;
       init_symbiosis() ;
-      birth[ID_item] = false ;
+    	birth[ID_item] = false ;
     }
 
-    select_costume_via_mode(ID_item,5) ;
+
+    if(costume[ID_item] == TEXT_ROPE ) textFont(font[ID_item]) ;
+
+    select_costume(ID_item, RPE_name) ;
 
 
     show_host(size, canvas, radius, speed_rotation_host, direction_host, costume[ID_item], fill_item[ID_item], stroke_item[ID_item], thickness_item[ID_item], spectrum_item[ID_item], motion_bool_host, info_agent) ;
-    
-  }
+		
+	}
 
-  boolean info_agent = false ;
-  boolean decorum_display = true ;
-  boolean agent_display = true ;
-  boolean bg_refresh = true ;
-  int direction_dna = 1 ;
-  float speed_rotation_dna = .01 ;
+	boolean info_agent = false ;
+	boolean decorum_display = true ;
+	boolean agent_display = true ;
+	boolean bg_refresh = true ;
+	int direction_dna = 1 ;
+	float speed_rotation_dna = .01 ;
 
 
 
@@ -161,8 +164,8 @@ SHOW
 */
 
 void show_host(Vec3 size, Vec3 canvas, Vec3 radius, float speed_rotation_host, int direction_host, int which_costume, int fill, int stroke, float thickness, float spectrum, boolean rotation_bool_host, boolean info) {
-  int height_dna = (int)canvas.y ;
-  int radius_dna = (int)radius.x ;
+	int height_dna = (int)canvas.y ;
+	int radius_dna = (int)radius.x ;
   show_dna(size, height_dna, radius_dna, speed_rotation_host, direction_host, which_costume, fill, stroke, thickness, spectrum, rotation_bool_host, info) ;
 }
 
@@ -170,7 +173,7 @@ void show_host(Vec3 size, Vec3 canvas, Vec3 radius, float speed_rotation_host, i
 
 float rotation_dna = 0 ;
 void show_dna(Vec3 size, int height_dna, int radius_dna, float speed_rotation_dna, int direction_dna, int which_costume, int fill, int stroke, float thickness, float spectrum, boolean rotation_bool_dna, boolean info) {
-  // show DNA
+	// show DNA
   if(height_dna > 0 ) {
     if(rotation_bool_dna) {
       rotation_dna += abs(speed_rotation_dna) *direction_dna ;
@@ -240,20 +243,22 @@ void costume_DNA(Helix_DNA helix, int target, Vec3 size, int which_costume, int 
 
 
 
-  if(which_costume == MAX_INT) {
-    fill(fill_strand_a) ;
+
+  aspect_rope(fill_strand_a, stroke_strand_a, thickness, which_costume) ;
+  if(which_costume == TEXT_ROPE) {
     String nuc_a = "" +helix.get_DNA(0).sequence_a.get(target).nac ;
-    costume_rope(pos_a, size, nuc_a) ;
-    fill(fill_strand_b) ;
-    String nuc_b = "" +helix.get_DNA(0).sequence_a.get(target).nac ;
-    costume_rope(pos_b, size, nuc_b) ;
-  } else {
-    aspect_rope(fill_strand_a, stroke_strand_a, thickness, which_costume) ;
-    costume_rope(pos_a, size, which_costume) ;
-    
-    aspect_rope(fill_strand_b, stroke_strand_b, thickness, which_costume) ;
-    costume_rope(pos_b, size, which_costume) ;
+    costume_text(nuc_a) ;
   }
+  costume_rope(pos_a, size, which_costume) ;
+  
+  if(which_costume == TEXT_ROPE) {
+    String nuc_b = "" +helix.get_DNA(0).sequence_b.get(target).nac ;
+    // println(nuc_b) ;
+    costume_text(nuc_b) ;
+  }
+  aspect_rope(fill_strand_b, stroke_strand_b, thickness, which_costume) ;
+  costume_rope(pos_b, size, which_costume) ;
+
 }
 
 
