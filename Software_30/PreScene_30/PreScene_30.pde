@@ -62,8 +62,8 @@ void setup() {
   init_variable_item() ;
   init_items() ;
 
-
-  font_setup() ;
+  create_font() ;
+  // font_setup() ;
 
   // here we ask for the TEST_ROMANESCO true, because the Minim Library talk too much in the consol
   if(!TEST_ROMANESCO) sound_setup() ;

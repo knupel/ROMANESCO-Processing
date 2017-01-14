@@ -1,6 +1,6 @@
 /**
 CORE Rope SCENE and PRESCENE 
-v 1.1.3.1
+v 1.1.3.2
 */
 /**
 INIT Rope
@@ -1139,7 +1139,10 @@ float cycle(float add) {
 
 /**
 easing
+
+deprecated
 */
+/*
 PVector targetIN = new PVector () ;
 //Pen
 PVector easingIN = new PVector () ;
@@ -1162,7 +1165,7 @@ PVector easing(PVector targetOUT, float effectOUT) {
 void resetEasing(PVector targetOUT) {
   easingIN.x = targetOUT.x ; easingIN.y = targetOUT.y ;
 }
-
+*/
 
 /**
 NEXT PREVIOUS
@@ -2277,7 +2280,8 @@ void translateDataFromController_buttonGlobal() {
   
   // list choice
    whichShader = valueButtonGlobal[14] ;
-  choiceFont(valueButtonGlobal[5]) ;
+   select_font(valueButtonGlobal[5]) ;
+   // choiceFont(valueButtonGlobal[5]) ;
   which_bitmap[0] = valueButtonGlobal[15] ;
   which_svg[0] = valueButtonGlobal[16] ;
   which_text[0] = valueButtonGlobal[17] ;
@@ -2318,5 +2322,204 @@ OSC CORE END
 
 
 
-//////
-//END
+
+
+
+
+
+
+
+
+
+/**
+
+FONT MANAGER 
+v 2.0.0
+
+*/
+
+/**
+MUST be delete ?
+String [] pathFontVLW
+String [] path_font_TTF
+*/
+
+//FONT
+PFont SansSerif10 ;
+
+PFont 
+American_Typewriter,
+Banco,
+Cinquenta,
+Container_Regular,
+Diesel,
+Digital,
+DIN_Black, DIN_Bold, DIN_Light, DIN_Medium, DIN_Regular,
+DosEquis,
+EastBloc_Closed, EastBloc_ClosedAlt, EastBloc_Open, EastBloc_OpenAlt,
+FetteFraktur,
+FuturaStencil,
+GangBangCrime,
+Juanita, JuanitaDeco,
+Komikahuna,
+Mesquite,
+Minion_Black, Minion_Bold, Minion_BoldItalic, Minion_Italic, Minion_Regular,
+Rosewood,
+Tokyo_One, Tokyo_OneSolid, Tokyo_Two, Tokyo_TwoSolid,
+Three_Hardway ;
+
+
+
+      
+//SETUP
+void create_font() {
+  int size_font = 200 ;
+  String prefix_path_font = import_path +"font/typo_OTF_TTF/" ;
+
+  
+  American_Typewriter = createFont(prefix_path_font + "AmericanTypewriter.ttf", size_font) ;
+  Banco = createFont(prefix_path_font + "Banco.ttf", size_font) ;
+  Cinquenta = createFont(prefix_path_font + "Cinquenta.ttf", size_font) ;
+  Container_Regular = createFont(prefix_path_font + "Container-Regular.otf", size_font) ;
+  Diesel = createFont(prefix_path_font + "Diesel.otf", size_font) ;
+  Digital = createFont(prefix_path_font + "Digital.ttf", size_font) ;
+
+  DIN_Black = createFont(prefix_path_font + "DIN-Black.otf", size_font) ; 
+  DIN_Bold = createFont(prefix_path_font + "DIN-Bold.otf", size_font) ; 
+  DIN_Light = createFont(prefix_path_font + "DIN-Light.otf", size_font) ;  
+  DIN_Medium = createFont(prefix_path_font + "DIN-Medium.otf", size_font) ; 
+  DIN_Regular = createFont(prefix_path_font + "DIN-Regular.otf", size_font) ;
+
+  DosEquis = createFont(prefix_path_font + "DosEquis.ttf", size_font) ;
+
+  EastBloc_Closed = createFont(prefix_path_font + "EastBloc-Closed.otf", size_font) ; 
+  EastBloc_ClosedAlt = createFont(prefix_path_font + "EastBloc-ClosedAlt.otf", size_font) ;
+  EastBloc_Open = createFont(prefix_path_font + "EastBloc-Open.otf", size_font) ;
+  EastBloc_OpenAlt = createFont(prefix_path_font + "EastBloc-OpenAlt.otf", size_font) ;
+
+  FetteFraktur = createFont(prefix_path_font + "FetteFraktur.ttf", size_font) ;
+  FuturaStencil = createFont(prefix_path_font + "FuturaStencil.ttf", size_font) ;
+  GangBangCrime = createFont(prefix_path_font + "GangBangCrime.ttf", size_font) ;
+
+  Juanita = createFont(prefix_path_font + "Juanita.ttf", size_font) ; 
+  JuanitaDeco = createFont(prefix_path_font + "JuanitaDeco.ttf", size_font) ; 
+
+  Komikahuna = createFont(prefix_path_font + "Komikahuna.ttf", size_font) ; 
+  Mesquite = createFont(prefix_path_font + "Mesquite.otf", size_font) ; 
+
+  Minion_Black = createFont(prefix_path_font + "Minion-Black.otf", size_font) ;  
+  Minion_Bold = createFont(prefix_path_font + "Minion-Bold.otf", size_font) ; 
+  Minion_BoldItalic = createFont(prefix_path_font + "Minion-BoldItalic.otf", size_font) ; 
+  Minion_Italic = createFont(prefix_path_font + "Minion-Italic.otf", size_font) ;
+  Minion_Regular = createFont(prefix_path_font + "Minion-Regular.otf", size_font) ;
+
+  Rosewood = createFont(prefix_path_font + "Rosewood.otf", size_font) ;
+
+  Tokyo_One = createFont(prefix_path_font + "Tokyo-One.otf", size_font) ; 
+  Tokyo_OneSolid = createFont(prefix_path_font + "Tokyo-OneSolid.otf", size_font) ; 
+  Tokyo_Two = createFont(prefix_path_font + "Tokyo-Two.otf", size_font) ; 
+  Tokyo_TwoSolid = createFont(prefix_path_font + "Tokyo-TwoSolid.otf", size_font) ;
+
+  Three_Hardway = createFont(prefix_path_font + "3Hardway.ttf", size_font) ;
+
+  // default and special font
+  String prefix_default_path_font = import_path +"font/default_font/" ;
+
+  SansSerif10 = loadFont(prefix_default_path_font+"SansSerif-10.vlw");
+  // DinRegular10 = loadFont(prefix_default_path_font+"DIN-Regular-10.vlw") ;
+  font[0] = DIN_Bold ;
+  // path_font_item_TTF[0] = path_font_TTF[0] ;
+  // 
+  println("font build setup done") ;
+}
+
+
+
+void select_font(int whichOne)  { 
+  if (whichOne == 1) { 
+    font[0] = American_Typewriter ; 
+  } else if (whichOne == 2) { 
+    font[0] = Banco ; 
+  } else if (whichOne == 3)  { 
+    font[0] = Cinquenta ; 
+  } else if (whichOne == 4) { 
+    font[0] = Container_Regular ; 
+  } else if (whichOne == 5)  { 
+    font[0] = Diesel ; 
+  } else if (whichOne == 6) { 
+    font[0] = Digital ; 
+
+  } else if (whichOne == 7) { 
+    font[0] = DIN_Black ; 
+  } else if (whichOne == 8) { 
+    font[0] = DIN_Bold ; 
+  } else if (whichOne == 9) { 
+    font[0] = DIN_Light ; 
+  } else if (whichOne == 10) { 
+    font[0] = DIN_Medium ; 
+  } else if (whichOne == 11) { 
+    font[0] = DIN_Regular ; 
+
+  } else if (whichOne == 12) { 
+    font[0] = DosEquis ; 
+
+  } else if (whichOne == 13) { 
+    font[0] = EastBloc_Closed ; 
+  } else if (whichOne == 14) { 
+    font[0] = EastBloc_ClosedAlt ; 
+  } else if (whichOne == 15) { 
+    font[0] = EastBloc_Open ; 
+  } else if (whichOne == 16) { 
+    font[0] = EastBloc_OpenAlt ; 
+
+  } else if (whichOne == 17) { 
+    font[0] = FetteFraktur ; 
+  } else if (whichOne == 18) { 
+    font[0] = FuturaStencil ; 
+  } else if (whichOne == 19) { 
+    font[0] = GangBangCrime ; 
+
+  } else if (whichOne == 20) { 
+    font[0] = Juanita ; 
+  } else if (whichOne == 21) { 
+    font[0] = JuanitaDeco ; 
+
+  } else if (whichOne == 22) { 
+    font[0] = Komikahuna ; 
+  } else if (whichOne == 23) { 
+    font[0] = Mesquite ; 
+
+  } else if (whichOne == 24) { 
+    font[0] = Minion_Black ; 
+  } else if (whichOne == 25) { 
+    font[0] = Minion_Bold ; 
+  } else if (whichOne == 26) { 
+    font[0] = Minion_BoldItalic ; 
+  } else if (whichOne == 27) { 
+    font[0] = Minion_Italic ; 
+  } else if (whichOne == 28) { 
+    font[0] = Minion_Regular ; 
+
+  } else if (whichOne == 29) { 
+    font[0] = Rosewood ; 
+
+  } else if (whichOne == 30) { 
+    font[0] = Tokyo_One ; 
+  } else if (whichOne == 30) { 
+    font[0] = Tokyo_OneSolid ; 
+  } else if (whichOne == 31) { 
+    font[0] = Tokyo_Two ; 
+  } else if (whichOne == 32) { 
+    font[0] = Tokyo_TwoSolid ; 
+
+  } else if (whichOne == 33) { 
+    font[0] = Three_Hardway ; 
+
+  } else { 
+    font[0] = DIN_Bold ; 
+  }
+}
+
+
+
+
