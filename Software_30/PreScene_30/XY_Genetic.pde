@@ -8,18 +8,19 @@ GENETIC 0.5.1.0
 
 
 /**
-DNA display shape 0.1.1.0
+HELIX 
+v 0.2.0.0
 */
-class Helix_DNA {
+class Helix {
   Strand_DNA [] strand ;
   int num_strand ;
   int num_nucleotide ;
   int level ;
-  Vec3 radius ;
+  Vec2 radius ;
   Vec3 final_pos ;
   DNA [] dna_seq ; 
 
-  Helix_DNA (int num_strand, int num_nucleotide, int nucleotide_by_revolution) {
+  Helix (int num_strand, int num_nucleotide, int nucleotide_by_revolution) {
     // make a nucleotide chain if it's classic strand '1' or '2'
     if(num_strand == 2) {
       // this case is a real one case of ADN
@@ -57,17 +58,17 @@ class Helix_DNA {
     set_radius(radius, radius) ;
   }
 
-  void set_radius(int radius_x, int radius_z) {
+  void set_radius(int r_x, int r_y) {
     if(radius == null) {
-      radius = Vec3(radius_x, 1, radius_z) ;
+      radius = Vec2(r_x, r_y) ;
     } else {
-      radius.set(radius_x, 1, radius_z) ;
+      radius.set(r_x, r_y) ;
     }
 
     for(int i = 0 ; i < strand.length ; i++) {
       for(int k = 0 ; k < strand[i].size() ; k++) {
-        strand[i].get_pos(k).x *= radius.x ;
-        strand[i].get_pos(k).z *= radius.z ;
+        strand[i].set_radius_x(k, radius.x) ;
+        strand[i].set_radius_y(k, radius.y) ;
       }
     }
   }
@@ -76,7 +77,7 @@ class Helix_DNA {
   void rotation(float angle) {
     float step = TAU / strand.length ;
     for(int i = 0 ; i < strand.length ; i++) {
-      strand[i].set_angle(angle +(i*step)) ;
+      strand[i].set_pos(angle +(i*step)) ;
     }
   }
 
@@ -84,7 +85,7 @@ class Helix_DNA {
     int size_h = height_strand / level ;
     for(int i = 0 ; i < strand.length ; i++) {
       for(int k = 0 ; k < strand[i].size() ; k++) {
-        strand[i].get_pos(k).y *= size_h ;
+        strand[i].set_height(k, size_h) ;
       }
     }
   }
@@ -127,8 +128,8 @@ class Helix_DNA {
     return strand[0].size() ;
   }
 
-  Vec3 get_radius() {
-    if(radius == null) radius = Vec3(1) ;
+  Vec2 get_radius() {
+    if(radius == null) radius = Vec2(1) ;
     return radius ;
   }
 
@@ -164,6 +165,37 @@ class Helix_DNA {
     return final_pos ;
   }
   
+  // get array angle
+  float [] get_nuc_angle() {
+    int count = 0 ;
+    float [] angle = new float[num_nucleotide *num_strand] ;
+    for(int i = 0 ; i < num_strand ; i++) {
+      for(int k = 0 ; k < num_nucleotide ; k++) {
+        angle [count] = strand[i].get_angle(k) ;
+        count ++ ;
+      }
+    }
+    return angle ;
+  }
+
+  float [] get_nuc_angle(int which_strand) {
+    if(which_strand < num_strand) {
+      float [] angle = new float[strand[which_strand].size()] ;
+      for(int i = 0 ; i < num_nucleotide ; i++) {
+        angle[i] = strand[which_strand].get_angle(i) ;
+      }
+      return angle ;
+    } else {
+      float [] angle = new float[1] ;
+      angle[0] = 0 ;
+       System.err.println("target strand don't match with any strand") ;
+      return angle ;
+    }
+  }
+
+
+
+  // get array pos
   Vec3 [] get_nuc_pos() {
     int count = 0 ;
     Vec3 [] pos = new Vec3[num_nucleotide *num_strand] ;
@@ -214,97 +246,148 @@ class Helix_DNA {
 
 
   /**
-  private class Strand_DNA 0.1.1
+  private class Strand_DNA 0.2.0
   */
   private class Strand_DNA {
-    private Vec3 [] pos ;
+    private Vec4 [] coord ;
     int num_nucleotide ; 
     int nucleotide_by_revolution ;
-    int start_angle ;
+
     float spacing ;
     float radius = 1 ;
 
     Strand_DNA(int num_nucleotide, int nucleotide_by_revolution, float start_angle) {
       this.nucleotide_by_revolution = nucleotide_by_revolution ;
       this.num_nucleotide = num_nucleotide ;
-      pos = new Vec3[num_nucleotide] ;
+      coord = new Vec4[num_nucleotide] ;
 
       spacing = 1. / (float)nucleotide_by_revolution ;
-      pos = helix(num_nucleotide, nucleotide_by_revolution, spacing, radius, start_angle) ;
+      coord = nuc_coord(num_nucleotide, nucleotide_by_revolution, spacing, radius, start_angle) ;
     }
 
-    int size() {
-      if(pos != null) {
-        return pos.length ;
-      } else return 0 ;
-    }
 
-    void set_angle(float start_angle) {
-      if(pos != null) {
-        Vec3 [] temp_pos = new Vec3[pos.length] ;
-        temp_pos = helix(num_nucleotide, nucleotide_by_revolution, spacing, radius, start_angle) ;
+    // set
+    void set_pos(float new_angle) {
+      if(coord != null) {
+        Vec4 [] temp_pos = new Vec4[coord.length] ;
+        temp_pos = nuc_coord(num_nucleotide, nucleotide_by_revolution, spacing, radius, new_angle) ;
         for(int i = 0 ; i < temp_pos.length ; i++) {
-          if(pos[i] == null ) {
-            // pos[i].set(temp_pos[i]) ;
-            pos[i] = Vec3(temp_pos[i]) ;
+          if(coord[i] == null ) {
+            coord[i] = Vec4(temp_pos[i]) ;
           } else {
-            // pos[i].add(temp_pos[i]) ;
-            pos[i].set(temp_pos[i]) ;
-            // pos[i].add()
-
-
+            coord[i].set(temp_pos[i]) ;
           }
         }
       }
     }
 
+    void set_height(int target, float ratio_height) {
+      if(target < coord.length) {
+        coord[target].mult(1,ratio_height,1,1) ;
+      } 
+    }
+
+    void set_radius_x(int target, float ratio_x) {
+      if(target < coord.length) {
+        coord[target].mult(ratio_x,1,1,1) ;
+      } 
+    }
+    
+
+    // here it's delicate because the "z" is used for the y radius,
+    // because for the helix we are not in the classic represation of coor XYZ
+    void set_radius_y(int target, float ratio_z) {
+      if(target < coord.length) {
+        coord[target].mult(1,1,ratio_z,1) ;
+      } 
+    }
+
+    
+
+    // get
+    int size() {
+      if(coord != null) {
+        return coord.length ;
+      } else return 0 ;
+    }
+
+
     Vec3 get_pos(int target) {
-      if(target < pos.length) {
-        return pos[target] ;
+      if(target < coord.length) {
+        return Vec3(coord[target].x, coord[target].y, coord[target].z) ;
       } else return null ;
     }
 
+
+    float get_angle(int target) {
+      if(target < coord.length) {
+        return coord[target].a ;
+      } else {
+        System.err.println("target out of bounds") ;
+        return 0 ;
+      }
+    }
+
+
+    
+
+    // add
     void add(int target, Vec3 v) {
-      if(target < pos.length) {
-        pos[target].add(v) ;
+      if(target < coord.length) {
+        coord[target].add(v) ;
       } 
     }
+    
+
+
+    private Vec4 [] nuc_coord(int num, int revolution, float spacing, float radius, float start_angle) {
+      int level = num / revolution ;
+      Vec4 [] pos_angle = new Vec4[num] ;
+      float angle = TAU / revolution ;
+      float z = 0 ;
+      int count = 0 ;
+      if(num > 0) {
+        float angle_proj = start_angle ;
+        for(int i = 0 ; i <= level ; i++) {
+          for(int k = 0 ; k < revolution ; k ++) {
+            float angle_dir = k *angle +start_angle ;
+            angle_dir *= -1 ;
+            angle_proj += angle ;
+            Vec2 pos_XY = projection(angle_proj, radius) ;
+
+            z += spacing ;
+            Vec3 pos_XYZ = Vec3(pos_XY.x, z, pos_XY.y) ;
+            
+            if(count < pos_angle.length) {
+              pos_angle[count] = Vec4(pos_XYZ.x, pos_XYZ.y, pos_XYZ.z, angle_dir) ; ;
+              count ++ ;
+            } else {
+              break ;
+            }
+            if(count >= num) break ;
+          }
+        }
+        return pos_angle ;
+      } else return null ;  
+    }
   }
+  // end private class Strand_DNA
 }
 
 
 
 
 /**
-method public helix
+method public nucleotide position
 */
+/*
 Vec3 [] helix(int num, int revolution, float spacing, float radius, float start_angle) {
-  int level = num / revolution ;
-  Vec3 [] pos = new Vec3[num] ;
-  float angle = TAU / revolution ;
-  float z = 0 ;
-  int count = 0 ;
-  if(num > 0) {
-    for(int i = 0 ; i <= level ; i++) {
-      for(int k = 0 ; k < revolution ; k ++) {
-        float angle_projection = k *angle +start_angle ;
-        Vec2 pos_XY = projection(angle_projection, radius) ;
-        z += spacing ;
-        Vec3 pos_XYZ = Vec3(pos_XY.x, z, pos_XY.y) ;
-        
-        if(count < pos.length) {
-          pos[count] = pos_XYZ ;
-          count ++ ;
-        } else {
-          break ;
-        }
-        if(count >= num) break ;
-      }
-    }
-    return pos ;
-  } else return null ;
-  
+  return nuc_pos(num, revolution, spacing, radius, start_angle)
 }
+*/
+
+
+
 
 
 

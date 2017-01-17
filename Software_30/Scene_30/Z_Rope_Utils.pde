@@ -1,5 +1,5 @@
 /**
-RPE UTILS 1.23.0.0
+RPE UTILS 1.23.0.1
 Rope – Romanesco Processing Environment – 2015–2017
 * @author Stan le Punk
 * @see https://github.com/StanLepunK/Utils_rope
@@ -295,7 +295,7 @@ boolean hue_range(float min, float max, int colour) {
 
 
 /**
-convert color
+convert color 0.0.1
 */
 //convert color HSB to RVB
 Vec3 HSB_to_RGB(float hue, float saturation, float brightness) {
@@ -310,7 +310,6 @@ Vec4 HSB_to_RGB(float hue, float saturation, float brightness, float alpha) {
   colorMode(RGB,255) ;
   Vec4 vecRGBa = Vec4 (red(c), green(c), blue(c), alpha(c)) ;
   // return to the previous colorMode
-  // colorMode(HSB,HSBmode.r,HSBmode.r,HSBmode.b,HSBmode.a) ;
   colorMode(HSB,ref.r, ref.g, ref.b, ref.a) ;
   return vecRGBa ;
 }

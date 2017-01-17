@@ -21,9 +21,9 @@ boolean FULL_SCREEN = false ;
 void settings() {
   // When you build Romanesco you must create two versions : fullscreen and normal
   
-  fullScreen(P3D,2) ;
-  FULL_SCREEN = true ;
-  //size(124,124,P3D) ;
+  // fullScreen(P3D,2) ;
+  // FULL_SCREEN = true ;
+  size(124,124,P3D) ;
   pixelDensity(displayDensity()) ;
   syphon_settings() ;
 }
@@ -60,7 +60,7 @@ void setup() {
   init_variable_item() ;
   init_items() ;
   
-  font_setup() ;
+  create_font() ;
 
   if(!TEST_ROMANESCO) sound_setup() ;
   variables_setup() ; // the varObject setup of the Scene is more simple

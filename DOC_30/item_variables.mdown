@@ -185,13 +185,13 @@ spurt_z_item[ID_item] ;
 >return float value: 0, 1
 
 dir_x_item[ID_item] ; 
->return float value: 0, 1
+>return float value: 0, 360
 
 dir_y_item[ID_item] ; 
->return float value: 0, 1
+>return float value: 0, 360
 
 dir_z_item[ID_item] ; 
->return float value: 0, 1
+>return float value: 0, 360
 
 jitter_x_item[ID_item] ; 
 >return float value: 0, 1

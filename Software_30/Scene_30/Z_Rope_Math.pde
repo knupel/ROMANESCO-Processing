@@ -1,5 +1,5 @@
 /**
-Math rope 1.8.11.1
+Math rope 1.8.11.3
 * @author Stan le Punk
 * @see https://github.com/StanLepunK/Math_rope
 */
@@ -235,9 +235,10 @@ Vec3 projection(Vec3 direction, Vec3 origin, float radius) {
 
 /**
 SPHERE PROJECTION
+
 */
 /**
-// FIBONACCI SPHERE PROJECTION CARTESIAN
+FIBONACCI SPHERE PROJECTION CARTESIAN
 */
 Vec3 [] list_cartesian_fibonacci_sphere (int num, float step, float root) {
   float root_sphere = root *num ;
@@ -266,7 +267,7 @@ Vec3 distribution_cartesian_fibonacci_sphere(int n, int num, float step, float r
 }
 
 /**
-// POLAR PROJECTION FIBONACCI SPHERE
+POLAR PROJECTION FIBONACCI SPHERE
 */
 Vec2 [] list_polar_fibonacci_sphere(int num, float step) {
   Vec2 [] list_points = new Vec2[num] ;
@@ -367,13 +368,13 @@ Vec2 rotation_lattice(Vec2 ref, Vec2 lattice, float angle) {
 
 
 /**
-// PRIMITIVE 2D
-//////////////
+PRIMITIVE 2D
+
 */
 
 
 /**
-//DISC
+DISC
 */
 void disc( PVector pos, int diam, int c ) {
   for ( int i = 1 ; i < diam +1 ; i++) {
@@ -510,7 +511,7 @@ PVector [] circle (PVector pos, int d, int num, float jitter) {
   return p ;
 }
 /**
-// END DISC and CIRCLE
+END DISC and CIRCLE
 */
 
 
@@ -524,7 +525,9 @@ PVector [] circle (PVector pos, int d, int num, float jitter) {
 
 
 /**
-// PRIMITIVE  with "n" summits
+PRIMITIVE shape
+v 1.0.0.1
+with "n" summits
 */
 void primitive(float radius, int summits) {
   Vec3 pos = Vec3 () ;
@@ -615,7 +618,11 @@ void draw_primitive (float radius, Vec3 [] pts) {
 
 void draw_primitive (Vec3 pos, Vec2 dir, float radius, Vec3 [] pts) {
   // special one because we have direction for the polygone, so we must use the matrix system until have a good algorithm for the cartesian direction
-  if(renderer_P3D()) start_matrix_3D(pos, dir) ; else start_matrix_2D(Vec2(pos.x, pos.y), 0) ;
+  if(renderer_P3D()) {
+    start_matrix_3D(pos, dir) ; 
+  } else {
+    start_matrix_2D(Vec2(pos.x, pos.y), 0) ;
+  }
   draw_primitive (radius, pts) ;
   stop_matrix() ;
 }
@@ -664,10 +671,30 @@ void draw_primitive (Vec3 pos, float radius, Vec3 [] pts) {
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /**
 POLYGON
+
 */
-// summits around the polygon 2D
+/**
+POLYGON 2D
+*/
 Vec3 [] polygon_2D (int num) {
   float new_orientation = 0 ;
   return polygon_2D (num, new_orientation) ;

@@ -19,13 +19,13 @@ public PFont
 //SETUP
 void set_font() {
   //controller Font
-  String fontPathVLW = sketchPath("")+"import/font/typoVLW/" ;
-  FuturaStencil_20 = loadFont(fontPathVLW+"FuturaStencilICG-20.vlw");
-  FuturaExtraBold_9 = loadFont(fontPathVLW+"Futura-ExtraBold-9.vlw");
-  FuturaExtraBold_10 = loadFont(fontPathVLW+"Futura-ExtraBold-10.vlw");
-  FuturaCondLight_10 = loadFont(fontPathVLW+"Futura-CondensedLight-10.vlw");
-  FuturaCondLight_11 = loadFont(fontPathVLW+"Futura-CondensedLight-11.vlw");
-  FuturaCondLight_12 = loadFont(fontPathVLW+"Futura-CondensedLight-12.vlw");
+  String path_font_gui = sketchPath("")+"import/font/default_font/" ;
+  FuturaStencil_20 = loadFont(path_font_gui +"FuturaStencilICG-20.vlw");
+  FuturaExtraBold_9 = loadFont(path_font_gui +"Futura-ExtraBold-9.vlw");
+  FuturaExtraBold_10 = loadFont(path_font_gui +"Futura-ExtraBold-10.vlw");
+  FuturaCondLight_10 = loadFont(path_font_gui +"Futura-CondensedLight-10.vlw");
+  FuturaCondLight_11 = loadFont(path_font_gui +"Futura-CondensedLight-11.vlw");
+  FuturaCondLight_12 = loadFont(path_font_gui +"Futura-CondensedLight-12.vlw");
   
   textUsual_1 = FuturaCondLight_10 ;
   textUsual_2 = FuturaCondLight_11 ;

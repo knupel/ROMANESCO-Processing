@@ -1,5 +1,6 @@
 /**
-KOFOSPHERE || 2013 || 1.0.1
+KOFOSPHERE 2013 - 2017 
+v 1.0.2
 */
 class Kofosphere extends Romanesco {
   public Kofosphere() {
@@ -8,7 +9,7 @@ class Kofosphere extends Romanesco {
     ID_item = 15 ;
     ID_group = 1 ;
     RPE_author  = "Kof";
-    RPE_version = "Version 1.0.1";
+    RPE_version = "Version 1.0.2";
     RPE_pack = "Base" ;
     RPE_mode = "Point color/Point mono/Box color/Box mono" ;
     RPE_slider = "Fill hue,Fill sat,Fill bright,Fill alpha,Stroke hue,Stroke sat,Stroke bright,Stroke alpha,Thickness,Size X,Size Y,Size Z,Canvas X,Quantity,Speed X" ;
@@ -64,10 +65,6 @@ class Kofosphere extends Romanesco {
     objectInfo[ID_item] = ("Quantity " + (int)quantity +  " - Speed ") ;
 
   }
-  
-  
-  // ANNEXE VOID
-  
 }
 
 
@@ -162,14 +159,15 @@ class Sphere{
         
         // DISPLAY MODE
         if(mode < 2 ) {
+          /*
           strokeWeight(factorSize *3);
           stroke(colorIn);
+          */
+          aspect_rope(colorIn, colorIn, factorSize *3) ;
           point(posX *deform,posY *deform,posZ *deform);
         } else if ( mode > 1 && mode < 4 ) {
           pushMatrix() ;
-          strokeWeight(thickness);
-          stroke(colorOut);
-          fill(colorIn);
+          aspect_rope(colorIn, colorOut, thickness) ;
           translate(posX *deform,posY *deform,posZ *deform) ;
           // box(size.x, size.y, size.z) ;
           box(size.x *factorSize, size.y *factorSize, size.z *factorSize) ;
