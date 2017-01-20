@@ -1,10 +1,9 @@
 
 /**
-ARBRE 2012-2016 1.3.2.2
+ARBRE 2012-2016 1.3.2.3
 */
-
 Arbre arbre ;
-//object three
+
 class ArbreRomanesco extends Romanesco {
   
   public ArbreRomanesco() {
@@ -13,7 +12,7 @@ class ArbreRomanesco extends Romanesco {
     ID_item = 10 ;
     ID_group = 1 ;
     RPE_author  = "Stan le Punk";
-    RPE_version = "Version 1.3.2.2";
+    RPE_version = "Version 1.3.2.3";
     RPE_pack = "Base" ;
     RPE_mode = "Point/Ellipse/Triangle/Rectangle/Cross/Star 5/Star 7/Super Star 8/Super Star 12" ;
     RPE_slider = "Fill hue,Fill sat,Fill bright,Fill alpha,Stroke hue,Stroke sat,Stroke bright,Stroke alpha,Thickness,Size X,Size Y,Size Z,Quantity,Speed X,Direction X,Canvas X,Alignment" ;
@@ -96,14 +95,14 @@ class ArbreRomanesco extends Romanesco {
     }
     
     
-    boolean bool_line = false ;
-    if(special[ID_item]) bool_line = true ; else bool_line = false ;
+    boolean bool_link = false ;
+    if(special[ID_item]) bool_link = true ; else bool_link = false ;
     
 
     select_costume(ID_item, RPE_name) ;
 
     arbre.show(direction) ;
-    arbre.update(posArbre, epaisseur, size, divA, divB, forkA, forkB, amplitude, n, costume[ID_item], bool_line, angle, speed, ID_item) ;
+    arbre.update(posArbre, epaisseur, size, divA, divB, forkA, forkB, amplitude, n, costume[ID_item], bool_link, angle, speed, ID_item) ;
     if(horizon[ID_item]) arbre.set_horizon(0) ; else arbre.set_horizon(map(alignment_item[ID_item], 0,1, 0,3)) ;
     
     //info

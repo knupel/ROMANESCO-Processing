@@ -1,5 +1,5 @@
 /**
-Rope Manager 2.0.4.6
+Rope Manager 2.0.5.0
 */
 RPE_MANAGER rpe_manager ;
 // CLASS ROMANESCO MANAGER
@@ -57,6 +57,9 @@ void update_var_items(int ID) {
     if (oTouch) orbit[ID] = !orbit[ID] ;
     if (rTouch) reverse[ID] = !reverse[ID] ;
     if (kTouch) special[ID] = !special[ID] ;
+
+    if (fTouch) fill_is[ID] = !fill_is[ID] ;
+    if (lTouch) stroke_is[ID] = !stroke_is[ID] ;
 
 
     /*

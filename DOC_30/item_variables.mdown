@@ -56,6 +56,10 @@ reverse[ID_item] > from keyboard "R"
 
 special[ID_item] > from keyboard "K"
 
+fill_is[ID_item] > from keyboard "F"
+
+stroke_is[ID_item] > from keyboard "L"
+
 
 
 

@@ -51,7 +51,8 @@ class Ecosystem_DNA extends Romanesco {
       init_symbiosis() ;
     	birth[ID_item] = false ;
     }
-
+    
+    boolean_host(fill_is[ID_item], stroke_is[ID_item], special[ID_item]) ;
 
     if(costume[ID_item] == TEXT_ROPE ) textFont(font[ID_item]) ;
 
@@ -144,6 +145,7 @@ DNA
 */
 Helix strand_DNA ;
 
+
 void create_dna(int num_helix, int num, int by_revolution, Vec3 pos, Vec3 size, int height_dna, int radius_dna) {
   int nucleotide = num ;
 
@@ -161,7 +163,6 @@ void create_dna(int num_helix, int num, int by_revolution, Vec3 pos, Vec3 size, 
 /**
 SHOW
 */
-
 void show_host(Vec3 size, Vec3 canvas, Vec3 radius, float direction, float speed_rotation_host, int direction_host, int which_costume, int fill, int stroke, float thickness, float spectrum, boolean rotation_bool_host, boolean info) {
 	int height_dna = (int)canvas.y ;
 	int radius_dna = (int)radius.x ;
@@ -188,6 +189,13 @@ void show_dna(Vec3 size, int height_dna, int radius_dna, float direction, float 
 }
 
 
+boolean display_fill_is, display_stroke_is ;
+boolean link_is ;
+void boolean_host(boolean fill_is, boolean stroke_is, boolean link_is) {
+  display_fill_is = fill_is ;
+  display_stroke_is = stroke_is ;
+  this.link_is = link_is ;
+}
 
 void costume_DNA(Helix helix, int target, Vec3 size, float direction, int which_costume, int fill_int, int stroke_int, float thickness, float spectrum, boolean info) {
   Vec3 pos_a = helix.get_nuc_pos(0)[target] ;
@@ -201,9 +209,10 @@ void costume_DNA(Helix helix, int target, Vec3 size, float direction, int which_
   float radius = helix.get_radius().x ;
   float alpha_min = .01 ;
   float alpha_max = .8 ;
-
+  
+  aspect_is(display_fill_is, display_stroke_is) ;
   aspect_rope(fill_int, stroke_int, thickness) ;
-  line(pos_a, pos_b) ;
+  if(link_is) line(pos_a, pos_b) ;
   
 
   Vec4 fill = color_HSB_a(fill_int) ;
@@ -239,7 +248,7 @@ void costume_DNA(Helix helix, int target, Vec3 size, float direction, int which_
   
 
 
-
+  aspect_is(display_fill_is, display_stroke_is) ;
   aspect_rope(fill_strand_a, stroke_strand_a, thickness, which_costume) ;
 
   if(which_costume == TEXT_ROPE) {
@@ -253,7 +262,7 @@ void costume_DNA(Helix helix, int target, Vec3 size, float direction, int which_
 
   
 
-
+  aspect_is(display_fill_is, display_stroke_is) ;
   aspect_rope(fill_strand_b, stroke_strand_b, thickness, which_costume) ;
   
   if(which_costume == TEXT_ROPE) {

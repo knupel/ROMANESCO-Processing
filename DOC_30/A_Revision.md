@@ -41,7 +41,9 @@ MINOR
 > add boolean special[ID_item] from keyboard "K"
 > add boolean horizon[ID_item] from keyboard "H"
 > add boolean dimension[ID_item] from keyboard "D"
-> fix a main part of bug for the camera reset 
+> fix a main part of bug for the camera reset
+> add boolean fill_is[ID_item] from keyboard "F"
+> add boolean stroke_is[ID_item] from keyboard "L"
 
 
 CONTROLLER
@@ -61,6 +63,15 @@ MINOR
 > slider charge became density
 > slider need became spectrum
 > fixe displaying bug for the last slider
+
+LAUNCHER
+--
+MAJOR
+--
+> add mode "HOME", now you can work directly on Préscène
+> change mode "CLASSIC" to "LIVE"
+> change mode "MIROIR" to "MIRROR"
+
 
 
 

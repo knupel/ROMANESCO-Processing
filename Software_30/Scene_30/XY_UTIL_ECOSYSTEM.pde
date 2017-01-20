@@ -1141,7 +1141,7 @@ void show_agent_dynamic(Info_obj style, ArrayList<Agent>... all_list) {
 
 
 /**
-Aspect 1.0.1
+Aspect 1.0.3
 */
 boolean use_style = true ;
 void use_style(boolean style) {
@@ -1151,10 +1151,22 @@ void use_style(boolean style) {
 update aspect
 */
 void update_aspect(Info_obj style, ArrayList list) {
-  int costume_ID = (int)style.catch_obj(0) ;
-  Vec4 fill_vec = (Vec4)style.catch_obj(1) ;
-  Vec4 stroke_vec = (Vec4)style.catch_obj(2) ; 
-  float thickness = (float)style.catch_obj(3) ;
+  int costume_ID = 0 ;
+  Vec4 fill_vec =  Vec4(0, 0 , g.colorModeZ, g.colorModeA) ; 
+  Vec4 stroke_vec = Vec4(g.colorModeX, g.colorModeY, g.colorModeZ, g.colorModeA) ; 
+  float thickness = 1 ;
+  // float alpha_behavior = (float)style.catch_obj(4) ;
+  boolean fill_is = true ;
+  boolean stroke_is = true ;
+
+  if(style.catch_obj(0) != null) costume_ID = (int)style.catch_obj(0) ;
+  if(style.catch_obj(1) != null) fill_vec = (Vec4)style.catch_obj(1) ;
+  if(style.catch_obj(2) != null) stroke_vec = (Vec4)style.catch_obj(2) ; 
+  if(style.catch_obj(3) != null) thickness = (float)style.catch_obj(3) ;
+  // if(style.catch_obj(4) != null) alpha_behavior = (float)style.catch_obj(4) ;
+  if(style.catch_obj(5) != null) fill_is = (boolean)style.catch_obj(5) ;
+  if(style.catch_obj(6) != null) stroke_is = (boolean)style.catch_obj(6) ;
+
 
 
 
@@ -1199,6 +1211,13 @@ void update_aspect(Info_obj style, ArrayList list) {
       }
 
       // display
+
+      if(!fill_is) {
+        fill_def.a = 0 ;
+      }
+      if(!stroke_is) {
+        thickness_def = 0 ;
+      }
       a.aspect(fill_def, stroke_def, thickness_def) ;
       if(costume_ID != a.get_costume()) {
         a.costume(costume_ID) ; 

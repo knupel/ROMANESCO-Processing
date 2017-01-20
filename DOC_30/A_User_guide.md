@@ -1,4 +1,4 @@
-User guide 0.1.1
+User guide 0.1.2
 --
 CONTROLLER
 --
@@ -91,20 +91,38 @@ If it's available
 Info item
 >touch 'I' display a window info
 
-orbit item
->orbit from keyboard "O"
+birth, new....
+> add boolean birth[ID_item] from keyboard "N"
 
 colour item
 > add boolean colour[ID_item] from keyboard "X"
 
-special item
-> add boolean special[ID_item] from keyboard "K"
+dimension
+> add boolean dimension[ID_item] from keyboard "D"
+
+display fill
+> add boolean fill_is[ID_item] from keyboard "F"
+
+display stroke
+> add boolean stroke_is[ID_item] from keyboard "L"
+
 
 horizon item
 > add boolean horizon[ID_item] from keyboard "H"
 
-dimension
-> add boolean dimension[ID_item] from keyboard "D"
+motion
+> add boolean motion[ID_item] from keyboard "M"
+
+orbit item
+>orbit from keyboard "O"
+
+reverse
+> add boolean reverse[ID_item] from keyboard "R"
+
+
+
+special / bizarre, weird, specific... action on item
+> add boolean special[ID_item] from keyboard "K"
 
 
 

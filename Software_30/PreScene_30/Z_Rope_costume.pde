@@ -1,5 +1,6 @@
 /**
-Rope Costume 0.6.0.0 – 2016-2017
+Rope Costume  2016-2017
+v 1.0.0.1
 * @author Stan le Punk
 * @see https://github.com/StanLepunK/Costume_rope
 */
@@ -278,28 +279,48 @@ int costumes_size() {
 
 
 /**
-ASPECT 0.0.4
+ASPECT ROPE 2016-2017
+v 0.1.1
 */
+boolean fill_rope_is = true ;
+boolean stroke_rope_is = true ;
+void aspect_is(boolean fill_is, boolean stroke_is) {
+	fill_rope_is = fill_is ;
+	stroke_rope_is = stroke_is ;
+}
+
+void init_bool_aspect() {
+	fill_rope_is = true ;
+  stroke_rope_is = true ;
+}
+
 void aspect_rope(int fill, int stroke, float strokeWeight) {
   //checkfill color
-  if(alpha(fill) <=0)  {
+  if(alpha(fill) <= 0 || !fill_rope_is)  {
     noFill() ; 
   } else {
     fill(fill) ;
   } 
   //check stroke color
-  if(alpha(stroke) <=0 || strokeWeight <= 0 ) {
+  if(alpha(stroke) <=0 || strokeWeight <= 0 || !stroke_rope_is) {
     noStroke() ;
   } else {
     stroke(stroke) ;
     strokeWeight(strokeWeight) ;
   }
+  //
+  init_bool_aspect() ;
 }
 
 void aspect_rope(int fill, int stroke, float strokeWeight, int costume) {
   if(costume != POINT_ROPE) {
-    if(alpha(fill) == 0) noFill() ; else fill(fill) ;
-    if(alpha(stroke) == 0  || strokeWeight <= 0) {
+    if(alpha(fill) <= 0 || !fill_rope_is) {
+    	noFill() ; 
+    } else {
+    	fill(fill) ;
+    }
+
+    if(alpha(stroke) <= 0  || strokeWeight <= 0 || !stroke_rope_is) {
     	noStroke() ; 
     } else {
     	stroke(stroke) ;
@@ -314,45 +335,95 @@ void aspect_rope(int fill, int stroke, float strokeWeight, int costume) {
     }
     noFill() ;   
   }
+  //
+  init_bool_aspect() ;
 }
 
 
 
-void aspect_rope(Vec4 fill, Vec4 stroke, float strokeWeight) {
+void aspect_rope(Vec fill, Vec stroke, float strokeWeight) {
   //checkfill color
-  if(fill.w <=0)  {
+  if(fill.w <=0 || !fill_rope_is)  {
     noFill() ; 
   } else {
-    fill(fill) ;
+    manage_fill(fill) ;
   } 
   //check stroke color
-  if(stroke.w <=0 || strokeWeight <= 0 ) {
+  if(stroke.w <=0 || strokeWeight <= 0 || !stroke_rope_is) {
     noStroke() ;
   } else {
-    stroke(stroke) ;
+    manage_stroke(stroke) ;
     strokeWeight(strokeWeight) ;
   }
+  //
+  init_bool_aspect() ;
 }
 
-void aspect_rope(Vec4  fill, Vec4  stroke, float strokeWeight, int costume) {
+void aspect_rope(Vec fill, Vec stroke, float strokeWeight, int costume) {
+	//println("aspect_rope()", fill_rope_is, stroke_rope_is) ;
   if(costume != POINT_ROPE) {
-    if(fill.w <= 0) noFill() ; else fill(fill) ;
-    if(stroke.w <= 0  || strokeWeight <= 0 ) {
+    if(fill.w <= 0 || !fill_rope_is) {
+    	noFill() ; 
+    } else {
+    	manage_fill(fill) ;
+    } 
+    if(stroke.w <= 0  || strokeWeight <= 0 || !stroke_rope_is) {
     	noStroke() ; 
     } else {
-    	stroke(stroke) ;
+    	manage_stroke(stroke) ;
     	strokeWeight(strokeWeight) ;
     }   
   } else {
-    if(fill.w <= 0) {
+    if(fill.w <= 0 || !fill_rope_is) {
     	noStroke() ; 
     } else {
-    	stroke(fill) ;
+    	manage_stroke(fill) ;
     	strokeWeight(strokeWeight) ;
     }
     noFill() ;   
   }
+  //
+  init_bool_aspect() ;
 }
+
+
+// manage componenent color Vec
+void manage_fill(Vec f) {
+	if(f instanceof Vec2) {
+		Vec2 fill = (Vec2) f ;
+		fill(fill) ;
+	} else if(f instanceof Vec3) {
+		Vec3 fill = (Vec3) f ;
+		fill(fill) ;
+	} else if(f instanceof Vec4) {
+		Vec4 fill = (Vec4) f ;
+		fill(fill) ;
+	}
+}
+
+void manage_stroke(Vec s) {
+	if(s instanceof Vec2) {
+		Vec2 stroke = (Vec2) s ;
+		stroke(stroke) ;
+	} else if(s instanceof Vec3) {
+		Vec3 stroke = (Vec3) s ;
+		stroke(stroke) ;
+	} else if(s instanceof Vec4) {
+		Vec4 stroke = (Vec4) s ;
+		stroke(stroke) ;
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -368,6 +439,14 @@ String costume_text_rope = null ;
 void costume_text(String s) {
 	costume_text_rope = s ;
 }
+
+
+
+
+
+
+
+
 
 
 

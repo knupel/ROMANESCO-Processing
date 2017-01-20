@@ -165,15 +165,15 @@ class Ecosystem_agent extends Romanesco {
     int costume_bacterium = SQUARE_ROPE ;
     int costume_dead = CROSS_3_ROPE ;
 
-    style_flora = update_style(style_flora, "flora", costume_flora, fill_flora, stroke_flora, thickness_common, alpha_behavior_common) ;
+    style_flora = update_style(style_flora, "flora", costume_flora, fill_flora, stroke_flora, thickness_common, alpha_behavior_common, fill_is[ID_item], stroke_is[ID_item]) ;
 
-    style_herbivore = update_style(style_herbivore, "herbivore", costume_herbivore, fill_herbivore, stroke_herbivore, thickness_common, alpha_behavior_common) ;
+    style_herbivore = update_style(style_herbivore, "herbivore", costume_herbivore, fill_herbivore, stroke_herbivore, thickness_common, alpha_behavior_common, fill_is[ID_item], stroke_is[ID_item]) ;
 
-    style_carnivore = update_style(style_carnivore, "carnivore", costume_carnivore, fill_carnivore, stroke_carnivore, thickness_common, alpha_behavior_common) ;
-    style_omnivore = update_style(style_omnivore, "omnivore", costume_omnivore, fill_omnivore, stroke_omnivore, thickness_common, alpha_behavior_common) ;
+    style_carnivore = update_style(style_carnivore, "carnivore", costume_carnivore, fill_carnivore, stroke_carnivore, thickness_common, alpha_behavior_common, fill_is[ID_item], stroke_is[ID_item]) ;
+    style_omnivore = update_style(style_omnivore, "omnivore", costume_omnivore, fill_omnivore, stroke_omnivore, thickness_common, alpha_behavior_common, fill_is[ID_item], stroke_is[ID_item]) ;
 
-    style_dead = update_style(style_dead, "dead", costume_bacterium, fill_dead, stroke_dead, thickness_common, alpha_behavior_common) ;
-    style_bacterium = update_style(style_bacterium, "bacterium", costume_dead, fill_bacterium, stroke_bacterium, thickness_common, alpha_behavior_common) ;
+    style_dead = update_style(style_dead, "dead", costume_bacterium, fill_dead, stroke_dead, thickness_common, alpha_behavior_common, fill_is[ID_item], stroke_is[ID_item]) ;
+    style_bacterium = update_style(style_bacterium, "bacterium", costume_dead, fill_bacterium, stroke_bacterium, thickness_common, alpha_behavior_common, fill_is[ID_item], stroke_is[ID_item]) ;
 
 
 
@@ -378,6 +378,8 @@ void ecosystem_setting(Biomass b, boolean host_mode) {
   int costume = 0 ;
   float thickness = 1. ;
   Vec3 alpha_behavior_flora = Vec3(0, -1, 1) ; // it's like 100% all the time
+  boolean fill_is = true ;
+  boolean stroke_is = true ;
 
   if(get_pos_host() != null) {
 
@@ -389,7 +391,7 @@ void ecosystem_setting(Biomass b, boolean host_mode) {
     thickness = 1. ;
     Vec4 fill_flora = Vec4(color_flora) ;
     Vec4 stroke_flora = Vec4(color_flora) ;
-    style_flora = new Info_obj("Flora Aspect", costume, fill_flora, stroke_flora, thickness, alpha_behavior_flora) ;  
+    style_flora = new Info_obj("Flora Aspect", costume, fill_flora, stroke_flora, thickness, alpha_behavior_flora, fill_is, stroke_is) ;  
   }
 
   // HERBIVORE
@@ -398,7 +400,7 @@ void ecosystem_setting(Biomass b, boolean host_mode) {
     Vec4 fill_herbivore = Vec4(color_herbivore) ;
     Vec4 stroke_herbivore = Vec4(color_herbivore) ;
     Vec3 alpha_behavior_herbivore = Vec3(0, -1, 1) ;
-    style_herbivore = new Info_obj("Herbivore Aspect", costume, fill_herbivore, stroke_herbivore, thickness, alpha_behavior_herbivore) ;
+    style_herbivore = new Info_obj("Herbivore Aspect", costume, fill_herbivore, stroke_herbivore, thickness, alpha_behavior_herbivore, fill_is, stroke_is) ;
   }
 
   
@@ -408,7 +410,7 @@ void ecosystem_setting(Biomass b, boolean host_mode) {
     Vec4 fill_omnivore = Vec4(150, 100, 80, 100) ;
     Vec4 stroke_omnivore = Vec4(150, 100, 80, 100) ;
     Vec3 alpha_behavior_omnivore = Vec3(0, -1, 1) ;
-    style_omnivore = new Info_obj("Omnivore Aspect", costume, fill_omnivore, stroke_omnivore, thickness, alpha_behavior_omnivore) ;
+    style_omnivore = new Info_obj("Omnivore Aspect", costume, fill_omnivore, stroke_omnivore, thickness, alpha_behavior_omnivore, fill_is, stroke_is) ;
   }
 
 
@@ -418,7 +420,7 @@ void ecosystem_setting(Biomass b, boolean host_mode) {
     Vec4 fill_carnivore = Vec4(0, 100, 100, 100) ;
     Vec4 stroke_carnivore = Vec4(0, 100, 100, 100) ;
     Vec3 alpha_behavior_carnivore = Vec3(0, -1, 1) ;
-    style_carnivore = new Info_obj("Carnivore Aspect", costume, fill_carnivore, stroke_carnivore, thickness, alpha_behavior_carnivore) ;
+    style_carnivore = new Info_obj("Carnivore Aspect", costume, fill_carnivore, stroke_carnivore, thickness, alpha_behavior_carnivore, fill_is, stroke_is) ;
   }
 
   
@@ -428,7 +430,7 @@ void ecosystem_setting(Biomass b, boolean host_mode) {
     Vec4 fill_bacterium = Vec4(30, 0, 30, 100) ;
     Vec4 stroke_bacterium = Vec4(30, 0, 30, 100) ;
     Vec3 alpha_behavior_bacterium = Vec3(0, -1, 1) ;
-    style_bacterium = new Info_obj("Bacterium Aspect", costume, fill_bacterium, stroke_bacterium, thickness, alpha_behavior_bacterium) ;
+    style_bacterium = new Info_obj("Bacterium Aspect", costume, fill_bacterium, stroke_bacterium, thickness, alpha_behavior_bacterium, fill_is, stroke_is) ;
   }  
   
 
@@ -438,7 +440,7 @@ void ecosystem_setting(Biomass b, boolean host_mode) {
     Vec4 fill_dead = Vec4(0, 0, 30, 100) ;
     Vec4 stroke_dead = Vec4(0, 0, 30, 100) ;
     Vec3 alpha_behavior_dead = Vec3(0, -1, 1) ;
-    style_dead = new Info_obj("Dead Aspect", costume, fill_dead, stroke_dead, thickness, alpha_behavior_dead) ;
+    style_dead = new Info_obj("Dead Aspect", costume, fill_dead, stroke_dead, thickness, alpha_behavior_dead, fill_is, stroke_is) ;
   }
 
 
@@ -460,9 +462,9 @@ void ecosystem_setting(Biomass b, boolean host_mode) {
 }
 
 
-Info_obj update_style(Info_obj style, String name, int costume, Vec4 fill, Vec4 stroke, float thickness, Vec3 alpha_behavior) {
+Info_obj update_style(Info_obj style, String name, int costume, Vec4 fill, Vec4 stroke, float thickness, Vec3 alpha_behavior, boolean fill_is, boolean stroke_is) {
   // style.clear() ;
- return new Info_obj(name, costume, fill, stroke, thickness, alpha_behavior) ;
+ return new Info_obj(name, costume, fill, stroke, thickness, alpha_behavior, fill_is, stroke_is) ;
 }
 
 

@@ -1,5 +1,5 @@
 /** 
-VARIABLE 1.1.5.1
+VARIABLE 1.1.6.0
 */
 // GLOBAL SETTING ////
 
@@ -378,6 +378,7 @@ int wheel[] ;
 
 //boolean object
 boolean [] birth, colour, dimension, horizon, motion, orbit, reverse, special ;
+boolean [] fill_is, stroke_is ;
 boolean [] setting, clearList ;
 
 //main font for each object
@@ -446,6 +447,9 @@ void createMiscVar() {
   orbit = new boolean [NUM_ITEM] ;
   reverse = new boolean [NUM_ITEM] ;
   special = new boolean [NUM_ITEM] ;
+
+  fill_is = new boolean[NUM_ITEM] ;
+  stroke_is = new boolean[NUM_ITEM] ;
 
   // costume
   costume = new int[NUM_ITEM] ;
@@ -564,7 +568,6 @@ void create_var_item_manipulation(int num_item_setting) {
 
 void create_var_item_slider() {
 
-
   first_opening_item = new boolean[NUM_ITEM] ; // used to check if this object is already opening before
   fill_item = new color[NUM_ITEM] ;
   stroke_item = new color[NUM_ITEM] ;
@@ -621,7 +624,6 @@ void create_var_item_slider() {
   attraction_item = new float[NUM_ITEM] ;
   density_item = new float[NUM_ITEM] ;
 
-
   influence_item = new float[NUM_ITEM] ;
   calm_item = new float[NUM_ITEM] ;
   spectrum_item = new float[NUM_ITEM] ;
@@ -657,7 +659,7 @@ void create_var_item_slider() {
 
 
 /**
-INIT VAR 1.0.1
+INIT VAR 1.1.0
 */
 void init_variable_item_min_max() {
   float min_size = .1 ;
@@ -735,6 +737,9 @@ void init_variable_item_min_max() {
 // init var item
 void init_variable_item() {
   for (int i = 0 ; i < NUM_ITEM ; i++ ) {
+    // display boolean 
+    fill_is[i] = true ;
+    stroke_is [i] = true ;
     // master follower
     master_ID[i] = 0 ;
     follower[i] = false ;

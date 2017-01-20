@@ -1,6 +1,7 @@
 /**
-RPE UTILS 1.23.0.1
-Rope – Romanesco Processing Environment – 2015–2017
+RPE UTILS  2015 – 2017
+v 1.23.1.1
+Rope – Romanesco Processing Environment – 
 * @author Stan le Punk
 * @see https://github.com/StanLepunK/Utils_rope
 */
@@ -732,7 +733,7 @@ void printArrayTempo(int tempo, String[] var) {
 
 
 /**
-Info_dict 0.2.3
+Info_dict 0.2.4
 
 */
 public class Info_dict {
@@ -770,6 +771,10 @@ public class Info_dict {
   }
   void add(String name, Object a, Object b, Object c, Object d, Object e, Object f) {
     Info_obj info = new Info_obj(name, a,b,c,d,e,f) ;
+    list.add(info) ;
+  }
+  void add(String name, Object a, Object b, Object c, Object d, Object e, Object f, Object g) {
+    Info_obj info = new Info_obj(name, a,b,c,d,e,f,g) ;
     list.add(info) ;
   }
 
@@ -889,6 +894,10 @@ public class Info_int_dict extends Info_dict {
     Info_int info = new Info_int(name, a,b,c,d,e,f) ;
     list_int.add(info) ;
   }
+  void add(String name, int a, int b, int c, int d, int e, int f, int g) {
+    Info_int info = new Info_int(name, a,b,c,d,e,f,g) ;
+    list_int.add(info) ;
+  }
 
 
   // size
@@ -991,6 +1000,10 @@ public class Info_float_dict extends Info_dict {
   }
   void add(String name, float a, float b, float c, float d, float e, float f) {
     Info_float info = new Info_float(name, a,b,c,d,e,f) ;
+    list_float.add(info) ;
+  }
+  void add(String name, float a, float b, float c, float d, float e, float f, float g) {
+    Info_float info = new Info_float(name, a,b,c,d,e,f,g) ;
     list_float.add(info) ;
   }
 
@@ -1098,6 +1111,10 @@ public class Info_String_dict extends Info_dict {
     Info_String info = new Info_String(name, a,b,c,d,e,f) ;
     list_String.add(info) ;
   }
+  void add(String name, String a, String b, String c, String d, String e, String f,String g) {
+    Info_String info = new Info_String(name, a,b,c,d,e,f,g) ;
+    list_String.add(info) ;
+  }
 
   // size
   int size() {
@@ -1201,6 +1218,10 @@ public class Info_Vec_dict extends Info_dict {
     Info_Vec info = new Info_Vec(name, a,b,c,d,e,f) ;
     list_Vec.add(info) ;
   }
+  void add(String name, Vec a, Vec b, Vec c, Vec d, Vec e, Vec f, Vec g) {
+    Info_Vec info = new Info_Vec(name, a,b,c,d,e,f,g) ;
+    list_Vec.add(info) ;
+  }
 
   // size
   int size() {
@@ -1271,7 +1292,7 @@ public class Info_Vec_dict extends Info_dict {
 
 
 /**
-Info 0.1.0
+Info 0.1.0.1
 
 */
 interface Info {
@@ -1287,7 +1308,7 @@ abstract class Info_method implements Info {
   String name  ;
   // error message
   String error_target = "Your target is beyond of my knowledge !" ;
-  String error_value = "This value is beyond of my power mate !" ;
+  String error_value_message = "This value is beyond of my power mate !" ;
   Info_method (String name) {
     this.name = name ;
   }
@@ -1305,7 +1326,7 @@ INFO int
 */
 class Info_int extends Info_method {
   char type = 'i' ;
-  int a, b, c, d, e, f ;
+  int a, b, c, d, e, f, g ;
   int num_value ;  
 
 
@@ -1315,19 +1336,24 @@ class Info_int extends Info_method {
 
   Info_int(String name, int... var) {
     super(name) ;
-    if(var.length > 6 ) num_value = 6 ; else num_value = var.length ;
+    if(var.length > 7 ) {
+      num_value = 7 ; 
+    } else {
+      num_value = var.length ;
+    }
     if(var.length > 0) this.a = var[0] ;
     if(var.length > 1) this.b = var[1] ;
     if(var.length > 2) this.c = var[2] ;
     if(var.length > 3) this.d = var[3] ;
     if(var.length > 4) this.e = var[4] ;
     if(var.length > 5) this.f = var[5] ;
+    if(var.length > 6) this.g = var[6] ;
   }
 
 
   // get
   int [] get_all() {
-    int [] list = new int[]{a,b,c,d,e,f} ;
+    int [] list = new int[]{a,b,c,d,e,f,g} ;
     return list ;
   }
 
@@ -1344,6 +1370,8 @@ class Info_int extends Info_method {
       return e ;
     } else if(which == 5) {
       return f ;
+    } else if(which == 6) {
+      return g ;
     } else {
       System.err.println(error_target) ;
       return 0 ;
@@ -1351,7 +1379,7 @@ class Info_int extends Info_method {
   }
   
   Object [] catch_all() {
-    Object [] list = new Object[]{a,b,c,d,e,f} ;
+    Object [] list = new Object[]{a,b,c,d,e,f,g} ;
     return list ;
   }
 
@@ -1368,6 +1396,8 @@ class Info_int extends Info_method {
       return e ;
     } else if(which == 5) {
       return f ;
+    } else if(which == 6) {
+      return g ;
     } else {
       System.err.println(error_target) ;
       return null ;
@@ -1390,8 +1420,11 @@ class Info_int extends Info_method {
       return "[ " + name + ": " + a + ", " + b + ", " + c + ", " + d + ", " + e + " ]";
     } else if(num_value == 6) {
       return "[ " + name + ": " + a + ", " + b + ", " + c + ", " + d + ", " + e + ", " + f + " ]";
+    } else if(num_value == 7) {
+      return "[ " + name + ": " + a + ", " + b + ", " + c + ", " + d + ", " + e + ", " + f + ", " + g +" ]";
     } else {
-      System.err.println(error_value) ;
+      System.err.println(num_value) ;
+      System.err.println(error_value_message) ;
       return "hmmm hmmm there is problem with your stuff mate";
     }
   }
@@ -1402,7 +1435,7 @@ INFO String
 */
 class Info_String extends Info_method {
   char type = 's' ;
-  String a, b, c, d, e, f ;
+  String a, b, c, d, e, f, g ;
   int num_value ;  
 
   Info_String(String name) {
@@ -1411,19 +1444,24 @@ class Info_String extends Info_method {
 
   Info_String(String name, String... var) {
     super(name) ;
-    if(var.length > 6 ) num_value = 6 ; else num_value = var.length ;
+    if(var.length > 7 ) {
+      num_value = 7 ; 
+    } else {
+      num_value = var.length ;
+    }
     if(var.length > 0) this.a = var[0] ;
     if(var.length > 1) this.b = var[1] ;
     if(var.length > 2) this.c = var[2] ;
     if(var.length > 3) this.d = var[3] ;
     if(var.length > 4) this.e = var[4] ;
     if(var.length > 5) this.f = var[5] ;
+    if(var.length > 6) this.g = var[6] ;
   }
 
 
   // get
   String [] get_all() {
-    String [] list = new String[]{a,b,c,d,e,f} ;
+    String [] list = new String[]{a,b,c,d,e,f,g} ;
     return list ;
   }
 
@@ -1440,14 +1478,16 @@ class Info_String extends Info_method {
       return e ;
     } else if(which == 5) {
       return f ;
-    } else {
+    } else if(which == 6) {
+      return g ;
+    }else {
       System.err.println(error_target) ;
       return null ;
     }
   }
   
   Object [] catch_all() {
-    Object [] list = new Object[]{a,b,c,d,e,f} ;
+    Object [] list = new Object[]{a,b,c,d,e,f,g} ;
     return list ;
   }
 
@@ -1464,7 +1504,9 @@ class Info_String extends Info_method {
       return e ;
     } else if(which == 5) {
       return f ;
-    } else {
+    } else if(which == 6) {
+      return g ;
+    }else {
       System.err.println(error_target) ;
       return null ;
     }
@@ -1487,8 +1529,11 @@ class Info_String extends Info_method {
       return "[ " + name + ": " + a + ", " + b + ", " + c + ", " + d + ", " + e + " ]";
     } else if(num_value == 6) {
       return "[ " + name + ": " + a + ", " + b + ", " + c + ", " + d + ", " + e + ", " + f + " ]";
+    } else if(num_value == 7) {
+      return "[ " + name + ": " + a + ", " + b + ", " + c + ", " + d + ", " + e + ", " + f + ", " + g + " ]";
     } else {
-      System.err.println(error_value) ;
+      System.err.println(num_value) ;
+      System.err.println(error_value_message) ;
       return "hmmm hmmm there is problem with your stuff mate";
     }
   }
@@ -1499,7 +1544,7 @@ INFO float
 */
 class Info_float extends Info_method {
   char type = 'f' ;
-  float a, b, c, d, e, f ;
+  float a, b, c, d, e, f, g ;
   int num_value ; 
 
   Info_float(String name) {
@@ -1508,18 +1553,23 @@ class Info_float extends Info_method {
 
   Info_float(String name, float... var) {
     super(name) ;
-    if(var.length > 6 ) num_value = 6 ; else num_value = var.length ;
+    if(var.length > 7 ) {
+      num_value = 7 ; 
+    } else {
+      num_value = var.length ;
+    }
     if(var.length > 0) this.a = var[0] ;
     if(var.length > 1) this.b = var[1] ;
     if(var.length > 2) this.c = var[2] ;
     if(var.length > 3) this.d = var[3] ;
     if(var.length > 4) this.e = var[4] ;
     if(var.length > 5) this.f = var[5] ;
+    if(var.length > 6) this.g = var[6] ;
   }
 
   // get
   float [] get_all() {
-    float [] list = new float[]{a,b,c,d,e,f} ;
+    float [] list = new float[]{a,b,c,d,e,f,g} ;
     return list ;
   }
 
@@ -1536,6 +1586,8 @@ class Info_float extends Info_method {
       return e ;
     } else if(which == 5) {
       return f ;
+    } else if(which == 6) {
+      return g ;
     } else {
       System.err.println(error_target) ;
       return 0.0 ;
@@ -1543,7 +1595,7 @@ class Info_float extends Info_method {
   }
   
   Object [] catch_all() {
-    Object [] list = new Object[]{a,b,c,d,e,f} ;
+    Object [] list = new Object[]{a,b,c,d,e,f,g} ;
     return list ;
   }
 
@@ -1560,6 +1612,8 @@ class Info_float extends Info_method {
       return e ;
     } else if(which == 5) {
       return f ;
+    } else if(which == 6) {
+      return g ;
     } else {
       System.err.println(error_target) ;
       return null ;
@@ -1582,8 +1636,11 @@ class Info_float extends Info_method {
       return "[ " + name + ": " + a + ", " + b + ", " + c + ", " + d + ", " + e + " ]";
     } else if(num_value == 6) {
       return "[ " + name + ": " + a + ", " + b + ", " + c + ", " + d + ", " + e + ", " + f + " ]";
+    } else if(num_value == 7) {
+      return "[ " + name + ": " + a + ", " + b + ", " + c + ", " + d + ", " + e + ", " + f + ", " + g + " ]";
     } else {
-      System.err.println(error_value) ;
+      System.err.println(num_value) ;
+      System.err.println(error_value_message) ;
       return "hmmm hmmm there is problem with your stuff mate";
     }
   }
@@ -1594,7 +1651,7 @@ INFO Vec
 */
 class Info_Vec extends Info_method {
   char type = 'v' ;
-  Vec a, b, c, d, e, f ;
+  Vec a, b, c, d, e, f, g ;
   int num_value ;  
 
   Info_Vec(String name) {
@@ -1604,13 +1661,18 @@ class Info_Vec extends Info_method {
   // Vec value
   Info_Vec(String name, Vec... var) {
     super(name) ;
-    if(var.length > 6 ) num_value = 6 ; else num_value = var.length ;
+    if(var.length > 7 ) {
+      num_value = 7 ; 
+    } else {
+      num_value = var.length ;
+    }
     if(var.length > 0) this.a = var[0] ;
     if(var.length > 1) this.b = var[1] ;
     if(var.length > 2) this.c = var[2] ;
     if(var.length > 3) this.d = var[3] ;
     if(var.length > 4) this.e = var[4] ;
     if(var.length > 5) this.f = var[5] ;
+    if(var.length > 6) this.g = var[6] ;
   }
 
 
@@ -1618,7 +1680,7 @@ class Info_Vec extends Info_method {
 
   // get
   Vec [] get_all() {
-    Vec [] list = new Vec[]{a,b,c,d,e,f} ;
+    Vec [] list = new Vec[]{a,b,c,d,e,f,g} ;
     return list ;
   }
 
@@ -1635,14 +1697,16 @@ class Info_Vec extends Info_method {
       return e ;
     } else if(which == 5) {
       return f ;
-    } else {
+    } else if(which == 6) {
+      return g ;
+    }else {
       System.err.println(error_target) ;
       return null ;
     }
   }
   
   Object [] catch_all() {
-    Object [] list = new Object[]{a,b,c,d,e,f} ;
+    Object [] list = new Object[]{a,b,c,d,e,f,g} ;
     return list ;
   }
 
@@ -1659,6 +1723,8 @@ class Info_Vec extends Info_method {
       return e ;
     } else if(which == 5) {
       return f ;
+    } else if(which == 6) {
+      return g ;
     } else {
       System.err.println(error_target) ;
       return null ;
@@ -1681,8 +1747,11 @@ class Info_Vec extends Info_method {
       return "[ " + name + ": " + a + ", " + b + ", " + c + ", " + d + ", " + e + " ]";
     } else if(num_value == 6) {
       return "[ " + name + ": " + a + ", " + b + ", " + c + ", " + d + ", " + e + ", " + f + " ]";
+    } else if(num_value == 7) {
+      return "[ " + name + ": " + a + ", " + b + ", " + c + ", " + d + ", " + e + ", " + f + ", " + g + " ]";
     } else {
-      System.err.println(error_value) ;
+      System.err.println(num_value) ;
+      System.err.println(error_value_message) ;
       return "hmmm hmmm there is problem with your stuff mate";
     }
   }
@@ -1696,7 +1765,7 @@ INFO OBJECT
 */
 class Info_obj extends Info_method {
   char type = 'o' ;
-  Object a, b, c, d, e, f ;
+  Object a, b, c, d, e, f, g ;
   int num_value ;
 
   Info_obj(String name) {
@@ -1707,19 +1776,24 @@ class Info_obj extends Info_method {
   // Object value
   Info_obj(String name, Object... var) {
     super(name) ;
-    if(var.length > 6 ) num_value = 6 ; else num_value = var.length ;
+    if(var.length > 7 ) {
+      num_value = 7 ; 
+    } else {
+      num_value = var.length ;
+    }
     if(var.length > 0) this.a = var[0] ;
     if(var.length > 1) this.b = var[1] ;
     if(var.length > 2) this.c = var[2] ;
     if(var.length > 3) this.d = var[3] ;
     if(var.length > 4) this.e = var[4] ;
     if(var.length > 5) this.f = var[5] ;
+    if(var.length > 6) this.g = var[6] ;
   }
 
 
   // get
   Object [] get_all() {
-    Object [] list = new Object []{a,b,c,d,e,f} ;
+    Object [] list = new Object []{a,b,c,d,e,f,g} ;
     return list ;
   }
 
@@ -1736,6 +1810,8 @@ class Info_obj extends Info_method {
       return e ;
     } else if(which == 5) {
       return f ;
+    } else if(which == 6) {
+      return g ;
     } else {
       System.err.println(error_target) ;
       return null ;
@@ -1743,7 +1819,7 @@ class Info_obj extends Info_method {
   }
   
   Object [] catch_all() {
-    Object [] list = new Object[]{a,b,c,d,e,f} ;
+    Object [] list = new Object[]{a,b,c,d,e,f,g} ;
     return list ;
   }
 
@@ -1760,6 +1836,8 @@ class Info_obj extends Info_method {
       return e ;
     } else if(which == 5) {
       return f ;
+    } else if(which == 6) {
+      return g ;
     } else {
       System.err.println(error_target) ;
       return null ;
@@ -1783,8 +1861,11 @@ class Info_obj extends Info_method {
       return "[ " + name + ": " + a + ", " + b + ", " + c + ", " + d + ", " + e + " ]";
     } else if(num_value == 6) {
       return "[ " + name + ": " + a + ", " + b + ", " + c + ", " + d + ", " + e + ", " + f + " ]";
+    } else if(num_value == 7) {
+      return "[ " + name + ": " + a + ", " + b + ", " + c + ", " + d + ", " + e + ", " + f + ", " + g + " ]";
     } else {
-      System.err.println(error_value) ;
+      System.err.println(num_value) ;
+      System.err.println(error_value_message) ;
       return "hmmm hmmm there is problem with your stuff mate";
     }
   }
