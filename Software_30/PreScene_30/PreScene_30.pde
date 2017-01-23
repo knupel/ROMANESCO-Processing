@@ -3,7 +3,7 @@
  // Romanesco Unu 1.2.0 / version 30 / made with Processing 3.2.3 ///
 ////////////////////////////////////////////////////////////////////
 /**
-Scene - Prescene 1.2.0.6
+Scene - Prescene 1.2.0.7
 
 2015 may 15.000 lines
 2016 may 27.500 lines of code the 4th may 2016 !!!!
@@ -24,8 +24,10 @@ used sound
  full frame rate
 */
 boolean TEST_ROMANESCO = false ;
-boolean FULL_RENDERING = false ;
+boolean FULL_RENDERING = true ;
 boolean TABLET = false ; // now tablet library don't work in OPENGL renderer
+
+boolean HOME = false ;
 
 void settings() {
   size(600,400,P3D) ;
@@ -63,7 +65,6 @@ void setup() {
   init_items() ;
 
   create_font() ;
-  // font_setup() ;
 
   // here we ask for the TEST_ROMANESCO true, because the Minim Library talk too much in the consol
   if(!TEST_ROMANESCO) sound_setup() ;
@@ -87,9 +88,14 @@ void draw() {
   // here we ask for the TEST_ROMANESCO true, because the Minim Library talk too much in the consol
   if(!TEST_ROMANESCO) soundDraw() ;
   
-  update_OSC_data_crontroller() ;
-  // OSC_send() ;
-  write_osc_data_prescene() ;
+  update_OSC_data_controller() ;
+
+  // if(keyboard_new_event) {
+    write_osc_keyboard_short_event() ;
+ //   keyboard_new_event = false ;
+ //  }
+  write_osc_other_event() ;
+  join_osc_data() ;
 
   update_raw_value() ;
 
@@ -134,14 +140,32 @@ void draw() {
   
   // change to false if the information has be sent to Scene...but how ????
   OSC_send() ;
+  keyboardFalse() ;
 }
+
 //END DRAW
+// boolean keyboard_new_event = false ;
+
+
+
+//
+void keyPressed () {
+ // keyboard_new_event = true ;
+  shortCutsPrescene() ;
+  nextPreviousKeypressed() ;
+  keyboardTrue() ;
+}
+//
+void keyReleased() {
+  //special touch need to be long
+  keyboardLongFalse() ;
+  keyboard[keyCode] = false ;
+}
 
 
 
 
-
-// MOUSEPRESSED
+// 
 void mousePressed() {
   if(mouseButton == LEFT ) { 
     clickShortLeft[0] = true ; 
@@ -152,8 +176,7 @@ void mousePressed() {
     clickLongRight[0] = true ;
   }
 }
-
-//MOUSE RELEASED
+//
 void mouseReleased() {
   clickLongLeft[0] = false ; 
   clickLongRight[0] = false ;
@@ -177,20 +200,4 @@ void mouseWheel(MouseEvent event) {
 //END MOUSEWHEEL
 
 
-//KEYPRESSED
-void keyPressed () {
-  shortCutsPrescene() ;
-  nextPreviousKeypressed() ;
-  keyboardTrue() ;
 
-}
-//END KEYPRESSED
-
-
-//KEYRELEASED
-void keyReleased() {
-  //special touch need to be long
-  keyboardLongFalse() ;
-  keyboard[keyCode] = false ;
-}
-//END KEYRELEASED

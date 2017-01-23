@@ -44,7 +44,7 @@ V
 
 RESERVED ITEM
 --
-'D' 'F' 'K' 'L' 'M' 'N' 'O' 'R' 'X' 'N' 'M'
+'D' 'F' 'J' 'K' 'M' 'N' 'O' 'R' 'X' 'N' 'M' 'W'
 >this key are associated with different boolean item array see chapter item_variables.md
 
 

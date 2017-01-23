@@ -1,5 +1,5 @@
 /** 
-VARIABLE 1.1.6.0
+VARIABLE 1.1.6.1
 */
 // GLOBAL SETTING ////
 
@@ -377,13 +377,14 @@ int wheel[] ;
 //pen info
 
 //boolean object
-boolean [] birth, colour, dimension, horizon, motion, orbit, reverse, special ;
+boolean [] birth, colour, dimension, horizon, motion, orbit, reverse, special, wire ;
 boolean [] fill_is, stroke_is ;
 boolean [] setting, clearList ;
 
 //main font for each object
 String [] path_font_TTF, pathFontVLW, path_font_item_TTF ;
 PFont font[]  ;
+
 
 
 
@@ -447,6 +448,7 @@ void createMiscVar() {
   orbit = new boolean [NUM_ITEM] ;
   reverse = new boolean [NUM_ITEM] ;
   special = new boolean [NUM_ITEM] ;
+  wire = new boolean [NUM_ITEM] ;
 
   fill_is = new boolean[NUM_ITEM] ;
   stroke_is = new boolean[NUM_ITEM] ;
@@ -739,7 +741,8 @@ void init_variable_item() {
   for (int i = 0 ; i < NUM_ITEM ; i++ ) {
     // display boolean 
     fill_is[i] = true ;
-    stroke_is [i] = true ;
+    stroke_is[i] = true ;
+    wire[i] = true ;
     // master follower
     master_ID[i] = 0 ;
     follower[i] = false ;

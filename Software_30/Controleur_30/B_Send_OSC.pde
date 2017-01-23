@@ -10,13 +10,16 @@ String IPadress = ("127.0.0.1") ;
 String toPreScene [] = new String [5] ;
 
 
-OscP5 osc_1, osc_2;
-NetAddress target_1, target_2 ;
+OscP5 osc_prescene, osc_scene;
+NetAddress target_prescene, target_scene ;
 void set_OSC() {
-  osc_1 = new OscP5(this, 10000);
-  osc_2 = new OscP5(this, 9000);
-  target_1 = new NetAddress(IPadress,10000);
-  target_2 = new NetAddress(IPadress,9000);
+  int address_prescene = 10_000 ;
+  int address_scene = 9_500 ;
+  osc_prescene = new OscP5(this, address_prescene) ;
+  osc_scene = new OscP5(this, address_scene) ;
+
+  target_prescene = new NetAddress(IPadress,address_prescene) ;
+  target_scene = new NetAddress(IPadress,address_scene) ;
 }
 
 
@@ -61,8 +64,8 @@ void draw_send_OSC() {
     RomanescoController.add(toPreScene[i]);
   }
   //send
-  osc_1.send(RomanescoController, target_1) ; 
-  osc_2.send(RomanescoController, target_2) ; 
+  osc_prescene.send(RomanescoController, target_prescene) ; 
+  osc_scene.send(RomanescoController, target_scene) ; 
 }
 
 

@@ -1,6 +1,6 @@
 
 /**
-ARBRE 2012-2016 1.3.2.3
+ARBRE 2012-2016 1.3.3
 */
 Arbre arbre ;
 
@@ -12,7 +12,7 @@ class ArbreRomanesco extends Romanesco {
     ID_item = 10 ;
     ID_group = 1 ;
     RPE_author  = "Stan le Punk";
-    RPE_version = "Version 1.3.2.3";
+    RPE_version = "Version 1.3.3";
     RPE_pack = "Base" ;
     RPE_mode = "Point/Ellipse/Triangle/Rectangle/Cross/Star 5/Star 7/Super Star 8/Super Star 12" ;
     RPE_slider = "Fill hue,Fill sat,Fill bright,Fill alpha,Stroke hue,Stroke sat,Stroke bright,Stroke alpha,Thickness,Size X,Size Y,Size Z,Quantity,Speed X,Direction X,Canvas X,Alignment" ;
@@ -96,13 +96,13 @@ class ArbreRomanesco extends Romanesco {
     
     
     boolean bool_link = false ;
-    if(special[ID_item]) bool_link = true ; else bool_link = false ;
+    if(wire[ID_item]) bool_link = true ; else bool_link = false ;
     
 
     select_costume(ID_item, RPE_name) ;
 
     arbre.show(direction) ;
-    arbre.update(posArbre, epaisseur, size, divA, divB, forkA, forkB, amplitude, n, costume[ID_item], bool_link, angle, speed, ID_item) ;
+    arbre.update(posArbre, epaisseur, size, divA, divB, forkA, forkB, amplitude, n, costume[ID_item], bool_link, angle, speed, fill_is[ID_item], stroke_is[ID_item], ID_item) ;
     if(horizon[ID_item]) arbre.set_horizon(0) ; else arbre.set_horizon(map(alignment_item[ID_item], 0,1, 0,3)) ;
     
     //info
@@ -133,7 +133,7 @@ class Arbre {
     this.deep = deep ;
   }
 //::::::::::::::::::::::::::::  
-  void update(PVector posArbre, float e, PVector size, float divA, float divB, int forkA, int forkB, float amplitude, int n, int which_costume, boolean bool_line, float angle, float speed, int ID) {
+  void update(PVector posArbre, float e, PVector size, float divA, float divB, int forkA, int forkB, float amplitude, int n, int which_costume, boolean bool_line, float angle, float speed, boolean fill_is, boolean stroke_is, int ID) {
     rotation += speed ;
     if (rotation > angle +90) speed*=-1 ; else if ( rotation < angle ) speed*=-1 ; 
     angle = rotation ; // de 0 à 180
@@ -144,7 +144,7 @@ class Arbre {
     translate(posArbre.x,posArbre.y, 0) ;
     // Start the recursive branching
     rotate (angleDirection) ;
-    branch(e, size, divA, divB, forkA, forkB, amplitude, n,  which_costume, bool_line, ID);
+    branch(e, size, divA, divB, forkA, forkB, amplitude, n,  which_costume, bool_line, fill_is, stroke_is,ID);
     popMatrix () ;
 
     
@@ -152,7 +152,7 @@ class Arbre {
   
   
   //float fourche = 10.0 ; 
-  void branch(float t, PVector proportion, float divA, float divB, int forkA, int forkB, float amplitude, int n, int which_costume, boolean bool_line, int ID) {
+  void branch(float t, PVector proportion, float divA, float divB, int forkA, int forkB, float amplitude, int n, int which_costume, boolean bool_line, boolean fill_is, boolean stroke_is, int ID) {
     PVector newSize = proportion.copy() ;
     newSize.x = proportion.x *divA ;
     newSize.y = proportion.y *divB;
@@ -165,17 +165,18 @@ class Arbre {
     // recursice need a end  !
     n = n-1 ;
     if (n >0) {
-     displayBranch(newThickness, newSize, divA, divB, forkA, forkB, amplitude, n, -theta, which_costume, bool_line, ID) ; 
-     displayBranch(newThickness, newSize, divA, divB, forkA, forkB, amplitude, n, theta, which_costume, bool_line, ID) ;
+     displayBranch(newThickness, newSize, divA, divB, forkA, forkB, amplitude, n, -theta, which_costume, bool_line, fill_is, stroke_is, ID) ; 
+     displayBranch(newThickness, newSize, divA, divB, forkA, forkB, amplitude, n, theta, which_costume, bool_line, fill_is, stroke_is, ID) ;
     }
   }
   
   //annexe branch
-  void displayBranch(float e, PVector newSize, float propA, float propB, int fourcheA, int fourcheB, float amplitude, int n, float t, int which_costume, boolean bool_line, int ID) {
+  void displayBranch(float e, PVector newSize, float propA, float propB, int fourcheA, int fourcheB, float amplitude, int n, float t, int which_costume, boolean bool_line, boolean fill_is, boolean stroke_is, int ID) {
     start_matrix();    // Save the current state of transformation (i.e. where are we now)
     rotate(t);   // Rotate by theta
 
     // strokeWeight (e) ;
+    aspect_is(fill_is, stroke_is) ;
     aspect_rope(fill_item[ID], stroke_item[ID], e, which_costume) ;
     
     if (bool_line) {
@@ -193,7 +194,7 @@ class Arbre {
     translate(0,0, -size.z *factor) ;
      
     translate(0, -amplitude); // Move to the end of the branch
-    branch(e, newSize, propA, propB, fourcheA, fourcheB, amplitude, n, which_costume, bool_line, ID);       // Ok, now call myself to draw two new branches!!
+    branch(e, newSize, propA, propB, fourcheA, fourcheB, amplitude, n, which_costume, bool_line, fill_is, stroke_is, ID);       // Ok, now call myself to draw two new branches!!
     stop_matrix();     // Whenever we get back here, we "pop" in order to restore the previous matrix state
   }
 }

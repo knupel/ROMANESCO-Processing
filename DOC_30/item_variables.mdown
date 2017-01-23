@@ -48,17 +48,21 @@ dimension[ID_item] > from keyboard "D"
 
 horizon[ID_item] > from keyboard "H"
 
+linked[ID_item] > from keyboard "L"
+
 motion[ID_item] > from keyboard "M"
 
 orbit[ID_item] > from keyboard "O"
 
 reverse[ID_item] > from keyboard "R"
 
-special[ID_item] > from keyboard "K"
+special[ID_item] > from keyboard "F"
 
-fill_is[ID_item] > from keyboard "F"
+wire[ID_item] > from keyboard "W"
 
-stroke_is[ID_item] > from keyboard "L"
+fill_is[ID_item] > from keyboard "J"
+
+stroke_is[ID_item] > from keyboard "K"
 
 
 

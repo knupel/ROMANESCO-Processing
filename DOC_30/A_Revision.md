@@ -17,6 +17,7 @@ MAJOR
 > add library Motion_rope
 > add iniertia method for the main camera
 > add master and follower system to link item between them from core code, not from the controller GUI
+> fix bug OSC bug for the shortcut keyboard action between prescene and scene. Except in case where there is a lot of shape in the rendering, like boids or a lot of interacting particles.
 
 
 MINOR

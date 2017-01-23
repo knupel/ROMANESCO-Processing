@@ -1,16 +1,25 @@
 /**
-OSC TERMINUS 1.0.2
+OSC TERMINUS 
+v 1.1.0
 */
 
-OscP5 osc_controller, osc_mirroir, osc_classic;
+OscP5 osc_receive_controller ;
 
-//SETUP
+OscP5 osc_receive_mirroir, osc_receive_classic;
+
+/**
+OSC setup 
+v 1.0.0.1
+*/
 void OSC_setup() {
-  osc_controller = new OscP5(this, 9000);
+  int receive_address_controller = 10000 ;
+  osc_receive_controller = new OscP5(this, receive_address_controller);
 
-  if(miroir_on_off) osc_mirroir = new OscP5(this, 9002); 
-  else osc_classic = new OscP5(this, 9001);
-  // must stop the process to give a time to initialization for the OSC process
+  int receive_address_scene = 9100 ;
+  int receive_adress_mirror = 9200 ;
+  if(miroir_on_off) osc_receive_mirroir = new OscP5(this, receive_adress_mirror); 
+  else osc_receive_classic = new OscP5(this, receive_address_scene);
+
   try { 
     Thread.sleep(6000); 
   } 
@@ -19,36 +28,60 @@ void OSC_setup() {
   println("OSC setup done") ;
 }
 
+
+/**
+OSC receive
+*/
+
+int security_to_dont_duplicate_osc_packet ;
+
 void oscEvent(OscMessage receive) {
-  if(receive.addrPattern().equals("Controller")) {
-    catchDataFromController(receive) ;
+ 
+ if(security_to_dont_duplicate_osc_packet != frameCount) {
+    controller_reception(receive) ;
+    prescene_reception(receive) ; 
+  }
+  security_to_dont_duplicate_osc_packet = frameCount ;
+}
+
+
+void controller_reception(OscMessage m) {
+  if(m.addrPattern().equals("Controller")) {
+    catchDataFromController(m) ;
     splitDataButton() ;
     splitDataSlider() ;
     splitDataLoadSaveController() ;
   }
-  if(receive.addrPattern().equals("Prescene")) {
-    catchDataFromPrescene(receive) ;
+}
+
+
+
+
+void prescene_reception(OscMessage m) {
+  if(m.addrPattern().equals("Prescene")) {
+    catchDataFromPrescene(m) ;
     splitDataFromPrescene() ;
     splitDataLoadSavePrescene() ;
-  }
+  } 
 }
 
 
 void update_OSC_data() {
+      println(frameCount) ;
   translateDataFromController_buttonGlobal() ;
   translateDataFromController_buttonItem() ;
-  translateDataFromPrescene() ;
+
+  translate_short_event_prescene() ;
+  translate_other_event_prescene() ;
 }
 
-// FROM CONTROLLER
-/**
-look in the tab Z_OSC
-*/
+
 
 
 // FROM PRESCENE
 String dataPrescene = ("") ;
 String from_prescene_boolean_load_save = ("") ;
+
 
 void catchDataFromPrescene(OscMessage receive) {
   dataPrescene = receive.get(0).stringValue() ;
@@ -86,14 +119,11 @@ void splitDataLoadSavePrescene() {
 
 
 
+/**
+translate event
+*/
+void translate_short_event_prescene() {
 
-
-
-void translateDataFromPrescene() {
-    // Info distribution
-
-  // SHORT EVENT
-  ///////////////
   if(valueTempPrescene[0].equals("0") ) spaceTouch = false ; else spaceTouch = true ;  
   
   if(valueTempPrescene[1].equals("0") ) aTouch = false ; else aTouch = true ;
@@ -122,12 +152,7 @@ void translateDataFromPrescene() {
   if(valueTempPrescene[24].equals("0") ) xTouch = false ; else xTouch = true ;
   if(valueTempPrescene[25].equals("0") ) yTouch = false ; else yTouch = true ;
   if(valueTempPrescene[26].equals("0") ) zTouch = false ; else zTouch = true ;
-  /**
-  Change the valueTempPrescene[n] to be independant of the Prescene ans the his low frameRate for the boolean refresh
-  */
-  //println("Scene", rTouch, valueTempPrescene[18], frameCount) ;
-
-  
+ 
   if(valueTempPrescene[30].equals("0") ) enterTouch = false ; else enterTouch = true ;
   if(valueTempPrescene[31].equals("0") ) deleteTouch = false ; else deleteTouch = true ;
   if(valueTempPrescene[32].equals("0") ) backspaceTouch = false ; else backspaceTouch = true ;
@@ -137,7 +162,12 @@ void translateDataFromPrescene() {
   if(valueTempPrescene[36].equals("0") ) leftTouch = false ; else leftTouch = true ;
   if(valueTempPrescene[37].equals("0") ) ctrlTouch = false ; else ctrlTouch = true ;
 
-    //number key
+  /*
+  from 40
+  to 50
+  it's other event method
+  */
+
   if(valueTempPrescene[51].equals("0") ) touch1 = false ; else touch1 = true ;
   if(valueTempPrescene[52].equals("0") ) touch2 = false ; else touch2 = true ;
   if(valueTempPrescene[53].equals("0") ) touch3 = false ; else touch3 = true ;
@@ -148,20 +178,17 @@ void translateDataFromPrescene() {
   if(valueTempPrescene[58].equals("0") ) touch8 = false ; else touch8 = true ;
   if(valueTempPrescene[59].equals("0") ) touch9 = false ; else touch9 = true ;
   if(valueTempPrescene[60].equals("0") ) touch0 = false ; else touch0 = true ;
-  // END SHORT KEY EVENT
-  //////////////////////
+
+  /*
+  from 61
+  to 73
+  it's other event method
+  */
+}
 
 
 
-
-  
-
-  
-  
-
-
-  // Longtime event
-  /////////////////
+void translate_other_event_prescene() {
   // long mouse event
   if(valueTempPrescene[48].equals("0") ) clickLongLeft[0] = false ; else clickLongLeft[0] = true ;
   if(valueTempPrescene[49].equals("0") ) clickLongRight[0] = false ; else clickLongRight[0] = true ;
@@ -174,9 +201,6 @@ void translateDataFromPrescene() {
   if(valueTempPrescene[65].equals("0")) shiftLongTouch = false ; else shiftLongTouch = true ;
   
   
-
-
-
 
 
   // MOUSE EVENT
@@ -209,12 +233,6 @@ void translateDataFromPrescene() {
   //END MOUSE, CURSOR, PEN
 
 
-  
-
-
-
-
-
 
 
   // ORDER
@@ -224,3 +242,7 @@ void translateDataFromPrescene() {
   if(valueTempPrescene[72].equals("0")) ORDER_THREE = false ; else ORDER_THREE = true ;
   if(valueTempPrescene[73].equals("0")) LEAPMOTION_DETECTED = false ; else LEAPMOTION_DETECTED = true ;
 }
+
+
+
+

@@ -52,7 +52,7 @@ class Ecosystem_DNA extends Romanesco {
     	birth[ID_item] = false ;
     }
     
-    boolean_host(fill_is[ID_item], stroke_is[ID_item], special[ID_item]) ;
+    boolean_host(fill_is[ID_item], stroke_is[ID_item], wire[ID_item]) ;
 
     if(costume[ID_item] == TEXT_ROPE ) textFont(font[ID_item]) ;
 

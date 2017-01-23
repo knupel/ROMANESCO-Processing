@@ -1,5 +1,6 @@
 /**
-OSC PRescene 1.0.2
+OSC Prescene 2014 - 2017
+v 1.0.3
 */
 NetAddress targetScene, targetMiroir;
 //adress to scene information from the OSC sender
@@ -11,19 +12,24 @@ String sendToMiroir = ("127.0.0.1") ;
 //message from pré-Scène
 String toScene = ("Message from Prescene to Scene") ;
 
-OscP5 osc;
+OscP5 osc_send;
+OscP5 osc_receive_controller ;
 //SETUP
 void OSC_setup() {
-  osc = new OscP5(this, 10000);
+  osc_receive_controller = new OscP5(this, 10000);
+  osc_send = new OscP5(this, 9500);
   //send to the Scène
-  if (youCanSendToScene) targetScene = new NetAddress(sendToScene,9001);
+
+  int send_address_scene = 9100 ;
+  int send_adress_mirror = 9200 ;
+  if (youCanSendToScene) targetScene = new NetAddress(sendToScene, send_address_scene);
   //send to the miroir
   if (!TEST_ROMANESCO) {
     String [] addressIP = loadStrings(preference_path+"network/IP_local_miroir.txt") ;
     sendToMiroir = join(addressIP, "") ;
-    targetMiroir = new NetAddress(sendToMiroir,9002);
+    targetMiroir = new NetAddress(sendToMiroir, send_adress_mirror);
   } else if (TEST_ROMANESCO && youCanSendToMiroir )  {
-    targetMiroir = new NetAddress(sendToMiroir,9002);
+    targetMiroir = new NetAddress(sendToMiroir, send_adress_mirror);
   }
   // must stop the process to give a time to initialization for the OSC process
   try { 
@@ -42,18 +48,11 @@ void oscEvent(OscMessage receive) {
     splitDataButton() ;
     splitDataSlider() ;
     splitDataLoadSaveController() ;
-    /**
-    Why this line is commented ?
-    */
-    // splitDataLoadSave() ;
   }
-  /**
-  // may be is not a good place for that
-  */
-  
 }
 
-void update_OSC_data_crontroller() {
+
+void update_OSC_data_controller() {
   translateDataFromController_buttonGlobal() ;
   translateDataFromController_buttonItem() ;
 }
@@ -62,16 +61,10 @@ void update_OSC_data_crontroller() {
 
 
 
-
-
-
-
-
-
-
-
-// OSC DRAW
-////////////
+/**
+OSC send
+v 1.0.1
+*/
 void OSC_send() {
   OscMessage RomanescoScene = new OscMessage("Prescene");
   booleanLoadSaveScene() ;
@@ -87,17 +80,29 @@ void OSC_send() {
   RomanescoScene.add(booleanLoadSave) ;
 
   //send
-  if (youCanSendToScene) osc.send(RomanescoScene, targetScene); 
-  if (youCanSendToMiroir) osc.send(RomanescoScene, targetMiroir);
-  
-  keyboardFalse() ;
+  // println(youCanSendToScene, frameCount) ;
+  if (youCanSendToScene) {
+    // println("Let's go to Scene", frameCount) ;
+    // println(RomanescoScene) ;
+    osc_send.send(RomanescoScene, targetScene); 
+  }
+  if (youCanSendToMiroir) osc_send.send(RomanescoScene, targetMiroir);
 }
 
 
 
 
-// ANNEXE VOID of OSC DRAW
-//////////////////////////
+
+
+
+
+
+
+
+/**
+OSC load
+V 1.0.0
+*/
 String booleanLoadSave = ("") ;
 
 void booleanLoadSaveScene() {
@@ -138,12 +143,24 @@ void booleanLoadSaveScene() {
 
 
 
-// FROM PRESCENE to SCENE
+
+
+
+
+
+
+
+
+
+
+
+/**
+OSC write
+v 1.0.1
+*/
 String dataPreScene [] = new String [74] ;
 
-
-void write_osc_data_prescene(){
-  //CATCH data from preScene to Scene
+void write_osc_keyboard_short_event() {
   if (spaceTouch) dataPreScene [0] = ("1") ; else dataPreScene [0] =("0") ;
   if (aTouch)     dataPreScene [1] = ("1") ; else dataPreScene [1] = ("0") ;
   if (bTouch)     dataPreScene [2] = ("1") ; else dataPreScene [2] = ("0") ;
@@ -171,7 +188,6 @@ void write_osc_data_prescene(){
   if (xTouch)     dataPreScene [24] = ("1") ; else dataPreScene [24] = ("0") ;
   if (yTouch)     dataPreScene [25] = ("1") ; else dataPreScene [25] = ("0") ;
   if (zTouch)     dataPreScene [26] = ("1") ; else dataPreScene [26] = ("0") ;
-
   //FREE
   dataPreScene [27] = ("") ;
   dataPreScene [28] = ("") ;
@@ -186,20 +202,16 @@ void write_osc_data_prescene(){
   if (rightTouch) dataPreScene [35] = ("1") ; else dataPreScene [35] = ("0") ;
   if (leftTouch) dataPreScene [36] = ("1") ; else dataPreScene [36] = ("0") ;
   if (ctrlTouch) dataPreScene [37] = ("1") ; else dataPreScene [37] = ("0") ;
+  
+  dataPreScene [38] = ("") ;
+  dataPreScene [39] = ("") ;
+  /*
+  from 40
+  to 50
+  it's other event method
+  */
 
-  // MOUSE
-  dataPreScene[40] = float_to_String_3(pen[0].x) ; dataPreScene[41] = float_to_String_3(pen[0].y) ; dataPreScene[42] = float_to_String_1(pen[0].z) ; 
-  dataPreScene[43] = float_to_String_3(norm(mouse[0].x, 0, width)) ; 
-  dataPreScene[44] = float_to_String_3(norm(mouse[0].y,0,height)) ;
-  dataPreScene[45] = float_to_String_3(norm(mouse[0].z,-depth,depth)) ;
 
-  if (clickShortLeft[0]) dataPreScene [46] = ("1") ; else dataPreScene [46] = ("0") ;
-  if (clickShortRight[0]) dataPreScene [47] = ("1") ; else dataPreScene [47] = ("0") ;
-  if (clickLongLeft[0]) dataPreScene [48] = ("1") ; else dataPreScene [48] = ("0") ;
-  if (clickLongRight[0]) dataPreScene [49] = ("1") ; else dataPreScene [49] = ("0") ;
-  dataPreScene[50] = int_to_String(wheel[0]) ;
-
-  // NUMBER
   if (touch1)     dataPreScene [51] = ("1") ; else dataPreScene [51] = ("0") ;
   if (touch2)     dataPreScene [52] = ("1") ; else dataPreScene [52] = ("0") ;
   if (touch3)     dataPreScene [53] = ("1") ; else dataPreScene [53] = ("0") ;
@@ -210,6 +222,30 @@ void write_osc_data_prescene(){
   if (touch8)     dataPreScene [58] = ("1") ; else dataPreScene [58] = ("0") ;
   if (touch9)     dataPreScene [59] = ("1") ; else dataPreScene [59] = ("0") ;
   if (touch0)     dataPreScene [60] = ("1") ; else dataPreScene [60] = ("0") ;
+
+  /*
+  from 61
+  to 73
+  it's other event method
+  */
+}
+
+//
+void write_osc_other_event(){
+  // MOUSE
+  dataPreScene[40] = float_to_String_3(pen[0].x) ; 
+  dataPreScene[41] = float_to_String_3(pen[0].y) ; 
+  dataPreScene[42] = float_to_String_1(pen[0].z) ; 
+  dataPreScene[43] = float_to_String_3(norm(mouse[0].x, 0, width)) ; 
+  dataPreScene[44] = float_to_String_3(norm(mouse[0].y,0,height)) ;
+  dataPreScene[45] = float_to_String_3(norm(mouse[0].z,-depth,depth)) ;
+
+  if (clickShortLeft[0]) dataPreScene [46] = ("1") ; else dataPreScene [46] = ("0") ;
+  if (clickShortRight[0]) dataPreScene [47] = ("1") ; else dataPreScene [47] = ("0") ;
+  if (clickLongLeft[0]) dataPreScene [48] = ("1") ; else dataPreScene [48] = ("0") ;
+  if (clickLongRight[0]) dataPreScene [49] = ("1") ; else dataPreScene [49] = ("0") ;
+  dataPreScene[50] = int_to_String(wheel[0]) ;
+
 
   //longtouch
   if (cLongTouch) dataPreScene [61] = ("1") ; else dataPreScene [61] = ("0") ;
@@ -230,6 +266,11 @@ void write_osc_data_prescene(){
   if (ORDER_TWO) dataPreScene [71] = ("1") ; else dataPreScene [71] = ("0") ;
   if (ORDER_THREE) dataPreScene [72] = ("1") ; else dataPreScene [72] = ("0") ;
   if (LEAPMOTION_DETECTED) dataPreScene [73] = ("1") ; else dataPreScene [73] = ("0") ;
+}
 
+
+void join_osc_data() {
   toScene = join(dataPreScene, "/") ;
 }
+
+

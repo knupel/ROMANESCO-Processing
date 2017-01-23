@@ -2,16 +2,16 @@
 Ecosysteme || 2016 || 0.1.0
 */
 class Ecosystem_DNA extends Romanesco {
-	public Ecosystem_DNA() {
-		RPE_name = "Eco DNA" ;
-		ID_item = 27 ;
-		ID_group = 1 ;
-		RPE_author  = "Stan le Punk";
-		RPE_version = "Version 0.1.0";
-		RPE_pack = "Ecosystem" ;
-		RPE_mode = "Point/Ellipse/Triangle/Rect/Cross/ABC" ; // separate the differentes mode by "/"
-		RPE_slider = "Fill hue,Fill sat,Fill bright,Fill alpha,Stroke hue,Stroke sat,Stroke bright,Stroke alpha,Thickness,Size X,Size Y,Size Z,Canvas X,Canvas Y,Canvas Z,Speed X,Direction X,Quantity,Density,Spectrum" ;
-	}
+  public Ecosystem_DNA() {
+    RPE_name = "Eco DNA" ;
+    ID_item = 27 ;
+    ID_group = 1 ;
+    RPE_author  = "Stan le Punk";
+    RPE_version = "Version 0.1.0";
+    RPE_pack = "Ecosystem" ;
+    RPE_mode = "Point/Ellipse/Triangle/Rect/Cross/ABC" ; // separate the differentes mode by "/"
+    RPE_slider = "Fill hue,Fill sat,Fill bright,Fill alpha,Stroke hue,Stroke sat,Stroke bright,Stroke alpha,Thickness,Size X,Size Y,Size Z,Canvas X,Canvas Y,Canvas Z,Speed X,Direction X,Quantity,Density,Spectrum" ;
+  }
 
   Vec3 pos, canvas, radius, size ;
   int min_host = 5 ;
@@ -33,7 +33,7 @@ class Ecosystem_DNA extends Romanesco {
 
 
   boolean rebuilt_host = false ;
-	void draw() {
+  void draw() {
     float speed_rotation_host = speed_x_item[ID_item] *speed_x_item[ID_item];
     int direction_host = 1 ;
     boolean motion_bool_host = true ;
@@ -49,10 +49,10 @@ class Ecosystem_DNA extends Romanesco {
     if(birth[ID_item]) {
       set_host(pos, size, canvas, quantity_item[ID_item]) ;
       init_symbiosis() ;
-    	birth[ID_item] = false ;
+      birth[ID_item] = false ;
     }
     
-    boolean_host(fill_is[ID_item], stroke_is[ID_item], special[ID_item]) ;
+    boolean_host(fill_is[ID_item], stroke_is[ID_item], wire[ID_item]) ;
 
     if(costume[ID_item] == TEXT_ROPE ) textFont(font[ID_item]) ;
 
@@ -61,15 +61,15 @@ class Ecosystem_DNA extends Romanesco {
     float direction = map(dir_x_item[ID_item],0,360, -PI, PI) ;
 
     show_host(size, canvas, radius, direction, speed_rotation_host, direction_host, costume[ID_item], fill_item[ID_item], stroke_item[ID_item], thickness_item[ID_item], spectrum_item[ID_item], motion_bool_host, info_agent) ;
-		
-	}
+    
+  }
 
-	boolean info_agent = false ;
-	boolean decorum_display = true ;
-	boolean agent_display = true ;
-	boolean bg_refresh = true ;
-	int direction_dna = 1 ;
-	float speed_rotation_dna = .01 ;
+  boolean info_agent = false ;
+  boolean decorum_display = true ;
+  boolean agent_display = true ;
+  boolean bg_refresh = true ;
+  int direction_dna = 1 ;
+  float speed_rotation_dna = .01 ;
 
 
 
@@ -164,8 +164,8 @@ void create_dna(int num_helix, int num, int by_revolution, Vec3 pos, Vec3 size, 
 SHOW
 */
 void show_host(Vec3 size, Vec3 canvas, Vec3 radius, float direction, float speed_rotation_host, int direction_host, int which_costume, int fill, int stroke, float thickness, float spectrum, boolean rotation_bool_host, boolean info) {
-	int height_dna = (int)canvas.y ;
-	int radius_dna = (int)radius.x ;
+  int height_dna = (int)canvas.y ;
+  int radius_dna = (int)radius.x ;
   show_dna(size, height_dna, radius_dna, direction, speed_rotation_host, direction_host, which_costume, fill, stroke, thickness, spectrum, rotation_bool_host, info) ;
 }
 
@@ -173,7 +173,7 @@ void show_host(Vec3 size, Vec3 canvas, Vec3 radius, float direction, float speed
 
 float rotation_dna = 0 ;
 void show_dna(Vec3 size, int height_dna, int radius_dna, float direction, float speed_rotation_dna, int direction_dna, int which_costume, int fill, int stroke, float thickness, float spectrum, boolean rotation_bool_dna, boolean info) {
-	// show DNA
+  // show DNA
   if(height_dna > 0 ) {
     if(rotation_bool_dna) {
       rotation_dna += abs(speed_rotation_dna) *direction_dna ;

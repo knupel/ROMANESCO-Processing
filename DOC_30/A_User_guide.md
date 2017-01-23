@@ -370,8 +370,8 @@ Yes
 KEYBOARD
 --
 >'M' enable or disable motion
->"h" create horizon and deep
->"k" display line
+>"H" create horizon and deep
+>"W" display wire line between shape
 --
 
 SOUND
@@ -487,6 +487,7 @@ KEYBOARD
 --
 >'M' enable or disable motion
 >'R' reverse rotation
+>'F' special effect, snake mode
 
 SOUND
 --
@@ -687,7 +688,7 @@ YES
 
 
 --
-26 / ECOSYSTEME by Stan le Punk
+26 / ECOSYSTEME AGENT by Stan le Punk
 --
 SLIDER
 --
@@ -698,9 +699,53 @@ Yes
 
 KEYBOARD
 --
->"n" reset ecosystem
->"k" info mode
+>"N" reset ecosystem
+>"F" info mode
+>'J' enable fill
+>'K' enable stroke
 
+SOUND
+--
+
+
+--
+27 / ADN HOST by Stan le Punk
+--
+SLIDER
+--
+
+MODE
+--
+Yes
+
+KEYBOARD
+--
+>"N" reset ADN helix
+>'J' enable fill
+>'K' enable stroke
+>'M' stop motion
+>'R' reverse helix rotation
+>'W' link nucleotide
+
+
+SOUND
+--
+YES
+
+
+
+
+--
+28 / LORENZ
+--
+SLIDER
+--
+
+MODE
+--
+
+KEYBOARD
+--
 
 SOUND
 --
