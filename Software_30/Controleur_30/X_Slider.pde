@@ -1,7 +1,9 @@
 /**
-SLIDER may 2015 version 5g by Stan le Punk
+SLIDER 2015 - 2017
+v 1.6.1
 SLIDER may 2016 1.5.9 
 SLIDER june 2016 1.6.0
+SLIDER january 2017 1.6.1
 */
 boolean molette_already_selected ;
 
@@ -86,10 +88,7 @@ public class Slider {
   }
   
   // END CONSTRUCTOR
-  void update_pos_molette(PVector pos, PVector pos_mol) {
-    this.posMol.set(pos.x +(pos_mol.x *size.x), pos.y +(pos_mol.y *size.y)) ;
-    this.newPosMol.set(posMol.x, posMol.y) ;
-  }
+
   
 
   
@@ -116,14 +115,18 @@ public class Slider {
   
   
   // setting the position from a specific value
-  void setMolette(float normPos) {
+  void set_molette(float normPos) {
     // security to constrain the value in normalizing range.
     if(normPos > 1.) normPos = 1. ;
     if(normPos < 0) normPos = 0 ;
     // check if it's horizontal or vertical slider
-    if(size.x >= size.y) newPosMol.x = size.x *normPos +posMin.x -(sizeMol.y *normPos)  ; else newPosMol.y = size.y *normPos +posMin.y -(sizeMol.x *normPos);
+    if(size.x >= size.y) {
+      newPosMol.x = size.x *normPos +posMin.x -(sizeMol.y *normPos) ; 
+    } else {
+      newPosMol.y = size.y *normPos +posMin.y -(sizeMol.x *normPos) ;
+    }
   }
-  // END SETTING
+
   
   
   
@@ -133,21 +136,38 @@ public class Slider {
   }
 
   // update molette position
+    void update_pos_molette(PVector pos, PVector pos_mol) {
+    this.posMol.set(pos.x +(pos_mol.x *size.x), pos.y +(pos_mol.y *size.y)) ;
+    // this.newPosMol.set(posMol.x, posMol.y) ;
+  }
+
   void update_pos_molette() {
     // move the molette is this one is locked
     // security
     if(size.x >= size.y) {
       // for the horizontal slider
-      if (newPosMol.x < posMin.x ) newPosMol.x = posMin.x ;
-      if (newPosMol.x > posMax.x ) newPosMol.x = posMax.x ;
+      if (newPosMol.x < posMin.x ) {
+        newPosMol.x = posMin.x ;
+      }
+      if (newPosMol.x > posMax.x ) {
+        newPosMol.x = posMax.x ;
+      }
     } else {
       // for the vertical slider
-      if (newPosMol.y < posMin.y ) newPosMol.y = posMin.y ;
-      if (newPosMol.y > posMax.y ) newPosMol.y = posMax.y ;
+      if (newPosMol.y < posMin.y ) {
+        newPosMol.y = posMin.y ;
+      }
+      if (newPosMol.y > posMax.y ) {
+        newPosMol.y = posMax.y ;
+      }
     }
 
-    if (lockedMol) {  
-      if (size.x >= size.y) newPosMol.x = constrain(mouseX -(sizeMol.x *.5), posMin.x, posMax.x) ; else newPosMol.y = constrain(mouseY -(sizeMol.y *.5), posMin.y, posMax.y) ;
+    if (lockedMol) {
+      if (size.x >= size.y) { 
+        newPosMol.x = constrain(mouseX -(sizeMol.x *.5), posMin.x, posMax.x) ; 
+      } else { 
+        newPosMol.y = constrain(mouseY -(sizeMol.y *.5), posMin.y, posMax.y) ;
+      }
     }
   }
 
@@ -181,8 +201,10 @@ public class Slider {
   
   
   
-  
-  // DISPLAY SLIDER
+  /**
+  DISPLAY SLIDER
+  v 1.0.1
+  */
   //Slider display classic
   void sliderDisplay() {
     fill(sliderColor) ;
@@ -215,8 +237,13 @@ public class Slider {
   // DISPLAY MOLETTE
   //display molette
   void displayMolette() {
-    if(lockedMol || insideMol) fill(molIn); else fill(molOut ) ;
-     shapeMolette() ;
+    if(lockedMol || insideMol) { 
+      fill(molIn); 
+    } else { 
+      fill(molOut ) ;
+    }
+    shapeMolette() ;
+    noStroke() ;
   }
   
   // display molette advanced
@@ -233,7 +260,6 @@ public class Slider {
       stroke(strokeOut) ;
     }
     shapeMolette() ;
-    
     noStroke() ;
   }
   
@@ -266,8 +292,11 @@ public class Slider {
   */
   float getValue() {
     float value ;
-    if (size.x >= size.y) value = map (newPosMol.x, posMin.x, posMax.x, minNorm, maxNorm) ; 
-                          else value = map (newPosMol.y, posMin.y, posMax.y, minNorm, maxNorm) ;
+    if (size.x >= size.y) {
+      value = map (newPosMol.x, posMin.x, posMax.x, minNorm, maxNorm) ; 
+    } else {
+      value = map (newPosMol.y, posMin.y, posMax.y, minNorm, maxNorm) ;
+    }
     return value ;
   }
   
@@ -282,13 +311,21 @@ public class Slider {
   // check if the mouse is inside the molette or not
   //rect
   boolean insideSlider() { 
-    if(insideRect(pos, size)) insideMol = true ; else insideMol = false ;
+    if(insideRect(pos, size)) {
+      insideMol = true ; 
+    } else {
+      insideMol = false ;
+    }
     return insideMol ;
   }
   
   
   boolean insideMol_Rect() {
-    if(insideRect(newPosMol, sizeMol)) insideMol = true ; else insideMol = false ;
+    if(insideRect(newPosMol, sizeMol)) {
+      insideMol = true ; 
+    } else {
+      insideMol = false ;
+    }
     return insideMol ;
   }
   
@@ -298,15 +335,23 @@ public class Slider {
     float radius = sizeMol.x ;
     int posX = int(radius *.5 +newPosMol.x ) ; 
     int posY = int(size.y *.5 +newPosMol.y) ;
-    if(pow((posX -mouseX),2) + pow((posY -mouseY),2) < pow(radius,sqrt(3))) insideMol = true ; else insideMol = false ;
-   return insideMol ;
+    if(pow((posX -mouseX),2) + pow((posY -mouseY),2) < pow(radius,sqrt(3))) {
+      insideMol = true ; 
+    } else {
+      insideMol = false ;
+    }
+    return insideMol ;
   }
   
   
   
   //locked
   boolean lockedMol() {
-    if (insideMol && mousePressed) return true ; else return false ;
+    if (insideMol && mousePressed) {
+      return true ; 
+    } else {
+      return false ;
+    }
   }
   
   // END CLASSIC METHOD
@@ -336,10 +381,14 @@ public class Slider {
   }
   
   // give the ID from the controller Midi
-  void selectIDmidi(int num) { IDmidi = num ; }
+  void selectIDmidi(int num) { 
+    IDmidi = num ; 
+  }
   
   //give the IDmidi 
-  int IDmidi() { return IDmidi ; }
+  int IDmidi() { 
+    return IDmidi ; 
+  }
 }
 /**
 END SLIDER

@@ -64,6 +64,7 @@ MINOR
 > slider charge became density
 > slider need became spectrum
 > fixe displaying bug for the last slider
+> fixe bug for vertical molette of the slider dropdown
 
 LAUNCHER
 --

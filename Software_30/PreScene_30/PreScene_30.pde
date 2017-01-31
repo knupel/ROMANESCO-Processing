@@ -1,6 +1,6 @@
 
   ////////////////////////////////////////////////////////////////////
- // Romanesco Unu 1.2.0 / version 30 / made with Processing 3.2.3 ///
+ // Romanesco Unu 1.2.0 / version 30 / made with Processing 3.2.4 ///
 ////////////////////////////////////////////////////////////////////
 /**
 Scene - Prescene 1.2.0.7
@@ -27,12 +27,12 @@ boolean TEST_ROMANESCO = false ;
 boolean FULL_RENDERING = true ;
 boolean TABLET = false ; // now tablet library don't work in OPENGL renderer
 
-boolean HOME = false ;
+boolean HOME = true ;
 
 void settings() {
-  size(600,400,P3D) ;
+  // size(600,400,P3D) ;
   // size(1200,700,P3D) ;
-  // fullScreen(P3D,2) ;
+  fullScreen(P3D,2) ;
   pixelDensity(displayDensity()) ;
   syphon_settings() ;
 }
@@ -198,6 +198,3 @@ void mouseWheel(MouseEvent event) {
   wheel[0] = event.getCount() *speedWheel ; 
 }
 //END MOUSEWHEEL
-
-
-

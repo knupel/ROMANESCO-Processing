@@ -1,5 +1,6 @@
 /**
-Ecosysteme || 2016 || 0.1.0
+Ecosysteme Host 2016-2017
+V 0.1.1
 */
 class Ecosystem_DNA extends Romanesco {
 	public Ecosystem_DNA() {
@@ -7,7 +8,7 @@ class Ecosystem_DNA extends Romanesco {
 		ID_item = 27 ;
 		ID_group = 1 ;
 		RPE_author  = "Stan le Punk";
-		RPE_version = "Version 0.1.0";
+		RPE_version = "Version 0.1.1";
 		RPE_pack = "Ecosystem" ;
 		RPE_mode = "Point/Ellipse/Triangle/Rect/Cross/ABC" ; // separate the differentes mode by "/"
 		RPE_slider = "Fill hue,Fill sat,Fill bright,Fill alpha,Stroke hue,Stroke sat,Stroke bright,Stroke alpha,Thickness,Size X,Size Y,Size Z,Canvas X,Canvas Y,Canvas Z,Speed X,Direction X,Quantity,Density,Spectrum" ;
@@ -16,6 +17,8 @@ class Ecosystem_DNA extends Romanesco {
   Vec3 pos, canvas, radius, size ;
   int min_host = 5 ;
   int max_host = 1000 ;
+  Vec3 ratio_canvas = Vec3(.5, 1.5, .5) ;
+  float ratio_size = .5 ;
 
   void setup() {
     // here we cannot use the setting pos, because it's too much ling with the item 26 !!!
@@ -23,7 +26,9 @@ class Ecosystem_DNA extends Romanesco {
     load_nucleotide_table("preferences/ecosystem/code.csv") ;
 
     canvas = Vec3(canvas_x_item[ID_item], canvas_y_item[ID_item], canvas_z_item[ID_item]) ;
+    canvas.mult(ratio_canvas) ;
     size = Vec3(size_x_item[ID_item], size_y_item[ID_item], size_z_item[ID_item]) ;
+    size.mult(ratio_size) ;
     pos = Vec3(width/2, height/2, 0) ;
     
     set_host(pos, size, canvas, quantity_item[ID_item]) ;
@@ -40,9 +45,12 @@ class Ecosystem_DNA extends Romanesco {
 
     float radius_x = canvas_x_item[ID_item] *allBeats(ID_item) ;
     canvas.set(radius_x, canvas_y_item[ID_item], canvas_z_item[ID_item]) ;
+    canvas.mult(ratio_canvas) ;
     radius.set(canvas) ;
     
+
     size.set(size_x_item[ID_item], size_y_item[ID_item], size_z_item[ID_item]) ;
+    size.mult(ratio_size) ;
 
     if(reverse[ID_item]) direction_host = 1 ; else direction_host = -1 ;
     if(motion[ID_item]) motion_bool_host = true ; else motion_bool_host = false ;

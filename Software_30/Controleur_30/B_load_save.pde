@@ -362,7 +362,7 @@ void set_slider_save() {
 void setttingSliderSave(int whichOne) {
   Vec5 infoSliderTemp = info_save_raw_list(infoSlider, whichOne).copy() ;
   slider[whichOne].setMidi((int)infoSliderTemp.b) ; 
-  slider[whichOne].setMolette(infoSliderTemp.c) ; 
+  slider[whichOne].set_molette(infoSliderTemp.c) ; 
   slider[whichOne].setMinMax(infoSliderTemp.d, infoSliderTemp.e) ;
 }
 
