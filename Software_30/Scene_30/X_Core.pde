@@ -2334,17 +2334,9 @@ OSC CORE END
 /**
 
 FONT MANAGER 
-v 2.0.0
+v 2.0.0.1
 
 */
-
-/**
-MUST be delete ?
-String [] pathFontVLW
-String [] path_font_TTF
-*/
-
-//FONT
 PFont SansSerif10 ;
 
 PFont 
@@ -2426,9 +2418,7 @@ void create_font() {
   String prefix_default_path_font = import_path +"font/default_font/" ;
 
   SansSerif10 = loadFont(prefix_default_path_font+"SansSerif-10.vlw");
-  // DinRegular10 = loadFont(prefix_default_path_font+"DIN-Regular-10.vlw") ;
   font[0] = DIN_Bold ;
-  // path_font_item_TTF[0] = path_font_TTF[0] ;
   // 
   println("font build setup done") ;
 }
@@ -2505,14 +2495,14 @@ void select_font(int whichOne)  {
 
   } else if (whichOne == 30) { 
     font[0] = Tokyo_One ; 
-  } else if (whichOne == 30) { 
-    font[0] = Tokyo_OneSolid ; 
   } else if (whichOne == 31) { 
-    font[0] = Tokyo_Two ; 
+    font[0] = Tokyo_OneSolid ; 
   } else if (whichOne == 32) { 
+    font[0] = Tokyo_Two ; 
+  } else if (whichOne == 33) { 
     font[0] = Tokyo_TwoSolid ; 
 
-  } else if (whichOne == 33) { 
+  } else if (whichOne == 34) { 
     font[0] = Three_Hardway ; 
 
   } else { 

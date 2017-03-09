@@ -1,9 +1,13 @@
-  ////////////////////////////////////////////////////////////////////
- // Romanesco Unu 1.2.0 / version 30 / made with Processing 3.2.3 ///
-////////////////////////////////////////////////////////////////////
+/**
+Romanesco Unu
+2013 – 2017
+version 1.2.0 
+release 30 
+Processing 3.2.4 
+*/
 /**
 2015 730 lines of code the 4th may !!!! 
-2016 830 lines
+2016 830 lines may 2016
  */
 String version = ("30") ;
 String prettyVersion = ("1.2.0") ;

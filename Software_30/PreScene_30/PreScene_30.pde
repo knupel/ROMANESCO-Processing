@@ -1,7 +1,10 @@
-
-  ////////////////////////////////////////////////////////////////////
- // Romanesco Unu 1.2.0 / version 30 / made with Processing 3.2.4 ///
-////////////////////////////////////////////////////////////////////
+/**
+Romanesco Unu
+2013 – 2017
+version 1.2.0 
+release 30 
+Processing 3.3.0
+*/
 /**
 Scene - Prescene 1.2.0.7
 
@@ -20,8 +23,8 @@ String preference_path, import_path ;
 Use true when you want 
 display color
 used sound
- maximum possibility of the object
- full frame rate
+maximum possibility of the object
+full frame rate
 */
 boolean TEST_ROMANESCO = false ;
 boolean FULL_RENDERING = true ;
