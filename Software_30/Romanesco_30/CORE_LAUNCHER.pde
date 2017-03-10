@@ -85,10 +85,34 @@ void set_data() {
 
   path_controller = (sketchPath("") + "sources/Controleur_"+version+".app");
   // path to OPENING APP
-  path_prescene_window = (sketchPath("") + "sources/Prescene_"+version+"_window.app");
+  // window
+  if(resize_bug) {
+    int id_app = widthSlider-1 ;
+    if(id_app == 1) {
+      path_prescene_window = (sketchPath("") + "sources/Prescene_"+version+"_window_tiny.app");
+      path_scene_window = (sketchPath("") + "sources/Scene_"+version+"_window_tiny.app");
+    } else if (id_app == 2) {
+      path_prescene_window = (sketchPath("") + "sources/Prescene_"+version+"_window_small.app");
+      path_scene_window = (sketchPath("") + "sources/Scene_"+version+"_window_small.app");
+    } else if (id_app == 3) {
+      path_prescene_window = (sketchPath("") + "sources/Prescene_"+version+"_window_medium.app");
+      path_scene_window = (sketchPath("") + "sources/Scene_"+version+"_window_medium.app");
+    } else if (id_app == 4) {
+      path_prescene_window = (sketchPath("") + "sources/Prescene_"+version+"_window_standard.app");
+      path_scene_window = (sketchPath("") + "sources/Scene_"+version+"_window_standard.app");
+    } else if (id_app == 5) {
+      path_prescene_window = (sketchPath("") + "sources/Prescene_"+version+"_window_big.app");
+      path_scene_window = (sketchPath("") + "sources/Scene_"+version+"_window_big.app");
+    } else if (id_app == 6) {
+      path_prescene_window = (sketchPath("") + "sources/Prescene_"+version+"_window_huge.app");
+      path_scene_window = (sketchPath("") + "sources/Scene_"+version+"_window_huge.app");
+    }
+  } else {
+    path_prescene_window = (sketchPath("") + "sources/Prescene_"+version+"_window.app");
+    path_scene_window = (sketchPath("") + "sources/Scene_"+version+"_window.app");
+  }
+  // fullscreen
   path_prescene_fullscreen  = (sketchPath("") + "sources/Prescene_"+version+"_fullscreen.app");
-
-  path_scene_window = (sketchPath("") + "sources/Scene_"+version+"_window.app");
   path_scene_fullscreen = (sketchPath("") + "sources/Scene_"+version+"_fullscreen.app");
 
   String[] l = split( ("1"), " ") ;
@@ -221,7 +245,7 @@ void ready_to_launch() {
   if (buttonWhichScreenOnOff > 0 && buttonFullscreen.OnOff) {
     buttonStart.displayButton() ;
     // window mode the user must choice a window size  
-  } else if (buttonWindow.OnOff && heightSlider > 1 & widthSlider > 1) {
+  } else if ((buttonWindow.OnOff && heightSlider > 1 & widthSlider > 1) || (buttonWindow.OnOff && resize_bug & widthSlider > 1)) {
     buttonStart.displayButton() ;
   } else {
     fill(orange) ;
@@ -263,7 +287,7 @@ void fullscreen_or_window() {
     choice_screen_for_fullscreen() ;
   } else if (buttonWindow.OnOff) {
     screen = ("false") ;
-    sizeWindow() ;
+    size_window() ;
   }
 }
 
@@ -356,8 +380,8 @@ void saveProperty() {
   newRow.setInt(colTwo, whichScreen);
   newRow.setString(colThree, "true"); // obsolete
   newRow.setString(colFour, "true"); // obsolete
-  newRow.setInt(colFive, standardSizeWidth[widthSlider-1]);
-  newRow.setInt(colSix, standardSizeHeight[heightSlider -1]);
+  newRow.setInt(colFive, standard_size_width[widthSlider-1]);
+  newRow.setInt(colSix, standard_size_height[heightSlider -1]);
   newRow.setString(colSeven, "P3D"); // obsolete
   newRow.setString(colHeight, bool_open_scene);
   //
@@ -390,17 +414,3 @@ void addressLocal(float x, float y) {
   }
   catch(Exception e) {}
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-

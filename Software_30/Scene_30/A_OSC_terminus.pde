@@ -12,7 +12,7 @@ OSC setup
 v 1.0.0.1
 */
 void OSC_setup() {
-  int receive_address_controller = 10000 ;
+  int receive_address_controller = 9_500 ;
   osc_receive_controller = new OscP5(this, receive_address_controller);
 
   int receive_address_scene = 9100 ;
@@ -44,14 +44,15 @@ void oscEvent(OscMessage receive) {
   security_to_dont_duplicate_osc_packet = frameCount ;
 }
 
-
+boolean controller_osc_is = false ;
 void controller_reception(OscMessage m) {
   if(m.addrPattern().equals("Controller")) {
     catchDataFromController(m) ;
     splitDataButton() ;
     splitDataSlider() ;
     splitDataLoadSaveController() ;
-  }
+    controller_osc_is = true ;
+  } 
 }
 
 
@@ -67,7 +68,6 @@ void prescene_reception(OscMessage m) {
 
 
 void update_OSC_data() {
-      println(frameCount) ;
   translateDataFromController_buttonGlobal() ;
   translateDataFromController_buttonItem() ;
 

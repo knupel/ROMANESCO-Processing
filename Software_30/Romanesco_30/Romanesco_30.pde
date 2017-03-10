@@ -31,6 +31,9 @@ void setup() {
 
 void draw() {
   surface.setTitle(nameVersion + " " +prettyVersion+"."+version+ " - Launcher");
+  if(resize_bug) {
+    set_data() ;
+  }
   launcher_background() ;
   launcher_update() ;
   open_controller() ;

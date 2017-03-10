@@ -27,15 +27,21 @@ maximum possibility of the object
 full frame rate
 */
 boolean TEST_ROMANESCO = false ;
-boolean FULL_RENDERING = true ;
+boolean FULL_RENDERING = false ;
 boolean TABLET = false ; // now tablet library don't work in OPENGL renderer
 
-boolean HOME = true ;
+boolean HOME = false ;
 
 void settings() {
-  // size(600,400,P3D) ;
-  // size(1200,700,P3D) ;
-  fullScreen(P3D,2) ;
+  // size(124,124,P3D) ; // when the bug will be resolved, return to this config.
+  size(550,350,P3D) ; // PREVIEW
+  // size(800,600,P3D) ; // TINY
+  // size(1024,768,P3D) ; // SMALL
+  // size(1600,900,P3D) ; // MEDIUM
+  // size(1920,1080,P3D) ; // STANDARD
+  // size(2560,1440) ; // BIG
+  // size(3840,2160) ; // HUGE
+  // fullScreen(P3D,2) ;
   pixelDensity(displayDensity()) ;
   syphon_settings() ;
 }

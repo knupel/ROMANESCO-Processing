@@ -1,5 +1,5 @@
 /** 
-Core_scene 1.4.1.1 
+Core_scene 1.5.0
 2013-2017
 */
 
@@ -7,30 +7,29 @@ Core_scene 1.4.1.1
 /**
 OPENING
 */
-boolean open_controller = true ;
+boolean open_controller = false ;
 boolean open_prescene = true ;
 int count_to_open_controller = 0 ;
-int time_int_second_to_open_controller = 12  ; // the scene run at 15 frame / second.
+int time_int_second_to_open_controller = 12  ; // the scene run and run slow at the beginning like at 15 frame / second.
+
 
 void opening() {
-  if (open_controller || open_prescene) {
-    if (OPEN_APP && open_controller) {
-      message_opening() ;
-    }
+// open prescene
+  if (open_prescene) {
+    if (open_prescene) {
+      launch(sketchPath("")+"PreScene_"+version+"_preview.app") ; 
+      open_prescene = false ; 
+      open_controller = true ;
+    } 
+  }
 
-    if (OPEN_APP) { 
-      if (open_prescene)      {
-        launch(sketchPath("")+"PreScene_"+version+"window.app") ; 
-        open_prescene = false ; 
-      } else {
-        count_to_open_controller += 1 ;
-      }
-
-      int time_factor_to_open = 15 ;
-      if (open_controller && count_to_open_controller > (time_int_second_to_open_controller *time_factor_to_open) ) { 
-        launch(sketchPath("")+"Controleur_"+version+".app") ; 
-        open_controller = false ; 
-      } 
+  // open controller
+  if(open_controller) {
+    count_to_open_controller += 1 ;
+    int time_factor_to_open = 60 ;
+    if (open_controller && count_to_open_controller > (time_int_second_to_open_controller *time_factor_to_open) ) { 
+      launch(sketchPath("")+"Controleur_"+version+".app") ; 
+      open_controller = false ; 
     }
   }
 }
@@ -40,7 +39,12 @@ void message_opening() {
   fill(blanc) ;
   stroke(blanc) ;
   textSize(48) ;
-  text("Romanesco Unu release" + version, abs(sin(frameCount * .05)) *width, height/2 ) ;
+  textAlign(CENTER) ;
+  start_matrix() ;
+  translate(width/2, height/2, abs(sin(frameCount * .005)) *(height/2)) ;
+  text("Romanesco Unu release " + prettyVersion+"." + version, 0,0) ;
+  stop_matrix() ;
+  textAlign(LEFT) ;
 }
 /**
 End Opening
@@ -130,14 +134,7 @@ void loadPropertyScene() {
 
 
 
-void size_scene() {
-  /*
-  if (FULL_SCREEN && !check_size) { 
-    // deprecated by fullScreen() method of Processing
-    set_fullScreen(whichScreen, true) ;
-    check_size = true ; 
-  } else
-  */ 
+void resize_scene() {
   if (!FULL_SCREEN && !check_size || (width != sceneWidth && height != sceneHeight)) {
     catch_display_position() ;
     check_size = true ;
@@ -211,30 +208,6 @@ void catch_display_position() {
     }
   }
 }
-
-
-
-// Deprecated by fullScreen() method of Processing
-// fullscreen method
-/*
-void set_fullScreen(int which_screen, boolean change_setting) {
-  if(change_setting ) {
-    catch_display_position() ;
-    int which = which_screen -1 ;
-    if(which < screenDevice.length) {
-      int size_x = display_size_x[which] ;
-      int size_y = display_size_y[which] ;
-      set_display(0, 0, size_x, size_y, which_screen) ;
-    } else {
-      int size_x = display_size_x[0] ;
-      int size_y = display_size_y[0] ;
-      set_display(0, 0, size_x, size_y, 0) ;
-      println("You try to use an unvailable display") ;
-    }
-  }
-}
-*/
-
 /**
 END GRAPHIC CONFIGURATION
 */

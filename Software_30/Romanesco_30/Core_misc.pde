@@ -1,31 +1,45 @@
 /**
 SIZE WINDOW
+actually there is bug with Processing for the resize window in P3D, so we need to
+create few apps dedicated and launch... that's growth the size of the zip file...
+C'est la vie...
+We mut use the boolean to indicate to the launcher, the problem after that it's possible to choice which app must be launch
 */
-void sizeWindow() {
-  //setting the Scene size
-  sliderHeight.sliderUpdate() ;
-  sliderWidth.sliderUpdate() ;
-  
-  heightSlider = int(map(sliderHeight.getValue(),0,1,1,standardSizeHeight.length))  ;
-  widthSlider = int(map(sliderWidth.getValue(),0,1,1,standardSizeWidth.length))  ;
-  String h = Integer.toString(standardSizeHeight[heightSlider -1]) ;
-  String w = Integer.toString(standardSizeWidth[widthSlider-1]) ;
-  //check the width
+boolean resize_bug = true ;
+
+void size_window() {
   int correctionPosY = -14 ;
-  if ( widthSlider <= 1 ) {
+  size_window_width(standard_format_for_Processing_bug, correctionPosY) ;
+  /**
+  This lines bellow must use when the bug will be fix !!!!
+  */
+  // size_window_width(standard_size_width, correctionPosY) ;
+  //size_window_height(standard_size_height, correctionPosY) ;
+}
+
+void size_window_width(int [] format_width, int pos_y) {
+  sliderWidth.sliderUpdate() ;
+  widthSlider = int(map(sliderWidth.getValue(),0,1,1,format_width.length))  ;
+  String w = Integer.toString(format_width[widthSlider-1]) ;
+  if (widthSlider <= 1 ) {
     fill(rougeFonce) ;
-    text("Width " + w, posSliderWidth.x, posSliderWidth.y +correctionPosY);
+    text("Width " + w, posSliderWidth.x, posSliderWidth.y +pos_y);
   } else {
     fill(vertFonce) ;
-    text("Width " + w, posSliderWidth.x, posSliderWidth.y +correctionPosY);
+    text("Width " + w, posSliderWidth.x, posSliderWidth.y +pos_y);
   }
-  //check the height
-  if ( heightSlider <= 1 ) {
+}
+
+void size_window_height(int[] format_height, int pos_y) {
+  sliderHeight.sliderUpdate() ;
+  heightSlider = int(map(sliderHeight.getValue(),0,1,1,format_height.length))  ;
+  String h = Integer.toString(format_height[heightSlider -1]) ;
+  if (heightSlider <= 1 ) {
     fill(rougeFonce) ;
-    text("Heigth " + h, posSliderHeight.x, posSliderHeight.y +correctionPosY);
+    text("Heigth " + h, posSliderHeight.x, posSliderHeight.y +pos_y);
   } else {
     fill(vertFonce) ;
-    text("Heigth " + h, posSliderHeight.x, posSliderHeight.y +correctionPosY);
+    text("Heigth " + h, posSliderHeight.x, posSliderHeight.y +pos_y);
   }
 }
 
