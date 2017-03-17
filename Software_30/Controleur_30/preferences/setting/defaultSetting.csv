@@ -78,32 +78,31 @@ Slider,147,0.0,1.0,0.31102362,,,-2,,,,
 Slider,148,0.0,1.0,0.0,,,-2,,,,
 Item,,,,,,,,1,0,Letter,Letter
 Item,,,,,,,,2,0,Horloge,Horloge
-Item,,,,,,,,3,0,RSS,RSS
-Item,,,,,,,,4,0,Karaoke,Karaoke
-Item,,,,,,,,5,0,Orbital,Orbital
-Item,,,,,,,,6,0,Atome,Atome
-Item,,,,,,,,7,0,The Abbyss,The_Abbyss
-Item,,,,,,,,8,0,Boids,Boids
-Item,,,,,,,,9,0,Rubis,MesAmis
-Item,,,,,,,,10,1,Arbre,ArbreRomanesco
-Item,,,,,,,,11,0,Boxolyzer,Boxolyzer
-Item,,,,,,,,12,0,Soleil,Soleil
-Item,,,,,,,,13,0,Spirale,SpiraleRomanesco
-Item,,,,,,,,14,0,Balise,BaliseRomanesco
-Item,,,,,,,,15,0,Kofosphere,Kofosphere
-Item,,,,,,,,16,0,Lignes,Lignes
-Item,,,,,,,,17,0,Stars Spray,Spray
-Item,,,,,,,,18,0,Damier,Damier
-Item,,,,,,,,19,0,Vectorial,Vectorial
-Item,,,,,,,,20,0,Galaxie,Galaxie
-Item,,,,,,,,21,0,Nid d'abeille,Honeycomb
-Item,,,,,,,,22,0,Webcam,Webcam
-Item,,,,,,,,23,0,Image,Escargot
-Item,,,,,,,,24,0,Surface,Surface
-Item,,,,,,,,25,0,Movisco,Movisco
-Item,,,,,,,,26,1,Eco Agents,Ecosystem_agent
-Item,,,,,,,,27,1,Eco DNA,Ecosystem_DNA
-Item,,,,,,,,28,0,Lorenz attractor,Lorenz
+Item,,,,,,,,3,0,Karaoke,Karaoke
+Item,,,,,,,,4,0,Orbital,Orbital
+Item,,,,,,,,5,0,Atome,Atome
+Item,,,,,,,,6,0,The Abbyss,The_Abbyss
+Item,,,,,,,,7,0,Boids,Boids
+Item,,,,,,,,8,0,Rubis,MesAmis
+Item,,,,,,,,9,1,Arbre,ArbreRomanesco
+Item,,,,,,,,10,0,Boxolyzer,Boxolyzer
+Item,,,,,,,,11,0,Soleil,Soleil
+Item,,,,,,,,12,0,Spirale,SpiraleRomanesco
+Item,,,,,,,,13,0,Balise,BaliseRomanesco
+Item,,,,,,,,14,0,Kofosphere,Kofosphere
+Item,,,,,,,,15,0,Lignes,Lignes
+Item,,,,,,,,16,0,Stars Spray,Spray
+Item,,,,,,,,17,0,Damier,Damier
+Item,,,,,,,,18,0,Vectorial,Vectorial
+Item,,,,,,,,19,0,Galaxie,Galaxie
+Item,,,,,,,,20,0,Nid d'abeille,Honeycomb
+Item,,,,,,,,21,0,Webcam,Webcam
+Item,,,,,,,,22,0,Image,Escargot
+Item,,,,,,,,23,0,Surface,Surface
+Item,,,,,,,,24,0,Movisco,Movisco
+Item,,,,,,,,25,1,Eco Agents,Ecosystem_agent
+Item,,,,,,,,26,1,Eco DNA,Ecosystem_DNA
+Item,,,,,,,,27,0,Lorenz attractor,Lorenz
 Button,,,,,0,1,-2,,,,
 Button,,,,,1,1,-2,,,,
 Button,,,,,2,0,-2,,,,
