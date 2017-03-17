@@ -10,8 +10,8 @@ class Movisco extends Romanesco {
 		RPE_author  = "Stan le Punk";
 		RPE_version = "Version 0.0.2";
 		RPE_pack = "Base" ;
-		RPE_mode = "" ; // separate the differentes mode by "/"
-		RPE_slider = "Fill hue,Fill sat,Fill bright,Fill alpha,Stroke hue,Stroke sat,Stroke bright,Stroke alpha,Thickness,Influence,Canvas X,Canvas Y,Quality,Canvas X,Speed X,Size X" ;
+		RPE_mode = "Point/Ellipse/Triangle/Rectangle/Cross/Star 5" ; // separate the differentes mode by "/"
+		RPE_slider = "Fill hue,Fill sat,Fill bright,Fill alpha,Quantity,Quality,Area,Size X" ;
 	}
 
 	int rows, cols ;
@@ -23,47 +23,73 @@ class Movisco extends Romanesco {
 	Vec3 color_pixel_HSB[];
 	Vec3 color_pixel_RGB[];
 
-	int pix_step ;
+	int pix_step = 25 ;
+	int pix_step_ref = 25 ;
 
 	// setup
 	void setup() {
     setting_start_position(ID_item, 0, 0, 0) ;
     load_movie(ID_item) ;
-
-		pix_step = 50 ;
-		if(movieImport[ID_item] != null) {
-			set_grid_movie(pix_step, ID_item) ;
-			full_window_movie(ID_item) ;
-			center_movie_in_the_height(ID_item) ;
-		}
-
+		set_movie(pix_step, ID_item) ;
 	}
+
+
+
 
 	// draw
 	void draw() {
+		// set grid
+		pix_step = int(map(quality_item[ID_item], 0,1, 50,1)) ;
+		if(pix_step_ref != pix_step) {
+			set_movie(pix_step, ID_item) ;
+			pix_step_ref = pix_step ;
+		}
+
 		if(!FULL_RENDERING) {
 			canvas_movisco(movieImport[ID_item].width -pix_step , movieImport[ID_item].height -(pix_step/2)) ;
 		} else {
 			if(movieImport[ID_item] != null) {
 				analyze_movie_pixel(ID_item) ;
-				int size_cloud_pix = int(pix_step *2) ;
+        
+
+        float max_radius_pix = pix_step *10 ;
+				int size_cloud_pix = int(map(area_item[ID_item], width *.1, width *PHI, 1, max_radius_pix)) ;
+				
 				float comp_1 = 1 ; // red or hue
-				float comp_2 = 1 ; // green or saturation
-				float comp_3 = 1 ;  // blue or brightnes
-				float comp_4 = .9 ; // alpha
+				float comp_2 =  map(saturation(fill_item[ID_item]),0,100,0,1) ; // green or saturation
+				float comp_3 =  map(brightness(fill_item[ID_item]),0,100,0,1) ;  // blue or brightnes
+				float comp_4 = map(alpha(fill_item[ID_item]),0,100,0,1) ; // alpha
 				float comp_5 = .9 ; // pixel density in case or the pixel are particle system
 				Vec5 density = Vec5(comp_1,comp_2,comp_3,comp_4,comp_5) ; // Vec5(red,green,blue,alpha, pixel density) value factor between 0 and 1
 
-				float size_pix = 1 ;
+				float size_pix = map(size_x_item[ID_item], width *.01, width, .1, width *.01) ;
 				String pattern = "4_RANDOM" ;
 				float depth = 0 ;
-				display_movie_cloud(size_pix, size_cloud_pix, pattern, density, depth) ;
+				display_movie_cloud(size_pix, size_cloud_pix, pattern, density, depth, quantity_item[ID_item]) ;
 			}
 		}
 	}
-   
 
-   void canvas_movisco(int x, int y) {
+
+
+
+
+
+
+
+
+
+	void set_movie(int step, int id) {
+		if(movieImport[id] != null) {
+			set_grid_movie(step, id) ;
+			full_window_movie(id) ;
+			center_movie_in_the_height(id) ;
+		}
+	}
+
+
+
+  void canvas_movisco(int x, int y) {
    	strokeWeight(1) ;
    	stroke(0) ;
    	fill(0, g.colorModeA *.1) ;
@@ -119,7 +145,7 @@ class Movisco extends Romanesco {
 	/**
 	display the pixel
 	*/
-	void display_movie_cloud(float size_pix, int size_pix_cloud, String pattern, Vec5 density_cloud, float ratio_depth) {
+	void display_movie_cloud(float size_pix, int size_pix_cloud, String pattern, Vec5 density_cloud, float ratio_depth, float quantity) {
 	  // setting color because the color pix can be diffenrent for the RGB or the HSB
 	  /* catch the value of the alpha, because this one is not a component of the video, but from the colorMode.
 	  And we don't know this one in advance */
@@ -149,12 +175,14 @@ class Movisco extends Romanesco {
 
 	      z *= ratio_depth ;
 	      int num = (int)(color_temp[i *rows + j].b *density_cloud.e) ;
+	      num = int(quantity *num + 1) ;
+
 
 	      //display
 	      fill(r, gr, b, a);
 	      stroke(r, gr, b, a);
-	      strokeWeight(size_pix) ;
-	      pixel_cloud(pos, num, size_pix_cloud, pattern);
+	      Vec3 size = Vec3(size_pix) ;
+	      pixel_cloud(pos, size, num, size_pix_cloud, pattern);
 	    }
 	  }
 	}
@@ -165,8 +193,9 @@ class Movisco extends Romanesco {
 	// local method
 
 	// Pixel shape
-	void pixel_cloud(Vec3 pos, int num, int radius, String pattern) {
+	void pixel_cloud(Vec3 pos, Vec3 size, int num, int radius, String pattern) {
 	  Pixel_cloud p = new Pixel_cloud(num, "3D", "ORDER") ;
+	  p.size(size) ;
 	  p.beat(20) ;
 	  p.pattern(pattern) ;
 	  p.distribution(Vec3(pos.x +(step_grid /2),pos.y,pos.z), radius) ;
