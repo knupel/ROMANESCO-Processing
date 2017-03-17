@@ -1,5 +1,5 @@
 /**
-KARAOKE || 2011 || 2.0.1
+KARAOKE || 2011 || 2.0.2
 */
 
 class Karaoke extends Romanesco {
@@ -9,7 +9,7 @@ class Karaoke extends Romanesco {
     ID_item = 4 ;
     ID_group = 1 ;
     RPE_author  = "Stan LePunk";
-    RPE_version = "Version 2.0";
+    RPE_version = "Version 2.0.2";
     RPE_pack = "Base" ;
     RPE_mode = "" ; // separate the name by a slash and write the next mode immadialtly after this one.
     RPE_slider = "Fill hue,Fill sat,Fill bright,Fill alpha,Canvas X,Canvas Y,Direction X,Font size" ;
@@ -31,7 +31,7 @@ class Karaoke extends Romanesco {
     
     float sizeFont = font_size_item[ID_item] ;
     
-    textFont(font[ID_item], sizeFont *mix[ID_item] *allBeats(ID_item) );
+    textFont(font_item[ID_item], sizeFont *mix[ID_item] *allBeats(ID_item) );
     
     // couleur du texte
     // security against the blavk bug opacity
@@ -91,7 +91,7 @@ class Karaoke extends Romanesco {
       rotation(dir_x_item[ID_item], mouse[ID_item].x, mouse[ID_item].y) ;
       //DISPLAY
       textAlign(CORNER);
-      textFont(font[ID_item], sizeFont+ (mix[ID_item]) *6 *beat[ID_item]);
+      textFont(font_item[ID_item], sizeFont+ (mix[ID_item]) *6 *beat[ID_item]);
       text(karaokeSentences[sentence], 0, 0, largeur, hauteur) ;
     }
 

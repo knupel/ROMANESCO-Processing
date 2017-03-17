@@ -3,7 +3,7 @@ Romanesco Unu
 2013 – 2017
 version 1.2.0 
 release 30 
-Processing 3.3.
+Processing 3.3.0
 */
 /* 14.750 lines of code the 4th may !!!! */
 
@@ -26,12 +26,17 @@ boolean resize_bug = true ;
 
 void settings() {
   // When you build Romanesco you must create two versions : fullscreen and normal
-     // size(124,124,P3D) ; // when the bug will be resolved, return to this config.
-  // size(800,600,P3D) ; // TINY
-  // size(1024,768,P3D) ; // SMALL
-  // size(1600,900,P3D) ; // MEDIUM
-  // size(1920,1080,P3D) ; // STANDARD
+  // size(124,124,P3D) ; // when the bug will be resolved, return to this config.
+
+  // size(550,350,P3D) ; // PREVIEW
+  // size(640,360,P3D) ; // TINY
+  // size(1024,576,P3D) ; // SMALL
+  size(1280,720,P3D) ; // MEDIUM
+  // size(1600,900,P3D) ; // NORMAL
+  // size(1920,1080,P3D) ; // LARGE
   // size(2560,1440) ; // BIG
+  // size(3840,2160) ; // HUGE
+
   size(3840,2160) ; // HUGE
 
   // fullScreen(P3D,2) ;

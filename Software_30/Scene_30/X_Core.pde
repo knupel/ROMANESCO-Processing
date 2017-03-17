@@ -1,6 +1,6 @@
 /**
 CORE Rope SCENE and PRESCENE 
-v 1.1.3.2
+v 1.1.3.3
 */
 /**
 INIT Rope
@@ -2288,9 +2288,10 @@ void translateDataFromController_buttonGlobal() {
   if(valueButtonGlobal[13] == 1 ) onOffLightAmbientAction = true ; else onOffLightAmbientAction = false ;
   
   // list choice
-   whichShader = valueButtonGlobal[14] ;
-   select_font(valueButtonGlobal[5]) ;
-   // choiceFont(valueButtonGlobal[5]) ;
+  whichShader = valueButtonGlobal[14] ;
+
+  select_font(valueButtonGlobal[5]) ;
+
   which_bitmap[0] = valueButtonGlobal[15] ;
   which_svg[0] = valueButtonGlobal[16] ;
   which_text[0] = valueButtonGlobal[17] ;
@@ -2298,7 +2299,7 @@ void translateDataFromController_buttonGlobal() {
   which_cam = valueButtonGlobal[19] ;
 }
 void translateDataFromController_buttonItem() {
-  for ( int i = 0 ; i < NUM_ITEM -1 ; i++) {
+  for (int i = 0 ; i < NUM_ITEM -1 ; i++) {
     int iPlusOne = i+1 ;
     objectButton   [iPlusOne] = valueButtonObj[i *10 +1] ;
     parameterButton[iPlusOne] = valueButtonObj[i *10 +2] ;
@@ -2343,7 +2344,7 @@ OSC CORE END
 /**
 
 FONT MANAGER 
-v 2.0.0.1
+v 2.0.1.0
 
 */
 PFont SansSerif10 ;
@@ -2377,145 +2378,198 @@ void create_font() {
   int size_font = 200 ;
   String prefix_path_font = import_path +"font/typo_OTF_TTF/" ;
 
+  // path_font_item
+  path_font_library[1] = prefix_path_font + "AmericanTypewriter.ttf" ;
+  American_Typewriter = createFont(path_font_library[1], size_font) ;
+
+  path_font_library[2] = prefix_path_font + "Banco.ttf" ;
+  Banco = createFont(path_font_library[2], size_font) ;
+
+  path_font_library[3] = prefix_path_font + "Cinquenta.ttf" ;
+  Cinquenta = createFont(path_font_library[3], size_font) ;
+
+  path_font_library[4] = prefix_path_font + "Container-Regular.otf" ;
+  Container_Regular = createFont(path_font_library[4], size_font) ;
+
+  path_font_library[5] = prefix_path_font + "Diesel.otf" ;
+  Diesel = createFont(path_font_library[5], size_font) ;
+
+  path_font_library[6] = prefix_path_font + "Digital.ttf" ;
+  Digital = createFont(path_font_library[6], size_font) ;
   
-  American_Typewriter = createFont(prefix_path_font + "AmericanTypewriter.ttf", size_font) ;
-  Banco = createFont(prefix_path_font + "Banco.ttf", size_font) ;
-  Cinquenta = createFont(prefix_path_font + "Cinquenta.ttf", size_font) ;
-  Container_Regular = createFont(prefix_path_font + "Container-Regular.otf", size_font) ;
-  Diesel = createFont(prefix_path_font + "Diesel.otf", size_font) ;
-  Digital = createFont(prefix_path_font + "Digital.ttf", size_font) ;
+  path_font_library[7] = prefix_path_font + "DIN-Black.otf" ;
+  DIN_Black = createFont(path_font_library[7], size_font) ;
+  path_font_library[8] = prefix_path_font + "DIN-Bold.otf" ;
+  DIN_Bold = createFont(path_font_library[8], size_font) ; 
+  path_font_library[9] = prefix_path_font + "DIN-Light.otf" ;
+  DIN_Light = createFont(path_font_library[9], size_font) ;  
+  path_font_library[10] = prefix_path_font + "DIN-Medium.otf" ;
+  DIN_Medium = createFont(path_font_library[10], size_font) ; 
+  path_font_library[11] = prefix_path_font + "DIN-Regular.otf" ;
+  DIN_Regular = createFont(path_font_library[11], size_font) ;
 
-  DIN_Black = createFont(prefix_path_font + "DIN-Black.otf", size_font) ; 
-  DIN_Bold = createFont(prefix_path_font + "DIN-Bold.otf", size_font) ; 
-  DIN_Light = createFont(prefix_path_font + "DIN-Light.otf", size_font) ;  
-  DIN_Medium = createFont(prefix_path_font + "DIN-Medium.otf", size_font) ; 
-  DIN_Regular = createFont(prefix_path_font + "DIN-Regular.otf", size_font) ;
+  path_font_library[12] = prefix_path_font + "DosEquis.ttf" ;
+  DosEquis = createFont(path_font_library[12], size_font) ;
+  
+  path_font_library[13] = prefix_path_font + "EastBloc-Closed.otf" ;
+  EastBloc_Closed = createFont(path_font_library[13], size_font) ; 
+  path_font_library[14] = prefix_path_font + "EastBloc-ClosedAlt.otf" ;
+  EastBloc_ClosedAlt = createFont( path_font_library[14], size_font) ;
+  path_font_library[15] = prefix_path_font + "EastBloc-Open.otf" ;
+  EastBloc_Open = createFont(path_font_library[15], size_font) ;
+  path_font_library[16] = prefix_path_font + "EastBloc-OpenAlt.otf" ;
+  EastBloc_OpenAlt = createFont(path_font_library[16], size_font) ;
+  
+  path_font_library[17] = prefix_path_font + "FetteFraktur.ttf" ;
+  FetteFraktur = createFont(path_font_library[17], size_font) ;
 
-  DosEquis = createFont(prefix_path_font + "DosEquis.ttf", size_font) ;
+  path_font_library[18] = prefix_path_font + "FuturaStencil.ttf" ;
+  FuturaStencil = createFont(path_font_library[18], size_font) ;
 
-  EastBloc_Closed = createFont(prefix_path_font + "EastBloc-Closed.otf", size_font) ; 
-  EastBloc_ClosedAlt = createFont(prefix_path_font + "EastBloc-ClosedAlt.otf", size_font) ;
-  EastBloc_Open = createFont(prefix_path_font + "EastBloc-Open.otf", size_font) ;
-  EastBloc_OpenAlt = createFont(prefix_path_font + "EastBloc-OpenAlt.otf", size_font) ;
+  path_font_library[19] = prefix_path_font + "GangBangCrime.ttf" ;
+  GangBangCrime = createFont(path_font_library[19], size_font) ;
+  
+  path_font_library[20] = prefix_path_font + "Juanita.ttf" ;
+  Juanita = createFont(path_font_library[20], size_font) ; 
+  path_font_library[21] = prefix_path_font + "JuanitaDeco.ttf" ;
+  JuanitaDeco = createFont(path_font_library[21], size_font) ; 
+  
+  path_font_library[22] = prefix_path_font + "Komikahuna.ttf" ;
+  Komikahuna = createFont(path_font_library[22], size_font) ; 
 
-  FetteFraktur = createFont(prefix_path_font + "FetteFraktur.ttf", size_font) ;
-  FuturaStencil = createFont(prefix_path_font + "FuturaStencil.ttf", size_font) ;
-  GangBangCrime = createFont(prefix_path_font + "GangBangCrime.ttf", size_font) ;
+  path_font_library[23] = prefix_path_font + "Mesquite.otf" ;
+  Mesquite = createFont(path_font_library[23], size_font) ; 
+  
+  path_font_library[24] = prefix_path_font + "Minion-Black.otf" ;
+  Minion_Black = createFont(path_font_library[24], size_font) ;
+  path_font_library[25] = prefix_path_font + "Minion-Bold.otf" ;
+  Minion_Bold = createFont(path_font_library[25], size_font) ; 
+  path_font_library[26] = prefix_path_font + "Minion-BoldItalic.otf" ;
+  Minion_BoldItalic = createFont(path_font_library[26], size_font) ; 
+  path_font_library[27] = prefix_path_font + "Minion-Italic.otf" ;
+  Minion_Italic = createFont( path_font_library[27], size_font) ;
+  path_font_library[28] = prefix_path_font + "Minion-Regular.otf" ;
+  Minion_Regular = createFont(path_font_library[28], size_font) ;
+  
+  path_font_library[29] = prefix_path_font + "Rosewood.otf" ;
+  Rosewood = createFont(path_font_library[29], size_font) ;
 
-  Juanita = createFont(prefix_path_font + "Juanita.ttf", size_font) ; 
-  JuanitaDeco = createFont(prefix_path_font + "JuanitaDeco.ttf", size_font) ; 
-
-  Komikahuna = createFont(prefix_path_font + "Komikahuna.ttf", size_font) ; 
-  Mesquite = createFont(prefix_path_font + "Mesquite.otf", size_font) ; 
-
-  Minion_Black = createFont(prefix_path_font + "Minion-Black.otf", size_font) ;  
-  Minion_Bold = createFont(prefix_path_font + "Minion-Bold.otf", size_font) ; 
-  Minion_BoldItalic = createFont(prefix_path_font + "Minion-BoldItalic.otf", size_font) ; 
-  Minion_Italic = createFont(prefix_path_font + "Minion-Italic.otf", size_font) ;
-  Minion_Regular = createFont(prefix_path_font + "Minion-Regular.otf", size_font) ;
-
-  Rosewood = createFont(prefix_path_font + "Rosewood.otf", size_font) ;
-
-  Tokyo_One = createFont(prefix_path_font + "Tokyo-One.otf", size_font) ; 
-  Tokyo_OneSolid = createFont(prefix_path_font + "Tokyo-OneSolid.otf", size_font) ; 
-  Tokyo_Two = createFont(prefix_path_font + "Tokyo-Two.otf", size_font) ; 
-  Tokyo_TwoSolid = createFont(prefix_path_font + "Tokyo-TwoSolid.otf", size_font) ;
-
-  Three_Hardway = createFont(prefix_path_font + "3Hardway.ttf", size_font) ;
+  path_font_library[30] = prefix_path_font + "Tokyo-One.otf" ;
+  Tokyo_One = createFont(path_font_library[30], size_font) ; 
+  path_font_library[31] = prefix_path_font + "Tokyo-OneSolid.otf" ;
+  Tokyo_OneSolid = createFont(path_font_library[31], size_font) ; 
+  path_font_library[32] = prefix_path_font + "Tokyo-Two.otf" ;
+  Tokyo_Two = createFont(path_font_library[32], size_font) ; 
+  path_font_library[33] = prefix_path_font + "Tokyo-TwoSolid.otf" ;
+  Tokyo_TwoSolid = createFont(path_font_library[33], size_font) ;
+  
+  path_font_library[34] = prefix_path_font + "3Hardway.ttf" ;
+  Three_Hardway = createFont(path_font_library[34], size_font) ;
 
   // default and special font
   String prefix_default_path_font = import_path +"font/default_font/" ;
 
+  
+
   SansSerif10 = loadFont(prefix_default_path_font+"SansSerif-10.vlw");
-  font[0] = DIN_Bold ;
+  
+  // default font
+  path_font_default_ttf = prefix_path_font + "DINEngschrift-Regular.ttf" ;
+  font_library = DIN_Bold ;
   // 
   println("font build setup done") ;
 }
 
 
 
-void select_font(int whichOne)  { 
+void select_font(int whichOne)  {
+  // path font
+  if (whichOne > 0 && whichOne < numFont ) {
+    path_font_library[0] = path_font_library[whichOne] ;
+  }
+  
+  // PFont selection
   if (whichOne == 1) { 
-    font[0] = American_Typewriter ; 
+    font_library = American_Typewriter ; 
   } else if (whichOne == 2) { 
-    font[0] = Banco ; 
+    font_library = Banco ; 
   } else if (whichOne == 3)  { 
-    font[0] = Cinquenta ; 
+    font_library = Cinquenta ; 
   } else if (whichOne == 4) { 
-    font[0] = Container_Regular ; 
+    font_library = Container_Regular ; 
   } else if (whichOne == 5)  { 
-    font[0] = Diesel ; 
+    font_library = Diesel ; 
   } else if (whichOne == 6) { 
-    font[0] = Digital ; 
+    font_library = Digital ; 
 
   } else if (whichOne == 7) { 
-    font[0] = DIN_Black ; 
+    font_library = DIN_Black ; 
   } else if (whichOne == 8) { 
-    font[0] = DIN_Bold ; 
+    font_library = DIN_Bold ; 
   } else if (whichOne == 9) { 
-    font[0] = DIN_Light ; 
+    font_library = DIN_Light ; 
   } else if (whichOne == 10) { 
-    font[0] = DIN_Medium ; 
+    font_library = DIN_Medium ; 
   } else if (whichOne == 11) { 
-    font[0] = DIN_Regular ; 
+    font_library = DIN_Regular ; 
 
   } else if (whichOne == 12) { 
-    font[0] = DosEquis ; 
+    font_library = DosEquis ; 
 
   } else if (whichOne == 13) { 
-    font[0] = EastBloc_Closed ; 
+    font_library = EastBloc_Closed ; 
   } else if (whichOne == 14) { 
-    font[0] = EastBloc_ClosedAlt ; 
+    font_library = EastBloc_ClosedAlt ; 
   } else if (whichOne == 15) { 
-    font[0] = EastBloc_Open ; 
+    font_library = EastBloc_Open ; 
   } else if (whichOne == 16) { 
-    font[0] = EastBloc_OpenAlt ; 
+    font_library = EastBloc_OpenAlt ; 
 
   } else if (whichOne == 17) { 
-    font[0] = FetteFraktur ; 
+    font_library = FetteFraktur ; 
   } else if (whichOne == 18) { 
-    font[0] = FuturaStencil ; 
+    font_library = FuturaStencil ; 
   } else if (whichOne == 19) { 
-    font[0] = GangBangCrime ; 
+    font_library = GangBangCrime ; 
 
   } else if (whichOne == 20) { 
-    font[0] = Juanita ; 
+    font_library = Juanita ; 
   } else if (whichOne == 21) { 
-    font[0] = JuanitaDeco ; 
+    font_library = JuanitaDeco ; 
 
   } else if (whichOne == 22) { 
-    font[0] = Komikahuna ; 
+    font_library = Komikahuna ; 
   } else if (whichOne == 23) { 
-    font[0] = Mesquite ; 
+    font_library = Mesquite ; 
 
   } else if (whichOne == 24) { 
-    font[0] = Minion_Black ; 
+    font_library = Minion_Black ; 
   } else if (whichOne == 25) { 
-    font[0] = Minion_Bold ; 
+    font_library = Minion_Bold ; 
   } else if (whichOne == 26) { 
-    font[0] = Minion_BoldItalic ; 
+    font_library = Minion_BoldItalic ; 
   } else if (whichOne == 27) { 
-    font[0] = Minion_Italic ; 
+    font_library = Minion_Italic ; 
   } else if (whichOne == 28) { 
-    font[0] = Minion_Regular ; 
+    font_library = Minion_Regular ; 
 
   } else if (whichOne == 29) { 
-    font[0] = Rosewood ; 
+    font_library = Rosewood ; 
 
   } else if (whichOne == 30) { 
-    font[0] = Tokyo_One ; 
+    font_library = Tokyo_One ; 
   } else if (whichOne == 31) { 
-    font[0] = Tokyo_OneSolid ; 
+    font_library = Tokyo_OneSolid ; 
   } else if (whichOne == 32) { 
-    font[0] = Tokyo_Two ; 
+    font_library = Tokyo_Two ; 
   } else if (whichOne == 33) { 
-    font[0] = Tokyo_TwoSolid ; 
+    font_library = Tokyo_TwoSolid ; 
 
   } else if (whichOne == 34) { 
-    font[0] = Three_Hardway ; 
+    font_library = Three_Hardway ; 
 
   } else { 
-    font[0] = DIN_Bold ; 
+    font_library = DIN_Bold ; 
   }
 }
 

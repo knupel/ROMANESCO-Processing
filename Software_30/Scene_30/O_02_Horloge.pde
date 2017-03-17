@@ -1,5 +1,5 @@
 /**
-HORLOGE || 2012 || 2.0.2
+HORLOGE || 2012 || 2.0.3
 */
 
 class Horloge extends Romanesco {
@@ -9,7 +9,7 @@ class Horloge extends Romanesco {
     ID_item = 2 ;
     ID_group = 1 ;
     RPE_author  = "Stan Le Punk";
-    RPE_version = "Version 2.0.1";
+    RPE_version = "Version 2.0.3";
     RPE_pack = "Base" ;
     romanescoRender = "classic" ;
     RPE_mode = "Ellipse Clock 12/Ellipse Clock 24/Line Clock 12/Line Clock 24/minutes/secondes" ;// separate the name by a slash and write the next mode immadialtly after this one.
@@ -33,7 +33,7 @@ class Horloge extends Romanesco {
     textAlign(CENTER);
     // typo
     float sizeFont = font_size_item[ID_item] +12 ;
-    textFont(font[ID_item], sizeFont *allBeats(ID_item));
+    textFont(font_item[ID_item], sizeFont *allBeats(ID_item));
     
     // couleur du texte
     float t = alpha(fill_item[ID_item]) * abs(mix[ID_item]) ;

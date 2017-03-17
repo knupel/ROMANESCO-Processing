@@ -1,14 +1,20 @@
 
-/////////////////////////
-// COTROLLER FUNCTION //
-///////////////////////
-
-boolean dropdownActivity ; // use to indicate to indicate at the other button, they cannot be used when the user are on the dropdown menu
+SCENE
+--
 
 
-////////////////////////
-// PRESENE /// SCENE //
-//////////////////////
+
+Font
+--
+The font use are 'ttf' or 'otf' format
+int numFont = 50 ;
+String [] path_font_library, path_font_item ;
+
+PFont [] font_library, font_item ;
+
+There is default font, for the library like geomerative just use "ttf" font 
+> String path_font_default_ttf ;
+
 
 
 

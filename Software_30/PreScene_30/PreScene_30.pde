@@ -34,6 +34,7 @@ boolean HOME = true ;
 
 void settings() {
   // size(124,124,P3D) ; // when the bug will be resolved, return to this config.
+  
   // size(550,350,P3D) ; // PREVIEW
   // size(640,360,P3D) ; // TINY
   // size(1024,576,P3D) ; // SMALL

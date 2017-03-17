@@ -1,5 +1,5 @@
 /**
-LETTER || 2012 || 1.2.1
+LETTER || 2012 || 1.3.0
 */
 class Letter extends Romanesco {
   public Letter() {
@@ -8,9 +8,9 @@ class Letter extends Romanesco {
     ID_item = 1 ;
     ID_group = 1 ;
     RPE_author  = "Stan le Punk";
-    RPE_version = "Version 1.2.1";
+    RPE_version = "Version 1.3.0";
     RPE_pack = "Base" ;
-    romanescoRender = "P3D" ;
+
     RPE_mode = "Point/Line/Triangle" ;
     RPE_slider = "Fill hue,Fill sat,Fill bright,Fill alpha,Stroke hue,Stroke sat,Stroke bright,Stroke alpha,Thickness,Jitter X,Jitter Y,Jitter Z,Quantity,Speed X,Font size" ;
   }
@@ -39,10 +39,14 @@ class Letter extends Romanesco {
   //DRAW
   void draw() {
     load_txt(ID_item) ;
-    
-    if (parameter[ID_item] || path_font_item_TTF[ID_item] == null ) { 
-      font[ID_item] = font[0] ;
-      path_font_item_TTF[ID_item] = path_font_item_TTF[0] ;
+    /*
+    if (parameter[ID_item] || path_font_item[ID_item] == null ) { 
+      path_font_item[ID_item] = path_font_item[0] ;
+    }
+    */
+    // test the font is a ttf or not
+    if(!path_font_item[ID_item].endsWith("ttf")) {
+      path_font_item[ID_item] = path_font_default_ttf ;
     }
     //init and re-init Geomerative if few stuff change about this line like text, font and the size of the font
     sizeFont = int(map(font_size_item[ID_item],font_size_min_max.x, font_size_min_max.y, (float)height *.01, (float)height *.7)) ;
@@ -52,15 +56,22 @@ class Letter extends Romanesco {
 
     
     //check if something change to update the RG.getText
-    if (sizeRef == sizeFont && sentenceRef.equals(sentence) && pathRef.equals(path_font_item_TTF[ID_item])) newSetting = true  ; else newSetting = false ;
+    if (sizeRef == sizeFont && sentenceRef.equals(sentence) && pathRef.equals(path_font_item[ID_item])) {
+      newSetting = true  ; 
+    } else {
+      newSetting = false ;
+    }
+
     sizeRef = sizeFont ;
     sentenceRef = (sentence) ;
-    pathRef = (path_font_item_TTF[ID_item]) ;
+    pathRef = (path_font_item[ID_item]) ;
+
     if(!newSetting || reset(ID_item)) {
-      grp = RG.getText(sentence, path_font_item_TTF[ID_item], (int)sizeFont, CENTER); 
+      grp = RG.getText(sentence, path_font_item[ID_item], (int)sizeFont, CENTER); 
       newSetting = true ;
       axeLetter = int(random (grp.countChildren())) ;
     }
+
     if(reset(ID_item)) {
       int choiceDir = floor(random(2)) ;
       if(choiceDir == 0 ) {
@@ -70,7 +81,9 @@ class Letter extends Romanesco {
       }
     }
     
-    if(allBeats(ID_item) > 10 || nTouch ) axeLetter = int(random (grp.countChildren())) ;
+    if(allBeats(ID_item) > 10 || nTouch ) {
+      axeLetter = int(random (grp.countChildren())) ;
+    }
     
     
 
@@ -80,8 +93,11 @@ class Letter extends Romanesco {
     //ENGINE
     
     //speed
-    float speed ;
-    if(motion[ID_item]) speed = map(speed_x_item[ID_item], 0,1, 0.000, 0.3 ) *tempo[ID_item]  ; else speed = 0.0 ;
+    float speed = 0 ;
+
+    if(!motion[ID_item]) {
+      speed = map(speed_x_item[ID_item], 0,1, 0.000, 0.3 ) *tempo[ID_item]  ; 
+    } 
     //to stop the move
     //if (!action[ID_item]) speed = 0.0 ; 
     if(reverse[ID_item]) speed = -speed ;
@@ -95,9 +111,13 @@ class Letter extends Romanesco {
 
     // color
     if(mode[ID_item] <= 1) {
-      noFill() ; stroke(fill_item[ID_item]) ; strokeWeight(thicknessLetter) ;
+      noFill() ; 
+      stroke(fill_item[ID_item]) ; 
+      strokeWeight(thicknessLetter) ;
     } else {
-      fill(fill_item[ID_item]) ; stroke(stroke_item[ID_item]) ; strokeWeight(thicknessLetter) ;
+      fill(fill_item[ID_item]) ; 
+      stroke(stroke_item[ID_item]) ; 
+      strokeWeight(thicknessLetter) ;
     }
     //jitter
     float jitterX = map(jitter_x_item[ID_item],0,1, 0, (float)width *.1) ;
@@ -120,18 +140,34 @@ class Letter extends Romanesco {
   float rotation ;
   
   void letters(float speed, int axeLetter, PVector jttr) {
-    //create a PVector arraylist from geomerative analyze
-    // float rangeWhichLetter = width / grp.countChildren() ;
-    if (sound[ID_item]) whichLetter = (int)allBeats(ID_item) ; else whichLetter = 0 ;
+    if (sound[ID_item]) {
+      whichLetter = (int)allBeats(ID_item) ; 
+    } else {
+      whichLetter = 0 ;
+    }
     
     //security against the array out bounds
-    if(whichLetter < 0 ) whichLetter = 0 ; else if (whichLetter >= grp.countChildren()) whichLetter = grp.countChildren() -1  ;
+    if(whichLetter < 0 ) {
+      whichLetter = 0 ; 
+    } else if (whichLetter >= grp.countChildren()) {
+      whichLetter = grp.countChildren() -1  ;
+    }
+
     wheelLetter(numLetter, speed, jttr) ;
 
     
-    if(axeLetter < 0 ) axeLetter = 0 ; else if (axeLetter >= grp.countChildren()) axeLetter = grp.countChildren() - 1 ;
+    if(axeLetter < 0 ) {
+      axeLetter = 0 ; 
+    } else if (axeLetter >= grp.countChildren()) {
+      axeLetter = grp.countChildren() - 1 ;
+    }
     displayLetter(axeLetter, jttr) ;
   }
+
+
+
+
+
   
   int whichOneChangeDirection = 1 ;
   
@@ -143,9 +179,13 @@ class Letter extends Romanesco {
       int targetLetter ;
       targetLetter = whichLetter +i ;
       if (targetLetter < grp.countChildren() ) {
-        if(i%whichOneChangeDirection == 0 ) speed  = speed *-1  ;
+        if(i%whichOneChangeDirection == 0 ) {
+          speed  = speed *-1  ;
+        }
         speed = speed *startDirection ;
-        if(motion[ID_item]) grp.children[targetLetter].rotate(speed, grp.children[axeLetter].getCenter());
+        if(speed != 0) {
+          grp.children[targetLetter].rotate(speed, grp.children[axeLetter].getCenter());
+        }
         displayLetter(targetLetter, jttr) ;
       }
     }

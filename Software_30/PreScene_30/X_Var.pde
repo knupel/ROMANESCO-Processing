@@ -1,5 +1,5 @@
 /** 
-VARIABLE 1.1.6.1
+VARIABLE 1.1.8
 */
 // GLOBAL SETTING ////
 
@@ -94,8 +94,7 @@ boolean load_SCENE_Setting_GLOBAL, save_Current_SCENE_Setting_GLOBAL, save_New_S
 //boolean modeP3D, modeP2D, modeOPENGL, modeClassic ;
 //spectrum band
 int NUM_BANDS = 16 ;
-//font
-int numFont = 50 ;
+
 //quantity of group object slider
 int NUM_GROUP = 1 ;
 
@@ -298,7 +297,6 @@ String spectrum_name = "spectrum" ;
 /**
 End var item
 */
-//OSC VAR
 // button
 int whichFont ;
 
@@ -382,8 +380,13 @@ boolean [] fill_is, stroke_is ;
 boolean [] setting, clearList ;
 
 //main font for each object
-String [] path_font_TTF, pathFontVLW, path_font_item_TTF ;
-PFont font[]  ;
+// String [] path_font_TTF, pathFontVLW ;
+//font
+int numFont = 50 ;
+String [] path_font_library, path_font_item ;
+String path_font_default_ttf ;
+PFont font_library ;
+PFont [] font_item ;
 
 
 
@@ -456,7 +459,6 @@ void createMiscVar() {
   // costume
   costume = new int[NUM_ITEM] ;
 
-
   // IMAGE
   bitmap_import = new PImage[NUM_ITEM] ;
   which_bitmap = new int[NUM_ITEM] ;
@@ -475,16 +477,27 @@ void createMiscVar() {
   text_import = new String [NUM_ITEM] ;
   which_text = new int[NUM_ITEM] ;
   //main font for each object
-  font = new PFont[NUM_ITEM] ;
+  // font = new PFont[NUM_ITEM] ;
+  /*
   path_font_item_TTF = new String[NUM_ITEM] ;
   path_font_TTF = new String [numFont] ;  
   pathFontVLW = new String [numFont] ;
-  font = new PFont[numFont] ;
+  */ 
+
+  path_font_library = new String[numFont] ;
+  path_font_item = new String[NUM_ITEM] ;
+
+  font_item = new PFont[NUM_ITEM] ;
+
   //MISC
   //var to init the data of the object when is switch ON for the first time
   initValueMouse = new boolean [NUM_ITEM]  ;
   initValueControleur = new boolean [NUM_ITEM]  ;
 }
+
+
+
+
 
 // var cursor
 void create_variableCursor() {
@@ -498,6 +511,8 @@ void create_variableCursor() {
   //pen info
    pen = new Vec3[NUM_ITEM] ;
 }
+
+
 
 
 // P3D

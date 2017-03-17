@@ -188,9 +188,9 @@ class Atome extends Romanesco {
       //MODE OF DISPLAY
       //RPE_mode = "Chemical Name/File text/Electronic cloud/Ellipse schema/Ellipse cloud/Triangle schema/Triangle cloud/Rectangle schema/Rectangle cloud/Box schema/Box cloud/Sphere schema/Sphere cloud" ;
       if (mode[ID_item] == 0 || mode[ID_item] == 255 ) {
-        atm.titleAtom2D (fill_item[ID_item], stroke_item[ID_item], font[ID_item], sizeTextName, sizeTextInfo, posTextInfo, angle_item[ID_item]) ; // (color name, color Info, PFont, int sizeTextName,int  sizeTextInfo )
+        atm.titleAtom2D (fill_item[ID_item], stroke_item[ID_item], font_item[ID_item], sizeTextName, sizeTextInfo, posTextInfo, angle_item[ID_item]) ; // (color name, color Info, PFont, int sizeTextName,int  sizeTextInfo )
       } else if (mode[ID_item] == 1 ) { 
-        atm.title2D(fill_item[ID_item], font[ID_item], sizeTextName, posText, angle_item[ID_item]) ;
+        atm.title2D(fill_item[ID_item], font_item[ID_item], sizeTextName, posText, angle_item[ID_item]) ;
       } else if (mode[ID_item] == 2 ) {
         atm.display("", "POINT", sizeAtomeXYZ, fill_item[ID_item], stroke_item[ID_item], thickness, angle_item[ID_item]) ;
       } else if (mode[ID_item] == 3 ) {

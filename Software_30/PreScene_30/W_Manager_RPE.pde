@@ -1,5 +1,5 @@
 /**
-Rope Manager 2.0.5.1
+Rope Manager 2.0.5.2
 */
 RPE_MANAGER rpe_manager ;
 // CLASS ROMANESCO MANAGER
@@ -21,7 +21,8 @@ void update_var_items(int ID) {
     initValueMouse[ID] = true ;
   }
   if(!initValueControleur[ID]) {
-    font[ID] = font[0] ;
+    font_item[ID] = font_library ;
+    path_font_item[ID] = path_font_library[0] ;
     update_slider_value(ID) ;
     initValueControleur[ID] = true ;
     which_bitmap[ID] = which_bitmap[0] ;
@@ -39,7 +40,7 @@ void update_var_items(int ID) {
     which_text[ID] = which_text[0] ;
     which_svg[ID] = which_svg[0] ;
     which_movie[ID] = which_movie[0] ;
-    font[ID] = font[0] ;
+    font_item[ID] = font_library ;
     update_slider_value(ID) ;
   }
   update_var_sound(ID) ;

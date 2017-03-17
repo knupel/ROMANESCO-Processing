@@ -1,6 +1,6 @@
 /**
 Ecosysteme Host 2016-2017
-V 0.1.1
+V 0.1.2
 */
 class Ecosystem_DNA extends Romanesco {
 	public Ecosystem_DNA() {
@@ -8,7 +8,7 @@ class Ecosystem_DNA extends Romanesco {
 		ID_item = 27 ;
 		ID_group = 1 ;
 		RPE_author  = "Stan le Punk";
-		RPE_version = "Version 0.1.1";
+		RPE_version = "Version 0.1.2";
 		RPE_pack = "Ecosystem" ;
 		RPE_mode = "Point/Ellipse/Triangle/Rect/Cross/ABC" ; // separate the differentes mode by "/"
 		RPE_slider = "Fill hue,Fill sat,Fill bright,Fill alpha,Stroke hue,Stroke sat,Stroke bright,Stroke alpha,Thickness,Size X,Size Y,Size Z,Canvas X,Canvas Y,Canvas Z,Speed X,Direction X,Quantity,Density,Spectrum" ;
@@ -62,7 +62,7 @@ class Ecosystem_DNA extends Romanesco {
     
     boolean_host(fill_is[ID_item], stroke_is[ID_item], wire[ID_item]) ;
 
-    if(costume[ID_item] == TEXT_ROPE ) textFont(font[ID_item]) ;
+    if(costume[ID_item] == TEXT_ROPE ) textFont(font_item[ID_item]) ;
 
     select_costume(ID_item, RPE_name) ;
 

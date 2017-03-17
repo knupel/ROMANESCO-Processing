@@ -1,5 +1,5 @@
 /**
-RSS || 2012 || 1.1.0
+RSS || 2012 || 1.1.1
 */
 class RSS extends Romanesco {
   public RSS() {
@@ -8,7 +8,7 @@ class RSS extends Romanesco {
     ID_item = 3 ;
     ID_group = 1 ;
     RPE_author  = "Stan Le Punk";
-    RPE_version = "version 1.1";
+    RPE_version = "version 1.1.1";
     RPE_pack = "Base" ;
     romanescoRender = "classic" ;
     RPE_mode = "" ; // separate the name by a slash and write the next mode immadialtly after this one.
@@ -52,7 +52,7 @@ class RSS extends Romanesco {
   //DRAW
   void draw() {
     float sizeFont = font_size_item[ID_item] ;
-    textFont(font[ID_item], sizeFont + ( sizeFont *mix[ID_item]) *allBeats(ID_item) );
+    textFont(font_item[ID_item], sizeFont + ( sizeFont *mix[ID_item]) *allBeats(ID_item) );
     // couleur du texte
     float t = alpha(fill_item[ID_item]) * abs(mix[ID_item]) ;
     if ( sound[ID_item] ) { t = alpha(fill_item[ID_item]) ; } 
