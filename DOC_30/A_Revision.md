@@ -73,6 +73,7 @@ MAJOR
 > add mode "HOME", now you can work directly on Préscène
 > change mode "CLASSIC" to "LIVE"
 > change mode "MIROIR" to "MIRROR"
+> disable the full possibility to set the size of your window, the reason is a bug in the Processing language in the P3D resize window.
 
 
 

@@ -8,7 +8,7 @@ class Webcam extends Romanesco {
     ID_item = 22 ;
     ID_group = 1 ;
     RPE_author  = "Stan le Punk";
-    RPE_version = "Version 1.2.3";
+    RPE_version = "Version 1.2.4";
     RPE_pack = "Base" ;
     RPE_mode = "Rectangle color/Rectangle mono/Point color/Point mono/Box color/Box mono" ;
     RPE_slider = "Fill hue,Fill sat,Fill bright,Fill alpha,Size X,Size Y,Size Z,Canvas X,Canvas Y" ;
@@ -32,10 +32,11 @@ class Webcam extends Romanesco {
   
   //SETUP
   void setup() {
-    setting_start_position(ID_item, width/2, height/2, 0) ;
+    setting_start_position(ID_item, 0, 0, 0) ;
   }
   //DRAW
   void draw() {
+    video_camera_manager() ;
     //PART ONE
     //calcul the ration between the size of camera and the size of the scene
     factorDisplayCam.x = width / CAM_SIZE.x ; 
@@ -64,18 +65,19 @@ class Webcam extends Romanesco {
     
     cols = (int)CAM_SIZE.x / cellSizeX; // before the resizing
     rows = (int)CAM_SIZE.y / cellSizeY;
-    if (cam.available()) {
+    if (BROADCAST) {
       cam.loadPixels();
       for (int i = 0; i < cols ; i++) {
-        for (int j = 0; j < rows  ; j++) {
+        for (int j = 0; j < rows ; j++) {
           // Where are we, pixel-wise?
           posPixelX = i *cellSizeX  ;
           posPixelY = j *cellSizeY  ;
           //// display pixel 
-          int  loc = posPixelX  +posPixelY *cam.width; // classic
+          int  loc = posPixelX +posPixelY *cam.width; // classic
           //  int loc = (cam.width - x - 1) + y*cam.width; // mirror
           //make pixel
           if(cam.pixels.length > 0) {
+
             PVector hsb = new PVector (hue(cam.pixels[loc]), saturation(cam.pixels[loc]), brightness(cam.pixels[loc]) ) ;
             // Make a new color with an alpha component
             displayPix(mode[ID_item],hsb) ; 
@@ -88,10 +90,7 @@ class Webcam extends Romanesco {
       text("Big Brother stops watching you, you're so boring !",0,0) ;
     }
     
-
-    
-    rectMode (CORNER) ; 
-    ////////////////////
+    rectMode (CORNER) ;
 
   }
   

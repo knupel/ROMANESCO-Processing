@@ -179,25 +179,3 @@ travelling(PVector targetPos) ; // the camera go to a specific point in the scen
 
 
 
-
-
-
-
-
-
-CAMERA COMPUTER / WEB CAM / EXTERNAL CAMERA
-----------------------------------------------
-You can call the video capture directly, you don't need to write code about the librairy.
-you can use directly the Capture methode of the processing.video.*
-
-In the description of the object write 
-romanescoVideo = "YES" ;
-
-PVector CAM_SIZE ; @return the width and the height of the current video capture
-boolean CAMERA_AVAILABLE ; #return the statement of the device camera
-
-String[] cam_name ; @return the name of all the camera available
-PVector[] cam_size ; @return the size of all the camera available
-int[] cam_fps ; @return the fps of all the camera available
-int which_cam ; @return the ID of the current camera
-

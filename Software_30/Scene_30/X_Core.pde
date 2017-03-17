@@ -1936,7 +1936,7 @@ SOUND END
 
 /**
 
-CAMERA COMPUTER 1.0.0
+CAMERA COMPUTER 1.1.0
 
 */
 Capture cam;
@@ -1948,6 +1948,7 @@ int which_cam = 0;
 int ref_cam = -1 ;
 PVector CAM_SIZE ;
 boolean CAMERA_AVAILABLE ;
+boolean BROADCAST ;
 
 boolean new_cam = true ;
 boolean stop_cam = false ;
@@ -1961,13 +1962,20 @@ void camera_video_setup() {
   if(new_cam && which_cam > -1) launch_camera(which_cam) ;
 }
 
-void camera_video_draw() {
+void video_camera_manager() {
   if(ref_cam != which_cam || which_cam == -1) {
     new_cam = true ;
-    camera_stop() ;
-    ref_cam = which_cam ;
-    if (new_cam && which_cam > -1 ) launch_camera(which_cam) ;
-    if (cam.available()) cam.read();
+    video_camera_stop() ;
+    ref_cam = which_cam ;    
+  }
+
+  if (new_cam && which_cam > -1 ) {
+    BROADCAST = true ;
+    launch_camera(which_cam) ;
+  }
+
+  if (cam.available() && BROADCAST) {
+    cam.read();
   }
 }
 
@@ -1990,9 +1998,10 @@ void launch_camera(int which_cam) {
   }
 }
 
-void camera_stop() {
+void video_camera_stop() {
   cam.stop() ;
   init_cam = false ;
+  BROADCAST = false ;
 }
 
 
@@ -2001,7 +2010,7 @@ void camera_stop() {
 void init_camera(int which_camra) {
   cam = new Capture(this, cameras[which_camra]);
   cam.start();     
-  cam.read(); 
+  // cam.read(); 
 
 }
 
