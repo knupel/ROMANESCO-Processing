@@ -1,6 +1,6 @@
 /**
 Romanesco Unu
-2012 – 2017
+2013 – 2017
 version 1.2.0 
 release 30 
 Processing 3.2.4 

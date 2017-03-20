@@ -2,6 +2,15 @@ ROMANESC0 1.2.0.30
 ITEM
 ROMANESCO PROCESSING ENVIRONMENT
 --
+
+
+
+
+
+
+
+
+
 METHOD
 --
 void setup()
@@ -9,6 +18,11 @@ void setup()
 void draw()
 --
 if you use other void you must call this one in one of them
+
+
+
+
+
 
 
 
@@ -115,7 +129,7 @@ the other mode don't use a 3D costume in this time, but the future is not write 
 
 
 COMMAND  / BOOLEAN method
-------------------------------------------
+--
 reset(ID_item) 
 > from keyboard "BACKSPACE" and "DELETE"
 > CONDITION 1 : if the button "BACKSPACE" is pressed and "ACTION" or "PARAMETER" and is ON
@@ -139,7 +153,7 @@ SETTING
 
 
 RESET OBJECT : empty the object list
-––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+––
 To empty the list or reset object activate by backspace and delete
 boolean resetAction(ID_item) when the Action button is On
 
@@ -155,7 +169,7 @@ boolean resetParameter(int ID_item)
 
 
 DISPLAY INFO on SCENE
-–––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+––
 boolean objectInfoDisplay[ID_item] use to display info or what you want show on Prescene or Scene from your object, activate by "i" key - boolean iTouch
 
 String objectName[ID_item] return the name of your object
@@ -173,7 +187,7 @@ int objectID[ID_item] return the ID of the object
 
 
 CAMERA RPE / P3D / INTERNAL CAMERA
-––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+––
 travelling(PVector targetPos) ; // the camera go to a specific point in the scene
 
 

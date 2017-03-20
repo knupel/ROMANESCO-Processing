@@ -10,7 +10,7 @@ class Movisco extends Romanesco {
 		RPE_author  = "Stan le Punk";
 		RPE_version = "Version 0.0.2";
 		RPE_pack = "Base" ;
-		RPE_mode = "Point/Ellipse/Triangle/Rectangle/Cross/Star 5" ; // separate the differentes mode by "/"
+		RPE_mode = "Monochrome/Polychrome" ; // separate the differentes mode by "/"
 		RPE_slider = "Fill hue,Fill sat,Fill bright,Fill alpha,Quantity,Quality,Area,Size X" ;
 	}
 
@@ -56,13 +56,14 @@ class Movisco extends Romanesco {
 				int size_cloud_pix = int(map(area_item[ID_item], width *.1, width *PHI, 1, max_radius_pix)) ;
 				
 				float comp_1 = 1 ; // red or hue
+				if(mode[ID_item] == 0 ) comp_1 = map(hue(fill_item[ID_item]),0,360,0,1) ; // to make monochrome movie
 				float comp_2 =  map(saturation(fill_item[ID_item]),0,100,0,1) ; // green or saturation
 				float comp_3 =  map(brightness(fill_item[ID_item]),0,100,0,1) ;  // blue or brightnes
 				float comp_4 = map(alpha(fill_item[ID_item]),0,100,0,1) ; // alpha
 				float comp_5 = .9 ; // pixel density in case or the pixel are particle system
 				Vec5 density = Vec5(comp_1,comp_2,comp_3,comp_4,comp_5) ; // Vec5(red,green,blue,alpha, pixel density) value factor between 0 and 1
 
-				float size_pix = map(size_x_item[ID_item], width *.01, width, .1, width *.01) ;
+				float size_pix = map(size_x_item[ID_item], width *.01, width, .3, width *.03) ;
 				String pattern = "4_RANDOM" ;
 				float depth = 0 ;
 				display_movie_cloud(size_pix, size_cloud_pix, pattern, density, depth, quantity_item[ID_item]) ;
@@ -158,7 +159,12 @@ class Movisco extends Romanesco {
 	  for (int i = 0; i < cols; i++) {
 	    for (int j = 0; j < rows; j++) {
 	      int which_point = i *rows +j ;
-	      float r = color_temp[which_point].r *density_cloud.a ;
+	      float r = 1 ; 
+	      if(mode[ID_item] == 0) {
+	      	r = density_cloud.a *g.colorModeX ;
+	      } else {
+	      	r = color_temp[which_point].r *density_cloud.a ;
+	      }
 	      float gr = color_temp[which_point].g *density_cloud.b;
 	      float b = color_temp[which_point].b *density_cloud.c;
 	      float a =  value_alpha_max *density_cloud.d ;

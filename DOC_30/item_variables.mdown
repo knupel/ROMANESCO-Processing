@@ -6,19 +6,48 @@ VARIABLES
 --
 
 
+VAR GLOBAL
+--
+var can be set to give information to Controller
+int RPE_name = "Surface" ;
+
+int ID_item = 23 ;
+
+int ID_group = 1 ; 
+
+String RPE_author  = "Stan le Punk";
+
+String RPE_version = "Version 1.0.2";
+
+String RPE_pack = "Base" ;
+
+String RPE_mode = "Surfimage/Vague/Vague++" ; 
+>list name display in the dropdown menu controller, separate the differentes mode by "/"
+
+String RPE_slider = "Fill hue,Fill sat,Fill bright,Fill alpha,Stroke hue,Stroke sat,Stroke bright,Stroke alpha,Thickness,Influence,Canvas X,Canvas Y,Quality,Canvas X,Speed X,Size X,Swing X" ;
+>list of slider name display in the Controller, must be separate by comma ',' no space between the word.
+
+
+
+
+
+
+
 BUTTON
 ––––––
-mode[ID_item] 
-@return int the number of the displaying mode start from '0'
+int mode[ID_item] 
+>if you have few modes active, this var return which mode is active. '0' is the first element of the list
 
-action[ID_item] 
-@return boolean / we use this one for the mouse move + vTouch in Romanesco application
+boolean action[ID_item] 
+>we use this one for the mouse move + vTouch in Romanesco application
 
-sound[ID_item] 
-@return boolean 
+boolean sound[ID_item] 
+>authorize item to receive sound effect
 
-parameter[ID_item] 
-@return boolean 
+boolean parameter[ID_item] 
+>authorize item to receive data from Controller sliders
+
+
 
 
 
@@ -63,6 +92,11 @@ wire[ID_item] > from keyboard "W"
 fill_is[ID_item] > from keyboard "J"
 
 stroke_is[ID_item] > from keyboard "K"
+
+
+
+
+
 
 
 
@@ -235,7 +269,7 @@ quality_item[ID_item] ;
 >return float value: 0, 1
 
 area_item[ID_item] ; 
->return loat value: width *.1, width *PHI
+>return float value: width *.1, width *PHI
 
 angle_item[ID_item] ;
 >return float value: 0, 360.0

@@ -1,5 +1,5 @@
 Romanesco Unu
-2011-2016 - version 1.2.0.30
+2011-2017 - version 1.2.0.30
 Romanesco is free and free, but for the commercial use that can be good to do a donation !
 Romanesco is under CeCill License - http://www.cecill.info/licences/Licence_CeCILL_V2-en.html -
 
@@ -7,7 +7,7 @@ Core code: Stan le Punk
 UX Design: Stan le Punk
 Graphic Design: Stan le Punk 
 Objects Contributors: Andreas Gysin, Amnon Owen, KOF, 
-Alexandre Petit, David Robayo, Stan le Punk.
+Alexandre Petit, Stan le Punk.
 
 Code feedback: Dinh Doan Van Bien, Jérôme Forêt.
 UX feedback: Ivan Jukanovic, Clément Seurat, Etienne Auger, Alexandre Augier
@@ -22,12 +22,10 @@ Financial support: Laetitia Natali aka Lalou
 Network support: Ludovic Laurent, Tutoprocessing, Le Collagiste, Processing Lyon, Processing Rennes,
 VJUnion.
 
-Library and Mode from: Daniel Shiffman, Marius Waltz, Andres Colubri, Andreas Schlegel, 
-Ricard Marxer, Michael Heuer, Manindra Moharana.
-
-Processing Organisation: Casey Reas, Ben Fry.
+Processing Foundation: Casey Reas, Ben Fry 
+and all contributors: Daniel Shiffman, Andres Colubri, Andreas Schlegel...
 
 Special Thanks: Mark Webster for the Processing Paris workshop, 
-and all people from the Processing Forum.
+and all folk from the Processing Forum.
 
 
