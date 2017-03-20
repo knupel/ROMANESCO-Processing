@@ -1,5 +1,5 @@
 /**
-Class Motion 1.0.7
+Class Motion 1.0.7.2
 Rope – Romanesco Processing Environment – 2015 – 2017
 * @author Stan le Punk
 * @see https://github.com/StanLepunK/Motion
@@ -140,7 +140,8 @@ class Motion {
 
 
   /**
-  leading
+  leading 
+  v 0.0.3
   */
   public Vec2 leading(Vec2 leading_pos, Vec2 exec_pos) {
     Vec3 current_pos_3D = Vec3(leading_pos) ;
@@ -229,9 +230,12 @@ class Motion {
 
     // calcul direction
     if(!tempo_is) tempo = int(frameRate *.25) ;
-    if(frameCount%tempo == 0) {
-      for_dir.set(leading_pos) ;
-    } 
+    if(tempo != 0) {
+      if(frameCount%tempo == 0) {
+        for_dir.set(leading_pos) ;
+      } 
+    }
+    
     //
     return vel_vec3 ;
   }

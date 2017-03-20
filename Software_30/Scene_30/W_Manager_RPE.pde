@@ -1,5 +1,5 @@
 /**
-Rope Manager 2.0.5.2
+Rope Manager 2.0.5.3
 */
 RPE_MANAGER rpe_manager ;
 // CLASS ROMANESCO MANAGER
@@ -504,6 +504,9 @@ class RPE_MANAGER {
           final_pos_item(objR.ID_item) ;
           objR.draw() ;
           popMatrix() ;
+        } else {
+          // pause reading movie
+          read_movie(false, objR.ID_item) ;
         }
       }
     }

@@ -26,7 +26,7 @@ PVector sizeButtonStart = new PVector (210, 20) ;
 // "X" and  "Y" componant give the button position    "Z" componant = space between the button
 PVector posWhichScreenButton = new PVector (150, 100, 23) ;
 
-int [] standard_format_for_Processing_bug = {0,800,1024,1600,1920,2560,3840} ;
+int [] standard_format_for_Processing_bug = {0,640,1024,1280,1600,1920,2560,3840} ;
 
 int [] standard_size_width = {160,240,320,480,640,800,964,1024,1280,1344,1366,1400,1440,1600,1680,1920,2048,2560,2880,3840,4096,5120,6400,7680,8192,16384} ;
 int [] standard_size_height = {120,160,240,320,480,544,576,600,640,720,768,800,900,960,1000,1008,1024,1050,1080,1200,1536,1600,1800,2048,2304,2400,2880,3072,4096,4320,4800,6144,12288} ;

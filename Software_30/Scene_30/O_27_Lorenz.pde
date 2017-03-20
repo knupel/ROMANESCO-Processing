@@ -100,15 +100,3 @@ class Lorenz extends Romanesco {
     if(mode == 0 ) endShape() ;
   }
 }
-
-
-
-
-
-
-
-
-
-
-
-

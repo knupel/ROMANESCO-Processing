@@ -1,5 +1,5 @@
 /**
-CORE LAUNCHER 1.0.1
+CORE LAUNCHER 1.0.2
 */
 
 /**
@@ -54,7 +54,7 @@ void set_structure() {
   Vec2 size_window = Vec2(180, 20) ;
   Vec2 size_fullscreen = Vec2(180, 20) ;
 
-  buttonWindow = new Button(pos_window, size_window, c1, c2, c3, c4, "in the Window") ;
+  buttonWindow = new Button(pos_window, size_window, c1, c2, c3, c4, "in Window") ;
   buttonFullscreen = new Button(pos_fullscreen, size_fullscreen, c1, c2, c3, c4, "in Fullscreen") ;
   
   // start
@@ -89,23 +89,26 @@ void set_data() {
   if(resize_bug) {
     int id_app = widthSlider-1 ;
     if(id_app == 1) {
-      path_prescene_window = (sketchPath("") + "sources/Prescene_"+version+"_window_tiny.app");
-      path_scene_window = (sketchPath("") + "sources/Scene_"+version+"_window_tiny.app");
+      path_prescene_window = (sketchPath("") + "sources/Prescene_"+version+"_window_640.app");
+      path_scene_window = (sketchPath("") + "sources/Scene_"+version+"_window_640.app");
     } else if (id_app == 2) {
-      path_prescene_window = (sketchPath("") + "sources/Prescene_"+version+"_window_small.app");
-      path_scene_window = (sketchPath("") + "sources/Scene_"+version+"_window_small.app");
+      path_prescene_window = (sketchPath("") + "sources/Prescene_"+version+"_window_1024.app");
+      path_scene_window = (sketchPath("") + "sources/Scene_"+version+"_window_1024.app");
     } else if (id_app == 3) {
-      path_prescene_window = (sketchPath("") + "sources/Prescene_"+version+"_window_medium.app");
-      path_scene_window = (sketchPath("") + "sources/Scene_"+version+"_window_medium.app");
+      path_prescene_window = (sketchPath("") + "sources/Prescene_"+version+"_window_1280.app");
+      path_scene_window = (sketchPath("") + "sources/Scene_"+version+"_window_1280.app");
     } else if (id_app == 4) {
-      path_prescene_window = (sketchPath("") + "sources/Prescene_"+version+"_window_standard.app");
-      path_scene_window = (sketchPath("") + "sources/Scene_"+version+"_window_standard.app");
+      path_prescene_window = (sketchPath("") + "sources/Prescene_"+version+"_window_1600.app");
+      path_scene_window = (sketchPath("") + "sources/Scene_"+version+"_window_1600.app");
     } else if (id_app == 5) {
-      path_prescene_window = (sketchPath("") + "sources/Prescene_"+version+"_window_big.app");
-      path_scene_window = (sketchPath("") + "sources/Scene_"+version+"_window_big.app");
+      path_prescene_window = (sketchPath("") + "sources/Prescene_"+version+"_window_1920.app");
+      path_scene_window = (sketchPath("") + "sources/Scene_"+version+"_window_1920.app");
     } else if (id_app == 6) {
-      path_prescene_window = (sketchPath("") + "sources/Prescene_"+version+"_window_huge.app");
-      path_scene_window = (sketchPath("") + "sources/Scene_"+version+"_window_huge.app");
+      path_prescene_window = (sketchPath("") + "sources/Prescene_"+version+"_window_2560.app");
+      path_scene_window = (sketchPath("") + "sources/Scene_"+version+"_window_2560.app");
+    } else if (id_app == 7) {
+      path_prescene_window = (sketchPath("") + "sources/Prescene_"+version+"_window_3840.app");
+      path_scene_window = (sketchPath("") + "sources/Scene_"+version+"_window_3840.app");
     }
   } else {
     path_prescene_window = (sketchPath("") + "sources/Prescene_"+version+"_window.app");

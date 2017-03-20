@@ -1357,9 +1357,3 @@ PVector eyeAdvanced(PVector PreviousPos, PVector pos, PVector speed) {
   if(eyeP3D.y < 0) eyeP3D.y = 360 ;
   return eyeP3D ;
 }
-
-
-
-
-
-

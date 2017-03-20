@@ -1,8 +1,8 @@
 /**
 Romanesco Unu
-2013 – 2017
-version 1.2.0 
-release 30 
+2012 – 2017
+pretty version 1.2.0.30
+version 30
 Processing 3.3
 */
 /**

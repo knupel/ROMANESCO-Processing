@@ -1476,12 +1476,3 @@ void update_log(ArrayList<Agent> list, int tempo) {
     }
   }
 }
-
-
-
-
-
-
-
-
-

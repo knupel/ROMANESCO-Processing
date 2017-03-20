@@ -1,5 +1,7 @@
 /**
-Movisco || 2016 || 0.0.2
+Movisco 
+2016-2017
+v 0.0.3
 */
 
 class Movisco extends Romanesco {
@@ -8,7 +10,7 @@ class Movisco extends Romanesco {
 		ID_item = 24 ;
 		ID_group = 1 ;
 		RPE_author  = "Stan le Punk";
-		RPE_version = "Version 0.0.2";
+		RPE_version = "Version 0.0.3";
 		RPE_pack = "Base" ;
 		RPE_mode = "Monochrome/Polychrome" ; // separate the differentes mode by "/"
 		RPE_slider = "Fill hue,Fill sat,Fill bright,Fill alpha,Quantity,Quality,Area,Size X" ;
@@ -25,12 +27,14 @@ class Movisco extends Romanesco {
 
 	int pix_step = 25 ;
 	int pix_step_ref = 25 ;
+	boolean first_read = false ;
 
 	// setup
 	void setup() {
     setting_start_position(ID_item, 0, 0, 0) ;
     load_movie(ID_item) ;
-		set_movie(pix_step, ID_item) ;
+		// set_movie(pix_step, ID_item) ;
+		pix_step_ref = 0 ;
 	}
 
 
@@ -40,15 +44,19 @@ class Movisco extends Romanesco {
 	void draw() {
 		// set grid
 		pix_step = int(map(quality_item[ID_item], 0,1, 50,1)) ;
-		if(pix_step_ref != pix_step) {
-			set_movie(pix_step, ID_item) ;
+		if(pix_step_ref != pix_step || !first_read) {
+			// set_movie(pix_step, ID_item) ;
 			pix_step_ref = pix_step ;
+			set_movie(pix_step, ID_item) ;
+			first_read = true ;
 		}
+
 
 		if(!FULL_RENDERING) {
 			canvas_movisco(movieImport[ID_item].width -pix_step , movieImport[ID_item].height -(pix_step/2)) ;
 		} else {
 			if(movieImport[ID_item] != null) {
+				read_movie(motion[ID_item], ID_item) ;
 				analyze_movie_pixel(ID_item) ;
         
 
@@ -57,8 +65,8 @@ class Movisco extends Romanesco {
 				
 				float comp_1 = 1 ; // red or hue
 				if(mode[ID_item] == 0 ) comp_1 = map(hue(fill_item[ID_item]),0,360,0,1) ; // to make monochrome movie
-				float comp_2 =  map(saturation(fill_item[ID_item]),0,100,0,1) ; // green or saturation
-				float comp_3 =  map(brightness(fill_item[ID_item]),0,100,0,1) ;  // blue or brightnes
+				float comp_2 = map(saturation(fill_item[ID_item]),0,100,0,1) ; // green or saturation
+				float comp_3 = map(brightness(fill_item[ID_item]),0,100,0,1) ;  // blue or brightnes
 				float comp_4 = map(alpha(fill_item[ID_item]),0,100,0,1) ; // alpha
 				float comp_5 = .9 ; // pixel density in case or the pixel are particle system
 				Vec5 density = Vec5(comp_1,comp_2,comp_3,comp_4,comp_5) ; // Vec5(red,green,blue,alpha, pixel density) value factor between 0 and 1
@@ -67,6 +75,8 @@ class Movisco extends Romanesco {
 				String pattern = "4_RANDOM" ;
 				float depth = 0 ;
 				display_movie_cloud(size_pix, size_cloud_pix, pattern, density, depth, quantity_item[ID_item]) ;
+
+				// println(pix_step_ref, pix_step, size_pix, size_cloud_pix, density, quantity_item[ID_item]) ;
 			}
 		}
 	}
@@ -155,7 +165,6 @@ class Movisco extends Romanesco {
 	        
 	  if(g.colorMode == 1 ) for (int i = 0 ; i < color_pixel_RGB.length ;i++) color_temp[i] = color_pixel_RGB[i].copy() ;
 	  else for (int i = 0 ; i < color_pixel_HSB.length ;i++) color_temp[i] = color_pixel_HSB[i].copy() ;
-	  
 	  for (int i = 0; i < cols; i++) {
 	    for (int j = 0; j < rows; j++) {
 	      int which_point = i *rows +j ;
@@ -202,8 +211,11 @@ class Movisco extends Romanesco {
 	void pixel_cloud(Vec3 pos, Vec3 size, int num, int radius, String pattern) {
 	  Pixel_cloud p = new Pixel_cloud(num, "3D", "ORDER") ;
 	  p.size(size) ;
-	  p.beat(20) ;
-	  p.pattern(pattern) ;
+	  if(motion[ID_item])  {
+	  	p.beat(20) ;
+	  	p.pattern(pattern) ;
+	  }
+
 	  p.distribution(Vec3(pos.x +(step_grid /2),pos.y,pos.z), radius) ;
 	  p.show() ;
 	}

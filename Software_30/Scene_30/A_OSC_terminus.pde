@@ -242,7 +242,3 @@ void translate_other_event_prescene() {
   if(valueTempPrescene[72].equals("0")) ORDER_THREE = false ; else ORDER_THREE = true ;
   if(valueTempPrescene[73].equals("0")) LEAPMOTION_DETECTED = false ; else LEAPMOTION_DETECTED = true ;
 }
-
-
-
-

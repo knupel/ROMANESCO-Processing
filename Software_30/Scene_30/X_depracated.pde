@@ -989,21 +989,3 @@ String traductionWeather(int code) {
 /**
 END METEO
 */
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

@@ -1,8 +1,8 @@
 /**
 Romanesco Unu
-2013 – 2017
-version 1.2.0 
-release 30 
+2012 – 2017
+pretty version 1.2.0 
+version 30 
 Processing 3.3.0
 */
 /* 14.750 lines of code the 4th may !!!! */
@@ -28,19 +28,16 @@ void settings() {
   // When you build Romanesco you must create two versions : fullscreen and normal
   // size(124,124,P3D) ; // when the bug will be resolved, return to this config.
 
-  // size(550,350,P3D) ; // PREVIEW
-  // size(640,360,P3D) ; // TINY
-  // size(1024,576,P3D) ; // SMALL
-  size(1280,720,P3D) ; // MEDIUM
-  // size(1600,900,P3D) ; // NORMAL
-  // size(1920,1080,P3D) ; // LARGE
-  // size(2560,1440) ; // BIG
-  // size(3840,2160) ; // HUGE
+  // size(640,360,P3D) ; // 640
+  // size(1024,576,P3D) ; // 1024
+  // size(1280,720,P3D) ; // 1280
+  // size(1600,900,P3D) ; // 1600
+  // size(1920,1080,P3D) ; // 1920
+  // size(2560,1440) ; // 2560
+  // size(3840,2160) ; // 3840
 
-  size(3840,2160) ; // HUGE
-
-  // fullScreen(P3D,2) ;
-  // FULL_SCREEN = true ;
+  fullScreen(P3D,2) ;
+  FULL_SCREEN = true ;
 
   pixelDensity(displayDensity()) ;
   syphon_settings() ;
@@ -101,7 +98,6 @@ void draw() {
   if(FULL_RENDERING) start_PNG("screenshot Romanesco scene", "Romanesco_"+year()+"_"+month()+"_"+day()+"_"+hour()+"_"+minute()+"_"+second()) ;
 
   syphon_draw() ;
-  camera_video_draw() ;
   if(!TEST_ROMANESCO) soundDraw() ;
   meteoDraw() ;
   update_OSC_data() ;

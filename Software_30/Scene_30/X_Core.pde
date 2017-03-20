@@ -408,7 +408,8 @@ void check_text_folder_scene() {
 
 
 /**
-movie
+movie 
+v 0.0.3
 */
 Movie[] movieImport ;
 ArrayList movie_files = new ArrayList();
@@ -436,13 +437,27 @@ void setting_movie(int ID_item) {
   if (lastThree.equals("MOV") || lastThree.equals("mov")) {
     movieImport[ID_item] = new Movie(this, movieImportPath[ID_item]);
     movieImport[ID_item].loop();
-    movieImport[ID_item].read();
+    movieImport[ID_item].pause();
   } else {
-    println("BIG BROTHER don't find any movie, that's can became a proble, a real problem for you !") ;
+    println("BIG BROTHER don't find any movie, that's can became a problem, a real problem for you !") ;
     /**
     bug between OSC and the text, but only in Romanesco, not in isolated sketch see folder Processing 3.0.2 bug
     */
     // text("BIG BROTHER disagree your movie and burn it !", width/2, height/2) ;
+  }
+}
+
+
+void movieEvent(Movie m) {
+   m.read(); 
+}
+
+
+void read_movie(boolean motion, int id_item) {
+  if(motion) {
+    if(movieImport[id_item] != null) movieImport[id_item].loop() ;
+  } else {
+    if(movieImport[id_item] != null) movieImport[id_item].pause() ;
   }
 }
 
@@ -487,6 +502,22 @@ void check_movie_folder_scene() {
     folder_movie_is_selected = false ;
   }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

@@ -283,32 +283,3 @@ void costume_DNA(Helix helix, int target, Vec3 size, float direction, int which_
   costume_rope(pos_b, size, angle_b, which_costume) ;
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

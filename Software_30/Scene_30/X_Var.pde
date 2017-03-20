@@ -1025,9 +1025,3 @@ void update_temp_value() {
 float allBeats(int ID) {
   return (beat[ID]*.25) +(kick[ID]*.25) +(hat[ID]*.25) +(snare[ID]*.25) ;
 }
-
-
-
-
-
-

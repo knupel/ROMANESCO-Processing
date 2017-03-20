@@ -1848,11 +1848,3 @@ class Masked extends Nucleotide {
     this.nac = 'X' ;
   }
 }
-
-
-
-
-
-
-
-
