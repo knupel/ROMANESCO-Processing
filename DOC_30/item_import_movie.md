@@ -10,8 +10,15 @@ You can use only the file.mov or file.MOV
 
 your object Movie is : movie_import[ID_item]
 
+boolean check_for_new_movie(int id) ;
+>check if there is a new movie selected from the Controller
 
-load_movie(int ID_item) ;
+
+classic_movie(int id, int place, boolean full_width, boolean full_height)
+>set your movie for a classing displaying
+
+
+void load_movie(int ID_item) ;
 setting_movie(int ID_item) ;
 > this method is used to lod and read your .mov in the setting() 
 

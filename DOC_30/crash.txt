@@ -30,9 +30,15 @@ java.lang.RuntimeException: Waited 5000ms for: <2c56e78c, 344167a7>[count 2, qsz
 
 
 
+
+
+
 Stop task 
 --
-x2
+x3
+--
+First run
+x1
 --
 RunnableTask.run(): A caught exception occured on thread main-Display-.macosx_nil-1-EDT-1: RunnableTask[enqueued true[executed false, flushed false], tTotal 0 ms, tExec 0 ms, tQueue 0 ms, attachment null, throwable java.lang.RuntimeException: Waited 5000ms for: <b1d0fc9, 5daf0da>[count 2, qsz 0, owner <main-FPSAWTAnimator#00-Timer0>] - <main-Display-.macosx_nil-1-EDT-1>]
 org.eclipse.jdi.TimeoutException: Timeout occurred while waiting for packet 60.

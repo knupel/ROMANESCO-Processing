@@ -1,7 +1,7 @@
 /**
 Movisco 
 2016-2017
-v 0.0.3
+v 0.0.4
 */
 
 class Movisco extends Romanesco {
@@ -10,9 +10,9 @@ class Movisco extends Romanesco {
 		ID_item = 24 ;
 		ID_group = 1 ;
 		RPE_author  = "Stan le Punk";
-		RPE_version = "Version 0.0.3";
+		RPE_version = "Version 0.0.4";
 		RPE_pack = "Base" ;
-		RPE_mode = "Monochrome/Polychrome" ; // separate the differentes mode by "/"
+		RPE_mode = "Classic mono/Classic Poly/Mono/Poly" ; // separate the differentes mode by "/"
 		RPE_slider = "Fill hue,Fill sat,Fill bright,Fill alpha,Quantity,Quality,Area,Size X" ;
 	}
 
@@ -33,7 +33,6 @@ class Movisco extends Romanesco {
 	void setup() {
     setting_start_position(ID_item, 0, 0, 0) ;
     load_movie(ID_item) ;
-		// set_movie(pix_step, ID_item) ;
 		pix_step_ref = 0 ;
 	}
 
@@ -41,11 +40,22 @@ class Movisco extends Romanesco {
 
 
 	// draw
+	int mode_ref ;
 	void draw() {
+		if(check_for_new_movie(ID_item) || mode_ref != mode[ID_item]) {
+			movieImport[ID_item].stop() ;
+			mode_ref = mode[ID_item] ;
+			first_read = false ;
+			load_movie(ID_item) ;
+			if(mode[ID_item] > 1 ) {
+				set_movie(pix_step, ID_item) ;
+			}
+		}
+
+
 		// set grid
 		pix_step = int(map(quality_item[ID_item], 0,1, 50,1)) ;
 		if(pix_step_ref != pix_step || !first_read) {
-			// set_movie(pix_step, ID_item) ;
 			pix_step_ref = pix_step ;
 			set_movie(pix_step, ID_item) ;
 			first_read = true ;
@@ -57,30 +67,43 @@ class Movisco extends Romanesco {
 		} else {
 			if(movieImport[ID_item] != null) {
 				read_movie(motion[ID_item], ID_item) ;
-				analyze_movie_pixel(ID_item) ;
-        
 
-        float max_radius_pix = pix_step *10 ;
-				int size_cloud_pix = int(map(area_item[ID_item], width *.1, width *PHI, 1, max_radius_pix)) ;
-				
-				float comp_1 = 1 ; // red or hue
-				if(mode[ID_item] == 0 ) comp_1 = map(hue(fill_item[ID_item]),0,360,0,1) ; // to make monochrome movie
-				float comp_2 = map(saturation(fill_item[ID_item]),0,100,0,1) ; // green or saturation
-				float comp_3 = map(brightness(fill_item[ID_item]),0,100,0,1) ;  // blue or brightnes
-				float comp_4 = map(alpha(fill_item[ID_item]),0,100,0,1) ; // alpha
-				float comp_5 = .9 ; // pixel density in case or the pixel are particle system
-				Vec5 density = Vec5(comp_1,comp_2,comp_3,comp_4,comp_5) ; // Vec5(red,green,blue,alpha, pixel density) value factor between 0 and 1
 
-				float size_pix = map(size_x_item[ID_item], width *.01, width, .3, width *.03) ;
-				String pattern = "4_RANDOM" ;
-				float depth = 0 ;
-				display_movie_cloud(size_pix, size_cloud_pix, pattern, density, depth, quantity_item[ID_item]) ;
+        if(mode[ID_item] > 1) {
+        	analyze_movie_pixel(ID_item) ;
+        	float max_radius_pix = pix_step *10 ;
+        	int size_cloud_pix = int(map(area_item[ID_item], width *.1, width *PHI, 1, max_radius_pix)) ;
+        	float comp_1 = 1 ; // red or hue
+					if(mode[ID_item] == 2 ) {
+						comp_1 = map(hue(fill_item[ID_item]),0,360,0,1) ; 
+					}// to make monochrome movie
+					float comp_2 = map(saturation(fill_item[ID_item]),0,100,0,1) ; // green or saturation
+					float comp_3 = map(brightness(fill_item[ID_item]),0,100,0,1) ;  // blue or brightnes
+					float comp_4 = map(alpha(fill_item[ID_item]),0,100,0,1) ; // alpha
+					float comp_5 = .9 ; // pixel density in case or the pixel are particle system
+					Vec5 density = Vec5(comp_1,comp_2,comp_3,comp_4,comp_5) ; // Vec5(red,green,blue,alpha, pixel density) value factor between 0 and 1
 
-				// println(pix_step_ref, pix_step, size_pix, size_cloud_pix, density, quantity_item[ID_item]) ;
+					float size_pix = map(size_x_item[ID_item], width *.01, width, .3, width *.03) ;
+					String pattern = "4_RANDOM" ;
+					float depth = 0 ;
+					boolean polychrome = true ;
+					if(mode[ID_item] == 2 ) polychrome = false ;
+					display_movie_cloud(size_pix, size_cloud_pix, pattern, density, depth, quantity_item[ID_item], polychrome) ;
+				} else {
+					if(mode[ID_item] == 0) {
+						tint(	hue(fill_item[ID_item]),
+									saturation(fill_item[ID_item]),
+									brightness(fill_item[ID_item]),
+									alpha(fill_item[ID_item]));
+					} else {
+						noTint() ;		
+					}
+					classic_movie(ID_item, CENTER, true, false) ;
+					
+				}
 			}
 		}
 	}
-
 
 
 
@@ -156,7 +179,7 @@ class Movisco extends Romanesco {
 	/**
 	display the pixel
 	*/
-	void display_movie_cloud(float size_pix, int size_pix_cloud, String pattern, Vec5 density_cloud, float ratio_depth, float quantity) {
+	void display_movie_cloud(float size_pix, int size_pix_cloud, String pattern, Vec5 density_cloud, float ratio_depth, float quantity, boolean polychrome) {
 	  // setting color because the color pix can be diffenrent for the RGB or the HSB
 	  /* catch the value of the alpha, because this one is not a component of the video, but from the colorMode.
 	  And we don't know this one in advance */
@@ -169,7 +192,7 @@ class Movisco extends Romanesco {
 	    for (int j = 0; j < rows; j++) {
 	      int which_point = i *rows +j ;
 	      float r = 1 ; 
-	      if(mode[ID_item] == 0) {
+	      if(!polychrome) {
 	      	r = density_cloud.a *g.colorModeX ;
 	      } else {
 	      	r = color_temp[which_point].r *density_cloud.a ;

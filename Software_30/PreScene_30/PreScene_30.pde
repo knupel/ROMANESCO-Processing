@@ -27,7 +27,7 @@ maximum possibility of the object
 full frame rate
 */
 boolean TEST_ROMANESCO = false ;
-boolean FULL_RENDERING = true ;
+boolean FULL_RENDERING = false ;
 boolean TABLET = false ; // now tablet library don't work in OPENGL renderer
 
 boolean HOME = false ;
@@ -35,10 +35,10 @@ boolean HOME = false ;
 void settings() {
   // size(124,124,P3D) ; // when the bug will be resolved, return to this config.
   
-   // size(550,350,P3D) ; // PREVIEW
+   size(550,350,P3D) ; // PREVIEW
   // size(640,360,P3D) ; // 640
   // size(1024,576,P3D) ; // 1024
-  size(1280,720,P3D) ; // 1280
+ //  size(1280,720,P3D) ; // 1280
   // size(1600,900,P3D) ; // 1600
   // size(1920,1080,P3D) ; // 1920
   // size(2560,1440) ; // 2560

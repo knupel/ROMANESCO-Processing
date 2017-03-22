@@ -409,7 +409,7 @@ void check_text_folder_scene() {
 
 /**
 movie 
-v 0.0.3
+v 0.0.4
 */
 Movie[] movieImport ;
 ArrayList movie_files = new ArrayList();
@@ -418,15 +418,17 @@ String [] movie_path, movieImportPath ;
 int count_movie_selection ;
 int ref_movie_num_files ;
 
-void load_movie(int ID) {
+void load_movie(int id) {
   check_movie_folder_scene() ;
   if(movie_path != null && movie_path.length > 0) {
-    if(which_movie[ID] > movie_path.length ) which_movie[ID] = 0 ;
-    movieImportPath[ID] = movie_path[which_text[ID]] ;
+    if(which_movie[id] > movie_path.length ) {
+      which_movie[id] = 0 ;
+    }
+    movieImportPath[id] = movie_path[which_movie[id]] ;
   } else {
-    movieImportPath[ID] = "no movie" ;
+    movieImportPath[id] = "no movie" ;
   }
-  setting_movie(ID) ;
+  setting_movie(id) ;
 }
 
 
@@ -459,6 +461,53 @@ void read_movie(boolean motion, int id_item) {
   } else {
     if(movieImport[id_item] != null) movieImport[id_item].pause() ;
   }
+}
+
+
+boolean check_for_new_movie(int id) {
+  check_movie_folder_scene() ;
+  if(movieImportPath[id].equals(movie_path[which_movie[id]])) {
+    return false ; 
+  } else { 
+    movieImport[id].stop();
+    return true ;
+  }
+}
+
+
+
+
+void classic_movie(int id, int place, boolean full_width, boolean full_height) {
+  int pos_x = 0 ;
+  int pos_y = 0 ;
+  int size_x = movieImport[id].width ;
+  int size_y = movieImport[id].height ;
+
+  // Size in the Scene
+  if(full_width && full_height) {
+    size_x = width ;
+    size_y = height ;
+  } else if(!full_width && !full_height) {
+    size_x = movieImport[id].width ;
+    size_y = movieImport[id].height ;
+  } else if(full_width && !full_height) {
+    size_x = width ;
+    float ratio = (float)width / (float)movieImport[id].width ;
+    size_y = int(movieImport[id].height *ratio) ;
+  } else if(!full_width && full_height) {
+    size_y = height ;
+    float ratio = (float)height / (float)movieImport[id].height ;
+    size_x = int(movieImport[id].width *ratio) ;
+  }
+  
+  // position in the Scene
+  if(place == CENTER) {
+    pos_x = width/2 - (size_x / 2) ;
+    pos_y = height/2  - (size_y / 2);
+  }
+
+  // show movie
+  image(movieImport[id], pos_x, pos_y, size_x, size_y) ;
 }
 
 
