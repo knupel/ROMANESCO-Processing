@@ -19,7 +19,7 @@ boolean openMiroir = true ;
 boolean openControleur = true ;
 //send to the other sketches
 boolean youCanSendToScene = true ;
-boolean youCanSendToMiroir = true ;
+// boolean youCanSendToMiroir = true ;
 
 // Web cam activity
 // boolean cameraOnOff = false ;

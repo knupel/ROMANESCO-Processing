@@ -1,0 +1,12 @@
+Problem for export
+
+Issue from Processing Github
+https://github.com/processing/processing/issues/2095#issuecomment-289165789
+
+
+
+Ti sign your app :
+
+This worked for me so incase it helps anyone else here goes: Manually 'code-signing' seems to require an Apple Developer Program Yearly Membership ($99). Once you've 'enrolled' you can go to your certificates in your account and follow the steps for a new mac osx certificiate - select 'outside appstore' option. It will lead you through a process where you download a keychain. Then in terminal you navigate to your sketch folder "cd ~/Documents/Processing/Sketch/App" and enter "codesign -f -v -s "Developer ID Application: John Doe" Nameofapp.app" (replacing 'Developer ID Application: John Doe' with the 'common name' given in the keychain process & ‘Nameofapp.app' with the name of your app). Then when people download it they'll get the "downloaded from the internet" message but will be able to open it.
+(see article about a similar issue with flash http://blog.rustymoyher.com/post/36142106531/signing-apps-without-xcode).
+(BTW you need to use absolute paths instead of relative ones if you're loading/saving images etc)

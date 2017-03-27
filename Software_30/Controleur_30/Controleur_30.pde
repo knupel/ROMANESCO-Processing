@@ -6,7 +6,7 @@ version 30
 Processing 3.3
 */
 /**
-Controller 1.0.0.1
+Controller 1.0.1
 
 2015 may 4.100 
 2016 september 8.700
@@ -14,7 +14,7 @@ Controller 1.0.0.1
 String version = ("30") ;
 String IAM = ("Controller") ;
 String prettyVersion = ("1.2.0") ;
-String nameVersion = ("Romanesco Unu") ;
+String nameVersion = ("Romanesco unu") ;
 boolean test = false ;
 String preference_path, import_path  ;
 

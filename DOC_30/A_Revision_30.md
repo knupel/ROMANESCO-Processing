@@ -3,6 +3,11 @@
 Romanesco unu
 revision 30
 --
+GLOBAL
+--
+> Improve Mirror system, now you can right a list of address IP, to send imformation to few computer in local network.
+
+
 PRESCENE & SCENE
 --
 MAJOR
@@ -45,6 +50,7 @@ MINOR
 > fix a main part of bug for the camera reset
 > add boolean fill_is[ID_item] from keyboard "F"
 > add boolean stroke_is[ID_item] from keyboard "L"
+> improve the video part
 
 
 CONTROLLER

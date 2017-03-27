@@ -1,25 +1,66 @@
-// Tab: B_Send_OSC
-//GLOBAL
+/**
+OSC Controller
+2014 - 2017
+v 1.1.0
+*/
 import oscP5.*;
 import netP5.*;
 
 
-// local
-String IPadress = ("127.0.0.1") ;
+// adress local
+String ID_address_local = ("127.0.0.1") ;
+
+String IP_address_prescene = ID_address_local ;
+String [] ID_address_scene ;
+// String ID_adress_scene = ("192.168.1.10") ;
 // Message to Prescene
 String toPreScene [] = new String [5] ;
 
 
-OscP5 osc_prescene, osc_scene;
-NetAddress target_prescene, target_scene ;
-void set_OSC() {
-  int address_prescene = 10_000 ;
-  int address_scene = 9_500 ;
-  osc_prescene = new OscP5(this, address_prescene) ;
-  osc_scene = new OscP5(this, address_scene) ;
+OscP5 osc_prescene ;
+OscP5 osc_scene ;
 
-  target_prescene = new NetAddress(IPadress,address_prescene) ;
-  target_scene = new NetAddress(IPadress,address_scene) ;
+int port_prescene = 10_000 ;
+int port_scene = 9_500 ;
+
+NetAddress target_prescene ;
+NetAddress [] target_scene ;
+
+void set_OSC() {
+  int num_address = 1 ;
+  String [] address = loadStrings(preference_path+"network/IP_address_mirror.txt") ;
+  String [] temp = split(address[0],"/") ;
+  
+
+  int num_valid_address = 0 ;
+  for(int i = 0 ; i < temp.length ; i++) {
+    if(temp[i].equals("IP_address") || temp[i].equals("")) {
+      // nothing happens
+    } else {
+      num_valid_address ++ ;
+    }   
+  }  
+
+  ID_address_scene = new String[num_valid_address] ;
+  target_scene = new NetAddress[num_valid_address] ;
+
+  for(int i = 0 ; i < num_valid_address ; i++) {
+    ID_address_scene[i] = temp[i+1] ;
+  }  
+
+  osc_prescene = new OscP5(this, port_prescene) ;
+  osc_scene = new OscP5(this, port_scene) ;
+
+  set_ip_address() ;
+}
+
+
+void set_ip_address() {
+  target_prescene = new NetAddress(IP_address_prescene, port_prescene) ;
+  for(int i = 0 ; i < target_scene.length ; i++) {
+     target_scene[i] = new NetAddress(ID_address_scene[i], port_scene) ;
+  }
+  // target_scene = new NetAddress(ID_adress_scene,address_scene) ;
 }
 
 
@@ -65,7 +106,10 @@ void draw_send_OSC() {
   }
   //send
   osc_prescene.send(RomanescoController, target_prescene) ; 
-  osc_scene.send(RomanescoController, target_scene) ; 
+  for(int i = 0 ; i < target_scene.length ; i++) {
+    osc_scene.send(RomanescoController, target_scene[i]) ; 
+  }
+  
 }
 
 

@@ -68,6 +68,7 @@ End Opening
 
 /**
 GRAPHIC CONFIGURATION 
+1.0.0.1
 */
 
 //SCREEN CHOICE and FULLSCREEN
@@ -123,7 +124,8 @@ void loadPropertyScene() {
   //size of the scene when it's not fullscreen
   sceneWidth = row.getInt("width") ;
   sceneHeight =  row.getInt("height")  ;
-  //SYPHON
+
+  //MIRROR
   if(row.getString("miroir").equals("TRUE") || row.getString("miroir").equals("true")) {
     miroir_on_off = true ; 
   } else {

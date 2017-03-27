@@ -1,36 +1,65 @@
 /**
-OSC Prescene 2014 - 2017
-v 1.0.3
+OSC Prescene 
+2014 - 2017
+v 1.1.0
 */
-NetAddress targetScene, targetMiroir;
-//adress to scene information from the OSC sender
-String sendToScene = ("127.0.0.1") ;
-String sendToMiroir = ("127.0.0.1") ;
+NetAddress [] target_scene ;
+String [] ID_address_scene ;
 
 //message from controler
 
 //message from pré-Scène
 String toScene = ("Message from Prescene to Scene") ;
 
-OscP5 osc_send;
+OscP5 osc_send_scene;
 OscP5 osc_receive_controller ;
+
+int port_receive_controller = 10_000 ;
+int port_send_scene = 9_100 ;
+
 //SETUP
 void OSC_setup() {
-  osc_receive_controller = new OscP5(this, 10000);
-  osc_send = new OscP5(this, 9500);
+
+
+  osc_receive_controller = new OscP5(this, port_receive_controller);
+  osc_send_scene = new OscP5(this, port_send_scene);
+
+
   //send to the Scène
 
-  int send_address_scene = 9100 ;
-  int send_adress_mirror = 9200 ;
-  if (youCanSendToScene) targetScene = new NetAddress(sendToScene, send_address_scene);
+
+//   int port_mirror = 9_200 ; // may be is not import to have a other port for the miroor ?
+
+  
   //send to the miroir
   if (!TEST_ROMANESCO) {
-    String [] addressIP = loadStrings(preference_path+"network/IP_local_miroir.txt") ;
-    sendToMiroir = join(addressIP, "") ;
-    targetMiroir = new NetAddress(sendToMiroir, send_adress_mirror);
-  } else if (TEST_ROMANESCO && youCanSendToMiroir )  {
-    targetMiroir = new NetAddress(sendToMiroir, send_adress_mirror);
-  }
+    String [] addressIP = loadStrings(preference_path+"network/IP_address_mirror.txt") ;
+    String join_address = join(addressIP, "") ;
+    String [] temp = split(join_address,"/") ;
+
+    int num_valid_address = 0 ;
+    for(int i = 0 ; i < temp.length ; i++) {
+      if(temp[i].equals("IP_address") || temp[i].equals("")) {
+        // nothing happens
+      } else {
+        num_valid_address ++ ;
+      }   
+    }
+    if (youCanSendToScene) {
+      ID_address_scene = new String[num_valid_address] ;
+      target_scene = new NetAddress[num_valid_address] ;
+     //  targetScene = new NetAddress(sendToScene, port_send_scene);
+    }
+    
+
+    for(int i = 0 ; i < num_valid_address ; i++) {
+      ID_address_scene[i] = temp[i+1] ;
+    }
+
+    set_ip_address() ; 
+  } 
+
+
   // must stop the process to give a time to initialization for the OSC process
   try { 
     Thread.sleep(6000); 
@@ -38,6 +67,16 @@ void OSC_setup() {
   catch (InterruptedException e) { 
   }
   println("OSC setup done") ;
+}
+
+
+
+
+void set_ip_address() {
+  for(int i = 0 ; i < target_scene.length ; i++) {
+     target_scene[i] = new NetAddress(ID_address_scene[i], port_send_scene) ;
+  }
+  // target_scene = new NetAddress(ID_adress_scene,address_scene) ;
 }
 
 
@@ -81,12 +120,11 @@ void OSC_send() {
 
   //send
   // println(youCanSendToScene, frameCount) ;
-  if (youCanSendToScene) {
-    // println("Let's go to Scene", frameCount) ;
-    // println(RomanescoScene) ;
-    osc_send.send(RomanescoScene, targetScene); 
+  for(int i = 0 ; i < target_scene.length ; i++) {
+    println(target_scene[i]) ;
+    osc_send_scene.send(RomanescoScene, target_scene[i]);
   }
-  if (youCanSendToMiroir) osc_send.send(RomanescoScene, targetMiroir);
+  
 }
 
 

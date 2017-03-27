@@ -1,24 +1,20 @@
 /**
 OSC TERMINUS 
-v 1.1.0
+v 1.2.0
 */
 
-OscP5 osc_receive_controller ;
-
-OscP5 osc_receive_mirroir, osc_receive_classic;
+OscP5 osc_receive_controller, osc_receive_prescene ;
 
 /**
 OSC setup 
-v 1.0.0.1
+v 1.1.0
 */
 void OSC_setup() {
-  int receive_address_controller = 9_500 ;
-  osc_receive_controller = new OscP5(this, receive_address_controller);
+  int port_controller = 9_500 ;
+  int port_receive_scene = 9_100 ;
 
-  int receive_address_scene = 9100 ;
-  int receive_adress_mirror = 9200 ;
-  if(miroir_on_off) osc_receive_mirroir = new OscP5(this, receive_adress_mirror); 
-  else osc_receive_classic = new OscP5(this, receive_address_scene);
+  osc_receive_controller = new OscP5(this, port_controller);
+  osc_receive_prescene = new OscP5(this, port_receive_scene) ;
 
   try { 
     Thread.sleep(6000); 

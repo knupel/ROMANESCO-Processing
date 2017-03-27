@@ -3,7 +3,7 @@ Romanesco Unu
 2012 – 2017
 version 1.2.0 
 release 30 
-Processing 3.2.4 
+Processing 3.3.0
 */
 /**
 2015 730 lines of code the 4th may !!!! 
@@ -11,7 +11,7 @@ Processing 3.2.4
  */
 String version = ("30") ;
 String prettyVersion = ("1.2.0") ;
-String nameVersion = ("Romanesco Unu") ;
+String nameVersion = ("Romanesco unu") ;
 
 /**
 use this trick to export in 64 bits

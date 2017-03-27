@@ -8,7 +8,7 @@ Processing 3.3.0
 /* 14.750 lines of code the 4th may !!!! */
 
 
-String nameVersion = ("Romanesco Unu") ;
+String nameVersion = ("Romanesco unu") ;
 String IAM = ("Scene") ;
 String version = ("30") ;
 String prettyVersion = ("1.2.0") ;
@@ -30,14 +30,14 @@ void settings() {
 
   size(640,360,P3D) ; // 640
   // size(1024,576,P3D) ; // 1024
-  // size(1280,720,P3D) ; // 1280
-  // size(1600,900,P3D) ; // 1600
+ //  size(1280,720,P3D) ; // 1280
+ // size(1600,900,P3D) ; // 1600
   // size(1920,1080,P3D) ; // 1920
   // size(2560,1440) ; // 2560
   // size(3840,2160) ; // 3840
 
   // fullScreen(P3D,2) ;
-  // FULL_SCREEN = true ;
+ // FULL_SCREEN = true ;
 
   pixelDensity(displayDensity()) ;
   syphon_settings() ;
