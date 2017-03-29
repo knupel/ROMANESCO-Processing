@@ -1,0 +1,36 @@
+American Typewriter/
+Banco/
+Cinquenta/
+Container Regular/
+Diesel/
+Digital/
+DIN Black/
+DIN Bold/
+DIN Light/
+DIN Medium/
+DIN Regular/
+Dos Equis/
+East Bloc Closed/
+East Bloc Closed Alt/
+East Bloc Open/
+East Bloc Open Alt/
+Fette Fraktur/
+Futura Stencil/
+Gang Bang Crime/
+Juanita/
+Juanita Deco/
+Komikahuna/
+Mesquite/
+Minion Black/
+Minion Bold/
+Minion Bold Italic/
+Minion Italic/
+Minion Regular/
+Rosewood/
+Tokyo One/
+Tokyo One Solid/
+Tokyo Two/
+Tokyo Two Solid/
+Three Hardway
+
+
