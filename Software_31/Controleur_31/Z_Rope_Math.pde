@@ -22,7 +22,7 @@ float decimale (float var, int n) {
 
 /**
 geometry util
-v. 0.0.3
+v. 0.0.3.1
 */
 float perimeter_disc(int r) {
   return 2 *r *PI ;
@@ -36,7 +36,7 @@ float radius_from_circle_surface(int surface) {
 boolean inside(Vec2 pos, Vec2 size, Vec2 target, int type) {
   if(type == ELLIPSE) {
     // this part can be improve to check the 'x' and the 'y'
-    if (dist(pos, target) < size.x) return true  ; else return false ;
+    if (dist(pos, target) < size.x *.5) return true  ; else return false ;
   } else if(target.x > pos.x && target.x < pos.x +size.x && target.y > pos.y && target.y < pos.y +size.y) return true ; else return false ;
 }
 
