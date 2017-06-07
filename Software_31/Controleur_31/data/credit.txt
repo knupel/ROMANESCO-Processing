@@ -1,5 +1,5 @@
 Romanesco Unu
-2011-2017 - version 1.2.0.30
+2011-2017 - version 1.2.1.31
 Romanesco is free and free, but for the commercial use that can be good to do a donation !
 Romanesco is under CeCill License - http://www.cecill.info/licences/Licence_CeCILL_V2-en.html -
 
@@ -17,15 +17,16 @@ Algorithm inspiration: Nicoptére, Daniel Shiffman, Andreas Gysin, Julien Gachad
 
 Translation: Stéphanie Doan Van Bien, Lauren Thépot, Laetitia Natali.
 
-Soul support: Laetitia Natali aka Lalou
-Financial support: Laetitia Natali aka Lalou
+Donors: Andrea Bernabini, Laetitia Natali.
+
+
 Network support: Ludovic Laurent, Tutoprocessing, Le Collagiste, Processing Lyon, Processing Rennes,
 VJUnion.
 
 Processing Foundation: Casey Reas, Ben Fry 
 and all contributors: Daniel Shiffman, Andres Colubri, Andreas Schlegel...
 
-Special Thanks: Mark Webster for the Processing Paris workshop, 
-and all folk from the Processing Forum.
+Special Thanks: Mark Webster for Processing Paris workshop, 
+Laetitia Natali my wife to support me and my blahblah about my project all the time!
 
 
