@@ -1,5 +1,6 @@
 /**
-GENETIC 0.5.1.0
+GENETIC 
+v 0.5.2.0
 * @author Stan le Punk
 * @see https://github.com/StanLepunK/Digital-Life-Processing/tree/master/GENETIC_SYSTEM
 */
@@ -812,7 +813,7 @@ class Genome {
   */
 
   Info get_gene_product(String target) {
-    Info info = new Info_obj(target, "no gene for this name") ;
+    Info info = new Info_Object(target, "no gene for this name") ;
 
     int length  = get_gene_product().length ;
     int count  = 0 ;
@@ -820,26 +821,26 @@ class Genome {
       if(get_gene_product()[i].get_name().contains(target)) {
         count ++ ;
         if(get_gene_product()[i].catch_obj(0) != null)  {
-          info = new Info_obj(get_gene_product()[i].get_name(), get_gene_product()[i].catch_obj(0)) ;
+          info = new Info_Object(get_gene_product()[i].get_name(), get_gene_product()[i].catch_obj(0)) ;
         } else {
-          info = new Info_obj(get_gene_product()[i].get_name(), "no data match with the request") ;
+          info = new Info_Object(get_gene_product()[i].get_name(), "no data match with the request") ;
         }
       }
     }
-    if(count > 1 ) info = new Info_obj("target", "Find " + count + " targets for your target") ;
+    if(count > 1 ) info = new Info_Object("target", "Find " + count + " targets for your target") ;
     return info ;
   }
 
   Info get_gene_product(String target_chromosome, String target_gene) {
-    Info info = new Info_obj(target_gene, "the chromosome or gene don't exist") ;
+    Info info = new Info_Object(target_gene, "the chromosome or gene don't exist") ;
     for(int i = 0 ; i < list_chromosome.size() ; i++) {
       Chromosome c = list_chromosome.get(i) ;
       if(c.chromosome_name.equals(target_chromosome)) {
         for(int j = 0 ; j < get_gene_product(i).length ; j++ ) {
           if(get_gene_product(i)[j].catch_obj(0) != null)  {
-          info = new Info_obj(get_gene_product(i)[j].get_name(), get_gene_product(i)[j].catch_obj(0)) ;
+          info = new Info_Object(get_gene_product(i)[j].get_name(), get_gene_product(i)[j].catch_obj(0)) ;
         } else {
-          info = new Info_obj(get_gene_product(i)[j].get_name(), "no data match with the request") ;
+          info = new Info_Object(get_gene_product(i)[j].get_name(), "no data match with the request") ;
         }
 
         }
@@ -850,12 +851,12 @@ class Genome {
 
 
   Info get_gene_product(int which_chromosome, int locus) {
-    Info info = new Info_obj("Chromosome: " + which_chromosome + " locus: " +locus, "don't exist") ;
+    Info info = new Info_Object("Chromosome: " + which_chromosome + " locus: " +locus, "don't exist") ;
     if(which_chromosome < list_chromosome.size() &&  locus < list_chromosome.get(which_chromosome).list_allele_left.size() ) {
       if(get_gene_product(which_chromosome)[locus].catch_obj(0) != null)  {
-        info = new Info_obj(get_gene_product(which_chromosome)[locus].get_name(), get_gene_product(which_chromosome)[locus].catch_obj(0)) ;
+        info = new Info_Object(get_gene_product(which_chromosome)[locus].get_name(), get_gene_product(which_chromosome)[locus].catch_obj(0)) ;
       } else {
-        info = new Info_obj(get_gene_product(which_chromosome)[locus].get_name(), "no data match with the request") ;
+        info = new Info_Object(get_gene_product(which_chromosome)[locus].get_name(), "no data match with the request") ;
       }
     }
     return info ;
@@ -865,7 +866,7 @@ class Genome {
 
   
   Info [] get_gene_product() {
-    Info [] info_gene = new Info_obj [num_gene] ;
+    Info [] info_gene = new Info_Object [num_gene] ;
     int pointer = 0 ;
     for(int i = 0 ; i < list_chromosome.size() ; i++ ) {
       Chromosome c = list_chromosome.get(i) ;
@@ -886,7 +887,7 @@ class Genome {
       Chromosome c = list_chromosome.get(which_chromosome) ;
       int num_allele = num_allele(c) ;
 
-      Info []allele_name = new Info_obj [num_allele] ;
+      Info []allele_name = new Info_Object [num_allele] ;
       // attribution data
       for(int i = 0 ; i < num_allele ; i++ ) {
         Allele left = c.list_allele_left.get(i) ;
@@ -919,15 +920,15 @@ class Genome {
           }
         }
         if(number) {
-         allele_name [i] = new Info_obj(c.chromosome_name + " > " + left.name, gene_product_float)  ; 
+         allele_name [i] = new Info_Object(c.chromosome_name + " > " + left.name, gene_product_float)  ; 
         } else {
-          allele_name [i] = new Info_obj(c.chromosome_name + " > " + left.name, gene_product_string)  ;
+          allele_name [i] = new Info_Object(c.chromosome_name + " > " + left.name, gene_product_string)  ;
         }
       }
       return allele_name ;
     } else {
-      Info [] i = new Info_obj [1] ;
-      i[0] = new Info_obj("This chromosome is not found", which_chromosome) ;
+      Info [] i = new Info_Object [1] ;
+      i[0] = new Info_Object("This chromosome is not found", which_chromosome) ;
       return i ;
     }
   }
@@ -1848,3 +1849,11 @@ class Masked extends Nucleotide {
     this.nac = 'X' ;
   }
 }
+
+
+
+
+
+
+
+

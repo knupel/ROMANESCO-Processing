@@ -10,7 +10,7 @@ METHOD HERBIVORE 1.0.0
 /**
 build herbivore method 0.0.5
 */
-void build_herbivore(ArrayList<Agent> list,  Info_dict carac, Info_obj style, int num) {
+void build_herbivore(ArrayList<Agent> list,  Info_dict carac, Info_Object style, int num) {
   int gender = 0 ;
   for(int i = 0 ; i < num ; i++) {
     if(gender > 1) gender = 0 ;
@@ -29,12 +29,12 @@ void build_herbivore(ArrayList<Agent> list,  Info_dict carac, Info_obj style, in
 /**
 add method
 */
-void add_herbivore(ArrayList<Agent> list, Vec2 pos, Info_dict carac, int gender, Info_obj style) {
+void add_herbivore(ArrayList<Agent> list, Vec2 pos, Info_dict carac, int gender, Info_Object style) {
    Vec3 final_pos = Vec3(pos) ;
    add_herbivore(list, final_pos, carac, gender, style) ;
 }
 
-void add_herbivore(ArrayList<Agent> list, Vec3 pos, Info_dict carac, int gender, Info_obj style) {
+void add_herbivore(ArrayList<Agent> list, Vec3 pos, Info_dict carac, int gender, Info_Object style) {
   Agent h = new Herbivore(carac, style, gender) ;
   list.add(h) ;
   set_herbivore(h, pos, carac, style) ;
@@ -44,7 +44,7 @@ void add_herbivore(ArrayList<Agent> list, Vec3 pos, Info_dict carac, int gender,
 set herbivore
 */
 // set born
-void set_herbivore(Agent a, Vec3 pos, Info_dict carac, Info_obj style) {
+void set_herbivore(Agent a, Vec3 pos, Info_dict carac, Info_Object style) {
   float gourmet = (float) carac.get("gourmet")[0].catch_obj(0) ;
   int nutrient_quality = (int) carac.get("nutrient_quality")[0].catch_obj(0) ;
   int starving = (int) carac.get("starving")[0].catch_obj(0) ;
@@ -83,7 +83,7 @@ Reproduction specific part for each species
 /**
 Female Reproduction
 */
-void reproduction_female_herbivore(ArrayList<Agent> list_female, ArrayList<Agent> list_male, ArrayList<Agent> list_child, Info_dict carac, Info_obj style) {
+void reproduction_female_herbivore(ArrayList<Agent> list_female, ArrayList<Agent> list_male, ArrayList<Agent> list_child, Info_dict carac, Info_Object style) {
   //int count_female_fertile = 0 ;
   for (Agent female : list_female) {
     if(female instanceof Agent_dynamic) {
@@ -140,7 +140,7 @@ OMNIVORE METHOD 1.0.0
 Build Omnivore 0.0.1
 
 */
-void build_omnivore(ArrayList<Agent> list, Info_dict carac, Info_obj style, int num) {
+void build_omnivore(ArrayList<Agent> list, Info_dict carac, Info_Object style, int num) {
   int gender = 0 ;
   for(int i = 0 ; i < num ; i++) {
     if(gender > 1) gender = 0 ;
@@ -156,12 +156,12 @@ void build_omnivore(ArrayList<Agent> list, Info_dict carac, Info_obj style, int 
   }
 }
 
-void add_omnivore(ArrayList<Agent> list, Vec2 pos, Info_dict carac, int gender, Info_obj style) {
+void add_omnivore(ArrayList<Agent> list, Vec2 pos, Info_dict carac, int gender, Info_Object style) {
    Vec3 final_pos = Vec3(pos) ;
    add_omnivore(list, final_pos, carac, gender, style) ;
 }
 
-void add_omnivore(ArrayList<Agent> list, Vec3 pos, Info_dict carac, int gender, Info_obj style) {
+void add_omnivore(ArrayList<Agent> list, Vec3 pos, Info_dict carac, int gender, Info_Object style) {
   // send data to constructor
   // Agent o = new Omnivore(size, stamina, life_expectancy, velocity, sense_range, name, sex_appeal, gender) ;
   Agent o = new Omnivore(carac, style, gender) ;
@@ -176,7 +176,7 @@ local method
 /**
 set
 */
-void set_omnivore(Agent a, Vec3 pos, Info_dict carac, Info_obj style) {
+void set_omnivore(Agent a, Vec3 pos, Info_dict carac, Info_Object style) {
   int attack = (int) carac.get("attack")[0].catch_obj(0) ;
   float gourmet = (float) carac.get("gourmet")[0].catch_obj(0) ;
   int nutrient_quality = (int) carac.get("nutrient_quality")[0].catch_obj(0) ;
@@ -204,7 +204,7 @@ void set_omnivore(Agent a, Vec3 pos, Info_dict carac, Info_obj style) {
 /**
 Female Reproduction
 */
-void reproduction_female_omnivore(ArrayList<Agent> list_female, ArrayList<Agent> list_male, ArrayList<Agent> list_child, Info_dict carac, Info_obj style) {
+void reproduction_female_omnivore(ArrayList<Agent> list_female, ArrayList<Agent> list_male, ArrayList<Agent> list_child, Info_dict carac, Info_Object style) {
   // int count_female_fertile = 0 ;
   for (Agent female : list_female) {
     if(female instanceof Agent_dynamic) {
@@ -261,7 +261,7 @@ CARNIVORE METHOD 1.0.0
 /**
 CARNIVORE build 0.1.0
 */
-void build_carnivore(ArrayList<Agent> list, Info_dict carac, Info_obj style, int num) {
+void build_carnivore(ArrayList<Agent> list, Info_dict carac, Info_Object style, int num) {
   int gender = 0 ;
   for(int i = 0 ; i < num ; i++) {
     if(gender > 1) gender = 0 ;
@@ -277,11 +277,11 @@ void build_carnivore(ArrayList<Agent> list, Info_dict carac, Info_obj style, int
   }
 }
 
-void add_carnivore(ArrayList<Agent> list, Vec2 pos, Info_dict carac, int gender, Info_obj style) {
+void add_carnivore(ArrayList<Agent> list, Vec2 pos, Info_dict carac, int gender, Info_Object style) {
    Vec3 final_pos = Vec3(pos) ;
    add_carnivore(list, final_pos, carac, gender, style) ;
 }
-void add_carnivore(ArrayList<Agent> list, Vec3 pos, Info_dict carac, int gender, Info_obj style) {
+void add_carnivore(ArrayList<Agent> list, Vec3 pos, Info_dict carac, int gender, Info_Object style) {
     // recover data
     /*
   String name = (String) carac.get("name")[0].catch_obj(0) ;
@@ -300,7 +300,7 @@ void add_carnivore(ArrayList<Agent> list, Vec3 pos, Info_dict carac, int gender,
 
 }
 
-void set_carnivore(Agent c, Vec3 pos, Info_dict carac, Info_obj style) {
+void set_carnivore(Agent c, Vec3 pos, Info_dict carac, Info_Object style) {
   int nutrient_quality = (int) carac.get("nutrient_quality")[0].catch_obj(0) ;
   int attack = (int) carac.get("attack")[0].catch_obj(0) ;
   float gourmet = (float) carac.get("gourmet")[0].catch_obj(0) ;
@@ -339,7 +339,7 @@ void set_aspect_carnivore(Vec4 fill_colour, Vec4 stroke_colour, float thickness)
 /**
 Female Reproduction
 */
-void reproduction_female_carnivore(ArrayList<Agent> list_female, ArrayList<Agent> list_male, ArrayList<Agent> list_child, Info_dict carac, Info_obj style) {
+void reproduction_female_carnivore(ArrayList<Agent> list_female, ArrayList<Agent> list_male, ArrayList<Agent> list_child, Info_dict carac, Info_Object style) {
   // int count_female_fertile = 0 ;
   for (Agent female : list_female) {
     if(female instanceof Agent_dynamic) {
@@ -392,7 +392,7 @@ BACTERIUM METHOD
 /**
 BUILD BACTERIUM 0.1.0
 */
-void build_bacterium(ArrayList<Agent> list, Info_dict carac, Info_obj style, int num) {
+void build_bacterium(ArrayList<Agent> list, Info_dict carac, Info_Object style, int num) {
   for(int i = 0 ; i < num ; i++) {
     String name = "bacterium" ;
     if(ENVIRONMENT == 2 ) {
@@ -405,12 +405,12 @@ void build_bacterium(ArrayList<Agent> list, Info_dict carac, Info_obj style, int
   }
 }
 
-void add_bacterium(ArrayList<Agent> list, Vec2 pos, Info_dict carac, Info_obj style) {
+void add_bacterium(ArrayList<Agent> list, Vec2 pos, Info_dict carac, Info_Object style) {
   Vec3 final_pos = Vec3(pos) ; // in case 2D world
   add_bacterium(list, final_pos, carac, style) ;
 }
 
-void add_bacterium(ArrayList<Agent> list, Vec3 pos, Info_dict carac, Info_obj style) {
+void add_bacterium(ArrayList<Agent> list, Vec3 pos, Info_dict carac, Info_Object style) {
   int gender = 0 ;
   Agent b = new Bacterium(carac, style, gender) ;
   list.add(b) ;
@@ -420,7 +420,7 @@ void add_bacterium(ArrayList<Agent> list, Vec3 pos, Info_dict carac, Info_obj st
 
 
 
-void set_bacterium(Agent b, Vec3 pos, Info_dict carac, Info_obj style) {
+void set_bacterium(Agent b, Vec3 pos, Info_dict carac, Info_Object style) {
   float digestion = (float) carac.get("digestion")[0].catch_obj(0) ;
   int starving = (int) carac.get("starving")[0].catch_obj(0) ;
   int nutrient_quality = (int) carac.get("nutrient_quality")[0].catch_obj(0) ;
@@ -468,7 +468,7 @@ void bacterium_update(ArrayList<Dead> list_dead, ArrayList<Agent> list,  Biomass
 /**
 show bacterium specific method
 */
-void show_bacterium(Biomass biomass, Info_obj style, ArrayList<Agent>... all_list) {
+void show_bacterium(Biomass biomass, Info_Object style, ArrayList<Agent>... all_list) {
   for(ArrayList list : all_list) {
     if(INFO_DISPLAY_AGENT) {
       info_agent(list) ;
@@ -621,7 +621,7 @@ METHOD FLORA 1.1.0
 build 0.2.0
 */
 // main method
-void build_flora(ArrayList<Agent> list_f, Info_dict carac, Info_obj style, int num) {
+void build_flora(ArrayList<Agent> list_f, Info_dict carac, Info_Object style, int num) {
   for(int i = 0 ; i < num ; i++) {
     if(ENVIRONMENT == 2 ) {
       Vec2 pos = Vec2("RANDOM RANGE",(int)LIMIT.a, (int)LIMIT.b, (int)LIMIT.c, (int)LIMIT.d) ;
@@ -633,7 +633,7 @@ void build_flora(ArrayList<Agent> list_f, Info_dict carac, Info_obj style, int n
   }
 }
 
-void build_flora(ArrayList<Agent> list_f, Info_dict carac, Info_obj style, int num, Vec... area) {
+void build_flora(ArrayList<Agent> list_f, Info_dict carac, Info_Object style, int num, Vec... area) {
   println("num", num, "area length", area.length) ;
   for(int i = 0 ; i < num ; i++) {
     // it's not possible to give home to everybody, sorry
@@ -671,11 +671,11 @@ void build_flora(ArrayList<Agent> list_f, Info_dict carac, Info_obj style, int n
 
 // annexe methode
 // add
-void add_flora(ArrayList<Agent> list_f, Vec2 pos, Info_dict carac, Info_obj style) {
+void add_flora(ArrayList<Agent> list_f, Vec2 pos, Info_dict carac, Info_Object style) {
    Vec3 final_pos =  Vec3(pos.x,pos.y,0) ;
    add_flora(list_f, final_pos, carac, style) ;
 }
-void add_flora(ArrayList<Agent> list_f, Vec3 pos, Info_dict carac, Info_obj style) {
+void add_flora(ArrayList<Agent> list_f, Vec3 pos, Info_dict carac, Info_Object style) {
     // recover data
   String name = (String) carac.get("name")[0].catch_obj(0) ;
   Vec3 size_template = (Vec3) carac.get("size")[0].catch_obj(0) ;
@@ -733,7 +733,7 @@ void flora_update(ArrayList<Agent> list_f, Biomass b) {
   flora_update_opacity(list_f) ;
 }
 
-void flora_show(Info_obj style, ArrayList<Agent> list_f) {
+void flora_show(Info_Object style, ArrayList<Agent> list_f) {
   if(!INFO_DISPLAY_AGENT) {
     update_aspect(style, list_f) ;
     // flora_update_aspect(list_f) ;
@@ -869,7 +869,7 @@ void set_aspect_corpse(Vec4 fill_colour, Vec4 stroke_colour, float thickness) {
   thickness_corpse = thickness ;
 }
 
-void build_dead(ArrayList<Dead> list, Info_dict carac, Info_obj style, int num) {
+void build_dead(ArrayList<Dead> list, Info_dict carac, Info_Object style, int num) {
   for(int i = 0 ; i < num ; i++) {
     if(ENVIRONMENT == 2 ) {
       Vec2 pos = Vec2("RANDOM RANGE",(int)LIMIT.a, (int)LIMIT.b, (int)LIMIT.c, (int)LIMIT.d) ;
@@ -883,7 +883,7 @@ void build_dead(ArrayList<Dead> list, Info_dict carac, Info_obj style, int num) 
 
 
 
-void add_dead(ArrayList<Dead> list, Vec pos, Info_dict carac, Info_obj style) {
+void add_dead(ArrayList<Dead> list, Vec pos, Info_dict carac, Info_Object style) {
   int gender = (int)round(random(1));
   Dead dead = new Dead(carac, style, gender) ;
   set_dead(dead, pos, carac, style) ;
@@ -892,7 +892,7 @@ void add_dead(ArrayList<Dead> list, Vec pos, Info_dict carac, Info_obj style) {
 }
 
 
-void set_dead(Agent d, Vec pos, Info_dict carac, Info_obj style) {
+void set_dead(Agent d, Vec pos, Info_dict carac, Info_Object style) {
 
   int nutrient_quality = (int) carac.get("nutrient_quality")[0].catch_obj(0) ;
 
@@ -927,7 +927,7 @@ void dead_update(ArrayList<Dead> list) {
   // if(LOG_ECOSYSTEM) update_log(list, FRAME_RATE_LOG) ;
 }
 
-void show_dead(Info_obj style, ArrayList<Dead> list_dead) {
+void show_dead(Info_Object style, ArrayList<Dead> list_dead) {
   if(INFO_DISPLAY_AGENT) {
     info_agent(list_dead) ;
   } else {

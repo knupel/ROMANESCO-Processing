@@ -1,6 +1,7 @@
 /**
 
-ECOSYSTEM UTIL 1.0.3
+ECOSYSTEM UTIL 
+v 1.0.4
 
 * HOST and SYMBIOSIS
 * WORLD
@@ -738,7 +739,7 @@ DELIVERY
 */
 int num_by_pregnancy = 1 ;
 
-void delivery(Agent_dynamic deliver, Genome mother, Genome father, ArrayList<Agent> list_child, Info_dict carac, Info_obj style) {
+void delivery(Agent_dynamic deliver, Genome mother, Genome father, ArrayList<Agent> list_child, Info_dict carac, Info_Object style) {
   // check for heterozygote
   num_babies(deliver.multiple_pregnancy) ;
   Agent [] babies = new Agent [num_by_pregnancy] ;
@@ -752,7 +753,7 @@ void delivery(Agent_dynamic deliver, Genome mother, Genome father, ArrayList<Age
 }
 
 // local
-void set_baby(Agent_dynamic deliver, Agent baby, ArrayList<Agent> list_child, Info_dict carac, Info_obj style) {
+void set_baby(Agent_dynamic deliver, Agent baby, ArrayList<Agent> list_child, Info_dict carac, Info_Object style) {
   if(baby instanceof Agent_dynamic) {
     Agent_dynamic n = (Agent_dynamic) baby ;
     // clean the uterus of mother
@@ -1120,7 +1121,7 @@ void set_costume_agent(int which_costume, ArrayList<Agent>... all_list) {
 
 
 /**
-Info_obj info
+Info_Object info
 * boolean info = (boolean)info.catch_obj(0) ;
 * boolean original = (boolean)info.catch_obj(1) ;
 * int costume_ID = (int)info.catch_obj(2) ;
@@ -1128,7 +1129,7 @@ Info_obj info
 * Vec4 stroke = (Vec4)info.catch_obj(4) ; 
 * float thickness = (float)info.catch_obj(5) ;
 */ 
-void show_agent_dynamic(Info_obj style, ArrayList<Agent>... all_list) {
+void show_agent_dynamic(Info_Object style, ArrayList<Agent>... all_list) {
   for(ArrayList list : all_list) {
     if(INFO_DISPLAY_AGENT) {
       info_agent(list) ;
@@ -1150,7 +1151,7 @@ void use_style(boolean style) {
 /**
 update aspect
 */
-void update_aspect(Info_obj style, ArrayList list) {
+void update_aspect(Info_Object style, ArrayList list) {
   int costume_ID = 0 ;
   Vec4 fill_vec =  Vec4(0, 0 , g.colorModeZ, g.colorModeA) ; 
   Vec4 stroke_vec = Vec4(g.colorModeX, g.colorModeY, g.colorModeZ, g.colorModeA) ; 
@@ -1476,3 +1477,12 @@ void update_log(ArrayList<Agent> list, int tempo) {
     }
   }
 }
+
+
+
+
+
+
+
+
+

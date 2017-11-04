@@ -1,7 +1,7 @@
 /**
 Movisco 
 2016-2017
-v 0.0.4
+v 0.0.5
 */
 
 class Movisco extends Romanesco {
@@ -10,7 +10,7 @@ class Movisco extends Romanesco {
 		ID_item = 24 ;
 		ID_group = 1 ;
 		RPE_author  = "Stan le Punk";
-		RPE_version = "Version 0.0.4";
+		RPE_version = "Version 0.0.5";
 		RPE_pack = "Base" ;
 		RPE_mode = "Classic mono/Classic Poly/Mono/Poly" ; // separate the differentes mode by "/"
 		RPE_slider = "Fill hue,Fill sat,Fill bright,Fill alpha,Quantity,Quality,Area,Size X" ;
@@ -72,7 +72,7 @@ class Movisco extends Romanesco {
         if(mode[ID_item] > 1) {
         	analyze_movie_pixel(ID_item) ;
         	float max_radius_pix = pix_step *10 ;
-        	int size_cloud_pix = int(map(area_item[ID_item], width *.1, width *PHI, 1, max_radius_pix)) ;
+        	int size_cloud_pix = int(map(area_item[ID_item], width *.1, width *r.PHI, 1, max_radius_pix)) ;
         	float comp_1 = 1 ; // red or hue
 					if(mode[ID_item] == 2 ) {
 						comp_1 = map(hue(fill_item[ID_item]),0,360,0,1) ; 

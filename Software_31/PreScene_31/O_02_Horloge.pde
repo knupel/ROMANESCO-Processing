@@ -1,5 +1,5 @@
 /**
-HORLOGE || 2012 || 2.0.3
+HORLOGE || 2012 || 2.0.4
 */
 
 class Horloge extends Romanesco {
@@ -9,7 +9,7 @@ class Horloge extends Romanesco {
     ID_item = 2 ;
     ID_group = 1 ;
     RPE_author  = "Stan Le Punk";
-    RPE_version = "Version 2.0.3";
+    RPE_version = "Version 2.0.4";
     RPE_pack = "Base" ;
     romanescoRender = "classic" ;
     RPE_mode = "Ellipse Clock 12/Ellipse Clock 24/Line Clock 12/Line Clock 24/minutes/secondes" ;// separate the name by a slash and write the next mode immadialtly after this one.
@@ -60,9 +60,9 @@ class Horloge extends Romanesco {
       float speed_x = speed_x_item[ID_item] *.1 ;
       float speed_y = speed_y_item[ID_item] *.1 ;
       float speed_z = speed_z_item[ID_item] *.1 ;
-      float pos_x = sin(local_frameCount *speed_x *direction) *map(canvas_x_item[ID_item],width/10,width *PHI,0,width *PHI) ;
-      float pos_y = cos(local_frameCount *speed_y *direction) *map(canvas_y_item[ID_item],width/10,width *PHI,0,width *PHI) ;
-      float pos_z = sin(local_frameCount *speed_z *direction) *map(canvas_z_item[ID_item],width/10,width *PHI,0,width *PHI) ;
+      float pos_x = sin(local_frameCount *speed_x *direction) *map(canvas_x_item[ID_item],width/10,width *r.PHI,0,width *r.PHI) ;
+      float pos_y = cos(local_frameCount *speed_y *direction) *map(canvas_y_item[ID_item],width/10,width *r.PHI,0,width *r.PHI) ;
+      float pos_z = sin(local_frameCount *speed_z *direction) *map(canvas_z_item[ID_item],width/10,width *r.PHI,0,width *r.PHI) ;
       pos_clock = Vec3(pos_x,pos_y,pos_z) ;
     }
 

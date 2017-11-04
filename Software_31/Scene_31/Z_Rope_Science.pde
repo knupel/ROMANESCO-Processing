@@ -1,17 +1,31 @@
 /**
-Math rope 1.8.11.3
+SCIENCE rope
+v 0.0.1.3
+*/
+
+/**
+Physique Rope
+v 0.0.1.1
+*/
+public double g_force(double dist, double m_1, double m_2) {
+  return r.G *(dist*dist)/(m_1 *m_2);
+}
+
+
+
+/**
+Math rope 
+v 1.8.15.1
 * @author Stan le Punk
 * @see https://github.com/StanLepunK/Math_rope
 */
-
-
-
-// ALGEBRE
+/**
+Algebra utils
+*/
 //roots dimensions n
 float roots(float valueToRoots, int n) {
   return pow(valueToRoots, 1.0/n) ;
 }
-
 
 // Decimal
 // @return a specific quantity of decimal after comma
@@ -21,32 +35,37 @@ float decimale (float var, int n) {
 }
 
 
-
-
-
-
-
-//GEOMETRY
-//////////
-
-// EQUATION CIRLCE
+/**
+geometry util
+v. 0.0.3.2
+*/
 float perimeter_disc(int r) {
   return 2 *r *PI ;
 }
 
-
-
-//EQUATION
 float radius_from_circle_surface(int surface) {
   return sqrt(surface/PI) ;
 }
 
 
 
+boolean inside(Vec2 pos, Vec2 size, Vec2 target_pos, int type) {
+  if(type == ELLIPSE) {
+    // this part can be improve to check the 'x' and the 'y'
+    if (dist(pos, target_pos) < size.x *.5) return true ; 
+    else return false ;
+  } else {
+    if(target_pos.x > pos.x && target_pos.x < pos.x +size.x && 
+       target_pos.y > pos.y && target_pos.y < pos.y +size.y) return true ; 
+      else return false ;
+  } 
+}
 
 
-// GEOMETRY POLAR and CARTESIAN
 
+/**
+GEOMETRY POLAR and CARTESIAN
+*/
 /**
 Info
 http://mathinsight.org/vectors_cartesian_coordinates_2d_3d
@@ -58,7 +77,6 @@ http://www.vias.org/comp_geometry/math_coord_convert_3d.htm
 http://mathworld.wolfram.com/Sphere.html
 */
 /*
-
 @return float
 */
 float longitude(float x, float range) {
@@ -69,6 +87,11 @@ float latitude(float y, float range) {
   return map(y, 0,range, 0, TAU) ;
 }
 
+/**
+angle
+v 0.0.2
+* @return float
+*/
 float angle_radians(float y, float range) {
   return map(y, 0,range, 0, TAU) ;
 }
@@ -81,13 +104,13 @@ float angle(Vec2 a, Vec2 b) {
   return atan2(b.y -a.y, b.x -a.x);
 }
 
+float angle(Vec2 v) {
+  return atan2(v.y, v.x);
+}
+
 
 
   
-
-
-
-
 
 /* 
 return a vector info : radius,longitude, latitude
@@ -135,8 +158,10 @@ Vec3 to_cartesian_3D(float latitude, float longitude) {
 // main method
 Vec3 to_cartesian_3D(float latitude, float longitude,  float radius) {
   // https://en.wikipedia.org/wiki/List_of_common_coordinate_transformations
-  /**
-  Must be improve is not really good in the border versus direct polar rotation with the matrix
+  
+
+  /*
+  //  Must be improve is not really good in the border versus direct polar rotation with the matrix
   */ 
   float theta = longitude%TAU ;
   float phi = latitude%PI ;
@@ -230,12 +255,39 @@ Vec3 projection(Vec3 direction, Vec3 origin, float radius) {
 }
 
 
+/**
+look at 
+before target direction
+v 0.0.2
+*/
+// Target direction return the normal direction of the target from the origin
+@Deprecated
+Vec2 target_direction(Vec2 target, Vec2 my_position) {
+  printErrTempo(240, "Vec2 target_direction() deprecated instead use look_at(Vec target, Vec origin) method, becareful the result is mult by -1");
+  return projection(target, my_position, 1).sub(my_position);
+}
+
+@Deprecated
+Vec3 target_direction(Vec3 target, Vec3 my_position) {
+   printErrTempo(240, "Vec2 target_direction() deprecated instead use look_at(Vec target, Vec origin) method, becareful the result is mult by -1");
+  return projection(target, my_position, 1).sub(my_position) ;
+}
+
+
+Vec2 look_at(Vec2 target, Vec2 origin) {
+  return projection(target, origin, 1).sub(origin).mult(-1,1);
+}
+
+Vec3 look_at(Vec3 target, Vec3 origin) {
+  return projection(target, origin, 1).sub(origin);
+}
+
+
 
 
 
 /**
 SPHERE PROJECTION
-
 */
 /**
 FIBONACCI SPHERE PROJECTION CARTESIAN
@@ -276,7 +328,7 @@ Vec2 [] list_polar_fibonacci_sphere(int num, float step) {
 }
 Vec2 distribution_polar_fibonacci_sphere(int n, int num, float step) {
   if(n<num) {
-    float longitude = PHI *TAU *n;
+    float longitude = r.PHI *TAU *n;
     longitude /= step ;
     // like a normalization of the result ?
     longitude -= floor(longitude); 
@@ -288,12 +340,6 @@ Vec2 distribution_polar_fibonacci_sphere(int n, int num, float step) {
   } else return Vec2() ;
 
 }
-
-
-
-
-
-
 
 
 
@@ -320,12 +366,9 @@ float deg360 (Vec2 dir) {
   return deg360 ;
 }
 
-//ROTATION
-//GLOBAL
-
-//DRAW
-
-//other Rotation
+/**
+ROTATION
+*/
 //Rotation Objet
 void rotation (float angle, float posX, float posY) {
   translate(posX, posY ) ;
@@ -335,8 +378,6 @@ void rotation (float angle, Vec2 pos) {
   translate(pos.x, pos.y) ;
   rotate (radians(angle) ) ;
 }
-
-
 
 Vec2 rotation (Vec2 ref, Vec2 lattice, float angle) {
   float a = angle(lattice, ref) + angle;
@@ -356,11 +397,9 @@ Vec2 rotation_lattice(Vec2 ref, Vec2 lattice, float angle) {
   float y = lattice.y + sin( a ) * d;
   return Vec2(x,y);
 }
-//END OF ROTATION
 
 
-// END EQUATION
-///////////////
+
 
 
 
@@ -369,14 +408,11 @@ Vec2 rotation_lattice(Vec2 ref, Vec2 lattice, float angle) {
 
 /**
 PRIMITIVE 2D
-
 */
-
-
 /**
 DISC
 */
-void disc( PVector pos, int diam, int c ) {
+void disc(PVector pos, int diam, int c ) {
   for ( int i = 1 ; i < diam +1 ; i++) {
     circle(c, pos, i) ;
   }
@@ -388,9 +424,8 @@ void chromatic_disc( PVector pos, int diam ) {
   }
 }
 
-
 /**
-//CIRCLE
+CIRCLE
 */
 void chromatic_circle(PVector pos, int d) {
   int surface = d*d ; // surface is equale of square surface where is the cirlcke...make sens ?
@@ -526,58 +561,52 @@ END DISC and CIRCLE
 
 /**
 PRIMITIVE shape
-v 1.0.0.1
+v 1.0.1
 with "n" summits
 */
 void primitive(float radius, int summits) {
   Vec3 pos = Vec3 () ;
-  float orientation = 0 ;
-  Vec2 dir = Vec2() ;
-  primitive(pos, radius, summits, orientation, dir) ;
-}
-
-void primitive(Vec2 p, float radius, int summits) {
-  Vec3 pos = Vec3 (p.x,p.y,0) ;
-  float orientation = 0 ;
-  Vec2 dir = Vec2() ;
-  primitive(pos, radius, summits, orientation, dir) ;
-}
-void primitive(Vec2 p, float radius, int summits, float orientation) {
-  Vec3 pos = Vec3 (p.x,p.y,0) ;
-  Vec2 dir = Vec2() ;
-  primitive(pos, radius, summits, orientation, dir) ;
+  float angle = 0 ;
+  Vec2 dir_P3D = Vec2() ;
+  primitive(pos, radius, summits, angle, dir_P3D) ;
 }
 
 // Primitive with Vec method
-void primitive(Vec3 pos, float radius, int summits) {
-  float orientation = 0 ;
-  Vec2 dir = Vec2() ;
-  primitive(pos, radius, summits, orientation, dir) ;
+void primitive(Vec pos, float radius, int summits) {
+  float angle = 0;
+  Vec2 dir_P3D = Vec2();
+  primitive(pos, radius, summits, angle, dir_P3D) ;
 }
 
-void primitive(Vec3 pos, float radius, int summits, Vec2 dir) {
-  float orientation = 0 ;
-  primitive(pos, radius, summits, orientation, dir) ;
+void primitive(Vec pos, float radius, int summits, Vec2 dir_P3D) {
+  float angle = 0 ;
+  primitive(pos, radius, summits, angle, dir_P3D);
 }
 
-void primitive(Vec3 pos, float radius, int summits, float orientation) {
-  Vec2 dir = Vec2() ;
-  primitive(pos, radius, summits, orientation, dir) ;
+void primitive(Vec pos, float radius, int summits, float angle) {
+  Vec2 dir_P3D = Vec2();
+  primitive(pos, radius, summits, angle, dir_P3D) ;
 }
 
 // Primitive with Vec method and angle to display
-void primitive(Vec3 pos, float radius, int summits, float orientation, Vec2 dir) {
+void primitive(Vec pos_raw, float radius, int summits, float angle, Vec2 dir_P3D) {
+  Vec3 pos = null ;
+  if(pos_raw instanceof Vec2) {
+    pos = Vec3(pos_raw.x, pos_raw.y, 0);
+  } else if(pos_raw instanceof Vec3) {
+    pos = Vec3(pos_raw.x, pos_raw.y, pos_raw.z);
+  }
   //  if(summits < 3) summits = 3 ;
   if(summits < 2) summits = 2 ;
   Vec3 [] points = new Vec3[summits] ;
   // create coord of the shape
-  if(dir == null ) {
+  if(dir_P3D == null ) {
     // call POLYGON 2D
-    for (int i = 0 ; i < summits ; i++) points[i] = polygon_2D(summits, orientation)[i].copy() ;
-  } else if (dir != null && renderer_P3D()) {
+    for (int i = 0 ; i < summits ; i++) points[i] = polygon_2D(summits, angle)[i].copy() ;
+  } else if (dir_P3D != null && renderer_P3D()) {
     /**
     // call POLYGON 3D
-    but must be refactoring because the metod polygon_3D is a little shitty !!!!!
+    but must be refactoring because the method polygon_3D is a little shitty !!!!!
     for (int i = 0 ; i < summits ; i++) {points[i] = polygon_3D(summits, orientation, dir)[i].copy() ;
     */
     // for (int i = 0 ; i < summits ; i++) points[i] = polygon_3D(pos, radius, summits, orientation, dir)[i].copy() ;
@@ -585,16 +614,16 @@ void primitive(Vec3 pos, float radius, int summits, float orientation, Vec2 dir)
     // classic version with polygon_2D method
     */
     // start_matrix_3D(pos, dir) ;
-    for (int i = 0 ; i < summits ; i++) points[i] = polygon_2D(summits, orientation)[i].copy() ;
+    for (int i = 0 ; i < summits ; i++) points[i] = polygon_2D(summits, angle)[i].copy() ;
     // stop_matrix() ;
   } else {
-    for (int i = 0 ; i < summits ; i++) points[i] = polygon_2D(summits, orientation)[i].copy() ;
+    for (int i = 0 ; i < summits ; i++) points[i] = polygon_2D(summits, angle)[i].copy() ;
   }
   //draw the shape
   /**
   this rotate part must be integrate with a cartesian method in the circle method
   */
-  draw_primitive(pos, dir, radius, points) ;
+  draw_primitive(pos, dir_P3D, radius, points) ;
   /**
   With advance shitty version of Polygon_3D
   */
@@ -690,7 +719,6 @@ void draw_primitive (Vec3 pos, float radius, Vec3 [] pts) {
 
 /**
 POLYGON
-
 */
 /**
 POLYGON 2D
@@ -773,14 +801,13 @@ Vec3 [] polygon_3D (Vec3 pos, float radius, int num, float new_orientation, Vec3
     /**
     plane is not a normal value, it's big problem :(((((((
     */
-    plane.mult(radius) ;
-    plane.add(pos) ;
+    plane.mult(radius);
+    plane.add(pos);
     // write summits
-    p[step] = plane.copy() ;
+    p[step] = plane.copy();
 
-    step ++ ;
+    step++ ;
   }
-
   return p ;
 }
 /**
@@ -805,7 +832,9 @@ END POLYGON
 
 
 
-// TRIANGLE
+/**
+TRIANGLE
+*/
 void triangle(float x_a, float y_a, float z_a, float x_b, float y_b, float z_b, float x_c, float y_c, float z_c) {
   Vec3 a = Vec3(x_a, y_a, z_a) ;
   Vec3 b = Vec3(x_b, y_b, z_b) ;
@@ -839,12 +868,9 @@ void triangle(Vec3 a, Vec3 b, Vec3 c) {
   }
   endShape(CLOSE) ;
 }
-// END TRIANGLE
 
 
 
-// END PRIMITIVE 2D
-///////////////////
 
 
 
@@ -864,12 +890,12 @@ void triangle(Vec3 a, Vec3 b, Vec3 c) {
 
 
 /**
-//PRIMITIVE 3D
-//////////////
-*/
+PRIMITIVE 3D
 
-// SIMPLE TETRAHEDRON
-/////////////////////
+*/
+/**
+SIMPLE TETRAHEDRON
+*/
 ArrayList listPointTetrahedron = new ArrayList() ;
 // main method
 /* The starting size is around "one pixel */
@@ -925,14 +951,13 @@ void renderTetrahedron(PVector v1, PVector v2, PVector v3) {
 }
 
 
-// END SIMPLE TETRAHEDRON
-////////////////////////
 
 
 
 
-
-//POLYDRON
+/**
+POLYDRON
+*/
   //create Polyhedron
   /*
   "TETRAHEDRON","CUBE", "OCTOHEDRON", "DODECAHEDRON","ICOSAHEDRON","CUBOCTAHEDRON","ICOSI DODECAHEDRON",
@@ -1007,113 +1032,113 @@ void cube(int size) {
 
 void octohedron(int size) {
   addPermutations(1, 0, 0);
-  edgeLengthOfPolyhedron = ROOT2;
+  edgeLengthOfPolyhedron = r.ROOT2;
   factorSizePolyhedron = size *.8;
 }
 
 void dodecahedron(int size) {
   addVerts(1, 1, 1);
-  addPermutations(0, 1/PHI, PHI);
-  edgeLengthOfPolyhedron = 2/PHI;
+  addPermutations(0, 1/r.PHI, r.PHI);
+  edgeLengthOfPolyhedron = 2/r.PHI;
   factorSizePolyhedron = size /2.5;
 }
 
 
 // SPECIAL
 void icosahedron(int size) {
-  addPermutations(0, 1, PHI);
+  addPermutations(0,1,r.PHI);
   edgeLengthOfPolyhedron = 2.0;
   factorSizePolyhedron = size /2.7;
 }
 
 void icosi_dodecahedron(int size) {
-  addPermutations(0, 0, 2*PHI);
-  addPermutations(1, PHI, sq(PHI));
+  addPermutations(0,0,2*r.PHI);
+  addPermutations(1,r.PHI,sq(r.PHI));
   edgeLengthOfPolyhedron = 2;
   factorSizePolyhedron = size/5;
 }
 
 void cuboctahedron(int size) {
-  addPermutations(1, 0, 1);
-  edgeLengthOfPolyhedron = ROOT2;
+  addPermutations(1,0,1);
+  edgeLengthOfPolyhedron = r.ROOT2;
   factorSizePolyhedron = size /1.9;
 }
 
 
 // TRUNCATED
 void truncated_cube(int size) {
-  addPermutations(ROOT2 - 1, 1, 1);
-  edgeLengthOfPolyhedron = 2*(ROOT2 - 1);     
+  addPermutations(r.ROOT2-1,1,1);
+  edgeLengthOfPolyhedron = 2*(r.ROOT2-1);     
   factorSizePolyhedron = size /2.1;
 }
 
 void truncated_octahedron(int size) {
-  addPermutations(0, 1, 2);
-  addPermutations(2, 1, 0);
-  edgeLengthOfPolyhedron = ROOT2;
+  addPermutations(0,1,2);
+  addPermutations(2,1,0);
+  edgeLengthOfPolyhedron = r.ROOT2;
   factorSizePolyhedron = size/3.4;
 }
 
 void truncated_cuboctahedron(int size) {
-  addPermutations(ROOT2 + 1, 2*ROOT2 + 1, 1);
-  addPermutations(ROOT2 + 1, 1, 2*ROOT2 + 1);
+  addPermutations(r.ROOT2+1,2*r.ROOT2 + 1, 1);
+  addPermutations(r.ROOT2+1,1,2*r.ROOT2 + 1);
   edgeLengthOfPolyhedron = 2;
   factorSizePolyhedron = size/6.9;
 }
 
 void truncated_dodecahedron(int size) {
-  addPermutations(0, 1/PHI, PHI + 2);
-  addPermutations(1/PHI, PHI, 2*PHI);
-  addPermutations(PHI, 2, sq(PHI));
-  edgeLengthOfPolyhedron = 2*(PHI - 1);
+  addPermutations(0,1/r.PHI,r.PHI+2);
+  addPermutations(1/r.PHI,r.PHI,2*r.PHI);
+  addPermutations(r.PHI,2,sq(r.PHI));
+  edgeLengthOfPolyhedron = 2*(r.PHI - 1);
   factorSizePolyhedron = size/6;
 }
 
 void truncated_icosahedron(int size) {
-  addPermutations(0, 1, 3*PHI);
-  addPermutations(2, 2*PHI + 1, PHI);
-  addPermutations(1, PHI + 2, 2*PHI);
+  addPermutations(0,1,3*r.PHI);
+  addPermutations(2,2*r.PHI+1,r.PHI);
+  addPermutations(1,r.PHI+2,2*r.PHI);
   edgeLengthOfPolyhedron = 2;
   factorSizePolyhedron = size/8;
 }
 
 // RHOMBIC
 void rhombic_dodecahedron(int size) {
-  addVerts(1, 1, 1);
-  addPermutations(0, 0, 2);
+  addVerts(1,1,1);
+  addPermutations(0,0,2);
   edgeLengthOfPolyhedron = sqrt(3);
   factorSizePolyhedron = size /2.8;
 }
 
 void rhombic_triacontahedron(int size) {
-  addVerts(sq(PHI), sq(PHI), sq(PHI));
-  addPermutations(sq(PHI), 0, pow(PHI, 3));
-  addPermutations(0, PHI, pow(PHI, 3));
-  edgeLengthOfPolyhedron = PHI*sqrt(PHI + 2);
+  addVerts(sq(r.PHI), sq(r.PHI), sq(r.PHI));
+  addPermutations(sq(r.PHI), 0, pow(r.PHI, 3));
+  addPermutations(0,r.PHI, pow(r.PHI,3));
+  edgeLengthOfPolyhedron = r.PHI*sqrt(r.PHI+2);
   factorSizePolyhedron = size /7.2;
 }
 
 void rhombic_cuboctahedron(int size) {
-  addPermutations(ROOT2 + 1, 1, 1);
+  addPermutations(r.ROOT2 + 1, 1, 1);
   edgeLengthOfPolyhedron = 2;
   factorSizePolyhedron = size/4.2;
 }
 
 void rhombic_cosi_dodecahedron_small(int size) {
-  addPermutations(1, 1, pow(PHI, 3));
-  addPermutations(sq(PHI), PHI, 2*PHI);
-  addPermutations(PHI + 2, 0, sq(PHI));
+  addPermutations(1, 1, pow(r.PHI,3));
+  addPermutations(sq(r.PHI),r.PHI,2*r.PHI);
+  addPermutations(r.PHI+2,0,sq(r.PHI));
   edgeLengthOfPolyhedron = 2;
   factorSizePolyhedron = size/7.4;
 }
 
 void rhombic_cosi_dodecahedron_great(int size) {
-  addPermutations(1/PHI, 1/PHI, PHI + 3);
-  addPermutations(2/PHI, PHI, 2*PHI + 1);
-  addPermutations(1/PHI, sq(PHI), 3*PHI - 1);
-  addPermutations(2*PHI - 1, 2, PHI + 2);
-  addPermutations(PHI, 3, 2*PHI);
-  edgeLengthOfPolyhedron = 2*PHI - 2;
+  addPermutations(1/r.PHI,1/r.PHI,r.PHI+3);
+  addPermutations(2/r.PHI,r.PHI,2*r.PHI+1);
+  addPermutations(1/r.PHI, sq(r.PHI),3*r.PHI-1);
+  addPermutations(2*r.PHI-1,2,r.PHI+2);
+  addPermutations(r.PHI,3,2*r.PHI);
+  edgeLengthOfPolyhedron = 2*r.PHI-2;
   factorSizePolyhedron = size/7.8;
 }
 
@@ -1211,15 +1236,9 @@ void drawVertexPolyhedron(String polyhedronName) {
 
 
 
-
-
-
-
-
-
-
-
-// annexe draw polyhedron
+/**
+annexe draw polyhedron
+*/
 boolean isEdge(int vID1, int vID2, ArrayList listPoint) {
   //had some rounding errors that were messing things up, so I had to make it a bit more forgiving...
   int pres = 1000;
@@ -1266,7 +1285,6 @@ void addVerts(float x, float y, float z) {
     }
   }
 }
-// END POLYHEDRON
 
 
 
@@ -1281,43 +1299,9 @@ void addVerts(float x, float y, float z) {
 
 
 
-// END PRIMITIVE 3D
-///////////////////
-
-// END GEOMETRY
-///////////////
 
 
 
-
-
-
-
-
-
-
-
-/**
-// MISC
-////////
-*/
-
-
-
-
-
-
-/**
-// TARGET direction
-*/
-// Target direction return the normal direction of the target from the origin
-Vec2 target_direction(Vec2 target, Vec2 my_position) {
-  return projection(target, my_position, 1).sub(my_position) ;
-}
-
-Vec3 target_direction(Vec3 target, Vec3 my_position) {
-  return projection(target, my_position, 1).sub(my_position) ;
-}
 
 
 

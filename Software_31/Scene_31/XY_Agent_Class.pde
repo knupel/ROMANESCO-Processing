@@ -1,5 +1,5 @@
 /**
-CLASS AGENT 1.0.1
+CLASS AGENT 1.0.2
 */
 /**
 
@@ -716,7 +716,7 @@ END CLASS AGENT METHOD
 
 /**
 
-CLASS AGENT DYNAMIC 0.2.1
+CLASS AGENT DYNAMIC 0.2.2
 @author Stan le Punk
 
 */
@@ -804,7 +804,7 @@ abstract class Agent_dynamic extends Agent_model {
 //  int size_target_flora ;
   int time_watching = 0 ;
   // MISC
-  Info_obj style ;
+Info_Object style ;
 
 
   /**
@@ -818,7 +818,7 @@ abstract class Agent_dynamic extends Agent_model {
   @param int velocity, give the maximum of motion speed of your agent.
   @param String name... no comment !
   */
-  Agent_dynamic(Info_dict carac, Info_obj style, int gender) {
+  Agent_dynamic(Info_dict carac, Info_Object style, int gender) {
   // Agent_dynamic(int size, int stamina, int life_expectancy, int velocity, int sense_range, String name, Vec2 sex_appeal, int gender) {
     // set aspect
     this.style = style ;
@@ -980,7 +980,7 @@ abstract class Agent_dynamic extends Agent_model {
   CONSTRUCTOR 
   Dynamic Agent from mother and father Genome
   */
-  Agent_dynamic(Genome mother, Genome father, Info_obj style) {
+  Agent_dynamic(Genome mother, Genome father, Info_Object style) {
     // aspect
     this.style = style ;
     set_aspect((Vec4)style.catch_obj(1), (Vec4)style.catch_obj(2), (float)style.catch_obj(3)) ;
@@ -1172,7 +1172,7 @@ abstract class Agent_dynamic extends Agent_model {
 
 
   /**
-  SET 1.0.0
+  SET 1.0.1
    
   */
   /**
@@ -2009,12 +2009,12 @@ COMMON HUNT & SEARCH
 
 
   /**
-  LOG 0.1.0
+  LOG 0.1.1
 
   */
   Table log_a_d ;
   TableRow [] tableRow_a_d ;
-  Info_obj [] info_a_d  ;
+  Info_Object [] info_a_d  ;
   int col_num = 4 ;
   int row_num = 30 ;
   boolean log_is ;
@@ -2028,7 +2028,7 @@ COMMON HUNT & SEARCH
     log_is = true ;
     log_a_d = new Table();
     tableRow_a_d = new TableRow[row_num] ;
-    info_a_d = new Info_obj [row_num] ;
+    info_a_d = new Info_Object [row_num] ;
     for (int i = 0 ; i < row_num ; i++) {
       tableRow_a_d[i] = log_a_d.addRow();
     }
@@ -2086,40 +2086,40 @@ COMMON HUNT & SEARCH
   void log(int tempo) {
     if(frameCount%tempo == 0) {
       int rank = 0 ;
-      info_a_d[rank++] = new Info_obj ("Name", name, this.getClass().getSimpleName(), ID) ;
-      if(gender ==0 ) info_a_d[rank++] = new Info_obj ("Gender", "Female") ; else info_a_d[rank++] = new Info_obj ("Gender", "Male") ;
-      info_a_d[rank++] = new Info_obj ("Generation", generation) ;
-      info_a_d[rank++] = new Info_obj ("Sex appeal", sex_appeal) ;
-      info_a_d[rank++] = new Info_obj ("Multiple pregnancy", multiple_pregnancy) ;
-      info_a_d[rank++] = new Info_obj ("Pregnancy", num_pregnancy) ;
-      info_a_d[rank++] = new Info_obj ("Children", num_children) ;
-      info_a_d[rank++] = new Info_obj ("Heterozygous", num_heterozygous) ;
-      info_a_d[rank++] = new Info_obj ("Homozygous", num_homozygous) ;
+      info_a_d[rank++] = new Info_Object ("Name", name, this.getClass().getSimpleName(), ID) ;
+      if(gender ==0 ) info_a_d[rank++] = new Info_Object ("Gender", "Female") ; else info_a_d[rank++] = new Info_Object ("Gender", "Male") ;
+      info_a_d[rank++] = new Info_Object ("Generation", generation) ;
+      info_a_d[rank++] = new Info_Object ("Sex appeal", sex_appeal) ;
+      info_a_d[rank++] = new Info_Object ("Multiple pregnancy", multiple_pregnancy) ;
+      info_a_d[rank++] = new Info_Object ("Pregnancy", num_pregnancy) ;
+      info_a_d[rank++] = new Info_Object ("Children", num_children) ;
+      info_a_d[rank++] = new Info_Object ("Heterozygous", num_heterozygous) ;
+      info_a_d[rank++] = new Info_Object ("Homozygous", num_homozygous) ;
 
-      info_a_d[rank++] = new Info_obj ("Life", life, life_expectancy) ;
+      info_a_d[rank++] = new Info_Object ("Life", life, life_expectancy) ;
 
-      info_a_d[rank++] = new Info_obj ("Size", size, size_ref) ;
+      info_a_d[rank++] = new Info_Object ("Size", size, size_ref) ;
 
-      info_a_d[rank++] = new Info_obj ("Stamina", stamina, stamina_ref) ;
+      info_a_d[rank++] = new Info_Object ("Stamina", stamina, stamina_ref) ;
 
-      info_a_d[rank++] = new Info_obj ("Sense range", sense_range) ;
+      info_a_d[rank++] = new Info_Object ("Sense range", sense_range) ;
       
-      info_a_d[rank++] = new Info_obj ("Velocity", velocity) ;
-      info_a_d[rank++] = new Info_obj ("Position", (int)pos.x, (int)pos.y, (int)pos.z) ;
+      info_a_d[rank++] = new Info_Object ("Velocity", velocity) ;
+      info_a_d[rank++] = new Info_Object ("Position", (int)pos.x, (int)pos.y, (int)pos.z) ;
       // info
-      info_a_d[rank++] = new Info_obj ("Satiate", satiate) ;
-      info_a_d[rank++] = new Info_obj ("Starving", starving_bool) ;
-      info_a_d[rank++] = new Info_obj ("Hunger", hunger) ;
-      info_a_d[rank++] = new Info_obj ("Leptin", leptin) ;
-      info_a_d[rank++] = new Info_obj ("Eating", eating) ;
+      info_a_d[rank++] = new Info_Object ("Satiate", satiate) ;
+      info_a_d[rank++] = new Info_Object ("Starving", starving_bool) ;
+      info_a_d[rank++] = new Info_Object ("Hunger", hunger) ;
+      info_a_d[rank++] = new Info_Object ("Leptin", leptin) ;
+      info_a_d[rank++] = new Info_Object ("Eating", eating) ;
 
-      info_a_d[rank++] = new Info_obj ("Watching", watching) ;
-      info_a_d[rank++] = new Info_obj ("Tracking", tracking) ;
+      info_a_d[rank++] = new Info_Object ("Watching", watching) ;
+      info_a_d[rank++] = new Info_Object ("Tracking", tracking) ;
 
-      info_a_d[rank++] = new Info_obj ("Alive", alive) ;
-      info_a_d[rank++] = new Info_obj ("Carrion", carrion) ;
+      info_a_d[rank++] = new Info_Object ("Alive", alive) ;
+      info_a_d[rank++] = new Info_Object ("Carrion", carrion) ;
       
-      info_a_d[rank++] = new Info_obj ("Log sequence", SEQUENCE_LOG) ;
+      info_a_d[rank++] = new Info_Object ("Log sequence", SEQUENCE_LOG) ;
       //
       setTable(log_a_d, tableRow_a_d, info_a_d) ;
  
@@ -2204,7 +2204,7 @@ abstract class Agent_static extends Agent_model {
     this.mass = this.mass_ref = int((size.x +size.y +size.z) *.3 *this.density) ;
   }
 
-  Agent_static(Info_dict carac, Info_obj style, int gender) {
+  Agent_static(Info_dict carac, Info_Object style, int gender) {
     String temp_name = "Nobody" ;
     Vec3 temp_size = Vec3(1) ;
     float temp_density = 1 ;

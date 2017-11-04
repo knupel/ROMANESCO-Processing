@@ -9,7 +9,7 @@ SUB CLASS HERBIVORE 0.2.1
 class Herbivore extends Agent_dynamic {
 
   // Herbivore(int size, int stamina, int life_expectancy, int velocity, int sense_range, String name, Vec2 sex_appeal, int gender) {
-  Herbivore(Info_dict carac, Info_obj style, int gender) {
+  Herbivore(Info_dict carac, Info_Object style, int gender) {
 
     // super(size, stamina, life_expectancy, velocity, sense_range, name, sex_appeal, gender) ;
     super(carac, style, gender) ;
@@ -18,7 +18,7 @@ class Herbivore extends Agent_dynamic {
   }
 
 
-  Herbivore(Genome mother, Genome father, Info_obj style) {
+  Herbivore(Genome mother, Genome father, Info_Object style) {
     super(mother,father, style) ;
     // not in the genome
     set_kill_skill(this.mass) ;
@@ -72,14 +72,14 @@ class Omnivore extends Agent_dynamic {
   Omnivore(int size, int stamina, int life_expectancy, int velocity, int sense_range, String name, Vec2 sex_appeal, int gender) {
     super(size, stamina, life_expectancy, velocity, sense_range, name, sex_appeal, gender) ;
     */
-  Omnivore(Info_dict carac, Info_obj style, int gender) {
+  Omnivore(Info_dict carac, Info_Object style, int gender) {
     super(carac, style, gender) ;
     // not in the genome
     set_kill_skill(this.mass) ;
   }
 
 
-  Omnivore(Genome mother, Genome father, Info_obj style) {
+  Omnivore(Genome mother, Genome father, Info_Object style) {
     super(mother,father, style) ;
     // not in the genome
     set_kill_skill(this.mass) ;
@@ -133,14 +133,14 @@ class Carnivore extends Agent_dynamic {
   Carnivore(int size, int stamina, int life_expectancy, int velocity, int sense_range, String name, Vec2 sex_appeal, int gender) {
   super(size, stamina, life_expectancy, velocity, sense_range, name, sex_appeal, gender) ;
   */
-  Carnivore(Info_dict carac, Info_obj style, int gender) {
+  Carnivore(Info_dict carac, Info_Object style, int gender) {
     super(carac, style, gender) ;
     // not in the genome
     set_kill_skill(this.mass) ;
 
   }
 
-  Carnivore(Genome mother, Genome father, Info_obj style) {
+  Carnivore(Genome mother, Genome father, Info_Object style) {
     super(mother,father, style) ;
     // not in the genome
     set_kill_skill(this.mass) ;
@@ -208,7 +208,7 @@ class Bacterium extends Agent_dynamic {
   Bacterium(int size, int stamina, int life_expectancy, int velocity, int sense_range, String name, int gender) {
     super(size, stamina, life_expectancy, velocity, sense_range, name, Vec2(), gender) ;
     */
-  Bacterium(Info_dict carac, Info_obj style, int gender) {
+  Bacterium(Info_dict carac, Info_Object style, int gender) {
     super(carac, style, gender) ;
     set_kill_skill(this.mass) ;
   }
@@ -428,7 +428,7 @@ class Dead extends Agent_static {
 
 	}
 
-   Dead(Info_dict carac, Info_obj style, int gender) {
+   Dead(Info_dict carac, Info_Object style, int gender) {
       super(carac, style, gender) ;
       this.alive = false ;
    }
