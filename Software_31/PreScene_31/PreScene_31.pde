@@ -15,7 +15,7 @@ Scene - Prescene 1.3.0
 
 String version = ("31") ;
 String IAM = ("Prescene") ;
-String prettyVersion = ("1.2.1") ;
+String prettyVersion = ("1.3.0") ;
 String nameVersion = ("Romanesco unu") ;
 String preference_path, import_path ;
 

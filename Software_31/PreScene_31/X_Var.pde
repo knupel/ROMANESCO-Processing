@@ -1,7 +1,6 @@
 /** 
 VARIABLE 1.1.8
 */
-// GLOBAL SETTING ////
 
 import java.net.*;
 import java.io.*;
@@ -30,6 +29,7 @@ import toxi.geom.mesh2d.*;
 import toxi.util.*;
 import toxi.util.datatypes.*;
 import toxi.processing.*;
+
 // METEO
 import com.onformative.yahooweather.*;
 // SYPHON

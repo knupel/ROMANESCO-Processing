@@ -1,6 +1,21 @@
 /**
+SCIENCE rope
+v 0.0.1.3
+*/
+
+/**
+Physique Rope
+v 0.0.1.1
+*/
+public double g_force(double dist, double m_1, double m_2) {
+  return r.G *(dist*dist)/(m_1 *m_2);
+}
+
+
+
+/**
 Math rope 
-v 1.8.14
+v 1.8.15.1
 * @author Stan le Punk
 * @see https://github.com/StanLepunK/Math_rope
 */
@@ -22,7 +37,7 @@ float decimale (float var, int n) {
 
 /**
 geometry util
-v. 0.0.3.1
+v. 0.0.3.2
 */
 float perimeter_disc(int r) {
   return 2 *r *PI ;
@@ -33,12 +48,19 @@ float radius_from_circle_surface(int surface) {
 }
 
 
-boolean inside(Vec2 pos, Vec2 size, Vec2 target, int type) {
+
+boolean inside(Vec2 pos, Vec2 size, Vec2 target_pos, int type) {
   if(type == ELLIPSE) {
     // this part can be improve to check the 'x' and the 'y'
-    if (dist(pos, target) < size.x *.5) return true  ; else return false ;
-  } else if(target.x > pos.x && target.x < pos.x +size.x && target.y > pos.y && target.y < pos.y +size.y) return true ; else return false ;
+    if (dist(pos, target_pos) < size.x *.5) return true ; 
+    else return false ;
+  } else {
+    if(target_pos.x > pos.x && target_pos.x < pos.x +size.x && 
+       target_pos.y > pos.y && target_pos.y < pos.y +size.y) return true ; 
+      else return false ;
+  } 
 }
+
 
 
 /**
@@ -55,7 +77,6 @@ http://www.vias.org/comp_geometry/math_coord_convert_3d.htm
 http://mathworld.wolfram.com/Sphere.html
 */
 /*
-
 @return float
 */
 float longitude(float x, float range) {
@@ -66,6 +87,11 @@ float latitude(float y, float range) {
   return map(y, 0,range, 0, TAU) ;
 }
 
+/**
+angle
+v 0.0.2
+* @return float
+*/
 float angle_radians(float y, float range) {
   return map(y, 0,range, 0, TAU) ;
 }
@@ -76,6 +102,10 @@ float angle_degrees(float y, float range) {
 
 float angle(Vec2 a, Vec2 b) {
   return atan2(b.y -a.y, b.x -a.x);
+}
+
+float angle(Vec2 v) {
+  return atan2(v.y, v.x);
 }
 
 
@@ -298,7 +328,7 @@ Vec2 [] list_polar_fibonacci_sphere(int num, float step) {
 }
 Vec2 distribution_polar_fibonacci_sphere(int n, int num, float step) {
   if(n<num) {
-    float longitude = PHI *TAU *n;
+    float longitude = r.PHI *TAU *n;
     longitude /= step ;
     // like a normalization of the result ?
     longitude -= floor(longitude); 
@@ -1002,113 +1032,113 @@ void cube(int size) {
 
 void octohedron(int size) {
   addPermutations(1, 0, 0);
-  edgeLengthOfPolyhedron = ROOT2;
+  edgeLengthOfPolyhedron = r.ROOT2;
   factorSizePolyhedron = size *.8;
 }
 
 void dodecahedron(int size) {
   addVerts(1, 1, 1);
-  addPermutations(0, 1/PHI, PHI);
-  edgeLengthOfPolyhedron = 2/PHI;
+  addPermutations(0, 1/r.PHI, r.PHI);
+  edgeLengthOfPolyhedron = 2/r.PHI;
   factorSizePolyhedron = size /2.5;
 }
 
 
 // SPECIAL
 void icosahedron(int size) {
-  addPermutations(0, 1, PHI);
+  addPermutations(0,1,r.PHI);
   edgeLengthOfPolyhedron = 2.0;
   factorSizePolyhedron = size /2.7;
 }
 
 void icosi_dodecahedron(int size) {
-  addPermutations(0, 0, 2*PHI);
-  addPermutations(1, PHI, sq(PHI));
+  addPermutations(0,0,2*r.PHI);
+  addPermutations(1,r.PHI,sq(r.PHI));
   edgeLengthOfPolyhedron = 2;
   factorSizePolyhedron = size/5;
 }
 
 void cuboctahedron(int size) {
-  addPermutations(1, 0, 1);
-  edgeLengthOfPolyhedron = ROOT2;
+  addPermutations(1,0,1);
+  edgeLengthOfPolyhedron = r.ROOT2;
   factorSizePolyhedron = size /1.9;
 }
 
 
 // TRUNCATED
 void truncated_cube(int size) {
-  addPermutations(ROOT2 - 1, 1, 1);
-  edgeLengthOfPolyhedron = 2*(ROOT2 - 1);     
+  addPermutations(r.ROOT2-1,1,1);
+  edgeLengthOfPolyhedron = 2*(r.ROOT2-1);     
   factorSizePolyhedron = size /2.1;
 }
 
 void truncated_octahedron(int size) {
-  addPermutations(0, 1, 2);
-  addPermutations(2, 1, 0);
-  edgeLengthOfPolyhedron = ROOT2;
+  addPermutations(0,1,2);
+  addPermutations(2,1,0);
+  edgeLengthOfPolyhedron = r.ROOT2;
   factorSizePolyhedron = size/3.4;
 }
 
 void truncated_cuboctahedron(int size) {
-  addPermutations(ROOT2 + 1, 2*ROOT2 + 1, 1);
-  addPermutations(ROOT2 + 1, 1, 2*ROOT2 + 1);
+  addPermutations(r.ROOT2+1,2*r.ROOT2 + 1, 1);
+  addPermutations(r.ROOT2+1,1,2*r.ROOT2 + 1);
   edgeLengthOfPolyhedron = 2;
   factorSizePolyhedron = size/6.9;
 }
 
 void truncated_dodecahedron(int size) {
-  addPermutations(0, 1/PHI, PHI + 2);
-  addPermutations(1/PHI, PHI, 2*PHI);
-  addPermutations(PHI, 2, sq(PHI));
-  edgeLengthOfPolyhedron = 2*(PHI - 1);
+  addPermutations(0,1/r.PHI,r.PHI+2);
+  addPermutations(1/r.PHI,r.PHI,2*r.PHI);
+  addPermutations(r.PHI,2,sq(r.PHI));
+  edgeLengthOfPolyhedron = 2*(r.PHI - 1);
   factorSizePolyhedron = size/6;
 }
 
 void truncated_icosahedron(int size) {
-  addPermutations(0, 1, 3*PHI);
-  addPermutations(2, 2*PHI + 1, PHI);
-  addPermutations(1, PHI + 2, 2*PHI);
+  addPermutations(0,1,3*r.PHI);
+  addPermutations(2,2*r.PHI+1,r.PHI);
+  addPermutations(1,r.PHI+2,2*r.PHI);
   edgeLengthOfPolyhedron = 2;
   factorSizePolyhedron = size/8;
 }
 
 // RHOMBIC
 void rhombic_dodecahedron(int size) {
-  addVerts(1, 1, 1);
-  addPermutations(0, 0, 2);
+  addVerts(1,1,1);
+  addPermutations(0,0,2);
   edgeLengthOfPolyhedron = sqrt(3);
   factorSizePolyhedron = size /2.8;
 }
 
 void rhombic_triacontahedron(int size) {
-  addVerts(sq(PHI), sq(PHI), sq(PHI));
-  addPermutations(sq(PHI), 0, pow(PHI, 3));
-  addPermutations(0, PHI, pow(PHI, 3));
-  edgeLengthOfPolyhedron = PHI*sqrt(PHI + 2);
+  addVerts(sq(r.PHI), sq(r.PHI), sq(r.PHI));
+  addPermutations(sq(r.PHI), 0, pow(r.PHI, 3));
+  addPermutations(0,r.PHI, pow(r.PHI,3));
+  edgeLengthOfPolyhedron = r.PHI*sqrt(r.PHI+2);
   factorSizePolyhedron = size /7.2;
 }
 
 void rhombic_cuboctahedron(int size) {
-  addPermutations(ROOT2 + 1, 1, 1);
+  addPermutations(r.ROOT2 + 1, 1, 1);
   edgeLengthOfPolyhedron = 2;
   factorSizePolyhedron = size/4.2;
 }
 
 void rhombic_cosi_dodecahedron_small(int size) {
-  addPermutations(1, 1, pow(PHI, 3));
-  addPermutations(sq(PHI), PHI, 2*PHI);
-  addPermutations(PHI + 2, 0, sq(PHI));
+  addPermutations(1, 1, pow(r.PHI,3));
+  addPermutations(sq(r.PHI),r.PHI,2*r.PHI);
+  addPermutations(r.PHI+2,0,sq(r.PHI));
   edgeLengthOfPolyhedron = 2;
   factorSizePolyhedron = size/7.4;
 }
 
 void rhombic_cosi_dodecahedron_great(int size) {
-  addPermutations(1/PHI, 1/PHI, PHI + 3);
-  addPermutations(2/PHI, PHI, 2*PHI + 1);
-  addPermutations(1/PHI, sq(PHI), 3*PHI - 1);
-  addPermutations(2*PHI - 1, 2, PHI + 2);
-  addPermutations(PHI, 3, 2*PHI);
-  edgeLengthOfPolyhedron = 2*PHI - 2;
+  addPermutations(1/r.PHI,1/r.PHI,r.PHI+3);
+  addPermutations(2/r.PHI,r.PHI,2*r.PHI+1);
+  addPermutations(1/r.PHI, sq(r.PHI),3*r.PHI-1);
+  addPermutations(2*r.PHI-1,2,r.PHI+2);
+  addPermutations(r.PHI,3,2*r.PHI);
+  edgeLengthOfPolyhedron = 2*r.PHI-2;
   factorSizePolyhedron = size/7.8;
 }
 
