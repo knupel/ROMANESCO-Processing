@@ -1,10 +1,11 @@
 /**
 
 DYNAMIC SUB METHOD 
+V 0.1
 
 */
 /**
-METHOD HERBIVORE 1.0.0
+METHOD HERBIVORE 1.0.1
 
 */
 /**

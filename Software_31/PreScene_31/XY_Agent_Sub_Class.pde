@@ -1,5 +1,6 @@
 /**
-DYNAMIC SUB CLASS 1.0.0
+DYNAMIC SUB CLASS 
+v 1.0.1
 
 */
 /**
