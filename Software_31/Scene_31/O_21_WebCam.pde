@@ -1,5 +1,7 @@
 /**
-WEBCAM || 2011 || 1.2.3
+WEBCAM 
+2011-2018
+v 1.2.5
 */
 class Webcam extends Romanesco {
   public Webcam() {
@@ -8,7 +10,7 @@ class Webcam extends Romanesco {
     ID_item = 21 ;
     ID_group = 1 ;
     RPE_author  = "Stan le Punk";
-    RPE_version = "Version 1.2.4";
+    RPE_version = "Version 1.2.5";
     RPE_pack = "Base" ;
     RPE_mode = "Rectangle color/Rectangle mono/Point color/Point mono/Box color/Box mono" ;
     RPE_slider = "Fill hue,Fill sat,Fill bright,Fill alpha,Size X,Size Y,Size Z,Canvas X,Canvas Y" ;
@@ -16,12 +18,8 @@ class Webcam extends Romanesco {
   //GLOBAL
   int cameraStatut = 0 ;
 
-
-
-  
-  PVector factorDisplayCam = new PVector (0,0) ;
-  PVector factorDisplayPixel = new PVector (0,0) ;
-  // PVector factorCalcul = new PVector (0,0) ;
+  Vec2 factorDisplayCam ;
+  Vec3 factorDisplayPixel ;
   
   color colorPixelCam ;
   
@@ -33,14 +31,15 @@ class Webcam extends Romanesco {
   //SETUP
   void setup() {
     setting_start_position(ID_item, 0, 0, 0) ;
+    factorDisplayCam = Vec2();
+    factorDisplayPixel = Vec3();
   }
   //DRAW
   void draw() {
     video_camera_manager() ;
     //PART ONE
     //calcul the ration between the size of camera and the size of the scene
-    factorDisplayCam.x = width / CAM_SIZE.x ; 
-    factorDisplayCam.y = height / CAM_SIZE.y ;
+    factorDisplayCam.set(width / CAM_SIZE.x,height / CAM_SIZE.y);
     
     // size
     float minVal = 0.1 ;
@@ -48,8 +47,8 @@ class Webcam extends Romanesco {
     float size_x = map(size_x_item[ID_item],0.1,width, minVal, maxVal) *snare[ID_item] ;
     float size_y = map(size_y_item[ID_item],0.1,width, minVal, maxVal) *kick[ID_item] ;
     float size_z = map(size_z_item[ID_item],0.1,width, minVal, maxVal) *hat[ID_item] ;
-    PVector factorSizePix = new PVector(size_x, size_y, size_z) ; 
-    factorDisplayPixel = new PVector(factorDisplayCam.x *factorSizePix.x , factorDisplayCam.y *factorSizePix.y, factorSizePix.z) ;//PARAMETER THAT YOU CAN USE
+    Vec3 factorSizePix = Vec3(size_x, size_y, size_z) ; 
+    factorDisplayPixel.set(factorDisplayCam.x *factorSizePix.x,factorDisplayCam.y *factorSizePix.y, factorSizePix.z) ;//PARAMETER THAT YOU CAN USE
     
     //PART TWO
 

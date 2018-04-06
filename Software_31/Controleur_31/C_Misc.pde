@@ -482,18 +482,8 @@ void recurseDir(ArrayList a, String dir) {
 /**
 DETECTION CURSOR
 */
-
-//RECTANGLE
-/*
-boolean insideRect(PVector pos, PVector size) {
-  printErrTempo(240, "this method is deprecated instead use inside(...)");
-  if(mouseX > pos.x && mouseX < pos.x + size.x && mouseY >  pos.y && mouseY < pos.y + size.y) return true ; else return false ;
-}
-*/
-
-//LOCKED
-boolean locked ( boolean inside ) {
-  if ( inside  && mousePressed ) return true ; else return false ;
+boolean locked (boolean inside) {
+  if (inside && mousePressed) return true ; else return false ;
 }
 
 

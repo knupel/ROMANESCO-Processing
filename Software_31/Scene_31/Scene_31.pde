@@ -27,16 +27,11 @@ void settings() {
   // When you build Romanesco you must create two versions : fullscreen and normal
   // size(124,124,P3D) ; // when the bug will be resolved, return to this config.
 
-  size(640,360,P3D) ; // 640
-  // size(1024,576,P3D) ; // 1024
- //  size(1280,720,P3D) ; // 1280
- // size(1600,900,P3D) ; // 1600
-  // size(1920,1080,P3D) ; // 1920
-  // size(2560,1440) ; // 2560
-  // size(3840,2160) ; // 3840
+  // size(640,360,P3D) ; // 640
 
-  // fullScreen(P3D,2) ;
- // FULL_SCREEN = true ;
+
+  fullScreen(P3D,2) ;
+  FULL_SCREEN = true ;
 
   pixelDensity(displayDensity()) ;
   syphon_settings() ;
@@ -47,7 +42,6 @@ void settings() {
 
 void setup() {
   OSC_setup() ;
-  camera_video_setup() ;
   preference_path = sketchPath("")+"preferences/" ;
   import_path = sketchPath("")+"import/" ;
 
@@ -59,7 +53,7 @@ void setup() {
   display_setup(frameRateRomanesco) ; // the int give the frameRate
 
   if (!FULL_SCREEN && !resize_bug) {
-    resize_scene() ;
+    resize_scene();
   }
 
   romanesco_build_item() ;
@@ -93,11 +87,11 @@ void draw() {
   
   if(!syphon_on_off) surface.setTitle(nameVersion + " " +prettyVersion+"."+version+ " | Scéne | FPS: "+round(frameRate)); else frame.setTitle(nameVersion + " " +prettyVersion+"."+version+ " | Miroir | FPS: "+round(frameRate));
   if (!FULL_SCREEN && !resize_bug) resize_scene() ;
-  init_RPE() ;
+  init_romanesco();
   if(FULL_RENDERING) start_PNG("screenshot Romanesco scene", "Romanesco_"+year()+"_"+month()+"_"+day()+"_"+hour()+"_"+minute()+"_"+second()) ;
 
   syphon_draw() ;
-  if(!TEST_ROMANESCO) soundDraw() ;
+  if(!TEST_ROMANESCO) sound_draw();
   meteoDraw() ;
   update_OSC_data() ;
 
