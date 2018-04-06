@@ -1,6 +1,6 @@
 --
-Romanesco unu 1.2.0.30
-2013-2017
+Romanesco unu 1.3.0.31
+2013-2018
 --
 USER GUIDE
 --
@@ -92,56 +92,57 @@ CAMERA
 
 SCREEN SHOT
 --
->touch 'P' save png a window Scene or Prescene is on a full rendering mode
+>'p' > minuscule < SAVE IMG
+save png a window Scene or Prescene is on a full rendering mode
 
 
 SHORTCUT SCENE
 --
-Syphon
->touch 'Y' disable or enable Syphon mode
+'y' > minuscule < Syphon
+>disable or enable Syphon mode
 
-Grid 3d
->touch 'G' disable or enable grid
+'g' > minuscule < Grid 3d
+>disable or enable grid 3D
 
 
 SHORTCUT ITEM SCENE
 --
 If it's available
 
-Info item
->touch 'I' display a window info
+'i' > minuscule < Info item
+>display a window info
 
-birth, new....
-> add boolean birth[ID_item] from keyboard "N"
+'n' > minuscule < birth, new....
+> add boolean birth[ID_item] 
 
-colour item
-> add boolean colour[ID_item] from keyboard "X"
+'x' > minuscule < colour item
+> add boolean colour[ID_item]
 
-dimension
-> add boolean dimension[ID_item] from keyboard "D"
+'d' > minuscule < dimension
+> add boolean dimension[ID_item]
 
-display fill
-> add boolean fill_is[ID_item] from keyboard "F"
+'d' > minuscule < display fill
+> add boolean fill_is[ID_item] 
 
-display stroke
-> add boolean stroke_is[ID_item] from keyboard "L"
-
-
-horizon item
-> add boolean horizon[ID_item] from keyboard "H"
-
-motion
-> add boolean motion[ID_item] from keyboard "M"
-
-orbit item
->orbit from keyboard "O"
-
-reverse
-> add boolean reverse[ID_item] from keyboard "R"
+'l' > minuscule < display stroke
+> add boolean stroke_is[ID_item] 
 
 
-special / bizarre, weird, specific... action on item
-> add boolean special[ID_item] from keyboard "K"
+'h' > minuscule < 'horizon item
+> add boolean horizon[ID_item]
+
+'m' > minuscule < motion
+> add boolean motion[ID_item]
+
+'o' > minuscule < orbit item
+>orbit from keyboard 
+
+'r' > minuscule < reverse
+> add boolean reverse[ID_item]
+
+
+'k' > minuscule < special / bizarre, weird, specific... action on item
+> add boolean special[ID_item]
 
 
 
