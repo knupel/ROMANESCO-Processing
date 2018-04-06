@@ -1,16 +1,16 @@
 /**
 CORE Rope SCENE and PRESCENE 
-v 1.1.3.3
+v 1.1.5
 */
 /**
 INIT Rope
 */
-boolean init_RPE = true ;
-void init_RPE() {
-  rectMode (CORNER) ;
-  textAlign(LEFT) ;
+boolean init_romanesco = true ;
+void init_romanesco() {
+  rectMode(CORNER);
+  textAlign(LEFT);
   
-  if(init_RPE) {
+  if(init_romanesco) {
     SIZE_BG = new PVector(width *100, height *100, height *7.5) ;
 
     int which_setting = 0 ;
@@ -25,7 +25,7 @@ void init_RPE() {
         pos_item_final[i] = Vec3(x,y,0) ;
       }
     }
-    init_RPE = false ;
+    init_romanesco = false ;
   }
 }
 
@@ -53,10 +53,8 @@ void init_RPE() {
 
 
 /**
-
 Select Costume Romanesco
 v 0.0.2
-
 */
 /*
 Max mode is used for what, to give the possibility to have other mode without costume rope ?????
@@ -205,12 +203,9 @@ void select_costume(int id_item,  String rpe_name) {
 
 
 /**
-
 CHECK FOLDER
 v 0.1.0
-
 */
-
 /**
 bitmap
 */
@@ -279,7 +274,6 @@ void check_bitmap_folder_scene() {
 /**
 svg
 */
-
 ROPE_svg[] svg_import ;
 ArrayList svg_files = new ArrayList();
 boolean folder_svg_is_selected = true ;
@@ -287,8 +281,6 @@ String svg_current_path ;
 String [] svg_path ;
 int count_svg_selection ;
 int ref_svg_num_files ;
-
-
 void load_svg(int ID) {
   check_svg_folder_scene() ;
   // which_bitmap is the int return from the dropdown menu
@@ -417,7 +409,6 @@ boolean folder_movie_is_selected = true ;
 String [] movie_path, movieImportPath ;
 int count_movie_selection ;
 int ref_movie_num_files ;
-
 void load_movie(int id) {
   check_movie_folder_scene() ;
   if(movie_path != null && movie_path.length > 0) {
@@ -623,9 +614,8 @@ void recurseDir(ArrayList a, String dir) {
     a.add(file);
   }
 }
-/**
-END CHECK FOLDER
-*/
+
+
 
 
 
@@ -665,19 +655,12 @@ END CHECK FOLDER
 
 /**
 TEXT MANAGER
-
-
 */
-// NEW VOID TEXT
-String importRaw [] ;
-
-
-
+String importRaw [];
 String importText(String path) {
   importRaw = loadStrings(path) ;
   return join(importRaw, "") ;
 }
-
 
 // info num Chapters
 int numChapters(String txt) {
@@ -728,10 +711,10 @@ String whichSentence(String txt, int whichChapter, int whichSentence) {
   return repartition[whichChapter][whichSentence] ;
 }
 
-/**
-TEXT MANAGER END
 
-*/
+
+
+
 
 
 
@@ -759,12 +742,10 @@ TEXT MANAGER END
 
 /**
 MIROIR
+v 0.1.0
 */
-
 boolean syphon_on_off  ;
 SyphonServer server ;
-
-
 void syphon_settings() {
   PJOGL.profile=1;
 }
@@ -779,35 +760,44 @@ void syphon_draw() {
   if(yTouch) syphon_on_off = !syphon_on_off ;
   if(syphon_on_off) server.sendScreen();
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /**
-END MIROIR
-*/
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/**
-
 LOAD
-
+v 0.2.0
 */
 void loadDataObject(String path) {
   JSONArray load = new JSONArray() ;
@@ -966,11 +956,15 @@ void loadDataObject(String path) {
     dirObj[ID].y  = dataObj.getFloat("latitude obj") ;
   }
 }
-/**
 
-END LOAD
 
-*/
+
+
+
+
+
+
+
 
 
 
@@ -1005,11 +999,10 @@ END LOAD
 
 /**
 DISPLAY INFO
+v 0.2.0
 */
 boolean displayInfo, displayInfo3D ;
 int posInfo = 2 ;
-
-
 void info() {
   color color_text = color(0,0,100) ;
   color color_bg = color(0,100,100,50) ;
@@ -1094,10 +1087,6 @@ void displayInfo3D(color txt) {
 }
 
 
-
-//////
-//P3D
-
 //REPERE 3D
 void repere(int size, PVector pos, String name) {
   pushMatrix() ;
@@ -1116,50 +1105,50 @@ void repere(int size) {
   line(0,0,-size,0,0,size) ;
 }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /**
-END DISPLAY INFO
+UTIL 
+v 0.1.0
 */
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/**
-
-UTIL CORE
-
-*/
-
-
-
 /**
 keyboard
 */
@@ -1216,42 +1205,10 @@ float cycle(float add) {
 }
 
 
-
-/**
-easing
-
-deprecated
-*/
-/*
-PVector targetIN = new PVector () ;
-//Pen
-PVector easingIN = new PVector () ;
-//
-PVector easing(PVector targetOUT, float effectOUT) {
-  targetIN.x = targetOUT.x;
-  float dx = targetIN.x - easingIN.x;
-  if(abs(dx) > 1) {
-    easingIN.x += dx * effectOUT;
-  }
-  
-  targetIN.y = targetOUT.y;
-  float dy = targetIN.y - easingIN.y;
-  if(abs(dy) > 1) {
-    easingIN.y += dy * effectOUT;
-  }
-  return easingIN ;
-}
-//
-void resetEasing(PVector targetOUT) {
-  easingIN.x = targetOUT.x ; easingIN.y = targetOUT.y ;
-}
-*/
-
 /**
 NEXT PREVIOUS
 */
 void nextPreviousKeypressed() {
-    //tracking
   nextPrevious = true ;
 }
 
@@ -1303,37 +1260,47 @@ void OSMavericksCheck() {
 }
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /**
-
-UTIL CORE END
-
-
-*/
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/**
-
-ROMANESCO BACKGROUND 1.0.1.3
-
+ROMANESCO BACKGROUND 
+v 1.0.1.4
 */
 Vec4 colorBackground, colorBackgroundRef, colorBackgroundPrescene;
-
-
 void background_setup() {
   colorBackgroundRef = Vec4() ;
   colorBackground = Vec4() ;
@@ -1351,7 +1318,7 @@ void background_romanesco() {
     if(onOffBackground) {
       if(whichShader == 0) {
         // check if the color model is changed after the shader used
-        if(g.colorMode != 3 || g.colorModeX != 360 || g.colorModeY != 100 || g.colorModeZ !=100 || g.colorModeA !=100) colorMode(HSB,360,100,100,100) ;
+        if(g.colorMode != 3 || g.colorModeX != 360 || g.colorModeY != 100 || g.colorModeZ !=100 || g.colorModeA !=100) colorMode(HSB,360,100,100,100);
         // choice the rendering color palette for the classic background
         if(FULL_RENDERING) {
           // check if the slider background are move, if it's true update the color background
@@ -1370,11 +1337,6 @@ void background_romanesco() {
   }
 }
 
-
-
-
-
-
 // ANNEXE VOID BACKGROUND
 Vec4 update_background() {
   //to smooth the curve of transparency background
@@ -1390,16 +1352,8 @@ Vec4 update_background() {
   return Vec4(hue_bg,saturation_bg,brigthness_bg,alpha) ;
 }
 
-
-
-
-
-
-
 // BACKGROUND SHADER
 PShader blurOne, blurTwo, cellular, damierEllipse, heart, necklace,  psy, sinLight, snow ;
-//PShader bizarre, water, psyTwo, psyThree ;
-
 void background_shader_setup() {
   String pathShaderBG = preference_path +"shader/shader_bg/" ;
 
@@ -1421,8 +1375,6 @@ void background_shader_setup() {
   */
 
 }
-
-
 
 void background_shader_draw(int whichOne) {
   if(TEST_ROMANESCO || FULL_RENDERING) {
@@ -1452,7 +1404,6 @@ void background_shader_draw(int whichOne) {
     fill(orange) ; noStroke() ;
     text("Shader is ON", sizeText, height/3) ;
   } 
-
 }
 
 float shaderMouseX, shaderMouseY ;
@@ -1496,11 +1447,6 @@ void rectangle(PVector pos, PVector size, PShader s) {
   popMatrix() ;
 }
 
-/**
-
-END BACKGROUND
-
-*/
 
 
 
@@ -1540,75 +1486,21 @@ END BACKGROUND
 
 
 /**
-
-SOUND rope 1.0.1
-
+SOUND
+v 1.0.1
 */
-//GLOBAL PARAMETER Minim
-Minim minim;
-AudioInput input; // music from outside
-// spectrum
-FFT fft; 
-
-//beat
-BeatDetect beatEnergy, beatFrequency;
-BeatListener bl;
-
-
-float beatData, kickData, snareData, hatData ;
-float minBeat = 1.0 ;
-float maxBeat = 10.0  ;
-
-//volume
-int right_volume_info = 0 ;
-int left_volume_info = 0 ;
-
-
-// boolean
-boolean SOUND_PLAY ;
-
-//////////////
-// SOUND SETUP
-void sound_setup() {
-  //Sound
-  minim = new Minim(this);
-  //sound from outside
-  minim.debugOn();
-  input = minim.getLineIn(Minim.STEREO, 512);
-  
-  spectrumSetup(NUM_BANDS) ;
-  beatSetup() ;
-}
-// END SOUND SETUP
-//////////////////
-
-
-
-
-/////////////
-// SOUND DRAW
-void soundDraw() {
+void sound_draw() {
   spectrum(input.mix, NUM_BANDS) ;
   beatEnergy.detect(input.mix);
   initTempo() ;
-  soundRomanesco() ;
+  sound_romanesco() ;
   right_volume_info = int(input.right.get(1)  *100) ; 
   left_volume_info = int(input.left.get(1)  *100) ;
   time_track() ;
 }
-// END SOUND DRAW
-/////////////////
 
-
-
-
-
-
-//specific stuff from romanesco
-//////////////////////////////
-void soundRomanesco() {
+void sound_romanesco() {
   int sound = 1 ;
-    
   float volumeControleurG = map(valueSlider[0][4], 0,MAX_VALUE_SLIDER, 0, 1.3 ) ;
   left[0] = map(input.left.get(sound),  -0.07,0.1,  0, volumeControleurG);
   
@@ -1644,338 +1536,6 @@ void soundRomanesco() {
   tempoSnare[0] = getTempoSnareRef() ;
   tempoHat[0] = getTempoHatRef() ;
 }
-  
-
-
-
-//////
-//BEAT
-//GLOBAL
-int beatNum, kickNum, snareNum, hatNum ;
-//setup
-void beatSetup() {
-  //Beat Frequency
-  beatFrequency = new BeatDetect(input.bufferSize(), input.sampleRate());
-  beatFrequency.setSensitivity(300);
-  kickData = snareData = hatData = minBeat; 
-  bl = new BeatListener(beatFrequency, input); 
-  
-  //Beat energy
-  beatEnergy = new BeatDetect();
-  beatData = 1.0 ;
-}
-//RETURN
-//BEAT QUANTITY
-int getBeatNum() {
-  if ( beatEnergy.isOnset() ) beatNum += 1 ; else if (  getTotalSpectrum(NUM_BANDS) < 0.03 ) beatNum = 0 ;
-  return beatNum ;
-}
-int getKickNum() {
-  if ( beatFrequency.isKick()  ) kickNum += 1 ; else if (  getTotalSpectrum(NUM_BANDS) < 0.03 ) kickNum = 0 ;
-  return kickNum ;
-}
-int getSnareNum() {
-  if ( beatFrequency.isSnare()  ) snareNum += 1 ; else if (  getTotalSpectrum(NUM_BANDS) < 0.03 ) snareNum = 0 ;
-  return snareNum ;
-}
-int getHatNum() {
-  if ( beatFrequency.isHat()  ) hatNum += 1 ; else if (  getTotalSpectrum(NUM_BANDS) < 0.03 ) hatNum = 0 ;
-  return hatNum ;
-}
-
-//RESULT
-float getBeat(boolean beat) {
-  if (beat) {
-    if ( beatEnergy.isOnset() ) beatData = maxBeat;
-    beatData *= 0.95;
-    if ( beatData < minBeat ) beatData = minBeat;
-  } else beatData = 1.0 ;
-  
-  return beatData ;
-}
-
-float getKick(boolean kick) {
-  if (kick) {
-    if ( beatFrequency.isKick() )  kickData = maxBeat;
-    kickData = constrain(kickData * 0.95, minBeat, maxBeat);
-  } else kickData = 1.0 ;
-  //
-  return kickData ;
-}
-
-float getSnare(boolean snare) {
-  if (snare) {
-    if ( beatFrequency.isSnare() )  snareData = maxBeat;
-    snareData = constrain(snareData * 0.95, minBeat, maxBeat);
-  } else snareData = 1.0 ;
-  //
-  return snareData ;
-}
-
-float getHat(boolean hat) {
-  if (hat) {
-    if ( beatFrequency.isHat() )  hatData = maxBeat;
-    hatData = constrain(hatData * 0.95, minBeat, maxBeat);
-  } else hatData = 1.0 ;
-  //
-  return hatData ;
-}
-//END BEAT
-/////////
-
-
-
-
-
-
-
-///////
-//TEMPO
-float tempoMin = 0.01 ;
-float tempoMax = 1.0 ;
-int maxSpecific = 1 ;
-
-// float tempoBeat = 0.005 ;
-float mesure ; 
-boolean refresh = false ;
-
-//Direct Specific Analyze
-//GLOBAL
-
-float tempoBeatRef = 1 ;
-float tempoKickRef = 1 ; 
-float tempoSnareRef = 1 ; 
-float tempoHatRef = 1 ; // for Beat, Kick, Snare, Hat
-float tempoB, tempoK,  tempoS,  tempoH  ;
-float tempoBeatAdd  = 0.005 ;
-float tempoKickAdd  = 0.005 ;
-float tempoSnareAdd = 0.005 ;
-float tempoHatAdd   = 0.005 ;
-//RETURN
-
-
-
-//INITIALIZATION
-
-void initTempo() {
-  // this weird float who's not used must be here, we must work around !
-  float init = getTempoBeat() + getTempoKick()  + getTempoHat() + getTempoSnare() ;
-}
-
-
-//return global tempo
-float getTempoRef() {
-  // I remove the snare because is very bad information and slow down the the speed
-  float tempoRef = 1 - (getTempoBeatRef() + getTempoKickRef()  + getTempoHatRef() ) *.33 ;
-  return tempoRef ;
-}
-//get tempo
-float getTempo() {
-  // I remove the snare because is very bad information and slow down the the speed
-  float tempo = (getTempoBeat() + getTempoKick()  + getTempoHat() ) *.33 ;
-  return tempo ;
-}
-// return direct BEAT
-float getTempoBeat() {
-  if ( beatEnergy.isOnset()  ) {
-    if( tempoB != 0 ) tempoBeatRef = tempoB ;
-    tempoB = 0 ; 
-  } else {
-    tempoB += tempoBeatAdd  ;
-  }
-  return tempoB ;
-}
-float getTempoBeatRef() {
-  if (tempoBeatRef > maxSpecific || getTotalSpectrum(NUM_BANDS) < 0.03  ) tempoBeatRef = maxSpecific  ; 
-  return  tempoBeatRef ;
-}
-
-
-// return direct KICK
-float getTempoKick() {
-  if ( beatFrequency.isKick()  ) {
-    if( tempoK != 0 ) tempoKickRef = tempoK ;
-    tempoK = 0 ; 
-  } else {
-    tempoK += tempoKickAdd  ;
-  }
-  return tempoK ;
-}
-float getTempoKickRef() {
-  if (tempoKickRef > maxSpecific || getTotalSpectrum(NUM_BANDS) < 0.03  ) tempoKickRef = maxSpecific  ; 
-  return  tempoKickRef ;
-}
-
-// return direct SNARE
-float getTempoSnare() {
-  if ( beatFrequency.isSnare()  ) {
-    if( tempoS != 0 ) tempoSnareRef = tempoS ;
-    tempoS = 0 ; 
-  } else {
-    tempoS += tempoSnareAdd  ;
-  }
-  return tempoS ;
-}
-float getTempoSnareRef() {
-  if (tempoSnareRef > maxSpecific || getTotalSpectrum(NUM_BANDS) < 0.03  ) tempoSnareRef = maxSpecific  ; 
-  return  tempoSnareRef ;
-}
-
-// return direct Hat
-float getTempoHat() {
-  if ( beatFrequency.isHat()  ) {
-    if( tempoH != 0 ) tempoHatRef = tempoH ;
-    tempoH = 0 ; 
-  } else {
-    tempoH += tempoHatAdd  ;
-  }
-  return tempoH ;
-}
-float getTempoHatRef() {
-  if (tempoHatRef > maxSpecific || getTotalSpectrum(NUM_BANDS) < 0.03  ) tempoHatRef = maxSpecific  ; 
-  return  tempoHatRef ;
-}
-
-
-
-
-//Average Analyze
-//GLOBAL
-float tempoAverage, tempoAverageRef  ;
-float tempoBeatAverage = 0.05 ;
-//RETURN
-float tempoAverageRef() {
-  //regulation du tempo
-  if ( mesure == 0 && !refresh ) {
-    tempoAverageRef = tempoAverage()  ;
-    tempoAverage = 0.01 ;
-    refresh = true ;
-  }
-  if ( mesure != 0 ) refresh = false ;
-  
-  return tempoAverageRef ;
-}
-
-
-float tempoAverage() {
-  mesure = second()%2 ;
-  
-  if ( beatEnergy.isOnset() || beatFrequency.isKick() || beatFrequency.isSnare() || beatFrequency.isHat()  )  tempoAverage += tempoBeatAverage  ;
-  if ( tempoAverage > 1.0 ) tempoAverage = 1.0 ;
-  
-  //regulation du tempo
-  if ( mesure == 0 && !refresh ) {
-    tempoAverageRef = tempoAverage  ;
-    tempoAverage = 0.01 ;
-    refresh = true ;
-  }
-  
-  if ( mesure != 0 ) refresh = false ;
-  
-  return tempoAverage ;
-}
-
-//END TEMPO
-//////////
-
-
-//TIME TRACK
-////////////
-//GLOBAL
-int time_track_elapse  ;
-void time_track() {
-  if(getTimeTrack() > .2 ) SOUND_PLAY = true ; else SOUND_PLAY = false ;
-}
-//RETURN
-float getTimeTrack() {
-  float t ; 
-  time_track_elapse += millis() % 10 ;
-  t = time_track_elapse *.01 ;
-  if ( getTotalSpectrum(NUM_BANDS) < 0.1 ) time_track_elapse = 0 ;
-  return round( t * 10.0f ) / 10.0f; 
-}
-////////////////
-//END TIME TRACK
-
-
-//SPECTRUM
-//////////
-//SPECTRUM
-//info text band
-float [] bandSprectrum  ;
-//SETUP
-void spectrumSetup(int n) {
-  //spectrum
-  bandSprectrum = new float [n] ;
-  fft = new FFT(input.bufferSize(), input.sampleRate());
-  fft.linAverages(n);
-}
-
-//DRAW
-//just create spectrum
-void spectrum(AudioBuffer fftData, int n) {
-  fft.forward(fftData) ;
-  for(int i = 0; i < n ; i++)
-  {
-    fft.scaleBand(i, 0.5 ) ;
-    bandSprectrum[i] = fft.getBand(i) ;
-  }
-}
-
-//ANNEXE VOID
-float getTotalSpectrum(int NUM_BANDS) {
-  float t = 0 ;
-  if (bandSprectrum != null ) {
-   for ( int i = 0 ; i < NUM_BANDS ; i++ ) {
-     //  if(bandSprectrum[i] != null ) t += bandSprectrum[i] ;
-      t += bandSprectrum[i] ;
-    }
-  }
-  return t ;
-}
-//END SPECTRUM
-//////////////
-
-
-
-
-
-//CLASS to use the beat analyze
-class BeatListener implements AudioListener {
-  private BeatDetect beatFrequency;
-  private AudioInput source;
-  
-  BeatListener(BeatDetect beatFrequency, AudioInput source) {
-    this.source = source;
-    this.source.addListener(this);
-    this.beatFrequency = beatFrequency;
-  }
-  
-  void samples(float[] samps) {
-    beatFrequency.detect(source.mix);
-  }
-  
-  void samples(float[] sampsL, float[] sampsR) {
-    beatFrequency.detect(source.mix);
-  }
-}
-
-
-
-//END MINIM
-void stop() {
-  input.close() ;
-  minim.stop() ;
-  super.stop() ;
-}
-
-/**
-
-SOUND END
-*/
-
-
-
 
 
 
@@ -2015,9 +1575,8 @@ SOUND END
 
 
 /**
-
-CAMERA COMPUTER 1.1.0
-
+CAMERA COMPUTER 
+v 1.2.0
 */
 Capture cam;
 String[] cameras ;
@@ -2033,16 +1592,9 @@ boolean BROADCAST ;
 boolean new_cam = true ;
 boolean stop_cam = false ;
 boolean init_cam = false ;
-
-
-
-// Main method camera
-void camera_video_setup() {
-  list_cameras() ;
-  if(new_cam && which_cam > -1) launch_camera(which_cam) ;
-}
-
 void video_camera_manager() {
+  camera_video_setup();
+
   if(ref_cam != which_cam || which_cam == -1) {
     new_cam = true ;
     video_camera_stop() ;
@@ -2061,6 +1613,13 @@ void video_camera_manager() {
 
 
 
+void camera_video_setup() {
+  list_cameras() ;
+  if(new_cam && which_cam > -1) launch_camera(which_cam) ;
+}
+
+
+
 
 
 // annexe methode camera
@@ -2074,7 +1633,6 @@ void launch_camera(int which_cam) {
     CAM_SIZE = cam_size[which_cam].copy() ;
     // surface.setSize((int)cam_size[which_cam].x, (int)cam_size[which_cam].y) ;
     new_cam = false ;
-
   }
 }
 
@@ -2090,8 +1648,6 @@ void video_camera_stop() {
 void init_camera(int which_camra) {
   cam = new Capture(this, cameras[which_camra]);
   cam.start();     
-  // cam.read(); 
-
 }
 
 
@@ -2120,9 +1676,7 @@ void list_cameras() {
     CAMERA_AVAILABLE = false ;
   }
 }
-/**
-END COMPUTER CAMERA
-*/
+
 
 
 
@@ -2158,9 +1712,8 @@ END COMPUTER CAMERA
 
 
 /**
-
-Color Romanesco 1.0.1.1
-
+Color Romanesco 
+v 1.0.1.1
 */
 //COLOR for internal use
 color fond ;
@@ -2177,9 +1730,6 @@ void color_setup() {
   blanc = color(0,0,100);
 }
 
-//ROLLOVER TEXT ON BACKGROUNG CHANGE
-
-//
 
 
 
@@ -2274,21 +1824,15 @@ void color_setup() {
 
   
 /**
-OSC CORE Version 1.1.1
+OSC CORE 
+v 1.1.1
 */
-/////////////////////////
-// RECEIVE INFO from CONTROLLER
-////////////////////////////////
 int numOfPartSendByController = 5 ; 
 String fromController [] = new String [numOfPartSendByController] ;
 //EVENT to check what else is receive by the receiver
 
 
-
-
-
 // ANNEXE VOID of OSC RECEIVE
-
 // catch raw osc data
 void catchDataFromController(OscMessage receive) {
   for ( int i = 0 ; i < fromController.length ; i++ ) {
@@ -2331,7 +1875,6 @@ void splitDataSlider() {
 // split data boolean to give load or save order
 void splitDataLoadSaveController() {
     // LOAD SAVE
-
   /*
   +1 for the global group
   *2 because there is one group for the button and an other one for the slider
@@ -2394,38 +1937,36 @@ void translateDataFromController_buttonItem() {
 }
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /**
-OSC CORE END
-
-*/
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/**
-
 FONT MANAGER 
-v 2.0.1.0
-
+v 2.0.1.1
 */
 PFont SansSerif10 ;
 
@@ -2451,9 +1992,6 @@ Tokyo_One, Tokyo_OneSolid, Tokyo_Two, Tokyo_TwoSolid,
 Three_Hardway ;
 
 
-
-      
-//SETUP
 void create_font() {
   int size_font = 200 ;
   String prefix_path_font = import_path +"font/typo_OTF_TTF/" ;
@@ -2559,7 +2097,6 @@ void create_font() {
   // 
   println("font build setup done") ;
 }
-
 
 
 void select_font(int whichOne)  {

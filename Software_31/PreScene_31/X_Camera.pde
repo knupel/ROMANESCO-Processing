@@ -1,57 +1,39 @@
 /**
-Here you find 
-*/
-/**
-Camera Engine version 
-
-and
-
-Camera Rope
-*/
-
-
-
-
-
-
-
-/**
-Camera Rope 1.1.4
-
+Camera Romanesco
+2013-2018
+v 1.1.4.1
 */
 //travelling
-boolean gotoCameraPosition, gotoCameraEye, travellingPriority ;
-
+boolean gotoCameraPosition, gotoCameraEye, travellingPriority;
 //speed must be 1 or less
-
-float speed_camera_romanesco  ;
+float speed_camera_romanesco;
 
 //CAMERA Stuff
-private boolean moveScene, moveEye ;
+private boolean moveScene, moveEye;
 
-Vec3 targetPosCam = Vec3() ;
+Vec3 targetPosCam = Vec3();
 
 // motion effect on camera
 
 
-Motion motion_translate, motion_rotate ;
+Motion motion_translate, motion_rotate;
 
 // ratio camera
-float ratio_speed_camera_romanesco = .1 ;
+float ratio_speed_camera_romanesco = .1;
 
-float ratio_speed_camera_inertia_translate = 10 ;
-float ratio_speed_camera_inertia_rotate = 3 ;
-float acc_camera_rope = .01 ;
-float dec_camera_rope = .01 ;
+float ratio_speed_camera_inertia_translate = 10;
+float ratio_speed_camera_inertia_rotate = 3;
+float acc_camera_rope = .01;
+float dec_camera_rope = .01;
 
 
 /**
 P3D SETUP
 */
 void P3D_setup() {
-    camera_setting (NUM_SETTING_CAMERA) ;
+    camera_setting (NUM_SETTING_CAMERA);
     item_manipulation () ;
-    item_manipulation_setting(NUM_SETTING_ITEM) ;
+    item_manipulation_setting(NUM_SETTING_ITEM);
     initVariableCamera() ;
     println("P3D setup done") ;
 }
@@ -87,8 +69,6 @@ void camera_setting (int numSettingCamera) {
   }
 
   speed_camera_romanesco = width / 1000 * ratio_speed_camera_romanesco ;
-
-
 
   float max_speed_inertia_translate = width / 1000 * ratio_speed_camera_inertia_translate ;
   float max_speed_inertia_rotate = width / 1000 * ratio_speed_camera_inertia_rotate ;
@@ -285,8 +265,7 @@ void reset_direction_item (int which_setting, int ID) {
 /**
 Update direction item
 */
-Vec3 direction_mouse_ref = Vec3() ;
-
+Vec3 direction_mouse_ref;
 void update_ref_direction_mouse() {
   if(direction_mouse_ref == null) direction_mouse_ref = Vec3() ;
   if(mouse[0] == null) mouse[0] = Vec3() ;
@@ -448,12 +427,9 @@ void final_pos_item(int ID) {
 
 
 /**
-MOVE CAMERA GLOBAL 1.1.2
-
+MOVE CAMERA GLOBAL 
+v 1.1.2
 */
-
-
-
 /**
 METHOD Variable update variable camera
 */

@@ -1,5 +1,7 @@
 /**
-Build interface 3.0.3
+Build interface 
+v 3.1.0
+2014-2018
 Romanesco Processing Environment
 */
 import java.awt.event.KeyEvent;
@@ -18,10 +20,6 @@ final int NUM_SLIDER_TOTAL = 1 +100 +NUM_SLIDER_ITEM ;
 final int SLIDER_BY_COL = NUM_SLIDER_ITEM / NUM_COL_SLIDER ;
 final int SLIDER_BY_COL_PLUS_ONE = SLIDER_BY_COL +1 ;
 
-
-
-
-
 Vec2 size_ref ;
 
 int sliderMidi, midi_value_romanesco, midi_channel_romanesco ;
@@ -31,10 +29,8 @@ boolean selectMidi = false ;
 //curtain
 boolean curtainOpenClose ;
 //GLOBAL
-
 // Save Setting var
 Vec5 [] infoSlider ; 
-
 
 // slider mode display
 int sliderModeDisplay = 0 ;
@@ -49,19 +45,14 @@ int numVignette ;
 PImage[] picCurtain = new PImage[4] ;
 PImage[] picMidi = new PImage[4] ;
 
-
-
 SliderAdjustable [] slider = new SliderAdjustable [NUM_SLIDER_TOTAL] ;
 
-PVector [] sizeSlider = new PVector[NUM_SLIDER_TOTAL] ;
-PVector [] posSlider = new PVector[NUM_SLIDER_TOTAL] ; 
+Vec2 [] sizeSlider = new Vec2[NUM_SLIDER_TOTAL] ;
+Vec2 [] posSlider = new Vec2[NUM_SLIDER_TOTAL] ; 
 
 float valueSlider[] = new float[NUM_SLIDER_TOTAL] ;
 
-
 int SWITCH_VALUE_FOR_DROPDOWN = -2 ;
-
-
 
 //Background / light one / light two
 int state_BackgroundButton,
@@ -90,10 +81,6 @@ Vec2  pos_midi_button, size_midi_button, pos_midi_info,
 
 // ITEM
 String  slider_item_name [] = new String[NUM_SLIDER_TOTAL +1] ;
-
-
-// END variables declaration
-////////////////////////////////////
 
 
 /**
@@ -141,8 +128,6 @@ int pos_y_item_list = height_header +height_button_top +height_dropdown_top +hei
 // this value depend of the size of the scene, indeed we must calculate this one later.
 int height_item_list = 100 ;
 // int pos_y_item_list = height_constant ;
-
-
 
 
 
@@ -215,10 +200,6 @@ int correction_dropdown_item_selected = 50 ;
 int correction_slider_item_selected = 73 ;
 
 
-/**
-END VARIABLES declaration
-*/
-
 
 
 
@@ -240,7 +221,6 @@ END VARIABLES declaration
 /**
 SETTING
 */
-
 void setting() {
   colorSetup() ;  
 
@@ -342,7 +322,6 @@ void display_structure_dropdown_menu_general() {
   rect(0,pos_y_dropdown_top, width, line_decoration_small) ;
 }
 
-
 void display_structure_general() {
   noStroke() ;
   // background
@@ -352,7 +331,6 @@ void display_structure_general() {
   fill(noir) ;
   rect(0,pos_y_menu_general , width, line_decoration_small) ;
 }
-
 
 void display_structure_menu_sound() {
   noStroke() ;
@@ -377,6 +355,7 @@ void display_structure_item_selected() {
   fill(rougeFonce) ;
   rect(0, pos_y_item_selected, width, line_decoration_small) ; 
 }
+
 void display_structure_item_list() {
   noStroke() ;
   // background
@@ -458,13 +437,12 @@ END STRUCTURE DESIGN
 
 /**
 SLIDER
-
+v 1.0.0
 */
-
 void init_slider() {
   for (int i = 0 ; i < NUM_SLIDER_TOTAL ; i++) {
-    sizeSlider[i] = new PVector() ;
-    posSlider[i] = new PVector() ; 
+    sizeSlider[i] = Vec2() ;
+    posSlider[i] = Vec2() ; 
   }
 }
 
@@ -472,12 +450,12 @@ void init_slider() {
 void build_slider() {
   //slider
   for ( int i = 1 ; i < NUM_SLIDER_TOTAL ; i++) {
-    PVector sizeMol = new PVector (sizeSlider[i].y *ratioNormSizeMolette, sizeSlider[i].y *ratioNormSizeMolette) ;
+    Vec2 sizeMol = Vec2(sizeSlider[i].y *ratioNormSizeMolette, sizeSlider[i].y *ratioNormSizeMolette) ;
     // we use the var posMol here just to init the Slider, because we load data from save further.
-    PVector posMol = new PVector() ;
-    PVector tempPosSlider = new PVector(posSlider[i].x, posSlider[i].y -(sliderHeight *.6)) ;
+    Vec2 posMol = Vec2() ;
+    Vec2 tempPosSlider = Vec2(posSlider[i].x, posSlider[i].y -(sliderHeight *.6)) ;
     if(info_save_raw_list(infoSlider,i).a > -1 ) {
-      slider[i] = new SliderAdjustable (tempPosSlider, posMol, sizeSlider[i], sizeMol, "ELLIPSE");
+      slider[i] = new SliderAdjustable(tempPosSlider, posMol, sizeSlider[i], sizeMol, "ELLIPSE");
     }
     if(slider[i] != null) slider[i].setting() ;
   } 
@@ -500,9 +478,9 @@ void set_slider_general(int correction_local_y) {
   // background slider
   int startLoop = 1 ;
   for(int i = startLoop ; i <= startLoop +3 ;i++) {
-    float posY = correctionBGY +correction_local_y +((i-1) *spacingBetweenSlider) ;
-    posSlider[i] = new PVector(colOne, posY) ;
-    sizeSlider[i] = new PVector(sliderWidth,sliderHeight) ;
+    float posY = correctionBGY +correction_local_y +((i-1) *spacingBetweenSlider);
+    posSlider[i] = Vec2(colOne, posY);
+    sizeSlider[i] = Vec2(sliderWidth,sliderHeight);
   }
 
   
@@ -512,36 +490,36 @@ void set_slider_general(int correction_local_y) {
   // Directional light one
   startLoop = 7 ;
   for(int i = startLoop ; i <= startLoop +2 ;i++) {
-    float posY = correctionLightOneY +correction_local_y +((i-startLoop) *spacingBetweenSlider) ;
-    posSlider[i] = new PVector(correctionLightOneX, posY) ;
-    sizeSlider[i] = new PVector(sliderWidth,sliderHeight) ;
+    float posY = correctionLightOneY +correction_local_y +((i-startLoop) *spacingBetweenSlider);
+    posSlider[i] = Vec2(correctionLightOneX, posY);
+    sizeSlider[i] = Vec2(sliderWidth,sliderHeight);
   }
   // Directional light two
   startLoop = 10 ;
   for(int i = startLoop ; i <= startLoop +2 ;i++) {
-    float posY = correctionLightTwoY +correction_local_y +((i-startLoop) *spacingBetweenSlider) ;
-    posSlider[i] = new PVector(correctionLightTwoX, posY) ;
-    sizeSlider[i] = new PVector(sliderWidth,sliderHeight) ;
+    float posY = correctionLightTwoY +correction_local_y +((i-startLoop) *spacingBetweenSlider);
+    posSlider[i] = Vec2(correctionLightTwoX, posY);
+    sizeSlider[i] = Vec2(sliderWidth,sliderHeight);
   }
   
   // Ambient light
   startLoop = 13 ;
   for(int i = startLoop ; i <= startLoop +2 ;i++) {
-    float posY = correctionLightAmbientY +correction_local_y +((i-startLoop) *spacingBetweenSlider) ;
-    posSlider[i] = new PVector(correctionLightAmbientX, posY) ;
-    sizeSlider[i] = new PVector(sliderWidth,sliderHeight) ;
+    float posY = correctionLightAmbientY +correction_local_y +((i-startLoop) *spacingBetweenSlider);
+    posSlider[i] = Vec2(correctionLightAmbientX, posY);
+    sizeSlider[i] = Vec2(sliderWidth,sliderHeight);
   }
   
   
   // CAMERA
   //////////
-//  int correctionCameraX = colThree ;
-//int correctionCameraY = height_menu_general +15 ;
-   startLoop = 20 ;
+  //  int correctionCameraX = colThree ;
+  //int correctionCameraY = height_menu_general +15 ;
+  startLoop = 20 ;
   for(int i = startLoop ; i <= startLoop +8 ;i++) {
     float posY = correctionCameraY +correction_local_y +((i-startLoop) *spacingBetweenSlider) ;
-    posSlider[i] = new PVector(correctionCameraX, posY) ;
-    sizeSlider[i] = new PVector(sliderWidth,sliderHeight) ;
+    posSlider[i] = Vec2(correctionCameraX, posY);
+    sizeSlider[i] = Vec2(sliderWidth,sliderHeight);
   }
 
 
@@ -549,11 +527,10 @@ void set_slider_general(int correction_local_y) {
   startLoop = 5 ;
   for(int i = startLoop ; i <= startLoop +1 ;i++) {
     float posY = correction_menu_sound_y +correction_local_y +((i-startLoop) *spacingBetweenSlider) ;
-    posSlider[i] = new PVector(correctionSoundX, posY) ;
-    sizeSlider[i] = new PVector(sliderWidth,sliderHeight) ;
+    posSlider[i] = Vec2(correctionSoundX, posY);
+    sizeSlider[i] = Vec2(sliderWidth,sliderHeight);
   }
 }
-
 
 
 // Object group
@@ -573,12 +550,15 @@ void set_slider_item_console(int sliderPositionY) {
         case 2 : posX = colThree;
         break ;
       }
-      posSlider   [whichSlider] = new PVector(posX, sliderPositionY +i *spacingBetweenSlider ) ;
-      sizeSlider  [whichSlider] = new PVector(sliderWidth, sliderHeight) ;
+      posSlider [whichSlider] = Vec2(posX, sliderPositionY +i *spacingBetweenSlider);
+      sizeSlider [whichSlider] = Vec2(sliderWidth, sliderHeight);
     }
   }
 }
-// END SLIDER SETUP
+
+
+
+
 
 
 
@@ -636,10 +616,7 @@ void update_slider(int whichOne) {
   // translate float value to int, to use OSC easily without problem of Array Outbound...blablah
   int valueMax = 360 ;
   valueSlider[whichOne] = constrain(map(slider[whichOne].getValue(), 0, 1, 0,valueMax),0,valueMax)  ;
-  
-
 }
-
 
 void display_current_slider_engine(int whichOne, int whichGroup) {
   if (whichGroup == 0) {
@@ -650,6 +627,7 @@ void display_current_slider_engine(int whichOne, int whichGroup) {
     display_current_mollette(whichOne, blanc, blancGris) ;
   }
 }
+
 // local method
 void display_min_max_slider(int whichOne,  color colorIn, color colorOut) {
   float thickness = 0 ;
@@ -679,7 +657,6 @@ void display_current_mollette(int whichOne, color colorMolIn, color colorMolOut)
 SLIDER DISPLAY GENERAL
 */
 // TEXT slider
-///////////////
 void dispay_text_slider_top(int pos) {
   // GROUP ZERO
   textAlign(LEFT);
@@ -713,8 +690,7 @@ void dispay_text_slider_top(int pos) {
     text(slider_item_nameCamera[i], posSlider[i+numSliderCorrection].x +correction_local_x, posSlider[i+numSliderCorrection].y +correction_local_y);
   }
 }
-// end text
-///////////
+
 
 
 
@@ -763,7 +739,7 @@ void sliderSoundDisplay() {
 }
 
 void sliderCameraDisplay() {
-// we cannot loop, because we change the color of display at the end of the function
+  // we cannot loop, because we change the color of display at the end of the function
   sliderBG ( posSlider[20].x, posSlider[20].y, sizeSlider[20].y, sizeSlider[20].x, roundedSlider, grisClair) ;
   sliderBG ( posSlider[21].x, posSlider[21].y, sizeSlider[21].y, sizeSlider[21].x, roundedSlider, grisClair) ;
   sliderBG ( posSlider[22].x, posSlider[22].y, sizeSlider[22].y, sizeSlider[22].x, roundedSlider, blancGris) ;
@@ -788,8 +764,6 @@ void slider_HSB_general_display(int start) {
     sliderBG    ( posSlider[3 +start].x, posSlider[3 +start].y, sizeSlider[3 +start].y, sizeSlider[3 +start].x, roundedSlider, grisClair) ;
   }
 }
-// end slider display for group zero
-////////////////////////////////////
 
 
 
@@ -804,7 +778,6 @@ Item selected slider
 When you add a new sliders, you must change the starting value from 'NAN' to a value between 0 and 1 in the file 'defaultSetting.csv' in the 'preferences/setting' folder.
 And you must add the name of this one in the 'preferences/'  folder sliderListEN.csv' and in the 'sliderListFR' file
 */
-
 void display_slider_item() {
   /* different way to display depend the displaying mode. 
   Can change with "ctrl+x" */
@@ -832,8 +805,7 @@ void display_slider_item() {
       update_slider(which_one) ;
       display_current_slider_engine(which_one, whichGroup) ;
     }
-  }
-  
+  } 
 }
 
 
@@ -953,7 +925,7 @@ void display_bg_slider_item() {
 
 // local void to display the HSB slider and display the specific color of this one
 void slider_HSB_item_display(int whichOne, int whichGroup, int hueRank, int satRank, int brightRank) {
-    if ( mouseX > (posSlider[whichOne +hueRank].x ) && mouseX < (posSlider[whichOne +hueRank].x +sizeSlider[whichOne +hueRank].x) 
+  if ( mouseX > (posSlider[whichOne +hueRank].x ) && mouseX < (posSlider[whichOne +hueRank].x +sizeSlider[whichOne +hueRank].x) 
        && mouseY > ( posSlider[whichOne +hueRank].y - 5) && mouseY < posSlider[whichOne +hueRank].y +30 ) 
   {
     if (display_slider[whichGroup][hueRank])    hueSliderBG        (posSlider[whichOne +hueRank].x,    posSlider[whichOne +hueRank].y,    sizeSlider[whichOne +hueRank].y,    sizeSlider[whichOne +hueRank].x) ; 
@@ -1021,10 +993,10 @@ void brightnessSliderBG (float posX, float posY, float heightSlider, float width
   }
   popMatrix() ;
 }
-/**
-END SLIDER
 
-*/
+
+
+
 
 
 
@@ -1057,7 +1029,7 @@ END SLIDER
 
 /**
 BUTTON
-
+v 1.0.0
 */
 /**
 BUTTON BUILD
@@ -1081,19 +1053,11 @@ void init_button_general() {
 
 // build button
 void build_button_general() {
-
-  /**
-  Top menu
-  */
-
-    //MIDI
+  //MIDI
   button_midi  = new Button(pos_midi_button, size_midi_button) ;
   //curtain
   button_curtain  = new Button(pos_curtain_button, size_curtain_button) ;
-  /**
-  General
-  */
-
+  // General
   button_bg = new Button(pos_bg_button, size_bg_button) ;
   button_bg.set_on_off(true) ;
   button_bg.set_color_on_off(col_on_in, col_on_out, col_off_in, col_off_out) ;
@@ -1129,7 +1093,6 @@ void build_button_general() {
 
   button_hat = new Button(pos_hat_button, size_hat_button) ;
   button_hat.set_color_on_off(col_on_in, col_on_out, col_off_in, col_off_out) ;
-
 }
 
 
@@ -1150,7 +1113,6 @@ Setting button
 // Main METHOD SETUP
 void set_button_general() {
   // MIDI
-
   size_midi_button = Vec2(50,26) ;
   pos_midi_button = Vec2(colOne +correctionMidiX, pos_y_button_top +correctionMidiY) ;
   pos_midi_info =Vec2(pos_midi_button.x +correction_info_midi_x, pos_midi_button.y +correction_info_midi_y) ;
@@ -1243,16 +1205,11 @@ void mousepressed_button_general() {
   }
 }
 
-
-
-
-
-
 /**
 DRAW LOCAL METHOD
 */
 void button_header() {
-    // background window
+  // background window
   Vec2 pos_window = Vec2(mouseX , mouseY -20) ;
   Vec2 ratio_size = Vec2( 1.6, 1.3) ;
   int speed = 7 ;
@@ -1267,8 +1224,7 @@ void button_header() {
   int alpha_bg_rollover = int(g.colorModeA *.8) ;
 
   if(button_midi.rollover()) {
-    text [0] = ("MIDI") ;
-    
+    text [0] = ("MIDI") ;    
     fill(grisTresFonce, alpha_bg_rollover) ;
     background_text_list(Vec2(pos_window.x, pos_window.y), text, size_text, size_angle, speed, ratio_size, range_check) ;
     fill(jaune) ;
@@ -1276,7 +1232,6 @@ void button_header() {
   }
 
   if(button_curtain.rollover()) {
-
     text [0] = ("CUT") ;
     noStroke() ;
     fill(grisTresFonce, alpha_bg_rollover) ;
@@ -1285,9 +1240,6 @@ void button_header() {
     text(text [0], pos_window.x, pos_window.y) ;
   }
 }
-
-
-
 
 void display_button_general() {
   button_bg.button_text(shader_bg_name[state_bg_shader] + " on/off", pos_bg_button, titleButtonMedium, sizeTitleButton) ;
@@ -1313,8 +1265,6 @@ void display_button_general() {
   button_curtain.button_pic(picCurtain) ;
 }
 
-
-
 void check_button_general() {
   /* Check to send by OSC to Scene and Prescene */
   if(button_bg.on_off) state_BackgroundButton = 1 ; else state_BackgroundButton = 0 ;
@@ -1339,10 +1289,6 @@ void check_button_general() {
 
 
 
-/**
-END BUTTON
-
-*/
 
 
 
@@ -1370,8 +1316,8 @@ END BUTTON
 
 
 /**
-DROPDOWN 1.0.1
-
+DROPDOWN 
+v 1.0.1
 */
 int ref_size_image_bitmap_dropdown, ref_size_image_svg_dropdown, ref_size_movie_dropdown, refSizeFileTextDropdown, refSizeCameraVideoDropdown ;
 PVector pos_text_dropdown_image_bitmap, pos_text_dropdown_image_svg, pos_text_dropdown_movie, posTextdropdown_file_text, posTextdropdown_camera_video ; 
@@ -1381,10 +1327,6 @@ color colorDropdownBG ;
 color color_dropdown_header_in, color_dropdown_header_out ;
 color color_dropdown_item_in, color_dropdown_item_out ;
 int sizeToRenderTheBoxDropdown = 15 ;
-
-
-
-
 void init_dropdown() {
   // dropdown
   numDropdown = NUM_ITEM +1 ; // add one for the dropdownmenu
@@ -1392,15 +1334,14 @@ void init_dropdown() {
   //dropdown
   mode_list_RPE = new String[numDropdown] ;
   dropdown = new Dropdown[numDropdown] ;
-  pos_dropdown = new PVector[numDropdown] ;
+  pos_dropdown = new Vec3[numDropdown] ;
 
   for(int i = 0 ; i < numDropdown  ; i++) {
-    pos_dropdown[i] = new PVector() ;
+    pos_dropdown[i] = Vec3() ;
   }
 }
 
 void set_dropdown_general() {
-
   pos_button_bg = Vec2(colOne +correction_dropdown_bg_x,      height_dropdown_top +correction_dropdown_top_menu_y)  ;
   pos_button_font = Vec2(colOne +correction_dropdown_font_x,            height_dropdown_top +correction_dropdown_top_menu_y)  ; 
   pos_button_image_bitmap =  Vec2(colOne +correction_dropdown_image_bitmap_x,           height_dropdown_top +correction_dropdown_top_menu_y)  ; 
@@ -1435,55 +1376,55 @@ void set_dropdown_general() {
   //SHADER backgorund dropdown
   
   ///////////////
-  pos_dropdown_bg = new PVector(pos_button_bg.x, pos_button_bg.y, 0.1)  ; // x y is pos anz z is marge between the dropdown and the header
-  size_dropdown_bg = new PVector (75, sizeToRenderTheBoxDropdown, 10) ; // z is the num of line you show
+  pos_dropdown_bg = Vec3(pos_button_bg.x, pos_button_bg.y, 0.1)  ; // x y is pos anz z is marge between the dropdown and the header
+  size_dropdown_bg = Vec3(75, sizeToRenderTheBoxDropdown, 10) ; // z is the num of line you show
   PVector posTextDropdownBackground = new PVector(3, 10)  ;
   dropdown_bg = new Dropdown(menu_bg, shader_bg_name, pos_dropdown_bg, size_dropdown_bg, posTextDropdownBackground, colorDropdownBG, color_dropdown_header_in, color_dropdown_header_out, colorBoxIn, colorBoxOut, colorBoxText, sizeToRenderTheBoxDropdown) ;
   
   
   // FONT dropdown
   ///////////////
-  pos_dropdown_font = new PVector(pos_button_font.x, pos_button_font.y, 0.1)  ; // x y is pos anz z is marge between the dropdown and the header
-  size_dropdown_font = new PVector (40, sizeToRenderTheBoxDropdown, 10 ) ; // z is the num of line you show
+  pos_dropdown_font = Vec3(pos_button_font.x, pos_button_font.y, 0.1)  ; // x y is pos anz z is marge between the dropdown and the header
+  size_dropdown_font = Vec3(40, sizeToRenderTheBoxDropdown, 10 ) ; // z is the num of line you show
   PVector posTextDropdownTypo = new PVector(3, 10)  ;
-  dropdown_font = new Dropdown(menu_font, font_dropdown_list,   pos_dropdown_font , size_dropdown_font, posTextDropdownTypo, colorDropdownBG, color_dropdown_header_in, color_dropdown_header_out, colorBoxIn, colorBoxOut, colorBoxText, sizeToRenderTheBoxDropdown) ;
+  dropdown_font = new Dropdown(menu_font, font_dropdown_list, pos_dropdown_font, size_dropdown_font, posTextDropdownTypo, colorDropdownBG, color_dropdown_header_in, color_dropdown_header_out, colorBoxIn, colorBoxOut, colorBoxText, sizeToRenderTheBoxDropdown) ;
   
   // Image bitmap Dropdown
   //////////////////
-  pos_dropdown_image_bitmap = new PVector(pos_button_image_bitmap.x, pos_button_image_bitmap.y, 0.1)  ; // x y is pos anz z is marge between the dropdown and the header
-  size_dropdown_image_bitmap = new PVector (60, sizeToRenderTheBoxDropdown, 10 ) ; // z is the num of line you show
+  pos_dropdown_image_bitmap = Vec3(pos_button_image_bitmap.x, pos_button_image_bitmap.y, 0.1)  ; // x y is pos anz z is marge between the dropdown and the header
+  size_dropdown_image_bitmap = Vec3(60, sizeToRenderTheBoxDropdown, 10 ) ; // z is the num of line you show
   pos_text_dropdown_image_bitmap = new PVector(3, 10)  ;
   ref_size_image_bitmap_dropdown = bitmap_dropdown_list.length ;
   dropdown_image_bitmap = new Dropdown(menu_bitmap, bitmap_dropdown_list, pos_dropdown_image_bitmap, size_dropdown_image_bitmap, pos_text_dropdown_image_bitmap, colorDropdownBG, color_dropdown_header_in, color_dropdown_header_out, colorBoxIn, colorBoxOut, colorBoxText, sizeToRenderTheBoxDropdown) ;
   
   // Image svg Dropdown
   //////////////////
-  pos_dropdown_image_svg = new PVector(pos_button_image_svg.x, pos_button_image_svg.y, 0.1)  ; // x y is pos anz z is marge between the dropdown and the header
-  size_dropdown_image_svg = new PVector (60, sizeToRenderTheBoxDropdown, 10 ) ; // z is the num of line you show
+  pos_dropdown_image_svg = Vec3(pos_button_image_svg.x, pos_button_image_svg.y, 0.1)  ; // x y is pos anz z is marge between the dropdown and the header
+  size_dropdown_image_svg = Vec3(60, sizeToRenderTheBoxDropdown, 10 ) ; // z is the num of line you show
   pos_text_dropdown_image_svg = new PVector(3, 10)  ;
   ref_size_image_svg_dropdown = svg_dropdown_list.length ;
   dropdown_image_svg = new Dropdown(menu_vector, svg_dropdown_list, pos_dropdown_image_svg, size_dropdown_image_svg, pos_text_dropdown_image_svg, colorDropdownBG, color_dropdown_header_in, color_dropdown_header_out, colorBoxIn, colorBoxOut, colorBoxText, sizeToRenderTheBoxDropdown) ;
  
   // Movie Dropdown
   //////////////////
-  pos_dropdown_movie = new PVector(pos_button_movie.x, pos_button_movie.y, 0.1)  ; // x y is pos anz z is marge between the dropdown and the header
-  size_dropdown_movie = new PVector (60, sizeToRenderTheBoxDropdown, 10 ) ; // z is the num of line you show
+  pos_dropdown_movie = Vec3(pos_button_movie.x, pos_button_movie.y, 0.1)  ; // x y is pos anz z is marge between the dropdown and the header
+  size_dropdown_movie = Vec3(60, sizeToRenderTheBoxDropdown, 10 ) ; // z is the num of line you show
   pos_text_dropdown_movie = new PVector(3, 10)  ;
   ref_size_movie_dropdown = movie_dropdown_list.length ;
   dropdown_movie = new Dropdown(menu_movie, movie_dropdown_list, pos_dropdown_movie, size_dropdown_movie, pos_text_dropdown_movie, colorDropdownBG, color_dropdown_header_in, color_dropdown_header_out, colorBoxIn, colorBoxOut, colorBoxText, sizeToRenderTheBoxDropdown) ;
  
   // File text Dropdown
   //////////////////
-  pos_dropdown_file_text = new PVector(pos_button_file_text.x, pos_button_file_text.y, 0.1)  ; // x y is pos anz z is marge between the dropdown and the header
-  size_dropdown_file_text = new PVector (40, sizeToRenderTheBoxDropdown, 10 ) ; // z is the num of line you show
+  pos_dropdown_file_text = Vec3(pos_button_file_text.x, pos_button_file_text.y, 0.1)  ; // x y is pos anz z is marge between the dropdown and the header
+  size_dropdown_file_text = Vec3(40, sizeToRenderTheBoxDropdown, 10 ) ; // z is the num of line you show
   posTextdropdown_file_text = new PVector(3, 10)  ;
   refSizeFileTextDropdown = file_text_dropdown_list.length ;
   dropdown_file_text = new Dropdown(menu_text, file_text_dropdown_list, pos_dropdown_file_text, size_dropdown_file_text, posTextdropdown_file_text, colorDropdownBG, color_dropdown_header_in, color_dropdown_header_out, colorBoxIn, colorBoxOut, colorBoxText, sizeToRenderTheBoxDropdown) ;
   
   // Camera Video Dropdown
   //////////////////
-  pos_dropdown_camera_video = new PVector(pos_button_camera_video.x, pos_button_camera_video.y, 0.1)  ; // x y is pos anz z is marge between the dropdown and the header
-  size_dropdown_camera_video = new PVector (100, sizeToRenderTheBoxDropdown, 10 ) ; // z is the num of line you show
+  pos_dropdown_camera_video = Vec3(pos_button_camera_video.x, pos_button_camera_video.y, 0.1)  ; // x y is pos anz z is marge between the dropdown and the header
+  size_dropdown_camera_video = Vec3(100, sizeToRenderTheBoxDropdown, 10 ) ; // z is the num of line you show
   posTextdropdown_camera_video = new PVector(3, 10)  ;
   refSizeCameraVideoDropdown = name_camera_video_dropdown_list.length ;
   dropdown_camera_video = new Dropdown(menu_video, name_camera_video_dropdown_list, pos_dropdown_camera_video, size_dropdown_camera_video, posTextdropdown_camera_video, colorDropdownBG, color_dropdown_header_in, color_dropdown_header_out, colorBoxIn, colorBoxOut, colorBoxText, sizeToRenderTheBoxDropdown) ;
@@ -1492,7 +1433,7 @@ void set_dropdown_general() {
 void set_dropdown_item_selected() {
   //common param
   int numLineDisplayByTheDropdownObj = 8 ;
-  size_dropdown_mode = new PVector (20, sizeToRenderTheBoxDropdown, numLineDisplayByTheDropdownObj) ;
+  size_dropdown_mode = Vec3(20, sizeToRenderTheBoxDropdown, numLineDisplayByTheDropdownObj) ;
   // int correction_dropdown_item_selected +correction_button_item
   PVector newPos = new PVector(margeLeft + -8, height_item_selected +correction_dropdown_item_selected, .1 ) ;
   // group item
@@ -1520,37 +1461,38 @@ void set_dropdown_item_selected() {
 
 
 
-/**
-//DRAW DROPDOWN
-*/
+
+// DRAW DROPDOWN
 boolean dropdownActivity ;
 int dropdownActivityCount ;
-
 void display_dropdown() {
   update_dropdown_content() ;
   update_dropdown_item() ;
   update_dropdown_background() ;
-  state_font            = update_dropdown_general(size_dropdown_font, pos_dropdown_font, dropdown_font, font_dropdown_list, title_dropdown_medium) ;
-  state_text       = update_dropdown_general(size_dropdown_file_text, pos_dropdown_file_text, dropdown_file_text, file_text_dropdown_list, title_dropdown_medium) ;
-  state_bitmap           = update_dropdown_general(size_dropdown_image_bitmap, pos_dropdown_image_bitmap, dropdown_image_bitmap, bitmap_dropdown_list, title_dropdown_medium) ;
-  state_svg           = update_dropdown_general(size_dropdown_image_svg, pos_dropdown_image_svg, dropdown_image_svg, svg_dropdown_list, title_dropdown_medium) ;
-  state_movie          = update_dropdown_general(size_dropdown_movie, pos_dropdown_movie, dropdown_movie, movie_dropdown_list, title_dropdown_medium) ;
-  state_camera    = update_dropdown_general(size_dropdown_camera_video, pos_dropdown_camera_video, dropdown_camera_video, name_camera_video_dropdown_list, title_dropdown_medium) ;
+  state_font = update_dropdown_general(pos_dropdown_font, size_dropdown_font, dropdown_font, font_dropdown_list, title_dropdown_medium) ;
+  state_text = update_dropdown_general(pos_dropdown_file_text, size_dropdown_file_text, dropdown_file_text, file_text_dropdown_list, title_dropdown_medium) ;
+  state_bitmap = update_dropdown_general(pos_dropdown_image_bitmap, size_dropdown_image_bitmap, dropdown_image_bitmap, bitmap_dropdown_list, title_dropdown_medium) ;
+  state_svg = update_dropdown_general(pos_dropdown_image_svg, size_dropdown_image_svg, dropdown_image_svg, svg_dropdown_list, title_dropdown_medium) ;
+  state_movie = update_dropdown_general(pos_dropdown_movie, size_dropdown_movie, dropdown_movie, movie_dropdown_list, title_dropdown_medium) ;
+  state_camera = update_dropdown_general(pos_dropdown_camera_video, size_dropdown_camera_video, dropdown_camera_video, name_camera_video_dropdown_list, title_dropdown_medium) ;
 
   // check the activity o the dropdown
   if(dropdownActivityCount > 0 ) dropdownActivity = true ; else dropdownActivity = false ;
   dropdownActivityCount = 0 ;
 }
-// END MAIN
+
+
+
+
+
 
 
 
 
 
 // Annexe method
-
 void update_dropdown_content() {
-    // update file text content
+  // update file text content
   if(file_text_dropdown_list.length != refSizeFileTextDropdown ) {
     dropdown_file_text = new Dropdown(menu_text, 
                                       file_text_dropdown_list, 
@@ -1600,20 +1542,21 @@ void update_dropdown_content() {
 
 // global update for the classic dropdown
 
-int update_dropdown_general(PVector size, PVector pos, Dropdown dropdown_menu, String [] menu_list, PFont font) {
+int update_dropdown_general(Vec3 pos, Vec3 size, Dropdown dropdown_menu, String [] menu_list, PFont font) {
   int state = SWITCH_VALUE_FOR_DROPDOWN  ;
   dropdown_menu.dropdownUpdate(font, textUsual_1);
   if (dropdownOpen) dropdownActivityCount = +1 ;
   marge_around_dropdown = size.y  ;
   //give the size of menu recalculate with the size of the word inside
-  PVector new_size = dropdown_menu.sizeBoxDropdownMenu ;
+  Vec2 new_size = dropdown_menu.sizeBoxDropdownMenu.copy();
   //compare the standard size of dropdown with the number of element of the list.
   int heightDropdown = 0 ;
   if(menu_list.length < size.z ) heightDropdown = menu_list.length ; else heightDropdown = (int)size.z ;
-  PVector total_size = new PVector ( new_size.x +(marge_around_dropdown *1.5), size.y *(heightDropdown +1) +marge_around_dropdown) ; // we must add +1 to the size of the dropdown for the title plus the item list
+  Vec2 temp_size = Vec2(new_size.x +(marge_around_dropdown *1.5), size.y *(heightDropdown +1) +marge_around_dropdown) ; // we must add +1 to the size of the dropdown for the title plus the item list
   //new pos to include the slider
-  PVector new_pos = new PVector (pos.x -marge_around_dropdown, pos.y) ;
-  if (!insideRect(new_pos, total_size)) dropdown_menu.locked = false ;
+  Vec2 temp_pos = Vec2(pos.x -marge_around_dropdown, pos.y);
+  if(!inside(temp_pos,temp_size,Vec2(mouseX,mouseY),RECT)) dropdown_menu.locked = false;
+  // if(!insideRect(new_pos, total_size)) dropdown_menu.locked = false;
   
   if(!dropdown_menu.locked && menu_list.length > 0) {
     fill(selectedText) ;
@@ -1629,20 +1572,19 @@ int update_dropdown_general(PVector size, PVector pos, Dropdown dropdown_menu, S
 
 
 // update for the special content dropdown
-void update_dropdown_background() {
-  
+void update_dropdown_background() { 
   dropdown_bg.dropdownUpdate(title_dropdown_medium, textUsual_1);
   if (dropdownOpen) dropdownActivityCount = +1 ;
   marge_around_dropdown = size_dropdown_font.y  ;
   //give the size of menu recalculate with the size of the word inside
-  PVector newSizeFont = dropdown_bg.sizeBoxDropdownMenu ;
+  Vec2 newSizeFont = dropdown_bg.sizeBoxDropdownMenu.copy();
   //compare the standard size of dropdown with the number of element of the list.
   int heightDropdown = 0 ;
   if(shader_bg_name.length < size_dropdown_bg.z ) heightDropdown = shader_bg_name.length ; else heightDropdown = (int)size_dropdown_bg.z ;
-  PVector total_size = new PVector ( newSizeFont.x +(marge_around_dropdown *1.5), size_dropdown_bg.y *(heightDropdown +1) +marge_around_dropdown) ; // we must add +1 to the size of the dropdown for the title plus the item list
+  Vec2 temp_size = Vec2(newSizeFont.x +(marge_around_dropdown *1.5), size_dropdown_bg.y *(heightDropdown +1) +marge_around_dropdown); // we must add +1 to the size of the dropdown for the title plus the item list
   //new pos to include the slider
-  PVector new_pos = new PVector (pos_dropdown_bg.x -marge_around_dropdown, pos_dropdown_bg.y) ;
-  if (!insideRect(new_pos, total_size)) dropdown_bg.locked = false ;
+  Vec2 temp_pos = Vec2(pos_dropdown_bg.x -marge_around_dropdown, pos_dropdown_bg.y) ;
+  if (!inside(temp_pos,temp_size,Vec2(mouseX,mouseY),RECT)) dropdown_bg.locked = false ;
   // display the selection
   
   if(!dropdown_bg.locked) {
@@ -1675,7 +1617,7 @@ void update_dropdown_item() {
         marge_around_dropdown = size_dropdown_mode.y  ;
 
         //give the size of menu recalculate with the size of the word inside
-        PVector newSizeModeTypo = dropdown[i].sizeBoxDropdownMenu ;
+        Vec2 newSizeModeTypo = dropdown[i].sizeBoxDropdownMenu.copy();
         int heightDropdown = 0 ;
 
         if(dropdown[i].listItem.length < size_dropdown_mode.z) {
@@ -1684,11 +1626,11 @@ void update_dropdown_item() {
           heightDropdown = (int)size_dropdown_mode.z ;
         }
 
-        PVector total_size = new PVector (newSizeModeTypo.x +(marge_around_dropdown *1.5), size_dropdown_mode.y *(heightDropdown +1) +marge_around_dropdown) ; // we must add +1 to the size of the dropdown for the title plus the item list
+        Vec2 temp_size = Vec2(newSizeModeTypo.x +(marge_around_dropdown *1.5), size_dropdown_mode.y *(heightDropdown +1) +marge_around_dropdown) ; // we must add +1 to the size of the dropdown for the title plus the item list
         
         //new pos to include the slider
-        PVector new_pos = new PVector (pos_dropdown[i].x -marge_around_dropdown, pos_dropdown[i].y) ;
-        if (!insideRect(new_pos, total_size)) {
+        Vec2 temp_pos = Vec2(pos_dropdown[i].x -marge_around_dropdown, pos_dropdown[i].y) ;
+        if (!inside(temp_pos,temp_size,Vec2(mouseX,mouseY),RECT)) {
           dropdown[i].locked = false;
         }
       }
@@ -1734,9 +1676,9 @@ void mousepressed_dropdown() {
 
 
 
-void check_dropdown_mousepressed(PVector pos, PVector size, Dropdown dropdown_menu) {
+void check_dropdown_mousepressed(Vec pos, Vec size, Dropdown dropdown_menu) {
   if (dropdown_menu != null) {
-    if (insideRect(pos, size) && !dropdown_menu.locked  ) {
+    if (inside(pos, size,Vec2(mouseX,mouseY),RECT) && !dropdown_menu.locked) {
       dropdown_menu.locked = true;
     } else if (dropdown_menu.locked) {
       float new_width = dropdown_menu.sizeBoxDropdownMenu.x ;
@@ -1757,7 +1699,7 @@ void check_dropdown_mousepressed(PVector pos, PVector size, Dropdown dropdown_me
 void check_dropdown_object_mousepressed() {
   for ( int i = 0 ; i <= NUM_ITEM ; i ++ ) { 
     if (dropdown[i] != null) {
-      if (insideRect(pos_dropdown[i], size_dropdown_mode) && !dropdown[i].locked  ) {
+      if (inside(pos_dropdown[i], size_dropdown_mode,Vec2(mouseX,mouseY),RECT) && !dropdown[i].locked) {
         dropdown[i].locked = true;
       } else if (dropdown[i].locked) {
         float new_width = dropdown[i].sizeBoxDropdownMenu.x ;
@@ -1772,10 +1714,6 @@ void check_dropdown_object_mousepressed() {
   }
 }
 
-/**
-END DROPDOWN
-
-*/
 
 
 

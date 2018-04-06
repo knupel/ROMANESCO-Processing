@@ -1,9 +1,11 @@
 /**
-SLIDER 2015 - 2017
-v 1.6.1
+SLIDER 
+v 1.7.0
+2015 - 2018
 SLIDER may 2016 1.5.9 
 SLIDER june 2016 1.6.0
 SLIDER january 2017 1.6.1
+SLIDER march 2018 1.7.0
 */
 boolean molette_already_selected ;
 
@@ -13,8 +15,11 @@ CLASS SLIDER
 
 */
 public class Slider {
-  protected PVector pos, size, posMol, posText, sizeMol, posMin, posMax ;
-  protected PVector newPosMol = new PVector() ;
+  protected Vec2 pos, size;
+  protected Vec2 posMol, sizeMol;
+  protected PVector posText;
+  protected Vec2 posMin, posMax ;
+  protected Vec2 newPosMol ;
   protected color sliderColor = color(60) ;
   protected color molIn = color(255) ;
   protected color molOut = color(125) ;
@@ -30,64 +35,62 @@ public class Slider {
   
   // CLASSIC CONSTRUCTOR
   //CONSTRUCTOR with title
-  public Slider(PVector pos, PVector posMol , PVector size, PVector posText, PFont p) {
+  public Slider(Vec2 pos, Vec2 posMol, Vec2 size, PVector posText, PFont p) {
     this.pos = pos.copy() ;
-    this.posMol = new PVector(pos.x + (posMol.x*size.x), pos.y +(posMol.y*size.y)) ;
+    this.posMol = Vec2(pos.x + (posMol.x*size.x), pos.y +(posMol.y*size.y)) ;
     this.size = size.copy() ;
     this.posText = posText ;
     this.p = p ;
 
     //which molette for slider horizontal or vertical
-    if (size.x >= size.y) sizeMol = new PVector (size.y, size.y) ; else sizeMol = new PVector (size.x, size.x ) ;
+    if (size.x >= size.y) sizeMol = Vec2(size.y, size.y) ; else sizeMol = Vec2(size.x, size.x ) ;
     // calculate minimum and maxium position of the molette
     if(size.x > size.y) {
-      posMin = new PVector (pos.x, pos.y) ;
-      posMax = new PVector (pos.x +size.x +size.y,  pos.y) ;
+      posMin = Vec2(pos.x, pos.y) ;
+      posMax = Vec2(pos.x +size.x +size.y, pos.y) ;
     } else {
-      posMin = new PVector (pos.x, pos.y) ;
-      float correction = sizeMol.y  + sizeMol.x ;
-      posMax = new PVector (pos.x,  pos.y  +size.x +size.y -correction) ;
+      posMin = Vec2(pos.x, pos.y) ;
+      float correction = sizeMol.y +sizeMol.x ;
+      posMax = Vec2(pos.x, pos.y +size.x +size.y -correction) ;
     }
   }
   
   //CONSTRUCTOR minimum
-  public Slider(PVector pos, PVector posMol, PVector size) {
+  public Slider(Vec2 pos, Vec2 posMol, Vec2 size) {
     this.pos = pos.copy() ;
-    this.posMol = new PVector(pos.x + (posMol.x*size.x), pos.y +(posMol.y*size.y)) ;
+    this.posMol = Vec2(pos.x + (posMol.x*size.x), pos.y +(posMol.y*size.y)) ;
     this.size = size.copy() ;
 
     //which molette for slider horizontal or vertical
-    if (size.x >= size.y) sizeMol = new PVector (size.y, size.y) ; else sizeMol = new PVector (size.x, size.x) ;
+    if (size.x >= size.y) sizeMol = Vec2(size.y, size.y) ; else sizeMol = Vec2(size.x, size.x) ;
     // calculate minimum and maxium position of the molette
     if(size.x > size.y) {
-      posMin = new PVector (pos.x, pos.y) ;
-      posMax = new PVector (pos.x +size.x +size.y,  pos.y) ;
+      posMin = Vec2(pos.x, pos.y) ;
+      posMax = Vec2(pos.x +size.x +size.y,  pos.y) ;
     } else {
-      posMin = new PVector (pos.x, pos.y) ;
+      posMin = Vec2(pos.x, pos.y) ;
       float correction = sizeMol.y  + sizeMol.x ;
-      posMax = new PVector (pos.x,  pos.y  +size.x +size.y -correction) ;
+      posMax = Vec2(pos.x,  pos.y  +size.x +size.y -correction) ;
     }
   }
   
   //slider with external molette
-  public Slider(PVector pos, PVector posMol , PVector size, PVector sizeMol, String moletteShapeType) {
-    this.pos = pos.copy() ;
-    this.posMol = new PVector(pos.x +(posMol.x *size.x), pos.y +(posMol.y *size.y)) ;
+  public Slider(Vec2 pos, Vec2 posMol, Vec2 size, Vec2 sizeMol, String moletteShapeType) {
+    this.pos = pos.copy();
+    this.posMol = Vec2(pos.x +(posMol.x *size.x), pos.y +(posMol.y *size.y)) ;
     this.sizeMol = sizeMol.copy() ;
     this.size = size.copy() ;
     this.moletteShapeType = moletteShapeType ;
     // calculate minimum and maxium position of the molette
     if(size.x > size.y) {
-      posMin = new PVector (pos.x, pos.y) ;
-      posMax = new PVector (pos.x +size.x +size.y,  pos.y) ;
+      posMin = Vec2(pos.x, pos.y) ;
+      posMax = Vec2(pos.x +size.x +size.y,  pos.y) ;
     } else {
-      posMin = new PVector (pos.x, pos.y) ;
+      posMin = Vec2(pos.x, pos.y) ;
       float correction = sizeMol.y  + sizeMol.x ;
-      posMax = new PVector (pos.x,  pos.y  +size.x +size.y -correction) ;
+      posMax = Vec2(pos.x,  pos.y  +size.x +size.y -correction) ;
     }
   }
-  
-  // END CONSTRUCTOR
 
   
 
@@ -136,7 +139,7 @@ public class Slider {
   }
 
   // update molette position
-    void update_pos_molette(PVector pos, PVector pos_mol) {
+    void update_pos_molette(Vec2 pos, Vec2 pos_mol) {
     this.posMol.set(pos.x +(pos_mol.x *size.x), pos.y +(pos_mol.y *size.y)) ;
     // this.newPosMol.set(posMol.x, posMol.y) ;
   }
@@ -311,7 +314,7 @@ public class Slider {
   // check if the mouse is inside the molette or not
   //rect
   boolean insideSlider() { 
-    if(insideRect(pos, size)) {
+    if(inside(pos, size,Vec2(mouseX,mouseY),RECT)) {
       insideMol = true ; 
     } else {
       insideMol = false ;
@@ -321,7 +324,7 @@ public class Slider {
   
   
   boolean insideMol_Rect() {
-    if(insideRect(newPosMol, sizeMol)) {
+    if(inside(newPosMol,sizeMol,Vec2(mouseX,mouseY),RECT)) {
       insideMol = true ; 
     } else {
       insideMol = false ;
@@ -419,43 +422,46 @@ SLIDER ADJUSTABLE : extends class of class Slider
 */
 public class SliderAdjustable extends Slider {
   // size
-  protected PVector sizeMinMax = new PVector() ;
-  protected PVector sizeMolMinMax = new PVector() ;
+  protected Vec2 sizeMinMax;
+  protected Vec2 sizeMolMinMax;
   int widthMinMax = 10 ;
   // pos  
-  protected PVector posMinMax = new PVector() ;
-  protected PVector newPosMin = new PVector() ;
-  protected PVector newPosMax = new PVector() ;
+  protected Vec2 posMinMax;
+  protected Vec2 newPosMin;
+  protected Vec2 newPosMax;
   // color
   protected color adjIn = color(255) ;
   protected color adjOut = color(125) ; ;
 
-  boolean lockedMin, lockedMax ;
+  boolean lockedMin, lockedMax;
   
   // CLASSIC CONSTRUCTOR
-  SliderAdjustable (PVector pos, PVector posMol , PVector size, PVector posText, PFont p) {
-    super(pos, posMol, size, posText, p) ;
-    this.posMinMax = pos.copy() ;
-    this.newPosMin = posMinMax.copy() ;
-    this.sizeMinMax = size.copy() ;
-    this.sizeMolMinMax = new PVector(widthMinMax, size.y) ;
+  SliderAdjustable(Vec2 pos, Vec2 posMol, Vec2 size, PVector posText, PFont p) {
+    super(pos,posMol,size,posText,p);
+    this.newPosMax = Vec2();
+    this.posMinMax = pos.copy();
+    this.newPosMin = posMinMax.copy();
+    this.sizeMinMax = size.copy();
+    this.sizeMolMinMax = Vec2(widthMinMax, size.y);
   }
   
-  SliderAdjustable(PVector pos, PVector posMol , PVector size) {
-    super(pos, posMol, size) ;
-    this.posMinMax = pos.copy() ;
-    this.newPosMin = posMinMax.copy() ;
-    this.sizeMinMax = size.copy() ;
-    this.sizeMolMinMax = new PVector(widthMinMax, size.y) ;
+  SliderAdjustable(Vec2 pos, Vec2 posMol, Vec2 size) {
+    super(pos, posMol, size);
+    this.newPosMax = Vec2();
+    this.posMinMax = pos.copy();
+    this.newPosMin = posMinMax.copy();
+    this.sizeMinMax = size.copy();
+    this.sizeMolMinMax = Vec2(widthMinMax, size.y);
   }
   
   //slider with external molette
-  SliderAdjustable(PVector pos, PVector posMol , PVector size, PVector sizeMol, String moletteShapeType) {
-    super(pos, posMol, size, sizeMol, moletteShapeType) ;
-    this.posMinMax = pos.copy() ;
-   // this.newPosMin = posMinMax.copy() ;
-    this.sizeMinMax = size.copy() ;
-    this.sizeMolMinMax = new PVector(widthMinMax, size.y) ;
+  SliderAdjustable(Vec2 pos, Vec2 posMol, Vec2 size, Vec2 sizeMol, String moletteShapeType) {
+    super(pos, posMol, size, sizeMol, moletteShapeType);
+    this.newPosMax = Vec2();
+    this.newPosMin = Vec2();
+    this.posMinMax = pos.copy();
+    this.sizeMinMax = size.copy();
+    this.sizeMolMinMax = Vec2(widthMinMax, size.y);
   }
   // END CLASSIC CONSTRUCTOR
   /////////////////////////
@@ -469,11 +475,11 @@ public class SliderAdjustable extends Slider {
   void update_min_max() {
     float newNormSize = maxNorm -minNorm ;
     
-    if (size.x >= size.y) sizeMinMax = new PVector (size.x *newNormSize, size.y) ; else sizeMinMax = new PVector (size.y *newNormSize, size.x) ;
+    if (size.x >= size.y) sizeMinMax = Vec2(size.x *newNormSize, size.y) ; else sizeMinMax = Vec2(size.y *newNormSize, size.x) ;
     
-    posMin = new PVector (pos.x +(size.x *minNorm), pos.y) ;
+    posMin = Vec2(pos.x +(size.x *minNorm), pos.y) ;
     // in this case the detection is translate on to and left of the size of molette
-    posMax = new PVector (pos.x -sizeMol.x +(size.x *maxNorm), pos.y) ;
+    posMax = Vec2(pos.x -sizeMol.x +(size.x *maxNorm), pos.y) ;
   }
   
   // update Min and Max value
@@ -521,9 +527,9 @@ public class SliderAdjustable extends Slider {
         else if (newPosMax.x > posMax.x ) newPosMax.x = posMax.x ;
          newPosMax.x = constrain(mouseX -(size.y *.5) , pos.x +range, pos.x +size.x -(size.y *.5)) ; 
          // norm the value to return to method minMaxSliderUpdate
-        posMax = new PVector (pos.x -sizeMol.x +(size.x *maxNorm), pos.y) ;
+        posMax = Vec2(pos.x -sizeMol.x +(size.x *maxNorm), pos.y) ;
         // we use a temporary position for a good display of the max slider 
-        PVector tempPosMax = new PVector(pos.x -(size.y *.5) +(size.x *maxNorm), posMax.y) ;
+        Vec2 tempPosMax = Vec2(pos.x -(size.y *.5) +(size.x *maxNorm), posMax.y) ;
         maxNorm = map(newPosMax.x, posMin.x, tempPosMax.x, minNorm, maxNorm) ;
       } else newPosMax.y = constrain(mouseY -sizeMinMax.y, posMin.y, posMax.y) ; // this line is not reworking for the vertical slider
     }
@@ -577,12 +583,12 @@ public class SliderAdjustable extends Slider {
   // ANNEXE
   // INSIDE
   boolean insideMin() {
-    if(insideRect(posMin, sizeMolMinMax)) return true ; else return false ;
+    if(inside(posMin, sizeMolMinMax,Vec2(mouseX,mouseY),RECT)) return true ; else return false ;
   }
   
   boolean insideMax() {
-    PVector tempPosMax = new PVector(pos.x -(size.y *.5) +(size.x *maxNorm), posMax.y) ;
-    if(insideRect(tempPosMax, sizeMolMinMax)) return true ; else return false ;
+    Vec2 tempPosMax = Vec2(pos.x -(size.y *.5) +(size.x *maxNorm), posMax.y) ;
+    if(inside(tempPosMax, sizeMolMinMax,Vec2(mouseX,mouseY),RECT)) return true ; else return false ;
   }
   
   //LOCKED

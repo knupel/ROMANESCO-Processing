@@ -60,12 +60,12 @@ class ItemOnOff {
 //////////
 //DROPDOWN
 //GLOBAL
-Dropdown dropdown [] ;
+Dropdown dropdown [];
 Dropdown dropdown_font, dropdown_bg, dropdown_image_bitmap, dropdown_image_svg, dropdown_movie, dropdown_file_text, dropdown_camera_video  ;
 
-PVector pos_dropdown[] ;
-PVector pos_dropdown_font, pos_dropdown_bg, pos_dropdown_image_bitmap, pos_dropdown_image_svg, pos_dropdown_movie, pos_dropdown_file_text, pos_dropdown_camera_video ;
-PVector size_dropdown_font, size_dropdown_bg, size_dropdown_image_bitmap, size_dropdown_image_svg, size_dropdown_movie, size_dropdown_file_text, size_dropdown_camera_video, size_dropdown_mode ;
+Vec3 pos_dropdown[];
+Vec3 pos_dropdown_bg, pos_dropdown_font, pos_dropdown_image_bitmap, pos_dropdown_image_svg, pos_dropdown_movie, pos_dropdown_file_text, pos_dropdown_camera_video ;
+Vec3 size_dropdown_bg, size_dropdown_font, size_dropdown_image_bitmap, size_dropdown_image_svg, size_dropdown_movie, size_dropdown_file_text, size_dropdown_camera_video, size_dropdown_mode ;
 PVector posTextDropdown = new PVector(2,8)  ;
 
 
