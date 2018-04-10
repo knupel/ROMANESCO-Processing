@@ -386,8 +386,6 @@ PVector follow(PVector target, float speed) {
 
 
 
-// Z_class 1.0.1
-
 
 
 

@@ -1,7 +1,7 @@
 /**
 Romanesco Unu
 2012 – 2018
-version 1.2.0 
+version  1.2.1
 release 30 
 Processing 3.3.7
 */
@@ -10,7 +10,7 @@ Processing 3.3.7
 2016 830 lines may 2016
  */
 String version = ("31") ;
-String prettyVersion = ("1.2.0") ;
+String prettyVersion = ("1.2.1") ;
 String nameVersion = ("Romanesco unu") ;
 
 /**
@@ -37,9 +37,6 @@ void setup() {
 
 void draw() {
   surface.setTitle(nameVersion + " " +prettyVersion+"."+version+ " - Launcher");
-  if(resize_bug) {
-    set_data() ;
-  }
   launcher_background() ;
   launcher_update() ;
   open_controller() ;

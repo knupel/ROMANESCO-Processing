@@ -1,6 +1,10 @@
 /** 
-VARIABLE 1.1.8
+Romanesco Processing Environment
+2015-2018
+VARIABLE 
+v 1.1.9
 */
+// GLOBAL SETTING ////
 
 import java.net.*;
 import java.io.*;
@@ -29,7 +33,6 @@ import toxi.geom.mesh2d.*;
 import toxi.util.*;
 import toxi.util.datatypes.*;
 import toxi.processing.*;
-
 // METEO
 import com.onformative.yahooweather.*;
 // SYPHON
@@ -45,6 +48,8 @@ java.awt.Insets insets;
 PVector SIZE_BG  ;
 int MIN_WINDOW_WIDTH = 128 ; 
 int MIN_WINDOW_HEIGHT = 128 ;
+
+int scene_width,scene_height;
 
 
 
@@ -1025,9 +1030,3 @@ void update_temp_value() {
 float allBeats(int ID) {
   return (beat[ID]*.25) +(kick[ID]*.25) +(hat[ID]*.25) +(snare[ID]*.25) ;
 }
-
-
-
-
-
-

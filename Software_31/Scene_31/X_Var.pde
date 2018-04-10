@@ -1,5 +1,8 @@
 /** 
-VARIABLE 1.1.8
+Romanesco Processing Environment
+2015-2018
+VARIABLE 
+v 1.1.9
 */
 // GLOBAL SETTING ////
 
@@ -45,6 +48,8 @@ java.awt.Insets insets;
 PVector SIZE_BG  ;
 int MIN_WINDOW_WIDTH = 128 ; 
 int MIN_WINDOW_HEIGHT = 128 ;
+
+int scene_width,scene_height;
 
 
 

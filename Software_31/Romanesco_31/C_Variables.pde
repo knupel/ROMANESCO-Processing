@@ -40,8 +40,8 @@ boolean test = false ;
 PFont FuturaStencil, EmigreEight ;
 
 import java.awt.* ;
-GraphicsEnvironment g = GraphicsEnvironment.getLocalGraphicsEnvironment();
-GraphicsDevice[] devices = g.getScreenDevices();
+GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+GraphicsDevice[] devices = ge.getScreenDevices();
 
 
 color c1, c2, c3, c4 ;

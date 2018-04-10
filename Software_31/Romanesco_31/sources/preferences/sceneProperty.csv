@@ -1,2 +1,2 @@
-fullscreen,whichScreen,resizable,decorated,width,height,render,miroir
-true,0,true,true,0,0,P3D,false
+fullscreen,whichScreen,resizable,decorated,width,height,preview_width,preview_height,miroir
+false,1,true,true,1920,1800,500,350,false

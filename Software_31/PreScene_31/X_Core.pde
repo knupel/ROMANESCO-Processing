@@ -1,6 +1,7 @@
 /**
 CORE Rope SCENE and PRESCENE 
-v 1.1.5
+2015-2018
+v 1.2.0.1
 */
 /**
 INIT Rope
@@ -27,6 +28,26 @@ void init_romanesco() {
     }
     init_romanesco = false ;
   }
+}
+
+
+void set_screen() {
+  Table configurationScene = loadTable(preference_path +"sceneProperty.csv","header");
+  TableRow row = configurationScene.getRow(0);
+  int w = width;
+  int h = height;
+  if(FULL_RENDERING) {
+    w = row.getInt("width"); 
+    h = row.getInt("height");
+    surface.setSize(w,h);
+  } else {
+    w = row.getInt("preview_width"); 
+    h = row.getInt("preview_height");
+    surface.setSize(w,h);
+  }
+  scene_width = w;
+  scene_height = h;
+  println("set size screen",w,h); 
 }
 
 
@@ -60,7 +81,6 @@ v 0.0.2
 Max mode is used for what, to give the possibility to have other mode without costume rope ?????
 */
 void select_costume(int id_item,  String rpe_name) {
-
   String mode_list = null ;
   String [] mode_split =new String[1] ;
   for(int i = 0 ; i < rpe_manager.RomanescoList.size() ; i++) {
@@ -440,11 +460,9 @@ void setting_movie(int ID_item) {
   }
 }
 
-
 void movieEvent(Movie m) {
    m.read(); 
 }
-
 
 void read_movie(boolean motion, int id_item) {
   if(motion) {
@@ -453,7 +471,6 @@ void read_movie(boolean motion, int id_item) {
     if(movieImport[id_item] != null) movieImport[id_item].pause() ;
   }
 }
-
 
 boolean check_for_new_movie(int id) {
   check_movie_folder_scene() ;
@@ -464,9 +481,6 @@ boolean check_for_new_movie(int id) {
     return true ;
   }
 }
-
-
-
 
 void classic_movie(int id, int place, boolean full_width, boolean full_height) {
   int pos_x = 0 ;
@@ -500,10 +514,6 @@ void classic_movie(int id, int place, boolean full_width, boolean full_height) {
   // show movie
   image(movieImport[id], pos_x, pos_y, size_x, size_y) ;
 }
-
-
-
-
 
 void check_movie_folder_scene() {
   String path = import_path +"movie" ;
@@ -678,7 +688,6 @@ int numMaxSentencesByChapter(String txt) {
     String sentences [] = split(chapters[i], "/") ;
     if ( sentences.length > maxSentencesByChapter ) maxSentencesByChapter = sentences.length ; 
   }
-  
   return maxSentencesByChapter ;
 }
 
@@ -870,7 +879,7 @@ void loadDataObject(String path) {
     // lenz
     focal = dataCam.getFloat("focal") ;
     deformation = dataCam.getFloat("deformation") ;
-        // camera orientation
+    // camera orientation
     dirCamX = dataCam.getFloat("eye x") ;
     dirCamY = dataCam.getFloat("eye y") ;
     dirCamZ = dataCam.getFloat("eye z") ;
@@ -883,7 +892,7 @@ void loadDataObject(String path) {
     upY = dataCam.getFloat("upY"); ;
     upZ = dataCam.getFloat("upZ"); ;
     */
-        // curent position
+    // curent position
     finalSceneCamera.x = dataCam.getFloat("scene x") *width ;
     finalSceneCamera.y = dataCam.getFloat("scene y") *width ;
     finalSceneCamera.z = dataCam.getFloat("scene z") *width ;
@@ -1064,7 +1073,6 @@ void displayInfoObject(color bg_txt, color txt) {
   posInfoObj = 1 ;
   // for (Romanesco objR : RomanescoList)
   for(int i = 0 ; i < NUM_ITEM ; i++) {
-    
     if(show_object[i]) {
       posInfoObj += 1 ;
       String position = ("x:" +(int)posObj[i].x + " y:" + (int)posObj[i].y+ " z:" + (int)posObj[i].z) ;
@@ -1077,13 +1085,13 @@ void displayInfoObject(color bg_txt, color txt) {
 
 //INFO 3D
 void displayInfo3D(color txt) {
-   String posCam = ( int(-1 *sceneCamera.x ) + " / " + int(sceneCamera.y) + " / " +  int(sceneCamera.z -height/2)) ;
-   String eyeDirectionCam = ( int(eyeCamera.x) + " / " + int(eyeCamera.y) ) ;
-  fill(txt) ; 
-  textFont(SansSerif10, 10) ;
-  textAlign(RIGHT) ;
-  text("Position " +posCam, width/2 -30 , height/2 -30) ;
-  text("Direction " +eyeDirectionCam, width/2 -30 , height/2 -15) ;
+  String posCam = ( int(-1 *sceneCamera.x ) + " / " + int(sceneCamera.y) + " / " +  int(sceneCamera.z -height/2));
+  String eyeDirectionCam = (int(eyeCamera.x) + " / " + int(eyeCamera.y));
+  fill(txt); 
+  textFont(SansSerif10, 10);
+  textAlign(RIGHT);
+  text("Position " +posCam, width/2 -30 , height/2 -30);
+  text("Direction " +eyeDirectionCam, width/2 -30 , height/2 -15);
 }
 
 
@@ -1098,6 +1106,7 @@ void repere(int size, PVector pos, String name) {
   line(pos.x,-size +pos.y, pos.z, pos.x,size +pos.y, pos.z) ;
   line(pos.x, pos.y,-size +pos.z, pos.x, pos.y,size +pos.z) ;
 }
+
 //repere cross
 void repere(int size) {
   line(-size,0,0,size,0,0) ;
@@ -1341,9 +1350,9 @@ void background_romanesco() {
 Vec4 update_background() {
   //to smooth the curve of transparency background
   // HSB
-  float hue_bg =         map(valueSlider[0][0],0,MAX_VALUE_SLIDER,0,HSBmode.r) ;
-  float saturation_bg =  map(valueSlider[0][1],0,MAX_VALUE_SLIDER,0,HSBmode.g) ;
-  float brigthness_bg =  map(valueSlider[0][2],0,MAX_VALUE_SLIDER,0,HSBmode.b) ;
+  float hue_bg = map(valueSlider[0][0],0,MAX_VALUE_SLIDER,0,HSBmode.r) ;
+  float saturation_bg = map(valueSlider[0][1],0,MAX_VALUE_SLIDER,0,HSBmode.g) ;
+  float brigthness_bg = map(valueSlider[0][2],0,MAX_VALUE_SLIDER,0,HSBmode.b) ;
   // ALPHA
   float factorSmooth = 2.5 ;
   float nx = norm(valueSlider[0][3], 0.0 , MAX_VALUE_SLIDER) ;
@@ -1382,17 +1391,15 @@ void background_shader_draw(int whichOne) {
     PVector sizeBGshader = new PVector(width,height, height) ; 
     fill(0) ; noStroke() ;
 
-    if     (whichOne ==1) rectangle(posBGshader, sizeBGshader, blurOne ) ;
-    else if(whichOne ==2) rectangle(posBGshader, sizeBGshader, blurTwo ) ;
-    else if(whichOne ==3) rectangle(posBGshader, sizeBGshader, cellular) ;
-    else if(whichOne ==4) rectangle(posBGshader, sizeBGshader, damierEllipse) ;
-    else if(whichOne ==5) rectangle(posBGshader, sizeBGshader, heart) ;
-    else if(whichOne ==6) rectangle(posBGshader, sizeBGshader, necklace) ;
-    else if(whichOne ==7) rectangle(posBGshader, sizeBGshader, psy) ;
-    else if(whichOne ==8) rectangle(posBGshader, sizeBGshader, snow ) ;
-    else if(whichOne ==9) rectangle(posBGshader, sizeBGshader, sinLight ) ;
-    
-    
+    if     (whichOne ==1) rectangle(posBGshader, sizeBGshader, blurOne );
+    else if(whichOne ==2) rectangle(posBGshader, sizeBGshader, blurTwo );
+    else if(whichOne ==3) rectangle(posBGshader, sizeBGshader, cellular);
+    else if(whichOne ==4) rectangle(posBGshader, sizeBGshader, damierEllipse);
+    else if(whichOne ==5) rectangle(posBGshader, sizeBGshader, heart);
+    else if(whichOne ==6) rectangle(posBGshader, sizeBGshader, necklace);
+    else if(whichOne ==7) rectangle(posBGshader, sizeBGshader, psy);
+    else if(whichOne ==8) rectangle(posBGshader, sizeBGshader, snow );
+    else if(whichOne ==9) rectangle(posBGshader, sizeBGshader, sinLight );   
     //rectangle(posBGshader, sizeBGshader, bizarre) ;  // work bad
     //rectangle(posBGshader, sizeBGshader, water) ; // problem
     //rectangle(posBGshader, sizeBGshader, psyTwo) ; // problem
@@ -1571,7 +1578,23 @@ void sound_romanesco() {
 
 
 
+/**
 
+
+
+
+
+
+REMOVE CAMERA COMPUTER
+
+
+
+
+
+
+
+
+*/
 
 
 /**
@@ -1594,7 +1617,6 @@ boolean stop_cam = false ;
 boolean init_cam = false ;
 void video_camera_manager() {
   camera_video_setup();
-
   if(ref_cam != which_cam || which_cam == -1) {
     new_cam = true ;
     video_camera_stop() ;
@@ -1718,7 +1740,6 @@ v 1.0.1.1
 //COLOR for internal use
 color fond ;
 color rouge, orange, jaune, vert, bleu, noir, blanc, gris  ;
-
 void color_setup() {
   rouge = color(10,100,100);
   orange = color(25,100,100);

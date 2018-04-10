@@ -1036,25 +1036,9 @@ Table configurationScene;
 boolean displaySizeByImage ;
 */
 //load property from table
-/*
-void loadPropertyScene() {
-  configurationScene = loadTable(preference_path+ "sceneProperty.csv", "header");
-  row = configurationScene.getRow(0);
-  //display on specific screen
-  whichScreen = row.getInt("whichScreen") ;
 
-  //size of the scene when it's not fullscreen
-  sceneWidth = row.getInt("width") ;
-  sceneHeight =  row.getInt("height")  ;
 
-  //MIRROR
-  if(row.getString("miroir").equals("TRUE") || row.getString("miroir").equals("true")) {
-    miroir_on_off = true ; 
-  } else {
-    miroir_on_off = false ;
-  }
-}
-*/
+
 // end load property
 
 

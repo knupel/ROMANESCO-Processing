@@ -21,23 +21,24 @@ String preference_path, import_path ;
 
 
 
-boolean TEST_ROMANESCO = false ; /* Use true when you want:
+boolean TEST_ROMANESCO = false; /* Use true when you want:
                                     display color
                                     used sound
                                     maximum possibility of the object
                                     full frame rate
+                                    and resize window
                                   */
-boolean FULL_RENDERING = false;
-boolean TABLET = false ; // now tablet library don't work in OPENGL renderer
+boolean FULL_RENDERING = true;
+boolean TABLET = false; // now tablet library don't work in OPENGL renderer
 
 boolean HOME = false;
 /**
 SETTINGS
 */
 void settings() {
-  // size(124,124,P3D) ; // when the bug will be resolved, return to this config.
+  size(124,124,P3D) ; // when the bug will be resolved, return to this config.
   
-  size(550,350,P3D) ; // PREVIEWccc
+  // size(550,350,P3D) ; // PREVIEWccc
   // size(1280,720,P3D) ; // 1280
   // fullScreen(P3D,2);
   pixelDensity(displayDensity()) ;
@@ -53,6 +54,10 @@ void settings() {
 SETUP
 */
 void setup() {
+  /**
+  futur bug
+  sketchPath("") or sketchPath() or sketchPath(1)
+  */
   preference_path = sketchPath("")+"preferences/" ;
   import_path = sketchPath("")+"import/" ;
   

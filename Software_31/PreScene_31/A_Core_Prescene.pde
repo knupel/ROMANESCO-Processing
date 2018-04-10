@@ -1,7 +1,7 @@
 /**
 Core_Prescene
-v 1.O.1
-2013-2017
+v 1.1.0
+2013-2018
 */
 
 
@@ -15,33 +15,16 @@ int depth_scene ;
 //SETUP
 void display_setup(int speed) {
   frameRate(speed) ;  // Le frameRate doit être le même dans tous les Sketches
-  colorMode(HSB, HSBmode.r, HSBmode.g, HSBmode.b, HSBmode.a) ;
-  
+  colorMode(HSB, HSBmode.r, HSBmode.g, HSBmode.b, HSBmode.a) ; 
+  set_screen();
   depth_scene = height ;
-  //resizable frame by loading external image
-  
-  // resize display
-  load_data_window() ;
-  // surface.setResizable(true); 
-
-  //background
   background_setup() ;
   background_shader_setup() ;
 }
 
 
 
-void load_data_window() {
-  Table configurationScene = loadTable(preference_path +"sceneProperty.csv","header");
-  TableRow row = configurationScene.getRow(0);
-  int window_width = row.getInt("width"); 
-  int window_height = row.getInt("height"); 
-  println("set size window", window_width, window_height);
-  surface.setSize(window_width,window_height);
-}
 
-//END DISPLAY START
-//////////////////
 
 
 
@@ -109,37 +92,10 @@ void prescene_setup() {
   if(FULL_RENDERING) displayInfo3D = false ; else displayInfo3D = true ;
 }
 
-/**
-Deprecated
 
-//OPENING the other window
-int count_to_open_controller = 0 ;
-int time_int_second_to_open_controller = 12  ; // the scene run at 15 frame / second.
-void opening() {
-    //OPEN CONTROLEUR and SCENE or MIROIR
-  if (!TEST_ROMANESCO && openControleur) {
-    fill(blanc) ;
-    stroke(blanc) ;
-    textSize(48) ;
-    text(version, sin(frameCount * .05) *width, height/2 ) ;
-  }
-  if (!TEST_ROMANESCO) { 
-    if (openScene)      {
-      if(fullScreen) launch(sketchPath("")+"Scene_"+version+"_fullscreen.app") ; else launch(sketchPath("")+"Scene_"+version+"_window.app") ;
-      openScene = false ; 
-    } else {
-      count_to_open_controller += 1 ;
-    }
 
-    int time_factor_to_open = 15 ;
-    if (openControleur && count_to_open_controller > (time_int_second_to_open_controller *time_factor_to_open) ) { 
-      launch(sketchPath("")+"Controleur_"+version+".app") ; 
-      openControleur = false ; 
-    } 
-    // TEST_ROMANESCO = true ;
-  }
-}
-*/
+
+
 
 
 
@@ -148,9 +104,6 @@ void opening() {
 ///////////////////////
 //CURSOR, MOUSE, TABLET
 //GLOBAL
-
-
-
 void updateCommand() {
   // move the object
   if(clickLongLeft[0] || finger.activefingers == 1 ) {

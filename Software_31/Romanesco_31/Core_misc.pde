@@ -5,7 +5,7 @@ create few apps dedicated and launch... that's growth the size of the zip file..
 C'est la vie...
 We mut use the boolean to indicate to the launcher, the problem after that it's possible to choice which app must be launch
 */
-boolean resize_bug = true ;
+// boolean resize_bug = true ;
 
 void size_window() {
   int correctionPosY = -14 ;

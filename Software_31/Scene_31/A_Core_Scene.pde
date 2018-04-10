@@ -94,7 +94,7 @@ void display_setup(int speed) {
   // The fullscreen option from the external file is disable, because the fullScreen() method cannot be choice in second time, that be must the first line of programm
   // So I disable the line in loadPropertyScene() in display_setup()
   */
-  // loadPropertyScene() ; 
+  set_screen();
   
   background_setup() ;
   background_shader_setup() ;
@@ -103,17 +103,18 @@ void display_setup(int speed) {
 
 
 
-int sceneWidth, sceneHeight ;
+
+
 
 void resize_scene() {
-  if (!FULL_SCREEN && !check_size || (width != sceneWidth && height != sceneHeight)) {
+  if (!FULL_SCREEN && !check_size || (width != scene_width && height != scene_height)) {
     catch_display_position() ;
     check_size = true ;
     int which = whichScreen ;
     if(which > screenDevice.length) which = 1 ;
-    int pos_x = display_size_x[which -1] - ((display_size_x[which -1]/2) +(sceneWidth /2)) ;
-    int pos_y = display_size_y[which -1] - ((display_size_y[which -1]/2) +(sceneHeight /2)) ;
-    set_display_sketch (pos_x, pos_y, sceneWidth, sceneHeight, which, true) ;
+    int pos_x = display_size_x[which -1] - ((display_size_x[which -1]/2) +(scene_width /2)) ;
+    int pos_y = display_size_y[which -1] - ((display_size_y[which -1]/2) +(scene_height /2)) ;
+    set_display_sketch (pos_x, pos_y, scene_width, scene_height, which, true) ;
   }
 }
 // END size scene

@@ -86,6 +86,7 @@ void set_data() {
   path_controller = (sketchPath("") + "sources/Controleur_"+version+".app");
   // path to OPENING APP
   // window
+  /*
   if(resize_bug) {
     int id_app = widthSlider-1 ;
     if(id_app == 1) {
@@ -110,10 +111,12 @@ void set_data() {
       path_prescene_window = (sketchPath("") + "sources/Prescene_"+version+"_window_3840.app");
       path_scene_window = (sketchPath("") + "sources/Scene_"+version+"_window_3840.app");
     }
-  } else {
+  } 
+  */
+ // else {
     path_prescene_window = (sketchPath("") + "sources/Prescene_"+version+"_window.app");
     path_scene_window = (sketchPath("") + "sources/Scene_"+version+"_window.app");
-  }
+//  }
   // fullscreen
   path_prescene_fullscreen  = (sketchPath("") + "sources/Prescene_"+version+"_fullscreen.app");
   path_scene_fullscreen = (sketchPath("") + "sources/Scene_"+version+"_fullscreen.app");
@@ -248,7 +251,7 @@ void ready_to_launch() {
   if (buttonWhichScreenOnOff > 0 && buttonFullscreen.OnOff) {
     buttonStart.displayButton() ;
     // window mode the user must choice a window size  
-  } else if ((buttonWindow.OnOff && heightSlider > 1 & widthSlider > 1) || (buttonWindow.OnOff && resize_bug & widthSlider > 1)) {
+  } else if ((buttonWindow.OnOff && heightSlider > 1 & widthSlider > 1) || (buttonWindow.OnOff && widthSlider > 1)) {
     buttonStart.displayButton() ;
   } else {
     fill(orange) ;
@@ -353,41 +356,47 @@ SAVE DISPLAY PROPERTY
 a lot of datas here ara deprecated, but I'm very lazzy to manage that !
 */
 Table sceneProperty;
-String pathScenePropertySetting = sketchPath("")+"sources/preferences/sceneProperty.csv" ;
+
 
 void saveProperty() {
   sceneProperty = new Table();
-  String colOne =("fullscreen");
-  String colTwo =("whichScreen");
-  String colThree =("resizable"); // obsolete
-  String colFour =("decorated"); // obsolete
-  String colFive =("width");
-  String colSix =("height");
-  String colSeven =("render"); // obsolete
-  String colHeight =("miroir");
+  String[] col = new String[9];
+
+  col[0] ="fullscreen";
+  col[1] ="whichScreen";
+  col[2] ="resizable"; // obsolete
+  col[3] ="decorated"; // obsolete
+  col[4] ="width";
+  col[5] ="height";
+  col[6] ="preview_width"; // obsolete
+  col[7] ="preview_height";
+  col[8] ="miroir";
   
-  sceneProperty.addColumn(colOne);
-  sceneProperty.addColumn(colTwo);
-  sceneProperty.addColumn(colThree); // obsolete
-  sceneProperty.addColumn(colFour); // obsolete
-  sceneProperty.addColumn(colFive);
-  sceneProperty.addColumn(colSix);
-  sceneProperty.addColumn(colSeven); // obsolete
-  sceneProperty.addColumn(colHeight);
+  for(int i = 0 ; i < col.length ; i++) {
+    sceneProperty.addColumn(col[i]);
+  }
   
   TableRow newRow = sceneProperty.addRow();
   int whichScreen = 0 ;
   whichScreen = IDscreenSelected() ;
   
-  newRow.setString(colOne, screen);
-  newRow.setInt(colTwo, whichScreen);
-  newRow.setString(colThree, "true"); // obsolete
-  newRow.setString(colFour, "true"); // obsolete
-  newRow.setInt(colFive, standard_size_width[widthSlider-1]);
-  newRow.setInt(colSix, standard_size_height[heightSlider -1]);
-  newRow.setString(colSeven, "P3D"); // obsolete
-  newRow.setString(colHeight, bool_open_scene);
-  //
+  newRow.setString(col[0], screen);
+  newRow.setInt(col[1], whichScreen);
+  newRow.setString(col[2], "true"); // obsolete
+  newRow.setString(col[3], "true"); // obsolete
+  newRow.setInt(col[4], standard_size_width[widthSlider-1]);
+  newRow.setInt(col[5], standard_size_height[heightSlider -1]);
+  newRow.setInt(col[6], 500);
+  newRow.setInt(col[7], 350);
+  newRow.setString(col[8],bool_open_scene);
+  
+
+  // String pathScenePropertySetting = sketchPath("")+"sources/preferences/sceneProperty.csv" ;
+  // String pathScenePropertySetting = sketchPath()+"/sources/preferences/sceneProperty.csv";
+   String pathScenePropertySetting = sketchPath(1)+"/sources/preferences/sceneProperty.csv";
+  println(pathScenePropertySetting);
+  println(standard_size_width[widthSlider-1],standard_size_height[heightSlider -1]);
+  // saveTable(sceneProperty, pathScenePropertySetting);
   saveTable(sceneProperty, pathScenePropertySetting);
 }
 // END SAVE PROPERTY

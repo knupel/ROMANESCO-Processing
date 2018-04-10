@@ -20,17 +20,16 @@ boolean TEST_FULL_SCREEN = false ;
 boolean FULL_RENDERING = true ;
 boolean FULL_SCREEN = false ;
 
-boolean resize_bug = true ;
 
 
 void settings() {
   // When you build Romanesco you must create two versions : fullscreen and normal
-  // size(124,124,P3D) ; // when the bug will be resolved, return to this config.
+  size(124,124,P3D) ; // when the bug will be resolved, return to this config.
 
   // size(640,360,P3D) ; // 640
 
 
-  fullScreen(P3D,2) ;
+  // fullScreen(P3D,2) ;
   FULL_SCREEN = true ;
 
   pixelDensity(displayDensity()) ;
@@ -52,7 +51,7 @@ void setup() {
   int frameRateRomanesco = 60 ;
   display_setup(frameRateRomanesco) ; // the int give the frameRate
 
-  if (!FULL_SCREEN && !resize_bug) {
+  if (!FULL_SCREEN) {
     resize_scene();
   }
 
@@ -86,7 +85,7 @@ void setup() {
 void draw() {
   
   if(!syphon_on_off) surface.setTitle(nameVersion + " " +prettyVersion+"."+version+ " | Scéne | FPS: "+round(frameRate)); else frame.setTitle(nameVersion + " " +prettyVersion+"."+version+ " | Miroir | FPS: "+round(frameRate));
-  if (!FULL_SCREEN && !resize_bug) resize_scene() ;
+  if (!FULL_SCREEN) resize_scene() ;
   init_romanesco();
   if(FULL_RENDERING) start_PNG("screenshot Romanesco scene", "Romanesco_"+year()+"_"+month()+"_"+day()+"_"+hour()+"_"+minute()+"_"+second()) ;
 
