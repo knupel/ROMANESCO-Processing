@@ -16,17 +16,30 @@ int depth_scene ;
 void display_setup(int speed) {
   frameRate(speed) ;  // Le frameRate doit être le même dans tous les Sketches
   colorMode(HSB, HSBmode.r, HSBmode.g, HSBmode.b, HSBmode.a) ;
-  // loadPropertyPrescene() ;
+  
   depth_scene = height ;
   //resizable frame by loading external image
   
-  //resize by cursor
+  // resize display
+  load_data_window() ;
   // surface.setResizable(true); 
 
   //background
   background_setup() ;
   background_shader_setup() ;
 }
+
+
+
+void load_data_window() {
+  Table configurationScene = loadTable(preference_path +"sceneProperty.csv","header");
+  TableRow row = configurationScene.getRow(0);
+  int window_width = row.getInt("width"); 
+  int window_height = row.getInt("height"); 
+  println("set size window", window_width, window_height);
+  surface.setSize(window_width,window_height);
+}
+
 //END DISPLAY START
 //////////////////
 

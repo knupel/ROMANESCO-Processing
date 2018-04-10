@@ -1,15 +1,15 @@
 /**
 Romanesco Unu
-2012 – 2017
+2012 – 2018
 version 1.2.0 
 release 30 
-Processing 3.3.0
+Processing 3.3.7
 */
 /**
 2015 730 lines of code the 4th may !!!! 
 2016 830 lines may 2016
  */
-String version = ("30") ;
+String version = ("31") ;
 String prettyVersion = ("1.2.0") ;
 String nameVersion = ("Romanesco unu") ;
 
@@ -17,7 +17,7 @@ String nameVersion = ("Romanesco unu") ;
 use this trick to export in 64 bits
 lighter application only 46M versus 164M
 */
-import processing.video.*;
+// import processing.video.*;
 
 
 void settings() {
@@ -26,8 +26,8 @@ void settings() {
 
 
 void setup() {
-  colorSetup() ;
-  diplaySetup() ;
+  color_setup() ;
+  display_setup() ;
   
   set_structure() ;
   set_data() ;
@@ -61,10 +61,7 @@ void mousePressed() {
     for(int i = 0 ; i < renderer.length ; i++) {
       renderer[i].OnOff = false ;
     }
-    /*
-    buttonScene.OnOff = false ;
-    buttonMiroir.OnOff = false ;
-    */
+
     buttonFullscreen.OnOff = false ;
     buttonWindow.OnOff = false ;
   }
@@ -72,10 +69,7 @@ void mousePressed() {
   for(int i = 0 ; i < renderer.length ; i++) {
     renderer[i].mouseClic() ;
   }
-  /*
-  buttonScene.mouseClic() ;
-  buttonMiroir.mouseClic() ;
-  */
+
   buttonFullscreen.mouseClic() ;
   buttonWindow.mouseClic() ;
   

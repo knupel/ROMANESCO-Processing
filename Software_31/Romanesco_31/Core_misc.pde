@@ -9,12 +9,12 @@ boolean resize_bug = true ;
 
 void size_window() {
   int correctionPosY = -14 ;
-  size_window_width(standard_format_for_Processing_bug, correctionPosY) ;
+  // size_window_width(standard_format_for_Processing_bug, correctionPosY) ;
   /**
   This lines bellow must use when the bug will be fix !!!!
   */
-  // size_window_width(standard_size_width, correctionPosY) ;
-  //size_window_height(standard_size_height, correctionPosY) ;
+  size_window_width(standard_size_width, correctionPosY) ;
+  size_window_height(standard_size_height, correctionPosY) ;
 }
 
 void size_window_width(int [] format_width, int pos_y) {

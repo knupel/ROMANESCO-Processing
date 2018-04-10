@@ -996,45 +996,11 @@ END METEO
 
 
 
-/**
-DEPRECATED
-SCENE? SCREEN PROPERTIES
-*/
 
 
 
 
-/*
-GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
-GraphicsDevice[] gs = ge.getScreenDevices();
-*/
-//load property from table
-/*
-String pathScenePropertySetting = preference_path +"sceneProperty.csv" ;
-TableRow row ;
-Table configurationScene;
-boolean undecorated = false ;
-boolean fullScreen = false ;
-//factor to divide the size of the Pré-Scène 
-int divSizePreScene = 2 ;
-//size of the Scene
-int fullSceneWidth, fullSceneHeight, sceneWidth, sceneHeight ;
-int myScreenToDisplayMySketch ;
-boolean displaySizeByImage ;
-*/
-// deprecated
-/*
-void loadPropertyPrescene() {
-  configurationScene = loadTable(sketchPath("") + pathScenePropertySetting, "header");
-  row = configurationScene.getRow(0);
-  //fullscreen 
-  if (row.getString("fullscreen").equals("TRUE") || row.getString("fullscreen").equals("true")) fullScreen = true ; else fullScreen = false ;
-  //display on specific screen
-  myScreenToDisplayMySketch = row.getInt("whichScreen") -1 ;
-  //decorated the scene
-  if (row.getString("decorated").equals("FALSE") || row.getString("decorated").equals("false") || fullScreen ) undecorated = true ; else undecorated = false ;
-}
-*/
+
 
 
 

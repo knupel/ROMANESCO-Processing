@@ -5,12 +5,12 @@ CORE LAUNCHER 1.0.2
 /**
 setup
 */
-void diplaySetup() {
+void display_setup() {
   background(grisTresFonce);
 }
 
 color blanc, gris, grisClair, grisFonce, grisTresFonce, orange, rouge, rougeFonce, vertClair, vertFonce ;
-void colorSetup() {
+void color_setup() {
   colorMode(HSB,360,100,100) ;
   blanc = color(0,0,95) ;
   grisClair = color (27,10, 70) ; //gris clair
