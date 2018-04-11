@@ -76,7 +76,7 @@ void mousePressed() {
   //button start
   buttonStart.mouseClic() ;
   if(buttonStart.OnOff ) {
-    saveProperty() ;
+    save_app_properties();
     openApp() ;
   }
   buttonStart.OnOff = false ;

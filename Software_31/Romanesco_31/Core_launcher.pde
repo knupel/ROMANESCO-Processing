@@ -1,7 +1,8 @@
 /**
-CORE LAUNCHER 1.0.2
+CORE LAUNCHER
+2014-2018
+v 1.0.3
 */
-
 /**
 setup
 */
@@ -81,48 +82,20 @@ void set_structure() {
 
 void set_data() {
   FuturaStencil =loadFont ("FuturaStencilICG-20.vlw") ;
-  EmigreEight = loadFont ("EmigreEight-14.vlw") ;
+  EmigreEight = loadFont ("EmigreEight-14.vlw");
 
-  path_controller = (sketchPath("") + "sources/Controleur_"+version+".app");
+  String app_path = sketchPath("") ;
+
+  path_controller = (app_path+"sources/Controleur_"+version+".app");
   // path to OPENING APP
-  // window
-  /*
-  if(resize_bug) {
-    int id_app = widthSlider-1 ;
-    if(id_app == 1) {
-      path_prescene_window = (sketchPath("") + "sources/Prescene_"+version+"_window_640.app");
-      path_scene_window = (sketchPath("") + "sources/Scene_"+version+"_window_640.app");
-    } else if (id_app == 2) {
-      path_prescene_window = (sketchPath("") + "sources/Prescene_"+version+"_window_1024.app");
-      path_scene_window = (sketchPath("") + "sources/Scene_"+version+"_window_1024.app");
-    } else if (id_app == 3) {
-      path_prescene_window = (sketchPath("") + "sources/Prescene_"+version+"_window_1280.app");
-      path_scene_window = (sketchPath("") + "sources/Scene_"+version+"_window_1280.app");
-    } else if (id_app == 4) {
-      path_prescene_window = (sketchPath("") + "sources/Prescene_"+version+"_window_1600.app");
-      path_scene_window = (sketchPath("") + "sources/Scene_"+version+"_window_1600.app");
-    } else if (id_app == 5) {
-      path_prescene_window = (sketchPath("") + "sources/Prescene_"+version+"_window_1920.app");
-      path_scene_window = (sketchPath("") + "sources/Scene_"+version+"_window_1920.app");
-    } else if (id_app == 6) {
-      path_prescene_window = (sketchPath("") + "sources/Prescene_"+version+"_window_2560.app");
-      path_scene_window = (sketchPath("") + "sources/Scene_"+version+"_window_2560.app");
-    } else if (id_app == 7) {
-      path_prescene_window = (sketchPath("") + "sources/Prescene_"+version+"_window_3840.app");
-      path_scene_window = (sketchPath("") + "sources/Scene_"+version+"_window_3840.app");
-    }
-  } 
-  */
- // else {
-    path_prescene_window = (sketchPath("") + "sources/Prescene_"+version+"_window.app");
-    path_scene_window = (sketchPath("") + "sources/Scene_"+version+"_window.app");
-//  }
-  // fullscreen
-  path_prescene_fullscreen  = (sketchPath("") + "sources/Prescene_"+version+"_fullscreen.app");
-  path_scene_fullscreen = (sketchPath("") + "sources/Scene_"+version+"_fullscreen.app");
+  path_prescene_window = (app_path + "sources/Prescene_"+version+"_window.app");
+  path_scene_window = (app_path+"sources/Scene_"+version+"_window.app");
+
+  path_prescene_fullscreen  = (app_path+"sources/Prescene_"+version+"_fullscreen.app");
+  path_scene_fullscreen = (app_path+"sources/Scene_"+version+"_fullscreen.app");
 
   String[] l = split( ("1"), " ") ;
-  saveStrings(sketchPath("")+"sources/preferences/language.txt", l) ;
+  saveStrings(app_path+"sources/preferences/language.txt", l) ;
 }
 
 
@@ -314,7 +287,6 @@ void openApp() {
 boolean launch_controller ;
 int time_to_open_controller = 180 ;
 int count_to_open_controller = 0 ;
-
 void open_controller() {
   if(launch_controller) {
     count_to_open_controller++ ;
@@ -325,7 +297,30 @@ void open_controller() {
       launch(path_controller) ;
     }
   }
+}
 
+
+
+
+
+
+
+
+
+
+
+
+/**
+ADDRESS IP for Mirror
+*/
+void addressLocal(float x, float y) {
+  fill(orange) ;
+  try {
+    fill(grisClair) ;
+    text("local address", x,y ) ;
+    text (java.net.InetAddress.getLocalHost().getHostAddress(), x+188,y) ;
+  }
+  catch(Exception e) {}
 }
 
 
@@ -352,55 +347,46 @@ void open_controller() {
 
 /**
 SAVE DISPLAY PROPERTY
-
-a lot of datas here ara deprecated, but I'm very lazzy to manage that !
+v 0.2.0
 */
-Table sceneProperty;
-
-
-void saveProperty() {
-  sceneProperty = new Table();
+// Table sceneProperty;
+void save_app_properties() {
+  Table properies = new Table();
   String[] col = new String[9];
 
   col[0] ="fullscreen";
   col[1] ="whichScreen";
-  col[2] ="resizable"; // obsolete
-  col[3] ="decorated"; // obsolete
+  col[2] ="resizable"; 
+  col[3] ="decorated"; 
   col[4] ="width";
   col[5] ="height";
-  col[6] ="preview_width"; // obsolete
+  col[6] ="preview_width"; 
   col[7] ="preview_height";
   col[8] ="miroir";
   
   for(int i = 0 ; i < col.length ; i++) {
-    sceneProperty.addColumn(col[i]);
+    properies.addColumn(col[i]);
   }
   
-  TableRow newRow = sceneProperty.addRow();
+  TableRow newRow = properies.addRow();
   int whichScreen = 0 ;
   whichScreen = IDscreenSelected() ;
   
   newRow.setString(col[0], screen);
   newRow.setInt(col[1], whichScreen);
-  newRow.setString(col[2], "true"); // obsolete
-  newRow.setString(col[3], "true"); // obsolete
+  newRow.setString(col[2], "true"); 
+  newRow.setString(col[3], "true"); 
   newRow.setInt(col[4], standard_size_width[widthSlider-1]);
   newRow.setInt(col[5], standard_size_height[heightSlider -1]);
   newRow.setInt(col[6], 500);
   newRow.setInt(col[7], 350);
   newRow.setString(col[8],bool_open_scene);
-  
 
-  // String pathScenePropertySetting = sketchPath("")+"sources/preferences/sceneProperty.csv" ;
-  // String pathScenePropertySetting = sketchPath()+"/sources/preferences/sceneProperty.csv";
-   String pathScenePropertySetting = sketchPath(1)+"/sources/preferences/sceneProperty.csv";
-  println(pathScenePropertySetting);
+  String path = sketchPath(1)+"/sources/preferences/sceneProperty.csv";
+  println(path);
   println(standard_size_width[widthSlider-1],standard_size_height[heightSlider -1]);
-  // saveTable(sceneProperty, pathScenePropertySetting);
-  saveTable(sceneProperty, pathScenePropertySetting);
+  saveTable(properies, path);
 }
-// END SAVE PROPERTY
-////////////////////
 
 
 
@@ -414,15 +400,12 @@ void saveProperty() {
 
 
 
-/**
-ADDRESS IP for Mirror
-*/
-void addressLocal(float x, float y) {
-  fill(orange) ;
-  try {
-    fill(grisClair) ;
-    text("local address", x,y ) ;
-    text (java.net.InetAddress.getLocalHost().getHostAddress(), x+188,y) ;
-  }
-  catch(Exception e) {}
-}
+
+
+
+
+
+
+
+
+
