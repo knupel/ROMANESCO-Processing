@@ -11,7 +11,6 @@ String nameVersion = ("Romanesco unu") ;
 String IAM = ("Scene") ;
 String version = ("31") ;
 String prettyVersion = ("1.2.1") ;
-String preference_path, import_path ;
 // security must be link with the controler in the next release
 boolean TEST_ROMANESCO = false ;
 boolean OPEN_APP = true ;
@@ -41,8 +40,9 @@ void settings() {
 
 void setup() {
   OSC_setup() ;
-  preference_path = sketchPath("")+"preferences/" ;
-  import_path = sketchPath("")+"import/" ;
+  preference_path = sketchPath(1)+"/preferences/";
+  import_path = sketchPath(1)+"/import/";
+  items_path = sketchPath(1)+"/items/";
 
   /**
   // The fullscreen option from the external file is disable, because the fullScreen() method cannot be choice in second time, that be must the first line of programm

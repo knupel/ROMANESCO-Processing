@@ -1,6 +1,7 @@
 /**
-Ecosysteme Host 2016-2017
-V 0.1.2
+Ecosysteme Host 
+2016-2018
+V 0.1.3
 */
 class Ecosystem_DNA extends Romanesco {
 	public Ecosystem_DNA() {
@@ -8,7 +9,7 @@ class Ecosystem_DNA extends Romanesco {
 		ID_item = 26 ;
 		ID_group = 1 ;
 		RPE_author  = "Stan le Punk";
-		RPE_version = "Version 0.1.2";
+		RPE_version = "Version 0.1.3";
 		RPE_pack = "Ecosystem" ;
 		RPE_mode = "Point/Ellipse/Triangle/Rect/Cross/ABC" ; // separate the differentes mode by "/"
 		RPE_slider = "Fill hue,Fill sat,Fill bright,Fill alpha,Stroke hue,Stroke sat,Stroke bright,Stroke alpha,Thickness,Size X,Size Y,Size Z,Canvas X,Canvas Y,Canvas Z,Speed X,Direction X,Quantity,Density,Spectrum" ;
@@ -23,7 +24,7 @@ class Ecosystem_DNA extends Romanesco {
   void setup() {
     // here we cannot use the setting pos, because it's too much ling with the item 26 !!!
     setting_start_position(ID_item, 0,0,0) ;
-    load_nucleotide_table("preferences/ecosystem/code.csv") ;
+    load_nucleotide_table(items_path+"ecosystem/code.csv");
 
     canvas = Vec3(canvas_x_item[ID_item], canvas_y_item[ID_item], canvas_z_item[ID_item]) ;
     canvas.mult(ratio_canvas) ;
@@ -283,3 +284,32 @@ void costume_DNA(Helix helix, int target, Vec3 size, float direction, int which_
   costume_rope(pos_b, size, angle_b, which_costume) ;
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

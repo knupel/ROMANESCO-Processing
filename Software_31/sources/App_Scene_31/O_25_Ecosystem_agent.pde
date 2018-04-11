@@ -1,16 +1,17 @@
 /**
-Ecosysteme 2016-2017
-v 0.1.6
+Ecosysteme 
+2016-2018
+v 0.1.3
 */
 class Ecosystem_agent extends Romanesco {
 	public Ecosystem_agent() {
-		RPE_name = "Eco Agents" ;
-		ID_item = 25 ;
-		ID_group = 1 ;
+		RPE_name = "Eco Agents";
+		ID_item = 25;
+		ID_group = 1;
 		RPE_author  = "Stan le Punk";
-		RPE_version = "Version 0.1.6";
-		RPE_pack = "Ecosystem" ;
-		RPE_mode = "Virus/Human/Alien/Other" ; // separate the differentes mode by "/"
+		RPE_version = "Version 0.1.3";
+		RPE_pack = "Ecosystem";
+		RPE_mode = "Virus/Human/Alien/Other"; // separate the differentes mode by "/"
 		RPE_slider = "Fill hue,Fill sat,Fill bright,Fill alpha,Stroke hue,Stroke sat,Stroke bright,Stroke alpha,Thickness,Size X,Size Y,Size Z,Speed X,Canvas X,Canvas Y,Canvas Z,Speed X,Quantity,Spectrum,Life" ;
 	}
 
@@ -35,9 +36,9 @@ class Ecosystem_agent extends Romanesco {
     // here we cannot use the setting pos, because it's too much ling with the item 27 !!!
     setting_start_position(ID_item, 0, 0, 0) ;
 
-    load_nucleotide_table("preferences/ecosystem/code.csv") ;
+    load_nucleotide_table(items_path+"ecosystem/code.csv");
     Vec3 pos = Vec3(width/2, height/2, 0) ;
-    Vec3 canvas = Vec3(canvas_x_item[ID_item], canvas_y_item[ID_item], canvas_z_item[ID_item]) ;
+    Vec3 canvas = Vec3(canvas_x_item[ID_item],canvas_y_item[ID_item],canvas_z_item[ID_item]);
     canvas.mult(ratio_canvas) ;
 
 
@@ -49,7 +50,7 @@ class Ecosystem_agent extends Romanesco {
     init(true) ;
     if(init_ecosystem) {
       Vec3 ratio_size = Vec3(size_x_item[ID_item],size_y_item[ID_item],size_z_item[ID_item]) ;
-      ecosystem_setting(biomass, follower[ID_item], ratio_size, life_item[ID_item], speed_x_item[ID_item]) ;
+      ecosystem_setting(biomass,follower[ID_item],ratio_size,life_item[ID_item],speed_x_item[ID_item]);
       init_ecosystem = false ;
       first_save = true ;
     }

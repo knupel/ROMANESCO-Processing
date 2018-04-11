@@ -1,8 +1,8 @@
-/** 
+/**
+VARIABLE  
 Romanesco Processing Environment
 2015-2018
-VARIABLE 
-v 1.1.9
+v 1.1.10
 */
 // GLOBAL SETTING ////
 
@@ -70,6 +70,8 @@ int trackerUpdate ; // must be reset after each use
 Vec4 HSBmode = new Vec4 (360,100,100,100) ; // give the color mode in HSB
 //path to open the controleur
 String findPath ; 
+
+String preference_path, import_path, items_path;
 
 
 

@@ -17,7 +17,7 @@ String version = "31";
 String IAM = "Prescene";
 String prettyVersion = "1.3.0";
 String nameVersion = "Romanesco unu";
-String preference_path, import_path ;
+
 
 
 
@@ -28,7 +28,7 @@ boolean TEST_ROMANESCO = false; /* Use true when you want:
                                     full frame rate
                                     and resize window
                                   */
-boolean FULL_RENDERING = true;
+boolean FULL_RENDERING = false;
 boolean TABLET = false; // now tablet library don't work in OPENGL renderer
 
 boolean HOME = false;
@@ -58,10 +58,16 @@ void setup() {
   futur bug
   sketchPath("") or sketchPath() or sketchPath(1)
   */
-  preference_path = sketchPath("")+"preferences/" ;
-  import_path = sketchPath("")+"import/" ;
+  preference_path = sketchPath(1)+"/preferences/";
+  import_path = sketchPath(1)+"/import/";
+  items_path = sketchPath(1)+"/items/";
+
+  println("preference_path",preference_path);
+  println("import_path",import_path);
+  println("items_path",items_path);
+
   
-  OSC_setup() ;
+  OSC_setup();
   display_setup(60) ; // the int value is the frameRate
   RG.init(this);  // Geomerative
 
