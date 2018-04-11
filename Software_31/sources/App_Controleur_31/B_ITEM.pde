@@ -51,8 +51,8 @@ void info_item() {
 
 
 void build_item_library() {
-  item_list_table = loadTable(sketchPath("")+"preferences/objects/index_romanesco_objects.csv", "header") ;
-  shaderBackgroundList = loadTable(sketchPath("")+"preferences/shader/shaderBackgroundList.csv", "header") ;
+  item_list_table = loadTable(preference_path+"objects/index_romanesco_objects.csv", "header") ;
+  shaderBackgroundList = loadTable(preference_path+"shader/shaderBackgroundList.csv", "header") ;
   numByGroup() ;
   init_var_item() ;
   init_slider() ;

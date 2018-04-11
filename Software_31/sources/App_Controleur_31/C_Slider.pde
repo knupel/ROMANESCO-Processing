@@ -106,8 +106,6 @@ public class Slider {
     /* May be it's possible to remove this method to includ that in the constructor ?
     but now we need that to init the molette */
     this.newPosMol = posMol.copy() ;
-    preference_path = sketchPath("")+"preferences/" ;
-    import_path = sketchPath("")+"import/" ;
   }
   
   

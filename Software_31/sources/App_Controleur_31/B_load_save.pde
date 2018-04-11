@@ -5,8 +5,8 @@ SETTING SAVE and LOAD 2.1.4
 //SETUP
 void load_setup() {
   buildSaveTable() ;
-  createInfoButtonAndSlider(sketchPath("")+"preferences/setting/defaultSetting.csv") ;
-  load_saved_file_controller(sketchPath("")+"preferences/setting/defaultSetting.csv") ;
+  createInfoButtonAndSlider(preference_path+"setting/defaultSetting.csv") ;
+  load_saved_file_controller(preference_path+"setting/defaultSetting.csv") ;
   
   //load text interface 
   // 0 is French
@@ -480,13 +480,21 @@ TableRow [] row = new TableRow[SLIDER_BY_COL +1] ;
 String lang[] ;
 
 void textGUI() {
-  if (!test)lang = loadStrings(sketchPath("") +"preferences/language.txt") ; else lang = loadStrings("preferences/language.txt") ;
+  if (!test){
+    lang = loadStrings(preference_path+"language.txt"); 
+  } else {
+    lang = loadStrings(preference_path+"language.txt");
+  }
   String l = join(lang,"") ;
   int language = Integer.parseInt(l);
   
-  if( language == 0 ) textGUI = loadTable(sketchPath("")+"preferences/sliderListFR.csv", "header") ;
-  else if (language == 1 ) textGUI = loadTable(sketchPath("")+"preferences/sliderListEN.csv", "header") ;
-  else textGUI = loadTable(sketchPath("")+"preferences/sliderListEN.csv", "header") ;
+  if(language == 0) {
+    textGUI = loadTable(preference_path+"sliderListFR.csv","header");
+  } else if (language == 1) {
+    textGUI = loadTable(preference_path+"sliderListEN.csv","header");
+  } else {
+    textGUI = loadTable(preference_path+"sliderListEN.csv","header");
+  }
     
   for ( int i = 0 ; i <  SLIDER_BY_COL ; i++) {
     row[i] = textGUI.getRow(i) ;

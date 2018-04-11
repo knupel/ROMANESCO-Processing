@@ -1366,7 +1366,7 @@ void set_dropdown_general() {
     mode_list_RPE [row.getInt("ID")] = row.getString("Mode"); 
   }
   //font
-  String pList [] = loadStrings(sketchPath("")+"import/font/fontList.txt") ;
+  String pList [] = loadStrings(import_path+"font/fontList.txt") ;
   String policeList = join(pList, "") ;
   font_dropdown_list = split(policeList, "/") ;
   

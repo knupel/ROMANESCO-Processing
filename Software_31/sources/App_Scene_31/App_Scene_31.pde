@@ -40,9 +40,7 @@ void settings() {
 
 void setup() {
   OSC_setup() ;
-  preference_path = sketchPath(1)+"/preferences/";
-  import_path = sketchPath(1)+"/import/";
-  items_path = sketchPath(1)+"/items/";
+  path_setting(sketchPath(1));
 
   /**
   // The fullscreen option from the external file is disable, because the fullScreen() method cannot be choice in second time, that be must the first line of programm

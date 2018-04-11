@@ -58,13 +58,8 @@ void setup() {
   futur bug
   sketchPath("") or sketchPath() or sketchPath(1)
   */
-  preference_path = sketchPath(1)+"/preferences/";
-  import_path = sketchPath(1)+"/import/";
-  items_path = sketchPath(1)+"/items/";
+  path_setting(sketchPath(1));
 
-  println("preference_path",preference_path);
-  println("import_path",import_path);
-  println("items_path",items_path);
 
   
   OSC_setup();

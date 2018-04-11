@@ -1,7 +1,7 @@
 /**
 CORE Rope SCENE and PRESCENE 
 2015-2018
-v 1.2.0.1
+v 1.2.1
 */
 /**
 INIT Rope
@@ -49,6 +49,8 @@ void set_screen() {
   scene_height = h;
   println("set size screen",w,h); 
 }
+
+
 
 
 
@@ -235,8 +237,6 @@ boolean folder_bitmap_is_selected = true ;
 String [] bitmap_path ;
 int count_bitmap_selection ;
 int ref_bitmap_num_files ;
-
-
 void load_bitmap(int ID) {
   check_bitmap_folder_scene() ;
   // which_bitmap is the int return from the dropdown menu
@@ -364,7 +364,6 @@ boolean folder_text_is_selected = true ;
 String [] text_path ;
 int count_text_selection ;
 int ref_text_num_files ;
-
 void load_txt(int ID) {
   check_text_folder_scene() ;
   // which_text is the int return from the dropdown menu
@@ -373,8 +372,7 @@ void load_txt(int ID) {
     text_import[ID] = importText(text_path[which_text[ID]]) ;
   } else {
     text_import[ID] = "Big Brother has been burning all books, it's not possible to read anything" ;
-  }
-    
+  }    
 }
 
 
@@ -816,7 +814,7 @@ void loadDataObject(String path) {
   int startPosJSONDataCam = 1 ;
   int startPosJSONDataObj = 0;
     
-    // PART ONE
+  // PART ONE
   JSONObject dataWorld = load.getJSONObject(startPosJSONDataWorld);
   onOffBackground = dataWorld.getBoolean("on/off") ;
 
@@ -1059,7 +1057,6 @@ void displayInfoScene(color bg_txt, color txt) {
 
 
 int posInfoObj = 1 ;
-
 void displayInfoObject(color bg_txt, color txt) {
   noStroke() ;
   fill(bg_txt) ;
@@ -1156,8 +1153,15 @@ void repere(int size) {
 
 /**
 UTIL 
-v 0.1.0
+v 0.2.0
 */
+void path_setting(String path) {
+  preference_path = path+"/preferences/";
+  import_path = path+"/import/";
+  items_path = path+"/items/";
+}
+
+
 /**
 keyboard
 */
