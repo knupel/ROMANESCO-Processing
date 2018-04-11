@@ -1,19 +1,20 @@
-## Romanesco Unu 1.2.0.30
+## Romanesco Unu 1.2.1.31
 Romanesco is a Generative Live Art Application.
+2011-2018
 
-Those sketches are the progress in work, writen for Processing 3.0.2
+Those sketches are the progress in work, writen for Processing 3.3.7
 
-To download the last built version, go to [app 1.1.0.29](http://romanescoproject.wordpress.com/download/)
+To download the last built version, go to [app 1.2.0.30](http://romanescoproject.wordpress.com/download/)
 
 ## Architecture Sketches
 - Romanesco : Sketch to set the Romanesco application.
 - Controleur : interface slider to use the objects and the different parameters.
 - Prescene : use it to move the object in 3D.
 - Scene : display the result. We can use this one to send to syphon or not.
-- Romanesco must be coded with Processing 3.0.2
+- Romanesco must be coded with Processing 3.3.7
 
 ## Memory
-Romanesco Prescene and Scene need a lot of memory to run in processing. You will maybe need to increase the processing memory.
+Romanesco Prescene and Scene need a lot of memory to run in processing. You will maybe need to increase the Processing memory.
 
 ## Help to code
 If you want to code in Romanesco, there are a few compulsory variables, methods and functions. You can find the different helpful files in the "[Misc](./MISC)" folder.
@@ -59,14 +60,13 @@ If you want to code in Romanesco, there are a few compulsory variables, methods 
 - Check your internet connexion and run.
 
 ## Built Romanesco on Linux
-- ?
+- Need help to do that.
 
 ## Built Romanesco on Windows
-- ?
+- Need help to do that.
 
 ## Libraries used for the application
 - OSC, add from libraries Manager of Processing.
-- YahooWeather, add from libraries Manager of Processing.
 - [Geomerative](http://www.ricardmarxer.com/geomerative/)
 - [Leapmotion](https://github.com/heuermh/leap-motion-processing)
 - [Tablet](http://interfaze.info/libraries/tablet/)
@@ -74,13 +74,13 @@ If you want to code in Romanesco, there are a few compulsory variables, methods 
 - Video, add from libraries Manager of Processing.
 - Minim, add from libraries Manager of Processing.
 - The Midi Bus, add from libraries Manager of Processing.
-- [Romefeeder, Toxilib and Twitter](https://www.dropbox.com/s/jl0kr6tug7daut5/libraries_romanesco.zip?dl=0)
+- [Romefeeder, Toxilib](https://www.dropbox.com/s/jl0kr6tug7daut5/libraries_romanesco.zip?dl=0)
 
-## LICENCE
+## LICENSE
 ROMANESCO is under the licence [CeCILL](http://www.cecill.info/licences/Licence_CeCILL_V2.1-en.html).
 
-Romanesco is a free software.
+Romanesco is a FOSS / Free and Open Source Software
 
 For commercial use, [making a donation can be good](http://romanescoproject.wordpress.com/download/) to support the project !
 
-ROMANESCO 2011-2016.
+ROMANESCO 2011-2018.
