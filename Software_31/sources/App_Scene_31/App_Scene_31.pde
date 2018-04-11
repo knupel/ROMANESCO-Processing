@@ -23,11 +23,7 @@ boolean FULL_SCREEN = false ;
 
 void settings() {
   // When you build Romanesco you must create two versions : fullscreen and normal
-  size(124,124,P3D) ; // when the bug will be resolved, return to this config.
-
-  // size(640,360,P3D) ; // 640
-
-
+  size(124,124,P3D);
   // fullScreen(P3D,2) ;
   FULL_SCREEN = true ;
 
@@ -42,10 +38,6 @@ void setup() {
   OSC_setup() ;
   path_setting(sketchPath(1));
 
-  /**
-  // The fullscreen option from the external file is disable, because the fullScreen() method cannot be choice in second time, that be must the first line of programm
-  // So I disable the line in loadPropertyScene() in display_setup()
-  */
   int frameRateRomanesco = 60 ;
   display_setup(frameRateRomanesco) ; // the int give the frameRate
 
@@ -75,12 +67,22 @@ void setup() {
   light_position_setup() ;
   light_setup() ;
   if(FULL_RENDERING) shader_setup() ;
-
-
 }
 
-//DRAW
+/**
+DRAW
+*/
+boolean init_app;
 void draw() {
+  if(init_app) {
+    romanesco();
+  } else {
+    init_app = true;
+  }
+}
+
+
+void romanesco() {
   
   if(!syphon_on_off) surface.setTitle(nameVersion + " " +prettyVersion+"."+version+ " | Scéne | FPS: "+round(frameRate)); else frame.setTitle(nameVersion + " " +prettyVersion+"."+version+ " | Miroir | FPS: "+round(frameRate));
   if (!FULL_SCREEN) resize_scene() ;

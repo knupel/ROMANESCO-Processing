@@ -25,10 +25,8 @@ boolean TEST_ROMANESCO = false; /* Use true when you want:
                                     display color
                                     used sound
                                     maximum possibility of the object
-                                    full frame rate
-                                    and resize window
                                   */
-boolean FULL_RENDERING = false;
+boolean FULL_RENDERING = true;
 boolean TABLET = false; // now tablet library don't work in OPENGL renderer
 
 boolean HOME = false;
@@ -54,14 +52,7 @@ void settings() {
 SETUP
 */
 void setup() {
-  /**
-  futur bug
-  sketchPath("") or sketchPath() or sketchPath(1)
-  */
   path_setting(sketchPath(1));
-
-
-  
   OSC_setup();
   display_setup(60) ; // the int value is the frameRate
   RG.init(this);  // Geomerative
@@ -72,18 +63,18 @@ void setup() {
 
   P3D_setup() ;
   //specific setup
-  prescene_setup() ; // the varObject setup of the Scene is more simple
-  leapmotion_setup() ;
+  prescene_setup(); // the varObject setup of the Scene is more simple
+  leapmotion_setup();
   
   //common setup
-  color_setup() ;
-  syphon_setup() ;
+  color_setup();
+  syphon_setup();
 
-  init_variable_item_min_max() ; 
-  init_variable_item() ;
-  init_items() ;
+  init_variable_item_min_max(); 
+  init_variable_item();
+  init_items();
 
-  create_font() ;
+  create_font();
 
   // here we ask for the TEST_ROMANESCO true, because the Minim Library talk too much in the consol
   if(!TEST_ROMANESCO) sound_setup() ;
@@ -94,12 +85,20 @@ void setup() {
   if(FULL_RENDERING) shader_setup() ;
 }
 
-
-
 /**
 DRAW
 */
+boolean init_app;
 void draw() {
+  if(init_app) {
+    romanesco();
+  } else {
+    init_app = true;
+  }
+}
+
+
+void romanesco() {
   surface.setTitle(nameVersion + " " +prettyVersion+"."+version+ " | Préscène | FPS: "+round(frameRate));
   init_romanesco();
   if(FULL_RENDERING) start_PNG("screenshot Romanesco prescene", "Romanesco_"+year()+"_"+month()+"_"+day()+"_"+hour()+"_"+minute()+"_"+second()) ;
@@ -164,7 +163,6 @@ void draw() {
   OSC_send() ;
   keyboardFalse() ;
 }
-// boolean keyboard_new_event = false ;
 
 
 
