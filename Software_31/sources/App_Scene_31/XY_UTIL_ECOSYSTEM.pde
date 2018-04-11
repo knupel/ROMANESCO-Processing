@@ -999,7 +999,7 @@ void update_aspect(Info_Object style, ArrayList list) {
 
       if(use_style) {
         if(a.get_melanin() != null) {
-          Vec4 map = mapVec(a.get_melanin(), -1, 1, 0, 2) ;
+          Vec4 map = map_vec(a.get_melanin(), -1, 1, 0, 2);
           fill_def.mult(map) ;
           stroke_def.mult(map) ;
         }

@@ -118,7 +118,6 @@ void draw_send_OSC() {
   
   
 void translateDataToSend() {
-  //BUTTON GLOBAL
   //sound
   value_button_general[1] = state_button_beat ;
   value_button_general[2] = state_button_kick ;
@@ -142,7 +141,10 @@ void translateDataToSend() {
   if(state_svg > SWITCH_VALUE_FOR_DROPDOWN)     value_button_general[16] = state_svg ;
   if(state_text > SWITCH_VALUE_FOR_DROPDOWN)     value_button_general[17] = state_text ;
   if(state_movie > SWITCH_VALUE_FOR_DROPDOWN)     value_button_general[18] = state_movie ;
-  if(state_camera > SWITCH_VALUE_FOR_DROPDOWN)  value_button_general[19] = ID_camera_video_list[state_camera] ;
+  /**
+  value_button_general[19] is free
+  */
+  // if(state_camera > SWITCH_VALUE_FOR_DROPDOWN)  value_button_general[19] = ID_camera_video_list[state_camera] ;
 
   
   //BUTTON GROUP ONE

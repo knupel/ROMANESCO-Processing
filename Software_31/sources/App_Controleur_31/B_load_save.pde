@@ -69,8 +69,7 @@ Vec3 size_dropdown_bg, size_dropdown_font, size_dropdown_image_bitmap, size_drop
 PVector posTextDropdown = new PVector(2,8)  ;
 
 
-String [] mode_list_RPE, font_dropdown_list, bitmap_dropdown_list, svg_dropdown_list, movie_dropdown_list, file_text_dropdown_list,  name_camera_video_dropdown_list, list_dropdown ;
-int  [] ID_camera_video_list ;
+String [] mode_list_RPE, font_dropdown_list, bitmap_dropdown_list, svg_dropdown_list, movie_dropdown_list, file_text_dropdown_list, name_camera_video_dropdown_list, list_dropdown;
 
 float marge_around_dropdown ;
 

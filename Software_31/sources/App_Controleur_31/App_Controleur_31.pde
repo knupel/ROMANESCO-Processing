@@ -33,7 +33,6 @@ void setup() {
   build_item_library();
   load_setup();
 
-  select_camera_device(30,100); // methode(int min_fps, int min_width)
 
   check_media_folder();
 

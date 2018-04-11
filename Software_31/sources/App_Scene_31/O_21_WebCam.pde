@@ -1,7 +1,7 @@
 /**
 WEBCAM 
 2011-2018
-v 1.2.5
+v 1.2.6
 */
 class Webcam extends Romanesco {
   public Webcam() {
@@ -36,7 +36,8 @@ class Webcam extends Romanesco {
   }
   //DRAW
   void draw() {
-    video_camera_manager() ;
+    select_camera(3);
+    video_camera_manager();
     //PART ONE
     //calcul the ration between the size of camera and the size of the scene
     factorDisplayCam.set(width / CAM_SIZE.x,height / CAM_SIZE.y);
@@ -65,19 +66,20 @@ class Webcam extends Romanesco {
     cols = (int)CAM_SIZE.x / cellSizeX; // before the resizing
     rows = (int)CAM_SIZE.y / cellSizeY;
     if (BROADCAST) {
-      cam.loadPixels();
+      get_cam().loadPixels();
+      println("length",get_cam().pixels.length);
       for (int i = 0; i < cols ; i++) {
         for (int j = 0; j < rows ; j++) {
           // Where are we, pixel-wise?
           posPixelX = i *cellSizeX  ;
           posPixelY = j *cellSizeY  ;
           //// display pixel 
-          int  loc = posPixelX +posPixelY *cam.width; // classic
+          int  loc = posPixelX +posPixelY *get_cam().width; // classic
           //  int loc = (cam.width - x - 1) + y*cam.width; // mirror
           //make pixel
-          if(cam.pixels.length > 0) {
+          if(get_cam().pixels.length > 0) {
 
-            PVector hsb = new PVector (hue(cam.pixels[loc]), saturation(cam.pixels[loc]), brightness(cam.pixels[loc]) ) ;
+            PVector hsb = new PVector (hue(get_cam().pixels[loc]), saturation(get_cam().pixels[loc]), brightness(get_cam().pixels[loc]) ) ;
             // Make a new color with an alpha component
             displayPix(mode[ID_item],hsb) ; 
           }
@@ -87,10 +89,8 @@ class Webcam extends Romanesco {
       fill(fill_item[ID_item]) ;
       textSize(size_x_item[ID_item]/10) ;
       text("Big Brother stops watching you, you're so boring !",0,0) ;
-    }
-    
+    } 
     rectMode (CORNER) ;
-
   }
   
   

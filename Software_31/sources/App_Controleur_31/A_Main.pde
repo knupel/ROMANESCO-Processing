@@ -66,7 +66,7 @@ Vec2 pos_bg_button, size_bg_button,
 
 
 // DROPDOWN button font and shader background
-int state_font, state_bg_shader, state_bitmap, state_svg, state_movie, state_text, state_camera ;
+int state_font, state_bg_shader, state_bitmap, state_svg, state_movie, state_text;
 Vec2 pos_button_font, pos_button_bg, pos_button_image_bitmap, pos_button_image_svg, pos_button_movie, pos_button_file_text, pos_button_camera_video ; 
 
 // MIDI, CURTAIN
@@ -1420,14 +1420,6 @@ void set_dropdown_general() {
   posTextdropdown_file_text = new PVector(3, 10)  ;
   refSizeFileTextDropdown = file_text_dropdown_list.length ;
   dropdown_file_text = new Dropdown(menu_text, file_text_dropdown_list, pos_dropdown_file_text, size_dropdown_file_text, posTextdropdown_file_text, colorDropdownBG, color_dropdown_header_in, color_dropdown_header_out, colorBoxIn, colorBoxOut, colorBoxText, sizeToRenderTheBoxDropdown) ;
-  
-  // Camera Video Dropdown
-  //////////////////
-  pos_dropdown_camera_video = Vec3(pos_button_camera_video.x, pos_button_camera_video.y, 0.1)  ; // x y is pos anz z is marge between the dropdown and the header
-  size_dropdown_camera_video = Vec3(100, sizeToRenderTheBoxDropdown, 10 ) ; // z is the num of line you show
-  posTextdropdown_camera_video = new PVector(3, 10)  ;
-  refSizeCameraVideoDropdown = name_camera_video_dropdown_list.length ;
-  dropdown_camera_video = new Dropdown(menu_video, name_camera_video_dropdown_list, pos_dropdown_camera_video, size_dropdown_camera_video, posTextdropdown_camera_video, colorDropdownBG, color_dropdown_header_in, color_dropdown_header_out, colorBoxIn, colorBoxOut, colorBoxText, sizeToRenderTheBoxDropdown) ;
 }
 
 void set_dropdown_item_selected() {
@@ -1474,7 +1466,7 @@ void display_dropdown() {
   state_bitmap = update_dropdown_general(pos_dropdown_image_bitmap, size_dropdown_image_bitmap, dropdown_image_bitmap, bitmap_dropdown_list, title_dropdown_medium) ;
   state_svg = update_dropdown_general(pos_dropdown_image_svg, size_dropdown_image_svg, dropdown_image_svg, svg_dropdown_list, title_dropdown_medium) ;
   state_movie = update_dropdown_general(pos_dropdown_movie, size_dropdown_movie, dropdown_movie, movie_dropdown_list, title_dropdown_medium) ;
-  state_camera = update_dropdown_general(pos_dropdown_camera_video, size_dropdown_camera_video, dropdown_camera_video, name_camera_video_dropdown_list, title_dropdown_medium) ;
+  // state_camera = update_dropdown_general(pos_dropdown_camera_video, size_dropdown_camera_video, dropdown_camera_video, name_camera_video_dropdown_list, title_dropdown_medium) ;
 
   // check the activity o the dropdown
   if(dropdownActivityCount > 0 ) dropdownActivity = true ; else dropdownActivity = false ;

@@ -1,15 +1,39 @@
-ROMANESC0 1.2.0.30
-ITEM
+ROMANESC0 1.2.1.31
+2015_2018
 ROMANESCO PROCESSING ENVIRONMENT
---
-CAMERA COMPUTER / WEB CAM / EXTERNAL CAMERA
---
+
+*CAMERA COMPUTER / WEB CAM / EXTERNAL CAMERA
+
 You can call the video capture directly, you don't need to write code about the librairy.
 you can use directly the Capture methode of the processing.video.*
 the componant is used to that is "cam"
 
-void video_camera_manager() ;
-> method must used in the item draw() method, it's necessary to start the broadcast.
+
+*INIT
+
+void video_camera_manager();
+>this method must use in priority before other method
+>method must used in the item draw() method, it's necessary to start the broadcast.
+
+
+void select_camera(int target)
+>select web cam in the list of camera connected to your system
+
+
+
+Capture get_cam();
+>return available camera
+
+iVec2 [] get_cam_size()
+>return the array_list iVec2 size: width and height of available web cam
+
+String [] get_cam_name()
+>return the list name of available web cam on your system
+
+
+
+int [] get_cam_fps()
+>return the fps of each web cam available on your system
 
 
 boolean BROADCAST

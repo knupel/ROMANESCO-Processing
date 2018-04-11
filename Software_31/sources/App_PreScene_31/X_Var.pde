@@ -587,11 +587,9 @@ void create_var_item_manipulation(int num_item_setting) {
   // master and follower
   master_ID = new int[NUM_ITEM] ;
   follower = new boolean[NUM_ITEM] ;
-
 }  
 
 void create_var_item_slider() {
-
   first_opening_item = new boolean[NUM_ITEM] ; // used to check if this object is already opening before
   fill_item = new color[NUM_ITEM] ;
   stroke_item = new color[NUM_ITEM] ;

@@ -1,9 +1,10 @@
 /**
-Class ROPE_svg 1.2.5
+ROPE SVG
+v 1.2.8
 Rope – Romanesco Processing Environment – 
 * @author Stan le Punk
 * @see https://github.com/StanLepunK/SVG_Vertex-Processing
-* 2016-2016
+  2016-2018
 */
 
 class ROPE_svg {
@@ -320,6 +321,7 @@ class ROPE_svg {
 
   /**
   ASPECT
+  v 0.2.0
   */
   /**
   opacity
@@ -357,6 +359,13 @@ class ROPE_svg {
     display_fill_original = false ;
     display_fill_custom = true ;
     fill_custom.set(0) ;
+  }
+  
+  public void fill(int c) {
+    display_fill_original = false ;
+    display_fill_custom = true;
+    if(g.colorMode == 1 ) fill_custom.set(red(c),green(c),blue(c),alpha(c));
+    else if(g.colorMode == 3) fill_custom.set(hue(c),saturation(c),brightness(c),alpha(c));
   }
 
   public void fill(float value) {
@@ -405,6 +414,13 @@ class ROPE_svg {
     display_stroke_custom = true ;
     thickness_custom = 0 ;
     stroke_custom.set(0) ;
+  }
+  
+  public void stroke(int c) {
+    display_stroke_original = false ;
+    display_stroke_custom = true;
+    if(g.colorMode == 1 ) stroke_custom.set(red(c),green(c),blue(c),alpha(c));
+    else if(g.colorMode == 3) stroke_custom.set(hue(c),saturation(c),brightness(c),alpha(c));
   }
 
   public void stroke(float value) {
@@ -778,9 +794,7 @@ class ROPE_svg {
       if(!bool_scale_svg) {
         scale_svg.set(1) ;
       }
-    }
-    
-    if(!keep_change) {
+    } else {
       original_style(true, true) ;
       fill_factor(1,1,1,1) ;
       stroke_factor(1,1,1,1) ;

@@ -1603,22 +1603,34 @@ REMOVE CAMERA COMPUTER
 
 /**
 CAMERA COMPUTER 
-v 1.2.0
+v 1.3.0
 */
 Capture cam;
 String[] cameras ;
 String[] cam_name ;
-PVector[] cam_size ;
+iVec2[] cam_size ;
 int[] cam_fps ;
 int which_cam = 0;
-int ref_cam = -1 ;
-PVector CAM_SIZE ;
-boolean CAMERA_AVAILABLE ;
-boolean BROADCAST ;
+int ref_cam = -1;
+iVec2 CAM_SIZE;
+boolean CAMERA_AVAILABLE;
+boolean BROADCAST;
 
-boolean new_cam = true ;
-boolean stop_cam = false ;
-boolean init_cam = false ;
+boolean new_cam = true;
+boolean stop_cam = false;
+boolean init_cam = false;
+
+void camera_video_setup() {
+  list_cameras() ;
+  if(new_cam && which_cam > -1) launch_camera(which_cam) ;
+}
+
+
+
+void select_camera(int target) {
+  which_cam = target ;
+}
+
 void video_camera_manager() {
   camera_video_setup();
   if(ref_cam != which_cam || which_cam == -1) {
@@ -1637,11 +1649,20 @@ void video_camera_manager() {
   }
 }
 
+Capture get_cam() {
+  return cam;
+}
 
+iVec2 [] get_cam_size() {
+  return cam_size ;
+}
 
-void camera_video_setup() {
-  list_cameras() ;
-  if(new_cam && which_cam > -1) launch_camera(which_cam) ;
+String [] get_cam_name() {
+  return cam_name;
+}
+
+int [] get_cam_fps() {
+  return cam_fps;
 }
 
 
@@ -1653,11 +1674,11 @@ void launch_camera(int which_cam) {
   if(CAMERA_AVAILABLE) {
     // if(FULL_RENDERING) which_cam = 0 ; else which_cam = 7 ; // 4 is normal camera around 800x600 or 640x360 with 30 fps
     if(!init_cam) {
-      init_camera(which_cam) ;
-      init_cam = true ;
+      init_camera(which_cam);
+      init_cam = true;
     }
-    CAM_SIZE = cam_size[which_cam].copy() ;
-    // surface.setSize((int)cam_size[which_cam].x, (int)cam_size[which_cam].y) ;
+    CAM_SIZE = cam_size[which_cam].copy();
+    // surface.setSize((int)cam_size[which_cam].x, (int)cam_size[which_cam].y);
     new_cam = false ;
   }
 }
@@ -1680,7 +1701,7 @@ void init_camera(int which_camra) {
 void list_cameras() {
   cameras = Capture.list();
   cam_name = new String[cameras.length] ;
-  cam_size = new PVector[cameras.length] ;
+  cam_size = new iVec2[cameras.length] ;
   cam_fps = new int[cameras.length] ;
   
   // about the camera
@@ -1693,7 +1714,7 @@ void list_cameras() {
       // size camera
       String size = cam_data [1].substring(5,cam_data[1].length()) ;
       String [] sizeXY = split(size,"x") ;
-      cam_size[i] = new PVector(Integer.parseInt(sizeXY[0]), Integer.parseInt(sizeXY[1])) ;  // Integer.parseInt("1234");
+      cam_size[i] = iVec2(Integer.parseInt(sizeXY[0]), Integer.parseInt(sizeXY[1])) ;  // Integer.parseInt("1234");
       // fps
       String fps = cam_data [2].substring(4,cam_data[2].length()) ;
       cam_fps[i] = Integer.parseInt(fps) ;
@@ -1850,7 +1871,7 @@ void color_setup() {
   
 /**
 OSC CORE 
-v 1.1.1
+v 1.1.2
 */
 int numOfPartSendByController = 5 ; 
 String fromController [] = new String [numOfPartSendByController] ;
@@ -1944,7 +1965,9 @@ void translateDataFromController_buttonGlobal() {
   which_svg[0] = valueButtonGlobal[16] ;
   which_text[0] = valueButtonGlobal[17] ;
   which_movie[0] = valueButtonGlobal[18] ;
-  which_cam = valueButtonGlobal[19] ;
+  /**
+  valueButtonGlobal[19]; this value is free
+  */
 }
 void translateDataFromController_buttonItem() {
   for (int i = 0 ; i < NUM_ITEM -1 ; i++) {
