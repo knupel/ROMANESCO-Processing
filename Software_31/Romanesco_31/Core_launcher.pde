@@ -1,7 +1,7 @@
 /**
 CORE LAUNCHER
 2014-2018
-v 1.0.3
+v 1.0.4
 */
 /**
 setup
@@ -55,8 +55,8 @@ void set_structure() {
   Vec2 size_window = Vec2(180, 20) ;
   Vec2 size_fullscreen = Vec2(180, 20) ;
 
-  buttonWindow = new Button(pos_window, size_window, c1, c2, c3, c4, "in Window") ;
-  buttonFullscreen = new Button(pos_fullscreen, size_fullscreen, c1, c2, c3, c4, "in Fullscreen") ;
+  buttonWindow = new Button(pos_window, size_window, c1, c2, c3, c4, "Window") ;
+  buttonFullscreen = new Button(pos_fullscreen, size_fullscreen, c1, c2, c3, c4, "Fullscreen") ;
   
   // start
   Vec2 pos_start = Vec2(10, 190) ;
@@ -65,6 +65,8 @@ void set_structure() {
   buttonStart = new Button(pos_start, size_start, colorIN, colorOUT, colorIN, colorOUT, "Launch Romanesco") ;
 
   //quantityScreen count the number of screen available
+  GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+  GraphicsDevice[] devices = ge.getScreenDevices();
   int quantityScreen = devices.length ;
   whichScreenSetup(quantityScreen, posWhichScreenButton) ;
   
@@ -224,7 +226,7 @@ void ready_to_launch() {
   if (buttonWhichScreenOnOff > 0 && buttonFullscreen.OnOff) {
     buttonStart.displayButton() ;
     // window mode the user must choice a window size  
-  } else if ((buttonWindow.OnOff && heightSlider > 1 & widthSlider > 1) || (buttonWindow.OnOff && widthSlider > 1)) {
+  } else if (buttonWindow.OnOff && heightSlider > 1 && widthSlider > 1) {
     buttonStart.displayButton() ;
   } else {
     fill(orange) ;
