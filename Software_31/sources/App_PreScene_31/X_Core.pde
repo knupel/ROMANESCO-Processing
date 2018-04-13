@@ -36,14 +36,28 @@ void set_screen() {
   TableRow row = configurationScene.getRow(0);
   int w = width;
   int h = height;
+  int x = 0;
+  int y = 0;
+
+  if(IAM.equals("prescene")) {
+    x = row.getInt("prescene_x"); 
+    y = row.getInt("prescene_y");
+  } else {
+    x = row.getInt("scene_x"); 
+    y = row.getInt("scene_y");
+  }
+
   if(FULL_RENDERING) {
     w = row.getInt("width"); 
     h = row.getInt("height");
     surface.setSize(w,h);
+    if(!FULL_SCREEN) surface.setLocation(x,y);
+    
   } else {
     w = row.getInt("preview_width"); 
     h = row.getInt("preview_height");
     surface.setSize(w,h);
+    surface.setLocation(x,y);
   }
   scene_width = w;
   scene_height = h;

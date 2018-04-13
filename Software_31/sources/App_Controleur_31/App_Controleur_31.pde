@@ -25,6 +25,7 @@ void settings() {
 }
 
 void setup() {
+  surface.setLocation(0,20);
   path_setting(sketchPath(1));
   setting();
   init_button_general();

@@ -354,35 +354,63 @@ v 0.2.0
 // Table sceneProperty;
 void save_app_properties() {
   Table properies = new Table();
-  String[] col = new String[9];
+  String[] col = new String[13];
 
   col[0] ="fullscreen";
   col[1] ="whichScreen";
   col[2] ="resizable"; 
-  col[3] ="decorated"; 
+  col[3] ="decorated";
+
   col[4] ="width";
   col[5] ="height";
   col[6] ="preview_width"; 
   col[7] ="preview_height";
-  col[8] ="miroir";
+
+  col[8] ="prescene_x"; 
+  col[9] ="prescene_y";
+  col[10] ="scene_x"; 
+  col[11] ="scene_y";
+  col[12] ="miroir";
   
   for(int i = 0 ; i < col.length ; i++) {
     properies.addColumn(col[i]);
   }
   
   TableRow newRow = properies.addRow();
-  int whichScreen = 0 ;
-  whichScreen = IDscreenSelected() ;
+
+  int which_screen = get_which_screen();
+
+  // println(which_screen,get_display_size(which_screen));
+
+  println(0,get_display_size(0));
+  println(1,get_display_size(1));
+  println(2,get_display_size(2));
   
+  int w = standard_size_width[widthSlider-1];
+  int h = standard_size_height[heightSlider -1];
+  int preview_w = 500 ;
+  int preview_h = 350;
+
+  int prescene_x = 0;
+  int prescene_y = 0;
+  int scene_x = 0;
+  int scene_y = 0;
+
   newRow.setString(col[0], screen);
-  newRow.setInt(col[1], whichScreen);
+  newRow.setInt(col[1], which_screen);
   newRow.setString(col[2], "true"); 
   newRow.setString(col[3], "true"); 
-  newRow.setInt(col[4], standard_size_width[widthSlider-1]);
-  newRow.setInt(col[5], standard_size_height[heightSlider -1]);
-  newRow.setInt(col[6], 500);
-  newRow.setInt(col[7], 350);
-  newRow.setString(col[8],bool_open_scene);
+  newRow.setInt(col[4], w);
+  newRow.setInt(col[5], h);
+  newRow.setInt(col[6], preview_w);
+  newRow.setInt(col[7], preview_h);
+
+  newRow.setInt(col[8], prescene_x);
+  newRow.setInt(col[9], prescene_y);
+  newRow.setInt(col[10], scene_x);
+  newRow.setInt(col[11], scene_y);
+
+  newRow.setString(col[12],bool_open_scene);
 
   String path = sketchPath(1)+"/sources/preferences/sceneProperty.csv";
   println(path);

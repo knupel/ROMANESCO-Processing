@@ -13,8 +13,8 @@ String displayMode = ("") ;
 int depth_scene ;
 
 //SETUP
-void display_setup(int speed) {
-  frameRate(speed) ;  // Le frameRate doit être le même dans tous les Sketches
+void display_setup(int frame_rate) {
+  frameRate(frame_rate) ;  // Le frameRate doit être le même dans tous les Sketches
   colorMode(HSB, HSBmode.r, HSBmode.g, HSBmode.b, HSBmode.a) ; 
   set_screen();
   depth_scene = height ;

@@ -119,7 +119,7 @@ void whichScreenReleased() {
 
 //ID screen
 int IDscreen = 0 ;
-int IDscreenSelected() {
+int get_which_screen() {
   for (int i = 0 ; i < screenNum ; i++ ) { 
     if (whichScreenButton[i].OnOff == true ) IDscreen = i+1 ; else IDscreen = 1 ;
   }

@@ -1,9 +1,8 @@
 /**
-ROPE - Romanesco processing environment – 
+Rope UTILS 
+v 1.42.0
 * Copyleft (c) 2014-2018 
 * Stan le Punk > http://stanlepunk.xyz/
-Rope UTILS  2015 – 2018
-v 1.39.2
 Rope – Romanesco Processing Environment – 
 Processing 3.3.7
 * @author Stan le Punk
@@ -1642,54 +1641,7 @@ void level(PGraphics p, PImage tex, float... ratio) {
 
 
 
-/**
-DISPLAY
-v 0.2.1
-*/
-void set_window_on_display(iVec2 size, iVec2 pos_screen, iVec2 pos_display) {
-  int new_w = size.x;
-  int new_h = size.y;
-  int temp_w = get_display_size(1).x;
-  int temp_h = get_display_size(1).y;
 
-  int offset_x = pos_screen.x ;
-  int offset_y = pos_screen.y;
-  int dx = pos_display.x ;
-  int dy = pos_display.y;
-
-  surface.setSize(new_w,new_h);
-  surface.setLocation(offset_x +dx, offset_y +dy);
-}
-
-/**
-check display
-v 0.0.2
-*/
-iVec2 get_display_size() {
-  return get_display_size(sketchDisplay() -1);
-}
-
-
-iVec2 get_display_size(int which_display) {
-  GraphicsEnvironment environment = GraphicsEnvironment.getLocalGraphicsEnvironment();
-  GraphicsDevice[] awtDevices = environment.getScreenDevices();
-  int target = 0 ;
-  if(which_display < awtDevices.length) {
-    target = which_display ; 
-  } else {
-    printErr("No display match with your request, instead we use the current display");
-    target = sketchDisplay() -1;
-    if(target >= awtDevices.length) target = awtDevices.length -1;
-  }
-  GraphicsDevice awtDisplayDevice = awtDevices[target];
-  Rectangle display = awtDisplayDevice.getDefaultConfiguration().getBounds();
-  return iVec2((int)display.getWidth(), (int)display.getHeight());
-}
-
-int get_display_num() {
-  GraphicsEnvironment environment = GraphicsEnvironment.getLocalGraphicsEnvironment();
-  return environment.getScreenDevices().length;
-}
 
 
 
@@ -4439,9 +4391,108 @@ int [][] loadPixels_array_2D() {
 
 
 /**
-CHECK
-v 0.2.3
+GRAPHICS METHOD
+v 0.3.0
 */
+/**
+SCREEN
+v 0.3.0
+*/
+void set_window(int px, int py, int sx, int sy) {
+  set_window(iVec2(px,py), iVec2(sx,sy), get_screen_location(0));
+}
+
+void set_window(int px, int py, int sx, int sy, int target) {
+  set_window(iVec2(px,py), iVec2(sx,sy), get_screen_location(target));
+}
+
+void set_window(iVec2 pos, iVec2 size) {
+  set_window(pos, size, get_screen_location(0));
+}
+
+void set_window(iVec2 pos, iVec2 size, int target) {
+  set_window(pos, size, get_screen_location(target));
+}
+
+void set_window(iVec2 pos, iVec2 size, iVec2 pos_screen) { 
+  int offset_x = pos.x;
+  int offset_y = pos.y;
+  int dx = pos_screen.x;
+  int dy = pos_screen.y;
+  surface.setSize(size.x,size.y);
+  surface.setLocation(offset_x +dx, offset_y +dy);
+}
+
+/**
+check screen
+v 0.1.0
+*/
+/**
+screen size
+*/
+iVec2 get_screen_size() {
+  return get_display_size(sketchDisplay() -1);
+}
+
+iVec2 get_screen_size(int target) {
+  return get_display_size(target);
+}
+
+@Deprecated
+iVec2 get_display_size() {
+  return get_display_size(sketchDisplay() -1);
+}
+
+
+iVec2 get_display_size(int which_display) {  
+  Rectangle display = get_screen(which_display);
+  return iVec2((int)display.getWidth(), (int)display.getHeight()); 
+}
+
+/**
+screen location
+*/
+
+iVec2 get_screen_location(int which_display) {
+  Rectangle display = get_screen(which_display);
+  return iVec2((int)display.getX(), (int)display.getY());
+}
+
+/**
+screen num
+*/
+int get_screen_num() {
+  return get_display_num();
+}
+
+int get_display_num() {
+  GraphicsEnvironment environment = GraphicsEnvironment.getLocalGraphicsEnvironment();
+  return environment.getScreenDevices().length;
+}
+
+
+/**
+screen
+*/
+Rectangle get_screen(int target_screen) {
+  GraphicsEnvironment environment = GraphicsEnvironment.getLocalGraphicsEnvironment();
+  GraphicsDevice[] awtDevices = environment.getScreenDevices();
+  int target = 0 ;
+  if(target_screen < awtDevices.length) {
+    target = target_screen ; 
+  } else {
+    printErr("No screen match with your request, instead we use the current screen");
+    target = sketchDisplay() -1;
+    if(target >= awtDevices.length) target = awtDevices.length -1;
+  }
+  GraphicsDevice awtDisplayDevice = awtDevices[target];
+  Rectangle display = awtDisplayDevice.getDefaultConfiguration().getBounds();
+  return display;
+}
+
+
+
+
 /**
 Check renderer
 */
@@ -4470,6 +4521,36 @@ String get_renderer_name(final PGraphics graph) {
 }
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/**
+CHECK
+v 0.2.3
+*/
 /**
 Check Type
 v 0.0.2

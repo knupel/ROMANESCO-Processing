@@ -14,7 +14,7 @@ Scene - Prescene 1.3.0
  */
 
 String version = "31";
-String IAM = "Prescene";
+String IAM = "prescene";
 String prettyVersion = "1.3.0";
 String nameVersion = "Romanesco unu";
 
@@ -27,7 +27,9 @@ boolean TEST_ROMANESCO = false; /* Use true when you want:
                                     maximum possibility of the object
                                   */
 boolean FULL_RENDERING = true;
+boolean FULL_SCREEN = false ;
 boolean TABLET = false; // now tablet library don't work in OPENGL renderer
+
 
 boolean HOME = false;
 /**
@@ -36,9 +38,9 @@ SETTINGS
 void settings() {
   size(124,124,P3D) ; // when the bug will be resolved, return to this config.
   
-  // size(550,350,P3D) ; // PREVIEWccc
-  // size(1280,720,P3D) ; // 1280
   // fullScreen(P3D,2);
+  // FULL_SCREEN = true;
+
   pixelDensity(displayDensity()) ;
   syphon_settings() ;
 }
