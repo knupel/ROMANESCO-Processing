@@ -14,12 +14,12 @@ int depth_scene ;
 
 //SETUP
 void display_setup(int frame_rate) {
-  frameRate(frame_rate) ;  // Le frameRate doit être le même dans tous les Sketches
-  colorMode(HSB, HSBmode.r, HSBmode.g, HSBmode.b, HSBmode.a) ; 
+  frameRate(frame_rate);  // Le frameRate doit être le même dans tous les Sketches
+  colorMode(HSB, HSBmode.r, HSBmode.g, HSBmode.b, HSBmode.a); 
   set_screen();
-  depth_scene = height ;
-  background_setup() ;
-  background_shader_setup() ;
+  depth_scene = height;
+  background_setup();
+  background_shader_setup();
 }
 
 

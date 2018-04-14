@@ -1,13 +1,10 @@
 /**
 OSC Controller
-2014 - 2017
+2014 - 2018
 v 1.1.0
 */
 import oscP5.*;
 import netP5.*;
-
-
-// adress local
 String ID_address_local = ("127.0.0.1") ;
 
 String IP_address_prescene = ID_address_local ;
@@ -63,12 +60,12 @@ void set_ip_address() {
   // target_scene = new NetAddress(ID_adress_scene,address_scene) ;
 }
 
-
-void draw_send_OSC() {
+float ref_send_osc;
+void send_OSC() {
   OscMessage RomanescoController = new OscMessage("Controller");
   
   //int value join in String 
-  translateDataToSend() ;
+  data_to_send() ;
   
   //BUTTON 
   toPreScene[0] = join_int_to_String(value_button_general) ; 
@@ -81,12 +78,16 @@ void draw_send_OSC() {
   */
   // group general
   int[] data_OSC_general = new int[NUM_SLIDER_GENERAL] ;
-  for ( int i = 1   ; i < NUM_SLIDER_GENERAL -1 ; i++) data_OSC_general[i-1] = floor(valueSlider[i]) ;
-    toPreScene[2] = join_int_to_String(data_OSC_general) ;
+  for ( int i = 1 ; i < NUM_SLIDER_GENERAL -1 ; i++) {
+    data_OSC_general[i-1] = floor(valueSlider[i]);
+  }
+  toPreScene[2] = join_int_to_String(data_OSC_general);
 
   // group item
   int[] data_OSC_item = new int[NUM_SLIDER_ITEM] ;
-  for ( int i = 101   ; i < 101 +NUM_SLIDER_ITEM ; i++) data_OSC_item[i-101] = floor(valueSlider[i]) ; 
+  for ( int i = 101   ; i < 101 +NUM_SLIDER_ITEM ; i++) {
+    data_OSC_item[i-101] = floor(valueSlider[i]); 
+  }
   toPreScene[3] = join_int_to_String(data_OSC_item);
 
 
@@ -104,12 +105,33 @@ void draw_send_OSC() {
   for ( int i = 0 ; i < toPreScene.length ; i++) {
     RomanescoController.add(toPreScene[i]);
   }
-  //send
-  osc_prescene.send(RomanescoController, target_prescene) ; 
-  for(int i = 0 ; i < target_scene.length ; i++) {
-    osc_scene.send(RomanescoController, target_scene[i]) ; 
+
+  // send or not to send
+  float total_send_osc = 0;
+  for(int i = 0 ; i < value_button_general.length ; i++) {
+     total_send_osc += value_button_general[i];
   }
-  
+  for(int i = 0 ; i < value_button_item.length ; i++) {
+     total_send_osc += value_button_item[i];
+  }
+
+  for ( int i = 1 ; i < NUM_SLIDER_GENERAL -1 ; i++) {
+    total_send_osc += data_OSC_general[i-1];
+  }
+
+  for ( int i = 101   ; i < 101 +NUM_SLIDER_ITEM ; i++) {
+    total_send_osc += data_OSC_item[i-101]; 
+  }
+
+  //send
+  if(ref_send_osc != total_send_osc) {
+    osc_prescene.send(RomanescoController, target_prescene) ; 
+    for(int i = 0 ; i < target_scene.length ; i++) {
+      osc_scene.send(RomanescoController, target_scene[i]) ; 
+    }
+    ref_send_osc = total_send_osc;
+    print("something change, new value is send to app Romanesco");
+  } 
 }
 
 
@@ -117,45 +139,47 @@ void draw_send_OSC() {
   
   
   
-void translateDataToSend() {
+void data_to_send() {
   //sound
-  value_button_general[1] = state_button_beat ;
-  value_button_general[2] = state_button_kick ;
-  value_button_general[3] = state_button_snare ;
-  value_button_general[4] = state_button_hat ;
+  value_button_general[1] = state_button_beat;
+  value_button_general[2] = state_button_kick;
+  value_button_general[3] = state_button_snare;
+  value_button_general[4] = state_button_hat;
 
-  value_button_general[5] = dropdown_font.getSelection() +1 ; ;
-  value_button_general[6] = state_curtain_button ;
-  value_button_general[7] = state_BackgroundButton ;
+  value_button_general[5] = dropdown_font.getSelection() +1;
+  value_button_general[6] = state_curtain_button;
+  value_button_general[7] = state_BackgroundButton;
   
-  value_button_general[8] = state_LightOneButton ;
-  value_button_general[9] = state_LightTwoButton ;
-  value_button_general[10] = state_LightAmbientButton ;
-  value_button_general[11] = state_LightOneAction ;
-  value_button_general[12] = state_LightTwoAction ;
-  value_button_general[13] = state_LightAmbientAction ;
+  value_button_general[8] = state_LightOneButton;
+  value_button_general[9] = state_LightTwoButton;
+  value_button_general[10] = state_LightAmbientButton;
+  value_button_general[11] = state_LightOneAction;
+  value_button_general[12] = state_LightTwoAction;
+  value_button_general[13] = state_LightAmbientAction;
 
   
-  if(state_bg_shader > SWITCH_VALUE_FOR_DROPDOWN)     value_button_general[14] = state_bg_shader ;
-  if(state_bitmap > SWITCH_VALUE_FOR_DROPDOWN)  value_button_general[15] = state_bitmap ;
-  if(state_svg > SWITCH_VALUE_FOR_DROPDOWN)     value_button_general[16] = state_svg ;
-  if(state_text > SWITCH_VALUE_FOR_DROPDOWN)     value_button_general[17] = state_text ;
-  if(state_movie > SWITCH_VALUE_FOR_DROPDOWN)     value_button_general[18] = state_movie ;
+  if(state_bg_shader > SWITCH_VALUE_FOR_DROPDOWN) value_button_general[14] = state_bg_shader;
+  if(state_bitmap > SWITCH_VALUE_FOR_DROPDOWN) value_button_general[15] = state_bitmap;
+  if(state_svg > SWITCH_VALUE_FOR_DROPDOWN) value_button_general[16] = state_svg;
+  if(state_text > SWITCH_VALUE_FOR_DROPDOWN) value_button_general[17] = state_text;
+  if(state_movie > SWITCH_VALUE_FOR_DROPDOWN) value_button_general[18] = state_movie;
   /**
   value_button_general[19] is free
   */
   // if(state_camera > SWITCH_VALUE_FOR_DROPDOWN)  value_button_general[19] = ID_camera_video_list[state_camera] ;
 
   
-  //BUTTON GROUP ONE
+  // ITEM BUTTON
   if(NUM_ITEM > 0 ) {
-    for ( int i = 0 ; i < NUM_ITEM   ; i ++) {
-      value_button_item[i *10 +1] = on_off_item_console[i *10 +1] ;
-      value_button_item[i *10 +2] = on_off_item_console[i *10 +2] ;
-      value_button_item[i *10 +3] = on_off_item_console[i *10 +3] ;
-      value_button_item[i *10 +4] = on_off_item_console[i *10 +4] ;
-      value_button_item[i *10 +5] = on_off_item_console[i *10 +5] ;
-      if (dropdown[i+1] != null) value_button_item[i *10 +9] = dropdown[i+1].getSelection() ;
+    for ( int i = 0 ; i < NUM_ITEM ; i ++) {
+      value_button_item[i *10 +1] = on_off_item_console[i *10 +1];
+      value_button_item[i *10 +2] = on_off_item_console[i *10 +2];
+      value_button_item[i *10 +3] = on_off_item_console[i *10 +3];
+      value_button_item[i *10 +4] = on_off_item_console[i *10 +4];
+      value_button_item[i *10 +5] = on_off_item_console[i *10 +5];
+      if (dropdown[i+1] != null) {
+        value_button_item[i *10 +9] = dropdown[i+1].getSelection();
+      }
     }
   }
 }

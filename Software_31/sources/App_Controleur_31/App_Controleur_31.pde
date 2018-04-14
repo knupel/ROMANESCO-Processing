@@ -86,7 +86,7 @@ void draw() {
   display_button_and_dropdown();
 
   update_midi();
-  draw_send_OSC();
+  send_OSC();
 
   display_structure_bottom();
 

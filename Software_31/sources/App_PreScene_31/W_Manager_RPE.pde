@@ -81,88 +81,85 @@ void update_var_items(int ID) {
 
 //
 void update_slider_value(int ID) {
-    if(FULL_RENDERING) {
-      /**
-      Changer : le fill et le stroke doivent se calculer sur des valeurs séparée, hue, sat, bright and alpha, sinon quand on les change cela change tout d'une seul coup.
-      */
-      // fill obj
-      if      ( !first_opening_item[ID] ) fill_item[ID]               = color ( fill_hue_raw, fill_sat_raw,  fill_bright_raw, fill_alpha_raw) ; 
-      else if ( fill_hue_temp != fill_hue_raw) fill_item[ID]       = color ( fill_hue_raw,      saturation(fill_item[ID]),    brightness(fill_item[ID]),  alpha(fill_item[ID])) ;
-      else if ( fill_sat_temp != fill_sat_raw) fill_item[ID]       = color ( hue(fill_item[ID]),  fill_sat_raw,               brightness(fill_item[ID]),  alpha(fill_item[ID])) ; 
-      else if ( fill_bright_temp != fill_bright_raw) fill_item[ID] = color ( hue(fill_item[ID]),  saturation(fill_item[ID]),    fill_bright_raw,          alpha(fill_item[ID])) ;   
-      else if ( fill_alpha_temp != fill_alpha_raw) fill_item[ID]   = color ( hue(fill_item[ID]),  saturation(fill_item[ID]),    brightness(fill_item[ID]),  fill_alpha_raw) ;  
-      // stroke obj
-      if      ( !first_opening_item[ID] ) stroke_item[ID]                   = color (stroke_hue_raw, stroke_sat_raw, stroke_bright_raw, stroke_alpha_raw) ; 
-      else if ( stroke_hue_temp != stroke_hue_raw) stroke_item[ID]       = color ( stroke_hue_raw,      saturation(stroke_item[ID]),  brightness(stroke_item[ID]),  alpha(stroke_item[ID])) ;
-      else if ( stroke_sat_temp != stroke_sat_raw) stroke_item[ID]       = color ( hue(stroke_item[ID]),  stroke_sat_raw,             brightness(stroke_item[ID]),  alpha(stroke_item[ID])) ; 
-      else if ( stroke_bright_temp != stroke_bright_raw) stroke_item[ID] = color ( hue(stroke_item[ID]),  saturation(stroke_item[ID]),  stroke_bright_raw,          alpha(stroke_item[ID])) ;   
-      else if ( stroke_alpha_temp != stroke_alpha_raw) stroke_item[ID]   = color ( hue(stroke_item[ID]),  saturation(stroke_item[ID]),  brightness(stroke_item[ID]),  stroke_alpha_raw) ;  
-      // thickness
-      if (thickness_raw != thickness_temp|| !first_opening_item[ID]) thickness_item[ID] = thickness_raw ;
-    } else {
-      // preview display
-      fill_item[ID] = COLOR_FILL_OBJ_PREVIEW ;
-      stroke_item[ID] =  COLOR_STROKE_OBJ_PREVIEW ;
-      thickness_item[ID] = THICKNESS_OBJ_PREVIEW ;
-    }
-    if (size_x_raw != size_x_temp || !first_opening_item[ID]) size_x_item[ID] = size_x_raw ; 
-    if (size_y_raw != size_y_temp || !first_opening_item[ID]) size_y_item[ID] = size_y_raw ; 
-    if (size_z_raw != size_z_temp || !first_opening_item[ID]) size_z_item[ID] = size_z_raw ;
+  if(FULL_RENDERING) {
+    /**
+    Changer : le fill et le stroke doivent se calculer sur des valeurs séparée, hue, sat, bright and alpha, sinon quand on les change cela change tout d'une seul coup.
+    */
+    // fill obj
+    if      ( !first_opening_item[ID] ) fill_item[ID]               = color ( fill_hue_raw, fill_sat_raw,  fill_bright_raw, fill_alpha_raw) ; 
+    else if ( fill_hue_temp != fill_hue_raw) fill_item[ID]       = color ( fill_hue_raw,      saturation(fill_item[ID]),    brightness(fill_item[ID]),  alpha(fill_item[ID])) ;
+    else if ( fill_sat_temp != fill_sat_raw) fill_item[ID]       = color ( hue(fill_item[ID]),  fill_sat_raw,               brightness(fill_item[ID]),  alpha(fill_item[ID])) ; 
+    else if ( fill_bright_temp != fill_bright_raw) fill_item[ID] = color ( hue(fill_item[ID]),  saturation(fill_item[ID]),    fill_bright_raw,          alpha(fill_item[ID])) ;   
+    else if ( fill_alpha_temp != fill_alpha_raw) fill_item[ID]   = color ( hue(fill_item[ID]),  saturation(fill_item[ID]),    brightness(fill_item[ID]),  fill_alpha_raw) ;  
+    // stroke obj
+    if      ( !first_opening_item[ID] ) stroke_item[ID]                   = color (stroke_hue_raw, stroke_sat_raw, stroke_bright_raw, stroke_alpha_raw) ; 
+    else if ( stroke_hue_temp != stroke_hue_raw) stroke_item[ID]       = color ( stroke_hue_raw,      saturation(stroke_item[ID]),  brightness(stroke_item[ID]),  alpha(stroke_item[ID])) ;
+    else if ( stroke_sat_temp != stroke_sat_raw) stroke_item[ID]       = color ( hue(stroke_item[ID]),  stroke_sat_raw,             brightness(stroke_item[ID]),  alpha(stroke_item[ID])) ; 
+    else if ( stroke_bright_temp != stroke_bright_raw) stroke_item[ID] = color ( hue(stroke_item[ID]),  saturation(stroke_item[ID]),  stroke_bright_raw,          alpha(stroke_item[ID])) ;   
+    else if ( stroke_alpha_temp != stroke_alpha_raw) stroke_item[ID]   = color ( hue(stroke_item[ID]),  saturation(stroke_item[ID]),  brightness(stroke_item[ID]),  stroke_alpha_raw) ;  
+    // thickness
+    if (thickness_raw != thickness_temp|| !first_opening_item[ID]) thickness_item[ID] = thickness_raw ;
+  } else {
+    // preview display
+    fill_item[ID] = COLOR_FILL_OBJ_PREVIEW ;
+    stroke_item[ID] =  COLOR_STROKE_OBJ_PREVIEW ;
+    thickness_item[ID] = THICKNESS_OBJ_PREVIEW ;
+  }
+  if (size_x_raw != size_x_temp || !first_opening_item[ID]) size_x_item[ID] = size_x_raw ; 
+  if (size_y_raw != size_y_temp || !first_opening_item[ID]) size_y_item[ID] = size_y_raw ; 
+  if (size_z_raw != size_z_temp || !first_opening_item[ID]) size_z_item[ID] = size_z_raw ;
 
-    if (font_size_raw != font_size_temp || !first_opening_item[ID]) font_size_item[ID] = font_size_raw ; 
+  if (font_size_raw != font_size_temp || !first_opening_item[ID]) font_size_item[ID] = font_size_raw ; 
 
-    if (canvas_x_raw != canvas_x_temp || !first_opening_item[ID]) canvas_x_item[ID] = canvas_x_raw ; 
-    if (canvas_y_raw != canvas_y_temp || !first_opening_item[ID]) canvas_y_item[ID] = canvas_y_raw ; 
-    if (canvas_z_raw != canvas_z_temp || !first_opening_item[ID]) canvas_z_item[ID] = canvas_z_raw ;
-
-
-    // column 2
-    if (reactivity_raw != reactivity_temp || !first_opening_item[ID]) reactivity_item[ID] = reactivity_raw ; 
-
-    if (speed_x_raw != speed_x_temp || !first_opening_item[ID]) speed_x_item[ID] = speed_x_raw ; 
-    if (speed_y_raw != speed_y_temp || !first_opening_item[ID]) speed_y_item[ID] = speed_y_raw ; 
-    if (speed_z_raw != speed_z_temp || !first_opening_item[ID]) speed_z_item[ID] = speed_z_raw ;
-
-    if (spurt_x_raw != spurt_x_temp || !first_opening_item[ID]) spurt_x_item[ID] = spurt_x_raw ; 
-    if (spurt_y_raw != spurt_y_temp || !first_opening_item[ID]) spurt_y_item[ID] = spurt_y_raw ; 
-    if (spurt_z_raw != spurt_z_temp || !first_opening_item[ID]) spurt_z_item[ID] = spurt_z_raw ;
-
-    if (dir_x_raw != dir_x_temp || !first_opening_item[ID]) dir_x_item[ID] = dir_x_raw ; 
-    if (dir_y_raw != dir_y_temp || !first_opening_item[ID]) dir_y_item[ID] = dir_y_raw ; 
-    if (dir_z_raw != dir_z_temp || !first_opening_item[ID]) dir_z_item[ID] = dir_z_raw ;
-
-    if (jitter_x_raw != jitter_x_temp || !first_opening_item[ID]) jitter_x_item[ID] = jitter_x_raw ; 
-    if (jitter_y_raw != jitter_y_temp || !first_opening_item[ID]) jitter_y_item[ID] = jitter_y_raw ; 
-    if (jitter_z_raw != jitter_z_temp || !first_opening_item[ID]) jitter_z_item[ID] = jitter_z_raw ;
-
-    if (swing_x_raw != swing_x_temp || !first_opening_item[ID]) swing_x_item[ID] = swing_x_raw ; 
-    if (swing_y_raw != swing_y_temp || !first_opening_item[ID]) swing_y_item[ID] = swing_y_raw ; 
-    if (swing_z_raw != swing_z_temp || !first_opening_item[ID]) swing_z_item[ID] = swing_z_raw ;
-
-    // col 3
-    if (quantity_raw != quantity_temp || !first_opening_item[ID]) quantity_item[ID] = quantity_raw ;
-    if (variety_raw != variety_temp || !first_opening_item[ID]) variety_item[ID] = variety_raw ;
-
-    if (life_raw != life_temp || !first_opening_item[ID]) life_item[ID] = life_raw ;
-    if (flow_raw != flow_temp || !first_opening_item[ID]) flow_item[ID] = flow_raw ;
-    if (quality_raw != quality_temp || !first_opening_item[ID]) quality_item[ID] = quality_raw ;
-
-    if (area_raw != area_temp || !first_opening_item[ID]) area_item[ID] = area_raw ;
-    if (angle_raw != angle_temp || !first_opening_item[ID]) angle_item[ID] = angle_raw ;
-    if (scope_raw != scope_temp || !first_opening_item[ID]) scope_item[ID] = scope_raw ;
-    if (scan_raw != scan_temp || !first_opening_item[ID]) scan_item[ID] = scan_raw ;
-
-    if (alignment_raw != alignment_temp || !first_opening_item[ID]) alignment_item[ID] = alignment_raw ;
-    if (repulsion_raw != repulsion_temp || !first_opening_item[ID]) repulsion_item[ID] = repulsion_raw ;
-    if (attraction_raw != attraction_temp || !first_opening_item[ID]) attraction_item[ID] = attraction_raw ;
-    if (density_raw != density_temp || !first_opening_item[ID]) density_item[ID] = density_raw ;
-
-    if (influence_raw != influence_temp || !first_opening_item[ID]) influence_item[ID] = influence_raw ;
-    if (calm_raw != calm_temp || !first_opening_item[ID]) calm_item[ID] = calm_raw ;
-    if (spectrum_raw != spectrum_temp || !first_opening_item[ID]) spectrum_item[ID] = spectrum_raw ;
+  if (canvas_x_raw != canvas_x_temp || !first_opening_item[ID]) canvas_x_item[ID] = canvas_x_raw ; 
+  if (canvas_y_raw != canvas_y_temp || !first_opening_item[ID]) canvas_y_item[ID] = canvas_y_raw ; 
+  if (canvas_z_raw != canvas_z_temp || !first_opening_item[ID]) canvas_z_item[ID] = canvas_z_raw ;
 
 
+  // column 2
+  if (reactivity_raw != reactivity_temp || !first_opening_item[ID]) reactivity_item[ID] = reactivity_raw ; 
 
+  if (speed_x_raw != speed_x_temp || !first_opening_item[ID]) speed_x_item[ID] = speed_x_raw ; 
+  if (speed_y_raw != speed_y_temp || !first_opening_item[ID]) speed_y_item[ID] = speed_y_raw ; 
+  if (speed_z_raw != speed_z_temp || !first_opening_item[ID]) speed_z_item[ID] = speed_z_raw ;
+
+  if (spurt_x_raw != spurt_x_temp || !first_opening_item[ID]) spurt_x_item[ID] = spurt_x_raw ; 
+  if (spurt_y_raw != spurt_y_temp || !first_opening_item[ID]) spurt_y_item[ID] = spurt_y_raw ; 
+  if (spurt_z_raw != spurt_z_temp || !first_opening_item[ID]) spurt_z_item[ID] = spurt_z_raw ;
+
+  if (dir_x_raw != dir_x_temp || !first_opening_item[ID]) dir_x_item[ID] = dir_x_raw ; 
+  if (dir_y_raw != dir_y_temp || !first_opening_item[ID]) dir_y_item[ID] = dir_y_raw ; 
+  if (dir_z_raw != dir_z_temp || !first_opening_item[ID]) dir_z_item[ID] = dir_z_raw ;
+
+  if (jitter_x_raw != jitter_x_temp || !first_opening_item[ID]) jitter_x_item[ID] = jitter_x_raw ; 
+  if (jitter_y_raw != jitter_y_temp || !first_opening_item[ID]) jitter_y_item[ID] = jitter_y_raw ; 
+  if (jitter_z_raw != jitter_z_temp || !first_opening_item[ID]) jitter_z_item[ID] = jitter_z_raw ;
+
+  if (swing_x_raw != swing_x_temp || !first_opening_item[ID]) swing_x_item[ID] = swing_x_raw ; 
+  if (swing_y_raw != swing_y_temp || !first_opening_item[ID]) swing_y_item[ID] = swing_y_raw ; 
+  if (swing_z_raw != swing_z_temp || !first_opening_item[ID]) swing_z_item[ID] = swing_z_raw ;
+
+  // col 3
+  if (quantity_raw != quantity_temp || !first_opening_item[ID]) quantity_item[ID] = quantity_raw ;
+  if (variety_raw != variety_temp || !first_opening_item[ID]) variety_item[ID] = variety_raw ;
+
+  if (life_raw != life_temp || !first_opening_item[ID]) life_item[ID] = life_raw ;
+  if (flow_raw != flow_temp || !first_opening_item[ID]) flow_item[ID] = flow_raw ;
+  if (quality_raw != quality_temp || !first_opening_item[ID]) quality_item[ID] = quality_raw ;
+
+  if (area_raw != area_temp || !first_opening_item[ID]) area_item[ID] = area_raw ;
+  if (angle_raw != angle_temp || !first_opening_item[ID]) angle_item[ID] = angle_raw ;
+  if (scope_raw != scope_temp || !first_opening_item[ID]) scope_item[ID] = scope_raw ;
+  if (scan_raw != scan_temp || !first_opening_item[ID]) scan_item[ID] = scan_raw ;
+
+  if (alignment_raw != alignment_temp || !first_opening_item[ID]) alignment_item[ID] = alignment_raw ;
+  if (repulsion_raw != repulsion_temp || !first_opening_item[ID]) repulsion_item[ID] = repulsion_raw ;
+  if (attraction_raw != attraction_temp || !first_opening_item[ID]) attraction_item[ID] = attraction_raw ;
+  if (density_raw != density_temp || !first_opening_item[ID]) density_item[ID] = density_raw ;
+
+  if (influence_raw != influence_temp || !first_opening_item[ID]) influence_item[ID] = influence_raw ;
+  if (calm_raw != calm_temp || !first_opening_item[ID]) calm_item[ID] = calm_raw ;
+  if (spectrum_raw != spectrum_temp || !first_opening_item[ID]) spectrum_item[ID] = spectrum_raw ;
   /** 
   make the obj has be never update in the future except by the moving slider 
   */

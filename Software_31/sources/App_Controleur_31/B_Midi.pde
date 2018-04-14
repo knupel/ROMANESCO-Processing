@@ -1,8 +1,8 @@
-// Tab: B_Midi
-// MIDI controller version 2.0
-
-// TOP METHOD
-/////////////
+/**
+MIDI CONTROL
+v 2.0.1
+2014-2018
+*/
 void init_midi() {
   check_midi_input() ;
   open_midi_bus() ;
@@ -13,29 +13,33 @@ void update_midi() {
   midi_select(which_midi_input, num_midi_input) ;
   use_specific_midi_input(which_midi_input) ;
 }
-// END TOP METHOD
-/////////////////
 
 
 
 
 
-// MAIN METHODE
-//////////////
-import themidibus.*; //Import the library
-MidiBus [] myBus; // The MidiBus
-int  num_midi_input ;
-int which_midi_input = -1 ;
-boolean choice_midi_device, choice_midi_default_device ;
-String [] name_midi_input ;
-String [] ID_midi_input ;
 
 
 
+
+
+
+
+
+/**
+MAIN METHOD
+*/
+import themidibus.*; 
+MidiBus [] myBus; 
+int  num_midi_input;
+int which_midi_input = -1;
+boolean choice_midi_device, choice_midi_default_device;
+String [] name_midi_input;
+String [] ID_midi_input;
 void check_midi_input() {
-  name_midi_input = MidiBus.availableInputs() ;
-  num_midi_input = name_midi_input.length ;
-  ID_midi_input = new String[num_midi_input] ;
+  name_midi_input = MidiBus.availableInputs();
+  num_midi_input = name_midi_input.length;
+  ID_midi_input = new String[num_midi_input];
 }
 
 
@@ -72,8 +76,6 @@ void controllerChange(int channel, int CC, int value, long timestamp, String bus
   long_timestamp = timestamp ;
 }
 
-// END MAIN METHODE
-///////////////////
 
 
 
@@ -128,19 +130,18 @@ void controllerChange(int channel, int CC, int value, long timestamp, String bus
 
 
 
-
-
-// ROMANESCO METHODE MIDI
-//////////////////////////
 
 // give the midi info to the romanesco variable
 void use_specific_midi_input(int ID) {
-  if(ID_midi_input != null && ID >= 0) {
-    if(ID_midi_input [ID].equals(midi_bus_name)) {
+  if(ID_midi_input != null && ID >= 0 && ID < ID_midi_input.length) {
+    if(ID_midi_input[ID].equals(midi_bus_name)) {
       midi_channel_romanesco = midi_channel ;
       midi_CC_romanesco = midi_CC ;
       midi_value_romanesco = midi_value ;
     }
+  }
+  if(ID >= ID_midi_input.length) {
+    printErr("No MIDI devices match with your request");
   }
 }
 
@@ -215,8 +216,6 @@ void window_midi_info(Vec2 pos, int size_x, int spacing) {
   }
   rect(pos_x, pos_y, size_x, size_y) ;
 }
-// END DISPLAY INFO MIDI INPUT
-//////////////////////////////
 
 
 
@@ -228,19 +227,13 @@ void window_midi_info(Vec2 pos, int size_x, int spacing) {
 
 // ANNEXE don't need MIDI LIBRARIE CODE
 boolean init_midi ;
-
 void midi_select(int which_one, int num) {
-  /* 
-  Button to activate the midi setting > mapping + choice the midi deveice
-  */
-   if(selectMidi || !init_midi) {
-    //check_midi_input() ;
+  if(selectMidi || !init_midi) {
     open_input_midi(which_one, num) ;
     init_midi = true ;
   }
 
-  if(selectMidi) {
-    
+  if(selectMidi) {  
     if(num < 1 ) fill(rougeFonce) ; else fill(grisTresFonce) ;
     stroke(jaune) ;
     strokeWeight(1.5) ;
@@ -252,16 +245,8 @@ void midi_select(int which_one, int num) {
     display_select_midi_device(pos_midi_info, spacing_midi_info) ;
     display_midi_device_available(pos_midi_info, spacing_midi_info) ;
   }
-
   if (state_midi_button == 1) selectMidi = true ; else selectMidi = false ;
-
 }
-
-
-
-
-
-
 
 
 void select_input_midi_device() {
@@ -282,8 +267,6 @@ void keypressed_midi() {
   if (key =='n' && choice_midi_device) reset_input_midi_device() ;
 }
 
-// END SELECT MIDI DEVICE
-/////////////////////////
 
 
 
@@ -309,9 +292,9 @@ void keypressed_midi() {
 
 
 
-
-// MIDI MANAGER
-/////////////////
+/**
+MIDI MANAGER
+*/
 void midiButtonManager(boolean saveButton) {
   // close loop for load save button
   // see void buttonSetSaveSetting()
@@ -365,10 +348,6 @@ void updateMidiButton(Button b) {
 }
 
 
-
-//SLIDER MIDI SETTING
-
-
 //give which button is active and check is this button have a same IDmidi that Object
 void update_midi_slider(int whichOne) {
   // update info from midi controller
@@ -389,5 +368,4 @@ void update_midi_slider(int whichOne) {
   //ID midi from save
   if(LOAD_SETTING) slider[whichOne].selectIDmidi((int)info_save_raw_list(infoSlider, whichOne).b) ;
 }
-// END MIDI MANAGER
-///////////////////
+
