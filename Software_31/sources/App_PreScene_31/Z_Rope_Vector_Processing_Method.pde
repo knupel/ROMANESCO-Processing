@@ -1,10 +1,9 @@
 /**
-ROPE - Romanesco processing environment – 
+ROPE METHOD
+v 1.3.2.0
 * Copyleft (c) 2014-2017 
 * Stan le Punk > http://stanlepunk.xyz/
-Vec, iVec and bVec method
-v 1.3.2.0
-2016-2017
+Processing and Vec, iVec and bVec method
 the idea here is create method directly insprating from Processing to simplify the coder life
 * @author Stan le Punk
 * @see https://github.com/StanLepunK/Rope

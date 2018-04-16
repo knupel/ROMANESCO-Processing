@@ -1,7 +1,7 @@
 /**
 Ecosysteme 
 2016-2018
-v 0.1.3
+v 0.1.4
 */
 class Ecosystem_agent extends Romanesco {
 	public Ecosystem_agent() {
@@ -9,7 +9,7 @@ class Ecosystem_agent extends Romanesco {
 		ID_item = 25;
 		ID_group = 1;
 		RPE_author  = "Stan le Punk";
-		RPE_version = "Version 0.1.3";
+		RPE_version = "Version 0.1.4";
 		RPE_pack = "Ecosystem";
 		RPE_mode = "Virus/Human/Alien/Other"; // separate the differentes mode by "/"
 		RPE_slider = "Fill hue,Fill sat,Fill bright,Fill alpha,Stroke hue,Stroke sat,Stroke bright,Stroke alpha,Thickness,Size X,Size Y,Size Z,Speed X,Canvas X,Canvas Y,Canvas Z,Speed X,Quantity,Spectrum,Life" ;
@@ -174,14 +174,14 @@ class Ecosystem_agent extends Romanesco {
     int costume_carnivore = STAR_9_ROPE ;
     int costume_omnivore = STAR_5_ROPE ;
     int costume_bacterium = SQUARE_ROPE ;
-    int costume_dead = CROSS_2_ROPE ;
+    int costume_dead = CROSS_BOX_2_ROPE;
     if(dimension[ID_item]) {
       costume_flora = VIRUS_3_8_64_ROPE ;
       costume_herbivore = TETRAHEDRON_ROPE ;
       costume_carnivore = SPHERE_HIGH_ROPE ;
       costume_omnivore = SPHERE_LOW_ROPE ;
       costume_bacterium = RECT_ROPE ;
-      costume_dead = CROSS_3_ROPE ;
+      costume_dead = CROSS_BOX_3_ROPE;
 
     }
 
@@ -443,7 +443,7 @@ void ecosystem_setting(Biomass b, boolean host_mode, Vec3 factor_size, float fac
 
   // DEAD
   if(style_dead == null) {
-    costume = CROSS_2_ROPE ;
+    costume = CROSS_BOX_2_ROPE;
     Vec4 fill_dead = Vec4(0, 0, 30, 100) ;
     Vec4 stroke_dead = Vec4(0, 0, 30, 100) ;
     Vec3 alpha_behavior_dead = Vec3(0, -1, 1) ;

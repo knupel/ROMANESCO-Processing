@@ -1,9 +1,8 @@
 /**
-ROPE - Romanesco processing environment – 
+ROPE VECTOR
+v 2.6.8
 * Copyleft (c) 2014-2018 
 * Stan le Punk > http://stanlepunk.xyz/
-ROPE vector
-v 2.6.7
 Rope – Romanesco Processing Environment: 2015–2017
 * @author Stan le Punk
 * @see https://github.com/StanLepunK/Rope

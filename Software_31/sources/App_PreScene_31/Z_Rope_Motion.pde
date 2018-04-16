@@ -1,6 +1,56 @@
 /**
-Class Motion 1.0.7.2
-Rope – Romanesco Processing Environment – 2015 – 2017
+ROPE - Romanesco processing environment – 
+* Copyleft (c) 2014-2017 
+* Stan le Punk > http://stanlepunk.xyz/
+Rope Motion  2015 – 2017
+v 1.1.0
+Rope – Romanesco Processing Environment – 
+* @author Stan le Punk
+* @see https://github.com/StanLepunK/Rope
+*/
+
+
+
+
+/**
+Method motion
+v 0.1.0
+*/
+Vec2 follow(Vec2 target, float speed) {
+  Vec3 f = follow(Vec3(target.x,target.y,0), speed);
+  return Vec2(f.x,f.y);
+}
+
+Vec3 dest_3D_follow_rope;
+// Compute position Vector Traveller, give the target pos and the speed to go.
+Vec3 follow(Vec3 target, float speed) {
+  if(dest_3D_follow_rope == null) dest_3D_follow_rope = Vec3();
+  // calcul X pos
+  float dx = target.x - dest_3D_follow_rope.x;
+  if(abs(dx) != 0) {
+    dest_3D_follow_rope.x += dx * speed;
+  }
+  // calcul Y pos
+  float dy = target.y - dest_3D_follow_rope.y;
+  if(abs(dy) != 0) {
+    dest_3D_follow_rope.y += dy * speed;
+  }
+  // calcul Z pos
+  float dz = target.z - dest_3D_follow_rope.z;
+  if(abs(dz) != 0) {
+    dest_3D_follow_rope.z += dz * speed;
+  }
+  return dest_3D_follow_rope;
+}
+
+
+
+
+
+
+/**
+Class Motion 
+v 1.0.7.2
 * @author Stan le Punk
 * @see https://github.com/StanLepunK/Motion
 */

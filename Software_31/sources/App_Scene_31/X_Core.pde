@@ -1,10 +1,43 @@
 /**
 CORE Rope SCENE and PRESCENE 
 2015-2018
-v 1.2.1
+v 1.3.0
 */
+import java.net.*;
+import java.io.*;
+import java.util.*;
+import java.awt.*;
+import java.util.Iterator;
+import java.lang.reflect.*; 
+import java.awt.image.* ;
+
+import processing.video.*;
+import oscP5.*;
+import netP5.*;
+import processing.net.*;
+import processing.pdf.*;
+//FLUX RSS or TWITTER ????
+import com.sun.syndication.feed.synd.*;
+import com.sun.syndication.io.*;
+//SOUND
+import ddf.minim.*;
+import ddf.minim.analysis.*;
+//GEOMERATIVE
+import geomerative.*;
+//TOXIC
+import toxi.geom.*;
+import toxi.geom.mesh2d.*;
+import toxi.util.*;
+import toxi.util.datatypes.*;
+import toxi.processing.*;
+// METEO
+import com.onformative.yahooweather.*;
+// SYPHON
+import codeanticode.syphon.*;
+
+
 /**
-INIT Rope
+INIT Romanesco
 */
 boolean init_romanesco = true ;
 void init_romanesco() {
@@ -36,14 +69,28 @@ void set_screen() {
   TableRow row = configurationScene.getRow(0);
   int w = width;
   int h = height;
+  int x = 0;
+  int y = 0;
+
+  if(IAM.equals("prescene")) {
+    x = row.getInt("prescene_x"); 
+    y = row.getInt("prescene_y");
+  } else {
+    x = row.getInt("scene_x"); 
+    y = row.getInt("scene_y");
+  }
+
   if(FULL_RENDERING) {
     w = row.getInt("width"); 
     h = row.getInt("height");
     surface.setSize(w,h);
+    if(!FULL_SCREEN) surface.setLocation(x,y);
+    
   } else {
     w = row.getInt("preview_width"); 
     h = row.getInt("preview_height");
     surface.setSize(w,h);
+    surface.setLocation(x,y);
   }
   scene_width = w;
   scene_height = h;
@@ -124,9 +171,9 @@ void select_costume(int id_item,  String rpe_name) {
     }
   } else if(costume_romanesco.equals("cross") || costume_romanesco.equals("CROSS") || costume_romanesco.equals("Cross")) {
     if(!dimension[id_item]) {
-      costume[id_item] = CROSS_2_ROPE ; 
+      costume[id_item] = CROSS_BOX_2_ROPE; 
     } else {
-      costume[id_item] = CROSS_3_ROPE ;
+      costume[id_item] = CROSS_BOX_3_ROPE;
     }
   } else if(costume_romanesco.equals("star 4") || costume_romanesco.equals("STAR 4") || costume_romanesco.equals("Star 4")) {
     if(!dimension[id_item]) {
@@ -1162,17 +1209,7 @@ void path_setting(String path) {
 }
 
 
-/**
-keyboard
-*/
-//short Touch
-boolean aTouch, bTouch, cTouch, dTouch, eTouch, fTouch, gTouch, hTouch, iTouch, jTouch, kTouch, lTouch, mTouch, nTouch, oTouch, pTouch, qTouch, rTouch, sTouch, tTouch, uTouch, vTouch, wTouch, xTouch, yTouch, zTouch,
-        leftTouch, rightTouch, upTouch, downTouch, 
-        touch0, touch1, touch2, touch3, touch4, touch5, touch6, touch7, touch8, touch9, 
-        backspaceTouch, deleteTouch, enterTouch, returnTouch, shiftTouch, altTouch, escTouch, ctrlTouch, cmdTouch ;
-//long touch
-boolean cLongTouch, lLongTouch, nLongTouch, vLongTouch,
-        spaceTouch, shiftLongTouch ;  
+
 
 
 
@@ -1580,25 +1617,6 @@ void sound_romanesco() {
 
 
 
-
-
-/**
-
-
-
-
-
-
-REMOVE CAMERA COMPUTER
-
-
-
-
-
-
-
-
-*/
 
 
 /**

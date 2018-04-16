@@ -2,41 +2,24 @@
 VARIABLE  
 Romanesco Processing Environment
 2015-2018
-v 1.1.10
+v 1.2.0
 */
-// GLOBAL SETTING ////
 
-import java.net.*;
-import java.io.*;
-import java.util.*;
-import java.awt.*;
-import java.util.Iterator;
-import java.lang.reflect.*; 
-import java.awt.image.* ;
+/**
+keyboard
+*/
+//short Touch
+boolean aTouch, bTouch, cTouch, dTouch, eTouch, fTouch, gTouch, hTouch, iTouch, jTouch, kTouch, lTouch, mTouch, nTouch, oTouch, pTouch, qTouch, rTouch, sTouch, tTouch, uTouch, vTouch, wTouch, xTouch, yTouch, zTouch,
+        leftTouch, rightTouch, upTouch, downTouch, 
+        touch0, touch1, touch2, touch3, touch4, touch5, touch6, touch7, touch8, touch9, 
+        backspaceTouch, deleteTouch, enterTouch, returnTouch, shiftTouch, altTouch, escTouch, ctrlTouch, cmdTouch ;
+//long touch
+boolean cLongTouch, lLongTouch, nLongTouch, vLongTouch,
+        spaceTouch, shiftLongTouch;  
 
-import processing.video.*;
-import oscP5.*;
-import netP5.*;
-import processing.net.*;
-import processing.pdf.*;
-//FLUX RSS or TWITTER ????
-import com.sun.syndication.feed.synd.*;
-import com.sun.syndication.io.*;
-//SOUND
-import ddf.minim.*;
-import ddf.minim.analysis.*;
-//GEOMERATIVE
-import geomerative.*;
-//TOXIC
-import toxi.geom.*;
-import toxi.geom.mesh2d.*;
-import toxi.util.*;
-import toxi.util.datatypes.*;
-import toxi.processing.*;
-// METEO
-import com.onformative.yahooweather.*;
-// SYPHON
-import codeanticode.syphon.*;
+
+
+
 
 //CALLING class or library in Other Class, you must call the PApplet too in your class
 PApplet callingClass = this ;
