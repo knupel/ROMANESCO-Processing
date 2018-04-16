@@ -1908,9 +1908,9 @@ class ROPE_svg {
   
   
   // Local method
-  int rank_analyze = 0 ;
+  int rankey_analyze = 0 ;
   private void deep_analyze_SVG(String header, boolean style, XML target, String ancestral_name, String opacity_group) {
-    rank_analyze ++ ;
+    rankey_analyze ++ ;
     String ID_xml =("") ;
     ID_xml = get_kind_SVG(target) ;
 

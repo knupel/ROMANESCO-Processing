@@ -151,7 +151,7 @@ class Escargot extends Romanesco {
          motionInfo.x = deg360(convertTilt) ;
        }
        
-       // if (!spaceTouch) for( Old_Pixel p : listEscargot) {
+       // if (!key_space_long) for( Old_Pixel p : listEscargot) {
        //alternat beween the pen and the controleur
        // if( pen[ID_item].x == 0 && pen[ID_item].y == 0 ) newDirection = normalDir(int(map(valueObj[ID_item][18],0,100,0,360))) ; else newDirection = new PVector (-pen[ID_item].x  , -pen[ID_item].y ) ;
        
@@ -182,7 +182,7 @@ class Escargot extends Romanesco {
   
       
        //security for the droping img from external folder
-       if(parameter[ID_item] && aTouch ) ratioImg = !ratioImg ;
+       if(parameter[ID_item] && key_a ) ratioImg = !ratioImg ;
        if(bitmap_import[ID_item] != null && bitmap_import[ID_item].width > 3 && ratioImg ) {
          analyzeImg(pixelAnalyzeSize) ;
          // ratioImgWindow = new PVector ((float)width / (float)img.width , (float)height / (float)img.height ) ;
@@ -223,17 +223,17 @@ class Escargot extends Romanesco {
       
       
       //choice new pattern SVG
-      if ( action[ID_item] && pTouch ) {
+      if ( action[ID_item] && key_p ) {
         //step 1 clear the list for new analyze
         drawVertexSVG = false ;
         selectInput("select SVG pattern 50x50", "choiceSVG");
       }
       
       //change the color palette
-      if (action[ID_item] && xTouch ) paletteRandom(HSBpalette, HSBmode ) ;
+      if (action[ID_item] && key_x ) paletteRandom(HSBpalette, HSBmode ) ;
       
       //clear the pixels for the new analyze
-      if (action[ID_item] && ( deleteTouch || backspaceTouch)) {
+      if (action[ID_item] && ( key_delete || key_backspace)) {
         escargotClear() ;
         analyzeDone = false ;
         totalPixCheckedInTheEscargot = 0 ;

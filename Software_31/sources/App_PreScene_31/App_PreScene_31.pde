@@ -26,7 +26,7 @@ boolean FULL_SCREEN = false ;
 boolean TABLET = false; // now tablet library don't work in OPENGL renderer
 
 
-boolean HOME = false;
+boolean HOME = true;
 /**
 SETTINGS
 */
@@ -109,7 +109,7 @@ void romanesco() {
   update_OSC_data_controller();
 
   // if(keyboard_new_event) {
-  write_osc_keyboard_short_event();
+  write_oskey_cboard_short_event();
   //   keyboard_new_event = false ;
   //  }
   write_osc_other_event();
@@ -150,7 +150,7 @@ void romanesco() {
     save_PNG();
   }
   // this method is outside de bracket (FULL_RENDERING) to give the possibility to send the order to Scene
-  if(pTouch) event_PNG();
+  if(key_p) event_PNG();
   
   // misc
   update_temp_value();

@@ -81,7 +81,7 @@ class Letter extends Romanesco {
       }
     }
     
-    if(allBeats(ID_item) > 10 || nTouch ) {
+    if(allBeats(ID_item) > 10 || key_n ) {
       axeLetter = int(random (grp.countChildren())) ;
     }
     
@@ -173,7 +173,7 @@ class Letter extends Romanesco {
   
   void wheelLetter(int num, float speed, PVector jttr) {
     // direction rotation for each one
-    if(frameCount%160 == 0 || nTouch) whichOneChangeDirection = round(random(1,num)) ;
+    if(frameCount%160 == 0 || key_n) whichOneChangeDirection = round(random(1,num)) ;
     //position
     for ( int i = 0 ; i < num ; i++) {
       int targetLetter ;

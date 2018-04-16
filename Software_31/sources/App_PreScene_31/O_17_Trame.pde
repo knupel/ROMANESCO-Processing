@@ -76,8 +76,8 @@ class Damier extends Romanesco {
     amp *= amp ;
 
     // axe de rotation
-    // if(spaceTouch) lattice = Vec3(mouse[ID_item].x +width/2,mouse[ID_item].y +height/2, mouse[ID_item].z) ;
-    if(spaceTouch) lattice = Vec3(mouse[ID_item]) ;
+    // if(key_space_long) lattice = Vec3(mouse[ID_item].x +width/2,mouse[ID_item].y +height/2, mouse[ID_item].z) ;
+    if(key_space_long) lattice = Vec3(mouse[ID_item]) ;
     //MODE DISPLAY
     if(mode[ID_item] == 0 || mode[ID_item] == 255) trame.drawTrameRect(lattice, angleTrame, angle, size , q, g, d, amp) ;
     else if (mode[ID_item] == 1) trame.drawTrameDisc(lattice, angleTrame, angle, size , q, g, d, amp) ;

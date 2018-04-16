@@ -110,7 +110,7 @@ class Vectorial extends Romanesco {
       normalize_fill.set(1, normalize_sat_fill,normalize_bright_fill, normalize_alpha_fill) ;
       normalize_stroke.set(1,normalize_sat_stroke,normalize_bright_stroke, normalize_alpha_stroke) ;
       walker_svg_3D(pos_3D, scale_3D, svg_import[ID_item], normalize_fill, normalize_stroke, true) ;
-      if(nTouch ) svg_import[ID_item].build() ;
+      if(key_n ) svg_import[ID_item].build() ;
       if(beat_factor > 5 && FULL_RENDERING) svg_import[ID_item].build() ;
     // walker colour
     } else if(mode[ID_item] == 3 && FULL_RENDERING) {
@@ -118,7 +118,7 @@ class Vectorial extends Romanesco {
       normalize_fill.set(normalize_hue_fill, normalize_sat_fill,normalize_bright_fill, normalize_alpha_fill) ;
       normalize_stroke.set(normalize_hue_stroke,normalize_sat_stroke,normalize_bright_stroke, normalize_alpha_stroke) ;
       walker_svg_3D(pos_3D, scale_3D, svg_import[ID_item], normalize_fill, normalize_stroke, thickness_item[ID_item], false) ;
-      if(nTouch ) svg_import[ID_item].build() ;
+      if(key_n ) svg_import[ID_item].build() ;
       if(beat_factor > 5 && FULL_RENDERING) svg_import[ID_item].build() ;
     } else {
       if(walker) {

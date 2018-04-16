@@ -209,7 +209,7 @@ void item_move(boolean movePos, boolean moveDir, int ID) {
   */
 
   //RESET
-  if(touch0) {
+  if(key_0) {
     pos_item_final[ID].set(item_setting_position [0][ID]);
     dir_item_final[ID].set(item_setting_direction [0][ID]) ;
     
@@ -487,7 +487,7 @@ void set_var_camera_romanesco() {
   /* this method need to be on the Prescene sketch and on the window.
   1. boolean prescene : On prescene, because on Scene we don't need to have a global view : boolean prescene
   2. boolean MOUSE_IN_OUT : because if we mode out the sketch the keyevent is not updated, and the camera stay in camera view */
-  if(FULL_RENDERING || (cLongTouch && (MOUSE_IN_OUT || clickLongLeft[0] || clickLongRight[0]) && prescene)) {
+  if(FULL_RENDERING || (key_c_long && (MOUSE_IN_OUT || clickLongLeft[0] || clickLongRight[0]) && prescene)) {
     final_camera_full_rendering() ; 
   } else {
     final_camera_low_rendering() ;
@@ -540,7 +540,7 @@ void final_camera_full_rendering() {
 
 
   // final camera translate postion
-  if (check_cursor_translate(cLongTouch) || specialMoveCamera ) {
+  if (check_cursor_translate(key_c_long) || specialMoveCamera ) {
     if(finalSceneCamera == null) {
       finalSceneCamera = Vec3 (add(sceneCamera, displacement_scene)) ;
     } else {
@@ -548,7 +548,7 @@ void final_camera_full_rendering() {
     }
   }
   // final camera rotate position / eye camera
-  if (check_cursor_rotate(cLongTouch) || specialMoveCamera ) { 
+  if (check_cursor_rotate(key_c_long) || specialMoveCamera ) { 
     if(finalEyeCamera == null) {
       finalEyeCamera = Vec2 (radians(eyeCamera.x), radians(eyeCamera.y) ) ;
     } else {
@@ -615,7 +615,7 @@ void catchCameraInfo() {
 
 //camera order from the mouse or from the leap
 void order_camera() {
-  boolean authorization = cLongTouch ;
+  boolean authorization = key_c_long ;
 
   if(authorization) {
     if(ORDER_ONE || ORDER_THREE) {
@@ -633,8 +633,8 @@ void order_camera() {
     sceneCamera.z -= wheel[0] ;
       
     // change camera position
-    if(enterTouch) travelling(posCamRef) ;
-    if (touch0) {
+    if(key_enter) travelling(posCamRef) ;
+    if (key_0) {
       reset_camera(0) ;
     }
   } else if (!authorization || (ORDER_ONE && ORDER_ONE && ORDER_THREE) ) {
@@ -657,7 +657,7 @@ void startCamera() {
   // scene orientation direction
   /* eyeCamera, is not a good terminilogy because the real eye camera is not use here. Here we just move the world. */
   rotateX(finalEyeCamera.x) ;
-  if(bTouch) {
+  if(key_b) {
     if(switch_rotate_YZ) {
       switch_rotate_YZ = false; 
     } else {
@@ -706,7 +706,7 @@ void update_camera_romanesco(boolean leapMotion) {
   if(mouse_ref_inertia_rotate == null) mouse_ref_inertia_translate = mouse[0].copy() ;
 
   // make ref
-  if(cLongTouch) {
+  if(key_c_long) {
     if (moveScene) {
       mouse_ref_inertia_translate = mouse[0].copy() ; 
     } 
@@ -716,7 +716,7 @@ void update_camera_romanesco(boolean leapMotion) {
   } 
   
   // create new pos
-  if(cLongTouch) { 
+  if(key_c_long) { 
     // scene / translate
     if(moveScene || motion_translate.velocity_is()) {
       cursor_final_translate.set(update_cursor(motion_translate, mouse_ref_inertia_translate, cursor_final_translate)) ;
@@ -754,7 +754,7 @@ void update_camera_romanesco(boolean leapMotion) {
     reset_inertia = false ;
   } 
 
-  if(spaceTouch) {
+  if(key_space_long) {
     reset_inertia = true ;   
   } 
 }

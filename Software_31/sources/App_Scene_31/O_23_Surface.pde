@@ -80,7 +80,7 @@ class Surface extends Romanesco {
     sizePixel_image = floor(map(quality_item[ID_item], 0,1,width/20,2)) ;
     if(!FULL_RENDERING) sizePixel_image *= 3 ;
     // update data of the image
-    if(nTouch) {
+    if(key_n) {
       newPicture = false ; 
       choicePicture = false ;
     }

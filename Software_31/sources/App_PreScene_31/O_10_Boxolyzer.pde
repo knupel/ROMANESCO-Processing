@@ -60,7 +60,7 @@ class Boxolyzer extends Romanesco {
   boolean orientation ;
   // BOXLIZER CIRCLE
   void boxolyzerCircle(Vec3 size, int diam, boolean groundPosition, float dir) {
-    if( action[ID_item] && rTouch ) orientation = !orientation ;
+    if( action[ID_item] && key_r ) orientation = !orientation ;
     int surface = diam*diam ; // surface is equale of square surface where is the cirlcke...make sens ?
     int radius = ceil(radius_from_circle_surface(surface)) ;
     

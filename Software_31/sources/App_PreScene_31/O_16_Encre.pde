@@ -77,7 +77,7 @@ class Spray extends Romanesco {
     
     
     if(mode[ID_item] == 0 ) {
-      if(clickLongLeft[ID_item] && nLongTouch || starList.size()<1 ) starProduction() ;
+      if(clickLongLeft[ID_item] && key_n_long || starList.size()<1 ) starProduction() ;
       displayStar() ;
     }
     else if(mode[ID_item] == 1 ) encre(ink_flux, ink_diffusion, ink_dry, spray_power, spray_angle, spray_direction, factor_pressure, thickness, fill_item[ID_item]) ;
@@ -209,7 +209,7 @@ class Spray extends Romanesco {
    // add encre
    int security ;
    if (FULL_RENDERING) security = 500000 ; else security = 5000 ;
-   if (action[ID_item] && nLongTouch && clickLongLeft[0] && encreList.size() < security) {
+   if (action[ID_item] && key_n_long && clickLongLeft[0] && encreList.size() < security) {
     addEncre(factorPressure, sprayDirection, angleSpray, spray, inkDiffusion, inkFlux, new_colour) ; 
   }
   

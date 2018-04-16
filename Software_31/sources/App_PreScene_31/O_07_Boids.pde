@@ -53,7 +53,7 @@ class Boids extends Romanesco {
     // ANNEXE methods
     
     // GOAL of the boids
-    if(spaceTouch) {
+    if(key_space_long) {
       float depthGoal =sin(frameCount *.002) *width ;
       float pos_x = map(mouse[ID_item].x,0,width, -canvas_x_item[ID_item], canvas_x_item[ID_item] ) ;
       float pos_y = map(mouse[ID_item].y,0,height, -canvas_y_item[ID_item], canvas_y_item[ID_item] ) ;
@@ -109,7 +109,7 @@ class Boids extends Romanesco {
     
     // clear the boids list
     // flock.clear() ;
-    if(nTouch && action[ID_item]) {
+    if(key_n && action[ID_item]) {
       flock.add(birthPlace, numOfBoid, fill_item[ID_item], stroke_item[ID_item], maxColorRef, rangeAroundYourColor) ;
     }
     

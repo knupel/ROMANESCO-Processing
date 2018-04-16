@@ -120,43 +120,43 @@ translate event
 */
 void translate_short_event_prescene() {
 
-  if(valueTempPrescene[0].equals("0") ) spaceTouch = false ; else spaceTouch = true ;  
+  if(valueTempPrescene[0].equals("0") ) key_space_long = false ; else key_space_long = true ;  
   
-  if(valueTempPrescene[1].equals("0") ) aTouch = false ; else aTouch = true ;
-  if(valueTempPrescene[2].equals("0") ) bTouch = false ; else bTouch = true ;
-  if(valueTempPrescene[3].equals("0") ) cTouch = false ; else cTouch = true ;
-  if(valueTempPrescene[4].equals("0") ) dTouch = false ; else dTouch = true ;
-  if(valueTempPrescene[5].equals("0") ) eTouch = false ; else eTouch = true ;
-  if(valueTempPrescene[6].equals("0") ) fTouch = false ; else fTouch = true ;
-  if(valueTempPrescene[7].equals("0") ) gTouch = false ; else gTouch = true ;
-  if(valueTempPrescene[8].equals("0") ) hTouch = false ; else hTouch = true ;
-  if(valueTempPrescene[9].equals("0") ) iTouch = false ; else iTouch = true ;
-  if(valueTempPrescene[10].equals("0") ) jTouch = false ; else jTouch = true ;
-  if(valueTempPrescene[11].equals("0") ) kTouch = false ; else kTouch = true ;
-  if(valueTempPrescene[12].equals("0") ) lTouch = false ; else lTouch = true ;
-  if(valueTempPrescene[13].equals("0") ) mTouch = false ; else mTouch = true ;
-  if(valueTempPrescene[14].equals("0") ) nTouch = false ; else nTouch = true ;
-  if(valueTempPrescene[15].equals("0") ) oTouch = false ; else oTouch = true ;
-  if(valueTempPrescene[16].equals("0") ) pTouch = false ; else pTouch = true ;
-  if(valueTempPrescene[17].equals("0") ) qTouch = false ; else qTouch = true ;
-  if(valueTempPrescene[18].equals("0") ) rTouch = false ; else rTouch = true ;
-  if(valueTempPrescene[19].equals("0") ) sTouch = false ; else sTouch = true ;
-  if(valueTempPrescene[20].equals("0") ) tTouch = false ; else tTouch = true ;
-  if(valueTempPrescene[21].equals("0") ) uTouch = false ; else uTouch = true ;
-  if(valueTempPrescene[22].equals("0") ) vTouch = false ; else vTouch = true ;
-  if(valueTempPrescene[23].equals("0") ) wTouch = false ; else wTouch = true ;
-  if(valueTempPrescene[24].equals("0") ) xTouch = false ; else xTouch = true ;
-  if(valueTempPrescene[25].equals("0") ) yTouch = false ; else yTouch = true ;
-  if(valueTempPrescene[26].equals("0") ) zTouch = false ; else zTouch = true ;
+  if(valueTempPrescene[1].equals("0") ) key_a = false ; else key_a = true ;
+  if(valueTempPrescene[2].equals("0") ) key_b = false ; else key_b = true ;
+  if(valueTempPrescene[3].equals("0") ) key_c = false ; else key_c = true ;
+  if(valueTempPrescene[4].equals("0") ) key_d = false ; else key_d = true ;
+  if(valueTempPrescene[5].equals("0") ) key_e = false ; else key_e = true ;
+  if(valueTempPrescene[6].equals("0") ) key_f = false ; else key_f = true ;
+  if(valueTempPrescene[7].equals("0") ) key_g = false ; else key_g = true ;
+  if(valueTempPrescene[8].equals("0") ) key_h = false ; else key_h = true ;
+  if(valueTempPrescene[9].equals("0") ) key_i = false ; else key_i = true ;
+  if(valueTempPrescene[10].equals("0") ) key_j = false ; else key_j = true ;
+  if(valueTempPrescene[11].equals("0") ) key_k = false ; else key_k = true ;
+  if(valueTempPrescene[12].equals("0") ) key_l = false ; else key_l = true ;
+  if(valueTempPrescene[13].equals("0") ) key_m = false ; else key_m = true ;
+  if(valueTempPrescene[14].equals("0") ) key_n = false ; else key_n = true ;
+  if(valueTempPrescene[15].equals("0") ) key_o = false ; else key_o = true ;
+  if(valueTempPrescene[16].equals("0") ) key_p = false ; else key_p = true ;
+  if(valueTempPrescene[17].equals("0") ) key_q = false ; else key_q = true ;
+  if(valueTempPrescene[18].equals("0") ) key_r = false ; else key_r = true ;
+  if(valueTempPrescene[19].equals("0") ) key_s = false ; else key_s = true ;
+  if(valueTempPrescene[20].equals("0") ) key_t = false ; else key_t = true ;
+  if(valueTempPrescene[21].equals("0") ) key_u = false ; else key_u = true ;
+  if(valueTempPrescene[22].equals("0") ) key_v = false ; else key_v = true ;
+  if(valueTempPrescene[23].equals("0") ) key_w = false ; else key_w = true ;
+  if(valueTempPrescene[24].equals("0") ) key_x = false ; else key_x = true ;
+  if(valueTempPrescene[25].equals("0") ) key_y = false ; else key_y = true ;
+  if(valueTempPrescene[26].equals("0") ) key_z = false ; else key_z = true ;
  
-  if(valueTempPrescene[30].equals("0") ) enterTouch = false ; else enterTouch = true ;
-  if(valueTempPrescene[31].equals("0") ) deleteTouch = false ; else deleteTouch = true ;
-  if(valueTempPrescene[32].equals("0") ) backspaceTouch = false ; else backspaceTouch = true ;
-  if(valueTempPrescene[33].equals("0") ) upTouch = false ; else upTouch = true ;
-  if(valueTempPrescene[34].equals("0") ) downTouch = false ; else downTouch = true ;
-  if(valueTempPrescene[35].equals("0") ) rightTouch = false ; else rightTouch = true ;
-  if(valueTempPrescene[36].equals("0") ) leftTouch = false ; else leftTouch = true ;
-  if(valueTempPrescene[37].equals("0") ) ctrlTouch = false ; else ctrlTouch = true ;
+  if(valueTempPrescene[30].equals("0") ) key_enter = false ; else key_enter = true ;
+  if(valueTempPrescene[31].equals("0") ) key_delete = false ; else key_delete = true ;
+  if(valueTempPrescene[32].equals("0") ) key_backspace = false ; else key_backspace = true ;
+  if(valueTempPrescene[33].equals("0") ) key_up = false ; else key_up = true ;
+  if(valueTempPrescene[34].equals("0") ) key_down = false ; else key_down = true ;
+  if(valueTempPrescene[35].equals("0") ) key_right = false ; else key_right = true ;
+  if(valueTempPrescene[36].equals("0") ) key_left = false ; else key_left = true ;
+  if(valueTempPrescene[37].equals("0") ) key_ctrl = false ; else key_ctrl = true ;
 
   /*
   from 40
@@ -164,16 +164,16 @@ void translate_short_event_prescene() {
   it's other event method
   */
 
-  if(valueTempPrescene[51].equals("0") ) touch1 = false ; else touch1 = true ;
-  if(valueTempPrescene[52].equals("0") ) touch2 = false ; else touch2 = true ;
-  if(valueTempPrescene[53].equals("0") ) touch3 = false ; else touch3 = true ;
-  if(valueTempPrescene[54].equals("0") ) touch4 = false ; else touch4 = true ;
-  if(valueTempPrescene[55].equals("0") ) touch5 = false ; else touch5 = true ;
-  if(valueTempPrescene[56].equals("0") ) touch6 = false ; else touch6 = true ;
-  if(valueTempPrescene[57].equals("0") ) touch7 = false ; else touch7 = true ;
-  if(valueTempPrescene[58].equals("0") ) touch8 = false ; else touch8 = true ;
-  if(valueTempPrescene[59].equals("0") ) touch9 = false ; else touch9 = true ;
-  if(valueTempPrescene[60].equals("0") ) touch0 = false ; else touch0 = true ;
+  if(valueTempPrescene[51].equals("0") ) key_1 = false ; else key_1 = true ;
+  if(valueTempPrescene[52].equals("0") ) key_2 = false ; else key_2 = true ;
+  if(valueTempPrescene[53].equals("0") ) key_3 = false ; else key_3 = true ;
+  if(valueTempPrescene[54].equals("0") ) key_4 = false ; else key_4 = true ;
+  if(valueTempPrescene[55].equals("0") ) key_5 = false ; else key_5 = true ;
+  if(valueTempPrescene[56].equals("0") ) key_6 = false ; else key_6 = true ;
+  if(valueTempPrescene[57].equals("0") ) key_7 = false ; else key_7 = true ;
+  if(valueTempPrescene[58].equals("0") ) key_8 = false ; else key_8 = true ;
+  if(valueTempPrescene[59].equals("0") ) key_9 = false ; else key_9 = true ;
+  if(valueTempPrescene[60].equals("0") ) key_0 = false ; else key_0 = true ;
 
   /*
   from 61
@@ -189,12 +189,12 @@ void translate_other_event_prescene() {
   if(valueTempPrescene[48].equals("0") ) clickLongLeft[0] = false ; else clickLongLeft[0] = true ;
   if(valueTempPrescene[49].equals("0") ) clickLongRight[0] = false ; else clickLongRight[0] = true ;
   // long key event
-  if(valueTempPrescene[61].equals("0")) cLongTouch = false ; else cLongTouch = true ;
-  if(valueTempPrescene[62].equals("0")) lLongTouch = false ; else lLongTouch = true ;
-  if(valueTempPrescene[63].equals("0")) nLongTouch = false ; else nLongTouch = true ;
-  if(valueTempPrescene[64].equals("0")) vLongTouch = false ; else vLongTouch = true ;
+  if(valueTempPrescene[61].equals("0")) key_c_long = false ; else key_c_long = true ;
+  if(valueTempPrescene[62].equals("0")) key_l_long = false ; else key_l_long = true ;
+  if(valueTempPrescene[63].equals("0")) key_n_long = false ; else key_n_long = true ;
+  if(valueTempPrescene[64].equals("0")) key_v_long = false ; else key_v_long = true ;
 
-  if(valueTempPrescene[65].equals("0")) shiftLongTouch = false ; else shiftLongTouch = true ;
+  if(valueTempPrescene[65].equals("0")) key_shift_long = false ; else key_shift_long = true ;
   
   
 
@@ -216,7 +216,7 @@ void translate_other_event_prescene() {
   mouse[0].y = target_pos.y +mouse[0].y *.5 ;
   mouse[0].z = target_pos.z +mouse[0].z *.5 ;
 
- //  if(cLongTouch) mouseCamera.set(mouse[0]) ;
+ //  if(key_c_long) mouseCamera.set(mouse[0]) ;
 
 
   // Mouse button

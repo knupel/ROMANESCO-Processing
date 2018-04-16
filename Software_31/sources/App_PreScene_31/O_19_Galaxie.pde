@@ -145,7 +145,7 @@ class Galaxie extends Romanesco {
     
     /////////
     //UPDATE
-    if(motion[ID_item]) if (speed_x_item[ID_item] >= 0.01) updateGrain(upTouch, downTouch, leftTouch, rightTouch, clickLongLeft[ID_item], marge);
+    if(motion[ID_item]) if (speed_x_item[ID_item] >= 0.01) updateGrain(key_up, key_down, key_left, key_right, clickLongLeft[ID_item], marge);
     
     //////////////
     //DISPLAY MODE

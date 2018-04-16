@@ -46,23 +46,23 @@ void update_var_items(int ID) {
   update_var_sound(ID) ;
   
   if(action[ID] ){
-    if(spaceTouch) {
+    if(key_space_long) {
       pen[ID].set(pen[0]) ;
       mouse[ID].set(mouse[0]) ;
     }
-    if (nTouch) birth[ID] = !birth[ID] ;
-    if (xTouch) colour[ID] = !colour[ID] ;
-    if (dTouch) dimension[ID] = !dimension[ID] ;
-    if (hTouch) horizon[ID] = !horizon[ID] ;
-    if (mTouch) motion[ID] = !motion[ID] ;
-    if (oTouch) orbit[ID] = !orbit[ID] ;
-    if (rTouch) reverse[ID] = !reverse[ID] ;
-    if (fTouch) special[ID] = !special[ID] ;
-    if (wTouch) wire[ID] = !wire[ID] ;
+    if (key_n) birth[ID] = !birth[ID] ;
+    if (key_x) colour[ID] = !colour[ID] ;
+    if (key_d) dimension[ID] = !dimension[ID] ;
+    if (key_h) horizon[ID] = !horizon[ID] ;
+    if (key_m) motion[ID] = !motion[ID] ;
+    if (key_o) orbit[ID] = !orbit[ID] ;
+    if (key_r) reverse[ID] = !reverse[ID] ;
+    if (key_f) special[ID] = !special[ID] ;
+    if (key_w) wire[ID] = !wire[ID] ;
 
 
-    if (jTouch) fill_is[ID] = !fill_is[ID] ;
-    if (kTouch) stroke_is[ID] = !stroke_is[ID] ;
+    if (key_j) fill_is[ID] = !fill_is[ID] ;
+    if (key_k) stroke_is[ID] = !stroke_is[ID] ;
 
 
     /*
@@ -220,9 +220,9 @@ void update_var_sound(int ID) {
 boolean reset(int ID) {
   boolean e = false ;
   //global delete
-  if (backspaceTouch) e = true ;
+  if (key_backspace) e = true ;
   //SPECIFIC DELETE when the paramer button of contrôleur is ON
-  else if (deleteTouch) if (action[ID] || parameter[ID]) e = true ;
+  else if (key_delete) if (action[ID] || parameter[ID]) e = true ;
   return e ;
 }
 ///////////////////////////////////////
@@ -493,7 +493,7 @@ class RPE_MANAGER {
           pushMatrix() ;
           add_ref_item(objR.ID_item) ;
           item_follower(objR.ID_item) ;
-          if(vLongTouch && action[objR.ID_item] ) {
+          if(key_v_long && action[objR.ID_item] ) {
 
             item_move(movePos, moveDir, objR.ID_item) ;
           }

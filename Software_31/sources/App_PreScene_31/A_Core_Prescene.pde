@@ -287,84 +287,84 @@ boolean checkKeyboard(int c) {
  // KEYBOARD COMMAND       
         
 void keyboardTrue() {
-  if (key == ' ' ) spaceTouch = true ; 
+  if (key == ' ' ) key_space_long = true ; 
   
-  if (key == 'a'  || key == 'A' ) aTouch = true ;
-  if (key == 'b'  || key == 'B' ) bTouch = true ;
+  if (key == 'a'  || key == 'A' ) key_a = true ;
+  if (key == 'b'  || key == 'B' ) key_b = true ;
   if (key == 'c'  || key == 'C' ) { 
-    cTouch = true ; 
-    cLongTouch = true ; 
+    key_c = true ; 
+    key_c_long = true ; 
   }
-  if (key == 'd'  || key == 'D' ) dTouch = true ;
-  if (key == 'e'  || key == 'E' ) eTouch = true ;
-  if (key == 'f'  || key == 'F' ) fTouch = true ;
-  if (key == 'g'  || key == 'G' ) gTouch = true ;
-  if (key == 'h'  || key == 'H' ) hTouch = true ;
-  if (key == 'i'  || key == 'I' ) iTouch = true ;
-  if (key == 'j'  || key == 'J' ) jTouch = true ;
-  if (key == 'k'  || key == 'K' ) kTouch = true ;
+  if (key == 'd'  || key == 'D' ) key_d = true ;
+  if (key == 'e'  || key == 'E' ) key_e = true ;
+  if (key == 'f'  || key == 'F' ) key_f = true ;
+  if (key == 'g'  || key == 'G' ) key_g = true ;
+  if (key == 'h'  || key == 'H' ) key_h = true ;
+  if (key == 'i'  || key == 'I' ) key_i = true ;
+  if (key == 'j'  || key == 'J' ) key_j = true ;
+  if (key == 'k'  || key == 'K' ) key_k = true ;
   if (key == 'l'  || key == 'L' ) { 
-    lTouch = true ; 
-    lLongTouch = true ; 
+    key_l = true ; 
+    key_l_long = true ; 
   }
-  if (key == 'm'  || key == 'M' ) mTouch = true ;
+  if (key == 'm'  || key == 'M' ) key_m = true ;
   if (key == 'n'  || key == 'N' ) { 
-    nTouch = true ; 
-    nLongTouch = true ; 
+    key_n = true ; 
+    key_n_long = true ; 
   }
-  if (key == 'o'  || key == 'O' ) oTouch = true ;
-  if (key == 'p'  || key == 'P' ) pTouch = true ;
-  if (key == 'q'  || key == 'Q' ) qTouch = true ;
-  if (key == 'r'  || key == 'R' ) rTouch = true ;
-  if (key == 's'  || key == 'S' ) sTouch = true ;
-  if (key == 't'  || key == 'T' ) tTouch = true ;
-  if (key == 'u'  || key == 'U' ) uTouch = true ;
+  if (key == 'o'  || key == 'O' ) key_o = true ;
+  if (key == 'p'  || key == 'P' ) key_p = true ;
+  if (key == 'q'  || key == 'Q' ) key_q = true ;
+  if (key == 'r'  || key == 'R' ) key_r = true ;
+  if (key == 's'  || key == 'S' ) key_s = true ;
+  if (key == 't'  || key == 'T' ) key_t = true ;
+  if (key == 'u'  || key == 'U' ) key_u = true ;
   if (key == 'v'  || key == 'V' ) { 
-    vTouch = true ; 
-    vLongTouch = true ; 
+    key_v = true ; 
+    key_v_long = true ; 
   }
-  if (key == 'w'  || key == 'W' ) wTouch = true ;
-  if (key == 'x'  || key == 'X' ) xTouch = true ;
-  if (key == 'y'  || key == 'Y' ) yTouch = true ;
-  if (key == 'z'  || key == 'Z' ) zTouch = true ;
+  if (key == 'w'  || key == 'W' ) key_w = true ;
+  if (key == 'x'  || key == 'X' ) key_x = true ;
+  if (key == 'y'  || key == 'Y' ) key_y = true ;
+  if (key == 'z'  || key == 'Z' ) key_z = true ;
   
-  if (key == '0' ) touch0 = true ;
-  if (key == '1' ) touch1 = true ;
-  if (key == '2' ) touch2 = true ;
-  if (key == '3' ) touch3 = true ;
-  if (key == '4' ) touch4 = true ;
-  if (key == '5' ) touch5 = true ;
-  if (key == '6' ) touch6 = true ;
-  if (key == '7' ) touch7 = true ;
-  if (key == '8' ) touch8 = true ;
-  if (key == '9' ) touch9 = true ;
+  if (key == '0' ) key_0 = true ;
+  if (key == '1' ) key_1 = true ;
+  if (key == '2' ) key_2 = true ;
+  if (key == '3' ) key_3 = true ;
+  if (key == '4' ) key_4 = true ;
+  if (key == '5' ) key_5 = true ;
+  if (key == '6' ) key_6 = true ;
+  if (key == '7' ) key_7 = true ;
+  if (key == '8' ) key_8 = true ;
+  if (key == '9' ) key_9 = true ;
   
-  if (keyCode == BACKSPACE ) backspaceTouch = true ;
-  if (keyCode == DELETE ) deleteTouch = true ;
+  if (keyCode == BACKSPACE ) key_backspace = true ;
+  if (keyCode == DELETE ) key_delete = true ;
   if (keyCode == SHIFT ) {
-    shiftTouch = true ;
-    shiftLongTouch = true ;
+    key_shift = true ;
+    key_shift_long = true ;
   }
-  if (keyCode == ALT ) altTouch = true ;
-  if (keyCode == RETURN ) returnTouch = true ;
-  if (keyCode == ENTER ) enterTouch = true ;
-  if (keyCode == CONTROL ) ctrlTouch = true ;
-  if (keyCode == 157 ) cmdTouch = true ;
+  if (keyCode == ALT ) key_alt = true ;
+  if (keyCode == RETURN ) key_return = true ;
+  if (keyCode == ENTER ) key_enter = true ;
+  if (keyCode == CONTROL ) key_ctrl = true ;
+  if (keyCode == 157 ) key_cmd = true ;
   
-  if (keyCode == LEFT ) leftTouch = true ;
-  if (keyCode == RIGHT ) rightTouch = true ;
-  if (keyCode == UP ) upTouch = true ;
-  if (keyCode == DOWN ) downTouch = true ;
+  if (keyCode == LEFT ) key_left = true ;
+  if (keyCode == RIGHT ) key_right = true ;
+  if (keyCode == UP ) key_up = true ;
+  if (keyCode == DOWN ) key_down = true ;
 }
 
 void keyboardLongFalse() {
-  if (key == ' ' ) spaceTouch = false ; 
-  if (key == 'c'  || key == 'C' ) cLongTouch = false ;
-  if (key == 'l'  || key == 'L' ) lLongTouch = false ;
-  if (key == 'n'  || key == 'N' ) nLongTouch = false ;
-  if (key == 'v'  || key == 'V' ) vLongTouch = false ;
+  if (key == ' ' ) key_space_long = false ; 
+  if (key == 'c'  || key == 'C' ) key_c_long = false ;
+  if (key == 'l'  || key == 'L' ) key_l_long = false ;
+  if (key == 'n'  || key == 'N' ) key_n_long = false ;
+  if (key == 'v'  || key == 'V' ) key_v_long = false ;
 
-  if (keyCode == SHIFT ) shiftLongTouch = false ;
+  if (keyCode == SHIFT ) key_shift_long = false ;
 }
 
 
@@ -373,58 +373,58 @@ void keyboardFalse() {
   check for the key and put false here, but it's less reactive that put false just after the use the boolean...here you display false three time !
   */
   // we add modulo to be sure the information about the boolean is transmit to the scene
-  if(aTouch) aTouch = false ; 
-  if(bTouch) bTouch = false ;
-  if(cTouch) cTouch = false ;
-  if(dTouch) dTouch = false ;
-  if(eTouch) eTouch = false ;
-  if(fTouch) fTouch = false ;
-  if(gTouch) gTouch = false ;
-  if(hTouch) hTouch = false ;
-  if(iTouch) iTouch = false ;
-  if(jTouch) jTouch = false ;
-  if(kTouch) kTouch = false ;
-  if(lTouch) lTouch = false ;
-  if(mTouch) mTouch = false ;
-  if(nTouch) nTouch = false ;
-  if(oTouch) oTouch = false ;
-  if(pTouch) pTouch = false ;
-  if(qTouch) qTouch = false ;
-  if(rTouch) rTouch = false ;
-  if(sTouch) sTouch = false ;
-  if(tTouch) tTouch = false ;
-  if(uTouch) uTouch = false ;
-  if(vTouch) vTouch = false ;
-  if(wTouch) wTouch = false ;
-  if(xTouch) xTouch = false ;
-  if(yTouch) yTouch = false ;
-  if(zTouch) zTouch = false ;
+  if(key_a) key_a = false ; 
+  if(key_b) key_b = false ;
+  if(key_c) key_c = false ;
+  if(key_d) key_d = false ;
+  if(key_e) key_e = false ;
+  if(key_f) key_f = false ;
+  if(key_g) key_g = false ;
+  if(key_h) key_h = false ;
+  if(key_i) key_i = false ;
+  if(key_j) key_j = false ;
+  if(key_k) key_k = false ;
+  if(key_l) key_l = false ;
+  if(key_m) key_m = false ;
+  if(key_n) key_n = false ;
+  if(key_o) key_o = false ;
+  if(key_p) key_p = false ;
+  if(key_q) key_q = false ;
+  if(key_r) key_r = false ;
+  if(key_s) key_s = false ;
+  if(key_t) key_t = false ;
+  if(key_u) key_u = false ;
+  if(key_v) key_v = false ;
+  if(key_w) key_w = false ;
+  if(key_x) key_x = false ;
+  if(key_y) key_y = false ;
+  if(key_z) key_z = false ;
   
-  if(touch0) touch0 = false ;
-  if(touch1) touch1 = false ;
-  if(touch2) touch2 = false ;
-  if(touch3) touch3 = false ;
-  if(touch4) touch4 = false ;
-  if(touch5) touch5 = false ;
-  if(touch6) touch6 = false ;
-  if(touch7) touch7 = false ;
-  if(touch8) touch8 = false ;
-  if(touch9) touch9 = false ;
+  if(key_0) key_0 = false ;
+  if(key_1) key_1 = false ;
+  if(key_2) key_2 = false ;
+  if(key_3) key_3 = false ;
+  if(key_4) key_4 = false ;
+  if(key_5) key_5 = false ;
+  if(key_6) key_6 = false ;
+  if(key_7) key_7 = false ;
+  if(key_8) key_8 = false ;
+  if(key_9) key_9 = false ;
   
-  if (backspaceTouch) backspaceTouch = false ;
-  if (deleteTouch) deleteTouch = false ; 
-  if (enterTouch) enterTouch = false ;
-  if (returnTouch) returnTouch = false ;
-  if (shiftTouch) shiftTouch = false ;
-  if (altTouch) altTouch = false ; 
-  if (escTouch) escTouch = false ;
-  if (ctrlTouch) ctrlTouch = false ;
-  if (cmdTouch) cmdTouch = false ;
+  if (key_backspace) key_backspace = false ;
+  if (key_delete) key_delete = false ; 
+  if (key_enter) key_enter = false ;
+  if (key_return) key_return = false ;
+  if (key_shift) key_shift = false ;
+  if (key_alt) key_alt = false ; 
+  if (key_esc) key_esc = false ;
+  if (key_ctrl) key_ctrl = false ;
+  if (key_cmd) key_cmd = false ;
   
-  if (upTouch) upTouch = false ;
-  if (downTouch) downTouch = false ;
-  if (leftTouch) leftTouch = false ;
-  if (rightTouch) rightTouch = false ;
+  if (key_up) key_up = false ;
+  if (key_down) key_down = false ;
+  if (key_left) key_left = false ;
+  if (key_right) key_right = false ;
 }
 //END KEYBOARD
 //////////////

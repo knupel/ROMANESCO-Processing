@@ -811,7 +811,7 @@ void syphon_setup() {
 }
 
 void syphon_draw() {
-  if(yTouch) syphon_on_off = !syphon_on_off ;
+  if(key_y) syphon_on_off = !syphon_on_off ;
   if(syphon_on_off) server.sendScreen();
 }
 
@@ -1267,16 +1267,16 @@ tracking with pad
 */
 int tracking(int t, int n) {
   if (nextPrevious) {
-    if (downTouch && t < n-1 ) {
+    if (key_down && t < n-1 ) {
       trackerUpdate = +1 ;
-    } else if (upTouch  && t > 0 ) {
+    } else if (key_up  && t > 0 ) {
       trackerUpdate = -1 ;
     } 
   }
   if (nextPrevious) {
-    if ( leftTouch  && t > 0 ) {
+    if ( key_left  && t > 0 ) {
       trackerUpdate = -1 ;
-    } else if ( rightTouch && t < n-1 ) {
+    } else if ( key_right && t < n-1 ) {
       trackerUpdate = +1 ;
     }
   }
@@ -1471,7 +1471,7 @@ void rectangle(PVector pos, PVector size, PShader s) {
   float blueNorm = map(RGBbackground.z,0,255,0,1) ;
   float alphaNorm = map(RGBbackground.w,0,255,0,1) ;
   float varTime = (float)millis() *.001 ;
-  if(spaceTouch) {
+  if(key_space_long) {
     shaderMouseX = map(mouse[0].x,0,width,0,1) ;
     shaderMouseY = map(mouse[0].y,0,height,0,1) ;
   }

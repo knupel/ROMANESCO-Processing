@@ -91,22 +91,22 @@ class Ecosystem_agent extends Romanesco {
     float thickness_common = thickness_item[ID_item] ;
     
     if(action[ID_item]) {
-      if(touch1) {
+      if(key_1) {
         colour_groups = 1 ;
       }
-      if(touch2) {
+      if(key_2) {
         colour_groups = 2 ;
       }
-      if(touch3) {
+      if(key_3) {
         colour_groups = 3 ;
       }
-      if(touch4) {
+      if(key_4) {
         colour_groups = 4 ;
       }
-      if(touch5) {
+      if(key_5) {
         colour_groups = 5 ;
       }
-      if(touch6) {
+      if(key_6) {
         colour_groups = 6 ;
       }
     } 

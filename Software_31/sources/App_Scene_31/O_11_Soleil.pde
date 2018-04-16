@@ -27,7 +27,7 @@ class Soleil extends Romanesco {
   void draw() {
     aspect_rope(fill_item[ID_item], stroke_item[ID_item], thickness_item[ID_item]) ;
     // orbital revolution
-    if((spaceTouch && action[ID_item]) || orbit[ID_item]) pos.set(mouse[ID_item].x -width/2, mouse[ID_item].y -height/2,0) ; else pos.set(0,0,0) ;
+    if((key_space_long && action[ID_item]) || orbit[ID_item]) pos.set(mouse[ID_item].x -width/2, mouse[ID_item].y -height/2,0) ; else pos.set(0,0,0) ;
     // diam
     int diam = int(canvas_x_item[ID_item] *allBeats(ID_item)) ;
     // num beam
@@ -70,7 +70,7 @@ class Soleil extends Romanesco {
     
     // info display
     String revolution = ("") ;
-    if((spaceTouch && action[ID_item]) || orbit[ID_item]) revolution =("false") ; else revolution = ("true") ;
+    if((key_space_long && action[ID_item]) || orbit[ID_item]) revolution =("false") ; else revolution = ("true") ;
     objectInfo[ID_item] = ("The sun have " + numBeam + " beams - Motion "+revolution ) ;
     
     

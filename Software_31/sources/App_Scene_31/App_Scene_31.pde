@@ -123,7 +123,7 @@ void romanesco() {
     save_PNG() ;
   }
   // this method is outside de bracket (FULL_RENDERING) to give the possibility to send the order to Scene
-  if(pTouch) event_PNG() ;
+  if(key_p) event_PNG() ;
 
   update_temp_value() ;
 

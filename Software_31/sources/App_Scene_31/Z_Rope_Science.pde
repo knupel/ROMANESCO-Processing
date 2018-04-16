@@ -290,22 +290,22 @@ v 0.0.2
 // Target direction return the normal direction of the target from the origin
 @Deprecated
 Vec2 target_direction(Vec2 target, Vec2 my_position) {
-  printErrTempo(240, "Vec2 target_direction() deprecated instead use look_at(Vec target, Vec origin) method, becareful the result is mult by -1");
+  printErrTempo(240, "Vec2 target_direction() deprecated instead use lookey_at(Vec target, Vec origin) method, becareful the result is mult by -1");
   return projection(target, my_position, 1).sub(my_position);
 }
 
 @Deprecated
 Vec3 target_direction(Vec3 target, Vec3 my_position) {
-   printErrTempo(240, "Vec2 target_direction() deprecated instead use look_at(Vec target, Vec origin) method, becareful the result is mult by -1");
+   printErrTempo(240, "Vec2 target_direction() deprecated instead use lookey_at(Vec target, Vec origin) method, becareful the result is mult by -1");
   return projection(target, my_position, 1).sub(my_position) ;
 }
 
 
-Vec2 look_at(Vec2 target, Vec2 origin) {
+Vec2 lookey_at(Vec2 target, Vec2 origin) {
   return projection(target, origin, 1).sub(origin).mult(-1,1);
 }
 
-Vec3 look_at(Vec3 target, Vec3 origin) {
+Vec3 lookey_at(Vec3 target, Vec3 origin) {
   return projection(target, origin, 1).sub(origin);
 }
 

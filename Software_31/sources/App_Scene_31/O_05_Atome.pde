@@ -74,7 +74,7 @@ class Atome extends Romanesco {
     // SETTING PARAMETER
     load_txt(ID_item) ;
     // 3D or 2D
-    if(parameter[ID_item] & dTouch) threeDimension = !threeDimension ;
+    if(parameter[ID_item] & key_d) threeDimension = !threeDimension ;
     
     //speed
     float speed = (speed_x_item[ID_item] *100) *(speed_x_item[ID_item] *100) ;
@@ -88,7 +88,7 @@ class Atome extends Romanesco {
     
     //VELOCITY and DIRECTION of atom
     if(motion[ID_item]) {
-      if(spaceTouch && action[ID_item]) {
+      if(key_space_long && action[ID_item]) {
         newDirection = new PVector (-pen[ID_item].x, -pen[ID_item].y ) ;
       } else { 
         newDirection = normal_direction(int(dir_x_item[ID_item])) ;
@@ -156,7 +156,7 @@ class Atome extends Romanesco {
       //PARAMETER FROM ROMANESCO
       //the proton change the with the beat of music
       int max = 118 ;
-      if( (nTouch && action[ID_item]) || rangeA == 0 ) {
+      if( (key_n && action[ID_item]) || rangeA == 0 ) {
         rangeA = round(random(0,max-80)) ;
         rangeB = round(random(rangeA,max-40)) ;
         rangeC = round(random(rangeB,max)) ;
@@ -237,7 +237,7 @@ class Atome extends Romanesco {
     int maxValueReproduction = 25 ;
     if(FULL_RENDERING) maxValueReproduction = 1 ; else maxValueReproduction = 25 ;
     int speedReproduction = round(map(quantity_item[ID_item],0, 1, 30, maxValueReproduction));
-    if(action[ID_item] && nLongTouch && clickLongLeft[ID_item] && frameCount % speedReproduction == 0) atomAdd(giveNametoAtom(), item_setting_position[0][ID_item]) ;
+    if(action[ID_item] && key_n_long && clickLongLeft[ID_item] && frameCount % speedReproduction == 0) atomAdd(giveNametoAtom(), item_setting_position[0][ID_item]) ;
     
     if(atomList.size()<1) {
       int num = int(random(1,9)) ;

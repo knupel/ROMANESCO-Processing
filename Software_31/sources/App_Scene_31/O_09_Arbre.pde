@@ -180,7 +180,7 @@ class Arbre {
   //annexe branch
   void displayBranch(float e, Vec3 size, float propA, float propB, int fourcheA, int fourcheB, float amplitude, int n, float t, int which_costume, boolean bool_line, boolean fill_is, boolean stroke_is, int ID) {
     float factor = 0.0 ;
-    if(vLongTouch && pen[0].z != 0) {
+    if(key_v_long && pen[0].z != 0) {
       println("pen Z", pen[0].z) ;
       factor = deep * map(pen[0].z,0.01,1, 1.2,-1.2) ; 
     } else {

@@ -8,14 +8,18 @@ v 1.2.0
 /**
 keyboard
 */
-//short Touch
-boolean aTouch, bTouch, cTouch, dTouch, eTouch, fTouch, gTouch, hTouch, iTouch, jTouch, kTouch, lTouch, mTouch, nTouch, oTouch, pTouch, qTouch, rTouch, sTouch, tTouch, uTouch, vTouch, wTouch, xTouch, yTouch, zTouch,
-        leftTouch, rightTouch, upTouch, downTouch, 
-        touch0, touch1, touch2, touch3, touch4, touch5, touch6, touch7, touch8, touch9, 
-        backspaceTouch, deleteTouch, enterTouch, returnTouch, shiftTouch, altTouch, escTouch, ctrlTouch, cmdTouch ;
+//short _key
+boolean key_a, key_b, key_c, key_d, key_e, key_f, key_g, key_h, key_i, key_j, key_k, key_l, key_m, key_n, key_o, key_p, key_q, key_r, key_s, key_t, key_u, key_v, key_w, key_x, key_y, key_z;
+boolean key_A, key_B, key_C, key_D, key_E, key_F, key_G, key_H, key_I, key_J, key_K, key_L, key_M, key_N, key_O, key_P, key_Q, key_R, key_S, key_T, key_U, key_V, key_W, key_X, key_Y, key_Z;
+boolean key_left, key_right, key_up, key_down; 
+boolean key_0, key_1, key_2, key_3, key_4, key_5, key_6, key_7, key_8, key_9;
+boolean key_space, key_backspace, key_delete, key_enter, key_return, key_shift, key_alt, key_esc, key_ctrl, key_cmd;
 //long touch
-boolean cLongTouch, lLongTouch, nLongTouch, vLongTouch,
-        spaceTouch, shiftLongTouch;  
+boolean key_c_long, key_l_long, key_n_long, key_v_long;
+boolean key_space_long, key_shift_long;  
+
+
+
 
 
 

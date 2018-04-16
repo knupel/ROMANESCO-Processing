@@ -126,9 +126,9 @@ class Orbital extends Romanesco {
   }
  
   void checkControls() {
-     if (nTouch && action[ID_item]) randomPos();
-     // else if (jTouch) ;//randomiserad = D_MIN + random(D_MAX - D_MIN);
-     else if (oTouch && action[ID_item]) resetOrbit();
+     if (key_n && action[ID_item]) randomPos();
+     // else if (key_j) ;//randomiserad = D_MIN + random(D_MAX - D_MIN);
+     else if (key_o && action[ID_item]) resetOrbit();
      else if (reverse[ID_item]) jump();
   }
  

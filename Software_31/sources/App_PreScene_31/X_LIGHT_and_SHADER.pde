@@ -14,12 +14,12 @@ void light_position_setup() {
 }
 
 void light_position_draw(Vec3 mouse, int wheel) {
-  if(lLongTouch && !shiftLongTouch ) {
+  if(key_l_long && !key_shift_long ) {
     var_light_pos.x = mouse.x ;
     var_light_pos.y = mouse.y ;
     var_light_pos.z += wheel ;
   }
-  if(lLongTouch && shiftLongTouch) {
+  if(key_l_long && key_shift_long) {
     var_light_dir.x = mouse.x ;
     var_light_dir.y = mouse.y ;
     var_light_dir.z += wheel ;
