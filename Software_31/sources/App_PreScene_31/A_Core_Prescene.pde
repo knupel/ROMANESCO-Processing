@@ -1,10 +1,8 @@
 /**
 Core_Prescene
-v 1.1.0
+v 1.2.0
 2013-2018
 */
-
-
 /**
 GRAPHIC CONFIGURATION 
 1.0.0.1
@@ -73,14 +71,8 @@ String bigBrother = ("BIG BROTHER DON'T WATCHING YOU !!") ;
 int speedWheel = 4 ; // 5 is too quick
 float speedLeapmotion = .15 ; // between 0.000001 and 1 : can be good between 0.1 and 0.4
 
-// END VARIABLE
-///////////////
 
 
-
-
-// METHOD
-/////////
 
 
 import codeanticode.tablet.*;
@@ -135,71 +127,79 @@ void updateCommand() {
 
 
 /**
-update cursor 1.0.1
+update cursor 1.1.0
 */
-Vec3 posRef = Vec3() ;
+Vec3 mouse_ref;
 int mouseZ ;
-
 void device_update() {
-  update_leap_command() ;
-  update_wheel() ;
+  update_leap_command();
+  update_wheel();
   
   //mousePressed
   if(ORDER_ONE || ORDER_TWO || ORDER_THREE) {
-    ORDER = true ; 
+    ORDER = true; 
   } else {
-    ORDER = false ;
+    ORDER = false;
   }
   
-  update_tablet() ;
+  update_tablet();
 
   if(orderOneLeap || orderTwoLeap) {
-    update_leapmotion() ;
-  } else if (posRef.x != mouseX || posRef.y != mouseY) {
-    update_mouse() ;
+    update_leapmotion();
+  } else if (mouse_ref == null || mouse_ref.x != mouseX || mouse_ref.y != mouseY) {
+    update_mouse();
   }
   
 
-
-
   //re-init the wheel value to be sure this one is stopped
-  wheel[0] = 0 ;
+  wheel[0] = 0;
   //re-init the mouse button for the short click
-  clickShortLeft[0] = false ; 
-  clickShortRight[0] = false ;
+  clickShortLeft[0] = false; 
+  clickShortRight[0] = false;
   
   //why this line is here ????
-  if (nextPrevious) nextPreviousInt = 1 ; else nextPreviousInt = 0 ;
+  if (nextPrevious) nextPreviousInt = 1 ; else nextPreviousInt = 0;
 }
 
 
 // ANNEXE VOID
 void update_wheel() {
-  mouseZ -= wheel[0] ;
+  mouseZ -= wheel[0];
 }
 
-
 void update_tablet() {
+  if(pen[0] == null) {
+    pen[0] = Vec3(0,0,.02);
+  }
+
   if(TABLET) {
-    //pen[0] = Vec3 (norm(tablet.getTiltX(),0,1), norm(tablet.getTiltY(),0,1), tablet.getPressure()) ; 
-    pen[0] = Vec3 (tablet.getTiltX(), tablet.getTiltY(), tablet.getPressure()) ; 
+    float x = tablet.getTiltX();
+    float y = tablet.getTiltY();
+    float z = tablet.getPressure();
+    pen[0].set(x,y,z);
   } else {
-    pen[0] = Vec3(0,0,.02) ;
+    pen[0].set(0,0,.02);
   }
 }
 
-
 void update_mouse() {
-  mouse[0] = Vec3(mouseX,mouseY,0) ;
-  posRef.set(mouse[0]) ;
+  if(mouse[0] == null) {
+    mouse[0] = Vec3(mouseX,mouseY,0);
+  } else mouse[0].set(mouseX,mouseY,0);
+
+  if(mouse_ref == null) {
+    mouse_ref = Vec3(mouse[0]);
+  } else mouse_ref.set(mouse[0]);
 }
 
 void update_leapmotion() {
-  mouse[0] = Vec3(averageTranslatePosition(speedLeapmotion).x, -averageTranslatePosition(speedLeapmotion).y,averageTranslatePosition(speedLeapmotion).z)  ;
+  float x = averageTranslatePosition(speedLeapmotion).x;
+  float y = -averageTranslatePosition(speedLeapmotion).y;
+  float z = averageTranslatePosition(speedLeapmotion).z;
+  if(mouse[0] == null) {
+    mouse[0] = Vec3(x,y,z);
+  } else mouse[0].set(x,y,z);
 }
-/**
-end update cursor
-*/
 
 
 
@@ -210,25 +210,20 @@ end update cursor
 
 
 
-/**
-MISC
-
-*/
 
 /**
 KEYBOARD & SHORTCUTS
 */
-//GLOBAL
 import java.awt.event.KeyEvent;
 boolean[] keyboard = new boolean[526];
 
 void shortCutsPrescene() {
   keyboard[keyCode] = true ;
   // save Scene
-  check_Keyboard_save_scene_CURRENT_path() ;
-  check_Keyboard_save_scene_NEW_path() ;
+  check_keyboard_save_scene_CURRENT_path() ;
+  check_keyboard_save_scene_NEW_path() ;
   // load
-  check_Keyboard_load_scene() ;
+  check_keyboard_load_scene() ;
 
   // save
   // if (key == 's') selectOutput("Enregistrez le PDF et le PNG ", "saveImg") ;
@@ -247,26 +242,26 @@ boolean load_Scene_Setting_local,
         save_New_Scene_Setting_local ;
 // Scene load
 // CTRL + O
-void check_Keyboard_load_scene() {
-  if(checkKeyboard(CONTROL) && !checkKeyboard(SHIFT) && checkKeyboard(KeyEvent.VK_O) ) { 
+void check_keyboard_load_scene() {
+  if(check_keyboard(CONTROL) && !check_keyboard(SHIFT) && check_keyboard(KeyEvent.VK_O) ) { 
     load_Scene_Setting_local = true ;
-    keyboard[keyCode] = false;   //
-    
+    keyboard[keyCode] = false;    
   }
 }
 
 // Scene current save
 // CTRL + S
-void check_Keyboard_save_scene_CURRENT_path() {
-  if(checkKeyboard(CONTROL) && !checkKeyboard(SHIFT) && checkKeyboard(KeyEvent.VK_S) ) {
+void check_keyboard_save_scene_CURRENT_path() {
+  if(check_keyboard(CONTROL) && !check_keyboard(SHIFT) && check_keyboard(KeyEvent.VK_S) ) {
     save_Current_Scene_Setting_local = true ;
     keyboard[keyCode] = false ;   // just open one window, when use only the keyboard, if you don't use that open all the windows save and open
    }
 }
+
 // Scene new save
 // CTRL + SHIFT + S
-void check_Keyboard_save_scene_NEW_path() {
-  if(checkKeyboard(CONTROL) && checkKeyboard(SHIFT) && checkKeyboard(KeyEvent.VK_S) ) {
+void check_keyboard_save_scene_NEW_path() {
+  if(check_keyboard(CONTROL) && check_keyboard(SHIFT) && check_keyboard(KeyEvent.VK_S) ) {
     save_New_Scene_Setting_local = true ;
     keyboard[keyCode] = false ;   // just open one window, when use only the keyboard, if you don't use that open all the windows save and open
   }
@@ -274,7 +269,7 @@ void check_Keyboard_save_scene_NEW_path() {
 
 
 
-boolean checkKeyboard(int c) {
+boolean check_keyboard(int c) {
   if (keyboard.length >= c) {
     return keyboard[c];  
   }
@@ -282,149 +277,199 @@ boolean checkKeyboard(int c) {
 }
 
 
+     
+void key_true() {
+  if (key == ' ') key_space = true ; 
+  
+  if (key == 'a') key_a = true;
+  if (key == 'b') key_b = true;
+  if (key == 'c') key_c = true;
+  if (key == 'd') key_d = true;
+  if (key == 'e') key_e = true;
+  if (key == 'f') key_f = true;
+  if (key == 'g') key_g = true;
+  if (key == 'h') key_h = true;
+  if (key == 'i') key_i = true;
+  if (key == 'j') key_j = true;
+  if (key == 'k') key_k = true;
+  if (key == 'l') key_l = true;
+  if (key == 'm') key_m = true;
+  if (key == 'n') key_n = true;
+  if (key == 'o') key_o = true;
+  if (key == 'p') key_p = true;
+  if (key == 'q') key_q = true;
+  if (key == 'r') key_r = true;
+  if (key == 's') key_s = true;
+  if (key == 't') key_t = true;
+  if (key == 'u') key_u = true;
+  if (key == 'v') key_v = true;
+  if (key == 'w') key_w = true;
+  if (key == 'x') key_x = true;
+  if (key == 'y') key_y = true;
+  if (key == 'z') key_z = true;
 
-      
- // KEYBOARD COMMAND       
-        
-void keyboardTrue() {
-  if (key == ' ' ) key_space_long = true ; 
+  if (key == 'A') key_A = true;
+  if (key == 'B') key_B = true;
+  if (key == 'C') key_C = true;
+  if (key == 'D') key_D = true;
+  if (key == 'E') key_E = true;
+  if (key == 'F') key_F = true;
+  if (key == 'G') key_G = true;
+  if (key == 'H') key_H = true;
+  if (key == 'I') key_I = true;
+  if (key == 'J') key_J = true;
+  if (key == 'K') key_K = true;
+  if (key == 'L') key_L = true;
+  if (key == 'M') key_M = true;
+  if (key == 'N') key_N = true;
+  if (key == 'O') key_O = true;
+  if (key == 'P') key_P = true;
+  if (key == 'Q') key_Q = true;
+  if (key == 'R') key_R = true;
+  if (key == 'S') key_S = true;
+  if (key == 'T') key_T = true;
+  if (key == 'U') key_U = true;
+  if (key == 'V') key_V = true;
+  if (key == 'W') key_W = true;
+  if (key == 'X') key_X = true;
+  if (key == 'Y') key_Y = true;
+  if (key == 'Z') key_Z = true;
   
-  if (key == 'a'  || key == 'A' ) key_a = true ;
-  if (key == 'b'  || key == 'B' ) key_b = true ;
-  if (key == 'c'  || key == 'C' ) { 
-    key_c = true ; 
-    key_c_long = true ; 
-  }
-  if (key == 'd'  || key == 'D' ) key_d = true ;
-  if (key == 'e'  || key == 'E' ) key_e = true ;
-  if (key == 'f'  || key == 'F' ) key_f = true ;
-  if (key == 'g'  || key == 'G' ) key_g = true ;
-  if (key == 'h'  || key == 'H' ) key_h = true ;
-  if (key == 'i'  || key == 'I' ) key_i = true ;
-  if (key == 'j'  || key == 'J' ) key_j = true ;
-  if (key == 'k'  || key == 'K' ) key_k = true ;
-  if (key == 'l'  || key == 'L' ) { 
-    key_l = true ; 
-    key_l_long = true ; 
-  }
-  if (key == 'm'  || key == 'M' ) key_m = true ;
-  if (key == 'n'  || key == 'N' ) { 
-    key_n = true ; 
-    key_n_long = true ; 
-  }
-  if (key == 'o'  || key == 'O' ) key_o = true ;
-  if (key == 'p'  || key == 'P' ) key_p = true ;
-  if (key == 'q'  || key == 'Q' ) key_q = true ;
-  if (key == 'r'  || key == 'R' ) key_r = true ;
-  if (key == 's'  || key == 'S' ) key_s = true ;
-  if (key == 't'  || key == 'T' ) key_t = true ;
-  if (key == 'u'  || key == 'U' ) key_u = true ;
-  if (key == 'v'  || key == 'V' ) { 
-    key_v = true ; 
-    key_v_long = true ; 
-  }
-  if (key == 'w'  || key == 'W' ) key_w = true ;
-  if (key == 'x'  || key == 'X' ) key_x = true ;
-  if (key == 'y'  || key == 'Y' ) key_y = true ;
-  if (key == 'z'  || key == 'Z' ) key_z = true ;
+  if (key == '0') key_0 = true;
+  if (key == '1') key_1 = true;
+  if (key == '2') key_2 = true;
+  if (key == '3') key_3 = true;
+  if (key == '4') key_4 = true;
+  if (key == '5') key_5 = true;
+  if (key == '6') key_6 = true;
+  if (key == '7') key_7 = true;
+  if (key == '8') key_8 = true;
+  if (key == '9') key_9 = true;
   
-  if (key == '0' ) key_0 = true ;
-  if (key == '1' ) key_1 = true ;
-  if (key == '2' ) key_2 = true ;
-  if (key == '3' ) key_3 = true ;
-  if (key == '4' ) key_4 = true ;
-  if (key == '5' ) key_5 = true ;
-  if (key == '6' ) key_6 = true ;
-  if (key == '7' ) key_7 = true ;
-  if (key == '8' ) key_8 = true ;
-  if (key == '9' ) key_9 = true ;
+  if (keyCode == SHIFT) key_shift = true ;
+  if (keyCode == BACKSPACE) key_backspace = true ;
+  if (keyCode == DELETE) key_delete = true ;
+
+  if (keyCode == ALT) key_alt = true ;
+  if (keyCode == RETURN) key_return = true ;
+  if (keyCode == ENTER) key_enter = true ;
+  if (keyCode == CONTROL) key_ctrl = true ;
+  if (keyCode == 157) key_cmd = true ;
   
-  if (keyCode == BACKSPACE ) key_backspace = true ;
-  if (keyCode == DELETE ) key_delete = true ;
-  if (keyCode == SHIFT ) {
-    key_shift = true ;
-    key_shift_long = true ;
-  }
-  if (keyCode == ALT ) key_alt = true ;
-  if (keyCode == RETURN ) key_return = true ;
-  if (keyCode == ENTER ) key_enter = true ;
-  if (keyCode == CONTROL ) key_ctrl = true ;
-  if (keyCode == 157 ) key_cmd = true ;
-  
-  if (keyCode == LEFT ) key_left = true ;
-  if (keyCode == RIGHT ) key_right = true ;
-  if (keyCode == UP ) key_up = true ;
-  if (keyCode == DOWN ) key_down = true ;
+  if (keyCode == LEFT) key_left = true ;
+  if (keyCode == RIGHT) key_right = true ;
+  if (keyCode == UP) key_up = true ;
+  if (keyCode == DOWN) key_down = true ;
+
+  // long
+  if (key == ' ') key_space_long = true; 
+
+  if (key == 'c') key_c_long = true; 
+  if (key == 'l') key_l_long = true; 
+  if (key == 'n') key_n_long = true; 
+  if (key == 'v') key_v_long = true; 
+ 
+  if (keyCode == SHIFT) key_shift_long = true;
 }
 
-void keyboardLongFalse() {
-  if (key == ' ' ) key_space_long = false ; 
-  if (key == 'c'  || key == 'C' ) key_c_long = false ;
-  if (key == 'l'  || key == 'L' ) key_l_long = false ;
-  if (key == 'n'  || key == 'N' ) key_n_long = false ;
-  if (key == 'v'  || key == 'V' ) key_v_long = false ;
+void key_long_false() {
+  if (key == ' ') key_space_long = false; 
+  if (key == 'c') key_c_long = false;
+  if (key == 'l') key_l_long = false;
+  if (key == 'n') key_n_long = false;
+  if (key == 'v') key_v_long = false;
 
-  if (keyCode == SHIFT ) key_shift_long = false ;
+  if (keyCode == SHIFT) key_shift_long = false;
 }
 
 
-void keyboardFalse() {
+void key_false() {
   /** 
   check for the key and put false here, but it's less reactive that put false just after the use the boolean...here you display false three time !
   */
   // we add modulo to be sure the information about the boolean is transmit to the scene
-  if(key_a) key_a = false ; 
-  if(key_b) key_b = false ;
-  if(key_c) key_c = false ;
-  if(key_d) key_d = false ;
-  if(key_e) key_e = false ;
-  if(key_f) key_f = false ;
-  if(key_g) key_g = false ;
-  if(key_h) key_h = false ;
-  if(key_i) key_i = false ;
-  if(key_j) key_j = false ;
-  if(key_k) key_k = false ;
-  if(key_l) key_l = false ;
-  if(key_m) key_m = false ;
-  if(key_n) key_n = false ;
-  if(key_o) key_o = false ;
-  if(key_p) key_p = false ;
-  if(key_q) key_q = false ;
-  if(key_r) key_r = false ;
-  if(key_s) key_s = false ;
-  if(key_t) key_t = false ;
-  if(key_u) key_u = false ;
-  if(key_v) key_v = false ;
-  if(key_w) key_w = false ;
-  if(key_x) key_x = false ;
-  if(key_y) key_y = false ;
-  if(key_z) key_z = false ;
+  if(key_a) key_space = false;
+
+  if(key_a) key_a = false;
+  if(key_b) key_b = false;
+  if(key_c) key_c = false;
+  if(key_d) key_d = false;
+  if(key_e) key_e = false;
+  if(key_f) key_f = false;
+  if(key_g) key_g = false;
+  if(key_h) key_h = false;
+  if(key_i) key_i = false;
+  if(key_j) key_j = false;
+  if(key_k) key_k = false;
+  if(key_l) key_l = false;
+  if(key_m) key_m = false;
+  if(key_n) key_n = false;
+  if(key_o) key_o = false;
+  if(key_p) key_p = false;
+  if(key_q) key_q = false;
+  if(key_r) key_r = false;
+  if(key_s) key_s = false;
+  if(key_t) key_t = false;
+  if(key_u) key_u = false;
+  if(key_v) key_v = false;
+  if(key_w) key_w = false;
+  if(key_x) key_x = false;
+  if(key_y) key_y = false;
+  if(key_z) key_z = false;
+
+  if(key_A) key_A = false;
+  if(key_B) key_B = false;
+  if(key_C) key_C = false;
+  if(key_D) key_D = false;
+  if(key_E) key_E = false;
+  if(key_F) key_F = false;
+  if(key_G) key_G = false;
+  if(key_H) key_H = false;
+  if(key_I) key_I = false;
+  if(key_J) key_J = false;
+  if(key_K) key_K = false;
+  if(key_L) key_L = false;
+  if(key_M) key_M = false;
+  if(key_N) key_N = false;
+  if(key_O) key_O = false;
+  if(key_P) key_P = false;
+  if(key_Q) key_Q = false;
+  if(key_R) key_R = false;
+  if(key_S) key_S = false;
+  if(key_T) key_T = false;
+  if(key_U) key_U = false;
+  if(key_V) key_V = false;
+  if(key_W) key_W = false;
+  if(key_X) key_X = false;
+  if(key_Y) key_Y = false;
+  if(key_Z) key_Z = false;
   
-  if(key_0) key_0 = false ;
-  if(key_1) key_1 = false ;
-  if(key_2) key_2 = false ;
-  if(key_3) key_3 = false ;
-  if(key_4) key_4 = false ;
-  if(key_5) key_5 = false ;
-  if(key_6) key_6 = false ;
-  if(key_7) key_7 = false ;
-  if(key_8) key_8 = false ;
-  if(key_9) key_9 = false ;
+  if(key_0) key_0 = false;
+  if(key_1) key_1 = false;
+  if(key_2) key_2 = false;
+  if(key_3) key_3 = false;
+  if(key_4) key_4 = false;
+  if(key_5) key_5 = false;
+  if(key_6) key_6 = false;
+  if(key_7) key_7 = false;
+  if(key_8) key_8 = false;
+  if(key_9) key_9 = false;
   
-  if (key_backspace) key_backspace = false ;
-  if (key_delete) key_delete = false ; 
-  if (key_enter) key_enter = false ;
-  if (key_return) key_return = false ;
-  if (key_shift) key_shift = false ;
-  if (key_alt) key_alt = false ; 
-  if (key_esc) key_esc = false ;
-  if (key_ctrl) key_ctrl = false ;
-  if (key_cmd) key_cmd = false ;
+  if (key_backspace) key_backspace = false;
+  if (key_delete) key_delete = false; 
+  if (key_enter) key_enter = false;
+  if (key_return) key_return = false;
+  if (key_shift) key_shift = false;
+  if (key_alt) key_alt = false; 
+  if (key_esc) key_esc = false;
+  if (key_ctrl) key_ctrl = false;
+  if (key_cmd) key_cmd = false;
   
-  if (key_up) key_up = false ;
-  if (key_down) key_down = false ;
-  if (key_left) key_left = false ;
-  if (key_right) key_right = false ;
+  if (key_up) key_up = false;
+  if (key_down) key_down = false;
+  if (key_left) key_left = false;
+  if (key_right) key_right = false;
 }
-//END KEYBOARD
-//////////////
+
+
+

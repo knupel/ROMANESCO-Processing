@@ -2,7 +2,7 @@
 VARIABLE  
 Romanesco Processing Environment
 2015-2018
-v 1.2.0
+v 1.2.1
 */
 
 /**
@@ -16,7 +16,9 @@ boolean key_0, key_1, key_2, key_3, key_4, key_5, key_6, key_7, key_8, key_9;
 boolean key_space, key_backspace, key_delete, key_enter, key_return, key_shift, key_alt, key_esc, key_ctrl, key_cmd;
 //long touch
 boolean key_c_long, key_l_long, key_n_long, key_v_long;
-boolean key_space_long, key_shift_long;  
+boolean key_space_long, key_shift_long; 
+
+String data_osc_prescene[] = new String [135]; 
 
 
 

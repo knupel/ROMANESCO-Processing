@@ -21,12 +21,12 @@ boolean TEST_ROMANESCO = false; /* Use true when you want:
                                     used sound
                                     maximum possibility of the object
                                   */
-boolean FULL_RENDERING = true;
+boolean FULL_RENDERING = false;
 boolean FULL_SCREEN = false ;
 boolean TABLET = false; // now tablet library don't work in OPENGL renderer
 
 
-boolean HOME = true;
+boolean HOME = false;
 /**
 SETTINGS
 */
@@ -109,10 +109,8 @@ void romanesco() {
   update_OSC_data_controller();
 
   // if(keyboard_new_event) {
-  write_oskey_cboard_short_event();
-  //   keyboard_new_event = false ;
-  //  }
-  write_osc_other_event();
+  write_osc_event();
+
   join_osc_data();
 
   update_raw_value();
@@ -157,8 +155,8 @@ void romanesco() {
   device_update();
   
   // change to false if the information has be sent to Scene...but how ????
-  OSC_send();
-  keyboardFalse();
+  if(!HOME) OSC_send();
+  key_false();
 }
 
 
@@ -179,13 +177,13 @@ void keyPressed () {
  // keyboard_new_event = true ;
   shortCutsPrescene();
   nextPreviousKeypressed();
-  keyboardTrue();
+  key_true();
 }
 
 
 void keyReleased() {
   //special touch need to be long
-  keyboardLongFalse();
+  key_long_false();
   keyboard[keyCode] = false;
 }
 

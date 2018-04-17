@@ -1,4 +1,8 @@
-// Tab: A_Variable_Scene
+/**
+Variable_Scene
+2014_2018
+v 0.1.1
+*/
 boolean scene = true ;
 boolean prescene = false ;
 boolean miroir_on_off = false ;
@@ -10,8 +14,6 @@ boolean check_size = false ;
 Boolean internet = true ;
 String bigBrother = ("BIG BROTHER DON'T WATCHING YOU !!") ;
 
-//specific at the Scene
-String valueTempPrescene[] = new String [100] ;
 //Special var for the Scene and the Miroir
 
 
@@ -20,8 +22,8 @@ String valueTempPrescene[] = new String [100] ;
 //init var
 //GLOBAL
 void variables_setup() {
-  for (int i = 0 ; i < valueTempPrescene.length ; i++) {
-    valueTempPrescene[i] = ("0") ;
+  for (int i = 0 ; i < data_osc_prescene.length ; i++) {
+    data_osc_prescene[i] = ("0");
   }
   
   for (int i = 0 ; i < NUM_ITEM ; i++ ) {

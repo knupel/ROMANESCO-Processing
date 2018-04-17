@@ -1,7 +1,7 @@
 /**
 OSC Prescene 
-2014 - 2017
-v 1.1.0
+2014 - 2018
+v 1.2.0
 */
 NetAddress [] target_scene ;
 String [] ID_address_scene ;
@@ -19,19 +19,10 @@ int port_send_scene = 9_100 ;
 
 //SETUP
 void OSC_setup() {
-
-
   osc_receive_controller = new OscP5(this, port_receive_controller);
   osc_send_scene = new OscP5(this, port_send_scene);
 
-
-  //send to the Scène
-
-
-//   int port_mirror = 9_200 ; // may be is not import to have a other port for the miroor ?
-
-  
-  //send to the miroir
+  //send
   if (!TEST_ROMANESCO) {
     String [] addressIP = loadStrings(preference_path+"network/IP_address_mirror.txt") ;
     String join_address = join(addressIP, "") ;
@@ -48,16 +39,19 @@ void OSC_setup() {
     if (youCanSendToScene) {
       ID_address_scene = new String[num_valid_address] ;
       target_scene = new NetAddress[num_valid_address] ;
-     //  targetScene = new NetAddress(sendToScene, port_send_scene);
     }
     
-
     for(int i = 0 ; i < num_valid_address ; i++) {
       ID_address_scene[i] = temp[i+1] ;
     }
-
     set_ip_address() ; 
-  } 
+  }
+
+  if(!HOME) {
+    for(int i = 0 ; i < data_osc_prescene.length ; i++) {
+      data_osc_prescene[i] = "0";
+    }
+  }
 
 
   // must stop the process to give a time to initialization for the OSC process
@@ -74,9 +68,8 @@ void OSC_setup() {
 
 void set_ip_address() {
   for(int i = 0 ; i < target_scene.length ; i++) {
-     target_scene[i] = new NetAddress(ID_address_scene[i], port_send_scene) ;
+     target_scene[i] = new NetAddress(ID_address_scene[i], port_send_scene);
   }
-  // target_scene = new NetAddress(ID_adress_scene,address_scene) ;
 }
 
 
@@ -84,16 +77,16 @@ void set_ip_address() {
 void oscEvent(OscMessage receive) {
   if(receive.addrPattern().equals("Controller")) {
     catchDataFromController(receive) ;
-    splitDataButton() ;
-    splitDataSlider() ;
-    splitDataLoadSaveController() ;
+    splitDataButton();
+    splitDataSlider();
+    splitDataLoadSaveController();
   }
 }
 
 
 void update_OSC_data_controller() {
-  translateDataFromController_buttonGlobal() ;
-  translateDataFromController_buttonItem() ;
+  translateDataFromController_buttonGlobal();
+  translateDataFromController_buttonItem();
 }
 
 
@@ -106,10 +99,11 @@ v 1.0.1
 */
 void OSC_send() {
   OscMessage RomanescoScene = new OscMessage("Prescene");
-  booleanLoadSaveScene() ;
+  bool_load_save_scene() ;
 
   //SEND data to SCENE
   RomanescoScene.add(toScene);
+
   // send the load path to the scene to also open the save setting in the scene with only one opening window input
   RomanescoScene.add(path_to_load_scene_setting) ;
   // reset the path for the next send, because the Scene check this path, to know if this one is not null,
@@ -140,8 +134,7 @@ V 1.0.0
 */
 String booleanLoadSave = ("") ;
 
-void booleanLoadSaveScene() {
-       // LOAD SAVE SCENE ORDER
+void bool_load_save_scene() {
   boolean load, save_current, save_new ;
 
   if (load_SCENE_Setting_GLOBAL || load_Scene_Setting_local) {
@@ -193,119 +186,156 @@ void booleanLoadSaveScene() {
 OSC write
 v 1.0.1
 */
-String dataPreScene [] = new String [74] ;
+void write_osc_event() {
+  //data_osc_prescene [0] = ("");
+  if (key_a) data_osc_prescene [1] = ("1"); else data_osc_prescene [1] = ("0");
+  if (key_b) data_osc_prescene [2] = ("1"); else data_osc_prescene [2] = ("0");
+  if (key_c) data_osc_prescene [3] = ("1"); else data_osc_prescene [3] = ("0");
+  if (key_d) data_osc_prescene [4] = ("1"); else data_osc_prescene [4] = ("0");
+  if (key_e) data_osc_prescene [5] = ("1"); else data_osc_prescene [5] = ("0");
+  if (key_f) data_osc_prescene [6] = ("1"); else data_osc_prescene [6] = ("0");
+  if (key_g) data_osc_prescene [7] = ("1"); else data_osc_prescene [7] = ("0");
+  if (key_h) data_osc_prescene [8] = ("1"); else data_osc_prescene [8] = ("0");
+  if (key_i) data_osc_prescene [9] = ("1"); else data_osc_prescene [9] = ("0");
+  if (key_j) data_osc_prescene [10] = ("1"); else data_osc_prescene [10] = ("0");
+  if (key_k) data_osc_prescene [11] = ("1"); else data_osc_prescene [11] = ("0");
+  if (key_l) data_osc_prescene [12] = ("1"); else data_osc_prescene [12] = ("0");
+  if (key_m) data_osc_prescene [13] = ("1"); else data_osc_prescene [13] = ("0");
+  if (key_n) data_osc_prescene [14] = ("1"); else data_osc_prescene [14] = ("0");
+  if (key_o) data_osc_prescene [15] = ("1"); else data_osc_prescene [15] = ("0");
+  if (key_p) data_osc_prescene [16] = ("1"); else data_osc_prescene [16] = ("0");
+  if (key_q) data_osc_prescene [17] = ("1"); else data_osc_prescene [17] = ("0");
+  if (key_r) data_osc_prescene [18] = ("1"); else data_osc_prescene [18] = ("0");
+  if (key_s) data_osc_prescene [19] = ("1"); else data_osc_prescene [19] = ("0");
+  if (key_t) data_osc_prescene [20] = ("1"); else data_osc_prescene [20] = ("0");
+  if (key_u) data_osc_prescene [21] = ("1"); else data_osc_prescene [21] = ("0");
+  if (key_v) data_osc_prescene [22] = ("1"); else data_osc_prescene [22] = ("0");
+  if (key_w) data_osc_prescene [23] = ("1"); else data_osc_prescene [23] = ("0");
+  if (key_x) data_osc_prescene [24] = ("1"); else data_osc_prescene [24] = ("0");
+  if (key_y) data_osc_prescene [25] = ("1"); else data_osc_prescene [25] = ("0");
+  if (key_z) data_osc_prescene [26] = ("1"); else data_osc_prescene [26] = ("0");
 
-void write_oskey_cboard_short_event() {
-  if (key_space_long) dataPreScene [0] = ("1") ; else dataPreScene [0] =("0") ;
-  if (key_a)     dataPreScene [1] = ("1") ; else dataPreScene [1] = ("0") ;
-  if (key_b)     dataPreScene [2] = ("1") ; else dataPreScene [2] = ("0") ;
-  if (key_c)     dataPreScene [3] = ("1") ; else dataPreScene [3] = ("0") ;
-  if (key_d)     dataPreScene [4] = ("1") ; else dataPreScene [4] = ("0") ;
-  if (key_e)     dataPreScene [5] = ("1") ; else dataPreScene [5] = ("0") ;
-  if (key_f)     dataPreScene [6] = ("1") ; else dataPreScene [6] = ("0") ;
-  if (key_g)     dataPreScene [7] = ("1") ; else dataPreScene [7] = ("0") ;
-  if (key_h)     dataPreScene [8] = ("1") ; else dataPreScene [8] = ("0") ;
-  if (key_i)     dataPreScene [9] = ("1") ; else dataPreScene [9] = ("0") ;
-  if (key_j)     dataPreScene [10] = ("1") ; else dataPreScene [10] = ("0") ;
-  if (key_k)     dataPreScene [11] = ("1") ; else dataPreScene [11] = ("0") ;
-  if (key_l)     dataPreScene [12] = ("1") ; else dataPreScene [12] = ("0") ;
-  if (key_m)     dataPreScene [13] = ("1") ; else dataPreScene [13] = ("0") ;
-  if (key_n)     dataPreScene [14] = ("1") ; else dataPreScene [14] = ("0") ;
-  if (key_o)     dataPreScene [15] = ("1") ; else dataPreScene [15] = ("0") ;
-  if (key_p)     dataPreScene [16] = ("1") ; else dataPreScene [16] = ("0") ;
-  if (key_q)     dataPreScene [17] = ("1") ; else dataPreScene [17] = ("0") ;
-  if (key_r)     dataPreScene [18] = ("1") ; else dataPreScene [18] = ("0") ;
-  if (key_s)     dataPreScene [19] = ("1") ; else dataPreScene [19] = ("0") ;
-  if (key_t)     dataPreScene [20] = ("1") ; else dataPreScene [20] = ("0") ;
-  if (key_u)     dataPreScene [21] = ("1") ; else dataPreScene [21] = ("0") ;
-  if (key_v)     dataPreScene [22] = ("1") ; else dataPreScene [22] = ("0") ;
-  if (key_w)     dataPreScene [23] = ("1") ; else dataPreScene [23] = ("0") ;
-  if (key_x)     dataPreScene [24] = ("1") ; else dataPreScene [24] = ("0") ;
-  if (key_y)     dataPreScene [25] = ("1") ; else dataPreScene [25] = ("0") ;
-  if (key_z)     dataPreScene [26] = ("1") ; else dataPreScene [26] = ("0") ;
+  if (key_A) data_osc_prescene[27] = ("1"); else data_osc_prescene[27] = ("0");
+  if (key_B) data_osc_prescene[28] = ("1"); else data_osc_prescene[28] = ("0");
+  if (key_C) data_osc_prescene[29] = ("1"); else data_osc_prescene[29] = ("0");
+  if (key_D) data_osc_prescene[30] = ("1"); else data_osc_prescene[30] = ("0");
+  if (key_E) data_osc_prescene[31] = ("1"); else data_osc_prescene[31] = ("0");
+  if (key_F) data_osc_prescene[32] = ("1"); else data_osc_prescene[32] = ("0");
+  if (key_G) data_osc_prescene[33] = ("1"); else data_osc_prescene[33] = ("0");
+  if (key_H) data_osc_prescene[34] = ("1"); else data_osc_prescene[34] = ("0");
+  if (key_I) data_osc_prescene[35] = ("1"); else data_osc_prescene[35] = ("0");
+  if (key_J) data_osc_prescene[36] = ("1"); else data_osc_prescene[36] = ("0");
+  if (key_K) data_osc_prescene[37] = ("1"); else data_osc_prescene[37] = ("0");
+  if (key_L) data_osc_prescene[38] = ("1"); else data_osc_prescene[38] = ("0");
+  if (key_M) data_osc_prescene[39] = ("1"); else data_osc_prescene[39] = ("0");
+  if (key_N) data_osc_prescene[40] = ("1"); else data_osc_prescene[40] = ("0");
+  if (key_O) data_osc_prescene[41] = ("1"); else data_osc_prescene[41] = ("0");
+  if (key_P) data_osc_prescene[42] = ("1"); else data_osc_prescene[42] = ("0");
+  if (key_Q) data_osc_prescene[43] = ("1"); else data_osc_prescene[43] = ("0");
+  if (key_R) data_osc_prescene[44] = ("1"); else data_osc_prescene[44] = ("0");
+  if (key_S) data_osc_prescene[45] = ("1"); else data_osc_prescene[45] = ("0");
+  if (key_T) data_osc_prescene[46] = ("1"); else data_osc_prescene[46] = ("0");
+  if (key_U) data_osc_prescene[47] = ("1"); else data_osc_prescene[47] = ("0");
+  if (key_V) data_osc_prescene[48] = ("1"); else data_osc_prescene[48] = ("0");
+  if (key_W) data_osc_prescene[49] = ("1"); else data_osc_prescene[49] = ("0");
+  if (key_X) data_osc_prescene[50] = ("1"); else data_osc_prescene[50] = ("0");
+  if (key_Y) data_osc_prescene[51] = ("1"); else data_osc_prescene[51] = ("0");
+  if (key_Z) data_osc_prescene[52] = ("1"); else data_osc_prescene[52] = ("0");
   //FREE
-  dataPreScene [27] = ("") ;
-  dataPreScene [28] = ("") ;
-  dataPreScene [29] = ("") ;
+
+  if (key_1) data_osc_prescene[53] = ("1"); else data_osc_prescene[53] = ("0");
+  if (key_2) data_osc_prescene[54] = ("1"); else data_osc_prescene[54] = ("0");
+  if (key_3) data_osc_prescene[55] = ("1"); else data_osc_prescene[55] = ("0");
+  if (key_4) data_osc_prescene[56] = ("1"); else data_osc_prescene[56] = ("0");
+  if (key_5) data_osc_prescene[57] = ("1"); else data_osc_prescene[57] = ("0");
+  if (key_6) data_osc_prescene[58] = ("1"); else data_osc_prescene[58] = ("0");
+  if (key_7) data_osc_prescene[59] = ("1"); else data_osc_prescene[59] = ("0");
+  if (key_8) data_osc_prescene[60] = ("1"); else data_osc_prescene[60] = ("0");
+  if (key_9) data_osc_prescene[61] = ("1"); else data_osc_prescene[61] = ("0");
+  if (key_0) data_osc_prescene[62] = ("1"); else data_osc_prescene[62] = ("0");
+  
+
+  // if (key_a_long) data_osc_prescene[63] = ("1"); else data_osc_prescene[63] = ("0");
+  //if (key_b_long) data_osc_prescene[64] = ("1"); else data_osc_prescene[64] = ("0");
+  if (key_c_long) data_osc_prescene[65] = ("1"); else data_osc_prescene[65] = ("0");
+  //if (key_d_long) data_osc_prescene[66] = ("1"); else data_osc_prescene[66] = ("0");
+  //if (key_e_long) data_osc_prescene[67] = ("1"); else data_osc_prescene[67] = ("0");
+  //if (key_f_long) data_osc_prescene[68] = ("1"); else data_osc_prescene[68] = ("0");
+  //if (key_g_long) data_osc_prescene[69] = ("1"); else data_osc_prescene[69] = ("0");
+  //if (key_h_long) data_osc_prescene[70] = ("1"); else data_osc_prescene[70] = ("0");
+  //if (key_i_long) data_osc_prescene[71] = ("1"); else data_osc_prescene[71] = ("0");
+  //if (key_j_long) data_osc_prescene[72] = ("1"); else data_osc_prescene[72] = ("0");
+  //if (key_k_long) data_osc_prescene[73] = ("1"); else data_osc_prescene[73] = ("0");
+  if (key_l_long) data_osc_prescene[74] = ("1"); else data_osc_prescene[74] = ("0");
+  //if (key_m_long) data_osc_prescene[75] = ("1"); else data_osc_prescene[75] = ("0");
+  if (key_n_long) data_osc_prescene[76] = ("1"); else data_osc_prescene[76] = ("0");
+  //if (key_o_long) data_osc_prescene[77] = ("1"); else data_osc_prescene[77] = ("0");
+  //if (key_p_long) data_osc_prescene[78] = ("1"); else data_osc_prescene[78] = ("0");
+  //if (key_q_long) data_osc_prescene[79] = ("1"); else data_osc_prescene[79] = ("0");
+  //if (key_r_long) data_osc_prescene[80] = ("1"); else data_osc_prescene[80] = ("0");
+  //if (key_s_long) data_osc_prescene[81] = ("1"); else data_osc_prescene[81] = ("0");
+  //if (key_t_long) data_osc_prescene[82] = ("1"); else data_osc_prescene[82] = ("0");
+  //if (key_u_long) data_osc_prescene[83] = ("1"); else data_osc_prescene[83] = ("0");
+  if (key_v_long) data_osc_prescene[84] = ("1"); else data_osc_prescene[84] = ("0");
+  //if (key_w_long) data_osc_prescene[85] = ("1"); else data_osc_prescene[85] = ("0");
+  //if (key_x_long) data_osc_prescene[86] = ("1"); else data_osc_prescene[86] = ("0");
+  //if (key_y_long) data_osc_prescene[87] = ("1"); else data_osc_prescene[87] = ("0");
+  //if (key_z_long) data_osc_prescene[88] = ("1"); else data_osc_prescene[88] = ("0");
+  
 
   // SPECIAL TOUCH
-  if (key_enter)    dataPreScene [30] = ("1") ; else dataPreScene [30] = ("0") ;
-  if (key_delete)    dataPreScene [31] = ("1") ; else dataPreScene [31] = ("0") ;
-  if (key_backspace) dataPreScene [32] = ("1") ; else dataPreScene [32] = ("0") ;
-  if (key_up) dataPreScene [33] = ("1") ; else dataPreScene [33] = ("0") ;
-  if (key_down) dataPreScene [34] = ("1") ; else dataPreScene [34] = ("0") ;
-  if (key_right) dataPreScene [35] = ("1") ; else dataPreScene [35] = ("0") ;
-  if (key_left) dataPreScene [36] = ("1") ; else dataPreScene [36] = ("0") ;
-  if (key_ctrl) dataPreScene [37] = ("1") ; else dataPreScene [37] = ("0") ;
+  if (key_space_long) data_osc_prescene[89] = ("1"); else data_osc_prescene[89] =("0");
+  if (key_shift_long) data_osc_prescene[90] = ("1"); else data_osc_prescene[90] = ("0");
+
+  //data_osc_prescene [91] = ("");
+  // .../...
+  //data_osc_prescene [99] = ("");
+
+  if (key_space) data_osc_prescene[100] = ("1") ; else data_osc_prescene[100] =("0") ;
+  if (key_enter) data_osc_prescene[101] = ("1") ; else data_osc_prescene[101] = ("0") ;
+  if (key_return) data_osc_prescene[102] = ("1") ; else data_osc_prescene[102] = ("0") ;
+  if (key_delete) data_osc_prescene[103] = ("1") ; else data_osc_prescene[103] = ("0") ;
+  if (key_backspace) data_osc_prescene[104] = ("1") ; else data_osc_prescene[104] = ("0") ;
+  if (key_alt) data_osc_prescene[105] = ("1") ; else data_osc_prescene[105] = ("0") ;
+  if (key_ctrl) data_osc_prescene[106] = ("1") ; else data_osc_prescene[106] = ("0") ;
+  if (key_cmd) data_osc_prescene[107] = ("1") ; else data_osc_prescene[107] = ("0") ;
+
+  if (key_up) data_osc_prescene[108] = ("1") ; else data_osc_prescene[108] = ("0") ;
+  if (key_down) data_osc_prescene[109] = ("1") ; else data_osc_prescene[109] = ("0") ;
+  if (key_right) data_osc_prescene[110] = ("1") ; else data_osc_prescene[110] = ("0") ;
+  if (key_left) data_osc_prescene[111] = ("1") ; else data_osc_prescene[111] = ("0") ;
+
   
-  dataPreScene [38] = ("") ;
-  dataPreScene [39] = ("") ;
-  /*
-  from 40
-  to 50
-  it's other event method
-  */
+  //data_osc_prescene [112] = ("");
+  // .../...
+  //data_osc_prescene [119] = ("");
 
+  data_osc_prescene[120] = float_to_String_3(pen[0].x); 
+  data_osc_prescene[121] = float_to_String_3(pen[0].y); 
+  data_osc_prescene[122] = float_to_String_1(pen[0].z); 
 
-  if (key_1)     dataPreScene [51] = ("1") ; else dataPreScene [51] = ("0") ;
-  if (key_2)     dataPreScene [52] = ("1") ; else dataPreScene [52] = ("0") ;
-  if (key_3)     dataPreScene [53] = ("1") ; else dataPreScene [53] = ("0") ;
-  if (key_4)     dataPreScene [54] = ("1") ; else dataPreScene [54] = ("0") ;
-  if (key_5)     dataPreScene [55] = ("1") ; else dataPreScene [55] = ("0") ;
-  if (key_6)     dataPreScene [56] = ("1") ; else dataPreScene [56] = ("0") ;
-  if (key_7)     dataPreScene [57] = ("1") ; else dataPreScene [57] = ("0") ;
-  if (key_8)     dataPreScene [58] = ("1") ; else dataPreScene [58] = ("0") ;
-  if (key_9)     dataPreScene [59] = ("1") ; else dataPreScene [59] = ("0") ;
-  if (key_0)     dataPreScene [60] = ("1") ; else dataPreScene [60] = ("0") ;
+  data_osc_prescene[123] = float_to_String_3(norm(mouse[0].x, 0, width)); 
+  data_osc_prescene[124] = float_to_String_3(norm(mouse[0].y,0,height));
+  data_osc_prescene[125] = float_to_String_3(norm(mouse[0].z,-depth_scene,depth_scene));
 
-  /*
-  from 61
-  to 73
-  it's other event method
-  */
-}
+  if (clickShortLeft[0]) data_osc_prescene[126] = ("1"); else data_osc_prescene[126] = ("0");
+  if (clickShortRight[0]) data_osc_prescene[127] = ("1"); else data_osc_prescene[127] = ("0");
+  if (clickLongLeft[0]) data_osc_prescene[128] = ("1"); else data_osc_prescene[128] = ("0");
+  if (clickLongRight[0]) data_osc_prescene[129] = ("1"); else data_osc_prescene[129] = ("0");
 
-//
-void write_osc_other_event(){
-  // MOUSE
-  dataPreScene[40] = float_to_String_3(pen[0].x) ; 
-  dataPreScene[41] = float_to_String_3(pen[0].y) ; 
-  dataPreScene[42] = float_to_String_1(pen[0].z) ; 
-  dataPreScene[43] = float_to_String_3(norm(mouse[0].x, 0, width)) ; 
-  dataPreScene[44] = float_to_String_3(norm(mouse[0].y,0,height)) ;
-  dataPreScene[45] = float_to_String_3(norm(mouse[0].z,-depth_scene,depth_scene)) ;
+  data_osc_prescene[130] = int_to_String(wheel[0]);
 
-  if (clickShortLeft[0]) dataPreScene [46] = ("1") ; else dataPreScene [46] = ("0") ;
-  if (clickShortRight[0]) dataPreScene [47] = ("1") ; else dataPreScene [47] = ("0") ;
-  if (clickLongLeft[0]) dataPreScene [48] = ("1") ; else dataPreScene [48] = ("0") ;
-  if (clickLongRight[0]) dataPreScene [49] = ("1") ; else dataPreScene [49] = ("0") ;
-  dataPreScene[50] = int_to_String(wheel[0]) ;
-
-
-  //longtouch
-  if (key_c_long) dataPreScene [61] = ("1") ; else dataPreScene [61] = ("0") ;
-  if (key_l_long) dataPreScene [62] = ("1") ; else dataPreScene [62] = ("0") ;
-  if (key_n_long) dataPreScene [63] = ("1") ; else dataPreScene [63] = ("0") ;
-  if (key_v_long) dataPreScene [64] = ("1") ; else dataPreScene [64] = ("0") ;
-
-  if (key_shift_long) dataPreScene [65] = ("1") ; else dataPreScene [65] = ("0") ;
-
-  // FREE
-  dataPreScene [66] = ("") ;
-  dataPreScene [67] = ("") ;
-  dataPreScene [68] = ("") ;
-  dataPreScene [69] = ("") ;
 
   // ORDER
-  if (ORDER_ONE) dataPreScene [70] = ("1") ; else dataPreScene [70] = ("0") ;
-  if (ORDER_TWO) dataPreScene [71] = ("1") ; else dataPreScene [71] = ("0") ;
-  if (ORDER_THREE) dataPreScene [72] = ("1") ; else dataPreScene [72] = ("0") ;
-  if (LEAPMOTION_DETECTED) dataPreScene [73] = ("1") ; else dataPreScene [73] = ("0") ;
+  if (ORDER_ONE) data_osc_prescene[131] = ("1") ; else data_osc_prescene[131] = ("0");
+  if (ORDER_TWO) data_osc_prescene[132] = ("1") ; else data_osc_prescene[132] = ("0");
+  if (ORDER_THREE) data_osc_prescene[133] = ("1") ; else data_osc_prescene[133] = ("0");
+  if (LEAPMOTION_DETECTED) data_osc_prescene[134] = ("1") ; else data_osc_prescene[134] = ("0");
 }
 
 
 void join_osc_data() {
-  toScene = join(dataPreScene, "/") ;
+  toScene = join(data_osc_prescene, "/") ;
 }
 
 
