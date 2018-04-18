@@ -1,5 +1,5 @@
 Romanesco Unu
-2011-2017 - version 1.2.1.31
+2011-2018 - version 1.2.1.31
 Romanesco is free and free, but for the commercial use that can be good to do a donation !
 Romanesco is under CeCill License - http://www.cecill.info/licences/Licence_CeCILL_V2-en.html -
 
@@ -19,9 +19,8 @@ Translation: Stéphanie Doan Van Bien, Lauren Thépot, Laetitia Natali.
 
 Donors: Andrea Bernabini, Laetitia Natali.
 
-
 Network support: Ludovic Laurent, Tutoprocessing, Le Collagiste, Processing Lyon, Processing Rennes,
-VJUnion.
+VJUnion, Algorave.
 
 Processing Foundation: Casey Reas, Ben Fry 
 and all contributors: Daniel Shiffman, Andres Colubri, Andreas Schlegel...

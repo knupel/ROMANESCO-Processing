@@ -44,7 +44,10 @@ void OSC_setup() {
     for(int i = 0 ; i < num_valid_address ; i++) {
       ID_address_scene[i] = temp[i+1] ;
     }
-    set_ip_address() ; 
+
+    for(int i = 0 ; i < target_scene.length ; i++) {
+      target_scene[i] = new NetAddress(ID_address_scene[i], port_send_scene);
+    }
   }
 
   if(!HOME) {
@@ -66,11 +69,6 @@ void OSC_setup() {
 
 
 
-void set_ip_address() {
-  for(int i = 0 ; i < target_scene.length ; i++) {
-     target_scene[i] = new NetAddress(ID_address_scene[i], port_send_scene);
-  }
-}
 
 
 

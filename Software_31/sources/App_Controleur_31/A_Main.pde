@@ -86,27 +86,31 @@ String  slider_item_name [] = new String[NUM_SLIDER_TOTAL +1] ;
 /**
 GUI VARIABLE SETTING
 */
-float ratioNormSizeMolette = 1.3 ; 
+float ratio_size_molette = 1.3; 
 
-int sliderWidth = 140 ;
-int sliderHeight = 10 ;
-int spacingBetweenSlider = 13 ;
-int roundedSlider = 5 ;
+int slider_width = 100;
+int slider_height = 8;
+int col_width = 160;
+int spacing_slider = 11;
+int rounded_slider = 4;
 /*  the position is calculated in ratio of the slider position. Not optimize for the vertical slider */
-float normPosSliderAdjustable = .5 ; 
+float ratio_pos_slider_adjustable = .5 ; 
 /*the height size is calculated in ratio of the slider height size.  Not optimize for the vertical slider */
-float normSizeSliderAdjustable =.2 ; 
+float ratio_size_slider_adjustable =.2 ; 
 
 // vertical grid
-int colOne = 35 ; 
-int colTwo = int(1.5 *sliderWidth +colOne)  ; 
-int colThree = int(1.5 *sliderWidth +colTwo) ;
-int margeLeft  = colOne +15 ;
+int col_1 = 10; 
+int col_2 = int(col_width +col_1); 
+int col_3 = int(col_width +col_2);
+
+// item gui pos
+int offset_y_item = col_1 +15;
+
 
 // horizontal grid
 
 // this not a position but the height of the rectangle
-int height_header = 23 ;
+int height_header = 23;
 
 int height_button_top = 44 ;
 int pos_y_button_top = height_header ;
@@ -119,15 +123,17 @@ int pos_y_menu_general = height_header +height_button_top +height_dropdown_top ;
 
 int height_menu_sound = 55 ;
 int pos_y_menu_sound = height_header +height_button_top +height_dropdown_top +height_menu_general ;
+// item selected setting
+int height_item_button_console = 85;
+int pos_y_item_selected = height_header +height_button_top +height_dropdown_top +height_menu_general +height_menu_sound;
+int height_item_selected = spacing_slider *NUM_SLIDER_ITEM_BY_COL +height_item_button_console;
+// int height_item_selected = spacing_slider *(NUM_SLIDER_ITEM_BY_COL-5) +height_item_button_console;
 
-int height_item_button_console = 95 ;
-int height_item_selected = spacingBetweenSlider *NUM_SLIDER_ITEM_BY_COL +height_item_button_console;
-int pos_y_item_selected = height_header +height_button_top +height_dropdown_top +height_menu_general +height_menu_sound ;
-
-int pos_y_item_list = height_header +height_button_top +height_dropdown_top +height_menu_general +height_menu_sound +height_item_selected ;
+// inventory item setting
+int pos_y_inventory_item = height_header +height_button_top +height_dropdown_top +height_menu_general +height_menu_sound +height_item_selected ;
 // this value depend of the size of the scene, indeed we must calculate this one later.
-int height_item_list = 100 ;
-// int pos_y_item_list = height_constant ;
+int height_inventory_item = 100 ;
+// int pos_y_inventory_item = height_constant ;
 
 
 
@@ -172,32 +178,32 @@ int correction_slider_general_pos_y = 12 ;
 int set_item_pos_y = 13 ;
 
 // GROUP BG
-int correctionBGX = colOne ;
+int correctionBGX = col_1 ;
 int correctionBGY = pos_y_menu_general +set_item_pos_y +2 ;
 
 // GROUP LIGHT
 // ambient light
-int correctionLightAmbientX = colOne ;
+int correctionLightAmbientX = col_1 ;
 int correctionLightAmbientY = pos_y_menu_general +set_item_pos_y +73 ;
 // directional light one
-int correctionLightOneX = colTwo ;
+int correctionLightOneX = col_2 ;
 int correctionLightOneY = pos_y_menu_general +set_item_pos_y +13 ;
 // directional light two
-int correctionLightTwoX = colTwo ;
+int correctionLightTwoX = col_2 ;
 int correctionLightTwoY = pos_y_menu_general +set_item_pos_y +73 ;
 
 // GROUP CAMERA
-int correctionCameraX = colThree ;
+int correctionCameraX = col_3 ;
 int correctionCameraY = pos_y_menu_general +set_item_pos_y -5 ;
 
 // GROUP SOUND
-int correctionSoundX = colOne ;
+int correctionSoundX = col_1 ;
 int correction_menu_sound_y = pos_y_menu_sound +17 ;
 
-// GROUP ITEM
-int correction_button_item_selected = 20 ;
-int correction_dropdown_item_selected = 50 ;
-int correction_slider_item_selected = 73 ;
+// GROUP ITEM selected
+int local_pos_y_button_item_selected = 20 ;
+int local_pos_y_dropdown_item_selected = local_pos_y_button_item_selected +73;
+int local_pos_y_slider_button = local_pos_y_dropdown_item_selected +20;
 
 
 
@@ -252,7 +258,7 @@ void info_bg_shader() {
 }
 
 void numByGroup() {
-  for (TableRow row : item_list_table.rows()) {
+  for (TableRow row : inventory_item_table.rows()) {
     int item_group = row.getInt("Group");
     for (int i = 0 ; i < NUM_MAX_ITEM ; i++) {
       if (item_group == i) NUM_ITEM += 1 ;
@@ -289,13 +295,10 @@ END setting
 
 /**
 STRUCTURE DESIGN
-
 */
-
 int line_decoration_small = 2 ;
 int line_decoration_medium = 4 ;
 int line_decoration_big = 6 ;
-
 void display_structure_header() {
   noStroke() ;
 
@@ -303,7 +306,6 @@ void display_structure_header() {
   rect(0,0, width, height_header) ;
 }
 void display_structure_top_button() {
- //  int height_button_top = 55 ;
   noStroke() ;
   //background
   fill(gris) ; 
@@ -356,14 +358,14 @@ void display_structure_item_selected() {
   rect(0, pos_y_item_selected, width, line_decoration_small) ; 
 }
 
-void display_structure_item_list() {
+void display_structure_inventory_item() {
   noStroke() ;
   // background
   fill(gris) ;
-  rect(0, pos_y_item_list , width, height) ; 
+  rect(0, pos_y_inventory_item , width, height) ; 
   // top decoration
   fill(grisTresFonce) ;
-  rect(0, pos_y_item_list, width, line_decoration_small) ;
+  rect(0, pos_y_inventory_item, width, line_decoration_small) ;
 }
 
 void display_structure_bottom() {
@@ -404,15 +406,11 @@ void check_interface() {
 
 void init_interface() {
   if(INIT_INTERFACE) {
-    build_button_item_list() ;
-    set_item_list() ;
+    build_button_inventory_item() ;
+    set_inventory_item() ;
     size_ref.set(width, height) ;
   }
 }
-/**
-END STRUCTURE DESIGN
-
-*/
 
 
 
@@ -446,14 +444,12 @@ void init_slider() {
   }
 }
 
-
 void build_slider() {
-  //slider
   for ( int i = 1 ; i < NUM_SLIDER_TOTAL ; i++) {
-    Vec2 sizeMol = Vec2(sizeSlider[i].y *ratioNormSizeMolette, sizeSlider[i].y *ratioNormSizeMolette) ;
+    Vec2 sizeMol = Vec2(sizeSlider[i].y *ratio_size_molette, sizeSlider[i].y *ratio_size_molette) ;
     // we use the var posMol here just to init the Slider, because we load data from save further.
     Vec2 posMol = Vec2() ;
-    Vec2 tempPosSlider = Vec2(posSlider[i].x, posSlider[i].y -(sliderHeight *.6)) ;
+    Vec2 tempPosSlider = Vec2(posSlider[i].x, posSlider[i].y -(slider_height *.6)) ;
     if(info_save_raw_list(infoSlider,i).a > -1 ) {
       slider[i] = new SliderAdjustable(tempPosSlider, posMol, sizeSlider[i], sizeMol, "ELLIPSE");
     }
@@ -466,92 +462,81 @@ void build_slider() {
 // MAIN METHOD SLIDER SETUP
 void set_slider() {
   set_slider_general(correction_slider_general_pos_y) ;
-  set_slider_item_console(height_item_selected +correction_slider_item_selected) ;
+  set_slider_item_console(height_item_selected +local_pos_y_slider_button) ;
 }
 
 
 // LOCAL SLIDER SETUP METHOD
-
-// group zero, global slider for camera, sound, light, background...
-////////////////////////////////////////////////////////////////////
 void set_slider_general(int correction_local_y) {
   // background slider
   int startLoop = 1 ;
   for(int i = startLoop ; i <= startLoop +3 ;i++) {
-    float posY = correctionBGY +correction_local_y +((i-1) *spacingBetweenSlider);
-    posSlider[i] = Vec2(colOne, posY);
-    sizeSlider[i] = Vec2(sliderWidth,sliderHeight);
+    float posY = correctionBGY +correction_local_y +((i-1) *spacing_slider);
+    posSlider[i] = Vec2(col_1, posY);
+    sizeSlider[i] = Vec2(slider_width,slider_height);
   }
 
-  
-  
-  //LIGHT
-  /////////////
   // Directional light one
   startLoop = 7 ;
   for(int i = startLoop ; i <= startLoop +2 ;i++) {
-    float posY = correctionLightOneY +correction_local_y +((i-startLoop) *spacingBetweenSlider);
+    float posY = correctionLightOneY +correction_local_y +((i-startLoop) *spacing_slider);
     posSlider[i] = Vec2(correctionLightOneX, posY);
-    sizeSlider[i] = Vec2(sliderWidth,sliderHeight);
+    sizeSlider[i] = Vec2(slider_width,slider_height);
   }
+
   // Directional light two
   startLoop = 10 ;
   for(int i = startLoop ; i <= startLoop +2 ;i++) {
-    float posY = correctionLightTwoY +correction_local_y +((i-startLoop) *spacingBetweenSlider);
+    float posY = correctionLightTwoY +correction_local_y +((i-startLoop) *spacing_slider);
     posSlider[i] = Vec2(correctionLightTwoX, posY);
-    sizeSlider[i] = Vec2(sliderWidth,sliderHeight);
+    sizeSlider[i] = Vec2(slider_width,slider_height);
   }
   
   // Ambient light
   startLoop = 13 ;
   for(int i = startLoop ; i <= startLoop +2 ;i++) {
-    float posY = correctionLightAmbientY +correction_local_y +((i-startLoop) *spacingBetweenSlider);
+    float posY = correctionLightAmbientY +correction_local_y +((i-startLoop) *spacing_slider);
     posSlider[i] = Vec2(correctionLightAmbientX, posY);
-    sizeSlider[i] = Vec2(sliderWidth,sliderHeight);
+    sizeSlider[i] = Vec2(slider_width,slider_height);
   }
   
   
-  // CAMERA
-  //////////
-  //  int correctionCameraX = colThree ;
-  //int correctionCameraY = height_menu_general +15 ;
+  // camera
   startLoop = 20 ;
   for(int i = startLoop ; i <= startLoop +8 ;i++) {
-    float posY = correctionCameraY +correction_local_y +((i-startLoop) *spacingBetweenSlider) ;
+    float posY = correctionCameraY +correction_local_y +((i-startLoop) *spacing_slider) ;
     posSlider[i] = Vec2(correctionCameraX, posY);
-    sizeSlider[i] = Vec2(sliderWidth,sliderHeight);
+    sizeSlider[i] = Vec2(slider_width,slider_height);
   }
 
 
-    // SOUND
+  // sound
   startLoop = 5 ;
   for(int i = startLoop ; i <= startLoop +1 ;i++) {
-    float posY = correction_menu_sound_y +correction_local_y +((i-startLoop) *spacingBetweenSlider) ;
+    float posY = correction_menu_sound_y +correction_local_y +((i-startLoop) *spacing_slider) ;
     posSlider[i] = Vec2(correctionSoundX, posY);
-    sizeSlider[i] = Vec2(sliderWidth,sliderHeight);
+    sizeSlider[i] = Vec2(slider_width,slider_height);
   }
 }
 
-
-// Object group
-///////////////////////////////////////////
-void set_slider_item_console(int sliderPositionY) {
+// item
+void set_slider_item_console(int pos_y) {
   // where the controleur must display the slider
   for( int i = 0 ; i < SLIDER_BY_COL ; i++ ) {
     for (int j = 0 ; j < NUM_COL_SLIDER ; j++) {
       // int whichSlider = i +101 +(j*10) ;
       int whichSlider = i +101 +(j *NUM_SLIDER_ITEM_BY_COL) ;
-      int posX = 0 ;
+      int pos_x = 0 ;
       switch(j) {
-        case 0 : posX = colOne; 
+        case 0 : pos_x = col_1; 
         break;
-        case 1 : posX = colTwo;
+        case 1 : pos_x = col_2;
         break;
-        case 2 : posX = colThree;
+        case 2 : pos_x = col_3;
         break ;
       }
-      posSlider [whichSlider] = Vec2(posX, sliderPositionY +i *spacingBetweenSlider);
-      sizeSlider [whichSlider] = Vec2(sliderWidth, sliderHeight);
+      posSlider [whichSlider] = Vec2(pos_x, pos_y +i *spacing_slider);
+      sizeSlider [whichSlider] = Vec2(slider_width, slider_height);
     }
   }
 }
@@ -631,7 +616,7 @@ void display_current_slider_engine(int whichOne, int whichGroup) {
 // local method
 void display_min_max_slider(int whichOne,  color colorIn, color colorOut) {
   float thickness = 0 ;
-  slider[whichOne].displayMinMax(normPosSliderAdjustable, normSizeSliderAdjustable, colorIn, colorOut, colorIn, colorOut, thickness) ;
+  slider[whichOne].displayMinMax(ratio_pos_slider_adjustable, ratio_size_slider_adjustable, colorIn, colorOut, colorIn, colorOut, thickness) ;
 }
 
 void display_current_mollette(int whichOne, color colorMolIn, color colorMolOut) {
@@ -666,7 +651,7 @@ void dispay_text_slider_top(int pos) {
 
   //BACKGROUND
   int correction_local_y = 3 ;
-  int correction_local_x = sliderWidth + 5 ;
+  int correction_local_x = slider_width + 5 ;
   // SOUND
   for(int i = 1 ; i < 7 ; i++ ) {
     text(genTxtGUI[i], posSlider[i].x +correction_local_x, posSlider[i].y +correction_local_y);
@@ -714,7 +699,7 @@ void display_bg_slider_general() {
 void sliderBackgroundDisplay() {
   int start = 0 ;
   slider_HSB_general_display(start) ;
-  sliderBG(posSlider[4].x, posSlider[4].y, sizeSlider[4].y, sizeSlider[4].x, roundedSlider, blancGris) ;
+  sliderBG(posSlider[4].x, posSlider[4].y, sizeSlider[4].y, sizeSlider[4].x, rounded_slider, blancGris) ;
 }
 
 // light local variable display
@@ -734,21 +719,21 @@ void sliderDirectionalLightTwo() {
 }
 //
 void sliderSoundDisplay() {
-  sliderBG ( posSlider[5].x, posSlider[5].y, sizeSlider[5].y, sizeSlider[5].x, roundedSlider, grisClair) ;
-  sliderBG ( posSlider[6].x, posSlider[6].y, sizeSlider[6].y, sizeSlider[6].x, roundedSlider, grisClair) ;
+  sliderBG ( posSlider[5].x, posSlider[5].y, sizeSlider[5].y, sizeSlider[5].x, rounded_slider, grisClair) ;
+  sliderBG ( posSlider[6].x, posSlider[6].y, sizeSlider[6].y, sizeSlider[6].x, rounded_slider, grisClair) ;
 }
 
 void sliderCameraDisplay() {
   // we cannot loop, because we change the color of display at the end of the function
-  sliderBG ( posSlider[20].x, posSlider[20].y, sizeSlider[20].y, sizeSlider[20].x, roundedSlider, grisClair) ;
-  sliderBG ( posSlider[21].x, posSlider[21].y, sizeSlider[21].y, sizeSlider[21].x, roundedSlider, grisClair) ;
-  sliderBG ( posSlider[22].x, posSlider[22].y, sizeSlider[22].y, sizeSlider[22].x, roundedSlider, blancGris) ;
-  sliderBG ( posSlider[23].x, posSlider[23].y, sizeSlider[23].y, sizeSlider[23].x, roundedSlider, blancGris) ;
-  sliderBG ( posSlider[24].x, posSlider[24].y, sizeSlider[24].y, sizeSlider[24].x, roundedSlider, blancGris) ;
-  sliderBG ( posSlider[25].x, posSlider[25].y, sizeSlider[25].y, sizeSlider[25].x, roundedSlider, grisClair) ;
-  sliderBG ( posSlider[26].x, posSlider[26].y, sizeSlider[26].y, sizeSlider[26].x, roundedSlider, grisClair) ;
-  sliderBG ( posSlider[27].x, posSlider[27].y, sizeSlider[27].y, sizeSlider[27].x, roundedSlider, grisClair) ;
-  sliderBG ( posSlider[28].x, posSlider[28].y, sizeSlider[28].y, sizeSlider[28].x, roundedSlider, grisClair) ;
+  sliderBG ( posSlider[20].x, posSlider[20].y, sizeSlider[20].y, sizeSlider[20].x, rounded_slider, grisClair) ;
+  sliderBG ( posSlider[21].x, posSlider[21].y, sizeSlider[21].y, sizeSlider[21].x, rounded_slider, grisClair) ;
+  sliderBG ( posSlider[22].x, posSlider[22].y, sizeSlider[22].y, sizeSlider[22].x, rounded_slider, blancGris) ;
+  sliderBG ( posSlider[23].x, posSlider[23].y, sizeSlider[23].y, sizeSlider[23].x, rounded_slider, blancGris) ;
+  sliderBG ( posSlider[24].x, posSlider[24].y, sizeSlider[24].y, sizeSlider[24].x, rounded_slider, blancGris) ;
+  sliderBG ( posSlider[25].x, posSlider[25].y, sizeSlider[25].y, sizeSlider[25].x, rounded_slider, grisClair) ;
+  sliderBG ( posSlider[26].x, posSlider[26].y, sizeSlider[26].y, sizeSlider[26].x, rounded_slider, grisClair) ;
+  sliderBG ( posSlider[27].x, posSlider[27].y, sizeSlider[27].y, sizeSlider[27].x, rounded_slider, grisClair) ;
+  sliderBG ( posSlider[28].x, posSlider[28].y, sizeSlider[28].y, sizeSlider[28].x, rounded_slider, grisClair) ;
 }
 
 // supra local void
@@ -759,9 +744,9 @@ void slider_HSB_general_display(int start) {
     saturationSliderBG ( posSlider[2 +start].x, posSlider[2 +start].y, sizeSlider[2 +start].y, sizeSlider[1 +start].x, valueSlider[1 +start], valueSlider[2 +start], valueSlider[3 +start] ) ;
     brightnessSliderBG ( posSlider[3 +start].x, posSlider[3 +start].y, sizeSlider[3 +start].y, sizeSlider[1 +start].x, valueSlider[1 +start], valueSlider[2 +start], valueSlider[3 +start] ) ;
   } else {
-    sliderBG    ( posSlider[1 +start].x, posSlider[1 +start].y, sizeSlider[1 +start].y, sizeSlider[1 +start].x, roundedSlider, grisClair) ;
-    sliderBG    ( posSlider[2 +start].x, posSlider[2 +start].y, sizeSlider[2 +start].y, sizeSlider[2 +start].x, roundedSlider, grisClair) ;
-    sliderBG    ( posSlider[3 +start].x, posSlider[3 +start].y, sizeSlider[3 +start].y, sizeSlider[3 +start].x, roundedSlider, grisClair) ;
+    sliderBG    ( posSlider[1 +start].x, posSlider[1 +start].y, sizeSlider[1 +start].y, sizeSlider[1 +start].x, rounded_slider, grisClair) ;
+    sliderBG    ( posSlider[2 +start].x, posSlider[2 +start].y, sizeSlider[2 +start].y, sizeSlider[2 +start].x, rounded_slider, grisClair) ;
+    sliderBG    ( posSlider[3 +start].x, posSlider[3 +start].y, sizeSlider[3 +start].y, sizeSlider[3 +start].x, rounded_slider, grisClair) ;
   }
 }
 
@@ -818,16 +803,16 @@ void dislay_text_slider_item() {
   
   
   // Legend text slider position for the item
-  int correction_local_y = correction_slider_item_selected +4 ;
-  int correction_local_x = sliderWidth + 5 ;
+  int correction_local_y = local_pos_y_slider_button +4 ;
+  int correction_local_x = slider_width + 5 ;
   for ( int i = 1 ; i <= SLIDER_BY_COL ; i++) {
     int which_one = i+(SLIDER_BY_COL *0);
     int which_two = i+(SLIDER_BY_COL *1);
     int which_three = i+(SLIDER_BY_COL *2);
     int factor = i -1 ;
-    text(slider_item_name[which_one], colOne +correction_local_x, height_item_selected +correction_local_y +(factor *spacingBetweenSlider));
-    text(slider_item_name[which_two], colTwo +correction_local_x, height_item_selected +correction_local_y +(factor *spacingBetweenSlider));
-    text(slider_item_name[which_three], colThree +correction_local_x, height_item_selected +correction_local_y +(factor *spacingBetweenSlider));
+    text(slider_item_name[which_one], col_1 +correction_local_x, height_item_selected +correction_local_y +(factor *spacing_slider));
+    text(slider_item_name[which_two], col_2 +correction_local_x, height_item_selected +correction_local_y +(factor *spacing_slider));
+    text(slider_item_name[which_three], col_3 +correction_local_x, height_item_selected +correction_local_y +(factor *spacing_slider));
   }
 }
 /* Loop to display the false background slider instead the usual class Slider background,
@@ -839,88 +824,88 @@ void display_bg_slider_item() {
 
   // COL 1
   slider_HSB_item_display(whichOne, whichGroup, hue_fill_rank, sat_fill_rank, bright_fill_rank) ;
-  if (display_slider[whichGroup][alpha_fill_rank]) sliderBG (posSlider[whichOne +alpha_fill_rank].x, posSlider[whichOne +alpha_fill_rank].y, sizeSlider[whichOne +alpha_fill_rank].y, sizeSlider[whichOne +alpha_fill_rank].x, roundedSlider, blanc ) ;
+  if (display_slider[whichGroup][alpha_fill_rank]) sliderBG (posSlider[whichOne +alpha_fill_rank].x, posSlider[whichOne +alpha_fill_rank].y, sizeSlider[whichOne +alpha_fill_rank].y, sizeSlider[whichOne +alpha_fill_rank].x, rounded_slider, blanc ) ;
   
   //outline color
   slider_HSB_item_display(whichOne, whichGroup, hue_stroke_rank, sat_stroke_rank, bright_stroke_rank) ;
-  if (display_slider[whichGroup][alpha_stroke_rank]) sliderBG (posSlider[whichOne +alpha_stroke_rank].x, posSlider[whichOne +alpha_stroke_rank].y, sizeSlider[whichOne +alpha_stroke_rank].y, sizeSlider[whichOne +alpha_stroke_rank].x, roundedSlider, blancGrisClair) ;
+  if (display_slider[whichGroup][alpha_stroke_rank]) sliderBG (posSlider[whichOne +alpha_stroke_rank].x, posSlider[whichOne +alpha_stroke_rank].y, sizeSlider[whichOne +alpha_stroke_rank].y, sizeSlider[whichOne +alpha_stroke_rank].x, rounded_slider, blancGrisClair) ;
   //  thickness
-  if( display_slider[whichGroup][thickness_rank]) sliderBG (posSlider[whichOne +thickness_rank].x, posSlider[whichOne +thickness_rank].y, sizeSlider[whichOne +thickness_rank].y, sizeSlider[whichOne +thickness_rank].x, roundedSlider, blanc) ;
+  if( display_slider[whichGroup][thickness_rank]) sliderBG (posSlider[whichOne +thickness_rank].x, posSlider[whichOne +thickness_rank].y, sizeSlider[whichOne +thickness_rank].y, sizeSlider[whichOne +thickness_rank].x, rounded_slider, blanc) ;
   // size
-  if(display_slider[whichGroup][size_x_rank])  sliderBG (posSlider[whichOne +size_x_rank].x, posSlider[whichOne +size_x_rank].y, sizeSlider[whichOne +size_x_rank].y, sizeSlider[whichOne +size_x_rank].x, roundedSlider, blancGrisClair) ;
-  if(display_slider[whichGroup][size_y_rank]) sliderBG (posSlider[whichOne +size_y_rank].x, posSlider[whichOne +size_y_rank].y, sizeSlider[whichOne +size_y_rank].y, sizeSlider[whichOne +size_y_rank].x, roundedSlider, blancGrisClair) ;
-  if(display_slider[whichGroup][size_z_rank])  sliderBG (posSlider[whichOne +size_z_rank].x, posSlider[whichOne +size_z_rank].y, sizeSlider[whichOne +size_z_rank].y, sizeSlider[whichOne +size_z_rank].x, roundedSlider, blancGrisClair) ;
+  if(display_slider[whichGroup][size_x_rank])  sliderBG (posSlider[whichOne +size_x_rank].x, posSlider[whichOne +size_x_rank].y, sizeSlider[whichOne +size_x_rank].y, sizeSlider[whichOne +size_x_rank].x, rounded_slider, blancGrisClair) ;
+  if(display_slider[whichGroup][size_y_rank]) sliderBG (posSlider[whichOne +size_y_rank].x, posSlider[whichOne +size_y_rank].y, sizeSlider[whichOne +size_y_rank].y, sizeSlider[whichOne +size_y_rank].x, rounded_slider, blancGrisClair) ;
+  if(display_slider[whichGroup][size_z_rank])  sliderBG (posSlider[whichOne +size_z_rank].x, posSlider[whichOne +size_z_rank].y, sizeSlider[whichOne +size_z_rank].y, sizeSlider[whichOne +size_z_rank].x, rounded_slider, blancGrisClair) ;
   // Font size
-  if(display_slider[whichGroup][font_size_rank]) sliderBG (posSlider[whichOne +font_size_rank].x, posSlider[whichOne +font_size_rank].y, sizeSlider[whichOne +font_size_rank].y, sizeSlider[whichOne +font_size_rank].x, roundedSlider, blancGrisClair) ;
+  if(display_slider[whichGroup][font_size_rank]) sliderBG (posSlider[whichOne +font_size_rank].x, posSlider[whichOne +font_size_rank].y, sizeSlider[whichOne +font_size_rank].y, sizeSlider[whichOne +font_size_rank].x, rounded_slider, blancGrisClair) ;
   // canvas
-  if(display_slider[whichGroup][canvas_x_rank]) sliderBG (posSlider[whichOne +canvas_x_rank].x, posSlider[whichOne +canvas_x_rank].y, sizeSlider[whichOne +canvas_x_rank].y, sizeSlider[whichOne +canvas_x_rank].x, roundedSlider, blanc) ;
-  if(display_slider[whichGroup][canvas_y_rank]) sliderBG (posSlider[whichOne +canvas_y_rank].x, posSlider[whichOne +canvas_y_rank].y, sizeSlider[whichOne +canvas_y_rank].y, sizeSlider[whichOne +canvas_y_rank].x, roundedSlider, blanc) ;
-  if(display_slider[whichGroup][canvas_z_rank]) sliderBG (posSlider[whichOne +canvas_z_rank].x, posSlider[whichOne +canvas_z_rank].y, sizeSlider[whichOne +canvas_z_rank].y, sizeSlider[whichOne +canvas_z_rank].x, roundedSlider, blanc) ;
+  if(display_slider[whichGroup][canvas_x_rank]) sliderBG (posSlider[whichOne +canvas_x_rank].x, posSlider[whichOne +canvas_x_rank].y, sizeSlider[whichOne +canvas_x_rank].y, sizeSlider[whichOne +canvas_x_rank].x, rounded_slider, blanc) ;
+  if(display_slider[whichGroup][canvas_y_rank]) sliderBG (posSlider[whichOne +canvas_y_rank].x, posSlider[whichOne +canvas_y_rank].y, sizeSlider[whichOne +canvas_y_rank].y, sizeSlider[whichOne +canvas_y_rank].x, rounded_slider, blanc) ;
+  if(display_slider[whichGroup][canvas_z_rank]) sliderBG (posSlider[whichOne +canvas_z_rank].x, posSlider[whichOne +canvas_z_rank].y, sizeSlider[whichOne +canvas_z_rank].y, sizeSlider[whichOne +canvas_z_rank].x, rounded_slider, blanc) ;
 
   
 
   // COL 2
   // reactivity
-  if(display_slider[whichGroup][reactivity_rank]) sliderBG ( posSlider[whichOne +reactivity_rank].x, posSlider[whichOne +reactivity_rank].y, sizeSlider[whichOne +reactivity_rank].y, sizeSlider[whichOne +reactivity_rank].x, roundedSlider, blancGrisClair) ;
+  if(display_slider[whichGroup][reactivity_rank]) sliderBG ( posSlider[whichOne +reactivity_rank].x, posSlider[whichOne +reactivity_rank].y, sizeSlider[whichOne +reactivity_rank].y, sizeSlider[whichOne +reactivity_rank].x, rounded_slider, blancGrisClair) ;
   // speed
-  if(display_slider[whichGroup][speed_x_rank]) sliderBG (posSlider[whichOne +speed_x_rank].x, posSlider[whichOne +speed_x_rank].y, sizeSlider[whichOne +speed_x_rank].y, sizeSlider[whichOne +speed_x_rank].x, roundedSlider, blanc) ;
-  if(display_slider[whichGroup][speed_y_rank]) sliderBG ( posSlider[whichOne +speed_y_rank].x, posSlider[whichOne +speed_y_rank].y, sizeSlider[whichOne +speed_y_rank].y, sizeSlider[whichOne +speed_y_rank].x, roundedSlider, blanc) ;
-  if(display_slider[whichGroup][speed_z_rank]) sliderBG ( posSlider[whichOne +speed_z_rank].x, posSlider[whichOne +speed_z_rank].y, sizeSlider[whichOne +speed_z_rank].y, sizeSlider[whichOne +speed_z_rank].x, roundedSlider, blanc) ;
+  if(display_slider[whichGroup][speed_x_rank]) sliderBG (posSlider[whichOne +speed_x_rank].x, posSlider[whichOne +speed_x_rank].y, sizeSlider[whichOne +speed_x_rank].y, sizeSlider[whichOne +speed_x_rank].x, rounded_slider, blanc) ;
+  if(display_slider[whichGroup][speed_y_rank]) sliderBG ( posSlider[whichOne +speed_y_rank].x, posSlider[whichOne +speed_y_rank].y, sizeSlider[whichOne +speed_y_rank].y, sizeSlider[whichOne +speed_y_rank].x, rounded_slider, blanc) ;
+  if(display_slider[whichGroup][speed_z_rank]) sliderBG ( posSlider[whichOne +speed_z_rank].x, posSlider[whichOne +speed_z_rank].y, sizeSlider[whichOne +speed_z_rank].y, sizeSlider[whichOne +speed_z_rank].x, rounded_slider, blanc) ;
   // spurt
-  if(display_slider[whichGroup][spurt_x_rank]) sliderBG ( posSlider[whichOne +spurt_x_rank].x, posSlider[whichOne +spurt_x_rank].y, sizeSlider[whichOne +spurt_x_rank].y, sizeSlider[whichOne +spurt_x_rank].x, roundedSlider, blancGrisClair) ;
-  if(display_slider[whichGroup][spurt_y_rank]) sliderBG ( posSlider[whichOne +spurt_y_rank].x, posSlider[whichOne +spurt_y_rank].y, sizeSlider[whichOne +spurt_y_rank].y, sizeSlider[whichOne +spurt_y_rank].x, roundedSlider, blancGrisClair) ;
-  if(display_slider[whichGroup][spurt_z_rank]) sliderBG (posSlider[whichOne +spurt_z_rank].x, posSlider[whichOne +spurt_z_rank].y, sizeSlider[whichOne +spurt_z_rank].y, sizeSlider[whichOne +spurt_z_rank].x, roundedSlider, blancGrisClair) ;
+  if(display_slider[whichGroup][spurt_x_rank]) sliderBG ( posSlider[whichOne +spurt_x_rank].x, posSlider[whichOne +spurt_x_rank].y, sizeSlider[whichOne +spurt_x_rank].y, sizeSlider[whichOne +spurt_x_rank].x, rounded_slider, blancGrisClair) ;
+  if(display_slider[whichGroup][spurt_y_rank]) sliderBG ( posSlider[whichOne +spurt_y_rank].x, posSlider[whichOne +spurt_y_rank].y, sizeSlider[whichOne +spurt_y_rank].y, sizeSlider[whichOne +spurt_y_rank].x, rounded_slider, blancGrisClair) ;
+  if(display_slider[whichGroup][spurt_z_rank]) sliderBG (posSlider[whichOne +spurt_z_rank].x, posSlider[whichOne +spurt_z_rank].y, sizeSlider[whichOne +spurt_z_rank].y, sizeSlider[whichOne +spurt_z_rank].x, rounded_slider, blancGrisClair) ;
   // direction
-  if(display_slider[whichGroup][dir_x_rank]) sliderBG (posSlider[whichOne +dir_x_rank].x, posSlider[whichOne +dir_x_rank].y, sizeSlider[whichOne +dir_x_rank].y, sizeSlider[whichOne +dir_x_rank].x, roundedSlider, blanc) ;
-  if(display_slider[whichGroup][dir_y_rank]) sliderBG (posSlider[whichOne +dir_y_rank].x, posSlider[whichOne +dir_y_rank].y, sizeSlider[whichOne +dir_y_rank].y, sizeSlider[whichOne +dir_y_rank].x, roundedSlider, blanc) ;
-  if(display_slider[whichGroup][dir_z_rank]) sliderBG ( posSlider[whichOne +dir_z_rank].x, posSlider[whichOne +dir_z_rank].y, sizeSlider[whichOne +dir_z_rank].y, sizeSlider[whichOne +dir_z_rank].x, roundedSlider, blanc) ;
+  if(display_slider[whichGroup][dir_x_rank]) sliderBG (posSlider[whichOne +dir_x_rank].x, posSlider[whichOne +dir_x_rank].y, sizeSlider[whichOne +dir_x_rank].y, sizeSlider[whichOne +dir_x_rank].x, rounded_slider, blanc) ;
+  if(display_slider[whichGroup][dir_y_rank]) sliderBG (posSlider[whichOne +dir_y_rank].x, posSlider[whichOne +dir_y_rank].y, sizeSlider[whichOne +dir_y_rank].y, sizeSlider[whichOne +dir_y_rank].x, rounded_slider, blanc) ;
+  if(display_slider[whichGroup][dir_z_rank]) sliderBG ( posSlider[whichOne +dir_z_rank].x, posSlider[whichOne +dir_z_rank].y, sizeSlider[whichOne +dir_z_rank].y, sizeSlider[whichOne +dir_z_rank].x, rounded_slider, blanc) ;
   // jitter
-  if(display_slider[whichGroup][jitter_x_rank]) sliderBG ( posSlider[whichOne +jitter_x_rank].x, posSlider[whichOne +jitter_x_rank].y, sizeSlider[whichOne +jitter_x_rank].y, sizeSlider[whichOne +jitter_x_rank].x, roundedSlider, blancGrisClair) ;
-  if(display_slider[whichGroup][jitter_y_rank])  sliderBG ( posSlider[whichOne +jitter_y_rank].x, posSlider[whichOne +jitter_y_rank].y, sizeSlider[whichOne +jitter_y_rank].y, sizeSlider[whichOne +jitter_y_rank].x, roundedSlider, blancGrisClair) ;
-  if(display_slider[whichGroup][jitter_z_rank])  sliderBG ( posSlider[whichOne +jitter_z_rank].x, posSlider[whichOne +jitter_z_rank].y, sizeSlider[whichOne +jitter_z_rank].y, sizeSlider[whichOne +jitter_z_rank].x, roundedSlider, blancGrisClair) ;
+  if(display_slider[whichGroup][jitter_x_rank]) sliderBG ( posSlider[whichOne +jitter_x_rank].x, posSlider[whichOne +jitter_x_rank].y, sizeSlider[whichOne +jitter_x_rank].y, sizeSlider[whichOne +jitter_x_rank].x, rounded_slider, blancGrisClair) ;
+  if(display_slider[whichGroup][jitter_y_rank])  sliderBG ( posSlider[whichOne +jitter_y_rank].x, posSlider[whichOne +jitter_y_rank].y, sizeSlider[whichOne +jitter_y_rank].y, sizeSlider[whichOne +jitter_y_rank].x, rounded_slider, blancGrisClair) ;
+  if(display_slider[whichGroup][jitter_z_rank])  sliderBG ( posSlider[whichOne +jitter_z_rank].x, posSlider[whichOne +jitter_z_rank].y, sizeSlider[whichOne +jitter_z_rank].y, sizeSlider[whichOne +jitter_z_rank].x, rounded_slider, blancGrisClair) ;
   // swing
-  if(display_slider[whichGroup][swing_x_rank]) sliderBG ( posSlider[whichOne +swing_x_rank].x, posSlider[whichOne +swing_x_rank].y, sizeSlider[whichOne +swing_x_rank].y, sizeSlider[whichOne +swing_x_rank].x, roundedSlider, blancGrisClair) ;
-  if(display_slider[whichGroup][swing_y_rank])  sliderBG ( posSlider[whichOne +swing_y_rank].x, posSlider[whichOne +swing_y_rank].y, sizeSlider[whichOne +swing_y_rank].y, sizeSlider[whichOne +swing_y_rank].x, roundedSlider, blancGrisClair) ;
-  if(display_slider[whichGroup][swing_z_rank])  sliderBG ( posSlider[whichOne +swing_z_rank].x, posSlider[whichOne +swing_z_rank].y, sizeSlider[whichOne +swing_z_rank].y, sizeSlider[whichOne +swing_z_rank].x, roundedSlider, blancGrisClair) ;
+  if(display_slider[whichGroup][swing_x_rank]) sliderBG ( posSlider[whichOne +swing_x_rank].x, posSlider[whichOne +swing_x_rank].y, sizeSlider[whichOne +swing_x_rank].y, sizeSlider[whichOne +swing_x_rank].x, rounded_slider, blancGrisClair) ;
+  if(display_slider[whichGroup][swing_y_rank])  sliderBG ( posSlider[whichOne +swing_y_rank].x, posSlider[whichOne +swing_y_rank].y, sizeSlider[whichOne +swing_y_rank].y, sizeSlider[whichOne +swing_y_rank].x, rounded_slider, blancGrisClair) ;
+  if(display_slider[whichGroup][swing_z_rank])  sliderBG ( posSlider[whichOne +swing_z_rank].x, posSlider[whichOne +swing_z_rank].y, sizeSlider[whichOne +swing_z_rank].y, sizeSlider[whichOne +swing_z_rank].x, rounded_slider, blancGrisClair) ;
 
   
   // COL 3
   // quantity
-  if(display_slider[whichGroup][quantity_rank]) sliderBG ( posSlider[whichOne +quantity_rank].x, posSlider[whichOne +quantity_rank].y, sizeSlider[whichOne +quantity_rank].y, sizeSlider[whichOne +quantity_rank].x, roundedSlider, blancGrisClair) ;
+  if(display_slider[whichGroup][quantity_rank]) sliderBG ( posSlider[whichOne +quantity_rank].x, posSlider[whichOne +quantity_rank].y, sizeSlider[whichOne +quantity_rank].y, sizeSlider[whichOne +quantity_rank].x, rounded_slider, blancGrisClair) ;
   // variety
-  if(display_slider[whichGroup][variety_rank]) sliderBG ( posSlider[whichOne +variety_rank].x, posSlider[whichOne +variety_rank].y, sizeSlider[whichOne +variety_rank].y, sizeSlider[whichOne +variety_rank].x, roundedSlider, blancGrisClair) ;
+  if(display_slider[whichGroup][variety_rank]) sliderBG ( posSlider[whichOne +variety_rank].x, posSlider[whichOne +variety_rank].y, sizeSlider[whichOne +variety_rank].y, sizeSlider[whichOne +variety_rank].x, rounded_slider, blancGrisClair) ;
   
   // life
-  if(display_slider[whichGroup][life_rank]) sliderBG ( posSlider[whichOne +life_rank].x, posSlider[whichOne +life_rank].y, sizeSlider[whichOne +life_rank].y, sizeSlider[whichOne +life_rank].x, roundedSlider, blancGrisClair) ;
+  if(display_slider[whichGroup][life_rank]) sliderBG ( posSlider[whichOne +life_rank].x, posSlider[whichOne +life_rank].y, sizeSlider[whichOne +life_rank].y, sizeSlider[whichOne +life_rank].x, rounded_slider, blancGrisClair) ;
   // fertility
-  if(display_slider[whichGroup][flow_rank]) sliderBG ( posSlider[whichOne +flow_rank].x, posSlider[whichOne +flow_rank].y, sizeSlider[whichOne +flow_rank].y, sizeSlider[whichOne +flow_rank].x, roundedSlider, blancGrisClair) ;
+  if(display_slider[whichGroup][flow_rank]) sliderBG ( posSlider[whichOne +flow_rank].x, posSlider[whichOne +flow_rank].y, sizeSlider[whichOne +flow_rank].y, sizeSlider[whichOne +flow_rank].x, rounded_slider, blancGrisClair) ;
   // quality
-  if(display_slider[whichGroup][quality_rank]) sliderBG ( posSlider[whichOne +quality_rank].x, posSlider[whichOne +quality_rank].y, sizeSlider[whichOne +quality_rank].y, sizeSlider[whichOne +quality_rank].x, roundedSlider, blancGrisClair) ;
+  if(display_slider[whichGroup][quality_rank]) sliderBG ( posSlider[whichOne +quality_rank].x, posSlider[whichOne +quality_rank].y, sizeSlider[whichOne +quality_rank].y, sizeSlider[whichOne +quality_rank].x, rounded_slider, blancGrisClair) ;
   
   // area
-  if(display_slider[whichGroup][area_rank]) sliderBG ( posSlider[whichOne +area_rank].x, posSlider[whichOne +area_rank].y, sizeSlider[whichOne +area_rank].y, sizeSlider[whichOne +area_rank].x, roundedSlider, blancGrisClair) ;
+  if(display_slider[whichGroup][area_rank]) sliderBG ( posSlider[whichOne +area_rank].x, posSlider[whichOne +area_rank].y, sizeSlider[whichOne +area_rank].y, sizeSlider[whichOne +area_rank].x, rounded_slider, blancGrisClair) ;
   // angle
-  if(display_slider[whichGroup][angle_rank]) sliderBG ( posSlider[whichOne +angle_rank].x, posSlider[whichOne +angle_rank].y, sizeSlider[whichOne +angle_rank].y, sizeSlider[whichOne +angle_rank].x, roundedSlider, blancGrisClair) ;
+  if(display_slider[whichGroup][angle_rank]) sliderBG ( posSlider[whichOne +angle_rank].x, posSlider[whichOne +angle_rank].y, sizeSlider[whichOne +angle_rank].y, sizeSlider[whichOne +angle_rank].x, rounded_slider, blancGrisClair) ;
   // scope
-  if(display_slider[whichGroup][scope_rank]) sliderBG ( posSlider[whichOne +scope_rank].x, posSlider[whichOne +scope_rank].y, sizeSlider[whichOne +scope_rank].y, sizeSlider[whichOne +scope_rank].x, roundedSlider, blancGrisClair) ;
+  if(display_slider[whichGroup][scope_rank]) sliderBG ( posSlider[whichOne +scope_rank].x, posSlider[whichOne +scope_rank].y, sizeSlider[whichOne +scope_rank].y, sizeSlider[whichOne +scope_rank].x, rounded_slider, blancGrisClair) ;
   // scan
-  if(display_slider[whichGroup][scan_rank]) sliderBG ( posSlider[whichOne +scan_rank].x, posSlider[whichOne +scan_rank].y, sizeSlider[whichOne +scan_rank].y, sizeSlider[whichOne +scan_rank].x, roundedSlider, blancGrisClair) ;
+  if(display_slider[whichGroup][scan_rank]) sliderBG ( posSlider[whichOne +scan_rank].x, posSlider[whichOne +scan_rank].y, sizeSlider[whichOne +scan_rank].y, sizeSlider[whichOne +scan_rank].x, rounded_slider, blancGrisClair) ;
   
   // alignment
-  if(display_slider[whichGroup][alignment_rank]) sliderBG ( posSlider[whichOne +alignment_rank].x, posSlider[whichOne +alignment_rank].y, sizeSlider[whichOne +alignment_rank].y, sizeSlider[whichOne +alignment_rank].x, roundedSlider, blancGrisClair) ;
+  if(display_slider[whichGroup][alignment_rank]) sliderBG ( posSlider[whichOne +alignment_rank].x, posSlider[whichOne +alignment_rank].y, sizeSlider[whichOne +alignment_rank].y, sizeSlider[whichOne +alignment_rank].x, rounded_slider, blancGrisClair) ;
   // repulsion
-  if(display_slider[whichGroup][repulsion_rank]) sliderBG ( posSlider[whichOne +repulsion_rank].x, posSlider[whichOne +repulsion_rank].y, sizeSlider[whichOne +repulsion_rank].y, sizeSlider[whichOne +repulsion_rank].x, roundedSlider, blancGrisClair) ;
+  if(display_slider[whichGroup][repulsion_rank]) sliderBG ( posSlider[whichOne +repulsion_rank].x, posSlider[whichOne +repulsion_rank].y, sizeSlider[whichOne +repulsion_rank].y, sizeSlider[whichOne +repulsion_rank].x, rounded_slider, blancGrisClair) ;
   // attraction
-  if(display_slider[whichGroup][attraction_rank]) sliderBG ( posSlider[whichOne +attraction_rank].x, posSlider[whichOne +attraction_rank].y, sizeSlider[whichOne +attraction_rank].y, sizeSlider[whichOne +attraction_rank].x, roundedSlider, blancGrisClair) ;
+  if(display_slider[whichGroup][attraction_rank]) sliderBG ( posSlider[whichOne +attraction_rank].x, posSlider[whichOne +attraction_rank].y, sizeSlider[whichOne +attraction_rank].y, sizeSlider[whichOne +attraction_rank].x, rounded_slider, blancGrisClair) ;
   // density
-  if(display_slider[whichGroup][density_rank]) sliderBG ( posSlider[whichOne +density_rank].x, posSlider[whichOne +density_rank].y, sizeSlider[whichOne +density_rank].y, sizeSlider[whichOne +density_rank].x, roundedSlider, blancGrisClair) ;
+  if(display_slider[whichGroup][density_rank]) sliderBG ( posSlider[whichOne +density_rank].x, posSlider[whichOne +density_rank].y, sizeSlider[whichOne +density_rank].y, sizeSlider[whichOne +density_rank].x, rounded_slider, blancGrisClair) ;
   
   // influence
-  if(display_slider[whichGroup][influence_rank]) sliderBG ( posSlider[whichOne +influence_rank].x, posSlider[whichOne +influence_rank].y, sizeSlider[whichOne +influence_rank].y, sizeSlider[whichOne +influence_rank].x, roundedSlider, blancGrisClair) ;
+  if(display_slider[whichGroup][influence_rank]) sliderBG ( posSlider[whichOne +influence_rank].x, posSlider[whichOne +influence_rank].y, sizeSlider[whichOne +influence_rank].y, sizeSlider[whichOne +influence_rank].x, rounded_slider, blancGrisClair) ;
   // calm
-  if(display_slider[whichGroup][calm_rank]) sliderBG ( posSlider[whichOne +calm_rank].x, posSlider[whichOne +calm_rank].y, sizeSlider[whichOne +calm_rank].y, sizeSlider[whichOne +calm_rank].x, roundedSlider, blancGrisClair) ;
+  if(display_slider[whichGroup][calm_rank]) sliderBG ( posSlider[whichOne +calm_rank].x, posSlider[whichOne +calm_rank].y, sizeSlider[whichOne +calm_rank].y, sizeSlider[whichOne +calm_rank].x, rounded_slider, blancGrisClair) ;
   // spectrum
-  if(display_slider[whichGroup][spectrum_rank]) sliderBG ( posSlider[whichOne +spectrum_rank].x, posSlider[whichOne +spectrum_rank].y, sizeSlider[whichOne +spectrum_rank].y, sizeSlider[whichOne +spectrum_rank].x, roundedSlider, blancGrisClair) ;
+  if(display_slider[whichGroup][spectrum_rank]) sliderBG ( posSlider[whichOne +spectrum_rank].x, posSlider[whichOne +spectrum_rank].y, sizeSlider[whichOne +spectrum_rank].y, sizeSlider[whichOne +spectrum_rank].x, rounded_slider, blancGrisClair) ;
 }
 
 // local void to display the HSB slider and display the specific color of this one
@@ -932,9 +917,9 @@ void slider_HSB_item_display(int whichOne, int whichGroup, int hueRank, int satR
     if (display_slider[whichGroup][satRank])    saturationSliderBG (posSlider[whichOne +satRank].x,    posSlider[whichOne +satRank].y,    sizeSlider[whichOne +satRank].y,    sizeSlider[whichOne +hueRank].x, valueSlider[whichOne +hueRank], valueSlider[whichOne +satRank], valueSlider[whichOne +brightRank] ) ;
     if (display_slider[whichGroup][brightRank]) brightnessSliderBG (posSlider[whichOne +brightRank].x, posSlider[whichOne +brightRank].y, sizeSlider[whichOne +brightRank].y, sizeSlider[whichOne +hueRank].x, valueSlider[whichOne +hueRank], valueSlider[whichOne +satRank], valueSlider[whichOne +brightRank] ) ;
   } else {
-    if (display_slider[whichGroup][hueRank])    sliderBG (posSlider[whichOne +hueRank].x,    posSlider[whichOne +hueRank].y,    sizeSlider[whichOne +hueRank].y,    sizeSlider[whichOne +hueRank].x,    roundedSlider, blanc) ;
-    if (display_slider[whichGroup][satRank])    sliderBG (posSlider[whichOne +satRank].x,    posSlider[whichOne +satRank].y,    sizeSlider[whichOne +satRank].y,    sizeSlider[whichOne +satRank].x,    roundedSlider, blanc ) ;
-    if (display_slider[whichGroup][brightRank]) sliderBG (posSlider[whichOne +brightRank].x, posSlider[whichOne +brightRank].y, sizeSlider[whichOne +brightRank].y, sizeSlider[whichOne +brightRank].x, roundedSlider, blanc ) ;
+    if (display_slider[whichGroup][hueRank])    sliderBG (posSlider[whichOne +hueRank].x,    posSlider[whichOne +hueRank].y,    sizeSlider[whichOne +hueRank].y,    sizeSlider[whichOne +hueRank].x,    rounded_slider, blanc) ;
+    if (display_slider[whichGroup][satRank])    sliderBG (posSlider[whichOne +satRank].x,    posSlider[whichOne +satRank].y,    sizeSlider[whichOne +satRank].y,    sizeSlider[whichOne +satRank].x,    rounded_slider, blanc ) ;
+    if (display_slider[whichGroup][brightRank]) sliderBG (posSlider[whichOne +brightRank].x, posSlider[whichOne +brightRank].y, sizeSlider[whichOne +brightRank].y, sizeSlider[whichOne +brightRank].x, rounded_slider, blanc ) ;
   }
 }
 
@@ -1114,11 +1099,11 @@ Setting button
 void set_button_general() {
   // MIDI
   size_midi_button = Vec2(50,26) ;
-  pos_midi_button = Vec2(colOne +correctionMidiX, pos_y_button_top +correctionMidiY) ;
+  pos_midi_button = Vec2(col_1 +correctionMidiX, pos_y_button_top +correctionMidiY) ;
   pos_midi_info =Vec2(pos_midi_button.x +correction_info_midi_x, pos_midi_button.y +correction_info_midi_y) ;
   // CURTAIN
   size_curtain_button = Vec2(30,30) ;
-  pos_curtain_button = Vec2(colOne +correctionCurtainX, pos_y_button_top +correctionCurtainY) ; 
+  pos_curtain_button = Vec2(col_1 +correctionCurtainX, pos_y_button_top +correctionCurtainY) ; 
   
   
   // BACKGROUND
@@ -1168,7 +1153,7 @@ MAIN METHOD
 void display_button_and_dropdown() {
   display_button_general() ;
   display_button_item_console() ;
-  display_button_item_list() ;
+  display_button_inventory_item() ;
   display_dropdown() ;
 
   button_header() ;
@@ -1178,7 +1163,7 @@ void display_button_and_dropdown() {
 void check_button() {
   check_button_general() ;
   check_button_item_console() ;
-  check_button_item_list() ;
+  check_button_inventory_item() ;
 }
 
 void mousepressed_button_general() {
@@ -1342,13 +1327,13 @@ void init_dropdown() {
 }
 
 void set_dropdown_general() {
-  pos_button_bg = Vec2(colOne +correction_dropdown_bg_x,      height_dropdown_top +correction_dropdown_top_menu_y)  ;
-  pos_button_font = Vec2(colOne +correction_dropdown_font_x,            height_dropdown_top +correction_dropdown_top_menu_y)  ; 
-  pos_button_image_bitmap =  Vec2(colOne +correction_dropdown_image_bitmap_x,           height_dropdown_top +correction_dropdown_top_menu_y)  ; 
-  pos_button_image_svg =  Vec2(colOne +correction_dropdown_image_svg_x,           height_dropdown_top +correction_dropdown_top_menu_y)  ; 
-  pos_button_movie =  Vec2(colOne +correction_dropdown_movie_x,           height_dropdown_top +correction_dropdown_top_menu_y)  ; 
-  pos_button_file_text = Vec2(colOne +correction_dropdown_txt_x,        height_dropdown_top +correction_dropdown_top_menu_y)  ; 
-  pos_button_camera_video = Vec2(colOne +correction_dropdown_camera_x,     height_dropdown_top +correction_dropdown_top_menu_y)  ; 
+  pos_button_bg = Vec2(col_1 +correction_dropdown_bg_x,      height_dropdown_top +correction_dropdown_top_menu_y)  ;
+  pos_button_font = Vec2(col_1 +correction_dropdown_font_x,            height_dropdown_top +correction_dropdown_top_menu_y)  ; 
+  pos_button_image_bitmap =  Vec2(col_1 +correction_dropdown_image_bitmap_x,           height_dropdown_top +correction_dropdown_top_menu_y)  ; 
+  pos_button_image_svg =  Vec2(col_1 +correction_dropdown_image_svg_x,           height_dropdown_top +correction_dropdown_top_menu_y)  ; 
+  pos_button_movie =  Vec2(col_1 +correction_dropdown_movie_x,           height_dropdown_top +correction_dropdown_top_menu_y)  ; 
+  pos_button_file_text = Vec2(col_1 +correction_dropdown_txt_x,        height_dropdown_top +correction_dropdown_top_menu_y)  ; 
+  pos_button_camera_video = Vec2(col_1 +correction_dropdown_camera_x,     height_dropdown_top +correction_dropdown_top_menu_y)  ; 
   //dropdown
   colorDropdownBG = rougeTresFonce ;
   color_dropdown_header_in = jaune ;
@@ -1361,8 +1346,8 @@ void set_dropdown_general() {
   selectedText = vertFonce ;
 
   //load the external list  for each mode and split to read in the interface
-  for (int i = 0 ; i<item_list_table.getRowCount() ; i++) {
-    TableRow row = item_list_table.getRow(i);
+  for (int i = 0 ; i<inventory_item_table.getRowCount() ; i++) {
+    TableRow row = inventory_item_table.getRow(i);
     mode_list_RPE [row.getInt("ID")] = row.getString("Mode"); 
   }
   //font
@@ -1426,15 +1411,16 @@ void set_dropdown_item_selected() {
   //common param
   int numLineDisplayByTheDropdownObj = 8 ;
   size_dropdown_mode = Vec3(20, sizeToRenderTheBoxDropdown, numLineDisplayByTheDropdownObj) ;
-  // int correction_dropdown_item_selected +correction_button_item
-  PVector newPos = new PVector(margeLeft + -8, height_item_selected +correction_dropdown_item_selected, .1 ) ;
+  float x = offset_y_item + -8;
+  float y = height_item_selected +local_pos_y_dropdown_item_selected;
+  float z = .1;
   // group item
   for ( int i = 0 ; i <= NUM_ITEM ; i++ ) {
     if(mode_list_RPE[i] != null) {
       //Split the dropdown to display in the dropdown
       list_dropdown = split(mode_list_RPE[i], "/" ) ;
       //to change the title of the header dropdown
-      pos_dropdown[i].set(newPos.x, newPos.y, newPos.z) ; // x y is pos anz z is marge between the dropdown and the header
+      pos_dropdown[i].set(x, y, z) ; // x y is pos anz z is marge between the dropdown and the header
       dropdown[i] = new Dropdown("M", 
                                   list_dropdown, 
                                   pos_dropdown[i], 
@@ -1596,7 +1582,7 @@ void update_dropdown_background() {
 void update_dropdown_item() {
   int pointer = 0 ;
   for (int i = 1 ; i <= NUM_ITEM ; i++) {
-    if(mode_list_RPE[i] != null && on_off_item_list[i].on_off) {
+    if(mode_list_RPE[i] != null && on_off_inventory_item[i].on_off) {
       int distance = pointer *STEP_ITEM ;
       pointer ++ ;
 
@@ -1757,15 +1743,15 @@ void text_info_object(PVector pos, PVector size, int IDorder, int IDfamily) {
 
 void display_info_object(int IDorder, PVector pos) {
   int whichLine = 0 ;
-  int num = item_list_table.getRowCount() ;
+  int num = inventory_item_table.getRowCount() ;
   for ( int j = 0 ; j < num ; j++) {
-    TableRow lookFor = item_list_table.getRow(j);
+    TableRow lookFor = inventory_item_table.getRow(j);
     int ID = lookFor.getInt("ID") ;
     if ( ID == IDorder ) {
       whichLine = j ;
     }
   }
-  TableRow displayInfo = item_list_table.getRow(whichLine) ;
+  TableRow displayInfo = inventory_item_table.getRow(whichLine) ;
   int num_line = 4 ;
   String [] text = new String[num_line] ;
   int [] size_text = new int[num_line] ;

@@ -22,7 +22,7 @@ void load_setup() {
 
 // LOAD INFO OBJECT from the PRESCENE
 /////////////////////////////////////
-Table item_list_table, shaderBackgroundList;
+Table inventory_item_table, shaderBackgroundList;
 int numGroup [] ; 
 int [] item_rank, item_ID, item_group, item_camera_video_on_off, item_GUI_on_off ;
 String [] item_info, item_info_raw ;
@@ -44,8 +44,8 @@ int [] pos_button_width_item, pos_button_height_item, width_button_item, height_
 ///////////////////////////////////////
 // statement on_of for the object group
 int [] on_off_item_console ;
-// boolean [] on_off_item_list ; 
-ItemOnOff [] on_off_item_list ;
+// boolean [] on_off_inventory_item ; 
+ItemOnOff [] on_off_inventory_item ;
 
 class ItemOnOff {
   String name = "" ;
@@ -208,8 +208,8 @@ void set_item(int ID_item) {
   item_setting.setString("Type", "Item") ;
   item_setting.setInt("Item ID", ID_item) ;
 
-  // if(on_off_item_list[ID_item]) item_setting.setInt("Item On Off", 1) ; 
-  if(on_off_item_list[ID_item].on_off) item_setting.setInt("Item On Off", 1) ; 
+  // if(on_off_inventory_item[ID_item]) item_setting.setInt("Item On Off", 1) ; 
+  if(on_off_inventory_item[ID_item].on_off) item_setting.setInt("Item On Off", 1) ; 
   else item_setting.setInt("Item On Off", 0) ;
   item_setting.setString("Item Name", item_name[ID_item]) ;
   item_setting.setString("Item Class Name", item_load_name[ID_item]) ;
@@ -308,8 +308,8 @@ void load_saved_file_controller(String path) {
       boolean on_off = false ;
       if( row.getInt("Item On Off") == 1) on_off = true ; else  on_off = false ;
 
-      on_off_item_list[ID].name = item_name[count_item +1] ; 
-      on_off_item_list[ID].on_off = on_off ; 
+      on_off_inventory_item[ID].name = item_name[count_item +1] ; 
+      on_off_inventory_item[ID].on_off = on_off ; 
       count_item++ ;
     }
   }
@@ -334,8 +334,8 @@ void load_saved_file_controller(String path) {
 
 void set_data_from_save() {
   if(INIT_INTERFACE) {
-    set_button_item_list() ;
-    set_item_list() ;
+    set_button_inventory_item() ;
+    set_inventory_item() ;
     set_button_from_saved_file() ;
     set_slider_save() ;
 

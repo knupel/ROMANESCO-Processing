@@ -4,7 +4,7 @@ StringList slider_item_controller = new StringList() ;
 StringList [] slider_item  ;
 String [] slider_item_raw  ;
 
-String [][] slider_item_list_raw  ;
+String [][] slider_inventory_item_raw  ;
 boolean [] item_active ;
 boolean [][] display_slider  ;
 
@@ -15,8 +15,6 @@ boolean allSliderUsed = false ;
 boolean showAllSliders = false ;
 
 //these sliders name are not used for the interface but for the display analyze slider
-
-
 
 
 
@@ -104,7 +102,7 @@ void set_display_slider() {
 void set_dynamic_slider() {
   slider_item = new StringList [NUM_ITEM +1] ;
   slider_item_raw = new String [NUM_ITEM +1] ;
-  slider_item_list_raw = new String [NUM_ITEM +1][NUM_SLIDER_ITEM +1] ;
+  slider_inventory_item_raw = new String [NUM_ITEM +1][NUM_SLIDER_ITEM +1] ;
   item_active = new boolean[NUM_ITEM +1] ;
   display_slider = new boolean [NUM_GROUP_SLIDER] [NUM_SLIDER_ITEM +1] ;
 }

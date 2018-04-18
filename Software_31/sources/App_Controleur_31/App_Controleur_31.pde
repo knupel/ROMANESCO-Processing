@@ -34,7 +34,6 @@ void setup() {
   build_item_library();
   load_setup();
 
-
   check_media_folder();
 
   set_font();
@@ -49,7 +48,7 @@ void setup() {
 
   build_button_general();
   build_button_item_console();
-  build_button_item_list();
+  build_button_inventory_item();
   build_slider();
 
   set_OSC();
@@ -77,9 +76,9 @@ void draw() {
   display_structure_general();
   display_structure_menu_sound();
   display_structure_item_selected();
-  display_structure_item_list();
+  display_structure_inventory_item();
 
-  display_text() ;
+  display_text();
 
   display_slider_general();
   display_slider_item();
@@ -98,19 +97,19 @@ void draw() {
 
 
 void mousePressed () {
-  mousepressed_button_general() ;
-  mousepressed_button_item_console() ;
-  mousepressed_button_item_list() ;
-  mousepressed_dropdown() ;
+  mousepressed_button_general();
+  mousepressed_button_item_console();
+  mousepressed_button_inventory_item();
+  mousepressed_dropdown();
 }
 
 void keyPressed() {
-  keypressed_midi() ;
-  shortcuts_controller() ;
+  keypressed_midi();
+  shortcuts_controller();
 }
 
 
 void keyReleased() { 
-  key_false() ;
+  key_false();
   keyboard[keyCode] = false;
 }
