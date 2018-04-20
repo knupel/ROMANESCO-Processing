@@ -1,7 +1,7 @@
 /**
 Romanesco Unu
 2012 – 2018
-version  1.2.1
+version  1.3.0
 release 30 
 Processing 3.3.7
 */
@@ -10,7 +10,7 @@ Processing 3.3.7
 2016 830 lines may 2016
  */
 String version = ("31") ;
-String prettyVersion = ("1.2.1") ;
+String prettyVersion = ("1.3.0") ;
 String nameVersion = ("Romanesco unu") ;
 
 /**

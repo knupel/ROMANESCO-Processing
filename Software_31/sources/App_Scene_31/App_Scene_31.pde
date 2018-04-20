@@ -1,16 +1,16 @@
 /**
 Romanesco Unu
 2012 – 2017
-pretty version 1.2.1
+pretty version 1.3.0
 version 31
-Processing 3.3.0
+Processing 3.3.7
 
 4th may 2015 14.750 lines of code 
 */
 String nameVersion = ("Romanesco unu") ;
 String IAM = ("Scene") ;
 String version = ("31") ;
-String prettyVersion = ("1.2.1") ;
+String prettyVersion = ("1.3.0") ;
 // security must be link with the controler in the next release
 boolean TEST_ROMANESCO = false ;
 boolean OPEN_APP = true ;

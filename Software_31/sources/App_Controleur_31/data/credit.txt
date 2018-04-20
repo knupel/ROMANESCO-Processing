@@ -1,5 +1,6 @@
 Romanesco Unu
-2011-2018 - version 1.2.1.31
+2011-2018 - version 1.3.0.31
+Build on Processing 3.3.7
 Romanesco is free and free, but for the commercial use that can be good to do a donation !
 Romanesco is under CeCill License - http://www.cecill.info/licences/Licence_CeCILL_V2-en.html -
 

@@ -1,7 +1,7 @@
 /**
 Romanesco Unu
 2013 – 2018
-v 1.2.1 
+v 1.3.0
 release 31 
 Processing 3.3.7
 */
@@ -13,7 +13,7 @@ Processing 3.3.7
 
 String version = "31";
 String IAM = "prescene";
-String prettyVersion = "1.2.1";
+String prettyVersion = "1.3.0";
 String nameVersion = "Romanesco unu";
 
 boolean TEST_ROMANESCO = false; /* Use true when you want:

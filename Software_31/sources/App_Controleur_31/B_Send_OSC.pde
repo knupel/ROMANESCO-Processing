@@ -130,7 +130,6 @@ void send_OSC() {
       osc_scene.send(RomanescoController, target_scene[i]) ; 
     }
     ref_send_osc = total_send_osc;
-    print("something change, new value is send to app Romanesco");
   } 
 }
 

@@ -13,12 +13,8 @@ CLASS
 */
 public class Dropdown {
   //Slider dropdown
-  private Slider sliderDropdown ;
-  // private PFont fontDropdown ;
-  private Vec2 posSliderDropdown, sizeSliderDropdown;
-  private Vec2 sizeMoletteDropdown;
+  private Slider slider_dd;
   private Vec2 size_box; 
-  private Vec2 posMoletteDropdown; 
   //dropdown
   private int line = 0;
   private String content[];
@@ -48,9 +44,7 @@ public class Dropdown {
   CONSTRUCTOR
   */
   public Dropdown(String name, String [] content, Vec3 pos, Vec2 size, Vec2 pos_text, ROPE_color rc, int num_box, int height_box) {
-    //dropdown
-    this.name = name ;
-    
+    this.name = name ; 
     this.pos = pos.copy();
     pos_ref_x = (int)pos.x ;
     pos_ref_y = (int)pos.y ;
@@ -58,8 +52,6 @@ public class Dropdown {
     this.pos_text = pos_text.copy() ;
 
     this.size = size.copy(); // header size
-    // println("size z",size.z);
-
     
     this.colorBG = rc.get_color()[0];
     this.boxIn = rc.get_color()[1];
@@ -70,23 +62,6 @@ public class Dropdown {
     
     set_box(num_box, height_box);
     set_content(content);
-    
-    //slider dropdown
-    //condition to display the slider
-    if (content.length > end) slider = true ; else slider = false ;
-    
-    if (slider) {
-      sizeSliderDropdown = Vec2(height_box *.5, (end *height_box) -pos.z);
-      posSliderDropdown = Vec2(pos.x -sizeSliderDropdown.x -(pos.z *2.0), pos.y +height_box +(1.8 *pos.z));
-      
-      float factorSizeMolette = float(content.length) / float(end -1 ) ;
-      
-      sizeMoletteDropdown =  Vec2(sizeSliderDropdown.x, sizeSliderDropdown.y /factorSizeMolette) ;
-      
-      posMoletteDropdown = Vec2();
-      sliderDropdown = new Slider(posSliderDropdown, posMoletteDropdown, sizeSliderDropdown, sizeMoletteDropdown, "RECT") ;
-      sliderDropdown.setting() ;
-    }
   }
 
 
@@ -102,8 +77,11 @@ public class Dropdown {
     int size_text = 10;
     size_box = Vec2(longest_word_in_pixel(content, size_text) *ratio, height_box);
   }
+
   // content
   public void set_content(String [] content) {
+    boolean new_slider = false ;
+    if(this.content == null || this.content.length != content.length) new_slider = true ;
     this.content = content;
     end = num_box;
     if (content != null) {
@@ -112,11 +90,34 @@ public class Dropdown {
       }
       missing = content.length -end;
     }
+
+    //condition to display the slider
+    if (content.length > end) {
+      slider = true; 
+    } else {
+      slider = false;
+    }
+    
+    if (slider && (slider_dd == null || new_slider)) {
+      update_slider();
+    }
+  }
+
+  private void update_slider() {
+    Vec2 size_slider = Vec2(height_box *.5, (end *height_box) -pos.z);
+    float x = pos.x -size_slider.x;
+    float y = pos.y +height_box;
+    Vec2 pos_slider = Vec2(x,y);
+  
+    float ratio = float(content.length) / float(end -1);
+    
+    Vec2 size_molette =  Vec2(size_slider.x, size_slider.y /ratio);
+
+    slider_dd = new Slider(pos_slider, size_slider, size_molette, "RECT");
   }
 
 
-  
-  //DRAW
+
   public void change_pos(int x, int y) {
     pos.set(pos_ref_x, pos_ref_y,0);
     Vec3 temp = Vec3(x,y,0);
@@ -128,29 +129,32 @@ public class Dropdown {
     rectMode(CORNER);
     if (locked) {
       dropdownOpen = true ;
-      title_without_box(name, 1, size, titleFont);
       //give the position of dropdown
       int step = 2 ;
       //give the position in list of Item with the position from the slider's molette
-      if (slider) offset = round(map (sliderDropdown.getValue(), 0,1, 0, missing)) ;
+      if (slider) offset = round(map(slider_dd.getValue(), 0,1, 0, missing));
 
       for (int i = start +offset ; i < end +offset ; i++) {
         render_box(content[i], step++, size_box, dropdown_font, colorTextBox);
         if (slider) {
-          sliderDropdown.pos.set(pos.x -sizeSliderDropdown.x -(pos.z *2.0), pos.y +height_box +(1.8 *pos.z)) ;
-          sliderDropdown.update_pos_molette(sliderDropdown.pos, posMoletteDropdown) ;
-          sliderDropdown.insideMol_Rect() ;
-          sliderDropdown.select_molette() ;
-          sliderDropdown.update_pos_molette() ;
-          sliderDropdown.sliderDisplay(colorBG,colorBG,0) ;
-          sliderDropdown.displayMolette(jaune, orange, jaune, orange, 0) ;
+          float x = pos.x -slider_dd.get_size().x;
+          float y = pos.y +height_box;
+          slider_dd.set_pos(x,y);
+          slider_dd.inside_molette_rect();
+          slider_dd.select_molette();
+          slider_dd.update_molette();
+          slider_dd.show_slider(colorBG,colorBG,0);
+          /**
+          the color must be set in other place, that's not pertinent to set color in this method
+          */
+          slider_dd.show_molette(jaune, orange, jaune, orange, 0) ;
         }
       }
     } else {
       //header rendering
       dropdownOpen = false ;
-      title_without_box(name, 1, size, titleFont);
     }
+    title_without_box(name, 1, size, titleFont);
   }
 
 
@@ -204,8 +208,6 @@ public class Dropdown {
   
   
 
-  
-  //RETURN
   //Check the dropdown when this one is open
   public int selectDropdownLine(float newWidth) {
     if(mouseX >= pos.x && mouseX <= pos.x +newWidth && mouseY >= pos.y && mouseY <= ((content.length+1) *size.y) +pos.y) {

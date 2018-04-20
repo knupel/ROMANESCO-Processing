@@ -1,7 +1,7 @@
 /**
 Romanesco Unu
-2012 – 2017
-pretty version 1.2.1.31
+2012 – 2018
+v 1.3.0.31
 version 31
 Processing 3.3.7
 */
@@ -14,7 +14,7 @@ Controller 1.1.0
  */
 String version = ("31") ;
 String IAM = ("Controller") ;
-String prettyVersion = ("1.2.1") ;
+String prettyVersion = ("1.3.0") ;
 String nameVersion = ("Romanesco unu") ;
 boolean test = false ;
 String preference_path,import_path,items_path;

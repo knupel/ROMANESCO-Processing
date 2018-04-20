@@ -256,12 +256,10 @@ void build_slider() {
   for ( int i = 1 ; i < NUM_SLIDER_TOTAL ; i++) {
     Vec2 sizeMol = Vec2(sizeSlider[i].y *ratio_size_molette, sizeSlider[i].y *ratio_size_molette) ;
     // we use the var posMol here just to init the Slider, because we load data from save further.
-    Vec2 posMol = Vec2() ;
     Vec2 tempPosSlider = Vec2(posSlider[i].x, posSlider[i].y -(slider_height *.6)) ;
     if(info_save_raw_list(infoSlider,i).a > -1 ) {
-      slider[i] = new SliderAdjustable(tempPosSlider, posMol, sizeSlider[i], sizeMol, "ELLIPSE");
+      slider[i] = new SliderAdjustable(tempPosSlider, sizeSlider[i], sizeMol, "ELLIPSE");
     }
-    if(slider[i] != null) slider[i].setting() ;
   } 
 }
 
@@ -404,7 +402,7 @@ void update_slider(int whichOne) {
   if(!slider[whichOne].lockedMax  && !slider[whichOne].lockedMax) slider[whichOne].insideMol_Ellipse() ;
   // update
   slider[whichOne].select_molette() ;
-  slider[whichOne].update_pos_molette() ;
+  slider[whichOne].update_molette() ;
   
   // translate float value to int, to use OSC easily without problem of Array Outbound...blablah
   int valueMax = 360 ;
@@ -428,7 +426,7 @@ void display_min_max_slider(int whichOne,  color colorIn, color colorOut) {
 }
 
 void display_current_mollette(int whichOne, color colorMolIn, color colorMolOut) {
-  slider[whichOne].displayMolette(colorMolIn,colorMolOut, colorMolIn,colorMolOut, 1) ;
+  slider[whichOne].show_molette(colorMolIn,colorMolOut, colorMolIn,colorMolOut, 1) ;
 }
 // end local method
 
@@ -905,45 +903,45 @@ Setting button
 // Main METHOD SETUP
 void set_button_general() {
   // MIDI
-  size_midi_button = Vec2(50,26) ;
-  pos_midi_button = Vec2(col_1 +correctionMidiX, pos_y_button_top +correctionMidiY) ;
-  pos_midi_info =Vec2(pos_midi_button.x +correction_info_midi_x, pos_midi_button.y +correction_info_midi_y) ;
+  size_midi_button = Vec2(50,26);
+  pos_midi_button = Vec2(col_1 +correctionMidiX, pos_y_button_top +correctionMidiY);
+  pos_midi_info =Vec2(pos_midi_button.x +correction_info_midi_x, pos_midi_button.y +correction_info_midi_y);
   // CURTAIN
-  size_curtain_button = Vec2(30,30) ;
-  pos_curtain_button = Vec2(col_1 +correctionCurtainX, pos_y_button_top +correctionCurtainY) ; 
+  size_curtain_button = Vec2(30,30);
+  pos_curtain_button = Vec2(col_1 +correctionCurtainX, pos_y_button_top +correctionCurtainY); 
   
   
   // BACKGROUND
-  pos_bg_button = Vec2(correctionBGX, correctionBGY +correction_button_txt_y) ;
-  size_bg_button = Vec2(120,10) ;
+  pos_bg_button = Vec2(correctionBGX, correctionBGY +correction_button_txt_y);
+  size_bg_button = Vec2(120,10);
   
   // LIGHT
   // ambient button
-  posLightAmbientButton = Vec2(correctionLightAmbientX, correctionLightAmbientY +correction_button_txt_y) ;
-  sizeLightAmbientButton = Vec2(80,10) ;
-  posLightAmbientAction = Vec2(correctionLightAmbientX +90, posLightAmbientButton.y) ; // for the y we take the y of the button
-  sizeLightAmbientAction = Vec2(45,10) ;
+  posLightAmbientButton = Vec2(correctionLightAmbientX, correctionLightAmbientY +correction_button_txt_y);
+  sizeLightAmbientButton = Vec2(80,10);
+  posLightAmbientAction = Vec2(correctionLightAmbientX +90, posLightAmbientButton.y); // for the y we take the y of the button
+  sizeLightAmbientAction = Vec2(45,10);
   // light one button
-  posLightOneButton = Vec2(correctionLightOneX, correctionLightOneY +correction_button_txt_y) ;
-  sizeLightOneButton = Vec2(80,10) ;
-  posLightOneAction = Vec2(correctionLightOneX +90, posLightOneButton.y) ; // for the y we take the y of the button
-  sizeLightOneAction = Vec2(45,10) ;
+  posLightOneButton = Vec2(correctionLightOneX, correctionLightOneY +correction_button_txt_y);
+  sizeLightOneButton = Vec2(80,10);
+  posLightOneAction = Vec2(correctionLightOneX +90, posLightOneButton.y); // for the y we take the y of the button
+  sizeLightOneAction = Vec2(45,10);
   // light two button
-  posLightTwoButton = Vec2(correctionLightTwoX, correctionLightTwoY +correction_button_txt_y) ;
-  sizeLightTwoButton = Vec2(80,10) ;
-  posLightTwoAction = Vec2(correctionLightTwoX +90, posLightTwoButton.y) ; // for the y we take the y of the button
-  sizeLightTwoAction = Vec2(45,10) ;
+  posLightTwoButton = Vec2(correctionLightTwoX, correctionLightTwoY +correction_button_txt_y);
+  sizeLightTwoButton = Vec2(80,10);
+  posLightTwoAction = Vec2(correctionLightTwoX +90, posLightTwoButton.y); // for the y we take the y of the button
+  sizeLightTwoAction = Vec2(45,10);
   
   //SOUND BUTTON
-  size_beat_button = Vec2(30,10) ; 
-  size_kick_button = Vec2(30,10) ; 
-  size_snare_button = Vec2(40,10) ; 
-  size_hat_button = Vec2(30,10) ;
+  size_beat_button = Vec2(30,10); 
+  size_kick_button = Vec2(30,10); 
+  size_snare_button = Vec2(40,10); 
+  size_hat_button = Vec2(30,10);
   
-  pos_beat_button = Vec2(correctionSoundX, correction_menu_sound_y +correction_button_txt_y) ; 
-  pos_kick_button = Vec2(pos_beat_button.x +size_beat_button.x +5, correction_menu_sound_y +correction_button_txt_y) ; 
-  pos_snare_button = Vec2(pos_kick_button.x +size_kick_button.x +5, correction_menu_sound_y +correction_button_txt_y) ; 
-  pos_hat_button = Vec2(pos_snare_button.x +size_snare_button.x +5, correction_menu_sound_y +correction_button_txt_y) ;
+  pos_beat_button = Vec2(correctionSoundX, correction_menu_sound_y +correction_button_txt_y); 
+  pos_kick_button = Vec2(pos_beat_button.x +size_beat_button.x +5, correction_menu_sound_y +correction_button_txt_y); 
+  pos_snare_button = Vec2(pos_kick_button.x +size_kick_button.x +5, correction_menu_sound_y +correction_button_txt_y); 
+  pos_hat_button = Vec2(pos_snare_button.x +size_snare_button.x +5, correction_menu_sound_y +correction_button_txt_y);
 }
 
 
@@ -1113,11 +1111,11 @@ v 1.1.0
 */
 // int ref_size_image_bitmap_dropdown, ref_size_image_svg_dropdown, ref_size_movie_dropdown, refSizeFileTextDropdown, refSizeCameraVideoDropdown ;
 PVector pos_text_dropdown_image_bitmap, pos_text_dropdown_image_svg, pos_text_dropdown_movie, posTextdropdown_file_text, posTextdropdown_camera_video ; 
-color selectedText ;
-color colorBoxIn, colorBoxOut, colorBoxText ;
-color colorDropdownBG ;
-color color_dropdown_header_in, color_dropdown_header_out ;
-color color_dropdown_item_in, color_dropdown_item_out ;
+color selectedText;
+color colorBoxIn, colorBoxOut, colorBoxText;
+color colorDropdownBG;
+color color_dropdown_header_in, color_dropdown_header_out;
+color color_dropdown_item_in, color_dropdown_item_out;
 
 void init_dropdown() {
   // dropdown bar
@@ -1128,14 +1126,14 @@ void init_dropdown() {
   dropdown_content = new String[num_dropdown_bar][0];
 
   // dropdown item
-  num_dropdown_item = NUM_ITEM +1 ; // add one for the dropdownmenu
-  lastDropdown = num_dropdown_item -1 ;
-  mode_list_RPE = new String[num_dropdown_item] ;
-  dropdown_item_mode = new Dropdown[num_dropdown_item] ;
-  pos_dropdown = new Vec3[num_dropdown_item] ;
+  num_dropdown_item = NUM_ITEM +1; // add one for the dropdownmenu
+  lastDropdown = num_dropdown_item -1;
+  mode_list_RPE = new String[num_dropdown_item];
+  dropdown_item_mode = new Dropdown[num_dropdown_item];
+  pos_dropdown = new Vec3[num_dropdown_item];
 
-  for(int i = 0 ; i < num_dropdown_item  ; i++) {
-    pos_dropdown[i] = Vec3() ;
+  for(int i = 0 ; i < num_dropdown_item ; i++) {
+    pos_dropdown[i] = Vec3();
   }
 }
 

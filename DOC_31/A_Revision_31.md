@@ -1,6 +1,12 @@
 Romanesco unu
 revision 31
 --
+MAJOR
+--
+>improve dropdown and sliders method
+>improve OSC architecture
+>remove menu web-cam from controller
+>add menu filter to controller
 
 
 
