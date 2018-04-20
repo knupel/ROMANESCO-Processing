@@ -34,7 +34,7 @@ String [] shader_bg_name, shader_bg_author ;
 //BUTTON
 int numButton [] ;
 int numButtonTotalObjects ;
-int lastDropdown, numDropdown ;
+int lastDropdown, num_dropdown_item ;
 int [] value_button_general, value_button_item ; 
 int [] pos_button_width_item, pos_button_height_item, width_button_item, height_button_item  ;
 
@@ -57,21 +57,8 @@ class ItemOnOff {
 }
 
 
-//////////
-//DROPDOWN
-//GLOBAL
-Dropdown dropdown [];
-Dropdown dropdown_font, dropdown_bg, dropdown_image_bitmap, dropdown_image_svg, dropdown_movie, dropdown_file_text, dropdown_camera_video  ;
-
-Vec3 pos_dropdown[];
-Vec3 pos_dropdown_bg, pos_dropdown_font, pos_dropdown_image_bitmap, pos_dropdown_image_svg, pos_dropdown_movie, pos_dropdown_file_text, pos_dropdown_camera_video ;
-Vec3 size_dropdown_bg, size_dropdown_font, size_dropdown_image_bitmap, size_dropdown_image_svg, size_dropdown_movie, size_dropdown_file_text, size_dropdown_camera_video, size_dropdown_mode ;
-PVector posTextDropdown = new PVector(2,8)  ;
 
 
-String [] mode_list_RPE, font_dropdown_list, bitmap_dropdown_list, svg_dropdown_list, movie_dropdown_list, file_text_dropdown_list, name_camera_video_dropdown_list, list_dropdown;
-
-float marge_around_dropdown ;
 
 
 

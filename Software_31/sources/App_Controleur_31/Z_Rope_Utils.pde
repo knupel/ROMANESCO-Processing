@@ -1,6 +1,6 @@
 /**
 Rope UTILS 
-v 1.42.0
+v 1.42.1
 * Copyleft (c) 2014-2018 
 * Stan le Punk > http://stanlepunk.xyz/
 Rope – Romanesco Processing Environment – 
@@ -2142,6 +2142,12 @@ float camaieu(float max, float color_ref, float range) {
   if(camaieu > max) camaieu = camaieu -max ;
   return camaieu ;
 }
+
+
+
+
+
+
 
 /**
 color pool 
@@ -4678,7 +4684,7 @@ boolean in_range_wheel(float min, float max, float roof_max, float value) {
 
 /**
 STRING UTILS
-v 0.1.1
+v 0.2.0
 */
 
 //STRING SPLIT
@@ -4692,19 +4698,24 @@ String [] split_text(String textToSplit, String separator) {
 //raw compare
 int longest_word( String[] listWordsToSort) {
   int sizeWord = 0 ;
-  for ( int i = 0 ; i < listWordsToSort.length ; i++) {
-    if (listWordsToSort[i].length() > sizeWord )  sizeWord = listWordsToSort[i].length() ;
+  if(listWordsToSort != null) {
+    for (int i = 0 ; i < listWordsToSort.length ; i++) {
+      if (listWordsToSort[i].length() > sizeWord )  sizeWord = listWordsToSort[i].length() ;
+    }
   }
-  return  sizeWord ;
+
+  return sizeWord;
+
 }
 //with starting and end keypoint in the String must be sort
 int longest_word( String[] listWordsToSort, int start, int finish ) {
-  int sizeWord = 0 ;
-
-  for ( int i = start ; i < finish ; i++) {
-    if (listWordsToSort[i].length() > sizeWord )  sizeWord = listWordsToSort[i].length() ;
+  int sizeWord = 0;
+  if(listWordsToSort != null) {
+    for ( int i = start ; i < finish ; i++) {
+      if (listWordsToSort[i].length() > sizeWord )  sizeWord = listWordsToSort[i].length() ;
+    }
   }
-  return  sizeWord ;
+  return sizeWord ;
 }
 
 
@@ -4712,35 +4723,43 @@ int longest_word( String[] listWordsToSort, int start, int finish ) {
 // with the same size_text for each line
 int longest_word_in_pixel(String[] listWordsToSort, int size_font) {
   int sizeWord = 0 ;
-  for ( int i = 0 ; i < listWordsToSort.length ; i++) {
-    if (width_String(listWordsToSort[i], size_font) > sizeWord )  sizeWord = width_String(listWordsToSort[i],size_font) ;
+  if(listWordsToSort != null) {
+    for ( int i = 0 ; i < listWordsToSort.length ; i++) {
+      if (width_String(listWordsToSort[i], size_font) > sizeWord )  sizeWord = width_String(listWordsToSort[i],size_font) ;
+    }
   }
-  return  sizeWord ;
+  return sizeWord ;
 }
 
 // with the same size_text for each line, choice the which line you check
 int longest_word_in_pixel( String[] listWordsToSort, int size_font, int start, int finish ) {
   int sizeWord = 0 ;
-  for ( int i = start ; i <= finish ; i++) {
-    if (width_String(listWordsToSort[i], size_font) > sizeWord )  sizeWord = width_String(listWordsToSort[i],size_font) ;
+  if(listWordsToSort != null) {
+    for ( int i = start ; i <= finish ; i++) {
+      if (width_String(listWordsToSort[i], size_font) > sizeWord )  sizeWord = width_String(listWordsToSort[i],size_font) ;
+    }
   }
-  return  sizeWord ;
+  return sizeWord ;
 }
 
 // with list of size_text for each line
 int longest_word_in_pixel( String[] listWordsToSort, int [] size_font) {
   int sizeWord = 0 ;
-  for ( int i = 0 ; i < listWordsToSort.length ; i++) {
-    if (width_String(listWordsToSort[i], size_font[i]) > sizeWord )  sizeWord = width_String(listWordsToSort[i],size_font[i]) ;
+  if(listWordsToSort != null) {
+    for ( int i = 0 ; i < listWordsToSort.length ; i++) {
+      if (width_String(listWordsToSort[i], size_font[i]) > sizeWord )  sizeWord = width_String(listWordsToSort[i],size_font[i]) ;
+    }
   }
-  return  sizeWord ;
+  return sizeWord ;
 }
 
 // with list of size_text for each line, choice the which line you check
 int longest_word_in_pixel( String[] listWordsToSort, int [] size_font, int start, int finish ) {
   int sizeWord = 0 ;
-  for ( int i = start ; i <= finish ; i++) {
-    if (width_String(listWordsToSort[i], size_font[i]) > sizeWord )  sizeWord = width_String(listWordsToSort[i],size_font[i]) ;
+  if(listWordsToSort != null) {
+    for ( int i = start ; i <= finish ; i++) {
+      if (width_String(listWordsToSort[i], size_font[i]) > sizeWord )  sizeWord = width_String(listWordsToSort[i],size_font[i]) ;
+    }
   }
   return  sizeWord ;
 }

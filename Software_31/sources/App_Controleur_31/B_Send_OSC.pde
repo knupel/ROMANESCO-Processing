@@ -145,8 +145,11 @@ void data_to_send() {
   value_button_general[2] = state_button_kick;
   value_button_general[3] = state_button_snare;
   value_button_general[4] = state_button_hat;
-
-  value_button_general[5] = dropdown_font.getSelection() +1;
+  /**
+  Here find method to get to a list of dropdown by name when there is a list of dropdown.
+  easyer te read the code after a long time when we forget the number
+  */
+  value_button_general[5] = dropdown_bar[0].get_content_line() +1; // font
   value_button_general[6] = state_curtain_button;
   value_button_general[7] = state_BackgroundButton;
   
@@ -158,11 +161,12 @@ void data_to_send() {
   value_button_general[13] = state_LightAmbientAction;
 
   
-  if(state_bg_shader > SWITCH_VALUE_FOR_DROPDOWN) value_button_general[14] = state_bg_shader;
-  if(state_bitmap > SWITCH_VALUE_FOR_DROPDOWN) value_button_general[15] = state_bitmap;
-  if(state_svg > SWITCH_VALUE_FOR_DROPDOWN) value_button_general[16] = state_svg;
-  if(state_text > SWITCH_VALUE_FOR_DROPDOWN) value_button_general[17] = state_text;
-  if(state_movie > SWITCH_VALUE_FOR_DROPDOWN) value_button_general[18] = state_movie;
+  if(which_bg_shader > SWITCH_VALUE_FOR_DROPDOWN) value_button_general[14] = which_bg_shader;
+  // if(which_filter > SWITCH_VALUE_FOR_DROPDOWN) value_button_general[14] = which_filter;
+  if(which_bitmap > SWITCH_VALUE_FOR_DROPDOWN) value_button_general[15] = which_bitmap;
+  if(which_shape > SWITCH_VALUE_FOR_DROPDOWN) value_button_general[16] = which_shape;
+  if(which_text > SWITCH_VALUE_FOR_DROPDOWN) value_button_general[17] = which_text;
+  if(which_movie > SWITCH_VALUE_FOR_DROPDOWN) value_button_general[18] = which_movie;
   /**
   value_button_general[19] is free
   */
@@ -177,8 +181,8 @@ void data_to_send() {
       value_button_item[i *10 +3] = on_off_item_console[i *10 +3];
       value_button_item[i *10 +4] = on_off_item_console[i *10 +4];
       value_button_item[i *10 +5] = on_off_item_console[i *10 +5];
-      if (dropdown[i+1] != null) {
-        value_button_item[i *10 +9] = dropdown[i+1].getSelection();
+      if (dropdown_item_mode[i+1] != null) {
+        value_button_item[i *10 +9] = dropdown_item_mode[i+1].get_content_line();
       }
     }
   }

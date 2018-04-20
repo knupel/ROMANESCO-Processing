@@ -78,7 +78,6 @@ void set_font() {
 
 /**
 COLOR
-
 */
 color rouge, rougeFonce, rougeTresFonce, rougeTresTresFonce,  
       orange, jauneOrange, jaune, 
@@ -162,29 +161,43 @@ void colorSetup() {
 /**
 CHECK FOLDER
 */
+ArrayList text_files = new ArrayList();
 ArrayList bitmap_files = new ArrayList();
 ArrayList svg_files = new ArrayList();
 ArrayList movie_files = new ArrayList();
-ArrayList textFiles = new ArrayList();
+
+
+
+
 boolean folder_image_bitmap_selected = true ;
 boolean folder_image_svg_selected = true ;
 boolean folder_movie_selected = true ;
 boolean folder_text_selected = true ;
 
 void check_media_folder() {
-  check_image_bitmap_folder() ;
-  check_image_svg_folder() ;
-  check_movie_folder() ;
-  check_file_text_folder() ;
+  check_filter();
+  check_file_text_folder();
+  check_image_bitmap_folder();
+  check_image_svg_folder();
+  check_movie_folder();
+
 }
 
+
+void check_filter() {
+  if(filter_dropdown_list == null) {
+    String path = preference_path +"shader/shader_filter/filter_name.txt";
+    String [] s = loadStrings(path);
+    filter_dropdown_list = split(s[0],",");
+  }
+}
 
 // main void
 // check what's happen in the selected folder
 void check_image_bitmap_folder() {
   if(frameCount%180 == 0) {
     bitmap_files.clear() ;
-    String path = import_path +"bitmap" ;
+    String path = import_path +"bitmap";
     
     ArrayList allFiles = listFilesRecursive(path);
   
@@ -267,7 +280,7 @@ void check_movie_folder() {
 
 void check_file_text_folder() {
   if(frameCount%180 == 0) {
-    textFiles.clear() ;
+    text_files.clear() ;
     
     String path = import_path +"Karaoke" ;
     
@@ -281,24 +294,30 @@ void check_file_text_folder() {
       if (f.isDirectory() == false) {
         String lastThree = fileName.substring(fileName.length()-3, fileName.length());
         if (lastThree.equals("TXT") || lastThree.equals("txt")) {
-          textFiles.add(f);
+          text_files.add(f);
         }
       }
     }
     // show the info name file
-    for (int i = 0; i < textFiles.size(); i++) {
-      File f = (File) textFiles.get(i); 
+    for (int i = 0; i < text_files.size(); i++) {
+      File f = (File) text_files.get(i); 
     }
     
     // to don't loop with this void
     folder_text_selected = false ;
   }
 }
-// end main void
 
 
 
-void init_live_data() {
+void update_media() {
+  //text
+  file_text_dropdown_list = new String[text_files.size()] ;
+  for(int i = 0 ; i< file_text_dropdown_list.length ; i++) {
+    File f = (File) text_files.get(i);
+    file_text_dropdown_list[i] = f.getName() ;
+    file_text_dropdown_list[i] = file_text_dropdown_list[i].substring(0, file_text_dropdown_list[i].length() -4) ;
+  }
   // bitmap
   bitmap_dropdown_list = new String[bitmap_files.size()] ;
   for(int i = 0 ; i< bitmap_dropdown_list.length ; i++) {
@@ -307,12 +326,12 @@ void init_live_data() {
     bitmap_dropdown_list[i] = bitmap_dropdown_list[i].substring(0,bitmap_dropdown_list[i].length() -4) ;
   }
 
-  // svg
-  svg_dropdown_list = new String[svg_files.size()] ;
-  for(int i = 0 ; i< svg_dropdown_list.length ; i++) {
+  // shape
+  shape_dropdown_list = new String[svg_files.size()] ;
+  for(int i = 0 ; i< shape_dropdown_list.length ; i++) {
     File f = (File) svg_files.get(i);
-    svg_dropdown_list[i] = f.getName() ;
-    svg_dropdown_list[i] = svg_dropdown_list[i].substring(0,svg_dropdown_list[i].length() -4) ;
+    shape_dropdown_list[i] = f.getName() ;
+    shape_dropdown_list[i] = shape_dropdown_list[i].substring(0,shape_dropdown_list[i].length() -4) ;
   }
 
   // Movie
@@ -321,14 +340,6 @@ void init_live_data() {
     File f = (File) movie_files.get(i);
     movie_dropdown_list[i] = f.getName() ;
     movie_dropdown_list[i] = movie_dropdown_list[i].substring(0,movie_dropdown_list[i].length() -4) ;
-  }
-  
-  //text
-  file_text_dropdown_list = new String[textFiles.size()] ;
-  for(int i = 0 ; i< file_text_dropdown_list.length ; i++) {
-    File f = (File) textFiles.get(i);
-    file_text_dropdown_list[i] = f.getName() ;
-    file_text_dropdown_list[i] = file_text_dropdown_list[i].substring(0, file_text_dropdown_list[i].length() -4) ;
   }
 }
 
@@ -355,8 +366,7 @@ File[] listFiles(String dir) {
   if (file.isDirectory()) {
     File[] files = file.listFiles();
     return files;
-  } 
-  else {
+  } else {
     // If it's not a directory
     return null;
   }
@@ -385,8 +395,6 @@ void recurseDir(ArrayList a, String dir) {
     a.add(file);
   }
 }
-//END CHECK FOLDER
-/////////////////
 
 
 

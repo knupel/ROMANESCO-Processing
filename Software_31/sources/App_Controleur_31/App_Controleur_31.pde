@@ -64,7 +64,7 @@ void draw() {
   check_button();
 
   init_interface();
-  init_live_data();
+  update_media();
   
   surface.setTitle(nameVersion + " " +prettyVersion+"."+version+ " - Controller");
 

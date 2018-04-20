@@ -1,23 +1,6 @@
 /**
-ITEM 1.0.1
+ITEM 1.0.2
 */
-// Obj
-int NUM_ITEM ;
-int STEP_ITEM = 40 ;
-final int BUTTON_ITEM_CONSOLE = 4 ;
-PVector [] infoButton ;
-int [] info_list_item_ID ; 
-
-PImage[] OFF_in_thumbnail ;
-PImage[] OFF_out_thumbnail ;
-PImage[] ON_in_thumbnail ;
-PImage[] ON_out_thumbnail ;
-
-PImage[] picSetting = new PImage[4] ;
-PImage[] picSound = new PImage[4] ;
-PImage[] picAction = new PImage[4] ;
-
-
 void info_item() {
   item_info_raw[0] = item_info[0] = ("") ;
   // the list start from '1' so we must init the '0'
@@ -249,7 +232,6 @@ ITEM LIST
 Button[] button_inventory_item ;
 boolean [] on_off_inventory_item_save ;
 
-
 void init_button_inventory_item() {
   button_inventory_item = new Button[NUM_ITEM +1] ;
   on_off_inventory_item_save = new boolean[NUM_ITEM +1] ;
@@ -402,8 +384,6 @@ void check_button_inventory_item() {
     }
   }
 }
-
-
 
 void mousepressed_button_inventory_item() {
   if(!dropdownActivity && NUM_ITEM > 0 ) {
