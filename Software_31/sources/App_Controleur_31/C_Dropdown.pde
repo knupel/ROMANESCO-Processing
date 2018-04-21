@@ -14,7 +14,9 @@ CLASS
 public class Dropdown {
   //Slider dropdown
   private Slider slider_dd;
-  private Vec2 size_box; 
+  private Vec2 size_box;
+  // font
+  PFont font_header,font_box;
   //dropdown
   private int line = 0;
   private String content[];
@@ -44,12 +46,14 @@ public class Dropdown {
   CONSTRUCTOR
   */
   public Dropdown(String name, String [] content, Vec3 pos, Vec2 size, Vec2 pos_text, ROPE_color rc, int num_box, int height_box) {
-    this.name = name ; 
+    this.font_header = createFont("defaultFont",10);
+    this.font_box = createFont("defaultFont",10);
+    this.name = name; 
     this.pos = pos.copy();
-    pos_ref_x = (int)pos.x ;
-    pos_ref_y = (int)pos.y ;
+    pos_ref_x = (int)pos.x;
+    pos_ref_y = (int)pos.y;
     
-    this.pos_text = pos_text.copy() ;
+    this.pos_text = pos_text.copy();
 
     this.size = size.copy(); // header size
     
@@ -74,8 +78,25 @@ public class Dropdown {
     this.height_box = height_box;
     this.num_box = num_box;
     float ratio = .95;
-    int size_text = 10;
-    size_box = Vec2(longest_word_in_pixel(content, size_text) *ratio, height_box);
+
+    //float w = width_String(String font_name, String target, size_text);
+    size_box = Vec2(longest_word_in_pixel(content, this.font_box.getSize()) *ratio, height_box);
+  }
+
+  public void set_font_header(String font_name, int size) {
+    this.font_header = createFont(font_name,size);
+  }
+
+  public void set_font_box(String font_name, int size) {
+    this.font_box = createFont(font_name,size);
+  }
+
+  public void set_font_header(PFont font) {
+    this.font_header = font;
+  }
+
+  public void set_font_box(PFont font) {
+    this.font_box = font;
   }
 
   // content
@@ -125,7 +146,7 @@ public class Dropdown {
   }
 
 
-  public void update(PFont titleFont, PFont dropdown_font) {
+  public void update() {
     rectMode(CORNER);
     if (locked) {
       dropdownOpen = true ;
@@ -135,7 +156,7 @@ public class Dropdown {
       if (slider) offset = round(map(slider_dd.getValue(), 0,1, 0, missing));
 
       for (int i = start +offset ; i < end +offset ; i++) {
-        render_box(content[i], step++, size_box, dropdown_font, colorTextBox);
+        render_box(content[i], step++, size_box, colorTextBox);
         if (slider) {
           float x = pos.x -slider_dd.get_size().x;
           float y = pos.y +height_box;
@@ -154,7 +175,7 @@ public class Dropdown {
       //header rendering
       dropdownOpen = false ;
     }
-    title_without_box(name, 1, size, titleFont);
+    title_without_box(name, 1, size, font_header);
   }
 
 
@@ -176,7 +197,7 @@ public class Dropdown {
     text(name, pos.x +pos_text.x, yLevel +pos_text.y);
   }
   
-  private void render_box(String label, int step, Vec2 size_box, PFont font, int textColor) {
+  private void render_box(String label, int step, Vec2 size_box, int textColor) {
     //update
     factorPos = step + pos.z -1 ;
     float yLevel = step == 1 ? pos.y  : (pos.y + (size_box.y *(factorPos)));
@@ -202,7 +223,7 @@ public class Dropdown {
     }
     rect(pos.x, yLevel, size_box.x, size_box.y);
     fill(textColor);
-    textFont(font);
+    textFont(font_box);
     text(label, pos.x +pos_text.x, yLevel +height_box -(ceil(height_box*.2)));
   }
   
@@ -245,5 +266,13 @@ public class Dropdown {
 
   public String get_name() {
     return name;
+  }
+
+  PFont get_font_header() {
+    return font_header;
+  }
+
+  PFont get_font_box() {
+    return font_box;
   }
 }

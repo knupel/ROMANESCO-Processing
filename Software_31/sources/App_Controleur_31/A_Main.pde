@@ -46,12 +46,10 @@ SETTING
 */
 void setting() {
   colorSetup() ;  
-
   frameRate(60) ; 
   noStroke () ; 
   surface.setResizable(true);
   background(gris);
-  // general
   for ( int i = 0 ; i <  SLIDER_BY_COL ; i++ ) {
     genTxtGUI[i] = ("") ;
     slider_item_nameCamera[i] = ("") ;
@@ -1171,6 +1169,8 @@ void set_dropdown_general() {
     dropdown_bar_pos_text[i] = Vec2(3,10);
     ROPE_color dropdown_color_bar = new ROPE_color(colorDropdownBG, colorBoxIn, colorBoxOut, color_dropdown_header_in, color_dropdown_header_out, colorBoxText);
     dropdown_bar[i] = new Dropdown(name_dropdown_bar[i],dropdown_content[i],dropdown_bar_pos[i],dropdown_bar_size[i],dropdown_bar_pos_text[i], dropdown_color_bar,num_box, height_box_dropdown);
+    dropdown_bar[i].set_font_header(title_dropdown_medium);
+    dropdown_bar[i].set_font_box(textUsual_1);
   }
 }
 
@@ -1189,7 +1189,7 @@ void set_dropdown_item_selected() {
       //Split the dropdown to display in the dropdown
       String [] item_mode_dropdown_list = split(mode_list_RPE[i], "/" ) ;
       //to change the title of the header dropdown
-      pos_dropdown[i].set(x, y, z) ; // x y is pos anz z is marge between the dropdown and the header
+      pos_dropdown[i].set(x, y, z) ; // 'x' 'y' is pos and 'z' is marge between the dropdown and the header
       dropdown_item_mode[i] = new Dropdown("M", 
                                   item_mode_dropdown_list, 
                                   pos_dropdown[i], 
@@ -1198,6 +1198,9 @@ void set_dropdown_item_selected() {
                                   dropdown_color_item,
                                   num_box, 
                                   height_box_dropdown) ;
+      dropdown_item_mode[i].set_font_header(title_dropdown_medium);
+      dropdown_item_mode[i].set_font_box(textUsual_1);
+
     }
   }
 }
@@ -1220,7 +1223,7 @@ void display_dropdown() {
   for(int i = 0 ; i < dropdown_bar.length ; i++) {
     dropdown_bar[i].set_content(dropdown_content[i]);
     // dropdown_bar[i].update(title_dropdown_medium, textUsual_1);
-    update_dropdown_bar(dropdown_bar[i], textUsual_1);
+    update_dropdown_bar(dropdown_bar[i]);
   }
 
   // item
@@ -1253,30 +1256,34 @@ void display_dropdown() {
 
 
 // Annexe method
-int update_dropdown_bar(Dropdown dd, PFont font) {
+int update_dropdown_bar(Dropdown dd) {
   int content_line = SWITCH_VALUE_FOR_DROPDOWN ;
-  dd.update(font, textUsual_1);
+  dd.update();
+  
   if (dropdownOpen) dropdownActivityCount = +1 ;
   marge_around_dropdown = dd.get_size().y  ;
   //give the size of menu recalculate with the size of the word inside
   Vec2 new_size = dd.size_box.copy();
   //compare the standard size of dropdown with the number of element of the list.
-  int heightDropdown = 0 ;
+  int height_dd_open = 0 ;
   if(dd.get_content().length < dd.get_num_box()) {
-    heightDropdown = dd.get_content().length; 
+    height_dd_open = dd.get_content().length; 
   } else {
-    heightDropdown = dd.get_num_box();
+    height_dd_open = dd.get_num_box();
   }
-  Vec2 temp_size = Vec2(new_size.x +(marge_around_dropdown *1.5), dd.get_size().y *(heightDropdown +1) +marge_around_dropdown) ; // we must add +1 to the size of the dropdown for the title plus the item list
+
+
+  Vec2 temp_size = Vec2(new_size.x +(marge_around_dropdown *1.5), dd.get_size().y *height_dd_open +marge_around_dropdown) ; // we must add +1 to the size of the dropdown for the title plus the item list
   //new pos to include the slider
   Vec2 temp_pos = Vec2(dd.get_pos().x -marge_around_dropdown, dd.get_pos().y);
   if(!inside(temp_pos,temp_size,Vec2(mouseX,mouseY),RECT)) dd.locked = false;
   
+
+  // display the selection
   if(!dd.locked && dd.get_content().length > 0) {
     fill(selectedText) ;
-    // display the selection
     content_line = dd.get_content_line() ;
-    textFont(textUsual_2) ;
+    textFont(dd.get_font_header());
     text(dd.get_content()[dd.get_content_line()], dd.get_pos().x +3 , dd.get_pos().y +22) ;
   }
   return content_line ;
@@ -1295,38 +1302,6 @@ void update_dropdown_bar_content() {
 
 
 
-
-// update for the special content dropdown
-void update_dropdown_background() { 
-  /*
-  dropdown_bg.dropdownUpdate(title_dropdown_medium, textUsual_1);
-  if (dropdownOpen) dropdownActivityCount = +1 ;
-  marge_around_dropdown = size_dropdown_font.y  ;
-  //give the size of menu recalculate with the size of the word inside
-  Vec2 newSizeFont = dropdown_bg.size_box.copy();
-  //compare the standard size of dropdown with the number of element of the list.
-  int heightDropdown = 0 ;
-  if(shader_bg_name.length < size_dropdown_bg.z ) heightDropdown = shader_bg_name.length ; else heightDropdown = (int)size_dropdown_bg.z ;
-  Vec2 temp_size = Vec2(newSizeFont.x +(marge_around_dropdown *1.5), size_dropdown_bg.y *(heightDropdown +1) +marge_around_dropdown); // we must add +1 to the size of the dropdown for the title plus the item list
-  //new pos to include the slider
-  Vec2 temp_pos = Vec2(pos_dropdown_bg.x -marge_around_dropdown, pos_dropdown_bg.y) ;
-  if (!inside(temp_pos,temp_size,Vec2(mouseX,mouseY),RECT)) dropdown_bg.locked = false ;
-  // display the selection
-
-  if(!dropdown_bg.locked) {
-    fill(selectedText) ;
-    textFont(textUsual_2) ;
-    state_bg_shader = dropdown_bg.get_content_line() ;
-    if (dropdown_bg.get_content_line() != 0 ) {
-      text(shader_bg_name[state_bg_shader] +" by " +shader_bg_author[dropdown_bg.get_content_line()], pos_dropdown_bg.x +3 , pos_dropdown_bg.y +22) ;
-    } else {
-      text(shader_bg_name[state_bg_shader], pos_dropdown_bg.x +3 , pos_dropdown_bg.y +22) ;
-    }    
-  }
-  */
-}
-
-
 void update_dropdown_item() {
   int pointer = 0 ;
   for (int i = 1 ; i <= NUM_ITEM ; i++) {
@@ -1338,7 +1313,7 @@ void update_dropdown_item() {
 
       String m [] = split(mode_list_RPE[i], "/") ;
       if ( m.length > 1) {
-        dropdown_item_mode[i].update(title_dropdown_medium, textUsual_1);
+        dropdown_item_mode[i].update();
         if (dropdownOpen) dropdownActivityCount++ ;
         marge_around_dropdown = size_dropdown_mode.y  ;
 

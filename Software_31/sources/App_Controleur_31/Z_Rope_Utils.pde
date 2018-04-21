@@ -1,6 +1,6 @@
 /**
 Rope UTILS 
-v 1.42.1
+v 1.42.2
 * Copyleft (c) 2014-2018 
 * Stan le Punk > http://stanlepunk.xyz/
 Rope – Romanesco Processing Environment – 
@@ -4684,7 +4684,7 @@ boolean in_range_wheel(float min, float max, float roof_max, float value) {
 
 /**
 STRING UTILS
-v 0.2.0
+v 0.2.1
 */
 
 //STRING SPLIT
@@ -4697,18 +4697,11 @@ String [] split_text(String textToSplit, String separator) {
 //STRING COMPARE LIST SORT
 //raw compare
 int longest_word( String[] listWordsToSort) {
-  int sizeWord = 0 ;
-  if(listWordsToSort != null) {
-    for (int i = 0 ; i < listWordsToSort.length ; i++) {
-      if (listWordsToSort[i].length() > sizeWord )  sizeWord = listWordsToSort[i].length() ;
-    }
-  }
-
-  return sizeWord;
-
+  return longest_word(listWordsToSort, 0, listWordsToSort.length);
 }
+
 //with starting and end keypoint in the String must be sort
-int longest_word( String[] listWordsToSort, int start, int finish ) {
+int longest_word(String[] listWordsToSort, int start, int finish) {
   int sizeWord = 0;
   if(listWordsToSort != null) {
     for ( int i = start ; i < finish ; i++) {
@@ -4722,48 +4715,42 @@ int longest_word( String[] listWordsToSort, int start, int finish ) {
 
 // with the same size_text for each line
 int longest_word_in_pixel(String[] listWordsToSort, int size_font) {
-  int sizeWord = 0 ;
+  int width_pix = 0 ;
   if(listWordsToSort != null) {
     for ( int i = 0 ; i < listWordsToSort.length ; i++) {
-      if (width_String(listWordsToSort[i], size_font) > sizeWord )  sizeWord = width_String(listWordsToSort[i],size_font) ;
+      if (width_String(listWordsToSort[i], size_font) > width_pix) width_pix = width_String(listWordsToSort[i],size_font) ;
     }
   }
-  return sizeWord ;
+  return width_pix;
 }
 
 // with the same size_text for each line, choice the which line you check
-int longest_word_in_pixel( String[] listWordsToSort, int size_font, int start, int finish ) {
-  int sizeWord = 0 ;
-  if(listWordsToSort != null) {
-    for ( int i = start ; i <= finish ; i++) {
-      if (width_String(listWordsToSort[i], size_font) > sizeWord )  sizeWord = width_String(listWordsToSort[i],size_font) ;
-    }
-  }
-  return sizeWord ;
+int longest_word_in_pixel(String[] listWordsToSort, int size_font, int start, int finish) {
+  int [] s_font = new int[1];
+  s_font[0] = size_font;
+  return longest_word_in_pixel("defaultFont", listWordsToSort, s_font, start, finish);
 }
 
 // with list of size_text for each line
-int longest_word_in_pixel( String[] listWordsToSort, int [] size_font) {
-  int sizeWord = 0 ;
-  if(listWordsToSort != null) {
-    for ( int i = 0 ; i < listWordsToSort.length ; i++) {
-      if (width_String(listWordsToSort[i], size_font[i]) > sizeWord )  sizeWord = width_String(listWordsToSort[i],size_font[i]) ;
-    }
-  }
-  return sizeWord ;
+int longest_word_in_pixel(String[] listWordsToSort, int [] size_font) {
+  return longest_word_in_pixel("defaultFont", listWordsToSort, size_font, 0, listWordsToSort.length);
 }
 
 // with list of size_text for each line, choice the which line you check
-int longest_word_in_pixel( String[] listWordsToSort, int [] size_font, int start, int finish ) {
-  int sizeWord = 0 ;
-  if(listWordsToSort != null) {
-    for ( int i = start ; i <= finish ; i++) {
-      if (width_String(listWordsToSort[i], size_font[i]) > sizeWord )  sizeWord = width_String(listWordsToSort[i],size_font[i]) ;
-    }
-  }
-  return  sizeWord ;
+
+int longest_word_in_pixel(String[] listWordsToSort, int [] size_font, int start, int finish ) {
+  return longest_word_in_pixel("defaultFont", listWordsToSort, size_font, start, finish);
 }
 
+int longest_word_in_pixel(String font_name, String[] listWordsToSort, int [] size_font, int start, int finish) {
+  int width_pix = 0 ;
+  if(listWordsToSort != null) {
+    for ( int i = start ; i <= finish ; i++) {
+      if (width_String(font_name, listWordsToSort[i], size_font[i]) > width_pix) width_pix = width_String(listWordsToSort[i],size_font[i]) ;
+    }
+  }
+  return width_pix;
+}
 
 
 

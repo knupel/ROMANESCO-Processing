@@ -4,9 +4,13 @@ revision 31
 MAJOR
 --
 >improve dropdown and sliders method
->improve OSC architecture
 >remove menu web-cam from controller
 >add menu filter to controller
+>fix the setting size window for prescene and scene
+
+MINOR
+--
+>improve OSC architecture
 
 
 
