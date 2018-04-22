@@ -1,4 +1,7 @@
 /**
+CROPE
+CONTROL ROMANESCO PROCESSING ENVIRONMENT
+*
 CLASS BUTTON 1.1.0
 */
 class Button {
@@ -278,7 +281,6 @@ class Button_dynamic extends Button {
 
   void change_pos(int x, int y) {
     this.change_pos. set(x,y) ;
-
   }
 
 

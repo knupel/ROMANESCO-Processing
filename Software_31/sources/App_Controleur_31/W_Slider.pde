@@ -1,15 +1,12 @@
 /**
+CROPE
+CONTROL ROMANESCO PROCESSING ENVIRONMENT
+*
 SLIDER 
 2015 - 2018
-SLIDER may 2016 1.5.9 
-SLIDER june 2016 1.6.0
-SLIDER january 2017 1.6.1
-SLIDER march 2018 1.7.0
 v 1.7.1
 */
 boolean molette_already_selected ;
-
-
 /**
 CLASS SLIDER
 */
@@ -121,9 +118,6 @@ public class Slider {
 
 
 
-
-  
-  
   // setting the position from a specific value
   void set_molette(float normPos) {
     // security to constrain the value in normalizing range.
@@ -138,18 +132,11 @@ public class Slider {
   }
 
 
-
-  
-  
   
   void select_molette() {
     lockedMol = select(lockedMol(), lockedMol) ;
   }
 
-
-
-
- 
 
   void update_molette() {
     // move the molette is this one is locked
@@ -297,25 +284,8 @@ public class Slider {
   }
   
   
-  /* return the position of the molette, the minium and the maximum between 0 and 1
-  @ return float
-  */
-  float getValue() {
-    float value ;
-    if (size.x >= size.y) {
-      value = map (pos_molette.x, posMin.x, posMax.x, minNorm, maxNorm) ; 
-    } else {
-      value = map (pos_molette.y, posMin.y, posMax.y, minNorm, maxNorm) ;
-    }
-    return value ;
-  }
-  
-  float getValueMin() {
-    return minNorm ;
-  }
-  float getValueMax() {
-    return maxNorm ;
-  }
+
+
   
   
   // check if the mouse is inside the molette or not
@@ -355,7 +325,7 @@ public class Slider {
   
   
   
-  //locked
+
   boolean lockedMol() {
     if (insideMol && mousePressed) {
       return true ; 
@@ -363,18 +333,9 @@ public class Slider {
       return false ;
     }
   }
-  
-  // END CLASSIC METHOD
-  /////////////////////
-  
- 
- 
- 
- 
 
- ///////////////////
- // ADVANCED METHOD
- // update position from midi controller
+
+  // update position from midi controller
   void updateMidi(int val) {
     //update the Midi position only if the Midi Button move
     if (newmidi_value_romanesco != val) { 
@@ -384,8 +345,7 @@ public class Slider {
   }
 
   
-  //////
-  //VOID
+
   void load(int load) {
     pos_molette.x = load ;
   }
@@ -398,6 +358,24 @@ public class Slider {
   //give the IDmidi 
   int IDmidi() { 
     return IDmidi ; 
+  }
+
+
+  float get_value() {
+    float value ;
+    if (size.x >= size.y) {
+      value = map (pos_molette.x, posMin.x, posMax.x, minNorm, maxNorm) ; 
+    } else {
+      value = map (pos_molette.y, posMin.y, posMax.y, minNorm, maxNorm) ;
+    }
+    return value ;
+  }
+  
+  float get_value_min() {
+    return minNorm ;
+  }
+  float get_value_max() {
+    return maxNorm ;
   }
 
   public Vec2 get_pos() {

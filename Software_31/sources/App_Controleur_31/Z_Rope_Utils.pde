@@ -1,6 +1,6 @@
 /**
 Rope UTILS 
-v 1.42.2
+v 1.42.5
 * Copyleft (c) 2014-2018 
 * Stan le Punk > http://stanlepunk.xyz/
 Rope – Romanesco Processing Environment – 
@@ -4684,69 +4684,82 @@ boolean in_range_wheel(float min, float max, float roof_max, float value) {
 
 /**
 STRING UTILS
-v 0.2.1
+v 0.3.2
 */
 
 //STRING SPLIT
-String [] split_text(String textToSplit, String separator) {
-  String [] text = textToSplit.split(separator) ;
+String [] split_text(String str, String separator) {
+  String [] text = str.split(separator) ;
   return text  ;
 }
 
 
 //STRING COMPARE LIST SORT
 //raw compare
-int longest_word( String[] listWordsToSort) {
-  return longest_word(listWordsToSort, 0, listWordsToSort.length);
+int longest_String(String[] string_list) {
+  int finish = 0;
+  if(string_list != null) finish = string_list.length;
+  return longest_String(string_list, 0, finish);
 }
 
 //with starting and end keypoint in the String must be sort
-int longest_word(String[] listWordsToSort, int start, int finish) {
-  int sizeWord = 0;
-  if(listWordsToSort != null) {
+int longest_String(String[] string_list, int start, int finish) {
+  int length = 0;
+  if(string_list != null) {
     for ( int i = start ; i < finish ; i++) {
-      if (listWordsToSort[i].length() > sizeWord )  sizeWord = listWordsToSort[i].length() ;
+      if (string_list[i].length() > length ) length = string_list[i].length() ;
     }
   }
-  return sizeWord ;
+  return length;
 }
 
-
-
-// with the same size_text for each line
-int longest_word_in_pixel(String[] listWordsToSort, int size_font) {
-  int width_pix = 0 ;
-  if(listWordsToSort != null) {
-    for ( int i = 0 ; i < listWordsToSort.length ; i++) {
-      if (width_String(listWordsToSort[i], size_font) > width_pix) width_pix = width_String(listWordsToSort[i],size_font) ;
-    }
-  }
-  return width_pix;
+/**
+Longuest String with PFont
+*/
+int longest_String_pixel(PFont font, String[] string_list) {
+  int [] size_font = new int[1];
+  size_font[0] = font.getSize();
+  int finish = 0;
+  if(string_list != null) finish = string_list.length;
+  return longest_String_pixel(font.getName(), string_list, size_font, 0, finish);
 }
 
-// with the same size_text for each line, choice the which line you check
-int longest_word_in_pixel(String[] listWordsToSort, int size_font, int start, int finish) {
+int longest_String_pixel(PFont font, String[] string_list, int... size_font) {
+  int finish = 0;
+  if(string_list != null) finish = string_list.length;
+  return longest_String_pixel(font.getName(), string_list, size_font, 0, finish);
+}
+
+int longest_String_pixel(PFont font, String[] string_list, int [] size_font, int start, int finish) {
+  return longest_String_pixel(font.getName(), string_list, size_font, start, finish);
+}
+
+/**
+Longuest String with String name Font
+*/
+int longest_String_pixel(String font_name, String[] string_list, int... size_font) {
+  int finish = 0;
+  if(string_list != null) finish = string_list.length;
+  return longest_String_pixel(font_name, string_list, size_font, 0, finish);
+}
+
+// diferrent size by line
+int longest_String_pixel(String font_name, String[] string_list, int size_font, int start, int finish) {
   int [] s_font = new int[1];
   s_font[0] = size_font;
-  return longest_word_in_pixel("defaultFont", listWordsToSort, s_font, start, finish);
+  return longest_String_pixel(font_name, string_list, s_font, start, finish);
 }
 
-// with list of size_text for each line
-int longest_word_in_pixel(String[] listWordsToSort, int [] size_font) {
-  return longest_word_in_pixel("defaultFont", listWordsToSort, size_font, 0, listWordsToSort.length);
-}
-
-// with list of size_text for each line, choice the which line you check
-
-int longest_word_in_pixel(String[] listWordsToSort, int [] size_font, int start, int finish ) {
-  return longest_word_in_pixel("defaultFont", listWordsToSort, size_font, start, finish);
-}
-
-int longest_word_in_pixel(String font_name, String[] listWordsToSort, int [] size_font, int start, int finish) {
+int longest_String_pixel(String font_name, String[] string_list, int [] size_font, int start, int finish) {
   int width_pix = 0 ;
-  if(listWordsToSort != null) {
-    for ( int i = start ; i <= finish ; i++) {
-      if (width_String(font_name, listWordsToSort[i], size_font[i]) > width_pix) width_pix = width_String(listWordsToSort[i],size_font[i]) ;
+  if(string_list != null) {
+    int target_size_font = 0;
+    for (int i = start ; i < finish && i < string_list.length; i++) {
+      if(i >= size_font.length) target_size_font = 0 ;
+      if (width_String(font_name, string_list[i], size_font[target_size_font]) > width_pix) {
+        width_pix = width_String(string_list[i],size_font[target_size_font]);
+      }
+      target_size_font++;
     }
   }
   return width_pix;
@@ -4755,11 +4768,16 @@ int longest_word_in_pixel(String font_name, String[] listWordsToSort, int [] siz
 
 
 
-
+/**
+width String
+*/
 int width_String(String target, int size) {
   return width_String("defaultFont", target, size) ;
 }
 
+int width_String(PFont pfont, String target, int size) {
+  return width_String(pfont.getName(), target, size);
+}
 
 int width_String(String font_name, String target, int size) {
   Font font = new Font(font_name, Font.BOLD, size) ;
@@ -4769,16 +4787,23 @@ int width_String(String font_name, String target, int size) {
 }
 
 
+
+
 int width_char(char target, int size) {
   return width_char("defaultFont", target, size) ;
 }
 
+int width_char(PFont pfont, char target, int size) {
+  return width_char(pfont.getName(), target, size);
+}
 int width_char(String font_name, char target, int size) {
   Font font = new Font(font_name, Font.BOLD, size) ;
   BufferedImage img = new BufferedImage(1, 1, BufferedImage.TYPE_INT_ARGB);
   FontMetrics fm = img.getGraphics().getFontMetrics(font);
   return fm.charWidth(target);
 }
+
+
 
 
 

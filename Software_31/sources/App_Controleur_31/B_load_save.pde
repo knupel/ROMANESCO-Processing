@@ -135,9 +135,9 @@ void saveInfoSlider() {
   for (int i = 1 ; i < NUM_SLIDER_GENERAL ; i++) {
      // set PVector info Slider
      int temp = i-1 ;
-     infoSlider[temp].c = slider[i].getValue() ;
-     infoSlider[temp].d = slider[i].getValueMin() ;
-     infoSlider[temp].e = slider[i].getValueMax() ;
+     infoSlider[temp].c = slider[i].get_value() ;
+     infoSlider[temp].d = slider[i].get_value_min() ;
+     infoSlider[temp].e = slider[i].get_value_max() ;
      setSlider(i, (int)infoSlider[temp].b, infoSlider[temp].c,infoSlider[temp].d,infoSlider[temp].e) ;
    }
   
@@ -148,9 +148,9 @@ void saveInfoSlider() {
     // third loop to check and find the good PVector array in the list
     for(int j = 0 ; j < infoSlider.length ;j++) {
       if( (int)infoSlider[j].a ==IDslider) {
-        infoSlider[j].c = slider[IDslider].getValue() ;
-        infoSlider[j].d = slider[IDslider].getValueMin() ;
-        infoSlider[j].e = slider[IDslider].getValueMax() ;
+        infoSlider[j].c = slider[IDslider].get_value() ;
+        infoSlider[j].d = slider[IDslider].get_value_min() ;
+        infoSlider[j].e = slider[IDslider].get_value_max() ;
         setSlider(IDslider, (int)infoSlider[j].b, infoSlider[j].c,infoSlider[j].d,infoSlider[j].e) ;
       }
     }

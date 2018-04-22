@@ -90,43 +90,38 @@ color rouge, rougeFonce, rougeTresFonce, rougeTresTresFonce,
       colorTextUsual, colorTitle ;
 
 color col_on_in, col_on_out, col_off_in, col_off_out ;
-
-
 //SETUP
 void colorSetup() {
-   colorMode (HSB, 360,100,100 ) ; 
-   blanc = color(0,0,95) ;            
-   blancGrisClair = color( 0,0,85) ;  
-   blancGris = color( 0,0,75) ; 
-   grisClair = color(0,0, 65) ;       
-   gris = color(0,0,50) ;             
-   grisFonce = color(0,0,40)  ;     
-   grisTresFonce = color(0,0,30) ; 
-   grisNoir = color(0,0,20) ;      
-   noirGris = color (0,0,15) ;         
-   noir = color (0,0,5) ;  
-   vertClair = color (100,20,100) ;     
-   vert = color(100,50,70) ; 
-   vertFonce = color(100,100,50) ; 
-   vertTresFonce = color(100,100,30) ;
-   rougeTresFonce = color(10, 100, 50) ; 
-   rougeTresTresFonce = color(10, 100, 46) ; 
-   rougeFonce = color (10, 100, 70) ;  
-   rouge = color(10,100,100) ;            
-   orange = color (35,100,100) ; 
-   jauneOrange = color (42,100,100) ; 
-   jaune = color(50,100,100) ;
-   
-   colorTextUsual = grisNoir ; 
-   colorTitle = noirGris ;
-   
-   // color button
-   col_on_in = vert ;
-   col_on_out = vertTresFonce ;
-   col_off_in = orange ;
-   col_off_out = rougeFonce ;
-   
+  colorMode (HSB, 360,100,100 ) ; 
+  blanc = color(0,0,95) ;            
+  blancGrisClair = color( 0,0,85) ;  
+  blancGris = color( 0,0,75) ; 
+  grisClair = color(0,0, 65) ;       
+  gris = color(0,0,50) ;             
+  grisFonce = color(0,0,40)  ;     
+  grisTresFonce = color(0,0,30) ; 
+  grisNoir = color(0,0,20) ;      
+  noirGris = color (0,0,15) ;         
+  noir = color (0,0,5) ;  
+  vertClair = color (100,20,100) ;     
+  vert = color(100,50,70) ; 
+  vertFonce = color(100,100,50) ; 
+  vertTresFonce = color(100,100,30) ;
+  rougeTresFonce = color(10, 100, 50) ; 
+  rougeTresTresFonce = color(10, 100, 46) ; 
+  rougeFonce = color (10, 100, 70) ;  
+  rouge = color(10,100,100) ;            
+  orange = color (35,100,100) ; 
+  jauneOrange = color (42,100,100) ; 
+  jaune = color(50,100,100) ;
 
+  colorTextUsual = grisNoir ; 
+  colorTitle = noirGris ;
+  // color button
+  col_on_in = vert ;
+  col_on_out = vertTresFonce ;
+  col_off_in = orange ;
+  col_off_out = rougeFonce ;
 }
 
 
@@ -167,8 +162,6 @@ ArrayList svg_files = new ArrayList();
 ArrayList movie_files = new ArrayList();
 
 
-
-
 boolean folder_image_bitmap_selected = true ;
 boolean folder_image_svg_selected = true ;
 boolean folder_movie_selected = true ;
@@ -180,7 +173,6 @@ void check_media_folder() {
   check_image_bitmap_folder();
   check_image_svg_folder();
   check_movie_folder();
-
 }
 
 
@@ -453,7 +445,6 @@ void credit() {
     }
   }
 }
-// END CREDIT
 
 
 
@@ -502,7 +493,6 @@ void shortcuts_controller() {
   check_Keyboard_load_scene() ;
   check_Keyboard_load_controller() ;
 
-
   check_keyboard_shift() ;
 }
 
@@ -513,10 +503,9 @@ void shortcuts_controller() {
 
 
 
+
 /**
-
 KEYBOARD CONTROLLER 1.0.1
-
 */
 boolean checkKeyboard(int c) {
   if (keyboard.length >= c) {
@@ -611,6 +600,3 @@ void check_Keyboard_save_controller_NEW_path() {
 
 }
 
-
-// END SHORTCUTS
-/////////////////

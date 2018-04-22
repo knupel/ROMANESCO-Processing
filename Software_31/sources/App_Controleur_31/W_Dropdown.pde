@@ -1,13 +1,12 @@
 /**
-DROPDOWN 
+CROPE
+CONTROL ROMANESCO PROCESSING ENVIRONMENT
+*
+DROPDOWN
+v 1.2.0 
 2014-2018
-v 1.2.0
-ROMANESCO PROCESSING ENVIRONMENT
 */
 boolean dropdownOpen ; // use to indicate to indicate at the other button, they cannot be used when the user are on the dropdown menu
-
-
-
 /**
 CLASS
 */
@@ -16,7 +15,7 @@ public class Dropdown {
   private Slider slider_dd;
   private Vec2 size_box;
   // font
-  PFont font_header,font_box;
+  private PFont font_header,font_box;
   //dropdown
   private int line = 0;
   private String content[];
@@ -24,14 +23,15 @@ public class Dropdown {
 
   private boolean locked, slider ;
   // color
-  private final int colorTitleIn, colorTitleOut, colorBG, colorTextBox ; 
-  private final int boxIn, boxOut;
+  private int color_header_in, color_header_out, color_main;
+  private int color_box_text ; 
+  private int color_box_in, color_box_out;
 
   private Vec3 pos; 
   private Vec2 size;
   private Vec2 pos_text;
-  int pos_ref_x, pos_ref_y ;
-  private Vec2 change_pos = Vec2() ;
+  private int pos_ref_x, pos_ref_y ;
+  private Vec2 change_pos;
   private float factorPos; // use to calculate the margin between the box
   // box
   private int height_box;
@@ -57,15 +57,16 @@ public class Dropdown {
 
     this.size = size.copy(); // header size
     
-    this.colorBG = rc.get_color()[0];
-    this.boxIn = rc.get_color()[1];
-    this.boxOut = rc.get_color()[2];
-    this.colorTitleIn = rc.get_color()[3];
-    this.colorTitleOut = rc.get_color()[4];  
-    this.colorTextBox = rc.get_color()[5];
+    this.color_main = rc.get_color()[0];
+    this.color_box_in = rc.get_color()[1];
+    this.color_box_out = rc.get_color()[2];
+    this.color_header_in = rc.get_color()[3];
+    this.color_header_out = rc.get_color()[4];  
+    this.color_box_text = rc.get_color()[5];
     
     set_box(num_box, height_box);
     set_content(content);
+    // set_box_width(longest_String_pixel(font_box,this.content));
   }
 
 
@@ -77,10 +78,12 @@ public class Dropdown {
   public void set_box(int num_box, int height_box) {
     this.height_box = height_box;
     this.num_box = num_box;
-    float ratio = .95;
+    size_box = Vec2(longest_String_pixel(font_box,this.content), height_box);
+  }
 
-    //float w = width_String(String font_name, String target, size_text);
-    size_box = Vec2(longest_word_in_pixel(content, this.font_box.getSize()) *ratio, height_box);
+  public void set_box_width(float w) {
+    size_box.set(w,size_box.y);
+
   }
 
   public void set_font_header(String font_name, int size) {
@@ -122,6 +125,7 @@ public class Dropdown {
     if (slider && (slider_dd == null || new_slider)) {
       update_slider();
     }
+
   }
 
   private void update_slider() {
@@ -153,10 +157,11 @@ public class Dropdown {
       //give the position of dropdown
       int step = 2 ;
       //give the position in list of Item with the position from the slider's molette
-      if (slider) offset = round(map(slider_dd.getValue(), 0,1, 0, missing));
+      if (slider) offset = round(map(slider_dd.get_value(),0,1,0,missing));
+      set_box_width(longest_String_pixel(font_box,this.content));
 
       for (int i = start +offset ; i < end +offset ; i++) {
-        render_box(content[i], step++, size_box, colorTextBox);
+        render_box(content[i], step++, size_box, color_box_text);
         if (slider) {
           float x = pos.x -slider_dd.get_size().x;
           float y = pos.y +height_box;
@@ -164,7 +169,7 @@ public class Dropdown {
           slider_dd.inside_molette_rect();
           slider_dd.select_molette();
           slider_dd.update_molette();
-          slider_dd.show_slider(colorBG,colorBG,0);
+          slider_dd.show_slider(color_main,color_main,0);
           /**
           the color must be set in other place, that's not pertinent to set color in this method
           */
@@ -189,9 +194,9 @@ public class Dropdown {
     float yLevel = step == 1 ? pos.y  : (pos.y + (size.y *(factorPos )));
     Vec2 newPosDropdown = Vec2(pos.x, yLevel) ;
     if (inside(newPosDropdown, size,Vec2(mouseX,mouseY),RECT)) {
-      fill(colorTitleIn); 
+      fill(color_header_in); 
     } else {
-      fill(colorTitleOut);
+      fill(color_header_out);
     }
     textFont(font);
     text(name, pos.x +pos_text.x, yLevel +pos_text.y);
@@ -203,16 +208,16 @@ public class Dropdown {
     float yLevel = step == 1 ? pos.y  : (pos.y + (size_box.y *(factorPos)));
     Vec2 newPosDropdown = Vec2(pos.x, yLevel) ;
     if (inside(newPosDropdown, size_box, Vec2(mouseX,mouseY),RECT)) {
-      fill(boxIn); 
+      fill(color_box_in); 
     } else {
-      fill(boxOut);
+      fill(color_box_out);
     }
     //display
     noStroke() ;
     if (inside(newPosDropdown, size,Vec2(mouseX,mouseY),RECT)) {
-      fill(boxIn); 
+      fill(color_box_in); 
     } else {
-      fill(boxOut);
+      fill(color_box_out);
     }
     int sizeWidthMin = 60 ;
     int sizeWidthMax = 300 ;

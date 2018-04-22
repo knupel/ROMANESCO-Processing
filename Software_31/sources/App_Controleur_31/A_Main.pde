@@ -404,7 +404,7 @@ void update_slider(int whichOne) {
   
   // translate float value to int, to use OSC easily without problem of Array Outbound...blablah
   int valueMax = 360 ;
-  valueSlider[whichOne] = constrain(map(slider[whichOne].getValue(), 0, 1, 0,valueMax),0,valueMax)  ;
+  valueSlider[whichOne] = constrain(map(slider[whichOne].get_value(), 0, 1, 0,valueMax),0,valueMax)  ;
 }
 
 void display_current_slider_engine(int whichOne, int whichGroup) {
@@ -1014,7 +1014,7 @@ void button_header() {
   if(button_midi.rollover()) {
     text [0] = ("MIDI") ;    
     fill(grisTresFonce, alpha_bg_rollover) ;
-    background_text_list(Vec2(pos_window.x, pos_window.y), text, size_text, size_angle, speed, ratio_size, range_check) ;
+    background_text_list(Vec2(pos_window.x, pos_window.y), text, size_text, size_angle, speed, ratio_size, range_check, FuturaStencil_20) ;
     fill(jaune) ;
     text(text [0],pos_window.x, pos_window.y) ;
   }
@@ -1023,7 +1023,7 @@ void button_header() {
     text [0] = ("CUT") ;
     noStroke() ;
     fill(grisTresFonce, alpha_bg_rollover) ;
-    background_text_list(Vec2(pos_window.x, pos_window.y), text, size_text, size_angle, speed, ratio_size,range_check) ;
+    background_text_list(Vec2(pos_window.x, pos_window.y), text, size_text, size_angle, speed, ratio_size,range_check,FuturaStencil_20) ;
     fill(jaune) ;
     text(text [0], pos_window.x, pos_window.y) ;
   }
@@ -1453,7 +1453,7 @@ void display_info_object(int IDorder, PVector pos) {
   int size_angle = 2 ;
   fill(rougeFonce, 150) ;
   Vec2 range_check = Vec2(0,1) ;
-  background_text_list(Vec2(pos_window.x +2, pos_window.y), text, size_text, size_angle, speed, ratio_size, range_check) ;
+  background_text_list(Vec2(pos_window.x +2, pos_window.y), text, size_text, size_angle, speed, ratio_size, range_check,FuturaStencil_20) ;
 
 
   // text
@@ -1474,10 +1474,7 @@ void display_info_object(int IDorder, PVector pos) {
 
 
 
-// ANNEXE METHODE
-/////////////////
-
-void background_text_list(Vec2 pos, String [] list, int [] size_text, int size_angle, int speed_rotation, Vec2 ratio_size, Vec2 start_end) {
+void background_text_list(Vec2 pos, String [] list, int [] size_text, int size_angle, int speed_rotation, Vec2 ratio_size, Vec2 start_end, PFont font) {
   // create the starting point of the shape
   pos = Vec2(pos.x -(size_text[0] *.5), pos.y -size_text[0]) ;
 
@@ -1493,7 +1490,7 @@ void background_text_list(Vec2 pos, String [] list, int [] size_text, int size_a
   int start_point_list = int(start_end.x) ;
   int end_point_list = int(start_end.y) ;
   
-  int size_word = int(longest_word_in_pixel(list, size_text, start_point_list, end_point_list)) ;
+  int size_word = int(longest_String_pixel(font,list, size_text, start_point_list, end_point_list)) ;
   float width_rect =  size_word *ratio_size.x ;
   int height_rect = list.length *(int)spacing ;
   
