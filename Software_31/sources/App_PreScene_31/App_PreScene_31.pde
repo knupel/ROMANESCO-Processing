@@ -16,17 +16,15 @@ String IAM = "prescene";
 String prettyVersion = "1.3.0";
 String nameVersion = "Romanesco unu";
 
-boolean TEST_ROMANESCO = false; /* Use true when you want:
-                                    display color
-                                    used sound
-                                    maximum possibility of the object
-                                  */
-boolean FULL_RENDERING = false;
+boolean TEST_ROMANESCO = true; /* Use false when you want:
+                                    used sound & maximum possibility of the object
+                               */
+boolean FULL_RENDERING = true;
 boolean FULL_SCREEN = false ;
 boolean TABLET = false; // now tablet library don't work in OPENGL renderer
 
 
-boolean HOME = false;
+boolean HOME = true;
 /**
 SETTINGS
 */

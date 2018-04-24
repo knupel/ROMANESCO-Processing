@@ -7,10 +7,13 @@ MAJOR
 >remove menu web-cam from controller
 >add menu filter to controller
 >fix the setting size window for prescene and scene
+>reafactoring the code to use slider in Romanesco sub-classes item
+
 
 MINOR
 --
 >improve OSC architecture
+>common external file to name and use slider item
 
 
 

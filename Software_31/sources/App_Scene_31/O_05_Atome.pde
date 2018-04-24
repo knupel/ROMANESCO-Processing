@@ -1,9 +1,9 @@
 /**
-ATOME || 2012 || 1.3.4
+ATOME 
+2012-2018
+v 1.3.5
 */
-
 ArrayList<Atom> atomList ;
-
 //object one
 class Atome extends Romanesco {
   public Atome() {
@@ -12,7 +12,7 @@ class Atome extends Romanesco {
     ID_item = 5 ;
     ID_group = 1 ;
     item_author  = "Stan le Punk";
-    item_version = "version 1.3.4";
+    item_version = "version 1.3.5";
     item_pack = "Base" ;
     item_mode = "Chemical Name/File text/Electronic cloud/Ellipse circle/Ellipse triangle/Ellipse cloud/Triangle circle/Triangle triangle/Triangle cloud/Rectangle rectangle/Rectangle cloud" ;
     //item_slider = "Fill hue,Fill sat,Fill bright,Fill alpha,Stroke hue,Stroke sat,Stroke bright,Stroke alpha,Thickness,Size X,Size Y,Size Z,Canvas X,Canvas Y,Speed X,Direction X,Variety,Quantity,Area,Angle,Font size" ;
@@ -108,7 +108,7 @@ class Atome extends Romanesco {
 
     //add one atom to the start
     PVector pos = new PVector (random(width), random(height), 0) ;
-    PVector vel = new PVector ( random(-1, 1), random(-1, 1), random(-1, 1) ) ;
+    PVector vel = new PVector (random(-1, 1), random(-1, 1), random(-1, 1) ) ;
     int Z = 1 ; // 1 is the hydrogen ID, you can choice between 1 to 118 the last atom knew
     int ion = round(random(0,0));
     float rebound = 0.5 ;
@@ -188,7 +188,7 @@ class Atome extends Romanesco {
     float sizeAtomeX = sizeAtomeRawX *beatSizeProton ;
     float sizeAtomeY = sizeAtomeRawY *beatSizeProton ;
     float sizeAtomeZ = sizeAtomeRawZ *beatSizeProton ;
-    PVector sizeAtomeXYZ = new PVector(sizeAtomeX,sizeAtomeY,sizeAtomeZ) ;
+    
     //diameter
     float factorSizeField = sizeAtomeX *1.2 ; // factor size of the electronic Atom's Cloud
      //width
@@ -201,6 +201,7 @@ class Atome extends Romanesco {
       // main method
       atm.update (atomTemperature, velLimit, changeVelocity, tempAbs, soundDirection) ; // obligation to use this void, in the atomic univers
       atm.covalentCollision (atomList);
+      PVector sizeAtomeXYZ = new PVector(sizeAtomeX,sizeAtomeY,sizeAtomeZ) ;
 
       //DISPLAY
       //PARAMETER FROM ROMANESCO
@@ -387,7 +388,7 @@ class Atom {
   float K_atom  ;
   float pressure = 1.0 ;  
   // Atom data
- ArrayList<Electron> listE; // list of electron for each Atom
+  ArrayList<Electron> listE; // list of electron for each Atom
   PVector pos ;    // position of the atom
   PVector vel ;    // velocity of the atom
   float diamAtom ;
@@ -423,7 +424,7 @@ class Atom {
  
   /////////////////////CONSTRUCTOR ATOM////////////////////////////////////////////////////////////////
   //simple constructor
-  Atom  (PVector pos_, PVector vel_, float rebound_, int d_ ) {
+  Atom (PVector pos_, PVector vel_, float rebound_, int d_ ) {
     pos = pos_  ;
     vel = vel_  ;
     rebound = rebound_ ; 
@@ -914,9 +915,9 @@ class Atom {
   void display(String core, String cloud, PVector size, color colorFill, color colorStroke, float thickness, float orientation) {
     aspect_rope(colorFill, colorStroke, thickness) ;
     //check size
-    size.x *= diamAtom ;
-    size.y *= diamAtom ;
-    size.z *= diamAtom ;
+    PVector temp_size = size.copy();
+    temp_size.mult(diamAtom);
+    size.set(temp_size);
     
     
     pushMatrix() ;
@@ -942,8 +943,7 @@ class Atom {
       aspect_rope(colorFill, colorStroke,thickness) ;
     }
     
-    popMatrix() ;
-    
+    popMatrix() ;   
   }
   
   
