@@ -8,15 +8,65 @@ Inspirated by Nature of Code of Daniel Shiffman
 */
 class Lorenz extends Romanesco {
 	public Lorenz() {
-		RPE_name = "Lorenz attractor" ;
+		item_name = "Lorenz attractor" ;
 		ID_item = 27 ;
 		ID_group = 1 ;
-		RPE_author  = "Stan le Punk";
-		RPE_version = "Version 0.0.1";
-		RPE_pack = "Nature of Code" ;
-		RPE_mode = "Classic/Point" ; // separate the differentes mode by "/"
-		RPE_slider = "Fill hue,Fill sat,Fill bright,Fill alpha,Thickness,Size X,Jitter X,Jitter Y,Jitter Z,Life,Spectrum" ;
-	}
+		item_author  = "Stan le Punk";
+		item_version = "Version 0.0.1";
+		item_pack = "Nature of Code" ;
+		item_mode = "Classic/Point" ; // separate the differentes mode by "/"
+		// item_slider = "Fill hue,Fill sat,Fill bright,Fill alpha,Thickness,Size X,Jitter X,Jitter Y,Jitter Z,Life,Spectrum" ;
+	  hue_fill_is = true;
+    sat_fill_is = true;
+    bright_fill_is = true;
+    alpha_fill_is = true;
+    hue_stroke_is = false;
+    sat_stroke_is = false;
+    bright_stroke_is = false;
+    alpha_stroke_is = false;
+    thickness_is = false;
+    size_x_is = true;
+    size_y_is = false;
+    size_z_is = false;
+    font_size_is = false;
+    canvas_x_is = false;
+    canvas_y_is = false;
+    canvas_z_is = false;
+
+    reactivity_is = false;
+    speed_x_is = false;
+    speed_y_is = false;
+    speed_z_is = false;
+    spurt_x_is = false;
+    spurt_y_is = false;
+    spurt_z_is = false;
+    dir_x_is = false;
+    dir_y_is = false;
+    dir_z_is = false;
+    jit_x_is = true;
+    jit_y_is = true;
+    jit_z_is = true;
+    swing_x_is = false;
+    swing_y_is = false;
+    swing_z_is = false;
+
+    num_is = false;
+    variety_is = false;
+    life_is = true;
+    flow_is = false;
+    quality_is = false;
+    area_is = false;
+    angle_is = false;
+    scope_is = false;
+    scan_is = false;
+    align_is = false;
+    repulsion_is = false;
+    attraction_is = false;
+    density_is = false;
+    influence_is = false;
+    calm_is = false;
+    spectrum_is = true;
+  }
 
   float a = 10 ;
   float b = 28 ;

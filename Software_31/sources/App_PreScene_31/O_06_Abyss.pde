@@ -9,14 +9,64 @@ boolean useBackdrop = false;
 class The_Abbyss extends Romanesco {
   public The_Abbyss() {
     //from the index_objects.csv
-    RPE_name = "The Abbyss" ;
+    item_name = "The Abbyss" ;
     ID_item = 6 ;
     ID_group = 1 ;
-    RPE_author  = "Andreas Gysin";
-    RPE_version = "version 2.1.1";
-    RPE_pack = "Base" ;
-    RPE_mode = "Box Fish/Cubus/Floater/Radio/Worm/Sea Fly/Breather/Spider/Manta/Father/Super Nova" ;// separate the name by a slash and write the next mode immadialtly after this one.
-    RPE_slider = "Fill hue,Fill sat,Fill bright,Fill alpha,Stroke hue,Stroke sat,Stroke bright,Stroke alpha,Thickness" ;
+    item_author  = "Andreas Gysin";
+    item_version = "version 2.1.1";
+    item_pack = "Base" ;
+    item_mode = "Box Fish/Cubus/Floater/Radio/Worm/Sea Fly/Breather/Spider/Manta/Father/Super Nova" ;// separate the name by a slash and write the next mode immadialtly after this one.
+    //item_slider = "Fill hue,Fill sat,Fill bright,Fill alpha,Stroke hue,Stroke sat,Stroke bright,Stroke alpha,Thickness" ;
+    hue_fill_is = true;
+    sat_fill_is = true;
+    bright_fill_is = true;
+    alpha_fill_is = true;
+    hue_stroke_is = true;
+    sat_stroke_is = true;
+    bright_stroke_is = true;
+    alpha_stroke_is = true;
+    thickness_is = true;
+    size_x_is = false;
+    size_y_is = false;
+    size_z_is = false;
+    font_size_is = false;
+    canvas_x_is = false;
+    canvas_y_is = false;
+    canvas_z_is = false;
+
+    reactivity_is = false;
+    speed_x_is = false;
+    speed_y_is = false;
+    speed_z_is = false;
+    spurt_x_is = false;
+    spurt_y_is = false;
+    spurt_z_is = false;
+    dir_x_is = false;
+    dir_y_is = false;
+    dir_z_is = false;
+    jit_x_is = false;
+    jit_y_is = false;
+    jit_z_is  = false;
+    swing_x_is = false;
+    swing_y_is = false;
+    swing_z_is = false;
+
+    num_is = false;
+    variety_is = false;
+    life_is = false;
+    flow_is = false;
+    quality_is = false;
+    area_is = false;
+    angle_is = false;
+    scope_is = false;
+    scan_is = false;
+    align_is = false;
+    repulsion_is = false;
+    attraction_is = false;
+    density_is = false;
+    influence_is = false;
+    calm_is = false;
+    spectrum_is = false;
   }
   //GLOBAL
   

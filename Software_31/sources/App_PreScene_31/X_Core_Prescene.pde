@@ -1,5 +1,5 @@
 /**
-Core_Prescene
+Core Prescene
 v 1.2.0
 2013-2018
 */

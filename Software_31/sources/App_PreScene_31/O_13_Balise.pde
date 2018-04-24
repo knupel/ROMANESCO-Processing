@@ -6,16 +6,66 @@ Balise balise ;
 class BaliseRomanesco extends Romanesco {
   public BaliseRomanesco() {
     //from the index_objects.csv
-    RPE_name = "Balise" ;
+    item_name = "Balise" ;
     ID_item = 13 ;
     ID_group = 1 ;
-    RPE_author  = "Stan le Punk";
-    RPE_version = "Version 1.3.1";
-    RPE_pack = "Base" ;
-    // RPE_mode = "Disc/Rectangle/Box/Box Snake" ;
-    RPE_mode = "Point/Ellipse/Triangle/Rectangle/Cross/Star 5/Star 7/Super Star 8/Super Star 12" ;
+    item_author  = "Stan le Punk";
+    item_version = "Version 1.3.1";
+    item_pack = "Base" ;
+    // item_mode = "Disc/Rectangle/Box/Box Snake" ;
+    item_mode = "Point/Ellipse/Triangle/Rectangle/Cross/Star 5/Star 7/Super Star 8/Super Star 12" ;
 
-    RPE_slider = "Fill hue,Fill sat,Fill bright,Fill alpha,Stroke hue,Stroke sat,Stroke bright,Stroke alpha,Thickness,Size X,Size Y,Size Z,Quantity,Speed X,Canvas X,Repulsion" ;
+    // item_slider = "Fill hue,Fill sat,Fill bright,Fill alpha,Stroke hue,Stroke sat,Stroke bright,Stroke alpha,Thickness,Size X,Size Y,Size Z,Quantity,Speed X,Canvas X,Repulsion" ;
+    hue_fill_is = true;
+    sat_fill_is = true;
+    bright_fill_is = true;
+    alpha_fill_is = true;
+    hue_stroke_is = true;
+    sat_stroke_is = true;
+    bright_stroke_is = true;
+    alpha_stroke_is = true;
+    thickness_is = true;
+    size_x_is = true;
+    size_y_is = true;
+    size_z_is = true;
+    font_size_is = false;
+    canvas_x_is = true;
+    canvas_y_is = false;
+    canvas_z_is = false;
+
+    reactivity_is = false;
+    speed_x_is = true;
+    speed_y_is = false;
+    speed_z_is = false;
+    spurt_x_is = false;
+    spurt_y_is = false;
+    spurt_z_is = false;
+    dir_x_is = false;
+    dir_y_is = false;
+    dir_z_is = false;
+    jit_x_is = false;
+    jit_y_is = false;
+    jit_z_is  = false;
+    swing_x_is = false;
+    swing_y_is = false;
+    swing_z_is = false;
+
+    num_is = true;
+    variety_is = false;
+    life_is = false;
+    flow_is = false;
+    quality_is = false;
+    area_is = false;
+    angle_is = false;
+    scope_is = false;
+    scan_is = false;
+    align_is = false;
+    repulsion_is = true;
+    attraction_is = false;
+    density_is = false;
+    influence_is = false;
+    calm_is = false;
+    spectrum_is = false;
   }
   //GLOBAL
   float speed ;
@@ -46,7 +96,7 @@ class BaliseRomanesco extends Romanesco {
     if (motion[ID_item]) speed = (map(speed_x_item[ID_item], 0,1, 0,20)) *tempo_balise *rotation_direction ; else speed = 0.0 ;
 
     // costume
-    select_costume(ID_item, RPE_name) ;
+    select_costume(ID_item, item_name) ;
     // aspect
     //aspect_rope(fill_item[ID_item], stroke_item[ID_item], thickness_item[ID_item], costume[ID_item]) ;
 

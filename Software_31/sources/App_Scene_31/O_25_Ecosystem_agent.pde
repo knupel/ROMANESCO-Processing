@@ -5,15 +5,65 @@ v 0.1.4
 */
 class Ecosystem_agent extends Romanesco {
 	public Ecosystem_agent() {
-		RPE_name = "Eco Agents";
+		item_name = "Eco Agents";
 		ID_item = 25;
 		ID_group = 1;
-		RPE_author  = "Stan le Punk";
-		RPE_version = "Version 0.1.4";
-		RPE_pack = "Ecosystem";
-		RPE_mode = "Virus/Human/Alien/Other"; // separate the differentes mode by "/"
-		RPE_slider = "Fill hue,Fill sat,Fill bright,Fill alpha,Stroke hue,Stroke sat,Stroke bright,Stroke alpha,Thickness,Size X,Size Y,Size Z,Speed X,Canvas X,Canvas Y,Canvas Z,Speed X,Quantity,Spectrum,Life" ;
-	}
+		item_author  = "Stan le Punk";
+		item_version = "Version 0.1.4";
+		item_pack = "Ecosystem";
+		item_mode = "Virus/Human/Alien/Other"; // separate the differentes mode by "/"
+		// item_slider = "Fill hue,Fill sat,Fill bright,Fill alpha,Stroke hue,Stroke sat,Stroke bright,Stroke alpha,Thickness,Size X,Size Y,Size Z,Speed X,Canvas X,Canvas Y,Canvas Z,Speed X,Quantity,Spectrum,Life" ;
+    hue_fill_is = true;
+    sat_fill_is = true;
+    bright_fill_is = true;
+    alpha_fill_is = true;
+    hue_stroke_is = true;
+    sat_stroke_is = true;
+    bright_stroke_is = true;
+    alpha_stroke_is = true;
+    thickness_is = true;
+    size_x_is = true;
+    size_y_is = true;
+    size_z_is = true;
+    font_size_is = false;
+    canvas_x_is = true;
+    canvas_y_is = true;
+    canvas_z_is = true;
+
+    reactivity_is = false;
+    speed_x_is = true;
+    speed_y_is = false;
+    speed_z_is = false;
+    spurt_x_is = false;
+    spurt_y_is = false;
+    spurt_z_is = false;
+    dir_x_is = false;
+    dir_y_is = false;
+    dir_z_is = false;
+    jit_x_is = false;
+    jit_y_is = false;
+    jit_z_is  = false;
+    swing_x_is = false;
+    swing_y_is = false;
+    swing_z_is = false;
+
+    num_is = true;
+    variety_is = false;
+    life_is = true;
+    flow_is = false;
+    quality_is = false;
+    area_is = false;
+    angle_is = false;
+    scope_is = false;
+    scan_is = false;
+    align_is = false;
+    repulsion_is = false;
+    attraction_is = false;
+    density_is = false;
+    influence_is = false;
+    calm_is = false;
+    spectrum_is = true;
+  }
 
   int type_agents = 6 ;
   int colour_groups = type_agents ;

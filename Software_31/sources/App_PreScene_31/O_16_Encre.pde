@@ -8,14 +8,64 @@ ArrayList<Pixel_motion> starList = new ArrayList<Pixel_motion>();
 class Spray extends Romanesco {
   public Spray() {
     //from the index_objects.csv
-    RPE_name = "Stars Spray" ;
+    item_name = "Stars Spray" ;
     ID_item = 16 ;
     ID_group = 1 ;
-    RPE_author  = "Stan le Punk";
-    RPE_version = "version 1.1.2";
-    RPE_pack = "Base" ;
-    RPE_mode = "Star/Spray Pen/Spray Mouse" ;
-    RPE_slider = "Fill hue,Fill sat,Fill bright,Fill alpha,Thickness,Size X,Size Y,Canvas X,Canvas Y,Quantity,Reactivity,Angle,Life,Spurt X,Flow,Direction X,Direction Y" ;
+    item_author  = "Stan le Punk";
+    item_version = "version 1.1.2";
+    item_pack = "Base" ;
+    item_mode = "Star/Spray Pen/Spray Mouse" ;
+    // item_slider = "Fill hue,Fill sat,Fill bright,Fill alpha,Thickness,Size X,Size Y,Canvas X,Canvas Y,Quantity,Reactivity,Angle,Life,Spurt X,Flow,Direction X,Direction Y" ;
+    hue_fill_is = true;
+    sat_fill_is = true;
+    bright_fill_is = true;
+    alpha_fill_is = true;
+    hue_stroke_is = false;
+    sat_stroke_is = false;
+    bright_stroke_is = false;
+    alpha_stroke_is = false;
+    thickness_is = true;
+    size_x_is = true;
+    size_y_is = true;
+    size_z_is = false;
+    font_size_is = false;
+    canvas_x_is = true;
+    canvas_y_is = true;
+    canvas_z_is = false;
+
+    reactivity_is = true;
+    speed_x_is = false;
+    speed_y_is = false;
+    speed_z_is = false;
+    spurt_x_is = true;
+    spurt_y_is = false;
+    spurt_z_is = false;
+    dir_x_is = true;
+    dir_y_is = true;
+    dir_z_is = false;
+    jit_x_is = false;
+    jit_y_is = false;
+    jit_z_is  = false;
+    swing_x_is = false;
+    swing_y_is = false;
+    swing_z_is = false;
+
+    num_is = true;
+    variety_is = false;
+    life_is = true;
+    flow_is = true;
+    quality_is = false;
+    area_is = false;
+    angle_is = true;
+    scope_is = false;
+    scan_is = false;
+    align_is = false;
+    repulsion_is = false;
+    attraction_is = false;
+    density_is = false;
+    influence_is = false;
+    calm_is = false;
+    spectrum_is = false;
   }
   //GLOBAL
   // INK

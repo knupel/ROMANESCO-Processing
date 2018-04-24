@@ -6,14 +6,64 @@ v 1.2.6
 class Webcam extends Romanesco {
   public Webcam() {
     //from the index_objects.csv
-    RPE_name = "Webcam" ;
+    item_name = "Webcam" ;
     ID_item = 21 ;
     ID_group = 1 ;
-    RPE_author  = "Stan le Punk";
-    RPE_version = "Version 1.2.5";
-    RPE_pack = "Base" ;
-    RPE_mode = "Rectangle color/Rectangle mono/Point color/Point mono/Box color/Box mono" ;
-    RPE_slider = "Fill hue,Fill sat,Fill bright,Fill alpha,Size X,Size Y,Size Z,Canvas X,Canvas Y" ;
+    item_author  = "Stan le Punk";
+    item_version = "Version 1.2.5";
+    item_pack = "Base" ;
+    item_mode = "Rectangle color/Rectangle mono/Point color/Point mono/Box color/Box mono" ;
+    // item_slider = "Fill hue,Fill sat,Fill bright,Fill alpha,Size X,Size Y,Size Z,Canvas X,Canvas Y" ;
+    hue_fill_is = true;
+    sat_fill_is = true;
+    bright_fill_is = true;
+    alpha_fill_is = true;
+    hue_stroke_is = false;
+    sat_stroke_is = false;
+    bright_stroke_is = false;
+    alpha_stroke_is = false;
+    thickness_is = false;
+    size_x_is = true;
+    size_y_is = true;
+    size_z_is = true;
+    font_size_is = false;
+    canvas_x_is = true;
+    canvas_y_is = true;
+    canvas_z_is = false;
+
+    reactivity_is = false;
+    speed_x_is = false;
+    speed_y_is = false;
+    speed_z_is = false;
+    spurt_x_is = false;
+    spurt_y_is = false;
+    spurt_z_is = false;
+    dir_x_is = false;
+    dir_y_is = false;
+    dir_z_is = false;
+    jit_x_is = false;
+    jit_y_is = false;
+    jit_z_is  = false;
+    swing_x_is = false;
+    swing_y_is = false;
+    swing_z_is = false;
+
+    num_is = false;
+    variety_is = false;
+    life_is = false;
+    flow_is = false;
+    quality_is = false;
+    area_is = false;
+    angle_is = false;
+    scope_is = false;
+    scan_is = false;
+    align_is = false;
+    repulsion_is = false;
+    attraction_is = false;
+    density_is = false;
+    influence_is = false;
+    calm_is = false;
+    spectrum_is = false;
   }
   //GLOBAL
   int cameraStatut = 0 ;

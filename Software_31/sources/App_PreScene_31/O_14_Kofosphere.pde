@@ -4,15 +4,64 @@ v 1.0.2
 */
 class Kofosphere extends Romanesco {
   public Kofosphere() {
-    //from the index_objects.csv
-    RPE_name = "Kofosphere" ;
+    item_name = "Kofosphere" ;
     ID_item = 14 ;
     ID_group = 1 ;
-    RPE_author  = "Kof";
-    RPE_version = "Version 1.0.2";
-    RPE_pack = "Base" ;
-    RPE_mode = "Point color/Point mono/Box color/Box mono" ;
-    RPE_slider = "Fill hue,Fill sat,Fill bright,Fill alpha,Stroke hue,Stroke sat,Stroke bright,Stroke alpha,Thickness,Size X,Size Y,Size Z,Canvas X,Quantity,Speed X" ;
+    item_author  = "Kof";
+    item_version = "Version 1.0.2";
+    item_pack = "Base" ;
+    item_mode = "Point color/Point mono/Box color/Box mono" ;
+    // item_slider = "Fill hue,Fill sat,Fill bright,Fill alpha,Stroke hue,Stroke sat,Stroke bright,Stroke alpha,Thickness,Size X,Size Y,Size Z,Canvas X,Quantity,Speed X" ;
+    hue_fill_is = true;
+    sat_fill_is = true;
+    bright_fill_is = true;
+    alpha_fill_is = true;
+    hue_stroke_is = true;
+    sat_stroke_is = true;
+    bright_stroke_is = true;
+    alpha_stroke_is = true;
+    thickness_is = true;
+    size_x_is = true;
+    size_y_is = true;
+    size_z_is = true;
+    font_size_is = false;
+    canvas_x_is = true;
+    canvas_y_is = false;
+    canvas_z_is = false;
+
+    reactivity_is = false;
+    speed_x_is = true;
+    speed_y_is = false;
+    speed_z_is = false;
+    spurt_x_is = false;
+    spurt_y_is = false;
+    spurt_z_is = false;
+    dir_x_is = false;
+    dir_y_is = false;
+    dir_z_is = false;
+    jit_x_is = false;
+    jit_y_is = false;
+    jit_z_is  = false;
+    swing_x_is = false;
+    swing_y_is = false;
+    swing_z_is = false;
+
+    num_is = true;
+    variety_is = false;
+    life_is = false;
+    flow_is = false;
+    quality_is = false;
+    area_is = false;
+    angle_is = false;
+    scope_is = false;
+    scan_is = false;
+    align_is = false;
+    repulsion_is = false;
+    attraction_is = false;
+    density_is = false;
+    influence_is = false;
+    calm_is = false;
+    spectrum_is = false;
   }
   //GLOBAL
 

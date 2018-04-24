@@ -134,8 +134,8 @@ void select_costume(int id_item,  String rpe_name) {
   String [] mode_split =new String[1] ;
   for(int i = 0 ; i < rpe_manager.RomanescoList.size() ; i++) {
     Romanesco item = (Romanesco) rpe_manager.RomanescoList.get(i) ;
-    if(rpe_name.equals(item.RPE_name)) {
-      mode_list = item.RPE_mode ;
+    if(rpe_name.equals(item.item_name)) {
+      mode_list = item.item_mode ;
       mode_split = split(mode_list, "/") ;
     }
   }
@@ -1200,19 +1200,8 @@ void repere(int size) {
 
 /**
 UTIL 
-v 0.2.0
+v 0.2.1
 */
-void path_setting(String path) {
-  preference_path = path+"/preferences/";
-  import_path = path+"/import/";
-  items_path = path+"/items/";
-}
-
-
-
-
-
-
 /**
 detection
 */

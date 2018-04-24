@@ -6,14 +6,64 @@ Line line ;
 class Lignes extends Romanesco {
   public Lignes() {
     //from the index_objects.csv
-    RPE_name = "Lignes" ;
+    item_name = "Lignes" ;
     ID_item = 15 ;
     ID_group = 1 ;
-    RPE_author  = "Stan le Punk";
-    RPE_version = "Version 1.1.2";
-    RPE_pack = "Base" ;
-    RPE_mode = "Lines 1/Lines 2/Lines 3/Lines 4/Lines 5/Lines 6" ;
-    RPE_slider = "Fill hue,Fill sat,Fill bright,Fill alpha,Thickness,Quantity,Speed X,Direction X,Canvas X,Angle,Alignment" ;
+    item_author  = "Stan le Punk";
+    item_version = "Version 1.1.2";
+    item_pack = "Base" ;
+    item_mode = "Lines 1/Lines 2/Lines 3/Lines 4/Lines 5/Lines 6" ;
+    // item_slider = "Fill hue,Fill sat,Fill bright,Fill alpha,Thickness,Quantity,Speed X,Direction X,Canvas X,Angle,Alignment" ;
+    hue_fill_is = true;
+    sat_fill_is = true;
+    bright_fill_is = true;
+    alpha_fill_is = true;
+    hue_stroke_is = false;
+    sat_stroke_is = false;
+    bright_stroke_is = false;
+    alpha_stroke_is = false;
+    thickness_is = true;
+    size_x_is = false;
+    size_y_is = false;
+    size_z_is = false;
+    font_size_is = false;
+    canvas_x_is = true;
+    canvas_y_is = false;
+    canvas_z_is = false;
+
+    reactivity_is = false;
+    speed_x_is = true;
+    speed_y_is = false;
+    speed_z_is = false;
+    spurt_x_is = false;
+    spurt_y_is = false;
+    spurt_z_is = false;
+    dir_x_is = true;
+    dir_y_is = false;
+    dir_z_is = false;
+    jit_x_is = false;
+    jit_y_is = false;
+    jit_z_is  = false;
+    swing_x_is = false;
+    swing_y_is = false;
+    swing_z_is = false;
+
+    num_is = true;
+    variety_is = false;
+    life_is = false;
+    flow_is = false;
+    quality_is = false;
+    area_is = false;
+    angle_is = true;
+    scope_is = false;
+    scan_is = false;
+    align_is = true;
+    repulsion_is = false;
+    attraction_is = false;
+    density_is = false;
+    influence_is = false;
+    calm_is = false;
+    spectrum_is = false;
   }
   //GLOBAL
   float ampLine  =1.0 ;

@@ -5,15 +5,65 @@ HORLOGE || 2012 || 2.0.4
 class Horloge extends Romanesco {
   public Horloge() {
     //from the index_objects.csv
-    RPE_name = "Horloge" ;
+    item_name = "Horloge" ;
     ID_item = 2 ;
     ID_group = 1 ;
-    RPE_author  = "Stan Le Punk";
-    RPE_version = "Version 2.0.4";
-    RPE_pack = "Base" ;
+    item_author  = "Stan Le Punk";
+    item_version = "Version 2.0.4";
+    item_pack = "Base" ;
     romanescoRender = "classic" ;
-    RPE_mode = "Ellipse Clock 12/Ellipse Clock 24/Line Clock 12/Line Clock 24/minutes/secondes" ;// separate the name by a slash and write the next mode immadialtly after this one.
-    RPE_slider = "Fill hue,Fill sat,Fill bright,Fill alpha,Angle,Speed X,Speed Y,Speed Z,Font size,Area,Canvas X,Canvas Y,Canvas Z" ;
+    item_mode = "Ellipse Clock 12/Ellipse Clock 24/Line Clock 12/Line Clock 24/minutes/secondes" ;// separate the name by a slash and write the next mode immadialtly after this one.
+    //item_slider = "Fill hue,Fill sat,Fill bright,Fill alpha,Angle,Speed X,Speed Y,Speed Z,Font size,Area,Canvas X,Canvas Y,Canvas Z" ;
+    hue_fill_is = true;
+    sat_fill_is = true;
+    bright_fill_is = true;
+    alpha_fill_is = true;
+    hue_stroke_is = false;
+    sat_stroke_is = false;
+    bright_stroke_is = false;
+    alpha_stroke_is = false;
+    thickness_is = false;
+    size_x_is = false;
+    size_y_is = false;
+    size_z_is = false;
+    font_size_is = true;
+    canvas_x_is = true;
+    canvas_y_is = true;
+    canvas_z_is = true;
+
+    reactivity_is = false;
+    speed_x_is = true;
+    speed_y_is = true;
+    speed_z_is = true;
+    spurt_x_is = false;
+    spurt_y_is = false;
+    spurt_z_is = false;
+    dir_x_is = false;
+    dir_y_is = false;
+    dir_z_is = false;
+    jit_x_is = false;
+    jit_y_is = false;
+    jit_z_is  = false;
+    swing_x_is = false;
+    swing_y_is = false;
+    swing_z_is = false;
+
+    num_is = false;
+    variety_is = false;
+    life_is = false;
+    flow_is = false;
+    quality_is = false;
+    area_is = true;
+    angle_is = true;
+    scope_is = false;
+    scan_is = false;
+    align_is = false;
+    repulsion_is = false;
+    attraction_is = false;
+    density_is = false;
+    influence_is = false;
+    calm_is = false;
+    spectrum_is = false;
   }
   //GLOBAL
   Vec3 pos_clock = Vec3() ; 

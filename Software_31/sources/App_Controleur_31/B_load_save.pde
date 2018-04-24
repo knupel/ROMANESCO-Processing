@@ -85,7 +85,7 @@ void createInfoButtonAndSlider(String path) {
   int countSlider = 0 ;
   for (TableRow row : table.rows()) {
     String s = row.getString("Type") ;
-    if( s.equals("Slider")) countSlider++ ; 
+    if(s.equals("Slider")) countSlider++ ; 
   }
   infoSlider = new Vec5 [countSlider] ;
   // create the var info for the item we need
@@ -156,7 +156,7 @@ void saveInfoSlider() {
     }
   }
 
-  showAllSliders = false ;
+  show_all_slider_item = false ;
 }
 
 void save_info_item() {
@@ -291,7 +291,6 @@ void load_saved_file_controller(String path) {
 
       String [] temp_item_info_split = split(item_info_raw[count_item +1], "/") ;
       int ID =  Integer.parseInt(temp_item_info_split[2]) ;
-      // int ID =  count_item +1 ;
       boolean on_off = false ;
       if( row.getInt("Item On Off") == 1) on_off = true ; else  on_off = false ;
 
@@ -456,16 +455,13 @@ END LOAD
 
 
 //LOAD text Interface
-Table textGUI;
+
 String[] genTxtGUI = new String[SLIDER_BY_COL] ;
 String[] slider_item_nameLight = new String[SLIDER_BY_COL] ;
 String[] slider_item_nameCamera = new String[SLIDER_BY_COL] ;
 
-TableRow [] row = new TableRow[SLIDER_BY_COL +1] ;
-
-String lang[] ;
-
 void textGUI() {
+  String lang[] ;
   if (!test){
     lang = loadStrings(preference_path+"language.txt"); 
   } else {
@@ -473,28 +469,29 @@ void textGUI() {
   }
   String l = join(lang,"") ;
   int language = Integer.parseInt(l);
-  
+  Table textGUI;
   if(language == 0) {
-    textGUI = loadTable(preference_path+"sliderListFR.csv","header");
+    textGUI = loadTable(preference_path+"slider_name_fr.csv","header");
   } else if (language == 1) {
-    textGUI = loadTable(preference_path+"sliderListEN.csv","header");
+    textGUI = loadTable(preference_path+"slider_name_en.csv","header");
   } else {
-    textGUI = loadTable(preference_path+"sliderListEN.csv","header");
+    textGUI = loadTable(preference_path+"slider_name_en.csv","header");
   }
-    
-  for ( int i = 0 ; i <  SLIDER_BY_COL ; i++) {
-    row[i] = textGUI.getRow(i) ;
-    for ( int j = 1 ; j <  SLIDER_BY_COL ; j++) {
+
+  TableRow [] row = new TableRow[SLIDER_BY_COL +1] ;  
+  for (int i = 0 ; i < SLIDER_BY_COL ; i++) {
+    row[i] = textGUI.getRow(i);
+    for (int j = 1 ; j < SLIDER_BY_COL ; j++) {
       String whichCol = Integer.toString(j) ;
-      if ( i == 0 ) genTxtGUI[j] = row[i].getString("Column "+whichCol) ;
-      if ( i == 1 ) slider_item_nameLight[j] = row[i].getString("Column "+whichCol) ;
-      if ( i == 2 ) slider_item_nameCamera[j] = row[i].getString("Column "+whichCol) ;
+      if (i == 0) genTxtGUI[j] = row[i].getString("Column "+whichCol) ;
+      if (i == 1) slider_item_nameLight[j] = row[i].getString("Column "+whichCol) ;
+      if (i == 2) slider_item_nameCamera[j] = row[i].getString("Column "+whichCol) ;
     }
-    for ( int j = 1 ; j <  SLIDER_BY_COL_PLUS_ONE ; j++) {
+    for (int j = 1 ; j < SLIDER_BY_COL_PLUS_ONE ; j++) {
       String whichCol = Integer.toString(j) ;
-      if ( i == 3 ) slider_item_name[j +(SLIDER_BY_COL *0)] = row[i].getString("Column "+whichCol) ;
-      if ( i == 4 ) slider_item_name[j +(SLIDER_BY_COL *1)] = row[i].getString("Column "+whichCol) ;
-      if ( i == 5 ) slider_item_name[j +(SLIDER_BY_COL *2)] = row[i].getString("Column "+whichCol) ;
+      if (i == 3) slider_item_name[j +(SLIDER_BY_COL *0)] = row[i].getString("Column "+whichCol) ;
+      if (i == 4) slider_item_name[j +(SLIDER_BY_COL *1)] = row[i].getString("Column "+whichCol) ;
+      if (i == 5) slider_item_name[j +(SLIDER_BY_COL *2)] = row[i].getString("Column "+whichCol) ;
     }
   }
 }
@@ -508,12 +505,12 @@ void set_import_pic_button() {
 
   
   //picto setting
-  for(int i = 0 ; i<4 ; i++) {
-    picCurtain[i]   = loadImage("picto/picto_curtain_"+i+".png") ;
-    picMidi[i]   = loadImage("picto/picto_midi_"+i+".png") ;
+  for(int i = 0 ; i < 4 ; i++) {
+    picCurtain[i] = loadImage("picto/picto_curtain_"+i+".png") ;
+    picMidi[i] = loadImage("picto/picto_midi_"+i+".png") ;
     picSetting[i] = loadImage("picto/picto_setting_"+i+".png") ;
-    picSound[i]   = loadImage("picto/picto_sound_"+i+".png") ;
-    picAction[i]   = loadImage("picto/picto_action_"+i+".png") ;
+    picSound[i] = loadImage("picto/picto_sound_"+i+".png") ;
+    picAction[i] = loadImage("picto/picto_action_"+i+".png") ;
   }
   // load thumbnail
   int num = NUM_ITEM +1 ;
@@ -523,7 +520,7 @@ void set_import_pic_button() {
   ON_out_thumbnail = new PImage[num] ;
   for(int i=0 ;  i<num ; i++ ) {
     String className = ("0") ;
-    if (item_load_name[i] != null ) className = item_load_name[i] ;
+    if (item_load_name[i] != null) className = item_load_name[i] ;
     OFF_in_thumbnail[i] = loadImage("thumbnail/OFF_in/OFF_in_"+className+".png") ;
     if(OFF_in_thumbnail[i] == null) OFF_in_thumbnail[i] = loadImage("thumbnail/OFF_in/OFF_in_0.png") ;
     //

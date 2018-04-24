@@ -17,7 +17,6 @@ String IAM = ("Controller") ;
 String prettyVersion = ("1.3.0") ;
 String nameVersion = ("Romanesco unu") ;
 boolean test = false ;
-String preference_path,import_path,items_path;
 
 void settings() {
   size(670,725);
@@ -44,7 +43,6 @@ void setup() {
   set_button_item_console();
   set_dropdown_general();
   set_dropdown_item_selected();
-
 
   build_button_general();
   build_button_item_console();

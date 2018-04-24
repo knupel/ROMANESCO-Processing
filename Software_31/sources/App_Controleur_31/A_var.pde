@@ -40,7 +40,7 @@ boolean curtainOpenClose ;
 Vec5 [] infoSlider ; 
 
 // slider mode display
-int sliderModeDisplay = 0 ;
+int slider_mode_display = 0 ;
 
 boolean[] keyboard = new boolean[526];
 boolean LOAD_SETTING = false ;

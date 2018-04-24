@@ -2,7 +2,7 @@
 VARIABLE  
 Romanesco Processing Environment
 2015-2018
-v 1.2.1
+v 1.2.2
 */
 
 /**
@@ -19,6 +19,7 @@ boolean key_c_long, key_l_long, key_n_long, key_v_long;
 boolean key_space_long, key_shift_long; 
 
 String data_osc_prescene[] = new String [135]; 
+
 
 
 
@@ -60,7 +61,7 @@ Vec4 HSBmode = new Vec4 (360,100,100,100) ; // give the color mode in HSB
 //path to open the controleur
 String findPath ; 
 
-String preference_path, import_path, items_path;
+
 
 
 

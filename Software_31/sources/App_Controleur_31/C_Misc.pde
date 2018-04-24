@@ -1,25 +1,7 @@
 /**
 UTIL
-v 1.1.0
+v 1.1.1
 */
-void path_setting(String path) {
-  preference_path = path+"/preferences/";
-  import_path = path+"/import/";
-  items_path = path+"/items/";
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
 /**
 FONT
 */
@@ -467,20 +449,18 @@ void credit() {
 
 /**
 Keyboard and Shortcut
-
+v 1.0.1
 */
 
 /**
 SHORTCUTS
 */
-//////////////////////////////
 void shortcuts_controller() {
   keyboard[keyCode] = true;
-  // slider display command
-  if(checkKeyboard(CONTROL) && checkKeyboard(KeyEvent.VK_X) ) {
-    println("CTRL + X", frameCount) ;
-    sliderModeDisplay += 1 ;
-    if(sliderModeDisplay > 2 ) sliderModeDisplay = 0 ;
+  if(checkKeyboard(157) && checkKeyboard(KeyEvent.VK_X) ) {
+    println("CMD + X", frameCount) ;
+    slider_mode_display += 1 ;
+    if(slider_mode_display > 2 ) slider_mode_display = 0 ;
   }
 
   // save Scene
@@ -578,7 +558,7 @@ void check_Keyboard_save_scene_NEW_path() {
 void check_Keyboard_save_controller_CURRENT_path() {
   if(checkKeyboard(CONTROL) && checkKeyboard(KeyEvent.VK_R) ) {
     println("CTRL + R", frameCount) ;
-    showAllSliders = true ;
+    show_all_slider_item = true ;
     if (savePathSetting.equals("")) {
       File tempFileName = new File ("your_controller_setting.csv");
       selectOutput("Save setting", "saveSetting", tempFileName);
@@ -592,7 +572,7 @@ void check_Keyboard_save_controller_CURRENT_path() {
 void check_Keyboard_save_controller_NEW_path() {
   if(checkKeyboard(CONTROL) && checkKeyboard(KeyEvent.VK_E) ) {
     println("CTRL + E", frameCount) ;
-    showAllSliders = true ; 
+    show_all_slider_item = true ; 
     File tempFileName = new File ("your_controller_setting.csv");
     selectOutput("Save setting", "saveSetting", tempFileName);
     keyboard[keyCode] = false ;   // just open one window, when use only the keyboard, if you don't use that open all the windows save and open

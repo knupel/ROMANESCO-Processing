@@ -10,9 +10,9 @@ boolean [][] display_slider;
 
 boolean [] showSliderGroup = new boolean[NUM_GROUP_SLIDER];
 
-boolean resetSlider = true;
-boolean allSliderUsed = false;
-boolean showAllSliders = false;
+boolean reset_slider_item = true;
+boolean all_slider_item_active = false;
+boolean show_all_slider_item = false;
 
 //these sliders name are not used for the interface but for the display analyze slider
 
@@ -135,14 +135,14 @@ void list_slider_item() {
       slider_item[i].append("") ;
     }
   }
-  // had value to the slider list object
+  // add value to the slider list object
   for (int i = 1 ; i <= NUM_ITEM ; i++) {
-    String [] listSliderTemp = split_text(slider_item_raw[i], (",")) ;
+    String [] temp = split_text(slider_item_raw[i], (",")) ;
     for( int j = 0 ; j <= NUM_SLIDER_ITEM ; j++ ) {
-      for ( int k = 0 ; k < listSliderTemp.length ; k++ ) {
-        if(listSliderTemp[k].equals(slider_item_controller.get(j))) {
-          slider_item[i].set(j,listSliderTemp[k]) ;
-        } else if(listSliderTemp[k].equals("all") ) {
+      for ( int k = 0 ; k < temp.length ; k++ ) {
+        if(temp[k].equals(slider_item_controller.get(j))) {
+          slider_item[i].set(j,temp[k]);
+        } else if(temp[k].equals("all") ) {
           slider_item[i].set(j,"all") ;
         }
       }
@@ -166,7 +166,7 @@ void check_slider_item() {
   check_item_parameter_on_off() ;
   which_slider_display() ;
   // check the group slider
-  for ( int i = 1 ; i <= NUM_ITEM ; i++) {
+  for (int i = 1 ; i <= NUM_ITEM ; i++) {
     if (item_active[i]) {
       showSliderGroup[item_group[i]] = true ;
     }
@@ -175,7 +175,7 @@ void check_slider_item() {
   
   
    //check if the slider must be display
-  if (resetSlider) {
+  if (reset_slider_item) {
     // use this boolean to have a boolean slider true, if don't use thi boolean no onr slider can be true and active
     boolean [] firstCheck = new boolean [NUM_GROUP_SLIDER] ; // true ;
     //reset slider for new check
@@ -186,44 +186,45 @@ void check_slider_item() {
       }
     }
    
-    //active slider
-    int IDgroup = 0 ;
-     if (showAllSliders) {
+    //active slider item
+    int IDgroup = 1 ;
+    if (show_all_slider_item) {
       for ( int i = 1 ; i <= NUM_SLIDER_ITEM ; i++) {
-        display_slider[1][i] = true ;
+        display_slider[IDgroup][i] = true;
       }
     } else {
       for ( int i = 1 ; i <= NUM_ITEM ; i++) {
         if (item_active[i]) {
-          IDgroup = 1 ;
-          for(int j = 1 ; j <= NUM_SLIDER_ITEM ; j++) {
-            if (firstCheck[1])  {
-              if((slider_item_controller.get(j).equals(slider_item[i].get(j)) || slider_item[i].get(j).equals("all"))) {
-                display_slider[IDgroup][j] = true ; 
-              } else display_slider[IDgroup][j] = false ;
+          for(int k = 1 ; k <= NUM_SLIDER_ITEM ; k++) {
+            if (firstCheck[IDgroup]) {
+              if((slider_item_controller.get(k).equals(slider_item[i].get(k)) || slider_item[i].get(k).equals("all"))) {
+                display_slider[IDgroup][k] = true ; 
+              } else {
+                display_slider[IDgroup][k] = false ;
+              }
             } else {
-              if (!allSliderUsed) {
-                if((slider_item_controller.get(j).equals(slider_item[i].get(j)) || slider_item[i].get(j).equals("all")) && display_slider[IDgroup][j]) {
-                  display_slider[IDgroup][j] = true ; 
+              if (!all_slider_item_active) {
+                if((slider_item_controller.get(k).equals(slider_item[i].get(k)) || slider_item[i].get(k).equals("all")) && display_slider[IDgroup][k]) {
+                  display_slider[IDgroup][k] = true ; 
                 } else {
-                  display_slider[IDgroup][j] = false ;
+                  display_slider[IDgroup][k] = false ;
                 }
-              } else if (allSliderUsed) {
-                if (!display_slider[IDgroup][j]) if (slider_item_controller.get(j).equals(slider_item[i].get(j)) || slider_item[i].get(j).equals("all")) {
-                  display_slider[IDgroup][j] = true ; 
+              } else if (all_slider_item_active) {
+                if (!display_slider[IDgroup][k]) {
+                  if (slider_item_controller.get(k).equals(slider_item[i].get(k)) || slider_item[i].get(k).equals("all")) {
+                    display_slider[IDgroup][k] = true;
+                  } 
                 } else {
-                  display_slider[IDgroup][j] = false ;
+                  display_slider[IDgroup][k] = false ;
                 }
               }
             }
           }
+          firstCheck[IDgroup] = false ;
         }
-        // wait the first cross of active object to change
-        if (item_active[i]) firstCheck[IDgroup] = false ;
       }
     }
-    //firstCheck = false ;
-    resetSlider = false ;  
+    reset_slider_item = false ;  
   }
 }
 
@@ -231,20 +232,20 @@ void check_slider_item() {
 
 // CHOICE which slider must be display after checking the keyboard
 void which_slider_display() {
-  switch(sliderModeDisplay) {
+  switch(slider_mode_display) {
     case 0 : 
-    resetSlider = true ;
-    showAllSliders = true ;
+    reset_slider_item = true ;
+    show_all_slider_item = true ;
     break ;
     case 1 : 
-    resetSlider = true ;
-    showAllSliders = false ;
-    allSliderUsed = true ;
+    reset_slider_item = true ;
+    show_all_slider_item = false ;
+    all_slider_item_active = true ;
     break ;
     case 2 : 
-    resetSlider = true ;
-    showAllSliders = false ;
-    allSliderUsed = false ;
+    reset_slider_item = true ;
+    show_all_slider_item = false ;
+    all_slider_item_active = false ;
     break ;
   }
 }
@@ -268,6 +269,6 @@ void check_item_parameter_on_off() {
   }
 
   
-  if(activityParameter) resetSlider = true ;
+  if(activityParameter) reset_slider_item = true ;
   activityParameter = false ;
 }

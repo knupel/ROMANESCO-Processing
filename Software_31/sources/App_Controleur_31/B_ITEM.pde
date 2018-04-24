@@ -34,7 +34,7 @@ void info_item() {
 
 
 void build_item_library() {
-  inventory_item_table = loadTable(preference_path+"objects/index_romanesco_objects.csv", "header") ;
+  inventory_item_table = loadTable(preference_path+"index_romanesco_items.csv", "header") ;
   shaderBackgroundList = loadTable(preference_path+"shader/shaderBackgroundList.csv", "header") ;
   numByGroup() ;
   init_var_item() ;

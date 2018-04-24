@@ -5,15 +5,65 @@ V 0.1.3
 */
 class Ecosystem_DNA extends Romanesco {
 	public Ecosystem_DNA() {
-		RPE_name = "Eco DNA" ;
+		item_name = "Eco DNA" ;
 		ID_item = 26 ;
 		ID_group = 1 ;
-		RPE_author  = "Stan le Punk";
-		RPE_version = "Version 0.1.3";
-		RPE_pack = "Ecosystem" ;
-		RPE_mode = "Point/Ellipse/Triangle/Rect/Cross/ABC" ; // separate the differentes mode by "/"
-		RPE_slider = "Fill hue,Fill sat,Fill bright,Fill alpha,Stroke hue,Stroke sat,Stroke bright,Stroke alpha,Thickness,Size X,Size Y,Size Z,Canvas X,Canvas Y,Canvas Z,Speed X,Direction X,Quantity,Density,Spectrum" ;
-	}
+		item_author  = "Stan le Punk";
+		item_version = "Version 0.1.3";
+		item_pack = "Ecosystem" ;
+		item_mode = "Point/Ellipse/Triangle/Rect/Cross/ABC" ; // separate the differentes mode by "/"
+		//item_slider = "Fill hue,Fill sat,Fill bright,Fill alpha,Stroke hue,Stroke sat,Stroke bright,Stroke alpha,Thickness,Size X,Size Y,Size Z,Canvas X,Canvas Y,Canvas Z,Speed X,Direction X,Quantity,Density,Spectrum" ;
+	  hue_fill_is = true;
+    sat_fill_is = true;
+    bright_fill_is = true;
+    alpha_fill_is = true;
+    hue_stroke_is = true;
+    sat_stroke_is = true;
+    bright_stroke_is = true;
+    alpha_stroke_is = true;
+    thickness_is = true;
+    size_x_is = true;
+    size_y_is = true;
+    size_z_is = true;
+    font_size_is = false;
+    canvas_x_is = true;
+    canvas_y_is = true;
+    canvas_z_is = true;
+
+    reactivity_is = false;
+    speed_x_is = true;
+    speed_y_is = false;
+    speed_z_is = false;
+    spurt_x_is = false;
+    spurt_y_is = false;
+    spurt_z_is = false;
+    dir_x_is = true;
+    dir_y_is = false;
+    dir_z_is = false;
+    jit_x_is = false;
+    jit_y_is = false;
+    jit_z_is  = false;
+    swing_x_is = false;
+    swing_y_is = false;
+    swing_z_is = false;
+
+    num_is = true;
+    variety_is = false;
+    life_is = false;
+    flow_is = false;
+    quality_is = false;
+    area_is = false;
+    angle_is = false;
+    scope_is = false;
+    scan_is = false;
+    align_is = false;
+    repulsion_is = false;
+    attraction_is = false;
+    density_is = true;
+    influence_is = false;
+    calm_is = false;
+    spectrum_is = true;
+  }
 
   Vec3 pos, canvas, radius, size ;
   int min_host = 5 ;
@@ -65,7 +115,7 @@ class Ecosystem_DNA extends Romanesco {
 
     if(costume[ID_item] == TEXT_ROPE ) textFont(font_item[ID_item]) ;
 
-    select_costume(ID_item, RPE_name) ;
+    select_costume(ID_item, item_name) ;
 
     float direction = map(dir_x_item[ID_item],0,360, -PI, PI) ;
 

@@ -1,8 +1,8 @@
 Slider Name,Column 1,Column 2,Column 3,Column 4,Column 5,Column 6,Column 7,Column 8,Column 9,Column 10,Column 11,Column 12,Column 13,Column 14,Column 15,Column 16
-général,Hue,Saturation,Brigthness,Refresh,Left,Rigth,TYPOGRAPHY,CURTAIN,,,,,,,,
+général,hue,saturation,brigthness,refresh,left,rigth,typography,curtain,,,,,,,,
 Light,Hue,Saturation,Brigthness,,,,,,,,,,,,,
-camera,Focal 28-200,Deformation,Direction X,Direction Y,Direction Z,Position X,Position Y,Position Z,Pitch,,,,,,,
-slider 1,FILL,saturation,brightness,alpha,STROKE,saturation,brightness,alpha,THICKNESS,size X,size Y,size Z,font size,canvas X,canvas Y,canvas Z
+camera,focal 28-200,deformation,direction X,direction Y,direction Z,position X,position Y,position Z,pitch,,,,,,,
+slider 1,f_hue,f_saturation,f_brightness,f_alpha,s_hue,s_saturation,s_brightness,s_alpha,thickness,size X,size Y,size Z,font size,canvas X,canvas Y,canvas Z
 slider 2,reactivity,speed X,speed Y,speed Z,spurt X,spurt Y,spurt Z,direction X,direction Y,direction Z,jitter X,jitter Y,jitter Z,swing X,swing Y,swing Z,
 slider 3,quantity,variety,life,flow,quality,area,angle,scope,scan,alignment,repulsion,attraction,density,influence,calm,spectrum
 

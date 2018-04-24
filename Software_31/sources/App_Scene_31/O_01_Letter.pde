@@ -4,15 +4,66 @@ LETTER || 2012 || 1.3.0
 class Letter extends Romanesco {
   public Letter() {
     //from the index_objects.csv
-    RPE_name = "Letter" ;
+    item_name = "Letter" ;
     ID_item = 1 ;
     ID_group = 1 ;
-    RPE_author  = "Stan le Punk";
-    RPE_version = "Version 1.3.0";
-    RPE_pack = "Base" ;
+    item_author  = "Stan le Punk";
+    item_version = "Version 1.3.0";
+    item_pack = "Base" ;
 
-    RPE_mode = "Point/Line/Triangle" ;
-    RPE_slider = "Fill hue,Fill sat,Fill bright,Fill alpha,Stroke hue,Stroke sat,Stroke bright,Stroke alpha,Thickness,Jitter X,Jitter Y,Jitter Z,Quantity,Speed X,Font size" ;
+    item_mode = "Point/Line/Triangle" ;
+    // item_slider = "Fill hue,Fill sat,Fill bright,Fill alpha,Stroke hue,Stroke sat,Stroke bright,Stroke alpha,Thickness,Jitter X,Jitter Y,Jitter Z,Quantity,Speed X,Font size" ;
+        // define slider
+    hue_fill_is = true;
+    sat_fill_is = true;
+    bright_fill_is = true;
+    alpha_fill_is = true;
+    hue_stroke_is = true;
+    sat_stroke_is = true;
+    bright_stroke_is = true;
+    alpha_stroke_is = true;
+    thickness_is = true;
+    size_x_is = false;
+    size_y_is = false;
+    size_z_is = false;
+    font_size_is = false;
+    canvas_x_is = false;
+    canvas_y_is = false;
+    canvas_z_is = false;
+
+    reactivity_is = false;
+    speed_x_is = false;
+    speed_y_is = false;
+    speed_z_is = false;
+    spurt_x_is = false;
+    spurt_y_is = false;
+    spurt_z_is = false;
+    dir_x_is = false;
+    dir_y_is = false;
+    dir_z_is = false;
+    jit_x_is = false;
+    jit_y_is = false;
+    jit_z_is  = false;
+    swing_x_is = false;
+    swing_y_is = false;
+    swing_z_is = false;
+
+    num_is = false;
+    variety_is = false;
+    life_is = false;
+    flow_is = false;
+    quality_is = false;
+    area_is = false;
+    angle_is = false;
+    scope_is = false;
+    scan_is = false;
+    align_is = false;
+    repulsion_is = false;
+    attraction_is = false;
+    density_is = false;
+    influence_is = false;
+    calm_is = false;
+    spectrum_is = false;
   }
   //GLOBAL
   RFont f;

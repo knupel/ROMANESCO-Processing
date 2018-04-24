@@ -5,15 +5,65 @@ RUBIS || 2013 || 1.0.4
 class MesAmis extends Romanesco {
   public MesAmis() {
     //from the index_objects.csv
-    RPE_name = "Rubis" ;
+    item_name = "Rubis" ;
     ID_item = 8 ;
     ID_group = 1 ;
-    RPE_author  = "Stan le Punk";
-    RPE_version = "version 1.0.4";
-    RPE_pack = "Base" ;
-    //RPE_mode = "1 full/2 lines" but the line is not really interesting
-    RPE_mode = "Vertex/Point" ; // separate the name by a slash and write the next mode immadialtly after this one.
-    RPE_slider = "Fill hue,Fill sat,Fill bright,Fill alpha,Stroke hue,Stroke sat,Stroke bright,Stroke alpha,Thickness,Canvas X,Speed X,Jitter X,Jitter Y,Jitter Z,Quantity,Swing X" ;
+    item_author  = "Stan le Punk";
+    item_version = "version 1.0.4";
+    item_pack = "Base" ;
+    //item_mode = "1 full/2 lines" but the line is not really interesting
+    item_mode = "Vertex/Point" ; // separate the name by a slash and write the next mode immadialtly after this one.
+    // item_slider = "Fill hue,Fill sat,Fill bright,Fill alpha,Stroke hue,Stroke sat,Stroke bright,Stroke alpha,Thickness,Canvas X,Speed X,Jitter X,Jitter Y,Jitter Z,Quantity,Swing X" ;
+    hue_fill_is = true;
+    sat_fill_is = true;
+    bright_fill_is = true;
+    alpha_fill_is = true;
+    hue_stroke_is = true;
+    sat_stroke_is = true;
+    bright_stroke_is = true;
+    alpha_stroke_is = true;
+    thickness_is = true;
+    size_x_is = false;
+    size_y_is = false;
+    size_z_is = false;
+    font_size_is = false;
+    canvas_x_is = true;
+    canvas_y_is = false;
+    canvas_z_is = false;
+
+    reactivity_is = false;
+    speed_x_is = true;
+    speed_y_is = false;
+    speed_z_is = false;
+    spurt_x_is = false;
+    spurt_y_is = false;
+    spurt_z_is = false;
+    dir_x_is = false;
+    dir_y_is = false;
+    dir_z_is = false;
+    jit_x_is = true;
+    jit_y_is = true;
+    jit_z_is = true;
+    swing_x_is = true;
+    swing_y_is = false;
+    swing_z_is = false;
+
+    num_is = true;
+    variety_is = false;
+    life_is = false;
+    flow_is = false;
+    quality_is = false;
+    area_is = false;
+    angle_is = false;
+    scope_is = false;
+    scan_is = false;
+    align_is = false;
+    repulsion_is = false;
+    attraction_is = false;
+    density_is = false;
+    influence_is = false;
+    calm_is = false;
+    spectrum_is = false;
   }
   //GLOBAL
   IntList IDpeople = new IntList() ;

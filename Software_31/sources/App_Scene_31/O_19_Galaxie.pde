@@ -12,14 +12,14 @@ class Galaxie extends Romanesco {
 
   public Galaxie() {
     //from the index_objects.csv
-    RPE_name = "Galaxie" ;
+    item_name = "Galaxie" ;
     ID_item = 19 ;
     ID_group = 1 ;
-    RPE_author  = "Stan le Punk";
-    RPE_version = "Version 1.4.2";
-    RPE_pack = "Base" ;
-    // RPE_mode ="Point/Ellipse/Rectangle/Box" ;
-    RPE_mode = "Point/Ellipse/Triangle/Rectangle/Cross/Star 5/Star 7/Super Star 8/Super Star 12" ;
+    item_author  = "Stan le Punk";
+    item_version = "Version 1.4.2";
+    item_pack = "Base" ;
+    // item_mode ="Point/Ellipse/Rectangle/Box" ;
+    item_mode = "Point/Ellipse/Triangle/Rectangle/Cross/Star 5/Star 7/Super Star 8/Super Star 12" ;
     ELLIPSE_M = 0 ;
     TRIANGLE_M = 1 ;
     RECT_M = 2 ;
@@ -31,7 +31,57 @@ class Galaxie extends Romanesco {
     SPHERE_LOW_M = 8 ;
     SPHERE_MEDIUM_M = 9 ;
 
-    RPE_slider = "Fill hue,Fill sat,Fill bright,Fill alpha,Stroke hue,Stroke sat,Stroke bright,Stroke alpha,Thickness,Size X,Size Y,Size Z,Canvas X,Canvas Y,Quantity,Speed X,Influence" ;
+    //item_slider = "Fill hue,Fill sat,Fill bright,Fill alpha,Stroke hue,Stroke sat,Stroke bright,Stroke alpha,Thickness,Size X,Size Y,Size Z,Canvas X,Canvas Y,Quantity,Speed X,Influence" ;
+    hue_fill_is = true;
+    sat_fill_is = true;
+    bright_fill_is = true;
+    alpha_fill_is = true;
+    hue_stroke_is = true;
+    sat_stroke_is  = true;
+    bright_stroke_is = true;
+    alpha_stroke_is = true;
+    thickness_is = true;
+    size_x_is = true;
+    size_y_is = true;
+    size_z_is = true;
+    font_size_is = false;
+    canvas_x_is = true;
+    canvas_y_is = true;
+    canvas_z_is = false;
+
+    reactivity_is = false;
+    speed_x_is = true;
+    speed_y_is = false;
+    speed_z_is = false;
+    spurt_x_is = false;
+    spurt_y_is = false;
+    spurt_z_is = false;
+    dir_x_is = false;
+    dir_y_is = false;
+    dir_z_is = false;
+    jit_x_is = false;
+    jit_y_is = false;
+    jit_z_is  = false;
+    swing_x_is = false;
+    swing_y_is = false;
+    swing_z_is = false;
+
+    num_is = true;
+    variety_is = false;
+    life_is = false;
+    flow_is = false;
+    quality_is = false;
+    area_is = false;
+    angle_is = false;
+    scope_is = false;
+    scan_is = false;
+    align_is = false;
+    repulsion_is = false;
+    attraction_is = false;
+    density_is = false;
+    influence_is = true;
+    calm_is = false;
+    spectrum_is = false;
   }
   //GLOBAL
   boolean makeSand = true ;
@@ -150,7 +200,7 @@ class Galaxie extends Romanesco {
     //////////////
     //DISPLAY MODE
     // int which_costume = which_costume(mode[ID_item]) ;
-    select_costume(ID_item, RPE_name) ;
+    select_costume(ID_item, item_name) ;
     aspect_rope(fill_item[ID_item], stroke_item[ID_item], thickness_item[ID_item], costume[ID_item]) ;
     show(size, thickness, costume[ID_item]) ;
     
