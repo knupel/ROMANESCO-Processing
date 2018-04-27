@@ -6,6 +6,13 @@ Todolist Romanesco
 
 créer un fichier externe de version
 
+*window
+
+Save the window position, to keep the position used when the app is re-open
+
+*Controller
+
+Remove the concept of group for the slider and button, too complex.
 
 *2D
 

@@ -8,12 +8,12 @@ void info_item() {
     TableRow lookFor = inventory_item_table.getRow(i) ;
     int ID = lookFor.getInt("ID") ;
     for(int j = 0 ; j <= NUM_ITEM ; j++) {
-      if(ID == j ) { 
+      if(ID == j) { 
 
         /* item_info_raw is used to call the save in the order of the item labrary ID, not alphabetic
-           item_info is used to display in the alphabetic order, but when is calling the order alphabetic don't exist,
-           and it's necessary ot order it, but after that is not possible to back on original order, it's a reason
-           to creat a raw list for the next loading item list :( very messy :( */
+           item_info is used to display in the alphabetic order, but when is calling the order alphabetic doesn't exist,
+           and it's necessary to order it, but after that is not possible back to original order, it's a reason
+           to create a raw list for the next loading item list :( very messy :( */
         item_info_raw[j] = lookFor.getString("Name") + "/" +lookFor.getInt("ID") + "/" +lookFor.getInt("Library Order") ;
         item_info[j] = item_info_raw[j] ;
         item_name[j] = lookFor.getString("Name");
@@ -73,7 +73,6 @@ Button_dynamic[] button_item ;
 
 void init_button_item_console() {
   numButton[1] = NUM_ITEM *10 ;
-  numButtonTotalObjects = NUM_ITEM ;
   value_button_item = new int[numButton[1]] ;
   // button item
   button_item = new Button_dynamic[numButton[1] +10] ;
@@ -83,9 +82,9 @@ void init_button_item_console() {
   height_button_item = new int[numButton[1] +10] ;
   on_off_item_console = new int[numButton[1]] ;
   // on_off_inventory_item = new boolean[NUM_ITEM +1] ;
-  on_off_inventory_item = new ItemOnOff[NUM_ITEM +1] ;
+  on_off_inventory_item = new Item_ON_OFF[NUM_ITEM +1] ;
   for(int i = 0 ; i < on_off_inventory_item.length ; i++ ) {
-    on_off_inventory_item[i] = new ItemOnOff("", true) ;
+    on_off_inventory_item[i] = new Item_ON_OFF("", true) ;
   }
 }
 
@@ -129,7 +128,6 @@ PVector posRelativeMainButton = new PVector (-8, -10) ;
 PVector posRelativeSettingButton = new PVector (-8,14) ;
 PVector posRelativeSoundButton = new PVector (-8,25) ;
 PVector posRelativeActionButton = new PVector (4,25) ;
-
 void set_button_item_console() {
   int pos_y = pos_y_item_selected +local_pos_y_button_item_selected ;
   //position and area for the rollover
@@ -154,7 +152,7 @@ void set_button_item_console() {
     pos_button_height_item[i*10+4] = pos_y +(int)posRelativeActionButton.y ; 
     width_button_item[i*10+4] = 10 ; 
     height_button_item[i*10+4] = 6 ; 
- }
+  }
 }
 
 

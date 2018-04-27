@@ -24,7 +24,7 @@ void settings() {
 }
 
 void setup() {
-  surface.setLocation(0,20);
+  // surface.setLocation(0,20);
   path_setting(sketchPath(1));
   setting();
   init_button_general();
@@ -78,8 +78,8 @@ void draw() {
 
   display_text();
 
-  display_slider_general();
-  display_slider_item();
+  display_slider();
+
   display_button_and_dropdown();
 
   update_midi();

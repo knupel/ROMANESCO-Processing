@@ -114,23 +114,6 @@ void controllerChange(int channel, int CC, int value, long timestamp, String bus
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // give the midi info to the romanesco variable
 void use_specific_midi_input(int ID) {
   if(ID_midi_input != null && ID >= 0 && ID < ID_midi_input.length) {
@@ -331,7 +314,7 @@ int posRankButton(int pos, int rank) {
 void midiButton(Button b, int IDbutton, boolean saveButton) {
   setttingMidiButton(b) ;
   updateMidiButton(b) ;
-  if(saveButton) setButton(IDbutton, b.IDmidi(), b.on_off) ;
+  if(saveButton) set_data_button(IDbutton, b.IDmidi(), b.on_off) ;
 }
 
 //
@@ -348,24 +331,25 @@ void updateMidiButton(Button b) {
 }
 
 
-//give which button is active and check is this button have a same IDmidi that Object
-void update_midi_slider(int whichOne) {
+//give which button is active and check is this button have a same ID midi that Item
+void update_midi_slider(Slider_adjustable sa, Vec5 [] info_slider) {
   // update info from midi controller
-  if (midi_CC_romanesco == slider[whichOne].IDmidi()) slider[whichOne].updateMidi(midi_value_romanesco) ;
+  if (midi_CC_romanesco == sa.get_id_midi()) sa.update_midi(midi_value_romanesco) ;
 
   
-  if(selectMidi && slider[whichOne].lockedMol()) {
-    for(int i = 0 ; i <infoSlider.length ; i++) {
-      if(whichOne == (int)infoSlider[i].a) {
-        infoSlider[i].b = midi_CC_romanesco  ;
+  if(selectMidi && sa.lockedMol()) {
+    for(int i = 0 ; i <info_slider.length ; i++) {
+      if(sa.get_id() == (int)info_slider[sa.get_id()].a) {
+        info_slider[i].b = midi_CC_romanesco;
       }
     }
   }
   
   //ID midi from controller midi button setting
-  if (selectMidi && slider[whichOne].lockedMol()) slider[whichOne].selectIDmidi(midi_CC_romanesco) ;
+  if (selectMidi && sa.lockedMol()) sa.set_id_midi(midi_CC_romanesco);
   
   //ID midi from save
-  if(LOAD_SETTING) slider[whichOne].selectIDmidi((int)info_save_raw_list(infoSlider, whichOne).b) ;
+  if(LOAD_SETTING) sa.set_id_midi((int)info_save_raw_list(info_slider, sa.get_id()).b);
 }
+
 

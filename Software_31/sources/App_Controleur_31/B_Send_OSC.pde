@@ -79,14 +79,14 @@ void send_OSC() {
   // group general
   int[] data_OSC_general = new int[NUM_SLIDER_GENERAL] ;
   for ( int i = 1 ; i < NUM_SLIDER_GENERAL -1 ; i++) {
-    data_OSC_general[i-1] = floor(valueSlider[i]);
+    data_OSC_general[i-1] = floor(value_slider_general[i]);
   }
   toPreScene[2] = join_int_to_String(data_OSC_general);
 
   // group item
   int[] data_OSC_item = new int[NUM_SLIDER_ITEM] ;
-  for ( int i = 101   ; i < 101 +NUM_SLIDER_ITEM ; i++) {
-    data_OSC_item[i-101] = floor(valueSlider[i]); 
+  for ( int i = 0 ; i < NUM_SLIDER_ITEM ; i++) {
+    data_OSC_item[i] = floor(value_slider_item[i]); 
   }
   toPreScene[3] = join_int_to_String(data_OSC_item);
 

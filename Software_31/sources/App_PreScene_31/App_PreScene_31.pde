@@ -10,7 +10,6 @@ Processing 3.3.7
 2016 may 27_500 lines of code
 2017 March 40_000 lines of code
  */
-
 String version = "31";
 String IAM = "prescene";
 String prettyVersion = "1.3.0";
@@ -22,7 +21,6 @@ boolean TEST_ROMANESCO = true; /* Use false when you want:
 boolean FULL_RENDERING = true;
 boolean FULL_SCREEN = false ;
 boolean TABLET = false; // now tablet library don't work in OPENGL renderer
-
 
 boolean HOME = true;
 /**

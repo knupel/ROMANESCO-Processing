@@ -14,7 +14,7 @@ public class Slider {
   protected Vec2 pos, size;
   protected Vec2 pos_molette, size_molette;
   protected PVector posText;
-  protected Vec2 posMin, posMax ;
+  protected Vec2 pos_min, pos_max;
   // protected Vec2 newPosMol ;
   protected color sliderColor = color(60) ;
   protected color molIn = color(255) ;
@@ -25,8 +25,9 @@ public class Slider {
   protected float minNorm = 0 ;
   protected float maxNorm = 1 ;
   // advance slider
-  protected int newmidi_value_romanesco ;
-  protected int IDmidi = -2 ;
+  protected int new_midi_value;
+  protected int id_midi = -2 ;
+  protected int id = -1;
   protected String moletteShapeType = ("") ;
   
   //CONSTRUCTOR with title
@@ -43,12 +44,12 @@ public class Slider {
     }
     // calculate minimum and maxium position of the molette
     if(size.x > size.y) {
-      posMin = Vec2(pos.x, pos.y);
-      posMax = Vec2(pos.x +size.x +size.y, pos.y);
+      pos_min = Vec2(pos.x, pos.y);
+      pos_max = Vec2(pos.x +size.x +size.y, pos.y);
     } else {
-      posMin = Vec2(pos.x, pos.y);
+      pos_min = Vec2(pos.x, pos.y);
       float correction = size_molette.y +size_molette.x;
-      posMax = Vec2(pos.x, pos.y +size.x +size.y -correction);
+      pos_max = Vec2(pos.x, pos.y +size.x +size.y -correction);
     }
   }
   
@@ -65,12 +66,12 @@ public class Slider {
     }
     // calculate minimum and maxium position of the molette
     if(size.x > size.y) {
-      posMin = Vec2(pos.x, pos.y) ;
-      posMax = Vec2(pos.x +size.x +size.y,  pos.y) ;
+      pos_min = Vec2(pos.x, pos.y) ;
+      pos_max = Vec2(pos.x +size.x +size.y,  pos.y) ;
     } else {
-      posMin = Vec2(pos.x, pos.y) ;
+      pos_min = Vec2(pos.x, pos.y) ;
       float correction = size_molette.y  + size_molette.x ;
-      posMax = Vec2(pos.x,  pos.y  +size.x +size.y -correction) ;
+      pos_max = Vec2(pos.x,  pos.y  +size.x +size.y -correction) ;
     }
   }
   
@@ -82,12 +83,12 @@ public class Slider {
     this.moletteShapeType = moletteShapeType ;
     // calculate minimum and maxium position of the molette
     if(size.x > size.y) {
-      posMin = Vec2(pos.x, pos.y) ;
-      posMax = Vec2(pos.x +size.x +size.y,  pos.y) ;
+      pos_min = Vec2(pos.x, pos.y) ;
+      pos_max = Vec2(pos.x +size.x +size.y,  pos.y) ;
     } else {
-      posMin = Vec2(pos.x, pos.y) ;
+      pos_min = Vec2(pos.x, pos.y) ;
       float correction = size_molette.y  + size_molette.x ;
-      posMax = Vec2(pos.x,  pos.y  +size.x +size.y -correction) ;
+      pos_max = Vec2(pos.x,  pos.y  +size.x +size.y -correction) ;
     }
   }
 
@@ -112,8 +113,13 @@ public class Slider {
   }  
 
   
-  void setMidi(int IDmidi) {
-    this.IDmidi = IDmidi ;
+  void set_id_midi(int id_midi) {
+    this.id_midi = id_midi;
+  }
+
+
+  void set_id(int id) {
+    this.id = id;
   }
 
 
@@ -125,9 +131,9 @@ public class Slider {
     if(normPos < 0) normPos = 0 ;
     // check if it's horizontal or vertical slider
     if(size.x >= size.y) {;
-      pos_molette.x = size.x *normPos +posMin.x -(size_molette.y *normPos) ; 
+      pos_molette.x = size.x *normPos +pos_min.x -(size_molette.y *normPos) ; 
     } else {
-      pos_molette.y = size.y *normPos +posMin.y -(size_molette.x *normPos) ;
+      pos_molette.y = size.y *normPos +pos_min.y -(size_molette.x *normPos) ;
     }
   }
 
@@ -143,27 +149,27 @@ public class Slider {
     // security
     if(size.x >= size.y) {
       // for the horizontal slider
-      if (pos_molette.x < posMin.x ) {
-        pos_molette.x = posMin.x ;
+      if (pos_molette.x < pos_min.x ) {
+        pos_molette.x = pos_min.x ;
       }
-      if (pos_molette.x > posMax.x ) {
-        pos_molette.x = posMax.x ;
+      if (pos_molette.x > pos_max.x ) {
+        pos_molette.x = pos_max.x ;
       }
     } else {
       // for the vertical slider
-      if (pos_molette.y < posMin.y ) {
-        pos_molette.y = posMin.y ;
+      if (pos_molette.y < pos_min.y ) {
+        pos_molette.y = pos_min.y ;
       }
-      if (pos_molette.y > posMax.y ) {
-        pos_molette.y = posMax.y ;
+      if (pos_molette.y > pos_max.y ) {
+        pos_molette.y = pos_max.y ;
       }
     }
 
     if (lockedMol) {
       if (size.x >= size.y) { 
-        pos_molette.x = constrain(mouseX -(size_molette.x *.5), posMin.x, posMax.x) ; 
+        pos_molette.x = constrain(mouseX -(size_molette.x *.5), pos_min.x, pos_max.x) ; 
       } else { 
-        pos_molette.y = constrain(mouseY -(size_molette.y *.5), posMin.y, posMax.y) ;
+        pos_molette.y = constrain(mouseY -(size_molette.y *.5), pos_min.y, pos_max.y) ;
       }
     }
   }
@@ -336,11 +342,11 @@ public class Slider {
 
 
   // update position from midi controller
-  void updateMidi(int val) {
+  void update_midi(int val) {
     //update the Midi position only if the Midi Button move
-    if (newmidi_value_romanesco != val) { 
-      newmidi_value_romanesco = val ; 
-      pos_molette.x = map(val, 1, 127, posMin.x, posMax.x) ;
+    if (new_midi_value != val) { 
+      new_midi_value = val ; 
+      pos_molette.x = map(val, 1, 127, pos_min.x, pos_max.x) ;
     }
   }
 
@@ -351,22 +357,28 @@ public class Slider {
   }
   
   // give the ID from the controller Midi
-  void selectIDmidi(int num) { 
-    IDmidi = num ; 
+  /*
+  void select_id_midi(int num) { 
+    this.midi_id = num ; 
   }
+  */
   
   //give the IDmidi 
-  int IDmidi() { 
-    return IDmidi ; 
+  int get_id_midi() { 
+    return this.id_midi ; 
+  }
+
+  int get_id() {
+    return this.id;
   }
 
 
   float get_value() {
     float value ;
     if (size.x >= size.y) {
-      value = map (pos_molette.x, posMin.x, posMax.x, minNorm, maxNorm) ; 
+      value = map (pos_molette.x, pos_min.x, pos_max.x, minNorm, maxNorm) ; 
     } else {
-      value = map (pos_molette.y, posMin.y, posMax.y, minNorm, maxNorm) ;
+      value = map (pos_molette.y, pos_min.y, pos_max.y, minNorm, maxNorm) ;
     }
     return value ;
   }
@@ -376,6 +388,14 @@ public class Slider {
   }
   float get_value_max() {
     return maxNorm ;
+  }
+  
+  Vec2 get_pos_min() {
+    return pos_min;
+  }
+
+  Vec2 get_pos_max() {
+    return pos_max;
   }
 
   public Vec2 get_pos() {
@@ -418,10 +438,10 @@ END SLIDER
 
 
 /**
-SLIDER ADJUSTABLE : extends class of class Slider
-
+SLIDER ADJUSTABLE
+v 1.0.0
 */
-public class SliderAdjustable extends Slider {
+public class Slider_adjustable extends Slider {
   // size
   protected Vec2 sizeMinMax;
   protected Vec2 sizeMolMinMax;
@@ -439,8 +459,8 @@ public class SliderAdjustable extends Slider {
   /**
   CONSTRUCTOR
   */
-  SliderAdjustable(Vec2 pos, Vec2 size, PVector posText, PFont p) {
-    super(pos,size,posText,p);
+  Slider_adjustable(Vec2 pos, Vec2 size, PVector pos_text, PFont p) {
+    super(pos,size,pos_text,p);
     this.newPosMax = Vec2();
     this.posMinMax = pos.copy();
     this.newPosMin = posMinMax.copy();
@@ -448,7 +468,7 @@ public class SliderAdjustable extends Slider {
     this.sizeMolMinMax = Vec2(widthMinMax, size.y);
   }
   
-  SliderAdjustable(Vec2 pos, Vec2 size) {
+  Slider_adjustable(Vec2 pos, Vec2 size) {
     super(pos, size);
     this.newPosMax = Vec2();
     this.posMinMax = pos.copy();
@@ -458,7 +478,7 @@ public class SliderAdjustable extends Slider {
   }
   
   //slider with external molette
-  SliderAdjustable(Vec2 pos, Vec2 size, Vec2 size_molette, String moletteShapeType) {
+  Slider_adjustable(Vec2 pos, Vec2 size, Vec2 size_molette, String moletteShapeType) {
     super(pos, size, size_molette, moletteShapeType);
     this.newPosMax = Vec2();
     this.newPosMin = Vec2();
@@ -479,9 +499,9 @@ public class SliderAdjustable extends Slider {
     
     if (size.x >= size.y) sizeMinMax = Vec2(size.x *newNormSize, size.y) ; else sizeMinMax = Vec2(size.y *newNormSize, size.x) ;
     
-    posMin = Vec2(pos.x +(size.x *minNorm), pos.y) ;
+    pos_min = Vec2(pos.x +(size.x *minNorm), pos.y) ;
     // in this case the detection is translate on to and left of the size of molette
-    posMax = Vec2(pos.x -size_molette.x +(size.x *maxNorm), pos.y) ;
+    pos_max = Vec2(pos.x -size_molette.x +(size.x *maxNorm), pos.y) ;
   }
   
   // update Min and Max value
@@ -501,13 +521,13 @@ public class SliderAdjustable extends Slider {
     if (lockedMin) {  
       if (size.x >= size.y) {
         // security
-        if (newPosMin.x < posMin.x ) newPosMin.x = posMin.x ;
-        else if (newPosMin.x > posMax.x -range) newPosMin.x = posMax.x -range ;
+        if (newPosMin.x < pos_min.x ) newPosMin.x = pos_min.x ;
+        else if (newPosMin.x > pos_max.x -range) newPosMin.x = pos_max.x -range ;
         
         newPosMin.x = constrain(mouseX, pos.x, pos.x+size.x -range) ; 
         // norm the value to return to method minMaxSliderUpdate
-        minNorm = map(newPosMin.x, posMin.x, posMax.x, minNorm,maxNorm) ;
-      } else newPosMin.y = constrain(mouseY -sizeMinMax.y, posMin.y, posMax.y) ; // this line is not reworking for the vertical slider
+        minNorm = map(newPosMin.x, pos_min.x, pos_max.x, minNorm,maxNorm) ;
+      } else newPosMin.y = constrain(mouseY -sizeMinMax.y, pos_min.y, pos_max.y) ; // this line is not reworking for the vertical slider
     }
   }
   
@@ -525,15 +545,15 @@ public class SliderAdjustable extends Slider {
     if (lockedMax) {  // this line is not reworking for the vertical slider
       if (size.x >= size.y) {
         // security
-        if (newPosMax.x < posMin.x +range)  newPosMax.x = posMin.x +range ;
-        else if (newPosMax.x > posMax.x ) newPosMax.x = posMax.x ;
+        if (newPosMax.x < pos_min.x +range)  newPosMax.x = pos_min.x +range ;
+        else if (newPosMax.x > pos_max.x ) newPosMax.x = pos_max.x ;
          newPosMax.x = constrain(mouseX -(size.y *.5) , pos.x +range, pos.x +size.x -(size.y *.5)) ; 
          // norm the value to return to method minMaxSliderUpdate
-        posMax = Vec2(pos.x -size_molette.x +(size.x *maxNorm), pos.y) ;
+        pos_max = Vec2(pos.x -size_molette.x +(size.x *maxNorm), pos.y) ;
         // we use a temporary position for a good display of the max slider 
-        Vec2 tempPosMax = Vec2(pos.x -(size.y *.5) +(size.x *maxNorm), posMax.y) ;
-        maxNorm = map(newPosMax.x, posMin.x, tempPosMax.x, minNorm, maxNorm) ;
-      } else newPosMax.y = constrain(mouseY -sizeMinMax.y, posMin.y, posMax.y) ; // this line is not reworking for the vertical slider
+        Vec2 tempPosMax = Vec2(pos.x -(size.y *.5) +(size.x *maxNorm), pos_max.y) ;
+        maxNorm = map(newPosMax.x, pos_min.x, tempPosMax.x, minNorm, maxNorm) ;
+      } else newPosMax.y = constrain(mouseY -sizeMinMax.y, pos_min.y, pos_max.y) ; // this line is not reworking for the vertical slider
     }
     
   }
@@ -553,15 +573,15 @@ public class SliderAdjustable extends Slider {
   
   
   // Display classic
-  void displayMinMax() {
+  void display_min_max() {
     if(lockedMin || lockedMax || insideMax() || insideMin()) fill(adjIn) ; else fill(adjOut) ;
     noStroke() ;
-    rect(posMin.x, posMin.y +sizeMinMax.y *.4, sizeMinMax.x, sizeMinMax.y *.3) ;
+    rect(pos_min.x, pos_min.y +sizeMinMax.y *.4, sizeMinMax.x, sizeMinMax.y *.3) ;
     //  rect(newPosMin.x, newPosMin.y +sizeMinMax.y *.4, sizeMinMax.x, sizeMinMax.y *.3) ;
   }
   
   // Display advanced
- void displayMinMax(float normPos, float normSize, color adjIn, color adjOut, color strokeIn, color strokeOut, float thickness) {
+ void display_min_max(float normPos, float normSize, color adjIn, color adjOut, color strokeIn, color strokeOut, float thickness) {
     this.adjIn = adjIn ;
     this.adjOut = adjOut ;
     strokeWeight(thickness) ;
@@ -572,7 +592,7 @@ public class SliderAdjustable extends Slider {
       fill(adjOut) ;
       stroke(strokeOut) ;
     }
-    rect(posMin.x, posMin.y +sizeMinMax.y *normPos, sizeMinMax.x, sizeMinMax.y *normSize) ;
+    rect(pos_min.x, pos_min.y +sizeMinMax.y *normPos, sizeMinMax.x, sizeMinMax.y *normSize) ;
     // rect(newPosMin.x, newPosMin.y +sizeMinMax.y *normPos, sizeMinMax.x, sizeMinMax.y *normSize) ;
     noStroke() ;
   }
@@ -585,11 +605,11 @@ public class SliderAdjustable extends Slider {
   // ANNEXE
   // INSIDE
   boolean insideMin() {
-    if(inside(posMin, sizeMolMinMax,Vec2(mouseX,mouseY),RECT)) return true ; else return false ;
+    if(inside(pos_min, sizeMolMinMax,Vec2(mouseX,mouseY),RECT)) return true ; else return false ;
   }
   
   boolean insideMax() {
-    Vec2 tempPosMax = Vec2(pos.x -(size.y *.5) +(size.x *maxNorm), posMax.y) ;
+    Vec2 tempPosMax = Vec2(pos.x -(size.y *.5) +(size.x *maxNorm), pos_max.y) ;
     if(inside(tempPosMax, sizeMolMinMax,Vec2(mouseX,mouseY),RECT)) return true ; else return false ;
   }
   
@@ -601,6 +621,9 @@ public class SliderAdjustable extends Slider {
   boolean lockedMax () {
     if (insideMax() && mousePressed) return true ; else return false ;
   }
+
+
+
 }
 // END Extends class SLIDER
 ///////////////////////////

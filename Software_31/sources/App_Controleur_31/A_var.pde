@@ -2,6 +2,22 @@
 Variable
 v 0.0.1
 */
+// CONSTANT VAR
+int NUM_MAX_ITEM = 99 ;
+int NUM_COL_SLIDER = 3 ;
+int NUM_SLIDER_ITEM_BY_COL = 16 ;
+int NUM_GROUP_SLIDER = 2 ; // '0' for general / '1' for the item
+
+int NUM_SLIDER_GENERAL = 30 ;
+int NUM_SLIDER_ITEM = NUM_SLIDER_ITEM_BY_COL *NUM_COL_SLIDER;
+int NUM_SLIDER_BACKGROUND = 8;
+int NUM_SLIDER_FILTER = 12;
+int NUM_SLIDER_LIGHT = 12;
+int NUM_SLIDER_SOUND = 6;
+int NUM_SLIDER_CAMERA = 10;
+
+// final int NUM_SLIDER_GENERAL = 1 +100 +NUM_SLIDER_ITEM;
+int SLIDER_BY_COL = NUM_SLIDER_ITEM / NUM_COL_SLIDER;
 
 /**
 ITEM
@@ -37,7 +53,7 @@ boolean selectMidi = false ;
 boolean curtainOpenClose ;
 //GLOBAL
 // Save Setting var
-Vec5 [] infoSlider ; 
+
 
 // slider mode display
 int slider_mode_display = 0 ;
@@ -52,12 +68,73 @@ int numVignette ;
 PImage[] picCurtain = new PImage[4] ;
 PImage[] picMidi = new PImage[4] ;
 
-SliderAdjustable [] slider = new SliderAdjustable [NUM_SLIDER_TOTAL] ;
+// old school
 
-Vec2 [] sizeSlider = new Vec2[NUM_SLIDER_TOTAL] ;
-Vec2 [] posSlider = new Vec2[NUM_SLIDER_TOTAL] ; 
+/*
+Vec5 [] infoSlider ; 
+Slider_adjustable [] slider_adj_general = new Slider_adjustable [NUM_SLIDER_GENERAL];
+Vec2 [] size_slider_general = new Vec2[NUM_SLIDER_GENERAL] ;
+Vec2 [] pos_slider_general = new Vec2[NUM_SLIDER_GENERAL] ; 
+float value_slider_general[] = new float[NUM_SLIDER_GENERAL];
+*/
+Vec5 [] info_slider_general; 
+Slider_adjustable [] slider_adj_general = new Slider_adjustable [NUM_SLIDER_GENERAL];
+Vec2 [] pos_slider_general = new Vec2[NUM_SLIDER_GENERAL] ; 
+Vec2 [] size_slider_general = new Vec2[NUM_SLIDER_GENERAL] ;
+float [] value_slider_general = new float[NUM_SLIDER_GENERAL];
+String[] slider_general_name = new String[NUM_SLIDER_GENERAL];
 
-float valueSlider[] = new float[NUM_SLIDER_TOTAL] ;
+
+// slider background
+Vec5 [] info_slider_background; 
+Vec2 [] pos_slider_background = new Vec2[NUM_SLIDER_BACKGROUND] ; 
+Vec2 [] size_slider_background = new Vec2[NUM_SLIDER_BACKGROUND] ;
+Slider_adjustable [] slider_adj_background = new Slider_adjustable[NUM_SLIDER_BACKGROUND] ;
+float [] value_slider_background = new float[NUM_SLIDER_BACKGROUND];
+String[] slider_background_name = new String[NUM_SLIDER_BACKGROUND];
+
+// slider filter
+Vec5 [] info_slider_filter; 
+Vec2 [] pos_slider_filter = new Vec2[NUM_SLIDER_FILTER] ; 
+Vec2 [] size_slider_filter = new Vec2[NUM_SLIDER_FILTER] ;
+Slider_adjustable [] slider_adj_filter = new Slider_adjustable[NUM_SLIDER_FILTER] ;
+float [] value_slider_filter = new float[NUM_SLIDER_FILTER];
+String[] slider_filter_name = new String[NUM_SLIDER_FILTER];
+// slider light
+Vec5 [] info_slider_light; 
+Vec2 [] pos_slider_light = new Vec2[NUM_SLIDER_LIGHT] ; 
+Vec2 [] size_slider_light = new Vec2[NUM_SLIDER_LIGHT] ;
+Slider_adjustable [] slider_adj_light = new Slider_adjustable[NUM_SLIDER_LIGHT] ;
+float [] value_slider_light = new float[NUM_SLIDER_LIGHT];
+String[] slider_light_name = new String[NUM_SLIDER_LIGHT];
+// slider sound
+Vec5 [] info_slider_sound; 
+Vec2 [] pos_slider_sound = new Vec2[NUM_SLIDER_SOUND] ; 
+Vec2 [] size_slider_sound = new Vec2[NUM_SLIDER_SOUND] ;
+Slider_adjustable [] slider_adj_sound = new Slider_adjustable[NUM_SLIDER_SOUND] ;
+float [] value_slider_sound = new float[NUM_SLIDER_SOUND];
+String[] slider_sound_name = new String[NUM_SLIDER_SOUND];
+// slider camera
+Vec5 [] info_slider_camera; 
+Vec2 [] pos_slider_camera = new Vec2[NUM_SLIDER_CAMERA] ; 
+Vec2 [] size_slider_camera = new Vec2[NUM_SLIDER_CAMERA] ;
+Slider_adjustable [] slider_adj_camera = new Slider_adjustable[NUM_SLIDER_CAMERA] ;
+float [] value_slider_camera = new float[NUM_SLIDER_CAMERA];
+String[] slider_camera_name = new String[NUM_SLIDER_CAMERA];
+// slider item
+Vec5 [] info_slider_item; 
+Vec2 [] pos_slider_item = new Vec2[NUM_SLIDER_ITEM] ; 
+Vec2 [] size_slider_item = new Vec2[NUM_SLIDER_ITEM] ;
+Slider_adjustable [] slider_adj_item = new Slider_adjustable[NUM_SLIDER_ITEM] ;
+float [] value_slider_item = new float[NUM_SLIDER_ITEM];
+String  [] slider_item_name  = new String[NUM_SLIDER_ITEM] ;
+
+
+
+
+
+
+
 
 
 //Background / light one / light two
@@ -86,8 +163,6 @@ Vec2  pos_midi_button, size_midi_button, pos_midi_info,
       pos_hat_button, size_hat_button ;
 
 
-// ITEM
-String  slider_item_name [] = new String[NUM_SLIDER_TOTAL +1] ;
 
 
 /**
@@ -166,26 +241,26 @@ int size_x_window_info_midi = 200 ;
 
 //GROUP GENERAL
 int correction_slider_general_pos_y = 12 ;
-int set_item_pos_y = 13 ;
+int set_data_item_pos_y = 13 ;
 
 // GROUP BG
 int correctionBGX = col_1 ;
-int correctionBGY = pos_y_menu_general +set_item_pos_y +2 ;
+int correctionBGY = pos_y_menu_general +set_data_item_pos_y +2 ;
 
 // GROUP LIGHT
 // ambient light
 int correctionLightAmbientX = col_1 ;
-int correctionLightAmbientY = pos_y_menu_general +set_item_pos_y +73 ;
+int correctionLightAmbientY = pos_y_menu_general +set_data_item_pos_y +73 ;
 // directional light one
 int correctionLightOneX = col_2 ;
-int correctionLightOneY = pos_y_menu_general +set_item_pos_y +13 ;
+int correctionLightOneY = pos_y_menu_general +set_data_item_pos_y +13 ;
 // directional light two
 int correctionLightTwoX = col_2 ;
-int correctionLightTwoY = pos_y_menu_general +set_item_pos_y +73 ;
+int correctionLightTwoY = pos_y_menu_general +set_data_item_pos_y +73 ;
 
 // GROUP CAMERA
 int correctionCameraX = col_3 ;
-int correctionCameraY = pos_y_menu_general +set_item_pos_y -5 ;
+int correctionCameraY = pos_y_menu_general +set_data_item_pos_y -5 ;
 
 // GROUP SOUND
 int correctionSoundX = col_1 ;

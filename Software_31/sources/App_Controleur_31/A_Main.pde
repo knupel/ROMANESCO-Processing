@@ -8,17 +8,7 @@ import java.awt.event.KeyEvent;
 import java.awt.image.* ;
 import java.awt.* ;
 
-// CONSTANT VAR
-final int NUM_MAX_ITEM = 99 ;
-final int NUM_COL_SLIDER = 3 ;
-final int NUM_SLIDER_ITEM_BY_COL = 16 ;
-final int NUM_GROUP_SLIDER = 2 ; // '0' for general / '1' for the item
 
-final int NUM_SLIDER_GENERAL = 30 ;
-final int NUM_SLIDER_ITEM = NUM_SLIDER_ITEM_BY_COL *NUM_COL_SLIDER ;
-final int NUM_SLIDER_TOTAL = 1 +100 +NUM_SLIDER_ITEM ;
-final int SLIDER_BY_COL = NUM_SLIDER_ITEM / NUM_COL_SLIDER ;
-final int SLIDER_BY_COL_PLUS_ONE = SLIDER_BY_COL +1 ;
 
 
 
@@ -50,10 +40,6 @@ void setting() {
   noStroke () ; 
   surface.setResizable(true);
   background(gris);
-  for ( int i = 0 ; i <  SLIDER_BY_COL ; i++ ) {
-    genTxtGUI[i] = ("") ;
-    slider_item_nameCamera[i] = ("") ;
-  }
 }
 
 void reset() {
@@ -241,25 +227,59 @@ void init_interface() {
 
 /**
 SLIDER
-v 1.0.0
+v 2.0.0
 */
 void init_slider() {
-  for (int i = 0 ; i < NUM_SLIDER_TOTAL ; i++) {
-    sizeSlider[i] = Vec2() ;
-    posSlider[i] = Vec2() ; 
+  for (int i = 0 ; i < NUM_SLIDER_GENERAL ; i++) {
+    pos_slider_general[i] = Vec2(); 
+    size_slider_general[i] = Vec2();
+  }
+
+  for (int i = 0 ; i < NUM_SLIDER_ITEM ; i++) {
+    pos_slider_item[i] = Vec2();
+    size_slider_item[i] = Vec2(); 
   }
 }
 
+
+
 void build_slider() {
-  for ( int i = 1 ; i < NUM_SLIDER_TOTAL ; i++) {
-    Vec2 sizeMol = Vec2(sizeSlider[i].y *ratio_size_molette, sizeSlider[i].y *ratio_size_molette) ;
-    // we use the var posMol here just to init the Slider, because we load data from save further.
-    Vec2 tempPosSlider = Vec2(posSlider[i].x, posSlider[i].y -(slider_height *.6)) ;
-    if(info_save_raw_list(infoSlider,i).a > -1 ) {
-      slider[i] = new SliderAdjustable(tempPosSlider, sizeSlider[i], sizeMol, "ELLIPSE");
+  // general
+  for (int i = 1 ; i < NUM_SLIDER_GENERAL ; i++) {
+    Vec2 temp_size_mol = Vec2(size_slider_general[i].y *ratio_size_molette, size_slider_general[i].y *ratio_size_molette) ;
+    Vec2 temp_pos = Vec2(pos_slider_general[i].x, pos_slider_general[i].y -(slider_height *.6)) ;
+    if(info_save_raw_list(info_slider_general,i).a > -1 ) {
+      slider_adj_general[i] = new Slider_adjustable(temp_pos, size_slider_general[i], temp_size_mol, "ELLIPSE");
+      slider_adj_general[i].set_id(i);
     }
-  } 
+  }
+
+  // item
+  for (int i = 0 ; i < NUM_SLIDER_ITEM ; i++) {
+    Vec2 temp_size_mol = Vec2(size_slider_item[i].y *ratio_size_molette, size_slider_item[i].y *ratio_size_molette) ;
+    Vec2 temp_pos = Vec2(pos_slider_item[i].x, pos_slider_item[i].y -(slider_height *.6)) ;
+    if(info_save_raw_list(info_slider_item,i).a > -1 ) {
+      slider_adj_item[i] = new Slider_adjustable(temp_pos, size_slider_item[i], temp_size_mol, "ELLIPSE");
+      slider_adj_item[i].set_id(i);
+    }
+  }  
 }
+
+
+void display_slider() {
+  display_slider_general();
+  display_slider_item();
+}
+
+
+
+
+
+
+
+
+
+
 
 
 // SLIDER SETUP
@@ -276,60 +296,57 @@ void set_slider_general(int correction_local_y) {
   int startLoop = 1 ;
   for(int i = startLoop ; i <= startLoop +3 ;i++) {
     float posY = correctionBGY +correction_local_y +((i-1) *spacing_slider);
-    posSlider[i] = Vec2(col_1, posY);
-    sizeSlider[i] = Vec2(slider_width,slider_height);
+    pos_slider_general[i] = Vec2(col_1, posY);
+    size_slider_general[i] = Vec2(slider_width,slider_height);
   }
 
   // Directional light one
   startLoop = 7 ;
   for(int i = startLoop ; i <= startLoop +2 ;i++) {
     float posY = correctionLightOneY +correction_local_y +((i-startLoop) *spacing_slider);
-    posSlider[i] = Vec2(correctionLightOneX, posY);
-    sizeSlider[i] = Vec2(slider_width,slider_height);
+    pos_slider_general[i] = Vec2(correctionLightOneX, posY);
+    size_slider_general[i] = Vec2(slider_width,slider_height);
   }
 
   // Directional light two
   startLoop = 10 ;
   for(int i = startLoop ; i <= startLoop +2 ;i++) {
     float posY = correctionLightTwoY +correction_local_y +((i-startLoop) *spacing_slider);
-    posSlider[i] = Vec2(correctionLightTwoX, posY);
-    sizeSlider[i] = Vec2(slider_width,slider_height);
+    pos_slider_general[i] = Vec2(correctionLightTwoX, posY);
+    size_slider_general[i] = Vec2(slider_width,slider_height);
   }
   
   // Ambient light
   startLoop = 13 ;
   for(int i = startLoop ; i <= startLoop +2 ;i++) {
     float posY = correctionLightAmbientY +correction_local_y +((i-startLoop) *spacing_slider);
-    posSlider[i] = Vec2(correctionLightAmbientX, posY);
-    sizeSlider[i] = Vec2(slider_width,slider_height);
+    pos_slider_general[i] = Vec2(correctionLightAmbientX, posY);
+    size_slider_general[i] = Vec2(slider_width,slider_height);
   }
-  
   
   // camera
   startLoop = 20 ;
   for(int i = startLoop ; i <= startLoop +8 ;i++) {
     float posY = correctionCameraY +correction_local_y +((i-startLoop) *spacing_slider) ;
-    posSlider[i] = Vec2(correctionCameraX, posY);
-    sizeSlider[i] = Vec2(slider_width,slider_height);
+    pos_slider_general[i] = Vec2(correctionCameraX, posY);
+    size_slider_general[i] = Vec2(slider_width,slider_height);
   }
-
 
   // sound
   startLoop = 5 ;
   for(int i = startLoop ; i <= startLoop +1 ;i++) {
     float posY = correction_menu_sound_y +correction_local_y +((i-startLoop) *spacing_slider) ;
-    posSlider[i] = Vec2(correctionSoundX, posY);
-    sizeSlider[i] = Vec2(slider_width,slider_height);
+    pos_slider_general[i] = Vec2(correctionSoundX, posY);
+    size_slider_general[i] = Vec2(slider_width,slider_height);
   }
 }
 
 // item
 void set_slider_item_console(int pos_y) {
-  // where the controleur must display the slider
+  // where the controller must display the slider
   for( int i = 0 ; i < SLIDER_BY_COL ; i++ ) {
     for (int j = 0 ; j < NUM_COL_SLIDER ; j++) {
-      // int whichSlider = i +101 +(j*10) ;
-      int whichSlider = i +101 +(j *NUM_SLIDER_ITEM_BY_COL) ;
+      int whichSlider = i +(j *NUM_SLIDER_ITEM_BY_COL) ;
       int pos_x = 0 ;
       switch(j) {
         case 0 : pos_x = col_1; 
@@ -337,10 +354,10 @@ void set_slider_item_console(int pos_y) {
         case 1 : pos_x = col_2;
         break;
         case 2 : pos_x = col_3;
-        break ;
+        break;
       }
-      posSlider [whichSlider] = Vec2(pos_x, pos_y +i *spacing_slider);
-      sizeSlider [whichSlider] = Vec2(slider_width, slider_height);
+      pos_slider_item[whichSlider] = Vec2(pos_x, pos_y +i *spacing_slider);
+      size_slider_item[whichSlider] = Vec2(slider_width, slider_height);
     }
   }
 }
@@ -354,11 +371,11 @@ void set_slider_item_console(int pos_y) {
 
 // SLIDER DRAW
 void display_slider_general() {
-  int whichGroup = 0 ;
   display_bg_slider_general() ;
   for (int i = 1 ; i < NUM_SLIDER_GENERAL ; i++) {
-    update_slider(i) ;
-    display_current_slider_engine(i, whichGroup) ;
+    update_slider(slider_adj_general[i],value_slider_general,info_slider_general);
+    int whichGroup = 0;
+    display_slider_engine(slider_adj_general[i], whichGroup);
   }
 }
 
@@ -368,65 +385,6 @@ void display_slider_general() {
 
 
 
-
-
-// SLIDER UPDATE
-void update_slider(int whichOne) {
-  //MIDI update
-  update_midi_slider(whichOne) ;
-
-  // MIN and MAX molette
-  //check
-  if(!slider[whichOne].lockedMol && !slider[whichOne].insideMol ) {
-    // min molette
-    if(!slider[whichOne].insideMax() && !slider[whichOne].lockedMax) {
-      slider[whichOne].insideMin() ;
-      slider[whichOne].select_min() ;
-      slider[whichOne].update_min() ;
-    }
-    // max molette
-    if(!slider[whichOne].insideMin() && !slider[whichOne].lockedMin) {
-      slider[whichOne].insideMax() ;
-      slider[whichOne].select_max() ;
-      slider[whichOne].update_max() ;
-    }
-  }
-  // update 
-  slider[whichOne].update_min_max() ;
-  
-  
-  // CURRENT molette
-  // check
-  if(!slider[whichOne].lockedMax  && !slider[whichOne].lockedMax) slider[whichOne].insideMol_Ellipse() ;
-  // update
-  slider[whichOne].select_molette() ;
-  slider[whichOne].update_molette() ;
-  
-  // translate float value to int, to use OSC easily without problem of Array Outbound...blablah
-  int valueMax = 360 ;
-  valueSlider[whichOne] = constrain(map(slider[whichOne].get_value(), 0, 1, 0,valueMax),0,valueMax)  ;
-}
-
-void display_current_slider_engine(int whichOne, int whichGroup) {
-  if (whichGroup == 0) {
-    display_min_max_slider(whichOne, grisTresFonce, gris) ;
-    display_current_mollette(whichOne, blanc, blancGris) ;
-  } else {
-    display_min_max_slider(whichOne, grisFonce, grisClair) ;
-    display_current_mollette(whichOne, blanc, blancGris) ;
-  }
-}
-
-// local method
-void display_min_max_slider(int whichOne,  color colorIn, color colorOut) {
-  float thickness = 0 ;
-  slider[whichOne].displayMinMax(ratio_pos_slider_adjustable, ratio_size_slider_adjustable, colorIn, colorOut, colorIn, colorOut, thickness) ;
-}
-
-void display_current_mollette(int whichOne, color colorMolIn, color colorMolOut) {
-  slider[whichOne].show_molette(colorMolIn,colorMolOut, colorMolIn,colorMolOut, 1) ;
-}
-// end local method
 
 
 
@@ -445,7 +403,6 @@ void display_current_mollette(int whichOne, color colorMolIn, color colorMolOut)
 /**
 SLIDER DISPLAY GENERAL
 */
-// TEXT slider
 void dispay_text_slider_top(int pos) {
   // GROUP ZERO
   textAlign(LEFT);
@@ -457,25 +414,25 @@ void dispay_text_slider_top(int pos) {
   int correction_local_x = slider_width + 5 ;
   // SOUND
   for(int i = 1 ; i < 7 ; i++ ) {
-    text(genTxtGUI[i], posSlider[i].x +correction_local_x, posSlider[i].y +correction_local_y);
+    text(slider_general_name[i], pos_slider_general[i].x +correction_local_x, pos_slider_general[i].y +correction_local_y);
   }
   
 
   // light
   for(int i = 0 ; i < 3 ; i++ ) {
     // directional one
-    text(slider_item_nameLight[i+1], posSlider[i +7].x +correction_local_x, posSlider[i+7].y +correction_local_y);
+    text(slider_light_name[i+1], pos_slider_general[i +7].x +correction_local_x, pos_slider_general[i+7].y +correction_local_y);
     // directional two
-    text(slider_item_nameLight[i+1], posSlider[i +10].x +correction_local_x, posSlider[i+10].y +correction_local_y);
+    text(slider_light_name[i+1], pos_slider_general[i +10].x +correction_local_x, pos_slider_general[i+10].y +correction_local_y);
     // ambient
-    text(slider_item_nameLight[i+1], posSlider[i +13].x +correction_local_x, posSlider[i+13].y +correction_local_y);
+    text(slider_light_name[i+1], pos_slider_general[i +13].x +correction_local_x, pos_slider_general[i+13].y +correction_local_y);
   }
   
   
   // CAMERA
   int numSliderCorrection = 19 ;
-  for(int i = 1 ; i < slider_item_nameCamera.length ; i++ ) {
-    text(slider_item_nameCamera[i], posSlider[i+numSliderCorrection].x +correction_local_x, posSlider[i+numSliderCorrection].y +correction_local_y);
+  for(int i = 1 ; i < slider_camera_name.length ; i++ ) {
+    text(slider_camera_name[i], pos_slider_general[i+numSliderCorrection].x +correction_local_x, pos_slider_general[i+numSliderCorrection].y +correction_local_y);
   }
 }
 
@@ -502,8 +459,8 @@ void display_bg_slider_general() {
 void sliderBackgroundDisplay() {
   int start = 0 ;
   slider_HSB_general_display(start) ;
-  slider_show_background(posSlider[4], sizeSlider[4], rounded_slider, blancGris);
-  // sliderBG(posSlider[4].x, posSlider[4].y, sizeSlider[4].y, sizeSlider[4].x, rounded_slider, blancGris);
+  slider_show_background(pos_slider_general[4], size_slider_general[4], rounded_slider, blancGris);
+  // sliderBG(pos_slider_general[4].x, pos_slider_general[4].y, size_slider_general[4].y, size_slider_general[4].x, rounded_slider, blancGris);
 }
 
 // light local variable display
@@ -523,34 +480,34 @@ void sliderDirectionalLightTwo() {
 }
 //
 void sliderSoundDisplay() {
-  slider_show_background(posSlider[5], sizeSlider[5], rounded_slider, grisClair) ;
-  slider_show_background(posSlider[6], sizeSlider[6], rounded_slider, grisClair) ;
+  slider_show_background(pos_slider_general[5], size_slider_general[5], rounded_slider, grisClair) ;
+  slider_show_background(pos_slider_general[6], size_slider_general[6], rounded_slider, grisClair) ;
 }
 
 void sliderCameraDisplay() {
   // we cannot loop, because we change the color of display at the end of the function
-  slider_show_background(posSlider[20], sizeSlider[20], rounded_slider, grisClair);
-  slider_show_background(posSlider[21], sizeSlider[21], rounded_slider, grisClair);
-  slider_show_background(posSlider[22], sizeSlider[22], rounded_slider, blancGris);
-  slider_show_background(posSlider[23], sizeSlider[23], rounded_slider, blancGris);
-  slider_show_background(posSlider[24], sizeSlider[24], rounded_slider, blancGris);
-  slider_show_background(posSlider[25], sizeSlider[25], rounded_slider, grisClair);
-  slider_show_background(posSlider[26], sizeSlider[26], rounded_slider, grisClair);
-  slider_show_background(posSlider[27], sizeSlider[27], rounded_slider, grisClair);
-  slider_show_background(posSlider[28], sizeSlider[28], rounded_slider, grisClair);
+  slider_show_background(pos_slider_general[20], size_slider_general[20], rounded_slider, grisClair);
+  slider_show_background(pos_slider_general[21], size_slider_general[21], rounded_slider, grisClair);
+  slider_show_background(pos_slider_general[22], size_slider_general[22], rounded_slider, blancGris);
+  slider_show_background(pos_slider_general[23], size_slider_general[23], rounded_slider, blancGris);
+  slider_show_background(pos_slider_general[24], size_slider_general[24], rounded_slider, blancGris);
+  slider_show_background(pos_slider_general[25], size_slider_general[25], rounded_slider, grisClair);
+  slider_show_background(pos_slider_general[26], size_slider_general[26], rounded_slider, grisClair);
+  slider_show_background(pos_slider_general[27], size_slider_general[27], rounded_slider, grisClair);
+  slider_show_background(pos_slider_general[28], size_slider_general[28], rounded_slider, grisClair);
 }
 
 // supra local void
 void slider_HSB_general_display(int start) {
-  if (mouseX > (posSlider[1 +start].x ) && mouseX < ( posSlider[1 +start].x +sizeSlider[1 +start].x) 
-      && mouseY > ( posSlider[1 +start].y - 5) && mouseY < posSlider[1 +start].y +40) {
-    slider_show_hue_background(posSlider[1 +start], sizeSlider[1 +start]) ;
-    slider_show_saturation_background(posSlider[2 +start], sizeSlider[2 +start], valueSlider[1 +start], valueSlider[2 +start], valueSlider[3 +start] ) ;
-    slider_show_brightness_background(posSlider[3 +start], sizeSlider[3 +start], valueSlider[1 +start], valueSlider[2 +start], valueSlider[3 +start] ) ;
+  if (mouseX > (pos_slider_general[1 +start].x ) && mouseX < ( pos_slider_general[1 +start].x +size_slider_general[1 +start].x) 
+      && mouseY > ( pos_slider_general[1 +start].y - 5) && mouseY < pos_slider_general[1 +start].y +40) {
+    slider_show_hue_background(pos_slider_general[1 +start], size_slider_general[1 +start]) ;
+    slider_show_saturation_background(pos_slider_general[2 +start], size_slider_general[2 +start], value_slider_general[1 +start], value_slider_general[2 +start], value_slider_general[3 +start] ) ;
+    slider_show_brightness_background(pos_slider_general[3 +start], size_slider_general[3 +start], value_slider_general[1 +start], value_slider_general[2 +start], value_slider_general[3 +start] ) ;
   } else {
-    slider_show_background(posSlider[1 +start], sizeSlider[1 +start], rounded_slider, grisClair);
-    slider_show_background(posSlider[2 +start], sizeSlider[2 +start], rounded_slider, grisClair);
-    slider_show_background(posSlider[3 +start], sizeSlider[3 +start], rounded_slider, grisClair);
+    slider_show_background(pos_slider_general[1 +start], size_slider_general[1 +start], rounded_slider, grisClair);
+    slider_show_background(pos_slider_general[2 +start], size_slider_general[2 +start], rounded_slider, grisClair);
+    slider_show_background(pos_slider_general[3 +start], size_slider_general[3 +start], rounded_slider, grisClair);
   }
 }
 
@@ -560,8 +517,14 @@ void slider_HSB_general_display(int start) {
 
 
 
+
+
+
+
+
+
 /**
-Item selected slider
+Item slider
 */
 /*
 When you add a new sliders, you must change the starting value from 'NAN' to a value between 0 and 1 in the file 'defaultSetting.csv' in the 'preferences/setting' folder.
@@ -572,26 +535,25 @@ void display_slider_item() {
   Can change with "ctrl+x" */
   display_bg_slider_item() ;
   
-  int whichGroup = 1 ;
+  int whichGroup = 1;
   if(!show_all_slider_item) {
     for (int i = 1 ; i <= NUM_ITEM ; i++) {
       if (item_active[i]) {
         if (showSliderGroup[1] && item_group[i] == 1) { 
-          for(int j = 1 ; j <= NUM_SLIDER_ITEM ; j++) {
-            if (display_slider[1][j]) {
-              int whichOne = item_group[i] *100 +j ;
-              update_slider(whichOne) ; 
-              display_current_slider_engine(whichOne, whichGroup) ; 
+          for(int k = 0 ; k < NUM_SLIDER_ITEM ; k++) {
+            if (display_slider[1][k]) {
+              // int whichOne = item_group[i] *100 +j ;
+              update_slider(slider_adj_item[k],value_slider_item,info_slider_item); 
+              display_slider_engine(slider_adj_item[k], whichGroup); 
             }
           }
         }
       }
     }
   } else {
-    for(int i = 1 ; i <= NUM_SLIDER_ITEM ; i++) {
-      int which_one = i +100 ;
-      update_slider(which_one) ;
-      display_current_slider_engine(which_one, whichGroup) ;
+    for(int i = 0 ; i < NUM_SLIDER_ITEM ; i++) {
+      update_slider(slider_adj_item[i],value_slider_item,info_slider_item);
+      display_slider_engine(slider_adj_item[i], whichGroup);
     }
   } 
 }
@@ -607,11 +569,11 @@ void dislay_text_slider_item() {
   // Legend text slider position for the item
   int correction_local_y = local_pos_y_slider_button +4 ;
   int correction_local_x = slider_width + 5 ;
-  for (int i = 1 ; i <= SLIDER_BY_COL ; i++) {
+  for (int i = 0 ; i < SLIDER_BY_COL ; i++) {
     int which_one = i+(SLIDER_BY_COL *0);
     int which_two = i+(SLIDER_BY_COL *1);
     int which_three = i+(SLIDER_BY_COL *2);
-    int factor = i -1 ;
+    int factor = i;
     // change name for few slider from col 1
     String switch_text = slider_item_name[which_one];
     if(switch_text.equals("f_hue")) switch_text = "FILL";
@@ -634,167 +596,257 @@ void dislay_text_slider_item() {
 
 
 
-/* Loop to display the false background slider instead the usual class Slider background,
-we use it the methode to display a particular background, like the rainbowcolor... */
+
 void display_bg_slider_item() {
   // to find the good slider in the array
   int whichGroup = 1 ;
-  int whichOne = 100 ;
-
   // COL 1
-  slider_HSB_item_display(whichOne, whichGroup, hue_fill_rank, sat_fill_rank, bright_fill_rank) ;
-  if (display_slider[whichGroup][alpha_fill_rank])slider_show_background(posSlider[whichOne +alpha_fill_rank], sizeSlider[whichOne +alpha_fill_rank], rounded_slider, blanc ) ;
+  slider_HSB_item_display(whichGroup, hue_fill_rank, sat_fill_rank, bright_fill_rank) ;
+  if (display_slider[whichGroup][alpha_fill_rank]) slider_show_background(pos_slider_item[alpha_fill_rank], size_slider_item[alpha_fill_rank], rounded_slider, blanc ) ;
   
   //outline color
-  slider_HSB_item_display(whichOne, whichGroup, hue_stroke_rank, sat_stroke_rank, bright_stroke_rank) ;
-  if (display_slider[whichGroup][alpha_stroke_rank])slider_show_background(posSlider[whichOne +alpha_stroke_rank], sizeSlider[whichOne +alpha_stroke_rank], rounded_slider, blancGrisClair) ;
+  slider_HSB_item_display(whichGroup, hue_stroke_rank, sat_stroke_rank, bright_stroke_rank) ;
+  if (display_slider[whichGroup][alpha_stroke_rank]) slider_show_background(pos_slider_item[alpha_stroke_rank], size_slider_item[alpha_stroke_rank], rounded_slider, blancGrisClair) ;
   //  thickness
-  if (display_slider[whichGroup][thickness_rank])slider_show_background(posSlider[whichOne +thickness_rank], sizeSlider[whichOne +thickness_rank], rounded_slider, blanc) ;
+  if (display_slider[whichGroup][thickness_rank]) slider_show_background(pos_slider_item[thickness_rank], size_slider_item[thickness_rank], rounded_slider, blanc) ;
   // size
-  if (display_slider[whichGroup][size_x_rank])slider_show_background(posSlider[whichOne +size_x_rank], sizeSlider[whichOne +size_x_rank], rounded_slider, blancGrisClair) ;
-  if (display_slider[whichGroup][size_y_rank])slider_show_background(posSlider[whichOne +size_y_rank], sizeSlider[whichOne +size_y_rank], rounded_slider, blancGrisClair) ;
-  if (display_slider[whichGroup][size_z_rank])slider_show_background(posSlider[whichOne +size_z_rank], sizeSlider[whichOne +size_z_rank], rounded_slider, blancGrisClair) ;
+  if (display_slider[whichGroup][size_x_rank]) slider_show_background(pos_slider_item[size_x_rank], size_slider_item[size_x_rank], rounded_slider, blancGrisClair) ;
+  if (display_slider[whichGroup][size_y_rank]) slider_show_background(pos_slider_item[size_y_rank], size_slider_item[size_y_rank], rounded_slider, blancGrisClair) ;
+  if (display_slider[whichGroup][size_z_rank]) slider_show_background(pos_slider_item[size_z_rank], size_slider_item[size_z_rank], rounded_slider, blancGrisClair) ;
   // Font size
-  if(display_slider[whichGroup][font_size_rank])slider_show_background(posSlider[whichOne +font_size_rank], sizeSlider[whichOne +font_size_rank], rounded_slider, blancGrisClair) ;
+  if(display_slider[whichGroup][font_size_rank]) slider_show_background(pos_slider_item[font_size_rank], size_slider_item[font_size_rank], rounded_slider, blancGrisClair) ;
   // canvas
-  if (display_slider[whichGroup][canvas_x_rank])slider_show_background (posSlider[whichOne +canvas_x_rank], sizeSlider[whichOne +canvas_x_rank], rounded_slider, blanc) ;
-  if (display_slider[whichGroup][canvas_y_rank])slider_show_background(posSlider[whichOne +canvas_y_rank], sizeSlider[whichOne +canvas_y_rank], rounded_slider, blanc) ;
-  if (display_slider[whichGroup][canvas_z_rank])slider_show_background(posSlider[whichOne +canvas_z_rank], sizeSlider[whichOne +canvas_z_rank], rounded_slider, blanc) ;
+  if (display_slider[whichGroup][canvas_x_rank]) slider_show_background (pos_slider_item[canvas_x_rank], size_slider_item[canvas_x_rank], rounded_slider, blanc) ;
+  if (display_slider[whichGroup][canvas_y_rank]) slider_show_background(pos_slider_item[canvas_y_rank], size_slider_item[canvas_y_rank], rounded_slider, blanc) ;
+  if (display_slider[whichGroup][canvas_z_rank]) slider_show_background(pos_slider_item[canvas_z_rank], size_slider_item[canvas_z_rank], rounded_slider, blanc) ;
 
   
 
   // COL 2
   // reactivity
-  if(display_slider[whichGroup][reactivity_rank])slider_show_background(posSlider[whichOne +reactivity_rank], sizeSlider[whichOne +reactivity_rank], rounded_slider, blancGrisClair) ;
+  if(display_slider[whichGroup][reactivity_rank]) slider_show_background(pos_slider_item[reactivity_rank], size_slider_item[reactivity_rank], rounded_slider, blancGrisClair) ;
   // speed
-  if(display_slider[whichGroup][speed_x_rank])slider_show_background(posSlider[whichOne +speed_x_rank], sizeSlider[whichOne +speed_x_rank], rounded_slider, blanc) ;
-  if(display_slider[whichGroup][speed_y_rank])slider_show_background(posSlider[whichOne +speed_y_rank], sizeSlider[whichOne +speed_y_rank], rounded_slider, blanc) ;
-  if(display_slider[whichGroup][speed_z_rank])slider_show_background(posSlider[whichOne +speed_z_rank], sizeSlider[whichOne +speed_z_rank], rounded_slider, blanc) ;
+  if(display_slider[whichGroup][speed_x_rank]) slider_show_background(pos_slider_item[speed_x_rank], size_slider_item[speed_x_rank], rounded_slider, blanc) ;
+  if(display_slider[whichGroup][speed_y_rank]) slider_show_background(pos_slider_item[speed_y_rank], size_slider_item[speed_y_rank], rounded_slider, blanc) ;
+  if(display_slider[whichGroup][speed_z_rank]) slider_show_background(pos_slider_item[speed_z_rank], size_slider_item[speed_z_rank], rounded_slider, blanc) ;
   // spurt
-  if(display_slider[whichGroup][spurt_x_rank])slider_show_background(posSlider[whichOne +spurt_x_rank], sizeSlider[whichOne +spurt_x_rank], rounded_slider, blancGrisClair) ;
-  if(display_slider[whichGroup][spurt_y_rank])slider_show_background(posSlider[whichOne +spurt_y_rank], sizeSlider[whichOne +spurt_y_rank], rounded_slider, blancGrisClair) ;
-  if(display_slider[whichGroup][spurt_z_rank])slider_show_background(posSlider[whichOne +spurt_z_rank], sizeSlider[whichOne +spurt_z_rank], rounded_slider, blancGrisClair) ;
+  if(display_slider[whichGroup][spurt_x_rank]) slider_show_background(pos_slider_item[spurt_x_rank], size_slider_item[spurt_x_rank], rounded_slider, blancGrisClair) ;
+  if(display_slider[whichGroup][spurt_y_rank]) slider_show_background(pos_slider_item[spurt_y_rank], size_slider_item[spurt_y_rank], rounded_slider, blancGrisClair) ;
+  if(display_slider[whichGroup][spurt_z_rank]) slider_show_background(pos_slider_item[spurt_z_rank], size_slider_item[spurt_z_rank], rounded_slider, blancGrisClair) ;
   // direction
-  if(display_slider[whichGroup][dir_x_rank])slider_show_background(posSlider[whichOne +dir_x_rank], sizeSlider[whichOne +dir_x_rank], rounded_slider, blanc) ;
-  if(display_slider[whichGroup][dir_y_rank])slider_show_background(posSlider[whichOne +dir_y_rank], sizeSlider[whichOne +dir_y_rank], rounded_slider, blanc) ;
-  if(display_slider[whichGroup][dir_z_rank])slider_show_background(posSlider[whichOne +dir_z_rank], sizeSlider[whichOne +dir_z_rank], rounded_slider, blanc) ;
+  if(display_slider[whichGroup][dir_x_rank]) slider_show_background(pos_slider_item[dir_x_rank], size_slider_item[dir_x_rank], rounded_slider, blanc) ;
+  if(display_slider[whichGroup][dir_y_rank]) slider_show_background(pos_slider_item[dir_y_rank], size_slider_item[dir_y_rank], rounded_slider, blanc) ;
+  if(display_slider[whichGroup][dir_z_rank]) slider_show_background(pos_slider_item[dir_z_rank], size_slider_item[dir_z_rank], rounded_slider, blanc) ;
   // jitter
-  if(display_slider[whichGroup][jitter_x_rank])slider_show_background(posSlider[whichOne +jitter_x_rank], sizeSlider[whichOne +jitter_x_rank], rounded_slider, blancGrisClair) ;
-  if(display_slider[whichGroup][jitter_y_rank])slider_show_background(posSlider[whichOne +jitter_y_rank], sizeSlider[whichOne +jitter_y_rank], rounded_slider, blancGrisClair) ;
-  if(display_slider[whichGroup][jitter_z_rank])slider_show_background(posSlider[whichOne +jitter_z_rank], sizeSlider[whichOne +jitter_z_rank], rounded_slider, blancGrisClair) ;
+  if(display_slider[whichGroup][jitter_x_rank]) slider_show_background(pos_slider_item[jitter_x_rank], size_slider_item[jitter_x_rank], rounded_slider, blancGrisClair) ;
+  if(display_slider[whichGroup][jitter_y_rank]) slider_show_background(pos_slider_item[jitter_y_rank], size_slider_item[jitter_y_rank], rounded_slider, blancGrisClair) ;
+  if(display_slider[whichGroup][jitter_z_rank]) slider_show_background(pos_slider_item[jitter_z_rank], size_slider_item[jitter_z_rank], rounded_slider, blancGrisClair) ;
   // swing
-  if(display_slider[whichGroup][swing_x_rank])slider_show_background(posSlider[whichOne +swing_x_rank], sizeSlider[whichOne +swing_x_rank], rounded_slider, blancGrisClair) ;
-  if(display_slider[whichGroup][swing_y_rank])slider_show_background(posSlider[whichOne +swing_y_rank], sizeSlider[whichOne +swing_y_rank], rounded_slider, blancGrisClair) ;
-  if(display_slider[whichGroup][swing_z_rank])slider_show_background(posSlider[whichOne +swing_z_rank], sizeSlider[whichOne +swing_z_rank], rounded_slider, blancGrisClair) ;
+  if(display_slider[whichGroup][swing_x_rank]) slider_show_background(pos_slider_item[swing_x_rank], size_slider_item[swing_x_rank], rounded_slider, blancGrisClair) ;
+  if(display_slider[whichGroup][swing_y_rank]) slider_show_background(pos_slider_item[swing_y_rank], size_slider_item[swing_y_rank], rounded_slider, blancGrisClair) ;
+  if(display_slider[whichGroup][swing_z_rank]) slider_show_background(pos_slider_item[swing_z_rank], size_slider_item[swing_z_rank], rounded_slider, blancGrisClair) ;
 
   
   // COL 3
   // quantity
-  if(display_slider[whichGroup][quantity_rank])slider_show_background(posSlider[whichOne +quantity_rank], sizeSlider[whichOne +quantity_rank], rounded_slider, blancGrisClair) ;
+  if(display_slider[whichGroup][quantity_rank]) slider_show_background(pos_slider_item[quantity_rank], size_slider_item[quantity_rank], rounded_slider, blancGrisClair) ;
   // variety
-  if(display_slider[whichGroup][variety_rank])slider_show_background(posSlider[whichOne +variety_rank], sizeSlider[whichOne +variety_rank], rounded_slider, blancGrisClair) ;
-  
+  if(display_slider[whichGroup][variety_rank]) slider_show_background(pos_slider_item[variety_rank], size_slider_item[variety_rank], rounded_slider, blancGrisClair) ; 
   // life
-  if(display_slider[whichGroup][life_rank])slider_show_background(posSlider[whichOne +life_rank], sizeSlider[whichOne +life_rank], rounded_slider, blancGrisClair) ;
+  if(display_slider[whichGroup][life_rank]) slider_show_background(pos_slider_item[life_rank], size_slider_item[life_rank], rounded_slider, blancGrisClair) ;
   // fertility
-  if(display_slider[whichGroup][flow_rank])slider_show_background(posSlider[whichOne +flow_rank], sizeSlider[whichOne +flow_rank], rounded_slider, blancGrisClair) ;
+  if(display_slider[whichGroup][flow_rank]) slider_show_background(pos_slider_item[flow_rank], size_slider_item[flow_rank], rounded_slider, blancGrisClair) ;
   // quality
-  if(display_slider[whichGroup][quality_rank])slider_show_background(posSlider[whichOne +quality_rank], sizeSlider[whichOne +quality_rank], rounded_slider, blancGrisClair) ;
+  if(display_slider[whichGroup][quality_rank]) slider_show_background(pos_slider_item[quality_rank], size_slider_item[quality_rank], rounded_slider, blancGrisClair) ;
   
   // area
-  if(display_slider[whichGroup][area_rank])slider_show_background(posSlider[whichOne +area_rank], sizeSlider[whichOne +area_rank], rounded_slider, blancGrisClair) ;
+  if(display_slider[whichGroup][area_rank]) slider_show_background(pos_slider_item[area_rank], size_slider_item[area_rank], rounded_slider, blancGrisClair) ;
   // angle
-  if(display_slider[whichGroup][angle_rank])slider_show_background(posSlider[whichOne +angle_rank], sizeSlider[whichOne +angle_rank], rounded_slider, blancGrisClair) ;
+  if(display_slider[whichGroup][angle_rank]) slider_show_background(pos_slider_item[angle_rank], size_slider_item[angle_rank], rounded_slider, blancGrisClair) ;
   // scope
-  if(display_slider[whichGroup][scope_rank])slider_show_background(posSlider[whichOne +scope_rank], sizeSlider[whichOne +scope_rank], rounded_slider, blancGrisClair) ;
+  if(display_slider[whichGroup][scope_rank]) slider_show_background(pos_slider_item[scope_rank], size_slider_item[scope_rank], rounded_slider, blancGrisClair) ;
   // scan
-  if(display_slider[whichGroup][scan_rank])slider_show_background(posSlider[whichOne +scan_rank], sizeSlider[whichOne +scan_rank], rounded_slider, blancGrisClair) ;
+  if(display_slider[whichGroup][scan_rank]) slider_show_background(pos_slider_item[scan_rank], size_slider_item[scan_rank], rounded_slider, blancGrisClair) ;
   
   // alignment
-  if(display_slider[whichGroup][alignment_rank])slider_show_background(posSlider[whichOne +alignment_rank], sizeSlider[whichOne +alignment_rank], rounded_slider, blancGrisClair) ;
+  if(display_slider[whichGroup][alignment_rank]) slider_show_background(pos_slider_item[alignment_rank], size_slider_item[alignment_rank], rounded_slider, blancGrisClair) ;
   // repulsion
-  if(display_slider[whichGroup][repulsion_rank])slider_show_background(posSlider[whichOne +repulsion_rank], sizeSlider[whichOne +repulsion_rank], rounded_slider, blancGrisClair) ;
+  if(display_slider[whichGroup][repulsion_rank]) slider_show_background(pos_slider_item[repulsion_rank], size_slider_item[repulsion_rank], rounded_slider, blancGrisClair) ;
   // attraction
-  if(display_slider[whichGroup][attraction_rank])slider_show_background(posSlider[whichOne +attraction_rank], sizeSlider[whichOne +attraction_rank], rounded_slider, blancGrisClair) ;
+  if(display_slider[whichGroup][attraction_rank]) slider_show_background(pos_slider_item[attraction_rank], size_slider_item[attraction_rank], rounded_slider, blancGrisClair) ;
   // density
-  if(display_slider[whichGroup][density_rank])slider_show_background(posSlider[whichOne +density_rank], sizeSlider[whichOne +density_rank], rounded_slider, blancGrisClair) ;
+  if(display_slider[whichGroup][density_rank]) slider_show_background(pos_slider_item[density_rank], size_slider_item[density_rank], rounded_slider, blancGrisClair) ;
   
   // influence
-  if(display_slider[whichGroup][influence_rank])slider_show_background(posSlider[whichOne +influence_rank], sizeSlider[whichOne +influence_rank], rounded_slider, blancGrisClair) ;
+  if(display_slider[whichGroup][influence_rank]) slider_show_background(pos_slider_item[influence_rank], size_slider_item[influence_rank], rounded_slider, blancGrisClair) ;
   // calm
-  if(display_slider[whichGroup][calm_rank])slider_show_background(posSlider[whichOne +calm_rank], sizeSlider[whichOne +calm_rank], rounded_slider, blancGrisClair) ;
+  if(display_slider[whichGroup][calm_rank]) slider_show_background(pos_slider_item[calm_rank], size_slider_item[calm_rank], rounded_slider, blancGrisClair) ;
   // spectrum
-  if(display_slider[whichGroup][spectrum_rank])slider_show_background(posSlider[whichOne +spectrum_rank], sizeSlider[whichOne +spectrum_rank], rounded_slider, blancGrisClair) ;
+  //println(display_slider[1].length, spectrum_rank);
+  if(display_slider[whichGroup][spectrum_rank]) slider_show_background(pos_slider_item[spectrum_rank], size_slider_item[spectrum_rank], rounded_slider, blancGrisClair) ;
 }
-
 // local void to display the HSB slider and display the specific color of this one
-void slider_HSB_item_display(int whichOne, int whichGroup, int hueRank, int satRank, int brightRank) {
-  if ( mouseX > (posSlider[whichOne +hueRank].x ) && mouseX < (posSlider[whichOne +hueRank].x +sizeSlider[whichOne +hueRank].x) 
-       && mouseY > ( posSlider[whichOne +hueRank].y - 5) && mouseY < posSlider[whichOne +hueRank].y +30 ) 
+void slider_HSB_item_display(int whichGroup, int hueRank, int satRank, int brightRank) {
+  if (mouseX > (pos_slider_item[hueRank].x ) && mouseX < (pos_slider_item[hueRank].x +size_slider_item[hueRank].x) 
+       && mouseY > (pos_slider_item[hueRank].y - 5) && mouseY < pos_slider_item[hueRank].y +30) 
   {
-    if (display_slider[whichGroup][hueRank])slider_show_hue_background(posSlider[whichOne +hueRank], sizeSlider[whichOne +hueRank]) ; 
-    if (display_slider[whichGroup][satRank])slider_show_saturation_background(posSlider[whichOne +satRank], sizeSlider[whichOne +satRank], valueSlider[whichOne +hueRank], valueSlider[whichOne +satRank], valueSlider[whichOne +brightRank] ) ;
-    if (display_slider[whichGroup][brightRank])slider_show_brightness_background(posSlider[whichOne +brightRank], sizeSlider[whichOne +brightRank], valueSlider[whichOne +hueRank], valueSlider[whichOne +satRank], valueSlider[whichOne +brightRank] ) ;
+    if (display_slider[whichGroup][hueRank]) slider_show_hue_background(pos_slider_item[hueRank], size_slider_item[hueRank]) ; 
+    if (display_slider[whichGroup][satRank]) slider_show_saturation_background(pos_slider_item[satRank], size_slider_item[satRank], value_slider_item[hueRank], value_slider_item[satRank], value_slider_item[brightRank]) ;
+    if (display_slider[whichGroup][brightRank]) slider_show_brightness_background(pos_slider_item[brightRank], size_slider_item[brightRank], value_slider_item[hueRank], value_slider_item[satRank], value_slider_item[brightRank]) ;
   } else {
-    if (display_slider[whichGroup][hueRank])slider_show_background (posSlider[whichOne +hueRank], sizeSlider[whichOne +hueRank], rounded_slider, blanc);
-    if (display_slider[whichGroup][satRank])slider_show_background (posSlider[whichOne +satRank], sizeSlider[whichOne +satRank], rounded_slider, blanc);
-    if (display_slider[whichGroup][brightRank])slider_show_background (posSlider[whichOne +brightRank], sizeSlider[whichOne +brightRank], rounded_slider, blanc);
+    if (display_slider[whichGroup][hueRank]) slider_show_background(pos_slider_item[hueRank], size_slider_item[hueRank], rounded_slider, blanc);
+    if (display_slider[whichGroup][satRank]) slider_show_background(pos_slider_item[satRank], size_slider_item[satRank], rounded_slider, blanc);
+    if (display_slider[whichGroup][brightRank]) slider_show_background(pos_slider_item[brightRank], size_slider_item[brightRank], rounded_slider, blanc);
   }
 }
 
 
 
 
-// super local variable
-//SLIDER COLOR
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/**
+slider method
+*/
 void slider_show_background(Vec2 pos, Vec2 size, int rounded, int c) {
-  fill(c) ;
+  fill(c);
   rect(pos.x, pos.y -(size.y *.5), size.x, size.y, rounded);
 
 }
 
 // hue
 void slider_show_hue_background(Vec2 pos, Vec2 size) {
-  pushMatrix () ;
-  translate (pos.x , pos.y -(size.y *.5)) ;
-  for ( int i=0 ; i < size.x ; i++) {
-    for ( int j=0 ; j <= size.y ; j++) {
-      float cr = map(i, 0, size.x, 0, 360) ;
-      fill (cr, 100, 100) ;
-      rect ( i, j, 1,1 ) ;
+  pushMatrix ();
+  translate (pos.x , pos.y -(size.y *.5));
+  for (int i = 0 ; i < size.x ; i++) {
+    for (int j = 0 ; j <= size.y ; j++) {
+      float cr = map(i,0,size.x,0,360);
+      fill (cr,100,100);
+      rect (i,j,1,1);
     }
   }
-  popMatrix() ;
+  popMatrix();
 }
 
 // saturation
 void slider_show_saturation_background(Vec2 pos, Vec2 size, float colour, float s, float d) {
-  pushMatrix () ;
-  translate (pos.x , pos.y-(size.y *.5)) ;
-  for ( int i=0 ; i < size.x ; i++ ) {
-    for ( int j=0 ; j <=size.y ; j++ ) {
-      float cr = map(i, 0, size.x, 0, 100 ) ;
-      float dens = map(d, 0, size.x, 0, 100 ) ;
-      fill (colour, cr, dens) ;
-      rect ( i, j, 1,1 ) ;
+  pushMatrix ();
+  translate (pos.x, pos.y-(size.y *.5));
+  for ( int i = 0 ; i < size.x ; i++) {
+    for ( int j = 0 ; j <=size.y ; j++) {
+      float cr = map(i,0,size.x,0,100);
+      float dens = map(d,0,size.x,0,100);
+      fill (colour,cr,dens);
+      rect (i,j,1,1);
+    }
+  }
+  popMatrix();
+}
+
+// brightness
+void slider_show_brightness_background(Vec2 pos, Vec2 size, float colour, float s, float d) {
+  pushMatrix ();
+  translate (pos.x, pos.y-(size.y *.5));
+  for (int i = 0 ; i < size.x ; i++) {
+    for (int j = 0 ; j <= size.y ; j++) {
+      float cr = map(i,0,size.x,0,100);
+      float sat = map(s,0,size.x,0,100);
+      fill (colour, sat, cr) ;
+      rect (i,j,1,1) ;
     }
   }
   popMatrix() ;
 }
 
-// brightness
-void slider_show_brightness_background(Vec2 pos, Vec2 size, float colour, float s, float d) {
-  pushMatrix () ;
-  translate (pos.x , pos.y-(size.y *.5)) ;
-  for ( int i=0 ; i < size.x ; i++ ) {
-    for ( int j=0 ; j <=size.y ; j++ ) {
-      float cr = map(i, 0, size.x, 0, 100 ) ;
-      float sat = map(s, 0, size.x, 0, 100 ) ;
-      fill (colour, sat, cr) ;
-      rect (i, j, 1,1) ;
+
+void update_slider(Slider_adjustable sa, float [] value_slider, Vec5 [] info_slider) {
+  //MIDI update
+  update_midi_slider(sa,info_slider);
+  // MIN and MAX molette
+  //check
+  if(!sa.lockedMol && !sa.insideMol) {
+    // min molette
+    if(!sa.insideMax() && !sa.lockedMax) {
+      sa.insideMin();
+      sa.select_min();
+      sa.update_min();
+    }
+    // max molette
+    if(!sa.insideMin() && !sa.lockedMin) {
+      sa.insideMax();
+      sa.select_max();
+      sa.update_max();
     }
   }
-  popMatrix() ;
+  // update 
+  sa.update_min_max();
+  
+  
+  // CURRENT molette
+  // check
+  if(!sa.lockedMax && !sa.lockedMax) sa.insideMol_Ellipse() ;
+  // update
+  sa.select_molette();
+  sa.update_molette();
+  
+  // translate float value to int, to use OSC easily without problem of Array Outbound...blablah
+  int valueMax = 360 ;
+  value_slider[sa.get_id()] = constrain(map(sa.get_value(),0,1,0,valueMax),0,valueMax)  ;
+}
+
+
+
+
+void display_slider_engine(Slider_adjustable sa, int whichGroup) {
+  if (whichGroup == 0) {
+    display_min_max_slider(sa, grisTresFonce, gris);
+    display_mollette(sa, blanc, blancGris);
+  } else {
+    display_min_max_slider(sa, grisFonce, grisClair);
+    display_mollette(sa, blanc, blancGris);
+  }
+}
+
+void display_min_max_slider(Slider_adjustable sa, color colorIn, color colorOut) {
+  float thickness = 0 ;
+  sa.display_min_max(ratio_pos_slider_adjustable, ratio_size_slider_adjustable, colorIn, colorOut, colorIn, colorOut, thickness) ;
+}
+
+void display_mollette(Slider_adjustable sa, color colorMolIn, color colorMolOut) {
+  sa.show_molette(colorMolIn,colorMolOut, colorMolIn,colorMolOut,1);
 }
 
 
@@ -848,7 +900,6 @@ Button  button_midi, button_curtain,
 // init button
 void init_button_general() {
   numButton = new int[NUM_GROUP_SLIDER] ;
-  // General
   numButton[0] = 20 ;
   value_button_general = new int[numButton[0]] ;
 }
@@ -884,7 +935,7 @@ void build_button_general() {
   
   /**
   Sound
-  *///button beat
+  */
   button_beat = new Button(pos_beat_button, size_beat_button) ;
   button_beat.set_color_on_off(col_on_in, col_on_out, col_off_in, col_off_out) ;
 
@@ -913,7 +964,6 @@ void build_button_general() {
 /**
 Setting button
 */
-// Main METHOD SETUP
 void set_button_general() {
   // MIDI
   size_midi_button = Vec2(50,26);
@@ -1237,7 +1287,6 @@ void display_dropdown() {
   // update_dropdown_background() ;
   for(int i = 0 ; i < dropdown_bar.length ; i++) {
     dropdown_bar[i].set_content(dropdown_content[i]);
-    // dropdown_bar[i].update(title_dropdown_medium, textUsual_1);
     update_dropdown_bar(dropdown_bar[i]);
   }
 

@@ -1,19 +1,16 @@
 /**
-SETTING SAVE and LOAD 2.1.4
+SETTING SAVE and LOAD 
+v 2.2.0
 */
-
-//SETUP
 void load_setup() {
-  buildSaveTable() ;
-  createInfoButtonAndSlider(preference_path+"setting/defaultSetting.csv") ;
+  set_data_save_setting() ;
+  load_data_GUI(preference_path+"setting/defaultSetting.csv") ;
   load_saved_file_controller(preference_path+"setting/defaultSetting.csv") ;
-  
   //load text interface 
   // 0 is French
   // 1 is english
   textGUI() ;
 }
-//END SETUP
 
 
 
@@ -21,36 +18,29 @@ void load_setup() {
 
 
 // LOAD INFO OBJECT from the PRESCENE
-/////////////////////////////////////
 Table inventory_item_table, shaderBackgroundList;
-int numGroup [] ; 
-int [] item_rank, item_ID, item_group, item_camera_video_on_off, item_GUI_on_off ;
-String [] item_info, item_info_raw ;
-String [] item_name, item_author, item_version, item_pack, item_load_name, item_slider ; 
-String [] shader_bg_name, shader_bg_author ;
-
-
+int numGroup []; 
+int [] item_rank, item_ID, item_group, item_camera_video_on_off, item_GUI_on_off;
+String [] item_info, item_info_raw;
+String [] item_name, item_author, item_version, item_pack, item_load_name, item_slider; 
+String [] shader_bg_name, shader_bg_author;
 
 //BUTTON
-int numButton [] ;
-int numButtonTotalObjects ;
-int lastDropdown, num_dropdown_item ;
-int [] value_button_general, value_button_item ; 
-int [] pos_button_width_item, pos_button_height_item, width_button_item, height_button_item  ;
+int numButton [];
 
-
+int lastDropdown, num_dropdown_item;
+int [] value_button_general, value_button_item; 
+int [] pos_button_width_item, pos_button_height_item, width_button_item, height_button_item ;
 
 //Variable must be send to Scene
-///////////////////////////////////////
-// statement on_of for the object group
+// statement on_off for the item group
 int [] on_off_item_console ;
-// boolean [] on_off_inventory_item ; 
-ItemOnOff [] on_off_inventory_item ;
+Item_ON_OFF [] on_off_inventory_item ;
 
-class ItemOnOff {
+class Item_ON_OFF {
   String name = "" ;
   boolean on_off = false ;
-  ItemOnOff(String name, boolean on_off) {
+  Item_ON_OFF(String name, boolean on_off) {
     this.name = name ;
     this.on_off = on_off ;
   }
@@ -77,17 +67,43 @@ class ItemOnOff {
 /**
 SETTING INFO BUTTON AND SLIDER
 */
-
-// create var info for the button and the slider
-void createInfoButtonAndSlider(String path) {
+void load_data_GUI(String path) {
   Table table = loadTable(path, "header");
   // create the var info for the slider we need
-  int countSlider = 0 ;
+  int count_slider_general = 0;
+  int count_slider_background = 0;
+  int count_slider_filter = 0;
+  int count_slider_light = 0;
+  int count_slider_sound = 0;
+  int count_slider_camera = 0;
+  int count_slider_item = 0;
+
   for (TableRow row : table.rows()) {
-    String s = row.getString("Type") ;
-    if(s.equals("Slider")) countSlider++ ; 
+    String s = row.getString("Type") ; 
+    if(s.equals("Slider item")) count_slider_item++ ;  
+    else if(s.equals("Slider background")) count_slider_background++;
+    else if(s.equals("Slider filter")) count_slider_filter++; 
+    else if(s.equals("Slider light")) count_slider_light++; 
+    else if(s.equals("Slider sound")) count_slider_sound++; 
+    else if(s.equals("Slider camera")) count_slider_camera++; 
+    else if(s.equals("Slider general")) count_slider_general++;
   }
-  infoSlider = new Vec5 [countSlider] ;
+  println("silder general", count_slider_general);
+  println("silder background",count_slider_background);
+  println("silder filter",count_slider_filter);
+  println("silder light",count_slider_light);
+  println("silder sound",count_slider_sound);
+  println("silder camera",count_slider_camera);
+  println("silder item",count_slider_item);
+
+  info_slider_general = new Vec5 [count_slider_general];
+  info_slider_background = new Vec5 [count_slider_background];
+  info_slider_filter = new Vec5 [count_slider_filter];
+  info_slider_light = new Vec5 [count_slider_light];
+  info_slider_sound = new Vec5 [count_slider_sound];
+  info_slider_camera = new Vec5 [count_slider_camera];
+
+  info_slider_item = new Vec5 [count_slider_item];
   // create the var info for the item we need
   info_list_item_ID = new int [NUM_ITEM] ;
   
@@ -105,12 +121,10 @@ void createInfoButtonAndSlider(String path) {
 
 
 
-/**
-SAVE & LOAD
 
-*/
 /**
 SAVE
+v 2.0.0
 */
 String savePathSetting = ("") ;
 void saveSetting(File selection) {
@@ -119,49 +133,43 @@ void saveSetting(File selection) {
 }
 
 void saveSetting(String path) {
-  saveInfoSlider() ;
+  save_info_slider() ;
   save_info_item() ;
   midiButtonManager(true) ;
   saveTable(saveSetting, path);
   saveSetting.clearRows() ;
 }
 
-
-
 // SAVE SLIDERS
 // save the position and the ID of the slider molette
-void saveInfoSlider() {
-  //group zero
+void save_info_slider() {
+  // general
   for (int i = 1 ; i < NUM_SLIDER_GENERAL ; i++) {
-     // set PVector info Slider
      int temp = i-1 ;
-     infoSlider[temp].c = slider[i].get_value() ;
-     infoSlider[temp].d = slider[i].get_value_min() ;
-     infoSlider[temp].e = slider[i].get_value_max() ;
-     setSlider(i, (int)infoSlider[temp].b, infoSlider[temp].c,infoSlider[temp].d,infoSlider[temp].e) ;
+     info_slider_general[temp].c = slider_adj_general[i].get_value() ;
+     info_slider_general[temp].d = slider_adj_general[i].get_value_min() ;
+     info_slider_general[temp].e = slider_adj_general[i].get_value_max() ;
+     set_data_slider(i, info_slider_general[temp],"Slider general") ;
    }
   
-  // item info slider
-  for(int i = 1 ; i <= NUM_SLIDER_ITEM ; i++) {
-    // set PVector info Slider
-    int IDslider = i +100 ;
-    // third loop to check and find the good PVector array in the list
-    for(int j = 0 ; j < infoSlider.length ;j++) {
-      if( (int)infoSlider[j].a ==IDslider) {
-        infoSlider[j].c = slider[IDslider].get_value() ;
-        infoSlider[j].d = slider[IDslider].get_value_min() ;
-        infoSlider[j].e = slider[IDslider].get_value_max() ;
-        setSlider(IDslider, (int)infoSlider[j].b, infoSlider[j].c,infoSlider[j].d,infoSlider[j].e) ;
+  // item
+  for(int i = 0 ; i < NUM_SLIDER_ITEM ; i++) {
+    int IDslider = i;
+    for(int k = 0 ; k < info_slider_item.length ;k++) {
+      if((int)info_slider_general[k].a == IDslider) {
+        info_slider_item[k].c = slider_adj_item[IDslider].get_value() ;
+        info_slider_item[k].d = slider_adj_item[IDslider].get_value_min() ;
+        info_slider_item[k].e = slider_adj_item[IDslider].get_value_max() ;
+        set_data_slider(IDslider, info_slider_item[k],"Slider item") ;
       }
     }
   }
-
   show_all_slider_item = false ;
 }
 
 void save_info_item() {
   for(int i = 0 ; i < NUM_ITEM ; i++) {
-    set_item(item_ID[i] +1) ;
+    set_data_item(item_ID[i] +1) ;
   }
 }
 
@@ -169,40 +177,8 @@ void save_info_item() {
 
 
 // BUTTON SAVE
-Table saveSetting ;
-//write the value in the table
-void setButton(int IDbutton, int IDmidi, boolean b) {
-  TableRow buttonSetting = saveSetting.addRow() ;
-  buttonSetting.setString("Type", "Button") ;
-  buttonSetting.setInt("ID button", IDbutton) ;
-  buttonSetting.setInt("ID midi", IDmidi) ;
-  if(b) buttonSetting.setInt("On Off", 1) ; else buttonSetting.setInt("On Off", 0) ;
-}
-//
-void setSlider(int IDslider, int IDmidi, float value, float min, float max) {
-  TableRow sliderSetting = saveSetting.addRow() ;
-  sliderSetting.setString("Type", "Slider") ;
-  sliderSetting.setInt("ID slider", IDslider) ;
-  sliderSetting.setInt("ID midi", IDmidi) ;
-  sliderSetting.setFloat("Value slider", value) ; 
-  sliderSetting.setFloat("Min slider", min) ; 
-  sliderSetting.setFloat("Max slider", max) ; 
-}
-
-// void set_item(int ID_item, boolean display_item_on_off) {
-void set_item(int ID_item) {
-  TableRow item_setting = saveSetting.addRow() ;
-  item_setting.setString("Type", "Item") ;
-  item_setting.setInt("Item ID", ID_item) ;
-
-  // if(on_off_inventory_item[ID_item]) item_setting.setInt("Item On Off", 1) ; 
-  if(on_off_inventory_item[ID_item].on_off) item_setting.setInt("Item On Off", 1) ; 
-  else item_setting.setInt("Item On Off", 0) ;
-  item_setting.setString("Item Name", item_name[ID_item]) ;
-  item_setting.setString("Item Class Name", item_load_name[ID_item]) ;
-}
-
-void buildSaveTable() {
+Table saveSetting;
+void set_data_save_setting() {
   saveSetting = new Table() ;
   saveSetting.addColumn("Type") ;
   saveSetting.addColumn("ID slider") ;
@@ -218,10 +194,51 @@ void buildSaveTable() {
   saveSetting.addColumn("Item Class Name") ;
 }
 
-/**
-END SAVE
+//write the value in the table
+void set_data_button(int IDbutton, int IDmidi, boolean b) {
+  TableRow buttonSetting = saveSetting.addRow() ;
+  buttonSetting.setString("Type", "Button") ;
+  buttonSetting.setInt("ID button", IDbutton) ;
+  buttonSetting.setInt("ID midi", IDmidi) ;
+  if(b) buttonSetting.setInt("On Off", 1) ; else buttonSetting.setInt("On Off", 0) ;
+}
+//
+// void set_data_slider(int IDslider, int IDmidi, float value, float min, float max, String name) {
+void set_data_slider(int IDslider, Vec5 info, String name){
+  TableRow sliderSetting = saveSetting.addRow();
+  sliderSetting.setString("Type",name);
+  sliderSetting.setInt("ID slider",IDslider);
+  sliderSetting.setInt("ID midi",(int)info.b);
+  sliderSetting.setFloat("Value slider", info.c); 
+  sliderSetting.setFloat("Min slider",info.d); 
+  sliderSetting.setFloat("Max slider",info.e); 
+}
 
-*/
+// void set_data_item(int ID_item, boolean display_item_on_off) {
+void set_data_item(int ID_item) {
+  TableRow item_setting = saveSetting.addRow() ;
+  item_setting.setString("Type", "Item") ;
+  item_setting.setInt("Item ID", ID_item) ;
+
+  // if(on_off_inventory_item[ID_item]) item_setting.setInt("Item On Off", 1) ; 
+  if(on_off_inventory_item[ID_item].on_off) item_setting.setInt("Item On Off", 1) ; 
+  else item_setting.setInt("Item On Off", 0) ;
+  item_setting.setString("Item Name", item_name[ID_item]) ;
+  item_setting.setString("Item Class Name", item_load_name[ID_item]) ;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -239,7 +256,7 @@ END SAVE
 
 /**
 LOAD
-
+v 2.0.1
 */
 void load_setting_controller(File selection) {
   if (selection != null) {
@@ -254,11 +271,16 @@ void load_setting_controller(File selection) {
 
 // loadSave(path) read info from save file
 void load_saved_file_controller(String path) {
-  
   Table settingTable = loadTable(path, "header");
   // re-init the counter for the new loop
   int countButton = 0 ;
-  int countSlider = 0 ;
+  int count_slider_general = 0;
+  int count_slider_background = 0;
+  int count_slider_filter = 0;
+  int count_slider_light = 0;
+  int count_slider_sound = 0;
+  int count_slider_camera = 0;
+  int count_slider_item = 0;
   int count_item = 0 ;
 
 
@@ -269,21 +291,51 @@ void load_saved_file_controller(String path) {
       int IDbutton = row.getInt("ID button") ;
       int IDmidi = row.getInt("ID midi") ;
       int onOff = row.getInt("On Off") ;
-      /* if(countButton < infoButton.length) is used in case that the number is inferior at the number of object in save file */
       if(countButton < infoButton.length) infoButton[countButton] = new PVector(IDbutton,IDmidi,onOff) ;
-      countButton++ ; 
+      countButton++; 
     }
 
-    // slider
-    if( s.equals("Slider")) {
-      int IDslider = row.getInt("ID slider") ;
-      int IDmidi = row.getInt("ID midi") ;
-      float valueSlider = row.getFloat("Value slider") ; 
-      float min = row.getFloat("Min slider") ;
-      float max = row.getFloat("Max slider") ;
-      infoSlider[countSlider] = Vec5(IDslider,IDmidi,valueSlider,min,max) ;
-      countSlider++ ;
+    // slider general
+    if(s.equals("Slider general")) {
+      set_info_slider(row, "Slider general", info_slider_general, count_slider_general);
+      count_slider_general++;
     }
+
+    // slider background
+    if(s.equals("Slider background")) {
+      set_info_slider(row, "Slider background", info_slider_background, count_slider_background);
+      count_slider_background++;
+    }
+
+    // slider filter
+    if(s.equals("Slider filter")) {
+      set_info_slider(row, "Slider filter", info_slider_filter, count_slider_filter);
+      count_slider_filter++;
+    }    
+    // slider light
+    if(s.equals("Slider light")) {
+      set_info_slider(row, "Slider light", info_slider_light, count_slider_light);
+      count_slider_light++;
+    }
+
+    // slider sound
+    if(s.equals("Slider sound")) {
+      set_info_slider(row, "Slider sound", info_slider_sound, count_slider_sound);
+      count_slider_sound++;
+    }
+    
+    // slider camera
+    if(s.equals("Slider camera")) {
+      set_info_slider(row, "Slider camera", info_slider_camera, count_slider_camera);
+      count_slider_camera++;
+    }
+
+    // slider item
+    if(s.equals("Slider item")) {
+      set_info_slider(row, "Slider item", info_slider_item, count_slider_item);
+      count_slider_item++;
+    }
+
     
     // item list
     if(s.equals("Item")) {
@@ -302,6 +354,14 @@ void load_saved_file_controller(String path) {
 }
 
 
+void set_info_slider(TableRow row, String name, Vec5 [] info, int rank) {
+  int IDslider = row.getInt("ID slider") ;
+  int IDmidi = row.getInt("ID midi") ;
+  float value_slider = row.getFloat("Value slider") ; 
+  float min = row.getFloat("Min slider") ;
+  float max = row.getFloat("Max slider") ;
+  info[rank] = Vec5(IDslider,IDmidi,value_slider,min,max) ;
+}
 
 
 
@@ -315,16 +375,22 @@ void load_saved_file_controller(String path) {
 
 
 
-// SETTING SAVE
-/////////////////////////
 
+
+
+
+
+
+
+/**
+SETTING SAVE
+*/
 void set_data_from_save() {
   if(INIT_INTERFACE) {
     set_button_inventory_item() ;
     set_inventory_item() ;
     set_button_from_saved_file() ;
     set_slider_save() ;
-
     INIT_INTERFACE = false ;
   }
 }
@@ -332,25 +398,23 @@ void set_data_from_save() {
 
 // Setting SLIDER from save
 void set_slider_save() {
-  // general
   for (int i = 1 ; i < NUM_SLIDER_GENERAL ; i++) {
-    setttingSliderSave(i) ;
+    setttingSliderSave(slider_adj_general,info_slider_general,i) ;
   }
-  // item
-  for(int j = 1 ; j < NUM_SLIDER_ITEM ; j++) {
-    setttingSliderSave(j +100) ;
+
+  for(int i = 0 ; i < NUM_SLIDER_ITEM ; i++) {
+    setttingSliderSave(slider_adj_item,info_slider_item,i) ;
   }
 }
 
 
 // local method of set_slider_save()
-void setttingSliderSave(int whichOne) {
-  Vec5 infoSliderTemp = info_save_raw_list(infoSlider, whichOne).copy() ;
-  slider[whichOne].setMidi((int)infoSliderTemp.b) ; 
-  slider[whichOne].set_molette(infoSliderTemp.c) ; 
-  slider[whichOne].setMinMax(infoSliderTemp.d, infoSliderTemp.e) ;
+void setttingSliderSave(Slider_adjustable [] slider_adj, Vec5 [] info_slider, int index) {
+  Vec5 info_temp = info_save_raw_list(info_slider, index).copy() ;
+  slider_adj[index].set_id_midi((int)info_temp.b) ; 
+  slider_adj[index].set_molette(info_temp.c) ; 
+  slider_adj[index].setMinMax(info_temp.d, info_temp.e) ;
 }
-
 
 
 
@@ -383,7 +447,7 @@ void set_button_from_saved_file() {
   //SOUND
   if(infoButton[rank].z == 1.0) button_beat.on_off = true ; else button_beat.on_off = false ;
   button_beat.IDmidi = (int)infoButton[rank].y ;
- rank++ ; 
+  rank++ ; 
   if(infoButton[rank].z == 1.0) button_kick.on_off = true ; else button_kick.on_off = false ;
   button_kick.IDmidi = (int)infoButton[rank].y ; 
   rank++ ;
@@ -395,7 +459,7 @@ void set_button_from_saved_file() {
   rank++ ;
   
   //
-  rank--  ;
+  rank-- ;
   //
   
   // int whichGroup = 1 ;
@@ -420,17 +484,17 @@ void set_button_from_saved_file() {
 // info_save_raw_list read info to translate and give a good position
 Vec5 info_save_raw_list(Vec5[] list, int pos) {
   Vec5 info = Vec5() ;
-  float valueSlider = 0 ;
-  float valueSliderMin = 0 ;
-  float valueSliderMax = 1 ;
+  float value_slider_general = 0 ;
+  float value_slider_generalMin = 0 ;
+  float value_slider_generalMax = 1 ;
   float IDmidi = 0 ;
   for(int i = 0 ; i < list.length ;i++) {
     if(list[i] != null ) if((int)list[i].a == pos) {
-      valueSlider = list[i].c ;
-      valueSliderMin = list[i].d ;
-      valueSliderMax = list[i].e ;
+      value_slider_general = list[i].c ;
+      value_slider_generalMin = list[i].d ;
+      value_slider_generalMax = list[i].e ;
       IDmidi = list[i].b ;
-      info = Vec5(pos, IDmidi,valueSlider,valueSliderMin,valueSliderMax) ;
+      info = Vec5(pos, IDmidi,value_slider_general,value_slider_generalMin,value_slider_generalMax) ;
       break;
     } else {
       info = Vec5(-1) ;
@@ -438,10 +502,7 @@ Vec5 info_save_raw_list(Vec5[] list, int pos) {
   }
   return info ;
 }
-/**
-END LOAD
 
-*/
 
 
 
@@ -455,11 +516,6 @@ END LOAD
 
 
 //LOAD text Interface
-
-String[] genTxtGUI = new String[SLIDER_BY_COL] ;
-String[] slider_item_nameLight = new String[SLIDER_BY_COL] ;
-String[] slider_item_nameCamera = new String[SLIDER_BY_COL] ;
-
 void textGUI() {
   String lang[] ;
   if (!test){
@@ -469,29 +525,45 @@ void textGUI() {
   }
   String l = join(lang,"") ;
   int language = Integer.parseInt(l);
-  Table textGUI;
+  Table gui_table;
   if(language == 0) {
-    textGUI = loadTable(preference_path+"slider_name_fr.csv","header");
+    gui_table = loadTable(preference_path+"slider_name_fr.csv","header");
   } else if (language == 1) {
-    textGUI = loadTable(preference_path+"slider_name_en.csv","header");
+    gui_table = loadTable(preference_path+"slider_name_en.csv","header");
   } else {
-    textGUI = loadTable(preference_path+"slider_name_en.csv","header");
+    gui_table = loadTable(preference_path+"slider_name_en.csv","header");
   }
 
-  TableRow [] row = new TableRow[SLIDER_BY_COL +1] ;  
-  for (int i = 0 ; i < SLIDER_BY_COL ; i++) {
-    row[i] = textGUI.getRow(i);
-    for (int j = 1 ; j < SLIDER_BY_COL ; j++) {
-      String whichCol = Integer.toString(j) ;
-      if (i == 0) genTxtGUI[j] = row[i].getString("Column "+whichCol) ;
-      if (i == 1) slider_item_nameLight[j] = row[i].getString("Column "+whichCol) ;
-      if (i == 2) slider_item_nameCamera[j] = row[i].getString("Column "+whichCol) ;
+  TableRow [] row = new TableRow[SLIDER_BY_COL +1] ;
+  int num_row = gui_table.getRowCount();
+
+  for (int i = 0 ; i <= num_row ; i++) {
+    row[i] = gui_table.getRow(i);
+    for (int k = 1 ; k < SLIDER_BY_COL ; k++) {
+      String whichCol = Integer.toString(k) ;
+      if (i == 0 && k < slider_general_name.length) slider_general_name[k] = row[i].getString("Column "+whichCol);
+      // if (i == 0 && k < slider_background_name.length) slider_background_name[k] = row[i].getString("Column "+whichCol) ;
+      // if (i == 0 && k < slider_filter_name.length) slider_filter_name[k] = row[i].getString("Column "+whichCol) ;
+      if (i == 1 && k < slider_light_name.length) slider_light_name[k] = row[i].getString("Column "+whichCol);
+      // if (i == 0 && k < slider_sound_name.length) slider_sound_name[k] = row[i].getString("Column "+whichCol) ;
+      if (i == 2 && k < slider_camera_name.length) slider_camera_name[k] = row[i].getString("Column "+whichCol);
     }
-    for (int j = 1 ; j < SLIDER_BY_COL_PLUS_ONE ; j++) {
-      String whichCol = Integer.toString(j) ;
-      if (i == 3) slider_item_name[j +(SLIDER_BY_COL *0)] = row[i].getString("Column "+whichCol) ;
-      if (i == 4) slider_item_name[j +(SLIDER_BY_COL *1)] = row[i].getString("Column "+whichCol) ;
-      if (i == 5) slider_item_name[j +(SLIDER_BY_COL *2)] = row[i].getString("Column "+whichCol) ;
+
+
+    for (int k = 0 ; k < SLIDER_BY_COL ; k++) {
+      String whichCol = Integer.toString(k+1);
+      if (i == 3) {
+        int which_one = k +(SLIDER_BY_COL *0);
+        slider_item_name[which_one] = row[i].getString("Column "+whichCol);
+      }
+      if (i == 4) {
+        int which_one = k +(SLIDER_BY_COL *1);
+        slider_item_name[which_one] = row[i].getString("Column "+whichCol);
+      }
+      if (i == 5) {
+        int which_one = k +(SLIDER_BY_COL *2);
+        slider_item_name[which_one] = row[i].getString("Column "+whichCol);
+      }
     }
   }
 }
@@ -502,8 +574,6 @@ void textGUI() {
 
 //IMPORT VIGNETTE
 void set_import_pic_button() {
-
-  
   //picto setting
   for(int i = 0 ; i < 4 ; i++) {
     picCurtain[i] = loadImage("picto/picto_curtain_"+i+".png") ;
