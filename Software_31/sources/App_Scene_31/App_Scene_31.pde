@@ -7,10 +7,7 @@ Processing 3.3.7
 
 4th may 2015 14.750 lines of code 
 */
-String nameVersion = ("Romanesco unu") ;
 String IAM = ("Scene") ;
-String version = ("31") ;
-String prettyVersion = ("1.3.0") ;
 // security must be link with the controler in the next release
 boolean TEST_ROMANESCO = false ;
 boolean OPEN_APP = true ;
@@ -37,6 +34,7 @@ void settings() {
 void setup() {
   OSC_setup() ;
   path_setting(sketchPath(1));
+  version();
 
   int frameRateRomanesco = 60 ;
   display_setup(frameRateRomanesco) ; // the int give the frameRate

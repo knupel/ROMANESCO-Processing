@@ -10,11 +10,7 @@ Processing 3.3.7
 2016 may 27_500 lines of code
 2017 March 40_000 lines of code
  */
-String version = "31";
 String IAM = "prescene";
-String prettyVersion = "1.3.0";
-String nameVersion = "Romanesco unu";
-
 boolean TEST_ROMANESCO = true; /* Use false when you want:
                                     used sound & maximum possibility of the object
                                */
@@ -46,6 +42,7 @@ SETUP
 */
 void setup() {
   path_setting(sketchPath(1));
+  version();
   OSC_setup();
   display_setup(60); // the int value is the frameRate
   RG.init(this);  // Geomerative

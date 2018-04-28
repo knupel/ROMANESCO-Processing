@@ -1,6 +1,6 @@
 /**
 Romanesco Unu
-2012 – 2018
+2012–2018
 v 1.3.0.31
 version 31
 Processing 3.3.7
@@ -12,10 +12,9 @@ Controller 1.1.0
 2016 september 8_700 lines of code
 2017 March 11_100 lines of code
  */
-String version = ("31") ;
-String IAM = ("Controller") ;
-String prettyVersion = ("1.3.0") ;
-String nameVersion = ("Romanesco unu") ;
+
+String IAM = "Controller";
+
 boolean test = false ;
 
 void settings() {
@@ -26,6 +25,7 @@ void settings() {
 void setup() {
   // surface.setLocation(0,20);
   path_setting(sketchPath(1));
+  version();
   setting();
   init_button_general();
   init_midi();
