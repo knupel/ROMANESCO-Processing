@@ -1,6 +1,19 @@
 /**
-ITEM 1.0.2
+ITEM 1.1.0
 */
+void item_inventory() {
+  int num_group = 1;
+  for (TableRow row : inventory_item_table.rows()) {
+    int item_group = row.getInt("Group");
+    for (int i = 1 ; i <= num_group ; i++) {
+      if (item_group == i) NUM_ITEM ++;
+    }
+  }
+  println("Items:", NUM_ITEM);
+}
+
+
+
 void info_item() {
   item_info_raw[0] = item_info[0] = ("") ;
   // the list start from '1' so we must init the '0'
@@ -36,14 +49,14 @@ void info_item() {
 void build_item_library() {
   inventory_item_table = loadTable(preference_path+"index_romanesco_items.csv", "header") ;
   shaderBackgroundList = loadTable(preference_path+"shader/shaderBackgroundList.csv", "header") ;
-  numByGroup() ;
-  init_var_item() ;
-  init_slider() ;
-  init_button_inventory_item() ;
-  init_button_item_console() ;
-  init_dropdown() ;
-  info_item() ;
-  info_bg_shader() ;
+  item_inventory();
+  init_var_item();
+  //init_slider();
+  init_button_inventory_item();
+  init_button_item_console();
+  init_dropdown();
+  info_item();
+  info_bg_shader();
 }
 
 void init_var_item() {
@@ -206,7 +219,6 @@ void check_button_item_console() {
 void mousepressed_button_item_console() {
   if(!dropdownActivity && NUM_ITEM > 0 ) {
     for( int i = 11 ; i <= NUM_ITEM *10 +BUTTON_ITEM_CONSOLE ; i++ ) { 
-      // button_item[i].update_pos(on_off_inventory_item[i /10]) ;
       button_item[i].update_pos(on_off_inventory_item[i /10].on_off) ;
       button_item[i].mousePressed()  ;
     }

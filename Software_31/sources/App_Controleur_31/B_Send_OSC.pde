@@ -76,11 +76,34 @@ void send_OSC() {
   /* Catch the value slider to send to Prescene
   @return value to the prescene between 0 to 99
   */
-  // group general
-  int[] data_OSC_general = new int[NUM_SLIDER_GENERAL] ;
-  for ( int i = 1 ; i < NUM_SLIDER_GENERAL -1 ; i++) {
-    data_OSC_general[i-1] = floor(value_slider_general[i]);
+  int sum = NUM_SLIDER_BACKGROUND +NUM_SLIDER_FILTER +NUM_SLIDER_LIGHT +NUM_SLIDER_SOUND +NUM_SLIDER_CAMERA;
+  int[] data_OSC_general = new int[sum] ;
+  int in_background = 0 ;
+  int out_background = NUM_SLIDER_BACKGROUND;
+  int in_filter =  NUM_SLIDER_BACKGROUND;
+  int out_filter = in_filter +NUM_SLIDER_FILTER;
+  int in_light =  out_filter;
+  int out_light = in_light +NUM_SLIDER_LIGHT;
+  int in_sound =  out_light;
+  int out_sound = in_sound +NUM_SLIDER_SOUND;
+  int in_camera =  out_sound;
+  int out_camera = in_camera +NUM_SLIDER_CAMERA;
+
+  for (int i = 0 ; i < sum ; i++) {
+    if(i < out_background) {
+      data_OSC_general[i] = floor(value_slider_background[i]);
+    } else if( i >= in_filter && i < out_filter) {
+      data_OSC_general[i] = floor(value_slider_filter[i -in_filter]);
+    } else if( i >= in_light && i < out_light) {
+      data_OSC_general[i] = floor(value_slider_light[i -in_light]);
+    } else if( i >= in_sound && i < out_sound) {
+      data_OSC_general[i] = floor(value_slider_sound[i -in_sound]);
+    } else if( i >= in_camera && i < out_camera) {
+      data_OSC_general[i] = floor(value_slider_camera[i -in_camera]);
+    }
+    
   }
+
   toPreScene[2] = join_int_to_String(data_OSC_general);
 
   // group item

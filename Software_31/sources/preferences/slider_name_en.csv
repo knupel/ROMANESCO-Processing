@@ -1,8 +1,11 @@
-Slider Name,Column 1,Column 2,Column 3,Column 4,Column 5,Column 6,Column 7,Column 8,Column 9,Column 10,Column 11,Column 12,Column 13,Column 14,Column 15,Column 16
-général,hue,saturation,brigthness,refresh,left,rigth,typography,curtain,,,,,,,,
-Light,Hue,Saturation,Brigthness,,,,,,,,,,,,,
-camera,focal 28-200,deformation,direction X,direction Y,direction Z,position X,position Y,position Z,pitch,,,,,,,
-slider 1,f_hue,f_saturation,f_brightness,f_alpha,s_hue,s_saturation,s_brightness,s_alpha,thickness,size X,size Y,size Z,font size,canvas X,canvas Y,canvas Z
-slider 2,reactivity,speed X,speed Y,speed Z,spurt X,spurt Y,spurt Z,direction X,direction Y,direction Z,jitter X,jitter Y,jitter Z,swing X,swing Y,swing Z,
-slider 3,quantity,variety,life,flow,quality,area,angle,scope,scan,alignment,repulsion,attraction,density,influence,calm,spectrum
+name,col 0,col 1,col 2,col 3,col 4,col 5,col 6,col 7,col 8,col 9,col 10,col 11,col 12,col 13,col 14,col 15,col 16
+general,typography,curtain,
+background,hue,saturation,brigthness,refresh
+filter,
+light,hue,saturation,brigthness,hue,saturation,brigthness,hue,saturation,brigthness
+sound,left,right,
+camera,focal 28-200,deformation,direction X,direction Y,direction Z,position X,position Y,position Z,pitch,
+item a,f_hue,f_saturation,f_brightness,f_alpha,s_hue,s_saturation,s_brightness,s_alpha,thickness,size X,size Y,size Z,font size,canvas X,canvas Y,canvas Z,
+item b,reactivity,speed X,speed Y,speed Z,spurt X,spurt Y,spurt Z,direction X,direction Y,direction Z,jitter X,jitter Y,jitter Z,swing X,swing Y,swing Z,
+item c,quantity,variety,life,flow,quality,area,angle,scope,scan,alignment,repulsion,attraction,density,influence,calm,spectrum
 

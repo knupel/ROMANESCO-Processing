@@ -1,23 +1,21 @@
 /**
 Variable
-v 0.0.1
+v 0.0.2
 */
-// CONSTANT VAR
-int NUM_MAX_ITEM = 99 ;
 int NUM_COL_SLIDER = 3 ;
 int NUM_SLIDER_ITEM_BY_COL = 16 ;
 int NUM_GROUP_SLIDER = 2 ; // '0' for general / '1' for the item
 
-int NUM_SLIDER_GENERAL = 30 ;
+int NUM_SLIDER_GENERAL = 20 ;
 int NUM_SLIDER_ITEM = NUM_SLIDER_ITEM_BY_COL *NUM_COL_SLIDER;
-int NUM_SLIDER_BACKGROUND = 8;
-int NUM_SLIDER_FILTER = 12;
-int NUM_SLIDER_LIGHT = 12;
-int NUM_SLIDER_SOUND = 6;
-int NUM_SLIDER_CAMERA = 10;
+int NUM_SLIDER_BACKGROUND = 4;
+int NUM_SLIDER_FILTER = 0;
+int NUM_SLIDER_LIGHT = 9;
+int NUM_SLIDER_SOUND = 2;
+int NUM_SLIDER_CAMERA = 9;
 
 // final int NUM_SLIDER_GENERAL = 1 +100 +NUM_SLIDER_ITEM;
-int SLIDER_BY_COL = NUM_SLIDER_ITEM / NUM_COL_SLIDER;
+//int SLIDER_COL_FROM_EXTERNAL_DOC = NUM_SLIDER_ITEM / NUM_COL_SLIDER;
 
 /**
 ITEM
@@ -68,22 +66,6 @@ int numVignette ;
 PImage[] picCurtain = new PImage[4] ;
 PImage[] picMidi = new PImage[4] ;
 
-// old school
-
-/*
-Vec5 [] infoSlider ; 
-Slider_adjustable [] slider_adj_general = new Slider_adjustable [NUM_SLIDER_GENERAL];
-Vec2 [] size_slider_general = new Vec2[NUM_SLIDER_GENERAL] ;
-Vec2 [] pos_slider_general = new Vec2[NUM_SLIDER_GENERAL] ; 
-float value_slider_general[] = new float[NUM_SLIDER_GENERAL];
-*/
-Vec5 [] info_slider_general; 
-Slider_adjustable [] slider_adj_general = new Slider_adjustable [NUM_SLIDER_GENERAL];
-Vec2 [] pos_slider_general = new Vec2[NUM_SLIDER_GENERAL] ; 
-Vec2 [] size_slider_general = new Vec2[NUM_SLIDER_GENERAL] ;
-float [] value_slider_general = new float[NUM_SLIDER_GENERAL];
-String[] slider_general_name = new String[NUM_SLIDER_GENERAL];
-
 
 // slider background
 Vec5 [] info_slider_background; 
@@ -129,14 +111,6 @@ Slider_adjustable [] slider_adj_item = new Slider_adjustable[NUM_SLIDER_ITEM] ;
 float [] value_slider_item = new float[NUM_SLIDER_ITEM];
 String  [] slider_item_name  = new String[NUM_SLIDER_ITEM] ;
 
-
-
-
-
-
-
-
-
 //Background / light one / light two
 int state_BackgroundButton,
     state_LightAmbientButton, state_LightAmbientAction,
@@ -147,11 +121,8 @@ Vec2 pos_bg_button, size_bg_button,
      posLightOneAction, sizeLightOneAction, posLightOneButton, sizeLightOneButton,
      posLightTwoAction, sizeLightTwoAction, posLightTwoButton, sizeLightTwoButton ;
 
-
 // DROPDOWN button font and shader background
-
 int which_bg_shader, which_filter, which_font, which_text, which_bitmap, which_shape, which_movie;
-// Vec2 pos_button_font, pos_button_bg, pos_button_image_bitmap, pos_button_image_svg, pos_button_movie, pos_button_file_text, pos_button_camera_video ; 
 
 // MIDI, CURTAIN
 int state_midi_button, state_curtain_button, state_button_beat, state_button_kick, state_button_snare, state_button_hat;
@@ -188,9 +159,6 @@ int col_3 = int(col_width +col_2);
 // item gui pos
 int offset_y_item = col_1 +15;
 
-
-// horizontal grid
-
 // this not a position but the height of the rectangle
 int height_header = 23;
 
@@ -209,13 +177,11 @@ int pos_y_menu_sound = height_header +height_button_top +height_dropdown_top +he
 int height_item_button_console = 85;
 int pos_y_item_selected = height_header +height_button_top +height_dropdown_top +height_menu_general +height_menu_sound;
 int height_item_selected = spacing_slider *NUM_SLIDER_ITEM_BY_COL +height_item_button_console;
-// int height_item_selected = spacing_slider *(NUM_SLIDER_ITEM_BY_COL-5) +height_item_button_console;
 
 // inventory item setting
 int pos_y_inventory_item = height_header +height_button_top +height_dropdown_top +height_menu_general +height_menu_sound +height_item_selected ;
 // this value depend of the size of the scene, indeed we must calculate this one later.
 int height_inventory_item = 100 ;
-// int pos_y_inventory_item = height_constant ;
 
 
 
@@ -243,30 +209,29 @@ int size_x_window_info_midi = 200 ;
 int correction_slider_general_pos_y = 12 ;
 int set_data_item_pos_y = 13 ;
 
-// GROUP BG
-int correctionBGX = col_1 ;
-int correctionBGY = pos_y_menu_general +set_data_item_pos_y +2 ;
+// background
+int offset_background_x = col_1 ;
+int offset_background_y = pos_y_menu_general +set_data_item_pos_y +2;
 
-// GROUP LIGHT
-// ambient light
-int correctionLightAmbientX = col_1 ;
-int correctionLightAmbientY = pos_y_menu_general +set_data_item_pos_y +73 ;
-// directional light one
-int correctionLightOneX = col_2 ;
-int correctionLightOneY = pos_y_menu_general +set_data_item_pos_y +13 ;
-// directional light two
-int correctionLightTwoX = col_2 ;
-int correctionLightTwoY = pos_y_menu_general +set_data_item_pos_y +73 ;
+// filter
+int offset_filter_x = col_1 ;
+int offset_filter_y = pos_y_menu_general +set_data_item_pos_y +2;
 
-// GROUP CAMERA
-int correctionCameraX = col_3 ;
-int correctionCameraY = pos_y_menu_general +set_data_item_pos_y -5 ;
+// light
+int [] offset_light_x = {col_1,col_2,col_2};
+int [] offset_light_y = {pos_y_menu_general +set_data_item_pos_y +73,
+                         pos_y_menu_general +set_data_item_pos_y +13,
+                         pos_y_menu_general +set_data_item_pos_y +73 };
 
-// GROUP SOUND
-int correctionSoundX = col_1 ;
-int correction_menu_sound_y = pos_y_menu_sound +17 ;
+// sound
+int offset_sound_x = col_1 ;
+int offset_sound_y = pos_y_menu_sound +17;
 
-// GROUP ITEM selected
+// camera
+int offset_camera_x = col_3 ;
+int offset_camera_y = pos_y_menu_general +set_data_item_pos_y -5 ;
+
+// item selected
 int local_pos_y_button_item_selected = 20 ;
 int local_pos_y_dropdown_item_selected = local_pos_y_button_item_selected +73;
 int local_pos_y_slider_button = local_pos_y_dropdown_item_selected +20;

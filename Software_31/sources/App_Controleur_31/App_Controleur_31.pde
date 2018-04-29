@@ -6,8 +6,8 @@ version 31
 Processing 3.3.7
 */
 /**
-Controller 1.1.0
-
+Controller 
+V 1.2.0
 2015 may 4_100 lines of code
 2016 september 8_700 lines of code
 2017 March 11_100 lines of code
@@ -64,7 +64,7 @@ void draw() {
   init_interface();
   update_media();
   
-  surface.setTitle(nameVersion + " " +prettyVersion+"."+version+ " - Controller");
+  surface.setTitle(nameVersion + ": " +prettyVersion+"."+version+ " - Controller");
 
   set_data_from_save() ;
 

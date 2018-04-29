@@ -70,7 +70,7 @@ SETTING INFO BUTTON AND SLIDER
 void load_data_GUI(String path) {
   Table table = loadTable(path, "header");
   // create the var info for the slider we need
-  int count_slider_general = 0;
+  //int count_slider_general = 0;
   int count_slider_background = 0;
   int count_slider_filter = 0;
   int count_slider_light = 0;
@@ -86,9 +86,9 @@ void load_data_GUI(String path) {
     else if(s.equals("Slider light")) count_slider_light++; 
     else if(s.equals("Slider sound")) count_slider_sound++; 
     else if(s.equals("Slider camera")) count_slider_camera++; 
-    else if(s.equals("Slider general")) count_slider_general++;
+    //else if(s.equals("Slider general")) count_slider_general++;
   }
-  println("silder general", count_slider_general);
+  //println("silder general", count_slider_general);
   println("silder background",count_slider_background);
   println("silder filter",count_slider_filter);
   println("silder light",count_slider_light);
@@ -96,7 +96,7 @@ void load_data_GUI(String path) {
   println("silder camera",count_slider_camera);
   println("silder item",count_slider_item);
 
-  info_slider_general = new Vec5 [count_slider_general];
+ // info_slider_general = new Vec5 [count_slider_general];
   info_slider_background = new Vec5 [count_slider_background];
   info_slider_filter = new Vec5 [count_slider_filter];
   info_slider_light = new Vec5 [count_slider_light];
@@ -143,20 +143,56 @@ void saveSetting(String path) {
 // SAVE SLIDERS
 // save the position and the ID of the slider molette
 void save_info_slider() {
-  // general
-  for (int i = 1 ; i < NUM_SLIDER_GENERAL ; i++) {
-     int temp = i-1 ;
-     info_slider_general[temp].c = slider_adj_general[i].get_value() ;
-     info_slider_general[temp].d = slider_adj_general[i].get_value_min() ;
-     info_slider_general[temp].e = slider_adj_general[i].get_value_max() ;
-     set_data_slider(i, info_slider_general[temp],"Slider general") ;
-   }
+  // background
+  for (int i = 1 ; i < NUM_SLIDER_BACKGROUND ; i++) {
+    int temp = i-1 ;
+    info_slider_background[temp].c = slider_adj_background[i].get_value() ;
+    info_slider_background[temp].d = slider_adj_background[i].get_value_min() ;
+    info_slider_background[temp].e = slider_adj_background[i].get_value_max() ;
+    set_data_slider(i, info_slider_background[temp],"Slider background") ;
+  }
+
+  // filter
+  for (int i = 1 ; i < NUM_SLIDER_FILTER ; i++) {
+    int temp = i-1 ;
+    info_slider_filter[temp].c = slider_adj_filter[i].get_value() ;
+    info_slider_filter[temp].d = slider_adj_filter[i].get_value_min() ;
+    info_slider_filter[temp].e = slider_adj_filter[i].get_value_max() ;
+    set_data_slider(i, info_slider_filter[temp],"Slider filter") ;
+  }
+
+  // light
+  for (int i = 1 ; i < NUM_SLIDER_LIGHT ; i++) {
+    int temp = i-1 ;
+    info_slider_light[temp].c = slider_adj_light[i].get_value() ;
+    info_slider_light[temp].d = slider_adj_light[i].get_value_min() ;
+    info_slider_light[temp].e = slider_adj_light[i].get_value_max() ;
+    set_data_slider(i, info_slider_light[temp],"Slider light") ;
+  }
+
+  // sound
+  for (int i = 1 ; i < NUM_SLIDER_SOUND ; i++) {
+    int temp = i-1 ;
+    info_slider_sound[temp].c = slider_adj_sound[i].get_value() ;
+    info_slider_sound[temp].d = slider_adj_sound[i].get_value_min() ;
+    info_slider_sound[temp].e = slider_adj_sound[i].get_value_max() ;
+    set_data_slider(i, info_slider_sound[temp],"Slider sound") ;
+  }
+
+  // camera
+  for (int i = 1 ; i < NUM_SLIDER_CAMERA ; i++) {
+    int temp = i-1 ;
+    info_slider_camera[temp].c = slider_adj_camera[i].get_value() ;
+    info_slider_camera[temp].d = slider_adj_camera[i].get_value_min() ;
+    info_slider_camera[temp].e = slider_adj_camera[i].get_value_max() ;
+    set_data_slider(i, info_slider_camera[temp],"Slider camera") ;
+  }
   
   // item
   for(int i = 0 ; i < NUM_SLIDER_ITEM ; i++) {
     int IDslider = i;
     for(int k = 0 ; k < info_slider_item.length ;k++) {
-      if((int)info_slider_general[k].a == IDslider) {
+      if((int)info_slider_item[k].a == IDslider) {
         info_slider_item[k].c = slider_adj_item[IDslider].get_value() ;
         info_slider_item[k].d = slider_adj_item[IDslider].get_value_min() ;
         info_slider_item[k].e = slider_adj_item[IDslider].get_value_max() ;
@@ -295,12 +331,6 @@ void load_saved_file_controller(String path) {
       countButton++; 
     }
 
-    // slider general
-    if(s.equals("Slider general")) {
-      set_info_slider(row, "Slider general", info_slider_general, count_slider_general);
-      count_slider_general++;
-    }
-
     // slider background
     if(s.equals("Slider background")) {
       set_info_slider(row, "Slider background", info_slider_background, count_slider_background);
@@ -390,26 +420,43 @@ void set_data_from_save() {
     set_button_inventory_item() ;
     set_inventory_item() ;
     set_button_from_saved_file() ;
-    set_slider_save() ;
+    set_slider_data_group() ;
     INIT_INTERFACE = false ;
   }
 }
 
 
 // Setting SLIDER from save
-void set_slider_save() {
-  for (int i = 1 ; i < NUM_SLIDER_GENERAL ; i++) {
-    setttingSliderSave(slider_adj_general,info_slider_general,i) ;
+void set_slider_data_group() {
+  for (int i = 0 ; i < NUM_SLIDER_BACKGROUND ; i++) {
+    setting_data_slider(slider_adj_background,info_slider_background,i) ;
+  }
+
+  for (int i = 0 ; i < NUM_SLIDER_FILTER ; i++) {
+    setting_data_slider(slider_adj_filter,info_slider_filter,i) ;
+  }
+
+  for (int i = 0 ; i < NUM_SLIDER_LIGHT ; i++) {
+    setting_data_slider(slider_adj_light,info_slider_light,i) ;
+  }
+
+  for (int i = 0 ; i < NUM_SLIDER_SOUND ; i++) {
+    setting_data_slider(slider_adj_sound,info_slider_sound,i) ;
+  }
+
+  for (int i = 0 ; i < NUM_SLIDER_CAMERA ; i++) {
+    setting_data_slider(slider_adj_camera,info_slider_camera,i) ;
   }
 
   for(int i = 0 ; i < NUM_SLIDER_ITEM ; i++) {
-    setttingSliderSave(slider_adj_item,info_slider_item,i) ;
+    setting_data_slider(slider_adj_item,info_slider_item,i) ;
   }
 }
 
 
 // local method of set_slider_save()
-void setttingSliderSave(Slider_adjustable [] slider_adj, Vec5 [] info_slider, int index) {
+void setting_data_slider(Slider_adjustable [] slider_adj, Vec5 [] info_slider, int index) {
+
   Vec5 info_temp = info_save_raw_list(info_slider, index).copy() ;
   slider_adj[index].set_id_midi((int)info_temp.b) ; 
   slider_adj[index].set_molette(info_temp.c) ; 
@@ -483,24 +530,26 @@ void set_button_from_saved_file() {
 
 // info_save_raw_list read info to translate and give a good position
 Vec5 info_save_raw_list(Vec5[] list, int pos) {
-  Vec5 info = Vec5() ;
-  float value_slider_general = 0 ;
-  float value_slider_generalMin = 0 ;
-  float value_slider_generalMax = 1 ;
-  float IDmidi = 0 ;
-  for(int i = 0 ; i < list.length ;i++) {
-    if(list[i] != null ) if((int)list[i].a == pos) {
-      value_slider_general = list[i].c ;
-      value_slider_generalMin = list[i].d ;
-      value_slider_generalMax = list[i].e ;
-      IDmidi = list[i].b ;
-      info = Vec5(pos, IDmidi,value_slider_general,value_slider_generalMin,value_slider_generalMax) ;
-      break;
-    } else {
-      info = Vec5(-1) ;
+  if(list != null) {
+    Vec5 info = Vec5() ;
+    float value_slider = 0 ;
+    float value_slider_min = 0 ;
+    float value_slider_max = 1 ;
+    float IDmidi = 0 ;
+    for(int i = 0 ; i < list.length ;i++) {
+      if(list[i] != null ) if((int)list[i].a == pos) {
+        value_slider = list[i].c ;
+        value_slider_min = list[i].d ;
+        value_slider_max = list[i].e ;
+        IDmidi = list[i].b ;
+        info = Vec5(pos, IDmidi,value_slider,value_slider_min,value_slider_max) ;
+        break;
+      } else {
+        info = Vec5(-1) ;
+      }
     }
-  }
-  return info ;
+    return info ;
+  } else return null; 
 }
 
 
@@ -534,37 +583,48 @@ void textGUI() {
     gui_table = loadTable(preference_path+"slider_name_en.csv","header");
   }
 
-  TableRow [] row = new TableRow[SLIDER_BY_COL +1] ;
+
   int num_row = gui_table.getRowCount();
+  for (int i = 0 ; i < num_row ; i++) {
+    TableRow row = gui_table.getRow(i);
+    String name = row.getString("name");
+    int num = NUM_SLIDER_ITEM_BY_COL ;
 
-  for (int i = 0 ; i <= num_row ; i++) {
-    row[i] = gui_table.getRow(i);
-    for (int k = 1 ; k < SLIDER_BY_COL ; k++) {
-      String whichCol = Integer.toString(k) ;
-      if (i == 0 && k < slider_general_name.length) slider_general_name[k] = row[i].getString("Column "+whichCol);
-      // if (i == 0 && k < slider_background_name.length) slider_background_name[k] = row[i].getString("Column "+whichCol) ;
-      // if (i == 0 && k < slider_filter_name.length) slider_filter_name[k] = row[i].getString("Column "+whichCol) ;
-      if (i == 1 && k < slider_light_name.length) slider_light_name[k] = row[i].getString("Column "+whichCol);
-      // if (i == 0 && k < slider_sound_name.length) slider_sound_name[k] = row[i].getString("Column "+whichCol) ;
-      if (i == 2 && k < slider_camera_name.length) slider_camera_name[k] = row[i].getString("Column "+whichCol);
-    }
-
-
-    for (int k = 0 ; k < SLIDER_BY_COL ; k++) {
-      String whichCol = Integer.toString(k+1);
-      if (i == 3) {
-        int which_one = k +(SLIDER_BY_COL *0);
-        slider_item_name[which_one] = row[i].getString("Column "+whichCol);
+    if(name.equals("general")) {
+      // 
+    } else if(name.equals("background")) {
+      for(int k = 0 ; k < NUM_SLIDER_BACKGROUND ; k++) {
+        slider_background_name[k] = row.getString("col "+k);
+      } 
+    } else if(name.equals("filter")) {
+      for(int k = 0 ; k < NUM_SLIDER_FILTER ; k++) {
+        slider_filter_name[k] = row.getString("col "+k);
       }
-      if (i == 4) {
-        int which_one = k +(SLIDER_BY_COL *1);
-        slider_item_name[which_one] = row[i].getString("Column "+whichCol);
+    } else if(name.equals("light")) {
+      for(int k = 0 ; k < NUM_SLIDER_LIGHT ; k++) {
+        slider_light_name[k] = row.getString("col "+k);
       }
-      if (i == 5) {
-        int which_one = k +(SLIDER_BY_COL *2);
-        slider_item_name[which_one] = row[i].getString("Column "+whichCol);
+    } else if(name.equals("sound")) {
+      for(int k = 0 ; k < NUM_SLIDER_SOUND ; k++) {
+        slider_sound_name[k] = row.getString("col "+k);
       }
-    }
+    } else if(name.equals("camera")) {
+      for(int k = 0 ; k < NUM_SLIDER_CAMERA ; k++) {
+        slider_camera_name[k] = row.getString("col "+k);
+      }
+    } else if(name.equals("item a")) {
+      for(int k = 0 ; k < num ; k++) {
+        slider_item_name[k] = row.getString("col "+k);
+      }
+    } else if(name.equals("item b")) {
+      for(int k = 0 ; k < num ; k++) {
+        slider_item_name[k +num] = row.getString("col "+k);
+      }
+    } else if(name.equals("item c")) {
+      for(int k = 0 ; k < num ; k++) {
+        slider_item_name[k +(num*2)] = row.getString("col "+k);
+      }
+    }   
   }
 }
 
