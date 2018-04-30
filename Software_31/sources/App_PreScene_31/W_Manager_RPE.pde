@@ -1,6 +1,7 @@
 /**
-Rope Manager 2.0.6
-v 1.1.1
+Rope Manager
+2013-2018
+v 1.1.2
 */
 Romanesco_manager rpe_manager;
 String ROM_HUE_FILL, ROM_SAT_FILL,ROM_BRIGHT_FILL, ROM_ALPHA_FILL = "";
@@ -52,7 +53,7 @@ void set_slider_item_name() {
     for(int k = 0 ; k < 16 ; k++) {
       TableRow row = slider_item_data.getRow(i+3);
       String which_col = Integer.toString(k+1);
-      slider_name[i][k] = row.getString("Column "+which_col) ;
+      slider_name[i][k] = row.getString("col "+which_col) ;
       println("slider",i+1,k+1,slider_name[i][k]);
     }
   }
@@ -304,7 +305,6 @@ void update_var_sound(int ID) {
   }
 }
 
-
 // RESET list and item
 boolean reset(int ID) {
   boolean e = false ;
@@ -473,8 +473,7 @@ class Romanesco_manager {
   }
     
   
-  //END of the INDEX
-  //////////////////
+
   int id_item_from_library(int index) {
     int id = -1 ;
     if(index < RomanescoList.size()) {

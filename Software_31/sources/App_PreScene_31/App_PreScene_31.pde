@@ -11,14 +11,14 @@ Processing 3.3.7
 2017 March 40_000 lines of code
  */
 String IAM = "prescene";
-boolean TEST_ROMANESCO = true; /* Use false when you want:
+boolean TEST_ROMANESCO = false; /* Use false when you want:
                                     used sound & maximum possibility of the object
                                */
-boolean FULL_RENDERING = true;
+boolean FULL_RENDERING = false;
 boolean FULL_SCREEN = false ;
 boolean TABLET = false; // now tablet library don't work in OPENGL renderer
 
-boolean HOME = true;
+boolean HOME = false;
 /**
 SETTINGS
 */

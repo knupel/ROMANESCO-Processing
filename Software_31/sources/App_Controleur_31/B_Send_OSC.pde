@@ -76,8 +76,8 @@ void send_OSC() {
   /* Catch the value slider to send to Prescene
   @return value to the prescene between 0 to 99
   */
-  int sum = NUM_SLIDER_BACKGROUND +NUM_SLIDER_FILTER +NUM_SLIDER_LIGHT +NUM_SLIDER_SOUND +NUM_SLIDER_CAMERA;
-  int[] data_OSC_general = new int[sum] ;
+  // int sum = NUM_SLIDER_BACKGROUND +NUM_SLIDER_FILTER +NUM_SLIDER_LIGHT +NUM_SLIDER_SOUND +NUM_SLIDER_CAMERA;
+  int[] data_OSC_general = new int[NUM_SLIDER_GENERAL] ;
   int in_background = 0 ;
   int out_background = NUM_SLIDER_BACKGROUND;
   int in_filter =  NUM_SLIDER_BACKGROUND;
@@ -89,7 +89,7 @@ void send_OSC() {
   int in_camera =  out_sound;
   int out_camera = in_camera +NUM_SLIDER_CAMERA;
 
-  for (int i = 0 ; i < sum ; i++) {
+  for (int i = 0 ; i < NUM_SLIDER_GENERAL ; i++) {
     if(i < out_background) {
       data_OSC_general[i] = floor(value_slider_background[i]);
     } else if( i >= in_filter && i < out_filter) {

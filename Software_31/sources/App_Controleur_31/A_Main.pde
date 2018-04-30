@@ -46,6 +46,9 @@ void info_bg_shader() {
 
 
 
+void init_var() {
+  
+}
 
 
 

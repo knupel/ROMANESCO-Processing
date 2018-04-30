@@ -1,28 +1,13 @@
 /**
 Variable
-v 0.0.2
+v 0.0.4
 */
-int NUM_COL_SLIDER = 3 ;
-int NUM_SLIDER_ITEM_BY_COL = 16 ;
-int NUM_GROUP_SLIDER = 2 ; // '0' for general / '1' for the item
-
-int NUM_SLIDER_GENERAL = 20 ;
-int NUM_SLIDER_ITEM = NUM_SLIDER_ITEM_BY_COL *NUM_COL_SLIDER;
-int NUM_SLIDER_BACKGROUND = 4;
-int NUM_SLIDER_FILTER = 0;
-int NUM_SLIDER_LIGHT = 9;
-int NUM_SLIDER_SOUND = 2;
-int NUM_SLIDER_CAMERA = 9;
-
-// final int NUM_SLIDER_GENERAL = 1 +100 +NUM_SLIDER_ITEM;
-//int SLIDER_COL_FROM_EXTERNAL_DOC = NUM_SLIDER_ITEM / NUM_COL_SLIDER;
-
 /**
 ITEM
 */
 int NUM_ITEM;
 int STEP_ITEM = 40;
-final int BUTTON_ITEM_CONSOLE = 4;
+int BUTTON_ITEM_CONSOLE = 4;
 PVector [] infoButton;
 int [] info_list_item_ID; 
 
@@ -59,6 +44,21 @@ int slider_mode_display = 0 ;
 boolean[] keyboard = new boolean[526];
 boolean LOAD_SETTING = false ;
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 boolean INIT_INTERFACE = true ;
 
 //LOAD PICTURE VIGNETTE
@@ -67,7 +67,6 @@ PImage[] picCurtain = new PImage[4] ;
 PImage[] picMidi = new PImage[4] ;
 
 
-// slider background
 Vec5 [] info_slider_background; 
 Vec2 [] pos_slider_background = new Vec2[NUM_SLIDER_BACKGROUND] ; 
 Vec2 [] size_slider_background = new Vec2[NUM_SLIDER_BACKGROUND] ;
@@ -109,7 +108,7 @@ Vec2 [] pos_slider_item = new Vec2[NUM_SLIDER_ITEM] ;
 Vec2 [] size_slider_item = new Vec2[NUM_SLIDER_ITEM] ;
 Slider_adjustable [] slider_adj_item = new Slider_adjustable[NUM_SLIDER_ITEM] ;
 float [] value_slider_item = new float[NUM_SLIDER_ITEM];
-String  [] slider_item_name  = new String[NUM_SLIDER_ITEM] ;
+String [] slider_item_name = new String[NUM_SLIDER_ITEM] ;
 
 //Background / light one / light two
 int state_BackgroundButton,
@@ -136,9 +135,6 @@ Vec2  pos_midi_button, size_midi_button, pos_midi_info,
 
 
 
-/**
-GUI VARIABLE SETTING
-*/
 float ratio_size_molette = 1.3; 
 
 int slider_width = 100;
@@ -166,20 +162,20 @@ int height_button_top = 44 ;
 int pos_y_button_top = height_header ;
 
 int height_dropdown_top = 32 ;
-int pos_y_dropdown_top = height_header +height_button_top ;
+int pos_y_dropdown_top = height_header +height_button_top;
 
 int height_menu_general = 138 ;
-int pos_y_menu_general = height_header +height_button_top +height_dropdown_top ;
+int pos_y_menu_general = height_header +height_button_top +height_dropdown_top;
 
 int height_menu_sound = 55 ;
-int pos_y_menu_sound = height_header +height_button_top +height_dropdown_top +height_menu_general ;
+int pos_y_menu_sound = height_header +height_button_top +height_dropdown_top +height_menu_general;
 // item selected setting
 int height_item_button_console = 85;
 int pos_y_item_selected = height_header +height_button_top +height_dropdown_top +height_menu_general +height_menu_sound;
 int height_item_selected = spacing_slider *NUM_SLIDER_ITEM_BY_COL +height_item_button_console;
 
 // inventory item setting
-int pos_y_inventory_item = height_header +height_button_top +height_dropdown_top +height_menu_general +height_menu_sound +height_item_selected ;
+int pos_y_inventory_item = height_header +height_button_top +height_dropdown_top +height_menu_general +height_menu_sound +height_item_selected;
 // this value depend of the size of the scene, indeed we must calculate this one later.
 int height_inventory_item = 100 ;
 

@@ -56,7 +56,6 @@ void OSC_setup() {
     }
   }
 
-
   // must stop the process to give a time to initialization for the OSC process
   try { 
     Thread.sleep(6000); 
@@ -75,9 +74,9 @@ void OSC_setup() {
 void oscEvent(OscMessage receive) {
   if(receive.addrPattern().equals("Controller")) {
     catchDataFromController(receive) ;
-    splitDataButton();
-    splitDataSlider();
-    splitDataLoadSaveController();
+    data_controller_button();
+    data_controller_slider();
+    data_controller_save();
   }
 }
 
@@ -111,9 +110,16 @@ void OSC_send() {
   RomanescoScene.add(booleanLoadSave) ;
 
   //send
-  for(int i = 0 ; i < target_scene.length ; i++) {
-    osc_send_scene.send(RomanescoScene, target_scene[i]);
-  } 
+ // if(target_scene);
+  if(target_scene == null) {
+    printErr("Prescene app exit because the global variable 'TEST_ROMANESCO' must be false");
+    exit();
+  } else {
+    for(int i = 0 ; i < target_scene.length ; i++) {
+      osc_send_scene.send(RomanescoScene, target_scene[i]);
+    } 
+  }
+
 }
 
 

@@ -1,7 +1,7 @@
 /**
 CORE Rope SCENE and PRESCENE 
 2015-2018
-v 1.3.0
+v 1.3.1
 */
 import java.net.*;
 import java.io.*;
@@ -1380,12 +1380,12 @@ void background_romanesco() {
 Vec4 update_background() {
   //to smooth the curve of transparency background
   // HSB
-  float hue_bg = map(valueSlider[0][0],0,MAX_VALUE_SLIDER,0,HSBmode.r) ;
-  float saturation_bg = map(valueSlider[0][1],0,MAX_VALUE_SLIDER,0,HSBmode.g) ;
-  float brigthness_bg = map(valueSlider[0][2],0,MAX_VALUE_SLIDER,0,HSBmode.b) ;
+  float hue_bg = map(value_slider_background[0],0,MAX_VALUE_SLIDER,0,HSBmode.r) ;
+  float saturation_bg = map(value_slider_background[1],0,MAX_VALUE_SLIDER,0,HSBmode.g) ;
+  float brigthness_bg = map(value_slider_background[2],0,MAX_VALUE_SLIDER,0,HSBmode.b) ;
   // ALPHA
   float factorSmooth = 2.5 ;
-  float nx = norm(valueSlider[0][3], 0.0 , MAX_VALUE_SLIDER) ;
+  float nx = norm(value_slider_background[3], 0.0 , MAX_VALUE_SLIDER) ;
   float alpha = pow (nx, factorSmooth);
   alpha = map(alpha, 0, 1, 0.8, HSBmode.a) ;
   return Vec4(hue_bg,saturation_bg,brigthness_bg,alpha) ;
@@ -1451,10 +1451,10 @@ void rectangle(PVector pos, PVector size, PShader s) {
   translate(-size.x *.5,-size.y *.5 , -size.z*.5) ;
   shader(s) ;
 
-  Vec4 RGBbackground = HSB_to_RGB( map(valueSlider[0][0],0,MAX_VALUE_SLIDER,0,g.colorModeX), 
-                                map(valueSlider[0][1],0,MAX_VALUE_SLIDER,0,g.colorModeY), 
-                                map(valueSlider[0][2],0,MAX_VALUE_SLIDER,0,g.colorModeZ),
-                                map(valueSlider[0][3],0,MAX_VALUE_SLIDER,0,g.colorModeA)  ) ;
+  Vec4 RGBbackground = HSB_to_RGB( map(value_slider_background[0],0,MAX_VALUE_SLIDER,0,g.colorModeX), 
+                                map(value_slider_background[1],0,MAX_VALUE_SLIDER,0,g.colorModeY), 
+                                map(value_slider_background[2],0,MAX_VALUE_SLIDER,0,g.colorModeZ),
+                                map(value_slider_background[3],0,MAX_VALUE_SLIDER,0,g.colorModeA)  ) ;
   float redNorm = map(RGBbackground.x,0,255,0,1) ;
   float greenNorm = map(RGBbackground.y,0,255,0,1) ;
   float blueNorm = map(RGBbackground.z,0,255,0,1) ;
@@ -1538,13 +1538,13 @@ void sound_draw() {
 
 void sound_romanesco() {
   int sound = 1 ;
-  float volumeControleurG = map(valueSlider[0][4], 0,MAX_VALUE_SLIDER, 0, 1.3 ) ;
-  left[0] = map(input.left.get(sound),  -0.07,0.1,  0, volumeControleurG);
+  float volumeControleurG = map(value_slider_sound[0], 0,MAX_VALUE_SLIDER, 0, 1.3) ;
+  left[0] = map(input.left.get(sound),-0.07,0.1,0, volumeControleurG);
   
-  float volumeControleurD = map(valueSlider[0][5], 0,MAX_VALUE_SLIDER, 0, 1.3 ) ;
-  right[0] = map(input.right.get(sound),  -0.07,0.1,  0, volumeControleurD);
+  float volumeControleurD = map(value_slider_sound[1], 0,MAX_VALUE_SLIDER, 0, 1.3) ;
+  right[0] = map(input.right.get(sound),-0.07,0.1,0, volumeControleurD);
   
-  float volumeControleurM = map(( (valueSlider[0][4] + valueSlider[0][5]) *.5), 0,MAX_VALUE_SLIDER, 0, 1.3 ) ;
+  float volumeControleurM = map(((value_slider_sound[0] +value_slider_sound[1]) *.5), 0,MAX_VALUE_SLIDER, 0, 1.3 ) ;
   mix[0] = map(input.mix.get(sound),  -0.07,0.1,  0, volumeControleurM);
   
   //volume
@@ -1894,45 +1894,67 @@ void catchDataFromController(OscMessage receive) {
 }
 
 // split data button
-void splitDataButton() {
+void data_controller_button() {
   //Split data from the String Data
   valueButtonGlobal = int(split(fromController [0], '/')) ;
   // stick the Int(String) chain from the group object "one" and "two" is single chain integer(String).
   String fullChainValueButtonObj =("") ;
-  for ( int i = 1 ; i <= NUM_GROUP ; i++ ) {
+  for ( int i = 1 ; i <= ITEM_GROUP ; i++ ) {
     fullChainValueButtonObj += fromController [i]+"/" ;
   }
   valueButtonObj = int(split(fullChainValueButtonObj, '/')) ;
 }
 
 // split data slider
-void splitDataSlider() {
-    //SLIDER
-  //split String value from controller
-  int numTotalGroup = NUM_GROUP +1 ;
-  for ( int i = 0 ; i < numTotalGroup ; i++ ) {
-    valueSliderTemp [i] = split(fromController [i +numTotalGroup], '/') ;
-  }
+void data_controller_slider() {
+  String []value_slider_temp_general, value_slider_temp_item;
+  value_slider_temp_general = split(fromController [2], '/');
+  value_slider_temp_item = split(fromController [3], '/');
   // translate the String value to the float var to use
-  for ( int i = 0 ; i < NUM_GROUP +1 ; i++ ) {
-    // security because there not same quantity of slider in the group MISC "zero" and OBJECT group "one and two".
-    int n = 0 ;
-    if ( i < 1 ) n = NUM_SLIDER_MISC ; else n = NUM_SLIDER_OBJ ;
-    for (int j = 0 ; j < n ; j++) {
-      valueSlider[i][j] = Float.valueOf(valueSliderTemp[i][j]) ;
+  for (int i = 0 ; i < NUM_GROUP_SLIDER ; i++ ) {
+    // general
+    if (i == 0 ) {
+      int in_background = 0 ;
+      int out_background = NUM_SLIDER_BACKGROUND;
+      int in_filter =  NUM_SLIDER_BACKGROUND;
+      int out_filter = in_filter +NUM_SLIDER_FILTER;
+      int in_light =  out_filter;
+      int out_light = in_light +NUM_SLIDER_LIGHT;
+      int in_sound =  out_light;
+      int out_sound = in_sound +NUM_SLIDER_SOUND;
+      int in_camera =  out_sound;
+      int out_camera = in_camera +NUM_SLIDER_CAMERA;
+      for (int k = 0 ; k < NUM_SLIDER_GENERAL ; k++) {
+        if(k < out_background) {
+          value_slider_background[k] = Float.valueOf(value_slider_temp_general[k]) ;
+        } else if(k >= in_filter && k < out_filter) {
+          value_slider_filter[k -in_filter] = Float.valueOf(value_slider_temp_general[k]) ;
+        } else if(k >= in_light && k < out_light) {
+          value_slider_light[k -in_light] = Float.valueOf(value_slider_temp_general[k]) ;
+        } else if(k >= in_sound && k < out_sound) {
+          value_slider_sound[k -in_sound] = Float.valueOf(value_slider_temp_general[k]) ;
+        } else if( k >= in_camera && k < out_camera) {
+          value_slider_camera[k -in_camera] = Float.valueOf(value_slider_temp_general[k]) ;
+        }
+      }
+    // item
+    } else if(i == 1) {
+      for (int k = 0 ; k < NUM_SLIDER_ITEM ; k++) {
+        value_slider_item[k] = Float.valueOf(value_slider_temp_item[k]);
+      }
     }
   }
 }
 
 
 // split data boolean to give load or save order
-void splitDataLoadSaveController() {
+void data_controller_save() {
     // LOAD SAVE
   /*
   +1 for the global group
   *2 because there is one group for the button and an other one for the slider
   */
-  int whichOne = (NUM_GROUP +1) *2 ;
+  int whichOne = (ITEM_GROUP +1) *2 ;
   String [] booleanSave  ;
 
   booleanSave = split(fromController[whichOne], '/') ;

@@ -1,8 +1,8 @@
 /**
-LIGHT SHADER 1.3.3
-2015-2017
+LIGHT SHADER 
+V 1.3.4
+2015-2018
 */
-// LIGHT POSITION
 PVector var_light_pos  ;
 PVector var_light_dir  ;
 /**
@@ -29,7 +29,6 @@ void light_position_draw(Vec3 mouse, int wheel) {
 
 // INTERNAL VAR
 PShader pixShader;
-// PVector speedColorLight = new PVector() ;
 
 Vec4 [] color_light ;
 Vec4 [] color_light_ref ;
@@ -44,36 +43,13 @@ Vec3 [] pos_light_ref ;
 boolean [] on_off_light, on_off_light_action ;
 
 
-
-
-
-
 void shader_setup() {
   String path = (preference_path +"shader/shader_light/") ;
   pixShader = loadShader(path+"light_pix_frag_romanesco.glsl", path+"light_pix_vert_romanesco.glsl");
   shader(pixShader);
 }
-// END SETUP
-////////////
-
-
-
-
-
-
-
-
-
-
-
-
 
 void light_setup() {
-  /*
-  float min =.001 ;
-  float max = 0.3 ;
-  speedColorLight = new PVector(random(min,max),random(min,max),random(min,max)) ;
-  */
   int num_light = 3 ;
   color_light = new Vec4[num_light] ;
   color_light_ref = new Vec4[num_light] ;
@@ -84,7 +60,6 @@ void light_setup() {
   pos_light_ref = new Vec3[num_light] ;
   on_off_light = new boolean[num_light] ;
   on_off_light_action  = new boolean[num_light] ;
-  
 
   for (int i = 0 ; i < num_light ; i++ ) {
     color_light[i] = Vec4(0,100,100,100); 
@@ -97,8 +72,18 @@ void light_setup() {
 }
 
 
-// END SETUP
-////////////
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -111,18 +96,13 @@ void light_call_shader() {
 
 
 void light_update_position_direction() {
-  // update value from the controller
-   // shader_value_dev() ; // method to test valmue without controller etc.
-  shader_value_romanesco(valueSlider, onOffLightAmbient, onOffDirLightOne, onOffDirLightTwo, onOffDirLightOneAction, onOffDirLightTwoAction) ;
-    // DIRECTIONAL and  SPOT LIGHT UPDATE
-  // Vec6 range_input_direction_3D = new Vec6(-1,1,   -1,1,  -1,1) ;
+  light_value_romanesco(value_slider_light, onOffLightAmbient, onOffDirLightOne, onOffDirLightTwo, onOffDirLightOneAction, onOffDirLightTwoAction) ;
+  // DIRECTIONAL and  SPOT LIGHT UPDATE
   Vec6 range_input_direction_3D = new Vec6(0,width,   0,height,  -width, width) ;
-  
   Vec6 range_input_position_3D = new Vec6(0,width,   0,height,  -width, width) ;
   Vec6 range_output_position_3D = new Vec6(0,width,   0,height,  -width, width) ;
 
-
-    // Position and direction of the directional light
+  // Position and direction of the directional light
   if(onOffDirLightOneAction) {
     dir_light[1] = light_direction(var_light_dir, range_input_direction_3D, on_off_light_action[1], dir_light[1],  dir_light_ref[1]).copy() ;
     pos_light[1] = light_position(var_light_pos, range_input_position_3D, range_output_position_3D, on_off_light_action[1], pos_light[1],  pos_light_ref[1]).copy() ;
@@ -138,9 +118,6 @@ void light_update_position_direction() {
 
 
 void light_display() {
-
-  // spotLightPixList() ;
-  
   // ambient light
   if(on_off_light[0]){ 
     Vec4 newRef = Vec4(map(color_setting [0].r,0,MAX_VALUE_SLIDER,0,HSBmode.r), map(color_setting [0].g,0,MAX_VALUE_SLIDER,0,HSBmode.g), map(color_setting [0].b,0,MAX_VALUE_SLIDER,0,HSBmode.b),HSBmode.a) ;
@@ -153,10 +130,6 @@ void light_display() {
   float angle = TAU /2 ;
   float concentration = 10 ;
   // Vec6 range_input_direction_3D = new Vec6(0,width,   0,height,  -width, width) ;
-
-
-
-
 
   // display light
   if(on_off_light[1]) {
@@ -176,17 +149,12 @@ void shader_draw() {
 
   pixShader.set("colorVertex", RGB);
   pixShader.set("alphaVertex", RGBa.a);
-  // pixlightShader.set("contrast", 1.);
   
   // vertex position
-  //////////////////
-  // float canvasZ = cos(frameCount *.01) ;
   PVector canvasXYZ = new PVector (1,1,1) ;
   pixShader.set("canvas", canvasXYZ);
   pixShader.set("zoom", 1.);
 }
-// END DRAW
-///////////
 
 
 
@@ -349,12 +317,10 @@ Vec4 check_colorMode_for_alpha(Vec4 rgba) {
 
 
 
-// METHODE to manage external var
-/////////////////////////////////
-void shader_value_romanesco(float [][]value, boolean onOffLightAmbient,  boolean onOffDirLightOne, boolean onOffDirLightTwo, boolean onOffDirLightOneAction, boolean onOffDirLightTwoAction) {
-  color_setting [0] = Vec3(value[0][12],value[0][13],value[0][14]) ;
-  color_setting [1] = Vec3(value[0][6],value[0][7],value[0][8]) ;
-  color_setting [2] = Vec3(value[0][9],value[0][10],value[0][11]) ;
+void light_value_romanesco(float [] value, boolean onOffLightAmbient,  boolean onOffDirLightOne, boolean onOffDirLightTwo, boolean onOffDirLightOneAction, boolean onOffDirLightTwoAction) {
+  color_setting [0] = Vec3(value[0],value[1],value[2]);
+  color_setting [1] = Vec3(value[3],value[4],value[5]);
+  color_setting [2] = Vec3(value[6],value[7],value[8]);
 
   on_off_light[0] = onOffLightAmbient ;
   on_off_light[1] = onOffDirLightOne ;
@@ -362,12 +328,10 @@ void shader_value_romanesco(float [][]value, boolean onOffLightAmbient,  boolean
   // on_off_light_action[0] = true ;
   on_off_light_action[1] = onOffDirLightOneAction ;
   on_off_light_action[2] = onOffDirLightTwoAction ;
-
-//  var_light_dir = new PVector(0,0,1) ;
 }
 
 // VARIABLE TO TEST METHODE without Romanesco
-void shader_value_dev() {
+void light_value_dev() {
     // color_setting [0] = Vec3(abs(cos(frameCount*.001)) *360,abs(cos(frameCount*.01) *360),abs(sin(frameCount*.1) *360))
   // float hue = abs(cos(frameCount*.001)) *360 ;
   //float saturation = map(mouseX, 0, width, 0,360) ;
@@ -394,3 +358,13 @@ void shader_value_dev() {
   on_off_light_action[1] = true ;
   on_off_light_action[2] = true ;
 }
+
+
+
+
+
+
+
+
+
+

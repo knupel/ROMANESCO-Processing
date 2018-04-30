@@ -496,18 +496,18 @@ void set_var_camera_romanesco() {
 
 void final_camera_full_rendering() {
     // world rendering
-  focal = map(valueSlider[0][19],0,360,28,200) ;
-  deformation = map(valueSlider[0][20],0,360,-1,1) ;
+  focal = map(value_slider_camera[0],0,360,28,200) ;
+  deformation = map(value_slider_camera[1],0,360,-1,1) ;
   // camera
-  dirCamX = map(valueSlider[0][21],0,360,0,width)  ; // on controler is Eye X
-  dirCamY = map(valueSlider[0][22],0,360,0,height)  ; // on controler is Eye Y
-  dirCamZ = map(valueSlider[0][23],0,360,0,width)  ; // on controler is Eye Z
+  dirCamX = map(value_slider_camera[2],0,360,0,width)  ; // on controler is Eye X
+  dirCamY = map(value_slider_camera[3],0,360,0,height)  ; // on controler is Eye Y
+  dirCamZ = map(value_slider_camera[4],0,360,0,width)  ; // on controler is Eye Z
   
-  centerCamX = map(valueSlider[0][24],0,360,0,width)  ; // on controler is Position X
-  centerCamY = map(valueSlider[0][25],0,360,0,height)  ; // on controler is Position Y
-  centerCamZ = map(valueSlider[0][26],0,360,0,width)  ; // on controler is Position Z
+  centerCamX = map(value_slider_camera[5],0,360,0,width)  ; // on controler is Position X
+  centerCamY = map(value_slider_camera[6],0,360,0,height)  ; // on controler is Position Y
+  centerCamZ = map(value_slider_camera[7],0,360,0,width)  ; // on controler is Position Z
 
-  upX = map(valueSlider[0][27],0,360,-1,1) ;
+  upX = map(value_slider_camera[8],0,360,-1,1) ;
   upY = 1 ; // not interesting
   upZ = 0 ; // not interesting
 

@@ -41,9 +41,9 @@ boolean controller_osc_is = false ;
 void controller_reception(OscMessage m) {
   if(m.addrPattern().equals("Controller")) {
     catchDataFromController(m) ;
-    splitDataButton() ;
-    splitDataSlider() ;
-    splitDataLoadSaveController() ;
+    data_controller_button();
+    data_controller_slider();
+    data_controller_save();
     controller_osc_is = true ;
   } 
 }
@@ -82,7 +82,8 @@ void catchDataFromPrescene(OscMessage receive) {
 void splitDataFromPrescene() {
   data_osc_prescene = split(dataPrescene, '/') ;
   // translate the String value to the float var to use
-  for ( int i = 0 ; i < NUM_GROUP+1 ; i++ ) {
+  /*
+  for ( int i = 0 ; i < ITEM_GROUP+1 ; i++ ) {
     // security because there not same quantity of slider in the group one and the other group
     int n = 0 ;
     if ( i < 1 ) n = NUM_SLIDER_MISC ; else n = NUM_SLIDER_OBJ ;
@@ -90,7 +91,9 @@ void splitDataFromPrescene() {
       valueSlider[i][j] = Float.valueOf(valueSliderTemp[i][j]) ;
     }
   }
+  */
 }
+
 
 
 boolean load_SCENE_Setting_order_from_presecene, save_Current_SCENE_Setting_order_from_presecene, save_New_SCENE_Setting_order_from_presecene ;
