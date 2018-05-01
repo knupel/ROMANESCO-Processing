@@ -9,10 +9,8 @@ String ID_address_local = ("127.0.0.1") ;
 
 String IP_address_prescene = ID_address_local ;
 String [] ID_address_scene ;
-// String ID_adress_scene = ("192.168.1.10") ;
 // Message to Prescene
 String toPreScene [] = new String [5] ;
-
 
 OscP5 osc_prescene ;
 OscP5 osc_scene ;
@@ -51,33 +49,29 @@ void set_OSC() {
   set_ip_address() ;
 }
 
-
 void set_ip_address() {
   target_prescene = new NetAddress(IP_address_prescene, port_prescene) ;
   for(int i = 0 ; i < target_scene.length ; i++) {
      target_scene[i] = new NetAddress(ID_address_scene[i], port_scene) ;
   }
-  // target_scene = new NetAddress(ID_adress_scene,address_scene) ;
 }
 
 float ref_send_osc;
 void send_OSC() {
   OscMessage RomanescoController = new OscMessage("Controller");
   
-  //int value join in String 
   data_to_send() ;
   
   //BUTTON 
   toPreScene[0] = join_int_to_String(value_button_general) ; 
   toPreScene[1] = join_int_to_String(value_button_item) ;
   
-  
   // SLIDER
   /* Catch the value slider to send to Prescene
   @return value to the prescene between 0 to 99
   */
   // int sum = NUM_SLIDER_BACKGROUND +NUM_SLIDER_FILTER +NUM_SLIDER_LIGHT +NUM_SLIDER_SOUND +NUM_SLIDER_CAMERA;
-  int[] data_OSC_general = new int[NUM_SLIDER_GENERAL] ;
+  int[] data_OSC_general = new int[NUM_SLIDER_GENERAL];
   int in_background = 0 ;
   int out_background = NUM_SLIDER_BACKGROUND;
   int in_filter =  NUM_SLIDER_BACKGROUND;
@@ -100,8 +94,7 @@ void send_OSC() {
       data_OSC_general[i] = floor(value_slider_sound[i -in_sound]);
     } else if( i >= in_camera && i < out_camera) {
       data_OSC_general[i] = floor(value_slider_camera[i -in_camera]);
-    }
-    
+    }   
   }
 
   toPreScene[2] = join_int_to_String(data_OSC_general);
@@ -194,7 +187,6 @@ void data_to_send() {
   */
   // if(state_camera > SWITCH_VALUE_FOR_DROPDOWN)  value_button_general[19] = ID_camera_video_list[state_camera] ;
 
-  
   // ITEM BUTTON
   if(NUM_ITEM > 0 ) {
     for ( int i = 0 ; i < NUM_ITEM ; i ++) {

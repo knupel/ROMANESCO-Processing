@@ -9,6 +9,7 @@ MAJOR
 >fix the setting size window for prescene and scene
 >refactoring the code to use slider in Romanesco sub-classes item
 >change slider controller system management to create a group by theme, easyer to code for the future.
+>create group data item, light, filter, sound, camera, background
 
 
 MINOR

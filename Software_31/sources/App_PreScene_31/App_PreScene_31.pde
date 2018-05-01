@@ -14,11 +14,11 @@ String IAM = "prescene";
 boolean TEST_ROMANESCO = false; /* Use false when you want:
                                     used sound & maximum possibility of the object
                                */
-boolean FULL_RENDERING = false;
+boolean FULL_RENDERING = true;
 boolean FULL_SCREEN = false ;
 boolean TABLET = false; // now tablet library don't work in OPENGL renderer
 
-boolean HOME = false;
+boolean HOME = true;
 /**
 SETTINGS
 */

@@ -49,14 +49,37 @@ void set_slider_item_name() {
 
   
   String [][] slider_name = new String[3][16];
-  for(int i = 0 ; i < 3 ; i++) {
-    for(int k = 0 ; k < 16 ; k++) {
-      TableRow row = slider_item_data.getRow(i+3);
-      String which_col = Integer.toString(k+1);
-      slider_name[i][k] = row.getString("col "+which_col) ;
-      println("slider",i+1,k+1,slider_name[i][k]);
+  for(int i = 0 ; i < slider_item_data.getRowCount() ;i++) {
+    TableRow row = slider_item_data.getRow(i);
+    for(int line = 0 ; line < 3 ; line++) {
+      String name = "";
+      if(line == 0) {
+        name = "item a";
+      } else if(line == 1) {
+        name = "item b";
+      } else if(line == 2) {
+        name = "item c";
+      }
+      if(row.getString("name").equals(name)) {
+        for(int k = 0 ; k < slider_item_data.getColumnCount()-1 ; k++) {
+          if(k < slider_name[line].length) {
+            slider_name[line][k] = row.getString("col "+Integer.toString(k)) ;
+            println("slider",line,k,slider_name[line][k]);
+          }
+        }
+      }
     }
   }
+  /*
+  for(int i = 0 ; i < 3 ; i++) {
+    for(int k = 0 ; k < 16 ; k++) {
+      TableRow row = slider_item_data.getRow(i+6);
+      //String which_col = Integer.toString(k);
+      slider_name[i][k] = row.getString("col "+Integer.toString(k)) ;
+      println("slider",i,k,slider_name[i][k]);
+    }
+  }
+  */
   ROM_HUE_FILL = slider_name[0][0];
   ROM_SAT_FILL = slider_name[0][1];
   ROM_BRIGHT_FILL = slider_name[0][2];
@@ -112,16 +135,16 @@ void set_slider_item_name() {
 //Update the var of the object
 void update_var_items(int ID) {
   //initialization
-  if(!initValueMouse[ID]) { 
+  if(!init_value_mouse[ID]) { 
     mouse[ID] = mouse[0].copy() ;
     pen[ID] = pen[0].copy() ;
-    initValueMouse[ID] = true ;
+    init_value_mouse[ID] = true ;
   }
-  if(!initValueControleur[ID]) {
+  if(!init_value_controller[ID]) {
     font_item[ID] = font_library ;
     path_font_item[ID] = path_font_library[0] ;
     update_slider_value(ID) ;
-    initValueControleur[ID] = true ;
+    init_value_controller[ID] = true ;
     which_bitmap[ID] = which_bitmap[0] ;
     which_text[ID] = which_text[0] ;
     which_svg[ID] = which_svg[0] ;
@@ -129,7 +152,7 @@ void update_var_items(int ID) {
   }
   
   // info
-  objectInfoDisplay[ID] = displayInfo?true:false ;
+  item_info_display[ID] = displayInfo?true:false ;
   
   
   if(parameter[ID]) {
@@ -539,7 +562,7 @@ class Romanesco_manager {
     int num = 0 ;
     for (Romanesco item : RomanescoList) {
       motion[item.ID_item] = true ;
-      initValueMouse[item.ID_item] = true ;
+      init_value_mouse[item.ID_item] = true ;
       num ++ ;
       item.setup() ;
       println("setup of", item.item_name, item.ID_item, "is done") ;

@@ -110,7 +110,7 @@ TableRow [] rowIndexObject ;
 //info object
 String [] objectInfo, objectName, objectAuthor, objectVersion, objectPack ;
 int [] objectID ;
-boolean [] objectInfoDisplay ;
+boolean [] item_info_display ;
 //for the leap motion ?
 int objectLeapID[] ;
 //BUTTON CONTROLER
@@ -330,7 +330,7 @@ float value_slider_item []  = new float [NUM_SLIDER_ITEM] ;
 
 //MISC
 //var to init the data of the object when is switch ON for the first time
-boolean [] initValueMouse, initValueControleur ;
+boolean [] init_value_mouse, init_value_controller ;
 //parameter for the super class
 float [] left, right, mix ;
 //beat
@@ -438,7 +438,7 @@ void create_variable() {
 // misc var
 void createMiscVar() {
   objectLeapID = new int[NUM_ITEM] ;
-  objectInfoDisplay = new boolean[NUM_ITEM] ;
+  item_info_display = new boolean[NUM_ITEM] ;
 
   setting = new boolean [NUM_ITEM]  ;
   // boolean clear
@@ -492,8 +492,8 @@ void createMiscVar() {
 
   //MISC
   //var to init the data of the object when is switch ON for the first time
-  initValueMouse = new boolean [NUM_ITEM]  ;
-  initValueControleur = new boolean [NUM_ITEM]  ;
+  init_value_mouse = new boolean [NUM_ITEM]  ;
+  init_value_controller = new boolean [NUM_ITEM]  ;
 }
 
 

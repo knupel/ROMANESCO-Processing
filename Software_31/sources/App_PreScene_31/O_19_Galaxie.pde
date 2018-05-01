@@ -209,7 +209,7 @@ class Galaxie extends Romanesco {
     
     // INFO DISPLAY
     objectInfo[ID_item] =("Quantity " +numGrains + " - Canvas " + (int)surface.x + "x" + (int)surface.y + " - Center Galaxy " + int(posCenterGrain.x +marge.x) + "x" + int(posCenterGrain.y +marge.y) + " - speed" +int(speedDust *200.)) ;
-    if (objectInfoDisplay[ID_item]) {
+    if (item_info_display[ID_item]) {
       strokeWeight(1) ;
       stroke(blanc) ;
       noFill() ;

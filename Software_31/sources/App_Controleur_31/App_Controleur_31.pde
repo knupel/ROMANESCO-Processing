@@ -77,9 +77,7 @@ void draw() {
   display_structure_inventory_item();
 
   display_text();
-
   display_slider();
-
   display_button_and_dropdown();
 
   update_midi();

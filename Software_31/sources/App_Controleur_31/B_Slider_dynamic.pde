@@ -1,11 +1,11 @@
 /**
 Slider_dynamic
-v 2.0.0
+v 2.0.1
 */
 StringList slider_item_controller = new StringList();
 
-StringList [] slider_item;
-String [] slider_item_raw;
+StringList [] sliders_by_item;
+String [] sliders_by_item_raw;
 
 String [][] slider_inventory_item_raw;
 boolean [] item_active;
@@ -14,7 +14,7 @@ boolean [][] display_slider;
 boolean [] showSliderGroup = new boolean[NUM_GROUP_SLIDER];
 
 boolean reset_slider_item = true;
-boolean all_slider_item_active = false;
+boolean show_all_slider_item_active = false;
 boolean show_all_slider_item = false;
 
 //these sliders name are not used for the interface but for the display analyze slider
@@ -99,8 +99,9 @@ void set_display_slider() {
 }
 
 void set_dynamic_slider() {
-  slider_item = new StringList [NUM_ITEM +1] ;
-  slider_item_raw = new String [NUM_ITEM +1] ;
+  sliders_by_item = new StringList [NUM_ITEM +1];
+  sliders_by_item_raw = new String [NUM_ITEM +1];
+
   slider_inventory_item_raw = new String [NUM_ITEM +1][NUM_SLIDER_ITEM +1] ;
   item_active = new boolean[NUM_ITEM +1] ;
   display_slider = new boolean [NUM_GROUP_SLIDER] [NUM_SLIDER_ITEM +1] ;
@@ -108,9 +109,9 @@ void set_dynamic_slider() {
 
 
 void recover_active_slider_from_item() {
-  slider_item_raw[0] = ("not used") ;
+  sliders_by_item_raw[0] = ("not used") ;
   for(int i = 1 ; i <= NUM_ITEM ; i++) {
-    slider_item_raw[i] = item_slider[item_ID[i]] ;
+    sliders_by_item_raw[i] = item_slider[item_ID[i]] ;
   }
 }
 
@@ -127,25 +128,25 @@ void init_slider_dynamic() {
 
 void list_slider_item() {
   //create the String list for each item
-  for ( int i = 0 ; i < slider_item.length ; i++) {
-    slider_item[i] = new StringList() ;
+  for ( int i = 0 ; i < sliders_by_item.length ; i++) {
+    sliders_by_item[i] = new StringList() ;
   }
 
-  //setting the list to don't have a null value
-  for (int i = 0 ; i < slider_item.length ; i++) {
+  // setting the list to don't have a null value
+  for (int i = 0 ; i < sliders_by_item.length ; i++) {
     for( int j = 0 ; j <= NUM_SLIDER_ITEM ; j++ ) {
-      slider_item[i].append("") ;
+      sliders_by_item[i].append("") ;
     }
   }
-  // add value to the slider list object
+  // add value to item slider list
   for (int i = 1 ; i <= NUM_ITEM ; i++) {
-    String [] temp = split_text(slider_item_raw[i], (",")) ;
+    String [] temp = split_text(sliders_by_item_raw[i], (",")) ;
     for(int j = 0 ; j < NUM_SLIDER_ITEM ; j++) {
       for (int k = 0 ; k < temp.length ; k++) {
         if(temp[k].equals(slider_item_controller.get(j))) {
-          slider_item[i].set(j,temp[k]);
+          sliders_by_item[i].set(j,temp[k]);
         } else if(temp[k].equals("all") ) {
-          slider_item[i].set(j,"all") ;
+          sliders_by_item[i].set(j,"all") ;
         }
       }
     }
@@ -197,26 +198,29 @@ void check_slider_item() {
         if (item_active[i]) {
           for(int k = 0 ; k < NUM_SLIDER_ITEM ; k++) {
             if (firstCheck[IDgroup]) {
-              if((slider_item_controller.get(k).equals(slider_item[i].get(k)) || slider_item[i].get(k).equals("all"))) {
-                display_slider[IDgroup][k] = true ; 
+              if((slider_item_controller.get(k).equals(sliders_by_item[i].get(k)) || sliders_by_item[i].get(k).equals("all"))) {
+                display_slider[IDgroup][k] = true; 
               } else {
-                display_slider[IDgroup][k] = false ;
+                display_slider[IDgroup][k] = false;
               }
             } else {
-              if (!all_slider_item_active) {
-                if((slider_item_controller.get(k).equals(slider_item[i].get(k)) || slider_item[i].get(k).equals("all")) && display_slider[IDgroup][k]) {
-                  display_slider[IDgroup][k] = true ; 
+              if (!show_all_slider_item_active) {
+                if((slider_item_controller.get(k).equals(sliders_by_item[i].get(k)) || sliders_by_item[i].get(k).equals("all")) && display_slider[IDgroup][k]) {
+                  display_slider[IDgroup][k] = true; 
                 } else {
-                  display_slider[IDgroup][k] = false ;
+                  display_slider[IDgroup][k] = false;
                 }
-              } else if (all_slider_item_active) {
+              } else if (show_all_slider_item_active) {
                 if (!display_slider[IDgroup][k]) {
-                  if (slider_item_controller.get(k).equals(slider_item[i].get(k)) || slider_item[i].get(k).equals("all")) {
+                  if (slider_item_controller.get(k).equals(sliders_by_item[i].get(k)) || sliders_by_item[i].get(k).equals("all")) {
                     display_slider[IDgroup][k] = true;
                   } 
-                } else {
-                  display_slider[IDgroup][k] = false ;
+                } 
+                /*
+                else {
+                  display_slider[IDgroup][k] = false;
                 }
+                */
               }
             }
           }
@@ -232,20 +236,21 @@ void check_slider_item() {
 
 // CHOICE which slider must be display after checking the keyboard
 void which_slider_display() {
+  // println("slider mode",slider_mode_display);
   switch(slider_mode_display) {
     case 0 : 
     reset_slider_item = true ;
     show_all_slider_item = true ;
     break ;
     case 1 : 
-    reset_slider_item = true ;
-    show_all_slider_item = false ;
-    all_slider_item_active = true ;
+    reset_slider_item = true;
+    show_all_slider_item = false;
+    show_all_slider_item_active = true;
     break ;
     case 2 : 
     reset_slider_item = true ;
     show_all_slider_item = false ;
-    all_slider_item_active = false ;
+    show_all_slider_item_active = false ;
     break ;
   }
 }

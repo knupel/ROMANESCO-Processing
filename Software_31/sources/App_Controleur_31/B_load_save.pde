@@ -89,12 +89,12 @@ void load_data_GUI(String path) {
     //else if(s.equals("Slider general")) count_slider_general++;
   }
   //println("silder general", count_slider_general);
-  println("silder background",count_slider_background);
-  println("silder filter",count_slider_filter);
-  println("silder light",count_slider_light);
-  println("silder sound",count_slider_sound);
-  println("silder camera",count_slider_camera);
-  println("silder item",count_slider_item);
+  println("sliders background",count_slider_background);
+  println("sliders filter",count_slider_filter);
+  println("sliders light",count_slider_light);
+  println("sliders sound",count_slider_sound);
+  println("sliders camera",count_slider_camera);
+  println("sliders item",count_slider_item);
 
  // info_slider_general = new Vec5 [count_slider_general];
   info_slider_background = new Vec5 [count_slider_background];

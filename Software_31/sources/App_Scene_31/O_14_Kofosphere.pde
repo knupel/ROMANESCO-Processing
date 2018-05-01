@@ -4,7 +4,6 @@ v 1.0.2
 */
 class Kofosphere extends Romanesco {
   public Kofosphere() {
-    //from the index_objects.csv
     item_name = "Kofosphere" ;
     ID_item = 14 ;
     ID_group = 1 ;

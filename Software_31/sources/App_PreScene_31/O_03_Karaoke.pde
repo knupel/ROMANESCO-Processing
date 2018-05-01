@@ -12,7 +12,6 @@ class Karaoke extends Romanesco {
     item_version = "Version 2.0.2";
     item_pack = "Base" ;
     item_mode = "" ; // separate the name by a slash and write the next mode immadialtly after this one.
-    item_slider = "Fill hue,Fill sat,Fill bright,Fill alpha,Canvas X,Canvas Y,Direction X,Font size" ;
     hue_fill_is = true;
     sat_fill_is = true;
     bright_fill_is = true;

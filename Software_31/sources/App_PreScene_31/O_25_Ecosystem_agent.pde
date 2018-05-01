@@ -279,7 +279,7 @@ class Ecosystem_agent extends Romanesco {
 		show_agent() ;
 
     // INFO
-    if (objectInfoDisplay[ID_item]) {
+    if (item_info_display[ID_item]) {
       strokeWeight(1) ;
       stroke(blanc) ;
       noFill() ;

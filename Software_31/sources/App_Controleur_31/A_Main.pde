@@ -46,17 +46,6 @@ void info_bg_shader() {
 
 
 
-void init_var() {
-  
-}
-
-
-
-
-
-
-
-
 
 /**
 STRUCTURE DESIGN
@@ -201,6 +190,9 @@ void init_interface() {
 SLIDER
 v 2.0.0
 */
+/**
+setting
+*/
 void build_slider() {
   // background
   for (int i = 0 ; i < NUM_SLIDER_BACKGROUND ; i++) {
@@ -264,103 +256,12 @@ void build_slider() {
 }
 
 
-void display_slider() {
-  //display_slider_general();
-  display_slider_background();
-  display_slider_filter();
-  display_slider_light();
-  display_slider_sound();
-  display_slider_camera();
-
-  display_slider_item();
-}
-
-
-// SLIDER DRAW
-void display_slider_background() {
-  slider_background_display_bg();
-  for (int i = 0 ; i < NUM_SLIDER_BACKGROUND ; i++) {
-    update_slider(slider_adj_background[i],value_slider_background,info_slider_background);
-    int whichGroup = 0;
-    display_slider_engine(slider_adj_background[i], whichGroup);
-  }
-}
-
-void display_slider_filter() {
-  slider_filter_display_bg();
-  for (int i = 0 ; i < NUM_SLIDER_FILTER ; i++) {
-    update_slider(slider_adj_filter[i],value_slider_filter,info_slider_filter);
-    int whichGroup = 0;
-    display_slider_engine(slider_adj_filter[i], whichGroup);
-  }
-}
-
-void display_slider_light() {
-  slider_light_0_display_bg();
-  slider_light_1_display_bg();
-  slider_light_2_display_bg();
-
-  for (int i = 0 ; i < NUM_SLIDER_LIGHT ; i++) {
-    update_slider(slider_adj_light[i],value_slider_light,info_slider_light);
-    int whichGroup = 0;
-    display_slider_engine(slider_adj_light[i], whichGroup);
-  }
-}
-
-void display_slider_sound() {
-  slider_sound_display_bg();
-  for (int i = 0 ; i < NUM_SLIDER_SOUND ; i++) {
-    update_slider(slider_adj_sound[i],value_slider_sound,info_slider_sound);
-    int whichGroup = 0;
-    display_slider_engine(slider_adj_sound[i], whichGroup);
-  }
-}
-
-void display_slider_camera() {
-  slider_camera_display_bg();
-  for (int i = 0 ; i < NUM_SLIDER_CAMERA ; i++) {
-    update_slider(slider_adj_camera[i],value_slider_camera,info_slider_camera);
-    int whichGroup = 0;
-    display_slider_engine(slider_adj_camera[i], whichGroup);
-  }
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// SLIDER SETUP
-// MAIN METHOD SLIDER SETUP
 void set_slider() {
-  //set_slider_general(correction_slider_general_pos_y) ;
   set_slider_background(correction_slider_general_pos_y);
   set_slider_filter(correction_slider_general_pos_y);
   set_slider_light(correction_slider_general_pos_y);
   set_slider_sound(correction_slider_general_pos_y);
   set_slider_camera(correction_slider_general_pos_y);
-
   set_slider_item_console(height_item_selected +local_pos_y_slider_button);
 }
 
@@ -464,11 +365,70 @@ void set_slider_item_console(int pos_y) {
 
 
 
-
-
 /**
-SLIDER DISPLAY GENERAL
+display
 */
+void display_slider() {
+  display_slider_background();
+  display_slider_filter();
+  display_slider_light();
+  display_slider_sound();
+  display_slider_camera();
+  display_slider_item();
+}
+
+
+// SLIDER DRAW
+void display_slider_background() {
+  slider_background_display_bg();
+  for (int i = 0 ; i < NUM_SLIDER_BACKGROUND ; i++) {
+    update_slider(slider_adj_background[i],value_slider_background,info_slider_background);
+    int whichGroup = 0;
+    display_slider_engine(slider_adj_background[i], whichGroup);
+  }
+}
+
+void display_slider_filter() {
+  slider_filter_display_bg();
+  for (int i = 0 ; i < NUM_SLIDER_FILTER ; i++) {
+    update_slider(slider_adj_filter[i],value_slider_filter,info_slider_filter);
+    int whichGroup = 0;
+    display_slider_engine(slider_adj_filter[i], whichGroup);
+  }
+}
+
+void display_slider_light() {
+  slider_light_0_display_bg();
+  slider_light_1_display_bg();
+  slider_light_2_display_bg();
+
+  for (int i = 0 ; i < NUM_SLIDER_LIGHT ; i++) {
+    update_slider(slider_adj_light[i],value_slider_light,info_slider_light);
+    int whichGroup = 0;
+    display_slider_engine(slider_adj_light[i], whichGroup);
+  }
+}
+
+void display_slider_sound() {
+  slider_sound_display_bg();
+  for (int i = 0 ; i < NUM_SLIDER_SOUND ; i++) {
+    update_slider(slider_adj_sound[i],value_slider_sound,info_slider_sound);
+    int whichGroup = 0;
+    display_slider_engine(slider_adj_sound[i], whichGroup);
+  }
+}
+
+void display_slider_camera() {
+  slider_camera_display_bg();
+  for (int i = 0 ; i < NUM_SLIDER_CAMERA ; i++) {
+    update_slider(slider_adj_camera[i],value_slider_camera,info_slider_camera);
+    int whichGroup = 0;
+    display_slider_engine(slider_adj_camera[i], whichGroup);
+  }
+}
+
+
+
 void dispay_text_slider_top(int pos) {
   // GROUP ZERO
   textAlign(LEFT);
@@ -497,14 +457,11 @@ void dispay_text_slider_top(int pos) {
     text(slider_sound_name[i], add(pos_slider_sound[i],pos_local));
   }
   
-  // CAMERA
+  // camera
   for(int i = 0 ; i < slider_camera_name.length ; i++) {
     text(slider_camera_name[i], add(pos_slider_camera[i],pos_local));
   }
 }
-
-
-
 
 
 
@@ -594,15 +551,6 @@ void slider_display_hsb(Vec2 [] pos, Vec2 [] size, float [] value) {
 }
 
 
-
-
-
-
-
-
-
-
-
 /**
 Item slider
 */
@@ -611,8 +559,6 @@ When you add a new sliders, you must change the starting value from 'NAN' to a v
 And you must add the name of this one in the 'preferences/'  folder slider_name_en.csv' and in the 'slider_name_fr' file
 */
 void display_slider_item() {
-  /* different way to display depend the displaying mode. 
-  Can change with "ctrl+x" */
   display_bg_slider_item() ;
   
   int whichGroup = 1;
@@ -800,24 +746,6 @@ void slider_HSB_item_display(int whichGroup, int hueRank, int satRank, int brigh
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 /**
 slider method
 */
@@ -928,6 +856,35 @@ void display_min_max_slider(Slider_adjustable sa, color colorIn, color colorOut)
 void display_mollette(Slider_adjustable sa, color colorMolIn, color colorMolOut) {
   sa.show_molette(colorMolIn,colorMolOut, colorMolIn,colorMolOut,1);
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
