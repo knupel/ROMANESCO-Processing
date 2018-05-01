@@ -2,6 +2,127 @@
 Variable
 v 0.0.4
 */
+void set_structure_data() {
+  ratio_size_molette = 1.3; 
+
+  slider_width = 100;
+  slider_height = 8;
+  
+  spacing_slider = 11;
+  rounded_slider = 4;
+  // the position is calculated in ratio of the slider position. Not optimize for the vertical slider
+  ratio_pos_slider_adjustable = .5 ; 
+  // the height size is calculated in ratio of the slider height size.  Not optimize for the vertical slider
+  ratio_size_slider_adjustable =.2 ; 
+
+  // vertical grid
+  marge = 10;
+  int width_inside = width -(2*marge);
+  
+  //col_width = 160;
+  grid_col = new int[12];
+  col_width = width_inside/grid_col.length;
+  grid_col[0] = marge;
+  for(int i = 1 ; i < grid_col.length ; i++) {
+    grid_col[i] = col_width +grid_col[i-1];
+
+  }
+
+
+
+  // item gui pos
+  offset_y_item = grid_col[0] +15;
+  item_a_col = grid_col[0];
+  item_b_col = grid_col[3];
+  item_c_col = grid_col[6];
+
+  // this not a position but the height of the rectangle
+  height_header = 23;
+
+  height_button_top = 44 ;
+  pos_y_button_top = height_header ;
+
+  height_dropdown_top = 32 ;
+  pos_y_dropdown_top = height_header +height_button_top;
+
+  height_menu_general = 138 ;
+  pos_y_menu_general = height_header +height_button_top +height_dropdown_top;
+
+  height_menu_sound = 55 ;
+  pos_y_menu_sound = height_header +height_button_top +height_dropdown_top +height_menu_general;
+  // item selected setting
+  height_item_button_console = 85;
+  pos_y_item_selected = height_header +height_button_top +height_dropdown_top +height_menu_general +height_menu_sound;
+  height_item_selected = spacing_slider *NUM_SLIDER_ITEM_BY_COL +height_item_button_console;
+
+  // inventory item setting
+  pos_y_inventory_item = height_header +height_button_top +height_dropdown_top +height_menu_general +height_menu_sound +height_item_selected;
+  // this value depend of the size of the scene, indeed we must calculate this one later.
+  height_inventory_item = 100 ;
+
+
+
+  // button slider
+  sizeTitleButton = 10 ;
+  correction_button_txt_y = 1 ;
+  correction_slider_txt_y = 1 ;
+
+  // CURTAIN
+  correctionCurtainX = 0 ;
+  correctionCurtainY = 8 ;
+  // GROUP MIDI
+  correctionMidiX = 40 ;
+  correctionMidiY = 9 ;
+  spacing_midi_info = 13 ;
+  correction_info_midi_x = 60 ;
+  correction_info_midi_y = 10 ;
+  size_x_window_info_midi = 200 ;
+
+  //GROUP GENERAL
+  correction_slider_general_pos_y = 12 ;
+  set_data_item_pos_y = 13 ;
+
+  // background
+  offset_background_x = grid_col[0] ;
+  offset_background_y = pos_y_menu_general +set_data_item_pos_y +2;
+
+  // filter
+  offset_filter_x = grid_col[0] ;
+  offset_filter_y = pos_y_menu_general +set_data_item_pos_y +2;
+
+  // light
+  offset_light_x = new int[3];
+  offset_light_x[0] = grid_col[0];
+  offset_light_x[1] = grid_col[3];
+  offset_light_x[2] = grid_col[3];
+
+  offset_light_y = new int[3];
+  offset_light_y[0] = pos_y_menu_general +set_data_item_pos_y +73;
+  offset_light_y[1] = pos_y_menu_general +set_data_item_pos_y +13;
+  offset_light_y[2] = pos_y_menu_general +set_data_item_pos_y +73;
+
+
+  // sound
+  offset_sound_x = grid_col[0] ;
+  offset_sound_y = pos_y_menu_sound +17;
+  // camera
+  offset_camera_x = grid_col[6] ;
+  offset_camera_y = pos_y_menu_general +set_data_item_pos_y -5 ;
+
+  // item selected
+  local_pos_y_button_item_selected = 20 ;
+  local_pos_y_dropdown_item_selected = local_pos_y_button_item_selected +73;
+  local_pos_y_slider_button = local_pos_y_dropdown_item_selected +20; 
+}
+
+
+
+
+
+
+
+
+
 /**
 ITEM
 */
@@ -133,8 +254,6 @@ Vec2  pos_midi_button, size_midi_button, pos_midi_info,
       pos_hat_button, size_hat_button ;
 
 
-
-
 float ratio_size_molette = 1.3; 
 
 int slider_width = 100;
@@ -142,95 +261,90 @@ int slider_height = 8;
 int col_width = 160;
 int spacing_slider = 11;
 int rounded_slider = 4;
-/*  the position is calculated in ratio of the slider position. Not optimize for the vertical slider */
+// the position is calculated in ratio of the slider position. Not optimize for the vertical slider
 float ratio_pos_slider_adjustable = .5 ; 
-/*the height size is calculated in ratio of the slider height size.  Not optimize for the vertical slider */
+// the height size is calculated in ratio of the slider height size.  Not optimize for the vertical slider
 float ratio_size_slider_adjustable =.2 ; 
 
 // vertical grid
-int col_1 = 10; 
-int col_2 = int(col_width +col_1); 
-int col_3 = int(col_width +col_2);
+int marge;
+int [] grid_col;
+int item_a_col,item_b_col,item_c_col;
 
 // item gui pos
-int offset_y_item = col_1 +15;
+int offset_y_item;
 
 // this not a position but the height of the rectangle
-int height_header = 23;
+int height_header;
 
-int height_button_top = 44 ;
-int pos_y_button_top = height_header ;
+int height_button_top;
+int pos_y_button_top;
 
-int height_dropdown_top = 32 ;
-int pos_y_dropdown_top = height_header +height_button_top;
+int height_dropdown_top;
+int pos_y_dropdown_top;
 
-int height_menu_general = 138 ;
-int pos_y_menu_general = height_header +height_button_top +height_dropdown_top;
+int height_menu_general;
+int pos_y_menu_general;
 
-int height_menu_sound = 55 ;
-int pos_y_menu_sound = height_header +height_button_top +height_dropdown_top +height_menu_general;
+int height_menu_sound;
+int pos_y_menu_sound;
 // item selected setting
-int height_item_button_console = 85;
-int pos_y_item_selected = height_header +height_button_top +height_dropdown_top +height_menu_general +height_menu_sound;
-int height_item_selected = spacing_slider *NUM_SLIDER_ITEM_BY_COL +height_item_button_console;
+int height_item_button_console;
+int pos_y_item_selected;
+int height_item_selected;
 
 // inventory item setting
-int pos_y_inventory_item = height_header +height_button_top +height_dropdown_top +height_menu_general +height_menu_sound +height_item_selected;
+int pos_y_inventory_item;
 // this value depend of the size of the scene, indeed we must calculate this one later.
-int height_inventory_item = 100 ;
-
-
+int height_inventory_item;
 
 // button slider
-int sizeTitleButton = 10 ;
-int correction_button_txt_y = 1 ;
-int correction_slider_txt_y = 1 ;
+int sizeTitleButton;
+int correction_button_txt_y;
+int correction_slider_txt_y;
 
 // CURTAIN
-int correctionCurtainX = 0 ;
-int correctionCurtainY = 8 ;
+int correctionCurtainX;
+int correctionCurtainY;
 // GROUP MIDI
-int correctionMidiX = 40 ;
-int correctionMidiY = 9 ;
-int spacing_midi_info = 13 ;
-int correction_info_midi_x = 60 ;
-int correction_info_midi_y = 10 ;
-int size_x_window_info_midi = 200 ;
-
-
-// MENU TOP DROPDOWN
-
+int correctionMidiX;
+int correctionMidiY;
+int spacing_midi_info;
+int correction_info_midi_x;
+int correction_info_midi_y;
+int size_x_window_info_midi;
 
 //GROUP GENERAL
-int correction_slider_general_pos_y = 12 ;
-int set_data_item_pos_y = 13 ;
+int correction_slider_general_pos_y;
+int set_data_item_pos_y;
 
 // background
-int offset_background_x = col_1 ;
-int offset_background_y = pos_y_menu_general +set_data_item_pos_y +2;
+int offset_background_x;
+int offset_background_y;
 
 // filter
-int offset_filter_x = col_1 ;
-int offset_filter_y = pos_y_menu_general +set_data_item_pos_y +2;
+int offset_filter_x;
+int offset_filter_y;
 
 // light
-int [] offset_light_x = {col_1,col_2,col_2};
-int [] offset_light_y = {pos_y_menu_general +set_data_item_pos_y +73,
-                         pos_y_menu_general +set_data_item_pos_y +13,
-                         pos_y_menu_general +set_data_item_pos_y +73 };
+int [] offset_light_x;
+int [] offset_light_y;
 
 // sound
-int offset_sound_x = col_1 ;
-int offset_sound_y = pos_y_menu_sound +17;
+int offset_sound_x;
+int offset_sound_y;
 
 // camera
-int offset_camera_x = col_3 ;
-int offset_camera_y = pos_y_menu_general +set_data_item_pos_y -5 ;
+int offset_camera_x;
+int offset_camera_y;
 
 // item selected
-int local_pos_y_button_item_selected = 20 ;
-int local_pos_y_dropdown_item_selected = local_pos_y_button_item_selected +73;
-int local_pos_y_slider_button = local_pos_y_dropdown_item_selected +20;
+int local_pos_y_button_item_selected;
+int local_pos_y_dropdown_item_selected;
+int local_pos_y_slider_button;
+
+
+
 
 
 

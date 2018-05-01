@@ -322,11 +322,11 @@ void set_slider_item_console(int pos_y) {
       int whichSlider = i +(j *NUM_SLIDER_ITEM_BY_COL) ;
       int pos_x = 0 ;
       switch(j) {
-        case 0 : pos_x = col_1; 
+        case 0 : pos_x = item_a_col; 
         break;
-        case 1 : pos_x = col_2;
+        case 1 : pos_x = item_b_col;
         break;
-        case 2 : pos_x = col_3;
+        case 2 : pos_x = item_c_col;
         break;
       }
       pos_slider_item[whichSlider] = Vec2(pos_x, pos_y +i *spacing_slider);
@@ -611,10 +611,10 @@ void dislay_text_slider_item() {
     else if(switch_text.equals("s_brightness")) switch_text = "brightness";
     else if(switch_text.equals("s_alpha")) switch_text = "alpha";
     else if(switch_text.equals("thickness")) switch_text = "THICKNESS";
-    text(switch_text, col_1 +correction_local_x, height_item_selected +correction_local_y +(factor *spacing_slider));
+    text(switch_text, item_a_col +correction_local_x, height_item_selected +correction_local_y +(factor *spacing_slider));
     // no change for text for col 2 and 3
-    text(slider_item_name[which_two], col_2 +correction_local_x, height_item_selected +correction_local_y +(factor *spacing_slider));
-    text(slider_item_name[which_three], col_3 +correction_local_x, height_item_selected +correction_local_y +(factor *spacing_slider));
+    text(slider_item_name[which_two], item_b_col +correction_local_x, height_item_selected +correction_local_y +(factor *spacing_slider));
+    text(slider_item_name[which_three], item_c_col +correction_local_x, height_item_selected +correction_local_y +(factor *spacing_slider));
   }
 }
 
@@ -1004,11 +1004,11 @@ Setting button
 void set_button_general() {
   // MIDI
   size_midi_button = Vec2(50,26);
-  pos_midi_button = Vec2(col_1 +correctionMidiX, pos_y_button_top +correctionMidiY);
+  pos_midi_button = Vec2(grid_col[0] +correctionMidiX, pos_y_button_top +correctionMidiY);
   pos_midi_info =Vec2(pos_midi_button.x +correction_info_midi_x, pos_midi_button.y +correction_info_midi_y);
   // CURTAIN
   size_curtain_button = Vec2(30,30);
-  pos_curtain_button = Vec2(col_1 +correctionCurtainX, pos_y_button_top +correctionCurtainY); 
+  pos_curtain_button = Vec2(grid_col[0] +correctionCurtainX, pos_y_button_top +correctionCurtainY); 
   
   
   // BACKGROUND

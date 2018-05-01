@@ -20,6 +20,7 @@ boolean test = false ;
 void settings() {
   size(670,725);
   size_ref = Vec2(width,height);
+  set_structure_data();
 }
 
 void setup() {

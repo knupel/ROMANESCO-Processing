@@ -265,7 +265,7 @@ void set_button_inventory_item() {
 
   int max_size_col = num_item_by_col *spacing;
   int col_size_list_item = 80 ;
-  int left_flag = col_1 +10 ;
+  int left_flag = grid_col[0] +10 ;
   int top_text = pos_y_inventory_item -5 ;
   int ratio_rollover_x = 9 ;
 
