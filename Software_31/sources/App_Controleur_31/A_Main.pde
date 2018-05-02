@@ -154,14 +154,14 @@ void display_text() {
 
 
 void check_interface() {
-  if(size_ref.x != width || size_ref.y != height) INIT_INTERFACE = true ;
+  if(size_window_ref.x != width || size_window_ref.y != height) INIT_INTERFACE = true ;
 }
 
 void init_interface() {
   if(INIT_INTERFACE) {
     build_button_inventory_item() ;
     set_inventory_item() ;
-    size_ref.set(width, height) ;
+    size_window_ref.set(width, height) ;
   }
 }
 
@@ -196,8 +196,8 @@ setting
 void build_slider() {
   // background
   for (int i = 0 ; i < NUM_SLIDER_BACKGROUND ; i++) {
-    Vec2 temp_size_mol = Vec2(size_slider_background[i].y *ratio_size_molette, size_slider_background[i].y *ratio_size_molette) ;
-    Vec2 temp_pos = Vec2(pos_slider_background[i].x, pos_slider_background[i].y -(slider_height *.6)) ;
+    iVec2 temp_size_mol = iVec2(round(size_slider_background[i].y *ratio_size_molette), round(size_slider_background[i].y *ratio_size_molette));
+    iVec2 temp_pos = iVec2(pos_slider_background[i].x, round(pos_slider_background[i].y -(slider_height *.6)));
     if(info_save_raw_list(info_slider_background,i).a > -1 ) {
       slider_adj_background[i] = new Slider_adjustable(temp_pos, size_slider_background[i], temp_size_mol, "ELLIPSE");
       slider_adj_background[i].set_id(i);
@@ -206,8 +206,8 @@ void build_slider() {
 
   // filter
   for (int i = 0 ; i < NUM_SLIDER_FILTER ; i++) {
-    Vec2 temp_size_mol = Vec2(size_slider_filter[i].y *ratio_size_molette, size_slider_filter[i].y *ratio_size_molette) ;
-    Vec2 temp_pos = Vec2(pos_slider_filter[i].x, pos_slider_filter[i].y -(slider_height *.6)) ;
+    iVec2 temp_size_mol = iVec2(round(size_slider_filter[i].y *ratio_size_molette), round(size_slider_filter[i].y *ratio_size_molette));
+    iVec2 temp_pos = iVec2(pos_slider_filter[i].x, round(pos_slider_filter[i].y -(slider_height *.6)));
     if(info_save_raw_list(info_slider_filter,i).a > -1 ) {
       slider_adj_filter[i] = new Slider_adjustable(temp_pos, size_slider_filter[i], temp_size_mol, "ELLIPSE");
       slider_adj_filter[i].set_id(i);
@@ -216,8 +216,8 @@ void build_slider() {
 
   // light
   for (int i = 0 ; i < NUM_SLIDER_LIGHT ; i++) {
-    Vec2 temp_size_mol = Vec2(size_slider_light[i].y *ratio_size_molette, size_slider_light[i].y *ratio_size_molette) ;
-    Vec2 temp_pos = Vec2(pos_slider_light[i].x, pos_slider_light[i].y -(slider_height *.6)) ;
+    iVec2 temp_size_mol = iVec2(round(size_slider_light[i].y *ratio_size_molette), round(size_slider_light[i].y *ratio_size_molette));
+    iVec2 temp_pos = iVec2(pos_slider_light[i].x, round(pos_slider_light[i].y -(slider_height *.6)));
     if(info_save_raw_list(info_slider_light,i).a > -1 ) {
       slider_adj_light[i] = new Slider_adjustable(temp_pos, size_slider_light[i], temp_size_mol, "ELLIPSE");
       slider_adj_light[i].set_id(i);
@@ -226,8 +226,8 @@ void build_slider() {
 
   // sound
   for (int i = 0 ; i < NUM_SLIDER_SOUND ; i++) {
-    Vec2 temp_size_mol = Vec2(size_slider_sound[i].y *ratio_size_molette, size_slider_sound[i].y *ratio_size_molette) ;
-    Vec2 temp_pos = Vec2(pos_slider_sound[i].x, pos_slider_sound[i].y -(slider_height *.6)) ;
+    iVec2 temp_size_mol = iVec2(round(size_slider_sound[i].y *ratio_size_molette), round(size_slider_sound[i].y *ratio_size_molette));
+    iVec2 temp_pos = iVec2(pos_slider_sound[i].x, round(pos_slider_sound[i].y -(slider_height *.6)));
     if(info_save_raw_list(info_slider_sound,i).a > -1 ) {
       slider_adj_sound[i] = new Slider_adjustable(temp_pos, size_slider_sound[i], temp_size_mol, "ELLIPSE");
       slider_adj_sound[i].set_id(i);
@@ -236,8 +236,8 @@ void build_slider() {
 
   // camera
   for (int i = 0 ; i < NUM_SLIDER_CAMERA ; i++) {
-    Vec2 temp_size_mol = Vec2(size_slider_camera[i].y *ratio_size_molette, size_slider_camera[i].y *ratio_size_molette) ;
-    Vec2 temp_pos = Vec2(pos_slider_camera[i].x, pos_slider_camera[i].y -(slider_height *.6)) ;
+    iVec2 temp_size_mol = iVec2(round(size_slider_camera[i].y *ratio_size_molette), round(size_slider_camera[i].y *ratio_size_molette));
+    iVec2 temp_pos = iVec2(pos_slider_camera[i].x, round(pos_slider_camera[i].y -(slider_height *.6)));
     if(info_save_raw_list(info_slider_camera,i).a > -1 ) {
       slider_adj_camera[i] = new Slider_adjustable(temp_pos, size_slider_camera[i], temp_size_mol, "ELLIPSE");
       slider_adj_camera[i].set_id(i);
@@ -246,8 +246,8 @@ void build_slider() {
 
   // item
   for (int i = 0 ; i < NUM_SLIDER_ITEM ; i++) {
-    Vec2 temp_size_mol = Vec2(size_slider_item[i].y *ratio_size_molette, size_slider_item[i].y *ratio_size_molette) ;
-    Vec2 temp_pos = Vec2(pos_slider_item[i].x, pos_slider_item[i].y -(slider_height *.6)) ;
+    iVec2 temp_size_mol = iVec2(round(size_slider_item[i].y *ratio_size_molette), round(size_slider_item[i].y *ratio_size_molette));
+    iVec2 temp_pos = iVec2(pos_slider_item[i].x, round(pos_slider_item[i].y -(slider_height *.6)));
     if(info_save_raw_list(info_slider_item,i).a > -1 ) {
       slider_adj_item[i] = new Slider_adjustable(temp_pos, size_slider_item[i], temp_size_mol, "ELLIPSE");
       slider_adj_item[i].set_id(i);
@@ -257,39 +257,39 @@ void build_slider() {
 
 
 void set_slider() {
-  set_slider_background(correction_slider_general_pos_y);
-  set_slider_filter(correction_slider_general_pos_y);
-  set_slider_light(correction_slider_general_pos_y);
-  set_slider_sound(correction_slider_general_pos_y);
-  set_slider_camera(correction_slider_general_pos_y);
-  set_slider_item_console(height_item_selected +local_pos_y_slider_button);
+  set_slider_background(correction_slider_general_pos_y, iVec2(slider_width, slider_height));
+  set_slider_filter(correction_slider_general_pos_y,iVec2(slider_width, slider_height));
+  set_slider_light(correction_slider_general_pos_y,iVec2(slider_width, slider_height));
+  set_slider_sound(correction_slider_general_pos_y,iVec2(slider_width, slider_height));
+  set_slider_camera(correction_slider_general_pos_y,iVec2(slider_width, slider_height));
+  set_slider_item_console(height_item_selected +local_pos_y_slider_button,iVec2(slider_width, slider_height));
 }
 
 
 
-void set_slider_background(int correction_local_y) {
+void set_slider_background(int correction_local_y, iVec2 size) {
   for(int i = 0 ; i < NUM_SLIDER_BACKGROUND ;i++) {
-    float posY = offset_background_y +correction_local_y +(i *spacing_slider);
-    pos_slider_background[i] = Vec2(offset_background_x, posY);
-    size_slider_background[i] = Vec2(slider_width,slider_height);
+    int pos_y = round(offset_background_y +correction_local_y +(i *spacing_slider));
+    pos_slider_background[i] = iVec2(offset_background_x, pos_y);
+    size_slider_background[i] = iVec2(size);
   }
 }
 
-void set_slider_filter(int correction_local_y) {
+void set_slider_filter(int correction_local_y, iVec2 size) {
   for(int i = 0 ; i < NUM_SLIDER_FILTER ;i++) {
-    float posY = offset_filter_y +correction_local_y +(i *spacing_slider);
-    pos_slider_filter[i] = Vec2(offset_filter_x, posY);
-    size_slider_filter[i] = Vec2(slider_width,slider_height);
+    int pos_y = round(offset_filter_y +correction_local_y +(i *spacing_slider));
+    pos_slider_filter[i] = iVec2(offset_filter_x, pos_y);
+    size_slider_filter[i] = iVec2(size);
   }
 }
 
-void set_slider_light(int correction_local_y) {
+void set_slider_light(int correction_local_y, iVec2 size) {
   int count = 0;
   int index = 0;
   for(int i = 0 ; i < NUM_SLIDER_LIGHT ;i++) {
-    float posY = offset_light_y[index] +correction_local_y +(count *spacing_slider);
-    pos_slider_light[i] = Vec2(offset_light_x[index], posY);
-    size_slider_light[i] = Vec2(slider_width,slider_height);
+    int pos_y = round(offset_light_y[index] +correction_local_y +(count *spacing_slider));
+    pos_slider_light[i] = iVec2(offset_light_x[index], pos_y);
+    size_slider_light[i] = iVec2(size);
     count++;
     if(count > 2) {
       index++;
@@ -298,24 +298,24 @@ void set_slider_light(int correction_local_y) {
   }
 }
 
-void set_slider_sound(int correction_local_y) {
+void set_slider_sound(int correction_local_y, iVec2 size) {
   for(int i = 0 ; i < NUM_SLIDER_SOUND ;i++) {
-    float posY = offset_sound_y +correction_local_y +(i *spacing_slider);
-    pos_slider_sound[i] = Vec2(offset_sound_x, posY);
-    size_slider_sound[i] = Vec2(slider_width,slider_height);
+    int pos_y = round(offset_sound_y +correction_local_y +(i *spacing_slider));
+    pos_slider_sound[i] = iVec2(offset_sound_x, pos_y);
+    size_slider_sound[i] = iVec2(size);
   }
 }
 
 
-void set_slider_camera(int correction_local_y) {
+void set_slider_camera(int correction_local_y, iVec2 size) {
   for(int i = 0 ; i < NUM_SLIDER_CAMERA ;i++) {
-    float posY = offset_camera_y +correction_local_y +(i *spacing_slider);
-    pos_slider_camera[i] = Vec2(offset_camera_x, posY);
-    size_slider_camera[i] = Vec2(slider_width,slider_height);
+    int pos_y = round(offset_camera_y +correction_local_y +(i *spacing_slider));
+    pos_slider_camera[i] = iVec2(offset_camera_x, pos_y);
+    size_slider_camera[i] = iVec2(size);
   }
 }
 
-void set_slider_item_console(int pos_y) {
+void set_slider_item_console(int pos_y, iVec2 size) {
   // where the controller must display the slider
   for( int i = 0 ; i < NUM_SLIDER_ITEM_BY_COL ; i++) {
     for (int j = 0 ; j < NUM_COL_SLIDER ; j++) {
@@ -329,8 +329,8 @@ void set_slider_item_console(int pos_y) {
         case 2 : pos_x = item_c_col;
         break;
       }
-      pos_slider_item[whichSlider] = Vec2(pos_x, pos_y +i *spacing_slider);
-      size_slider_item[whichSlider] = Vec2(slider_width, slider_height);
+      pos_slider_item[whichSlider] = iVec2(pos_x, round(pos_y +i *spacing_slider));
+      size_slider_item[whichSlider] = iVec2(size);
     }
   }
 }
@@ -436,7 +436,7 @@ void dispay_text_slider_top(int pos) {
   fill (colorTextUsual) ;
 
   //BACKGROUND
-  Vec2 pos_local = Vec2(slider_width+5,3);
+  iVec2 pos_local = iVec2(slider_width+5,3);
   // background
   for(int i = 0 ; i < NUM_SLIDER_BACKGROUND ; i++) {
     text(slider_background_name[i], add(pos_slider_background[i],pos_local));
@@ -485,8 +485,8 @@ void slider_filter_display_bg() {
 void slider_light_0_display_bg() {
   int start = 0;
   int length = 3 ;
-  Vec2 [] pos = new Vec2[length];
-  Vec2 [] size = new Vec2[length];
+  iVec2 [] pos = new iVec2[length];
+  iVec2 [] size = new iVec2[length];
   float [] value = new float[length];
   System.arraycopy(pos_slider_light,start,pos,0,length);
   System.arraycopy(size_slider_light,start,size,0,length);
@@ -497,8 +497,8 @@ void slider_light_0_display_bg() {
 void slider_light_1_display_bg() {
   int start = 3 ;
   int length = 3 ;
-  Vec2 [] pos = new Vec2[length];
-  Vec2 [] size = new Vec2[length];
+  iVec2 [] pos = new iVec2[length];
+  iVec2 [] size = new iVec2[length];
   float [] value = new float[length];
   System.arraycopy(pos_slider_light,start,pos,0,length);
   System.arraycopy(size_slider_light,start,size,0,length);
@@ -509,8 +509,8 @@ void slider_light_1_display_bg() {
 void slider_light_2_display_bg() {
   int start = 6 ;
   int length = 3 ;
-  Vec2 [] pos = new Vec2[length];
-  Vec2 [] size = new Vec2[length];
+  iVec2 [] pos = new iVec2[length];
+  iVec2 [] size = new iVec2[length];
   float [] value = new float[length];
   System.arraycopy(pos_slider_light,start,pos,0,length);
   System.arraycopy(size_slider_light,start,size,0,length);
@@ -537,7 +537,7 @@ void slider_camera_display_bg() {
 }
 
 // supra local void
-void slider_display_hsb(Vec2 [] pos, Vec2 [] size, float [] value) {
+void slider_display_hsb(iVec2 [] pos, iVec2 [] size, float [] value) {
   if (mouseX > (pos[0].x ) && mouseX < ( pos[0].x +size[0].x) 
       && mouseY > ( pos[0].y - 5) && mouseY < pos[0].y +40) {
     slider_show_hue_background(pos[0], size[0]) ;
@@ -749,14 +749,14 @@ void slider_HSB_item_display(int whichGroup, int hueRank, int satRank, int brigh
 /**
 slider method
 */
-void slider_show_background(Vec2 pos, Vec2 size, int rounded, int c) {
+void slider_show_background(iVec2 pos, iVec2 size, int rounded, int c) {
   fill(c);
   rect(pos.x, pos.y -(size.y *.5), size.x, size.y, rounded);
 
 }
 
 // hue
-void slider_show_hue_background(Vec2 pos, Vec2 size) {
+void slider_show_hue_background(iVec2 pos, iVec2 size) {
   pushMatrix ();
   translate (pos.x , pos.y -(size.y *.5));
   for (int i = 0 ; i < size.x ; i++) {
@@ -770,7 +770,7 @@ void slider_show_hue_background(Vec2 pos, Vec2 size) {
 }
 
 // saturation
-void slider_show_saturation_background(Vec2 pos, Vec2 size, float colour, float s, float d) {
+void slider_show_saturation_background(iVec2 pos, iVec2 size, float colour, float s, float d) {
   pushMatrix ();
   translate (pos.x, pos.y-(size.y *.5));
   for ( int i = 0 ; i < size.x ; i++) {
@@ -785,7 +785,7 @@ void slider_show_saturation_background(Vec2 pos, Vec2 size, float colour, float 
 }
 
 // brightness
-void slider_show_brightness_background(Vec2 pos, Vec2 size, float colour, float s, float d) {
+void slider_show_brightness_background(iVec2 pos, iVec2 size, float colour, float s, float d) {
   pushMatrix ();
   translate (pos.x, pos.y-(size.y *.5));
   for (int i = 0 ; i < size.x ; i++) {
@@ -1220,9 +1220,9 @@ color color_dropdown_item_in, color_dropdown_item_out;
 void init_dropdown() {
   // dropdown bar
   dropdown_bar = new Dropdown[num_dropdown_bar];
-  dropdown_bar_pos = new Vec3[num_dropdown_bar];
-  dropdown_bar_size = new Vec2[num_dropdown_bar];
-  dropdown_bar_pos_text = new Vec2[num_dropdown_bar];
+  dropdown_bar_pos = new iVec2[num_dropdown_bar];
+  dropdown_bar_size = new iVec2[num_dropdown_bar];
+  dropdown_bar_pos_text = new iVec2[num_dropdown_bar];
   dropdown_content = new String[num_dropdown_bar][0];
 
   // dropdown item
@@ -1230,10 +1230,10 @@ void init_dropdown() {
   lastDropdown = num_dropdown_item -1;
   mode_list_RPE = new String[num_dropdown_item];
   dropdown_item_mode = new Dropdown[num_dropdown_item];
-  pos_dropdown = new Vec3[num_dropdown_item];
+  pos_dropdown = new iVec2[num_dropdown_item];
 
   for(int i = 0 ; i < num_dropdown_item ; i++) {
-    pos_dropdown[i] = Vec3();
+    pos_dropdown[i] = iVec2();
   }
 }
 
@@ -1265,10 +1265,10 @@ void set_dropdown_general() {
   update_media() ;
  
   for(int i = 0 ; i < dropdown_bar.length ; i++) {
-    dropdown_bar_pos[i] = Vec3(pos_x_dropdown_bar[i],pos_y_dropdown_bar, .1);
-    dropdown_bar_size[i] = Vec2(width_dropdown_bar[i],height_dropdown_header_bar);
+    dropdown_bar_pos[i] = iVec2(pos_x_dropdown_bar[i],pos_y_dropdown_bar);
+    dropdown_bar_size[i] = iVec2(width_dropdown_bar[i],height_dropdown_header_bar);
     int num_box = 7;
-    dropdown_bar_pos_text[i] = Vec2(3,10);
+    dropdown_bar_pos_text[i] = iVec2(3,10);
     ROPE_color dropdown_color_bar = new ROPE_color(colorDropdownBG, colorBoxIn, colorBoxOut, color_dropdown_header_in, color_dropdown_header_out, colorBoxText);
     dropdown_bar[i] = new Dropdown(name_dropdown_bar[i],dropdown_content[i],dropdown_bar_pos[i],dropdown_bar_size[i],dropdown_bar_pos_text[i], dropdown_color_bar,num_box, height_box_dropdown);
     dropdown_bar[i].set_font_header(title_dropdown_medium);
@@ -1279,10 +1279,9 @@ void set_dropdown_general() {
 void set_dropdown_item_selected() {
   //common param
   int num_box = 7;
-  size_dropdown_mode = Vec2(20,15);
-  float x = offset_y_item + -8;
-  float y = height_item_selected +local_pos_y_dropdown_item_selected;
-  float z = .1;
+  size_dropdown_item_mode = iVec2(20,15);
+  int x = offset_y_item + -8;
+  int y = height_item_selected +local_pos_y_dropdown_item_selected;
 
   ROPE_color dropdown_color_item = new ROPE_color(colorDropdownBG, colorBoxIn, colorBoxOut, color_dropdown_item_in, color_dropdown_item_out, colorBoxText);
   // group item
@@ -1291,11 +1290,11 @@ void set_dropdown_item_selected() {
       //Split the dropdown to display in the dropdown
       String [] item_mode_dropdown_list = split(mode_list_RPE[i], "/" ) ;
       //to change the title of the header dropdown
-      pos_dropdown[i].set(x, y, z) ; // 'x' 'y' is pos and 'z' is marge between the dropdown and the header
+      pos_dropdown[i].set(x,y); 
       dropdown_item_mode[i] = new Dropdown("M", 
                                   item_mode_dropdown_list, 
                                   pos_dropdown[i], 
-                                  size_dropdown_mode, 
+                                  size_dropdown_item_mode, 
                                   posTextDropdown, 
                                   dropdown_color_item,
                                   num_box, 
@@ -1364,7 +1363,7 @@ int update_dropdown_bar(Dropdown dd) {
   if (dropdownOpen) dropdownActivityCount = +1 ;
   marge_around_dropdown = dd.get_size().y  ;
   //give the size of menu recalculate with the size of the word inside
-  Vec2 new_size = dd.size_box.copy();
+  iVec2 new_size = dd.size_box.copy();
   //compare the standard size of dropdown with the number of element of the list.
   int height_dd_open = 0 ;
   if(dd.get_content().length < dd.get_num_box()) {
@@ -1416,10 +1415,10 @@ void update_dropdown_item() {
       if ( m.length > 1) {
         dropdown_item_mode[i].update();
         if (dropdownOpen) dropdownActivityCount++ ;
-        marge_around_dropdown = size_dropdown_mode.y  ;
+        marge_around_dropdown = size_dropdown_item_mode.y  ;
 
         //give the size of menu recalculate with the size of the word inside
-        Vec2 newSizeModeTypo = dropdown_item_mode[i].size_box.copy();
+        iVec2 newSizeModeTypo = dropdown_item_mode[i].size_box.copy();
         int heightDropdown = 0 ;
 
         if(dropdown_item_mode[i].content.length <  dropdown_item_mode[i].get_num_box()) {
@@ -1428,7 +1427,7 @@ void update_dropdown_item() {
           heightDropdown = dropdown_item_mode[i].get_num_box();
         }
 
-        Vec2 temp_size = Vec2(newSizeModeTypo.x +(marge_around_dropdown *1.5), size_dropdown_mode.y *(heightDropdown +1) +marge_around_dropdown) ; // we must add +1 to the size of the dropdown for the title plus the item list
+        Vec2 temp_size = Vec2(newSizeModeTypo.x +(marge_around_dropdown *1.5), size_dropdown_item_mode.y *(heightDropdown +1) +marge_around_dropdown) ; // we must add +1 to the size of the dropdown for the title plus the item list
         
         //new pos to include the slider
         Vec2 temp_pos = Vec2(dropdown_item_mode[i].get_pos().x -marge_around_dropdown, dropdown_item_mode[i].get_pos().y) ;
@@ -1467,7 +1466,7 @@ void mousepressed_dropdown() {
 
 void check_dropdown_mousepressed(Dropdown dd) {
   if (dd != null) {
-    if (inside(dd.get_pos(), dd.get_size(),Vec2(mouseX,mouseY),RECT) && !dd.locked) {
+    if (inside(dd.get_pos(), dd.get_size(),iVec2(mouseX,mouseY),RECT) && !dd.locked) {
       dd.locked = true;
     } else if (dd.locked) {
       // println("locked",dd.get_name(),frameCount);

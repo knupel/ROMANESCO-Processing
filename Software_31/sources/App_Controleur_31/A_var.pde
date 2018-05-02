@@ -1,6 +1,6 @@
 /**
 Variable
-v 0.0.4
+v 0.0.5
 */
 void set_structure_data() {
   ratio_size_molette = 1.3; 
@@ -25,10 +25,7 @@ void set_structure_data() {
   grid_col[0] = marge;
   for(int i = 1 ; i < grid_col.length ; i++) {
     grid_col[i] = col_width +grid_col[i-1];
-
   }
-
-
 
   // item gui pos
   offset_y_item = grid_col[0] +15;
@@ -142,12 +139,12 @@ PImage[] picSound = new PImage[4];
 PImage[] picAction = new PImage[4];
 
 Dropdown dropdown_item_mode[];
-Vec3 pos_dropdown[];
+iVec2 pos_dropdown[];
 
 /**
 MISC
 */
-Vec2 size_ref ;
+iVec2 size_window_ref ;
 
 int sliderMidi, midi_value_romanesco, midi_channel_romanesco ;
 int midi_CC_romanesco = -1 ;
@@ -189,44 +186,44 @@ PImage[] picMidi = new PImage[4] ;
 
 
 Vec5 [] info_slider_background; 
-Vec2 [] pos_slider_background = new Vec2[NUM_SLIDER_BACKGROUND] ; 
-Vec2 [] size_slider_background = new Vec2[NUM_SLIDER_BACKGROUND] ;
+iVec2 [] pos_slider_background = new iVec2[NUM_SLIDER_BACKGROUND] ; 
+iVec2 [] size_slider_background = new iVec2[NUM_SLIDER_BACKGROUND] ;
 Slider_adjustable [] slider_adj_background = new Slider_adjustable[NUM_SLIDER_BACKGROUND] ;
 float [] value_slider_background = new float[NUM_SLIDER_BACKGROUND];
 String[] slider_background_name = new String[NUM_SLIDER_BACKGROUND];
 
 // slider filter
 Vec5 [] info_slider_filter; 
-Vec2 [] pos_slider_filter = new Vec2[NUM_SLIDER_FILTER] ; 
-Vec2 [] size_slider_filter = new Vec2[NUM_SLIDER_FILTER] ;
+iVec2 [] pos_slider_filter = new iVec2[NUM_SLIDER_FILTER] ; 
+iVec2 [] size_slider_filter = new iVec2[NUM_SLIDER_FILTER] ;
 Slider_adjustable [] slider_adj_filter = new Slider_adjustable[NUM_SLIDER_FILTER] ;
 float [] value_slider_filter = new float[NUM_SLIDER_FILTER];
 String[] slider_filter_name = new String[NUM_SLIDER_FILTER];
 // slider light
 Vec5 [] info_slider_light; 
-Vec2 [] pos_slider_light = new Vec2[NUM_SLIDER_LIGHT] ; 
-Vec2 [] size_slider_light = new Vec2[NUM_SLIDER_LIGHT] ;
+iVec2 [] pos_slider_light = new iVec2[NUM_SLIDER_LIGHT] ; 
+iVec2 [] size_slider_light = new iVec2[NUM_SLIDER_LIGHT] ;
 Slider_adjustable [] slider_adj_light = new Slider_adjustable[NUM_SLIDER_LIGHT] ;
 float [] value_slider_light = new float[NUM_SLIDER_LIGHT];
 String[] slider_light_name = new String[NUM_SLIDER_LIGHT];
 // slider sound
 Vec5 [] info_slider_sound; 
-Vec2 [] pos_slider_sound = new Vec2[NUM_SLIDER_SOUND] ; 
-Vec2 [] size_slider_sound = new Vec2[NUM_SLIDER_SOUND] ;
+iVec2 [] pos_slider_sound = new iVec2[NUM_SLIDER_SOUND] ; 
+iVec2 [] size_slider_sound = new iVec2[NUM_SLIDER_SOUND] ;
 Slider_adjustable [] slider_adj_sound = new Slider_adjustable[NUM_SLIDER_SOUND] ;
 float [] value_slider_sound = new float[NUM_SLIDER_SOUND];
 String[] slider_sound_name = new String[NUM_SLIDER_SOUND];
 // slider camera
 Vec5 [] info_slider_camera; 
-Vec2 [] pos_slider_camera = new Vec2[NUM_SLIDER_CAMERA] ; 
-Vec2 [] size_slider_camera = new Vec2[NUM_SLIDER_CAMERA] ;
+iVec2 [] pos_slider_camera = new iVec2[NUM_SLIDER_CAMERA] ; 
+iVec2 [] size_slider_camera = new iVec2[NUM_SLIDER_CAMERA] ;
 Slider_adjustable [] slider_adj_camera = new Slider_adjustable[NUM_SLIDER_CAMERA] ;
 float [] value_slider_camera = new float[NUM_SLIDER_CAMERA];
 String[] slider_camera_name = new String[NUM_SLIDER_CAMERA];
 // slider item
 Vec5 [] info_slider_item; 
-Vec2 [] pos_slider_item = new Vec2[NUM_SLIDER_ITEM] ; 
-Vec2 [] size_slider_item = new Vec2[NUM_SLIDER_ITEM] ;
+iVec2 [] pos_slider_item = new iVec2[NUM_SLIDER_ITEM] ; 
+iVec2 [] size_slider_item = new iVec2[NUM_SLIDER_ITEM] ;
 Slider_adjustable [] slider_adj_item = new Slider_adjustable[NUM_SLIDER_ITEM] ;
 float [] value_slider_item = new float[NUM_SLIDER_ITEM];
 String [] slider_item_name = new String[NUM_SLIDER_ITEM] ;
@@ -356,7 +353,7 @@ int height_box_dropdown = 15 ;
 /**
 item
 */
-Vec2 size_dropdown_mode ;
+iVec2 size_dropdown_item_mode ;
 String [] mode_list_RPE ;
 // String [] item_mode_dropdown_list;
 
@@ -373,11 +370,11 @@ String [] name_dropdown_bar = {"background","filter","font","text","bitmap","sha
 String [][] dropdown_content;
 
 Dropdown dropdown_bar [];
-Vec3 [] dropdown_bar_pos;
-Vec2 [] dropdown_bar_size;
-Vec2 dropdown_bar_pos_text [];
+iVec2 [] dropdown_bar_pos;
+iVec2 [] dropdown_bar_size;
+iVec2 dropdown_bar_pos_text [];
 
-Vec2 posTextDropdown = Vec2(2,8);
+iVec2 posTextDropdown = iVec2(2,8);
 
 
 String [] filter_dropdown_list, font_dropdown_list, bitmap_dropdown_list, shape_dropdown_list, movie_dropdown_list, file_text_dropdown_list;

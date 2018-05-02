@@ -1,9 +1,8 @@
 /**
-ROPE - Romanesco processing environment – 
-* Copyleft (c) 2014-2017 
+ROPE SCIENCE
+v 0.2.3
+* Copyleft (c) 2014-2018 
 * Stan le Punk > http://stanlepunk.xyz/
-Rope SCIENCE 2016 – 2018
-v 0.2.1
 * @author Stan le Punk
 * @see https://github.com/StanLepunK/Rope
 *
@@ -32,7 +31,7 @@ public double g_force(double dist, double m_1, double m_2) {
 
 /**
 Math rope 
-v 1.8.16
+v 1.8.17
 * @author Stan le Punk
 * @see https://github.com/StanLepunK/Math_rope
 */
@@ -54,7 +53,7 @@ float decimale (float var, int n) {
 
 /**
 geometry util
-v. 0.0.6
+v. 0.0.7
 */
 float perimeter_disc(int r) {
   return 2 *r *PI ;
@@ -67,6 +66,10 @@ float radius_from_circle_surface(int surface) {
 
 boolean inside(iVec pos, iVec size, iVec2 target_pos) {
   return inside(Vec2(pos.x,pos.y), Vec2(size.x,size.y), Vec2(target_pos), ELLIPSE);
+}
+
+boolean inside(iVec pos, iVec size, iVec2 target_pos, int type) {
+  return inside(Vec2(pos.x,pos.y), Vec2(size.x,size.y), Vec2(target_pos), type);
 }
 
 boolean inside(Vec pos, Vec size, Vec2 target_pos) {

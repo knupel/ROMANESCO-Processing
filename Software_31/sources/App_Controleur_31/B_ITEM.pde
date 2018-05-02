@@ -60,7 +60,6 @@ void build_item_library() {
 }
 
 void init_var_item() {
-// item_rank = new int [NUM_ITEM +1] ;
   item_group = new int [NUM_ITEM +1] ;
   item_GUI_on_off = new int [NUM_ITEM +1] ;
 

@@ -12,14 +12,12 @@ V 1.2.0
 2016 september 8_700 lines of code
 2017 March 11_100 lines of code
  */
-
 String IAM = "Controller";
-
 boolean test = false ;
 
 void settings() {
   size(670,725);
-  size_ref = Vec2(width,height);
+  size_window_ref = iVec2(width,height);
   set_structure_data();
 }
 
