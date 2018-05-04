@@ -18,6 +18,7 @@ boolean test = false ;
 void settings() {
   size(670,725);
   size_window_ref = iVec2(width,height);
+  // init_rope();
   set_structure_data();
 }
 
@@ -49,7 +50,7 @@ void setup() {
   build_slider();
 
   set_OSC();
-  set_data_from_save();
+  set_data();
 
   reset() ;
 }
@@ -60,20 +61,13 @@ void draw() {
   check_media_folder();
   check_button();
 
-  init_interface();
   update_media();
   
   surface.setTitle(nameVersion + ": " +prettyVersion+"."+version+ " - Controller");
 
-  set_data_from_save() ;
+  set_data() ;
 
-  display_structure_header();
-  display_structure_top_button();
-  display_structure_dropdown_menu_general();
-  display_structure_general();
-  display_structure_menu_sound();
-  display_structure_item_selected();
-  display_structure_inventory_item();
+  display_structure();
 
   display_text();
   display_slider();
@@ -81,8 +75,6 @@ void draw() {
 
   update_midi();
   send_OSC();
-
-  display_structure_bottom();
 
   reset();
 

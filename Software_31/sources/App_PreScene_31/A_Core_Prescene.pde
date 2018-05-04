@@ -1,6 +1,6 @@
 /**
 Core Prescene
-v 1.2.0
+v 1.2.1
 2013-2018
 */
 /**
@@ -44,9 +44,6 @@ Here you find
 > open method for the scene and controller
 > keyboard command
 */
-
-// VARIABLES PRESCENE
-/////////////////////
 boolean scene = false ;
 boolean prescene = true ;
 
@@ -64,8 +61,6 @@ boolean youCanSendToScene = true ;
 // internet connection
 boolean internet = true ;
 String bigBrother = ("BIG BROTHER DON'T WATCHING YOU !!") ;
-
-
 
 // CURSOR SPEED
 int speedWheel = 4 ; // 5 is too quick

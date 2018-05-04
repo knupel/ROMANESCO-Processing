@@ -6,7 +6,6 @@ MAJOR
 >improve dropdown and sliders method
 >remove menu web-cam from controller
 >add menu filter to controller
->fix the setting size window for prescene and scene
 >refactoring the code to use slider in Romanesco sub-classes item
 >change slider controller system management to create a group by theme, easyer to code for the future.
 >create group data item, light, filter, sound, camera, background
@@ -14,9 +13,16 @@ MAJOR
 
 MINOR
 --
->improve OSC architecture
->common external file to name and use slider item
->fix bug size for item atoms
+> improve OSC architecture
+> common external file to name and use slider item
+> change colour background interface
+> remove separation between sound gui and general top gui
+
+BUG FIX
+--
+> size for item atoms
+> setting size window for prescene and scene
+> item inventory on_off state changing when the window size change
 
 
 

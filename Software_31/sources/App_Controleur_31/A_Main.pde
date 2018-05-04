@@ -1,6 +1,6 @@
 /**
 Build interface 
-v 3.2.0
+v 3.3.1
 2014-2018
 Romanesco Processing Environment
 */
@@ -50,84 +50,102 @@ void info_bg_shader() {
 /**
 STRUCTURE DESIGN
 */
-int line_decoration_small = 2 ;
-int line_decoration_medium = 4 ;
-int line_decoration_big = 6 ;
-void display_structure_header() {
-  noStroke() ;
-  fill (rougeFonce) ; 
-  rect(0,0, width, height_header) ;
-}
-void display_structure_top_button() {
-  noStroke() ;
-  //background
-  fill(gris) ; 
-  rect(0, pos_y_button_top, width, height_button_top) ; // main band
-  //decoration
-  fill(jauneOrange) ;
-  rect(0,pos_y_button_top, width, line_decoration_small) ;
-}
-void display_structure_dropdown_menu_general() {
-  noStroke() ;
-  // backgorund
-  fill(grisNoir) ; 
-  rect(0, pos_y_dropdown_top, width, height_dropdown_top) ; // main band
-  //decoration
-  fill (jauneOrange) ;
-  rect(0,pos_y_dropdown_top, width, line_decoration_small) ;
+
+
+int thickness_line_deco = 2 ;
+void display_structure() {
+  noStroke();
+  iVec2 pos = iVec2(0,0);
+  iVec2 size = iVec2(width, height_header);
+  display_structure_header(pos,size,rougeFonce);
+
+  pos.set(0, pos_y_button_top);
+  size.set(width,height_button_top);
+  display_structure_top_button(pos,size,r.GRAY_1,jauneOrange);
+
+  pos.set(0, pos_y_dropdown_top);
+  size.set(width, height_dropdown_top);
+  display_structure_dropdown_menu_general(pos,size,r.GRAY_1,jauneOrange);
+
+  pos.set(0,pos_y_menu_general);
+  size.set(width,height_menu_general);
+  display_structure_general(pos,size,r.GRAY_1,r.GRAY_3);
+  
+  pos.set(0, pos_y_item_selected);
+  size.set(width, height_item_selected);
+  display_structure_item_selected(pos,size,r.GRAY_1,jauneOrange);
+
+  pos.set(0, pos_y_inventory_item);
+  size.set(width, height);
+  display_structure_inventory_item(pos,size,r.GRAY_1,r.GRAY_3);
+
+  display_structure_bottom(jauneOrange,rougeFonce);
 }
 
-void display_structure_general() {
-  noStroke() ;
+
+
+
+void display_structure_header(iVec2 pos, iVec2 size, int colour_bg) {
+  fill(colour_bg); 
+  rect(pos,size);
+}
+
+void display_structure_top_button(iVec2 pos, iVec2 size, int colour_bg, int colour_line) {
+  fill(colour_bg); 
+  rect(pos,size); 
+  fill(colour_line) ;
+  rect(pos.x,pos.y,size.x,thickness_line_deco) ;
+}
+
+void display_structure_dropdown_menu_general(iVec2 pos, iVec2 size, int colour_bg, int colour_line) {
+  fill(colour_bg); 
+  rect(pos,size);
+  // decoration 
+  fill (colour_line) ;
+  rect(pos.x,pos.y,size.x,thickness_line_deco) ;
+}
+
+void display_structure_general(iVec2 pos, iVec2 size, int colour_bg, int colour_line) {
+  fill(colour_bg); 
+  rect(pos,size);
+  // decoration
+  fill(colour_line);
+  rect(pos.x,pos.y,size.x,thickness_line_deco);
+}
+
+void display_structure_menu_sound(iVec2 pos, iVec2 size, int colour_bg, int colour_line) {
+  fill(colour_bg) ;
+  rect(pos,size); 
+  // decoration
+  fill(colour_line);
+  rect(pos.x,pos.y,size.x,thickness_line_deco); 
+}
+
+void display_structure_item_selected(iVec2 pos, iVec2 size, int colour_bg, int colour_line) {
   // background
-  fill(gris) ; 
-  rect(0,pos_y_menu_general , width, height_menu_general) ;
-  // LINE DECORATION
-  fill(noir) ;
-  rect(0,pos_y_menu_general , width, line_decoration_small) ;
-}
-
-void display_structure_menu_sound() {
-  noStroke() ;
-    // background
-  fill(gris) ;
-  rect(0, pos_y_menu_sound, width, height_menu_sound) ; 
+  fill(colour_bg);
+  rect(pos,size); 
   // top decoration
-  fill(grisTresFonce) ;
-  rect(0, pos_y_menu_sound, width, line_decoration_medium) ; 
-  fill(grisFonce) ;
-  rect(0, pos_y_menu_sound, width, line_decoration_small) ; 
+  fill(colour_line);
+  rect(pos.x,pos.y,size.x,thickness_line_deco); 
 }
 
-void display_structure_item_selected() {
-  noStroke() ;
+void display_structure_inventory_item(iVec2 pos, iVec2 size, int colour_bg, int colour_line) {
   // background
-  fill(grisFonce) ;
-  rect(0, pos_y_item_selected, width, height_item_selected) ; 
+  fill(colour_bg);
+  rect(pos,size); 
   // top decoration
-  fill(jauneOrange) ;
-  rect(0, pos_y_item_selected, width, line_decoration_medium) ; 
-  fill(rougeFonce) ;
-  rect(0, pos_y_item_selected, width, line_decoration_small) ; 
+  fill(colour_line);
+  rect(pos.x,pos.y,size.x,thickness_line_deco);
 }
 
-void display_structure_inventory_item() {
-  noStroke() ;
-  // background
-  fill(gris) ;
-  rect(0, pos_y_inventory_item , width, height) ; 
-  // top decoration
-  fill(grisTresFonce) ;
-  rect(0, pos_y_inventory_item, width, line_decoration_small) ;
-}
 
-void display_structure_bottom() {
-  noStroke() ;
+void display_structure_bottom(int colour_a, int colour_b) {
   // bottom decoration
-  fill (jauneOrange) ;
-  rect(0,height-9, width, 2) ;
-  fill (rougeFonce) ;
-  rect(0,height-7, width, 7) ;
+  fill(colour_a);
+  rect(0,height-9, width, 2);
+  fill(colour_b);
+  rect(0,height-7, width, 7);
 }
 
 /**
@@ -153,15 +171,11 @@ void display_text() {
 
 
 
-void check_interface() {
-  if(size_window_ref.x != width || size_window_ref.y != height) INIT_INTERFACE = true ;
-}
 
-void init_interface() {
-  if(INIT_INTERFACE) {
-    build_button_inventory_item() ;
-    set_inventory_item() ;
-    size_window_ref.set(width, height) ;
+void check_interface() {
+  if(size_window_ref.x != width || size_window_ref.y != height) {
+    INIT_INTERFACE = true;
+    size_window_ref.set(width,height);
   }
 }
 
@@ -1406,7 +1420,7 @@ void update_dropdown_item() {
   int pointer = 0 ;
   for (int i = 1 ; i <= NUM_ITEM ; i++) {
     if(mode_list_RPE[i] != null && on_off_inventory_item[i].on_off) {
-      int distance = pointer *STEP_ITEM ;
+      int distance = pointer *DIST_BETWEEN_ITEM ;
       pointer ++ ;
 
       dropdown_item_mode[i].change_pos(distance, 0) ;

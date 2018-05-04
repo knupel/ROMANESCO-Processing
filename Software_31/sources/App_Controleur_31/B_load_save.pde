@@ -1,6 +1,6 @@
 /**
 SETTING SAVE and LOAD 
-v 2.2.0
+v 2.3.0
 */
 void load_setup() {
   set_data_save_setting() ;
@@ -292,7 +292,7 @@ void set_data_item(int ID_item) {
 
 /**
 LOAD
-v 2.0.1
+v 2.0.2
 */
 void load_setting_controller(File selection) {
   if (selection != null) {
@@ -415,10 +415,16 @@ void set_info_slider(TableRow row, String name, Vec5 [] info, int rank) {
 /**
 SETTING SAVE
 */
-void set_data_from_save() {
+boolean first_load;
+void set_data() {
   if(INIT_INTERFACE) {
-    set_button_inventory_item() ;
-    set_inventory_item() ;
+    set_button_inventory_item();
+    if(!first_load) {
+      set_inventory_item(false);
+      first_load = true ;
+    } else {
+      set_inventory_item(true);
+    }
     set_button_from_saved_file() ;
     set_slider_data_group() ;
     INIT_INTERFACE = false ;

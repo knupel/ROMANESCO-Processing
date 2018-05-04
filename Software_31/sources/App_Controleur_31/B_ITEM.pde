@@ -1,5 +1,5 @@
 /**
-ITEM 1.1.0
+ITEM 1.2.0
 */
 void item_inventory() {
   int num_group = 1;
@@ -175,7 +175,7 @@ void display_button_item_console() {
   int pointer = 0 ;
   for( int i = 1 ; i <= NUM_ITEM ; i++ ) {
     if(on_off_inventory_item[i].on_off) {
-      int distance = pointer *STEP_ITEM ;
+      int distance = pointer *DIST_BETWEEN_ITEM ;
       for(int j = 1 ; j <= BUTTON_ITEM_CONSOLE ; j++) {
       	button_item[i *10 + j].change_pos(distance, 0) ;
         button_item[i *10 + j].update_pos(on_off_inventory_item[i].on_off) ;
@@ -236,7 +236,7 @@ void mousepressed_button_item_console() {
 
 
 /**
-ITEM LIST
+ITEM INVENTORY
 */
 Button[] button_inventory_item ;
 boolean [] on_off_inventory_item_save ;
@@ -247,8 +247,10 @@ void init_button_inventory_item() {
 }
 
 void build_button_inventory_item() {
-  for( int i = 0 ; i < button_inventory_item.length ; i++) {
-    button_inventory_item[i] = new Button() ;
+  for(int i = 0 ; i < button_inventory_item.length ; i++) {
+    if(button_inventory_item[i] == null) {
+      button_inventory_item[i] = new Button();
+    }
   }
 }
 
@@ -331,7 +333,9 @@ void set_button_inventory_item() {
   }
 }
 
-void set_inventory_item() {
+void set_inventory_item(boolean keep_state) {
+  // println("keep_state set_inventory_item()",keep_state);
+  boolean local_state = keep_state ;
   color col_off_out_menu_item = rougeTresTresFonce ;
   // give the the good statement
   for( int i = 0 ; i < button_inventory_item.length ; i++) {
@@ -344,9 +348,10 @@ void set_inventory_item() {
       button_inventory_item[i].set_rank(Integer.parseInt(temp_item_info_split[2])) ;
       // start a second loop to check again if the saved name is ok with the alphabetical sort of the item.
       for(int j = 0 ; j < on_off_inventory_item.length ; j++) {
-        if(on_off_inventory_item[j].name.equals(button_inventory_item[i].name) ) {
-          if(INIT_INTERFACE) button_inventory_item[i].set_on_off(on_off_inventory_item[j].on_off) ;
-          else {
+        if(on_off_inventory_item[j].name.equals(button_inventory_item[i].name) && !keep_state) {
+          if(INIT_INTERFACE) {
+            button_inventory_item[i].set_on_off(on_off_inventory_item[j].on_off) ;
+          } else {
             button_inventory_item[i].set_on_off(on_off_inventory_item_save[i]) ;
             on_off_inventory_item[j].on_off = on_off_inventory_item_save[i] ;
           }
