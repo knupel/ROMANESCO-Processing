@@ -278,7 +278,7 @@ void keypressed_midi() {
 /**
 MIDI MANAGER
 */
-void midiButtonManager(boolean saveButton) {
+void midi_manager(boolean saveButton) {
   // close loop for load save button
   // see void buttonSetSaveSetting()
   int rank = 0 ;

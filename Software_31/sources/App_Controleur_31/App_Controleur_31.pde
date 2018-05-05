@@ -72,7 +72,8 @@ void draw() {
   display_text();
   display_slider();
   display_button_and_dropdown();
-
+  
+  midi_manager(false);
   update_midi();
   send_OSC();
 

@@ -135,7 +135,7 @@ void saveSetting(File selection) {
 void saveSetting(String path) {
   save_info_slider() ;
   save_info_item() ;
-  midiButtonManager(true) ;
+  midi_manager(true) ;
   saveTable(saveSetting, path);
   saveSetting.clearRows() ;
 }
