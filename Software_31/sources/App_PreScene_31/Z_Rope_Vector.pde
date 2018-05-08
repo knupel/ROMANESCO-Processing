@@ -408,6 +408,33 @@ class iVec2 extends iVec {
     }
   }
 
+  // xy
+  public iVec2 set_x(int x) {
+    return set(x,this.y);
+  }
+
+  public iVec2 set_y(int y) {
+    return set(this.x,y);
+  }
+
+  // st
+  public iVec2 set_s(int x) {
+    return set(x,this.y);
+  }
+
+  public iVec2 set_t(int y) {
+    return set(this.x,y);
+  }
+
+  // uv
+  public iVec2 set_u(int x) {
+    return set(x,this.y);
+  }
+
+  public iVec2 set_v(int y) {
+    return set(this.x,y);
+  }
+
   /**
   * set method master
   * here we cannot set the arg a,b, c,d,e,f cause r,g,b,a
@@ -606,6 +633,47 @@ class iVec3 extends iVec {
       return this;
     }
   }
+
+  // xyz
+  public iVec3 set_x(int x) {
+    return set(x,this.y,this.z);
+  }
+
+  public iVec3 set_y(int y) {
+    return set(this.x,y,this.z);
+  }
+
+  public iVec3 set_z(int z) {
+    return set(this.x,this.y,z);
+  }
+
+  // rgb
+  public iVec3 set_r(int x) {
+    return set(x,this.y,this.z);
+  }
+
+  public iVec3 set_g(int y) {
+    return set(this.x,y,this.z);
+  }
+
+  public iVec3 set_b(int z) {
+    return set(this.x,this.y,z);
+  }
+
+  // stp
+  public iVec3 set_s(int x) {
+    return set(x,this.y,this.z);
+  }
+
+  public iVec3 set_t(int y) {
+    return set(this.x,y,this.z);
+  }
+
+  public iVec3 set_p(int z) {
+    return set(this.x,this.y,z);
+  }
+
+
 
   /**
   * set method master
@@ -810,6 +878,57 @@ class iVec4 extends iVec {
     }
   }
 
+  // xyzw
+  public iVec4 set_x(int x) {
+    return set(x,this.y,this.z,this.w);
+  }
+
+  public iVec4 set_y(int y) {
+    return set(this.x,y,this.z,this.w);
+  }
+
+  public iVec4 set_z(int z) {
+    return set(this.x,this.y,z,this.w);
+  }
+
+  public iVec4 set_w(int w) {
+    return set(this.x,this.y,this.z,w);
+  }
+
+  // rgba
+  public iVec4 set_r(int x) {
+    return set(x,this.y,this.z,this.w);
+  }
+
+  public iVec4 set_g(int y) {
+    return set(this.x,y,this.z,this.w);
+  }
+
+  public iVec4 set_b(int z) {
+    return set(this.x,this.y,z,this.w);
+  }
+
+  public iVec4 set_a(int w) {
+    return set(this.x,this.y,this.z,w);
+  }
+
+  // stpq
+  public iVec4 set_s(int x) {
+    return set(x,this.y,this.z,this.w);
+  }
+
+  public iVec4 set_t(int y) {
+    return set(this.x,y,this.z,this.w);
+  }
+
+  public iVec4 set_p(int z) {
+    return set(this.x,this.y,z,this.w);
+  }
+
+  public iVec4 set_q(int w) {
+    return set(this.x,this.y,this.z,w);
+  }
+
   /**
   * set method master
   * here we cannot set the arg a,b, c,d,e,f cause r,g,b,a
@@ -1006,6 +1125,28 @@ class iVec5 extends iVec {
     }
   }
 
+
+  // abcde
+  public iVec5 set_a(int a) {
+    return set(a,this.b,this.c,this.d,this.e);
+  }
+
+  public iVec5 set_b(int b) {
+    return set(this.a,b,this.c,this.d,this.e);
+  }
+
+  public iVec5 set_c(int c) {
+    return set(this.a,this.b,c,this.d,this.e);
+  }
+
+  public iVec5 set_d(int d) {
+    return set(this.a,this.b,this.c,d,this.e);
+  }
+
+  public iVec5 set_e(int e) {
+    return set(this.a,this.b,this.c,this.d,e);
+  }
+
   /**
   * set main
   */
@@ -1078,6 +1219,31 @@ class iVec6 extends iVec {
     }
   }
 
+  // abcdef
+  public iVec6 set_a(int a) {
+    return set(a,this.b,this.c,this.d,this.e,this.f);
+  }
+
+  public iVec6 set_b(int b) {
+    return set(this.a,b,this.c,this.d,this.e,this.f);
+  }
+
+  public iVec6 set_c(int c) {
+    return set(this.a,this.b,c,this.d,this.e,this.f);
+  }
+
+  public iVec6 set_d(int d) {
+    return set(this.a,this.b,this.c,d,this.e,this.f);
+  }
+
+  public iVec6 set_e(int e) {
+    return set(this.a,this.b,this.c,this.d,e,this.f);
+  }
+
+  public iVec6 set_f(int f) {
+    return set(this.a,this.b,this.c,this.d,this.e,f);
+  }
+
 
   /**
   * set method master
@@ -1094,7 +1260,7 @@ class iVec6 extends iVec {
   }
 
 
-    /**
+  /**
   Copy
   */
   /**
@@ -1298,6 +1464,33 @@ public class Vec2 extends Vec {
   public Vec2 set(float[] source) {
     set(source[0],source[1]);
     return this;
+  }
+
+  // xy
+  public Vec2 set_x(float x) {
+    return set(x,this.y);
+  }
+
+  public Vec2 set_y(float y) {
+    return set(this.x,y);
+  }
+
+  // st
+  public Vec2 set_s(float x) {
+    return set(x,this.y);
+  }
+
+  public Vec2 set_t(float y) {
+    return set(this.x,y);
+  }
+
+  // uv
+  public Vec2 set_u(float x) {
+    return set(x,this.y);
+  }
+
+  public Vec2 set_v(float y) {
+    return set(this.x,y);
   }
 
 
@@ -1932,6 +2125,46 @@ class Vec3 extends Vec {
   }
 
 
+  // xyz
+  public Vec3 set_x(float x) {
+    return set(x,this.y,this.z);
+  }
+
+  public Vec3 set_y(float y) {
+    return set(this.x,y,this.z);
+  }
+
+  public Vec3 set_z(float z) {
+    return set(this.x,this.y,z);
+  }
+
+  // rgb
+  public Vec3 set_r(float x) {
+    return set(x,this.y,this.z);
+  }
+
+  public Vec3 set_g(float y) {
+    return set(this.x,y,this.z);
+  }
+
+  public Vec3 set_b(float z) {
+    return set(this.x,this.y,z);
+  }
+
+  // stp
+  public Vec3 set_s(float x) {
+    return set(x,this.y,this.z);
+  }
+
+  public Vec3 set_t(float y) {
+    return set(this.x,y,this.z);
+  }
+
+  public Vec3 set_p(float z) {
+    return set(this.x,this.y,z);
+  }
+
+
   /**
   * set method master
   * here we cannot set the arg a,b, c,d,e,f cause r,g,b,a
@@ -2524,11 +2757,8 @@ class Vec3 extends Vec {
   @Override String toString() {
     return "[ " + x + ", " + y + ", " + z + " ]";
   }
-  
-  
 }
-// END VEC 3
-////////////
+
 
 
 
@@ -2641,6 +2871,57 @@ class Vec4 extends Vec {
   public Vec4 set(float[] source) {
     set(source[0],source[1],source[2],source[3]);
     return this ;
+  }
+
+  // xyzw
+  public Vec4 set_x(float x) {
+    return set(x,this.y,this.z,this.w);
+  }
+
+  public Vec4 set_y(float y) {
+    return set(this.x,y,this.z,this.w);
+  }
+
+  public Vec4 set_z(float z) {
+    return set(this.x,this.y,z,this.w);
+  }
+
+  public Vec4 set_w(float w) {
+    return set(this.x,this.y,this.z,w);
+  }
+
+  // rgba
+  public Vec4 set_r(float x) {
+    return set(x,this.y,this.z,this.w);
+  }
+
+  public Vec4 set_g(float y) {
+    return set(this.x,y,this.z,this.w);
+  }
+
+  public Vec4 set_b(float z) {
+    return set(this.x,this.y,z,this.w);
+  }
+
+  public Vec4 set_a(float w) {
+    return set(this.x,this.y,this.z,w);
+  }
+
+  // stpq
+  public Vec4 set_s(float x) {
+    return set(x,this.y,this.z,this.w);
+  }
+
+  public Vec4 set_t(float y) {
+    return set(this.x,y,this.z,this.w);
+  }
+
+  public Vec4 set_p(float z) {
+    return set(this.x,this.y,z,this.w);
+  }
+
+  public Vec4 set_q(float w) {
+    return set(this.x,this.y,this.z,w);
   }
 
 
@@ -2894,7 +3175,7 @@ class Vec4 extends Vec {
 
 
 
-    /**
+  /**
   Normalize
   */
 
@@ -3095,7 +3376,6 @@ class Vec4 extends Vec {
 
 /**
 CLASS Vec5
-v 0.0.2
 */
 class Vec5 extends Vec{
 
@@ -3183,6 +3463,27 @@ class Vec5 extends Vec{
   public Vec5 set(float[] source) {
     set(source[0],source[1],source[2],source[3],source[4]);
     return this ;
+  }
+
+  // abcde
+  public Vec5 set_a(float a) {
+    return set(a,this.b,this.c,this.d,this.e);
+  }
+
+  public Vec5 set_b(float b) {
+    return set(this.a,b,this.c,this.d,this.e);
+  }
+
+  public Vec5 set_c(float c) {
+    return set(this.a,this.b,c,this.d,this.e);
+  }
+
+  public Vec5 set_d(float d) {
+    return set(this.a,this.b,this.c,d,this.e);
+  }
+
+  public Vec5 set_e(float e) {
+    return set(this.a,this.b,this.c,this.d,e);
   }
 
   /**
@@ -3327,6 +3628,33 @@ class Vec6 extends Vec {
     set(source[0],source[1],source[2],source[3],source[4],source[5]);
     return this ;
   }
+
+
+    // abcdef
+  public Vec6 set_a(float a) {
+    return set(a,this.b,this.c,this.d,this.e,this.f);
+  }
+
+  public Vec6 set_b(float b) {
+    return set(this.a,b,this.c,this.d,this.e,this.f);
+  }
+
+  public Vec6 set_c(float c) {
+    return set(this.a,this.b,c,this.d,this.e,this.f);
+  }
+
+  public Vec6 set_d(float d) {
+    return set(this.a,this.b,this.c,d,this.e,this.f);
+  }
+
+  public Vec6 set_e(float e) {
+    return set(this.a,this.b,this.c,this.d,e,this.f);
+  }
+
+  public Vec6 set_f(float f) {
+    return set(this.a,this.b,this.c,this.d,this.e,f);
+  }
+
 
   /**
   * set main

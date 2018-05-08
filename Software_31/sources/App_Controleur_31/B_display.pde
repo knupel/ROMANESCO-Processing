@@ -30,7 +30,7 @@ void display_structure() {
   size.set(width, height_item_selected);
   display_structure_item_selected(pos,size,r.GRAY_1,jauneOrange);
 
-  pos.set(0, pos_y_inventory_item);
+  pos.set(0, pos_y_inventory);
   size.set(width, height);
   display_structure_inventory_item(pos,size,r.GRAY_1,r.GRAY_3);
 
@@ -116,6 +116,40 @@ void display_text() {
 
 
 
+/**
+display dropdown
+*/
+// DRAW DROPDOWN
+boolean dropdownActivity ;
+int dropdownActivityCount ;
+void display_dropdown() {
+  update_dropdown_bar_content() ;
+  
+  // update_dropdown_background() ;
+  for(int i = 0 ; i < dropdown_bar.length ; i++) {
+    dropdown_bar[i].set_content(dropdown_content[i]);
+    update_dropdown_bar(dropdown_bar[i]);
+  }
+
+  // item
+  update_dropdown_item() ;
+  
+  which_bg_shader = dropdown_bar[0].get_content_line();
+  which_filter = dropdown_bar[1].get_content_line();
+  which_font = dropdown_bar[2].get_content_line();
+  which_text = dropdown_bar[3].get_content_line();
+  which_bitmap = dropdown_bar[4].get_content_line();
+  which_shape = dropdown_bar[5].get_content_line();
+  which_movie = dropdown_bar[6].get_content_line();
+
+  // check the activity o the dropdown
+  if(dropdownActivityCount > 0 ) {
+    dropdownActivity = true; 
+  } else {
+    dropdownActivity = false;
+  }
+  dropdownActivityCount = 0;
+}
 
 
 
@@ -126,6 +160,12 @@ void display_text() {
 
 
 
+
+
+/**
+DISPLAY ITEM
+v 0.1.0
+*/
 /**
 display slider
 */
@@ -196,30 +236,36 @@ void dispay_text_slider_top(PFont f, int c) {
   fill(c);
 
   //BACKGROUND
-  iVec2 pos_local = iVec2(slider_width+5,3);
+  int offset_x_txt = 5;
+  int offset_y_txt = 3;
   // background
+  iVec2 pos = iVec2(slider_width_background +offset_x_txt,offset_y_txt);
   for(int i = 0 ; i < NUM_SLIDER_BACKGROUND ; i++) {
-    text(slider_background_name[i], add(pos_slider_background[i],pos_local));
+    text(slider_background_name[i], add(pos_slider_background[i],pos));
   }
 
   // filter
+  pos.set_x(slider_width_filter +offset_x_txt);
   for(int i = 0 ; i < NUM_SLIDER_FILTER ; i++) {
-    text(slider_filter_name[i], add(pos_slider_filter[i],pos_local));
+    text(slider_filter_name[i], add(pos_slider_filter[i],pos));
   }
 
   // light
+  pos.set_x(slider_width_light +offset_x_txt);
   for(int i = 0 ; i < NUM_SLIDER_LIGHT ; i++) {
-    text(slider_light_name[i], add(pos_slider_light[i],pos_local));
+    text(slider_light_name[i], add(pos_slider_light[i],pos));
   }
 
   // sound
+  pos.set_x(slider_width_sound+offset_x_txt);
   for(int i = 0 ; i < NUM_SLIDER_SOUND ; i++ ) {
-    text(slider_sound_name[i], add(pos_slider_sound[i],pos_local));
+    text(slider_sound_name[i], add(pos_slider_sound[i],pos));
   }
   
   // camera
+  pos.set_x(slider_width_camera +offset_x_txt);
   for(int i = 0 ; i < slider_camera_name.length ; i++) {
-    text(slider_camera_name[i], add(pos_slider_camera[i],pos_local));
+    text(slider_camera_name[i], add(pos_slider_camera[i],pos));
   }
 }
 
@@ -312,7 +358,7 @@ void slider_display_hsb(iVec2 [] pos, iVec2 [] size, float [] value) {
 
 
 /**
-Item slider
+Item
 */
 /*
 When you add a new sliders, you must change the starting value from 'NAN' to a value between 0 and 1 in the file 'defaultSetting.csv' in the 'preferences/setting' folder.
@@ -345,16 +391,14 @@ void display_slider_item() {
 }
 
 
-
-
 void dislay_text_slider_item(PFont f, int c) {
   fill(c);
   textFont(f);  
   textAlign(LEFT);
   
   // Legend text slider position for the item
-  int correction_local_y = local_pos_y_slider_button +4 ;
-  int correction_local_x = slider_width + 5 ;
+  int correction_local_y = local_pos_y_slider_item_button +4;
+  int correction_local_x = slider_width_item +5;
   for (int i = 0 ; i < NUM_SLIDER_ITEM_BY_COL ; i++) {
     int which_one = i+(NUM_SLIDER_ITEM_BY_COL *0);
     int which_two = i+(NUM_SLIDER_ITEM_BY_COL *1);
@@ -377,11 +421,6 @@ void dislay_text_slider_item(PFont f, int c) {
     text(slider_item_name[which_three], item_c_col +correction_local_x, height_item_selected +correction_local_y +(factor *spacing_slider));
   }
 }
-
-
-
-
-
 
 void display_bg_slider_item() {
   // to find the good slider in the array
@@ -486,6 +525,102 @@ void slider_HSB_item_display(int whichGroup, int hueRank, int satRank, int brigh
   }
 }
 
+
+/**
+display item info
+*/
+void text_info_item(PVector pos, PVector size, int IDorder, int IDfamily) {
+  if (mouseX > pos.x && mouseX < (size.x + pos.x ) && mouseY > pos.y - 10 && mouseY <  (size.y + pos.y) -20 ) {
+    PVector fontPos = new PVector(-10, -20 ) ;
+    
+    if (NUM_ITEM > 0 ) {
+      display_info_item(IDorder, fontPos) ;
+    }
+  }
+}
+
+void display_info_item(int IDorder, PVector pos) {
+  int whichLine = 0 ;
+  int num = inventory_item_table.getRowCount() ;
+  for ( int j = 0 ; j < num ; j++) {
+    TableRow lookFor = inventory_item_table.getRow(j);
+    int ID = lookFor.getInt("ID") ;
+    if ( ID == IDorder ) {
+      whichLine = j ;
+    }
+  }
+  TableRow displayInfo = inventory_item_table.getRow(whichLine) ;
+  int num_line = 4 ;
+  String [] text = new String[num_line] ;
+  int [] size_text = new int[num_line] ;
+  text[0] = displayInfo.getString("Name") ;
+  text[1] = displayInfo.getString("Author") ;
+  text[2] = displayInfo.getString("Version") ;
+  text[3] = displayInfo.getString("Pack") ;
+  size_text [0] = 20 ;
+  size_text [1] = 15 ;
+  size_text [2] = 10 ;
+  size_text [3] = 10 ;
+
+  // background window
+  int pos_correction_y = -30 ;
+  Vec2 pos_window = Vec2(pos.x +mouseX , pos.y + mouseY +pos_correction_y) ;
+  Vec2 ratio_size = Vec2( 1.4, 1.3) ;
+  int speed = 7 ;
+  int size_angle = 2 ;
+  fill(rougeFonce, 150) ;
+  Vec2 range_check = Vec2(0,1) ;
+  background_text_list(Vec2(pos_window.x +2, pos_window.y), text, size_text, size_angle, speed, ratio_size, range_check,FuturaStencil_20) ;
+
+
+  // text
+  fill(jaune) ;  
+  textSize(size_text [0] ) ;
+  textFont(FuturaStencil_20) ;
+  text(text[0], pos_window.x, pos_window.y +5) ;
+  textSize(size_text [1] ) ;
+  text(text[1], pos_window.x, pos_window.y +20) ;
+  textSize(size_text [2] ) ;
+  text(text[2], pos_window.x, pos_window.y +30) ;
+  text(text[3], pos_window.x, pos_window.y +40) ;
+}
+
+void background_text_list(Vec2 pos, String [] list, int [] size_text, int size_angle, int speed_rotation, Vec2 ratio_size, Vec2 start_end, PFont font) {
+  // create the starting point of the shape
+  pos = Vec2(pos.x -(size_text[0] *.5), pos.y -size_text[0]) ;
+
+  // spacing
+  float spacing = 0 ;
+  for(int i = 0 ; i < size_text.length ; i++) {
+    spacing += size_text[i] ;
+  }
+  spacing /= size_text.length ;
+  spacing *= ratio_size.y;
+
+  //define the size of the background
+  int start_point_list = int(start_end.x) ;
+  int end_point_list = int(start_end.y) ;
+  
+  int size_word = int(longest_String_pixel(font,list, size_text, start_point_list, end_point_list)) ;
+  float width_rect =  size_word *ratio_size.x ;
+  int height_rect = list.length *(int)spacing ;
+  
+  // create the point to build the background
+  int diam = size_angle;
+  int speed = speed_rotation ;
+  Vec2 a = Vec2(pos.x + 0,pos.y + 0).revolution(diam *3, speed/2) ;
+  Vec2 b = Vec2(pos.x + width_rect, pos.y + 0).revolution(int(diam *1.5), speed) ;
+  Vec2 c = Vec2(pos.x + width_rect, pos.y + height_rect).revolution(diam *2, int(speed *1.2)) ;
+  Vec2 d = Vec2(pos.x + 0, pos.y + height_rect).revolution(diam, int(speed *.7)) ;
+  
+  // display background
+  beginShape();
+  vertex(a);
+  vertex(b);
+  vertex(c);
+  vertex(d);
+  endShape(CLOSE) ;
+}
 
 
 
@@ -698,17 +833,17 @@ void display_button_header() {
 
 
 void display_button_general() {
-  button_bg.button_text(shader_bg_name[which_bg_shader] + " on/off", pos_bg_button, titleButtonMedium, sizeTitleButton) ;
-  //button_bg.button_text(shader_bg_name[state_bg_shader] + " on/off", pos_bg_button, titleButtonMedium, sizeTitleButton) ;
+  button_bg.button_text(shader_bg_name[which_bg_shader] + " on/off", pos_button_background, titleButtonMedium, sizeTitleButton) ;
+  //button_bg.button_text(shader_bg_name[state_bg_shader] + " on/off", pos_button_background, titleButtonMedium, sizeTitleButton) ;
   // Light ambient
-  button_light_ambient.button_text("Ambient on/off", posLightAmbientButton, titleButtonMedium, sizeTitleButton) ;
-  button_light_ambient_action.button_text("action", posLightAmbientAction, titleButtonMedium, sizeTitleButton) ;
+  button_light_ambient.button_text("Ambient on/off", pos_light_ambient_buttonButton, titleButtonMedium, sizeTitleButton) ;
+  button_light_ambient_action.button_text("action", pos_light_ambient_button_action, titleButtonMedium, sizeTitleButton) ;
   //LIGHT ONE
-  button_light_1.button_text("Light on/off", posLightOneButton, titleButtonMedium, sizeTitleButton) ;
-  button_light_1_action.button_text("action", posLightOneAction, titleButtonMedium, sizeTitleButton) ;
+  button_light_1.button_text("Light on/off", pos_light_1_button, titleButtonMedium, sizeTitleButton) ;
+  button_light_1_action.button_text("action", pos_light_1_button_action, titleButtonMedium, sizeTitleButton) ;
   // LIGHT TWO
-  button_light_2.button_text("Light on/off",  posLightTwoButton, titleButtonMedium, sizeTitleButton) ;
-  button_light_2_action.button_text("action",  posLightTwoAction, titleButtonMedium, sizeTitleButton) ;
+  button_light_2.button_text("Light on/off",  pos_light_2_button, titleButtonMedium, sizeTitleButton) ;
+  button_light_2_action.button_text("action",  pos_light_2_button_action, titleButtonMedium, sizeTitleButton) ;
   
   // SOUND
   button_beat.button_text("BEAT", pos_beat_button, titleButtonMedium, sizeTitleButton) ;

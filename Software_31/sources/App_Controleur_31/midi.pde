@@ -228,7 +228,7 @@ void midi_select(int which_one, int num) {
     display_select_midi_device(pos_midi_info, spacing_midi_info) ;
     display_midi_device_available(pos_midi_info, spacing_midi_info) ;
   }
-  if (state_midi_button == 1) selectMidi = true ; else selectMidi = false ;
+  if (button_midi_is == 1) selectMidi = true ; else selectMidi = false ;
 }
 
 

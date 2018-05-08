@@ -1,6 +1,6 @@
 /**
 Rope UTILS 
-v 1.42.5
+v 1.43.1
 * Copyleft (c) 2014-2018 
 * Stan le Punk > http://stanlepunk.xyz/
 Rope – Romanesco Processing Environment – 
@@ -19,9 +19,6 @@ v 0.0.3
 
 Constant_list processing_constants_list = new Constant_list(PConstants.class);
 Constant_list rope_constants_list = new Constant_list(Rope_Constants.class);
-
-
-
 public void print_constants_rope() {
   if(rope_constants_list == null) {
     rope_constants_list = new Constant_list(Rope_Constants.class);
@@ -2484,54 +2481,23 @@ END COLOR
 
 
 /**
-EXPORT FILE PDF_PNG 0.0.3
-
+EXPORT FILE PDF_PNG 0.1.1
 */
-// global PDF / PNG
-String default_folder_shot_pdf = "pdf_folder" ;
-String default_folder_shot_png = "png_folder" ;
-String default_name_pdf = "pdf_file_" ;
-String default_name_png = "png_file_" ;
 String ranking_shot = "_######" ;
-
-void start_shot(String path_folder, String name_file) {
-  start_PDF(path_folder, name_file) ;
-  start_PNG(path_folder, name_file) ;
-}
-
-void start_shot(String name_file) {
-  start_PDF(default_folder_shot_pdf, name_file) ;
-  start_PNG(default_folder_shot_png, name_file) ;
-}
-
-void start_shot() {
-  start_PDF() ;
-  // start_PNG() ;
-}
-
-void save_shot() {
-  save_PDF() ;
-  save_PNG() ;
-}
-void event_shot() {
-  event_PNG() ;
-  event_PDF() ;
-}
-
-
-
-
 // PDF
 import processing.pdf.*;
 boolean record_PDF;
 void start_PDF() {
-  start_PDF(default_folder_shot_pdf, default_name_pdf+ranking_shot) ;
+  start_PDF(null,null) ;
 }
 
 void start_PDF(String name_file) {
-  start_PDF(default_folder_shot_pdf, name_file) ;
+  start_PDF(null, name_file) ;
 }
 void start_PDF(String path_folder, String name_file) {
+  if(path_folder == null) path_folder = "pdf_folder";
+  if(name_file == null) name_file = "pdf_file_"+ranking_shot;
+
   if (record_PDF && !record_PNG) {
     if(renderer_P3D()) {
       beginRaw(PDF, path_folder+"/"+name_file+".pdf"); 
@@ -2548,6 +2514,7 @@ void save_PDF() {
     } else {
       endRecord() ;
     }
+    println("PDF");
     record_PDF = false;
   }
 }
@@ -2563,7 +2530,6 @@ void event_PDF() {
 boolean record_PNG ;
 boolean naming_PNG ;
 String path_folder_png, name_file_png  ;
-
 void start_PNG(String path_folder, String name_file) {
   path_folder_png = path_folder ;
   name_file_png = name_file ;
@@ -2573,9 +2539,9 @@ void start_PNG(String path_folder, String name_file) {
 void save_PNG() {
   if(record_PNG) {
     if(!naming_PNG) {
-      saveFrame(default_folder_shot_png +"/"+ default_name_png + ranking_shot+".png");
+      saveFrame("png_folder/shot_" + ranking_shot + ".png");
     } else {
-      saveFrame(path_folder_png +"/"+ name_file_png +".png");
+      saveFrame(path_folder_png + "/" + name_file_png + ".png");
     }
     record_PNG = false ;
   }
@@ -2585,9 +2551,14 @@ void event_PNG() {
   record_PNG = true;
 }
 
-/**
-END EXPORT FILE PDF / PNG
-*/
+
+
+
+
+
+
+
+
 
 
 

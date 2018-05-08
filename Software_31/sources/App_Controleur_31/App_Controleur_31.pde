@@ -18,8 +18,7 @@ boolean test = false ;
 void settings() {
   size(670,725);
   size_window_ref = iVec2(width,height);
-  // init_rope();
-  set_structure_data();
+  set_design_var();
 }
 
 void setup() {
@@ -30,24 +29,24 @@ void setup() {
   init_button_general();
   init_midi();
 
-  build_item_library();
+  create_and_initialize_data();
+  
   load_setup();
 
   check_media_folder();
 
   set_font();
+  set_colour();
   set_display_slider();
   set_import_pic_button();
-  set_slider();
-  set_button_general();
+  set_console();
   set_button_item_console();
-  set_dropdown_general();
-  set_dropdown_item_selected();
-
-  build_button_general();
+  
+  build_console();
+  build_dropdown_bar();
+  build_dropdown_item_selected();
   build_button_item_console();
-  build_button_inventory_item();
-  build_slider();
+  build_inventory();
 
   set_OSC();
   set_data();

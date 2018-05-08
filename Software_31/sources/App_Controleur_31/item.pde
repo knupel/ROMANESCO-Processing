@@ -46,7 +46,7 @@ void info_item() {
 
 
 
-void build_item_library() {
+void create_and_initialize_data() {
   inventory_item_table = loadTable(preference_path+"index_romanesco_items.csv", "header") ;
   shaderBackgroundList = loadTable(preference_path+"shader/shaderBackgroundList.csv", "header") ;
   item_inventory();
@@ -54,7 +54,7 @@ void build_item_library() {
   //init_slider();
   init_button_inventory_item();
   init_button_item_console();
-  init_dropdown();
+ // init_dropdown();
   info_item();
   info_bg_shader();
 }
@@ -84,15 +84,15 @@ Item console
 Button_dynamic[] button_item ;
 
 void init_button_item_console() {
-  numButton[1] = NUM_ITEM *10 ;
-  value_button_item = new int[numButton[1]] ;
+  button_item_num = NUM_ITEM *10 ;
+  value_button_item = new int[button_item_num] ;
   // button item
-  button_item = new Button_dynamic[numButton[1] +10] ;
-  pos_button_width_item = new int[numButton[1] +10] ;
-  pos_button_height_item = new int[numButton[1] +10] ;
-  width_button_item = new int[numButton[1] +10] ;
-  height_button_item = new int[numButton[1] +10] ;
-  on_off_item_console = new int[numButton[1]] ;
+  button_item = new Button_dynamic[button_item_num +10] ;
+  pos_button_width_item = new int[button_item_num +10] ;
+  pos_button_height_item = new int[button_item_num +10] ;
+  width_button_item = new int[button_item_num +10] ;
+  height_button_item = new int[button_item_num +10] ;
+  on_off_item_console = new int[button_item_num] ;
   // on_off_inventory_item = new boolean[NUM_ITEM +1] ;
   on_off_inventory_item = new Item_ON_OFF[NUM_ITEM +1] ;
   for(int i = 0 ; i < on_off_inventory_item.length ; i++ ) {
@@ -110,8 +110,8 @@ void build_button_item_console() {
   button_item[0].set_color_on_off(col_on_in, col_on_out, col_off_in, col_off_out) ;
   button_item[0].set_color_bg(gris, grisNoir) ;
 
-  int num = numButton[1] ;
-  for ( int j = 11 ; j < 10 +num ; j++) {
+  // int num = numButton[1] ;
+  for ( int j = 11 ; j < 10 +button_item_num ; j++) {
     if(NUM_ITEM > 0) {
       pos = Vec2(pos_button_width_item[j], pos_button_height_item[j]) ;
       size = Vec2(width_button_item[j], height_button_item[j]) ; 
@@ -188,7 +188,7 @@ void display_button_item_console() {
       }
       PVector pos = new PVector (pos_button_width_item[i*10 +2] +distance, pos_button_height_item[i*10 +1] +10) ;
       PVector size = new PVector (20, 30) ;
-      text_info_object(pos, size, i, 1) ;
+      text_info_item(pos, size, i, 1) ;
       pointer ++ ;
     } else {
       for(int j = 1 ; j <= BUTTON_ITEM_CONSOLE ; j++) {
@@ -203,10 +203,9 @@ void display_button_item_console() {
 
 
 void check_button_item_console() {
-  // Item check
   if( NUM_ITEM > 0){
     // item available
-    int num = numButton[1] +10 ;
+    int num = button_item_num +10 ;
     for( int i = 11 ; i < num ; i++) {
       if(button_item[i].on_off) {
         on_off_item_console[i-10] = 1 ; 
@@ -246,7 +245,7 @@ void init_button_inventory_item() {
   on_off_inventory_item_save = new boolean[NUM_ITEM +1] ;
 }
 
-void build_button_inventory_item() {
+void build_inventory() {
   for(int i = 0 ; i < button_inventory_item.length ; i++) {
     if(button_inventory_item[i] == null) {
       button_inventory_item[i] = new Button();
@@ -257,17 +256,17 @@ void build_button_inventory_item() {
 void set_button_inventory_item() {
   Vec2 pos = Vec2() ;
   Vec2 size = Vec2() ;
-  height_inventory_item = height -pos_y_inventory_item ;
+  height_inventory = height -pos_y_inventory ;
 
   int text_size = 12 ;
   int spacing = text_size + (text_size /4 ) ;
-  int num_item_by_col = int(float(height_inventory_item) /(spacing *1.2)) ;
+  int num_item_by_col = int(float(height_inventory) /(spacing *1.2)) ;
 
 
   int max_size_col = num_item_by_col *spacing;
   int col_size_list_item = 80 ;
   int left_flag = grid_col[0] +10 ;
-  int top_text = pos_y_inventory_item -5 ;
+  int top_text = pos_y_inventory -5 ;
   int ratio_rollover_x = 9 ;
 
 

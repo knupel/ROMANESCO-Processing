@@ -26,7 +26,8 @@ String [] item_name, item_author, item_version, item_pack, item_load_name, item_
 String [] shader_bg_name, shader_bg_author;
 
 //BUTTON
-int numButton [];
+int button_item_num;
+int button_general_num;
 
 int lastDropdown, num_dropdown_item;
 int [] value_button_general, value_button_item; 

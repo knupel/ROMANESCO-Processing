@@ -156,24 +156,24 @@ void send_OSC() {
   
 void data_to_send() {
   //sound
-  value_button_general[1] = state_button_beat;
-  value_button_general[2] = state_button_kick;
-  value_button_general[3] = state_button_snare;
-  value_button_general[4] = state_button_hat;
+  value_button_general[1] = button_beat_is;
+  value_button_general[2] = button_kick_is;
+  value_button_general[3] = button_snare_is;
+  value_button_general[4] = button_hat_is;
   /**
   Here find method to get to a list of dropdown by name when there is a list of dropdown.
   easyer te read the code after a long time when we forget the number
   */
   value_button_general[5] = dropdown_bar[0].get_content_line() +1; // font
-  value_button_general[6] = state_curtain_button;
-  value_button_general[7] = state_BackgroundButton;
+  value_button_general[6] = button_curtain_is;
+  value_button_general[7] = button_background_is;
   
-  value_button_general[8] = state_LightOneButton;
-  value_button_general[9] = state_LightTwoButton;
-  value_button_general[10] = state_LightAmbientButton;
-  value_button_general[11] = state_LightOneAction;
-  value_button_general[12] = state_LightTwoAction;
-  value_button_general[13] = state_LightAmbientAction;
+  value_button_general[8] = light_light_1_button_is;
+  value_button_general[9] = light_light_2_button_is;
+  value_button_general[10] = light_ambient_button_is;
+  value_button_general[11] = light_light_action_1_button_is;
+  value_button_general[12] = light_light_action_2_button_is;
+  value_button_general[13] = light_ambient_action_button_is;
 
   
   if(which_bg_shader > SWITCH_VALUE_FOR_DROPDOWN) value_button_general[14] = which_bg_shader;
