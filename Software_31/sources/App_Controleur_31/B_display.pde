@@ -183,8 +183,7 @@ void display_slider_background() {
   slider_background_display_bg();
   for (int i = 0 ; i < NUM_SLIDER_BACKGROUND ; i++) {
     update_slider(slider_adj_background[i],value_slider_background,info_slider_background);
-    int whichGroup = 0;
-    display_slider_engine(slider_adj_background[i], whichGroup);
+    show_slider(slider_adj_background[i]);
   }
 }
 
@@ -192,8 +191,7 @@ void display_slider_filter() {
   slider_filter_display_bg();
   for (int i = 0 ; i < NUM_SLIDER_FILTER ; i++) {
     update_slider(slider_adj_filter[i],value_slider_filter,info_slider_filter);
-    int whichGroup = 0;
-    display_slider_engine(slider_adj_filter[i], whichGroup);
+    show_slider(slider_adj_filter[i]);
   }
 }
 
@@ -204,26 +202,27 @@ void display_slider_light() {
 
   for (int i = 0 ; i < NUM_SLIDER_LIGHT ; i++) {
     update_slider(slider_adj_light[i],value_slider_light,info_slider_light);
-    int whichGroup = 0;
-    display_slider_engine(slider_adj_light[i], whichGroup);
+    show_slider(slider_adj_light[i]);
   }
 }
 
 void display_slider_sound() {
-  slider_sound_display_bg();
+  for(int i = 0 ; i < slider_adj_sound.length ; i++) {
+    slider_adj_sound[i].show();
+  }
   for (int i = 0 ; i < NUM_SLIDER_SOUND ; i++) {
     update_slider(slider_adj_sound[i],value_slider_sound,info_slider_sound);
-    int whichGroup = 0;
-    display_slider_engine(slider_adj_sound[i], whichGroup);
+    show_slider(slider_adj_sound[i]);
   }
 }
 
 void display_slider_camera() {
-  slider_camera_display_bg();
+  for(int i = 0 ; i < slider_adj_camera.length ; i++) {
+    slider_adj_camera[i].show();
+  }
   for (int i = 0 ; i < NUM_SLIDER_CAMERA ; i++) {
     update_slider(slider_adj_camera[i],value_slider_camera,info_slider_camera);
-    int whichGroup = 0;
-    display_slider_engine(slider_adj_camera[i], whichGroup);
+    show_slider(slider_adj_camera[i]);
   }
 }
 
@@ -234,22 +233,18 @@ void dispay_text_slider_top() {
   for(int i = 0 ; i < NUM_SLIDER_BACKGROUND ; i++) {
     slider_adj_background[i].show_label();
   }
-
   // filter
   for(int i = 0 ; i < NUM_SLIDER_FILTER ; i++) {
     slider_adj_filter[i].show_label();
   }
-
   // light
   for(int i = 0 ; i < NUM_SLIDER_LIGHT ; i++) {
     slider_adj_light[i].show_label();
   }
-
   // sound
   for(int i = 0 ; i < NUM_SLIDER_SOUND ; i++ ) {
     slider_adj_sound[i].show_label();
-  }
-  
+  } 
   // camera
   for(int i = 0 ; i < slider_camera_name.length ; i++) {
     slider_adj_camera[i].show_label();
@@ -264,9 +259,8 @@ When you add a new sliders, you must change the starting value from 'NAN' to a v
 And you must add the name of this one in the 'preferences/'  folder slider_name_en.csv' and in the 'slider_name_fr' file
 */
 void slider_background_display_bg() {
-  int start = 0 ;
-  slider_display_hsb(pos_slider_background, size_slider_background, value_slider_background) ;
-  slider_show_background(pos_slider_background[3], size_slider_background[3], rounded_slider, blancGris);
+  show_slider_hsb(pos_slider_background, size_slider_background, value_slider_background) ;
+  show_slider_background(pos_slider_background[3], size_slider_background[3], rounded_slider, blancGris);
 }
 
 
@@ -284,7 +278,7 @@ void slider_light_0_display_bg() {
   System.arraycopy(pos_slider_light,start,pos,0,length);
   System.arraycopy(size_slider_light,start,size,0,length);
   System.arraycopy(value_slider_light,start,value,0,length);
-  slider_display_hsb(pos, size, value);
+  show_slider_hsb(pos, size, value);
 }
 
 void slider_light_1_display_bg() {
@@ -296,7 +290,7 @@ void slider_light_1_display_bg() {
   System.arraycopy(pos_slider_light,start,pos,0,length);
   System.arraycopy(size_slider_light,start,size,0,length);
   System.arraycopy(value_slider_light,start,value,0,length);
-  slider_display_hsb(pos, size, value);
+  show_slider_hsb(pos, size, value);
 }
 
 void slider_light_2_display_bg() {
@@ -308,38 +302,23 @@ void slider_light_2_display_bg() {
   System.arraycopy(pos_slider_light,start,pos,0,length);
   System.arraycopy(size_slider_light,start,size,0,length);
   System.arraycopy(value_slider_light,start,value,0,length);
-  slider_display_hsb(pos, size, value);
+  show_slider_hsb(pos, size, value);
 }
 
-void slider_sound_display_bg() {
-  slider_show_background(pos_slider_sound[0], size_slider_sound[0], rounded_slider, grisClair) ;
-  slider_show_background(pos_slider_sound[1], size_slider_sound[1], rounded_slider, grisClair) ;
-}
 
-void slider_camera_display_bg() {
-  // we cannot loop, because we change the color of display at the end of the function
-  slider_show_background(pos_slider_camera[0], size_slider_camera[0], rounded_slider, grisClair);
-  slider_show_background(pos_slider_camera[1], size_slider_camera[1], rounded_slider, grisClair);
-  slider_show_background(pos_slider_camera[2], size_slider_camera[2], rounded_slider, blancGris);
-  slider_show_background(pos_slider_camera[3], size_slider_camera[3], rounded_slider, blancGris);
-  slider_show_background(pos_slider_camera[4], size_slider_camera[4], rounded_slider, blancGris);
-  slider_show_background(pos_slider_camera[5], size_slider_camera[5], rounded_slider, grisClair);
-  slider_show_background(pos_slider_camera[6], size_slider_camera[6], rounded_slider, grisClair);
-  slider_show_background(pos_slider_camera[7], size_slider_camera[7], rounded_slider, grisClair);
-  slider_show_background(pos_slider_camera[8], size_slider_camera[8], rounded_slider, grisClair);
-}
+
 
 // supra local void
-void slider_display_hsb(iVec2 [] pos, iVec2 [] size, float [] value) {
+void show_slider_hsb(iVec2 [] pos, iVec2 [] size, float [] value) {
   if (mouseX > (pos[0].x ) && mouseX < ( pos[0].x +size[0].x) 
       && mouseY > ( pos[0].y - 5) && mouseY < pos[0].y +40) {
-    slider_show_hue_background(pos[0], size[0]) ;
-    slider_show_saturation_background(pos[1], size[1], value[0], value[1], value[2] ) ;
-    slider_show_brightness_background(pos[2], size[2], value[0], value[1], value[2] ) ;
+    show_slider_hue_background(pos[0], size[0]) ;
+    show_slider_saturation_background(pos[1], size[1], value[0], value[1], value[2] ) ;
+    show_slider_brightness_background(pos[2], size[2], value[0], value[1], value[2] ) ;
   } else {
-    slider_show_background(pos[0], size[0], rounded_slider, grisClair);
-    slider_show_background(pos[1], size[1], rounded_slider, grisClair);
-    slider_show_background(pos[2], size[2], rounded_slider, grisClair);
+    show_slider_background(pos[0], size[0], rounded_slider, grisClair);
+    show_slider_background(pos[1], size[1], rounded_slider, grisClair);
+    show_slider_background(pos[2], size[2], rounded_slider, grisClair);
   }
 }
 
@@ -363,7 +342,7 @@ void display_slider_item() {
             if (display_slider[1][k]) {
               // int whichOne = item_group[i] *100 +j ;
               update_slider(slider_adj_item[k],value_slider_item,info_slider_item); 
-              display_slider_engine(slider_adj_item[k], whichGroup); 
+              show_slider(slider_adj_item[k]); 
             }
           }
         }
@@ -372,7 +351,7 @@ void display_slider_item() {
   } else {
     for(int i = 0 ; i < NUM_SLIDER_ITEM ; i++) {
       update_slider(slider_adj_item[i],value_slider_item,info_slider_item);
-      display_slider_engine(slider_adj_item[i], whichGroup);
+      show_slider(slider_adj_item[i]);
     }
   } 
 }
@@ -388,102 +367,32 @@ void display_bg_slider_item() {
   // to find the good slider in the array
   int whichGroup = 1 ;
   // COL 1
-  slider_HSB_item_display(whichGroup, hue_fill_rank, sat_fill_rank, bright_fill_rank) ;
-  if (display_slider[whichGroup][alpha_fill_rank]) slider_show_background(pos_slider_item[alpha_fill_rank], size_slider_item[alpha_fill_rank], rounded_slider, blanc ) ;
+  show_slider_item_HSB(whichGroup, hue_fill_rank, sat_fill_rank, bright_fill_rank) ;
+  if (display_slider[whichGroup][alpha_fill_rank]) show_slider_background(pos_slider_item[alpha_fill_rank], size_slider_item[alpha_fill_rank], rounded_slider, blanc ) ;
   
   //outline color
-  slider_HSB_item_display(whichGroup, hue_stroke_rank, sat_stroke_rank, bright_stroke_rank) ;
-  if (display_slider[whichGroup][alpha_stroke_rank]) slider_show_background(pos_slider_item[alpha_stroke_rank], size_slider_item[alpha_stroke_rank], rounded_slider, blancGrisClair) ;
-  //  thickness
-  if (display_slider[whichGroup][thickness_rank]) slider_show_background(pos_slider_item[thickness_rank], size_slider_item[thickness_rank], rounded_slider, blanc) ;
-  // size
-  if (display_slider[whichGroup][size_x_rank]) slider_show_background(pos_slider_item[size_x_rank], size_slider_item[size_x_rank], rounded_slider, blancGrisClair) ;
-  if (display_slider[whichGroup][size_y_rank]) slider_show_background(pos_slider_item[size_y_rank], size_slider_item[size_y_rank], rounded_slider, blancGrisClair) ;
-  if (display_slider[whichGroup][size_z_rank]) slider_show_background(pos_slider_item[size_z_rank], size_slider_item[size_z_rank], rounded_slider, blancGrisClair) ;
-  // Font size
-  if(display_slider[whichGroup][font_size_rank]) slider_show_background(pos_slider_item[font_size_rank], size_slider_item[font_size_rank], rounded_slider, blancGrisClair) ;
-  // canvas
-  if (display_slider[whichGroup][canvas_x_rank]) slider_show_background (pos_slider_item[canvas_x_rank], size_slider_item[canvas_x_rank], rounded_slider, blanc) ;
-  if (display_slider[whichGroup][canvas_y_rank]) slider_show_background(pos_slider_item[canvas_y_rank], size_slider_item[canvas_y_rank], rounded_slider, blanc) ;
-  if (display_slider[whichGroup][canvas_z_rank]) slider_show_background(pos_slider_item[canvas_z_rank], size_slider_item[canvas_z_rank], rounded_slider, blanc) ;
+  show_slider_item_HSB(whichGroup, hue_stroke_rank, sat_stroke_rank, bright_stroke_rank);
 
-  
-
-  // COL 2
-  // reactivity
-  if(display_slider[whichGroup][reactivity_rank]) slider_show_background(pos_slider_item[reactivity_rank], size_slider_item[reactivity_rank], rounded_slider, blancGrisClair) ;
-  // speed
-  if(display_slider[whichGroup][speed_x_rank]) slider_show_background(pos_slider_item[speed_x_rank], size_slider_item[speed_x_rank], rounded_slider, blanc) ;
-  if(display_slider[whichGroup][speed_y_rank]) slider_show_background(pos_slider_item[speed_y_rank], size_slider_item[speed_y_rank], rounded_slider, blanc) ;
-  if(display_slider[whichGroup][speed_z_rank]) slider_show_background(pos_slider_item[speed_z_rank], size_slider_item[speed_z_rank], rounded_slider, blanc) ;
-  // spurt
-  if(display_slider[whichGroup][spurt_x_rank]) slider_show_background(pos_slider_item[spurt_x_rank], size_slider_item[spurt_x_rank], rounded_slider, blancGrisClair) ;
-  if(display_slider[whichGroup][spurt_y_rank]) slider_show_background(pos_slider_item[spurt_y_rank], size_slider_item[spurt_y_rank], rounded_slider, blancGrisClair) ;
-  if(display_slider[whichGroup][spurt_z_rank]) slider_show_background(pos_slider_item[spurt_z_rank], size_slider_item[spurt_z_rank], rounded_slider, blancGrisClair) ;
-  // direction
-  if(display_slider[whichGroup][dir_x_rank]) slider_show_background(pos_slider_item[dir_x_rank], size_slider_item[dir_x_rank], rounded_slider, blanc) ;
-  if(display_slider[whichGroup][dir_y_rank]) slider_show_background(pos_slider_item[dir_y_rank], size_slider_item[dir_y_rank], rounded_slider, blanc) ;
-  if(display_slider[whichGroup][dir_z_rank]) slider_show_background(pos_slider_item[dir_z_rank], size_slider_item[dir_z_rank], rounded_slider, blanc) ;
-  // jitter
-  if(display_slider[whichGroup][jitter_x_rank]) slider_show_background(pos_slider_item[jitter_x_rank], size_slider_item[jitter_x_rank], rounded_slider, blancGrisClair) ;
-  if(display_slider[whichGroup][jitter_y_rank]) slider_show_background(pos_slider_item[jitter_y_rank], size_slider_item[jitter_y_rank], rounded_slider, blancGrisClair) ;
-  if(display_slider[whichGroup][jitter_z_rank]) slider_show_background(pos_slider_item[jitter_z_rank], size_slider_item[jitter_z_rank], rounded_slider, blancGrisClair) ;
-  // swing
-  if(display_slider[whichGroup][swing_x_rank]) slider_show_background(pos_slider_item[swing_x_rank], size_slider_item[swing_x_rank], rounded_slider, blancGrisClair) ;
-  if(display_slider[whichGroup][swing_y_rank]) slider_show_background(pos_slider_item[swing_y_rank], size_slider_item[swing_y_rank], rounded_slider, blancGrisClair) ;
-  if(display_slider[whichGroup][swing_z_rank]) slider_show_background(pos_slider_item[swing_z_rank], size_slider_item[swing_z_rank], rounded_slider, blancGrisClair) ;
-
-  
-  // COL 3
-  // quantity
-  if(display_slider[whichGroup][quantity_rank]) slider_show_background(pos_slider_item[quantity_rank], size_slider_item[quantity_rank], rounded_slider, blancGrisClair) ;
-  // variety
-  if(display_slider[whichGroup][variety_rank]) slider_show_background(pos_slider_item[variety_rank], size_slider_item[variety_rank], rounded_slider, blancGrisClair) ; 
-  // life
-  if(display_slider[whichGroup][life_rank]) slider_show_background(pos_slider_item[life_rank], size_slider_item[life_rank], rounded_slider, blancGrisClair) ;
-  // fertility
-  if(display_slider[whichGroup][flow_rank]) slider_show_background(pos_slider_item[flow_rank], size_slider_item[flow_rank], rounded_slider, blancGrisClair) ;
-  // quality
-  if(display_slider[whichGroup][quality_rank]) slider_show_background(pos_slider_item[quality_rank], size_slider_item[quality_rank], rounded_slider, blancGrisClair) ;
-  
-  // area
-  if(display_slider[whichGroup][area_rank]) slider_show_background(pos_slider_item[area_rank], size_slider_item[area_rank], rounded_slider, blancGrisClair) ;
-  // angle
-  if(display_slider[whichGroup][angle_rank]) slider_show_background(pos_slider_item[angle_rank], size_slider_item[angle_rank], rounded_slider, blancGrisClair) ;
-  // scope
-  if(display_slider[whichGroup][scope_rank]) slider_show_background(pos_slider_item[scope_rank], size_slider_item[scope_rank], rounded_slider, blancGrisClair) ;
-  // scan
-  if(display_slider[whichGroup][scan_rank]) slider_show_background(pos_slider_item[scan_rank], size_slider_item[scan_rank], rounded_slider, blancGrisClair) ;
-  
-  // alignment
-  if(display_slider[whichGroup][alignment_rank]) slider_show_background(pos_slider_item[alignment_rank], size_slider_item[alignment_rank], rounded_slider, blancGrisClair) ;
-  // repulsion
-  if(display_slider[whichGroup][repulsion_rank]) slider_show_background(pos_slider_item[repulsion_rank], size_slider_item[repulsion_rank], rounded_slider, blancGrisClair) ;
-  // attraction
-  if(display_slider[whichGroup][attraction_rank]) slider_show_background(pos_slider_item[attraction_rank], size_slider_item[attraction_rank], rounded_slider, blancGrisClair) ;
-  // density
-  if(display_slider[whichGroup][density_rank]) slider_show_background(pos_slider_item[density_rank], size_slider_item[density_rank], rounded_slider, blancGrisClair) ;
-  
-  // influence
-  if(display_slider[whichGroup][influence_rank]) slider_show_background(pos_slider_item[influence_rank], size_slider_item[influence_rank], rounded_slider, blancGrisClair) ;
-  // calm
-  if(display_slider[whichGroup][calm_rank]) slider_show_background(pos_slider_item[calm_rank], size_slider_item[calm_rank], rounded_slider, blancGrisClair) ;
-  // spectrum
-  //println(display_slider[1].length, spectrum_rank);
-  if(display_slider[whichGroup][spectrum_rank]) slider_show_background(pos_slider_item[spectrum_rank], size_slider_item[spectrum_rank], rounded_slider, blancGrisClair) ;
+  for(int i = alpha_stroke_rank ; i < slider_adj_item.length ; i++) {
+    slider_adj_item[i].show();
+  }
 }
+
+
+
+
 // local void to display the HSB slider and display the specific color of this one
-void slider_HSB_item_display(int whichGroup, int hueRank, int satRank, int brightRank) {
+void show_slider_item_HSB(int whichGroup, int hueRank, int satRank, int brightRank) {
   if (mouseX > (pos_slider_item[hueRank].x ) && mouseX < (pos_slider_item[hueRank].x +size_slider_item[hueRank].x) 
        && mouseY > (pos_slider_item[hueRank].y - 5) && mouseY < pos_slider_item[hueRank].y +30) 
   {
-    if (display_slider[whichGroup][hueRank]) slider_show_hue_background(pos_slider_item[hueRank], size_slider_item[hueRank]) ; 
-    if (display_slider[whichGroup][satRank]) slider_show_saturation_background(pos_slider_item[satRank], size_slider_item[satRank], value_slider_item[hueRank], value_slider_item[satRank], value_slider_item[brightRank]) ;
-    if (display_slider[whichGroup][brightRank]) slider_show_brightness_background(pos_slider_item[brightRank], size_slider_item[brightRank], value_slider_item[hueRank], value_slider_item[satRank], value_slider_item[brightRank]) ;
+    if (display_slider[whichGroup][hueRank]) show_slider_hue_background(pos_slider_item[hueRank], size_slider_item[hueRank]) ; 
+    if (display_slider[whichGroup][satRank]) show_slider_saturation_background(pos_slider_item[satRank], size_slider_item[satRank], value_slider_item[hueRank], value_slider_item[satRank], value_slider_item[brightRank]) ;
+    if (display_slider[whichGroup][brightRank]) show_slider_brightness_background(pos_slider_item[brightRank], size_slider_item[brightRank], value_slider_item[hueRank], value_slider_item[satRank], value_slider_item[brightRank]) ;
   } else {
-    if (display_slider[whichGroup][hueRank]) slider_show_background(pos_slider_item[hueRank], size_slider_item[hueRank], rounded_slider, blanc);
-    if (display_slider[whichGroup][satRank]) slider_show_background(pos_slider_item[satRank], size_slider_item[satRank], rounded_slider, blanc);
-    if (display_slider[whichGroup][brightRank]) slider_show_background(pos_slider_item[brightRank], size_slider_item[brightRank], rounded_slider, blanc);
+    if (display_slider[whichGroup][hueRank]) show_slider_background(pos_slider_item[hueRank], size_slider_item[hueRank], rounded_slider, blanc);
+    if (display_slider[whichGroup][satRank]) show_slider_background(pos_slider_item[satRank], size_slider_item[satRank], rounded_slider, blanc);
+    if (display_slider[whichGroup][brightRank]) show_slider_background(pos_slider_item[brightRank], size_slider_item[brightRank], rounded_slider, blanc);
   }
 }
 
@@ -606,14 +515,13 @@ void background_text_list(Vec2 pos, String [] list, int [] size_text, int size_a
 /**
 slider method
 */
-void slider_show_background(iVec2 pos, iVec2 size, int rounded, int c) {
+void show_slider_background(iVec2 pos, iVec2 size, int rounded, int c) {
   fill(c);
   rect(pos.x, pos.y -(size.y *.5), size.x, size.y, rounded);
-
 }
 
 // hue
-void slider_show_hue_background(iVec2 pos, iVec2 size) {
+void show_slider_hue_background(iVec2 pos, iVec2 size) {
   pushMatrix();
   translate (pos.x , pos.y -(size.y *.5));
   for (int i = 0 ; i < size.x ; i++) {
@@ -627,7 +535,7 @@ void slider_show_hue_background(iVec2 pos, iVec2 size) {
 }
 
 // saturation
-void slider_show_saturation_background(iVec2 pos, iVec2 size, float colour, float s, float d) {
+void show_slider_saturation_background(iVec2 pos, iVec2 size, float colour, float s, float d) {
   pushMatrix ();
   translate (pos.x, pos.y-(size.y *.5));
   for ( int i = 0 ; i < size.x ; i++) {
@@ -642,7 +550,7 @@ void slider_show_saturation_background(iVec2 pos, iVec2 size, float colour, floa
 }
 
 // brightness
-void slider_show_brightness_background(iVec2 pos, iVec2 size, float colour, float s, float d) {
+void show_slider_brightness_background(iVec2 pos, iVec2 size, float colour, float s, float d) {
   pushMatrix ();
   translate (pos.x, pos.y-(size.y *.5));
   for (int i = 0 ; i < size.x ; i++) {
@@ -656,22 +564,27 @@ void slider_show_brightness_background(iVec2 pos, iVec2 size, float colour, floa
   popMatrix() ;
 }
 
+void show_slider(Slider_adjustable sa) {
+  sa.show_adj();
+  sa.show_molette();
+}
+
 
 void update_slider(Slider_adjustable sa, float [] value_slider, Vec5 [] info_slider) {
   //MIDI update
   update_midi_slider(sa,info_slider);
   // MIN and MAX molette
   //check
-  if(!sa.lockedMol && !sa.insideMol) {
+  if(!sa.molette_used_is() && !sa.inside_molette_is()) {
     // min molette
-    if(!sa.insideMax() && !sa.lockedMax) {
-      sa.insideMin();
+    if(!sa.inside_max() && !sa.locked_max_is()) {
+      sa.inside_min();
       sa.select_min();
       sa.update_min();
     }
     // max molette
-    if(!sa.insideMin() && !sa.lockedMin) {
-      sa.insideMax();
+    if(!sa.inside_min() && !sa.locked_min_is()) {
+      sa.inside_max();
       sa.select_max();
       sa.update_max();
     }
@@ -682,7 +595,7 @@ void update_slider(Slider_adjustable sa, float [] value_slider, Vec5 [] info_sli
   
   // CURRENT molette
   // check
-  if(!sa.lockedMax && !sa.lockedMax) sa.insideMol_Ellipse() ;
+  if(!sa.locked_max_is() && !sa.locked_max_is()) sa.inside_molette_ellipse() ;
   // update
   sa.select_molette();
   sa.update_molette();
@@ -693,25 +606,14 @@ void update_slider(Slider_adjustable sa, float [] value_slider, Vec5 [] info_sli
 }
 
 
-void display_slider_engine(Slider_adjustable sa, int whichGroup) {
-  if (whichGroup == 0) {
-    display_min_max_slider(sa, grisTresFonce, gris);
-    display_mollette(sa, blanc, blancGris);
-  } else {
-    display_min_max_slider(sa, grisFonce, grisClair);
-    display_mollette(sa, blanc, blancGris);
-  }
-}
 
+
+
+/*
 void display_min_max_slider(Slider_adjustable sa, color colorIn, color colorOut) {
-  float thickness = 0 ;
-  sa.display_min_max(ratio_pos_slider_adjustable, ratio_size_slider_adjustable, colorIn, colorOut, colorIn, colorOut, thickness) ;
+  sa.show_adj();
 }
-
-void display_mollette(Slider_adjustable sa, color colorMolIn, color colorMolOut) {
-  sa.show_molette(colorMolIn,colorMolOut, colorMolIn,colorMolOut,1);
-}
-
+*/
 
 
 

@@ -24,7 +24,6 @@ void build_console_general() {
 }
 
 void build_console_bar() {
-  // dropdown bar
   dropdown_bar = new Dropdown[num_dropdown_bar];
   dropdown_bar_pos = new iVec2[num_dropdown_bar];
   dropdown_bar_size = new iVec2[num_dropdown_bar];
@@ -43,7 +42,13 @@ void build_console_background() {
     if(info_save_raw_list(info_slider_background,i).a > -1 ) {
       slider_adj_background[i] = new Slider_adjustable(temp_pos, size_slider_background[i], temp_size_mol, "ELLIPSE");
       slider_adj_background[i].set_id(i);
-      slider_adj_background[i].set_label(slider_background_name[i],iadd(slider_adj_background[i].get_size(),iVec2(3,0)),textUsual_1,r.GRAY_3,LEFT);
+      slider_adj_background[i].set_label(slider_background_name[i],iadd(slider_adj_background[i].get_size(),iVec2(3,0)));
+      slider_adj_background[i].set_label_font(textUsual_1);
+      slider_adj_background[i].set_rounded(rounded_slider);
+      slider_adj_background[i].set_label_colour(r.GRAY_3);
+      slider_adj_background[i].set_fill(r.GRAY_4);
+      slider_adj_background[i].set_molette_fill(r.GRAY_7,r.GRAY_5);
+      slider_adj_background[i].set_adj_fill(r.GRAY_6,r.GRAY_1);
     }
   }
 
@@ -57,9 +62,14 @@ void build_console_filter() {
     iVec2 temp_size_mol = iVec2(round(size_slider_filter[i].y *ratio_size_molette), round(size_slider_filter[i].y *ratio_size_molette));
     iVec2 temp_pos = iVec2(pos_slider_filter[i].x, round(pos_slider_filter[i].y -(slider_height_filter *.6)));
     if(info_save_raw_list(info_slider_filter,i).a > -1 ) {
-      slider_adj_filter[i] = new Slider_adjustable(temp_pos, size_slider_filter[i], temp_size_mol, "ELLIPSE");
+      slider_adj_filter[i] = new Slider_adjustable(temp_pos,size_slider_filter[i],temp_size_mol,"ELLIPSE");
       slider_adj_filter[i].set_id(i);
-      slider_adj_filter[i].set_label(slider_filter_name[i],iadd(slider_adj_filter[i].get_size(),iVec2(3,0)),textUsual_1,r.GRAY_3,LEFT);
+      slider_adj_filter[i].set_label(slider_filter_name[i],iadd(slider_adj_filter[i].get_size(),iVec2(3,0)));
+      slider_adj_filter[i].set_label_font(textUsual_1);
+      slider_adj_filter[i].set_label_colour(r.GRAY_3);
+      slider_adj_filter[i].set_fill(r.GRAY_4);
+      slider_adj_filter[i].set_molette_fill(r.GRAY_7,r.GRAY_5);
+      slider_adj_filter[i].set_adj_fill(r.GRAY_6,r.GRAY_1);
     }
   }
 }
@@ -69,9 +79,14 @@ void build_console_light() {
     iVec2 temp_size_mol = iVec2(round(size_slider_light[i].y *ratio_size_molette), round(size_slider_light[i].y *ratio_size_molette));
     iVec2 temp_pos = iVec2(pos_slider_light[i].x, round(pos_slider_light[i].y -(slider_height_light *.6)));
     if(info_save_raw_list(info_slider_light,i).a > -1 ) {
-      slider_adj_light[i] = new Slider_adjustable(temp_pos, size_slider_light[i], temp_size_mol, "ELLIPSE");
+      slider_adj_light[i] = new Slider_adjustable(temp_pos, size_slider_light[i], temp_size_mol,"ELLIPSE");
       slider_adj_light[i].set_id(i);
-      slider_adj_light[i].set_label(slider_light_name[i],iadd(slider_adj_light[i].get_size(),iVec2(3,0)),textUsual_1,r.GRAY_3,LEFT);
+      slider_adj_light[i].set_label(slider_light_name[i],iadd(slider_adj_light[i].get_size(),iVec2(3,0)));
+      slider_adj_light[i].set_label_font(textUsual_1);
+      slider_adj_light[i].set_label_colour(r.GRAY_3);
+      slider_adj_light[i].set_fill(r.GRAY_4);
+      slider_adj_light[i].set_molette_fill(r.GRAY_7,r.GRAY_5);
+      slider_adj_light[i].set_adj_fill(r.GRAY_6,r.GRAY_1);
     }
   }
 
@@ -99,7 +114,13 @@ void build_console_sound() {
     if(info_save_raw_list(info_slider_sound,i).a > -1 ) {
       slider_adj_sound[i] = new Slider_adjustable(temp_pos, size_slider_sound[i], temp_size_mol, "ELLIPSE");
       slider_adj_sound[i].set_id(i);
-      slider_adj_sound[i].set_label(slider_sound_name[i],iadd(slider_adj_sound[i].get_size(),iVec2(3,0)),textUsual_1,r.GRAY_3,LEFT);
+      slider_adj_sound[i].set_label(slider_sound_name[i],iadd(slider_adj_sound[i].get_size(),iVec2(3,0)));
+      slider_adj_sound[i].set_label_font(textUsual_1);
+      slider_adj_sound[i].set_rounded(rounded_slider);
+      slider_adj_sound[i].set_label_colour(r.GRAY_3);
+      slider_adj_sound[i].set_fill(r.GRAY_4);
+      slider_adj_sound[i].set_molette_fill(r.GRAY_7,r.GRAY_5);
+      slider_adj_sound[i].set_adj_fill(r.GRAY_6,r.GRAY_1);
     }
   }
 
@@ -123,7 +144,13 @@ void build_console_camera() {
     if(info_save_raw_list(info_slider_camera,i).a > -1 ) {
       slider_adj_camera[i] = new Slider_adjustable(temp_pos, size_slider_camera[i], temp_size_mol, "ELLIPSE");
       slider_adj_camera[i].set_id(i);
-      slider_adj_camera[i].set_label(slider_camera_name[i],iadd(slider_adj_camera[i].get_size(),iVec2(3,0)),textUsual_1,r.GRAY_3,LEFT);
+      slider_adj_camera[i].set_label(slider_camera_name[i],iadd(slider_adj_camera[i].get_size(),iVec2(3,0)));
+      slider_adj_camera[i].set_label_font(textUsual_1);
+      slider_adj_camera[i].set_rounded(rounded_slider);
+      slider_adj_camera[i].set_label_colour(r.GRAY_3);
+      slider_adj_camera[i].set_fill(r.GRAY_4);
+      slider_adj_camera[i].set_molette_fill(r.GRAY_7,r.GRAY_5);
+      slider_adj_camera[i].set_adj_fill(r.GRAY_6,r.GRAY_1);
     }
   }
 }
@@ -157,9 +184,96 @@ void build_console_item() {
       else if(label_name.equals("s_brightness")) label_name = "brightness";
       else if(label_name.equals("s_alpha")) label_name = "alpha";
       else if(label_name.equals("thickness")) label_name = "THICKNESS";
-      slider_adj_item[i].set_label(label_name,iadd(slider_adj_item[i].get_size(),iVec2(3,0)),textUsual_1,r.GRAY_3,LEFT);
+      slider_adj_item[i].set_label(label_name,iadd(slider_adj_item[i].get_size(),iVec2(3,0)));
+      slider_adj_item[i].set_label_font(textUsual_1);
+      slider_adj_item[i].set_rounded(rounded_slider);
+      slider_adj_item[i].set_label_colour(r.GRAY_3);
+      slider_adj_item[i].set_molette_fill(r.GRAY_7,r.GRAY_5);
+      slider_adj_item[i].set_adj_fill(r.GRAY_6,r.GRAY_1);
     }
   }
+  // fill alpha
+  slider_adj_item[hue_fill_rank].set_fill(r.GRAY_4);
+  slider_adj_item[sat_fill_rank].set_fill(r.GRAY_4);
+  slider_adj_item[bright_fill_rank].set_fill(r.GRAY_4);
+  slider_adj_item[alpha_fill_rank].set_fill(r.GRAY_4);
+  // stroke alpha
+  slider_adj_item[hue_stroke_rank].set_fill(r.GRAY_2);
+  slider_adj_item[sat_stroke_rank].set_fill(r.GRAY_2);
+  slider_adj_item[bright_stroke_rank].set_fill(r.GRAY_2);
+  slider_adj_item[alpha_stroke_rank].set_fill(r.GRAY_2);
+  //  thickness
+  slider_adj_item[thickness_rank].set_fill(r.GRAY_4);
+  // size
+  slider_adj_item[size_x_rank].set_fill(r.GRAY_2);
+  slider_adj_item[size_y_rank].set_fill(r.GRAY_2);
+  slider_adj_item[size_z_rank].set_fill(r.GRAY_2);
+  // Font size
+  slider_adj_item[font_size_rank].set_fill(r.GRAY_4);
+  // canvas
+  slider_adj_item[canvas_x_rank].set_fill(r.GRAY_2);
+  slider_adj_item[canvas_y_rank].set_fill(r.GRAY_2);
+  slider_adj_item[canvas_z_rank].set_fill(r.GRAY_2);
+
+  // COL 2
+  // reactivity
+  slider_adj_item[reactivity_rank].set_fill(r.GRAY_4);
+  // speed
+  slider_adj_item[speed_x_rank].set_fill(r.GRAY_2);
+  slider_adj_item[speed_y_rank].set_fill(r.GRAY_2);
+  slider_adj_item[speed_z_rank].set_fill(r.GRAY_2);
+  // spurt
+  slider_adj_item[spurt_x_rank].set_fill(r.GRAY_4);
+  slider_adj_item[spurt_y_rank].set_fill(r.GRAY_4);
+  slider_adj_item[spurt_z_rank].set_fill(r.GRAY_4);
+  // direction
+  slider_adj_item[dir_x_rank].set_fill(r.GRAY_2);
+  slider_adj_item[dir_y_rank].set_fill(r.GRAY_2);
+  slider_adj_item[dir_z_rank].set_fill(r.GRAY_2);
+  // jitter
+  slider_adj_item[jitter_x_rank].set_fill(r.GRAY_4);
+  slider_adj_item[jitter_y_rank].set_fill(r.GRAY_4);
+  slider_adj_item[jitter_z_rank].set_fill(r.GRAY_4);
+  // swing
+  slider_adj_item[swing_x_rank].set_fill(r.GRAY_2);
+  slider_adj_item[swing_y_rank].set_fill(r.GRAY_2);
+  slider_adj_item[swing_z_rank].set_fill(r.GRAY_2);
+
+  // COL 3
+  // quantity
+  slider_adj_item[quantity_rank].set_fill(r.GRAY_4);
+  // variety
+  slider_adj_item[variety_rank].set_fill(r.GRAY_4); 
+  // life
+  slider_adj_item[life_rank].set_fill(r.GRAY_4);
+  // fertility
+  slider_adj_item[flow_rank].set_fill(r.GRAY_4);
+  // quality
+  slider_adj_item[quality_rank].set_fill(r.GRAY_4);
+  
+  // area
+  slider_adj_item[area_rank].set_fill(r.GRAY_2);
+  // angle
+  slider_adj_item[angle_rank].set_fill(r.GRAY_2);
+  // scope
+  slider_adj_item[scope_rank].set_fill(r.GRAY_2);
+  // scan
+  slider_adj_item[scan_rank].set_fill(r.GRAY_2); 
+  // alignment
+  slider_adj_item[alignment_rank].set_fill(r.GRAY_4);
+  // repulsion
+  slider_adj_item[repulsion_rank].set_fill(r.GRAY_4);
+  // attraction
+  slider_adj_item[attraction_rank].set_fill(r.GRAY_4);
+  // density
+  slider_adj_item[density_rank].set_fill(r.GRAY_4);
+  
+  // influence
+  slider_adj_item[influence_rank].set_fill(r.GRAY_2);
+  // calm
+  slider_adj_item[calm_rank].set_fill(r.GRAY_2);
+  // spectrum
+  slider_adj_item[spectrum_rank].set_fill(r.GRAY_2);
 }
 
 

@@ -337,7 +337,7 @@ void update_midi_slider(Slider_adjustable sa, Vec5 [] info_slider) {
   if (midi_CC_romanesco == sa.get_id_midi()) sa.update_midi(midi_value_romanesco) ;
 
   
-  if(selectMidi && sa.lockedMol()) {
+  if(selectMidi && sa.molette_used_is()) {
     for(int i = 0 ; i <info_slider.length ; i++) {
       if(sa.get_id() == (int)info_slider[sa.get_id()].a) {
         info_slider[i].b = midi_CC_romanesco;
@@ -346,7 +346,7 @@ void update_midi_slider(Slider_adjustable sa, Vec5 [] info_slider) {
   }
   
   //ID midi from controller midi button setting
-  if (selectMidi && sa.lockedMol()) sa.set_id_midi(midi_CC_romanesco);
+  if (selectMidi && sa.molette_used_is()) sa.set_id_midi(midi_CC_romanesco);
   
   //ID midi from save
   if(LOAD_SETTING) sa.set_id_midi((int)info_save_raw_list(info_slider, sa.get_id()).b);

@@ -138,6 +138,7 @@ public class Dropdown {
     iVec2 size_molette =  iVec2(size_slider.x, round(size_slider.y /ratio));
 
     slider_dd = new Slider(pos_slider, size_slider, size_molette, "RECT");
+    slider_dd.set_molette_fill(this.color_box_in,this.color_box_out);
   }
 
 
@@ -173,7 +174,8 @@ public class Dropdown {
           /**
           the color must be set in other place, that's not pertinent to set color in this method
           */
-          slider_dd.show_molette(jaune, orange, jaune, orange, 0) ;
+          slider_dd.show_molette();
+          // slider_dd.show_molette(jaune, orange, jaune, orange, 0) ;
         }
       }
     } else {

@@ -123,7 +123,6 @@ void check_button_general() {
 /**
 dropdown
 */
-
 // Annexe method
 int update_dropdown_bar(Dropdown dd) {
   int content_line = SWITCH_VALUE_FOR_DROPDOWN ;

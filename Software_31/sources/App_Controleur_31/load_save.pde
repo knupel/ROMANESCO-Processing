@@ -148,8 +148,8 @@ void save_info_slider() {
   for (int i = 1 ; i < NUM_SLIDER_BACKGROUND ; i++) {
     int temp = i-1 ;
     info_slider_background[temp].c = slider_adj_background[i].get_value() ;
-    info_slider_background[temp].d = slider_adj_background[i].get_value_min() ;
-    info_slider_background[temp].e = slider_adj_background[i].get_value_max() ;
+    info_slider_background[temp].d = slider_adj_background[i].get_min_norm() ;
+    info_slider_background[temp].e = slider_adj_background[i].get_max_norm() ;
     set_data_slider(i, info_slider_background[temp],"Slider background") ;
   }
 
@@ -157,8 +157,8 @@ void save_info_slider() {
   for (int i = 1 ; i < NUM_SLIDER_FILTER ; i++) {
     int temp = i-1 ;
     info_slider_filter[temp].c = slider_adj_filter[i].get_value() ;
-    info_slider_filter[temp].d = slider_adj_filter[i].get_value_min() ;
-    info_slider_filter[temp].e = slider_adj_filter[i].get_value_max() ;
+    info_slider_filter[temp].d = slider_adj_filter[i].get_min_norm() ;
+    info_slider_filter[temp].e = slider_adj_filter[i].get_max_norm() ;
     set_data_slider(i, info_slider_filter[temp],"Slider filter") ;
   }
 
@@ -166,8 +166,8 @@ void save_info_slider() {
   for (int i = 1 ; i < NUM_SLIDER_LIGHT ; i++) {
     int temp = i-1 ;
     info_slider_light[temp].c = slider_adj_light[i].get_value() ;
-    info_slider_light[temp].d = slider_adj_light[i].get_value_min() ;
-    info_slider_light[temp].e = slider_adj_light[i].get_value_max() ;
+    info_slider_light[temp].d = slider_adj_light[i].get_min_norm() ;
+    info_slider_light[temp].e = slider_adj_light[i].get_max_norm() ;
     set_data_slider(i, info_slider_light[temp],"Slider light") ;
   }
 
@@ -175,8 +175,8 @@ void save_info_slider() {
   for (int i = 1 ; i < NUM_SLIDER_SOUND ; i++) {
     int temp = i-1 ;
     info_slider_sound[temp].c = slider_adj_sound[i].get_value() ;
-    info_slider_sound[temp].d = slider_adj_sound[i].get_value_min() ;
-    info_slider_sound[temp].e = slider_adj_sound[i].get_value_max() ;
+    info_slider_sound[temp].d = slider_adj_sound[i].get_min_norm() ;
+    info_slider_sound[temp].e = slider_adj_sound[i].get_max_norm() ;
     set_data_slider(i, info_slider_sound[temp],"Slider sound") ;
   }
 
@@ -184,8 +184,8 @@ void save_info_slider() {
   for (int i = 1 ; i < NUM_SLIDER_CAMERA ; i++) {
     int temp = i-1 ;
     info_slider_camera[temp].c = slider_adj_camera[i].get_value() ;
-    info_slider_camera[temp].d = slider_adj_camera[i].get_value_min() ;
-    info_slider_camera[temp].e = slider_adj_camera[i].get_value_max() ;
+    info_slider_camera[temp].d = slider_adj_camera[i].get_min_norm() ;
+    info_slider_camera[temp].e = slider_adj_camera[i].get_max_norm() ;
     set_data_slider(i, info_slider_camera[temp],"Slider camera") ;
   }
   
@@ -195,8 +195,8 @@ void save_info_slider() {
     for(int k = 0 ; k < info_slider_item.length ;k++) {
       if((int)info_slider_item[k].a == IDslider) {
         info_slider_item[k].c = slider_adj_item[IDslider].get_value() ;
-        info_slider_item[k].d = slider_adj_item[IDslider].get_value_min() ;
-        info_slider_item[k].e = slider_adj_item[IDslider].get_value_max() ;
+        info_slider_item[k].d = slider_adj_item[IDslider].get_min_norm() ;
+        info_slider_item[k].e = slider_adj_item[IDslider].get_max_norm() ;
         set_data_slider(IDslider, info_slider_item[k],"Slider item") ;
       }
     }
@@ -464,10 +464,10 @@ void set_slider_data_group() {
 // local method of set_slider_save()
 void setting_data_slider(Slider_adjustable [] slider_adj, Vec5 [] info_slider, int index) {
 
-  Vec5 info_temp = info_save_raw_list(info_slider, index).copy() ;
-  slider_adj[index].set_id_midi((int)info_temp.b) ; 
-  slider_adj[index].set_molette(info_temp.c) ; 
-  slider_adj[index].setMinMax(info_temp.d, info_temp.e) ;
+  Vec5 info_temp = info_save_raw_list(info_slider,index).copy();
+  slider_adj[index].set_id_midi((int)info_temp.b); 
+  slider_adj[index].set_pos_molette(info_temp.c);
+  slider_adj[index].set_min_max(info_temp.d, info_temp.e);
 }
 
 

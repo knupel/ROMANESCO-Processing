@@ -27,11 +27,6 @@ void set_design_var() {
     grid_col[i] = col_width +grid_col[i-1];
   }
 
-  // the position is calculated in ratio of the slider position. Not optimize for the vertical slider
-  ratio_pos_slider_adjustable = .5 ; 
-  // the height size is calculated in ratio of the slider height size.  Not optimize for the vertical slider
-  ratio_size_slider_adjustable =.2 ; 
-
   sizeTitleButton = 10 ;
 
   spacing_slider = 11;
