@@ -168,7 +168,8 @@ public class Dropdown {
           slider_dd.inside_molette_rect();
           slider_dd.select_molette();
           slider_dd.update_molette();
-          slider_dd.show_slider(color_main,color_main,0);
+          slider_dd.show();
+          //slider_dd.show(color_main,color_main,0);
           /**
           the color must be set in other place, that's not pertinent to set color in this method
           */

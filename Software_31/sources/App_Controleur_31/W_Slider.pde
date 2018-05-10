@@ -4,7 +4,7 @@ CONTROL ROMANESCO PROCESSING ENVIRONMENT
 *
 SLIDER 
 2015 - 2018
-v 1.7.1
+v 1.8.0
 */
 boolean molette_already_selected ;
 /**
@@ -13,15 +13,21 @@ CLASS SLIDER
 public class Slider {
   protected iVec2 pos, size;
   protected iVec2 pos_molette, size_molette;
-  protected PVector posText;
+
   protected iVec2 pos_min, pos_max;
-  // protected Vec2 newPosMol ;
-  protected color sliderColor = color(60) ;
-  protected color molIn = color(255) ;
-  protected color molOut = color(125) ;
-  protected color colorText = color(0) ; ;
+
+  protected int sliderColor = color(g.colorModeX /4);
+  protected int molIn = color(g.colorModeX);
+  protected int molOut = color(g.colorModeX /2);
+  protected int colorText = color(0);
+  // label
+  protected int align = LEFT;
+  protected String name = null;
+  protected iVec2 pos_label;
+  protected int color_label = color(g.colorModeX);
+  protected PFont font_label;
+
   protected boolean lockedMol, insideMol ;
-  protected PFont p ;
   protected float minNorm = 0 ;
   protected float maxNorm = 1 ;
   // advance slider
@@ -29,29 +35,6 @@ public class Slider {
   protected int id_midi = -2 ;
   protected int id = -1;
   protected String moletteShapeType = ("") ;
-  
-  //CONSTRUCTOR with title
-  public Slider(iVec2 pos, iVec2 size, PVector posText, PFont p) {
-    set_pos(pos);
-    this.size = size.copy();
-    this.posText = posText;
-    this.p = p ;
-    //which molette for slider horizontal or vertical
-    if (size.x >= size.y) {
-      size_molette = iVec2(size.y); 
-    } else {
-      size_molette = iVec2(size.x);
-    }
-    // calculate minimum and maxium position of the molette
-    if(size.x > size.y) {
-      pos_min = pos.copy();
-      pos_max = iVec2(pos.x +size.x +size.y, pos.y);
-    } else {
-      pos_min = pos.copy();
-      int correction = size_molette.y +size_molette.x;
-      pos_max = iVec2(pos.x, pos.y +size.x +size.y -correction);
-    }
-  }
   
   //CONSTRUCTOR minimum
   public Slider(iVec2 pos, iVec2 size) {
@@ -92,11 +75,11 @@ public class Slider {
     }
   }
 
-  void set_pos(int x, int y) {
+  public void set_pos(int x, int y) {
     set_pos(iVec2(x,y));
   }
 
-  void set_pos(iVec2 pos) {
+  public void set_pos(iVec2 pos) {
     if(this.pos == null || this.pos_molette == null || !this.pos.equals(pos)) {
       if(this.pos == null) {
         this.pos = pos.copy();
@@ -110,22 +93,34 @@ public class Slider {
         this.pos_molette.set(pos);
       }
     }
-  }  
+  }
+
+  public void set_label(String name, iVec2 pos_label, PFont font_label, int color_label, int align) {
+    this.name = name;
+    if(this.pos_label == null) {
+      this.pos_label = iVec2(pos_label);
+    } else {
+      this.pos_label.set(pos_label);
+    }
+    this.font_label = font_label; 
+    this.color_label = color_label;
+    this.align = align;  
+  }
 
   
-  void set_id_midi(int id_midi) {
+  public void set_id_midi(int id_midi) {
     this.id_midi = id_midi;
   }
 
 
-  void set_id(int id) {
+  public void set_id(int id) {
     this.id = id;
   }
 
 
 
   // setting the position from a specific value
-  void set_molette(float normPos) {
+  public void set_molette(float normPos) {
     // security to constrain the value in normalizing range.
     if(normPos > 1.) normPos = 1. ;
     if(normPos < 0) normPos = 0 ;
@@ -139,12 +134,12 @@ public class Slider {
 
 
   
-  void select_molette() {
+  public void select_molette() {
     lockedMol = select(lockedMol(), lockedMol) ;
   }
 
 
-  void update_molette() {
+  public void update_molette() {
     // move the molette is this one is locked
     // security
     if(size.x >= size.y) {
@@ -175,7 +170,7 @@ public class Slider {
   }
 
   // privat method
-  boolean select(boolean locked_method, boolean result) {
+  public boolean select(boolean locked_method, boolean result) {
     // boolean result = original ;
     if(!molette_already_selected) {
       if (locked_method) {
@@ -206,38 +201,23 @@ public class Slider {
   
   /**
   DISPLAY SLIDER
-  v 1.0.1
+  v 2.0.0
   */
   //Slider display classic
-  void show_slider() {
+  public void show() {
     fill(sliderColor) ;
     rect(pos.x, pos.y, size.x, size.y ) ;
   }
   
-  // slider display advanced
-  void show_slider(color sliderColor, color sliderStrokeColor, float thickness) {
-    this.sliderColor = sliderColor ;
-    fill(sliderColor) ;
-    stroke(sliderStrokeColor) ;
-    strokeWeight(thickness) ;
-    rect(pos.x, pos.y, size.x, size.y ) ;
-    noStroke() ;
-  }
   //Slider update with title
-  void show_sliderText(String s, boolean t) {
-    //SLIDER
-    fill(sliderColor) ;
-    rect(pos.x, pos.y, size.x, size.y ) ;
-    if (t) {
-      fill(colorText) ;
-      textFont (p) ;
-      textSize (posText.z) ;
-      text(s, posText.x, posText.y ) ;
-    }
+  public void show_label() {
+    textAlign(align);
+    textFont(font_label);
+    fill(color_label);
+    text(name,add(pos,pos_label));
   }
+
   
-  
-  // DISPLAY MOLETTE
   //display molette
   void show_molette() {
     if(lockedMol || insideMol) { 
@@ -245,7 +225,7 @@ public class Slider {
     } else { 
       fill(molOut ) ;
     }
-    shapeMolette() ;
+    shape_molette() ;
     noStroke() ;
   }
   
@@ -262,26 +242,11 @@ public class Slider {
       fill(molOut ) ;
       stroke(strokeOut) ;
     }
-    shapeMolette() ;
+    shape_molette() ;
     noStroke() ;
   }
   
-  
- 
-
-
-  
-
-  
-  
-  
-  
-  
-  
-
-  //ANNEXE VOID
-  // display the molette
-  void shapeMolette() {
+  void shape_molette() {
     if(moletteShapeType.equals("ELLIPSE") ) {
       ellipse(size_molette.x *.5 +pos_molette.x, size.y *.5 +pos_molette.y, size_molette.x , size_molette.y) ;
     } else if(moletteShapeType.equals("RECT")) {
@@ -296,7 +261,7 @@ public class Slider {
   
   // check if the mouse is inside the molette or not
   //rect
-  boolean insideSlider() { 
+  boolean inside_slider() { 
     if(inside(pos,size,iVec2(mouseX,mouseY),RECT)) {
       insideMol = true ; 
     } else {
@@ -455,19 +420,7 @@ public class Slider_adjustable extends Slider {
   protected color adjOut = color(125) ; ;
 
   boolean lockedMin, lockedMax;
-  
-  /**
-  CONSTRUCTOR
-  */
-  Slider_adjustable(iVec2 pos, iVec2 size, PVector pos_text, PFont p) {
-    super(pos,size,pos_text,p);
-    this.newPosMax = iVec2();
-    this.posMinMax = pos.copy();
-    this.newPosMin = posMinMax.copy();
-    this.sizeMinMax = size.copy();
-    this.sizeMolMinMax = iVec2(widthMinMax, size.y);
-  }
-  
+    
   Slider_adjustable(iVec2 pos, iVec2 size) {
     super(pos, size);
     this.newPosMax = iVec2();

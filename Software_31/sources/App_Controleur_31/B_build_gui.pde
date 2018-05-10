@@ -43,6 +43,7 @@ void build_console_background() {
     if(info_save_raw_list(info_slider_background,i).a > -1 ) {
       slider_adj_background[i] = new Slider_adjustable(temp_pos, size_slider_background[i], temp_size_mol, "ELLIPSE");
       slider_adj_background[i].set_id(i);
+      slider_adj_background[i].set_label(slider_background_name[i],iadd(slider_adj_background[i].get_size(),iVec2(3,0)),textUsual_1,r.GRAY_3,LEFT);
     }
   }
 
@@ -58,6 +59,7 @@ void build_console_filter() {
     if(info_save_raw_list(info_slider_filter,i).a > -1 ) {
       slider_adj_filter[i] = new Slider_adjustable(temp_pos, size_slider_filter[i], temp_size_mol, "ELLIPSE");
       slider_adj_filter[i].set_id(i);
+      slider_adj_filter[i].set_label(slider_filter_name[i],iadd(slider_adj_filter[i].get_size(),iVec2(3,0)),textUsual_1,r.GRAY_3,LEFT);
     }
   }
 }
@@ -69,6 +71,7 @@ void build_console_light() {
     if(info_save_raw_list(info_slider_light,i).a > -1 ) {
       slider_adj_light[i] = new Slider_adjustable(temp_pos, size_slider_light[i], temp_size_mol, "ELLIPSE");
       slider_adj_light[i].set_id(i);
+      slider_adj_light[i].set_label(slider_light_name[i],iadd(slider_adj_light[i].get_size(),iVec2(3,0)),textUsual_1,r.GRAY_3,LEFT);
     }
   }
 
@@ -96,6 +99,7 @@ void build_console_sound() {
     if(info_save_raw_list(info_slider_sound,i).a > -1 ) {
       slider_adj_sound[i] = new Slider_adjustable(temp_pos, size_slider_sound[i], temp_size_mol, "ELLIPSE");
       slider_adj_sound[i].set_id(i);
+      slider_adj_sound[i].set_label(slider_sound_name[i],iadd(slider_adj_sound[i].get_size(),iVec2(3,0)),textUsual_1,r.GRAY_3,LEFT);
     }
   }
 
@@ -119,6 +123,7 @@ void build_console_camera() {
     if(info_save_raw_list(info_slider_camera,i).a > -1 ) {
       slider_adj_camera[i] = new Slider_adjustable(temp_pos, size_slider_camera[i], temp_size_mol, "ELLIPSE");
       slider_adj_camera[i].set_id(i);
+      slider_adj_camera[i].set_label(slider_camera_name[i],iadd(slider_adj_camera[i].get_size(),iVec2(3,0)),textUsual_1,r.GRAY_3,LEFT);
     }
   }
 }
@@ -141,6 +146,18 @@ void build_console_item() {
     if(info_save_raw_list(info_slider_item,i).a > -1 ) {
       slider_adj_item[i] = new Slider_adjustable(temp_pos, size_slider_item[i], temp_size_mol, "ELLIPSE");
       slider_adj_item[i].set_id(i);
+
+      String label_name = slider_item_name[i];
+      if(label_name.equals("f_hue")) label_name = "FILL";
+      else if(label_name.equals("f_saturation")) label_name = "saturation";
+      else if(label_name.equals("f_brightness")) label_name = "brightness";
+      else if(label_name.equals("f_alpha")) label_name = "alpha";
+      else if(label_name.equals("s_hue")) label_name = "STROKE";
+      else if(label_name.equals("s_saturation")) label_name = "saturation";
+      else if(label_name.equals("s_brightness")) label_name = "brightness";
+      else if(label_name.equals("s_alpha")) label_name = "alpha";
+      else if(label_name.equals("thickness")) label_name = "THICKNESS";
+      slider_adj_item[i].set_label(label_name,iadd(slider_adj_item[i].get_size(),iVec2(3,0)),textUsual_1,r.GRAY_3,LEFT);
     }
   }
 }

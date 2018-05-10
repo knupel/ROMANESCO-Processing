@@ -101,15 +101,15 @@ void display_text() {
   if(insideNameversion) fill (jaune) ; else fill(orange) ;
   int posTextY = 18 ;
   textFont(FuturaStencil_20,16); 
-  text(nameVersion, 5, posTextY);
+  text(nameVersion,5,posTextY);
   //CLOCK
-  fill(orange) ; 
+  fill(orange); 
   textFont(FuturaStencil_20,16); 
   textAlign(RIGHT);
   text(nf(hour(),2)   + ":" +nf(minute(),2) , width -10, posTextY);
   
-  dispay_text_slider_top(textUsual_1,r.GRAY_3) ;  
-  dislay_text_slider_item(textUsual_1,r.GRAY_3);
+  dispay_text_slider_top();  
+  dislay_text_slider_item();
 }
 
 
@@ -125,7 +125,6 @@ int dropdownActivityCount ;
 void display_dropdown() {
   update_dropdown_bar_content() ;
   
-  // update_dropdown_background() ;
   for(int i = 0 ; i < dropdown_bar.length ; i++) {
     dropdown_bar[i].set_content(dropdown_content[i]);
     update_dropdown_bar(dropdown_bar[i]);
@@ -230,42 +229,30 @@ void display_slider_camera() {
 
 
 
-void dispay_text_slider_top(PFont f, int c) {
-  textAlign(LEFT);
-  textFont(f); 
-  fill(c);
-
-  //BACKGROUND
-  int offset_x_txt = 5;
-  int offset_y_txt = 3;
+void dispay_text_slider_top() {
   // background
-  iVec2 pos = iVec2(slider_width_background +offset_x_txt,offset_y_txt);
   for(int i = 0 ; i < NUM_SLIDER_BACKGROUND ; i++) {
-    text(slider_background_name[i], add(pos_slider_background[i],pos));
+    slider_adj_background[i].show_label();
   }
 
   // filter
-  pos.set_x(slider_width_filter +offset_x_txt);
   for(int i = 0 ; i < NUM_SLIDER_FILTER ; i++) {
-    text(slider_filter_name[i], add(pos_slider_filter[i],pos));
+    slider_adj_filter[i].show_label();
   }
 
   // light
-  pos.set_x(slider_width_light +offset_x_txt);
   for(int i = 0 ; i < NUM_SLIDER_LIGHT ; i++) {
-    text(slider_light_name[i], add(pos_slider_light[i],pos));
+    slider_adj_light[i].show_label();
   }
 
   // sound
-  pos.set_x(slider_width_sound+offset_x_txt);
   for(int i = 0 ; i < NUM_SLIDER_SOUND ; i++ ) {
-    text(slider_sound_name[i], add(pos_slider_sound[i],pos));
+    slider_adj_sound[i].show_label();
   }
   
   // camera
-  pos.set_x(slider_width_camera +offset_x_txt);
   for(int i = 0 ; i < slider_camera_name.length ; i++) {
-    text(slider_camera_name[i], add(pos_slider_camera[i],pos));
+    slider_adj_camera[i].show_label();
   }
 }
 
@@ -390,37 +377,12 @@ void display_slider_item() {
   } 
 }
 
-
-void dislay_text_slider_item(PFont f, int c) {
-  fill(c);
-  textFont(f);  
-  textAlign(LEFT);
-  
-  // Legend text slider position for the item
-  int correction_local_y = local_pos_y_slider_item_button +4;
-  int correction_local_x = slider_width_item +5;
-  for (int i = 0 ; i < NUM_SLIDER_ITEM_BY_COL ; i++) {
-    int which_one = i+(NUM_SLIDER_ITEM_BY_COL *0);
-    int which_two = i+(NUM_SLIDER_ITEM_BY_COL *1);
-    int which_three = i+(NUM_SLIDER_ITEM_BY_COL *2);
-    int factor = i;
-    // change name for few slider from col 1
-    String switch_text = slider_item_name[which_one];
-    if(switch_text.equals("f_hue")) switch_text = "FILL";
-    else if(switch_text.equals("f_saturation")) switch_text = "saturation";
-    else if(switch_text.equals("f_brightness")) switch_text = "brightness";
-    else if(switch_text.equals("f_alpha")) switch_text = "alpha";
-    else if(switch_text.equals("s_hue")) switch_text = "STROKE";
-    else if(switch_text.equals("s_saturation")) switch_text = "saturation";
-    else if(switch_text.equals("s_brightness")) switch_text = "brightness";
-    else if(switch_text.equals("s_alpha")) switch_text = "alpha";
-    else if(switch_text.equals("thickness")) switch_text = "THICKNESS";
-    text(switch_text, item_a_col +correction_local_x, height_item_selected +correction_local_y +(factor *spacing_slider));
-    // no change for text for col 2 and 3
-    text(slider_item_name[which_two], item_b_col +correction_local_x, height_item_selected +correction_local_y +(factor *spacing_slider));
-    text(slider_item_name[which_three], item_c_col +correction_local_x, height_item_selected +correction_local_y +(factor *spacing_slider));
+void dislay_text_slider_item() {
+  for(int i = 0 ; i < NUM_SLIDER_ITEM ; i++) {
+    slider_adj_item[i].show_label();
   }
 }
+
 
 void display_bg_slider_item() {
   // to find the good slider in the array

@@ -9,7 +9,7 @@ void load_setup() {
   //load text interface 
   // 0 is French
   // 1 is english
-  textGUI() ;
+  apply_text_gui() ;
 }
 
 
@@ -572,7 +572,7 @@ Vec5 info_save_raw_list(Vec5[] list, int pos) {
 
 
 //LOAD text Interface
-void textGUI() {
+void apply_text_gui() {
   String lang[] ;
   if (!test){
     lang = loadStrings(preference_path+"language.txt"); 
