@@ -479,37 +479,37 @@ void set_button_from_saved_file() {
   int rank = 0 ;
   // Background and Curtain
   if(infoButton[rank].z  == 1.0) button_bg.on_off = true ; else button_bg.on_off = false ;
-  button_bg.IDmidi = (int)infoButton[rank].y ; 
+  button_bg.set_id_midi((int)infoButton[rank].y); 
   rank++ ;
   if(infoButton[rank].z == 1.0) button_curtain.on_off = true ; else button_curtain.on_off = false ;
-  button_curtain.IDmidi = (int)infoButton[rank].y ; 
+  button_curtain.set_id_midi((int)infoButton[rank].y); 
   rank++ ;
   //LIGHT ONE
   if(infoButton[rank].z == 1.0) button_light_1.on_off = true ; else button_light_1.on_off = false ;
-  button_light_1.IDmidi = (int)infoButton[rank].y ; 
+  button_light_1.set_id_midi((int)infoButton[rank].y); 
   rank++ ;
   if(infoButton[rank].z == 1.0) button_light_1_action.on_off = true ; else button_light_1_action.on_off = false ;
-  button_light_1_action.IDmidi = (int)infoButton[rank].y ; 
+  button_light_1_action.set_id_midi((int)infoButton[rank].y); 
   rank++ ;
   // LIGHT TWO
   if(infoButton[rank].z == 1.0) button_light_2.on_off = true ; else button_light_2.on_off = false ;
-  button_light_2.IDmidi = (int)infoButton[rank].y ; 
+  button_light_2.set_id_midi((int)infoButton[rank].y); 
   rank++ ;
   if(infoButton[rank].z == 1.0) button_light_2_action.on_off = true ; else button_light_2_action.on_off = false ;
-  button_light_2_action.IDmidi = (int)infoButton[rank].y ; 
+  button_light_2_action.set_id_midi((int)infoButton[rank].y); 
   rank++ ;
   //SOUND
   if(infoButton[rank].z == 1.0) button_beat.on_off = true ; else button_beat.on_off = false ;
-  button_beat.IDmidi = (int)infoButton[rank].y ;
+  button_beat.set_id_midi((int)infoButton[rank].y);
   rank++ ; 
   if(infoButton[rank].z == 1.0) button_kick.on_off = true ; else button_kick.on_off = false ;
-  button_kick.IDmidi = (int)infoButton[rank].y ; 
+  button_kick.set_id_midi((int)infoButton[rank].y); 
   rank++ ;
   if(infoButton[rank].z == 1.0) button_snare.on_off = true ; else button_snare.on_off = false ;
-  button_snare.IDmidi = (int)infoButton[rank].y ;
+  button_snare.set_id_midi((int)infoButton[rank].y);
   rank++ ;
   if(infoButton[rank].z == 1.0) button_hat.on_off = true ; else button_hat.on_off = false ;
-  button_hat.IDmidi = (int)infoButton[rank].y ; 
+  button_hat.set_id_midi((int)infoButton[rank].y); 
   rank++ ;
   
   //
@@ -527,7 +527,7 @@ void set_button_from_saved_file() {
       } else {
         button_item[buttonRank].on_off = false ; 
       }
-      button_item[buttonRank].IDmidi = (int)infoButton[rank].y ; 
+      button_item[buttonRank].set_id_midi((int)infoButton[rank].y); 
     }
   }
 }

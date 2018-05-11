@@ -210,18 +210,18 @@ void set_console() {
 
 void set_console_general() {
   // MIDI
-  size_midi_button = Vec2(50,26);
-  pos_midi_button = Vec2(grid_col[0] +correctionMidiX, pos_y_button_top +correctionMidiY);
+  size_midi_button = iVec2(50,26);
+  pos_midi_button = iVec2(grid_col[0] +correctionMidiX, pos_y_button_top +correctionMidiY);
   pos_midi_info = Vec2(pos_midi_button.x +correction_info_midi_x, pos_midi_button.y +correction_info_midi_y);
   // CURTAIN
-  size_curtain_button = Vec2(30,30);
-  pos_curtain_button = Vec2(grid_col[0] +correctionCurtainX, pos_y_button_top +correctionCurtainY); 
+  size_curtain_button = iVec2(30,30);
+  pos_curtain_button = iVec2(grid_col[0] +correctionCurtainX, pos_y_button_top +correctionCurtainY); 
 }
 
 void set_console_background(iVec2 pos, iVec2 size) {
   //button
-  pos_button_background = Vec2(pos.x, pos.y);
-  size_button_background = Vec2(120,10);
+  pos_button_background = pos.copy();
+  size_button_background = iVec2(120,10);
   // slider
   for(int i = 0 ; i < NUM_SLIDER_BACKGROUND ;i++) {
     int pos_y = round(pos.y +(i *spacing_slider));
@@ -240,20 +240,20 @@ void set_console_filter(iVec2 pos, iVec2 size) {
 
 void set_console_light(iVec2 pos, iVec2 size) {
   //button
-  pos_light_ambient_buttonButton = Vec2(pos.x, pos.y);
-  size_light_ambient_buttonButton = Vec2(80,10);
-  pos_light_ambient_button_action = Vec2(pos.x +90, pos_light_ambient_buttonButton.y); // for the y we take the y of the button
-  size_light_ambient_button_action = Vec2(45,10);
+  pos_light_ambient_buttonButton = pos.copy();
+  size_light_ambient_buttonButton = iVec2(80,10);
+  pos_light_ambient_button_action = iVec2(pos.x +90, pos_light_ambient_buttonButton.y); // for the y we take the y of the button
+  size_light_ambient_button_action = iVec2(45,10);
   // light one button
-  pos_light_1_button = Vec2(pos.x, pos.y +(5*spacing_slider));
-  size_light_1_button = Vec2(80,10);
-  pos_light_1_button_action = Vec2(pos.x +90, pos_light_1_button.y); // for the y we take the y of the button
-  size_light_1_button_action = Vec2(45,10);
+  pos_light_1_button = iVec2(pos.x, pos.y +(5*spacing_slider));
+  size_light_1_button = iVec2(80,10);
+  pos_light_1_button_action = iVec2(pos.x +90, pos_light_1_button.y); // for the y we take the y of the button
+  size_light_1_button_action = iVec2(45,10);
   // light two button
-  pos_light_2_button = Vec2(pos.x, pos.y +(10*spacing_slider));
-  size_light_2_button = Vec2(80,10);
-  pos_light_2_button_action = Vec2(pos.x +90, pos_light_2_button.y); // for the y we take the y of the button
-  size_light_2_button_action = Vec2(45,10);
+  pos_light_2_button = iVec2(pos.x, pos.y +(10*spacing_slider));
+  size_light_2_button = iVec2(80,10);
+  pos_light_2_button_action = iVec2(pos.x +90, pos_light_2_button.y); // for the y we take the y of the button
+  size_light_2_button_action = iVec2(45,10);
   
   //slider
   int count = 0;
@@ -267,15 +267,15 @@ void set_console_light(iVec2 pos, iVec2 size) {
 
 void set_console_sound(iVec2 pos, iVec2 size) {
   // button
-  size_beat_button = Vec2(30,10); 
-  size_kick_button = Vec2(30,10); 
-  size_snare_button = Vec2(40,10); 
-  size_hat_button = Vec2(30,10);
+  size_beat_button = iVec2(30,10); 
+  size_kick_button = iVec2(30,10); 
+  size_snare_button = iVec2(40,10); 
+  size_hat_button = iVec2(30,10);
   
-  pos_beat_button = Vec2(pos.x, pos.y); 
-  pos_kick_button = Vec2(pos_beat_button.x +size_beat_button.x +5, pos.y); 
-  pos_snare_button = Vec2(pos_kick_button.x +size_kick_button.x +5, pos.y); 
-  pos_hat_button = Vec2(pos_snare_button.x +size_snare_button.x +5, pos.y);
+  pos_beat_button = iVec2(pos.x, pos.y); 
+  pos_kick_button = iVec2(pos_beat_button.x +size_beat_button.x +5, pos.y); 
+  pos_snare_button = iVec2(pos_kick_button.x +size_kick_button.x +5, pos.y); 
+  pos_hat_button = iVec2(pos_snare_button.x +size_snare_button.x +5, pos.y);
 
   //slider
   for(int i = 0 ; i < NUM_SLIDER_SOUND ;i++) {
@@ -412,7 +412,8 @@ int midi_CC_romanesco = -1 ;
 boolean saveMidi ;
 boolean selectMidi = false ;
 int button_midi_is;
-Vec2 pos_midi_button, size_midi_button, pos_midi_info;
+iVec2 pos_midi_button, size_midi_button;
+Vec2 pos_midi_info;
 int correctionMidiX;
 int correctionMidiY;
 int spacing_midi_info;
@@ -424,7 +425,7 @@ int size_x_window_info_midi;
 Button button_curtain;
 boolean curtainOpenClose ;
 int button_curtain_is;
-Vec2 pos_curtain_button, size_curtain_button;
+iVec2 pos_curtain_button, size_curtain_button;
 int correctionCurtainX;
 int correctionCurtainY;
 
@@ -432,7 +433,7 @@ int correctionCurtainY;
 // background
 Button button_bg;
 int button_background_is;
-Vec2 pos_button_background, size_button_background;
+iVec2 pos_button_background, size_button_background;
 int slider_width_background;
 int slider_height_background;
 Vec5 [] info_slider_background; 
@@ -463,12 +464,12 @@ Button button_light_ambient, button_light_ambient_action,
 int light_ambient_button_is, light_ambient_action_button_is;
 int light_light_1_button_is, light_light_action_1_button_is; 
 int light_light_2_button_is, light_light_action_2_button_is;
-Vec2 pos_light_ambient_buttonButton, size_light_ambient_buttonButton;
-Vec2 pos_light_ambient_button_action, size_light_ambient_button_action; 
-Vec2 pos_light_1_button_action, size_light_1_button_action;
-Vec2 pos_light_1_button, size_light_1_button;
-Vec2 pos_light_2_button_action, size_light_2_button_action; 
-Vec2 pos_light_2_button, size_light_2_button;
+iVec2 pos_light_ambient_buttonButton, size_light_ambient_buttonButton;
+iVec2 pos_light_ambient_button_action, size_light_ambient_button_action; 
+iVec2 pos_light_1_button_action, size_light_1_button_action;
+iVec2 pos_light_1_button, size_light_1_button;
+iVec2 pos_light_2_button_action, size_light_2_button_action; 
+iVec2 pos_light_2_button, size_light_2_button;
 int slider_width_light;
 int slider_height_light;
 Vec5 [] info_slider_light; 
@@ -483,10 +484,10 @@ int offset_light_y;
 // sound
 Button button_beat, button_kick, button_snare, button_hat;
 int button_beat_is, button_kick_is, button_snare_is, button_hat_is;
-Vec2 pos_beat_button, size_beat_button;
-Vec2 pos_kick_button, size_kick_button;
-Vec2 pos_snare_button, size_snare_button;
-Vec2 pos_hat_button, size_hat_button;
+iVec2 pos_beat_button, size_beat_button;
+iVec2 pos_kick_button, size_kick_button;
+iVec2 pos_snare_button, size_snare_button;
+iVec2 pos_hat_button, size_hat_button;
 int slider_width_sound;
 int slider_height_sound;
 Vec5 [] info_slider_sound; 

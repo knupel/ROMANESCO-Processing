@@ -208,7 +208,7 @@ void display_slider_light() {
 
 void display_slider_sound() {
   for(int i = 0 ; i < slider_adj_sound.length ; i++) {
-    slider_adj_sound[i].show();
+    slider_adj_sound[i].show_structure();
   }
   for (int i = 0 ; i < NUM_SLIDER_SOUND ; i++) {
     update_slider(slider_adj_sound[i],value_slider_sound,info_slider_sound);
@@ -218,7 +218,7 @@ void display_slider_sound() {
 
 void display_slider_camera() {
   for(int i = 0 ; i < slider_adj_camera.length ; i++) {
-    slider_adj_camera[i].show();
+    slider_adj_camera[i].show_structure();
   }
   for (int i = 0 ; i < NUM_SLIDER_CAMERA ; i++) {
     update_slider(slider_adj_camera[i],value_slider_camera,info_slider_camera);
@@ -374,7 +374,7 @@ void display_bg_slider_item() {
   show_slider_item_HSB(whichGroup, hue_stroke_rank, sat_stroke_rank, bright_stroke_rank);
 
   for(int i = alpha_stroke_rank ; i < slider_adj_item.length ; i++) {
-    slider_adj_item[i].show();
+    slider_adj_item[i].show_structure();
   }
 }
 

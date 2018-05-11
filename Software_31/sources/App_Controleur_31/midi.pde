@@ -314,17 +314,17 @@ int posRankButton(int pos, int rank) {
 void midiButton(Button b, int IDbutton, boolean saveButton) {
   setttingMidiButton(b) ;
   updateMidiButton(b) ;
-  if(saveButton) set_data_button(IDbutton, b.IDmidi(), b.on_off) ;
+  if(saveButton) set_data_button(IDbutton, b.get_id_midi(), b.on_off) ;
 }
 
 //
 void setttingMidiButton(Button b) {
-  if(selectMidi && b.inside && mousePressed) b.selectIDmidi(midi_CC_romanesco) ;
+  if(selectMidi && b.inside && mousePressed) b.set_id_midi(midi_CC_romanesco) ;
 }
 
 //
 void updateMidiButton(Button b) {
-   if(midi_value_romanesco == 127 && midi_CC_romanesco == b.IDmidi()) {
+   if(midi_value_romanesco == 127 && midi_CC_romanesco == b.get_id_midi()) {
     b.on_off = !b.on_off ;
     midi_value_romanesco = 0 ;
   }
