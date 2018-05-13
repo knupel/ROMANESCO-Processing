@@ -92,24 +92,24 @@ void mousepressed_button_general() {
 
 void check_button_general() {
   /* Check to send by OSC to Scene and Prescene */
-  if(button_bg.on_off) button_background_is = 1 ; else button_background_is = 0 ;
+  if(button_bg.is()) button_background_is = 1 ; else button_background_is = 0 ;
   //LIGHT ONE
-  if(button_light_ambient.on_off)  light_ambient_button_is = 1 ; else  light_ambient_button_is = 0 ;
-  if(button_light_ambient_action.on_off) light_ambient_action_button_is = 1 ; else light_ambient_action_button_is =  0 ;
+  if(button_light_ambient.is())  light_ambient_button_is = 1 ; else  light_ambient_button_is = 0 ;
+  if(button_light_ambient_action.is()) light_ambient_action_button_is = 1 ; else light_ambient_action_button_is =  0 ;
   //LIGHT ONE
-  if(button_light_1.on_off) light_light_1_button_is = 1 ; else light_light_1_button_is = 0 ;
-  if(button_light_1_action.on_off) light_light_action_1_button_is = 1 ; else light_light_action_1_button_is = 0 ;
+  if(button_light_1.is()) light_light_1_button_is = 1 ; else light_light_1_button_is = 0 ;
+  if(button_light_1_action.is()) light_light_action_1_button_is = 1 ; else light_light_action_1_button_is = 0 ;
   // LIGHT TWO
-  if(button_light_2.on_off) light_light_2_button_is = 1 ; else light_light_2_button_is = 0 ;
-  if(button_light_2_action.on_off) light_light_action_2_button_is = 1 ; else light_light_action_2_button_is = 0 ;
+  if(button_light_2.is()) light_light_2_button_is = 1 ; else light_light_2_button_is = 0 ;
+  if(button_light_2_action.is()) light_light_action_2_button_is = 1 ; else light_light_action_2_button_is = 0 ;
   //SOUND
-  if(button_beat.on_off) button_beat_is = 1 ; else button_beat_is = 0 ;
-  if(button_kick.on_off) button_kick_is = 1 ; else button_kick_is = 0 ;
-  if(button_snare.on_off) button_snare_is = 1 ; else button_snare_is = 0 ;
-  if(button_hat.on_off) button_hat_is = 1 ; else button_hat_is = 0 ;
+  if(button_beat.is()) button_beat_is = 1 ; else button_beat_is = 0 ;
+  if(button_kick.is()) button_kick_is = 1 ; else button_kick_is = 0 ;
+  if(button_snare.is()) button_snare_is = 1 ; else button_snare_is = 0 ;
+  if(button_hat.is()) button_hat_is = 1 ; else button_hat_is = 0 ;
   //Check position of button
-  if(button_midi.on_off) button_midi_is = 1 ; else button_midi_is = 0 ;
-  if(button_curtain.on_off) button_curtain_is = 1 ; else button_curtain_is = 0 ;
+  if(button_midi.is()) button_midi_is = 1 ; else button_midi_is = 0 ;
+  if(button_curtain.is()) button_curtain_is = 1 ; else button_curtain_is = 0 ;
 }
 
 
@@ -173,7 +173,7 @@ void update_dropdown_bar_content() {
 void update_dropdown_item() {
   int pointer = 0 ;
   for (int i = 1 ; i <= NUM_ITEM ; i++) {
-    if(mode_list_RPE[i] != null && on_off_inventory_item[i].on_off) {
+    if(mode_list_RPE[i] != null && inventory[i].is()) {
       int distance = pointer *DIST_BETWEEN_ITEM ;
       pointer ++ ;
 

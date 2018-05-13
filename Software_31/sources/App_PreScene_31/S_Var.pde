@@ -96,7 +96,7 @@ int NUM_BANDS = 16 ;
 
 
 
-int numButtonGlobal = 21 ; // group zero
+int NUM_BUTTON_GENERAL = 21 ; // group zero
 int numButtonObj  ; 
 // VAR obj
 color COLOR_FILL_OBJ_PREVIEW  ; 
@@ -313,7 +313,9 @@ boolean [] show_object, sound, action, parameter ;
 int mode[]  ;
 
 //BUTTON
-int [] valueButtonGlobal, valueButtonObj  ;
+// int [] valueButtonGlobal ;
+int [] valueButtonObj  ;
+boolean [] button_general_is ;
 
 //SLIDER
 // String valueSliderTemp[][]  = new String [NUM_GROUP+1][NUM_SLIDER_OBJ] ;
@@ -563,7 +565,8 @@ void create_variableButton() {
   mode = new int [NUM_ITEM] ;
   
   // you must init this var, because we launch this part of code before the controller. And if we don't init the value is NaN and return an error.
-  valueButtonGlobal = new int[numButtonGlobal] ;
+  // valueButtonGlobal = new int[numButtonGlobal] ;
+  button_general_is = new boolean[NUM_BUTTON_GENERAL];
   valueButtonObj = new int[numButtonObj] ;
 
 }

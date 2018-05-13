@@ -53,7 +53,7 @@ void build_console_background() {
   }
 
   button_bg = new Button(pos_button_background, size_button_background) ;
-  button_bg.set_on_off(true) ;
+  button_bg.set_is(true);
   button_bg.set_color_on_off(col_on_in, col_on_out, col_off_in, col_off_out) ;
 }
 

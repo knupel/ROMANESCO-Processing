@@ -11,17 +11,20 @@ Processing 3.3.7
 2017 March 40_000 lines of code
  */
 String IAM = "prescene";
-boolean TEST_ROMANESCO = false; /* Use false when you want:
+boolean TEST_ROMANESCO = true; /* Use false when you want:
                                     used sound & maximum possibility of the object
                                */
 boolean FULL_RENDERING = true;
 boolean FULL_SCREEN = false ;
 boolean TABLET = false; // now tablet library don't work in OPENGL renderer
 
-boolean HOME = true;
 /**
-SETTINGS
+LIVE must change from the launcher, the info must be write in the external loading preference app
 */
+boolean LIVE = false;
+
+
+
 void settings() {
   size(124,124,P3D); // when the bug will be resolved, return to this config.
   
@@ -34,12 +37,6 @@ void settings() {
 
 
 
-
-
-
-/**
-SETUP
-*/
 void setup() {
   path_setting(sketchPath(1));
   version();
@@ -75,9 +72,15 @@ void setup() {
   if(FULL_RENDERING) shader_setup();
 }
 
-/**
-DRAW
-*/
+
+
+
+
+
+
+
+
+
 boolean init_app;
 void draw() {
   if(init_app) {
@@ -99,9 +102,8 @@ void romanesco() {
   // here we ask for the TEST_ROMANESCO true, because the Minim Library talk too much in the consol
   if(!TEST_ROMANESCO) sound_draw();
   
-  update_OSC_data_controller();
+  // update_OSC_data_controller();
 
-  // if(keyboard_new_event) {
   write_osc_event();
 
   join_osc_data();
@@ -148,7 +150,7 @@ void romanesco() {
   device_update();
   
   // change to false if the information has be sent to Scene...but how ????
-  if(!HOME) OSC_send();
+  if(LIVE) OSC_send();
   key_false();
 }
 
@@ -163,9 +165,7 @@ void romanesco() {
 
 
 
-/**
-KEY 
-*/
+
 void keyPressed () {
  // keyboard_new_event = true ;
   shortCutsPrescene();
@@ -188,9 +188,12 @@ void keyReleased() {
 
 
 
-/**
-MOUSE 
-*/
+
+
+
+
+
+
 void mousePressed() {
   if(mouseButton == LEFT ) { 
     clickShortLeft[0] = true; 
@@ -201,7 +204,6 @@ void mousePressed() {
     clickLongRight[0] = true;
   }
 }
-
 
 void mouseReleased() {
   clickLongLeft[0] = false ; 
@@ -217,9 +219,6 @@ public void mouseExited(MouseEvent e) {
   MOUSE_IN_OUT = false ;
 }
 
-
-
-//MOUSE WHEEL
 void mouseWheel(MouseEvent event) {
   wheel[0] = event.getCount() *speedWheel ; 
 }

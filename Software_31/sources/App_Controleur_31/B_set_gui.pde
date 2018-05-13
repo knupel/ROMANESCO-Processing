@@ -348,6 +348,11 @@ color color_dd_background;
 color color_dd_header_in, color_dd_header_out;
 color color_dd_item_in, color_dd_item_out;
 
+/**
+general
+*/
+iVec3 [] info_button_general;
+
 
 /**
 ITEM
@@ -355,7 +360,7 @@ ITEM
 int NUM_ITEM;
 int DIST_BETWEEN_ITEM;
 int BUTTON_ITEM_CONSOLE = 4;
-PVector [] infoButton;
+iVec3 [] info_button_item;
 int [] info_list_item_ID; 
 
 PImage[] OFF_in_thumbnail;

@@ -282,39 +282,42 @@ void midi_manager(boolean saveButton) {
   // close loop for load save button
   // see void buttonSetSaveSetting()
   int rank = 0 ;
-  midiButton(button_bg, rank++, saveButton) ;
-  midiButton(button_curtain, rank++, saveButton) ;
+  midi_button(button_bg, rank++, saveButton,"Button general") ;
+  midi_button(button_curtain, rank++, saveButton,"Button general") ;
   
-  midiButton(button_light_1, rank++, saveButton) ;
-  midiButton(button_light_1_action, rank++, saveButton) ;
-  midiButton(button_light_2, rank++, saveButton) ;
-  midiButton(button_light_2_action, rank++, saveButton) ;
+  midi_button(button_light_1, rank++, saveButton,"Button general") ;
+  midi_button(button_light_1_action, rank++, saveButton,"Button general") ;
+  midi_button(button_light_2, rank++, saveButton,"Button general") ;
+  midi_button(button_light_2_action, rank++, saveButton,"Button general") ;
   
-  midiButton(button_beat, rank++, saveButton) ;
-  midiButton(button_kick, rank++, saveButton) ;
-  midiButton(button_snare, rank++, saveButton) ;
-  midiButton(button_hat, rank++, saveButton) ;
+  midi_button(button_beat, rank++, saveButton,"Button general") ;
+  midi_button(button_kick, rank++, saveButton,"Button general") ;
+  midi_button(button_snare, rank++, saveButton,"Button general") ;
+  midi_button(button_hat, rank++, saveButton,"Button general") ;
   
   for( int i = 1 ; i <= NUM_ITEM ; i++ ) {
-    rank = 1 ;
-    midiButton(button_item[posRankButton(i,rank)], posRankButton(i,rank), saveButton) ; rank++ ;
-    midiButton(button_item[posRankButton(i,rank)], posRankButton(i,rank), saveButton) ; rank++ ;
-    midiButton(button_item[posRankButton(i,rank)], posRankButton(i,rank), saveButton) ; rank++ ;
-    midiButton(button_item[posRankButton(i,rank)], posRankButton(i,rank), saveButton) ;
+    rank = 0 ;
+    midi_button(button_item[posRankButton(i,rank)], posRankButton(i,rank), saveButton,"Button item"); 
+    rank++ ;
+    midi_button(button_item[posRankButton(i,rank)], posRankButton(i,rank), saveButton,"Button item"); 
+    rank++ ;
+    midi_button(button_item[posRankButton(i,rank)], posRankButton(i,rank), saveButton,"Button item"); 
+    rank++ ;
+    midi_button(button_item[posRankButton(i,rank)], posRankButton(i,rank), saveButton,"Button item");
   }
 }
 
 
 //
 int posRankButton(int pos, int rank) {
-  return pos*10 +rank ;
+  return pos* BUTTON_ITEM_CONSOLE +rank ;
 }
 
 //
-void midiButton(Button b, int IDbutton, boolean saveButton) {
+void midi_button(Button b, int IDbutton, boolean saveButton, String type) {
   setttingMidiButton(b) ;
   updateMidiButton(b) ;
-  if(saveButton) set_data_button(IDbutton, b.get_id_midi(), b.on_off) ;
+  if(saveButton) set_data_button(IDbutton, b.get_id_midi(), b.is(), type) ;
 }
 
 //
@@ -325,7 +328,7 @@ void setttingMidiButton(Button b) {
 //
 void updateMidiButton(Button b) {
    if(midi_value_romanesco == 127 && midi_CC_romanesco == b.get_id_midi()) {
-    b.on_off = !b.on_off ;
+    b.switch_is();
     midi_value_romanesco = 0 ;
   }
 }

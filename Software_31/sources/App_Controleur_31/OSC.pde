@@ -18,8 +18,8 @@ OscP5 osc_scene ;
 int port_prescene = 10_000 ;
 int port_scene = 9_500 ;
 
-NetAddress target_prescene ;
-NetAddress [] target_scene ;
+NetAddress prescene_net_address ;
+NetAddress [] scene_net_addresses ;
 
 void set_OSC() {
   int num_address = 1 ;
@@ -37,7 +37,7 @@ void set_OSC() {
   }  
 
   ID_address_scene = new String[num_valid_address] ;
-  target_scene = new NetAddress[num_valid_address] ;
+  scene_net_addresses = new NetAddress[num_valid_address] ;
 
   for(int i = 0 ; i < num_valid_address ; i++) {
     ID_address_scene[i] = temp[i+1] ;
@@ -50,157 +50,158 @@ void set_OSC() {
 }
 
 void set_ip_address() {
-  target_prescene = new NetAddress(IP_address_prescene, port_prescene) ;
-  for(int i = 0 ; i < target_scene.length ; i++) {
-     target_scene[i] = new NetAddress(ID_address_scene[i], port_scene) ;
+  prescene_net_address = new NetAddress(IP_address_prescene, port_prescene) ;
+  for(int i = 0 ; i < scene_net_addresses.length ; i++) {
+     scene_net_addresses[i] = new NetAddress(ID_address_scene[i], port_scene) ;
   }
 }
 
-float ref_send_osc;
+
+
+
+
+
 void send_OSC() {
-  OscMessage RomanescoController = new OscMessage("Controller");
-  
-  data_to_send() ;
-  
-  //BUTTON 
-  toPreScene[0] = join_int_to_String(value_button_general) ; 
-  toPreScene[1] = join_int_to_String(value_button_item) ;
-  
-  // SLIDER
-  /* Catch the value slider to send to Prescene
-  @return value to the prescene between 0 to 99
-  */
-  // int sum = NUM_SLIDER_BACKGROUND +NUM_SLIDER_FILTER +NUM_SLIDER_LIGHT +NUM_SLIDER_SOUND +NUM_SLIDER_CAMERA;
-  int[] data_OSC_general = new int[NUM_SLIDER_GENERAL];
-  int in_background = 0 ;
-  int out_background = NUM_SLIDER_BACKGROUND;
-  int in_filter =  NUM_SLIDER_BACKGROUND;
-  int out_filter = in_filter +NUM_SLIDER_FILTER;
-  int in_light =  out_filter;
-  int out_light = in_light +NUM_SLIDER_LIGHT;
-  int in_sound =  out_light;
-  int out_sound = in_sound +NUM_SLIDER_SOUND;
-  int in_camera =  out_sound;
-  int out_camera = in_camera +NUM_SLIDER_CAMERA;
+  OscMessage mess = new OscMessage("Controller");
+  total_data_osc = 0;
 
-  for (int i = 0 ; i < NUM_SLIDER_GENERAL ; i++) {
-    if(i < out_background) {
-      data_OSC_general[i] = floor(value_slider_background[i]);
-    } else if( i >= in_filter && i < out_filter) {
-      data_OSC_general[i] = floor(value_slider_filter[i -in_filter]);
-    } else if( i >= in_light && i < out_light) {
-      data_OSC_general[i] = floor(value_slider_light[i -in_light]);
-    } else if( i >= in_sound && i < out_sound) {
-      data_OSC_general[i] = floor(value_slider_sound[i -in_sound]);
-    } else if( i >= in_camera && i < out_camera) {
-      data_OSC_general[i] = floor(value_slider_camera[i -in_camera]);
-    }   
-  }
-
-  toPreScene[2] = join_int_to_String(data_OSC_general);
-
-  // group item
-  int[] data_OSC_item = new int[NUM_SLIDER_ITEM] ;
-  for ( int i = 0 ; i < NUM_SLIDER_ITEM ; i++) {
-    data_OSC_item[i] = floor(value_slider_item[i]); 
-  }
-  toPreScene[3] = join_int_to_String(data_OSC_item);
-
-
-
-  // LOAD SAVE SCENE ORDER
+  // add save info
+  /*
   String load = String.valueOf(load_Scene_Setting) ;
   String  saveCurrent = String.valueOf(save_Current_Scene_Setting) ;
   String  saveNew = String.valueOf(save_New_Scene_Setting) ;
   // we change to false boolean load and data to false each 2 second to have a time to load and save
   if(frameCount%60 == 0) load_Scene_Setting = save_Current_Scene_Setting = save_New_Scene_Setting = false ;
-
   toPreScene[4] = load + "/" +  saveCurrent + "/" + saveNew;
-  
-  //add to OSC
-  for ( int i = 0 ; i < toPreScene.length ; i++) {
-    RomanescoController.add(toPreScene[i]);
-  }
-
-  // send or not to send
-  float total_send_osc = 0;
-  for(int i = 0 ; i < value_button_general.length ; i++) {
-     total_send_osc += value_button_general[i];
-  }
-  for(int i = 0 ; i < value_button_item.length ; i++) {
-     total_send_osc += value_button_item[i];
-  }
-
-  for ( int i = 1 ; i < NUM_SLIDER_GENERAL -1 ; i++) {
-    total_send_osc += data_OSC_general[i-1];
-  }
-
-  for ( int i = 101   ; i < 101 +NUM_SLIDER_ITEM ; i++) {
-    total_send_osc += data_OSC_item[i-101]; 
-  }
-
-  //send
-  if(ref_send_osc != total_send_osc) {
-    osc_prescene.send(RomanescoController, target_prescene) ; 
-    for(int i = 0 ; i < target_scene.length ; i++) {
-      osc_scene.send(RomanescoController, target_scene[i]) ; 
-    }
-    ref_send_osc = total_send_osc;
-  } 
-}
-
-
-
-  
-  
-  
-void data_to_send() {
-  //sound
-  value_button_general[1] = button_beat_is;
-  value_button_general[2] = button_kick_is;
-  value_button_general[3] = button_snare_is;
-  value_button_general[4] = button_hat_is;
-  /**
-  Here find method to get to a list of dropdown by name when there is a list of dropdown.
-  easyer te read the code after a long time when we forget the number
   */
-  value_button_general[5] = dropdown_bar[0].get_content_line() +1; // font
-  value_button_general[6] = button_curtain_is;
-  value_button_general[7] = button_background_is;
-  
-  value_button_general[8] = light_light_1_button_is;
-  value_button_general[9] = light_light_2_button_is;
-  value_button_general[10] = light_ambient_button_is;
-  value_button_general[11] = light_light_action_1_button_is;
-  value_button_general[12] = light_light_action_2_button_is;
-  value_button_general[13] = light_ambient_action_button_is;
 
   
-  if(which_bg_shader > SWITCH_VALUE_FOR_DROPDOWN) value_button_general[14] = which_bg_shader;
-  // if(which_filter > SWITCH_VALUE_FOR_DROPDOWN) value_button_general[14] = which_filter;
-  if(which_bitmap > SWITCH_VALUE_FOR_DROPDOWN) value_button_general[15] = which_bitmap;
-  if(which_shape > SWITCH_VALUE_FOR_DROPDOWN) value_button_general[16] = which_shape;
-  if(which_text > SWITCH_VALUE_FOR_DROPDOWN) value_button_general[17] = which_text;
-  if(which_movie > SWITCH_VALUE_FOR_DROPDOWN) value_button_general[18] = which_movie;
-  /**
-  value_button_general[19] is free
-  */
-  // if(state_camera > SWITCH_VALUE_FOR_DROPDOWN)  value_button_general[19] = ID_camera_video_list[state_camera] ;
+  // add button general
+  add_data(mess, button_curtain.is());
+  // add_data(mess, button_midi.is());
+  
+  // dropdown general
+  add_data(mess,dropdown_bar[0].get_content_line()); // font or shader ?
+  add_data(mess,dropdown_bar[1].get_content_line()); // filter
+  add_data(mess,dropdown_bar[2].get_content_line()); // font ?
+  add_data(mess,dropdown_bar[3].get_content_line()); // text
+  add_data(mess,dropdown_bar[4].get_content_line()); // bitmap
+  add_data(mess,dropdown_bar[5].get_content_line()); // shape
+  add_data(mess,dropdown_bar[6].get_content_line()); // movie
 
-  // ITEM BUTTON
-  if(NUM_ITEM > 0 ) {
-    for ( int i = 0 ; i < NUM_ITEM ; i ++) {
-      value_button_item[i *10 +1] = on_off_item_console[i *10 +1];
-      value_button_item[i *10 +2] = on_off_item_console[i *10 +2];
-      value_button_item[i *10 +3] = on_off_item_console[i *10 +3];
-      value_button_item[i *10 +4] = on_off_item_console[i *10 +4];
-      value_button_item[i *10 +5] = on_off_item_console[i *10 +5];
-      if (dropdown_item_mode[i+1] != null) {
-        value_button_item[i *10 +9] = dropdown_item_mode[i+1].get_content_line();
+  // button background
+  add_data(mess, button_bg.is());
+  // button light
+  add_data(mess, button_light_ambient.is());
+  add_data(mess, button_light_ambient_action.is());
+  add_data(mess, button_light_1.is());
+  add_data(mess, button_light_1_action.is());
+  add_data(mess, button_light_2.is());
+  add_data(mess, button_light_2_action.is());
+  // button sound
+  add_data(mess, button_beat.is());
+  add_data(mess, button_kick.is());
+  add_data(mess, button_snare.is());
+  add_data(mess, button_hat.is());
+
+  
+
+  // add slider general
+  for(int i = 0 ; i < value_slider_background.length ; i++) {
+    add_data(mess,value_slider_background[i]);
+  }
+  for(int i = 0 ; i < value_slider_filter.length ; i++) {
+    add_data(mess,value_slider_filter[i]);
+  }
+  for(int i = 0 ; i < value_slider_light.length ; i++) {
+    add_data(mess,value_slider_light[i]);
+  }
+  for(int i = 0 ; i < value_slider_sound.length ; i++) {
+    add_data(mess,value_slider_sound[i]);
+  }
+  for(int i = 0 ; i < value_slider_camera.length ; i++) {
+    add_data(mess,value_slider_camera[i]);
+  }
+
+  // add slider item
+  for ( int i = 0 ; i < NUM_SLIDER_ITEM ; i++) {
+    add_data(mess,value_slider_item[i]); 
+  }
+  
+  // add button item
+  for (int i = 0 ; i < item_button_state.length ; i++) {
+    add_data(mess,item_button_state[i]); 
+  }
+
+  // add dropdown mode item
+  for(int i = 1 ; i <= NUM_ITEM ; i++) {
+    add_data(mess,dropdown_item_mode[i]);
+  }
+  
+
+
+  // send
+  if(send_is()) {
+    osc_prescene.send(mess, prescene_net_address);
+    if(LIVE) {
+      for(int i = 0 ; i < scene_net_addresses.length ; i++) {
+        osc_scene.send(mess, scene_net_addresses[i]) ; 
       }
     }
   }
 }
+
+
+boolean send_message_is;
+float ref_total_data_osc;
+float total_data_osc;
+boolean send_is() {
+  if(total_data_osc != ref_total_data_osc) {
+    send_message_is = true;
+    ref_total_data_osc = total_data_osc;
+  } else {
+    send_message_is = false;
+  }
+  return send_message_is; 
+}
+
+
+void add_data(OscMessage m, Object obj) {
+  boolean cast_float_like_int = true;
+  // int case
+  if(obj instanceof Integer) {
+    int i = (int)obj ;
+    m.add(i);
+    total_data_osc += i;
+  // float case  
+  } else if(obj instanceof Float) {
+    float f = (float)obj;
+    if(cast_float_like_int) {
+      int i = round(f);
+      m.add(i);
+      total_data_osc += i;
+    } else {
+      m.add(f); 
+      total_data_osc += f; 
+    }
+  // String case
+  } else if(obj instanceof String) {
+    String s = (String)obj;
+    m.add(s);
+    total_data_osc += s.length(); 
+  // boolean case
+  } else if(obj instanceof Boolean) {
+    boolean b = (boolean)obj;
+    m.add(b);
+    if(b) {
+      total_data_osc++;
+    } 
+  }  
+}
+
+
+
+  
   
 
 

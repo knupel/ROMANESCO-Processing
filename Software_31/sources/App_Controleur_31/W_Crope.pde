@@ -795,7 +795,7 @@ public class Button extends Crope {
   color color_bg_in, color_bg_out ;
   
   boolean inside ;
-  boolean on_off = false ;  
+  boolean is = false ;  
   //MIDI
   int newmidi_value_romanesco ;
 
@@ -804,7 +804,7 @@ public class Button extends Crope {
   }
 
   //complexe
-  public Button (int pos_x, int pos_y, int size_x, int size_y) {
+  public Button(int pos_x, int pos_y, int size_x, int size_y) {
     set_pos(pos_x, pos_y);
     set_size(size_x,size_y);
   }
@@ -817,8 +817,16 @@ public class Button extends Crope {
   /**
   Setting
   */
-  public void set_on_off(boolean on_off) {
-    this.on_off = on_off ;
+  public void set_is(boolean is) {
+    this.is = is ;
+  }
+
+  public boolean is() {
+    return is;
+  }
+
+  public void switch_is() {
+    this.is = !this.is;
   }
   
 
@@ -885,12 +893,12 @@ public class Button extends Crope {
   //MousePressed
   public void mousePressed() {
     if (rollover()) {
-      on_off = !on_off ? true : false ;
+      is = !is ? true : false ;
     }
   }
 
   public void mousePressedText() {
-    if (rollover((int)size.y)) on_off = !on_off ? true : false ;
+    if (rollover((int)size.y)) is = !is ? true : false ;
   }
 
 
@@ -902,7 +910,7 @@ public class Button extends Crope {
     /* use the boolean dropdownActivity directly is very bad */
     int correctionX = -1 ;
     if(ON_in[whichOne] != null && ON_out[whichOne] != null && OFF_in[whichOne] != null && OFF_out[whichOne] != null ) {
-      if (on_off) {
+      if (is) {
         if (rollover() && !dropdownActivity) image(ON_in[whichOne],pos.x +correctionX, pos.y) ; else image(ON_out[whichOne],pos.x +correctionX, pos.y) ;
       } else {
         if (rollover() && !dropdownActivity) image(OFF_in[whichOne],pos.x +correctionX, pos.y) ; else image(OFF_out[whichOne],pos.x +correctionX, pos.y) ;
@@ -914,7 +922,7 @@ public class Button extends Crope {
     /* use the boolean dropdownActivity directly is very bad */
     int correctionX = -1 ;
     if(pic[0] != null && pic[1] != null && pic[2] != null && pic[3] != null ) {
-      if (on_off) {
+      if (is) {
         if (rollover() && !dropdownActivity) image(pic[1],pos.x +correctionX, pos.y) ; else image(pic[0],pos.x +correctionX, pos.y) ;
       } else {
         if (rollover() && !dropdownActivity) image(pic[3],pos.x +correctionX, pos.y) ; else image(pic[2],pos.x +correctionX, pos.y) ;
@@ -926,7 +934,7 @@ public class Button extends Crope {
     fill(jaune) ;
     textFont(FuturaStencil_20) ;
     int correctionX = -1 ;
-    if ( on_off ) {
+    if (is) {
       if (rollover() && !dropdownActivity) {
         image(pic[1],pos.x +correctionX, pos.y) ;
         text(text,   mouseX -20, mouseY -20 ) ;
@@ -948,7 +956,7 @@ public class Button extends Crope {
   
   public void button_text(String s, int x, int y) {
     /* use the boolean dropdownActivity directly is very bad */
-    if (on_off) {
+    if (is) {
       stroke(vertTresFonce) ;
       if (rollover() && !dropdownActivity) color_on_off = color_in_ON ; else color_on_off = color_out_ON ;
     } else {
@@ -962,7 +970,7 @@ public class Button extends Crope {
  
   public void button_text(String s, iVec2 pos, PFont font, int sizeFont) {
     /* use the boolean dropdownActivity directly is very bad */
-    if (on_off) {
+    if (is) {
       if (rollover(sizeFont) && !dropdownActivity) color_on_off = color_in_ON ; else color_on_off = color_out_ON ;
     } else {
       if (rollover(sizeFont) && !dropdownActivity) color_on_off = color_in_OFF ; else color_on_off = color_out_OFF ;
@@ -976,7 +984,7 @@ public class Button extends Crope {
   public void button_rect(String s) {
     /* use the boolean dropdownActivity directly is very bad */
     strokeWeight (1) ;
-    if (on_off) {
+    if (is) {
       stroke(vertTresFonce) ;
       if (rollover() && !dropdownActivity)color_on_off = color_in_ON ; else color_on_off = color_out_ON ;
     } else {

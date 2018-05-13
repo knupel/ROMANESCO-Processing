@@ -258,9 +258,9 @@ void which_slider_display() {
 boolean activityButtonParameter, witnessActivity, activityParameter ; 
 void check_item_parameter_on_off() {
   for(int i = 0 ; i < NUM_ITEM ; i++ ) {
-    int whichOne = i*10 +2 ;
+    int whichOne = i*BUTTON_ITEM_CONSOLE +2 ;
     witnessActivity = activityButtonParameter ;
-    if (on_off_item_console[whichOne] == 1) {
+    if (item_button_state[whichOne] = true) {
       item_active[i+1] = true ;
       if(mousePressed)  activityButtonParameter = !activityButtonParameter ;
     } else { 

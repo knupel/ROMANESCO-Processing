@@ -1380,6 +1380,8 @@ void background_romanesco() {
 Vec4 update_background() {
   //to smooth the curve of transparency background
   // HSB
+  println(value_slider_background.length);
+  printArray(value_slider_background);
   float hue_bg = map(value_slider_background[0],0,MAX_VALUE_SLIDER,0,HSBmode.r) ;
   float saturation_bg = map(value_slider_background[1],0,MAX_VALUE_SLIDER,0,HSBmode.g) ;
   float brigthness_bg = map(value_slider_background[2],0,MAX_VALUE_SLIDER,0,HSBmode.b) ;
@@ -1887,64 +1889,65 @@ String fromController [] = new String [numOfPartSendByController] ;
 
 // ANNEXE VOID of OSC RECEIVE
 // catch raw osc data
-void catchDataFromController(OscMessage receive) {
-  for ( int i = 0 ; i < fromController.length ; i++ ) {
-    fromController [i] = receive.get(i).stringValue() ;
-  }
+void thread_data_controller(OscMessage receive) {
+  receive_data_general_button(receive, 0, 1); // 2 arg
+  receive_data_general_slider(receive,2,2+24); // 24 arg
 }
 
-// split data button
-void data_controller_button() {
-  //Split data from the String Data
-  valueButtonGlobal = int(split(fromController [0], '/')) ;
-  // stick the Int(String) chain from the group object "one" and "two" is single chain integer(String).
-  String fullChainValueButtonObj =("") ;
-  for ( int i = 1 ; i <= ITEM_GROUP ; i++ ) {
-    fullChainValueButtonObj += fromController [i]+"/" ;
-  }
-  valueButtonObj = int(split(fullChainValueButtonObj, '/')) ;
+
+void receive_data_general_button(OscMessage receive, int in, int out) {
+  if(receive.get(0+in).booleanValue()) onOffCurtain = true ; else onOffCurtain = false;
+  if(receive.get(1+in).booleanValue()) onOffBackground = true ; else onOffBackground = false;
+  println(receive.get(1+in).booleanValue());
 }
 
-// split data slider
-void data_controller_slider() {
-  String []value_slider_temp_general, value_slider_temp_item;
-  value_slider_temp_general = split(fromController [2], '/');
-  value_slider_temp_item = split(fromController [3], '/');
-  // translate the String value to the float var to use
-  for (int i = 0 ; i < NUM_GROUP_SLIDER ; i++ ) {
-    // general
-    if (i == 0 ) {
-      int in_background = 0 ;
-      int out_background = NUM_SLIDER_BACKGROUND;
-      int in_filter =  NUM_SLIDER_BACKGROUND;
-      int out_filter = in_filter +NUM_SLIDER_FILTER;
-      int in_light =  out_filter;
-      int out_light = in_light +NUM_SLIDER_LIGHT;
-      int in_sound =  out_light;
-      int out_sound = in_sound +NUM_SLIDER_SOUND;
-      int in_camera =  out_sound;
-      int out_camera = in_camera +NUM_SLIDER_CAMERA;
-      for (int k = 0 ; k < NUM_SLIDER_GENERAL ; k++) {
-        if(k < out_background) {
-          value_slider_background[k] = Float.valueOf(value_slider_temp_general[k]) ;
-        } else if(k >= in_filter && k < out_filter) {
-          value_slider_filter[k -in_filter] = Float.valueOf(value_slider_temp_general[k]) ;
-        } else if(k >= in_light && k < out_light) {
-          value_slider_light[k -in_light] = Float.valueOf(value_slider_temp_general[k]) ;
-        } else if(k >= in_sound && k < out_sound) {
-          value_slider_sound[k -in_sound] = Float.valueOf(value_slider_temp_general[k]) ;
-        } else if( k >= in_camera && k < out_camera) {
-          value_slider_camera[k -in_camera] = Float.valueOf(value_slider_temp_general[k]) ;
-        }
-      }
-    // item
-    } else if(i == 1) {
-      for (int k = 0 ; k < NUM_SLIDER_ITEM ; k++) {
-        value_slider_item[k] = Float.valueOf(value_slider_temp_item[k]);
-      }
+void receive_data_general_slider(OscMessage receive, int in, int out) {
+  int in_background = in ;
+  int out_background = NUM_SLIDER_BACKGROUND;
+  int in_filter =  NUM_SLIDER_BACKGROUND;
+  int out_filter = in_filter +NUM_SLIDER_FILTER;
+  int in_light =  out_filter;
+  int out_light = in_light +NUM_SLIDER_LIGHT;
+  int in_sound =  out_light;
+  int out_sound = in_sound +NUM_SLIDER_SOUND;
+  int in_camera =  out_sound;
+  int out_camera = in_camera +NUM_SLIDER_CAMERA;
+  
+  for (int k = in ; k < out ; k++) {
+    if(k < out_background) {
+      value_slider_background[k] = Float.valueOf(receive.get(k).intValue());
+    } else if(k >= in_filter && k < out_filter) {
+      value_slider_filter[k -in_filter] = Float.valueOf(receive.get(k).intValue()) ;
+    } else if(k >= in_light && k < out_light) {
+      value_slider_light[k -in_light] = Float.valueOf(receive.get(k).intValue()) ;
+    } else if(k >= in_sound && k < out_sound) {
+      value_slider_sound[k -in_sound] = Float.valueOf(receive.get(k).intValue()) ;
+    } else if( k >= in_camera && k < out_camera) {
+      value_slider_camera[k -in_camera] = Float.valueOf(receive.get(k).intValue());
     }
-  }
+  } 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 // split data boolean to give load or save order
@@ -1966,9 +1969,67 @@ void data_controller_save() {
 
 
 
+/*
+void data_controller_button() {
+  //Split data from the String Data
+  // valueButtonGlobal = int(split(fromController [0], '/')) ;
+  // stick the Int(String) chain from the group object "one" and "two" is single chain integer(String).
+  String fullChainValueButtonObj =("") ;
+  for ( int i = 1 ; i <= ITEM_GROUP ; i++ ) {
+    fullChainValueButtonObj += fromController [i]+"/" ;
+  }
+  valueButtonObj = int(split(fullChainValueButtonObj, '/')) ;
+}
+*/
+
+// split data slider
+/*
+void data_controller_slider() {
+  // general
+  String [] value_slider_temp_general;
+  value_slider_temp_general = split(fromController[2], '/');
+  int in_background = 0 ;
+  int out_background = NUM_SLIDER_BACKGROUND;
+  int in_filter =  NUM_SLIDER_BACKGROUND;
+  int out_filter = in_filter +NUM_SLIDER_FILTER;
+  int in_light =  out_filter;
+  int out_light = in_light +NUM_SLIDER_LIGHT;
+  int in_sound =  out_light;
+  int out_sound = in_sound +NUM_SLIDER_SOUND;
+  int in_camera =  out_sound;
+  int out_camera = in_camera +NUM_SLIDER_CAMERA;
+  for (int k = 0 ; k < NUM_SLIDER_GENERAL ; k++) {
+    if(k < out_background) {
+      value_slider_background[k] = Float.valueOf(value_slider_temp_general[k]);
+    } else if(k >= in_filter && k < out_filter) {
+      value_slider_filter[k -in_filter] = Float.valueOf(value_slider_temp_general[k]);
+    } else if(k >= in_light && k < out_light) {
+      value_slider_light[k -in_light] = Float.valueOf(value_slider_temp_general[k]);
+    } else if(k >= in_sound && k < out_sound) {
+      value_slider_sound[k -in_sound] = Float.valueOf(value_slider_temp_general[k]);
+    } else if( k >= in_camera && k < out_camera) {
+      value_slider_camera[k -in_camera] = Float.valueOf(value_slider_temp_general[k]);
+    }
+  }
+  // item
+  String []  value_slider_temp_item;
+  value_slider_temp_item = split(fromController [3], '/');
+  for (int k = 0 ; k < NUM_SLIDER_ITEM ; k++) {
+    value_slider_item[k] = Float.valueOf(value_slider_temp_item[k]);
+  }
+}
+*/
+
+
+
+
+
+
 // TRANSFORM info from controler to use in the PRESCENE
+/*
 void translateDataFromController_buttonGlobal() {
   // sound option on/off
+ 
   if(valueButtonGlobal[1] == 1 ) onOffBeat = true ; else onOffBeat = false ;
   if(valueButtonGlobal[2] == 1 ) onOffKick = true ; else onOffKick = false ;
   if(valueButtonGlobal[3] == 1 ) onOffSnare = true ; else onOffSnare = false ;
@@ -1994,10 +2055,16 @@ void translateDataFromController_buttonGlobal() {
   which_svg[0] = valueButtonGlobal[16] ;
   which_text[0] = valueButtonGlobal[17] ;
   which_movie[0] = valueButtonGlobal[18] ;
-  /**
+  
+ 
   valueButtonGlobal[19]; this value is free
-  */
+  valueButtonGlobal[20]; this value is free
+  
 }
+*/
+
+
+/*
 void translateDataFromController_buttonItem() {
   for (int i = 0 ; i < NUM_ITEM -1 ; i++) {
     int iPlusOne = i+1 ;
@@ -2012,6 +2079,7 @@ void translateDataFromController_buttonItem() {
     if (actionButton[iPlusOne] == 1 ) action[iPlusOne] = true ; else action[iPlusOne] = false ;
   }
 }
+*/
 
 
 

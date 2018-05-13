@@ -14,12 +14,11 @@ String toScene = ("Message from Prescene to Scene") ;
 OscP5 osc_send_scene;
 OscP5 osc_receive_controller ;
 
-int port_receive_controller = 10_000 ;
 int port_send_scene = 9_100 ;
 
 //SETUP
 void OSC_setup() {
-  osc_receive_controller = new OscP5(this, port_receive_controller);
+  osc_receive_controller = new OscP5(this, 10000);
   osc_send_scene = new OscP5(this, port_send_scene);
 
   //send
@@ -50,7 +49,7 @@ void OSC_setup() {
     }
   }
 
-  if(!HOME) {
+  if(LIVE) {
     for(int i = 0 ; i < data_osc_prescene.length ; i++) {
       data_osc_prescene[i] = "0";
     }
@@ -73,18 +72,22 @@ void OSC_setup() {
 
 void oscEvent(OscMessage receive) {
   if(receive.addrPattern().equals("Controller")) {
-    catchDataFromController(receive) ;
+    println(receive.arguments().length);
+    thread_data_controller(receive) ;
+    /*
     data_controller_button();
     data_controller_slider();
     data_controller_save();
+    */
   }
 }
 
-
+/*
 void update_OSC_data_controller() {
   translateDataFromController_buttonGlobal();
   translateDataFromController_buttonItem();
 }
+*/
 
 
 

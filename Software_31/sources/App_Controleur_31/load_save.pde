@@ -26,24 +26,44 @@ String [] item_name, item_author, item_version, item_pack, item_load_name, item_
 String [] shader_bg_name, shader_bg_author;
 
 //BUTTON
-int button_item_num;
+
 int button_general_num;
 
-int lastDropdown, num_dropdown_item;
-int [] value_button_general, value_button_item; 
-int [] pos_button_width_item, pos_button_height_item, width_button_item, height_button_item ;
+int lastDropdown;
+int [] value_button_general; 
+
 
 //Variable must be send to Scene
 // statement on_off for the item group
-int [] on_off_item_console ;
-Item_ON_OFF [] on_off_inventory_item ;
+int button_item_num;
+boolean [] item_button_state;
+int num_dropdown_item;
+int [] value_button_item;
+int [] pos_button_width_item, pos_button_height_item, width_button_item, height_button_item ;
 
-class Item_ON_OFF {
+
+
+
+Inventory [] inventory ;
+
+class Inventory {
   String name = "" ;
-  boolean on_off = false ;
-  Item_ON_OFF(String name, boolean on_off) {
+  boolean is = false ;
+  Inventory(String name, boolean is) {
     this.name = name ;
-    this.on_off = on_off ;
+    this.is = is;
+  }
+
+  public boolean is() {
+    return is;
+  }
+
+  public void set_is(boolean is) {
+    this.is = is;
+  }
+
+  public String get_name() {
+    return name;
   }
 }
 
@@ -97,20 +117,29 @@ void load_data_GUI(String path) {
   println("sliders camera",count_slider_camera);
   println("sliders item",count_slider_item);
 
- // info_slider_general = new Vec5 [count_slider_general];
+  // info_slider_general = new Vec5 [count_slider_general];
+  info_button_general = new iVec3 [10];
+  for(int i = 0 ; i < info_button_general.length ; i++) {
+    info_button_general[i] = iVec3();
+  }
+
   info_slider_background = new Vec5 [count_slider_background];
   info_slider_filter = new Vec5 [count_slider_filter];
   info_slider_light = new Vec5 [count_slider_light];
   info_slider_sound = new Vec5 [count_slider_sound];
   info_slider_camera = new Vec5 [count_slider_camera];
 
+
+
   info_slider_item = new Vec5 [count_slider_item];
   // create the var info for the item we need
   info_list_item_ID = new int [NUM_ITEM] ;
   
   // we don't count from the save in case we add object and this one has never use before and he don't exist in the data base
-  infoButton = new PVector [NUM_ITEM *4 +10] ; 
-  for(int i = 0 ; i < infoButton.length ; i++) infoButton[i] = new PVector() ;
+  info_button_item = new iVec3 [NUM_ITEM *BUTTON_ITEM_CONSOLE +BUTTON_ITEM_CONSOLE] ; 
+  for(int i = 0 ; i < info_button_item.length ; i++) {
+    info_button_item[i] = iVec3();
+  }
 }
 
 
@@ -232,9 +261,9 @@ void set_data_save_setting() {
 }
 
 //write the value in the table
-void set_data_button(int IDbutton, int IDmidi, boolean b) {
+void set_data_button(int IDbutton, int IDmidi, boolean b, String type) {
   TableRow buttonSetting = saveSetting.addRow() ;
-  buttonSetting.setString("Type", "Button") ;
+  buttonSetting.setString("Type", type) ;
   buttonSetting.setInt("ID button", IDbutton) ;
   buttonSetting.setInt("ID midi", IDmidi) ;
   if(b) buttonSetting.setInt("On Off", 1) ; else buttonSetting.setInt("On Off", 0) ;
@@ -258,10 +287,10 @@ void set_data_item(int ID_item) {
   item_setting.setInt("Item ID", ID_item) ;
 
   // if(on_off_inventory_item[ID_item]) item_setting.setInt("Item On Off", 1) ; 
-  if(on_off_inventory_item[ID_item].on_off) item_setting.setInt("Item On Off", 1) ; 
-  else item_setting.setInt("Item On Off", 0) ;
+  if(inventory[ID_item].is()) item_setting.setInt("Item On Off", 1); 
+  else item_setting.setInt("Item On Off", 0);
   item_setting.setString("Item Name", item_name[ID_item]) ;
-  item_setting.setString("Item Class Name", item_load_name[ID_item]) ;
+  item_setting.setString("Item Class Name", item_load_name[ID_item]);
 }
 
 
@@ -310,7 +339,8 @@ void load_setting_controller(File selection) {
 void load_saved_file_controller(String path) {
   Table settingTable = loadTable(path, "header");
   // re-init the counter for the new loop
-  int countButton = 0 ;
+  int count_button_item = 0 ;
+  int count_button_general = 0 ;
   int count_slider_general = 0;
   int count_slider_background = 0;
   int count_slider_filter = 0;
@@ -322,14 +352,27 @@ void load_saved_file_controller(String path) {
 
 
   for (TableRow row : settingTable.rows()) {
-    String s = row.getString("Type") ;
-    // button
-    if( s.equals("Button")){ 
+    String s = row.getString("Type");
+    // button general
+    if(s.equals("Button general")){ 
       int IDbutton = row.getInt("ID button") ;
       int IDmidi = row.getInt("ID midi") ;
       int onOff = row.getInt("On Off") ;
-      if(countButton < infoButton.length) infoButton[countButton] = new PVector(IDbutton,IDmidi,onOff) ;
-      countButton++; 
+      if(count_button_general < info_button_general.length) {
+        info_button_general[count_button_general].set(IDbutton,IDmidi,onOff);
+      }
+      count_button_general++; 
+    }
+
+    // button item
+    if(s.equals("Button item")){ 
+      int IDbutton = row.getInt("ID button") ;
+      int IDmidi = row.getInt("ID midi") ;
+      int onOff = row.getInt("On Off") ;
+      if(count_button_item < info_button_item.length) {
+        info_button_item[count_button_item].set(IDbutton,IDmidi,onOff);
+      }
+      count_button_item++; 
     }
 
     // slider background
@@ -375,10 +418,14 @@ void load_saved_file_controller(String path) {
       String [] temp_item_info_split = split(item_info_raw[count_item +1], "/") ;
       int ID =  Integer.parseInt(temp_item_info_split[2]) ;
       boolean on_off = false ;
-      if( row.getInt("Item On Off") == 1) on_off = true ; else  on_off = false ;
+      if(row.getInt("Item On Off") == 1) {
+        on_off = true; 
+      } else {
+        on_off = false;
+      }
 
-      on_off_inventory_item[ID].name = item_name[count_item +1] ; 
-      on_off_inventory_item[ID].on_off = on_off ; 
+      inventory[ID].name = item_name[count_item +1]; 
+      inventory[ID].set_is(on_off); 
       count_item++ ;
     }
   }
@@ -463,7 +510,6 @@ void set_slider_data_group() {
 
 // local method of set_slider_save()
 void setting_data_slider(Slider_adjustable [] slider_adj, Vec5 [] info_slider, int index) {
-
   Vec5 info_temp = info_save_raw_list(info_slider,index).copy();
   slider_adj[index].set_id_midi((int)info_temp.b); 
   slider_adj[index].set_pos_molette(info_temp.c);
@@ -476,58 +522,64 @@ void setting_data_slider(Slider_adjustable [] slider_adj, Vec5 [] info_slider, i
 void set_button_from_saved_file() {
   // close loop to save the button statement, 
   // see void midiButtonManager(boolean saveButton)
-  int rank = 0 ;
-  // Background and Curtain
-  if(infoButton[rank].z  == 1.0) button_bg.on_off = true ; else button_bg.on_off = false ;
-  button_bg.set_id_midi((int)infoButton[rank].y); 
+  int rank = 0;
+  // background
+  if(info_button_general[rank].z == 1.0) button_bg.set_is(true) ; else button_bg.set_is(false);
+  button_bg.set_id_midi((int)info_button_general[rank].y); 
   rank++ ;
-  if(infoButton[rank].z == 1.0) button_curtain.on_off = true ; else button_curtain.on_off = false ;
-  button_curtain.set_id_midi((int)infoButton[rank].y); 
+  // curtain
+  if(info_button_general[rank].z == 1.0) button_curtain.set_is(true); else button_curtain.set_is(false);
+  button_curtain.set_id_midi((int)info_button_general[rank].y); 
   rank++ ;
   //LIGHT ONE
-  if(infoButton[rank].z == 1.0) button_light_1.on_off = true ; else button_light_1.on_off = false ;
-  button_light_1.set_id_midi((int)infoButton[rank].y); 
+  if(info_button_general[rank].z == 1.0) button_light_1.set_is(true); else button_light_1.set_is(false);
+  button_light_1.set_id_midi((int)info_button_general[rank].y); 
   rank++ ;
-  if(infoButton[rank].z == 1.0) button_light_1_action.on_off = true ; else button_light_1_action.on_off = false ;
-  button_light_1_action.set_id_midi((int)infoButton[rank].y); 
+  if(info_button_general[rank].z == 1.0) button_light_1_action.set_is(true); else button_light_1_action.set_is(false);
+  button_light_1_action.set_id_midi((int)info_button_general[rank].y); 
   rank++ ;
   // LIGHT TWO
-  if(infoButton[rank].z == 1.0) button_light_2.on_off = true ; else button_light_2.on_off = false ;
-  button_light_2.set_id_midi((int)infoButton[rank].y); 
+  if(info_button_general[rank].z == 1.0) button_light_2.set_is(true); else button_light_2.set_is(false);
+  button_light_2.set_id_midi((int)info_button_general[rank].y); 
   rank++ ;
-  if(infoButton[rank].z == 1.0) button_light_2_action.on_off = true ; else button_light_2_action.on_off = false ;
-  button_light_2_action.set_id_midi((int)infoButton[rank].y); 
+  if(info_button_general[rank].z == 1.0) button_light_2_action.set_is(true); else button_light_2_action.set_is(false);
+  button_light_2_action.set_id_midi((int)info_button_general[rank].y); 
   rank++ ;
   //SOUND
-  if(infoButton[rank].z == 1.0) button_beat.on_off = true ; else button_beat.on_off = false ;
-  button_beat.set_id_midi((int)infoButton[rank].y);
+  if(info_button_general[rank].z == 1.0) button_beat.set_is(true); else button_beat.set_is(false);
+  button_beat.set_id_midi((int)info_button_general[rank].y);
   rank++ ; 
-  if(infoButton[rank].z == 1.0) button_kick.on_off = true ; else button_kick.on_off = false ;
-  button_kick.set_id_midi((int)infoButton[rank].y); 
+  if(info_button_general[rank].z == 1.0) button_kick.set_is(true); else button_kick.set_is(false);
+  button_kick.set_id_midi((int)info_button_general[rank].y); 
   rank++ ;
-  if(infoButton[rank].z == 1.0) button_snare.on_off = true ; else button_snare.on_off = false ;
-  button_snare.set_id_midi((int)infoButton[rank].y);
+  if(info_button_general[rank].z == 1.0) button_snare.set_is(true); else button_snare.set_is(false);
+  button_snare.set_id_midi((int)info_button_general[rank].y);
   rank++ ;
-  if(infoButton[rank].z == 1.0) button_hat.on_off = true ; else button_hat.on_off = false ;
-  button_hat.set_id_midi((int)infoButton[rank].y); 
+  if(info_button_general[rank].z == 1.0) button_hat.set_is(true); else button_hat.set_is(false);
+  button_hat.set_id_midi((int)info_button_general[rank].y); 
   rank++ ;
   
   //
-  rank-- ;
+  
   //
   
-  // int whichGroup = 1 ;
+
+  /**
+  can be simplify not sure it's necessary to use buttonRank
+  */
+  rank = 4; // start a 4 because we don't use the fourth for historic and bad reason
   int buttonRank ;
   for( int i = 1 ; i <= NUM_ITEM ; i++ ) {
-    for (int j = 1 ; j <= BUTTON_ITEM_CONSOLE ; j++) {
-      rank++ ;
-      buttonRank = (int)infoButton[rank].x ;
-      if(infoButton[rank].z == 1.0 && buttonRank == (i*10)+j) {
-        button_item[buttonRank].on_off = true ;
+    // for (int j = 1 ; j <= BUTTON_ITEM_CONSOLE ; j++) {
+    for (int j = 0 ; j < BUTTON_ITEM_CONSOLE ; j++) {
+      buttonRank = info_button_item[rank].x;
+      if(info_button_item[rank].z == 1.0 && buttonRank == (i*BUTTON_ITEM_CONSOLE)+j) {
+        button_item[buttonRank].set_is(true);
       } else {
-        button_item[buttonRank].on_off = false ; 
+        button_item[buttonRank].set_is(false); 
       }
-      button_item[buttonRank].set_id_midi((int)infoButton[rank].y); 
+      button_item[buttonRank].set_id_midi((int)info_button_item[rank].y);
+      rank++ ;
     }
   }
 }
@@ -574,11 +626,8 @@ Vec5 info_save_raw_list(Vec5[] list, int pos) {
 //LOAD text Interface
 void apply_text_gui() {
   String lang[] ;
-  if (!test){
-    lang = loadStrings(preference_path+"language.txt"); 
-  } else {
-    lang = loadStrings(preference_path+"language.txt");
-  }
+  lang = loadStrings(preference_path+"language.txt");
+
   String l = join(lang,"") ;
   int language = Integer.parseInt(l);
   Table gui_table;

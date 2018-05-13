@@ -400,9 +400,9 @@ void show_slider_item_HSB(int whichGroup, int hueRank, int satRank, int brightRa
 /**
 display item info
 */
-void text_info_item(PVector pos, PVector size, int IDorder, int IDfamily) {
+void text_info_item(iVec2 pos, iVec2 size, int IDorder, int IDfamily) {
   if (mouseX > pos.x && mouseX < (size.x + pos.x ) && mouseY > pos.y - 10 && mouseY <  (size.y + pos.y) -20 ) {
-    PVector fontPos = new PVector(-10, -20 ) ;
+    iVec2 fontPos = iVec2(-10, -20 ) ;
     
     if (NUM_ITEM > 0 ) {
       display_info_item(IDorder, fontPos) ;
@@ -410,7 +410,7 @@ void text_info_item(PVector pos, PVector size, int IDorder, int IDfamily) {
   }
 }
 
-void display_info_item(int IDorder, PVector pos) {
+void display_info_item(int IDorder, iVec2 pos) {
   int whichLine = 0 ;
   int num = inventory_item_table.getRowCount() ;
   for ( int j = 0 ; j < num ; j++) {

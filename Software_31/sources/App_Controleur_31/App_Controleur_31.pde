@@ -13,7 +13,10 @@ V 1.2.0
 2017 March 11_100 lines of code
 */
 String IAM = "Controller";
-boolean test = false ;
+/**
+LIVE must change from the launcher, the info must be write in the external loading preference app
+*/
+boolean LIVE = false;
 
 void settings() {
   size(670,725);
