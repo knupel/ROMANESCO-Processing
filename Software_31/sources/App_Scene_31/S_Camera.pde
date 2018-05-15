@@ -1,10 +1,11 @@
 /**
 Camera Romanesco
+Prescene and Scene
 2013-2018
-v 1.1.4.1
+v 1.2.0
 */
 //travelling
-boolean gotoCameraPosition, gotoCameraEye, travellingPriority;
+boolean goto_camera_pos_is, gotoCameraEye, travellingPriority;
 //speed must be 1 or less
 float speed_camera_romanesco;
 
@@ -14,8 +15,6 @@ private boolean moveScene, moveEye;
 Vec3 targetPosCam = Vec3();
 
 // motion effect on camera
-
-
 Motion motion_translate, motion_rotate;
 
 // ratio camera
@@ -34,7 +33,7 @@ void P3D_setup() {
     camera_setting (NUM_SETTING_CAMERA);
     item_manipulation () ;
     item_manipulation_setting(NUM_SETTING_ITEM);
-    initVariableCamera() ;
+    init_var_camera() ;
     println("P3D setup done") ;
 }
 
@@ -42,9 +41,9 @@ void P3D_setup() {
 // ANNEXE setting object manipulation
 void item_manipulation () {
   //P3D for all ROMANESCO object
-  for ( int i = 0 ; i < NUM_ITEM ; i++ ) {
-    posObj[i] = Vec3() ; 
-    dirObj[i] = Vec3() ;
+  for ( int i = 0 ; i < NUM_ITEM_PLUS_MASTER ; i++ ) {
+    pos_item[i] = Vec3() ; 
+    dir_item[i] = Vec3() ;
     if(dir_item_final[i] == null) dir_item_final[i] = Vec3() ;
   }
 }
@@ -52,7 +51,7 @@ void item_manipulation () {
 void item_manipulation_setting (int num_setting_item) {
   // object orientation
   for ( int i = 0 ; i < num_setting_item ; i++ ) {
-    for (int j = 0 ; j < NUM_ITEM ; j++ ) {
+    for (int j = 0 ; j < NUM_ITEM_PLUS_MASTER ; j++ ) {
        if(item_setting_position [i][j] == null) item_setting_position [i][j] = Vec3() ;
        if(item_setting_direction [i][j] == null) item_setting_direction [i][j] = Vec3() ;
      }
@@ -125,11 +124,6 @@ void setting_start_position(int ID, int which_setting, int pos_x, int pos_y, int
 }
 
 
-/**
-END SETUP
-*/
-
-
 
 
 
@@ -153,9 +147,7 @@ Vec3 get_pos_item(int id_item) {
 Vec3 get_dir_item(int id_item) {
   return dir_item_final[id_item] ;
 }
-/**
 
-*/
 
 
 
@@ -171,22 +163,17 @@ Vec3 get_dir_item(int id_item) {
 
 /**
 ITEM CAMERA
-
-POSITION – DIRECTION 1.0.1
-
+v 1.0.1
 final position and direction for the items
-
 Master and follower updating
-
 */
-
 void item_move(boolean movePos, boolean moveDir, int ID) {
   //position
   if (!movePos) {
     update_ref_position_mouse() ;
-    update_ref_position(posObj[ID], ID) ;
+    update_ref_position(pos_item[ID], ID) ;
   }
-  Vec3 newPos = update_position_item(posObj[ID], ID, movePos) ;
+  Vec3 newPos = update_position_item(pos_item[ID], ID, movePos) ;
   pos_item_final[ID].set(newPos) ;
 
   //direction
@@ -204,8 +191,8 @@ void item_move(boolean movePos, boolean moveDir, int ID) {
 
 
 /*
-  master_ID = new int[NUM_ITEM] ;
-  follower = new boolean[NUM_ITEM] ;
+  master_ID = new int[NUM_ITEM_PLUS_MASTER] ;
+  follower = new boolean[NUM_ITEM_PLUS_MASTER] ;
   */
 
   //RESET
@@ -238,8 +225,8 @@ void item_follower(int ID) {
 Create ref position
 */
 void add_ref_item(int ID) {
-  posObj[ID] = Vec3(pos_item_final[ID]) ;
-  dirObj[ID] = Vec3(dir_item_final[ID]);
+  pos_item[ID] = Vec3(pos_item_final[ID]) ;
+  dir_item[ID] = Vec3(dir_item_final[ID]);
 }
 
 /**
@@ -279,10 +266,10 @@ void update_ref_direction_mouse() {
 
 
 void update_ref_direction(int ID) {
-  if(dir_reference_items[ID] == null) {
-    dir_reference_items[ID] = Vec3(temp_item_canvas_direction[ID]) ; 
+  if(dir_item_ref[ID] == null) {
+    dir_item_ref[ID] = Vec3(temp_item_canvas_direction[ID]) ; 
   } else {
-    dir_reference_items[ID].set(temp_item_canvas_direction[ID]) ;
+    dir_item_ref[ID].set(temp_item_canvas_direction[ID]) ;
   }
 }
 
@@ -294,15 +281,15 @@ Vec3 update_direction_item(Vec2 speed, int ID, boolean authorization) {
     Vec3 delta = Vec3() ;
     if(!reset_camera_direction_item[ID]) {
       delta = sub(mouse[0], direction_mouse_ref) ;
-      temp_item_canvas_direction[ID] = add(delta, dir_reference_items[ID]) ;
+      temp_item_canvas_direction[ID] = add(delta, dir_item_ref[ID]) ;
       //rotation of the camera
-      dirObj[ID].set(direction_canvas_to_polar(temp_item_canvas_direction[ID])) ;
+      dir_item[ID].set(direction_canvas_to_polar(temp_item_canvas_direction[ID])) ;
     } else {
-      dirObj[ID].set(direction_canvas_to_polar(temp_item_canvas_direction[ID])) ;
+      dir_item[ID].set(direction_canvas_to_polar(temp_item_canvas_direction[ID])) ;
       reset_camera_direction_item[ID] = false ;
     }
   } 
-  return dirObj[ID] ;
+  return dir_item[ID] ;
 }
 
 
@@ -322,7 +309,7 @@ void update_ref_position_mouse() {
 }
 
 void update_ref_position(Vec3 pos, int ID) {
-  posObjRef[ID].set(pos.x, pos.y, pos.z) ;
+  pos_item_ref[ID].set(pos.x, pos.y, pos.z) ;
 }
 
 Vec3 update_position_item(Vec3 pos, int ID, boolean authorization) {
@@ -340,8 +327,8 @@ Vec3 update_position_item(Vec3 pos, int ID, boolean authorization) {
   // special op with the wheel value
   delta.z *= -1. ;
 
-  // PVector temp_pos = PVector.add(new PVector(posObjRef[ID].x,posObjRef[ID].y,posObjRef[ID].z), delta) ;
-  pos = add(posObjRef[ID], delta) ;
+  // PVector temp_pos = PVector.add(new PVector(pos_item_ref[ID].x,pos_item_ref[ID].y,pos_item_ref[ID].z), delta) ;
+  pos = add(pos_item_ref[ID], delta) ;
   return pos ;
 }
 
@@ -428,23 +415,18 @@ void final_pos_item(int ID) {
 
 /**
 MOVE CAMERA GLOBAL 
-v 1.1.2
-*/
-/**
-METHOD Variable update variable camera
+v 1.2.0
 */
 float dirCamX,dirCamY,dirCamZ,
       centerCamX,centerCamY,centerCamZ,
       upX,upY,upZ ;
 float focal, deformation ;
-
 Vec3 finalSceneCamera ;
 Vec2 finalEyeCamera ;
-
 boolean reset_camera_romanesco ;
 
 // init var
-void initVariableCamera() {
+void init_var_camera() {
   final_camera_low_rendering() ;
 }
 
@@ -458,20 +440,20 @@ void camera_romanesco_draw() {
   set_var_camera_romanesco() ;
 
   // deformation and focal of the lenz camera
-  paralaxe(focal, deformation) ;
+  paralaxe(focal,deformation) ;
   
   //camera order from the mouse or from the leap
   order_camera() ;
 
-  startCamera() ;
+  start_camera() ;
   
   //to change the scene position with a specific point
-  if(gotoCameraPosition || gotoCameraEye ) {
-    moveCamera(sceneCamera, targetPosCam, speed_camera_romanesco) ;
+  if(goto_camera_pos_is || gotoCameraEye ) {
+    move_camera(sceneCamera, targetPosCam, speed_camera_romanesco) ;
   }
 
   //catch ref camera
-  catchCameraInfo() ;
+  catch_camera_info() ;
 }
 
 
@@ -550,16 +532,16 @@ void final_camera_full_rendering() {
   // final camera rotate position / eye camera
   if (check_cursor_rotate(key_c_long) || specialMoveCamera ) { 
     if(finalEyeCamera == null) {
-      finalEyeCamera = Vec2 (radians(eyeCamera.x), radians(eyeCamera.y) ) ;
+      finalEyeCamera = Vec2 (radians(eyeCamera.x),radians(eyeCamera.y) ) ;
     } else {
-      finalEyeCamera.set(radians(eyeCamera.x), radians(eyeCamera.y) ) ;
+      finalEyeCamera.set(radians(eyeCamera.x),radians(eyeCamera.y) ) ;
     }    
   }
 }
 
 
 void final_camera_low_rendering() {
-      // default setting camera from Processing.org example, like the camera above
+    // default setting camera from Processing.org example, like the camera above
     /*
     float dirCamX = width/2.0 ; // eye X
     float dirCamY = height/2.0 ; // eye Y
@@ -586,7 +568,7 @@ void final_camera_low_rendering() {
     upX = 0 ;
     upY = 1 ;
     upZ = 0 ;
-        // final camera position
+    // final camera position
     finalSceneCamera = new Vec3 (width/2, height, -width) ;
     float longitude = -45 ;
     float latitude = 0 ;
@@ -601,22 +583,20 @@ Vec3 posCamRef = Vec3() ;
 Vec3 eyeCamRef = Vec3() ;
 //boolean security to catch the reference camera when you reset the position of this one
 boolean catchCam = true ;
-
-void catchCameraInfo() {
+void catch_camera_info() {
   if(catchCam) {
-    posCamRef = getPosCamera() ;
-    eyeCamRef = getEyeCamera() ;
+    posCamRef = get_pos_camera() ;
+    eyeCamRef = get_eye_camera() ;
   }
   catchCam = false ;
 }
-//END catch position
+
 
 
 
 //camera order from the mouse or from the leap
 void order_camera() {
   boolean authorization = key_c_long ;
-
   if(authorization) {
     if(ORDER_ONE || ORDER_THREE) {
       moveScene = true ; 
@@ -646,16 +626,17 @@ void order_camera() {
 
 //start camera with speed setting
 boolean switch_rotate_YZ ;
-
-void startCamera() {
+void start_camera() {
   pushMatrix() ;
   camera(dirCamX, dirCamY, dirCamZ, centerCamX, centerCamY, centerCamZ, upX, upY, upZ) ;
   beginCamera() ;
   // scene position
   translate(finalSceneCamera) ;
-  // translate(0,0,0) ;
   // scene orientation direction
-  /* eyeCamera, is not a good terminilogy because the real eye camera is not use here. Here we just move the world. */
+  /* 
+  eyeCamera, is not a good terminilogy 
+  because the real eye camera is not use here. Here we just move the world. 
+  */
   rotateX(finalEyeCamera.x) ;
   if(key_b) {
     if(switch_rotate_YZ) {
@@ -672,15 +653,13 @@ void startCamera() {
     rotateY(0) ;
     rotateZ(finalEyeCamera.y) ;
   }
-
-  // you find popMatrix() in the method stopCamera() ;
 }
 
 //stop
-void stopCamera() {
-  popMatrix() ;
-  endCamera() ;
-  stopParalaxe() ;
+void stop_camera() {
+  popMatrix();
+  endCamera();
+  stop_paralaxe();
 }
 
 
@@ -700,18 +679,36 @@ boolean cursor_move_scene_is = false ;
 boolean cursor_move_eye_is = false ;
 
 void update_camera_romanesco(boolean leapMotion) {
-  if(cursor_final_translate == null) cursor_final_translate = mouse[0].copy() ;
-  if(cursor_final_rotate == null) cursor_final_rotate = mouse[0].copy() ;
-  if(mouse_ref_inertia_translate == null) mouse_ref_inertia_translate = mouse[0].copy() ;
-  if(mouse_ref_inertia_rotate == null) mouse_ref_inertia_translate = mouse[0].copy() ;
+  if(cursor_final_translate == null) {
+    cursor_final_translate = mouse[0].copy() ;
+  } 
+
+  if(cursor_final_rotate == null) {
+    cursor_final_rotate = mouse[0].copy();
+  } 
+
+  if(mouse_ref_inertia_translate == null) {
+    mouse_ref_inertia_translate = mouse[0].copy();
+  } 
+
+  if(mouse_ref_inertia_rotate == null) {
+    mouse_ref_inertia_translate = mouse[0].copy();
+  } 
 
   // make ref
   if(key_c_long) {
     if (moveScene) {
-      mouse_ref_inertia_translate = mouse[0].copy() ; 
-    } 
+      mouse_ref_inertia_translate = mouse[0].copy(); 
+    } else {
+      mouse_ref_inertia_translate.set(mouse[0]); 
+    }
+
     if (moveEye) {
-      mouse_ref_inertia_rotate = mouse[0].copy() ; 
+      if(mouse_ref_inertia_rotate == null) {
+        mouse_ref_inertia_rotate = mouse[0].copy(); 
+      } else {
+        mouse_ref_inertia_rotate.set(mouse[0]); 
+      }
     }
   } 
   
@@ -784,7 +781,7 @@ boolean check_cursor_translate(boolean authorization) {
   if(mouse_camera_translate_ref == null) {
     mouse_camera_translate_ref = cursor_final_translate.copy();
   } else {
-    mouse_camera_translate_ref.set(cursor_final_translate) ;
+    mouse_camera_translate_ref.set(cursor_final_translate);
   }
   return cursor_move_is ;
 }
@@ -814,12 +811,12 @@ boolean check_cursor_rotate(boolean authorization) {
 
 
 // move camera to target
-void moveCamera(Vec3 origin, Vec3 target, float speed) {
+void move_camera(Vec3 origin, Vec3 target, float speed) {
   if(!moveScene) {
-    sceneCamera = follow(origin, target, speed) ;
+    sceneCamera.set(follow(origin,target,speed));
   }
-  if(!moveEye && (gotoCameraPosition || gotoCameraEye)) {
-    eyeCamera = backEye()  ;
+  if(!moveEye && (goto_camera_pos_is || gotoCameraEye)) {
+    eyeCamera.set(back_eye());
   }
 }
 
@@ -830,7 +827,7 @@ void reset_camera(int ID) {
   sceneCamera.set(sceneCameraSetting[ID]) ;
 
   tempEyeCamera.set(0) ;
-  gotoCameraPosition = false ;
+  goto_camera_pos_is = false ;
   gotoCameraEye = false ;
 
   motion_translate.reset() ;
@@ -843,8 +840,8 @@ void reset_camera(int ID) {
 
   reset_camera_romanesco = true ;
 
-  update_direction_camera(true, eyeCamera) ;
-  update_position_camera(true, false, sceneCamera) ;
+  update_direction_camera(true,eyeCamera) ;
+  update_position_camera(true,false,sceneCamera) ;
 }
 
 
@@ -860,24 +857,38 @@ void reset_camera(int ID) {
 
 
 //GET
-Vec3 getEyeCamera() { return eyeCamera ; }
-Vec3 getPosCamera() { return sceneCamera ; }
+Vec3 get_eye_camera() { 
+  return eyeCamera; 
+}
+
+Vec3 get_pos_camera() { 
+  return sceneCamera; 
+}
 
 
 
 
 //INIT FOLLOW
 float distFollowRef = 0 ;
-Vec3 eyeBackRef = Vec3() ;
+Vec3 eyeBackRef;
 //travelling with only camera position
 void travelling(Vec3 target) {
   distFollowRef = dist(target, sceneCamera) ;
   
-  targetPosCam = target ; 
-  eyeBackRef = getEyeCamera() ;
-  absPosition = new PVector() ;
-  gotoCameraPosition = true ;
-  gotoCameraEye = true ;
+  targetPosCam = target ;
+  if(eyeBackRef == null) {
+    eyeBackRef = get_eye_camera().copy();
+  } else {
+    eyeBackRef.set(get_eye_camera());
+  }
+  
+  if(abs_position == null) {
+    abs_position = Vec3();
+  } else {
+    abs_position.set(0);
+  }
+  goto_camera_pos_is = true;
+  gotoCameraEye = true;
 }
 //END INIT FOLLOW
 
@@ -886,61 +897,78 @@ void travelling(Vec3 target) {
 float speedX  ;
 float speedY  ;
     
-Vec3 backEye() {
+Vec3 back_eye() {
   Vec3 eye = Vec3() ;
 
   if(gotoCameraEye) {
-    if(currentDistToTarget > 2 ) {
+    if(current_dist_to_target > 2 ) {
       travellingPriority = true ;
-      if (eyeBackRef.x < 180 ) eye.x = map(currentDistToTarget,distFollowRef, 0,eyeBackRef.x, 0) ; else eye.x = map(currentDistToTarget,distFollowRef, 0,eyeBackRef.x, 360) ;
-      if (eyeBackRef.y < 180 ) eye.y = map(currentDistToTarget,distFollowRef, 0,eyeBackRef.y, 0) ; else eye.y = map(currentDistToTarget,distFollowRef, 0,eyeBackRef.y, 360) ;
+      if (eyeBackRef.x < 180 ) {
+        eye.x = map(current_dist_to_target,distFollowRef,0,eyeBackRef.x,0); 
+      } else {
+        eye.x = map(current_dist_to_target,distFollowRef,0,eyeBackRef.x,360);
+      }
+      if (eyeBackRef.y < 180 ) {
+        eye.y = map(current_dist_to_target,distFollowRef,0,eyeBackRef.y,0); 
+      } else {
+        eye.y = map(current_dist_to_target,distFollowRef,0,eyeBackRef.y,360);
+      }
       //stop the calcul
-      if(eye.x < 2 || eye.x > 358 ) eye.x = 0 ;
-      if(eye.y < 2 || eye.y > 358 ) eye.y = 0 ; 
+      if(eye.x < 2 || eye.x > 358 ) eye.x = 0;
+      if(eye.y < 2 || eye.y > 358 ) eye.y = 0; 
       if(eye.x == 0  && eye.y == 0) {
         gotoCameraEye = false ;
         travellingPriority = false ;
       }
     } else {
       //speed of the eye to return to original position
-      float speedBackEye = 0.2 ;
+      float speedBackEye = .2;
       float ratioX = eyeBackRef.x / frameRate *speedBackEye ;
       float ratioY = eyeBackRef.y / frameRate *speedBackEye ;
-      speedX += ratioX ;
-      speedY += ratioY ;
-      if (eyeBackRef.x < 180 && !travellingPriority ) eye.x = eyeBackRef.x -speedX ; else eye.x  = eyeBackRef.x +speedX ;
-      if (eyeBackRef.y < 180 && !travellingPriority ) eye.y = eyeBackRef.y -speedY ; else eye.y  = eyeBackRef.y +speedY ;
+      speedX += ratioX;
+      speedY += ratioY;
+      if (eyeBackRef.x < 180 && !travellingPriority ) {
+        eye.x = eyeBackRef.x -speedX; 
+      } else {
+        eye.x = eyeBackRef.x +speedX;
+      }
+      if (eyeBackRef.y < 180 && !travellingPriority ) {
+        eye.y = eyeBackRef.y -speedY; 
+      } else {
+        eye.y = eyeBackRef.y +speedY;
+      }
       // to stop the calcul
       if(eye.x < 2 || eye.x > 358 ) eye.x = 0 ;
       if(eye.y < 2 || eye.y > 358 ) eye.y = 0 ;  
       
       if(eye.x == 0  && eye.y == 0) {
-        travellingPriority = false ;
-        gotoCameraEye = false ;
-        speedX = 0 ;
-        speedY = 0 ;
+        travellingPriority = false;
+        gotoCameraEye = false;
+        speedX = 0;
+        speedY = 0;
       }
     }
   } 
-  return eye ;
+  return eye;
 }
 
 
 //MAIN VOID
-PVector speedByAxes = new PVector() ;
+Vec3 speed_by_axes;
 //calculate new position to go at the new target camera
-PVector distToTargetUpdated = new PVector () ;
-float currentDistToTarget = 0 ;
-PVector currentPosition = new PVector() ;
-PVector absPosition = new PVector() ;
-
+Vec3 dist_to_target_updated;
+float current_dist_to_target = 0 ;
+Vec3 current_pos_camera;
+Vec3 abs_position;
+/*
 Vec3 follow(Vec3 origin, Vec3 target, float speed) {
-  PVector PVorigin = new PVector(origin.x, origin.y, origin.z) ;
-  PVector PVtarget = new PVector(target.x, target.y, target.z) ;
+  Vec3 PVorigin = new PVector(origin.x, origin.y, origin.z) ;
+  Vec3 PVtarget = new PVector(target.x, target.y, target.z) ;
   return Vec3(follow(PVorigin, PVtarget, speed)) ;
 }
+*/
 
-PVector follow(PVector origin, PVector target, float speed) {
+Vec3 follow(Vec3 origin, Vec3 target, float speed) {
   //very weird I must inverse the value to have the good result !
   //and change again at the end of the algorithm
   target.x = -target.x ;
@@ -948,65 +976,75 @@ PVector follow(PVector origin, PVector target, float speed) {
   target.z = -target.z ;
   
   //updated the distance in realtime
-  distToTargetUpdated = PVector.sub(currentPosition, target) ;
-  currentDistToTarget = PVector.dist(currentPosition, target) ;
-  
+  if(dist_to_target_updated == null) {
+    dist_to_target_updated = sub(current_pos_camera,target).copy();
+  } else {
+    dist_to_target_updated.set(sub(current_pos_camera,target));
+  }
+
+  current_dist_to_target = dist(current_pos_camera,target);
+
   
   //calculate the speed to go to target
-  PVector absValueOfDist = new PVector (abs(distToTargetUpdated.x),abs(distToTargetUpdated.y),abs(distToTargetUpdated.z));
-  absValueOfDist.normalize() ;
-  //speedByAxes = PVector.div(absValueOfDist, 1.0 / speed) ; 
-  speedByAxes = PVector.mult(absValueOfDist, speed) ;
-  // PVector rangeStop = PVector.mult(speedByAxes,5000) ;
-  PVector rangeStop = new PVector(5,5,5) ; 
-  //calculate the new absolute position
+  Vec3 abs_dist_value = Vec3(abs(dist_to_target_updated.x),abs(dist_to_target_updated.y),abs(dist_to_target_updated.z));
+  abs_dist_value.normalize() ;
+  //speed_by_axes = PVector.div(abs_dist_value, 1.0 / speed) ; 
+  if(speed_by_axes == null) {
+    speed_by_axes = mult(abs_dist_value, speed);
+  } else {
+    speed_by_axes.set(mult(abs_dist_value, speed));
+  }
 
-  //XYZ
-  if ( (distToTargetUpdated.x > rangeStop.x || distToTargetUpdated.x < -rangeStop.x) && 
-       (distToTargetUpdated.y > rangeStop.y || distToTargetUpdated.y < -rangeStop.y) && 
-       (distToTargetUpdated.y > rangeStop.z || distToTargetUpdated.y < -rangeStop.z))  {
-    if (origin.x < target.x )  absPosition.x += speedByAxes.x ;  else absPosition.x -= speedByAxes.x ;
-    if (origin.y < target.y )  absPosition.y += speedByAxes.y ;  else absPosition.y -= speedByAxes.y ;
-    if (origin.z < target.z )  absPosition.z += speedByAxes.z ;  else absPosition.z -= speedByAxes.z ;
-  //XY  
-  } else if ( (distToTargetUpdated.x > rangeStop.x || distToTargetUpdated.x < -rangeStop.x) && 
-              (distToTargetUpdated.y > rangeStop.y || distToTargetUpdated.y < -rangeStop.y)) {
-    if (origin.x < target.x )  absPosition.x += speedByAxes.x ;  else absPosition.x -= speedByAxes.x ;
-    if (origin.y < target.y )  absPosition.y += speedByAxes.y ;  else absPosition.y -= speedByAxes.y ;
-    absPosition.z += 0 ;
-  //XZ
-  } else if ( (distToTargetUpdated.x > rangeStop.x || distToTargetUpdated.x < -rangeStop.x) && 
-              (distToTargetUpdated.y > rangeStop.z || distToTargetUpdated.y < -rangeStop.z))  {
-    if (origin.x < target.x )  absPosition.x += speedByAxes.x ;  else absPosition.x -= speedByAxes.x ;
-    absPosition.y += 0 ;
-    if (origin.z < target.z )  absPosition.z += speedByAxes.z ;  else absPosition.z -= speedByAxes.z ;
-  //YZ
-  } else if ( (distToTargetUpdated.y > rangeStop.y || distToTargetUpdated.y < -rangeStop.y) && 
-              (distToTargetUpdated.y > rangeStop.z || distToTargetUpdated.y < -rangeStop.z))  {
-    absPosition.x += 0 ;
-    if (origin.y < target.y )  absPosition.y += speedByAxes.y ;  else absPosition.y -= speedByAxes.y ;
-    if (origin.z < target.z )  absPosition.z += speedByAxes.z ;  else absPosition.z -= speedByAxes.z ;
-  //X
-  } else if ( (distToTargetUpdated.x > rangeStop.x || distToTargetUpdated.x < -rangeStop.x)) {
-    if (origin.x < target.x )  absPosition.x += speedByAxes.x ;  else absPosition.x -= speedByAxes.x ;
-    absPosition.y += 0 ;
-    absPosition.z += 0 ;
-  //Y  
-  } else if ( (distToTargetUpdated.y > rangeStop.y || distToTargetUpdated.y < -rangeStop.y))  {
-    absPosition.x += 0 ;
-    if (origin.y < target.y )  absPosition.y += speedByAxes.y ;  else absPosition.y -= speedByAxes.y ;
-    absPosition.z += 0 ;
-  //Z
-  } else if ( (distToTargetUpdated.y > rangeStop.z || distToTargetUpdated.y < -rangeStop.z))  {
-    absPosition.x += 0 ;
-    absPosition.y += 0 ;
-    if (origin.z < target.z )  absPosition.z += speedByAxes.z ;  else absPosition.z -= speedByAxes.z ;
-  //IT'S DONE, NOTHING TO DO NOW
+
+
+  Vec3 range_to_stop = Vec3(5) ; 
+  //calculate the new absolute position
+  // XYZ
+  if ( (dist_to_target_updated.x > range_to_stop.x || dist_to_target_updated.x < -range_to_stop.x) && 
+       (dist_to_target_updated.y > range_to_stop.y || dist_to_target_updated.y < -range_to_stop.y) && 
+       (dist_to_target_updated.y > range_to_stop.z || dist_to_target_updated.y < -range_to_stop.z))  {
+    if (origin.x < target.x )  abs_position.x += speed_by_axes.x ;  else abs_position.x -= speed_by_axes.x ;
+    if (origin.y < target.y )  abs_position.y += speed_by_axes.y ;  else abs_position.y -= speed_by_axes.y ;
+    if (origin.z < target.z )  abs_position.z += speed_by_axes.z ;  else abs_position.z -= speed_by_axes.z ;
+  // XY  
+  } else if ( (dist_to_target_updated.x > range_to_stop.x || dist_to_target_updated.x < -range_to_stop.x) && 
+              (dist_to_target_updated.y > range_to_stop.y || dist_to_target_updated.y < -range_to_stop.y)) {
+    if (origin.x < target.x )  abs_position.x += speed_by_axes.x ;  else abs_position.x -= speed_by_axes.x ;
+    if (origin.y < target.y )  abs_position.y += speed_by_axes.y ;  else abs_position.y -= speed_by_axes.y ;
+    abs_position.z += 0 ;
+  // XZ
+  } else if ( (dist_to_target_updated.x > range_to_stop.x || dist_to_target_updated.x < -range_to_stop.x) && 
+              (dist_to_target_updated.y > range_to_stop.z || dist_to_target_updated.y < -range_to_stop.z))  {
+    if (origin.x < target.x )  abs_position.x += speed_by_axes.x ;  else abs_position.x -= speed_by_axes.x ;
+    abs_position.y += 0 ;
+    if (origin.z < target.z )  abs_position.z += speed_by_axes.z ;  else abs_position.z -= speed_by_axes.z ;
+  // YZ
+  } else if ( (dist_to_target_updated.y > range_to_stop.y || dist_to_target_updated.y < -range_to_stop.y) && 
+              (dist_to_target_updated.y > range_to_stop.z || dist_to_target_updated.y < -range_to_stop.z))  {
+    abs_position.x += 0 ;
+    if (origin.y < target.y )  abs_position.y += speed_by_axes.y ;  else abs_position.y -= speed_by_axes.y ;
+    if (origin.z < target.z )  abs_position.z += speed_by_axes.z ;  else abs_position.z -= speed_by_axes.z ;
+  // X
+  } else if ( (dist_to_target_updated.x > range_to_stop.x || dist_to_target_updated.x < -range_to_stop.x)) {
+    if (origin.x < target.x )  abs_position.x += speed_by_axes.x ;  else abs_position.x -= speed_by_axes.x ;
+    abs_position.y += 0 ;
+    abs_position.z += 0 ;
+  // Y  
+  } else if ( (dist_to_target_updated.y > range_to_stop.y || dist_to_target_updated.y < -range_to_stop.y))  {
+    abs_position.x += 0 ;
+    if (origin.y < target.y )  abs_position.y += speed_by_axes.y ;  else abs_position.y -= speed_by_axes.y ;
+    abs_position.z += 0 ;
+  // Z
+  } else if ( (dist_to_target_updated.y > range_to_stop.z || dist_to_target_updated.y < -range_to_stop.z))  {
+    abs_position.x += 0 ;
+    abs_position.y += 0 ;
+    if (origin.z < target.z )  abs_position.z += speed_by_axes.z ;  else abs_position.z -= speed_by_axes.z ;
+  // IT'S DONE, NOTHING TO DO NOW
   } else {  
-    absPosition.x += 0 ;
-    absPosition.y += 0 ;
-    absPosition.z += 0 ;
-    gotoCameraPosition = false ;
+    abs_position.x += 0 ;
+    abs_position.y += 0 ;
+    abs_position.z += 0 ;
+    goto_camera_pos_is = false ;
   }
   
   //very weird I must inverse the value to have the good result !
@@ -1014,17 +1052,12 @@ PVector follow(PVector origin, PVector target, float speed) {
   target.y = -target.y ;
   target.z = -target.z ;
 
-
   //finalize the newposition of the point
-  currentPosition = PVector.add(origin, absPosition) ;
+  current_pos_camera.set(add(origin,abs_position));
   
-  return currentPosition ;
+  return current_pos_camera ;
 }
-/**
 
-END END MAIN CAMERA
-
-*/
 
 
 
@@ -1058,9 +1091,7 @@ END END MAIN CAMERA
 
 
 /**
-
 PERSPECTIVE
-
 */
 void paralaxe() {
   float aspect = float(width)/float(height) ;
@@ -1086,8 +1117,8 @@ void paralaxe(float focal, float deformation) {
 }
 
 // use to stop perspective correction for the info display
-void stopParalaxe() {
-  perspective() ;
+void stop_paralaxe() {
+  perspective();
 }
 
 
@@ -1115,26 +1146,21 @@ void stopParalaxe() {
 
 
 /**
-
-GRID CAMERA WORLD 0.0.1
-
+GRID 
+v 0.0.2
 */
-//repere camera
-void createGridCamera(boolean showGrid) {
+void grid_romanesco(boolean showGrid) {
   if(showGrid)  {
-    float thickness = .1 ;
-
-
+    float thickness = .1;
     // Very weird it's necessary to pass by PVector, if we don't do that when we use camera the grid disappear
-    PVector size =  PVector.mult(SIZE_BG,.2) ;
-    Vec3 size_grid = Vec3(size) ;
-    size_grid.mult(1,1,5) ;
+    Vec3 size_background = Vec3(width *100, height *100, height *7.5) ;
+    Vec3 size_grid = mult(size_background,Vec3(.2,.2,1));
 
     int posTxt = 10 ;
     
     textSize(10) ;
     textAlign(LEFT, BOTTOM);
-    strokeWeight(thickness) ;
+    strokeWeight(thickness);
 
     grid(size_grid) ;
     axe_x(size_grid, posTxt) ;

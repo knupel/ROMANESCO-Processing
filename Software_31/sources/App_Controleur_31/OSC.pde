@@ -67,19 +67,28 @@ void send_OSC() {
 
   // add save info
   /*
-  String load = String.valueOf(load_Scene_Setting) ;
-  String  saveCurrent = String.valueOf(save_Current_Scene_Setting) ;
-  String  saveNew = String.valueOf(save_New_Scene_Setting) ;
+  String load = String.valueOf(load_scene_setting) ;
+  String  saveCurrent = String.valueOf(save_current_scene_setting) ;
+  String  saveNew = String.valueOf(save_new_scene_setting) ;
   // we change to false boolean load and data to false each 2 second to have a time to load and save
-  if(frameCount%60 == 0) load_Scene_Setting = save_Current_Scene_Setting = save_New_Scene_Setting = false ;
+  if(frameCount%60 == 0) load_scene_setting = save_current_scene_setting = save_new_scene_setting = false ;
   toPreScene[4] = load + "/" +  saveCurrent + "/" + saveNew;
   */
 
   
-  // add button general
+  add_data(mess,load_scene_setting);
+  add_data(mess,save_current_scene_setting);
+  add_data(mess,save_new_scene_setting);
+
+  
+  // add menu bar
   add_data(mess, button_curtain.is());
   // add_data(mess, button_midi.is());
-  
+ 
+
+
+
+
   // dropdown general
   add_data(mess,dropdown_bar[0].get_content_line()); // font or shader ?
   add_data(mess,dropdown_bar[1].get_content_line()); // filter
@@ -89,22 +98,20 @@ void send_OSC() {
   add_data(mess,dropdown_bar[5].get_content_line()); // shape
   add_data(mess,dropdown_bar[6].get_content_line()); // movie
 
-  // button background
+  // button general background
   add_data(mess, button_bg.is());
-  // button light
+  // button general light
   add_data(mess, button_light_ambient.is());
   add_data(mess, button_light_ambient_action.is());
   add_data(mess, button_light_1.is());
   add_data(mess, button_light_1_action.is());
   add_data(mess, button_light_2.is());
   add_data(mess, button_light_2_action.is());
-  // button sound
+  // button general sound
   add_data(mess, button_beat.is());
   add_data(mess, button_kick.is());
   add_data(mess, button_snare.is());
   add_data(mess, button_hat.is());
-
-  
 
   // add slider general
   for(int i = 0 ; i < value_slider_background.length ; i++) {
@@ -123,6 +130,10 @@ void send_OSC() {
     add_data(mess,value_slider_camera[i]);
   }
 
+
+
+
+
   // add slider item
   for ( int i = 0 ; i < NUM_SLIDER_ITEM ; i++) {
     add_data(mess,value_slider_item[i]); 
@@ -134,8 +145,9 @@ void send_OSC() {
   }
 
   // add dropdown mode item
-  for(int i = 1 ; i <= NUM_ITEM ; i++) {
-    add_data(mess,dropdown_item_mode[i]);
+  for(int i = 0 ; i < NUM_ITEM ; i++) {
+    int index = i +1;
+    add_data(mess,dropdown_item_mode[index].get_content_line());
   }
   
 
@@ -150,6 +162,9 @@ void send_OSC() {
     }
   }
 }
+
+
+
 
 
 boolean send_message_is;
@@ -168,8 +183,18 @@ boolean send_is() {
 
 void add_data(OscMessage m, Object obj) {
   boolean cast_float_like_int = true;
-  // int case
-  if(obj instanceof Integer) {
+  // byte case
+  if(obj instanceof Byte) {
+    byte by = (byte)obj ;
+    m.add(by);
+    total_data_osc += by;
+  } // int short
+  else if(obj instanceof Short) {
+    short s = (short)obj ;
+    m.add(s);
+    total_data_osc += s;
+    // int case
+  } else if(obj instanceof Integer) {
     int i = (int)obj ;
     m.add(i);
     total_data_osc += i;
@@ -192,11 +217,16 @@ void add_data(OscMessage m, Object obj) {
   // boolean case
   } else if(obj instanceof Boolean) {
     boolean b = (boolean)obj;
-    m.add(b);
+    m.add(to_int(b));
     if(b) {
       total_data_osc++;
     } 
   }  
+}
+
+
+int to_int(boolean b) {
+  if(b) return 1 ; else return 0;
 }
 
 

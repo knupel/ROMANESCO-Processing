@@ -511,14 +511,14 @@ void key_false() {
 /**
 LOAD SAVE
 */
-boolean load_Scene_Setting, save_Current_Scene_Setting, save_New_Scene_Setting ;
+boolean load_scene_setting, save_current_scene_setting, save_new_scene_setting ;
 /**
 LOAD
 */
 void check_Keyboard_load_scene() {
   if(checkKeyboard(CONTROL) && checkKeyboard(KeyEvent.VK_L) ) { 
     println("CTRL + L", frameCount) ;
-    load_Scene_Setting = true ;
+    load_scene_setting = true ;
     keyboard[keyCode] = false;   //
     
   }
@@ -541,7 +541,7 @@ SAVE
 void check_Keyboard_save_scene_CURRENT_path() {
   if(checkKeyboard(CONTROL) && checkKeyboard(KeyEvent.VK_D) ) {
     println("CTRL + D", frameCount) ;
-    save_Current_Scene_Setting = true ;
+    save_current_scene_setting = true ;
     keyboard[keyCode] = false ;   // just open one window, when use only the keyboard, if you don't use that open all the windows save and open
    }
 }
@@ -549,7 +549,7 @@ void check_Keyboard_save_scene_CURRENT_path() {
 void check_Keyboard_save_scene_NEW_path() {
   if(checkKeyboard(CONTROL) && checkKeyboard(KeyEvent.VK_S) ) {
     println("CTRL + S", frameCount) ;
-    save_New_Scene_Setting = true ;
+    save_new_scene_setting = true ;
     keyboard[keyCode] = false ;   // just open one window, when use only the keyboard, if you don't use that open all the windows save and open
   }
 }

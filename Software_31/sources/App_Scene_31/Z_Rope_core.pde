@@ -1,9 +1,9 @@
 /**
 ROPE - Romanesco processing environment – 
-* Copyleft (c) 2014-2017 
+* Copyleft (c) 2014-2018
 * Stan le Punk > http://stanlepunk.xyz/
 ROPE core
-v 0.0.4.1
+v 0.0.5.0
 2017-2018
 * @author Stan le Punk
 * @see https://github.com/StanLepunK/Rope
@@ -52,6 +52,87 @@ public void init_rope() {
 
 public class ROPE implements Rope_Constants {
 	//need to give an access to the Rope_Constants
+}
+
+
+
+
+
+
+
+
+/**
+COLOR LIST class
+v 0.0.1
+*/
+public class ROPE_color implements Rope_Constants {
+	int [] c ;
+	public ROPE_color(int... c) {
+		this.c = new int[c.length];
+		for(int i = 0; i < c.length ; i++) {
+			this.c[i] = c[i];
+		}
+	}
+
+	public int[] get_color() {
+		return c;
+	}
+
+	float[] get_hue() {
+		float[] component = new float[c.length];
+		for(int i = 0 ; i < c.length ; i++) {
+			component[i] = hue(c[i]);
+		}
+		return component;
+	}
+
+	public float[] get_saturation() {
+		float[] component = new float[c.length];
+		for(int i = 0 ; i < c.length ; i++) {
+			component[i] = saturation(c[i]);
+		}
+		return component;
+	}
+
+	public float[] get_brightness() {
+		float[] component = new float[c.length];
+		for(int i = 0 ; i < c.length ; i++) {
+			component[i] = brightness(c[i]);
+		}
+		return component;
+	}
+
+	public float[] get_red() {
+		float[] component = new float[c.length];
+		for(int i = 0 ; i < c.length ; i++) {
+			component[i] = red(c[i]);
+		}
+		return component;
+	}
+
+	public float[] get_green() {
+		float[] component = new float[c.length];
+		for(int i = 0 ; i < c.length ; i++) {
+			component[i] = green(c[i]);
+		}
+		return component;
+	}
+
+	public float[] get_blue() {
+		float[] component = new float[c.length];
+		for(int i = 0 ; i < c.length ; i++) {
+			component[i] = blue(c[i]);
+		}
+		return component;
+	}
+
+	public float[] get_alpha() {
+		float[] component = new float[c.length];
+		for(int i = 0 ; i < c.length ; i++) {
+			component[i] = blue(c[i]);
+		}
+		return component;
+	}
 }
 
 

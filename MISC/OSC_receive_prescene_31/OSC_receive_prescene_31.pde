@@ -6,8 +6,8 @@ void setup() {
 
 
 void draw() {
-
 }
+
 
 
 
@@ -23,6 +23,11 @@ void OSC_setup() {
 void oscEvent(OscMessage receive) {
   if(receive.addrPattern().equals("Controller")) {
     println(receive.arguments().length, frameCount);
+    for(int i = 0 ; i < receive.arguments().length ; i++) {
+      println(i, get_type(receive.arguments()[i]));
+      // println(i, get_type(receive.get(i)));
+    }
+    
     // thread_data_controller(receive) ;
     /*
     data_controller_button();

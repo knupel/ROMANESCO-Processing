@@ -1,10 +1,8 @@
 /**
 Romanesco Unu
-2012 – 2017
-pretty version 1.3.0
+2012 – 2018
 version 31
 Processing 3.3.7
-
 4th may 2015 14.750 lines of code 
 */
 String IAM = ("Scene") ;
@@ -110,8 +108,8 @@ void romanesco() {
   }
 
   rpe_manager.display_item(ORDER_ONE, ORDER_TWO, ORDER_THREE) ;
-  createGridCamera(displayInfo3D) ;
-  stopCamera() ;
+  grid_romanesco(displayInfo3D) ;
+  stop_camera();
   
   //ANNEXE
   info() ;

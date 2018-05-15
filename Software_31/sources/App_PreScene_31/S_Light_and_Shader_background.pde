@@ -1,16 +1,17 @@
 /**
 LIGHT SHADER 
-V 1.3.4
+Prescene and Scene
+V 1.4.0
 2015-2018
 */
-PVector var_light_pos  ;
-PVector var_light_dir  ;
+Vec3 var_light_pos  ;
+Vec3 var_light_dir  ;
 /**
 In this time we just use the var_light_pos with the pos light, may be in the future it's possible to use the couple
 */
 void light_position_setup() {
-  var_light_pos = new PVector(width/2, height/2, -width *2) ;
-  var_light_dir = new PVector(width/2, height/2, width *2) ;
+  var_light_pos = Vec3(width/2, height/2, -width *2) ;
+  var_light_dir = Vec3(width/2, height/2, width *2) ;
 }
 
 void light_position_draw(Vec3 mouse, int wheel) {
@@ -96,21 +97,21 @@ void light_call_shader() {
 
 
 void light_update_position_direction() {
-  light_value_romanesco(value_slider_light, onOffLightAmbient, onOffDirLightOne, onOffDirLightTwo, onOffDirLightOneAction, onOffDirLightTwoAction) ;
+  light_value_romanesco(value_slider_light, light_ambient_is(), light_1_is(), light_2_is(), light_1_action_is(), light_2_action_is()) ;
   // DIRECTIONAL and  SPOT LIGHT UPDATE
   Vec6 range_input_direction_3D = new Vec6(0,width,   0,height,  -width, width) ;
   Vec6 range_input_position_3D = new Vec6(0,width,   0,height,  -width, width) ;
   Vec6 range_output_position_3D = new Vec6(0,width,   0,height,  -width, width) ;
 
   // Position and direction of the directional light
-  if(onOffDirLightOneAction) {
+  if(light_1_action_is()) {
     dir_light[1] = light_direction(var_light_dir, range_input_direction_3D, on_off_light_action[1], dir_light[1],  dir_light_ref[1]).copy() ;
     pos_light[1] = light_position(var_light_pos, range_input_position_3D, range_output_position_3D, on_off_light_action[1], pos_light[1],  pos_light_ref[1]).copy() ;
     color_light[1] = light_color(color_setting [1], MAX_VALUE_SLIDER, HSBmode, color_light[1], color_light_ref[1]).copy() ;
   }
-  if(onOffDirLightTwoAction) {
+  if(light_2_action_is()) {
     dir_light[2] = light_direction(var_light_dir, range_input_direction_3D, on_off_light_action[2], dir_light[2],  dir_light_ref[2]).copy() ;
-    PVector reverse_var_pos = new PVector(map(var_light_pos.x,0,width,width,0), map(var_light_pos.y,0,height,height,0),var_light_pos.z) ;
+    Vec3 reverse_var_pos = Vec3(map(var_light_pos.x,0,width,width,0), map(var_light_pos.y,0,height,height,0),var_light_pos.z) ;
     pos_light[2] = light_position(reverse_var_pos, range_input_position_3D, range_output_position_3D, on_off_light_action[2], pos_light[2],  pos_light_ref[2]).copy() ;
     color_light[2] = light_color(color_setting [2], MAX_VALUE_SLIDER, HSBmode, color_light[2], color_light_ref[2]).copy() ;
   }
@@ -174,15 +175,9 @@ void shader_draw() {
 
 
 
-// ANNEXE
-//////////
-
-//DIRECTIONAL LIGHT
-///////////////////
-
-
-
-
+/**
+DIRECTIONAL LIGHT
+*/
 /**
 open a list of lights with a max of height lights
 @param Vec4 [] colour RGBa float component value 0-255
@@ -239,23 +234,18 @@ void light_point_display(Vec4 rgba, Vec3 pos) {
   rgba = check_colorMode_for_alpha(rgba).copy() ;
   pointLight(rgba.r, rgba.g, rgba.b, pos.x, pos.y, pos.z);
 }
-// END POINT LIGHT
-/////////////////
 
 
 
 
-//SPOT LIGHT
-/////////////
+
+/**
+SPOT LIGHT
+*/
 void light_spot_display(Vec4 rgba, Vec3 pos, Vec3 dir, float angle, float concentration) {
   rgba = check_colorMode_for_alpha(rgba).copy() ;
   spotLight(rgba.r, rgba.g, rgba.b, pos.x, pos.y, pos.z, dir.x, dir.y, dir.z, angle, concentration) ;
 }
-// END SHADER PIX LIGTH
-//////////////////////
-
-// END LIGHT
-////////////
 
 
 
@@ -264,11 +254,10 @@ void light_spot_display(Vec4 rgba, Vec3 pos, Vec3 dir, float angle, float concen
 
 
 
-// GLOBAL SHADER
-////////////////
 
-// COMMON LIGHT METHODE
-//////////////////////
+/**
+GLOBAL SHADER
+*/
 // update color
 Vec4 light_color(Vec3 value, int max, Vec4 color_univers, Vec4 color_light, Vec4 color_light_ref) {
   Vec4 newRefColor = Vec4(map(value.x, 0, max, 0, color_univers.x), map(value.y,0, max, 0, color_univers.y), map(value.z, 0, max, 0, color_univers.z),color_univers.w) ;
@@ -277,7 +266,7 @@ Vec4 light_color(Vec3 value, int max, Vec4 color_univers, Vec4 color_light, Vec4
 }
 
 // update direction
-Vec3 light_direction(PVector var, Vec6 range3D, boolean authorization, Vec3 dir, Vec3 dir_ref) {
+Vec3 light_direction(Vec3 var, Vec6 range3D, boolean authorization, Vec3 dir, Vec3 dir_ref) {
   if(authorization) {
     
     Vec3 newRefDir = Vec3(map(var.x,range3D.a,range3D.b, -1,1),map(var.y,range3D.c,range3D.d, -1,1),map(var.z,range3D.e,range3D.f, -1,1)) ;
@@ -289,7 +278,7 @@ Vec3 light_direction(PVector var, Vec6 range3D, boolean authorization, Vec3 dir,
 
 
 // update position
-Vec3 light_position(PVector var, Vec6 range3D, Vec6 range3D_target,boolean authorization, Vec3 pos, Vec3 pos_ref) {
+Vec3 light_position(Vec3 var, Vec6 range3D, Vec6 range3D_target,boolean authorization, Vec3 pos, Vec3 pos_ref) {
   if(authorization) {
     Vec3 newRefPos = Vec3(map(var.x,range3D.a,range3D.b, range3D_target.a,range3D_target.b),map(var.y,range3D.c,range3D.d, range3D_target.c,range3D_target.d),map(var.z,range3D.e,range3D.f, range3D_target.e,range3D_target.f)) ;
     if(!equals(newRefPos, pos_ref)) pos = newRefPos.copy() ;
@@ -330,7 +319,12 @@ void light_value_romanesco(float [] value, boolean onOffLightAmbient,  boolean o
   on_off_light_action[2] = onOffDirLightTwoAction ;
 }
 
-// VARIABLE TO TEST METHODE without Romanesco
+/**
+
+MEthod to test without Romanesco system
+This method is not use in the software
+
+*/
 void light_value_dev() {
     // color_setting [0] = Vec3(abs(cos(frameCount*.001)) *360,abs(cos(frameCount*.01) *360),abs(sin(frameCount*.1) *360))
   // float hue = abs(cos(frameCount*.001)) *360 ;
@@ -344,13 +338,11 @@ void light_value_dev() {
   color_setting [1] = Vec3(280,360,360) ;
   color_setting [2] = Vec3(0,360,360) ;
   
-  var_light_pos = new PVector(mouseX,mouseY,200)  ; 
-  var_light_dir = new PVector(0,0,1) ;
+  var_light_pos = Vec3(mouseX,mouseY,200)  ; 
+  var_light_dir = Vec3(0,0,1) ;
    // var_light_pos = new PVector(mouseX,mouseY,sin(frameCount *.1) *500)  ;
   
  //  var_light_dir = new PVector(mouseX,mouseY,sin(frameCount *.1) *500)  ;
-
-
   // on_off_light[0] = true ;
   on_off_light[1] = true ;
   on_off_light[2] = true ;

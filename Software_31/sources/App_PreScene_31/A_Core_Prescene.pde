@@ -88,9 +88,9 @@ void prescene_setup() {
 
 
 
-///////////////////////
-//CURSOR, MOUSE, TABLET
-//GLOBAL
+/**
+command
+*/
 void updateCommand() {
   // move the object
   if(clickLongLeft[0] || finger.activefingers == 1 ) {
@@ -144,7 +144,6 @@ void device_update() {
   } else if (mouse_ref == null || mouse_ref.x != mouseX || mouse_ref.y != mouseY) {
     update_mouse();
   }
-  
 
   //re-init the wheel value to be sure this one is stopped
   wheel[0] = 0;

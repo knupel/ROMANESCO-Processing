@@ -1,26 +1,18 @@
 /**
 OSC Prescene 
 2014 - 2018
-v 1.2.0
+v 1.3.0
 */
 NetAddress [] target_scene ;
 String [] ID_address_scene ;
-
-//message from controler
-
-//message from pré-Scène
 String toScene = ("Message from Prescene to Scene") ;
-
 OscP5 osc_send_scene;
 OscP5 osc_receive_controller ;
-
 int port_send_scene = 9_100 ;
 
-//SETUP
 void OSC_setup() {
   osc_receive_controller = new OscP5(this, 10000);
   osc_send_scene = new OscP5(this, port_send_scene);
-
   //send
   if (!TEST_ROMANESCO) {
     String [] addressIP = loadStrings(preference_path+"network/IP_address_mirror.txt") ;
@@ -72,22 +64,10 @@ void OSC_setup() {
 
 void oscEvent(OscMessage receive) {
   if(receive.addrPattern().equals("Controller")) {
-    println(receive.arguments().length);
-    thread_data_controller(receive) ;
-    /*
-    data_controller_button();
-    data_controller_slider();
-    data_controller_save();
-    */
+    thread_data_controller(receive);
   }
 }
 
-/*
-void update_OSC_data_controller() {
-  translateDataFromController_buttonGlobal();
-  translateDataFromController_buttonItem();
-}
-*/
 
 
 
@@ -122,7 +102,6 @@ void OSC_send() {
       osc_send_scene.send(RomanescoScene, target_scene[i]);
     } 
   }
-
 }
 
 

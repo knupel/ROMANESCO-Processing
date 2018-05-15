@@ -1,7 +1,8 @@
 /**
 Rope Manager
+Prescene and Scene
 2013-2018
-v 1.1.2
+v 1.2.0
 */
 Romanesco_manager rpe_manager;
 String ROM_HUE_FILL, ROM_SAT_FILL,ROM_BRIGHT_FILL, ROM_ALPHA_FILL = "";
@@ -39,8 +40,8 @@ void romanesco_build_item() {
   set_slider_item_name();
   rpe_manager = new Romanesco_manager(this);
   rpe_manager.add_item_romanesco();
-  rpe_manager.finishIndex();
-  rpe_manager.writeInfoUser();
+  rpe_manager.finish_index();
+  rpe_manager.write_info_user();
   println("Romanesco setup done");
 }
 
@@ -70,16 +71,7 @@ void set_slider_item_name() {
       }
     }
   }
-  /*
-  for(int i = 0 ; i < 3 ; i++) {
-    for(int k = 0 ; k < 16 ; k++) {
-      TableRow row = slider_item_data.getRow(i+6);
-      //String which_col = Integer.toString(k);
-      slider_name[i][k] = row.getString("col "+Integer.toString(k)) ;
-      println("slider",i,k,slider_name[i][k]);
-    }
-  }
-  */
+
   ROM_HUE_FILL = slider_name[0][0];
   ROM_SAT_FILL = slider_name[0][1];
   ROM_BRIGHT_FILL = slider_name[0][2];
@@ -147,18 +139,17 @@ void update_var_items(int ID) {
     init_value_controller[ID] = true ;
     which_bitmap[ID] = which_bitmap[0] ;
     which_text[ID] = which_text[0] ;
-    which_svg[ID] = which_svg[0] ;
+    which_shape[ID] = which_shape[0] ;
     which_movie[ID] = which_movie[0] ;
   }
   
   // info
   item_info_display[ID] = displayInfo?true:false ;
   
-  
   if(parameter[ID]) {
     which_bitmap[ID] = which_bitmap[0] ;
     which_text[ID] = which_text[0] ;
-    which_svg[ID] = which_svg[0] ;
+    which_shape[ID] = which_shape[0] ;
     which_movie[ID] = which_movie[0] ;
     font_item[ID] = font_library ;
     update_slider_value(ID) ;
@@ -292,8 +283,8 @@ void update_var_sound(int ID) {
     right[ID] = right[0]; //float value(0,1)
     mix[ID] = mix[0]; //   is average volume between the left and the right / float value(0,1)
     
-    beat[ID] = beat[0] ; //    is beat : value 1,10 
-    kick[ID] = kick[0] ; //   is beat kick : value 1,10 
+    beat[ID] = beat[0]; //    is beat : value 1,10 
+    kick[ID] = kick[0]; //   is beat kick : value 1,10 
     snare[ID] = snare [0]; //   is beat snare : value 1,10 
     hat[ID] = hat[0]; //   is beat hat : value 1,10 
 
@@ -311,16 +302,16 @@ void update_var_sound(int ID) {
     right[ID] = 1; //float value(0,1)
     mix[ID] = 1; //   is average volume between the left and the right / float value(0,1)
     
-    beat[ID] = 1 ;//    is beat : value 1,10 
-    kick[ID] = 1 ;//   is beat kick : value 1,10 
-    snare[ID] = 1 ;//   is beat snare : value 1,10 
-    hat[ID] = 1 ;//   is beat hat : value 1,10 
+    beat[ID] = 1;//    is beat : value 1,10 
+    kick[ID] = 1;//   is beat kick : value 1,10 
+    snare[ID] = 1;//   is beat snare : value 1,10 
+    hat[ID] = 1;//   is beat hat : value 1,10 
     
-    tempo[ID] = 1 ;     // global speed of track  / float value(0,1)
-    tempoBeat[ID] = 1 ;  // speed of track calculate on the beat
-    tempoKick[ID] = 1 ; // speed of track calculate on the kick
-    tempoSnare[ID] = 1 ;// speed of track calculate on the snare
-    tempoHat[ID] = 1 ;// speed of track calculte on the hat
+    tempo[ID] = 1; // global speed of track  / float value(0,1)
+    tempoBeat[ID] = 1; // speed of track calculate on the beat
+    tempoKick[ID] = 1; // speed of track calculate on the kick
+    tempoSnare[ID] = 1; // speed of track calculate on the snare
+    tempoHat[ID] = 1; // speed of track calculte on the hat
     
     for (int i = 0 ; i <NUM_BANDS ; i++) {
       band[ID][i] = 1 ;
@@ -330,12 +321,12 @@ void update_var_sound(int ID) {
 
 // RESET list and item
 boolean reset(int ID) {
-  boolean e = false ;
+  boolean e = false;
   //global delete
-  if (key_backspace) e = true ;
+  if (key_backspace) e = true;
   //SPECIFIC DELETE when the paramer button of contrôleur is ON
   else if (key_delete) if (action[ID] || parameter[ID]) e = true ;
-  return e ;
+  return e;
 }
 
 
@@ -352,12 +343,12 @@ boolean reset(int ID) {
 
 /**
 Class Romanesco_manager
-v 1.1.2
+v 1.1.3
 inspired from Andreas Gysin work from The Abyss Project
 */
 class Romanesco_manager {
   private ArrayList<Romanesco>RomanescoList ;
-  private ArrayList<Class>objectRomanescoList;
+  private ArrayList<Class>item_list;
 
   PApplet parent;
   String objectNameRomanesco [] ;
@@ -368,7 +359,7 @@ class Romanesco_manager {
     this.parent = parent;
     RomanescoList = new ArrayList<Romanesco>() ;
     //scan the existant classes
-    objectRomanescoList = scanClasses(parent, "Romanesco");
+    item_list = scanClasses(parent, "Romanesco");
   }
   
   //STEP ONE
@@ -385,7 +376,7 @@ class Romanesco_manager {
         numClasses = classes.size() ;
       }
     }
-    createIndex(numClasses) ;
+    create_index(numClasses) ;
     
     //init the String info
     objectNameRomanesco = new String[numClasses] ;
@@ -399,14 +390,13 @@ class Romanesco_manager {
         numObjectRomanesco += 1 ;
       }
     }
-    beginIndex() ;
-    
+    begin_index() ;
     return classes;  
   }
   
 
   //create the canvas index
-  void createIndex(int num) {
+  void create_index(int num) {
     indexObjects = new Table() ;
     indexObjects.addColumn("Library Order") ;
     indexObjects.addColumn("Name") ;
@@ -421,9 +411,9 @@ class Romanesco_manager {
     
     
     // add row
-    rowIndexObject = new TableRow [num] ;
-    for(int i = 0 ; i < rowIndexObject.length ; i++) {
-      rowIndexObject[i] = indexObjects.addRow() ;
+    row_index_item = new TableRow [num] ;
+    for(int i = 0 ; i < row_index_item.length ; i++) {
+      row_index_item[i] = indexObjects.addRow() ;
     }
     
     // create var for info object, need to be create here
@@ -440,16 +430,13 @@ class Romanesco_manager {
       objectInfo [i] = "Sorry nobody write about me !" ;
       objectID [i] = 0 ;
     }
-    
-    
-    
   }
   
   // put information in the index
-  void beginIndex() {
-    for(int i = 0 ; i < rowIndexObject.length ; i++) {
-      rowIndexObject[i].setString("Class name", objectNameRomanesco[i]) ;
-      rowIndexObject[i].setInt("Library Order", i+1) ;
+  void begin_index() {
+    for(int i = 0 ; i < row_index_item.length ; i++) {
+      row_index_item[i].setString("Class name", objectNameRomanesco[i]);
+      row_index_item[i].setInt("Library Order", i+1);
     }
   }
   
@@ -460,22 +447,21 @@ class Romanesco_manager {
   /**
   EXTERNAL  VOID
   */
-  void finishIndex() {
+  void finish_index() {
   // catch the different parameter from object class Romanesco
     for (int i=0 ; i < RomanescoList.size() ; i++ ) {
-      Romanesco objR = (Romanesco) RomanescoList.get(i) ;
-      rowIndexObject[i].setString("Name", objR.item_name) ;
-      rowIndexObject[i].setInt("ID", objR.ID_item) ;
-      rowIndexObject[i].setInt("Group", objR.ID_group) ;
-      rowIndexObject[i].setString("Author", objR.item_author) ;
-      rowIndexObject[i].setString("Version", objR.item_version) ;
-      rowIndexObject[i].setString("Render", objR.romanescoRender) ;
-      rowIndexObject[i].setString("Pack", objR.item_pack) ;
-      rowIndexObject[i].setString("Mode", objR.item_mode) ;
-      rowIndexObject[i].setString("Slider", objR.item_slider) ;
+      Romanesco objR = (Romanesco) RomanescoList.get(i);
+      row_index_item[i].setString("Name", objR.item_name);
+      row_index_item[i].setInt("ID", objR.ID_item);
+      row_index_item[i].setInt("Group", objR.ID_group);
+      row_index_item[i].setString("Author", objR.item_author);
+      row_index_item[i].setString("Version", objR.item_version);
+      row_index_item[i].setString("Render", objR.romanescoRender);
+      row_index_item[i].setString("Pack", objR.item_pack);
+      row_index_item[i].setString("Mode", objR.item_mode);
+      row_index_item[i].setString("Slider", objR.item_slider);
     }
-    saveTable(indexObjects, preference_path+"index_romanesco_items.csv") ; 
-    NUM_OBJ = RomanescoList.size() ;
+    saveTable(indexObjects, preference_path+"index_romanesco_items.csv"); 
   }
   
   /*
@@ -483,7 +469,7 @@ class Romanesco_manager {
   * use with in romanesco_setup() {}
   */
   //ADD info for the user
-  void writeInfoUser() {
+  void write_info_user() {
       // catch the different parameter from object class Romanesco
     for (int i=0 ; i < RomanescoList.size() ; i++ ) {
       Romanesco objR = (Romanesco) RomanescoList.get(i) ;
@@ -502,33 +488,40 @@ class Romanesco_manager {
     if(index < RomanescoList.size()) {
       Romanesco item = (Romanesco) RomanescoList.get(index) ;
       id = item.ID_item ;
-    }
-    
+    }  
     return id ;
   }
-  
-  
-  
-  int size() {
-    return floor(objectRomanescoList.size()-1) ;
+
+
+  public Romanesco get(int index) {
+    if(index < RomanescoList.size()) {
+      return RomanescoList.get(index);
+    } else {
+      return null;
+    }  
   }
   
+  
+  public int size() {
+    return item_list.size();
+  }
   
   
   //ADD OBJECT from the sub-classes
-  void add_item_romanesco() {
-    int n = floor(objectRomanescoList.size()-1) ;
-    for( int i = 0 ; i <= n ; i++) {
-    addObject(i) ;
+  public void add_item_romanesco() {
+    int n = item_list.size();
+    for( int i = 0 ; i < n ; i++) {
+      add_item(i) ;
     }
   }
+
   //
-  public Romanesco addObject(int i) {
-    if (i < 0 || i >= objectRomanescoList.size()) return null;
+  public Romanesco add_item(int i) {
+    if (i < 0 || i >= item_list.size()) return null;
     
     Romanesco f = null;
     try {
-      Class c = objectRomanescoList.get(i);
+      Class c = item_list.get(i);
       Constructor[] constructors = c.getConstructors();
       f = (Romanesco) constructors[0].newInstance(parent);
     }
@@ -543,13 +536,13 @@ class Romanesco_manager {
     } 
     //add object 
     if (f != null) {
-      addObject(f);
+      add_romaneco_item(f);
     }
     return f;
   }
   
   // finalization of adding object
-  private void addObject(Romanesco item) {
+  private void add_romaneco_item(Romanesco item) {
     item.set_item_romanesco(this);
     RomanescoList.add(item);
   }
@@ -561,15 +554,15 @@ class Romanesco_manager {
   void init_items() {
     int num = 0 ;
     for (Romanesco item : RomanescoList) {
-      motion[item.ID_item] = true ;
-      init_value_mouse[item.ID_item] = true ;
+      motion[item.get_id()] = true ;
+      init_value_mouse[item.get_id()] = true ;
       num ++ ;
       item.setup() ;
-      println("setup of", item.item_name, item.ID_item, "is done") ;
-      if(posObjRef[item.ID_item] == null) {
-        posObjRef[item.ID_item] = Vec3() ;
+      println("setup of", item.item_name, item.get_id(), "is done") ;
+      if(pos_item_ref[item.get_id()] == null) {
+        pos_item_ref[item.get_id()] = Vec3() ;
       }
-      posObjRef[item.ID_item].set(item_setting_position[0][item.ID_item]) ;
+      pos_item_ref[item.get_id()].set(item_setting_position[0][item.get_id()]) ;
     }
   }
 
@@ -584,24 +577,23 @@ class Romanesco_manager {
     }
     
     //the method
-    if (show_object != null) {
-      for (Romanesco objR : RomanescoList) {
-        if (show_object[objR.ID_item]) {
-          update_var_items(objR.ID_item) ;
+    if (show_item != null) {
+      for (Romanesco item : RomanescoList) {
+        if (show_item[item.get_id()]) {
+          update_var_items(item.get_id()) ;
           pushMatrix() ;
-          add_ref_item(objR.ID_item) ;
-          item_follower(objR.ID_item) ;
-          if(key_v_long && action[objR.ID_item] ) {
-
-            item_move(movePos, moveDir, objR.ID_item) ;
+          add_ref_item(item.get_id()) ;
+          item_follower(item.get_id()) ;
+          if(key_v_long && action[item.get_id()] ) {
+            item_move(movePos, moveDir, item.get_id()) ;
           }
 
-          final_pos_item(objR.ID_item) ;
-          objR.draw() ;
+          final_pos_item(item.get_id()) ;
+          item.draw() ;
           popMatrix() ;
         } else {
           // pause reading movie
-          read_movie(false, objR.ID_item) ;
+          read_movie(false, item.get_id()) ;
         }
       }
     }
@@ -767,6 +759,19 @@ abstract class Romanesco {
   //must must be declared in the sub-classes
   abstract void setup();
   abstract void draw();
+
+
+  int get_id() {
+    return ID_item;
+  }
+
+  int get_id_group() {
+    return ID_group;
+  }
+
+  String get_name() {
+    return item_name;
+  }
 }
 
 

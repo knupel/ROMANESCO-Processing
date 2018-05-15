@@ -1,7 +1,7 @@
 /**
 CORE Rope SCENE and PRESCENE 
 2015-2018
-v 1.3.1
+v 1.4.0
 */
 import java.net.*;
 import java.io.*;
@@ -45,10 +45,8 @@ void init_romanesco() {
   textAlign(LEFT);
   
   if(init_romanesco) {
-    SIZE_BG = new PVector(width *100, height *100, height *7.5) ;
-
     int which_setting = 0 ;
-    for(int i = 0 ; i < NUM_ITEM ; i ++) {
+    for(int i = 0 ; i < NUM_ITEM_PLUS_MASTER ; i ++) {
       reset_direction_item (which_setting, i) ;
       update_ref_direction(i) ;
       // check for null before start
@@ -124,16 +122,16 @@ void set_screen() {
 
 /**
 Select Costume Romanesco
-v 0.0.2
+v 0.0.3
 */
 /*
 Max mode is used for what, to give the possibility to have other mode without costume rope ?????
 */
 void select_costume(int id_item,  String rpe_name) {
   String mode_list = null ;
-  String [] mode_split =new String[1] ;
-  for(int i = 0 ; i < rpe_manager.RomanescoList.size() ; i++) {
-    Romanesco item = (Romanesco) rpe_manager.RomanescoList.get(i) ;
+  String [] mode_split = new String[1];
+  for(int i = 0 ; i < rpe_manager.size() ; i++) {
+    Romanesco item = rpe_manager.get(i);
     if(rpe_name.equals(item.item_name)) {
       mode_list = item.item_mode ;
       mode_split = split(mode_list, "/") ;
@@ -351,10 +349,10 @@ int ref_svg_num_files ;
 void load_svg(int ID) {
   check_svg_folder_scene() ;
   // which_bitmap is the int return from the dropdown menu
-  if(which_svg[ID] > svg_path.length ) which_svg[ID] = 0 ;
+  if(which_shape[ID] > svg_path.length ) which_shape[ID] = 0 ;
 
   if(svg_path != null && svg_path.length > 0) {
-    svg_current_path = svg_path[which_svg[ID]] ;
+    svg_current_path = svg_path[which_shape[ID]] ;
     if(!svg_current_path.equals(svg_path_ref[ID])) {
       svg_import[ID] = new ROPE_svg(this, svg_current_path, "bricks") ;
     }
@@ -863,7 +861,7 @@ void loadDataObject(String path) {
     
   // PART ONE
   JSONObject dataWorld = load.getJSONObject(startPosJSONDataWorld);
-  onOffBackground = dataWorld.getBoolean("on/off") ;
+  background_is(dataWorld.getBoolean("on/off"));
 
 
   colorBackground.r = dataWorld.getFloat("hue background") ;
@@ -948,34 +946,31 @@ void loadDataObject(String path) {
 
     // PART THREE
   for (int i = 2 ; i < load.size() ;i++) {
-    JSONObject dataObj = load.getJSONObject(i) ;
-    int ID = dataObj.getInt("ID obj") ;
-    /**
-    int fontRefID = dataObj.getInt("which font") ;
-    whichFont[ID] = 
-    */
-    which_bitmap[ID] = dataObj.getInt("which picture") ;
-    which_svg[ID] = dataObj.getInt("which svg") ;
-    which_movie[ID] = dataObj.getInt("which movie") ;
-    which_text[ID] = dataObj.getInt("which text") ;
-        // display mode
-    mode[ID] = dataObj.getInt("Mode obj") ;
-    
-        // slider fill
-        float h_fill = dataObj.getFloat("hue fill") ;
-        float s_fill = dataObj.getFloat("saturation fill") ;
-        float b_fill = dataObj.getFloat("brightness fill") ;
-        float a_fill = dataObj.getFloat("alpha fill") ;
+    JSONObject data_item = load.getJSONObject(i) ;
+    int ID = data_item.getInt("ID obj") ;
+
+    which_bitmap[ID] = data_item.getInt("which picture") ;
+    which_shape[ID] = data_item.getInt("which svg") ;
+    which_movie[ID] = data_item.getInt("which movie") ;
+    which_text[ID] = data_item.getInt("which text") ;
+    // display mode
+    mode[ID] = data_item.getInt("Mode obj") ;
+
+    // slider fill
+    float h_fill = data_item.getFloat("hue fill") ;
+    float s_fill = data_item.getFloat("saturation fill") ;
+    float b_fill = data_item.getFloat("brightness fill") ;
+    float a_fill = data_item.getFloat("alpha fill") ;
     // slider stroke
-    float h_stroke = dataObj.getFloat("hue stroke") ;
-        float s_stroke = dataObj.getFloat("saturation stroke") ;
-        float b_stroke = dataObj.getFloat("brightness stroke") ;
-        float a_stroke = dataObj.getFloat("alpha stroke") ;
+    float h_stroke = data_item.getFloat("hue stroke") ;
+        float s_stroke = data_item.getFloat("saturation stroke") ;
+        float b_stroke = data_item.getFloat("brightness stroke") ;
+        float a_stroke = data_item.getFloat("alpha stroke") ;
 
         if(FULL_RENDERING) {
           fill_item[ID] = color(h_fill, s_fill, b_fill, a_fill) ;
       stroke_item[ID] = color(h_stroke, s_stroke, b_stroke, a_stroke) ;
-      thickness_item[ID] = dataObj.getFloat("thickness") *height ;
+      thickness_item[ID] = data_item.getFloat("thickness") *height ;
     } else {
       // preview display
       fill_item[ID] = COLOR_FILL_OBJ_PREVIEW ;
@@ -983,31 +978,31 @@ void loadDataObject(String path) {
       thickness_item[ID] = THICKNESS_OBJ_PREVIEW ;
       }
 
-    size_x_item[ID] = dataObj.getFloat("width") *width ;
-    size_y_item[ID] = dataObj.getFloat("height") *width ;
-    size_z_item[ID] = dataObj.getFloat("depth") *width ;
-    canvas_x_item[ID] = dataObj.getFloat("canvas x") *width ;
-    canvas_y_item[ID] = dataObj.getFloat("canvas y") *width ;
-    canvas_z_item[ID] = dataObj.getFloat("canvas z") *width ;
-    variety_item[ID] = dataObj.getFloat("family") ;
-    quantity_item[ID] = dataObj.getFloat("quantity") ;
-    life_item[ID] = dataObj.getFloat("life") ;
+    size_x_item[ID] = data_item.getFloat("width") *width ;
+    size_y_item[ID] = data_item.getFloat("height") *width ;
+    size_z_item[ID] = data_item.getFloat("depth") *width ;
+    canvas_x_item[ID] = data_item.getFloat("canvas x") *width ;
+    canvas_y_item[ID] = data_item.getFloat("canvas y") *width ;
+    canvas_z_item[ID] = data_item.getFloat("canvas z") *width ;
+    variety_item[ID] = data_item.getFloat("family") ;
+    quantity_item[ID] = data_item.getFloat("quantity") ;
+    life_item[ID] = data_item.getFloat("life") ;
 
-    speed_x_item[ID] = dataObj.getFloat("speed") ;
-    dir_x_item[ID] = dataObj.getFloat("direction") ;
-    angle_item[ID] = dataObj.getFloat("angle") ;
-    swing_x_item[ID] = dataObj.getFloat("amplitude") ;
-    repulsion_item[ID] = dataObj.getFloat("repulsion") ;
-    attraction_item[ID] = dataObj.getFloat("attraction") ;
-    alignment_item[ID] = dataObj.getFloat("aligmnent") ;
-    influence_item[ID] = dataObj.getFloat("influence") ;
+    speed_x_item[ID] = data_item.getFloat("speed") ;
+    dir_x_item[ID] = data_item.getFloat("direction") ;
+    angle_item[ID] = data_item.getFloat("angle") ;
+    swing_x_item[ID] = data_item.getFloat("amplitude") ;
+    repulsion_item[ID] = data_item.getFloat("repulsion") ;
+    attraction_item[ID] = data_item.getFloat("attraction") ;
+    alignment_item[ID] = data_item.getFloat("aligmnent") ;
+    influence_item[ID] = data_item.getFloat("influence") ;
 
-    posObj[ID].x  = dataObj.getFloat("pos x obj") *width ;
-    posObj[ID].y  = dataObj.getFloat("pos y obj") *width ;
-    posObj[ID].z  = dataObj.getFloat("pos z obj") *width ;
+    pos_item[ID].x  = data_item.getFloat("pos x obj") *width ;
+    pos_item[ID].y  = data_item.getFloat("pos y obj") *width ;
+    pos_item[ID].z  = data_item.getFloat("pos z obj") *width ;
 
-    dirObj[ID].x  = dataObj.getFloat("longitude obj") ;
-    dirObj[ID].y  = dataObj.getFloat("latitude obj") ;
+    dir_item[ID].x  = data_item.getFloat("longitude obj") ;
+    dir_item[ID].y  = data_item.getFloat("latitude obj") ;
   }
 }
 
@@ -1116,10 +1111,10 @@ void displayInfoObject(color bg_txt, color txt) {
   
   posInfoObj = 1 ;
   // for (Romanesco objR : RomanescoList)
-  for(int i = 0 ; i < NUM_ITEM ; i++) {
-    if(show_object[i]) {
+  for(int i = 0 ; i < NUM_ITEM_PLUS_MASTER ; i++) {
+    if(show_item[i]) {
       posInfoObj += 1 ;
-      String position = ("x:" +(int)posObj[i].x + " y:" + (int)posObj[i].y+ " z:" + (int)posObj[i].z) ;
+      String position = ("x:" +(int)pos_item[i].x + " y:" + (int)pos_item[i].y+ " z:" + (int)pos_item[i].z) ;
       text(objectName[i] + " - Coord " + position + " - " + objectInfo[objectID[i]], 10, height -(15 *(posInfoObj -1))) ;
     }
   }
@@ -1278,7 +1273,7 @@ int tracking(int t, int n) {
 curtain
 */
 void curtain() {
-  if(!onOffCurtain) {
+  if(!curtain_is()) {
     rectMode(CORNER) ;
     fill (0) ; 
     noStroke() ;
@@ -1350,12 +1345,12 @@ void background_setup() {
 void background_romanesco() {
   // in preview mode the background is always on, to remove the trace effect
   if(!FULL_RENDERING) { 
-    onOffBackground = false ;
+    background_is(false) ;
     colorBackground = colorBackgroundPrescene.copy() ;
     background_rope(0,0,g.colorModeZ *.2,g.colorModeA) ;
   } else {
-    if(onOffBackground) {
-      if(whichShader == 0) {
+    if(background_is()) {
+      if(which_shader == 0) {
         // check if the color model is changed after the shader used
         if(g.colorMode != 3 || g.colorModeX != 360 || g.colorModeY != 100 || g.colorModeZ !=100 || g.colorModeA !=100) colorMode(HSB,360,100,100,100);
         // choice the rendering color palette for the classic background
@@ -1370,7 +1365,7 @@ void background_romanesco() {
         }
         background_rope(colorBackground) ;
       } else {
-        background_shader_draw(whichShader) ;
+        background_shader_draw(which_shader) ;
       }
     }
   }
@@ -1380,14 +1375,18 @@ void background_romanesco() {
 Vec4 update_background() {
   //to smooth the curve of transparency background
   // HSB
-  float hue_bg = map(value_slider_background[0],0,MAX_VALUE_SLIDER,0,HSBmode.r) ;
-  float saturation_bg = map(value_slider_background[1],0,MAX_VALUE_SLIDER,0,HSBmode.g) ;
-  float brigthness_bg = map(value_slider_background[2],0,MAX_VALUE_SLIDER,0,HSBmode.b) ;
+  /*
+  println("void update_background()",value_slider_background.length);
+  printArray(value_slider_background);
+  */
+  float hue_bg = map(value_slider_background[0],0,MAX_VALUE_SLIDER,0,HSBmode.r);
+  float saturation_bg = map(value_slider_background[1],0,MAX_VALUE_SLIDER,0,HSBmode.g);
+  float brigthness_bg = map(value_slider_background[2],0,MAX_VALUE_SLIDER,0,HSBmode.b);
   // ALPHA
-  float factorSmooth = 2.5 ;
-  float nx = norm(value_slider_background[3], 0.0 , MAX_VALUE_SLIDER) ;
+  float factorSmooth = 2.5;
+  float nx = norm(value_slider_background[3],.0,MAX_VALUE_SLIDER);
   float alpha = pow (nx, factorSmooth);
-  alpha = map(alpha, 0, 1, 0.8, HSBmode.a) ;
+  alpha = map(alpha,0,1,.8,HSBmode.a);
   return Vec4(hue_bg,saturation_bg,brigthness_bg,alpha) ;
 }
 
@@ -1556,10 +1555,10 @@ void sound_romanesco() {
   if(mix[0] > 1 ) mix[0] = 1.0 ;
   
   //Beat
-  beat[0] = getBeat(onOffBeat) ;
-  kick[0] = getKick(onOffKick) ;
-  snare[0] = getSnare(onOffSnare) ;
-  hat[0] = getHat(onOffHat) ;
+  beat[0] = getBeat(beat_is()) ;
+  kick[0] = getKick(kick_is()) ;
+  snare[0] = getSnare(snare_is()) ;
+  hat[0] = getHat(hat_is()) ;
   
   
   //spectrum
@@ -1878,147 +1877,140 @@ void color_setup() {
   
 /**
 OSC CORE 
-v 1.1.2
+v 1.2.0
 */
-int numOfPartSendByController = 5 ; 
-String fromController [] = new String [numOfPartSendByController] ;
-//EVENT to check what else is receive by the receiver
+// main method
+void thread_data_controller(OscMessage receive) {
+  int rank = 0 ;
+  receive_data_misc(receive,rank); // 3 arg
+  rank += 3;
+  receive_data_menu_bar(receive,rank); // 1 arg
+  rank += 1;
+  receive_data_general_dropdown(receive,rank); // 7 arg
+  rank += 7;
+  receive_data_general_button(receive,rank); // 11 arg
+  rank += 11;
+  receive_data_general_slider(receive,rank,rank +24); // 24 arg
+  rank += 24;
+  receive_data_slider_item(receive,rank); // num arg = NUM_SLIDER_ITEM
+  rank += NUM_SLIDER_ITEM;
+  receive_data_button_item(receive,rank); // num arg = NUM_ITEM_PLUS_MASTER *BUTTON_ITEM_CONSOLE
+  rank += (NUM_ITEM *BUTTON_ITEM_CONSOLE);
+  receive_data_dropdown_item(receive,rank); // num arg = NUM_ITEM_PLUS_MASTER
+}
 
-
-// ANNEXE VOID of OSC RECEIVE
-// catch raw osc data
-void catchDataFromController(OscMessage receive) {
-  for ( int i = 0 ; i < fromController.length ; i++ ) {
-    fromController [i] = receive.get(i).stringValue() ;
+// local method
+boolean to_bool(OscMessage receive, int index) {
+  Object obj = receive.arguments()[index];
+  if(obj instanceof Integer) {
+    int i = (int)obj;
+    if(i == 0) return false ; else return true;
+  } if(obj instanceof Float) {
+    float f = (float)obj;
+    if(f == 0) return false ; else return true;
+  } else {
+    printErr("OSC message index",index, "cannot be cast by default fase value has be used");
+    return false;
   }
 }
 
-// split data button
-void data_controller_button() {
-  //Split data from the String Data
-  valueButtonGlobal = int(split(fromController [0], '/')) ;
-  // stick the Int(String) chain from the group object "one" and "two" is single chain integer(String).
-  String fullChainValueButtonObj =("") ;
-  for ( int i = 1 ; i <= ITEM_GROUP ; i++ ) {
-    fullChainValueButtonObj += fromController [i]+"/" ;
-  }
-  valueButtonObj = int(split(fullChainValueButtonObj, '/')) ;
+void receive_data_misc(OscMessage receive, int in) {
+  load_SCENE_Setting_GLOBAL = to_bool(receive,0+in);
+  save_Current_SCENE_Setting_GLOBAL = to_bool(receive,1+in);
+  save_New_SCENE_Setting_GLOBAL = to_bool(receive,2+in);
 }
 
-// split data slider
-void data_controller_slider() {
-  String []value_slider_temp_general, value_slider_temp_item;
-  value_slider_temp_general = split(fromController [2], '/');
-  value_slider_temp_item = split(fromController [3], '/');
-  // translate the String value to the float var to use
-  for (int i = 0 ; i < NUM_GROUP_SLIDER ; i++ ) {
-    // general
-    if (i == 0 ) {
-      int in_background = 0 ;
-      int out_background = NUM_SLIDER_BACKGROUND;
-      int in_filter =  NUM_SLIDER_BACKGROUND;
-      int out_filter = in_filter +NUM_SLIDER_FILTER;
-      int in_light =  out_filter;
-      int out_light = in_light +NUM_SLIDER_LIGHT;
-      int in_sound =  out_light;
-      int out_sound = in_sound +NUM_SLIDER_SOUND;
-      int in_camera =  out_sound;
-      int out_camera = in_camera +NUM_SLIDER_CAMERA;
-      for (int k = 0 ; k < NUM_SLIDER_GENERAL ; k++) {
-        if(k < out_background) {
-          value_slider_background[k] = Float.valueOf(value_slider_temp_general[k]) ;
-        } else if(k >= in_filter && k < out_filter) {
-          value_slider_filter[k -in_filter] = Float.valueOf(value_slider_temp_general[k]) ;
-        } else if(k >= in_light && k < out_light) {
-          value_slider_light[k -in_light] = Float.valueOf(value_slider_temp_general[k]) ;
-        } else if(k >= in_sound && k < out_sound) {
-          value_slider_sound[k -in_sound] = Float.valueOf(value_slider_temp_general[k]) ;
-        } else if( k >= in_camera && k < out_camera) {
-          value_slider_camera[k -in_camera] = Float.valueOf(value_slider_temp_general[k]) ;
-        }
-      }
-    // item
-    } else if(i == 1) {
-      for (int k = 0 ; k < NUM_SLIDER_ITEM ; k++) {
-        value_slider_item[k] = Float.valueOf(value_slider_temp_item[k]);
-      }
+
+void receive_data_menu_bar(OscMessage receive, int in) {
+  curtain_is(to_bool(receive,0+in));
+}
+
+void receive_data_general_dropdown(OscMessage receive, int in) {
+  which_shader = receive.get(0+in).intValue();
+  which_filter = receive.get(1+in).intValue();
+  select_font(receive.get(2+in).intValue());
+  which_text[0] = receive.get(3+in).intValue();
+  which_bitmap[0] = receive.get(4+in).intValue();
+  which_shape[0] = receive.get(5+in).intValue();
+  which_movie[0] = receive.get(6+in).intValue();
+}
+
+
+void receive_data_general_button(OscMessage receive, int in) {
+  background_is(to_bool(receive,0+in));
+
+  light_ambient_is(to_bool(receive,1+in));
+  light_ambient_action_is(to_bool(receive,2+in));
+  light_1_is(to_bool(receive,3+in));
+  light_1_action_is(to_bool(receive,4+in));
+  light_2_is(to_bool(receive,5+in));
+  light_2_action_is(to_bool(receive,6+in));
+
+  beat_is(to_bool(receive,7+in));
+  kick_is(to_bool(receive,8+in));
+  snare_is(to_bool(receive,9+in));
+  hat_is(to_bool(receive,10+in));
+}
+
+void receive_data_general_slider(OscMessage receive, int in, int out) {
+  int in_background = in ;
+  int out_background = in_background +NUM_SLIDER_BACKGROUND;
+
+  int in_filter =  out_background;
+  int out_filter = in_filter +NUM_SLIDER_FILTER;
+
+  int in_light =  out_filter;
+  int out_light = in_light +NUM_SLIDER_LIGHT;
+
+  int in_sound =  out_light;
+  int out_sound = in_sound +NUM_SLIDER_SOUND;
+
+  int in_camera =  out_sound;
+  int out_camera = in_camera +NUM_SLIDER_CAMERA;
+
+  for (int i = in ; i < out ; i++) {
+    if(i < out_background) {
+      value_slider_background[i -in_background] = Float.valueOf(receive.get(i).intValue());
+    } else if(i >= in_filter && i < out_filter) {
+      value_slider_filter[i -in_filter] = Float.valueOf(receive.get(i).intValue()) ;
+    } else if(i >= in_light && i < out_light) {
+      value_slider_light[i -in_light] = Float.valueOf(receive.get(i).intValue()) ;
+    } else if(i >= in_sound && i < out_sound) {
+      value_slider_sound[i -in_sound] = Float.valueOf(receive.get(i).intValue()) ;
+    } else if(i >= in_camera && i < out_camera) {
+      value_slider_camera[i -in_camera] = Float.valueOf(receive.get(i).intValue());
     }
+  } 
+}
+
+void receive_data_slider_item(OscMessage receive, int in) {
+  for (int i = 0 ; i < NUM_SLIDER_ITEM ; i++) {
+   int index = in + i;
+    int target = i;
+    value_slider_item[target] = Float.valueOf(receive.get(index).intValue());
   }
 }
 
 
-// split data boolean to give load or save order
-void data_controller_save() {
-    // LOAD SAVE
-  /*
-  +1 for the global group
-  *2 because there is one group for the button and an other one for the slider
-  */
-  int whichOne = (ITEM_GROUP +1) *2 ;
-  String [] booleanSave  ;
-
-  booleanSave = split(fromController[whichOne], '/') ;
-  // convert string to boolean
-  load_SCENE_Setting_GLOBAL = Boolean.valueOf(booleanSave[0]).booleanValue();
-  save_Current_SCENE_Setting_GLOBAL = Boolean.valueOf(booleanSave[1]).booleanValue();
-  save_New_SCENE_Setting_GLOBAL = Boolean.valueOf(booleanSave[2]).booleanValue();
-}
-
-
-
-// TRANSFORM info from controler to use in the PRESCENE
-void translateDataFromController_buttonGlobal() {
-  // sound option on/off
-  if(valueButtonGlobal[1] == 1 ) onOffBeat = true ; else onOffBeat = false ;
-  if(valueButtonGlobal[2] == 1 ) onOffKick = true ; else onOffKick = false ;
-  if(valueButtonGlobal[3] == 1 ) onOffSnare = true ; else onOffSnare = false ;
-  if(valueButtonGlobal[4] == 1 ) onOffHat = true ; else onOffHat = false ;
-  // backgound option on/off
-  if(valueButtonGlobal[6] == 1 ) onOffCurtain = true ; else onOffCurtain = false ;
-  if(valueButtonGlobal[7] == 1 ) onOffBackground = true ; else onOffBackground = false ;
-  // light on/off
-  if(valueButtonGlobal[8] == 1 ) onOffDirLightOne = true ; else onOffDirLightOne = false ;
-  if(valueButtonGlobal[9] == 1 ) onOffDirLightTwo = true ; else onOffDirLightTwo = false ;
-  if(valueButtonGlobal[10] == 1 ) onOffLightAmbient = true ; else onOffLightAmbient = false ;
-  // light move light on/off
-  if(valueButtonGlobal[11] == 1 ) onOffDirLightOneAction = true ; else onOffDirLightOneAction = false ;
-  if(valueButtonGlobal[12] == 1 ) onOffDirLightTwoAction = true ; else onOffDirLightTwoAction = false ;
-  if(valueButtonGlobal[13] == 1 ) onOffLightAmbientAction = true ; else onOffLightAmbientAction = false ;
-  
-  // list choice
-  whichShader = valueButtonGlobal[14] ;
-
-  select_font(valueButtonGlobal[5]) ;
-
-  which_bitmap[0] = valueButtonGlobal[15] ;
-  which_svg[0] = valueButtonGlobal[16] ;
-  which_text[0] = valueButtonGlobal[17] ;
-  which_movie[0] = valueButtonGlobal[18] ;
-  /**
-  valueButtonGlobal[19]; this value is free
-  */
-}
-void translateDataFromController_buttonItem() {
-  for (int i = 0 ; i < NUM_ITEM -1 ; i++) {
-    int iPlusOne = i+1 ;
-    objectButton   [iPlusOne] = valueButtonObj[i *10 +1] ;
-    parameterButton[iPlusOne] = valueButtonObj[i *10 +2] ;
-    soundButton    [iPlusOne] = valueButtonObj[i *10 +3] ;
-    actionButton   [iPlusOne] = valueButtonObj[i *10 +4] ;
-    mode     [iPlusOne] = valueButtonObj[i *10 +9] ;
-    if (objectButton[iPlusOne] == 1 ) show_object[iPlusOne] = true ; else show_object[iPlusOne] = false ;
-    if (parameterButton[iPlusOne] == 1 ) parameter[iPlusOne] = true ; else parameter[iPlusOne] = false ;
-    if (soundButton[iPlusOne] == 1 ) sound[iPlusOne] = true ; else sound[iPlusOne] = false ;
-    if (actionButton[iPlusOne] == 1 ) action[iPlusOne] = true ; else action[iPlusOne] = false ;
+void receive_data_button_item(OscMessage receive, int in) {
+  int num = BUTTON_ITEM_CONSOLE;
+  for (int i = 0 ; i < NUM_ITEM ; i++) {
+    int index = in + (i*num);
+    int target = i+1;
+    show_item[target] = to_bool(receive,index +0);
+    parameter[target] = to_bool(receive,index +1);
+    sound[target] = to_bool(receive,index +2);
+    action[target] = to_bool(receive,index +3);
   }
 }
 
-
-
-
-
-
-
+void receive_data_dropdown_item(OscMessage receive, int in) {
+  for (int i = 0 ; i < NUM_ITEM ; i++) {
+    int index = i+in;
+    int target = i+1;
+    mode[target] = receive.get(index).intValue();
+  }
+}
 
 
 

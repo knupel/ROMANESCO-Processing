@@ -1,6 +1,7 @@
 /**
 ROPE SVG
-v 1.2.8
+v 1.2.9
+* Copyleft (c) 2014-2018
 Rope – Romanesco Processing Environment – 
 * @author Stan le Punk
 * @see https://github.com/StanLepunK/SVG_Vertex-Processing
@@ -1908,9 +1909,9 @@ class ROPE_svg {
   
   
   // Local method
-  int rankey_analyze = 0 ;
+  int rank_analyze = 0 ;
   private void deep_analyze_SVG(String header, boolean style, XML target, String ancestral_name, String opacity_group) {
-    rankey_analyze ++ ;
+    rank_analyze ++ ;
     String ID_xml =("") ;
     ID_xml = get_kind_SVG(target) ;
 

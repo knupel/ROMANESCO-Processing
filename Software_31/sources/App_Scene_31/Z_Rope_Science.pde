@@ -1,9 +1,8 @@
 /**
-ROPE - Romanesco processing environment – 
-* Copyleft (c) 2014-2017 
+ROPE SCIENCE
+v 0.2.3
+* Copyleft (c) 2014-2018 
 * Stan le Punk > http://stanlepunk.xyz/
-Rope SCIENCE 2016 – 2018
-v 0.2.1
 * @author Stan le Punk
 * @see https://github.com/StanLepunK/Rope
 *
@@ -32,7 +31,7 @@ public double g_force(double dist, double m_1, double m_2) {
 
 /**
 Math rope 
-v 1.8.16
+v 1.8.17
 * @author Stan le Punk
 * @see https://github.com/StanLepunK/Math_rope
 */
@@ -54,7 +53,7 @@ float decimale (float var, int n) {
 
 /**
 geometry util
-v. 0.0.6
+v. 0.0.7
 */
 float perimeter_disc(int r) {
   return 2 *r *PI ;
@@ -67,6 +66,10 @@ float radius_from_circle_surface(int surface) {
 
 boolean inside(iVec pos, iVec size, iVec2 target_pos) {
   return inside(Vec2(pos.x,pos.y), Vec2(size.x,size.y), Vec2(target_pos), ELLIPSE);
+}
+
+boolean inside(iVec pos, iVec size, iVec2 target_pos, int type) {
+  return inside(Vec2(pos.x,pos.y), Vec2(size.x,size.y), Vec2(target_pos), type);
 }
 
 boolean inside(Vec pos, Vec size, Vec2 target_pos) {
@@ -290,22 +293,22 @@ v 0.0.2
 // Target direction return the normal direction of the target from the origin
 @Deprecated
 Vec2 target_direction(Vec2 target, Vec2 my_position) {
-  printErrTempo(240, "Vec2 target_direction() deprecated instead use lookey_at(Vec target, Vec origin) method, becareful the result is mult by -1");
+  printErrTempo(240, "Vec2 target_direction() deprecated instead use look_at(Vec target, Vec origin) method, becareful the result is mult by -1");
   return projection(target, my_position, 1).sub(my_position);
 }
 
 @Deprecated
 Vec3 target_direction(Vec3 target, Vec3 my_position) {
-   printErrTempo(240, "Vec2 target_direction() deprecated instead use lookey_at(Vec target, Vec origin) method, becareful the result is mult by -1");
+   printErrTempo(240, "Vec2 target_direction() deprecated instead use look_at(Vec target, Vec origin) method, becareful the result is mult by -1");
   return projection(target, my_position, 1).sub(my_position) ;
 }
 
 
-Vec2 lookey_at(Vec2 target, Vec2 origin) {
+Vec2 look_at(Vec2 target, Vec2 origin) {
   return projection(target, origin, 1).sub(origin).mult(-1,1);
 }
 
-Vec3 lookey_at(Vec3 target, Vec3 origin) {
+Vec3 look_at(Vec3 target, Vec3 origin) {
   return projection(target, origin, 1).sub(origin);
 }
 

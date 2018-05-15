@@ -1,6 +1,6 @@
 /**
 Rope UTILS 
-v 1.43.1
+v 1.43.2
 * Copyleft (c) 2014-2018 
 * Stan le Punk > http://stanlepunk.xyz/
 Rope – Romanesco Processing Environment – 
@@ -4530,7 +4530,7 @@ v 0.2.3
 */
 /**
 Check Type
-v 0.0.2
+v 0.0.3
 */
 @Deprecated
 String object_type(Object obj) {
@@ -4562,6 +4562,8 @@ String get_type(Object obj) {
     return "Vec";
   } else if(obj instanceof iVec) {
     return "iVec";
+  } else if(obj instanceof bVec) {
+    return "bVec";
   } else return "Unknow" ;
 }
 

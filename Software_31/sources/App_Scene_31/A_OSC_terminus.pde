@@ -40,10 +40,13 @@ void oscEvent(OscMessage receive) {
 boolean controller_osc_is = false ;
 void controller_reception(OscMessage m) {
   if(m.addrPattern().equals("Controller")) {
+    thread_data_controller(m);
+    /*
     catchDataFromController(m);
     data_controller_button();
     data_controller_slider();
     data_controller_save();
+    */
     controller_osc_is = true;
   } 
 }
@@ -58,8 +61,10 @@ void prescene_reception(OscMessage m) {
 
 
 void update_OSC_data() {
+  /*
   translateDataFromController_buttonGlobal() ;
   translateDataFromController_buttonItem() ;
+  */
   translate_event_prescene() ;
 }
 

@@ -1,7 +1,6 @@
 /**
 Romanesco Unu
 2013 – 2018
-v 1.3.0
 release 31 
 Processing 3.3.7
 */
@@ -11,17 +10,17 @@ Processing 3.3.7
 2017 March 40_000 lines of code
  */
 String IAM = "prescene";
-boolean TEST_ROMANESCO = true; /* Use false when you want:
+boolean TEST_ROMANESCO = false; /* Use false when you want:
                                     used sound & maximum possibility of the object
                                */
-boolean FULL_RENDERING = true;
+boolean FULL_RENDERING = false;
 boolean FULL_SCREEN = false ;
 boolean TABLET = false; // now tablet library don't work in OPENGL renderer
 
 /**
 LIVE must change from the launcher, the info must be write in the external loading preference app
 */
-boolean LIVE = false;
+boolean LIVE = true;
 
 
 
@@ -127,13 +126,11 @@ void romanesco() {
     shader_draw();
   }
 
-
   //use romanesco object
   rpe_manager.display_item(ORDER_ONE, ORDER_TWO, ORDER_THREE);
-  createGridCamera(displayInfo3D);
-  stopCamera();
+  grid_romanesco(displayInfo3D);
+  stop_camera();
 
-  
   //annexe
   info() ;
   // curtain
@@ -167,7 +164,6 @@ void romanesco() {
 
 
 void keyPressed () {
- // keyboard_new_event = true ;
   shortCutsPrescene();
   nextPreviousKeypressed();
   key_true();
@@ -175,7 +171,6 @@ void keyPressed () {
 
 
 void keyReleased() {
-  //special touch need to be long
   key_long_false();
   keyboard[keyCode] = false;
 }

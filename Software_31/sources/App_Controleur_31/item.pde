@@ -87,7 +87,6 @@ Button_dynamic[] button_item ;
 
 void init_button_item_console() {
   int num = BUTTON_ITEM_CONSOLE;
-  //button_item_num = NUM_ITEM *10 ;
   button_item_num = NUM_ITEM *num;
   value_button_item = new int[button_item_num] ;
   // button item

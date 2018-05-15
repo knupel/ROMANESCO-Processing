@@ -87,11 +87,10 @@ class MesAmis extends Romanesco {
 
   //DRAW
   void draw() {
-    
     Vec3 center = Vec3() ;
 
     // speed
-    float speed = map(speed_x_item[ID_item],0,1, .0001, .2);
+    float speed = map(speed_x_item[ID_item],0,1,.0001,.2);
     speed = speed*speed ;
     if(sound[ID_item]) speed *= allBeats(ID_item) ;
 

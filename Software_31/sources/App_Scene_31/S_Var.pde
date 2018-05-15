@@ -1,8 +1,9 @@
 /**
-VARIABLE  
+VARIABLE
+Prescene, Scene
 Romanesco Processing Environment
 2015-2018
-v 1.2.3
+v 1.2.5
 */
 
 /**
@@ -22,12 +23,6 @@ String data_osc_prescene[] = new String [135];
 
 
 
-
-
-
-
-
-
 //CALLING class or library in Other Class, you must call the PApplet too in your class
 PApplet callingClass = this ;
 // use for the border of window (top and right)
@@ -35,21 +30,14 @@ java.awt.Insets insets;
 
 
 // WINDOW VAR
-PVector SIZE_BG  ;
+//PVector SIZE_BG  ;
 int MIN_WINDOW_WIDTH = 128 ; 
 int MIN_WINDOW_HEIGHT = 128 ;
 
 int scene_width,scene_height;
 
-
-
-
 // Max value whi is return from the slider controller
 int MAX_VALUE_SLIDER = 360 ;
-// num obj count in Romanesco Manager
-int NUM_OBJ ;
-
-
 
 
 //variable for the tracking
@@ -61,16 +49,9 @@ Vec4 HSBmode = new Vec4 (360,100,100,100) ; // give the color mode in HSB
 //path to open the controleur
 String findPath ; 
 
-
-
-
-
 // MOUSE DETECTION
 // return if the cursor (mouse) is in the sketch or not
 boolean MOUSE_IN_OUT = true ;
-
-
-
 
 
 // COMMAND BOOLEAN
@@ -80,32 +61,57 @@ boolean ORDER, ORDER_ONE, ORDER_TWO, ORDER_THREE ;
 boolean LEAPMOTION_DETECTED ;
 
 
-
 // SAVE
 boolean load_SCENE_Setting_GLOBAL, save_Current_SCENE_Setting_GLOBAL, save_New_SCENE_Setting_GLOBAL ;
 
-
-
-
-// HIGH VAR
-//boolean modeP3D, modeP2D, modeOPENGL, modeClassic ;
 //spectrum band
 int NUM_BANDS = 16 ;
 
-//quantity of group object slider
-
-
-
-int numButtonGlobal = 21 ; // group zero
-int numButtonObj  ; 
+int NUM_BUTTON_GENERAL = 21 ; 
+int button_item_num  ; 
 // VAR obj
-color COLOR_FILL_OBJ_PREVIEW  ; 
-color COLOR_STROKE_OBJ_PREVIEW ;
-int THICKNESS_OBJ_PREVIEW = 2 ;
-int NUM_ITEM ;
-int NUM_SETTING_ITEM ;
+color COLOR_FILL_OBJ_PREVIEW; 
+color COLOR_STROKE_OBJ_PREVIEW;
+int THICKNESS_OBJ_PREVIEW = 2;
+int NUM_ITEM;
+int NUM_ITEM_PLUS_MASTER;
+int NUM_SETTING_ITEM;
+int BUTTON_ITEM_CONSOLE = 4;
+
+
+// general var 
+// button
+boolean beat_is, kick_is, snare_is, hat_is;
+boolean curtain_is, background_is;
+boolean ambient_is,ambient_action_is;
+boolean light_1_is,light_1_action_is;
+boolean light_2_is,light_2_action_is;
+
+int which_shader;
+int which_filter; 
+int [] which_bitmap, which_text, which_shape, which_movie;
+
+boolean [] button_general_is;
+
+//SLIDER
+// becareful if the number of MISC SLIDERS is upper than OBJ SLIDER, that can be a problem in the future.
+float value_slider_background [] = new float [NUM_SLIDER_BACKGROUND];
+float value_slider_filter [] = new float [NUM_SLIDER_FILTER];
+float value_slider_light [] = new float [NUM_SLIDER_LIGHT];
+float value_slider_sound [] = new float [NUM_SLIDER_SOUND];
+float value_slider_camera [] = new float [NUM_SLIDER_CAMERA];
+float value_slider_item []  = new float [NUM_SLIDER_ITEM];
+
+
+
+
+
+
+/**
+Var item
+*/
 Table indexObjects ;
-TableRow [] rowIndexObject ;
+TableRow [] row_index_item ;
 //MISC var
 //info object
 String [] objectInfo, objectName, objectAuthor, objectVersion, objectPack ;
@@ -116,9 +122,6 @@ int objectLeapID[] ;
 //BUTTON CONTROLER
 boolean objectParameter[] ;
 
-/**
-Var item
-*/
 //raw
 int fill_hue_raw, fill_sat_raw, fill_bright_raw, fill_alpha_raw ;
 int stroke_hue_raw, stroke_sat_raw, stroke_bright_raw, stroke_alpha_raw ;
@@ -286,64 +289,31 @@ String influence_name = "influence" ;
 String calm_name = "calm" ; 
 String spectrum_name = "spectrum" ;
 
+String [] bitmap_path_ref, svg_path_ref, movie_path_ref;
 
+int [] soundButton, actionButton, parameterButton;
+boolean [] show_item, sound, action, parameter;
 
-
-/**
-End var item
-*/
-// button
-int whichFont ;
-
-boolean onOffBeat, onOffKick, onOffSnare, onOffHat, onOffCurtain, onOffBackground ;
-boolean onOffDirLightOne,       onOffDirLightTwo,       onOffLightAmbient,
-        onOffDirLightOneAction, onOffDirLightTwoAction, onOffLightAmbientAction ;
-
-
-int whichShader ; 
-int [] which_bitmap, which_text, which_svg, which_movie ;
-/**
-No text_path_ref ???????
-*/
-String [] bitmap_path_ref, svg_path_ref, movie_path_ref  ;
-
-int [] objectButton,soundButton, actionButton, parameterButton ;
-boolean [] show_object, sound, action, parameter ;
-
-int mode[]  ;
+int mode [];
 
 //BUTTON
-int [] valueButtonGlobal, valueButtonObj  ;
+int [] value_button_item;
 
-//SLIDER
-// String valueSliderTemp[][]  = new String [NUM_GROUP+1][NUM_SLIDER_OBJ] ;
+//position
+Vec3 [] pos_item_final;
+Vec3 [] pos_item;
+Vec3 [] pos_item_ref;
 
-// becareful if the number of MISC SLIDERS is upper than OBJ SLIDER, that can be a problem in the future.
-// float valueSlider[][] = new float [NUM_GROUP+1][NUM_SLIDER_OBJ] ;
-float value_slider_background [] = new float [NUM_SLIDER_BACKGROUND];
-float value_slider_filter [] = new float [NUM_SLIDER_FILTER];
-float value_slider_light [] = new float [NUM_SLIDER_LIGHT];
-float value_slider_sound [] = new float [NUM_SLIDER_SOUND];
-float value_slider_camera [] = new float [NUM_SLIDER_CAMERA];
-float value_slider_item []  = new float [NUM_SLIDER_ITEM] ;
+// costume
+int [] costume;
 
+// direction
+boolean [] reset_camera_direction_item;
+Vec3 [] temp_item_canvas_direction;
+Vec3 [] dir_item;
+Vec3 [] dir_item_final;
+Vec3 [] dir_item_ref;
 
-//MISC
-//var to init the data of the object when is switch ON for the first time
-boolean [] init_value_mouse, init_value_controller ;
-//parameter for the super class
-float [] left, right, mix ;
-//beat
-float [] beat, kick, snare, hat ;
-// spectrum
-float band[][] ;
-//tempo
-float [] tempo, tempoBeat, tempoKick, tempoSnare, tempoHat ;
-
-
-/**
-ITEM
-*/
 // master and follower
 int [] master_ID ;
 boolean [] follower ;
@@ -354,34 +324,17 @@ Vec3 [][] item_setting_position ;
 Vec3 [][] item_setting_direction ;
 Vec3 [] eyeCameraSetting, sceneCameraSetting ;
 
-//position
-Vec3 [] pos_item_final ;
-Vec3 [] posObj ;
-Vec3 [] posObjRef ;
-
-// costume
-int [] costume ;
-
-// direction
-boolean [] reset_camera_direction_item ;
-Vec3 [] dirObj ;
-Vec3 [] temp_item_canvas_direction ;
-Vec3 [] dir_item_final ;
-Vec3 [] dir_reference_items ;
-
 //position of object and wheel
 Vec3 [] mouse, pen ;
 boolean [] clickShortLeft, clickShortRight, clickLongLeft, clickLongRight;
 int wheel[] ;
-//pen info
+
 
 //boolean object
-boolean [] birth, colour, dimension, horizon, motion, orbit, reverse, special, wire ;
+boolean [] birth, colour, dimension, horizon, motion, orbit, reverse, special, wire;
 boolean [] fill_is, stroke_is ;
 boolean [] setting, clearList ;
 
-//main font for each object
-// String [] path_font_TTF, pathFontVLW ;
 //font
 int numFont = 50 ;
 String [] path_font_library, path_font_item ;
@@ -402,6 +355,35 @@ PFont [] font_item ;
 
 
 
+//MISC
+//var to init the data of the object when is switch ON for the first time
+boolean [] init_value_mouse, init_value_controller ;
+//parameter for the super class
+float [] left, right, mix ;
+//beat
+float [] beat, kick, snare, hat ;
+// spectrum
+float band[][] ;
+//tempo
+float [] tempo, tempoBeat, tempoKick, tempoSnare, tempoHat ;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -409,91 +391,87 @@ PFont [] font_item ;
 
 
 /**
-CREATE VAR 1.0.1
+CREATE VAR 
+v 1.1.0
 */
 void create_variable() {
-  // here add 2, because we don't use the item '0' + and same for all the var, so we add '1' more for that too
-  NUM_ITEM = rpe_manager.size() +2 ;
+  NUM_ITEM = rpe_manager.size();
+  NUM_ITEM_PLUS_MASTER = NUM_ITEM +1;
 
-  NUM_SETTING_ITEM = 1 ;
-  NUM_SETTING_CAMERA = 1 ;
-  numButtonObj = NUM_ITEM *10 ;
+  NUM_SETTING_ITEM = 1;
+  NUM_SETTING_CAMERA = 1;
 
-  createMiscVar() ;
-  create_variableButton() ;
-  create_variableSound() ;
+  createMiscVar();
+  create_variableButton();
+  create_variableSound();
 
-  create_variable_P3D(NUM_SETTING_CAMERA) ;
-  create_variableCursor() ;
-  create_var_item_slider() ;
-  create_var_item_manipulation(NUM_SETTING_ITEM) ;
+  create_variable_P3D(NUM_SETTING_CAMERA);
+  create_variableCursor();
+  create_var_item_slider();
+  create_var_item_manipulation(NUM_SETTING_ITEM);
 
-  println("variables setup done") ;
+  println("variables setup done");
 }
-
-
-
-
 
 // misc var
 void createMiscVar() {
-  objectLeapID = new int[NUM_ITEM] ;
-  item_info_display = new boolean[NUM_ITEM] ;
+  objectLeapID = new int[NUM_ITEM_PLUS_MASTER];
+  item_info_display = new boolean[NUM_ITEM_PLUS_MASTER];
 
-  setting = new boolean [NUM_ITEM]  ;
+  setting = new boolean [NUM_ITEM_PLUS_MASTER];
   // boolean clear
-  clearList = new boolean[NUM_ITEM] ;
+  clearList = new boolean[NUM_ITEM_PLUS_MASTER];
   // boolean action from keyboard
-  birth = new boolean[NUM_ITEM] ;
-  colour = new boolean [NUM_ITEM] ;
-  dimension = new boolean [NUM_ITEM] ;
-  horizon = new boolean [NUM_ITEM]  ;
-  motion = new boolean [NUM_ITEM]  ;
-  orbit = new boolean [NUM_ITEM] ;
-  reverse = new boolean [NUM_ITEM] ;
-  special = new boolean [NUM_ITEM] ;
-  wire = new boolean [NUM_ITEM] ;
+  birth = new boolean[NUM_ITEM_PLUS_MASTER];
+  colour = new boolean [NUM_ITEM_PLUS_MASTER];
+  dimension = new boolean [NUM_ITEM_PLUS_MASTER];
+  horizon = new boolean [NUM_ITEM_PLUS_MASTER];
+  motion = new boolean [NUM_ITEM_PLUS_MASTER];
+  orbit = new boolean [NUM_ITEM_PLUS_MASTER];
+  reverse = new boolean [NUM_ITEM_PLUS_MASTER];
+  special = new boolean [NUM_ITEM_PLUS_MASTER];
+  wire = new boolean [NUM_ITEM_PLUS_MASTER];
 
-  fill_is = new boolean[NUM_ITEM] ;
-  stroke_is = new boolean[NUM_ITEM] ;
+  fill_is = new boolean[NUM_ITEM_PLUS_MASTER];
+  stroke_is = new boolean[NUM_ITEM_PLUS_MASTER];
 
   // costume
-  costume = new int[NUM_ITEM] ;
+  costume = new int[NUM_ITEM_PLUS_MASTER];
 
   // IMAGE
-  bitmap_import = new PImage[NUM_ITEM] ;
-  which_bitmap = new int[NUM_ITEM] ;
-  bitmap_path_ref = new String[NUM_ITEM] ;
+  bitmap_import = new PImage[NUM_ITEM_PLUS_MASTER];
+  which_bitmap = new int[NUM_ITEM_PLUS_MASTER];
+  bitmap_path_ref = new String[NUM_ITEM_PLUS_MASTER];
   // SVG
-  svg_import = new ROPE_svg[NUM_ITEM] ;
-  which_svg = new int[NUM_ITEM] ;
-  svg_path_ref = new String[NUM_ITEM] ;
+  svg_import = new ROPE_svg[NUM_ITEM_PLUS_MASTER];
+  which_shape = new int[NUM_ITEM_PLUS_MASTER];
+  svg_path_ref = new String[NUM_ITEM_PLUS_MASTER];
 
   // Movie
-  movieImport = new Movie[NUM_ITEM] ;
-  movieImportPath = new String[NUM_ITEM] ;
-  which_movie = new int[NUM_ITEM] ;
-  movie_path_ref = new String[NUM_ITEM] ;
+  movieImport = new Movie[NUM_ITEM_PLUS_MASTER];
+  movieImportPath = new String[NUM_ITEM_PLUS_MASTER];
+  which_movie = new int[NUM_ITEM_PLUS_MASTER];
+  movie_path_ref = new String[NUM_ITEM_PLUS_MASTER];
   // TEXT
-  text_import = new String [NUM_ITEM] ;
-  which_text = new int[NUM_ITEM] ;
+  text_import = new String [NUM_ITEM_PLUS_MASTER];
+  which_text = new int[NUM_ITEM_PLUS_MASTER];
   //main font for each object
-  // font = new PFont[NUM_ITEM] ;
+  // font = new PFont[NUM_ITEM_PLUS_MASTER] ;
   /*
-  path_font_item_TTF = new String[NUM_ITEM] ;
+  path_font_item_TTF = new String[NUM_ITEM_PLUS_MASTER] ;
   path_font_TTF = new String [numFont] ;  
   pathFontVLW = new String [numFont] ;
   */ 
 
-  path_font_library = new String[numFont] ;
-  path_font_item = new String[NUM_ITEM] ;
+  path_font_library = new String[numFont];
+  path_font_item = new String[NUM_ITEM_PLUS_MASTER];
 
-  font_item = new PFont[NUM_ITEM] ;
+  font_item = new PFont[NUM_ITEM_PLUS_MASTER];
 
   //MISC
   //var to init the data of the object when is switch ON for the first time
-  init_value_mouse = new boolean [NUM_ITEM]  ;
-  init_value_controller = new boolean [NUM_ITEM]  ;
+  init_value_mouse = new boolean [NUM_ITEM_PLUS_MASTER];
+  init_value_controller = new boolean [NUM_ITEM_PLUS_MASTER];
 }
 
 
@@ -503,149 +481,158 @@ void createMiscVar() {
 // var cursor
 void create_variableCursor() {
   //position of object and wheel
-   mouse  = new Vec3[NUM_ITEM] ;
-   clickShortLeft = new boolean [NUM_ITEM] ;
-   clickShortRight = new boolean [NUM_ITEM] ;
-   clickLongLeft = new boolean [NUM_ITEM] ;
-   clickLongRight = new boolean [NUM_ITEM] ;
-   wheel = new int [NUM_ITEM] ;
+   mouse  = new Vec3[NUM_ITEM_PLUS_MASTER];
+   clickShortLeft = new boolean [NUM_ITEM_PLUS_MASTER];
+   clickShortRight = new boolean [NUM_ITEM_PLUS_MASTER];
+   clickLongLeft = new boolean [NUM_ITEM_PLUS_MASTER];
+   clickLongRight = new boolean [NUM_ITEM_PLUS_MASTER];
+   wheel = new int [NUM_ITEM_PLUS_MASTER];
   //pen info
-   pen = new Vec3[NUM_ITEM] ;
+   pen = new Vec3[NUM_ITEM_PLUS_MASTER];
 }
 
 
 
 
 // P3D
-// void create_variable_P3D(int numObj, int numSettingCamera, int numSettingOrientationObject) {
 void create_variable_P3D(int num_setting_camera) {
    // setting and save
-   eyeCameraSetting = new Vec3 [num_setting_camera] ;
-   sceneCameraSetting = new Vec3 [num_setting_camera] ;
+   eyeCameraSetting = new Vec3 [num_setting_camera];
+   sceneCameraSetting = new Vec3 [num_setting_camera];
    
-   reset_camera_direction_item = new boolean[NUM_ITEM] ;
-   posObjRef = new Vec3[NUM_ITEM] ;
-   posObj = new Vec3[NUM_ITEM] ;
-   dirObj = new Vec3[NUM_ITEM] ;
+   reset_camera_direction_item = new boolean[NUM_ITEM_PLUS_MASTER];
+   pos_item_ref = new Vec3[NUM_ITEM_PLUS_MASTER];
+   pos_item = new Vec3[NUM_ITEM_PLUS_MASTER];
+   dir_item = new Vec3[NUM_ITEM_PLUS_MASTER];
 }
 
 void create_variableSound() {
   // volume 
-   left = new float [NUM_ITEM] ;
-   right = new float [NUM_ITEM] ;
-   mix  = new float [NUM_ITEM] ;
+   left = new float [NUM_ITEM_PLUS_MASTER];
+   right = new float [NUM_ITEM_PLUS_MASTER];
+   mix  = new float [NUM_ITEM_PLUS_MASTER];
    // beat
-   beat  = new float [NUM_ITEM] ;
-   kick  = new float [NUM_ITEM] ;
-   snare  = new float [NUM_ITEM] ;
-   hat  = new float [NUM_ITEM] ;
+   beat  = new float [NUM_ITEM_PLUS_MASTER];
+   kick  = new float [NUM_ITEM_PLUS_MASTER];
+   snare  = new float [NUM_ITEM_PLUS_MASTER];
+   hat  = new float [NUM_ITEM_PLUS_MASTER];
    // spectrum
-   band = new float [NUM_ITEM][NUM_BANDS] ;
+   band = new float [NUM_ITEM_PLUS_MASTER][NUM_BANDS];
    // tempo
-   tempo = new float [NUM_ITEM] ;
-   tempoBeat = new float [NUM_ITEM] ;
-   tempoKick = new float [NUM_ITEM] ;
-   tempoSnare = new float [NUM_ITEM] ;
-   tempoHat = new float [NUM_ITEM] ;
+   tempo = new float [NUM_ITEM_PLUS_MASTER];
+   tempoBeat = new float [NUM_ITEM_PLUS_MASTER];
+   tempoKick = new float [NUM_ITEM_PLUS_MASTER];
+   tempoSnare = new float [NUM_ITEM_PLUS_MASTER];
+   tempoHat = new float [NUM_ITEM_PLUS_MASTER];
 }
 //
 
 //
 void create_variableButton() {
-  objectButton = new int [NUM_ITEM] ;
-  soundButton = new int [NUM_ITEM] ;
-  actionButton = new int [NUM_ITEM] ;
-  parameterButton = new int [NUM_ITEM] ;
-  show_object = new boolean [NUM_ITEM] ;
-  sound = new boolean [NUM_ITEM] ;
-  action = new boolean [NUM_ITEM] ;
-  parameter = new boolean [NUM_ITEM] ;
-  mode = new int [NUM_ITEM] ;
+  // objectButton = new int [NUM_ITEM_PLUS_MASTER];
+  soundButton = new int [NUM_ITEM_PLUS_MASTER];
+  actionButton = new int [NUM_ITEM_PLUS_MASTER];
+  parameterButton = new int [NUM_ITEM_PLUS_MASTER];
+  
+  
+  show_item = new boolean [NUM_ITEM_PLUS_MASTER];
+  sound = new boolean [NUM_ITEM_PLUS_MASTER];
+  action = new boolean [NUM_ITEM_PLUS_MASTER];
+  parameter = new boolean [NUM_ITEM_PLUS_MASTER];
+  mode = new int [NUM_ITEM_PLUS_MASTER];
+  
+/*
+  show_item = new boolean [NUM_ITEM];
+  sound = new boolean [NUM_ITEM];
+  action = new boolean [NUM_ITEM];
+  parameter = new boolean [NUM_ITEM];
+  mode = new int [NUM_ITEM];
+  */
   
   // you must init this var, because we launch this part of code before the controller. And if we don't init the value is NaN and return an error.
-  valueButtonGlobal = new int[numButtonGlobal] ;
-  valueButtonObj = new int[numButtonObj] ;
+  // valueButtonGlobal = new int[numButtonGlobal] ;
+  button_general_is = new boolean[NUM_BUTTON_GENERAL];
+  //value_button_item = new int[button_item_num];
 
 }
 
 
 void create_var_item_manipulation(int num_item_setting) {
-  pos_item_final = new Vec3 [NUM_ITEM] ;
-  item_setting_position = new Vec3 [num_item_setting] [NUM_ITEM] ;
+  pos_item_final = new Vec3 [NUM_ITEM_PLUS_MASTER] ;
+  item_setting_position = new Vec3 [num_item_setting] [NUM_ITEM_PLUS_MASTER];
 
-  dir_item_final = new Vec3 [NUM_ITEM] ;
-  dir_reference_items = new Vec3 [NUM_ITEM] ;
-  temp_item_canvas_direction = new Vec3 [NUM_ITEM] ;
-  item_setting_direction = new Vec3 [num_item_setting] [NUM_ITEM] ;
+  dir_item_final = new Vec3 [NUM_ITEM_PLUS_MASTER];
+  dir_item_ref = new Vec3 [NUM_ITEM_PLUS_MASTER];
+  temp_item_canvas_direction = new Vec3 [NUM_ITEM_PLUS_MASTER];
+  item_setting_direction = new Vec3 [num_item_setting] [NUM_ITEM_PLUS_MASTER];
 
   // master and follower
-  master_ID = new int[NUM_ITEM] ;
-  follower = new boolean[NUM_ITEM] ;
+  master_ID = new int[NUM_ITEM_PLUS_MASTER];
+  follower = new boolean[NUM_ITEM_PLUS_MASTER];
 }  
 
 void create_var_item_slider() {
-  first_opening_item = new boolean[NUM_ITEM] ; // used to check if this object is already opening before
-  fill_item = new color[NUM_ITEM] ;
-  stroke_item = new color[NUM_ITEM] ;
+  first_opening_item = new boolean[NUM_ITEM_PLUS_MASTER] ; // used to check if this object is already opening before
+  fill_item = new color[NUM_ITEM_PLUS_MASTER];
+  stroke_item = new color[NUM_ITEM_PLUS_MASTER];
   // column 2
-  thickness_item = new float[NUM_ITEM] ; 
+  thickness_item = new float[NUM_ITEM_PLUS_MASTER]; 
 
-  size_x_item = new float[NUM_ITEM] ; 
-  size_y_item = new float[NUM_ITEM] ; 
-  size_z_item = new float[NUM_ITEM] ;
+  size_x_item = new float[NUM_ITEM_PLUS_MASTER]; 
+  size_y_item = new float[NUM_ITEM_PLUS_MASTER]; 
+  size_z_item = new float[NUM_ITEM_PLUS_MASTER];
 
-  font_size_item = new float[NUM_ITEM] ;
+  font_size_item = new float[NUM_ITEM_PLUS_MASTER];
 
-  canvas_x_item = new float[NUM_ITEM] ; 
-  canvas_y_item = new float[NUM_ITEM] ; 
-  canvas_z_item = new float[NUM_ITEM] ;
+  canvas_x_item = new float[NUM_ITEM_PLUS_MASTER]; 
+  canvas_y_item = new float[NUM_ITEM_PLUS_MASTER]; 
+  canvas_z_item = new float[NUM_ITEM_PLUS_MASTER];
 
    //column 3
-  reactivity_item = new float[NUM_ITEM] ;
+  reactivity_item = new float[NUM_ITEM_PLUS_MASTER];
 
-  speed_x_item = new float[NUM_ITEM] ; 
-  speed_y_item = new float[NUM_ITEM] ;
-  speed_z_item = new float[NUM_ITEM] ;
+  speed_x_item = new float[NUM_ITEM_PLUS_MASTER]; 
+  speed_y_item = new float[NUM_ITEM_PLUS_MASTER];
+  speed_z_item = new float[NUM_ITEM_PLUS_MASTER];
 
-  spurt_x_item = new float[NUM_ITEM] ; 
-  spurt_y_item = new float[NUM_ITEM] ;
-  spurt_z_item = new float[NUM_ITEM] ;
+  spurt_x_item = new float[NUM_ITEM_PLUS_MASTER]; 
+  spurt_y_item = new float[NUM_ITEM_PLUS_MASTER];
+  spurt_z_item = new float[NUM_ITEM_PLUS_MASTER];
 
-  dir_x_item = new float[NUM_ITEM] ; 
-  dir_y_item = new float[NUM_ITEM] ;
-  dir_z_item = new float[NUM_ITEM] ;
+  dir_x_item = new float[NUM_ITEM_PLUS_MASTER]; 
+  dir_y_item = new float[NUM_ITEM_PLUS_MASTER];
+  dir_z_item = new float[NUM_ITEM_PLUS_MASTER];
 
-  jitter_x_item = new float[NUM_ITEM] ; 
-  jitter_y_item = new float[NUM_ITEM] ;
-  jitter_z_item = new float[NUM_ITEM] ;
+  jitter_x_item = new float[NUM_ITEM_PLUS_MASTER]; 
+  jitter_y_item = new float[NUM_ITEM_PLUS_MASTER];
+  jitter_z_item = new float[NUM_ITEM_PLUS_MASTER];
 
-  swing_x_item = new float[NUM_ITEM] ; 
-  swing_y_item = new float[NUM_ITEM] ;
-  swing_z_item = new float[NUM_ITEM] ;
+  swing_x_item = new float[NUM_ITEM_PLUS_MASTER]; 
+  swing_y_item = new float[NUM_ITEM_PLUS_MASTER];
+  swing_z_item = new float[NUM_ITEM_PLUS_MASTER];
 
-  quantity_item = new float[NUM_ITEM] ; 
-  variety_item = new float[NUM_ITEM] ; 
+  quantity_item = new float[NUM_ITEM_PLUS_MASTER]; 
+  variety_item = new float[NUM_ITEM_PLUS_MASTER]; 
 
-  life_item = new float[NUM_ITEM] ;
-  flow_item = new float[NUM_ITEM] ;
-  quality_item = new float[NUM_ITEM] ;
+  life_item = new float[NUM_ITEM_PLUS_MASTER];
+  flow_item = new float[NUM_ITEM_PLUS_MASTER];
+  quality_item = new float[NUM_ITEM_PLUS_MASTER];
 
-  area_item = new float[NUM_ITEM] ;
-  angle_item = new float[NUM_ITEM] ;
-  scope_item = new float[NUM_ITEM] ;
-  scan_item = new float[NUM_ITEM] ;
+  area_item = new float[NUM_ITEM_PLUS_MASTER];
+  angle_item = new float[NUM_ITEM_PLUS_MASTER];
+  scope_item = new float[NUM_ITEM_PLUS_MASTER];
+  scan_item = new float[NUM_ITEM_PLUS_MASTER];
 
-  alignment_item = new float[NUM_ITEM] ;
-  repulsion_item = new float[NUM_ITEM] ;
-  attraction_item = new float[NUM_ITEM] ;
-  density_item = new float[NUM_ITEM] ;
+  alignment_item = new float[NUM_ITEM_PLUS_MASTER];
+  repulsion_item = new float[NUM_ITEM_PLUS_MASTER];
+  attraction_item = new float[NUM_ITEM_PLUS_MASTER];
+  density_item = new float[NUM_ITEM_PLUS_MASTER];
 
-  influence_item = new float[NUM_ITEM] ;
-  calm_item = new float[NUM_ITEM] ;
-  spectrum_item = new float[NUM_ITEM] ;
+  influence_item = new float[NUM_ITEM_PLUS_MASTER];
+  calm_item = new float[NUM_ITEM_PLUS_MASTER];
+  spectrum_item = new float[NUM_ITEM_PLUS_MASTER];
 }
-// END CREATE VAR
-//////////////////
+
 
 
 
@@ -675,7 +662,8 @@ void create_var_item_slider() {
 
 
 /**
-INIT VAR 1.1.0
+INIT VAR 
+v 1.1.0
 */
 void init_variable_item_min_max() {
   float min_size = .1 ;
@@ -752,7 +740,7 @@ void init_variable_item_min_max() {
 
 // init var item
 void init_variable_item() {
-  for (int i = 0 ; i < NUM_ITEM ; i++ ) {
+  for (int i = 0 ; i < NUM_ITEM_PLUS_MASTER ; i++ ) {
     // display boolean 
     fill_is[i] = true ;
     stroke_is[i] = true ;
@@ -850,6 +838,106 @@ void init_items() {
 
 
 
+
+
+/**
+button general var setting
+*/
+boolean beat_is() {
+  return beat_is;
+}
+
+boolean kick_is() {
+  return kick_is;
+}
+
+boolean snare_is() {
+  return snare_is;
+}
+
+boolean hat_is() {
+  return hat_is;
+}
+
+boolean curtain_is() {
+  return curtain_is;
+}
+
+boolean background_is() {
+  return background_is;
+}
+
+boolean light_ambient_is() {
+  return ambient_is;
+}
+
+boolean light_1_is() {
+  return light_1_is;
+}
+
+boolean light_2_is() {
+  return light_2_is;
+}
+
+boolean light_ambient_action_is() {
+  return ambient_action_is;
+}
+
+boolean light_1_action_is() {
+  return light_1_action_is;
+}
+
+boolean light_2_action_is() {
+  return light_2_action_is;
+}
+
+void beat_is(boolean is) {
+  beat_is = is;
+}
+
+void kick_is(boolean is) {
+  kick_is = is;
+}
+
+void snare_is(boolean is) {
+  snare_is = is;
+}
+
+void hat_is(boolean is) {
+  hat_is = is;
+}
+
+void curtain_is(boolean is) {
+  curtain_is = is;
+}
+
+void background_is(boolean is) {
+  background_is = is;
+}
+
+void light_ambient_is(boolean is) {
+  ambient_is = is;
+}
+
+void light_1_is(boolean is) {
+  light_1_is = is;
+}
+
+void light_2_is(boolean is) {
+  light_2_is = is;
+}
+
+void light_ambient_action_is(boolean is) {
+  ambient_action_is = is;
+}
+
+void light_1_action_is(boolean is) {
+  light_1_action_is = is;
+}
+
+void light_2_action_is(boolean is) {
+  light_2_action_is = is;
+}
 
 
 
@@ -1024,3 +1112,4 @@ void update_temp_value() {
 float allBeats(int ID) {
   return (beat[ID]*.25) +(kick[ID]*.25) +(hat[ID]*.25) +(snare[ID]*.25) ;
 }
+
