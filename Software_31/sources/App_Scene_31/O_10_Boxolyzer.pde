@@ -1,5 +1,7 @@
 /**
-BOXOLYZER || 2012|| 1.0.5
+BOXOLYZER
+2012-2018
+v 1.1.0
 */
 ArrayList<BOITEaMUSIQUE> boiteList ;
   
@@ -10,9 +12,9 @@ class Boxolyzer extends Romanesco {
     ID_item = 10 ;
     ID_group = 1 ;
     item_author  = "Stan le Punk";
-    item_version = "Version 1.0.5";
+    item_version = "Version 1.1.0";
     item_pack = "Base" ;
-    item_mode ="Classic/Circle" ;
+    item_mode ="Line/Circle" ;
     // item_slider = "Fill hue,Fill sat,Fill bright,Fill alpha,Stroke hue,Stroke sat,Stroke bright,Stroke alpha,Thickness,Size X,Size Y,Size Z,Canvas X,Quantity,Direction X" ;
     hue_fill_is = true;
     sat_fill_is = true;
@@ -78,11 +80,10 @@ class Boxolyzer extends Romanesco {
   //DRAW
   void draw() {
     //CLASSIC DISPLAY
-    int numBox = int(map(quantity_item[ID_item],0, 1, 1, 16)) ;
+    int numBox = int(map(quantity_item[ID_item],0, 1, 1, NUM_BANDS)) ;
     if (numBox != numBoxRef ) newDistribution = true ;
     numBoxRef = numBox ;
     Vec3 size = Vec3(size_x_item[ID_item],size_y_item[ID_item],size_z_item[ID_item]) ;
-    // size.mult(2) ;
 
     // color and thickness
     aspect_rope(fill_item[ID_item], stroke_item[ID_item], thickness_item[ID_item]) ; 
@@ -90,9 +91,11 @@ class Boxolyzer extends Romanesco {
     distribution(numBox, newDistribution) ;
     
     // MODE DISPLAY with the dropdown menu of controler
-    /////////////////////
-    if  (mode[ID_item] ==0) boxolyzerClassic(size, horizon[ID_item] , dir_x_item[ID_item]) ;
-    else if (mode[ID_item] ==1) boxolyzerCircle(size, (int)canvas_x_item[ID_item], horizon[ID_item], dir_x_item[ID_item]) ;
+    if  (mode[ID_item] ==0) {
+      boxolyzer_line(size, horizon[ID_item], dir_x_item[ID_item]);
+    } else if (mode[ID_item] ==1) {
+      boxolyzer_circle(size, (int)canvas_x_item[ID_item], horizon[ID_item], dir_x_item[ID_item]);
+    }
 
 
 
@@ -109,7 +112,7 @@ class Boxolyzer extends Romanesco {
   
   boolean orientation ;
   // BOXLIZER CIRCLE
-  void boxolyzerCircle(Vec3 size, int diam, boolean groundPosition, float dir) {
+  void boxolyzer_circle(Vec3 size, int diam, boolean groundPosition, float dir) {
     if( action[ID_item] && key_r ) orientation = !orientation ;
     int surface = diam*diam ; // surface is equale of square surface where is the cirlcke...make sens ?
     int radius = ceil(radius_from_circle_surface(surface)) ;
@@ -119,7 +122,7 @@ class Boxolyzer extends Romanesco {
     Vec3 pos = Vec3() ;
     
     for(int i=0; i < n; i++) {
-      if(  i < band.length) factorSpectrum = band [ID_item][i] ;
+      if(i < band.length) factorSpectrum = band [ID_item][i] ;
       float stepAngle = map(i, 0, n, 0, 2*PI) ; 
       float angle =  2*PI - stepAngle;
       if(orientation) pos.set(projection(angle, radius).x +pos.x, projection(angle, radius).y +pos.y, pos.z) ;
@@ -133,20 +136,25 @@ class Boxolyzer extends Romanesco {
 
 
   // EQUALIZER CLASSIC
-  void boxolyzerClassic(Vec3 size, boolean groundPosition, float dir) {
-    Vec3 pos = Vec3(0,height *.5 ,0) ;
-    float factorSpectrum = 0 ;
-    int n = boiteList.size() ;
+  void boxolyzer_line(Vec3 size, boolean groundPosition, float dir) {
+    Vec3 pos = Vec3(0,height *.5,0);
+    float factorSpectrum = 0;
+    int num = boiteList.size();
+    println(num,band[ID_item].length);
     // int canvasFinal = width ;
     int canvasFinal = (int)map(canvas_x_item[ID_item], width/10, width, width/2,width*3)  ;
     int displacement_symetric = int(width *.5 -canvasFinal *.5) ;
     Vec3 temp_pos = Vec3() ;
     Vec3 displacement = Vec3(width/2, height/2, 0) ;
-    for( int i = 0 ; i < n ; i++) {
-      pos.x = (i *canvasFinal/n) + (canvasFinal /(n *2)) +displacement_symetric ;
-      if( i < band.length) factorSpectrum = band [ID_item][i] ;
+    for( int i = 0 ; i < num ; i++) {
+      pos.x = (i *canvasFinal /num) + (canvasFinal /(num *2)) +displacement_symetric ;
+      if(i < band_length()) {
+        factorSpectrum = band[ID_item][i];
+      }
       BOITEaMUSIQUE boiteAmusique = (BOITEaMUSIQUE) boiteList.get(i) ;
-      if(!FULL_RENDERING) factorSpectrum = .5 ;
+      if(!FULL_RENDERING) {
+        factorSpectrum = .5 ;
+      }
       temp_pos.set(sub(pos, displacement)) ;
       boiteAmusique.showTheBoite(temp_pos, size, factorSpectrum, groundPosition, dir) ;
     }

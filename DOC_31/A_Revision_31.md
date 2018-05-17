@@ -10,6 +10,8 @@ MAJOR
 >change slider controller system management to create a group by theme, easyer to code for the future.
 >create group data item, light, filter, sound, camera, background
 >rebuild the gui system, not visible for the user, just for the coder !
+>rebuild the sound system, now the the beat threshold is setable, set the band and the level alart
+
 
 
 MINOR
@@ -18,6 +20,7 @@ MINOR
 > common external file to name and use slider item
 > change colour background interface
 > remove separation between sound gui and general top gui
+> increase the bands spectrum available from 16 to 128
 
 BUG FIX
 --

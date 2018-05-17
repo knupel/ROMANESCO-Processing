@@ -3,7 +3,7 @@ ROPE - Romanesco processing environment –
 * Copyleft (c) 2014-2018
 * Stan le Punk > http://stanlepunk.xyz/
 CONSTANTS ROPE
-v 0.1.3.4
+v 0.1.3.5
 Processing 3.3.7
 * @author Stan le Punk
 * @see https://github.com/StanLepunK/Rope
@@ -90,35 +90,38 @@ public interface Rope_Constants {
 	static final int GRIS_9 = -1710619;
 
   // RED > HSB,1,1,1 > color(0,1,1);
-	static final int RED      = -65536;
-	static final int ROUGE    = -65536;
+	static final int RED = -65536;
+	static final int ROUGE = -65536;
 	// BLOOD > HSB,1,1,1 > color(0,1,.75);
-	static final int BLOOD  = -4259840;
-	static final int SANG   = -4259840; 
+	static final int BLOOD = -4259840;
+	static final int SANG = -4259840; 
 	// CARMINE > HSB,1,1,1 > color(0,1,.55);
-	static final int CARMINE  = -7602176;
-	static final int CARMIN   = -7602176; 
+	static final int CARMINE = -7602176;
+	static final int CARMIN = -7602176; 
 	// ORANGE > HSB,1,1,1 > color(.08,1,1);
-	static final int ORANGE   = -34304;
+	static final int ORANGE = -34304;
 	// OR > HSB,1,1,1 > color(0.12 1.0 1.0);
-  static public int OR  = -20736;
-  static public int GOLD  = -20736;
+  static public int OR = -20736;
+  static public int GOLD = -20736;
   // YELLOW > HSB,1,1,1 > color(0.166 1.0 1.0);
-  static public int YELLOW  = -256;
-  static public int JAUNE  = -256;
+  static public int YELLOW = -256;
+  static public int JAUNE = -256;
   // GREEN > HSB,1,1,1 > color(0.333 1.0 1.0);
-	static final int GREEN    = -16711936;
-	static final int VERT    = -16711936;
+	static final int GREEN = -16711936;
+	static final int VERT = -16711936;
   // CYAN > HSB,1,1,1 > color(0.5 1.0 1.0);
-	static public int CYAN    = -16711681;
+	static public int CYAN = -16711681;
 	// BLUE > HSB,1,1,1 > color(.6503,1,1);
-	static final int BLUE     = -16770561;
-	static final int BLEU     = -16770561;  
+	static final int BLUE = -16770561;
+	static final int BLEU = -16770561;  
   // MAGENTA > HSB,1,1,1 > color(.8333,1,1);
 	static public int MAGENTA = -65281;
+  // PINK > HSB,1,1,1 > color(.86,.65,1);
+	static public int PINK = -42524;
+	static public int ROSE = -42524;
 	// PURPLE > HSB,1,1,1 > color(.7496,1,1);
-	static public int PURPLE  = -8453889;
-	static public int VIOLET  = -8453889;  
+	static public int PURPLE = -8453889;
+	static public int VIOLET = -8453889;  
   /**
   String Constants
   */

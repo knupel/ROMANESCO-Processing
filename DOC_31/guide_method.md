@@ -140,8 +140,10 @@ reset(ID_item)
 
 
 
-SETTING
+SOUND
 --
+int band_length();
+> return the num of band spectrum available
 
 
 

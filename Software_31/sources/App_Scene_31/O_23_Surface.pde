@@ -1,5 +1,7 @@
 /**
-SURFACE || 2014 || 1.0.2
+SURFACE
+2014-2018
+v 1.0.3
 */
 
 class Surface extends Romanesco {
@@ -8,7 +10,7 @@ class Surface extends Romanesco {
     ID_item = 23 ;
     ID_group = 1 ;
     item_author  = "Stan le Punk";
-    item_version = "Version 1.0.2";
+    item_version = "Version 1.0.3";
     item_pack = "Base" ;
     item_mode = "Surfimage/Vague/Vague++" ; // separate the differentes mode by "/"
     // item_slider = "Fill hue,Fill sat,Fill bright,Fill alpha,Stroke hue,Stroke sat,Stroke bright,Stroke alpha,Thickness,Influence,Canvas X,Canvas Y,Quality,Canvas X,Speed X,Size X,Swing X" ;
@@ -112,7 +114,7 @@ class Surface extends Romanesco {
       speed = 0 ;
     }
     // swing
-    if(sound[ID_item] && SOUND_PLAY ) { 
+    if(sound[ID_item] && sound_plays_is()) { 
       ratio_swing = allBeats(ID_item) ; 
     } else {
       ratio_swing = 2 ;

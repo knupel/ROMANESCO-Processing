@@ -1,6 +1,6 @@
 /**
 Rope UTILS 
-v 1.43.2
+v 1.44.0
 * Copyleft (c) 2014-2018 
 * Stan le Punk > http://stanlepunk.xyz/
 Rope – Romanesco Processing Environment – 
@@ -2684,37 +2684,53 @@ void background_norm(float r_c, float g_c, float b_c, float a_c) {
 
 
 /**
-Background rope
+background rope
 */
-void background_rope(float colour) {
-  background_norm(colour / g.colorModeX, colour / g.colorModeY, colour / g.colorModeZ) ;
-  // background_2D(colour, g.colorModeA) ;
+void background_rope(int c) {
+  if(g.colorMode == 3) {
+    background_rope(hue(c),saturation(c),brightness(c));
+  } else {
+    background_rope(red(c),green(c),blue(c));
+  }
 }
 
-void background_rope(float colour, float alpha) {
-  background_norm(colour / g.colorModeX, colour / g.colorModeY, colour / g.colorModeZ, alpha / g.colorModeA) ;
+void background_rope(int c, float w) {
+  if(g.colorMode == 3) {
+    background_rope(hue(c),saturation(c),brightness(c),w);
+  } else {
+    background_rope(red(c),green(c),blue(c),w );
+  }
 }
 
-
-void background_rope(float red, float green, float blue, float alpha) {
-  background_norm(red / g.colorModeX, green / g.colorModeY, blue / g.colorModeZ, alpha / g.colorModeA) ;
+void background_rope(float c) {
+  background_rope(c,c,c);
 }
 
-void background_rope(float red, float green, float blue) {
-  background_norm(red / g.colorModeX, green / g.colorModeY, blue / g.colorModeZ) ;
+void background_rope(float c, float w) {
+  background_rope(c,c,c,w);
 }
 
 void background_rope(Vec4 c) {
-  background_norm(c.x / g.colorModeX, c.y / g.colorModeY, c.z / g.colorModeZ, c.w / g.colorModeA) ;
+  background_rope(c.x,c.y,c.z,c.w);
 }
 
 void background_rope(Vec3 c) {
-  background_norm(c.x / g.colorModeX, c.y / g.colorModeY, c.z / g.colorModeZ) ;
+  background_rope(c.x,c.y,c.z);
 }
 
 void background_rope(Vec2 c) {
-  background_norm(c.x / g.colorModeX, c.x / g.colorModeY, c.x / g.colorModeZ, c.y / g.colorModeA) ;
+  background_rope(c.x,c.x,c.x,c.y);
 }
+
+// master method
+void background_rope(float x, float y, float z, float w) {
+  background_norm(x/g.colorModeX, y/g.colorModeY, z/g.colorModeZ, w /g.colorModeA) ;
+}
+
+void background_rope(float x, float y, float z) {
+  background_norm(x/g.colorModeX, y/g.colorModeY, z/g.colorModeZ) ;
+}
+
 
 
 

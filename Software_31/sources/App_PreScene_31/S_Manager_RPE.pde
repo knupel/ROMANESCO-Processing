@@ -285,7 +285,7 @@ void update_var_sound(int ID) {
     
     beat[ID] = beat[0]; //    is beat : value 1,10 
     kick[ID] = kick[0]; //   is beat kick : value 1,10 
-    snare[ID] = snare [0]; //   is beat snare : value 1,10 
+    snare[ID] = snare[0]; //   is beat snare : value 1,10 
     hat[ID] = hat[0]; //   is beat hat : value 1,10 
 
     tempo[ID] = tempo[0]; // global speed of track  / float value(0,1)

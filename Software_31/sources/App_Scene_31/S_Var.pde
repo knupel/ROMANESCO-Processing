@@ -65,7 +65,7 @@ boolean LEAPMOTION_DETECTED ;
 boolean load_SCENE_Setting_GLOBAL, save_Current_SCENE_Setting_GLOBAL, save_New_SCENE_Setting_GLOBAL ;
 
 //spectrum band
-int NUM_BANDS = 16 ;
+int NUM_BANDS = 128;
 
 int NUM_BUTTON_GENERAL = 21 ; 
 int button_item_num  ; 
@@ -843,19 +843,19 @@ void init_items() {
 /**
 button general var setting
 */
-boolean beat_is() {
+boolean beat_romanesco_is() {
   return beat_is;
 }
 
-boolean kick_is() {
+boolean kick_romanesco_is() {
   return kick_is;
 }
 
-boolean snare_is() {
+boolean snare_romanesco_is() {
   return snare_is;
 }
 
-boolean hat_is() {
+boolean hat_romanesco_is() {
   return hat_is;
 }
 
@@ -891,19 +891,19 @@ boolean light_2_action_is() {
   return light_2_action_is;
 }
 
-void beat_is(boolean is) {
+void beat_romanesco_is(boolean is) {
   beat_is = is;
 }
 
-void kick_is(boolean is) {
+void kick_romanesco_is(boolean is) {
   kick_is = is;
 }
 
-void snare_is(boolean is) {
+void snare_romanesco_is(boolean is) {
   snare_is = is;
 }
 
-void hat_is(boolean is) {
+void hat_romanesco_is(boolean is) {
   hat_is = is;
 }
 
@@ -1110,6 +1110,7 @@ void update_temp_value() {
 //SHORTCUT VAR
 //SOUND
 float allBeats(int ID) {
-  return (beat[ID]*.25) +(kick[ID]*.25) +(hat[ID]*.25) +(snare[ID]*.25) ;
+  return (kick[ID]*.25) +(hat[ID]*.25) +(snare[ID]*.25) ;
+  // return (beat[ID]*.25) +(kick[ID]*.25) +(hat[ID]*.25) +(snare[ID]*.25) ;
 }
 

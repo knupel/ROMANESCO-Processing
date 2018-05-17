@@ -1090,10 +1090,10 @@ void displayInfoScene(color bg_txt, color txt) {
   text("Directional light TWO || pos " + int(pos_light[2].x)+ " / " + int(pos_light[2].y) + " / "+ int(pos_light[2].z) + " || dir " + decimale(dir_light[2].x,2) + " / " + decimale(dir_light[2].y,2) + " / "+ decimale(dir_light[2].z,2),15, 15 *posInfo  ) ;
   posInfo += 1 ;
   //INFO SOUND
-  if (getTimeTrack() > 1 ) text("the track play until " +getTimeTrack() + "  Tempo " + getTempoRef() , 15,15 *(posInfo)) ; else text("no track detected ", 15, 15 *(posInfo)) ;
+  if (get_time_track() > 1 ) text("the track play until " +get_time_track() + "  Tempo " + get_tempo_ref() , 15,15 *(posInfo)) ; else text("no track detected ", 15, 15 *(posInfo)) ;
   posInfo += 1 ;
-  text("right " + right_volume_info, 15, 15 *(posInfo)) ;  
-  text("left "  + left_volume_info,  50, 15 *(posInfo)) ;
+  text("right " + get_right(100), 15, 15 *(posInfo)) ;  
+  text("left "  + get_left(100),  50, 15 *(posInfo)) ;
   posInfo += 1 ;
 }
 
@@ -1466,7 +1466,7 @@ void rectangle(PVector pos, PVector size, PShader s) {
   
   s.set("colorBG",redNorm, greenNorm, blueNorm, alphaNorm) ; 
   s.set("mixSound", mix[0]) ;
-  s.set("timeTrack", getTimeTrack()) ;
+  s.set("timeTrack", get_time_track()) ;
   s.set("tempo", tempo[0]) ;
   s.set("beat", allBeats(0)) ;
   s.set("mouse",shaderMouseX, shaderMouseY) ;
@@ -1523,55 +1523,114 @@ void rectangle(PVector pos, PVector size, PShader s) {
 
 /**
 SOUND
-v 1.0.1
+v 1.1.0
 */
+void sound_setup() {
+  set_sound(512);
+  float scale_spectrum_sound = .11 ;
+  set_spectrum(NUM_BANDS, scale_spectrum_sound);
+
+  iVec2 [] in_out = new iVec2[3];
+  int in_kick = 0 ;
+  int out_kick = NUM_BANDS/5;
+  in_out[0] = iVec2(in_kick,out_kick);
+
+  int in_snare = out_kick;
+  int out_snare = NUM_BANDS -NUM_BANDS/5;  
+  in_out[1] = iVec2(in_snare,out_snare);
+
+  int in_hat = out_snare;
+  int out_hat = NUM_BANDS;
+  in_out[2] = iVec2(in_hat,out_hat);
+  
+  float threshold_kick = 7.5;
+  float threshold_snare = 3.3;
+  float threshold_hat = 1.6;
+  set_beat(in_out,threshold_kick,threshold_snare,threshold_hat);
+}
+
 void sound_draw() {
-  spectrum(input.mix, NUM_BANDS) ;
-  beatEnergy.detect(input.mix);
-  initTempo() ;
-  sound_romanesco() ;
-  right_volume_info = int(input.right.get(1)  *100) ; 
-  left_volume_info = int(input.left.get(1)  *100) ;
-  time_track() ;
+  audio_buffer(MIX);
+  update_spectrum();
+  sound_romanesco();
 }
 
 void sound_romanesco() {
-  int sound = 1 ;
-  float volumeControleurG = map(value_slider_sound[0], 0,MAX_VALUE_SLIDER, 0, 1.3) ;
-  left[0] = map(input.left.get(sound),-0.07,0.1,0, volumeControleurG);
+  float vol_left_controller = map(value_slider_sound[0],0,MAX_VALUE_SLIDER,0,1.3);
+  left[0] = map(get_left(),-.07,.1,0,vol_left_controller);
   
-  float volumeControleurD = map(value_slider_sound[1], 0,MAX_VALUE_SLIDER, 0, 1.3) ;
-  right[0] = map(input.right.get(sound),-0.07,0.1,0, volumeControleurD);
+  float col_right_controller = map(value_slider_sound[1],0,MAX_VALUE_SLIDER,0,1.3);
+  right[0] = map(get_right(),-.07,.1,0,col_right_controller);
   
-  float volumeControleurM = map(((value_slider_sound[0] +value_slider_sound[1]) *.5), 0,MAX_VALUE_SLIDER, 0, 1.3 ) ;
-  mix[0] = map(input.mix.get(sound),  -0.07,0.1,  0, volumeControleurM);
+  float vol_mix = map(((value_slider_sound[0] +value_slider_sound[1]) *.5),0,MAX_VALUE_SLIDER,0,1.3);
+  mix[0] = map(get_mix(),  -.07,.1,0,vol_mix);
   
   //volume
-  if(left[0] < 0 ) left[0] = 0 ;
-  if(left[0] > 1 ) left[0] = 1.0 ; 
-  if(right[0] < 0 ) right[0] = 0 ;
-  if(right[0] > 1 ) right[0] = 1.0 ; 
-  if(mix[0] < 0 ) mix[0] = 0 ;
-  if(mix[0] > 1 ) mix[0] = 1.0 ;
+  if(left[0] < 0 ) left[0] = 0;
+  if(left[0] > 1 ) left[0] = 1.; 
+  if(right[0] < 0 ) right[0] = 0;
+  if(right[0] > 1 ) right[0] = 1.; 
+  if(mix[0] < 0 ) mix[0] = 0;
+  if(mix[0] > 1 ) mix[0] = 1.;
   
+  int beat_value = 10 ;
   //Beat
-  beat[0] = getBeat(beat_is()) ;
-  kick[0] = getKick(kick_is()) ;
-  snare[0] = getSnare(snare_is()) ;
-  hat[0] = getHat(hat_is()) ;
+  if(beat_romanesco_is() && beat_is()) {    
+    beat[0] = beat_value;
+  } else {
+    beat[0] *= .5;
+  }
+
+  if(kick_romanesco_is() && beat_is(0)) {
+    kick[0] = beat_value;   
+  } else {
+    kick[0] *= .5;
+  }
+
+  if(snare_romanesco_is() && beat_is(1)) {
+    snare[0] = beat_value;   
+  } else {
+    snare[0] *= .5 ;
+  }
+
+  if(hat_romanesco_is() && beat_is(2)) {
+    hat[0] = beat_value;   
+  } else {
+    hat[0] *= .5;
+  }
+
   
   
   //spectrum
-  for ( int i = 0 ; i < NUM_BANDS ; i++ ) {
-    band[0][i] = bandSprectrum[i] ;
+  for (int i = 0 ; i < band_num() ; i++ ) {
+    band[0][i] = get_spectrum(i);
   }
   
   //tempo
-  tempo[0] = getTempoRef() ;
-  tempoKick[0] = getTempoKickRef() ;
-  tempoSnare[0] = getTempoSnareRef() ;
-  tempoHat[0] = getTempoHatRef() ;
+  tempo[0] = get_tempo_ref() ;
+  tempoKick[0] = get_tempo_ref(0) ;
+  tempoSnare[0] = get_tempo_ref(1) ;
+  tempoHat[0] = get_tempo_ref(2) ;
 }
+
+
+
+int band_length() {
+  return band[0].length;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -1946,10 +2005,10 @@ void receive_data_general_button(OscMessage receive, int in) {
   light_2_is(to_bool(receive,5+in));
   light_2_action_is(to_bool(receive,6+in));
 
-  beat_is(to_bool(receive,7+in));
-  kick_is(to_bool(receive,8+in));
-  snare_is(to_bool(receive,9+in));
-  hat_is(to_bool(receive,10+in));
+  beat_romanesco_is(to_bool(receive,7+in));
+  kick_romanesco_is(to_bool(receive,8+in));
+  snare_romanesco_is(to_bool(receive,9+in));
+  hat_romanesco_is(to_bool(receive,10+in));
 }
 
 void receive_data_general_slider(OscMessage receive, int in, int out) {

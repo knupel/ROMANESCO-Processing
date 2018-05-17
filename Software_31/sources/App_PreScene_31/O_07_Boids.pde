@@ -1,5 +1,7 @@
 /**
-BOIDS || 2015 || 1.0.1
+BOIDS
+2015-2018
+V 1.0.2
 */
 
 class Boids extends Romanesco {
@@ -8,7 +10,7 @@ class Boids extends Romanesco {
     ID_item = 7 ;
     ID_group = 1 ;
     item_author  = "Stan le Punk";
-    item_version = "Version 1.0.1";
+    item_version = "Version 1.0.2";
     item_pack = "Base" ;
     item_mode = "Tetra monochrome/Tetra camaieu" ; // separate the differentes mode by "/"
     // item_slider = "Fill hue,Fill sat,Fill bright,Fill alpha,Stroke hue,Stroke sat,Stroke bright,Stroke alpha,Thickness,Size X,Canvas X,Canvas Y,Canvas Z,Quantity,Attraction,Repulsion,Influence,Alignment,Speed X" ;
@@ -129,7 +131,7 @@ class Boids extends Romanesco {
     float speed = map(speed_x_item[ID_item],0,1,.1,7) ;
     speed *= speed ;
     if(sound[ID_item] )speed *= (map(mix[ID_item],0,1,.00000001,7)) ;
-    if(!motion[ID_item] || (sound[ID_item] && getTimeTrack() < .2)) speed = .00000001 ;
+    if(!motion[ID_item] || (sound[ID_item] && get_time_track() < .2)) speed = .00000001 ;
     flock.speed(speed) ;
     
     // cage size

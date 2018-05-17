@@ -1,5 +1,7 @@
 /**
-HONEYCOMB || 2011 || 0.1.1
+HONEYCOMB
+2011-2018
+v 0.1.2
 */
 ArrayList <Hexagon> grid = new ArrayList <Hexagon> (); // the arrayList to store the whole grid of cells
 
@@ -10,7 +12,7 @@ class Honeycomb extends Romanesco {
     ID_item = 20 ;
     ID_group = 1 ;
     item_author  = "Amnon Owed";
-    item_version = "Version 0.1.1";
+    item_version = "Version 0.1.2";
     item_pack = "Base" ;
     item_mode = "" ;
     // item_slider = "Fill hue,Fill sat,Fill bright,Fill alpha,Thickness,Size X,Canvas X,Canvas Y" ;
@@ -119,7 +121,7 @@ class Honeycomb extends Romanesco {
     
     // music factor
     float soundSizeFactor ;
-    if(getTimeTrack() > 0.2) soundSizeFactor = allBeats(ID_item) ; else soundSizeFactor = 1.0 ;
+    if(get_time_track() > 0.2) soundSizeFactor = allBeats(ID_item) ; else soundSizeFactor = 1.0 ;
     
 
     if(hexagonRadius != radiusRef || hexagonStroke != strokeRef || (canvas.x != canvasRef.x || canvas.y != canvasRef.y) ) {

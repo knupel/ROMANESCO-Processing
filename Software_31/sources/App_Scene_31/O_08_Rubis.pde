@@ -1,5 +1,7 @@
 /**
-RUBIS || 2013 || 1.0.4
+RUBIS
+2013-2018
+v 1.0.5
 */
 
 class MesAmis extends Romanesco {
@@ -9,7 +11,7 @@ class MesAmis extends Romanesco {
     ID_item = 8 ;
     ID_group = 1 ;
     item_author  = "Stan le Punk";
-    item_version = "version 1.0.4";
+    item_version = "version 1.0.5";
     item_pack = "Base" ;
     //item_mode = "1 full/2 lines" but the line is not really interesting
     item_mode = "Vertex/Point" ; // separate the name by a slash and write the next mode immadialtly after this one.
@@ -87,18 +89,19 @@ class MesAmis extends Romanesco {
 
   //DRAW
   void draw() {
-    
     Vec3 center = Vec3() ;
 
     // speed
-    float speed = map(speed_x_item[ID_item],0,1, .0001, .2);
+    float speed = map(speed_x_item[ID_item],0,1,.0001,.2);
     speed = speed*speed ;
-    if(sound[ID_item]) speed *= allBeats(ID_item) ;
+    if(sound[ID_item] && sound_plays_is()) {
+      speed *= allBeats(ID_item);
+    }
 
 
 
     Vec3 jitter = Vec3() ;
-    if(sound[ID_item] && getTimeTrack() > 0.2 ) {
+    if(sound[ID_item] && sound_plays_is()) {
       float valueX = left[ID_item] *jitter_x_item[ID_item] *width ;
       float valueY = right[ID_item] *jitter_y_item[ID_item] *width ;
       float valueZ = mix[ID_item] *jitter_z_item[ID_item] *width ;

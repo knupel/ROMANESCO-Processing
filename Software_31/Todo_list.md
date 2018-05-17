@@ -2,6 +2,10 @@ Todolist Romanesco
 --
 2018
 --
+*bug controller
+
+Quand la taille du controleur est changée le rendu passe au noir
+
 *version
 
 créer un fichier externe de version

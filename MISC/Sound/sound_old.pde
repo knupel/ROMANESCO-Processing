@@ -1,7 +1,3 @@
-/**
-Sound 
-v 1.0.0
-*/
 // boolean
 boolean SOUND_PLAY ;
 //GLOBAL PARAMETER Minim
@@ -78,7 +74,7 @@ int getHatNum() {
 //RESULT
 float getBeat(boolean beat) {
   if (beat) {
-    if ( beatEnergy.isOnset() ) beatData = maxBeat;
+    if (beatEnergy.isOnset() ) beatData = maxBeat;
     beatData *= 0.95;
     if ( beatData < minBeat ) beatData = minBeat;
   } else beatData = 1.0 ;
@@ -112,8 +108,7 @@ float getHat(boolean hat) {
   //
   return hatData ;
 }
-//END BEAT
-/////////
+
 
 
 
