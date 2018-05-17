@@ -13,7 +13,6 @@ MAJOR
 >rebuild the sound system, now the the beat threshold is setable, set the band and the level alart
 
 
-
 MINOR
 --
 > improve OSC architecture
