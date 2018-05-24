@@ -16,7 +16,7 @@ String IAM = "Controller";
 /**
 LIVE must change from the launcher, the info must be write in the external loading preference app
 */
-boolean LIVE = true;
+boolean LIVE = false;
 
 void settings() {
   size(670,725);

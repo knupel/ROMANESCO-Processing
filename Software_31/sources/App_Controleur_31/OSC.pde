@@ -108,7 +108,6 @@ void send_OSC() {
   add_data(mess, button_light_2.is());
   add_data(mess, button_light_2_action.is());
   // button general sound
-  add_data(mess, button_beat.is());
   add_data(mess, button_kick.is());
   add_data(mess, button_snare.is());
   add_data(mess, button_hat.is());

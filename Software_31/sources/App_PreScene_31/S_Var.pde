@@ -3,7 +3,7 @@ VARIABLE
 Prescene, Scene
 Romanesco Processing Environment
 2015-2018
-v 1.2.5
+v 1.2.6
 */
 
 /**
@@ -81,7 +81,7 @@ int BUTTON_ITEM_CONSOLE = 4;
 
 // general var 
 // button
-boolean beat_is, kick_is, snare_is, hat_is;
+boolean kick_is, snare_is, hat_is;
 boolean curtain_is, background_is;
 boolean ambient_is,ambient_action_is;
 boolean light_1_is,light_1_action_is;
@@ -843,10 +843,6 @@ void init_items() {
 /**
 button general var setting
 */
-boolean beat_romanesco_is() {
-  return beat_is;
-}
-
 boolean kick_romanesco_is() {
   return kick_is;
 }
@@ -891,9 +887,7 @@ boolean light_2_action_is() {
   return light_2_action_is;
 }
 
-void beat_romanesco_is(boolean is) {
-  beat_is = is;
-}
+
 
 void kick_romanesco_is(boolean is) {
   kick_is = is;

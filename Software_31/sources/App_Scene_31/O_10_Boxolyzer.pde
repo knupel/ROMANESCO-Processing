@@ -1,7 +1,7 @@
 /**
 BOXOLYZER
 2012-2018
-v 1.1.0
+v 1.1.1
 */
 ArrayList<BOITEaMUSIQUE> boiteList ;
   
@@ -12,7 +12,7 @@ class Boxolyzer extends Romanesco {
     ID_item = 10 ;
     ID_group = 1 ;
     item_author  = "Stan le Punk";
-    item_version = "Version 1.1.0";
+    item_version = "Version 1.1.1";
     item_pack = "Base" ;
     item_mode ="Line/Circle" ;
     // item_slider = "Fill hue,Fill sat,Fill bright,Fill alpha,Stroke hue,Stroke sat,Stroke bright,Stroke alpha,Thickness,Size X,Size Y,Size Z,Canvas X,Quantity,Direction X" ;
@@ -120,9 +120,12 @@ class Boxolyzer extends Romanesco {
     int n = boiteList.size() ;
     float factorSpectrum = 0 ;
     Vec3 pos = Vec3() ;
-    
+   // println("circle",n,band.length);
     for(int i=0; i < n; i++) {
-      if(i < band.length) factorSpectrum = band [ID_item][i] ;
+
+      if(i < band_length()) {
+        factorSpectrum = band [ID_item][i] ;
+      }
       float stepAngle = map(i, 0, n, 0, 2*PI) ; 
       float angle =  2*PI - stepAngle;
       if(orientation) pos.set(projection(angle, radius).x +pos.x, projection(angle, radius).y +pos.y, pos.z) ;
@@ -140,7 +143,7 @@ class Boxolyzer extends Romanesco {
     Vec3 pos = Vec3(0,height *.5,0);
     float factorSpectrum = 0;
     int num = boiteList.size();
-    println(num,band[ID_item].length);
+   // println(num,band[ID_item].length);
     // int canvasFinal = width ;
     int canvasFinal = (int)map(canvas_x_item[ID_item], width/10, width, width/2,width*3)  ;
     int displacement_symetric = int(width *.5 -canvasFinal *.5) ;

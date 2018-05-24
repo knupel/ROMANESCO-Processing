@@ -1,5 +1,7 @@
 /**
-BALISE || 2011 || 1.3.1
+BALISE
+2011-2018
+v 1.3.2
 */
 Balise balise ;
 //object three
@@ -68,7 +70,7 @@ class BaliseRomanesco extends Romanesco {
     spectrum_is = false;
   }
   //GLOBAL
-  float speed ;
+  float speed =0;
   boolean change_rotation_direction ;
   //SETUP
   void setup() {
@@ -93,7 +95,13 @@ class BaliseRomanesco extends Romanesco {
 
 
 
-    if (motion[ID_item]) speed = (map(speed_x_item[ID_item], 0,1, 0,20)) *tempo_balise *rotation_direction ; else speed = 0.0 ;
+    if (motion[ID_item]) {
+      float speed_base = map(speed_x_item[ID_item], 0,1, 0,20);
+      speed = speed_base *tempo_balise *rotation_direction ; 
+    } else {
+      speed = 0.;
+    }
+
 
     // costume
     select_costume(ID_item, item_name) ;
@@ -104,46 +112,57 @@ class BaliseRomanesco extends Romanesco {
     float amp = map(swing_x_item[ID_item], 0,1, 0, width *9) ;
     
     //factor size
-    float factor = map(repulsion_item[ID_item],0,1,1,100) *(allBeats(ID_item) *.2) ;
+    float factor_base = map(repulsion_item[ID_item],0,1,1,100);
+    float factor = factor_base *(allBeats(ID_item) *.2);
     if(factor < 1.0 ) factor = 1.0 ;
 
     // snake mode
     boolean snake_mode = false ;
-    if(special[ID_item]) snake_mode = true ; else snake_mode = false ;
+    if(special[ID_item]) {
+      snake_mode = true ; 
+    } else {
+      snake_mode = false ;
+    }
 
     // aspect
-    aspect_rope(fill_item[ID_item], stroke_item[ID_item], thickness_item[ID_item], costume[ID_item]) ;
+    aspect_rope(fill_item[ID_item], stroke_item[ID_item], thickness_item[ID_item], costume[ID_item]);
 
     
     
 
     // SIZE
-    float factorBeat = .5 ;
-    float tempoEffect = 1 + ((beat[ID_item] *factorBeat) + (kick[ID_item] *factorBeat) + (snare[ID_item] *factorBeat) + (hat[ID_item] *factorBeat));
-    PVector sizeBalise = new PVector(size_x_item[ID_item],size_y_item[ID_item],size_z_item[ID_item]) ;
-    PVector var = new PVector(1,1) ;
+    float ratio = .5 ;
+    float tempo_effect = 1 + ((beat[ID_item] *ratio) + (kick[ID_item] *ratio) + (snare[ID_item] *ratio) + (hat[ID_item] *ratio));
+
+    Vec3 size = Vec3(size_x_item[ID_item],size_y_item[ID_item],size_z_item[ID_item]);
+
+    Vec2 left_right_sound = Vec2(1) ;
     if(authorization) {
-      sizeBalise  = new PVector (size_x_item[ID_item] *tempoEffect, size_y_item[ID_item] *tempoEffect, size_z_item[ID_item] ) ;
-      // variable position
-      var = new PVector(left[ID_item] *5,right[ID_item] *5) ;
+      size.mult(tempo_effect,tempo_effect,1);
+      left_right_sound = Vec2(left[ID_item] *5,right[ID_item] *5) ;
     }
     
-    if(var.x <= 0 ) var.x = .1 ; 
-    if(var.y <= 0 ) var.y = .1 ; 
+    if(left_right_sound.x <= 0) {
+      left_right_sound.x = .1;
+    }
+
+    if(left_right_sound.y <= 0) {
+      left_right_sound.y = .1;
+    } 
     //quantity
     int maxBalise = 511 ;
     if(!FULL_RENDERING) maxBalise = 64 ;
     float radiusBalise = map(quantity_item[ID_item], 0,1, 2, maxBalise); // here the value max is 511 because we work with buffersize with 512 field
     
-    Vec3 pos = Vec3() ;
-    balise.update(pos, speed) ;
-    balise.display(amp, var, sizeBalise, factor, int(radiusBalise), authorization, costume[ID_item], snake_mode) ;
+    Vec3 pos = Vec3();
+    balise.update(pos,speed);
+
+    balise.display(amp, left_right_sound, size, factor, int(radiusBalise), authorization, costume[ID_item], snake_mode) ;
     
     
-    objectInfo[ID_item] = ("Size "+(int)sizeBalise.x + " / " + (int)sizeBalise.y + " / " + (int)sizeBalise.z  + " Radius " + int(radiusBalise) ) ;
+    objectInfo[ID_item] = ("Size "+(int)size.x + " / " + (int)size.y + " / " + (int)size.z  + " Radius " + int(radiusBalise) ) ;
   }
 }
-//end object two
 
 
 
@@ -153,30 +172,62 @@ class BaliseRomanesco extends Romanesco {
 /**
 CLASS BALISE
 */
-class Balise extends Rotation {  
-  
-  Balise () { 
-    super () ; 
+class Balise {  
+  float rotation ;
+  float angle  ;
+
+  Balise () { }
+
+  void update(Vec pos_temp, float speed) {
+    Vec3 pos = Vec3() ;
+    if(pos_temp instanceof Vec2) {
+      Vec2 p = (Vec2) pos_temp ;
+      pos.set(p.x, p.y, 0) ;
+    } else if(pos_temp instanceof Vec3) {
+      Vec3 p = (Vec3) pos_temp ;
+      pos.set(p) ;
+    }
+    Float s = speed ;
+    if(!s.isNaN()) rotation += speed;
+    
+    if (rotation > 360) {
+      rotation = 0 ; 
+    } else if (rotation < 0 ) {
+      rotation = 360 ;
+    }
+    float angle = rotation ;
+    //translate (pos) ;
+    rotate(radians(angle) ) ;
   }
+
+
   
-  void display (float amp, PVector var, PVector sizeBalise, float factor, int max, boolean authorization, int which_costume, boolean snake_mode) {
+  void display (float amp, Vec2 sound_input, Vec3 size, float factor, int max, boolean authorization, int which_costume, boolean snake_mode) {
+
     pushMatrix() ;
     rectMode(CENTER) ;
     
     if ( max > 512 ) max = 512 ;
 
     for(int i = 0 ; i < max ; i++) {
-      PVector v = new PVector(input(i,max,var,authorization).x, input(i,max,var,authorization).y) ;
-      Vec2 pos = Vec2(amp *v.x, amp *v.y) ;
-      // v = new PVector (abs(v.x *factor), abs(v.y *factor) ) ;
-      v.set(abs(v.x *factor), abs(v.y *factor) ) ;
+      Vec2 var = Vec2(input(i,max,sound_input,authorization).x, input(i,max,sound_input,authorization).y) ;
+      Vec2 pos = Vec2(amp *var.x, amp *var.y);
+      
+      var.set(abs(var.x *factor), abs(var.y *factor) ) ;
 
-      Vec3 size = Vec3(sizeBalise.x *v.x, sizeBalise.y *v.y, sizeBalise.z *((v.x +v.y)*.5))   ;
+      Vec3 final_size = Vec3(size.x *var.x, size.y *var.y, size.z *((var.x +var.y)*.5));
       if(snake_mode) {
+        println("snake");
         start_matrix() ;
         translate(pos) ;
       }
-      costume_rope(pos, size, which_costume) ;
+      /*
+      println("pos",pos);
+      println("size",final_size);
+      */
+
+      ellipse(pos.x,pos.y,final_size.x,final_size.y);
+      costume_rope(pos, final_size, which_costume) ;
       if(snake_mode) {
         stop_matrix() ;
       }
@@ -205,14 +256,14 @@ class Balise extends Rotation {
   */
   
   //calculate and return the position for each brick of the balise
-  PVector input( int whichOne, int max, PVector var, boolean authorization) {
-    PVector value = new PVector(1,1,1) ;
+  Vec2 input(int whichOne, int max, Vec2 var, boolean authorization) {
+    Vec2 value = Vec2(1) ;
     if(authorization) {
-      value = new PVector ((input.left.get(whichOne)*var.x), (input.right.get(whichOne)*var.y) ) ; 
+      value = Vec2((input.left.get(whichOne)*var.x), (input.right.get(whichOne)*var.y) ) ; 
     } else {
       float n = (float)whichOne ;
       n = n - (max/2) ;
-      value = new PVector ( n*var.x *.01, n*var.y *.01 ) ; 
+      value = Vec2( n*var.x *.01, n*var.y *.01); 
     } 
     return value ;
   }

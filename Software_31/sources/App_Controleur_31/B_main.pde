@@ -74,7 +74,6 @@ void mousepressed_button_general() {
     button_light_2.mousePressedText() ;
     button_light_2_action.mousePressedText() ;
     //son
-    button_beat.mousePressedText() ;
     button_kick.mousePressedText() ;
     button_snare.mousePressedText() ;
     button_hat.mousePressedText() ;
@@ -103,7 +102,6 @@ void check_button_general() {
   if(button_light_2.is()) light_light_2_button_is = 1 ; else light_light_2_button_is = 0 ;
   if(button_light_2_action.is()) light_light_action_2_button_is = 1 ; else light_light_action_2_button_is = 0 ;
   //SOUND
-  if(button_beat.is()) button_beat_is = 1 ; else button_beat_is = 0 ;
   if(button_kick.is()) button_kick_is = 1 ; else button_kick_is = 0 ;
   if(button_snare.is()) button_snare_is = 1 ; else button_snare_is = 0 ;
   if(button_hat.is()) button_hat_is = 1 ; else button_hat_is = 0 ;

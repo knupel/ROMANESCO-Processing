@@ -391,36 +391,6 @@ PVector follow(PVector target, float speed) {
 
 
 
-//CLASS ROTATION
-////////////////
-class Rotation {
-  float rotation ;
-  float angle  ;
-  
-  Rotation () {}
-  
-  void update(Vec pos_temp, float speed) {
-    Vec3 pos = Vec3() ;
-    if(pos_temp instanceof Vec2) {
-      Vec2 p = (Vec2) pos_temp ;
-      pos.set(p.x, p.y, 0) ;
-    } else if(pos_temp instanceof Vec3) {
-      Vec3 p = (Vec3) pos_temp ;
-      pos.set(p) ;
-    }
-
-    rotation += speed ;
-    if (rotation > 360) {
-      rotation = 0 ; 
-    } else if (rotation < 0 ) {
-      rotation = 360 ;
-    }
-    float angle = rotation ;
-    translate (pos) ;
-    rotate (radians(angle) ) ;
-  }
-} 
-// END CLASS ROTATION
 
 
 

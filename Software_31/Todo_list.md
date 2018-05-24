@@ -2,6 +2,14 @@ Todolist Romanesco
 --
 2018
 --
+*get_tempo(beat_target)
+
+Tab s_core_render > line 1614
+tempoKick[0] = get_tempo(0);
+tempoSnare[0] = get_tempo(1);
+tempoHat[0] = get_tempo(2);
+
+
 *bug controller
 
 Quand la taille du controleur est changée le rendu passe au noir

@@ -290,7 +290,6 @@ void midi_manager(boolean saveButton) {
   midi_button(button_light_2, rank++, saveButton,"Button general") ;
   midi_button(button_light_2_action, rank++, saveButton,"Button general") ;
   
-  midi_button(button_beat, rank++, saveButton,"Button general") ;
   midi_button(button_kick, rank++, saveButton,"Button general") ;
   midi_button(button_snare, rank++, saveButton,"Button general") ;
   midi_button(button_hat, rank++, saveButton,"Button general") ;

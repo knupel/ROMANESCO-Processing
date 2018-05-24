@@ -546,9 +546,6 @@ void set_button_from_saved_file() {
   button_light_2_action.set_id_midi((int)info_button_general[rank].y); 
   rank++ ;
   //SOUND
-  if(info_button_general[rank].z == 1.0) button_beat.set_is(true); else button_beat.set_is(false);
-  button_beat.set_id_midi((int)info_button_general[rank].y);
-  rank++ ; 
   if(info_button_general[rank].z == 1.0) button_kick.set_is(true); else button_kick.set_is(false);
   button_kick.set_id_midi((int)info_button_general[rank].y); 
   rank++ ;

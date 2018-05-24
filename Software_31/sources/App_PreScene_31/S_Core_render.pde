@@ -1090,7 +1090,7 @@ void displayInfoScene(color bg_txt, color txt) {
   text("Directional light TWO || pos " + int(pos_light[2].x)+ " / " + int(pos_light[2].y) + " / "+ int(pos_light[2].z) + " || dir " + decimale(dir_light[2].x,2) + " / " + decimale(dir_light[2].y,2) + " / "+ decimale(dir_light[2].z,2),15, 15 *posInfo  ) ;
   posInfo += 1 ;
   //INFO SOUND
-  if (get_time_track() > 1 ) text("the track play until " +get_time_track() + "  Tempo " + get_tempo_ref() , 15,15 *(posInfo)) ; else text("no track detected ", 15, 15 *(posInfo)) ;
+  if (get_time_track() > 1 ) text("the track play until " +get_time_track() + " – tempo " + get_tempo_name() + " " + get_tempo() , 15,15 *(posInfo)) ; else text("no track detected ", 15, 15 *(posInfo)) ;
   posInfo += 1 ;
   text("right " + get_right(100), 15, 15 *(posInfo)) ;  
   text("left "  + get_left(100),  50, 15 *(posInfo)) ;
@@ -1542,16 +1542,23 @@ void sound_setup() {
   int in_hat = out_snare;
   int out_hat = NUM_BANDS;
   in_out[2] = iVec2(in_hat,out_hat);
+  set_section(in_out);
   
   float threshold_kick = 7.5;
   float threshold_snare = 3.3;
   float threshold_hat = 1.6;
-  set_beat(in_out,threshold_kick,threshold_snare,threshold_hat);
+  int [] beat_section_id = new int[3] ;
+  beat_section_id[0] = 0;
+  beat_section_id[1] = 1;
+  beat_section_id[2] = 2;
+
+  set_beat( beat_section_id,threshold_kick,threshold_snare,threshold_hat);
+  set_tempo();
 }
 
 void sound_draw() {
   audio_buffer(MIX);
-  update_spectrum();
+  update_sound();
   sound_romanesco();
 }
 
@@ -1574,29 +1581,30 @@ void sound_romanesco() {
   if(mix[0] > 1 ) mix[0] = 1.;
   
   int beat_value = 10 ;
+  float back_factor = .5;
   //Beat
-  if(beat_romanesco_is() && beat_is()) {    
+  if((kick_romanesco_is() || snare_romanesco_is() || hat_romanesco_is()) && beat_is()) {    
     beat[0] = beat_value;
   } else {
-    beat[0] *= .5;
+    beat[0] *= back_factor;
   }
-
+  // kick
   if(kick_romanesco_is() && beat_is(0)) {
     kick[0] = beat_value;   
   } else {
-    kick[0] *= .5;
+    kick[0] *= back_factor;
   }
-
+  // snare
   if(snare_romanesco_is() && beat_is(1)) {
     snare[0] = beat_value;   
   } else {
-    snare[0] *= .5 ;
+    snare[0] *= back_factor;
   }
-
+  // hat
   if(hat_romanesco_is() && beat_is(2)) {
     hat[0] = beat_value;   
   } else {
-    hat[0] *= .5;
+    hat[0] *= back_factor;
   }
 
   
@@ -1607,10 +1615,16 @@ void sound_romanesco() {
   }
   
   //tempo
-  tempo[0] = get_tempo_ref() ;
-  tempoKick[0] = get_tempo_ref(0) ;
-  tempoSnare[0] = get_tempo_ref(1) ;
-  tempoHat[0] = get_tempo_ref(2) ;
+  tempo[0] = get_tempo();
+  /**
+  Must be improve in the future
+  tempoKick[0] = get_tempo(0);
+  tempoSnare[0] = get_tempo(1);
+  tempoHat[0] = get_tempo(2);
+  */
+  tempoKick[0] = get_tempo();
+  tempoSnare[0] = get_tempo();
+  tempoHat[0] = get_tempo();
 }
 
 
@@ -1947,8 +1961,8 @@ void thread_data_controller(OscMessage receive) {
   rank += 1;
   receive_data_general_dropdown(receive,rank); // 7 arg
   rank += 7;
-  receive_data_general_button(receive,rank); // 11 arg
-  rank += 11;
+  receive_data_general_button(receive,rank); // 10 arg
+  rank += 10;
   receive_data_general_slider(receive,rank,rank +24); // 24 arg
   rank += 24;
   receive_data_slider_item(receive,rank); // num arg = NUM_SLIDER_ITEM
@@ -2005,10 +2019,9 @@ void receive_data_general_button(OscMessage receive, int in) {
   light_2_is(to_bool(receive,5+in));
   light_2_action_is(to_bool(receive,6+in));
 
-  beat_romanesco_is(to_bool(receive,7+in));
-  kick_romanesco_is(to_bool(receive,8+in));
-  snare_romanesco_is(to_bool(receive,9+in));
-  hat_romanesco_is(to_bool(receive,10+in));
+  kick_romanesco_is(to_bool(receive,7+in));
+  snare_romanesco_is(to_bool(receive,8+in));
+  hat_romanesco_is(to_bool(receive,9+in));
 }
 
 void receive_data_general_slider(OscMessage receive, int in, int out) {

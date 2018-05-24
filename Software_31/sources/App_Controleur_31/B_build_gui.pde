@@ -124,9 +124,6 @@ void build_console_sound() {
     }
   }
 
-  button_beat = new Button(pos_beat_button, size_beat_button) ;
-  button_beat.set_color_on_off(col_on_in, col_on_out, col_off_in, col_off_out) ;
-
   button_kick = new Button(pos_kick_button, size_kick_button) ;
   button_kick.set_color_on_off(col_on_in, col_on_out, col_off_in, col_off_out) ;
 

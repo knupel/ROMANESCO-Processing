@@ -698,7 +698,6 @@ void display_button_header() {
 
 void display_button_general() {
   button_bg.button_text(shader_bg_name[which_bg_shader] + " on/off", pos_button_background, titleButtonMedium, sizeTitleButton) ;
-  //button_bg.button_text(shader_bg_name[state_bg_shader] + " on/off", pos_button_background, titleButtonMedium, sizeTitleButton) ;
   // Light ambient
   button_light_ambient.button_text("Ambient on/off", pos_light_ambient_buttonButton, titleButtonMedium, sizeTitleButton) ;
   button_light_ambient_action.button_text("action", pos_light_ambient_button_action, titleButtonMedium, sizeTitleButton) ;
@@ -710,7 +709,6 @@ void display_button_general() {
   button_light_2_action.button_text("action",  pos_light_2_button_action, titleButtonMedium, sizeTitleButton) ;
   
   // SOUND
-  button_beat.button_text("BEAT", pos_beat_button, titleButtonMedium, sizeTitleButton) ;
   button_kick.button_text("KICK", pos_kick_button, titleButtonMedium, sizeTitleButton) ;
   button_snare.button_text("SNARE", pos_snare_button, titleButtonMedium, sizeTitleButton) ;
   button_hat.button_text("HAT", pos_hat_button, titleButtonMedium, sizeTitleButton) ;

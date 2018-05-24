@@ -267,13 +267,11 @@ void set_console_light(iVec2 pos, iVec2 size) {
 
 void set_console_sound(iVec2 pos, iVec2 size) {
   // button
-  size_beat_button = iVec2(30,10); 
   size_kick_button = iVec2(30,10); 
   size_snare_button = iVec2(40,10); 
   size_hat_button = iVec2(30,10);
   
-  pos_beat_button = iVec2(pos.x, pos.y); 
-  pos_kick_button = iVec2(pos_beat_button.x +size_beat_button.x +5, pos.y); 
+  pos_kick_button = iVec2(pos.x,pos.y); 
   pos_snare_button = iVec2(pos_kick_button.x +size_kick_button.x +5, pos.y); 
   pos_hat_button = iVec2(pos_snare_button.x +size_snare_button.x +5, pos.y);
 
@@ -487,12 +485,12 @@ int offset_light_x;
 int offset_light_y;
 
 // sound
-Button button_beat, button_kick, button_snare, button_hat;
-int button_beat_is, button_kick_is, button_snare_is, button_hat_is;
-iVec2 pos_beat_button, size_beat_button;
+Button button_kick, button_snare, button_hat;
+int button_kick_is, button_snare_is, button_hat_is;
 iVec2 pos_kick_button, size_kick_button;
 iVec2 pos_snare_button, size_snare_button;
 iVec2 pos_hat_button, size_hat_button;
+
 int slider_width_sound;
 int slider_height_sound;
 Vec5 [] info_slider_sound; 
