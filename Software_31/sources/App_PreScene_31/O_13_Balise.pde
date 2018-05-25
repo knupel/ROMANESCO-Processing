@@ -1,7 +1,7 @@
 /**
 BALISE
 2011-2018
-v 1.3.2
+v 1.3.3
 */
 Balise balise ;
 //object three
@@ -12,7 +12,7 @@ class BaliseRomanesco extends Romanesco {
     ID_item = 13 ;
     ID_group = 1 ;
     item_author  = "Stan le Punk";
-    item_version = "Version 1.3.1";
+    item_version = "Version 1.3.3";
     item_pack = "Base" ;
     // item_mode = "Disc/Rectangle/Box/Box Snake" ;
     item_mode = "Point/Ellipse/Triangle/Rectangle/Cross/Star 5/Star 7/Super Star 8/Super Star 12" ;
@@ -84,7 +84,7 @@ class BaliseRomanesco extends Romanesco {
     float tempo_balise = 1 ;
     if(sound[ID_item] && FULL_RENDERING) {
       authorization = true ;
-      tempo_balise = tempo[ID_item] ;
+      tempo_balise = tempo[ID_item] *.01;
     } else {
       tempo_balise = 1. ;
     }
@@ -217,7 +217,7 @@ class Balise {
 
       Vec3 final_size = Vec3(size.x *var.x, size.y *var.y, size.z *((var.x +var.y)*.5));
       if(snake_mode) {
-        println("snake");
+        //println("snake");
         start_matrix() ;
         translate(pos) ;
       }
@@ -259,7 +259,7 @@ class Balise {
   Vec2 input(int whichOne, int max, Vec2 var, boolean authorization) {
     Vec2 value = Vec2(1) ;
     if(authorization) {
-      value = Vec2((input.left.get(whichOne)*var.x), (input.right.get(whichOne)*var.y) ) ; 
+      value = Vec2((get_left(whichOne)*var.x), (get_right(whichOne)*var.y) ) ; 
     } else {
       float n = (float)whichOne ;
       n = n - (max/2) ;

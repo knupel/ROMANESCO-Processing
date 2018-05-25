@@ -94,14 +94,14 @@ class MesAmis extends Romanesco {
     // speed
     float speed = map(speed_x_item[ID_item],0,1,.0001,.2);
     speed = speed*speed ;
-    if(sound[ID_item] && sound_plays_is()) {
+    if(sound[ID_item] && sound_is()) {
       speed *= allBeats(ID_item);
     }
 
 
 
     Vec3 jitter = Vec3() ;
-    if(sound[ID_item] && sound_plays_is()) {
+    if(sound[ID_item] && sound_is()) {
       float valueX = left[ID_item] *jitter_x_item[ID_item] *width ;
       float valueY = right[ID_item] *jitter_y_item[ID_item] *width ;
       float valueZ = mix[ID_item] *jitter_z_item[ID_item] *width ;

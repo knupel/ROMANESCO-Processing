@@ -19,9 +19,6 @@ import processing.pdf.*;
 //FLUX RSS or TWITTER ????
 import com.sun.syndication.feed.synd.*;
 import com.sun.syndication.io.*;
-//SOUND
-import ddf.minim.*;
-import ddf.minim.analysis.*;
 //GEOMERATIVE
 import geomerative.*;
 //TOXIC
@@ -30,8 +27,7 @@ import toxi.geom.mesh2d.*;
 import toxi.util.*;
 import toxi.util.datatypes.*;
 import toxi.processing.*;
-// METEO
-import com.onformative.yahooweather.*;
+
 // SYPHON
 import codeanticode.syphon.*;
 
@@ -1523,12 +1519,15 @@ void rectangle(PVector pos, PVector size, PShader s) {
 
 /**
 SOUND
-v 1.1.0
+v 1.2.0
 */
+Sounda sounda;
 void sound_setup() {
-  set_sound(512);
+  int length_analyze = 512 ;
+  sounda = new Sounda(length_analyze);
+
   float scale_spectrum_sound = .11 ;
-  set_spectrum(NUM_BANDS, scale_spectrum_sound);
+  sounda.set_spectrum(NUM_BANDS, scale_spectrum_sound);
 
   iVec2 [] in_out = new iVec2[3];
   int in_kick = 0 ;
@@ -1542,7 +1541,7 @@ void sound_setup() {
   int in_hat = out_snare;
   int out_hat = NUM_BANDS;
   in_out[2] = iVec2(in_hat,out_hat);
-  set_section(in_out);
+  sounda.set_section(in_out);
   
   float threshold_kick = 7.5;
   float threshold_snare = 3.3;
@@ -1552,25 +1551,25 @@ void sound_setup() {
   beat_section_id[1] = 1;
   beat_section_id[2] = 2;
 
-  set_beat( beat_section_id,threshold_kick,threshold_snare,threshold_hat);
-  set_tempo();
+  sounda.set_beat( beat_section_id,threshold_kick,threshold_snare,threshold_hat);
+  sounda.set_tempo();
 }
 
 void sound_draw() {
-  audio_buffer(MIX);
-  update_sound();
+  sounda.audio_buffer(r.MIX);
+  sounda.update();
   sound_romanesco();
 }
 
 void sound_romanesco() {
   float vol_left_controller = map(value_slider_sound[0],0,MAX_VALUE_SLIDER,0,1.3);
-  left[0] = map(get_left(),-.07,.1,0,vol_left_controller);
+  left[0] = map(sounda.get_left(),-.07,.1,0,vol_left_controller);
   
   float col_right_controller = map(value_slider_sound[1],0,MAX_VALUE_SLIDER,0,1.3);
-  right[0] = map(get_right(),-.07,.1,0,col_right_controller);
+  right[0] = map(sounda.get_right(),-.07,.1,0,col_right_controller);
   
   float vol_mix = map(((value_slider_sound[0] +value_slider_sound[1]) *.5),0,MAX_VALUE_SLIDER,0,1.3);
-  mix[0] = map(get_mix(),  -.07,.1,0,vol_mix);
+  mix[0] = map(sounda.get_mix(),  -.07,.1,0,vol_mix);
   
   //volume
   if(left[0] < 0 ) left[0] = 0;
@@ -1583,25 +1582,25 @@ void sound_romanesco() {
   int beat_value = 10 ;
   float back_factor = .5;
   //Beat
-  if((kick_romanesco_is() || snare_romanesco_is() || hat_romanesco_is()) && beat_is()) {    
+  if((kick_romanesco_is() || snare_romanesco_is() || hat_romanesco_is()) && sounda.beat_is()) {    
     beat[0] = beat_value;
   } else {
     beat[0] *= back_factor;
   }
   // kick
-  if(kick_romanesco_is() && beat_is(0)) {
+  if(kick_romanesco_is() && sounda.beat_is(0)) {
     kick[0] = beat_value;   
   } else {
     kick[0] *= back_factor;
   }
   // snare
-  if(snare_romanesco_is() && beat_is(1)) {
+  if(snare_romanesco_is() && sounda.beat_is(1)) {
     snare[0] = beat_value;   
   } else {
     snare[0] *= back_factor;
   }
   // hat
-  if(hat_romanesco_is() && beat_is(2)) {
+  if(hat_romanesco_is() && sounda.beat_is(2)) {
     hat[0] = beat_value;   
   } else {
     hat[0] *= back_factor;
@@ -1610,27 +1609,58 @@ void sound_romanesco() {
   
   
   //spectrum
-  for (int i = 0 ; i < band_num() ; i++ ) {
-    band[0][i] = get_spectrum(i);
+  for (int i = 0 ; i < sounda.band_num() ; i++ ) {
+    band[0][i] = sounda.get_spectrum(i);
   }
   
   //tempo
-  tempo[0] = get_tempo();
+  tempo[0] = sounda.get_tempo();
   /**
   Must be improve in the future
   tempoKick[0] = get_tempo(0);
   tempoSnare[0] = get_tempo(1);
   tempoHat[0] = get_tempo(2);
   */
-  tempoKick[0] = get_tempo();
-  tempoSnare[0] = get_tempo();
-  tempoHat[0] = get_tempo();
+  tempoKick[0] = sounda.get_tempo();
+  tempoSnare[0] = sounda.get_tempo();
+  tempoHat[0] = sounda.get_tempo();
 }
 
 
 
 int band_length() {
   return band[0].length;
+}
+
+
+float get_time_track() {
+  return sounda.get_time_track();
+}
+
+boolean sound_is() {
+  return sounda.sound_is();
+}
+
+
+float get_right(int target_sample) {
+  return sounda.get_right(target_sample);
+}
+
+float get_left(int target_sample) {
+  return sounda.get_left(target_sample);
+}
+
+float get_mix(int target_sample) {
+  return sounda.get_mix(target_sample);
+}
+
+
+String get_tempo_name() {
+  return sounda.get_tempo_name();
+} 
+
+int get_tempo() {
+  return sounda.get_tempo();
 }
 
 

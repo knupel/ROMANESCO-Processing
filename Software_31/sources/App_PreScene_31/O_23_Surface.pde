@@ -114,7 +114,7 @@ class Surface extends Romanesco {
       speed = 0 ;
     }
     // swing
-    if(sound[ID_item] && sound_plays_is()) { 
+    if(sound[ID_item] && sound_is()) { 
       ratio_swing = allBeats(ID_item) ; 
     } else {
       ratio_swing = 2 ;
