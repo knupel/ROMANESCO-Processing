@@ -275,13 +275,15 @@ void fullscreen_or_window() {
 
 // OPEN APP
 boolean launch_home ;
-void openApp() {
+void open_app() {
   if(launch_home) {
-    println("Prescene is launch") ;
+    println("Prescene.app is launch, if it's possible");
+    println("WARNING:\nin case Romanesco in not compiled,\nthe launcher set the size of windows only it cannot launch the app,\nafter it's necessary to run presecne.pde separtly,\nthen run scene.pde if you want use it,\nthen run controller.pde");
     launch(path_prescene) ;
     launch_controller = true ;
   } else {
-    println("Scene is launch") ;
+    println("Scene.app is launch, if it's possible");
+    println("WARNING:\nin case Romanesco in not compiled,\nthe launcher set the size of windows only it cannot launch the app,after it's necessary to run presecne.pde separtly,\nthen run scene.pde if you want use it,\nthen run controller.pde");
     launch(path_scene) ;
   }
 }
@@ -295,7 +297,8 @@ void open_controller() {
     if(count_to_open_controller > time_to_open_controller) {
       launch_controller = false ;
       count_to_open_controller = 0 ;
-      println("Controller is launch") ;
+      println("Controller.app is launch, if it's possible");
+      println("WARNING:\nin case Romanesco in not compiled,\nthe launcher set the size of windows only it cannot launch the app,\nafter it's necessary to run presecne.pde separtly,\nthen run scene.pde if you want use it,\nthen run controller.pde");
       launch(path_controller) ;
     }
   }

@@ -2,6 +2,11 @@ Todolist Romanesco
 --
 2018
 --
+*avertissement
+
+messsage console pour avertir que le lanceur ne lance pas Romanesco quand celui-ci n'est pas compilé, il sert uniquement a le paramétrer.
+
+
 *get_tempo(beat_target)
 
 Tab s_core_render > line 1614
@@ -9,6 +14,9 @@ tempoKick[0] = get_tempo(0);
 tempoSnare[0] = get_tempo(1);
 tempoHat[0] = get_tempo(2);
 
+*Librairie Yahoo
+
+Supprimer cette librairie
 
 *bug controller
 
