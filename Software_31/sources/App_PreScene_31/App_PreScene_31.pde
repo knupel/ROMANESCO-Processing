@@ -1,7 +1,7 @@
 /**
 Romanesco Unu
 2013 – 2018
-release 31 
+release 31
 Processing 3.3.7
 */
 /**
@@ -26,7 +26,7 @@ boolean LIVE = false;
 
 void settings() {
   size(124,124,P3D); // when the bug will be resolved, return to this config.
-  
+
   // fullScreen(P3D,2);
   // FULL_SCREEN = true;
 
@@ -51,12 +51,12 @@ void setup() {
   //specific setup
   prescene_setup(); // the varObject setup of the Scene is more simple
   leapmotion_setup();
-  
+
   //common setup
   color_setup();
   syphon_setup();
 
-  init_variable_item_min_max(); 
+  init_variable_item_min_max();
   init_variable_item();
   init_items();
 
@@ -100,7 +100,7 @@ void romanesco() {
   // camera_video_draw() ;
   // here we ask for the TEST_ROMANESCO true, because the Minim Library talk too much in the consol
   if(!TEST_ROMANESCO) sound_draw();
-  
+
   // update_OSC_data_controller();
 
   write_osc_event();
@@ -113,10 +113,10 @@ void romanesco() {
   updateCommand();
   leapMotionUpdate();
   loadPrescene();
-  
+
   //ROMANESCO
   camera_romanesco_draw();
-  
+
   // LIGHT
   light_position_draw(mouse[0], wheel[0]); // not in the conditional because we need to display in the info box
   light_update_position_direction();
@@ -141,11 +141,11 @@ void romanesco() {
   }
   // this method is outside de bracket (FULL_RENDERING) to give the possibility to send the order to Scene
   if(key_p) event_PNG();
-  
+
   // misc
   update_temp_value();
   device_update();
-  
+
   // change to false if the information has be sent to Scene...but how ????
   if(LIVE) OSC_send();
   key_false();
@@ -190,18 +190,18 @@ void keyReleased() {
 
 
 void mousePressed() {
-  if(mouseButton == LEFT ) { 
-    clickShortLeft[0] = true; 
+  if(mouseButton == LEFT ) {
+    clickShortLeft[0] = true;
     clickLongLeft[0] = true;
   }
   if (mouseButton == RIGHT ) {
-    clickShortRight[0] = true; 
+    clickShortRight[0] = true;
     clickLongRight[0] = true;
   }
 }
 
 void mouseReleased() {
-  clickLongLeft[0] = false ; 
+  clickLongLeft[0] = false ;
   clickLongRight[0] = false ;
 }
 
@@ -215,12 +215,5 @@ public void mouseExited(MouseEvent e) {
 }
 
 void mouseWheel(MouseEvent event) {
-  wheel[0] = event.getCount() *speedWheel ; 
+  wheel[0] = event.getCount() *speedWheel ;
 }
-
-
-
-
-
-
-

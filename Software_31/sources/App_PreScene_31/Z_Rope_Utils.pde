@@ -1,6 +1,6 @@
 /**
 Rope UTILS 
-v 1.44.0
+v 1.44.1
 * Copyleft (c) 2014-2018 
 * Stan le Punk > http://stanlepunk.xyz/
 Rope – Romanesco Processing Environment – 
@@ -4385,11 +4385,10 @@ int [][] loadPixels_array_2D() {
 
 /**
 GRAPHICS METHOD
-v 0.3.0
+v 0.3.1
 */
 /**
 SCREEN
-v 0.3.0
 */
 void set_window(int px, int py, int sx, int sy) {
   set_window(iVec2(px,py), iVec2(sx,sy), get_screen_location(0));
@@ -4418,7 +4417,6 @@ void set_window(iVec2 pos, iVec2 size, iVec2 pos_screen) {
 
 /**
 check screen
-v 0.1.0
 */
 /**
 screen size
@@ -4490,15 +4488,15 @@ Rectangle get_screen(int target_screen) {
 Check renderer
 */
 boolean renderer_P3D() {
-  if(get_renderer_name(getGraphics()).equals("processing.opengl.PGraphics3D")) return true ; else return false ;
+  if(get_renderer(getGraphics()).equals("processing.opengl.PGraphics3D")) return true ; else return false ;
 }
 
 
-String get_renderer_name() {
-  return get_renderer_name(g);
+String get_renderer() {
+  return get_renderer(g);
 }
 
-String get_renderer_name(final PGraphics graph) {
+String get_renderer(final PGraphics graph) {
   try {
     if (Class.forName(JAVA2D).isInstance(graph))  return JAVA2D;
     if (Class.forName(FX2D).isInstance(graph))    return FX2D;
