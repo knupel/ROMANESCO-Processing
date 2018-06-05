@@ -58,30 +58,30 @@ void init_button_general() {
 void check_button() {
   check_button_general() ;
   check_button_item_console() ;
-  check_button_inventory_item() ;
+  check_button_inventory() ;
 }
 
 void mousepressed_button_general() {
-  if(!dropdownActivity) {
-    button_bg.mousePressedText() ;
+  // if(!dropdownActivity) {
+    button_bg.update(dropdownActivity) ;
     //LIGHT ONE
-    button_light_ambient.mousePressedText() ;
-    button_light_ambient_action.mousePressedText() ;
+    button_light_ambient.update(dropdownActivity) ;
+    button_light_ambient_action.update(dropdownActivity) ;
     //LIGHT ONE
-    button_light_1.mousePressedText() ;
-    button_light_1_action.mousePressedText() ;
+    button_light_1.update(dropdownActivity) ;
+    button_light_1_action.update(dropdownActivity) ;
     // LIGHT TWO
-    button_light_2.mousePressedText() ;
-    button_light_2_action.mousePressedText() ;
+    button_light_2.update(dropdownActivity) ;
+    button_light_2_action.update(dropdownActivity) ;
     //son
-    button_kick.mousePressedText() ;
-    button_snare.mousePressedText() ;
-    button_hat.mousePressedText() ;
+    button_kick.update(dropdownActivity) ;
+    button_snare.update(dropdownActivity) ;
+    button_hat.update(dropdownActivity) ;
     //midi
-    button_midi.mousePressed() ;
+    button_midi.update(dropdownActivity) ;
     //curtain
-    button_curtain.mousePressed() ;
-  }
+    button_curtain.update(dropdownActivity) ;
+ // }
 }
 
 
@@ -203,7 +203,7 @@ void update_dropdown_item() {
       }
       // display which element is selected
       if (dropdown_item_mode[i].get_content_line() > -1 && m.length > 1) {
-        textFont(title_dropdown_medium);      
+        textFont(title_medium);      
         text(dropdown_item_mode[i].get_content_line() +1, dropdown_item_mode[i].get_pos().x +12, dropdown_item_mode[i].get_pos().y +8) ;
       }
     }

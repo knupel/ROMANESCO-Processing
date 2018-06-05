@@ -220,47 +220,51 @@ void set_console_general() {
 
 void set_console_background(iVec2 pos, iVec2 size) {
   //button
-  pos_button_background = pos.copy();
+  pos_button_background = iVec2(pos.x, pos.y -size.y);
   size_button_background = iVec2(120,10);
   // slider
   for(int i = 0 ; i < NUM_SLIDER_BACKGROUND ;i++) {
-    int pos_y = round(pos.y +(i *spacing_slider));
-    pos_slider_background[i] = iVec2(pos.x, pos_y +15);
+    int offset_y = offset_y(pos.y, size.y, i);
+    pos_slider_background[i] = iVec2(pos.x,offset_y);
     size_slider_background[i] = iVec2(size);
   }
 }
 
 void set_console_filter(iVec2 pos, iVec2 size) {
   for(int i = 0 ; i < NUM_SLIDER_FILTER ;i++) {
-    int pos_y = round(pos.y +(i *spacing_slider));
-    pos_slider_filter[i] = iVec2(pos.x, pos_y +15);
+    int offset_y = offset_y(pos.y, size.y, i);
+    //int offset_y = round(pos.y +(i *spacing_slider));
+    pos_slider_filter[i] = iVec2(pos.x, offset_y);
     size_slider_filter[i] = iVec2(size);
   }
 }
 
 void set_console_light(iVec2 pos, iVec2 size) {
   //button
-  pos_light_ambient_buttonButton = pos.copy();
+  
   size_light_ambient_buttonButton = iVec2(80,10);
-  pos_light_ambient_button_action = iVec2(pos.x +90, pos_light_ambient_buttonButton.y); // for the y we take the y of the button
   size_light_ambient_button_action = iVec2(45,10);
+  pos_light_ambient_buttonButton = iVec2(pos.x, pos.y -size.y);
+  pos_light_ambient_button_action = iVec2(pos.x +90, pos.y -size.y); // for the y we take the y of the button
   // light one button
-  pos_light_1_button = iVec2(pos.x, pos.y +(5*spacing_slider));
+  
   size_light_1_button = iVec2(80,10);
-  pos_light_1_button_action = iVec2(pos.x +90, pos_light_1_button.y); // for the y we take the y of the button
   size_light_1_button_action = iVec2(45,10);
+  pos_light_1_button = iVec2(pos.x, pos.y +(5*spacing_slider) -size.y);
+  pos_light_1_button_action = iVec2(pos.x +90, pos_light_1_button.y); // for the y we take the y of the button
   // light two button
-  pos_light_2_button = iVec2(pos.x, pos.y +(10*spacing_slider));
+  
   size_light_2_button = iVec2(80,10);
-  pos_light_2_button_action = iVec2(pos.x +90, pos_light_2_button.y); // for the y we take the y of the button
   size_light_2_button_action = iVec2(45,10);
+  pos_light_2_button = iVec2(pos.x, pos.y +(10*spacing_slider) -size.y);
+  pos_light_2_button_action = iVec2(pos.x +90, pos_light_2_button.y); // for the y we take the y of the button
   
   //slider
   int count = 0;
   for(int i = 0 ; i < NUM_SLIDER_LIGHT ; i++) {
     if(i%3 == 0 && i > 0) count +=3 ; else count++ ;
-    int pos_y = round(pos.y +(count *spacing_slider));
-    pos_slider_light[i] = iVec2(pos.x, pos_y);
+    int offset_y = offset_y(pos.y, size.y, count-1);
+    pos_slider_light[i] = iVec2(pos.x, offset_y);
     size_slider_light[i] = iVec2(size);  
   }
 }
@@ -271,25 +275,27 @@ void set_console_sound(iVec2 pos, iVec2 size) {
   size_snare_button = iVec2(40,10); 
   size_hat_button = iVec2(30,10);
   
-  pos_kick_button = iVec2(pos.x,pos.y); 
-  pos_snare_button = iVec2(pos_kick_button.x +size_kick_button.x +5, pos.y); 
-  pos_hat_button = iVec2(pos_snare_button.x +size_snare_button.x +5, pos.y);
+  pos_kick_button = iVec2(pos.x,pos.y -size.y); 
+  pos_snare_button = iVec2(pos_kick_button.x +size_kick_button.x +5, pos.y -size.y); 
+  pos_hat_button = iVec2(pos_snare_button.x +size_snare_button.x +5, pos.y -size.y);
 
   //slider
   for(int i = 0 ; i < NUM_SLIDER_SOUND ;i++) {
-    int pos_y = round(pos.y +(i *spacing_slider));
-    pos_slider_sound[i] = iVec2(pos.x, pos_y +15);
+    int offset_y = offset_y(pos.y, size.y, i);
+    pos_slider_sound[i] = iVec2(pos.x, offset_y);
     size_slider_sound[i] = iVec2(size);
   }
 }
 
 void set_console_camera(iVec2 pos, iVec2 size) {
   for(int i = 0 ; i < NUM_SLIDER_CAMERA ;i++) {
-    int pos_y = round(pos.y +(i *spacing_slider));
-    pos_slider_camera[i] = iVec2(pos.x, pos_y);
+    int offset_y = offset_y(pos.y, 0, i);
+    pos_slider_camera[i] = iVec2(pos.x, offset_y);
     size_slider_camera[i] = iVec2(size);
   }
 }
+
+
 
 void set_console_item(int pos_y, iVec2 size) {
   // where the controller must display the slider
@@ -309,6 +315,14 @@ void set_console_item(int pos_y, iVec2 size) {
       size_slider_item[whichSlider] = iVec2(size);
     }
   }
+}
+
+
+/**
+local offset for slider
+*/
+int offset_y(int pos_y, int offset_title, int rank) {
+  return round((pos_y+offset_title) +(rank *spacing_slider));
 }
 
 
@@ -334,8 +348,6 @@ MUST BE REMOVE
 */
 int height_menu_general;
 int pos_y_menu_general;
-
-
 
 /**
 colour

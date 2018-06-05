@@ -89,7 +89,7 @@ void draw() {
 void mousePressed () {
   mousepressed_button_general();
   mousepressed_button_item_console();
-  mousepressed_button_inventory_item();
+  mousepressed_button_inventory();
   mousepressed_dropdown();
 }
 

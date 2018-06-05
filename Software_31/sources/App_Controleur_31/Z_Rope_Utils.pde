@@ -1,6 +1,6 @@
 /**
 Rope UTILS 
-v 1.44.1
+v 1.45.1
 * Copyleft (c) 2014-2018 
 * Stan le Punk > http://stanlepunk.xyz/
 Rope – Romanesco Processing Environment – 
@@ -115,7 +115,7 @@ class Constant_list {
 
 /**
 FOLDER & FILE MANAGER
-v 0.2.0
+v 0.2.1
 */
 /*
 INOUT PART
@@ -209,6 +209,21 @@ void set_media_list() {
 
 ArrayList<File> get_files() {
   return files ;
+}
+
+
+String [] get_files_sort() {
+  if(files != null) {
+    String [] list = new String [files.size()];
+    for(int i = 0 ; i < get_files().size() ; i++) {
+      File f = get_files().get(i);
+      list[i] = f.getAbsolutePath();
+    }
+    Arrays.sort(list);
+    return list;
+
+  } else return null ;
+
 }
 
 void explore_folder(String path_folder, String... extension) {
@@ -493,13 +508,11 @@ PImage loadImageBMP(String fileName) {
 
 /**
 ROPE IMAGE
-v 0.5.0
+v 0.5.1
 */
-
-
 /**
 PImage manager library
-v 0.4.1
+v 0.4.2
 */
 class ROPImage_Manager {
   ArrayList<ROPImage> library ;
@@ -614,7 +627,7 @@ class ROPImage_Manager {
 
 
   public int get_rank(String target_name) {
-    if(library.size() > 0) {
+    if(library != null && library.size() > 0) {
       int rank = 0 ;
       for(int i = 0 ; i < library.size() ; i++) {
         String final_name = target_name.split("/")[target_name.split("/").length -1].split("\\.")[0] ;

@@ -579,13 +579,13 @@ void update_slider(Slider_adjustable sa, float [] value_slider, Vec5 [] info_sli
     // min molette
     if(!sa.inside_max() && !sa.locked_max_is()) {
       sa.inside_min();
-      sa.select_min();
+      sa.select_min(shift_key);
       sa.update_min();
     }
     // max molette
     if(!sa.inside_min() && !sa.locked_min_is()) {
       sa.inside_max();
-      sa.select_max();
+      sa.select_max(shift_key);
       sa.update_max();
     }
   }
@@ -597,7 +597,7 @@ void update_slider(Slider_adjustable sa, float [] value_slider, Vec5 [] info_sli
   // check
   if(!sa.locked_max_is() && !sa.locked_max_is()) sa.inside_molette_ellipse() ;
   // update
-  sa.select_molette();
+  sa.select_molette(true);
   sa.update_molette();
   
   // translate float value to int, to use OSC easily without problem of Array Outbound...blablah
@@ -652,7 +652,7 @@ BUTTON display
 void display_button_and_dropdown() {
   display_button_general();
   display_button_item_console();
-  display_button_inventory_item();
+  display_button_inventory();
   display_dropdown();
   display_button_header();
 }
@@ -696,24 +696,30 @@ void display_button_header() {
 }
 
 
+
+
+
 void display_button_general() {
-  button_bg.button_text(shader_bg_name[which_bg_shader] + " on/off", pos_button_background, titleButtonMedium, sizeTitleButton) ;
+  button_bg.set_label(shader_bg_name[which_bg_shader] + " on/off");
+  button_bg.show_label();
   // Light ambient
-  button_light_ambient.button_text("Ambient on/off", pos_light_ambient_buttonButton, titleButtonMedium, sizeTitleButton) ;
-  button_light_ambient_action.button_text("action", pos_light_ambient_button_action, titleButtonMedium, sizeTitleButton) ;
+  button_light_ambient.show_label();
+  button_light_ambient_action.show_label();
   //LIGHT ONE
-  button_light_1.button_text("Light on/off", pos_light_1_button, titleButtonMedium, sizeTitleButton) ;
-  button_light_1_action.button_text("action", pos_light_1_button_action, titleButtonMedium, sizeTitleButton) ;
+  button_light_1.show_label();
+  button_light_1_action.show_label();
   // LIGHT TWO
-  button_light_2.button_text("Light on/off",  pos_light_2_button, titleButtonMedium, sizeTitleButton) ;
-  button_light_2_action.button_text("action",  pos_light_2_button_action, titleButtonMedium, sizeTitleButton) ;
+  button_light_2.show_label();
+  button_light_2_action.show_label();
   
   // SOUND
-  button_kick.button_text("KICK", pos_kick_button, titleButtonMedium, sizeTitleButton) ;
-  button_snare.button_text("SNARE", pos_snare_button, titleButtonMedium, sizeTitleButton) ;
-  button_hat.button_text("HAT", pos_hat_button, titleButtonMedium, sizeTitleButton) ;
+  button_kick.show_label();
+  button_snare.show_label();
+  button_hat.show_label();
+
+
   
   //MIDI / CURTAIN
-  button_midi.button_pic(picMidi) ;
-  button_curtain.button_pic(picCurtain) ;
+  button_midi.show_picto(picMidi) ;
+  button_curtain.show_picto(picCurtain) ;
 }

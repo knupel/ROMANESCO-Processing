@@ -8,24 +8,27 @@ Mini library to create button dropdown and button
 * @author Stan le Punk
 * @see https://github.com/StanLepunK
 * @see http://stanlepunk.xyz/
-v 2.0.0
+v 2.1.0
 */
 abstract class Crope {
   protected iVec2 pos, size;
-  protected iVec2 pos_ref ;
+  protected iVec2 pos_ref;
+
   protected int fill_in = color(g.colorModeX);
   protected int fill_out = color(g.colorModeX /2);
   protected int stroke_in = fill_in;
   protected int stroke_out= fill_out;
   protected float thickness = 0;
+  protected int color_label = color(g.colorModeX);
 
   protected float rounded = 0;
   // label
   protected int align = LEFT;
   protected String name = null;
   protected iVec2 pos_label;
-  protected int color_label = color(g.colorModeX);
-  protected PFont font_label;
+
+  protected PFont font;
+  protected int font_size = 0;
 
   protected int new_midi_value;
   protected int id_midi = -2 ;
@@ -92,9 +95,14 @@ abstract class Crope {
   }
 
   // set label
+  public void set_name(String name) {
+    this.name = name;
+  }
+
   public void set_label(String name) {
     this.name = name;
   }
+
   public void set_label(String name, iVec2 pos_label) {
     this.name = name;
     if(this.pos_label == null) {
@@ -103,19 +111,42 @@ abstract class Crope {
       this.pos_label.set(pos_label);
     } 
   }
+  public void set_pos_label(iVec2 pos) {
+    set_pos_label(pos.x, pos.y);
+  }
 
-  public void set_label_colour(int c) {
+  public void set_pos_label(int x, int y) {
+    if(this.pos_label == null) {
+      this.pos_label = iVec2(x,y);
+    } else {
+       this.pos_label.set(x,y);
+    } 
+  }
+
+  public void set_colour_label(int c) {
     this.color_label = c;
   }
 
-  public void set_label_font(PFont font) {
-    this.font_label = font; 
-  }
-
-  public void set_label_align(int align) {
+  public void set_align_label(int align) {
     this.align = align;  
   }
+
+  /**
+  font
+  */
+  public void set_font(PFont font) {
+    this.font = font; 
+  }
+
+  public void set_font_size(int font_size) {
+    this.font_size = font_size; 
+  }
   
+
+
+
+
+
   // set midi
   public void set_id_midi(int id_midi) {
     this.id_midi = id_midi;
@@ -128,6 +159,12 @@ abstract class Crope {
   public void set_rank(int rank) {
     this.rank = rank;
   }
+
+
+
+
+
+
 
   /**
   get
@@ -161,6 +198,277 @@ abstract class Crope {
     return rank;
   }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/**
+CROPE
+CONTROL ROMANESCO PROCESSING ENVIRONMENT
+*
+CLASS BUTTON 3.0.0
+*/
+public class Button extends Crope {
+  int color_bg;
+  int color_bg_in, color_bg_out;
+
+  int color_on_off;
+  int color_in_ON, color_out_ON, color_in_OFF, color_out_OFF; 
+
+  PImage [] pic;
+
+  boolean inside;
+  boolean authorization;
+  boolean is = false;  
+
+  protected Button() {}
+
+  //complexe
+  public Button(int pos_x, int pos_y, int size_x, int size_y) {
+    set_pos(pos_x, pos_y);
+    set_size(size_x,size_y);
+  }
+
+  public Button(iVec2 pos, iVec2 size) {
+    set_pos(pos);
+    set_size(size);
+  }
+
+  /**
+  Setting
+  */
+  public void set_is(boolean is) {
+    this.is = is ;
+  }
+
+  public boolean is() {
+    return is;
+  }
+
+  public void switch_is() {
+    this.is = !this.is;
+  }
+  
+  /**
+  set
+  */
+  public void set_color_on_off(int color_in_ON, int color_out_ON, int color_in_OFF, int color_out_OFF) {
+    this.color_in_ON = color_in_ON ; 
+    this.color_out_ON = color_out_ON ; 
+    this.color_in_OFF = color_in_OFF ; 
+    this.color_out_OFF = color_out_OFF ;
+  }
+
+  public void set_color_bg(int color_bg_in, int color_bg_out) {
+    this.color_bg_in = color_bg_in ; 
+    this.color_bg_out = color_bg_out ;
+  }
+
+
+
+  
+
+
+
+  /**
+  MISC
+  */
+  public void update() {
+    update(true);
+  }
+
+  public void update(boolean authorization) {
+    this.authorization =  authorization;
+    if (rollover()) {
+      is = !is ? true : false ;
+    }
+  }
+  
+  //ROLLOVER
+  /**
+  this method rollover() must be refactoring, 
+  it's not acceptable to have a def value inside
+  */
+  private boolean rollover() {
+    float newSize = 1  ;
+    if (size.y < 10 ) newSize = size.y *1.8 ; 
+    else if (size.y >= 10 && size.y < 20  ) newSize = size.y *1.2 ;  
+    else if (size.y >= 20 ) newSize = size.y ;
+    
+    if ( mouseX > pos.x && mouseX < pos.x + size.x && mouseY > pos.y  && mouseY < pos.y +newSize) { 
+      inside = true ;
+      return true ; 
+    } else {
+      inside = false ;
+      return false ; 
+    }
+  }
+ 
+
+
+
+
+
+
+  /**
+  SHOW BUTTON
+  */
+  /**
+  PICTO
+  */
+  public void show_picto(PImage [] pic) {
+    int correctionX = -1 ;
+    if(pic[0] != null && pic[1] != null && pic[2] != null && pic[3] != null ) {
+      if (is) {
+        if (rollover() && !authorization) {
+          // inside
+          image(pic[0],pos.x +correctionX, pos.y); 
+        } else {
+          // outside
+          image(pic[1],pos.x +correctionX, pos.y);
+        }
+      } else {
+        if (rollover() && !authorization) {
+          // inside
+          image(pic[2],pos.x +correctionX, pos.y); 
+        } else {
+          // outside
+          image(pic[3],pos.x +correctionX, pos.y);
+        }
+      }
+    }
+  }
+
+
+
+  /**
+  LABEL
+  */
+  public void show_label() {
+    if (is) {
+      if (rollover() && !authorization) {
+        color_on_off = color_in_ON; 
+      } else {
+        color_on_off = color_out_ON;
+      }
+    } else {
+      if (rollover() && !authorization) {
+        color_on_off = color_in_OFF; 
+      } else {
+        color_on_off = color_out_OFF;
+      }
+    }
+    
+    if(pos_label == null) {
+      pos_label = iVec2();
+    }
+
+    if(font != null) textFont(font);
+    if(font_size > 0) textSize(font_size);
+    textAlign(align);
+    fill(color_on_off);
+    iVec2 pos_def = iadd(pos,pos_label);
+    pos_def.y += size.y ;
+    text(this.name,pos_def);
+  }
+
+
+  /**
+  CLASSIC RECT BUTTON
+  */
+  public void button_rect(boolean on_off_is) {
+    noStroke();
+    if(on_off_is) {
+      if (is) {
+        if (rollover() && !authorization) {
+          color_on_off = color_in_ON; 
+        } else {
+          color_on_off = color_out_ON;
+        }
+      } else {
+        if (rollover() && !authorization) {
+          color_on_off = color_in_OFF; 
+        } else {
+          color_on_off = color_out_OFF;
+        }
+      }
+      fill(color_on_off);
+    } else {
+      fill(color_bg);
+    }  
+    rect(pos, size);
+  }
+}
+
+
+
+
+
+
+/**
+BUTTON DYNAMIC
+*/
+public class Button_dynamic extends Button {
+  public iVec2 change_pos = iVec2() ;
+  public Button_dynamic() {
+    super() ;
+  }
+
+  public Button_dynamic(iVec2 pos, iVec2 size) {
+    super(pos, size);
+  }
+  
+  public void change_pos(int x, int y) {
+    this.change_pos.set(x,y) ;
+  }
+
+  public void update_pos(boolean display_button) {
+    if(!display_button) {
+      pos.set(-100) ; 
+    } else {
+      pos.set(pos_ref) ;
+      pos.add(change_pos) ;
+    }
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -309,8 +617,8 @@ public class Slider extends Crope {
 
 
   
-  public void select_molette() {
-    molette_used_is = select(molette_used_is(), molette_used_is) ;
+  public void select_molette(boolean authorazation) {
+    molette_used_is = select(molette_used_is(), molette_used_is, authorazation) ;
   }
 
 
@@ -345,23 +653,26 @@ public class Slider extends Crope {
   }
 
   // privat method
-  protected boolean select(boolean locked_method, boolean result) {
-    if(!molette_already_selected) {
-      if (locked_method) {
-        molette_already_selected = true ;
+  protected boolean select(boolean locked_method, boolean result, boolean authorization) {
+    if(authorization) {
+      if(!molette_already_selected) {
+        if (locked_method) {
+          molette_already_selected = true ;
+          result = true ;
+        }
+      } else if (locked_method) {
+        // if (locked_method && authorization) {
         result = true ;
       }
-    } else {
-      if (locked_method && shift_key) {
-        result = true ;
-      }
-    }
 
-    if (!mousePressed) { 
-      result = false ; 
-      molette_already_selected = false ;
-    }
-    return result ;
+      if (!mousePressed) { 
+        result = false ; 
+        molette_already_selected = false ;
+      }
+      return result ;
+
+    } else return false ;
+    
   }
 
 
@@ -418,7 +729,7 @@ public class Slider extends Crope {
   
   public void show_label() {
     textAlign(align);
-    textFont(font_label);
+    textFont(font);
     fill(color_label);
     text(name,add(pos,pos_label));
   }
@@ -639,8 +950,8 @@ public class Slider_adjustable extends Slider {
   }
   
   // update min
-  public void select_min() {
-    locked_min = select(locked_min(), locked_min) ;
+  public void select_min(boolean authorization) {
+    locked_min = select(locked_min(), locked_min, authorization) ;
   }
   public void update_min() {
     float range = size_molette.x *1.5 ;
@@ -659,8 +970,8 @@ public class Slider_adjustable extends Slider {
   }
   
   // update max
-  public void select_max() {
-    locked_max = select(locked_max(), locked_max) ;
+  public void select_max(boolean authorization) {
+    locked_max = select(locked_max(), locked_max, authorization) ;
   }
   // update maxvalue
   public void update_max() {
@@ -783,251 +1094,7 @@ public class Slider_adjustable extends Slider {
 
 
 
-/**
-CROPE
-CONTROL ROMANESCO PROCESSING ENVIRONMENT
-*
-CLASS BUTTON 2.0.0
-*/
-public class Button extends Crope {
-  color color_bg, color_on_off ;
-  color color_in_ON, color_out_ON, color_in_OFF, color_out_OFF ; 
-  color color_bg_in, color_bg_out ;
-  
-  boolean inside ;
-  boolean is = false ;  
-  //MIDI
-  int newmidi_value_romanesco ;
 
-  
-  protected Button() {
-  }
-
-  //complexe
-  public Button(int pos_x, int pos_y, int size_x, int size_y) {
-    set_pos(pos_x, pos_y);
-    set_size(size_x,size_y);
-  }
-
-  public Button (iVec2 pos, iVec2 size) {
-    set_pos(pos);
-    set_size(size);
-  }
-
-  /**
-  Setting
-  */
-  public void set_is(boolean is) {
-    this.is = is ;
-  }
-
-  public boolean is() {
-    return is;
-  }
-
-  public void switch_is() {
-    this.is = !this.is;
-  }
-  
-
-  public void set_color_on_off(color color_in_ON, color color_out_ON, color color_in_OFF, color color_out_OFF) {
-    this.color_in_ON = color_in_ON ; 
-    this.color_out_ON = color_out_ON ; 
-    this.color_in_OFF = color_in_OFF ; 
-    this.color_out_OFF = color_out_OFF ;
-  }
-
-  public void set_color_bg(color color_bg_in, color color_bg_out) {
-    this.color_bg_in = color_bg_in ; 
-    this.color_bg_out = color_bg_out ;
-  }
-
-
-  /**
-  MISC
-  */
-  public void background_button() {
-    fill(color_bg) ;
-    rect(pos.x, pos.y, size.x, size.y) ;
-  }
-
-
-
-
-
-
-  
-  
-  //ROLLOVER
-  //rectangle
-  private float newSize = 1  ;
-  private boolean rollover() {
-    if (size.y < 10 ) newSize = size.y *1.8 ; 
-    else if (size.y >= 10 && size.y < 20  ) newSize = size.y *1.2 ;  
-    else if (size.y >= 20 ) newSize = size.y ;
-    if ( mouseX > pos.x && mouseX < pos.x + size.x && mouseY > pos.y  && mouseY < pos.y + newSize ) {
-      inside = true ;
-      return true ; 
-    } else {
-      inside = false ;
-      return false ; 
-    }
-  }
-  // with correction for the font position
-  private boolean rollover(int correction) {
-    if (size.y < 10 ) newSize = size.y *1.8 ; 
-    else if (size.y >= 10 && size.y < 20  ) newSize = size.y *1.2 ;  
-    else if (size.y >= 20 ) newSize = size.y ;
-    
-    if ( mouseX > pos.x && mouseX < pos.x + size.x && mouseY > pos.y -correction  && mouseY < pos.y +newSize -correction) { 
-      inside = true ;
-      return true ; 
-    } else {
-      inside = false ;
-      return false ; 
-    }
-  }
-  
-  
-  
-  //MousePressed
-  public void mousePressed() {
-    if (rollover()) {
-      is = !is ? true : false ;
-    }
-  }
-
-  public void mousePressedText() {
-    if (rollover((int)size.y)) is = !is ? true : false ;
-  }
-
-
-
-  /**
-  IMAGE BUTTON
-  */
-  public void button_pic_serie(PImage[] OFF_in, PImage[] OFF_out, PImage[] ON_in, PImage[] ON_out, int whichOne) {
-    /* use the boolean dropdownActivity directly is very bad */
-    int correctionX = -1 ;
-    if(ON_in[whichOne] != null && ON_out[whichOne] != null && OFF_in[whichOne] != null && OFF_out[whichOne] != null ) {
-      if (is) {
-        if (rollover() && !dropdownActivity) image(ON_in[whichOne],pos.x +correctionX, pos.y) ; else image(ON_out[whichOne],pos.x +correctionX, pos.y) ;
-      } else {
-        if (rollover() && !dropdownActivity) image(OFF_in[whichOne],pos.x +correctionX, pos.y) ; else image(OFF_out[whichOne],pos.x +correctionX, pos.y) ;
-      }
-    }
-  }
-
-  public void button_pic(PImage [] pic) {
-    /* use the boolean dropdownActivity directly is very bad */
-    int correctionX = -1 ;
-    if(pic[0] != null && pic[1] != null && pic[2] != null && pic[3] != null ) {
-      if (is) {
-        if (rollover() && !dropdownActivity) image(pic[1],pos.x +correctionX, pos.y) ; else image(pic[0],pos.x +correctionX, pos.y) ;
-      } else {
-        if (rollover() && !dropdownActivity) image(pic[3],pos.x +correctionX, pos.y) ; else image(pic[2],pos.x +correctionX, pos.y) ;
-      }
-    }
-  }
-  public void button_pic_text(PImage [] pic, String text) {
-    /* use the boolean dropdownActivity directly is very bad */
-    fill(jaune) ;
-    textFont(FuturaStencil_20) ;
-    int correctionX = -1 ;
-    if (is) {
-      if (rollover() && !dropdownActivity) {
-        image(pic[1],pos.x +correctionX, pos.y) ;
-        text(text,   mouseX -20, mouseY -20 ) ;
-      } else image(pic[0],pos.x +correctionX, pos.y) ;
-    } else {
-      if (rollover() && !dropdownActivity) { 
-        image(pic[3],pos.x +correctionX, pos.y) ; 
-        text(text,   mouseX -20, mouseY -20 ) ;
-      } else image(pic[2],pos.x +correctionX, pos.y) ;
-    }
-  }
-
-  /**
-  TEXT BUTTON
-  */
-  public void button_text(int x, int y)  {
-    button_text(name, x, y) ;
-  }
-  
-  public void button_text(String s, int x, int y) {
-    /* use the boolean dropdownActivity directly is very bad */
-    if (is) {
-      stroke(vertTresFonce) ;
-      if (rollover() && !dropdownActivity) color_on_off = color_in_ON ; else color_on_off = color_out_ON ;
-    } else {
-      stroke(rougeTresFonce) ; 
-      if (rollover() && !dropdownActivity) color_on_off = color_in_OFF ; else color_on_off = color_out_OFF ;
-    }
-
-    fill(color_on_off) ;
-    text(s, x, y) ;
-  }
- 
-  public void button_text(String s, iVec2 pos, PFont font, int sizeFont) {
-    /* use the boolean dropdownActivity directly is very bad */
-    if (is) {
-      if (rollover(sizeFont) && !dropdownActivity) color_on_off = color_in_ON ; else color_on_off = color_out_ON ;
-    } else {
-      if (rollover(sizeFont) && !dropdownActivity) color_on_off = color_in_OFF ; else color_on_off = color_out_OFF ;
-    }
-    fill(color_on_off) ;
-    textFont(font) ;
-    textSize(sizeFont) ;
-    text(s, pos) ;
-  }
- 
-  public void button_rect(String s) {
-    /* use the boolean dropdownActivity directly is very bad */
-    strokeWeight (1) ;
-    if (is) {
-      stroke(vertTresFonce) ;
-      if (rollover() && !dropdownActivity)color_on_off = color_in_ON ; else color_on_off = color_out_ON ;
-    } else {
-      stroke(rougeTresFonce) ; 
-      if (rollover() && !dropdownActivity) color_on_off = color_in_OFF ; else color_on_off = color_out_OFF ;
-    }
-
-    fill(color_on_off) ;
-    rect(pos, size) ;
-    fill(blanc) ;
-    text(s, pos) ;
-    noStroke() ;
-  }
-}
-
-
-
-/**
-BUTTON DYNAMIC
-*/
-public class Button_dynamic extends Button {
-  public iVec2 change_pos = iVec2() ;
-  public Button_dynamic() {
-    super() ;
-  }
-
-  public Button_dynamic(iVec2 pos, iVec2 size) {
-    super(pos, size);
-  }
-  
-  public void change_pos(int x, int y) {
-    this.change_pos.set(x,y) ;
-  }
-
-  public void update_pos(boolean display_button) {
-    if(!display_button) {
-      pos.set(-100) ; 
-    } else {
-      pos.set(pos_ref) ;
-      pos.add(change_pos) ;
-    }
-  }
-}
 
 
 
@@ -1226,7 +1293,7 @@ public class Dropdown extends Crope {
           int y = pos.y +height_box;
           slider_dd.set_pos(x,y);
           slider_dd.inside_molette_rect();
-          slider_dd.select_molette();
+          slider_dd.select_molette(true);
           slider_dd.update_molette();
           slider_dd.show_structure();
           //slider_dd.show(color_main,color_main,0);

@@ -8,10 +8,12 @@ FONT
 public PFont 
       ///controller Font
       textUsual_1, textUsual_2, textUsual_3,
-      titleMedium, titleBig,
+      title_medium, title_big,
       
+      /*
       titleButtonMedium,
       title_dropdown_medium,
+      */
       
       FuturaExtraBold_9, FuturaExtraBold_10,
       FuturaCondLight_10, FuturaCondLight_11,FuturaCondLight_12,
@@ -33,11 +35,12 @@ void set_font() {
   textUsual_3 = FuturaCondLight_12 ;
 
   
-  titleMedium = FuturaExtraBold_10 ;
-  titleBig = FuturaStencil_20 ;
-  
+  title_medium = FuturaExtraBold_10 ;
+  title_big = FuturaStencil_20 ;
+  /*
   titleButtonMedium = titleMedium ;
   title_dropdown_medium = titleMedium ;
+  */
 }
 
 

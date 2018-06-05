@@ -466,7 +466,7 @@ SETTING SAVE
 boolean first_load;
 void set_data() {
   if(INIT_INTERFACE) {
-    set_button_inventory_item();
+    set_button_inventory();
     if(!first_load) {
       set_inventory_item(false);
       first_load = true ;
