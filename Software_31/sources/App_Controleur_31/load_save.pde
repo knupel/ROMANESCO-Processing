@@ -512,7 +512,7 @@ void set_slider_data_group() {
 void setting_data_slider(Slider_adjustable [] slider_adj, Vec5 [] info_slider, int index) {
   Vec5 info_temp = info_save_raw_list(info_slider,index).copy();
   slider_adj[index].set_id_midi((int)info_temp.b); 
-  slider_adj[index].set_pos_molette(info_temp.c);
+  slider_adj[index].set_molette_pos(info_temp.c);
   slider_adj[index].set_min_max(info_temp.d, info_temp.e);
 }
 

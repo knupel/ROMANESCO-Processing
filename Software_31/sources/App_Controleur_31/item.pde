@@ -114,8 +114,8 @@ void build_button_item_console() {
       iVec2 pos = iVec2(pos_button_width_item[i], pos_button_height_item[i]) ;
       iVec2 size = iVec2(width_button_item[i], height_button_item[i]) ; 
       button_item[i] = new Button_dynamic(pos, size) ;
-      button_item[i].set_color_on_off(col_on_in, col_on_out, col_off_in, col_off_out) ;
-      button_item[i].set_color_bg(gris, grisNoir) ;
+      button_item[i].set_colour_on_off(col_on_in, col_on_out, col_off_in, col_off_out) ;
+      button_item[i].set_colour_structure(gris, grisNoir) ;
 
       // here we give information for the item button, we need later to manage the dynamic GUI
       int ID_temp = i / BUTTON_ITEM_CONSOLE ; // because there is few button by item
@@ -338,7 +338,7 @@ void set_inventory_item(boolean keep_state) {
   // give the the good statement
   for( int i = 0 ; i < button_inventory.length ; i++) {
     if(item_info[i] != "" ) {
-      button_inventory[i].set_color_on_off(col_on_in, col_on_out, col_off_in, col_off_out_menu_item) ;
+      button_inventory[i].set_colour_on_off(col_on_in, col_on_out, col_off_in, col_off_out_menu_item) ;
 
       String [] temp_item_info_split = split(item_info[i], "/") ;
       button_inventory[i].set_label(temp_item_info_split[0]);

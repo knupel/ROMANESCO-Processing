@@ -1,6 +1,6 @@
 /**
 Main
-v 0.0.1
+v 0.1.0
 2018-2018
 */
 import java.awt.event.KeyEvent;
@@ -122,37 +122,11 @@ void check_button_general() {
 dropdown
 */
 // Annexe method
-int update_dropdown_bar(Dropdown dd) {
-  int content_line = SWITCH_VALUE_FOR_DROPDOWN ;
+void update_dropdown_bar(Dropdown dd) {
   dd.update();
-  
-  if (dropdownOpen) dropdownActivityCount = +1 ;
-  marge_around_dropdown = dd.get_size().y  ;
-  //give the size of menu recalculate with the size of the word inside
-  iVec2 new_size = dd.size_box.copy();
-  //compare the standard size of dropdown with the number of element of the list.
-  int height_dd_open = 0 ;
-  if(dd.get_content().length < dd.get_num_box()) {
-    height_dd_open = dd.get_content().length; 
-  } else {
-    height_dd_open = dd.get_num_box();
-  }
-
-
-  Vec2 temp_size = Vec2(new_size.x +(marge_around_dropdown *1.5), dd.get_size().y *height_dd_open +marge_around_dropdown) ; // we must add +1 to the size of the dropdown for the title plus the item list
-  //new pos to include the slider
-  Vec2 temp_pos = Vec2(dd.get_pos().x -marge_around_dropdown, dd.get_pos().y);
-  if(!inside(temp_pos,temp_size,Vec2(mouseX,mouseY),RECT)) dd.locked = false;
-  
-
-  // display the selection
-  if(!dd.locked && dd.get_content().length > 0) {
-    fill(selected_dd_text) ;
-    content_line = dd.get_content_line() ;
-    textFont(dd.get_font_header());
-    text(dd.get_content()[dd.get_content_line()], dd.get_pos().x +3 , dd.get_pos().y +22) ;
-  }
-  return content_line ;
+  dd.show_header_text();
+  dd.show_box();
+  dd.show_selection(dd.get_pos().x +3 , dd.get_pos().y +22);
 }
 
 void update_dropdown_bar_content() {
@@ -181,7 +155,7 @@ void update_dropdown_item() {
       if ( m.length > 1) {
         dropdown_item_mode[i].update();
         if (dropdownOpen) dropdownActivityCount++ ;
-        marge_around_dropdown = size_dropdown_item_mode.y  ;
+        float marge_around_dropdown = size_dropdown_item_mode.y  ;
 
         //give the size of menu recalculate with the size of the word inside
         iVec2 newSizeModeTypo = dropdown_item_mode[i].size_box.copy();
@@ -202,39 +176,18 @@ void update_dropdown_item() {
         }
       }
       // display which element is selected
-      if (dropdown_item_mode[i].get_content_line() > -1 && m.length > 1) {
+      if (dropdown_item_mode[i].get_selected() > -1 && m.length > 1) {
         textFont(title_medium);      
-        text(dropdown_item_mode[i].get_content_line() +1, dropdown_item_mode[i].get_pos().x +12, dropdown_item_mode[i].get_pos().y +8) ;
+        text(dropdown_item_mode[i].get_selected() +1, dropdown_item_mode[i].get_pos().x +12, dropdown_item_mode[i].get_pos().y +8) ;
       }
     }
   }
 }
 
 
-// DROPDOWN MOUSEPRESSED
-void mousepressed_dropdown() {
-  // dropdown bar
-  for(int i = 0 ; i < dropdown_bar.length ; i++) {
-    check_dropdown_mousepressed (dropdown_bar[i]);
-  }
-  // Item menu
-  for(int i = 0 ; i < dropdown_item_mode.length ; i++) {
-    check_dropdown_mousepressed(dropdown_item_mode[i]);
-  } 
-}
 
-void check_dropdown_mousepressed(Dropdown dd) {
-  if (dd != null) {
-    if (inside(dd.get_pos(), dd.get_size(),iVec2(mouseX,mouseY),RECT) && !dd.locked) {
-      dd.locked = true;
-    } else if (dd.locked) {
-      // println("locked",dd.get_name(),frameCount);
-      float new_width = dd.size_box.x ;
-      int line = dd.selectDropdownLine(new_width);
-      if (line > -1 ) {
-        dd.whichDropdownLine(line);
-        dd.locked = false;        
-      } 
-    }
-  }
-}
+
+
+
+
+

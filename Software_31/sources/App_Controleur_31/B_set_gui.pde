@@ -1,6 +1,6 @@
 /**
 Variable
-v 0.0.6
+v 0.1.0
 */
 /**
 colour
@@ -57,13 +57,34 @@ void set_colour() {
   color_dd_background = rougeTresFonce;
   color_dd_header_in = jaune;
   color_dd_header_out = orange;
+
+    color_dd_header_text_in = orange;
+  color_dd_header_text_out = jaune;
+
   color_dd_item_in = rouge;
   color_dd_item_out = rougeTresFonce;
+
+  color_dd_item_text_in = rougeFonce;
+  color_dd_item_text_out = rougeFonce;
+/*
+  color_dd_header_in = jaune; 
+  color_dd_header_out = orange;
+  */
+
   color_dd_box_in = jaune; 
   color_dd_box_out = orange;
-  color_dd_box_text = rougeFonce;
+
+  color_dd_box_text_in = rougeFonce;
+  color_dd_box_text_out = rougeFonce;
+
   selected_dd_text = vertFonce;
 }
+
+
+
+
+
+
 
 
 
@@ -352,11 +373,23 @@ int pos_y_menu_general;
 /**
 colour
 */
-color selected_dd_text;
-color color_dd_box_in, color_dd_box_out, color_dd_box_text;
-color color_dd_background;
-color color_dd_header_in, color_dd_header_out;
-color color_dd_item_in, color_dd_item_out;
+int selected_dd_text;
+
+int color_dd_background;
+
+int color_dd_header_in, color_dd_header_out;
+int color_dd_header_text_in,color_dd_header_text_out;
+
+int color_dd_item_in, color_dd_item_out;
+int color_dd_item_text_in,color_dd_item_text_out;
+
+int color_dd_box_in, color_dd_box_out;
+int color_dd_box_text_in,color_dd_box_text_out;
+
+
+
+
+
 
 /**
 general
@@ -585,10 +618,10 @@ int sizeTitleButton;
 /**
 DROPDOWN
 */
-int SWITCH_VALUE_FOR_DROPDOWN = -2;
+// int SWITCH_VALUE_FOR_DROPDOWN = -2;
 int height_box_dropdown;
 iVec2 posTextDropdown = iVec2(2,8);
-float marge_around_dropdown;
+// float marge_around_dropdown;
 
 
 

@@ -133,13 +133,13 @@ void display_dropdown() {
   // item
   update_dropdown_item() ;
   
-  which_bg_shader = dropdown_bar[0].get_content_line();
-  which_filter = dropdown_bar[1].get_content_line();
-  which_font = dropdown_bar[2].get_content_line();
-  which_text = dropdown_bar[3].get_content_line();
-  which_bitmap = dropdown_bar[4].get_content_line();
-  which_shape = dropdown_bar[5].get_content_line();
-  which_movie = dropdown_bar[6].get_content_line();
+  which_bg_shader = dropdown_bar[0].get_selected();
+  which_filter = dropdown_bar[1].get_selected();
+  which_font = dropdown_bar[2].get_selected();
+  which_text = dropdown_bar[3].get_selected();
+  which_bitmap = dropdown_bar[4].get_selected();
+  which_shape = dropdown_bar[5].get_selected();
+  which_movie = dropdown_bar[6].get_selected();
 
   // check the activity o the dropdown
   if(dropdownActivityCount > 0 ) {
@@ -597,8 +597,8 @@ void update_slider(Slider_adjustable sa, float [] value_slider, Vec5 [] info_sli
   // check
   if(!sa.locked_max_is() && !sa.locked_max_is()) sa.inside_molette_ellipse() ;
   // update
-  sa.select_molette(true);
-  sa.update_molette();
+  sa.select(true);
+  sa.update();
   
   // translate float value to int, to use OSC easily without problem of Array Outbound...blablah
   int valueMax = 360 ;

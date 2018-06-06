@@ -3,7 +3,7 @@ ROPE - Romanesco processing environment –
 * Copyleft (c) 2014-2018
 * Stan le Punk > http://stanlepunk.xyz/
 ROPE core
-v 0.0.5.0
+v 0.0.5.1
 2017-2018
 * @author Stan le Punk
 * @see https://github.com/StanLepunK/Rope
@@ -62,19 +62,19 @@ public class ROPE implements Rope_Constants {
 
 
 /**
-COLOR LIST class
-v 0.0.1
+COLOUR LIST class
+v 0.0.2
 */
-public class ROPE_color implements Rope_Constants {
+public class ROPE_colour implements Rope_Constants {
 	int [] c ;
-	public ROPE_color(int... c) {
+	public ROPE_colour(int... c) {
 		this.c = new int[c.length];
 		for(int i = 0; i < c.length ; i++) {
 			this.c[i] = c[i];
 		}
 	}
 
-	public int[] get_color() {
+	public int[] get_colour() {
 		return c;
 	}
 
