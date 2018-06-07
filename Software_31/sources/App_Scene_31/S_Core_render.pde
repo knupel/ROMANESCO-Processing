@@ -1,7 +1,7 @@
 /**
 CORE Rope SCENE and PRESCENE 
 2015-2018
-v 1.4.0
+v 1.4.1
 */
 import java.net.*;
 import java.io.*;
@@ -1980,7 +1980,7 @@ void color_setup() {
   
 /**
 OSC CORE 
-v 1.2.0
+v 1.2.1
 */
 // main method
 void thread_data_controller(OscMessage receive) {

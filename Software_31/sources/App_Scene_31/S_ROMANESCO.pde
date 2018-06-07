@@ -1,5 +1,5 @@
 /**
-Rope Manager
+Romanesco Manager
 Prescene and Scene
 2013-2018
 v 1.2.0
@@ -626,8 +626,10 @@ class Romanesco_manager {
 
 /**
 Abstract CLASS ROMANESCO
+v 0.0.2
+2013-2018
 */
-abstract class Romanesco {
+abstract class Romanesco implements Rope_Constants {
   protected String item_name, item_author, item_version, item_pack, romanescoRender, item_mode, item_slider;
   protected int ID_item, ID_group;
   //object manager return

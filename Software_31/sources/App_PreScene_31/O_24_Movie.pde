@@ -1,7 +1,7 @@
 /**
 Movisco 
-2016-2017
-v 0.0.5
+2016-2018
+v 0.0.6
 */
 
 class Movisco extends Romanesco {
@@ -10,7 +10,7 @@ class Movisco extends Romanesco {
 		ID_item = 24 ;
 		ID_group = 1 ;
 		item_author  = "Stan le Punk";
-		item_version = "Version 0.0.5";
+		item_version = "Version 0.0.6";
 		item_pack = "Base" ;
 		item_mode = "Classic mono/Classic Poly/Mono/Poly" ; // separate the differentes mode by "/"
 		// item_slider = "Fill hue,Fill sat,Fill bright,Fill alpha,Quantity,Quality,Area,Size X" ;
@@ -134,7 +134,7 @@ class Movisco extends Romanesco {
 					Vec5 density = Vec5(comp_1,comp_2,comp_3,comp_4,comp_5) ; // Vec5(red,green,blue,alpha, pixel density) value factor between 0 and 1
 
 					float size_pix = map(size_x_item[ID_item], width *.01, width, .3, width *.03) ;
-					String pattern = "4_RANDOM" ;
+					String pattern = RANDOM_4 ;
 					float depth = 0 ;
 					boolean polychrome = true ;
 					if(mode[ID_item] == 2 ) polychrome = false ;
@@ -282,14 +282,17 @@ class Movisco extends Romanesco {
 
 	// Pixel shape
 	void pixel_cloud(Vec3 pos, Vec3 size, int num, int radius, String pattern) {
-	  Pixel_cloud p = new Pixel_cloud(num, "3D", "ORDER") ;
+	  Cloud_3D p = new Cloud_3D(num, P3D);
+	  p.set_distribution(r.ORDER);
 	  p.size(size) ;
 	  if(motion[ID_item])  {
-	  	p.beat(20) ;
-	  	p.pattern(pattern) ;
+	  	p.set_beat(20) ;
+	  	p.set_behavior(pattern) ;
 	  }
-
-	  p.distribution(Vec3(pos.x +(step_grid /2),pos.y,pos.z), radius) ;
+    Vec2 vec = Vec2(pos.x +(step_grid /2),pos.y);
+    p.pos(vec);
+    p.set_radius(radius);
+	  // p.distribution_behavior(vec, radius);
 	  p.show() ;
 	}
 

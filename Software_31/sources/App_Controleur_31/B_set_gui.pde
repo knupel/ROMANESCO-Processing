@@ -58,7 +58,7 @@ void set_colour() {
   color_dd_header_in = jaune;
   color_dd_header_out = orange;
 
-    color_dd_header_text_in = orange;
+  color_dd_header_text_in = orange;
   color_dd_header_text_out = jaune;
 
   color_dd_item_in = rouge;
@@ -113,8 +113,9 @@ void set_design_var_filter(int pos_y) {
 void set_design_var_camera(int pos_y) {
   slider_width_camera = 100;
   slider_height_camera = 8;
-  offset_camera_x = grid_col[6];
-  offset_camera_y = pos_y -5;
+  offset_camera_x = grid_col[0];
+  // offset_camera_y = pos_y -5;
+  offset_camera_y = pos_y +65;
 }
 
 void set_design_var_sound(int pos_y) {

@@ -2,7 +2,7 @@
 Camera Romanesco
 Prescene and Scene
 2013-2018
-v 1.2.0
+v 1.2.1
 */
 //travelling
 boolean goto_camera_pos_is, gotoCameraEye, travellingPriority;
@@ -483,13 +483,13 @@ void final_camera_full_rendering() {
   // camera
   dirCamX = map(value_slider_camera[2],0,360,0,width)  ; // on controler is Eye X
   dirCamY = map(value_slider_camera[3],0,360,0,height)  ; // on controler is Eye Y
-  dirCamZ = map(value_slider_camera[4],0,360,0,width)  ; // on controler is Eye Z
+  // dirCamZ = map(value_slider_camera[4],0,360,0,width)  ; // on controler is Eye Z
   
-  centerCamX = map(value_slider_camera[5],0,360,0,width)  ; // on controler is Position X
-  centerCamY = map(value_slider_camera[6],0,360,0,height)  ; // on controler is Position Y
-  centerCamZ = map(value_slider_camera[7],0,360,0,width)  ; // on controler is Position Z
+  centerCamX = map(value_slider_camera[4],0,360,0,width)  ; // on controler is Position X
+  centerCamY = map(value_slider_camera[5],0,360,0,height)  ; // on controler is Position Y
+  // centerCamZ = map(value_slider_camera[7],0,360,0,width)  ; // on controler is Position Z
 
-  upX = map(value_slider_camera[8],0,360,-1,1) ;
+  upX = map(value_slider_camera[6],0,360,-1,1) ;
   upY = 1 ; // not interesting
   upZ = 0 ; // not interesting
 

@@ -4,7 +4,7 @@ background,hue,saturation,brigthness,refresh
 filter,
 light,hue,saturation,brigthness,hue,saturation,brigthness,hue,saturation,brigthness
 sound,left,right,
-camera,focal 28-200,deformation,direction X,direction Y,direction Z,position X,position Y,position Z,pitch,
+camera,focal 28-200,deformation,direction X,direction Y,position X,position Y,pitch,
 item a,f_hue,f_saturation,f_brightness,f_alpha,s_hue,s_saturation,s_brightness,s_alpha,thickness,size X,size Y,size Z,font size,canvas X,canvas Y,canvas Z,
 item b,reactivity,speed X,speed Y,speed Z,spurt X,spurt Y,spurt Z,direction X,direction Y,direction Z,jitter X,jitter Y,jitter Z,swing X,swing Y,swing Z,
 item c,quantity,variety,life,flow,quality,area,angle,scope,scan,alignment,repulsion,attraction,density,influence,calm,spectrum

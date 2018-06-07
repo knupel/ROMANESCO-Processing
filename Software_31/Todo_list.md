@@ -2,6 +2,10 @@ Todolist Romanesco
 --
 2018
 --
+*Movisco item
+
+Il y a surement plein de bug avec la nouvelle class Pixel Cloud
+
 *avertissement
 
 messsage console pour avertir que le lanceur ne lance pas Romanesco quand celui-ci n'est pas compilé, il sert uniquement a le paramétrer.

@@ -1,7 +1,7 @@
 
 /**
 CLASS PIX 
-v 0.6.2
+v 0.6.3
 2016-2018
 * @author Stan le Punk
 * @see https://github.com/StanLepunK/Pixel
@@ -522,11 +522,18 @@ class Cloud extends Pix implements Rope_Constants {
       }
     }
   }
+
+  /**
+  SET
+  */
+  public void set_distribution(int distribution) {
+    this.distribution = distribution;
+  }
   
 
   
   float angle_step ;
-  protected void angle_step(float angle_step) {
+  protected void set_angle_step(float angle_step) {
     if(distribution == ORDER && !polar_is) {
       this.angle_step = angle_step;
     } else {
@@ -540,21 +547,12 @@ class Cloud extends Pix implements Rope_Constants {
 
 
 
-  protected void growth(float angle_growth) {
+  protected void set_growth(float angle_growth) {
     if(this.type == r.CARTESIAN && this.distribution == r.ORDER && this.renderer_dimension.equals(P2D)) {
       this.angle_growth = angle_growth ;
     } else {
       printErrTempo(180, "class CLOUD method growth() work only int type == r.CARTESIAN & int distribution = r.ORDER & String renderer_dimension P2D");
     }
-  }
-
-  public float get_growth() {
-    return dist_growth;
-  }
-
-
-  public void growth_size(float dist) {
-    dist_growth = dist ;
   }
 
 
@@ -642,9 +640,9 @@ class Cloud extends Pix implements Rope_Constants {
   }
 
 
-  public float get_rotation() {
-    return dist ;
-  }
+
+
+
 
 
 
@@ -663,15 +661,15 @@ class Cloud extends Pix implements Rope_Constants {
     }
   }
 
-  public void radius(float radius) {
+  public void set_radius(float radius) {
     this.radius = radius;
   }
 
-  public void beat(int n) {
+  public void set_beat(int n) {
     this.beat = beat_ref *n ;
   }
 
-  public void time_count(int count) {
+  public void set_time_count(int count) {
     time_count = count;
   }
 
@@ -679,7 +677,7 @@ class Cloud extends Pix implements Rope_Constants {
     return coord;   
   }
 
-  public void behavior(String behavior) {
+  public void set_behavior(String behavior) {
     this.behavior = behavior ;
   }
   
@@ -700,7 +698,7 @@ class Cloud extends Pix implements Rope_Constants {
   // distribution surface polar
   protected void distribution_surface_polar() {
     if(behavior != "RADIUS") {
-      radius = abs(distribution_behavior(range,radius,behavior)) ;
+      radius = abs(distribution_behavior(range,radius)) ;
     }
   }
 
@@ -721,7 +719,7 @@ class Cloud extends Pix implements Rope_Constants {
         if(behavior != "RADIUS") {
           Vec2 temp_range = range.copy();
           temp_range.set(range_in,range.y);
-          radius_temp = distribution_behavior(temp_range,radius,behavior);
+          radius_temp = distribution_behavior(temp_range,radius);
         } else {
           radius_temp = radius;
           radius_temp *= range_in ;
@@ -734,7 +732,7 @@ class Cloud extends Pix implements Rope_Constants {
     } else {
       for (int i = 0 ; i < coord.length ; i++) {
         if(behavior != "RADIUS") {
-          radius_temp = distribution_behavior(range,radius,behavior);
+          radius_temp = distribution_behavior(range,radius);
         }
         coord[i].mult(radius_temp) ;
         coord[i].add(pos) ;
@@ -746,7 +744,7 @@ class Cloud extends Pix implements Rope_Constants {
   distribution behavior
   */
   // internal method
-  private float distribution_behavior(Vec2 range, float radius, String behavior_distribution) {
+  private float distribution_behavior(Vec2 range, float radius) {
     float normal_distribution = 1 ;
     
     // rules
@@ -754,9 +752,9 @@ class Cloud extends Pix implements Rope_Constants {
     float root_2 = 0 ;
     float root_3 = 0 ;
     float root_4 = 0 ;
-     if(behavior_distribution.contains(RANDOM)) {
+     if(behavior.contains(RANDOM)) {
       root_1 = random(1) ;
-      if(behavior_distribution.contains("2") || behavior_distribution.contains("3") || behavior_distribution.contains("4")|| behavior_distribution.contains("SPECIAL")) {
+      if(behavior.contains("2") || behavior.contains("3") || behavior.contains("4")|| behavior.contains("SPECIAL")) {
         root_2 = random(1) ;
         root_3 = random(1) ;
         root_4 = random(1) ;
@@ -764,7 +762,7 @@ class Cloud extends Pix implements Rope_Constants {
     }
 
     float t = 0 ;
-    if(behavior_distribution.contains(SIN) || behavior_distribution.contains(COS)) {
+    if(behavior.contains(SIN) || behavior.contains(COS)) {
       if(time_count == Integer.MIN_VALUE) {
         t = frameCount *beat; 
       } else t = time_count *beat;   
@@ -776,29 +774,29 @@ class Cloud extends Pix implements Rope_Constants {
     float factor_10_0 = 10.;
     
     // distribution
-    if(behavior_distribution == RANDOM) normal_distribution = root_1;
-    else if(behavior_distribution == RANDOM_ROOT) normal_distribution = sqrt(root_1);
-    else if(behavior_distribution == RANDOM_QUARTER) normal_distribution = 1 -(.25 *root_1);
+    if(behavior == RANDOM) normal_distribution = root_1;
+    else if(behavior == RANDOM_ROOT) normal_distribution = sqrt(root_1);
+    else if(behavior == RANDOM_QUARTER) normal_distribution = 1 -(.25 *root_1);
     
-    else if(behavior_distribution == RANDOM_2) normal_distribution = root_1 *root_2;
+    else if(behavior == RANDOM_2) normal_distribution = root_1 *root_2;
 
-    else if(behavior_distribution == RANDOM_3) normal_distribution = root_1 *root_2 *root_3;
+    else if(behavior == RANDOM_3) normal_distribution = root_1 *root_2 *root_3;
 
-    else if(behavior_distribution == RANDOM_4) normal_distribution = root_1 *root_2 *root_3 *root_4;
-    else if(behavior_distribution == RANDOM_X_A) normal_distribution = .25 *(root_1 +root_2 +root_3 +root_4);
-    else if(behavior_distribution == RANDOM_X_B) {
+    else if(behavior == RANDOM_4) normal_distribution = root_1 *root_2 *root_3 *root_4;
+    else if(behavior == RANDOM_X_A) normal_distribution = .25 *(root_1 +root_2 +root_3 +root_4);
+    else if(behavior == RANDOM_X_B) {
       float temp = root_1 -root_2 +root_3 -root_4;
       if(temp < 0) temp += 4 ;
       normal_distribution = .25 *temp;
     }
 
-    else if(behavior_distribution == SIN) normal_distribution = sin(t);
-    else if(behavior_distribution == COS) normal_distribution = cos(t);
-    else if(behavior_distribution == "SIN_TAN") normal_distribution = sin(tan(t)*factor_0_5);
-    else if(behavior_distribution == "SIN_TAN_COS") normal_distribution = sin(tan(cos(t) *factor_1_2));
-    else if(behavior_distribution == "SIN_POW_SIN") normal_distribution = sin(pow(8.,sin(t)));
-    else if(behavior_distribution == "POW_SIN_PI") normal_distribution = pow(sin((t) *PI), factor_12_0);
-    else if(behavior_distribution == "SIN_TAN_POW_SIN") normal_distribution = sin(tan(t) *pow(sin(t),factor_10_0));
+    else if(behavior == SIN) normal_distribution = sin(t);
+    else if(behavior == COS) normal_distribution = cos(t);
+    else if(behavior == "SIN_TAN") normal_distribution = sin(tan(t)*factor_0_5);
+    else if(behavior == "SIN_TAN_COS") normal_distribution = sin(tan(cos(t) *factor_1_2));
+    else if(behavior == "SIN_POW_SIN") normal_distribution = sin(pow(8.,sin(t)));
+    else if(behavior == "POW_SIN_PI") normal_distribution = pow(sin((t) *PI), factor_12_0);
+    else if(behavior == "SIN_TAN_POW_SIN") normal_distribution = sin(tan(t) *pow(sin(t),factor_10_0));
 
     // result
     if(range != null) {
@@ -811,8 +809,36 @@ class Cloud extends Pix implements Rope_Constants {
     } else  {
       return radius *normal_distribution;
     }
-  }  
+  }
+
+  /**
+  GET
+  */
+  public float get_growth() {
+    return dist_growth;
+  }
+
+
+  public void growth_size(float dist) {
+    dist_growth = dist ;
+  }
+
+  public float get_rotation() {
+    return dist ;
+  }
 }
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -838,7 +864,7 @@ class Cloud_2D extends Cloud {
   public Cloud_2D(int num, int distribution, float angle_step) {
     super(num,P2D);
     this.distribution = distribution ;
-    angle_step(angle_step);
+    set_angle_step(angle_step);
     init();
   }
 
@@ -888,6 +914,15 @@ class Cloud_3D extends Cloud {
   /*
   Use this constructor if you want build a cartesian sphere with a real coord in the 3D space, you must ask a "POINT" costume
   */
+
+  public Cloud_3D(int num, String renderer_dimension) {
+    super(num, renderer_dimension);
+    this.distribution = ORDER;
+    this.orientation = Vec3(0,PI/2,0); 
+    init();
+  }
+
+
   public Cloud_3D(int num, String renderer_dimension, int distribution) {
     super(num, renderer_dimension);
     this.distribution = distribution ;
@@ -917,7 +952,7 @@ class Cloud_3D extends Cloud {
     polar(false);
     this.distribution = r.ORDER ;
     this.orientation = Vec3(0,PI/2,0);
-    angle_step(step_angle);
+    set_angle_step(step_angle);
     /*
     if(type == r.POLAR) {
       polar(true);
