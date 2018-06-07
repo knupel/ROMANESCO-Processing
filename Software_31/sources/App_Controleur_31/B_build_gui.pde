@@ -40,7 +40,7 @@ void build_console_background() {
     iVec2 temp_size_mol = iVec2(round(size_slider_background[i].y *ratio_size_molette), round(size_slider_background[i].y *ratio_size_molette));
     iVec2 temp_pos = iVec2(pos_slider_background[i].x, round(pos_slider_background[i].y -(slider_height_background *.6)));
     if(info_save_raw_list(info_slider_background,i).a > -1 ) {
-      slider_adj_background[i] = new Slider_adjustable(temp_pos, size_slider_background[i]);
+      slider_adj_background[i] = new Sladj(temp_pos, size_slider_background[i]);
       slider_adj_background[i].set_molette(ELLIPSE);
       slider_adj_background[i].set_molette_size(temp_size_mol);
       slider_adj_background[i].set_id(i);
@@ -66,7 +66,7 @@ void build_console_filter() {
     iVec2 temp_size_mol = iVec2(round(size_slider_filter[i].y *ratio_size_molette), round(size_slider_filter[i].y *ratio_size_molette));
     iVec2 temp_pos = iVec2(pos_slider_filter[i].x, round(pos_slider_filter[i].y -(slider_height_filter *.6)));
     if(info_save_raw_list(info_slider_filter,i).a > -1 ) {
-      slider_adj_filter[i] = new Slider_adjustable(temp_pos,size_slider_filter[i]);
+      slider_adj_filter[i] = new Sladj(temp_pos,size_slider_filter[i]);
       slider_adj_filter[i].set_molette(ELLIPSE);
       slider_adj_filter[i].set_molette_size(temp_size_mol);
       slider_adj_filter[i].set_id(i);
@@ -85,7 +85,7 @@ void build_console_light() {
     iVec2 temp_size_mol = iVec2(round(size_slider_light[i].y *ratio_size_molette), round(size_slider_light[i].y *ratio_size_molette));
     iVec2 temp_pos = iVec2(pos_slider_light[i].x, round(pos_slider_light[i].y -(slider_height_light *.6)));
     if(info_save_raw_list(info_slider_light,i).a > -1 ) {
-      slider_adj_light[i] = new Slider_adjustable(temp_pos, size_slider_light[i]);
+      slider_adj_light[i] = new Sladj(temp_pos, size_slider_light[i]);
       slider_adj_light[i].set_molette(ELLIPSE);
       slider_adj_light[i].set_molette_size(temp_size_mol);
       slider_adj_light[i].set_id(i);
@@ -135,7 +135,7 @@ void build_console_sound() {
     iVec2 temp_size_mol = iVec2(round(size_slider_sound[i].y *ratio_size_molette), round(size_slider_sound[i].y *ratio_size_molette));
     iVec2 temp_pos = iVec2(pos_slider_sound[i].x, round(pos_slider_sound[i].y -(slider_height_sound *.6)));
     if(info_save_raw_list(info_slider_sound,i).a > -1 ) {
-      slider_adj_sound[i] = new Slider_adjustable(temp_pos, size_slider_sound[i]);
+      slider_adj_sound[i] = new Sladj(temp_pos, size_slider_sound[i]);
       slider_adj_sound[i].set_molette(ELLIPSE);
       slider_adj_sound[i].set_molette_size(temp_size_mol);
       slider_adj_sound[i].set_id(i);
@@ -173,7 +173,7 @@ void build_console_camera() {
     iVec2 temp_size_mol = iVec2(round(size_slider_camera[i].y *ratio_size_molette), round(size_slider_camera[i].y *ratio_size_molette));
     iVec2 temp_pos = iVec2(pos_slider_camera[i].x, round(pos_slider_camera[i].y -(slider_height_camera *.6)));
     if(info_save_raw_list(info_slider_camera,i).a > -1 ) {
-      slider_adj_camera[i] = new Slider_adjustable(temp_pos, size_slider_camera[i]);
+      slider_adj_camera[i] = new Sladj(temp_pos, size_slider_camera[i]);
       slider_adj_camera[i].set_molette(ELLIPSE);
       slider_adj_camera[i].set_molette_size(temp_size_mol);
       slider_adj_camera[i].set_id(i);
@@ -204,7 +204,7 @@ void build_console_item() {
     iVec2 temp_size_mol = iVec2(round(size_slider_item[i].y *ratio_size_molette), round(size_slider_item[i].y *ratio_size_molette));
     iVec2 temp_pos = iVec2(pos_slider_item[i].x, round(pos_slider_item[i].y -(slider_height_item *.6)));
     if(info_save_raw_list(info_slider_item,i).a > -1 ) {
-      slider_adj_item[i] = new Slider_adjustable(temp_pos, size_slider_item[i]);
+      slider_adj_item[i] = new Sladj(temp_pos, size_slider_item[i]);
       slider_adj_item[i].set_molette(ELLIPSE);
       slider_adj_item[i].set_molette_size(temp_size_mol);
       slider_adj_item[i].set_id(i);
@@ -392,7 +392,6 @@ void build_dropdown_bar() {
                                                       color_dd_box_text_in, 
                                                       color_dd_box_text_out);
 
-    // dropdown_bar[i] = new Dropdown(name_dropdown_bar[i],dropdown_content[i],dropdown_bar_pos[i],dropdown_bar_size[i],dropdown_bar_pos_text[i], dropdown_color_bar,num_box, height_box_dropdown);
     dropdown_bar[i] = new Dropdown(dropdown_bar_pos[i],dropdown_bar_size[i],name_dropdown_bar[i],dropdown_content[i]);
     dropdown_bar[i].set_colour(dropdown_color_bar);
     dropdown_bar[i].set_header_text_pos(dropdown_bar_pos_text[i]);
@@ -406,7 +405,6 @@ void build_dropdown_bar() {
 
 void build_dropdown_item_selected() {
   //common param
-  int num_box = 7;
   size_dropdown_item_mode = iVec2(20,15);
   int x = offset_y_item + -8;
   int y = height_item_selected +local_pos_y_dropdown_item_selected;
@@ -431,7 +429,7 @@ void build_dropdown_item_selected() {
       dropdown_item_mode[i].set_colour(dropdown_color_item);
       dropdown_item_mode[i].set_header_text_pos(posTextDropdown);
       dropdown_item_mode[i].set_box_text_pos(posTextDropdown);
-      dropdown_item_mode[i].set_box(num_box,2);
+      dropdown_item_mode[i].set_box(7);
       dropdown_item_mode[i].set_box_height(height_box_dropdown);
       dropdown_item_mode[i].set_font(title_medium);
       dropdown_item_mode[i].set_box_font(textUsual_1);

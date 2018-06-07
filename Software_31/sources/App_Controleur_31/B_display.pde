@@ -564,13 +564,13 @@ void show_slider_brightness_background(iVec2 pos, iVec2 size, float colour, floa
   popMatrix() ;
 }
 
-void show_slider(Slider_adjustable sa) {
+void show_slider(Sladj sa) {
   sa.show_adj();
   sa.show_molette();
 }
 
 
-void update_slider(Slider_adjustable sa, float [] value_slider, Vec5 [] info_slider) {
+void update_slider(Sladj sa, float [] value_slider, Vec5 [] info_slider) {
   //MIDI update
   update_midi_slider(sa,info_slider);
   // MIN and MAX molette
@@ -610,7 +610,7 @@ void update_slider(Slider_adjustable sa, float [] value_slider, Vec5 [] info_sli
 
 
 /*
-void display_min_max_slider(Slider_adjustable sa, color colorIn, color colorOut) {
+void display_min_max_slider(Sladj sa, color colorIn, color colorOut) {
   sa.show_adj();
 }
 */

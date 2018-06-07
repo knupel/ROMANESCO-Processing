@@ -121,14 +121,6 @@ void check_button_general() {
 /**
 dropdown
 */
-// Annexe method
-void update_dropdown_bar(Dropdown dd) {
-  dd.update();
-  dd.show_header_text();
-  dd.show_box();
-  dd.show_selection(dd.get_pos().x +3 , dd.get_pos().y +22);
-}
-
 void update_dropdown_bar_content() {
   dropdown_content [0] = shader_bg_name;
   dropdown_content [1] = filter_dropdown_list;
@@ -140,6 +132,16 @@ void update_dropdown_bar_content() {
   dropdown_content [6] = movie_dropdown_list;
 }
 
+// Annexe method
+void update_dropdown_bar(Dropdown dd) {
+  dd.update();
+  dd.show_header_text();
+  dd.show_box();
+  dd.show_selection(dd.get_pos().x +3 , dd.get_pos().y +22);
+}
+
+
+
 
 
 void update_dropdown_item() {
@@ -147,38 +149,26 @@ void update_dropdown_item() {
   for (int i = 1 ; i <= NUM_ITEM ; i++) {
     if(mode_list_RPE[i] != null && inventory[i].is()) {
       int distance = pointer *DIST_BETWEEN_ITEM ;
-      pointer ++ ;
+      pointer++ ;
 
-      dropdown_item_mode[i].change_pos(distance, 0) ;
+      dropdown_item_mode[i].offset(distance, 0) ;
 
       String m [] = split(mode_list_RPE[i], "/") ;
       if ( m.length > 1) {
         dropdown_item_mode[i].update();
         if (dropdownOpen) dropdownActivityCount++ ;
-        float marge_around_dropdown = size_dropdown_item_mode.y  ;
-
-        //give the size of menu recalculate with the size of the word inside
-        iVec2 newSizeModeTypo = dropdown_item_mode[i].size_box.copy();
-        int heightDropdown = 0 ;
-
-        if(dropdown_item_mode[i].content.length <  dropdown_item_mode[i].get_num_box()) {
-          heightDropdown = dropdown_item_mode[i].content.length ; 
-        } else {
-          heightDropdown = dropdown_item_mode[i].get_num_box();
-        }
-
-        Vec2 temp_size = Vec2(newSizeModeTypo.x +(marge_around_dropdown *1.5), size_dropdown_item_mode.y *(heightDropdown +1) +marge_around_dropdown) ; // we must add +1 to the size of the dropdown for the title plus the item list
-        
-        //new pos to include the slider
-        Vec2 temp_pos = Vec2(dropdown_item_mode[i].get_pos().x -marge_around_dropdown, dropdown_item_mode[i].get_pos().y) ;
-        if (!inside(temp_pos,temp_size,Vec2(mouseX,mouseY),RECT)) {
-          dropdown_item_mode[i].locked = false;
-        }
+        dropdown_item_mode[i].show_header_text();
+        dropdown_item_mode[i].show_box();
       }
       // display which element is selected
       if (dropdown_item_mode[i].get_selected() > -1 && m.length > 1) {
-        textFont(title_medium);      
-        text(dropdown_item_mode[i].get_selected() +1, dropdown_item_mode[i].get_pos().x +12, dropdown_item_mode[i].get_pos().y +8) ;
+        int x = dropdown_item_mode[i].get_pos().x +12;
+        int y = dropdown_item_mode[i].get_pos().y +8;
+        /*
+        dropdown_item_mode[i].show_selection(x,y);
+        */    
+        textFont(dropdown_item_mode[i].get_font());      
+        text(dropdown_item_mode[i].get_selected() +1,x,y);   
       }
     }
   }

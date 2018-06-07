@@ -1,6 +1,6 @@
 /**
 DROPDOWN
-v 2.1.1
+v 2.2.1
 2014-2018
 */
 boolean dropdownOpen ; // use to indicate to indicate at the other button, they cannot be used when the user are on the dropdown menu
@@ -16,7 +16,6 @@ public class Dropdown extends Crope {
   //dropdown
   private int line = 0;
   private String content[];
-  private String name;
 
   private boolean locked;
   private boolean slider, inside_slider_is;
@@ -208,18 +207,34 @@ public class Dropdown extends Crope {
     float ratio = float(content.length) / float(end -1);
     
     iVec2 size_molette =  iVec2(size_slider.x, round(size_slider.y /ratio));
+    
+    boolean keep_pos_mol_is = false;
+    int pos_mol_y = 0;
+    if(slider_dd != null) {
+      pos_mol_y = slider_dd.get_molette_pos().y;
+      keep_pos_mol_is = true ;
+    }
 
     slider_dd = new Slider(pos_slider, size_slider);
     slider_dd.set_molette_size(size_molette);
+    if(keep_pos_mol_is) {
+      int pos_mol_x = slider_dd.get_molette_pos().x;
+      slider_dd.set_molette_pos(pos_mol_x,pos_mol_y);
+    }
     slider_dd.set_molette(RECT);
     slider_dd.set_fill(colour_structure);
     slider_dd.set_molette_fill(colour_box_in,colour_box_out);
   }
 
-  public void change_pos(int x, int y) {
+  public void offset(int x, int y) {
     pos.set(pos_ref_x, pos_ref_y);
     iVec2 temp = iVec2(x,y);
     pos.add(temp);
+    update_slider();
+  }
+
+  public void offset(iVec2 offset) {
+    offset(offset.x, offset.y);
   }
 
   public void update() {

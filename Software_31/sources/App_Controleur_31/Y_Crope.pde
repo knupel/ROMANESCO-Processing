@@ -1,6 +1,6 @@
 /**
 CROPE
-v 0.1.0
+v 0.1.1
 CONTROL ROMANESCO PROCESSING ENVIRONMENT
 * Copyleft (c) 2018-2018
 *
@@ -519,7 +519,7 @@ public class Button_dynamic extends Button {
 
 /**
 SLIDER
-v 1.0.2
+v 1.1.0
 */
 boolean molette_already_selected ;
 public class Slider extends Crope {
@@ -688,9 +688,21 @@ public class Slider extends Crope {
       this.pos_molette.set(pos);
     }
   }
+
+  public void set_molette_pos(iVec2 p) {
+    set_molette_pos(p.x,p.y);
+  }
+
+  public void set_molette_pos(int x, int y) {
+    if(this.pos_molette == null) {
+      this.pos_molette = iVec2(x,y);
+    } else {
+      this.pos_molette.set(x,y);
+    }
+  }
   
   // set_molette
-  public void set_molette_pos(float pos_norm) {
+  public void set_molette_pos_norm(float pos_norm) {
     // security to constrain the value in normalizing range.
     if(pos_norm > 1.) pos_norm = 1. ;
     if(pos_norm < 0) pos_norm = 0 ;
@@ -916,7 +928,7 @@ public class Slider extends Crope {
 
 
 /**
-SLIDER NOTCH
+SLOTCH > notch's slider
 v 0.0.2
 */
 
@@ -1054,10 +1066,10 @@ public class Slotch extends Slider {
 
 
 /**
-SLIDER ADJUSTABLE
-v 1.0.0
+SLADJ > SLIDER ADJUSTABLE
+v 1.1.0
 */
-public class Slider_adjustable extends Slider {
+public class Sladj extends Slider {
   // size
   protected iVec2 sizeMinMax;
   protected iVec2 sizeMolMinMax;
@@ -1077,7 +1089,7 @@ public class Slider_adjustable extends Slider {
 
   private boolean locked_min, locked_max;
     
-  Slider_adjustable(iVec2 pos, iVec2 size) {
+  Sladj(iVec2 pos, iVec2 size) {
     super(pos, size);
     this.newPosMax = iVec2();
     this.newPosMin = pos.copy();
@@ -1091,7 +1103,7 @@ public class Slider_adjustable extends Slider {
   }
   /*
   //slider with external molette
-  public Slider_adjustable(iVec2 pos, iVec2 size, iVec2 size_molette, int moletteShapeType) {
+  public Sladj(iVec2 pos, iVec2 size, iVec2 size_molette, int moletteShapeType) {
     super(pos,size);
     set_molette_size(size_molette);
     set_molette(moletteShapeType);

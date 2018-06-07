@@ -334,7 +334,7 @@ void updateMidiButton(Button b) {
 
 
 //give which button is active and check is this button have a same ID midi that Item
-void update_midi_slider(Slider_adjustable sa, Vec5 [] info_slider) {
+void update_midi_slider(Sladj sa, Vec5 [] info_slider) {
   // update info from midi controller
   if (midi_CC_romanesco == sa.get_id_midi()) sa.update_midi(midi_value_romanesco) ;
 
