@@ -319,31 +319,32 @@ When you add a new sliders, you must change the starting value from 'NAN' to a v
 And you must add the name of this one in the 'preferences/'  folder slider_name_en.csv' and in the 'slider_name_fr' file
 */
 void show_slider_item() {
-  if(!show_all_slider_item) {
+  boolean [] is = new boolean[2];
+  if(!show_all_slider_item) {        
+    is[0] = show_slider_item_colour(hue_fill_rank, sat_fill_rank, bright_fill_rank); // fill
+    is[1] = show_slider_item_colour(hue_stroke_rank, sat_stroke_rank, bright_stroke_rank); // stroke
     for (int i = 1 ; i <= NUM_ITEM ; i++) {
       if (item_active[i]) {
         if (item_group[i] == 1) { 
           for(int k = 0 ; k < NUM_SLIDER_ITEM ; k++) {
             if (display_slider[k]) {
-              show_slider(k);
+              show_slider(k,is);
             }
           }
         }
       }
     }
   } else {
+    is[0] = show_slider_item_colour(hue_fill_rank, sat_fill_rank, bright_fill_rank); // fill
+    is[1] = show_slider_item_colour(hue_stroke_rank, sat_stroke_rank, bright_stroke_rank); // stroke
     for(int i = 0 ; i < NUM_SLIDER_ITEM ; i++) {
-      show_slider(i);
+      show_slider(i,is);
     }
   } 
 }
 
 
-void show_slider(int index) {
-  boolean [] is = new boolean[2];
-  is[0] = show_slider_item_colour(hue_fill_rank, sat_fill_rank, bright_fill_rank); // fill
-  is[1] = show_slider_item_colour(hue_stroke_rank, sat_stroke_rank, bright_stroke_rank); // stroke
-  
+void show_slider(int index, boolean [] is) {
   update_slider(slider_adj_item[index],value_slider_item,info_slider_item);
   boolean show_is = false ;
   for(int k = 0 ; k < is.length ;k++) {
@@ -351,15 +352,13 @@ void show_slider(int index) {
       int num_special_slider = 3;
       int step = 4 ;
       for(int m = 0 ; m < num_special_slider ; m++) {    
-        if(index == k* step +m || index == 3 || index > 5) {
+        if(index == k* step +m || index == 3 || index > 6) {
           show_is = true;
           break;
         } 
       }
     }
   }
-  // ellipse(mouseX,mouseY,30,30);
-  // if(index == 0) println(frameCount,"engine");
   if(show_is) slider_adj_item[index].show_structure();
   slider_adj_item[index].show_adj();
   slider_adj_item[index].show_molette();
@@ -381,6 +380,7 @@ boolean show_slider_item_colour(int hueRank, int satRank, int brightRank) {
     if (display_slider[hueRank]) show_slider_hue_structure(pos_slider_item[hueRank], size_slider_item[hueRank]) ; 
     if (display_slider[satRank]) show_slider_saturation_structure(pos_slider_item[satRank], size_slider_item[satRank], value_slider_item[hueRank], value_slider_item[satRank], value_slider_item[brightRank]) ;
     if (display_slider[brightRank]) show_slider_brightness_structure(pos_slider_item[brightRank], size_slider_item[brightRank], value_slider_item[hueRank], value_slider_item[satRank], value_slider_item[brightRank]) ;
+    
   } 
   return is;
 }

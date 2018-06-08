@@ -72,6 +72,7 @@ void build_console_filter() {
       slider_adj_filter[i].set_id(i);
       slider_adj_filter[i].set_label(slider_filter_name[i],iadd(slider_adj_filter[i].get_size(),iVec2(3,0)));
       slider_adj_filter[i].set_font(textUsual_1);
+      slider_adj_filter[i].set_rounded(rounded_slider);
       slider_adj_filter[i].set_colour_label(r.GRAY_3);
       slider_adj_filter[i].set_fill(r.GRAY_4);
       slider_adj_filter[i].set_molette_fill(r.GRAY_7,r.GRAY_5);
@@ -91,6 +92,7 @@ void build_console_light() {
       slider_adj_light[i].set_id(i);
       slider_adj_light[i].set_label(slider_light_name[i],iadd(slider_adj_light[i].get_size(),iVec2(3,0)));
       slider_adj_light[i].set_font(textUsual_1);
+      slider_adj_light[i].set_rounded(rounded_slider);
       slider_adj_light[i].set_colour_label(r.GRAY_3);
       slider_adj_light[i].set_fill(r.GRAY_4);
       slider_adj_light[i].set_molette_fill(r.GRAY_7,r.GRAY_5);
