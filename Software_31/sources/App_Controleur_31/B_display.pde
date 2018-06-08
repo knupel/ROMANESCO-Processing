@@ -97,7 +97,7 @@ void display_structure_bottom(int colour_a, int colour_b) {
 }
 
 
-void display_text() {
+void show_misc_text() {
   if(insideNameversion) fill (jaune) ; else fill(orange) ;
   int posTextY = 18 ;
   textFont(FuturaStencil_20,16); 
@@ -107,9 +107,6 @@ void display_text() {
   textFont(FuturaStencil_20,16); 
   textAlign(RIGHT);
   text(nf(hour(),2)   + ":" +nf(minute(),2) , width -10, posTextY);
-  
-  dispay_text_slider_top();  
-  dislay_text_slider_item();
 }
 
 
@@ -168,88 +165,91 @@ v 0.1.0
 /**
 display slider
 */
-void display_slider() {
-  display_slider_background();
-  display_slider_filter();
-  display_slider_light();
-  display_slider_sound();
-  display_slider_camera();
-  display_slider_item();
+void show_slider_controller() {
+  show_slider_background();
+  show_slider_filter();
+  show_slider_light();
+  show_slider_sound();
+  show_slider_camera();
+  show_slider_item();
 }
 
 
 // SLIDER DRAW
-void display_slider_background() {
-  slider_background_display_bg();
+void show_slider_background() {
+  // slider_background_show_structure();
+
+  boolean show_is = show_slider_structure_colour(pos_slider_background, size_slider_background, value_slider_background);
+
   for (int i = 0 ; i < NUM_SLIDER_BACKGROUND ; i++) {
     update_slider(slider_adj_background[i],value_slider_background,info_slider_background);
-    show_slider(slider_adj_background[i]);
+    if(!show_is || i >= 3 ) slider_adj_background[i].show_structure();
+    slider_adj_background[i].show_adj();
+    slider_adj_background[i].show_molette();
+    slider_adj_background[i].show_label();
   }
 }
 
-void display_slider_filter() {
-  slider_filter_display_bg();
+void show_slider_filter() {
   for (int i = 0 ; i < NUM_SLIDER_FILTER ; i++) {
     update_slider(slider_adj_filter[i],value_slider_filter,info_slider_filter);
-    show_slider(slider_adj_filter[i]);
+    slider_adj_filter[i].show_structure();
+    slider_adj_filter[i].show_adj();
+    slider_adj_filter[i].show_molette();
+    slider_adj_filter[i].show_label();
   }
 }
 
-void display_slider_light() {
-  slider_light_0_display_bg();
-  slider_light_1_display_bg();
-  slider_light_2_display_bg();
+void show_slider_light() {
+  boolean [] is = new boolean[3];
+  is[0] = slider_light_0_show_structure_colour();
+  is[1] = slider_light_1_show_structure_colour();
+  is[2] = slider_light_2_show_structure_colour();
 
   for (int i = 0 ; i < NUM_SLIDER_LIGHT ; i++) {
     update_slider(slider_adj_light[i],value_slider_light,info_slider_light);
-    show_slider(slider_adj_light[i]);
-  }
-}
-
-void display_slider_sound() {
-  for(int i = 0 ; i < slider_adj_sound.length ; i++) {
-    slider_adj_sound[i].show_structure();
-  }
-  for (int i = 0 ; i < NUM_SLIDER_SOUND ; i++) {
-    update_slider(slider_adj_sound[i],value_slider_sound,info_slider_sound);
-    show_slider(slider_adj_sound[i]);
-  }
-}
-
-void display_slider_camera() {
-  for(int i = 0 ; i < slider_adj_camera.length ; i++) {
-    slider_adj_camera[i].show_structure();
-  }
-  for (int i = 0 ; i < NUM_SLIDER_CAMERA ; i++) {
-    update_slider(slider_adj_camera[i],value_slider_camera,info_slider_camera);
-    show_slider(slider_adj_camera[i]);
-  }
-}
-
-
-
-void dispay_text_slider_top() {
-  // background
-  for(int i = 0 ; i < NUM_SLIDER_BACKGROUND ; i++) {
-    slider_adj_background[i].show_label();
-  }
-  // filter
-  for(int i = 0 ; i < NUM_SLIDER_FILTER ; i++) {
-    slider_adj_filter[i].show_label();
-  }
-  // light
-  for(int i = 0 ; i < NUM_SLIDER_LIGHT ; i++) {
+    boolean show_is = false;
+    for(int k = 0 ; k < is.length ; k++) {
+      if(!is[k]) {
+        int num_special_slider = 3;
+        for(int m = 0 ; m < num_special_slider ; m++) {
+          if(i == k*num_special_slider+m) {
+            show_is = true ;
+            break;
+          }
+        }
+      }
+    }  
+    if(show_is) slider_adj_light[i].show_structure();
+    slider_adj_light[i].show_adj();
+    slider_adj_light[i].show_molette();
     slider_adj_light[i].show_label();
   }
-  // sound
-  for(int i = 0 ; i < NUM_SLIDER_SOUND ; i++ ) {
+}
+
+void show_slider_sound() {
+  for (int i = 0 ; i < NUM_SLIDER_SOUND ; i++) {
+    update_slider(slider_adj_sound[i],value_slider_sound,info_slider_sound);
+    slider_adj_sound[i].show_structure();
+    slider_adj_sound[i].show_adj();
+    slider_adj_sound[i].show_molette();
     slider_adj_sound[i].show_label();
-  } 
-  // camera
-  for(int i = 0 ; i < slider_camera_name.length ; i++) {
-    slider_adj_camera[i].show_label();
   }
 }
+
+void show_slider_camera() {
+  for (int i = 0 ; i < NUM_SLIDER_CAMERA ; i++) {
+    update_slider(slider_adj_camera[i],value_slider_camera,info_slider_camera);
+    slider_adj_camera[i].show_structure();
+    slider_adj_camera[i].show_adj();
+    slider_adj_camera[i].show_molette();
+    slider_adj_camera[i].show_label();  
+  }
+}
+
+
+
+
 
 
 
@@ -258,18 +258,7 @@ void dispay_text_slider_top() {
 When you add a new sliders, you must change the starting value from 'NAN' to a value between 0 and 1 in the file 'defaultSetting.csv' in the 'preferences/setting' folder.
 And you must add the name of this one in the 'preferences/'  folder slider_name_en.csv' and in the 'slider_name_fr' file
 */
-void slider_background_display_bg() {
-  show_slider_hsb(pos_slider_background, size_slider_background, value_slider_background) ;
-  show_slider_background(pos_slider_background[3], size_slider_background[3], rounded_slider, blancGris);
-}
-
-
-void slider_filter_display_bg() {
-  // nothing at this time
-}
-
-
-void slider_light_0_display_bg() {
+boolean slider_light_0_show_structure_colour() {
   int start = 0;
   int length = 3 ;
   iVec2 [] pos = new iVec2[length];
@@ -278,10 +267,10 @@ void slider_light_0_display_bg() {
   System.arraycopy(pos_slider_light,start,pos,0,length);
   System.arraycopy(size_slider_light,start,size,0,length);
   System.arraycopy(value_slider_light,start,value,0,length);
-  show_slider_hsb(pos, size, value);
+  return show_slider_structure_colour(pos, size, value);
 }
 
-void slider_light_1_display_bg() {
+boolean slider_light_1_show_structure_colour() {
   int start = 3 ;
   int length = 3 ;
   iVec2 [] pos = new iVec2[length];
@@ -290,10 +279,10 @@ void slider_light_1_display_bg() {
   System.arraycopy(pos_slider_light,start,pos,0,length);
   System.arraycopy(size_slider_light,start,size,0,length);
   System.arraycopy(value_slider_light,start,value,0,length);
-  show_slider_hsb(pos, size, value);
+  return show_slider_structure_colour(pos, size, value);
 }
 
-void slider_light_2_display_bg() {
+boolean slider_light_2_show_structure_colour() {
   int start = 6 ;
   int length = 3 ;
   iVec2 [] pos = new iVec2[length];
@@ -302,23 +291,22 @@ void slider_light_2_display_bg() {
   System.arraycopy(pos_slider_light,start,pos,0,length);
   System.arraycopy(size_slider_light,start,size,0,length);
   System.arraycopy(value_slider_light,start,value,0,length);
-  show_slider_hsb(pos, size, value);
+  return show_slider_structure_colour(pos, size, value);
 }
 
 
 
 
 // supra local void
-void show_slider_hsb(iVec2 [] pos, iVec2 [] size, float [] value) {
+boolean show_slider_structure_colour(iVec2 [] pos, iVec2 [] size, float [] value) {
   if (mouseX > (pos[0].x ) && mouseX < ( pos[0].x +size[0].x) 
       && mouseY > ( pos[0].y - 5) && mouseY < pos[0].y +40) {
-    show_slider_hue_background(pos[0], size[0]) ;
-    show_slider_saturation_background(pos[1], size[1], value[0], value[1], value[2] ) ;
-    show_slider_brightness_background(pos[2], size[2], value[0], value[1], value[2] ) ;
+    show_slider_hue_structure(pos[0], size[0]) ;
+    show_slider_saturation_structure(pos[1],size[1],value[0],value[1],value[2]);
+    show_slider_brightness_structure(pos[2],size[2],value[0],value[1],value[2]);
+    return true;
   } else {
-    show_slider_background(pos[0], size[0], rounded_slider, grisClair);
-    show_slider_background(pos[1], size[1], rounded_slider, grisClair);
-    show_slider_background(pos[2], size[2], rounded_slider, grisClair);
+    return false;
   }
 }
 
@@ -330,19 +318,14 @@ Item
 When you add a new sliders, you must change the starting value from 'NAN' to a value between 0 and 1 in the file 'defaultSetting.csv' in the 'preferences/setting' folder.
 And you must add the name of this one in the 'preferences/'  folder slider_name_en.csv' and in the 'slider_name_fr' file
 */
-void display_slider_item() {
-  display_bg_slider_item() ;
-  
-  int whichGroup = 1;
+void show_slider_item() {
   if(!show_all_slider_item) {
     for (int i = 1 ; i <= NUM_ITEM ; i++) {
       if (item_active[i]) {
-        if (showSliderGroup[1] && item_group[i] == 1) { 
+        if (item_group[i] == 1) { 
           for(int k = 0 ; k < NUM_SLIDER_ITEM ; k++) {
-            if (display_slider[1][k]) {
-              // int whichOne = item_group[i] *100 +j ;
-              update_slider(slider_adj_item[k],value_slider_item,info_slider_item); 
-              show_slider(slider_adj_item[k]); 
+            if (display_slider[k]) {
+              show_slider(k);
             }
           }
         }
@@ -350,50 +333,56 @@ void display_slider_item() {
     }
   } else {
     for(int i = 0 ; i < NUM_SLIDER_ITEM ; i++) {
-      update_slider(slider_adj_item[i],value_slider_item,info_slider_item);
-      show_slider(slider_adj_item[i]);
+      show_slider(i);
     }
   } 
 }
 
-void dislay_text_slider_item() {
-  for(int i = 0 ; i < NUM_SLIDER_ITEM ; i++) {
-    slider_adj_item[i].show_label();
-  }
-}
 
-
-void display_bg_slider_item() {
-  // to find the good slider in the array
-  int whichGroup = 1 ;
-  // COL 1
-  show_slider_item_HSB(whichGroup, hue_fill_rank, sat_fill_rank, bright_fill_rank) ;
-  if (display_slider[whichGroup][alpha_fill_rank]) show_slider_background(pos_slider_item[alpha_fill_rank], size_slider_item[alpha_fill_rank], rounded_slider, blanc ) ;
+void show_slider(int index) {
+  boolean [] is = new boolean[2];
+  is[0] = show_slider_item_colour(hue_fill_rank, sat_fill_rank, bright_fill_rank); // fill
+  is[1] = show_slider_item_colour(hue_stroke_rank, sat_stroke_rank, bright_stroke_rank); // stroke
   
-  //outline color
-  show_slider_item_HSB(whichGroup, hue_stroke_rank, sat_stroke_rank, bright_stroke_rank);
-
-  for(int i = alpha_stroke_rank ; i < slider_adj_item.length ; i++) {
-    slider_adj_item[i].show_structure();
+  update_slider(slider_adj_item[index],value_slider_item,info_slider_item);
+  boolean show_is = false ;
+  for(int k = 0 ; k < is.length ;k++) {
+    if(!is[k]) {
+      int num_special_slider = 3;
+      int step = 4 ;
+      for(int m = 0 ; m < num_special_slider ; m++) {    
+        if(index == k* step +m || index == 3 || index > 5) {
+          show_is = true;
+          break;
+        } 
+      }
+    }
   }
+  // ellipse(mouseX,mouseY,30,30);
+  // if(index == 0) println(frameCount,"engine");
+  if(show_is) slider_adj_item[index].show_structure();
+  slider_adj_item[index].show_adj();
+  slider_adj_item[index].show_molette();
+  slider_adj_item[index].show_label();
 }
+
 
 
 
 
 // local void to display the HSB slider and display the specific color of this one
-void show_slider_item_HSB(int whichGroup, int hueRank, int satRank, int brightRank) {
-  if (mouseX > (pos_slider_item[hueRank].x ) && mouseX < (pos_slider_item[hueRank].x +size_slider_item[hueRank].x) 
-       && mouseY > (pos_slider_item[hueRank].y - 5) && mouseY < pos_slider_item[hueRank].y +30) 
-  {
-    if (display_slider[whichGroup][hueRank]) show_slider_hue_background(pos_slider_item[hueRank], size_slider_item[hueRank]) ; 
-    if (display_slider[whichGroup][satRank]) show_slider_saturation_background(pos_slider_item[satRank], size_slider_item[satRank], value_slider_item[hueRank], value_slider_item[satRank], value_slider_item[brightRank]) ;
-    if (display_slider[whichGroup][brightRank]) show_slider_brightness_background(pos_slider_item[brightRank], size_slider_item[brightRank], value_slider_item[hueRank], value_slider_item[satRank], value_slider_item[brightRank]) ;
-  } else {
-    if (display_slider[whichGroup][hueRank]) show_slider_background(pos_slider_item[hueRank], size_slider_item[hueRank], rounded_slider, blanc);
-    if (display_slider[whichGroup][satRank]) show_slider_background(pos_slider_item[satRank], size_slider_item[satRank], rounded_slider, blanc);
-    if (display_slider[whichGroup][brightRank]) show_slider_background(pos_slider_item[brightRank], size_slider_item[brightRank], rounded_slider, blanc);
-  }
+boolean show_slider_item_colour(int hueRank, int satRank, int brightRank) {
+  boolean is = (mouseX > (pos_slider_item[hueRank].x ) 
+                        && mouseX < (pos_slider_item[hueRank].x +size_slider_item[hueRank].x) 
+                        && mouseY > (pos_slider_item[hueRank].y - 5) 
+                        && mouseY < pos_slider_item[hueRank].y +30);
+
+  if (is) {
+    if (display_slider[hueRank]) show_slider_hue_structure(pos_slider_item[hueRank], size_slider_item[hueRank]) ; 
+    if (display_slider[satRank]) show_slider_saturation_structure(pos_slider_item[satRank], size_slider_item[satRank], value_slider_item[hueRank], value_slider_item[satRank], value_slider_item[brightRank]) ;
+    if (display_slider[brightRank]) show_slider_brightness_structure(pos_slider_item[brightRank], size_slider_item[brightRank], value_slider_item[hueRank], value_slider_item[satRank], value_slider_item[brightRank]) ;
+  } 
+  return is;
 }
 
 
@@ -402,8 +391,7 @@ display item info
 */
 void text_info_item(iVec2 pos, iVec2 size, int IDorder, int IDfamily) {
   if (mouseX > pos.x && mouseX < (size.x + pos.x ) && mouseY > pos.y - 10 && mouseY <  (size.y + pos.y) -20 ) {
-    iVec2 fontPos = iVec2(-10, -20 ) ;
-    
+    iVec2 fontPos = iVec2(-10, -20 ) ; 
     if (NUM_ITEM > 0 ) {
       display_info_item(IDorder, fontPos) ;
     }
@@ -515,13 +503,9 @@ void background_text_list(Vec2 pos, String [] list, int [] size_text, int size_a
 /**
 slider method
 */
-void show_slider_background(iVec2 pos, iVec2 size, int rounded, int c) {
-  fill(c);
-  rect(pos.x, pos.y -(size.y *.5), size.x, size.y, rounded);
-}
 
 // hue
-void show_slider_hue_background(iVec2 pos, iVec2 size) {
+void show_slider_hue_structure(iVec2 pos, iVec2 size) {
   pushMatrix();
   translate (pos.x , pos.y -(size.y *.5));
   for (int i = 0 ; i < size.x ; i++) {
@@ -535,7 +519,7 @@ void show_slider_hue_background(iVec2 pos, iVec2 size) {
 }
 
 // saturation
-void show_slider_saturation_background(iVec2 pos, iVec2 size, float colour, float s, float d) {
+void show_slider_saturation_structure(iVec2 pos, iVec2 size, float colour, float s, float d) {
   pushMatrix ();
   translate (pos.x, pos.y-(size.y *.5));
   for ( int i = 0 ; i < size.x ; i++) {
@@ -550,7 +534,7 @@ void show_slider_saturation_background(iVec2 pos, iVec2 size, float colour, floa
 }
 
 // brightness
-void show_slider_brightness_background(iVec2 pos, iVec2 size, float colour, float s, float d) {
+void show_slider_brightness_structure(iVec2 pos, iVec2 size, float colour, float s, float d) {
   pushMatrix ();
   translate (pos.x, pos.y-(size.y *.5));
   for (int i = 0 ; i < size.x ; i++) {
@@ -564,10 +548,6 @@ void show_slider_brightness_background(iVec2 pos, iVec2 size, float colour, floa
   popMatrix() ;
 }
 
-void show_slider(Sladj sa) {
-  sa.show_adj();
-  sa.show_molette();
-}
 
 
 void update_slider(Sladj sa, float [] value_slider, Vec5 [] info_slider) {
@@ -608,12 +588,6 @@ void update_slider(Sladj sa, float [] value_slider, Vec5 [] info_slider) {
 
 
 
-
-/*
-void display_min_max_slider(Sladj sa, color colorIn, color colorOut) {
-  sa.show_adj();
-}
-*/
 
 
 
@@ -658,10 +632,6 @@ void display_button_and_dropdown() {
 }
 
 
-
-
-
-
 void display_button_header() {
   // background window
   Vec2 pos_window = Vec2(mouseX , mouseY -20) ;
@@ -694,8 +664,6 @@ void display_button_header() {
     text(text [0], pos_window.x, pos_window.y) ;
   }
 }
-
-
 
 
 

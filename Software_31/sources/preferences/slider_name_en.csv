@@ -1,8 +1,8 @@
 name,col 0,col 1,col 2,col 3,col 4,col 5,col 6,col 7,col 8,col 9,col 10,col 11,col 12,col 13,col 14,col 15,col 16
 general,typography,curtain,
 background,hue,saturation,brigthness,refresh
-filter,
-light,hue,saturation,brigthness,hue,saturation,brigthness,hue,saturation,brigthness
+filter,cellule,refresh,power,cyclus,hue,saturation,brigthness
+light,hue,saturation,brigthness,hue,saturation,brigthness,hue,saturation,brigthness,alpha
 sound,left,right,
 camera,focal 28-200,deformation,direction X,direction Y,position X,position Y,pitch,
 item a,f_hue,f_saturation,f_brightness,f_alpha,s_hue,s_saturation,s_brightness,s_alpha,thickness,size X,size Y,size Z,font size,canvas X,canvas Y,canvas Z,

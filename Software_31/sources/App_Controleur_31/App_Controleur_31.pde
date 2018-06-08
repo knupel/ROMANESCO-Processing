@@ -71,8 +71,8 @@ void draw() {
 
   display_structure();
 
-  display_text();
-  display_slider();
+  show_misc_text();
+  show_slider_controller();
   display_button_and_dropdown();
   
   midi_manager(false);

@@ -20,7 +20,7 @@ void setting() {
 }
 
 void reset() {
-  init_slider_dynamic() ;
+  LOAD_SETTING = false ;
   INIT_INTERFACE = false ;
 }
 

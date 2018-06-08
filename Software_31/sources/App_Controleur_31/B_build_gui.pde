@@ -65,7 +65,7 @@ void build_console_filter() {
   for (int i = 0 ; i < NUM_SLIDER_FILTER ; i++) {
     iVec2 temp_size_mol = iVec2(round(size_slider_filter[i].y *ratio_size_molette), round(size_slider_filter[i].y *ratio_size_molette));
     iVec2 temp_pos = iVec2(pos_slider_filter[i].x, round(pos_slider_filter[i].y -(slider_height_filter *.6)));
-    if(info_save_raw_list(info_slider_filter,i).a > -1 ) {
+    if(info_save_raw_list(info_slider_filter,i).a > -1) {
       slider_adj_filter[i] = new Sladj(temp_pos,size_slider_filter[i]);
       slider_adj_filter[i].set_molette(ELLIPSE);
       slider_adj_filter[i].set_molette_size(temp_size_mol);

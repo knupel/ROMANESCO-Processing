@@ -2,6 +2,11 @@ Todolist Romanesco
 --
 2018
 --
+*slider display colour
+
+improve method show_slider_hue_structure(iVec2 pos, iVec2 size);
+use line instead rect to show colour
+
 *Movisco item
 
 Il y a surement plein de bug avec la nouvelle class Pixel Cloud

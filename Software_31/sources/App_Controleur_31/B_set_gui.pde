@@ -106,7 +106,7 @@ void set_design_var_light(int pos_y) {
 void set_design_var_filter(int pos_y) {
   slider_width_filter = 100;
   slider_height_filter = 8;
-  offset_filter_x = grid_col[0];
+  offset_filter_x = grid_col[6];
   offset_filter_y = pos_y +2;
 }
 

@@ -9,9 +9,9 @@ String [] sliders_by_item_raw;
 
 String [][] slider_inventory_item_raw;
 boolean [] item_active;
-boolean [][] display_slider;
+boolean [] display_slider;
 
-boolean [] showSliderGroup = new boolean[NUM_GROUP_SLIDER];
+// boolean [] showSliderGroup = new boolean[NUM_GROUP_SLIDER];
 
 boolean reset_slider_item = true;
 boolean show_all_slider_item_active = false;
@@ -103,8 +103,8 @@ void set_dynamic_slider() {
   sliders_by_item_raw = new String [NUM_ITEM +1];
 
   slider_inventory_item_raw = new String [NUM_ITEM +1][NUM_SLIDER_ITEM +1] ;
-  item_active = new boolean[NUM_ITEM +1] ;
-  display_slider = new boolean [NUM_GROUP_SLIDER] [NUM_SLIDER_ITEM +1] ;
+  item_active = new boolean [NUM_ITEM +1] ;
+  display_slider = new boolean [NUM_SLIDER_ITEM +1] ;
 }
 
 
@@ -116,12 +116,6 @@ void recover_active_slider_from_item() {
 }
 
 
-void init_slider_dynamic() {
-  for ( int j = 1 ; j < NUM_GROUP_SLIDER ; j++) {
-    showSliderGroup[j] = false ;
-  }
-  LOAD_SETTING = false ;
-}
 
 
 
@@ -168,52 +162,40 @@ void list_item_slider_gui() {
 void check_slider_item() {
   check_item_parameter_on_off() ;
   which_slider_display() ;
-  // check the group slider
-  for (int i = 1 ; i <= NUM_ITEM ; i++) {
-    if (item_active[i]) {
-      showSliderGroup[item_group[i]] = true;
-    }
-  }
-
   //check if the slider must be display
   if (reset_slider_item) {
     // use this boolean to have a boolean slider true, if don't use thi boolean no onr slider can be true and active
-    boolean [] firstCheck = new boolean [NUM_GROUP_SLIDER] ; // true ;
+    boolean firstCheck = true ; 
     //reset slider for new check
-    for(int i = 1 ; i < NUM_GROUP_SLIDER ; i++) {
-      firstCheck [i] = true;
-      for(int j = 0 ; j < NUM_SLIDER_ITEM ; j++) {
-        display_slider[i][j] = false;
-      }
+    for(int i = 0 ; i < NUM_SLIDER_ITEM ; i++) {
+      display_slider[i] = false;
     }
-   
     //active slider item
-    int IDgroup = 1 ;
     if (show_all_slider_item) {
       for (int i = 0 ; i < NUM_SLIDER_ITEM ; i++) {
-        display_slider[IDgroup][i] = true;
+        display_slider[i] = true;
       }
     } else {
       for (int i = 1 ; i <= NUM_ITEM ; i++) {
         if (item_active[i]) {
           for(int k = 0 ; k < NUM_SLIDER_ITEM ; k++) {
-            if (firstCheck[IDgroup]) {
+            if (firstCheck) {
               if((slider_item_controller.get(k).equals(sliders_by_item[i].get(k)) || sliders_by_item[i].get(k).equals("all"))) {
-                display_slider[IDgroup][k] = true; 
+                display_slider[k] = true; 
               } else {
-                display_slider[IDgroup][k] = false;
+                display_slider[k] = false;
               }
             } else {
               if (!show_all_slider_item_active) {
-                if((slider_item_controller.get(k).equals(sliders_by_item[i].get(k)) || sliders_by_item[i].get(k).equals("all")) && display_slider[IDgroup][k]) {
-                  display_slider[IDgroup][k] = true; 
+                if((slider_item_controller.get(k).equals(sliders_by_item[i].get(k)) || sliders_by_item[i].get(k).equals("all")) && display_slider[k]) {
+                  display_slider[k] = true; 
                 } else {
-                  display_slider[IDgroup][k] = false;
+                  display_slider[k] = false;
                 }
               } else if (show_all_slider_item_active) {
-                if (!display_slider[IDgroup][k]) {
+                if (!display_slider[k]) {
                   if (slider_item_controller.get(k).equals(sliders_by_item[i].get(k)) || sliders_by_item[i].get(k).equals("all")) {
-                    display_slider[IDgroup][k] = true;
+                    display_slider[k] = true;
                   } 
                 } 
                 /*
@@ -224,7 +206,7 @@ void check_slider_item() {
               }
             }
           }
-          firstCheck[IDgroup] = false ;
+          firstCheck = false ;
         }
       }
     }
@@ -236,7 +218,6 @@ void check_slider_item() {
 
 // CHOICE which slider must be display after checking the keyboard
 void which_slider_display() {
-  // println("slider mode",slider_mode_display);
   switch(slider_mode_display) {
     case 0 : 
     reset_slider_item = true ;
