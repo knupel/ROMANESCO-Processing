@@ -2,6 +2,10 @@ Todolist Romanesco
 --
 2018
 --
+*controller window info item
+
+The background window don't move, it stay static :(
+)
 *slider display colour
 
 improve method show_slider_hue_structure(iVec2 pos, iVec2 size);
@@ -10,11 +14,6 @@ use line instead rect to show colour
 *Movisco item
 
 Il y a surement plein de bug avec la nouvelle class Pixel Cloud
-
-*avertissement
-
-messsage console pour avertir que le lanceur ne lance pas Romanesco quand celui-ci n'est pas compilé, il sert uniquement a le paramétrer.
-
 
 *get_tempo(beat_target)
 
@@ -31,17 +30,11 @@ Supprimer cette librairie
 
 Quand la taille du controleur est changée le rendu passe au noir
 
-*version
-
-créer un fichier externe de version
 
 *window
 
 Save the window position, to keep the position used when the app is re-open
 
-*Controller
-
-Remove the concept of group for the slider and button, too complex.
 
 *2D
 

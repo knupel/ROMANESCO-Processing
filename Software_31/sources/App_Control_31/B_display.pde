@@ -7,34 +7,36 @@ v 0.0.2
 /**
 display structure background
 */
+
+
 int thickness_line_deco = 2 ;
 void display_structure() {
   noStroke();
   iVec2 pos = iVec2(0,0);
   iVec2 size = iVec2(width, height_header);
-  display_structure_header(pos,size,rougeFonce);
+  display_structure_header(pos,size, fill_header_struc);
 
   pos.set(0, pos_y_button_top);
   size.set(width,height_button_top);
-  display_structure_top_button(pos,size,r.GRAY_1,jauneOrange);
+  display_structure_top_button(pos,size,structure_background_gray_a,structure_background_colour_a);
 
   pos.set(0, pos_y_dropdown_top);
   size.set(width, height_dropdown_top);
-  display_structure_dropdown_menu_general(pos,size,r.GRAY_1,jauneOrange);
+  display_structure_dropdown_menu_general(pos,size,structure_background_gray_a,structure_background_colour_a);
 
   pos.set(0,pos_y_menu_general);
   size.set(width,height_menu_general);
-  display_structure_general(pos,size,r.GRAY_1,r.GRAY_3);
+  display_structure_general(pos,size,structure_background_gray_a,structure_background_gray_b);
   
   pos.set(0, pos_y_item_selected);
   size.set(width, height_item_selected);
-  display_structure_item_selected(pos,size,r.GRAY_1,jauneOrange);
+  display_structure_item_selected(pos,size,structure_background_gray_a,structure_background_colour_a);
 
   pos.set(0, pos_y_inventory);
   size.set(width, height);
-  display_structure_inventory_item(pos,size,r.GRAY_1,r.GRAY_3);
+  display_structure_inventory_item(pos,size,structure_background_gray_a,structure_background_gray_b);
 
-  display_structure_bottom(jauneOrange,rougeFonce);
+  display_structure_bottom(structure_background_colour_a,structure_background_colour_b);
 }
 
 
@@ -98,12 +100,12 @@ void display_structure_bottom(int colour_a, int colour_b) {
 
 
 void show_misc_text() {
-  if(insideNameversion) fill (jaune) ; else fill(orange) ;
+  if(insideNameversion) fill (fill_text_title_in) ; else fill(fill_text_title_out) ;
   int posTextY = 18 ;
   textFont(FuturaStencil_20,16); 
   text(nameVersion,5,posTextY);
   //CLOCK
-  fill(orange); 
+  fill(fill_text_title_out); 
   textFont(FuturaStencil_20,16); 
   textAlign(RIGHT);
   text(nf(hour(),2)   + ":" +nf(minute(),2) , width -10, posTextY);
@@ -177,8 +179,6 @@ void show_slider_controller() {
 
 // SLIDER DRAW
 void show_slider_background() {
-  // slider_background_show_structure();
-
   boolean show_is = show_slider_structure_colour(pos_slider_background, size_slider_background, value_slider_background);
 
   for (int i = 0 ; i < NUM_SLIDER_BACKGROUND ; i++) {
@@ -320,7 +320,7 @@ And you must add the name of this one in the 'preferences/'  folder slider_name_
 */
 void show_slider_item() {
   boolean [] is = new boolean[2];
-  if(!show_all_slider_item) {        
+  if(!show_all_slider_item) {      
     is[0] = show_slider_item_colour(hue_fill_rank, sat_fill_rank, bright_fill_rank); // fill
     is[1] = show_slider_item_colour(hue_stroke_rank, sat_stroke_rank, bright_stroke_rank); // stroke
     for (int i = 1 ; i <= NUM_ITEM ; i++) {
@@ -398,6 +398,9 @@ void text_info_item(iVec2 pos, iVec2 size, int IDorder, int IDfamily) {
   }
 }
 
+
+
+
 void display_info_item(int IDorder, iVec2 pos) {
   int whichLine = 0 ;
   int num = inventory_item_table.getRowCount() ;
@@ -427,21 +430,21 @@ void display_info_item(int IDorder, iVec2 pos) {
   Vec2 ratio_size = Vec2( 1.4, 1.3) ;
   int speed = 7 ;
   int size_angle = 2 ;
-  fill(rougeFonce, 150) ;
+  fill(fill_info_window_rect,150);
   Vec2 range_check = Vec2(0,1) ;
   background_text_list(Vec2(pos_window.x +2, pos_window.y), text, size_text, size_angle, speed, ratio_size, range_check,FuturaStencil_20) ;
 
 
   // text
-  fill(jaune) ;  
-  textSize(size_text [0] ) ;
-  textFont(FuturaStencil_20) ;
-  text(text[0], pos_window.x, pos_window.y +5) ;
-  textSize(size_text [1] ) ;
-  text(text[1], pos_window.x, pos_window.y +20) ;
-  textSize(size_text [2] ) ;
-  text(text[2], pos_window.x, pos_window.y +30) ;
-  text(text[3], pos_window.x, pos_window.y +40) ;
+  fill(fill_info_window_text);  
+  textSize(size_text[0]);
+  textFont(FuturaStencil_20);
+  text(text[0], pos_window.x, pos_window.y +5);
+  textSize(size_text[1]);
+  text(text[1], pos_window.x, pos_window.y +20);
+  textSize(size_text[2]);
+  text(text[2], pos_window.x, pos_window.y +30);
+  text(text[3], pos_window.x, pos_window.y +40);
 }
 
 void background_text_list(Vec2 pos, String [] list, int [] size_text, int size_angle, int speed_rotation, Vec2 ratio_size, Vec2 start_end, PFont font) {
@@ -649,18 +652,18 @@ void display_button_header() {
 
   if(button_midi.rollover()) {
     text [0] = ("MIDI") ;    
-    fill(grisTresFonce, alpha_bg_rollover) ;
+    fill(fill_info_window_rect, alpha_bg_rollover) ;
     background_text_list(Vec2(pos_window.x, pos_window.y), text, size_text, size_angle, speed, ratio_size, range_check, FuturaStencil_20) ;
-    fill(jaune) ;
+    fill(fill_info_window_text) ;
     text(text [0],pos_window.x, pos_window.y) ;
   }
 
   if(button_curtain.rollover()) {
     text [0] = ("CUT") ;
     noStroke() ;
-    fill(grisTresFonce, alpha_bg_rollover) ;
+    fill(fill_info_window_rect, alpha_bg_rollover) ;
     background_text_list(Vec2(pos_window.x, pos_window.y), text, size_text, size_angle, speed, ratio_size,range_check,FuturaStencil_20) ;
-    fill(jaune) ;
+    fill(fill_info_window_text) ;
     text(text [0], pos_window.x, pos_window.y) ;
   }
 }

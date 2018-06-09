@@ -42,21 +42,21 @@ void build_console_background() {
     if(info_save_raw_list(info_slider_background,i).a > -1 ) {
       slider_adj_background[i] = new Sladj(temp_pos, size_slider_background[i]);
       slider_adj_background[i].set_molette(ELLIPSE);
-      slider_adj_background[i].set_molette_size(temp_size_mol);
+      slider_adj_background[i].size_molette(temp_size_mol);
       slider_adj_background[i].set_id(i);
       slider_adj_background[i].set_label(slider_background_name[i],iadd(slider_adj_background[i].get_size(),iVec2(3,0)));
       slider_adj_background[i].set_font(textUsual_1);
       slider_adj_background[i].set_rounded(rounded_slider);
-      slider_adj_background[i].set_colour_label(r.GRAY_3);
-      slider_adj_background[i].set_fill(r.GRAY_4);
-      slider_adj_background[i].set_molette_fill(r.GRAY_7,r.GRAY_5);
-      slider_adj_background[i].set_adj_fill(r.GRAY_6,r.GRAY_1);
+      slider_adj_background[i].set_fill_label(label_in_dark,label_out_dark);
+      slider_adj_background[i].set_fill(struc_dark);
+      slider_adj_background[i].set_fill_molette(molette_in_dark,molette_out_dark);
+      slider_adj_background[i].set_fill_adj(adj_in_dark,adj_out_dark);
     }
   }
 
   button_bg = new Button(pos_button_background, size_button_background);
   button_bg.set_is(true);
-  button_bg.set_colour_on_off(col_on_in, col_on_out, col_off_in, col_off_out);
+  button_bg.set_aspect_on_off(button_on_in, button_on_out, button_off_in, button_off_out);
   button_bg.set_font(FuturaExtraBold_10);
   button_bg.set_label(shader_bg_name[which_bg_shader] + " on/off");
 }
@@ -68,15 +68,15 @@ void build_console_filter() {
     if(info_save_raw_list(info_slider_filter,i).a > -1) {
       slider_adj_filter[i] = new Sladj(temp_pos,size_slider_filter[i]);
       slider_adj_filter[i].set_molette(ELLIPSE);
-      slider_adj_filter[i].set_molette_size(temp_size_mol);
+      slider_adj_filter[i].size_molette(temp_size_mol);
       slider_adj_filter[i].set_id(i);
       slider_adj_filter[i].set_label(slider_filter_name[i],iadd(slider_adj_filter[i].get_size(),iVec2(3,0)));
       slider_adj_filter[i].set_font(textUsual_1);
       slider_adj_filter[i].set_rounded(rounded_slider);
-      slider_adj_filter[i].set_colour_label(r.GRAY_3);
-      slider_adj_filter[i].set_fill(r.GRAY_4);
-      slider_adj_filter[i].set_molette_fill(r.GRAY_7,r.GRAY_5);
-      slider_adj_filter[i].set_adj_fill(r.GRAY_6,r.GRAY_1);
+      slider_adj_filter[i].set_fill_label(label_in_dark,label_out_dark);
+      slider_adj_filter[i].set_fill(struc_dark);
+      slider_adj_filter[i].set_fill_molette(molette_in_dark,molette_out_dark);
+      slider_adj_filter[i].set_fill_adj(adj_in_dark,adj_out_dark);
     }
   }
 }
@@ -88,45 +88,45 @@ void build_console_light() {
     if(info_save_raw_list(info_slider_light,i).a > -1 ) {
       slider_adj_light[i] = new Sladj(temp_pos, size_slider_light[i]);
       slider_adj_light[i].set_molette(ELLIPSE);
-      slider_adj_light[i].set_molette_size(temp_size_mol);
+      slider_adj_light[i].size_molette(temp_size_mol);
       slider_adj_light[i].set_id(i);
       slider_adj_light[i].set_label(slider_light_name[i],iadd(slider_adj_light[i].get_size(),iVec2(3,0)));
       slider_adj_light[i].set_font(textUsual_1);
       slider_adj_light[i].set_rounded(rounded_slider);
-      slider_adj_light[i].set_colour_label(r.GRAY_3);
-      slider_adj_light[i].set_fill(r.GRAY_4);
-      slider_adj_light[i].set_molette_fill(r.GRAY_7,r.GRAY_5);
-      slider_adj_light[i].set_adj_fill(r.GRAY_6,r.GRAY_1);
+      slider_adj_light[i].set_fill_label(label_in_dark,label_out_dark);
+      slider_adj_light[i].set_fill(struc_dark);
+      slider_adj_light[i].set_fill_molette(molette_in_dark,molette_out_dark);
+      slider_adj_light[i].set_fill_adj(adj_in_dark,adj_out_dark);
     }
   }
 
   // LIGHT AMBIENT
   button_light_ambient = new Button(pos_light_ambient_buttonButton, size_light_ambient_buttonButton);
-  button_light_ambient.set_colour_on_off(col_on_in, col_on_out, col_off_in, col_off_out);
+  button_light_ambient.set_aspect_on_off(button_on_in, button_on_out, button_off_in, button_off_out);
   button_light_ambient.set_font(FuturaExtraBold_10);
   button_light_ambient.set_label("Ambient on/off");
 
   button_light_ambient_action = new Button(pos_light_ambient_button_action, size_light_ambient_button_action);
-  button_light_ambient_action.set_colour_on_off(col_on_in, col_on_out, col_off_in, col_off_out);
-    button_light_ambient_action.set_label("action");
+  button_light_ambient_action.set_aspect_on_off(button_on_in, button_on_out, button_off_in, button_off_out);
+  button_light_ambient_action.set_label("action");
   // LIGHT ONE
   button_light_1 = new Button(pos_light_1_button, size_light_1_button);
-  button_light_1.set_colour_on_off(col_on_in, col_on_out, col_off_in, col_off_out);
+  button_light_1.set_aspect_on_off(button_on_in, button_on_out, button_off_in, button_off_out);
   button_light_1.set_font(FuturaExtraBold_10);
   button_light_1.set_label("Light on/off");
 
   button_light_1_action = new Button(pos_light_1_button_action, size_light_1_button_action);
-  button_light_1_action.set_colour_on_off(col_on_in, col_on_out, col_off_in, col_off_out);
+  button_light_1_action.set_aspect_on_off(button_on_in, button_on_out, button_off_in, button_off_out);
   button_light_1_action.set_font(FuturaExtraBold_10);
   button_light_1_action.set_label("action");
   // LIGHT TWO 
   button_light_2 = new Button(pos_light_2_button, size_light_2_button) ;
-  button_light_2.set_colour_on_off(col_on_in, col_on_out, col_off_in, col_off_out);
+  button_light_2.set_aspect_on_off(button_on_in, button_on_out, button_off_in, button_off_out);
   button_light_2.set_font(FuturaExtraBold_10);
   button_light_2.set_label("Light on/off");
 
   button_light_2_action = new Button(pos_light_2_button_action, size_light_2_button_action);
-  button_light_2_action.set_colour_on_off(col_on_in, col_on_out, col_off_in, col_off_out);
+  button_light_2_action.set_aspect_on_off(button_on_in, button_on_out, button_off_in, button_off_out);
   button_light_2_action.set_font(FuturaExtraBold_10);
   button_light_2_action.set_label("action");
 }
@@ -139,30 +139,30 @@ void build_console_sound() {
     if(info_save_raw_list(info_slider_sound,i).a > -1 ) {
       slider_adj_sound[i] = new Sladj(temp_pos, size_slider_sound[i]);
       slider_adj_sound[i].set_molette(ELLIPSE);
-      slider_adj_sound[i].set_molette_size(temp_size_mol);
+      slider_adj_sound[i].size_molette(temp_size_mol);
       slider_adj_sound[i].set_id(i);
       slider_adj_sound[i].set_label(slider_sound_name[i],iadd(slider_adj_sound[i].get_size(),iVec2(3,0)));
       slider_adj_sound[i].set_font(textUsual_1);
       slider_adj_sound[i].set_rounded(rounded_slider);
-      slider_adj_sound[i].set_colour_label(r.GRAY_3);
-      slider_adj_sound[i].set_fill(r.GRAY_4);
-      slider_adj_sound[i].set_molette_fill(r.GRAY_7,r.GRAY_5);
-      slider_adj_sound[i].set_adj_fill(r.GRAY_6,r.GRAY_1);
+      slider_adj_sound[i].set_fill_label(label_in_dark,label_out_dark);
+      slider_adj_sound[i].set_fill(struc_dark);
+      slider_adj_sound[i].set_fill_molette(molette_in_dark,molette_out_dark);
+      slider_adj_sound[i].set_fill_adj(adj_in_dark,adj_out_dark);
     }
   }
 
   button_kick = new Button(pos_kick_button, size_kick_button);
-  button_kick.set_colour_on_off(col_on_in, col_on_out, col_off_in, col_off_out);
+  button_kick.set_aspect_on_off(button_on_in, button_on_out, button_off_in, button_off_out);
   button_kick.set_font(FuturaExtraBold_10);
   button_kick.set_label("KICK");
 
   button_snare = new Button(pos_snare_button, size_snare_button);
-  button_snare.set_colour_on_off(col_on_in, col_on_out, col_off_in, col_off_out);
+  button_snare.set_aspect_on_off(button_on_in, button_on_out, button_off_in, button_off_out);
   button_snare.set_font(FuturaExtraBold_10);
   button_snare.set_label("SNARE");
 
   button_hat = new Button(pos_hat_button, size_hat_button);
-  button_hat.set_colour_on_off(col_on_in, col_on_out, col_off_in, col_off_out);
+  button_hat.set_aspect_on_off(button_on_in, button_on_out, button_off_in, button_off_out);
   button_hat.set_font(FuturaExtraBold_10);
   button_hat.set_label("HAT");
 }
@@ -177,15 +177,15 @@ void build_console_camera() {
     if(info_save_raw_list(info_slider_camera,i).a > -1 ) {
       slider_adj_camera[i] = new Sladj(temp_pos, size_slider_camera[i]);
       slider_adj_camera[i].set_molette(ELLIPSE);
-      slider_adj_camera[i].set_molette_size(temp_size_mol);
+      slider_adj_camera[i].size_molette(temp_size_mol);
       slider_adj_camera[i].set_id(i);
       slider_adj_camera[i].set_label(slider_camera_name[i],iadd(slider_adj_camera[i].get_size(),iVec2(3,0)));
       slider_adj_camera[i].set_font(textUsual_1);
       slider_adj_camera[i].set_rounded(rounded_slider);
-      slider_adj_camera[i].set_colour_label(r.GRAY_3);
-      slider_adj_camera[i].set_fill(r.GRAY_4);
-      slider_adj_camera[i].set_molette_fill(r.GRAY_7,r.GRAY_5);
-      slider_adj_camera[i].set_adj_fill(r.GRAY_6,r.GRAY_1);
+      slider_adj_camera[i].set_fill_label(label_in_dark,label_out_dark);
+      slider_adj_camera[i].set_fill(struc_dark);
+      slider_adj_camera[i].set_fill_molette(molette_in_dark,molette_out_dark);
+      slider_adj_camera[i].set_fill_adj(adj_in_dark,adj_out_dark);
     }
   }
 }
@@ -208,7 +208,7 @@ void build_console_item() {
     if(info_save_raw_list(info_slider_item,i).a > -1 ) {
       slider_adj_item[i] = new Sladj(temp_pos, size_slider_item[i]);
       slider_adj_item[i].set_molette(ELLIPSE);
-      slider_adj_item[i].set_molette_size(temp_size_mol);
+      slider_adj_item[i].size_molette(temp_size_mol);
       slider_adj_item[i].set_id(i);
 
       String label_name = slider_item_name[i];
@@ -224,93 +224,93 @@ void build_console_item() {
       slider_adj_item[i].set_label(label_name,iadd(slider_adj_item[i].get_size(),iVec2(3,0)));
       slider_adj_item[i].set_font(textUsual_1);
       slider_adj_item[i].set_rounded(rounded_slider);
-      slider_adj_item[i].set_colour_label(r.GRAY_3);
-      slider_adj_item[i].set_molette_fill(r.GRAY_7,r.GRAY_5);
-      slider_adj_item[i].set_adj_fill(r.GRAY_6,r.GRAY_1);
+      slider_adj_item[i].set_fill_label(label_in_dark,label_out_dark);
+      slider_adj_item[i].set_fill_molette(molette_in_dark,molette_out_dark);
+      slider_adj_item[i].set_fill_adj(adj_in_dark,adj_out_dark);
     }
   }
   // fill alpha
-  slider_adj_item[hue_fill_rank].set_fill(r.GRAY_4);
-  slider_adj_item[sat_fill_rank].set_fill(r.GRAY_4);
-  slider_adj_item[bright_fill_rank].set_fill(r.GRAY_4);
-  slider_adj_item[alpha_fill_rank].set_fill(r.GRAY_4);
+  slider_adj_item[hue_fill_rank].set_fill_adj(adj_in_light,adj_out_light).set_fill(struc_light);
+  slider_adj_item[sat_fill_rank].set_fill_adj(adj_in_light,adj_out_light).set_fill(struc_light);
+  slider_adj_item[bright_fill_rank].set_fill_adj(adj_in_light,adj_out_light).set_fill(struc_light);
+  slider_adj_item[alpha_fill_rank].set_fill_adj(adj_in_light,adj_out_light).set_fill(struc_light);
   // stroke alpha
-  slider_adj_item[hue_stroke_rank].set_fill(r.GRAY_2);
-  slider_adj_item[sat_stroke_rank].set_fill(r.GRAY_2);
-  slider_adj_item[bright_stroke_rank].set_fill(r.GRAY_2);
-  slider_adj_item[alpha_stroke_rank].set_fill(r.GRAY_2);
+  slider_adj_item[hue_stroke_rank].set_fill_adj(adj_in_dark,adj_out_dark).set_fill(struc_dark);
+  slider_adj_item[sat_stroke_rank].set_fill_adj(adj_in_dark,adj_out_dark).set_fill(struc_dark);
+  slider_adj_item[bright_stroke_rank].set_fill_adj(adj_in_dark,adj_out_dark).set_fill(struc_dark);
+  slider_adj_item[alpha_stroke_rank].set_fill_adj(adj_in_dark,adj_out_dark).set_fill(struc_dark);
   //  thickness
-  slider_adj_item[thickness_rank].set_fill(r.GRAY_4);
+  slider_adj_item[thickness_rank].set_fill_adj(adj_in_light,adj_out_light).set_fill(struc_light);
   // size
-  slider_adj_item[size_x_rank].set_fill(r.GRAY_2);
-  slider_adj_item[size_y_rank].set_fill(r.GRAY_2);
-  slider_adj_item[size_z_rank].set_fill(r.GRAY_2);
+  slider_adj_item[size_x_rank].set_fill_adj(adj_in_light,adj_out_dark).set_fill(struc_dark);
+  slider_adj_item[size_y_rank].set_fill_adj(adj_in_light,adj_out_dark).set_fill(struc_dark);
+  slider_adj_item[size_z_rank].set_fill_adj(adj_in_light,adj_out_dark).set_fill(struc_dark);
   // Font size
-  slider_adj_item[font_size_rank].set_fill(r.GRAY_4);
+  slider_adj_item[font_size_rank].set_fill_adj(adj_in_light,adj_out_light).set_fill(struc_light);
   // canvas
-  slider_adj_item[canvas_x_rank].set_fill(r.GRAY_2);
-  slider_adj_item[canvas_y_rank].set_fill(r.GRAY_2);
-  slider_adj_item[canvas_z_rank].set_fill(r.GRAY_2);
+  slider_adj_item[canvas_x_rank].set_fill_adj(adj_in_light,adj_out_dark).set_fill(struc_dark);
+  slider_adj_item[canvas_y_rank].set_fill_adj(adj_in_light,adj_out_dark).set_fill(struc_dark);
+  slider_adj_item[canvas_z_rank].set_fill_adj(adj_in_light,adj_out_dark).set_fill(struc_dark);
 
   // COL 2
   // reactivity
-  slider_adj_item[reactivity_rank].set_fill(r.GRAY_4);
+  slider_adj_item[reactivity_rank].set_fill_adj(adj_in_light,adj_out_light).set_fill(struc_light);
   // speed
-  slider_adj_item[speed_x_rank].set_fill(r.GRAY_2);
-  slider_adj_item[speed_y_rank].set_fill(r.GRAY_2);
-  slider_adj_item[speed_z_rank].set_fill(r.GRAY_2);
+  slider_adj_item[speed_x_rank].set_fill_adj(adj_in_light,adj_out_dark).set_fill(struc_dark);
+  slider_adj_item[speed_y_rank].set_fill_adj(adj_in_light,adj_out_dark).set_fill(struc_dark);
+  slider_adj_item[speed_z_rank].set_fill_adj(adj_in_light,adj_out_dark).set_fill(struc_dark);
   // spurt
-  slider_adj_item[spurt_x_rank].set_fill(r.GRAY_4);
-  slider_adj_item[spurt_y_rank].set_fill(r.GRAY_4);
-  slider_adj_item[spurt_z_rank].set_fill(r.GRAY_4);
+  slider_adj_item[spurt_x_rank].set_fill_adj(adj_in_light,adj_out_light).set_fill(struc_light);
+  slider_adj_item[spurt_y_rank].set_fill_adj(adj_in_light,adj_out_light).set_fill(struc_light);
+  slider_adj_item[spurt_z_rank].set_fill_adj(adj_in_light,adj_out_light).set_fill(struc_light);
   // direction
-  slider_adj_item[dir_x_rank].set_fill(r.GRAY_2);
-  slider_adj_item[dir_y_rank].set_fill(r.GRAY_2);
-  slider_adj_item[dir_z_rank].set_fill(r.GRAY_2);
+  slider_adj_item[dir_x_rank].set_fill_adj(adj_in_light,adj_out_dark).set_fill(struc_dark);
+  slider_adj_item[dir_y_rank].set_fill_adj(adj_in_light,adj_out_dark).set_fill(struc_dark);
+  slider_adj_item[dir_z_rank].set_fill_adj(adj_in_light,adj_out_dark).set_fill(struc_dark);
   // jitter
-  slider_adj_item[jitter_x_rank].set_fill(r.GRAY_4);
-  slider_adj_item[jitter_y_rank].set_fill(r.GRAY_4);
-  slider_adj_item[jitter_z_rank].set_fill(r.GRAY_4);
+  slider_adj_item[jitter_x_rank].set_fill_adj(adj_in_light,adj_out_light).set_fill(struc_light);
+  slider_adj_item[jitter_y_rank].set_fill_adj(adj_in_light,adj_out_light).set_fill(struc_light);
+  slider_adj_item[jitter_z_rank].set_fill_adj(adj_in_light,adj_out_light).set_fill(struc_light);
   // swing
-  slider_adj_item[swing_x_rank].set_fill(r.GRAY_2);
-  slider_adj_item[swing_y_rank].set_fill(r.GRAY_2);
-  slider_adj_item[swing_z_rank].set_fill(r.GRAY_2);
+  slider_adj_item[swing_x_rank].set_fill_adj(adj_in_light,adj_out_dark).set_fill(struc_dark);
+  slider_adj_item[swing_y_rank].set_fill_adj(adj_in_light,adj_out_dark).set_fill(struc_dark);
+  slider_adj_item[swing_z_rank].set_fill_adj(adj_in_light,adj_out_dark).set_fill(struc_dark);
 
   // COL 3
   // quantity
-  slider_adj_item[quantity_rank].set_fill(r.GRAY_4);
+  slider_adj_item[quantity_rank].set_fill_adj(adj_in_light,adj_out_light).set_fill(struc_light);
   // variety
-  slider_adj_item[variety_rank].set_fill(r.GRAY_4); 
+  slider_adj_item[variety_rank].set_fill_adj(adj_in_light,adj_out_light).set_fill(struc_light); 
   // life
-  slider_adj_item[life_rank].set_fill(r.GRAY_4);
+  slider_adj_item[life_rank].set_fill_adj(adj_in_light,adj_out_light).set_fill(struc_light);
   // fertility
-  slider_adj_item[flow_rank].set_fill(r.GRAY_4);
+  slider_adj_item[flow_rank].set_fill_adj(adj_in_light,adj_out_light).set_fill(struc_light);
   // quality
-  slider_adj_item[quality_rank].set_fill(r.GRAY_4);
+  slider_adj_item[quality_rank].set_fill_adj(adj_in_light,adj_out_light).set_fill(struc_light);
   
   // area
-  slider_adj_item[area_rank].set_fill(r.GRAY_2);
+  slider_adj_item[area_rank].set_fill_adj(adj_in_light,adj_out_dark).set_fill(struc_dark);
   // angle
-  slider_adj_item[angle_rank].set_fill(r.GRAY_2);
+  slider_adj_item[angle_rank].set_fill_adj(adj_in_light,adj_out_dark).set_fill(struc_dark);
   // scope
-  slider_adj_item[scope_rank].set_fill(r.GRAY_2);
+  slider_adj_item[scope_rank].set_fill_adj(adj_in_light,adj_out_dark).set_fill(struc_dark);
   // scan
-  slider_adj_item[scan_rank].set_fill(r.GRAY_2); 
+  slider_adj_item[scan_rank].set_fill_adj(adj_in_light,adj_out_dark).set_fill(struc_dark); 
   // alignment
-  slider_adj_item[alignment_rank].set_fill(r.GRAY_4);
+  slider_adj_item[alignment_rank].set_fill_adj(adj_in_light,adj_out_light).set_fill(struc_light);
   // repulsion
-  slider_adj_item[repulsion_rank].set_fill(r.GRAY_4);
+  slider_adj_item[repulsion_rank].set_fill_adj(adj_in_light,adj_out_light).set_fill(struc_light);
   // attraction
-  slider_adj_item[attraction_rank].set_fill(r.GRAY_4);
+  slider_adj_item[attraction_rank].set_fill_adj(adj_in_light,adj_out_light).set_fill(struc_light);
   // density
-  slider_adj_item[density_rank].set_fill(r.GRAY_4);
+  slider_adj_item[density_rank].set_fill_adj(adj_in_light,adj_out_light).set_fill(struc_light);
   
   // influence
-  slider_adj_item[influence_rank].set_fill(r.GRAY_2);
+  slider_adj_item[influence_rank].set_fill(struc_dark);
   // calm
-  slider_adj_item[calm_rank].set_fill(r.GRAY_2);
+  slider_adj_item[calm_rank].set_fill(struc_dark);
   // spectrum
-  slider_adj_item[spectrum_rank].set_fill(r.GRAY_2);
+  slider_adj_item[spectrum_rank].set_fill(struc_dark);
 }
 
 

@@ -1,17 +1,21 @@
 /**
 Variable
-v 0.1.0
-*/
-/**
-colour
+v 0.2.0
 */
 
+
+/**
+design
+*/
+void set_design() {
+  set_design_structure();
+  set_design_aspect();
+}
 
 /**
 set structure
 */
-void set_design_var() {
-  // dropdown
+void set_design_structure() {
   height_box_dropdown = 15;
 
   ratio_size_molette = 1.3;
@@ -19,7 +23,6 @@ void set_design_var() {
   marge = 10;
 
   int width_inside = width -(2*marge);
-  //col_width = 160;
   grid_col = new int[12];
   col_width = width_inside/grid_col.length;
   grid_col[0] = marge;
@@ -40,44 +43,100 @@ void set_design_var() {
   height_menu_general = 193;
   pos_y_menu_general = height_header +height_button_top +height_dropdown_top;
 
-  set_design_var_menu_bar();
-  set_design_var_background(pos_y_menu_general +15);
-  set_design_var_light(pos_y_menu_general +15);
-  set_design_var_filter(pos_y_menu_general +15);
-  set_design_var_sound(pos_y_menu_general +15);
-  set_design_var_camera(pos_y_menu_general +15);
+  set_design_structure_menu_bar();
+  set_design_structure_background(pos_y_menu_general +15);
+  set_design_structure_light(pos_y_menu_general +15);
+  set_design_structure_filter(pos_y_menu_general +15);
+  set_design_structure_sound(pos_y_menu_general +15);
+  set_design_structure_camera(pos_y_menu_general +15);
 
   DIST_BETWEEN_ITEM = 40;
-  set_design_var_item_selected();
+  set_design_structure_item_selected();
 
-  set_design_var_inventory();
+  set_design_structure_inventory();
 }
 
-void set_colour() {
-  color_dd_background = rougeTresFonce;
-  color_dd_header_in = jaune;
-  color_dd_header_out = orange;
+void set_design_aspect() {
+  fill_header_struc = r.BLOOD;
+  structure_background_gray_a = r.GRAY_1;
+  structure_background_gray_b = r.GRAY_3;
+  structure_background_colour_a = r.ORANGE;
+  structure_background_colour_b = r.BLOOD;
 
-  color_dd_header_text_in = orange;
-  color_dd_header_text_out = jaune;
+  fill_text_title_in = r.YELLOW;
+  fill_text_title_out = r.ORANGE;
 
-  color_dd_item_in = rouge;
-  color_dd_item_out = rougeTresFonce;
+  fill_info_window_rect = r.CARMIN;
+  fill_info_window_text = r.YELLOW;
 
-  color_dd_item_text_in = rougeFonce;
-  color_dd_item_text_out = rougeFonce;
-/*
-  color_dd_header_in = jaune; 
-  color_dd_header_out = orange;
+  fill_midi_no_selection = r.CARMIN;
+  fill_midi_selection = r.GRAY_2;
+
+  fill_midi_window_no_selection = r.WHITE;
+  fill_midi_window_selection = r.WHITE;
+
+  struc_colour_credit_background = r.GRAY_2;
+  struc_colour_credit_text = r.WHITE;
+
+  /**
+  colour button
   */
+  button_on_in =r.GREEN;
+  button_on_out = r.BOTTLE;
 
-  color_dd_box_in = jaune; 
-  color_dd_box_out = orange;
+  button_off_in = r.RED;
+  button_off_out = r.CARMIN;
 
-  color_dd_box_text_in = rougeFonce;
-  color_dd_box_text_out = rougeFonce;
+  // dropdown
+  color_dd_background = r.BLOOD;
+  color_dd_header_in = r.YELLOW;
+  color_dd_header_out = r.ORANGE;
 
-  selected_dd_text = vertFonce;
+  color_dd_header_text_in = r.RED;
+  color_dd_header_text_out = r.CARMIN;
+
+  color_dd_item_in = r.RED;
+  color_dd_item_out = r.CARMIN;
+
+  color_dd_item_text_in = r.BLOOD;
+  color_dd_item_text_out = r.BLOOD;
+
+  color_dd_box_in = r.YELLOW; 
+  color_dd_box_out = r.ORANGE;
+
+  color_dd_box_text_in = r.BLOOD;
+  color_dd_box_text_out = r.BLOOD;
+
+  selected_dd_text = r.BOTTLE;
+
+  /**
+  colour slider light
+  */
+  molette_in_light = r.GRAY_7;
+  molette_out_light = r.GRAY_5;
+
+  adj_in_light = r.GRAY_7;
+  adj_out_light = r.GRAY_5;
+
+  struc_light = r.GRAY_3;
+
+  label_in_light = r.GRAY_7;
+  label_out_light = r.GRAY_5;
+
+  /**
+  colour slider dark
+  */
+  molette_in_dark = r.GRAY_5;
+  molette_out_dark = r.GRAY_3;
+
+  adj_in_dark = r.GRAY_5;
+  adj_out_dark = r.GRAY_3;
+
+  struc_dark = r.GRAY_2;
+
+  label_in_dark = r.GRAY_5;
+  label_out_dark = r.GRAY_3;
+
 }
 
 
@@ -88,29 +147,14 @@ void set_colour() {
 
 
 
-void set_design_var_background(int pos_y) {
+void set_design_structure_background(int pos_y) {
   slider_width_background = 100;
   slider_height_background = 8;
   offset_background_x = grid_col[0];
   offset_background_y = pos_y +2;
 }
 
-void set_design_var_light(int pos_y) {
-  slider_width_light = 100;
-  slider_height_light = 8;
-  offset_light_x = grid_col[3];
-  offset_light_y = pos_y +2;
-}
-
-
-void set_design_var_filter(int pos_y) {
-  slider_width_filter = 100;
-  slider_height_filter = 8;
-  offset_filter_x = grid_col[6];
-  offset_filter_y = pos_y +2;
-}
-
-void set_design_var_camera(int pos_y) {
+void set_design_structure_camera(int pos_y) {
   slider_width_camera = 100;
   slider_height_camera = 8;
   offset_camera_x = grid_col[0];
@@ -118,14 +162,32 @@ void set_design_var_camera(int pos_y) {
   offset_camera_y = pos_y +65;
 }
 
-void set_design_var_sound(int pos_y) {
+
+void set_design_structure_filter(int pos_y) {
+  slider_width_filter = 100;
+  slider_height_filter = 8;
+  offset_filter_x = grid_col[3];
+  offset_filter_y = pos_y +2;
+}
+
+
+void set_design_structure_light(int pos_y) {
+  slider_width_light = 100;
+  slider_height_light = 8;
+  offset_light_x = grid_col[6];
+  offset_light_y = pos_y +2;
+}
+
+
+
+void set_design_structure_sound(int pos_y) {
   slider_width_sound = 100;
   slider_height_sound = 8;
   offset_sound_x = grid_col[9];
-  offset_sound_y = pos_y +17;
+  offset_sound_y = pos_y +2;
 }
 
-void set_design_var_item_selected() {
+void set_design_structure_item_selected() {
   slider_width_item = 100;
   slider_height_item = 8;
   // item gui pos
@@ -143,14 +205,14 @@ void set_design_var_item_selected() {
   height_item_selected = spacing_slider *NUM_SLIDER_ITEM_BY_COL +height_item_button_console;
 }
 
-void set_design_var_inventory() {
+void set_design_structure_inventory() {
   pos_y_inventory = height_header +height_button_top +height_dropdown_top +height_menu_general +height_item_selected;
   // this value depend of the size of the window, indeed we must calculate this one later.
   height_inventory = 100;
 }
 
 
-void set_design_var_menu_bar() {
+void set_design_structure_menu_bar() {
   // CURTAIN
   correctionCurtainX = 0 ;
   correctionCurtainY = 8 ;
@@ -242,7 +304,8 @@ void set_console_general() {
 
 void set_console_background(iVec2 pos, iVec2 size) {
   //button
-  pos_button_background = iVec2(pos.x, pos.y -size.y);
+  int offset_button_y = -int(size.y *1.5);
+  pos_button_background = iVec2(pos.x, pos.y +offset_button_y);
   size_button_background = iVec2(120,10);
   // slider
   for(int i = 0 ; i < NUM_SLIDER_BACKGROUND ;i++) {
@@ -262,23 +325,23 @@ void set_console_filter(iVec2 pos, iVec2 size) {
 }
 
 void set_console_light(iVec2 pos, iVec2 size) {
-  //button
-  
+  int offset_button_y = -int(size.y *1.5);
+
   size_light_ambient_buttonButton = iVec2(80,10);
   size_light_ambient_button_action = iVec2(45,10);
-  pos_light_ambient_buttonButton = iVec2(pos.x, pos.y -size.y);
-  pos_light_ambient_button_action = iVec2(pos.x +90, pos.y -size.y); // for the y we take the y of the button
+  pos_light_ambient_buttonButton = iVec2(pos.x, pos.y +offset_button_y);
+  pos_light_ambient_button_action = iVec2(pos.x +90, pos_light_ambient_buttonButton.y); // for the y we take the y of the button
   // light one button
   
   size_light_1_button = iVec2(80,10);
   size_light_1_button_action = iVec2(45,10);
-  pos_light_1_button = iVec2(pos.x, pos.y +(5*spacing_slider) -size.y);
+  pos_light_1_button = iVec2(pos.x, pos.y +(5*spacing_slider) +offset_button_y);
   pos_light_1_button_action = iVec2(pos.x +90, pos_light_1_button.y); // for the y we take the y of the button
   // light two button
   
   size_light_2_button = iVec2(80,10);
   size_light_2_button_action = iVec2(45,10);
-  pos_light_2_button = iVec2(pos.x, pos.y +(10*spacing_slider) -size.y);
+  pos_light_2_button = iVec2(pos.x, pos.y +(10*spacing_slider) +offset_button_y);
   pos_light_2_button_action = iVec2(pos.x +90, pos_light_2_button.y); // for the y we take the y of the button
   
   //slider
@@ -292,14 +355,15 @@ void set_console_light(iVec2 pos, iVec2 size) {
 }
 
 void set_console_sound(iVec2 pos, iVec2 size) {
+  int offset_button_y = -int(size.y *1.5);
   // button
   size_kick_button = iVec2(30,10); 
   size_snare_button = iVec2(40,10); 
   size_hat_button = iVec2(30,10);
   
-  pos_kick_button = iVec2(pos.x,pos.y -size.y); 
-  pos_snare_button = iVec2(pos_kick_button.x +size_kick_button.x +5, pos.y -size.y); 
-  pos_hat_button = iVec2(pos_snare_button.x +size_snare_button.x +5, pos.y -size.y);
+  pos_kick_button = iVec2(pos.x,pos.y +offset_button_y); 
+  pos_snare_button = iVec2(pos_kick_button.x +size_kick_button.x +5, pos.y +offset_button_y); 
+  pos_hat_button = iVec2(pos_snare_button.x +size_snare_button.x +5, pos.y +offset_button_y);
 
   //slider
   for(int i = 0 ; i < NUM_SLIDER_SOUND ;i++) {
@@ -371,21 +435,86 @@ MUST BE REMOVE
 int height_menu_general;
 int pos_y_menu_general;
 
+
 /**
-colour
+colour structure
+*/
+int fill_header_struc;
+int structure_background_gray_a;
+int structure_background_gray_b;
+int structure_background_colour_a;
+int structure_background_colour_b;
+
+int fill_text_title_in;
+int fill_text_title_out;
+
+int fill_info_window_rect;
+int fill_info_window_text;
+
+int fill_midi_no_selection;
+int fill_midi_selection;
+int fill_midi_window_no_selection;
+int fill_midi_window_selection;
+
+int struc_colour_credit_background;
+int struc_colour_credit_text;
+/**
+colour dropdown
 */
 int selected_dd_text;
 
 int color_dd_background;
 
-int color_dd_header_in, color_dd_header_out;
-int color_dd_header_text_in,color_dd_header_text_out;
+int color_dd_header_in;
+int color_dd_header_out;
+int color_dd_header_text_in;
+int color_dd_header_text_out;
 
-int color_dd_item_in, color_dd_item_out;
-int color_dd_item_text_in,color_dd_item_text_out;
+int color_dd_item_in;
+int color_dd_item_out;
+int color_dd_item_text_in;
+int color_dd_item_text_out;
 
-int color_dd_box_in, color_dd_box_out;
-int color_dd_box_text_in,color_dd_box_text_out;
+int color_dd_box_in;
+int color_dd_box_out;
+int color_dd_box_text_in;
+int color_dd_box_text_out;
+/**
+colour slider light
+*/
+int molette_in_light;
+int molette_out_light;
+
+int adj_in_light;
+int adj_out_light;
+
+int struc_light;
+
+int label_in_light;
+int label_out_light;
+
+/**
+colour slider dark
+*/
+int molette_in_dark;
+int molette_out_dark;
+
+int adj_in_dark;
+int adj_out_dark;
+
+int struc_dark;
+
+int label_in_dark;
+int label_out_dark;
+
+/**
+colour slider dark
+*/
+int button_off_in;
+int button_off_out;
+
+int button_on_in;
+int button_on_out;
 
 
 

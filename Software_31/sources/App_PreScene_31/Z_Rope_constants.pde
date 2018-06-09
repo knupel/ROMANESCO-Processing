@@ -3,7 +3,7 @@ ROPE - Romanesco processing environment –
 * Copyleft (c) 2014-2018
 * Stan le Punk > http://stanlepunk.xyz/
 CONSTANTS ROPE
-v 0.1.3.7
+v 0.1.3.8
 Processing 3.3.7
 * @author Stan le Punk
 * @see https://github.com/StanLepunK/Rope
@@ -60,7 +60,7 @@ public interface Rope_Constants {
 	// static final int GRAY = 4050 ; // this already existe
 	// static final int GRAY_MEDIUM = -8618884;
 	
-	// GRAY_1 > HSB,1,1,1 > color(0,0,.1);
+	// GRAY_1 > HSB,1,1,1 > color(0,0,.1); > cloase to BLACK
 	static final int GRAY_1 = -15132391;
 	static final int GRIS_1 = -15132391;
 	// GRAY_2 > HSB,1,1,1 > color(0,0,.2);	
@@ -87,7 +87,7 @@ public interface Rope_Constants {
 	// GRAY_8 > HSB,1,1,1 > color(0,0,.8);
 	static final int GRAY_8 = -3355444;
 	static final int GRIS_8 = -3355444;
-	// GRAY_9 > HSB,1,1,1 > color(0,0,.9);
+	// GRAY_9 > HSB,1,1,1 > color(0,0,.9); > cloase to WHITE
 	static final int GRAY_9 = -1710619;
 	static final int GRIS_9 = -1710619;
   

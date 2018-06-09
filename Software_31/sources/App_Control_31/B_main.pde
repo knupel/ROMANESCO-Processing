@@ -11,12 +11,11 @@ boolean[] keyboard = new boolean[526];
 boolean LOAD_SETTING = false ;
 boolean INIT_INTERFACE = true ;
 
-void setting() {
-  colorSetup() ;  
+void setting_misc() {
   frameRate(60) ; 
   noStroke () ; 
   surface.setResizable(true);
-  background(gris);
+  //background(colour_background);
 }
 
 void reset() {

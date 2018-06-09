@@ -1,6 +1,6 @@
 /**
 CROPE
-v 0.1.1
+v 0.5.0
 CONTROL ROMANESCO PROCESSING ENVIRONMENT
 * Copyleft (c) 2018-2018
 *
@@ -17,7 +17,8 @@ abstract class Crope {
   protected int stroke_in = fill_in;
   protected int stroke_out= fill_out;
   protected float thickness = 0;
-  protected int color_label = color(g.colorModeX);
+  protected int color_label_in = fill_in;
+  protected int color_label_out = fill_out;
 
   protected float rounded = 0;
   // label
@@ -37,11 +38,12 @@ abstract class Crope {
   /**
   set structure
   */
-  public void set_pos(int x, int y) {
-    set_pos(iVec2(x,y));
+  public Crope pos(int x, int y) {
+    pos(iVec2(x,y));
+    return this;
   }
 
-  public void set_pos(iVec2 pos) {
+  public Crope pos(iVec2 pos) {
     if(this.pos == null || !this.pos.equals(pos)) {
       if(this.pos == null) {
         this.pos = pos.copy();
@@ -51,13 +53,15 @@ abstract class Crope {
         this.pos_ref.set(pos);
       }
     }
+    return this;
   }
   
-  public void set_size(int x, int y) {
-    set_size(iVec2(x,y));
+  public Crope size(int x, int y) {
+    size(iVec2(x,y));
+    return this;
   }
 
-  public void set_size(iVec2 size) {
+  public Crope size(iVec2 size) {
     if(this.size == null || !this.size.equals(size)) {
       if(this.size == null) {
         this.size = size.copy();
@@ -65,90 +69,131 @@ abstract class Crope {
         this.size.set(size);
       }
     }
+    return this;
   }
   
-  public void set_fill(int c) {
+  /**
+  set colour
+  */
+  public Crope set_fill(int c) {
     set_fill(c,c);
+    return this;
   }
 
-  public void set_fill(int c_in, int c_out) {
+  public Crope set_fill(int c_in, int c_out) {
     this.fill_in = c_in;
     this.fill_out = c_out;
+    return this;
   }
   
-  public void set_stroke(int c) {
+  public Crope set_stroke(int c) {
     set_stroke(c,c);
+    return this;
   }
 
-  public void set_stroke(int c_in, int c_out) {
+  public Crope set_stroke(int c_in, int c_out) {
     this.stroke_in = c_in;
     this.stroke_out = c_out;
+    return this;
   }
 
-
-
-
-
-
-  public void set_thickness(float thickness) {
+  public Crope set_thickness(float thickness) {
     this.thickness = thickness;
+    return this;
   }
 
 
-  public void set_rounded(float rounded) {
+  public Crope set_aspect(int f_c, int s_c, float thickness) {
+    set_fill(f_c,f_c);
+    set_stroke(s_c,s_c);
+    set_thickness(thickness);
+    return this;
+  }
+
+  public Crope set_aspect(int f_c_in, int f_c_out, int s_c_in,  int s_c_out, float thickness) {
+    set_fill(f_c_in,f_c_out);
+    set_stroke(s_c_in,s_c_out);
+    set_thickness(thickness);
+    return this;
+  }
+
+
+
+
+
+
+
+  public Crope set_rounded(float rounded) {
     this.rounded = rounded;
+    return this;
   }
 
   // set label
-  public void set_name(String name) {
+  public Crope set_name(String name) {
     this.name = name;
+    return this;
   }
 
-  public void set_label(String name) {
+  public Crope set_label(String name) {
     this.name = name;
+    return this;
   }
 
-  public void set_label(String name, iVec2 pos_label) {
+  public Crope set_label(String name, iVec2 pos_label) {
     this.name = name;
     if(this.pos_label == null) {
       this.pos_label = iVec2(pos_label);
     } else {
       this.pos_label.set(pos_label);
-    } 
+    }
+    return this;
   }
-  public void set_pos_label(iVec2 pos) {
+  public Crope set_pos_label(iVec2 pos) {
     set_pos_label(pos.x, pos.y);
+    return this;
   }
 
-  public void set_pos_label(int x, int y) {
+  public Crope set_pos_label(int x, int y) {
     if(this.pos_label == null) {
       this.pos_label = iVec2(x,y);
     } else {
        this.pos_label.set(x,y);
-    } 
+    }
+    return this;
   }
 
-  public void set_colour_label(int c) {
-    this.color_label = c;
+  public Crope set_fill_label(int c) {
+    set_fill_label(c,c);
+    return this;
   }
 
-  public void set_align_label(int align) {
-    this.align = align;  
+    public Crope set_fill_label(int c_in, int c_out) {
+    this.color_label_in = c_in;
+    this.color_label_out = c_out;
+    return this;
+  }
+
+  public Crope set_align_label(int align) {
+    this.align = align;
+    return this;
   }
 
   /**
   font
   */
-  public void set_font(PFont font) {
-    this.font = font; 
+  public Crope set_font(PFont font) {
+    this.font = font;
+    return this;
   }
 
-  public void set_font(String font_name, int size) {
+  public Crope set_font(String font_name, int size) {
     this.font = createFont(font_name,size);
+    return this;
   }
 
-  public void set_font_size(int font_size) {
-    this.font_size = font_size; 
+  public Crope set_font_size(int font_size) {
+    this.font_size = font_size;
+    return this; 
   }
   
 
@@ -157,16 +202,19 @@ abstract class Crope {
 
 
   // set midi
-  public void set_id_midi(int id_midi) {
+  public Crope set_id_midi(int id_midi) {
     this.id_midi = id_midi;
+    return this;
   }
 
-  public void set_id(int id) {
+  public Crope set_id(int id) {
     this.id = id;
+    return this;
   }
 
-  public void set_rank(int rank) {
+  public Crope set_rank(int rank) {
     this.rank = rank;
+    return this;
   }
 
 
@@ -236,11 +284,11 @@ abstract class Crope {
 CROPE
 CONTROL ROMANESCO PROCESSING ENVIRONMENT
 *
-CLASS BUTTON 1.1.0
+CLASS BUTTON 1.2.1
 */
 public class Button extends Crope {
   int color_bg;
-  int color_bg_in, color_bg_out;
+  //int color_bg_in, color_bg_out;
 
   int color_on_off;
   int color_in_ON, color_out_ON, color_in_OFF, color_out_OFF; 
@@ -255,13 +303,13 @@ public class Button extends Crope {
 
   //complexe
   public Button(int pos_x, int pos_y, int size_x, int size_y) {
-    set_pos(pos_x, pos_y);
-    set_size(size_x,size_y);
+    this.pos(pos_x, pos_y);
+    this.size(size_x,size_y);
   }
 
   public Button(iVec2 pos, iVec2 size) {
-    set_pos(pos);
-    set_size(size);
+    this.pos(pos);
+    this.size(size);
   }
 
   /**
@@ -282,22 +330,18 @@ public class Button extends Crope {
   /**
   set
   */
-  public void set_colour_on_off(int color_in_ON, int color_out_ON, int color_in_OFF, int color_out_OFF) {
+  public Crope set_aspect_on_off(int color_in_ON, int color_out_ON, int color_in_OFF, int color_out_OFF) {
     this.color_in_ON = color_in_ON ; 
     this.color_out_ON = color_out_ON ; 
     this.color_in_OFF = color_in_OFF ; 
     this.color_out_OFF = color_out_OFF ;
+    return this;
   }
 
-  public void set_colour_structure(int color_bg_in, int color_bg_out) {
-    this.color_bg_in = color_bg_in ; 
-    this.color_bg_out = color_bg_out ;
-  }
 
 
 
   
-
 
 
   /**
@@ -375,31 +419,33 @@ public class Button extends Crope {
   LABEL
   */
   public void show_label() {
-    if (is) {
-      if (rollover() && !authorization) {
-        color_on_off = color_in_ON; 
+    if(this.name != null) {
+      if (is) {
+        if (rollover() && !authorization) {
+          color_on_off = color_in_ON; 
+        } else {
+          color_on_off = color_out_ON;
+        }
       } else {
-        color_on_off = color_out_ON;
+        if (rollover() && !authorization) {
+          color_on_off = color_in_OFF; 
+        } else {
+          color_on_off = color_out_OFF;
+        }
       }
-    } else {
-      if (rollover() && !authorization) {
-        color_on_off = color_in_OFF; 
-      } else {
-        color_on_off = color_out_OFF;
+      
+      if(pos_label == null) {
+        pos_label = iVec2();
       }
-    }
-    
-    if(pos_label == null) {
-      pos_label = iVec2();
-    }
 
-    if(font != null) textFont(font);
-    if(font_size > 0) textSize(font_size);
-    textAlign(align);
-    fill(color_on_off);
-    iVec2 pos_def = iadd(pos,pos_label);
-    pos_def.y += size.y ;
-    text(this.name,pos_def);
+      if(font != null) textFont(font);
+      if(font_size > 0) textSize(font_size);
+      textAlign(align);
+      fill(color_on_off);
+      iVec2 pos_def = iadd(pos,pos_label);
+      pos_def.y += size.y ;
+      text(this.name,pos_def);
+    }  
   }
 
 
@@ -519,7 +565,7 @@ public class Button_dynamic extends Button {
 
 /**
 SLIDER
-v 1.1.0
+v 1.3.0
 */
 boolean molette_already_selected ;
 public class Slider extends Crope {
@@ -549,9 +595,9 @@ public class Slider extends Crope {
   
   //CONSTRUCTOR minimum
   public Slider(iVec2 pos, iVec2 size) {
-    set_pos(pos);
-    set_molette_pos();
-    set_size(size);
+    this.pos(pos);
+    this.pos_molette();
+    this.size(size);
 
     //which molette for slider horizontal or vertical
     if (size.x >= size.y) {
@@ -564,7 +610,7 @@ public class Slider extends Crope {
   
 
 
-  private void set_molette_min_max_pos() {
+  private Slider set_molette_min_max_pos() {
     if(size.x > size.y) {
       pos_min = pos.copy();
       pos_max = iVec2(pos.x +size.x -size_molette.x, pos.y) ;
@@ -572,6 +618,7 @@ public class Slider extends Crope {
       pos_min = pos.copy();
       pos_max = iVec2(pos.x, pos.y +size.y -size_molette.y) ;
     }
+    return this;
   }
 
 
@@ -668,41 +715,47 @@ public class Slider extends Crope {
   /**
   setting
   */
-  public void set_molette(int type) {
+  public Slider set_molette(int type) {
     this.molette_type = type;
+    return this;
   }
 
-  public void set_molette_size(iVec2 size) {
-    set_molette_size(size.x, size.y);
+  public Slider size_molette(iVec2 size) {
+    size_molette(size.x, size.y);
+    return this;
   }
 
-  public void set_molette_size(int x, int y) {
+  public Slider size_molette(int x, int y) {
     this.size_molette.set(x,y);
     set_molette_min_max_pos();
+    return this;
   }
 
-  public void set_molette_pos() {
+  public Slider pos_molette() {
     if(this.pos_molette == null) {
       this.pos_molette = pos.copy();
     } else {
       this.pos_molette.set(pos);
     }
+    return this;
   }
 
-  public void set_molette_pos(iVec2 p) {
-    set_molette_pos(p.x,p.y);
+  public Slider pos_molette(iVec2 p) {
+    pos_molette(p.x,p.y);
+    return this;
   }
 
-  public void set_molette_pos(int x, int y) {
+  public Slider pos_molette(int x, int y) {
     if(this.pos_molette == null) {
       this.pos_molette = iVec2(x,y);
     } else {
       this.pos_molette.set(x,y);
     }
+    return this;
   }
   
   // set_molette
-  public void set_molette_pos_norm(float pos_norm) {
+  public Slider set_molette_pos_norm(float pos_norm) {
     // security to constrain the value in normalizing range.
     if(pos_norm > 1.) pos_norm = 1. ;
     if(pos_norm < 0) pos_norm = 0 ;
@@ -712,28 +765,49 @@ public class Slider extends Crope {
     } else {
       pos_molette.y = round(size.y *pos_norm +pos_min.y -(size_molette.x *pos_norm));
     }
+    return this;
   }
   
-  public void set_molette_fill(int c) {
-    set_molette_fill(c,c);
+  public Slider set_fill_molette(int c) {
+    set_fill_molette(c,c);
+    return this;
   }
 
-  public void set_molette_fill(int c_in, int c_out) {
+  public Slider set_fill_molette(int c_in, int c_out) {
     this.fill_molette_in = c_in;
     this.fill_molette_out = c_out;
+    return this;
   }
   
-  public void set_molette_stroke(int c) {
-    set_molette_stroke(c,c);
+  public Slider set_stroke_molette(int c) {
+    set_stroke_molette(c,c);
+    return this;
   }
 
-  public void set_molette_stroke(int c_in, int c_out) {
+  public Slider set_stroke_molette(int c_in, int c_out) {
     this.stroke_molette_in = c_in;
     this.stroke_molette_out = c_out;
+    return this;
   }
 
-  public void set_molette_thickness(float thickness) {
+  public Slider set_thickness_molette(float thickness) {
     this.thickness_molette = thickness;
+    return this;
+  }
+
+
+  public Slider set_aspect_molette(int f_c, int s_c, float thickness) {
+    set_fill_molette(f_c,f_c);
+    set_stroke_molette(s_c,s_c);
+    set_thickness_molette(thickness);
+    return this;
+  }
+
+  public Slider set_aspect_molette(int f_c_in, int f_c_out, int s_c_in,  int s_c_out, float thickness) {
+    set_fill_molette(f_c_in,f_c_out);
+    set_stroke_molette(s_c_in,s_c_out);
+    set_thickness_molette(thickness);
+    return this;
   }
 
 
@@ -743,7 +817,7 @@ public class Slider extends Crope {
 
   /**
   DISPLAY SLIDER
-  v 2.0.0
+  v 2.0.1
   */
   public void show_structure() {
     if(thickness > 0 && alpha(stroke_in) > 0 && alpha(stroke_out) > 0) {
@@ -785,10 +859,16 @@ public class Slider extends Crope {
   }
   
   public void show_label() {
-    textAlign(align);
-    textFont(font);
-    fill(color_label);
-    text(name,add(pos,pos_label));
+    if(this.name != null) {
+       textAlign(align);
+       textFont(font);
+       if(inside_slider()) {
+        fill(color_label_in);
+      } else {
+        fill(color_label_out);
+      }   
+      text(name,add(pos,pos_label));
+    }  
   }
 
   
@@ -929,7 +1009,7 @@ public class Slider extends Crope {
 
 /**
 SLOTCH > notch's slider
-v 0.0.2
+v 0.1.0
 */
 
 public class Slotch extends Slider {
@@ -960,19 +1040,22 @@ public class Slotch extends Slider {
 
 
 
-  public void set_notch(int num) {
+  public Slotch set_notch(int num) {
     notch_is = true ;
     this.notches_num = num;
     notches_position();
+    return this;
   }
 
-  public void set_aspect_notch(int c, float thickness) {
+  public Slotch set_aspect_notch(int c, float thickness) {
     this.colour_notch = c ;
     this.thickness_notch = thickness;
+    return this;
   }
 
-  public void set_colour_notch(int c) {
+  public Slotch set_aspect_notch(int c) {
     this.colour_notch = c ;
+    return this;
   }
 
   private float pos_notch(int size, int pos_molette) {
@@ -1004,10 +1087,11 @@ public class Slotch extends Slider {
     return notches_pos;
   }
   
-  void show_notch() {
+  public void show_notch() {
     show_notch(0,0);
   }
-  void show_notch(int start, int stop) {
+
+  public void show_notch(int start, int stop) {
     stroke(colour_notch);
     noFill();
     strokeWeight(thickness_notch);
@@ -1067,7 +1151,7 @@ public class Slotch extends Slider {
 
 /**
 SLADJ > SLIDER ADJUSTABLE
-v 1.1.0
+v 1.2.0
 */
 public class Sladj extends Slider {
   // size
@@ -1105,7 +1189,7 @@ public class Sladj extends Slider {
   //slider with external molette
   public Sladj(iVec2 pos, iVec2 size, iVec2 size_molette, int moletteShapeType) {
     super(pos,size);
-    set_molette_size(size_molette);
+    size_molette(size_molette);
     set_molette(moletteShapeType);
     this.newPosMax = iVec2();
     this.newPosMin = iVec2();
@@ -1116,26 +1200,31 @@ public class Sladj extends Slider {
 
 
 
-  public void set_adj_fill(int c) {
-    set_adj_fill(c,c);
+  public Sladj set_fill_adj(int c) {
+    set_fill_adj(c,c);
+    return this;
   }
 
-  public void set_adj_fill(int c_in, int c_out) {
+  public Sladj set_fill_adj(int c_in, int c_out) {
     this.fill_adj_in = c_in;
     this.fill_adj_out = c_out;
+    return this;
   }
   
-  public void set_adj_stroke(int c) {
-    set_adj_stroke(c,c);
+  public Sladj set_stroke_adj(int c) {
+    set_stroke_adj(c,c);
+    return this;
   }
 
-  public void set_adj_stroke(int c_in, int c_out) {
+  public Sladj set_stroke_adj(int c_in, int c_out) {
     this.stroke_adj_in = c_in;
     this.stroke_adj_out = c_out;
+    return this;
   }
 
-  public void set_adj_thickness(float thickness) {
+  public Sladj set_thickness_adj(float thickness) {
     this.thickness_adj = thickness;
+    return this;
   }
 
 
@@ -1210,17 +1299,20 @@ public class Sladj extends Slider {
   }
   
   // set min and max position
-  public void set_min_max(float min_norm, float max_norm) {
+  public Sladj set_min_max(float min_norm, float max_norm) {
     min_norm = min_norm;
     max_norm = max_norm;
+    return this;
   }
 
-  public void set_min(float min_norm) {
+  public Sladj set_min(float min_norm) {
     min_norm = min_norm;
+    return this;
   }
 
-  public void set_max(float max_norm) {
+  public Sladj set_max(float max_norm) {
     max_norm = max_norm;
+    return this;
   }
   
   
@@ -1271,60 +1363,6 @@ public class Sladj extends Slider {
     if (inside_max() && mousePressed) return true ; else return false ;
   }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

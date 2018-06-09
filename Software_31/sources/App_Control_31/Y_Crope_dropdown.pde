@@ -1,6 +1,6 @@
 /**
 DROPDOWN
-v 2.2.1
+v 2.3.1
 2014-2018
 */
 boolean dropdownOpen ; // use to indicate to indicate at the other button, they cannot be used when the user are on the dropdown menu
@@ -82,34 +82,38 @@ public class Dropdown extends Crope {
   }
 
 
-  public void set_header_text_pos(iVec2 pos) {
+  public Dropdown set_header_text_pos(iVec2 pos) {
     set_header_text_pos(pos.x, pos.y);
+    return this;
   }
 
-  public void set_header_text_pos(int x, int y) {
+  public Dropdown set_header_text_pos(int x, int y) {
     if(pos_header_text == null) {
       this.pos_header_text = iVec2(x,y);
     } else {
       this.pos_header_text.set(x,y);
-    } 
+    }
+    return this;
   }
 
 
-  public void set_box_text_pos(iVec2 pos) {
+  public Dropdown set_box_text_pos(iVec2 pos) {
     set_box_text_pos(pos.x, pos.y);
+    return this;
   }
 
-  public void set_box_text_pos(int x, int y) {
+  public Dropdown set_box_text_pos(int x, int y) {
     if(pos_box_text == null) {
       this.pos_box_text = iVec2(x,y);
     } else {
       this.pos_box_text.set(x,y);
-    } 
+    }
+    return this;
   }
 
 
 
-  public void set_colour(ROPE_colour rc) {
+  public Dropdown set_colour(ROPE_colour rc) {
     this.colour_structure = rc.get_colour()[0];
 
     this.colour_header_in = rc.get_colour()[1];
@@ -123,6 +127,7 @@ public class Dropdown extends Crope {
 
     this.colour_box_text_in = rc.get_colour()[7];
     this.colour_box_text_out = rc.get_colour()[8];
+    return this;
   }
 
 
@@ -131,43 +136,49 @@ public class Dropdown extends Crope {
   /**
   method
   */
-  public void set_box(int num_box) {
+  public Dropdown set_box(int num_box) {
     set_box(num_box, this.box_starting_rank_position);
+    return this;
   }
 
-  public void set_box(int num_box, int rank) {
+  public Dropdown set_box(int num_box, int rank) {
     this.num_box = num_box;
     this.box_starting_rank_position = rank;
     if(content != null && num_box != content.length) {
       set_num_box_rendering(true);
     }
+    return this;
   }
 
-  public void set_box_height(int h) {
+  public Dropdown set_box_height(int h) {
     this.height_box = h;
     if(size_box == null) {
       size_box = iVec2(longest_String_pixel(font_box,this.content), this.height_box);
     } else {
       size_box.set(iVec2(longest_String_pixel(font_box,this.content), this.height_box));
     }
+    return this;
   }
 
-  public void set_box_width(int w) {
+  public Dropdown set_box_width(int w) {
     size_box.set(w,size_box.y);
+    return this;
   }
 
 
 
-  public void set_box_font(String font_name, int size) {
+  public Dropdown set_box_font(String font_name, int size) {
     this.font_box = createFont(font_name,size);
+    return this;
   }
   
-  public void set_box_font(PFont font) {
+  public Dropdown set_box_font(PFont font) {
     this.font_box = font;
+    return this;
   }
 
   // content
-  public void set_content(String [] content) {
+  public Dropdown set_content(String [] content) {
     boolean new_slider = false ;
     if(this.content == null || this.content.length != content.length) {
       new_slider = true ;
@@ -175,10 +186,11 @@ public class Dropdown extends Crope {
    
     this.content = content;
     set_num_box_rendering(new_slider);
+    return this;
   }
 
 
-  private void set_num_box_rendering(boolean new_slider_is) {
+  private Dropdown set_num_box_rendering(boolean new_slider_is) {
     end = num_box;
     if (content != null) {
       if (end > content.length) {
@@ -195,6 +207,7 @@ public class Dropdown extends Crope {
     if (slider && (slider_dd == null || new_slider_is)) {
       update_slider();
     }
+    return this;
   }
 
 
@@ -216,14 +229,14 @@ public class Dropdown extends Crope {
     }
 
     slider_dd = new Slider(pos_slider, size_slider);
-    slider_dd.set_molette_size(size_molette);
+    slider_dd.size_molette(size_molette);
     if(keep_pos_mol_is) {
       int pos_mol_x = slider_dd.get_molette_pos().x;
-      slider_dd.set_molette_pos(pos_mol_x,pos_mol_y);
+      slider_dd.pos_molette(pos_mol_x,pos_mol_y);
     }
     slider_dd.set_molette(RECT);
     slider_dd.set_fill(colour_structure);
-    slider_dd.set_molette_fill(colour_box_in,colour_box_out);
+    slider_dd.set_fill_molette(colour_box_in,colour_box_out);
   }
 
   public void offset(int x, int y) {
@@ -299,6 +312,11 @@ public class Dropdown extends Crope {
   }
 
   private void show_selection(int x,int y) {
+    if (inside(pos,size,iVec2(mouseX,mouseY),RECT)) {
+      fill(colour_header_text_in); 
+    } else {
+      fill(colour_header_text_out);
+    }
     textFont(font);
     text(get_content()[get_selected()], x, y) ;
   }
@@ -339,7 +357,7 @@ public class Dropdown extends Crope {
         if (slider) {
           int x = pos.x -slider_dd.get_size().x;
           int y = pos.y +(height_box *box_starting_rank_position);
-          slider_dd.set_pos(x,y);
+          slider_dd.pos(x,y);
           inside_slider_is = slider_dd.inside_molette_rect();
           slider_dd.select(true);
           slider_dd.update();
@@ -431,15 +449,15 @@ public class Dropdown extends Crope {
     return num_box;
   }
 
-  PFont get_font_box() {
+  public PFont get_font_box() {
     return font_box;
   }
 
-  iVec2 get_header_text_pos() {
+  public iVec2 get_header_text_pos() {
     return pos_header_text;
   }
 
-  iVec2 get_content_text_pos() {
+  public iVec2 get_content_text_pos() {
     return pos_box_text;
   }
 }

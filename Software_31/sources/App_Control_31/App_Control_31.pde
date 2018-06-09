@@ -11,6 +11,7 @@ V 1.2.0
 2015 may 4_100 lines of code
 2016 september 8_700 lines of code
 2017 March 11_100 lines of code
+2018 June 5_000 lines of code without CROPE and ROPE internal library who have around 18_000 lines
 */
 String IAM = "Controller";
 /**
@@ -21,14 +22,15 @@ boolean LIVE = false;
 void settings() {
   size(670,725);
   size_window_ref = iVec2(width,height);
-  set_design_var();
+  set_design();
 }
 
 void setup() {
+  colorMode (HSB,360,100,100);
   // surface.setLocation(0,20);
   path_setting(sketchPath(1));
   version();
-  setting();
+  setting_misc();
   init_button_general();
   init_midi();
 
@@ -39,7 +41,6 @@ void setup() {
   check_media_folder();
 
   set_font();
-  set_colour();
   set_display_slider();
   set_import_pic_button();
   set_console();

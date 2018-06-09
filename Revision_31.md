@@ -11,6 +11,7 @@ MAJOR
 >create group data item, light, filter, sound, camera, background
 >rebuild the gui system, not visible for the user, just for the coder !
 >rebuild the sound system, now the the beat threshold is setable, set the band and the level alart
+>total rewriting Gui Control
 
 
 MINOR
@@ -20,6 +21,7 @@ MINOR
 > change colour background interface
 > remove separation between sound gui and general top gui
 > increase the bands spectrum available from 16 to 128
+> improve management color for design interface
 
 BUG FIX
 --

@@ -64,6 +64,7 @@ void set_font() {
 /**
 COLOR
 */
+/*
 color rouge, rougeFonce, rougeTresFonce, rougeTresTresFonce,  
       orange, jauneOrange, jaune, 
       vert, vertClair, vertFonce, vertTresFonce,
@@ -73,11 +74,13 @@ color rouge, rougeFonce, rougeTresFonce, rougeTresTresFonce,
       blanc, blancGrisClair, blancGris, gris, grisClair, grisFonce, grisTresFonce, grisNoir, noirGris, noir,
       
       colorTextUsual, colorTitle ;
+      */
 
-color col_on_in, col_on_out, col_off_in, col_off_out ;
 //SETUP
+/*
 void colorSetup() {
   colorMode (HSB, 360,100,100 ) ; 
+  
   blanc = color(0,0,95) ;            
   blancGrisClair = color( 0,0,85) ;  
   blancGris = color( 0,0,75) ; 
@@ -100,14 +103,17 @@ void colorSetup() {
   jauneOrange = color (42,100,100) ; 
   jaune = color(50,100,100) ;
 
-  colorTextUsual = grisNoir ; 
-  colorTitle = noirGris ;
+
+
   // color button
+  
   col_on_in = vert ;
   col_on_out = vertTresFonce ;
   col_off_in = orange ;
   col_off_out = rougeFonce ;
+  
 }
+*/
 
 
 
@@ -420,12 +426,12 @@ void credit() {
   if(insideNameversion && mousePressed) {
     String credit[] = loadStrings("credit.txt");
     
-    fill(grisNoir,225) ; 
+    fill(struc_colour_credit_background,225) ; 
     int startBloc = 24 ;
     rect(0, startBloc, width, height - startBloc -9 ) ; // //GROUP ZERO
     for (int i = 0 ; i < credit.length; i++) {
       textFont(textUsual_3) ;
-      fill(blanc) ;
+      fill(struc_colour_credit_text) ;
       text(credit[i], 10,startBloc + 12 + ((i+1)*14));
     }
   }

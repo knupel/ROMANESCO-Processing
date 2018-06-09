@@ -208,6 +208,8 @@ void window_midi_info(Vec2 pos, int size_x, int spacing) {
 
 
 
+
+
 // ANNEXE don't need MIDI LIBRARIE CODE
 boolean init_midi ;
 void midi_select(int which_one, int num) {
@@ -217,18 +219,29 @@ void midi_select(int which_one, int num) {
   }
 
   if(selectMidi) {  
-    if(num < 1 ) fill(rougeFonce) ; else fill(grisTresFonce) ;
-    stroke(jaune) ;
-    strokeWeight(1.5) ;
+    if(num < 1 ) {
+      fill(fill_midi_no_selection); 
+    } else {
+      fill(fill_midi_selection);
+    }
+    noStroke();
     window_midi_info(pos_midi_info, size_x_window_info_midi, spacing_midi_info) ;
-    noStroke() ;
 
     textFont(textUsual_1);  textAlign(LEFT);
-    if(num < 1 ) fill(blanc) ; else fill(grisClair) ;
+    if(num < 1 ) {
+      fill(fill_midi_window_no_selection); 
+    } else {
+      fill(fill_midi_window_selection);
+    }
+
     display_select_midi_device(pos_midi_info, spacing_midi_info) ;
     display_midi_device_available(pos_midi_info, spacing_midi_info) ;
   }
-  if (button_midi_is == 1) selectMidi = true ; else selectMidi = false ;
+  if (button_midi_is == 1) {
+    selectMidi = true; 
+  } else {
+    selectMidi = false;
+  }
 }
 
 

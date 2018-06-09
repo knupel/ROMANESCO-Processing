@@ -114,8 +114,8 @@ void build_button_item_console() {
       iVec2 pos = iVec2(pos_button_width_item[i], pos_button_height_item[i]) ;
       iVec2 size = iVec2(width_button_item[i], height_button_item[i]) ; 
       button_item[i] = new Button_dynamic(pos, size) ;
-      button_item[i].set_colour_on_off(col_on_in, col_on_out, col_off_in, col_off_out) ;
-      button_item[i].set_colour_structure(gris, grisNoir) ;
+      button_item[i].set_aspect_on_off(button_on_in,button_on_out,button_off_in,button_off_out);
+      //button_item[i].fill(gris, grisNoir) ;
 
       // here we give information for the item button, we need later to manage the dynamic GUI
       int ID_temp = i / BUTTON_ITEM_CONSOLE ; // because there is few button by item
@@ -177,7 +177,7 @@ void display_button_item_console() {
       	button_item[i *BUTTON_ITEM_CONSOLE + j].change_pos(distance, 0) ;
         button_item[i *BUTTON_ITEM_CONSOLE + j].update_pos(inventory[i].is()) ;
         if(j == 0) {
-          PImage [] pic = {OFF_in_thumbnail[i], OFF_out_thumbnail[i], ON_in_thumbnail[i], ON_out_thumbnail[i]};
+          PImage [] pic = {ON_in_thumbnail[i], ON_out_thumbnail[i],OFF_in_thumbnail[i], OFF_out_thumbnail[i]};
           button_item[i*BUTTON_ITEM_CONSOLE +j].show_picto(pic);
         }
         if(j == 1) button_item[i*BUTTON_ITEM_CONSOLE +j].show_picto(picSetting);
@@ -277,55 +277,55 @@ void set_button_inventory() {
       if(i <= num_item_by_col) {
         pos = iVec2(left_flag, top_text +step);
         size = iVec2(w,h);
-        button_inventory[i].set_pos(pos);
-        button_inventory[i].set_size(size);
+        button_inventory[i].pos(pos);
+        button_inventory[i].size(size);
       } else if (i > num_item_by_col && i <= num_item_by_col *2) {
         
         pos = iVec2(left_flag +col_size_list_item, top_text +step -max_size_col);
         size = iVec2(w,h);
-        button_inventory[i].set_pos(pos);
-        button_inventory[i].set_size(size);
+        button_inventory[i].pos(pos);
+        button_inventory[i].size(size);
       } else if (i > num_item_by_col *2 && i <= num_item_by_col *3) {
         
         pos = iVec2(left_flag +(col_size_list_item *2), top_text +step -(max_size_col *2));
         size = iVec2(w,h);
-        button_inventory[i].set_pos(pos);
-        button_inventory[i].set_size(size);
+        button_inventory[i].pos(pos);
+        button_inventory[i].size(size);
       } else if (i > num_item_by_col *3 && i <= num_item_by_col *4) {
         pos = iVec2(left_flag +(col_size_list_item *3), top_text +step -(max_size_col *3));
         size = iVec2(w,h);
-        button_inventory[i].set_pos(pos);
-        button_inventory[i].set_size(size);
+        button_inventory[i].pos(pos);
+        button_inventory[i].size(size);
       } else if (i > num_item_by_col *4 && i <= num_item_by_col *5) {
         pos = iVec2(left_flag +(col_size_list_item *4), top_text +step -(max_size_col *4));
         size = iVec2(w,h);
-        button_inventory[i].set_pos(pos);
-        button_inventory[i].set_size(size);
+        button_inventory[i].pos(pos);
+        button_inventory[i].size(size);
       } else if (i > num_item_by_col *5 && i <= num_item_by_col *6) {
         pos = iVec2(left_flag +(col_size_list_item *5), top_text +step -(max_size_col *5));
         size = iVec2(w,h);
-        button_inventory[i].set_pos(pos);
-        button_inventory[i].set_size(size) ;
+        button_inventory[i].pos(pos);
+        button_inventory[i].size(size) ;
       } else if (i > num_item_by_col *6 && i <= num_item_by_col *7) {
         pos = iVec2(left_flag +(col_size_list_item *6), top_text +step -(max_size_col *6));
         size = iVec2(w,h);
-        button_inventory[i].set_pos(pos);
-        button_inventory[i].set_size(size);
+        button_inventory[i].pos(pos);
+        button_inventory[i].size(size);
       } else if (i > num_item_by_col *7 && i <= num_item_by_col *8) {
         pos = iVec2(left_flag +(col_size_list_item *7), top_text +step -(max_size_col *7));
         size = iVec2(w,h);
-        button_inventory[i].set_pos(pos) ;
-        button_inventory[i].set_size(size) ;
+        button_inventory[i].pos(pos) ;
+        button_inventory[i].size(size) ;
       } else if (i > num_item_by_col *8 && i <= num_item_by_col *9) {
         pos = iVec2(left_flag +(col_size_list_item *8), top_text +step -(max_size_col *8));
         size = iVec2(w,h);
-        button_inventory[i].set_pos(pos);
-        button_inventory[i].set_size(size);
+        button_inventory[i].pos(pos);
+        button_inventory[i].size(size);
       } else if (i > num_item_by_col *9 && i <= num_item_by_col *10) {
         pos = iVec2(left_flag +(col_size_list_item *9), top_text +step -(max_size_col *9));
         size = iVec2(w,h);
-        button_inventory[i].set_pos(pos);
-        button_inventory[i].set_size(size);
+        button_inventory[i].pos(pos);
+        button_inventory[i].size(size);
       }
     }
   }
@@ -334,11 +334,11 @@ void set_button_inventory() {
 void set_inventory_item(boolean keep_state) {
   // println("keep_state set_inventory_item()",keep_state);
   boolean local_state = keep_state ;
-  color col_off_out_menu_item = rougeTresTresFonce ;
+  //color col_off_out_menu_item = rougeTresTresFonce ;
   // give the the good statement
   for( int i = 0 ; i < button_inventory.length ; i++) {
     if(item_info[i] != "" ) {
-      button_inventory[i].set_colour_on_off(col_on_in, col_on_out, col_off_in, col_off_out_menu_item) ;
+      button_inventory[i].set_aspect_on_off(button_on_in,button_on_out,button_off_in,button_off_out) ;
 
       String [] temp_item_info_split = split(item_info[i], "/") ;
       button_inventory[i].set_label(temp_item_info_split[0]);
