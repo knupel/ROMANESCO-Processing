@@ -1,7 +1,7 @@
 /**
 CORE Rope SCENE and PRESCENE 
 2015-2018
-v 1.4.1
+v 1.4.2
 */
 import java.net.*;
 import java.io.*;
@@ -456,6 +456,8 @@ void check_text_folder_scene() {
     folder_text_is_selected = false ;
   }
 }
+
+
 
 
 /**
@@ -1328,7 +1330,7 @@ void OSMavericksCheck() {
 
 /**
 ROMANESCO BACKGROUND 
-v 1.0.1.4
+v 1.1.0
 */
 Vec4 colorBackground, colorBackgroundRef, colorBackgroundPrescene;
 void background_setup() {
@@ -1371,10 +1373,6 @@ void background_romanesco() {
 Vec4 update_background() {
   //to smooth the curve of transparency background
   // HSB
-  /*
-  println("void update_background()",value_slider_background.length);
-  printArray(value_slider_background);
-  */
   float hue_bg = map(value_slider_background[0],0,MAX_VALUE_SLIDER,0,HSBmode.r);
   float saturation_bg = map(value_slider_background[1],0,MAX_VALUE_SLIDER,0,HSBmode.g);
   float brigthness_bg = map(value_slider_background[2],0,MAX_VALUE_SLIDER,0,HSBmode.b);
@@ -1410,36 +1408,38 @@ void background_shader_setup() {
 
 }
 
-void background_shader_draw(int whichOne) {
+void background_shader_draw(int which_one) {
   if(TEST_ROMANESCO || FULL_RENDERING) {
-    PVector posBGshader = new PVector(0,0) ;
-    PVector sizeBGshader = new PVector(width,height, height) ; 
-    fill(0) ; noStroke() ;
+    Vec2 pos_shader = Vec2();
+    Vec3 size_shader = Vec3(width,height,height) ; 
+    fill(0); 
+    noStroke();
 
-    if     (whichOne ==1) rectangle(posBGshader, sizeBGshader, blurOne );
-    else if(whichOne ==2) rectangle(posBGshader, sizeBGshader, blurTwo );
-    else if(whichOne ==3) rectangle(posBGshader, sizeBGshader, cellular);
-    else if(whichOne ==4) rectangle(posBGshader, sizeBGshader, damierEllipse);
-    else if(whichOne ==5) rectangle(posBGshader, sizeBGshader, heart);
-    else if(whichOne ==6) rectangle(posBGshader, sizeBGshader, necklace);
-    else if(whichOne ==7) rectangle(posBGshader, sizeBGshader, psy);
-    else if(whichOne ==8) rectangle(posBGshader, sizeBGshader, snow );
-    else if(whichOne ==9) rectangle(posBGshader, sizeBGshader, sinLight );   
+    if (which_one == 1) rectangle(pos_shader, size_shader, blurOne);
+    else if(which_one == 2) rectangle(pos_shader, size_shader, blurTwo);
+    else if(which_one == 3) rectangle(pos_shader, size_shader, cellular);
+    else if(which_one == 4) rectangle(pos_shader, size_shader, damierEllipse);
+    else if(which_one == 5) rectangle(pos_shader, size_shader, heart);
+    else if(which_one == 6) rectangle(pos_shader, size_shader, necklace);
+    else if(which_one == 7) rectangle(pos_shader, size_shader, psy);
+    else if(which_one == 8) rectangle(pos_shader, size_shader, snow);
+    else if(which_one == 9) rectangle(pos_shader, size_shader, sinLight );   
     //rectangle(posBGshader, sizeBGshader, bizarre) ;  // work bad
     //rectangle(posBGshader, sizeBGshader, water) ; // problem
     //rectangle(posBGshader, sizeBGshader, psyTwo) ; // problem
     //rectangle(posBGshader, sizeBGshader, psyThree) ; // problem
-  }  else if (whichOne != 0  ) {
+  }  else if (which_one != 0  ) {
     background_norm(1) ;
     int sizeText = 14 ;
     textSize(sizeText) ;
-    fill(orange) ; noStroke() ;
+    fill(orange) ; 
+    noStroke() ;
     text("Shader is ON", sizeText, height/3) ;
   } 
 }
 
 float shaderMouseX, shaderMouseY ;
-void rectangle(PVector pos, PVector size, PShader s) {
+void rectangle(Vec2 pos, Vec3 size, PShader s) {
   int factorSize = 10 ;
   size.mult(factorSize) ;
   pushMatrix() ;
@@ -1450,24 +1450,30 @@ void rectangle(PVector pos, PVector size, PShader s) {
                                 map(value_slider_background[1],0,MAX_VALUE_SLIDER,0,g.colorModeY), 
                                 map(value_slider_background[2],0,MAX_VALUE_SLIDER,0,g.colorModeZ),
                                 map(value_slider_background[3],0,MAX_VALUE_SLIDER,0,g.colorModeA)  ) ;
-  float redNorm = map(RGBbackground.x,0,255,0,1) ;
-  float greenNorm = map(RGBbackground.y,0,255,0,1) ;
-  float blueNorm = map(RGBbackground.z,0,255,0,1) ;
-  float alphaNorm = map(RGBbackground.w,0,255,0,1) ;
-  float varTime = (float)millis() *.001 ;
+  float red_norm = map(RGBbackground.x,0,255,0,1) ;
+  float green_norm = map(RGBbackground.y,0,255,0,1) ;
+  float blue_norm = map(RGBbackground.z,0,255,0,1) ;
+  float alpha_norm = map(RGBbackground.w,0,255,0,1) ;
+  float f_time = (float)frameCount *.1 ;
+  float size_slider = map(value_slider_background[6],0,MAX_VALUE_SLIDER,0,1);
+  float speed = map(value_slider_background[7],0,MAX_VALUE_SLIDER,0,1);
+  speed *= speed;
   if(key_space_long) {
     shaderMouseX = map(mouse[0].x,0,width,0,1) ;
     shaderMouseY = map(mouse[0].y,0,height,0,1) ;
   }
   
-  s.set("colorBG",redNorm, greenNorm, blueNorm, alphaNorm) ; 
+  s.set("colorBG",red_norm, green_norm, blue_norm, alpha_norm); 
   s.set("mixSound", mix[0]) ;
   s.set("timeTrack", get_time_track()) ;
   s.set("tempo", tempo[0]) ;
-  s.set("beat", allBeats(0)) ;
+  s.set("beat", allBeats(0));
+  s.set("quantity", map(value_slider_background[4],0,MAX_VALUE_SLIDER,0,1));
   s.set("mouse",shaderMouseX, shaderMouseY) ;
   s.set("resolution",size.x/factorSize, size.y/factorSize) ;
-  s.set("time", varTime);
+  s.set("time", f_time);
+  s.set("speed", speed);
+  s.set("size", size_slider);
   
   beginShape(QUADS) ;
   vertex(pos.x,pos.y) ;
@@ -1978,141 +1984,7 @@ void color_setup() {
 
 
   
-/**
-OSC CORE 
-v 1.2.1
-*/
-// main method
-void thread_data_controller(OscMessage receive) {
-  int rank = 0 ;
-  receive_data_misc(receive,rank); // 3 arg
-  rank += 3;
-  receive_data_menu_bar(receive,rank); // 1 arg
-  rank += 1;
-  receive_data_general_dropdown(receive,rank); // 7 arg
-  rank += 7;
-  receive_data_general_button(receive,rank); // 10 arg
-  rank += 10;
-  receive_data_general_slider(receive,rank,rank +24); // 24 arg
-  rank += 24;
-  receive_data_slider_item(receive,rank); // num arg = NUM_SLIDER_ITEM
-  rank += NUM_SLIDER_ITEM;
-  receive_data_button_item(receive,rank); // num arg = NUM_ITEM_PLUS_MASTER *BUTTON_ITEM_CONSOLE
-  rank += (NUM_ITEM *BUTTON_ITEM_CONSOLE);
-  receive_data_dropdown_item(receive,rank); // num arg = NUM_ITEM_PLUS_MASTER
-}
 
-// local method
-boolean to_bool(OscMessage receive, int index) {
-  Object obj = receive.arguments()[index];
-  if(obj instanceof Integer) {
-    int i = (int)obj;
-    if(i == 0) return false ; else return true;
-  } if(obj instanceof Float) {
-    float f = (float)obj;
-    if(f == 0) return false ; else return true;
-  } else {
-    printErr("OSC message index",index, "cannot be cast by default fase value has be used");
-    return false;
-  }
-}
-
-void receive_data_misc(OscMessage receive, int in) {
-  load_SCENE_Setting_GLOBAL = to_bool(receive,0+in);
-  save_Current_SCENE_Setting_GLOBAL = to_bool(receive,1+in);
-  save_New_SCENE_Setting_GLOBAL = to_bool(receive,2+in);
-}
-
-
-void receive_data_menu_bar(OscMessage receive, int in) {
-  curtain_is(to_bool(receive,0+in));
-}
-
-void receive_data_general_dropdown(OscMessage receive, int in) {
-  which_shader = receive.get(0+in).intValue();
-  which_filter = receive.get(1+in).intValue();
-  select_font(receive.get(2+in).intValue());
-  which_text[0] = receive.get(3+in).intValue();
-  which_bitmap[0] = receive.get(4+in).intValue();
-  which_shape[0] = receive.get(5+in).intValue();
-  which_movie[0] = receive.get(6+in).intValue();
-}
-
-
-void receive_data_general_button(OscMessage receive, int in) {
-  background_is(to_bool(receive,0+in));
-
-  light_ambient_is(to_bool(receive,1+in));
-  light_ambient_action_is(to_bool(receive,2+in));
-  light_1_is(to_bool(receive,3+in));
-  light_1_action_is(to_bool(receive,4+in));
-  light_2_is(to_bool(receive,5+in));
-  light_2_action_is(to_bool(receive,6+in));
-
-  kick_romanesco_is(to_bool(receive,7+in));
-  snare_romanesco_is(to_bool(receive,8+in));
-  hat_romanesco_is(to_bool(receive,9+in));
-}
-
-void receive_data_general_slider(OscMessage receive, int in, int out) {
-  int in_background = in ;
-  int out_background = in_background +NUM_SLIDER_BACKGROUND;
-
-  int in_filter =  out_background;
-  int out_filter = in_filter +NUM_SLIDER_FILTER;
-
-  int in_light =  out_filter;
-  int out_light = in_light +NUM_SLIDER_LIGHT;
-
-  int in_sound =  out_light;
-  int out_sound = in_sound +NUM_SLIDER_SOUND;
-
-  int in_camera =  out_sound;
-  int out_camera = in_camera +NUM_SLIDER_CAMERA;
-
-  for (int i = in ; i < out ; i++) {
-    if(i < out_background) {
-      value_slider_background[i -in_background] = Float.valueOf(receive.get(i).intValue());
-    } else if(i >= in_filter && i < out_filter) {
-      value_slider_filter[i -in_filter] = Float.valueOf(receive.get(i).intValue()) ;
-    } else if(i >= in_light && i < out_light) {
-      value_slider_light[i -in_light] = Float.valueOf(receive.get(i).intValue()) ;
-    } else if(i >= in_sound && i < out_sound) {
-      value_slider_sound[i -in_sound] = Float.valueOf(receive.get(i).intValue()) ;
-    } else if(i >= in_camera && i < out_camera) {
-      value_slider_camera[i -in_camera] = Float.valueOf(receive.get(i).intValue());
-    }
-  } 
-}
-
-void receive_data_slider_item(OscMessage receive, int in) {
-  for (int i = 0 ; i < NUM_SLIDER_ITEM ; i++) {
-   int index = in + i;
-    int target = i;
-    value_slider_item[target] = Float.valueOf(receive.get(index).intValue());
-  }
-}
-
-
-void receive_data_button_item(OscMessage receive, int in) {
-  int num = BUTTON_ITEM_CONSOLE;
-  for (int i = 0 ; i < NUM_ITEM ; i++) {
-    int index = in + (i*num);
-    int target = i+1;
-    show_item[target] = to_bool(receive,index +0);
-    parameter[target] = to_bool(receive,index +1);
-    sound[target] = to_bool(receive,index +2);
-    action[target] = to_bool(receive,index +3);
-  }
-}
-
-void receive_data_dropdown_item(OscMessage receive, int in) {
-  for (int i = 0 ; i < NUM_ITEM ; i++) {
-    int index = i+in;
-    int target = i+1;
-    mode[target] = receive.get(index).intValue();
-  }
-}
 
 
 

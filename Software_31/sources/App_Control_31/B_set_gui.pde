@@ -3,7 +3,6 @@ Variable
 v 0.2.0
 */
 
-
 /**
 design
 */
@@ -11,6 +10,14 @@ void set_design() {
   set_design_structure();
   set_design_aspect();
 }
+
+
+
+
+
+
+
+
 
 /**
 set structure
@@ -42,13 +49,14 @@ void set_design_structure() {
   pos_y_dropdown_top = height_header +height_button_top;
   height_menu_general = 193;
   pos_y_menu_general = height_header +height_button_top +height_dropdown_top;
+  pos_y_menu_general_content = pos_y_menu_general +5;
 
   set_design_structure_menu_bar();
-  set_design_structure_background(pos_y_menu_general +15);
-  set_design_structure_light(pos_y_menu_general +15);
-  set_design_structure_filter(pos_y_menu_general +15);
-  set_design_structure_sound(pos_y_menu_general +15);
-  set_design_structure_camera(pos_y_menu_general +15);
+  set_design_structure_background(1);
+  set_design_structure_light(1);
+  set_design_structure_filter(1);
+  set_design_structure_sound(1);
+  set_design_structure_camera(10);
 
   DIST_BETWEEN_ITEM = 40;
   set_design_structure_item_selected();
@@ -56,6 +64,141 @@ void set_design_structure() {
   set_design_structure_inventory();
 }
 
+
+
+// general
+void set_design_structure_background(int rank) {
+  slider_width_background = 100;
+  slider_height_background = 8;
+  offset_background_x = grid_col[0];
+  offset_background_y = pos_y_menu_general_content +(rank *spacing_slider);
+}
+
+void set_design_structure_camera(int rank) {
+  slider_width_camera = 100;
+  slider_height_camera = 8;
+  offset_camera_x = grid_col[0];
+  // offset_camera_y = pos_y -5;
+  offset_camera_y = pos_y_menu_general_content +(rank *spacing_slider);
+}
+
+
+void set_design_structure_filter(int rank) {
+  slider_width_filter = 100;
+  slider_height_filter = 8;
+  offset_filter_x = grid_col[3];
+  offset_filter_y = pos_y_menu_general_content +(rank *spacing_slider);
+}
+
+
+void set_design_structure_light(int rank) {
+  slider_width_light = 100;
+  slider_height_light = 8;
+  offset_light_x = grid_col[6];
+  offset_light_y = pos_y_menu_general_content +(rank *spacing_slider);
+}
+
+void set_design_structure_sound(int rank) {
+  slider_width_sound = 100;
+  slider_height_sound = 8;
+  offset_sound_x = grid_col[9];
+  offset_sound_y = pos_y_menu_general_content +(rank *spacing_slider);
+}
+
+// item
+void set_design_structure_item_selected() {
+  slider_width_item = 100;
+  slider_height_item = 8;
+  // item gui pos
+  offset_y_item = grid_col[0] +15;
+  item_a_col = grid_col[0];
+  item_b_col = grid_col[3];
+  item_c_col = grid_col[6];
+  // item selected
+  local_pos_y_button_item_selected = 20;
+  local_pos_y_dropdown_item_selected = local_pos_y_button_item_selected +73;
+  local_pos_y_slider_item_button = local_pos_y_dropdown_item_selected +20;
+
+  height_item_button_console = 85;
+  pos_y_item_selected = height_header +height_button_top +height_dropdown_top +height_menu_general;
+  height_item_selected = spacing_slider *NUM_SLIDER_ITEM_BY_COL +height_item_button_console;
+}
+
+void set_design_structure_inventory() {
+  pos_y_inventory = height_header +height_button_top +height_dropdown_top +height_menu_general +height_item_selected;
+  // this value depend of the size of the window, indeed we must calculate this one later.
+  height_inventory = 100;
+}
+
+
+void set_design_structure_menu_bar() {
+  // CURTAIN
+  correctionCurtainX = 0 ;
+  correctionCurtainY = 8 ;
+  // GROUP MIDI
+  correctionMidiX = 40 ;
+  correctionMidiY = 9 ;
+  spacing_midi_info = 13 ;
+  correction_info_midi_x = 60 ;
+  correction_info_midi_y = 10 ;
+  size_x_window_info_midi = 200 ;
+
+  num_dropdown_bar = 7;
+  pos_y_dropdown_bar = 73;
+  pos_x_dropdown_bar = new int[num_dropdown_bar];
+  pos_x_dropdown_bar [0] = 5;
+  pos_x_dropdown_bar [1] = 100;
+  pos_x_dropdown_bar [2] = 160;
+  pos_x_dropdown_bar [3] = 280;
+  pos_x_dropdown_bar [4] = 370;
+  pos_x_dropdown_bar [5] = 455;
+  pos_x_dropdown_bar [6] = 535;
+
+  height_dropdown_header_bar = height_box_dropdown;
+  width_dropdown_bar = new int[num_dropdown_bar];
+  width_dropdown_bar [0] = 75;
+  width_dropdown_bar [1] = 40;
+  width_dropdown_bar [2] = 60;
+  width_dropdown_bar [3] = 60;
+  width_dropdown_bar [4] = 60;
+  width_dropdown_bar [5] = 40;
+  width_dropdown_bar [6] = 60;
+
+  name_dropdown_bar = new String[num_dropdown_bar];
+  name_dropdown_bar[0] = "background";
+  name_dropdown_bar[1] = "filter";
+  name_dropdown_bar[2] = "font";
+  name_dropdown_bar[3] = "text";
+  name_dropdown_bar[4] = "bitmap";
+  name_dropdown_bar[5] = "shape";
+  name_dropdown_bar[6] = "movie";
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/**
+aspect
+*/
 void set_design_aspect() {
   fill_header_struc = r.BLOOD;
   structure_background_gray_a = r.GRAY_1;
@@ -146,114 +289,6 @@ void set_design_aspect() {
 
 
 
-
-void set_design_structure_background(int pos_y) {
-  slider_width_background = 100;
-  slider_height_background = 8;
-  offset_background_x = grid_col[0];
-  offset_background_y = pos_y +2;
-}
-
-void set_design_structure_camera(int pos_y) {
-  slider_width_camera = 100;
-  slider_height_camera = 8;
-  offset_camera_x = grid_col[0];
-  // offset_camera_y = pos_y -5;
-  offset_camera_y = pos_y +65;
-}
-
-
-void set_design_structure_filter(int pos_y) {
-  slider_width_filter = 100;
-  slider_height_filter = 8;
-  offset_filter_x = grid_col[3];
-  offset_filter_y = pos_y +2;
-}
-
-
-void set_design_structure_light(int pos_y) {
-  slider_width_light = 100;
-  slider_height_light = 8;
-  offset_light_x = grid_col[6];
-  offset_light_y = pos_y +2;
-}
-
-
-
-void set_design_structure_sound(int pos_y) {
-  slider_width_sound = 100;
-  slider_height_sound = 8;
-  offset_sound_x = grid_col[9];
-  offset_sound_y = pos_y +2;
-}
-
-void set_design_structure_item_selected() {
-  slider_width_item = 100;
-  slider_height_item = 8;
-  // item gui pos
-  offset_y_item = grid_col[0] +15;
-  item_a_col = grid_col[0];
-  item_b_col = grid_col[3];
-  item_c_col = grid_col[6];
-  // item selected
-  local_pos_y_button_item_selected = 20;
-  local_pos_y_dropdown_item_selected = local_pos_y_button_item_selected +73;
-  local_pos_y_slider_item_button = local_pos_y_dropdown_item_selected +20;
-
-  height_item_button_console = 85;
-  pos_y_item_selected = height_header +height_button_top +height_dropdown_top +height_menu_general;
-  height_item_selected = spacing_slider *NUM_SLIDER_ITEM_BY_COL +height_item_button_console;
-}
-
-void set_design_structure_inventory() {
-  pos_y_inventory = height_header +height_button_top +height_dropdown_top +height_menu_general +height_item_selected;
-  // this value depend of the size of the window, indeed we must calculate this one later.
-  height_inventory = 100;
-}
-
-
-void set_design_structure_menu_bar() {
-  // CURTAIN
-  correctionCurtainX = 0 ;
-  correctionCurtainY = 8 ;
-  // GROUP MIDI
-  correctionMidiX = 40 ;
-  correctionMidiY = 9 ;
-  spacing_midi_info = 13 ;
-  correction_info_midi_x = 60 ;
-  correction_info_midi_y = 10 ;
-  size_x_window_info_midi = 200 ;
-
-  num_dropdown_bar = 7;
-  pos_y_dropdown_bar = 73;
-  pos_x_dropdown_bar = new int[num_dropdown_bar];
-  pos_x_dropdown_bar [0] = 5;
-  pos_x_dropdown_bar [1] = 100;
-  pos_x_dropdown_bar [2] = 160;
-  pos_x_dropdown_bar [3] = 280;
-  pos_x_dropdown_bar [4] = 370;
-  pos_x_dropdown_bar [5] = 455;
-  pos_x_dropdown_bar [6] = 535;
-
-  height_dropdown_header_bar = height_box_dropdown;
-  width_dropdown_bar = new int[num_dropdown_bar];
-  width_dropdown_bar [0] = 75;
-  width_dropdown_bar [1] = 40;
-  width_dropdown_bar [2] = 60;
-  width_dropdown_bar [3] = 60;
-  width_dropdown_bar [4] = 60;
-  width_dropdown_bar [5] = 40;
-  width_dropdown_bar [6] = 60;
-
-  name_dropdown_bar = new String[num_dropdown_bar];
-  name_dropdown_bar[0] = "background";
-  name_dropdown_bar[1] = "filter";
-  name_dropdown_bar[2] = "font";
-  name_dropdown_bar[3] = "text";
-  name_dropdown_bar[4] = "bitmap";
-  name_dropdown_bar[5] = "shape";
-  name_dropdown_bar[6] = "movie";
-}
 
 
 
@@ -434,6 +469,7 @@ MUST BE REMOVE
 */
 int height_menu_general;
 int pos_y_menu_general;
+int pos_y_menu_general_content;
 
 
 /**

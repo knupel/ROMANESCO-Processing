@@ -1,7 +1,7 @@
 /**
 CORE Rope SCENE and PRESCENE 
 2015-2018
-v 1.4.1
+v 1.4.2
 */
 import java.net.*;
 import java.io.*;
@@ -1330,7 +1330,7 @@ void OSMavericksCheck() {
 
 /**
 ROMANESCO BACKGROUND 
-v 1.0.1.4
+v 1.1.0
 */
 Vec4 colorBackground, colorBackgroundRef, colorBackgroundPrescene;
 void background_setup() {
@@ -1373,10 +1373,6 @@ void background_romanesco() {
 Vec4 update_background() {
   //to smooth the curve of transparency background
   // HSB
-  /*
-  println("void update_background()",value_slider_background.length);
-  printArray(value_slider_background);
-  */
   float hue_bg = map(value_slider_background[0],0,MAX_VALUE_SLIDER,0,HSBmode.r);
   float saturation_bg = map(value_slider_background[1],0,MAX_VALUE_SLIDER,0,HSBmode.g);
   float brigthness_bg = map(value_slider_background[2],0,MAX_VALUE_SLIDER,0,HSBmode.b);
@@ -1412,36 +1408,38 @@ void background_shader_setup() {
 
 }
 
-void background_shader_draw(int whichOne) {
+void background_shader_draw(int which_one) {
   if(TEST_ROMANESCO || FULL_RENDERING) {
-    PVector posBGshader = new PVector(0,0) ;
-    PVector sizeBGshader = new PVector(width,height, height) ; 
-    fill(0) ; noStroke() ;
+    Vec2 pos_shader = Vec2();
+    Vec3 size_shader = Vec3(width,height,height) ; 
+    fill(0); 
+    noStroke();
 
-    if     (whichOne ==1) rectangle(posBGshader, sizeBGshader, blurOne );
-    else if(whichOne ==2) rectangle(posBGshader, sizeBGshader, blurTwo );
-    else if(whichOne ==3) rectangle(posBGshader, sizeBGshader, cellular);
-    else if(whichOne ==4) rectangle(posBGshader, sizeBGshader, damierEllipse);
-    else if(whichOne ==5) rectangle(posBGshader, sizeBGshader, heart);
-    else if(whichOne ==6) rectangle(posBGshader, sizeBGshader, necklace);
-    else if(whichOne ==7) rectangle(posBGshader, sizeBGshader, psy);
-    else if(whichOne ==8) rectangle(posBGshader, sizeBGshader, snow );
-    else if(whichOne ==9) rectangle(posBGshader, sizeBGshader, sinLight );   
+    if (which_one == 1) rectangle(pos_shader, size_shader, blurOne);
+    else if(which_one == 2) rectangle(pos_shader, size_shader, blurTwo);
+    else if(which_one == 3) rectangle(pos_shader, size_shader, cellular);
+    else if(which_one == 4) rectangle(pos_shader, size_shader, damierEllipse);
+    else if(which_one == 5) rectangle(pos_shader, size_shader, heart);
+    else if(which_one == 6) rectangle(pos_shader, size_shader, necklace);
+    else if(which_one == 7) rectangle(pos_shader, size_shader, psy);
+    else if(which_one == 8) rectangle(pos_shader, size_shader, snow);
+    else if(which_one == 9) rectangle(pos_shader, size_shader, sinLight );   
     //rectangle(posBGshader, sizeBGshader, bizarre) ;  // work bad
     //rectangle(posBGshader, sizeBGshader, water) ; // problem
     //rectangle(posBGshader, sizeBGshader, psyTwo) ; // problem
     //rectangle(posBGshader, sizeBGshader, psyThree) ; // problem
-  }  else if (whichOne != 0  ) {
+  }  else if (which_one != 0  ) {
     background_norm(1) ;
     int sizeText = 14 ;
     textSize(sizeText) ;
-    fill(orange) ; noStroke() ;
+    fill(orange) ; 
+    noStroke() ;
     text("Shader is ON", sizeText, height/3) ;
   } 
 }
 
 float shaderMouseX, shaderMouseY ;
-void rectangle(PVector pos, PVector size, PShader s) {
+void rectangle(Vec2 pos, Vec3 size, PShader s) {
   int factorSize = 10 ;
   size.mult(factorSize) ;
   pushMatrix() ;
@@ -1452,24 +1450,30 @@ void rectangle(PVector pos, PVector size, PShader s) {
                                 map(value_slider_background[1],0,MAX_VALUE_SLIDER,0,g.colorModeY), 
                                 map(value_slider_background[2],0,MAX_VALUE_SLIDER,0,g.colorModeZ),
                                 map(value_slider_background[3],0,MAX_VALUE_SLIDER,0,g.colorModeA)  ) ;
-  float redNorm = map(RGBbackground.x,0,255,0,1) ;
-  float greenNorm = map(RGBbackground.y,0,255,0,1) ;
-  float blueNorm = map(RGBbackground.z,0,255,0,1) ;
-  float alphaNorm = map(RGBbackground.w,0,255,0,1) ;
-  float varTime = (float)millis() *.001 ;
+  float red_norm = map(RGBbackground.x,0,255,0,1) ;
+  float green_norm = map(RGBbackground.y,0,255,0,1) ;
+  float blue_norm = map(RGBbackground.z,0,255,0,1) ;
+  float alpha_norm = map(RGBbackground.w,0,255,0,1) ;
+  float f_time = (float)frameCount *.1 ;
+  float size_slider = map(value_slider_background[6],0,MAX_VALUE_SLIDER,0,1);
+  float speed = map(value_slider_background[7],0,MAX_VALUE_SLIDER,0,1);
+  speed *= speed;
   if(key_space_long) {
     shaderMouseX = map(mouse[0].x,0,width,0,1) ;
     shaderMouseY = map(mouse[0].y,0,height,0,1) ;
   }
   
-  s.set("colorBG",redNorm, greenNorm, blueNorm, alphaNorm) ; 
+  s.set("colorBG",red_norm, green_norm, blue_norm, alpha_norm); 
   s.set("mixSound", mix[0]) ;
   s.set("timeTrack", get_time_track()) ;
   s.set("tempo", tempo[0]) ;
-  s.set("beat", allBeats(0)) ;
+  s.set("beat", allBeats(0));
+  s.set("quantity", map(value_slider_background[4],0,MAX_VALUE_SLIDER,0,1));
   s.set("mouse",shaderMouseX, shaderMouseY) ;
   s.set("resolution",size.x/factorSize, size.y/factorSize) ;
-  s.set("time", varTime);
+  s.set("time", f_time);
+  s.set("speed", speed);
+  s.set("size", size_slider);
   
   beginShape(QUADS) ;
   vertex(pos.x,pos.y) ;

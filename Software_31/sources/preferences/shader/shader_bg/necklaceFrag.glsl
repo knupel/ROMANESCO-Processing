@@ -1,21 +1,31 @@
 /*
 From Sand Box
-Stan le Punk modification 2014
+Stan le Punk modification 
+v 0.0.2
+2014-2018
 */
 #ifdef GL_ES
 precision lowp float;
 #endif
 
 
-uniform vec4 colorBG ;
+uniform vec4 colorBG;
 uniform vec2 mouse;
 uniform vec2 resolution;
+uniform float quantity;
 
 uniform float time;
-// #define PI 3.1414159265359
+uniform float speed;
+uniform float size;
 #define PI 3.14159265359793
+/*
 #define M  0.9
 #define D  0.6
+*/
+
+#define M  1.5
+#define D  1.5
+
 
 
 void main(){
@@ -26,16 +36,20 @@ void main(){
 	vec2 t = vec2(gl_FragCoord.xy /resolution);
 
 	vec3 c = vec3(0);
-	float y=0.;
-	float x=0.;
+	float y = 0.;
+	float x = 0.;
 
-	int maxRound = int(colorBG.z *700.) ;
-	if(maxRound < 10) maxRound = 10 ;
+	int maxRound = int(quantity *200.) ;
+	if(maxRound < 5) maxRound = 5;
 
+	float size_x = M *size;
+	float size_y = D *size;
+  
+  float speed_time = time*speed;
 	for(int i = 0; i < maxRound ; i++) {
-		float t = 1.9 *PI *float(i *8) /50. *time *.5;
-		x = D *cos(t+x+y);
-		y = M *sin(t+y+x);
+		float t = 1.9 *PI *float(i *8) /50. *speed_time *.5;
+		x = size_x *cos(t+x+y);
+		y = size_y *sin(t+y+x);
 		vec2 o = 0.3 *vec2(x, y);
 		float r = fract(y+x);
 		float g = 1. - r;

@@ -671,15 +671,35 @@ void display_button_header() {
 
 
 void display_button_general() {
-  button_bg.set_label(shader_bg_name[which_bg_shader] + " on/off");
+  if(button_bg.is()) {
+    button_bg.set_label(shader_bg_name[which_bg_shader] + " on");
+  } else {
+    button_bg.set_label(shader_bg_name[which_bg_shader] + " off");
+  }
   button_bg.show_label();
+
   // Light ambient
+  if(button_light_ambient.is()) {
+    button_light_ambient.set_label("ambient on");
+  } else {
+    button_light_ambient.set_label("ambient off");
+  }
   button_light_ambient.show_label();
   button_light_ambient_action.show_label();
   //LIGHT ONE
+  if(button_light_1.is()) {
+    button_light_1.set_label("spot light on");
+  } else {
+    button_light_1.set_label("spot light off");
+  }
   button_light_1.show_label();
   button_light_1_action.show_label();
   // LIGHT TWO
+  if(button_light_2.is()) {
+    button_light_2.set_label("spot light on");
+  } else {
+    button_light_2.set_label("spot light off");
+  }
   button_light_2.show_label();
   button_light_2_action.show_label();
   

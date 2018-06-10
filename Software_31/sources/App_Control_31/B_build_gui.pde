@@ -58,7 +58,7 @@ void build_console_background() {
   button_bg.set_is(true);
   button_bg.set_aspect_on_off(button_on_in, button_on_out, button_off_in, button_off_out);
   button_bg.set_font(FuturaExtraBold_10);
-  button_bg.set_label(shader_bg_name[which_bg_shader] + " on/off");
+  //button_bg.set_label(shader_bg_name[which_bg_shader] + " on/off");
 }
 
 void build_console_filter() {
@@ -104,7 +104,7 @@ void build_console_light() {
   button_light_ambient = new Button(pos_light_ambient_buttonButton, size_light_ambient_buttonButton);
   button_light_ambient.set_aspect_on_off(button_on_in, button_on_out, button_off_in, button_off_out);
   button_light_ambient.set_font(FuturaExtraBold_10);
-  button_light_ambient.set_label("Ambient on/off");
+  
 
   button_light_ambient_action = new Button(pos_light_ambient_button_action, size_light_ambient_button_action);
   button_light_ambient_action.set_aspect_on_off(button_on_in, button_on_out, button_off_in, button_off_out);
@@ -113,7 +113,7 @@ void build_console_light() {
   button_light_1 = new Button(pos_light_1_button, size_light_1_button);
   button_light_1.set_aspect_on_off(button_on_in, button_on_out, button_off_in, button_off_out);
   button_light_1.set_font(FuturaExtraBold_10);
-  button_light_1.set_label("Light on/off");
+  // button_light_1.set_label("Light on/off");
 
   button_light_1_action = new Button(pos_light_1_button_action, size_light_1_button_action);
   button_light_1_action.set_aspect_on_off(button_on_in, button_on_out, button_off_in, button_off_out);
@@ -123,7 +123,7 @@ void build_console_light() {
   button_light_2 = new Button(pos_light_2_button, size_light_2_button) ;
   button_light_2.set_aspect_on_off(button_on_in, button_on_out, button_off_in, button_off_out);
   button_light_2.set_font(FuturaExtraBold_10);
-  button_light_2.set_label("Light on/off");
+  // button_light_2.set_label("Light on/off");
 
   button_light_2_action = new Button(pos_light_2_button_action, size_light_2_button_action);
   button_light_2_action.set_aspect_on_off(button_on_in, button_on_out, button_off_in, button_off_out);
