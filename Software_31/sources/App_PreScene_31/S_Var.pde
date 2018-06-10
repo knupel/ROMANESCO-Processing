@@ -663,7 +663,7 @@ void create_var_item_slider() {
 
 /**
 INIT VAR 
-v 1.1.0
+v 1.1.1
 */
 void init_variable_item_min_max() {
   float min_size = .1 ;

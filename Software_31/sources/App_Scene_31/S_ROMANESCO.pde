@@ -187,9 +187,6 @@ void update_var_items(int ID) {
 //
 void update_slider_value(int ID) {
   if(FULL_RENDERING) {
-    /**
-    Changer : le fill et le stroke doivent se calculer sur des valeurs séparée, hue, sat, bright and alpha, sinon quand on les change cela change tout d'une seul coup.
-    */
     // fill obj
     if(!first_opening_item[ID] ) fill_item[ID] = color(fill_hue_raw, fill_sat_raw, fill_bright_raw, fill_alpha_raw); 
     else if(fill_hue_temp != fill_hue_raw) fill_item[ID] = color(fill_hue_raw, saturation(fill_item[ID]), brightness(fill_item[ID]), alpha(fill_item[ID]));

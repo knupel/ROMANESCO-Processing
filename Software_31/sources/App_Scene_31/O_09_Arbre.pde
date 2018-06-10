@@ -1,7 +1,7 @@
 
 /**
-ARBRE 2012-2017 
-v 1.3.4
+ARBRE 2012-2018
+v 1.3.5
 */
 Arbre arbre ;
 
@@ -125,7 +125,7 @@ class ArbreRomanesco extends Romanesco {
     float direction = dir_x_item[ID_item] ;
     //amplitude
     float amplitude = canvas_x_item[ID_item] *.5 ;
-    if(FULL_RENDERING) amplitude = amplitude *allBeats(ID_item) ;
+    if(FULL_RENDERING) amplitude = amplitude *allBeats(ID_item);
     
 
 
@@ -136,13 +136,12 @@ class ArbreRomanesco extends Romanesco {
     // speed
     if(motion[ID_item] && FULL_RENDERING) {
       float s = map(speed_x_item[ID_item],0,1,0,2) ;
-      s *= s ;
-      speed = s *tempo[ID_item] ; 
+      s *= s;
+      speed = s *tempo[ID_item]; 
     } else if (!motion[ID_item] && FULL_RENDERING){ 
       speed = 0.0 ;
     } else {
       speed = 1.0 ;
-
     }
     
     
@@ -152,7 +151,7 @@ class ArbreRomanesco extends Romanesco {
 
     select_costume(ID_item, item_name) ;
 
-    arbre.show(direction) ;
+    arbre.show(direction);
     arbre.update(posArbre, epaisseur, size, divA, divB, forkA, forkB, amplitude, n, costume[ID_item], bool_link, angle, speed, fill_is[ID_item], stroke_is[ID_item], ID_item) ;
     if(horizon[ID_item]) {
       arbre.set_horizon(0) ; 

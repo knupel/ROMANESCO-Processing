@@ -1,5 +1,7 @@
 /**
-KARAOKE || 2011 || 2.0.2
+KARAOKE
+2011-2018
+v 2.0.3
 */
 
 class Karaoke extends Romanesco {
@@ -9,7 +11,7 @@ class Karaoke extends Romanesco {
     ID_item = 3 ;
     ID_group = 1 ;
     item_author  = "Stan LePunk";
-    item_version = "Version 2.0.2";
+    item_version = "Version 2.0.3";
     item_pack = "Base" ;
     item_mode = "" ; // separate the name by a slash and write the next mode immadialtly after this one.
     hue_fill_is = true;
@@ -78,9 +80,10 @@ class Karaoke extends Romanesco {
   void draw() {
     load_txt(ID_item) ;
     
-    float sizeFont = font_size_item[ID_item] ;
+    float size_font = font_size_item[ID_item] *mix[ID_item] *allBeats(ID_item);
+    if(size_font < 1) size_font = 1;
     
-    textFont(font_item[ID_item], sizeFont *mix[ID_item] *allBeats(ID_item) );
+    textFont(font_item[ID_item],size_font);
     
     // couleur du texte
     // security against the blavk bug opacity
@@ -140,10 +143,11 @@ class Karaoke extends Romanesco {
       rotation(dir_x_item[ID_item], mouse[ID_item].x, mouse[ID_item].y) ;
       //DISPLAY
       textAlign(CORNER);
-      textFont(font_item[ID_item], sizeFont+ (mix[ID_item]) *6 *beat[ID_item]);
+      size_font = size_font+ (mix[ID_item]) *6 *beat[ID_item];
+      if(size_font < 1) size_font = 1;
+      textFont(font_item[ID_item],size_font);
       text(karaokeSentences[sentence], 0, 0, largeur, hauteur) ;
     }
-
   }
 }
 //end object one

@@ -1,6 +1,6 @@
 /**
 OSC CORE 
-v 1.2.1
+v 1.2.2
 */
 // main method
 void thread_data_controller(OscMessage receive) {
@@ -12,9 +12,10 @@ void thread_data_controller(OscMessage receive) {
   receive_data_general_dropdown(receive,rank); // 7 arg
   rank += 7;
   receive_data_general_button(receive,rank); // 10 arg
-  rank += 10;
-  receive_data_general_slider(receive,rank,rank +24); // 24 arg
-  rank += 24;
+  rank += 10;  
+  receive_data_general_slider(receive,rank,rank +NUM_SLIDER_GENERAL); // NUM_SLIDER_GENERAL 
+  rank += NUM_SLIDER_GENERAL;
+  
   receive_data_slider_item(receive,rank); // num arg = NUM_SLIDER_ITEM
   rank += NUM_SLIDER_ITEM;
   receive_data_button_item(receive,rank); // num arg = NUM_ITEM_PLUS_MASTER *BUTTON_ITEM_CONSOLE
