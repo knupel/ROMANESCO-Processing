@@ -1,8 +1,13 @@
+/**
+Blur two
+2013-2018
+v 0.0.2
+*/
 #ifdef GL_ES
 precision mediump float;
 #endif
 
-uniform vec4 colorBG; 
+uniform vec4 rgba; 
 uniform float time;
 uniform vec2 mouse;
 uniform vec2 resolution;
@@ -17,7 +22,7 @@ void main( void ) {
 	color += sin( position.x * sin( time / 5.0 ) * 10.0 ) + sin( position.y * sin( time / 35.0 ) * 80.0 );
 	color *= sin( time / 10.0 ) * 0.5;
 
-	gl_FragColor = vec4( vec3( color *colorBG.x, color *colorBG.y, color *colorBG.z), 1.0 *colorBG.w );
+	gl_FragColor = vec4( vec3( color *rgba.x, color *rgba.y, color *rgba.z), 1.0 *rgba.w );
 	// gl_FragColor = vec4( vec3( color, color, color, 1.0);
 
 }

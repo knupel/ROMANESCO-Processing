@@ -1,8 +1,13 @@
+/**
+Blur one
+2013-2018
+v 0.0.2
+*/
 #ifdef GL_ES
 precision mediump float;
 #endif
 
-uniform vec4 colorBG; 
+uniform vec4 rgba; 
 uniform float time;
 uniform vec2 mouse;
 uniform vec2 resolution;
@@ -49,7 +54,7 @@ void main( void ) {
 	//pos.x+=mouse.y;
 	vec4 col;
 	
-	col=vec4(colorBG.x,colorBG.y,colorBG.z,1.)*1.;
+	col=vec4(rgba.x,rgba.y,rgba.z,1.)*1.;
 	float f = mix(0.0,fbm(pos.x*mouse.x*5.,time*.09-pos.y/100.0),1.);
 	
 	f=mix(0.0,f,1.-abs(pos.y)*abs(pos.y)*abs(pos.y));

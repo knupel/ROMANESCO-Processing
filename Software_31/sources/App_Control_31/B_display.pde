@@ -121,24 +121,29 @@ display dropdown
 // DRAW DROPDOWN
 boolean dropdownActivity ;
 int dropdownActivityCount ;
-void display_dropdown() {
+void show_dropdown() {
   update_dropdown_bar_content() ;
   
   for(int i = 0 ; i < dropdown_bar.length ; i++) {
     dropdown_bar[i].set_content(dropdown_content[i]);
-    update_dropdown_bar(dropdown_bar[i]);
+    // update_dropdown_bar(dropdown_bar[i]);
   }
+
+  update_dropdown(dropdown_bar);
+  update_dropdown(dropdown_setting);
+
+
 
   // item
   update_dropdown_item() ;
   
-  which_bg_shader = dropdown_bar[0].get_selected();
-  which_filter = dropdown_bar[1].get_selected();
-  which_font = dropdown_bar[2].get_selected();
-  which_text = dropdown_bar[3].get_selected();
-  which_bitmap = dropdown_bar[4].get_selected();
-  which_shape = dropdown_bar[5].get_selected();
-  which_movie = dropdown_bar[6].get_selected();
+  which_bg_shader = dropdown_bar[0].get_selection();
+  which_filter = dropdown_bar[1].get_selection();
+  which_font = dropdown_bar[2].get_selection();
+  which_text = dropdown_bar[3].get_selection();
+  which_bitmap = dropdown_bar[4].get_selection();
+  which_shape = dropdown_bar[5].get_selection();
+  which_movie = dropdown_bar[6].get_selection();
 
   // check the activity o the dropdown
   if(dropdownActivityCount > 0 ) {
@@ -172,7 +177,7 @@ void show_slider_controller() {
   show_slider_filter();
   show_slider_light();
   show_slider_sound();
-  show_slider_camera();
+  if(dropdown_setting.get_selection() == 0 ) show_slider_camera();
   show_slider_item();
 }
 
@@ -626,11 +631,10 @@ void update_slider(Sladj sa, float [] value_slider, Vec5 [] info_slider) {
 /**
 BUTTON display
 */
-void display_button_and_dropdown() {
+void show_button() {
   display_button_general();
   display_button_item_console();
   display_button_inventory();
-  display_dropdown();
   display_button_header();
 }
 

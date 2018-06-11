@@ -74,7 +74,8 @@ void draw() {
 
   show_misc_text();
   show_slider_controller();
-  display_button_and_dropdown();
+  show_button();
+  show_dropdown();
   
   midi_manager(false);
   update_midi();

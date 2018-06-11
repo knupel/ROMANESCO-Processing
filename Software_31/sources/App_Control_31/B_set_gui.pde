@@ -24,6 +24,7 @@ set structure
 */
 void set_design_structure() {
   height_box_dropdown = 15;
+  dropdown_pos_text = iVec2(3,10);
 
   ratio_size_molette = 1.3;
   // vertical grid
@@ -56,7 +57,9 @@ void set_design_structure() {
   set_design_structure_light(1);
   set_design_structure_filter(1);
   set_design_structure_sound(1);
-  set_design_structure_camera(10);
+  set_design_structure_setting(4);
+
+
 
   DIST_BETWEEN_ITEM = 40;
   set_design_structure_item_selected();
@@ -67,6 +70,9 @@ void set_design_structure() {
 
 
 // general
+
+
+
 void set_design_structure_background(int rank) {
   slider_width_background = 100;
   slider_height_background = 8;
@@ -74,13 +80,34 @@ void set_design_structure_background(int rank) {
   offset_background_y = pos_y_menu_general_content +(rank *spacing_slider);
 }
 
+
+void set_design_structure_setting(int rank) {
+  int px = grid_col[9];
+  int py = pos_y_menu_general_content +(rank *spacing_slider);
+  dropdown_setting_pos = iVec2(px,py);
+  int sx = 100;
+  int sy = height_box_dropdown ;
+  dropdown_setting_size = iVec2(sx,sy);
+  set_design_structure_camera(rank+3);
+  set_design_structure_sound_setting(rank+3);
+}
+
+
 void set_design_structure_camera(int rank) {
   slider_width_camera = 100;
   slider_height_camera = 8;
-  offset_camera_x = grid_col[0];
-  // offset_camera_y = pos_y -5;
+  offset_camera_x = grid_col[9];
   offset_camera_y = pos_y_menu_general_content +(rank *spacing_slider);
 }
+
+
+void set_design_structure_sound_setting(int rank) {
+  /*
+  ASAP there is something here to set the sound system
+  */
+}
+
+
 
 
 void set_design_structure_filter(int rank) {
@@ -280,6 +307,26 @@ void set_design_aspect() {
   label_in_dark = r.GRAY_5;
   label_out_dark = r.GRAY_3;
 
+  dropdown_colour = new ROPE_colour(color_dd_background, 
+                                    color_dd_header_in, 
+                                    color_dd_header_out,
+                                    color_dd_header_text_in, 
+                                    color_dd_header_text_out,
+                                    color_dd_box_in, 
+                                    color_dd_box_out, 
+                                    color_dd_box_text_in, 
+                                    color_dd_box_text_out);
+
+  dropdown_color_item = new ROPE_colour(color_dd_background, 
+                                        color_dd_item_in, 
+                                        color_dd_item_out,
+                                        color_dd_item_text_in,
+                                        color_dd_item_text_out,
+                                        color_dd_box_in, 
+                                        color_dd_box_out,  
+                                        color_dd_box_text_in,
+                                        color_dd_box_text_out);
+
 }
 
 
@@ -418,6 +465,9 @@ void set_console_camera(iVec2 pos, iVec2 size) {
 
 
 
+
+
+
 void set_console_item(int pos_y, iVec2 size) {
   // where the controller must display the slider
   for( int i = 0 ; i < NUM_SLIDER_ITEM_BY_COL ; i++) {
@@ -472,6 +522,11 @@ int pos_y_menu_general;
 int pos_y_menu_general_content;
 
 
+/**
+COLOUR
+*/
+ROPE_colour dropdown_colour;
+ROPE_colour dropdown_color_item;
 /**
 colour structure
 */
@@ -596,6 +651,19 @@ int slider_mode_display = 0 ;
 
 
 
+/**
+DROPDOWN 
+*/
+// DROPDOWN setting
+Dropdown dropdown_setting;
+iVec2 dropdown_setting_pos;
+iVec2 dropdown_setting_size;
+iVec2 dropdown_pos_text;
+
+
+
+
+
 
 
 // top
@@ -604,11 +672,10 @@ int pos_y_button_top;
 int height_dropdown_top;
 int pos_y_dropdown_top;
 
-
-// DROPDOWN button font and shader background
+// DROPDOWN bar
 int which_bg_shader, which_filter, which_font, which_text, which_bitmap, which_shape, which_movie;
 Dropdown [] dropdown_bar;
-iVec2 [] dropdown_bar_pos, dropdown_bar_size, dropdown_bar_pos_text;
+iVec2 [] dropdown_bar_pos, dropdown_bar_size;
 String [] filter_dropdown_list, font_dropdown_list, bitmap_dropdown_list, shape_dropdown_list, movie_dropdown_list, file_text_dropdown_list;
 int num_dropdown_bar ;
 int pos_y_dropdown_bar ;

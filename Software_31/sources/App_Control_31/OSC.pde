@@ -90,13 +90,13 @@ void send_OSC() {
 
 
   // dropdown general
-  add_data(mess,dropdown_bar[0].get_selected()); // font or shader ?
-  add_data(mess,dropdown_bar[1].get_selected()); // filter
-  add_data(mess,dropdown_bar[2].get_selected()); // font ?
-  add_data(mess,dropdown_bar[3].get_selected()); // text
-  add_data(mess,dropdown_bar[4].get_selected()); // bitmap
-  add_data(mess,dropdown_bar[5].get_selected()); // shape
-  add_data(mess,dropdown_bar[6].get_selected()); // movie
+  add_data(mess,dropdown_bar[0].get_selection()); // font or shader ?
+  add_data(mess,dropdown_bar[1].get_selection()); // filter
+  add_data(mess,dropdown_bar[2].get_selection()); // font ?
+  add_data(mess,dropdown_bar[3].get_selection()); // text
+  add_data(mess,dropdown_bar[4].get_selection()); // bitmap
+  add_data(mess,dropdown_bar[5].get_selection()); // shape
+  add_data(mess,dropdown_bar[6].get_selection()); // movie
 
   // button general background
   add_data(mess, button_bg.is());
@@ -146,7 +146,7 @@ void send_OSC() {
   // add dropdown mode item
   for(int i = 0 ; i < NUM_ITEM ; i++) {
     int index = i +1;
-    add_data(mess,dropdown_item_mode[index].get_selected());
+    add_data(mess,dropdown_item_mode[index].get_selection());
   }
   
 

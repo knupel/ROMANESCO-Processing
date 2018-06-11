@@ -11,7 +11,9 @@ void build_console() {
   build_console_filter();
   build_console_light();
   build_console_sound();
-  build_console_camera();
+
+  build_console_setting();
+  // 
   build_console_item();  
 }
 
@@ -27,7 +29,6 @@ void build_console_bar() {
   dropdown_bar = new Dropdown[num_dropdown_bar];
   dropdown_bar_pos = new iVec2[num_dropdown_bar];
   dropdown_bar_size = new iVec2[num_dropdown_bar];
-  dropdown_bar_pos_text = new iVec2[num_dropdown_bar];
   dropdown_content = new String[num_dropdown_bar][0];
 }
 
@@ -47,11 +48,17 @@ void build_console_background() {
       slider_adj_background[i].set_label(slider_background_name[i],iadd(slider_adj_background[i].get_size(),iVec2(3,0)));
       slider_adj_background[i].set_font(textUsual_1);
       slider_adj_background[i].set_rounded(rounded_slider);
-      slider_adj_background[i].set_fill_label(label_in_dark,label_out_dark);
-      slider_adj_background[i].set_fill(struc_dark);
-      slider_adj_background[i].set_fill_molette(molette_in_dark,molette_out_dark);
-      slider_adj_background[i].set_fill_adj(adj_in_dark,adj_out_dark);
+      slider_adj_background[i].set_fill_label(label_in_light,label_out_dark);
+      slider_adj_background[i].set_fill(struc_light);
+      slider_adj_background[i].set_fill_molette(molette_in_light,molette_out_light);
+      slider_adj_background[i].set_fill_adj(adj_in_light,adj_out_light);
     }
+  }
+  // change color for the next slider after colour slider
+  for(int i = 4 ; i < slider_adj_background.length ; i++) {
+    slider_adj_background[i].set_fill(struc_dark);
+    slider_adj_background[i].set_fill_molette(molette_in_dark,molette_out_dark);
+    slider_adj_background[i].set_fill_adj(adj_in_dark,adj_out_dark);
   }
 
   button_bg = new Button(pos_button_background, size_button_background);
@@ -168,7 +175,23 @@ void build_console_sound() {
 }
 
 
+void build_console_setting() {
+  String [] content = {"camera setting","sound setting"};
+  dropdown_setting = new Dropdown(dropdown_setting_pos,dropdown_setting_size,"Romanesco setting",content);
+  dropdown_setting.set_colour(dropdown_colour);
+  dropdown_setting.set_box_rank(2);
+  dropdown_setting.set_header_text_pos(dropdown_pos_text);
+  dropdown_setting.set_box_text_pos(dropdown_pos_text);
+  dropdown_setting.set_box_height(height_box_dropdown);
+  dropdown_setting.set_font(title_medium);
+  dropdown_setting.set_box_font(textUsual_1);
+  build_console_camera();
+  build_console_sound_setting();
+}
 
+void build_console_sound_setting() {
+
+}
 
 void build_console_camera() {
   for (int i = 0 ; i < NUM_SLIDER_CAMERA ; i++) {
@@ -383,21 +406,11 @@ void build_dropdown_bar() {
     dropdown_bar_pos[i] = iVec2(pos_x_dropdown_bar[i],pos_y_dropdown_bar);
     dropdown_bar_size[i] = iVec2(width_dropdown_bar[i],height_dropdown_header_bar);
     int num_box = 7;
-    dropdown_bar_pos_text[i] = iVec2(3,10);
-    ROPE_colour dropdown_color_bar = new ROPE_colour(color_dd_background, 
-                                                      color_dd_header_in, 
-                                                      color_dd_header_out,
-                                                      color_dd_header_text_in, 
-                                                      color_dd_header_text_out,
-                                                      color_dd_box_in, 
-                                                      color_dd_box_out, 
-                                                      color_dd_box_text_in, 
-                                                      color_dd_box_text_out);
 
     dropdown_bar[i] = new Dropdown(dropdown_bar_pos[i],dropdown_bar_size[i],name_dropdown_bar[i],dropdown_content[i]);
-    dropdown_bar[i].set_colour(dropdown_color_bar);
-    dropdown_bar[i].set_header_text_pos(dropdown_bar_pos_text[i]);
-    dropdown_bar[i].set_box_text_pos(dropdown_bar_pos_text[i]);
+    dropdown_bar[i].set_colour(dropdown_colour);
+    dropdown_bar[i].set_header_text_pos(dropdown_pos_text);
+    dropdown_bar[i].set_box_text_pos(dropdown_pos_text);
     dropdown_bar[i].set_box(num_box,2);
     dropdown_bar[i].set_box_height(height_box_dropdown);
     dropdown_bar[i].set_font(title_medium);
@@ -410,16 +423,6 @@ void build_dropdown_item_selected() {
   size_dropdown_item_mode = iVec2(20,15);
   int x = offset_y_item + -8;
   int y = height_item_selected +local_pos_y_dropdown_item_selected;
-
-  ROPE_colour dropdown_color_item = new ROPE_colour(color_dd_background, 
-                                                    color_dd_item_in, 
-                                                    color_dd_item_out,
-                                                    color_dd_item_text_in,
-                                                    color_dd_item_text_out,
-                                                    color_dd_box_in, 
-                                                    color_dd_box_out,  
-                                                    color_dd_box_text_in,
-                                                    color_dd_box_text_out);
   // group item
   for (int i = 0 ; i <= NUM_ITEM ; i++ ) {
     if(mode_list_RPE[i] != null) {

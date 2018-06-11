@@ -1,7 +1,7 @@
 /**
 LIGHT SHADER 
 Prescene and Scene
-V 1.4.0
+V 1.4.1
 2015-2018
 */
 Vec3 var_light_pos  ;
@@ -29,7 +29,7 @@ void light_position_draw(Vec3 mouse, int wheel) {
 
 
 // INTERNAL VAR
-PShader pixShader;
+PShader light_shader;
 
 Vec4 [] color_light ;
 Vec4 [] color_light_ref ;
@@ -46,8 +46,8 @@ boolean [] on_off_light, on_off_light_action ;
 
 void shader_setup() {
   String path = (preference_path +"shader/shader_light/") ;
-  pixShader = loadShader(path+"light_pix_frag_romanesco.glsl", path+"light_pix_vert_romanesco.glsl");
-  shader(pixShader);
+  light_shader = loadShader(path+"light_pix_frag_romanesco.glsl", path+"light_pix_vert_romanesco.glsl");
+  shader(light_shader);
 }
 
 void light_setup() {
@@ -91,7 +91,7 @@ void light_setup() {
 
 //DRAW
 void light_call_shader() {
-  shader(pixShader);
+  shader(light_shader);
 }
 
 
@@ -148,13 +148,13 @@ void shader_draw() {
   Vec4 RGBa = new Vec4(1, 1, 1, .5) ; // it's OPENGL data between 0 to 1, the range is between -1 to 1, you can go beyond but take care at your life !
   PVector RGB = new PVector(RGBa.r, RGBa.g, RGBa.b);
 
-  pixShader.set("colorVertex", RGB);
-  pixShader.set("alphaVertex", RGBa.a);
+  light_shader.set("colorVertex", RGB);
+  light_shader.set("alphaVertex", RGBa.a);
   
   // vertex position
   PVector canvasXYZ = new PVector (1,1,1) ;
-  pixShader.set("canvas", canvasXYZ);
-  pixShader.set("zoom", 1.);
+  light_shader.set("canvas", canvasXYZ);
+  light_shader.set("zoom", 1.);
 }
 
 
@@ -224,9 +224,6 @@ void ambientLightPix(Vec4 rgba, Vec3 pos) {
 
 // POINT LIGTH
 //////////////
-
-
-// Display light
 /**
 Here we use a position of light
 */
@@ -236,9 +233,6 @@ void light_point_display(Vec4 rgba, Vec3 pos) {
 }
 
 
-
-
-
 /**
 SPOT LIGHT
 */
@@ -246,11 +240,6 @@ void light_spot_display(Vec4 rgba, Vec3 pos, Vec3 dir, float angle, float concen
   rgba = check_colorMode_for_alpha(rgba).copy() ;
   spotLight(rgba.r, rgba.g, rgba.b, pos.x, pos.y, pos.z, dir.x, dir.y, dir.z, angle, concentration) ;
 }
-
-
-
-
-
 
 
 

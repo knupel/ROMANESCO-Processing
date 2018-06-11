@@ -1,3 +1,8 @@
+/**
+psyfrag 2
+inspiration maybe sand box ?
+2014
+*/
 #ifdef GL_ES
 precision mediump float;
 #endif

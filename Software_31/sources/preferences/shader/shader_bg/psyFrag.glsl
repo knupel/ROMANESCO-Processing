@@ -1,3 +1,8 @@
+/**
+psyfrag
+inspiration maybe sand box ?
+2014-2018
+*/
 #ifdef GL_ES
 precision mediump float;
 #endif
@@ -8,7 +13,7 @@ precision mediump float;
 uniform float time;
 uniform vec2 mouse;
 uniform vec2 resolution;
-uniform vec4 colorBG;
+uniform vec4 rgba;
 uniform float tempo ;
 uniform float timeTrack ;
 

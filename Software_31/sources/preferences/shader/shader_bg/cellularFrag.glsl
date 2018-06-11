@@ -1,8 +1,13 @@
+/**
+cellular
+2013-2018
+v 0.0.2
+*/
 #ifdef GL_ES
 precision mediump float;
 #endif
 
-uniform vec4 colorBG; 
+uniform vec4 rgba; 
 uniform float time;
 uniform vec2 mouse;
 uniform vec2 resolution;
@@ -38,6 +43,6 @@ void main() {
 	float v = (1. - exp((abs(uv.x) - 1.) * 6.)) * (1. - exp((abs(uv.y) - 1.) * 6.));
 
 	vec4 tempColor = mix(.4, 1., v) * vec4(1.8 * t * t * t, 1.4 * t * t, t, 1.0);
-	gl_FragColor = vec4(tempColor.x *colorBG.x, tempColor.y *colorBG.y, tempColor.z *colorBG.z, tempColor.w *colorBG.w) ;
+	gl_FragColor = vec4(tempColor.x *rgba.x, tempColor.y *rgba.y, tempColor.z *rgba.z, tempColor.w *rgba.w) ;
 	// gl_FragColor = mix(.4, 1., v) * vec4(1.8 * t * t * t, 1.4 * t * t, t, 1.0);
 }

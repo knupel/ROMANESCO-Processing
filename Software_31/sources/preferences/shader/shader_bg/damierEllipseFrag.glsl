@@ -1,14 +1,16 @@
 /*
-	Remake of my Khan academy computer science program
-	https://www.khanacademy.org/cs/circles/1073977688
-	And rework  for Romanesco by Stan le Punk 2014
+Remake of my Khan academy computer science program
+https://www.khanacademy.org/cs/circles/1073977688
+
+Refactoring for Romanesco by Stan le Punk 
+2014-2018
 */
 
 #ifdef GL_ES
 precision mediump float;
 #endif
 
-uniform vec4 colorBG ;
+uniform vec4 rgba ;
 uniform float beat;
 uniform float time;
 uniform vec2 mouse;
@@ -63,7 +65,7 @@ circle c;
 float dist;
 
 // vec4  color = vec4(1., 1., 1., 1.) ;
-vec4  color = vec4(colorBG.x, colorBG.y, 1., 1.) ;
+vec4  color = vec4(rgba.x, rgba.y, 1., 1.) ;
 // vec4  color = colorBG ;
 
 void main (void) {

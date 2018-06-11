@@ -120,6 +120,16 @@ void check_button_general() {
 /**
 dropdown
 */
+
+void update_dropdown(Dropdown... dd) {
+  for(int i = 0 ; i < dd.length ; i++) {
+    dd[i].update();
+    dd[i].show_header_text();
+    dd[i].show_box();
+    dd[i].show_selection(dd[i].get_pos().x +3 , dd[i].get_pos().y +22);
+  }
+}
+
 void update_dropdown_bar_content() {
   dropdown_content [0] = shader_bg_name;
   dropdown_content [1] = filter_dropdown_list;
@@ -130,17 +140,6 @@ void update_dropdown_bar_content() {
   dropdown_content [5] = shape_dropdown_list;
   dropdown_content [6] = movie_dropdown_list;
 }
-
-// Annexe method
-void update_dropdown_bar(Dropdown dd) {
-  dd.update();
-  dd.show_header_text();
-  dd.show_box();
-  dd.show_selection(dd.get_pos().x +3 , dd.get_pos().y +22);
-}
-
-
-
 
 
 void update_dropdown_item() {
@@ -160,14 +159,14 @@ void update_dropdown_item() {
         dropdown_item_mode[i].show_box();
       }
       // display which element is selected
-      if (dropdown_item_mode[i].get_selected() > -1 && m.length > 1) {
+      if (dropdown_item_mode[i].get_selection() > -1 && m.length > 1) {
         int x = dropdown_item_mode[i].get_pos().x +12;
         int y = dropdown_item_mode[i].get_pos().y +8;
         /*
         dropdown_item_mode[i].show_selection(x,y);
         */    
         textFont(dropdown_item_mode[i].get_font());      
-        text(dropdown_item_mode[i].get_selected() +1,x,y);   
+        text(dropdown_item_mode[i].get_selection() +1,x,y);   
       }
     }
   }

@@ -1,4 +1,10 @@
-uniform vec4 colorBG ;
+/**
+heart
+v 0.0.3
+unkown inspiration maybe sandbox ?
+2014-2018
+*/
+uniform vec4 rgba;
 uniform float mixSound;
 uniform float beat;
 uniform float addTempo;
@@ -68,5 +74,5 @@ void main() {
 	
 	float t = max(dSum / 32., dMax) * mix(.92, 1., noise(uv.x + noise(uv.y + time)));
 	// gl_FragColor = vec4(t * vec3(t*t*1.3, t*1.3, 1.), 1.);
-	gl_FragColor = vec4(t * vec3(t*t*colorBG.x, t*colorBG.y, colorBG.z), 1.);
+	gl_FragColor = vec4(t * vec3(t*t*rgba.x, t*rgba.y, rgba.z), 1.);
 }
