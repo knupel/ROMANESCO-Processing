@@ -179,6 +179,7 @@ void build_console_setting() {
   String [] content = {"camera setting","sound setting"};
   dropdown_setting = new Dropdown(dropdown_setting_pos,dropdown_setting_size,"Romanesco setting",content);
   dropdown_setting.set_colour(dropdown_colour);
+  dropdown_setting.wheel(true);
   dropdown_setting.set_box_rank(2);
   dropdown_setting.set_header_text_pos(dropdown_pos_text);
   dropdown_setting.set_box_text_pos(dropdown_pos_text);
@@ -426,6 +427,7 @@ void build_dropdown_bar() {
     dropdown_bar[i] = new Dropdown(dropdown_bar_pos[i],dropdown_bar_size[i],name_dropdown_bar[i],dropdown_content[i]);
     dropdown_bar[i].set_colour(dropdown_colour);
     dropdown_bar[i].set_header_text_pos(dropdown_pos_text);
+    dropdown_bar[i].wheel(true);
     dropdown_bar[i].set_box_text_pos(dropdown_pos_text);
     dropdown_bar[i].set_box(num_box,2);
     dropdown_bar[i].set_box_height(height_box_dropdown);
@@ -450,6 +452,7 @@ void build_dropdown_item_selected() {
       dropdown_item_mode[i] = new Dropdown(pos_dropdown[i], size_dropdown_item_mode,"M",item_mode_dropdown_list);
       dropdown_item_mode[i].set_colour(dropdown_color_item);
       dropdown_item_mode[i].set_header_text_pos(posTextDropdown);
+      dropdown_item_mode[i].wheel(true);
       dropdown_item_mode[i].set_box_text_pos(posTextDropdown);
       dropdown_item_mode[i].set_box(7);
       dropdown_item_mode[i].set_box_height(height_box_dropdown);

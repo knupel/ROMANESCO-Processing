@@ -3,7 +3,7 @@ ROPE - Romanesco processing environment –
 * Copyleft (c) 2014-2018
 * Stan le Punk > http://stanlepunk.xyz/
 ROPE core
-v 0.0.5.1
+v 0.1.0
 2017-2018
 * @author Stan le Punk
 * @see https://github.com/StanLepunK/Rope
@@ -134,5 +134,39 @@ public class ROPE_colour implements Rope_Constants {
 		return component;
 	}
 }
+
+
+
+/**
+event
+*/
+Vec2 scroll_event;
+public void scroll(MouseEvent e) {
+	float scroll_x = e.getCount();
+	float scroll_y = e.getCount();
+	if(scroll_event == null) {
+		scroll_event = Vec2(scroll_x,scroll_y);
+	} else {
+		scroll_event.set(scroll_x,scroll_y);
+	}
+}
+
+public Vec2 get_scroll() {
+	if(scroll_event == null) {
+		printErrTempo(60,"method get_scroll(): put method scroll(MouseEvent e) in void mouseWheel(MouseEvent e) in the main sketch tab");
+		return null;
+	} else return scroll_event;
+}
+
+/**
+add for the future
+void mouseWheelMoved(MouseWheelEvent e) {
+  println(e.getWheelRotation());
+  println(e.getScrollType());
+  println(MouseWheelEvent.WHEEL_UNIT_SCROLL);
+  println(e.getScrollAmount());
+  println(e.getUnitsToScroll());
+}
+*/
 
 

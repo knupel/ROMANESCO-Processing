@@ -59,7 +59,6 @@ void setup() {
 }
 
 void draw() {
-  println("dropdown is",dropdown_is());
   check_interface();
   check_slider_item();
   check_media_folder();
@@ -89,6 +88,9 @@ void draw() {
 }
 
 
+void mouseWheel(MouseEvent e) {
+  scroll(e);
+}
 
 void mousePressed () {
   mousepressed_button_general();

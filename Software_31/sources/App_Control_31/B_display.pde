@@ -181,7 +181,9 @@ void show_slider_controller() {
 void show_slider_background() {
   boolean show_is = show_slider_structure_colour(pos_slider_background, size_slider_background, value_slider_background);
   for (int i = 0 ; i < NUM_SLIDER_BACKGROUND ; i++) {
-    update_slider(slider_adj_background[i],info_slider_background);
+    if(!dropdown_is()) {
+      update_slider(slider_adj_background[i],info_slider_background);
+    }
     pass_slider_to_osc_arg(slider_adj_background[i], value_slider_background);
     if(!show_is || i >= 3 ) slider_adj_background[i].show_structure();
     slider_adj_background[i].show_adj();
@@ -192,7 +194,9 @@ void show_slider_background() {
 
 void show_slider_filter() {
   for (int i = 0 ; i < NUM_SLIDER_FILTER ; i++) {
-    update_slider(slider_adj_filter[i],info_slider_filter);
+    if(!dropdown_is()) {
+      update_slider(slider_adj_filter[i],info_slider_filter);
+    }    
     pass_slider_to_osc_arg(slider_adj_filter[i], value_slider_filter);
     slider_adj_filter[i].show_structure();
     slider_adj_filter[i].show_adj();
@@ -208,7 +212,9 @@ void show_slider_light() {
   is[2] = slider_light_2_show_structure_colour();
 
   for (int i = 0 ; i < NUM_SLIDER_LIGHT ; i++) {
-    update_slider(slider_adj_light[i],info_slider_light);
+    if(!dropdown_is()) {
+      update_slider(slider_adj_light[i],info_slider_light);
+    }   
     pass_slider_to_osc_arg(slider_adj_light[i],value_slider_light);
     boolean show_is = false;
     for(int k = 0 ; k < is.length ; k++) {
@@ -231,7 +237,9 @@ void show_slider_light() {
 
 void show_slider_sound() {
   for (int i = 0 ; i < NUM_SLIDER_SOUND ; i++) {
-    update_slider(slider_adj_sound[i],info_slider_sound);
+    if(!dropdown_is()) {
+      update_slider(slider_adj_sound[i],info_slider_sound);
+    }   
     pass_slider_to_osc_arg(slider_adj_sound[i],value_slider_sound);
     slider_adj_sound[i].show_structure();
     slider_adj_sound[i].show_adj();
@@ -242,7 +250,9 @@ void show_slider_sound() {
 
 void show_slider_sound_setting() {
   for (int i = 0 ; i < NUM_SLIDER_SOUND_SETTING ; i++) {
-    update_slider(slider_sound_setting[i],info_slider_sound_setting);
+    if(!dropdown_is()) {
+      update_slider(slider_sound_setting[i],info_slider_sound_setting);
+    }   
     pass_slider_to_osc_arg(slider_sound_setting[i],value_slider_sound_setting);
     slider_sound_setting[i].show_structure();
     slider_sound_setting[i].show_molette();
@@ -252,7 +262,9 @@ void show_slider_sound_setting() {
 
 void show_slider_camera() {
   for (int i = 0 ; i < NUM_SLIDER_CAMERA ; i++) {
-    update_slider(slider_adj_camera[i],info_slider_camera);
+    if(!dropdown_is()) {
+      update_slider(slider_adj_camera[i],info_slider_camera);
+    }    
     pass_slider_to_osc_arg(slider_adj_camera[i],value_slider_camera);
     slider_adj_camera[i].show_structure();
     slider_adj_camera[i].show_adj();
@@ -359,7 +371,9 @@ void show_slider_item() {
 
 
 void show_slider(int index, boolean [] is) {
-  update_slider(slider_adj_item[index],info_slider_item);
+  if(!dropdown_is()) {
+    update_slider(slider_adj_item[index],info_slider_item);
+  }
   pass_slider_to_osc_arg(slider_adj_item[index],value_slider_item);
   boolean show_is = false ;
   for(int k = 0 ; k < is.length ;k++) {
@@ -608,7 +622,7 @@ void update_slider(Slider slider, Vec5 [] info_slider) {
   
   // update
   slider.select(true);
-  slider.update();
+  slider.update(mouseX,mouseY);
   
   // translate float value to int, to use OSC easily without problem of Array Outbound...blablah
   /*

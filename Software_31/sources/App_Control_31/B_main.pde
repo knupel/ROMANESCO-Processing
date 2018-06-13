@@ -62,25 +62,25 @@ void check_button() {
 
 void mousepressed_button_general() {
     boolean dropdownActivity = dropdown_is();
-    
-    button_bg.update(dropdownActivity) ;
+
+    button_bg.update(mouseX,mouseY,dropdownActivity);
     //LIGHT ONE
-    button_light_ambient.update(dropdownActivity) ;
-    button_light_ambient_action.update(dropdownActivity) ;
+    button_light_ambient.update(mouseX,mouseY,dropdownActivity);
+    button_light_ambient_action.update(mouseX,mouseY,dropdownActivity);
     //LIGHT ONE
-    button_light_1.update(dropdownActivity) ;
-    button_light_1_action.update(dropdownActivity) ;
+    button_light_1.update(mouseX,mouseY,dropdownActivity);
+    button_light_1_action.update(mouseX,mouseY,dropdownActivity);
     // LIGHT TWO
-    button_light_2.update(dropdownActivity) ;
-    button_light_2_action.update(dropdownActivity) ;
+    button_light_2.update(mouseX,mouseY,dropdownActivity);
+    button_light_2_action.update(mouseX,mouseY,dropdownActivity);
     //son
-    button_kick.update(dropdownActivity) ;
-    button_snare.update(dropdownActivity) ;
-    button_hat.update(dropdownActivity) ;
+    button_kick.update(mouseX,mouseY,dropdownActivity);
+    button_snare.update(mouseX,mouseY,dropdownActivity);
+    button_hat.update(mouseX,mouseY,dropdownActivity);
     //midi
-    button_midi.update(dropdownActivity) ;
+    button_midi.update(mouseX,mouseY,dropdownActivity);
     //curtain
-    button_curtain.update(dropdownActivity) ;
+    button_curtain.update(mouseX,mouseY,dropdownActivity);
  // }
 }
 
@@ -124,7 +124,7 @@ dropdown
 
 void update_dropdown(Dropdown... dd) {
   for(int i = 0 ; i < dd.length ; i++) {
-    dd[i].update();
+    dd[i].update(mouseX,mouseY);
     dd[i].show_header_text();
     dd[i].show_box();
     dd[i].show_selection(dd[i].get_pos().x +3 , dd[i].get_pos().y +22);
@@ -154,7 +154,7 @@ void update_dropdown_item() {
 
       String m [] = split(mode_list_RPE[i], "/") ;
       if ( m.length > 1) {
-        dropdown_item_mode[i].update();
+        dropdown_item_mode[i].update(mouseX,mouseY);
         dropdown_item_mode[i].show_header_text();
         dropdown_item_mode[i].show_box();
       }
