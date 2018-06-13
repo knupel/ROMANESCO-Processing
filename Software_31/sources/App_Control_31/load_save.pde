@@ -1,6 +1,6 @@
 /**
 SETTING SAVE and LOAD 
-v 2.3.0
+v 2.4.0
 */
 void load_setup() {
   set_data_save_setting() ;
@@ -96,6 +96,7 @@ void load_data_GUI(String path) {
   int count_slider_filter = 0;
   int count_slider_light = 0;
   int count_slider_sound = 0;
+  int count_slider_sound_setting = 0;
   int count_slider_camera = 0;
   int count_slider_item = 0;
 
@@ -105,7 +106,8 @@ void load_data_GUI(String path) {
     else if(s.equals("Slider background")) count_slider_background++;
     else if(s.equals("Slider filter")) count_slider_filter++; 
     else if(s.equals("Slider light")) count_slider_light++; 
-    else if(s.equals("Slider sound")) count_slider_sound++; 
+    else if(s.equals("Slider sound")) count_slider_sound++;
+    else if(s.equals("Slider sound setting")) count_slider_sound_setting++;  
     else if(s.equals("Slider camera")) count_slider_camera++; 
     //else if(s.equals("Slider general")) count_slider_general++;
   }
@@ -114,6 +116,7 @@ void load_data_GUI(String path) {
   println("sliders filter",count_slider_filter);
   println("sliders light",count_slider_light);
   println("sliders sound",count_slider_sound);
+  println("sliders sound setting",count_slider_sound_setting);
   println("sliders camera",count_slider_camera);
   println("sliders item",count_slider_item);
 
@@ -127,6 +130,7 @@ void load_data_GUI(String path) {
   info_slider_filter = new Vec5 [count_slider_filter];
   info_slider_light = new Vec5 [count_slider_light];
   info_slider_sound = new Vec5 [count_slider_sound];
+  info_slider_sound_setting = new Vec5 [count_slider_sound_setting];
   info_slider_camera = new Vec5 [count_slider_camera];
 
 
@@ -207,6 +211,13 @@ void save_info_slider() {
     info_slider_sound[temp].d = slider_adj_sound[i].get_min_norm() ;
     info_slider_sound[temp].e = slider_adj_sound[i].get_max_norm() ;
     set_data_slider(i, info_slider_sound[temp],"Slider sound") ;
+  }
+
+  // sound setting
+  for (int i = 1 ; i < NUM_SLIDER_SOUND_SETTING ; i++) {
+    int temp = i-1 ;
+    info_slider_sound_setting[temp].c = slider_sound_setting[i].get_value();
+    set_data_slider(i, info_slider_sound_setting[temp],"Slider sound setting") ;
   }
 
   // camera
@@ -346,6 +357,7 @@ void load_saved_file_controller(String path) {
   int count_slider_filter = 0;
   int count_slider_light = 0;
   int count_slider_sound = 0;
+  int count_slider_sound_setting = 0;
   int count_slider_camera = 0;
   int count_slider_item = 0;
   int count_item = 0 ;
@@ -396,6 +408,12 @@ void load_saved_file_controller(String path) {
     if(s.equals("Slider sound")) {
       set_info_slider(row, "Slider sound", info_slider_sound, count_slider_sound);
       count_slider_sound++;
+    }
+
+    // slider sound setting
+    if(s.equals("Slider sound setting")) {
+      set_info_slider(row, "Slider sound setting", info_slider_sound_setting, count_slider_sound_setting);
+      count_slider_sound_setting++;
     }
     
     // slider camera
@@ -483,38 +501,53 @@ void set_data() {
 // Setting SLIDER from save
 void set_slider_data_group() {
   for (int i = 0 ; i < NUM_SLIDER_BACKGROUND ; i++) {
-    setting_data_slider(slider_adj_background,info_slider_background,i) ;
+    setting_data_slider(slider_adj_background[i],info_slider_background,i);
+    update_slider(slider_adj_background[i],info_slider_background);
   }
 
   for (int i = 0 ; i < NUM_SLIDER_FILTER ; i++) {
-    setting_data_slider(slider_adj_filter,info_slider_filter,i) ;
+    setting_data_slider(slider_adj_filter[i],info_slider_filter,i);
+    update_slider(slider_adj_filter[i],info_slider_filter);
   }
 
   for (int i = 0 ; i < NUM_SLIDER_LIGHT ; i++) {
-    setting_data_slider(slider_adj_light,info_slider_light,i) ;
+    setting_data_slider(slider_adj_light[i],info_slider_light,i);
+    update_slider(slider_adj_light[i],info_slider_light);
   }
 
   for (int i = 0 ; i < NUM_SLIDER_SOUND ; i++) {
-    setting_data_slider(slider_adj_sound,info_slider_sound,i) ;
+    setting_data_slider(slider_adj_sound[i],info_slider_sound,i);
+    update_slider(slider_adj_sound[i],info_slider_sound);
+  }
+
+  for (int i = 0 ; i < NUM_SLIDER_SOUND_SETTING ; i++) {
+    setting_data_slider(slider_sound_setting[i],info_slider_sound_setting,i);
+    update_slider(slider_sound_setting[i],info_slider_sound_setting);
   }
 
   for (int i = 0 ; i < NUM_SLIDER_CAMERA ; i++) {
-    setting_data_slider(slider_adj_camera,info_slider_camera,i) ;
+    setting_data_slider(slider_adj_camera[i],info_slider_camera,i);
+    update_slider(slider_adj_camera[i],info_slider_camera);
   }
 
   for(int i = 0 ; i < NUM_SLIDER_ITEM ; i++) {
-    setting_data_slider(slider_adj_item,info_slider_item,i) ;
+    setting_data_slider(slider_adj_item[i],info_slider_item,i);
+    update_slider(slider_adj_item[i],info_slider_item);
   }
 }
 
 
 // local method of set_slider_save()
-void setting_data_slider(Sladj [] slider_adj, Vec5 [] info_slider, int index) {
+void setting_data_slider(Slider slider, Vec5 [] info_slider, int index) {
   Vec5 info_temp = info_save_raw_list(info_slider,index).copy();
-  slider_adj[index].set_id_midi((int)info_temp.b); 
-  slider_adj[index].set_molette_pos_norm(info_temp.c);
-  slider_adj[index].set_min_max(info_temp.d, info_temp.e);
+  slider.set_id_midi((int)info_temp.b); 
+  slider.set_molette_pos_norm(info_temp.c);
+  if(slider instanceof Sladj) {
+    Sladj sladj = (Sladj)slider;
+    sladj.set_min_max(info_temp.d, info_temp.e);
+  }
 }
+
 
 
 
@@ -585,7 +618,7 @@ void set_button_from_saved_file() {
 
 
 // info_save_raw_list read info to translate and give a good position
-Vec5 info_save_raw_list(Vec5[] list, int pos) {
+Vec5 info_save_raw_list(Vec5[] list, int index) {
   if(list != null) {
     Vec5 info = Vec5() ;
     float value_slider = 0 ;
@@ -593,12 +626,12 @@ Vec5 info_save_raw_list(Vec5[] list, int pos) {
     float value_slider_max = 1 ;
     float IDmidi = 0 ;
     for(int i = 0 ; i < list.length ;i++) {
-      if(list[i] != null ) if((int)list[i].a == pos) {
+      if(list[i] != null ) if((int)list[i].a == index) {
         value_slider = list[i].c ;
         value_slider_min = list[i].d ;
         value_slider_max = list[i].e ;
         IDmidi = list[i].b ;
-        info = Vec5(pos, IDmidi,value_slider,value_slider_min,value_slider_max) ;
+        info = Vec5(index, IDmidi,value_slider,value_slider_min,value_slider_max) ;
         break;
       } else {
         info = Vec5(-1) ;
@@ -660,6 +693,10 @@ void apply_text_gui() {
     } else if(name.equals("sound")) {
       for(int k = 0 ; k < NUM_SLIDER_SOUND ; k++) {
         slider_sound_name[k] = row.getString("col "+k);
+      }
+    } else if(name.equals("sound setting")) {
+      for(int k = 0 ; k < NUM_SLIDER_SOUND_SETTING ; k++) {
+        slider_sound_setting_name[k] = row.getString("col "+k);
       }
     } else if(name.equals("camera")) {
       for(int k = 0 ; k < NUM_SLIDER_CAMERA ; k++) {

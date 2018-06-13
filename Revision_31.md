@@ -12,16 +12,20 @@ MAJOR
 >rebuild the gui system, not visible for the user, just for the coder !
 >rebuild the sound system, now the the beat threshold is setable, set the band and the level alart
 >total rewriting Gui Control
+>add button to switch between setting camera and sound
 
 
 MINOR
 --
-> improve OSC architecture
-> common external file to name and use slider item
-> change colour background interface
-> remove separation between sound gui and general top gui
-> increase the bands spectrum available from 16 to 128
-> improve management color for design interface
+>improve OSC architecture
+>common external file to name and use slider item
+>change colour background interface
+>remove separation between sound gui and general top gui
+>increase the bands spectrum available from 16 to 128
+>improve management color for design interface
+>add slider background shader
+>improve few shader background
+>check if dropdown is active or not stop the other GUI update
 
 BUG FIX
 --

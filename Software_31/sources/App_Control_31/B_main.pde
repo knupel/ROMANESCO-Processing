@@ -61,7 +61,8 @@ void check_button() {
 }
 
 void mousepressed_button_general() {
-  // if(!dropdownActivity) {
+    boolean dropdownActivity = dropdown_is();
+    
     button_bg.update(dropdownActivity) ;
     //LIGHT ONE
     button_light_ambient.update(dropdownActivity) ;
@@ -154,7 +155,6 @@ void update_dropdown_item() {
       String m [] = split(mode_list_RPE[i], "/") ;
       if ( m.length > 1) {
         dropdown_item_mode[i].update();
-        if (dropdownOpen) dropdownActivityCount++ ;
         dropdown_item_mode[i].show_header_text();
         dropdown_item_mode[i].show_box();
       }

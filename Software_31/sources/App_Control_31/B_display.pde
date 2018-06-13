@@ -119,8 +119,6 @@ void show_misc_text() {
 display dropdown
 */
 // DRAW DROPDOWN
-boolean dropdownActivity ;
-int dropdownActivityCount ;
 void show_dropdown() {
   update_dropdown_bar_content() ;
   
@@ -143,15 +141,7 @@ void show_dropdown() {
   which_text = dropdown_bar[3].get_selection();
   which_bitmap = dropdown_bar[4].get_selection();
   which_shape = dropdown_bar[5].get_selection();
-  which_movie = dropdown_bar[6].get_selection();
-
-  // check the activity o the dropdown
-  if(dropdownActivityCount > 0 ) {
-    dropdownActivity = true; 
-  } else {
-    dropdownActivity = false;
-  }
-  dropdownActivityCount = 0;
+  which_movie = dropdown_bar[6].get_selection();  
 }
 
 
@@ -167,7 +157,7 @@ void show_dropdown() {
 
 /**
 DISPLAY ITEM
-v 0.1.0
+v 0.2.0
 */
 /**
 display slider
@@ -177,17 +167,22 @@ void show_slider_controller() {
   show_slider_filter();
   show_slider_light();
   show_slider_sound();
-  if(dropdown_setting.get_selection() == 0 ) show_slider_camera();
+  if(dropdown_setting.get_selection() == 0) {
+    show_slider_camera();
+  } else if (dropdown_setting.get_selection() == 1) {
+    show_slider_sound_setting();
+  }
   show_slider_item();
 }
+
 
 
 // SLIDER DRAW
 void show_slider_background() {
   boolean show_is = show_slider_structure_colour(pos_slider_background, size_slider_background, value_slider_background);
-
   for (int i = 0 ; i < NUM_SLIDER_BACKGROUND ; i++) {
-    update_slider(slider_adj_background[i],value_slider_background,info_slider_background);
+    update_slider(slider_adj_background[i],info_slider_background);
+    pass_slider_to_osc_arg(slider_adj_background[i], value_slider_background);
     if(!show_is || i >= 3 ) slider_adj_background[i].show_structure();
     slider_adj_background[i].show_adj();
     slider_adj_background[i].show_molette();
@@ -197,7 +192,8 @@ void show_slider_background() {
 
 void show_slider_filter() {
   for (int i = 0 ; i < NUM_SLIDER_FILTER ; i++) {
-    update_slider(slider_adj_filter[i],value_slider_filter,info_slider_filter);
+    update_slider(slider_adj_filter[i],info_slider_filter);
+    pass_slider_to_osc_arg(slider_adj_filter[i], value_slider_filter);
     slider_adj_filter[i].show_structure();
     slider_adj_filter[i].show_adj();
     slider_adj_filter[i].show_molette();
@@ -212,7 +208,8 @@ void show_slider_light() {
   is[2] = slider_light_2_show_structure_colour();
 
   for (int i = 0 ; i < NUM_SLIDER_LIGHT ; i++) {
-    update_slider(slider_adj_light[i],value_slider_light,info_slider_light);
+    update_slider(slider_adj_light[i],info_slider_light);
+    pass_slider_to_osc_arg(slider_adj_light[i],value_slider_light);
     boolean show_is = false;
     for(int k = 0 ; k < is.length ; k++) {
       if(!is[k]) {
@@ -234,7 +231,8 @@ void show_slider_light() {
 
 void show_slider_sound() {
   for (int i = 0 ; i < NUM_SLIDER_SOUND ; i++) {
-    update_slider(slider_adj_sound[i],value_slider_sound,info_slider_sound);
+    update_slider(slider_adj_sound[i],info_slider_sound);
+    pass_slider_to_osc_arg(slider_adj_sound[i],value_slider_sound);
     slider_adj_sound[i].show_structure();
     slider_adj_sound[i].show_adj();
     slider_adj_sound[i].show_molette();
@@ -242,9 +240,20 @@ void show_slider_sound() {
   }
 }
 
+void show_slider_sound_setting() {
+  for (int i = 0 ; i < NUM_SLIDER_SOUND_SETTING ; i++) {
+    update_slider(slider_sound_setting[i],info_slider_sound_setting);
+    pass_slider_to_osc_arg(slider_sound_setting[i],value_slider_sound_setting);
+    slider_sound_setting[i].show_structure();
+    slider_sound_setting[i].show_molette();
+    slider_sound_setting[i].show_label();
+  }
+}
+
 void show_slider_camera() {
   for (int i = 0 ; i < NUM_SLIDER_CAMERA ; i++) {
-    update_slider(slider_adj_camera[i],value_slider_camera,info_slider_camera);
+    update_slider(slider_adj_camera[i],info_slider_camera);
+    pass_slider_to_osc_arg(slider_adj_camera[i],value_slider_camera);
     slider_adj_camera[i].show_structure();
     slider_adj_camera[i].show_adj();
     slider_adj_camera[i].show_molette();
@@ -350,7 +359,8 @@ void show_slider_item() {
 
 
 void show_slider(int index, boolean [] is) {
-  update_slider(slider_adj_item[index],value_slider_item,info_slider_item);
+  update_slider(slider_adj_item[index],info_slider_item);
+  pass_slider_to_osc_arg(slider_adj_item[index],value_slider_item);
   boolean show_is = false ;
   for(int k = 0 ; k < is.length ;k++) {
     if(!is[k]) {
@@ -558,39 +568,59 @@ void show_slider_brightness_structure(iVec2 pos, iVec2 size, float colour, float
 
 
 
-void update_slider(Sladj sa, float [] value_slider, Vec5 [] info_slider) {
+void update_slider(Slider slider, Vec5 [] info_slider) {
   //MIDI update
-  update_midi_slider(sa,info_slider);
+  update_midi_slider(slider,info_slider);
+
+
   // MIN and MAX molette
   //check
-  if(!sa.molette_used_is() && !sa.inside_molette_is()) {
-    // min molette
-    if(!sa.inside_max() && !sa.locked_max_is()) {
-      sa.inside_min();
-      sa.select_min(shift_key);
-      sa.update_min();
+  if(slider instanceof Sladj) {
+    Sladj sladj = (Sladj)slider;
+    if(!sladj.molette_used_is() && !sladj.inside_molette_is()) {
+      // min molette
+      if(!sladj.inside_max() && !sladj.locked_max_is()) {
+        sladj.inside_min();
+        sladj.select_min(shift_key);
+        sladj.update_min();
+      }
+      // max molette
+      if(!sladj.inside_min() && !sladj.locked_min_is()) {
+        sladj.inside_max();
+        sladj.select_max(shift_key);
+        sladj.update_max();
+      }
     }
-    // max molette
-    if(!sa.inside_min() && !sa.locked_min_is()) {
-      sa.inside_max();
-      sa.select_max(shift_key);
-      sa.update_max();
-    }
+    // update 
+    sladj.update_min_max();
+    if(!sladj.locked_max_is() && !sladj.locked_max_is()) {
+      sladj.inside_molette_ellipse();
+    } 
+  } else {
+    slider.inside_molette_ellipse();
   }
-  // update 
-  sa.update_min_max();
   
   
+  
+
   // CURRENT molette
   // check
-  if(!sa.locked_max_is() && !sa.locked_max_is()) sa.inside_molette_ellipse() ;
+  
   // update
-  sa.select(true);
-  sa.update();
+  slider.select(true);
+  slider.update();
   
   // translate float value to int, to use OSC easily without problem of Array Outbound...blablah
+  /*
   int valueMax = 360 ;
-  value_slider[sa.get_id()] = constrain(map(sa.get_value(),0,1,0,valueMax),0,valueMax)  ;
+  value_slider[slider.get_id()] = constrain(map(slider.get_value(),0,1,0,valueMax),0,valueMax)  ;
+  */
+}
+
+
+void pass_slider_to_osc_arg(Slider slider, float [] value_slider) {
+  int valueMax = 360 ;
+  value_slider[slider.get_id()] = constrain(map(slider.get_value(),0,1,0,valueMax),0,valueMax)  ;
 }
 
 

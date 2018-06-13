@@ -102,9 +102,10 @@ void set_design_structure_camera(int rank) {
 
 
 void set_design_structure_sound_setting(int rank) {
-  /*
-  ASAP there is something here to set the sound system
-  */
+  slider_width_sound_setting = 100;
+  slider_height_sound_setting = 8;
+  offset_sound_setting_x = grid_col[9];
+  offset_sound_setting_y = pos_y_menu_general_content +(rank *spacing_slider);
 }
 
 
@@ -369,6 +370,7 @@ void set_console() {
   set_console_filter(iVec2(offset_filter_x,offset_filter_y),iVec2(slider_width_filter, slider_height_filter));
   set_console_light(iVec2(offset_light_x,offset_light_y),iVec2(slider_width_light, slider_height_light));
   set_console_sound(iVec2(offset_sound_x,offset_sound_y),iVec2(slider_width_sound, slider_height_sound));
+  set_console_sound_setting(iVec2(offset_sound_setting_x,offset_sound_setting_y),iVec2(slider_width_sound_setting, slider_height_sound_setting));
   set_console_camera(iVec2(offset_camera_x,offset_camera_y),iVec2(slider_width_camera, slider_height_camera));
 
   set_console_item(height_item_selected +local_pos_y_slider_item_button,iVec2(slider_width_item, slider_height_item));
@@ -452,6 +454,14 @@ void set_console_sound(iVec2 pos, iVec2 size) {
     int offset_y = offset_y(pos.y, size.y, i);
     pos_slider_sound[i] = iVec2(pos.x, offset_y);
     size_slider_sound[i] = iVec2(size);
+  }
+}
+
+void set_console_sound_setting(iVec2 pos, iVec2 size) {
+  for(int i = 0 ; i < NUM_SLIDER_SOUND_SETTING ;i++) {
+    int offset_y = offset_y(pos.y, size.y, i);
+    pos_slider_sound_setting[i] = iVec2(pos.x, offset_y);
+    size_slider_sound_setting[i] = iVec2(size);
   }
 }
 
@@ -779,6 +789,18 @@ float [] value_slider_sound = new float[NUM_SLIDER_SOUND];
 String[] slider_sound_name = new String[NUM_SLIDER_SOUND];
 int offset_sound_x;
 int offset_sound_y;
+
+// sound setting
+int slider_width_sound_setting;
+int slider_height_sound_setting;
+Vec5 [] info_slider_sound_setting; 
+iVec2 [] pos_slider_sound_setting = new iVec2[NUM_SLIDER_SOUND_SETTING]; 
+iVec2 [] size_slider_sound_setting = new iVec2[NUM_SLIDER_SOUND_SETTING];
+Slider [] slider_sound_setting = new Slider[NUM_SLIDER_SOUND_SETTING];
+float [] value_slider_sound_setting = new float[NUM_SLIDER_SOUND_SETTING];
+String[] slider_sound_setting_name = new String[NUM_SLIDER_SOUND_SETTING];
+int offset_sound_setting_x;
+int offset_sound_setting_y;
 
 // camera
 int slider_width_camera;

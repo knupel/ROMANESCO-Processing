@@ -59,6 +59,7 @@ void setup() {
 }
 
 void draw() {
+  println("dropdown is",dropdown_is());
   check_interface();
   check_slider_item();
   check_media_folder();
@@ -84,6 +85,7 @@ void draw() {
   reset();
 
   credit();
+
 }
 
 

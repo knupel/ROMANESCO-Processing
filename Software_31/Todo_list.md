@@ -2,6 +2,10 @@ Todolist Romanesco
 --
 2018
 --
+*slider dropdown
+
+must be controle with mouseWheel
+
 *controller window info item
 
 The background window don't move, it stay static :(

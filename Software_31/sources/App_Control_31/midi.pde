@@ -1,6 +1,6 @@
 /**
 MIDI CONTROL
-v 2.0.1
+v 2.0.2
 2014-2018
 */
 void init_midi() {
@@ -347,24 +347,25 @@ void updateMidiButton(Button b) {
 
 
 //give which button is active and check is this button have a same ID midi that Item
-void update_midi_slider(Sladj sa, Vec5 [] info_slider) {
+void update_midi_slider(Slider slider, Vec5 [] info_slider) {
   // update info from midi controller
-  if (midi_CC_romanesco == sa.get_id_midi()) sa.update_midi(midi_value_romanesco) ;
+  if (midi_CC_romanesco == slider.get_id_midi()) {
+    slider.update_midi(midi_value_romanesco);
+  }
 
-  
-  if(selectMidi && sa.molette_used_is()) {
+  if(selectMidi && slider.molette_used_is()) {
     for(int i = 0 ; i <info_slider.length ; i++) {
-      if(sa.get_id() == (int)info_slider[sa.get_id()].a) {
+      if(slider.get_id() == (int)info_slider[slider.get_id()].a) {
         info_slider[i].b = midi_CC_romanesco;
       }
     }
   }
   
   //ID midi from controller midi button setting
-  if (selectMidi && sa.molette_used_is()) sa.set_id_midi(midi_CC_romanesco);
+  if (selectMidi && slider.molette_used_is()) slider.set_id_midi(midi_CC_romanesco);
   
   //ID midi from save
-  if(LOAD_SETTING) sa.set_id_midi((int)info_save_raw_list(info_slider, sa.get_id()).b);
+  if(LOAD_SETTING) slider.set_id_midi((int)info_save_raw_list(info_slider, slider.get_id()).b);
 }
 
 

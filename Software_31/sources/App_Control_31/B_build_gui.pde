@@ -185,12 +185,28 @@ void build_console_setting() {
   dropdown_setting.set_box_height(height_box_dropdown);
   dropdown_setting.set_font(title_medium);
   dropdown_setting.set_box_font(textUsual_1);
+  add_dropdown(dropdown_setting);
   build_console_camera();
   build_console_sound_setting();
 }
 
 void build_console_sound_setting() {
-
+  for (int i = 0 ; i < NUM_SLIDER_SOUND_SETTING ; i++) {
+    iVec2 temp_size_mol = iVec2(round(size_slider_sound_setting[i].y *ratio_size_molette), round(size_slider_sound_setting[i].y *ratio_size_molette));
+    iVec2 temp_pos = iVec2(pos_slider_sound_setting[i].x, round(pos_slider_sound_setting[i].y -(slider_height_sound_setting *.6)));
+    if(info_save_raw_list(info_slider_sound_setting,i).a > -1 ) {
+      slider_sound_setting[i] = new Slider(temp_pos, size_slider_sound_setting[i]);
+      slider_sound_setting[i].set_molette(ELLIPSE);
+      slider_sound_setting[i].size_molette(temp_size_mol);
+      slider_sound_setting[i].set_id(i);
+      slider_sound_setting[i].set_label(slider_sound_setting_name[i],iadd(slider_sound_setting[i].get_size(),iVec2(3,0)));
+      slider_sound_setting[i].set_font(textUsual_1);
+      slider_sound_setting[i].set_rounded(rounded_slider);
+      slider_sound_setting[i].set_fill_label(label_in_dark,label_out_dark);
+      slider_sound_setting[i].set_fill(struc_dark);
+      slider_sound_setting[i].set_fill_molette(molette_in_dark,molette_out_dark);
+    }
+  }
 }
 
 void build_console_camera() {
@@ -416,6 +432,7 @@ void build_dropdown_bar() {
     dropdown_bar[i].set_font(title_medium);
     dropdown_bar[i].set_box_font(textUsual_1);
   }
+  add_dropdown(dropdown_bar);
 }
 
 void build_dropdown_item_selected() {
@@ -440,6 +457,7 @@ void build_dropdown_item_selected() {
       dropdown_item_mode[i].set_box_font(textUsual_1);
     }
   }
+  add_dropdown(dropdown_item_mode);
 }
 
 

@@ -213,10 +213,11 @@ void check_button_item_console() {
 }
 
 void mousepressed_button_item_console() {
-  if(!dropdownActivity && NUM_ITEM > 0) {
+
+  if(!dropdown_is() && NUM_ITEM > 0) {
     for(int i = BUTTON_ITEM_CONSOLE ; i < NUM_ITEM *BUTTON_ITEM_CONSOLE +BUTTON_ITEM_CONSOLE ; i++) {
       button_item[i].update_pos(inventory[i/BUTTON_ITEM_CONSOLE].is());
-      button_item[i].update(dropdownActivity)  ;
+      button_item[i].update(dropdown_is())  ;
     }
   }
 }
@@ -393,9 +394,9 @@ void check_button_inventory() {
 }
 
 void mousepressed_button_inventory() {
-  if(!dropdownActivity && NUM_ITEM > 0 ) {
+  if(!dropdown_is() && NUM_ITEM > 0 ) {
     for(int i = 1 ; i < button_inventory.length ; i++ ) {
-      button_inventory[i].update(dropdownActivity) ;
+      button_inventory[i].update(dropdown_is());
     }
     for(int i = 1 ; i < on_off_inventory_save.length ; i++ ) {
       on_off_inventory_save[i] = button_inventory[i].is() ;
