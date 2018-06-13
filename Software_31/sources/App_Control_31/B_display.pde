@@ -157,7 +157,7 @@ void show_dropdown() {
 
 /**
 DISPLAY ITEM
-v 0.2.0
+v 0.2.1
 */
 /**
 display slider
@@ -179,7 +179,10 @@ void show_slider_controller() {
 
 // SLIDER DRAW
 void show_slider_background() {
-  boolean show_is = show_slider_structure_colour(pos_slider_background, size_slider_background, value_slider_background);
+  boolean show_is = false;
+  if(!dropdown_is()) {
+    show_is = show_slider_structure_colour(pos_slider_background, size_slider_background, value_slider_background);
+  }
   for (int i = 0 ; i < NUM_SLIDER_BACKGROUND ; i++) {
     if(!dropdown_is()) {
       update_slider(slider_adj_background[i],info_slider_background);
@@ -207,9 +210,12 @@ void show_slider_filter() {
 
 void show_slider_light() {
   boolean [] is = new boolean[3];
-  is[0] = slider_light_0_show_structure_colour();
-  is[1] = slider_light_1_show_structure_colour();
-  is[2] = slider_light_2_show_structure_colour();
+  if(!dropdown_is()) {
+    is[0] = slider_light_0_show_structure_colour();
+    is[1] = slider_light_1_show_structure_colour();
+    is[2] = slider_light_2_show_structure_colour();
+  }
+
 
   for (int i = 0 ; i < NUM_SLIDER_LIGHT ; i++) {
     if(!dropdown_is()) {
@@ -346,9 +352,11 @@ And you must add the name of this one in the 'preferences/'  folder slider_name_
 */
 void show_slider_item() {
   boolean [] is = new boolean[2];
-  if(!show_all_slider_item) {      
-    is[0] = show_slider_item_colour(hue_fill_rank, sat_fill_rank, bright_fill_rank); // fill
-    is[1] = show_slider_item_colour(hue_stroke_rank, sat_stroke_rank, bright_stroke_rank); // stroke
+  if(!show_all_slider_item) {
+    if(!dropdown_is()) {
+      is[0] = show_slider_item_colour(hue_fill_rank, sat_fill_rank, bright_fill_rank); // fill
+      is[1] = show_slider_item_colour(hue_stroke_rank, sat_stroke_rank, bright_stroke_rank); // stroke
+    }
     for (int i = 1 ; i <= NUM_ITEM ; i++) {
       if (item_active[i]) {
         if (item_group[i] == 1) { 
@@ -361,8 +369,10 @@ void show_slider_item() {
       }
     }
   } else {
-    is[0] = show_slider_item_colour(hue_fill_rank, sat_fill_rank, bright_fill_rank); // fill
-    is[1] = show_slider_item_colour(hue_stroke_rank, sat_stroke_rank, bright_stroke_rank); // stroke
+    if(!dropdown_is()) {
+      is[0] = show_slider_item_colour(hue_fill_rank, sat_fill_rank, bright_fill_rank); // fill
+      is[1] = show_slider_item_colour(hue_stroke_rank, sat_stroke_rank, bright_stroke_rank); // stroke
+    }
     for(int i = 0 ; i < NUM_SLIDER_ITEM ; i++) {
       show_slider(i,is);
     }

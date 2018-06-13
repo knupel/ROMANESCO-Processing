@@ -153,9 +153,11 @@ public void scroll(MouseEvent e) {
 
 public Vec2 get_scroll() {
 	if(scroll_event == null) {
-		printErrTempo(60,"method get_scroll(): put method scroll(MouseEvent e) in void mouseWheel(MouseEvent e) in the main sketch tab");
+		printErrTempo(120,"method get_scroll(): put method scroll(MouseEvent e) in void mouseWheel(MouseEvent e) in the main sketch tab\bor maybe there has been yet no activty with your wheel");
 		return null;
-	} else return scroll_event;
+	} else {
+		return scroll_event;
+	}
 }
 
 /**

@@ -26,6 +26,7 @@ MINOR
 >add slider background shader
 >improve few shader background
 >check if dropdown is active or not stop the other GUI update
+>move dropdown slider with mouse wheel
 
 BUG FIX
 --

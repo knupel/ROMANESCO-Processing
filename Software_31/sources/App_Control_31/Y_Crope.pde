@@ -709,7 +709,6 @@ public class Slider extends Crope {
     if(wheel_is()) {
       if(get_scroll() == null) {
         printErrTempo(60, "class Slider method molette_update(): the wheelEvent is innacessible \nmay be you must use method scroll(MouseEvent e) in void mouseWheel(MouseEvent e)");
-
       } else {
         if (size.x >= size.y) { 
           pos_molette.x -= get_scroll().x;
