@@ -1,7 +1,7 @@
 /**
 SURFACE
 2014-2018
-v 1.0.3
+v 1.0.3.1
 */
 
 class Surface extends Romanesco {
@@ -10,7 +10,7 @@ class Surface extends Romanesco {
     ID_item = 23 ;
     ID_group = 1 ;
     item_author  = "Stan le Punk";
-    item_version = "Version 1.0.3";
+    item_version = "Version 1.0.3.1";
     item_pack = "Base" ;
     item_mode = "Surfimage/Vague/Vague++" ; // separate the differentes mode by "/"
     // item_slider = "Fill hue,Fill sat,Fill bright,Fill alpha,Stroke hue,Stroke sat,Stroke bright,Stroke alpha,Thickness,Influence,Canvas X,Canvas Y,Quality,Canvas X,Speed X,Size X,Swing X" ;
@@ -318,7 +318,7 @@ class Surface extends Romanesco {
      */
     surfaceGridImg(sizeTriangle, pos, image, gridTriangle) ;
     if(gridTriangle.size() > 0 ) {
-      if(TEST_ROMANESCO) println("compute Surface grid");
+      println("compute Surface grid");
       surfaceImgColor(gridTriangle, color_fill, color_stroke, thickness) ;
       
       surfaceImgSummit(altitude, gridTriangle) ;
@@ -409,14 +409,14 @@ class Surface extends Romanesco {
   PShape patternShape;
   // local void
   void createSurfaceShape(ArrayList<Polygon> gridTriangle) {
-    if(TEST_ROMANESCO) println("Create high Surface mesh");
+    println("Create high Surface mesh");
     patternShape = createShape();
     patternShape.beginShape(TRIANGLES);
     for (Polygon t : gridTriangle) {
       t.draw_polygon_in_PShape(patternShape) ;
     }
     patternShape.endShape(CLOSE);
-    if(TEST_ROMANESCO) println("High Surface mesh has been created with "+patternShape.getVertexCount()+" vertex");
+    println("High Surface mesh has been created with "+patternShape.getVertexCount()+" vertex");
   }
   //
   void surfaceShapeDraw() {

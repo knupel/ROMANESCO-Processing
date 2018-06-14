@@ -1409,7 +1409,7 @@ void background_shader_setup() {
 }
 
 void background_shader_draw(int which_one) {
-  if(TEST_ROMANESCO || FULL_RENDERING) {
+  if(FULL_RENDERING) {
     Vec2 pos_shader = Vec2();
     Vec3 size_shader = Vec3(width,height,height) ; 
     fill(0); 

@@ -7,7 +7,8 @@ Processing 3.3.7
 */
 String IAM = ("Scene") ;
 // security must be link with the controler in the next release
-boolean TEST_ROMANESCO = false ;
+boolean USE_SOUND = false; 
+boolean DEVELOPMENT_MODE = true;
 boolean OPEN_APP = true ;
 boolean TEST_FULL_SCREEN = false ;
 
@@ -57,7 +58,7 @@ void setup() {
   
   create_font() ;
 
-  if(!TEST_ROMANESCO) sound_setup() ;
+  if(USE_SOUND) sound_setup() ;
   variables_setup() ; // the varObject setup of the Scene is more simple
 
   light_position_setup() ;
@@ -86,8 +87,8 @@ void romanesco() {
   if(FULL_RENDERING) start_PNG("screenshot Romanesco scene", "Romanesco_"+year()+"_"+month()+"_"+day()+"_"+hour()+"_"+minute()+"_"+second()) ;
 
   syphon_draw() ;
-  if(!TEST_ROMANESCO) sound_draw();
-  meteoDraw() ;
+  if(USE_SOUND) sound_draw();
+
   update_OSC_data() ;
 
   update_raw_value() ;
@@ -141,15 +142,16 @@ void romanesco() {
     rect(0,0, width,height) ;
   }
 
-  if(TEST_ROMANESCO) {
-    printTempo(60, "TEST_ROMANESCO, printempo 60", frameCount) ;
-  }
-
 }
-//END DRAW
 
-/////KEY/////
-//KEYPRESSED
+
+
+
+
+
+/**
+KEYPRESSED
+*/
 void keyPressed () {
  // info common command with Prescene
   if (key == 'i') displayInfo = !displayInfo ;

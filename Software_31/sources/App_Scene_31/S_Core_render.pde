@@ -1409,7 +1409,7 @@ void background_shader_setup() {
 }
 
 void background_shader_draw(int which_one) {
-  if(TEST_ROMANESCO || FULL_RENDERING) {
+  if(FULL_RENDERING) {
     Vec2 pos_shader = Vec2();
     Vec3 size_shader = Vec3(width,height,height) ; 
     fill(0); 
@@ -1440,46 +1440,54 @@ void background_shader_draw(int which_one) {
 
 float shaderMouseX, shaderMouseY ;
 void rectangle(Vec2 pos, Vec3 size, PShader s) {
-  int factorSize = 10 ;
-  size.mult(factorSize) ;
+  // weird algorithm to have a nice display
+  int ratio = 10;
+  Vec3 temp_size = mult(size, ratio);
   pushMatrix() ;
-  translate(-size.x *.5,-size.y *.5 , -size.z*.5) ;
-  shader(s) ;
+  translate(mult(temp_size,-.5));
+  shader(s);
 
   Vec4 RGBbackground = HSB_to_RGB( map(value_slider_background[0],0,MAX_VALUE_SLIDER,0,g.colorModeX), 
                                 map(value_slider_background[1],0,MAX_VALUE_SLIDER,0,g.colorModeY), 
                                 map(value_slider_background[2],0,MAX_VALUE_SLIDER,0,g.colorModeZ),
                                 map(value_slider_background[3],0,MAX_VALUE_SLIDER,0,g.colorModeA)  ) ;
-  float red_norm = map(RGBbackground.x,0,255,0,1) ;
-  float green_norm = map(RGBbackground.y,0,255,0,1) ;
-  float blue_norm = map(RGBbackground.z,0,255,0,1) ;
-  float alpha_norm = map(RGBbackground.w,0,255,0,1) ;
-  float f_time = (float)frameCount *.1 ;
-  float size_slider = map(value_slider_background[6],0,MAX_VALUE_SLIDER,0,1);
-  float speed = map(value_slider_background[7],0,MAX_VALUE_SLIDER,0,1);
+  float r = map(RGBbackground.x,0,255,0,1);
+  float g = map(RGBbackground.y,0,255,0,1);
+  float b = map(RGBbackground.z,0,255,0,1);
+  float a = map(RGBbackground.w,0,255,0,1);
+  float f_time = (float)frameCount *.1;
+  float quantity = map(value_slider_background[4],0,MAX_VALUE_SLIDER,0,1);
+  float var = map(value_slider_background[5],0,MAX_VALUE_SLIDER,0,1);
+  var *= var;
+  float size_slider_x = map(value_slider_background[6],0,MAX_VALUE_SLIDER,0,1);
+  float size_slider_y = map(value_slider_background[7],0,MAX_VALUE_SLIDER,0,1);
+
+  float speed = map(value_slider_background[8],0,MAX_VALUE_SLIDER,0,1);
   speed *= speed;
+
   if(key_space_long) {
     shaderMouseX = map(mouse[0].x,0,width,0,1) ;
     shaderMouseY = map(mouse[0].y,0,height,0,1) ;
   }
   
-  s.set("colorBG",red_norm, green_norm, blue_norm, alpha_norm); 
+  s.set("rgba",r,g,b,a); 
   s.set("mixSound", mix[0]) ;
   s.set("timeTrack", get_time_track()) ;
   s.set("tempo", tempo[0]) ;
   s.set("beat", allBeats(0));
-  s.set("quantity", map(value_slider_background[4],0,MAX_VALUE_SLIDER,0,1));
-  s.set("mouse",shaderMouseX, shaderMouseY) ;
-  s.set("resolution",size.x/factorSize, size.y/factorSize) ;
+  s.set("quantity", quantity);
+  s.set("variety", var);
+  s.set("mouse",shaderMouseX, shaderMouseY);
+  s.set("resolution",size.x,size.y);
   s.set("time", f_time);
   s.set("speed", speed);
-  s.set("size", size_slider);
+  s.set("size", size_slider_x,size_slider_y);
   
   beginShape(QUADS) ;
   vertex(pos.x,pos.y) ;
-  vertex(pos.x +size.x,pos.y) ;
-  vertex(pos.x +size.x,pos.y +size.y) ;
-  vertex(pos.x,pos.y +size.y) ;
+  vertex(pos.x +temp_size.x,pos.y) ;
+  vertex(pos.x +temp_size.x,pos.y +temp_size.y) ;
+  vertex(pos.x,pos.y +temp_size.y) ;
   endShape() ;
   resetShader() ;
   popMatrix() ;

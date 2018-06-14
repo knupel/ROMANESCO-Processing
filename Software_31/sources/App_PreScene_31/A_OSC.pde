@@ -14,9 +14,9 @@ void OSC_setup() {
   osc_receive_controller = new OscP5(this, 10000);
   osc_send_scene = new OscP5(this, port_send_scene);
   //send
-  if (!TEST_ROMANESCO) {
+  if (!DEVELOPMENT_MODE) {
     String [] addressIP = loadStrings(preference_path+"network/IP_address_mirror.txt") ;
-    String join_address = join(addressIP, "") ;
+    String join_address = join(addressIP,"") ;
     String [] temp = split(join_address,"/") ;
 
     int num_valid_address = 0 ;

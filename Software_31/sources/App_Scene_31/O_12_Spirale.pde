@@ -1,5 +1,7 @@
 /**
-SPIRALE  || 2011 || 1.3.5
+SPIRALE
+2011 -2018
+v 1.3.6
 */
 
 Spirale spirale ; 
@@ -11,7 +13,7 @@ class SpiraleRomanesco extends Romanesco {
     ID_item = 12 ;
     ID_group = 1 ;
     item_author  = "Stan le Punk";
-    item_version = "Version 1.3.5";
+    item_version = "Version 1.3.6";
     item_pack = "Base" ;
     /*
     item_mode = "Point/Ellipse/Triangle/Rectangle/Star 4/Star 5/Star 9/Super Star 8/Super Star 12/Tetra/Box/Cross 2/Cross 3/Sphere low/Sphere medium/Sphere high" ;
@@ -190,10 +192,41 @@ class SpiraleRomanesco extends Romanesco {
 
 
 //CLASS
-class Spirale extends Rotation {  
+class Spirale {  
+  float rotation ;
+  float angle  ;
+
   Spirale () { 
-    super () ;
   }
+
+
+
+
+
+
+  void update(Vec pos_temp, float speed) {
+    Vec3 pos = Vec3() ;
+    if(pos_temp instanceof Vec2) {
+      Vec2 p = (Vec2) pos_temp ;
+      pos.set(p.x, p.y, 0) ;
+    } else if(pos_temp instanceof Vec3) {
+      Vec3 p = (Vec3) pos_temp ;
+      pos.set(p) ;
+    }
+    Float s = speed ;
+    if(!s.isNaN()) rotation += speed;
+    
+    if (rotation > 360) {
+      rotation = 0 ; 
+    } else if (rotation < 0 ) {
+      rotation = 360 ;
+    }
+    float angle = rotation ;
+    //translate (pos) ;
+    rotate(radians(angle) ) ;
+  }
+
+
   float translate = 1. ;
   float ratioSize = 1. ;
 

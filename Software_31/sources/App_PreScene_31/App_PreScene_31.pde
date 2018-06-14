@@ -10,13 +10,17 @@ Processing 3.3.7
 2017 March 40_000 lines of code
  */
 String IAM = "prescene";
-boolean TEST_ROMANESCO = false; /* Use false when you want:
-                                    used sound & maximum possibility of the object
-                               */
+/* 
+Use false when you want:
+used sound & maximum possibility of the object
+*/
+boolean USE_SOUND = false; 
+boolean DEVELOPMENT_MODE = true;
+
 boolean FULL_RENDERING = true;
+
 boolean FULL_SCREEN = false;
 boolean TABLET = false; // now tablet library don't work in OPENGL renderer
-
 /**
 LIVE must change from the launcher, the info must be write in the external loading preference app
 */
@@ -26,7 +30,6 @@ boolean LIVE = false;
 
 void settings() {
   size(124,124,P3D); // when the bug will be resolved, return to this config.
-
   // fullScreen(P3D,2);
   // FULL_SCREEN = true;
 
@@ -63,7 +66,7 @@ void setup() {
   create_font();
 
   // here we ask for the TEST_ROMANESCO true, because the Minim Library talk too much in the consol
-  if(!TEST_ROMANESCO) sound_setup();
+  if(USE_SOUND) sound_setup();
  //  P3D_setup(numObj, numSettingCamera, numSettingOrientationObject) ;
   // Light and shader setup
   light_position_setup();
@@ -99,7 +102,7 @@ void romanesco() {
   // video_camera() ;
   // camera_video_draw() ;
   // here we ask for the TEST_ROMANESCO true, because the Minim Library talk too much in the consol
-  if(!TEST_ROMANESCO) sound_draw();
+  if(USE_SOUND) sound_draw();
 
   // update_OSC_data_controller();
 
@@ -134,7 +137,7 @@ void romanesco() {
   //annexe
   info() ;
   // curtain
-  if(FULL_RENDERING && !TEST_ROMANESCO) curtain() ;
+  if(FULL_RENDERING && !DEVELOPMENT_MODE) curtain();
   // save screenshot
   if(FULL_RENDERING) {
     save_PNG();
