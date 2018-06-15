@@ -72,6 +72,8 @@ void setup() {
   light_position_setup();
   light_setup();
   if(FULL_RENDERING) shader_setup();
+
+
 }
 
 

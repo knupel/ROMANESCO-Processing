@@ -258,7 +258,7 @@ void show_slider_sound_setting() {
   for (int i = 0 ; i < NUM_SLIDER_SOUND_SETTING ; i++) {
     if(!dropdown_is()) {
       update_slider(slider_sound_setting[i],info_slider_sound_setting);
-    }   
+    } 
     pass_slider_to_osc_arg(slider_sound_setting[i],value_slider_sound_setting);
     slider_sound_setting[i].show_structure();
     slider_sound_setting[i].show_molette();

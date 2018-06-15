@@ -1648,7 +1648,12 @@ int band_length() {
 
 
 float get_time_track() {
-  return sounda.get_time_track();
+  if(sounda != null) {
+    return sounda.get_time_track();
+  } else {
+    float f = Float.NaN ;
+    return f;
+  }
 }
 
 boolean sound_is() {

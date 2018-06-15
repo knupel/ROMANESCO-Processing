@@ -1,6 +1,6 @@
 /**
 OSC CORE 
-v 1.3.0
+v 1.4.0
 */
 OscP5 osc_receive_controller_general;
 OscP5 osc_receive_controller_item;
@@ -24,32 +24,11 @@ void thread_data_controller_general(OscMessage receive) {
   receive_data_general_button(receive,rank); // 10 arg
   rank += 10;  
   receive_data_general_slider(receive,rank,rank +NUM_SLIDER_GENERAL); // NUM_SLIDER_GENERAL 
-  rank += NUM_SLIDER_GENERAL;
-  /*
-  receive_data_slider_item(receive,rank); // num arg = NUM_SLIDER_ITEM
-  rank += NUM_SLIDER_ITEM;
-  receive_data_button_item(receive,rank); // num arg = NUM_ITEM_PLUS_MASTER *BUTTON_ITEM_CONSOLE
-  rank += (NUM_ITEM *BUTTON_ITEM_CONSOLE);
-  receive_data_dropdown_item(receive,rank); // num arg = NUM_ITEM_PLUS_MASTER
-  */
 }
 
 
 void thread_data_controller_item(OscMessage receive) {
   int rank = 0 ;
-  /*
-  receive_data_misc(receive,rank); // 3 arg
-  rank += 3;
-  receive_data_menu_bar(receive,rank); // 1 arg
-  rank += 1;
-  receive_data_general_dropdown(receive,rank); // 7 arg
-  rank += 7;
-  receive_data_general_button(receive,rank); // 10 arg
-  rank += 10;  
-  receive_data_general_slider(receive,rank,rank +NUM_SLIDER_GENERAL); // NUM_SLIDER_GENERAL 
-  rank += NUM_SLIDER_GENERAL;
-  */
-  
   receive_data_slider_item(receive,rank); // num arg = NUM_SLIDER_ITEM
   rank += NUM_SLIDER_ITEM;
   receive_data_button_item(receive,rank); // num arg = NUM_ITEM_PLUS_MASTER *BUTTON_ITEM_CONSOLE
@@ -132,33 +111,27 @@ void receive_data_general_slider(OscMessage receive, int in, int out) {
 
   for (int i = in ; i < out ; i++) {
     if(i < out_background) {
-      value_slider_background[i -in_background] = Float.valueOf(receive.get(i).intValue());
-      // println("background",value_slider_background[i -in_background]);
+      value_slider_background[i -in] = receive.get(i).intValue();
     } else if(i >= in_filter && i < out_filter) {
-      value_slider_filter[i -in_filter] = Float.valueOf(receive.get(i).intValue());
-      // println("filter",value_slider_filter[i -in_filter]);
+      value_slider_filter[i -in_filter] = receive.get(i).intValue();
     } else if(i >= in_light && i < out_light) {
-      value_slider_light[i -in_light] = Float.valueOf(receive.get(i).intValue());
-      // println("light",value_slider_light[i -in_light]);
+      value_slider_light[i -in_light] = receive.get(i).intValue();
     } else if(i >= in_sound && i < out_sound) {
-      value_slider_sound[i -in_sound] = Float.valueOf(receive.get(i).intValue());
-      // println("sound",value_slider_sound[i -in_sound]);
+      value_slider_sound[i -in_sound] = receive.get(i).intValue();
     } else if(i >= in_sound_setting && i < out_sound_setting) {
-      value_slider_sound_setting[i -in_sound_setting] = Float.valueOf(receive.get(i).intValue());
-      // println("sound setting",value_slider_sound_setting[i -in_sound_setting]);
+      value_slider_sound_setting[i -in_sound_setting] = receive.get(i).intValue();
     } else if(i >= in_camera && i < out_camera) {
-      value_slider_camera[i -in_camera] = Float.valueOf(receive.get(i).intValue());
-      //println("camera",value_slider_camera[i -in_camera]);
+      value_slider_camera[i -in_camera] = receive.get(i).intValue();
     }
-  } 
+  }
 }
+
 
 void receive_data_slider_item(OscMessage receive, int in) {
   for (int i = 0 ; i < NUM_SLIDER_ITEM ; i++) {
    int index = in + i;
     int target = i;
     value_slider_item[target] = Float.valueOf(receive.get(index).intValue());
-    // println("item slider",value_slider_item[target]);
   }
 }
 
@@ -172,10 +145,6 @@ void receive_data_button_item(OscMessage receive, int in) {
     parameter[target] = to_bool(receive,index +1);
     sound[target] = to_bool(receive,index +2);
     action[target] = to_bool(receive,index +3);
-    // println("show",show_item[target]);
-    // println("param",parameter[target]);
-    // println("sound",sound[target]);
-    // println("action",action[target]);
   }
 }
 
@@ -184,6 +153,5 @@ void receive_data_dropdown_item(OscMessage receive, int in) {
     int index = i+in;
     int target = i+1;
     mode[target] = receive.get(index).intValue();
-    // println("mode",mode[target]);
   }
 }

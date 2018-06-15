@@ -99,7 +99,7 @@ float value_slider_background [] = new float [NUM_SLIDER_BACKGROUND];
 float value_slider_filter [] = new float [NUM_SLIDER_FILTER];
 float value_slider_light [] = new float [NUM_SLIDER_LIGHT];
 float value_slider_sound [] = new float [NUM_SLIDER_SOUND];
-float value_slider_sound_setting [] = new float [NUM_SLIDER_SOUND];
+float value_slider_sound_setting [] = new float [NUM_SLIDER_SOUND_SETTING];
 float value_slider_camera [] = new float [NUM_SLIDER_CAMERA];
 float value_slider_item []  = new float [NUM_SLIDER_ITEM];
 
