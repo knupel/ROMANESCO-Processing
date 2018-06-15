@@ -88,20 +88,31 @@ void receive_data_general_slider(OscMessage receive, int in, int out) {
   int in_sound =  out_light;
   int out_sound = in_sound +NUM_SLIDER_SOUND;
 
-  int in_camera =  out_sound;
+  int in_sound_setting =  out_sound;
+  int out_sound_setting = in_sound_setting +NUM_SLIDER_SOUND_SETTING;
+
+  int in_camera =  out_sound_setting;
   int out_camera = in_camera +NUM_SLIDER_CAMERA;
 
   for (int i = in ; i < out ; i++) {
     if(i < out_background) {
       value_slider_background[i -in_background] = Float.valueOf(receive.get(i).intValue());
+      println("background",value_slider_background[i -in_background]);
     } else if(i >= in_filter && i < out_filter) {
-      value_slider_filter[i -in_filter] = Float.valueOf(receive.get(i).intValue()) ;
+      value_slider_filter[i -in_filter] = Float.valueOf(receive.get(i).intValue());
+      println("filter",value_slider_filter[i -in_filter]);
     } else if(i >= in_light && i < out_light) {
-      value_slider_light[i -in_light] = Float.valueOf(receive.get(i).intValue()) ;
+      value_slider_light[i -in_light] = Float.valueOf(receive.get(i).intValue());
+      println("light",value_slider_light[i -in_light]);
     } else if(i >= in_sound && i < out_sound) {
-      value_slider_sound[i -in_sound] = Float.valueOf(receive.get(i).intValue()) ;
+      value_slider_sound[i -in_sound] = Float.valueOf(receive.get(i).intValue());
+      println("sound",value_slider_sound[i -in_sound]);
+    } else if(i >= in_sound_setting && i < out_sound_setting) {
+      value_slider_sound_setting[i -in_sound_setting] = Float.valueOf(receive.get(i).intValue());
+      println("sound setting",value_slider_sound_setting[i -in_sound_setting]);
     } else if(i >= in_camera && i < out_camera) {
       value_slider_camera[i -in_camera] = Float.valueOf(receive.get(i).intValue());
+      println("camera",value_slider_camera[i -in_camera]);
     }
   } 
 }
@@ -111,6 +122,7 @@ void receive_data_slider_item(OscMessage receive, int in) {
    int index = in + i;
     int target = i;
     value_slider_item[target] = Float.valueOf(receive.get(index).intValue());
+    println("item slider",value_slider_item[target]);
   }
 }
 
@@ -124,6 +136,10 @@ void receive_data_button_item(OscMessage receive, int in) {
     parameter[target] = to_bool(receive,index +1);
     sound[target] = to_bool(receive,index +2);
     action[target] = to_bool(receive,index +3);
+    println("show",show_item[target]);
+    println("param",parameter[target]);
+    println("sound",sound[target]);
+    println("action",action[target]);
   }
 }
 
@@ -132,5 +148,6 @@ void receive_data_dropdown_item(OscMessage receive, int in) {
     int index = i+in;
     int target = i+1;
     mode[target] = receive.get(index).intValue();
+    println("mode",mode[target]);
   }
 }

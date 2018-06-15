@@ -79,7 +79,7 @@ void draw() {
   
   midi_manager(false);
   update_midi();
-  send_OSC();
+  update_OSC();
 
   reset();
 

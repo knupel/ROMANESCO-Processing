@@ -9,14 +9,12 @@ String ID_address_local = ("127.0.0.1") ;
 
 String IP_address_prescene = ID_address_local ;
 String [] ID_address_scene ;
-// Message to Prescene
-String toPreScene [] = new String [5] ;
 
 OscP5 osc_prescene ;
 OscP5 osc_scene ;
 
-int port_prescene = 10_000 ;
-int port_scene = 9_500 ;
+int port_prescene = 10_000;
+int port_scene = 9_500;
 
 NetAddress prescene_net_address ;
 NetAddress [] scene_net_addresses ;
@@ -61,106 +59,100 @@ void set_ip_address() {
 
 
 
-void send_OSC() {
+void update_OSC() {
   OscMessage mess = new OscMessage("Controller");
   total_data_osc = 0;
+  message_general_osc(mess);
+  message_item_osc(mess);
+  // send
+  send_OSC(osc_prescene,osc_scene,prescene_net_address,scene_net_addresses,mess);
+}
 
-  // add save info
-  /*
-  String load = String.valueOf(load_scene_setting) ;
-  String  saveCurrent = String.valueOf(save_current_scene_setting) ;
-  String  saveNew = String.valueOf(save_new_scene_setting) ;
-  // we change to false boolean load and data to false each 2 second to have a time to load and save
-  if(frameCount%60 == 0) load_scene_setting = save_current_scene_setting = save_new_scene_setting = false ;
-  toPreScene[4] = load + "/" +  saveCurrent + "/" + saveNew;
-  */
 
-  
-  add_data(mess,load_scene_setting);
-  add_data(mess,save_current_scene_setting);
-  add_data(mess,save_new_scene_setting);
+void message_general_osc(OscMessage m) {
+  add_data(m,load_scene_setting);
+  add_data(m,save_current_scene_setting);
+  add_data(m,save_new_scene_setting);
 
-  
   // add menu bar
-  add_data(mess, button_curtain.is());
-  // add_data(mess, button_midi.is());
+  add_data(m,button_curtain.is());
+  // add_data(m,button_midi.is());
  
-
-
-
-
   // dropdown general
-  add_data(mess,dropdown_bar[0].get_selection()); // font or shader ?
-  add_data(mess,dropdown_bar[1].get_selection()); // filter
-  add_data(mess,dropdown_bar[2].get_selection()); // font ?
-  add_data(mess,dropdown_bar[3].get_selection()); // text
-  add_data(mess,dropdown_bar[4].get_selection()); // bitmap
-  add_data(mess,dropdown_bar[5].get_selection()); // shape
-  add_data(mess,dropdown_bar[6].get_selection()); // movie
+  add_data(m,dropdown_bar[0].get_selection()); // font or shader ?
+  add_data(m,dropdown_bar[1].get_selection()); // filter
+  add_data(m,dropdown_bar[2].get_selection()); // font ?
+  add_data(m,dropdown_bar[3].get_selection()); // text
+  add_data(m,dropdown_bar[4].get_selection()); // bitmap
+  add_data(m,dropdown_bar[5].get_selection()); // shape
+  add_data(m,dropdown_bar[6].get_selection()); // movie
 
   // button general background
-  add_data(mess, button_bg.is());
+  add_data(m, button_bg.is());
   // button general light
-  add_data(mess, button_light_ambient.is());
-  add_data(mess, button_light_ambient_action.is());
-  add_data(mess, button_light_1.is());
-  add_data(mess, button_light_1_action.is());
-  add_data(mess, button_light_2.is());
-  add_data(mess, button_light_2_action.is());
+  add_data(m,button_light_ambient.is());
+  add_data(m,button_light_ambient_action.is());
+  add_data(m,button_light_1.is());
+  add_data(m,button_light_1_action.is());
+  add_data(m,button_light_2.is());
+  add_data(m,button_light_2_action.is());
   // button general sound
-  add_data(mess, button_kick.is());
-  add_data(mess, button_snare.is());
-  add_data(mess, button_hat.is());
+  add_data(m,button_kick.is());
+  add_data(m,button_snare.is());
+  add_data(m,button_hat.is());
 
   // add slider general
   for(int i = 0 ; i < value_slider_background.length ; i++) {
-    add_data(mess,value_slider_background[i]);
+    add_data(m,value_slider_background[i]);
   }
   for(int i = 0 ; i < value_slider_filter.length ; i++) {
-    add_data(mess,value_slider_filter[i]);
+    add_data(m,value_slider_filter[i]);
   }
   for(int i = 0 ; i < value_slider_light.length ; i++) {
-    add_data(mess,value_slider_light[i]);
+    add_data(m,value_slider_light[i]);
   }
   for(int i = 0 ; i < value_slider_sound.length ; i++) {
-    add_data(mess,value_slider_sound[i]);
+    add_data(m,value_slider_sound[i]);
+  }
+  for(int i = 0 ; i < value_slider_sound_setting.length ; i++) {
+    add_data(m,value_slider_sound_setting[i]);
   }
   for(int i = 0 ; i < value_slider_camera.length ; i++) {
-    add_data(mess,value_slider_camera[i]);
+    add_data(m,value_slider_camera[i]);
   }
+}
 
-
-
-
-
-  // add slider item
+void message_item_osc(OscMessage m) {
   for ( int i = 0 ; i < NUM_SLIDER_ITEM ; i++) {
-    add_data(mess,value_slider_item[i]); 
+    add_data(m,value_slider_item[i]); 
   }
-  
   // add button item
   for (int i = 0 ; i < item_button_state.length ; i++) {
-    add_data(mess,item_button_state[i]); 
+    add_data(m,item_button_state[i]); 
   }
-
   // add dropdown mode item
   for(int i = 0 ; i < NUM_ITEM ; i++) {
     int index = i +1;
-    add_data(mess,dropdown_item_mode[index].get_selection());
+    add_data(m,dropdown_item_mode[index].get_selection());
   }
-  
+}
 
 
-  // send
+
+
+void send_OSC(OscP5 osc_prescene, OscP5 osc_scene, NetAddress ad_prescene, NetAddress [] ad_scene,  OscMessage m) {
   if(send_is()) {
-    osc_prescene.send(mess, prescene_net_address);
+    osc_prescene.send(m,ad_prescene);
+    // println(mess.arguments().length);
     if(LIVE) {
-      for(int i = 0 ; i < scene_net_addresses.length ; i++) {
-        osc_scene.send(mess, scene_net_addresses[i]) ; 
+      for(int i = 0 ; i < ad_scene.length ; i++) {
+        osc_scene.send(m, ad_scene[i]) ; 
       }
     }
   }
 }
+
+
 
 
 

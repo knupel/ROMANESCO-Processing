@@ -1,5 +1,5 @@
 /**
-Romanesco Unu
+Romanesco unu
 2013 – 2018
 release 31
 Processing 3.3.7
@@ -67,7 +67,6 @@ void setup() {
 
   // here we ask for the TEST_ROMANESCO true, because the Minim Library talk too much in the consol
   if(USE_SOUND) sound_setup();
- //  P3D_setup(numObj, numSettingCamera, numSettingOrientationObject) ;
   // Light and shader setup
   light_position_setup();
   light_setup();
@@ -101,10 +100,7 @@ void romanesco() {
   syphon_draw() ;
   // video_camera() ;
   // camera_video_draw() ;
-  // here we ask for the TEST_ROMANESCO true, because the Minim Library talk too much in the consol
   if(USE_SOUND) sound_draw();
-
-  // update_OSC_data_controller();
 
   write_osc_event();
 
@@ -217,6 +213,6 @@ public void mouseExited(MouseEvent e) {
   MOUSE_IN_OUT = false ;
 }
 
-void mouseWheel(MouseEvent event) {
-  wheel[0] = event.getCount() *speedWheel ;
+void mouseWheel(MouseEvent e) {
+  wheel[0] = e.getCount() *speedWheel;
 }
