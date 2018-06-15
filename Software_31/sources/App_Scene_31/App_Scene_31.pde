@@ -31,7 +31,9 @@ void settings() {
 
 
 void setup() {
-  OSC_setup() ;
+  OSC_receive_prescene_setup();
+  OSC_receive_controller_setup();
+  
   path_setting(sketchPath(1));
   version();
 

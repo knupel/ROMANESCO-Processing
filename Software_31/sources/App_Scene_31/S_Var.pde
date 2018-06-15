@@ -3,7 +3,7 @@ VARIABLE
 Prescene, Scene
 Romanesco Processing Environment
 2015-2018
-v 1.2.7
+v 1.2.8
 */
 
 /**
@@ -99,6 +99,7 @@ float value_slider_background [] = new float [NUM_SLIDER_BACKGROUND];
 float value_slider_filter [] = new float [NUM_SLIDER_FILTER];
 float value_slider_light [] = new float [NUM_SLIDER_LIGHT];
 float value_slider_sound [] = new float [NUM_SLIDER_SOUND];
+float value_slider_sound_setting [] = new float [NUM_SLIDER_SOUND];
 float value_slider_camera [] = new float [NUM_SLIDER_CAMERA];
 float value_slider_item []  = new float [NUM_SLIDER_ITEM];
 
@@ -663,7 +664,7 @@ void create_var_item_slider() {
 
 /**
 INIT VAR 
-v 1.1.0
+v 1.1.1
 */
 void init_variable_item_min_max() {
   float min_size = .1 ;

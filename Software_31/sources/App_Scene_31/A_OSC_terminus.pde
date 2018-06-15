@@ -3,18 +3,16 @@ OSC TERMINUS
 v 1.3.0
 */
 
-OscP5 osc_receive_controller, osc_receive_prescene ;
+OscP5 osc_receive_prescene ;
 
 /**
 OSC setup 
 v 1.1.0
 */
-void OSC_setup() {
-  int port_controller = 9_500 ;
-  int port_receive_scene = 9_100 ;
+void OSC_receive_prescene_setup() {
+  int port_receive_prescene = 9_100 ;
 
-  osc_receive_controller = new OscP5(this, port_controller);
-  osc_receive_prescene = new OscP5(this, port_receive_scene) ;
+  osc_receive_prescene = new OscP5(this, port_receive_prescene);
 
   try { 
     Thread.sleep(6000); 
@@ -38,17 +36,16 @@ void oscEvent(OscMessage receive) {
 }
 
 boolean controller_osc_is = false ;
-void controller_reception(OscMessage m) {
-  if(m.addrPattern().equals("Controller")) {
-    thread_data_controller(m);
-    /*
-    catchDataFromController(m);
-    data_controller_button();
-    data_controller_slider();
-    data_controller_save();
-    */
+void controller_reception(OscMessage receive) {
+  if(receive.addrPattern().equals("Controller general")) {
+    thread_data_controller_general(receive);
     controller_osc_is = true;
-  } 
+  }
+
+  if(receive.addrPattern().equals("Controller item")) {
+    thread_data_controller_item(receive);
+    controller_osc_is = true;
+  }
 }
 
 void prescene_reception(OscMessage m) {
@@ -61,10 +58,6 @@ void prescene_reception(OscMessage m) {
 
 
 void update_OSC_data() {
-  /*
-  translateDataFromController_buttonGlobal() ;
-  translateDataFromController_buttonItem() ;
-  */
   translate_event_prescene() ;
 }
 

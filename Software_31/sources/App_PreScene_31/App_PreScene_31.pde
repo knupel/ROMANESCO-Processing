@@ -42,7 +42,8 @@ void settings() {
 void setup() {
   path_setting(sketchPath(1));
   version();
-  OSC_setup();
+  OSC_send_scene_setup();
+  OSC_receive_controller_setup();
   display_setup(60); // the int value is the frameRate
   RG.init(this);  // Geomerative
 

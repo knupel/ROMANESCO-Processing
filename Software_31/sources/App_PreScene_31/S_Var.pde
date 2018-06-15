@@ -3,7 +3,7 @@ VARIABLE
 Prescene, Scene
 Romanesco Processing Environment
 2015-2018
-v 1.2.7
+v 1.2.8
 */
 
 /**

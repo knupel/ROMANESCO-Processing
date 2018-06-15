@@ -7,11 +7,10 @@ NetAddress [] target_scene ;
 String [] ID_address_scene ;
 String toScene = ("Message from Prescene to Scene") ;
 OscP5 osc_send_scene;
-OscP5 osc_receive_controller ;
+
 int port_send_scene = 9_100 ;
 
-void OSC_setup() {
-  osc_receive_controller = new OscP5(this, 10000);
+void OSC_send_scene_setup() {
   osc_send_scene = new OscP5(this, port_send_scene);
   //send
   if (!DEVELOPMENT_MODE) {
@@ -53,20 +52,20 @@ void OSC_setup() {
   } 
   catch (InterruptedException e) { 
   }
-  println("OSC setup done") ;
+  println("send OSC setup done");
 }
-
-
-
-
-
 
 
 void oscEvent(OscMessage receive) {
-  if(receive.addrPattern().equals("Controller")) {
-    thread_data_controller(receive);
+  if(receive.addrPattern().equals("Controller general")) {
+    thread_data_controller_general(receive);
+  }
+
+  if(receive.addrPattern().equals("Controller item")) {
+    thread_data_controller_item(receive);
   }
 }
+
 
 
 

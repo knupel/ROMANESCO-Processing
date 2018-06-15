@@ -10,14 +10,21 @@ String ID_address_local = ("127.0.0.1") ;
 String IP_address_prescene = ID_address_local ;
 String [] ID_address_scene ;
 
-OscP5 osc_prescene ;
-OscP5 osc_scene ;
+OscP5 osc_prescene_general;
+OscP5 osc_prescene_item;
+OscP5 osc_scene_general;
+OscP5 osc_scene_item;
 
-int port_prescene = 10_000;
-int port_scene = 9_500;
+int port_prescene_general = 10_000;
+int port_prescene_item = 10_001;
+int port_scene_general = 9_500;
+int port_scene_item = 9_501;
 
-NetAddress prescene_net_address ;
-NetAddress [] scene_net_addresses ;
+NetAddress prescene_net_address_general;
+NetAddress prescene_net_address_item;
+
+NetAddress [] scene_net_addresses_general;
+NetAddress [] scene_net_addresses_item;
 
 void set_OSC() {
   int num_address = 1 ;
@@ -34,23 +41,32 @@ void set_OSC() {
     }   
   }  
 
-  ID_address_scene = new String[num_valid_address] ;
-  scene_net_addresses = new NetAddress[num_valid_address] ;
+  ID_address_scene = new String[num_valid_address];
+  scene_net_addresses_general = new NetAddress[num_valid_address];
+  scene_net_addresses_item = new NetAddress[num_valid_address] ;
 
   for(int i = 0 ; i < num_valid_address ; i++) {
     ID_address_scene[i] = temp[i+1] ;
   }  
 
-  osc_prescene = new OscP5(this, port_prescene) ;
-  osc_scene = new OscP5(this, port_scene) ;
+  osc_prescene_general = new OscP5(this, port_prescene_general);
+  osc_prescene_item = new OscP5(this, port_prescene_item);
+  osc_scene_general = new OscP5(this, port_scene_general);
+  osc_scene_item = new OscP5(this, port_scene_item);
 
   set_ip_address() ;
 }
 
 void set_ip_address() {
-  prescene_net_address = new NetAddress(IP_address_prescene, port_prescene) ;
-  for(int i = 0 ; i < scene_net_addresses.length ; i++) {
-     scene_net_addresses[i] = new NetAddress(ID_address_scene[i], port_scene) ;
+  // general
+  prescene_net_address_general = new NetAddress(IP_address_prescene,port_prescene_general);
+  for(int i = 0 ; i < scene_net_addresses_general.length ; i++) {
+     scene_net_addresses_general[i] = new NetAddress(ID_address_scene[i], port_scene_general) ;
+  }
+  // item
+  prescene_net_address_item = new NetAddress(IP_address_prescene,port_prescene_item);
+  for(int i = 0 ; i < scene_net_addresses_item.length ; i++) {
+     scene_net_addresses_item[i] = new NetAddress(ID_address_scene[i], port_scene_item) ;
   }
 }
 
@@ -60,12 +76,15 @@ void set_ip_address() {
 
 
 void update_OSC() {
-  OscMessage mess = new OscMessage("Controller");
   total_data_osc = 0;
-  message_general_osc(mess);
-  message_item_osc(mess);
-  // send
-  send_OSC(osc_prescene,osc_scene,prescene_net_address,scene_net_addresses,mess);
+  OscMessage mess_general = new OscMessage("Controller general");
+  message_general_osc(mess_general);
+  OscMessage mess_item = new OscMessage("Controller item");
+  message_item_osc(mess_item);
+  if(send_is()) { 
+    send_OSC(osc_prescene_general,osc_scene_general,prescene_net_address_general,scene_net_addresses_general,mess_general);
+    send_OSC(osc_prescene_item,osc_scene_item,prescene_net_address_item,scene_net_addresses_item,mess_item);
+  }
 }
 
 
@@ -141,13 +160,11 @@ void message_item_osc(OscMessage m) {
 
 
 void send_OSC(OscP5 osc_prescene, OscP5 osc_scene, NetAddress ad_prescene, NetAddress [] ad_scene,  OscMessage m) {
-  if(send_is()) {
-    osc_prescene.send(m,ad_prescene);
-    // println(mess.arguments().length);
-    if(LIVE) {
-      for(int i = 0 ; i < ad_scene.length ; i++) {
-        osc_scene.send(m, ad_scene[i]) ; 
-      }
+  osc_prescene.send(m,ad_prescene);
+  // println(mess.arguments().length);
+  if(LIVE) {
+    for(int i = 0 ; i < ad_scene.length ; i++) {
+      osc_scene.send(m, ad_scene[i]) ; 
     }
   }
 }
