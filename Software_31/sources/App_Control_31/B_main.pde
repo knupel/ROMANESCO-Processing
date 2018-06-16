@@ -38,6 +38,7 @@ void info_bg_shader() {
 
 void check_interface() {
   if(size_window_ref.x != width || size_window_ref.y != height) {
+    autosave();
     INIT_INTERFACE = true;
     size_window_ref.set(width,height);
   }

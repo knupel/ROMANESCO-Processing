@@ -61,76 +61,6 @@ void set_font() {
 
 
 
-/**
-COLOR
-*/
-/*
-color rouge, rougeFonce, rougeTresFonce, rougeTresTresFonce,  
-      orange, jauneOrange, jaune, 
-      vert, vertClair, vertFonce, vertTresFonce,
-      bleu,
-      violet,
-       
-      blanc, blancGrisClair, blancGris, gris, grisClair, grisFonce, grisTresFonce, grisNoir, noirGris, noir,
-      
-      colorTextUsual, colorTitle ;
-      */
-
-//SETUP
-/*
-void colorSetup() {
-  colorMode (HSB, 360,100,100 ) ; 
-  
-  blanc = color(0,0,95) ;            
-  blancGrisClair = color( 0,0,85) ;  
-  blancGris = color( 0,0,75) ; 
-  grisClair = color(0,0, 65) ;       
-  gris = color(0,0,50) ;             
-  grisFonce = color(0,0,40)  ;     
-  grisTresFonce = color(0,0,30) ; 
-  grisNoir = color(0,0,20) ;      
-  noirGris = color (0,0,15) ;         
-  noir = color (0,0,5) ;  
-  vertClair = color (100,20,100) ;     
-  vert = color(100,50,70) ; 
-  vertFonce = color(100,100,50) ; 
-  vertTresFonce = color(100,100,30) ;
-  rougeTresFonce = color(10, 100, 50) ; 
-  rougeTresTresFonce = color(10, 100, 46) ; 
-  rougeFonce = color (10, 100, 70) ;  
-  rouge = color(10,100,100) ;            
-  orange = color (35,100,100) ; 
-  jauneOrange = color (42,100,100) ; 
-  jaune = color(50,100,100) ;
-
-
-
-  // color button
-  
-  col_on_in = vert ;
-  col_on_out = vertTresFonce ;
-  col_off_in = orange ;
-  col_off_out = rougeFonce ;
-  
-}
-*/
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -570,8 +500,8 @@ void check_Keyboard_save_controller_CURRENT_path() {
     show_all_slider_item = true ;
     if (savePathSetting.equals("")) {
       File tempFileName = new File ("your_controller_setting.csv");
-      selectOutput("Save setting", "saveSetting", tempFileName);
-    } else saveSetting(savePathSetting) ;
+      selectOutput("Save setting", "save_controller_setting", tempFileName);
+    } else save_controller_setting(savePathSetting) ;
 
     keyboard[keyCode] = false ;   // just open one window, when use only the keyboard, if you don't use that open all the windows save and open
   }

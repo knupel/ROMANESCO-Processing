@@ -28,11 +28,12 @@ int NUM_GROUP_SLIDER = 2 ; // '0' for general / '1' for the item
 
 int ITEM_GROUP = 1;
 
-String preference_path, import_path, items_path;
-void path_setting(String path) {
-  preference_path = path+"/preferences/";
-  import_path = path+"/import/";
-  items_path = path+"/items/";
+String preference_path, import_path, items_path, autosave_path;
+void path_setting() {
+  preference_path = sketchPath(1)+"/preferences/";
+  import_path = sketchPath(1)+"/import/";
+  items_path = sketchPath(1)+"/items/";
+  autosave_path = sketchPath(1)+"/autosave.csv";
 }
 
 String version = "";

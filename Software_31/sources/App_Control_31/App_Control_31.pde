@@ -19,6 +19,7 @@ LIVE must change from the launcher, the info must be write in the external loadi
 */
 boolean LIVE = false;
 
+
 void settings() {
   size(670,725);
   size_window_ref = iVec2(width,height);
@@ -28,33 +29,26 @@ void settings() {
 void setup() {
   colorMode (HSB,360,100,100);
   // surface.setLocation(0,20);
-  path_setting(sketchPath(1));
+  path_setting();
   version();
   setting_misc();
   init_button_general();
   init_midi();
-
-  create_and_initialize_data();
-  
+  create_and_initialize_data(); 
   load_setup();
-
   check_media_folder();
-
   set_font();
   set_display_slider();
   set_import_pic_button();
   set_console();
-  set_button_item_console();
-  
+  set_button_item_console();  
   build_console();
   build_dropdown_bar();
   build_dropdown_item_selected();
   build_button_item_console();
   build_inventory();
-
   set_OSC();
   set_data();
-
   reset() ;
 }
 
