@@ -8,16 +8,10 @@ FONT
 public PFont 
       ///controller Font
       textUsual_1, textUsual_2, textUsual_3,
-      title_medium, title_big,
-      
-      /*
-      titleButtonMedium,
-      title_dropdown_medium,
-      */
-      
+      title_medium, title_big,  
       FuturaExtraBold_9, FuturaExtraBold_10,
       FuturaCondLight_10, FuturaCondLight_11,FuturaCondLight_12,
-      FuturaStencil_20 ;
+      FuturaStencil_20;
       
 //SETUP
 void set_font() {
@@ -34,13 +28,8 @@ void set_font() {
   textUsual_2 = FuturaCondLight_11 ;
   textUsual_3 = FuturaCondLight_12 ;
 
-  
   title_medium = FuturaExtraBold_10 ;
   title_big = FuturaStencil_20 ;
-  /*
-  titleButtonMedium = titleMedium ;
-  title_dropdown_medium = titleMedium ;
-  */
 }
 
 
@@ -356,11 +345,11 @@ void credit() {
   if(insideNameversion && mousePressed) {
     String credit[] = loadStrings("credit.txt");
     
-    fill(struc_colour_credit_background,225) ; 
-    int startBloc = 24 ;
+    fill(struc_colour_credit_background,225); 
+    int startBloc = 24;
     rect(0, startBloc, width, height - startBloc -9 ) ; // //GROUP ZERO
     for (int i = 0 ; i < credit.length; i++) {
-      textFont(textUsual_3) ;
+      textFont(textUsual_3);
       fill(struc_colour_credit_text) ;
       text(credit[i], 10,startBloc + 12 + ((i+1)*14));
     }
@@ -398,21 +387,21 @@ void shortcuts_controller() {
   keyboard[keyCode] = true;
   if(checkKeyboard(157) && checkKeyboard(KeyEvent.VK_X) ) {
     println("CMD + X", frameCount) ;
-    slider_mode_display += 1 ;
-    if(slider_mode_display > 2 ) slider_mode_display = 0 ;
+    slider_mode_display += 1;
+    if(slider_mode_display > 2 ) slider_mode_display = 0;
   }
 
   // save Scene
-  check_Keyboard_save_scene_CURRENT_path() ;
-  check_Keyboard_save_scene_NEW_path() ;
+  check_Keyboard_save_scene_CURRENT_path();
+  check_Keyboard_save_scene_NEW_path();
   // save controller
-  check_Keyboard_save_controller_CURRENT_path() ;
-  check_Keyboard_save_controller_NEW_path() ;
+  check_Keyboard_save_controller_CURRENT_path();
+  check_Keyboard_save_controller_NEW_path();
   // load
-  check_Keyboard_load_scene() ;
-  check_Keyboard_load_controller() ;
+  check_Keyboard_load_scene();
+  check_Keyboard_load_controller();
 
-  check_keyboard_shift() ;
+  check_keyboard_shift();
 }
 
 
@@ -438,13 +427,13 @@ simple touch
 boolean shift_key ;
 void check_keyboard_shift() {
   if(checkKeyboard(SHIFT)) { 
-    shift_key = true ;
-    keyboard[keyCode] = false ; 
+    shift_key = true;
+    keyboard[keyCode] = false; 
   }
 }
 
 void key_false() {
-  shift_key = false ;
+  shift_key = false;
 }
 
 /**
@@ -456,8 +445,8 @@ LOAD
 */
 void check_Keyboard_load_scene() {
   if(checkKeyboard(CONTROL) && checkKeyboard(KeyEvent.VK_L) ) { 
-    println("CTRL + L", frameCount) ;
-    load_scene_setting = true ;
+    println("CTRL + L",frameCount);
+    load_scene_setting = true;
     keyboard[keyCode] = false;   //
     
   }
@@ -465,10 +454,9 @@ void check_Keyboard_load_scene() {
 
 void check_Keyboard_load_controller() {
   if(checkKeyboard(CONTROL) && checkKeyboard(KeyEvent.VK_O) ) { 
-    println("CTRL + O", frameCount) ;
+    println("CTRL + O",frameCount) ;
     selectInput("Load setting controller", "load_setting_controller"); // ("display info in the window" , "name of the method callingBack" )
-    keyboard[keyCode] = false;   //
-    
+    keyboard[keyCode] = false;   //  
   }
 }
 
@@ -502,7 +490,6 @@ void check_Keyboard_save_controller_CURRENT_path() {
       File tempFileName = new File ("your_controller_setting.csv");
       selectOutput("Save setting", "save_controller_setting", tempFileName);
     } else save_controller_setting(savePathSetting) ;
-
     keyboard[keyCode] = false ;   // just open one window, when use only the keyboard, if you don't use that open all the windows save and open
   }
 }
@@ -513,9 +500,8 @@ void check_Keyboard_save_controller_NEW_path() {
     println("CTRL + E", frameCount) ;
     show_all_slider_item = true ; 
     File tempFileName = new File ("your_controller_setting.csv");
-    selectOutput("Save setting", "saveSetting", tempFileName);
+    selectOutput("Save setting", "save_controller_setting", tempFileName);
     keyboard[keyCode] = false ;   // just open one window, when use only the keyboard, if you don't use that open all the windows save and open
   }
-
 }
 

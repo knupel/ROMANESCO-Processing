@@ -18,6 +18,7 @@ String IAM = "Controller";
 LIVE must change from the launcher, the info must be write in the external loading preference app
 */
 boolean LIVE = false;
+boolean KEEP_BUTTON_ITEM_STATE = true;
 
 
 void settings() {

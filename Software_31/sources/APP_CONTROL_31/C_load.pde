@@ -1,6 +1,6 @@
 /**
-SETTING SAVE and LOAD 
-v 2.5.0
+LOAD 
+v 2.6.0
 */
 void load_setup() {
   load_save(preference_path+"setting/defaultSetting.csv");
@@ -468,8 +468,7 @@ void set_button_from_saved_file() {
   */
   rank = 4; // start a 4 because we don't use the fourth for historic and bad reason
   int buttonRank ;
-  for( int i = 1 ; i <= NUM_ITEM ; i++ ) {
-    // for (int j = 1 ; j <= BUTTON_ITEM_CONSOLE ; j++) {
+  for(int i = 1 ; i <= NUM_ITEM ; i++) {
     for (int j = 0 ; j < BUTTON_ITEM_CONSOLE ; j++) {
       buttonRank = info_button_item[rank].x;
       if(info_button_item[rank].z == 1.0 && buttonRank == (i*BUTTON_ITEM_CONSOLE)+j) {

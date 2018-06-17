@@ -167,7 +167,40 @@ void set_button_item_console() {
   }
 }
 
+void display_button_item_console() {
+  int pointer = 0 ;
+  for( int i = 1 ; i <= NUM_ITEM ; i++ ) {
+    if(inventory[i].is()) {
+      int distance = pointer *DIST_BETWEEN_ITEM ;
+      for(int j = 0 ; j < BUTTON_ITEM_CONSOLE ; j++) {
+        int rank = i*BUTTON_ITEM_CONSOLE+j;
+        button_item[rank].change_pos(distance, 0) ;
+        button_item[rank].update_pos(inventory[i].is()) ;
+        if(j == 0) {
+          PImage [] pic = {ON_in_thumbnail[i], ON_out_thumbnail[i],OFF_in_thumbnail[i], OFF_out_thumbnail[i]};
+          button_item[rank].show_picto(pic);
+        }
+        if(j == 1) button_item[rank].show_picto(picSetting);
+        if(j == 2) button_item[rank].show_picto(picSound); 
+        if(j == 3) button_item[rank].show_picto(picAction);
 
+      }
+      iVec2 pos = iVec2(pos_button_width_item[i*BUTTON_ITEM_CONSOLE +2] +distance, pos_button_height_item[i*BUTTON_ITEM_CONSOLE +1] +10) ;
+      iVec2 size = iVec2(20, 30);
+      text_info_item(pos, size, i, 1);
+      pointer ++ ;
+    } else if(!KEEP_BUTTON_ITEM_ST ATE) {
+      for(int jj = 0 ; jj < BUTTON_ITEM_CONSOLE ; jj++) {
+        int rank = i*BUTTON_ITEM_CONSOLE+jj;
+        if(jj == 0) button_item[rank].set_is(false); 
+        if(jj == 1) button_item[rank].set_is(false);
+        if(jj == 2) button_item[rank].set_is(false);
+        if(jj == 3) button_item[rank].set_is(false);
+      }
+    }
+  }
+}
+/*
 void display_button_item_console() {
   int pointer = 0 ;
   for( int i = 1 ; i <= NUM_ITEM ; i++ ) {
@@ -199,6 +232,7 @@ void display_button_item_console() {
     }
   }
 }
+*/
 
 void check_button_item_console() {
   if(NUM_ITEM > 0){

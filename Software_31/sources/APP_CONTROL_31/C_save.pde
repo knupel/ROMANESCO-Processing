@@ -22,6 +22,10 @@ void save_controller_setting(String path) {
   println("Save controller in progress:",path);
   save_info_slider();
   save_info_item();
+  // for the fake item 0 with all the buttom console
+  for(int i = 0 ; i < BUTTON_ITEM_CONSOLE ;i++) {
+    set_data_button(i, 0,false,"Button item");
+  }  
   midi_manager(true);
   saveTable(saveSetting, path);
   saveSetting.clearRows() ;
@@ -33,60 +37,56 @@ void save_controller_setting(String path) {
 // SAVE SLIDERS
 // save the position and the ID of the slider molette
 void save_info_slider() {
+  int start = 0;
   // background
-  for (int i = 1 ; i < NUM_SLIDER_BACKGROUND ; i++) {
-    int temp = i-1 ;
-    info_slider_background[temp].c = slider_adj_background[i].get_value() ;
-    info_slider_background[temp].d = slider_adj_background[i].get_min_norm() ;
-    info_slider_background[temp].e = slider_adj_background[i].get_max_norm() ;
-    set_data_slider(i, info_slider_background[temp],"Slider background") ;
+  for (int i = start ; i < NUM_SLIDER_BACKGROUND ; i++) {
+    info_slider_background[i].c = slider_adj_background[i].get_value() ;
+    info_slider_background[i].d = slider_adj_background[i].get_min_norm() ;
+    info_slider_background[i].e = slider_adj_background[i].get_max_norm() ;
+    set_data_slider(i, info_slider_background[i],"Slider background") ;
   }
 
   // filter
-  for (int i = 1 ; i < NUM_SLIDER_FILTER ; i++) {
-    int temp = i-1 ;
-    info_slider_filter[temp].c = slider_adj_filter[i].get_value() ;
-    info_slider_filter[temp].d = slider_adj_filter[i].get_min_norm() ;
-    info_slider_filter[temp].e = slider_adj_filter[i].get_max_norm() ;
-    set_data_slider(i, info_slider_filter[temp],"Slider filter") ;
+  for (int i = start ; i < NUM_SLIDER_FILTER ; i++) {
+    info_slider_filter[i].c = slider_adj_filter[i].get_value() ;
+    info_slider_filter[i].d = slider_adj_filter[i].get_min_norm() ;
+    info_slider_filter[i].e = slider_adj_filter[i].get_max_norm() ;
+    set_data_slider(i, info_slider_filter[i],"Slider filter") ;
   }
 
   // light
-  for (int i = 1 ; i < NUM_SLIDER_LIGHT ; i++) {
-    int temp = i-1 ;
-    info_slider_light[temp].c = slider_adj_light[i].get_value() ;
-    info_slider_light[temp].d = slider_adj_light[i].get_min_norm() ;
-    info_slider_light[temp].e = slider_adj_light[i].get_max_norm() ;
-    set_data_slider(i, info_slider_light[temp],"Slider light") ;
+  for (int i = start ; i < NUM_SLIDER_LIGHT ; i++) {
+    info_slider_light[i].c = slider_adj_light[i].get_value() ;
+    info_slider_light[i].d = slider_adj_light[i].get_min_norm() ;
+    info_slider_light[i].e = slider_adj_light[i].get_max_norm() ;
+    set_data_slider(i, info_slider_light[i],"Slider light") ;
   }
 
   // sound
-  for (int i = 1 ; i < NUM_SLIDER_SOUND ; i++) {
-    int temp = i-1 ;
-    info_slider_sound[temp].c = slider_adj_sound[i].get_value() ;
-    info_slider_sound[temp].d = slider_adj_sound[i].get_min_norm() ;
-    info_slider_sound[temp].e = slider_adj_sound[i].get_max_norm() ;
-    set_data_slider(i, info_slider_sound[temp],"Slider sound") ;
+  for (int i = start ; i < NUM_SLIDER_SOUND ; i++) {
+    info_slider_sound[i].c = slider_adj_sound[i].get_value() ;
+    info_slider_sound[i].d = slider_adj_sound[i].get_min_norm() ;
+    info_slider_sound[i].e = slider_adj_sound[i].get_max_norm() ;
+    set_data_slider(i, info_slider_sound[i],"Slider sound") ;
   }
 
   // sound setting
-  for (int i = 1 ; i < NUM_SLIDER_SOUND_SETTING ; i++) {
-    int temp = i-1 ;
-    info_slider_sound_setting[temp].c = slider_sound_setting[i].get_value();
-    set_data_slider(i, info_slider_sound_setting[temp],"Slider sound setting") ;
+  for (int i = start ; i < NUM_SLIDER_SOUND_SETTING ; i++) {
+    info_slider_sound_setting[i].c = slider_sound_setting[i].get_value();
+    set_data_slider(i, info_slider_sound_setting[i],"Slider sound setting") ;
   }
 
   // camera
-  for (int i = 1 ; i < NUM_SLIDER_CAMERA ; i++) {
-    int temp = i-1 ;
-    info_slider_camera[temp].c = slider_adj_camera[i].get_value() ;
-    info_slider_camera[temp].d = slider_adj_camera[i].get_min_norm() ;
-    info_slider_camera[temp].e = slider_adj_camera[i].get_max_norm() ;
-    set_data_slider(i, info_slider_camera[temp],"Slider camera") ;
+  for (int i = start ; i < NUM_SLIDER_CAMERA ; i++) {
+    // int temp = i-1 ;
+    info_slider_camera[i].c = slider_adj_camera[i].get_value() ;
+    info_slider_camera[i].d = slider_adj_camera[i].get_min_norm() ;
+    info_slider_camera[i].e = slider_adj_camera[i].get_max_norm() ;
+    set_data_slider(i, info_slider_camera[i],"Slider camera") ;
   }
-  
+ 
   // item
-  for(int i = 0 ; i < NUM_SLIDER_ITEM ; i++) {
+  for(int i = 0; i < NUM_SLIDER_ITEM ; i++) {
     int IDslider = i;
     for(int k = 0 ; k < info_slider_item.length ;k++) {
       if((int)info_slider_item[k].a == IDslider) {

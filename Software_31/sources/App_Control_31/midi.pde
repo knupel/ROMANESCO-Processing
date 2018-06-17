@@ -271,12 +271,63 @@ void keypressed_midi() {
 
 
 
+/**
+MIDI MANAGER
+*/
+
+/**
 
 
 
+Here it's really a midi Stuuf, the name must change in the future
 
 
 
+*/
+void midi_manager(boolean saveButton) {
+  int rank = 0 ;
+  midi_button(button_bg,rank,saveButton,"Button general");
+  rank++;
+  midi_button(button_curtain,rank,saveButton,"Button general");
+  rank++;
+  midi_button(button_light_1,rank,saveButton,"Button general");
+  rank++;
+  midi_button(button_light_1_action,rank,saveButton,"Button general");
+  rank++;
+  midi_button(button_light_2,rank,saveButton,"Button general");
+  rank++;
+  midi_button(button_light_2_action,rank,saveButton,"Button general");
+  rank++; 
+  midi_button(button_kick,rank,saveButton,"Button general");
+  rank++;
+  midi_button(button_snare,rank,saveButton,"Button general");
+  rank++;
+  midi_button(button_hat,rank,saveButton,"Button general");
+  
+  for(int i = 0 ; i <= NUM_ITEM ; i++) {
+  //for(int i = 1 ; i <= NUM_ITEM ; i++) {
+    if(i == 0) {
+      // fake button for save
+      // println("je passe ici", i,frameCount);
+      // set_data_button(0, 0,false,"Button item");
+      // midi_button(button_item[posRankButton(i,rank)],posRankButton(i,rank), saveButton,"Button item"); 
+    } else {
+      rank = 0 ;
+      midi_button(button_item[posRankButton(i,rank)], posRankButton(i,rank), saveButton,"Button item"); 
+      rank++ ;
+      midi_button(button_item[posRankButton(i,rank)], posRankButton(i,rank), saveButton,"Button item"); 
+      rank++ ;
+      midi_button(button_item[posRankButton(i,rank)], posRankButton(i,rank), saveButton,"Button item"); 
+      rank++ ;
+      midi_button(button_item[posRankButton(i,rank)], posRankButton(i,rank), saveButton,"Button item");
+    }
+  }
+}
+
+
+int posRankButton(int pos, int rank) {
+  return pos* BUTTON_ITEM_CONSOLE +rank ;
+}
 
 
 
@@ -289,50 +340,14 @@ void keypressed_midi() {
 
 
 /**
-MIDI MANAGER
+Here it's real midi stuff
 */
-void midi_manager(boolean saveButton) {
-  // close loop for load save button
-  // see void buttonSetSaveSetting()
-  int rank = 0 ;
-  midi_button(button_bg, rank++, saveButton,"Button general") ;
-  midi_button(button_curtain, rank++, saveButton,"Button general") ;
-  
-  midi_button(button_light_1, rank++, saveButton,"Button general") ;
-  midi_button(button_light_1_action, rank++, saveButton,"Button general") ;
-  midi_button(button_light_2, rank++, saveButton,"Button general") ;
-  midi_button(button_light_2_action, rank++, saveButton,"Button general") ;
-  
-  midi_button(button_kick, rank++, saveButton,"Button general") ;
-  midi_button(button_snare, rank++, saveButton,"Button general") ;
-  midi_button(button_hat, rank++, saveButton,"Button general") ;
-  
-  for( int i = 1 ; i <= NUM_ITEM ; i++ ) {
-    rank = 0 ;
-    midi_button(button_item[posRankButton(i,rank)], posRankButton(i,rank), saveButton,"Button item"); 
-    rank++ ;
-    midi_button(button_item[posRankButton(i,rank)], posRankButton(i,rank), saveButton,"Button item"); 
-    rank++ ;
-    midi_button(button_item[posRankButton(i,rank)], posRankButton(i,rank), saveButton,"Button item"); 
-    rank++ ;
-    midi_button(button_item[posRankButton(i,rank)], posRankButton(i,rank), saveButton,"Button item");
-  }
-}
-
-
-//
-int posRankButton(int pos, int rank) {
-  return pos* BUTTON_ITEM_CONSOLE +rank ;
-}
-
-//
 void midi_button(Button b, int IDbutton, boolean saveButton, String type) {
-  setttingMidiButton(b) ;
-  updateMidiButton(b) ;
-  if(saveButton) set_data_button(IDbutton, b.get_id_midi(), b.is(), type) ;
+  setttingMidiButton(b);
+  updateMidiButton(b);
+  if(saveButton) set_data_button(IDbutton, b.get_id_midi(),b.is(),type);
 }
 
-//
 void setttingMidiButton(Button b) {
   if(selectMidi && b.inside && mousePressed) b.set_id_midi(midi_CC_romanesco) ;
 }

@@ -15,22 +15,21 @@ void setting_misc() {
   frameRate(60) ; 
   noStroke () ; 
   surface.setResizable(true);
-  //background(colour_background);
 }
 
 void reset() {
-  LOAD_SETTING = false ;
-  INIT_INTERFACE = false ;
+  LOAD_SETTING = false;
+  INIT_INTERFACE = false;
 }
 
 void info_bg_shader() {
-  int n = shaderBackgroundList.getRowCount() ;
-  shader_bg_name = new String[n] ;
-  shader_bg_author = new String[n] ;
-  for (int i = 0 ; i < n ; i++ ) {
-     TableRow row = shaderBackgroundList.getRow(i) ;
-     shader_bg_name[i] = row.getString("Name") ;
-     shader_bg_author[i] = row.getString("Author") ;
+  int n = shaderBackgroundList.getRowCount();
+  shader_bg_name = new String[n];
+  shader_bg_author = new String[n];
+  for (int i = 0 ; i < n ; i++) {
+    TableRow row = shaderBackgroundList.getRow(i);
+    shader_bg_name[i] = row.getString("Name");
+    shader_bg_author[i] = row.getString("Author");
   }
 }
 
@@ -39,6 +38,7 @@ void info_bg_shader() {
 void check_interface() {
   if(size_window_ref.x != width || size_window_ref.y != height) {
     autosave();
+    load_autosave();
     INIT_INTERFACE = true;
     size_window_ref.set(width,height);
   }

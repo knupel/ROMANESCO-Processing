@@ -1,12 +1,14 @@
 Type,ID slider,Min slider,Max slider,Value slider,ID button,On Off,ID midi,Item ID,Item On Off,Item Name,Item Class Name
-Slider background,1,0.0,1.0,0.5,,,-2,,,,
-Slider background,2,0.0,1.0,0.5,,,-2,,,,
-Slider background,3,0.0,1.0,0.5,,,-2,,,,
+Slider background,0,0.0,1.0,0.0,,,-2,,,,
+Slider background,1,0.0,1.0,1.0,,,-2,,,,
+Slider background,2,0.0,1.0,0.0,,,-2,,,,
+Slider background,3,0.0,1.0,0.6666667,,,-2,,,,
 Slider background,4,0.0,1.0,0.5,,,-2,,,,
 Slider background,5,0.0,1.0,0.5,,,-2,,,,
 Slider background,6,0.0,1.0,0.5,,,-2,,,,
 Slider background,7,0.0,1.0,0.5,,,-2,,,,
 Slider background,8,0.0,1.0,0.5,,,-2,,,,
+Slider filter,0,0.0,1.0,0.5,,,-2,,,,
 Slider filter,1,0.0,1.0,0.5,,,-2,,,,
 Slider filter,2,0.0,1.0,0.5,,,-2,,,,
 Slider filter,3,0.0,1.0,0.5,,,-2,,,,
@@ -18,23 +20,27 @@ Slider filter,8,0.0,1.0,0.5,,,-2,,,,
 Slider filter,9,0.0,1.0,0.5,,,-2,,,,
 Slider filter,10,0.0,1.0,0.5,,,-2,,,,
 Slider filter,11,0.0,1.0,0.5,,,-2,,,,
+Slider light,0,0.0,1.0,0.15555556,,,-2,,,,
 Slider light,1,0.0,1.0,1.0,,,-2,,,,
-Slider light,2,0.0,1.0,0.12222222,,,-2,,,,
-Slider light,3,0.0,1.0,1.0,,,-2,,,,
+Slider light,2,0.0,1.0,1.0,,,-2,,,,
+Slider light,3,0.0,1.0,0.11111111,,,-2,,,,
 Slider light,4,0.0,1.0,1.0,,,-2,,,,
 Slider light,5,0.0,1.0,1.0,,,-2,,,,
-Slider light,6,0.0,1.0,1.0,,,-2,,,,
+Slider light,6,0.0,1.0,0.12222222,,,-2,,,,
 Slider light,7,0.0,1.0,1.0,,,-2,,,,
 Slider light,8,0.0,1.0,1.0,,,-2,,,,
+Slider sound,0,0.0,1.0,0.5,,,-2,,,,
 Slider sound,1,0.0,1.0,0.5,,,-2,,,,
+Slider sound setting,0,0.0,1.0,0.2,,,-2,,,,
 Slider sound setting,1,0.0,1.0,0.2,,,-2,,,,
 Slider sound setting,2,0.0,1.0,0.3,,,-2,,,,
 Slider sound setting,3,0.0,1.0,0.4,,,-2,,,,
 Slider sound setting,4,0.0,1.0,0.5,,,-2,,,,
-Slider sound setting,5,0.0,1.0,0.5,,,-2,,,,
-Slider sound setting,6,0.0,1.0,0.5,,,-2,,,,
-Slider sound setting,7,0.0,1.0,0.5,,,-2,,,,
+Slider sound setting,5,0.0,1.0,0.2,,,-2,,,,
+Slider sound setting,6,0.0,1.0,0.3,,,-2,,,,
+Slider sound setting,7,0.0,1.0,0.4,,,-2,,,,
 Slider sound setting,8,0.0,1.0,0.5,,,-2,,,,
+Slider camera,0,0.0,1.0,0.5,,,-2,,,,
 Slider camera,1,0.0,1.0,0.5,,,-2,,,,
 Slider camera,2,0.0,1.0,0.5,,,-2,,,,
 Slider camera,3,0.0,1.0,0.5,,,-2,,,,
@@ -93,7 +99,7 @@ Item,,,,,,,,1,0,Letter,Letter
 Item,,,,,,,,2,0,Horloge,Horloge
 Item,,,,,,,,3,0,Karaoke,Karaoke
 Item,,,,,,,,4,0,Orbital,Orbital
-Item,,,,,,,,5,0,Atome,Atome
+Item,,,,,,,,5,1,Atome,Atome
 Item,,,,,,,,6,0,The Abbyss,The_Abbyss
 Item,,,,,,,,7,0,Boids,Boids
 Item,,,,,,,,8,1,Rubis,MesAmis
@@ -101,7 +107,7 @@ Item,,,,,,,,9,1,Arbre,ArbreRomanesco
 Item,,,,,,,,10,0,Boxolyzer,Boxolyzer
 Item,,,,,,,,11,0,Soleil,Soleil
 Item,,,,,,,,12,0,Spirale,SpiraleRomanesco
-Item,,,,,,,,13,0,Balise,BaliseRomanesco
+Item,,,,,,,,13,1,Balise,BaliseRomanesco
 Item,,,,,,,,14,0,Kofosphere,Kofosphere
 Item,,,,,,,,15,0,Lignes,Lignes
 Item,,,,,,,,16,0,Stars Spray,Spray
@@ -116,6 +122,10 @@ Item,,,,,,,,24,0,Movisco,Movisco
 Item,,,,,,,,25,0,Eco Agents,Ecosystem_agent
 Item,,,,,,,,26,0,Eco DNA,Ecosystem_DNA
 Item,,,,,,,,27,0,Lorenz attractor,Lorenz
+Button item,,,,,0,0,0,,,,
+Button item,,,,,1,0,0,,,,
+Button item,,,,,2,0,0,,,,
+Button item,,,,,3,0,0,,,,
 Button general,,,,,0,1,-2,,,,
 Button general,,,,,1,1,-2,,,,
 Button general,,,,,2,0,-2,,,,
@@ -141,8 +151,8 @@ Button item,,,,,16,0,-2,,,,
 Button item,,,,,17,0,-2,,,,
 Button item,,,,,18,0,-2,,,,
 Button item,,,,,19,0,-2,,,,
-Button item,,,,,20,0,-2,,,,
-Button item,,,,,21,0,-2,,,,
+Button item,,,,,20,1,-2,,,,
+Button item,,,,,21,1,-2,,,,
 Button item,,,,,22,0,-2,,,,
 Button item,,,,,23,0,-2,,,,
 Button item,,,,,24,0,-2,,,,
