@@ -189,7 +189,7 @@ void display_button_item_console() {
       iVec2 size = iVec2(20, 30);
       text_info_item(pos, size, i, 1);
       pointer ++ ;
-    } else if(!KEEP_BUTTON_ITEM_ST ATE) {
+    } else if(!KEEP_BUTTON_ITEM_STATE) {
       for(int jj = 0 ; jj < BUTTON_ITEM_CONSOLE ; jj++) {
         int rank = i*BUTTON_ITEM_CONSOLE+jj;
         if(jj == 0) button_item[rank].set_is(false); 
