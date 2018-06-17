@@ -36,6 +36,7 @@ void setup() {
   
   path_setting(sketchPath(1));
   version();
+  set_system_specification();
 
   int frameRateRomanesco = 60 ;
   display_setup(frameRateRomanesco) ; // the int give the frameRate

@@ -42,6 +42,7 @@ void settings() {
 void setup() {
   path_setting(sketchPath(1));
   version();
+  set_system_specification();
   OSC_send_scene_setup();
   OSC_receive_controller_setup();
   display_setup(60); // the int value is the frameRate

@@ -1,8 +1,8 @@
 Type,ID slider,Min slider,Max slider,Value slider,ID button,On Off,ID midi,Item ID,Item On Off,Item Name,Item Class Name
 Slider background,0,0.0,1.0,0.0,,,-2,,,,
-Slider background,1,0.0,1.0,0.67777777,,,-2,,,,
+Slider background,1,0.0,1.0,0.0,,,-2,,,,
 Slider background,2,0.0,1.0,0.0,,,-2,,,,
-Slider background,3,0.0,1.0,0.42222223,,,-2,,,,
+Slider background,3,0.0,1.0,0.0,,,-2,,,,
 Slider background,4,0.0,1.0,0.5,,,-2,,,,
 Slider background,5,0.0,1.0,0.5,,,-2,,,,
 Slider background,6,0.0,1.0,0.5,,,-2,,,,
@@ -102,7 +102,7 @@ Item,,,,,,,,4,0,Orbital,Orbital
 Item,,,,,,,,5,1,Atome,Atome
 Item,,,,,,,,6,0,The Abbyss,The_Abbyss
 Item,,,,,,,,7,0,Boids,Boids
-Item,,,,,,,,8,1,Rubis,MesAmis
+Item,,,,,,,,8,0,Rubis,MesAmis
 Item,,,,,,,,9,1,Arbre,ArbreRomanesco
 Item,,,,,,,,10,0,Boxolyzer,Boxolyzer
 Item,,,,,,,,11,0,Soleil,Soleil
@@ -163,10 +163,10 @@ Button item,,,,,28,0,-2,,,,
 Button item,,,,,29,0,-2,,,,
 Button item,,,,,30,0,-2,,,,
 Button item,,,,,31,0,-2,,,,
-Button item,,,,,32,1,-2,,,,
-Button item,,,,,33,1,-2,,,,
+Button item,,,,,32,0,-2,,,,
+Button item,,,,,33,0,-2,,,,
 Button item,,,,,34,0,-2,,,,
-Button item,,,,,35,1,-2,,,,
+Button item,,,,,35,0,-2,,,,
 Button item,,,,,36,0,-2,,,,
 Button item,,,,,37,0,-2,,,,
 Button item,,,,,38,0,-2,,,,

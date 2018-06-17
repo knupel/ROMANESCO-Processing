@@ -38,6 +38,7 @@ void setup() {
   create_and_initialize_data(); 
   load_setup();
   check_media_folder();
+  set_system_specification();
   set_font();
   set_display_slider();
   set_import_pic_button();

@@ -4,11 +4,13 @@ Core Romanesco
 COMMON SKETCH for CONTROLLER, PRESCENE & SCENE
 *
 2018-2018
-v 0.0.8
+v 0.0.10
 */
 int NUM_COL_SLIDER = 3 ;
 int NUM_SLIDER_ITEM_BY_COL = 16 ;
 int NUM_SLIDER_ITEM = NUM_SLIDER_ITEM_BY_COL *NUM_COL_SLIDER;
+
+int KEY_CTRL_OS = 157; // it's macOS CMD // for MAC 
 
 int NUM_SLIDER_BACKGROUND = 9;
 int NUM_SLIDER_FILTER = 12;
@@ -45,4 +47,19 @@ void version() {
 	prettyVersion = v[0];
 	version = v[1];
 	nameVersion = v[2];
+}
+
+
+String system() {
+	return System.getProperty("os.name");
+}
+
+void set_system_specification() {
+	String system = system();
+	println("System:",system);
+	if(system.equals("Mac OS X")) {
+		KEY_CTRL_OS = 157;
+	} else {
+		KEY_CTRL_OS = CONTROL;
+	}
 }

@@ -385,8 +385,12 @@ SHORTCUTS
 */
 void shortcuts_controller() {
   keyboard[keyCode] = true;
-  if(checkKeyboard(157) && checkKeyboard(KeyEvent.VK_X) ) {
-    println("CMD + X", frameCount) ;
+  if(checkKeyboard(KEY_CTRL_OS) && checkKeyboard(KeyEvent.VK_X) ) {
+    if(system().equals("Mac OS X")) {
+      println("CMD + x: change slider display mode", frameCount);
+    } else {
+      println("CTRL + x: change slider display mode", frameCount);
+    }
     slider_mode_display += 1;
     if(slider_mode_display > 2 ) slider_mode_display = 0;
   }
@@ -444,8 +448,12 @@ boolean load_scene_setting, save_current_scene_setting, save_new_scene_setting ;
 LOAD
 */
 void check_Keyboard_load_scene() {
-  if(checkKeyboard(CONTROL) && checkKeyboard(KeyEvent.VK_L) ) { 
-    println("CTRL + L",frameCount);
+  if(checkKeyboard(KEY_CTRL_OS) && checkKeyboard(KeyEvent.VK_L) ) {
+    if(system().equals("Mac OS X")) {
+      println("CMD + l: load scene", frameCount);
+    } else {
+      println("CTRL + l: load scene", frameCount);
+    }
     load_scene_setting = true;
     keyboard[keyCode] = false;   //
     
@@ -453,8 +461,12 @@ void check_Keyboard_load_scene() {
 }
 
 void check_Keyboard_load_controller() {
-  if(checkKeyboard(CONTROL) && checkKeyboard(KeyEvent.VK_O) ) { 
-    println("CTRL + O",frameCount) ;
+  if(checkKeyboard(KEY_CTRL_OS) && checkKeyboard(KeyEvent.VK_O) ) { 
+    if(system().equals("Mac OS X")) {
+      println("CMD + o: load controller", frameCount);
+    } else {
+      println("CTRL + o: load controller", frameCount);
+    }
     selectInput("Load setting controller", "load_setting_controller"); // ("display info in the window" , "name of the method callingBack" )
     keyboard[keyCode] = false;   //  
   }
@@ -466,16 +478,24 @@ void check_Keyboard_load_controller() {
 SAVE
 */
 void check_Keyboard_save_scene_CURRENT_path() {
-  if(checkKeyboard(CONTROL) && checkKeyboard(KeyEvent.VK_D) ) {
-    println("CTRL + D", frameCount) ;
+  if(checkKeyboard(KEY_CTRL_OS) && checkKeyboard(KeyEvent.VK_D) ) {
+    if(system().equals("Mac OS X")) {
+      println("CMD + d: save current scene on the last save", frameCount);
+    } else {
+      println("CTRL + d: save current scene on the last save", frameCount);
+    }
     save_current_scene_setting = true ;
     keyboard[keyCode] = false ;   // just open one window, when use only the keyboard, if you don't use that open all the windows save and open
    }
 }
 // Scene new save
 void check_Keyboard_save_scene_NEW_path() {
-  if(checkKeyboard(CONTROL) && checkKeyboard(KeyEvent.VK_S) ) {
-    println("CTRL + S", frameCount) ;
+  if(checkKeyboard(KEY_CTRL_OS) && checkKeyboard(KeyEvent.VK_S) ) {
+    if(system().equals("Mac OS X")) {
+      println("CMD + s: save a new save", frameCount);
+    } else {
+      println("CTRL + s: save a new save", frameCount);
+    }
     save_new_scene_setting = true ;
     keyboard[keyCode] = false ;   // just open one window, when use only the keyboard, if you don't use that open all the windows save and open
   }
@@ -483,8 +503,12 @@ void check_Keyboard_save_scene_NEW_path() {
 
 
 void check_Keyboard_save_controller_CURRENT_path() {
-  if(checkKeyboard(CONTROL) && checkKeyboard(KeyEvent.VK_R) ) {
-    println("CTRL + R", frameCount) ;
+  if(checkKeyboard(KEY_CTRL_OS) && checkKeyboard(KeyEvent.VK_R) ) {
+    if(system().equals("Mac OS X")) {
+      println("CMD + r: save controller on the last save controller", frameCount);
+    } else {
+      println("CTRL + r: save controller on the last save controller", frameCount);
+    }
     show_all_slider_item = true ;
     if (savePathSetting.equals("")) {
       File tempFileName = new File ("your_controller_setting.csv");
@@ -496,8 +520,12 @@ void check_Keyboard_save_controller_CURRENT_path() {
 // Controller new save
 // CTRL + SHIFT + E
 void check_Keyboard_save_controller_NEW_path() {
-  if(checkKeyboard(CONTROL) && checkKeyboard(KeyEvent.VK_E) ) {
-    println("CTRL + E", frameCount) ;
+  if(checkKeyboard(KEY_CTRL_OS) && checkKeyboard(KeyEvent.VK_E) ) {
+    if(system().equals("Mac OS X")) {
+      println("CMD + e: save new controller save", frameCount);
+    } else {
+      println("CTRL + e: save new controller save", frameCount);
+    }
     show_all_slider_item = true ; 
     File tempFileName = new File ("your_controller_setting.csv");
     selectOutput("Save setting", "save_controller_setting", tempFileName);
