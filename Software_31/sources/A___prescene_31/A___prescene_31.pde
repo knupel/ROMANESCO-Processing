@@ -14,7 +14,7 @@ String IAM = "prescene";
 Use false when you want:
 used sound & maximum possibility of the object
 */
-boolean USE_SOUND = false; 
+boolean USE_SOUND = true; 
 boolean DEVELOPMENT_MODE = true;
 
 boolean FULL_RENDERING = true;

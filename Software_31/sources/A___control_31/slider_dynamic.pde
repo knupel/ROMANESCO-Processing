@@ -1,6 +1,6 @@
 /**
 Slider_dynamic
-v 2.0.1
+v 2.0.2
 */
 StringList slider_item_controller = new StringList();
 
@@ -236,23 +236,31 @@ void which_slider_display() {
   }
 }
 
-boolean activityButtonParameter, witnessActivity, activityParameter ; 
+
 void check_item_parameter_on_off() {
+  boolean button_is = false;
+  boolean witness_activity_is = false;
+  boolean parameter_activity_is = false;
   for(int i = 0 ; i < NUM_ITEM ; i++ ) {
-    int whichOne = i*BUTTON_ITEM_CONSOLE +2 ;
-    witnessActivity = activityButtonParameter ;
-    if (item_button_state[whichOne] = true) {
-      item_active[i+1] = true ;
-      if(mousePressed)  activityButtonParameter = !activityButtonParameter ;
+    int whichOne = i*BUTTON_ITEM_CONSOLE +1;
+    witness_activity_is = button_is;
+    if (item_button_state[whichOne]) {
+      item_active[i+1] = true;
+      if(mousePressed) {
+        button_is = !button_is;
+      }
     } else { 
-      item_active[i+1] = false ;
-      if(mousePressed) activityButtonParameter = !activityButtonParameter  ;
-      
+      item_active[i+1] = false;
+      if(mousePressed) {
+        button_is = !button_is;
+      }     
     }
     //check ctivity
-    if(witnessActivity != activityButtonParameter ) activityParameter = true ;
+    if(witness_activity_is != button_is) {
+      parameter_activity_is = true;
+    }
   }
-
-  if(activityParameter) reset_slider_item = true ;
-  activityParameter = false ;
+  if(parameter_activity_is) {
+    reset_slider_item = true;
+  }
 }

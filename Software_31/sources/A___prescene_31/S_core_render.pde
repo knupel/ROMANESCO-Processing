@@ -1,7 +1,7 @@
 /**
 CORE Rope SCENE and PRESCENE 
 2015-2018
-v 1.4.2
+v 1.4.2.1
 */
 import java.net.*;
 import java.io.*;
@@ -401,18 +401,18 @@ text
 */
 String[] text_import ;
 ArrayList text_files = new ArrayList();
-boolean folder_text_is_selected = true ;
-String [] text_path ;
-int count_text_selection ;
-int ref_text_num_files ;
+boolean folder_text_is_selected = true;
+String [] text_path;
+int count_text_selection;
+int ref_text_num_files;
 void load_txt(int ID) {
   check_text_folder_scene() ;
   // which_text is the int return from the dropdown menu
   if(text_path != null && text_path.length > 0) {
-    if(which_text[ID] > text_path.length ) which_text[ID] = 0 ;
-    text_import[ID] = importText(text_path[which_text[ID]]) ;
+    if(which_text[ID] > text_path.length ) which_text[ID] = 0;
+    text_import[ID] = importText(text_path[which_text[ID]]);
   } else {
-    text_import[ID] = "Big Brother has been burning all books, it's not possible to read anything" ;
+    text_import[ID] = "Big Brother has been burning all books, it's not possible to read anything";
   }    
 }
 
@@ -507,9 +507,9 @@ void movieEvent(Movie m) {
 
 void read_movie(boolean motion, int id_item) {
   if(motion) {
-    if(movieImport[id_item] != null) movieImport[id_item].loop() ;
+    if(movieImport[id_item] != null) movieImport[id_item].loop();
   } else {
-    if(movieImport[id_item] != null) movieImport[id_item].pause() ;
+    if(movieImport[id_item] != null) movieImport[id_item].pause();
   }
 }
 
@@ -524,22 +524,22 @@ boolean check_for_new_movie(int id) {
 }
 
 void classic_movie(int id, int place, boolean full_width, boolean full_height) {
-  int pos_x = 0 ;
-  int pos_y = 0 ;
-  int size_x = movieImport[id].width ;
-  int size_y = movieImport[id].height ;
+  int pos_x = 0;
+  int pos_y = 0;
+  int size_x = movieImport[id].width;
+  int size_y = movieImport[id].height;
 
   // Size in the Scene
   if(full_width && full_height) {
-    size_x = width ;
-    size_y = height ;
+    size_x = width;
+    size_y = height;
   } else if(!full_width && !full_height) {
-    size_x = movieImport[id].width ;
-    size_y = movieImport[id].height ;
+    size_x = movieImport[id].width;
+    size_y = movieImport[id].height;
   } else if(full_width && !full_height) {
-    size_x = width ;
+    size_x = width;
     float ratio = (float)width / (float)movieImport[id].width ;
-    size_y = int(movieImport[id].height *ratio) ;
+    size_y = int(movieImport[id].height *ratio);
   } else if(!full_width && full_height) {
     size_y = height ;
     float ratio = (float)height / (float)movieImport[id].height ;
@@ -548,8 +548,8 @@ void classic_movie(int id, int place, boolean full_width, boolean full_height) {
   
   // position in the Scene
   if(place == CENTER) {
-    pos_x = width/2 - (size_x / 2) ;
-    pos_y = height/2  - (size_y / 2);
+    pos_x = width/2 - (size_x/2) ;
+    pos_y = height/2  - (size_y/2);
   }
 
   // show movie
@@ -944,26 +944,26 @@ void loadDataObject(String path) {
 
     // PART THREE
   for (int i = 2 ; i < load.size() ;i++) {
-    JSONObject data_item = load.getJSONObject(i) ;
-    int ID = data_item.getInt("ID obj") ;
+    JSONObject data_item = load.getJSONObject(i);
+    int ID = data_item.getInt("ID obj");
 
-    which_bitmap[ID] = data_item.getInt("which picture") ;
-    which_shape[ID] = data_item.getInt("which svg") ;
-    which_movie[ID] = data_item.getInt("which movie") ;
-    which_text[ID] = data_item.getInt("which text") ;
+    which_bitmap[ID] = data_item.getInt("which picture");
+    which_shape[ID] = data_item.getInt("which svg");
+    which_movie[ID] = data_item.getInt("which movie");
+    which_text[ID] = data_item.getInt("which text");
     // display mode
-    mode[ID] = data_item.getInt("Mode obj") ;
+    mode[ID] = data_item.getInt("Mode obj");
 
     // slider fill
-    float h_fill = data_item.getFloat("hue fill") ;
-    float s_fill = data_item.getFloat("saturation fill") ;
-    float b_fill = data_item.getFloat("brightness fill") ;
-    float a_fill = data_item.getFloat("alpha fill") ;
+    float h_fill = data_item.getFloat("hue fill");
+    float s_fill = data_item.getFloat("saturation fill");
+    float b_fill = data_item.getFloat("brightness fill");
+    float a_fill = data_item.getFloat("alpha fill");
     // slider stroke
-    float h_stroke = data_item.getFloat("hue stroke") ;
-        float s_stroke = data_item.getFloat("saturation stroke") ;
-        float b_stroke = data_item.getFloat("brightness stroke") ;
-        float a_stroke = data_item.getFloat("alpha stroke") ;
+    float h_stroke = data_item.getFloat("hue stroke");
+    float s_stroke = data_item.getFloat("saturation stroke");
+    float b_stroke = data_item.getFloat("brightness stroke");
+    float a_stroke = data_item.getFloat("alpha stroke");
 
         if(FULL_RENDERING) {
           fill_item[ID] = color(h_fill, s_fill, b_fill, a_fill) ;
@@ -1279,17 +1279,7 @@ void curtain() {
   }
 }
 
-/**
-OS mac DETECTION
-*/
-boolean mavericks = false ;
-void OSMavericksCheck() {
-  // check OSX version
-  String OS = System.getProperty("os.version") ;
-  OS  = OS.replace(".","");
-  int OSversion = Integer.parseInt(OS);
-  if(OSversion >= 1090  ) mavericks = true ; else mavericks = false ;
-}
+
 
 
 
@@ -1533,9 +1523,10 @@ void rectangle(Vec2 pos, Vec3 size, PShader s) {
 
 /**
 SOUND
-v 1.2.0
+v 1.3.0
 */
 Sounda sounda;
+int [] beat_section_id;
 void sound_setup() {
   int length_analyze = 512 ;
   sounda = new Sounda(length_analyze);
@@ -1556,18 +1547,21 @@ void sound_setup() {
   int out_hat = NUM_BANDS;
   in_out[2] = iVec2(in_hat,out_hat);
   sounda.set_section(in_out);
-  
-  float threshold_kick = 7.5;
+
+  // value_slider_sound_setting
+
+  float threshold_kick = 4.5;
   float threshold_snare = 3.3;
   float threshold_hat = 1.6;
-  int [] beat_section_id = new int[3] ;
+  beat_section_id = new int[3] ;
   beat_section_id[0] = 0;
   beat_section_id[1] = 1;
   beat_section_id[2] = 2;
 
-  sounda.set_beat( beat_section_id,threshold_kick,threshold_snare,threshold_hat);
+  sounda.set_beat(beat_section_id,threshold_kick,threshold_snare,threshold_hat);
   sounda.set_tempo();
 }
+
 
 void sound_draw() {
   sounda.audio_buffer(r.MIX);
@@ -1575,26 +1569,41 @@ void sound_draw() {
   sound_romanesco();
 }
 
+
+
+
+
+
+
 void sound_romanesco() {
-  float vol_left_controller = map(value_slider_sound[0],0,MAX_VALUE_SLIDER,0,1.3);
-  left[0] = map(sounda.get_left(),-.07,.1,0,vol_left_controller);
-  
-  float col_right_controller = map(value_slider_sound[1],0,MAX_VALUE_SLIDER,0,1.3);
-  right[0] = map(sounda.get_right(),-.07,.1,0,col_right_controller);
-  
-  float vol_mix = map(((value_slider_sound[0] +value_slider_sound[1]) *.5),0,MAX_VALUE_SLIDER,0,1.3);
-  mix[0] = map(sounda.get_mix(),  -.07,.1,0,vol_mix);
-  
-  //volume
-  if(left[0] < 0 ) left[0] = 0;
-  if(left[0] > 1 ) left[0] = 1.; 
-  if(right[0] < 0 ) right[0] = 0;
-  if(right[0] > 1 ) right[0] = 1.; 
-  if(mix[0] < 0 ) mix[0] = 0;
-  if(mix[0] > 1 ) mix[0] = 1.;
-  
+  set_volume_romaneco();
+  set_beat_romanesco();
+
+  beat_romanesco();
+  spectrum_romaneco();
+  tempo_romanesco();
+}
+
+
+void tempo_romanesco() {
+  tempo[0] = sounda.get_tempo();
+  tempoKick[0] = sounda.get_tempo();
+  tempoSnare[0] = sounda.get_tempo();
+  tempoHat[0] = sounda.get_tempo();
+}
+
+
+void spectrum_romaneco() {
+//spectrum
+  for (int i = 0 ; i < sounda.band_num() ; i++ ) {
+    band[0][i] = sounda.get_spectrum(i);
+  }
+}
+
+
+void beat_romanesco() {
   int beat_value = 10 ;
-  float back_factor = .5;
+  float back_factor = .95;
   //Beat
   if((kick_romanesco_is() || snare_romanesco_is() || hat_romanesco_is()) && sounda.beat_is()) {    
     beat[0] = beat_value;
@@ -1619,25 +1628,36 @@ void sound_romanesco() {
   } else {
     hat[0] *= back_factor;
   }
+}
 
+
+
+void set_beat_romanesco() {
+  float threshold_x_kick = map(value_slider_sound_setting[5],0,MAX_VALUE_SLIDER,0,10);
+  float threshold_kick = map(value_slider_sound_setting[6],0,MAX_VALUE_SLIDER,0,10);
+  float threshold_snare = map(value_slider_sound_setting[7],0,MAX_VALUE_SLIDER,0,10);
+  float threshold_hat = map(value_slider_sound_setting[8],0,MAX_VALUE_SLIDER,0,10);
+  sounda.set_beat(beat_section_id,threshold_kick,threshold_snare,threshold_hat);
+}
+
+
+void set_volume_romaneco() {
+  float vol_left_controller = map(value_slider_sound[0],0,MAX_VALUE_SLIDER,0,1.3);
+  left[0] = map(sounda.get_left(),-.07,.1,0,vol_left_controller);
   
+  float col_right_controller = map(value_slider_sound[1],0,MAX_VALUE_SLIDER,0,1.3);
+  right[0] = map(sounda.get_right(),-.07,.1,0,col_right_controller);
   
-  //spectrum
-  for (int i = 0 ; i < sounda.band_num() ; i++ ) {
-    band[0][i] = sounda.get_spectrum(i);
-  }
+  float vol_mix = map(((value_slider_sound[0] +value_slider_sound[1]) *.5),0,MAX_VALUE_SLIDER,0,1.3);
+  mix[0] = map(sounda.get_mix(),  -.07,.1,0,vol_mix);
   
-  //tempo
-  tempo[0] = sounda.get_tempo();
-  /**
-  Must be improve in the future
-  tempoKick[0] = get_tempo(0);
-  tempoSnare[0] = get_tempo(1);
-  tempoHat[0] = get_tempo(2);
-  */
-  tempoKick[0] = sounda.get_tempo();
-  tempoSnare[0] = sounda.get_tempo();
-  tempoHat[0] = sounda.get_tempo();
+  //volume
+  if(left[0] < 0 ) left[0] = 0;
+  if(left[0] > 1 ) left[0] = 1.; 
+  if(right[0] < 0 ) right[0] = 0;
+  if(right[0] > 1 ) right[0] = 1.; 
+  if(mix[0] < 0 ) mix[0] = 0;
+  if(mix[0] > 1 ) mix[0] = 1.;
 }
 
 

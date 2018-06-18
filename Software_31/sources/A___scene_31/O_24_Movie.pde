@@ -286,7 +286,7 @@ class Movisco extends Romanesco {
 	  p.set_distribution(r.ORDER);
 	  p.size(size) ;
 	  if(motion[ID_item])  {
-	  	p.set_beat(20) ;
+	  	p.set_tempo(20) ;
 	  	p.set_behavior(pattern) ;
 	  }
     Vec2 vec = Vec2(pos.x +(step_grid /2),pos.y);

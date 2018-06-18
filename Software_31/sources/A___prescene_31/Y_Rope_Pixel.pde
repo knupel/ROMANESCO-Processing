@@ -479,13 +479,13 @@ abstract class Pix implements Rope_Constants {
 
 /**
 CLOUD
-v 0.3.0
+v 0.3.1
 */
 class Cloud extends Pix implements Rope_Constants {
   int num ;
   int time_count = Integer.MIN_VALUE;
-  float beat_ref = .001 ;
-  float beat = .001 ;
+  float tempo_ref = .001 ;
+  float tempo = .001 ;
   String behavior = "RADIUS";
   Vec3 [] coord;
   int type = r.CARTESIAN ;
@@ -665,8 +665,8 @@ class Cloud extends Pix implements Rope_Constants {
     this.radius = radius;
   }
 
-  public void set_beat(int n) {
-    this.beat = beat_ref *n ;
+  public void set_tempo(int n) {
+    this.tempo = tempo_ref *n ;
   }
 
   public void set_time_count(int count) {
@@ -764,8 +764,8 @@ class Cloud extends Pix implements Rope_Constants {
     float t = 0 ;
     if(behavior.contains(SIN) || behavior.contains(COS)) {
       if(time_count == Integer.MIN_VALUE) {
-        t = frameCount *beat; 
-      } else t = time_count *beat;   
+        t = frameCount *tempo; 
+      } else t = time_count *tempo;   
     }
 
     float factor_1_2 = 1.2;
