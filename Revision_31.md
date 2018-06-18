@@ -13,6 +13,8 @@ MAJOR
 >rebuild the sound system, now the the beat threshold is setable, set the band and the level alart
 >total rewriting Gui Control
 >add button to switch between setting camera and sound
+>add system to set tempo and beat threshold
+>add slider background shader
 
 
 MINOR
@@ -23,16 +25,24 @@ MINOR
 >remove separation between sound gui and general top gui
 >increase the bands spectrum available from 16 to 128
 >improve management color for design interface
->add slider background shader
 >improve few shader background
 >check if dropdown is active or not stop the other GUI update
 >move dropdown slider with mouse wheel
 
+
+ITEM
+--
+>remove item Spray
+>add item Pulsar
+
+
 BUG FIX
 --
-> size for item atoms
-> setting size window for prescene and scene
-> item inventory on_off state changing when the window size change
+>size for item atoms
+>setting size window for prescene and scene
+>fix item inventory on_off state changing when the window size change
+>fix bug for the display slider ite mselected
+>fix bug when the window gui change sige all setting are lost and the scene turn to black
 
 
 

@@ -90,8 +90,12 @@ class BaliseRomanesco extends Romanesco {
     }
 
     //reverse
-    int rotation_direction = 1 ;
-    if(reverse[ID_item]) rotation_direction = 1 ; else rotation_direction = -1 ;
+    int rotation_direction = 1;
+    if(reverse[ID_item]) {
+      rotation_direction = 1; 
+    } else {
+      rotation_direction = -1;
+    }
 
 
 
@@ -113,7 +117,8 @@ class BaliseRomanesco extends Romanesco {
     
     //factor size
     float factor_base = map(repulsion_item[ID_item],0,1,1,100);
-    float factor = factor_base *(allBeats(ID_item) *.2);
+    float factor = 1;
+    if(sound[ID_item]) factor = factor_base *(allBeats(ID_item) *.2);
     if(factor < 1.0 ) factor = 1.0 ;
 
     // snake mode

@@ -1,7 +1,7 @@
 Type,ID slider,Min slider,Max slider,Value slider,ID button,On Off,ID midi,Item ID,Item On Off,Item Name,Item Class Name
 Slider background,0,0.0,1.0,0.0,,,-2,,,,
 Slider background,1,0.0,1.0,1.0,,,-2,,,,
-Slider background,2,0.0,1.0,1.0,,,-2,,,,
+Slider background,2,0.0,1.0,0.0,,,-2,,,,
 Slider background,3,0.0,1.0,0.51111114,,,-2,,,,
 Slider background,4,0.0,1.0,0.5,,,-2,,,,
 Slider background,5,0.0,1.0,0.5,,,-2,,,,
@@ -49,7 +49,7 @@ Slider camera,5,0.0,1.0,0.5,,,-2,,,,
 Slider camera,6,0.0,1.0,0.5,,,-2,,,,
 Slider item,0,0.0,1.0,1.0,,,-2,,,,
 Slider item,1,0.0,1.0,1.0,,,-2,,,,
-Slider item,2,0.0,1.0,1.0,,,-2,,,,
+Slider item,2,0.0,1.0,0.0,,,-2,,,,
 Slider item,3,0.0,1.0,1.0,,,-2,,,,
 Slider item,4,0.0,1.0,0.0,,,-2,,,,
 Slider item,5,0.0,1.0,0.0,,,-2,,,,
@@ -64,7 +64,7 @@ Slider item,13,0.0,1.0,0.23333333,,,-2,,,,
 Slider item,14,0.0,1.0,0.23333333,,,-2,,,,
 Slider item,15,0.0,1.0,0.23333333,,,-2,,,,
 Slider item,16,0.0,1.0,0.5,,,-2,,,,
-Slider item,17,0.0,1.0,0.16666667,,,-2,,,,
+Slider item,17,0.0,1.0,0.24444444,,,-2,,,,
 Slider item,18,0.0,1.0,0.17777778,,,-2,,,,
 Slider item,19,0.0,1.0,0.17777778,,,-2,,,,
 Slider item,20,0.0,1.0,0.0,,,-2,,,,
@@ -79,7 +79,7 @@ Slider item,28,0.0,1.0,0.1,,,-2,,,,
 Slider item,29,0.0,1.0,0.51111114,,,-2,,,,
 Slider item,30,0.0,1.0,0.51111114,,,-2,,,,
 Slider item,31,0.0,1.0,0.51111114,,,-2,,,,
-Slider item,32,0.0,1.0,0.16666667,,,-2,,,,
+Slider item,32,0.0,1.0,0.2777778,,,-2,,,,
 Slider item,33,0.0,1.0,0.31111112,,,-2,,,,
 Slider item,34,0.0,1.0,0.7888889,,,-2,,,,
 Slider item,35,0.0,1.0,0.31111112,,,-2,,,,
@@ -99,18 +99,18 @@ Item,,,,,,,,1,0,Letter,Letter
 Item,,,,,,,,2,0,Horloge,Horloge
 Item,,,,,,,,3,0,Karaoke,Karaoke
 Item,,,,,,,,4,0,Orbital,Orbital
-Item,,,,,,,,5,1,Atome,Atome
+Item,,,,,,,,5,0,Atome,Atome
 Item,,,,,,,,6,0,The Abbyss,The_Abbyss
-Item,,,,,,,,7,1,Boids,Boids
+Item,,,,,,,,7,0,Boids,Boids
 Item,,,,,,,,8,0,Rubis,MesAmis
-Item,,,,,,,,9,1,Arbre,ArbreRomanesco
-Item,,,,,,,,10,0,Boxolyzer,Boxolyzer
+Item,,,,,,,,9,0,Arbre,ArbreRomanesco
+Item,,,,,,,,10,1,Boxolyzer,Boxolyzer
 Item,,,,,,,,11,0,Soleil,Soleil
-Item,,,,,,,,12,0,Spirale,SpiraleRomanesco
+Item,,,,,,,,12,1,Spirale,SpiraleRomanesco
 Item,,,,,,,,13,1,Balise,BaliseRomanesco
 Item,,,,,,,,14,0,Kofosphere,Kofosphere
 Item,,,,,,,,15,0,Lignes,Lignes
-Item,,,,,,,,16,0,Stars Spray,Spray
+Item,,,,,,,,16,1,Pulsar,Pulsar
 Item,,,,,,,,17,0,Damier,Damier
 Item,,,,,,,,18,0,Vectorial,Vectorial
 Item,,,,,,,,19,0,Galaxie,Galaxie
@@ -195,7 +195,7 @@ Button item,,,,,60,0,-2,,,,
 Button item,,,,,61,0,-2,,,,
 Button item,,,,,62,0,-2,,,,
 Button item,,,,,63,0,-2,,,,
-Button item,,,,,64,0,-2,,,,
+Button item,,,,,64,1,-2,,,,
 Button item,,,,,65,0,-2,,,,
 Button item,,,,,66,0,-2,,,,
 Button item,,,,,67,0,-2,,,,

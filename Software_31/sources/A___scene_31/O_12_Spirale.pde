@@ -1,7 +1,7 @@
 /**
 SPIRALE
 2011 -2018
-v 1.3.6
+v 1.3.7
 */
 
 Spirale spirale ; 
@@ -164,7 +164,7 @@ class SpiraleRomanesco extends Romanesco {
     }
 
     // aspect
-    thickness_item[ID_item] = thickness_item[ID_item] *.02 ;
+    // thickness_item[ID_item] = thickness_item[ID_item] *.02 ;
     aspect_rope(fill_item[ID_item], stroke_item[ID_item], thickness_item[ID_item], costume[ID_item]) ;
 
 

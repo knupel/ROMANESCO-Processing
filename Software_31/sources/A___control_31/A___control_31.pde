@@ -60,6 +60,7 @@ void draw() {
   check_media_folder();
   check_button();
 
+
   manage_autosave( );
   
   update_media();
@@ -72,7 +73,10 @@ void draw() {
 
   show_misc_text();
   show_slider_controller();
+
+  update_button();
   show_button();
+
   show_dropdown();
   
   midi_manager(false);
@@ -80,9 +84,7 @@ void draw() {
   update_OSC();
 
   reset();
-
   credit();
-
 }
 
 
@@ -91,9 +93,11 @@ void mouseWheel(MouseEvent e) {
 }
 
 void mousePressed () {
-  mousepressed_button_general();
-  mousepressed_button_item_console();
-  mousepressed_button_inventory();
+  if(!dropdown_is()) {
+    mousePressed_button_general();
+    mousepressed_button_item_console();
+    mousepressed_button_inventory();
+  } 
 }
 
 void keyPressed() {

@@ -704,7 +704,7 @@ void show_button() {
 void display_button_header() {
   // background window
   Vec2 pos_window = Vec2(mouseX , mouseY -20) ;
-  Vec2 ratio_size = Vec2( 1.6, 1.3) ;
+  Vec2 ratio_size = Vec2(1.6, 1.3) ;
   int speed = 7 ;
   int size_angle = 2 ;
   Vec2 range_check = Vec2(0,0) ;
@@ -714,17 +714,18 @@ void display_button_header() {
   textFont(FuturaStencil_20) ;
 
   noStroke() ;
-  int alpha_bg_rollover = int(g.colorModeA *.8) ;
-
-  if(button_midi.rollover()) {
-    text [0] = ("MIDI") ;    
-    fill(fill_info_window_rect, alpha_bg_rollover) ;
+  int alpha_bg_rollover = int(g.colorModeA *.8);
+  // button_midi.update(mouseX,mouseY,true);
+  // println(button_midi.is());
+  if(button_midi.inside()) {
+    text[0] = ("MIDI");
+    fill(fill_info_window_rect, alpha_bg_rollover);
     background_text_list(Vec2(pos_window.x, pos_window.y), text, size_text, size_angle, speed, ratio_size, range_check, FuturaStencil_20) ;
-    fill(fill_info_window_text) ;
-    text(text [0],pos_window.x, pos_window.y) ;
+    fill(fill_info_window_text);
+    text(text[0],pos_window.x, pos_window.y);
   }
 
-  if(button_curtain.rollover()) {
+  if(button_curtain.inside()) {
     text [0] = ("CUT") ;
     noStroke() ;
     fill(fill_info_window_rect, alpha_bg_rollover) ;

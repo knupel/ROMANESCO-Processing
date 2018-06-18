@@ -303,16 +303,16 @@ abstract class Crope {
 CROPE
 CONTROL ROMANESCO PROCESSING ENVIRONMENT
 *
-CLASS BUTTON 1.2.1
+CLASS BUTTON 1.3.0
 */
 public class Button extends Crope {
   int color_bg;
-  //int color_bg_in, color_bg_out;
 
   int color_on_off;
   int color_in_ON, color_out_ON, color_in_OFF, color_out_OFF; 
 
   PImage [] pic;
+  PImage current_pic ;
 
   boolean inside;
   boolean authorization;
@@ -372,15 +372,10 @@ public class Button extends Crope {
 
   public void update(int x, int y) {
     cursor(x,y);
-    update(x,y,true);
   }
 
-  public void update(int x, int y, boolean authorization) {
-    cursor(x,y);
+  public void authorization(boolean authorization) {
     this.authorization = authorization;
-    if (rollover()) {
-      is = !is ? true : false ;
-    }
   }
   
   //ROLLOVER
@@ -388,7 +383,7 @@ public class Button extends Crope {
   this method rollover() must be refactoring, 
   it's not acceptable to have a def value inside
   */
-  private boolean rollover() {
+  public boolean inside() {
     if(cursor == null) cursor = iVec2();
     float newSize = 1  ;
     if (size.y < 10 ) newSize = size.y *1.8 ; 
@@ -416,27 +411,39 @@ public class Button extends Crope {
   /**
   PICTO
   */
+  /**
+
+
+  the copy PIMage can create a memory leak
+
+
+
+  */
   public void show_picto(PImage [] pic) {
     int correctionX = -1 ;
-    if(pic[0] != null && pic[1] != null && pic[2] != null && pic[3] != null ) {
-      if (is) {
-        if (rollover() && !authorization) {
-          // inside
-          image(pic[0],pos.x +correctionX, pos.y); 
-        } else {
-          // outside
-          image(pic[1],pos.x +correctionX, pos.y);
-        }
-      } else {
-        if (rollover() && !authorization) {
-          // inside
-          image(pic[2],pos.x +correctionX, pos.y); 
-        } else {
-          // outside
-          image(pic[3],pos.x +correctionX, pos.y);
-        }
+    if(this.pic == null) {
+      this.pic = new PImage[pic.length];
+      for(int i = 0 ; i < pic.length ; i++) {
+        this.pic[i] = pic[i].copy();
       }
     }
+      
+    if(authorization) {
+      if (is) {
+        if (inside()) {
+          current_pic = this.pic[0].copy();
+        } else {
+          current_pic = this.pic[1].copy();
+        }
+      } else {
+        if (inside()) {
+          current_pic = this.pic[2].copy();
+        } else {
+          current_pic = this.pic[3].copy();
+        }
+      }
+    }  
+    if(current_pic != null) image(current_pic,pos.x +correctionX, pos.y);
   }
 
 
@@ -446,17 +453,19 @@ public class Button extends Crope {
   */
   public void show_label() {
     if(this.name != null) {
-      if (is) {
-        if (rollover() && !authorization) {
-          color_on_off = color_in_ON; 
+      if(authorization) {
+        if (is) {
+          if (inside()) {
+            color_on_off = color_in_ON; 
+          } else {
+            color_on_off = color_out_ON;
+          }
         } else {
-          color_on_off = color_out_ON;
-        }
-      } else {
-        if (rollover() && !authorization) {
-          color_on_off = color_in_OFF; 
-        } else {
-          color_on_off = color_out_OFF;
+          if (inside()) {
+            color_on_off = color_in_OFF; 
+          } else {
+            color_on_off = color_out_OFF;
+          }
         }
       }
       
@@ -481,17 +490,19 @@ public class Button extends Crope {
   public void button_rect(boolean on_off_is) {
     noStroke();
     if(on_off_is) {
-      if (is) {
-        if (rollover() && !authorization) {
-          color_on_off = color_in_ON; 
+      if(authorization) {
+        if (is) {
+          if (inside()) {
+            color_on_off = color_in_ON; 
+          } else {
+            color_on_off = color_out_ON;
+          }
         } else {
-          color_on_off = color_out_ON;
-        }
-      } else {
-        if (rollover() && !authorization) {
-          color_on_off = color_in_OFF; 
-        } else {
-          color_on_off = color_out_OFF;
+          if (inside()) {
+            color_on_off = color_in_OFF; 
+          } else {
+            color_on_off = color_out_OFF;
+          }
         }
       }
       fill(color_on_off);

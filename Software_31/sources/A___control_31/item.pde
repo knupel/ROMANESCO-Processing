@@ -174,7 +174,10 @@ void display_button_item_console(boolean keep_setting) {
       for(int j = 0 ; j < BUTTON_ITEM_CONSOLE ; j++) {
         int rank = i*BUTTON_ITEM_CONSOLE+j;
         button_item[rank].change_pos(distance, 0) ;
-        button_item[rank].update_pos(inventory[i].is()) ;
+        button_item[rank].update_pos(inventory[i].is());
+        button_item[rank].authorization(!dropdown_is());
+        button_item[rank].update(mouseX,mouseY);
+
         if(j == 0) {
           PImage [] pic = {ON_in_thumbnail[i], ON_out_thumbnail[i],OFF_in_thumbnail[i], OFF_out_thumbnail[i]};
           button_item[rank].show_picto(pic);
@@ -219,7 +222,7 @@ void mousepressed_button_item_console() {
   if(!dropdown_is() && NUM_ITEM > 0) {
     for(int i = BUTTON_ITEM_CONSOLE ; i < NUM_ITEM *BUTTON_ITEM_CONSOLE +BUTTON_ITEM_CONSOLE ; i++) {
       button_item[i].update_pos(inventory[i/BUTTON_ITEM_CONSOLE].is());
-      button_item[i].update(mouseX,mouseY,dropdown_is())  ;
+      if(button_item[i].inside()) button_item[i].switch_is();
     }
   }
 }
@@ -364,24 +367,30 @@ void set_inventory_item(boolean keep_state) {
 }
 
 void display_button_inventory() {
-  //textFont(textUsual_3) ;
-  // int text_size = 12 ;
-  // textSize(text_size) ;  
-  // present the list in alphabetical order
-  // display the list
-  if(item_info.length > 0  ) {
+  if(item_info.length > 0) {
     for(int i = 0 ; i < item_info.length ; i++) {
       if(item_info[i] != "" && button_inventory[i].pos != null) {
-        // button_inventory[i].set_pos_label((int)button_inventory[i].pos.x , (int)button_inventory[i].pos.y +text_size);
-        button_inventory[i].show_label();
+       button_inventory[i].show_label();
       }
     }
   }
 }
 
+void update_button_inventory() {
+  if(item_info.length > 0) {
+    for(int i = 0 ; i < item_info.length ; i++) {
+      if(item_info[i] != "" && button_inventory[i].pos != null) {
+       button_inventory[i].update(mouseX,mouseY);
+       button_inventory[i].authorization(!dropdown_is());
+      }
+    }
+  }
+}
+
+
 void check_button_inventory() {
   // Check to display or not the item in the controller
-  if(NUM_ITEM > 0 && !INIT_INTERFACE ) {
+  if( NUM_ITEM > 0 && !INIT_INTERFACE ) {
     for(int i = 1 ; i < button_inventory.length ; i++) {
       // here it's boolean not an int because we don't need to send it via OSC.
       int ID = button_inventory[i].get_id() ;
@@ -395,9 +404,9 @@ void check_button_inventory() {
 }
 
 void mousepressed_button_inventory() {
-  if(!dropdown_is() && NUM_ITEM > 0 ) {
+  if( NUM_ITEM > 0 ) {
     for(int i = 1 ; i < button_inventory.length ; i++ ) {
-      button_inventory[i].update(mouseX,mouseY,dropdown_is());
+      if(button_inventory[i].inside()) button_inventory[i].switch_is();
     }
     for(int i = 1 ; i < on_off_inventory_save.length ; i++ ) {
       on_off_inventory_save[i] = button_inventory[i].is() ;

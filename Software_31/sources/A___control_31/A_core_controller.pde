@@ -1,5 +1,5 @@
 /**
-Main
+Core controller
 v 0.1.0
 2018-2018
 */
@@ -94,9 +94,68 @@ void manage_autosave() {
 button
 */
 void init_button_general() {
-  button_general_num = 20 ;
+  button_general_num = 20;
   value_button_general = new int[button_general_num];
 }
+
+
+
+
+
+void mousePressed_button_general() {
+  if(button_bg.inside()) button_bg.switch_is();
+
+  if(button_light_ambient.inside()) button_light_ambient.switch_is();
+  if(button_light_ambient_action.inside()) button_light_ambient_action.switch_is();
+
+  if(button_light_1.inside()) button_light_1.switch_is();
+  if(button_light_1_action.inside()) button_light_1_action.switch_is();
+
+  if(button_light_2.inside()) button_light_2.switch_is();
+  if(button_light_2_action.inside()) button_light_2_action.switch_is();
+
+  if(button_kick.inside()) button_kick.switch_is();
+  if(button_snare.inside()) button_snare.switch_is();
+  if(button_hat.inside()) button_hat.switch_is();
+
+  if(button_midi.inside()) button_midi.switch_is();
+
+  if(button_curtain.inside())button_curtain.switch_is();
+}
+
+
+
+/**
+UPDATE BUTTON
+*/
+void update_button() {
+  update_button_general();
+  update_button_inventory();
+  /**
+  void update_button_item(); 
+  > the method don't exist, 
+  it is include in method display_button_item_console(boolean keep_setting)
+  */
+}
+
+void update_button_general() {
+  update_button_local(button_bg,
+                      button_light_ambient,button_light_ambient_action,
+                      button_light_1,button_light_1_action,
+                      button_light_2,button_light_2_action,
+                      button_kick,button_snare,button_hat,
+                      button_midi,button_curtain);
+}
+
+void update_button_local(Button... b) {
+  for(int i = 0 ; i < b.length ; i++) {
+    b[i].update(mouseX,mouseY);
+    b[i].authorization(!dropdown_is());
+  }
+}
+
+
+
 
 
 void check_button() {
@@ -104,35 +163,6 @@ void check_button() {
   check_button_item_console() ;
   check_button_inventory() ;
 }
-
-void mousepressed_button_general() {
-    boolean dropdownActivity = dropdown_is();
-
-    button_bg.update(mouseX,mouseY,dropdownActivity);
-    //LIGHT ONE
-    button_light_ambient.update(mouseX,mouseY,dropdownActivity);
-    button_light_ambient_action.update(mouseX,mouseY,dropdownActivity);
-    //LIGHT ONE
-    button_light_1.update(mouseX,mouseY,dropdownActivity);
-    button_light_1_action.update(mouseX,mouseY,dropdownActivity);
-    // LIGHT TWO
-    button_light_2.update(mouseX,mouseY,dropdownActivity);
-    button_light_2_action.update(mouseX,mouseY,dropdownActivity);
-    //son
-    button_kick.update(mouseX,mouseY,dropdownActivity);
-    button_snare.update(mouseX,mouseY,dropdownActivity);
-    button_hat.update(mouseX,mouseY,dropdownActivity);
-    //midi
-    button_midi.update(mouseX,mouseY,dropdownActivity);
-    //curtain
-    button_curtain.update(mouseX,mouseY,dropdownActivity);
- // }
-}
-
-
-
-
-
 
 void check_button_general() {
   /* Check to send by OSC to Scene and Prescene */
@@ -166,7 +196,6 @@ void check_button_general() {
 /**
 dropdown
 */
-
 void update_dropdown(Dropdown... dd) {
   for(int i = 0 ; i < dd.length ; i++) {
     dd[i].update(mouseX,mouseY);
@@ -192,12 +221,12 @@ void update_dropdown_item() {
   int pointer = 0 ;
   for (int i = 1 ; i <= NUM_ITEM ; i++) {
     if(mode_list_RPE[i] != null && inventory[i].is()) {
-      int distance = pointer *DIST_BETWEEN_ITEM ;
+      int distance = pointer *DIST_BETWEEN_ITEM;
       pointer++ ;
 
-      dropdown_item_mode[i].offset(distance, 0) ;
+      dropdown_item_mode[i].offset(distance, 0);
 
-      String m [] = split(mode_list_RPE[i], "/") ;
+      String m [] = split(mode_list_RPE[i],"/");
       if ( m.length > 1) {
         dropdown_item_mode[i].update(mouseX,mouseY);
         dropdown_item_mode[i].show_header_text();
@@ -207,9 +236,7 @@ void update_dropdown_item() {
       if (dropdown_item_mode[i].get_selection() > -1 && m.length > 1) {
         int x = dropdown_item_mode[i].get_pos().x +12;
         int y = dropdown_item_mode[i].get_pos().y +8;
-        /*
-        dropdown_item_mode[i].show_selection(x,y);
-        */    
+        // dropdown_item_mode[i].show_selection(x,y);
         textFont(dropdown_item_mode[i].get_font());      
         text(dropdown_item_mode[i].get_selection() +1,x,y);   
       }
@@ -246,17 +273,13 @@ void update_dropdown_item() {
 /**
 FONT
 */
-public PFont 
-      ///controller Font
-      textUsual_1, textUsual_2, textUsual_3,
-      title_medium, title_big,  
-      FuturaExtraBold_9, FuturaExtraBold_10,
-      FuturaCondLight_10, FuturaCondLight_11,FuturaCondLight_12,
-      FuturaStencil_20;
+PFont textUsual_1, textUsual_2, textUsual_3; 
+PFont title_medium, title_big;  
+PFont FuturaExtraBold_9, FuturaExtraBold_10;
+PFont FuturaCondLight_10, FuturaCondLight_11,FuturaCondLight_12,FuturaStencil_20;
       
 //SETUP
 void set_font() {
-  //controller Font
   String path_font_gui = import_path+"font/default_font/" ;
   FuturaStencil_20 = loadFont(path_font_gui +"FuturaStencilICG-20.vlw");
   FuturaExtraBold_9 = loadFont(path_font_gui +"Futura-ExtraBold-9.vlw");
@@ -272,21 +295,6 @@ void set_font() {
   title_medium = FuturaExtraBold_10 ;
   title_big = FuturaStencil_20 ;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

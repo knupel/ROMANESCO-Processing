@@ -1,6 +1,6 @@
 /**
 Slider_dynamic
-v 2.0.2
+v 2.0.2.1
 */
 StringList slider_item_controller = new StringList();
 
@@ -10,8 +10,6 @@ String [] sliders_by_item_raw;
 String [][] slider_inventory_item_raw;
 boolean [] item_active;
 boolean [] display_slider;
-
-// boolean [] showSliderGroup = new boolean[NUM_GROUP_SLIDER];
 
 boolean reset_slider_item = true;
 boolean show_all_slider_item_active = false;
