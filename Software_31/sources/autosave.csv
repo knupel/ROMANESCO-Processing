@@ -1,8 +1,8 @@
 Type,ID slider,Min slider,Max slider,Value slider,ID button,On Off,ID midi,Item ID,Item On Off,Item Name,Item Class Name
 Slider background,0,0.0,1.0,0.0,,,-2,,,,
-Slider background,1,0.0,1.0,0.0,,,-2,,,,
-Slider background,2,0.0,1.0,0.0,,,-2,,,,
-Slider background,3,0.0,1.0,0.0,,,-2,,,,
+Slider background,1,0.0,1.0,1.0,,,-2,,,,
+Slider background,2,0.0,1.0,0.44444445,,,-2,,,,
+Slider background,3,0.0,1.0,0.51111114,,,-2,,,,
 Slider background,4,0.0,1.0,0.5,,,-2,,,,
 Slider background,5,0.0,1.0,0.5,,,-2,,,,
 Slider background,6,0.0,1.0,0.5,,,-2,,,,
@@ -47,11 +47,11 @@ Slider camera,3,0.0,1.0,0.5,,,-2,,,,
 Slider camera,4,0.0,1.0,0.5,,,-2,,,,
 Slider camera,5,0.0,1.0,0.5,,,-2,,,,
 Slider camera,6,0.0,1.0,0.5,,,-2,,,,
-Slider item,0,0.0,1.0,0.54444444,,,-2,,,,
+Slider item,0,0.0,1.0,1.0,,,-2,,,,
 Slider item,1,0.0,1.0,1.0,,,-2,,,,
 Slider item,2,0.0,1.0,1.0,,,-2,,,,
-Slider item,3,0.0,1.0,1.0,,,-2,,,,
-Slider item,4,0.0,1.0,0.0,,,-2,,,,
+Slider item,3,0.0,1.0,0.74444443,,,-2,,,,
+Slider item,4,0.0,1.0,0.74444443,,,-2,,,,
 Slider item,5,0.0,1.0,0.0,,,-2,,,,
 Slider item,6,0.0,1.0,1.0,,,-2,,,,
 Slider item,7,0.0,1.0,1.0,,,-2,,,,
@@ -99,15 +99,15 @@ Item,,,,,,,,1,0,Letter,Letter
 Item,,,,,,,,2,0,Horloge,Horloge
 Item,,,,,,,,3,0,Karaoke,Karaoke
 Item,,,,,,,,4,0,Orbital,Orbital
-Item,,,,,,,,5,1,Atome,Atome
+Item,,,,,,,,5,0,Atome,Atome
 Item,,,,,,,,6,0,The Abbyss,The_Abbyss
-Item,,,,,,,,7,0,Boids,Boids
+Item,,,,,,,,7,1,Boids,Boids
 Item,,,,,,,,8,0,Rubis,MesAmis
-Item,,,,,,,,9,1,Arbre,ArbreRomanesco
+Item,,,,,,,,9,0,Arbre,ArbreRomanesco
 Item,,,,,,,,10,0,Boxolyzer,Boxolyzer
 Item,,,,,,,,11,0,Soleil,Soleil
 Item,,,,,,,,12,0,Spirale,SpiraleRomanesco
-Item,,,,,,,,13,1,Balise,BaliseRomanesco
+Item,,,,,,,,13,0,Balise,BaliseRomanesco
 Item,,,,,,,,14,0,Kofosphere,Kofosphere
 Item,,,,,,,,15,0,Lignes,Lignes
 Item,,,,,,,,16,0,Stars Spray,Spray
@@ -235,8 +235,8 @@ Button item,,,,,100,0,-2,,,,
 Button item,,,,,101,0,-2,,,,
 Button item,,,,,102,0,-2,,,,
 Button item,,,,,103,0,-2,,,,
-Button item,,,,,104,0,-2,,,,
-Button item,,,,,105,0,-2,,,,
+Button item,,,,,104,1,-2,,,,
+Button item,,,,,105,1,-2,,,,
 Button item,,,,,106,0,-2,,,,
 Button item,,,,,107,0,-2,,,,
 Button item,,,,,108,0,-2,,,,

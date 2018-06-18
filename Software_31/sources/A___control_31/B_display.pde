@@ -687,7 +687,12 @@ BUTTON display
 */
 void show_button() {
   display_button_general();
-  display_button_item_console();
+  if(change_size_window_is()) {
+    display_button_item_console(true);
+    change_size_window(false);
+  } else {
+    display_button_item_console(false);
+  }
   display_button_inventory();
   display_button_header();
 }

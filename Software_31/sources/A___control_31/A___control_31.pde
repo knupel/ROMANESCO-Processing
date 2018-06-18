@@ -55,16 +55,18 @@ void setup() {
 }
 
 void draw() {
-  check_interface();
+  check_size_window();
   check_slider_item();
   check_media_folder();
   check_button();
 
+  manage_autosave( );
+  
   update_media();
   
   surface.setTitle(nameVersion + ": " +prettyVersion+"."+version+ " - Controller");
 
-  set_data() ;
+  set_data();
 
   display_structure();
 

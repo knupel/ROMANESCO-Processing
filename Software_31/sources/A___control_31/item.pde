@@ -54,7 +54,6 @@ void create_and_initialize_data() {
   init_inventory();
   init_button_inventory();
 
-
   init_button_item_console();
 
  // init_dropdown();
@@ -167,9 +166,9 @@ void set_button_item_console() {
   }
 }
 
-void display_button_item_console() {
+void display_button_item_console(boolean keep_setting) {
   int pointer = 0 ;
-  for( int i = 1 ; i <= NUM_ITEM ; i++ ) {
+  for(int i = 1 ; i <= NUM_ITEM ; i++) {
     if(inventory[i].is()) {
       int distance = pointer *DIST_BETWEEN_ITEM ;
       for(int j = 0 ; j < BUTTON_ITEM_CONSOLE ; j++) {
@@ -187,67 +186,36 @@ void display_button_item_console() {
       }
       iVec2 pos = iVec2(pos_button_width_item[i*BUTTON_ITEM_CONSOLE +2] +distance, pos_button_height_item[i*BUTTON_ITEM_CONSOLE +1] +10) ;
       iVec2 size = iVec2(20, 30);
-      text_info_item(pos, size, i, 1);
+      text_info_item(pos,size,i,1);
       pointer ++ ;
-    } else if(!KEEP_BUTTON_ITEM_STATE) {
+    } else if(!keep_setting) {
       for(int jj = 0 ; jj < BUTTON_ITEM_CONSOLE ; jj++) {
         int rank = i*BUTTON_ITEM_CONSOLE+jj;
-        if(jj == 0) button_item[rank].set_is(false); 
-        if(jj == 1) button_item[rank].set_is(false);
-        if(jj == 2) button_item[rank].set_is(false);
-        if(jj == 3) button_item[rank].set_is(false);
+        if(jj == 0) button_item[rank].set_is(false); // show item
+        if(jj == 1) button_item[rank].set_is(false); // setting item
+        if(jj == 2) button_item[rank].set_is(false); // setting sound
+        if(jj == 3) button_item[rank].set_is(false); // setting action
       }
-    }
+    } 
   }
 }
-/*
-void display_button_item_console() {
-  int pointer = 0 ;
-  for( int i = 1 ; i <= NUM_ITEM ; i++ ) {
-    if(inventory[i].is()) {
-      int distance = pointer *DIST_BETWEEN_ITEM ;
-      for(int j = 0 ; j < BUTTON_ITEM_CONSOLE ; j++) {
-      	button_item[i *BUTTON_ITEM_CONSOLE + j].change_pos(distance, 0) ;
-        button_item[i *BUTTON_ITEM_CONSOLE + j].update_pos(inventory[i].is()) ;
-        if(j == 0) {
-          PImage [] pic = {ON_in_thumbnail[i], ON_out_thumbnail[i],OFF_in_thumbnail[i], OFF_out_thumbnail[i]};
-          button_item[i*BUTTON_ITEM_CONSOLE +j].show_picto(pic);
-        }
-        if(j == 1) button_item[i*BUTTON_ITEM_CONSOLE +j].show_picto(picSetting);
-        if(j == 2) button_item[i*BUTTON_ITEM_CONSOLE +j].show_picto(picSound); 
-        if(j == 3) button_item[i*BUTTON_ITEM_CONSOLE +j].show_picto(picAction);
 
-      }
-      iVec2 pos = iVec2(pos_button_width_item[i*BUTTON_ITEM_CONSOLE +2] +distance, pos_button_height_item[i*BUTTON_ITEM_CONSOLE +1] +10) ;
-      iVec2 size = iVec2(20, 30);
-      text_info_item(pos, size, i, 1);
-      pointer ++ ;
-    } else {
-      for(int j = 0 ; j < BUTTON_ITEM_CONSOLE ; j++) {
-        if(j == 0) button_item[i*BUTTON_ITEM_CONSOLE +j].set_is(false); 
-        if(j == 1) button_item[i*BUTTON_ITEM_CONSOLE +j].set_is(false);
-        if(j == 2) button_item[i*BUTTON_ITEM_CONSOLE +j].set_is(false);
-        if(j == 3) button_item[i*BUTTON_ITEM_CONSOLE +j].set_is(false);
-      }
-    }
-  }
-}
-*/
 
 void check_button_item_console() {
   if(NUM_ITEM > 0){
     // item available
     int num = button_item_num +BUTTON_ITEM_CONSOLE;
-    for( int i = BUTTON_ITEM_CONSOLE+1 ; i < num ; i++) {
+    for(int i = BUTTON_ITEM_CONSOLE+1 ; i < num ; i++) {
       if(button_item[i].is()) {
-        item_button_state[i-BUTTON_ITEM_CONSOLE] = true ; 
-      } else item_button_state[i-BUTTON_ITEM_CONSOLE] = false ;
+        item_button_state[i-BUTTON_ITEM_CONSOLE] = true; 
+      } else {
+        item_button_state[i-BUTTON_ITEM_CONSOLE] = false;
+      }
     }
   }
 }
 
 void mousepressed_button_item_console() {
-
   if(!dropdown_is() && NUM_ITEM > 0) {
     for(int i = BUTTON_ITEM_CONSOLE ; i < NUM_ITEM *BUTTON_ITEM_CONSOLE +BUTTON_ITEM_CONSOLE ; i++) {
       button_item[i].update_pos(inventory[i/BUTTON_ITEM_CONSOLE].is());
@@ -367,7 +335,6 @@ void set_button_inventory() {
 }
 
 void set_inventory_item(boolean keep_state) {
-  // println("keep_state set_inventory_item()",keep_state);
   boolean local_state = keep_state ;
   //color col_off_out_menu_item = rougeTresTresFonce ;
   // give the the good statement

@@ -360,8 +360,8 @@ void set_data() {
     } else {
       set_inventory_item(true);
     }
-    set_button_from_saved_file() ;
-    set_slider_data_group() ;
+    set_button_from_saved_file();
+    set_slider_data_group();
     INIT_INTERFACE = false ;
   }
 }

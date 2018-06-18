@@ -40,7 +40,7 @@ void settings() {
 
 
 void setup() {
-  path_setting(sketchPath(1));
+  path_setting();
   version();
   set_system_specification();
   OSC_send_scene_setup();

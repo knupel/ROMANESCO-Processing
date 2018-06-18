@@ -10,7 +10,23 @@ OscP5 osc_send_scene;
 
 int port_send_scene = 9_100 ;
 
+
 void OSC_send_scene_setup() {
+  OSC_thread_send_scene_setup();
+  println("send OSC setup done");
+  /*
+  try {
+    OSC_thread_send_scene_setup();
+    Thread.sleep(6000);
+    println("send OSC setup done");
+  } 
+  catch (InterruptedException e) { 
+  } 
+  */
+}
+
+
+void OSC_thread_send_scene_setup() {
   osc_send_scene = new OscP5(this, port_send_scene);
   //send
   if (!DEVELOPMENT_MODE) {
@@ -45,14 +61,6 @@ void OSC_send_scene_setup() {
       data_osc_prescene[i] = "0";
     }
   }
-
-  // must stop the process to give a time to initialization for the OSC process
-  try { 
-    Thread.sleep(6000); 
-  } 
-  catch (InterruptedException e) { 
-  }
-  println("send OSC setup done");
 }
 
 

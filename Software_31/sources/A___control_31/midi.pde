@@ -305,12 +305,8 @@ void midi_manager(boolean saveButton) {
   midi_button(button_hat,rank,saveButton,"Button general");
   
   for(int i = 0 ; i <= NUM_ITEM ; i++) {
-  //for(int i = 1 ; i <= NUM_ITEM ; i++) {
     if(i == 0) {
-      // fake button for save
-      // println("je passe ici", i,frameCount);
-      // set_data_button(0, 0,false,"Button item");
-      // midi_button(button_item[posRankButton(i,rank)],posRankButton(i,rank), saveButton,"Button item"); 
+      // the first fourth button is unused for the this time
     } else {
       rank = 0 ;
       midi_button(button_item[posRankButton(i,rank)], posRankButton(i,rank), saveButton,"Button item"); 
