@@ -1,5 +1,7 @@
 /**
-Lorenz attractor || 2016 || 0.0.1
+Lorenz attractor
+2016-2018
+v 0.0.2
 Inspirated by Nature of Code of Daniel Shiffman
 */
 /*
@@ -8,14 +10,15 @@ Inspirated by Nature of Code of Daniel Shiffman
 */
 class Lorenz extends Romanesco {
 	public Lorenz() {
-		item_name = "Lorenz attractor" ;
+		item_name = "Lorenz attractor";
 		ID_item = 27 ;
 		ID_group = 1 ;
 		item_author  = "Stan le Punk";
-		item_version = "Version 0.0.1";
-		item_pack = "Nature of Code" ;
-		item_mode = "Classic/Point" ; // separate the differentes mode by "/"
-		// item_slider = "Fill hue,Fill sat,Fill bright,Fill alpha,Thickness,Size X,Jitter X,Jitter Y,Jitter Z,Life,Spectrum" ;
+		item_version = "Version 0.0.2";
+		item_pack = "Nature of Code 2016";
+    item_costume = "";
+    item_mode = "Classic/Point";
+
 	  hue_fill_is = true;
     sat_fill_is = true;
     bright_fill_is = true;
@@ -124,7 +127,6 @@ class Lorenz extends Romanesco {
     
     pos.add(d) ;
     Vec3 final_pos = pos.copy() ;
-    // point(pos) ;
     list.add(final_pos) ;
   }
 

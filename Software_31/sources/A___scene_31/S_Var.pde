@@ -111,12 +111,12 @@ float value_slider_item []  = new float [NUM_SLIDER_ITEM];
 /**
 Var item
 */
-Table indexObjects ;
+Table index_item ;
 TableRow [] row_index_item ;
 //MISC var
 //info object
-String [] objectInfo, objectName, objectAuthor, objectVersion, objectPack ;
-int [] objectID ;
+String [] item_info, item_name, item_author, item_version, item_pack ;
+int [] item_ID ;
 boolean [] item_info_display ;
 //for the leap motion ?
 int objectLeapID[] ;
@@ -295,7 +295,10 @@ String [] bitmap_path_ref, svg_path_ref, movie_path_ref;
 int [] soundButton, actionButton, parameterButton;
 boolean [] show_item, sound, action, parameter;
 
-int mode [];
+int [] mode;
+int [] costume_controller_selection;
+int [] costume;
+
 
 //BUTTON
 int [] value_button_item;
@@ -305,8 +308,6 @@ Vec3 [] pos_item_final;
 Vec3 [] pos_item;
 Vec3 [] pos_item_ref;
 
-// costume
-int [] costume;
 
 // direction
 boolean [] reset_camera_direction_item;
@@ -541,20 +542,10 @@ void create_variableButton() {
   action = new boolean [NUM_ITEM_PLUS_MASTER];
   parameter = new boolean [NUM_ITEM_PLUS_MASTER];
   mode = new int [NUM_ITEM_PLUS_MASTER];
-  
-/*
-  show_item = new boolean [NUM_ITEM];
-  sound = new boolean [NUM_ITEM];
-  action = new boolean [NUM_ITEM];
-  parameter = new boolean [NUM_ITEM];
-  mode = new int [NUM_ITEM];
-  */
+  costume_controller_selection = new int [NUM_ITEM_PLUS_MASTER];
   
   // you must init this var, because we launch this part of code before the controller. And if we don't init the value is NaN and return an error.
-  // valueButtonGlobal = new int[numButtonGlobal] ;
   button_general_is = new boolean[NUM_BUTTON_GENERAL];
-  //value_button_item = new int[button_item_num];
-
 }
 
 

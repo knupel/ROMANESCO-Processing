@@ -1,10 +1,26 @@
 Todo Romanesco
 --
---
+*/
+
+ITEM NE FONCTIONNAT PAS SUITE AU CHANGEMENT DE METHODE COSTUME
+*/
+
+Letter
+
+
+
+
+
+
+
 *IMPORTANT
 
 */
 
+
+*SCENE
+
+les variables ne sont plus bonnes !!!
 
 *save
 
@@ -42,11 +58,14 @@ Start filter in Scene
 
 
 
-
-
 *JUST TO DO
 
 */
+
+
+*shader cellular
+
+Quand il n'y a pas de couleur cela doit être en noir et blanc
 
 
 *controller window info item

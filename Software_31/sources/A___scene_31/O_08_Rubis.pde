@@ -12,10 +12,10 @@ class MesAmis extends Romanesco {
     ID_group = 1 ;
     item_author  = "Stan le Punk";
     item_version = "version 1.0.5";
-    item_pack = "Base" ;
-    //item_mode = "1 full/2 lines" but the line is not really interesting
-    item_mode = "Vertex/Point" ; // separate the name by a slash and write the next mode immadialtly after this one.
-    // item_slider = "Fill hue,Fill sat,Fill bright,Fill alpha,Stroke hue,Stroke sat,Stroke bright,Stroke alpha,Thickness,Canvas X,Speed X,Jitter X,Jitter Y,Jitter Z,Quantity,Swing X" ;
+    item_pack = "Base 2013" ;
+    item_costume = "";
+    item_mode = "Vertex/Point";
+
     hue_fill_is = true;
     sat_fill_is = true;
     bright_fill_is = true;
@@ -201,7 +201,7 @@ class MesAmis extends Romanesco {
     }
     
     // info
-    objectInfo[ID_item] =(numPeople + " summits") ;
+    item_info[ID_item] =(numPeople + " summits") ;
   }
   
   

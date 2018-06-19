@@ -15,7 +15,8 @@ class ArbreRomanesco extends Romanesco {
     item_author  = "Stan le Punk";
     item_version = "Version 1.3.4";
     item_pack = "Base" ;
-    item_mode = "Point/Ellipse/Triangle/Rectangle/Cross/Star 5/Star 7/Super Star 8/Super Star 12" ;
+    item_costume = "Point/Ellipse/Triangle/Rectangle/Cross/Star 5/Star 7/Super Star 8/Super Star 12";
+    item_mode = "";
     // define slider
     hue_fill_is = true;
     sat_fill_is = true;
@@ -149,10 +150,10 @@ class ArbreRomanesco extends Romanesco {
     if(wire[ID_item]) bool_link = true ; else bool_link = false ;
     
 
-    select_costume(ID_item, item_name) ;
+    get_costume();
 
     arbre.show(direction);
-    arbre.update(posArbre, epaisseur, size, divA, divB, forkA, forkB, amplitude, n, costume[ID_item], bool_link, angle, speed, fill_is[ID_item], stroke_is[ID_item], ID_item) ;
+    arbre.update(posArbre, epaisseur, size, divA, divB, forkA, forkB, amplitude, n, get_costume(), bool_link, angle, speed, fill_is[ID_item], stroke_is[ID_item], ID_item) ;
     if(horizon[ID_item]) {
       arbre.set_horizon(0) ; 
     } else {
@@ -160,7 +161,7 @@ class ArbreRomanesco extends Romanesco {
     }
     
     //info
-    objectInfo[ID_item] = ("Nodes " +(n-1) + " - Amplitude " + (int)amplitude + " - Orientation " +direction +  " - Speed " + (int)map(speed,0,4,0,100) );
+    item_info[ID_item] = ("Nodes " +(n-1) + " - Amplitude " + (int)amplitude + " - Orientation " +direction +  " - Speed " + (int)map(speed,0,4,0,100) );
     
   } 
 }

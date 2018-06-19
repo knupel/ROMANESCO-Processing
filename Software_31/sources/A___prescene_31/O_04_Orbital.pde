@@ -1,6 +1,8 @@
 
 /**
-ORBITAL || 2015 || 0.0.3
+ORBITAL
+2015
+v 0.0.3
 */
 class Orbital extends Romanesco {
  
@@ -34,7 +36,8 @@ class Orbital extends Romanesco {
     ID_group = 1 ;
     item_author  = "Alexandre Petit";
     item_version = "Version 0.0.3";
-    item_pack = "Workshop" ;
+    item_pack = "Workshop 2015" ;
+    item_costume = "" ; // separate the differentes mode by "/"
     item_mode = "" ; // separate the differentes mode by "/"
     /** 
     List of the available sliders
@@ -125,7 +128,7 @@ class Orbital extends Romanesco {
     // display
     orbital_1(quantity) ;
 
-    objectInfo[ID_item] = ("There is " + flock.size() + " orbital shape") ;
+    item_info[ID_item] = ("There is " + flock.size() + " orbital shape") ;
     
 
   }

@@ -1,19 +1,20 @@
 /**
-LETTER || 2012 || 1.3.0
+LETTER
+2012-2018
+v 1.3.2
 */
 class Letter extends Romanesco {
   public Letter() {
-    //from the index_objects.csv
     item_name = "Letter" ;
     ID_item = 1 ;
     ID_group = 1 ;
     item_author  = "Stan le Punk";
-    item_version = "Version 1.3.0";
-    item_pack = "Base" ;
+    item_version = "Version 1.3.2";
+    item_pack = "Base 2012" ;
 
-    item_mode = "Point/Line/Triangle" ;
-    // item_slider = "Fill hue,Fill sat,Fill bright,Fill alpha,Stroke hue,Stroke sat,Stroke bright,Stroke alpha,Thickness,Jitter X,Jitter Y,Jitter Z,Quantity,Speed X,Font size" ;
-        // define slider
+    item_costume = "Point/Line/Triangle";
+    item_mode = "";
+    // define slider
     hue_fill_is = true;
     sat_fill_is = true;
     bright_fill_is = true;
@@ -90,11 +91,6 @@ class Letter extends Romanesco {
   //DRAW
   void draw() {
     load_txt(ID_item) ;
-    /*
-    if (parameter[ID_item] || path_font_item[ID_item] == null ) { 
-      path_font_item[ID_item] = path_font_item[0] ;
-    }
-    */
     // test the font is a ttf or not
     if(!path_font_item[ID_item].endsWith("ttf")) {
       path_font_item[ID_item] = path_font_default_ttf ;
@@ -161,7 +157,7 @@ class Letter extends Romanesco {
     float thicknessLetter = map(thickness_item[ID_item], .1, height/3, 0.1, height /10) ; ;
 
     // color
-    if(mode[ID_item] <= 1) {
+    if(get_costume() != TRIANGLE_ROPE) {
       noFill() ; 
       stroke(fill_item[ID_item]) ; 
       strokeWeight(thicknessLetter) ;
@@ -182,7 +178,7 @@ class Letter extends Romanesco {
 
     
     // INFO
-    objectInfo[ID_item] = ("Quantity of letter display " + numLetter + " - Speed " +int(speed*100)) ;
+    item_info[ID_item] = ("Quantity of letter display " + numLetter + " - Speed " +int(speed*100)) ;
 
   }
   
@@ -245,24 +241,14 @@ class Letter extends Romanesco {
   void displayLetter(int which, PVector ampJttr) {
     RPoint[] pnts = grp.children[which].getPoints() ; 
     PVector [] points = geomerativeFontPoints(pnts)  ;
-    /*
-    noFill() ; stroke(c) ; strokeWeight(thickness) ;
-    // security against the black brightness bug opacity
-    if (alpha(c) == 0 ) {
-      noFill() ; 
-      noStroke() ; 
-    } else {     
-      fill (c) ; 
-    }
-    */
+
     for ( int i = 0; i < points.length; i++ ) {
       points[i].add(jitterPVector(ampJttr)) ;
       float factor = 40.0 ;
       points[i].z = points[i].z +(allBeats(ID_item) *factor) ; 
-
-      if(mode[ID_item] == 0 ) point(points[i].x, points[i].y, points[i].z) ;
-      if(mode[ID_item] == 1 ) if(i > 0 ) line( points[i-1].x, points[i-1].y, points[i-1].z,   points[i].x, points[i].y, points[i].z );
-      if(mode[ID_item] == 2 ) if(i > 1 ) triangle(points[i-2].x, points[i-2].y, points[i-2].z,   points[i-1].x, points[i-1].y, points[i-1].z,   points[i].x, points[i].y, points[i].z );
+      if(get_costume() == POINT_ROPE ) point(points[i].x, points[i].y, points[i].z) ;
+      if(get_costume() == LINE_ROPE ) if(i > 0 ) line( points[i-1].x, points[i-1].y, points[i-1].z,   points[i].x, points[i].y, points[i].z );
+      if(get_costume() == TRIANGLE_ROPE ) if(i > 1 ) triangle(points[i-2].x, points[i-2].y, points[i-2].z,   points[i-1].x, points[i-1].y, points[i-1].z,   points[i].x, points[i].y, points[i].z );
       
     }
   }

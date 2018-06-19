@@ -1,5 +1,7 @@
 /**
-SOLEIL || 2012 || 1.1.3
+SOLEIL
+2012-2018$
+1.1.4
 */
 
 class Soleil extends Romanesco {
@@ -11,6 +13,7 @@ class Soleil extends Romanesco {
     item_author  = "Stan le Punk";
     item_version = "Version 1.1.3";
     item_pack = "Base" ;
+    item_costume = "" ;
     item_mode = "Beam/Lie'Bro'One/Lie'Bro'Two/Lie'Bro Noisy" ;
     // item_slider = "Fill hue,Fill sat,Fill bright,Fill alpha,Stroke hue,Stroke sat,Stroke bright,Stroke alpha,Thickness,Canvas X,Quantity,Speed X,Spurt X,Canvas X,Jitter Z" ;
     hue_fill_is = true;
@@ -121,7 +124,7 @@ class Soleil extends Romanesco {
     // info display
     String revolution = ("") ;
     if((key_space_long && action[ID_item]) || orbit[ID_item]) revolution =("false") ; else revolution = ("true") ;
-    objectInfo[ID_item] = ("The sun have " + numBeam + " beams - Motion "+revolution ) ;
+    item_info[ID_item] = ("The sun have " + numBeam + " beams - Motion "+revolution ) ;
     
     
   }

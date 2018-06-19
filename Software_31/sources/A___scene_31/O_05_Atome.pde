@@ -13,9 +13,10 @@ class Atome extends Romanesco {
     ID_group = 1 ;
     item_author  = "Stan le Punk";
     item_version = "version 1.3.5";
-    item_pack = "Base" ;
+    item_pack = "Base 2012" ;
+    item_costume = "";
     item_mode = "Chemical Name/File text/Electronic cloud/Ellipse circle/Ellipse triangle/Ellipse cloud/Triangle circle/Triangle triangle/Triangle cloud/Rectangle rectangle/Rectangle cloud" ;
-    //item_slider = "Fill hue,Fill sat,Fill bright,Fill alpha,Stroke hue,Stroke sat,Stroke bright,Stroke alpha,Thickness,Size X,Size Y,Size Z,Canvas X,Canvas Y,Speed X,Direction X,Variety,Quantity,Area,Angle,Font size" ;
+
     hue_fill_is = true;
     sat_fill_is = true;
     bright_fill_is = true;
@@ -279,7 +280,7 @@ class Atome extends Romanesco {
     }
     
     // info display
-    objectInfo[ID_item] = ("Atoms "+atomList.size()) ;
+    item_info[ID_item] = ("Atoms "+atomList.size()) ;
     
 
     //CLEAR

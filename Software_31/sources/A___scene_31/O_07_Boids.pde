@@ -1,7 +1,7 @@
 /**
 BOIDS
 2015-2018
-V 1.0.2
+V 1.0.3
 */
 
 class Boids extends Romanesco {
@@ -10,10 +10,11 @@ class Boids extends Romanesco {
     ID_item = 7 ;
     ID_group = 1 ;
     item_author  = "Stan le Punk";
-    item_version = "Version 1.0.2";
-    item_pack = "Base" ;
+    item_version = "Version 1.0.3";
+    item_pack = "Base 2015" ;
+    item_costume = "";
     item_mode = "Tetra monochrome/Tetra camaieu" ; // separate the differentes mode by "/"
-    // item_slider = "Fill hue,Fill sat,Fill bright,Fill alpha,Stroke hue,Stroke sat,Stroke bright,Stroke alpha,Thickness,Size X,Canvas X,Canvas Y,Canvas Z,Quantity,Attraction,Repulsion,Influence,Alignment,Speed X" ;
+
     hue_fill_is = true;
     sat_fill_is = true;
     bright_fill_is = true;
@@ -166,7 +167,7 @@ class Boids extends Romanesco {
     }
     
     // INFO
-    objectInfo[ID_item] = ("There is " + numOfBoid + " boids") ;
+    item_info[ID_item] = ("There is " + numOfBoid + " boids") ;
     if(displayInfo) {
       strokeWeight(1) ;
       stroke(255) ;

@@ -219,27 +219,30 @@ void update_dropdown_bar_content() {
 
 void update_dropdown_item() {
   int pointer = 0 ;
+  iVec2 offset_selection = iVec2(18,8);
   for (int i = 1 ; i <= NUM_ITEM ; i++) {
-    if(list_item_costume[i] != null && inventory[i].is()) {
-      int distance = pointer *DIST_BETWEEN_ITEM;
-      pointer++ ;
+    update_dropdown_item(dd_item_costume, list_item_costume, inventory, i,offset_selection, pointer);
+    update_dropdown_item(dd_item_mode, list_item_mode, inventory, i,offset_selection,pointer);
+    if(inventory[i].is()) pointer++;
+  }
+}
 
-      dd_item_costume[i].offset(distance, 0);
-
-      String costume[] = split(list_item_costume[i],"/");
-      if (costume.length > 1) {
-        dd_item_costume[i].update(mouseX,mouseY);
-        dd_item_costume[i].show_header_text();
-        dd_item_costume[i].show_box();
-      }
-      // display which element is selected
-      if (dd_item_costume[i].get_selection() > -1 && costume.length > 1) {
-        int x = dd_item_costume[i].get_pos().x +12;
-        int y = dd_item_costume[i].get_pos().y +8;
-        // dd_item_costume[i].show_selection(x,y);
-        textFont(dd_item_costume[i].get_font());      
-        text(dd_item_costume[i].get_selection() +1,x,y);   
-      }
+void update_dropdown_item(Dropdown [] dd, String [] list, Inventory [] inventory, int index, iVec2 offset, int pointer) {
+  if(inventory[index].is()) {
+    int distance = pointer *DIST_BETWEEN_ITEM;
+    dd[index].offset(distance, 0);
+    String boxes[] = split(list[index],"/");
+    if (boxes.length > 1) {
+      dd[index].update(mouseX,mouseY);
+      dd[index].show_header_text();
+      dd[index].show_box();
+    }
+    // display which element is selected
+    if (dd[index].get_selection() > -1 && boxes.length > 1) {
+      int x = dd[index].get_pos().x +offset.x;
+      int y = dd[index].get_pos().y +offset.y;
+      textFont(dd[index].get_font());      
+      text(dd[index].get_selection() +1,x,y);   
     }
   }
 }

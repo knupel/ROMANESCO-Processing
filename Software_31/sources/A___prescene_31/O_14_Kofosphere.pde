@@ -1,6 +1,7 @@
 /**
-KOFOSPHERE 2013 - 2017 
-v 1.0.2
+KOFOSPHERE 
+2013-2018
+v 1.0.3
 */
 class Kofosphere extends Romanesco {
   public Kofosphere() {
@@ -8,8 +9,9 @@ class Kofosphere extends Romanesco {
     ID_item = 14 ;
     ID_group = 1 ;
     item_author  = "Kof";
-    item_version = "Version 1.0.2";
-    item_pack = "Base" ;
+    item_version = "Version 1.0.3";
+    item_pack = "Base 2013" ;
+    item_costume = "";
     item_mode = "Point color/Point mono/Box color/Box mono" ;
     // item_slider = "Fill hue,Fill sat,Fill bright,Fill alpha,Stroke hue,Stroke sat,Stroke bright,Stroke alpha,Thickness,Size X,Size Y,Size Z,Canvas X,Quantity,Speed X" ;
     hue_fill_is = true;
@@ -111,7 +113,7 @@ class Kofosphere extends Romanesco {
 
     
     // INFO
-    objectInfo[ID_item] = ("Quantity " + (int)quantity +  " - Speed ") ;
+    item_info[ID_item] = ("Quantity " + (int)quantity +  " - Speed ") ;
 
   }
 }

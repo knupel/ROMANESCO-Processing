@@ -1,5 +1,7 @@
 /**
-The ABBYSS || 2014 || 2.1.1
+The ABBYSS
+2014
+v 2.1.2
 */
 
 CreatureManager creatureManager ;
@@ -13,10 +15,11 @@ class The_Abbyss extends Romanesco {
     ID_item = 6 ;
     ID_group = 1 ;
     item_author  = "Andreas Gysin";
-    item_version = "version 2.1.1";
-    item_pack = "Base" ;
+    item_version = "version 2.1.2";
+    item_pack = "Base 2014" ;
+    item_costume = "";
     item_mode = "Box Fish/Cubus/Floater/Radio/Worm/Sea Fly/Breather/Spider/Manta/Father/Super Nova" ;// separate the name by a slash and write the next mode immadialtly after this one.
-    //item_slider = "Fill hue,Fill sat,Fill bright,Fill alpha,Stroke hue,Stroke sat,Stroke bright,Stroke alpha,Thickness" ;
+
     hue_fill_is = true;
     sat_fill_is = true;
     bright_fill_is = true;
@@ -113,7 +116,7 @@ class The_Abbyss extends Romanesco {
     if (reset(ID_item)) creatureManager.killAll(whichCreature);
     
     // info display
-    objectInfo[ID_item] = ("Creatures "+ creatureManager.creatures.size()) ;
+    item_info[ID_item] = ("Creatures "+ creatureManager.creatures.size()) ;
 
   }
 }

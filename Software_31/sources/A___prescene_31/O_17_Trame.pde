@@ -1,5 +1,7 @@
 /**
-TRAME || 2012 || 1.1.3
+TRAME
+2012-2018
+V 1.1.4
 */
 
 Trame trame ;
@@ -12,9 +14,11 @@ class Damier extends Romanesco {
     ID_group = 1 ;
     item_author  = "Stan le Punk";
     item_version = "Version 1.1.3";
-    item_pack = "Base" ;
-    item_mode = "Rectangle/Ellipse/Box" ;
-    //item_slider = "Fill hue,Fill sat,Fill bright,Fill alpha,Stroke hue,Stroke sat,Stroke bright,Stroke alpha,Thickness,Size X,Size Y,Size Z,Quantity,Speed X,Swing X,Angle" ;
+    item_pack = "Base";
+    item_costume = "";
+    item_mode = "Rectangle/Ellipse/Box";
+
+ 
     hue_fill_is = true;
     sat_fill_is = true;
     bright_fill_is = true;
@@ -134,7 +138,7 @@ class Damier extends Romanesco {
     else if (mode[ID_item] == 2) trame.drawTrameBox(lattice, angleTrame, angle, size , q, g, d, amp) ;
     
     //INFO
-    objectInfo[ID_item] =("Quantity " + q + " shapes / Angle " + (int)angle + " Speed " + int(speed *100) + " Amplitude " + int(amp *100)) ;
+    item_info[ID_item] =("Quantity " + q + " shapes / Angle " + (int)angle + " Speed " + int(speed *100) + " Amplitude " + int(amp *100)) ;
     
   }
   

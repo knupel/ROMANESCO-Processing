@@ -35,7 +35,7 @@ void set_OSC() {
   int num_valid_address = 0 ;
   for(int i = 0 ; i < temp.length ; i++) {
     if(temp[i].equals("IP_address") || temp[i].equals("")) {
-      // nothing happens
+      // nothing happen
     } else {
       num_valid_address ++ ;
     }   
@@ -159,6 +159,10 @@ void message_item_osc(OscMessage m) {
     int index = i +1;
     add_data_item(m,dd_item_costume[index].get_selection());
   }
+  for(int i = 0 ; i < NUM_ITEM ; i++) {
+    int index = i +1;
+    add_data_item(m,dd_item_mode[index].get_selection());
+  }
 }
 
 
@@ -166,7 +170,7 @@ void message_item_osc(OscMessage m) {
 
 void send_OSC(OscP5 osc_prescene, OscP5 osc_scene, NetAddress ad_prescene, NetAddress [] ad_scene,  OscMessage m) {
   osc_prescene.send(m,ad_prescene);
-  // println(mess.arguments().length);
+  //println("controller", m.arguments().length);
   if(LIVE) {
     for(int i = 0 ; i < ad_scene.length ; i++) {
       osc_scene.send(m, ad_scene[i]) ; 

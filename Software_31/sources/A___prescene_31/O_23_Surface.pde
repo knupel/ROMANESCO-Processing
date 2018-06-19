@@ -1,7 +1,7 @@
 /**
 SURFACE
 2014-2018
-v 1.0.3.1
+v 1.0.4
 */
 
 class Surface extends Romanesco {
@@ -10,10 +10,11 @@ class Surface extends Romanesco {
     ID_item = 23 ;
     ID_group = 1 ;
     item_author  = "Stan le Punk";
-    item_version = "Version 1.0.3.1";
-    item_pack = "Base" ;
+    item_version = "Version 1.0.4";
+    item_pack = "Base 2014" ;
+    item_costume = "" ;
     item_mode = "Surfimage/Vague/Vague++" ; // separate the differentes mode by "/"
-    // item_slider = "Fill hue,Fill sat,Fill bright,Fill alpha,Stroke hue,Stroke sat,Stroke bright,Stroke alpha,Thickness,Influence,Canvas X,Canvas Y,Quality,Canvas X,Speed X,Size X,Swing X" ;
+
     hue_fill_is = true;
     sat_fill_is = true;
     bright_fill_is = true;
@@ -194,8 +195,8 @@ class Surface extends Romanesco {
     
     // info
     if(mode[ID_item] == 0 ) {
-      objectInfo[ID_item] =("Mode: " + mode[ID_item] +" | Triangles:"+grid_surface_image.size() + " | " + image.width + "x" + image.height) ; 
-    } else objectInfo[ID_item] =("Mode: " + mode[ID_item] +" | Triangles:"+grid_surface_simple.size()) ;
+      item_info[ID_item] =("Mode: " + mode[ID_item] +" | Triangles:"+grid_surface_image.size() + " | " + image.width + "x" + image.height) ; 
+    } else item_info[ID_item] =("Mode: " + mode[ID_item] +" | Triangles:"+grid_surface_simple.size()) ;
     
     
   }

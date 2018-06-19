@@ -116,140 +116,6 @@ void set_screen() {
 
 
 
-/**
-Select Costume Romanesco
-v 0.0.3
-*/
-/*
-Max mode is used for what, to give the possibility to have other mode without costume rope ?????
-*/
-void select_costume(int id_item,  String rpe_name) {
-  String mode_list = null ;
-  String [] mode_split = new String[1];
-  for(int i = 0 ; i < rpe_manager.size() ; i++) {
-    Romanesco item = rpe_manager.get(i);
-    if(rpe_name.equals(item.item_name)) {
-      mode_list = item.item_mode ;
-      mode_split = split(mode_list, "/") ;
-    }
-  }
-
-  String costume_romanesco = "unknow" ;
-  if(mode_split[0] != null) {
-    costume_romanesco = mode_split[mode[id_item]] ;
-  } 
-
-  if(costume_romanesco.equals("point") || costume_romanesco.equals("POINT") || costume_romanesco.equals("Point")) {
-    if(!dimension[id_item]) {
-      costume[id_item] = POINT_ROPE ; 
-    } else {
-      costume[id_item] = SPHERE_LOW_ROPE ;
-    }
-  } else if(costume_romanesco.equals("ellipse") || costume_romanesco.equals("ELLIPSE") || costume_romanesco.equals("Ellipse") || costume_romanesco.equals("disc") || costume_romanesco.equals("DISC") || costume_romanesco.equals("Disc")) {
-    if(!dimension[id_item]) {
-      costume[id_item] = ELLIPSE_ROPE ; 
-    } else {
-      costume[id_item] = SPHERE_MEDIUM_ROPE ;
-    }
-  } else if(costume_romanesco.equals("triangle") || costume_romanesco.equals("TRIANGLE") || costume_romanesco.equals("Triangle")) {
-    if(!dimension[id_item]) {
-      costume[id_item] = TRIANGLE_ROPE ; 
-    } else {
-      costume[id_item] = TETRAHEDRON_ROPE ;
-    }
-  } else if(costume_romanesco.equals("rectangle") || costume_romanesco.equals("RECTANGLE") || costume_romanesco.equals("Rectangle") || costume_romanesco.equals("rect") || costume_romanesco.equals("RECT") || costume_romanesco.equals("Rect")) {
-    if(!dimension[id_item]) {
-      costume[id_item] = RECT_ROPE ; 
-    } else {
-      costume[id_item] = BOX_ROPE ;
-    }
-  } else if(costume_romanesco.equals("cross") || costume_romanesco.equals("CROSS") || costume_romanesco.equals("Cross")) {
-    if(!dimension[id_item]) {
-      costume[id_item] = CROSS_BOX_2_ROPE; 
-    } else {
-      costume[id_item] = CROSS_BOX_3_ROPE;
-    }
-  } else if(costume_romanesco.equals("star 4") || costume_romanesco.equals("STAR 4") || costume_romanesco.equals("Star 4")) {
-    if(!dimension[id_item]) {
-      costume[id_item] = STAR_4_ROPE ; 
-    } else {
-      costume[id_item] = STAR_4_ROPE ;
-    }
-  } else if(costume_romanesco.equals("star 5") || costume_romanesco.equals("STAR 5") || costume_romanesco.equals("Star 5")) {
-    if(!dimension[id_item]) {
-      costume[id_item] = STAR_5_ROPE ; 
-    } else {
-      costume[id_item] = STAR_5_ROPE ;
-    }
-  } else if(costume_romanesco.equals("star 6") || costume_romanesco.equals("STAR 6") || costume_romanesco.equals("Star 6")) {
-    if(!dimension[id_item]) {
-      costume[id_item] = STAR_6_ROPE ; 
-    } else {
-      costume[id_item] = STAR_6_ROPE ;
-    }
-  } else if(costume_romanesco.equals("star 7") || costume_romanesco.equals("STAR 7") || costume_romanesco.equals("Star 7")) {
-    if(!dimension[id_item]) {
-      costume[id_item] = STAR_7_ROPE ; 
-    } else {
-      costume[id_item] = STAR_7_ROPE ;
-    }
-  }
-  else if(costume_romanesco.equals("star 8") || costume_romanesco.equals("STAR 8") || costume_romanesco.equals("Star 8")) {
-    if(!dimension[id_item]) {
-      costume[id_item] = STAR_8_ROPE ; 
-    } else {
-      costume[id_item] = STAR_8_ROPE ;
-    }
-  } else if(costume_romanesco.equals("super star 8") || costume_romanesco.equals("SUPER STAR 8") || costume_romanesco.equals("Super Star 8")) {
-    if(!dimension[id_item]) {
-      costume[id_item] = SUPER_STAR_8_ROPE ; 
-    } else {
-      costume[id_item] = SUPER_STAR_8_ROPE ;
-    }
-  } else if(costume_romanesco.equals("super star 12") || costume_romanesco.equals("SUPER STAR 12") || costume_romanesco.equals("Super Star 12")) {
-    if(!dimension[id_item]) {
-      costume[id_item] = SUPER_STAR_12_ROPE ; 
-    } else {
-      costume[id_item] = SUPER_STAR_12_ROPE ;
-    }
-  } else if(costume_romanesco.equals("abc") || costume_romanesco.equals("ABC") || costume_romanesco.equals("Abc")) {
-    if(!dimension[id_item]) {
-      costume[id_item] = TEXT_ROPE ; 
-    } else {
-      costume[id_item] = TEXT_ROPE ;
-    }
-  }else {
-    if(!dimension[id_item]) {
-      costume[id_item] = POINT_ROPE ; 
-    } else {
-      costume[id_item] = SPHERE_LOW_ROPE ;
-    }
-  }
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -953,6 +819,7 @@ void loadDataObject(String path) {
     which_text[ID] = data_item.getInt("which text");
     // display mode
     mode[ID] = data_item.getInt("Mode obj");
+    costume_controller_selection[ID] = data_item.getInt("Costume selection item");
 
     // slider fill
     float h_fill = data_item.getFloat("hue fill");
@@ -1113,7 +980,7 @@ void displayInfoObject(color bg_txt, color txt) {
     if(show_item[i]) {
       posInfoObj += 1 ;
       String position = ("x:" +(int)pos_item[i].x + " y:" + (int)pos_item[i].y+ " z:" + (int)pos_item[i].z) ;
-      text(objectName[i] + " - Coord " + position + " - " + objectInfo[objectID[i]], 10, height -(15 *(posInfoObj -1))) ;
+      text(item_name[i] + " - Coord " + position + " - " + item_info[item_ID[i]], 10, height -(15 *(posInfoObj -1))) ;
     }
   }
 }

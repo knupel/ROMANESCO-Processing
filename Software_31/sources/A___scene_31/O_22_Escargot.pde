@@ -1,5 +1,7 @@
 /**
-ESCARGOT || 2011 || 1.4.5
+ESCARGOT 
+2011-2018
+V 1.4.6
 */
 class Escargot extends Romanesco {
   public Escargot() {
@@ -8,10 +10,11 @@ class Escargot extends Romanesco {
     ID_item = 22 ;
     ID_group = 1 ;
     item_author  = "Stan le Punk";
-    item_version = "version 1.4.4";
-    item_pack = "Base" ;
+    item_version = "version 1.4.6";
+    item_pack = "Base 2011" ;
+    item_costume = "";
     item_mode = "Original/Raw/Point/Ellipse/Rectangle/Box/Cross/SVG/Vitraux" ;
-    //item_slider = "Fill hue,Fill sat,Fill bright,Fill alpha,Stroke hue,Stroke sat,Stroke bright,Stroke alpha,Thickness,Size X,Size Y,Size Z,Speed X,Direction X,Canvas X,Quality,Quantity,Calm" ;
+
     hue_fill_is = true;
     sat_fill_is = true;
     bright_fill_is = true;
@@ -329,7 +332,7 @@ class Escargot extends Romanesco {
       popMatrix() ;
       
       // info display
-      objectInfo[ID_item] = ("Image " +bitmap_import[ID_item].width + "x"+bitmap_import[ID_item].height + " Analyze "+listEscargot.size()+ " of " + maxEntryPoints+ " / Cell " + pixelAnalyzeSize+ "px / Radius analyze " + radiusAnalyze + " Scale " + ratioImgWindow.x + " / " +ratioImgWindow.y) ;
+      item_info[ID_item] = ("Image " +bitmap_import[ID_item].width + "x"+bitmap_import[ID_item].height + " Analyze "+listEscargot.size()+ " of " + maxEntryPoints+ " / Cell " + pixelAnalyzeSize+ "px / Radius analyze " + radiusAnalyze + " Scale " + ratioImgWindow.x + " / " +ratioImgWindow.y) ;
     } 
   }
   

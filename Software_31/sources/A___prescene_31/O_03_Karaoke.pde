@@ -12,8 +12,10 @@ class Karaoke extends Romanesco {
     ID_group = 1 ;
     item_author  = "Stan LePunk";
     item_version = "Version 2.0.3";
-    item_pack = "Base" ;
+    item_pack = "Base 2011" ;
+    item_costume = "" ; // separate the name by a slash and write the next mode immadialtly after this one.
     item_mode = "" ; // separate the name by a slash and write the next mode immadialtly after this one.
+    
     hue_fill_is = true;
     sat_fill_is = true;
     bright_fill_is = true;

@@ -33,7 +33,10 @@ void thread_data_controller_item(OscMessage receive) {
   rank += NUM_SLIDER_ITEM;
   receive_data_button_item(receive,rank); // num arg = NUM_ITEM_PLUS_MASTER *BUTTON_ITEM_CONSOLE
   rank += (NUM_ITEM *BUTTON_ITEM_CONSOLE);
-  receive_data_dropdown_item(receive,rank); // num arg = NUM_ITEM_PLUS_MASTER
+  receive_data_dropdown_costume_item(receive,rank); // num arg = NUM_ITEM_PLUS_MASTER
+  rank += NUM_ITEM;
+  receive_data_dropdown_mode_item(receive,rank); // num arg = NUM_ITEM_PLUS_MASTER
+
 }
 
 
@@ -148,10 +151,18 @@ void receive_data_button_item(OscMessage receive, int in) {
   }
 }
 
-void receive_data_dropdown_item(OscMessage receive, int in) {
+void receive_data_dropdown_mode_item(OscMessage receive, int in) {
   for (int i = 0 ; i < NUM_ITEM ; i++) {
     int index = i+in;
     int target = i+1;
     mode[target] = receive.get(index).intValue();
+  }
+}
+
+void receive_data_dropdown_costume_item(OscMessage receive, int in) {
+  for (int i = 0 ; i < NUM_ITEM ; i++) {
+    int index = i+in;
+    int target = i+1;
+    costume_controller_selection[target] = receive.get(index).intValue();
   }
 }

@@ -13,9 +13,11 @@ class Boxolyzer extends Romanesco {
     ID_group = 1 ;
     item_author  = "Stan le Punk";
     item_version = "Version 1.1.1";
-    item_pack = "Base" ;
-    item_mode ="Line/Circle" ;
-    // item_slider = "Fill hue,Fill sat,Fill bright,Fill alpha,Stroke hue,Stroke sat,Stroke bright,Stroke alpha,Thickness,Size X,Size Y,Size Z,Canvas X,Quantity,Direction X" ;
+    item_pack = "Base 2012" ;
+
+    item_costume = "";
+    item_mode = "Line/Circle";
+
     hue_fill_is = true;
     sat_fill_is = true;
     bright_fill_is = true;
@@ -100,7 +102,7 @@ class Boxolyzer extends Romanesco {
 
 
     // INFO
-    objectInfo[ID_item] = ("There is " +numBox + " bands analyzed");
+    item_info[ID_item] = ("There is " +numBox + " bands analyzed");
     
   }
   

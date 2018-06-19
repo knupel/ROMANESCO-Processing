@@ -1,7 +1,7 @@
 /**
 WEBCAM 
 2011-2018
-v 1.2.6
+v 1.2.7
 */
 class Webcam extends Romanesco {
   public Webcam() {
@@ -10,10 +10,11 @@ class Webcam extends Romanesco {
     ID_item = 21 ;
     ID_group = 1 ;
     item_author  = "Stan le Punk";
-    item_version = "Version 1.2.5";
-    item_pack = "Base" ;
+    item_version = "Version 1.2.7";
+    item_pack = "Base 2011" ;
+    item_costume = "" ;
     item_mode = "Rectangle color/Rectangle mono/Point color/Point mono/Box color/Box mono" ;
-    // item_slider = "Fill hue,Fill sat,Fill bright,Fill alpha,Size X,Size Y,Size Z,Canvas X,Canvas Y" ;
+
     hue_fill_is = true;
     sat_fill_is = true;
     bright_fill_is = true;

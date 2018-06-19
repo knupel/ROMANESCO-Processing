@@ -1,5 +1,7 @@
 /**
-SPIRALE  || 2011 || 1.1.1
+SPIRALE 
+2011-2018
+v 1.1.3
 */
 Line line ;
 //object three
@@ -10,10 +12,11 @@ class Lignes extends Romanesco {
     ID_item = 15 ;
     ID_group = 1 ;
     item_author  = "Stan le Punk";
-    item_version = "Version 1.1.2";
-    item_pack = "Base" ;
+    item_version = "Version 1.1.3";
+    item_pack = "Base 2011" ;
+    item_costume = "" ;
     item_mode = "Lines 1/Lines 2/Lines 3/Lines 4/Lines 5/Lines 6" ;
-    // item_slider = "Fill hue,Fill sat,Fill bright,Fill alpha,Thickness,Quantity,Speed X,Direction X,Canvas X,Angle,Alignment" ;
+
     hue_fill_is = true;
     sat_fill_is = true;
     bright_fill_is = true;

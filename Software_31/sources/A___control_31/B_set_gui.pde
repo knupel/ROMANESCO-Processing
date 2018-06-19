@@ -138,7 +138,7 @@ void set_design_structure_item_selected() {
   slider_width_item = 100;
   slider_height_item = 8;
   // item gui pos
-  offset_y_item = grid_col[0] +15;
+  offset_x_item = grid_col[0];
   item_a_col = grid_col[0];
   item_b_col = grid_col[3];
   item_c_col = grid_col[6];
@@ -647,7 +647,7 @@ PImage[] picSound = new PImage[4];
 PImage[] picAction = new PImage[4];
 
 Dropdown dd_item_costume[];
-iVec2 pos_dd_item[];
+Dropdown dd_item_mode[];
 
 iVec2 size_window_ref;
 
@@ -830,9 +830,13 @@ int height_item_button_console;
 int pos_y_item_selected;
 int height_item_selected;
 
+
+String [] list_item_mode;
 String [] list_item_costume;
-int offset_y_item;
-int item_a_col,item_b_col,item_c_col;
+int offset_x_item;
+int item_a_col;
+int item_b_col;
+int item_c_col;
 
 // inventory
 int pos_y_inventory;

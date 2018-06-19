@@ -1,6 +1,6 @@
 /**
 SPIRALE
-2011 -2018
+2011-2018
 v 1.3.7
 */
 
@@ -14,11 +14,9 @@ class SpiraleRomanesco extends Romanesco {
     ID_group = 1 ;
     item_author  = "Stan le Punk";
     item_version = "Version 1.3.6";
-    item_pack = "Base" ;
-    /*
-    item_mode = "Point/Ellipse/Triangle/Rectangle/Star 4/Star 5/Star 9/Super Star 8/Super Star 12/Tetra/Box/Cross 2/Cross 3/Sphere low/Sphere medium/Sphere high" ;
-    */
-    item_mode = "Point/Ellipse/Triangle/Rectangle/Cross/Star 5/Star 7/Super Star 8/Super Star 12" ;
+    item_pack = "Base 2011" ;
+    item_costume = "Point/Ellipse/Triangle/Rectangle/Cross/Star 5/Star 7/Super Star 8/Super Star 12" ;
+    item_mode = "" ;
 
     // item_slider = "Fill hue,Fill sat,Fill bright,Fill alpha,Stroke hue,Stroke sat,Stroke bright,Stroke alpha,Thickness,Size X,Size Y,Size Z,Quantity,Speed X,Canvas X,Canvas Y,Swing X,Alignment" ;
     hue_fill_is = true;
@@ -164,20 +162,15 @@ class SpiraleRomanesco extends Romanesco {
     }
 
     // aspect
-    // thickness_item[ID_item] = thickness_item[ID_item] *.02 ;
-    aspect_rope(fill_item[ID_item], stroke_item[ID_item], thickness_item[ID_item], costume[ID_item]) ;
+    aspect_rope(fill_item[ID_item], stroke_item[ID_item], thickness_item[ID_item], get_costume()) ;
 
-
-    
-    // mode
-    select_costume(ID_item, item_name) ;
-    
+    // mode    
     Vec3 pos = Vec3() ; // we write that because the first part of the void is not available any more.
     spirale.update(pos, speed) ;
-    spirale.show(n, nMax, size, z, canvas, costume[ID_item], horizon[ID_item], pos_swing) ;
+    spirale.show(n, nMax, size, z, canvas, get_costume(), horizon[ID_item], pos_swing) ;
     
     // info display
-    objectInfo[ID_item] = ("Speed "+speed+ " - Amplitude " + map(z, 1.01, 1.27, 1,100) + " - Quantity " + nMax) ;
+    item_info[ID_item] = ("Speed "+speed+ " - Amplitude " + map(z, 1.01, 1.27, 1,100) + " - Quantity " + nMax) ;
   }
 
 }

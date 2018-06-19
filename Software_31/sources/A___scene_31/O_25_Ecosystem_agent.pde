@@ -1,7 +1,7 @@
 /**
 Ecosysteme 
 2016-2018
-v 0.1.4
+v 0.1.5
 */
 class Ecosystem_agent extends Romanesco {
 	public Ecosystem_agent() {
@@ -9,10 +9,11 @@ class Ecosystem_agent extends Romanesco {
 		ID_item = 25;
 		ID_group = 1;
 		item_author  = "Stan le Punk";
-		item_version = "Version 0.1.4";
-		item_pack = "Ecosystem";
+		item_version = "Version 0.1.5";
+		item_pack = "Ecosystem 2016";
+    item_costume = "";
 		item_mode = "Virus/Human/Alien/Other"; // separate the differentes mode by "/"
-		// item_slider = "Fill hue,Fill sat,Fill bright,Fill alpha,Stroke hue,Stroke sat,Stroke bright,Stroke alpha,Thickness,Size X,Size Y,Size Z,Speed X,Canvas X,Canvas Y,Canvas Z,Speed X,Quantity,Spectrum,Life" ;
+
     hue_fill_is = true;
     sat_fill_is = true;
     bright_fill_is = true;

@@ -1,7 +1,7 @@
 /**
 HONEYCOMB
 2011-2018
-v 0.1.2
+v 0.1.3
 */
 ArrayList <Hexagon> grid = new ArrayList <Hexagon> (); // the arrayList to store the whole grid of cells
 
@@ -12,10 +12,11 @@ class Honeycomb extends Romanesco {
     ID_item = 20 ;
     ID_group = 1 ;
     item_author  = "Amnon Owed";
-    item_version = "Version 0.1.2";
-    item_pack = "Base" ;
+    item_version = "Version 0.1.3";
+    item_pack = "Base 2011" ;
+    item_costume = "" ;
     item_mode = "" ;
-    // item_slider = "Fill hue,Fill sat,Fill bright,Fill alpha,Thickness,Size X,Canvas X,Canvas Y" ;
+
     hue_fill_is = true;
     sat_fill_is = true;
     bright_fill_is = true;
@@ -161,7 +162,7 @@ class Honeycomb extends Romanesco {
     
     
     // INFO
-    objectInfo[ID_item] = (grid.size() + " hexagons") ;
+    item_info[ID_item] = (grid.size() + " hexagons") ;
   }
   
   

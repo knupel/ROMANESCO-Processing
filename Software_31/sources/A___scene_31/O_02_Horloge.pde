@@ -1,5 +1,7 @@
 /**
-HORLOGE || 2012 || 2.0.4
+HORLOGE
+2012-2018
+v 2.0.6
 */
 
 class Horloge extends Romanesco {
@@ -9,11 +11,11 @@ class Horloge extends Romanesco {
     ID_item = 2 ;
     ID_group = 1 ;
     item_author  = "Stan Le Punk";
-    item_version = "Version 2.0.4";
-    item_pack = "Base" ;
-    romanescoRender = "classic" ;
-    item_mode = "Ellipse Clock 12/Ellipse Clock 24/Line Clock 12/Line Clock 24/minutes/secondes" ;// separate the name by a slash and write the next mode immadialtly after this one.
-    //item_slider = "Fill hue,Fill sat,Fill bright,Fill alpha,Angle,Speed X,Speed Y,Speed Z,Font size,Area,Canvas X,Canvas Y,Canvas Z" ;
+    item_version = "Version 2.0.6";
+    item_pack = "Base 2012" ;
+    item_mode = "Ellipse Clock 12/Ellipse Clock 24/Line Clock 12/Line Clock 24/minutes/secondes";// separate the name by a slash and write the next mode immadialtly after this one.
+    item_costume = "";
+
     hue_fill_is = true;
     sat_fill_is = true;
     bright_fill_is = true;

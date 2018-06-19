@@ -1,7 +1,7 @@
 /**
 Movisco 
 2016-2018
-v 0.0.6
+v 0.0.7
 */
 
 class Movisco extends Romanesco {
@@ -10,10 +10,11 @@ class Movisco extends Romanesco {
 		ID_item = 24 ;
 		ID_group = 1 ;
 		item_author  = "Stan le Punk";
-		item_version = "Version 0.0.6";
-		item_pack = "Base" ;
+		item_version = "Version 0.0.7";
+		item_pack = "Base 2016" ;
+		item_costume = "" ; // separate the differentes mode by "/"
 		item_mode = "Classic mono/Classic Poly/Mono/Poly" ; // separate the differentes mode by "/"
-		// item_slider = "Fill hue,Fill sat,Fill bright,Fill alpha,Quantity,Quality,Area,Size X" ;
+
 		hue_fill_is = true;
     sat_fill_is = true;
     bright_fill_is = true;

@@ -1,5 +1,7 @@
 /**
-GALAXIE – 2012-2018 – 1.4.2
+GALAXIE
+2012-2018
+V 1.4.4
 */
 
 class Galaxie extends Romanesco {
@@ -16,10 +18,11 @@ class Galaxie extends Romanesco {
     ID_item = 19 ;
     ID_group = 1 ;
     item_author  = "Stan le Punk";
-    item_version = "Version 1.4.2";
-    item_pack = "Base" ;
+    item_version = "Version 1.4.3";
+    item_pack = "Base 2012" ;
     // item_mode ="Point/Ellipse/Rectangle/Box" ;
-    item_mode = "Point/Ellipse/Triangle/Rectangle/Cross/Star 5/Star 7/Super Star 8/Super Star 12" ;
+    item_costume = "Point/Ellipse/Triangle/Rectangle/Cross/Star 5/Star 7/Super Star 8/Super Star 12" ;
+    item_mode = "" ;
     ELLIPSE_M = 0 ;
     TRIANGLE_M = 1 ;
     RECT_M = 2 ;
@@ -128,10 +131,16 @@ class Galaxie extends Romanesco {
       max = 150 ;
     }
     float quantity = map(quantity_item[ID_item],0,1,min,max) ;
-    if (mode[ID_item] == 0 ) numFromController = int(quantity *10) ; else numFromController = int(quantity) ;
+    if (get_costume() == POINT_ROPE) {
+      numFromController = int(quantity *10); 
+    } else {
+      numFromController = int(quantity);
+    }
     
 
-    if ((numGrains != numFromController && parameterButton[ID_item] == 1) || reset(ID_item) ) makeSand = true ;
+    if ((numGrains != numFromController && parameterButton[ID_item] == 1) || reset(ID_item) ) {
+      makeSand = true;
+    }
     
     if (makeSand) {
       numGrains = numFromController ;
@@ -199,16 +208,15 @@ class Galaxie extends Romanesco {
     
     //////////////
     //DISPLAY MODE
-    // int which_costume = which_costume(mode[ID_item]) ;
-    select_costume(ID_item, item_name) ;
-    aspect_rope(fill_item[ID_item], stroke_item[ID_item], thickness_item[ID_item], costume[ID_item]) ;
+    // select_costume();
+    aspect_rope(fill_item[ID_item], stroke_item[ID_item], thickness_item[ID_item], get_costume()) ;
     show(size, thickness, costume[ID_item]) ;
     
    
     
     
     // INFO DISPLAY
-    objectInfo[ID_item] =("Quantity " +numGrains + " - Canvas " + (int)surface.x + "x" + (int)surface.y + " - Center Galaxy " + int(posCenterGrain.x +marge.x) + "x" + int(posCenterGrain.y +marge.y) + " - speed" +int(speedDust *200.)) ;
+    item_info[ID_item] =("Quantity " +numGrains + " - Canvas " + (int)surface.x + "x" + (int)surface.y + " - Center Galaxy " + int(posCenterGrain.x +marge.x) + "x" + int(posCenterGrain.y +marge.y) + " - speed" +int(speedDust *200.)) ;
     if (item_info_display[ID_item]) {
       strokeWeight(1) ;
       stroke(blanc) ;

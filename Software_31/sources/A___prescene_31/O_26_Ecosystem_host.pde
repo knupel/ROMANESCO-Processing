@@ -1,7 +1,7 @@
 /**
 Ecosysteme Host 
 2016-2018
-V 0.1.3
+V 0.1.4
 */
 class Ecosystem_DNA extends Romanesco {
 	public Ecosystem_DNA() {
@@ -9,10 +9,11 @@ class Ecosystem_DNA extends Romanesco {
 		ID_item = 26 ;
 		ID_group = 1 ;
 		item_author  = "Stan le Punk";
-		item_version = "Version 0.1.3";
-		item_pack = "Ecosystem" ;
-		item_mode = "Point/Ellipse/Triangle/Rect/Cross/ABC" ; // separate the differentes mode by "/"
-		//item_slider = "Fill hue,Fill sat,Fill bright,Fill alpha,Stroke hue,Stroke sat,Stroke bright,Stroke alpha,Thickness,Size X,Size Y,Size Z,Canvas X,Canvas Y,Canvas Z,Speed X,Direction X,Quantity,Density,Spectrum" ;
+		item_version = "Version 0.1.4";
+		item_pack = "Ecosystem 2016" ;
+    item_costume = "Point/Ellipse/Triangle/Rect/Cross/ABC" ;
+		item_mode = "" ; // separate the differentes mode by "/"
+
 	  hue_fill_is = true;
     sat_fill_is = true;
     bright_fill_is = true;
@@ -113,13 +114,11 @@ class Ecosystem_DNA extends Romanesco {
     
     boolean_host(fill_is[ID_item], stroke_is[ID_item], wire[ID_item]) ;
 
-    if(costume[ID_item] == TEXT_ROPE ) textFont(font_item[ID_item]) ;
-
-    select_costume(ID_item, item_name) ;
+    if(get_costume() == TEXT_ROPE ) textFont(font_item[ID_item]) ;
 
     float direction = map(dir_x_item[ID_item],0,360, -PI, PI) ;
 
-    show_host(size, canvas, radius, direction, speed_rotation_host, direction_host, costume[ID_item], fill_item[ID_item], stroke_item[ID_item], thickness_item[ID_item], spectrum_item[ID_item], motion_bool_host, info_agent) ;
+    show_host(size, canvas, radius, direction, speed_rotation_host, direction_host, get_costume(), fill_item[ID_item], stroke_item[ID_item], thickness_item[ID_item], spectrum_item[ID_item], motion_bool_host, info_agent) ;
 		
 	}
 

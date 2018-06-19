@@ -13,9 +13,10 @@ class BaliseRomanesco extends Romanesco {
     ID_group = 1 ;
     item_author  = "Stan le Punk";
     item_version = "Version 1.3.3";
-    item_pack = "Base" ;
+    item_pack = "Base 2011" ; 
+    item_costume = "Point/Ellipse/Triangle/Rectangle/Pentagon/Cross/Star 5/Star 7/Super Star 8/Super Star 12" ;
     // item_mode = "Disc/Rectangle/Box/Box Snake" ;
-    item_mode = "Point/Ellipse/Triangle/Rectangle/Cross/Star 5/Star 7/Super Star 8/Super Star 12" ;
+    item_mode = "" ;
 
     // item_slider = "Fill hue,Fill sat,Fill bright,Fill alpha,Stroke hue,Stroke sat,Stroke bright,Stroke alpha,Thickness,Size X,Size Y,Size Z,Quantity,Speed X,Canvas X,Repulsion" ;
     hue_fill_is = true;
@@ -108,7 +109,7 @@ class BaliseRomanesco extends Romanesco {
 
 
     // costume
-    select_costume(ID_item, item_name) ;
+    // select_costume();
     // aspect
     //aspect_rope(fill_item[ID_item], stroke_item[ID_item], thickness_item[ID_item], costume[ID_item]) ;
 
@@ -130,7 +131,7 @@ class BaliseRomanesco extends Romanesco {
     }
 
     // aspect
-    aspect_rope(fill_item[ID_item], stroke_item[ID_item], thickness_item[ID_item], costume[ID_item]);
+    aspect_rope(fill_item[ID_item], stroke_item[ID_item], thickness_item[ID_item], get_costume());
 
     
     
@@ -165,7 +166,7 @@ class BaliseRomanesco extends Romanesco {
     balise.display(amp, left_right_sound, size, factor, int(radiusBalise), authorization, costume[ID_item], snake_mode) ;
     
     
-    objectInfo[ID_item] = ("Size "+(int)size.x + " / " + (int)size.y + " / " + (int)size.z  + " Radius " + int(radiusBalise) ) ;
+    item_info[ID_item] = ("Size "+(int)size.x + " / " + (int)size.y + " / " + (int)size.z  + " Radius " + int(radiusBalise) ) ;
   }
 }
 

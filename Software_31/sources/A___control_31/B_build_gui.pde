@@ -232,14 +232,13 @@ void build_console_camera() {
 
 void build_console_item() {
   // dropdown
-  num_dd_item = NUM_ITEM +1; // add one for the dropdownmenu
+  num_dd_item = NUM_ITEM +1; // add one for the dropdownmenu, because the item `0` is not used
   list_item_costume = new String[num_dd_item];
   dd_item_costume = new Dropdown[num_dd_item];
-  pos_dd_item = new iVec2[num_dd_item];
 
-  for(int i = 0 ; i < num_dd_item ; i++) {
-    pos_dd_item[i] = iVec2();
-  }
+  list_item_mode = new String[num_dd_item];
+  dd_item_mode = new Dropdown[num_dd_item];
+
   // slider
   for (int i = 0 ; i < NUM_SLIDER_ITEM ; i++) {
     iVec2 temp_size_mol = iVec2(round(size_slider_item[i].y *ratio_size_molette), round(size_slider_item[i].y *ratio_size_molette));
@@ -432,40 +431,41 @@ void build_dropdown_bar() {
 }
 
 void build_dropdown_item_selected() {
+  build_local_dd_item(dd_item_costume,inventory_item_table, list_item_costume, "C","Costume", 0);
+  build_local_dd_item(dd_item_mode,inventory_item_table, list_item_mode, "M","Mode", 12);
+}
+
+void build_local_dd_item(Dropdown [] dd, Table inventory_table, String [] list_global, String title, String type, int offset_y) {
   //load the external list  for each mode and costume and split to read in the interface
-  for (int i = 0 ; i<inventory_item_table.getRowCount() ; i++) {
-    TableRow row = inventory_item_table.getRow(i);
-    list_item_costume[row.getInt("ID")] = row.getString("Mode"); 
+  for (int i = 0 ; i<inventory_table.getRowCount() ; i++) {
+    TableRow row = inventory_table.getRow(i);
+    list_global[row.getInt("ID")] = row.getString(type); 
   }
   //common param
-  iVec2 size_dd_item_costume = iVec2(20,15);
-  iVec2 posTextDropdown = iVec2(2,8);
-  int x = offset_y_item + -8;
-  int y = height_item_selected +local_pos_y_dropdown_item_selected;
+  iVec2 size_header = iVec2(30,15);
+  iVec2 pos_text_header = iVec2(6,8);
+  int x = offset_x_item;
+  int y = height_item_selected +local_pos_y_dropdown_item_selected + offset_y;
   // group item
   for (int i = 0 ; i <= NUM_ITEM ; i++ ) {
-    if(list_item_costume[i] != null) {
+    if(list_global[i] != null) {
       //Split the dropdown to display in the dropdown
-      String [] item_dd_list_costume = split(list_item_costume[i], "/" ) ;
+      String [] list_detail = split(list_global[i],"/");
       //to change the title of the header dropdown
-      pos_dd_item[i].set(x,y); 
-      dd_item_costume[i] = new Dropdown(pos_dd_item[i], size_dd_item_costume,"C",item_dd_list_costume);
-      dd_item_costume[i].set_colour(dropdown_color_item);
-      dd_item_costume[i].set_header_text_pos(posTextDropdown);
-      dd_item_costume[i].wheel(true);
-      dd_item_costume[i].set_box_text_pos(posTextDropdown);
-      dd_item_costume[i].set_box(7);
-      dd_item_costume[i].set_box_height(height_box_dropdown);
-      dd_item_costume[i].set_font(title_medium);
-      dd_item_costume[i].set_box_font(textUsual_1);
+      dd[i] = new Dropdown(iVec2(x,y), size_header,title,list_detail);
+      dd[i].set_colour(dropdown_color_item);
+      dd[i].set_header_text_pos(pos_text_header);
+      dd[i].wheel(true);
+      dd[i].set_box_text_pos(pos_text_header);
+      dd[i].set_box(7);
+      dd[i].set_box_height(height_box_dropdown);
+      dd[i].set_font(title_medium);
+      dd[i].set_box_font(textUsual_1);
     }
   }
-  add_dropdown(dd_item_costume);
+  add_dropdown(dd);
 }
 
-void build_dd_item_costume() {
-
-}
 
 
 

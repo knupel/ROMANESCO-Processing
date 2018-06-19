@@ -134,33 +134,33 @@ void build_button_item_console() {
 
 // LOCAL METHOD SETUP
 void set_button_item_console() {
-  PVector posRelativeMainButton = new PVector (-8, -10) ;
-  PVector posRelativeSettingButton = new PVector (-8,14) ;
-  PVector posRelativeSoundButton = new PVector (-8,25) ;
-  PVector posRelativeActionButton = new PVector (4,25) ;
+  iVec2 pos_main_button = iVec2(7, -10) ;
+  iVec2 pos_param_button = iVec2(7,14) ;
+  iVec2 pos_sound_button = iVec2(7,25) ;
+  iVec2 pos_action_button = iVec2(19,25) ;
 
-  int pos_y = pos_y_item_selected +local_pos_y_button_item_selected ;
+  int pos_y = pos_y_item_selected +local_pos_y_button_item_selected;
   //position and area for the rollover
   int num = BUTTON_ITEM_CONSOLE;
   for (int i = 1 ; i <= NUM_ITEM ; i++) {
     //main
-    pos_button_width_item[i*num+0] = offset_y_item +(int)posRelativeMainButton.x ; 
-    pos_button_height_item[i*num+0] = pos_y +(int)posRelativeMainButton.y ; 
+    pos_button_width_item[i*num+0] = offset_x_item +pos_main_button.x; 
+    pos_button_height_item[i*num+0] = pos_y +pos_main_button.y; 
     width_button_item[i*num+0] = 20 ; 
     height_button_item[i*num+0] = 20 ;  
     //setting
-    pos_button_width_item[i*num+1] = offset_y_item +(int)posRelativeSettingButton.x ; 
-    pos_button_height_item[i*num+1] = pos_y +(int)posRelativeSettingButton.y  ; 
+    pos_button_width_item[i*num+1] = offset_x_item +pos_param_button.x; 
+    pos_button_height_item[i*num+1] = pos_y +pos_param_button.y; 
     width_button_item[i*num+1] = 19 ; 
     height_button_item[i*num+1] = 6 ; 
     //sound
-    pos_button_width_item[i*num+2] = offset_y_item +(int)posRelativeSoundButton.x ; 
-    pos_button_height_item[i*num+2] = pos_y +(int)posRelativeSoundButton.y ; 
+    pos_button_width_item[i*num+2] = offset_x_item +pos_sound_button.x; 
+    pos_button_height_item[i*num+2] = pos_y +pos_sound_button.y; 
     width_button_item[i*num+2] = 10 ; 
     height_button_item[i*num+2] = 6 ; 
     //action
-    pos_button_width_item[i*num+3] = offset_y_item +(int)posRelativeActionButton.x ; 
-    pos_button_height_item[i*num+3] = pos_y +(int)posRelativeActionButton.y ; 
+    pos_button_width_item[i*num+3] = offset_x_item +pos_action_button.x; 
+    pos_button_height_item[i*num+3] = pos_y +pos_action_button.y; 
     width_button_item[i*num+3] = 10 ; 
     height_button_item[i*num+3] = 6 ; 
   }

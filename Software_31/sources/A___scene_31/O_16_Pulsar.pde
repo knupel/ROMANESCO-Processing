@@ -15,6 +15,7 @@ class Pulsar extends Romanesco {
     item_author  = "Stan le Punk";
     item_version = "version 0.0.1";
     item_pack = "Base 2018";
+    item_costume = "point/ellipse/triangle/rect/pentagon/star";
     item_mode = "nothing/cyclus/heart/ring cyclus/ring heart/helmet cyclus/helmet heart" ;
     // item_slider = "Fill hue,Fill sat,Fill bright,Fill alpha,Thickness,Size X,Size Y,Canvas X,Canvas Y,Quantity,Reactivity,Angle,Life,Spurt X,Flow,Direction X,Direction Y" ;
     hue_fill_is = true;
@@ -139,8 +140,13 @@ class Pulsar extends Romanesco {
     
     pulsar.pos(pos);
     pulsar.update();
-
-    pulsar.costume(PENTAGON_ROPE);
+    /*
+    printTempo(30,"costume brute",costume_controller_selection[ID_item]);
+    printTempo(30,"costume:",costume[ID_item]);
+    */
+    // select_costume(ID_item, item_name);
+    //select_costume();
+    pulsar.costume(get_costume());
     pulsar.show();
   }
 

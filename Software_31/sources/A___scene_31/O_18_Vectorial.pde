@@ -1,5 +1,7 @@
 /**
-VECTORIAL || 2015 || 0.0.3
+VECTORIAL
+2015-2018
+v 0.0.4
 */
 
 class Vectorial extends Romanesco {
@@ -9,10 +11,11 @@ class Vectorial extends Romanesco {
     ID_item = 18 ;
     ID_group = 1 ;
     item_author  = "Stan le Punk";
-    item_version = "Version 0.0.3";
-    item_pack = "Base 2016" ;
+    item_version = "Version 0.0.4";
+    item_pack = "Base 2015" ;
+    item_costume = "" ;
     item_mode = "Classic original/Classic custom/Walker original/Walker custom" ; // separate the differentes mode by "/"
-    // item_slider = "Fill hue,Fill sat,Fill bright,Fill alpha,Stroke hue,Stroke sat,Stroke bright,Stroke alpha,Thickness,Jitter X,Jitter Y,Jitter Z,Canvas X,Canvas Y,Swing X,Swing Y,Swing Z" ;
+
     hue_fill_is = true;
     sat_fill_is = true;
     bright_fill_is = true;
