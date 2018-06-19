@@ -1,6 +1,6 @@
 /**
 ROPE VECTOR
-v 2.7.0
+v 2.8.0
 * Copyleft (c) 2014-2018 
 * Stan le Punk > http://stanlepunk.xyz/
 Rope – Romanesco Processing Environment: 2015–2018
@@ -1323,8 +1323,8 @@ class iVec6 extends iVec {
 
 /**
 Vec class
-v 1.15.0
-2015-2017
+v 1.16.0
+2015-2018
 Vector with a float precision
 
 */
@@ -1687,6 +1687,22 @@ public class Vec2 extends Vec {
   }
   public float dot(float x, float y) {
     return this.x*x + this.y*y;
+  }
+
+
+
+  /**
+  POW
+  */
+  public Vec2 pow(int n) {
+    this.pow(n,n);
+    return this;
+  }
+  public Vec2 pow(int nx, int ny) {
+    x = (float)Math.pow(x,nx);
+    y = (float)Math.pow(y,ny);
+    set(x,y);
+    return this;
   }
 
   
@@ -2395,9 +2411,28 @@ class Vec3 extends Vec {
     return this.x*x + this.y*y + this.z*z;
   }
 
+
+
+
+  /**
+  POW
+  */
+  public Vec3 pow(int n) {
+    this.pow(n,n,n);
+    return this;
+  }
+  public Vec3 pow(int nx, int ny, int nz) {
+    x = (float)Math.pow(x,nx);
+    y = (float)Math.pow(y,ny);
+    z = (float)Math.pow(z,nz);
+    set(x,y,z);
+    return this;
+  }
+
+
+
   /**
   Cross
-  v 0.0.2
   */
   Vec3 cross(Vec3 v) {
     if(v != null) {
@@ -3136,6 +3171,26 @@ class Vec4 extends Vec {
   }
   public float dot(float x, float y, float z, float w) {
     return this.x*x + this.y*y + this.z*z + this.w*w;
+  }
+
+
+
+
+
+  /**
+  POW
+  */
+  public Vec4 pow(int n) {
+    this.pow(n,n,n,n);
+    return this;
+  }
+  public Vec4 pow(int nx, int ny, int nz, int nw) {
+    x = (float)Math.pow(x,nx);
+    y = (float)Math.pow(y,ny);
+    z = (float)Math.pow(z,nz);
+    w = (float)Math.pow(w,nw);
+    set(x,y,z,w);
+    return this;
   }
 
 

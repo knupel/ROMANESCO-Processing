@@ -13,11 +13,12 @@ V 1.2.0
 2017 March 11_100 lines of code
 2018 June 5_000 lines of code without CROPE and ROPE internal library who have around 18_000 lines
 */
-String IAM = "Controller";
+String IAM = "controller";
 /**
 LIVE must change from the launcher, the info must be write in the external loading preference app
 */
-boolean LIVE = false;
+boolean LIVE = true;
+boolean MIROIR = false;
 boolean KEEP_BUTTON_ITEM_STATE = true;
 
 

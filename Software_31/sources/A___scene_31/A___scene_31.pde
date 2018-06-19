@@ -1,14 +1,14 @@
 /**
 Romanesco Unu
-2012 – 2018
+2012–2018
 version 31
 Processing 3.3.7
 4th may 2015 14.750 lines of code 
 */
 String IAM = ("Scene") ;
 // security must be link with the controler in the next release
-boolean USE_SOUND = false; 
-boolean DEVELOPMENT_MODE = true;
+boolean USE_SOUND = true; 
+boolean DEVELOPMENT_MODE = false;
 boolean OPEN_APP = true ;
 boolean TEST_FULL_SCREEN = false ;
 

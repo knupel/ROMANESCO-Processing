@@ -29,7 +29,7 @@ NetAddress [] scene_net_addresses_item;
 void set_OSC() {
   int num_address = 1 ;
   String [] address = loadStrings(preference_path+"network/IP_address_mirror.txt") ;
-  String [] temp = split(address[0],"/") ;
+  String [] temp = split(address[0],"/");
   
 
   int num_valid_address = 0 ;
@@ -37,7 +37,7 @@ void set_OSC() {
     if(temp[i].equals("IP_address") || temp[i].equals("")) {
       // nothing happen
     } else {
-      num_valid_address ++ ;
+      num_valid_address ++;
     }   
   }  
 
@@ -49,10 +49,10 @@ void set_OSC() {
     ID_address_scene[i] = temp[i+1] ;
   }  
 
-  osc_prescene_general = new OscP5(this, port_prescene_general);
-  osc_prescene_item = new OscP5(this, port_prescene_item);
-  osc_scene_general = new OscP5(this, port_scene_general);
-  osc_scene_item = new OscP5(this, port_scene_item);
+  osc_prescene_general = new OscP5(this,port_prescene_general);
+  osc_prescene_item = new OscP5(this,port_prescene_item);
+  osc_scene_general = new OscP5(this,port_scene_general);
+  osc_scene_item = new OscP5(this,port_scene_item);
 
   set_ip_address() ;
 }
@@ -165,18 +165,29 @@ void message_item_osc(OscMessage m) {
   }
 }
 
-
-
-
-void send_OSC(OscP5 osc_prescene, OscP5 osc_scene, NetAddress ad_prescene, NetAddress [] ad_scene,  OscMessage m) {
-  osc_prescene.send(m,ad_prescene);
-  //println("controller", m.arguments().length);
+void send_OSC(OscP5 osc_prescene, OscP5 osc_scene, NetAddress ad_prescene, NetAddress [] ad_scene, OscMessage m) {
   if(LIVE) {
-    for(int i = 0 ; i < ad_scene.length ; i++) {
-      osc_scene.send(m, ad_scene[i]) ; 
+    if(MIROIR) {
+      for(int i = 0 ; i < ad_scene.length ; i++) {
+        osc_scene.send(m, ad_scene[i]); 
+      }
+    } else if(!MIROIR) {
+      println("void send OSC(): scene",ad_scene[0],frameCount);
+      osc_scene.send(m, ad_scene[0]);
     }
+    println("void send OSC(): prescene",ad_prescene,frameCount);  
+    osc_prescene.send(m,ad_prescene);
+  } else if(!LIVE) {
+    osc_prescene.send(m,ad_prescene);
   }
 }
+
+
+
+
+
+
+
 
 
 

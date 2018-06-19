@@ -15,16 +15,17 @@ Use false when you want:
 used sound & maximum possibility of the object
 */
 boolean USE_SOUND = true; 
-boolean DEVELOPMENT_MODE = true;
+boolean DEVELOPMENT_MODE = false;
+boolean MIROIR = false;
 
-boolean FULL_RENDERING = true;
+boolean FULL_RENDERING = false;
 
 boolean FULL_SCREEN = false;
 boolean TABLET = false; // now tablet library don't work in OPENGL renderer
 /**
 LIVE must change from the launcher, the info must be write in the external loading preference app
 */
-boolean LIVE = false;
+boolean LIVE = true;
 
 
 
@@ -105,9 +106,13 @@ void romanesco() {
   // video_camera() ;
   // camera_video_draw() ;
   if(USE_SOUND) sound_draw();
-
+  // OSC part
+  if(LIVE) {
+    if(mousePressed || keyPressed) {
+      send_message(true);
+    }
+  }
   write_osc_event();
-
   join_osc_data();
 
   update_raw_value();
@@ -150,7 +155,12 @@ void romanesco() {
   device_update();
 
   // change to false if the information has be sent to Scene...but how ????
-  if(LIVE) OSC_send();
+  if(LIVE) {
+    if(send_message_is()) {
+      OSC_send();
+      send_message(false);
+    }
+  }
   key_false();
 }
 
@@ -167,6 +177,7 @@ void romanesco() {
 
 
 void keyPressed () {
+  if(LIVE) send_message(true);
   shortCutsPrescene();
   nextPreviousKeypressed();
   key_true();
@@ -174,6 +185,7 @@ void keyPressed () {
 
 
 void keyReleased() {
+  if(LIVE) send_message(true);
   key_long_false();
   keyboard[keyCode] = false;
 }
@@ -193,6 +205,7 @@ void keyReleased() {
 
 
 void mousePressed() {
+  if(LIVE) send_message(true);
   if(mouseButton == LEFT ) {
     clickShortLeft[0] = true;
     clickLongLeft[0] = true;
@@ -204,19 +217,23 @@ void mousePressed() {
 }
 
 void mouseReleased() {
+  if(LIVE) send_message(true);
   clickLongLeft[0] = false ;
   clickLongRight[0] = false ;
 }
 
 // Mouse in or out of the sketch
 public void mouseEntered(MouseEvent e) {
+  if(LIVE) send_message(true);
   MOUSE_IN_OUT = true ;
 }
 
 public void mouseExited(MouseEvent e) {
+  if(LIVE) send_message(true);
   MOUSE_IN_OUT = false ;
 }
 
 void mouseWheel(MouseEvent e) {
+  if(LIVE) send_message(true);
   wheel[0] = e.getCount() *speedWheel;
 }

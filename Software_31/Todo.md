@@ -18,6 +18,15 @@ Letter
 */
 
 
+*OSC
+
+bug with keyboard event between prescene and scene
+
+*OSC
+
+bug when the prescene and scene is active the prescene receive nothing
+
+
 *SCENE
 
 les variables ne sont plus bonnes !!!
@@ -50,7 +59,9 @@ Create a function to switch between these 2 mode
 
 Start filter in Scene
 
+*Save Scene
 
+Finalize save Scene when all slider are done
 
 
 

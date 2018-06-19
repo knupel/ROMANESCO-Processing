@@ -13,12 +13,13 @@ void OSC_receive_prescene_setup() {
   int port_receive_prescene = 9_100 ;
 
   osc_receive_prescene = new OscP5(this, port_receive_prescene);
-
+/*
   try { 
     Thread.sleep(6000); 
   } 
   catch (InterruptedException e) { 
   }
+  */
   println("OSC setup done") ;
 }
 
@@ -28,6 +29,7 @@ OSC receive
 */
 int security_to_dont_duplicate_osc_packet ;
 void oscEvent(OscMessage receive) {
+ println(receive.addrPattern(),frameCount);
  if(security_to_dont_duplicate_osc_packet != frameCount) {
     controller_reception(receive) ;
     prescene_reception(receive) ; 

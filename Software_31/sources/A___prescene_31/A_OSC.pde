@@ -3,7 +3,7 @@ OSC Prescene
 2014 - 2018
 v 1.3.0
 */
-NetAddress [] target_scene ;
+NetAddress [] ad_scene ;
 String [] ID_address_scene ;
 String toScene = ("Message from Prescene to Scene") ;
 OscP5 osc_send_scene;
@@ -44,15 +44,15 @@ void OSC_thread_send_scene_setup() {
     }
     if (youCanSendToScene) {
       ID_address_scene = new String[num_valid_address] ;
-      target_scene = new NetAddress[num_valid_address] ;
+      ad_scene = new NetAddress[num_valid_address] ;
     }
     
     for(int i = 0 ; i < num_valid_address ; i++) {
       ID_address_scene[i] = temp[i+1] ;
     }
 
-    for(int i = 0 ; i < target_scene.length ; i++) {
-      target_scene[i] = new NetAddress(ID_address_scene[i], port_send_scene);
+    for(int i = 0 ; i < ad_scene.length ; i++) {
+      ad_scene[i] = new NetAddress(ID_address_scene[i], port_send_scene);
     }
   }
 
@@ -64,7 +64,19 @@ void OSC_thread_send_scene_setup() {
 }
 
 
+boolean send_message_is ;
+boolean send_message_is() {
+  return send_message_is;
+}
+
+void send_message(boolean send_message_is) {
+  this.send_message_is = send_message_is;
+}
+
+
+
 void oscEvent(OscMessage receive) {
+  println("void oscEvent(OscMessage receive):",receive.addrPattern(),frameCount);
   if(receive.addrPattern().equals("Controller general")) {
     thread_data_controller_general(receive);
   }
@@ -101,13 +113,18 @@ void OSC_send() {
 
   //send
  // if(target_scene);
-  if(target_scene == null) {
-    printErr("Prescene app exit because the global variable 'TEST_ROMANESCO' must be false");
+  if(ad_scene == null) {
+    printErr("Prescene app exit because the global variable 'DEVELOPMENT_MODE' must be false");
     exit();
   } else {
-    for(int i = 0 ; i < target_scene.length ; i++) {
-      osc_send_scene.send(RomanescoScene, target_scene[i]);
-    } 
+    if(MIROIR) {
+      for(int i = 0 ; i < ad_scene.length ; i++) {
+        println("void OSC_send():",ad_scene[i]);
+        osc_send_scene.send(RomanescoScene, ad_scene[i]);
+      } 
+    } else if(!MIROIR) {
+      osc_send_scene.send(RomanescoScene, ad_scene[0]);
+    }  
   }
 }
 
@@ -149,8 +166,8 @@ void bool_load_save_scene() {
   }
 
   String load_string = String.valueOf(load) ;
-  String  saveCurrent_string = String.valueOf(save_current) ;
-  String  saveNew_string = String.valueOf(save_new) ;
+  String saveCurrent_string = String.valueOf(save_current) ;
+  String saveNew_string = String.valueOf(save_new) ;
 
   // we change to false boolean load and data to false each 1 second to have a time to load and save
   if(frameCount%60 == 0) { 
@@ -180,7 +197,6 @@ OSC write
 v 1.0.1
 */
 void write_osc_event() {
-  //data_osc_prescene [0] = ("");
   if (key_a) data_osc_prescene [1] = ("1"); else data_osc_prescene [1] = ("0");
   if (key_b) data_osc_prescene [2] = ("1"); else data_osc_prescene [2] = ("0");
   if (key_c) data_osc_prescene [3] = ("1"); else data_osc_prescene [3] = ("0");

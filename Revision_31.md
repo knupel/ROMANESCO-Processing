@@ -15,11 +15,13 @@ MAJOR
 >add button to switch between setting camera and sound
 >add system to set tempo and beat threshold
 >add slider background shader
+>add new dropdown item menu to select costume
 
 
 MINOR
 --
 >improve OSC architecture
+>improve OSC dialogue between controller > prescene > scene > miroir
 >common external file to name and use slider item
 >change colour background interface
 >remove separation between sound gui and general top gui
