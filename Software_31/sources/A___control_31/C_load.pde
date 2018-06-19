@@ -44,7 +44,6 @@ String [] shader_bg_name, shader_bg_author;
 
 int button_general_num;
 
-int lastDropdown;
 int [] value_button_general; 
 
 
@@ -52,7 +51,7 @@ int [] value_button_general;
 // statement on_off for the item group
 int button_item_num;
 boolean [] item_button_state;
-int num_dropdown_item;
+int num_dd_item;
 int [] value_button_item;
 int [] pos_button_width_item, pos_button_height_item, width_button_item, height_button_item ;
 

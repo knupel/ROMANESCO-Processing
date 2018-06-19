@@ -220,25 +220,25 @@ void update_dropdown_bar_content() {
 void update_dropdown_item() {
   int pointer = 0 ;
   for (int i = 1 ; i <= NUM_ITEM ; i++) {
-    if(mode_list_RPE[i] != null && inventory[i].is()) {
+    if(list_item_costume[i] != null && inventory[i].is()) {
       int distance = pointer *DIST_BETWEEN_ITEM;
       pointer++ ;
 
-      dropdown_item_mode[i].offset(distance, 0);
+      dd_item_costume[i].offset(distance, 0);
 
-      String m [] = split(mode_list_RPE[i],"/");
-      if ( m.length > 1) {
-        dropdown_item_mode[i].update(mouseX,mouseY);
-        dropdown_item_mode[i].show_header_text();
-        dropdown_item_mode[i].show_box();
+      String costume[] = split(list_item_costume[i],"/");
+      if (costume.length > 1) {
+        dd_item_costume[i].update(mouseX,mouseY);
+        dd_item_costume[i].show_header_text();
+        dd_item_costume[i].show_box();
       }
       // display which element is selected
-      if (dropdown_item_mode[i].get_selection() > -1 && m.length > 1) {
-        int x = dropdown_item_mode[i].get_pos().x +12;
-        int y = dropdown_item_mode[i].get_pos().y +8;
-        // dropdown_item_mode[i].show_selection(x,y);
-        textFont(dropdown_item_mode[i].get_font());      
-        text(dropdown_item_mode[i].get_selection() +1,x,y);   
+      if (dd_item_costume[i].get_selection() > -1 && costume.length > 1) {
+        int x = dd_item_costume[i].get_pos().x +12;
+        int y = dd_item_costume[i].get_pos().y +8;
+        // dd_item_costume[i].show_selection(x,y);
+        textFont(dd_item_costume[i].get_font());      
+        text(dd_item_costume[i].get_selection() +1,x,y);   
       }
     }
   }

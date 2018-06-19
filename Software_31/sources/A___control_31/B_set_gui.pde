@@ -646,8 +646,8 @@ PImage[] picSetting = new PImage[4];
 PImage[] picSound = new PImage[4];
 PImage[] picAction = new PImage[4];
 
-Dropdown dropdown_item_mode[];
-iVec2 pos_dropdown[];
+Dropdown dd_item_costume[];
+iVec2 pos_dd_item[];
 
 iVec2 size_window_ref;
 
@@ -829,8 +829,8 @@ int local_pos_y_slider_item_button;
 int height_item_button_console;
 int pos_y_item_selected;
 int height_item_selected;
-iVec2 size_dropdown_item_mode;
-String [] mode_list_RPE;
+
+String [] list_item_costume;
 int offset_y_item;
 int item_a_col,item_b_col,item_c_col;
 
@@ -875,7 +875,6 @@ DROPDOWN
 */
 // int SWITCH_VALUE_FOR_DROPDOWN = -2;
 int height_box_dropdown;
-iVec2 posTextDropdown = iVec2(2,8);
 // float marge_around_dropdown;
 
 

@@ -157,7 +157,7 @@ void message_item_osc(OscMessage m) {
   // add dropdown mode item
   for(int i = 0 ; i < NUM_ITEM ; i++) {
     int index = i +1;
-    add_data_item(m,dropdown_item_mode[index].get_selection());
+    add_data_item(m,dd_item_costume[index].get_selection());
   }
 }
 
