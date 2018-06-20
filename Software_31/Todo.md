@@ -10,10 +10,7 @@ Letter
 
 
 
-
-
-
-*IMPORTANT
+*MAJOR
 
 */
 
@@ -69,9 +66,15 @@ Finalize save Scene when all slider are done
 
 
 
-*JUST TO DO
+*MINOR
 
 */
+
+*dropdown item
+
+When we are on the first dropdwon and we select the first box, obviously the second who is just under opening just after closing the upper one...
+must be fix
+
 
 
 *shader cellular

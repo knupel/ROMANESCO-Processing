@@ -1694,13 +1694,13 @@ public class Vec2 extends Vec {
   /**
   POW
   */
-  public Vec2 pow(int n) {
-    this.pow(n,n);
+  public Vec2 pow(int pow) {
+    this.pow(pow,pow);
     return this;
   }
-  public Vec2 pow(int nx, int ny) {
-    x = (float)Math.pow(x,nx);
-    y = (float)Math.pow(y,ny);
+  public Vec2 pow(int pow_x, int pow_y) {
+    x = (float)Math.pow(x,pow_x);
+    y = (float)Math.pow(y,pow_y);
     set(x,y);
     return this;
   }
@@ -2417,14 +2417,14 @@ class Vec3 extends Vec {
   /**
   POW
   */
-  public Vec3 pow(int n) {
-    this.pow(n,n,n);
+  public Vec3 pow(int pow) {
+    this.pow(pow,pow,pow);
     return this;
   }
-  public Vec3 pow(int nx, int ny, int nz) {
-    x = (float)Math.pow(x,nx);
-    y = (float)Math.pow(y,ny);
-    z = (float)Math.pow(z,nz);
+  public Vec3 pow(int pow_x, int pow_y, int pow_z) {
+    x = (float)Math.pow(x,pow_x);
+    y = (float)Math.pow(y,pow_y);
+    z = (float)Math.pow(z,pow_z);
     set(x,y,z);
     return this;
   }
@@ -3180,15 +3180,15 @@ class Vec4 extends Vec {
   /**
   POW
   */
-  public Vec4 pow(int n) {
-    this.pow(n,n,n,n);
+  public Vec4 pow(int pow) {
+    this.pow(pow,pow,pow,pow);
     return this;
   }
-  public Vec4 pow(int nx, int ny, int nz, int nw) {
-    x = (float)Math.pow(x,nx);
-    y = (float)Math.pow(y,ny);
-    z = (float)Math.pow(z,nz);
-    w = (float)Math.pow(w,nw);
+  public Vec4 pow(int pow_x, int pow_y, int pow_z, int pow_w) {
+    x = (float)Math.pow(x,pow_x);
+    y = (float)Math.pow(y,pow_y);
+    z = (float)Math.pow(z,pow_z);
+    w = (float)Math.pow(w,pow_w);
     set(x,y,z,w);
     return this;
   }

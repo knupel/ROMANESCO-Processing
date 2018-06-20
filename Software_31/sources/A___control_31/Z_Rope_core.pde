@@ -61,84 +61,13 @@ public class ROPE implements Rope_Constants {
 
 
 
-/**
-COLOUR LIST class
-v 0.0.2
-*/
-public class ROPE_colour implements Rope_Constants {
-	int [] c ;
-	public ROPE_colour(int... c) {
-		this.c = new int[c.length];
-		for(int i = 0; i < c.length ; i++) {
-			this.c[i] = c[i];
-		}
-	}
 
-	public int[] get_colour() {
-		return c;
-	}
-
-	float[] get_hue() {
-		float[] component = new float[c.length];
-		for(int i = 0 ; i < c.length ; i++) {
-			component[i] = hue(c[i]);
-		}
-		return component;
-	}
-
-	public float[] get_saturation() {
-		float[] component = new float[c.length];
-		for(int i = 0 ; i < c.length ; i++) {
-			component[i] = saturation(c[i]);
-		}
-		return component;
-	}
-
-	public float[] get_brightness() {
-		float[] component = new float[c.length];
-		for(int i = 0 ; i < c.length ; i++) {
-			component[i] = brightness(c[i]);
-		}
-		return component;
-	}
-
-	public float[] get_red() {
-		float[] component = new float[c.length];
-		for(int i = 0 ; i < c.length ; i++) {
-			component[i] = red(c[i]);
-		}
-		return component;
-	}
-
-	public float[] get_green() {
-		float[] component = new float[c.length];
-		for(int i = 0 ; i < c.length ; i++) {
-			component[i] = green(c[i]);
-		}
-		return component;
-	}
-
-	public float[] get_blue() {
-		float[] component = new float[c.length];
-		for(int i = 0 ; i < c.length ; i++) {
-			component[i] = blue(c[i]);
-		}
-		return component;
-	}
-
-	public float[] get_alpha() {
-		float[] component = new float[c.length];
-		for(int i = 0 ; i < c.length ; i++) {
-			component[i] = blue(c[i]);
-		}
-		return component;
-	}
-}
 
 
 
 /**
 event
+v 0.0.2
 */
 Vec2 scroll_event;
 public void scroll(MouseEvent e) {
@@ -153,8 +82,8 @@ public void scroll(MouseEvent e) {
 
 public Vec2 get_scroll() {
 	if(scroll_event == null) {
-		printErrTempo(120,"method get_scroll(): put method scroll(MouseEvent e) in void mouseWheel(MouseEvent e) in the main sketch tab\bor maybe there has been yet no activty with your wheel");
-		return null;
+		scroll_event = Vec2();
+		return scroll_event;
 	} else {
 		return scroll_event;
 	}

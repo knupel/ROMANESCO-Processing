@@ -1,14 +1,12 @@
 /**
-display and design
-v 0.0.2
+update, display and design
+v 0.0.3
 2018-2018
 */
 
 /**
-display structure background
+STRUCTURE DISPLAY
 */
-
-
 int thickness_line_deco = 2 ;
 void display_structure() {
   noStroke();
@@ -115,10 +113,28 @@ void show_misc_text() {
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /**
-display dropdown
+DROPDOWN UPDATe and DISPLAY
 */
-// DRAW DROPDOWN
+/**
+display
+*/
 void show_dropdown() {
   update_dropdown_bar_content() ;
   
@@ -129,9 +145,6 @@ void show_dropdown() {
 
   update_dropdown(dropdown_bar);
   update_dropdown(dropdown_setting);
-
-
-
   // item
   update_dropdown_item() ;
   
@@ -142,6 +155,82 @@ void show_dropdown() {
   which_bitmap = dropdown_bar[4].get_selection();
   which_shape = dropdown_bar[5].get_selection();
   which_movie = dropdown_bar[6].get_selection();  
+}
+
+/**
+update
+*/
+void update_dropdown(Dropdown... dd) {
+  for(int i = 0 ; i < dd.length ; i++) {
+    dd[i].update(mouseX,mouseY);
+    dd[i].show_header_text();
+    dd[i].show_box();
+    dd[i].show_selection(dd[i].get_pos().x +3 , dd[i].get_pos().y +22);
+  }
+}
+
+void update_dropdown_bar_content() {
+  dropdown_content [0] = shader_bg_name;
+  dropdown_content [1] = filter_dropdown_list;
+  dropdown_content [2] = font_dropdown_list;
+  dropdown_content [3] = file_text_dropdown_list;
+  
+  dropdown_content [4] = bitmap_dropdown_list;
+  dropdown_content [5] = shape_dropdown_list;
+  dropdown_content [6] = movie_dropdown_list;
+}
+
+
+void update_dropdown_item() {
+  int pointer = 0 ;
+  iVec2 offset_selection = iVec2(18,8);
+  for (int i = 1 ; i <= NUM_ITEM ; i++) {
+    update_dropdown_item(dd_item_costume, list_item_costume, inventory, i,offset_selection, pointer);
+    update_dropdown_item(dd_item_mode, list_item_mode, inventory, i,offset_selection,pointer);
+    show_dropdown_box_item(dd_item_costume, list_item_costume, inventory, i,offset_selection, pointer);
+    show_dropdown_box_item(dd_item_mode, list_item_mode, inventory, i,offset_selection,pointer);
+    if(inventory[i].is()) pointer++;
+  }
+}
+
+void update_dropdown_item(Dropdown [] dd, String [] list, Inventory [] inventory, int index, iVec2 offset, int pointer) {
+  if(inventory[index].is()) {
+    int distance = pointer *DIST_BETWEEN_ITEM;
+    dd[index].offset(distance, 0);
+    String boxes[] = split(list[index],"/");
+    if (boxes.length > 1) {
+      if(dropdown_is() && dd[index].locked_is()) {
+        dd[index].update(mouseX,mouseY); 
+      } else if(!dropdown_is()) {
+        dd[index].update(mouseX,mouseY); 
+      }
+    }
+    // display which element is selected
+    if (dd[index].get_selection() > -1 && boxes.length > 1) {
+      int selection = dd[index].get_selection() +1;
+      String name = dd[index].get_name() + " " + selection;
+      dd[index].show_header_text(name);  
+    } else {
+      fill(r.GRAY_3);
+      iVec2 pos = dd[index].get_pos().add(dd[index].get_header_text_pos());
+      PFont font = dd[index].get_font();
+      textFont(font);
+      text(dd[index].get_name(),pos);
+    }     
+  }
+}
+
+
+void show_dropdown_box_item(Dropdown [] dd, String [] list, Inventory [] inventory, int index, iVec2 offset, int pointer) {
+  if(inventory[index].is()) {
+    int distance = pointer *DIST_BETWEEN_ITEM;
+    dd[index].offset(distance, 0);
+    String boxes[] = split(list[index],"/");
+    if (boxes.length > 1) {
+      // dd[index].update(mouseX,mouseY); 
+      dd[index].show_box();
+    } 
+  }
 }
 
 
@@ -155,12 +244,17 @@ void show_dropdown() {
 
 
 
+
+
+
+
+
+
+
+
+
 /**
-DISPLAY ITEM
-v 0.2.1
-*/
-/**
-display slider
+SLIDER UPDATE and DISPLAY
 */
 void show_slider_controller() {
   show_slider_background();
@@ -684,9 +778,76 @@ void pass_slider_to_osc_arg(Slider slider, float [] value_slider) {
 
 
 
+/**
+BUTTON
+*/
+/**
+init
+*/
+void init_button_general() {
+  button_general_num = 20;
+  value_button_general = new int[button_general_num];
+}
+/**
+check button
+*/
+void check_button() {
+  check_button_general() ;
+  check_button_item_console() ;
+  check_button_inventory() ;
+}
+
+void check_button_general() {
+  /* Check to send by OSC to Scene and Prescene */
+  if(button_bg.is()) button_background_is = 1 ; else button_background_is = 0 ;
+  //LIGHT ONE
+  if(button_light_ambient.is())  light_ambient_button_is = 1 ; else  light_ambient_button_is = 0 ;
+  if(button_light_ambient_action.is()) light_ambient_action_button_is = 1 ; else light_ambient_action_button_is =  0 ;
+  //LIGHT ONE
+  if(button_light_1.is()) light_light_1_button_is = 1 ; else light_light_1_button_is = 0 ;
+  if(button_light_1_action.is()) light_light_action_1_button_is = 1 ; else light_light_action_1_button_is = 0 ;
+  // LIGHT TWO
+  if(button_light_2.is()) light_light_2_button_is = 1 ; else light_light_2_button_is = 0 ;
+  if(button_light_2_action.is()) light_light_action_2_button_is = 1 ; else light_light_action_2_button_is = 0 ;
+  //SOUND
+  if(button_kick.is()) button_kick_is = 1 ; else button_kick_is = 0 ;
+  if(button_snare.is()) button_snare_is = 1 ; else button_snare_is = 0 ;
+  if(button_hat.is()) button_hat_is = 1 ; else button_hat_is = 0 ;
+  //Check position of button
+  if(button_midi.is()) button_midi_is = 1 ; else button_midi_is = 0 ;
+  if(button_curtain.is()) button_curtain_is = 1 ; else button_curtain_is = 0 ;
+}
+
 
 /**
-BUTTON display
+mouse pressed
+*/
+void mousePressed_button_general() {
+  if(button_bg.inside()) button_bg.switch_is();
+
+  if(button_light_ambient.inside()) button_light_ambient.switch_is();
+  if(button_light_ambient_action.inside()) button_light_ambient_action.switch_is();
+
+  if(button_light_1.inside()) button_light_1.switch_is();
+  if(button_light_1_action.inside()) button_light_1_action.switch_is();
+
+  if(button_light_2.inside()) button_light_2.switch_is();
+  if(button_light_2_action.inside()) button_light_2_action.switch_is();
+
+  if(button_kick.inside()) button_kick.switch_is();
+  if(button_snare.inside()) button_snare.switch_is();
+  if(button_hat.inside()) button_hat.switch_is();
+
+  if(button_midi.inside()) button_midi.switch_is();
+
+  if(button_curtain.inside())button_curtain.switch_is();
+}
+
+
+
+
+/**
+display
 */
 void show_button() {
   display_button_general();
@@ -775,9 +936,37 @@ void display_button_general() {
   button_snare.show_label();
   button_hat.show_label();
 
-
-  
   //MIDI / CURTAIN
   button_midi.show_picto(picMidi) ;
   button_curtain.show_picto(picCurtain) ;
+}
+
+
+/**
+update
+*/
+void update_button() {
+  update_button_general();
+  update_button_inventory();
+  /**
+  void update_button_item(); 
+  > the method don't exist, 
+  it is include in method display_button_item_console(boolean keep_setting)
+  */
+}
+
+void update_button_general() {
+  update_button_local(button_bg,
+                      button_light_ambient,button_light_ambient_action,
+                      button_light_1,button_light_1_action,
+                      button_light_2,button_light_2_action,
+                      button_kick,button_snare,button_hat,
+                      button_midi,button_curtain);
+}
+
+void update_button_local(Button... b) {
+  for(int i = 0 ; i < b.length ; i++) {
+    b[i].update(mouseX,mouseY);
+    b[i].authorization(!dropdown_is());
+  }
 }

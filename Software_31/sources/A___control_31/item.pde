@@ -139,7 +139,7 @@ void set_button_item_console() {
   iVec2 pos_sound_button = iVec2(7,25) ;
   iVec2 pos_action_button = iVec2(19,25) ;
 
-  int pos_y = pos_y_item_selected +local_pos_y_button_item_selected;
+  int pos_y = pos_y_item_selected +local_pos_y_button_item;
   //position and area for the rollover
   int num = BUTTON_ITEM_CONSOLE;
   for (int i = 1 ; i <= NUM_ITEM ; i++) {

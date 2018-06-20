@@ -32,7 +32,7 @@ boolean dropdown_is() {
 
 /**
 DROPDOWN class
-v 2.5.2
+v 2.5.4
 2014-2018
 */
 public class Dropdown extends Crope {
@@ -168,6 +168,10 @@ public class Dropdown extends Crope {
   /**
   method
   */
+  public void wheel(boolean wheel_is) {
+    this.wheel_is = wheel_is;
+  }
+
   public Dropdown set_box(int num_box) {
     set_box(num_box, this.box_starting_rank_position);
     return this;
@@ -227,6 +231,12 @@ public class Dropdown extends Crope {
   }
 
 
+  public Dropdown set_name(String name) {
+    this.name = name;
+    return this;
+  }
+
+
   private Dropdown set_num_box_rendering(boolean new_slider_is) {
     end = num_box;
     if (content != null) {
@@ -245,10 +255,6 @@ public class Dropdown extends Crope {
       update_slider();
     }
     return this;
-  }
-
-  public void wheel(boolean wheel_is) {
-    this.wheel_is = wheel_is;
   }
 
 
@@ -360,7 +366,7 @@ public class Dropdown extends Crope {
     text(get_content()[get_selection()], x, y) ;
   }
   
-   private void show_header() {
+  public void show_header() {
     noStroke();
     if (inside(pos,size,cursor,RECT)) {
       fill(colour_header_in); 
@@ -368,10 +374,9 @@ public class Dropdown extends Crope {
       fill(colour_header_out);
     }
     rect(get_pos(),get_size());
-   }
+  }
 
-
-  private void show_header_text() {
+  public void show_header_text(String name) {
     if (inside(pos,size,cursor,RECT)) {
       fill(colour_header_text_in); 
     } else {
@@ -381,8 +386,12 @@ public class Dropdown extends Crope {
     text(name, pos.x +pos_header_text.x, pos.y +pos_header_text.y);
   }
 
+  public void show_header_text() {
+    show_header_text(this.name);
+  }
+
   
-  private void show_box() {
+  public void show_box() {
     if(locked) {
       int step = box_starting_rank_position;
       //give the position in list of Item with the position from the slider's molette
@@ -466,6 +475,10 @@ public class Dropdown extends Crope {
   //return which line of dropdown is highlighted
   public int get_highlight() {
     return line ;
+  }
+
+  public String get_name() {
+    return this.name;
   }
 
   //return which line of dropdown is selected

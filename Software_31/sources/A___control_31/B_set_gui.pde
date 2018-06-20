@@ -70,9 +70,6 @@ void set_design_structure() {
 
 
 // general
-
-
-
 void set_design_structure_background(int rank) {
   slider_width_background = 100;
   slider_height_background = 8;
@@ -143,9 +140,9 @@ void set_design_structure_item_selected() {
   item_b_col = grid_col[3];
   item_c_col = grid_col[6];
   // item selected
-  local_pos_y_button_item_selected = 20;
-  local_pos_y_dropdown_item_selected = local_pos_y_button_item_selected +73;
-  local_pos_y_slider_item_button = local_pos_y_dropdown_item_selected +20;
+  local_pos_y_button_item = 20;
+  local_pos_y_dropdown_item = local_pos_y_button_item +72;
+  local_pos_y_slider_item = local_pos_y_dropdown_item +34;
 
   height_item_button_console = 85;
   pos_y_item_selected = height_header +height_button_top +height_dropdown_top +height_menu_general;
@@ -361,19 +358,19 @@ void set_design_aspect() {
 
 
 /**
-set slider
+set console
 */
 void set_console() {
   set_console_general();
 
-  set_console_background(iVec2(offset_background_x,offset_background_y),iVec2(slider_width_background, slider_height_background));
-  set_console_filter(iVec2(offset_filter_x,offset_filter_y),iVec2(slider_width_filter, slider_height_filter));
-  set_console_light(iVec2(offset_light_x,offset_light_y),iVec2(slider_width_light, slider_height_light));
-  set_console_sound(iVec2(offset_sound_x,offset_sound_y),iVec2(slider_width_sound, slider_height_sound));
-  set_console_sound_setting(iVec2(offset_sound_setting_x,offset_sound_setting_y),iVec2(slider_width_sound_setting, slider_height_sound_setting));
-  set_console_camera(iVec2(offset_camera_x,offset_camera_y),iVec2(slider_width_camera, slider_height_camera));
+  set_console_slider_background(iVec2(offset_background_x,offset_background_y),iVec2(slider_width_background, slider_height_background));
+  set_console_slider_filter(iVec2(offset_filter_x,offset_filter_y),iVec2(slider_width_filter, slider_height_filter));
+  set_console_slider_light(iVec2(offset_light_x,offset_light_y),iVec2(slider_width_light, slider_height_light));
+  set_console_slider_sound(iVec2(offset_sound_x,offset_sound_y),iVec2(slider_width_sound, slider_height_sound));
+  set_console_slider_sound_setting(iVec2(offset_sound_setting_x,offset_sound_setting_y),iVec2(slider_width_sound_setting, slider_height_sound_setting));
+  set_console_slider_camera(iVec2(offset_camera_x,offset_camera_y),iVec2(slider_width_camera, slider_height_camera));
 
-  set_console_item(height_item_selected +local_pos_y_slider_item_button,iVec2(slider_width_item, slider_height_item));
+  set_console_slider_item(height_item_selected +local_pos_y_slider_item,iVec2(slider_width_item, slider_height_item));
 }
 
 void set_console_general() {
@@ -386,7 +383,7 @@ void set_console_general() {
   pos_curtain_button = iVec2(grid_col[0] +correctionCurtainX, pos_y_button_top +correctionCurtainY); 
 }
 
-void set_console_background(iVec2 pos, iVec2 size) {
+void set_console_slider_background(iVec2 pos, iVec2 size) {
   //button
   int offset_button_y = -int(size.y *1.5);
   pos_button_background = iVec2(pos.x, pos.y +offset_button_y);
@@ -399,7 +396,7 @@ void set_console_background(iVec2 pos, iVec2 size) {
   }
 }
 
-void set_console_filter(iVec2 pos, iVec2 size) {
+void set_console_slider_filter(iVec2 pos, iVec2 size) {
   for(int i = 0 ; i < NUM_SLIDER_FILTER ;i++) {
     int offset_y = offset_y(pos.y, size.y, i);
     //int offset_y = round(pos.y +(i *spacing_slider));
@@ -408,7 +405,7 @@ void set_console_filter(iVec2 pos, iVec2 size) {
   }
 }
 
-void set_console_light(iVec2 pos, iVec2 size) {
+void set_console_slider_light(iVec2 pos, iVec2 size) {
   int offset_button_y = -int(size.y *1.5);
 
   size_light_ambient_buttonButton = iVec2(80,10);
@@ -438,7 +435,7 @@ void set_console_light(iVec2 pos, iVec2 size) {
   }
 }
 
-void set_console_sound(iVec2 pos, iVec2 size) {
+void set_console_slider_sound(iVec2 pos, iVec2 size) {
   int offset_button_y = -int(size.y *1.5);
   // button
   size_kick_button = iVec2(30,10); 
@@ -457,7 +454,7 @@ void set_console_sound(iVec2 pos, iVec2 size) {
   }
 }
 
-void set_console_sound_setting(iVec2 pos, iVec2 size) {
+void set_console_slider_sound_setting(iVec2 pos, iVec2 size) {
   for(int i = 0 ; i < NUM_SLIDER_SOUND_SETTING ;i++) {
     int offset_y = offset_y(pos.y, size.y, i);
     pos_slider_sound_setting[i] = iVec2(pos.x, offset_y);
@@ -465,7 +462,7 @@ void set_console_sound_setting(iVec2 pos, iVec2 size) {
   }
 }
 
-void set_console_camera(iVec2 pos, iVec2 size) {
+void set_console_slider_camera(iVec2 pos, iVec2 size) {
   for(int i = 0 ; i < NUM_SLIDER_CAMERA ;i++) {
     int offset_y = offset_y(pos.y, 0, i);
     pos_slider_camera[i] = iVec2(pos.x, offset_y);
@@ -478,10 +475,10 @@ void set_console_camera(iVec2 pos, iVec2 size) {
 
 
 
-void set_console_item(int pos_y, iVec2 size) {
+void set_console_slider_item(int pos_y, iVec2 size) {
   // where the controller must display the slider
   for( int i = 0 ; i < NUM_SLIDER_ITEM_BY_COL ; i++) {
-    for (int j = 0 ; j < NUM_COL_SLIDER ; j++) {
+    for ( int j = 0 ; j < NUM_COL_SLIDER ; j++) {
       int whichSlider = i +(j *NUM_SLIDER_ITEM_BY_COL) ;
       int pos_x = 0 ;
       switch(j) {
@@ -823,9 +820,9 @@ iVec2 [] size_slider_item = new iVec2[NUM_SLIDER_ITEM];
 Sladj [] slider_adj_item = new Sladj[NUM_SLIDER_ITEM];
 float [] value_slider_item = new float[NUM_SLIDER_ITEM];
 String [] slider_item_name = new String[NUM_SLIDER_ITEM];
-int local_pos_y_button_item_selected;
-int local_pos_y_dropdown_item_selected;
-int local_pos_y_slider_item_button;
+int local_pos_y_button_item;
+int local_pos_y_dropdown_item;
+int local_pos_y_slider_item;
 int height_item_button_console;
 int pos_y_item_selected;
 int height_item_selected;

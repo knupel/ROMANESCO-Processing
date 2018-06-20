@@ -432,7 +432,7 @@ void build_dropdown_bar() {
 
 void build_dropdown_item_selected() {
   build_local_dd_item(dd_item_costume,inventory_item_table, list_item_costume, "C","Costume", 0);
-  build_local_dd_item(dd_item_mode,inventory_item_table, list_item_mode, "M","Mode", 12);
+  build_local_dd_item(dd_item_mode,inventory_item_table, list_item_mode, "M","Mode", 15);
 }
 
 void build_local_dd_item(Dropdown [] dd, Table inventory_table, String [] list_global, String title, String type, int offset_y) {
@@ -443,9 +443,9 @@ void build_local_dd_item(Dropdown [] dd, Table inventory_table, String [] list_g
   }
   //common param
   iVec2 size_header = iVec2(30,15);
-  iVec2 pos_text_header = iVec2(6,8);
+  iVec2 pos_text = iVec2(8,8);
   int x = offset_x_item;
-  int y = height_item_selected +local_pos_y_dropdown_item_selected + offset_y;
+  int y = height_item_selected +local_pos_y_dropdown_item + offset_y;
   // group item
   for (int i = 0 ; i <= NUM_ITEM ; i++ ) {
     if(list_global[i] != null) {
@@ -454,9 +454,9 @@ void build_local_dd_item(Dropdown [] dd, Table inventory_table, String [] list_g
       //to change the title of the header dropdown
       dd[i] = new Dropdown(iVec2(x,y), size_header,title,list_detail);
       dd[i].set_colour(dropdown_color_item);
-      dd[i].set_header_text_pos(pos_text_header);
+      dd[i].set_header_text_pos(pos_text);
       dd[i].wheel(true);
-      dd[i].set_box_text_pos(pos_text_header);
+      dd[i].set_box_text_pos(pos_text);
       dd[i].set_box(7);
       dd[i].set_box_height(height_box_dropdown);
       dd[i].set_font(title_medium);

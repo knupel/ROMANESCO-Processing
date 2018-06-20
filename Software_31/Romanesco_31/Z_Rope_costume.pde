@@ -1,6 +1,7 @@
 /**
-Rope Costume  2016-2018
-v 1.0.3
+Rope Costume
+* Copyleft (c) 2014-2018
+v 1.0.4
 * @author Stan le Punk
 * @see https://github.com/StanLepunK/Costume_rope
 */
