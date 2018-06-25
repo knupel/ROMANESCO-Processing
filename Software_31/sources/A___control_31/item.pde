@@ -175,8 +175,8 @@ void display_button_item_console(boolean keep_setting) {
         int rank = i*BUTTON_ITEM_CONSOLE+j;
         button_item[rank].change_pos(distance, 0) ;
         button_item[rank].update_pos(inventory[i].is());
-        button_item[rank].authorization(!dropdown_is());
-        button_item[rank].update(mouseX,mouseY);
+        //button_item[rank].authorization(!dropdown_is());
+        button_item[rank].update(mouseX,mouseY,dropdown_is());
 
         if(j == 0) {
           PImage [] pic = {ON_in_thumbnail[i], ON_out_thumbnail[i],OFF_in_thumbnail[i], OFF_out_thumbnail[i]};
@@ -380,8 +380,7 @@ void update_button_inventory() {
   if(item_info.length > 0) {
     for(int i = 0 ; i < item_info.length ; i++) {
       if(item_info[i] != "" && button_inventory[i].pos != null) {
-       button_inventory[i].update(mouseX,mouseY);
-       button_inventory[i].authorization(!dropdown_is());
+       button_inventory[i].update(mouseX,mouseY,dropdown_is());
       }
     }
   }

@@ -139,6 +139,10 @@ void show_dropdown() {
   update_dropdown_bar_content() ;
   
   for(int i = 0 ; i < dropdown_bar.length ; i++) {
+    if(i == 1) {
+      // dropdown_bar[i].get_name();
+      //printArray(dropdown_content[i]);
+    }
     dropdown_bar[i].set_content(dropdown_content[i]);
     // update_dropdown_bar(dropdown_bar[i]);
   }
@@ -256,6 +260,8 @@ void show_dropdown_box_item(Dropdown [] dd, String [] list, Inventory [] invento
 /**
 SLIDER UPDATE and DISPLAY
 */
+
+
 void show_slider_controller() {
   show_slider_background();
   show_slider_filter();
@@ -268,6 +274,54 @@ void show_slider_controller() {
   }
   show_slider_item();
 }
+
+
+void update_slider(Slider slider, Vec5 [] info_slider) {
+  //MIDI update
+  update_midi_slider(slider,info_slider);
+  // MIN and MAX molette
+  //check
+  if(slider instanceof Sladj) {
+    Sladj sladj = (Sladj)slider;
+    boolean state = false ;
+    for(int i = 0 ; i < sladj.molette.length ; i++) {
+      if(sladj.molette[i].used_is || sladj.molette[i].inside_is) {
+        state = true;
+        break;
+      }
+    }
+
+    if(!state) {
+      // min molette
+      if(!sladj.inside_max() && !sladj.locked_max_is()) {
+        sladj.inside_min();
+        sladj.select_min(shift_key);
+        sladj.update_min();
+      }
+      // max molette
+      if(!sladj.inside_min() && !sladj.locked_min_is()) {
+        sladj.inside_max();
+        sladj.select_max(shift_key);
+        sladj.update_max();
+      }
+    }
+
+    // update 
+    sladj.update_min_max();
+    /*
+    if(!sladj.locked_max_is()) {
+    // if(!sladj.locked_max_is() && !sladj.locked_max_is()) {
+      sladj.inside_molette_ellipse();
+    } 
+    */
+  } else {
+    slider.inside_molette_ellipse();
+  }
+  
+  slider.select(true);
+  slider.update(mouseX,mouseY);
+}
+
 
 
 
@@ -689,59 +743,13 @@ void show_slider_brightness_structure(iVec2 pos, iVec2 size, float colour, float
 
 
 
-void update_slider(Slider slider, Vec5 [] info_slider) {
-  //MIDI update
-  update_midi_slider(slider,info_slider);
 
-
-  // MIN and MAX molette
-  //check
-  if(slider instanceof Sladj) {
-    Sladj sladj = (Sladj)slider;
-    if(!sladj.molette_used_is() && !sladj.inside_molette_is()) {
-      // min molette
-      if(!sladj.inside_max() && !sladj.locked_max_is()) {
-        sladj.inside_min();
-        sladj.select_min(shift_key);
-        sladj.update_min();
-      }
-      // max molette
-      if(!sladj.inside_min() && !sladj.locked_min_is()) {
-        sladj.inside_max();
-        sladj.select_max(shift_key);
-        sladj.update_max();
-      }
-    }
-    // update 
-    sladj.update_min_max();
-    if(!sladj.locked_max_is() && !sladj.locked_max_is()) {
-      sladj.inside_molette_ellipse();
-    } 
-  } else {
-    slider.inside_molette_ellipse();
-  }
-  
-  
-  
-
-  // CURRENT molette
-  // check
-  
-  // update
-  slider.select(true);
-  slider.update(mouseX,mouseY);
-  
-  // translate float value to int, to use OSC easily without problem of Array Outbound...blablah
-  /*
-  int valueMax = 360 ;
-  value_slider[slider.get_id()] = constrain(map(slider.get_value(),0,1,0,valueMax),0,valueMax)  ;
-  */
-}
 
 
 void pass_slider_to_osc_arg(Slider slider, float [] value_slider) {
-  int valueMax = 360 ;
-  value_slider[slider.get_id()] = constrain(map(slider.get_value(),0,1,0,valueMax),0,valueMax)  ;
+  int valueMax = 360;
+  float val_single_slider = slider.get_value(0);
+  value_slider[slider.get_id()] = constrain(map(val_single_slider,0,1,0,valueMax),0,valueMax);
 }
 
 
@@ -966,7 +974,6 @@ void update_button_general() {
 
 void update_button_local(Button... b) {
   for(int i = 0 ; i < b.length ; i++) {
-    b[i].update(mouseX,mouseY);
-    b[i].authorization(!dropdown_is());
+    b[i].update(mouseX,mouseY,dropdown_is());
   }
 }

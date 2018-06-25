@@ -15,17 +15,16 @@ Use false when you want:
 used sound & maximum possibility of the object
 */
 boolean USE_SOUND = true; 
-boolean DEVELOPMENT_MODE = false;
 boolean MIROIR = false;
-
-boolean FULL_RENDERING = false;
 
 boolean FULL_SCREEN = false;
 boolean TABLET = false; // now tablet library don't work in OPENGL renderer
 /**
 LIVE must change from the launcher, the info must be write in the external loading preference app
 */
-boolean LIVE = true;
+boolean LIVE = false;
+boolean FULL_RENDERING = true;
+boolean DEVELOPMENT_MODE = true;
 
 
 

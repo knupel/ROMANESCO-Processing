@@ -227,7 +227,8 @@ void midi_select(int which_one, int num) {
     noStroke();
     window_midi_info(pos_midi_info, size_x_window_info_midi, spacing_midi_info) ;
 
-    textFont(textUsual_1);  textAlign(LEFT);
+    textFont(textUsual_1);  
+    textAlign(LEFT);
     if(num < 1 ) {
       fill(fill_midi_window_no_selection); 
     } else {

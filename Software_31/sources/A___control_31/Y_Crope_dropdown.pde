@@ -32,7 +32,7 @@ boolean dropdown_is() {
 
 /**
 DROPDOWN class
-v 2.5.4
+v 2.5.6
 2014-2018
 */
 public class Dropdown extends Crope {
@@ -48,7 +48,7 @@ public class Dropdown extends Crope {
   private String content[];
 
   private boolean locked;
-  private boolean slider, inside_slider_is;
+  private boolean slider;
   // color
   private int colour_structure = r.GRAY_2;
 
@@ -269,17 +269,18 @@ public class Dropdown extends Crope {
     iVec2 size_molette =  iVec2(size_slider.x, round(size_slider.y /ratio));
     
     boolean keep_pos_mol_is = false;
+    int index = 0 ; // so catch the first molette of the index ;
     int pos_mol_y = 0;
     if(slider_dd != null) {
-      pos_mol_y = slider_dd.get_molette_pos().y;
+      pos_mol_y = slider_dd.get_molette_pos(index).y;
       keep_pos_mol_is = true ;
     }
 
     slider_dd = new Slider(pos_slider, size_slider);
     slider_dd.size_molette(size_molette);
     if(keep_pos_mol_is) {
-      int pos_mol_x = slider_dd.get_molette_pos().x;
-      slider_dd.pos_molette(pos_mol_x,pos_mol_y);
+      int pos_mol_x = slider_dd.get_molette_pos(index).x;
+      slider_dd.set_pos_molette(index,pos_mol_x,pos_mol_y);
     }
     slider_dd.set_molette(RECT);
     slider_dd.set_fill(colour_structure);
@@ -327,13 +328,15 @@ public class Dropdown extends Crope {
       if(selected_type) {
         locked = true;
       }
-    } else if(!inside && selected_type && !inside_slider_is) {
+    } else if(!inside && selected_type && slider_dd == null) {
       locked = false;
-    }  
+    } else if(!inside && selected_type && slider_dd != null && !slider_dd.inside_slider()) {
+      locked = false;
+    }
 
     if(locked) {
       int line = get_select_line();
-      if (line > -1 ) {
+      if (line > -1) {
         which_line(line);   
       } 
     }
@@ -353,7 +356,6 @@ public class Dropdown extends Crope {
     show_header();
     show_header_text();
     show_box();
-    // show_box_text();
   }
 
   private void show_selection(int x,int y) {
@@ -394,9 +396,10 @@ public class Dropdown extends Crope {
   public void show_box() {
     if(locked) {
       int step = box_starting_rank_position;
+      int index = 0 ; // first pos molette from the array pos molette
       //give the position in list of Item with the position from the slider's molette
       if (slider) {
-        offset_slider = round(map(slider_dd.get_value(),0,1,0,missing));
+        offset_slider = round(map(slider_dd.get_value(index),0,1,0,missing));
       }
       set_box_width(longest_String_pixel(font_box,this.content));
       for (int i = start +offset_slider ; i < end +offset_slider ; i++) {
@@ -407,8 +410,7 @@ public class Dropdown extends Crope {
           int x = pos.x -slider_dd.get_size().x;
           int y = pos.y +(height_box *box_starting_rank_position);
           slider_dd.pos(x,y);
-          inside_slider_is = slider_dd.inside_molette_rect();
-          slider_dd.select(true);
+          //slider_dd.select(false);
           slider_dd.update(cursor);
           slider_dd.show_structure();
           slider_dd.show_molette();
