@@ -3,7 +3,7 @@ VARIABLE
 Prescene, Scene
 Romanesco Processing Environment
 2015-2018
-v 1.2.8
+v 1.2.9
 */
 
 /**
@@ -30,7 +30,6 @@ java.awt.Insets insets;
 
 
 // WINDOW VAR
-//PVector SIZE_BG  ;
 int MIN_WINDOW_WIDTH = 128 ; 
 int MIN_WINDOW_HEIGHT = 128 ;
 
@@ -67,7 +66,6 @@ boolean load_SCENE_Setting_GLOBAL, save_Current_SCENE_Setting_GLOBAL, save_New_S
 //spectrum band
 int NUM_BANDS = 128;
 
-int NUM_BUTTON_GENERAL = 21 ; 
 int button_item_num  ; 
 // VAR obj
 color COLOR_FILL_OBJ_PREVIEW; 
@@ -79,7 +77,6 @@ int NUM_SETTING_ITEM;
 int BUTTON_ITEM_CONSOLE = 4;
 
 
-// general var 
 // button
 boolean kick_is, snare_is, hat_is;
 boolean curtain_is, background_is;
@@ -91,17 +88,17 @@ int which_shader;
 int which_filter; 
 int [] which_bitmap, which_text, which_shape, which_movie;
 
-boolean [] button_general_is;
+// boolean [] button_general_is;
 
 //SLIDER
 // becareful if the number of MISC SLIDERS is upper than OBJ SLIDER, that can be a problem in the future.
-float value_slider_background [] = new float [NUM_SLIDER_BACKGROUND];
-float value_slider_filter [] = new float [NUM_SLIDER_FILTER];
-float value_slider_light [] = new float [NUM_SLIDER_LIGHT];
-float value_slider_sound [] = new float [NUM_SLIDER_SOUND];
-float value_slider_sound_setting [] = new float [NUM_SLIDER_SOUND_SETTING];
-float value_slider_camera [] = new float [NUM_SLIDER_CAMERA];
-float value_slider_item []  = new float [NUM_SLIDER_ITEM];
+float value_slider_background [] = new float [NUM_MOLETTE_BACKGROUND];
+float value_slider_filter [] = new float [NUM_MOLETTE_FILTER];
+float value_slider_light [] = new float [NUM_MOLETTE_LIGHT];
+float value_slider_sound [] = new float [NUM_MOLETTE_SOUND];
+float value_slider_sound_setting [] = new float [NUM_MOLETTE_SOUND_SETTING];
+float value_slider_camera [] = new float [NUM_MOLETTE_CAMERA];
+float value_slider_item []  = new float [NUM_MOLETTE_ITEM];
 
 
 
@@ -545,7 +542,6 @@ void create_variableButton() {
   costume_controller_selection = new int [NUM_ITEM_PLUS_MASTER];
   
   // you must init this var, because we launch this part of code before the controller. And if we don't init the value is NaN and return an error.
-  button_general_is = new boolean[NUM_BUTTON_GENERAL];
 }
 
 

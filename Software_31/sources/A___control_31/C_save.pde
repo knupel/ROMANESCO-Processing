@@ -72,7 +72,7 @@ void save_info_slider() {
 
   // sound setting
   for (int i = start ; i < NUM_SLIDER_SOUND_SETTING ; i++) {
-    cropinfo_slider_sound_setting[i].set_value(slider_sound_setting[i].get_value(0));
+    cropinfo_slider_sound_setting[i].set_value(slider_sound_setting[i].get_value());
     set_data_slider(i,cropinfo_slider_sound_setting[i],"Slider sound setting");
   }
 
@@ -117,9 +117,11 @@ void set_data_save_setting() {
   saveSetting.addColumn("ID slider");
   saveSetting.addColumn("Min slider");
   saveSetting.addColumn("Max slider");
+  saveSetting.addColumn("Value length");
   saveSetting.addColumn("Value slider 0");
   saveSetting.addColumn("Value slider 1");
   saveSetting.addColumn("Value slider 2");
+  saveSetting.addColumn("Value slider 3");
   saveSetting.addColumn("ID button");
   saveSetting.addColumn("On Off");
   saveSetting.addColumn("ID midi");
@@ -144,7 +146,10 @@ void set_data_slider(int id_slider, Cropinfo info, String name){
   sliderSetting.setString("Type",name);
   sliderSetting.setInt("ID slider",id_slider);
   sliderSetting.setInt("ID midi",info.get_id_midi());
-  sliderSetting.setFloat("Value slider 0", info.get_value(0)); 
+  for(int i = 0 ; i < info.get_value().length; i++) {
+    sliderSetting.setFloat("Value slider "+i, info.get_value(i));
+  }
+  sliderSetting.setInt("Value length",info.get_value().length);    
   sliderSetting.setFloat("Min slider",info.get_min()); 
   sliderSetting.setFloat("Max slider",info.get_max()); 
 }

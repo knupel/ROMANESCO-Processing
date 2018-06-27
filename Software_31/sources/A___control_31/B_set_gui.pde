@@ -366,7 +366,7 @@ void set_console() {
   set_console_slider_background(iVec2(offset_background_x,offset_background_y),iVec2(slider_width_background, slider_height_background));
   set_console_slider_filter(iVec2(offset_filter_x,offset_filter_y),iVec2(slider_width_filter, slider_height_filter));
   set_console_slider_light(iVec2(offset_light_x,offset_light_y),iVec2(slider_width_light, slider_height_light));
-  set_console_slider_sound(iVec2(offset_sound_x,offset_sound_y),iVec2(slider_width_sound, slider_height_sound));
+  set_console_sound(iVec2(offset_sound_x,offset_sound_y),iVec2(slider_width_sound, slider_height_sound));
   set_console_slider_sound_setting(iVec2(offset_sound_setting_x,offset_sound_setting_y),iVec2(slider_width_sound_setting, slider_height_sound_setting));
   set_console_slider_camera(iVec2(offset_camera_x,offset_camera_y),iVec2(slider_width_camera, slider_height_camera));
 
@@ -434,16 +434,23 @@ void set_console_slider_light(iVec2 pos, iVec2 size) {
   }
 }
 
-void set_console_slider_sound(iVec2 pos, iVec2 size) {
+
+
+
+void set_console_sound(iVec2 pos, iVec2 size) {
   int offset_button_y = -int(size.y *1.5);
-  // button
-  size_kick_button = iVec2(30,10); 
-  size_snare_button = iVec2(40,10); 
-  size_hat_button = iVec2(30,10);
   
-  pos_kick_button = iVec2(pos.x,pos.y +offset_button_y); 
-  pos_snare_button = iVec2(pos_kick_button.x +size_kick_button.x +5, pos.y +offset_button_y); 
-  pos_hat_button = iVec2(pos_snare_button.x +size_snare_button.x +5, pos.y +offset_button_y);
+  // button
+  int x = pos.x;
+  int y =  pos.y +offset_button_y;
+  for(int i = 0 ; i < NUM_BUTTON_TRANSIENT ; i++) {
+    button_transient_is[i] = 0;
+    size_button_transient[i] = iVec2(40,10);
+    int s = size_button_transient[i].x ;
+    x = ((s*i) +pos.x);
+    pos_button_transient[i] = iVec2(x,y);
+    name_button_transient[i] = ("trans "+i);
+  }
 
   //slider
   for(int i = 0 ; i < NUM_SLIDER_SOUND ;i++) {
@@ -758,6 +765,7 @@ iVec2 pos_light_1_button_action, size_light_1_button_action;
 iVec2 pos_light_1_button, size_light_1_button;
 iVec2 pos_light_2_button_action, size_light_2_button_action; 
 iVec2 pos_light_2_button, size_light_2_button;
+
 // light slider
 Sladj [] slider_adj_light = new Sladj[NUM_SLIDER_LIGHT];
 Cropinfo [] cropinfo_slider_light;
@@ -770,12 +778,14 @@ String[] slider_light_name = new String[NUM_SLIDER_LIGHT];
 int offset_light_x;
 int offset_light_y;
 
-// sound button
-Button button_kick, button_snare, button_hat;
-int button_kick_is, button_snare_is, button_hat_is;
-iVec2 pos_kick_button, size_kick_button;
-iVec2 pos_snare_button, size_snare_button;
-iVec2 pos_hat_button, size_hat_button;
+// sound button transient
+Button [] button_transient = new Button[NUM_BUTTON_TRANSIENT];
+int [] button_transient_is = new int[NUM_BUTTON_TRANSIENT];
+iVec2 [] pos_button_transient = new iVec2[NUM_BUTTON_TRANSIENT];
+iVec2 [] size_button_transient = new iVec2[NUM_BUTTON_TRANSIENT];
+String [] name_button_transient = new String[NUM_BUTTON_TRANSIENT];
+
+
 // sound slider
 Sladj [] slider_adj_sound = new Sladj[NUM_SLIDER_SOUND];
 Cropinfo [] cropinfo_slider_sound;
@@ -795,7 +805,7 @@ int slider_width_sound_setting;
 int slider_height_sound_setting;
 iVec2 [] pos_slider_sound_setting = new iVec2[NUM_SLIDER_SOUND_SETTING]; 
 iVec2 [] size_slider_sound_setting = new iVec2[NUM_SLIDER_SOUND_SETTING];
-float [] value_slider_sound_setting = new float[NUM_SLIDER_SOUND_SETTING];
+float [] value_slider_sound_setting = new float[NUM_MOLETTE_SOUND_SETTING];
 String[] slider_sound_setting_name = new String[NUM_SLIDER_SOUND_SETTING];
 int offset_sound_setting_x;
 int offset_sound_setting_y;

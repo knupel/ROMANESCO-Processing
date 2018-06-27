@@ -16,6 +16,7 @@ MAJOR
 >add system to set tempo and beat threshold
 >add slider background shader
 >add new dropdown item menu to select costume
+>add multi slider to set the transient detection
 
 
 MINOR
@@ -30,6 +31,7 @@ MINOR
 >improve few shader background
 >check if dropdown is active or not stop the other GUI update
 >move dropdown slider with mouse wheel
+>introduce new param to store and read data from slider, class Cropinfo
 
 
 ITEM

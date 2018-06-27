@@ -120,10 +120,10 @@ void message_general_osc(OscMessage m) {
   add_data_general(m,button_light_1_action.is());
   add_data_general(m,button_light_2.is());
   add_data_general(m,button_light_2_action.is());
-  // button general sound
-  add_data_general(m,button_kick.is());
-  add_data_general(m,button_snare.is());
-  add_data_general(m,button_hat.is());
+  // button transient sound
+  for(int i = 0 ; i < NUM_BUTTON_TRANSIENT ; i++) {
+    add_data_general(m,button_transient[i].is());
+  }
 
   // add slider general
   for(int i = 0 ; i < value_slider_background.length ; i++) {

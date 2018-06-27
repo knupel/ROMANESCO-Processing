@@ -21,9 +21,9 @@ void thread_data_controller_general(OscMessage receive) {
   rank += 1;
   receive_data_general_dropdown(receive,rank); // 7 arg
   rank += 7;
-  receive_data_general_button(receive,rank); // 10 arg
-  rank += 10;  
-  receive_data_general_slider(receive,rank,rank +NUM_SLIDER_GENERAL); // NUM_SLIDER_GENERAL 
+  receive_data_general_button(receive,rank); // 11 arg
+  rank += 11;  
+  receive_data_general_slider(receive,rank,rank +NUM_MOLETTE_GENERAL); // NUM_SLIDER_GENERAL 
 }
 
 
@@ -87,30 +87,32 @@ void receive_data_general_button(OscMessage receive, int in) {
   light_1_action_is(to_bool(receive,4+in));
   light_2_is(to_bool(receive,5+in));
   light_2_action_is(to_bool(receive,6+in));
+  
 
-  kick_romanesco_is(to_bool(receive,7+in));
-  snare_romanesco_is(to_bool(receive,8+in));
-  hat_romanesco_is(to_bool(receive,9+in));
+  // transient_0_romanesco_is(to_bool(receive,7+in));
+  kick_romanesco_is(to_bool(receive,8+in));
+  snare_romanesco_is(to_bool(receive,9+in));
+  hat_romanesco_is(to_bool(receive,10+in));
 }
 
 void receive_data_general_slider(OscMessage receive, int in, int out) {
   int in_background = in ;
-  int out_background = in_background +NUM_SLIDER_BACKGROUND;
+  int out_background = in_background +NUM_MOLETTE_BACKGROUND;
 
   int in_filter =  out_background;
-  int out_filter = in_filter +NUM_SLIDER_FILTER;
+  int out_filter = in_filter +NUM_MOLETTE_FILTER;
 
   int in_light =  out_filter;
-  int out_light = in_light +NUM_SLIDER_LIGHT;
+  int out_light = in_light +NUM_MOLETTE_LIGHT;
 
   int in_sound =  out_light;
-  int out_sound = in_sound +NUM_SLIDER_SOUND;
+  int out_sound = in_sound +NUM_MOLETTE_SOUND;
 
   int in_sound_setting =  out_sound;
-  int out_sound_setting = in_sound_setting +NUM_SLIDER_SOUND_SETTING;
+  int out_sound_setting = in_sound_setting +NUM_MOLETTE_SOUND_SETTING;
 
   int in_camera =  out_sound_setting;
-  int out_camera = in_camera +NUM_SLIDER_CAMERA;
+  int out_camera = in_camera +NUM_MOLETTE_CAMERA;
 
   for (int i = in ; i < out ; i++) {
     if(i < out_background) {
@@ -131,7 +133,7 @@ void receive_data_general_slider(OscMessage receive, int in, int out) {
 
 
 void receive_data_slider_item(OscMessage receive, int in) {
-  for (int i = 0 ; i < NUM_SLIDER_ITEM ; i++) {
+  for (int i = 0 ; i < NUM_MOLETTE_ITEM ; i++) {
    int index = in + i;
     int target = i;
     value_slider_item[target] = Float.valueOf(receive.get(index).intValue());

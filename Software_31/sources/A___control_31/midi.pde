@@ -155,7 +155,6 @@ void reset_input_midi_device() {
 
 
 // DISPLAY INFO MIDI INPUT
-//////////////////////////
 void display_midi_device_available(Vec2 pos, int spacing) {
   int num_line = 0 ;
   if (!choice_midi_device || !choice_midi_default_device) {
@@ -280,30 +279,34 @@ MIDI MANAGER
 
 
 
-Here it's really a midi Stuuf, the name must change in the future
+Here it's really a midi Stuff, the name must change in the future
 
 
 
 */
 void midi_manager(boolean saveButton) {
   int rank = 0 ;
-  midi_button(button_bg,rank,saveButton,"Button general");
+  midi_button(button_bg,rank,saveButton,"Button background");
   rank++;
-  midi_button(button_curtain,rank,saveButton,"Button general");
+  midi_button(button_curtain,rank,saveButton,"Button curtain");
   rank++;
-  midi_button(button_light_1,rank,saveButton,"Button general");
+  midi_button(button_light_ambient,rank,saveButton,"Button light ambient");
   rank++;
-  midi_button(button_light_1_action,rank,saveButton,"Button general");
+  midi_button(button_light_ambient_action,rank,saveButton,"Button light ambient");
   rank++;
-  midi_button(button_light_2,rank,saveButton,"Button general");
+  midi_button(button_light_1,rank,saveButton,"Button light 1");
   rank++;
-  midi_button(button_light_2_action,rank,saveButton,"Button general");
+  midi_button(button_light_1_action,rank,saveButton,"Button light 1");
+  rank++;
+  midi_button(button_light_2,rank,saveButton,"Button light 2");
+  rank++;
+  midi_button(button_light_2_action,rank,saveButton,"Button light 2");
   rank++; 
-  midi_button(button_kick,rank,saveButton,"Button general");
-  rank++;
-  midi_button(button_snare,rank,saveButton,"Button general");
-  rank++;
-  midi_button(button_hat,rank,saveButton,"Button general");
+  for(int i = 0 ; i < NUM_BUTTON_TRANSIENT ; i++) {
+    midi_button(button_transient[i],rank,saveButton,"Button transient");
+    rank++;
+  }
+
   
   for(int i = 0 ; i <= NUM_ITEM ; i++) {
     if(i == 0) {
@@ -380,30 +383,8 @@ void update_midi_slider(Slider slider, Cropinfo[] cropinfo) {
   if(LOAD_SETTING) {
     int index = slider.get_id();
     slider.set_id_midi(cropinfo[index].get_id_midi());
-    // slider.set_id_midi((int)info_save_raw_list(cropinfo, slider.get_id()).get_id_midi());
   }
 }
-/*
-void update_midi_slider(Slider slider, Vec5 [] info_slider) {
-  // update info from midi controller
-  if (midi_CC_romanesco == slider.get_id_midi()) {
-    slider.update_midi(midi_value_romanesco);
-  }
 
-  if(selectMidi && slider.molette_used_is()) {
-    for(int i = 0 ; i <info_slider.length ; i++) {
-      if(slider.get_id() == (int)info_slider[slider.get_id()].a) {
-        info_slider[i].b = midi_CC_romanesco;
-      }
-    }
-  }
-  
-  //ID midi from controller midi button setting
-  if (selectMidi && slider.molette_used_is()) slider.set_id_midi(midi_CC_romanesco);
-  
-  //ID midi from save
-  if(LOAD_SETTING) slider.set_id_midi((int)info_save_raw_list(info_slider, slider.get_id()).b);
-}
-*/
 
 

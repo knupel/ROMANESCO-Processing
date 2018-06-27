@@ -1500,10 +1500,15 @@ void beat_romanesco() {
 
 
 void set_beat_romanesco() {
-  float threshold_x_kick = map(value_slider_sound_setting[5],0,MAX_VALUE_SLIDER,0,10);
-  float threshold_kick = map(value_slider_sound_setting[6],0,MAX_VALUE_SLIDER,0,10);
-  float threshold_snare = map(value_slider_sound_setting[7],0,MAX_VALUE_SLIDER,0,10);
-  float threshold_hat = map(value_slider_sound_setting[8],0,MAX_VALUE_SLIDER,0,10);
+  float threshold_high =  value_slider_sound_setting[4];
+  float threshold_x_kick = map(threshold_high,0,MAX_VALUE_SLIDER,0,10);
+  threshold_high =  value_slider_sound_setting[6];
+  float threshold_kick = map( threshold_high,0,MAX_VALUE_SLIDER,0,10);
+  threshold_high =  value_slider_sound_setting[8];
+  float threshold_snare = map( threshold_high,0,MAX_VALUE_SLIDER,0,10);
+  threshold_high =  value_slider_sound_setting[10];
+  float threshold_hat = map( threshold_high,0,MAX_VALUE_SLIDER,0,10);
+  
   sounda.set_beat(beat_section_id,threshold_kick,threshold_snare,threshold_hat);
 }
 

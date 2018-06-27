@@ -126,7 +126,7 @@ void load_data_GUI(String path) {
   println("sliders item",count_slider_item);
 
   // info_slider_general = new Vec5 [count_slider_general];
-  info_button_general = new iVec3 [10];
+  info_button_general = new iVec3 [NUM_BUTTON_GENERAL];
   for(int i = 0 ; i < info_button_general.length ; i++) {
     info_button_general[i] = iVec3();
   }
@@ -225,7 +225,54 @@ void load_saved_file_controller(String path) {
   for (TableRow row : settingTable.rows()) {
     String s = row.getString("Type");
     // button general
-    if(s.equals("Button general")){ 
+    if(s.equals("Button background")){ 
+      int IDbutton = row.getInt("ID button") ;
+      int IDmidi = row.getInt("ID midi") ;
+      int onOff = row.getInt("On Off") ;
+      if(count_button_general < info_button_general.length) {
+        info_button_general[count_button_general].set(IDbutton,IDmidi,onOff);
+      }
+      count_button_general++;
+    }
+    if(s.equals("Button curtain")){ 
+      int IDbutton = row.getInt("ID button") ;
+      int IDmidi = row.getInt("ID midi") ;
+      int onOff = row.getInt("On Off") ;
+      if(count_button_general < info_button_general.length) {
+        info_button_general[count_button_general].set(IDbutton,IDmidi,onOff);
+      }
+      count_button_general++;
+    }
+    if(s.equals("Button light ambient")){ 
+      int IDbutton = row.getInt("ID button") ;
+      int IDmidi = row.getInt("ID midi") ;
+      int onOff = row.getInt("On Off") ;
+      if(count_button_general < info_button_general.length) {
+        info_button_general[count_button_general].set(IDbutton,IDmidi,onOff);
+      }
+      count_button_general++;
+    }
+    if(s.equals("Button light 1")){ 
+      int IDbutton = row.getInt("ID button") ;
+      int IDmidi = row.getInt("ID midi") ;
+      int onOff = row.getInt("On Off") ;
+      if(count_button_general < info_button_general.length) {
+        info_button_general[count_button_general].set(IDbutton,IDmidi,onOff);
+      }
+      count_button_general++;
+    }
+
+    if(s.equals("Button light 2")){ 
+      int IDbutton = row.getInt("ID button") ;
+      int IDmidi = row.getInt("ID midi") ;
+      int onOff = row.getInt("On Off") ;
+      if(count_button_general < info_button_general.length) {
+        info_button_general[count_button_general].set(IDbutton,IDmidi,onOff);
+      }
+      count_button_general++;
+    }
+
+    if(s.equals("Button transient")){ 
       int IDbutton = row.getInt("ID button") ;
       int IDmidi = row.getInt("ID midi") ;
       int onOff = row.getInt("On Off") ;
@@ -252,7 +299,6 @@ void load_saved_file_controller(String path) {
         cropinfo_slider_background[count_slider_background] = new Cropinfo();
       }
       set_info_slider(row, "Slider background", cropinfo_slider_background[count_slider_background]);
-      // println("j'ai chargé les sauvegardes",cropinfo_slider_background[count_slider_background].get_id());
       count_slider_background++;
     }
 
@@ -332,12 +378,21 @@ void load_saved_file_controller(String path) {
 
 
 void set_info_slider(TableRow row, String name, Cropinfo info) {
-  int id_slider = row.getInt("ID slider");
+  int id = row.getInt("ID slider");
   int id_midi = row.getInt("ID midi");
-  float value_slider = row.getFloat("Value slider 0"); 
+  
+  int length_value = row.getInt("Value length");
+  float [] value = new float[length_value];
+  for(int i = 0 ; i < length_value ; i++) {
+    value[i] = row.getFloat("Value slider "+i);
+
+  }
+ 
+  // float value = row.getFloat("Value slider 0"); 
   float min = row.getFloat("Min slider");
   float max = row.getFloat("Max slider");
-  info.set_id(id_slider).set_id_midi(id_midi).set_value(value_slider).set_min(min).set_max(max);
+  info.set_id(id).set_id_midi(id_midi).set_value(value).set_min(min).set_max(max);
+  
 }
 
 
@@ -421,25 +476,25 @@ void set_slider_data_group() {
 
 // local method of set_slider_save()
 void setting_data_slider(Slider slider, Cropinfo info) {
-  // Vec5 info_temp = info_save_raw_list(info_slider,index).copy();
-  slider.set_id_midi(info.get_id_midi()); 
-  slider.set_molette_pos_norm(info.get_value());
+  slider.set_id_midi(info.get_id_midi());
+  if(slider.molette.length > info.get_value().length){
+    float [] value;
+    float step = 1. / (slider.molette.length +1);
+    value = new float[slider.molette.length];
+    for(int i = 0 ; i < value.length ;i++) {
+      value[i] = (i+1)*step;
+    }
+    slider.set_molette_pos_norm(value);
+  } else {
+    slider.set_molette_pos_norm(info.get_value());
+  }
+
   if(slider instanceof Sladj) {
     Sladj sladj = (Sladj)slider;
     sladj.set_min_max(info.get_min(),info.get_max());
   }
 }
-/*
-void setting_data_slider(Slider slider, Vec5 [] info_slider, int index) {
-  Vec5 info_temp = info_save_raw_list(info_slider,index).copy();
-  slider.set_id_midi((int)info_temp.b); 
-  slider.set_molette_pos_norm(info_temp.c);
-  if(slider instanceof Sladj) {
-    Sladj sladj = (Sladj)slider;
-    sladj.set_min_max(info_temp.d, info_temp.e);
-  }
-}
-*/
+
 
 
 
@@ -457,6 +512,13 @@ void set_button_from_saved_file() {
   if(info_button_general[rank].z == 1.0) button_curtain.set_is(true); else button_curtain.set_is(false);
   button_curtain.set_id_midi((int)info_button_general[rank].y); 
   rank++ ;
+  // light ambient
+  if(info_button_general[rank].z == 1.0) button_light_ambient.set_is(true); else button_light_ambient.set_is(false);
+  button_light_ambient.set_id_midi((int)info_button_general[rank].y); 
+  rank++ ;
+  if(info_button_general[rank].z == 1.0) button_light_ambient_action.set_is(true); else button_light_ambient_action.set_is(false);
+  button_light_ambient_action.set_id_midi((int)info_button_general[rank].y); 
+  rank++ ;
   //LIGHT ONE
   if(info_button_general[rank].z == 1.0) button_light_1.set_is(true); else button_light_1.set_is(false);
   button_light_1.set_id_midi((int)info_button_general[rank].y); 
@@ -472,6 +534,12 @@ void set_button_from_saved_file() {
   button_light_2_action.set_id_midi((int)info_button_general[rank].y); 
   rank++ ;
   //SOUND
+  for(int i = 0 ; i < NUM_BUTTON_TRANSIENT; i++) {
+    if(info_button_general[rank].z == 1.0) button_transient[i].set_is(true); else button_transient[i].set_is(false);
+    button_transient[i].set_id_midi((int)info_button_general[rank].y); 
+    rank++ ;
+  }
+  /*
   if(info_button_general[rank].z == 1.0) button_kick.set_is(true); else button_kick.set_is(false);
   button_kick.set_id_midi((int)info_button_general[rank].y); 
   rank++ ;
@@ -481,6 +549,7 @@ void set_button_from_saved_file() {
   if(info_button_general[rank].z == 1.0) button_hat.set_is(true); else button_hat.set_is(false);
   button_hat.set_id_midi((int)info_button_general[rank].y); 
   rank++ ;
+  */
   
   //
   
@@ -491,16 +560,16 @@ void set_button_from_saved_file() {
   can be simplify not sure it's necessary to use buttonRank
   */
   rank = 4; // start a 4 because we don't use the fourth for historic and bad reason
-  int buttonRank ;
+  int button_rank;
   for(int i = 1 ; i <= NUM_ITEM ; i++) {
     for (int j = 0 ; j < BUTTON_ITEM_CONSOLE ; j++) {
-      buttonRank = info_button_item[rank].x;
-      if(info_button_item[rank].z == 1.0 && buttonRank == (i*BUTTON_ITEM_CONSOLE)+j) {
-        button_item[buttonRank].set_is(true);
+      button_rank = info_button_item[rank].x;
+      if(info_button_item[rank].z == 1.0 && button_rank == (i*BUTTON_ITEM_CONSOLE)+j) {
+        button_item[button_rank].set_is(true);
       } else {
-        button_item[buttonRank].set_is(false); 
+        button_item[button_rank].set_is(false); 
       }
-      button_item[buttonRank].set_id_midi((int)info_button_item[rank].y);
+      button_item[button_rank].set_id_midi((int)info_button_item[rank].y);
       rank++ ;
     }
   }

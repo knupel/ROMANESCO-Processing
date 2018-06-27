@@ -405,11 +405,14 @@ void show_slider_sound() {
 }
 
 void show_slider_sound_setting() {
+  int rank = 0;
   for (int i = 0 ; i < NUM_SLIDER_SOUND_SETTING ; i++) {
     if(!dropdown_is()) {
       update_slider(slider_sound_setting[i],cropinfo_slider_sound_setting);
-    } 
-    pass_slider_to_osc_arg(slider_sound_setting[i],value_slider_sound_setting);
+    }
+    pass_multi_slider_to_osc_arg(slider_sound_setting[i],value_slider_sound_setting,rank);
+    rank += slider_sound_setting[i].get_value().length;
+
     slider_sound_setting[i].show_structure();
     slider_sound_setting[i].show_molette();
     slider_sound_setting[i].show_label();
@@ -747,11 +750,24 @@ void show_slider_brightness_structure(iVec2 pos, iVec2 size, float colour, float
 
 
 
-
+/**
+pass info for OSC
+*/
 void pass_slider_to_osc_arg(Slider slider, float [] value_slider) {
   int valueMax = 360;
   float val_single_slider = slider.get_value(0);
   value_slider[slider.get_id()] = constrain(map(val_single_slider,0,1,0,valueMax),0,valueMax);
+}
+
+
+
+void pass_multi_slider_to_osc_arg(Slider slider, float [] value_slider, int rank) {
+  int valueMax = 360;
+  for(int i = 0 ; i < slider.get_value().length ; i++) {
+    float value = slider.get_value(i);
+    value_slider[rank] = constrain(map(value,0,1,0,valueMax),0,valueMax);
+    rank++;
+  } 
 }
 
 
@@ -820,9 +836,14 @@ void check_button_general() {
   if(button_light_2.is()) light_light_2_button_is = 1 ; else light_light_2_button_is = 0 ;
   if(button_light_2_action.is()) light_light_action_2_button_is = 1 ; else light_light_action_2_button_is = 0 ;
   //SOUND
+  for(int i = 0 ; i < NUM_BUTTON_TRANSIENT ; i++) {
+    if(button_transient[i].is()) button_transient_is[i] = 1 ; else button_transient_is[i] = 0 ;
+  }
+  /*
   if(button_kick.is()) button_kick_is = 1 ; else button_kick_is = 0 ;
   if(button_snare.is()) button_snare_is = 1 ; else button_snare_is = 0 ;
   if(button_hat.is()) button_hat_is = 1 ; else button_hat_is = 0 ;
+  */
   //Check position of button
   if(button_midi.is()) button_midi_is = 1 ; else button_midi_is = 0 ;
   if(button_curtain.is()) button_curtain_is = 1 ; else button_curtain_is = 0 ;
@@ -843,10 +864,15 @@ void mousePressed_button_general() {
 
   if(button_light_2.inside()) button_light_2.switch_is();
   if(button_light_2_action.inside()) button_light_2_action.switch_is();
-
+  
+  for(int i = 0 ; i < NUM_BUTTON_TRANSIENT ; i++) {
+    if(button_transient[i].inside()) button_transient[i].switch_is();
+  }
+  /*
   if(button_kick.inside()) button_kick.switch_is();
   if(button_snare.inside()) button_snare.switch_is();
   if(button_hat.inside()) button_hat.switch_is();
+  */
 
   if(button_midi.inside()) button_midi.switch_is();
 
@@ -942,9 +968,14 @@ void display_button_general() {
   button_light_2_action.show_label();
   
   // SOUND
+  for(int i = 0 ; i < NUM_BUTTON_TRANSIENT ; i++) {
+    button_transient[i].show_label();
+  }
+  /*
   button_kick.show_label();
   button_snare.show_label();
   button_hat.show_label();
+  */
 
   //MIDI / CURTAIN
   button_midi.show_picto(picMidi) ;
@@ -970,8 +1001,9 @@ void update_button_general() {
                       button_light_ambient,button_light_ambient_action,
                       button_light_1,button_light_1_action,
                       button_light_2,button_light_2_action,
-                      button_kick,button_snare,button_hat,
+                      // button_kick,button_snare,button_hat,
                       button_midi,button_curtain);
+  update_button_local(button_transient);
 }
 
 void update_button_local(Button... b) {

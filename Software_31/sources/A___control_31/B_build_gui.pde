@@ -155,6 +155,14 @@ void build_console_sound() {
     }
   }
 
+  for(int i = 0 ; i < NUM_BUTTON_TRANSIENT ; i++) {
+    button_transient[i] = new Button(pos_button_transient[i], size_button_transient[i]);
+    button_transient[i].set_aspect_on_off(button_on_in, button_on_out, button_off_in, button_off_out);
+    button_transient[i].set_font(FuturaExtraBold_10);
+    button_transient[i].set_label(name_button_transient[i]);
+  }
+
+  /*
   button_kick = new Button(pos_kick_button, size_kick_button);
   button_kick.set_aspect_on_off(button_on_in, button_on_out, button_off_in, button_off_out);
   button_kick.set_font(FuturaExtraBold_10);
@@ -169,6 +177,7 @@ void build_console_sound() {
   button_hat.set_aspect_on_off(button_on_in, button_on_out, button_off_in, button_off_out);
   button_hat.set_font(FuturaExtraBold_10);
   button_hat.set_label("HAT");
+  */
 }
 
 
@@ -193,19 +202,40 @@ void build_console_sound_setting() {
   iVec2 size_mol = iVec2(round(size_slider_sound_setting[0].y *ratio_size_molette), round(size_slider_sound_setting[0].y *ratio_size_molette));
   iVec2 pos_slider = iVec2(pos_slider_sound_setting[0].x, round(pos_slider_sound_setting[0].y -(slider_height_sound_setting *.6)));
   if(cropinfo_slider_sound_setting[0].get_id() > -1) {
-      slider_sound_setting[0] = new Slider(pos_slider, size_slider_sound_setting[0]);
-      slider_sound_setting[0].size_molette(size_mol.x/2,size_mol.y);
-      slider_sound_setting[0].set_id(0);
-      slider_sound_setting[0].set_molette_num(3);
-      slider_sound_setting[0].set_label(slider_sound_setting_name[0],iadd(slider_sound_setting[0].get_size(),iVec2(3,0)));
-      slider_sound_setting[0].set_font(textUsual_1);
-      slider_sound_setting[0].set_rounded(rounded_slider);
-      slider_sound_setting[0].set_fill_label(label_in_light,label_out_light);
-      slider_sound_setting[0].set_fill(struc_light);
-      slider_sound_setting[0].set_fill_molette(molette_in_dark,molette_out_light);
+    slider_sound_setting[0] = new Slider(pos_slider, size_slider_sound_setting[0]);
+    slider_sound_setting[0].set_id(0);
+    slider_sound_setting[0].set_molette_num(3);
+    slider_sound_setting[0].size_molette(size_mol.x/2,size_mol.y);
+    slider_sound_setting[0].set_label(slider_sound_setting_name[0],iadd(slider_sound_setting[0].get_size(),iVec2(3,0)));
+    slider_sound_setting[0].set_font(textUsual_1);
+    slider_sound_setting[0].set_rounded(rounded_slider);
+    slider_sound_setting[0].set_fill_label(label_in_light,label_out_light);
+    slider_sound_setting[0].set_fill(struc_light);
+    slider_sound_setting[0].set_fill_molette(molette_in_dark,molette_out_light);
   }
-
-  for (int i = 1 ; i < NUM_SLIDER_SOUND_SETTING ; i++) {
+  // slider transient threshold
+  int in_slider_double = 1;
+  int out_slider_double = 5;
+  for (int i = in_slider_double ; i < out_slider_double ; i++) {
+    iVec2 temp_size_mol = iVec2(round(size_slider_sound_setting[i].y *ratio_size_molette), round(size_slider_sound_setting[i].y *ratio_size_molette));
+    iVec2 temp_pos = iVec2(pos_slider_sound_setting[i].x, round(pos_slider_sound_setting[i].y -(slider_height_sound_setting *.6)));
+    if(cropinfo_slider_sound_setting[i].get_id() > -1) {
+      slider_sound_setting[i] = new Slider(temp_pos, size_slider_sound_setting[i]);
+      slider_sound_setting[i].set_id(i);
+      slider_sound_setting[i].set_molette_num(2);
+      slider_sound_setting[i].size_molette(size_mol.x/2,size_mol.y);
+      slider_sound_setting[i].set_label(slider_sound_setting_name[i],iadd(slider_sound_setting[i].get_size(),iVec2(3,0)));
+      slider_sound_setting[i].set_font(textUsual_1);
+      slider_sound_setting[i].set_rounded(rounded_slider);
+      slider_sound_setting[i].set_fill_label(label_in_dark,label_out_dark);
+      slider_sound_setting[i].set_fill(struc_dark);
+      slider_sound_setting[i].set_fill_molette(molette_in_dark,molette_out_dark);
+    }
+  }
+  
+  int in_slider_single = out_slider_double;
+  int out_slider_single = NUM_SLIDER_SOUND_SETTING;
+  for (int i =  in_slider_single ; i < out_slider_single ; i++) {
     iVec2 temp_size_mol = iVec2(round(size_slider_sound_setting[i].y *ratio_size_molette), round(size_slider_sound_setting[i].y *ratio_size_molette));
     iVec2 temp_pos = iVec2(pos_slider_sound_setting[i].x, round(pos_slider_sound_setting[i].y -(slider_height_sound_setting *.6)));
     if(cropinfo_slider_sound_setting[i].get_id() > -1) {
