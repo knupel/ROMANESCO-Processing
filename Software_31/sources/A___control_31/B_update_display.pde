@@ -276,7 +276,8 @@ void show_slider_controller() {
 }
 
 
-void update_slider(Slider slider, Vec5 [] info_slider) {
+void update_slider(Slider slider, Cropinfo [] info_slider) {
+// void update_slider(Slider slider, Vec5 [] info_slider) {
   //MIDI update
   update_midi_slider(slider,info_slider);
   // MIN and MAX molette
@@ -333,7 +334,8 @@ void show_slider_background() {
   }
   for (int i = 0 ; i < NUM_SLIDER_BACKGROUND ; i++) {
     if(!dropdown_is()) {
-      update_slider(slider_adj_background[i],info_slider_background);
+      // update_slider(slider_adj_background[i],info_slider_background);
+      update_slider(slider_adj_background[i],cropinfo_slider_background);
     }
     pass_slider_to_osc_arg(slider_adj_background[i], value_slider_background);
     if(!show_is || i >= 3 ) slider_adj_background[i].show_structure();
@@ -346,7 +348,7 @@ void show_slider_background() {
 void show_slider_filter() {
   for (int i = 0 ; i < NUM_SLIDER_FILTER ; i++) {
     if(!dropdown_is()) {
-      update_slider(slider_adj_filter[i],info_slider_filter);
+      update_slider(slider_adj_filter[i],cropinfo_slider_filter);
     }    
     pass_slider_to_osc_arg(slider_adj_filter[i], value_slider_filter);
     slider_adj_filter[i].show_structure();
@@ -367,7 +369,7 @@ void show_slider_light() {
 
   for (int i = 0 ; i < NUM_SLIDER_LIGHT ; i++) {
     if(!dropdown_is()) {
-      update_slider(slider_adj_light[i],info_slider_light);
+      update_slider(slider_adj_light[i],cropinfo_slider_light);
     }   
     pass_slider_to_osc_arg(slider_adj_light[i],value_slider_light);
     boolean show_is = false;
@@ -392,7 +394,7 @@ void show_slider_light() {
 void show_slider_sound() {
   for (int i = 0 ; i < NUM_SLIDER_SOUND ; i++) {
     if(!dropdown_is()) {
-      update_slider(slider_adj_sound[i],info_slider_sound);
+      update_slider(slider_adj_sound[i],cropinfo_slider_sound);
     }   
     pass_slider_to_osc_arg(slider_adj_sound[i],value_slider_sound);
     slider_adj_sound[i].show_structure();
@@ -405,7 +407,7 @@ void show_slider_sound() {
 void show_slider_sound_setting() {
   for (int i = 0 ; i < NUM_SLIDER_SOUND_SETTING ; i++) {
     if(!dropdown_is()) {
-      update_slider(slider_sound_setting[i],info_slider_sound_setting);
+      update_slider(slider_sound_setting[i],cropinfo_slider_sound_setting);
     } 
     pass_slider_to_osc_arg(slider_sound_setting[i],value_slider_sound_setting);
     slider_sound_setting[i].show_structure();
@@ -417,7 +419,7 @@ void show_slider_sound_setting() {
 void show_slider_camera() {
   for (int i = 0 ; i < NUM_SLIDER_CAMERA ; i++) {
     if(!dropdown_is()) {
-      update_slider(slider_adj_camera[i],info_slider_camera);
+      update_slider(slider_adj_camera[i],cropinfo_slider_camera);
     }    
     pass_slider_to_osc_arg(slider_adj_camera[i],value_slider_camera);
     slider_adj_camera[i].show_structure();
@@ -530,7 +532,7 @@ void show_slider_item() {
 
 void show_slider(int index, boolean [] is) {
   if(!dropdown_is()) {
-    update_slider(slider_adj_item[index],info_slider_item);
+    update_slider(slider_adj_item[index],cropinfo_slider_item);
   }
   pass_slider_to_osc_arg(slider_adj_item[index],value_slider_item);
   boolean show_is = false ;

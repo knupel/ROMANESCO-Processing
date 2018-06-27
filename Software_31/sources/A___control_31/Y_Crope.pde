@@ -1,6 +1,6 @@
 /**
 CROPE
-v 0.7.0
+v 0.9
 CONTROL ROMANESCO PROCESSING ENVIRONMENT
 * Copyleft (c) 2018-2018
 *
@@ -10,7 +10,182 @@ CONTROL ROMANESCO PROCESSING ENVIRONMENT
 */
 import java.util.Arrays;
 
-abstract class Crope {
+/**
+Crope Manager
+v 0.0.1
+2018-2018
+*/
+int birth_crope = 0;
+ArrayList<Crope> object_crope ;
+ArrayList<Crope> get_crope() {
+  return object_crope;
+}
+
+
+
+
+
+
+
+/**
+Crope info > Cropinfo
+v 0.0.2
+2018-2018
+*/
+public class Cropinfo {
+  private int rank = -1;
+  private int id = -1;
+  private int id_midi = -1;
+  private String name = null;
+  private String type = null;
+  private boolean is; // button
+  private float[] value; // slider
+  private float min = 0; // slider
+  private float max = 1; // slider
+  private int line = -1; // dropdown
+  
+  public Cropinfo() {
+  }
+  
+  // set
+  public Cropinfo set_rank(int rank){
+    this.rank = rank;
+    return this;
+  }
+
+  public Cropinfo set_id(int id){
+    this.id = id;
+    return this;
+  }
+
+  public Cropinfo set_id_midi(int id_midi){
+    this.id_midi = id_midi;
+    return this;
+  }
+
+  public Cropinfo set_name(String name){
+    this.name = name;
+    return this;
+  }
+
+  public Cropinfo set_type(String type){
+    this.type = type;
+    return this;
+  }
+  
+  // set button info
+  public Cropinfo set_is(boolean is){
+    this.is = is;
+    return this;
+  }
+
+  // set slider info
+  public Cropinfo set_value(float... value){
+    this.value = new float[value.length];
+    for(int i = 0 ; i < this.value.length ; i++) {
+      this.value[i] = value[i];
+    }
+    return this;
+  }
+
+  public Cropinfo set_min(float min){
+    this.min = min;
+    return this;
+  }
+  
+  public Cropinfo set_max(float max){
+    this.max = max;
+    return this;
+  }
+  
+  // set dropdown 
+  public Cropinfo set_line(int line){
+    this.line = line;
+    return this;
+  }
+
+  // get crope info
+  public int get_rank(){
+    return this.rank;
+  }
+
+  public int get_id(){
+    return this.id;
+  }
+
+  public int get_id_midi(){
+    return this.id_midi;
+  }
+
+  public String get_name(){
+    return this.name;
+  }
+
+  public String get_type(){
+    return this.type;
+  }
+  
+  // get button info
+  public boolean get_is(){
+    return this.is;
+  }
+  
+  // get slider info
+  public float [] get_value(){
+    return this.value;
+  }
+
+  public float get_value(int index){
+    return this.value[index];
+  }
+
+  public float get_min(){
+    return this.min;
+  }
+  
+  public float get_max(){
+    return this.max;
+  }
+  
+  // get dropdown info
+  public int get_line(){
+    return this.line;
+  }
+
+  @Override String toString() {
+    String info = "";
+    info += "type: "+type + ", ";
+    info += "rank: "+rank + ", ";
+    info += "name: "+name + ", ";
+    info += "id: "+id + ", ";
+    info += "midi: "+id_midi + ", ";
+    info += "is: "+is + ", ";
+    for(int i = 0 ; i < value.length ;i++) {
+      info += "value "+i+": "+value[i] + ", ";
+    }
+    info += "min: "+min+ ", ";
+    info += "max: "+max+ ", ";
+    info += "dropdown line: "+line+ ", ";
+    return info;
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+/**
+class Crope
+v 0.8.1
+2018-2018
+*/
+class Crope {
   protected iVec2 pos, size;
   protected iVec2 pos_ref;
 
@@ -19,7 +194,7 @@ abstract class Crope {
   protected int fill_in = color(g.colorModeX);
   protected int fill_out = color(g.colorModeX /2);
   protected int stroke_in = fill_in;
-  protected int stroke_out= fill_out;
+  protected int stroke_out = fill_out;
   protected float thickness = 0;
   protected int color_label_in = fill_in;
   protected int color_label_out = fill_out;
@@ -39,6 +214,15 @@ abstract class Crope {
   protected int id = -1;
 
   private int rank;
+  private int birth;
+
+  private String type = "Crope";
+
+  Crope(String type) {
+    this.birth = birth_crope++;
+    this.type = type;
+    add_crope(this);
+  }
 
   /**
   set structure
@@ -241,10 +425,6 @@ abstract class Crope {
 
 
 
-
-
-
-
   /**
   get
   */
@@ -273,12 +453,31 @@ abstract class Crope {
     return this.id;
   }
 
+
+  public PFont get_font() {
+    return font;
+  }
+
   public int get_rank() {
     return rank;
   }
 
-  public PFont get_font() {
-    return font;
+  public int get_birth() {
+    return birth;
+  }
+
+  public String get_type() {
+    return type;
+  }
+
+
+
+
+  public void add_crope(Crope crope) {
+    if(object_crope == null) {
+      object_crope = new ArrayList<Crope>();
+    }
+    object_crope.add(crope);
   }
 }
 
@@ -302,11 +501,17 @@ abstract class Crope {
 
 
 
+
+
+
+
+
+
+
 /**
-CROPE
-CONTROL ROMANESCO PROCESSING ENVIRONMENT
-*
-CLASS BUTTON 1.2.3
+CLASS BUTTON 
+v 1.2.3
+2013-2018
 */
 public class Button extends Crope {
   int color_bg;
@@ -320,17 +525,43 @@ public class Button extends Crope {
   boolean authorization;
   boolean is = false;  
 
-  protected Button() {}
+  protected Button() {
+    super("Button");
+  }
 
   //complexe
+  /*
   public Button(int pos_x, int pos_y, int size_x, int size_y) {
     this.pos(pos_x, pos_y);
     this.size(size_x,size_y);
+    super("Button");
   }
+  */
 
   public Button(iVec2 pos, iVec2 size) {
+    super("Button");
     this.pos(pos);
     this.size(size);
+  }
+
+
+  private Button(String type) {
+    super(type);
+  }
+
+  //complexe
+  /*
+  private Button(String type, int pos_x, int pos_y, int size_x, int size_y) {
+    this.pos(pos_x, pos_y);
+    this.size(size_x,size_y);
+    super(type);
+  }
+  */
+
+  private Button(String type, iVec2 pos, iVec2 size) {
+    super(type);
+    this.pos(pos);
+    this.size(size); 
   }
 
   /**
@@ -512,11 +743,11 @@ BUTTON DYNAMIC
 public class Button_dynamic extends Button {
   public iVec2 change_pos = iVec2() ;
   public Button_dynamic() {
-    super() ;
+    super("Button dynamic") ;
   }
 
   public Button_dynamic(iVec2 pos, iVec2 size) {
-    super(pos, size);
+    super("Button dynamic",pos, size);
   }
   
   public void change_pos(int x, int y) {
@@ -590,12 +821,11 @@ public class Button_dynamic extends Button {
 
 /**
 SLIDER
-v 1.4.2
+v 1.4.4
+2013-2018
 */
 boolean molette_already_selected ;
 public class Slider extends Crope {
-
-  protected boolean select_is;
   protected boolean selected_type;
   
   protected Molette [] molette;
@@ -607,9 +837,8 @@ public class Slider extends Crope {
   protected int fill_molette_in = color(g.colorModeX *.4);
   protected int fill_molette_out = color(g.colorModeX *.2);
   protected int stroke_molette_in = fill_molette_in;
-  protected int stroke_molette_out =fill_molette_out;
+  protected int stroke_molette_out = fill_molette_out;
   protected float thickness_molette = 0;
-
 
   protected float min_norm = 0 ;
   protected float max_norm = 1 ;
@@ -620,19 +849,22 @@ public class Slider extends Crope {
   int notches_num;
   int notch;
   
-  //CONSTRUCTOR minimum
   public Slider(iVec2 pos, iVec2 size) {
+    super("Slider");
+    constructor(pos,size);
+  }
+
+  public Slider(String type, iVec2 pos, iVec2 size) {
+    super(type);
+    constructor(pos,size);
+  }
+
+  private void constructor(iVec2 pos, iVec2 size) {
     this.pos(pos);
     this.size(size);
-
-
-
     molette = new Molette[1];
     molette[0] = new Molette();
-   
     this.set_pos_molette();
-
-    //which molette for slider horizontal or vertical
     size_molette(0);
 
     for(int i = 0 ; i < 1 ; i++) {
@@ -698,9 +930,9 @@ public class Slider extends Crope {
   protected void molette_update() {
     inside_slider();
     for(int i = 0 ; i < molette.length ; i++) {
-      if(!select_is) {
+      if(!molette[i].select_is) {
         selected_type = mousePressed;
-        molette[i].used_is = select(molette_used_is(i),molette[i].used_is,true);
+        molette[i].used_is = select(i,molette_used_is(i),molette[i].used_is,true);
         if(molette[i].used_is) {
           mol_update_pos(i,temp_min(i),temp_max(i));
           mol_update_used(i,temp_min(i),temp_max(i));
@@ -819,9 +1051,9 @@ public class Slider extends Crope {
   }
 
   private void select(int index, boolean authorization) {
-    select_is = true;
+    molette[index].select_is = true;
     selected_type = mousePressed;
-    molette[index].used_is = select(molette_used_is(index),molette[index].used_is,authorization);
+    molette[index].used_is = select(index, molette_used_is(index),molette[index].used_is,authorization);
   }
   
   //
@@ -832,32 +1064,44 @@ public class Slider extends Crope {
   }
 
   private void select(int index, boolean authorization_1, boolean authorization_2) {
-    select_is = true;
+    molette[index].select_is = true;
     selected_type = authorization_1;
-    molette[index].used_is = select(molette_used_is(index),molette[index].used_is,authorization_2);
+    molette[index].used_is = select(index,molette_used_is(index),molette[index].used_is,authorization_2);
+  }
+  
+
+  // this method is used to switch false all select_is molette
+  protected boolean select(boolean locked_method, boolean result, boolean authorization) {
+    return select(-1, locked_method,result,authorization);
   }
 
 
   // privat method
-  protected boolean select(boolean locked_method, boolean result, boolean authorization) {
+  protected boolean select(int index, boolean locked_method, boolean result, boolean authorization) {
     if(authorization) {
       if(!molette_already_selected) {
         if (locked_method) {
-          molette_already_selected = true ;
-          result = true ;
+          molette_already_selected = true;
+          result = true;
         }
       } else if(locked_method) {
-        select_is = false;
+        if(index == -1) {
+          for(int i = 0 ; i < molette.length ;i++) {
+            molette[i].select_is = false;
+          }
+        } else if(index >= 0 && index < molette.length) {
+          molette[index].select_is = false;
+        }
+        
         result = true ;
       }
 
       if (!selected_type) { 
         result = false ; 
-        molette_already_selected = false ;
+        molette_already_selected = false;
       }
-      return result ;
-
-    } else return false ;   
+      return result;
+    } else return false;   
   }
 
 
@@ -951,6 +1195,16 @@ public class Slider extends Crope {
 
   
   // set_molette
+  public Slider set_molette_num(int num) {
+    float [] pos_norm = new float[num];
+    float step = 1. / (num+1) ;
+    for(int i = 0 ; i < num ; i++) {
+      pos_norm[i] = (i+1)*step;
+    }
+    set_molette_pos_norm(pos_norm);
+    return this;
+  }
+
   // Give a normal position between 0 and 1
   public Slider set_molette_pos_norm(float... pos_norm) {
     Arrays.sort(pos_norm);
@@ -1025,10 +1279,8 @@ public class Slider extends Crope {
 
 
 
-  /**
-  DISPLAY SLIDER
-  v 2.0.2
-  */
+
+  // display slider
   public void show_structure() {
     if(thickness > 0 && alpha(stroke_in) > 0 && alpha(stroke_out) > 0) {
       strokeWeight(thickness);
@@ -1054,9 +1306,6 @@ public class Slider extends Crope {
       rect(pos,size);
     }
   }
-
-
-
 
 
   public void show_molette() {
@@ -1091,14 +1340,24 @@ public class Slider extends Crope {
       iVec2 pos = iadd(molette[index].pos,temp);
       ellipse(pos,molette[index].size);
     } else if(molette_type == RECT) {
-      rect(molette[index].pos,molette[index].size);
+      molette_rect(index);
     } else {
-      rect(molette[index].pos,molette[index].size);
+      molette_rect(index);
     }
   }
   
 
-
+  private void molette_rect(int index) {
+    if(size.x > size.y) {
+      iVec2 pos = molette[index].pos.copy();
+      pos.y = pos.y -((molette[index].size.y -size.y)/2);
+      rect(pos,molette[index].size);
+    } else {
+      iVec2 pos = molette[index].pos;
+      pos.x = pos.x -((molette[index].size.x -size.x)/2);
+      rect(pos,molette[index].size);
+    }
+  }
   
 
 
@@ -1297,6 +1556,8 @@ public class Slider extends Crope {
     protected int new_midi_value;
     protected int id_midi = -2 ;
 
+    protected boolean select_is;
+
     Molette() {
     }
   }
@@ -1326,13 +1587,14 @@ public class Slider extends Crope {
 /**
 SLOTCH > notch's slider
 v 0.1.0
+2018-2018
 */
 public class Slotch extends Slider {
   float [] notches_pos ;
   int colour_notch = int(g.colorModeX);
   float thickness_notch = 1.;
   Slotch(iVec2 pos, iVec2 size) {
-    super(pos, size);   
+    super("Slotch",pos, size);   
   }
 
 
@@ -1468,6 +1730,7 @@ public class Slotch extends Slider {
 /**
 SLADJ > SLIDER ADJUSTABLE
 v 1.3.0
+2016-2018
 */
 public class Sladj extends Slider {
   // size
@@ -1490,7 +1753,7 @@ public class Sladj extends Slider {
   private boolean locked_min, locked_max;
     
   Sladj(iVec2 pos, iVec2 size) {
-    super(pos, size);
+    super("Sladj",pos, size);
     this.new_pos_max = iVec2();
     this.new_pos_min = pos.copy();
     this.size_min_max = size.copy();
@@ -1595,7 +1858,7 @@ public class Sladj extends Slider {
   
   // update max
   public void select_max(boolean authorization) {
-    locked_max = select(locked_max(), locked_max, authorization) ;
+    locked_max = select(-1,locked_max(), locked_max, authorization) ;
   }
   // update maxvalue
   public void update_max() {
@@ -1696,6 +1959,8 @@ public class Sladj extends Slider {
     }
   }
 }
+
+
 
 
 

@@ -399,7 +399,6 @@ void set_console_slider_background(iVec2 pos, iVec2 size) {
 void set_console_slider_filter(iVec2 pos, iVec2 size) {
   for(int i = 0 ; i < NUM_SLIDER_FILTER ;i++) {
     int offset_y = offset_y(pos.y, size.y, i);
-    //int offset_y = round(pos.y +(i *spacing_slider));
     pos_slider_filter[i] = iVec2(pos.x, offset_y);
     size_slider_filter[i] = iVec2(size);
   }
@@ -619,10 +618,7 @@ int button_on_out;
 
 
 
-/**
-general
-*/
-iVec3 [] info_button_general;
+
 
 
 /**
@@ -661,7 +657,6 @@ int slider_mode_display = 0 ;
 /**
 DROPDOWN 
 */
-// DROPDOWN setting
 Dropdown dropdown_setting;
 iVec2 dropdown_setting_pos;
 iVec2 dropdown_setting_size;
@@ -693,6 +688,10 @@ String [] name_dropdown_bar ;
 String [][] dropdown_content;
 
 
+
+iVec3 [] info_button_general;
+
+
 // midi
 Button button_midi;
 int sliderMidi, midi_value_romanesco, midi_channel_romanesco ;
@@ -718,34 +717,35 @@ int correctionCurtainX;
 int correctionCurtainY;
 
 
-// background
+// background button
 Button button_bg;
 int button_background_is;
 iVec2 pos_button_background, size_button_background;
+// background slider
+Sladj [] slider_adj_background = new Sladj[NUM_SLIDER_BACKGROUND];
+Cropinfo [] cropinfo_slider_background; 
 int slider_width_background;
 int slider_height_background;
-Vec5 [] info_slider_background; 
-iVec2 [] pos_slider_background = new iVec2[NUM_SLIDER_BACKGROUND] ; 
-iVec2 [] size_slider_background = new iVec2[NUM_SLIDER_BACKGROUND] ;
-Sladj [] slider_adj_background = new Sladj[NUM_SLIDER_BACKGROUND] ;
+iVec2 [] pos_slider_background = new iVec2[NUM_SLIDER_BACKGROUND]; 
+iVec2 [] size_slider_background = new iVec2[NUM_SLIDER_BACKGROUND];
 float [] value_slider_background = new float[NUM_SLIDER_BACKGROUND];
 String[] slider_background_name = new String[NUM_SLIDER_BACKGROUND];
 int offset_background_x;
 int offset_background_y;
 
-// filter
+// filter slider
+Sladj [] slider_adj_filter = new Sladj[NUM_SLIDER_FILTER];
+Cropinfo [] cropinfo_slider_filter;
 int slider_width_filter;
 int slider_height_filter;
-Vec5 [] info_slider_filter; 
-iVec2 [] pos_slider_filter = new iVec2[NUM_SLIDER_FILTER] ; 
-iVec2 [] size_slider_filter = new iVec2[NUM_SLIDER_FILTER] ;
-Sladj [] slider_adj_filter = new Sladj[NUM_SLIDER_FILTER] ;
+iVec2 [] pos_slider_filter = new iVec2[NUM_SLIDER_FILTER]; 
+iVec2 [] size_slider_filter = new iVec2[NUM_SLIDER_FILTER];
 float [] value_slider_filter = new float[NUM_SLIDER_FILTER];
 String[] slider_filter_name = new String[NUM_SLIDER_FILTER];
 int offset_filter_x;
 int offset_filter_y;
 
-// light
+// light button
 Button button_light_ambient, button_light_ambient_action,
         button_light_1, button_light_1_action,
         button_light_2, button_light_2_action;
@@ -758,78 +758,79 @@ iVec2 pos_light_1_button_action, size_light_1_button_action;
 iVec2 pos_light_1_button, size_light_1_button;
 iVec2 pos_light_2_button_action, size_light_2_button_action; 
 iVec2 pos_light_2_button, size_light_2_button;
+// light slider
+Sladj [] slider_adj_light = new Sladj[NUM_SLIDER_LIGHT];
+Cropinfo [] cropinfo_slider_light;
 int slider_width_light;
 int slider_height_light;
-Vec5 [] info_slider_light; 
-iVec2 [] pos_slider_light = new iVec2[NUM_SLIDER_LIGHT] ; 
-iVec2 [] size_slider_light = new iVec2[NUM_SLIDER_LIGHT] ;
-Sladj [] slider_adj_light = new Sladj[NUM_SLIDER_LIGHT] ;
+iVec2 [] pos_slider_light = new iVec2[NUM_SLIDER_LIGHT]; 
+iVec2 [] size_slider_light = new iVec2[NUM_SLIDER_LIGHT];
 float [] value_slider_light = new float[NUM_SLIDER_LIGHT];
 String[] slider_light_name = new String[NUM_SLIDER_LIGHT];
 int offset_light_x;
 int offset_light_y;
 
-// sound
+// sound button
 Button button_kick, button_snare, button_hat;
 int button_kick_is, button_snare_is, button_hat_is;
 iVec2 pos_kick_button, size_kick_button;
 iVec2 pos_snare_button, size_snare_button;
 iVec2 pos_hat_button, size_hat_button;
-
+// sound slider
+Sladj [] slider_adj_sound = new Sladj[NUM_SLIDER_SOUND];
+Cropinfo [] cropinfo_slider_sound;
 int slider_width_sound;
 int slider_height_sound;
-Vec5 [] info_slider_sound; 
-iVec2 [] pos_slider_sound = new iVec2[NUM_SLIDER_SOUND] ; 
-iVec2 [] size_slider_sound = new iVec2[NUM_SLIDER_SOUND] ;
-Sladj [] slider_adj_sound = new Sladj[NUM_SLIDER_SOUND] ;
+iVec2 [] pos_slider_sound = new iVec2[NUM_SLIDER_SOUND]; 
+iVec2 [] size_slider_sound = new iVec2[NUM_SLIDER_SOUND];
 float [] value_slider_sound = new float[NUM_SLIDER_SOUND];
 String[] slider_sound_name = new String[NUM_SLIDER_SOUND];
 int offset_sound_x;
 int offset_sound_y;
 
 // sound setting
+Slider [] slider_sound_setting = new Slider[NUM_SLIDER_SOUND_SETTING];
+Cropinfo [] cropinfo_slider_sound_setting;
 int slider_width_sound_setting;
 int slider_height_sound_setting;
-Vec5 [] info_slider_sound_setting; 
 iVec2 [] pos_slider_sound_setting = new iVec2[NUM_SLIDER_SOUND_SETTING]; 
 iVec2 [] size_slider_sound_setting = new iVec2[NUM_SLIDER_SOUND_SETTING];
-Slider [] slider_sound_setting = new Slider[NUM_SLIDER_SOUND_SETTING];
 float [] value_slider_sound_setting = new float[NUM_SLIDER_SOUND_SETTING];
 String[] slider_sound_setting_name = new String[NUM_SLIDER_SOUND_SETTING];
 int offset_sound_setting_x;
 int offset_sound_setting_y;
 
-// camera
+// camera slider
+Sladj [] slider_adj_camera = new Sladj[NUM_SLIDER_CAMERA];
+Cropinfo [] cropinfo_slider_camera;
 int slider_width_camera;
 int slider_height_camera;
-Vec5 [] info_slider_camera; 
 iVec2 [] pos_slider_camera = new iVec2[NUM_SLIDER_CAMERA]; 
 iVec2 [] size_slider_camera = new iVec2[NUM_SLIDER_CAMERA];
-Sladj [] slider_adj_camera = new Sladj[NUM_SLIDER_CAMERA];
 float [] value_slider_camera = new float[NUM_SLIDER_CAMERA];
 String[] slider_camera_name = new String[NUM_SLIDER_CAMERA];
 int offset_camera_x;
 int offset_camera_y;
 
-// item
-int slider_width_item;
-int slider_height_item;
-Vec5 [] info_slider_item; 
-iVec2 [] pos_slider_item = new iVec2[NUM_SLIDER_ITEM]; 
-iVec2 [] size_slider_item = new iVec2[NUM_SLIDER_ITEM];
-Sladj [] slider_adj_item = new Sladj[NUM_SLIDER_ITEM];
-float [] value_slider_item = new float[NUM_SLIDER_ITEM];
-String [] slider_item_name = new String[NUM_SLIDER_ITEM];
+// item button
 int local_pos_y_button_item;
-int local_pos_y_dropdown_item;
-int local_pos_y_slider_item;
 int height_item_button_console;
-int pos_y_item_selected;
-int height_item_selected;
-
-
+// item dropdown 
+int local_pos_y_dropdown_item;
 String [] list_item_mode;
 String [] list_item_costume;
+// item slider
+Sladj [] slider_adj_item = new Sladj[NUM_SLIDER_ITEM];
+Cropinfo [] cropinfo_slider_item;
+int slider_width_item;
+int slider_height_item;
+iVec2 [] pos_slider_item = new iVec2[NUM_SLIDER_ITEM]; 
+iVec2 [] size_slider_item = new iVec2[NUM_SLIDER_ITEM];
+float [] value_slider_item = new float[NUM_SLIDER_ITEM];
+String [] slider_item_name = new String[NUM_SLIDER_ITEM];
+int local_pos_y_slider_item;
+int pos_y_item_selected;
+int height_item_selected;
 int offset_x_item;
 int item_a_col;
 int item_b_col;
@@ -874,9 +875,7 @@ int sizeTitleButton;
 /**
 DROPDOWN
 */
-// int SWITCH_VALUE_FOR_DROPDOWN = -2;
 int height_box_dropdown;
-// float marge_around_dropdown;
 
 
 

@@ -15,6 +15,10 @@ Letter
 */
 
 
+*CAMERA
+
+Probleme de navigation entre les différentes caméras.
+
 *OSC
 
 bug with keyboard event between prescene and scene

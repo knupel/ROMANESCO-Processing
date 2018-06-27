@@ -32,11 +32,10 @@ boolean dropdown_is() {
 
 /**
 DROPDOWN class
-v 2.5.6
+v 2.5.8
 2014-2018
 */
 public class Dropdown extends Crope {
-  protected boolean select_is;
   protected boolean selected_type;
   //Slider dropdown
   private Slider slider_dd;
@@ -90,6 +89,7 @@ public class Dropdown extends Crope {
   CONSTRUCTOR
   */
   public Dropdown(iVec2 pos, iVec2 size, String name, String [] content) {
+    super("Dropdown");
     int size_header_text = int(size.y *.6);
     this.font = createFont("defaultFont",size_header_text);
     int size_content_text = int(size.y *.6);
@@ -276,7 +276,7 @@ public class Dropdown extends Crope {
       keep_pos_mol_is = true ;
     }
 
-    slider_dd = new Slider(pos_slider, size_slider);
+    slider_dd = new Slider("Slider Dropdown",pos_slider, size_slider);
     slider_dd.size_molette(size_molette);
     if(keep_pos_mol_is) {
       int pos_mol_x = slider_dd.get_molette_pos(index).x;
@@ -301,25 +301,10 @@ public class Dropdown extends Crope {
 
   public void update(int x,int y) {
     cursor(x,y);
-    if(!select_is) {
-      selected_type = mousePressed;
-    }
+    selected_type = mousePressed;
     open_dropdown(); 
   }
 
-
-
-
-
-  public void select(boolean authorization) {
-    select_is = true;
-    selected_type = mousePressed;
-  }
-
-  public void select(boolean authorization_1, boolean authorization_2) {
-    select_is = true;
-    selected_type = authorization_1;
-  }
 
 
   private void open_dropdown() {

@@ -1,6 +1,6 @@
 /**
 SAVE
-v 2.0.0
+v 2.1.0
 */
 String savePathSetting = ("") ;
 void save_controller_setting(File selection) {
@@ -40,60 +40,60 @@ void save_info_slider() {
   int start = 0;
   // background
   for (int i = start ; i < NUM_SLIDER_BACKGROUND ; i++) {
-    info_slider_background[i].c = slider_adj_background[i].get_value(0) ;
-    info_slider_background[i].d = slider_adj_background[i].get_min_norm() ;
-    info_slider_background[i].e = slider_adj_background[i].get_max_norm() ;
-    set_data_slider(i, info_slider_background[i],"Slider background") ;
+    cropinfo_slider_background[i].set_value(slider_adj_background[i].get_value(0));
+    cropinfo_slider_background[i].set_min(slider_adj_background[i].get_min_norm());
+    cropinfo_slider_background[i].set_max(slider_adj_background[i].get_max_norm());
+    set_data_slider(i,cropinfo_slider_background[i],"Slider background");
   }
 
   // filter
   for (int i = start ; i < NUM_SLIDER_FILTER ; i++) {
-    info_slider_filter[i].c = slider_adj_filter[i].get_value(0) ;
-    info_slider_filter[i].d = slider_adj_filter[i].get_min_norm() ;
-    info_slider_filter[i].e = slider_adj_filter[i].get_max_norm() ;
-    set_data_slider(i, info_slider_filter[i],"Slider filter") ;
+    cropinfo_slider_filter[i].set_value(slider_adj_filter[i].get_value(0));
+    cropinfo_slider_filter[i].set_min(slider_adj_filter[i].get_min_norm());
+    cropinfo_slider_filter[i].set_max(slider_adj_filter[i].get_max_norm());
+    set_data_slider(i,cropinfo_slider_filter[i],"Slider filter");
   }
 
   // light
   for (int i = start ; i < NUM_SLIDER_LIGHT ; i++) {
-    info_slider_light[i].c = slider_adj_light[i].get_value(0) ;
-    info_slider_light[i].d = slider_adj_light[i].get_min_norm() ;
-    info_slider_light[i].e = slider_adj_light[i].get_max_norm() ;
-    set_data_slider(i, info_slider_light[i],"Slider light") ;
+    cropinfo_slider_light[i].set_value(slider_adj_light[i].get_value(0));
+    cropinfo_slider_light[i].set_min(slider_adj_light[i].get_min_norm());
+    cropinfo_slider_light[i].set_max(slider_adj_light[i].get_max_norm());
+    set_data_slider(i,cropinfo_slider_light[i],"Slider light");
   }
 
   // sound
   for (int i = start ; i < NUM_SLIDER_SOUND ; i++) {
-    info_slider_sound[i].c = slider_adj_sound[i].get_value(0) ;
-    info_slider_sound[i].d = slider_adj_sound[i].get_min_norm() ;
-    info_slider_sound[i].e = slider_adj_sound[i].get_max_norm() ;
-    set_data_slider(i, info_slider_sound[i],"Slider sound") ;
+    cropinfo_slider_sound[i].set_value(slider_adj_sound[i].get_value(0));
+    cropinfo_slider_sound[i].set_min(slider_adj_sound[i].get_min_norm());
+    cropinfo_slider_sound[i].set_max(slider_adj_sound[i].get_max_norm());
+    set_data_slider(i,cropinfo_slider_sound[i],"Slider sound");
   }
 
   // sound setting
   for (int i = start ; i < NUM_SLIDER_SOUND_SETTING ; i++) {
-    info_slider_sound_setting[i].c = slider_sound_setting[i].get_value(0);
-    set_data_slider(i, info_slider_sound_setting[i],"Slider sound setting") ;
+    cropinfo_slider_sound_setting[i].set_value(slider_sound_setting[i].get_value(0));
+    set_data_slider(i,cropinfo_slider_sound_setting[i],"Slider sound setting");
   }
 
   // camera
   for (int i = start ; i < NUM_SLIDER_CAMERA ; i++) {
     // int temp = i-1 ;
-    info_slider_camera[i].c = slider_adj_camera[i].get_value(0) ;
-    info_slider_camera[i].d = slider_adj_camera[i].get_min_norm() ;
-    info_slider_camera[i].e = slider_adj_camera[i].get_max_norm() ;
-    set_data_slider(i, info_slider_camera[i],"Slider camera") ;
+    cropinfo_slider_camera[i].set_value(slider_adj_camera[i].get_value(0));
+    cropinfo_slider_camera[i].set_min(slider_adj_camera[i].get_min_norm());
+    cropinfo_slider_camera[i].set_max(slider_adj_camera[i].get_max_norm());
+    set_data_slider(i,cropinfo_slider_camera[i],"Slider camera");
   }
  
   // item
   for(int i = 0; i < NUM_SLIDER_ITEM ; i++) {
     int IDslider = i;
-    for(int k = 0 ; k < info_slider_item.length ;k++) {
-      if((int)info_slider_item[k].a == IDslider) {
-        info_slider_item[k].c = slider_adj_item[IDslider].get_value(0) ;
-        info_slider_item[k].d = slider_adj_item[IDslider].get_min_norm() ;
-        info_slider_item[k].e = slider_adj_item[IDslider].get_max_norm() ;
-        set_data_slider(IDslider, info_slider_item[k],"Slider item") ;
+    for(int k = 0 ; k < cropinfo_slider_item.length ;k++) {
+      if(cropinfo_slider_item[k].get_id() == IDslider) {
+        cropinfo_slider_item[k].set_value(slider_adj_item[IDslider].get_value(0));
+        cropinfo_slider_item[k].set_min(slider_adj_item[IDslider].get_min_norm());
+        cropinfo_slider_item[k].set_max(slider_adj_item[IDslider].get_max_norm());
+        set_data_slider(IDslider,cropinfo_slider_item[k],"Slider item");
       }
     }
   }
@@ -109,22 +109,24 @@ void save_info_item() {
 
 
 
-// BUTTON SAVE
+
 Table saveSetting;
 void set_data_save_setting() {
-  saveSetting = new Table() ;
+  saveSetting = new Table();
   saveSetting.addColumn("Type") ;
-  saveSetting.addColumn("ID slider") ;
-  saveSetting.addColumn("Min slider") ;
-  saveSetting.addColumn("Max slider") ;
-  saveSetting.addColumn("Value slider") ;
-  saveSetting.addColumn("ID button") ;
-  saveSetting.addColumn("On Off") ;
-  saveSetting.addColumn("ID midi") ;
-  saveSetting.addColumn("Item ID") ;
-  saveSetting.addColumn("Item On Off") ;
-  saveSetting.addColumn("Item Name") ;
-  saveSetting.addColumn("Item Class Name") ;
+  saveSetting.addColumn("ID slider");
+  saveSetting.addColumn("Min slider");
+  saveSetting.addColumn("Max slider");
+  saveSetting.addColumn("Value slider 0");
+  saveSetting.addColumn("Value slider 1");
+  saveSetting.addColumn("Value slider 2");
+  saveSetting.addColumn("ID button");
+  saveSetting.addColumn("On Off");
+  saveSetting.addColumn("ID midi");
+  saveSetting.addColumn("Item ID");
+  saveSetting.addColumn("Item On Off");
+  saveSetting.addColumn("Item Name");
+  saveSetting.addColumn("Item Class Name");
 }
 
 //write the value in the table
@@ -135,16 +137,16 @@ void set_data_button(int IDbutton, int IDmidi, boolean b, String type) {
   buttonSetting.setInt("ID midi", IDmidi) ;
   if(b) buttonSetting.setInt("On Off", 1) ; else buttonSetting.setInt("On Off", 0) ;
 }
+
 //
-// void set_data_slider(int IDslider, int IDmidi, float value, float min, float max, String name) {
-void set_data_slider(int IDslider, Vec5 info, String name){
+void set_data_slider(int id_slider, Cropinfo info, String name){
   TableRow sliderSetting = saveSetting.addRow();
   sliderSetting.setString("Type",name);
-  sliderSetting.setInt("ID slider",IDslider);
-  sliderSetting.setInt("ID midi",(int)info.b);
-  sliderSetting.setFloat("Value slider", info.c); 
-  sliderSetting.setFloat("Min slider",info.d); 
-  sliderSetting.setFloat("Max slider",info.e); 
+  sliderSetting.setInt("ID slider",id_slider);
+  sliderSetting.setInt("ID midi",info.get_id_midi());
+  sliderSetting.setFloat("Value slider 0", info.get_value(0)); 
+  sliderSetting.setFloat("Min slider",info.get_min()); 
+  sliderSetting.setFloat("Max slider",info.get_max()); 
 }
 
 // void set_data_item(int ID_item, boolean display_item_on_off) {

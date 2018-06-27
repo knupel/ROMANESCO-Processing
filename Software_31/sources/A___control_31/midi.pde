@@ -359,6 +359,31 @@ void updateMidiButton(Button b) {
 
 
 //give which button is active and check is this button have a same ID midi that Item
+void update_midi_slider(Slider slider, Cropinfo[] cropinfo) {
+  // update info from midi controller
+  if (midi_CC_romanesco == slider.get_id_midi()) {
+    slider.update_midi(midi_value_romanesco);
+  }
+
+  if(selectMidi && slider.molette_used_is()) {
+    for(int i = 0 ; i <cropinfo.length ; i++) {
+      if(slider.get_id() == cropinfo[slider.get_id()].get_id()) {
+        cropinfo[i].set_id_midi(midi_CC_romanesco);
+      }
+    }
+  }
+  
+  //ID midi from controller midi button setting
+  if (selectMidi && slider.molette_used_is()) slider.set_id_midi(midi_CC_romanesco);
+  
+  //ID midi from save
+  if(LOAD_SETTING) {
+    int index = slider.get_id();
+    slider.set_id_midi(cropinfo[index].get_id_midi());
+    // slider.set_id_midi((int)info_save_raw_list(cropinfo, slider.get_id()).get_id_midi());
+  }
+}
+/*
 void update_midi_slider(Slider slider, Vec5 [] info_slider) {
   // update info from midi controller
   if (midi_CC_romanesco == slider.get_id_midi()) {
@@ -379,5 +404,6 @@ void update_midi_slider(Slider slider, Vec5 [] info_slider) {
   //ID midi from save
   if(LOAD_SETTING) slider.set_id_midi((int)info_save_raw_list(info_slider, slider.get_id()).b);
 }
+*/
 
 

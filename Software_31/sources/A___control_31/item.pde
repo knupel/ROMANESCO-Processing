@@ -114,8 +114,6 @@ void build_button_item_console() {
       iVec2 size = iVec2(width_button_item[i], height_button_item[i]) ; 
       button_item[i] = new Button_dynamic(pos, size) ;
       button_item[i].set_aspect_on_off(button_on_in,button_on_out,button_off_in,button_off_out);
-      //button_item[i].fill(gris, grisNoir) ;
-
       // here we give information for the item button, we need later to manage the dynamic GUI
       int ID_temp = i / BUTTON_ITEM_CONSOLE ; // because there is few button by item
       String [] temp = split(item_info[ID_temp], "/") ;
