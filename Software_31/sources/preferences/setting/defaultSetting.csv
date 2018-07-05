@@ -1,8 +1,8 @@
 Type,ID slider,Min slider,Max slider,Value length,Value slider 0,Value slider 1,Value slider 2,Value slider 3,ID button,On Off,ID midi,Item ID,Item On Off,Item Name,Item Class Name
 Slider background,0,0.0,1.0,1,0.0,,,,,,-2,,,,
-Slider background,1,0.0,1.0,1,0.0,,,,,,-2,,,,
-Slider background,2,0.0,1.0,1,0.23333333,,,,,,-2,,,,
-Slider background,3,0.0,1.0,1,0.51111114,,,,,,-2,,,,
+Slider background,1,0.0,1.0,1,1.0,,,,,,-2,,,,
+Slider background,2,0.0,1.0,1,0.6,,,,,,-2,,,,
+Slider background,3,0.0,1.0,1,0.3,,,,,,-2,,,,
 Slider background,4,0.0,1.0,1,0.5,,,,,,-2,,,,
 Slider background,5,0.0,1.0,1,0.5,,,,,,-2,,,,
 Slider background,6,0.0,1.0,1,0.5,,,,,,-2,,,,
@@ -31,15 +31,11 @@ Slider light,7,0.0,1.0,1,1.0,,,,,,-2,,,,
 Slider light,8,0.0,1.0,1,1.0,,,,,,-2,,,,
 Slider sound,0,0.0,1.0,1,0.5,,,,,,-2,,,,
 Slider sound,1,0.0,1.0,1,0.5,,,,,,-2,,,,
-Slider sound setting,0,0.0,1.0,3,0.11578947,0.43157893,0.75789475,,,,-2,,,,
-Slider sound setting,1,0.0,1.0,2,0.0,0.2,,,,,-2,,,,
-Slider sound setting,2,0.0,1.0,2,0.12631579,0.37894738,,,,,-2,,,,
-Slider sound setting,3,0.0,1.0,2,0.3263158,0.70526314,,,,,-2,,,,
-Slider sound setting,4,0.0,1.0,2,0.7473684,1.0,,,,,-2,,,,
-Slider sound setting,5,0.0,1.0,1,0.2,,,,,,-2,,,,
-Slider sound setting,6,0.0,1.0,1,0.3,,,,,,-2,,,,
-Slider sound setting,7,0.0,1.0,1,0.4,,,,,,-2,,,,
-Slider sound setting,8,0.0,1.0,1,0.5,,,,,,-2,,,,
+Slider sound setting,0,0.0,1.0,3,0.10526316,0.4105263,0.7157895,,,,-2,,,,
+Slider sound setting,1,0.0,1.0,2,0.0,0.18947369,,,,,-2,,,,
+Slider sound setting,2,0.0,1.0,2,0.11578947,0.35789475,,,,,-2,,,,
+Slider sound setting,3,0.0,1.0,2,0.30526316,0.6631579,,,,,-2,,,,
+Slider sound setting,4,0.0,1.0,2,0.70526314,0.94736844,,,,,-2,,,,
 Slider camera,0,0.0,1.0,1,0.5,,,,,,-2,,,,
 Slider camera,1,0.0,1.0,1,0.5,,,,,,-2,,,,
 Slider camera,2,0.0,1.0,1,0.5,,,,,,-2,,,,
@@ -104,13 +100,13 @@ Item,,,,,,,,,,,,6,0,The Abbyss,The_Abbyss
 Item,,,,,,,,,,,,7,0,Boids,Boids
 Item,,,,,,,,,,,,8,0,Rubis,MesAmis
 Item,,,,,,,,,,,,9,0,Arbre,ArbreRomanesco
-Item,,,,,,,,,,,,10,1,Boxolyzer,Boxolyzer
+Item,,,,,,,,,,,,10,0,Boxolyzer,Boxolyzer
 Item,,,,,,,,,,,,11,0,Soleil,Soleil
-Item,,,,,,,,,,,,12,1,Spirale,SpiraleRomanesco
-Item,,,,,,,,,,,,13,1,Balise,BaliseRomanesco
+Item,,,,,,,,,,,,12,0,Spirale,SpiraleRomanesco
+Item,,,,,,,,,,,,13,0,Balise,BaliseRomanesco
 Item,,,,,,,,,,,,14,0,Kofosphere,Kofosphere
 Item,,,,,,,,,,,,15,0,Lignes,Lignes
-Item,,,,,,,,,,,,16,1,Pulsar,Pulsar
+Item,,,,,,,,,,,,16,0,Pulsar,Pulsar
 Item,,,,,,,,,,,,17,0,Damier,Damier
 Item,,,,,,,,,,,,18,0,Vectorial,Vectorial
 Item,,,,,,,,,,,,19,0,Galaxie,Galaxie
@@ -119,14 +115,14 @@ Item,,,,,,,,,,,,21,0,Webcam,Webcam
 Item,,,,,,,,,,,,22,0,Image,Escargot
 Item,,,,,,,,,,,,23,0,Surface,Surface
 Item,,,,,,,,,,,,24,0,Movisco,Movisco
-Item,,,,,,,,,,,,25,0,Eco Agents,Ecosystem_agent
-Item,,,,,,,,,,,,26,0,Eco DNA,Ecosystem_DNA
+Item,,,,,,,,,,,,25,1,Eco Agents,Ecosystem_agent
+Item,,,,,,,,,,,,26,1,Eco DNA,Ecosystem_DNA
 Item,,,,,,,,,,,,27,0,Lorenz attractor,Lorenz
 Button item,,,,,,,,,0,0,0,,,,
 Button item,,,,,,,,,1,0,0,,,,
 Button item,,,,,,,,,2,0,0,,,,
 Button item,,,,,,,,,3,0,0,,,,
-Button background,,,,,,,,,0,0,-2,,,,
+Button background,,,,,,,,,0,1,-2,,,,
 Button curtain,,,,,,,,,1,0,-2,,,,
 Button light ambient,,,,,,,,,2,0,-2,,,,
 Button light ambient,,,,,,,,,3,0,-2,,,,

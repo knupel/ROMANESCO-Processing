@@ -192,7 +192,6 @@ void build_console_setting() {
   dropdown_setting.set_box_height(height_box_dropdown);
   dropdown_setting.set_font(title_medium);
   dropdown_setting.set_box_font(textUsual_1);
-  add_dropdown(dropdown_setting);
   build_console_camera();
   build_console_sound_setting();
 }
@@ -470,7 +469,6 @@ void build_dropdown_bar() {
     dropdown_bar[i].set_font(title_medium);
     dropdown_bar[i].set_box_font(textUsual_1);
   }
-  add_dropdown(dropdown_bar);
 }
 
 void build_dropdown_item_selected() {
@@ -506,7 +504,6 @@ void build_local_dd_item(Dropdown [] dd, Table inventory_table, String [] list_g
       dd[i].set_box_font(textUsual_1);
     }
   }
-  add_dropdown(dd);
 }
 
 

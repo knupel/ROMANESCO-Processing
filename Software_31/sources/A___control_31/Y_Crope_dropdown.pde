@@ -1,31 +1,26 @@
 /**
-DROPDOWN
-v 0.1.0
+DROPDOWN 
+v 0.1.1
 2018-2018
 */
 /**
 method to know is dropdown is active or not
 Add dropdown must use when the dropdown is build.
 */
-ArrayList<Dropdown> dropdown_crope_list ;
-void add_dropdown(Dropdown... dd) {
-  if(dropdown_crope_list == null) dropdown_crope_list = new ArrayList<Dropdown>();
-  for(int i = 0 ; i < dd.length ; i++) {
-    dropdown_crope_list.add(dd[i]);
-  }
-  println("dropdown add to dropdown manager:",dropdown_crope_list.size());
-}
 
 boolean dropdown_is() {
   boolean locked = false ;
-  for(Dropdown dd : dropdown_crope_list) {
-    if(dd != null) {
-      if(dd.locked_is()) {
-        locked = true;
-        break;
+  for(Crope crope : get_crope()) {
+    if(crope != null) {
+      if(crope instanceof Dropdown) {
+        Dropdown dd = (Dropdown) crope;
+        if(dd.locked_is()) {
+          locked = true;
+          break;
+        }
       }
-    }  
-  }
+    }   
+  } 
   return locked;
 }
 
@@ -48,6 +43,7 @@ public class Dropdown extends Crope {
 
   private boolean locked;
   private boolean slider;
+  // private boolean inside_box;
   // color
   private int colour_structure = r.GRAY_2;
 
@@ -320,15 +316,25 @@ public class Dropdown extends Crope {
     }
 
     if(locked) {
-      int line = get_select_line();
-      if (line > -1) {
-        which_line(line);   
-      } 
-    }
+      int result_line = get_select_line();
+      if (result_line > -1) {
+        line = result_line; 
+      }
+    } 
   }
 
-  private void which_line(int l) {
-    line = l ;
+
+  private int get_select_line() {
+    if(cursor.x >= pos.x 
+      && cursor.x <= pos.x +size_box.x 
+      && cursor.y >= pos.y && cursor.y <= ((content.length+1) *size.y) +pos.y) {
+      //choice the line
+      int line = floor((cursor.y - (pos.y +size.y)) / size.y ) +offset_slider;
+      line -= (box_starting_rank_position -1);
+      return line;
+    } else {
+      return -1; 
+    }
   }
 
 
@@ -350,7 +356,7 @@ public class Dropdown extends Crope {
       fill(colour_header_text_out);
     }
     textFont(font);
-    text(get_content()[get_selection()], x, y) ;
+    text(get_content()[get_selection()], x, y);
   }
   
   public void show_header() {
@@ -377,20 +383,33 @@ public class Dropdown extends Crope {
     show_header_text(this.name);
   }
 
-  
+
   public void show_box() {
     if(locked) {
       int step = box_starting_rank_position;
-      int index = 0 ; // first pos molette from the array pos molette
+      int index = 0; // first pos molette from the array pos molette
       //give the position in list of Item with the position from the slider's molette
       if (slider) {
         offset_slider = round(map(slider_dd.get_value(index),0,1,0,missing));
       }
       set_box_width(longest_String_pixel(font_box,this.content));
       for (int i = start +offset_slider ; i < end +offset_slider ; i++) {
-        if(i < 0) i = 0 ;
-        if(i >= content.length) i = content.length -1;
-        render_box(content[i], step++);
+        
+        if(i < 0) {
+          i = 0 ;
+        }
+
+        if(i >= content.length) {
+          i = content.length -1;
+        }
+        
+        float pos_temp_y = pos.y + (size_box.y *step);
+        iVec2 temp_pos = iVec2(pos.x, (int)pos_temp_y);
+        boolean inside = inside(temp_pos,size_box,cursor,RECT);
+        render_box(temp_pos,content[i],step,inside);
+        step++;
+
+
         if (slider) {
           int x = pos.x -slider_dd.get_size().x;
           int y = pos.y +(height_box *box_starting_rank_position);
@@ -404,14 +423,10 @@ public class Dropdown extends Crope {
     }
   }
 
-
-  private void render_box(String content, int step) {
-    float pos_temp_y = pos.y + (size_box.y *step);
-    iVec2 temp_pos = iVec2(pos.x, (int)pos_temp_y);
-    //display
+  private void render_box(iVec2 pos, String content, int step, boolean inside) {
     // box part
-    noStroke() ;
-    if (inside(temp_pos,size_box,cursor,RECT)) {
+    noStroke() ;  
+    if (inside) {
       fill(colour_box_in); 
     } else {
       fill(colour_box_out);
@@ -423,17 +438,16 @@ public class Dropdown extends Crope {
     } else if(size_box.x > max ) {
       size_box.x = max;
     }
-    rect(temp_pos, size_box);
-    
+    rect(pos,size_box); 
     // text part
-    if (inside(temp_pos,size_box,cursor,RECT)) {
+    if (inside(pos,size_box,cursor,RECT)) {
       fill(colour_box_text_in); 
     } else {
       fill(colour_box_text_out);
     }
     textFont(font_box);
-    int x = temp_pos.x +pos_box_text.x;
-    int y = temp_pos.y +height_box -(ceil(height_box*.2));
+    int x = pos.x +pos_box_text.x;
+    int y = pos.y +height_box -(ceil(height_box*.2));
     text(content,x,y);
   }
 
@@ -446,16 +460,24 @@ public class Dropdown extends Crope {
   /**
   GET
   */
-  //Check the dropdown when this one is open
-  public int get_select_line() {
-    if(cursor.x >= pos.x && cursor.x <= pos.x +size_box.x && cursor.y >= pos.y && cursor.y <= ((content.length+1) *size.y) +pos.y) {
-      //choice the line
-      int line = floor((cursor.y - (pos.y +size.y)) / size.y ) +offset_slider;
-      line -= (box_starting_rank_position -1);
-      return line;
-    } else {
-      return -1; 
+  //return which line of dropdown is selected
+  int current_line ;
+  public int get_selection() {
+    float size_temp_y = size_box.y *num_box;
+    iVec2 temp_size = iVec2(size_box.x, (int)size_temp_y);
+    boolean inside_open_box = inside(pos,temp_size,cursor,RECT);
+    if(!inside_open_box) {
+      line = current_line;
     }
+
+    if(!locked && inside_open_box) {
+      if(line >= 0 && line < content.length) {
+        current_line = line ;     
+      } else {
+        printErr("class Dropdown - method get_selected()\nthe line", line, "don't match with any content, the method keep the last content");
+      }
+    } 
+    return current_line;
   }
 
 
@@ -468,18 +490,6 @@ public class Dropdown extends Crope {
     return this.name;
   }
 
-  //return which line of dropdown is selected
-  int current_line ;
-  public int get_selection() {
-    if(!locked) {
-      if(line >= 0 && line < content.length) {
-        current_line = line ;
-      } else {
-        printErr("class Dropdown - method get_selected()\nthe line", line, "don't match with any content, the method keep the last content");
-      }
-    }
-    return current_line;
-  }
 
   public String [] get_content() {
     return content;

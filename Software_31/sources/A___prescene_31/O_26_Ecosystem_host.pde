@@ -1,7 +1,7 @@
 /**
 Ecosysteme Host 
 2016-2018
-V 0.1.4
+V 0.1.5
 */
 class Ecosystem_DNA extends Romanesco {
 	public Ecosystem_DNA() {
@@ -9,7 +9,7 @@ class Ecosystem_DNA extends Romanesco {
 		ID_item = 26 ;
 		ID_group = 1 ;
 		item_author  = "Stan le Punk";
-		item_version = "Version 0.1.4";
+		item_version = "Version 0.1.5";
 		item_pack = "Ecosystem 2016" ;
     item_costume = "Point/Ellipse/Triangle/Rect/Cross/ABC" ;
 		item_mode = "" ; // separate the differentes mode by "/"
@@ -94,7 +94,11 @@ class Ecosystem_DNA extends Romanesco {
     float speed_rotation_host = speed_x_item[ID_item] *speed_x_item[ID_item];
     int direction_host = 1 ;
     boolean motion_bool_host = true ;
-
+    
+    /**
+    change beat system for better reactivity
+    
+    */
     float radius_x = canvas_x_item[ID_item] *allBeats(ID_item) ;
     canvas.set(radius_x, canvas_y_item[ID_item], canvas_z_item[ID_item]) ;
     canvas.mult(ratio_canvas) ;
@@ -104,8 +108,18 @@ class Ecosystem_DNA extends Romanesco {
     size.set(size_x_item[ID_item], size_y_item[ID_item], size_z_item[ID_item]) ;
     size.mult(ratio_size) ;
 
-    if(reverse[ID_item]) direction_host = 1 ; else direction_host = -1 ;
-    if(motion[ID_item]) motion_bool_host = true ; else motion_bool_host = false ;
+    if(reverse[ID_item]) {
+      direction_host = 1; 
+    } else { 
+      direction_host = -1;
+    }
+
+    if(motion[ID_item]) {
+      motion_bool_host = true; 
+    } else {
+      motion_bool_host = false;
+    }
+
     if(birth[ID_item]) {
       set_host(pos, size, canvas, quantity_item[ID_item]) ;
       init_symbiosis() ;
@@ -114,7 +128,9 @@ class Ecosystem_DNA extends Romanesco {
     
     boolean_host(fill_is[ID_item], stroke_is[ID_item], wire[ID_item]) ;
 
-    if(get_costume() == TEXT_ROPE ) textFont(font_item[ID_item]) ;
+    if(get_costume() == TEXT_ROPE) {
+      textFont(font_item[ID_item]);
+    }
 
     float direction = map(dir_x_item[ID_item],0,360, -PI, PI) ;
 

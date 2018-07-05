@@ -130,7 +130,7 @@ void show_misc_text() {
 
 
 /**
-DROPDOWN UPDATe and DISPLAY
+DROPDOWN UPDATE and DISPLAY
 */
 /**
 display

@@ -7,6 +7,14 @@ ITEM NE FONCTIONNAT PAS SUITE AU CHANGEMENT DE METHODE COSTUME
 
 Letter
 
+*/ boxolyzer
+
+le diametre ne doit pas être modifier par le nombre de boite
+
+*/ Agent
+
+Mieux gérer les couleurs, c'est franchement le bronx entre les formes et les couleurs.
+
 
 
 
@@ -15,9 +23,17 @@ Letter
 */
 
 
+*Dropdown
+
+When a dropdown is open and we forget to close it and select an other the previeuous dropdown select the first choice
+
 *CAMERA
 
 Probleme de navigation entre les différentes caméras.
+
+*CAMERA
+
+Faire un bouton pour garder la rotation de la camera en continu sur le dernier mouvement de la souris, et ajouter un bouton vitesse sur le controleur.
 
 *OSC
 
