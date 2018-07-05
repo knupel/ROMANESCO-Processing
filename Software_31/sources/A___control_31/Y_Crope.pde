@@ -1,6 +1,6 @@
 /**
 CROPE
-v 0.9
+v 0.9.0.1
 CONTROL ROMANESCO PROCESSING ENVIRONMENT
 * Copyleft (c) 2018-2018
 *
@@ -30,7 +30,7 @@ ArrayList<Crope> get_crope() {
 
 /**
 Crope info > Cropinfo
-v 0.0.2
+v 0.0.2.1
 2018-2018
 */
 public class Cropinfo {
@@ -46,6 +46,7 @@ public class Cropinfo {
   private int line = -1; // dropdown
   
   public Cropinfo() {
+    //
   }
   
   // set

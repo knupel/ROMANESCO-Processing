@@ -6,7 +6,7 @@ void item_inventory() {
   for (TableRow row : inventory_item_table.rows()) {
     int item_group = row.getInt("Group");
     for (int i = 1 ; i <= num_group ; i++) {
-      if (item_group == i) NUM_ITEM ++;
+      if (item_group == i) NUM_ITEM++;
     }
   }
   println("Items:", NUM_ITEM);
@@ -110,6 +110,7 @@ void init_inventory() {
 void build_button_item_console() {
   for ( int i = BUTTON_ITEM_CONSOLE ; i < button_item_num +BUTTON_ITEM_CONSOLE; i++) {
     if(NUM_ITEM > 0) {
+      println("build button",i);
       iVec2 pos = iVec2(pos_button_width_item[i], pos_button_height_item[i]) ;
       iVec2 size = iVec2(width_button_item[i], height_button_item[i]) ; 
       button_item[i] = new Button_dynamic(pos, size) ;
