@@ -80,8 +80,8 @@ class Lignes extends Romanesco {
   
   //DRAW
   void draw() {
-    if( beat[ID_item] > 1 ) {
-      ampLine = beat[ID_item] *(map(swing_x_item[ID_item], 0,1, 0, 3)) ;
+    if( transient_value[0][ID_item] > 1 ) {
+      ampLine = transient_value[0][ID_item] *(map(swing_x_item[ID_item], 0,1, 0, 3)) ;
       thicknessLine = (thickness_item[ID_item] *ampLine ) ;
     } else {
       thicknessLine = thickness_item[ID_item] ;

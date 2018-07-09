@@ -119,7 +119,7 @@ class BaliseRomanesco extends Romanesco {
     //factor size
     float factor_base = map(repulsion_item[ID_item],0,1,1,100);
     float factor = 1;
-    if(sound[ID_item]) factor = factor_base *(allBeats(ID_item) *.2);
+    if(sound[ID_item]) factor = factor_base *(all_transient(ID_item) *.2);
     if(factor < 1.0 ) factor = 1.0 ;
 
     // snake mode
@@ -138,7 +138,7 @@ class BaliseRomanesco extends Romanesco {
 
     // SIZE
     float ratio = .5 ;
-    float tempo_effect = 1 + ((beat[ID_item] *ratio) + (kick[ID_item] *ratio) + (snare[ID_item] *ratio) + (hat[ID_item] *ratio));
+    float tempo_effect = 1 + ((transient_value[0][ID_item] *ratio) + (transient_value[2][ID_item] *ratio) + (transient_value[3][ID_item] *ratio) + (transient_value[4][ID_item] *ratio));
 
     Vec3 size = Vec3(size_x_item[ID_item],size_y_item[ID_item],size_z_item[ID_item]);
 

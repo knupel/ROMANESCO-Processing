@@ -121,7 +121,7 @@ class Vectorial extends Romanesco {
     Vec3 scale_3D = Vec3(scale_x, scale_y,1) ;
 
     // beat factor
-    if(sound[ID_item]) beat_factor = allBeats(ID_item) ; else beat_factor = 1. ;
+    if(sound[ID_item]) beat_factor = all_transient(ID_item) ; else beat_factor = 1. ;
 
 
     

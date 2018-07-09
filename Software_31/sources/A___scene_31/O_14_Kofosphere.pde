@@ -81,7 +81,7 @@ class Kofosphere extends Romanesco {
   
   //DRAW
   void draw() {
-    float beatFactor = map(allBeats(ID_item), 1,12, 1., 3.5) ;
+    float beatFactor = map(all_transient(ID_item), 1,12, 1., 3.5) ;
     float radius = map(canvas_x_item[ID_item], width/10, width, .01, 1.1) ;
     if(sound[ID_item]) radius = sq(radius) *beatFactor ; 
     

@@ -99,7 +99,7 @@ class Ecosystem_DNA extends Romanesco {
     change beat system for better reactivity
     
     */
-    float radius_x = canvas_x_item[ID_item] *allBeats(ID_item) ;
+    float radius_x = canvas_x_item[ID_item] *all_transient(ID_item) ;
     canvas.set(radius_x, canvas_y_item[ID_item], canvas_z_item[ID_item]) ;
     canvas.mult(ratio_canvas) ;
     radius.set(canvas) ;

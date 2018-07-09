@@ -105,9 +105,9 @@ class Damier extends Romanesco {
     float sizeXtemp = map(size_x_item[ID_item],.1,width,.1,width/33) ;
     float sizeYtemp = map(size_y_item[ID_item],.1,width,.1,width/33) ;
     float sizeZtemp = map(size_z_item[ID_item],.1,width,.1,width/33) ;
-    size.x = ((sizeXtemp *sizeXtemp) *penPressure *allBeats(ID_item) ) *g ;
-    size.y = ((sizeYtemp *sizeYtemp) *penPressure *allBeats(ID_item)) *d ;
-    size.z = ((sizeZtemp *sizeZtemp) *penPressure *allBeats(ID_item)) *m  ;
+    size.x = ((sizeXtemp *sizeXtemp) *penPressure *all_transient(ID_item) ) *g ;
+    size.y = ((sizeYtemp *sizeYtemp) *penPressure *all_transient(ID_item)) *d ;
+    size.z = ((sizeZtemp *sizeZtemp) *penPressure *all_transient(ID_item)) *m  ;
     //size
 
     //orientation / deg

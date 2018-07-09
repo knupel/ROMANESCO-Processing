@@ -128,7 +128,7 @@ class Letter extends Romanesco {
       }
     }
     
-    if(allBeats(ID_item) > 10 || key_n ) {
+    if(all_transient(ID_item) > 10 || key_n ) {
       axeLetter = int(random (grp.countChildren())) ;
     }
     
@@ -188,7 +188,7 @@ class Letter extends Romanesco {
   
   void letters(float speed, int axeLetter, PVector jttr) {
     if (sound[ID_item]) {
-      whichLetter = (int)allBeats(ID_item) ; 
+      whichLetter = (int)all_transient(ID_item) ; 
     } else {
       whichLetter = 0 ;
     }
@@ -245,7 +245,7 @@ class Letter extends Romanesco {
     for ( int i = 0; i < points.length; i++ ) {
       points[i].add(jitterPVector(ampJttr)) ;
       float factor = 40.0 ;
-      points[i].z = points[i].z +(allBeats(ID_item) *factor) ; 
+      points[i].z = points[i].z +(all_transient(ID_item) *factor) ; 
       if(get_costume() == POINT_ROPE ) point(points[i].x, points[i].y, points[i].z) ;
       if(get_costume() == LINE_ROPE ) if(i > 0 ) line( points[i-1].x, points[i-1].y, points[i-1].z,   points[i].x, points[i].y, points[i].z );
       if(get_costume() == TRIANGLE_ROPE ) if(i > 1 ) triangle(points[i-2].x, points[i-2].y, points[i-2].z,   points[i-1].x, points[i-1].y, points[i-1].z,   points[i].x, points[i].y, points[i].z );

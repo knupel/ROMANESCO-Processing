@@ -3,7 +3,7 @@ VARIABLE
 Prescene, Scene
 Romanesco Processing Environment
 2015-2018
-v 1.2.9
+v 1.3.0
 */
 
 /**
@@ -78,7 +78,8 @@ int BUTTON_ITEM_CONSOLE = 4;
 
 
 // button
-boolean kick_is, snare_is, hat_is;
+boolean [] transient_is;
+// boolean kick_is, snare_is, hat_is;
 boolean curtain_is, background_is;
 boolean ambient_is,ambient_action_is;
 boolean light_1_is,light_1_action_is;
@@ -358,9 +359,10 @@ PFont [] font_item ;
 //var to init the data of the object when is switch ON for the first time
 boolean [] init_value_mouse, init_value_controller ;
 //parameter for the super class
-float [] left, right, mix ;
-//beat
-float [] beat, kick, snare, hat ;
+float [] left,right,mix ;
+// transient
+float [][] transient_value;
+// float [] beat, kick, snare, hat ;
 // spectrum
 float band[][] ;
 //tempo
@@ -510,11 +512,9 @@ void create_variableSound() {
    left = new float [NUM_ITEM_PLUS_MASTER];
    right = new float [NUM_ITEM_PLUS_MASTER];
    mix  = new float [NUM_ITEM_PLUS_MASTER];
-   // beat
-   beat  = new float [NUM_ITEM_PLUS_MASTER];
-   kick  = new float [NUM_ITEM_PLUS_MASTER];
-   snare  = new float [NUM_ITEM_PLUS_MASTER];
-   hat  = new float [NUM_ITEM_PLUS_MASTER];
+   // transient
+   transient_is = new boolean[5];
+   transient_value = new float[5][NUM_ITEM_PLUS_MASTER]; // beat[ID_item]
    // spectrum
    band = new float [NUM_ITEM_PLUS_MASTER][NUM_BANDS];
    // tempo
@@ -831,16 +831,8 @@ void init_items() {
 /**
 button general var setting
 */
-boolean kick_romanesco_is() {
-  return kick_is;
-}
-
-boolean snare_romanesco_is() {
-  return snare_is;
-}
-
-boolean hat_romanesco_is() {
-  return hat_is;
+boolean transient_romanesco_is(int index) {
+  return transient_is[index];
 }
 
 boolean curtain_is() {
@@ -877,16 +869,8 @@ boolean light_2_action_is() {
 
 
 
-void kick_romanesco_is(boolean is) {
-  kick_is = is;
-}
-
-void snare_romanesco_is(boolean is) {
-  snare_is = is;
-}
-
-void hat_romanesco_is(boolean is) {
-  hat_is = is;
+void transient_romanesco_is(int index, boolean is) {
+  transient_is[index] = is;
 }
 
 void curtain_is(boolean is) {
@@ -1091,8 +1075,11 @@ void update_temp_value() {
 
 //SHORTCUT VAR
 //SOUND
-float allBeats(int ID) {
-  return (kick[ID]*.25) +(hat[ID]*.25) +(snare[ID]*.25) ;
-  // return (beat[ID]*.25) +(kick[ID]*.25) +(hat[ID]*.25) +(snare[ID]*.25) ;
+float all_transient(int ID) {
+  float val = 0 ;
+  for(int i = 1 ; i < transient_value.length ; i++) {
+    val += transient_value[i][ID] *.25;
+  }
+  return val ;
 }
 

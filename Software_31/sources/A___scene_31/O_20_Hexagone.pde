@@ -122,7 +122,7 @@ class Honeycomb extends Romanesco {
     
     // music factor
     float soundSizeFactor ;
-    if(get_time_track() > 0.2) soundSizeFactor = allBeats(ID_item) ; else soundSizeFactor = 1.0 ;
+    if(get_time_track() > 0.2) soundSizeFactor = all_transient(ID_item) ; else soundSizeFactor = 1.0 ;
     
 
     if(hexagonRadius != radiusRef || hexagonStroke != strokeRef || (canvas.x != canvasRef.x || canvas.y != canvasRef.y) ) {

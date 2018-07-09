@@ -182,28 +182,28 @@ alpha(stroke_item[ID_item]) ;
 >return float value: 0,100.0
 
 thickness_item[ID_item] ;
->return float value: 0.1, width *.01
+>return float value: 0.1, width x.01
 
 size_x_item[ID_item] ; 
->return float value: width *.01, width
+>return float value: width x.01, width
 
 size_y_item[ID_item] ; 
->return float value: width *.01, width
+>return float value: width x.01, width
 
 size_z_item[ID_item]  ; 
->return float value: width *.01, width
+>return float value: width x.01, width
 
 font_size_item[ID_item] ; 
->return float value: width *.01, width
+>return float value: width x.01, width
 
 canvas_x_item[ID_item] ; 
->return float value: width *.1, (float)width *2PI
+>return float value: width x.1, (float)width x2PI
 
 canvas_y_item[ID_item]  ; 
->return float value: width *.1, (float)width *2PI
+>return float value: width x.1, (float)width x2PI
 
 canvas_z_item[ID_item] ; 
->return float value: width *.1, (float)width *2PI
+>return float value: width x.1, (float)width x2PI
 
 reactivity_item[[ID_item] ; 
 >return float: value 0, 1
@@ -269,13 +269,13 @@ quality_item[ID_item] ;
 >return float value: 0, 1
 
 area_item[ID_item] ; 
->return float value: width *.1, width *PHI
+>return float value: width x.1, width xPHI
 
 angle_item[ID_item] ;
 >return float value: 0, 360.0
 
 scope_item[ID_item] ; 
->return loat value: width *.1, width *PHI
+>return loat value: width x.1, width xPHI
 
 scan_item[ID_item] ; 
 >return float value: 0, 360.0 
@@ -318,16 +318,16 @@ Vec2 stroke_sat_min_max, stroke_bright_min_max, stroke_alpha_min_max ;
 >0, color max of your environment
 
 Vec2 thickness_min_max ;
->0.1, height*.33
+>0.1, height x.33
 
 Vec2 size_x_min_max, size_y_min_max, size_z_min_max ;
->width *min_size, width
+>width xmin_size, width
 
 Vec2 font_size_min_max ; 
->eight *.005, height *.05
+>eight x.005, height x.05
 
 Vec2 canvas_x_min_max, canvas_y_min_max, canvas_z_min_max ;
->width *min_size, width
+>width xmin_size, width
 
 Vec2 reactivity_min_max ;
 >0,1
@@ -363,13 +363,13 @@ Vec2 quality_min_max ;
 >0,1
 
 Vec2 area_min_max ;
->width *min_size, width
+>width x min_size, width
 
 Vec2 angle_min_max ;
 >0,360
 
 Vec2 scope_min_max ;
->width *min_size, width
+>width x min_size, width
 
 Vec2 scan_min_max ;
 >0,360
@@ -401,10 +401,10 @@ Vec2 need_min_max ;
 
 
 
-SOUND
---
-Volume
---
+*SOUND
+
+*Volume
+
 float left[ID_item] ;
 >return float value 0 > 1 / 1 when it's the sound is off
 
@@ -414,46 +414,59 @@ float right[ID_item] ;
 float mix[ID_item] ;
 >return float value 0 > 1 / 1 when it's the sound is off
 
-Beat
---
-float beat[ID_item] ;
->return float value 1 > 3 / last value when the sound is off
+*Transient > transitory attack, it's close to beat detection
 
-float kick[ID_item] ;
->return float value 1 > 3 / last value when the sound is off
+*global transient
 
-float snare[ID_item] ;
->return float value 1 > 3 / last value when the sound is off
+float transient_value[0][ID_item] ;
+>return float value 1 > 10 / last value when the sound is off
 
-float hat[ID_item] ;
->return float value 1 > 3 / last value when the sound is off
+*section transient 
 
-float allBeats(ID_item) ;
+section 0 is transient_value[1]
+section 1 is transient_value[2]
+section 2 is transient_value[3]
+section 3 is transient_value[4]
+We use this system because transient[0] is use for all the range analyze
+
+float transient_value[1][ID_item];
+>return float value 1 > 10 / last value when the sound is off
+
+float transient_value[2][ID_item];
+>return float value 1 > 10 / last value when the sound is off
+
+float transient_value[3][ID_item];
+>return float value 1 > 10 / last value when the sound is off
+
+float transient_value[4][ID_item];
+>return float value 1 > 10 / last value when the sound is off
+
+float all_transient(ID_item) ;
 >return float value 1 > 12 / last value when the sound is off
 >Weird because normally the value return must be between 1 to 10 for single value and 1 to 40 for the sum 
 
-Tempo
---
+*Tempo
+
 tempo[ID_item] @return float value 0 > 1 / 1 when it's the sound is off
 
-tempoBeat[ID_item]  @return float value 0 > 1 / 1 when it's the sound is off
+tempoBeat[ID_item] @return float value 0 > 1 / 1 when it's the sound is off
 
-tempoKick[ID_item]  @return float value 0 > 1 / 1 when it's the sound is off
+tempoKick[ID_item] @return float value 0 > 1 / 1 when it's the sound is off
 
 tempoSnare[ID_item] @return float value 0 > 1 / 1 when it's the sound is off
 
-tempoHat[ID_item]   @return float value 0 > 1 / 1 when it's the sound is off
+tempoHat[ID_item] @return float value 0 > 1 / 1 when it's the sound is off
 
-Track
---
+*Track
+
 boolean SOUND_PLAY ; 
 >return if there is sound play
 
 float getTimeTrack() ;
 >if the track is ON return the time elapse from the beginning play to now, if the track is OFF return value < 0.2
 
-Band / Spectrum
---
+*Band / Spectrum
+
 float band [ID_item][whichBand] ;
 >whichBand give the information of the band where catch the info, usualy there is 16 bands, to know the number : bandSpectrum.length ;
 

@@ -287,14 +287,9 @@ void load_saved_file_controller(String path) {
       int IDbutton = row.getInt("ID button") ;
       int IDmidi = row.getInt("ID midi") ;
       int onOff = row.getInt("On Off");
-      println(count_button_item,info_button_item.length);
       if(count_button_item < info_button_item.length) {
         info_button_item[count_button_item].set(IDbutton,IDmidi,onOff);
-      } else {
-        // the case where an item is add from Prescene before the first save, 
-        // that's happen when you code a new item
-
-      }
+      } 
       count_button_item++; 
     }
 
@@ -569,14 +564,12 @@ void set_button_from_saved_file() {
   for(int i = 1 ; i <= NUM_ITEM ; i++) {
     for (int j = 0 ; j < BUTTON_ITEM_CONSOLE ; j++) {
       button_rank = info_button_item[rank].x;
+      // check if button rank is upper to zero, 
+      // that's happen when a new item is add from Scene before save the setting
       if(button_rank > 0) {
         if(info_button_item[rank].z == 1.0 && button_rank == (i*BUTTON_ITEM_CONSOLE)+j) {
           button_item[button_rank].set_is(true);
         } else {
-          
-          println(button_rank);
-          println(button_item[button_rank]);
-          
           button_item[button_rank].set_is(false); 
         }
         button_item[button_rank].set_id_midi((int)info_button_item[rank].y);

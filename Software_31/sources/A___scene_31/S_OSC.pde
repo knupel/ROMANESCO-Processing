@@ -90,9 +90,13 @@ void receive_data_general_button(OscMessage receive, int in) {
   
 
   // transient_0_romanesco_is(to_bool(receive,7+in));
-  kick_romanesco_is(to_bool(receive,8+in));
-  snare_romanesco_is(to_bool(receive,9+in));
-  hat_romanesco_is(to_bool(receive,10+in));
+  int index_osc = 7 ;
+  for(int i = 1 ; i < transient_is.length ; i++) {
+
+    transient_romanesco_is(i,to_bool(receive,index_osc+in));
+    index_osc++;
+  }
+  // index_osc finish at 10
 }
 
 void receive_data_general_slider(OscMessage receive, int in, int out) {

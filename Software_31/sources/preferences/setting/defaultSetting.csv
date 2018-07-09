@@ -31,11 +31,11 @@ Slider light,7,0.0,1.0,1,1.0,,,,,,-2,,,,
 Slider light,8,0.0,1.0,1,1.0,,,,,,-2,,,,
 Slider sound,0,0.0,1.0,1,0.5,,,,,,-2,,,,
 Slider sound,1,0.0,1.0,1,0.5,,,,,,-2,,,,
-Slider sound setting,0,0.0,1.0,3,0.10526316,0.4105263,0.7157895,,,,-2,,,,
-Slider sound setting,1,0.0,1.0,2,0.0,0.18947369,,,,,-2,,,,
-Slider sound setting,2,0.0,1.0,2,0.11578947,0.35789475,,,,,-2,,,,
-Slider sound setting,3,0.0,1.0,2,0.30526316,0.6631579,,,,,-2,,,,
-Slider sound setting,4,0.0,1.0,2,0.70526314,0.94736844,,,,,-2,,,,
+Slider sound setting,0,0.0,1.0,3,0.094736844,0.38947368,0.67368424,,,,-2,,,,
+Slider sound setting,1,0.0,1.0,2,0.0,0.17894737,,,,,-2,,,,
+Slider sound setting,2,0.0,1.0,2,0.10526316,0.33684212,,,,,-2,,,,
+Slider sound setting,3,0.0,1.0,2,0.28421053,0.6315789,,,,,-2,,,,
+Slider sound setting,4,0.0,1.0,2,0.6631579,0.8947368,,,,,-2,,,,
 Slider camera,0,0.0,1.0,1,0.5,,,,,,-2,,,,
 Slider camera,1,0.0,1.0,1,0.5,,,,,,-2,,,,
 Slider camera,2,0.0,1.0,1,0.5,,,,,,-2,,,,
@@ -100,7 +100,7 @@ Item,,,,,,,,,,,,6,0,The Abbyss,The_Abbyss
 Item,,,,,,,,,,,,7,0,Boids,Boids
 Item,,,,,,,,,,,,8,0,Rubis,MesAmis
 Item,,,,,,,,,,,,9,0,Arbre,ArbreRomanesco
-Item,,,,,,,,,,,,10,0,Boxolyzer,Boxolyzer
+Item,,,,,,,,,,,,10,1,Boxolyzer,Boxolyzer
 Item,,,,,,,,,,,,11,0,Soleil,Soleil
 Item,,,,,,,,,,,,12,0,Spirale,SpiraleRomanesco
 Item,,,,,,,,,,,,13,0,Balise,BaliseRomanesco
@@ -118,6 +118,7 @@ Item,,,,,,,,,,,,24,0,Movisco,Movisco
 Item,,,,,,,,,,,,25,1,Eco Agents,Ecosystem_agent
 Item,,,,,,,,,,,,26,1,Eco DNA,Ecosystem_DNA
 Item,,,,,,,,,,,,27,0,Lorenz attractor,Lorenz
+Item,,,,,,,,,,,,28,1,BoumBoum,BoumBoum
 Button item,,,,,,,,,0,0,0,,,,
 Button item,,,,,,,,,1,0,0,,,,
 Button item,,,,,,,,,2,0,0,,,,
@@ -130,7 +131,7 @@ Button light 1,,,,,,,,,4,0,-2,,,,
 Button light 1,,,,,,,,,5,0,-2,,,,
 Button light 2,,,,,,,,,6,0,0,,,,
 Button light 2,,,,,,,,,7,0,0,,,,
-Button transient,,,,,,,,,8,0,0,,,,
+Button transient,,,,,,,,,8,1,0,,,,
 Button transient,,,,,,,,,9,0,0,,,,
 Button transient,,,,,,,,,10,0,0,,,,
 Button transient,,,,,,,,,11,0,0,,,,
@@ -242,3 +243,7 @@ Button item,,,,,,,,,108,0,-2,,,,
 Button item,,,,,,,,,109,0,-2,,,,
 Button item,,,,,,,,,110,0,-2,,,,
 Button item,,,,,,,,,111,0,-2,,,,
+Button item,,,,,,,,,112,0,-2,,,,
+Button item,,,,,,,,,113,0,-2,,,,
+Button item,,,,,,,,,114,0,-2,,,,
+Button item,,,,,,,,,115,0,-2,,,,

@@ -1,7 +1,7 @@
 /**
 CORE Rope SCENE and PRESCENE 
 2015-2018
-v 1.4.2.1
+v 1.4.3
 */
 import java.net.*;
 import java.io.*;
@@ -1331,7 +1331,7 @@ void rectangle(Vec2 pos, Vec3 size, PShader s) {
   s.set("mixSound", mix[0]) ;
   s.set("timeTrack", get_time_track()) ;
   s.set("tempo", tempo[0]) ;
-  s.set("beat", allBeats(0));
+  s.set("beat", all_transient(0));
   s.set("quantity", quantity);
   s.set("variety", var);
   s.set("mouse",shaderMouseX, shaderMouseY);
@@ -1388,12 +1388,23 @@ void rectangle(Vec2 pos, Vec3 size, PShader s) {
 
 
 
+
+
+
+
+
+
+
+
+
+
 /**
 SOUND
-v 1.3.0
+v 1.4.0
 */
 Sounda sounda;
-int [] beat_section_id;
+int [] transient_section_id;
+
 void sound_setup() {
   int length_analyze = 512 ;
   sounda = new Sounda(length_analyze);
@@ -1401,57 +1412,55 @@ void sound_setup() {
   float scale_spectrum_sound = .11 ;
   sounda.set_spectrum(NUM_BANDS, scale_spectrum_sound);
 
-  iVec2 [] in_out = new iVec2[3];
-  int in_kick = 0 ;
-  int out_kick = NUM_BANDS/5;
-  in_out[0] = iVec2(in_kick,out_kick);
-
-  int in_snare = out_kick;
-  int out_snare = NUM_BANDS -NUM_BANDS/5;  
-  in_out[1] = iVec2(in_snare,out_snare);
-
-  int in_hat = out_snare;
-  int out_hat = NUM_BANDS;
-  in_out[2] = iVec2(in_hat,out_hat);
-  sounda.set_section(in_out);
-
-  // value_slider_sound_setting
-
-  float threshold_kick = 4.5;
-  float threshold_snare = 3.3;
-  float threshold_hat = 1.6;
-  beat_section_id = new int[3] ;
-  beat_section_id[0] = 0;
-  beat_section_id[1] = 1;
-  beat_section_id[2] = 2;
-
-  sounda.set_beat(beat_section_id,threshold_kick,threshold_snare,threshold_hat);
+  int len = sounda.buffer_size();
+  int section_1 = len/8 ;
+  int section_2 = len/3 ;
+  int section_3 = len - (len/6);
+  set_section_analyze(section_1,section_2,section_3);
+  set_transient();
   sounda.set_tempo();
 }
 
-
 void sound_draw() {
+  // setting
   sounda.audio_buffer(r.MIX);
-  sounda.update();
-  sound_romanesco();
-}
-
-
-
-
-
-
-
-void sound_romanesco() {
-  set_volume_romaneco();
-  set_beat_romanesco();
-
-  beat_romanesco();
+  update_volume_setting();
+  update_section_setting();
+  update_transient_setting();
+  // update
+  sounda.update_spectrum(true);
+  transient_romanesco();
   spectrum_romaneco();
   tempo_romanesco();
+  
+  /*
+  println("in out 0",sounda.get_section_in(0),sounda.get_section_out(0));
+  println("in out 1",sounda.get_section_in(1),sounda.get_section_out(1));
+  println("in out 2",sounda.get_section_in(2),sounda.get_section_out(2));
+  println("in out 3",sounda.get_section_in(3),sounda.get_section_out(3));
+  */
+  
 }
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/**
+ROMANESCO SOUND DRAW
+*/
 void tempo_romanesco() {
   tempo[0] = sounda.get_tempo();
   tempoKick[0] = sounda.get_tempo();
@@ -1459,61 +1468,77 @@ void tempo_romanesco() {
   tempoHat[0] = sounda.get_tempo();
 }
 
-
 void spectrum_romaneco() {
-//spectrum
-  for (int i = 0 ; i < sounda.band_num() ; i++ ) {
+  for (int i = 0 ; i < sounda.spectrum_size() ; i++ ) {
     band[0][i] = sounda.get_spectrum(i);
   }
 }
 
-
-void beat_romanesco() {
-  int beat_value = 10 ;
+void transient_romanesco() {
+  int max_transient_value = 10 ;
   float back_factor = .95;
-  //Beat
-  if((kick_romanesco_is() || snare_romanesco_is() || hat_romanesco_is()) && sounda.beat_is()) {    
-    beat[0] = beat_value;
-  } else {
-    beat[0] *= back_factor;
+  // transient global
+  boolean transient_global_is = false; 
+  for(int i = 1 ; i < transient_is.length ; i++) {
+    if(transient_romanesco_is(i)) {
+      transient_global_is = true;
+      break;
+    }
   }
-  // kick
-  if(kick_romanesco_is() && sounda.beat_is(0)) {
-    kick[0] = beat_value;   
+  if(transient_global_is && sounda.transient_is()) {    
+    transient_value[0][0] = max_transient_value;
   } else {
-    kick[0] *= back_factor;
+    transient_value[0][0] *= back_factor;
   }
-  // snare
-  if(snare_romanesco_is() && sounda.beat_is(1)) {
-    snare[0] = beat_value;   
-  } else {
-    snare[0] *= back_factor;
-  }
-  // hat
-  if(hat_romanesco_is() && sounda.beat_is(2)) {
-    hat[0] = beat_value;   
-  } else {
-    hat[0] *= back_factor;
+  // extra bass 
+  // give catch value `0` from the lib because here we use `0` for the master transient
+  for(int i = 1 ; i < transient_is.length ; i++) {
+    if(transient_romanesco_is(i) && sounda.transient_is(i-1)) {
+      transient_value[i][0] = max_transient_value;   
+    } else {
+      transient_value[i][0] *= back_factor;
+    }
   }
 }
 
 
 
-void set_beat_romanesco() {
-  float threshold_high =  value_slider_sound_setting[4];
-  float threshold_x_kick = map(threshold_high,0,MAX_VALUE_SLIDER,0,10);
-  threshold_high =  value_slider_sound_setting[6];
-  float threshold_kick = map( threshold_high,0,MAX_VALUE_SLIDER,0,10);
-  threshold_high =  value_slider_sound_setting[8];
-  float threshold_snare = map( threshold_high,0,MAX_VALUE_SLIDER,0,10);
-  threshold_high =  value_slider_sound_setting[10];
-  float threshold_hat = map( threshold_high,0,MAX_VALUE_SLIDER,0,10);
-  
-  sounda.set_beat(beat_section_id,threshold_kick,threshold_snare,threshold_hat);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/**
+UPDATE SETTING SOUND
+*/
+void update_section_setting() {
+  int cut_section_1 = (int)map(value_slider_sound_setting[0],0,360,0,sounda.buffer_size());
+  int cut_section_2 = (int)map(value_slider_sound_setting[1],0,360,0,sounda.buffer_size());
+  int cut_section_3 = (int)map(value_slider_sound_setting[2],0,360,0,sounda.buffer_size());
+  set_section_analyze(cut_section_1,cut_section_2,cut_section_3);
 }
 
+void update_transient_setting() {
+  Vec2 [] transient_threshold = new Vec2[4];
+  for(int i = 0 ; i < transient_threshold.length ; i++) {
+    int index = i*2;
+    float threshold_low = map(value_slider_sound_setting[index+3],0,360,4,0);
+    float threshold_high = map(value_slider_sound_setting[index+4],0,360,4,0);
+    transient_threshold[i] = Vec2(threshold_low,threshold_high);
+    sounda.set_transient(i,transient_threshold[i]);
+  }
+}
 
-void set_volume_romaneco() {
+void update_volume_setting() {
   float vol_left_controller = map(value_slider_sound[0],0,MAX_VALUE_SLIDER,0,1.3);
   left[0] = map(sounda.get_left(),-.07,.1,0,vol_left_controller);
   
@@ -1534,10 +1559,70 @@ void set_volume_romaneco() {
 
 
 
+
+
+
+
+
+
+
+
+
+
+/**
+SET
+*/
+void set_section_analyze(int... section_entry) {
+  int len = sounda.buffer_size();
+  int num_part = section_entry.length +1;
+  iVec2 [] in_out = new iVec2[num_part];
+  int part = len/(num_part*2);
+  in_out[0] = iVec2(0,section_entry[0]); 
+  in_out[1] = iVec2(section_entry[0],section_entry[1]);
+  in_out[2] = iVec2(section_entry[1],section_entry[2]);
+  in_out[3] = iVec2(section_entry[2],len);
+  sounda.set_section(in_out);
+}
+
+void set_transient() {
+  Vec2 [] transient_part_threshold = new Vec2[sounda.section_size()];
+  transient_part_threshold[0] = Vec2(.1, 2.5);
+  transient_part_threshold[1] = Vec2(.1, 2.5);
+  transient_part_threshold[2] = Vec2(.1, 2.5);
+  transient_part_threshold[3] = Vec2(.1, 2.5);
+
+  sounda.init_transient(transient_part_threshold);
+  sounda.set_transient_low_pass(20);     
+  sounda.set_transient_smooth_slow(3.);
+  sounda.set_transient_smooth_fast(21.);
+  sounda.set_transient_ratio_log(100,50,40,30); 
+  sounda.set_transient_threshold_low(.05,.08,.12,.16);
+  sounda.set_transient_threshold_high(.8,.3,.25,.20);
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/**
+GET
+*/
 int band_length() {
   return band[0].length;
 }
-
 
 float get_time_track() {
   if(sounda != null) {
@@ -1551,7 +1636,6 @@ float get_time_track() {
 boolean sound_is() {
   return sounda.sound_is();
 }
-
 
 float get_right(int target_sample) {
   return sounda.get_right(target_sample);
@@ -1743,6 +1827,11 @@ void list_cameras() {
     CAMERA_AVAILABLE = false ;
   }
 }
+
+
+
+
+
 
 
 

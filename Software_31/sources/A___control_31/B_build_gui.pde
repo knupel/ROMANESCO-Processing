@@ -20,9 +20,9 @@ void build_console() {
 
 void build_console_general() {
   //MIDI
-  button_midi = new Button(pos_midi_button, size_midi_button) ;
+  button_midi = new Button(pos_midi_button, size_midi_button);
   //curtain
-  button_curtain = new Button(pos_curtain_button, size_curtain_button) ;
+  button_curtain = new Button(pos_curtain_button, size_curtain_button);
 }
 
 void build_console_bar() {
@@ -125,7 +125,7 @@ void build_console_light() {
   button_light_1_action.set_font(FuturaExtraBold_10);
   button_light_1_action.set_label("action");
   // LIGHT TWO 
-  button_light_2 = new Button(pos_light_2_button, size_light_2_button) ;
+  button_light_2 = new Button(pos_light_2_button, size_light_2_button);
   button_light_2.set_aspect_on_off(button_on_in, button_on_out, button_off_in, button_off_out);
   button_light_2.set_font(FuturaExtraBold_10);
 
@@ -161,23 +161,6 @@ void build_console_sound() {
     button_transient[i].set_font(FuturaExtraBold_10);
     button_transient[i].set_label(name_button_transient[i]);
   }
-
-  /*
-  button_kick = new Button(pos_kick_button, size_kick_button);
-  button_kick.set_aspect_on_off(button_on_in, button_on_out, button_off_in, button_off_out);
-  button_kick.set_font(FuturaExtraBold_10);
-  button_kick.set_label("KICK");
-
-  button_snare = new Button(pos_snare_button, size_snare_button);
-  button_snare.set_aspect_on_off(button_on_in, button_on_out, button_off_in, button_off_out);
-  button_snare.set_font(FuturaExtraBold_10);
-  button_snare.set_label("SNARE");
-
-  button_hat = new Button(pos_hat_button, size_hat_button);
-  button_hat.set_aspect_on_off(button_on_in, button_on_out, button_off_in, button_off_out);
-  button_hat.set_font(FuturaExtraBold_10);
-  button_hat.set_label("HAT");
-  */
 }
 
 

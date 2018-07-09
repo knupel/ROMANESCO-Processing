@@ -95,7 +95,7 @@ class MesAmis extends Romanesco {
     float speed = map(speed_x_item[ID_item],0,1,.0001,.2);
     speed = speed*speed ;
     if(sound[ID_item] && sound_is()) {
-      speed *= allBeats(ID_item);
+      speed *= all_transient(ID_item);
     }
 
 

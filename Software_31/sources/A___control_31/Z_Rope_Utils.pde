@@ -115,10 +115,10 @@ class Constant_list {
 
 /**
 FOLDER & FILE MANAGER
-v 0.2.1
+v 0.2.1.1
 */
 /*
-INOUT PART
+INPUT PART
 */
 String selected_path_input = null;
 boolean input_selected_is;

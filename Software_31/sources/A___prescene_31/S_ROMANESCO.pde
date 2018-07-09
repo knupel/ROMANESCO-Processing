@@ -280,10 +280,13 @@ void update_var_sound(int ID) {
     right[ID] = right[0]; //float value(0,1)
     mix[ID] = mix[0]; //   is average volume between the left and the right / float value(0,1)
     
-    beat[ID] = beat[0]; //    is beat : value 1,10 
-    kick[ID] = kick[0]; //   is beat kick : value 1,10 
-    snare[ID] = snare[0]; //   is beat snare : value 1,10 
-    hat[ID] = hat[0]; //   is beat hat : value 1,10 
+    transient_value[0][ID] = transient_value[0][0]; // is transient master detection on all spectrum : value 1,10 
+
+    transient_value[1][ID] = transient_value[1][0]; // is extra_bass transient detection by default : value 1,10 
+    transient_value[2][ID] = transient_value[2][0]; // is bass transient detection by default : value 1,10 
+    transient_value[3][ID] = transient_value[3][0]; // is medium transient detection by default : value 1,10 
+    transient_value[4][ID] = transient_value[4][0]; // is hight transient detection by default : value 1,10 
+
 
     tempo[ID] = tempo[0]; // global speed of track  / float value(0,1)
     tempoBeat[ID] = tempoBeat[0]; // speed of track calculate on the beat
@@ -299,10 +302,12 @@ void update_var_sound(int ID) {
     right[ID] = 1; //float value(0,1)
     mix[ID] = 1; //   is average volume between the left and the right / float value(0,1)
     
-    beat[ID] = 1;//    is beat : value 1,10 
-    kick[ID] = 1;//   is beat kick : value 1,10 
-    snare[ID] = 1;//   is beat snare : value 1,10 
-    hat[ID] = 1;//   is beat hat : value 1,10 
+    transient_value[0][ID] = 1; // is transient master detection on all spectrum : value 1,10 
+
+    transient_value[1][ID] = 1; // is extra_bass transient detection by default : value 1,10 
+    transient_value[2][ID] = 1; // is bass transient detection by default : value 1,10 
+    transient_value[3][ID] = 1; // is medium transient detection by default : value 1,10 
+    transient_value[4][ID] = 1; // is hight transient detection by default : value 1,10 
     
     tempo[ID] = 1; // global speed of track  / float value(0,1)
     tempoBeat[ID] = 1; // speed of track calculate on the beat
@@ -310,7 +315,7 @@ void update_var_sound(int ID) {
     tempoSnare[ID] = 1; // speed of track calculate on the snare
     tempoHat[ID] = 1; // speed of track calculte on the hat
     
-    for (int i = 0 ; i <NUM_BANDS ; i++) {
+    for (int i = 0 ; i < NUM_BANDS ; i++) {
       band[ID][i] = 1 ;
     }
   }
@@ -376,7 +381,7 @@ class Romanesco_manager {
     
     //init the String info
     item_class_name = new String[num_classes] ;
-    for ( int i =0 ; i <item_class_name.length ; i++) item_class_name[i] =("") ;
+    for ( int i = 0 ; i <item_class_name.length ; i++) item_class_name[i] =("") ;
     
     //add class in Romanesco, plus add info in the String for the index
     int numObjectRomanesco = 0 ;
@@ -468,7 +473,7 @@ class Romanesco_manager {
   */
   //ADD info for the user
   void write_info_user() {
-      // catch the different parameter from object class Romanesco
+    // catch the different parameter from object class Romanesco
     for (int i=0 ; i < RomanescoList.size() ; i++) {
       Romanesco item = (Romanesco) RomanescoList.get(i);
       item_ID[item.ID_item] = item.ID_item;
@@ -509,7 +514,7 @@ class Romanesco_manager {
   public void add_item_romanesco() {
     int n = item_list.size();
     for( int i = 0 ; i < n ; i++) {
-      add_item(i) ;
+      add_item(i);
     }
   }
 
@@ -552,15 +557,15 @@ class Romanesco_manager {
   void init_items() {
     int num = 0 ;
     for (Romanesco item : RomanescoList) {
-      motion[item.get_id()] = true ;
-      init_value_mouse[item.get_id()] = true ;
-      num ++ ;
-      item.setup() ;
-      println("setup of", item.item_name, item.get_id(), "is done") ;
+      motion[item.get_id()] = true;
+      init_value_mouse[item.get_id()] = true;
+      num++;
+      item.setup();
+      println("setup of", item.item_name, item.get_id(), "is done");
       if(pos_item_ref[item.get_id()] == null) {
-        pos_item_ref[item.get_id()] = Vec3() ;
+        pos_item_ref[item.get_id()] = Vec3();
       }
-      pos_item_ref[item.get_id()].set(item_setting_position[0][item.get_id()]) ;
+      pos_item_ref[item.get_id()].set(item_setting_position[0][item.get_id()]);
     }
   }
 
@@ -570,27 +575,27 @@ class Romanesco_manager {
   void display_item(boolean movePos, boolean moveDir, boolean movePosAndDir) {
     // when you use the third order Romanesco understand the the first and the second are true
     if(movePosAndDir) {
-      moveDir = true ;
-      movePos = true ;
+      moveDir = true;
+      movePos = true;
     }
     
     //the method
     if (show_item != null) {
       for (Romanesco item : RomanescoList) {
         if (show_item[item.get_id()]) {
-          update_var_items(item.get_id()) ;
-          pushMatrix() ;
-          add_ref_item(item.get_id()) ;
-          item_follower(item.get_id()) ;
+          update_var_items(item.get_id());
+          pushMatrix();
+          add_ref_item(item.get_id());
+          item_follower(item.get_id());
           if(key_v_long && action[item.get_id()] ) {
-            item_move(movePos, moveDir, item.get_id()) ;
+            item_move(movePos, moveDir, item.get_id());
           }
-          final_pos_item(item.get_id()) ;
-          item.draw() ;
-          popMatrix() ;
+          final_pos_item(item.get_id());
+          item.draw();
+          popMatrix();
         } else {
           // pause reading movie
-          read_movie(false, item.get_id()) ;
+          read_movie(false, item.get_id());
         }
       }
     }

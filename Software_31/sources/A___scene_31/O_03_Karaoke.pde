@@ -82,7 +82,7 @@ class Karaoke extends Romanesco {
   void draw() {
     load_txt(ID_item) ;
     
-    float size_font = font_size_item[ID_item] *mix[ID_item] *allBeats(ID_item);
+    float size_font = font_size_item[ID_item] *mix[ID_item] *all_transient(ID_item);
     if(size_font < 1) size_font = 1;
     
     textFont(font_item[ID_item],size_font);
@@ -145,7 +145,7 @@ class Karaoke extends Romanesco {
       rotation(dir_x_item[ID_item], mouse[ID_item].x, mouse[ID_item].y) ;
       //DISPLAY
       textAlign(CORNER);
-      size_font = size_font+ (mix[ID_item]) *6 *beat[ID_item];
+      size_font = size_font+ (mix[ID_item]) *6 *transient_value[0][ID_item];
       if(size_font < 1) size_font = 1;
       textFont(font_item[ID_item],size_font);
       text(karaokeSentences[sentence], 0, 0, largeur, hauteur) ;

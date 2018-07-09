@@ -96,9 +96,9 @@ class Webcam extends Romanesco {
     // size
     float minVal = 0.1 ;
     float maxVal = height / 50 ;
-    float size_x = map(size_x_item[ID_item],0.1,width, minVal, maxVal) *snare[ID_item] ;
-    float size_y = map(size_y_item[ID_item],0.1,width, minVal, maxVal) *kick[ID_item] ;
-    float size_z = map(size_z_item[ID_item],0.1,width, minVal, maxVal) *hat[ID_item] ;
+    float size_x = map(size_x_item[ID_item],0.1,width, minVal, maxVal) *transient_value[3][ID_item] ;
+    float size_y = map(size_y_item[ID_item],0.1,width, minVal, maxVal) *transient_value[2][ID_item] ;
+    float size_z = map(size_z_item[ID_item],0.1,width, minVal, maxVal) *transient_value[4][ID_item] ;
     Vec3 factorSizePix = Vec3(size_x, size_y, size_z) ; 
     factorDisplayPixel.set(factorDisplayCam.x *factorSizePix.x,factorDisplayCam.y *factorSizePix.y, factorSizePix.z) ;//PARAMETER THAT YOU CAN USE
     

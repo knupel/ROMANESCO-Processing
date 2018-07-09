@@ -1,7 +1,7 @@
 
 /**
 CLASS PIX 
-v 0.6.3
+v 0.7.0
 2016-2018
 * @author Stan le Punk
 * @see https://github.com/StanLepunK/Pixel
@@ -1131,8 +1131,7 @@ class Cloud_3D extends Cloud {
       start_matrix();
       rotateXYZ(orientation) ;
       Vec3 pos_local_primitive = Vec3() ;
-      Vec2 orientation_polar = Vec2() ;
-      costume_rope(pos_local_primitive, size, costume_angle, orientation_polar, costume_ID) ;
+      costume_rope(pos_local_primitive, size, costume_angle, costume_ID);
       stop_matrix() ;
       stop_matrix() ;
     }
@@ -1335,9 +1334,9 @@ class Pixel extends Pix  {
   // show
   public void show() {
     if (renderer_P3D()) {
-      costume_rope(pos, size, costume_angle, dir, costume_ID) ;
+      costume_rope(pos,size,dir,costume_ID) ;
     } else {
-      costume_rope(pos, size, costume_angle, costume_ID) ;
+      costume_rope(pos,size,costume_angle,costume_ID) ;
     }
   }
 }

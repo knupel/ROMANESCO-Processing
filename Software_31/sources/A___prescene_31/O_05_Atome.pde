@@ -163,10 +163,10 @@ class Atome extends Romanesco {
     
     // FACTOR SOUND REACTIVITY
     float maxBeat = map(swing_x_item[ID_item],0,1,1,15) ;
-    beat[ID_item] = map(beat[ID_item],1,10, 1,maxBeat) ;
-    kick[ID_item] = map(kick[ID_item],1,10, 1,maxBeat) ;
-    snare[ID_item] = map(snare[ID_item],1,10, 1,maxBeat) ;
-    hat[ID_item] = map(hat[ID_item],1,10, 1,maxBeat) ;
+    transient_value[0][ID_item] = map(transient_value[0][ID_item],1,10, 1,maxBeat) ;
+    transient_value[2][ID_item] = map(transient_value[2][ID_item],1,10, 1,maxBeat) ;
+    transient_value[3][ID_item] = map(transient_value[3][ID_item],1,10, 1,maxBeat) ;
+    transient_value[4][ID_item] = map(transient_value[4][ID_item],1,10, 1,maxBeat) ;
     
     // thickness
     float thickness = map(thickness_item[ID_item],0, width/3, 0, width/20) ;
@@ -193,7 +193,7 @@ class Atome extends Romanesco {
     //diameter
     float factorSizeField = sizeAtomeX *1.2 ; // factor size of the electronic Atom's Cloud
      //width
-    float posTextInfo = map(size_y_item[ID_item], .1, width,sizeAtomeRawX*.2, width*.2) + (beat[ID_item] *2.0)  ; 
+    float posTextInfo = map(size_y_item[ID_item], .1, width,sizeAtomeRawX*.2, width*.2) + (transient_value[0][ID_item] *2.0)  ; 
       
       
     
@@ -216,23 +216,23 @@ class Atome extends Romanesco {
       
 
       if ( atm.getProton() < rangeA ) { 
-        beatSizeProton = beat[ID_item] ;
+        beatSizeProton = transient_value[0][ID_item] ;
       } else if ( atm.getProton() > rangeA && atm.getProton() < rangeB ) {
-        beatSizeProton = kick[ID_item] ;
+        beatSizeProton = transient_value[2][ID_item] ;
       } else if ( atm.getProton() > rangeB && atm.getProton() < rangeC ) {
-        beatSizeProton = snare[ID_item] ;
+        beatSizeProton = transient_value[3][ID_item] ;
       } else if ( atm.getProton()  > rangeC ) {
-        beatSizeProton = hat[ID_item] ;
+        beatSizeProton = transient_value[4][ID_item] ;
       }
       /////////////////CLOUD///////////////////////////////////////
       if ( atm.getProton() < 41 ) { 
-        beatThicknessCloud = beat[ID_item] ;
+        beatThicknessCloud = transient_value[0][ID_item] ;
       } else if ( atm.getProton() > 40 && atm.getProton() < 66 ) {
-        beatThicknessCloud = kick[ID_item] ;
+        beatThicknessCloud = transient_value[2][ID_item] ;
       } else if ( atm.getProton() > 65 && atm.getProton() < 91 ) {
-        beatThicknessCloud = snare[ID_item] ;
+        beatThicknessCloud = transient_value[3][ID_item] ;
       } else if ( atm.getProton()  > 90 ) {
-        beatThicknessCloud = hat[ID_item] ;
+        beatThicknessCloud = transient_value[4][ID_item] ;
       }
 
       

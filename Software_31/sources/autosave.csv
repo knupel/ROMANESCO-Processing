@@ -1,7 +1,7 @@
 Type,ID slider,Min slider,Max slider,Value length,Value slider 0,Value slider 1,Value slider 2,Value slider 3,ID button,On Off,ID midi,Item ID,Item On Off,Item Name,Item Class Name
 Slider background,0,0.0,1.0,1,0.0,,,,,,-2,,,,
 Slider background,1,0.0,1.0,1,1.0,,,,,,-2,,,,
-Slider background,2,0.0,1.0,1,0.6,,,,,,-2,,,,
+Slider background,2,0.0,1.0,1,0.67777777,,,,,,-2,,,,
 Slider background,3,0.0,1.0,1,0.3,,,,,,-2,,,,
 Slider background,4,0.0,1.0,1,0.5,,,,,,-2,,,,
 Slider background,5,0.0,1.0,1,0.5,,,,,,-2,,,,
@@ -31,11 +31,11 @@ Slider light,7,0.0,1.0,1,1.0,,,,,,-2,,,,
 Slider light,8,0.0,1.0,1,1.0,,,,,,-2,,,,
 Slider sound,0,0.0,1.0,1,0.5,,,,,,-2,,,,
 Slider sound,1,0.0,1.0,1,0.5,,,,,,-2,,,,
-Slider sound setting,0,0.0,1.0,3,0.094736844,0.23157895,0.4,,,,-2,,,,
-Slider sound setting,1,0.0,1.0,2,0.0,0.094736844,,,,,-2,,,,
-Slider sound setting,2,0.0,1.0,2,0.094736844,0.21052632,,,,,-2,,,,
-Slider sound setting,3,0.0,1.0,2,0.17894737,0.36842105,,,,,-2,,,,
-Slider sound setting,4,0.0,1.0,2,0.38947368,0.5263158,,,,,-2,,,,
+Slider sound setting,0,0.0,1.0,3,0.094736844,0.38947368,0.67368424,,,,-2,,,,
+Slider sound setting,1,0.0,1.0,2,0.0,0.17894737,,,,,-2,,,,
+Slider sound setting,2,0.0,1.0,2,0.10526316,0.33684212,,,,,-2,,,,
+Slider sound setting,3,0.0,1.0,2,0.28421053,0.6315789,,,,,-2,,,,
+Slider sound setting,4,0.0,1.0,2,0.6631579,0.8947368,,,,,-2,,,,
 Slider camera,0,0.0,1.0,1,0.5,,,,,,-2,,,,
 Slider camera,1,0.0,1.0,1,0.5,,,,,,-2,,,,
 Slider camera,2,0.0,1.0,1,0.5,,,,,,-2,,,,
@@ -45,7 +45,7 @@ Slider camera,5,0.0,1.0,1,0.5,,,,,,-2,,,,
 Slider camera,6,0.0,1.0,1,0.5,,,,,,-2,,,,
 Slider item,0,0.0,1.0,1,1.0,,,,,,-2,,,,
 Slider item,1,0.0,1.0,1,1.0,,,,,,-2,,,,
-Slider item,2,0.0,1.0,1,0.0,,,,,,-2,,,,
+Slider item,2,0.0,1.0,1,0.33333334,,,,,,-2,,,,
 Slider item,3,0.0,1.0,1,1.0,,,,,,-2,,,,
 Slider item,4,0.0,1.0,1,0.0,,,,,,-2,,,,
 Slider item,5,0.0,1.0,1,0.0,,,,,,-2,,,,
@@ -105,20 +105,20 @@ Item,,,,,,,,,,,,11,0,Soleil,Soleil
 Item,,,,,,,,,,,,12,0,Spirale,SpiraleRomanesco
 Item,,,,,,,,,,,,13,0,Balise,BaliseRomanesco
 Item,,,,,,,,,,,,14,0,Kofosphere,Kofosphere
-Item,,,,,,,,,,,,15,1,Lignes,Lignes
+Item,,,,,,,,,,,,15,0,Lignes,Lignes
 Item,,,,,,,,,,,,16,0,Pulsar,Pulsar
 Item,,,,,,,,,,,,17,0,Damier,Damier
-Item,,,,,,,,,,,,18,1,Vectorial,Vectorial
+Item,,,,,,,,,,,,18,0,Vectorial,Vectorial
 Item,,,,,,,,,,,,19,0,Galaxie,Galaxie
 Item,,,,,,,,,,,,20,0,Nid d'abeille,Honeycomb
 Item,,,,,,,,,,,,21,0,Webcam,Webcam
 Item,,,,,,,,,,,,22,0,Image,Escargot
 Item,,,,,,,,,,,,23,0,Surface,Surface
 Item,,,,,,,,,,,,24,0,Movisco,Movisco
-Item,,,,,,,,,,,,25,0,Eco Agents,Ecosystem_agent
-Item,,,,,,,,,,,,26,0,Eco DNA,Ecosystem_DNA
+Item,,,,,,,,,,,,25,1,Eco Agents,Ecosystem_agent
+Item,,,,,,,,,,,,26,1,Eco DNA,Ecosystem_DNA
 Item,,,,,,,,,,,,27,0,Lorenz attractor,Lorenz
-Item,,,,,,,,,,,,28,0,Transient,Transient
+Item,,,,,,,,,,,,28,1,BoumBoum,BoumBoum
 Button item,,,,,,,,,0,0,0,,,,
 Button item,,,,,,,,,1,0,0,,,,
 Button item,,,,,,,,,2,0,0,,,,
@@ -131,10 +131,10 @@ Button light 1,,,,,,,,,4,0,-2,,,,
 Button light 1,,,,,,,,,5,0,-2,,,,
 Button light 2,,,,,,,,,6,0,0,,,,
 Button light 2,,,,,,,,,7,0,0,,,,
-Button transient,,,,,,,,,8,0,0,,,,
-Button transient,,,,,,,,,9,0,0,,,,
-Button transient,,,,,,,,,10,0,0,,,,
-Button transient,,,,,,,,,11,0,0,,,,
+Button transient,,,,,,,,,8,1,0,,,,
+Button transient,,,,,,,,,9,1,0,,,,
+Button transient,,,,,,,,,10,1,0,,,,
+Button transient,,,,,,,,,11,1,0,,,,
 Button item,,,,,,,,,4,0,-2,,,,
 Button item,,,,,,,,,5,0,-2,,,,
 Button item,,,,,,,,,6,0,-2,,,,
@@ -243,7 +243,7 @@ Button item,,,,,,,,,108,0,-2,,,,
 Button item,,,,,,,,,109,0,-2,,,,
 Button item,,,,,,,,,110,0,-2,,,,
 Button item,,,,,,,,,111,0,-2,,,,
-Button item,,,,,,,,,112,0,-2,,,,
+Button item,,,,,,,,,112,1,-2,,,,
 Button item,,,,,,,,,113,0,-2,,,,
-Button item,,,,,,,,,114,0,-2,,,,
+Button item,,,,,,,,,114,1,-2,,,,
 Button item,,,,,,,,,115,0,-2,,,,

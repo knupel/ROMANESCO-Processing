@@ -116,7 +116,7 @@ class SpiraleRomanesco extends Romanesco {
     
     
     //SIZE
-    float beatMap = map(beat[ID_item] +snare[ID_item] +hat[ID_item],1,9,1,50) ;
+    float beatMap = map(transient_value[1][ID_item] +transient_value[3][ID_item] +transient_value[4][ID_item],1,9,1,50) ;
     float minValueSize = .5 ;
     float maxValueSize = width *.003 ;
     
@@ -137,7 +137,7 @@ class SpiraleRomanesco extends Romanesco {
     
     //amplitude of the translate
     float minValueCanvas = .01 ;
-    float maxValueCanvas = 3 *(kick[ID_item] *.7) ;
+    float maxValueCanvas = 3 *(transient_value[2][ID_item] *.7) ;
     float canvasXtemp = map(canvas_x_item[ID_item], width *.1, width,minValueCanvas,maxValueCanvas) ;
     float canvasYtemp = map(canvas_y_item[ID_item], width *.1, width,minValueCanvas,maxValueCanvas) ;
     // float canvasZtemp = map(canvas_z_item[ID_item], width *.1, width,minValueCanvas,maxValueCanvas) ;
@@ -148,7 +148,7 @@ class SpiraleRomanesco extends Romanesco {
     if(swing_x_item[ID_item] > 0 && motion[ID_item] && horizon[ID_item]) {
       float align ;
       float speed_swing = swing_x_item[ID_item] *swing_x_item[ID_item] ;
-      if(pos_swing > max_align || pos_swing < -max_align || allBeats(ID_item) > 8) {
+      if(pos_swing > max_align || pos_swing < -max_align || all_transient(ID_item) > 8) {
         dir_swing *= -1 ;
       }
       if(pos_swing > max_align +1) pos_swing = max_align ;

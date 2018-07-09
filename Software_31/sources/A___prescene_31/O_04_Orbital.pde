@@ -153,7 +153,7 @@ class Orbital extends Romanesco {
   
   
     Boid_Orbital b;
-    PVector force = new PVector(initialForce *kick[ID_item], 0, 0);
+    PVector force = new PVector(initialForce *transient_value[2][ID_item], 0, 0);
     int it = ceil(iterations *quantity);
     if(!FULL_RENDERING) it /= 10 ;
     float lSpreadL = 1 ;

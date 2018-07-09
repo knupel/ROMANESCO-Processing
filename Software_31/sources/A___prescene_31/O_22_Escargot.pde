@@ -261,7 +261,7 @@ class Escargot extends Romanesco {
        float soundThreeHundredSixtyMax = random(soundThreeHundredSixtyMin, soundThreeHundredSixtyMin +30) ;
        PVector rangeReactivitySoundThreeHundredSixty = new PVector (soundThreeHundredSixtyMin, soundThreeHundredSixtyMax) ;
        //Music factor
-       PVector musicFactor = new PVector ( allBeats(ID_item) *left[ID_item], allBeats(ID_item) *right[ID_item]) ;
+       PVector musicFactor = new PVector ( all_transient(ID_item) *left[ID_item], all_transient(ID_item) *right[ID_item]) ;
        forceBeat = (int)map(repulsion_item[ID_item],0,1,1,40) ;
 
        
@@ -735,8 +735,8 @@ class Escargot extends Romanesco {
   PVector newSize2D(PVector size, PVector classSize, PVector range360, PVector range100, PVector factor, int c, int beatAmplitude) {
     PVector result = new PVector() ;
     if (result.z > size.z || soundButton[ID_item] == 1) {
-    result.x = beatReactivityHSB(size, classSize, c, range360, range100, factor).x *map(allBeats(ID_item),1,40,1,beatAmplitude);
-    result.y = beatReactivityHSB(size, classSize, c, range360, range100, factor).y *map(allBeats(ID_item),1,40,1,beatAmplitude) ;
+    result.x = beatReactivityHSB(size, classSize, c, range360, range100, factor).x *map(all_transient(ID_item),1,40,1,beatAmplitude);
+    result.y = beatReactivityHSB(size, classSize, c, range360, range100, factor).y *map(all_transient(ID_item),1,40,1,beatAmplitude) ;
     result.z = beatReactivityHSB(size, classSize, c, range360, range100, factor).z ;
       
     } else {
@@ -749,8 +749,8 @@ class Escargot extends Romanesco {
   PVector newSize3D(PVector size, PVector classSize, PVector range360, PVector range100, PVector factor, color c, int beatAmplitude) {
     PVector result = new PVector() ;
     float ratioDepth = map(brightness(c),0,100,0,1) ;
-    result.x = beatReactivityHSB(size, classSize, c, range360, range100, factor).x *map(allBeats(ID_item),1,40,1,beatAmplitude) ;
-    result.y = beatReactivityHSB(size, classSize, c, range360, range100, factor).y *map(allBeats(ID_item),1,40,1,beatAmplitude) ;
+    result.x = beatReactivityHSB(size, classSize, c, range360, range100, factor).x *map(all_transient(ID_item),1,40,1,beatAmplitude) ;
+    result.y = beatReactivityHSB(size, classSize, c, range360, range100, factor).y *map(all_transient(ID_item),1,40,1,beatAmplitude) ;
     result.z = beatReactivityHSB(size, classSize, c, range360, range100, factor).z ;
       
     if (soundButton[ID_item] == 1) {

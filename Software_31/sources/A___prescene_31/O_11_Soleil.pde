@@ -82,7 +82,7 @@ class Soleil extends Romanesco {
     // orbital revolution
     if((key_space_long && action[ID_item]) || orbit[ID_item]) pos.set(mouse[ID_item].x -width/2, mouse[ID_item].y -height/2,0) ; else pos.set(0,0,0) ;
     // diam
-    int diam = int(canvas_x_item[ID_item] *allBeats(ID_item)) ;
+    int diam = int(canvas_x_item[ID_item] *all_transient(ID_item)) ;
     // num beam
     float num_temp = quantity_item[ID_item] *quantity_item[ID_item] ;
     int numBeam = (int)(num_temp *87 +1) ;

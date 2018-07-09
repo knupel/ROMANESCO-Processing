@@ -38,6 +38,7 @@ ITEM
 --
 >remove item Spray
 >add item Pulsar
+>add BoumBoum
 
 
 BUG FIX

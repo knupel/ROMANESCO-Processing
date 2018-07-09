@@ -84,7 +84,7 @@ class Horloge extends Romanesco {
   void draw() {
     textAlign(CENTER);
     // typo
-    float size_font = (font_size_item[ID_item] +12) *allBeats(ID_item) ;
+    float size_font = (font_size_item[ID_item] +12) *all_transient(ID_item) ;
     if(size_font < 1) size_font = 1 ;
     textFont(font_item[ID_item], size_font);
     

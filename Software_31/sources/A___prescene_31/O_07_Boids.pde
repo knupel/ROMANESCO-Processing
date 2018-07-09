@@ -114,7 +114,7 @@ class Boids extends Romanesco {
     }
 
     int beat_sensibility = 5 ;
-    if(allBeats(ID_item) > beat_sensibility) {      
+    if(all_transient(ID_item) > beat_sensibility) {      
       float depthGoal =sin(frameCount *.003) *width ;
       float pos_x = sin(frameCount *.003) *canvas_x_item[ID_item] ;
       float pos_y = cos(frameCount *.003) *canvas_y_item[ID_item] ;

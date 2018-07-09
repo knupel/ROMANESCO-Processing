@@ -124,7 +124,7 @@ class Pulsar extends Romanesco {
       } else {
         pulsar.set_tempo((int)tempo[ID_item]); 
         // mode();
-        radius *= (beat[ID_item] *.2);
+        radius *= (transient_value[0][ID_item] *.2);
       }
 
     } else {

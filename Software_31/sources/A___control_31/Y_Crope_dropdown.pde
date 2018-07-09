@@ -1,6 +1,6 @@
 /**
 DROPDOWN 
-v 0.1.1
+v 0.1.2
 2018-2018
 */
 /**
@@ -272,7 +272,13 @@ public class Dropdown extends Crope {
       keep_pos_mol_is = true ;
     }
 
-    slider_dd = new Slider("Slider Dropdown",pos_slider, size_slider);
+    if(slider_dd == null) {
+      slider_dd = new Slider("Slider Dropdown",pos_slider, size_slider);
+    } else {
+      slider_dd.pos(pos_slider);
+      slider_dd.size(size_slider);
+      slider_dd.set_pos_molette();
+    }
     slider_dd.size_molette(size_molette);
     if(keep_pos_mol_is) {
       int pos_mol_x = slider_dd.get_molette_pos(index).x;
@@ -465,11 +471,12 @@ public class Dropdown extends Crope {
   public int get_selection() {
     float size_temp_y = size_box.y *num_box;
     iVec2 temp_size = iVec2(size_box.x, (int)size_temp_y);
-    boolean inside_open_box = inside(pos,temp_size,cursor,RECT);
+    iVec2 temp_pos = pos.copy();
+    temp_pos.y += (box_starting_rank_position *height_box);
+    boolean inside_open_box = inside(temp_pos,temp_size,cursor,RECT);
     if(!inside_open_box) {
       line = current_line;
     }
-
     if(!locked && inside_open_box) {
       if(line >= 0 && line < content.length) {
         current_line = line ;     

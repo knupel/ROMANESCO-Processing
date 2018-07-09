@@ -116,7 +116,7 @@ class Surface extends Romanesco {
     }
     // swing
     if(sound[ID_item] && sound_is()) { 
-      ratio_swing = allBeats(ID_item) ; 
+      ratio_swing = all_transient(ID_item) ; 
     } else {
       ratio_swing = 2 ;
     }
