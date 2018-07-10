@@ -1,7 +1,7 @@
 /**
 CORE Rope SCENE and PRESCENE 
 2015-2018
-v 1.4.3
+v 1.4.4
 */
 import java.net.*;
 import java.io.*;
@@ -77,18 +77,34 @@ void set_screen() {
   if(FULL_RENDERING) {
     w = row.getInt("width"); 
     h = row.getInt("height");
-    surface.setSize(w,h);
-    if(!FULL_SCREEN) surface.setLocation(x,y);
+    
+    if(!FULL_SCREEN) {
+      surface.setLocation(x,y);
+      surface.setSize(w,h);
+    } else {
+      int ox = get_screen_location(sketchDisplay()).x;
+      int oy = get_screen_location(sketchDisplay()).y;
+      surface.setLocation(ox,oy);
+      int sx = get_screen_size(sketchDisplay()).x;
+      int sy = get_screen_size(sketchDisplay()).y;
+      surface.setSize(sx,sy);
+      println("The",IAM,"is on the screen",sketchDisplay());
+      println("screen location",get_screen_location(sketchDisplay()));
+      w = sx; 
+      h = sy;
+
+    }
     
   } else {
     w = row.getInt("preview_width"); 
     h = row.getInt("preview_height");
     surface.setSize(w,h);
     surface.setLocation(x,y);
+    println("screen size",get_screen_size(sketchDisplay()));
   }
   scene_width = w;
   scene_height = h;
-  println("set size screen",w,h); 
+  println(IAM,"screen size [",w,",",h,"]"); 
 }
 
 

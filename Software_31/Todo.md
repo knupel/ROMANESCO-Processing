@@ -2,6 +2,19 @@ Todo Romanesco
 --
 */
 
+Ajouter area pour tous les items avec croix.
+
+*/
+
+Gérer les differentes position pour le plein écran comme pour le logiciel FORCE
+
+*/MIDI
+
+probleme avec les commandes midi, comme si l'instruction était envoyée deux fois, et les slider ne répondent plus correctement quand les ordres viennent du controleur.
+
+
+*/
+
 ITEM NE FONCTIONNAT PAS SUITE AU CHANGEMENT DE METHODE COSTUME
 */
 

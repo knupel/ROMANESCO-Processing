@@ -19,8 +19,8 @@ boolean FULL_SCREEN = false ;
 
 void settings() {
   // When you build Romanesco you must create two versions : fullscreen and normal
-  size(124,124,P3D);
-  // fullScreen(P3D,2) ;
+  // size(124,124,P3D);
+  fullScreen(P3D,1);
   FULL_SCREEN = true ;
 
   pixelDensity(displayDensity()) ;
@@ -42,7 +42,7 @@ void setup() {
   display_setup(frameRateRomanesco) ; // the int give the frameRate
 
   if (!FULL_SCREEN) {
-    resize_scene();
+    // resize_scene();
   }
 
   romanesco_build_item();
@@ -75,10 +75,25 @@ DRAW
 */
 boolean init_app;
 void draw() {
+
+
   if(init_app) {
     romanesco();
   } else {
     init_app = true;
+    if(FULL_SCREEN) {
+      /*
+      int ox = get_screen_location(sketchDisplay()).x;
+      int oy = get_screen_location(sketchDisplay()).y;
+      surface.setLocation(ox,oy);
+      int sx = get_screen_size(sketchDisplay()).x;
+      int sy = get_screen_size(sketchDisplay()).y;
+      surface.setSize(sx,sy);
+      println("le jour d'après");
+      println("current screen",get_screen_size(sketchDisplay()));
+      println("current size",width,height);
+      */
+    }
   }
 }
 
