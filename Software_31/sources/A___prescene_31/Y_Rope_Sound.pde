@@ -1,7 +1,7 @@
 /**
 SOUNDA Rope
 for SOUNDA > SOUND-Analyze
-v 1.4.3
+v 1.4.4
 * Copyleft (c) 2017-2018
 * Stan le Punk > http://stanlepunk.xyz/
 * @author Stan le Punk
@@ -20,6 +20,7 @@ Class Sounda
 v 0.1.0
 */
 public class Sounda implements Rope_Constants {
+  boolean info = false;
   private int analyze_length;
   Section section[];
   // library stuff
@@ -37,6 +38,13 @@ public class Sounda implements Rope_Constants {
     this.analyze_length = analyze_length;
     minim = new Minim(this);
     input = minim.getLineIn(Minim.STEREO, analyze_length);
+  }
+
+  void info(boolean info) {
+    this.info = info;
+    if(transient_detection != null) {
+      transient_detection.info(this.info);
+    }
   }
 
 
@@ -1475,8 +1483,7 @@ class Transient extends Sounda {
       }
 
       // display just for devellopement
-      boolean dev = true;
-      if(dev) {
+      if(info) {
         show_visual(in, transient_is, raw_value, low_pass_value, pow_value, value_fast, value_slow, diff_value, log_value);
       }
 

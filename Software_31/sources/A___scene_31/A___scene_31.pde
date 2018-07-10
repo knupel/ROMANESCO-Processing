@@ -45,28 +45,29 @@ void setup() {
     resize_scene();
   }
 
-  romanesco_build_item() ;
+  romanesco_build_item();
 
   RG.init(this); // GEOMERATIVE
   
-  P3D_setup() ; ;
-  create_variable() ;
+  P3D_setup();
+  create_variable();
 
-  color_setup() ;
-  syphon_setup() ;
+  color_setup();
+  syphon_setup();
 
-  init_variable_item_min_max() ;
-  init_variable_item() ;
-  init_items() ;
+  init_variable_item_min_max();
+  init_variable_item();
+  init_items();
+  // init_slider_variable_world(); // maybe not necessary on Scene sketch
   
-  create_font() ;
+  create_font();
 
-  if(USE_SOUND) sound_setup() ;
-  variables_setup() ; // the varObject setup of the Scene is more simple
+  if(USE_SOUND) sound_setup();
+  variables_setup(); // the varObject setup of the Scene is more simple
 
-  light_position_setup() ;
-  light_setup() ;
-  if(FULL_RENDERING) shader_setup() ;
+  light_position_setup();
+  light_setup();
+  if(FULL_RENDERING) shader_setup();
 }
 
 /**
@@ -94,7 +95,7 @@ void romanesco() {
 
   update_OSC_data() ;
 
-  update_raw_value() ;
+  update_raw_item_value() ;
   background_romanesco() ; 
 
   loadScene() ;

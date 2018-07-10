@@ -838,9 +838,9 @@ void loadDataObject(String path) {
       thickness_item[ID] = data_item.getFloat("thickness") *height ;
     } else {
       // preview display
-      fill_item[ID] = COLOR_FILL_OBJ_PREVIEW ;
-      stroke_item[ID] =  COLOR_STROKE_OBJ_PREVIEW ;
-      thickness_item[ID] = THICKNESS_OBJ_PREVIEW ;
+      fill_item[ID] = COLOR_FILL_ITEM_PREVIEW ;
+      stroke_item[ID] =  COLOR_STROKE_ITEM_PREVIEW ;
+      thickness_item[ID] = THICKNESS_ITEM_PREVIEW ;
       }
 
     size_x_item[ID] = data_item.getFloat("width") *width ;
@@ -913,19 +913,24 @@ void loadDataObject(String path) {
 
 /**
 DISPLAY INFO
-v 0.2.0
+v 0.2.1
 */
 boolean displayInfo, displayInfo3D ;
 int posInfo = 2 ;
 void info() {
-  color color_text = color(0,0,100) ;
-  color color_bg = color(0,100,100,50) ;
+  sounda.info(displayInfo);
+  color color_text = color(0,0,100);
+  color color_bg = color(0,100,100,50);
+
   if (displayInfo) {
     //perspective() ;
     displayInfoScene(color_bg,color_text) ;
     displayInfoObject(color_bg,color_text) ;
   }
-  if (displayInfo3D) displayInfo3D(color_text) ;
+  if (displayInfo3D) {
+    displayInfo3D(color_text);
+  }
+  
 }
 
 void displayInfoScene(color bg_txt, color txt) {

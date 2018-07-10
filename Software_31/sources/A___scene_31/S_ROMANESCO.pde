@@ -2,7 +2,7 @@
 Romanesco Manager
 Prescene and Scene
 2013-2018
-v 1.2.0
+v 1.2.1
 */
 Romanesco_manager rpe_manager;
 String ROM_HUE_FILL, ROM_SAT_FILL,ROM_BRIGHT_FILL, ROM_ALPHA_FILL = "";
@@ -203,9 +203,9 @@ void update_slider_value(int ID) {
     if (thickness_raw != thickness_temp|| !first_opening_item[ID]) thickness_item[ID] = thickness_raw;
   } else {
     // preview display
-    fill_item[ID] = COLOR_FILL_OBJ_PREVIEW ;
-    stroke_item[ID] =  COLOR_STROKE_OBJ_PREVIEW ;
-    thickness_item[ID] = THICKNESS_OBJ_PREVIEW ;
+    fill_item[ID] = COLOR_FILL_ITEM_PREVIEW ;
+    stroke_item[ID] =  COLOR_STROKE_ITEM_PREVIEW ;
+    thickness_item[ID] = THICKNESS_ITEM_PREVIEW ;
   }
   if (size_x_raw != size_x_temp || !first_opening_item[ID]) size_x_item[ID] = size_x_raw; 
   if (size_y_raw != size_y_temp || !first_opening_item[ID]) size_y_item[ID] = size_y_raw; 

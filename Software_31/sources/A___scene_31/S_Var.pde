@@ -3,7 +3,7 @@ VARIABLE
 Prescene, Scene
 Romanesco Processing Environment
 2015-2018
-v 1.3.0
+v 1.3.1
 */
 
 /**
@@ -54,8 +54,8 @@ boolean MOUSE_IN_OUT = true ;
 
 
 // COMMAND BOOLEAN
-//BOOLEAN COMMAND
-/* command from leap motion, mouse or other devices if we code for that :) */
+// BOOLEAN COMMAND
+// command from leap motion, mouse or other devices if we code for that :)
 boolean ORDER, ORDER_ONE, ORDER_TWO, ORDER_THREE ;
 boolean LEAPMOTION_DETECTED ;
 
@@ -68,9 +68,9 @@ int NUM_BANDS = 128;
 
 int button_item_num  ; 
 // VAR obj
-color COLOR_FILL_OBJ_PREVIEW; 
-color COLOR_STROKE_OBJ_PREVIEW;
-int THICKNESS_OBJ_PREVIEW = 2;
+int COLOR_FILL_ITEM_PREVIEW; 
+int COLOR_STROKE_ITEM_PREVIEW;
+int THICKNESS_ITEM_PREVIEW = 2;
 int NUM_ITEM;
 int NUM_ITEM_PLUS_MASTER;
 int NUM_SETTING_ITEM;
@@ -79,7 +79,6 @@ int BUTTON_ITEM_CONSOLE = 4;
 
 // button
 boolean [] transient_is;
-// boolean kick_is, snare_is, hat_is;
 boolean curtain_is, background_is;
 boolean ambient_is,ambient_action_is;
 boolean light_1_is,light_1_action_is;
@@ -89,7 +88,6 @@ int which_shader;
 int which_filter; 
 int [] which_bitmap, which_text, which_shape, which_movie;
 
-// boolean [] button_general_is;
 
 //SLIDER
 // becareful if the number of MISC SLIDERS is upper than OBJ SLIDER, that can be a problem in the future.
@@ -804,14 +802,32 @@ void init_variable_item() {
     spectrum_item [i] = 0 ; 
   }
     // init global var for the color obj preview mode display
-  COLOR_FILL_OBJ_PREVIEW = color (0,0,100,30) ; 
-  COLOR_STROKE_OBJ_PREVIEW = color (0,0,100,30) ;
+  COLOR_FILL_ITEM_PREVIEW = color (0,0,100,30) ; 
+  COLOR_STROKE_ITEM_PREVIEW = color (0,0,100,30) ;
 }
 
 
 
 void init_items() {
   rpe_manager.init_items() ;
+}
+
+
+void init_slider_variable_world() {
+  // camera
+  value_slider_camera[0] = 100;
+  value_slider_camera[1] = 180;
+  value_slider_camera[2] = 180;
+  value_slider_camera[3] = 180;
+  value_slider_camera[4] = 180;
+  value_slider_camera[5] = 180;
+  value_slider_camera[6] = 180;
+  // background
+  value_slider_background[0] = g.colorModeX;
+  value_slider_background[1] = g.colorModeY;
+  value_slider_background[2] = 0;
+  value_slider_background[3] = g.colorModeA;
+
 }
 
 
@@ -925,9 +941,10 @@ void light_2_action_is(boolean is) {
 
 /**
 UPDATE DATA from CONTROLER and PRESCENE
+v 0.0.2
 Those value are used to updated the object data value, and updated at the end of the loop the temp value
 */
-void update_raw_value() {
+void update_raw_item_value() {
    int minSource = 0 ;
    int smooth_slider = 2 ;
   // fill

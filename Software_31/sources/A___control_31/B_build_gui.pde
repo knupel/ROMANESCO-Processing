@@ -165,7 +165,7 @@ void build_console_sound() {
 
 
 void build_console_setting() {
-  String [] content = {"camera setting","sound setting"};
+  String [] content = {"sound setting","camera setting"};
   dropdown_setting = new Dropdown(dropdown_setting_pos,dropdown_setting_size,"Romanesco setting",content);
   dropdown_setting.set_colour(dropdown_colour);
   dropdown_setting.wheel(true);

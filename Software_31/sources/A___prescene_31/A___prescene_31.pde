@@ -54,7 +54,7 @@ void setup() {
 
   P3D_setup();
   //specific setup
-  prescene_setup(); // the varObject setup of the Scene is more simple
+  prescene_setup(); 
   leapmotion_setup();
 
   //common setup
@@ -64,6 +64,7 @@ void setup() {
   init_variable_item_min_max();
   init_variable_item();
   init_items();
+  init_slider_variable_world();
 
   create_font();
 
@@ -114,7 +115,7 @@ void romanesco() {
   write_osc_event();
   join_osc_data();
 
-  update_raw_value();
+  update_raw_item_value();
 
   background_romanesco();
   updateCommand();

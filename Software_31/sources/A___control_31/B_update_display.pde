@@ -268,9 +268,9 @@ void show_slider_controller() {
   show_slider_light();
   show_slider_sound();
   if(dropdown_setting.get_selection() == 0) {
-    show_slider_camera();
-  } else if (dropdown_setting.get_selection() == 1) {
     show_slider_sound_setting();
+  } else if (dropdown_setting.get_selection() == 1) {
+    show_slider_camera();
   }
   show_slider_item();
 }
@@ -378,7 +378,7 @@ void show_slider_light() {
         int num_special_slider = 3;
         for(int m = 0 ; m < num_special_slider ; m++) {
           if(i == k*num_special_slider+m) {
-            show_is = true ;
+            show_is = true;
             break;
           }
         }
@@ -647,28 +647,28 @@ void background_text_list(Vec2 pos, String [] list, int [] size_text, int size_a
   pos = Vec2(pos.x -(size_text[0] *.5), pos.y -size_text[0]) ;
 
   // spacing
-  float spacing = 0 ;
+  float spacing = 0;
   for(int i = 0 ; i < size_text.length ; i++) {
-    spacing += size_text[i] ;
+    spacing += size_text[i];
   }
-  spacing /= size_text.length ;
+  spacing /= size_text.length;
   spacing *= ratio_size.y;
 
   //define the size of the background
-  int start_point_list = int(start_end.x) ;
-  int end_point_list = int(start_end.y) ;
+  int start_point_list = int(start_end.x);
+  int end_point_list = int(start_end.y);
   
-  int size_word = int(longest_String_pixel(font,list, size_text, start_point_list, end_point_list)) ;
-  float width_rect =  size_word *ratio_size.x ;
-  int height_rect = list.length *(int)spacing ;
+  int size_word = int(longest_String_pixel(font,list, size_text, start_point_list, end_point_list));
+  float width_rect =  size_word *ratio_size.x;
+  int height_rect = list.length *(int)spacing;
   
   // create the point to build the background
   int diam = size_angle;
-  int speed = speed_rotation ;
-  Vec2 a = Vec2(pos.x + 0,pos.y + 0).revolution(diam *3, speed/2) ;
-  Vec2 b = Vec2(pos.x + width_rect, pos.y + 0).revolution(int(diam *1.5), speed) ;
-  Vec2 c = Vec2(pos.x + width_rect, pos.y + height_rect).revolution(diam *2, int(speed *1.2)) ;
-  Vec2 d = Vec2(pos.x + 0, pos.y + height_rect).revolution(diam, int(speed *.7)) ;
+  int speed = speed_rotation;
+  Vec2 a = Vec2(pos.x + 0,pos.y + 0).revolution(diam *3, speed/2);
+  Vec2 b = Vec2(pos.x + width_rect, pos.y + 0).revolution(int(diam *1.5), speed);
+  Vec2 c = Vec2(pos.x + width_rect, pos.y + height_rect).revolution(diam *2, int(speed *1.2));
+  Vec2 d = Vec2(pos.x + 0, pos.y + height_rect).revolution(diam, int(speed *.7));
   
   // display background
   beginShape();
@@ -676,7 +676,7 @@ void background_text_list(Vec2 pos, String [] list, int [] size_text, int size_a
   vertex(b);
   vertex(c);
   vertex(d);
-  endShape(CLOSE) ;
+  endShape(CLOSE);
 }
 
 
@@ -839,11 +839,6 @@ void check_button_general() {
   for(int i = 0 ; i < NUM_BUTTON_TRANSIENT ; i++) {
     if(button_transient[i].is()) button_transient_is[i] = 1 ; else button_transient_is[i] = 0 ;
   }
-  /*
-  if(button_kick.is()) button_kick_is = 1 ; else button_kick_is = 0 ;
-  if(button_snare.is()) button_snare_is = 1 ; else button_snare_is = 0 ;
-  if(button_hat.is()) button_hat_is = 1 ; else button_hat_is = 0 ;
-  */
   //Check position of button
   if(button_midi.is()) button_midi_is = 1 ; else button_midi_is = 0 ;
   if(button_curtain.is()) button_curtain_is = 1 ; else button_curtain_is = 0 ;
@@ -868,14 +863,7 @@ void mousePressed_button_general() {
   for(int i = 0 ; i < NUM_BUTTON_TRANSIENT ; i++) {
     if(button_transient[i].inside()) button_transient[i].switch_is();
   }
-  /*
-  if(button_kick.inside()) button_kick.switch_is();
-  if(button_snare.inside()) button_snare.switch_is();
-  if(button_hat.inside()) button_hat.switch_is();
-  */
-
   if(button_midi.inside()) button_midi.switch_is();
-
   if(button_curtain.inside())button_curtain.switch_is();
 }
 
@@ -900,20 +888,18 @@ void show_button() {
 
 void display_button_header() {
   // background window
-  Vec2 pos_window = Vec2(mouseX , mouseY -20) ;
-  Vec2 ratio_size = Vec2(1.6, 1.3) ;
-  int speed = 7 ;
-  int size_angle = 2 ;
-  Vec2 range_check = Vec2(0,0) ;
-  String [] text = new String[1] ;
-  int [] size_text = new int[1] ;
+  Vec2 pos_window = Vec2(mouseX , mouseY -20);
+  Vec2 ratio_size = Vec2(1.6, 1.3);
+  int speed = 7;
+  int size_angle = 2;
+  Vec2 range_check = Vec2(0,0);
+  String [] text = new String[1];
+  int [] size_text = new int[1];
   size_text [0] = 20 ;
-  textFont(FuturaStencil_20) ;
+  textFont(FuturaStencil_20);
 
-  noStroke() ;
+  noStroke();
   int alpha_bg_rollover = int(g.colorModeA *.8);
-  // button_midi.update(mouseX,mouseY,true);
-  // println(button_midi.is());
   if(button_midi.inside()) {
     text[0] = ("MIDI");
     fill(fill_info_window_rect, alpha_bg_rollover);
@@ -927,7 +913,7 @@ void display_button_header() {
     noStroke() ;
     fill(fill_info_window_rect, alpha_bg_rollover) ;
     background_text_list(Vec2(pos_window.x, pos_window.y), text, size_text, size_angle, speed, ratio_size,range_check,FuturaStencil_20) ;
-    fill(fill_info_window_text) ;
+    fill(fill_info_window_text);
     text(text [0], pos_window.x, pos_window.y) ;
   }
 }
@@ -971,12 +957,6 @@ void display_button_general() {
   for(int i = 0 ; i < NUM_BUTTON_TRANSIENT ; i++) {
     button_transient[i].show_label();
   }
-  /*
-  button_kick.show_label();
-  button_snare.show_label();
-  button_hat.show_label();
-  */
-
   //MIDI / CURTAIN
   button_midi.show_picto(picMidi) ;
   button_curtain.show_picto(picCurtain) ;

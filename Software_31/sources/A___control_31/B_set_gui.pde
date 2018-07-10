@@ -158,15 +158,15 @@ void set_design_structure_inventory() {
 
 void set_design_structure_menu_bar() {
   // CURTAIN
-  correctionCurtainX = 0 ;
-  correctionCurtainY = 8 ;
+  correctionCurtainX = 0;
+  correctionCurtainY = 8;
   // GROUP MIDI
-  correctionMidiX = 40 ;
-  correctionMidiY = 9 ;
-  spacing_midi_info = 13 ;
-  correction_info_midi_x = 60 ;
-  correction_info_midi_y = 10 ;
-  size_x_window_info_midi = 200 ;
+  correctionMidiX = 40;
+  correctionMidiY = 9;
+  spacing_midi_info = 13;
+  correction_info_midi_x = 60;
+  correction_info_midi_y = 10;
+  size_x_window_info_midi = 200;
 
   num_dropdown_bar = 7;
   pos_y_dropdown_bar = 73;
@@ -249,7 +249,7 @@ void set_design_aspect() {
   /**
   colour button
   */
-  button_on_in =r.GREEN;
+  button_on_in = r.GREEN;
   button_on_out = r.BOTTLE;
 
   button_off_in = r.RED;
