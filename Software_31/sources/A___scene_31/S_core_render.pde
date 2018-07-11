@@ -82,6 +82,7 @@ void set_screen() {
       surface.setLocation(x,y);
       surface.setSize(w,h);
     } else {
+      
       int ox = get_screen_location(sketchDisplay()).x;
       int oy = get_screen_location(sketchDisplay()).y;
       surface.setLocation(ox,oy);
@@ -92,9 +93,7 @@ void set_screen() {
       println("screen location",get_screen_location(sketchDisplay()));
       w = sx; 
       h = sy;
-
-    }
-    
+    }   
   } else {
     w = row.getInt("preview_width"); 
     h = row.getInt("preview_height");

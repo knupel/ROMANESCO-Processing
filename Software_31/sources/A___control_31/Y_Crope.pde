@@ -1,6 +1,6 @@
 /**
 CROPE
-v 0.9.0.1
+v 0.9.1
 CONTROL ROMANESCO PROCESSING ENVIRONMENT
 * Copyleft (c) 2018-2018
 *
@@ -823,7 +823,7 @@ public class Button_dynamic extends Button {
 
 /**
 SLIDER
-v 1.4.4
+v 1.5.0
 2013-2018
 */
 boolean molette_already_selected ;
@@ -907,7 +907,7 @@ public class Slider extends Crope {
     molette_update();
   }
   
-  private boolean wheel_is ;
+  private boolean wheel_is;
   public void wheel(boolean wheel_is) {
     if(molette.length == 1) {
       this.wheel_is = wheel_is; 
@@ -1043,7 +1043,14 @@ public class Slider extends Crope {
 
 
 
-
+  boolean keep_selection = true;
+  public void keep_selection(boolean state) {
+    if(state) {
+      this.keep_selection = false;
+     } else {
+      this.keep_selection = true;
+    }
+  }
 
 
   public void select(boolean authorization) {
@@ -1053,7 +1060,7 @@ public class Slider extends Crope {
   }
 
   private void select(int index, boolean authorization) {
-    molette[index].select_is = true;
+    molette[index].select_is = keep_selection;
     selected_type = mousePressed;
     molette[index].used_is = select(index, molette_used_is(index),molette[index].used_is,authorization);
   }
@@ -1066,7 +1073,7 @@ public class Slider extends Crope {
   }
 
   private void select(int index, boolean authorization_1, boolean authorization_2) {
-    molette[index].select_is = true;
+    molette[index].select_is = keep_selection;
     selected_type = authorization_1;
     molette[index].used_is = select(index,molette_used_is(index),molette[index].used_is,authorization_2);
   }

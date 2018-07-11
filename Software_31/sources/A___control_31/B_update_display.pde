@@ -277,7 +277,6 @@ void show_slider_controller() {
 
 
 void update_slider(Slider slider, Cropinfo [] info_slider) {
-// void update_slider(Slider slider, Vec5 [] info_slider) {
   //MIDI update
   update_midi_slider(slider,info_slider);
   // MIN and MAX molette
@@ -319,6 +318,11 @@ void update_slider(Slider slider, Cropinfo [] info_slider) {
     slider.inside_molette_ellipse();
   }
   
+  if(keyPressed && key == CODED && keyCode == SHIFT) {
+    slider.keep_selection(true);
+  } else {
+    slider.keep_selection(false);
+  }
   slider.select(true);
   slider.update(mouseX,mouseY);
 }
