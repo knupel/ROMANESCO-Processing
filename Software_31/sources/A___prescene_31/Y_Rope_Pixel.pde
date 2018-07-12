@@ -19,6 +19,7 @@ abstract class Pix implements Rope_Constants {
   Vec3 grid_position ;
   int ID, rank ;
   int costume_ID = 0 ; // 0 is for point
+  float ratio_costume_size = Float.MAX_VALUE;
   float costume_angle = 0 ;
   Vec4 colour, new_colour  ;
   
@@ -102,6 +103,10 @@ abstract class Pix implements Rope_Constants {
   // set costume
   public void costume(int costume_ID) {
     this.costume_ID = costume_ID ;
+  }
+
+  public void costume_ratio_size(float ratio_costume_size) {
+    this.ratio_costume_size = ratio_costume_size;
   }
   
 
@@ -657,7 +662,10 @@ class Cloud extends Pix implements Rope_Constants {
 
   protected void give_points_to_costume_2D() {
     for(int i  = 0 ; i < coord.length ;i++) {
-      costume_rope(coord[i], size, costume_angle, costume_ID) ;
+      if(ratio_costume_size != Float.MAX_VALUE) {
+        set_ratio_costume_size(ratio_costume_size);
+      }
+      costume_rope(coord[i], size, costume_angle, costume_ID);
     }
   }
 
@@ -1095,6 +1103,9 @@ class Cloud_3D extends Cloud {
     if(!polar_is) {
       for(int i  = 0 ; i < coord.length ;i++) {
         // method from mother class need pass info arg
+        if(ratio_costume_size != Float.MAX_VALUE) {
+          set_ratio_costume_size(ratio_costume_size);
+        }
         costume_rope(coord[i], size, costume_angle, costume_ID) ;
       }
     } else {
@@ -1130,7 +1141,11 @@ class Cloud_3D extends Cloud {
 
       start_matrix();
       rotateXYZ(orientation) ;
-      Vec3 pos_local_primitive = Vec3() ;
+      Vec3 pos_local_primitive = Vec3();
+
+      if(ratio_costume_size != Float.MAX_VALUE) {
+        set_ratio_costume_size(ratio_costume_size);
+      }
       costume_rope(pos_local_primitive, size, costume_angle, costume_ID);
       stop_matrix() ;
       stop_matrix() ;
@@ -1333,6 +1348,9 @@ class Pixel extends Pix  {
 
   // show
   public void show() {
+    if(ratio_costume_size != Float.MAX_VALUE) {
+      set_ratio_costume_size(ratio_costume_size);
+    }
     if (renderer_P3D()) {
       costume_rope(pos,size,dir,costume_ID) ;
     } else {

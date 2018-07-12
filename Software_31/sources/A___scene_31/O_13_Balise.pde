@@ -14,7 +14,7 @@ class BaliseRomanesco extends Romanesco {
     item_author  = "Stan le Punk";
     item_version = "Version 1.3.4";
     item_pack = "Base 2011" ; 
-    item_costume = "Point/Ellipse/Triangle/Rectangle/Pentagon/Cross/Star 5/Star 7/Super Star 8/Super Star 12" ;
+    item_costume = "point/ellipse/triangle/rect/cross/pentagon/Star 5/Star 7/Super Star 8/Super Star 12" ;
     // item_mode = "Disc/Rectangle/Box/Box Snake" ;
     item_mode = "" ;
 

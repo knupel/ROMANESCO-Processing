@@ -22,9 +22,9 @@ boolean TABLET = false; // now tablet library don't work in OPENGL renderer
 /**
 LIVE must change from the launcher, the info must be write in the external loading preference app
 */
-boolean LIVE = false;
-boolean FULL_RENDERING = true;
-boolean DEVELOPMENT_MODE = true;
+boolean LIVE = true;
+boolean FULL_RENDERING = false;
+boolean DEVELOPMENT_MODE = false;
 
 
 
@@ -70,7 +70,6 @@ void setup() {
   if(USE_SOUND) sound_setup();
   light_position_setup();
   light_setup();
-  
 }
 
 
@@ -84,7 +83,6 @@ void setup() {
 
 boolean init_app;
 void draw() {
-  
   if(init_app) {
     romanesco();
     if(width == 1 || height == 1) {
