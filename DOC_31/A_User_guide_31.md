@@ -46,9 +46,9 @@ ctrl + L
 
 SLIDER
 --
-select few slider click left + SHIFT
+select few sliders click mouse left + SHIFT
 
-set
+set range slider
 --
 You can set the min max of the slider by clicking the extremity of the middle line of the slider
 

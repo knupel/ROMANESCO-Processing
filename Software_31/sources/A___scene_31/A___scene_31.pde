@@ -19,9 +19,9 @@ boolean FULL_SCREEN = false ;
 
 void settings() {
   // When you build Romanesco you must create two versions : fullscreen and normal
-  // size(124,124,P3D);
-  fullScreen(P3D,1);
-  FULL_SCREEN = true ;
+  size(124,124,P3D);
+  // fullScreen(P3D,1);
+  // FULL_SCREEN = true ;
 
   pixelDensity(displayDensity()) ;
   syphon_settings() ;
@@ -57,7 +57,7 @@ void setup() {
 
   init_variable_item_min_max();
   init_variable_item();
-  init_items();
+  // init_items();
   // init_slider_variable_world(); // maybe not necessary on Scene sketch
   
   create_font();
@@ -67,7 +67,7 @@ void setup() {
 
   light_position_setup();
   light_setup();
-  if(FULL_RENDERING) shader_setup();
+  
 }
 
 /**
@@ -75,25 +75,11 @@ DRAW
 */
 boolean init_app;
 void draw() {
-
-
   if(init_app) {
     romanesco();
   } else {
-    init_app = true;
-    if(FULL_SCREEN) {
-      /*
-      int ox = get_screen_location(sketchDisplay()).x;
-      int oy = get_screen_location(sketchDisplay()).y;
-      surface.setLocation(ox,oy);
-      int sx = get_screen_size(sketchDisplay()).x;
-      int sy = get_screen_size(sketchDisplay()).y;
-      surface.setSize(sx,sy);
-      println("le jour d'après");
-      println("current screen",get_screen_size(sketchDisplay()));
-      println("current size",width,height);
-      */
-    }
+    if(FULL_RENDERING) shader_setup();
+    init_app = items_loaded_is(); 
   }
 }
 

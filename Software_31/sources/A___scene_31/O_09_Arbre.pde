@@ -1,7 +1,7 @@
 
 /**
 ARBRE 2012-2018
-v 1.3.5
+v 1.3.6
 */
 Arbre arbre ;
 
@@ -13,8 +13,8 @@ class ArbreRomanesco extends Romanesco {
     ID_item = 9 ;
     ID_group = 1 ;
     item_author  = "Stan le Punk";
-    item_version = "Version 1.3.4";
-    item_pack = "Base" ;
+    item_version = "Version 1.3.6";
+    item_pack = "Base 2012" ;
     item_costume = "Point/Ellipse/Triangle/Rectangle/Cross/Star 5/Star 7/Super Star 8/Super Star 12";
     item_mode = "";
     // define slider
@@ -32,7 +32,7 @@ class ArbreRomanesco extends Romanesco {
     size_z_is = true;
     // font_size_is = true;
     canvas_x_is = true;
-    // canvas_y_is = true;
+    canvas_y_is = true;
     // canvas_z_is = true;
 
     // reactivity_is = true;
@@ -57,7 +57,7 @@ class ArbreRomanesco extends Romanesco {
     // life_is = true;
     // flow_is = true;
     // quality_is = true;
-    // area_is = true;
+    area_is = true;
     // angle_is = true;
     // scope_is = true;
     // scan_is = true;
@@ -70,8 +70,7 @@ class ArbreRomanesco extends Romanesco {
     // spectrum_is = true;
   }
   //GLOBAL
-  float speed ;
-  PVector posArbre = new PVector () ;
+  float speed;
   //SETUP
   void setup() {
     setting_start_position(ID_item, width/2, height/3, 0) ;
@@ -125,8 +124,10 @@ class ArbreRomanesco extends Romanesco {
     //orientation
     float direction = dir_x_item[ID_item] ;
     //amplitude
-    float amplitude = canvas_x_item[ID_item] *.5 ;
-    if(FULL_RENDERING) amplitude = amplitude *all_transient(ID_item);
+    Vec2 amplitude = Vec2(canvas_x_item[ID_item] *.5,canvas_y_item[ID_item] *.5) ;
+    if(FULL_RENDERING) {
+      amplitude.mult(all_transient(ID_item));
+    }
     
 
 
@@ -153,15 +154,15 @@ class ArbreRomanesco extends Romanesco {
     get_costume();
 
     arbre.show(direction);
-    arbre.update(posArbre, epaisseur, size, divA, divB, forkA, forkB, amplitude, n, get_costume(), bool_link, angle, speed, fill_is[ID_item], stroke_is[ID_item], ID_item) ;
+    arbre.update(epaisseur, size, divA, divB, forkA, forkB, amplitude, n, get_costume(), bool_link, angle, speed, fill_is[ID_item], stroke_is[ID_item], ID_item) ;
     if(horizon[ID_item]) {
       arbre.set_horizon(0) ; 
     } else {
-      arbre.set_horizon(map(alignment_item[ID_item], 0,1, 0, height /100)) ;
+      arbre.set_horizon(map(alignment_item[ID_item],0,1,-1,1));
     }
     
     //info
-    item_info[ID_item] = ("Nodes " +(n-1) + " - Amplitude " + (int)amplitude + " - Orientation " +direction +  " - Speed " + (int)map(speed,0,4,0,100) );
+    item_info[ID_item] = ("Nodes " +(n-1) + " - Amplitude " + amplitude.x +","+ amplitude.y + " - Orientation " +direction +  " - Speed " + (int)map(speed,0,4,0,100) );
     
   } 
 }
@@ -169,15 +170,16 @@ class ArbreRomanesco extends Romanesco {
 
 
 
-/////////////////
-//CLASS ARBRE
+
+// CLASS ARBRE
 class Arbre {
+  float theta, angleDirection;
+  float rotation = 90.;
+  float direction = 0;
+  float deep = 0;
+
   Arbre() {}
-  // int vR = 1 ;  ;
-  float theta, angleDirection ;
-  float rotation = 90.0  ;
-  float direction   ;
-  float deep = 0 ;
+
  
 //::::::::::::::::::::  
   void show(float d) {
@@ -188,7 +190,7 @@ class Arbre {
     this.deep = deep ;
   }
 //::::::::::::::::::::::::::::  
-  void update(PVector posArbre, float e, Vec3 size, float divA, float divB, int forkA, int forkB, float amplitude, int n, int which_costume, boolean bool_line, float angle, float speed, boolean fill_is, boolean stroke_is, int ID) {
+  void update(float e, Vec3 size, float divA, float divB, int forkA, int forkB, Vec2 amplitude, int n, int which_costume, boolean bool_line, float angle, float speed, boolean fill_is, boolean stroke_is, int ID) {
     rotation += speed ;
     if (rotation > angle +90) speed*=-1 ; else if ( rotation < angle ) speed*=-1 ; 
     angle = rotation ; // de 0 à 180
@@ -196,7 +198,6 @@ class Arbre {
     theta = radians(angle);
     angleDirection = radians (direction) ;
     pushMatrix () ;
-    translate(posArbre.x,posArbre.y, 0) ;
     // Start the recursive branching
     rotate (angleDirection) ;
     branch(e, size, divA, divB, forkA, forkB, amplitude, n, which_costume, bool_line, fill_is, stroke_is,ID);
@@ -207,11 +208,11 @@ class Arbre {
   
   
   //float fourche = 10.0 ; 
-  void branch(float t, Vec3 proportion, float divA, float divB, int forkA, int forkB, float amplitude, int n, int which_costume, boolean bool_line, boolean fill_is, boolean stroke_is, int ID) {
-    Vec3 newSize = proportion.copy() ;
-    newSize.x = proportion.x *divA ;
-    newSize.y = proportion.y *divB;
-    newSize.z = proportion.z *((divA +divB) *.5) ;
+  void branch(float t, Vec3 size, float divA, float divB, int forkA, int forkB, Vec2 amplitude, int n, int which_costume, boolean bool_line, boolean fill_is, boolean stroke_is, int ID) {
+    Vec3 newSize = size.copy();
+    newSize.x = size.x *divA;
+    newSize.y = size.y *divB;
+    newSize.z = size.z *((divA +divB) *.5);
     if(newSize.x < 0.1 ) {
       newSize.x = 0.1 ;
     }
@@ -228,7 +229,7 @@ class Arbre {
   }
   
   //annexe branch
-  void displayBranch(float e, Vec3 size, float propA, float propB, int fourcheA, int fourcheB, float amplitude, int n, float t, int which_costume, boolean bool_line, boolean fill_is, boolean stroke_is, int ID) {
+  void displayBranch(float e, Vec3 size, float propA, float propB, int fourcheA, int fourcheB, Vec2 amplitude, int n, float t, int which_costume, boolean bool_line, boolean fill_is, boolean stroke_is, int ID) {
     float factor = 0.0 ;
     if(key_v_long && pen[0].z != 0) {
       factor = deep * map(pen[0].z,0.01,1, 1.2,-1.2) ; 
@@ -242,15 +243,16 @@ class Arbre {
     // strokeWeight (e) ;
     aspect_is(fill_is, stroke_is) ;
     aspect_rope(fill_item[ID], stroke_item[ID], e, which_costume) ;
-    Vec3 pos_a = Vec3(0) ;
-    Vec3 pos_b = Vec3(0, -amplitude, -size.z *factor) ;
+    Vec3 pos_a = Vec3() ;
+    Vec3 pos_b = Vec3(0, -amplitude.x, -amplitude.y *factor) ;
     
     if (bool_line && n > 1) {
        line(pos_a, pos_b) ;
     } 
 
     // Draw the branch
-    costume_rope(Vec3(), size, which_costume);
+    set_ratio_costume_size(map(area_item[ID],width*.1, width*r.PHI,0,1));
+    costume_rope(Vec3(),size,which_costume);
     // horizon
     
     translate(pos_b) ;

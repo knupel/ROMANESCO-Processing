@@ -1,12 +1,6 @@
 Todo Romanesco
 --
-*/
 
-Ajouter area pour tous les items avec croix.
-
-*/
-
-Gérer les differentes position pour le plein écran comme pour le logiciel FORCE
 
 */MIDI
 
@@ -36,9 +30,6 @@ Mieux gérer les couleurs, c'est franchement le bronx entre les formes et les co
 */
 
 
-*Dropdown
-
-When a dropdown is open and we forget to close it and select an other the previeuous dropdown select the first choice
 
 *CAMERA
 
@@ -57,9 +48,6 @@ bug with keyboard event between prescene and scene
 bug when the prescene and scene is active the prescene receive nothing
 
 
-*SCENE
-
-les variables ne sont plus bonnes !!!
 
 *save
 
@@ -75,11 +63,8 @@ java.lang.RuntimeException: Waited 5000ms at each start for 2 or 3 times before 
 
 *Sound
 
-Finish new tempo, add beat X-Bass and change Kick, Snare, Hat for Bass, Medium, High
+Finish new tempo and improve Transient
 
-*bug controller
-
-Quand la taille du controleur est changée le rendu passe au noir
 
 *HSB >< RGB
 
@@ -100,13 +85,6 @@ Finalize save Scene when all slider are done
 
 
 *MINOR
-
-*/
-
-*dropdown item
-
-When we are on the first dropdwon and we select the first box, obviously the second who is just under opening just after closing the upper one...
-must be fix
 
 
 
@@ -139,3 +117,6 @@ Bouton pour bloquer les rotations de caméra, comme cela on pourra faire de la 2
 *camera video
 
 Remove this camera from the core, that's became an object? And don't start when the app is launch
+
+
+

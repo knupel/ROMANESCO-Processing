@@ -1,7 +1,7 @@
 /**
 BALISE
 2011-2018
-v 1.3.3
+v 1.3.4
 */
 Balise balise ;
 //object three
@@ -12,7 +12,7 @@ class BaliseRomanesco extends Romanesco {
     ID_item = 13 ;
     ID_group = 1 ;
     item_author  = "Stan le Punk";
-    item_version = "Version 1.3.3";
+    item_version = "Version 1.3.4";
     item_pack = "Base 2011" ; 
     item_costume = "Point/Ellipse/Triangle/Rectangle/Pentagon/Cross/Star 5/Star 7/Super Star 8/Super Star 12" ;
     // item_mode = "Disc/Rectangle/Box/Box Snake" ;
@@ -31,44 +31,44 @@ class BaliseRomanesco extends Romanesco {
     size_x_is = true;
     size_y_is = true;
     size_z_is = true;
-    font_size_is = false;
+    // font_size_is = true;
     canvas_x_is = true;
-    canvas_y_is = false;
-    canvas_z_is = false;
+    // canvas_y_is = true;
+   // canvas_z_is = true;
 
-    reactivity_is = false;
+    // reactivity_is = true;
     speed_x_is = true;
-    speed_y_is = false;
-    speed_z_is = false;
-    spurt_x_is = false;
-    spurt_y_is = false;
-    spurt_z_is = false;
-    dir_x_is = false;
-    dir_y_is = false;
-    dir_z_is = false;
-    jit_x_is = false;
-    jit_y_is = false;
-    jit_z_is  = false;
-    swing_x_is = false;
-    swing_y_is = false;
-    swing_z_is = false;
+    // speed_y_is = true;
+    // speed_z_is = true;
+    // spurt_x_is = true;
+    // spurt_y_is = true;
+    // spurt_z_is = true;
+    // dir_x_is = true;
+    // dir_y_is = true;
+    // dir_z_is = true;
+    // jit_x_is = true;
+    // jit_y_is = true;
+    // jit_z_is  = true;
+    // swing_x_is = true;
+    // swing_y_is = true;
+    // swing_z_is = true;
 
     num_is = true;
-    variety_is = false;
-    life_is = false;
-    flow_is = false;
-    quality_is = false;
-    area_is = false;
-    angle_is = false;
-    scope_is = false;
-    scan_is = false;
-    align_is = false;
+    // variety_is = true;
+    // life_is = true;
+    // flow_is = true;
+    // quality_is = true;
+    area_is = true;
+    // angle_is = true;
+    // scope_is = true;
+    // scan_is = true;
+    // align_is = true;
     repulsion_is = true;
-    attraction_is = false;
-    density_is = false;
-    influence_is = false;
-    calm_is = false;
-    spectrum_is = false;
+    // attraction_is = true;
+    // density_is = true;
+    // influence_is = true;
+    // calm_is = true;
+    // spectrum_is = true;
   }
   //GLOBAL
   float speed =0;
@@ -107,19 +107,15 @@ class BaliseRomanesco extends Romanesco {
       speed = 0.;
     }
 
-
-    // costume
-    // select_costume();
-    // aspect
-    //aspect_rope(fill_item[ID_item], stroke_item[ID_item], thickness_item[ID_item], costume[ID_item]) ;
-
     //amplitude
-    float amp = map(swing_x_item[ID_item], 0,1, 0, width *9) ;
+    float amp = map(canvas_x_item[ID_item],canvas_x_min_max.x, canvas_x_min_max.y,1,width*10);
     
     //factor size
-    float factor_base = map(repulsion_item[ID_item],0,1,1,100);
+    float factor_base = map(repulsion_item[ID_item],0,1,1,height/4);
     float factor = 1;
-    if(sound[ID_item]) factor = factor_base *(all_transient(ID_item) *.2);
+    if(sound[ID_item]) {
+      factor = factor_base *(all_transient(ID_item) *.2);
+    } 
     if(factor < 1.0 ) factor = 1.0 ;
 
     // snake mode
@@ -141,6 +137,7 @@ class BaliseRomanesco extends Romanesco {
     float tempo_effect = 1 + ((transient_value[0][ID_item] *ratio) + (transient_value[2][ID_item] *ratio) + (transient_value[3][ID_item] *ratio) + (transient_value[4][ID_item] *ratio));
 
     Vec3 size = Vec3(size_x_item[ID_item],size_y_item[ID_item],size_z_item[ID_item]);
+    size.mult(15);
 
     Vec2 left_right_sound = Vec2(1) ;
     if(authorization) {
@@ -159,11 +156,12 @@ class BaliseRomanesco extends Romanesco {
     int maxBalise = 511 ;
     if(!FULL_RENDERING) maxBalise = 64 ;
     float radiusBalise = map(quantity_item[ID_item], 0,1, 2, maxBalise); // here the value max is 511 because we work with buffersize with 512 field
+    float ratio_size = map(area_item[ID_item],width*.1, width*r.PHI,0,1);
     
     Vec3 pos = Vec3();
     balise.update(pos,speed);
 
-    balise.display(amp, left_right_sound, size, factor, int(radiusBalise), authorization, costume[ID_item], snake_mode) ;
+    balise.display(amp, left_right_sound, size, factor, int(radiusBalise), authorization, costume[ID_item], snake_mode,ratio_size) ;
     
     
     item_info[ID_item] = ("Size "+(int)size.x + " / " + (int)size.y + " / " + (int)size.z  + " Radius " + int(radiusBalise) ) ;
@@ -208,32 +206,31 @@ class Balise {
 
 
   
-  void display (float amp, Vec2 sound_input, Vec3 size, float factor, int max, boolean authorization, int which_costume, boolean snake_mode) {
+  void display(float amp, Vec2 sound_input, Vec3 size, float factor, int max, boolean authorization, int which_costume, boolean snake_mode, float ratio_size) {
 
     pushMatrix() ;
     rectMode(CENTER) ;
     
-    if ( max > 512 ) max = 512 ;
+    if (max > 512) {
+      max = 512;
+    }
 
     for(int i = 0 ; i < max ; i++) {
       Vec2 var = Vec2(input(i,max,sound_input,authorization).x, input(i,max,sound_input,authorization).y) ;
       Vec2 pos = Vec2(amp *var.x, amp *var.y);
       
-      var.set(abs(var.x *factor), abs(var.y *factor) ) ;
+      var.set(abs(var.x *factor), abs(var.y *factor));
 
       Vec3 final_size = Vec3(size.x *var.x, size.y *var.y, size.z *((var.x +var.y)*.5));
       if(snake_mode) {
         //println("snake");
-        start_matrix() ;
-        translate(pos) ;
+        start_matrix();
+        translate(pos);
       }
-      /*
-      println("pos",pos);
-      println("size",final_size);
-      */
 
-      ellipse(pos.x,pos.y,final_size.x,final_size.y);
-      costume_rope(pos, final_size, which_costume) ;
+      // ellipse(pos.x,pos.y,final_size.x,final_size.y);
+      set_ratio_costume_size(ratio_size);
+      costume_rope(pos,final_size,which_costume) ;
       if(snake_mode) {
         stop_matrix() ;
       }

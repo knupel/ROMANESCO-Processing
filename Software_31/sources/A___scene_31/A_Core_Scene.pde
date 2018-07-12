@@ -111,7 +111,9 @@ void resize_scene() {
     catch_display_position() ;
     check_size = true ;
     int which = whichScreen ;
-    if(which > screenDevice.length) which = 1 ;
+    if(which > screenDevice.length || which < 1) {
+      which = 1;
+    }
     int pos_x = display_size_x[which -1] - ((display_size_x[which -1]/2) +(scene_width /2)) ;
     int pos_y = display_size_y[which -1] - ((display_size_y[which -1]/2) +(scene_height /2)) ;
     set_display_sketch (pos_x, pos_y, scene_width, scene_height, which, true) ;

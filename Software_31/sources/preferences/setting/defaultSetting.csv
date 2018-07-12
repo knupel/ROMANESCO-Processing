@@ -1,8 +1,8 @@
 Type,ID slider,Min slider,Max slider,Value length,Value slider 0,Value slider 1,Value slider 2,Value slider 3,ID button,On Off,ID midi,Item ID,Item On Off,Item Name,Item Class Name
 Slider background,0,0.0,1.0,1,0.0,,,,,,-2,,,,
 Slider background,1,0.0,1.0,1,1.0,,,,,,-2,,,,
-Slider background,2,0.0,1.0,1,0.6,,,,,,-2,,,,
-Slider background,3,0.0,1.0,1,0.3,,,,,,-2,,,,
+Slider background,2,0.0,1.0,1,0.8111111,,,,,,-2,,,,
+Slider background,3,0.0,1.0,1,0.46666667,,,,,,-2,,,,
 Slider background,4,0.0,1.0,1,0.5,,,,,,-2,,,,
 Slider background,5,0.0,1.0,1,0.5,,,,,,-2,,,,
 Slider background,6,0.0,1.0,1,0.5,,,,,,-2,,,,
@@ -31,14 +31,14 @@ Slider light,7,0.0,1.0,1,1.0,,,,,,-2,,,,
 Slider light,8,0.0,1.0,1,1.0,,,,,,-2,,,,
 Slider sound,0,0.0,1.0,1,0.5,,,,,,-2,,,,
 Slider sound,1,0.0,1.0,1,0.5,,,,,,-2,,,,
-Slider sound setting,0,0.0,1.0,3,0.094736844,0.38947368,0.67368424,,,,-2,,,,
-Slider sound setting,1,0.0,1.0,2,0.0,0.17894737,,,,,-2,,,,
-Slider sound setting,2,0.0,1.0,2,0.10526316,0.33684212,,,,,-2,,,,
-Slider sound setting,3,0.0,1.0,2,0.28421053,0.6315789,,,,,-2,,,,
-Slider sound setting,4,0.0,1.0,2,0.6631579,0.8947368,,,,,-2,,,,
-Slider camera,0,0.0,1.0,1,0.5,,,,,,-2,,,,
-Slider camera,1,0.0,1.0,1,0.5,,,,,,-2,,,,
-Slider camera,2,0.0,1.0,1,0.5,,,,,,-2,,,,
+Slider sound setting,0,0.0,1.0,3,0.094736844,0.36842105,0.6421053,,,,-2,,,,
+Slider sound setting,1,0.0,1.0,2,0.0,0.6631579,,,,,-2,,,,
+Slider sound setting,2,0.0,1.0,2,0.0,0.31578946,,,,,-2,,,,
+Slider sound setting,3,0.0,1.0,2,0.0,0.31578946,,,,,-2,,,,
+Slider sound setting,4,0.0,1.0,2,0.0,0.35789475,,,,,-2,,,,
+Slider camera,0,0.0,1.0,1,0.35555556,,,,,,-2,,,,
+Slider camera,1,0.0,1.0,1,0.4888889,,,,,,-2,,,,
+Slider camera,2,0.0,1.0,1,0.4888889,,,,,,-2,,,,
 Slider camera,3,0.0,1.0,1,0.5,,,,,,-2,,,,
 Slider camera,4,0.0,1.0,1,0.5,,,,,,-2,,,,
 Slider camera,5,0.0,1.0,1,0.5,,,,,,-2,,,,
@@ -52,15 +52,15 @@ Slider item,5,0.0,1.0,1,0.0,,,,,,-2,,,,
 Slider item,6,0.0,1.0,1,1.0,,,,,,-2,,,,
 Slider item,7,0.0,1.0,1,1.0,,,,,,-2,,,,
 Slider item,8,0.0,1.0,1,0.24444444,,,,,,-2,,,,
-Slider item,9,0.0,1.0,1,0.23333333,,,,,,-2,,,,
-Slider item,10,0.0,1.0,1,0.21111111,,,,,,-2,,,,
-Slider item,11,0.0,1.0,1,0.21111111,,,,,,-2,,,,
+Slider item,9,0.0,1.0,1,0.51111114,,,,,,-2,,,,
+Slider item,10,0.0,1.0,1,0.11111111,,,,,,-2,,,,
+Slider item,11,0.0,1.0,1,0.6888889,,,,,,-2,,,,
 Slider item,12,0.0,1.0,1,0.22222222,,,,,,-2,,,,
 Slider item,13,0.0,1.0,1,0.23333333,,,,,,-2,,,,
-Slider item,14,0.0,1.0,1,0.23333333,,,,,,-2,,,,
+Slider item,14,0.0,1.0,1,0.44444445,,,,,,-2,,,,
 Slider item,15,0.0,1.0,1,0.23333333,,,,,,-2,,,,
 Slider item,16,0.0,1.0,1,0.5,,,,,,-2,,,,
-Slider item,17,0.0,1.0,1,0.24444444,,,,,,-2,,,,
+Slider item,17,0.0,1.0,1,0.12222222,,,,,,-2,,,,
 Slider item,18,0.0,1.0,1,0.17777778,,,,,,-2,,,,
 Slider item,19,0.0,1.0,1,0.17777778,,,,,,-2,,,,
 Slider item,20,0.0,1.0,1,0.0,,,,,,-2,,,,
@@ -72,7 +72,7 @@ Slider item,25,0.0,1.0,1,0.0,,,,,,-2,,,,
 Slider item,26,0.0,1.0,1,0.1,,,,,,-2,,,,
 Slider item,27,0.0,1.0,1,0.1,,,,,,-2,,,,
 Slider item,28,0.0,1.0,1,0.1,,,,,,-2,,,,
-Slider item,29,0.0,1.0,1,0.51111114,,,,,,-2,,,,
+Slider item,29,0.0,1.0,1,0.2888889,,,,,,-2,,,,
 Slider item,30,0.0,1.0,1,0.51111114,,,,,,-2,,,,
 Slider item,31,0.0,1.0,1,0.51111114,,,,,,-2,,,,
 Slider item,32,0.0,1.0,1,0.2777778,,,,,,-2,,,,
@@ -80,11 +80,11 @@ Slider item,33,0.0,1.0,1,0.31111112,,,,,,-2,,,,
 Slider item,34,0.0,1.0,1,0.7888889,,,,,,-2,,,,
 Slider item,35,0.0,1.0,1,0.31111112,,,,,,-2,,,,
 Slider item,36,0.0,1.0,1,0.31111112,,,,,,-2,,,,
-Slider item,37,0.0,1.0,1,0.31111112,,,,,,-2,,,,
+Slider item,37,0.0,1.0,1,0.13333334,,,,,,-2,,,,
 Slider item,38,0.0,1.0,1,0.0,,,,,,-2,,,,
 Slider item,39,0.0,1.0,1,0.67777777,,,,,,-2,,,,
 Slider item,40,0.0,1.0,1,0.16666667,,,,,,-2,,,,
-Slider item,41,0.0,1.0,1,0.31111112,,,,,,-2,,,,
+Slider item,41,0.0,1.0,1,0.46666667,,,,,,-2,,,,
 Slider item,42,0.0,1.0,1,0.31111112,,,,,,-2,,,,
 Slider item,43,0.0,1.0,1,0.31111112,,,,,,-2,,,,
 Slider item,44,0.0,1.0,1,0.31111112,,,,,,-2,,,,
@@ -98,15 +98,15 @@ Item,,,,,,,,,,,,4,0,Orbital,Orbital
 Item,,,,,,,,,,,,5,0,Atome,Atome
 Item,,,,,,,,,,,,6,0,The Abbyss,The_Abbyss
 Item,,,,,,,,,,,,7,0,Boids,Boids
-Item,,,,,,,,,,,,8,0,Rubis,MesAmis
-Item,,,,,,,,,,,,9,0,Arbre,ArbreRomanesco
+Item,,,,,,,,,,,,8,1,Rubis,MesAmis
+Item,,,,,,,,,,,,9,1,Arbre,ArbreRomanesco
 Item,,,,,,,,,,,,10,1,Boxolyzer,Boxolyzer
 Item,,,,,,,,,,,,11,0,Soleil,Soleil
-Item,,,,,,,,,,,,12,0,Spirale,SpiraleRomanesco
-Item,,,,,,,,,,,,13,0,Balise,BaliseRomanesco
+Item,,,,,,,,,,,,12,1,Spirale,SpiraleRomanesco
+Item,,,,,,,,,,,,13,1,Balise,BaliseRomanesco
 Item,,,,,,,,,,,,14,0,Kofosphere,Kofosphere
 Item,,,,,,,,,,,,15,0,Lignes,Lignes
-Item,,,,,,,,,,,,16,0,Pulsar,Pulsar
+Item,,,,,,,,,,,,16,1,Pulsar,Pulsar
 Item,,,,,,,,,,,,17,0,Damier,Damier
 Item,,,,,,,,,,,,18,0,Vectorial,Vectorial
 Item,,,,,,,,,,,,19,0,Galaxie,Galaxie
@@ -115,7 +115,7 @@ Item,,,,,,,,,,,,21,0,Webcam,Webcam
 Item,,,,,,,,,,,,22,0,Image,Escargot
 Item,,,,,,,,,,,,23,0,Surface,Surface
 Item,,,,,,,,,,,,24,0,Movisco,Movisco
-Item,,,,,,,,,,,,25,1,Eco Agents,Ecosystem_agent
+Item,,,,,,,,,,,,25,0,Eco Agents,Ecosystem_agent
 Item,,,,,,,,,,,,26,1,Eco DNA,Ecosystem_DNA
 Item,,,,,,,,,,,,27,0,Lorenz attractor,Lorenz
 Item,,,,,,,,,,,,28,1,BoumBoum,BoumBoum
@@ -131,7 +131,7 @@ Button light 1,,,,,,,,,4,0,-2,,,,
 Button light 1,,,,,,,,,5,0,-2,,,,
 Button light 2,,,,,,,,,6,0,0,,,,
 Button light 2,,,,,,,,,7,0,0,,,,
-Button transient,,,,,,,,,8,1,0,,,,
+Button transient,,,,,,,,,8,0,0,,,,
 Button transient,,,,,,,,,9,0,0,,,,
 Button transient,,,,,,,,,10,0,0,,,,
 Button transient,,,,,,,,,11,0,0,,,,

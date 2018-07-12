@@ -106,14 +106,17 @@ class BoumBoum extends Romanesco {
     dir.map_vec(0,360,0,TAU);
     
     // speed
-    Vec3 inc_speed = Vec3(speed_x_item[ID_item],speed_y_item[ID_item],speed_z_item[ID_item]);
-    inc_speed.mult(inc_speed);
-    if(speed == null) {
-      speed = Vec3(inc_speed);
-    } else {
-      speed.add(inc_speed);
+    if(motion[ID_item]) {
+      Vec3 inc_speed = Vec3(speed_x_item[ID_item],speed_y_item[ID_item],speed_z_item[ID_item]);
+      inc_speed.mult(inc_speed);
+      if(speed == null) {
+        speed = Vec3(inc_speed);
+      } else {
+        speed.add(inc_speed);
+      }   
     }
     dir.add(speed);
+
 
     for(int i = 0 ; i < shape_num ;i++) {
       int step = (i+1);

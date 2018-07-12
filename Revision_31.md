@@ -39,6 +39,8 @@ ITEM
 >remove item Spray
 >add item Pulsar
 >add BoumBoum
+>improve spirale
+>improve arbre
 
 
 BUG FIX

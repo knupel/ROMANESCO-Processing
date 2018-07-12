@@ -808,8 +808,8 @@ void init_variable_item() {
 
 
 
-void init_items() {
-  rpe_manager.init_items() ;
+boolean items_loaded_is() {
+  return rpe_manager.init_items();
 }
 
 

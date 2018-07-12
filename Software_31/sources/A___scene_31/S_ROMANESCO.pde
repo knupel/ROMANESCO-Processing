@@ -554,7 +554,7 @@ class Romanesco_manager {
   
 
   // SETUP
-  void init_items() {
+  public boolean init_items() {
     int num = 0 ;
     for (Romanesco item : RomanescoList) {
       motion[item.get_id()] = true;
@@ -566,6 +566,12 @@ class Romanesco_manager {
         pos_item_ref[item.get_id()] = Vec3();
       }
       pos_item_ref[item.get_id()].set(item_setting_position[0][item.get_id()]);
+    }
+
+    if(num == RomanescoList.size()) {
+      return true ;
+    } else {
+      return false;
     }
   }
 

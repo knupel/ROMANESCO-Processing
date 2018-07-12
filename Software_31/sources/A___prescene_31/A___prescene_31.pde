@@ -22,9 +22,9 @@ boolean TABLET = false; // now tablet library don't work in OPENGL renderer
 /**
 LIVE must change from the launcher, the info must be write in the external loading preference app
 */
-boolean LIVE = true;
-boolean FULL_RENDERING = false;
-boolean DEVELOPMENT_MODE = false;
+boolean LIVE = false;
+boolean FULL_RENDERING = true;
+boolean DEVELOPMENT_MODE = true;
 
 
 
@@ -63,19 +63,14 @@ void setup() {
 
   init_variable_item_min_max();
   init_variable_item();
-  init_items();
   init_slider_variable_world();
-
   create_font();
-
-  // here we ask for the TEST_ROMANESCO true, because the Minim Library talk too much in the consol
+  
+  // SOUND LIGHT
   if(USE_SOUND) sound_setup();
-  // Light and shader setup
   light_position_setup();
   light_setup();
-  if(FULL_RENDERING) shader_setup();
-
-
+  
 }
 
 
@@ -89,10 +84,16 @@ void setup() {
 
 boolean init_app;
 void draw() {
+  
   if(init_app) {
     romanesco();
+    if(width == 1 || height == 1) {
+      printErr("width:",width,"heigh:",height, "this window size is not usable the process is stoped,\nplease set preference size via the launcher or directly in file sceneProperty.csv");
+      exit();
+    }
   } else {
-    init_app = true;
+    if(FULL_RENDERING) shader_setup();
+    init_app = items_loaded_is(); 
   }
 }
 
@@ -103,8 +104,7 @@ void romanesco() {
   if(FULL_RENDERING) start_PNG("screenshot Romanesco prescene", "Romanesco_"+year()+"_"+month()+"_"+day()+"_"+hour()+"_"+minute()+"_"+second()) ;
 
   syphon_draw() ;
-  // video_camera() ;
-  // camera_video_draw() ;
+
   if(USE_SOUND) sound_draw();
   // OSC part
   if(LIVE) {

@@ -1,7 +1,7 @@
 /**
 SOUNDA Rope
 for SOUNDA > SOUND-Analyze
-v 1.4.4
+v 1.4.5
 * Copyleft (c) 2017-2018
 * Stan le Punk > http://stanlepunk.xyz/
 * @author Stan le Punk
@@ -1203,7 +1203,7 @@ public class Sounda implements Rope_Constants {
 /**
 TRANSIENT DETECTION
 2018-2018
-v 0.1.0
+v 0.1.1
 --
 main transient method
 on idea of Jean-Baptiste Vallon Hoarau
@@ -1504,20 +1504,21 @@ class Transient extends Sounda {
       pos_y[i] = step *(i +1); 
     }
     float ratio_display = 1 ;
-    if(buffer.length > 0) ratio_display = width / buffer.length;
+    if(buffer.length > 0) {
+      ratio_display = (float)width / buffer.length;
+    }
     for(int i = 0 ; i < transient_is.length ;i++) {
     // no filter
       int x = i +in;
       x *= ratio_display;
-      // println(x,i,in,transient_is.length);
-      int y = int(raw_value[i] *factor) + pos_y[0];
+      int y = int(raw_value[i] *factor) +pos_y[0];
       set(x, y,r.YELLOW);
       // low pass filter
-      y = int(low_pass_value[i] *factor) + pos_y[1];
+      y = int(low_pass_value[i] *factor) +pos_y[1];
       set(x, y,r.YELLOW);
       // transient work
       // show pow value
-      y = int(pow_value[i] *factor) + pos_y[2];
+      y = int(pow_value[i] *factor) +pos_y[2];
       set(x, y,r.YELLOW);
 
       // show low pass quick
@@ -1529,11 +1530,11 @@ class Transient extends Sounda {
       set(x, y,r.YELLOW);
 
       // diff between fast and slow
-      y = int(diff_value[i] *factor) + pos_y[5];
+      y = int(diff_value[i] *factor) +pos_y[5];
       set(x, y,r.YELLOW);
 
        // log value + 1
-      y = int(log_value[i] *factor) + pos_y[6];
+      y = int(log_value[i] *factor) +pos_y[6];
       set(x, y,r.YELLOW);
     }
   }
@@ -1559,22 +1560,22 @@ class Transient extends Sounda {
 
   void print_transient_param(Section [] section) {
     printTempo(60,"__");
-    for(int i = 0 ; i < section.length ; i ++) {
+    for(int i = 0 ; i < section.length ; i++) {
       printTempo(60,"smooth slow pass:",section[i].low_pass,frameCount);
     }
-    for(int i = 0 ; i < section.length ; i ++) {
+    for(int i = 0 ; i < section.length ; i++) {
       printTempo(60,"smooth slow:",section[i].smooth_slow,frameCount);
     }
-    for(int i = 0 ; i < section.length ; i ++) {
+    for(int i = 0 ; i < section.length ; i++) {
       printTempo(60,"smooth fast:",section[i].smooth_fast,frameCount);
     }
-    for(int i = 0 ; i < section.length ; i ++) {
+    for(int i = 0 ; i < section.length ; i++) {
       printTempo(60,"threshold low:",section[i].threshold_low,frameCount);
     }
-    for(int i = 0 ; i < section.length ; i ++) {
+    for(int i = 0 ; i < section.length ; i++) {
       printTempo(60,"threshold high:",section[i].threshold_high,frameCount);
     }
-    for(int i = 0 ; i < section.length ; i ++) {
+    for(int i = 0 ; i < section.length ; i++) {
       printTempo(60,"ratio transient:",section[i].ratio_log,frameCount);
     }
   }

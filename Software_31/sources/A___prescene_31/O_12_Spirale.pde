@@ -1,7 +1,7 @@
 /**
 SPIRALE
 2011-2018
-v 1.3.7
+v 1.3.8
 */
 
 Spirale spirale ; 
@@ -13,7 +13,7 @@ class SpiraleRomanesco extends Romanesco {
     ID_item = 12 ;
     ID_group = 1 ;
     item_author  = "Stan le Punk";
-    item_version = "Version 1.3.6";
+    item_version = "Version 1.3.8";
     item_pack = "Base 2011" ;
     item_costume = "Point/Ellipse/Triangle/Rectangle/Cross/Star 5/Star 7/Super Star 8/Super Star 12" ;
     item_mode = "" ;
@@ -31,44 +31,44 @@ class SpiraleRomanesco extends Romanesco {
     size_x_is = true;
     size_y_is = true;
     size_z_is = true;
-    font_size_is = false;
+    // font_size_is = true;
     canvas_x_is = true;
     canvas_y_is = true;
-    canvas_z_is = false;
+    canvas_z_is = true;
 
-    reactivity_is = false;
+    // reactivity_is = true;
     speed_x_is = true;
-    speed_y_is = false;
-    speed_z_is = false;
-    spurt_x_is = false;
-    spurt_y_is = false;
-    spurt_z_is = false;
-    dir_x_is = false;
-    dir_y_is = false;
-    dir_z_is = false;
-    jit_x_is = false;
-    jit_y_is = false;
-    jit_z_is  = false;
+    // speed_y_is = true;
+    // speed_z_is = true;
+    // spurt_x_is = true;
+    // spurt_y_is = true;
+    // spurt_z_is = true;
+    // dir_x_is = true;
+    // dir_y_is = true;
+    // dir_z_is = true;
+    // jit_x_is = true;
+    // jit_y_is = true;
+    // jit_z_is  = true;
     swing_x_is = true;
-    swing_y_is = false;
-    swing_z_is = false;
+    // swing_y_is = true;
+    // swing_z_is = true;
 
     num_is = true;
-    variety_is = false;
-    life_is = false;
-    flow_is = false;
-    quality_is = false;
-    area_is = false;
-    angle_is = false;
-    scope_is = false;
-    scan_is = false;
+    // variety_is = true;
+    // life_is = true;
+    // flow_is = true;
+    // quality_is = true;
+    area_is = true;
+    // angle_is = true;
+    // scope_is = true;
+    // scan_is = true;
     align_is = true;
-    repulsion_is = false;
-    attraction_is = false;
-    density_is = false;
-    influence_is = false;
-    calm_is = false;
-    spectrum_is = false;
+    // repulsion_is = true;
+    // attraction_is = true;
+    // density_is = true;
+    // influence_is = true;
+    // calm_is = true;
+    // spectrum_is = true;
   }
   //GLOBAL
      
@@ -116,32 +116,30 @@ class SpiraleRomanesco extends Romanesco {
     
     
     //SIZE
-    float beatMap = map(transient_value[1][ID_item] +transient_value[3][ID_item] +transient_value[4][ID_item],1,9,1,50) ;
+    float transient_map = map(transient_value[1][ID_item] +transient_value[3][ID_item] +transient_value[4][ID_item],1,9,1,50) ;
     float minValueSize = .5 ;
     float maxValueSize = width *.003 ;
     
-    float widthTemp = map(size_x_item[ID_item], .1, width, minValueSize, maxValueSize) ;
-    float heightTemp = map(size_y_item[ID_item], .1, width, minValueSize, maxValueSize) ;
-    float depthTemp  = map(size_z_item[ID_item], .1, width, minValueSize, maxValueSize) ;
-    
-    widthTemp *= widthTemp ;
-    heightTemp *= heightTemp ;
-    depthTemp *= depthTemp ;
+    float sx = map(size_x_item[ID_item], .1, width, minValueSize, maxValueSize) ;
+    float sy = map(size_y_item[ID_item], .1, width, minValueSize, maxValueSize) ;
+    float sz  = map(size_z_item[ID_item], .1, width, minValueSize, maxValueSize) ; 
+    sx *= sx ;
+    sy *= sy ;
+    sz *= sz ;
 
     
-    float widthObj = pow(widthTemp, 3) *volumeLeft *beatMap ;
-    float heightObj = pow(heightTemp, 3) *volumeRight *beatMap ;
-    float depthObj = pow(depthTemp, 3) *volumeMix *beatMap ;
-    
-    PVector size = new PVector(widthObj, heightObj, depthObj) ;
+    float temp_size_x = pow(sx, 3) *volumeLeft *transient_map;
+    float temp_size_y = pow(sy, 3) *volumeRight *transient_map;
+    float temp_size_z = pow(sz, 3) *volumeMix *transient_map;  
+    Vec3 size = Vec3(temp_size_x,temp_size_y,temp_size_z);
     
     //amplitude of the translate
     float minValueCanvas = .01 ;
-    float maxValueCanvas = 3 *(transient_value[2][ID_item] *.7) ;
-    float canvasXtemp = map(canvas_x_item[ID_item], width *.1, width,minValueCanvas,maxValueCanvas) ;
-    float canvasYtemp = map(canvas_y_item[ID_item], width *.1, width,minValueCanvas,maxValueCanvas) ;
-    // float canvasZtemp = map(canvas_z_item[ID_item], width *.1, width,minValueCanvas,maxValueCanvas) ;
-    PVector canvas = new PVector(canvasXtemp, canvasYtemp)  ;
+    float maxValueCanvas = 3 *(transient_value[2][ID_item] *.7);
+    float canvasXtemp = map(canvas_x_item[ID_item], width *.1, width,minValueCanvas,maxValueCanvas);
+    float canvasYtemp = map(canvas_y_item[ID_item], width *.1, width,minValueCanvas,maxValueCanvas);
+    float canvasZtemp = map(canvas_z_item[ID_item], width *.1, width,minValueCanvas,maxValueCanvas);
+    Vec3 canvas = Vec3(canvasXtemp,canvasYtemp,canvasZtemp);
 
     // alignement
     float max_align = alignment_item[ID_item] *(height/10) ;
@@ -166,8 +164,9 @@ class SpiraleRomanesco extends Romanesco {
 
     // mode    
     Vec3 pos = Vec3() ; // we write that because the first part of the void is not available any more.
-    spirale.update(pos, speed) ;
-    spirale.show(n, nMax, size, z, canvas, get_costume(), horizon[ID_item], pos_swing) ;
+    spirale.update(pos, speed);
+    float ratio_size = map(area_item[ID_item],width*.1, width*r.PHI,0,1);
+    spirale.show(n, nMax, size, z, canvas, get_costume(), horizon[ID_item], pos_swing,ratio_size) ;
     
     // info display
     item_info[ID_item] = ("Speed "+speed+ " - Amplitude " + map(z, 1.01, 1.27, 1,100) + " - Quantity " + nMax) ;
@@ -223,14 +222,18 @@ class Spirale {
   float translate = 1. ;
   float ratioSize = 1. ;
 
-  void show (int n, int nMax, PVector size, float z, PVector canvas, int which_costume, boolean horizon, float alignment) {
+  void show (int n, int nMax, Vec3 size, float z, Vec3 canvas, int which_costume, boolean horizon, float alignment, float ratio_size) {
     n = n-1 ;
     
     translate += z ;
     ratioSize += .1 ;
     
     float ratioRendering = 1. ;
-    if(FULL_RENDERING) ratioRendering = 1. ; else ratioRendering = 6. ;
+    if(FULL_RENDERING) {
+      ratioRendering = 1. ; 
+    } else {
+      ratioRendering = 6. ;
+    }
     
     
     Vec3 size_final = Vec3(size.x *ratioSize *ratioRendering, size.y *ratioSize *ratioRendering, size.z *ratioSize *ratioRendering) ;
@@ -238,23 +241,31 @@ class Spirale {
 
 
     //display Mode
-    Vec3 pos = Vec3() ;
+    Vec3 pos = Vec3();
+    set_ratio_costume_size(ratio_size);
     costume_rope(pos, size_final, which_costume) ;
     //
-    
+    Vec3 canvas_temp = canvas.copy();
+    canvas_temp = mult(canvas,translate);
+    canvas_temp.mult(ratioRendering);
+    if(horizon) canvas_temp.z = canvas.z *.5 *alignment;
+    translate(canvas_temp);
+    /*
     float new_pos_x = translate *canvas.x *ratioRendering ;
     float new_pos_y = translate *canvas.y *ratioRendering ;
     float new_pos_z = 0 ;
     if(horizon) new_pos_z = size.z *.5 *alignment ;
-
     translate (new_pos_x,new_pos_y,new_pos_z) ;
+    */
+
+    
     rotate ( PI/6 ) ;
 
     if ( n > 0) { 
-      show(n, nMax, size, z, canvas, which_costume, horizon, alignment) ; 
+      show(n,nMax,size,z,canvas,which_costume,horizon,alignment,ratio_size); 
     } else{
-      translate = 1. ;
-      ratioSize = 1. ;
+      translate = 1.;
+      ratioSize = 1.;
     }
   }
 }
