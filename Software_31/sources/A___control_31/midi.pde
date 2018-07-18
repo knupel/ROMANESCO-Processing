@@ -1,8 +1,11 @@
 /**
 MIDI CONTROL
-v 2.0.2
+v 2.1.0
 2014-2018
 */
+boolean reset_midi_selection;
+
+
 void init_midi() {
   check_midi_input() ;
   open_midi_bus() ;
@@ -237,6 +240,9 @@ void midi_select(int which_one, int num) {
     display_select_midi_device(pos_midi_info, spacing_midi_info) ;
     display_midi_device_available(pos_midi_info, spacing_midi_info) ;
   }
+
+
+
   if (button_midi_is == 1) {
     selectMidi = true; 
   } else {
@@ -259,8 +265,13 @@ void select_input_midi_device() {
 }
 
 void keypressed_midi() {
-  if (!choice_midi_device) select_input_midi_device() ;
-  if (key =='n' && choice_midi_device) reset_input_midi_device() ;
+  if (!choice_midi_device) select_input_midi_device();
+  if (key =='n' && choice_midi_device) reset_input_midi_device();
+  if(keyCode == BACKSPACE || keyCode == DELETE) {
+    if(selectMidi) {
+      reset_midi_selection = true;
+    }   
+  } 
 }
 
 
@@ -274,6 +285,7 @@ void keypressed_midi() {
 /**
 MIDI MANAGER
 */
+
 
 /**
 
@@ -331,34 +343,44 @@ int posRankButton(int pos, int rank) {
 
 
 
-
-
-
-
-
-
-
-
 /**
 Here it's real midi stuff
 */
-void midi_button(Button b, int IDbutton, boolean saveButton, String type) {
-  setttingMidiButton(b);
-  updateMidiButton(b);
-  if(saveButton) set_data_button(IDbutton, b.get_id_midi(),b.is(),type);
+void midi_button(Button b, int id, boolean saveButton, String type) {
+  setting_midi_button(b);
+  update_midi_button(b);
+  if(saveButton) set_data_button(id, b.get_id_midi(),b.is(),type);
 }
 
-void setttingMidiButton(Button b) {
-  if(selectMidi && b.inside && mousePressed) b.set_id_midi(midi_CC_romanesco) ;
+void setting_midi_button(Button b) {
+  if(selectMidi) {
+    if(reset_midi_selection) {
+      b.set_id_midi(-2);
+    } else if (b.inside && mousePressed ) {
+      b.set_id_midi(midi_CC_romanesco);  
+    }  
+  }
 }
 
 //
-void updateMidiButton(Button b) {
+void update_midi_button(Button b) {
    if(midi_value_romanesco == 127 && midi_CC_romanesco == b.get_id_midi()) {
     b.switch_is();
     midi_value_romanesco = 0 ;
   }
 }
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 //give which button is active and check is this button have a same ID midi that Item
@@ -368,16 +390,26 @@ void update_midi_slider(Slider slider, Cropinfo[] cropinfo) {
     slider.update_midi(midi_value_romanesco);
   }
 
-  if(selectMidi && slider.molette_used_is()) {
-    for(int i = 0 ; i <cropinfo.length ; i++) {
-      if(slider.get_id() == cropinfo[slider.get_id()].get_id()) {
-        cropinfo[i].set_id_midi(midi_CC_romanesco);
+  if(selectMidi) {
+    if(reset_midi_selection) {
+      for(int i = 0 ; i < cropinfo.length ; i++) {
+        if(slider.get_id() == cropinfo[slider.get_id()].get_id()) {
+          cropinfo[i].set_id_midi(-2);
+        }
       }
+      slider.set_id_midi(-2);
+    } else if(slider.molette_used_is()) {
+      for(int i = 0 ; i < cropinfo.length ; i++) {
+        if(slider.get_id() == cropinfo[slider.get_id()].get_id()) {
+          cropinfo[i].set_id_midi(midi_CC_romanesco);
+        }
+      }
+      slider.set_id_midi(midi_CC_romanesco);
     }
   }
   
   //ID midi from controller midi button setting
-  if (selectMidi && slider.molette_used_is()) slider.set_id_midi(midi_CC_romanesco);
+  // if (selectMidi && slider.molette_used_is()) slider.set_id_midi(midi_CC_romanesco);
   
   //ID midi from save
   if(LOAD_SETTING) {

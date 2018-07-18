@@ -20,6 +20,7 @@ void setting_misc() {
 void reset() {
   LOAD_SETTING = false;
   INIT_INTERFACE = false;
+  reset_midi_selection = false;
 }
 
 void info_bg_shader() {

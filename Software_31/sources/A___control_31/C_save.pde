@@ -132,12 +132,16 @@ void set_data_save_setting() {
 }
 
 //write the value in the table
-void set_data_button(int IDbutton, int IDmidi, boolean b, String type) {
+void set_data_button(int IDbutton, int IDmidi, boolean is_on_off, String type) {
   TableRow buttonSetting = saveSetting.addRow() ;
   buttonSetting.setString("Type", type) ;
   buttonSetting.setInt("ID button", IDbutton) ;
   buttonSetting.setInt("ID midi", IDmidi) ;
-  if(b) buttonSetting.setInt("On Off", 1) ; else buttonSetting.setInt("On Off", 0) ;
+  if(is_on_off) {
+    buttonSetting.setInt("On Off",1); 
+  } else {
+    buttonSetting.setInt("On Off",0);
+  }
 }
 
 //
