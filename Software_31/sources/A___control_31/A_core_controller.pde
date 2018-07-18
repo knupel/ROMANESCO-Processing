@@ -20,8 +20,10 @@ void setting_misc() {
 void reset() {
   LOAD_SETTING = false;
   INIT_INTERFACE = false;
-  reset_midi_selection = false;
+  reset_midi_control_parametter();
 }
+
+
 
 void info_bg_shader() {
   int n = shaderBackgroundList.getRowCount();

@@ -32,6 +32,7 @@ MINOR
 >check if dropdown is active or not stop the other GUI update
 >move dropdown slider with mouse wheel
 >introduce new param to store and read data from slider, class Cropinfo
+>add shortcut to clear the midi selection
 
 
 ITEM

@@ -5,7 +5,6 @@ v 2.1.0
 */
 boolean reset_midi_selection;
 
-
 void init_midi() {
   check_midi_input() ;
   open_midi_bus() ;
@@ -15,6 +14,10 @@ void init_midi() {
 void update_midi() {
   midi_select(which_midi_input, num_midi_input) ;
   use_specific_midi_input(which_midi_input) ;
+}
+
+void reset_midi_control_parametter() {
+  reset_midi_selection = false;
 }
 
 
@@ -362,12 +365,17 @@ void setting_midi_button(Button b) {
   }
 }
 
-//
+
+boolean midi_update_button = true;
 void update_midi_button(Button b) {
-   if(midi_value_romanesco == 127 && midi_CC_romanesco == b.get_id_midi()) {
+  if(midi_value_romanesco == 127 && midi_CC_romanesco == b.get_id_midi() && midi_update_button) {
     b.switch_is();
-    midi_value_romanesco = 0 ;
+    midi_update_button = false;
   }
+
+  if(midi_value_romanesco == 0) {
+    midi_update_button = true;
+  } 
 }
 
 

@@ -42,6 +42,16 @@ ctrl + L
 
 
 
+MIDI
+--
+To set your midi device, put 'ON' the midi button next selectect button or slider and move your midi device.
+
+To clear all midi selection, put 'ON' the midi select button and then press 'BACKSPACE' or 'DELETE'
+
+
+
+
+
 
 
 SLIDER
@@ -103,6 +113,9 @@ SHORTCUT SCENE
 
 'g' > minuscule < Grid 3d
 >disable or enable grid 3D
+
+
+
 
 
 SHORTCUT ITEM SCENE
