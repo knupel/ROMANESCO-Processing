@@ -4,7 +4,14 @@ FILTER
 2018-2018
 v 0.0.1
 */
+int ref_cell_size =20;
+int type_field;
+int pattern_field;
+Force_field force_romanesco;
+Warp warp_romanesco;
 void init_filter() {
+  type_field = r.FLUID;
+  pattern_field = r.BLANK;
   if(FULL_RENDERING) {
     init_force();
     init_warp();
@@ -14,10 +21,20 @@ void init_filter() {
 
 
 void filter() {
+  int cell_size = (int)map(value_slider_fx[0],0,360,2,height/10);
+  if(ref_cell_size != cell_size) {
+
+    ref_cell_size = cell_size;
+    println("cell ref",ref_cell_size);
+    init_force();
+  }
+
   if(FULL_RENDERING && fx_romanesco_is(0)) {
     update_force();
     warp();
   }
+  show_force_field();
+
 }
 
 
@@ -28,8 +45,6 @@ WARP
 v 0.0.1
 this chapter is the place where the pixel is filtering
 */
-Warp warp_romanesco;
-
 void init_warp() {
   warp_romanesco = new Warp(preference_path+"/shader/");
   warp_romanesco.add(g);
@@ -37,11 +52,31 @@ void init_warp() {
   // warp_romanesco.add_image(g, "surface_g");
 }
 
+
 void warp() {
-  Vec4 refresh_warp = Vec4(.5);
+  float intensity_warp = map(value_slider_fx[2],0,360,0,1);
+  intensity_warp *=intensity_warp;
+  
+  // cycling
+  float cycling = 1;
+  float ratio = map(value_slider_fx[3],0,360,0,.8);
+  if(ratio > 0) {
+    ratio = (ratio*ratio*ratio);
+    cycling = abs(sin(frameCount *ratio));
+  }
+
+  float cx = map(value_slider_fx[4],0,360,0,1);
+  float cy = map(value_slider_fx[5],0,360,0,1);
+  float cz = map(value_slider_fx[6],0,360,0,1);
+  float ca = 1; // change nothing at this time
+  Vec4 refresh_warp = Vec4(cx,cy,cz,ca);
+  if(ratio > 0) {
+    refresh_warp.mult(cycling);
+  }
+
+
   warp_romanesco.refresh(refresh_warp);
   warp_romanesco.shader_init();
-  float intensity_warp = .5;
   warp_romanesco.show(force_romanesco,intensity_warp);
 }
 
@@ -58,12 +93,8 @@ FILTER FORCE
 2018-2018
 v 0.0.2
 */
-Force_field force_romanesco;
-
-
 void init_force() {
-  int resolution = 20;
-  force_romanesco = new Force_field(resolution,r.FLUID,r.BLANK);
+  force_romanesco = new Force_field(ref_cell_size,r.FLUID,r.BLANK);
   force_romanesco.add_spot();
 }
 
@@ -81,12 +112,7 @@ void update_force() {
 }
 
 
-void show_force_field() {
-  float scale = 5 ;
-  Vec2 range_colour = Vec2(0,g.colorModeX);
-  int c = r.WHITE;
-  show_field(force_romanesco,scale,range_colour,c);
-}
+
 
 // fluid force filter
 void update_force_fluid() {
@@ -102,6 +128,14 @@ void update_force_fluid() {
 /**
 SHOW FIELD
 */
+void show_force_field() {
+  float scale = 5 ;
+  Vec2 range_colour = Vec2(0,g.colorModeX);
+  int c = r.WHITE;
+  show_field(force_romanesco,scale,range_colour,c);
+}
+
+
 void show_field(Force_field ff, float scale, Vec2 range_colour,int colour) {
   if(ff != null) {
     Vec2 offset = Vec2(ff.get_resolution());

@@ -120,10 +120,10 @@ void receive_data_general_slider(OscMessage receive, int in, int out) {
   int in_background = in ;
   int out_background = in_background +NUM_MOLETTE_BACKGROUND;
 
-  int in_filter =  out_background;
-  int out_filter = in_filter +NUM_MOLETTE_FILTER;
+  int in_fx =  out_background;
+  int out_fx = in_fx +NUM_MOLETTE_FX;
 
-  int in_light =  out_filter;
+  int in_light =  out_fx;
   int out_light = in_light +NUM_MOLETTE_LIGHT;
 
   int in_sound =  out_light;
@@ -138,8 +138,8 @@ void receive_data_general_slider(OscMessage receive, int in, int out) {
   for (int i = in ; i < out ; i++) {
     if(i < out_background) {
       value_slider_background[i -in] = receive.get(i).intValue();
-    } else if(i >= in_filter && i < out_filter) {
-      value_slider_filter[i -in_filter] = receive.get(i).intValue();
+    } else if(i >= in_fx && i < out_fx) {
+      value_slider_fx[i -in_fx] = receive.get(i).intValue();
     } else if(i >= in_light && i < out_light) {
       value_slider_light[i -in_light] = receive.get(i).intValue();
     } else if(i >= in_sound && i < out_sound) {

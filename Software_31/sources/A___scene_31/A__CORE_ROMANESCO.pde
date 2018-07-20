@@ -40,14 +40,14 @@ int NUM_SLIDER_GENERAL 	= NUM_SLIDER_BACKGROUND
 
 // for the case where the slider is a multislider, important for the sending and receiving OSC data
 int NUM_MOLETTE_BACKGROUND = NUM_SLIDER_BACKGROUND;
-int NUM_MOLETTE_FILTER = NUM_SLIDER_FX;
+int NUM_MOLETTE_FX = NUM_SLIDER_FX;
 int NUM_MOLETTE_LIGHT = NUM_SLIDER_LIGHT;
 int NUM_MOLETTE_SOUND = NUM_SLIDER_SOUND;
 int NUM_MOLETTE_SOUND_SETTING = 11; // here the value is different because it's slider with few molette
 int NUM_MOLETTE_CAMERA = NUM_SLIDER_CAMERA;
 
 int NUM_MOLETTE_GENERAL = NUM_MOLETTE_BACKGROUND 
-												+ NUM_MOLETTE_FILTER 
+												+ NUM_MOLETTE_FX 
 												+ NUM_MOLETTE_LIGHT 
 												+ NUM_MOLETTE_SOUND 
 												+ NUM_MOLETTE_SOUND_SETTING 

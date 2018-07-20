@@ -22,8 +22,8 @@ boolean TABLET = false; // now tablet library don't work in OPENGL renderer
 /**
 LIVE must change from the launcher, the info must be write in the external loading preference app
 */
-boolean LIVE = true;
-boolean FULL_RENDERING = false;
+boolean LIVE = false;
+boolean FULL_RENDERING = true;
 boolean DEVELOPMENT_MODE = false;
 
 

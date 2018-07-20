@@ -93,7 +93,7 @@ int [] which_bitmap, which_text, which_shape, which_movie;
 //SLIDER
 // becareful if the number of MISC SLIDERS is upper than OBJ SLIDER, that can be a problem in the future.
 float value_slider_background [] = new float [NUM_MOLETTE_BACKGROUND];
-float value_slider_filter [] = new float [NUM_MOLETTE_FILTER];
+float value_slider_fx [] = new float [NUM_MOLETTE_FX];
 float value_slider_light [] = new float [NUM_MOLETTE_LIGHT];
 float value_slider_sound [] = new float [NUM_MOLETTE_SOUND];
 float value_slider_sound_setting [] = new float [NUM_MOLETTE_SOUND_SETTING];

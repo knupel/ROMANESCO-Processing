@@ -1,7 +1,7 @@
 /**
 OSC Prescene 
 2014 - 2018
-v 1.3.0
+v 1.3.0.1
 */
 NetAddress [] ad_scene ;
 String [] ID_address_scene ;
@@ -10,21 +10,10 @@ OscP5 osc_send_scene;
 
 int port_send_scene = 9_100 ;
 
-
 void OSC_send_scene_setup() {
   OSC_thread_send_scene_setup();
   println("send OSC setup done");
-  /*
-  try {
-    OSC_thread_send_scene_setup();
-    Thread.sleep(6000);
-    println("send OSC setup done");
-  } 
-  catch (InterruptedException e) { 
-  } 
-  */
 }
-
 
 void OSC_thread_send_scene_setup() {
   osc_send_scene = new OscP5(this, port_send_scene);
@@ -72,7 +61,6 @@ boolean send_message_is() {
 void send_message(boolean send_message_is) {
   this.send_message_is = send_message_is;
 }
-
 
 
 void oscEvent(OscMessage receive) {
