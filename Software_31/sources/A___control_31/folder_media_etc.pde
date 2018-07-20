@@ -23,7 +23,7 @@ void check_media_folder() {
 
 void check_filter() {
   if(filter_dropdown_list == null) {
-    String path = preference_path +"shader/shader_filter/filter_name.txt";
+    String path = preference_path +"shader/filter_name.txt";
     String [] s = loadStrings(path);
     filter_dropdown_list = split(s[0],",");
   }

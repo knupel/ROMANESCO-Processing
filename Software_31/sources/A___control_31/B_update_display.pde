@@ -350,15 +350,15 @@ void show_slider_background() {
 }
 
 void show_slider_filter() {
-  for (int i = 0 ; i < NUM_SLIDER_FILTER ; i++) {
+  for (int i = 0 ; i < NUM_SLIDER_FX ; i++) {
     if(!dropdown_is()) {
-      update_slider(slider_adj_filter[i],cropinfo_slider_filter);
+      update_slider(slider_adj_fx[i],cropinfo_slider_fx);
     }    
-    pass_slider_to_osc_arg(slider_adj_filter[i], value_slider_filter);
-    slider_adj_filter[i].show_structure();
-    slider_adj_filter[i].show_adj();
-    slider_adj_filter[i].show_molette();
-    slider_adj_filter[i].show_label();
+    pass_slider_to_osc_arg(slider_adj_fx[i], value_slider_filter);
+    slider_adj_fx[i].show_structure();
+    slider_adj_fx[i].show_adj();
+    slider_adj_fx[i].show_molette();
+    slider_adj_fx[i].show_label();
   }
 }
 
@@ -830,6 +830,10 @@ void check_button() {
 void check_button_general() {
   /* Check to send by OSC to Scene and Prescene */
   if(button_bg.is()) button_background_is = 1 ; else button_background_is = 0 ;
+  // FX
+  for(int i = 0 ; i < NUM_BUTTON_FX ; i++) {
+    if(button_fx[i].is()) button_fx_is[i] = 1 ; else button_fx_is[i] = 0 ;
+  }
   //LIGHT ONE
   if(button_light_ambient.is())  light_ambient_button_is = 1 ; else  light_ambient_button_is = 0 ;
   if(button_light_ambient_action.is()) light_ambient_action_button_is = 1 ; else light_ambient_action_button_is =  0 ;
@@ -854,6 +858,10 @@ mouse pressed
 */
 void mousePressed_button_general() {
   if(button_bg.inside()) button_bg.switch_is();
+
+  for(int i = 0 ; i < NUM_BUTTON_FX ; i++) {
+    if(button_fx[i].inside()) button_fx[i].switch_is();
+  }
 
   if(button_light_ambient.inside()) button_light_ambient.switch_is();
   if(button_light_ambient_action.inside()) button_light_ambient_action.switch_is();
@@ -932,6 +940,11 @@ void display_button_general() {
   }
   button_bg.show_label();
 
+  // FX
+  for(int i = 0 ; i < NUM_BUTTON_FX ; i++) {
+    button_fx[i].show_label();
+  }
+
   // Light ambient
   if(button_light_ambient.is()) {
     button_light_ambient.set_label("ambient on");
@@ -987,6 +1000,8 @@ void update_button_general() {
                       button_light_2,button_light_2_action,
                       // button_kick,button_snare,button_hat,
                       button_midi,button_curtain);
+
+  update_button_local(button_fx);
   update_button_local(button_transient);
 }
 

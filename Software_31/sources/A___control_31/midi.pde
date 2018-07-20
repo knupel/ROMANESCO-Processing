@@ -305,6 +305,10 @@ void midi_manager(boolean saveButton) {
   rank++;
   midi_button(button_curtain,rank,saveButton,"Button curtain");
   rank++;
+  for(int i = 0 ; i < NUM_BUTTON_FX ; i++) {
+    midi_button(button_fx[i],rank,saveButton,"Button fx");
+    rank++;
+  }
   midi_button(button_light_ambient,rank,saveButton,"Button light ambient");
   rank++;
   midi_button(button_light_ambient_action,rank,saveButton,"Button light ambient");

@@ -1,6 +1,6 @@
 /**
 Rope UTILS 
-v 1.45.1
+v 1.45.3
 * Copyleft (c) 2014-2018 
 * Stan le Punk > http://stanlepunk.xyz/
 Rope – Romanesco Processing Environment – 
@@ -16,7 +16,6 @@ Processing 3.3.7
 print Constants
 v 0.0.3
 */
-
 Constant_list processing_constants_list = new Constant_list(PConstants.class);
 Constant_list rope_constants_list = new Constant_list(Rope_Constants.class);
 public void print_constants_rope() {
@@ -975,13 +974,18 @@ PImage paste_vertical(PImage img, int entry, int [] array_pix) {
 
 /**
 SHADER filter
-v 0.5.0
+v 0.5.2
 few method manipulate image with the shader to don't slower Processing
 part
 */
 PShader rope_shader_level, rope_shader_mix, rope_shader_blend, rope_shader_overlay, rope_shader_multiply;
 PShader rope_shader_gaussian_blur ;
 PShader rope_shader_resize ;
+
+String path_shader_filter_rope = "shader/filter/";
+void shader_filter_folder_path(String path) {
+  path_shader_filter_rope = path;
+}
 
 /**
 Gaussian blur
@@ -1011,7 +1015,7 @@ void blur(PGraphics p, PImage tex, float intensity) {
   reset_blur(tex);
 
 
-  if(rope_shader_gaussian_blur == null) rope_shader_gaussian_blur = loadShader("shader/filter/rope_filter_gaussian_blur.glsl");
+  if(rope_shader_gaussian_blur == null) rope_shader_gaussian_blur = loadShader(path_shader_filter_rope+"rope_filter_gaussian_blur.glsl");
   
   if(pass_rope_1 == null) {
     if(p == null) pass_rope_1 = createGraphics(tex.width,tex.height,P2D);
@@ -1109,7 +1113,7 @@ void multiply_size(int w, int h) {
 */
 
 void set_multiply_shader() {
-  if(rope_shader_multiply == null) rope_shader_multiply = loadShader("shader/filter/rope_filter_multiply.glsl");
+  if(rope_shader_multiply == null) rope_shader_multiply = loadShader(path_shader_filter_rope+"rope_filter_multiply.glsl");
 }
 /**
 * flip 
@@ -1221,7 +1225,7 @@ void overlay_size(int w1, int h1, int w2, int h2) {
 }
 */
 void set_overlay_shader() {
-  if(rope_shader_overlay == null) rope_shader_overlay = loadShader("shader/filter/rope_filter_overlay.glsl");
+  if(rope_shader_overlay == null) rope_shader_overlay = loadShader(path_shader_filter_rope+"rope_filter_overlay.glsl");
 }
 /**
 * flip 
@@ -1337,7 +1341,7 @@ void blend_size(int w1, int h1, int w2, int h2) {
 }
 */
 void set_blend_shader() {
-  if(rope_shader_blend == null) rope_shader_blend = loadShader("shader/filter/rope_filter_blend.glsl");
+  if(rope_shader_blend == null) rope_shader_blend = loadShader(path_shader_filter_rope+"rope_filter_blend.glsl");
 }
 /**
 * flip 
@@ -1449,7 +1453,7 @@ void mix_size(int w1, int h1, int w2, int h2) {
 }
 */
 void set_mix_shader() {
-  if(rope_shader_mix == null) rope_shader_mix = loadShader("shader/filter/rope_filter_mix.glsl");
+  if(rope_shader_mix == null) rope_shader_mix = loadShader(path_shader_filter_rope+"rope_filter_mix.glsl");
 }
 /**
 * flip 
@@ -1561,7 +1565,7 @@ void level_size(int w1, int h1, int w2, int h2) {
 * flip 
  */
 void level_flip(boolean bx, boolean by) {
-  if(rope_shader_level == null) rope_shader_level = loadShader("shader/filter/rope_filter_level.glsl");
+  if(rope_shader_level == null) rope_shader_level = loadShader(path_shader_filter_rope+"rope_filter_level.glsl");
   rope_shader_level.set("flip",bx,by);
 }
 /**
@@ -1615,7 +1619,7 @@ void level(PGraphics p, PImage tex, Vec4 ratio) {
 */
 void level(PGraphics p, PImage tex, float... ratio) {
 
-  if(rope_shader_level == null) rope_shader_level = loadShader("shader/filter/rope_filter_level.glsl");
+  if(rope_shader_level == null) rope_shader_level = loadShader(path_shader_filter_rope+"rope_filter_level.glsl");
 
   Vec4 r = array_to_Vec4_rgba(ratio);
  

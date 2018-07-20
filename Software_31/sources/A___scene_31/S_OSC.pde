@@ -1,6 +1,6 @@
 /**
 OSC CORE 
-v 1.4.0
+v 1.4.1
 */
 OscP5 osc_receive_controller_general;
 OscP5 osc_receive_controller_item;
@@ -17,12 +17,27 @@ void thread_data_controller_general(OscMessage receive) {
   int rank = 0 ;
   receive_data_misc(receive,rank); // 3 arg
   rank += 3;
-  receive_data_menu_bar(receive,rank); // 1 arg
+  /*
+  * curtain x 1
+  * 1 arg
+  */
+  receive_data_menu_bar(receive,rank); 
   rank += 1;
-  receive_data_general_dropdown(receive,rank); // 7 arg
+  /*
+  * dropdown menu general x7
+  *  7 arg
+  */
+  receive_data_general_dropdown(receive,rank); 
   rank += 7;
-  receive_data_general_button(receive,rank); // 11 arg
-  rank += 11;  
+  /*
+  * background x1
+  * fx x2
+  * light x6
+  * beat x4
+  * 13 arg
+  */
+  receive_data_general_button(receive,rank); 
+  rank += 13;  
   receive_data_general_slider(receive,rank,rank +NUM_MOLETTE_GENERAL); // NUM_SLIDER_GENERAL 
 }
 
@@ -80,23 +95,25 @@ void receive_data_general_dropdown(OscMessage receive, int in) {
 
 void receive_data_general_button(OscMessage receive, int in) {
   background_is(to_bool(receive,0+in));
+  int index_osc = 1 ;
+  for(int i = 0 ; i < fx_is.length ; i++) {
+    fx_romanesco_is(i,to_bool(receive,index_osc+in));
+    index_osc++;
+  }
 
-  light_ambient_is(to_bool(receive,1+in));
-  light_ambient_action_is(to_bool(receive,2+in));
-  light_1_is(to_bool(receive,3+in));
-  light_1_action_is(to_bool(receive,4+in));
-  light_2_is(to_bool(receive,5+in));
-  light_2_action_is(to_bool(receive,6+in));
+  light_ambient_is(to_bool(receive,3+in));
+  light_ambient_action_is(to_bool(receive,4+in));
+  light_1_is(to_bool(receive,5+in));
+  light_1_action_is(to_bool(receive,6+in));
+  light_2_is(to_bool(receive,7+in));
+  light_2_action_is(to_bool(receive,8+in));
   
-
-  // transient_0_romanesco_is(to_bool(receive,7+in));
-  int index_osc = 7 ;
+  index_osc = 9 ;
   for(int i = 1 ; i < transient_is.length ; i++) {
-
     transient_romanesco_is(i,to_bool(receive,index_osc+in));
     index_osc++;
   }
-  // index_osc finish at 10
+  // index_osc finish at 12
 }
 
 void receive_data_general_slider(OscMessage receive, int in, int out) {

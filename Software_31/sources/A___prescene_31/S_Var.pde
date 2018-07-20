@@ -79,6 +79,7 @@ int BUTTON_ITEM_CONSOLE = 4;
 
 // button
 boolean [] transient_is;
+boolean [] fx_is = new boolean[NUM_BUTTON_FX];
 boolean curtain_is, background_is;
 boolean ambient_is,ambient_action_is;
 boolean light_1_is,light_1_action_is;
@@ -851,6 +852,10 @@ boolean transient_romanesco_is(int index) {
   return transient_is[index];
 }
 
+boolean fx_romanesco_is(int index) {
+  return fx_is[index];
+}
+
 boolean curtain_is() {
   return curtain_is;
 }
@@ -884,9 +889,13 @@ boolean light_2_action_is() {
 }
 
 
-
+// set boolean
 void transient_romanesco_is(int index, boolean is) {
   transient_is[index] = is;
+}
+
+void fx_romanesco_is(int index, boolean is) {
+  fx_is[index] = is;
 }
 
 void curtain_is(boolean is) {

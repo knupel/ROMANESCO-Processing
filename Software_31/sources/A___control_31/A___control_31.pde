@@ -17,7 +17,7 @@ String IAM = "controller";
 /**
 LIVE must change from the launcher, the info must be write in the external loading preference app
 */
-boolean LIVE = false;
+boolean LIVE = true;
 boolean MIROIR = false;
 boolean KEEP_BUTTON_ITEM_STATE = true;
 
@@ -29,7 +29,7 @@ void settings() {
 }
 
 void setup() {
-  colorMode (HSB,360,100,100);
+  colorMode(HSB,360,100,100);
   // surface.setLocation(0,20);
   path_setting();
   version();
@@ -52,7 +52,7 @@ void setup() {
   build_inventory();
   set_OSC();
   set_data();
-  reset() ;
+  reset();
 }
 
 void draw() {
@@ -61,8 +61,7 @@ void draw() {
   check_media_folder();
   check_button();
 
-
-  manage_autosave( );
+  manage_autosave();
   
   update_media();
   

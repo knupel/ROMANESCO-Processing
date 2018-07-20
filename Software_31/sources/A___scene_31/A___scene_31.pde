@@ -19,9 +19,11 @@ boolean FULL_SCREEN = false ;
 
 void settings() {
   // When you build Romanesco you must create two versions : fullscreen and normal
-  // size(124,124,P3D);
+  size(124,124,P3D);
+  /*
   fullScreen(P3D,1);
   FULL_SCREEN = true;
+  */
 
   pixelDensity(displayDensity()) ;
   syphon_settings() ;
@@ -67,6 +69,8 @@ void setup() {
 
   light_position_setup();
   light_setup();
+
+  init_filter();
   
 }
 
@@ -117,6 +121,8 @@ void romanesco() {
   grid_romanesco(displayInfo3D) ;
   stop_camera();
   
+
+  filter();
   //ANNEXE
   info() ;
   curtain() ; 

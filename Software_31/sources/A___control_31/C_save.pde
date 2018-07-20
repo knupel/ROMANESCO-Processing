@@ -46,12 +46,12 @@ void save_info_slider() {
     set_data_slider(i,cropinfo_slider_background[i],"Slider background");
   }
 
-  // filter
-  for (int i = start ; i < NUM_SLIDER_FILTER ; i++) {
-    cropinfo_slider_filter[i].set_value(slider_adj_filter[i].get_value(0));
-    cropinfo_slider_filter[i].set_min(slider_adj_filter[i].get_min_norm());
-    cropinfo_slider_filter[i].set_max(slider_adj_filter[i].get_max_norm());
-    set_data_slider(i,cropinfo_slider_filter[i],"Slider filter");
+  // FX
+  for (int i = start ; i < NUM_SLIDER_FX ; i++) {
+    cropinfo_slider_fx[i].set_value(slider_adj_fx[i].get_value(0));
+    cropinfo_slider_fx[i].set_min(slider_adj_fx[i].get_min_norm());
+    cropinfo_slider_fx[i].set_max(slider_adj_fx[i].get_max_norm());
+    set_data_slider(i,cropinfo_slider_fx[i],"Slider fx");
   }
 
   // light

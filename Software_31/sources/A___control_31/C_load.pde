@@ -100,7 +100,7 @@ void load_data_GUI(String path) {
   Table table = loadTable(path, "header");
   // create the var info for the slider we need
   int count_slider_background = 0;
-  int count_slider_filter = 0;
+  int count_slider_fx = 0;
   int count_slider_light = 0;
   int count_slider_sound = 0;
   int count_slider_sound_setting = 0;
@@ -111,14 +111,14 @@ void load_data_GUI(String path) {
     String s = row.getString("Type") ; 
     if(s.equals("Slider item")) count_slider_item++ ;  
     else if(s.equals("Slider background")) count_slider_background++;
-    else if(s.equals("Slider filter")) count_slider_filter++; 
+    else if(s.equals("Slider fx")) count_slider_fx++; 
     else if(s.equals("Slider light")) count_slider_light++; 
     else if(s.equals("Slider sound")) count_slider_sound++;
     else if(s.equals("Slider sound setting")) count_slider_sound_setting++;  
     else if(s.equals("Slider camera")) count_slider_camera++; 
   }
   println("sliders background",count_slider_background);
-  println("sliders filter",count_slider_filter);
+  println("sliders fx",count_slider_fx);
   println("sliders light",count_slider_light);
   println("sliders sound",count_slider_sound);
   println("sliders sound setting",count_slider_sound_setting);
@@ -133,7 +133,7 @@ void load_data_GUI(String path) {
   
   
   cropinfo_slider_background = new Cropinfo[count_slider_background];
-  cropinfo_slider_filter = new Cropinfo[count_slider_filter];
+  cropinfo_slider_fx = new Cropinfo[count_slider_fx];
   cropinfo_slider_light = new Cropinfo[count_slider_light];
   cropinfo_slider_sound = new Cropinfo[count_slider_sound];
   cropinfo_slider_sound_setting = new Cropinfo[count_slider_sound_setting];
@@ -213,7 +213,7 @@ void load_saved_file_controller(String path) {
   int count_button_general = 0;
   int count_slider_general = 0;
   int count_slider_background = 0;
-  int count_slider_filter = 0;
+  int count_slider_fx = 0;
   int count_slider_light = 0;
   int count_slider_sound = 0;
   int count_slider_sound_setting = 0;
@@ -243,6 +243,18 @@ void load_saved_file_controller(String path) {
       }
       count_button_general++;
     }
+
+    if(s.equals("Button fx")){ 
+      int IDbutton = row.getInt("ID button") ;
+      int IDmidi = row.getInt("ID midi") ;
+      int onOff = row.getInt("On Off") ;
+      if(count_button_general < info_button_general.length) {
+        info_button_general[count_button_general].set(IDbutton,IDmidi,onOff);
+      }
+      count_button_general++;
+    }
+
+
     if(s.equals("Button light ambient")){ 
       int IDbutton = row.getInt("ID button") ;
       int IDmidi = row.getInt("ID midi") ;
@@ -302,13 +314,13 @@ void load_saved_file_controller(String path) {
       count_slider_background++;
     }
 
-    // slider filter
-    if(s.equals("Slider filter")) {
-      if(cropinfo_slider_filter[count_slider_filter] == null) {
-        cropinfo_slider_filter[count_slider_filter] = new Cropinfo();
+    // slider FX
+    if(s.equals("Slider fx")) {
+      if(cropinfo_slider_fx[count_slider_fx] == null) {
+        cropinfo_slider_fx[count_slider_fx] = new Cropinfo();
       }
-      set_info_slider(row, "Slider filter", cropinfo_slider_filter[count_slider_filter]);
-      count_slider_filter++;
+      set_info_slider(row, "Slider fx", cropinfo_slider_fx[count_slider_fx]);
+      count_slider_fx++;
     }    
     // slider light
     if(s.equals("Slider light")) {
@@ -442,9 +454,9 @@ void set_slider_data_group() {
     update_slider(slider_adj_background[i],cropinfo_slider_background);
   }
 
-  for (int i = 0 ; i < NUM_SLIDER_FILTER ; i++) {
-    setting_data_slider(slider_adj_filter[i],cropinfo_slider_filter[i]);
-    update_slider(slider_adj_filter[i],cropinfo_slider_filter);
+  for (int i = 0 ; i < NUM_SLIDER_FX ; i++) {
+    setting_data_slider(slider_adj_fx[i],cropinfo_slider_fx[i]);
+    update_slider(slider_adj_fx[i],cropinfo_slider_fx);
   }
 
   for (int i = 0 ; i < NUM_SLIDER_LIGHT ; i++) {
@@ -512,6 +524,12 @@ void set_button_from_saved_file() {
   if(info_button_general[rank].z == 1.0) button_curtain.set_is(true); else button_curtain.set_is(false);
   button_curtain.set_id_midi((int)info_button_general[rank].y); 
   rank++ ;
+  // fx
+  for(int i = 0 ; i < NUM_BUTTON_FX; i++) {
+    if(info_button_general[rank].z == 1.0) button_fx[i].set_is(true); else button_fx[i].set_is(false);
+    button_fx[i].set_id_midi((int)info_button_general[rank].y); 
+    rank++ ;
+  }
   // light ambient
   if(info_button_general[rank].z == 1.0) button_light_ambient.set_is(true); else button_light_ambient.set_is(false);
   button_light_ambient.set_id_midi((int)info_button_general[rank].y); 
@@ -650,7 +668,7 @@ void apply_text_gui() {
         slider_background_name[k] = row.getString("col "+k);
       } 
     } else if(name.equals("filter")) {
-      for(int k = 0 ; k < NUM_SLIDER_FILTER ; k++) {
+      for(int k = 0 ; k < NUM_SLIDER_FX ; k++) {
         slider_filter_name[k] = row.getString("col "+k);
       }
     } else if(name.equals("light")) {

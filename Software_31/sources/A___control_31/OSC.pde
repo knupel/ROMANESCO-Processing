@@ -113,6 +113,10 @@ void message_general_osc(OscMessage m) {
 
   // button general background
   add_data_general(m, button_bg.is());
+  // button fx
+  for(int i = 0 ; i < NUM_BUTTON_FX ; i++) {
+    add_data_general(m,button_fx[i].is());
+  }
   // button general light
   add_data_general(m,button_light_ambient.is());
   add_data_general(m,button_light_ambient_action.is());
@@ -124,7 +128,6 @@ void message_general_osc(OscMessage m) {
   for(int i = 0 ; i < NUM_BUTTON_TRANSIENT ; i++) {
     add_data_general(m,button_transient[i].is());
   }
-
   // add slider general
   for(int i = 0 ; i < value_slider_background.length ; i++) {
     add_data_general(m,value_slider_background[i]);

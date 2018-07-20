@@ -70,6 +70,8 @@ void setup() {
   if(USE_SOUND) sound_setup();
   light_position_setup();
   light_setup();
+
+  init_filter();
 }
 
 
@@ -136,6 +138,8 @@ void romanesco() {
   rpe_manager.display_item(ORDER_ONE, ORDER_TWO, ORDER_THREE);
   grid_romanesco(displayInfo3D);
   stop_camera();
+
+  filter();
 
   //annexe
   info() ;

@@ -364,7 +364,7 @@ void set_console() {
   set_console_general();
 
   set_console_slider_background(iVec2(offset_background_x,offset_background_y),iVec2(slider_width_background, slider_height_background));
-  set_console_slider_filter(iVec2(offset_filter_x,offset_filter_y),iVec2(slider_width_filter, slider_height_filter));
+  set_console_slider_fx(iVec2(offset_filter_x,offset_filter_y),iVec2(slider_width_filter, slider_height_filter));
   set_console_slider_light(iVec2(offset_light_x,offset_light_y),iVec2(slider_width_light, slider_height_light));
   set_console_sound(iVec2(offset_sound_x,offset_sound_y),iVec2(slider_width_sound, slider_height_sound));
   set_console_slider_sound_setting(iVec2(offset_sound_setting_x,offset_sound_setting_y),iVec2(slider_width_sound_setting, slider_height_sound_setting));
@@ -389,20 +389,35 @@ void set_console_slider_background(iVec2 pos, iVec2 size) {
   pos_button_background = iVec2(pos.x, pos.y +offset_button_y);
   size_button_background = iVec2(120,10);
   // slider
-  for(int i = 0 ; i < NUM_SLIDER_BACKGROUND ;i++) {
+  for(int i = 0 ; i < NUM_SLIDER_BACKGROUND ; i++) {
     int offset_y = offset_y(pos.y, size.y, i);
     pos_slider_background[i] = iVec2(pos.x,offset_y);
     size_slider_background[i] = iVec2(size);
   }
 }
 
-void set_console_slider_filter(iVec2 pos, iVec2 size) {
-  for(int i = 0 ; i < NUM_SLIDER_FILTER ;i++) {
+
+
+void set_console_slider_fx(iVec2 pos, iVec2 size) {
+  int offset_button_y = -int(size.y *1.5);
+  int x = pos.x;
+  int y = pos.y +offset_button_y;
+  for(int i = 0 ; i < NUM_BUTTON_FX ; i++) {
+    button_fx_is[i] = 0;
+    size_button_fx[i] = iVec2(40,10);
+    int s = size_button_fx[i].x ;
+    x = ((s*i) +pos.x);
+    pos_button_fx[i] = iVec2(x,y);
+  }
+
+  for(int i = 0 ; i < NUM_SLIDER_FX ; i++) {
     int offset_y = offset_y(pos.y, size.y, i);
-    pos_slider_filter[i] = iVec2(pos.x, offset_y);
-    size_slider_filter[i] = iVec2(size);
+    pos_slider_fx[i] = iVec2(pos.x, offset_y);
+    size_slider_fx[i] = iVec2(size);
   }
 }
+
+
 
 void set_console_slider_light(iVec2 pos, iVec2 size) {
   int offset_button_y = -int(size.y *1.5);
@@ -411,8 +426,8 @@ void set_console_slider_light(iVec2 pos, iVec2 size) {
   size_light_ambient_button_action = iVec2(45,10);
   pos_light_ambient_buttonButton = iVec2(pos.x, pos.y +offset_button_y);
   pos_light_ambient_button_action = iVec2(pos.x +90, pos_light_ambient_buttonButton.y); // for the y we take the y of the button
-  // light one button
   
+  // light one button
   size_light_1_button = iVec2(80,10);
   size_light_1_button_action = iVec2(45,10);
   pos_light_1_button = iVec2(pos.x, pos.y +(5*spacing_slider) +offset_button_y);
@@ -449,7 +464,6 @@ void set_console_sound(iVec2 pos, iVec2 size) {
     int s = size_button_transient[i].x ;
     x = ((s*i) +pos.x);
     pos_button_transient[i] = iVec2(x,y);
-    name_button_transient[i] = ("trans "+i);
   }
 
   //slider
@@ -740,15 +754,21 @@ String[] slider_background_name = new String[NUM_SLIDER_BACKGROUND];
 int offset_background_x;
 int offset_background_y;
 
+// filter button
+Button [] button_fx = new Button[NUM_BUTTON_FX];
+int [] button_fx_is = new int[NUM_BUTTON_FX];
+iVec2 [] pos_button_fx = new iVec2[NUM_BUTTON_FX];
+iVec2 [] size_button_fx = new iVec2[NUM_BUTTON_FX];
+// String [] name_button_fx = new String[NUM_BUTTON_FILTER];
 // filter slider
-Sladj [] slider_adj_filter = new Sladj[NUM_SLIDER_FILTER];
-Cropinfo [] cropinfo_slider_filter;
+Sladj [] slider_adj_fx = new Sladj[NUM_SLIDER_FX];
+Cropinfo [] cropinfo_slider_fx;
 int slider_width_filter;
 int slider_height_filter;
-iVec2 [] pos_slider_filter = new iVec2[NUM_SLIDER_FILTER]; 
-iVec2 [] size_slider_filter = new iVec2[NUM_SLIDER_FILTER];
-float [] value_slider_filter = new float[NUM_SLIDER_FILTER];
-String[] slider_filter_name = new String[NUM_SLIDER_FILTER];
+iVec2 [] pos_slider_fx = new iVec2[NUM_SLIDER_FX]; 
+iVec2 [] size_slider_fx = new iVec2[NUM_SLIDER_FX];
+float [] value_slider_filter = new float[NUM_SLIDER_FX];
+String[] slider_filter_name = new String[NUM_SLIDER_FX];
 int offset_filter_x;
 int offset_filter_y;
 
@@ -783,7 +803,6 @@ Button [] button_transient = new Button[NUM_BUTTON_TRANSIENT];
 int [] button_transient_is = new int[NUM_BUTTON_TRANSIENT];
 iVec2 [] pos_button_transient = new iVec2[NUM_BUTTON_TRANSIENT];
 iVec2 [] size_button_transient = new iVec2[NUM_BUTTON_TRANSIENT];
-String [] name_button_transient = new String[NUM_BUTTON_TRANSIENT];
 
 
 // sound slider

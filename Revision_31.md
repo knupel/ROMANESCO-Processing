@@ -35,6 +35,7 @@ MINOR
 >add shortcut to clear the midi selection
 
 
+
 ITEM
 --
 >remove item Spray
@@ -49,8 +50,9 @@ BUG FIX
 >size for item atoms
 >setting size window for prescene and scene
 >fix item inventory on_off state changing when the window size change
->fix bug for the display slider ite mselected
+>fix bug for the display slider item selected
 >fix bug when the window gui change sige all setting are lost and the scene turn to black
+>fix wink midi button bug
 
 
 

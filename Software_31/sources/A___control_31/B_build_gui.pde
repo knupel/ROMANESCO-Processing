@@ -19,9 +19,7 @@ void build_console() {
 
 
 void build_console_general() {
-  //MIDI
   button_midi = new Button(pos_midi_button, size_midi_button);
-  //curtain
   button_curtain = new Button(pos_curtain_button, size_curtain_button);
 }
 
@@ -68,22 +66,29 @@ void build_console_background() {
 }
 
 void build_console_filter() {
-  for (int i = 0 ; i < NUM_SLIDER_FILTER ; i++) {
-    iVec2 temp_size_mol = iVec2(round(size_slider_filter[i].y *ratio_size_molette), round(size_slider_filter[i].y *ratio_size_molette));
-    iVec2 temp_pos = iVec2(pos_slider_filter[i].x, round(pos_slider_filter[i].y -(slider_height_filter *.6)));
-    if(cropinfo_slider_filter[i].get_id() > -1) {
-      slider_adj_filter[i] = new Sladj(temp_pos,size_slider_filter[i]);
-      slider_adj_filter[i].set_molette(ELLIPSE);
-      slider_adj_filter[i].size_molette(temp_size_mol);
-      slider_adj_filter[i].set_id(i);
-      slider_adj_filter[i].set_label(slider_filter_name[i],iadd(slider_adj_filter[i].get_size(),iVec2(3,0)));
-      slider_adj_filter[i].set_font(textUsual_1);
-      slider_adj_filter[i].set_rounded(rounded_slider);
-      slider_adj_filter[i].set_fill_label(label_in_dark,label_out_dark);
-      slider_adj_filter[i].set_fill(struc_dark);
-      slider_adj_filter[i].set_fill_molette(molette_in_dark,molette_out_dark);
-      slider_adj_filter[i].set_fill_adj(adj_in_dark,adj_out_dark);
+  for (int i = 0 ; i < NUM_SLIDER_FX ; i++) {
+    iVec2 temp_size_mol = iVec2(round(size_slider_fx[i].y *ratio_size_molette), round(size_slider_fx[i].y *ratio_size_molette));
+    iVec2 temp_pos = iVec2(pos_slider_fx[i].x, round(pos_slider_fx[i].y -(slider_height_filter *.6)));
+    if(cropinfo_slider_fx[i].get_id() > -1) {
+      slider_adj_fx[i] = new Sladj(temp_pos,size_slider_fx[i]);
+      slider_adj_fx[i].set_molette(ELLIPSE);
+      slider_adj_fx[i].size_molette(temp_size_mol);
+      slider_adj_fx[i].set_id(i);
+      slider_adj_fx[i].set_label(slider_filter_name[i],iadd(slider_adj_fx[i].get_size(),iVec2(3,0)));
+      slider_adj_fx[i].set_font(textUsual_1);
+      slider_adj_fx[i].set_rounded(rounded_slider);
+      slider_adj_fx[i].set_fill_label(label_in_dark,label_out_dark);
+      slider_adj_fx[i].set_fill(struc_dark);
+      slider_adj_fx[i].set_fill_molette(molette_in_dark,molette_out_dark);
+      slider_adj_fx[i].set_fill_adj(adj_in_dark,adj_out_dark);
     }
+  }
+
+  for(int i = 0 ; i < NUM_BUTTON_FX ; i++) {
+    button_fx[i] = new Button(pos_button_fx[i], size_button_fx[i]);
+    button_fx[i].set_aspect_on_off(button_on_in, button_on_out, button_off_in, button_off_out);
+    button_fx[i].set_font(FuturaExtraBold_10);
+    button_fx[i].set_label("FX "+i);
   }
 }
 
@@ -114,7 +119,7 @@ void build_console_light() {
 
   button_light_ambient_action = new Button(pos_light_ambient_button_action, size_light_ambient_button_action);
   button_light_ambient_action.set_aspect_on_off(button_on_in, button_on_out, button_off_in, button_off_out);
-  button_light_ambient_action.set_label("action");
+  button_light_ambient_action.set_label("MOVE");
   // LIGHT ONE
   button_light_1 = new Button(pos_light_1_button, size_light_1_button);
   button_light_1.set_aspect_on_off(button_on_in, button_on_out, button_off_in, button_off_out);
@@ -123,7 +128,7 @@ void build_console_light() {
   button_light_1_action = new Button(pos_light_1_button_action, size_light_1_button_action);
   button_light_1_action.set_aspect_on_off(button_on_in, button_on_out, button_off_in, button_off_out);
   button_light_1_action.set_font(FuturaExtraBold_10);
-  button_light_1_action.set_label("action");
+  button_light_1_action.set_label("MOVE");
   // LIGHT TWO 
   button_light_2 = new Button(pos_light_2_button, size_light_2_button);
   button_light_2.set_aspect_on_off(button_on_in, button_on_out, button_off_in, button_off_out);
@@ -132,7 +137,7 @@ void build_console_light() {
   button_light_2_action = new Button(pos_light_2_button_action, size_light_2_button_action);
   button_light_2_action.set_aspect_on_off(button_on_in, button_on_out, button_off_in, button_off_out);
   button_light_2_action.set_font(FuturaExtraBold_10);
-  button_light_2_action.set_label("action");
+  button_light_2_action.set_label("MOVE");
 }
 
 
@@ -159,7 +164,7 @@ void build_console_sound() {
     button_transient[i] = new Button(pos_button_transient[i], size_button_transient[i]);
     button_transient[i].set_aspect_on_off(button_on_in, button_on_out, button_off_in, button_off_out);
     button_transient[i].set_font(FuturaExtraBold_10);
-    button_transient[i].set_label(name_button_transient[i]);
+    button_transient[i].set_label("BEAT "+i);
   }
 }
 
