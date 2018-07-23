@@ -20,6 +20,35 @@ void draw()
 if you use other void you must call this one in one of them
 
 
+FORCE FIELD
+--
+Force_field get_force_field();
+
+void update_force_field_is(boolean is);
+
+void init_force_field();
+
+
+
+
+
+
+
+SPOT
+--
+those method can be use in the item, but the important thing the spot position is dictly use for the FX shader effect for the mode FLUID, GRAVITY and MAGNETIC important to know that !
+--
+int get_spot_num();
+
+void add_spot(int num);
+
+void clear_spot();
+
+void set_spot_pos(Vec2 pos, int index);
+
+void set_spot_pos(float x, float y, int index);
+
+
 
 
 
@@ -29,16 +58,21 @@ if you use other void you must call this one in one of them
 
 SETTING
 --
-void setting_start_direction(int ID_item, Vec2 dir) ;
+void setting_start_direction(int ID_item, Vec2 dir);
 
-void setting_start_direction(int ID_item, int dir_x, int dir_y) ;
+void setting_start_direction(int ID_item, int dir_x, int dir_y);
 
-void setting_start_position(int ID_item, Vec3 pos) ;
+void setting_start_position(int ID_item, Vec3 pos);
 
-void setting_start_position(int ID_item, int pos_x, int pos_y, int pos_z) ;
+void setting_start_position(int ID_item, int pos_x, int pos_y, int pos_z);
 
 boolean setting[int ID_item]
 > to block the setting at the beggining and when you come back to the button setting to don't go immediatly on the value slider...not finish in progress
+
+
+
+
+
 
 
 
@@ -140,10 +174,7 @@ reset(ID_item)
 
 
 
-SOUND
---
-int band_length();
-> return the num of band spectrum available
+
 
 
 

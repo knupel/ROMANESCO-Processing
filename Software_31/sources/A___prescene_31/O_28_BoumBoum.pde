@@ -1,12 +1,7 @@
 /**
 Transient
 2018
-v 0.0.2
-Inspirated by Nature of Code of Daniel Shiffman
-*/
-/*
-* @see https://www.youtube.com/watch?v=f0lkz2gSsIk&list=PLRqwX-V7Uu6ZiZxtDDRCi6uhfTH4FilpH&index=15
-* @see https://en.wikipedia.org/wiki/Lorenz_system
+v 0.0.3
 */
 class BoumBoum extends Romanesco {
 	public BoumBoum() {
@@ -14,7 +9,7 @@ class BoumBoum extends Romanesco {
 		ID_item = 28 ;
 		ID_group = 1 ;
 		item_author  = "Stan le Punk";
-		item_version = "Version 0.0.1";
+		item_version = "Version 0.0.3";
 		item_pack = "Base 2018";
     item_costume = "point/ellipse/triangle/rect/cross/pentagon/Star 5/Star 7/Super Star 8/Super Star 12";
     item_mode = "";
@@ -53,7 +48,7 @@ class BoumBoum extends Romanesco {
     // swing_y_is = true;
     // swing_z_is = true;
 
-    // num_is = true;
+    // quantity_is = true;
     // variety_is = true;
     // life_is = true;
     // flow_is = true;

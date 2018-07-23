@@ -51,7 +51,7 @@ class Lignes extends Romanesco {
     swing_y_is = false;
     swing_z_is = false;
 
-    num_is = true;
+    quantity_is = true;
     variety_is = false;
     life_is = false;
     flow_is = false;

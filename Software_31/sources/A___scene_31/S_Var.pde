@@ -3,7 +3,7 @@ VARIABLE
 Prescene, Scene
 Romanesco Processing Environment
 2015-2018
-v 1.3.1
+v 1.4.0
 */
 
 /**
@@ -78,12 +78,13 @@ int BUTTON_ITEM_CONSOLE = 4;
 
 
 // button
-boolean [] transient_is;
-boolean [] fx_is = new boolean[NUM_BUTTON_FX];
-boolean curtain_is, background_is;
-boolean ambient_is,ambient_action_is;
-boolean light_1_is,light_1_action_is;
-boolean light_2_is,light_2_action_is;
+boolean [] transient_button_is;
+boolean [] fx_button_is = new boolean[NUM_BUTTON_FX];
+boolean curtain_button_is;
+boolean background_button_is;
+boolean ambient_button_is,ambient_action_is;
+boolean light_1_button_is,light_1_action_button_is;
+boolean light_2_button_is,light_2_action_button_is;
 
 int which_shader;
 int which_filter; 
@@ -401,12 +402,12 @@ void create_variable() {
   NUM_SETTING_ITEM = 1;
   NUM_SETTING_CAMERA = 1;
 
-  createMiscVar();
-  create_variableButton();
-  create_variableSound();
+  create_var_misc();
+  create_var_item_button();
+  create_var_sound();
 
-  create_variable_P3D(NUM_SETTING_CAMERA);
-  create_variableCursor();
+  create_var_P3D(NUM_SETTING_CAMERA);
+  create_var_cursor();
   create_var_item_slider();
   create_var_item_manipulation(NUM_SETTING_ITEM);
 
@@ -414,7 +415,7 @@ void create_variable() {
 }
 
 // misc var
-void createMiscVar() {
+void create_var_misc() {
   objectLeapID = new int[NUM_ITEM_PLUS_MASTER];
   item_info_display = new boolean[NUM_ITEM_PLUS_MASTER];
 
@@ -479,7 +480,7 @@ void createMiscVar() {
 
 
 // var cursor
-void create_variableCursor() {
+void create_var_cursor() {
   //position of object and wheel
    mouse  = new Vec3[NUM_ITEM_PLUS_MASTER];
    clickShortLeft = new boolean [NUM_ITEM_PLUS_MASTER];
@@ -495,7 +496,7 @@ void create_variableCursor() {
 
 
 // P3D
-void create_variable_P3D(int num_setting_camera) {
+void create_var_P3D(int num_setting_camera) {
    // setting and save
    eyeCameraSetting = new Vec3 [num_setting_camera];
    sceneCameraSetting = new Vec3 [num_setting_camera];
@@ -506,13 +507,13 @@ void create_variable_P3D(int num_setting_camera) {
    dir_item = new Vec3[NUM_ITEM_PLUS_MASTER];
 }
 
-void create_variableSound() {
+void create_var_sound() {
   // volume 
    left = new float [NUM_ITEM_PLUS_MASTER];
    right = new float [NUM_ITEM_PLUS_MASTER];
    mix  = new float [NUM_ITEM_PLUS_MASTER];
    // transient
-   transient_is = new boolean[5];
+   transient_button_is = new boolean[5];
    transient_value = new float[5][NUM_ITEM_PLUS_MASTER]; // beat[ID_item]
    // spectrum
    band = new float [NUM_ITEM_PLUS_MASTER][NUM_BANDS];
@@ -526,13 +527,7 @@ void create_variableSound() {
 //
 
 //
-void create_variableButton() {
-  // objectButton = new int [NUM_ITEM_PLUS_MASTER];
-  soundButton = new int [NUM_ITEM_PLUS_MASTER];
-  actionButton = new int [NUM_ITEM_PLUS_MASTER];
-  parameterButton = new int [NUM_ITEM_PLUS_MASTER];
-  
-  
+void create_var_item_button() {
   show_item = new boolean [NUM_ITEM_PLUS_MASTER];
   sound = new boolean [NUM_ITEM_PLUS_MASTER];
   action = new boolean [NUM_ITEM_PLUS_MASTER];
@@ -848,86 +843,86 @@ void init_slider_variable_world() {
 /**
 button general var setting
 */
-boolean transient_romanesco_is(int index) {
-  return transient_is[index];
+boolean transient_button_is(int index) {
+  return transient_button_is[index];
 }
 
-boolean fx_romanesco_is(int index) {
-  return fx_is[index];
+boolean fx_button_is(int index) {
+  return fx_button_is[index];
 }
 
-boolean curtain_is() {
-  return curtain_is;
+boolean curtain_button_is() {
+  return curtain_button_is;
 }
 
-boolean background_is() {
-  return background_is;
+boolean background_button_is() {
+  return background_button_is;
 }
 
-boolean light_ambient_is() {
-  return ambient_is;
+boolean ambient_button_is() {
+  return ambient_button_is;
 }
 
-boolean light_1_is() {
-  return light_1_is;
+boolean light_1_button_is() {
+  return light_1_button_is;
 }
 
-boolean light_2_is() {
-  return light_2_is;
+boolean light_2_button_is() {
+  return light_2_button_is;
 }
 
-boolean light_ambient_action_is() {
+boolean ambient_action_button_is() {
   return ambient_action_is;
 }
 
-boolean light_1_action_is() {
-  return light_1_action_is;
+boolean light_1_action_button_is() {
+  return light_1_action_button_is;
 }
 
-boolean light_2_action_is() {
-  return light_2_action_is;
+boolean light_2_action_button_is() {
+  return light_2_action_button_is;
 }
 
 
 // set boolean
-void transient_romanesco_is(int index, boolean is) {
-  transient_is[index] = is;
+void transient_button_is(int index, boolean is) {
+  transient_button_is[index] = is;
 }
 
-void fx_romanesco_is(int index, boolean is) {
-  fx_is[index] = is;
+void fx_button_is(int index, boolean is) {
+  fx_button_is[index] = is;
 }
 
-void curtain_is(boolean is) {
-  curtain_is = is;
+void curtain_button_is(boolean is) {
+  curtain_button_is = is;
 }
 
-void background_is(boolean is) {
-  background_is = is;
+void background_button_is(boolean is) {
+  background_button_is = is;
 }
 
-void light_ambient_is(boolean is) {
-  ambient_is = is;
+void ambient_button_is(boolean is) {
+  ambient_button_is = is;
 }
 
-void light_1_is(boolean is) {
-  light_1_is = is;
+void light_1_button_is(boolean is) {
+  light_1_button_is = is;
 }
 
-void light_2_is(boolean is) {
-  light_2_is = is;
+void light_2_button_is(boolean is) {
+  light_2_button_is = is;
 }
 
-void light_ambient_action_is(boolean is) {
+void ambient_action_button_is(boolean is) {
   ambient_action_is = is;
 }
 
-void light_1_action_is(boolean is) {
-  light_1_action_is = is;
+void light_1_action_button_is(boolean is) {
+  light_1_action_button_is = is;
 }
 
-void light_2_action_is(boolean is) {
-  light_2_action_is = is;
+void light_2_action_button_is(boolean is) {
+  light_2_action_button_is = is;
 }
 
 

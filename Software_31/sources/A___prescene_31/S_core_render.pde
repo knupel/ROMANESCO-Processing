@@ -1,7 +1,7 @@
 /**
 CORE Rope SCENE and PRESCENE 
 2015-2018
-v 1.4.4
+v 1.4.5
 */
 import java.net.*;
 import java.io.*;
@@ -741,7 +741,7 @@ void loadDataObject(String path) {
     
   // PART ONE
   JSONObject dataWorld = load.getJSONObject(startPosJSONDataWorld);
-  background_is(dataWorld.getBoolean("on/off"));
+  background_button_is(dataWorld.getBoolean("on/off"));
 
 
   colorBackground.r = dataWorld.getFloat("hue background") ;
@@ -946,7 +946,6 @@ void info() {
   if (displayInfo3D) {
     displayInfo3D(color_text);
   }
-  
 }
 
 void displayInfoScene(color bg_txt, color txt) {
@@ -1295,8 +1294,8 @@ void transient_romanesco() {
   float back_factor = .95;
   // transient global
   boolean transient_global_is = false; 
-  for(int i = 1 ; i < transient_is.length ; i++) {
-    if(transient_romanesco_is(i)) {
+  for(int i = 1 ; i < transient_button_is.length ; i++) {
+    if(transient_button_is(i)) {
       transient_global_is = true;
       break;
     }
@@ -1306,15 +1305,34 @@ void transient_romanesco() {
   } else {
     transient_value[0][0] *= back_factor;
   }
-  // extra bass 
+
   // give catch value `0` from the lib because here we use `0` for the master transient
-  for(int i = 1 ; i < transient_is.length ; i++) {
-    if(transient_romanesco_is(i) && sounda.transient_is(i-1)) {
+  for(int i = 1 ; i < transient_button_is.length ; i++) {
+    if(transient_button_is(i) && sounda.transient_is(i-1)) {
       transient_value[i][0] = max_transient_value;   
     } else {
       transient_value[i][0] *= back_factor;
     }
   }
+}
+
+
+boolean transient_is(int index) {
+  boolean is = false ;
+  if(index > 0 && index < sounda.section_size()) {
+    is = sounda.transient_is(index);
+  } else if(index == 0) {
+    for(int i = 0 ; i < sounda.section_size() ;i++) {
+      if(sounda.transient_is(i)) {
+        is = sounda.transient_is(i);
+        break;
+      }
+    }
+  }
+  if(index >= sounda.section_size()) {
+    printErr("method transient_is():",index,"is out of sounda.section_size()");
+  }
+  return is;
 }
 
 

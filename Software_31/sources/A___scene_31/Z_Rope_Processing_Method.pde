@@ -1,6 +1,6 @@
 /**
 ROPE METHOD
-v 1.4.0
+v 1.4.1
 * Copyleft (c) 2014-2018
 * Stan le Punk > http://stanlepunk.xyz/
 Processing and Vec, iVec and bVec method
@@ -130,10 +130,10 @@ float random (iVec2 v) {
 
 /**
 Ellipse
-v 0.1.0
+v 0.1.1
 */
 // with Vec2 or iVec2
-void ellipse(Vec2 p, Vec2 s) {
+void ellipse(Vec2 p, Vec s) {
   ellipse(p.x,p.y, s.x,s.y);
 }
 
@@ -147,7 +147,7 @@ void ellipse(Vec2 p, float x) {
 
 
 // iVec
-void ellipse(iVec2 p, iVec2 s) {
+void ellipse(iVec2 p, iVec s) {
   ellipse(p.x,p.y,s.x,s.y) ;
 }
 
@@ -168,7 +168,7 @@ void ellipse(iVec3 p, int x) {
   ellipse(p,iVec2(x));
 }
 
-void ellipse(iVec3 p, iVec2 s) {
+void ellipse(iVec3 p, iVec s) {
   Vec3 temp_pos = Vec3((int)p.x, (int)p.y, (int)p.z);
   Vec2 temp_size = Vec2((int)s.x,(int)s.y);
   ellipse(temp_pos, temp_size);
@@ -186,14 +186,14 @@ void ellipse(Vec3 p, float x) {
 /**
 main method
 */
-void ellipse(Vec3 p, Vec2 s) {
+void ellipse(Vec3 p, Vec s) {
   if(renderer_P3D()) {
     start_matrix() ;
     translate(p.x, p.y, p.z);
     ellipse(0,0, s.x, s.y);
     stop_matrix() ;
   } else {
-    ellipse(p.x,p.y, s.x,s.y);
+    ellipse(p.x,p.y,s.x,s.y);
   }
 }
 

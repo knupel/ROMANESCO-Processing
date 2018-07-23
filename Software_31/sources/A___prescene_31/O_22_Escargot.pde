@@ -1,7 +1,7 @@
 /**
 ESCARGOT 
 2011-2018
-V 1.4.6
+V 1.4.7
 */
 class Escargot extends Romanesco {
   public Escargot() {
@@ -10,7 +10,7 @@ class Escargot extends Romanesco {
     ID_item = 22 ;
     ID_group = 1 ;
     item_author  = "Stan le Punk";
-    item_version = "version 1.4.6";
+    item_version = "version 1.4.7";
     item_pack = "Base 2011" ;
     item_costume = "";
     item_mode = "Original/Raw/Point/Ellipse/Rectangle/Box/Cross/SVG/Vitraux" ;
@@ -27,43 +27,43 @@ class Escargot extends Romanesco {
     size_x_is = true;
     size_y_is = true;
     size_z_is = true;
-    font_size_is = false;
+    // font_size_is = true;
     canvas_x_is = true;
-    canvas_y_is = false;
-    canvas_z_is = false;
+    // canvas_y_is = true;
+    // canvas_z_is = true;
 
-    reactivity_is = false;
+    // reactivity_is = true;
     speed_x_is = true;
-    speed_y_is = false;
-    speed_z_is = false;
-    spurt_x_is = false;
-    spurt_y_is = false;
-    spurt_z_is = false;
+    // speed_y_is = true;
+    // speed_z_is = true;
+    // spurt_x_is = true;
+    // spurt_y_is = true;
+    // spurt_z_is = true;
     dir_x_is = true;
-    dir_y_is = false;
-    dir_z_is = false;
-    jit_x_is = false;
-    jit_y_is = false;
-    jit_z_is  = false;
-    swing_x_is = false;
-    swing_y_is = false;
-    swing_z_is = false;
+    // dir_y_is = true;
+    // dir_z_is = true;
+    // jit_x_is = true;
+    // jit_y_is = true;
+    // jit_z_is = true;
+    // swing_x_is = true;
+    // swing_y_is = true;
+    // swing_z_is = true;
 
-    num_is = true;
-    variety_is = false;
-    life_is = false;
-    flow_is = false;
+    quantity_is = true;
+    // variety_is = true;
+    // life_is = true;
+    // flow_is = true;
     quality_is = true;
-    area_is = false;
-    angle_is = false;
-    scope_is = false;
-    scan_is = false;
-    align_is = false;
-    repulsion_is = false;
-    attraction_is = false;
-    density_is = false;
-    influence_is = false;
-    calm_is = true;
+    // area_is = true;
+    // angle_is = true;
+    // scope_is = true;
+    // scan_is = true;
+    // align_is = true;
+    // repulsion_is = true;
+    // attraction_is = true;
+    // density_is = true;
+    // influence_is = true;
+    // calm_is = true;
     spectrum_is = false;
   }
   //GLOBAL

@@ -1,6 +1,6 @@
 /**
 OSC CORE 
-v 1.4.1
+v 1.4.2
 */
 OscP5 osc_receive_controller_general;
 OscP5 osc_receive_controller_item;
@@ -79,7 +79,7 @@ void receive_data_misc(OscMessage receive, int in) {
 
 
 void receive_data_menu_bar(OscMessage receive, int in) {
-  curtain_is(to_bool(receive,0+in));
+  curtain_button_is(to_bool(receive,0+in));
 }
 
 void receive_data_general_dropdown(OscMessage receive, int in) {
@@ -94,23 +94,23 @@ void receive_data_general_dropdown(OscMessage receive, int in) {
 
 
 void receive_data_general_button(OscMessage receive, int in) {
-  background_is(to_bool(receive,0+in));
+  background_button_is(to_bool(receive,0+in));
   int index_osc = 1 ;
-  for(int i = 0 ; i < fx_is.length ; i++) {
-    fx_romanesco_is(i,to_bool(receive,index_osc+in));
+  for(int i = 0 ; i < fx_button_is.length ; i++) {
+    fx_button_is(i,to_bool(receive,index_osc+in));
     index_osc++;
   }
 
-  light_ambient_is(to_bool(receive,3+in));
-  light_ambient_action_is(to_bool(receive,4+in));
-  light_1_is(to_bool(receive,5+in));
-  light_1_action_is(to_bool(receive,6+in));
-  light_2_is(to_bool(receive,7+in));
-  light_2_action_is(to_bool(receive,8+in));
+  ambient_button_is(to_bool(receive,3+in));
+  ambient_action_button_is(to_bool(receive,4+in));
+  light_1_button_is(to_bool(receive,5+in));
+  light_1_action_button_is(to_bool(receive,6+in));
+  light_2_button_is(to_bool(receive,7+in));
+  light_2_action_button_is(to_bool(receive,8+in));
   
   index_osc = 9 ;
-  for(int i = 1 ; i < transient_is.length ; i++) {
-    transient_romanesco_is(i,to_bool(receive,index_osc+in));
+  for(int i = 1 ; i < transient_button_is.length ; i++) {
+    transient_button_is(i,to_bool(receive,index_osc+in));
     index_osc++;
   }
   // index_osc finish at 12

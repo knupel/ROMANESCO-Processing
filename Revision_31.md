@@ -41,6 +41,8 @@ ITEM
 >remove item Spray
 >add item Pulsar
 >add BoumBoum
+>add item Force Field
+>add item Spot
 >improve spirale
 >improve arbre
 

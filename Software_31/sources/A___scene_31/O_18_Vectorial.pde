@@ -50,7 +50,7 @@ class Vectorial extends Romanesco {
     swing_y_is = true;
     swing_z_is = true;
 
-    num_is = false;
+    quantity_is = false;
     variety_is = false;
     life_is = false;
     flow_is = false;

@@ -1,7 +1,7 @@
 /**
 LIGHT SHADER 
 Prescene and Scene
-V 1.4.1
+V 1.4.2
 2015-2018
 */
 Vec3 var_light_pos  ;
@@ -97,19 +97,19 @@ void light_call_shader() {
 
 
 void light_update_position_direction() {
-  light_value_romanesco(value_slider_light, light_ambient_is(), light_1_is(), light_2_is(), light_1_action_is(), light_2_action_is()) ;
+  light_value_romanesco(value_slider_light, ambient_button_is(), light_1_button_is(), light_2_button_is(), light_1_action_button_is(), light_2_action_button_is()) ;
   // DIRECTIONAL and  SPOT LIGHT UPDATE
   Vec6 range_input_direction_3D = new Vec6(0,width,   0,height,  -width, width) ;
   Vec6 range_input_position_3D = new Vec6(0,width,   0,height,  -width, width) ;
   Vec6 range_output_position_3D = new Vec6(0,width,   0,height,  -width, width) ;
 
   // Position and direction of the directional light
-  if(light_1_action_is()) {
+  if(light_1_action_button_is()) {
     dir_light[1] = light_direction(var_light_dir, range_input_direction_3D, on_off_light_action[1], dir_light[1],  dir_light_ref[1]).copy() ;
     pos_light[1] = light_position(var_light_pos, range_input_position_3D, range_output_position_3D, on_off_light_action[1], pos_light[1],  pos_light_ref[1]).copy() ;
     color_light[1] = light_color(color_setting [1], MAX_VALUE_SLIDER, HSBmode, color_light[1], color_light_ref[1]).copy() ;
   }
-  if(light_2_action_is()) {
+  if(light_2_action_button_is()) {
     dir_light[2] = light_direction(var_light_dir, range_input_direction_3D, on_off_light_action[2], dir_light[2],  dir_light_ref[2]).copy() ;
     Vec3 reverse_var_pos = Vec3(map(var_light_pos.x,0,width,width,0), map(var_light_pos.y,0,height,height,0),var_light_pos.z) ;
     pos_light[2] = light_position(reverse_var_pos, range_input_position_3D, range_output_position_3D, on_off_light_action[2], pos_light[2],  pos_light_ref[2]).copy() ;

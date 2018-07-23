@@ -1,6 +1,6 @@
 /**
 ROMANESCO BACKGROUND 
-v 1.1.0
+v 1.1.1
 */
 Vec4 colorBackground, colorBackgroundRef, colorBackgroundPrescene;
 void background_setup() {
@@ -13,11 +13,11 @@ void background_setup() {
 void background_romanesco() {
   // in preview mode the background is always on, to remove the trace effect
   if(!FULL_RENDERING) { 
-    background_is(false) ;
+    background_button_is(false) ;
     colorBackground = colorBackgroundPrescene.copy() ;
     background_rope(0,0,g.colorModeZ *.2,g.colorModeA) ;
   } else {
-    if(background_is()) {
+    if(background_button_is()) {
       if(which_shader == 0) {
         // check if the color model is changed after the shader used
         if(g.colorMode != 3 || g.colorModeX != 360 || g.colorModeY != 100 || g.colorModeZ !=100 || g.colorModeA !=100) colorMode(HSB,360,100,100,100);
@@ -172,7 +172,7 @@ void rectangle(Vec2 pos, Vec3 size, PShader s) {
 curtain
 */
 void curtain() {
-  if(!curtain_is()) {
+  if(!curtain_button_is()) {
     rectMode(CORNER) ;
     fill (0) ; 
     noStroke() ;

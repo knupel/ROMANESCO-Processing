@@ -1,7 +1,7 @@
 
 /**
 ARBRE 2012-2018
-v 1.3.6
+v 1.3.7
 */
 Arbre arbre ;
 
@@ -13,7 +13,7 @@ class ArbreRomanesco extends Romanesco {
     ID_item = 9 ;
     ID_group = 1 ;
     item_author  = "Stan le Punk";
-    item_version = "Version 1.3.6";
+    item_version = "Version 1.3.7";
     item_pack = "Base 2012" ;
     item_costume = "point/ellipse/triangle/rect/cross/pentagon/Star 5/Star 7/Super Star 8/Super Star 12";
     item_mode = "";
@@ -52,7 +52,7 @@ class ArbreRomanesco extends Romanesco {
     // swing_y_is = true;
     // swing_z_is = true;
 
-    num_is = true;
+    quantity_is = true;
     // variety_is =true;
     // life_is = true;
     // flow_is = true;
@@ -208,7 +208,7 @@ class Arbre {
   
   
   //float fourche = 10.0 ; 
-  void branch(float t, Vec3 size, float divA, float divB, int forkA, int forkB, Vec2 amplitude, int n, int which_costume, boolean bool_line, boolean fill_is, boolean stroke_is, int ID) {
+  void branch(float thickness, Vec3 size, float divA, float divB, int forkA, int forkB, Vec2 amplitude, int n, int which_costume, boolean bool_line, boolean fill_is, boolean stroke_is, int ID) {
     Vec3 newSize = size.copy();
     newSize.x = size.x *divA;
     newSize.y = size.y *divB;
@@ -217,19 +217,19 @@ class Arbre {
       newSize.x = 0.1 ;
     }
     
-    float newThickness = t ;
-    newThickness = t *.66 ;
+    // float newThickness = t ;
+    thickness *= .66 ;
     
     // recursice need a end  !
     n = n-1 ;
     if (n >0) {
-     displayBranch(newThickness, newSize, divA, divB, forkA, forkB, amplitude, n, -theta, which_costume, bool_line, fill_is, stroke_is, ID) ; 
-     displayBranch(newThickness, newSize, divA, divB, forkA, forkB, amplitude, n, theta, which_costume, bool_line, fill_is, stroke_is, ID) ;
+     displayBranch(thickness, newSize, divA, divB, forkA, forkB, amplitude, n, -theta, which_costume, bool_line, fill_is, stroke_is, ID) ; 
+     displayBranch(thickness, newSize, divA, divB, forkA, forkB, amplitude, n, theta, which_costume, bool_line, fill_is, stroke_is, ID) ;
     }
   }
   
   //annexe branch
-  void displayBranch(float e, Vec3 size, float propA, float propB, int fourcheA, int fourcheB, Vec2 amplitude, int n, float t, int which_costume, boolean bool_line, boolean fill_is, boolean stroke_is, int ID) {
+  void displayBranch(float thickness, Vec3 size, float propA, float propB, int fourcheA, int fourcheB, Vec2 amplitude, int n, float t, int which_costume, boolean bool_line, boolean fill_is, boolean stroke_is, int ID) {
     float factor = 0.0 ;
     if(key_v_long && pen[0].z != 0) {
       factor = deep * map(pen[0].z,0.01,1, 1.2,-1.2) ; 
@@ -241,8 +241,9 @@ class Arbre {
     rotate(t);   // Rotate by theta
 
     // strokeWeight (e) ;
-    aspect_is(fill_is, stroke_is) ;
-    aspect_rope(fill_item[ID], stroke_item[ID], e, which_costume) ;
+    aspect_is(fill_is, stroke_is);
+    aspect_rope(fill_item[ID], stroke_item[ID],thickness);
+    // aspect_rope(fill_item[ID], stroke_item[ID], e, which_costume);
     Vec3 pos_a = Vec3() ;
     Vec3 pos_b = Vec3(0, -amplitude.x, -amplitude.y *factor) ;
     
@@ -259,7 +260,7 @@ class Arbre {
    // translate(0,0, -size.z *factor) ;
      
   //  translate(0, -amplitude); // Move to the end of the branch
-    branch(e, size, propA, propB, fourcheA, fourcheB, amplitude, n, which_costume, bool_line, fill_is, stroke_is, ID);       // Ok, now call myself to draw two new branches!!
+    branch(thickness, size, propA, propB, fourcheA, fourcheB, amplitude, n, which_costume, bool_line, fill_is, stroke_is, ID);       // Ok, now call myself to draw two new branches!!
     stop_matrix();     // Whenever we get back here, we "pop" in order to restore the previous matrix state
   }
 }

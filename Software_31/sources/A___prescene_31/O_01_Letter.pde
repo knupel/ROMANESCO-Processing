@@ -49,7 +49,7 @@ class Letter extends Romanesco {
     // swing_y_is = true;
     // swing_z_is = true;
 
-    // num_is = true;
+    // quantity_is = true;
     // variety_is = true;
     // life_is = true;
     // flow_is = true;

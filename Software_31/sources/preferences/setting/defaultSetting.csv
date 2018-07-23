@@ -1,7 +1,7 @@
 Type,ID slider,Min slider,Max slider,Value length,Value slider 0,Value slider 1,Value slider 2,Value slider 3,ID button,On Off,ID midi,Item ID,Item On Off,Item Name,Item Class Name
 Slider background,0,0.0,1.0,1,0.0,,,,,,-2,,,,
 Slider background,1,0.0,1.0,1,1.0,,,,,,-2,,,,
-Slider background,2,0.0,1.0,1,0.8111111,,,,,,-2,,,,
+Slider background,2,0.0,1.0,1,0.7,,,,,,-2,,,,
 Slider background,3,0.0,1.0,1,0.53333336,,,,,,-2,,,,
 Slider background,4,0.0,1.0,1,0.18888889,,,,,,-2,,,,
 Slider background,5,0.0,1.0,1,0.18888889,,,,,,-2,,,,
@@ -36,11 +36,11 @@ Slider light,7,0.0,1.0,1,1.0,,,,,,-2,,,,
 Slider light,8,0.0,1.0,1,1.0,,,,,,-2,,,,
 Slider sound,0,0.0,1.0,1,0.5,,,,,,-2,,,,
 Slider sound,1,0.0,1.0,1,0.5,,,,,,-2,,,,
-Slider sound setting,0,0.0,1.0,3,0.094736844,0.2631579,0.4631579,,,,-2,,,,
-Slider sound setting,1,0.0,1.0,2,0.0,0.47368422,,,,,-2,,,,
-Slider sound setting,2,0.0,1.0,2,0.0,0.24210526,,,,,-2,,,,
-Slider sound setting,3,0.0,1.0,2,0.0,0.24210526,,,,,-2,,,,
-Slider sound setting,4,0.0,1.0,2,0.0,0.2631579,,,,,-2,,,,
+Slider sound setting,0,0.0,1.0,3,0.094736844,0.25263157,0.44210526,,,,-2,,,,
+Slider sound setting,1,0.0,1.0,2,0.0,0.4631579,,,,,-2,,,,
+Slider sound setting,2,0.0,1.0,2,0.0,0.23157895,,,,,-2,,,,
+Slider sound setting,3,0.0,1.0,2,0.0,0.23157895,,,,,-2,,,,
+Slider sound setting,4,0.0,1.0,2,0.0,0.25263157,,,,,-2,,,,
 Slider camera,0,0.0,1.0,1,0.35555556,,,,,,-2,,,,
 Slider camera,1,0.0,1.0,1,0.4888889,,,,,,-2,,,,
 Slider camera,2,0.0,1.0,1,0.4888889,,,,,,-2,,,,
@@ -56,14 +56,14 @@ Slider item,4,0.0,1.0,1,0.0,,,,,,-2,,,,
 Slider item,5,0.0,1.0,1,0.0,,,,,,-2,,,,
 Slider item,6,0.0,1.0,1,1.0,,,,,,-2,,,,
 Slider item,7,0.0,1.0,1,1.0,,,,,,-2,,,,
-Slider item,8,0.0,1.0,1,0.24444444,,,,,,-2,,,,
-Slider item,9,0.0,1.0,1,0.51111114,,,,,,-2,,,,
-Slider item,10,0.0,1.0,1,0.11111111,,,,,,-2,,,,
-Slider item,11,0.0,1.0,1,0.6888889,,,,,,-2,,,,
-Slider item,12,0.0,1.0,1,0.22222222,,,,,,-2,,,,
-Slider item,13,0.0,1.0,1,0.23333333,,,,,,-2,,,,
-Slider item,14,0.0,1.0,1,0.44444445,,,,,,-2,,,,
-Slider item,15,0.0,1.0,1,0.23333333,,,,,,-2,,,,
+Slider item,8,0.0,1.0,1,0.06666667,,,,,,-2,,,,
+Slider item,9,0.0,1.0,1,0.2,,,,,,-2,,,,
+Slider item,10,0.0,1.0,1,0.2,,,,,,-2,,,,
+Slider item,11,0.0,1.0,1,0.2,,,,,,-2,,,,
+Slider item,12,0.0,1.0,1,0.45555556,,,,,,-2,,,,
+Slider item,13,0.0,1.0,1,0.2,,,,,,-2,,,,
+Slider item,14,0.0,1.0,1,0.2,,,,,,-2,,,,
+Slider item,15,0.0,1.0,1,0.2,,,,,,-2,,,,
 Slider item,16,0.0,1.0,1,0.5,,,,,,-2,,,,
 Slider item,17,0.0,1.0,1,0.12222222,,,,,,-2,,,,
 Slider item,18,0.0,1.0,1,0.17777778,,,,,,-2,,,,
@@ -103,15 +103,15 @@ Item,,,,,,,,,,,,4,0,Orbital,Orbital
 Item,,,,,,,,,,,,5,0,Atome,Atome
 Item,,,,,,,,,,,,6,0,The Abbyss,The_Abbyss
 Item,,,,,,,,,,,,7,0,Boids,Boids
-Item,,,,,,,,,,,,8,1,Rubis,MesAmis
+Item,,,,,,,,,,,,8,0,Rubis,MesAmis
 Item,,,,,,,,,,,,9,1,Arbre,ArbreRomanesco
-Item,,,,,,,,,,,,10,1,Boxolyzer,Boxolyzer
+Item,,,,,,,,,,,,10,0,Boxolyzer,Boxolyzer
 Item,,,,,,,,,,,,11,0,Soleil,Soleil
-Item,,,,,,,,,,,,12,1,Spirale,SpiraleRomanesco
-Item,,,,,,,,,,,,13,1,Balise,BaliseRomanesco
+Item,,,,,,,,,,,,12,0,Spirale,SpiraleRomanesco
+Item,,,,,,,,,,,,13,0,Balise,BaliseRomanesco
 Item,,,,,,,,,,,,14,0,Kofosphere,Kofosphere
 Item,,,,,,,,,,,,15,0,Lignes,Lignes
-Item,,,,,,,,,,,,16,1,Pulsar,Pulsar
+Item,,,,,,,,,,,,16,0,Pulsar,Pulsar
 Item,,,,,,,,,,,,17,0,Damier,Damier
 Item,,,,,,,,,,,,18,0,Vectorial,Vectorial
 Item,,,,,,,,,,,,19,0,Galaxie,Galaxie
@@ -121,9 +121,10 @@ Item,,,,,,,,,,,,22,0,Image,Escargot
 Item,,,,,,,,,,,,23,0,Surface,Surface
 Item,,,,,,,,,,,,24,0,Movisco,Movisco
 Item,,,,,,,,,,,,25,0,Eco Agents,Ecosystem_agent
-Item,,,,,,,,,,,,26,1,Eco DNA,Ecosystem_DNA
+Item,,,,,,,,,,,,26,0,Eco DNA,Ecosystem_DNA
 Item,,,,,,,,,,,,27,0,Lorenz attractor,Lorenz
-Item,,,,,,,,,,,,28,1,BoumBoum,BoumBoum
+Item,,,,,,,,,,,,28,0,BoumBoum,BoumBoum
+Item,,,,,,,,,,,,29,1,Ballet,Ballet
 Button item,,,,,,,,,0,0,0,,,,
 Button item,,,,,,,,,1,0,0,,,,
 Button item,,,,,,,,,2,0,0,,,,
@@ -254,3 +255,7 @@ Button item,,,,,,,,,112,0,-2,,,,
 Button item,,,,,,,,,113,0,-2,,,,
 Button item,,,,,,,,,114,0,-2,,,,
 Button item,,,,,,,,,115,0,-2,,,,
+Button item,,,,,,,,,116,0,-2,,,,
+Button item,,,,,,,,,117,0,-2,,,,
+Button item,,,,,,,,,118,0,-2,,,,
+Button item,,,,,,,,,119,0,-2,,,,

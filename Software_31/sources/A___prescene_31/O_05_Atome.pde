@@ -1,7 +1,7 @@
 /**
 ATOME 
 2012-2018
-v 1.3.5
+v 1.3.6
 */
 ArrayList<Atom> atomList ;
 //object one
@@ -12,7 +12,7 @@ class Atome extends Romanesco {
     ID_item = 5 ;
     ID_group = 1 ;
     item_author  = "Stan le Punk";
-    item_version = "version 1.3.5";
+    item_version = "version 1.3.6";
     item_pack = "Base 2012" ;
     item_costume = "";
     item_mode = "Chemical Name/File text/Electronic cloud/Ellipse circle/Ellipse triangle/Ellipse cloud/Triangle circle/Triangle triangle/Triangle cloud/Rectangle rectangle/Rectangle cloud" ;
@@ -51,7 +51,7 @@ class Atome extends Romanesco {
     swing_y_is = false;
     swing_z_is = false;
 
-    num_is = true;
+    quantity_is = true;
     variety_is = true;
     life_is = false;
     flow_is = false;
@@ -163,7 +163,7 @@ class Atome extends Romanesco {
     
     // FACTOR SOUND REACTIVITY
     float maxBeat = map(swing_x_item[ID_item],0,1,1,15) ;
-    transient_value[0][ID_item] = map(transient_value[0][ID_item],1,10, 1,maxBeat) ;
+    transient_value[1][ID_item] = map(transient_value[1][ID_item],1,10, 1,maxBeat) ;
     transient_value[2][ID_item] = map(transient_value[2][ID_item],1,10, 1,maxBeat) ;
     transient_value[3][ID_item] = map(transient_value[3][ID_item],1,10, 1,maxBeat) ;
     transient_value[4][ID_item] = map(transient_value[4][ID_item],1,10, 1,maxBeat) ;
@@ -193,7 +193,7 @@ class Atome extends Romanesco {
     //diameter
     float factorSizeField = sizeAtomeX *1.2 ; // factor size of the electronic Atom's Cloud
      //width
-    float posTextInfo = map(size_y_item[ID_item], .1, width,sizeAtomeRawX*.2, width*.2) + (transient_value[0][ID_item] *2.0)  ; 
+    float posTextInfo = map(size_y_item[ID_item], .1, width,sizeAtomeRawX*.2, width*.2) + (transient_value[1][ID_item] *2.0)  ; 
       
       
     
@@ -216,7 +216,7 @@ class Atome extends Romanesco {
       
 
       if ( atm.getProton() < rangeA ) { 
-        beatSizeProton = transient_value[0][ID_item] ;
+        beatSizeProton = transient_value[1][ID_item] ;
       } else if ( atm.getProton() > rangeA && atm.getProton() < rangeB ) {
         beatSizeProton = transient_value[2][ID_item] ;
       } else if ( atm.getProton() > rangeB && atm.getProton() < rangeC ) {
@@ -226,7 +226,7 @@ class Atome extends Romanesco {
       }
       /////////////////CLOUD///////////////////////////////////////
       if ( atm.getProton() < 41 ) { 
-        beatThicknessCloud = transient_value[0][ID_item] ;
+        beatThicknessCloud = transient_value[1][ID_item] ;
       } else if ( atm.getProton() > 40 && atm.getProton() < 66 ) {
         beatThicknessCloud = transient_value[2][ID_item] ;
       } else if ( atm.getProton() > 65 && atm.getProton() < 91 ) {

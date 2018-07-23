@@ -1323,7 +1323,7 @@ class iVec6 extends iVec {
 
 /**
 Vec class
-v 1.16.0
+v 1.17.0
 2015-2018
 Vector with a float precision
 
@@ -1385,7 +1385,7 @@ public class Vec2 extends Vec {
   /**
   Random constructor
   */
-  public Vec2(String key_random, int r1) {
+  public Vec2(String key_random, float r1) {
     super(2) ;
     if(key_random.equals(RANDOM)) {
       set(random(-r1,r1),random(-r1,r1));
@@ -1397,7 +1397,7 @@ public class Vec2 extends Vec {
     }
   }
   
-  public Vec2(String key_random, int r1, int r2) {
+  public Vec2(String key_random, float r1, float r2) {
     super(2) ;
     if(key_random.equals(RANDOM)) {
       set(random(-r1,r1),random(-r2,r2));
@@ -1411,7 +1411,7 @@ public class Vec2 extends Vec {
     }
   }
 
-  public Vec2(String key_random, int a1, int a2, int b1, int b2) {
+  public Vec2(String key_random, float a1, float a2, float b1, float b2) {
     super(2) ;
     if(key_random.equals(RANDOM_RANGE)) {
       set(random(a1,a2),random(b1,b2));
@@ -2066,7 +2066,7 @@ class Vec3 extends Vec {
   /**
   * random generator for the Vec
   */
-  Vec3(String key_random, int r1) {
+  Vec3(String key_random, float r1) {
     super(3) ;
     if(key_random.equals(RANDOM)) {
       set(random(-r1,r1),random(-r1,r1),random(-r1,r1));
@@ -2078,7 +2078,7 @@ class Vec3 extends Vec {
     }
   }
   
-  Vec3(String key_random, int r1, int r2, int r3) {
+  Vec3(String key_random, float r1, float r2, float r3) {
     super(3) ;
     if(key_random.equals(RANDOM)) {
       set(random(-r1,r1),random(-r2,r2),random(-r3,r3));
@@ -2090,7 +2090,7 @@ class Vec3 extends Vec {
     }
   }
 
-  Vec3(String key_random, int a1, int a2, int b1, int b2, int c1, int c2) {
+  Vec3(String key_random, float a1, float a2, float b1, float b2, float c1, float c2) {
     super(3) ;
     if(key_random.equals(RANDOM_RANGE)) {
       set(random(a1,a2),random(b1,b2),random(c1,c2));
@@ -2827,7 +2827,7 @@ class Vec4 extends Vec {
   /**
   * random generator for the Vec
   */
-  Vec4(String key_random, int r1) {
+  Vec4(String key_random, float r1) {
     super(4) ;
     if(key_random.equals(RANDOM)) {
       set(random(-r1,r1),random(-r1,r1),random(-r1,r1),random(-r1,r1));
@@ -2839,7 +2839,7 @@ class Vec4 extends Vec {
     }
   }
   
-  Vec4(String key_random, int r1, int r2, int r3, int r4) {
+  Vec4(String key_random, float r1, float r2, float r3, float r4) {
     super(4) ;
     if(key_random.equals(RANDOM)) {
       set(random(-r1,r1),random(-r2,r2),random(-r3,r3),random(-r4,r4));
@@ -2851,7 +2851,7 @@ class Vec4 extends Vec {
     }
   }
 
-  Vec4(String key_random, int a1, int a2, int b1, int b2, int c1, int c2, int d1, int d2) {
+  Vec4(String key_random, float a1, float a2, float b1, float b2, float c1, float c2, float d1, float d2) {
     super(4) ;
     if(key_random.equals(RANDOM_RANGE)) {
       set(random(a1,a2),random(b1,b2),random(c1,c2),random(d1,d2));
@@ -3455,7 +3455,7 @@ class Vec5 extends Vec{
   /**
   * random generator for the Vec
   */
-  Vec5(String key_random, int r1) {
+  Vec5(String key_random, float r1) {
     super(5) ;
     if(key_random.equals(RANDOM)) {
       set(random(-r1,r1),random(-r1,r1),random(-r1,r1),random(-r1,r1),random(-r1,r1));
@@ -3467,7 +3467,7 @@ class Vec5 extends Vec{
     }
   }
   
-  Vec5(String key_random, int r1, int r2, int r3, int r4, int r5) {
+  Vec5(String key_random, float r1, float r2, float r3, float r4, float r5) {
     super(5) ;
     if(key_random.equals(RANDOM)) {
       set(random(-r1,r1),random(-r2,r2),random(-r3,r3),random(-r4,r4),random(-r5,r5));
@@ -3479,7 +3479,7 @@ class Vec5 extends Vec{
     }
   }
 
-  Vec5(String key_random, int a1, int a2, int b1, int b2, int c1, int c2, int d1, int d2, int e1, int e2) {
+  Vec5(String key_random, float a1, float a2, float b1, float b2, float c1, float c2, float d1, float d2, float e1, float e2) {
     super(5) ;
     if(key_random.equals(RANDOM_RANGE)) {
       set(random(a1,a2),random(b1,b2),random(c1,c2),random(d1,d2),random(e1,e2));
@@ -3618,7 +3618,7 @@ class Vec6 extends Vec {
   /**
   Random Constructor
   */
-  Vec6(String key_random, int r1) {
+  Vec6(String key_random, float r1) {
     super(6) ;
     if(key_random.equals(RANDOM)) {
       set(random(-r1,r1),random(-r1,r1),random(-r1,r1),random(-r1,r1),random(-r1,r1),random(-r1,r1));
@@ -3630,7 +3630,7 @@ class Vec6 extends Vec {
     }
   }
   
-  Vec6(String key_random, int r1, int r2, int r3, int r4, int r5, int r6) {
+  Vec6(String key_random, float r1, float r2, float r3, float r4, float r5, float r6) {
     super(6) ;
     if(key_random.equals(RANDOM)) {
       set(random(-r1,r1),random(-r2,r2),random(-r3,r3),random(-r4,r4),random(-r5,r5),random(-r6,r6));
@@ -3642,7 +3642,7 @@ class Vec6 extends Vec {
     }
   }
 
-  Vec6(String key_random, int a1, int a2, int b1, int b2, int c1, int c2, int d1, int d2, int e1, int e2, int f1, int f2) {
+  Vec6(String key_random, float a1, float a2, float b1, float b2, float c1, float c2, float d1, float d2, float e1, float e2, float f1, float f2) {
     super(6) ;
     if(key_random.equals(RANDOM_RANGE)) {
       set(random(a1,a2),random(b1,b2),random(c1,c2),random(d1,d2),random(e1,e2),random(f1,f2));

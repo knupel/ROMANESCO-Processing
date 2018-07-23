@@ -838,7 +838,7 @@ public class Force_field implements Rope_Constants {
 
   /**
   public set spot
-  v 0.2.0
+  v 0.2.1
   */
   public void set_spot(float pos_x, float pos_y, float size_x, float size_y) {
     for(int i = 0 ; i < spot_list.size() ; i++) {
@@ -846,9 +846,9 @@ public class Force_field implements Rope_Constants {
     }
   }
 
-  public void set_spot(Vec2 pos, Vec2 size) {
+  public void set_spot(Vec pos, Vec2 size) {
     for(int i = 0 ; i < spot_list.size() ; i++) {
-      set_spot(pos.x,pos.y,size.x,size.y,i);
+      set_spot(pos,size,i);
     }
   }
 
@@ -856,8 +856,8 @@ public class Force_field implements Rope_Constants {
     set_spot(Vec2(pos_x,pos_y), Vec2(size_x,size_y),which_one);
   }
 
-  public void set_spot(Vec2 pos, Vec2 size, int which_one) {
-    set_spot_pos(pos.x,pos.y,which_one);
+  public void set_spot(Vec pos, Vec2 size, int which_one) {
+    set_spot_pos(pos,which_one);
     set_spot_diam(size.x,size.y,which_one);
   }
 
@@ -886,18 +886,18 @@ public class Force_field implements Rope_Constants {
     } 
   }
 
-  public void set_spot_pos(Vec2 pos) {
+  public void set_spot_pos(Vec pos) {
     for(int i = 0 ; i < spot_list.size() ; i++) {
-      set_spot_pos(pos.x,pos.y, i);  
+      set_spot_pos(pos, i);  
     }
   }
 
   public void set_spot_pos(float x, float y, int which_one) {
-    set_spot_pos(Vec2(x,y),which_one);  
+    set_spot_pos(Vec3(x,y,0),which_one);  
   }
 
   // main method set pos
-  public void set_spot_pos(Vec2 pos, int which_one) {
+  public void set_spot_pos(Vec pos, int which_one) {
     /**
     emergency fix, not enought but stop the bleeding
 
@@ -915,14 +915,16 @@ public class Force_field implements Rope_Constants {
       }
     }
 
-    Vec2 spot_pos = pos.copy();
-    Vec2 spot_raw_pos = pos.copy();
+    // Vec2 spot_pos = pos.copy();
+    Vec2 temp_pos = Vec2(pos.x,pos.y);
+    // Vec2 spot_raw_pos = pos.copy();
 
-    spot_pos.sub(Vec2(canvas_pos));
+    temp_pos.sub(Vec2(canvas_pos));
     if(which_one < spot_list.size()) {
       Spot spot = spot_list.get(which_one);
    //   spot.set_raw_pos(spot_raw_pos);
-      spot.set_pos(spot_pos);
+      Vec3 final_spot = Vec3(temp_pos.x,temp_pos.y,pos.z);
+      spot.set_pos(final_spot);
     } else {
       System.err.println("void set_spot_pos(): No Spot match with your target, you must add new spot in the list before set it");
     }
@@ -1018,20 +1020,21 @@ public class Force_field implements Rope_Constants {
     else return -1;
   }
 
-  public Vec2 [] get_spot_pos() {
-    Vec2 [] pos = new Vec2[spot_list.size()] ;
+  public Vec3 [] get_spot_pos() {
+    Vec3 [] pos = new Vec3[spot_list.size()] ;
     for(int i = 0 ; i < spot_list.size() ; i++) {
-      Spot s = spot_list.get(i) ;
-      pos[i] = Vec2(s.get_pos()).copy();
-      pos[i].add(Vec2(canvas_pos));
+      Spot s = spot_list.get(i);
+
+      pos[i] = Vec3(s.get_pos()).copy();
+      pos[i].add(canvas_pos.x,canvas_pos.y,0);
     }
     return pos;  
   }
 
-  public Vec2 get_spot_pos(int which_one) {
+  public Vec3 get_spot_pos(int which_one) {
     if(spot_list != null && spot_list.size() > which_one) {
       Spot spot = spot_list.get(which_one);
-      return Vec2(spot.get_pos()).add(Vec2(canvas_pos));
+      return Vec3(spot.get_pos()).add(canvas_pos.x,canvas_pos.y,0);
     } else return null ;
   }
 

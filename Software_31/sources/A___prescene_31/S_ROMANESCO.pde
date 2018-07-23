@@ -2,7 +2,7 @@
 Romanesco Manager
 Prescene and Scene
 2013-2018
-v 1.2.1
+v 1.2.2
 */
 Romanesco_manager rpe_manager;
 String ROM_HUE_FILL, ROM_SAT_FILL,ROM_BRIGHT_FILL, ROM_ALPHA_FILL = "";
@@ -19,7 +19,7 @@ String ROM_DIR_X,ROM_DIR_Y,ROM_DIR_Z = "";
 String ROM_JIT_X,ROM_JIT_Y,ROM_JIT_Z = "j";
 String ROM_SWIWG_X,ROM_SWIWG_Y,ROM_SWIWG_Z = "";
 
-String ROM_NUM = "";
+String ROM_QUANTITY = "";
 String ROM_VARIETY = "";
 String ROM_LIFE = "";
 String ROM_FLOW = "";
@@ -106,7 +106,7 @@ void set_slider_item_name() {
   ROM_SWIWG_Y = slider_name[1][14];
   ROM_SWIWG_Z = slider_name[1][15];
 
-  ROM_NUM = slider_name[2][0];
+  ROM_QUANTITY = slider_name[2][0];
   ROM_VARIETY = slider_name[2][1];
   ROM_LIFE = slider_name[2][2];
   ROM_FLOW = slider_name[2][3];
@@ -634,7 +634,7 @@ class Romanesco_manager {
 
 /**
 Abstract CLASS ROMANESCO
-v 0.0.3
+v 0.0.4
 2013-2018
 */
 abstract class Romanesco implements Rope_Constants {
@@ -678,7 +678,7 @@ abstract class Romanesco implements Rope_Constants {
   protected boolean swing_y_is;
   protected boolean swing_z_is;
 
-  protected boolean num_is;
+  protected boolean quantity_is;
   protected boolean variety_is;
   protected boolean life_is;
   protected boolean flow_is;
@@ -724,7 +724,7 @@ abstract class Romanesco implements Rope_Constants {
     if(!alpha_stroke_is) item_slider +="," ;else item_slider +=(ROM_ALPHA_STROKE+",");
     if(!thickness_is) item_slider +="," ; else item_slider += (ROM_THICKNESS+",");
     if(!size_x_is) item_slider +="," ; else item_slider += (ROM_SIZE_X+",");
-    if(!size_x_is) item_slider +="," ; else item_slider += (ROM_SIZE_Y+",");
+    if(!size_y_is) item_slider +="," ; else item_slider += (ROM_SIZE_Y+",");
     if(!size_z_is) item_slider +="," ; else item_slider += (ROM_SIZE_Z+",");
     if(!font_size_is) item_slider +="," ; else item_slider += (ROM_FONT_SIZE+",");
     if(!canvas_x_is) item_slider +="," ; else item_slider += (ROM_CANVAS_X+",");
@@ -748,7 +748,7 @@ abstract class Romanesco implements Rope_Constants {
     if(!swing_y_is) item_slider +="," ; else item_slider += (ROM_SWIWG_Y+",");
     if(!swing_z_is) item_slider +="," ; else item_slider += (ROM_SWIWG_Z+",");
 
-    if(!num_is) item_slider +="," ; else item_slider += (ROM_NUM+",");
+    if(!quantity_is) item_slider +="," ; else item_slider += (ROM_QUANTITY+",");
     if(!variety_is) item_slider +="," ; else item_slider += (ROM_VARIETY+",");
     if(!life_is) item_slider +="," ; else item_slider += (ROM_LIFE+",");
     if(!flow_is) item_slider +="," ; else item_slider += (ROM_FLOW+",");
@@ -882,11 +882,14 @@ abstract class Romanesco implements Rope_Constants {
         costume[get_id()] = TEXT_ROPE ;
       }
     } else {
+      costume[get_id()] = NO_COSTUME; 
+      /*
       if(!dimension[get_id()]) {
         costume[get_id()] = POINT_ROPE ; 
       } else {
         costume[get_id()] = SPHERE_LOW_ROPE ;
       }
+      */
     }
 
     return costume[get_id()];

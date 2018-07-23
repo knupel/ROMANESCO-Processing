@@ -50,7 +50,7 @@ class Karaoke extends Romanesco {
     swing_y_is = false;
     swing_z_is = false;
 
-    num_is = false;
+    quantity_is = false;
     variety_is = false;
     life_is = false;
     flow_is = false;
