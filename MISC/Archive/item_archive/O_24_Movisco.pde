@@ -3,7 +3,6 @@ Movisco
 2016-2018
 v 0.0.7
 */
-
 class Movisco extends Romanesco {
 	public Movisco() {
 		item_name = "Movisco" ;

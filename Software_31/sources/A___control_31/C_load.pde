@@ -224,6 +224,11 @@ void load_saved_file_controller(String path) {
 
   for (TableRow row : settingTable.rows()) {
     String s = row.getString("Type");
+    // media
+    if(s.equals("Media")){
+      String media_path = row.getString("Path");
+      add_media(media_path);
+    }
     // button general
     if(s.equals("Button background")){ 
       int IDbutton = row.getInt("ID button") ;
@@ -445,6 +450,7 @@ void set_data() {
     INIT_INTERFACE = false ;
   }
 }
+
 
 
 // Setting SLIDER from save

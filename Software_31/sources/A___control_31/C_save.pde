@@ -22,6 +22,7 @@ void save_controller_setting(String path) {
   println("Save controller in progress:",path);
   save_info_slider();
   save_info_item();
+  save_info_media();
   // for the fake item 0 with all the buttom console
   for(int i = 0 ; i < BUTTON_ITEM_CONSOLE ;i++) {
     set_data_button(i, 0,false,"Button item");
@@ -29,6 +30,16 @@ void save_controller_setting(String path) {
   midi_manager(true);
   saveTable(saveSetting, path);
   saveSetting.clearRows() ;
+}
+
+
+
+// SAVE MEDIA PATH
+void save_info_media() {
+  for(File file : media_files) {
+    String path = file.getAbsolutePath();
+    set_data_media("Media",path);
+  }
 }
 
 
@@ -129,6 +140,7 @@ void set_data_save_setting() {
   saveSetting.addColumn("Item On Off");
   saveSetting.addColumn("Item Name");
   saveSetting.addColumn("Item Class Name");
+  saveSetting.addColumn("Path");
 }
 
 //write the value in the table
@@ -170,3 +182,13 @@ void set_data_item(int ID_item) {
   item_setting.setString("Item Name", item_name[ID_item]) ;
   item_setting.setString("Item Class Name", item_load_name[ID_item]);
 }
+
+
+void set_data_media(String type, String path) {
+  TableRow media = saveSetting.addRow() ;
+  media.setString("Type",type);
+  media.setString("Path",path);
+}
+
+
+

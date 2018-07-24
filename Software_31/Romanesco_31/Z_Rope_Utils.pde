@@ -1,6 +1,6 @@
 /**
 Rope UTILS 
-v 1.45.1
+v 1.46.0
 * Copyleft (c) 2014-2018 
 * Stan le Punk > http://stanlepunk.xyz/
 Rope – Romanesco Processing Environment – 
@@ -115,7 +115,7 @@ class Constant_list {
 
 /**
 FOLDER & FILE MANAGER
-v 0.2.1
+v 0.3.0
 */
 /*
 INOUT PART
@@ -150,7 +150,7 @@ void reset_input_selection() {
   input_selected_is = false;
 }
 
-String selected_path_input() {
+String input() {
   return selected_path_input;
 }
 
@@ -192,7 +192,7 @@ void reset_folder_selection() {
   folder_selected_is = false;
 }
 
-String selected_path_folder() {
+String folder() {
   return selected_path_folder;
 }
 

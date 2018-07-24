@@ -8,7 +8,7 @@ SHORTCUTS
 */
 void shortcuts_controller() {
   keyboard[keyCode] = true;
-  if(checkKeyboard(KEY_CTRL_OS) && checkKeyboard(KeyEvent.VK_X) ) {
+  if(key_pressed(KEY_CTRL_OS) && key_pressed(KeyEvent.VK_X) ) {
     if(system().equals("Mac OS X")) {
       println("CMD + x: change slider display mode", frameCount);
     } else {
@@ -19,16 +19,19 @@ void shortcuts_controller() {
   }
 
   // save Scene
-  check_Keyboard_save_scene_CURRENT_path();
-  check_Keyboard_save_scene_NEW_path();
+  key_pressed_save_scene_CURRENT_path();
+  key_pressed_save_scene_NEW_path();
   // save controller
-  check_Keyboard_save_controller_CURRENT_path();
-  check_Keyboard_save_controller_NEW_path();
+  key_pressed_save_controller_CURRENT_path();
+  key_pressed_save_controller_NEW_path();
   // load
-  check_Keyboard_load_scene();
-  check_Keyboard_load_controller();
+  key_pressed_load_scene();
+  key_pressed_load_controller();
+  // media
+  key_pressed_media_input();
+  key_pressed_media_folder();
 
-  check_keyboard_shift();
+  key_pressed_shift();
 }
 
 
@@ -42,7 +45,7 @@ void shortcuts_controller() {
 /**
 KEYBOARD CONTROLLER 1.0.1
 */
-boolean checkKeyboard(int c) {
+boolean key_pressed(int c) {
   if (keyboard.length >= c) {
     return keyboard[c];  
   }
@@ -52,8 +55,8 @@ boolean checkKeyboard(int c) {
 simple touch
 */
 boolean shift_key ;
-void check_keyboard_shift() {
-  if(checkKeyboard(SHIFT)) { 
+void key_pressed_shift() {
+  if(key_pressed(SHIFT)) { 
     shift_key = true;
     keyboard[keyCode] = false; 
   }
@@ -66,25 +69,56 @@ void key_false() {
 /**
 LOAD SAVE
 */
-boolean load_scene_setting, save_current_scene_setting, save_new_scene_setting ;
+boolean load_scene_setting;
+boolean save_current_scene_setting;
+boolean save_new_scene_setting;
+boolean load_media_input, load_media_folder;
 /**
 LOAD
 */
-void check_Keyboard_load_scene() {
-  if(checkKeyboard(KEY_CTRL_OS) && checkKeyboard(KeyEvent.VK_L) ) {
+
+void key_pressed_media_input() {
+  if(key_pressed(KEY_CTRL_OS) && key_pressed(KeyEvent.VK_I) ) {
+    if(system().equals("Mac OS X")) {
+      println("CMD + i: load media input",frameCount);
+    } else {
+      println("CTRL + i: load media input",frameCount);
+    }
+    select_input();
+    load_media_input = true;
+    keyboard[keyCode] = false;
+  }
+}
+
+void key_pressed_media_folder() {
+  if(key_pressed(KEY_CTRL_OS) && key_pressed(KeyEvent.VK_F) ) {
+    if(system().equals("Mac OS X")) {
+      println("CMD + f: load media folder",frameCount);
+    } else {
+      println("CTRL + f: load media folder",frameCount);
+    }
+    select_folder();
+    load_media_folder = true;
+    keyboard[keyCode] = false;
+  }
+}
+
+
+
+void key_pressed_load_scene() {
+  if(key_pressed(KEY_CTRL_OS) && key_pressed(KeyEvent.VK_L) ) {
     if(system().equals("Mac OS X")) {
       println("CMD + l: load scene", frameCount);
     } else {
       println("CTRL + l: load scene", frameCount);
     }
     load_scene_setting = true;
-    keyboard[keyCode] = false;   //
-    
+    keyboard[keyCode] = false;   //  
   }
 }
 
-void check_Keyboard_load_controller() {
-  if(checkKeyboard(KEY_CTRL_OS) && checkKeyboard(KeyEvent.VK_O) ) { 
+void key_pressed_load_controller() {
+  if(key_pressed(KEY_CTRL_OS) && key_pressed(KeyEvent.VK_O) ) { 
     if(system().equals("Mac OS X")) {
       println("CMD + o: load controller", frameCount);
     } else {
@@ -100,8 +134,8 @@ void check_Keyboard_load_controller() {
 /**
 SAVE
 */
-void check_Keyboard_save_scene_CURRENT_path() {
-  if(checkKeyboard(KEY_CTRL_OS) && checkKeyboard(KeyEvent.VK_D) ) {
+void key_pressed_save_scene_CURRENT_path() {
+  if(key_pressed(KEY_CTRL_OS) && key_pressed(KeyEvent.VK_D) ) {
     if(system().equals("Mac OS X")) {
       println("CMD + d: save current scene on the last save", frameCount);
     } else {
@@ -112,8 +146,8 @@ void check_Keyboard_save_scene_CURRENT_path() {
    }
 }
 // Scene new save
-void check_Keyboard_save_scene_NEW_path() {
-  if(checkKeyboard(KEY_CTRL_OS) && checkKeyboard(KeyEvent.VK_S) ) {
+void key_pressed_save_scene_NEW_path() {
+  if(key_pressed(KEY_CTRL_OS) && key_pressed(KeyEvent.VK_S) ) {
     if(system().equals("Mac OS X")) {
       println("CMD + s: save a new save", frameCount);
     } else {
@@ -125,8 +159,8 @@ void check_Keyboard_save_scene_NEW_path() {
 }
 
 
-void check_Keyboard_save_controller_CURRENT_path() {
-  if(checkKeyboard(KEY_CTRL_OS) && checkKeyboard(KeyEvent.VK_R) ) {
+void key_pressed_save_controller_CURRENT_path() {
+  if(key_pressed(KEY_CTRL_OS) && key_pressed(KeyEvent.VK_R) ) {
     if(system().equals("Mac OS X")) {
       println("CMD + r: save controller on the last save controller", frameCount);
     } else {
@@ -142,8 +176,8 @@ void check_Keyboard_save_controller_CURRENT_path() {
 }
 // Controller new save
 // CTRL + SHIFT + E
-void check_Keyboard_save_controller_NEW_path() {
-  if(checkKeyboard(KEY_CTRL_OS) && checkKeyboard(KeyEvent.VK_E) ) {
+void key_pressed_save_controller_NEW_path() {
+  if(key_pressed(KEY_CTRL_OS) && key_pressed(KeyEvent.VK_E) ) {
     if(system().equals("Mac OS X")) {
       println("CMD + e: save new controller save", frameCount);
     } else {

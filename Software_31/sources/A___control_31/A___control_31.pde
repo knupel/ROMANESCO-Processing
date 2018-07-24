@@ -38,7 +38,8 @@ void setup() {
   init_midi();
   create_and_initialize_data(); 
   load_setup();
-  check_media_folder();
+  load_filter();
+  
   set_system_specification();
   set_font();
   set_display_slider();
@@ -58,7 +59,8 @@ void setup() {
 void draw() {
   check_size_window();
   check_slider_item();
-  check_media_folder();
+  
+  add_media();
   check_button();
 
   manage_autosave();

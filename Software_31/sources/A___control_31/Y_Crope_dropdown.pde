@@ -27,7 +27,7 @@ boolean dropdown_is() {
 
 /**
 DROPDOWN class
-v 2.5.8
+v 2.5.9
 2014-2018
 */
 public class Dropdown extends Crope {
@@ -362,7 +362,12 @@ public class Dropdown extends Crope {
       fill(colour_header_text_out);
     }
     textFont(font);
-    text(get_content()[get_selection()], x, y);
+    if(get_content().length > 0) {
+      text(get_content()[get_selection()], x, y);
+    } else {
+      text("empty",x,y);
+    }
+    
   }
   
   public void show_header() {

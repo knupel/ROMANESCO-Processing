@@ -63,7 +63,6 @@ void path_setting() {
   import_path = sketchPath(1)+"/import/";
   items_path = sketchPath(1)+"/items/";
   autosave_path = sketchPath(1)+"/autosave.csv";
-  shader_filter_folder_path(preference_path+"/shader/filter/");
 }
 
 String version = "";

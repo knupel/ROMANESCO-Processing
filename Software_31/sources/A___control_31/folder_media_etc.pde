@@ -1,27 +1,30 @@
 /**
-CHECK FOLDER
+MEDIA
+2014-2018
+v 0.1.0
 */
-ArrayList text_files = new ArrayList();
-ArrayList bitmap_files = new ArrayList();
-ArrayList svg_files = new ArrayList();
-ArrayList movie_files = new ArrayList();
-
+ArrayList<File> text_files = new ArrayList<File>();
+ArrayList<File> bitmap_files = new ArrayList<File>();
+ArrayList<File> svg_files = new ArrayList<File>();
+ArrayList<File> movie_files = new ArrayList<File>();
+ArrayList<File> media_files = new ArrayList<File>();
 
 boolean folder_image_bitmap_selected = true ;
 boolean folder_image_svg_selected = true ;
 boolean folder_movie_selected = true ;
 boolean folder_text_selected = true ;
 
+/*
 void check_media_folder() {
-  check_filter();
-  check_file_text_folder();
-  check_image_bitmap_folder();
-  check_image_svg_folder();
-  check_movie_folder();
+  // check_filter();
+  // check_file_text_folder();
+  // check_image_bitmap_folder();
+  // check_image_svg_folder();
+  // check_movie_folder();
 }
+*/
 
-
-void check_filter() {
+void load_filter() {
   if(filter_dropdown_list == null) {
     String path = preference_path +"shader/filter_name.txt";
     String [] s = loadStrings(path);
@@ -29,8 +32,86 @@ void check_filter() {
   }
 }
 
+void add_media() {
+  if(load_media_input) {
+    add_media(input());  
+  }
+
+  if(load_media_folder) { 
+    boolean explore_sub_folder = false;
+    explore_folder(folder(),explore_sub_folder,
+                            "mov","MOV","AVI","AVI","mkv","MKV",
+                            "jpeg","JPEG","jpg","jpeg","tif","TIF","tiff","TIFF","tga","TGA",
+                            "txt","TXT",
+                            "svg","SVG");
+    if(get_files() != null && get_files().size() > 0) {
+      for(File f : get_files()) {
+        println(f.getAbsolutePath());
+        add_media(f.getAbsolutePath());
+      }
+      get_files().clear();
+    }   
+  }
+}
+
+
+String ref_path;
+void add_media(String path) {
+  if(path != null && !path.equals(ref_path)) {
+    load_media_input = false;
+    load_media_folder = false;
+    ref_path = path;
+    // movie case
+    if(ext(path,"mov") || ext(path,"MOV") || ext(path,"AVI") || ext(path,"AVI") || ext(path,"mkv") || ext(path,"MKV")) {
+      add_input(movie_files,path);
+    } else if(ext(path,"jpeg") || ext(path,"JPEG") || ext(path,"jpg") || ext(path,"jpeg") || ext(path,"tif") || ext(path,"TIF") || ext(path,"tiff") || ext(path,"TIFF") || ext(path,"tga") || ext(path,"TGA")) {
+      add_input(bitmap_files,path);
+    } else if(ext(path,"txt") || ext(path,"TXT")) {
+      add_input(text_files,path);
+    } else if(ext(path,"svg") || ext(path,"SVG")) {
+      add_input(svg_files,path);
+    }
+  }
+}
+
+
+boolean ext(String path, String extension) {
+  return extension(path).equals(extension);
+}
+
+
+/**
+add movie path
+*/
+void add_input(ArrayList<File> media_file_by_type, String path) {
+  File file = new File(path);
+  if(!check_existing_path(path)) {
+    media_file_by_type.add(file);
+    media_files.add(file);
+  }
+}
+
+
+boolean check_existing_path(String path) {
+  boolean existing = false;
+  for(File f : media_files) {
+    String existing_path = f.getAbsolutePath();
+    if(existing_path.equals(path)) {
+      existing = true;
+      break;
+    }
+  }
+  return existing;
+}
+
+
+
+
+
+
 // main void
 // check what's happen in the selected folder
+/*
 void check_image_bitmap_folder() {
   if(frameCount%180 == 0) {
     bitmap_files.clear() ;
@@ -87,6 +168,7 @@ void check_image_svg_folder() {
   }
 }
 
+
 void check_movie_folder() {
   if(frameCount%180 == 0) {
     movie_files.clear() ;
@@ -114,6 +196,8 @@ void check_movie_folder() {
     folder_movie_selected = false ;
   }
 }
+
+
 
 void check_file_text_folder() {
   if(frameCount%180 == 0) {
@@ -144,6 +228,7 @@ void check_file_text_folder() {
     folder_text_selected = false ;
   }
 }
+*/
 
 
 
@@ -184,6 +269,7 @@ void update_media() {
 
 
 // This function returns all the files in a directory as an array of Strings  
+/*
 String[] listFileNames(String dir) {
   File file = new File(dir);
   if (file.isDirectory()) {
@@ -232,3 +318,4 @@ void recurseDir(ArrayList a, String dir) {
     a.add(file);
   }
 }
+*/
