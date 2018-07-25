@@ -1,7 +1,7 @@
 /**
 ESCARGOT 
 2011-2018
-V 1.4.6
+V 1.4.7
 */
 class Escargot extends Romanesco {
   public Escargot() {
@@ -10,7 +10,7 @@ class Escargot extends Romanesco {
     ID_item = 22 ;
     ID_group = 1 ;
     item_author  = "Stan le Punk";
-    item_version = "version 1.4.6";
+    item_version = "version 1.4.7";
     item_pack = "Base 2011" ;
     item_costume = "";
     item_mode = "Original/Raw/Point/Ellipse/Rectangle/Box/Cross/SVG/Vitraux" ;
@@ -27,43 +27,43 @@ class Escargot extends Romanesco {
     size_x_is = true;
     size_y_is = true;
     size_z_is = true;
-    font_size_is = false;
+    // font_size_is = true;
     canvas_x_is = true;
-    canvas_y_is = false;
-    canvas_z_is = false;
+    // canvas_y_is = true;
+    // canvas_z_is = true;
 
-    reactivity_is = false;
+    // reactivity_is = true;
     speed_x_is = true;
-    speed_y_is = false;
-    speed_z_is = false;
-    spurt_x_is = false;
-    spurt_y_is = false;
-    spurt_z_is = false;
+    // speed_y_is = true;
+    // speed_z_is = true;
+    // spurt_x_is = true;
+    // spurt_y_is = true;
+    // spurt_z_is = true;
     dir_x_is = true;
-    dir_y_is = false;
-    dir_z_is = false;
-    jit_x_is = false;
-    jit_y_is = false;
-    jit_z_is  = false;
-    swing_x_is = false;
-    swing_y_is = false;
-    swing_z_is = false;
+    // dir_y_is = true;
+    // dir_z_is = true;
+    // jit_x_is = true;
+    // jit_y_is = true;
+    // jit_z_is = true;
+    // swing_x_is = true;
+    // swing_y_is = true;
+    // swing_z_is = true;
 
     quantity_is = true;
-    variety_is = false;
-    life_is = false;
-    flow_is = false;
+    // variety_is = true;
+    // life_is = true;
+    // flow_is = true;
     quality_is = true;
-    area_is = false;
-    angle_is = false;
-    scope_is = false;
-    scan_is = false;
-    align_is = false;
-    repulsion_is = false;
-    attraction_is = false;
-    density_is = false;
-    influence_is = false;
-    calm_is = true;
+    // area_is = true;
+    // angle_is = true;
+    // scope_is = true;
+    // scan_is = true;
+    // align_is = true;
+    // repulsion_is = true;
+    // attraction_is = true;
+    // density_is = true;
+    // influence_is = true;
+    // calm_is = true;
     spectrum_is = false;
   }
   //GLOBAL
@@ -187,7 +187,7 @@ class Escargot extends Romanesco {
     
     if(parameter[ID_item]) load_bitmap(ID_item) ;
 
-    if(bitmap_import[ID_item] != null) {  
+    if(bitmap[ID_item] != null) {  
       //MOTION
       windForce = (int)map(speed_x_item[ID_item],0,1,0,13) ;
       windDirection = (int)dir_x_item[ID_item] ;
@@ -209,7 +209,7 @@ class Escargot extends Romanesco {
        // if( pen[ID_item].x == 0 && pen[ID_item].y == 0 ) newDirection = normalDir(int(map(valueObj[ID_item][18],0,100,0,360))) ; else newDirection = new PVector (-pen[ID_item].x  , -pen[ID_item].y ) ;
        
        if (!motion[ID_item]) for(Old_Pixel p : listEscargot) {
-         p.updatePosPixel(motionInfo, bitmap_import[ID_item]) ;
+         p.updatePosPixel(motionInfo, bitmap[ID_item]) ;
        }
       ////////////////
       
@@ -236,11 +236,11 @@ class Escargot extends Romanesco {
       
        //security for the droping img from external folder
        if(parameter[ID_item] && key_a ) ratioImg = !ratioImg ;
-       if(bitmap_import[ID_item] != null && bitmap_import[ID_item].width > 3 && ratioImg ) {
+       if(bitmap[ID_item] != null && bitmap[ID_item].width > 3 && ratioImg ) {
          analyzeImg(pixelAnalyzeSize) ;
          // ratioImgWindow = new PVector ((float)width / (float)img.width , (float)height / (float)img.height ) ;
-         ratioImgWindow = new PVector ((float)width / (float)bitmap_import[ID_item].width , (float)width / (float)bitmap_import[ID_item].width ) ;
-       } else if (bitmap_import[ID_item] != null && bitmap_import[ID_item].width > 3 && !ratioImg) {
+         ratioImgWindow = new PVector ((float)width / (float)bitmap[ID_item].width , (float)width / (float)bitmap[ID_item].width ) ;
+       } else if (bitmap[ID_item] != null && bitmap[ID_item].width > 3 && !ratioImg) {
          analyzeImg(pixelAnalyzeSize) ;
          ratioImgWindow.set(1,1) ;
        } else {
@@ -301,7 +301,7 @@ class Escargot extends Romanesco {
       
       // correction position to rotate the picture by the center
       pushMatrix() ;
-      translate(-bitmap_import[ID_item].width /4, -bitmap_import[ID_item].height /4) ;
+      translate(-bitmap[ID_item].width /4, -bitmap[ID_item].height /4) ;
       
       if (mode[ID_item] == 0 || mode[ID_item] == 255 ) {
         displayRawPixel(sizePoint, fill_item[ID_item], rangeReactivitySoundHundred, rangeReactivitySoundThreeHundredSixty, musicFactor, ratioImgWindow) ;
@@ -332,7 +332,7 @@ class Escargot extends Romanesco {
       popMatrix() ;
       
       // info display
-      item_info[ID_item] = ("Image " +bitmap_import[ID_item].width + "x"+bitmap_import[ID_item].height + " Analyze "+listEscargot.size()+ " of " + maxEntryPoints+ " / Cell " + pixelAnalyzeSize+ "px / Radius analyze " + radiusAnalyze + " Scale " + ratioImgWindow.x + " / " +ratioImgWindow.y) ;
+      item_info[ID_item] = ("Image " +bitmap[ID_item].width + "x"+bitmap[ID_item].height + " Analyze "+listEscargot.size()+ " of " + maxEntryPoints+ " / Cell " + pixelAnalyzeSize+ "px / Radius analyze " + radiusAnalyze + " Scale " + ratioImgWindow.x + " / " +ratioImgWindow.y) ;
     } 
   }
   
@@ -787,11 +787,11 @@ class Escargot extends Romanesco {
   void analyzeImg(int sizePixForAnalyze) {
     //Analyze image
     // put in this void the size of pixel you want, to create grid analyzing and image than you want analyze
-    colorAnalyzeSetting(sizePixForAnalyze, bitmap_import[ID_item]) ;
+    colorAnalyzeSetting(sizePixForAnalyze, bitmap[ID_item]) ;
     
     //step 2
     //three componants : FIRST : size of the pixel grid // SECOND which PImage // THIRD mirror "FALSE" or "TRUE"
-    recordPixelRaw(sizePixForAnalyze, bitmap_import[ID_item], false) ; 
+    recordPixelRaw(sizePixForAnalyze, bitmap[ID_item], false) ; 
     
     //step 3
     // give the list point of Pixel must be change with the new palette

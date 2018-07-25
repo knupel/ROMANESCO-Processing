@@ -17,6 +17,8 @@ MAJOR
 >add slider background shader
 >add new dropdown item menu to select costume
 >add multi slider to set the transient detection
+>Add method do select folder and input media from the controller
+>remove method by dropping media in external folder
 
 
 MINOR
@@ -45,6 +47,8 @@ ITEM
 >add item Spot
 >improve spirale
 >improve arbre
+>remove item movie
+>add item kino
 
 
 BUG FIX

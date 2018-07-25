@@ -288,7 +288,8 @@ String influence_name = "influence" ;
 String calm_name = "calm" ; 
 String spectrum_name = "spectrum" ;
 
-String [] bitmap_path_ref, svg_path_ref, movie_path_ref;
+String [] bitmap_path_ref, svg_path_ref;
+// movie_path_ref;
 
 int [] soundButton, actionButton, parameterButton;
 boolean [] show_item, sound, action, parameter;
@@ -440,7 +441,7 @@ void create_var_misc() {
   costume = new int[NUM_ITEM_PLUS_MASTER];
 
   // IMAGE
-  bitmap_import = new PImage[NUM_ITEM_PLUS_MASTER];
+  bitmap = new PImage[NUM_ITEM_PLUS_MASTER];
   which_bitmap = new int[NUM_ITEM_PLUS_MASTER];
   bitmap_path_ref = new String[NUM_ITEM_PLUS_MASTER];
   // SVG
@@ -449,10 +450,10 @@ void create_var_misc() {
   svg_path_ref = new String[NUM_ITEM_PLUS_MASTER];
 
   // Movie
-  movieImport = new Movie[NUM_ITEM_PLUS_MASTER];
-  movieImportPath = new String[NUM_ITEM_PLUS_MASTER];
+  movie = new Movie[NUM_ITEM_PLUS_MASTER];
+  // moviePath = new String[NUM_ITEM_PLUS_MASTER];
   which_movie = new int[NUM_ITEM_PLUS_MASTER];
-  movie_path_ref = new String[NUM_ITEM_PLUS_MASTER];
+  //movie_path_ref = new String[NUM_ITEM_PLUS_MASTER];
   // TEXT
   text_import = new String [NUM_ITEM_PLUS_MASTER];
   which_text = new int[NUM_ITEM_PLUS_MASTER];

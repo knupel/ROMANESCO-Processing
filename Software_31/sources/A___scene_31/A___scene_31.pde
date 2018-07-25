@@ -37,6 +37,8 @@ void setup() {
   OSC_receive_controller_setup();
   
   path_setting();
+  shader_folder_filter(preference_path+"shader/filter/");
+  load_save(preference_path+"setting/defaultSetting.csv");
   version();
   set_system_specification();
 
@@ -131,17 +133,18 @@ void romanesco() {
     save_PNG() ;
   }
   // this method is outside de bracket (FULL_RENDERING) to give the possibility to send the order to Scene
-  if(key_p) event_PNG() ;
+  if(key_p) event_PNG();
 
-  update_temp_value() ;
+  update_temp_value();
+  media_update();
 
-  nextPreviousKeypressed() ;
-  init_value_temp_prescene() ;
+  nextPreviousKeypressed();
+  init_value_temp_prescene();
   
 
-  if(!controller_osc_is) message_opening() ;
+  if(!controller_osc_is) message_opening();
   if (!miroir_on_off && OPEN_APP) {
-    opening() ;
+    opening();
   }
 
 

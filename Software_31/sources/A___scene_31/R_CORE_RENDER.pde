@@ -144,88 +144,46 @@ void set_screen() {
 
 
 
+/**
+MANAGE SAVE
+v 0.0.1
+*/
+void media_update() {
+  if(frameCount%120 == 0) thread("load_autosave");
+}
+
+void load_autosave() {
+  load_save(autosave_path);
+}
+
+void load_save(String path) {
+  Table save = loadTable(path, "header");
+  for (TableRow row : save.rows()) {
+    String s = row.getString("Type");
+    if(s.equals("Media")){
+      String media_path = row.getString("Path");
+      add_media(media_path);
+    }
+  }
+}
 
 
 
 /**
-CHECK FOLDER
-v 0.1.0
+CHECK PATH
+v 0.2.0
 */
-/**
-bitmap
-*/
-PImage[] bitmap_import ;
-ArrayList bitmap_files = new ArrayList();
-boolean folder_bitmap_is_selected = true ;
-String [] bitmap_path ;
-int count_bitmap_selection ;
-int ref_bitmap_num_files ;
-void load_bitmap(int ID) {
-  check_bitmap_folder_scene() ;
-  // which_bitmap is the int return from the dropdown menu
-  if(which_bitmap[ID] > bitmap_path.length ) which_bitmap[ID] = 0 ;
 
-  if(bitmap_path != null && bitmap_path.length > 0) {
-    String bitmap_current_path = bitmap_path[which_bitmap[ID]] ;
-    if(!bitmap_current_path.equals(bitmap_path_ref[ID])) {
-      bitmap_import[ID] = loadImage(bitmap_current_path) ;
-    }
-    bitmap_path_ref[ID] = bitmap_current_path ;
-  }
-}
-
-void check_bitmap_folder_scene() {
-  String path = import_path +"bitmap" ;
-
-  // String path = preference_path +"Images" ;
-  ArrayList allFiles = listFilesRecursive(path);
-  //check if something happen in the folder
-  if(ref_bitmap_num_files != allFiles.size() ) {
-    folder_bitmap_is_selected = true ;
-    ref_bitmap_num_files = allFiles.size() ;
-  }
-  // If something happen, algorithm work 
-  if(folder_bitmap_is_selected) {
-    count_bitmap_selection++ ;
-    bitmap_files.clear() ;
-    String fileName = "";
-    for (int i = 0; i < allFiles.size(); i++) {
-      File f = (File) allFiles.get(i);   
-      fileName = f.getName(); 
-  
-      // Add it to the list if it's not a directory
-      if (f.isDirectory() == false) {
-        String lastThree = fileName.substring(fileName.length()-3, fileName.length());
-        if (lastThree.equals("PNG") || lastThree.equals("png") || lastThree.equals("JPG") || lastThree.equals("jpg") || lastThree.equals("GIF") || lastThree.equals("gif")) {
-          bitmap_files.add(f);
-        }
-      }
-    }
-    // edit the image path
-    bitmap_path = new String[bitmap_files.size()] ;
-    for (int i = 0; i < bitmap_files.size(); i++) {
-      File f = (File) bitmap_files.get(i);
-      bitmap_path[i] = f.getAbsolutePath() ;
-    }
-    
-    // to don't loop with this void
-    folder_bitmap_is_selected = false ;
-  }
-}
 
 
 /**
 svg
 */
 ROPE_svg[] svg_import ;
-ArrayList svg_files = new ArrayList();
-boolean folder_svg_is_selected = true ;
 String svg_current_path ;
 String [] svg_path ;
-int count_svg_selection ;
-int ref_svg_num_files ;
 void load_svg(int ID) {
-  check_svg_folder_scene() ;
+  update_svg_path();
   // which_bitmap is the int return from the dropdown menu
   if(which_shape[ID] > svg_path.length ) which_shape[ID] = 0 ;
 
@@ -238,42 +196,16 @@ void load_svg(int ID) {
   }
 }
 
-void check_svg_folder_scene() {
-  String path = import_path +"svg" ;
-  ArrayList allFiles = listFilesRecursive(path);
-  //check if something happen in the folder
-  if(ref_bitmap_num_files != allFiles.size() ) {
-    folder_svg_is_selected = true ;
-    ref_svg_num_files = allFiles.size() ;
-  }
-  // If something happen, algorithm work 
-  if(folder_svg_is_selected) {
-    count_svg_selection++ ;
-    svg_files.clear() ;
-    String fileName = "";
-    for (int i = 0; i < allFiles.size(); i++) {
-      File f = (File) allFiles.get(i);   
-      fileName = f.getName(); 
-  
-      // Add it to the list if it's not a directory
-      if (f.isDirectory() == false) {
-        String lastThree = fileName.substring(fileName.length()-3, fileName.length());
-        if (lastThree.equals("SVG") || lastThree.equals("svg")) {
-          svg_files.add(f);
-        }
-      }
-    }
-    // edit the image path
-    svg_path = new String[svg_files.size()] ;
-    for (int i = 0; i < svg_files.size(); i++) {
-      File f = (File) svg_files.get(i);
-      svg_path[i] = f.getAbsolutePath() ;
-    }
-    
-    // to don't loop with this void
-    folder_svg_is_selected = false ;
+void update_svg_path() {
+  svg_path = new String[svg_files.size()] ;
+  for (int i = 0; i < svg_files.size(); i++) {
+    File f = (File) svg_files.get(i);
+    if(f.exists()) {
+      svg_path[i] = f.getAbsolutePath();
+    }   
   }
 }
+
 
 
 
@@ -282,13 +214,9 @@ void check_svg_folder_scene() {
 text
 */
 String[] text_import ;
-ArrayList text_files = new ArrayList();
-boolean folder_text_is_selected = true;
 String [] text_path;
-int count_text_selection;
-int ref_text_num_files;
 void load_txt(int ID) {
-  check_text_folder_scene() ;
+  update_text_path();
   // which_text is the int return from the dropdown menu
   if(text_path != null && text_path.length > 0) {
     if(which_text[ID] > text_path.length ) which_text[ID] = 0;
@@ -299,133 +227,151 @@ void load_txt(int ID) {
 }
 
 
-
-
-void check_text_folder_scene() {
-  String path = import_path +"karaoke" ;
-  ArrayList allFiles = listFilesRecursive(path);
-  
-  //check if something happen in the folder
-  if(ref_text_num_files != allFiles.size() ) {
-    folder_text_is_selected = true ;
-    ref_text_num_files = allFiles.size() ; 
-  }
-  // If something happen, algorithm work 
-  if(folder_text_is_selected) {
-    count_text_selection++ ;
-    text_files.clear() ;
-    String fileName = "";
-    for (int i = 0; i < allFiles.size(); i++) {
-      File f = (File) allFiles.get(i);   
-      fileName = f.getName(); 
-  
-      // Add it to the list if it's not a directory
-      if (f.isDirectory() == false) {
-        String lastThree = fileName.substring(fileName.length()-3, fileName.length());
-        if (lastThree.equals("TXT") || lastThree.equals("txt")) {
-          text_files.add(f);
-        }
-      }
-    }
-    // edit the path file
-    text_path = new String[text_files.size()] ;
-    for (int i = 0; i < text_files.size(); i++) {
-      File f = (File) text_files.get(i); 
-      text_path[i] = f.getAbsolutePath() ;
-    }
-    
-    // to don't loop with this void
-    folder_text_is_selected = false ;
+void update_text_path() {
+  text_path = new String[text_files.size()] ;
+  for (int i = 0; i < text_files.size(); i++) {
+    File f = (File) text_files.get(i);
+    if(f.exists()) {
+      text_path[i] = f.getAbsolutePath();
+    }   
   }
 }
+
+
+
+
+
+/**
+bitmap
+*/
+PImage[] bitmap ;
+String [] bitmap_path ;
+void load_bitmap(int ID) {
+  update_bitmap_path();
+  if(which_bitmap[ID] > bitmap_path.length) which_bitmap[ID] = 0 ;
+
+  if(bitmap_path != null && bitmap_path.length > 0) {
+    String bitmap_current_path = bitmap_path[which_bitmap[ID]] ;
+    if(!bitmap_current_path.equals(bitmap_path_ref[ID])) {
+      bitmap[ID] = loadImage(bitmap_current_path) ;
+    }
+    bitmap_path_ref[ID] = bitmap_current_path ;
+  }
+}
+
+void update_bitmap_path() {
+  bitmap_path = new String[bitmap_files.size()] ;
+  for (int i = 0; i < bitmap_files.size(); i++) {
+    File f = (File) bitmap_files.get(i);
+    if(f.exists()) {
+      bitmap_path[i] = f.getAbsolutePath();
+    }   
+  }
+}
+
+
 
 
 
 
 /**
 movie 
-v 0.0.4
 */
-Movie[] movieImport ;
-ArrayList movie_files = new ArrayList();
-boolean folder_movie_is_selected = true ;
-String [] movie_path, movieImportPath ;
-int count_movie_selection ;
-int ref_movie_num_files ;
-void load_movie(int id) {
-  check_movie_folder_scene() ;
-  if(movie_path != null && movie_path.length > 0) {
-    if(which_movie[id] > movie_path.length ) {
-      which_movie[id] = 0 ;
-    }
-    movieImportPath[id] = movie_path[which_movie[id]] ;
-  } else {
-    movieImportPath[id] = "no movie" ;
-  }
-  setting_movie(id) ;
+Movie[] movie ;
+String [] movie_path;
+String [] movie_path_ref;
+void load_movie(boolean change_movie_is, int id) {
+  update_movie_path();
+  boolean new_movie_is = check_for_new_movie();  
+  if(new_movie_is || change_movie_is) {
+    setting_movie(id,movie_path[which_movie[id]]);
+  }  
 }
 
 
 
+
+
+
+boolean check_for_new_movie() {
+  boolean new_movie_is = false;
+  if(movie_path_ref == null || movie_path_ref.length != movie_path.length) {
+    new_movie_is = true;
+    movie_path_ref = new String[movie_path.length];
+  }
+  
+  // in case there a same quantity of ref we must check if the path ref is the same
+  if(!new_movie_is)
+  for(int i = 0 ; i < movie_files.size() ; i++) {
+    new_movie_is = !movie_path_ref[i].equals(movie_path[i]);
+    if(new_movie_is) {
+      break;
+    }
+  }
+
+  // in case there is a new movie make a new ref path
+  if(new_movie_is) {
+    for(int i = 0 ; i < movie_files.size() ; i++) {
+      movie_path_ref[i] = movie_path[i];
+    }
+  }
+  return new_movie_is;
+}
+
+
+void update_movie_path() {
+  if(movie_path == null || movie_path.length != movie_files.size()) {
+    movie_path = new String[movie_files.size()] ;
+  }
+  for (int i = 0; i < movie_files.size(); i++) {
+    File f = (File) movie_files.get(i);
+    if(f.exists()) {
+      movie_path[i] = f.getAbsolutePath();
+    }   
+  }
+}
+
+
 // Movie Manager
-void setting_movie(int ID_item) {
-  String lastThree = movieImportPath[ID_item].substring(movieImportPath[ID_item].length()-3, movieImportPath[ID_item].length());
-  if (lastThree.equals("MOV") || lastThree.equals("mov")) {
-    movieImport[ID_item] = new Movie(this, movieImportPath[ID_item]);
-    movieImport[ID_item].loop();
-    movieImport[ID_item].pause();
+void setting_movie(int id, String path) {
+  if(movie[id] != null) {
+    movie[id].stop();
+  }
+  if(ext(path,"mov") || ext(path,"MOV") || ext(path,"avi") || ext(path,"AVI") || ext(path,"mkv") || ext(path,"MKV")) {
+    movie[id] = new Movie(this,path);
+    movie[id].loop();
+    movie[id].pause();
   } else {
-    println("BIG BROTHER don't find any movie, that's can became a problem, a real problem for you !") ;
-    /**
-    bug between OSC and the text, but only in Romanesco, not in isolated sketch see folder Processing 3.0.2 bug
-    */
-    // text("BIG BROTHER disagree your movie and burn it !", width/2, height/2) ;
+    printErrTempo(120,"ROMANESCO don't find the movie:",id,path);
   }
 }
 
 void movieEvent(Movie m) {
-   m.read(); 
+  m.read(); 
 }
 
-void read_movie(boolean motion, int id_item) {
-  if(motion) {
-    if(movieImport[id_item] != null) movieImport[id_item].loop();
-  } else {
-    if(movieImport[id_item] != null) movieImport[id_item].pause();
-  }
-}
-
-boolean check_for_new_movie(int id) {
-  check_movie_folder_scene() ;
-  if(movieImportPath[id].equals(movie_path[which_movie[id]])) {
-    return false ; 
-  } else { 
-    movieImport[id].stop();
-    return true ;
-  }
-}
-
+/*
 void classic_movie(int id, int place, boolean full_width, boolean full_height) {
   int pos_x = 0;
   int pos_y = 0;
-  int size_x = movieImport[id].width;
-  int size_y = movieImport[id].height;
+  int size_x = movie[id].width;
+  int size_y = movie[id].height;
 
   // Size in the Scene
   if(full_width && full_height) {
     size_x = width;
     size_y = height;
   } else if(!full_width && !full_height) {
-    size_x = movieImport[id].width;
-    size_y = movieImport[id].height;
+    size_x = movie[id].width;
+    size_y = movie[id].height;
   } else if(full_width && !full_height) {
     size_x = width;
-    float ratio = (float)width / (float)movieImport[id].width ;
-    size_y = int(movieImport[id].height *ratio);
+    float ratio = (float)width / (float)movie[id].width ;
+    size_y = int(movie[id].height *ratio);
   } else if(!full_width && full_height) {
     size_y = height ;
-    float ratio = (float)height / (float)movieImport[id].height ;
-    size_x = int(movieImport[id].width *ratio) ;
+    float ratio = (float)height / (float)movie[id].height ;
+    size_x = int(movie[id].width *ratio) ;
   }
   
   // position in the Scene
@@ -435,118 +381,17 @@ void classic_movie(int id, int place, boolean full_width, boolean full_height) {
   }
 
   // show movie
-  image(movieImport[id], pos_x, pos_y, size_x, size_y) ;
+  image(movie[id], pos_x, pos_y, size_x, size_y) ;
 }
-
-void check_movie_folder_scene() {
-  String path = import_path +"movie" ;
-  ArrayList allFiles = listFilesRecursive(path);
-  
-  //check if something happen in the folder
-  if(ref_movie_num_files != allFiles.size() ) {
-    folder_movie_is_selected = true ;
-    ref_movie_num_files = allFiles.size() ; 
-  }
-  // If something happen, algorithm work 
-  if(folder_movie_is_selected) {
-    count_movie_selection++ ;
-    movie_files.clear() ;
-    String fileName = "";
-    for (int i = 0; i < allFiles.size(); i++) {
-      File f = (File) allFiles.get(i);   
-      fileName = f.getName(); 
-  
-      // Add it to the list if it's not a directory
-      if (f.isDirectory() == false) {
-        String lastThree = fileName.substring(fileName.length()-3, fileName.length());
-        if (lastThree.equals("MOV") || lastThree.equals("mov")) {
-          movie_files.add(f);
-        }
-      }
-    }
-    // edit the path file
-    movie_path = new String[movie_files.size()] ;
-    for (int i = 0; i < movie_files.size(); i++) {
-      File f = (File) movie_files.get(i); 
-      movie_path[i] = f.getAbsolutePath() ;
-    }
-    
-    // to don't loop with this void
-    folder_movie_is_selected = false ;
-  }
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/**
-method to check folder
 */
-// This function returns all the files in a directory as an array of Strings  
-String[] listFileNames(String dir) {
-  File file = new File(dir);
-  if (file.isDirectory()) {
-    String names[] = file.list();
-    return names;
-  } 
-  else {
-    // If it's not a directory
-    return null;
-  }
-}
 
-// This function returns all the files in a directory as an array of File objects
-// This is useful if you want more info about the file
-File[] listFiles(String dir) {
-  File file = new File(dir);
-  if (file.isDirectory()) {
-    File[] files = file.listFiles();
-    return files;
-  } 
-  else {
-    // If it's not a directory
-    return null;
-  }
-}
 
-// Function to get a list ofall files in a directory and all subdirectories
-ArrayList listFilesRecursive(String dir) {
-  ArrayList fileList = new ArrayList(); 
-  recurseDir(fileList, dir);
-  return fileList;
-}
 
-// Recursive function to traverse subdirectories
-void recurseDir(ArrayList a, String dir) {
-  File file = new File(dir);
-  if (file.isDirectory()) {
-    // If you want to include directories in the list
-    a.add(file);  
-    File[] subfiles = file.listFiles();
-    for (int i = 0; i < subfiles.length; i++) {
-      // Call this function on all files in this directory
-      recurseDir(a, subfiles[i].getAbsolutePath());
-    }
-  } 
-  else {
-    a.add(file);
-  }
-}
+
+
+
+
+
 
 
 

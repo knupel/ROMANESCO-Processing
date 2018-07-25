@@ -68,7 +68,7 @@ void save_data_scene(String path) {
 	// world
 	// background
 	data_world.setInt("which shader",which_shader);
-	data_world.setBoolean("on/off", background_is());
+	data_world.setBoolean("on/off", background_button_is());
 
 
 	data_world.setFloat("hue background", colorBackground.r) ;

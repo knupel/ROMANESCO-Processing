@@ -88,6 +88,10 @@ Finalize save Scene when all slider are done
 
 
 
+*remove
+
+this variable String svg_current_path use instead a method or something like that
+
 
 *shader cellular
 

@@ -41,6 +41,8 @@ void settings() {
 
 void setup() {
   path_setting();
+  shader_folder_filter(preference_path+"shader/filter/");
+  load_save(preference_path+"setting/defaultSetting.csv");
   version();
   set_system_specification();
   OSC_send_scene_setup();
@@ -120,7 +122,7 @@ void romanesco() {
   background_romanesco();
   updateCommand();
   leapMotionUpdate();
-  loadPrescene();
+  load_prescene();
 
   //ROMANESCO
   camera_romanesco_draw();
@@ -155,6 +157,9 @@ void romanesco() {
   // misc
   update_temp_value();
   device_update();
+  media_update();
+
+  
 
   // change to false if the information has be sent to Scene...but how ????
   if(LIVE) {

@@ -4,7 +4,7 @@ Core Romanesco
 COMMON SKETCH for CONTROLLER, PRESCENE & SCENE
 *
 2018-2018
-v 0.0.19
+v 0.1.2
 */
 int NUM_COL_SLIDER = 3;
 int NUM_SLIDER_ITEM_BY_COL = 16;
@@ -57,7 +57,10 @@ int NUM_GROUP_SLIDER = 2; // '0' for general / '1' for the item
 
 int ITEM_GROUP = 1;
 
-String preference_path, import_path, items_path, autosave_path, filter_path;
+String preference_path;
+String import_path;
+String items_path;
+String autosave_path;
 void path_setting() {
   preference_path = sketchPath(1)+"/preferences/";
   import_path = sketchPath(1)+"/import/";
@@ -90,3 +93,80 @@ void set_system_specification() {
 		KEY_CTRL_OS = CONTROL;
 	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/**
+MEDIA
+2014-2018
+v 0.1.3
+*/
+ArrayList<File> text_files = new ArrayList<File>();
+ArrayList<File> bitmap_files = new ArrayList<File>();
+ArrayList<File> svg_files = new ArrayList<File>();
+ArrayList<File> movie_files = new ArrayList<File>();
+ArrayList<File> media_files = new ArrayList<File>();
+
+
+
+
+String ref_path;
+void add_media(String path) {
+  if(path != null && !path.equals(ref_path)) {
+    ref_path = path;
+    // movie case
+    if(ext(path,"mov") || ext(path,"MOV") || ext(path,"avi") || ext(path,"AVI") || ext(path,"mkv") || ext(path,"MKV")) {
+      add_input(movie_files,path);
+    } else if(ext(path,"jpeg") || ext(path,"JPEG") || ext(path,"jpg") || ext(path,"jpeg") || ext(path,"tif") || ext(path,"TIF") || ext(path,"tiff") || ext(path,"TIFF") || ext(path,"tga") || ext(path,"TGA") || ext(path,"gif") || ext(path,"GIF")) {
+      add_input(bitmap_files,path);
+    } else if(ext(path,"txt") || ext(path,"TXT")) {
+      add_input(text_files,path);
+    } else if(ext(path,"svg") || ext(path,"SVG")) {
+      add_input(svg_files,path);
+    }
+  }
+}
+
+
+boolean ext(String path, String extension) {
+  return extension(path).equals(extension);
+}
+
+
+/**
+add movie path
+*/
+void add_input(ArrayList<File> media_file_by_type, String path) {
+  File file = new File(path);
+  if(!check_already_existing_path(path)) {
+    media_file_by_type.add(file);
+    media_files.add(file);
+  }
+}
+
+boolean check_already_existing_path(String path) {
+  boolean existing = false;
+  for(File f : media_files) {
+    String existing_path = f.getAbsolutePath();
+    if(existing_path.equals(path)) {
+      existing = true;
+      break;
+    }
+  }
+  return existing;
+}
+
+
+
+

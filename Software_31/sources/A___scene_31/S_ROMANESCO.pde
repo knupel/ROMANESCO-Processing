@@ -345,8 +345,9 @@ boolean reset(int ID) {
 
 /**
 Class Romanesco_manager
-v 1.2.0
-inspired from Andreas Gysin work from The Abyss Project
+v 1.2.1
+inspired by Andreas Gysin work for The Abyss Project
+@see https://github.com/ertdfgcvb/TheAbyss
 */
 class Romanesco_manager {
   private ArrayList<Romanesco>RomanescoList ;
@@ -600,8 +601,7 @@ class Romanesco_manager {
           item.draw();
           popMatrix();
         } else {
-          // pause reading movie
-          read_movie(false, item.get_id());
+          if(movie[item.get_id()] != null) movie[item.get_id()].pause();
         }
       }
     }

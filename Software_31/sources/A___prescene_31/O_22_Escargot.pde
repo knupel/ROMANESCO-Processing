@@ -187,7 +187,7 @@ class Escargot extends Romanesco {
     
     if(parameter[ID_item]) load_bitmap(ID_item) ;
 
-    if(bitmap_import[ID_item] != null) {  
+    if(bitmap[ID_item] != null) {  
       //MOTION
       windForce = (int)map(speed_x_item[ID_item],0,1,0,13) ;
       windDirection = (int)dir_x_item[ID_item] ;
@@ -209,7 +209,7 @@ class Escargot extends Romanesco {
        // if( pen[ID_item].x == 0 && pen[ID_item].y == 0 ) newDirection = normalDir(int(map(valueObj[ID_item][18],0,100,0,360))) ; else newDirection = new PVector (-pen[ID_item].x  , -pen[ID_item].y ) ;
        
        if (!motion[ID_item]) for(Old_Pixel p : listEscargot) {
-         p.updatePosPixel(motionInfo, bitmap_import[ID_item]) ;
+         p.updatePosPixel(motionInfo, bitmap[ID_item]) ;
        }
       ////////////////
       
@@ -236,11 +236,11 @@ class Escargot extends Romanesco {
       
        //security for the droping img from external folder
        if(parameter[ID_item] && key_a ) ratioImg = !ratioImg ;
-       if(bitmap_import[ID_item] != null && bitmap_import[ID_item].width > 3 && ratioImg ) {
+       if(bitmap[ID_item] != null && bitmap[ID_item].width > 3 && ratioImg ) {
          analyzeImg(pixelAnalyzeSize) ;
          // ratioImgWindow = new PVector ((float)width / (float)img.width , (float)height / (float)img.height ) ;
-         ratioImgWindow = new PVector ((float)width / (float)bitmap_import[ID_item].width , (float)width / (float)bitmap_import[ID_item].width ) ;
-       } else if (bitmap_import[ID_item] != null && bitmap_import[ID_item].width > 3 && !ratioImg) {
+         ratioImgWindow = new PVector ((float)width / (float)bitmap[ID_item].width , (float)width / (float)bitmap[ID_item].width ) ;
+       } else if (bitmap[ID_item] != null && bitmap[ID_item].width > 3 && !ratioImg) {
          analyzeImg(pixelAnalyzeSize) ;
          ratioImgWindow.set(1,1) ;
        } else {
@@ -301,7 +301,7 @@ class Escargot extends Romanesco {
       
       // correction position to rotate the picture by the center
       pushMatrix() ;
-      translate(-bitmap_import[ID_item].width /4, -bitmap_import[ID_item].height /4) ;
+      translate(-bitmap[ID_item].width /4, -bitmap[ID_item].height /4) ;
       
       if (mode[ID_item] == 0 || mode[ID_item] == 255 ) {
         displayRawPixel(sizePoint, fill_item[ID_item], rangeReactivitySoundHundred, rangeReactivitySoundThreeHundredSixty, musicFactor, ratioImgWindow) ;
@@ -332,7 +332,7 @@ class Escargot extends Romanesco {
       popMatrix() ;
       
       // info display
-      item_info[ID_item] = ("Image " +bitmap_import[ID_item].width + "x"+bitmap_import[ID_item].height + " Analyze "+listEscargot.size()+ " of " + maxEntryPoints+ " / Cell " + pixelAnalyzeSize+ "px / Radius analyze " + radiusAnalyze + " Scale " + ratioImgWindow.x + " / " +ratioImgWindow.y) ;
+      item_info[ID_item] = ("Image " +bitmap[ID_item].width + "x"+bitmap[ID_item].height + " Analyze "+listEscargot.size()+ " of " + maxEntryPoints+ " / Cell " + pixelAnalyzeSize+ "px / Radius analyze " + radiusAnalyze + " Scale " + ratioImgWindow.x + " / " +ratioImgWindow.y) ;
     } 
   }
   
@@ -787,11 +787,11 @@ class Escargot extends Romanesco {
   void analyzeImg(int sizePixForAnalyze) {
     //Analyze image
     // put in this void the size of pixel you want, to create grid analyzing and image than you want analyze
-    colorAnalyzeSetting(sizePixForAnalyze, bitmap_import[ID_item]) ;
+    colorAnalyzeSetting(sizePixForAnalyze, bitmap[ID_item]) ;
     
     //step 2
     //three componants : FIRST : size of the pixel grid // SECOND which PImage // THIRD mirror "FALSE" or "TRUE"
-    recordPixelRaw(sizePixForAnalyze, bitmap_import[ID_item], false) ; 
+    recordPixelRaw(sizePixForAnalyze, bitmap[ID_item], false) ; 
     
     //step 3
     // give the list point of Pixel must be change with the new palette
