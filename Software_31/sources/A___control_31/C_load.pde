@@ -653,11 +653,11 @@ void apply_text_gui() {
   int language = Integer.parseInt(l);
   Table gui_table;
   if(language == 0) {
-    gui_table = loadTable(preference_path+"slider_name_fr.csv","header");
+    gui_table = loadTable(preference_path+"gui_info_fr.csv","header");
   } else if (language == 1) {
-    gui_table = loadTable(preference_path+"slider_name_en.csv","header");
+    gui_table = loadTable(preference_path+"gui_info_en.csv","header");
   } else {
-    gui_table = loadTable(preference_path+"slider_name_en.csv","header");
+    gui_table = loadTable(preference_path+"gui_info_en.csv","header");
   }
 
 
@@ -669,39 +669,45 @@ void apply_text_gui() {
 
     if(name.equals("general")) {
       // 
-    } else if(name.equals("background")) {
+    } else if(name.equals("slider background")) {
       for(int k = 0 ; k < NUM_SLIDER_BACKGROUND ; k++) {
         slider_background_name[k] = row.getString("col "+k);
       } 
-    } else if(name.equals("filter")) {
+    } else if(name.equals("slider filter")) {
       for(int k = 0 ; k < NUM_SLIDER_FX ; k++) {
         slider_filter_name[k] = row.getString("col "+k);
       }
-    } else if(name.equals("light")) {
+    } else if(name.equals("dropdown filter")) {
+      int num_box = row.getInt("num");
+      filter_dropdown_list = new String[num_box];
+      for(int k = 0 ; k < num_box ; k++) {
+        filter_dropdown_list[k] = row.getString("col "+k);
+      }
+    } else if(name.equals("slider light")) {
       for(int k = 0 ; k < NUM_SLIDER_LIGHT ; k++) {
         slider_light_name[k] = row.getString("col "+k);
       }
-    } else if(name.equals("sound")) {
+    } else if(name.equals("slider sound")) {
       for(int k = 0 ; k < NUM_SLIDER_SOUND ; k++) {
         slider_sound_name[k] = row.getString("col "+k);
       }
-    } else if(name.equals("sound setting")) {
+    } else if(name.equals("slider sound setting")) {
       for(int k = 0 ; k < NUM_SLIDER_SOUND_SETTING ; k++) {
         slider_sound_setting_name[k] = row.getString("col "+k);
       }
-    } else if(name.equals("camera")) {
+    } else if(name.equals("slider camera")) {
       for(int k = 0 ; k < NUM_SLIDER_CAMERA ; k++) {
         slider_camera_name[k] = row.getString("col "+k);
       }
-    } else if(name.equals("item a")) {
+    } else if(name.equals("slider item a")) {
       for(int k = 0 ; k < num ; k++) {
         slider_item_name[k] = row.getString("col "+k);
       }
-    } else if(name.equals("item b")) {
+    } else if(name.equals("slider item b")) {
       for(int k = 0 ; k < num ; k++) {
         slider_item_name[k +num] = row.getString("col "+k);
       }
-    } else if(name.equals("item c")) {
+    } else if(name.equals("slider item c")) {
       for(int k = 0 ; k < num ; k++) {
         slider_item_name[k +(num*2)] = row.getString("col "+k);
       }

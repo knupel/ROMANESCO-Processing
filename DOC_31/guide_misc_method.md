@@ -1,27 +1,26 @@
-ROMANESC0 1.2.0.30
+ROMANESC0 1.2.0.31
+2012-2018
 ITEM
 ROMANESCO PROCESSING ENVIRONMENT
 --
 
 
 
+*MAIN METHOD
 
-
-
-
-
-
-METHOD
---
 void setup()
---
-void draw()
---
-if you use other void you must call this one in one of them
+
+void draw() 
+>this method is used to draw in the main 2D renderer of Romanesco
+
+void draw_2D()
+>optional method to draw in 2D renderer, when this method is used all method to move your item or scene is disable.
 
 
-FORCE FIELD
---
+
+
+*FORCE FIELD
+
 Force_field get_force_field();
 
 void update_force_field_is(boolean is);
@@ -34,8 +33,8 @@ void init_force_field();
 
 
 
-SPOT
---
+*SPOT
+
 those method can be use in the item, but the important thing the spot position is dictly use for the FX shader effect for the mode FLUID, GRAVITY and MAGNETIC important to know that !
 --
 int get_spot_num();
@@ -56,8 +55,8 @@ void set_spot_pos(float x, float y, int index);
 
 
 
-SETTING
---
+*SETTING
+
 void setting_start_direction(int ID_item, Vec2 dir);
 
 void setting_start_direction(int ID_item, int dir_x, int dir_y);
@@ -74,19 +73,19 @@ boolean setting[int ID_item]
 
 
 
+*GET
 
-
-
-GET
---
 Vec3 get_pos_item(int id_item) ;
 
 Vec3 get_dir_item(int id_item) ;
 
 
 
-MODE ASPECT COSTUME
---
+
+
+
+*ASPECT COSTUME
+
 You must use a coorect spelling to write:
 
 costume 1
@@ -157,13 +156,8 @@ the other mode don't use a 3D costume in this time, but the future is not write 
 
 
 
+*COMMAND  / BOOLEAN method
 
-
-
-
-
-COMMAND  / BOOLEAN method
---
 reset(ID_item) 
 > from keyboard "BACKSPACE" and "DELETE"
 > CONDITION 1 : if the button "BACKSPACE" is pressed and "ACTION" or "PARAMETER" and is ON
@@ -177,16 +171,8 @@ reset(ID_item)
 
 
 
+*RESET OBJECT : empty the object list
 
-
-
-
-
-
-
-
-RESET OBJECT : empty the object list
-––
 To empty the list or reset object activate by backspace and delete
 boolean resetAction(ID_item) when the Action button is On
 
@@ -201,8 +187,8 @@ boolean resetParameter(int ID_item)
 
 
 
-DISPLAY INFO on SCENE
-––
+*DISPLAY INFO on SCENE
+
 boolean objectInfoDisplay[ID_item] use to display info or what you want show on Prescene or Scene from your object, activate by "i" key - boolean iTouch
 
 String objectName[ID_item] return the name of your object
@@ -219,8 +205,8 @@ int objectID[ID_item] return the ID of the object
 
 
 
-CAMERA RPE / P3D / INTERNAL CAMERA
-––
+*CAMERA RPE / P3D / INTERNAL CAMERA
+
 travelling(PVector targetPos) ; // the camera go to a specific point in the scene
 
 

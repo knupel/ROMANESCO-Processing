@@ -123,6 +123,8 @@ void romanesco() {
   updateCommand();
   leapMotionUpdate();
   load_prescene();
+  
+
 
   //ROMANESCO
   camera_romanesco_draw();
@@ -137,11 +139,13 @@ void romanesco() {
   }
 
   //use romanesco object
-  rpe_manager.display_item(ORDER_ONE, ORDER_TWO, ORDER_THREE);
+  rpe_manager.show_item_3D(ORDER_ONE, ORDER_TWO, ORDER_THREE);
   grid_romanesco(displayInfo3D);
   stop_camera();
 
+  rpe_manager.show_item_2D();
   filter();
+
 
   //annexe
   info() ;

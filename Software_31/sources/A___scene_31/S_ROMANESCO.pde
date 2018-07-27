@@ -579,7 +579,7 @@ class Romanesco_manager {
   
 
   // DRAW
-  void display_item(boolean movePos, boolean moveDir, boolean movePosAndDir) {
+  public void show_item_3D(boolean movePos, boolean moveDir, boolean movePosAndDir) {
     // when you use the third order Romanesco understand the the first and the second are true
     if(movePosAndDir) {
       moveDir = true;
@@ -603,6 +603,17 @@ class Romanesco_manager {
         } else {
           if(movie[item.get_id()] != null) movie[item.get_id()].pause();
         }
+      }
+    }
+  }
+
+
+  public void show_item_2D() {
+    for (Romanesco item : RomanescoList) {
+      if (show_item[item.get_id()]) {
+        item.draw_2D();
+      } else {
+        if(movie[item.get_id()] != null) movie[item.get_id()].pause();
       }
     }
   }
@@ -634,7 +645,7 @@ class Romanesco_manager {
 
 /**
 Abstract CLASS ROMANESCO
-v 0.0.4
+v 0.0.5
 2013-2018
 */
 abstract class Romanesco implements Rope_Constants {
@@ -770,6 +781,7 @@ abstract class Romanesco implements Rope_Constants {
   //must must be declared in the sub-classes
   abstract void setup();
   abstract void draw();
+  public void draw_2D() {}
 
 
   public int get_id() {
@@ -883,13 +895,6 @@ abstract class Romanesco implements Rope_Constants {
       }
     } else {
       costume[get_id()] = NO_COSTUME; 
-      /*
-      if(!dimension[get_id()]) {
-        costume[get_id()] = POINT_ROPE ; 
-      } else {
-        costume[get_id()] = SPHERE_LOW_ROPE ;
-      }
-      */
     }
 
     return costume[get_id()];

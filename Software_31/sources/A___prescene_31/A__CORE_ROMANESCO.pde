@@ -4,7 +4,7 @@ Core Romanesco
 COMMON SKETCH for CONTROLLER, PRESCENE & SCENE
 *
 2018-2018
-v 0.1.2
+v 0.1.3
 */
 int NUM_COL_SLIDER = 3;
 int NUM_SLIDER_ITEM_BY_COL = 16;
@@ -110,7 +110,7 @@ void set_system_specification() {
 /**
 MEDIA
 2014-2018
-v 0.1.3
+v 0.1.4
 */
 ArrayList<File> text_files = new ArrayList<File>();
 ArrayList<File> bitmap_files = new ArrayList<File>();
@@ -126,7 +126,7 @@ void add_media(String path) {
   if(path != null && !path.equals(ref_path)) {
     ref_path = path;
     // movie case
-    if(ext(path,"mov") || ext(path,"MOV") || ext(path,"avi") || ext(path,"AVI") || ext(path,"mkv") || ext(path,"MKV")) {
+    if(ext(path,"mov") || ext(path,"MOV") || ext(path,"avi") || ext(path,"AVI") || ext(path,"mp4") || ext(path,"MP4") || ext(path,"mkv") || ext(path,"MKV")) {
       add_input(movie_files,path);
     } else if(ext(path,"jpeg") || ext(path,"JPEG") || ext(path,"jpg") || ext(path,"jpeg") || ext(path,"tif") || ext(path,"TIF") || ext(path,"tiff") || ext(path,"TIFF") || ext(path,"tga") || ext(path,"TGA") || ext(path,"gif") || ext(path,"GIF")) {
       add_input(bitmap_files,path);

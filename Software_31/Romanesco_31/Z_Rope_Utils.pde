@@ -1,6 +1,6 @@
 /**
 Rope UTILS 
-v 1.46.0
+v 1.47.0
 * Copyleft (c) 2014-2018 
 * Stan le Punk > http://stanlepunk.xyz/
 Rope – Romanesco Processing Environment – 
@@ -764,7 +764,8 @@ PImage image_copy_window(PImage src, PGraphics pg, int where) {
 
 /**
 IMAGE
-v 0.1.5.0
+v 0.2.0
+2016-2018
 */
 
 /**
@@ -776,27 +777,56 @@ void image(PImage img) {
   else printErr("Object PImage pass to method image() is null");
 }
 
-
-void image(PImage img, int where) {
+void image(PImage img, int what) {
   float x = 0 ;
   float y = 0 ;
+  int w = img.width;
+  int h = img.height;
+  int where = CENTER;
+  if(what == r.FIT || what == LANDSCAPE || what == PORTRAIT || what == SCREEN) {
+    float ratio = 1.;
+    int diff_w = width-w;
+    int diff_h = height-h;
+    if(what == r.FIT) {
+      if(diff_w > diff_h) {
+        ratio = (float)height / (float)h;
+      } else {
+        ratio = (float)width / (float)w;
+      }
+    } else if(what == SCREEN) {
+      if(diff_w > diff_h) {
+        ratio = (float)width / (float)w;
+      } else {
+        ratio = (float)height/ (float)h;
+      }
+    } else if(what == PORTRAIT) {
+      ratio = (float)height / (float)h;
+    } else if(what == LANDSCAPE) {
+      ratio = (float)width / (float)w;
+    }
+    w *= ratio;
+    h *= ratio;
+  } else {
+    where = what;
+  }
+
   if(where == CENTER) {
-    x = (width /2.) -(img.width /2.);
-    y = (height /2.) -(img.height /2.);   
+    x = (width /2.) -(w /2.);
+    y = (height /2.) -(h /2.);   
   } else if(where == LEFT) {
     x = 0;
-    y = (height /2.) -(img.height /2.);
+    y = (height /2.) -(h /2.);
   } else if(where == RIGHT) {
-    x = width -img.width;
-    y = (height /2.) -(img.height /2.);
+    x = width -w;
+    y = (height /2.) -(h /2.);
   } else if(where == TOP) {
-    x = (width /2.) -(img.width /2.);
+    x = (width /2.) -(w /2.);
     y = 0;
   } else if(where == BOTTOM) {
-    x = (width /2.) -(img.width /2.);
-    y = height -img.height; 
+    x = (width /2.) -(w /2.);
+    y = height -h; 
   }
-  image(img,x,y);
+  image(img,x,y,w,h);
 }
 
 void image(PImage img, float coor) {
@@ -975,13 +1005,18 @@ PImage paste_vertical(PImage img, int entry, int [] array_pix) {
 
 /**
 SHADER filter
-v 0.5.0
+v 0.6.0
 few method manipulate image with the shader to don't slower Processing
 part
 */
 PShader rope_shader_level, rope_shader_mix, rope_shader_blend, rope_shader_overlay, rope_shader_multiply;
 PShader rope_shader_gaussian_blur ;
 PShader rope_shader_resize ;
+
+String shader_folder_path = null;
+void shader_folder_filter(String path) {
+  shader_folder_path = path;
+}
 
 /**
 Gaussian blur
@@ -1010,8 +1045,13 @@ void blur(PGraphics p, PImage tex, float intensity) {
 
   reset_blur(tex);
 
-
-  if(rope_shader_gaussian_blur == null) rope_shader_gaussian_blur = loadShader("shader/filter/rope_filter_gaussian_blur.glsl");
+  if(rope_shader_gaussian_blur == null) {
+    if(shader_folder_path != null) {
+      rope_shader_gaussian_blur = loadShader(shader_folder_path+"rope_filter_gaussian_blur.glsl");
+    } else {
+      rope_shader_gaussian_blur = loadShader("shader/filter/rope_filter_gaussian_blur.glsl");
+    }  
+  }
   
   if(pass_rope_1 == null) {
     if(p == null) pass_rope_1 = createGraphics(tex.width,tex.height,P2D);
@@ -1109,7 +1149,13 @@ void multiply_size(int w, int h) {
 */
 
 void set_multiply_shader() {
-  if(rope_shader_multiply == null) rope_shader_multiply = loadShader("shader/filter/rope_filter_multiply.glsl");
+  if(rope_shader_multiply == null) {
+    if(shader_folder_path != null) {
+      rope_shader_multiply = loadShader(shader_folder_path+"rope_filter_multiply.glsl");
+    } else {
+      rope_shader_multiply = loadShader("shader/filter/rope_filter_multiply.glsl");
+    }  
+  }
 }
 /**
 * flip 
@@ -1221,7 +1267,13 @@ void overlay_size(int w1, int h1, int w2, int h2) {
 }
 */
 void set_overlay_shader() {
-  if(rope_shader_overlay == null) rope_shader_overlay = loadShader("shader/filter/rope_filter_overlay.glsl");
+  if(rope_shader_overlay == null) {
+    if(shader_folder_path != null) {
+      rope_shader_overlay = loadShader(shader_folder_path+"rope_filter_overlay.glsl");
+    } else {
+      rope_shader_overlay = loadShader("shader/filter/rope_filter_overlay.glsl");
+    }  
+  }
 }
 /**
 * flip 
@@ -1337,7 +1389,13 @@ void blend_size(int w1, int h1, int w2, int h2) {
 }
 */
 void set_blend_shader() {
-  if(rope_shader_blend == null) rope_shader_blend = loadShader("shader/filter/rope_filter_blend.glsl");
+  if(rope_shader_blend == null) {
+    if(shader_folder_path != null) {
+      rope_shader_blend = loadShader(shader_folder_path+"rope_filter_blend.glsl");
+    } else {
+      rope_shader_blend = loadShader("shader/filter/rope_filter_blend.glsl");
+    }  
+  }
 }
 /**
 * flip 
@@ -1449,7 +1507,13 @@ void mix_size(int w1, int h1, int w2, int h2) {
 }
 */
 void set_mix_shader() {
-  if(rope_shader_mix == null) rope_shader_mix = loadShader("shader/filter/rope_filter_mix.glsl");
+  if(rope_shader_mix == null) {
+    if(shader_folder_path != null) {
+      rope_shader_mix = loadShader(shader_folder_path+"rope_filter_mix.glsl");
+    } else {
+      rope_shader_mix = loadShader("shader/filter/rope_filter_mix.glsl");
+    }  
+  }
 }
 /**
 * flip 
@@ -1561,7 +1625,13 @@ void level_size(int w1, int h1, int w2, int h2) {
 * flip 
  */
 void level_flip(boolean bx, boolean by) {
-  if(rope_shader_level == null) rope_shader_level = loadShader("shader/filter/rope_filter_level.glsl");
+  if(rope_shader_level == null) {
+    if(shader_folder_path != null) {
+      rope_shader_level = loadShader(shader_folder_path+"rope_filter_level.glsl");
+    } else {
+      rope_shader_level = loadShader("shader/filter/rope_filter_level.glsl");
+    }  
+  }  
   rope_shader_level.set("flip",bx,by);
 }
 /**
@@ -1614,8 +1684,13 @@ void level(PGraphics p, PImage tex, Vec4 ratio) {
 * this method have a purpose to mix the four channel color.
 */
 void level(PGraphics p, PImage tex, float... ratio) {
-
-  if(rope_shader_level == null) rope_shader_level = loadShader("shader/filter/rope_filter_level.glsl");
+  if(rope_shader_level == null) {
+    if(shader_folder_path != null) {
+      rope_shader_level = loadShader(shader_folder_path+"rope_filter_level.glsl");
+    } else {
+      rope_shader_level = loadShader("shader/filter/rope_filter_level.glsl");
+    }  
+  } 
 
   Vec4 r = array_to_Vec4_rgba(ratio);
  

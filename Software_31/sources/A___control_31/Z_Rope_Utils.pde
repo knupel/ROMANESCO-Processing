@@ -764,7 +764,8 @@ PImage image_copy_window(PImage src, PGraphics pg, int where) {
 
 /**
 IMAGE
-v 0.1.5.0
+v 0.2.0
+2016-2018
 */
 
 /**
@@ -776,27 +777,56 @@ void image(PImage img) {
   else printErr("Object PImage pass to method image() is null");
 }
 
-
-void image(PImage img, int where) {
+void image(PImage img, int what) {
   float x = 0 ;
   float y = 0 ;
+  int w = img.width;
+  int h = img.height;
+  int where = CENTER;
+  if(what == r.FIT || what == LANDSCAPE || what == PORTRAIT || what == SCREEN) {
+    float ratio = 1.;
+    int diff_w = width-w;
+    int diff_h = height-h;
+    if(what == r.FIT) {
+      if(diff_w > diff_h) {
+        ratio = (float)height / (float)h;
+      } else {
+        ratio = (float)width / (float)w;
+      }
+    } else if(what == SCREEN) {
+      if(diff_w > diff_h) {
+        ratio = (float)width / (float)w;
+      } else {
+        ratio = (float)height/ (float)h;
+      }
+    } else if(what == PORTRAIT) {
+      ratio = (float)height / (float)h;
+    } else if(what == LANDSCAPE) {
+      ratio = (float)width / (float)w;
+    }
+    w *= ratio;
+    h *= ratio;
+  } else {
+    where = what;
+  }
+
   if(where == CENTER) {
-    x = (width /2.) -(img.width /2.);
-    y = (height /2.) -(img.height /2.);   
+    x = (width /2.) -(w /2.);
+    y = (height /2.) -(h /2.);   
   } else if(where == LEFT) {
     x = 0;
-    y = (height /2.) -(img.height /2.);
+    y = (height /2.) -(h /2.);
   } else if(where == RIGHT) {
-    x = width -img.width;
-    y = (height /2.) -(img.height /2.);
+    x = width -w;
+    y = (height /2.) -(h /2.);
   } else if(where == TOP) {
-    x = (width /2.) -(img.width /2.);
+    x = (width /2.) -(w /2.);
     y = 0;
   } else if(where == BOTTOM) {
-    x = (width /2.) -(img.width /2.);
-    y = height -img.height; 
+    x = (width /2.) -(w /2.);
+    y = height -h; 
   }
-  image(img,x,y);
+  image(img,x,y,w,h);
 }
 
 void image(PImage img, float coor) {

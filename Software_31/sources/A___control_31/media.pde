@@ -14,7 +14,7 @@ void add_media() {
   if(load_media_folder) { 
     boolean explore_sub_folder = false;
     explore_folder(folder(),explore_sub_folder,
-                            "mov","MOV","AVI","AVI","mkv","MKV",
+                            "mov","MOV","AVI","AVI","mkv","MKV","mp4","MP4",
                             "jpeg","JPEG","jpg","jpeg","tif","TIF","tiff","TIFF","tga","TGA","gif","GIF",
                             "txt","TXT",
                             "svg","SVG");
@@ -31,18 +31,6 @@ void add_media() {
 }
 
 
-
-
-
-
-
-void load_filter() {
-  if(filter_dropdown_list == null) {
-    String path = preference_path +"shader/filter_name.txt";
-    String [] s = loadStrings(path);
-    filter_dropdown_list = split(s[0],",");
-  }
-}
 
 
 

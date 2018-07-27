@@ -12,7 +12,7 @@ class Kino extends Romanesco {
 		item_version = "Version 0.0.1";
 		item_pack = "Base 2018" ;
 		item_costume = "" ; // separate the differentes mode by "/"
-		item_mode = "Movie/Diaporama" ; // separate the differentes mode by "/"
+		item_mode = "Movie 2D/Diaporama 2D/Movie/Diaporama" ; // separate the differentes mode by "/"
 
 		hue_fill_is = true;
     sat_fill_is = true;
@@ -74,21 +74,35 @@ class Kino extends Romanesco {
 
   
 	void draw() {
-		if(mode[ID_item] != 0) {
+    param();
+		if(mode[ID_item] != 0 && mode[ID_item] != 2) {
 			movie[ID_item].pause();
 		}
 
-		if(mode[ID_item] == 0) {
-			kino_movie();
-		} else if(mode[ID_item] == 1) {
+		if(mode[ID_item] == 2) {
+			kino_movie(colour);
+		} else if(mode[ID_item] == 3) {
 			kino_bitmap();
-		}	
-
+		}
 	}
+
+  void draw_2D() {
+    param();
+    if(mode[ID_item] == 0) {
+      kino_movie(colour);
+    } else if(mode[ID_item] == 1) {
+      kino_bitmap();
+    }
+  }
+
+  int colour;
+  void param() {
+    colour = fill_item[ID_item];
+  }
   
   // kino movie
   int ref_which_movie;
-	private void kino_movie() {
+	private void kino_movie(int c) {
 		if(ref_which_movie != which_movie[ID_item]) {
 			load_movie(true,ID_item);
 			ref_which_movie = which_movie[ID_item];
@@ -102,14 +116,15 @@ class Kino extends Romanesco {
 		} else {
 			movie[ID_item].pause();
 		}
-		image(movie[ID_item]);
+    tint(c);
+		image(movie[ID_item],FIT);
 	}
 
 
 	// kino movie
 	private void kino_bitmap() {
 		load_bitmap(ID_item);
-		image(bitmap[ID_item]);
+		image(bitmap[ID_item],FIT);
 	}
 }
 

@@ -13,6 +13,7 @@ void init_filter() {
   type_field = r.FLUID;
   pattern_field = r.BLANK;
   if(FULL_RENDERING) {
+    set_type_force_field(type_field);
     init_force_field();
     init_warp();
     println("init filter is done");
@@ -24,14 +25,18 @@ void init_filter() {
 
 
 void filter() {
+  // force field
   if(FULL_RENDERING && (fx_button_is(0) || update_force_field_is())) {
     update_force_field();
   }
-
+  update_force_field_is(false);
+  
+  // warp
   if(FULL_RENDERING && fx_button_is(0)) {
     warp();
   }
-  update_force_field_is(false);
+
+  
 }
 
 
@@ -86,11 +91,27 @@ void warp() {
 /**
 FILTER FORCE
 2018-2018
-v 0.0.2
+v 0.0.3
 */
 void init_force_field() {
-  force_romanesco = new Force_field(ref_cell_size,r.FLUID,r.BLANK);
+  int type = get_type_force_field();
+  if(type == r.FLUID) {
+    force_romanesco = new Force_field(ref_cell_size,r.FLUID,r.BLANK);
+  } else if(type == r.GRAVITY){
+    force_romanesco = new Force_field(ref_cell_size,r.GRAVITY,r.BLANK);
+  } else if(type == r.MAGNETIC) {
+    force_romanesco = new Force_field(ref_cell_size,r.MAGNETIC,r.BLANK);
+  }
   force_romanesco.add_spot();
+}
+
+int type_force_field;
+int get_type_force_field() {
+  return type_force_field;
+}
+
+void set_type_force_field(int type) {
+  type_force_field = type;
 }
 
 
@@ -104,7 +125,9 @@ void set_cell_force_field(int size) {
 
 
 void update_force_field() {
-  if(force_romanesco.get_type() == r.FLUID) update_force_fluid();
+  if(force_romanesco.get_type() == r.FLUID) {
+    update_force_fluid();
+  }
   // update spot position
   if(force_romanesco.get_spot_num() == 1 ) {
     force_romanesco.set_spot_pos(mouse[0].x,mouse[0].y);

@@ -38,7 +38,7 @@ void setup() {
   init_midi();
   create_and_initialize_data(); 
   load_setup();
-  load_filter();
+  // load_filter();
   
   set_system_specification();
   set_font();
