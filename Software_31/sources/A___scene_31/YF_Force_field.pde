@@ -380,7 +380,7 @@ public class Force_field implements Rope_Constants {
 
   /**
   initialisation
-  v 0.1.0
+  v 0.2.0
   */
   private void init_super_type(int type) {
     if(type != STATIC) {
@@ -415,10 +415,7 @@ public class Force_field implements Rope_Constants {
   public void add_spot(int num) {
     if(spot_list != null) {
       for(int i = 0 ; i < num ; i++) {
-        Spot spot = new Spot() ;
-        spot_list.add(spot);
-        boolean bool = false ;
-        reset_ref_spot_pos_list_is.add(bool);
+        add_spot();
       }
     } else {
       printErr("method add_spot() class Force_field: ArrayList<> spot_list is null");
@@ -426,8 +423,11 @@ public class Force_field implements Rope_Constants {
   }
 
   public void add_spot() {
-    Spot spot = new Spot() ;
-    spot_list.add(spot) ;
+    Spot spot = new Spot();
+    // set default area detection for gravity and magnetic mode
+    int radius_spot_detection = ceil( sqrt(cols*rows) / abs(spot_area_level) ) +1;
+    spot.detection(radius_spot_detection);
+    spot_list.add(spot);
     boolean bool = false ;
     reset_ref_spot_pos_list_is.add(bool);
   }
@@ -746,8 +746,13 @@ public class Force_field implements Rope_Constants {
 
   /**
   work directly on the field
+  This method is close to reset, but this one load a previous saved field.
   */
-  public void preserve_field() {
+  public void refresh() {
+    save();
+  }
+
+  public void save() {
     if(field != null && field_save != null) {
       for (int x = 0 ; x < cols ; x++) {
         for (int y = 0 ; y < rows ; y++) {
@@ -756,6 +761,8 @@ public class Force_field implements Rope_Constants {
       }
     }
   }
+
+
   /**
   velocity
   */
@@ -861,10 +868,10 @@ public class Force_field implements Rope_Constants {
     set_spot_diam(size.x,size.y,which_one);
   }
 
-    /**
+  /**
   spot detection
   */
-  public void set_spot_area_level(int spot_area_level) {
+  public void set_spot_detection(int spot_area_level) {
     if(spot_area_level <= 0) {
       this.spot_area_level = 1 ;
       printErr("method set_spot_area() class Force_field param level =" + spot_area_level + " level must be upper, instead the value 1 is used");
@@ -873,7 +880,7 @@ public class Force_field implements Rope_Constants {
     }
     int radius_spot_detection = ceil( sqrt(cols*rows) / abs(this.spot_area_level) ) +1;
     for(Spot s : spot_list) {
-      s.area(radius_spot_detection);
+      s.detection(radius_spot_detection);
     }
   }
 
@@ -900,7 +907,6 @@ public class Force_field implements Rope_Constants {
   public void set_spot_pos(Vec pos, int which_one) {
     /**
     emergency fix, not enought but stop the bleeding
-
     */
     if(canvas.x < canvas.y) {
       if(pos.y > canvas.x -resolution) {
@@ -1295,8 +1301,8 @@ public class Force_field implements Rope_Constants {
     // reset part where the spot area is active
     if(spot_list != null && spot_list.size() > 0) {
       for(Spot s : spot_list) {
-        if(s.get_pos() != null && s.get_area() != null && s.get_area().size() > 0) {
-          for(iVec2 coord : s.get_area()) {
+        if(s.get_pos() != null && s.get_detection() != null && s.get_detection().size() > 0) {
+          for(iVec2 coord : s.get_detection()) {
             Vec2 pos_cell = mult(coord, resolution);
             pos_cell.add(s.get_pos());
             Vec2 d = Vec2(s.get_pos().x,s.get_pos().y);
@@ -1440,17 +1446,17 @@ public class Force_field implements Rope_Constants {
 
   // update gravity and magnetic field
   private void update_grav_mag_field() {
-    compute_with_area();
+    compute_with_area_detection();
     // old style, very slow
     //compute_without_area()
   }
   
 
-  private void compute_with_area() {
+  private void compute_with_area_detection() {
     for(Spot s : spot_list) {
-      if(s.get_pos() != null && s.get_area() != null && s.get_area().size() > 0) {
+      if(s.get_pos() != null && s.get_detection() != null && s.get_detection().size() > 0) {
         s.reverse_emitter(reverse_is);
-        for(iVec2 coord : s.get_area()) {
+        for(iVec2 coord : s.get_detection()) {
           Vec2 pos_cell = mult(coord, resolution);
           pos_cell.add(s.get_pos());
           float theta = theta_2D(pos_cell,Vec2(s.get_pos().x,s.get_pos().y));
@@ -1500,7 +1506,7 @@ public class Force_field implements Rope_Constants {
   }
 
   @Deprecated
-  private void compute_without_area() {
+  private void compute_without_area_detection() {
     // very very slow, because there is 3 loop, two for coordonate and one for the spot list
     // so when the spot list is big... the frameRate decrease fast
     for (int x = 0; x < cols ; x++) {
@@ -2179,7 +2185,7 @@ public class Spot {
   private boolean reverse_charge_is;
   private boolean emitter_is;
 
-  ArrayList<iVec2> area;
+  ArrayList<iVec2> area_detection;
 
   private int tesla = 0;
   private int mass = 0;
@@ -2257,13 +2263,13 @@ public class Spot {
   }
   
 
-  // area
-  private void area(int radius) {
-    if(area == null) {
-      area = new ArrayList<iVec2>(); 
+  // area_detection
+  private void detection(int radius) {
+    if(area_detection == null) {
+      area_detection = new ArrayList<iVec2>(); 
       add(radius);
     } else {
-      area.clear();
+      area_detection.clear();
       add(radius);
     }   
   }
@@ -2273,14 +2279,14 @@ public class Spot {
       for(int y = -radius ; y <= radius ; y++) {
         if(inside(Vec2(0), Vec2(radius), Vec2(x,y), ELLIPSE)) {
           iVec2 in = iVec2(x,y);
-          area.add(in);
+          area_detection.add(in);
         }  
       }
     }
   }
 
-  ArrayList<iVec2> get_area() {
-    return area;
+  ArrayList<iVec2> get_detection() {
+    return area_detection;
   }
 
 

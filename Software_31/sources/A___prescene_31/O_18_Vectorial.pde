@@ -28,12 +28,12 @@ class Vectorial extends Romanesco {
     size_x_is = false;
     size_y_is = false;
     size_z_is = false;
-    font_size_is = false;
+    diameter_is = false;
     canvas_x_is = true;
     canvas_y_is = true;
     canvas_z_is = false;
 
-    reactivity_is = false;
+    // frequence_is = true;
     speed_x_is = false;
     speed_y_is = false;
     speed_z_is = false;

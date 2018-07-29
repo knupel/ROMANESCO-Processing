@@ -28,12 +28,12 @@ class Karaoke extends Romanesco {
     size_x_is = false;
     size_y_is = false;
     size_z_is = false;
-    font_size_is = true;
+    diameter_is = true;
     canvas_x_is = true;
     canvas_y_is = true;
     canvas_z_is = false;
 
-    reactivity_is = false;
+    // frequence_is = true;
     speed_x_is = false;
     speed_y_is = false;
     speed_z_is = false;
@@ -82,7 +82,7 @@ class Karaoke extends Romanesco {
   void draw() {
     load_txt(ID_item) ;
     
-    float size_font = font_size_item[ID_item] *mix[ID_item] *all_transient(ID_item);
+    float size_font = size_x_item[ID_item] *mix[ID_item] *all_transient(ID_item);
     if(size_font < 1) size_font = 1;
     
     textFont(font_item[ID_item],size_font);

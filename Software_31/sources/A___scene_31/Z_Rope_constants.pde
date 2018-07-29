@@ -3,7 +3,7 @@ ROPE - Romanesco processing environment –
 * Copyleft (c) 2014-2018
 * Stan le Punk > http://stanlepunk.xyz/
 CONSTANTS ROPE
-v 0.1.3.10
+v 0.1.3.11
 Processing 3.3.7
 * @author Stan le Punk
 * @see https://github.com/StanLepunK/Rope
@@ -16,7 +16,11 @@ public interface Rope_Constants {
   static final int  NONE = 0;
   static final int  NULL = 0;
   
-	static final float PHI   = (1 + sqrt(5))/2; //a number of polys use the golden ratio...
+   
+  
+	static final float PHI = (1 + sqrt(5))/2; //a number of polys use the golden ratio... > 1.618....
+  static final float GOLD_NUMBER = PHI;
+  static final float GOLD_ANGLE = TAU / (PHI*PHI); // > 137.500 in degree
 	static final float ROOT2 = sqrt(2); //...and the square root of two, the famous first irrationnal number by Pythagore
 	static final float EULER = 2.718281828459045235360287471352; // Euler number constant
 	static final double G    = 0.00000000006693; // last gravity constant

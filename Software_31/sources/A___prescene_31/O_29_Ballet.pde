@@ -26,12 +26,12 @@ class Ballet extends Romanesco {
     size_x_is = true;
     size_y_is = true;
     size_z_is = true;
-    // font_size_is = true;
+    diameter_is = true;
     canvas_x_is = true;
     canvas_y_is = true;
     canvas_z_is = true;
 
-    // reactivity_is = true;
+    // frequence_is = true;
     speed_x_is = true;
     speed_y_is = true;
     speed_z_is = true;
@@ -58,12 +58,16 @@ class Ballet extends Romanesco {
     // scope_is = true;
     // scan_is = true;
     // align_is = true;
-    // repulsion_is = true;
-    // attraction_is = true;
-    // density_is = true;
+    repulsion_is = true;
+    attraction_is = true;
+    density_is = true;
     // influence_is = true;
     // calm_is = true;
     // spectrum_is = true;
+
+    // grid_is = true;
+    // viscosity_is = true;
+    // diffusion_is = true;
   }
 
 
@@ -89,6 +93,9 @@ class Ballet extends Romanesco {
     // here we use the y component of canvas because the `z`don't exist.
     float max_d = map(canvas_z_item[ID_item],width *.1,(float)width *TAU,canvas_ff.y*.1,5*canvas_ff.y);
     Vec2 limit_d = Vec2(-(max_d-canvas_ff.y),max_d);
+
+
+
     
     // motion
     if(motion[ID_item]) {
@@ -114,6 +121,19 @@ class Ballet extends Romanesco {
 
     int which_behavior = floor(map(variety_item[ID_item],0,1,0,6));
     if(which_behavior == 6) which_behavior = 5;
+
+    // attractivity / repulsion
+    int diameter = (int)map(diameter_item[ID_item],width *.1,(float)width *TAU,2,height/3);
+    int attraction = (int)map(attraction_item[ID_item],0,1,0,100);
+    int repulsion = (int)map(repulsion_item[ID_item],0,1,0,-100);
+    int mass =(int)map(density_item[ID_item],0,1,0,100);
+
+    if(get_type_force_field() == MAGNETIC) {
+      set_force_magnetic_tesla(attraction,repulsion);
+      set_force_magnetic_diam(50);
+    } else if(get_type_force_field() == GRAVITY) {
+      set_force_gravity_mass(mass);
+    }
 
 
     

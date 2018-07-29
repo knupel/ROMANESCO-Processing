@@ -27,12 +27,12 @@ class Surface extends Romanesco {
     size_x_is = true;
     // size_y_is = true;
     // size_z_is = true;
-    // font_size_is = true;
+    // diameter_is = true;
     canvas_x_is = true;
     canvas_y_is = true;
     // canvas_z_is = true;
 
-    // reactivity_is = true;
+    // frequence_is = true;
     speed_x_is = true;
     // speed_y_is = true;
     // speed_z_is = true;

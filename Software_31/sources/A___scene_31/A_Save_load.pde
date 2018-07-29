@@ -190,13 +190,13 @@ void save_data_scene(String path) {
 		data_item.setFloat(size_y_name, size_y_item[i] /width);
 		data_item.setFloat(size_z_name, size_z_item[i] /width);
 
-		data_item.setFloat(font_size_name, font_size_item[i] /width); // check the size
+		data_item.setFloat(diameter_name, diameter_item[i] /width); // check the size
 
 		data_item.setFloat(canvas_x_name, canvas_x_item[i] /width);
 		data_item.setFloat(canvas_y_name, canvas_y_item[i] /width);
 		data_item.setFloat(canvas_z_name, canvas_z_item[i] /width);
 
-		data_item.setFloat(reactivity_name, reactivity_item[i]);
+		data_item.setFloat(frequence_name, frequence_item[i]);
 
 		data_item.setFloat(speed_x_name, speed_x_item[i]);
 		data_item.setFloat(speed_y_name, speed_y_item[i]);
@@ -238,6 +238,10 @@ void save_data_scene(String path) {
 		data_item.setFloat(influence_name, influence_item[i]);
 		data_item.setFloat(calm_name, calm_item[i]);
 		data_item.setFloat(spectrum_name, spectrum_item[i]);
+
+		data_item.setFloat(grid_name, grid_item[i]);
+		data_item.setFloat(viscosity_name, viscosity_item[i]);
+		data_item.setFloat(diffusion_name, diffusion_item[i]);
         
     // position & orientation
 		data_item.setFloat("pos x item", pos_item_final[i].x /width);

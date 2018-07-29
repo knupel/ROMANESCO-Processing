@@ -3,7 +3,7 @@ VARIABLE
 Prescene, Scene
 Romanesco Processing Environment
 2015-2018
-v 1.4.0
+v 1.5.0
 */
 
 /**
@@ -127,9 +127,9 @@ int stroke_hue_raw, stroke_sat_raw, stroke_bright_raw, stroke_alpha_raw ;
 float thickness_raw ; 
 float size_x_raw, size_y_raw, size_z_raw ;
 float canvas_x_raw, canvas_y_raw, canvas_z_raw ;
-float font_size_raw ;
+float diameter_raw ;
 
-float reactivity_raw ;
+float frequence_raw ;
 float speed_x_raw, speed_y_raw, speed_z_raw ;
 float spurt_x_raw, spurt_y_raw, spurt_z_raw ;
 float dir_x_raw, dir_y_raw, dir_z_raw ;
@@ -171,53 +171,62 @@ Vec2 influence_min_max, calm_min_max ;
 Vec2 spectrum_min_max ;
 
 
+
+
 // temp
 /* value used to know if the value slider have change or nor */
-int fill_hue_temp, fill_sat_temp, fill_bright_temp, fill_alpha_temp ;
-int stroke_hue_temp, stroke_sat_temp, stroke_bright_temp, stroke_alpha_temp ;
+int fill_hue_temp, fill_sat_temp, fill_bright_temp, fill_alpha_temp;
+int stroke_hue_temp, stroke_sat_temp, stroke_bright_temp, stroke_alpha_temp;
 float thickness_temp; 
-float size_x_temp, size_y_temp, size_z_temp ;
-float canvas_x_temp, canvas_y_temp, canvas_z_temp ;
-float font_size_temp ;
+float size_x_temp, size_y_temp, size_z_temp;
+float diameter_temp;
+float canvas_x_temp, canvas_y_temp, canvas_z_temp;
 
-float reactivity_temp ;
-float speed_x_temp, speed_y_temp, speed_z_temp ;
-float spurt_x_temp, spurt_y_temp, spurt_z_temp ;
-float dir_x_temp, dir_y_temp,dir_z_temp ;
-float jitter_x_temp, jitter_y_temp, jitter_z_temp ;
-float swing_x_temp, swing_y_temp, swing_z_temp ;
 
-float quantity_temp, variety_temp ;
-float life_temp, flow_temp, quality_temp ;
-float area_temp, angle_temp, scope_temp, scan_temp ;
+float frequence_temp;
+float speed_x_temp, speed_y_temp, speed_z_temp;
+float spurt_x_temp, spurt_y_temp, spurt_z_temp;
+float dir_x_temp, dir_y_temp,dir_z_temp;
+float jitter_x_temp, jitter_y_temp, jitter_z_temp;
+float swing_x_temp, swing_y_temp, swing_z_temp;
 
-float alignment_temp, repulsion_temp, attraction_temp, density_temp ;
-float influence_temp, calm_temp, spectrum_temp ;
+float quantity_temp, variety_temp;
+float life_temp, flow_temp, quality_temp;
+float area_temp, angle_temp, scope_temp, scan_temp;
+
+float alignment_temp, repulsion_temp, attraction_temp, density_temp;
+float influence_temp, calm_temp, spectrum_temp;
+
+float grid_temp;
+float viscosity_temp, diffusion_temp;
 
 
 
 
 // item target final
-boolean [] first_opening_item ; // used to check if this object is already opening before
-int [] fill_item, stroke_item ;
-float [] thickness_item ; 
-float [] size_x_item, size_y_item, size_z_item ;
-float [] font_size_item ;
-float [] canvas_x_item, canvas_y_item, canvas_z_item ;
+boolean [] first_opening_item; // used to check if this object is already opening before
+int [] fill_item, stroke_item;
+float [] thickness_item; 
+float [] size_x_item, size_y_item, size_z_item;
+float [] diameter_item;
+float [] canvas_x_item, canvas_y_item, canvas_z_item;
 
-float [] reactivity_item ;
-float [] speed_x_item, speed_y_item, speed_z_item ;
-float [] spurt_x_item, spurt_y_item, spurt_z_item ;
-float [] dir_x_item, dir_y_item, dir_z_item ;
-float [] jitter_x_item, jitter_y_item, jitter_z_item ;
-float [] swing_x_item, swing_y_item, swing_z_item ;
+float [] frequence_item;
+float [] speed_x_item, speed_y_item, speed_z_item;
+float [] spurt_x_item, spurt_y_item, spurt_z_item;
+float [] dir_x_item, dir_y_item, dir_z_item;
+float [] jitter_x_item, jitter_y_item, jitter_z_item;
+float [] swing_x_item, swing_y_item, swing_z_item;
 
-float [] quantity_item, variety_item ;
-float [] life_item, flow_item, quality_item ;
+float [] quantity_item, variety_item;
+float [] life_item, flow_item, quality_item;
 
-float [] area_item, angle_item, scope_item, scan_item ;
-float [] alignment_item, repulsion_item, attraction_item, density_item ;
-float [] influence_item, calm_item, spectrum_item ;
+float [] area_item, angle_item, scope_item, scan_item;
+float [] alignment_item, repulsion_item, attraction_item, density_item;
+float [] influence_item, calm_item, spectrum_item;
+
+float [] grid_item;
+float [] viscosity_item,diffusion_item;
 
 /**
 String name
@@ -239,13 +248,13 @@ String size_x_name = "size_x" ;
 String size_y_name = "size_y" ;     
 String size_z_name = "size_z" ;
 
-String font_size_name = "font_size";
+String diameter_name = "diameter";
 
 String canvas_x_name = "canvas_x" ; 
 String canvas_y_name = "canvas_y" ; 
 String canvas_z_name = "canvas_z" ;
 
-String reactivity_name = "reactivity" ;
+String frequence_name = "frequence" ;
 
 String speed_x_name = "speed_x" ; 
 String speed_y_name = "speed_y" ; 
@@ -287,6 +296,10 @@ String density_name = "density" ;
 String influence_name = "influence" ; 
 String calm_name = "calm" ; 
 String spectrum_name = "spectrum" ;
+
+String grid_name = "grid" ; 
+String viscosity_name = "viscosity" ; 
+String diffusion_name = "diffusion" ;
 
 String [] bitmap_path_ref, svg_path_ref;
 // movie_path_ref;
@@ -565,14 +578,14 @@ void create_var_item_slider() {
   size_y_item = new float[NUM_ITEM_PLUS_MASTER]; 
   size_z_item = new float[NUM_ITEM_PLUS_MASTER];
 
-  font_size_item = new float[NUM_ITEM_PLUS_MASTER];
+  diameter_item = new float[NUM_ITEM_PLUS_MASTER];
 
   canvas_x_item = new float[NUM_ITEM_PLUS_MASTER]; 
   canvas_y_item = new float[NUM_ITEM_PLUS_MASTER]; 
   canvas_z_item = new float[NUM_ITEM_PLUS_MASTER];
 
    //column 3
-  reactivity_item = new float[NUM_ITEM_PLUS_MASTER];
+  frequence_item = new float[NUM_ITEM_PLUS_MASTER];
 
   speed_x_item = new float[NUM_ITEM_PLUS_MASTER]; 
   speed_y_item = new float[NUM_ITEM_PLUS_MASTER];
@@ -748,13 +761,13 @@ void init_variable_item() {
     size_y_item [i] = (float)width *.05 ; 
     size_z_item [i] = (float)width *.05 ;
 
-    font_size_item [i] = 10 ;
+    size_x_item [i] = 10 ;
 
     canvas_x_item [i] = width ; 
     canvas_y_item [i] = width ; 
     canvas_z_item [i] = width ;
 
-    reactivity_item[i] = 0 ;
+    frequence_item[i] = 0 ;
 
     speed_x_item [i] = 0 ; 
     speed_y_item [i] = 0 ; 
@@ -969,14 +982,14 @@ void update_raw_item_value() {
   size_y_raw = map_smooth_start(value_slider_item[10], minSource, MAX_VALUE_SLIDER, size_y_min_max.x, size_y_min_max.y, smooth_slider) ;
   size_z_raw = map_smooth_start(value_slider_item[11], minSource, MAX_VALUE_SLIDER, size_z_min_max.x, size_z_min_max.y, smooth_slider) ;
   // size font
-  font_size_raw = map(value_slider_item[12], minSource, MAX_VALUE_SLIDER, font_size_min_max.x, font_size_min_max.y) ;
+  diameter_raw = map(value_slider_item[12], minSource, MAX_VALUE_SLIDER, font_size_min_max.x, font_size_min_max.y) ;
   // canvas
   canvas_x_raw = map_smooth_start(value_slider_item[13], minSource, MAX_VALUE_SLIDER, canvas_x_min_max.x, canvas_x_min_max.y, smooth_slider) ;
   canvas_y_raw = map_smooth_start(value_slider_item[14], minSource, MAX_VALUE_SLIDER, canvas_y_min_max.x, canvas_y_min_max.y, smooth_slider) ;
   canvas_z_raw = map_smooth_start(value_slider_item[15], minSource, MAX_VALUE_SLIDER, canvas_z_min_max.x, canvas_z_min_max.y, smooth_slider) ;
 
   // size font
-  reactivity_raw = map(value_slider_item[16], minSource, MAX_VALUE_SLIDER, reactivity_min_max.x, reactivity_min_max.y) ;
+  frequence_raw = map(value_slider_item[16], minSource, MAX_VALUE_SLIDER, reactivity_min_max.x, reactivity_min_max.y) ;
   // speed
   speed_x_raw = map(value_slider_item[17], minSource, MAX_VALUE_SLIDER, speed_x_min_max.x, speed_x_min_max.y) ;
   speed_y_raw = map(value_slider_item[18], minSource, MAX_VALUE_SLIDER, speed_y_min_max.x, speed_y_min_max.y) ;
@@ -1044,13 +1057,13 @@ void update_temp_value() {
   size_y_temp = size_y_raw ;
   size_z_temp = size_z_raw ;
   // font size
-  font_size_temp = font_size_raw ;
+  diameter_temp = diameter_raw ;
   // canvas
   canvas_x_temp = canvas_x_raw ;
   canvas_y_temp = canvas_y_raw ;
   canvas_z_temp = canvas_z_raw ;
   // misc
-  reactivity_temp = reactivity_raw ;
+  frequence_temp = frequence_raw ;
   // speed
   speed_x_temp = speed_x_raw ;
   speed_y_temp = speed_y_raw ;

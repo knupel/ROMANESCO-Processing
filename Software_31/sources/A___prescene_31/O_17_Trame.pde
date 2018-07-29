@@ -31,12 +31,12 @@ class Damier extends Romanesco {
     size_x_is = true;
     size_y_is = true;
     size_z_is = true;
-    font_size_is = false;
+    diameter_is = false;
     canvas_x_is = false;
     canvas_y_is = false;
     canvas_z_is = false;
 
-    reactivity_is = false;
+    // frequence_is = true;
     speed_x_is = true;
     speed_y_is = false;
     speed_z_is = false;

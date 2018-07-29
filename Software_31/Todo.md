@@ -1,43 +1,22 @@
 Todo Romanesco
 --
 
-
-*/MIDI
-
-probleme avec les commandes midi, comme si l'instruction était envoyée deux fois, et les slider ne répondent plus correctement quand les ordres viennent du controleur.
-
-
-*/
-
-ITEM NE FONCTIONNAT PAS SUITE AU CHANGEMENT DE METHODE COSTUME
-*/
-
-Letter
-
-*/ boxolyzer
-
-le diametre ne doit pas être modifier par le nombre de boite
-
-*/ Agent
-
-Mieux gérer les couleurs, c'est franchement le bronx entre les formes et les couleurs.
-
-
-
-
 *MAJOR
 
 */
 
 
 
+*SAVE SCENE and PRESCENE **************************
+
+loadDataObject()
+It's a huge mess is this method, now it's impossible ta save from SCENE
+
 *CAMERA
 
 Probleme de navigation entre les différentes caméras.
 
-*CAMERA
 
-Faire un bouton pour garder la rotation de la camera en continu sur le dernier mouvement de la souris, et ajouter un bouton vitesse sur le controleur.
 
 *OSC
 
@@ -47,6 +26,33 @@ bug with keyboard event between prescene and scene
 
 bug when the prescene and scene is active the prescene receive nothing
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+*MIDI
+
+probleme avec les commandes midi, comme si l'instruction était envoyée deux fois, et les slider ne répondent plus correctement quand les ordres viennent du controleur.
+
+*CAMERA
+
+Faire un bouton pour garder la rotation de la camera en continu sur le dernier mouvement de la souris, et ajouter un bouton vitesse sur le controleur.
+
+
+*Class param item
+
+creat a class for the variable slider
+like var[ID_item].x var[ID_item].y / var[ID_item].px var[ID_item].py /var[ID_item].min / var[ID_item].max ...
 
 
 *save
@@ -84,6 +90,35 @@ Finalize save Scene when all slider are done
 
 
 
+
+
+*ITEM and SHADER effect
+
+
+*Letter
+
+ITEM NE FONCTIONNAT PAS SUITE AU CHANGEMENT DE METHODE COSTUME
+
+*boxolyzer
+
+le diametre ne doit pas être modifier par le nombre de boite
+
+*Agent
+
+Mieux gérer les couleurs, c'est franchement le bronx entre les formes et les couleurs.
+
+*Cellular
+
+Quand il n'y a pas de couleur cela doit être en noir et blanc
+
+
+
+
+
+
+
+
+
 *MINOR
 
 
@@ -93,9 +128,7 @@ Finalize save Scene when all slider are done
 this variable String svg_current_path use instead a method or something like that
 
 
-*shader cellular
 
-Quand il n'y a pas de couleur cela doit être en noir et blanc
 
 
 *controller window info item
@@ -111,9 +144,6 @@ use line instead rect to show colour
 
 Supprimer cette librairie
 
-*Movisco item
-
-Il y a surement plein de bug avec la nouvelle class Pixel Cloud
 
 *2D
 

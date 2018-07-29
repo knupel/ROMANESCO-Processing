@@ -29,12 +29,12 @@ class Atome extends Romanesco {
     size_x_is = true;
     size_y_is = true;
     size_z_is = true;
-    font_size_is = true;
+    diameter_is = true;
     canvas_x_is = true;
     canvas_y_is = true;
     canvas_z_is = false;
 
-    reactivity_is = false;
+    // frequence_is = true;
     speed_x_is = true;
     speed_y_is = false;
     speed_z_is = false;
@@ -179,7 +179,7 @@ class Atome extends Romanesco {
     PVector marge = new PVector(map(canvas_x_item[ID_item], width/10, width, width/20, width *3) , map(canvas_y_item[ID_item], height/10, height, height/20, height *3) ) ;
     
     // SIZE
-    float sizeFont = font_size_item[ID_item] ;
+    float sizeFont = size_x_item[ID_item] ;
     int sizeTextName = int(sizeFont) ;
     int sizeTextInfo = int(sizeFont *.5) ;
 

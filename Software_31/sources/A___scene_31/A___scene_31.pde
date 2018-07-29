@@ -119,7 +119,7 @@ void romanesco() {
     shader_draw() ;
   }
 
-  rpe_manager.display_item(ORDER_ONE, ORDER_TWO, ORDER_THREE) ;
+  rpe_manager.show_item_3D(ORDER_ONE, ORDER_TWO, ORDER_THREE) ;
   grid_romanesco(displayInfo3D) ;
   stop_camera();
  

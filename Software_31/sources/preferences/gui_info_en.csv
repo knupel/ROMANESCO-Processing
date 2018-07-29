@@ -7,7 +7,8 @@ slider light,0,hue,saturation,brigthness,hue,saturation,brigthness,hue,saturatio
 slider sound,0,left,right,
 slider sound setting,0,range,x-bass,bass,medium,high,
 slider camera,0,focal 28-200,deformation,direction X,direction Y,position X,position Y,pitch,
-slider item a,0,f_hue,f_saturation,f_brightness,f_alpha,s_hue,s_saturation,s_brightness,s_alpha,thickness,size X,size Y,size Z,font size,canvas X,canvas Y,canvas Z,
-slider item b,0,reactivity,speed X,speed Y,speed Z,spurt X,spurt Y,spurt Z,direction X,direction Y,direction Z,jitter X,jitter Y,jitter Z,swing X,swing Y,swing Z,
+slider item a,0,f_hue,f_saturation,f_brightness,f_alpha,s_hue,s_saturation,s_brightness,s_alpha,thickness,size X,size Y,size Z,diameter,canvas X,canvas Y,canvas Z,
+slider item b,0,frequence,speed X,speed Y,speed Z,spurt X,spurt Y,spurt Z,direction X,direction Y,direction Z,jitter X,jitter Y,jitter Z,swing X,swing Y,swing Z,
 slider item c,0,quantity,variety,life,flow,quality,area,angle,scope,scan,alignment,repulsion,attraction,density,influence,calm,spectrum
+slider item d,0,grid,viscosity,diffusion
 

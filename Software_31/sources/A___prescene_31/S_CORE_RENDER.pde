@@ -1,7 +1,7 @@
 /**
 CORE Rope SCENE and PRESCENE 
 2015-2018
-v 1.4.5
+v 1.4.6
 */
 import java.net.*;
 import java.io.*;
@@ -692,9 +692,8 @@ void loadDataObject(String path) {
     float s_stroke = data_item.getFloat("saturation stroke");
     float b_stroke = data_item.getFloat("brightness stroke");
     float a_stroke = data_item.getFloat("alpha stroke");
-
-        if(FULL_RENDERING) {
-          fill_item[ID] = color(h_fill, s_fill, b_fill, a_fill) ;
+    if(FULL_RENDERING) {
+      fill_item[ID] = color(h_fill, s_fill, b_fill, a_fill) ;
       stroke_item[ID] = color(h_stroke, s_stroke, b_stroke, a_stroke) ;
       thickness_item[ID] = data_item.getFloat("thickness") *height ;
     } else {
@@ -710,6 +709,7 @@ void loadDataObject(String path) {
     canvas_x_item[ID] = data_item.getFloat("canvas x") *width ;
     canvas_y_item[ID] = data_item.getFloat("canvas y") *width ;
     canvas_z_item[ID] = data_item.getFloat("canvas z") *width ;
+
     variety_item[ID] = data_item.getFloat("family") ;
     quantity_item[ID] = data_item.getFloat("quantity") ;
     life_item[ID] = data_item.getFloat("life") ;
