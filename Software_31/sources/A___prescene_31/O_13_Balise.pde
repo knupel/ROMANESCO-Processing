@@ -156,7 +156,7 @@ class BaliseRomanesco extends Romanesco {
     int maxBalise = 511 ;
     if(!FULL_RENDERING) maxBalise = 64 ;
     float radiusBalise = map(quantity_item[ID_item], 0,1, 2, maxBalise); // here the value max is 511 because we work with buffersize with 512 field
-    float ratio_size = map(area_item[ID_item],width*.1, width*r.PHI,0,1);
+    float ratio_size = map(area_item[ID_item],width*.1, width*TAU,0,1);
     
     Vec3 pos = Vec3();
     balise.update(pos,speed);

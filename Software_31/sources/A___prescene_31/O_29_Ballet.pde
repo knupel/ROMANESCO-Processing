@@ -127,7 +127,7 @@ class Ballet extends Romanesco {
 
 
     // SHOW SPOT
-    float ratio_size_costume = map(area_item[ID_item],width*.1, width*PHI,0,width*.001);
+    float ratio_size_costume = map(area_item[ID_item],width*.1, width*TAU,0,width*.001);
     Vec3 size = Vec3(size_x_item[ID_item],size_y_item[ID_item],size_z_item[ID_item]);
     aspect_is(fill_is[ID_item],stroke_is[ID_item]);
     aspect_rope(fill_item[ID_item], stroke_item[ID_item],thickness_item[ID_item]);

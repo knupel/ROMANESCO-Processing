@@ -122,7 +122,7 @@ class BoumBoum extends Romanesco {
       fill(fill_item[ID_item]);
       stroke(stroke_item[ID_item]);
       strokeWeight(thickness_item[ID_item]);
-      set_ratio_costume_size(map(area_item[ID_item],width*.1, width*PHI,0,1));
+      set_ratio_costume_size(map(area_item[ID_item],width*.1, width*TAU,0,1));
       costume_rope(temp_pos, temp_size, dir,get_costume());
     }
   }

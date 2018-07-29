@@ -2,8 +2,6 @@
 ADD MEDIA
 v 0.1.0
 */
-
-
 void add_media() {
   if(load_media_input) {
     add_media(input());

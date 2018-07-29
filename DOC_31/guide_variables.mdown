@@ -269,13 +269,13 @@ quality_item[ID_item] ;
 >return float value: 0, 1
 
 area_item[ID_item] ; 
->return float value: width x.1, width xPHI
+>return float value: width x.1, width x2PI
 
 angle_item[ID_item] ;
 >return float value: 0, 360.0
 
 scope_item[ID_item] ; 
->return loat value: width x.1, width xPHI
+>return loat value: width x.1, width x2PI
 
 scan_item[ID_item] ; 
 >return float value: 0, 360.0 

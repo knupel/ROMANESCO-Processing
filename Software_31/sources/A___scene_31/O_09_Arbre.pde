@@ -252,7 +252,7 @@ class Arbre {
     } 
 
     // Draw the branch
-    set_ratio_costume_size(map(area_item[ID],width*.1, width*r.PHI,0,1));
+    set_ratio_costume_size(map(area_item[ID],width*.1, width*TAU,0,1));
     costume_rope(Vec3(),size,which_costume);
     // horizon
     

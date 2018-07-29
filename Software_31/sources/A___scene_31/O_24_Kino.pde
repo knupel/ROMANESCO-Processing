@@ -74,28 +74,35 @@ class Kino extends Romanesco {
 
   
 	void draw() {
+    param();
 		if(mode[ID_item] != 0 && mode[ID_item] != 2) {
 			movie[ID_item].pause();
 		}
 
 		if(mode[ID_item] == 2) {
-			kino_movie();
+			kino_movie(colour);
 		} else if(mode[ID_item] == 3) {
 			kino_bitmap();
 		}
 	}
 
   void draw_2D() {
+    param();
     if(mode[ID_item] == 0) {
-      kino_movie();
+      kino_movie(colour);
     } else if(mode[ID_item] == 1) {
       kino_bitmap();
     }
   }
+
+  int colour;
+  void param() {
+    colour = fill_item[ID_item];
+  }
   
   // kino movie
   int ref_which_movie;
-	private void kino_movie() {
+	private void kino_movie(int c) {
 		if(ref_which_movie != which_movie[ID_item]) {
 			load_movie(true,ID_item);
 			ref_which_movie = which_movie[ID_item];
@@ -109,14 +116,15 @@ class Kino extends Romanesco {
 		} else {
 			movie[ID_item].pause();
 		}
-		image(movie[ID_item],CENTER);
+    tint(c);
+		image(movie[ID_item],FIT);
 	}
 
 
 	// kino movie
 	private void kino_bitmap() {
 		load_bitmap(ID_item);
-		image(bitmap[ID_item],CENTER);
+		image(bitmap[ID_item],FIT);
 	}
 }
 

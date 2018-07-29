@@ -162,7 +162,7 @@ void check_slider_item() {
   which_slider_display() ;
   //check if the slider must be display
   if (reset_slider_item) {
-    // use this boolean to have a boolean slider true, if don't use thi boolean no onr slider can be true and active
+    // use this boolean to have a boolean slider true, if this boolean is don't use no slider can be true and active
     boolean firstCheck = true ; 
     //reset slider for new check
     for(int i = 0 ; i < NUM_SLIDER_ITEM ; i++) {

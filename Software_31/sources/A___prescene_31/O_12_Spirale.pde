@@ -165,7 +165,7 @@ class SpiraleRomanesco extends Romanesco {
     // mode    
     Vec3 pos = Vec3() ; // we write that because the first part of the void is not available any more.
     spirale.update(pos, speed);
-    float ratio_size = map(area_item[ID_item],width*.1, width*r.PHI,0,1);
+    float ratio_size = map(area_item[ID_item],width*.1, width*TAU,0,1);
     spirale.show(n, nMax, size, z, canvas, get_costume(), horizon[ID_item], pos_swing,ratio_size) ;
     
     // info display

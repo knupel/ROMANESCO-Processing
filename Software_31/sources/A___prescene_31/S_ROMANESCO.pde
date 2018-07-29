@@ -46,20 +46,18 @@ void romanesco_build_item() {
 }
 
 void set_slider_item_name() {
-  Table slider_item_data = loadTable(preference_path+"slider_name_en.csv","header");
-
-  
+  Table slider_item_data = loadTable(preference_path+"gui_info_en.csv","header");
   String [][] slider_name = new String[3][16];
   for(int i = 0 ; i < slider_item_data.getRowCount() ;i++) {
     TableRow row = slider_item_data.getRow(i);
     for(int line = 0 ; line < 3 ; line++) {
       String name = "";
       if(line == 0) {
-        name = "item a";
+        name = "slider item a";
       } else if(line == 1) {
-        name = "item b";
+        name = "slider item b";
       } else if(line == 2) {
-        name = "item c";
+        name = "slider item c";
       }
       if(row.getString("name").equals(name)) {
         for(int k = 0 ; k < slider_item_data.getColumnCount()-1 ; k++) {
@@ -726,13 +724,13 @@ abstract class Romanesco implements Rope_Constants {
   void set_item_romanesco(Romanesco_manager item_romanesco) {
     this.item_romanesco = item_romanesco;
     if(!hue_fill_is) item_slider +="," ; else item_slider += (ROM_HUE_FILL +",");
-    if(!sat_fill_is) item_slider +="," ;else item_slider +=(ROM_SAT_FILL+",");
-    if(!bright_fill_is) item_slider +="," ;else item_slider +=(ROM_BRIGHT_FILL+",");
-    if(!alpha_fill_is) item_slider +="," ;else item_slider +=(ROM_ALPHA_FILL+",");
+    if(!sat_fill_is) item_slider +="," ; else item_slider +=(ROM_SAT_FILL+",");
+    if(!bright_fill_is) item_slider +="," ; else item_slider +=(ROM_BRIGHT_FILL+",");
+    if(!alpha_fill_is) item_slider +="," ; else item_slider +=(ROM_ALPHA_FILL+",");
     if(!hue_stroke_is) item_slider +="," ; else item_slider += (ROM_HUE_STROKE +",");
-    if(!sat_stroke_is) item_slider +="," ;else item_slider +=(ROM_SAT_STROKE+",");
-    if(!bright_stroke_is) item_slider +="," ;else item_slider +=(ROM_BRIGHT_STROKE+",");
-    if(!alpha_stroke_is) item_slider +="," ;else item_slider +=(ROM_ALPHA_STROKE+",");
+    if(!sat_stroke_is) item_slider +="," ; else item_slider +=(ROM_SAT_STROKE+",");
+    if(!bright_stroke_is) item_slider +="," ; else item_slider +=(ROM_BRIGHT_STROKE+",");
+    if(!alpha_stroke_is) item_slider +="," ; else item_slider +=(ROM_ALPHA_STROKE+",");
     if(!thickness_is) item_slider +="," ; else item_slider += (ROM_THICKNESS+",");
     if(!size_x_is) item_slider +="," ; else item_slider += (ROM_SIZE_X+",");
     if(!size_y_is) item_slider +="," ; else item_slider += (ROM_SIZE_Y+",");
@@ -811,31 +809,37 @@ abstract class Romanesco implements Rope_Constants {
 
     if(costume_romanesco.equals("point") || costume_romanesco.equals("POINT") || costume_romanesco.equals("Point")) {
       if(!dimension[get_id()]) {
-        costume[get_id()] = POINT_ROPE ; 
+        costume[get_id()] = POINT_ROPE; 
       } else {
-        costume[get_id()] = SPHERE_LOW_ROPE ;
+        costume[get_id()] = SPHERE_LOW_ROPE;
+      }
+    } else if(costume_romanesco.equals("line") || costume_romanesco.equals("LINE") || costume_romanesco.equals("Line")) {
+      if(!dimension[get_id()]) {
+        costume[get_id()] = LINE_ROPE; 
+      } else {
+        costume[get_id()] = LINE_ROPE;
       }
     } else if(costume_romanesco.equals("ellipse") || costume_romanesco.equals("ELLIPSE") || costume_romanesco.equals("Ellipse") || costume_romanesco.equals("disc") || costume_romanesco.equals("DISC") || costume_romanesco.equals("Disc")) {
       if(!dimension[get_id()]) {
-        costume[get_id()] = ELLIPSE_ROPE ; 
+        costume[get_id()] = ELLIPSE_ROPE; 
       } else {
-        costume[get_id()] = SPHERE_MEDIUM_ROPE ;
+        costume[get_id()] = SPHERE_MEDIUM_ROPE;
       }
     } else if(costume_romanesco.equals("triangle") || costume_romanesco.equals("TRIANGLE") || costume_romanesco.equals("Triangle")) {
       if(!dimension[get_id()]) {
-        costume[get_id()] = TRIANGLE_ROPE ; 
+        costume[get_id()] = TRIANGLE_ROPE; 
       } else {
-        costume[get_id()] = TETRAHEDRON_ROPE ;
+        costume[get_id()] = TETRAHEDRON_ROPE;
       }
     } else if(costume_romanesco.equals("rectangle") || costume_romanesco.equals("RECTANGLE") || costume_romanesco.equals("Rectangle") || costume_romanesco.equals("rect") || costume_romanesco.equals("RECT") || costume_romanesco.equals("Rect")) {
       if(!dimension[get_id()]) {
-        costume[get_id()] = RECT_ROPE ; 
+        costume[get_id()] = RECT_ROPE; 
       } else {
-        costume[get_id()] = BOX_ROPE ;
+        costume[get_id()] = BOX_ROPE;
       }
     } else if(costume_romanesco.equals("pentagon") || costume_romanesco.equals("PENTAGON") || costume_romanesco.equals("Pentagon")) {
       if(!dimension[get_id()]) {
-        costume[get_id()] = PENTAGON_ROPE ; 
+        costume[get_id()] = PENTAGON_ROPE; 
       } else {
         printErrTempo(60,"method select_costume(): No shape match in P3D with Pentagon");
         costume[get_id()] = PENTAGON_ROPE;
@@ -848,55 +852,63 @@ abstract class Romanesco implements Rope_Constants {
       }
     } else if(costume_romanesco.equals("star 4") || costume_romanesco.equals("STAR 4") || costume_romanesco.equals("Star 4")) {
       if(!dimension[get_id()]) {
-        costume[get_id()] = STAR_4_ROPE ; 
+        costume[get_id()] = STAR_4_ROPE; 
       } else {
-        costume[get_id()] = STAR_4_ROPE ;
+        costume[get_id()] = STAR_4_ROPE;
       }
     } else if(costume_romanesco.equals("star 5") || costume_romanesco.equals("STAR 5") || costume_romanesco.equals("Star 5")) {
       if(!dimension[get_id()]) {
-        costume[get_id()] = STAR_5_ROPE ; 
+        costume[get_id()] = STAR_5_ROPE; 
       } else {
-        costume[get_id()] = STAR_5_ROPE ;
+        costume[get_id()] = STAR_5_ROPE;
       }
     } else if(costume_romanesco.equals("star 6") || costume_romanesco.equals("STAR 6") || costume_romanesco.equals("Star 6")) {
       if(!dimension[get_id()]) {
-        costume[get_id()] = STAR_6_ROPE ; 
+        costume[get_id()] = STAR_6_ROPE; 
       } else {
-        costume[get_id()] = STAR_6_ROPE ;
+        costume[get_id()] = STAR_6_ROPE;
       }
     } else if(costume_romanesco.equals("star 7") || costume_romanesco.equals("STAR 7") || costume_romanesco.equals("Star 7")) {
       if(!dimension[get_id()]) {
-        costume[get_id()] = STAR_7_ROPE ; 
+        costume[get_id()] = STAR_7_ROPE; 
       } else {
-        costume[get_id()] = STAR_7_ROPE ;
+        costume[get_id()] = STAR_7_ROPE;
       }
     }
     else if(costume_romanesco.equals("star 8") || costume_romanesco.equals("STAR 8") || costume_romanesco.equals("Star 8")) {
       if(!dimension[get_id()]) {
-        costume[get_id()] = STAR_8_ROPE ; 
+        costume[get_id()] = STAR_8_ROPE; 
       } else {
-        costume[get_id()] = STAR_8_ROPE ;
+        costume[get_id()] = STAR_8_ROPE;
       }
     } else if(costume_romanesco.equals("super star 8") || costume_romanesco.equals("SUPER STAR 8") || costume_romanesco.equals("Super Star 8")) {
       if(!dimension[get_id()]) {
-        costume[get_id()] = SUPER_STAR_8_ROPE ; 
+        costume[get_id()] = SUPER_STAR_8_ROPE; 
       } else {
-        costume[get_id()] = SUPER_STAR_8_ROPE ;
+        costume[get_id()] = SUPER_STAR_8_ROPE;
       }
     } else if(costume_romanesco.equals("super star 12") || costume_romanesco.equals("SUPER STAR 12") || costume_romanesco.equals("Super Star 12")) {
       if(!dimension[get_id()]) {
-        costume[get_id()] = SUPER_STAR_12_ROPE ; 
+        costume[get_id()] = SUPER_STAR_12_ROPE; 
       } else {
-        costume[get_id()] = SUPER_STAR_12_ROPE ;
+        costume[get_id()] = SUPER_STAR_12_ROPE;
       }
     } else if(costume_romanesco.equals("abc") || costume_romanesco.equals("ABC") || costume_romanesco.equals("Abc")) {
       if(!dimension[get_id()]) {
-        costume[get_id()] = TEXT_ROPE ; 
+        costume[get_id()] = TEXT_ROPE; 
       } else {
-        costume[get_id()] = TEXT_ROPE ;
+        costume[get_id()] = TEXT_ROPE;
+      }
+    } else if(costume_romanesco.equals("none") || costume_romanesco.equals("NONE") || costume_romanesco.equals("None") ||
+              costume_romanesco.equals("nothing") || costume_romanesco.equals("NOTHING") || costume_romanesco.equals("Nothing") || 
+              costume_romanesco.equals("null") || costume_romanesco.equals("NULL") || costume_romanesco.equals("Null")) {
+      if(!dimension[get_id()]) {
+        costume[get_id()] = NULL; 
+      } else {
+        costume[get_id()] = NULL;
       }
     } else {
-      costume[get_id()] = NO_COSTUME; 
+      costume[get_id()] = NULL;
     }
 
     return costume[get_id()];

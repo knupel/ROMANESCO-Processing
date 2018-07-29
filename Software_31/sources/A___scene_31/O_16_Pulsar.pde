@@ -100,7 +100,7 @@ class Pulsar extends Romanesco {
     orientation.map_vec(0,360,0,TAU);
     // cloud_3D.ring(.01, false);
     // cloud_3D.helmet(.005, false);
-    float ratio_size = map(area_item[ID_item],width*.1, width*PHI,0,1);
+    float ratio_size = map(area_item[ID_item],width*.1, width*TAU,0,1);
     pulsar.size(size_x_item[ID_item],size_y_item[ID_item],size_z_item[ID_item]);
     // cloud_3D.size((height/4) *abs(sin(frameCount *.01)));
     // cloud_3D.orientation_y(map(mouseY,0,height,-PI,PI));

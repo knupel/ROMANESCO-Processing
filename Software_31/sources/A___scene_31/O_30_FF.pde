@@ -11,8 +11,8 @@ class FF extends Romanesco {
 		item_author  = "Stan le Punk";
 		item_version = "Version 0.0.1";
 		item_pack = "Romanesco 2018";
-    item_costume = "";
-    item_mode = "";
+    item_costume = "none/line";
+    item_mode = "fluid/magnetic/gravity/perlin/equation/chaos/image";
 
 	  // hue_fill_is = true;
     // sat_fill_is = true;
@@ -53,7 +53,7 @@ class FF extends Romanesco {
     // life_is = true;
     // flow_is = true;
     // quality_is = true;
-    // area_is = true;
+    area_is = true;
     // angle_is = true;
     // scope_is = true;
     // scan_is = true;
@@ -75,20 +75,22 @@ class FF extends Romanesco {
   }
   
 
+  int ref_mode = 0 ;
+  float ref_cell = 0;
+  float ref_detection = 0;
+  void draw() { 
+    set_ff();
 
-  void draw() {
-    int cell_size = (int)map(quantity_item[ID_item],0,1,height/10,2);
-    if(get_cell_force_field() != cell_size) {
-      set_cell_force_field(cell_size);
-      println("cell ref",get_cell_force_field());
-      init_force_field();
+    if(ref_cell != quantity_item[ID_item] || ref_mode != mode[ID_item] || ref_detection != area_item[ID_item]) {
+      ref_mode = mode[ID_item];
+      ref_cell = quantity_item[ID_item];
+      ref_detection = area_item[ID_item];
+      init_force_field(get_spot_num());
     }
-
 
     update_force_field_is(true);
     int c = stroke_item[ID_item];
 
-    
     float thickness = thickness_item[ID_item];
     float scale = size_x_item[ID_item];
     float range = 0 ;
@@ -97,8 +99,59 @@ class FF extends Romanesco {
     } else {
       range = map(spectrum_item[ID_item],0,360,0,1);
     }
+    
     Force_field ff = get_force_field();
-    show_field(ff,scale,range,c,thickness);
+    
+    if(get_costume() == NULL) {
+      // nothing
+    } else if(get_costume() == LINE_ROPE) { 
+      show_field(ff,scale,range,c,thickness);
+    }
+  }
+
+
+  /**
+  SET FORCE
+  */
+  private void set_ff() {
+    // set detection
+    println("area raw",area_item[ID_item]);
+    int detection = (int)map(area_item[ID_item],width *.1,width*TAU,10,1);
+    println("area map",detection);
+    set_spot_detection_force_field(detection);
+    // set cell
+    int cell_size = (int)map(quantity_item[ID_item],0,1,height/10,2);
+    set_cell_force_field(cell_size);
+    // set type
+    if(mode[ID_item] == 0) {
+      set_type_force_field(FLUID);
+    } else if(mode[ID_item] == 1) {
+      set_type_force_field(MAGNETIC);
+    } else if(mode[ID_item] == 2) {
+      set_type_force_field(GRAVITY);
+    } else {
+      set_type_force_field(STATIC);
+    }
+    // set pattern
+    if(mode[ID_item] == 3) {
+      set_pattern_force_field(PERLIN);
+    } else if(mode[ID_item] == 4) {
+      set_pattern_force_field(EQUATION);
+    } else if(mode[ID_item] == 5) {
+      set_pattern_force_field(IMAGE);
+    } else {
+      set_pattern_force_field(BLANK);
+    }
+
+    // set different force field
+    if(get_type_force_field() == FLUID) {
+      set_force_fluid_frequence(2/frameRate);
+      set_force_fluid_viscosity(.001);
+      set_force_fluid_diffusion(1.);
+    } else if(get_type_force_field() == MAGNETIC) {
+      set_force_magnetic_tesla(20,-20);
+      set_force_magnetic_diam(50);
+    }
   }
 
 
