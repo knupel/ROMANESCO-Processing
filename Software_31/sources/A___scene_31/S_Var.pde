@@ -122,81 +122,88 @@ int objectLeapID[] ;
 boolean objectParameter[] ;
 
 //raw
-int fill_hue_raw, fill_sat_raw, fill_bright_raw, fill_alpha_raw ;
-int stroke_hue_raw, stroke_sat_raw, stroke_bright_raw, stroke_alpha_raw ;
-float thickness_raw ; 
-float size_x_raw, size_y_raw, size_z_raw ;
-float canvas_x_raw, canvas_y_raw, canvas_z_raw ;
-float diameter_raw ;
+int fill_hue_raw, fill_sat_raw, fill_bright_raw, fill_alpha_raw;
+int stroke_hue_raw, stroke_sat_raw, stroke_bright_raw, stroke_alpha_raw;
+float thickness_raw; 
+float size_x_raw, size_y_raw, size_z_raw;
+float canvas_x_raw, canvas_y_raw, canvas_z_raw;
+float diameter_raw;
 
-float frequence_raw ;
-float speed_x_raw, speed_y_raw, speed_z_raw ;
-float spurt_x_raw, spurt_y_raw, spurt_z_raw ;
-float dir_x_raw, dir_y_raw, dir_z_raw ;
-float jitter_x_raw, jitter_y_raw, jitter_z_raw ;
-float swing_x_raw, swing_y_raw, swing_z_raw ;
+float frequence_raw;
+float speed_x_raw, speed_y_raw, speed_z_raw;
+float spurt_x_raw, spurt_y_raw, spurt_z_raw;
+float dir_x_raw, dir_y_raw, dir_z_raw;
+float jitter_x_raw, jitter_y_raw, jitter_z_raw;
+float swing_x_raw, swing_y_raw, swing_z_raw;
 
-float quantity_raw, variety_raw ; 
-float life_raw, flow_raw, quality_raw ;
+float quantity_raw, variety_raw; 
+float life_raw, flow_raw, quality_raw;
 
-float area_raw, angle_raw, scope_raw, scan_raw ;
-float alignment_raw, repulsion_raw, attraction_raw, density_raw ;
+float area_raw, angle_raw, scope_raw, scan_raw;
+float alignment_raw, repulsion_raw, attraction_raw, density_raw;
 
-float influence_raw, calm_raw, spectrum_raw ;
+float influence_raw, calm_raw, spectrum_raw;
+
+float grid_raw;
+float viscosity_raw, diffusion_raw;
 
 
 
 
 // MIN MAX MAP SLIDER
-Vec2 fill_hue_min_max, fill_sat_min_max , fill_bright_min_max , fill_alpha_min_max ;
-Vec2 stroke_hue_min_max, stroke_sat_min_max, stroke_bright_min_max, stroke_alpha_min_max  ;
-Vec2 thickness_min_max ; 
-Vec2 size_x_min_max, size_y_min_max, size_z_min_max ;
-Vec2 font_size_min_max ;
-Vec2 canvas_x_min_max, canvas_y_min_max, canvas_z_min_max ;
+// col A
+Vec2 fill_hue_min_max, fill_sat_min_max , fill_bright_min_max , fill_alpha_min_max;
+Vec2 stroke_hue_min_max, stroke_sat_min_max, stroke_bright_min_max, stroke_alpha_min_max;
+Vec2 thickness_min_max; 
+Vec2 size_x_min_max, size_y_min_max, size_z_min_max;
+Vec2 diameter_min_max;
+Vec2 canvas_x_min_max, canvas_y_min_max, canvas_z_min_max;
+// col B
+Vec2 frequence_min_max;
+Vec2 speed_x_min_max, speed_y_min_max, speed_z_min_max;
+Vec2 spurt_x_min_max, spurt_y_min_max, spurt_z_min_max;
+Vec2 dir_x_min_max, dir_y_min_max, dir_z_min_max; 
+Vec2 jitter_x_min_max, jitter_y_min_max, jitter_z_min_max;
+Vec2 swing_x_min_max, swing_y_min_max, swing_z_min_max;
+// col C
+Vec2 quantity_min_max, variety_min_max; 
+Vec2 life_min_max, flow_min_max, quality_min_max;
+Vec2 area_min_max, angle_min_max, scope_min_max, scan_min_max; 
 
-Vec2 reactivity_min_max ;
-Vec2 speed_x_min_max, speed_y_min_max, speed_z_min_max ;
-Vec2 spurt_x_min_max, spurt_y_min_max, spurt_z_min_max ;
-Vec2 dir_x_min_max, dir_y_min_max, dir_z_min_max  ; 
-Vec2 jitter_x_min_max, jitter_y_min_max, jitter_z_min_max ;
-Vec2 swing_x_min_max, swing_y_min_max, swing_z_min_max ;
-
-Vec2 quantity_min_max, variety_min_max ; 
-Vec2 life_min_max, flow_min_max, quality_min_max ;
-Vec2 area_min_max, angle_min_max, scope_min_max, scan_min_max ; 
-
-Vec2 alignment_min_max, repulsion_min_max, attraction_min_max, density_min_max ;
-Vec2 influence_min_max, calm_min_max ;
-Vec2 spectrum_min_max ;
+Vec2 alignment_min_max, repulsion_min_max, attraction_min_max, density_min_max;
+Vec2 influence_min_max, calm_min_max;
+Vec2 spectrum_min_max;
+// col D
+Vec2 grid_min_max;
+Vec2 viscosity_min_max,diffusion_min_max;
 
 
 
 
 // temp
 /* value used to know if the value slider have change or nor */
+// col A
 int fill_hue_temp, fill_sat_temp, fill_bright_temp, fill_alpha_temp;
 int stroke_hue_temp, stroke_sat_temp, stroke_bright_temp, stroke_alpha_temp;
 float thickness_temp; 
 float size_x_temp, size_y_temp, size_z_temp;
 float diameter_temp;
 float canvas_x_temp, canvas_y_temp, canvas_z_temp;
-
-
+// col B
 float frequence_temp;
 float speed_x_temp, speed_y_temp, speed_z_temp;
 float spurt_x_temp, spurt_y_temp, spurt_z_temp;
 float dir_x_temp, dir_y_temp,dir_z_temp;
 float jitter_x_temp, jitter_y_temp, jitter_z_temp;
 float swing_x_temp, swing_y_temp, swing_z_temp;
-
+// col C
 float quantity_temp, variety_temp;
 float life_temp, flow_temp, quality_temp;
 float area_temp, angle_temp, scope_temp, scan_temp;
 
 float alignment_temp, repulsion_temp, attraction_temp, density_temp;
 float influence_temp, calm_temp, spectrum_temp;
-
+// col D
 float grid_temp;
 float viscosity_temp, diffusion_temp;
 
@@ -627,6 +634,10 @@ void create_var_item_slider() {
   influence_item = new float[NUM_ITEM_PLUS_MASTER];
   calm_item = new float[NUM_ITEM_PLUS_MASTER];
   spectrum_item = new float[NUM_ITEM_PLUS_MASTER];
+
+  grid_item = new float[NUM_ITEM_PLUS_MASTER];
+  viscosity_item = new float[NUM_ITEM_PLUS_MASTER];
+  diffusion_item = new float[NUM_ITEM_PLUS_MASTER];
 }
 
 
@@ -683,13 +694,13 @@ void init_variable_item_min_max() {
   size_y_min_max = Vec2(max *super_min_size, max) ;     
   size_z_min_max = Vec2(max *super_min_size, max) ;
 
-  font_size_min_max = Vec2(max *super_min_size, max);
+  diameter_min_max = Vec2(max *super_min_size, max);
 
   canvas_x_min_max = Vec2(max *min_size, max *factor_area) ; 
   canvas_y_min_max = Vec2(max *min_size, max *factor_area) ; 
   canvas_z_min_max = Vec2(max *min_size, max *factor_area) ;
 
-  reactivity_min_max = Vec2(0,1) ;
+  frequence_min_max = Vec2(0,1) ;
 
   speed_x_min_max = Vec2(0,1) ; 
   speed_y_min_max = Vec2(0,1) ; 
@@ -731,6 +742,10 @@ void init_variable_item_min_max() {
   influence_min_max = Vec2(0,1) ; 
   calm_min_max = Vec2(0,1) ; 
   spectrum_min_max = Vec2(0,360) ;
+
+  grid_min_max = Vec2(max *min_size, max *factor_area); 
+  viscosity_min_max = Vec2(0,1) ; 
+  diffusion_min_max = Vec2(01) ;
 }
 
 
@@ -742,78 +757,83 @@ void init_variable_item() {
     stroke_is[i] = true ;
     wire[i] = true ;
     // master follower
-    master_ID[i] = 0 ;
-    follower[i] = false ;
+    master_ID[i] = 0;
+    follower[i] = false;
 
-    reset_camera_direction_item[i] = true ;
-    temp_item_canvas_direction[i] = Vec3() ;
-    pen[i] = Vec3() ;
+    reset_camera_direction_item[i] = true;
+    temp_item_canvas_direction[i] = Vec3();
+    pen[i] = Vec3();
     // use the 250 value for "z" to keep the position light on the front
-    mouse[i] = Vec3() ;
-    wheel[i] = 0 ;
+    mouse[i] = Vec3();
+    wheel[i] = 0;
 
     // costume 
-    costume[i] = POINT_ROPE ;
+    costume[i] = POINT_ROPE;
     // init slider var item except fill and stroke
-    thickness_item [i] =1. ; 
+    thickness_item [i] =1.; 
 
-    size_x_item [i] = (float)width *.05 ; 
-    size_y_item [i] = (float)width *.05 ; 
-    size_z_item [i] = (float)width *.05 ;
+    size_x_item [i] = (float)width *.05; 
+    size_y_item [i] = (float)width *.05; 
+    size_z_item [i] = (float)width *.05;
 
     size_x_item [i] = 10 ;
 
-    canvas_x_item [i] = width ; 
-    canvas_y_item [i] = width ; 
-    canvas_z_item [i] = width ;
+    canvas_x_item [i] = width; 
+    canvas_y_item [i] = width; 
+    canvas_z_item [i] = width;
 
-    frequence_item[i] = 0 ;
+    // COL B
+    frequence_item[i] = 0;
 
-    speed_x_item [i] = 0 ; 
-    speed_y_item [i] = 0 ; 
-    speed_z_item [i] = 0 ;
+    speed_x_item [i] = 0; 
+    speed_y_item [i] = 0; 
+    speed_z_item [i] = 0;
 
-    spurt_x_item [i] = 0 ; 
-    spurt_y_item [i] = 0 ; 
-    spurt_z_item [i] = 0 ; 
+    spurt_x_item [i] = 0; 
+    spurt_y_item [i] = 0; 
+    spurt_z_item [i] = 0; 
 
-    dir_x_item [i] = 0 ; 
-    dir_y_item [i] = 0 ; 
-    dir_z_item [i] = 0 ; 
+    dir_x_item [i] = 0; 
+    dir_y_item [i] = 0; 
+    dir_z_item [i] = 0; 
 
-    jitter_x_item [i] = 0 ; 
-    jitter_y_item [i] = 0 ; 
-    jitter_z_item [i] = 0 ; 
+    jitter_x_item [i] = 0; 
+    jitter_y_item [i] = 0; 
+    jitter_z_item [i] = 0; 
 
-    swing_x_item [i] = 0 ; 
-    swing_y_item [i] = 0 ; 
-    swing_z_item [i] = 0 ; 
+    swing_x_item [i] = 0; 
+    swing_y_item [i] = 0; 
+    swing_z_item [i] = 0; 
+    
+    // col C
+    quantity_item [i] = .1; 
+    variety_item [i] = 0; 
 
-    quantity_item [i] = .1 ; 
+    life_item [i] = .1;
+    flow_item [i] = 0; 
+    quality_item [i] = .1;
 
-    variety_item [i] = 0 ; 
+    area_item [i] = width; 
+    angle_item [i] = 0; 
+    scope_item [i] = width;
+    scan_item [i] = 90; 
 
-    life_item [i] = .1 ;
-    flow_item [i] = 0 ; 
-    quality_item [i] = .1 ;
+    alignment_item [i] = 0; 
+    repulsion_item [i] = 0;  
+    attraction_item [i] = 0; 
+    density_item [i] = 0; 
 
-    area_item [i] = width ; 
-    angle_item [i] = 0 ; 
-    scope_item [i] = width ;
-    scan_item [i] = 90 ; 
-
-    alignment_item [i] = 0 ; 
-    repulsion_item [i] = 0 ;  
-    attraction_item [i] = 0 ; 
-    density_item [i] = 0 ; 
-
-    influence_item [i] = 0 ; 
-    calm_item [i] = 0 ; 
-    spectrum_item [i] = 0 ; 
+    influence_item [i] = 0; 
+    calm_item [i] = 0; 
+    spectrum_item [i] = 0; 
+    // col D
+    grid_item [i] = width; 
+    viscosity_item [i] = 0; 
+    diffusion_item [i] = 0; 
   }
     // init global var for the color obj preview mode display
-  COLOR_FILL_ITEM_PREVIEW = color (0,0,100,30) ; 
-  COLOR_STROKE_ITEM_PREVIEW = color (0,0,100,30) ;
+  COLOR_FILL_ITEM_PREVIEW = color (0,0,100,30); 
+  COLOR_STROKE_ITEM_PREVIEW = color (0,0,100,30);
 }
 
 
@@ -965,146 +985,159 @@ Those value are used to updated the object data value, and updated at the end of
 void update_raw_item_value() {
    int minSource = 0 ;
    int smooth_slider = 2 ;
+   // COL A
   // fill
   fill_hue_raw = (int)map(value_slider_item[0], minSource, MAX_VALUE_SLIDER, fill_hue_min_max.x, fill_hue_min_max.y);
   fill_sat_raw = (int)map(value_slider_item[1], minSource, MAX_VALUE_SLIDER, fill_sat_min_max.x, fill_sat_min_max.y);    
-  fill_bright_raw = (int)map(value_slider_item[2], minSource, MAX_VALUE_SLIDER, fill_bright_min_max.x, fill_bright_min_max.y) ;   
+  fill_bright_raw = (int)map(value_slider_item[2], minSource, MAX_VALUE_SLIDER, fill_bright_min_max.x, fill_bright_min_max.y);   
   fill_alpha_raw = (int)map(value_slider_item[3], minSource, MAX_VALUE_SLIDER, fill_alpha_min_max.x, fill_alpha_min_max.y);
   // stroke
   stroke_hue_raw = (int)map(value_slider_item[4], minSource, MAX_VALUE_SLIDER, stroke_hue_min_max.x,stroke_hue_min_max.y);   
   stroke_sat_raw = (int)map(value_slider_item[5], minSource, MAX_VALUE_SLIDER, stroke_sat_min_max.x,stroke_sat_min_max.y);  
-  stroke_bright_raw = (int)map(value_slider_item[6], minSource, MAX_VALUE_SLIDER, stroke_bright_min_max.x, stroke_bright_min_max.y) ; 
+  stroke_bright_raw = (int)map(value_slider_item[6], minSource, MAX_VALUE_SLIDER, stroke_bright_min_max.x, stroke_bright_min_max.y); 
   stroke_alpha_raw = (int)map(value_slider_item[7], minSource, MAX_VALUE_SLIDER, stroke_alpha_min_max.x, stroke_alpha_min_max.y);
   // 
-  thickness_raw = map_smooth_start(value_slider_item[8], minSource, MAX_VALUE_SLIDER, thickness_min_max.x, thickness_min_max.y, smooth_slider) ;
+  thickness_raw = map_smooth_start(value_slider_item[8], minSource, MAX_VALUE_SLIDER, thickness_min_max.x, thickness_min_max.y, smooth_slider);
   // size
-  size_x_raw = map_smooth_start(value_slider_item[9], minSource, MAX_VALUE_SLIDER, size_x_min_max.x, size_x_min_max.y, smooth_slider) ;
-  size_y_raw = map_smooth_start(value_slider_item[10], minSource, MAX_VALUE_SLIDER, size_y_min_max.x, size_y_min_max.y, smooth_slider) ;
-  size_z_raw = map_smooth_start(value_slider_item[11], minSource, MAX_VALUE_SLIDER, size_z_min_max.x, size_z_min_max.y, smooth_slider) ;
+  size_x_raw = map_smooth_start(value_slider_item[9], minSource, MAX_VALUE_SLIDER, size_x_min_max.x, size_x_min_max.y, smooth_slider);
+  size_y_raw = map_smooth_start(value_slider_item[10], minSource, MAX_VALUE_SLIDER, size_y_min_max.x, size_y_min_max.y, smooth_slider);
+  size_z_raw = map_smooth_start(value_slider_item[11], minSource, MAX_VALUE_SLIDER, size_z_min_max.x, size_z_min_max.y, smooth_slider);
   // size font
-  diameter_raw = map(value_slider_item[12], minSource, MAX_VALUE_SLIDER, font_size_min_max.x, font_size_min_max.y) ;
+  diameter_raw = map(value_slider_item[12], minSource, MAX_VALUE_SLIDER, diameter_min_max.x, diameter_min_max.y);
   // canvas
-  canvas_x_raw = map_smooth_start(value_slider_item[13], minSource, MAX_VALUE_SLIDER, canvas_x_min_max.x, canvas_x_min_max.y, smooth_slider) ;
-  canvas_y_raw = map_smooth_start(value_slider_item[14], minSource, MAX_VALUE_SLIDER, canvas_y_min_max.x, canvas_y_min_max.y, smooth_slider) ;
-  canvas_z_raw = map_smooth_start(value_slider_item[15], minSource, MAX_VALUE_SLIDER, canvas_z_min_max.x, canvas_z_min_max.y, smooth_slider) ;
-
-  // size font
-  frequence_raw = map(value_slider_item[16], minSource, MAX_VALUE_SLIDER, reactivity_min_max.x, reactivity_min_max.y) ;
+  canvas_x_raw = map_smooth_start(value_slider_item[13], minSource, MAX_VALUE_SLIDER, canvas_x_min_max.x, canvas_x_min_max.y, smooth_slider);
+  canvas_y_raw = map_smooth_start(value_slider_item[14], minSource, MAX_VALUE_SLIDER, canvas_y_min_max.x, canvas_y_min_max.y, smooth_slider);
+  canvas_z_raw = map_smooth_start(value_slider_item[15], minSource, MAX_VALUE_SLIDER, canvas_z_min_max.x, canvas_z_min_max.y, smooth_slider);
+  
+  // COL B
+  // frequence raw
+  frequence_raw = map(value_slider_item[16], minSource, MAX_VALUE_SLIDER, frequence_min_max.x, frequence_min_max.y);
   // speed
-  speed_x_raw = map(value_slider_item[17], minSource, MAX_VALUE_SLIDER, speed_x_min_max.x, speed_x_min_max.y) ;
-  speed_y_raw = map(value_slider_item[18], minSource, MAX_VALUE_SLIDER, speed_y_min_max.x, speed_y_min_max.y) ;
-  speed_z_raw = map(value_slider_item[19], minSource, MAX_VALUE_SLIDER, speed_z_min_max.x, speed_z_min_max.y) ;
+  speed_x_raw = map(value_slider_item[17], minSource, MAX_VALUE_SLIDER, speed_x_min_max.x, speed_x_min_max.y);
+  speed_y_raw = map(value_slider_item[18], minSource, MAX_VALUE_SLIDER, speed_y_min_max.x, speed_y_min_max.y);
+  speed_z_raw = map(value_slider_item[19], minSource, MAX_VALUE_SLIDER, speed_z_min_max.x, speed_z_min_max.y);
   // spurt
-  spurt_x_raw = map(value_slider_item[20], minSource, MAX_VALUE_SLIDER, spurt_x_min_max.x, spurt_x_min_max.y) ;
-  spurt_y_raw = map(value_slider_item[21], minSource, MAX_VALUE_SLIDER, spurt_y_min_max.x, spurt_y_min_max.y) ;
-  spurt_z_raw = map(value_slider_item[22], minSource, MAX_VALUE_SLIDER, spurt_z_min_max.x, spurt_z_min_max.y) ;
+  spurt_x_raw = map(value_slider_item[20], minSource, MAX_VALUE_SLIDER, spurt_x_min_max.x, spurt_x_min_max.y);
+  spurt_y_raw = map(value_slider_item[21], minSource, MAX_VALUE_SLIDER, spurt_y_min_max.x, spurt_y_min_max.y);
+  spurt_z_raw = map(value_slider_item[22], minSource, MAX_VALUE_SLIDER, spurt_z_min_max.x, spurt_z_min_max.y);
   // direction
-  dir_x_raw = map(value_slider_item[23], minSource, MAX_VALUE_SLIDER, dir_x_min_max.x, dir_x_min_max.y) ;
-  dir_y_raw = map(value_slider_item[24], minSource, MAX_VALUE_SLIDER, dir_y_min_max.x, dir_y_min_max.y) ;
-  dir_z_raw = map(value_slider_item[25], minSource, MAX_VALUE_SLIDER, dir_z_min_max.x, dir_z_min_max.y) ;
+  dir_x_raw = map(value_slider_item[23], minSource, MAX_VALUE_SLIDER, dir_x_min_max.x, dir_x_min_max.y);
+  dir_y_raw = map(value_slider_item[24], minSource, MAX_VALUE_SLIDER, dir_y_min_max.x, dir_y_min_max.y);
+  dir_z_raw = map(value_slider_item[25], minSource, MAX_VALUE_SLIDER, dir_z_min_max.x, dir_z_min_max.y);
   // jitter
-  jitter_x_raw = map(value_slider_item[26], minSource, MAX_VALUE_SLIDER, jitter_x_min_max.x, jitter_x_min_max.y) ;
-  jitter_y_raw = map(value_slider_item[27], minSource, MAX_VALUE_SLIDER, jitter_y_min_max.x, jitter_y_min_max.y) ;
-  jitter_z_raw = map(value_slider_item[28], minSource, MAX_VALUE_SLIDER, jitter_z_min_max.x, jitter_z_min_max.y) ;
+  jitter_x_raw = map(value_slider_item[26], minSource, MAX_VALUE_SLIDER, jitter_x_min_max.x, jitter_x_min_max.y);
+  jitter_y_raw = map(value_slider_item[27], minSource, MAX_VALUE_SLIDER, jitter_y_min_max.x, jitter_y_min_max.y);
+  jitter_z_raw = map(value_slider_item[28], minSource, MAX_VALUE_SLIDER, jitter_z_min_max.x, jitter_z_min_max.y);
   // spurt
-  swing_x_raw = map(value_slider_item[29], minSource, MAX_VALUE_SLIDER, swing_x_min_max.x, swing_x_min_max.y) ;
-  swing_y_raw = map(value_slider_item[30], minSource, MAX_VALUE_SLIDER, swing_y_min_max.x, swing_y_min_max.y) ;
-  swing_z_raw = map(value_slider_item[31], minSource, MAX_VALUE_SLIDER, swing_z_min_max.x, swing_z_min_max.y) ;
-
+  swing_x_raw = map(value_slider_item[29], minSource, MAX_VALUE_SLIDER, swing_x_min_max.x, swing_x_min_max.y);
+  swing_y_raw = map(value_slider_item[30], minSource, MAX_VALUE_SLIDER, swing_y_min_max.x, swing_y_min_max.y);
+  swing_z_raw = map(value_slider_item[31], minSource, MAX_VALUE_SLIDER, swing_z_min_max.x, swing_z_min_max.y);
+  
+  // COL C
   // misc
-  quantity_raw = map(value_slider_item[32], minSource, MAX_VALUE_SLIDER, quantity_min_max.x, quantity_min_max.y) ;
-  variety_raw = map(value_slider_item[33], minSource, MAX_VALUE_SLIDER, variety_min_max.x, variety_min_max.y) ;
+  quantity_raw = map(value_slider_item[32], minSource, MAX_VALUE_SLIDER, quantity_min_max.x, quantity_min_max.y);
+  variety_raw = map(value_slider_item[33], minSource, MAX_VALUE_SLIDER, variety_min_max.x, variety_min_max.y);
   // bio
-  life_raw = map(value_slider_item[34], minSource, MAX_VALUE_SLIDER, life_min_max.x, life_min_max.y) ;
-  flow_raw = map(value_slider_item[35], minSource, MAX_VALUE_SLIDER, flow_min_max.x, flow_min_max.y) ;
-  quality_raw = map(value_slider_item[36], minSource, MAX_VALUE_SLIDER, quality_min_max.x, quality_min_max.y) ;
+  life_raw = map(value_slider_item[34], minSource, MAX_VALUE_SLIDER, life_min_max.x, life_min_max.y);
+  flow_raw = map(value_slider_item[35], minSource, MAX_VALUE_SLIDER, flow_min_max.x, flow_min_max.y);
+  quality_raw = map(value_slider_item[36], minSource, MAX_VALUE_SLIDER, quality_min_max.x, quality_min_max.y);
   // radar
-  area_raw = map_smooth_start(value_slider_item[37], minSource, MAX_VALUE_SLIDER, area_min_max.x, area_min_max.y, smooth_slider) ;
-  angle_raw = map(value_slider_item[38], minSource, MAX_VALUE_SLIDER, angle_min_max.x, angle_min_max.y) ;
-  scope_raw = map(value_slider_item[39], minSource, MAX_VALUE_SLIDER, scope_min_max.x, scope_min_max.y) ;
-  scan_raw = map(value_slider_item[40], minSource, MAX_VALUE_SLIDER, scan_min_max.x, scan_min_max.y) ;
+  area_raw = map_smooth_start(value_slider_item[37], minSource, MAX_VALUE_SLIDER, area_min_max.x, area_min_max.y, smooth_slider);
+  angle_raw = map(value_slider_item[38], minSource, MAX_VALUE_SLIDER, angle_min_max.x, angle_min_max.y);
+  scope_raw = map(value_slider_item[39], minSource, MAX_VALUE_SLIDER, scope_min_max.x, scope_min_max.y);
+  scan_raw = map(value_slider_item[40], minSource, MAX_VALUE_SLIDER, scan_min_max.x, scan_min_max.y);
 
   // force or behavior
-  alignment_raw = map(value_slider_item[41], minSource, MAX_VALUE_SLIDER, alignment_min_max.x, alignment_min_max.y) ;
-  repulsion_raw = map(value_slider_item[42], minSource, MAX_VALUE_SLIDER, repulsion_min_max.x, repulsion_min_max.y) ;
-  attraction_raw = map(value_slider_item[43], minSource, MAX_VALUE_SLIDER, attraction_min_max.x, attraction_min_max.y) ;
-  density_raw = map(value_slider_item[44], minSource, MAX_VALUE_SLIDER, density_min_max.x, density_min_max.y) ;
+  alignment_raw = map(value_slider_item[41], minSource, MAX_VALUE_SLIDER, alignment_min_max.x, alignment_min_max.y);
+  repulsion_raw = map(value_slider_item[42], minSource, MAX_VALUE_SLIDER, repulsion_min_max.x, repulsion_min_max.y);
+  attraction_raw = map(value_slider_item[43], minSource, MAX_VALUE_SLIDER, attraction_min_max.x, attraction_min_max.y);
+  density_raw = map(value_slider_item[44], minSource, MAX_VALUE_SLIDER, density_min_max.x, density_min_max.y);
 
+  influence_raw = map(value_slider_item[45], minSource, MAX_VALUE_SLIDER, influence_min_max.x, influence_min_max.y);
+  calm_raw = map(value_slider_item[46], minSource, MAX_VALUE_SLIDER, calm_min_max.x, calm_min_max.y);
+  spectrum_raw = map(value_slider_item[47], minSource, MAX_VALUE_SLIDER, spectrum_min_max.x, spectrum_min_max.y); 
 
-  influence_raw = map(value_slider_item[45], minSource, MAX_VALUE_SLIDER, influence_min_max.x, influence_min_max.y) ;
-  calm_raw = map(value_slider_item[46], minSource, MAX_VALUE_SLIDER, calm_min_max.x, calm_min_max.y) ;
-  spectrum_raw = map(value_slider_item[47], minSource, MAX_VALUE_SLIDER, spectrum_min_max.x, spectrum_min_max.y) ; 
+  // COL D
+  grid_raw = map(value_slider_item[48], minSource, MAX_VALUE_SLIDER, grid_min_max.x, grid_min_max.y);
+
+  viscosity_raw = map(value_slider_item[49], minSource, MAX_VALUE_SLIDER, viscosity_min_max.x, viscosity_min_max.y);
+  diffusion_raw = map(value_slider_item[50], minSource, MAX_VALUE_SLIDER, diffusion_min_max.x, diffusion_min_max.y); 
 
 }
 
 
 /* Those temp value are used to know is the object value must be updated */
 void update_temp_value() {
-  // fill
-  fill_hue_temp = fill_hue_raw ;
-  fill_sat_temp = fill_sat_raw ;    
-  fill_bright_temp = fill_bright_raw ;   
-  fill_alpha_temp = fill_alpha_raw ;
-  // stroke
-  stroke_hue_temp = stroke_hue_raw ; 
-  stroke_sat_temp = stroke_sat_raw ;  
-  stroke_bright_temp = stroke_bright_raw ; 
-  stroke_alpha_temp = stroke_alpha_raw ;
+  // COL A
+  fill_hue_temp = fill_hue_raw;
+  fill_sat_temp = fill_sat_raw;    
+  fill_bright_temp = fill_bright_raw;   
+  fill_alpha_temp = fill_alpha_raw;
+
+  stroke_hue_temp = stroke_hue_raw; 
+  stroke_sat_temp = stroke_sat_raw;  
+  stroke_bright_temp = stroke_bright_raw; 
+  stroke_alpha_temp = stroke_alpha_raw;
   //
-  thickness_temp= thickness_raw ;
-  //size
-  size_x_temp = size_x_raw ;
-  size_y_temp = size_y_raw ;
-  size_z_temp = size_z_raw ;
-  // font size
-  diameter_temp = diameter_raw ;
-  // canvas
-  canvas_x_temp = canvas_x_raw ;
-  canvas_y_temp = canvas_y_raw ;
-  canvas_z_temp = canvas_z_raw ;
+  thickness_temp= thickness_raw;
+
+  size_x_temp = size_x_raw;
+  size_y_temp = size_y_raw;
+  size_z_temp = size_z_raw;
+
+  diameter_temp = diameter_raw;
+
+  canvas_x_temp = canvas_x_raw;
+  canvas_y_temp = canvas_y_raw;
+  canvas_z_temp = canvas_z_raw;
+  // COL B
   // misc
-  frequence_temp = frequence_raw ;
+  frequence_temp = frequence_raw;
   // speed
-  speed_x_temp = speed_x_raw ;
-  speed_y_temp = speed_y_raw ;
-  speed_z_temp = speed_z_raw ;
+  speed_x_temp = speed_x_raw;
+  speed_y_temp = speed_y_raw;
+  speed_z_temp = speed_z_raw;
   // spurt
-  spurt_x_temp = spurt_x_raw ;
-  spurt_y_temp = spurt_y_raw ;
-  spurt_z_temp = spurt_z_raw ;
+  spurt_x_temp = spurt_x_raw;
+  spurt_y_temp = spurt_y_raw;
+  spurt_z_temp = spurt_z_raw;
   // direction
-  dir_x_temp = dir_x_raw ;
-  dir_y_temp = dir_y_raw ;
-  dir_z_temp = dir_z_raw ;
+  dir_x_temp = dir_x_raw;
+  dir_y_temp = dir_y_raw;
+  dir_z_temp = dir_z_raw;
   // jitter
-  jitter_x_temp = jitter_x_raw ;
-  jitter_y_temp = jitter_y_raw ;
-  jitter_z_temp = jitter_z_raw ;
+  jitter_x_temp = jitter_x_raw;
+  jitter_y_temp = jitter_y_raw;
+  jitter_z_temp = jitter_z_raw;
   // direction
-  swing_x_temp = swing_x_raw ;
-  swing_y_temp = swing_y_raw ;
-  swing_z_temp = swing_z_raw ;
+  swing_x_temp = swing_x_raw;
+  swing_y_temp = swing_y_raw;
+  swing_z_temp = swing_z_raw;
+  // COL C
+  quantity_temp = quantity_raw;
+  variety_temp = variety_raw;
 
-  quantity_temp = quantity_raw ;
-  variety_temp = variety_raw ;
+  life_temp = life_raw;
+  flow_temp = flow_raw;
+  quality_temp = quality_raw;
 
-  life_temp = life_raw ;
-  flow_temp = flow_raw ;
-  quality_temp = quality_raw ;
-
-  area_temp = area_raw ;
-  angle_temp = angle_raw ;
-  scope_temp = scope_raw ;
-  scan_temp = scan_raw ;
+  area_temp = area_raw;
+  angle_temp = angle_raw;
+  scope_temp = scope_raw;
+  scan_temp = scan_raw;
   // force
-  alignment_temp = alignment_raw ;
-  repulsion_temp = repulsion_raw ;
-  attraction_temp = attraction_raw ;
-  density_temp = density_raw ;
+  alignment_temp = alignment_raw;
+  repulsion_temp = repulsion_raw;
+  attraction_temp = attraction_raw;
+  density_temp = density_raw;
 
-  influence_temp = influence_raw ;
-  calm_temp = calm_raw ;
-  spectrum_temp = spectrum_raw ;
+  influence_temp = influence_raw;
+  calm_temp = calm_raw;
+  spectrum_temp = spectrum_raw;
+  // COL D
+  grid_temp = grid_raw;
+  viscosity_temp = viscosity_raw;
+  diffusion_temp = diffusion_raw;
 }
 
 

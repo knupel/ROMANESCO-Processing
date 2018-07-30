@@ -96,7 +96,7 @@ class Letter extends Romanesco {
       path_font_item[ID_item] = path_font_default_ttf ;
     }
     //init and re-init Geomerative if few stuff change about this line like text, font and the size of the font
-    sizeFont = int(map(size_x_item[ID_item],font_size_min_max.x, font_size_min_max.y, (float)height *.01, (float)height *.7));
+    sizeFont = int(map(size_x_item[ID_item],size_x_min_max.x, size_x_min_max.y, (float)height *.01, (float)height *.7));
     //text
     String sentence = whichSentence(text_import[ID_item], 0, 0) ;
     

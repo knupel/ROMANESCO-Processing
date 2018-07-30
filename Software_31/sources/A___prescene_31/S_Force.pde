@@ -31,7 +31,6 @@ void init_force_field(int num_spot) {
 // detection
 void set_spot_detection_force_field(int detection) {
   force_romanesco.set_spot_detection(detection);
-  println(detection);
 }
 
 // type

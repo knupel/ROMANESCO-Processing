@@ -297,6 +297,7 @@ void build_console_item() {
       slider_adj_item[i].set_fill_adj(adj_in_dark,adj_out_dark);
     }
   }
+  // COL A
   // fill alpha
   slider_adj_item[hue_fill_rank].set_fill_adj(adj_in_light,adj_out_light).set_fill(struc_light);
   slider_adj_item[sat_fill_rank].set_fill_adj(adj_in_light,adj_out_light).set_fill(struc_light);
@@ -313,16 +314,16 @@ void build_console_item() {
   slider_adj_item[size_x_rank].set_fill_adj(adj_in_light,adj_out_dark).set_fill(struc_dark);
   slider_adj_item[size_y_rank].set_fill_adj(adj_in_light,adj_out_dark).set_fill(struc_dark);
   slider_adj_item[size_z_rank].set_fill_adj(adj_in_light,adj_out_dark).set_fill(struc_dark);
-  // Font size
-  slider_adj_item[font_size_rank].set_fill_adj(adj_in_light,adj_out_light).set_fill(struc_light);
+  // diam
+  slider_adj_item[diameter_rank].set_fill_adj(adj_in_light,adj_out_light).set_fill(struc_light);
   // canvas
   slider_adj_item[canvas_x_rank].set_fill_adj(adj_in_light,adj_out_dark).set_fill(struc_dark);
   slider_adj_item[canvas_y_rank].set_fill_adj(adj_in_light,adj_out_dark).set_fill(struc_dark);
   slider_adj_item[canvas_z_rank].set_fill_adj(adj_in_light,adj_out_dark).set_fill(struc_dark);
 
-  // COL 2
+  // COL B
   // reactivity
-  slider_adj_item[reactivity_rank].set_fill_adj(adj_in_light,adj_out_light).set_fill(struc_light);
+  slider_adj_item[frequence_rank].set_fill_adj(adj_in_light,adj_out_light).set_fill(struc_light);
   // speed
   slider_adj_item[speed_x_rank].set_fill_adj(adj_in_light,adj_out_dark).set_fill(struc_dark);
   slider_adj_item[speed_y_rank].set_fill_adj(adj_in_light,adj_out_dark).set_fill(struc_dark);
@@ -344,41 +345,33 @@ void build_console_item() {
   slider_adj_item[swing_y_rank].set_fill_adj(adj_in_light,adj_out_dark).set_fill(struc_dark);
   slider_adj_item[swing_z_rank].set_fill_adj(adj_in_light,adj_out_dark).set_fill(struc_dark);
 
-  // COL 3
-  // quantity
+  // COL C
   slider_adj_item[quantity_rank].set_fill_adj(adj_in_light,adj_out_light).set_fill(struc_light);
-  // variety
+
   slider_adj_item[variety_rank].set_fill_adj(adj_in_light,adj_out_light).set_fill(struc_light); 
-  // life
   slider_adj_item[life_rank].set_fill_adj(adj_in_light,adj_out_light).set_fill(struc_light);
-  // fertility
   slider_adj_item[flow_rank].set_fill_adj(adj_in_light,adj_out_light).set_fill(struc_light);
-  // quality
   slider_adj_item[quality_rank].set_fill_adj(adj_in_light,adj_out_light).set_fill(struc_light);
   
-  // area
   slider_adj_item[area_rank].set_fill_adj(adj_in_light,adj_out_dark).set_fill(struc_dark);
-  // angle
   slider_adj_item[angle_rank].set_fill_adj(adj_in_light,adj_out_dark).set_fill(struc_dark);
-  // scope
   slider_adj_item[scope_rank].set_fill_adj(adj_in_light,adj_out_dark).set_fill(struc_dark);
-  // scan
   slider_adj_item[scan_rank].set_fill_adj(adj_in_light,adj_out_dark).set_fill(struc_dark); 
-  // alignment
   slider_adj_item[alignment_rank].set_fill_adj(adj_in_light,adj_out_light).set_fill(struc_light);
-  // repulsion
+
   slider_adj_item[repulsion_rank].set_fill_adj(adj_in_light,adj_out_light).set_fill(struc_light);
-  // attraction
   slider_adj_item[attraction_rank].set_fill_adj(adj_in_light,adj_out_light).set_fill(struc_light);
-  // density
   slider_adj_item[density_rank].set_fill_adj(adj_in_light,adj_out_light).set_fill(struc_light);
   
-  // influence
   slider_adj_item[influence_rank].set_fill(struc_dark);
-  // calm
   slider_adj_item[calm_rank].set_fill(struc_dark);
-  // spectrum
   slider_adj_item[spectrum_rank].set_fill(struc_dark);
+
+  // COL D
+  slider_adj_item[grid_rank].set_fill_adj(adj_in_light,adj_out_light).set_fill(struc_light);
+
+  slider_adj_item[viscosity_rank].set_fill_adj(adj_in_light,adj_out_dark).set_fill(struc_dark); 
+  slider_adj_item[diffusion_rank].set_fill_adj(adj_in_light,adj_out_dark).set_fill(struc_dark);
 }
 
 

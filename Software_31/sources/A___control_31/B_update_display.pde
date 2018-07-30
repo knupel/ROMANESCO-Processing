@@ -558,7 +558,6 @@ void show_slider(int index, boolean [] is) {
   if(show_is) {
     slider_adj_item[index].show_structure();
   }
-  // println(index, frameCount);
   slider_adj_item[index].show_adj();
   slider_adj_item[index].show_molette();
   slider_adj_item[index].show_label();

@@ -97,6 +97,12 @@ void save_info_slider() {
   }
  
   // item
+  String [] slider_name = new String[NUM_COL_SLIDER];
+  slider_name [0] = "Slider item a";
+  slider_name [1] = "Slider item b";
+  slider_name [2] = "Slider item c";
+  slider_name [3] = "Slider item d";
+  int index = 0;
   for(int i = 0; i < NUM_SLIDER_ITEM ; i++) {
     int IDslider = i;
     for(int k = 0 ; k < cropinfo_slider_item.length ;k++) {
@@ -104,7 +110,12 @@ void save_info_slider() {
         cropinfo_slider_item[k].set_value(slider_adj_item[IDslider].get_value(0));
         cropinfo_slider_item[k].set_min(slider_adj_item[IDslider].get_min_norm());
         cropinfo_slider_item[k].set_max(slider_adj_item[IDslider].get_max_norm());
-        set_data_slider(IDslider,cropinfo_slider_item[k],"Slider item");
+        if(i >= (NUM_SLIDER_ITEM_BY_COL *index) && i < NUM_SLIDER_ITEM_BY_COL *(index+1) ) {
+          set_data_slider(IDslider,cropinfo_slider_item[k],slider_name [index]);
+        } else {
+          index++;
+        }
+        
       }
     }
   }

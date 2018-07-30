@@ -16,7 +16,7 @@ boolean show_all_slider_item_active = false;
 boolean show_all_slider_item = false;
 
 //these sliders name are not used for the interface but for the display analyze slider
-// col 1
+// col A
 int hue_fill_rank = 0;
 int sat_fill_rank = 1;
 int bright_fill_rank = 2;
@@ -32,14 +32,14 @@ int size_x_rank = 9;
 int size_y_rank = 10;
 int size_z_rank = 11;
 
-int font_size_rank = 12;
+int diameter_rank = 12;
 
 int canvas_x_rank = 13;
 int canvas_y_rank = 14;
 int canvas_z_rank = 15;
 
-// col 2
-int reactivity_rank = 16;
+// col B
+int frequence_rank = 16;
 
 int speed_x_rank = 17;
 int speed_y_rank = 18;
@@ -61,7 +61,7 @@ int swing_x_rank = 29;
 int swing_y_rank = 30;
 int swing_z_rank = 31;
 
-// col 3
+// col C
 int quantity_rank = 32;
 int variety_rank = 33;
 
@@ -82,6 +82,12 @@ int density_rank = 44;
 int influence_rank = 45;
 int calm_rank = 46;
 int spectrum_rank = 47;
+
+// col C
+int grid_rank = 48;
+
+int viscosity_rank = 49;
+int diffusion_rank = 50;
 
 
 
@@ -196,11 +202,6 @@ void check_slider_item() {
                     display_slider[k] = true;
                   } 
                 } 
-                /*
-                else {
-                  display_slider[IDgroup][k] = false;
-                }
-                */
               }
             }
           }

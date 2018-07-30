@@ -1,6 +1,6 @@
 /**
 LOAD 
-v 2.7.0
+v 2.8.0
 2013-2018
 */
 void load_setup() {
@@ -109,7 +109,10 @@ void load_data_GUI(String path) {
 
   for (TableRow row : table.rows()) {
     String s = row.getString("Type") ; 
-    if(s.equals("Slider item")) count_slider_item++ ;  
+    if(s.equals("Slider item a")) count_slider_item++ ;
+    else if(s.equals("Slider item b")) count_slider_item++;
+    else if(s.equals("Slider item c")) count_slider_item++;
+    else if(s.equals("Slider item d")) count_slider_item++;
     else if(s.equals("Slider background")) count_slider_background++;
     else if(s.equals("Slider fx")) count_slider_fx++; 
     else if(s.equals("Slider light")) count_slider_light++; 
@@ -364,11 +367,35 @@ void load_saved_file_controller(String path) {
     }
 
     // slider item
-    if(s.equals("Slider item")) {
+    if(s.equals("Slider item a")) {
       if(cropinfo_slider_item[count_slider_item] == null) {
         cropinfo_slider_item[count_slider_item] = new Cropinfo();
       }
-      set_info_slider(row, "Slider item", cropinfo_slider_item[count_slider_item]);
+      set_info_slider(row, "Slider item a", cropinfo_slider_item[count_slider_item]);
+      count_slider_item++;
+    }
+
+    if(s.equals("Slider item b")) {
+      if(cropinfo_slider_item[count_slider_item] == null) {
+        cropinfo_slider_item[count_slider_item] = new Cropinfo();
+      }
+      set_info_slider(row, "Slider item b", cropinfo_slider_item[count_slider_item]);
+      count_slider_item++;
+    }
+
+    if(s.equals("Slider item c")) {
+      if(cropinfo_slider_item[count_slider_item] == null) {
+        cropinfo_slider_item[count_slider_item] = new Cropinfo();
+      }
+      set_info_slider(row, "Slider item c", cropinfo_slider_item[count_slider_item]);
+      count_slider_item++;
+    }
+
+    if(s.equals("Slider item d")) {
+      if(cropinfo_slider_item[count_slider_item] == null) {
+        cropinfo_slider_item[count_slider_item] = new Cropinfo();
+      }
+      set_info_slider(row, "Slider item d", cropinfo_slider_item[count_slider_item]);
       count_slider_item++;
     }
 
@@ -698,8 +725,10 @@ void apply_text_gui() {
     } else if(name.equals("slider camera")) {
       for(int k = 0 ; k < NUM_SLIDER_CAMERA ; k++) {
         slider_camera_name[k] = row.getString("col "+k);
-      }
-    } else if(name.equals("slider item a")) {
+      } 
+    } 
+    
+    if(name.equals("slider item a")) {
       for(int k = 0 ; k < num ; k++) {
         slider_item_name[k] = row.getString("col "+k);
       }
@@ -711,7 +740,11 @@ void apply_text_gui() {
       for(int k = 0 ; k < num ; k++) {
         slider_item_name[k +(num*2)] = row.getString("col "+k);
       }
-    }   
+    } else if(name.equals("slider item d")) {
+      for(int k = 0 ; k < num ; k++) {
+        slider_item_name[k +(num*3)] = row.getString("col "+k);
+      }
+    } 
   }
 }
 

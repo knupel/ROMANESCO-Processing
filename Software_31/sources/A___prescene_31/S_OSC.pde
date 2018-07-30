@@ -155,8 +155,9 @@ void receive_data_general_slider(OscMessage receive, int in, int out) {
 
 void receive_data_slider_item(OscMessage receive, int in) {
   for (int i = 0 ; i < NUM_MOLETTE_ITEM ; i++) {
-   int index = in + i;
+    int index = in + i;
     int target = i;
+
     value_slider_item[target] = Float.valueOf(receive.get(index).intValue());
   }
 }

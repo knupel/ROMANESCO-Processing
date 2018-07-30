@@ -90,7 +90,7 @@ void set_slider_item_name() {
       }
     }
   }
-  // col 0
+  // col A
   ROM_HUE_FILL = slider_name[0][0];
   ROM_SAT_FILL = slider_name[0][1];
   ROM_BRIGHT_FILL = slider_name[0][2];
@@ -107,7 +107,7 @@ void set_slider_item_name() {
   ROM_CANVAS_X = slider_name[0][13];
   ROM_CANVAS_Y = slider_name[0][14];
   ROM_CANVAS_Z = slider_name[0][15];
-  // col 1
+  // col B
   ROM_FREQUENCE = slider_name[1][0];
   ROM_SPEED_X = slider_name[1][1];
   ROM_SPEED_Y = slider_name[1][2];
@@ -124,7 +124,7 @@ void set_slider_item_name() {
   ROM_SWIWG_X = slider_name[1][13];
   ROM_SWIWG_Y = slider_name[1][14];
   ROM_SWIWG_Z = slider_name[1][15];
-  // col 2
+  // col C
   ROM_QUANTITY = slider_name[2][0];
   ROM_VARIETY = slider_name[2][1];
   ROM_LIFE = slider_name[2][2];
@@ -141,7 +141,7 @@ void set_slider_item_name() {
   ROM_INFLUENCE = slider_name[2][13];
   ROM_CALM = slider_name[2][14];
   ROM_SPECTRUM = slider_name[2][15];
-  // col 3
+  // col D
   ROM_GRID = slider_name[3][0];
   ROM_VISCOSITY = slider_name[3][1];
   ROM_DIFFUSION = slider_name[3][2];
@@ -210,7 +210,7 @@ void update_var_items(int ID) {
 
 void update_slider_value(int ID) {
   boolean init = first_opening_item[ID];
-  // col 1
+  // col A
   if(FULL_RENDERING) {
     // fill obj
     if(!init ) fill_item[ID] = color(fill_hue_raw, fill_sat_raw, fill_bright_raw, fill_alpha_raw); 
@@ -243,7 +243,7 @@ void update_slider_value(int ID) {
   if (canvas_z_raw != canvas_z_temp || !init) canvas_z_item[ID] = canvas_z_raw;
 
 
-  // col 2
+  // col B
   if (frequence_raw != frequence_temp || !init) frequence_item[ID] = frequence_raw; 
 
   if (speed_x_raw != speed_x_temp || !init) speed_x_item[ID] = speed_x_raw; 
@@ -258,37 +258,43 @@ void update_slider_value(int ID) {
   if (dir_y_raw != dir_y_temp || !init) dir_y_item[ID] = dir_y_raw; 
   if (dir_z_raw != dir_z_temp || !init) dir_z_item[ID] = dir_z_raw;
 
-  if (jitter_x_raw != jitter_x_temp || !init) jitter_x_item[ID] = jitter_x_raw ; 
-  if (jitter_y_raw != jitter_y_temp || !init) jitter_y_item[ID] = jitter_y_raw ; 
-  if (jitter_z_raw != jitter_z_temp || !init) jitter_z_item[ID] = jitter_z_raw ;
+  if (jitter_x_raw != jitter_x_temp || !init) jitter_x_item[ID] = jitter_x_raw; 
+  if (jitter_y_raw != jitter_y_temp || !init) jitter_y_item[ID] = jitter_y_raw; 
+  if (jitter_z_raw != jitter_z_temp || !init) jitter_z_item[ID] = jitter_z_raw;
 
-  if (swing_x_raw != swing_x_temp || !init) swing_x_item[ID] = swing_x_raw ; 
-  if (swing_y_raw != swing_y_temp || !init) swing_y_item[ID] = swing_y_raw ; 
-  if (swing_z_raw != swing_z_temp || !init) swing_z_item[ID] = swing_z_raw ;
+  if (swing_x_raw != swing_x_temp || !init) swing_x_item[ID] = swing_x_raw; 
+  if (swing_y_raw != swing_y_temp || !init) swing_y_item[ID] = swing_y_raw; 
+  if (swing_z_raw != swing_z_temp || !init) swing_z_item[ID] = swing_z_raw;
 
-  // col 3
-  if (quantity_raw != quantity_temp || !init) quantity_item[ID] = quantity_raw ;
-  if (variety_raw != variety_temp || !init) variety_item[ID] = variety_raw ;
+  // col C
+  if (quantity_raw != quantity_temp || !init) quantity_item[ID] = quantity_raw;
+  if (variety_raw != variety_temp || !init) variety_item[ID] = variety_raw;
 
-  if (life_raw != life_temp || !init) life_item[ID] = life_raw ;
-  if (flow_raw != flow_temp || !init) flow_item[ID] = flow_raw ;
-  if (quality_raw != quality_temp || !init) quality_item[ID] = quality_raw ;
+  if (life_raw != life_temp || !init) life_item[ID] = life_raw;
+  if (flow_raw != flow_temp || !init) flow_item[ID] = flow_raw;
+  if (quality_raw != quality_temp || !init) quality_item[ID] = quality_raw;
 
-  if (area_raw != area_temp || !init) area_item[ID] = area_raw ;
-  if (angle_raw != angle_temp || !init) angle_item[ID] = angle_raw ;
-  if (scope_raw != scope_temp || !init) scope_item[ID] = scope_raw ;
-  if (scan_raw != scan_temp || !init) scan_item[ID] = scan_raw ;
+  if (area_raw != area_temp || !init) area_item[ID] = area_raw;
+  if (angle_raw != angle_temp || !init) angle_item[ID] = angle_raw;
+  if (scope_raw != scope_temp || !init) scope_item[ID] = scope_raw;
+  if (scan_raw != scan_temp || !init) scan_item[ID] = scan_raw;
 
-  if (alignment_raw != alignment_temp || !init) alignment_item[ID] = alignment_raw ;
-  if (repulsion_raw != repulsion_temp || !init) repulsion_item[ID] = repulsion_raw ;
-  if (attraction_raw != attraction_temp || !init) attraction_item[ID] = attraction_raw ;
-  if (density_raw != density_temp || !init) density_item[ID] = density_raw ;
+  if (alignment_raw != alignment_temp || !init) alignment_item[ID] = alignment_raw;
+  if (repulsion_raw != repulsion_temp || !init) repulsion_item[ID] = repulsion_raw;
+  if (attraction_raw != attraction_temp || !init) attraction_item[ID] = attraction_raw;
+  if (density_raw != density_temp || !init) density_item[ID] = density_raw;
 
-  if (influence_raw != influence_temp || !init) influence_item[ID] = influence_raw ;
-  if (calm_raw != calm_temp || !init) calm_item[ID] = calm_raw ;
-  if (spectrum_raw != spectrum_temp || !init) spectrum_item[ID] = spectrum_raw ;
+  if (influence_raw != influence_temp || !init) influence_item[ID] = influence_raw;
+  if (calm_raw != calm_temp || !init) calm_item[ID] = calm_raw;
+  if (spectrum_raw != spectrum_temp || !init) spectrum_item[ID] = spectrum_raw;
 
-  // col 4
+  // col C
+  if (grid_raw != grid_temp || !init) {
+    grid_item[ID] = grid_raw;
+  }
+
+  if (viscosity_raw != viscosity_temp || !init) viscosity_item[ID] = viscosity_raw;
+  if (diffusion_raw != diffusion_temp || !init) diffusion_item[ID] = diffusion_raw;
   /** 
   make the obj has be never update in the future except by the moving slider 
   */

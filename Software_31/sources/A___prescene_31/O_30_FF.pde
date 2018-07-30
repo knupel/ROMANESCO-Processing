@@ -31,7 +31,7 @@ class FF extends Romanesco {
     // canvas_y_is = true;
     // canvas_z_is = true;
 
-    // frequence_is = true;
+    frequence_is = true;
     // speed_x_is = true;
     // speed_y_is = true;
     // speed_z_is = true;
@@ -48,7 +48,7 @@ class FF extends Romanesco {
     // swing_y_is = true;
     // swing_z_is = true;
 
-    quantity_is = true;
+    // quantity_is = true;
     // variety_is = true;
     // life_is = true;
     // flow_is = true;
@@ -65,9 +65,9 @@ class FF extends Romanesco {
     // calm_is = true;
     spectrum_is = true;
 
-    // grid_is = true;
-    // viscosity_is = true;
-    // diffusion_is = true;
+    grid_is = true;
+    viscosity_is = true;
+    diffusion_is = true;
   }
 
 
@@ -84,10 +84,10 @@ class FF extends Romanesco {
   float ref_detection = 0;
   void draw() { 
     set_ff();
-
-    if(ref_cell != quantity_item[ID_item] || ref_mode != mode[ID_item] || ref_detection != area_item[ID_item]) {
+    println(grid_item[ID_item]);
+    if(ref_cell != grid_item[ID_item] || ref_mode != mode[ID_item] || ref_detection != area_item[ID_item]) {
       ref_mode = mode[ID_item];
-      ref_cell = quantity_item[ID_item];
+      ref_cell = grid_item[ID_item];
       ref_detection = area_item[ID_item];
       init_force_field(get_spot_num());
     }
@@ -123,7 +123,9 @@ class FF extends Romanesco {
     set_spot_detection_force_field(detection);
 
     // set cell
-    int cell_size = (int)map(quantity_item[ID_item],0,1,height/10,2);
+    println("setting grid",grid_item[ID_item]);
+    int cell_size = (int)map(grid_item[ID_item],width *.1,width*TAU,height/10,2);
+    println("setting grid",cell_size);
     set_cell_force_field(cell_size);
     // set type
     if(mode[ID_item] == 0) {
@@ -148,9 +150,18 @@ class FF extends Romanesco {
 
     // set different force field
     if(get_type_force_field() == FLUID) {
+      /*
       set_force_fluid_frequence(2/frameRate);
       set_force_fluid_viscosity(.001);
       set_force_fluid_diffusion(1.);
+      */
+      int frequence = (int)map(frequence_item[ID_item],0,1,0,3);
+      // set_force_fluid_frequence(frequence/frameRate);
+      set_force_fluid_frequence(frequence);
+      float viscosity = (viscosity_item[ID_item]*viscosity_item[ID_item]*viscosity_item[ID_item])*.25;
+      set_force_fluid_viscosity(viscosity);
+      float diffusion = diffusion_item[ID_item];
+      set_force_fluid_diffusion(diffusion);
     } 
   }
 

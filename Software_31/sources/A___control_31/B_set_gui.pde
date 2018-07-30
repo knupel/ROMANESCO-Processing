@@ -139,6 +139,7 @@ void set_design_structure_item_selected() {
   item_a_col = grid_col[0];
   item_b_col = grid_col[3];
   item_c_col = grid_col[6];
+  item_d_col = grid_col[9];
   // item selected
   local_pos_y_button_item = 20;
   local_pos_y_dropdown_item = local_pos_y_button_item +72;
@@ -508,6 +509,8 @@ void set_console_slider_item(int pos_y, iVec2 size) {
         break;
         case 2 : pos_x = item_c_col;
         break;
+        case 3 : pos_x = item_d_col;
+        break;
       }
       pos_slider_item[whichSlider] = iVec2(pos_x, round(pos_y +i *spacing_slider));
       size_slider_item[whichSlider] = iVec2(size);
@@ -864,6 +867,7 @@ int offset_x_item;
 int item_a_col;
 int item_b_col;
 int item_c_col;
+int item_d_col;
 
 // inventory
 int pos_y_inventory;
