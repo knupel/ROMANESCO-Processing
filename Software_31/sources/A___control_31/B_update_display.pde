@@ -1,6 +1,6 @@
 /**
 update, display and design
-v 0.0.3
+v 0.0.4
 2018-2018
 */
 
@@ -666,12 +666,11 @@ void background_text_list(Vec2 pos, String [] list, int [] size_text, int size_a
   int height_rect = list.length *(int)spacing;
   
   // create the point to build the background
-  int diam = size_angle;
-  int speed = speed_rotation;
-  Vec2 a = Vec2(pos.x + 0,pos.y + 0).revolution(diam *3, speed/2);
-  Vec2 b = Vec2(pos.x + width_rect, pos.y + 0).revolution(int(diam *1.5), speed);
-  Vec2 c = Vec2(pos.x + width_rect, pos.y + height_rect).revolution(diam *2, int(speed *1.2));
-  Vec2 d = Vec2(pos.x + 0, pos.y + height_rect).revolution(diam, int(speed *.7));
+
+  Vec2 a = Vec2(pos.x + 0,pos.y + 0);
+  Vec2 b = Vec2(pos.x + width_rect, pos.y + 0);
+  Vec2 c = Vec2(pos.x + width_rect, pos.y + height_rect);
+  Vec2 d = Vec2(pos.x + 0, pos.y + height_rect);
   
   // display background
   beginShape();

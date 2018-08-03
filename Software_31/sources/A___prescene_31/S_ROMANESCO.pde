@@ -681,7 +681,7 @@ Abstract CLASS ROMANESCO
 v 0.0.5
 2013-2018
 */
-abstract class Romanesco implements Rope_Constants {
+public abstract class Romanesco implements rope.core.RConstants {
   protected String item_name, item_author, item_version, item_pack, romanesco_renderer, item_costume, item_mode, item_slider;
   protected int ID_item, ID_group;
   //object manager return

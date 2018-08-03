@@ -1,6 +1,6 @@
 /**
 ROPE SVG
-v 1.3.0
+v 1.2.9
 * Copyleft (c) 2014-2018
 Rope – Romanesco Processing Environment – 
 * @author Stan le Punk
@@ -186,7 +186,7 @@ class ROPE_svg {
       center_pos.mult(.5) ;
       barycenter.sub(center_pos) ;
     }
-    if(!correction.equals(0)) barycenter.add(correction);
+    if(!correction.compare(0)) barycenter.add(correction) ;
     Vec3 barycenter_translated = mult(barycenter, scale_svg) ;
     translation = sub(barycenter, barycenter_translated) ;
 
@@ -1062,10 +1062,10 @@ class ROPE_svg {
       center_pos.mult(.5) ; 
       temp_pos.sub(center_pos) ;
     }
-    if(!scale.equals(Vec3(1))) {
+    if(!scale.compare(Vec3(1))) {
       temp_pos.mult(scale) ; 
     }
-    if(!pos.equals(Vec3())) {
+    if(!pos.compare(Vec3())) {
       temp_pos.add(pos) ;
     }
 
@@ -1128,11 +1128,11 @@ class ROPE_svg {
       temp_pos_a.sub(center_pos) ;
       temp_pos_b.sub(center_pos) ;
     }
-    if(!scale.equals(Vec3(1))) {
+    if(!scale.compare(Vec3(1))) {
       temp_pos_a.mult(scale) ; 
       temp_pos_b.mult(scale) ; 
     }
-    if(!pos.equals(Vec3())) {
+    if(!pos.compare(Vec3())) {
       temp_pos_a.add(pos) ;
       temp_pos_b.add(pos) ;
     }
@@ -1182,8 +1182,8 @@ class ROPE_svg {
       center_pos.mult(.5) ; 
       temp_pos.sub(center_pos) ;
     }
-    if(!scale.equals(Vec3(1))) temp_pos.mult(scale) ; 
-    if(!pos.equals(Vec3())) temp_pos.add(pos) ;
+    if(!scale.compare(Vec3(1))) temp_pos.mult(scale) ; 
+    if(!pos.compare(Vec3())) temp_pos.add(pos) ;
   
     Vec2 temp_size = e.size.copy() ;
 
@@ -1236,8 +1236,8 @@ class ROPE_svg {
       center_pos.mult(.5) ; 
       temp_pos.sub(center_pos) ;
     }
-    if(!scale.equals(Vec3(1))) temp_pos.mult(scale) ; 
-    if(!pos.equals(Vec3())) temp_pos.add(pos) ;
+    if(!scale.compare(Vec3(1))) temp_pos.mult(scale) ; 
+    if(!pos.compare(Vec3())) temp_pos.add(pos) ;
   
     Vec2 temp_size = r.size.copy() ;
 
@@ -1321,7 +1321,7 @@ class ROPE_svg {
   private void build_path(Vec3 pos, Vec3 scale, Vec3 jitter, Vertices v) {
     Vec3 center_pos = Vec3(canvas().x,canvas().y,0) ;
     center_pos.mult(.5) ; 
-    if(!scale.equals(Vec3(1))) center_pos.mult(scale) ; 
+    if(!scale.compare(Vec3(1))) center_pos.mult(scale) ; 
   
     if (v.vert == null) return;
   
@@ -1332,16 +1332,16 @@ class ROPE_svg {
       for (int i = 0; i <  v.vert.length; i++) {
         Vec3 temp_pos_a = v.vert[i].copy() ;
         //
-        if(!scale.equals(Vec3(1))) temp_pos_a.mult(scale) ;
+        if(!scale.compare(Vec3(1))) temp_pos_a.mult(scale) ;
         //
-        if(!jitter.equals(Vec3())) {
+        if(!jitter.compare(Vec3())) {
           Vec3 jitter_pos = Vec3().jitter((int)jitter.x,(int)jitter.y,(int)jitter.z) ;
           temp_pos_a.add(jitter_pos) ;
         }
         //
         if(position_center) temp_pos_a.sub(center_pos) ;
         //
-        if(!pos.equals(Vec3())) temp_pos_a.add(pos) ;
+        if(!pos.compare(Vec3())) temp_pos_a.add(pos) ;
         //
         vertex(temp_pos_a);
       }
@@ -1356,16 +1356,16 @@ class ROPE_svg {
           case VERTEX:
           temp_pos_a = v.vert[index].copy() ;
           //
-          if(!scale.equals(Vec3(1))) temp_pos_a.mult(scale) ;
+          if(!scale.compare(Vec3(1))) temp_pos_a.mult(scale) ;
           //
-          if(!jitter.equals(Vec3())) {
+          if(!jitter.compare(Vec3())) {
             Vec3 jitter_pos = Vec3().jitter((int)jitter.x,(int)jitter.y,(int)jitter.z) ;
             temp_pos_a.add(jitter_pos) ;
           }
           //
           if(position_center) temp_pos_a.sub(center_pos) ;
           //
-          if(!pos.equals(Vec3())) temp_pos_a.add(pos) ;
+          if(!pos.compare(Vec3())) temp_pos_a.add(pos) ;
           //
           vertex(temp_pos_a);
           index++;
@@ -1375,12 +1375,12 @@ class ROPE_svg {
           temp_pos_a = v.vert[index].copy() ;
           temp_pos_b = v.vert[index +1].copy() ;
           //
-          if(!scale.equals(Vec3(1))) {
+          if(!scale.compare(Vec3(1))) {
             temp_pos_a.mult(scale) ;
             temp_pos_b.mult(scale) ;
           }
           //
-          if(!jitter.equals(Vec3())) {
+          if(!jitter.compare(Vec3())) {
             Vec3 jitter_pos = Vec3().jitter((int)jitter.x,(int)jitter.y,(int)jitter.z) ;
             temp_pos_a.add(jitter_pos) ;
             jitter_pos = Vec3().jitter((int)jitter.x,(int)jitter.y,(int)jitter.z) ;
@@ -1392,7 +1392,7 @@ class ROPE_svg {
             temp_pos_b.sub(center_pos) ;
           }
           //
-          if(!pos.equals(Vec3())) {
+          if(!pos.compare(Vec3())) {
             temp_pos_a.add(pos) ;
             temp_pos_b.add(pos) ;
           }
@@ -1406,13 +1406,13 @@ class ROPE_svg {
           temp_pos_b = v.vert[index +1].copy() ;
           temp_pos_c = v.vert[index +2].copy() ;
           //
-          if(!scale.equals(Vec3(1))) {
+          if(!scale.compare(Vec3(1))) {
             temp_pos_a.mult(scale) ;
             temp_pos_b.mult(scale) ;
             temp_pos_c.mult(scale) ;
           }
           //
-          if(!jitter.equals(Vec3())) {
+          if(!jitter.compare(Vec3())) {
             Vec3 jitter_pos = Vec3().jitter((int)jitter.x,(int)jitter.y,(int)jitter.z) ;
             temp_pos_a.add(jitter_pos) ;
             jitter_pos = Vec3().jitter((int)jitter.x,(int)jitter.y,(int)jitter.z) ;
@@ -1427,7 +1427,7 @@ class ROPE_svg {
             temp_pos_c.sub(center_pos) ;
           }
           //
-          if(!pos.equals(Vec3())) {
+          if(!pos.compare(Vec3())) {
             temp_pos_a.add(pos) ;
             temp_pos_b.add(pos) ;
             temp_pos_c.add(pos) ;
@@ -1440,16 +1440,16 @@ class ROPE_svg {
           case CURVE_VERTEX:
           temp_pos_a = v.vert[index].copy() ;
           //
-          if(!scale.equals(Vec3(1))) temp_pos_a.mult(scale) ;
+          if(!scale.compare(Vec3(1))) temp_pos_a.mult(scale) ;
           //
-          if(!jitter.equals(Vec3())) {
+          if(!jitter.compare(Vec3())) {
             Vec3 jitter_pos = Vec3().jitter((int)jitter.x,(int)jitter.y,(int)jitter.z) ;
             temp_pos_a.add(jitter_pos) ;
           }
           //
           if(position_center) temp_pos_a.sub(center_pos) ;
           //
-          if(!pos.equals(Vec3())) temp_pos_a.add(pos) ;
+          if(!pos.compare(Vec3())) temp_pos_a.add(pos) ;
           //
           curveVertex(temp_pos_a);
           index++;

@@ -5,7 +5,7 @@ v 0.0.5
 Processing 3.3.7
 * Equation work with field array 2D
 */
-public class Equation implements Rope_Constants {
+public class Equation implements rope.core.RConstants {
   // ArrayList<Integer> rank ;
   Vec3 center_eq_dir, center_eq_len;
   ArrayList<iVec4> pow;
@@ -227,7 +227,7 @@ int FLUID, CHAOS, PERLIN, GRAVITY, MAGNETIC, IMAGE
 At this moment the force field is available only in 2D mode
 */
 
-public class Force_field implements Rope_Constants {
+public class Force_field implements rope.core.RConstants {
   // FIELD
   private Vec4[][] field;
   private Vec4[][] field_save;

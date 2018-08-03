@@ -24,7 +24,6 @@ Physique Rope
 v 0.0.1.1
 */
 public double g_force(double dist, double m_1, double m_2) {
-  println(r);
   return r.G *(dist*dist)/(m_1 *m_2);
 }
 

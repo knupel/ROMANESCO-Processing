@@ -8,7 +8,7 @@ v 0.7.1
 */
 
 
-abstract class Pix implements Rope_Constants {
+abstract class Pix implements rope.core.RConstants {
   // P3D mode
   Vec3 pos, new_pos ;
   Vec3 size  ;
@@ -485,7 +485,7 @@ abstract class Pix implements Rope_Constants {
 CLOUD
 v 0.3.3
 */
-class Cloud extends Pix implements Rope_Constants {
+class Cloud extends Pix implements rope.core.RConstants {
   int num ;
   int time_count = Integer.MIN_VALUE;
   float tempo_ref = .001 ;

@@ -1,6 +1,6 @@
 /**
 Rope UTILS 
-v 1.47.0
+v 1.47.1
 * Copyleft (c) 2014-2018 
 * Stan le Punk > http://stanlepunk.xyz/
 Rope – Romanesco Processing Environment – 
@@ -18,10 +18,10 @@ v 0.0.3
 */
 
 Constant_list processing_constants_list = new Constant_list(PConstants.class);
-Constant_list rope_constants_list = new Constant_list(Rope_Constants.class);
+Constant_list rope_constants_list = new Constant_list(rope.core.RConstants.class);
 public void print_constants_rope() {
   if(rope_constants_list == null) {
-    rope_constants_list = new Constant_list(Rope_Constants.class);
+    rope_constants_list = new Constant_list(rope.core.RConstants.class);
   }
   println("ROPE CONSTANTS");
   for(String s: rope_constants_list.list()){
@@ -45,7 +45,7 @@ public void print_constants() {
   }
 
   if(rope_constants_list == null) {
-    rope_constants_list = new Constant_list(Rope_Constants.class);
+    rope_constants_list = new Constant_list(rope.core.RConstants.class);
   }
 
   println("ROPE CONSTANTS");

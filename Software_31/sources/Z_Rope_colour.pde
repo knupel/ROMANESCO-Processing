@@ -1,7 +1,7 @@
 
 /**
 COLOUR 
-v 0.5.0
+v 0.4.0
 Pack of method to use colour, palette...
 */
 
@@ -15,7 +15,7 @@ v 0.0.2
 
 * get the colour by index or name
 */
-public class ROPE_colour implements rope.core.RConstants {
+public class ROPE_colour implements Rope_Constants {
 	int [] c;
 	public ROPE_colour(int... c) {
 		this.c = new int[c.length];
