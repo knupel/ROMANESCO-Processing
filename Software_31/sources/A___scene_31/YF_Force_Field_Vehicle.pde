@@ -17,7 +17,7 @@ About Craig Reynolds
 http://www.red3d.com/cwr/
 */
 
-public class Vehicle implements Rope_Constants {
+public class Vehicle implements rope.core.RConstants {
   // The usual stuff
   private Vec2 starting_direction;
   private Vec2 position;

@@ -98,7 +98,7 @@ class BoumBoum extends Romanesco {
     float offset_x = (canvas_x_item[ID_item] /2) -(width/2);
     Vec3 pos = Vec3(-offset_x,height/2,0);
     Vec3 dir = Vec3(dir_x_item[ID_item],dir_y_item[ID_item],dir_z_item[ID_item]);
-    dir.map_vec(0,360,0,TAU);
+    dir.map(0,360,0,TAU);
     
     // speed
     if(motion[ID_item]) {

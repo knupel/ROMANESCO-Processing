@@ -1,14 +1,14 @@
 
 /**
 CLASS PIX 
-v 0.7.1
+v 0.7.2
 2016-2018
 * @author Stan le Punk
 * @see https://github.com/StanLepunK/Pixel
 */
 
 
-abstract class Pix implements Rope_Constants {
+abstract class Pix implements rope.core.RConstants {
   // P3D mode
   Vec3 pos, new_pos ;
   Vec3 size  ;
@@ -485,7 +485,7 @@ abstract class Pix implements Rope_Constants {
 CLOUD
 v 0.3.3
 */
-class Cloud extends Pix implements Rope_Constants {
+class Cloud extends Pix {
   int num ;
   int time_count = Integer.MIN_VALUE;
   float tempo_ref = .001 ;

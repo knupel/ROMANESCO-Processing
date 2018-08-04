@@ -1,7 +1,7 @@
 
 /**
 CLASS PIX 
-v 0.7.1
+v 0.7.2
 2016-2018
 * @author Stan le Punk
 * @see https://github.com/StanLepunK/Pixel
@@ -485,7 +485,7 @@ abstract class Pix implements rope.core.RConstants {
 CLOUD
 v 0.3.3
 */
-class Cloud extends Pix implements rope.core.RConstants {
+class Cloud extends Pix {
   int num ;
   int time_count = Integer.MIN_VALUE;
   float tempo_ref = .001 ;

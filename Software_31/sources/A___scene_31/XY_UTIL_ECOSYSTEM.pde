@@ -1645,7 +1645,7 @@ void info_agent_track_line(ArrayList<Agent> list) {
 }
 
 void track_line(Vec3 pos, Vec3 pos_target, Vec4 colour) {
-  if(!pos_target.compare(Vec3(MAX_INT))) {
+  if(!pos_target.equals(Vec3(MAX_INT))) {
     stroke(colour) ;
     strokeWeight(1) ;
     line(pos, pos_target) ;

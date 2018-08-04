@@ -17,9 +17,9 @@ v 1.4.5
 
 /**
 Class Sounda
-v 0.1.0
+v 0.1.1
 */
-public class Sounda implements Rope_Constants {
+public class Sounda implements rope.core.RConstants {
   boolean info = false;
   private int analyze_length;
   Section section[];
