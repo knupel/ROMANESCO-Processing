@@ -3,7 +3,7 @@ Romanesco Unu
 2012–2018
 v 1.3.0.31
 version 31
-Processing 3.3.7
+Processing 3.4.0
 */
 /**
 Controller 
@@ -21,7 +21,7 @@ boolean LIVE = false;
 boolean MIROIR = false;
 boolean KEEP_BUTTON_ITEM_STATE = true;
 // DEV_MODE : rank folder, curtain
-boolean DEV_MODE = false; 
+boolean DEV_MODE = true; 
 
 
 void settings() {

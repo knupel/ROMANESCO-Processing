@@ -1,6 +1,6 @@
 /**
 OSC CORE 
-v 1.4.2
+v 1.5.1
 */
 OscP5 osc_receive_controller_general;
 OscP5 osc_receive_controller_item;
@@ -12,6 +12,127 @@ void OSC_receive_controller_setup() {
 
 
 
+
+
+
+/**
+EVENT
+v 0.0.1
+*/
+int security_to_dont_duplicate_osc_packet ;
+void oscEvent(OscMessage receive) {
+ println(receive.addrPattern(),frameCount);
+ if(security_to_dont_duplicate_osc_packet != frameCount) {
+    controller_reception(receive) ;
+    if(IAM.equals("scene")) prescene_reception(receive) ; 
+  }
+  security_to_dont_duplicate_osc_packet = frameCount ;
+}
+
+// CONTROLLER RECEPTION
+boolean controller_osc_is = false ;
+void controller_reception(OscMessage receive) {
+  if(receive.addrPattern().equals("Controller general")) {
+    thread_data_controller_general(receive);
+    controller_osc_is = true;
+  }
+
+  if(receive.addrPattern().equals("Controller item")) {
+    thread_data_controller_item(receive);
+    controller_osc_is = true;
+  }
+}
+
+// PRESCENE RECEPTION
+void prescene_reception(OscMessage m) {
+  if(m.addrPattern().equals("Prescene")) {
+    catchDataFromPrescene(m);
+    data_osc_prescene = split(dataPrescene, '/') ;
+    data_save_prescene();
+  } 
+}
+
+
+/**
+PRESCENE OSC
+v 0.0.1
+*/
+
+
+
+
+
+
+
+
+
+
+
+
+/**
+SCENE OSC
+v 0.0.1
+*/
+
+String dataPrescene = ("") ;
+String from_prescene_boolean_load_save = ("") ;
+
+void catchDataFromPrescene(OscMessage receive) {
+  dataPrescene = receive.get(0).stringValue() ;
+  path_to_load_scene_setting = receive.get(1).stringValue() ;
+  from_prescene_boolean_load_save = receive.get(2).stringValue() ;
+}
+
+void data_save_prescene() {
+  String [] booleanSave  ;
+  booleanSave = split(from_prescene_boolean_load_save, '/') ;
+  // convert string to boolean
+  load_SCENE_Setting_order_from_presecene = Boolean.valueOf(booleanSave[0]).booleanValue();
+  save_Current_SCENE_Setting_order_from_presecene = Boolean.valueOf(booleanSave[1]).booleanValue();
+  save_New_SCENE_Setting_order_from_presecene = Boolean.valueOf(booleanSave[2]).booleanValue();
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/**
+GLOBAL OSC
+*/
 // main method
 void thread_data_controller_general(OscMessage receive) {
   int rank = 0 ;

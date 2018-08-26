@@ -21,6 +21,7 @@ void OSC_receive_prescene_setup() {
 /**
 OSC receive
 */
+/*
 int security_to_dont_duplicate_osc_packet ;
 void oscEvent(OscMessage receive) {
  println(receive.addrPattern(),frameCount);
@@ -30,6 +31,10 @@ void oscEvent(OscMessage receive) {
   }
   security_to_dont_duplicate_osc_packet = frameCount ;
 }
+
+
+
+
 
 boolean controller_osc_is = false ;
 void controller_reception(OscMessage receive) {
@@ -51,6 +56,7 @@ void prescene_reception(OscMessage m) {
     data_save_prescene();
   } 
 }
+*/
 
 
 void update_OSC_data() {
@@ -61,6 +67,7 @@ void update_OSC_data() {
 
 
 // FROM PRESCENE
+/*
 String dataPrescene = ("") ;
 String from_prescene_boolean_load_save = ("") ;
 
@@ -78,6 +85,7 @@ void catchDataFromPrescene(OscMessage receive) {
 
 
 
+
 void data_save_prescene() {
   String [] booleanSave  ;
   booleanSave = split(from_prescene_boolean_load_save, '/') ;
@@ -86,6 +94,7 @@ void data_save_prescene() {
   save_Current_SCENE_Setting_order_from_presecene = Boolean.valueOf(booleanSave[1]).booleanValue();
   save_New_SCENE_Setting_order_from_presecene = Boolean.valueOf(booleanSave[2]).booleanValue();
 }
+*/
 
 
 

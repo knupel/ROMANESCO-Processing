@@ -62,7 +62,7 @@ void send_message(boolean send_message_is) {
   this.send_message_is = send_message_is;
 }
 
-
+/*
 void oscEvent(OscMessage receive) {
   println("void oscEvent(OscMessage receive):",receive.addrPattern(),frameCount);
   if(receive.addrPattern().equals("Controller general")) {
@@ -73,6 +73,7 @@ void oscEvent(OscMessage receive) {
     thread_data_controller_item(receive);
   }
 }
+*/
 
 
 
