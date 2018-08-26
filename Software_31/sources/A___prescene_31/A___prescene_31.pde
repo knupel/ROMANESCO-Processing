@@ -10,6 +10,8 @@ Processing 3.3.7
 2017 March 40_000 lines of code
  */
 String IAM = "prescene";
+// String IAM = "scene";
+// String IAM = "scene";
 /* 
 Use false when you want:
 used sound & maximum possibility of the object
@@ -25,7 +27,7 @@ LIVE must change from the launcher, the info must be write in the external loadi
 boolean LIVE = false;
 boolean FULL_RENDERING = true;
 // DEV_MODE : rank folder, curtain, OSC thread
-boolean DEV_MODE = false; 
+boolean DEV_MODE = true; 
 
 
 
@@ -36,6 +38,14 @@ void settings() {
 
   pixelDensity(displayDensity());
   syphon_settings();
+
+  if(IAM.equals("prescene")) {
+    scene = false;
+    prescene = true;
+  } else {
+    scene = true;
+    prescene = false;
+  }
 }
 
 
@@ -71,6 +81,9 @@ void setup() {
   
   // SOUND LIGHT
   if(USE_SOUND) sound_setup();
+  
+  if(IAM.equals("scene")) scene_variables_setup(); // the varObject setup of the Scene is more simple
+
   light_position_setup();
   light_setup();
 
@@ -123,7 +136,12 @@ void romanesco() {
   background_romanesco();
   updateCommand();
   leapMotionUpdate();
-  load_prescene();
+  if(IAM.equals("prescene")) {
+    load_prescene();
+  } else {
+    load_scene();
+    save_scene();
+  }
   
 
 

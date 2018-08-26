@@ -1,6 +1,6 @@
 /**
 Core Prescene
-v 1.2.1
+v 1.2.1.1
 2013-2018
 */
 /**
@@ -48,8 +48,6 @@ Here you find
 > open method for the scene and controller
 > keyboard command
 */
-boolean scene = false ;
-boolean prescene = true ;
 
 //to opening app
 boolean openScene = true ;
@@ -59,12 +57,6 @@ boolean openControleur = true ;
 boolean youCanSendToScene = true ;
 // boolean youCanSendToMiroir = true ;
 
-// Web cam activity
-// boolean cameraOnOff = false ;
-
-// internet connection
-boolean internet = true ;
-String bigBrother = ("BIG BROTHER DON'T WATCHING YOU !!") ;
 
 // CURSOR SPEED
 int speedWheel = 4 ; // 5 is too quick
@@ -226,18 +218,14 @@ void shortCutsPrescene() {
   // save
   // if (key == 's') selectOutput("Enregistrez le PDF et le PNG ", "saveImg") ;
   // info common command with Scene
-  if (key == 'i') displayInfo = !displayInfo ;
-  if (key == 'g') displayInfo3D = !displayInfo3D ;
+  if (key == 'i') displayInfo = !displayInfo;
+  if (key == 'g') displayInfo3D = !displayInfo3D;
 
 }
 
 
 
 // SCENE
-///////////////////
-boolean load_Scene_Setting_local, 
-        save_Current_Scene_Setting_local,
-        save_New_Scene_Setting_local ;
 // Scene load
 // CTRL + O
 void check_keyboard_load_scene() {

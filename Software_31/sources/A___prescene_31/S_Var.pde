@@ -3,7 +3,65 @@ VARIABLE
 Prescene, Scene
 Romanesco Processing Environment
 2015-2018
-v 1.5.0
+v 1.6.0
+*/
+
+/** 
+SCENE VARIABLE
+*/
+
+/**
+Variable_Scene
+2014_2018
+v 0.1.1
+*/
+boolean scene, prescene;
+boolean miroir_on_off = false ;
+
+boolean check_size = false ;
+
+
+// In the Miroir and Scene sketch presceneOnly must be true for the final work.
+Boolean internet = true ;
+String bigBrother = ("BIG BROTHER DON'T WATCHING YOU !!") ;
+
+//Special var for the Scene and the Miroir
+
+
+
+
+//init var
+//GLOBAL
+void scene_variables_setup() {
+  for (int i = 0 ; i < data_osc_prescene.length ; i++) {
+    data_osc_prescene[i] = ("0");
+  }
+  
+  for (int i = 0 ; i < NUM_ITEM ; i++ ) {
+    pen[i] = Vec3() ;
+    mouse[i] = Vec3() ;
+    wheel[i] = 0 ;
+  }
+  println("Scene variables setup done") ;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/**
+GLOBAL VARIABLE
 */
 
 /**
@@ -60,8 +118,11 @@ boolean ORDER, ORDER_ONE, ORDER_TWO, ORDER_THREE ;
 boolean LEAPMOTION_DETECTED ;
 
 
-// SAVE
-boolean load_SCENE_Setting_GLOBAL, save_Current_SCENE_Setting_GLOBAL, save_New_SCENE_Setting_GLOBAL ;
+// SAVE SCENE
+boolean load_Scene_Setting_local, save_Current_Scene_Setting_local, save_New_Scene_Setting_local;
+boolean load_SCENE_Setting_order_from_presecene, save_Current_SCENE_Setting_order_from_presecene, save_New_SCENE_Setting_order_from_presecene ;
+boolean load_SCENE_Setting_GLOBAL, save_Current_SCENE_Setting_GLOBAL, save_New_SCENE_Setting_GLOBAL;
+
 
 //spectrum band
 int NUM_BANDS = 128;

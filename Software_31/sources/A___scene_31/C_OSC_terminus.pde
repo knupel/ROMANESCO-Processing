@@ -13,13 +13,7 @@ void OSC_receive_prescene_setup() {
   int port_receive_prescene = 9_100 ;
 
   osc_receive_prescene = new OscP5(this, port_receive_prescene);
-/*
-  try { 
-    Thread.sleep(6000); 
-  } 
-  catch (InterruptedException e) { 
-  }
-  */
+
   println("OSC setup done") ;
 }
 
@@ -83,7 +77,7 @@ void catchDataFromPrescene(OscMessage receive) {
 
 
 
-boolean load_SCENE_Setting_order_from_presecene, save_Current_SCENE_Setting_order_from_presecene, save_New_SCENE_Setting_order_from_presecene ;
+
 void data_save_prescene() {
   String [] booleanSave  ;
   booleanSave = split(from_prescene_boolean_load_save, '/') ;
@@ -220,10 +214,3 @@ void translate_event_prescene() {
   if(data_osc_prescene[134].equals("0")) LEAPMOTION_DETECTED = false; else LEAPMOTION_DETECTED = true;
 }
 
-
-/*
-void translate_other_event_prescene() {
-  // long mouse event
-
-}
-*/

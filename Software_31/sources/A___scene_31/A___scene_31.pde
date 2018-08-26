@@ -69,7 +69,7 @@ void setup() {
   create_font();
 
   if(USE_SOUND) sound_setup();
-  variables_setup(); // the varObject setup of the Scene is more simple
+  if(IAM.equals("scene")) scene_variables_setup(); // the varObject setup of the Scene is more simple
 
   light_position_setup();
   light_setup();
@@ -107,8 +107,11 @@ void romanesco() {
   update_raw_item_value() ;
   background_romanesco() ; 
 
-  loadScene() ;
-  saveScene() ;
+  if(IAM.equals("scene")) {
+    load_scene();
+    save_scene();
+  }
+
   
   //ROMANESCO
   camera_romanesco_draw() ;
