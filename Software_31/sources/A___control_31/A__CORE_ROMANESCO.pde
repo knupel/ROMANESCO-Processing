@@ -1,10 +1,8 @@
 /**
 Core Romanesco
-*
 COMMON SKETCH for CONTROLLER, PRESCENE & SCENE
-*
-2018-2018Òß
-v 0.1.4
+2018-2018
+v 0.1.5
 */
 int NUM_COL_SLIDER = 4;
 int NUM_SLIDER_ITEM_BY_COL = 16;
@@ -62,10 +60,12 @@ String import_path;
 String items_path;
 String autosave_path;
 void path_setting() {
-  preference_path = sketchPath(1)+"/preferences/";
-  import_path = sketchPath(1)+"/import/";
-  items_path = sketchPath(1)+"/items/";
-  autosave_path = sketchPath(1)+"/autosave.csv";
+  int folder_position = 1;
+  if(!DEV_MODE) folder_position = 0;
+  preference_path = sketchPath(folder_position)+"/preferences/";
+  import_path = sketchPath(folder_position)+"/import/";
+  items_path = sketchPath(folder_position)+"/items/";
+  autosave_path = sketchPath(folder_position)+"/autosave.csv";
 }
 
 String version = "";

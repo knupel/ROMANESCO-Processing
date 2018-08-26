@@ -24,7 +24,8 @@ LIVE must change from the launcher, the info must be write in the external loadi
 */
 boolean LIVE = false;
 boolean FULL_RENDERING = true;
-boolean DEVELOPMENT_MODE = false;
+// DEV_MODE : rank folder, curtain, OSC thread
+boolean DEV_MODE = false; 
 
 
 
@@ -150,7 +151,7 @@ void romanesco() {
   //annexe
   info() ;
   // curtain
-  if(FULL_RENDERING && !DEVELOPMENT_MODE) curtain();
+  if(FULL_RENDERING && !DEV_MODE) curtain();
   // save screenshot
   if(FULL_RENDERING) {
     save_PNG();

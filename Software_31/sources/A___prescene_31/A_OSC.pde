@@ -18,7 +18,7 @@ void OSC_send_scene_setup() {
 void OSC_thread_send_scene_setup() {
   osc_send_scene = new OscP5(this, port_send_scene);
   //send
-  if (!DEVELOPMENT_MODE) {
+  if (!DEV_MODE) {
     String [] addressIP = loadStrings(preference_path+"network/IP_address_mirror.txt") ;
     String join_address = join(addressIP,"") ;
     String [] temp = split(join_address,"/") ;

@@ -5,16 +5,18 @@ version 31
 Processing 3.3.7
 4th may 2015 14.750 lines of code 
 */
-String IAM = ("Scene") ;
+String IAM = "scene";
 // security must be link with the controler in the next release
 boolean USE_SOUND = true; 
-boolean DEVELOPMENT_MODE = false;
-boolean OPEN_APP = true ;
-boolean TEST_FULL_SCREEN = false ;
 
-boolean FULL_RENDERING = true ;
-boolean FULL_SCREEN = false ;
+boolean OPEN_APP = true;
+boolean TEST_FULL_SCREEN = false;
 
+boolean FULL_RENDERING = true;
+// DEV_MODE : rank folder, curtain, OSC thread
+boolean DEV_MODE = true; 
+
+boolean FULL_SCREEN = false;
 
 
 void settings() {
