@@ -1,7 +1,7 @@
 /**
 Ballet
 2018
-v 0.0.1
+v 0.0.2
 */
 class FF extends Romanesco {
 	public FF() {
@@ -9,7 +9,7 @@ class FF extends Romanesco {
 		ID_item = 30;
 		ID_group = 1 ;
 		item_author  = "Stan le Punk";
-		item_version = "Version 0.0.1";
+		item_version = "Version 0.0.2";
 		item_pack = "Romanesco 2018";
     item_costume = "none/line";
     item_mode = "fluid/magnetic/gravity/perlin/equation/chaos/image";
@@ -83,12 +83,14 @@ class FF extends Romanesco {
   float ref_cell = 0;
   float ref_detection = 0;
   void draw() { 
+    minimum_spot();
     set_ff();
-    println(grid_item[ID_item]);
-    if(ref_cell != grid_item[ID_item] || ref_mode != mode[ID_item] || ref_detection != area_item[ID_item]) {
+    if(ref_cell != grid_item[ID_item] || ref_mode != mode[ID_item] || ref_detection != area_item[ID_item] || birth[ID_item]) {
       ref_mode = mode[ID_item];
       ref_cell = grid_item[ID_item];
       ref_detection = area_item[ID_item];
+      birth[ID_item] = false;
+      println(get_spot_num(),frameCount);
       init_force_field(get_spot_num());
     }
 
@@ -113,6 +115,34 @@ class FF extends Romanesco {
     }
   }
 
+  /**
+  MINIMUM SPOT
+  Use this method when there is no puppet master for the dynamic force field
+  */
+  private void minimum_spot() {
+    if(!puppet_master_is() && get_spot_num() != 2) {
+      clear_spot();
+      add_spot(2);
+    }
+
+    // update spot position
+    if(motion[ID_item]) {
+      if(force_romanesco.get_spot_num() == 1) {
+        // for the moment there is no case with only one spot :)
+        force_romanesco.set_spot_pos(mouse[0].x,mouse[0].y);
+      } else if(force_romanesco.get_spot_num() == 2) {
+        force_romanesco.set_spot_pos(mouse[0].x,mouse[0].y,0);
+        force_romanesco.set_spot_pos(width -mouse[0].x,height -mouse[0].y,1);
+        // case where it's item Ballet manage the spot
+      }
+    }
+  }
+
+
+
+
+
+
 
   /**
   SET FORCE
@@ -123,9 +153,7 @@ class FF extends Romanesco {
     set_spot_detection_force_field(detection);
 
     // set cell
-    println("setting grid",grid_item[ID_item]);
     int cell_size = (int)map(grid_item[ID_item],width *.1,width*TAU,height/10,2);
-    println("setting grid",cell_size);
     set_cell_force_field(cell_size);
     // set type
     if(mode[ID_item] == 0) {
@@ -143,6 +171,8 @@ class FF extends Romanesco {
     } else if(mode[ID_item] == 4) {
       set_pattern_force_field(EQUATION);
     } else if(mode[ID_item] == 5) {
+      set_pattern_force_field(CHAOS);
+    } else if(mode[ID_item] == 6) {
       set_pattern_force_field(IMAGE);
     } else {
       set_pattern_force_field(BLANK);

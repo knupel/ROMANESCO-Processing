@@ -21,17 +21,15 @@ void init_filter() {
 
 
 void filter() {
-  // force field
-  if(FULL_RENDERING && (fx_button_is(0) || update_force_field_is())) {
-    update_force_field();
-  }
-  update_force_field_is(false);
+  
   
   // warp
   if(FULL_RENDERING && fx_button_is(0)) {
     warp();
   } 
 }
+
+
 
 
 

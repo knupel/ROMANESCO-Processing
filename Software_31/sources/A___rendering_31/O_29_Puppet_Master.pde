@@ -1,15 +1,15 @@
 /**
-Ballet
-2018
-v 0.0.2
+Puppet Master
+2018-2018
+v 0.0.3
 */
-class Ballet extends Romanesco {
-	public Ballet() {
-		item_name = "Ballet";
+class Puppet_master extends Romanesco {
+	public Puppet_master() {
+		item_name = "Puppet Master";
 		ID_item = 29;
 		ID_group = 1 ;
 		item_author  = "Stan le Punk";
-		item_version = "Version 0.0.2";
+		item_version = "Version 0.0.3";
 		item_pack = "Romanesco 2018";
     item_costume = "none/point/ellipse/triangle/rect/cross/pentagon/Star 5/Star 7/Super Star 8/Super Star 12";
     item_mode = "solo/valse 2D/valse 3D/whisky walk/random";
@@ -81,6 +81,7 @@ class Ballet extends Romanesco {
 
   Vec3 speed = Vec3();
   void draw() {
+    puppet_master(true);
     num_spot_management(300);
 
     iVec2 canvas_ff = get_force_field().get_canvas();
@@ -165,7 +166,7 @@ class Ballet extends Romanesco {
 
 
   private void solo_spot() {
-
+    num_spot_management(1);
   }
 
 
@@ -282,7 +283,7 @@ class Ballet extends Romanesco {
     float ratio_quantity = quantity_item[ID_item];
     ratio_quantity = (ratio_quantity*ratio_quantity*ratio_quantity);
     int spot_quantity = (int)map(ratio_quantity,0,1,1,max);
-    if(ref_spot_quantity != spot_quantity || get_spot_num() == 1) {
+    if(ref_spot_quantity != spot_quantity || ref_spot_quantity != get_spot_num()) {
       ref_spot_quantity = spot_quantity;
       clear_spot();
       add_spot(spot_quantity);

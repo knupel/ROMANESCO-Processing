@@ -184,23 +184,23 @@ void update_var_items(int ID) {
       pen[ID].set(pen[0]) ;
       mouse[ID].set(mouse[0]) ;
     }
-    if (key_n) birth[ID] = !birth[ID] ;
-    if (key_x) colour[ID] = !colour[ID] ;
-    if (key_d) dimension[ID] = !dimension[ID] ;
-    if (key_h) horizon[ID] = !horizon[ID] ;
-    if (key_m) motion[ID] = !motion[ID] ;
-    if (key_o) orbit[ID] = !orbit[ID] ;
-    if (key_r) reverse[ID] = !reverse[ID] ;
-    if (key_f) special[ID] = !special[ID] ;
-    if (key_w) wire[ID] = !wire[ID] ;
+    if (key_n) birth[ID] = !birth[ID];
+    if (key_x) colour[ID] = !colour[ID];
+    if (key_d) dimension[ID] = !dimension[ID];
+    if (key_h) horizon[ID] = !horizon[ID];
+    if (key_m) motion[ID] = !motion[ID];
+    if (key_o) orbit[ID] = !orbit[ID];
+    if (key_r) reverse[ID] = !reverse[ID];
+    if (key_f) special[ID] = !special[ID];
+    if (key_w) wire[ID] = !wire[ID];
 
-    if (key_j) fill_is[ID] = !fill_is[ID] ;
-    if (key_k) stroke_is[ID] = !stroke_is[ID] ;
+    if (key_j) fill_is[ID] = !fill_is[ID];
+    if (key_k) stroke_is[ID] = !stroke_is[ID];
 
-    clickLongLeft[ID] = ORDER_ONE ;
-    clickLongRight[ID] = ORDER_TWO ;
-    clickShortLeft[ID] = clickShortLeft[0] ;
-    clickShortRight[ID] = clickShortRight[0] ;
+    clickLongLeft[ID] = ORDER_ONE;
+    clickLongRight[ID] = ORDER_TWO;
+    clickShortLeft[ID] = clickShortLeft[0];
+    clickShortRight[ID] = clickShortRight[0];
   }
 }
 
@@ -383,11 +383,11 @@ inspired by Andreas Gysin work for The Abyss Project
 @see https://github.com/ertdfgcvb/TheAbyss
 */
 class Romanesco_manager {
-  private ArrayList<Romanesco>RomanescoList ;
+  private ArrayList<Romanesco>RomanescoList;
   private ArrayList<Class>item_list;
 
   PApplet parent;
-  String item_class_name [] ;
+  String item_class_name [];
   int num_classes ;
   
   Romanesco_manager(PApplet parent) {
@@ -406,7 +406,7 @@ class Romanesco_manager {
     
     //create the index table
     for (int i=0; i<c.length; i++) {
-      if (c[i].getSuperclass() != null && c[i].getSuperclass().getSimpleName().equals(super_Class_name) ) {
+      if (c[i].getSuperclass() != null && c[i].getSuperclass().getSimpleName().equals(super_Class_name)) {
         classes.add(c[i]);
         num_classes = classes.size() ;
       }
@@ -415,12 +415,12 @@ class Romanesco_manager {
     
     //init the String info
     item_class_name = new String[num_classes] ;
-    for ( int i = 0 ; i <item_class_name.length ; i++) item_class_name[i] =("") ;
+    for (int i = 0 ; i <item_class_name.length ; i++) item_class_name[i] =("");
     
     //add class in Romanesco, plus add info in the String for the index
     int numObjectRomanesco = 0 ;
     for (int i=0; i<c.length; i++) {
-      if (c[i].getSuperclass() != null && c[i].getSuperclass().getSimpleName().equals(super_Class_name) ) {
+      if (c[i].getSuperclass() != null && c[i].getSuperclass().getSimpleName().equals(super_Class_name)) {
         item_class_name[numObjectRomanesco] = c[i].getSimpleName() ;
         numObjectRomanesco += 1 ;
       }

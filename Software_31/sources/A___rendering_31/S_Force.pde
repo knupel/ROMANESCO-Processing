@@ -1,7 +1,7 @@
 /**
 FORCE
 2018-2018
-v 0.0.5
+v 0.0.7
 */
 // FORCE
 int ref_cell_size =20;
@@ -14,6 +14,8 @@ void init_force_field() {
 }
 void init_force_field(int num_spot) {
   int type = get_type_force_field();
+  int pattern = get_pattern_force_field();
+  if(num_spot < 2) num_spot = 2;
   if(type == r.FLUID) {
     force_romanesco = new Force_field(ref_cell_size,r.FLUID,r.BLANK);
     force_romanesco.add_spot();
@@ -26,7 +28,28 @@ void init_force_field(int num_spot) {
     force_romanesco.add_spot(num_spot);
     force_romanesco.set_spot_detection(5);
   }
+
+  if(pattern == r.PERLIN) {
+    force_romanesco = new Force_field(ref_cell_size,r.STATIC,r.PERLIN);
+  } else if(pattern == r.CHAOS) {
+    force_romanesco = new Force_field(ref_cell_size,r.STATIC,r.CHAOS);
+  } else if(pattern == r.EQUATION) {
+    force_romanesco = new Force_field(ref_cell_size,r.STATIC,r.EQUATION);
+  }
 }
+
+
+
+void force() {
+  // force field
+  if(FULL_RENDERING && (fx_button_is(0) || update_force_field_is())) {
+    update_force_field();
+  }
+  update_force_field_is(false);
+}
+
+
+
 
 // detection
 void set_spot_detection_force_field(int detection) {
@@ -63,23 +86,22 @@ void set_cell_force_field(int size) {
 }
 
 
+boolean puppet_master_force_field_is = false ;
+boolean puppet_master_is() {
+  return puppet_master_force_field_is;
+}
+
+void puppet_master(boolean is) {
+  puppet_master_force_field_is = is;
+}
+
+
 
 
 void update_force_field() {
-
-  // update spot position
-  if(force_romanesco.get_spot_num() == 1 ) {
-    force_romanesco.set_spot_pos(mouse[0].x,mouse[0].y);
-  } else if(force_romanesco.get_spot_num() == 2) {
-    force_romanesco.set_spot_pos(mouse[0].x,mouse[0].y,0);
-    force_romanesco.set_spot_pos(width -mouse[0].x,height -mouse[0].y,1);
-    // case where it's item Ballet manage the spot
-  }
-
   if(force_romanesco.get_type() == r.MAGNETIC || force_romanesco.get_type() == r.GRAVITY) {
     force_romanesco.refresh();
   }
-
   force_romanesco.update();
 }
 
@@ -191,7 +213,6 @@ boolean update_force_field_is() {
 
 /**
 SPOT ROMANESCO MANAGER
-v 0.0.1
 */
 int get_spot_num() {
   return force_romanesco.get_spot_num();
@@ -220,7 +241,9 @@ void set_spot_pos(float x, float y, int index) {
 Vec3 get_spot_pos(int index) {
   if(index < force_romanesco.get_spot_num()) {
     return force_romanesco.get_spot_pos(index);
-  } else return null;
+  } else {
+    return null;
+  }
 }
 
 

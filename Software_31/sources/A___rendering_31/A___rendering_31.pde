@@ -195,6 +195,8 @@ void romanesco() {
   stop_camera();
 
   rpe_manager.show_item_2D();
+
+  force();
   filter();
 
 
@@ -210,15 +212,11 @@ void romanesco() {
   if(key_p) event_PNG();
 
   // misc
+  puppet_master(false); // use to resset puppet for the force field
   update_temp_value();
-  
   media_update();
-  
+  nextPreviousKeypressed(); // check if this method is always used or not
 
-  /**
-  check if this method is always used or not
-  */
-  nextPreviousKeypressed();
 
   if(IAM.equals("scene")) {
     init_value_temp_prescene();
