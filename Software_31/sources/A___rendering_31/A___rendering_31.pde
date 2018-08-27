@@ -1,5 +1,6 @@
 /**
-Romanesco dui
+ROMANESCO
+romanesco dui rendering
 2013–2018
 release 31
 Processing 3.4.0
@@ -23,11 +24,9 @@ boolean DEV_MODE = true;
 * Here you can choice between the three common rendering mode
 */
  // Prescene full rendering
- /*
 String IAM = "prescene";
 boolean LIVE = false;
 boolean FULL_RENDERING = true;
-*/
 
 
 // Prescene control
@@ -36,11 +35,13 @@ String IAM = "prescene";
 boolean LIVE = true;
 boolean FULL_RENDERING = false;
 */
-
-
+/*
 String IAM = "scene";
 boolean LIVE = false;
 boolean FULL_RENDERING = true;
+*/
+
+
 
 
 
@@ -116,10 +117,7 @@ void setup() {
   init_slider_variable_world();
   create_font();
   
-  // SOUND LIGHT
   if(USE_SOUND) sound_setup();
-  
-  if(IAM.equals("scene")) scene_variables_setup(); // the varObject setup of the Scene is more simple
 
   light_position_setup();
   light_setup();
