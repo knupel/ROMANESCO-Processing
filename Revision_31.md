@@ -1,4 +1,4 @@
-Romanesco unu
+Romanesco dui
 revision 31
 --
 MAJOR
@@ -20,6 +20,7 @@ MAJOR
 >Add method do select folder and input media from the controller
 >remove method by dropping media in external folder
 >fusion of the sketches prescene and scene, the result became rendering
+>romanesco unu became romanesco dui, too much change to keep the same name !
 
 
 MINOR

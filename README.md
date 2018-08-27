@@ -1,8 +1,11 @@
-## Romanesco Unu 1.3.0.31
+## Romanesco dui 2.0.0.31
 Generative Live Art Application
 2011-2018
 
-Those sketches are the progress in work, writen for Processing 3.3.7
+## WARNING
+the most information below is from the previous version devellopement, there is a lot of improvement and change, so the information content can be wrong ; for the moment contact me is a better solution :)
+
+Those sketches are the progress in work, writen for Processing 3.4
 
 To download the last built version, go to [app 1.2.0.30](http://romanescoproject.wordpress.com/download/)
 
@@ -11,7 +14,7 @@ To download the last built version, go to [app 1.2.0.30](http://romanescoproject
 - Controleur : interface slider to use the objects and the different parameters.
 - Prescene : use it to move the object in 3D.
 - Scene : display the result. We can use this one to send to syphon or not.
-- Romanesco must be coded with Processing 3.3.7
+- Romanesco must be coded with Processing 3.4
 
 ## Memory
 Romanesco Prescene and Scene need a lot of memory to run in processing. You will maybe need to increase the Processing memory.
