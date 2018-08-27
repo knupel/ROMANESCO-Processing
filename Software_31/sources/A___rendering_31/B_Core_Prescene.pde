@@ -4,46 +4,6 @@ v 1.2.1.1
 2013-2018
 */
 
-/*
-String displayMode = ("");
-int depth_scene;
-
-
-//SETUP
-void display_setup(int frame_rate) {
-  if(IAM.equals("scene")) {
-    background(0);
-    noCursor();
-  }
-  frameRate(frame_rate);  // Le frameRate doit être le même dans tous les Sketches
-  colorMode(HSB, HSBmode.r, HSBmode.g, HSBmode.b, HSBmode.a); 
-  set_screen();
-  depth_scene = height;
-  background_setup();
-  background_shader_setup();
-}
-*/
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 /**
 Here you find
@@ -79,13 +39,6 @@ void prescene_setup() {
   if(TABLET) tablet = new Tablet(this);
   if(FULL_RENDERING) displayInfo3D = false ; else displayInfo3D = true ;
 }
-
-
-
-
-
-
-
 
 
 
@@ -195,9 +148,6 @@ void update_leapmotion() {
     mouse[0] = Vec3(x,y,z);
   } else mouse[0].set(x,y,z);
 }
-
-
-
 
 
 

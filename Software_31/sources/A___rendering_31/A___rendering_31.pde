@@ -159,9 +159,8 @@ void romanesco() {
   syphon_draw();
 
   if(USE_SOUND) sound_draw();
-  // OSC part
-  OSC_update();
 
+  OSC_update();
 
   update_raw_item_value();
 
@@ -242,7 +241,10 @@ void romanesco() {
     key_false();
   }
 
-  if(!controller_osc_is) message_opening();
+  if(!controller_osc_is) {
+    background(0);
+    message_opening();
+  }
   
 }
 

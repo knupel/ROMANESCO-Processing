@@ -25,7 +25,7 @@ void load_prescene() {
 void load_setting_scene(File selection) {
   if (selection != null) {
   	path_to_load_scene_setting = selection.getAbsolutePath();
-  	loadDataObject(path_to_load_scene_setting) ;
+  	load_data_item(path_to_load_scene_setting) ;
   } 
   load_SCENE_Setting_GLOBAL = false ;
   load_Scene_Setting_local = false ;
@@ -50,7 +50,7 @@ v 1.0.0
 */
 void load_scene() {
   if(!path_to_load_scene_setting.equals("") ) {
-    loadDataObject(path_to_load_scene_setting) ;
+    load_data_item(path_to_load_scene_setting) ;
   }
 }
 

@@ -57,9 +57,9 @@ void oscEvent(OscMessage receive) {
  println(receive.addrPattern(),frameCount);
  if(security_to_dont_duplicate_osc_packet != frameCount) {
     controller_reception(receive) ;
-    if(IAM.equals("scene")) prescene_reception(receive) ; 
+    if(IAM.equals("scene")) prescene_reception(receive); 
   }
-  security_to_dont_duplicate_osc_packet = frameCount ;
+  security_to_dont_duplicate_osc_packet = frameCount;
 }
 
 boolean controller_osc_is = false ;
@@ -305,6 +305,7 @@ void receive_data_dropdown_costume_item(OscMessage receive, int in) {
 OSC Prescene 
 2014-2018
 v 1.4.0
+* this part is used when the sketch is build like a prescene
 */
 NetAddress [] ad_scene ;
 String [] ID_address_scene ;
@@ -673,7 +674,9 @@ void join_osc_data() {
 
 /**
 SCENE OSC
+2013-2018
 v 1.0.0
+* this part is used when the sketch is build like a scene
 */
 String dataPrescene = ("") ;
 String from_prescene_boolean_load_save = ("") ;

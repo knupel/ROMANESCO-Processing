@@ -1,7 +1,7 @@
 /**
-CORE Rope SCENE and PRESCENE 
+CORE SCENE and PRESCENE 
 2015-2018
-v 1.4.6
+v 1.5.0
 */
 import java.net.*;
 import java.io.*;
@@ -58,6 +58,32 @@ void init_romanesco() {
 }
 
 
+
+
+
+String displayMode = ("");
+int depth_scene;
+void display_setup(int frame_rate) {
+  if(IAM.equals("scene")) {
+    background(0);
+    noCursor();
+  }
+  frameRate(frame_rate);  // Le frameRate doit être le même dans tous les Sketches
+  colorMode(HSB, HSBmode.r, HSBmode.g, HSBmode.b, HSBmode.a); 
+  set_screen();
+  depth_scene = height;
+  background_setup();
+  background_shader_setup();
+}
+
+
+
+
+
+
+
+
+
 void set_screen() {
   Table configurationScene = loadTable(preference_path +"sceneProperty.csv","header");
   TableRow row = configurationScene.getRow(0);
@@ -108,6 +134,125 @@ void set_screen() {
 }
 
 
+
+
+
+/**
+OPENING
+2018-2018
+*/
+void message_opening() {
+  fill(blanc);
+  stroke(blanc);
+  textSize(48);
+  textAlign(CENTER);
+  start_matrix();
+  translate(width/2, height/2, abs(sin(frameCount * .005)) *(height/2)) ;
+  text(nameVersion.toUpperCase(),0,-12);
+  textSize(24);
+  text(prettyVersion+"." + version,0,16);
+  text("rendering " +IAM,0,36);
+  stop_matrix() ;
+  textAlign(LEFT) ;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/**
+GRAPHIC CONFIGURATION 
+1.1.0
+*/
+//int whichScreen;
+void resize_scene() {
+  if (!FULL_SCREEN && !check_size || (width != scene_width && height != scene_height)) {
+    catch_display_position() ;
+    check_size = true ;
+    int which = 0;
+    if(which > screenDevice.length || which < 1) {
+      which = 1;
+    }
+    int pos_x = display_size_x[which -1] - ((display_size_x[which -1]/2) +(scene_width /2)) ;
+    int pos_y = display_size_y[which -1] - ((display_size_y[which -1]/2) +(scene_height /2)) ;
+    set_display_sketch (pos_x, pos_y, scene_width, scene_height, which, true) ;
+  }
+}
+
+
+GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+GraphicsDevice[] screenDevice = ge.getScreenDevices();
+
+
+
+// window method
+void set_display_sketch(int pos_x, int pos_y, int size_x, int size_y, int which_screen, boolean change_setting) {
+  if(change_setting) {
+    catch_display_position() ; 
+    set_display(pos_x, pos_y, size_x, size_y, which_screen) ;
+  }
+}
+
+// main method to display
+void set_display(int pos_x, int pos_y, int size_x, int size_y, int which_screen) {
+  int which = which_screen - 1 ;
+  if(which < 0 ) which = 0 ;
+  if(which < screenDevice.length ) {
+    println("Surface set location",pos_x +display_pos_x[which],pos_y +display_pos_y[which]) ;
+    surface.setLocation(pos_x +display_pos_x[which],pos_y +display_pos_y[which]) ;
+    // surface.setLocation(20,20) ;
+    surface.setSize(size_x,size_y) ;
+    // surface.setLocation(pos_x +display_pos_x[which],pos_y +display_pos_y[which]) ;
+
+  } else {
+    println("You try to use an unvailable display") ;
+    surface.setSize(size_x,size_y) ;
+    surface.setLocation(20,20) ;
+  }
+}
+
+
+// catch info about the different display
+int [] display_pos_x, display_pos_y ;
+int [] display_size_x, display_size_y ;
+int display_num ;
+void catch_display_position() {
+  display_num = screenDevice.length ;
+  display_pos_x = new int [display_num] ;
+  display_pos_y = new int [display_num] ;
+  display_size_x = new int [display_num] ;
+  display_size_y = new int [display_num] ;
+  
+  for(int i = 0 ; i < display_num ; i++) {
+    GraphicsDevice gd = screenDevice[i];
+    GraphicsConfiguration[] graphicsConfigurationOfThisDevice = gd.getConfigurations();
+    // loop with a single element the screen selected above
+    for (int j = 0 ; j < graphicsConfigurationOfThisDevice.length ; j++ ) {
+      Rectangle gcBounds = graphicsConfigurationOfThisDevice[j].getBounds() ;
+      display_pos_x[i] = gcBounds.x ;
+      display_pos_y[i] = gcBounds.y ;
+      display_size_x[i] = gd.getDisplayMode().getWidth();
+      display_size_y[i] = gd.getDisplayMode().getHeight();
+    }
+  }
+}
 
 
 
@@ -169,10 +314,6 @@ void load_save(String path) {
 
 
 
-/**
-CHECK PATH
-v 0.2.0
-*/
 
 
 
@@ -576,7 +717,7 @@ void syphon_draw() {
 LOAD
 v 0.2.0
 */
-void loadDataObject(String path) {
+void load_data_item(String path) {
   JSONArray load = new JSONArray() ;
   load = loadJSONArray(path);
   // init counter
