@@ -9,7 +9,7 @@ String IAM = "scene";
 // security must be link with the controler in the next release
 boolean USE_SOUND = true; 
 
-boolean OPEN_APP = true;
+// boolean OPEN_APP = true;
 boolean TEST_FULL_SCREEN = false;
 
 boolean FULL_RENDERING = true;
@@ -148,6 +148,7 @@ void romanesco() {
   
 
   if(!controller_osc_is) message_opening();
+
   if (!miroir_on_off && OPEN_APP) {
     opening();
   }
@@ -160,7 +161,6 @@ void romanesco() {
     fill(c,100,100,100) ;
     rect(0,0, width,height) ;
   }
-
 }
 
 

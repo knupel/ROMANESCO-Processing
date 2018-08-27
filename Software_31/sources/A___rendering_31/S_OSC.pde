@@ -1,7 +1,38 @@
 /**
 OSC CORE 
-v 1.5.1
+v 1.5.2
 */
+
+void OSC_setup() {
+  OSC_receive_controller_setup();
+  if(IAM.equals("prescene") && LIVE) {
+    OSC_send_scene_setup();
+  } else if(IAM.equals("scene")) {
+    OSC_receive_prescene_setup();
+  }
+}
+
+
+void OSC_update() {
+  if(IAM.equals("prescene") && LIVE) {
+    if(mousePressed || keyPressed) {
+      send_message(true);
+    }
+    write_osc_event();
+    join_osc_data();
+  } else if(IAM.equals("scene")) {
+    update_OSC_data();
+  }
+}
+  
+
+
+
+
+
+
+
+
 OscP5 osc_receive_controller_general;
 OscP5 osc_receive_controller_item;
 void OSC_receive_controller_setup() {
@@ -187,7 +218,10 @@ boolean to_bool(OscMessage receive, int index) {
     float f = (float)obj;
     if(f == 0) return false ; else return true;
   } else {
-    printErr("OSC message index",index, "cannot be cast by default fase value has be used");
+    if(IAM.equals("prescene")) {
+      // not possible to use print when the presne is used because the rendering prescene and scene is from the same sketch
+      printErr("OSC message index",index, "cannot be cast by default false value has be used");
+    }
     return false;
   }
 }

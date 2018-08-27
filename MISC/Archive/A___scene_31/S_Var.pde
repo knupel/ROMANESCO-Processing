@@ -3,7 +3,7 @@ VARIABLE
 Prescene, Scene
 Romanesco Processing Environment
 2015-2018
-v 1.6.0
+v 1.6.1
 */
 
 /** 
@@ -87,6 +87,7 @@ PApplet callingClass = this ;
 java.awt.Insets insets; 
 
 
+boolean OPEN_APP = false;
 // WINDOW VAR
 int MIN_WINDOW_WIDTH = 128 ; 
 int MIN_WINDOW_HEIGHT = 128 ;

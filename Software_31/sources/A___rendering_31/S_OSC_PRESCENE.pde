@@ -18,7 +18,7 @@ void OSC_send_scene_setup() {
 void OSC_thread_send_scene_setup() {
   osc_send_scene = new OscP5(this, port_send_scene);
   //send
-  if (!DEV_MODE) {
+  if (DEV_MODE == false) {
     String [] addressIP = loadStrings(preference_path+"network/IP_address_mirror.txt") ;
     String join_address = join(addressIP,"") ;
     String [] temp = split(join_address,"/") ;
@@ -43,9 +43,12 @@ void OSC_thread_send_scene_setup() {
     for(int i = 0 ; i < ad_scene.length ; i++) {
       ad_scene[i] = new NetAddress(ID_address_scene[i], port_send_scene);
     }
+  } else if(DEV_MODE == true) {
+    ad_scene = new NetAddress[1];
+    ad_scene[0] = new NetAddress("127.0.0.1", port_send_scene);
   }
 
-  if(LIVE) {
+  if(IAM.equals("prescene") && LIVE) {
     for(int i = 0 ; i < data_osc_prescene.length ; i++) {
       data_osc_prescene[i] = "0";
     }
@@ -103,7 +106,7 @@ void OSC_send() {
   //send
  // if(target_scene);
   if(ad_scene == null) {
-    printErr("Prescene app exit because the global variable 'DEVELOPMENT_MODE' must be false");
+    printErr("OSC_send(): prescene app exit because the global variable 'DEV_MODE' must be false");
     exit();
   } else {
     if(MIROIR) {

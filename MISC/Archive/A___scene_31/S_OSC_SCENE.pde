@@ -14,7 +14,7 @@ void OSC_receive_prescene_setup() {
 
   osc_receive_prescene = new OscP5(this, port_receive_prescene);
 
-  println("OSC setup done") ;
+  println("OSC Scene setup done");
 }
 
 

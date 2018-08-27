@@ -3,15 +3,18 @@ Core Prescene
 v 1.2.1.1
 2013-2018
 */
-/**
-GRAPHIC CONFIGURATION 
-1.0.0.1
-*/
-String displayMode = ("") ;
-int depth_scene ;
+
+/*
+String displayMode = ("");
+int depth_scene;
+
 
 //SETUP
 void display_setup(int frame_rate) {
+  if(IAM.equals("scene")) {
+    background(0);
+    noCursor();
+  }
   frameRate(frame_rate);  // Le frameRate doit être le même dans tous les Sketches
   colorMode(HSB, HSBmode.r, HSBmode.g, HSBmode.b, HSBmode.a); 
   set_screen();
@@ -19,6 +22,8 @@ void display_setup(int frame_rate) {
   background_setup();
   background_shader_setup();
 }
+*/
+
 
 
 
@@ -210,17 +215,9 @@ boolean[] keyboard = new boolean[526];
 void shortCutsPrescene() {
   keyboard[keyCode] = true ;
   // save Scene
-  check_keyboard_save_scene_CURRENT_path() ;
-  check_keyboard_save_scene_NEW_path() ;
-  // load
-  check_keyboard_load_scene() ;
-
-  // save
-  // if (key == 's') selectOutput("Enregistrez le PDF et le PNG ", "saveImg") ;
-  // info common command with Scene
-  if (key == 'i') displayInfo = !displayInfo;
-  if (key == 'g') displayInfo3D = !displayInfo3D;
-
+  check_keyboard_save_scene_CURRENT_path();
+  check_keyboard_save_scene_NEW_path();
+  check_keyboard_load_scene();
 }
 
 

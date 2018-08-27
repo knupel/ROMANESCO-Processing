@@ -35,7 +35,7 @@ void opening() {
   }
 }
 
-
+/*
 void message_opening() {
   fill(blanc) ;
   stroke(blanc) ;
@@ -47,9 +47,8 @@ void message_opening() {
   stop_matrix() ;
   textAlign(LEFT) ;
 }
-/**
-End Opening
 */
+
 
 
 
@@ -74,10 +73,10 @@ GRAPHIC CONFIGURATION
 
 
 
-
+/*
 String displayMode = ("") ;
 //ID of the screen
-int whichScreen ;
+
 //size of the Scene
 
 //to load the .csv who give the graphic configuration for the Scene
@@ -86,26 +85,23 @@ int whichScreen ;
 
 //SETUP
 void display_setup(int speed) {
-  background(0) ;
-  frameRate(speed) ; 
-  noCursor () ;
+  background(0);
+  frameRate(speed); 
+  noCursor ();
   colorMode(HSB, HSBmode.r, HSBmode.g, HSBmode.b, HSBmode.a) ;
-  /**
-  // The fullscreen option from the external file is disable, because the fullScreen() method cannot be choice in second time, that be must the first line of programm
-  // So I disable the line in loadPropertyScene() in display_setup()
-  */
+
   set_screen();
   
   background_setup() ;
   background_shader_setup() ;
 }
+*/
 
 
 
 
-
-
-
+/*
+int whichScreen;
 void resize_scene() {
   if (!FULL_SCREEN && !check_size || (width != scene_width && height != scene_height)) {
     catch_display_position() ;
@@ -182,6 +178,7 @@ void catch_display_position() {
     }
   }
 }
+*/
 /**
 END GRAPHIC CONFIGURATION
 */
@@ -214,7 +211,7 @@ void init_value_temp_prescene() {
   // to change the value of the keyboard "a" to "z" to false
   for(int i = 1 ; i < 27 ;i++) {
     if(data_osc_prescene[i].equals("1")) {
-    	data_osc_prescene[i] = "0" ;
+      data_osc_prescene[i] = "0" ;
     }
   }
   // to change the value of the special touch of keyboard like ENTER, BACKSPACE to false

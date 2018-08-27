@@ -19,6 +19,7 @@ MAJOR
 >add multi slider to set the transient detection
 >Add method do select folder and input media from the controller
 >remove method by dropping media in external folder
+>fusion of the sketches prescene and scene, the result became rendering
 
 
 MINOR

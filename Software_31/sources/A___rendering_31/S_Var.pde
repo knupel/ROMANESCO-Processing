@@ -3,7 +3,7 @@ VARIABLE
 Prescene, Scene
 Romanesco Processing Environment
 2015-2018
-v 1.6.0
+v 1.6.1
 */
 
 /** 
@@ -15,8 +15,7 @@ Variable_Scene
 2014_2018
 v 0.1.1
 */
-boolean scene = true ;
-boolean prescene = false ;
+boolean scene, prescene;
 boolean miroir_on_off = false ;
 
 boolean check_size = false ;
@@ -88,6 +87,7 @@ PApplet callingClass = this ;
 java.awt.Insets insets; 
 
 
+boolean OPEN_APP = false;
 // WINDOW VAR
 int MIN_WINDOW_WIDTH = 128 ; 
 int MIN_WINDOW_HEIGHT = 128 ;

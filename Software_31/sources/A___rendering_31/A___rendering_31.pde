@@ -1,17 +1,51 @@
 /**
-Romanesco unu
-2013 – 2018
+Romanesco dui
+2013–2018
 release 31
-Processing 3.3.7
+Processing 3.4.0
 */
+
+/**
+* WARNING
+* Is not possible to use method print when the prescene is used because the rendering prescene and scene is from the same sketch
+* Using in print in DEV_MOD cause a crash.
+*/
+
 /**
 2015 may 15_000 lines of code
 2016 may 27_500 lines of code
 2017 March 40_000 lines of code
- */
+*/
+boolean DEV_MODE = true; 
+
+/**
+* RENDRING
+* Here you can choice between the three common rendering mode
+*/
+ // Prescene full rendering
+ /*
 String IAM = "prescene";
-// String IAM = "scene";
-// String IAM = "scene";
+boolean LIVE = false;
+boolean FULL_RENDERING = true;
+*/
+
+
+// Prescene control
+/*
+String IAM = "prescene";
+boolean LIVE = true;
+boolean FULL_RENDERING = false;
+*/
+
+
+String IAM = "scene";
+boolean LIVE = false;
+boolean FULL_RENDERING = true;
+
+
+
+
+
 /* 
 Use false when you want:
 used sound & maximum possibility of the object
@@ -24,10 +58,9 @@ boolean TABLET = false; // now tablet library don't work in OPENGL renderer
 /**
 LIVE must change from the launcher, the info must be write in the external loading preference app
 */
-boolean LIVE = false;
-boolean FULL_RENDERING = true;
+
 // DEV_MODE : rank folder, curtain, OSC thread
-boolean DEV_MODE = true; 
+
 
 
 
@@ -42,7 +75,8 @@ void settings() {
   if(IAM.equals("prescene")) {
     scene = false;
     prescene = true;
-  } else {
+  } else if(IAM.equals("scene")) {
+    OPEN_APP = true;
     scene = true;
     prescene = false;
   }
@@ -56,21 +90,24 @@ void setup() {
   load_save(preference_path+"setting/defaultSetting.csv");
   version();
   set_system_specification();
-  OSC_send_scene_setup();
-  OSC_receive_controller_setup();
+  
+  OSC_setup();
+
   display_setup(60); // the int value is the frameRate
   RG.init(this);  // Geomerative
 
   romanesco_build_item();
 
   create_variable();
-
   P3D_setup();
-  //specific setup
-  prescene_setup(); 
-  leapmotion_setup();
 
-  //common setup
+  if(IAM.equals("prescene")){
+    prescene_setup(); 
+    leapmotion_setup();
+  } else if(IAM.equals("scene")) {
+    scene_variables_setup();
+  }
+
   color_setup();
   syphon_setup();
 
@@ -115,30 +152,28 @@ void draw() {
 
 
 void romanesco() {
-  surface.setTitle(nameVersion + " " +prettyVersion+"."+version+ " | Préscène | FPS: "+round(frameRate));
+  String title = nameVersion + " " +prettyVersion+"."+version+ " | "+ IAM + " | FPS: "+round(frameRate);
+  if(MIROIR) title = nameVersion + " " +prettyVersion+"."+version+ " | "+ "miroir" + " | FPS: "+round(frameRate);
+  surface.setTitle(title);
   init_romanesco();
   if(FULL_RENDERING) start_PNG("screenshot Romanesco prescene", "Romanesco_"+year()+"_"+month()+"_"+day()+"_"+hour()+"_"+minute()+"_"+second()) ;
 
-  syphon_draw() ;
+  syphon_draw();
 
   if(USE_SOUND) sound_draw();
   // OSC part
-  if(LIVE) {
-    if(mousePressed || keyPressed) {
-      send_message(true);
-    }
-  }
-  write_osc_event();
-  join_osc_data();
+  OSC_update();
+
 
   update_raw_item_value();
 
   background_romanesco();
-  updateCommand();
-  leapMotionUpdate();
+  
   if(IAM.equals("prescene")) {
+    updateCommand();
+    leapMotionUpdate();
     load_prescene();
-  } else {
+  } else if (IAM.equals("scene")) {
     load_scene();
     save_scene();
   }
@@ -179,19 +214,38 @@ void romanesco() {
 
   // misc
   update_temp_value();
-  device_update();
+  
   media_update();
-
   
 
-  // change to false if the information has be sent to Scene...but how ????
-  if(LIVE) {
-    if(send_message_is()) {
-      OSC_send();
-      send_message(false);
+  /**
+  check if this method is always used or not
+  */
+  nextPreviousKeypressed();
+
+  if(IAM.equals("scene")) {
+    init_value_temp_prescene();
+    if (!miroir_on_off && OPEN_APP) {
+      opening();
+    }
+  } else if(IAM.equals("prescene")) {
+    device_update();
+    if(LIVE) {
+      if(send_message_is()) {
+        OSC_send();
+        send_message(false);
+      }
     }
   }
-  key_false();
+
+  
+  if(IAM.equals("prescene")) {
+    // change to false if the information has be sent to Scene...but how ????
+    key_false();
+  }
+
+  if(!controller_osc_is) message_opening();
+  
 }
 
 
@@ -205,65 +259,89 @@ void romanesco() {
 
 
 
-
+/**
+EVENT
+v 1.0.0
+2014-2018
+*/
 void keyPressed () {
-  if(LIVE) send_message(true);
-  shortCutsPrescene();
-  nextPreviousKeypressed();
-  key_true();
+  if (key == 'i') displayInfo = !displayInfo;
+  if (key == 'g') displayInfo3D = !displayInfo3D;
+
+  if(IAM.equals("prescene")) {
+    if(LIVE) {
+      send_message(true);
+    }
+    shortCutsPrescene();
+    nextPreviousKeypressed();
+    key_true();
+  }
 }
 
 
 void keyReleased() {
-  if(LIVE) send_message(true);
-  key_long_false();
-  keyboard[keyCode] = false;
+  if(IAM.equals("prescene")) {
+    if(LIVE) {
+      send_message(true);
+    }
+    key_long_false();
+    keyboard[keyCode] = false;
+  }
 }
-
-
-
-
-
-
-
-
-
-
-
 
 
 
 
 void mousePressed() {
-  if(LIVE) send_message(true);
-  if(mouseButton == LEFT ) {
-    clickShortLeft[0] = true;
-    clickLongLeft[0] = true;
-  }
-  if (mouseButton == RIGHT ) {
-    clickShortRight[0] = true;
-    clickLongRight[0] = true;
+  if(IAM.equals("prescene")) {
+    if(LIVE) {
+      send_message(true);
+    }
+    if(mouseButton == LEFT ) {
+      clickShortLeft[0] = true;
+      clickLongLeft[0] = true;
+    }
+    if (mouseButton == RIGHT ) {
+      clickShortRight[0] = true;
+      clickLongRight[0] = true;
+    }
   }
 }
 
 void mouseReleased() {
-  if(LIVE) send_message(true);
-  clickLongLeft[0] = false ;
-  clickLongRight[0] = false ;
+  if(IAM.equals("prescene")){
+    if(LIVE) {
+      send_message(true);
+    }
+    clickLongLeft[0] = false;
+    clickLongRight[0] = false;
+  }
 }
 
 // Mouse in or out of the sketch
 public void mouseEntered(MouseEvent e) {
-  if(LIVE) send_message(true);
-  MOUSE_IN_OUT = true ;
+  if(IAM.equals("prescene")){
+    if(LIVE) {
+      send_message(true);
+    }
+    MOUSE_IN_OUT = true ;
+  }
 }
 
 public void mouseExited(MouseEvent e) {
-  if(LIVE) send_message(true);
-  MOUSE_IN_OUT = false ;
+  if(IAM.equals("prescene")) {
+    if(LIVE) {
+      send_message(true);
+    }
+    MOUSE_IN_OUT = false ;
+  }
 }
 
 void mouseWheel(MouseEvent e) {
-  if(LIVE) send_message(true);
-  wheel[0] = e.getCount() *speedWheel;
+  if(IAM.equals("prescene")) {
+    if(LIVE) {
+      send_message(true);
+    }
+    wheel[0] = e.getCount() *speedWheel;
+  } 
 }
