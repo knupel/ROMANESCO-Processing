@@ -1,7 +1,7 @@
 /**
-Ballet
+Force Field
 2018
-v 0.0.2
+v 0.0.3
 */
 class FF extends Romanesco {
 	public FF() {
@@ -10,7 +10,7 @@ class FF extends Romanesco {
 		ID_group = 1 ;
 		item_author  = "Stan le Punk";
 		item_version = "Version 0.0.2";
-		item_pack = "Romanesco 2018";
+		item_pack = "Force 2018";
     item_costume = "none/line";
     item_mode = "fluid/magnetic/gravity/perlin/equation/chaos/image";
 

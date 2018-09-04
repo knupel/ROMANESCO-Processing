@@ -10,7 +10,7 @@ class Puppet_master extends Romanesco {
 		ID_group = 1 ;
 		item_author  = "Stan le Punk";
 		item_version = "Version 0.0.3";
-		item_pack = "Romanesco 2018";
+		item_pack = "Force 2018";
     item_costume = "none/point/ellipse/triangle/rect/cross/pentagon/Star 5/Star 7/Super Star 8/Super Star 12";
     item_mode = "solo/valse 2D/valse 3D/whisky walk/random";
 

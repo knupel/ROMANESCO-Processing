@@ -207,7 +207,6 @@ class Surface extends Romanesco {
   
   
   // Annexe method
-  ///////////////
  
   // method display mode
   void update_and_clean(int whichMode) {
@@ -277,7 +276,6 @@ class Surface extends Romanesco {
   
   
   // BUILD SURFACE IMAGE
-  ////////////////////////////////////////////////////////////////////
   Vec4 stroke_ref = Vec4()  ;
   Vec4 fill_ref = Vec4()  ;
   // float alpha_fill_ref  ;
@@ -307,7 +305,6 @@ class Surface extends Romanesco {
   
   
   // SURFACE METHODE
-  ///////////////////
   // annexe method
   void surface_build_image_grid(float x, float y, int altitude, int sizeTriangle, ArrayList<Polygon> gridTriangle, Vec4 color_fill, Vec4 color_stroke, float thickness) {
       //setting grid
@@ -393,8 +390,6 @@ class Surface extends Romanesco {
       }
     }
   }
-  // END SURFACE METHODE
-  //////////////////////
 }
 
 

@@ -201,7 +201,7 @@ Force_field get_force_field() {
   return force_romanesco;
 }
 
-boolean update_force_romanesco_is ;
+boolean update_force_romanesco_is;
 void update_force_field_is(boolean is) {
   update_force_romanesco_is = true;
 }
@@ -231,7 +231,6 @@ void clear_spot() {
 
 void set_spot_pos(Vec pos, int index) {
   force_romanesco.set_spot_pos(pos,index);
-
 }
 
 void set_spot_pos(float x, float y, int index) {

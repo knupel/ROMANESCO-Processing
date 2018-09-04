@@ -50,12 +50,12 @@ void OSC_controller_setup() {
 
 /**
 EVENT & THREAD
-v 0.0.1
+v 0.0.2
 */
 int security_to_dont_duplicate_osc_packet ;
 void oscEvent(OscMessage receive) {
- println(receive.addrPattern(),frameCount);
- if(security_to_dont_duplicate_osc_packet != frameCount) {
+  // println(receive.addrPattern(),frameCount);
+  if(security_to_dont_duplicate_osc_packet != frameCount) {
     controller_reception(receive) ;
     if(IAM.equals("scene")) prescene_reception(receive); 
   }
