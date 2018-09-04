@@ -171,7 +171,15 @@ void add_media(String path) {
 
 
 boolean ext(String path, String extension) {
-  return extension(path).equals(extension);
+  if(path == null) {
+    printErr("method ext(): String path =",path);
+    return false;
+  } else if(extension == null) {
+    printErr("method ext(): String extension =",extension);
+    return false;
+  } else {
+    return extension(path).equals(extension);
+  }
 }
 
 

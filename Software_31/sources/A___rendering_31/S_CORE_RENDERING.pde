@@ -1,7 +1,7 @@
 /**
 CORE SCENE and PRESCENE 
 2015-2018
-v 1.5.0
+v 1.5.2
 */
 import java.net.*;
 import java.io.*;
@@ -291,7 +291,7 @@ void catch_display_position() {
 
 /**
 MANAGE SAVE
-v 0.0.1
+v 0.0.3
 */
 void media_update() {
   if(frameCount%120 == 0) thread("load_autosave");
@@ -307,7 +307,12 @@ void load_save(String path) {
     String s = row.getString("Type");
     if(s.equals("Media")){
       String media_path = row.getString("Path");
-      add_media(media_path);
+      File f = new File(media_path);
+      if(f.exists()) {
+        add_media(media_path);
+      } else {
+        printErr("method load_save(): no file match with this path",media_path);
+      }
     }
   }
 }
@@ -326,19 +331,20 @@ String [] svg_path ;
 void load_svg(int ID) {
   update_svg_path();
   // which_bitmap is the int return from the dropdown menu
-  if(which_shape[ID] > svg_path.length ) which_shape[ID] = 0 ;
+  if(which_shape[ID] > svg_path.length ) which_shape[ID] = 0;
 
-  if(svg_path != null && svg_path.length > 0) {
-    svg_current_path = svg_path[which_shape[ID]] ;
+  if(svg_path != null && svg_path.length > 0 && svg_path[which_shape[ID]] != null) {
+    // println("length",svg_path.length, "ID",ID, svg_path[which_shape[ID]]);
+    svg_current_path = svg_path[which_shape[ID]];
     if(!svg_current_path.equals(svg_path_ref[ID])) {
-      svg_import[ID] = new ROPE_svg(this, svg_current_path, "bricks") ;
+      svg_import[ID] = new ROPE_svg(this, svg_current_path, "bricks");
     }
-    svg_path_ref[ID] = svg_current_path ;
+    svg_path_ref[ID] = svg_current_path;
   }
 }
 
 void update_svg_path() {
-  svg_path = new String[svg_files.size()] ;
+  svg_path = new String[svg_files.size()];
   for (int i = 0; i < svg_files.size(); i++) {
     File f = (File) svg_files.get(i);
     if(f.exists()) {
@@ -359,7 +365,7 @@ String [] text_path;
 void load_txt(int ID) {
   update_text_path();
   // which_text is the int return from the dropdown menu
-  if(text_path != null && text_path.length > 0) {
+  if(text_path != null && text_path.length > 0 && text_path[which_text[ID]] != null) {
     if(which_text[ID] > text_path.length ) which_text[ID] = 0;
     text_import[ID] = importText(text_path[which_text[ID]]);
   } else {
@@ -389,14 +395,17 @@ PImage[] bitmap ;
 String [] bitmap_path ;
 void load_bitmap(int ID) {
   update_bitmap_path();
-  if(which_bitmap[ID] > bitmap_path.length) which_bitmap[ID] = 0 ;
+  if(which_bitmap[ID] > bitmap_path.length) which_bitmap[ID] = 0;
 
-  if(bitmap_path != null && bitmap_path.length > 0) {
-    String bitmap_current_path = bitmap_path[which_bitmap[ID]] ;
+  if(bitmap_path != null && bitmap_path.length > 0 && bitmap_path[which_bitmap[ID]] != null) {
+    String bitmap_current_path = bitmap_path[which_bitmap[ID]];
+    println(bitmap_current_path);
+    println("length",bitmap_path.length);
+    println(bitmap_path_ref[ID],which_bitmap[ID], ID);
     if(!bitmap_current_path.equals(bitmap_path_ref[ID])) {
-      bitmap[ID] = loadImage(bitmap_current_path) ;
+      bitmap[ID] = loadImage(bitmap_current_path);
     }
-    bitmap_path_ref[ID] = bitmap_current_path ;
+    bitmap_path_ref[ID] = bitmap_current_path;
   }
 }
 
@@ -424,7 +433,7 @@ String [] movie_path_ref;
 void load_movie(boolean change_movie_is, int id) {
   update_movie_path();
   boolean new_movie_is = check_for_new_movie();  
-  if(new_movie_is || change_movie_is) {
+  if(movie_path.length > 0 && (new_movie_is || change_movie_is)) {
     setting_movie(id,movie_path[which_movie[id]]);
   }  
 }

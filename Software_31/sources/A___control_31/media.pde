@@ -73,9 +73,9 @@ String naming_media_file(File f) {
     String end = name.substring(name.length() -4);
     name = begin+"..."+end;
     // check for dead link
-    if(!f.exists()) {
-      name = "<"+name+ ">";
-    }
+  }
+  if(!f.exists()) {
+    name = "<"+name+ ">";
   }
   return name;
 }

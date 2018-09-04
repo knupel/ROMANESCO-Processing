@@ -1,6 +1,6 @@
 /**
 Rope UTILS 
-v 1.47.1
+v 1.47.3
 * Copyleft (c) 2014-2018 
 * Stan le Punk > http://stanlepunk.xyz/
 Rope – Romanesco Processing Environment – 
@@ -34,7 +34,7 @@ public void print_constants_processing() {
     processing_constants_list = new Constant_list(PConstants.class);
   }
   println("PROCESSING CONSTANTS");
-  for(String s: processing_constants_list.list()){
+  for(String s: processing_constants_list.list()) {
     println(s);
   }
 } 
@@ -2603,7 +2603,7 @@ void write_row(TableRow row, String col_name, Object o) {
 
 /**
 print
-v 0.1.2
+v 0.1.3
 */
 // util variable
 
@@ -2624,8 +2624,6 @@ void printErrTempo(int tempo, Object... obj) {
       message = write_print_message(message, obj[i], obj.length, i);
     }
     System.err.println(message);
-    // System.err.println(message+"/n"); // don't work for unknow reason
-    // System.err.println(message+System.lineSeparator());
   }
 }
 
@@ -2643,10 +2641,21 @@ void printTempo(int tempo, Object... obj) {
 
 // local method
 String write_print_message(String message, Object obj, int length, int i) {
-  if(i == length -1) {
-    return message += obj.toString() ;
+  String add = "";
+  if(i == length -1) { 
+    if(obj == null) {
+      add = "null";
+    } else {
+      add = obj.toString();
+    }
+    return message += add;
   } else {
-    return message += obj.toString() + " ";
+    if(obj == null) {
+      add = "null";
+    } else {
+      add = obj.toString();
+    }
+    return message += add + " ";
   }
 }
 
@@ -4580,5 +4589,9 @@ String file_name(String s) {
 
 
 String extension(String filename) {
-  return filename.substring(filename.lastIndexOf(".") + 1, filename.length());
+  if(filename != null) {
+    return filename.substring(filename.lastIndexOf(".") + 1, filename.length());
+  } else {
+    return null;
+  }
 }

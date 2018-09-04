@@ -16,27 +16,41 @@ SAVE
 -- 
 Save controller setting
 --
-ctrl + R 
+CMD + R 
 >save on the last save controller
 
-ctrl + E
+CMD + E
 >new save controller
+
 
 Save Scene setting
 --
-ctrl + D
+CMD + D
 >save on the current path
 
->ctrl + S
+CMD + S
 >new save for Scene
 
 LOAD
 -- 
-ctrl + O 
+CMD + O 
 >load save Controller
 
-ctrl + L
+CMD + L
 >load save Scene
+
+
+CMD + i
+>import media
+
+CMD + SHIFT + i > not sur forthis shortcut
+>import media folder
+
+
+
+
+
+
 
 
 
