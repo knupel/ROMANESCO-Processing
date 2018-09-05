@@ -260,8 +260,6 @@ void show_dropdown_box_item(Dropdown [] dd, String [] list, Inventory [] invento
 /**
 SLIDER UPDATE and DISPLAY
 */
-
-
 void show_slider_controller() {
   show_slider_background();
   show_slider_filter();
@@ -584,10 +582,13 @@ boolean show_slider_item_colour(int hueRank, int satRank, int brightRank) {
 }
 
 
+
+
+
 /**
 display item info
 */
-void text_info_item(iVec2 pos, iVec2 size, int IDorder, int IDfamily) {
+void item_thumbnail_info(iVec2 pos, iVec2 size, int IDorder, int IDfamily) {
   if (mouseX > pos.x && mouseX < (size.x + pos.x ) && mouseY > pos.y - 10 && mouseY <  (size.y + pos.y) -20 ) {
     iVec2 fontPos = iVec2(-10, -20 ) ; 
     if (NUM_ITEM > 0 ) {
@@ -595,9 +596,6 @@ void text_info_item(iVec2 pos, iVec2 size, int IDorder, int IDfamily) {
     }
   }
 }
-
-
-
 
 void display_info_item(int IDorder, iVec2 pos) {
   int whichLine = 0 ;

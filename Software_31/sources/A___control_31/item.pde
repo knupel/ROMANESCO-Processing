@@ -186,9 +186,11 @@ void display_button_item_console(boolean keep_setting) {
         if(j == 3) button_item[rank].show_picto(picAction);
 
       }
-      iVec2 pos = iVec2(pos_button_width_item[i*BUTTON_ITEM_CONSOLE +2] +distance, pos_button_height_item[i*BUTTON_ITEM_CONSOLE +1] +10) ;
-      iVec2 size = iVec2(20, 30);
-      text_info_item(pos,size,i,1);
+      int px = pos_button_width_item[i*BUTTON_ITEM_CONSOLE +2] +distance;
+      int py = pos_button_height_item[i*BUTTON_ITEM_CONSOLE +1] -15;
+      iVec2 pos = iVec2(px,py);
+      iVec2 size = iVec2(20,35);
+      item_thumbnail_info(pos,size,i,1);
       pointer ++ ;
     } else if(!keep_setting) {
       for(int jj = 0 ; jj < BUTTON_ITEM_CONSOLE ; jj++) {
