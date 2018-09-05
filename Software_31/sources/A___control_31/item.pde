@@ -172,9 +172,8 @@ void display_button_item_console(boolean keep_setting) {
       int distance = pointer *DIST_BETWEEN_ITEM;
       for(int j = 0 ; j < BUTTON_ITEM_CONSOLE ; j++) {
         int rank = i*BUTTON_ITEM_CONSOLE+j;
-        button_item[rank].change_pos(distance, 0) ;
+        button_item[rank].change_pos(distance, 0);
         button_item[rank].update_pos(inventory[i].is());
-        //button_item[rank].authorization(!dropdown_is());
         button_item[rank].update(mouseX,mouseY,dropdown_is());
 
         if(j == 0) {

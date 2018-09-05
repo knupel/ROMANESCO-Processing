@@ -166,11 +166,8 @@ class Flux extends Romanesco {
 
   private void show_vehicle(Vec size, int costume) {
     for (Vehicle v : vehicles) {
-      // start_matrix();
       float theta = v.get_direction() + radians(90);
-      // rotate(theta);
-      costume_rope(v.get_position(),size,theta, costume);
-      // stop_matrix();
+      costume_rope(v.get_position(),size,theta,costume);
     }
   }
 }

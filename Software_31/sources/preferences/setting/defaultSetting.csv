@@ -36,11 +36,11 @@ Slider light,7,0.0,1.0,1,1.0,,,,,,-2,,,,,
 Slider light,8,0.0,1.0,1,1.0,,,,,,-2,,,,,
 Slider sound,0,0.0,1.0,1,0.5,,,,,,-2,,,,,
 Slider sound,1,0.0,1.0,1,0.5,,,,,,-2,,,,,
-Slider sound setting,0,0.0,1.0,3,0.094736844,0.21052632,0.35789475,,,,-2,,,,,
-Slider sound setting,1,0.0,1.0,2,0.0,0.36842105,,,,,-2,,,,,
-Slider sound setting,2,0.0,1.0,2,0.0,0.18947369,,,,,-2,,,,,
-Slider sound setting,3,0.0,1.0,2,0.0,0.18947369,,,,,-2,,,,,
-Slider sound setting,4,0.0,1.0,2,0.0,0.21052632,,,,,-2,,,,,
+Slider sound setting,0,0.0,1.0,3,0.094736844,0.2,0.33684212,,,,-2,,,,,
+Slider sound setting,1,0.0,1.0,2,0.0,0.34736842,,,,,-2,,,,,
+Slider sound setting,2,0.0,1.0,2,0.0,0.17894737,,,,,-2,,,,,
+Slider sound setting,3,0.0,1.0,2,0.0,0.17894737,,,,,-2,,,,,
+Slider sound setting,4,0.0,1.0,2,0.0,0.2,,,,,-2,,,,,
 Slider camera,0,0.0,1.0,1,0.33333334,,,,,,-2,,,,,
 Slider camera,1,0.0,1.0,1,0.4888889,,,,,,-2,,,,,
 Slider camera,2,0.0,1.0,1,0.4888889,,,,,,-2,,,,,
@@ -64,7 +64,7 @@ Slider item a,12,0.0,1.0,1,0.45555556,,,,,,-2,,,,,
 Slider item a,13,0.0,1.0,1,0.2,,,,,,-2,,,,,
 Slider item a,14,0.0,1.0,1,0.2,,,,,,-2,,,,,
 Slider item a,15,0.0,1.0,1,0.2,,,,,,-2,,,,,
-Slider item b,16,0.0,1.0,1,0.5,,,,,,-2,,,,,
+Slider item b,16,0.0,1.0,1,0.2,,,,,,-2,,,,,
 Slider item b,17,0.0,1.0,1,0.12222222,,,,,,-2,,,,,
 Slider item b,18,0.0,1.0,1,0.17777778,,,,,,-2,,,,,
 Slider item b,19,0.0,1.0,1,0.17777778,,,,,,-2,,,,,
@@ -80,7 +80,7 @@ Slider item b,28,0.0,1.0,1,0.1,,,,,,-2,,,,,
 Slider item b,29,0.0,1.0,1,0.2888889,,,,,,-2,,,,,
 Slider item b,30,0.0,1.0,1,0.51111114,,,,,,-2,,,,,
 Slider item b,31,0.0,1.0,1,0.51111114,,,,,,-2,,,,,
-Slider item c,32,0.0,1.0,1,0.2777778,,,,,,-2,,,,,
+Slider item c,32,0.0,1.0,1,0.51111114,,,,,,-2,,,,,
 Slider item c,33,0.0,1.0,1,0.31111112,,,,,,-2,,,,,
 Slider item c,34,0.0,1.0,1,0.7888889,,,,,,-2,,,,,
 Slider item c,35,0.0,1.0,1,0.31111112,,,,,,-2,,,,,
@@ -140,26 +140,33 @@ Item,,,,,,,,,,,,25,0,Eco Agents,Ecosystem_agent,
 Item,,,,,,,,,,,,26,0,Eco DNA,Ecosystem_DNA,
 Item,,,,,,,,,,,,27,0,Lorenz attractor,Lorenz,
 Item,,,,,,,,,,,,28,0,BoumBoum,BoumBoum,
-Item,,,,,,,,,,,,29,1,Ballet,Ballet,
+Item,,,,,,,,,,,,29,1,Puppet Master,Puppet_master,
 Item,,,,,,,,,,,,30,1,Force Field,FF,
-Media,,,,,,,,,,,,,,,,/Users/stan/Desktop/code/GitHub/ROMANESCO Github/Software_31/sources/import/media/misc/Romanesco.txt
-Media,,,,,,,,,,,,,,,,/Users/stan/Desktop/code/GitHub/ROMANESCO Github/Software_31/sources/import/media/misc/Voyage.txt
-Media,,,,,,,,,,,,,,,,/Users/stan/Desktop/code/GitHub/ROMANESCO Github/Software_31/sources/import/media/movie/Métro_NYC_félix.MOV
-Media,,,,,,,,,,,,,,,,/Users/stan/Desktop/code/GitHub/ROMANESCO Github/Software_31/sources/import/media/movie/transit.mov
-Media,,,,,,,,,,,,,,,,/Users/stan/Desktop/code/GitHub/ROMANESCO Github/Software_31/sources/import/media/shape/pirate.svg
-Media,,,,,,,,,,,,,,,,/Users/stan/Desktop/code/GitHub/ROMANESCO Github/Software_31/sources/import/media/shape/stars.svg
-Media,,,,,,,,,,,,,,,,/Users/stan/Desktop/code/GitHub/ROMANESCO Github/Software_31/sources/import/media/image/banc_public.jpg
-Media,,,,,,,,,,,,,,,,/Users/stan/Desktop/code/GitHub/ROMANESCO Github/Software_31/sources/import/media/image/joconde.jpg
-Media,,,,,,,,,,,,,,,,/Users/stan/Desktop/code/GitHub/ROMANESCO Github/Software_31/sources/import/media/image/le coq de France.jpg
-Media,,,,,,,,,,,,,,,,/Users/stan/Desktop/code/GitHub/ROMANESCO Github/Software_31/sources/import/media/image/Liberte.jpg
-Media,,,,,,,,,,,,,,,,/Users/stan/Desktop/code/GitHub/ROMANESCO Github/Software_31/sources/import/media/image/Lisbonne.jpg
-Media,,,,,,,,,,,,,,,,/Users/stan/Desktop/code/GitHub/ROMANESCO Github/Software_31/sources/import/media/image/Masque.jpg
-Media,,,,,,,,,,,,,,,,/Users/stan/Desktop/code/GitHub/ROMANESCO Github/Software_31/sources/import/media/image/mire.jpg
-Media,,,,,,,,,,,,,,,,/Users/stan/Desktop/code/GitHub/ROMANESCO Github/Software_31/sources/import/media/image/no future.jpg
-Media,,,,,,,,,,,,,,,,/Users/stan/Desktop/code/GitHub/ROMANESCO Github/Software_31/sources/import/media/image/pirate.jpg
-Media,,,,,,,,,,,,,,,,/Users/stan/Desktop/code/GitHub/ROMANESCO Github/Software_31/sources/import/media/image/purosGirl.jpg
-Media,,,,,,,,,,,,,,,,/Users/stan/Desktop/code/GitHub/ROMANESCO Github/Software_31/sources/import/media/image/RioCarnaval.jpg
-Media,,,,,,,,,,,,,,,,/Users/stan/Desktop/code/GitHub/ROMANESCO Github/Software_31/sources/import/media/image/banc_public.jpg
+Item,,,,,,,,,,,,31,1,Flux,Flux,
+Media,,,,,,,,,,,,,,,,/Volumes/Ame/Users/stanislasmarcais/Desktop/BOULOT/PROJET/2018/Youngtimer/média/Sélection/picto_Youngtimer_2018_5_3-01.svg
+Media,,,,,,,,,,,,,,,,/Volumes/Ame/Users/stanislasmarcais/Desktop/BOULOT/PROJET/2018/Youngtimer/média/Sélection/Image_selection/01_logo_1.jpg
+Media,,,,,,,,,,,,,,,,/Volumes/Ame/Users/stanislasmarcais/Desktop/BOULOT/PROJET/2018/Youngtimer/média/Sélection/Image_selection/02_logo_2.jpg
+Media,,,,,,,,,,,,,,,,/Volumes/Ame/Users/stanislasmarcais/Desktop/BOULOT/PROJET/2018/Youngtimer/média/Sélection/Image_selection/03_corbeau.jpg
+Media,,,,,,,,,,,,,,,,/Volumes/Ame/Users/stanislasmarcais/Desktop/BOULOT/PROJET/2018/Youngtimer/média/Sélection/Image_selection/04_chambre.jpg
+Media,,,,,,,,,,,,,,,,/Volumes/Ame/Users/stanislasmarcais/Desktop/BOULOT/PROJET/2018/Youngtimer/média/Sélection/Image_selection/06_homme.jpg
+Media,,,,,,,,,,,,,,,,/Volumes/Ame/Users/stanislasmarcais/Desktop/BOULOT/PROJET/2018/Youngtimer/média/Sélection/Image_selection/07_regard.jpg
+Media,,,,,,,,,,,,,,,,/Volumes/Ame/Users/stanislasmarcais/Desktop/BOULOT/PROJET/2018/Youngtimer/média/Sélection/Image_selection/08_trone.jpg
+Media,,,,,,,,,,,,,,,,/Volumes/Ame/Users/stanislasmarcais/Desktop/BOULOT/PROJET/2018/Youngtimer/média/Sélection/Image_selection/09_car.jpg
+Media,,,,,,,,,,,,,,,,/Volumes/Ame/Users/stanislasmarcais/Desktop/BOULOT/PROJET/2018/Youngtimer/média/Sélection/Image_selection/10_duo_1.jpg
+Media,,,,,,,,,,,,,,,,/Volumes/Ame/Users/stanislasmarcais/Desktop/BOULOT/PROJET/2018/Youngtimer/média/Sélection/Image_selection/11_duo_2.jpg
+Media,,,,,,,,,,,,,,,,/Volumes/Ame/Users/stanislasmarcais/Desktop/BOULOT/PROJET/2018/Youngtimer/média/Sélection/Vidéo SD selection/01_1_intro_eau_bleu.mov
+Media,,,,,,,,,,,,,,,,/Volumes/Ame/Users/stanislasmarcais/Desktop/BOULOT/PROJET/2018/Youngtimer/média/Sélection/Vidéo SD selection/02_1_America.mov
+Media,,,,,,,,,,,,,,,,/Volumes/Ame/Users/stanislasmarcais/Desktop/BOULOT/PROJET/2018/Youngtimer/média/Sélection/Vidéo SD selection/03_1_le_chemin.mov
+Media,,,,,,,,,,,,,,,,/Volumes/Ame/Users/stanislasmarcais/Desktop/BOULOT/PROJET/2018/Youngtimer/média/Sélection/Vidéo SD selection/05_1_Grace.mov
+Media,,,,,,,,,,,,,,,,/Volumes/Ame/Users/stanislasmarcais/Desktop/BOULOT/PROJET/2018/Youngtimer/média/Sélection/Vidéo SD selection/05_2_Grace.mov
+Media,,,,,,,,,,,,,,,,/Volumes/Ame/Users/stanislasmarcais/Desktop/BOULOT/PROJET/2018/Youngtimer/média/Sélection/Vidéo SD selection/05_3_Grace.mov
+Media,,,,,,,,,,,,,,,,/Volumes/Ame/Users/stanislasmarcais/Desktop/BOULOT/PROJET/2018/Youngtimer/média/Sélection/Vidéo SD selection/06_0_le_nouvel_homme.mov
+Media,,,,,,,,,,,,,,,,/Volumes/Ame/Users/stanislasmarcais/Desktop/BOULOT/PROJET/2018/Youngtimer/média/Sélection/Vidéo SD selection/06_1_le_nouvel_homme.mov
+Media,,,,,,,,,,,,,,,,/Volumes/Ame/Users/stanislasmarcais/Desktop/BOULOT/PROJET/2018/Youngtimer/média/Sélection/Vidéo SD selection/06_2_le_nouvel_homme.mov
+Media,,,,,,,,,,,,,,,,/Volumes/Ame/Users/stanislasmarcais/Desktop/BOULOT/PROJET/2018/Youngtimer/média/Sélection/Vidéo SD selection/09_0_Gloria.mov
+Media,,,,,,,,,,,,,,,,/Volumes/Ame/Users/stanislasmarcais/Desktop/BOULOT/PROJET/2018/Youngtimer/média/Sélection/Vidéo SD selection/10_0_j_attendrais.mov
+Media,,,,,,,,,,,,,,,,/Volumes/Ame/Users/stanislasmarcais/Desktop/BOULOT/PROJET/2018/Youngtimer/média/Sélection/Vidéo SD selection/11_0_sempiternel.mov
+Media,,,,,,,,,,,,,,,,/Volumes/Ame/Users/stanislasmarcais/Desktop/BOULOT/PROJET/2018/Youngtimer/média/Sélection/Vidéo SD selection/25_Young Timer.mov
 Button item,,,,,,,,,0,0,0,,,,,
 Button item,,,,,,,,,1,0,0,,,,,
 Button item,,,,,,,,,2,0,0,,,,,
@@ -298,3 +305,7 @@ Button item,,,,,,,,,120,0,-2,,,,,
 Button item,,,,,,,,,121,0,-2,,,,,
 Button item,,,,,,,,,122,0,-2,,,,,
 Button item,,,,,,,,,123,0,-2,,,,,
+Button item,,,,,,,,,124,0,-2,,,,,
+Button item,,,,,,,,,125,0,-2,,,,,
+Button item,,,,,,,,,126,0,-2,,,,,
+Button item,,,,,,,,,127,0,-2,,,,,

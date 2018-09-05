@@ -104,18 +104,18 @@ void save_info_slider() {
   slider_name [3] = "Slider item d";
   int index = 0;
   for(int i = 0; i < NUM_SLIDER_ITEM ; i++) {
-    int IDslider = i;
+    int slider_ID = i;
     for(int k = 0 ; k < cropinfo_slider_item.length ;k++) {
-      if(cropinfo_slider_item[k].get_id() == IDslider) {
-        cropinfo_slider_item[k].set_value(slider_adj_item[IDslider].get_value(0));
-        cropinfo_slider_item[k].set_min(slider_adj_item[IDslider].get_min_norm());
-        cropinfo_slider_item[k].set_max(slider_adj_item[IDslider].get_max_norm());
-        if(i >= (NUM_SLIDER_ITEM_BY_COL *index) && i < NUM_SLIDER_ITEM_BY_COL *(index+1) ) {
-          set_data_slider(IDslider,cropinfo_slider_item[k],slider_name [index]);
-        } else {
-          index++;
-        }
-        
+      if(cropinfo_slider_item[k].get_id() == slider_ID) {
+        cropinfo_slider_item[k].set_value(slider_adj_item[slider_ID].get_value(0));
+        cropinfo_slider_item[k].set_min(slider_adj_item[slider_ID].get_min_norm());
+        cropinfo_slider_item[k].set_max(slider_adj_item[slider_ID].get_max_norm());
+        int min = NUM_SLIDER_ITEM_BY_COL *index;
+        int max = NUM_SLIDER_ITEM_BY_COL *(index+1);
+        if(i >= min && i <= max) {
+          set_data_slider(slider_ID,cropinfo_slider_item[k],slider_name[index]);
+          if(i == max) index++;
+        } 
       }
     }
   }

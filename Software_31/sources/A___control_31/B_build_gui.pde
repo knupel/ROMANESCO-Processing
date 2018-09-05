@@ -273,6 +273,7 @@ void build_console_item() {
   for (int i = 0 ; i < NUM_SLIDER_ITEM ; i++) {
     iVec2 temp_size_mol = iVec2(round(size_slider_item[i].y *ratio_size_molette), round(size_slider_item[i].y *ratio_size_molette));
     iVec2 temp_pos = iVec2(pos_slider_item[i].x, round(pos_slider_item[i].y -(slider_height_item *.6)));
+    println("method build_console_item(): cropinfo length",cropinfo_slider_item.length,i);
     if(cropinfo_slider_item[i].get_id() > -1) {
       slider_adj_item[i] = new Sladj(temp_pos, size_slider_item[i]);
       slider_adj_item[i].set_molette(ELLIPSE);

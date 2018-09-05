@@ -149,6 +149,7 @@ void show_dropdown() {
 
   update_dropdown(dropdown_bar);
   update_dropdown(dropdown_setting);
+  
   // item
   update_dropdown_item() ;
   
