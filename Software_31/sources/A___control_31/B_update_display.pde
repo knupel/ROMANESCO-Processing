@@ -140,16 +140,14 @@ void show_dropdown() {
   
   for(int i = 0 ; i < dropdown_bar.length ; i++) {
     if(i == 1) {
-      // dropdown_bar[i].get_name();
-      //printArray(dropdown_content[i]);
+      //
     }
     dropdown_bar[i].set_content(dropdown_content[i]);
-    // update_dropdown_bar(dropdown_bar[i]);
   }
 
-  update_dropdown(dropdown_bar);
   update_dropdown(dropdown_setting);
-  
+  update_dropdown(dropdown_bar);
+
   // item
   update_dropdown_item() ;
   

@@ -1,10 +1,11 @@
 /**
 Rope Costume
 * Copyleft (c) 2014-2018
-v 1.1.4
+v 1.2.0
 * @author Stan le Punk
 * @see https://github.com/StanLepunK/Costume_rope
 */
+final int PIXEL_ROPE = 0;
 
 final int POINT_ROPE = 1;
 final int ELLIPSE_ROPE = 2;
@@ -105,6 +106,14 @@ Info_int_dict costume_dict = new Info_int_dict();
 boolean list_costume_is_built = false ;
 int ref_size_pic = -1 ;
 
+String costume_text_rope = null;
+boolean fill_rope_is = true;
+boolean stroke_rope_is = true;
+
+float fill_rope = 0;
+float stroke_rope = 0;
+float thickness_rope = 1.;
+
 void costume_list() {
 	if(!list_costume_is_built) {
 		/* 
@@ -114,6 +123,8 @@ void costume_list() {
 		* type : 0 = shape ; 1 = bitmap ; 2 = svg  ; 3 = shape with just stroke component ; 4 = text
 		*/
 		costume_dict.add("NULL", r.NULL,0,0);
+
+		costume_dict.add("PIXEL_ROPE", PIXEL_ROPE,2,1);
 
 		costume_dict.add("POINT_ROPE", POINT_ROPE,2,0);
 		costume_dict.add("ELLIPSE_ROPE", ELLIPSE_ROPE,2,0);
@@ -148,65 +159,64 @@ void costume_list() {
 		costume_dict.add("SPHERE_MEDIUM_ROPE", SPHERE_MEDIUM_ROPE,3,0);
 		costume_dict.add("SPHERE_HIGH_ROPE", SPHERE_HIGH_ROPE,3,0);
 		costume_dict.add("TETRAHEDRON_ROPE", TETRAHEDRON_ROPE,3,0);
-		costume_dict.add("BOX_ROPE", BOX_ROPE, 3, 0) ;
+		costume_dict.add("BOX_ROPE", BOX_ROPE,3,0);
 
-		costume_dict.add("STAR_4_ROPE", STAR_4_ROPE, 2, 3) ;
-		costume_dict.add("STAR_5_ROPE", STAR_5_ROPE, 2, 3) ;
-		costume_dict.add("STAR_6_ROPE", STAR_6_ROPE, 2, 3) ;
-		costume_dict.add("STAR_7_ROPE", STAR_7_ROPE, 2, 3) ;
-		costume_dict.add("STAR_8_ROPE", STAR_8_ROPE, 2, 3) ;
-		costume_dict.add("STAR_9_ROPE", STAR_9_ROPE, 2, 3) ;
-		costume_dict.add("STAR_10_ROPE", STAR_10_ROPE, 2, 3) ;
-		costume_dict.add("STAR_11_ROPE", STAR_11_ROPE, 2, 3) ;
-		costume_dict.add("STAR_12_ROPE", STAR_12_ROPE, 2, 3) ;
+		costume_dict.add("STAR_4_ROPE", STAR_4_ROPE,2,3);
+		costume_dict.add("STAR_5_ROPE", STAR_5_ROPE,2,3);
+		costume_dict.add("STAR_6_ROPE", STAR_6_ROPE,2,3);
+		costume_dict.add("STAR_7_ROPE", STAR_7_ROPE,2,3);
+		costume_dict.add("STAR_8_ROPE", STAR_8_ROPE,2,3);
+		costume_dict.add("STAR_9_ROPE", STAR_9_ROPE,2,3);
+		costume_dict.add("STAR_10_ROPE", STAR_10_ROPE,2,3);
+		costume_dict.add("STAR_11_ROPE", STAR_11_ROPE,2,3);
+		costume_dict.add("STAR_12_ROPE", STAR_12_ROPE,2,3);
 
-		costume_dict.add("SUPER_STAR_8_ROPE", SUPER_STAR_8_ROPE, 2, 3) ;
-		costume_dict.add("SUPER_STAR_12_ROPE", SUPER_STAR_12_ROPE, 2, 3) ;
+		costume_dict.add("SUPER_STAR_8_ROPE", SUPER_STAR_8_ROPE,2,3);
+		costume_dict.add("SUPER_STAR_12_ROPE", SUPER_STAR_12_ROPE,2,3);
 
+    costume_dict.add("VIRUS_2_2_0_ROPE", VIRUS_2_2_0_ROPE,3,0);
+		costume_dict.add("VIRUS_2_2_1_ROPE", VIRUS_2_2_1_ROPE,3,0);
+		costume_dict.add("VIRUS_2_2_2_ROPE", VIRUS_2_2_2_ROPE,3,0);
+		costume_dict.add("VIRUS_2_2_4_ROPE", VIRUS_2_2_4_ROPE,3,0);
+		costume_dict.add("VIRUS_2_2_8_ROPE", VIRUS_2_2_8_ROPE,3,0);
+		costume_dict.add("VIRUS_2_2_16_ROPE", VIRUS_2_2_16_ROPE,3,0);
+		costume_dict.add("VIRUS_2_2_32_ROPE", VIRUS_2_2_32_ROPE,3,0);
+		costume_dict.add("VIRUS_2_2_64_ROPE", VIRUS_2_2_64_ROPE,3,0);
+		costume_dict.add("VIRUS_2_2_128_ROPE", VIRUS_2_2_128_ROPE,3,0);
+		costume_dict.add("VIRUS_2_2_256_ROPE", VIRUS_2_2_256_ROPE,3,0);
 
-    costume_dict.add("VIRUS_2_2_0_ROPE", VIRUS_2_2_0_ROPE, 3, 0) ;
-		costume_dict.add("VIRUS_2_2_1_ROPE", VIRUS_2_2_1_ROPE, 3, 0) ;
-		costume_dict.add("VIRUS_2_2_2_ROPE", VIRUS_2_2_2_ROPE, 3, 0) ;
-		costume_dict.add("VIRUS_2_2_4_ROPE", VIRUS_2_2_4_ROPE, 3, 0) ;
-		costume_dict.add("VIRUS_2_2_8_ROPE", VIRUS_2_2_8_ROPE, 3, 0) ;
-		costume_dict.add("VIRUS_2_2_16_ROPE", VIRUS_2_2_16_ROPE, 3, 0) ;
-		costume_dict.add("VIRUS_2_2_32_ROPE", VIRUS_2_2_32_ROPE, 3, 0) ;
-		costume_dict.add("VIRUS_2_2_64_ROPE", VIRUS_2_2_64_ROPE, 3, 0) ;
-		costume_dict.add("VIRUS_2_2_128_ROPE", VIRUS_2_2_128_ROPE, 3, 0) ;
-		costume_dict.add("VIRUS_2_2_256_ROPE", VIRUS_2_2_256_ROPE, 3, 0) ;
+		costume_dict.add("VIRUS_3_2_0_ROPE", VIRUS_3_2_0_ROPE,3,0);
+		costume_dict.add("VIRUS_3_2_1_ROPE", VIRUS_3_2_1_ROPE,3,0);
+		costume_dict.add("VIRUS_3_2_2_ROPE", VIRUS_3_2_2_ROPE,3,0);
+		costume_dict.add("VIRUS_3_2_4_ROPE", VIRUS_3_2_4_ROPE,3,0);
+		costume_dict.add("VIRUS_3_2_8_ROPE", VIRUS_3_2_8_ROPE,3,0);
+		costume_dict.add("VIRUS_3_2_16_ROPE", VIRUS_3_2_16_ROPE,3,0);
+		costume_dict.add("VIRUS_3_2_32_ROPE", VIRUS_3_2_32_ROPE,3,0);
+		costume_dict.add("VIRUS_3_2_64_ROPE", VIRUS_3_2_64_ROPE,3,0);
+		costume_dict.add("VIRUS_3_2_128_ROPE", VIRUS_3_2_128_ROPE,3,0);
+		costume_dict.add("VIRUS_3_2_256_ROPE", VIRUS_3_2_256_ROPE,3,0);
 
-		costume_dict.add("VIRUS_3_2_0_ROPE", VIRUS_3_2_0_ROPE, 3, 0) ;
-		costume_dict.add("VIRUS_3_2_1_ROPE", VIRUS_3_2_1_ROPE, 3, 0) ;
-		costume_dict.add("VIRUS_3_2_2_ROPE", VIRUS_3_2_2_ROPE, 3, 0) ;
-		costume_dict.add("VIRUS_3_2_4_ROPE", VIRUS_3_2_4_ROPE, 3, 0) ;
-		costume_dict.add("VIRUS_3_2_8_ROPE", VIRUS_3_2_8_ROPE, 3, 0) ;
-		costume_dict.add("VIRUS_3_2_16_ROPE", VIRUS_3_2_16_ROPE, 3, 0) ;
-		costume_dict.add("VIRUS_3_2_32_ROPE", VIRUS_3_2_32_ROPE, 3, 0) ;
-		costume_dict.add("VIRUS_3_2_64_ROPE", VIRUS_3_2_64_ROPE, 3, 0) ;
-		costume_dict.add("VIRUS_3_2_128_ROPE", VIRUS_3_2_128_ROPE, 3, 0) ;
-		costume_dict.add("VIRUS_3_2_256_ROPE", VIRUS_3_2_256_ROPE, 3, 0) ;
+    costume_dict.add("VIRUS_3_4_0_ROPE", VIRUS_3_4_0_ROPE,3,0);
+		costume_dict.add("VIRUS_3_4_1_ROPE", VIRUS_3_4_1_ROPE,3,0);
+		costume_dict.add("VIRUS_3_4_2_ROPE", VIRUS_3_4_2_ROPE,3,0);
+		costume_dict.add("VIRUS_3_4_4_ROPE", VIRUS_3_4_4_ROPE,3,0);
+		costume_dict.add("VIRUS_3_4_8_ROPE", VIRUS_3_4_8_ROPE,3,0);
+		costume_dict.add("VIRUS_3_4_16_ROPE", VIRUS_3_4_16_ROPE,3,0);
+		costume_dict.add("VIRUS_3_4_32_ROPE", VIRUS_3_4_32_ROPE,3,0);
+		costume_dict.add("VIRUS_3_4_64_ROPE", VIRUS_3_4_64_ROPE,3,0);
+		costume_dict.add("VIRUS_3_4_128_ROPE", VIRUS_3_4_128_ROPE,3,0);
+		costume_dict.add("VIRUS_3_4_256_ROPE", VIRUS_3_4_256_ROPE,3,0);
 
-    costume_dict.add("VIRUS_3_4_0_ROPE", VIRUS_3_4_0_ROPE, 3, 0) ;
-		costume_dict.add("VIRUS_3_4_1_ROPE", VIRUS_3_4_1_ROPE, 3, 0) ;
-		costume_dict.add("VIRUS_3_4_2_ROPE", VIRUS_3_4_2_ROPE, 3, 0) ;
-		costume_dict.add("VIRUS_3_4_4_ROPE", VIRUS_3_4_4_ROPE, 3, 0) ;
-		costume_dict.add("VIRUS_3_4_8_ROPE", VIRUS_3_4_8_ROPE, 3, 0) ;
-		costume_dict.add("VIRUS_3_4_16_ROPE", VIRUS_3_4_16_ROPE, 3, 0) ;
-		costume_dict.add("VIRUS_3_4_32_ROPE", VIRUS_3_4_32_ROPE, 3, 0) ;
-		costume_dict.add("VIRUS_3_4_64_ROPE", VIRUS_3_4_64_ROPE, 3, 0) ;
-		costume_dict.add("VIRUS_3_4_128_ROPE", VIRUS_3_4_128_ROPE, 3, 0) ;
-		costume_dict.add("VIRUS_3_4_256_ROPE", VIRUS_3_4_256_ROPE, 3, 0) ;
-
-    costume_dict.add("VIRUS_3_8_0_ROPE", VIRUS_3_8_0_ROPE, 3, 0) ;
-		costume_dict.add("VIRUS_3_8_1_ROPE", VIRUS_3_8_1_ROPE, 3, 0) ;
-		costume_dict.add("VIRUS_3_8_2_ROPE", VIRUS_3_8_2_ROPE, 3, 0) ;
-		costume_dict.add("VIRUS_3_8_4_ROPE", VIRUS_3_8_4_ROPE, 3, 0) ;
-		costume_dict.add("VIRUS_3_8_8_ROPE", VIRUS_3_8_8_ROPE, 3, 0) ;
-		costume_dict.add("VIRUS_3_8_16_ROPE", VIRUS_3_8_16_ROPE, 3, 0) ;
-		costume_dict.add("VIRUS_3_8_32_ROPE", VIRUS_3_8_32_ROPE, 3, 0) ;
-		costume_dict.add("VIRUS_3_8_64_ROPE", VIRUS_3_8_64_ROPE, 3, 0) ;
-		costume_dict.add("VIRUS_3_8_128_ROPE", VIRUS_3_8_128_ROPE, 3, 0) ;
-		costume_dict.add("VIRUS_3_8_256_ROPE", VIRUS_3_8_256_ROPE, 3, 0) ;
+    costume_dict.add("VIRUS_3_8_0_ROPE", VIRUS_3_8_0_ROPE,3,0);
+		costume_dict.add("VIRUS_3_8_1_ROPE", VIRUS_3_8_1_ROPE,3,0);
+		costume_dict.add("VIRUS_3_8_2_ROPE", VIRUS_3_8_2_ROPE,3,0);
+		costume_dict.add("VIRUS_3_8_4_ROPE", VIRUS_3_8_4_ROPE,3,0);
+		costume_dict.add("VIRUS_3_8_8_ROPE", VIRUS_3_8_8_ROPE,3,0);
+		costume_dict.add("VIRUS_3_8_16_ROPE", VIRUS_3_8_16_ROPE,3,0);
+		costume_dict.add("VIRUS_3_8_32_ROPE", VIRUS_3_8_32_ROPE,3,0);
+		costume_dict.add("VIRUS_3_8_64_ROPE", VIRUS_3_8_64_ROPE,3,0);
+		costume_dict.add("VIRUS_3_8_128_ROPE", VIRUS_3_8_128_ROPE,3,0);
+		costume_dict.add("VIRUS_3_8_256_ROPE", VIRUS_3_8_256_ROPE,3,0);
 
 
 
@@ -246,12 +256,12 @@ void print_list_costume() {
 
 
 // get costume
-int get_costume(int rank) {
+int get_costume(int target) {
 	costume_list() ;
-	if(rank >= 0 && rank < costume_dict.size()) {
-		return costume_dict.get(rank).get(0) ;
+	if(target >= 0 && target < costume_dict.size()) {
+		return costume_dict.get(target).get(0) ;
 	} else {
-		System.err.println("Your rank is out from the list") ;
+		System.err.println("Your target is out from the list") ;
 		return 0 ;
 	}
 }
@@ -288,8 +298,6 @@ int costumes_size() {
 ASPECT ROPE 2016-2018
 v 0.1.2
 */
-boolean fill_rope_is = true ;
-boolean stroke_rope_is = true ;
 void aspect_is(boolean fill_is, boolean stroke_is) {
 	fill_rope_is = fill_is ;
 	stroke_rope_is = stroke_is ;
@@ -300,129 +308,166 @@ void init_bool_aspect() {
   stroke_rope_is = true ;
 }
 
-void aspect_rope(int fill, int stroke, float strokeWeight) {
+void aspect_rope(int fill, int stroke, float thickness) {
   //checkfill color
   if(alpha(fill) <= 0 || !fill_rope_is)  {
-    noFill() ; 
+    noFill(); 
   } else {
-    fill(fill) ;
+  	manage_fill(fill);
   } 
   //check stroke color
-  if(alpha(stroke) <=0 || strokeWeight <= 0 || !stroke_rope_is) {
-    noStroke() ;
+  if(alpha(stroke) <=0 || thickness <= 0 || !stroke_rope_is) {
+    noStroke();
   } else {
-    stroke(stroke) ;
-    strokeWeight(strokeWeight) ;
+  	manage_stroke(stroke);
+    manage_thickness(thickness);
   }
   //
-  init_bool_aspect() ;
+  init_bool_aspect();
 }
 
-void aspect_rope(int fill, int stroke, float strokeWeight, int costume) {
+void aspect_rope(int fill, int stroke, float thickness, int costume) {
 	if(costume == r.NULL) {
     // 
 	} else if(costume != r.NULL || costume != POINT_ROPE || costume != POINT) {
     if(alpha(fill) <= 0 || !fill_rope_is) {
-    	noFill() ; 
+    	noFill(); 
     } else {
-    	fill(fill) ;
+    	manage_fill(fill);
     }
 
-    if(alpha(stroke) <= 0  || strokeWeight <= 0 || !stroke_rope_is) {
-    	noStroke() ; 
+    if(alpha(stroke) <= 0  || thickness <= 0 || !stroke_rope_is) {
+    	noStroke(); 
     } else {
-    	stroke(stroke) ;
-      strokeWeight(strokeWeight) ;
+    	manage_stroke(stroke);
+      manage_thickness(thickness);
     }   
   } else {
     if(alpha(fill) == 0) {
-    	noStroke() ; 
+    	noStroke(); 
     } else {
-    	stroke(fill) ;
-    	strokeWeight(strokeWeight) ;
+    	// case where the fill is use like a stroke, for point, pixel...
+    	manage_stroke(fill);
+    	manage_thickness(thickness);
     }
-    noFill() ;   
+    noFill();   
   }
   //
-  init_bool_aspect() ;
+  init_bool_aspect();
 }
 
 
 
-void aspect_rope(Vec fill, Vec stroke, float strokeWeight) {
+void aspect_rope(Vec fill, Vec stroke, float thickness) {
   //checkfill color
   if(fill.w <=0 || !fill_rope_is)  {
     noFill() ; 
   } else {
-    manage_fill(fill) ;
+    manage_fill(fill);
   } 
   //check stroke color
-  if(stroke.w <=0 || strokeWeight <= 0 || !stroke_rope_is) {
-    noStroke() ;
+  if(stroke.w <=0 || thickness <= 0 || !stroke_rope_is) {
+    noStroke();
   } else {
-    manage_stroke(stroke) ;
-    strokeWeight(strokeWeight) ;
+    manage_stroke(stroke);
+    manage_thickness(thickness);
   }
   //
-  init_bool_aspect() ;
+  init_bool_aspect();
 }
 
-void aspect_rope(Vec fill, Vec stroke, float strokeWeight, int costume) {
+void aspect_rope(Vec fill, Vec stroke, float thickness, int costume) {
   if(costume == r.NULL) {
     // 
 	} else if(costume != r.NULL || costume != POINT_ROPE || costume != POINT) {
     if(fill.w <= 0 || !fill_rope_is) {
     	noFill() ; 
     } else {
-    	manage_fill(fill) ;
+    	manage_fill(fill);
     } 
-    if(stroke.w <= 0  || strokeWeight <= 0 || !stroke_rope_is) {
-    	noStroke() ; 
+    if(stroke.w <= 0  || thickness <= 0 || !stroke_rope_is) {
+    	noStroke(); 
     } else {
-    	manage_stroke(stroke) ;
-    	strokeWeight(strokeWeight) ;
+    	manage_stroke(stroke);
+    	manage_thickness(thickness);
     }   
   } else {
     if(fill.w <= 0 || !fill_rope_is) {
-    	noStroke() ; 
+    	noStroke(); 
     } else {
-    	manage_stroke(fill) ;
-    	strokeWeight(strokeWeight) ;
+    	// case where the fill is use like a stroke, for point, pixel...
+    	manage_stroke(fill); 
+    	manage_thickness(thickness);
     }
-    noFill() ;   
+    noFill();   
   }
   //
-  init_bool_aspect() ;
+  init_bool_aspect();
 }
 
 
-// manage componenent color Vec for aspect method
-// local method
-
-void manage_fill(Vec f) {
-	if(f instanceof Vec2) {
-		Vec2 fill = (Vec2) f ;
-		fill(fill) ;
-	} else if(f instanceof Vec3) {
-		Vec3 fill = (Vec3) f ;
-		fill(fill) ;
-	} else if(f instanceof Vec4) {
-		Vec4 fill = (Vec4) f ;
-		fill(fill) ;
+/**
+v 0.0.1
+* component manger
+*/
+void manage_fill(Object arg) {
+	if(arg instanceof Vec2) {
+		Vec2 c = (Vec2)arg;
+		fill_rope = color(c.x,c.x,c.x,c.y);
+		fill(c) ;
+	} else if(arg instanceof Vec3) {
+		Vec3 c = (Vec3)arg;
+		fill_rope = color(c.x,c.y,c.z,g.colorModeA);
+		fill(c) ;
+	} else if(arg instanceof Vec4) {
+		Vec4 c = (Vec4)arg;
+		fill_rope = color(c.x,c.y,c.z,c.w);
+		fill(c);
+	} else if(arg instanceof Integer) {
+		int c = (int)arg;
+		fill_rope = c;
+		fill(c);
 	}
 }
 
-void manage_stroke(Vec s) {
-	if(s instanceof Vec2) {
-		Vec2 stroke = (Vec2) s ;
-		stroke(stroke) ;
-	} else if(s instanceof Vec3) {
-		Vec3 stroke = (Vec3) s ;
-		stroke(stroke) ;
-	} else if(s instanceof Vec4) {
-		Vec4 stroke = (Vec4) s ;
-		stroke(stroke) ;
+void manage_stroke(Object arg) {
+	if(arg instanceof Vec2) {
+		Vec2 c = (Vec2)arg;
+		stroke_rope = color(c.x,c.x,c.x,c.y);
+		stroke(c);
+	} else if(arg instanceof Vec3) {
+		Vec3 c = (Vec3)arg;
+		stroke_rope = color(c.x,c.y,c.z,g.colorModeA);
+		stroke(c);
+	} else if(arg instanceof Vec4) {
+		Vec4 c = (Vec4)arg;
+		stroke_rope = color(c.x,c.y,c.z,c.w);
+		stroke(c);
+	} else if(arg instanceof Integer) {
+		int c = (int)arg;
+		stroke_rope = c;
+		stroke(c);
 	}
+}
+
+
+void manage_thickness(float thickness) {
+	thickness_rope = thickness;
+	strokeWeight(thickness);
+
+}
+
+
+float get_fill_rope() {
+	return fill_rope;
+}
+
+float get_stroke_rope() {
+	return stroke_rope;
+}
+
+float get_thickness_rope() {
+	return thickness_rope;
 }
 
 
@@ -479,8 +524,6 @@ v 0.0.1
 simple text 
 v 0.0.1
 */
-String costume_text_rope = null ;
-
 void costume_text(String s) {
 	costume_text_rope = s ;
 }
@@ -779,7 +822,7 @@ break
 
 /**
 costume rope
-v 1.1.0
+v 1.2.0
 */
 void costume_rope(Vec3 pos, Vec3 size, Vec rot, int which_costume) {
 
@@ -787,8 +830,9 @@ void costume_rope(Vec3 pos, Vec3 size, Vec rot, int which_costume) {
 	if(rot.y != 0) costume_rotate_y();
 	if(rot.z != 0) costume_rotate_z();
 
-
-	if (which_costume == POINT_ROPE) {
+	if (which_costume == PIXEL_ROPE) {
+		set((int)pos.x,(int)pos.y,(int)get_fill_rope());
+	} else if (which_costume == POINT_ROPE) {
     strokeWeight(size.x);
 		point(pos);
 	} else if (which_costume == ELLIPSE_ROPE) {
@@ -1322,7 +1366,7 @@ void costume_rope(Vec3 pos, Vec3 size, Vec rot, int which_costume) {
 		start_matrix() ;
 		translate(pos) ;
 		rotate_behavior(rot) ;
-		virus(Vec3(), size, 3, 8, 256, 0, -1) ;
+		virus(Vec3(), size, 3, 8, 256, 0, -1);
 		stop_matrix() ;
 	}
 
@@ -1337,23 +1381,23 @@ void costume_rope(Vec3 pos, Vec3 size, Vec rot, int which_costume) {
 		translate(pos) ;
 		rotate_behavior(rot) ;
 		for(int i = 0 ; i < costume_pic_list.size() ; i++) {
-			Costume_pic p = costume_pic_list.get(i) ;
+			Costume_pic p = costume_pic_list.get(i);
 			if(p.ID == which_costume) {
 				if(p.type == 1) {
-					PImage img_temp = p.img.copy() ;
+					PImage img_temp = p.img.copy();
 					if(size.x == size.y ) {
-						img_temp.resize((int)size.x, 0) ;
+						img_temp.resize((int)size.x, 0);
 					} else if (size.x != size.y) {
-						img_temp.resize((int)size.x, (int)size.y) ;
+						img_temp.resize((int)size.x, (int)size.y);
 					}
-					image(img_temp, 0, 0) ;
+					image(img_temp,0,0);
 					break ;
 				} else if(p.type == 2) {
 					Vec2 scale = Vec2(1) ;
 					if(size.x == size.y) {
-            scale = Vec2(size.x / p.svg.width(), size.x / p.svg.width()) ;
+            scale = Vec2(size.x / p.svg.width(), size.x / p.svg.width());
 					} else {
-						scale = Vec2(size.x / p.svg.width(), size.y / p.svg.height()) ;
+						scale = Vec2(size.x / p.svg.width(), size.y / p.svg.height());
 					}
 					
 					p.svg.scaling(scale) ;

@@ -188,7 +188,7 @@ void display_button_item_console(boolean keep_setting) {
       int px = pos_button_width_item[i*BUTTON_ITEM_CONSOLE +2] +distance;
       int py = pos_button_height_item[i*BUTTON_ITEM_CONSOLE +1] -15;
       iVec2 pos = iVec2(px,py);
-      iVec2 size = iVec2(20,35);
+      iVec2 size = iVec2(20,100);
       item_thumbnail_info(pos,size,i,1);
       pointer ++ ;
     } else if(!keep_setting) {

@@ -14,7 +14,7 @@ class Flux extends Romanesco {
 		item_author  = "Stan le Punk";
 		item_version = "Version 0.0.1";
 		item_pack = "Force 2018";
-    item_costume = "point/ellipse/triangle/rect/cross/pentagon/Star 5/Star 7/Super Star 8/Super Star 12";
+    item_costume = "pixel/point/ellipse/triangle/rect/cross/pentagon/Star 5/Star 7/Super Star 8/Super Star 12";
     item_mode = "";
 
 	  hue_fill_is = true;

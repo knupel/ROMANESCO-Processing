@@ -847,12 +847,17 @@ public abstract class Romanesco implements rope.core.RConstants {
 
     String costume_romanesco = "unknow" ;
     if(costume_split[0] != null) {
-      // printErr("int get_costume(): vient voir si costume[] existe ou si il se passe quelque chose ????");
       int target = costume_controller_selection[get_id()];
       costume_romanesco = costume_split[target];
     } 
 
-    if(costume_romanesco.equals("point") || costume_romanesco.equals("POINT") || costume_romanesco.equals("Point")) {
+    if(costume_romanesco.equals("pixel") || costume_romanesco.equals("PIXEL") || costume_romanesco.equals("Pixel")) {
+      if(!dimension[get_id()]) {
+        costume[get_id()] = PIXEL_ROPE; 
+      } else {
+        costume[get_id()] = PIXEL_ROPE;
+      }
+    } else if(costume_romanesco.equals("point") || costume_romanesco.equals("POINT") || costume_romanesco.equals("Point")) {
       if(!dimension[get_id()]) {
         costume[get_id()] = POINT_ROPE; 
       } else {
