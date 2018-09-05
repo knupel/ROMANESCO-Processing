@@ -37,6 +37,7 @@ MINOR
 >move dropdown slider with mouse wheel
 >introduce new param to store and read data from slider, class Cropinfo
 >add shortcut to clear the midi selection
+>improve method costume to display pixel from force field
 
 
 
@@ -51,6 +52,7 @@ ITEM
 >improve arbre
 >remove item movie
 >add item kino
+>add item flux
 
 
 BUG FIX
@@ -61,6 +63,7 @@ BUG FIX
 >fix bug for the display slider item selected
 >fix bug when the window gui change sige all setting are lost and the scene turn to black
 >fix wink midi button bug
+>fix bug controller display item thumbnail
 
 
 

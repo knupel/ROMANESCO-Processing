@@ -1,7 +1,7 @@
 /**
 Kino
 2018-2018
-v 0.0.1
+v 0.0.2
 */
 class Kino extends Romanesco {
 	public Kino() {
@@ -9,7 +9,7 @@ class Kino extends Romanesco {
 		ID_item = 24 ;
 		ID_group = 1 ;
 		item_author  = "Stan le Punk";
-		item_version = "Version 0.0.1";
+		item_version = "Version 0.0.2";
 		item_pack = "Base 2018" ;
 		item_costume = "" ; // separate the differentes mode by "/"
 		item_mode = "Movie 2D/Diaporama 2D/Movie/Diaporama" ; // separate the differentes mode by "/"
@@ -116,7 +116,15 @@ class Kino extends Romanesco {
 		} else {
 			movie[ID_item].pause();
 		}
-    tint(c);
+    /**
+    bug or not
+    */
+    float h = hue(c);
+    float s = g.colorModeY -saturation(c);
+    float b = brightness(c);
+    float a = alpha(c);
+    tint(h,s,b,a);
+    // tint(c);
 		image(movie[ID_item],FIT);
 	}
 

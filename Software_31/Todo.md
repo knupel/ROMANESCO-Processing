@@ -37,7 +37,9 @@ bug when the prescene and scene is active the prescene receive nothing
 
 
 
+*KINO
 
+check if the bug of tint saturation if fix on all mac configuration
 
 
 *MIDI

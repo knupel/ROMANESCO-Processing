@@ -201,7 +201,7 @@ public void eq_mult(float mx, float my, float mz) {
 Force Field
 2017-2018
 http://stanlepunk.xyz/
-v 1.11.4
+v 1.11.5
 Processing 3.3.7
 */
 
@@ -1147,7 +1147,7 @@ public class Force_field implements rope.core.RConstants {
 
   /**
   CANVAS
-  v 0.0.2
+  v 0.0.3
   */
   /**
   *set canvas
@@ -1171,20 +1171,6 @@ public class Force_field implements rope.core.RConstants {
     } else {
       this.canvas = iVec2(canvas);
     }
-  }
-
-  public void set_frequence(float frequence) {
-    this.frequence = frequence ;
-  } 
-  public void set_viscosity(float viscosity) {
-    this.viscosity = viscosity ;
-  }
-  public void set_diffusion(float diffusion) {
-    this.diffusion = diffusion ;
-  }
-
-  public void reverse_flow(boolean reverse_is) {
-    this.reverse_is = reverse_is ;
   }
 
   /*
@@ -1217,31 +1203,25 @@ public class Force_field implements rope.core.RConstants {
 
 
 
+
+
+
   /**
-  set calm down
-  v 0.0.1
+  * set specific arg for specificic field
   */
-  /*
-  public void set_calm(float calm) {
-    if(calm < 0 || calm > 1) {
-      String value = Float.toString(calm) ;
-      calm = constrain(calm, 0, 1) ;
-      String result = Float.toString(calm) ;
-      String mess = "the float value 'calm' is equal " + value + " this one must be between '0' and '1', so the value will be constrain to " + result;
-      System.err.println(mess);
-    }
-    this.calm = calm;
+
+  /**
+  * fluid field
+  */
+  public void set_frequence(float frequence) {
+    this.frequence = frequence ;
+  } 
+  public void set_viscosity(float viscosity) {
+    this.viscosity = viscosity ;
   }
-  */
-
-
-
-
-
-
-
-
-
+  public void set_diffusion(float diffusion) {
+    this.diffusion = diffusion ;
+  }
 
 
   /**
@@ -1250,6 +1230,52 @@ public class Force_field implements rope.core.RConstants {
   public void set_mass_field(float mass_field) {
     this.mass_field = mass_field ;
   }
+
+
+  /*
+  misc
+  */
+  public void reverse_flow(boolean reverse_is) {
+    this.reverse_is = reverse_is ;
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -1805,22 +1831,26 @@ public class Force_field implements rope.core.RConstants {
 
 
 
+  /**
+  * get fluid info
+  */
+  public float get_frequence() {
+    return frequence ;
+  } 
+  public float get_viscosity() {
+    return viscosity ;
+  }
+  public float get_diffusion() {
+    return diffusion ;
+  }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+  /**
+  get mass field
+  */
+  public float get_mass_field() {
+    return mass_field ;
+  }
 
 
 
@@ -2048,7 +2078,7 @@ public class Force_field implements rope.core.RConstants {
   Warp position
   */
   
-  Vec2 field_warp(Vec2 uv, float scale) {
+  public Vec2 field_warp(Vec2 uv, float scale) {
 
     int cell_x = (int) Math.floor(uv.x*NX);
     int cell_y = (int) Math.floor(uv.y*NY);

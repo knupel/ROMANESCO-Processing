@@ -1,7 +1,7 @@
 /**
 Force Field
 2018
-v 0.0.3
+v 0.0.4
 */
 class FF extends Romanesco {
 	public FF() {
@@ -9,7 +9,7 @@ class FF extends Romanesco {
 		ID_item = 30;
 		ID_group = 1 ;
 		item_author  = "Stan le Punk";
-		item_version = "Version 0.0.2";
+		item_version = "Version 0.0.4";
 		item_pack = "Force 2018";
     item_costume = "none/line";
     item_mode = "fluid/magnetic/gravity/perlin/equation/chaos/image";
@@ -113,6 +113,18 @@ class FF extends Romanesco {
     } else if(get_costume() == LINE_ROPE) { 
       show_field(ff,scale,range,c,thickness);
     }
+    info();
+  }
+
+
+  private void info() {
+    if(get_force_field().get_type() == FLUID) item_info[ID_item] = ("Force field: FLUID frequence: "+ get_force_field().get_frequence() +" viscosity: "+ get_force_field().get_viscosity()+" diffusion: "+ get_force_field().get_diffusion());
+    else if(get_force_field().get_type() == MAGNETIC) item_info[ID_item] = ("Force field: MAGNETIC");
+    else if(get_force_field().get_type() == GRAVITY) item_info[ID_item] = ("Force field: GRAVITY");
+    else if(get_force_field().get_pattern() == PERLIN) item_info[ID_item] = ("Force field: PERLIN");
+    else if(get_force_field().get_pattern() == EQUATION) item_info[ID_item] = ("Force field: EQUATION");
+    else if(get_force_field().get_pattern() == CHAOS) item_info[ID_item] = ("Force field: CHAOS");
+    else if(get_force_field().get_pattern() == IMAGE) item_info[ID_item] = ("Force field: IMAGE");
   }
 
   /**
@@ -185,7 +197,7 @@ class FF extends Romanesco {
       set_force_fluid_viscosity(.001);
       set_force_fluid_diffusion(1.);
       */
-      int frequence = (int)map(frequence_item[ID_item],0,1,0,3);
+      float frequence = map(frequence_item[ID_item],0,1,.01,.1);
       // set_force_fluid_frequence(frequence/frameRate);
       set_force_fluid_frequence(frequence);
       float viscosity = (viscosity_item[ID_item]*viscosity_item[ID_item]*viscosity_item[ID_item])*.25;
