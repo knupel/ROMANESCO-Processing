@@ -186,7 +186,8 @@ void romanesco() {
     if(FULL_RENDERING) curtain();
   }
 
-  
+  masking(set_mask_is());
+
   // save screenshot
   if(FULL_RENDERING) {
     save_PNG();
@@ -257,6 +258,9 @@ void keyPressed () {
     nextPreviousKeypressed();
     key_true();
   }
+
+
+  mask_keyPressed();
 }
 
 

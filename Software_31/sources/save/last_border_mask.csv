@@ -1,0 +1,15 @@
+name,num,is,x,y
+,,,,
+Total_mask,4,,,
+coord_connected,,true,0,0
+coord_connected,,true,900,0
+coord_connected,,true,900,500
+coord_connected,,true,0,500
+coord_connected,,true,278,189
+coord_connected,,true,860,40
+coord_connected,,true,860,460
+coord_connected,,true,174,343
+coord_block_1,,true,600,40
+coord_block_1,,true,300,40
+coord_block_3,,true,300,460
+coord_block_3,,true,600,460
