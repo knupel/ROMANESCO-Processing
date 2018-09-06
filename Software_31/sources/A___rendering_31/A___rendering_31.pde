@@ -178,32 +178,15 @@ void romanesco() {
 
 
   //ROMANESCO
-  camera_romanesco_draw();
-
-  // LIGHT
-  light_position_draw(mouse[0], wheel[0]); // not in the conditional because we need to display in the info box
-  light_update_position_direction();
-  if(FULL_RENDERING) {
-    light_call_shader();
-    light_display();
-    shader_draw();
+  if(curtain_button_is()) {
+    rendering();
+    info();
+  } else {
+    // if(FULL_RENDERING && !DEV_MODE) curtain();
+    if(FULL_RENDERING) curtain();
   }
 
-  //use romanesco object
-  rpe_manager.show_item_3D(ORDER_ONE, ORDER_TWO, ORDER_THREE);
-  grid_romanesco(displayInfo3D);
-  stop_camera();
-
-  rpe_manager.show_item_2D();
-
-  force();
-  filter();
-
-
-  //annexe
-  info() ;
-  // curtain
-  if(FULL_RENDERING && !DEV_MODE) curtain();
+  
   // save screenshot
   if(FULL_RENDERING) {
     save_PNG();

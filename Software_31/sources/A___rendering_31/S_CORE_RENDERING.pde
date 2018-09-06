@@ -1,7 +1,7 @@
 /**
 CORE SCENE and PRESCENE 
 2015-2018
-v 1.5.2
+v 1.6.0
 */
 import java.net.*;
 import java.io.*;
@@ -30,6 +30,34 @@ import toxi.processing.*;
 
 // SYPHON
 import codeanticode.syphon.*;
+
+
+
+/**
+RENDERING
+*/
+void rendering() {
+  camera_romanesco_draw();
+  // LIGHT
+  light_position_draw(mouse[0], wheel[0]); // not in the conditional because we need to display in the info box
+  light_update_position_direction();
+  if(FULL_RENDERING) {
+    light_call_shader();
+    light_display();
+    shader_draw();
+  }
+
+  //use romanesco object
+  rpe_manager.show_item_3D(ORDER_ONE, ORDER_TWO, ORDER_THREE);
+  grid_romanesco(displayInfo3D);
+  stop_camera();
+
+  rpe_manager.show_item_2D();
+
+  force();
+  filter();
+}
+
 
 
 /**

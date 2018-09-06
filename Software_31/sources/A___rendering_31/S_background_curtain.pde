@@ -174,10 +174,8 @@ void rectangle(Vec2 pos, Vec3 size, PShader s) {
 curtain
 */
 void curtain() {
-  if(!curtain_button_is()) {
-    rectMode(CORNER) ;
-    fill (0) ; 
-    noStroke() ;
-    rect(-1,-1, width+2, height+2);
-  }
+  rectMode(CORNER) ;
+  fill (0) ; 
+  noStroke() ;
+  rect(-1,-1, width+2, height+2);
 }
