@@ -1,6 +1,6 @@
 /**
 MASK MAPPING
-v 0.1.0
+v 0.1.2
 */
 boolean border_is;
 boolean default_mask_is = true;
@@ -24,9 +24,16 @@ void masking(boolean change_is, int type_mask, int num_mask, int num_point_mask)
     masking_blocks(change_is, num_mask, num_point_mask);  
   }
 
-
-
-  if(pg_mask != null) {
+  
+  boolean mask_state_is = true;
+  for(int i = 0 ; i < display_mask.length ; i++){
+    if(!display_mask[i]) {
+      mask_state_is = false;
+      break;
+    }
+  }
+  
+  if(pg_mask != null && mask_state_is) {
     pg_mask.loadPixels();
     loadPixels();
     for(int i = 0 ; i < pg_mask.pixels.length ; i++) {
@@ -267,9 +274,36 @@ void data_mask_mapping_blocks() {
 
 
 
+void keyPressed_mask_set(char c) {
+  if(key == c) {
+    set_mask();
+  }
+}
+
+void keyPressed_mask_border_hide(char c) {
+  if(key == c) {
+    display_mask[0] = !!((display_mask[0] == false));
+    // enable_mask();
+  }
+}
 
 
-void mask_keyPressed() {
+void keyPressed_mask_save(char c) {
+  if(key == c) {
+    save_mask();
+  }
+}
+
+
+void keyPressed_mask_load(char c) {
+  if(key == c) {
+    selectInput("Select a file to load data mask:", "load_save_mask");
+  }
+}
+
+
+/*
+void mask_keyPressed(char c_1, char c_2, char c_3) {
   // MAJUSCULE
   if(key == 'M') {
     set_mask();
@@ -287,6 +321,7 @@ void mask_keyPressed() {
     selectInput("Select a file to load data mask:", "load_save_mask");
   }
 }
+*/
 
 
 
@@ -313,7 +348,7 @@ void enable_mask_is_on_top_for_bug_reason() {
   for(int i = 0 ; i < display_mask.length && i < key_num_under_num.length ; i++) {
     if(key == key_num_under_num[i]) {
       display_mask[i] = !!((display_mask[i] == false));
-      if(display_mask[i])  display_mask[0] = true;
+      if(display_mask[i]) display_mask[0] = true;
       break;
     }
   } 
@@ -523,9 +558,9 @@ SAVE MASKING
 */
 /**
 SAVE / LOAD
-v 0.0.4
+v 0.0.5
 */
-void save_force() {
+void save_mask() {
   write_file_masking();
   selectOutput("Select a file to write to:", "selected_file_to_save"); 
 }

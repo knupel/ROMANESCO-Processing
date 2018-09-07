@@ -260,7 +260,12 @@ void keyPressed () {
   }
 
 
-  mask_keyPressed();
+  keyPressed_mask_set('M');
+  keyPressed_mask_border_hide('H');
+  keyPressed_mask_save('S');
+  keyPressed_mask_load('L');
+  // mask_keyPressed();
+  warp_keyPressed('N');
 }
 
 
