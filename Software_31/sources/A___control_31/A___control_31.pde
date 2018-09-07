@@ -17,11 +17,35 @@ String IAM = "controller";
 /**
 LIVE must change from the launcher, the info must be write in the external loading preference app
 */
+
+// DEV
+
 boolean LIVE = false;
 boolean MIROIR = false;
 boolean KEEP_BUTTON_ITEM_STATE = true;
 // DEV_MODE : rank folder, curtain
-boolean DEV_MODE = true; 
+boolean DEV_MODE = true;
+
+
+// DIRECT
+/*
+boolean LIVE = false;
+boolean MIROIR = false;
+boolean KEEP_BUTTON_ITEM_STATE = true;
+// DEV_MODE : rank folder, curtain
+boolean DEV_MODE = false; 
+*/
+
+
+// LIVE
+/*
+boolean LIVE = true;
+boolean MIROIR = false;
+boolean KEEP_BUTTON_ITEM_STATE = true;
+// DEV_MODE : rank folder, curtain
+boolean DEV_MODE = false;
+*/
+
 
 
 void settings() {
