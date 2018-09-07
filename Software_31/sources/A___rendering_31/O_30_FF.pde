@@ -90,8 +90,13 @@ class FF extends Romanesco {
       ref_cell = grid_item[ID_item];
       ref_detection = area_item[ID_item];
       birth[ID_item] = false;
-      println(get_spot_num(),frameCount);
+      // println(get_spot_num(),frameCount);
       init_force_field(get_spot_num());
+      // EQUATION
+      if(get_pattern_force_field() == EQUATION) {
+        generate_ff_equation();
+      }
+      
     }
 
     update_force_field_is(true);
@@ -114,6 +119,40 @@ class FF extends Romanesco {
       show_field(ff,scale,range,c,thickness);
     }
     info();
+  }
+
+
+
+  private void generate_ff_equation() {
+    init_eq();
+    float x = random(-1,1);
+    float y = random(-1,1);
+
+    eq_center_dir(x,y);
+    x = random(-1,1);
+    y = random(-1,1);
+    eq_center_len(x,y);
+
+    eq_reverse_len(false);
+    int swap_rand = floor(random(4));
+    if(swap_rand == 0) eq_swap_xy("x","y");
+    else if(swap_rand == 1) eq_swap_xy("y","x");
+    else if(swap_rand == 2) eq_swap_xy("y","y");
+    else if(swap_rand == 3) eq_swap_xy("x","x");
+    else eq_swap_xy("x","y");
+    // eq_swap_xy("x","y");
+    // eq_swap_xy("y","y");
+    int pow_x_rand = floor(random(-5,5));
+    int pow_y_rand = floor(random(-5,5));
+    if(pow_x_rand == 0) pow_x_rand = 1 ;
+    if(pow_y_rand == 0) pow_y_rand = 1 ;
+    eq_pow(pow_x_rand,pow_y_rand);
+    float mult_x_rand = random(-5,5);
+    float mult_y_rand = random(-5,5);
+    if(mult_x_rand == 0) mult_x_rand = 1 ;
+    if(mult_y_rand == 0) mult_y_rand = 1 ;
+    eq_mult(mult_x_rand,mult_x_rand);
+
   }
 
 
@@ -204,7 +243,7 @@ class FF extends Romanesco {
       set_force_fluid_viscosity(viscosity);
       float diffusion = diffusion_item[ID_item];
       set_force_fluid_diffusion(diffusion);
-    } 
+    }
   }
 
 

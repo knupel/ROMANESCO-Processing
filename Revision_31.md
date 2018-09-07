@@ -17,10 +17,11 @@ MAJOR
 >add slider background shader
 >add new dropdown item menu to select costume
 >add multi slider to set the transient detection
->Add method do select folder and input media from the controller
+>add method do select folder and input media from the controller
 >remove method by dropping media in external folder
 >fusion of the sketches prescene and scene, the result became rendering
 >romanesco unu became romanesco dui, too much change to keep the same name !
+>add mask option
 
 
 MINOR
