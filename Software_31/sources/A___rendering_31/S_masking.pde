@@ -48,7 +48,6 @@ void masking(boolean change_is, int type_mask, int num_mask, int num_point_mask)
     updatePixels();
   }
 
-
   if(change_is) {
     pg_mask = createGraphics(width,height);
   }
