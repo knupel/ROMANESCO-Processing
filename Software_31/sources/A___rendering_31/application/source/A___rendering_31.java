@@ -96,23 +96,36 @@ boolean LIVE = false;
 boolean FULL_RENDERING = true;
 */
 
+
+
+
 /**
 * RENDERING
 * Here you can choice between the three common rendering mode
 */
 
+// Prescene LIVE PREVIEW > BUG
+/*
+boolean DEV_MODE = false;
+String IAM = "prescene";
+boolean LIVE = true;
+boolean FULL_RENDERING = false;
+*/
 
-// Prescene LIVE
+
+// Prescene LIVE FULL_RENDERING
+/*
 boolean DEV_MODE = false;
 String IAM = "prescene";
 boolean LIVE = true;
 boolean FULL_RENDERING = true;
+*/
 
 
 
 
-/*
 // Prescene FULL_RENDERING
+/*
 boolean DEV_MODE = false;
 String IAM = "prescene";
 boolean LIVE = false;
@@ -120,16 +133,12 @@ boolean FULL_RENDERING = true;
 */
 
 
-/*
-// SCENE LIVE
+// SCENE LIVE 
+
 boolean DEV_MODE = false;
 String IAM = "scene";
-boolean LIVE = false;
+boolean LIVE = false; // here LIVE must be true, but not sure that's work now for OSC in scene rendering
 boolean FULL_RENDERING = true;
-*/
-
-
-
 
 
 
@@ -156,12 +165,11 @@ LIVE must change from the launcher, the info must be write in the external loadi
 
 public void settings() {
   size(124,124,P3D); // when the bug will be resolved, return to this config.
-    /*
-    // fullScreen(P3D,1);
-
+  /*
   fullScreen(P3D,2); // original
   FULL_SCREEN = true;
   */
+ 
 
   pixelDensity(displayDensity());
   syphon_settings();
@@ -278,7 +286,12 @@ public void romanesco() {
     info();
   } else {
     // if(FULL_RENDERING && !DEV_MODE) curtain();
-    if(FULL_RENDERING) curtain();
+    if(FULL_RENDERING && IAM.equals("scene")) {
+      curtain();
+    } else {
+      rendering();
+      info();
+    }
   }
 
   if(FULL_RENDERING) {
@@ -323,8 +336,11 @@ public void romanesco() {
   }
 
   if(!controller_osc_is && FULL_RENDERING) {
-    background(0);
-    message_opening();
+    if(IAM.equals("scene")) {
+    // if(IAM.equals("scene") || !LIVE) {
+      background(0);
+      message_opening();
+    }
   }
   
 }
@@ -15253,7 +15269,7 @@ class FF extends Romanesco {
 /**
 Force Field
 2018
-v 0.0.1
+v 0.0.2
 */
 class Flux extends Romanesco {
 
@@ -15340,7 +15356,8 @@ class Flux extends Romanesco {
 
   public void draw() {
     float ratio_num = quantity_item[ID_item] *quantity_item[ID_item] *quantity_item[ID_item];
-    int num = (int)map(ratio_num,0,1,100,100000); // > 100_000;
+    int num = (int)map(ratio_num,0,1,1000,100000); // > 100_000;
+    if(get_costume() != PIXEL_ROPE) num /= 100;
     set_vehicle(num);
     init_vehicle(num,get_force_field()); 
     
@@ -15348,6 +15365,7 @@ class Flux extends Romanesco {
     update_vehicle(get_force_field(),speed);
     aspect_rope(fill_item[ID_item], stroke_item[ID_item],thickness_item[ID_item]);
     Vec3 size = Vec3(size_x_item[ID_item],size_y_item[ID_item],size_z_item[ID_item]);
+    size.map(size_x_min_max.x,size_x_min_max.y,1,size_x_min_max.y);
     show_vehicle(size,get_costume());
 
     //
@@ -15580,14 +15598,20 @@ public void set_screen() {
       surface.setLocation(x,y);
       surface.setSize(w,h);
     } else {
-      int ox = get_screen_location(sketchDisplay()).x;
-      int oy = get_screen_location(sketchDisplay()).y;
+      println("The",IAM,"is on the screen",sketchDisplay(),"on",get_display_num(),"screen available");
+      int target_screen = sketchDisplay();
+      if(target_screen == get_display_num()) target_screen = 0;
+
+      
+      int ox = get_screen_location(target_screen).x;
+      int oy = get_screen_location(target_screen).y;
       surface.setLocation(ox,oy);
-      int sx = get_screen_size(sketchDisplay()).x;
-      int sy = get_screen_size(sketchDisplay()).y;
+      int sx = get_screen_size(target_screen).x;
+      int sy = get_screen_size(target_screen).y;
       surface.setSize(sx,sy);
-      println("The",IAM,"is on the screen",sketchDisplay());
-      println("screen location",get_screen_location(sketchDisplay()));
+      for(int i = 0 ; i < get_display_num() ; i++) {
+        println("screen",i,"location",get_screen_location(i));
+      }
       w = sx; 
       h = sy;
 

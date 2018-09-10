@@ -1,7 +1,7 @@
 /**
 Force Field
 2018
-v 0.0.1
+v 0.0.2
 */
 class Flux extends Romanesco {
 
@@ -88,7 +88,8 @@ class Flux extends Romanesco {
 
   void draw() {
     float ratio_num = quantity_item[ID_item] *quantity_item[ID_item] *quantity_item[ID_item];
-    int num = (int)map(ratio_num,0,1,100,100000); // > 100_000;
+    int num = (int)map(ratio_num,0,1,1000,100000); // > 100_000;
+    if(get_costume() != PIXEL_ROPE) num /= 100;
     set_vehicle(num);
     init_vehicle(num,get_force_field()); 
     
@@ -96,6 +97,7 @@ class Flux extends Romanesco {
     update_vehicle(get_force_field(),speed);
     aspect_rope(fill_item[ID_item], stroke_item[ID_item],thickness_item[ID_item]);
     Vec3 size = Vec3(size_x_item[ID_item],size_y_item[ID_item],size_z_item[ID_item]);
+    size.map(size_x_min_max.x,size_x_min_max.y,1,size_x_min_max.y);
     show_vehicle(size,get_costume());
 
     //

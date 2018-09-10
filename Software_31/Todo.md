@@ -17,6 +17,9 @@ It's a huge mess is this method, now it's impossible ta save from SCENE
 Probleme de navigation entre les différentes caméras.
 
 
+*CAMERA + CONTROLEUR
+
+The camera and item position must be reset from controller, not only from a shortcuts
 
 *OSC
 
@@ -44,7 +47,7 @@ check if the bug of tint saturation if fix on all mac configuration
 
 *MIDI
 
-probleme avec les commandes midi, comme si l'instruction était envoyée deux fois, et les slider ne répondent plus correctement quand les ordres viennent du controleur.
+probleme avec les commandes midi, comme si l'instruction était envoyée deux fois, et les slider ne répondent plus correctement quand les ordres viennent du controleur, may be only on laptop ????
 
 *CAMERA
 
@@ -78,9 +81,7 @@ Finish new tempo and improve Transient
 
 Create a function to switch between these 2 mode
 
-*Filter
 
-Start filter in Scene
 
 *Save Scene
 

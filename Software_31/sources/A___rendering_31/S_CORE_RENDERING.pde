@@ -136,14 +136,20 @@ void set_screen() {
       surface.setLocation(x,y);
       surface.setSize(w,h);
     } else {
-      int ox = get_screen_location(sketchDisplay()).x;
-      int oy = get_screen_location(sketchDisplay()).y;
+      println("The",IAM,"is on the screen",sketchDisplay(),"on",get_display_num(),"screen available");
+      int target_screen = sketchDisplay();
+      if(target_screen == get_display_num()) target_screen = 0;
+
+      
+      int ox = get_screen_location(target_screen).x;
+      int oy = get_screen_location(target_screen).y;
       surface.setLocation(ox,oy);
-      int sx = get_screen_size(sketchDisplay()).x;
-      int sy = get_screen_size(sketchDisplay()).y;
+      int sx = get_screen_size(target_screen).x;
+      int sy = get_screen_size(target_screen).y;
       surface.setSize(sx,sy);
-      println("The",IAM,"is on the screen",sketchDisplay());
-      println("screen location",get_screen_location(sketchDisplay()));
+      for(int i = 0 ; i < get_display_num() ; i++) {
+        println("screen",i,"location",get_screen_location(i));
+      }
       w = sx; 
       h = sy;
 

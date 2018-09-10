@@ -28,23 +28,36 @@ boolean LIVE = false;
 boolean FULL_RENDERING = true;
 */
 
+
+
+
 /**
 * RENDERING
 * Here you can choice between the three common rendering mode
 */
 
+// Prescene LIVE PREVIEW > BUG
+/*
+boolean DEV_MODE = false;
+String IAM = "prescene";
+boolean LIVE = true;
+boolean FULL_RENDERING = false;
+*/
 
-// Prescene LIVE
+
+// Prescene LIVE FULL_RENDERING
+/*
 boolean DEV_MODE = false;
 String IAM = "prescene";
 boolean LIVE = true;
 boolean FULL_RENDERING = true;
+*/
 
 
 
 
-/*
 // Prescene FULL_RENDERING
+/*
 boolean DEV_MODE = false;
 String IAM = "prescene";
 boolean LIVE = false;
@@ -52,16 +65,12 @@ boolean FULL_RENDERING = true;
 */
 
 
-/*
-// SCENE LIVE
+// SCENE LIVE 
+
 boolean DEV_MODE = false;
 String IAM = "scene";
-boolean LIVE = false;
+boolean LIVE = false; // here LIVE must be true, but not sure that's work now for OSC in scene rendering
 boolean FULL_RENDERING = true;
-*/
-
-
-
 
 
 
@@ -88,12 +97,11 @@ LIVE must change from the launcher, the info must be write in the external loadi
 
 void settings() {
   size(124,124,P3D); // when the bug will be resolved, return to this config.
-    /*
-    // fullScreen(P3D,1);
-
+  /*
   fullScreen(P3D,2); // original
   FULL_SCREEN = true;
   */
+ 
 
   pixelDensity(displayDensity());
   syphon_settings();
@@ -210,7 +218,12 @@ void romanesco() {
     info();
   } else {
     // if(FULL_RENDERING && !DEV_MODE) curtain();
-    if(FULL_RENDERING) curtain();
+    if(FULL_RENDERING && IAM.equals("scene")) {
+      curtain();
+    } else {
+      rendering();
+      info();
+    }
   }
 
   if(FULL_RENDERING) {
@@ -255,8 +268,11 @@ void romanesco() {
   }
 
   if(!controller_osc_is && FULL_RENDERING) {
-    background(0);
-    message_opening();
+    if(IAM.equals("scene")) {
+    // if(IAM.equals("scene") || !LIVE) {
+      background(0);
+      message_opening();
+    }
   }
   
 }
