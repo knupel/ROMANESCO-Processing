@@ -1,7 +1,7 @@
 /**
 CORE SCENE and PRESCENE 
 2015-2018
-v 1.6.0
+v 1.6.1
 */
 import java.net.*;
 import java.io.*;
@@ -37,26 +37,49 @@ import codeanticode.syphon.*;
 RENDERING
 */
 void rendering() {
-  camera_romanesco_draw();
-  // LIGHT
-  light_position_draw(mouse[0], wheel[0]); // not in the conditional because we need to display in the info box
-  light_update_position_direction();
-  if(FULL_RENDERING) {
-    light_call_shader();
-    light_display();
-    shader_draw();
+  boolean show_is = true;
+  // setting display
+  if(curtain_button_is()) {
+    show_is = false;
+  }
+  if(IAM.equals("presecene") && LIVE) {
+    show_is = true;
   }
 
-  //use romanesco object
-  rpe_manager.show_item_3D(ORDER_ONE, ORDER_TWO, ORDER_THREE);
-  grid_romanesco(displayInfo3D);
-  stop_camera();
+  // display
+  if(show_is) {
+    camera_romanesco_draw();
+    // LIGHT
+    light_position_draw(mouse[0], wheel[0]); // not in the conditional because we need to display in the info box
+    light_update_position_direction();
+    if(FULL_RENDERING) {
+      light_call_shader();
+      light_display();
+      shader_draw();
+    }
 
-  rpe_manager.show_item_2D();
+    //use romanesco object
+    rpe_manager.show_item_3D(ORDER_ONE, ORDER_TWO, ORDER_THREE);
+    grid_romanesco(displayInfo3D);
+    stop_camera();
 
-  force();
-  filter();
+    rpe_manager.show_item_2D();
+
+    force();
+    filter();
+    info();
+  } else {
+    curtain();
+  }
 }
+
+
+
+
+
+
+
+
 
 
 
@@ -98,6 +121,7 @@ void display_setup(int frame_rate) {
   }
   frameRate(frame_rate);  // Le frameRate doit être le même dans tous les Sketches
   colorMode(HSB, HSBmode.r, HSBmode.g, HSBmode.b, HSBmode.a); 
+
   set_screen();
   depth_scene = height;
   background_setup();
@@ -138,9 +162,7 @@ void set_screen() {
     } else {
       println("The",IAM,"is on the screen",sketchDisplay(),"on",get_display_num(),"screen available");
       int target_screen = sketchDisplay();
-      if(target_screen == get_display_num()) target_screen = 0;
-
-      
+      // if(target_screen => get_display_num()) target_screen = 0;   
       int ox = get_screen_location(target_screen).x;
       int oy = get_screen_location(target_screen).y;
       surface.setLocation(ox,oy);
@@ -152,19 +174,17 @@ void set_screen() {
       }
       w = sx; 
       h = sy;
-
-    }
-    
+    }   
   } else {
     w = row.getInt("preview_width"); 
     h = row.getInt("preview_height");
-    surface.setSize(w,h);
     surface.setLocation(x,y);
-    println("screen size",get_screen_size(sketchDisplay()));
+    surface.setSize(w,h);
   }
   scene_width = w;
   scene_height = h;
   println(IAM,"screen size [",w,",",h,"]"); 
+
 }
 
 

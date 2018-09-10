@@ -2,7 +2,7 @@
 Core Romanesco
 COMMON SKETCH for CONTROLLER, PRESCENE & SCENE
 2018-2018
-v 0.1.5
+v 0.1.6
 */
 int NUM_COL_SLIDER = 4;
 int NUM_SLIDER_ITEM_BY_COL = 16;
@@ -12,15 +12,17 @@ int NUM_MOLETTE_ITEM = NUM_SLIDER_ITEM;
 int KEY_CTRL_OS = 157; // it's macOS CMD // for MAC 
 
 int NUM_BUTTON_CURTAIN = 1;
+int NUM_BUTTON_RESET = 2;
 int NUM_BUTTON_BACKGROUND = 1;
 int NUM_BUTTON_FX = 2;
 int NUM_BUTTON_LIGHT = 6;
 int NUM_BUTTON_TRANSIENT = 4;
 int NUM_BUTTON_GENERAL = NUM_BUTTON_CURTAIN 
-											 + NUM_BUTTON_BACKGROUND 
-											 + NUM_BUTTON_FX 
-											 + NUM_BUTTON_LIGHT 
-											 + NUM_BUTTON_TRANSIENT;
+                        + NUM_BUTTON_RESET
+                        + NUM_BUTTON_BACKGROUND 
+                        + NUM_BUTTON_FX 
+                        + NUM_BUTTON_LIGHT 
+                        + NUM_BUTTON_TRANSIENT;
 
 int NUM_SLIDER_BACKGROUND = 14;
 int NUM_SLIDER_FX = 12;

@@ -756,8 +756,12 @@ void apply_text_gui() {
 void set_import_pic_button() {
   //picto setting
   for(int i = 0 ; i < 4 ; i++) {
-    picCurtain[i] = loadImage("picto/picto_curtain_"+i+".png") ;
-    picMidi[i] = loadImage("picto/picto_midi_"+i+".png") ;
+    pic_curtain[i] = loadImage("picto/picto_curtain_"+i+".png");
+    pic_midi[i] = loadImage("picto/picto_midi_"+i+".png");
+    // reset
+    pic_reset_camera[i] = loadImage("picto/picto_camera_"+i+".png");
+    pic_reset_item_on[i] = loadImage("picto/picto_item_selected_"+i+".png");
+    //item
     picSetting[i] = loadImage("picto/picto_setting_"+i+".png") ;
     picSound[i] = loadImage("picto/picto_sound_"+i+".png") ;
     picAction[i] = loadImage("picto/picto_action_"+i+".png") ;

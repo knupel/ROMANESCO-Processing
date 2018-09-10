@@ -21,6 +21,8 @@ void build_console() {
 void build_console_general() {
   button_midi = new Button(pos_midi_button, size_midi_button);
   button_curtain = new Button(pos_curtain_button, size_curtain_button);
+  button_reset_camera = new Button(pos_reset_camera_button, size_reset_camera_button);
+  button_reset_item_on = new Button(pos_reset_item_on_button, size_reset_item_on_button);
 }
 
 void build_console_bar() {
@@ -38,7 +40,7 @@ void build_console_background() {
   for (int i = 0 ; i < NUM_SLIDER_BACKGROUND ; i++) {
     iVec2 temp_size_mol = iVec2(round(size_slider_background[i].y *ratio_size_molette), round(size_slider_background[i].y *ratio_size_molette));
     iVec2 temp_pos = iVec2(pos_slider_background[i].x, round(pos_slider_background[i].y -(slider_height_background *.6)));
-    if(cropinfo_slider_background[i].get_id() != -1 ) {
+    if(cropinfo_slider_background[i].get_id() != -1) {
       slider_adj_background[i] = new Sladj(temp_pos, size_slider_background[i]);
       slider_adj_background[i].set_molette(ELLIPSE);
       slider_adj_background[i].size_molette(temp_size_mol);

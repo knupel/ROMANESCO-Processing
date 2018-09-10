@@ -1,10 +1,10 @@
 /**
 Rope UTILS 
-v 1.47.0
+v 1.47.4
 * Copyleft (c) 2014-2018 
 * Stan le Punk > http://stanlepunk.xyz/
 Rope – Romanesco Processing Environment – 
-Processing 3.3.7
+Processing 3.4
 * @author Stan le Punk
 * @see https://github.com/StanLepunK/Rope
 */
@@ -18,10 +18,10 @@ v 0.0.3
 */
 
 Constant_list processing_constants_list = new Constant_list(PConstants.class);
-Constant_list rope_constants_list = new Constant_list(Rope_Constants.class);
+Constant_list rope_constants_list = new Constant_list(rope.core.RConstants.class);
 public void print_constants_rope() {
   if(rope_constants_list == null) {
-    rope_constants_list = new Constant_list(Rope_Constants.class);
+    rope_constants_list = new Constant_list(rope.core.RConstants.class);
   }
   println("ROPE CONSTANTS");
   for(String s: rope_constants_list.list()){
@@ -34,7 +34,7 @@ public void print_constants_processing() {
     processing_constants_list = new Constant_list(PConstants.class);
   }
   println("PROCESSING CONSTANTS");
-  for(String s: processing_constants_list.list()){
+  for(String s: processing_constants_list.list()) {
     println(s);
   }
 } 
@@ -45,7 +45,7 @@ public void print_constants() {
   }
 
   if(rope_constants_list == null) {
-    rope_constants_list = new Constant_list(Rope_Constants.class);
+    rope_constants_list = new Constant_list(rope.core.RConstants.class);
   }
 
   println("ROPE CONSTANTS");
@@ -2603,7 +2603,7 @@ void write_row(TableRow row, String col_name, Object o) {
 
 /**
 print
-v 0.1.2
+v 0.1.3
 */
 // util variable
 
@@ -2624,8 +2624,6 @@ void printErrTempo(int tempo, Object... obj) {
       message = write_print_message(message, obj[i], obj.length, i);
     }
     System.err.println(message);
-    // System.err.println(message+"/n"); // don't work for unknow reason
-    // System.err.println(message+System.lineSeparator());
   }
 }
 
@@ -2643,10 +2641,21 @@ void printTempo(int tempo, Object... obj) {
 
 // local method
 String write_print_message(String message, Object obj, int length, int i) {
-  if(i == length -1) {
-    return message += obj.toString() ;
+  String add = "";
+  if(i == length -1) { 
+    if(obj == null) {
+      add = "null";
+    } else {
+      add = obj.toString();
+    }
+    return message += add;
   } else {
-    return message += obj.toString() + " ";
+    if(obj == null) {
+      add = "null";
+    } else {
+      add = obj.toString();
+    }
+    return message += add + " ";
   }
 }
 
@@ -4122,7 +4131,7 @@ int [][] loadPixels_array_2D() {
 
 /**
 GRAPHICS METHOD
-v 0.3.1
+v 0.3.3
 */
 /**
 SCREEN
@@ -4163,6 +4172,10 @@ iVec2 get_screen_size() {
 }
 
 iVec2 get_screen_size(int target) {
+  if(target >= get_display_num()) {
+    target = 0;
+    printErr("method get_screen_size(int target): target screen",target,"don't match with any screen device instead target '0' is used");
+  }
   return get_display_size(target);
 }
 
@@ -4172,8 +4185,12 @@ iVec2 get_display_size() {
 }
 
 
-iVec2 get_display_size(int which_display) {  
-  Rectangle display = get_screen(which_display);
+iVec2 get_display_size(int target) {
+  if(target >= get_display_num()) {
+    target = 0;
+    printErr("method get_screen_size(int target): target screen",target,"don't match with any screen device instead target '0' is used");
+  }  
+  Rectangle display = get_screen(target);
   return iVec2((int)display.getWidth(), (int)display.getHeight()); 
 }
 
@@ -4181,8 +4198,8 @@ iVec2 get_display_size(int which_display) {
 screen location
 */
 
-iVec2 get_screen_location(int which_display) {
-  Rectangle display = get_screen(which_display);
+iVec2 get_screen_location(int target) {
+  Rectangle display = get_screen(target);
   return iVec2((int)display.getX(), (int)display.getY());
 }
 
@@ -4580,5 +4597,9 @@ String file_name(String s) {
 
 
 String extension(String filename) {
-  return filename.substring(filename.lastIndexOf(".") + 1, filename.length());
+  if(filename != null) {
+    return filename.substring(filename.lastIndexOf(".") + 1, filename.length());
+  } else {
+    return null;
+  }
 }

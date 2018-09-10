@@ -14,11 +14,11 @@ void display_structure() {
   iVec2 size = iVec2(width, height_header);
   display_structure_header(pos,size, fill_header_struc);
 
-  pos.set(0, pos_y_button_top);
+  pos.set(0,pos_y_button_top);
   size.set(width,height_button_top);
   display_structure_top_button(pos,size,structure_background_gray_a,structure_background_colour_a);
 
-  pos.set(0, pos_y_dropdown_top);
+  pos.set(0,pos_y_dropdown_top);
   size.set(width, height_dropdown_top);
   display_structure_dropdown_menu_general(pos,size,structure_background_gray_a,structure_background_colour_a);
 
@@ -26,11 +26,11 @@ void display_structure() {
   size.set(width,height_menu_general);
   display_structure_general(pos,size,structure_background_gray_a,structure_background_gray_b);
   
-  pos.set(0, pos_y_item_selected);
+  pos.set(0,pos_y_item_selected);
   size.set(width, height_item_selected);
   display_structure_item_selected(pos,size,structure_background_gray_a,structure_background_colour_a);
 
-  pos.set(0, pos_y_inventory);
+  pos.set(0,pos_y_inventory);
   size.set(width, height);
   display_structure_inventory_item(pos,size,structure_background_gray_a,structure_background_gray_b);
 
@@ -89,7 +89,6 @@ void display_structure_inventory_item(iVec2 pos, iVec2 size, int colour_bg, int 
 
 
 void display_structure_bottom(int colour_a, int colour_b) {
-  // bottom decoration
   fill(colour_a);
   rect(0,height-9,width,2);
   fill(colour_b);
@@ -843,8 +842,12 @@ void check_button_general() {
     if(button_transient[i].is()) button_transient_is[i] = 1 ; else button_transient_is[i] = 0 ;
   }
   //Check position of button
-  if(button_midi.is()) button_midi_is = 1 ; else button_midi_is = 0 ;
-  if(button_curtain.is()) button_curtain_is = 1 ; else button_curtain_is = 0 ;
+  if(button_curtain.is()) button_curtain_is = 1 ; else button_curtain_is = 0;
+  if(button_midi.is()) button_midi_is = 1 ; else button_midi_is = 0;
+  // reset button
+  if(button_reset_camera.is()) button_reset_camera_is = 1 ; else button_reset_camera_is = 0;
+  if(button_reset_item_on.is()) button_reset_item_on_is = 1 ; else button_reset_item_on_is = 0;
+
 }
 
 
@@ -872,6 +875,9 @@ void mousePressed_button_general() {
   }
   if(button_midi.inside()) button_midi.switch_is();
   if(button_curtain.inside())button_curtain.switch_is();
+  // reset button
+  if(button_reset_camera.inside()) button_reset_camera.switch_is();
+  if(button_reset_item_on.inside())button_reset_item_on.switch_is();
 }
 
 
@@ -907,13 +913,6 @@ void display_button_header() {
 
   noStroke();
   int alpha_bg_rollover = int(g.colorModeA *.8);
-  if(button_midi.inside()) {
-    text[0] = ("MIDI");
-    fill(fill_info_window_rect, alpha_bg_rollover);
-    background_text_list(Vec2(pos_window.x, pos_window.y), text, size_text, size_angle, speed, ratio_size, range_check, FuturaStencil_20) ;
-    fill(fill_info_window_text);
-    text(text[0],pos_window.x, pos_window.y);
-  }
 
   if(button_curtain.inside()) {
     text [0] = ("CUT") ;
@@ -922,6 +921,31 @@ void display_button_header() {
     background_text_list(Vec2(pos_window.x, pos_window.y), text, size_text, size_angle, speed, ratio_size,range_check,FuturaStencil_20) ;
     fill(fill_info_window_text);
     text(text [0], pos_window.x, pos_window.y) ;
+  }
+
+  if(button_midi.inside()) {
+    text[0] = ("MIDI");
+    fill(fill_info_window_rect, alpha_bg_rollover);
+    background_text_list(Vec2(pos_window.x, pos_window.y), text, size_text, size_angle, speed, ratio_size, range_check, FuturaStencil_20) ;
+    fill(fill_info_window_text);
+    text(text[0],pos_window.x, pos_window.y);
+  }
+
+  // reset button
+  if(button_reset_camera.inside()) {
+    text[0] = ("RESET CAMERA");
+    fill(fill_info_window_rect, alpha_bg_rollover);
+    background_text_list(Vec2(pos_window.x, pos_window.y), text, size_text, size_angle, speed, ratio_size, range_check, FuturaStencil_20) ;
+    fill(fill_info_window_text);
+    text(text[0],pos_window.x, pos_window.y);
+  }
+
+  if(button_reset_item_on.inside()) {
+    text[0] = ("RESET COORD ITEM ON");
+    fill(fill_info_window_rect, alpha_bg_rollover);
+    background_text_list(Vec2(pos_window.x, pos_window.y), text, size_text, size_angle, speed, ratio_size, range_check, FuturaStencil_20) ;
+    fill(fill_info_window_text);
+    text(text[0],pos_window.x, pos_window.y);
   }
 }
 
@@ -970,8 +994,12 @@ void display_button_general() {
     button_transient[i].show_label();
   }
   //MIDI / CURTAIN
-  button_midi.show_picto(picMidi) ;
-  button_curtain.show_picto(picCurtain) ;
+  button_curtain.show_picto(pic_curtain);
+  button_midi.show_picto(pic_midi);
+  // RESET
+  button_reset_camera.show_picto(pic_reset_camera);
+  button_reset_item_on.show_picto(pic_reset_item_on);
+
 }
 
 
@@ -992,10 +1020,10 @@ void update_button_general() {
   update_button_local(button_bg,
                       button_light_ambient,button_light_ambient_action,
                       button_light_1,button_light_1_action,
-                      button_light_2,button_light_2_action,
+                      button_light_2,button_light_2_action);
                       // button_kick,button_snare,button_hat,
-                      button_midi,button_curtain);
-
+  update_button_local(button_midi,button_curtain);
+  update_button_local(button_reset_camera,button_reset_item_on);
   update_button_local(button_fx);
   update_button_local(button_transient);
 }

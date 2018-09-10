@@ -1,10 +1,10 @@
 /**
 Rope UTILS 
-v 1.47.3
+v 1.47.4
 * Copyleft (c) 2014-2018 
 * Stan le Punk > http://stanlepunk.xyz/
 Rope – Romanesco Processing Environment – 
-Processing 3.3.7
+Processing 3.4
 * @author Stan le Punk
 * @see https://github.com/StanLepunK/Rope
 */
@@ -4131,7 +4131,7 @@ int [][] loadPixels_array_2D() {
 
 /**
 GRAPHICS METHOD
-v 0.3.1
+v 0.3.3
 */
 /**
 SCREEN
@@ -4172,6 +4172,10 @@ iVec2 get_screen_size() {
 }
 
 iVec2 get_screen_size(int target) {
+  if(target >= get_display_num()) {
+    target = 0;
+    printErr("method get_screen_size(int target): target screen",target,"don't match with any screen device instead target '0' is used");
+  }
   return get_display_size(target);
 }
 
@@ -4181,8 +4185,12 @@ iVec2 get_display_size() {
 }
 
 
-iVec2 get_display_size(int which_display) {  
-  Rectangle display = get_screen(which_display);
+iVec2 get_display_size(int target) {
+  if(target >= get_display_num()) {
+    target = 0;
+    printErr("method get_screen_size(int target): target screen",target,"don't match with any screen device instead target '0' is used");
+  }  
+  Rectangle display = get_screen(target);
   return iVec2((int)display.getWidth(), (int)display.getHeight()); 
 }
 
@@ -4190,8 +4198,8 @@ iVec2 get_display_size(int which_display) {
 screen location
 */
 
-iVec2 get_screen_location(int which_display) {
-  Rectangle display = get_screen(which_display);
+iVec2 get_screen_location(int target) {
+  Rectangle display = get_screen(target);
   return iVec2((int)display.getX(), (int)display.getY());
 }
 

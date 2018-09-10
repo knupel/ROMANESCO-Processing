@@ -158,12 +158,6 @@ void set_design_structure_inventory() {
 
 
 void set_design_structure_menu_bar() {
-  // CURTAIN
-  correctionCurtainX = 0;
-  correctionCurtainY = 8;
-  // GROUP MIDI
-  correctionMidiX = 40;
-  correctionMidiY = 9;
   spacing_midi_info = 13;
   correction_info_midi_x = 60;
   correction_info_midi_y = 10;
@@ -247,9 +241,7 @@ void set_design_aspect() {
   struc_colour_credit_background = r.GRAY_2;
   struc_colour_credit_text = r.WHITE;
 
-  /**
-  colour button
-  */
+  // colour button
   button_on_in = r.GREEN;
   button_on_out = r.BOTTLE;
 
@@ -278,9 +270,7 @@ void set_design_aspect() {
 
   selected_dd_text = r.BOTTLE;
 
-  /**
-  colour slider light
-  */
+  // colour slider light
   molette_in_light = r.GRAY_7;
   molette_out_light = r.GRAY_5;
 
@@ -292,9 +282,8 @@ void set_design_aspect() {
   label_in_light = r.GRAY_7;
   label_out_light = r.GRAY_5;
 
-  /**
-  colour slider dark
-  */
+
+  // colour slider dark
   molette_in_dark = r.GRAY_5;
   molette_out_dark = r.GRAY_3;
 
@@ -375,13 +364,22 @@ void set_console() {
 }
 
 void set_console_general() {
-  // MIDI
-  size_midi_button = iVec2(50,26);
-  pos_midi_button = iVec2(grid_col[0] +correctionMidiX, pos_y_button_top +correctionMidiY);
-  pos_midi_info = Vec2(pos_midi_button.x +correction_info_midi_x, pos_midi_button.y +correction_info_midi_y);
   // CURTAIN
+  pos_curtain_button = iVec2(grid_col[0] +0, pos_y_button_top +8);
   size_curtain_button = iVec2(30,30);
-  pos_curtain_button = iVec2(grid_col[0] +correctionCurtainX, pos_y_button_top +correctionCurtainY); 
+
+  // MIDI
+  pos_midi_button = iVec2(grid_col[0] +40, pos_y_button_top +9);
+  size_midi_button = iVec2(50,26);
+  pos_midi_info = Vec2(pos_midi_button.x +correction_info_midi_x, pos_midi_button.y +correction_info_midi_y); 
+
+  // RESET CAMERA
+  pos_reset_camera_button = iVec2(grid_col[0] +100, pos_y_button_top +9);
+  size_reset_camera_button = iVec2(26,26);
+
+  // RESET ITEM ON COORD
+  pos_reset_item_on_button = iVec2(grid_col[0] +150, pos_y_button_top +9);
+  size_reset_item_on_button = iVec2(26,26);
 }
 
 void set_console_slider_background(iVec2 pos, iVec2 size) {
@@ -670,8 +668,10 @@ iVec2 size_window_ref;
 
 //LOAD PICTURE VIGNETTE
 int numVignette ;
-PImage[] picCurtain = new PImage[4] ;
-PImage[] picMidi = new PImage[4] ;
+
+
+
+
 
 // slider mode display
 int slider_mode_display = 0 ;
@@ -717,6 +717,7 @@ iVec3 [] info_button_general;
 
 
 // midi
+PImage[] pic_midi = new PImage[4];
 Button button_midi;
 int sliderMidi, midi_value_romanesco, midi_channel_romanesco ;
 int midi_CC_romanesco = -1 ;
@@ -725,20 +726,44 @@ boolean selectMidi = false ;
 int button_midi_is;
 iVec2 pos_midi_button, size_midi_button;
 Vec2 pos_midi_info;
-int correctionMidiX;
-int correctionMidiY;
+
 int spacing_midi_info;
 int correction_info_midi_x;
 int correction_info_midi_y;
 int size_x_window_info_midi;
 
 // Curtain
+PImage[] pic_curtain = new PImage[4];
 Button button_curtain;
 boolean curtainOpenClose ;
 int button_curtain_is;
 iVec2 pos_curtain_button, size_curtain_button;
-int correctionCurtainX;
-int correctionCurtainY;
+
+// reset camera
+PImage[] pic_reset_camera = new PImage[4];
+Button button_reset_camera;
+int button_reset_camera_is;
+iVec2 pos_reset_camera_button;
+iVec2 size_reset_camera_button;
+
+// reset coor item selected
+PImage[] pic_reset_item_on = new PImage[4];
+Button button_reset_item_on;
+int button_reset_item_on_is;
+iVec2 pos_reset_item_on_button;
+iVec2 size_reset_item_on_button;
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 // background button

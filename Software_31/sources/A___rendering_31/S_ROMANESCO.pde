@@ -151,38 +151,38 @@ void set_slider_item_name() {
 void update_var_items(int ID) {
   //initialization
   if(!init_value_mouse[ID]) { 
-    mouse[ID] = mouse[0].copy() ;
-    pen[ID] = pen[0].copy() ;
-    init_value_mouse[ID] = true ;
+    mouse[ID] = mouse[0].copy();
+    pen[ID] = pen[0].copy();
+    init_value_mouse[ID] = true;
   }
   if(!init_value_controller[ID]) {
-    font_item[ID] = font_library ;
-    path_font_item[ID] = path_font_library[0] ;
+    font_item[ID] = font_library;
+    path_font_item[ID] = path_font_library[0];
     update_slider_value(ID) ;
-    init_value_controller[ID] = true ;
-    which_bitmap[ID] = which_bitmap[0] ;
-    which_text[ID] = which_text[0] ;
-    which_shape[ID] = which_shape[0] ;
-    which_movie[ID] = which_movie[0] ;
+    init_value_controller[ID] = true;
+    which_bitmap[ID] = which_bitmap[0];
+    which_text[ID] = which_text[0];
+    which_shape[ID] = which_shape[0];
+    which_movie[ID] = which_movie[0];
   }
   
   // info
-  item_info_display[ID] = displayInfo?true:false ;
+  item_info_display[ID] = displayInfo?true:false;
   
   if(parameter[ID]) {
-    which_bitmap[ID] = which_bitmap[0] ;
-    which_text[ID] = which_text[0] ;
-    which_shape[ID] = which_shape[0] ;
-    which_movie[ID] = which_movie[0] ;
-    font_item[ID] = font_library ;
-    update_slider_value(ID) ;
+    which_bitmap[ID] = which_bitmap[0];
+    which_text[ID] = which_text[0];
+    which_shape[ID] = which_shape[0];
+    which_movie[ID] = which_movie[0];
+    font_item[ID] = font_library;
+    update_slider_value(ID);
   }
-  update_var_sound(ID) ;
+  update_var_sound(ID);
   
   if(action[ID] ){
     if(key_space_long) {
-      pen[ID].set(pen[0]) ;
-      mouse[ID].set(mouse[0]) ;
+      pen[ID].set(pen[0]);
+      mouse[ID].set(mouse[0]);
     }
     if (key_n) birth[ID] = !birth[ID];
     if (key_x) colour[ID] = !colour[ID];
@@ -298,7 +298,7 @@ void update_slider_value(int ID) {
   /** 
   make the obj has be never update in the future except by the moving slider 
   */
-  first_opening_item[ID] = true ; 
+  first_opening_item[ID] = true; 
 
 }
 
@@ -328,7 +328,7 @@ void update_var_sound(int ID) {
     tempoHat[ID] = tempoHat[0]; // speed of track calculte on the hat
     
     for (int i = 0 ; i <NUM_BANDS ; i++) {
-      band[ID][i] = band[0][i] ;
+      band[ID][i] = band[0][i];
     }
   } else {
     left[ID] = 1;// value(0,1)

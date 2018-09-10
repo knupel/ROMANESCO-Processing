@@ -21,12 +21,14 @@ Processing 3.4.0
 /**
 DEV
 */
-/*
+
 boolean DEV_MODE = true;
 String IAM = "prescene";
 boolean LIVE = false;
-boolean FULL_RENDERING = true;
-*/
+boolean FULL_RENDERING = false;
+
+
+
 
 
 
@@ -36,24 +38,13 @@ boolean FULL_RENDERING = true;
 * Here you can choice between the three common rendering mode
 */
 
-// Prescene LIVE PREVIEW > BUG
+// Prescene preview LIVE
 /*
 boolean DEV_MODE = false;
 String IAM = "prescene";
 boolean LIVE = true;
 boolean FULL_RENDERING = false;
 */
-
-
-// Prescene LIVE FULL_RENDERING
-/*
-boolean DEV_MODE = false;
-String IAM = "prescene";
-boolean LIVE = true;
-boolean FULL_RENDERING = true;
-*/
-
-
 
 
 // Prescene FULL_RENDERING
@@ -66,11 +57,13 @@ boolean FULL_RENDERING = true;
 
 
 // SCENE LIVE 
-
+/*
 boolean DEV_MODE = false;
 String IAM = "scene";
 boolean LIVE = false; // here LIVE must be true, but not sure that's work now for OSC in scene rendering
 boolean FULL_RENDERING = true;
+*/
+
 
 
 
@@ -124,10 +117,13 @@ void setup() {
   load_save(preference_path+"setting/defaultSetting.csv");
   version();
   set_system_specification();
-  
   OSC_setup();
+  
+
 
   display_setup(60); // the int value is the frameRate
+
+
   RG.init(this);  // Geomerative
 
   romanesco_build_item();
@@ -156,6 +152,7 @@ void setup() {
   light_setup();
 
   init_filter();
+
 }
 
 
@@ -210,21 +207,7 @@ void romanesco() {
     save_scene();
   }
   
-
-
-  //ROMANESCO
-  if(curtain_button_is() || !FULL_RENDERING) {
-    rendering();
-    info();
-  } else {
-    // if(FULL_RENDERING && !DEV_MODE) curtain();
-    if(FULL_RENDERING && IAM.equals("scene")) {
-      curtain();
-    } else {
-      rendering();
-      info();
-    }
-  }
+  rendering();
 
   if(FULL_RENDERING) {
     masking(set_mask_is());
@@ -272,9 +255,11 @@ void romanesco() {
     // if(IAM.equals("scene") || !LIVE) {
       background(0);
       message_opening();
+    } else if(IAM.equals("prescene") && FULL_RENDERING) {
+      background(0);
+      message_opening();
     }
   }
-  
 }
 
 

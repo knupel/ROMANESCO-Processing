@@ -74,8 +74,8 @@ void warp() {
   warp_romanesco.show(force_romanesco,intensity_warp);
 
   if(warp_reset) {
-     warp_romanesco.reset();
-     warp_reset = false;
+    warp_romanesco.reset();
+    warp_reset = false;
   }
 }
 
