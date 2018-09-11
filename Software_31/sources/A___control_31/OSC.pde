@@ -1,7 +1,7 @@
 /**
 OSC Controller
 2014 - 2018
-v 1.1.0
+v 1.2.0
 */
 import oscP5.*;
 import netP5.*;
@@ -100,7 +100,10 @@ void message_general_osc(OscMessage m) {
 
   // add menu bar
   add_data_general(m,button_curtain.is());
-  // add_data(m,button_midi.is());
+  add_data_general(m,button_reset_camera.is());
+  add_data_general(m,button_reset_item_on.is());
+  add_data_general(m,button_birth.is());
+  add_data_general(m,button_3D.is());
  
   // dropdown general
   add_data_general(m,dropdown_bar[0].get_selection()); // font or shader ?
@@ -112,7 +115,7 @@ void message_general_osc(OscMessage m) {
   add_data_general(m,dropdown_bar[6].get_selection()); // movie
 
   // button general background
-  add_data_general(m, button_bg.is());
+  add_data_general(m,button_bg.is());
   // button fx
   for(int i = 0 ; i < NUM_BUTTON_FX ; i++) {
     add_data_general(m,button_fx[i].is());

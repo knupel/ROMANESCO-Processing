@@ -234,18 +234,18 @@ void load_saved_file_controller(String path) {
     }
     // button general
     if(s.equals("Button background")){ 
-      int IDbutton = row.getInt("ID button") ;
-      int IDmidi = row.getInt("ID midi") ;
-      int onOff = row.getInt("On Off") ;
+      int IDbutton = row.getInt("ID button");
+      int IDmidi = row.getInt("ID midi");
+      int onOff = row.getInt("On Off");
       if(count_button_general < info_button_general.length) {
         info_button_general[count_button_general].set(IDbutton,IDmidi,onOff);
       }
       count_button_general++;
     }
     if(s.equals("Button curtain")){ 
-      int IDbutton = row.getInt("ID button") ;
-      int IDmidi = row.getInt("ID midi") ;
-      int onOff = row.getInt("On Off") ;
+      int IDbutton = row.getInt("ID button");
+      int IDmidi = row.getInt("ID midi");
+      int onOff = row.getInt("On Off");
       if(count_button_general < info_button_general.length) {
         info_button_general[count_button_general].set(IDbutton,IDmidi,onOff);
       }
@@ -253,9 +253,9 @@ void load_saved_file_controller(String path) {
     }
 
     if(s.equals("Button fx")){ 
-      int IDbutton = row.getInt("ID button") ;
-      int IDmidi = row.getInt("ID midi") ;
-      int onOff = row.getInt("On Off") ;
+      int IDbutton = row.getInt("ID button");
+      int IDmidi = row.getInt("ID midi");
+      int onOff = row.getInt("On Off");
       if(count_button_general < info_button_general.length) {
         info_button_general[count_button_general].set(IDbutton,IDmidi,onOff);
       }
@@ -264,18 +264,18 @@ void load_saved_file_controller(String path) {
 
 
     if(s.equals("Button light ambient")){ 
-      int IDbutton = row.getInt("ID button") ;
-      int IDmidi = row.getInt("ID midi") ;
-      int onOff = row.getInt("On Off") ;
+      int IDbutton = row.getInt("ID button");
+      int IDmidi = row.getInt("ID midi");
+      int onOff = row.getInt("On Off");
       if(count_button_general < info_button_general.length) {
         info_button_general[count_button_general].set(IDbutton,IDmidi,onOff);
       }
       count_button_general++;
     }
     if(s.equals("Button light 1")){ 
-      int IDbutton = row.getInt("ID button") ;
-      int IDmidi = row.getInt("ID midi") ;
-      int onOff = row.getInt("On Off") ;
+      int IDbutton = row.getInt("ID button");
+      int IDmidi = row.getInt("ID midi");
+      int onOff = row.getInt("On Off");
       if(count_button_general < info_button_general.length) {
         info_button_general[count_button_general].set(IDbutton,IDmidi,onOff);
       }
@@ -283,9 +283,9 @@ void load_saved_file_controller(String path) {
     }
 
     if(s.equals("Button light 2")){ 
-      int IDbutton = row.getInt("ID button") ;
-      int IDmidi = row.getInt("ID midi") ;
-      int onOff = row.getInt("On Off") ;
+      int IDbutton = row.getInt("ID button");
+      int IDmidi = row.getInt("ID midi");
+      int onOff = row.getInt("On Off");
       if(count_button_general < info_button_general.length) {
         info_button_general[count_button_general].set(IDbutton,IDmidi,onOff);
       }
@@ -293,9 +293,9 @@ void load_saved_file_controller(String path) {
     }
 
     if(s.equals("Button transient")){ 
-      int IDbutton = row.getInt("ID button") ;
-      int IDmidi = row.getInt("ID midi") ;
-      int onOff = row.getInt("On Off") ;
+      int IDbutton = row.getInt("ID button");
+      int IDmidi = row.getInt("ID midi");
+      int onOff = row.getInt("On Off");
       if(count_button_general < info_button_general.length) {
         info_button_general[count_button_general].set(IDbutton,IDmidi,onOff);
       }
@@ -304,8 +304,8 @@ void load_saved_file_controller(String path) {
 
     // button item
     if(s.equals("Button item")){ 
-      int IDbutton = row.getInt("ID button") ;
-      int IDmidi = row.getInt("ID midi") ;
+      int IDbutton = row.getInt("ID button");
+      int IDmidi = row.getInt("ID midi");
       int onOff = row.getInt("On Off");
       if(count_button_item < info_button_item.length) {
         info_button_item[count_button_item].set(IDbutton,IDmidi,onOff);
@@ -761,6 +761,9 @@ void set_import_pic_button() {
     // reset
     pic_reset_camera[i] = loadImage("picto/picto_camera_"+i+".png");
     pic_reset_item_on[i] = loadImage("picto/picto_item_selected_"+i+".png");
+    // misc
+    pic_birth[i] = loadImage("picto/picto_birth_"+i+".png");
+    pic_3D[i] = loadImage("picto/picto_3D_"+i+".png");
     //item
     picSetting[i] = loadImage("picto/picto_setting_"+i+".png") ;
     picSound[i] = loadImage("picto/picto_sound_"+i+".png") ;

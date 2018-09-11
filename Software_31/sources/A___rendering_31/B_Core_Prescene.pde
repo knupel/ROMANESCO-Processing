@@ -162,7 +162,7 @@ KEYBOARD & SHORTCUTS
 import java.awt.event.KeyEvent;
 boolean[] keyboard = new boolean[526];
 
-void shortCutsPrescene() {
+void shortcuts_prescene() {
   keyboard[keyCode] = true ;
   // save Scene
   check_keyboard_save_scene_CURRENT_path();

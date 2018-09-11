@@ -179,14 +179,14 @@ void update_var_items(int ID) {
   }
   update_var_sound(ID);
   
-  if(action[ID] ){
+  if(action[ID]){
     if(key_space_long) {
       pen[ID].set(pen[0]);
       mouse[ID].set(mouse[0]);
     }
-    if (key_n) birth[ID] = !birth[ID];
+    if (key_n || birth_button_is()) birth[ID] = !birth[ID];
     if (key_x) colour[ID] = !colour[ID];
-    if (key_d) dimension[ID] = !dimension[ID];
+    if (key_d || dimension_button_is()) dimension[ID] = !dimension[ID];
     if (key_h) horizon[ID] = !horizon[ID];
     if (key_m) motion[ID] = !motion[ID];
     if (key_o) orbit[ID] = !orbit[ID];
@@ -627,7 +627,7 @@ class Romanesco_manager {
           pushMatrix();
           add_ref_item(item.get_id());
           item_follower(item.get_id());
-          if(key_v_long && action[item.get_id()] ) {
+          if((key_v_long || reset_item_on_button_is()) && action[item.get_id()]) {
             item_move(movePos, moveDir, item.get_id());
           }
           final_pos_item(item.get_id());

@@ -1,8 +1,7 @@
 /**
 Variable
-v 0.2.0
+v 0.3.0
 */
-
 /**
 design
 */
@@ -10,9 +9,6 @@ void set_design() {
   set_design_structure();
   set_design_aspect();
 }
-
-
-
 
 
 
@@ -59,8 +55,6 @@ void set_design_structure() {
   set_design_structure_sound(1);
   set_design_structure_setting(4);
 
-
-
   DIST_BETWEEN_ITEM = 40;
   set_design_structure_item_selected();
 
@@ -104,8 +98,6 @@ void set_design_structure_sound_setting(int rank) {
   offset_sound_setting_x = grid_col[9];
   offset_sound_setting_y = pos_y_menu_general_content +(rank *spacing_slider);
 }
-
-
 
 
 void set_design_structure_filter(int rank) {
@@ -367,19 +359,22 @@ void set_console_general() {
   // CURTAIN
   pos_curtain_button = iVec2(grid_col[0] +0, pos_y_button_top +8);
   size_curtain_button = iVec2(30,30);
-
   // MIDI
   pos_midi_button = iVec2(grid_col[0] +40, pos_y_button_top +9);
   size_midi_button = iVec2(50,26);
   pos_midi_info = Vec2(pos_midi_button.x +correction_info_midi_x, pos_midi_button.y +correction_info_midi_y); 
-
   // RESET CAMERA
   pos_reset_camera_button = iVec2(grid_col[0] +100, pos_y_button_top +9);
   size_reset_camera_button = iVec2(26,26);
-
   // RESET ITEM ON COORD
-  pos_reset_item_on_button = iVec2(grid_col[0] +150, pos_y_button_top +9);
+  pos_reset_item_on_button = iVec2(grid_col[0] +130, pos_y_button_top +9);
   size_reset_item_on_button = iVec2(26,26);
+  // BIRTH
+  pos_birth_button = iVec2(grid_col[0] +160, pos_y_button_top +9);
+  size_birth_button = iVec2(26,26);
+  // 3D
+  pos_3D_button = iVec2(grid_col[0] +190, pos_y_button_top +9);
+  size_3D_button = iVec2(26,26);
 }
 
 void set_console_slider_background(iVec2 pos, iVec2 size) {
@@ -711,10 +706,7 @@ int [] width_dropdown_bar  ;
 String [] name_dropdown_bar ;
 String [][] dropdown_content;
 
-
-
 iVec3 [] info_button_general;
-
 
 // midi
 PImage[] pic_midi = new PImage[4];
@@ -752,6 +744,20 @@ Button button_reset_item_on;
 int button_reset_item_on_is;
 iVec2 pos_reset_item_on_button;
 iVec2 size_reset_item_on_button;
+
+// birth
+PImage[] pic_birth = new PImage[4];
+Button button_birth;
+int button_birth_is;
+iVec2 pos_birth_button;
+iVec2 size_birth_button;
+
+// 3D
+PImage[] pic_3D = new PImage[4];
+Button button_3D;
+int button_3D_is;
+iVec2 pos_3D_button;
+iVec2 size_3D_button;
 
 
 

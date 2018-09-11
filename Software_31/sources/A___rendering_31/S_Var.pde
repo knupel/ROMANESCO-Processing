@@ -3,17 +3,16 @@ VARIABLE
 Prescene, Scene
 Romanesco Processing Environment
 2015-2018
-v 1.6.1
+v 1.6.2
 */
 
 /** 
 SCENE VARIABLE
 */
-
 /**
 Variable_Scene
 2014_2018
-v 0.1.1
+v 0.1.2
 */
 boolean scene, prescene;
 boolean miroir_on_off = false ;
@@ -24,11 +23,6 @@ boolean check_size = false ;
 // In the Miroir and Scene sketch presceneOnly must be true for the final work.
 Boolean internet = true ;
 String bigBrother = ("BIG BROTHER DON'T WATCHING YOU !!") ;
-
-//Special var for the Scene and the Miroir
-
-
-
 
 //init var
 //GLOBAL
@@ -63,7 +57,6 @@ void scene_variables_setup() {
 /**
 GLOBAL VARIABLE
 */
-
 /**
 keyboard
 */
@@ -112,7 +105,6 @@ String findPath ;
 boolean MOUSE_IN_OUT = true ;
 
 
-// COMMAND BOOLEAN
 // BOOLEAN COMMAND
 // command from leap motion, mouse or other devices if we code for that :)
 boolean ORDER, ORDER_ONE, ORDER_TWO, ORDER_THREE ;
@@ -129,7 +121,7 @@ boolean load_SCENE_Setting_GLOBAL, save_Current_SCENE_Setting_GLOBAL, save_New_S
 int NUM_BANDS = 128;
 
 int button_item_num  ; 
-// VAR obj
+// VAR item
 int COLOR_FILL_ITEM_PREVIEW; 
 int COLOR_STROKE_ITEM_PREVIEW;
 int THICKNESS_ITEM_PREVIEW = 2;
@@ -143,6 +135,10 @@ int BUTTON_ITEM_CONSOLE = 4;
 boolean [] transient_button_is;
 boolean [] fx_button_is = new boolean[NUM_BUTTON_FX];
 boolean curtain_button_is;
+boolean reset_camera_button_is;
+boolean reset_item_on_button_is;
+boolean birth_button_is;
+boolean dimension_button_is;
 boolean background_button_is;
 boolean ambient_button_is,ambient_action_is;
 boolean light_1_button_is,light_1_action_button_is;
@@ -762,52 +758,52 @@ void init_variable_item_min_max() {
   canvas_y_min_max = Vec2(max *min_size, max *factor_area) ; 
   canvas_z_min_max = Vec2(max *min_size, max *factor_area) ;
 
-  frequence_min_max = Vec2(0,1) ;
+  frequence_min_max = Vec2(0,1);
 
-  speed_x_min_max = Vec2(0,1) ; 
-  speed_y_min_max = Vec2(0,1) ; 
-  speed_z_min_max = Vec2(0,1) ;
+  speed_x_min_max = Vec2(0,1); 
+  speed_y_min_max = Vec2(0,1); 
+  speed_z_min_max = Vec2(0,1);
 
-  spurt_x_min_max = Vec2(0,1) ; 
-  spurt_y_min_max = Vec2(0,1) ; 
-  spurt_z_min_max = Vec2(0,1) ;
+  spurt_x_min_max = Vec2(0,1); 
+  spurt_y_min_max = Vec2(0,1); 
+  spurt_z_min_max = Vec2(0,1);
 
-  dir_x_min_max = Vec2(0,360) ; // data from controller value 0 - 360 
-  dir_y_min_max = Vec2(0,360) ; //  data from controller value 0 - 360
-  dir_z_min_max = Vec2(0,360) ; // data from controller value 0 - 360
+  dir_x_min_max = Vec2(0,360); // data from controller value 0 - 360 
+  dir_y_min_max = Vec2(0,360); //  data from controller value 0 - 360
+  dir_z_min_max = Vec2(0,360); // data from controller value 0 - 360
 
-  jitter_x_min_max = Vec2(0,1) ; 
-  jitter_y_min_max = Vec2(0,1) ; 
-  jitter_z_min_max = Vec2(0,1) ;
+  jitter_x_min_max = Vec2(0,1); 
+  jitter_y_min_max = Vec2(0,1); 
+  jitter_z_min_max = Vec2(0,1);
 
-  swing_x_min_max = Vec2(0,1) ; 
-  swing_y_min_max = Vec2(0,1) ; 
-  swing_z_min_max = Vec2(0,1) ;
+  swing_x_min_max = Vec2(0,1); 
+  swing_y_min_max = Vec2(0,1); 
+  swing_z_min_max = Vec2(0,1);
 
-  quantity_min_max = Vec2(0,1) ; 
-  variety_min_max = Vec2(0,1) ; 
+  quantity_min_max = Vec2(0,1); 
+  variety_min_max = Vec2(0,1); 
 
-  life_min_max = Vec2(0,1) ; 
-  flow_min_max = Vec2(0,1) ; 
-  quality_min_max = Vec2(0,1) ;
+  life_min_max = Vec2(0,1); 
+  flow_min_max = Vec2(0,1); 
+  quality_min_max = Vec2(0,1);
 
-  area_min_max = Vec2(max *min_size, max *factor_area) ; 
-  angle_min_max = Vec2(0,360) ;  // data from controller value 0 - 360
-  scope_min_max = Vec2(max *min_size, max *factor_area) ; 
-  scan_min_max = Vec2(0,360) ; // data from controller value 0 - 360
+  area_min_max = Vec2(max *min_size, max *factor_area); 
+  angle_min_max = Vec2(0,360);  // data from controller value 0 - 360
+  scope_min_max = Vec2(max *min_size, max *factor_area); 
+  scan_min_max = Vec2(0,360); // data from controller value 0 - 360
 
-  alignment_min_max = Vec2(0,1) ; 
-  repulsion_min_max = Vec2(0,1) ; 
-  attraction_min_max = Vec2(0,1) ; 
-  density_min_max = Vec2(0,1) ;
+  alignment_min_max = Vec2(0,1); 
+  repulsion_min_max = Vec2(0,1); 
+  attraction_min_max = Vec2(0,1); 
+  density_min_max = Vec2(0,1);
 
-  influence_min_max = Vec2(0,1) ; 
-  calm_min_max = Vec2(0,1) ; 
-  spectrum_min_max = Vec2(0,360) ;
+  influence_min_max = Vec2(0,1); 
+  calm_min_max = Vec2(0,1); 
+  spectrum_min_max = Vec2(0,360);
 
   grid_min_max = Vec2(max *min_size, max *factor_area); 
-  viscosity_min_max = Vec2(0,1) ; 
-  diffusion_min_max = Vec2(01) ;
+  viscosity_min_max = Vec2(0,1); 
+  diffusion_min_max = Vec2(01);
 }
 
 
@@ -815,9 +811,9 @@ void init_variable_item_min_max() {
 void init_variable_item() {
   for (int i = 0 ; i < NUM_ITEM_PLUS_MASTER ; i++ ) {
     // display boolean 
-    fill_is[i] = true ;
-    stroke_is[i] = true ;
-    wire[i] = true ;
+    fill_is[i] = true;
+    stroke_is[i] = true;
+    wire[i] = true;
     // master follower
     master_ID[i] = 0;
     follower[i] = false;
@@ -939,21 +935,32 @@ void init_slider_variable_world() {
 /**
 button general var setting
 */
-boolean transient_button_is(int index) {
-  return transient_button_is[index];
-}
 
-boolean fx_button_is(int index) {
-  return fx_button_is[index];
-}
-
+// general button
 boolean curtain_button_is() {
   return curtain_button_is;
+}
+
+boolean reset_camera_button_is() {
+  return reset_camera_button_is;
+}
+
+boolean reset_item_on_button_is() {
+  return reset_item_on_button_is;
+}
+
+boolean birth_button_is() {
+  return birth_button_is;
+}
+
+boolean dimension_button_is() {
+  return dimension_button_is;
 }
 
 boolean background_button_is() {
   return background_button_is;
 }
+
 
 boolean ambient_button_is() {
   return ambient_button_is;
@@ -979,18 +986,36 @@ boolean light_2_action_button_is() {
   return light_2_action_button_is;
 }
 
+boolean transient_button_is(int index) {
+  return transient_button_is[index];
+}
+
+boolean fx_button_is(int index) {
+  return fx_button_is[index];
+}
+
 
 // set boolean
-void transient_button_is(int index, boolean is) {
-  transient_button_is[index] = is;
-}
 
-void fx_button_is(int index, boolean is) {
-  fx_button_is[index] = is;
-}
 
 void curtain_button_is(boolean is) {
   curtain_button_is = is;
+}
+
+void reset_camera_button_is(boolean is) {
+  reset_camera_button_is = is;
+}
+
+void reset_item_on_button_is(boolean is) {
+  reset_item_on_button_is = is;
+}
+
+void birth_button_is(boolean is) {
+  birth_button_is = is;
+}
+
+void dimension_button_is(boolean is) {
+  dimension_button_is = is;
 }
 
 void background_button_is(boolean is) {
@@ -1019,6 +1044,15 @@ void light_1_action_button_is(boolean is) {
 
 void light_2_action_button_is(boolean is) {
   light_2_action_button_is = is;
+}
+
+
+void transient_button_is(int index, boolean is) {
+  transient_button_is[index] = is;
+}
+
+void fx_button_is(int index, boolean is) {
+  fx_button_is[index] = is;
 }
 
 

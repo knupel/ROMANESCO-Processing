@@ -21,15 +21,12 @@ Processing 3.4.0
 /**
 DEV
 */
-
+/*
 boolean DEV_MODE = true;
 String IAM = "prescene";
 boolean LIVE = false;
-boolean FULL_RENDERING = false;
-
-
-
-
+boolean FULL_RENDERING = true;
+*/
 
 
 
@@ -37,16 +34,6 @@ boolean FULL_RENDERING = false;
 * RENDERING
 * Here you can choice between the three common rendering mode
 */
-
-// Prescene preview LIVE
-/*
-boolean DEV_MODE = false;
-String IAM = "prescene";
-boolean LIVE = true;
-boolean FULL_RENDERING = false;
-*/
-
-
 // Prescene FULL_RENDERING
 /*
 boolean DEV_MODE = false;
@@ -54,15 +41,26 @@ String IAM = "prescene";
 boolean LIVE = false;
 boolean FULL_RENDERING = true;
 */
+/*
+// Prescene preview LIVE
+boolean DEV_MODE = false;
+String IAM = "prescene";
+boolean LIVE = true;
+boolean FULL_RENDERING = false;
+*/
+
+
+
+
 
 
 // SCENE LIVE 
-/*
+
 boolean DEV_MODE = false;
 String IAM = "scene";
 boolean LIVE = false; // here LIVE must be true, but not sure that's work now for OSC in scene rendering
 boolean FULL_RENDERING = true;
-*/
+
 
 
 
@@ -94,7 +92,6 @@ void settings() {
   fullScreen(P3D,2); // original
   FULL_SCREEN = true;
   */
- 
 
   pixelDensity(displayDensity());
   syphon_settings();
@@ -286,7 +283,7 @@ void keyPressed () {
     if(LIVE) {
       send_message(true);
     }
-    shortCutsPrescene();
+    shortcuts_prescene();
     nextPreviousKeypressed();
     key_true();
   }
@@ -296,7 +293,6 @@ void keyPressed () {
   keyPressed_mask_border_hide('H');
   keyPressed_mask_save('S');
   keyPressed_mask_load('L');
-  // mask_keyPressed();
   warp_keyPressed('N');
 }
 

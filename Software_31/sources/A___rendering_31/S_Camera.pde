@@ -190,13 +190,9 @@ void item_move(boolean movePos, boolean moveDir, int ID) {
 
 
 
-/*
-  master_ID = new int[NUM_ITEM_PLUS_MASTER] ;
-  follower = new boolean[NUM_ITEM_PLUS_MASTER] ;
-  */
 
   //RESET
-  if(key_0) {
+  if(key_0 || reset_item_on_button_is()) {
     pos_item_final[ID].set(item_setting_position [0][ID]);
     dir_item_final[ID].set(item_setting_direction [0][ID]) ;
     
@@ -597,7 +593,7 @@ void catch_camera_info() {
 //camera order from the mouse or from the leap
 void order_camera() {
   boolean authorization = key_c_long ;
-  if(authorization) {
+  if(authorization || reset_camera_button_is()) {
     if(ORDER_ONE || ORDER_THREE) {
       moveScene = true ; 
     } else {
@@ -613,8 +609,8 @@ void order_camera() {
     sceneCamera.z -= wheel[0] ;
       
     // change camera position
-    if(key_enter) travelling(posCamRef) ;
-    if (key_0) {
+    if(key_enter) travelling(posCamRef);
+    if (key_0 || reset_camera_button_is()) {
       reset_camera(0) ;
     }
   } else if (!authorization || (ORDER_ONE && ORDER_ONE && ORDER_THREE) ) {

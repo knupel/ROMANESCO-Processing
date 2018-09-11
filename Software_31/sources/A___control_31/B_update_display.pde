@@ -846,7 +846,11 @@ void check_button_general() {
   if(button_midi.is()) button_midi_is = 1 ; else button_midi_is = 0;
   // reset button
   if(button_reset_camera.is()) button_reset_camera_is = 1 ; else button_reset_camera_is = 0;
+
+  // misc item button
   if(button_reset_item_on.is()) button_reset_item_on_is = 1 ; else button_reset_item_on_is = 0;
+  if(button_birth.is()) button_birth_is = 1 ; else button_birth_is = 0;
+  if(button_3D.is()) button_3D_is = 1 ; else button_3D_is = 0;
 
 }
 
@@ -877,7 +881,10 @@ void mousePressed_button_general() {
   if(button_curtain.inside())button_curtain.switch_is();
   // reset button
   if(button_reset_camera.inside()) button_reset_camera.switch_is();
+  // item action
   if(button_reset_item_on.inside())button_reset_item_on.switch_is();
+  if(button_birth.inside()) button_birth.switch_is();
+  if(button_3D.inside())button_3D.switch_is();
 }
 
 
@@ -918,24 +925,24 @@ void display_button_header() {
     text [0] = ("CUT") ;
     noStroke() ;
     fill(fill_info_window_rect, alpha_bg_rollover) ;
-    background_text_list(Vec2(pos_window.x, pos_window.y), text, size_text, size_angle, speed, ratio_size,range_check,FuturaStencil_20) ;
+    background_text_list(Vec2(pos_window.x, pos_window.y), text, size_text, size_angle, speed, ratio_size,range_check,FuturaStencil_20);
     fill(fill_info_window_text);
-    text(text [0], pos_window.x, pos_window.y) ;
+    text(text [0], pos_window.x, pos_window.y);
   }
 
   if(button_midi.inside()) {
     text[0] = ("MIDI");
     fill(fill_info_window_rect, alpha_bg_rollover);
-    background_text_list(Vec2(pos_window.x, pos_window.y), text, size_text, size_angle, speed, ratio_size, range_check, FuturaStencil_20) ;
+    background_text_list(Vec2(pos_window.x, pos_window.y), text, size_text, size_angle, speed, ratio_size, range_check, FuturaStencil_20);
     fill(fill_info_window_text);
     text(text[0],pos_window.x, pos_window.y);
   }
 
-  // reset button
+
   if(button_reset_camera.inside()) {
     text[0] = ("RESET CAMERA");
     fill(fill_info_window_rect, alpha_bg_rollover);
-    background_text_list(Vec2(pos_window.x, pos_window.y), text, size_text, size_angle, speed, ratio_size, range_check, FuturaStencil_20) ;
+    background_text_list(Vec2(pos_window.x, pos_window.y), text, size_text, size_angle, speed, ratio_size, range_check, FuturaStencil_20);
     fill(fill_info_window_text);
     text(text[0],pos_window.x, pos_window.y);
   }
@@ -943,7 +950,23 @@ void display_button_header() {
   if(button_reset_item_on.inside()) {
     text[0] = ("RESET COORD ITEM ON");
     fill(fill_info_window_rect, alpha_bg_rollover);
-    background_text_list(Vec2(pos_window.x, pos_window.y), text, size_text, size_angle, speed, ratio_size, range_check, FuturaStencil_20) ;
+    background_text_list(Vec2(pos_window.x, pos_window.y), text, size_text, size_angle, speed, ratio_size, range_check, FuturaStencil_20);
+    fill(fill_info_window_text);
+    text(text[0],pos_window.x, pos_window.y);
+  }
+
+  if(button_birth.inside()) {
+    text[0] = ("BIRTH");
+    fill(fill_info_window_rect, alpha_bg_rollover);
+    background_text_list(Vec2(pos_window.x, pos_window.y), text, size_text, size_angle, speed, ratio_size, range_check, FuturaStencil_20);
+    fill(fill_info_window_text);
+    text(text[0],pos_window.x, pos_window.y);
+  }
+
+  if(button_3D.inside()) {
+    text[0] = ("3 DIMENSIONS");
+    fill(fill_info_window_rect, alpha_bg_rollover);
+    background_text_list(Vec2(pos_window.x, pos_window.y), text, size_text, size_angle, speed, ratio_size, range_check, FuturaStencil_20);
     fill(fill_info_window_text);
     text(text[0],pos_window.x, pos_window.y);
   }
@@ -999,6 +1022,9 @@ void display_button_general() {
   // RESET
   button_reset_camera.show_picto(pic_reset_camera);
   button_reset_item_on.show_picto(pic_reset_item_on);
+  // MISC
+  button_birth.show_picto(pic_birth);
+  button_3D.show_picto(pic_3D);
 
 }
 
@@ -1022,7 +1048,7 @@ void update_button_general() {
                       button_light_1,button_light_1_action,
                       button_light_2,button_light_2_action);
                       // button_kick,button_snare,button_hat,
-  update_button_local(button_midi,button_curtain);
+  update_button_local(button_midi,button_curtain,button_birth,button_3D);
   update_button_local(button_reset_camera,button_reset_item_on);
   update_button_local(button_fx);
   update_button_local(button_transient);

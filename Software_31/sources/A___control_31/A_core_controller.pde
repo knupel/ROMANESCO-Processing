@@ -17,11 +17,26 @@ void setting_misc() {
   surface.setResizable(true);
 }
 
+
+
+
+
 void reset() {
   LOAD_SETTING = false;
   INIT_INTERFACE = false;
   reset_midi_control_parametter();
+  reset_button_flash();
 }
+
+void reset_button_flash() {
+  button_reset_camera.set_is(false);
+  button_reset_item_on.set_is(false);
+  button_birth.set_is(false);
+  button_3D.set_is(false);
+}
+
+
+
 
 
 

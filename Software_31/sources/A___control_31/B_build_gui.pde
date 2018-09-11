@@ -23,6 +23,8 @@ void build_console_general() {
   button_curtain = new Button(pos_curtain_button, size_curtain_button);
   button_reset_camera = new Button(pos_reset_camera_button, size_reset_camera_button);
   button_reset_item_on = new Button(pos_reset_item_on_button, size_reset_item_on_button);
+  button_birth = new Button(pos_birth_button, size_birth_button);
+  button_3D = new Button(pos_3D_button, size_3D_button);
 }
 
 void build_console_bar() {

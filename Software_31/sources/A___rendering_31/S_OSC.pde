@@ -87,7 +87,7 @@ void thread_data_controller_general(OscMessage receive) {
   * 1 arg
   */
   receive_data_menu_bar(receive,rank); 
-  rank += 1;
+  rank += 5;
   /*
   * dropdown menu general x7
   *  7 arg
@@ -148,6 +148,12 @@ void receive_data_misc(OscMessage receive, int in) {
 
 void receive_data_menu_bar(OscMessage receive, int in) {
   curtain_button_is(to_bool(receive,0+in));
+  reset_camera_button_is(to_bool(receive,1+in));
+  reset_item_on_button_is(to_bool(receive,2+in));
+  birth_button_is(to_bool(receive,3+in));
+  dimension_button_is(to_bool(receive,4+in));
+  if(birth_button_is()) println(birth_button_is(),frameCount);
+  if(dimension_button_is()) println(dimension_button_is(),frameCount);
 }
 
 void receive_data_general_dropdown(OscMessage receive, int in) {
