@@ -22,6 +22,10 @@ MAJOR
 >fusion of the sketches prescene and scene, the result became rendering
 >romanesco unu became romanesco dui, too much change to keep the same name !
 >add mask option
+>add button camera reset
+>add button item reset
+>add button three dimension
+>add button birth
 
 
 MINOR

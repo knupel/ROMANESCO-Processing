@@ -30,6 +30,9 @@ bug with keyboard event between prescene and scene
 bug when the prescene and scene is active the prescene receive nothing
 
 
+*Button
+
+but with Controller button birth
 
 
 
