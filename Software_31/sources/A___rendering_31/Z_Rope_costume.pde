@@ -1,12 +1,10 @@
 /**
 Rope Costume
 * Copyleft (c) 2014-2018
-v 1.2.0
+v 1.3.0
 * @author Stan le Punk
 * @see https://github.com/StanLepunK/Costume_rope
 */
-final int PIXEL_ROPE = 0;
-
 final int POINT_ROPE = 1;
 final int ELLIPSE_ROPE = 2;
 final int RECT_ROPE = 3;
@@ -35,18 +33,20 @@ final int SPHERE_HIGH_ROPE = 102;
 final int TETRAHEDRON_ROPE = 103;
 final int BOX_ROPE = 104;
 
-final int STAR_4_ROPE = 504;
-final int STAR_5_ROPE = 505;
-final int STAR_6_ROPE = 506;
-final int STAR_7_ROPE = 507;
-final int STAR_8_ROPE = 508;
-final int STAR_9_ROPE = 509;
-final int STAR_10_ROPE = 510;
-final int STAR_11_ROPE = 511;
-final int STAR_12_ROPE = 512;
+final int PIXEL_ROPE = 800;
 
-final int SUPER_STAR_8_ROPE = 608;
-final int SUPER_STAR_12_ROPE = 612;
+final int STAR_4_ROPE = 804;
+final int STAR_5_ROPE = 805;
+final int STAR_6_ROPE = 806;
+final int STAR_7_ROPE = 807;
+final int STAR_8_ROPE = 808;
+final int STAR_9_ROPE = 809;
+final int STAR_10_ROPE = 810;
+final int STAR_11_ROPE = 811;
+final int STAR_12_ROPE = 812;
+
+final int SUPER_STAR_8_ROPE = 908;
+final int SUPER_STAR_12_ROPE = 912;
 
 final int TETRAHEDRON_LINE_ROPE = 1001;
 final int CUBE_LINE_ROPE = 1002;
@@ -797,7 +797,7 @@ void costume_rope(Vec3 pos, Vec3 size, Vec rot, String sentence) {
 	if(rot.y != 0) costume_rotate_y();
 	if(rot.z != 0) costume_rotate_z();
 
-	start_matrix() ;
+	start_matrix();
 	translate(pos);
 	rotate_behavior(rot);
   text(sentence,0,0);
@@ -972,7 +972,7 @@ void costume_rope(Vec3 pos, Vec3 size, Vec rot, int which_costume) {
 		sphereDetail(12);
 		sphere(size.x) ;
 		stop_matrix() ;
-	}else if (which_costume == SPHERE_HIGH_ROPE) {
+	} else if (which_costume == SPHERE_HIGH_ROPE) {
 		start_matrix() ;
 		translate(pos) ;
 		rotate_behavior(rot) ;
@@ -1403,8 +1403,7 @@ void costume_rope(Vec3 pos, Vec3 size, Vec rot, int which_costume) {
 					p.svg.scaling(scale) ;
 					p.svg.draw() ;
 					break ;
-				}
-				
+				}		
 			}
 		}
 		stop_matrix() ;

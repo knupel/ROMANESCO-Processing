@@ -35,6 +35,9 @@ bug when the prescene and scene is active the prescene receive nothing
 but with Controller button birth
 
 
+*Mask
+
+return null when there is a trying to able this
 
 
 

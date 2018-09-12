@@ -3,7 +3,7 @@ Romanesco dui
 2012–2018
 v 2.0.0.31
 version 31
-Processing 3.4.0
+Processing 3.4
 */
 /**
 Controller 
@@ -19,14 +19,10 @@ LIVE must change from the launcher, the info must be write in the external loadi
 */
 
 // DEV
-/*
-boolean DEV_MODE = true;
+boolean DEV_MODE = true; // inter alia, path preferences folder, curtain
 boolean LIVE = false;
 boolean MIROIR = false;
 boolean KEEP_BUTTON_ITEM_STATE = true;
-// DEV_MODE : rank folder, curtain
-*/
-
 
 
 // DIRECT
@@ -34,18 +30,17 @@ boolean KEEP_BUTTON_ITEM_STATE = true;
 boolean LIVE = false;
 boolean MIROIR = false;
 boolean KEEP_BUTTON_ITEM_STATE = true;
-// DEV_MODE : rank folder, curtain
-boolean DEV_MODE = false; 
+boolean DEV_MODE = false;  // inter alia, path preferences folder, curtain
 */
 
 
-
 // LIVE
+/*
 boolean LIVE = true;
 boolean MIROIR = false;
 boolean KEEP_BUTTON_ITEM_STATE = true;
-// DEV_MODE : rank folder, curtain
-boolean DEV_MODE = false;
+boolean DEV_MODE = false; // inter alia, path preferences folder, curtain
+*/
 
 
 

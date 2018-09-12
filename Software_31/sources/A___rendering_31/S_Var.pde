@@ -728,35 +728,39 @@ void create_var_item_slider() {
 
 /**
 INIT VAR 
-v 1.1.1
+v 1.1.2
 */
 void init_variable_item_min_max() {
-  float min_size = .1 ;
-  float super_min_size = .01 ;
-  float factor_area = TAU ;
-  float max = width ;
+
+  float ratio_min_deci = .1;
+  float ratio_min_centi = .01;
+  float ratio_min_milli = .001;
+  float ratio_max = TAU;
+
+  float min_size = .1;
+  float max_size = width;
 
   fill_hue_min_max = Vec2(0,360) ; // data from controller value 0 - 360
-  fill_sat_min_max = Vec2(0,HSBmode.g) ;     
-  fill_bright_min_max = Vec2(0,HSBmode.b) ;     
-  fill_alpha_min_max = Vec2(0,HSBmode.a) ;
+  fill_sat_min_max = Vec2(0,HSBmode.g);     
+  fill_bright_min_max = Vec2(0,HSBmode.b);     
+  fill_alpha_min_max = Vec2(0,HSBmode.a);
 
   stroke_hue_min_max = Vec2(0,360) ; // data from controller value 0 - 360
-  stroke_sat_min_max = Vec2(0,HSBmode.g) ; 
+  stroke_sat_min_max = Vec2(0,HSBmode.g); 
   stroke_bright_min_max = Vec2(0,HSBmode.b); 
-  stroke_alpha_min_max = Vec2(0,HSBmode.a) ;
+  stroke_alpha_min_max = Vec2(0,HSBmode.a);
 
-  thickness_min_max = Vec2(min_size, max *super_min_size) ; 
+  thickness_min_max = Vec2(min_size, max_size *ratio_min_centi); 
 
-  size_x_min_max = Vec2(max *super_min_size, max) ;     
-  size_y_min_max = Vec2(max *super_min_size, max) ;     
-  size_z_min_max = Vec2(max *super_min_size, max) ;
+  size_x_min_max = Vec2(max_size *ratio_min_milli,max_size);     
+  size_y_min_max = Vec2(max_size *ratio_min_milli,max_size);     
+  size_z_min_max = Vec2(max_size *ratio_min_milli,max_size);
 
-  diameter_min_max = Vec2(max *super_min_size, max);
+  diameter_min_max = Vec2(max_size *ratio_min_milli,max_size);
 
-  canvas_x_min_max = Vec2(max *min_size, max *factor_area) ; 
-  canvas_y_min_max = Vec2(max *min_size, max *factor_area) ; 
-  canvas_z_min_max = Vec2(max *min_size, max *factor_area) ;
+  canvas_x_min_max = Vec2(max_size *ratio_min_deci,max_size *ratio_max); 
+  canvas_y_min_max = Vec2(max_size *ratio_min_deci,max_size *ratio_max); 
+  canvas_z_min_max = Vec2(max_size *ratio_min_deci,max_size *ratio_max);
 
   frequence_min_max = Vec2(0,1);
 
@@ -787,9 +791,9 @@ void init_variable_item_min_max() {
   flow_min_max = Vec2(0,1); 
   quality_min_max = Vec2(0,1);
 
-  area_min_max = Vec2(max *min_size, max *factor_area); 
+  area_min_max = Vec2(max_size *ratio_min_deci, max_size *ratio_max); 
   angle_min_max = Vec2(0,360);  // data from controller value 0 - 360
-  scope_min_max = Vec2(max *min_size, max *factor_area); 
+  scope_min_max = Vec2(max_size *ratio_min_deci, max_size *ratio_max); 
   scan_min_max = Vec2(0,360); // data from controller value 0 - 360
 
   alignment_min_max = Vec2(0,1); 
@@ -801,7 +805,7 @@ void init_variable_item_min_max() {
   calm_min_max = Vec2(0,1); 
   spectrum_min_max = Vec2(0,360);
 
-  grid_min_max = Vec2(max *min_size, max *factor_area); 
+  grid_min_max = Vec2(max_size *ratio_min_deci, max_size *ratio_max); 
   viscosity_min_max = Vec2(0,1); 
   diffusion_min_max = Vec2(01);
 }

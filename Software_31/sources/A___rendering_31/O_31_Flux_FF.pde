@@ -97,7 +97,7 @@ class Flux extends Romanesco {
     update_vehicle(get_force_field(),speed);
     aspect_rope(fill_item[ID_item], stroke_item[ID_item],thickness_item[ID_item]);
     Vec3 size = Vec3(size_x_item[ID_item],size_y_item[ID_item],size_z_item[ID_item]);
-    size.map(size_x_min_max.x,size_x_min_max.y,1,size_x_min_max.y);
+    // size.map(size_x_min_max.x,size_x_min_max.y,1,size_x_min_max.y);
     show_vehicle(size,get_costume());
 
     //

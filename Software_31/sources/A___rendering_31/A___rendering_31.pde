@@ -21,12 +21,11 @@ Processing 3.4.0
 /**
 DEV
 */
-/*
-boolean DEV_MODE = true;
+boolean DEV_MODE = true; // inter alia, path preferences folder, curtain
 String IAM = "prescene";
 boolean LIVE = false;
 boolean FULL_RENDERING = true;
-*/
+
 
 
 
@@ -36,14 +35,14 @@ boolean FULL_RENDERING = true;
 */
 // Prescene FULL_RENDERING
 /*
-boolean DEV_MODE = false;
+boolean DEV_MODE = false; // inter alia, path preferences folder, curtain
 String IAM = "prescene";
 boolean LIVE = false;
 boolean FULL_RENDERING = true;
 */
 /*
 // Prescene preview LIVE
-boolean DEV_MODE = false;
+boolean DEV_MODE = false; // inter alia, path preferences folder, curtain
 String IAM = "prescene";
 boolean LIVE = true;
 boolean FULL_RENDERING = false;
@@ -55,11 +54,12 @@ boolean FULL_RENDERING = false;
 
 
 // SCENE LIVE 
-
-boolean DEV_MODE = false;
+/*
+boolean DEV_MODE = false; // inter alia, path preferences folder, curtain
 String IAM = "scene";
 boolean LIVE = false; // here LIVE must be true, but not sure that's work now for OSC in scene rendering
 boolean FULL_RENDERING = true;
+*/
 
 
 
@@ -116,10 +116,7 @@ void setup() {
   set_system_specification();
   OSC_setup();
   
-
-
   display_setup(60); // the int value is the frameRate
-
 
   RG.init(this);  // Geomerative
 
@@ -149,7 +146,7 @@ void setup() {
   light_setup();
 
   init_filter();
-
+  init_masking();
 }
 
 

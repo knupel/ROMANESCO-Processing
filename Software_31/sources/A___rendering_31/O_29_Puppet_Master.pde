@@ -1,7 +1,7 @@
 /**
 Puppet Master
 2018-2018
-v 0.0.3
+v 0.0.4
 */
 class Puppet_master extends Romanesco {
 	public Puppet_master() {
@@ -9,10 +9,10 @@ class Puppet_master extends Romanesco {
 		ID_item = 29;
 		ID_group = 1 ;
 		item_author  = "Stan le Punk";
-		item_version = "Version 0.0.3";
+		item_version = "Version 0.0.4";
 		item_pack = "Force 2018";
-    item_costume = "none/point/ellipse/triangle/rect/cross/pentagon/Star 5/Star 7/Super Star 8/Super Star 12";
-    item_mode = "solo/valse 2D/valse 3D/whisky walk/random";
+    item_costume = "none/pixel/point/ellipse/triangle/rect/cross/pentagon/Star 5/Star 7/Super Star 8/Super Star 12";
+    item_mode = "solo/valse 2D/<valse 3D>/whisky walk/random";
 
 	  hue_fill_is = true;
     sat_fill_is = true;
@@ -75,14 +75,15 @@ class Puppet_master extends Romanesco {
 
 
   void setup() {
-    setting_start_position(ID_item,0,0,0);
+    setting_start_position(ID_item,0,0,(height/2)+1);
   }
   
 
   Vec3 speed = Vec3();
   void draw() {
     puppet_master(true);
-    num_spot_management(300);
+    // int num, float quantity_slider, boolean use_slider_quantity
+    // num_spot_management(300, quantity_item[ID_item],true);
 
     iVec2 canvas_ff = get_force_field().get_canvas();
     float max_w = map(canvas_x_item[ID_item],width *.1,(float)width *TAU,canvas_ff.x,5*canvas_ff.x);
@@ -140,11 +141,21 @@ class Puppet_master extends Romanesco {
     
 
     // SPOT POSITION
-    if(mode[ID_item] == 0) solo_spot();
-    else if(mode[ID_item] == 1) valse_2D_spot(canvas_x_item[ID_item],speed,num_spiral,range,which_behavior);
-    else if(mode[ID_item] == 2) valse_3D_spot();
-    else if(mode[ID_item] == 3) whisky_spot(canvas_ff,speed,limit_w,limit_h,limit_d);
-    else if(mode[ID_item] == 4) random_spot(frameCount%60 == 0);
+    if(mode[ID_item] == 0) {
+      solo_spot();
+    } else if(mode[ID_item] == 1) {
+      num_spot_management(300, quantity_item[ID_item],true);
+      valse_2D_spot(canvas_x_item[ID_item],speed,num_spiral,range,which_behavior);
+    } else if(mode[ID_item] == 2) {
+      num_spot_management(300, quantity_item[ID_item],true);
+      valse_3D_spot();
+    } else if(mode[ID_item] == 3) {
+      num_spot_management(300, quantity_item[ID_item],true);
+      whisky_spot(canvas_ff,speed,limit_w,limit_h,limit_d);
+    } else if(mode[ID_item] == 4) {
+      num_spot_management(300, quantity_item[ID_item],true);
+      random_spot(frameCount%60 == 0);
+    }
 
 
     // SHOW SPOT
@@ -152,21 +163,20 @@ class Puppet_master extends Romanesco {
     Vec3 size = Vec3(size_x_item[ID_item],size_y_item[ID_item],size_z_item[ID_item]);
     aspect_is(fill_is[ID_item],stroke_is[ID_item]);
     aspect_rope(fill_item[ID_item], stroke_item[ID_item],thickness_item[ID_item]);
-
+    
     for(int i =  0 ; i < get_spot_num() ; i++) {
       Vec3 pos = Vec3(get_spot_pos(i));
       set_ratio_costume_size(ratio_size_costume);
       costume_rope(pos,size,get_costume());
     }
-
-    // END DRAW
   }
 
 
 
 
   private void solo_spot() {
-    num_spot_management(1);
+    // num_spot_management(1);
+    num_spot_management(1, quantity_item[ID_item],false);
   }
 
 
@@ -275,14 +285,17 @@ class Puppet_master extends Romanesco {
 
   // global method
   int ref_spot_quantity ;
-  private void num_spot_management(int max) {
-
-    if(!FULL_RENDERING) {
-      max /= 10;
+  private void num_spot_management(int num, float quantity_slider, boolean use_slider_quantity) {
+    int spot_quantity = num;
+    if(!FULL_RENDERING) num /= 10;
+    
+    if(use_slider_quantity) {
+      float ratio_quantity = quantity_slider;
+      ratio_quantity = (ratio_quantity*ratio_quantity*ratio_quantity);
+      spot_quantity = ceil(map(ratio_quantity,0,1,1,num));
     }
-    float ratio_quantity = quantity_item[ID_item];
-    ratio_quantity = (ratio_quantity*ratio_quantity*ratio_quantity);
-    int spot_quantity = (int)map(ratio_quantity,0,1,1,max);
+    
+    println("spot num",spot_quantity);
     if(ref_spot_quantity != spot_quantity || ref_spot_quantity != get_spot_num()) {
       ref_spot_quantity = spot_quantity;
       clear_spot();

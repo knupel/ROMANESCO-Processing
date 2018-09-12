@@ -353,22 +353,27 @@ void enable_mask_is_on_top_for_bug_reason() {
   } 
 }
 
+// boolean [] display_mask = {true,true,true,true,true,true,true,true,true,true};
+boolean [] display_mask;
+
+void init_masking() {
+  display_mask = new boolean[10];
+  for(int i = 0 ; i < display_mask.length ; i++) {
+    display_mask[i] = false;
+  }
+}
 
 
 
 
 
 
-boolean [] display_mask = {true,true,true,true,true,true,true,true,true,true};
 /**
 DATA CONTROL
 v 0.1.0
 SET and RETURN / boolean, int...
-
 use to dial between the keyboard, the controller and the user
-
 the mess
-
 */
 boolean set_mask_is;
 void set_mask() {
