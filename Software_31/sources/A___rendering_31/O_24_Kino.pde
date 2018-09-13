@@ -1,18 +1,18 @@
 /**
 Kino
 2018-2018
-v 0.0.2
+v 0.0.3
 */
 class Kino extends Romanesco {
 	public Kino() {
-		item_name = "Kino" ;
-		ID_item = 24 ;
-		ID_group = 1 ;
+		item_name = "Kino";
+		ID_item = 24;
+		ID_group = 1;
 		item_author  = "Stan le Punk";
 		item_version = "Version 0.0.2";
-		item_pack = "Base 2018" ;
-		item_costume = "" ; // separate the differentes mode by "/"
-		item_mode = "Movie 2D/Diaporama 2D/Movie/Diaporama" ; // separate the differentes mode by "/"
+		item_pack = "Base 2018";
+		item_costume = ""; // separate the differentes mode by "/"
+		item_mode = "Movie/Diaporama/Movie 3D/Diaporama 3D"; // separate the differentes mode by "/"
 
 		hue_fill_is = true;
     sat_fill_is = true;
@@ -82,7 +82,7 @@ class Kino extends Romanesco {
 		if(mode[ID_item] == 2) {
 			kino_movie(colour);
 		} else if(mode[ID_item] == 3) {
-			kino_bitmap();
+			kino_bitmap(colour);
 		}
 	}
 
@@ -91,7 +91,7 @@ class Kino extends Romanesco {
     if(mode[ID_item] == 0) {
       kino_movie(colour);
     } else if(mode[ID_item] == 1) {
-      kino_bitmap();
+      kino_bitmap(colour);
     }
   }
 
@@ -116,24 +116,30 @@ class Kino extends Romanesco {
 		} else {
 			movie[ID_item].pause();
 		}
-    /**
-    bug or not
-    */
-    float h = hue(c);
-    float s = g.colorModeY -saturation(c);
-    float b = brightness(c);
-    float a = alpha(c);
-    tint(h,s,b,a);
-    // tint(c);
+
+    manage_tint(c);
 		image(movie[ID_item],FIT);
 	}
 
 
 	// kino movie
-	private void kino_bitmap() {
+	private void kino_bitmap(int c) {
 		load_bitmap(ID_item);
+    manage_tint(c);
 		image(bitmap[ID_item],FIT);
 	}
+
+
+  private void manage_tint(int c) {
+    float h = hue(c);
+    /**
+    bug or not
+    */
+    float s = g.colorModeY -saturation(c);
+    float b = brightness(c);
+    float a = alpha(c);
+    tint(h,s,b,a);
+  }
 }
 
 

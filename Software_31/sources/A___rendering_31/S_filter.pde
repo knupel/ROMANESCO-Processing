@@ -33,7 +33,7 @@ void filter() {
 /**
 WARP
 2018-2018
-v 0.0.2
+v 0.0.3
 this chapter is the place where the pixel is filtering
 */
 void init_warp() {
@@ -70,6 +70,7 @@ void warp() {
   warp_romanesco.shader_init();
   boolean filter_fx = fx_button_is(1);
   warp_romanesco.shader_filter(filter_fx);
+  warp_romanesco.shader_mode(0);
   // here Force_field is pass
   warp_romanesco.show(force_romanesco,intensity_warp);
 

@@ -1,7 +1,7 @@
 /**
 Puppet Master
 2018-2018
-v 0.0.4
+v 0.0.5
 */
 class Puppet_master extends Romanesco {
 	public Puppet_master() {
@@ -9,10 +9,10 @@ class Puppet_master extends Romanesco {
 		ID_item = 29;
 		ID_group = 1 ;
 		item_author  = "Stan le Punk";
-		item_version = "Version 0.0.4";
+		item_version = "Version 0.0.5";
 		item_pack = "Force 2018";
     item_costume = "none/pixel/point/ellipse/triangle/rect/cross/pentagon/Star 5/Star 7/Super Star 8/Super Star 12";
-    item_mode = "solo/valse 2D/<valse 3D>/whisky walk/random";
+    item_mode = "solo/duo/valse 2D/<valse 3D>/whisky walk/random";
 
 	  hue_fill_is = true;
     sat_fill_is = true;
@@ -144,15 +144,17 @@ class Puppet_master extends Romanesco {
     if(mode[ID_item] == 0) {
       solo_spot();
     } else if(mode[ID_item] == 1) {
-      num_spot_management(300, quantity_item[ID_item],true);
-      valse_2D_spot(canvas_x_item[ID_item],speed,num_spiral,range,which_behavior);
+      duo_spot();
     } else if(mode[ID_item] == 2) {
       num_spot_management(300, quantity_item[ID_item],true);
-      valse_3D_spot();
+      valse_2D_spot(canvas_x_item[ID_item],speed,num_spiral,range,which_behavior);
     } else if(mode[ID_item] == 3) {
       num_spot_management(300, quantity_item[ID_item],true);
-      whisky_spot(canvas_ff,speed,limit_w,limit_h,limit_d);
+      valse_3D_spot();
     } else if(mode[ID_item] == 4) {
+      num_spot_management(300, quantity_item[ID_item],true);
+      whisky_spot(canvas_ff,speed,limit_w,limit_h,limit_d);
+    } else if(mode[ID_item] == 5) {
       num_spot_management(300, quantity_item[ID_item],true);
       random_spot(frameCount%60 == 0);
     }
@@ -175,8 +177,14 @@ class Puppet_master extends Romanesco {
 
 
   private void solo_spot() {
-    // num_spot_management(1);
     num_spot_management(1, quantity_item[ID_item],false);
+    set_spot_pos(mouse[ID_item],0);
+  }
+
+  private void duo_spot() {
+    num_spot_management(2, quantity_item[ID_item],false);
+    set_spot_pos(mouse[ID_item],0);
+    set_spot_pos(width -mouse[ID_item].x,height -mouse[ID_item].y,1);
   }
 
 
@@ -295,7 +303,6 @@ class Puppet_master extends Romanesco {
       spot_quantity = ceil(map(ratio_quantity,0,1,1,num));
     }
     
-    println("spot num",spot_quantity);
     if(ref_spot_quantity != spot_quantity || ref_spot_quantity != get_spot_num()) {
       ref_spot_quantity = spot_quantity;
       clear_spot();

@@ -345,7 +345,7 @@ void catch_display_position() {
 
 /**
 MANAGE SAVE
-v 0.0.3
+v 0.0.4
 */
 void media_update() {
   if(frameCount%120 == 0) thread("load_autosave");
@@ -453,9 +453,9 @@ void load_bitmap(int ID) {
 
   if(bitmap_path != null && bitmap_path.length > 0 && bitmap_path[which_bitmap[ID]] != null) {
     String bitmap_current_path = bitmap_path[which_bitmap[ID]];
-    println(bitmap_current_path);
-    println("length",bitmap_path.length);
-    println(bitmap_path_ref[ID],which_bitmap[ID], ID);
+    // println(bitmap_current_path);
+    // println("length",bitmap_path.length);
+    // println(bitmap_path_ref[ID],which_bitmap[ID], ID);
     if(!bitmap_current_path.equals(bitmap_path_ref[ID])) {
       bitmap[ID] = loadImage(bitmap_current_path);
     }

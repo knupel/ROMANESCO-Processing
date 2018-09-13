@@ -170,22 +170,32 @@ class FF extends Romanesco {
   MINIMUM SPOT
   Use this method when there is no puppet master for the dynamic force field
   */
+  boolean puppet_master_is = false ;
   private void minimum_spot() {
-    if(!puppet_master_is() && get_spot_num() != 2) {
-      clear_spot();
-      add_spot(2);
-    }
+    if(!puppet_master_is() ) {
 
-    // update spot position
-    if(motion[ID_item]) {
-      if(force_romanesco.get_spot_num() == 1) {
-        // for the moment there is no case with only one spot :)
-        force_romanesco.set_spot_pos(mouse[0].x,mouse[0].y);
-      } else if(force_romanesco.get_spot_num() == 2) {
+      if(get_spot_num() != 2) {
+        clear_spot();
+        add_spot(2);
+        
+      }
+      // to reinit the value of specific spot in case there is not puppetmaster
+      if(puppet_master_is) {
+        // MAGNETIC CASE
+        set_force_magnetic_tesla(50,-50);
+        set_force_magnetic_diam(50);
+        // GRAVITY CASE
+        set_force_gravity_mass(50);
+        puppet_master_is = false;
+      }
+
+      // update spot position
+      if(motion[ID_item]) {
         force_romanesco.set_spot_pos(mouse[0].x,mouse[0].y,0);
         force_romanesco.set_spot_pos(width -mouse[0].x,height -mouse[0].y,1);
-        // case where it's item Ballet manage the spot
       }
+    } else {
+      puppet_master_is = true;
     }
   }
 

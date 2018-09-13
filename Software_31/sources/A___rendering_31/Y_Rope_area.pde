@@ -1,5 +1,5 @@
 /**
-Area_ROPE 0.0.3
+Area_ROPE 0.0.3.1
 Romanesco Processing Environment 2016–2016
 */
 
@@ -66,9 +66,7 @@ class Area {
 
 
   private int[] classify_components(PImage img, int type_sort, int num_bag) {
-    int [] components ;
-    // int [] best_component = new int[num_bag] ;
-    
+    int [] components ;   
     int num = 1 ; 
     img.loadPixels() ;
 
@@ -89,7 +87,6 @@ class Area {
     } else if(type_sort == RED_SORT) {
       num = (int)g.colorModeX  +1 ;
       components = new int[minimum_components(num, num_bag)] ;
-      println("length", components.length) ;
       for(int i = 0 ; i < components.length ; i++) {
         components[i] = 0 ; 
       }
@@ -166,6 +163,10 @@ class Area {
     } else return null ;
   }
   
+
+
+
+  // minimum components
   private int minimum_components(int num, int num_bag) {
     int minimum_component = 11 ;
     if(num < minimum_component) num = minimum_component ;
@@ -189,6 +190,8 @@ class Area {
     }
   }
   
+
+
   // manage bag
   private void manage_bag(PImage img, int x, int y, int type_sort, float range) {
     int which_pix = 0 ;
@@ -203,10 +206,8 @@ class Area {
     int c = img.get(x,y) ;
 
     if(match_bag(c, range, type_sort)) {
-        add_colour_in_bag(x, y, c, range, type_sort) ;
-      } else {
-        // 
-      }
+      add_colour_in_bag(x, y, c, range, type_sort) ;
+    } 
   }
 
 
