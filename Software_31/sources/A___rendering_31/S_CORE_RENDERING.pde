@@ -388,7 +388,6 @@ void load_svg(int ID) {
   if(which_shape[ID] > svg_path.length ) which_shape[ID] = 0;
 
   if(svg_path != null && svg_path.length > 0 && svg_path[which_shape[ID]] != null) {
-    // println("length",svg_path.length, "ID",ID, svg_path[which_shape[ID]]);
     svg_current_path = svg_path[which_shape[ID]];
     if(!svg_current_path.equals(svg_path_ref[ID])) {
       svg_import[ID] = new ROPE_svg(this, svg_current_path, "bricks");

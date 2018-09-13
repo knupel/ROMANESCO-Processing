@@ -3,8 +3,8 @@
 Force Field
 2017-2018
 http://stanlepunk.xyz/
-v 1.11.5
-Processing 3.3.7
+v 1.11.6
+Processing 3.4
 */
 
 /**
@@ -1405,8 +1405,8 @@ public class Force_field implements rope.core.RConstants {
   */
   private float spot_gravity_force(Spot s, Vec2 pos_cell) {
     Vec2 spot_pos = Vec2(s.get_pos());
-    float m_2 = s.get_mass() ;
-    float m_1 = mass_field ;
+    float m_2 = s.get_mass();
+    float m_1 = mass_field;
     float dist = dist(spot_pos, pos_cell);
     double gravity = 1. / (g_force(dist, m_1, m_2) *1000000000L);
     return (float)gravity;
@@ -1758,7 +1758,7 @@ public class Force_field implements rope.core.RConstants {
 
   /**
   dir_in_grid
-  v 0.2.0
+  v 0.2.1
   */
   /**
   * it's most important method, this one give the direction of the vehicle in according force field.
@@ -1833,7 +1833,9 @@ public class Force_field implements rope.core.RConstants {
         // check if the vehicle is in the range of the spot
         Spot s = spot_list.get(i);
         if(s.get_pos() != null && s.get_size() != null) {
-          if(compare(vehicle_pos, (Vec2)s.get_pos(), Vec2(s.get_size().x, s.get_size().y).mult(2) ) ) {
+          Vec2 spot_pos = Vec2(s.get_pos().x,s.get_pos().y);
+          Vec2 spot_size = Vec2(s.get_size().x, s.get_size().y);
+          if(compare(vehicle_pos,spot_pos, spot_size.mult(2))) {
             spot_match = i ;
             break;
           } 

@@ -1,6 +1,6 @@
 /**
 ROPE SCIENCE
-v 0.2.3
+v 0.2.3.1
 * Copyleft (c) 2014-2018 
 * Stan le Punk > http://stanlepunk.xyz/
 * @author Stan le Punk
@@ -20,12 +20,11 @@ the sketch method tab is not included on this repository if you need
 
 
 /**
-Physique Rope
-v 0.0.1.1
+Physic Rope
+v 0.0.2
 */
 public double g_force(double dist, double m_1, double m_2) {
-  println(r);
-  return r.G *(dist*dist)/(m_1 *m_2);
+  return RConstants.G *(dist*dist)/(m_1 *m_2);
 }
 
 

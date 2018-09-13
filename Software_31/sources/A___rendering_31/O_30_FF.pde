@@ -118,6 +118,10 @@ class FF extends Romanesco {
     } else if(get_costume() == LINE_ROPE) { 
       show_field(ff,scale,range,c,thickness);
     }
+    
+
+
+
     info();
   }
 
@@ -210,8 +214,9 @@ class FF extends Romanesco {
   */
   private void set_ff() {
     // set detection
-    int detection = (int)map(scope_item[ID_item],width *.1,width*TAU,10,1);
-    set_spot_detection_force_field(detection);
+    int level_detection = (int)map(scope_item[ID_item],width *.1,width*TAU,10,1);
+    // println("level",level_detection);
+    set_spot_detection_force_field(level_detection);
 
     // set cell
     int cell_size = (int)map(grid_item[ID_item],width *.1,width*TAU,height/10,2);
