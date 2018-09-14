@@ -1,7 +1,7 @@
 /**
 Lorenz attractor
 2016-2018
-v 0.0.3
+v 0.1.0
 Inspirated by Nature of Code of Daniel Shiffman
 */
 /*
@@ -14,25 +14,25 @@ class Lorenz extends Romanesco {
 		ID_item = 27 ;
 		ID_group = 1 ;
 		item_author  = "Stan le Punk";
-		item_version = "Version 0.0.2";
+		item_version = "Version 0.1.0";
 		item_pack = "Nature of Code 2016";
-    item_costume = "";
-    item_mode = "Classic/Point";
+    item_costume = "point/ellipse/triangle/rect/cross/pentagon/Star 5";
+    item_mode = "Costume/Surface";
 
 	  hue_fill_is = true;
     sat_fill_is = true;
     bright_fill_is = true;
     alpha_fill_is = true;
-    // hue_stroke_is = true;
-    // sat_stroke_is = true;
-    // bright_stroke_is = true;
-    // alpha_stroke_is = true;
-    // thickness_is = true;
+    hue_stroke_is = true;
+    sat_stroke_is = true;
+    bright_stroke_is = true;
+    alpha_stroke_is = true;
+    thickness_is = true;
     size_x_is = true;
-    // size_y_is = true;
-    // size_z_is = true;
+    size_y_is = true;
+    size_z_is = true;
     // diameter_is = true;
-    // canvas_x_is = true;
+    canvas_x_is = true;
     // canvas_y_is = true;
     // canvas_z_is = true;
 
@@ -43,9 +43,9 @@ class Lorenz extends Romanesco {
     // spurt_x_is = true;
     // spurt_y_is = true;
     // spurt_z_is = true;
-    // dir_x_is = true;
-    // dir_y_is = true;
-    // dir_z_is = true;
+    dir_x_is = true;
+    dir_y_is = true;
+    dir_z_is = true;
     jit_x_is = true;
     jit_y_is = true;
     jit_z_is = true;
@@ -58,7 +58,7 @@ class Lorenz extends Romanesco {
     life_is = true;
     // flow_is = true;
     // quality_is = true;
-    // area_is = true;
+    area_is = true;
     // angle_is = true;
     // scope_is = true;
     // scan_is = true;
@@ -68,7 +68,7 @@ class Lorenz extends Romanesco {
     // density_is = true;
     // influence_is = true;
     // calm_is = true;
-    spectrum_is = true;
+    // spectrum_is = true;
   }
 
   float a = 10;
@@ -92,23 +92,27 @@ class Lorenz extends Romanesco {
     } else {
       build_lorenz_attractor(list_points) ;
       if(alpha(fill_item[ID_item]) > 0 || thickness_item[ID_item] > 0) {
-        float size = size_x_item[ID_item] *.1 ;
-        Vec3 jitter = Vec3(jitter_x_item[ID_item], jitter_y_item[ID_item], jitter_z_item[ID_item]) ;
+        float canvas = canvas_x_item[ID_item] *.01 ;
+        Vec3 jitter = Vec3(jitter_x_item[ID_item],jitter_y_item[ID_item],jitter_z_item[ID_item]);
         jitter.mult(height/10) ;
-        float spectrum = map(spectrum_item[ID_item],0,360, 0, 10) ;
-        noFill() ;
-        show_lorenz_attractor(fill_item[ID_item], size, thickness_item[ID_item], jitter, spectrum, list_points, mode[ID_item]) ;
+        Vec3 size = Vec3(size_x_item[ID_item],size_y_item[ID_item],size_z_item[ID_item]);
+        Vec3 dir = Vec3(dir_x_item[ID_item],dir_y_item[ID_item],dir_z_item[ID_item]);
+        fill(fill_item[ID_item]);
+        stroke(stroke_item[ID_item]);
+        strokeWeight(thickness_item[ID_item]);
+        set_ratio_costume_size(map(area_item[ID_item],width*.1, width*TAU,0,1));
+        show_lorenz_attractor(size,dir,canvas,jitter,list_points,mode[ID_item],get_costume());
       }
 
 
       // keep the size of list reasonable :)
       int max = 5000 ;
       if(!FULL_RENDERING) max /= 50 ;
-      int threshold = 2 + int(life_item[ID_item] *max) ;
+      int threshold = 2 + int(life_item[ID_item] *max);
       if(list_points.size() > threshold) {
-        int remove_size = list_points.size() - threshold ;
+        int remove_size = list_points.size() - threshold;
         for(int i = 0 ; i < remove_size ; i++) {
-          if(i < list_points.size()) list_points.remove(i) ;
+          if(i < list_points.size()) list_points.remove(i);
         }  
       }
     }    
@@ -116,7 +120,7 @@ class Lorenz extends Romanesco {
 
 
 
-  void build_lorenz_attractor(ArrayList<Vec3> list) {
+  private void build_lorenz_attractor(ArrayList<Vec3> list) {
     float dt = .01 ;
     Vec3 d = Vec3() ;
     d.x = (a * (pos.y -pos.x)) *dt ;
@@ -129,25 +133,22 @@ class Lorenz extends Romanesco {
   }
 
 
-  void show_lorenz_attractor(int fill, float size, float strokeWeight, Vec3 jitter, float spectrum, ArrayList<Vec3> list, int mode) {
-    Vec4 vec_fill = color_HSB_a(fill) ;
-    strokeWeight(strokeWeight) ;
+  private void show_lorenz_attractor(Vec3 size, Vec3 dir, float canvas, Vec3 jitter, ArrayList<Vec3> list, int mode, int which_costume) {
 
-    if(mode == 0 ) beginShape() ;
+    if(mode == 1 ) beginShape() ;
     for(Vec3 p : list) {
-      
-      float hue = random_gaussian(vec_fill.x, spectrum) ;
-      stroke(hue,vec_fill.y, vec_fill.z, vec_fill.w) ;
       Vec3 pos = p.copy() ;
-      pos.mult(size) ;
-      pos.jitter(jitter) ;
-      if(mode == 0 ) {
+      pos.mult(canvas,canvas,1);
+      Vec3 offset = pos.copy().div(2);
+      pos.sub(offset.x,offset.y,0);
+      pos.jitter(jitter);
+      if(mode == 1) {
         vertex(pos) ;
       } else {
-        point(pos) ;
+        costume_rope(pos,size,dir,which_costume);
       }
     }
-    if(mode == 0 ) endShape() ;
+    if(mode == 1) endShape() ;
   }
 }
 

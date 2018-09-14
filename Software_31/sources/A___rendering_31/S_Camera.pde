@@ -575,16 +575,16 @@ void final_camera_low_rendering() {
 
 
 //CATCH a ref position and direction of the camera
-Vec3 posCamRef = Vec3() ;
-Vec3 eyeCamRef = Vec3() ;
+Vec3 posCamRef = Vec3();
+Vec3 eyeCamRef = Vec3();
 //boolean security to catch the reference camera when you reset the position of this one
 boolean catchCam = true ;
 void catch_camera_info() {
   if(catchCam) {
-    posCamRef = get_pos_camera() ;
-    eyeCamRef = get_eye_camera() ;
+    posCamRef = get_pos_camera();
+    eyeCamRef = get_eye_camera();
   }
-  catchCam = false ;
+  catchCam = false;
 }
 
 
@@ -592,30 +592,30 @@ void catch_camera_info() {
 
 //camera order from the mouse or from the leap
 void order_camera() {
-  boolean authorization = key_c_long ;
+  boolean authorization = key_c_long;
   if(authorization || reset_camera_button_is()) {
     if(ORDER_ONE || ORDER_THREE) {
-      moveScene = true ; 
+      moveScene = true; 
     } else {
-      moveScene = false ;
+      moveScene = false;
     } 
     if(ORDER_TWO || ORDER_THREE) {
-      moveEye = true ; 
+      moveEye = true; 
     } else {
-      moveEye = false ;
+      moveEye = false;
     }
       
     //update z position of the camera
-    sceneCamera.z -= wheel[0] ;
+    sceneCamera.z -= wheel[0];
       
     // change camera position
     if(key_enter) travelling(posCamRef);
     if (key_0 || reset_camera_button_is()) {
-      reset_camera(0) ;
+      reset_camera(0);
     }
-  } else if (!authorization || (ORDER_ONE && ORDER_ONE && ORDER_THREE) ) {
-    moveScene = false ;
-    moveEye = false ;
+  } else if (!authorization || (ORDER_ONE && ORDER_ONE && ORDER_THREE)) {
+    moveScene = false;
+    moveEye = false;
   }  
 }
 
@@ -623,9 +623,9 @@ void order_camera() {
 //start camera with speed setting
 boolean switch_rotate_YZ ;
 void start_camera() {
-  pushMatrix() ;
-  camera(dirCamX, dirCamY, dirCamZ, centerCamX, centerCamY, centerCamZ, upX, upY, upZ) ;
-  beginCamera() ;
+  pushMatrix();
+  camera(dirCamX, dirCamY, dirCamZ, centerCamX, centerCamY, centerCamZ, upX, upY, upZ);
+  beginCamera();
   // scene position
   translate(finalSceneCamera) ;
   // scene orientation direction
@@ -638,16 +638,16 @@ void start_camera() {
     if(switch_rotate_YZ) {
       switch_rotate_YZ = false; 
     } else {
-      switch_rotate_YZ = true ;
+      switch_rotate_YZ = true;
     }
   }
 
   if(switch_rotate_YZ) {
-    rotateY(finalEyeCamera.y) ;
+    rotateY(finalEyeCamera.y);
     rotateZ(0) ;
   } else {
     rotateY(0) ;
-    rotateZ(finalEyeCamera.y) ;
+    rotateZ(finalEyeCamera.y);
   }
 }
 

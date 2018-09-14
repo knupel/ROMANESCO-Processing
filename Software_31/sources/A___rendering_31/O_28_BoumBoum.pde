@@ -71,7 +71,7 @@ class BoumBoum extends Romanesco {
 
 
   void setup() {
-    setting_start_position(ID_item, 0, 0, 0) ;
+    setting_start_position(ID_item,0,0,0);
   }
 
 
