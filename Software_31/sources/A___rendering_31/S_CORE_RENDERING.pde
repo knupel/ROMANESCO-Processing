@@ -1,7 +1,7 @@
 /**
 CORE SCENE and PRESCENE 
 2015-2018
-v 1.6.1
+v 1.6.2
 */
 import java.net.*;
 import java.io.*;
@@ -111,7 +111,11 @@ void init_romanesco() {
 
 
 
-
+/**
+DISPLAY SETUP
+2015-2018
+v 1.1.0
+*/
 String displayMode = ("");
 int depth_scene;
 void display_setup(int frame_rate) {
@@ -127,13 +131,6 @@ void display_setup(int frame_rate) {
   background_setup();
   background_shader_setup();
 }
-
-
-
-
-
-
-
 
 
 void set_screen() {
@@ -160,9 +157,8 @@ void set_screen() {
       surface.setLocation(x,y);
       surface.setSize(w,h);
     } else {
-      println("The",IAM,"is on the screen",sketchDisplay(),"on",get_display_num(),"screen available");
-      int target_screen = sketchDisplay();
-      // if(target_screen => get_display_num()) target_screen = 0;   
+      int target_screen = row.getInt("whichScreen");
+      println("The",IAM,"is on the screen",target_screen,"on",get_display_num(),"screen available");    
       int ox = get_screen_location(target_screen).x;
       int oy = get_screen_location(target_screen).y;
       surface.setLocation(ox,oy);
@@ -171,7 +167,10 @@ void set_screen() {
       surface.setSize(sx,sy);
       for(int i = 0 ; i < get_display_num() ; i++) {
         println("screen",i,"location",get_screen_location(i));
+        println("screen",i,"size",get_screen_size(i));
       }
+      println("target screen",target_screen,"location:",ox,oy);
+      println("target screen",target_screen,"size:",sx,sy);
       w = sx; 
       h = sy;
     }   
@@ -184,8 +183,26 @@ void set_screen() {
   scene_width = w;
   scene_height = h;
   println(IAM,"screen size [",w,",",h,"]"); 
-
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -231,82 +248,7 @@ void message_opening() {
 
 
 
-/**
-GRAPHIC CONFIGURATION 
-1.1.0
-*/
-//int whichScreen;
-void resize_scene() {
-  if (!FULL_SCREEN && !check_size || (width != scene_width && height != scene_height)) {
-    catch_display_position() ;
-    check_size = true ;
-    int which = 0;
-    if(which > screenDevice.length || which < 1) {
-      which = 1;
-    }
-    int pos_x = display_size_x[which -1] - ((display_size_x[which -1]/2) +(scene_width /2)) ;
-    int pos_y = display_size_y[which -1] - ((display_size_y[which -1]/2) +(scene_height /2)) ;
-    set_display_sketch (pos_x, pos_y, scene_width, scene_height, which, true) ;
-  }
-}
 
-
-GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
-GraphicsDevice[] screenDevice = ge.getScreenDevices();
-
-
-
-// window method
-void set_display_sketch(int pos_x, int pos_y, int size_x, int size_y, int which_screen, boolean change_setting) {
-  if(change_setting) {
-    catch_display_position() ; 
-    set_display(pos_x, pos_y, size_x, size_y, which_screen) ;
-  }
-}
-
-// main method to display
-void set_display(int pos_x, int pos_y, int size_x, int size_y, int which_screen) {
-  int which = which_screen - 1 ;
-  if(which < 0 ) which = 0 ;
-  if(which < screenDevice.length ) {
-    println("Surface set location",pos_x +display_pos_x[which],pos_y +display_pos_y[which]) ;
-    surface.setLocation(pos_x +display_pos_x[which],pos_y +display_pos_y[which]) ;
-    // surface.setLocation(20,20) ;
-    surface.setSize(size_x,size_y) ;
-    // surface.setLocation(pos_x +display_pos_x[which],pos_y +display_pos_y[which]) ;
-
-  } else {
-    println("You try to use an unvailable display") ;
-    surface.setSize(size_x,size_y) ;
-    surface.setLocation(20,20) ;
-  }
-}
-
-
-// catch info about the different display
-int [] display_pos_x, display_pos_y ;
-int [] display_size_x, display_size_y ;
-int display_num ;
-void catch_display_position() {
-  display_num = screenDevice.length ;
-  display_pos_x = new int [display_num] ;
-  display_pos_y = new int [display_num] ;
-  display_size_x = new int [display_num] ;
-  display_size_y = new int [display_num] ;
-  
-  for(int i = 0 ; i < display_num ; i++) {
-    GraphicsDevice gd = screenDevice[i];
-    GraphicsConfiguration[] graphicsConfigurationOfThisDevice = gd.getConfigurations();
-    // loop with a single element the screen selected above
-    for (int j = 0 ; j < graphicsConfigurationOfThisDevice.length ; j++ ) {
-      Rectangle gcBounds = graphicsConfigurationOfThisDevice[j].getBounds() ;
-      display_pos_x[i] = gcBounds.x ;
-      display_pos_y[i] = gcBounds.y ;
-      display_size_x[i] = gd.getDisplayMode().getWidth();
-      display_size_y[i] = gd.getDisplayMode().getHeight();
-    }
-  }
-}
 
 
 
