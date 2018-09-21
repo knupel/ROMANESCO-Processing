@@ -21,10 +21,12 @@ Processing 3.4.0
 /**
 DEV
 */
+/*
 boolean DEV_MODE = true; // inter alia, path preferences folder, curtain
 String IAM = "prescene";
 boolean LIVE = false;
 boolean FULL_RENDERING = true;
+*/
 
 
 
@@ -41,8 +43,9 @@ String IAM = "prescene";
 boolean LIVE = false;
 boolean FULL_RENDERING = true;
 */
-/*
+
 // Prescene preview LIVE
+/*
 boolean DEV_MODE = false; // inter alia, path preferences folder, curtain
 String IAM = "prescene";
 boolean LIVE = true;
@@ -50,13 +53,14 @@ boolean FULL_RENDERING = false;
 */
 
 
+
 // SCENE LIVE 
-/*
+
 boolean DEV_MODE = false; // inter alia, path preferences folder, curtain
 String IAM = "scene";
 boolean LIVE = false; // here LIVE must be true, but not sure that's work now for OSC in scene rendering
 boolean FULL_RENDERING = true;
-*/
+
 
 
 
@@ -85,11 +89,11 @@ LIVE must change from the launcher, the info must be write in the external loadi
 
 
 void settings() {
-  size(124,124,P3D); // when the bug will be resolved, return to this config.
-  /*
+  // size(124,124,P3D); // when the bug will be resolved, return to this config.
+  
   fullScreen(P3D); // original
   FULL_SCREEN = true;
-  */
+  
 
 
   pixelDensity(displayDensity());

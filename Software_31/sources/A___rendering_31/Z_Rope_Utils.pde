@@ -1,6 +1,6 @@
 /**
 Rope UTILS 
-v 1.47.4
+v 1.47.5
 * Copyleft (c) 2014-2018 
 * Stan le Punk > http://stanlepunk.xyz/
 Rope – Romanesco Processing Environment – 
@@ -4425,7 +4425,7 @@ boolean in_range_wheel(float min, float max, float roof_max, float value) {
 
 /**
 STRING UTILS
-v 0.3.2
+v 0.3.3
 */
 
 //STRING SPLIT
@@ -4524,6 +4524,10 @@ int width_String(String font_name, String target, int size) {
   Font font = new Font(font_name, Font.BOLD, size) ;
   BufferedImage img = new BufferedImage(1, 1, BufferedImage.TYPE_INT_ARGB);
   FontMetrics fm = img.getGraphics().getFontMetrics(font);
+  if(target ==null) {
+    printErr("method width_String(): String target =",target);
+    target = "";
+  }
   return fm.stringWidth(target);
 }
 

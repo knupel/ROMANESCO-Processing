@@ -483,12 +483,15 @@ public class Dropdown extends Crope {
       line = current_line;
     }
     if(!locked && inside_open_box) {
+
       if(line >= 0 && line < content.length) {
+        // println(current_line,line,frameCount);
         current_line = line ;     
       } else {
         printErr("class Dropdown - method get_selected()\nthe line", line, "don't match with any content, the method keep the last content");
       }
-    } 
+    }
+
     return current_line;
   }
 

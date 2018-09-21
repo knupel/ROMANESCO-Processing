@@ -7,6 +7,20 @@ Todo Romanesco
 
 
 
+*FILL
+
+probleme avec les slider couleur, ils ne gardent pas en memoire les réglage et ça revient vers le rouge
+
+
+*MIDI
+
+les boutons de la bar de menu ne sont pas accessible qd le midi mapping est actif
+
+*MIDI
+
+Apparement la barre menu n'est pas enregistrée ???
+
+
 *SAVE SCENE and PRESCENE **************************
 
 loadDataObject()
@@ -32,7 +46,7 @@ bug when the prescene and scene is active the prescene receive nothing
 
 *Button
 
-but with Controller button birth
+With Controller button birth, and the shortcut "N" when the memory or when there is a lot object..there is a crazy behavior...creta
 
 
 *Mask
