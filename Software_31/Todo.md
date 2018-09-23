@@ -5,7 +5,9 @@ Todo Romanesco
 
 */
 
+*Instruction
 
+For building software changed the name of cyberpunk.txt for readme.txt or hack_the_mac.md
 
 *FILL
 
