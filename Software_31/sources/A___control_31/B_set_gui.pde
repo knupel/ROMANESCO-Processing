@@ -151,8 +151,6 @@ void set_design_structure_inventory() {
 
 void set_design_structure_menu_bar() {
   spacing_midi_info = 13;
-  correction_info_midi_x = 60;
-  correction_info_midi_y = 10;
   size_x_window_info_midi = 200;
 
   num_dropdown_bar = 7;
@@ -359,22 +357,23 @@ void set_console_general() {
   // CURTAIN
   pos_curtain_button = iVec2(grid_col[0] +0, pos_y_button_top +8);
   size_curtain_button = iVec2(30,30);
-  // MIDI
-  pos_midi_button = iVec2(grid_col[0] +40, pos_y_button_top +9);
-  size_midi_button = iVec2(50,26);
-  pos_midi_info = Vec2(pos_midi_button.x +correction_info_midi_x, pos_midi_button.y +correction_info_midi_y); 
   // RESET CAMERA
-  pos_reset_camera_button = iVec2(grid_col[0] +100, pos_y_button_top +9);
+  pos_reset_camera_button = iVec2(grid_col[0] +40, pos_y_button_top +9);
   size_reset_camera_button = iVec2(26,26);
   // RESET ITEM ON COORD
-  pos_reset_item_on_button = iVec2(grid_col[0] +130, pos_y_button_top +9);
+  pos_reset_item_on_button = iVec2(grid_col[0] +70, pos_y_button_top +9);
   size_reset_item_on_button = iVec2(26,26);
   // BIRTH
-  pos_birth_button = iVec2(grid_col[0] +160, pos_y_button_top +9);
+  pos_birth_button = iVec2(grid_col[0] +100, pos_y_button_top +9);
   size_birth_button = iVec2(26,26);
   // 3D
-  pos_3D_button = iVec2(grid_col[0] +190, pos_y_button_top +9);
+  pos_3D_button = iVec2(grid_col[0] +130, pos_y_button_top +9);
   size_3D_button = iVec2(26,26);
+
+  // MIDI
+  pos_midi_button = iVec2(grid_col[11] +5, pos_y_button_top +9);
+  size_midi_button = iVec2(50,26);
+  pos_midi_info = Vec2(pos_midi_button.x -size_x_window_info_midi, pos_midi_button.y +10); 
 }
 
 void set_console_slider_background(iVec2 pos, iVec2 size) {
@@ -720,8 +719,6 @@ iVec2 pos_midi_button, size_midi_button;
 Vec2 pos_midi_info;
 
 int spacing_midi_info;
-int correction_info_midi_x;
-int correction_info_midi_y;
 int size_x_window_info_midi;
 
 // Curtain
