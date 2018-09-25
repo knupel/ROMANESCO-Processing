@@ -1,6 +1,6 @@
 /**
 DROPDOWN 
-v 0.1.2
+v 0.1.3
 2018-2018
 */
 /**
@@ -27,7 +27,7 @@ boolean dropdown_is() {
 
 /**
 DROPDOWN class
-v 2.5.9
+v 2.6.0
 2014-2018
 */
 public class Dropdown extends Crope {
@@ -96,7 +96,6 @@ public class Dropdown extends Crope {
     pos_ref_y = pos.y;
     this.size = size.copy(); // header size
 
-    
     set_box(content.length);
     set_content(content);
     set_box_height(size.y);
@@ -320,20 +319,24 @@ public class Dropdown extends Crope {
     } else if(!inside && selected_type && slider_dd != null && !slider_dd.inside_slider()) {
       locked = false;
     }
-
     if(locked) {
       int result_line = get_select_line();
       if (result_line > -1) {
         line = result_line; 
       }
-    } 
+    }
   }
 
 
   private int get_select_line() {
+    int content_size_y = ((content.length+1) *size.y) +pos.y;
+    // very quick bug fix, for the case there is only two item in thelist
+    if(content.length == 2) {
+      content_size_y = ((content.length+2) *size.y) +pos.y;
+    }
     if(cursor.x >= pos.x 
       && cursor.x <= pos.x +size_box.x 
-      && cursor.y >= pos.y && cursor.y <= ((content.length+1) *size.y) +pos.y) {
+      && cursor.y >= pos.y && cursor.y <= content_size_y) {
       //choice the line
       int line = floor((cursor.y - (pos.y +size.y)) / size.y ) +offset_slider;
       line -= (box_starting_rank_position -1);
@@ -483,15 +486,12 @@ public class Dropdown extends Crope {
       line = current_line;
     }
     if(!locked && inside_open_box) {
-
       if(line >= 0 && line < content.length) {
-        // println(current_line,line,frameCount);
         current_line = line ;     
       } else {
         printErr("class Dropdown - method get_selected()\nthe line", line, "don't match with any content, the method keep the last content");
       }
-    }
-
+    } 
     return current_line;
   }
 
