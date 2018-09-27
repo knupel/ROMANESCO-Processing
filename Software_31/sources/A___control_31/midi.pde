@@ -1,19 +1,19 @@
 /**
 MIDI CONTROL
-v 2.1.0
+v 2.1.1
 2014-2018
 */
 boolean reset_midi_selection;
 
 void init_midi() {
-  check_midi_input() ;
-  open_midi_bus() ;
-  select_first_midi_input() ;
+  check_midi_input();
+  open_midi_bus();
+  select_first_midi_input();
 }
 
 void update_midi() {
-  midi_select(which_midi_input, num_midi_input) ;
-  use_specific_midi_input(which_midi_input) ;
+  midi_select(which_midi_input, num_midi_input);
+  use_specific_midi_input(which_midi_input);
 }
 
 void reset_midi_control_parametter() {
@@ -268,8 +268,12 @@ void select_input_midi_device() {
 }
 
 void keypressed_midi() {
-  if (!choice_midi_device) select_input_midi_device();
-  if (key =='n' && choice_midi_device) reset_input_midi_device();
+  if (!choice_midi_device) {
+    select_input_midi_device();
+  }
+  if (key =='n' && choice_midi_device) {
+    reset_input_midi_device();
+  }
   if(keyCode == BACKSPACE || keyCode == DELETE) {
     if(selectMidi) {
       reset_midi_selection = true;
@@ -288,23 +292,21 @@ void keypressed_midi() {
 /**
 MIDI MANAGER
 */
-
-
-/**
-
-
-
-Here it's really a midi Stuff, the name must change in the future
-
-
-
-*/
 void midi_manager(boolean saveButton) {
   int rank = 0 ;
   midi_button(button_bg,rank,saveButton,"Button background");
   rank++;
   midi_button(button_curtain,rank,saveButton,"Button curtain");
   rank++;
+  midi_button(button_reset_camera,rank,saveButton,"Button reset camera");
+  rank++;
+  midi_button(button_reset_item_on,rank,saveButton,"Button reset ative item position");
+  rank++;
+  midi_button(button_birth,rank,saveButton,"Button birth");
+  rank++;
+  midi_button(button_3D,rank,saveButton,"Button 3D");
+  rank++;
+
   for(int i = 0 ; i < NUM_BUTTON_FX ; i++) {
     midi_button(button_fx[i],rank,saveButton,"Button fx");
     rank++;
@@ -356,14 +358,16 @@ Here it's real midi stuff
 void midi_button(Button b, int id, boolean saveButton, String type) {
   setting_midi_button(b);
   update_midi_button(b);
-  if(saveButton) set_data_button(id, b.get_id_midi(),b.is(),type);
+  if(saveButton) {
+    set_data_button(id, b.get_id_midi(),b.is(),type);
+  }
 }
 
 void setting_midi_button(Button b) {
   if(selectMidi) {
     if(reset_midi_selection) {
       b.set_id_midi(-2);
-    } else if (b.inside && mousePressed ) {
+    } else if (b.inside && mousePressed) {
       b.set_id_midi(midi_CC_romanesco);  
     }  
   }
@@ -373,6 +377,7 @@ void setting_midi_button(Button b) {
 boolean midi_update_button = true;
 void update_midi_button(Button b) {
   if(midi_value_romanesco == 127 && midi_CC_romanesco == b.get_id_midi() && midi_update_button) {
+    // println("je suis là",midi_CC_romanesco,b.get_id_midi(),frameCount);
     b.switch_is();
     midi_update_button = false;
   }

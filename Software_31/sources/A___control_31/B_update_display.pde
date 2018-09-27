@@ -1018,13 +1018,14 @@ void display_button_general() {
   }
   //MIDI / CURTAIN
   button_curtain.show_picto(pic_curtain);
-  button_midi.show_picto(pic_midi);
   // RESET
   button_reset_camera.show_picto(pic_reset_camera);
   button_reset_item_on.show_picto(pic_reset_item_on);
   // MISC
   button_birth.show_picto(pic_birth);
   button_3D.show_picto(pic_3D);
+  // 
+  button_midi.show_picto(pic_midi);
 
 }
 
@@ -1043,13 +1044,12 @@ void update_button() {
 }
 
 void update_button_general() {
+  update_button_local(button_curtain,button_reset_camera,button_reset_item_on,button_birth,button_3D);
+  update_button_local(button_midi);
   update_button_local(button_bg,
                       button_light_ambient,button_light_ambient_action,
                       button_light_1,button_light_1_action,
                       button_light_2,button_light_2_action);
-                      // button_kick,button_snare,button_hat,
-  update_button_local(button_midi,button_curtain,button_birth,button_3D);
-  update_button_local(button_reset_camera,button_reset_item_on);
   update_button_local(button_fx);
   update_button_local(button_transient);
 }

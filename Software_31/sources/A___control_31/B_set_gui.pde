@@ -377,7 +377,7 @@ void set_console_general() {
 }
 
 void set_console_slider_background(iVec2 pos, iVec2 size) {
-  //button
+  // button
   int offset_button_y = -int(size.y *1.5);
   pos_button_background = iVec2(pos.x, pos.y +offset_button_y);
   size_button_background = iVec2(120,10);

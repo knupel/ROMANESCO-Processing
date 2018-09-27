@@ -906,14 +906,17 @@ boolean items_loaded_is() {
 
 
 void init_slider_variable_world() {
-  // camera
-  value_slider_camera[0] = 100;
+  // value from 0 to 360
+  // camera setting default before loading data
+  value_slider_camera[0] = 100; // lens
   value_slider_camera[1] = 180;
   value_slider_camera[2] = 180;
   value_slider_camera[3] = 180;
   value_slider_camera[4] = 180;
   value_slider_camera[5] = 180;
   value_slider_camera[6] = 180;
+  value_slider_camera[7] = 20; // speed rotation
+  value_slider_camera[8] = 20; // speed move
   // background
   value_slider_background[0] = g.colorModeX;
   value_slider_background[1] = g.colorModeY;

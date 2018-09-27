@@ -2,7 +2,7 @@
 Camera Romanesco
 Prescene and Scene
 2013-2018
-v 1.2.1
+v 1.2.2
 */
 //travelling
 boolean goto_camera_pos_is, gotoCameraEye, travellingPriority;
@@ -22,6 +22,7 @@ float ratio_speed_camera_romanesco = .1;
 
 float ratio_speed_camera_inertia_translate = 10;
 float ratio_speed_camera_inertia_rotate = 3;
+//float ratio_speed_camera_inertia_rotate = 3;
 float acc_camera_rope = .01;
 float dec_camera_rope = .01;
 
@@ -493,7 +494,12 @@ void final_camera_full_rendering() {
   Vec3 displacement_scene = Vec3(width/2, height/2, 0);
   
   // Check the special move camera
-  Vec3 compare_pos_scene = sub(finalSceneCamera, sceneCamera) ;
+  Vec3 compare_pos_scene = sub(finalSceneCamera, sceneCamera);
+
+  // intertia camera
+  ratio_speed_camera_inertia_rotate = map(value_slider_camera[7],0,360,0,30);
+  ratio_speed_camera_inertia_translate = map(value_slider_camera[8],0,360,0,30);
+  println("method final_camera_full_rendering(): inertia",ratio_speed_camera_inertia_rotate,ratio_speed_camera_inertia_translate);
   
 
 
@@ -819,25 +825,25 @@ void move_camera(Vec3 origin, Vec3 target, float speed) {
 
 // CHANGE CAMERA POSITION
 void reset_camera(int ID) {
-  eyeCamera.set(eyeCameraSetting[ID]) ;
-  sceneCamera.set(sceneCameraSetting[ID]) ;
+  eyeCamera.set(eyeCameraSetting[ID]);
+  sceneCamera.set(sceneCameraSetting[ID]);
 
-  tempEyeCamera.set(0) ;
-  goto_camera_pos_is = false ;
-  gotoCameraEye = false ;
+  tempEyeCamera.set(0);
+  goto_camera_pos_is = false;
+  gotoCameraEye = false;
 
-  motion_translate.reset() ;
-  motion_rotate.reset() ;
+  motion_translate.reset();
+  motion_rotate.reset();
 
-  cursor_final_translate.set(mouse[0]) ;
-  cursor_final_rotate.set(mouse[0]) ;
-  mouse_ref_inertia_translate.set(mouse[0]) ;
-  mouse_ref_inertia_translate.set(mouse[0]) ;
+  cursor_final_translate.set(mouse[0]);
+  cursor_final_rotate.set(mouse[0]);
+  mouse_ref_inertia_translate.set(mouse[0]);
+  mouse_ref_inertia_translate.set(mouse[0]);
 
-  reset_camera_romanesco = true ;
+  reset_camera_romanesco = true;
 
-  update_direction_camera(true,eyeCamera) ;
-  update_position_camera(true,false,sceneCamera) ;
+  update_direction_camera(true,eyeCamera);
+  update_position_camera(true,false,sceneCamera);
 }
 
 
@@ -894,17 +900,17 @@ float speedX  ;
 float speedY  ;
     
 Vec3 back_eye() {
-  Vec3 eye = Vec3() ;
+  Vec3 eye = Vec3();
 
   if(gotoCameraEye) {
     if(current_dist_to_target > 2 ) {
       travellingPriority = true ;
-      if (eyeBackRef.x < 180 ) {
+      if (eyeBackRef.x < 180) {
         eye.x = map(current_dist_to_target,distFollowRef,0,eyeBackRef.x,0); 
       } else {
         eye.x = map(current_dist_to_target,distFollowRef,0,eyeBackRef.x,360);
       }
-      if (eyeBackRef.y < 180 ) {
+      if (eyeBackRef.y < 180) {
         eye.y = map(current_dist_to_target,distFollowRef,0,eyeBackRef.y,0); 
       } else {
         eye.y = map(current_dist_to_target,distFollowRef,0,eyeBackRef.y,360);
@@ -918,6 +924,7 @@ Vec3 back_eye() {
       }
     } else {
       //speed of the eye to return to original position
+      // float speedBackEye = 3.;
       float speedBackEye = .2;
       float ratioX = eyeBackRef.x / frameRate *speedBackEye ;
       float ratioY = eyeBackRef.y / frameRate *speedBackEye ;
