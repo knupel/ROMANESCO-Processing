@@ -2,7 +2,7 @@
 Core Romanesco
 COMMON SKETCH for CONTROLLER, PRESCENE & SCENE
 2018-2018
-v 0.1.7
+v 0.1.8
 */
 int NUM_COL_SLIDER = 4;
 int NUM_SLIDER_ITEM_BY_COL = 16;
@@ -29,14 +29,14 @@ int NUM_SLIDER_FX = 12;
 int NUM_SLIDER_LIGHT = 9;
 int NUM_SLIDER_SOUND = 2;
 int NUM_SLIDER_SOUND_SETTING = 5; // 5
-int NUM_SLIDER_CAMERA = 9;
+int NUM_SLIDER_CAMERA = 10;
 
-int NUM_SLIDER_GENERAL 	= NUM_SLIDER_BACKGROUND 
-												+ NUM_SLIDER_FX 
-												+ NUM_SLIDER_LIGHT 
-												+ NUM_SLIDER_SOUND 
-												+ NUM_SLIDER_SOUND_SETTING 
-												+ NUM_SLIDER_CAMERA;
+int NUM_SLIDER_GENERAL  = NUM_SLIDER_BACKGROUND 
+                        + NUM_SLIDER_FX 
+                        + NUM_SLIDER_LIGHT 
+                        + NUM_SLIDER_SOUND 
+                        + NUM_SLIDER_SOUND_SETTING 
+                        + NUM_SLIDER_CAMERA;
 
 // for the case where the slider is a multislider, important for the sending and receiving OSC data
 int NUM_MOLETTE_BACKGROUND = NUM_SLIDER_BACKGROUND;
@@ -47,11 +47,11 @@ int NUM_MOLETTE_SOUND_SETTING = 11; // here the value is different because it's 
 int NUM_MOLETTE_CAMERA = NUM_SLIDER_CAMERA;
 
 int NUM_MOLETTE_GENERAL = NUM_MOLETTE_BACKGROUND 
-												+ NUM_MOLETTE_FX 
-												+ NUM_MOLETTE_LIGHT 
-												+ NUM_MOLETTE_SOUND 
-												+ NUM_MOLETTE_SOUND_SETTING 
-												+ NUM_MOLETTE_CAMERA;
+                        + NUM_MOLETTE_FX 
+                        + NUM_MOLETTE_LIGHT 
+                        + NUM_MOLETTE_SOUND 
+                        + NUM_MOLETTE_SOUND_SETTING 
+                        + NUM_MOLETTE_CAMERA;
 
 int NUM_GROUP_SLIDER = 2; // '0' for general / '1' for the item
 
@@ -74,26 +74,26 @@ String version = "";
 String prettyVersion = "";
 String nameVersion = "";
 void version() {
-	String [] s = loadStrings(preference_path+"version.txt");
-	String [] v = split(s[0],"/");
-	prettyVersion = v[0];
-	version = v[1];
-	nameVersion = v[2];
+  String [] s = loadStrings(preference_path+"version.txt");
+  String [] v = split(s[0],"/");
+  prettyVersion = v[0];
+  version = v[1];
+  nameVersion = v[2];
 }
 
 
 String system() {
-	return System.getProperty("os.name");
+  return System.getProperty("os.name");
 }
 
 void set_system_specification() {
-	String system = system();
-	println("System:",system);
-	if(system.equals("Mac OS X")) {
-		KEY_CTRL_OS = 157;
-	} else {
-		KEY_CTRL_OS = CONTROL;
-	}
+  String system = system();
+  println("System:",system);
+  if(system.equals("Mac OS X")) {
+    KEY_CTRL_OS = 157;
+  } else {
+    KEY_CTRL_OS = CONTROL;
+  }
 }
 
 

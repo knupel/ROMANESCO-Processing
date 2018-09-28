@@ -127,7 +127,7 @@ void setup() {
   romanesco_build_item();
 
   create_variable();
-  P3D_setup();
+  camera_setup();
 
   if(IAM.equals("prescene")){
     prescene_setup(); 

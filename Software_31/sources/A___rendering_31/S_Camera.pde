@@ -2,12 +2,12 @@
 Camera Romanesco
 Prescene and Scene
 2013-2018
-v 1.2.2
+v 1.3.0
 */
 //travelling
 boolean goto_camera_pos_is, gotoCameraEye, travellingPriority;
 //speed must be 1 or less
-float speed_camera_romanesco;
+float speed_follow_camera_romanesco;
 
 //CAMERA Stuff
 private boolean moveScene, moveEye;
@@ -17,31 +17,31 @@ Vec3 targetPosCam = Vec3();
 // motion effect on camera
 Motion motion_translate, motion_rotate;
 
-// ratio camera
-float ratio_speed_camera_romanesco = .1;
-
-float ratio_speed_camera_inertia_translate = 10;
-float ratio_speed_camera_inertia_rotate = 3;
 //float ratio_speed_camera_inertia_rotate = 3;
 float acc_camera_rope = .01;
 float dec_camera_rope = .01;
 
+float ref_speed_follow_cam;
+float ref_cam_deceleration;
+float ref_cam_ratio_rotate,ref_cam_ratio_translate;
 
-/**
-P3D SETUP
-*/
-void P3D_setup() {
-    camera_setting (NUM_SETTING_CAMERA);
-    item_manipulation () ;
-    item_manipulation_setting(NUM_SETTING_ITEM);
-    init_var_camera() ;
-    println("P3D setup done") ;
+
+// Camera SETUP
+void camera_setup() {
+  float speed_cam_follow = ref_speed_follow_cam = .01;
+  float dec = ref_cam_deceleration = .1;
+  float ratio_rotate = ref_cam_ratio_rotate = 10;
+  float ratio_translate = ref_cam_ratio_translate = 3;
+  camera_setting(NUM_SETTING_CAMERA,speed_cam_follow,dec,ratio_rotate,ratio_translate);
+  item_manipulation();
+  item_manipulation_setting(NUM_SETTING_ITEM);
+  final_camera_low_rendering();
+  println("camera setup done");
 }
 
 
 // ANNEXE setting object manipulation
 void item_manipulation () {
-  //P3D for all ROMANESCO object
   for ( int i = 0 ; i < NUM_ITEM_PLUS_MASTER ; i++ ) {
     pos_item[i] = Vec3() ; 
     dir_item[i] = Vec3() ;
@@ -50,32 +50,41 @@ void item_manipulation () {
 }
 
 void item_manipulation_setting (int num_setting_item) {
-  // object orientation
-  for ( int i = 0 ; i < num_setting_item ; i++ ) {
-    for (int j = 0 ; j < NUM_ITEM_PLUS_MASTER ; j++ ) {
-       if(item_setting_position [i][j] == null) item_setting_position [i][j] = Vec3() ;
-       if(item_setting_direction [i][j] == null) item_setting_direction [i][j] = Vec3() ;
-     }
-   }
+  for(int i = 0 ; i < num_setting_item ; i++) {
+    for(int j = 0 ; j < NUM_ITEM_PLUS_MASTER ; j++) {
+      if(item_setting_position [i][j] == null) {
+        item_setting_position [i][j] = Vec3();
+      }
+      if(item_setting_direction [i][j] == null) {
+        item_setting_direction [i][j] = Vec3();
+      }
+    }
+  }
 }
 
 // ANNEXE setting camera manipulation
-void camera_setting (int numSettingCamera) {
+void camera_setting(int num, float speed_follow, float deceleration, float inertia_rotate, float inertia_translate) {
   if (eyeCameraSetting != null && sceneCameraSetting != null ) {
-    for ( int i = 0 ; i < numSettingCamera ; i++ ) {
+    for ( int i = 0 ; i < num ; i++ ) {
        eyeCameraSetting[i] = Vec3() ;
        sceneCameraSetting[i] = Vec3() ;
     }
   }
 
-  speed_camera_romanesco = width / 1000 * ratio_speed_camera_romanesco ;
+  speed_follow_camera_romanesco = width / 1000 * speed_follow;
 
-  float max_speed_inertia_translate = width / 1000 * ratio_speed_camera_inertia_translate ;
-  float max_speed_inertia_rotate = width / 1000 * ratio_speed_camera_inertia_rotate ;
+  float max_speed_inertia_rotate = width / 1000 * inertia_rotate;
+  motion_rotate = new Motion(max_speed_inertia_rotate);
+  motion_rotate.set_deceleration(deceleration);
 
-  motion_translate = new Motion(max_speed_inertia_translate) ;
-  motion_rotate = new Motion(max_speed_inertia_rotate) ;
+  float max_speed_inertia_translate = width / 1000 * inertia_translate;
+  motion_translate = new Motion(max_speed_inertia_translate);
+  motion_translate.set_deceleration(deceleration);
+
+  
+  
 }
+
 
 
 /**
@@ -137,6 +146,11 @@ void setting_start_position(int ID, int which_setting, int pos_x, int pos_y, int
 
 
 
+
+
+
+
+
 /**
 GET
 */
@@ -148,6 +162,11 @@ Vec3 get_pos_item(int id_item) {
 Vec3 get_dir_item(int id_item) {
   return dir_item_final[id_item] ;
 }
+
+
+
+
+
 
 
 
@@ -216,19 +235,13 @@ void item_follower(int ID) {
   add_ref_item(ID) ;
 }
 
-
-
-/**
-Create ref position
-*/
+// Create ref position
 void add_ref_item(int ID) {
   pos_item[ID] = Vec3(pos_item_final[ID]) ;
   dir_item[ID] = Vec3(dir_item_final[ID]);
 }
 
-/**
-reset
-*/
+// reset
 void reset_direction_item (int which_setting, int ID) {
   if(reset_camera_direction_item[ID]) {
     if(item_setting_direction[which_setting][ID] == null) {
@@ -246,9 +259,7 @@ void reset_direction_item (int which_setting, int ID) {
 
 
 
-/**
-Update direction item
-*/
+// Update direction item
 Vec3 direction_mouse_ref;
 void update_ref_direction_mouse() {
   if(direction_mouse_ref == null) direction_mouse_ref = Vec3() ;
@@ -292,9 +303,7 @@ Vec3 update_direction_item(Vec2 speed, int ID, boolean authorization) {
 
 
 
-/**
-Update position item
-*/
+// Update position item
 Vec3 position_mouse_ref = Vec3() ;
 
 void update_ref_position_mouse() {
@@ -330,16 +339,10 @@ Vec3 update_position_item(Vec3 pos, int ID, boolean authorization) {
 }
 
 
-/**
-nd update position item
-*/
 
 
 
-
-/**
-FINAL POSITION
-*/
+// FINAL POSITION
 void final_pos_item(int ID) {
   translate(pos_item_final[ID]) ;
   rotateX(radians(dir_item_final[ID].x)) ;
@@ -422,10 +425,7 @@ Vec3 finalSceneCamera ;
 Vec2 finalEyeCamera ;
 boolean reset_camera_romanesco ;
 
-// init var
-void init_var_camera() {
-  final_camera_low_rendering() ;
-}
+
 
 /**
 Main method camera draw
@@ -446,7 +446,7 @@ void camera_romanesco_draw() {
   
   //to change the scene position with a specific point
   if(goto_camera_pos_is || gotoCameraEye ) {
-    move_camera(sceneCamera, targetPosCam, speed_camera_romanesco) ;
+    move_camera(sceneCamera, targetPosCam, speed_follow_camera_romanesco) ;
   }
 
   //catch ref camera
@@ -457,21 +457,20 @@ void camera_romanesco_draw() {
 
 
 
-/**
-Annexe method of the method camera_romanesco_draw() 1.0.3
-*/
-void set_var_camera_romanesco() {
-  // float focal = map(valueSlider[0][19],0,360,28,200) ;
 
-  /* this method need to be on the Prescene sketch and on the window.
+void set_var_camera_romanesco() { 
+/* 
+  this method need to be on the Prescene sketch and on the window.
   1. boolean prescene : On prescene, because on Scene we don't need to have a global view : boolean prescene
-  2. boolean MOUSE_IN_OUT : because if we mode out the sketch the keyevent is not updated, and the camera stay in camera view */
+  2. boolean MOUSE_IN_OUT : because if we mode out the sketch the keyevent is not updated, and the camera stay in camera view 
+  */
   if(FULL_RENDERING || (key_c_long && (MOUSE_IN_OUT || clickLongLeft[0] || clickLongRight[0]) && prescene)) {
     final_camera_full_rendering() ; 
   } else {
     final_camera_low_rendering() ;
   }
 }
+
 
 void final_camera_full_rendering() {
   // world rendering
@@ -497,12 +496,19 @@ void final_camera_full_rendering() {
   Vec3 compare_pos_scene = sub(finalSceneCamera, sceneCamera);
 
   // intertia camera
-  ratio_speed_camera_inertia_rotate = map(value_slider_camera[7],0,360,0,30);
-  ratio_speed_camera_inertia_translate = map(value_slider_camera[8],0,360,0,30);
-  println("method final_camera_full_rendering(): inertia",ratio_speed_camera_inertia_rotate,ratio_speed_camera_inertia_translate);
-  
+  float speed_follow_cam = .01;
+  float deceleration = map(value_slider_camera[7],0,360,.0001,.02);
+  float ratio_rotate = map(value_slider_camera[8],0,360,0,10);
+  float ratio_translate = map(value_slider_camera[9],0,360,0,10);
 
 
+  if(ref_speed_follow_cam != speed_follow_cam || ref_cam_deceleration != deceleration || ref_cam_ratio_rotate != ratio_rotate || ref_cam_ratio_translate != ratio_translate) {
+    camera_setting(NUM_SETTING_CAMERA,speed_follow_cam,deceleration,ratio_rotate,ratio_translate);
+    ref_speed_follow_cam = speed_follow_cam;
+    ref_cam_deceleration = deceleration;
+    ref_cam_ratio_rotate = ratio_rotate;
+    ref_cam_ratio_translate = ratio_translate;
+  }
 
   boolean specialMoveCamera = false ; ;
   // displacement scene
@@ -543,39 +549,38 @@ void final_camera_full_rendering() {
 
 
 void final_camera_low_rendering() {
-    // default setting camera from Processing.org example, like the camera above
-    /*
-    float dirCamX = width/2.0 ; // eye X
-    float dirCamY = height/2.0 ; // eye Y
-    float dirCamZ = (height/2.0) / tan(PI*30.0 / 180.0) ; // // eye Z
-    float centerCamX = width/2.0 ; // Position X
-    float centerCamY = height/2.0 ; // Position Y
-    float centerCamZ = 0 ; // Position Z
-    float upX = 0 ;
-    float upY = 1 ;
-    float upZ = 0 ;
-    */
-     // world rendering
-    focal = 40 ; // 28-200
-    deformation = 0 ; // -1 to 1 
-    // camera
-    dirCamX = width/2.0 ; // eye X
-    dirCamY = height/2.0 ; // eye Y
-    dirCamZ = (height/2.0) / tan(PI*30.0 / 180.0) ; // eye Z
-    
-    centerCamX = width/2.0 ; // Position X
-    centerCamY = height/2.0 ; // Position Y
-    centerCamZ = 0 ; // Position Z
-    
-    upX = 0 ;
-    upY = 1 ;
-    upZ = 0 ;
-    // final camera position
-    finalSceneCamera = new Vec3 (width/2, height, -width) ;
-    float longitude = -45 ;
-    float latitude = 0 ;
-    finalEyeCamera = new Vec2 (longitude, latitude) ;
-
+  // default setting camera from Processing.org example, like the camera above
+  /*
+  float dirCamX = width/2.0 ; // eye X
+  float dirCamY = height/2.0 ; // eye Y
+  float dirCamZ = (height/2.0) / tan(PI*30.0 / 180.0) ; // // eye Z
+  float centerCamX = width/2.0 ; // Position X
+  float centerCamY = height/2.0 ; // Position Y
+  float centerCamZ = 0 ; // Position Z
+  float upX = 0 ;
+  float upY = 1 ;
+  float upZ = 0 ;
+  */
+   // world rendering
+  focal = 40 ; // 28-200
+  deformation = 0 ; // -1 to 1 
+  // camera
+  dirCamX = width/2.0 ; // eye X
+  dirCamY = height/2.0 ; // eye Y
+  dirCamZ = (height/2.0) / tan(PI*30.0 / 180.0) ; // eye Z
+  
+  centerCamX = width/2.0 ; // Position X
+  centerCamY = height/2.0 ; // Position Y
+  centerCamZ = 0 ; // Position Z
+  
+  upX = 0 ;
+  upY = 1 ;
+  upZ = 0 ;
+  // final camera position
+  finalSceneCamera = new Vec3 (width/2, height, -width) ;
+  float longitude = -45 ;
+  float latitude = 0 ;
+  finalEyeCamera = new Vec2 (longitude, latitude) ;
 }
 
 
@@ -759,6 +764,10 @@ void update_camera_romanesco(boolean leapMotion) {
 }
 
 Vec3 update_cursor(Motion motion, Vec3 ref, Vec3 cursor_final) {
+  if(motion.get_velocity() > 0) {
+    println(motion.get_velocity(), frameCount);
+    println(motion.get_deceleration(), frameCount);
+  }
   return motion.leading(ref, cursor_final) ;
 }
 
@@ -813,9 +822,9 @@ boolean check_cursor_rotate(boolean authorization) {
 
 
 // move camera to target
-void move_camera(Vec3 origin, Vec3 target, float speed) {
+void move_camera(Vec3 origin, Vec3 target, float speed_follow) {
   if(!moveScene) {
-    sceneCamera.set(follow(origin,target,speed));
+    sceneCamera.set(follow(origin,target,speed_follow));
   }
   if(!moveEye && (goto_camera_pos_is || gotoCameraEye)) {
     eyeCamera.set(back_eye());
