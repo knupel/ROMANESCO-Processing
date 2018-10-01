@@ -272,6 +272,15 @@ void show_slider_controller() {
 }
 
 
+boolean slider_already_used;
+void slider_already_used(boolean state) {
+  slider_already_used = state;
+}
+
+boolean slider_already_used_is() {
+  return slider_already_used;
+}
+
 void update_slider(Slider slider, Cropinfo [] info_slider) {
   //MIDI update
   update_midi_slider(slider,info_slider);
@@ -301,26 +310,40 @@ void update_slider(Slider slider, Cropinfo [] info_slider) {
         sladj.update_max();
       }
     }
-
     // update 
     sladj.update_min_max();
-    /*
-    if(!sladj.locked_max_is()) {
-    // if(!sladj.locked_max_is() && !sladj.locked_max_is()) {
-      sladj.inside_molette_ellipse();
-    } 
-    */
   } else {
     slider.inside_molette_ellipse();
   }
   
+  // multislider case
+  boolean add_slider_to_selection = false ;
   if(keyPressed && key == CODED && keyCode == SHIFT) {
-    slider.keep_selection(true);
-  } else {
-    slider.keep_selection(false);
+    slider_already_used(false);
+    add_slider_to_selection = true;
   }
-  slider.select(true);
+  
   slider.update(mouseX,mouseY);
+
+  if(slider.molette_inside_is() && !add_slider_to_selection) {
+    slider_already_used(true);
+  }
+
+
+
+  if(add_slider_to_selection) {
+    // printTempo(60,"multislider",frameCount);
+    slider.keep_selection(true);
+    slider.select(true);
+  } else if(slider_already_used_is()) {
+    // printTempo(60,"one slider",frameCount);
+    slider.keep_selection(false);
+    slider.select(true);
+  } else {
+    // printTempo(60,"nothing",frameCount);
+    slider.keep_selection(false);
+    slider.select(false);
+  }
 }
 
 

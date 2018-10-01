@@ -26,6 +26,7 @@ MAJOR
 >add button item reset
 >add button three dimension
 >add button birth
+>add camera setting rotation, translate and deceleration
 
 
 MINOR
