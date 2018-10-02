@@ -16,8 +16,8 @@ void info_item() {
   item_info_raw[0] = item_info[0] = ("") ;
   // the list start from '1' so we must init the '0'
   for(int i = 0 ; i < NUM_ITEM ; i++) {
-    TableRow lookFor = inventory_item_table.getRow(i) ;
-    int ID = lookFor.getInt("ID") ;
+    TableRow lookFor = inventory_item_table.getRow(i);
+    int ID = lookFor.getInt("ID");
     for(int j = 0 ; j <= NUM_ITEM ; j++) {
       if(ID == j) { 
         /* 
@@ -27,9 +27,9 @@ void info_item() {
         to create a raw list for the next loading item list :( very messy :( 
         */
         item_info_raw[j] = lookFor.getString("Name") + "/" +lookFor.getInt("ID") + "/" +lookFor.getInt("Library Order") ;
-        item_info[j] = item_info_raw[j] ;
+        item_info[j] = item_info_raw[j];
         item_name[j] = lookFor.getString("Name");
-        item_ID [j] = lookFor.getInt("ID") ;
+        item_ID [j] = lookFor.getInt("ID");
 
         item_group[j] = lookFor.getInt("Group");
         item_pack[j] = lookFor.getString("Pack");
@@ -37,7 +37,7 @@ void info_item() {
         item_author[j] = lookFor.getString("Author");
         item_version[j] = lookFor.getString("Version");
         item_load_name[j] = lookFor.getString("Class name");
-        item_slider[j] = lookFor.getString("Slider") ;
+        item_slider[j] = lookFor.getString("Slider");
       }
     }
   }
@@ -62,19 +62,19 @@ void create_and_initialize_data() {
 }
 
 void init_var_item() {
-  item_group = new int [NUM_ITEM +1] ;
-  item_GUI_on_off = new int [NUM_ITEM +1] ;
+  item_group = new int [NUM_ITEM +1];
+  item_GUI_on_off = new int [NUM_ITEM +1];
 
-  item_info_raw = new String [NUM_ITEM +1] ;
-  item_info = new String [NUM_ITEM +1] ;
-  item_ID = new int [NUM_ITEM +1] ;
+  item_info_raw = new String [NUM_ITEM +1];
+  item_info = new String [NUM_ITEM +1];
+  item_ID = new int [NUM_ITEM +1];
 
-  item_author = new String [NUM_ITEM +1] ;
-  item_name = new String [NUM_ITEM +1] ;
-  item_version = new String [NUM_ITEM +1] ;
-  item_pack = new String [NUM_ITEM +1] ;
-  item_load_name = new String [NUM_ITEM +1] ;
-  item_slider = new String [NUM_ITEM +1] ;
+  item_author = new String [NUM_ITEM +1];
+  item_name = new String [NUM_ITEM +1];
+  item_version = new String [NUM_ITEM +1];
+  item_pack = new String [NUM_ITEM +1];
+  item_load_name = new String [NUM_ITEM +1];
+  item_slider = new String [NUM_ITEM +1];
 }
 
 
@@ -103,7 +103,7 @@ void init_button_item_console() {
 void init_inventory() {
   inventory = new Inventory[NUM_ITEM +1] ;
   for(int i = 0 ; i < inventory.length ; i++ ) {
-    inventory[i] = new Inventory("", true) ;
+    inventory[i] = new Inventory("", true);
   }
 }
 
@@ -111,8 +111,8 @@ void init_inventory() {
 void build_button_item_console() {
   for ( int i = BUTTON_ITEM_CONSOLE ; i < button_item_num +BUTTON_ITEM_CONSOLE; i++) {
     if(NUM_ITEM > 0) {
-      iVec2 pos = iVec2(pos_button_width_item[i], pos_button_height_item[i]) ;
-      iVec2 size = iVec2(width_button_item[i], height_button_item[i]) ; 
+      iVec2 pos = iVec2(pos_button_width_item[i], pos_button_height_item[i]);
+      iVec2 size = iVec2(width_button_item[i], height_button_item[i]); 
       button_item[i] = new Button_dynamic(pos, size);
       button_item[i].set_aspect_on_off(button_on_in,button_on_out,button_off_in,button_off_out);
       // here we give information for the item button, we need later to manage the dynamic GUI

@@ -272,6 +272,16 @@ void show_slider_controller() {
 }
 
 
+
+
+
+
+
+
+
+/**
+manageslider part
+*/
 boolean slider_already_used;
 void slider_already_used(boolean state) {
   slider_already_used = state;
@@ -280,6 +290,28 @@ void slider_already_used(boolean state) {
 boolean slider_already_used_is() {
   return slider_already_used;
 }
+
+int dna_gui_processing;
+void set_dna_gui_processing(int dna) {
+  dna_gui_processing = dna;
+}
+
+int get_dna_gui_processing() {
+  return dna_gui_processing;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 void update_slider(Slider slider, Cropinfo [] info_slider) {
   //MIDI update
@@ -317,16 +349,23 @@ void update_slider(Slider slider, Cropinfo [] info_slider) {
   }
   
   // multislider case
-  boolean add_slider_to_selection = false ;
+  boolean add_slider_to_selection = false;
   if(keyPressed && key == CODED && keyCode == SHIFT) {
     slider_already_used(false);
     add_slider_to_selection = true;
   }
   
-  slider.update(mouseX,mouseY);
 
-  if(slider.molette_inside_is() && !add_slider_to_selection) {
+  // check la position de la souris 
+  
+
+  if(slider.molette_inside_is() && !add_slider_to_selection && !slider_already_used_is()) {
+    set_dna_gui_processing(slider.get_dna()); // dna id to securise for the only gui using
     slider_already_used(true);
+  }
+
+  if(add_slider_to_selection || slider.get_dna() == get_dna_gui_processing() || !slider_already_used_is()) {
+    slider.update(mouseX,mouseY);
   }
 
 
@@ -337,7 +376,11 @@ void update_slider(Slider slider, Cropinfo [] info_slider) {
     slider.select(true);
   } else if(slider_already_used_is()) {
     // printTempo(60,"one slider",frameCount);
-    slider.keep_selection(false);
+    if(slider.get_dna() == get_dna_gui_processing()) {
+      slider.keep_selection(true);
+    } else {
+      slider.keep_selection(false);
+    }
     slider.select(true);
   } else {
     // printTempo(60,"nothing",frameCount);

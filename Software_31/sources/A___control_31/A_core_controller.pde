@@ -27,8 +27,11 @@ void reset() {
   INIT_INTERFACE = false;
   reset_midi_control_parametter();
   reset_button_flash();
-  // if(!mousePressed) slider_already_used(false);
-  slider_already_used(false);
+  if(!mousePressed) {
+    slider_already_used(false);
+    set_dna_gui_processing(0);
+  }
+  // slider_already_used(false);
 }
 
 void reset_button_flash() {

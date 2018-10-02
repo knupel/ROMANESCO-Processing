@@ -1,6 +1,6 @@
 /**
 CROPE
-v 0.9.3
+v 0.9.6
 CONTROL ROMANESCO PROCESSING ENVIRONMENT
 * Copyleft (c) 2018-2018
 *
@@ -30,12 +30,13 @@ ArrayList<Crope> get_crope() {
 
 /**
 Crope info > Cropinfo
-v 0.0.2.1
+v 0.1.1
 2018-2018
 */
 public class Cropinfo {
   private int rank = -1;
   private int id = -1;
+  private int dna = Integer.MIN_VALUE;
   private int id_midi = -1;
   private String name = null;
   private String type = null;
@@ -57,6 +58,11 @@ public class Cropinfo {
 
   public Cropinfo set_id(int id){
     this.id = id;
+    return this;
+  }
+
+  public Cropinfo set_dna(int dna){
+    this.dna = dna;
     return this;
   }
 
@@ -113,6 +119,10 @@ public class Cropinfo {
 
   public int get_id(){
     return this.id;
+  }
+
+  public int get_dna(){
+    return this.dna;
   }
 
   public int get_id_midi(){
@@ -184,10 +194,10 @@ public class Cropinfo {
 
 /**
 class Crope
-v 0.8.1
+v 0.9.1
 2018-2018
 */
-class Crope {
+public class Crope {
   protected iVec2 pos, size;
   protected iVec2 pos_ref;
 
@@ -214,17 +224,26 @@ class Crope {
   protected int id_midi = -2 ;
 
   protected int id = -1;
+  protected int dna = Integer.MIN_VALUE;
 
   private int rank;
   private int birth;
 
   private String type = "Crope";
 
-  Crope(String type) {
+  public Crope(String type) {
     this.birth = birth_crope++;
     this.type = type;
     add_crope(this);
+    dna = floor(random(Integer.MIN_VALUE,Integer.MAX_VALUE));
+    if(dna == 0) dna = 1;
   }
+
+
+
+
+
+
 
   /**
   set structure
@@ -430,6 +449,10 @@ class Crope {
   /**
   get
   */
+  public int get_dna() {
+    return dna;
+  }
+
   public iVec2 get_pos() {
     return pos;
   }
