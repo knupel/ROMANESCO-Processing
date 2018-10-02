@@ -314,9 +314,8 @@ int get_dna_gui_processing() {
 
 
 void update_slider(Slider slider, Cropinfo [] info_slider) {
-  //MIDI update
   update_midi_slider(slider,info_slider);
-  // MIN and MAX molette
+
   //check
   if(slider instanceof Sladj) {
     Sladj sladj = (Sladj)slider;
@@ -355,27 +354,22 @@ void update_slider(Slider slider, Cropinfo [] info_slider) {
     add_slider_to_selection = true;
   }
   
-
-  // check la position de la souris 
-  
-
+  // single slider case
   if(slider.molette_inside_is() && !add_slider_to_selection && !slider_already_used_is()) {
     set_dna_gui_processing(slider.get_dna()); // dna id to securise for the only gui using
     slider_already_used(true);
   }
+  
 
+  // update the active slider
   if(add_slider_to_selection || slider.get_dna() == get_dna_gui_processing() || !slider_already_used_is()) {
     slider.update(mouseX,mouseY);
   }
 
-
-
   if(add_slider_to_selection) {
-    // printTempo(60,"multislider",frameCount);
     slider.keep_selection(true);
     slider.select(true);
   } else if(slider_already_used_is()) {
-    // printTempo(60,"one slider",frameCount);
     if(slider.get_dna() == get_dna_gui_processing()) {
       slider.keep_selection(true);
     } else {
@@ -383,7 +377,6 @@ void update_slider(Slider slider, Cropinfo [] info_slider) {
     }
     slider.select(true);
   } else {
-    // printTempo(60,"nothing",frameCount);
     slider.keep_selection(false);
     slider.select(false);
   }
@@ -400,7 +393,6 @@ void show_slider_background() {
   }
   for (int i = 0 ; i < NUM_SLIDER_BACKGROUND ; i++) {
     if(!dropdown_is()) {
-      // update_slider(slider_adj_background[i],info_slider_background);
       update_slider(slider_adj_background[i],cropinfo_slider_background);
     }
     pass_slider_to_osc_arg(slider_adj_background[i], value_slider_background);

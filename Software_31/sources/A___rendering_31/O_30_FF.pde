@@ -90,7 +90,6 @@ class FF extends Romanesco {
       ref_cell = grid_item[ID_item];
       ref_detection = area_item[ID_item];
       birth[ID_item] = false;
-      // println(get_spot_num(),frameCount);
       init_force_field(get_spot_num());
       // EQUATION
       if(get_pattern_force_field() == EQUATION) {

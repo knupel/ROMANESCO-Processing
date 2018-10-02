@@ -10,7 +10,8 @@ boolean goto_camera_pos_is, gotoCameraEye, travellingPriority;
 float speed_follow_camera_romanesco;
 
 //CAMERA Stuff
-private boolean moveScene, moveEye;
+boolean moveScene, moveEye;
+// boolean reset_camera_is;
 
 Vec3 targetPosCam = Vec3();
 
@@ -307,11 +308,11 @@ Vec3 update_direction_item(Vec2 speed, int ID, boolean authorization) {
 Vec3 position_mouse_ref = Vec3() ;
 
 void update_ref_position_mouse() {
-  position_mouse_ref.x = mouse[0].x ;
-  position_mouse_ref.y = mouse[0].y ;
+  position_mouse_ref.x = mouse[0].x;
+  position_mouse_ref.y = mouse[0].y;
   // special op with the wheel value, because this value is not constant
-  position_mouse_ref.z = 0 ;
-  position_mouse_ref.z -= wheel[0] ;
+  position_mouse_ref.z = 0;
+  position_mouse_ref.z -= wheel[0];
 }
 
 void update_ref_position(Vec3 pos, int ID) {
@@ -344,9 +345,9 @@ Vec3 update_position_item(Vec3 pos, int ID, boolean authorization) {
 
 // FINAL POSITION
 void final_pos_item(int ID) {
-  translate(pos_item_final[ID]) ;
-  rotateX(radians(dir_item_final[ID].x)) ;
-  rotateY(radians(dir_item_final[ID].y)) ;
+  translate(pos_item_final[ID]);
+  rotateX(radians(dir_item_final[ID].x));
+  rotateY(radians(dir_item_final[ID].y));
 }
 
 
@@ -431,18 +432,19 @@ boolean reset_camera_romanesco ;
 Main method camera draw
 */
 void camera_romanesco_draw() {
+  set_var_camera_romanesco();
   update_camera_romanesco(LEAPMOTION_DETECTED) ;
   // set camera variable
   /* look if the user is on the Prescene or not, and other stuff to display the good views */
-  set_var_camera_romanesco() ;
+  // set_var_camera_romanesco();
 
   // deformation and focal of the lenz camera
-  paralaxe(focal,deformation) ;
+  paralaxe(focal,deformation);
   
   //camera order from the mouse or from the leap
-  order_camera() ;
+  order_camera();
 
-  start_camera() ;
+  start_camera();
   
   //to change the scene position with a specific point
   if(goto_camera_pos_is || gotoCameraEye ) {
@@ -450,7 +452,13 @@ void camera_romanesco_draw() {
   }
 
   //catch ref camera
-  catch_camera_info() ;
+  catch_camera_info();
+
+  /*
+  if(reset_camera_is) {
+    reset_camera_is = false;
+  }
+  */
 }
 
 
@@ -465,9 +473,9 @@ void set_var_camera_romanesco() {
   2. boolean MOUSE_IN_OUT : because if we mode out the sketch the keyevent is not updated, and the camera stay in camera view 
   */
   if(FULL_RENDERING || (key_c_long && (MOUSE_IN_OUT || clickLongLeft[0] || clickLongRight[0]) && prescene)) {
-    final_camera_full_rendering() ; 
+    final_camera_full_rendering(); 
   } else {
-    final_camera_low_rendering() ;
+    final_camera_low_rendering();
   }
 }
 
@@ -510,40 +518,36 @@ void final_camera_full_rendering() {
     ref_cam_ratio_translate = ratio_translate;
   }
 
-  boolean specialMoveCamera = false ; ;
+  boolean move_camera_is = false ; ;
   // displacement scene
   if(!compare_pos_scene.equals(displacement_scene)) {
-    specialMoveCamera = true ; 
+    move_camera_is = true ; 
   } 
   // inertia
   if(motion_translate.velocity_is() || motion_rotate.velocity_is()) {
-    specialMoveCamera = true ; 
+    move_camera_is = true ; 
   }
 
   if(reset_camera_romanesco) {
-    specialMoveCamera = true ; 
+    move_camera_is = true ; 
     reset_camera_romanesco = false ;
   }
   
 
-
-
-
-  // final camera translate postion
-  if (check_cursor_translate(key_c_long) || specialMoveCamera ) {
-    if(finalSceneCamera == null) {
-      finalSceneCamera = Vec3 (add(sceneCamera, displacement_scene)) ;
-    } else {
-      finalSceneCamera.set(add(sceneCamera, displacement_scene)) ;
-    }
-  }
-  // final camera rotate position / eye camera
-  if (check_cursor_rotate(key_c_long) || specialMoveCamera ) { 
+  // final camera position
+  if (check_cursor_rotate(key_c_long) || move_camera_is) { 
+    // eye
     if(finalEyeCamera == null) {
-      finalEyeCamera = Vec2 (radians(eyeCamera.x),radians(eyeCamera.y) ) ;
+      finalEyeCamera = Vec2(radians(eyeCamera.x),radians(eyeCamera.y) ) ;
     } else {
       finalEyeCamera.set(radians(eyeCamera.x),radians(eyeCamera.y) ) ;
-    }    
+    }
+    // translate scene
+    if(finalSceneCamera == null) {
+      finalSceneCamera = Vec3(add(sceneCamera, displacement_scene)) ;
+    } else {
+      finalSceneCamera.set(add(sceneCamera, displacement_scene)) ;
+    } 
   }
 }
 
@@ -620,7 +624,10 @@ void order_camera() {
     sceneCamera.z -= wheel[0];
       
     // change camera position
-    if(key_enter) travelling(posCamRef);
+    if (key_enter) {
+      travelling(posCamRef);
+    }
+
     if (key_0 || reset_camera_button_is()) {
       reset_camera(0);
     }
@@ -674,20 +681,20 @@ void stop_camera() {
 
 
 // update the position of the scene (camera) and the orientation
-Vec3 cursor_final_translate ;
-Vec3 cursor_final_rotate ;
-Vec3 mouse_ref_inertia_translate ;
-Vec3 mouse_ref_inertia_rotate ;
+Vec3 cursor_final_translate;
+Vec3 cursor_final_rotate;
+Vec3 mouse_ref_inertia_translate;
+Vec3 mouse_ref_inertia_rotate;
 
-int wheelCheckRef = 0 ;
+int wheelCheckRef = 0;
 
-boolean reset_inertia = true ;
-boolean cursor_move_scene_is = false ;
-boolean cursor_move_eye_is = false ;
+boolean reset_inertia = true;
+boolean cursor_move_scene_is = false;
+boolean cursor_move_eye_is = false;
 
 void update_camera_romanesco(boolean leapMotion) {
   if(cursor_final_translate == null) {
-    cursor_final_translate = mouse[0].copy() ;
+    cursor_final_translate = mouse[0].copy();
   } 
 
   if(cursor_final_rotate == null) {
@@ -718,6 +725,8 @@ void update_camera_romanesco(boolean leapMotion) {
       }
     }
   } 
+
+
   
   // create new pos
   if(key_c_long) { 
@@ -746,15 +755,16 @@ void update_camera_romanesco(boolean leapMotion) {
       cursor_final_rotate.set(update_cursor(motion_rotate, mouse_ref_inertia_rotate, cursor_final_rotate)) ;
     } 
   }
-
+  
   //update pos
   update_position_camera(cursor_move_scene_is, leapMotion, cursor_final_translate) ;
   update_direction_camera(cursor_move_eye_is, cursor_final_rotate) ;
+ 
 
   // reset inertia
   if(reset_inertia) {
-    motion_translate.reset() ;
-    motion_rotate.reset() ;
+    motion_translate.reset();
+    motion_rotate.reset();
     reset_inertia = false ;
   } 
 
@@ -764,10 +774,6 @@ void update_camera_romanesco(boolean leapMotion) {
 }
 
 Vec3 update_cursor(Motion motion, Vec3 ref, Vec3 cursor_final) {
-  if(motion.get_velocity() > 0) {
-    println(motion.get_velocity(), frameCount);
-    println(motion.get_deceleration(), frameCount);
-  }
   return motion.leading(ref, cursor_final) ;
 }
 
@@ -809,6 +815,10 @@ boolean check_cursor_rotate(boolean authorization) {
 
   // create ref
   wheelCheckRef = wheel[0] ;
+  if(cursor_final_rotate == null) {
+    cursor_final_rotate = Vec3();
+  }
+
   if(mouse_camera_rotate_ref == null) {
     mouse_camera_rotate_ref = cursor_final_rotate.copy();
   } else {
@@ -834,6 +844,8 @@ void move_camera(Vec3 origin, Vec3 target, float speed_follow) {
 
 // CHANGE CAMERA POSITION
 void reset_camera(int ID) {
+  reset_camera_romanesco = true;
+
   eyeCamera.set(eyeCameraSetting[ID]);
   sceneCamera.set(sceneCameraSetting[ID]);
 
@@ -849,10 +861,8 @@ void reset_camera(int ID) {
   mouse_ref_inertia_translate.set(mouse[0]);
   mouse_ref_inertia_translate.set(mouse[0]);
 
-  reset_camera_romanesco = true;
-
-  update_direction_camera(true,eyeCamera);
-  update_position_camera(true,false,sceneCamera);
+  update_direction_camera(!reset_camera_romanesco,eyeCamera);
+  update_position_camera(!reset_camera_romanesco,false,sceneCamera);
 }
 
 
@@ -1236,9 +1246,7 @@ void grid(Vec3 size) {
                       i, 0, size.z) ;
   }
 }
-/**
-END display camera
-*/
+
 
 
 
@@ -1272,17 +1280,17 @@ END display camera
 Camera Engine version 6.0.3
 
 */
-private Vec3 posSceneMouseRef = Vec3 () ;
-private Vec3 posEyeMouseRef = Vec3 () ;
-private Vec3 posSceneCameraRef= Vec3 () ;
-private Vec3 posEyeCameraRef = Vec3 () ;
-private Vec3 eyeCamera = Vec3 () ;
-private Vec3 sceneCamera = Vec3 () ;
-private Vec3 deltaScenePos = Vec3 () ;
-private Vec3 deltaEyePos = Vec3 () ;
-private Vec3 tempEyeCamera = Vec3 () ;
-private boolean newRefSceneMouse = true ;
-private boolean newRefEyeMouse = true ;
+private Vec3 posSceneMouseRef = Vec3();
+private Vec3 posEyeMouseRef = Vec3();
+private Vec3 posSceneCameraRef= Vec3();
+private Vec3 posEyeCameraRef = Vec3();
+private Vec3 eyeCamera = Vec3();
+private Vec3 sceneCamera = Vec3();
+private Vec3 deltaScenePos = Vec3();
+private Vec3 deltaEyePos = Vec3();
+private Vec3 tempEyeCamera = Vec3();
+private boolean newRefSceneMouse = true;
+private boolean newRefEyeMouse = true;
 
 // Update Camera position
 /* We move the scene 
@@ -1292,22 +1300,22 @@ void update_position_camera(boolean authorization, boolean leapMotionDetected, V
   if(authorization) {
     //create the ref to calcul the new position of the Scene
     if(newRefSceneMouse) {
-      posSceneCameraRef.set(sceneCamera) ;
-      posSceneMouseRef.set(pos_cursor) ;
+      posSceneCameraRef.set(sceneCamera);
+      posSceneMouseRef.set(pos_cursor);
       //to create a only one ref position
-      newRefSceneMouse = false ;
+      newRefSceneMouse = false;
     }
 
     //create the delta between the ref and the mouse position
-    deltaScenePos = sub(pos_cursor, posSceneMouseRef) ;
+    deltaScenePos = sub(pos_cursor, posSceneMouseRef);
     if (leapMotionDetected) {
-      sceneCamera = add(deltaScenePos.mult(-1), posSceneCameraRef) ;
+      sceneCamera = add(deltaScenePos.mult(-1), posSceneCameraRef);
     } else {
-      sceneCamera = add(deltaScenePos, posSceneCameraRef) ;
+      sceneCamera = add(deltaScenePos, posSceneCameraRef);
     }
   } else {
     //change the boolean to true for the next mousepressed
-    newRefSceneMouse = true ;
+    newRefSceneMouse = true;
   }
 }
 //
@@ -1318,22 +1326,22 @@ void update_direction_camera(boolean authorization, Vec3 pos_cursor) {
   if(authorization) {
     //create the ref to calcul the new position of the Scene
     if(newRefEyeMouse) {
-      posEyeCameraRef.set(tempEyeCamera) ;
-      posEyeMouseRef.set(pos_cursor) ;
+      posEyeCameraRef.set(tempEyeCamera);
+      posEyeMouseRef.set(pos_cursor);
     }
     //to create a only one ref position
     newRefEyeMouse = false ;
     
     //create the delta between the ref and the mouse position
-    deltaEyePos = sub(pos_cursor, posEyeMouseRef) ;
-    tempEyeCamera = add(deltaEyePos, posEyeCameraRef ) ;
+    deltaEyePos = sub(pos_cursor, posEyeMouseRef);
+    tempEyeCamera = add(deltaEyePos, posEyeCameraRef);
 
     // direction of the camera
    //  return direction_canvas_to_polar(tempEyeCamera) ;
-    eyeCamera.set(direction_canvas_to_polar(tempEyeCamera)) ;
+    eyeCamera.set(direction_canvas_to_polar(tempEyeCamera));
   } else {
     //change the boolean to true for the next mousepressed
-    newRefEyeMouse = true ;
+    newRefEyeMouse = true;
   }  
 }
 
@@ -1346,10 +1354,10 @@ there is no "pmouse" information.
 */
 Vec3 eyeMemory ;
 Vec3 direction_canvas_to_polar(Vec3 direction_canvas) {
-  float temp_dir_x = map(direction_canvas.y, 0, height, 0, 360) ;
-  float temp_dir_y = map(direction_canvas.x, 0, width, 0, 360) ;
-  Vec3 eyeP3D = Vec3(temp_dir_x, temp_dir_y, 0) ;
-  return eyeP3D ;
+  float temp_dir_x = map(direction_canvas.y,0,height,0,360);
+  float temp_dir_y = map(direction_canvas.x,0,width,0,360);
+  Vec3 eyeP3D = Vec3(temp_dir_x,temp_dir_y,0);
+  return eyeP3D;
 }
 
 
