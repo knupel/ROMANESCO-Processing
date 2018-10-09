@@ -90,11 +90,11 @@ LIVE must change from the launcher, the info must be write in the external loadi
 
 
 void settings() {
-  // size(124,124,P3D); // when the bug will be resolved, return to this config.
-  
+  size(124,124,P3D); // when the bug will be resolved, return to this config.
+  /*
   fullScreen(P3D); // original
   FULL_SCREEN = true;
-  
+  */
 
 
   pixelDensity(displayDensity());

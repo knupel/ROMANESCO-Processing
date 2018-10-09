@@ -1140,6 +1140,7 @@ void tint(float v1, float v2, float v3, float alpha) {
 /**
 alpha
 */
+/*
 void alpha(int rgb) {
   if(l != null) {
     l.alpha(rgb);
@@ -1147,6 +1148,7 @@ void alpha(int rgb) {
     g.alpha(rgb);
   }
 }
+*/
 
 
 
