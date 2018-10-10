@@ -1,7 +1,7 @@
 /**
 ROPE PGraphics LAYER METHOD
 2018-2018
-v 0.0.6
+v 0.0.7
 those ghost method is here like a filter between rope and Processing 
 in case the coder want use a PGraphics layer before to implement in the Processing rendering
 */
@@ -1333,6 +1333,177 @@ void set(int x, int y, PImage img) {
     g.set(x,y,img);
   }
 }
+
+
+
+
+
+/**
+text
+*/
+void text(char c, float x, float y) {
+  if(get_layer() != null) {
+    get_layer().text(c,x,y);
+  } else {
+    g.text(c,x,y);
+  }
+}
+
+
+void text(char c, float x, float y, float z) {
+  if(get_layer() != null) {
+    get_layer().text(c,x,y,z);
+  } else {
+    g.text(c,x,y,z);
+  }
+}
+
+void text(char [] chars, int start, int stop, float x, float y) {
+  if(get_layer() != null) {
+    get_layer().text(chars,start,stop,x,y);
+  } else {
+    g.text(chars,start,stop,x,y);
+  }
+}
+
+
+void text(char [] chars, int start, int stop, float x, float y, float z) {
+  if(get_layer() != null) {
+    get_layer().text(chars,start,stop,x,y,z);
+  } else {
+    g.text(chars,start,stop,x,y,z);
+  }
+}
+
+
+
+void text(String str, float x, float y) {
+  if(get_layer() != null) {
+    get_layer().text(str,x,y);
+  } else {
+    g.text(str,x,y);
+  }
+}
+
+
+void text(String str, float x, float y, float z) {
+  if(get_layer() != null) {
+    get_layer().text(str,x,y,z);
+  } else {
+    g.text(str,x,y,z);
+  }
+}
+
+
+void text(String str, float x1, float y1, float x2, float y2) {
+  if(get_layer() != null) {
+    get_layer().text(str,x1,y1,x2,y2);
+  } else {
+    g.text(str,x1,y1,x2,y2);
+  }
+}
+
+void text(float num, float x, float y) {
+  if(get_layer() != null) {
+    get_layer().text(num,x,y);
+  } else {
+    g.text(num,x,y);
+  }
+}
+
+
+void text(float num, float x, float y, float z) {
+  if(get_layer() != null) {
+    get_layer().text(num,x,y,z);
+  } else {
+    g.text(num,x,y,z);
+  }
+}
+
+
+void text(int num, float x, float y) {
+  if(get_layer() != null) {
+    get_layer().text(num,x,y);
+  } else {
+    g.text(num,x,y);
+  }
+}
+
+
+void text(int num, float x, float y, float z) {
+  if(get_layer() != null) {
+    get_layer().text(num,x,y,z);
+  } else {
+    g.text(num,x,y,z);
+  }
+}
+
+
+// text Align
+void textAlign(int alignX) {
+  if(get_layer() != null) {
+    get_layer().textAlign(alignX);
+  } else {
+    g.textAlign(alignX);
+  }
+}
+
+
+void textAlign(int alignX, int alignY) {
+  if(get_layer() != null) {
+    get_layer().textAlign(alignX,alignY);
+  } else {
+    g.textAlign(alignX,alignY);
+  }
+}
+
+// textLeading(leading)
+void textLeading(float leading) {
+if(get_layer() != null) {
+    get_layer().textLeading(leading);
+  } else {
+    g.textLeading(leading);
+  }
+}
+
+
+// textMode(mode)
+void textMode(int mode) {
+  if(get_layer() != null) {
+    get_layer().textMode(mode);
+  } else {
+    g.textMode(mode);
+  }
+}
+
+// text Size
+void textSize(float size) {
+  if(get_layer() != null) {
+    get_layer().textSize(size);
+  } else {
+    g.textSize(size);
+  }
+}
+
+
+// textFont
+void textFont(PFont which) {
+  if(get_layer() != null) {
+    get_layer().textFont(which);
+  } else {
+    g.textFont(which);
+  }
+}
+
+void textFont(PFont which, float size) {
+  if(get_layer() != null) {
+    get_layer().textFont(which,size);
+  } else {
+    g.textFont(which,size);
+  }
+}
+
+
 
 
 

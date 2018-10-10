@@ -121,6 +121,7 @@ void setup() {
   OSC_setup();
   
   display_setup(60); // the int value is the frameRate
+ //  init_layer(width,height,2);
 
   RG.init(this);  // Geomerative
 
