@@ -67,7 +67,7 @@ class Kino extends Romanesco {
 	}
 
 	void setup() {
-		setting_start_position(ID_item,0,0,0) ;
+		setting_start_position(ID_item,0,0,0);
 		load_movie(true,ID_item);
 	}
   
@@ -75,11 +75,11 @@ class Kino extends Romanesco {
   
 	void draw() {
     param();
-		if(mode[ID_item] != 0 && mode[ID_item] != 2) {
-			movie[ID_item].pause();
-		}
+    if(movie[ID_item] != null && mode[ID_item] != 0 && mode[ID_item] != 2) {
+      movie[ID_item].pause();
+    }
 
-		if(mode[ID_item] == 2) {
+		if(movie[ID_item] != null && mode[ID_item] == 2) {
 			kino_movie(colour);
 		} else if(mode[ID_item] == 3) {
 			kino_bitmap(colour);
@@ -89,7 +89,9 @@ class Kino extends Romanesco {
   void draw_2D() {
     param();
     if(mode[ID_item] == 0) {
+      println("movie",movie[ID_item], ID_item);
       kino_movie(colour);
+
     } else if(mode[ID_item] == 1) {
       kino_bitmap(colour);
     }
@@ -104,21 +106,23 @@ class Kino extends Romanesco {
   int ref_which_movie;
 	private void kino_movie(int c) {
 		if(ref_which_movie != which_movie[ID_item]) {
+      println("kino_movie ref",ref_which_movie, which_movie[ID_item]);
 			load_movie(true,ID_item);
+
 			ref_which_movie = which_movie[ID_item];
 		} else {
 			// need to write in case the movie path file change or new movie is imported
 			load_movie(false,ID_item);
 		}
-
-		if(motion[ID_item]) {
-			movie[ID_item].loop();
-		} else {
-			movie[ID_item].pause();
-		}
-
-    manage_tint(c);
-		image(movie[ID_item],FIT);
+    if(movie[ID_item] != null) {
+  		if(motion[ID_item]) {
+  			movie[ID_item].loop();
+  		} else {
+  			movie[ID_item].pause();
+  		}
+      manage_tint(c);
+      image(movie[ID_item],FIT);
+    }
 	}
 
 

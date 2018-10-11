@@ -287,10 +287,22 @@ void message_opening() {
 
 /**
 MANAGE SAVE
-v 0.0.4
+v 0.0.5
 */
-void media_update() {
-  if(frameCount%120 == 0) thread("load_autosave");
+void media_init_path() {
+  update_movie_path();
+  update_svg_path();
+  update_text_path();
+  update_bitmap_path();
+}
+void media_update(int frequence) {
+  if(frameCount%frequence == 0) {
+    update_movie_path();
+    update_svg_path();
+    update_text_path();
+    update_bitmap_path();
+    thread("load_autosave");
+  }
 }
 
 void load_autosave() {
@@ -325,7 +337,6 @@ ROPE_svg[] svg_import ;
 String svg_current_path ;
 String [] svg_path ;
 void load_svg(int ID) {
-  update_svg_path();
   // which_bitmap is the int return from the dropdown menu
   if(which_shape[ID] > svg_path.length ) which_shape[ID] = 0;
 
@@ -358,7 +369,6 @@ text
 String[] text_import ;
 String [] text_path;
 void load_txt(int ID) {
-  update_text_path();
   // which_text is the int return from the dropdown menu
   if(text_path != null && text_path.length > 0 && text_path[which_text[ID]] != null) {
     if(which_text[ID] > text_path.length ) which_text[ID] = 0;
@@ -389,14 +399,10 @@ bitmap
 PImage[] bitmap ;
 String [] bitmap_path ;
 void load_bitmap(int ID) {
-  update_bitmap_path();
   if(which_bitmap[ID] > bitmap_path.length) which_bitmap[ID] = 0;
 
   if(bitmap_path != null && bitmap_path.length > 0 && bitmap_path[which_bitmap[ID]] != null) {
     String bitmap_current_path = bitmap_path[which_bitmap[ID]];
-    // println(bitmap_current_path);
-    // println("length",bitmap_path.length);
-    // println(bitmap_path_ref[ID],which_bitmap[ID], ID);
     if(!bitmap_current_path.equals(bitmap_path_ref[ID])) {
       bitmap[ID] = loadImage(bitmap_current_path);
     }
@@ -426,8 +432,7 @@ Movie[] movie ;
 String [] movie_path;
 String [] movie_path_ref;
 void load_movie(boolean change_movie_is, int id) {
-  update_movie_path();
-  boolean new_movie_is = check_for_new_movie();  
+  boolean new_movie_is = check_for_new_movie();
   if(movie_path.length > 0 && (new_movie_is || change_movie_is)) {
     setting_movie(id,movie_path[which_movie[id]]);
   }  
@@ -487,7 +492,7 @@ void setting_movie(int id, String path) {
     movie[id].loop();
     movie[id].pause();
   } else {
-    printErrTempo(120,"ROMANESCO don't find the movie:",id,path);
+    printErrTempo(240,"ROMANESCO don't find the movie:",id,path);
   }
 }
 

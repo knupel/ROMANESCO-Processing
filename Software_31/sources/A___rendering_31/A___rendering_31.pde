@@ -91,10 +91,10 @@ LIVE must change from the launcher, the info must be write in the external loadi
 
 void settings() {
   size(124,124,P3D); // when the bug will be resolved, return to this config.
-  /*
-  fullScreen(P3D); // original
-  FULL_SCREEN = true;
-  */
+  
+  // fullScreen(P3D); // original
+  // FULL_SCREEN = true;
+  
 
 
   pixelDensity(displayDensity());
@@ -116,6 +116,7 @@ void setup() {
   path_setting();
   shader_folder_filter(preference_path+"shader/filter/");
   load_save(preference_path+"setting/defaultSetting.csv");
+  media_init_path();
   version();
   set_system_specification();
   OSC_setup();
@@ -224,7 +225,7 @@ void romanesco() {
   // misc
   puppet_master(false); // use to resset puppet for the force field
   update_temp_value();
-  media_update();
+  media_update(180);
   nextPreviousKeypressed(); // check if this method is always used or not
 
 
