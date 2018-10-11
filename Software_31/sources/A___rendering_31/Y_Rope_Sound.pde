@@ -17,7 +17,7 @@ v 1.4.5
 
 /**
 Class Sounda
-v 0.1.0
+v 0.2.0
 */
 public class Sounda implements rope.core.RConstants {
   boolean info = false;
@@ -30,6 +30,7 @@ public class Sounda implements rope.core.RConstants {
   AudioInput input;
   AudioBuffer source_buffer;
   FFT fft;
+  String warning_input = ("there is no sound input available, check if any source is connected");
   
 
   public Sounda() {}
@@ -90,30 +91,41 @@ public class Sounda implements rope.core.RConstants {
 
 
   public float get_right(int target_sample) {
-    if(target_sample < buffer_size()) {
-       return input.right.get(target_sample);
+    if(input != null) {
+      if(target_sample < buffer_size()) {
+         return input.right.get(target_sample);
+      } else {
+        printErrTempo(60, "method get_right("+target_sample+"): no target match in buffer, instead target 0 is use");
+        return input.right.get(0);
+      }
     } else {
-      printErrTempo(60, "method get_right("+target_sample+"): no target match in buffer, instead target 0 is use");
-      return input.right.get(0);
+      return 0;
     }
-
   }
 
   public float get_left(int target_sample) {
-    if(target_sample < buffer_size()) {
-      return input.left.get(target_sample);
+    if(input != null) {
+      if(target_sample < buffer_size()) {
+        return input.left.get(target_sample);
+      } else {
+        printErrTempo(60, "method get_left("+target_sample+"): no target match in buffer, instead target 0 is use");
+        return input.left.get(0);
+      }
     } else {
-      printErrTempo(60, "method get_left("+target_sample+"): no target match in buffer, instead target 0 is use");
-      return input.left.get(0);
-    }
+      return 0;
+    }  
   }
 
   public float get_mix(int target_sample) {
-    if(target_sample < buffer_size()) {
-      return input.mix.get(target_sample);
+    if(input != null) {
+      if(target_sample < buffer_size()) {
+        return input.mix.get(target_sample);
+      } else {
+        printErrTempo(60, "method get_mix("+target_sample+"): no target match in buffer, instead target 0 is use");
+        return input.mix.get(0);
+      }
     } else {
-      printErrTempo(60, "method get_mix("+target_sample+"): no target match in buffer, instead target 0 is use");
-      return input.mix.get(0);
+      return 0;
     }
   }
 
@@ -170,20 +182,22 @@ public class Sounda implements rope.core.RConstants {
   /**
   set buffer
   */
-  void audio_buffer(int canal) {
-    switch(canal) {
-      case RIGHT :
-        source_buffer = input.right ;
-        break ;
-      case LEFT :
-        source_buffer = input.left ;
-        break ;
-      case MIX :
-        source_buffer = input.mix ;
-        break ;
-      default :
-        source_buffer = input.mix ;
-    }
+  public void audio_buffer(int canal) {
+    if(input != null) {
+      switch(canal) {
+        case RIGHT :
+          source_buffer = input.right ;
+          break ;
+        case LEFT :
+          source_buffer = input.left ;
+          break ;
+        case MIX :
+          source_buffer = input.mix ;
+          break ;
+        default :
+          source_buffer = input.mix ;
+      }
+    } 
   }
 
 
@@ -192,7 +206,7 @@ public class Sounda implements rope.core.RConstants {
 
   /**
   SPECTRUM
-  v 0.0.3
+  v 0.0.4
   */
   float[] spectrum;
   int spectrum_bands = 0 ;
@@ -204,15 +218,20 @@ public class Sounda implements rope.core.RConstants {
       spectrum_bands = num ;
     }
 
-    spectrum = new float [spectrum_bands] ;
-    fft = new FFT(input.bufferSize(), input.sampleRate());
-    fft.linAverages(spectrum_size());
+    spectrum = new float [spectrum_bands];
+    if(input != null) {
+      fft = new FFT(input.bufferSize(), input.sampleRate());
+      fft.linAverages(spectrum_size());
+    } else {
+      printErr("void set_spectrum(): "+warning_input);
+    }
+
 
     scale_spectrum = scale;
   }
 
   public void update_spectrum(boolean update_is) {
-    if(update_is) {
+    if(input != null && update_is) {
       if(source_buffer == null) {
         println("void spectrum(): there is no AudioBuffer selected, by default AudioBuffer input.mix is used");
         source_buffer = input.mix;
@@ -234,7 +253,7 @@ public class Sounda implements rope.core.RConstants {
 
 
   public float get_spectrum(int band_target){
-    if(band_target < spectrum_size()) {
+    if(input != null && band_target < spectrum_size()) {
       return fft.getBand(band_target);
     } else return Float.NaN;
   }
@@ -1314,8 +1333,8 @@ class Transient extends Sounda {
   private boolean transient_advance_is ;
   private boolean [][] transient_leg_is ;
   private void set_transient_detection(Section [] section, int[] target_transient_section, Vec2... threshold) {
-    if(section != null) {
-      transient_advance_is = true ;
+    if(buffer != null && section != null) {
+      transient_advance_is = true;
       transient_leg_is = new boolean [target_transient_section.length][buffer.length];
       // init var
       for(int i = 0 ; i < transient_leg_is.length ; i++) {
@@ -1336,7 +1355,11 @@ class Transient extends Sounda {
         }
       }
     } else {
-      printErr("method set_transient(): there is no section initialized, use method set_section(), before set_transient() advance mode");
+      if(buffer != null) {
+        printErr("method set_transient(): there is no section initialized, use method set_section(), before set_transient() advance mode");
+      } else {
+        printErr("void void set_transient_detection(): "+warning_input);
+      }
     }
   }
 
