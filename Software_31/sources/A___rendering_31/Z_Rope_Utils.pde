@@ -1604,6 +1604,10 @@ void mix(PGraphics p, PImage tex, PImage inc, float... ratio) {
   } else {
     rope_shader_mix.set("texture_PGraphics",tex);
     rope_shader_mix.set("PGraphics_renderer_is",true);
+    println("ratio",r);
+    println("p",p.width, p.height);
+    println("tex",tex.width,tex.height);
+    println("inc",inc.width,inc.height);
     p.filter(rope_shader_mix);
   }
 }

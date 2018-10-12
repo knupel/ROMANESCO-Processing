@@ -89,7 +89,6 @@ class Kino extends Romanesco {
   void draw_2D() {
     param();
     if(mode[ID_item] == 0) {
-      println("movie",movie[ID_item], ID_item);
       kino_movie(colour);
 
     } else if(mode[ID_item] == 1) {
@@ -106,7 +105,6 @@ class Kino extends Romanesco {
   int ref_which_movie;
 	private void kino_movie(int c) {
 		if(ref_which_movie != which_movie[ID_item]) {
-      println("kino_movie ref",ref_which_movie, which_movie[ID_item]);
 			load_movie(true,ID_item);
 
 			ref_which_movie = which_movie[ID_item];

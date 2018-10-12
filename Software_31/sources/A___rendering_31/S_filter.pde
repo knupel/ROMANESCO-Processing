@@ -2,7 +2,7 @@
 /**
 FILTER
 2018-2018
-v 0.0.2
+v 0.0.3
 */
 Warp warp_romanesco;
 void init_filter() {
@@ -15,7 +15,7 @@ void init_filter() {
     set_different_force_field();
     // warp
     init_warp();
-    println("init filter is done");
+    println("init warp filter on window",g.width,g.height);
   }
 }
 

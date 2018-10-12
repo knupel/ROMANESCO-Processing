@@ -467,11 +467,19 @@ class Warp {
     // GPU: Graphic Processor Unit rendering
     if (rendering_warp_GPU) {
       if (refresh_image_is) {
-        result.beginDraw();
-        if(refresh_mix_is) mix(result, buffer, inc, warp_img_refresh);
-        if(refresh_multiply_is) multiply(result,buffer,inc,refresh_multiply_value);
-        if(refresh_overlay_is) overlay(result,buffer,inc,refresh_overlay_value);
-        result.endDraw();
+        // result.beginDraw();
+
+        if(refresh_mix_is) {
+          println("class Warp method rendering();", frameCount);
+          mix(result, buffer, inc, warp_img_refresh);
+        }
+        if(refresh_multiply_is) {
+          multiply(result,buffer,inc,refresh_multiply_value);
+        }
+        if(refresh_overlay_is) {
+          overlay(result,buffer,inc,refresh_overlay_value);
+        }
+        // result.endDraw();
       }
       image(result);
       result.beginDraw();
