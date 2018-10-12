@@ -18,6 +18,14 @@ Processing 3.4.0
 2017 March 40_000 lines of code
 */
 
+
+
+/**
+BUG with warp on MacBook Pro 2018 or HighSierra / Mojave
+*/
+boolean enable_warp = false;
+
+
 /**
 DEV
 */

@@ -1,6 +1,6 @@
 /**
 Rope UTILS 
-v 1.47.5
+v 1.47.7
 * Copyleft (c) 2014-2018 
 * Stan le Punk > http://stanlepunk.xyz/
 Rope – Romanesco Processing Environment – 
@@ -16,7 +16,6 @@ Processing 3.4
 print Constants
 v 0.0.3
 */
-
 Constant_list processing_constants_list = new Constant_list(PConstants.class);
 Constant_list rope_constants_list = new Constant_list(rope.core.RConstants.class);
 public void print_constants_rope() {
@@ -336,20 +335,16 @@ v 0.3.1
 Save Frame
 V 0.1.1
 */
-
 void saveFrame(String where, String filename, PImage img) {
   float compression = 1. ;
   saveFrame(where, filename, compression, img) ;
 }
-
 
 void saveFrame(String where, String filename) {
   float compression = 1. ;
   PImage img = null;
   saveFrame(where, filename, compression, img) ;
 }
-
-
 
 void saveFrame(String where, String filename, float compression) {
   PImage img = null;
@@ -1604,12 +1599,15 @@ void mix(PGraphics p, PImage tex, PImage inc, float... ratio) {
   } else {
     rope_shader_mix.set("texture_PGraphics",tex);
     rope_shader_mix.set("PGraphics_renderer_is",true);
-    println("ratio",r);
-    println("p",p.width, p.height);
-    println("tex",tex.width,tex.height);
-    println("inc",inc.width,inc.height);
+    // Problem with MacBook Pro 2018 Grapichs 560X OSX Mojave
     p.filter(rope_shader_mix);
-    
+    /*
+    try {
+      p.filter(rope_shader_mix);
+    } catch(java.lang.RuntimeException ArrayIndexOutBoundsException) { 
+      printErrTempo(60,"void mix(PGraphics p, PImage tex, PImage inc, float... ratio): ArrayIndexOutBoundsException",frameCount);
+    }
+    */
   }
 }
 

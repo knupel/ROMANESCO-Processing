@@ -1,7 +1,7 @@
 /**
-Force Field
+Flux Force Field
 2018
-v 0.0.2
+v 0.0.3
 */
 class Flux extends Romanesco {
 
@@ -57,7 +57,7 @@ class Flux extends Romanesco {
     // life_is = true;
     // flow_is = true;
     // quality_is = true;
-    // area_is = true;
+    area_is = true;
     // angle_is = true;
     // scope_is = true;
     // scan_is = true;
@@ -98,7 +98,7 @@ class Flux extends Romanesco {
     aspect_rope(fill_item[ID_item], stroke_item[ID_item],thickness_item[ID_item]);
     Vec3 size = Vec3(size_x_item[ID_item],size_y_item[ID_item],size_z_item[ID_item]);
     // size.map(size_x_min_max.x,size_x_min_max.y,1,size_x_min_max.y);
-    show_vehicle(size,get_costume());
+    show_vehicle(size,area_item[ID_item],get_costume());
 
     //
     item_info[ID_item] = ("vehicles: " +vehicles.size());
@@ -166,9 +166,10 @@ class Flux extends Romanesco {
     manage_border_is = (manage_border_is == true) ? false:true;
   }
 
-  private void show_vehicle(Vec size, int costume) {
+  private void show_vehicle(Vec size, float ratio, int costume) {
     for (Vehicle v : vehicles) {
       float theta = v.get_direction() + radians(90);
+      set_ratio_costume_size(map(ratio,width*.1, width*TAU,0,1));
       costume_rope(v.get_position(),size,theta,costume);
     }
   }

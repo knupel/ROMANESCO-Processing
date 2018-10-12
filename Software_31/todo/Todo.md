@@ -1,5 +1,8 @@
 Todo Romanesco
 --
+*SUPER MAJOR
+
+Warp Shader on Mojave / MacBook Pro 2018
 
 *MAJOR
 

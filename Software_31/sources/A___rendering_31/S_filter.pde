@@ -13,16 +13,21 @@ void init_filter() {
     set_type_force_field(type_field);
     init_force_field();
     set_different_force_field();
+    println("init filter Force Field part");
     // warp
-    init_warp();
-    println("init warp filter on window",g.width,g.height);
+    if(enable_warp) {
+      init_warp();
+      println("init filter warp part");
+    } 
   }
 }
 
 
 void filter() {
   if(FULL_RENDERING && fx_button_is(0)) {
-    warp();
+    if(enable_warp) { 
+      warp();
+    }
   } 
 }
 

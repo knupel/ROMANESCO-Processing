@@ -1,6 +1,6 @@
 /**
 Warp
-v 0.5.2
+v 0.5.3
 */
 
 class Warp {
@@ -377,7 +377,7 @@ class Warp {
 
   /**
   warp image Mastermethod
-  v 0.3.0
+  v 0.3.1
   */
 
 
@@ -388,7 +388,7 @@ class Warp {
 
   */
   // refresh effect
-  private boolean refresh_mix_is = true; // default effect
+  private boolean refresh_mix_is; // default effect
   public void refresh_mix(boolean refresh_mix_is) {
     this.refresh_mix_is = refresh_mix_is;
   }
@@ -464,52 +464,12 @@ class Warp {
   rendering
   */
   private void rendering(PGraphics result, PImage buffer, PImage inc, Force_field ff, float intensity) {    
-    // GPU: Graphic Processor Unit rendering
     if (rendering_warp_GPU) {
-      if (refresh_image_is) {
-        // result.beginDraw();
-
-        if(refresh_mix_is) {
-          println("class Warp method rendering();", frameCount);
-          mix(result, buffer, inc, warp_img_refresh);
-        }
-        if(refresh_multiply_is) {
-          multiply(result,buffer,inc,refresh_multiply_value);
-        }
-        if(refresh_overlay_is) {
-          overlay(result,buffer,inc,refresh_overlay_value);
-        }
-        // result.endDraw();
-      }
-      image(result);
-      result.beginDraw();
-      warp_image_graphic_processor(result,inc,ff,intensity);
-      if(effect_multiply_is) {
-        multiply_flip(false,true);
-        multiply(result,result,result,effect_multiply_value);
-      }
-      if(effect_overlay_is) {
-       overlay_flip(false,true);
-       overlay(result, result, result, effect_overlay_value);
-      }
-      result.endDraw();  
-    }
-
-    // CPU: Computer Processor Unit rendering
-    if (!rendering_warp_GPU) {
-      result.beginDraw();
-      if(refresh_image_is) {
-        mix(result,buffer,inc,warp_img_refresh);
-      }
-      warp_image_computer_processor(result,buffer,inc,ff,intensity);
-      result.endDraw();
-      image(result);  
+      rendering_graphic_processor(result,buffer,inc,ff,intensity);  
+    } else {
+      rendering_computer_processor(result,buffer,inc,ff,intensity);
     }
   }
-
-
-
-
 
 
 
@@ -522,7 +482,54 @@ class Warp {
   Graphic Processor Unit version of fluid image / GLSL
   v 0.0.4
   */
-  // void warp_image_graphic_processor(PGraphics result, PImage tex, PImage inc, Vec4 ratio, Force_field ff, float intensity) {
+  private void rendering_graphic_processor(PGraphics result, PImage buffer, PImage inc, Force_field ff, float intensity) {
+    refresh_rendering_gpu(result,buffer,inc,ff,intensity);
+    finalize_rendering_gpu(result,buffer,inc,ff,intensity);  
+  }
+
+
+
+  private void refresh_rendering_gpu(PGraphics result, PImage buffer, PImage inc, Force_field ff, float intensity) {
+    if (refresh_image_is) {
+      refresh_mix(true);
+      refresh_multiply(false); // add value is possible refresh_multiply(boolean b, float... val)
+      refresh_overlay(false); // add value is possible refresh_overlay(boolean b, float... val)
+
+      result.beginDraw();
+      if(refresh_mix_is) {
+        mix(result, buffer, inc, warp_img_refresh);
+      }
+      if(refresh_multiply_is) {    
+        multiply(result,buffer,inc,refresh_multiply_value);
+      }
+      if(refresh_overlay_is) {
+        overlay(result,buffer,inc,refresh_overlay_value);
+      }
+      result.endDraw();
+    }
+    image(result);
+  }
+
+
+  private void finalize_rendering_gpu(PGraphics result, PImage buffer, PImage inc, Force_field ff, float intensity) {
+    result.beginDraw(); 
+    warp_image_graphic_processor(result,inc,ff,intensity);
+
+    if(effect_multiply_is) {
+      multiply_flip(false,true);
+      multiply(result,result,result,effect_multiply_value);
+    }
+    if(effect_overlay_is) {
+      overlay_flip(false,true);
+      overlay(result, result, result, effect_overlay_value);
+    }
+    result.endDraw();
+  }
+
+
+
+
+  // main method
   private void warp_image_graphic_processor(PGraphics result, PImage tex, Force_field ff, float intensity) {
     float grid_w = ff.get_tex_velocity().width;
     float grid_h = ff.get_tex_velocity().height;
@@ -556,9 +563,13 @@ class Warp {
     // rope_warp_shader.set("dir_texture",ff.direction_texture());
     
     // shader filter
-    if(shader_warp_filter) {   
-      result.filter(rope_warp_shader);
-    } else {
+    if(shader_warp_filter) { 
+      try {   
+        result.filter(rope_warp_shader);
+      } catch(java.lang.RuntimeException e) { 
+        printErrTempo(60,"class Warp void warp_image_graphic_processor: Too many calls to pushMatrix()",frameCount);
+      }
+    } else {  
       result.shader(rope_warp_shader);
       result.image(tex,0,0); // don't update the image
     }
@@ -578,7 +589,7 @@ class Warp {
     if(pass2 == null) pass2 = createGraphics(w,h,P2D);
     rope_warp_blur.set("blurSize",7);
     rope_warp_blur.set("sigma",3f); 
-      // Applying the blur shader along the vertical direction   
+    // Applying the blur shader along the vertical direction   
     rope_warp_blur.set("horizontalPass", true);
     pass1.beginDraw();            
     pass1.shader(rope_warp_blur);
@@ -599,13 +610,36 @@ class Warp {
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
   /**
   WARP CPU
   Computer Processor Unit 
-  v 0.1.4
+  v 0.2.0
   * based on by Felix Woitzel code
   * but the code don't work perfectly, on the top and right direction
   */
+
+  private void rendering_computer_processor(PGraphics result, PImage buffer, PImage inc, Force_field ff, float intensity) {
+    result.beginDraw();
+    if(refresh_image_is) {
+      mix(result,buffer,inc,warp_img_refresh);
+    }
+    warp_image_computer_processor(result,buffer,inc,ff,intensity);
+    result.endDraw();
+    image(result);  
+  }
 
   private void warp_image_computer_processor(PGraphics result, PImage tex, PImage inc, Force_field ff, float intensity) {
 
@@ -633,7 +667,7 @@ class Warp {
           result.set(x,y,c);
 
         } else {
-          printErr("error in fluid_image() caught Vec2 warp is null fo " + uv);
+          printErr("error in fluid_image() caught Vec2 warp is null for " + uv);
           int c = color(r.BLACK);
           result.set(x,y,c);
         }
