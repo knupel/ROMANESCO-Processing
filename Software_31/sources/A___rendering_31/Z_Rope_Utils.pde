@@ -1609,6 +1609,7 @@ void mix(PGraphics p, PImage tex, PImage inc, float... ratio) {
     println("tex",tex.width,tex.height);
     println("inc",inc.width,inc.height);
     p.filter(rope_shader_mix);
+    
   }
 }
 
