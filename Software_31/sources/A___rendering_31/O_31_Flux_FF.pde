@@ -1,7 +1,7 @@
 /**
 Flux Force Field
 2018
-v 0.0.3
+v 0.0.4
 */
 class Flux extends Romanesco {
 
@@ -12,7 +12,7 @@ class Flux extends Romanesco {
 		ID_item = 31;
 		ID_group = 1 ;
 		item_author  = "Stan le Punk";
-		item_version = "Version 0.0.1";
+		item_version = "Version 0.0.4";
 		item_pack = "Force 2018";
     item_costume = "pixel/point/ellipse/triangle/rect/cross/pentagon/Star 5/Star 7/Super Star 8/Super Star 12";
     item_mode = "";
@@ -95,7 +95,7 @@ class Flux extends Romanesco {
 
   void draw_2D() {
     if(get_costume() == PIXEL_ROPE) {
-      int mult_particle = 20 ;
+      int mult_particle = 10 ;
       draw_flux(mult_particle);
     }
   }
@@ -105,7 +105,7 @@ class Flux extends Romanesco {
 
   void draw_flux(int mult_particle) {
     float ratio_num = quantity_item[ID_item] *quantity_item[ID_item] *quantity_item[ID_item];
-    int num = (int)map(ratio_num,0,1,10,2000); // > 100_000;
+    int num = (int)map(ratio_num,0,1,10,3000); // > 100_000;
     num *= mult_particle;
     
     set_vehicle(num);

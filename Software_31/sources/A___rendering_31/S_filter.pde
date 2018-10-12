@@ -15,19 +15,15 @@ void init_filter() {
     set_different_force_field();
     println("init filter Force Field part");
     // warp
-    if(enable_warp) {
-      init_warp();
-      println("init filter warp part");
-    } 
+    init_warp();
+    println("init filter warp part");
   }
 }
 
 
 void filter() {
   if(FULL_RENDERING && fx_button_is(0)) {
-    if(enable_warp) { 
-      warp();
-    }
+    warp();
   } 
 }
 

@@ -1424,96 +1424,99 @@ class Transient extends Sounda {
 
   public boolean detection_is(Section [] section, int section_index) {
  
-    boolean transient_event_is = false;   
-    
-    int in = floor(section[section_index].in);
-    int out = floor(section[section_index].out);
-    int num_leg = out - in ;
-    if(section_index < section.length && num_leg > 0) {
-      // set the value must be analyze
-      float [] pow_value = new float[num_leg];
-      float [] value_fast = new float[num_leg];
-      float [] value_slow = new float[num_leg];
-      float [] diff_value = new float[num_leg];
-      float [] log_value = new float[num_leg];
-      boolean [] transient_is = new boolean[num_leg];
-      float [] raw_value = new float[num_leg];
+    boolean transient_event_is = false;
+    if(buffer != null) {
+      int in = floor(section[section_index].in);
+      int out = floor(section[section_index].out);
+      int num_leg = out - in ;
+      if(section_index < section.length && num_leg > 0) {
+        // set the value must be analyze
+        float [] pow_value = new float[num_leg];
+        float [] value_fast = new float[num_leg];
+        float [] value_slow = new float[num_leg];
+        float [] diff_value = new float[num_leg];
+        float [] log_value = new float[num_leg];
+        boolean [] transient_is = new boolean[num_leg];
+        float [] raw_value = new float[num_leg];
 
-      for(int index = in ; index < out ; index++) {
-        int index_value = index - in ;
-        if(index < buffer.length) {
-          raw_value[index_value] = buffer[index];
-        } else {
-          raw_value[index_value] = 0;
+        for(int index = in ; index < out ; index++) {
+          int index_value = index - in ;
+          if(index < buffer.length) {
+            raw_value[index_value] = buffer[index];
+          } else {
+            raw_value[index_value] = 0;
+          }
         }
-      }
 
-      low_pass(section[section_index].low_pass,in,out);
-      // here pass the first filtering value from first low pass
-      for(int i = 0 ; i  < pow_value.length ; i++) {
-        pow_value[i] = low_pass_value[i];
-        pow_value[i] = pow(pow_value[i],2);
-      }
-      // new low pass fast
-      float ref_fast = pow_value[0];
-      float smoothing_fast = abs(section[section_index].smooth_fast)+1;
-      for(int i = 0 ; i  < value_fast.length ; i++) {
-        float current_value = pow_value[i];
-        ref_fast += (current_value - ref_fast) / smoothing_fast;
-        value_fast[i] = ref_fast;
-      }
+        low_pass(section[section_index].low_pass,in,out);
+        // here pass the first filtering value from first low pass
+        for(int i = 0 ; i  < pow_value.length ; i++) {
+          pow_value[i] = low_pass_value[i];
+          pow_value[i] = pow(pow_value[i],2);
+        }
+        // new low pass fast
+        float ref_fast = pow_value[0];
+        float smoothing_fast = abs(section[section_index].smooth_fast)+1;
+        for(int i = 0 ; i  < value_fast.length ; i++) {
+          float current_value = pow_value[i];
+          ref_fast += (current_value - ref_fast) / smoothing_fast;
+          value_fast[i] = ref_fast;
+        }
 
-      // new low pass slow
-      float ref_slow = pow_value[0];
-      float smoothing_slow = abs(section[section_index].smooth_slow)+1;
-      // pass second thread value: first low pass and pow treatment
-      for(int i = 0 ; i  < value_slow.length ; i++) {
-        float current_value = pow_value[i];
-        ref_slow += (current_value - ref_slow) / smoothing_slow;
-        value_slow[i] = ref_slow;
-      }
+        // new low pass slow
+        float ref_slow = pow_value[0];
+        float smoothing_slow = abs(section[section_index].smooth_slow)+1;
+        // pass second thread value: first low pass and pow treatment
+        for(int i = 0 ; i  < value_slow.length ; i++) {
+          float current_value = pow_value[i];
+          ref_slow += (current_value - ref_slow) / smoothing_slow;
+          value_slow[i] = ref_slow;
+        }
 
-      // difference between quick and fast low pass
-      for(int i = 0 ; i < diff_value.length ; i++) {
-        //diff_value[i] = low_pass_value_slow[i] - low_pass_value_fast[i];
-        diff_value[i] = value_fast[i] - value_slow[i];
-      }
+        // difference between quick and fast low pass
+        for(int i = 0 ; i < diff_value.length ; i++) {
+          //diff_value[i] = low_pass_value_slow[i] - low_pass_value_fast[i];
+          diff_value[i] = value_fast[i] - value_slow[i];
+        }
 
-      // log 
-      for(int i = 0 ; i  < log_value.length ; i++) {
-        log_value[i] = log(1+(section[section_index].ratio_log*diff_value[i]));
-      }
-      
-      // transiente detection and hysteresie
-      for(int i = 0 ; i < log_value.length ; i++) {
-        transient_is[i] = false;
-        float value = log_value[i];
-        if(value > section[section_index].threshold_high && !transient_is[i]) {
-          value = 1;
-          transient_is[i] = true;
-        } else if(value < section[section_index].threshold_low && transient_is[i]) {
-          value = 0;
+        // log 
+        for(int i = 0 ; i  < log_value.length ; i++) {
+          log_value[i] = log(1+(section[section_index].ratio_log*diff_value[i]));
+        }
+        
+        // transiente detection and hysteresie
+        for(int i = 0 ; i < log_value.length ; i++) {
           transient_is[i] = false;
+          float value = log_value[i];
+          if(value > section[section_index].threshold_high && !transient_is[i]) {
+            value = 1;
+            transient_is[i] = true;
+          } else if(value < section[section_index].threshold_low && transient_is[i]) {
+            value = 0;
+            transient_is[i] = false;
+          }
         }
-      }
-     
-      
-      for(int i = 0 ; i < transient_is.length ; i++) {
-        if(transient_is[i]) {
-          transient_event_is = true;
-          break ;
+       
+        
+        for(int i = 0 ; i < transient_is.length ; i++) {
+          if(transient_is[i]) {
+            transient_event_is = true;
+            break ;
+          }
         }
+
+        // display just for devellopement
+        if(info) {
+          show_visual(in, transient_is, raw_value, low_pass_value, pow_value, value_fast, value_slow, diff_value, log_value);
+        }
+
+        // end display dev   
+      } else {
+        printErrTempo(60,"method transient_is(section",section_index,") is out of the range, by default method return false",frameCount);
       }
 
-      // display just for devellopement
-      if(info) {
-        show_visual(in, transient_is, raw_value, low_pass_value, pow_value, value_fast, value_slow, diff_value, log_value);
-      }
-
-      // end display dev   
-    } else {
-      printErrTempo(60,"method transient_is(section",section_index,") is out of the range, by default method return false",frameCount);
-    }
+    }   
+    // result
     return transient_event_is;
   }
 

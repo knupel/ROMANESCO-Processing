@@ -23,8 +23,7 @@ Processing 3.4.0
 /**
 BUG with warp on MacBook Pro 2018 or HighSierra / Mojave
 */
-boolean enable_warp = false;
-boolean use_pixel_density = false ;
+boolean use_layer = false;
 
 
 /**
@@ -103,10 +102,6 @@ void settings() {
   
   // fullScreen(P3D); // original
   // FULL_SCREEN = true;
-  
-
-
-  if(use_pixel_density) pixelDensity(displayDensity());
 
   syphon_settings();
 
@@ -134,7 +129,7 @@ void setup() {
  
   
   display_setup(60); // the int value is the frameRate
- //  init_layer(width,height,2);
+  if(use_layer) init_layer(width,height,3);
 
   RG.init(this);  // Geomerative
 
@@ -220,13 +215,25 @@ void romanesco() {
     save_scene();
   }
   
+  if(use_layer) {
+    select_layer(0);
+    begin_layer();
+  }
   rendering();
+  if(use_layer) end_layer();
+  
 
+  if(use_layer) {
+    select_layer(1);
+    begin_layer();
+  }
   if(FULL_RENDERING) {
     masking(set_mask_is());
   } else {
     // no mask used
   }
+
+  if(use_layer) end_layer();
 
   // save screenshot
   if(FULL_RENDERING) {
@@ -264,30 +271,33 @@ void romanesco() {
   }
 
   if(!controller_osc_is && FULL_RENDERING) {
+    if(use_layer) {
+      select_layer(0);
+      begin_layer();
+    }
+
     if(IAM.equals("scene")) {
     // if(IAM.equals("scene") || !LIVE) {
-      background(0);
+      background_rope(0);
       message_opening();
     } else if(IAM.equals("prescene") && FULL_RENDERING) {
-      background(0);
+      background_rope(0);
       message_opening();
+    }
+    if(use_layer) {
+      end_layer();
     }
   }
 
-  
-
-}
-
-
-void test_set_pix_density() {
-  background(0);
-  for(int i = 0 ; i < 200000 ; i++) {
-    int x = (int)random(width);
-    int y = (int)random(height);
-    int c = r.WHITE;
-    set(x,y,c);
+  // final display
+  if(use_layer) {
+    g.image(get_layer(0),0,0);
+    // g.image(get_layer(1),0,0);
   }
 }
+
+
+
 
 
 
