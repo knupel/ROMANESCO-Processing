@@ -24,6 +24,7 @@ Processing 3.4.0
 BUG with warp on MacBook Pro 2018 or HighSierra / Mojave
 */
 boolean enable_warp = false;
+boolean use_pixel_density = false ;
 
 
 /**
@@ -105,7 +106,8 @@ void settings() {
   
 
 
-  pixelDensity(displayDensity());
+  if(use_pixel_density) pixelDensity(displayDensity());
+
   syphon_settings();
 
   if(IAM.equals("prescene")) {
@@ -121,6 +123,7 @@ void settings() {
 
 
 void setup() {
+  
   path_setting();
   shader_folder_filter(preference_path+"shader/filter/");
   load_save(preference_path+"setting/defaultSetting.csv");
@@ -128,6 +131,7 @@ void setup() {
   version();
   set_system_specification();
   OSC_setup();
+ 
   
   display_setup(60); // the int value is the frameRate
  //  init_layer(width,height,2);
@@ -161,6 +165,7 @@ void setup() {
 
   init_filter();
   init_masking();
+
 }
 
 
@@ -267,6 +272,20 @@ void romanesco() {
       background(0);
       message_opening();
     }
+  }
+
+  
+
+}
+
+
+void test_set_pix_density() {
+  background(0);
+  for(int i = 0 ; i < 200000 ; i++) {
+    int x = (int)random(width);
+    int y = (int)random(height);
+    int c = r.WHITE;
+    set(x,y,c);
   }
 }
 

@@ -87,9 +87,27 @@ class Flux extends Romanesco {
 
 
   void draw() {
+    if(get_costume() != PIXEL_ROPE) {
+      int mult_particle = 1;
+      draw_flux(mult_particle);
+    }
+  }
+
+  void draw_2D() {
+    if(get_costume() == PIXEL_ROPE) {
+      int mult_particle = 20 ;
+      draw_flux(mult_particle);
+    }
+  }
+
+
+
+
+  void draw_flux(int mult_particle) {
     float ratio_num = quantity_item[ID_item] *quantity_item[ID_item] *quantity_item[ID_item];
-    int num = (int)map(ratio_num,0,1,1000,100000); // > 100_000;
-    if(get_costume() != PIXEL_ROPE) num /= 100;
+    int num = (int)map(ratio_num,0,1,10,2000); // > 100_000;
+    num *= mult_particle;
+    
     set_vehicle(num);
     init_vehicle(num,get_force_field()); 
     
@@ -170,7 +188,12 @@ class Flux extends Romanesco {
     for (Vehicle v : vehicles) {
       float theta = v.get_direction() + radians(90);
       set_ratio_costume_size(map(ratio,width*.1, width*TAU,0,1));
-      costume_rope(v.get_position(),size,theta,costume);
+      if(get_costume() == PIXEL_ROPE) {
+        costume_rope(v.get_position().mult(displayDensity()),size,theta,costume);
+      } else {
+        costume_rope(v.get_position(),size,theta,costume);
+      }
+      
     }
   }
 }
