@@ -48,28 +48,77 @@ void rendering() {
 
   // display
   if(show_is) {
-    camera_romanesco_draw();
-    // LIGHT
-    light_position_draw(mouse[0], wheel[0]); // not in the conditional because we need to display in the info box
-    light_update_position_direction();
-    if(FULL_RENDERING) {
-      light_call_shader();
-      light_display();
-      shader_draw();
-    }
-
-    //use romanesco object
-    rpe_manager.show_item_3D(ORDER_ONE, ORDER_TWO, ORDER_THREE);
-    grid_romanesco(displayInfo3D);
-    stop_camera();
-
-    rpe_manager.show_item_2D();
-
+    rendering_item_3D(USE_LAYER,1);
+    rendering_item_2D(USE_LAYER,1);
     force();
-    filter();
-    info();
+    filter();   
+    rendering_info(USE_LAYER);
+  } else {
+    rendering_curtain(USE_LAYER);   
+  }
+}
+
+void rendering_item_2D(boolean use_layer_is, int which_layer) {
+  if(use_layer_is) {
+    get_layer(which_layer);
+    begin_layer();
+    rpe_manager.show_item_2D();
+    end_layer();
+  } else {
+    rpe_manager.show_item_2D();
+  }
+}
+
+
+void rendering_item_3D(boolean use_layer_is, int which_layer) {
+  if(use_layer_is) {
+    get_layer(which_layer);
+    begin_layer();
+    rendering_item_final_3D();
+    end_layer();
+  } else {
+    rendering_item_final_3D();
+  }
+}
+
+
+void rendering_item_final_3D() {
+  camera_romanesco_draw();
+  // LIGHT
+  light_position_draw(mouse[0], wheel[0]); // not in the conditional because we need to display in the info box
+  light_update_position_direction();
+  if(FULL_RENDERING) {
+    light_call_shader();
+    light_display();
+    shader_draw();
+  }
+  //use romanesco object
+  rpe_manager.show_item_3D(ORDER_ONE,ORDER_TWO,ORDER_THREE);
+  grid_romanesco(displayInfo3D);
+  stop_camera();
+}
+
+
+void rendering_curtain(boolean use_layer_is) {
+  if(use_layer_is) {
+    get_layer(get_layer_num() -1);
+    begin_layer();
+    curtain();
+    end_layer();
   } else {
     curtain();
+  }
+}
+
+
+void rendering_info(boolean use_layer_is) {
+  if(use_layer_is) {
+    get_layer(get_layer_num() -1);
+    begin_layer();
+    info();
+    end_layer();
+  } else {
+    info();
   }
 }
 

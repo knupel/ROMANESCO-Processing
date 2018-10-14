@@ -29,7 +29,7 @@ BUG with warp on MacBook Pro 2018 or HighSierra / Mojave
 /**
 DEV
 */
-boolean USE_LAYER = true;
+boolean USE_LAYER = false;
 boolean DEV_MODE = true; // inter alia, path preferences folder, curtain
 String IAM = "prescene";
 boolean LIVE = false;
@@ -229,11 +229,20 @@ void romanesco() {
     select_layer(0);
     begin_layer();
     background_romanesco();
+    end_layer();
     
-    //debug_background();
-    debug_shape();
+
+    rendering();
+    /*
+    select_layer(1);
+    begin_layer();
+    // debug_shape();
     // rendering();
     end_layer();
+    */
+    
+    
+    
   } else {
     background_romanesco();
     rendering();
@@ -242,7 +251,8 @@ void romanesco() {
 
   if(FULL_RENDERING) {
     if(USE_LAYER) {
-      select_layer(1);
+      int last_layer = get_layer_num() -1;
+      select_layer(last_layer);
       begin_layer();
       masking(set_mask_is());
       end_layer();
@@ -301,8 +311,9 @@ void romanesco() {
 
   // final display
   if(USE_LAYER) {
-    g.image(get_layer(0),0,0);
-    g.image(get_layer(1),0,0);
+    for(int i = 0 ; i < get_layer_num() ; i++) {
+      g.image(get_layer(i),0,0);
+    }
   }
 }
 
