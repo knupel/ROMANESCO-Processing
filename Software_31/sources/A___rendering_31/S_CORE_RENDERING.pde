@@ -120,16 +120,25 @@ String displayMode = ("");
 int depth_scene;
 void display_setup(int frame_rate) {
   if(IAM.equals("scene")) {
-    background(0);
+    background_rope(0);
     noCursor();
   }
   frameRate(frame_rate);  // Le frameRate doit être le même dans tous les Sketches
-  colorMode(HSB, HSBmode.r, HSBmode.g, HSBmode.b, HSBmode.a); 
+  if(USE_LAYER) {
+    for(int i = 0 ; i < get_layer_num() ; i++) {
+      select_layer(i);
+      begin_layer();
+      colorMode(HSB, HSBmode.r, HSBmode.g, HSBmode.b, HSBmode.a);
+      end_layer();
+    }
+  } else {
+    colorMode(HSB, HSBmode.r, HSBmode.g, HSBmode.b, HSBmode.a);
+  }
 
   set_screen();
   depth_scene = height;
   background_setup();
-  background_shader_setup();
+  background_shader_setup(); 
 }
 
 
@@ -212,6 +221,18 @@ void set_screen() {
 OPENING
 2018-2018
 */
+void opening_display_message() {
+  if(IAM.equals("scene")) {
+  // if(IAM.equals("scene") || !LIVE) {
+    background_rope(0);
+    message_opening();
+  } else if(IAM.equals("prescene") && FULL_RENDERING) {
+    background_rope(0);
+    message_opening();
+  }
+}
+
+
 void message_opening() {
   fill(blanc);
   stroke(blanc);

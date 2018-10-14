@@ -1,26 +1,25 @@
 /**
 ROMANESCO BACKGROUND 
-v 1.1.2
+v 1.2.0
 */
 Vec4 colorBackground, colorBackgroundRef, colorBackgroundPrescene;
 void background_setup() {
-  colorBackgroundRef = Vec4() ;
-  colorBackground = Vec4() ;
+  colorBackgroundRef = Vec4();
+  colorBackground = Vec4();
   colorBackgroundPrescene = Vec4(0,0,20,g.colorModeA) ;
 }
-
 
 void background_romanesco() {
   // in preview mode the background is always on, to remove the trace effect
   if(!FULL_RENDERING) { 
     background_button_is(false) ;
     colorBackground = colorBackgroundPrescene.copy() ;
-    background_rope(0,0,g.colorModeZ *.2,g.colorModeA) ;
+    background_rope(0,0,get_layer().colorModeZ *.2,get_layer().colorModeA) ;
   } else if(FULL_RENDERING) {
     if(background_button_is()) {
       if(which_shader == 0) {
         // check if the color model is changed after the shader used
-        if(g.colorMode != 3 || g.colorModeX != 360 || g.colorModeY != 100 || g.colorModeZ !=100 || g.colorModeA !=100) {
+        if(get_layer().colorMode != 3 || get_layer().colorModeX != 360 || get_layer().colorModeY != 100 || get_layer().colorModeZ !=100 || get_layer().colorModeA !=100) {
           colorMode(HSB,360,100,100,100);
         }
         // choice the rendering color palette for the classic background

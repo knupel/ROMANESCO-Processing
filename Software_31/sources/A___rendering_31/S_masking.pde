@@ -1,17 +1,21 @@
 /**
 MASK MAPPING
-v 0.1.2
+v 0.1.3
+2018-2018
+
+WARNING
+The method is advence for border mask but not for the option with different bloclk mask
 */
 boolean border_is;
 boolean default_mask_is = true;
 void masking(boolean change_is) {
-  // use border mask
+  // use border mask setting: masking(change_is,0,0,0);
   masking(change_is,0,0,0);
 }
 /**
 master method
 */
-PGraphics pg_mask;
+// PGraphics pg_mask;
 void masking(boolean change_is, int type_mask, int num_mask, int num_point_mask) {
   if(type_mask == 0) {
     border_is = true ;
@@ -25,33 +29,57 @@ void masking(boolean change_is, int type_mask, int num_mask, int num_point_mask)
   }
 
   
-  boolean mask_state_is = true;
+  boolean mask_state_is = false;
   for(int i = 0 ; i < display_mask.length ; i++){
-    if(!display_mask[i]) {
-      mask_state_is = false;
+    if(display_mask[i]) {
+      mask_state_is = true;
       break;
     }
   }
-  
+
+  // vertex solution
+  if(get_mask_border() != null && mask_state_is) {
+    g.image(get_mask_border(),0,0);
+  }
+  /*
+  // pixel set solution
+  println("DISPLAY MASK",pg_mask,mask_state_is,display_mask.length);
   if(pg_mask != null && mask_state_is) {
     pg_mask.loadPixels();
     loadPixels();
     for(int i = 0 ; i < pg_mask.pixels.length ; i++) {
       if(pg_mask.pixels[i] == r.BLACK) {
-        pixels[i] = r.BLACK;
+        g.pixels[i] = r.BLACK;
       } else if(pg_mask.pixels[i] == r.RED) {
-        pixels[i] = r.RED;
+        g.pixels[i] = r.RED;
       } else if(pg_mask.pixels[i] == r.WHITE) {
-        pixels[i] = r.WHITE;
+        g.pixels[i] = r.WHITE;
       }
     }
     updatePixels();
   }
+  */
 
   if(change_is) {
-    pg_mask = createGraphics(width,height);
+    mask_border_reset();
   }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -64,39 +92,46 @@ void masking(boolean change_is, int type_mask, int num_mask, int num_point_mask)
 border mask
 */
 Masking mask_border;
-boolean init_mask_is;
+boolean init_mask_is ;
 void masking_border(boolean change_is, boolean default_mask_is) {
-  // build mask
   if(!init_mask_is) {
+    // build mask
     if(mask_border == null || default_mask_is) {
       masking_border_default();
+      println("set default mask");
       mask_border = new Masking(coord_connected,coord_block_1,coord_block_2,coord_block_3,coord_block_4);
-      pg_mask = createGraphics(width,height);
       init_mask_is = true;
     } else if(mask_loaded_is) {
+      println("set load mask");
       mask_border = new Masking(coord_connected,coord_block_1,coord_block_2,coord_block_3,coord_block_4);
-      pg_mask = createGraphics(width,height);
       mask_loaded_is = false;
       init_mask_is = true;
     }
+  } else {
+    // display mask
+    if(mask_border != null && display_mask_is(0)) {
+      mask_border.draw(change_is);
+    }
   }
-   
-  // draw mask
-  if(mask_border != null && init_mask_is) {
-    if(display_mask_is(0)) {
-      mask_border.draw(pg_mask,change_is);
-    }
-    if(change_is) {
-      coord_connected = mask_border.get_coord();
-      coord_block_1 = mask_border.get_coord_block_1();
-      coord_block_2 = mask_border.get_coord_block_2();
-      coord_block_3 = mask_border.get_coord_block_3();
-      coord_block_4 = mask_border.get_coord_block_4();
-      //write_file_mask_mapping(get_file_mask_mapping());
-      write_file_masking();
-      save_file_masking(get_file_masking(),sketchPath(1)+ "/save/last_border_mask.csv");
-    }
-  }  
+
+  // save
+  if(change_is) {
+    save_mask_border();
+  }
+}
+
+
+
+
+void save_mask_border() {
+  coord_connected = mask_border.get_coord();
+  coord_block_1 = mask_border.get_coord_block_1();
+  coord_block_2 = mask_border.get_coord_block_2();
+  coord_block_3 = mask_border.get_coord_block_3();
+  coord_block_4 = mask_border.get_coord_block_4();
+  //write_file_mask_mapping(get_file_mask_mapping());
+  write_file_masking();
+  save_file_masking(get_file_masking(),sketchPath(1)+ "/save/last_border_mask.csv");
 }
 
 iVec2 [] coord_connected;
@@ -133,6 +168,47 @@ void masking_border_default() {
 }
 
 
+void mask_border_reset() {
+  if(mask_border == null) {
+    masking_border(true,true);
+  } else {
+    mask_border.reset();
+  }
+  
+}
+
+PGraphics get_mask_border() {
+  if(mask_border == null) {
+    return null;
+  } else {
+    return mask_border.get_mask();
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -163,7 +239,7 @@ void masking_blocks(boolean change_is, int num, int num_point_mask) {
   if(masks == null) {
     coord_mask = new Coord_mask[num];
     masks = new Masking[coord_mask.length];
-    pg_mask = createGraphics(width,height);
+    // pg_mask = createGraphics(width,height);
     
     data_masking_blocks(coord_mask, num_point_mask);
     for(int i = 0 ; i < num ; i++) {
@@ -173,7 +249,7 @@ void masking_blocks(boolean change_is, int num, int num_point_mask) {
     if(display_mask_is(0)) {
       for(int i = 0 ; i < num ;i++) {
         if(display_mask_is(i+1)) {
-          masks[i].draw(pg_mask,change_is);
+          masks[i].draw(change_is);
         }
       }
     }    
@@ -275,6 +351,7 @@ void data_mask_mapping_blocks() {
 
 void keyPressed_mask_set(char c) {
   if(key == c) {
+    if(!display_mask[0]) display_mask[0] = true;
     set_mask();
   }
 }
@@ -282,7 +359,6 @@ void keyPressed_mask_set(char c) {
 void keyPressed_mask_border_hide(char c) {
   if(key == c) {
     display_mask[0] = !!((display_mask[0] == false));
-    // enable_mask();
   }
 }
 
@@ -301,26 +377,8 @@ void keyPressed_mask_load(char c) {
 }
 
 
-/*
-void mask_keyPressed(char c_1, char c_2, char c_3) {
-  // MAJUSCULE
-  if(key == 'M') {
-    set_mask();
-  }
-  // hide mask
-  enable_mask();
-  
-  // MAJUSCULE
-  if(key == 'S') {
-    save_force();
-  }
-  
-  // MAJUSCULE
-  if(key == 'L') {
-    selectInput("Select a file to load data mask:", "load_save_mask");
-  }
-}
-*/
+
+
 
 
 

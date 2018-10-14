@@ -1,16 +1,19 @@
 /**
 class Mask_mapping
-v 0.1.2
+v 0.2.0
 2018-2018
 */
 public class Masking implements rope.core.RConstants {
+  PGraphics pg;
   private iVec3 [] coord;
   private iVec3 [] coord_block_1, coord_block_2, coord_block_3, coord_block_4;
   private boolean init;
   private boolean block_is;
   private int c = BLACK;
   private int range = 10;
+  
 
+  // CONSTRUCTOR
   public Masking(iVec2 [] list) {
     coord = new iVec3[list.length];
     for(int i = 0 ; i < coord.length ;i++) {
@@ -18,36 +21,7 @@ public class Masking implements rope.core.RConstants {
     }
     init = true;
   }
-  
-  public iVec2 [] get_coord() {
-    return iVec3_coord_to_iVec2_coord(coord) ;
-  }
 
-  public iVec2 [] get_coord_block_1() {
-    return iVec3_coord_to_iVec2_coord(coord_block_1) ;
-  }
-
-  public iVec2 [] get_coord_block_2() {
-    return iVec3_coord_to_iVec2_coord(coord_block_2) ;
-  }
-
-  public iVec2 [] get_coord_block_3() {
-    return iVec3_coord_to_iVec2_coord(coord_block_3) ;
-  }
-
-  public iVec2 [] get_coord_block_4() {
-    return iVec3_coord_to_iVec2_coord(coord_block_4) ;
-  }
-
-  private iVec2 [] iVec3_coord_to_iVec2_coord(iVec3 [] target) {
-    if(target != null) {
-      iVec2 [] list = new iVec2[target.length];
-      for(int i = 0 ; i < list.length ; i++) {
-        list[i] = iVec2(target[i].x,target[i].y);
-      }
-      return list;
-    } else return null;
-  }
 
   public Masking(iVec2 [] list, iVec2 [] list_block_1, iVec2 [] list_block_2, iVec2 [] list_block_3, iVec2 [] list_block_4) {
     if(list.length != 8) {
@@ -90,14 +64,64 @@ public class Masking implements rope.core.RConstants {
     init = true;
   }
 
+
+
+
+
+  // METHOD
+  public iVec2 [] get_coord() {
+    return iVec3_coord_to_iVec2_coord(coord) ;
+  }
+
+  public iVec2 [] get_coord_block_1() {
+    return iVec3_coord_to_iVec2_coord(coord_block_1) ;
+  }
+
+  public iVec2 [] get_coord_block_2() {
+    return iVec3_coord_to_iVec2_coord(coord_block_2) ;
+  }
+
+  public iVec2 [] get_coord_block_3() {
+    return iVec3_coord_to_iVec2_coord(coord_block_3) ;
+  }
+
+  public iVec2 [] get_coord_block_4() {
+    return iVec3_coord_to_iVec2_coord(coord_block_4) ;
+  }
+
+  private iVec2 [] iVec3_coord_to_iVec2_coord(iVec3 [] target) {
+    if(target != null) {
+      iVec2 [] list = new iVec2[target.length];
+      for(int i = 0 ; i < list.length ; i++) {
+        list[i] = iVec2(target[i].x,target[i].y);
+      }
+      return list;
+    } else return null;
+  }
+
+  public void reset() {
+    pg = createGraphics(width,height);
+  }
+
+
+  public PGraphics get_mask() {
+    return pg;
+  }
+
+  
+
   public void set_fill(int c) {
     this.c = c;
   }
 
 
 
-  public void draw(PGraphics pg, boolean modify_is) {
-    if(init) {
+  public void draw(boolean modify_is) {
+    if(pg == null) {
+      pg = createGraphics(width,height);
+    }
+
+    if(pg != null && init) {
       pg.beginDraw();
       if(modify_is) {
         if(pg != null) {      
@@ -144,9 +168,11 @@ public class Masking implements rope.core.RConstants {
       }
       
     } else {
-      printErr("class Masking(): Must be iniatilized with an array list iVec2 [] coord)");
+      println(pg,init);
+      printErr("class Masking.draw(): Must be iniatilized with an array list iVec2 [] coord)");
     }
   }
+
   private void show_point(PGraphics pg,iVec3 [] list) {
     for(iVec3 iv : list) {
       pg.beginDraw();
@@ -156,6 +182,7 @@ public class Masking implements rope.core.RConstants {
       pg.endDraw();
     }
   }
+
   private boolean drag_is = false ;
   private void move_point(iVec3 [] list) {
     if(!drag_is) {

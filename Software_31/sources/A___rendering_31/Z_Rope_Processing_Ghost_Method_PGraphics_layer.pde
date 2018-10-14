@@ -1,7 +1,7 @@
 /**
 ROPE PGraphics LAYER METHOD
 2018-2018
-v 0.0.7
+v 0.2.1
 those ghost method is here like a filter between rope and Processing 
 in case the coder want use a PGraphics layer before to implement in the Processing rendering
 */
@@ -13,6 +13,15 @@ boolean warning_rope_layer;
 int which_rope_layer = 0;
 
 // init
+void init_layer() {
+  init_layer(width,height,get_renderer(),1);
+}
+
+
+void init_layer(int num) {
+  init_layer(width,height,get_renderer(),num);
+}
+
 void init_layer(int x, int y) {
   init_layer(x,y, get_renderer(),1);
 }
@@ -47,7 +56,12 @@ void end_layer() {
   }
 }
 
-
+// num
+int get_layer_num() {
+  if(rope_layer != null) {
+    return  rope_layer.length ;
+  } else return -1;  
+}
 
 // clear layer
 void clear_layer() {
@@ -79,14 +93,22 @@ void clear_layer(int target) {
 }
 
 
+
+
+/**
+GET LAYER
+* May be the method can be improve by using a PGraphics template for buffering instead usin a calling method ????
+*/
 // get layer
 PGraphics get_layer() {
   return get_layer(which_rope_layer);
 }
 
+
 PGraphics get_layer(int target) {
   if(rope_layer == null) {
-    return null;
+//    printErrTempo(180,"void get_layer(): Your layer system has not been init use method init_layer() in first",frameCount);
+    return g;
   } else if(target > -1 && target < rope_layer.length) {
     return rope_layer[target];
   } else {
@@ -97,21 +119,67 @@ PGraphics get_layer(int target) {
 }
 
 
+
+
+
+
+
+
+
+
+
 // select layer
 void select_layer(int target) {
-  if(target > -1 && target < rope_layer.length) {
-    which_rope_layer = target;
+  if(rope_layer != null) {
+    if(target > -1 && target < rope_layer.length) {
+      which_rope_layer = target;
+    } else {
+      which_rope_layer = 0;
+      String warning = ("void select_layer(int target): target "+target+" is out the range of the layers available,\n instead target 0 is used");
+      printErr(warning);
+    }
   } else {
-    which_rope_layer = 0;
-    String warning = ("void select_layer(int target): target "+target+" is out the range of the layers available,\n instead target 0 is used");
-    printErr(warning);
+    printErrTempo(180,"void select_layer(): Your layer system has not been init use method init_layer() in first",frameCount);
   }
+  
 }
 
 
 
 
+  
+// colorMode
+void colorMode(int mode) {
+  if(get_layer() != null) {
+    get_layer().colorMode(mode);
+  } else {
+    g.colorMode(mode);
+  }
+}
 
+void colorMode(int mode, float max) {
+  if(get_layer() != null) {
+    get_layer().colorMode(mode,max);
+  } else {
+    g.colorMode(mode,max);
+  } 
+}
+
+
+void colorMode(int mode, float max1, float max2, float max3) {
+  if(get_layer() != null) {
+    get_layer().colorMode(mode,max1,max2,max3);
+  } else {
+    g.colorMode(mode,max1,max2,max3);
+  }
+}
+void colorMode(int mode, float max1, float max2, float max3, float maxA) {
+  if(get_layer() != null) {
+    get_layer().colorMode(mode,max1,max2,max3,maxA);
+  } else {
+    g.colorMode(mode,max1,max2,max3,maxA);
+  }
+}
 
 
 
@@ -159,6 +227,15 @@ void rotateY(float arg) {
     get_layer().rotateY(arg);
   } else {
     g.rotateY(arg);
+  }
+}
+
+
+void rotateZ(float arg) {
+  if(get_layer() != null) {
+    get_layer().rotateZ(arg);
+  } else {
+    g.rotateZ(arg);
   }
 }
 
@@ -1066,6 +1143,7 @@ void perspective(float fovy, float aspect, float zNear, float zFar) {
 /**
 matrix
 */
+
 void pushMatrix() {
   if(get_layer() != null) {
     get_layer().pushMatrix();
@@ -1082,6 +1160,7 @@ void popMatrix() {
     g.popMatrix();
   }
 }
+
 
 // apply matrix
 void applyMatrix(PMatrix source) {
@@ -1322,6 +1401,10 @@ void set(int x, int y, int c) {
   if(get_layer() != null) {
     get_layer().set(x,y,c);
   } else {
+    /*
+    x *= displayDensity();
+    y *= displayDensity();
+    */
     g.set(x,y,c);
   }
 }
@@ -1330,6 +1413,10 @@ void set(int x, int y, PImage img) {
   if(get_layer() != null) {
     get_layer().set(x,y,img);
   } else {
+    /*
+    x *= displayDensity();
+    y *= displayDensity();
+    */
     g.set(x,y,img);
   }
 }

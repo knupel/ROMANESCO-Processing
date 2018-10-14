@@ -23,13 +23,13 @@ Processing 3.4.0
 /**
 BUG with warp on MacBook Pro 2018 or HighSierra / Mojave
 */
-boolean use_layer = false;
+
 
 
 /**
 DEV
 */
-
+boolean USE_LAYER = true;
 boolean DEV_MODE = true; // inter alia, path preferences folder, curtain
 String IAM = "prescene";
 boolean LIVE = false;
@@ -46,6 +46,7 @@ boolean FULL_RENDERING = true;
 */
 // Prescene FULL_RENDERING
 /*
+boolean USE_LAYER = true;
 boolean DEV_MODE = false; // inter alia, path preferences folder, curtain
 String IAM = "prescene";
 boolean LIVE = false;
@@ -54,6 +55,7 @@ boolean FULL_RENDERING = true;
 
 // Prescene preview LIVE
 /*
+boolean USE_LAYER = false;
 boolean DEV_MODE = false; // inter alia, path preferences folder, curtain
 String IAM = "prescene";
 boolean LIVE = true;
@@ -64,6 +66,7 @@ boolean FULL_RENDERING = false;
 
 // SCENE LIVE 
 /*
+boolean USE_LAYER = true;
 boolean DEV_MODE = false; // inter alia, path preferences folder, curtain
 String IAM = "scene";
 boolean LIVE = false; // here LIVE must be true, but not sure that's work now for OSC in scene rendering
@@ -127,15 +130,19 @@ void setup() {
   set_system_specification();
   OSC_setup();
  
-  
-  display_setup(60); // the int value is the frameRate
-  if(use_layer) init_layer(width,height,3);
+  int num_layer = 3;
+  if(USE_LAYER) init_layer(width,height,num_layer);
+  int frame_rate = 60;
+  display_setup(frame_rate); // the int value is the frameRate
+  if(USE_LAYER) init_layer(width,height,num_layer);
 
-  RG.init(this);  // Geomerative
+
+  RG.init(this); // Geomerative
 
   romanesco_build_item();
 
   create_variable();
+
   camera_setup();
 
   if(IAM.equals("prescene")){
@@ -160,6 +167,7 @@ void setup() {
 
   init_filter();
   init_masking();
+
 
 }
 
@@ -190,6 +198,7 @@ void draw() {
 
 
 void romanesco() {
+
   String title = nameVersion + " " +prettyVersion+"."+version+ " | "+ IAM + " | FPS: "+round(frameRate);
   if(MIROIR) title = nameVersion + " " +prettyVersion+"."+version+ " | "+ "miroir" + " | FPS: "+round(frameRate);
   surface.setTitle(title);
@@ -204,7 +213,7 @@ void romanesco() {
 
   update_raw_item_value();
 
-  background_romanesco();
+  
   
   if(IAM.equals("prescene")) {
     updateCommand();
@@ -214,26 +223,34 @@ void romanesco() {
     load_scene();
     save_scene();
   }
+
   
-  if(use_layer) {
+  if(USE_LAYER) {
     select_layer(0);
     begin_layer();
-  }
-  rendering();
-  if(use_layer) end_layer();
-  
-
-  if(use_layer) {
-    select_layer(1);
-    begin_layer();
-  }
-  if(FULL_RENDERING) {
-    masking(set_mask_is());
+    background_romanesco();
+    
+    //debug_background();
+    debug_shape();
+    // rendering();
+    end_layer();
   } else {
-    // no mask used
+    background_romanesco();
+    rendering();
   }
 
-  if(use_layer) end_layer();
+
+  if(FULL_RENDERING) {
+    if(USE_LAYER) {
+      select_layer(1);
+      begin_layer();
+      masking(set_mask_is());
+      end_layer();
+    } else {
+      masking(set_mask_is());
+    }
+  } 
+
 
   // save screenshot
   if(FULL_RENDERING) {
@@ -271,30 +288,27 @@ void romanesco() {
   }
 
   if(!controller_osc_is && FULL_RENDERING) {
-    if(use_layer) {
+    if(USE_LAYER) {
       select_layer(0);
       begin_layer();
-    }
-
-    if(IAM.equals("scene")) {
-    // if(IAM.equals("scene") || !LIVE) {
-      background_rope(0);
-      message_opening();
-    } else if(IAM.equals("prescene") && FULL_RENDERING) {
-      background_rope(0);
-      message_opening();
-    }
-    if(use_layer) {
+      opening_display_message();
       end_layer();
+    } else {
+      opening_display_message();
     }
   }
+
 
   // final display
-  if(use_layer) {
+  if(USE_LAYER) {
     g.image(get_layer(0),0,0);
-    // g.image(get_layer(1),0,0);
+    g.image(get_layer(1),0,0);
   }
 }
+
+
+
+
 
 
 
