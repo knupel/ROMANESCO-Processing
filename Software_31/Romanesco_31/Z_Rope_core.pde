@@ -8,6 +8,10 @@ v 0.1.0
 * @author Stan le Punk
 * @see https://github.com/StanLepunK/Rope
 */
+import rope.core.*;
+import rope.vector.*;
+
+
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.Random;
@@ -39,20 +43,21 @@ import java.awt.Rectangle;
 
 
 
-ROPE r ;
+
+
+
 /**
 Something weird, now it's not necessary to use the method init_rope()
 to use the interface Rope_constants...
 that's cool but that's very weird !!!!!
 */
+Rope r ;
 public void init_rope() {
-	r = new ROPE() ;
-	println("Init ROPE: Romanesco Processing Environment - 2015-2018");
+  r = new Rope();
+  println("Init ROPE: Romanesco Processing Environment - 2015-2018");
 }
 
-public class ROPE implements Rope_Constants {
-	//need to give an access to the Rope_Constants
-}
+
 
 
 

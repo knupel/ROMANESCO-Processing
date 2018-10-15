@@ -48,24 +48,17 @@ void rendering() {
 
   // display
   if(show_is) {
+    rendering_background(USE_LAYER,0);
+
     rendering_item_3D(USE_LAYER,1);
+
     rendering_item_2D(USE_LAYER,1);
     force();
     filter();   
     rendering_info(USE_LAYER);
+
   } else {
     rendering_curtain(USE_LAYER);   
-  }
-}
-
-void rendering_item_2D(boolean use_layer_is, int which_layer) {
-  if(use_layer_is) {
-    get_layer(which_layer);
-    begin_layer();
-    rpe_manager.show_item_2D();
-    end_layer();
-  } else {
-    rpe_manager.show_item_2D();
   }
 }
 
@@ -83,8 +76,11 @@ void rendering_item_3D(boolean use_layer_is, int which_layer) {
 
 
 void rendering_item_final_3D() {
+ 
   camera_romanesco_draw();
+
   // LIGHT
+  
   light_position_draw(mouse[0], wheel[0]); // not in the conditional because we need to display in the info box
   light_update_position_direction();
   if(FULL_RENDERING) {
@@ -92,11 +88,41 @@ void rendering_item_final_3D() {
     light_display();
     shader_draw();
   }
+  
   //use romanesco object
   rpe_manager.show_item_3D(ORDER_ONE,ORDER_TWO,ORDER_THREE);
+
   grid_romanesco(displayInfo3D);
   stop_camera();
 }
+
+
+
+
+void rendering_background(boolean use_layer_is, int which_layer) {
+  if(use_layer_is) {
+    select_layer(which_layer);
+    begin_layer();
+    background_romanesco();
+    end_layer();
+  } else {
+    background_romanesco();
+  }
+}
+
+
+
+void rendering_item_2D(boolean use_layer_is, int which_layer) {
+  if(use_layer_is) {
+    get_layer(which_layer);
+    begin_layer();
+    rpe_manager.show_item_2D();
+    end_layer();
+  } else {
+    rpe_manager.show_item_2D();
+  }
+}
+
 
 
 void rendering_curtain(boolean use_layer_is) {
@@ -110,7 +136,6 @@ void rendering_curtain(boolean use_layer_is) {
   }
 }
 
-
 void rendering_info(boolean use_layer_is) {
   if(use_layer_is) {
     get_layer(get_layer_num() -1);
@@ -121,6 +146,25 @@ void rendering_info(boolean use_layer_is) {
     info();
   }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -167,27 +211,30 @@ v 1.1.0
 */
 String displayMode = ("");
 int depth_scene;
-void display_setup(int frame_rate) {
+void display_setup(int frame_rate, int num_layer) {
   if(IAM.equals("scene")) {
     background_rope(0);
     noCursor();
   }
   frameRate(frame_rate);  // Le frameRate doit être le même dans tous les Sketches
+  colorMode(HSB, HSBmode.r, HSBmode.g, HSBmode.b, HSBmode.a);
+
+
+  set_screen();
+  depth_scene = height;
+  background_setup();
+  background_shader_setup();
+
+  // resize layer
   if(USE_LAYER) {
+    init_layer(width,height,num_layer);
     for(int i = 0 ; i < get_layer_num() ; i++) {
       select_layer(i);
       begin_layer();
       colorMode(HSB, HSBmode.r, HSBmode.g, HSBmode.b, HSBmode.a);
       end_layer();
     }
-  } else {
-    colorMode(HSB, HSBmode.r, HSBmode.g, HSBmode.b, HSBmode.a);
-  }
-
-  set_screen();
-  depth_scene = height;
-  background_setup();
-  background_shader_setup(); 
+  } 
 }
 
 

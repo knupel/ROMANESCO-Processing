@@ -1,17 +1,16 @@
 /**
 ROPE METHOD
-v 2.0.0
+v 2.0.3
 * Copyleft (c) 2014-2018
 * Stan le Punk > http://stanlepunk.xyz/
-* PROCESSING GHOST METHOD
-* based on Processing 3.4
+
 * @author Stan le Punk
 * @see https://github.com/StanLepunK/Rope
 */
 
 
 /**
-ADVANCED PROCESSING GHOST METHOD
+ADVANCED GHOST METHOD
 v 1.0.0
 All advanced ghost push Processing method further.
 Processing and Vec, iVec and bVec method
@@ -232,25 +231,25 @@ void ellipse(Vec3 p, Vec s) {
 Rect
 */
 void rect(Vec2 p, Vec2 s) {
-  rect(p.x,p.y, s.x,s.y);
+  rect(p.x,p.y,s.x,s.y);
 }
 void rect(Vec3 p, Vec2 s) {
   if(renderer_P3D()) {
     start_matrix();
-    translate(p.x, p.y,p.z );
-    rect(0,0, s.x, s.y);
+    translate(p.x,p.y,p.z);
+    rect(0,0,s.x,s.y);
     stop_matrix();
-  } else rect(p.x, p.y, s.x, s.y);
+  } else rect(p.x,p.y,s.x,s.y);
 }
 
 void rect(iVec2 p, iVec2 s) {
-  rect(p.x, p.y, s.x, s.y) ;
+  rect(p.x,p.y,s.x,s.y) ;
 }
 
 void rect(iVec3 p, iVec2 s) {
-  Vec3 temp_pos = Vec3((int)p.x, (int)p.y, (int)p.z);
-  Vec2 temp_size = Vec2((int)s.x, (int)s.y);
-  rect(temp_pos, temp_size) ;
+  Vec3 temp_pos = Vec3((int)p.x,(int)p.y,(int)p.z);
+  Vec2 temp_size = Vec2((int)s.x,(int)s.y);
+  rect(temp_pos,temp_size);
 }
 
 
@@ -260,11 +259,11 @@ void rect(iVec3 p, iVec2 s) {
 Box
 */
 void box(Vec3 p) {
-  box(p.x, p.y, p.z) ;
+  box(p.x,p.y,p.z);
 }
 
 void box(iVec3 p) {
-  box(p.x, p.y, p.z) ;
+  box(p.x,p.y,p.z);
 }
 
 
@@ -274,19 +273,19 @@ void box(iVec3 p) {
 Point
 */
 void point(Vec2 p) {
-  point(p.x, p.y) ;
+  point(p.x,p.y);
 }
 void point(Vec3 p) {
-  if(renderer_P3D()) point(p.x, p.y, p.z); 
-  else point(p.x, p.y) ;
+  if(renderer_P3D()) point(p.x,p.y,p.z); 
+  else point(p.x,p.y) ;
 }
 
 void point(iVec2 p) {
-  point(p.x, p.y) ;
+  point(p.x,p.y);
 }
 void point(iVec3 p) {
-  if(renderer_P3D()) point(p.x, p.y, p.z); 
-  else point(p.x, p.y);
+  if(renderer_P3D()) point(p.x,p.y,p.z); 
+  else point(p.x,p.y);
 }
 
 
@@ -296,20 +295,20 @@ void point(iVec3 p) {
 Line
 */
 void line(Vec2 a, Vec2 b){
-  line(a.x,a.y, b.x,b.y) ;
+  line(a.x,a.y,b.x,b.y);
 }
 void line(Vec3 a, Vec3 b){
-  if(renderer_P3D()) line(a.x, a.y, a.z, b.x,b.y, b.z); 
-  else line(a.x,a.y, b.x,b.y);
+  if(renderer_P3D()) line(a.x,a.y,a.z,b.x,b.y,b.z); 
+  else line(a.x,a.y,b.x,b.y);
 }
 
 void line(iVec2 a, iVec2 b) {
-  line(a.x,a.y, b.x,b.y);
+  line(a.x,a.y,b.x,b.y);
 }
 
 void line(iVec3 a, iVec3 b) {
-  if(renderer_P3D()) line(a.x, a.y, a.z, b.x,b.y, b.z); 
-  else line(a.x,a.y, b.x,b.y);
+  if(renderer_P3D()) line(a.x,a.y,a.z,b.x,b.y,b.z); 
+  else line(a.x,a.y,b.x,b.y);
 }
 
 
@@ -323,8 +322,8 @@ void vertex(Vec2 xy) {
 }
 
 void vertex(Vec3 xyz) {
-  if(renderer_P3D()) vertex(xyz.x, xyz.y, xyz.z); 
-  else vertex(xyz.x, xyz.y);
+  if(renderer_P3D()) vertex(xyz.x,xyz.y,xyz.z); 
+  else vertex(xyz.x,xyz.y);
 }
 //
 void vertex(iVec2 xy) {
@@ -332,26 +331,26 @@ void vertex(iVec2 xy) {
 }
 
 void vertex(iVec3 xyz){
-  if(renderer_P3D()) vertex(xyz.x, xyz.y, xyz.z); 
-  else vertex(xyz.x, xyz.y);
+  if(renderer_P3D()) vertex(xyz.x,xyz.y,xyz.z); 
+  else vertex(xyz.x,xyz.y);
 }
 //
 void vertex(Vec2 xy, Vec2 uv) {
-  vertex(xy.x, xy.y, uv.u, uv.v);
+  vertex(xy.x,xy.y,uv.u,uv.v);
 }
 
 void vertex(iVec2 xy, Vec2 uv) {
-  vertex(xy.x, xy.y, uv.u, uv.v);
+  vertex(xy.x,xy.y,uv.u,uv.v);
 }
 //
 void vertex(Vec3 xyz, Vec2 uv) {
-  if(renderer_P3D()) vertex(xyz.x, xyz.y, xyz.z, uv.u, uv.v); 
-  else vertex(xyz.x, xyz.y, uv.u, uv.v);
+  if(renderer_P3D()) vertex(xyz.x,xyz.y,xyz.z,uv.u,uv.v); 
+  else vertex(xyz.x,xyz.y,uv.u,uv.v);
 }
 
 void vertex(iVec3 xyz, Vec2 uv) {
-  if(renderer_P3D()) vertex(xyz.x, xyz.y, xyz.z, uv.u, uv.v); 
-  else vertex(xyz.x, xyz.y, uv.u, uv.v);
+  if(renderer_P3D()) vertex(xyz.x,xyz.y,xyz.z,uv.u,uv.v); 
+  else vertex(xyz.x,xyz.y,uv.u,uv.v);
 }
 
 
@@ -360,21 +359,21 @@ void vertex(iVec3 xyz, Vec2 uv) {
 Bezier Vertex
 */
 void bezierVertex(Vec2 a, Vec2 b, Vec2 c) {
-  bezierVertex(a.x, a.y, b.x, b.y, c.x, c.y);
+  bezierVertex(a.x, a.y,b.x,b.y,c.x,c.y);
 }
 
 void bezierVertex(Vec3 a, Vec3 b, Vec3 c) {
-  if(renderer_P3D()) bezierVertex(a.x, a.y, a.z, b.x, b.y, b.z, c.x, c.y, c.z); 
-  else bezierVertex(a.x, a.y, b.x, b.y, c.x, c.y);
+  if(renderer_P3D()) bezierVertex(a.x,a.y,a.z,b.x,b.y,b.z,c.x,c.y,c.z); 
+  else bezierVertex(a.x,a.y,b.x,b.y,c.x,c.y);
 }
 
 void bezierVertex(iVec2 a, iVec2 b, iVec2 c) {
-  bezierVertex(a.x, a.y, b.x, b.y, c.x, c.y);
+  bezierVertex(a.x,a.y,b.x,b.y,c.x,c.y);
 }
 
 void bezierVertex(iVec3 a, iVec3 b, iVec3 c) {
-  if(renderer_P3D()) bezierVertex(a.x, a.y, a.z, b.x, b.y, b.z, c.x, c.y, c.z); 
-  else bezierVertex(a.x, a.y, b.x, b.y, c.x, c.y);
+  if(renderer_P3D()) bezierVertex(a.x,a.y,a.z,b.x,b.y,b.z,c.x,c.y,c.z); 
+  else bezierVertex(a.x,a.y,b.x,b.y,c.x,c.y);
 }
 
 
@@ -441,22 +440,22 @@ void fill(Vec3 c) {
 }
 
 void fill(Vec3 c, float a) {
-  if(a > 0) fill(c.r,c.g,c.b, a); 
+  if(a > 0) fill(c.r,c.g,c.b,a); 
   else noFill();
 }
 
 void fill(Vec4 c) {
-  if(c.w > 0) fill(c.x, c.y, c.z, c.w); 
+  if(c.w > 0) fill(c.x,c.y,c.z,c.w); 
   else noFill();
 }
 
 // iVec
 void fill(iVec2 c) {
-  if(c.y > 0) fill(c.x, c.y); 
+  if(c.y > 0) fill(c.x,c.y); 
   else noFill();
 }
 void fill(iVec3 c) {
-  fill(c.x, c.y, c.z);
+  fill(c.x,c.y,c.z);
 }
 
 void fill(iVec3 c, float a) {
@@ -465,7 +464,7 @@ void fill(iVec3 c, float a) {
 }
 
 void fill(iVec4 c) {
-  if(c.w > 0) fill(c.x, c.y, c.z, c.w); 
+  if(c.w > 0) fill(c.x,c.y,c.z,c.w); 
   else noFill();
 }
 
@@ -477,7 +476,7 @@ Stroke
 */
 // Vec
 void stroke(Vec2 c) {
-  if(c.y > 0) stroke(c.x, c.y); 
+  if(c.y > 0) stroke(c.x,c.y); 
   else noStroke();
 }
 void stroke(Vec3 c) {
@@ -495,7 +494,7 @@ void stroke(Vec4 c) {
 }
 // iVec
 void stroke(iVec2 c) {
-  if(c.y > 0) stroke(c.x, c.y); 
+  if(c.y > 0) stroke(c.x,c.y); 
   else noStroke();
 }
 void stroke(iVec3 c) {
@@ -503,12 +502,12 @@ void stroke(iVec3 c) {
 }
 
 void stroke(iVec3 c, float a) {
-  if(a > 0) stroke(c.x, c.y, c.z, a); 
+  if(a > 0) stroke(c.x,c.y,c.z,a); 
   else noStroke();
 }
 
 void stroke(iVec4 c) {
-  if(c.w > 0) stroke(c.x, c.y, c.z, c.w); 
+  if(c.w > 0) stroke(c.x,c.y,c.z,c.w); 
   else noStroke();
 }
 
@@ -614,15 +613,24 @@ Translate
 */
 // Vec
 void translate(Vec3 t) {
-  if(renderer_P3D()) translate(t.x, t.y, t.z) ; else translate(t.x, t.y);
+  if(renderer_P3D()) {
+    translate(t.x,t.y,t.z); 
+  } else {
+    translate(t.x,t.y);
+  }
 }
 
 void translate(Vec2 t){
-  translate(t.x,t.y);
+  translate(round(t.x),round(t.y));
 }
+
 // iVec
 void translate(iVec3 t){
-  if(renderer_P3D()) translate(t.x, t.y, t.z) ; else translate(t.x, t.y);
+  if(renderer_P3D()) {
+    translate(t.x,t.y,t.z); 
+  } else {
+    translate(t.x,t.y);
+  }
 }
 
 void translate(iVec2 t){
@@ -906,6 +914,8 @@ void matrix_start() {
 
 /**
 GHOST METHODS for PROCESSING
+2018-2018
+v 0.1.2
 */
 // colorMode
 void colorMode(int mode) {
@@ -946,7 +956,7 @@ void colorMode(int mode, float max1, float max2, float max3, float maxA) {
 // Processing ghost method
 
 // position
-void translate(int x, int y) {
+void translate(float x, float y) {
   if(get_layer() != null) {
     get_layer().translate(x,y);
   } else {
@@ -954,7 +964,7 @@ void translate(int x, int y) {
   }
 }
 
-void translate(int x, int y, int z) {
+void translate(float x, float y, float z) {
   if(get_layer() != null) {
     get_layer().translate(x,y,z);
   } else {
@@ -1216,7 +1226,7 @@ void strokeCapstrokeCap(int cap) {
 shape
 */
 // rect
-void rect(int px, int py, int sx, int sy) {
+void rect(float px, float py, float sx, float sy) {
   if(get_layer() != null) {
     get_layer().rect(px,py,sx,sy);
   } else {
@@ -1225,7 +1235,7 @@ void rect(int px, int py, int sx, int sy) {
 }
 
 
-void rect(int px, int py, int sx, int sy, float r) {
+void rect(float  px, float py, float sx, float sy, float r) {
   if(get_layer() != null) {
     get_layer().rect(px,py,sx,sy,r);
   } else {
@@ -1233,7 +1243,7 @@ void rect(int px, int py, int sx, int sy, float r) {
   }
 }
 
-void rect(int px, int py, int sx, int sy, float tl, float tr, float br, float bl) {
+void rect(float px, float py, float sx, float sy, float tl, float tr, float br, float bl) {
   if(get_layer() != null) {
     get_layer().rect(px,py,sx,sy,tl,tr,br,bl);
   } else {
@@ -1272,7 +1282,7 @@ void ellipse(int px, int py, int sx, int sy) {
 
 
 // box
-void box(int s) {
+void box(float s) {
   if(get_layer() != null) {
     get_layer().box(s,s,s);
   } else {
@@ -1280,7 +1290,7 @@ void box(int s) {
   }
 }
 
-void box(int w, int h, int d) {
+void box(float w, float h, float d) {
   if(get_layer() != null) {
     get_layer().box(w,h,d);
   } else {
@@ -1841,6 +1851,23 @@ void camera(float eyeX, float eyeY, float eyeZ, float centerX, float centerY, fl
     get_layer().camera(eyeX,eyeY,eyeZ,centerX,centerY,centerZ,upX,upY,upZ);
   } else {
     g.camera(eyeX,eyeY,eyeZ,centerX,centerY,centerZ,upX,upY,upZ);
+  }
+}
+
+
+void beginCamera() {
+  if(get_layer() != null) {
+    get_layer().beginCamera();
+  } else {
+    g.beginCamera();
+  }
+}
+
+void endCamera() {
+  if(get_layer() != null) {
+    get_layer().endCamera();
+  } else {
+    g.endCamera();
   }
 }
 

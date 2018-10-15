@@ -121,7 +121,6 @@ void settings() {
 
 
 void setup() {
-  
   path_setting();
   shader_folder_filter(preference_path+"shader/filter/");
   load_save(preference_path+"setting/defaultSetting.csv");
@@ -131,11 +130,8 @@ void setup() {
   OSC_setup();
  
   int num_layer = 3;
-  if(USE_LAYER) init_layer(width,height,num_layer);
   int frame_rate = 60;
-  display_setup(frame_rate); // the int value is the frameRate
-  if(USE_LAYER) init_layer(width,height,num_layer);
-
+  display_setup(frame_rate,num_layer); // the int value is the frameRate
 
   RG.init(this); // Geomerative
 
@@ -167,8 +163,6 @@ void setup() {
 
   init_filter();
   init_masking();
-
-
 }
 
 
@@ -224,42 +218,9 @@ void romanesco() {
     save_scene();
   }
 
-  
-  if(USE_LAYER) {
-    select_layer(0);
-    begin_layer();
-    background_romanesco();
-    end_layer();
-    
-
-    rendering();
-    /*
-    select_layer(1);
-    begin_layer();
-    // debug_shape();
-    // rendering();
-    end_layer();
-    */
-    
-    
-    
-  } else {
-    background_romanesco();
-    rendering();
-  }
+  rendering();
 
 
-  if(FULL_RENDERING) {
-    if(USE_LAYER) {
-      int last_layer = get_layer_num() -1;
-      select_layer(last_layer);
-      begin_layer();
-      masking(set_mask_is());
-      end_layer();
-    } else {
-      masking(set_mask_is());
-    }
-  } 
 
 
   // save screenshot
@@ -315,6 +276,10 @@ void romanesco() {
       g.image(get_layer(i),0,0);
     }
   }
+  // mask
+  if(FULL_RENDERING) {
+    masking(set_mask_is());
+  } 
 }
 
 

@@ -1,7 +1,7 @@
 /**
 SURFACE
 2014-2018
-v 1.0.5
+v 1.0.6
 */
 
 class Surface extends Romanesco {
@@ -10,7 +10,7 @@ class Surface extends Romanesco {
     ID_item = 23 ;
     ID_group = 1 ;
     item_author  = "Stan le Punk";
-    item_version = "Version 1.0.5";
+    item_version = "Version 1.0.6";
     item_pack = "Base 2014" ;
     item_costume = "" ;
     item_mode = "Surfimage/Vague/Vague++" ; // separate the differentes mode by "/"
@@ -195,7 +195,11 @@ class Surface extends Romanesco {
     
     // info
     if(mode[ID_item] == 0 ) {
-      item_info[ID_item] =("Mode: " + mode[ID_item] +" | Triangles:"+grid_surface_image.size() + " | " + image.width + "x" + image.height) ; 
+      String about_img = ("no image available");
+      if(image != null) {
+        about_img = ("size: "+image.width+"x"+image.height);
+      }
+      item_info[ID_item] =("Mode: " + mode[ID_item] +" | Triangles:"+grid_surface_image.size() + " | " + about_img); 
     } else item_info[ID_item] =("Mode: " + mode[ID_item] +" | Triangles:"+grid_surface_simple.size()) ;
     
     

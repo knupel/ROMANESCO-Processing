@@ -1,6 +1,6 @@
 /**
 Rope UTILS 
-v 1.47.4
+v 1.48.0
 * Copyleft (c) 2014-2018 
 * Stan le Punk > http://stanlepunk.xyz/
 Rope – Romanesco Processing Environment – 
@@ -10,13 +10,187 @@ Processing 3.4
 */
 
 
+/**
+Layer method
+*/
+PGraphics [] rope_layer;
+boolean warning_rope_layer;
+int which_rope_layer = 0;
+
+// init
+void init_layer() {
+  init_layer(width,height,get_renderer(),1);
+}
+
+
+void init_layer(int num) {
+  init_layer(width,height,get_renderer(),num);
+}
+
+void init_layer(int x, int y) {
+  init_layer(x,y, get_renderer(),1);
+}
+
+void init_layer(int x, int y, int num) {
+  init_layer(x,y, get_renderer(),num);
+}
+
+void init_layer(int x, int y, String type, int num) {
+  rope_layer = new PGraphics[num];
+  for(int i = 0 ; i < num ; i++) {
+    rope_layer[i] = createGraphics(x,y,type);
+  }
+  
+  if(!warning_rope_layer) {
+    warning_rope_layer = true;
+  }
+  String warning = ("WARNING LAYER METHOD\nAll classical method used on the main rendering,\nwill return the PGraphics selected PGraphics layer :\nimage(), set(), get(), fill(), stroke(), rect(), ellipse(), pushMatrix(), popMatrix(), box()...\nto use those methods on the main PGraphics write g.image() for example");
+  printErr(warning);
+}
+
+
+
+
+// begin and end draw
+void begin_layer() {
+  if(get_layer() != null) {
+    get_layer().beginDraw();
+  }
+}
+
+void end_layer() {
+  if(get_layer() != null) {
+    get_layer().endDraw();
+  }
+}
+
+
+
+// num
+int get_layer_num() {
+  if(rope_layer != null) {
+    return  rope_layer.length ;
+  } else return -1;  
+}
+
+
+
+
+// clear layer
+void clear_layer() {
+  if(rope_layer != null && rope_layer.length > 0) {
+    for(int i = 0 ; i < rope_layer.length ; i++) {
+      String type = get_renderer(rope_layer[i]);
+      int w = rope_layer[i].width;
+      int h = rope_layer[i].height;
+      rope_layer[i] = createGraphics(w,h,type);
+    }
+  } else {
+    String warning = ("void clear_layer(): there is no layer can be clear maybe you forget to create one :)");
+    printErr(warning);
+  }
+  
+}
+
+void clear_layer(int target) {
+  if(target > -1 && target < rope_layer.length) {
+    String type = get_renderer(rope_layer[target]);
+    int w = rope_layer[target].width;
+    int h = rope_layer[target].height;
+    rope_layer[target] = createGraphics(w,h,type);
+  } else {
+    String warning = ("void clear_layer(): target "+target+" is out the range of the layers available,\n no layer can be clear");
+    printErr(warning);
+  }
+}
+
+
+
+
+/**
+GET LAYER
+* May be the method can be improve by using a PGraphics template for buffering instead usin a calling method ????
+*/
+// get layer
+PGraphics get_layer() {
+  return get_layer(which_rope_layer);
+}
+
+
+PGraphics get_layer(int target) {
+  if(rope_layer == null) {
+//    printErrTempo(180,"void get_layer(): Your layer system has not been init use method init_layer() in first",frameCount);
+    return g;
+  } else if(target > -1 && target < rope_layer.length) {
+    return rope_layer[target];
+  } else {
+    String warning = ("PGraphics get_layer(int target): target "+target+" is out the range of the layers available,\n instead target 0 is used");
+    printErr(warning);
+    return rope_layer[0];
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+// select layer
+void select_layer(int target) {
+  if(rope_layer != null) {
+    if(target > -1 && target < rope_layer.length) {
+      which_rope_layer = target;
+    } else {
+      which_rope_layer = 0;
+      String warning = ("void select_layer(int target): target "+target+" is out the range of the layers available,\n instead target 0 is used");
+      printErr(warning);
+    }
+  } else {
+    printErrTempo(180,"void select_layer(): Your layer system has not been init use method init_layer() in first",frameCount);
+  } 
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 /**
 print Constants
 v 0.0.3
 */
-
 Constant_list processing_constants_list = new Constant_list(PConstants.class);
 Constant_list rope_constants_list = new Constant_list(rope.core.RConstants.class);
 public void print_constants_rope() {
@@ -336,20 +510,16 @@ v 0.3.1
 Save Frame
 V 0.1.1
 */
-
 void saveFrame(String where, String filename, PImage img) {
   float compression = 1. ;
   saveFrame(where, filename, compression, img) ;
 }
-
 
 void saveFrame(String where, String filename) {
   float compression = 1. ;
   PImage img = null;
   saveFrame(where, filename, compression, img) ;
 }
-
-
 
 void saveFrame(String where, String filename, float compression) {
   PImage img = null;
@@ -1604,7 +1774,15 @@ void mix(PGraphics p, PImage tex, PImage inc, float... ratio) {
   } else {
     rope_shader_mix.set("texture_PGraphics",tex);
     rope_shader_mix.set("PGraphics_renderer_is",true);
+    // Problem with MacBook Pro 2018 Grapichs 560X OSX Mojave
     p.filter(rope_shader_mix);
+    /*
+    try {
+      p.filter(rope_shader_mix);
+    } catch(java.lang.RuntimeException ArrayIndexOutBoundsException) { 
+      printErrTempo(60,"void mix(PGraphics p, PImage tex, PImage inc, float... ratio): ArrayIndexOutBoundsException",frameCount);
+    }
+    */
   }
 }
 
@@ -4425,7 +4603,7 @@ boolean in_range_wheel(float min, float max, float roof_max, float value) {
 
 /**
 STRING UTILS
-v 0.3.2
+v 0.3.3
 */
 
 //STRING SPLIT
@@ -4524,6 +4702,10 @@ int width_String(String font_name, String target, int size) {
   Font font = new Font(font_name, Font.BOLD, size) ;
   BufferedImage img = new BufferedImage(1, 1, BufferedImage.TYPE_INT_ARGB);
   FontMetrics fm = img.getGraphics().getFontMetrics(font);
+  if(target ==null) {
+    printErr("method width_String(): String target =",target);
+    target = "";
+  }
   return fm.stringWidth(target);
 }
 

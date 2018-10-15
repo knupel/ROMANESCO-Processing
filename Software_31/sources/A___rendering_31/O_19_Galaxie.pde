@@ -1,7 +1,7 @@
 /**
 GALAXIE
 2012-2018
-V 1.4.4
+V 1.5.0
 */
 
 class Galaxie extends Romanesco {
@@ -18,7 +18,7 @@ class Galaxie extends Romanesco {
     ID_item = 19 ;
     ID_group = 1 ;
     item_author  = "Stan le Punk";
-    item_version = "Version 1.4.3";
+    item_version = "Version 1.5.0";
     item_pack = "Base 2012" ;
     // item_mode ="Point/Ellipse/Rectangle/Box" ;
     item_costume = "Point/Ellipse/Triangle/Rectangle/Cross/Star 5/Star 7/Super Star 8/Super Star 12" ;
@@ -47,44 +47,44 @@ class Galaxie extends Romanesco {
     size_x_is = true;
     size_y_is = true;
     size_z_is = true;
-    diameter_is = false;
+    //diameter_is = true;
     canvas_x_is = true;
     canvas_y_is = true;
-    canvas_z_is = false;
+    //canvas_z_is = true;
 
     // frequence_is = true;
     speed_x_is = true;
-    speed_y_is = false;
-    speed_z_is = false;
-    spurt_x_is = false;
-    spurt_y_is = false;
-    spurt_z_is = false;
-    dir_x_is = false;
-    dir_y_is = false;
-    dir_z_is = false;
-    jit_x_is = false;
-    jit_y_is = false;
-    jit_z_is  = false;
-    swing_x_is = false;
-    swing_y_is = false;
-    swing_z_is = false;
+    // speed_y_is = true;
+    // speed_z_is = true;
+    // spurt_x_is = true;
+    // spurt_y_is = true;
+    // spurt_z_is = true;
+    // dir_x_is = true;
+    // dir_y_is = true;
+    // dir_z_is = true;
+    // jit_x_is = true;
+    // jit_y_is = true;
+    // jit_z_is = true;
+    // swing_x_is = true;
+    // swing_y_is = true;
+    // swing_z_is = true;
 
     quantity_is = true;
-    variety_is = false;
-    life_is = false;
-    flow_is = false;
-    quality_is = false;
-    area_is = false;
-    angle_is = false;
-    scope_is = false;
-    scan_is = false;
-    align_is = false;
-    repulsion_is = false;
-    attraction_is = false;
-    density_is = false;
+    // variety_is = true;
+    // life_is = true;
+    // flow_is = true;
+    // quality_is = true;
+    area_is = true;
+    // angle_is = true;
+    // scope_is = true;
+    // scan_is = true;
+    // align_is = true;
+    // repulsion_is = true;
+    // attraction_is = true;
+    // density_is = true;
     influence_is = true;
-    calm_is = false;
-    spectrum_is = false;
+    // calm_is = true;
+    // spectrum_is = true;
   }
   //GLOBAL
   boolean makeSand = true ;
@@ -138,7 +138,7 @@ class Galaxie extends Romanesco {
     }
     
 
-    if ((numGrains != numFromController && parameterButton[ID_item] == 1) || reset(ID_item) ) {
+    if ((numGrains != numFromController && parameter[ID_item]) || reset(ID_item) ) {
       makeSand = true;
     }
     
@@ -209,8 +209,10 @@ class Galaxie extends Romanesco {
     //////////////
     //DISPLAY MODE
     // select_costume();
-    aspect_rope(fill_item[ID_item], stroke_item[ID_item], thickness_item[ID_item], get_costume()) ;
-    show(size, thickness, costume[ID_item]) ;
+
+    
+    // aspect_rope(fill_item[ID_item], stroke_item[ID_item], thickness_item[ID_item], get_costume()) ;
+    show(size, thickness,ID_item);
     
    
     
@@ -232,49 +234,6 @@ class Galaxie extends Romanesco {
   // END DISPLAY
 
 
-  int which_costume(int mode) {
-    int which_costume = POINT_ROPE ;
-    //
-    if(mode == POINT_M) {
-      which_costume = POINT_ROPE ;
-    } else if(mode == ELLIPSE_M) {
-      which_costume = ELLIPSE_ROPE ;
-    } else if(mode == TRIANGLE_M) {
-      which_costume = TRIANGLE_ROPE ;
-    } else if(mode == SQUARE_M) {
-      which_costume = SQUARE_ROPE ;
-    } else if(mode == RECT_M) {
-      which_costume = RECT_ROPE ;
-    } else if(mode == STAR_4_M) {
-      which_costume = STAR_4_ROPE ;
-    } else if(mode == STAR_5_M) {
-      which_costume = STAR_5_ROPE ;
-    } else if(mode == STAR_7_M) {
-      which_costume = STAR_7_ROPE ;
-    } else if(mode == STAR_9_M) {
-      which_costume = STAR_9_ROPE ;
-    } else if(mode == SUPER_STAR_8_M) {
-      which_costume = SUPER_STAR_8_ROPE ;
-    } else if(mode == SUPER_STAR_12_M) {
-      which_costume = SUPER_STAR_12_ROPE ;
-    } else if(mode == TETRAHEDRON_M) {
-      which_costume = TETRAHEDRON_ROPE ;
-    } else if(mode == BOX_M) {
-      which_costume = BOX_ROPE ;
-    } else if(mode == CROSS_2_M) {
-      which_costume = CROSS_BOX_2_ROPE;
-    } else if(mode == CROSS_3_M) {
-      which_costume = CROSS_BOX_3_ROPE;
-    } else if(mode == SPHERE_LOW_M) {
-      which_costume = SPHERE_LOW_ROPE ;
-    } else if(mode == SPHERE_MEDIUM_M) {
-      which_costume = SPHERE_MEDIUM_ROPE ;
-    } else if(mode == SPHERE_HIGH_M) {
-      which_costume = SPHERE_HIGH_ROPE ;
-    }
-    //
-    return which_costume ;
-  }
   
   
   
@@ -289,14 +248,17 @@ class Galaxie extends Romanesco {
   //ANNEXE VOID
   //DISPLAY MODE
 
-  void show(Vec3 size, float thickness, int which_costume) {
+  void show(Vec3 size, float thickness, int ID) {
     float z_pos = 0 ;
     float ratio = .001 ;
+    
     for(int i = 0; i < grain.length; i++) {
       // ratio is used to don't have "moirage" problem
       z_pos += ratio ;
       Vec3 pos = Vec3(grain[i].x, grain[i].y, z_pos) ;
-      costume_rope(pos, size, which_costume) ;
+      aspect_rope(fill_item[ID], stroke_item[ID], thickness_item[ID]);
+      set_ratio_costume_size(map(area_item[ID],width*.1, width*TAU*4,0,1));
+      costume_rope(pos,size,get_costume()) ;
 
     }
   }
@@ -361,5 +323,4 @@ class Galaxie extends Romanesco {
       if(grain[i].y < -margeHeight)     grain[i].y = height +margeHeight;
     }
   }
-
 }

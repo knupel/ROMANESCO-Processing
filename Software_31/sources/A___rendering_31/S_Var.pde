@@ -369,7 +369,8 @@ String diffusion_name = "diffusion" ;
 String [] bitmap_path_ref, svg_path_ref;
 // movie_path_ref;
 
-int [] soundButton, actionButton, parameterButton;
+int [] soundButton, actionButton;
+// parameterButton;
 boolean [] show_item, sound, action, parameter;
 
 int [] mode;
