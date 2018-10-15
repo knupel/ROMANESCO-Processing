@@ -2,8 +2,8 @@
 ROPE - Romanesco processing environment – 
 * Copyleft (c) 2014-2017 
 * Stan le Punk > http://stanlepunk.xyz/
-Rope Motion  2015 – 2017
-v 1.1.0
+Rope Motion  2015 – 2018
+v 1.2.0
 Rope – Romanesco Processing Environment – 
 * @author Stan le Punk
 * @see https://github.com/StanLepunK/Rope
@@ -50,7 +50,8 @@ Vec3 follow(Vec3 target, float speed) {
 
 /**
 Class Motion 
-v 1.0.7.2
+v 1.1.0
+2016-2018
 * @author Stan le Punk
 * @see https://github.com/StanLepunK/Motion
 */
@@ -86,6 +87,14 @@ class Motion {
 
   Vec3 get_direction() {
     return dir ;
+  }
+
+  float get_acceleration() {
+    return acc;
+  }
+
+  float get_deceleration() {
+    return dec;
   }
 
   boolean acceleration_is() {
