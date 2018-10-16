@@ -351,7 +351,9 @@ void data_mask_mapping_blocks() {
 
 void keyPressed_mask_set(char c) {
   if(key == c) {
-    if(!display_mask[0]) display_mask[0] = true;
+    if(!display_mask[0]) {
+      display_mask[0] = true;
+    }
     set_mask();
   }
 }

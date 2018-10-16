@@ -29,11 +29,13 @@ BUG with warp on MacBook Pro 2018 or HighSierra / Mojave
 /**
 DEV
 */
+
 boolean USE_LAYER = false;
 boolean DEV_MODE = true; // inter alia, path preferences folder, curtain
 String IAM = "prescene";
 boolean LIVE = false;
 boolean FULL_RENDERING = true;
+
 
 
 
@@ -60,6 +62,7 @@ boolean FULL_RENDERING = false;
 */
 
 
+
 // SCENE LIVE 
 /*
 boolean USE_LAYER = false;
@@ -68,6 +71,7 @@ String IAM = "scene";
 boolean LIVE = false; 
 boolean FULL_RENDERING = true;
 */
+
 
 
 
@@ -103,6 +107,7 @@ void settings() {
   fullScreen(P3D); // original
   FULL_SCREEN = true;
   */
+  
 
   syphon_settings();
 
@@ -277,7 +282,14 @@ void romanesco() {
   // mask
   if(FULL_RENDERING) {
     masking(set_mask_is());
-  } 
+  }
+
+  // cursor
+  if(set_mask_is() || displayInfo) {
+    cursor();
+  } else {
+    noCursor();
+  }
 }
 
 
