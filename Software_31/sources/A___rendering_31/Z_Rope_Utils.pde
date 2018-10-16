@@ -1,6 +1,6 @@
 /**
 Rope UTILS 
-v 1.48.0
+v 1.48.1
 * Copyleft (c) 2014-2018 
 * Stan le Punk > http://stanlepunk.xyz/
 Rope – Romanesco Processing Environment – 
@@ -934,7 +934,7 @@ PImage image_copy_window(PImage src, PGraphics pg, int where) {
 
 /**
 IMAGE
-v 0.2.0
+v 0.2.1
 2016-2018
 */
 
@@ -957,6 +957,8 @@ void image(PImage img, int what) {
     float ratio = 1.;
     int diff_w = width-w;
     int diff_h = height-h;
+
+
     if(what == r.FIT) {
       if(diff_w > diff_h) {
         ratio = (float)height / (float)h;
@@ -964,11 +966,20 @@ void image(PImage img, int what) {
         ratio = (float)width / (float)w;
       }
     } else if(what == SCREEN) {
+      float ratio_w = (float)width / (float)w;
+      float ratio_h = (float)height / (float)h;
+      if(ratio_w > ratio_h) {
+        ratio = ratio_w;
+      } else {
+        ratio = ratio_h;
+      }
+      /*
       if(diff_w > diff_h) {
         ratio = (float)width / (float)w;
       } else {
         ratio = (float)height/ (float)h;
       }
+      */
     } else if(what == PORTRAIT) {
       ratio = (float)height / (float)h;
     } else if(what == LANDSCAPE) {

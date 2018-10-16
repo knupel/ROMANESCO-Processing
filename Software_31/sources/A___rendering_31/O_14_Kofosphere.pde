@@ -1,7 +1,7 @@
 /**
 KOFOSPHERE 
 2013-2018
-v 1.0.3
+v 1.1.0
 */
 class Kofosphere extends Romanesco {
   public Kofosphere() {
@@ -9,10 +9,14 @@ class Kofosphere extends Romanesco {
     ID_item = 14 ;
     ID_group = 1 ;
     item_author  = "Kof";
-    item_version = "Version 1.0.3";
-    item_pack = "Base 2013" ;
+    item_version = "Version 1.1.0";
+    item_pack = "Base 2013-2018" ;
+    item_costume = "point/ellipse/triangle/rect/cross/pentagon/Star 5/Star 7/Super Star 8/Super Star 12";
+    item_mode = "monochrome/polychrome" ;
+    /*
     item_costume = "";
     item_mode = "Point color/Point mono/Box color/Box mono" ;
+    */
     // item_slider = "Fill hue,Fill sat,Fill bright,Fill alpha,Stroke hue,Stroke sat,Stroke bright,Stroke alpha,Thickness,Size X,Size Y,Size Z,Canvas X,Quantity,Speed X" ;
     hue_fill_is = true;
     sat_fill_is = true;
@@ -26,44 +30,44 @@ class Kofosphere extends Romanesco {
     size_x_is = true;
     size_y_is = true;
     size_z_is = true;
-    diameter_is = false;
+    // diameter_is = true;
     canvas_x_is = true;
-    canvas_y_is = false;
-    canvas_z_is = false;
+    // canvas_y_is = true;
+    // canvas_z_is = true;
 
-    // frequence_is = true;
+    frequence_is = true;
     speed_x_is = true;
-    speed_y_is = false;
-    speed_z_is = false;
-    spurt_x_is = false;
-    spurt_y_is = false;
-    spurt_z_is = false;
-    dir_x_is = false;
-    dir_y_is = false;
-    dir_z_is = false;
-    jit_x_is = false;
-    jit_y_is = false;
-    jit_z_is  = false;
-    swing_x_is = false;
-    swing_y_is = false;
-    swing_z_is = false;
+    // speed_y_is = true;
+    // speed_z_is = true;
+    // spurt_x_is = true;
+    // spurt_y_is = true;
+    // spurt_z_is = true;
+    // dir_x_is = true;
+    // dir_y_is = true;
+    // dir_z_is = true;
+    // jit_x_is = true;
+    // jit_y_is = true;
+    // jit_z_is = true;
+    // swing_x_is = true;
+    // swing_y_is = true;
+    // swing_z_is = true;
 
     quantity_is = true;
-    variety_is = false;
-    life_is = false;
-    flow_is = false;
-    quality_is = false;
-    area_is = false;
-    angle_is = false;
-    scope_is = false;
-    scan_is = false;
-    align_is = false;
-    repulsion_is = false;
-    attraction_is = false;
-    density_is = false;
-    influence_is = false;
-    calm_is = false;
-    spectrum_is = false;
+    // variety_is = true;
+    // life_is = true;
+    // flow_is = true;
+    // quality_is = true;
+    area_is = true;
+    // angle_is = true;
+    // scope_is = true;
+    // scan_is = true;
+    // align_is  = true;
+    // repulsion_is = true;
+    // attraction_is = true;
+    // density_is = true;
+    // influence_is = true;
+    // calm_is = true;
+    // spectrum_is = true;
   }
   //GLOBAL
 
@@ -73,7 +77,7 @@ class Kofosphere extends Romanesco {
   void setup() {
    setting_start_position(ID_item, width/2, height/2, 0) ;
    float startingRadius = width ;
-   sphere = new Sphere( new PVector(item_setting_position[0][ID_item].x,item_setting_position[0][ID_item].y),startingRadius);
+   sphere = new Sphere(Vec2(item_setting_position[0][ID_item].x,item_setting_position[0][ID_item].y),startingRadius);
  }
   
   
@@ -81,39 +85,34 @@ class Kofosphere extends Romanesco {
   
   //DRAW
   void draw() {
-    float beatFactor = map(all_transient(ID_item), 1,12, 1., 3.5) ;
-    float radius = map(canvas_x_item[ID_item], width/10, width, .01, 1.1) ;
+    float beatFactor = map(all_transient(ID_item), 1,12, 1., 3.5);
+    float radius = map(canvas_x_item[ID_item], width/10, width, .01, 1.1);
     if(sound[ID_item]) radius = sq(radius) *beatFactor ; 
     
     // quantity of particules
-    float quantity = map(quantity_item[ID_item],0 ,1, 10,200);
-    // methode to limit the number of particules for the prescene
-    if(!FULL_RENDERING) quantity /= 10. ;
-    // methode to limit the number of particules for the complexe shape, in this case for the boxes
-    if(FULL_RENDERING && (mode[ID_item] > 1 && mode[ID_item] < 4)) quantity /= 2.5 ;  
+    float ratio_num = quantity_item[ID_item] *quantity_item[ID_item];
+    int max = 300;
+    int quantity = (int)map(ratio_num,0,1,10,max); 
+    if(get_costume() == POINT_ROPE && FULL_RENDERING) {
+      quantity *= 10;
+    }
     
     // speed
     float ratio_speed = .1 ;
     float norm_speed = map(speed_x_item[ID_item],0,1,0,1.5) ;
     norm_speed *= norm_speed ;
-    if(reverse[ID_item]) norm_speed *= ratio_speed ; else norm_speed *= -ratio_speed ;
+    if(reverse[ID_item]) norm_speed *= ratio_speed ; else norm_speed *= -ratio_speed;
     Vec2 speed = Vec2(norm_speed) ;
     speed.mult(.5 +left[ID_item], .5 +right[ID_item]) ;
 
     // size for the box
-    float factorSizeDivide = .025 ;
-    float newSizeX = size_x_item[ID_item] *factorSizeDivide ;
-    float newSizeY = size_y_item[ID_item] *factorSizeDivide ;
-    float newSizeZ = size_z_item[ID_item] *factorSizeDivide ;
-    // we make a square size to smooth the growth
-    PVector size = new PVector(newSizeX *newSizeX, newSizeY *newSizeY,newSizeZ *newSizeZ) ; 
-    
-    sphere.drawSpheres(size, speed, radius, quantity, thickness_item[ID_item], fill_item[ID_item], stroke_item[ID_item],mode[ID_item]);
-    
+    Vec3 size = Vec3(size_x_item[ID_item],size_y_item[ID_item],size_z_item[ID_item]); 
+    size.mult(2);
+    sphere.drawSpheres(size,speed,radius,quantity,get_costume(),ID_item);
 
     
     // INFO
-    item_info[ID_item] = ("Quantity " + (int)quantity +  " - Speed ") ;
+    item_info[ID_item] = ("Quantity " + quantity +  " - Speed ") ;
 
   }
 }
@@ -121,19 +120,17 @@ class Kofosphere extends Romanesco {
 
 
 
-////////////////////////////////////////////////
-class Sphere{
-  boolean kofosphereInColor ;
-  PVector pos = new PVector();
+//
+private class Sphere{
+  
+  Vec2 pos;
   float radius;
   float density = 6.;
-  // color colorIn, colorOut;
   float speedRotateX  ;
   float speedRotateY ;
 
-  
   // CONSTRUCTOR
-  Sphere(PVector pos, float radius){
+  Sphere(Vec2 pos, float radius){
     this.pos = pos.copy();
     this.radius = radius;
     // as always
@@ -142,38 +139,46 @@ class Sphere{
 
   
   float newRadius ;
-  void drawSpheres(PVector size, Vec2 speed, float radiusFactor, float quantity, float thickness, color colorIn, color colorOut, int mode) {
+  void drawSpheres(Vec3 size, Vec2 speed, float radiusFactor, float quantity, int which_costume, int ID) {
+    boolean kofosphereInColor ;
     //color mode
-    if(mode%2==0) kofosphereInColor = true ; else kofosphereInColor = false ;
+    if(mode[ID]==0) {
+      kofosphereInColor = false; 
+    } else {
+      kofosphereInColor = true;
+    }
     
-    quantity *=.01 ;
+    float number_quantity = 1500.;
+    quantity = (float)quantity *(1/number_quantity) ;
     // param
     speedRotateX += speed.x ;
     speedRotateY += speed.y ;
     //
-    newRadius =  radius *radiusFactor ;
+    newRadius = radius *radiusFactor ;
     /// color
-    float hueIn = hue(colorIn) ;
-    float saturationIn = saturation(colorIn) ;
-    float brightnessIn = brightness(colorIn) ;
-    float opacityIn = alpha(colorIn) ;
+    float hueIn = hue(fill_item[ID]) ;
+    float saturationIn = saturation(fill_item[ID]) ;
+    float brightnessIn = brightness(fill_item[ID]) ;
+    float opacityIn = alpha(fill_item[ID]) ;
     
-    float hueOut = hue(colorOut) ;
-    float saturationOut = saturation(colorOut) ;
-    float brightnessOut = brightness(colorOut) ;
-    float opacityOut = alpha(colorOut) ;
-
-   
+    float hueOut = hue( stroke_item[ID]) ;
+    float saturationOut = saturation(stroke_item[ID]) ;
+    float brightnessOut = brightness(stroke_item[ID]) ;
+    float opacityOut = alpha(stroke_item[ID]) ;
 
     
     pushMatrix();
-    translate(pos.x,pos.y,pos.z);
+    translate(pos);
     //speed rotation
     rotateX(speedRotateX);
     rotateY(speedRotateY);
     
-    float d = noise(frameCount/100)*(1500.0 +(1500 *quantity));
-    density = 2.9 +(20*(1 -quantity)) ;
+
+    // int frequence = 100 ; KOF value
+    float frequence = map(frequence_item[ID],1,0,1,200);
+    if(frequence < 1) frequence = 1;
+    float d = noise(frameCount/frequence)*(number_quantity +(number_quantity *quantity));
+    density = 2.9 +(20*(1 -quantity));
     
 
     
@@ -184,46 +189,40 @@ class Sphere{
         hueIn = map(f,0,d,0,360) ;
         hueOut = map(f,0,d,0,360) ;
       }
-      colorIn = color(hueIn,saturationIn,brightnessIn,opacityIn);
-      colorOut = color(hueOut,saturationOut,brightnessOut,opacityOut);
-      
-
+      int c_fill = color(hueIn,saturationIn,brightnessIn,opacityIn);
+      int c_stroke = color(hueOut,saturationOut,brightnessOut,opacityOut);
         
       for(float ff = -90 ; ff < 90; ff += density){
         
         // apparence
-        float factor = 250. ;
-        float x = cos(radians(f)) *factor  *cos(radians(ff));
-        float y = sin(radians(f)) *factor *cos(radians(ff));
-        float z = sin(radians(ff)) *factor;
-        
+        // float max_factor = 250.; // KOF value
+        float max_factor = width;
+        float x = cos(radians(f)) *max_factor *cos(radians(ff));
+        float y = sin(radians(f)) *max_factor *cos(radians(ff));
+        float z = sin(radians(ff)) *max_factor;
+        float ratio_size = modelZ(x,y,z);
+        float factor_size = map(abs(ratio_size),0,max_factor,.005,1);
 
-        int maxThickness = height/3 ; // it's the max from Romanesco Thickness.
-        float factorSize = map(abs(modelZ(x,y,z)),(maxThickness -thickness),0,.005,1) ;
+        float thickness = thickness_item[ID];
+        Vec3 def_size = size.copy();
+        boolean use_factor_is = true;
+        if(use_factor_is) {
+          thickness *= factor_size;
+          def_size.mult(factor_size);
+        }
         
         // position
-        float posX = cos(radians(f)) *newRadius *cos(radians(ff));
-        float posY = sin(radians(f)) *newRadius *cos(radians(ff));
-        float posZ = sin(radians(ff)) *newRadius;
+        float pos_x = cos(radians(f)) *newRadius *cos(radians(ff));
+        float pos_y = sin(radians(f)) *newRadius *cos(radians(ff));
+        float pos_z = sin(radians(ff)) *newRadius;
         float deform = noise((frameCount +lerp(f,ff,noise((frameCount+ff)/222.0))) *.003) *1.33;
         
-        
-        // DISPLAY MODE
-        if(mode < 2 ) {
-          /*
-          strokeWeight(factorSize *3);
-          stroke(colorIn);
-          */
-          aspect_rope(colorIn, colorIn, factorSize *3) ;
-          point(posX *deform,posY *deform,posZ *deform);
-        } else if ( mode > 1 && mode < 4 ) {
-          pushMatrix() ;
-          aspect_rope(colorIn, colorOut, thickness) ;
-          translate(posX *deform,posY *deform,posZ *deform) ;
-          // box(size.x, size.y, size.z) ;
-          box(size.x *factorSize, size.y *factorSize, size.z *factorSize) ;
-          popMatrix() ;
-        }
+        // display
+        aspect_rope(c_fill,c_stroke,thickness);
+        aspect_is(fill_is[ID],stroke_is[ID]);
+        set_ratio_costume_size(map(area_item[ID],width*.1, width*TAU,0,1));
+        Vec3 pos = Vec3(pos_x *deform, pos_y *deform, pos_z *deform);
+        costume_rope(pos,def_size,which_costume);
         
       }
     }

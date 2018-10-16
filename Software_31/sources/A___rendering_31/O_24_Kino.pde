@@ -1,7 +1,7 @@
 /**
 Kino
 2018-2018
-v 0.0.3
+v 0.0.4
 */
 class Kino extends Romanesco {
 	public Kino() {
@@ -9,7 +9,7 @@ class Kino extends Romanesco {
 		ID_item = 24;
 		ID_group = 1;
 		item_author  = "Stan le Punk";
-		item_version = "Version 0.0.2";
+		item_version = "Version 0.0.4";
 		item_pack = "Base 2018";
 		item_costume = ""; // separate the differentes mode by "/"
 		item_mode = "Movie/Diaporama/Movie 3D/Diaporama 3D"; // separate the differentes mode by "/"
@@ -80,19 +80,19 @@ class Kino extends Romanesco {
     }
 
 		if(movie[ID_item] != null && mode[ID_item] == 2) {
-			kino_movie(colour);
+			kino_movie(colour,FIT);
 		} else if(mode[ID_item] == 3) {
-			kino_bitmap(colour);
+			kino_bitmap(colour,FIT);
 		}
 	}
 
   void draw_2D() {
     param();
     if(mode[ID_item] == 0) {
-      kino_movie(colour);
+      kino_movie(colour,SCREEN);
 
     } else if(mode[ID_item] == 1) {
-      kino_bitmap(colour);
+      kino_bitmap(colour,SCREEN);
     }
   }
 
@@ -103,7 +103,7 @@ class Kino extends Romanesco {
   
   // kino movie
   int ref_which_movie;
-	private void kino_movie(int c) {
+	private void kino_movie(int c, int what) {
 		if(ref_which_movie != which_movie[ID_item]) {
 			load_movie(true,ID_item);
 
@@ -119,16 +119,16 @@ class Kino extends Romanesco {
   			movie[ID_item].pause();
   		}
       manage_tint(c);
-      image(movie[ID_item],FIT);
+      image(movie[ID_item],what);
     }
 	}
 
 
 	// kino movie
-	private void kino_bitmap(int c) {
+	private void kino_bitmap(int c, int what) {
 		load_bitmap(ID_item);
     manage_tint(c);
-		image(bitmap[ID_item],FIT);
+		image(bitmap[ID_item],what);
 	}
 
 

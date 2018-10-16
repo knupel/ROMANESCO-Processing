@@ -36,11 +36,11 @@ Slider light,7,0.0,1.0,1,0.8111111,,,,,,-2,,,,,
 Slider light,8,0.0,1.0,1,0.8111111,,,,,,-2,,,,,
 Slider sound,0,0.0,1.0,1,0.5,,,,,,-2,,,,,
 Slider sound,1,0.0,1.0,1,0.5,,,,,,-2,,,,,
-Slider sound setting,0,0.0,1.0,3,0.094736844,0.12631579,0.24210526,,,,-2,,,,,
-Slider sound setting,1,0.0,1.0,2,0.0,0.24210526,,,,,-2,,,,,
-Slider sound setting,2,0.0,1.0,2,0.0,0.10526316,,,,,-2,,,,,
-Slider sound setting,3,0.0,1.0,2,0.0,0.10526316,,,,,-2,,,,,
-Slider sound setting,4,0.0,1.0,2,0.0,0.12631579,,,,,-2,,,,,
+Slider sound setting,0,0.0,1.0,3,0.094736844,0.11578947,0.23157895,,,,-2,,,,,
+Slider sound setting,1,0.0,1.0,2,0.0,0.23157895,,,,,-2,,,,,
+Slider sound setting,2,0.0,1.0,2,0.0,0.094736844,,,,,-2,,,,,
+Slider sound setting,3,0.0,1.0,2,0.0,0.094736844,,,,,-2,,,,,
+Slider sound setting,4,0.0,1.0,2,0.0,0.11578947,,,,,-2,,,,,
 Slider camera,0,0.0,1.0,1,0.32222223,,,,,,-2,,,,,
 Slider camera,1,0.0,1.0,1,0.5,,,,,,-2,,,,,
 Slider camera,2,0.0,1.0,1,0.5,,,,,,-2,,,,,
@@ -128,7 +128,7 @@ Item,,,,,,,,,,,,10,1,Boxolyzer,Boxolyzer,
 Item,,,,,,,,,,,,11,0,Soleil,Soleil,
 Item,,,,,,,,,,,,12,0,Spirale,SpiraleRomanesco,
 Item,,,,,,,,,,,,13,0,Balise,BaliseRomanesco,
-Item,,,,,,,,,,,,14,0,Kofosphere,Kofosphere,
+Item,,,,,,,,,,,,14,1,Kofosphere,Kofosphere,
 Item,,,,,,,,,,,,15,0,Lignes,Lignes,
 Item,,,,,,,,,,,,16,1,Pulsar,Pulsar,
 Item,,,,,,,,,,,,17,0,Damier,Damier,
@@ -146,6 +146,12 @@ Item,,,,,,,,,,,,28,0,BoumBoum,BoumBoum,
 Item,,,,,,,,,,,,29,1,Puppet Master,Puppet_master,
 Item,,,,,,,,,,,,30,1,Force Field,FF,
 Item,,,,,,,,,,,,31,1,Flux,Flux,
+Media,,,,,,,,,,,,,,,,/Users/stan/Desktop/BOULOT/PROJET/Blaubird/Blaubird_source/Selection/Laure image/dame_1.jpg
+Media,,,,,,,,,,,,,,,,/Users/stan/Desktop/BOULOT/PROJET/Blaubird/Blaubird_source/Selection/Laure image/dame_2.jpg
+Media,,,,,,,,,,,,,,,,/Users/stan/Desktop/BOULOT/PROJET/Blaubird/Blaubird_source/Selection/Laure image/dame_3.jpg
+Media,,,,,,,,,,,,,,,,/Users/stan/Desktop/BOULOT/PROJET/Blaubird/Blaubird_source/Selection/Laure image/oiseau_1_bleu.jpg
+Media,,,,,,,,,,,,,,,,/Users/stan/Desktop/BOULOT/PROJET/Blaubird/Blaubird_source/Selection/Laure image/oiseau_2.jpg
+Media,,,,,,,,,,,,,,,,/Users/stan/Desktop/BOULOT/PROJET/Blaubird/Blaubird_source/Selection/Laure image/oiseau_3.jpg
 Media,,,,,,,,,,,,,,,,/Users/stan/Desktop/BOULOT/PROJET/Blaubird/Blaubird_source/Selection/Arbre image/Arbre_01.jpg
 Media,,,,,,,,,,,,,,,,/Users/stan/Desktop/BOULOT/PROJET/Blaubird/Blaubird_source/Selection/Arbre image/Arbre_02.jpg
 Media,,,,,,,,,,,,,,,,/Users/stan/Desktop/BOULOT/PROJET/Blaubird/Blaubird_source/Selection/Arbre image/Arbre_03.jpeg
@@ -160,20 +166,15 @@ Media,,,,,,,,,,,,,,,,/Users/stan/Desktop/BOULOT/PROJET/Blaubird/Blaubird_source/
 Media,,,,,,,,,,,,,,,,/Users/stan/Desktop/BOULOT/PROJET/Blaubird/Blaubird_source/Selection/Arbre image/Arbre_12.jpg
 Media,,,,,,,,,,,,,,,,/Users/stan/Desktop/BOULOT/PROJET/Blaubird/Blaubird_source/Selection/Arbre image/Arbre_13.jpeg
 Media,,,,,,,,,,,,,,,,/Users/stan/Desktop/BOULOT/PROJET/Blaubird/Blaubird_source/Selection/Arbre image/Arbre_14.jpg
-Media,,,,,,,,,,,,,,,,/Users/stan/Desktop/BOULOT/PROJET/Blaubird/Blaubird_source/Selection/Laure image/dame_1.jpg
-Media,,,,,,,,,,,,,,,,/Users/stan/Desktop/BOULOT/PROJET/Blaubird/Blaubird_source/Selection/Laure image/dame_2.jpg
-Media,,,,,,,,,,,,,,,,/Users/stan/Desktop/BOULOT/PROJET/Blaubird/Blaubird_source/Selection/Laure image/dame_3.jpg
-Media,,,,,,,,,,,,,,,,/Users/stan/Desktop/BOULOT/PROJET/Blaubird/Blaubird_source/Selection/Laure image/oiseau_1_bleu.jpg
-Media,,,,,,,,,,,,,,,,/Users/stan/Desktop/BOULOT/PROJET/Blaubird/Blaubird_source/Selection/Laure image/oiseau_2.jpg
-Media,,,,,,,,,,,,,,,,/Users/stan/Desktop/BOULOT/PROJET/Blaubird/Blaubird_source/Selection/selection video/bébé marche.mp4
-Media,,,,,,,,,,,,,,,,/Users/stan/Desktop/BOULOT/PROJET/Blaubird/Blaubird_source/Selection/selection video/bicyclette famille.mp4
-Media,,,,,,,,,,,,,,,,/Users/stan/Desktop/BOULOT/PROJET/Blaubird/Blaubird_source/Selection/selection video/famille circuit .mp4
-Media,,,,,,,,,,,,,,,,/Users/stan/Desktop/BOULOT/PROJET/Blaubird/Blaubird_source/Selection/selection video/famille repas balades.mp4
+Media,,,,,,,,,,,,,,,,/Users/stan/Desktop/BOULOT/PROJET/Blaubird/Blaubird_source/Selection/selection video/bébé.mp4
+Media,,,,,,,,,,,,,,,,/Users/stan/Desktop/BOULOT/PROJET/Blaubird/Blaubird_source/Selection/selection video/bicyclette.mp4
+Media,,,,,,,,,,,,,,,,/Users/stan/Desktop/BOULOT/PROJET/Blaubird/Blaubird_source/Selection/selection video/circuit.mp4
+Media,,,,,,,,,,,,,,,,/Users/stan/Desktop/BOULOT/PROJET/Blaubird/Blaubird_source/Selection/selection video/repas balades.mp4
 Media,,,,,,,,,,,,,,,,/Users/stan/Desktop/BOULOT/PROJET/Blaubird/Blaubird_source/Selection/selection video/famille.mp4
-Media,,,,,,,,,,,,,,,,/Users/stan/Desktop/BOULOT/PROJET/Blaubird/Blaubird_source/Selection/selection video/jardin balançoire.mp4
-Media,,,,,,,,,,,,,,,,/Users/stan/Desktop/BOULOT/PROJET/Blaubird/Blaubird_source/Selection/selection video/jardin pigeons.mp4
-Media,,,,,,,,,,,,,,,,/Users/stan/Desktop/BOULOT/PROJET/Blaubird/Blaubird_source/Selection/selection video/jardin poules.mp4
-Media,,,,,,,,,,,,,,,,/Users/stan/Desktop/BOULOT/PROJET/Blaubird/Blaubird_source/Selection/selection video/mer plage.mp4
+Media,,,,,,,,,,,,,,,,/Users/stan/Desktop/BOULOT/PROJET/Blaubird/Blaubird_source/Selection/selection video/balançoire.mp4
+Media,,,,,,,,,,,,,,,,/Users/stan/Desktop/BOULOT/PROJET/Blaubird/Blaubird_source/Selection/selection video/pigeons.mp4
+Media,,,,,,,,,,,,,,,,/Users/stan/Desktop/BOULOT/PROJET/Blaubird/Blaubird_source/Selection/selection video/poules.mp4
+Media,,,,,,,,,,,,,,,,/Users/stan/Desktop/BOULOT/PROJET/Blaubird/Blaubird_source/Selection/selection video/plage.mp4
 Media,,,,,,,,,,,,,,,,/Users/stan/Desktop/BOULOT/PROJET/Blaubird/Blaubird_source/Selection/selection video/mer.mp4
 Button item,,,,,,,,,0,0,0,,,,,
 Button item,,,,,,,,,1,0,0,,,,,
@@ -217,10 +218,10 @@ Button item,,,,,,,,,20,0,-2,,,,,
 Button item,,,,,,,,,21,0,-2,,,,,
 Button item,,,,,,,,,22,0,-2,,,,,
 Button item,,,,,,,,,23,0,-2,,,,,
-Button item,,,,,,,,,24,1,-2,,,,,
-Button item,,,,,,,,,25,1,-2,,,,,
+Button item,,,,,,,,,24,0,-2,,,,,
+Button item,,,,,,,,,25,0,-2,,,,,
 Button item,,,,,,,,,26,0,-2,,,,,
-Button item,,,,,,,,,27,1,-2,,,,,
+Button item,,,,,,,,,27,0,-2,,,,,
 Button item,,,,,,,,,28,0,-2,,,,,
 Button item,,,,,,,,,29,0,-2,,,,,
 Button item,,,,,,,,,30,0,-2,,,,,

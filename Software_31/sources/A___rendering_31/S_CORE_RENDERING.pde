@@ -570,7 +570,17 @@ boolean check_for_new_movie() {
   // in case there a same quantity of ref we must check if the path ref is the same
   if(!new_movie_is)
   for(int i = 0 ; i < movie_files.size() ; i++) {
-    new_movie_is = !movie_path_ref[i].equals(movie_path[i]);
+    try {
+      new_movie_is = !movie_path_ref[i].equals(movie_path[i]);
+    }
+    catch (ArrayIndexOutOfBoundsException e) {
+      System.out.println("boolean check_for_new_movie() catch: ArrayIndexOutOfBoundsException");
+
+    }
+    catch(Exception e){
+        System.out.println("boolean check_for_new_movie() catch: Some Other exception");
+     }
+    
     if(new_movie_is) {
       break;
     }

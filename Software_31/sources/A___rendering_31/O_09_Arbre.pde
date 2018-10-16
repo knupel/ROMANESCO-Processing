@@ -14,7 +14,7 @@ class ArbreRomanesco extends Romanesco {
     ID_group = 1 ;
     item_author  = "Stan le Punk";
     item_version = "Version 1.3.7";
-    item_pack = "Base 2012" ;
+    item_pack = "Base 2012-2018" ;
     item_costume = "point/ellipse/triangle/rect/cross/pentagon/Star 5/Star 7/Super Star 8/Super Star 12";
     item_mode = "";
     // define slider

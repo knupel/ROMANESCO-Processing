@@ -37,16 +37,13 @@ boolean FULL_RENDERING = true;
 
 
 
-
-
-
 /**
 * RENDERING
 * Here you can choice between the three common rendering mode
 */
 // Prescene FULL_RENDERING
 /*
-boolean USE_LAYER = true;
+boolean USE_LAYER = false;
 boolean DEV_MODE = false; // inter alia, path preferences folder, curtain
 String IAM = "prescene";
 boolean LIVE = false;
@@ -63,15 +60,15 @@ boolean FULL_RENDERING = false;
 */
 
 
-
 // SCENE LIVE 
 /*
-boolean USE_LAYER = true;
+boolean USE_LAYER = false;
 boolean DEV_MODE = false; // inter alia, path preferences folder, curtain
 String IAM = "scene";
-boolean LIVE = false; // here LIVE must be true, but not sure that's work now for OSC in scene rendering
+boolean LIVE = false; 
 boolean FULL_RENDERING = true;
 */
+
 
 
 
@@ -102,9 +99,10 @@ LIVE must change from the launcher, the info must be write in the external loadi
 
 void settings() {
   size(124,124,P3D); // when the bug will be resolved, return to this config.
-  
-  // fullScreen(P3D); // original
-  // FULL_SCREEN = true;
+  /*
+  fullScreen(P3D); // original
+  FULL_SCREEN = true;
+  */
 
   syphon_settings();
 

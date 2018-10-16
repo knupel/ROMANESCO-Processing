@@ -1,8 +1,5 @@
 Todo Romanesco
 --
-*SUPER MAJOR
-
-Warp Shader on Mojave / MacBook Pro 2018
 
 *MAJOR
 
@@ -17,9 +14,6 @@ For building software changed the name of cyberpunk.txt for readme.txt or hack_t
 probleme avec les slider couleur, ils ne gardent pas en memoire les réglage et ça revient vers le rouge
 
 
-*MIDI
-
-les boutons de la bar de menu ne sont pas accessible qd le midi mapping est actif
 
 *MIDI
 
@@ -36,29 +30,35 @@ It's a huge mess is this method, now it's impossible ta save from SCENE
 Probleme de navigation entre les différentes caméras.
 
 
-*CAMERA + CONTROLEUR
-
-The camera and item position must be reset from controller, not only from a shortcuts
-
-*OSC
-
-bug with keyboard event between prescene and scene
-
 *OSC
 
 bug when the prescene and scene is active the prescene receive nothing
 
 
-*Button
+*Button BIRTH and key 'N'
 
-With Controller button birth, and the shortcut "N" when the memory or when there is a lot object..there is a crazy behavior...creta
+With Controller button birth, and the shortcut "N" when the memory or when there is a lot of object, there is a crazy behavior.
+
+*OSC
+
+bug with keyboard event between prescene and scene
 
 
-*Mask
-
-return null when there is a trying to able this
 
 
+
+
+
+
+
+
+
+
+
+
+*Shader background
+
+the shader is to close, we lost the deep
 
 
 
@@ -72,16 +72,16 @@ check if the bug of tint saturation if fix on all mac configuration
 
 *MIDI
 
-probleme avec les commandes midi, comme si l'instruction était envoyée deux fois, et les slider ne répondent plus correctement quand les ordres viennent du controleur, may be only on laptop ????
+probleme avec les commandes midi, comme si l'instruction était envoyée deux fois, et les slider ne répondent plus correctement quand les ordres viennent du controleur, may be only on specific laptop. Good behavior on MAcbook Pro 2018 and MacBook 2016
 
 *CAMERA
 
-Faire un bouton pour garder la rotation de la camera en continu sur le dernier mouvement de la souris, et ajouter un bouton vitesse sur le controleur.
+Faire un bouton pour garder la rotation de la camera en continu sur le dernier mouvement de la souris.
 
 
 *Class param item
 
-creat a class for the variable slider
+create a class for the variable slider
 like var[ID_item].x var[ID_item].y / var[ID_item].px var[ID_item].py /var[ID_item].min / var[ID_item].max ...
 
 
@@ -93,9 +93,6 @@ Display window when a save is in progress
 
 Save the window position, to keep the position used when the app is re-open
 
-*launch Prescene
-
-java.lang.RuntimeException: Waited 5000ms at each start for 2 or 3 times before be cool !
 
 *Sound
 
@@ -129,7 +126,7 @@ ITEM NE FONCTIONNAT PAS SUITE AU CHANGEMENT DE METHODE COSTUME
 
 *boxolyzer
 
-le diametre ne doit pas être modifier par le nombre de boite
+le diametre ne doit pas être modifié par le nombre de boite
 
 *Agent
 
@@ -138,6 +135,10 @@ Mieux gérer les couleurs, c'est franchement le bronx entre les formes et les co
 *Cellular
 
 Quand il n'y a pas de couleur cela doit être en noir et blanc
+
+*Background
+
+May add a possibility to read picture and video on it ?
 
 
 

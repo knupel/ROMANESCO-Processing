@@ -26,6 +26,7 @@ boolean KEEP_BUTTON_ITEM_STATE = true;
 
 
 
+
 // DIRECT
 /*
 boolean LIVE = false;
@@ -42,6 +43,7 @@ boolean MIROIR = false;
 boolean KEEP_BUTTON_ITEM_STATE = true;
 boolean DEV_MODE = false; // inter alia, path preferences folder, curtain
 */
+
 
 
 
