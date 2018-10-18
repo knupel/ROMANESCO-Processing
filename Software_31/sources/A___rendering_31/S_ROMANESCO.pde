@@ -207,25 +207,102 @@ void update_var_items(int ID) {
 
 
 
+Vec4 fill_raw_ref;
+Vec4 stroke_raw_ref;
+void change_slider_ref() {
+  fill_raw_ref = Vec4(fill_hue_raw,fill_sat_raw,fill_bright_raw,fill_alpha_raw);
+  stroke_raw_ref = Vec4(stroke_hue_raw,stroke_sat_raw,stroke_bright_raw,stroke_alpha_raw);
+}
 
 void update_slider_value(int ID) {
   boolean init = first_opening_item[ID];
   // col A
   if(FULL_RENDERING) {
-    // fill obj
-    if(!init ) fill_item[ID] = color(fill_hue_raw, fill_sat_raw, fill_bright_raw, fill_alpha_raw); 
-    else if(fill_hue_temp != fill_hue_raw) fill_item[ID] = color(fill_hue_raw, saturation(fill_item[ID]), brightness(fill_item[ID]), alpha(fill_item[ID]));
-    else if(fill_sat_temp != fill_sat_raw) fill_item[ID] = color(hue(fill_item[ID]), fill_sat_raw, brightness(fill_item[ID]), alpha(fill_item[ID])); 
-    else if(fill_bright_temp != fill_bright_raw) fill_item[ID] = color(hue(fill_item[ID]),  saturation(fill_item[ID]), fill_bright_raw, alpha(fill_item[ID]));   
-    else if(fill_alpha_temp != fill_alpha_raw) fill_item[ID] = color(hue(fill_item[ID]),  saturation(fill_item[ID]), brightness(fill_item[ID]), fill_alpha_raw);  
-    // stroke obj
-    if (!init) stroke_item[ID] = color (stroke_hue_raw, stroke_sat_raw, stroke_bright_raw, stroke_alpha_raw); 
-    else if(stroke_hue_temp != stroke_hue_raw) stroke_item[ID] = color(stroke_hue_raw, saturation(stroke_item[ID]), brightness(stroke_item[ID]), alpha(stroke_item[ID]));
-    else if(stroke_sat_temp != stroke_sat_raw) stroke_item[ID] = color(hue(stroke_item[ID]),stroke_sat_raw,brightness(stroke_item[ID]), alpha(stroke_item[ID])); 
-    else if(stroke_bright_temp != stroke_bright_raw) stroke_item[ID] = color(hue(stroke_item[ID]),saturation(stroke_item[ID]), stroke_bright_raw, alpha(stroke_item[ID]));   
-    else if(stroke_alpha_temp != stroke_alpha_raw) stroke_item[ID] = color(hue(stroke_item[ID]), saturation(stroke_item[ID]), brightness(stroke_item[ID]), stroke_alpha_raw);  
+
+
+
+    if(!init) {
+      fill_item_ref[ID] = Vec4(fill_hue_raw,fill_sat_raw,fill_bright_raw,fill_alpha_raw);
+      fill_raw_ref = Vec4(fill_hue_raw,fill_sat_raw,fill_bright_raw,fill_alpha_raw);
+      fill_item[ID] = color(fill_hue_raw,fill_sat_raw,fill_bright_raw,fill_alpha_raw);
+
+      stroke_item_ref[ID] = Vec4(stroke_hue_raw,stroke_sat_raw,stroke_bright_raw,stroke_alpha_raw);
+      stroke_raw_ref = Vec4(stroke_hue_raw,stroke_sat_raw,stroke_bright_raw,stroke_alpha_raw);
+      stroke_item[ID] = color(stroke_hue_raw,stroke_sat_raw,stroke_bright_raw,stroke_alpha_raw);  
+    }
+    
+    // FILL part
+    boolean change_fill_h = false;
+    boolean change_fill_s = false;
+    boolean change_fill_b = false;
+    boolean change_fill_a = false;
+    // check hsba value
+    if(fill_raw_ref.r != fill_hue_raw) change_fill_h = true;
+    if(fill_raw_ref.g != fill_sat_raw) change_fill_s = true;
+    if(fill_raw_ref.b != fill_bright_raw) change_fill_b = true;
+    if(fill_raw_ref.a != fill_alpha_raw) change_fill_a = true;
+    
+
+    if(change_fill_h) {
+      fill_item[ID] = color(fill_hue_raw,fill_item_ref[ID].g,fill_item_ref[ID].b,fill_item_ref[ID].a);
+      fill_item_ref[ID] = color_HSBA(fill_item[ID]);
+    }
+
+    if(change_fill_s) {
+      fill_item[ID] = color(fill_item_ref[ID].r,fill_sat_raw,fill_item_ref[ID].b,fill_item_ref[ID].a);
+      fill_item_ref[ID] = color_HSBA(fill_item[ID]);
+    }
+
+    if(change_fill_b) {
+      fill_item[ID] = color(fill_item_ref[ID].r,fill_item_ref[ID].g,fill_bright_raw,fill_item_ref[ID].a);
+      fill_item_ref[ID] = color_HSBA(fill_item[ID]);
+    }
+
+
+    if(change_fill_a) {
+      fill_item[ID] = color(fill_item_ref[ID].r,fill_item_ref[ID].g,fill_item_ref[ID].b,fill_alpha_raw); 
+      fill_item_ref[ID] = color_HSBA(fill_item[ID]);
+    }
+    
+
+
+    // STROKE part
+    boolean change_stroke_h = false;
+    boolean change_stroke_s = false;
+    boolean change_stroke_b = false;
+    boolean change_stroke_a = false;
+    // check hsba value
+    if(stroke_raw_ref.r != stroke_hue_raw) change_stroke_h = true;
+    if(stroke_raw_ref.g != stroke_sat_raw) change_stroke_s = true;
+    if(stroke_raw_ref.b != stroke_bright_raw) change_stroke_b = true;
+    if(stroke_raw_ref.a != stroke_alpha_raw) change_stroke_a = true;
+    
+
+    if(change_stroke_h) {
+      stroke_item[ID] = color(stroke_hue_raw,stroke_item_ref[ID].g,stroke_item_ref[ID].b,stroke_item_ref[ID].a);
+      stroke_item_ref[ID] = color_HSBA(stroke_item[ID]);
+    }
+
+    if(change_stroke_s) {
+      stroke_item[ID] = color(stroke_item_ref[ID].r,stroke_sat_raw,stroke_item_ref[ID].b,stroke_item_ref[ID].a);
+      stroke_item_ref[ID] = color_HSBA(stroke_item[ID]);
+    }
+
+    if(change_stroke_b) {
+      stroke_item[ID] = color(stroke_item_ref[ID].r,stroke_item_ref[ID].g,stroke_bright_raw,stroke_item_ref[ID].a);
+      stroke_item_ref[ID] = color_HSBA(stroke_item[ID]);
+    }
+
+
+    if(change_fill_a) {
+      stroke_item[ID] = color(stroke_item_ref[ID].r,stroke_item_ref[ID].g,stroke_item_ref[ID].b,stroke_alpha_raw); 
+      stroke_item_ref[ID] = color_HSBA(stroke_item[ID]);
+    }
+
     // thickness
-    if (thickness_raw != thickness_temp|| !init) thickness_item[ID] = thickness_raw;
+    if (thickness_raw != thickness_temp|| !init) {
+      thickness_item[ID] = thickness_raw;
+    }
   } else {
     // preview display
     fill_item[ID] = COLOR_FILL_ITEM_PREVIEW ;

@@ -93,7 +93,7 @@ class Karaoke extends Romanesco {
       noFill() ; 
       noStroke() ; 
     } else {     
-      fill (fill_item[ID_item]) ; 
+      fill(fill_item[ID_item]) ; 
     }
 
 

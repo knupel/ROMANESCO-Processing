@@ -1,6 +1,6 @@
 /**
 Vec, iVec and bVec method
-v 0.0.1
+v 0.1.0
 * Copyleft (c) 2018-2018
 * Stan le Punk > http://stanlepunk.xyz/
 Rope – Romanesco Processing Environment: 2015–2018
@@ -10,11 +10,7 @@ Rope – Romanesco Processing Environment: 2015–2018
 
 
 
-/**
-METHOD
-iVec
-v 0.0.1
-*/
+
 /**
 Addition
 v 0.0.4
@@ -1094,19 +1090,18 @@ Vec2 norm_dir(String type, float direction) {
   }
   return new Vec2(x,y) ;
 }
-// END VEC FROM ANGLE
-/////////////////////
+
 
 
 
 /**
 translate int color to Vec4 color
 */
-Vec4 color_HSB_a(int c) {
+Vec4 color_HSBA(int c) {
   return Vec4(hue(c), saturation(c), brightness(c), alpha(c)) ;
 }
 
-Vec4 color_RGB_a(int c) {
+Vec4 color_RGBA(int c) {
   return Vec4(red(c), green(c), blue(c), alpha(c)) ;
 }
 

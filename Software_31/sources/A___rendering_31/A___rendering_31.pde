@@ -236,6 +236,7 @@ void romanesco() {
   update_temp_value();
   media_update(180);
   nextPreviousKeypressed(); // check if this method is always used or not
+  change_slider_ref();
 
 
   if(IAM.equals("scene")) {

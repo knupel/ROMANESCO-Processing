@@ -45,6 +45,7 @@ MINOR
 >add shortcut to clear the midi selection
 >improve method costume to display pixel from force field
 >fix reset bug on the main camera
+>increasi visibility when the curtain is ON or OFF
 
 
 

@@ -270,6 +270,7 @@ float viscosity_temp, diffusion_temp;
 
 // item target final
 boolean [] first_opening_item; // used to check if this object is already opening before
+Vec4 [] fill_item_ref,stroke_item_ref;
 int [] fill_item, stroke_item;
 float [] thickness_item; 
 float [] size_x_item, size_y_item, size_z_item;
@@ -635,6 +636,8 @@ void create_var_item_manipulation(int num_item_setting) {
 
 void create_var_item_slider() {
   first_opening_item = new boolean[NUM_ITEM_PLUS_MASTER] ; // used to check if this object is already opening before
+  fill_item_ref = new Vec4[NUM_ITEM_PLUS_MASTER];
+  stroke_item_ref = new Vec4[NUM_ITEM_PLUS_MASTER];
   fill_item = new color[NUM_ITEM_PLUS_MASTER];
   stroke_item = new color[NUM_ITEM_PLUS_MASTER];
   // column 2
