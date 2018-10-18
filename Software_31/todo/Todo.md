@@ -5,6 +5,15 @@ Todo Romanesco
 
 */
 
+*ON / OFF
+
+Gros bouton pour éteindre et allumer
+
+
+*Souris
+
+Mouvements trop brutaux, option smooth
+
 *Instruction
 
 For building software changed the name of cyberpunk.txt for readme.txt or hack_the_mac.md
@@ -12,7 +21,6 @@ For building software changed the name of cyberpunk.txt for readme.txt or hack_t
 *FILL
 
 probleme avec les slider couleur, ils ne gardent pas en memoire les réglage et ça revient vers le rouge
-
 
 
 *MIDI
@@ -34,14 +42,19 @@ Probleme de navigation entre les différentes caméras.
 
 bug when the prescene and scene is active the prescene receive nothing
 
+*OSC button short event
 
-*Button BIRTH and key 'N'
+bug with keyboard event between prescene and scene, that's happen often when there is item with a lot object
+
+*OSC Button BIRTH and key 'N'
 
 With Controller button birth, and the shortcut "N" when the memory or when there is a lot of object, there is a crazy behavior.
 
-*OSC
+*OSC Button 3D and key 'd'
 
-bug with keyboard event between prescene and scene
+same has BIRTH, it's very erratic
+
+
 
 
 

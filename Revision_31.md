@@ -50,16 +50,20 @@ MINOR
 
 ITEM
 --
->remove item Spray
->add item Pulsar
+>add Pulsar
 >add BoumBoum
->add item Force Field
->add item Spot
+>add Force Field
+>add Spot
+>add flux
+
+>improve kino
+>improve Lignes
+>improve Kofosphere
 >improve spirale
 >improve arbre
->remove item movie
->add item kino
->add item flux
+
+>remove Spray
+>remove movie
 
 
 BUG FIX

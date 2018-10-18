@@ -9,6 +9,16 @@ STRUCTURE DISPLAY
 */
 int thickness_line_deco = 2 ;
 void display_structure() {
+  // check event for structure
+  if(button_curtain_is == 1) {
+    set_colour_structure_background_mass(r.GRENAT_PROFOND,r.BLOOD);
+  } else {
+    set_colour_structure_background_mass(r.GRAY_1,r.GRAY_3);
+  }
+
+
+
+  // display
   noStroke();
   iVec2 pos = iVec2(0,0);
   iVec2 size = iVec2(width, height_header);
@@ -16,25 +26,25 @@ void display_structure() {
 
   pos.set(0,pos_y_button_top);
   size.set(width,height_button_top);
-  display_structure_top_button(pos,size,structure_background_gray_a,structure_background_colour_a);
+  display_structure_top_button(pos,size,structure_background_mass_a,structure_background_line_a);
 
   pos.set(0,pos_y_dropdown_top);
   size.set(width, height_dropdown_top);
-  display_structure_dropdown_menu_general(pos,size,structure_background_gray_a,structure_background_colour_a);
+  display_structure_dropdown_menu_general(pos,size,structure_background_mass_a,structure_background_line_a);
 
   pos.set(0,pos_y_menu_general);
   size.set(width,height_menu_general);
-  display_structure_general(pos,size,structure_background_gray_a,structure_background_gray_b);
+  display_structure_general(pos,size,structure_background_mass_a,structure_background_mass_b);
   
   pos.set(0,pos_y_item_selected);
   size.set(width, height_item_selected);
-  display_structure_item_selected(pos,size,structure_background_gray_a,structure_background_colour_a);
+  display_structure_item_selected(pos,size,structure_background_mass_a,structure_background_line_a);
 
   pos.set(0,pos_y_inventory);
   size.set(width, height);
-  display_structure_inventory_item(pos,size,structure_background_gray_a,structure_background_gray_b);
+  display_structure_inventory_item(pos,size,structure_background_mass_a,structure_background_mass_b);
 
-  display_structure_bottom(structure_background_colour_a,structure_background_colour_b);
+  display_structure_bottom(structure_background_line_a,structure_background_line_b);
 }
 
 

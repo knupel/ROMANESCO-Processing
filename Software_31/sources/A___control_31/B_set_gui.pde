@@ -210,11 +210,9 @@ void set_design_structure_menu_bar() {
 aspect
 */
 void set_design_aspect() {
-  fill_header_struc = r.BLOOD;
-  structure_background_gray_a = r.GRAY_1;
-  structure_background_gray_b = r.GRAY_3;
-  structure_background_colour_a = r.ORANGE;
-  structure_background_colour_b = r.BLOOD;
+  set_colour_structure_background_header(r.BLOOD);
+  set_colour_structure_background_mass(r.GRAY_1,r.GRAY_3);
+  set_colour_structure_background_line(r.ORANGE,r.BLOOD);
 
   fill_text_title_in = r.YELLOW;
   fill_text_title_out = r.ORANGE;
@@ -304,6 +302,25 @@ void set_design_aspect() {
                                         color_dd_box_out,  
                                         color_dd_box_text_in,
                                         color_dd_box_text_out);
+
+}
+
+
+
+
+void set_colour_structure_background_header(int c) {
+  fill_header_struc = c;
+}
+
+void set_colour_structure_background_mass(int c_a, int c_b) {
+  structure_background_mass_a = c_a;
+  structure_background_mass_b = c_b;
+
+}
+
+void set_colour_structure_background_line(int c_a, int c_b) {
+  structure_background_line_a = c_a;
+  structure_background_line_b = c_b;
 
 }
 
@@ -553,10 +570,10 @@ ROPE_colour dropdown_color_item;
 colour structure
 */
 int fill_header_struc;
-int structure_background_gray_a;
-int structure_background_gray_b;
-int structure_background_colour_a;
-int structure_background_colour_b;
+int structure_background_mass_a;
+int structure_background_mass_b;
+int structure_background_line_a;
+int structure_background_line_b;
 
 int fill_text_title_in;
 int fill_text_title_out;
