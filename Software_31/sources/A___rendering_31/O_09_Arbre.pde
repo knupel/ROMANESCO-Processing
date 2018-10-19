@@ -142,6 +142,10 @@ class ArbreRomanesco extends Romanesco {
     
     boolean bool_link = false ;
     if(wire[ID_item]) bool_link = true ; else bool_link = false ;
+/*
+    println("boolean aspect",fill_is[ID_item],stroke_is[ID_item]);
+    println("data aspect alpha",alpha(fill_item[ID_item]),alpha(stroke_item[ID_item]),thickness_item[ID_item]);
+    */
     
 
     arbre.show(direction);
@@ -232,8 +236,8 @@ class Arbre {
     start_matrix();    // Save the current state of transformation (i.e. where are we now)
     rotate(t);   // Rotate by theta
 
-    aspect_is(fill_is[ID], stroke_is[ID]);
-    aspect_rope(fill_item[ID], stroke_item[ID],thickness);
+    aspect_is(fill_is[ID],stroke_is[ID]);
+    aspect_rope(fill_item[ID],stroke_item[ID],thickness);
     Vec3 pos_a = Vec3();
     Vec3 pos_b = Vec3(0, -amplitude.x, -amplitude.y *factor);
     
@@ -249,8 +253,7 @@ class Arbre {
     // horizon   
     translate(pos_b) ;
      
-  //  translate(0, -amplitude); // Move to the end of the branch
-    branch(thickness,size,div,fork,amplitude,n,which_costume,bool_line,ID);       // Ok, now call myself to draw two new branches!!
+    branch(thickness,size,div,fork,amplitude,n,which_costume,bool_line,ID); // Ok, now call myself to draw two new branches!!
     stop_matrix();     // Whenever we get back here, we "pop" in order to restore the previous matrix state
   }
 }

@@ -294,13 +294,13 @@ void update_slider_value(int ID) {
     }
 
 
-    if(change_fill_a) {
+    if(change_stroke_a) {
       stroke_item[ID] = color(stroke_item_ref[ID].r,stroke_item_ref[ID].g,stroke_item_ref[ID].b,stroke_alpha_raw); 
       stroke_item_ref[ID] = color_HSBA(stroke_item[ID]);
     }
 
     // thickness
-    if (thickness_raw != thickness_temp|| !init) {
+    if (thickness_raw != thickness_temp || !init) {
       thickness_item[ID] = thickness_raw;
     }
   } else {
