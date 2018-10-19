@@ -101,6 +101,25 @@ void manage_autosave() {
 
 
 
+/**
+dialogue between controller prescen and scene
+this part can be use to save no instant data, to keep ligh the OSC system
+*/
+float mouse_reactivity = .5;
+float mouse_reactivity_ref = .5;
+void update_dial() {
+  mouse_reactivity = map(value_slider_camera[6],0,360,0.001,1);
+  if(mouse_reactivity_ref != mouse_reactivity) {
+    save_dial_data(preference_path);
+    mouse_reactivity_ref = mouse_reactivity;
+
+  }
+}
+
+
+
+
+
 
 
 
@@ -166,7 +185,12 @@ CREDIT
 */
 boolean insideNameversion ;
 void credit() {
-  if(mouseX > 2 && mouseX < 160 && mouseY > 3 && mouseY < 26 ) insideNameversion = true ; else insideNameversion = false ;
+  if(mouseX > 2 && mouseX < 160 && mouseY > 3 && mouseY < 26 ) {
+    insideNameversion = true; 
+  } else {
+    insideNameversion = false;
+  }
+
   if(insideNameversion && mousePressed) {
     String credit[] = loadStrings("credit.txt");
     

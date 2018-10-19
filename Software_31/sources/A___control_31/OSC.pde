@@ -148,6 +148,8 @@ void message_general_osc(OscMessage m) {
     add_data_general(m,value_slider_sound_setting[i]);
   }
   for(int i = 0 ; i < value_slider_camera.length ; i++) {
+    // for information the value "6" is no more use, because it is save on the dial table 
+    // void save_dial_data(String path)
     add_data_general(m,value_slider_camera[i]);
   }
 }

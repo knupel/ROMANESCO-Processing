@@ -1,17 +1,13 @@
 /**
 Core Prescene
-v 1.2.1.1
+v 1.3.0
 2013-2018
-*/
-
-
-/**
-Here you find
-> variable Prescene
-> update command for the mouse, cursor...
-> tablet
-> open method for the scene and controller
-> keyboard command
+* Here you find
+* variable Prescene
+* update command for the mouse, cursor...
+* tablet
+* open method for the scene and controller
+* keyboard command
 */
 
 //to opening app
@@ -26,6 +22,8 @@ boolean youCanSendToScene = true ;
 // CURSOR SPEED
 int speedWheel = 4 ; // 5 is too quick
 float speedLeapmotion = .15 ; // between 0.000001 and 1 : can be good between 0.1 and 0.4
+
+float mouse_reactivity = .8;
 
 
 
@@ -76,7 +74,7 @@ void updateCommand() {
 
 
 /**
-update cursor 1.1.0
+update cursor 1.2.0
 */
 Vec3 mouse_ref;
 int mouseZ ;
@@ -132,8 +130,10 @@ void update_tablet() {
 
 void update_mouse() {
   if(mouse[0] == null) {
-    mouse[0] = Vec3(mouseX,mouseY,0);
-  } else mouse[0].set(mouseX,mouseY,0);
+    mouse[0] = follow(mouseX,mouseY,0,mouse_reactivity);
+  } else {
+    mouse[0].set(follow(mouseX,mouseY,0,mouse_reactivity));
+  }
 
   if(mouse_ref == null) {
     mouse_ref = Vec3(mouse[0]);
@@ -147,6 +147,21 @@ void update_leapmotion() {
   if(mouse[0] == null) {
     mouse[0] = Vec3(x,y,z);
   } else mouse[0].set(x,y,z);
+}
+
+
+
+
+/**
+load dialogue prescene
+*/
+void load_dial() {
+  if(frameCount%240 == 0) {
+    Table dial_table = loadTable(preference_path +"dialogue.csv","header");
+    TableRow row = dial_table.getRow(0);
+    float temp_reactivity = row.getFloat("mouse reactivity");
+    mouse_reactivity = temp_reactivity *temp_reactivity;
+  }
 }
 
 

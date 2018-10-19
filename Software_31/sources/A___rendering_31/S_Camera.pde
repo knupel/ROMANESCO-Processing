@@ -490,10 +490,10 @@ void final_camera_full_rendering() {
   // dirCamZ = map(value_slider_camera[4],0,360,0,width)  ; // on controler is Eye Z
   
   centerCamX = map(value_slider_camera[4],0,360,0,width); // on controler is Position X
-  centerCamY = map(value_slider_camera[5],0,360,0,height); // on controler is Position Y
+  centerCamY = map(180,0,360,0,height); // on controler is Position Y
   // centerCamZ = map(value_slider_camera[7],0,360,0,width)  ; // on controler is Position Z
 
-  upX = map(value_slider_camera[6],0,360,-1,1);
+  upX = map(value_slider_camera[5],0,360,-1,1);
   upY = 1 ; // not interesting
   upZ = 0 ; // not interesting
 

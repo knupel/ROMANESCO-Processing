@@ -18,6 +18,50 @@ void autosave() {
 
 
 
+
+
+
+
+
+
+
+
+/**
+* dialogue data is a save can be read not often by the scene like setting mouse...
+*/
+void save_dial_data(String path) {
+  Table save_dial = new Table();
+  save_dial.addColumn("mouse reactivity");
+  TableRow table_row = save_dial.addRow() ;
+  table_row.setFloat("mouse reactivity",mouse_reactivity);
+  saveTable(save_dial,path+"/dialogue.csv");
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 void save_controller_setting(String path) {
   println("Save controller in progress:",path);
   save_info_slider();

@@ -29,22 +29,23 @@ BUG with warp on MacBook Pro 2018 or HighSierra / Mojave
 /**
 DEV prescene direct
 */
-/*
 boolean USE_LAYER = false;
 boolean DEV_MODE = true; // inter alia, path preferences folder, curtain
 String IAM = "prescene";
 boolean LIVE = false;
 boolean FULL_RENDERING = true;
-*/
+
 
 /**
 DEV scene live
 */
+/*
 boolean USE_LAYER = false;
 boolean DEV_MODE = true; // inter alia, path preferences folder, curtain
 String IAM = "scene";
 boolean LIVE = true;
 boolean FULL_RENDERING = true;
+*/
 
 
 
@@ -120,7 +121,9 @@ void settings() {
   /*
   fullScreen(P3D); // original
   FULL_SCREEN = true;
- */
+  */
+  
+ 
   syphon_settings();
 
   if(IAM.equals("prescene")) {
@@ -251,6 +254,7 @@ void romanesco() {
   media_update(180);
   nextPreviousKeypressed(); // check if this method is always used or not
   change_slider_ref();
+  load_dial();
 
 
   if(IAM.equals("scene")) {

@@ -134,18 +134,14 @@ class ArbreRomanesco extends Romanesco {
       s *= s;
       speed = s *tempo[ID_item]; 
     } else if (!motion[ID_item] && FULL_RENDERING){ 
-      speed = 0.0 ;
+      speed = 0.;
     } else {
-      speed = 1.0 ;
+      speed = 1.;
     }
     
     
     boolean bool_link = false ;
     if(wire[ID_item]) bool_link = true ; else bool_link = false ;
-/*
-    println("boolean aspect",fill_is[ID_item],stroke_is[ID_item]);
-    println("data aspect alpha",alpha(fill_item[ID_item]),alpha(stroke_item[ID_item]),thickness_item[ID_item]);
-    */
     
 
     arbre.show(direction);
