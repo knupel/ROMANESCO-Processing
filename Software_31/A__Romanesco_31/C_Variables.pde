@@ -35,7 +35,7 @@ int [] standard_size_height = {0,120,160,240,320,480,544,576,600,640,720,768,800
 boolean test = false ;
 
 
-PFont FuturaStencil, EmigreEight ;
+PFont FuturaStencil, text_info ;
 
 import java.awt.* ;
 
@@ -45,11 +45,7 @@ color c1, c2, c3, c4 ;
 color colorOUT, colorIN ;
 
 // path
-String path_controller;
-String path_prescene ;
-String path_prescene_window, path_prescene_fullscreen ;
-String path_scene ;
-String path_scene_window, path_scene_fullscreen ;
+
 
 boolean open ;
 

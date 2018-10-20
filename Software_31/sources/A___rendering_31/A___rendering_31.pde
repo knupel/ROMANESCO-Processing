@@ -29,11 +29,13 @@ BUG with warp on MacBook Pro 2018 or HighSierra / Mojave
 /**
 DEV prescene direct
 */
+
 boolean USE_LAYER = false;
 boolean DEV_MODE = true; // inter alia, path preferences folder, curtain
 String IAM = "prescene";
 boolean LIVE = false;
 boolean FULL_RENDERING = true;
+
 
 
 /**
@@ -63,6 +65,7 @@ boolean LIVE = false;
 boolean FULL_RENDERING = true;
 */
 
+
 // Prescene preview LIVE
 /*
 boolean USE_LAYER = false;
@@ -75,6 +78,7 @@ boolean FULL_RENDERING = false;
 
 
 
+
 // SCENE LIVE 
 /*
 boolean USE_LAYER = false;
@@ -83,6 +87,7 @@ String IAM = "scene";
 boolean LIVE = false; 
 boolean FULL_RENDERING = true;
 */
+
 
 
 
@@ -117,7 +122,6 @@ LIVE must change from the launcher, the info must be write in the external loadi
 
 void settings() {
   size(124,124,P3D); // when the bug will be resolved, return to this config.
-  
   /*
   fullScreen(P3D); // original
   FULL_SCREEN = true;
