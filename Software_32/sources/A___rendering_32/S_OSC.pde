@@ -223,7 +223,7 @@ void receive_data_general_slider(OscMessage receive, int in, int out) {
     } else if(i >= in_camera && i < out_camera) {
       value_slider_camera[i -in_camera] = receive.get(i).intValue();
     }
-  }
+  } 
 }
 
 

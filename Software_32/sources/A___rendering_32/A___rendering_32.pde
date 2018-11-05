@@ -29,7 +29,6 @@ BUG with warp on MacBook Pro 2018 or HighSierra / Mojave
 /**
 DEV prescene direct
 */
-
 boolean USE_LAYER = false;
 boolean DEV_MODE = true; // inter alia, path preferences folder, curtain
 String IAM = "prescene";

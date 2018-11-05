@@ -1,6 +1,6 @@
 /**
 update, display and design
-v 0.0.5
+v 0.0.6
 2018-2018
 */
 
@@ -278,6 +278,9 @@ void show_slider_controller() {
   } else if (dropdown_setting.get_selection() == 1) {
     show_slider_camera();
   }
+
+  pass_slider_general_to_osc();
+
   show_slider_item();
 }
 
@@ -405,7 +408,6 @@ void show_slider_background() {
     if(!dropdown_is()) {
       update_slider(slider_adj_background[i],cropinfo_slider_background);
     }
-    pass_slider_to_osc_arg(slider_adj_background[i], value_slider_background);
     if(!show_is || i >= 3 ) slider_adj_background[i].show_structure();
     slider_adj_background[i].show_adj();
     slider_adj_background[i].show_molette();
@@ -418,7 +420,6 @@ void show_slider_filter() {
     if(!dropdown_is()) {
       update_slider(slider_adj_fx[i],cropinfo_slider_fx);
     }    
-    pass_slider_to_osc_arg(slider_adj_fx[i], value_slider_filter);
     slider_adj_fx[i].show_structure();
     slider_adj_fx[i].show_adj();
     slider_adj_fx[i].show_molette();
@@ -439,7 +440,6 @@ void show_slider_light() {
     if(!dropdown_is()) {
       update_slider(slider_adj_light[i],cropinfo_slider_light);
     }   
-    pass_slider_to_osc_arg(slider_adj_light[i],value_slider_light);
     boolean show_is = false;
     for(int k = 0 ; k < is.length ; k++) {
       if(!is[k]) {
@@ -464,7 +464,6 @@ void show_slider_sound() {
     if(!dropdown_is()) {
       update_slider(slider_adj_sound[i],cropinfo_slider_sound);
     }   
-    pass_slider_to_osc_arg(slider_adj_sound[i],value_slider_sound);
     slider_adj_sound[i].show_structure();
     slider_adj_sound[i].show_adj();
     slider_adj_sound[i].show_molette();
@@ -478,7 +477,6 @@ void show_slider_sound_setting() {
     if(!dropdown_is()) {
       update_slider(slider_sound_setting[i],cropinfo_slider_sound_setting);
     }
-    pass_multi_slider_to_osc_arg(slider_sound_setting[i],value_slider_sound_setting,rank);
     rank += slider_sound_setting[i].get_value().length;
 
     slider_sound_setting[i].show_structure();
@@ -492,11 +490,38 @@ void show_slider_camera() {
     if(!dropdown_is()) {
       update_slider(slider_adj_camera[i],cropinfo_slider_camera);
     }    
-    pass_slider_to_osc_arg(slider_adj_camera[i],value_slider_camera);
     slider_adj_camera[i].show_structure();
     slider_adj_camera[i].show_adj();
     slider_adj_camera[i].show_molette();
     slider_adj_camera[i].show_label();  
+  }
+}
+
+void pass_slider_general_to_osc() {
+  for (int i = 0 ; i < NUM_SLIDER_BACKGROUND ; i++) {
+    pass_slider_to_osc_arg(slider_adj_background[i], value_slider_background);
+  }
+
+  for (int i = 0 ; i < NUM_SLIDER_FX ; i++) {    
+    pass_slider_to_osc_arg(slider_adj_fx[i], value_slider_filter);
+  }
+
+  for (int i = 0 ; i < NUM_SLIDER_LIGHT ; i++) { 
+    pass_slider_to_osc_arg(slider_adj_light[i],value_slider_light);
+  }
+
+  for (int i = 0 ; i < NUM_SLIDER_SOUND ; i++) {   
+    pass_slider_to_osc_arg(slider_adj_sound[i],value_slider_sound);
+  }
+  
+  int rank = 0;
+  for (int i = 0 ; i < NUM_SLIDER_SOUND_SETTING ; i++) {
+    pass_multi_slider_to_osc_arg(slider_sound_setting[i],value_slider_sound_setting,rank);
+    rank += slider_sound_setting[i].get_value().length;
+  }
+
+  for (int i = 0 ; i < NUM_SLIDER_CAMERA ; i++) {   
+    pass_slider_to_osc_arg(slider_adj_camera[i],value_slider_camera);  
   }
 }
 

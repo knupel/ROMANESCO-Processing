@@ -90,7 +90,8 @@ void camera_setting(int num, float speed_follow, float deceleration, float inert
 
 /**
 Item
-Start setting position and direction 0.0.1
+Start setting position and direction 
+v 0.0.1
 */
 // direction
 void setting_start_direction(int ID, Vec2 dir) {
@@ -104,13 +105,13 @@ void setting_start_direction(int ID, int dir_x, int dir_y) {
 }
 
 void setting_start_direction(int ID, int which_setting, int dir_x, int dir_y) {
-  if(dir_item_final[ID] == null) dir_item_final[ID] = Vec3() ;
-  dir_item_final[ID].set(dir_x, dir_y,0) ;
-  if(item_setting_direction [0][ID] == null) item_setting_direction [which_setting][ID] = Vec3() ;
-  item_setting_direction [0][ID] = Vec3(dir_item_final[ID]) ;
-  if(temp_item_canvas_direction[ID] == null) temp_item_canvas_direction[ID] = Vec3() ;
-  temp_item_canvas_direction[ID].x = map(item_setting_direction [which_setting][ID].y, 0, 360, 0, width) ;
-  temp_item_canvas_direction[ID].y = map(item_setting_direction [which_setting][ID].x, 0, 360, 0, height) ;
+  if(dir_item_final[ID] == null) dir_item_final[ID] = Vec3();
+  dir_item_final[ID].set(dir_x,dir_y,0);
+  if(item_setting_direction [0][ID] == null) item_setting_direction [which_setting][ID] = Vec3();
+  item_setting_direction [0][ID] = Vec3(dir_item_final[ID]);
+  if(temp_item_canvas_direction[ID] == null) temp_item_canvas_direction[ID] = Vec3();
+  temp_item_canvas_direction[ID].x = map(item_setting_direction [which_setting][ID].y,0,360,0,width);
+  temp_item_canvas_direction[ID].y = map(item_setting_direction [which_setting][ID].x,0,360,0,height);
 }
 
 // position
@@ -467,7 +468,7 @@ void camera_romanesco_draw() {
 
 
 void set_var_camera_romanesco() { 
-/* 
+  /* 
   this method need to be on the Prescene sketch and on the window.
   1. boolean prescene : On prescene, because on Scene we don't need to have a global view : boolean prescene
   2. boolean MOUSE_IN_OUT : because if we mode out the sketch the keyevent is not updated, and the camera stay in camera view 
