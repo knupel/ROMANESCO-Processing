@@ -1,8 +1,7 @@
 /**
 Romanesco dui
 2012–2018
-v 2.0.0.31
-version 31
+version 32
 Processing 3.4
 */
 /**
@@ -19,7 +18,6 @@ LIVE must change from the launcher, the info must be write in the external loadi
 */
 
 // DEV
-
 boolean DEV_MODE = true; // inter alia, path preferences folder, curtain
 boolean LIVE = false;
 boolean MIROIR = false;
