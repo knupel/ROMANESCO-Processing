@@ -4,11 +4,7 @@ Generative Live Art Application
 
 ![romanesco dui](https://github.com/StanLepunK/ROMANESCO-Processing/blob/master/import_github_pic/Romaneco_soft_32_18_11_5.jpg)
 
-## WARNING
-the most information below is from the previous version development, there is a lot of improvements and changes, so the information content can be wrong ; for the moment contact me is a better solution :)
-
-Those sketches are the progress in work, writen for Processing 3.4
-
+### Download build version
 To download the last built version, go to [app 2.0.0.31](http://romanescoproject.wordpress.com/download/)
 
 ## Build and code Romanesco
