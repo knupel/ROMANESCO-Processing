@@ -2,7 +2,7 @@
 Generative Live Art Application
 2011-2018
 
-![romanesco dui](https://www.dropbox.com/s/6lda07rkl2u8g2q/Romaneco_soft_32_18_11_5.jpg?)
+![romanesco dui](https://www.dropbox.com/s/6lda07rkl2u8g2q/Romaneco_soft_32_18_11_5.jpg?dl=0)
 
 ## WARNING
 the most information below is from the previous version devellopement, there is a lot of improvement and change, so the information content can be wrong ; for the moment contact me is a better solution :)
