@@ -2,6 +2,8 @@
 Generative Live Art Application
 2011-2018
 
+![romanesco dui](https://www.dropbox.com/s/essdfpfxhu6an7x/Romaneco_soft_32_18_11_5.png?dl=0)
+
 ## WARNING
 the most information below is from the previous version devellopement, there is a lot of improvement and change, so the information content can be wrong ; for the moment contact me is a better solution :)
 
@@ -22,7 +24,7 @@ Romanesco Prescene and Scene need a lot of memory to run in processing. You will
 ## Help to code
 If you want to code in Romanesco, there are a few compulsory variables, methods and functions. You can find the different helpful files in the "[Misc](./MISC)" folder.
 
-## Build Romanesco
+## Build and code Romanesco
 https://github.com/StanLepunK/ROMANESCO-Processing/wiki/Export-Application
 
 ## LICENSE
