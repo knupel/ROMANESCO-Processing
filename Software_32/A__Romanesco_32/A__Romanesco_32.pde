@@ -18,7 +18,6 @@ lighter application only 46M versus 164M
 
 
 boolean DEV = false;
-
 boolean LIVE = false;
 boolean HOME = false;
 boolean MIRROR = false;

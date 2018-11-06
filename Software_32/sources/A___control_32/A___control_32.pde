@@ -18,17 +18,10 @@ LIVE must change from the launcher, the info must be write in the external loadi
 */
 
 // DEV
-
 boolean DEV_MODE = true; // inter alia, path preferences folder, curtain
 boolean LIVE = false;
 boolean MIROIR = false;
 boolean KEEP_BUTTON_ITEM_STATE = true;
-
-
-
-
-
-
 
 // DIRECT
 /*
@@ -37,8 +30,6 @@ boolean MIROIR = false;
 boolean KEEP_BUTTON_ITEM_STATE = true;
 boolean DEV_MODE = false;  // inter alia, path preferences folder, curtain
 */
-
-
 
 // LIVE
 /*

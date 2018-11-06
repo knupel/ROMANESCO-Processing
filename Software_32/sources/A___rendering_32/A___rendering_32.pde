@@ -27,7 +27,7 @@ BUG with warp on MacBook Pro 2018 or HighSierra / Mojave
 
 
 /**
-DEV prescene direct
+DEV PRESCENE DIRECT
 */
 boolean USE_LAYER = false;
 boolean DEV_MODE = true; // inter alia, path preferences folder, curtain
@@ -38,7 +38,7 @@ boolean FULL_RENDERING = true;
 
 
 /**
-DEV scene live
+DEV SCENE LIVE
 */
 /*
 boolean USE_LAYER = false;
@@ -48,14 +48,11 @@ boolean LIVE = true;
 boolean FULL_RENDERING = true;
 */
 
-
-
-
 /**
 * RENDERING
 * Here you can choice between the three common rendering mode
 */
-// Prescene FULL_RENDERING
+// PRESCENE FULL RENDERING
 /*
 boolean USE_LAYER = false;
 boolean DEV_MODE = false; // inter alia, path preferences folder, curtain
@@ -64,8 +61,7 @@ boolean LIVE = false;
 boolean FULL_RENDERING = true;
 */
 
-
-// Prescene preview LIVE
+// PRESCENE PREVIEW
 /*
 boolean USE_LAYER = false;
 boolean DEV_MODE = false; // inter alia, path preferences folder, curtain
@@ -73,10 +69,6 @@ String IAM = "prescene";
 boolean LIVE = true;
 boolean FULL_RENDERING = false;
 */
-
-
-
-
 
 // SCENE LIVE 
 /*
