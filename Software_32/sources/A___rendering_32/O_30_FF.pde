@@ -11,7 +11,7 @@ class FF extends Romanesco {
 		item_author  = "Stan le Punk";
 		item_version = "Version 0.0.4";
 		item_pack = "Force 2018";
-    item_costume = "none/line";
+    item_costume = "line/none";
     item_mode = "fluid/magnetic/gravity/perlin/equation/chaos/image";
 
 	  // hue_fill_is = true;
@@ -102,7 +102,7 @@ class FF extends Romanesco {
     int c = stroke_item[ID_item];
 
     float thickness = thickness_item[ID_item];
-    float scale = size_x_item[ID_item];
+    float scale = size_x_item[ID_item] *.1;
     float range = 0 ;
     if(reverse[ID_item]) {
       range = map(spectrum_item[ID_item],0,360,0,-1);
@@ -316,7 +316,8 @@ class FF extends Romanesco {
     stroke(hue,sat,bright,alpha);
 
     if(len > scale) len = scale ;
-    line(0,0,len,0);
+    // line(0,0,len,0);
+    line(-len,0,len,0);
 
     popMatrix();
 
