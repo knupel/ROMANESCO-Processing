@@ -1,7 +1,7 @@
 /**
 Force Field
-2018
-v 0.0.4
+2018-2018
+v 0.0.5
 */
 class FF extends Romanesco {
 	public FF() {
@@ -9,23 +9,23 @@ class FF extends Romanesco {
 		ID_item = 30;
 		ID_group = 1 ;
 		item_author  = "Stan le Punk";
-		item_version = "Version 0.0.4";
+		item_version = "Version 0.0.5";
 		item_pack = "Force 2018";
-    item_costume = "line/none";
+    item_costume = "line/triangle/rect/cross/pentagon/Star 5/Star 7/Super Star 8/Super Star 12/none";
     item_mode = "fluid/magnetic/gravity/perlin/equation/chaos/image";
 
-	  // hue_fill_is = true;
-    // sat_fill_is = true;
-    // bright_fill_is = true;
-    // alpha_fill_is = true;
+	  hue_fill_is = true;
+    sat_fill_is = true;
+    bright_fill_is = true;
+    alpha_fill_is = true;
     hue_stroke_is = true;
     sat_stroke_is = true;
     bright_stroke_is = true;
     alpha_stroke_is = true;
     thickness_is = true;
     size_x_is = true;
-    // size_y_is = true;
-    //size_z_is = true;
+    size_y_is = true;
+    size_z_is = true;
     // diameter_is = true;
     // canvas_x_is = true;
     // canvas_y_is = true;
@@ -53,7 +53,7 @@ class FF extends Romanesco {
     // life_is = true;
     // flow_is = true;
     // quality_is = true;
-    // area_is = true;
+    area_is = true;
     // angle_is = true;
     scope_is = true;
     // scan_is = true;
@@ -99,7 +99,8 @@ class FF extends Romanesco {
     }
 
     update_force_field_is(true);
-    int c = stroke_item[ID_item];
+    iVec2 aspect_colour = iVec2(fill_item[ID_item],stroke_item[ID_item]);
+    aspect_is(fill_is[ID_item],stroke_is[ID_item]);
 
     float thickness = thickness_item[ID_item];
     float scale = size_x_item[ID_item] *.1;
@@ -114,8 +115,9 @@ class FF extends Romanesco {
     
     if(get_costume() == NULL) {
       // nothing
-    } else if(get_costume() == LINE_ROPE) { 
-      show_field(ff,scale,range,c,thickness);
+    } else {
+      // private void show_field(Force_field ff, float scale, float range_colour, iVec2 aspect, float thickness, float ratio, int costume)
+      show_field(ff,scale,range,aspect_colour,thickness,area_item[ID_item],get_costume());
     }
     
 
@@ -160,13 +162,13 @@ class FF extends Romanesco {
 
 
   private void info() {
-    if(get_force_field().get_type() == FLUID) item_info[ID_item] = ("Force field: FLUID frequence: "+ get_force_field().get_frequence() +" viscosity: "+ get_force_field().get_viscosity()+" diffusion: "+ get_force_field().get_diffusion());
-    else if(get_force_field().get_type() == MAGNETIC) item_info[ID_item] = ("Force field: MAGNETIC");
-    else if(get_force_field().get_type() == GRAVITY) item_info[ID_item] = ("Force field: GRAVITY");
-    else if(get_force_field().get_pattern() == PERLIN) item_info[ID_item] = ("Force field: PERLIN");
-    else if(get_force_field().get_pattern() == EQUATION) item_info[ID_item] = ("Force field: EQUATION");
-    else if(get_force_field().get_pattern() == CHAOS) item_info[ID_item] = ("Force field: CHAOS");
-    else if(get_force_field().get_pattern() == IMAGE) item_info[ID_item] = ("Force field: IMAGE");
+    if(get_force_field().get_type() == FLUID) item_info[ID_item] = ("Cell: "+grid_item[ID_item]+" Force field: FLUID frequence: "+ get_force_field().get_frequence() +" viscosity: "+ get_force_field().get_viscosity()+" diffusion: "+ get_force_field().get_diffusion());
+    else if(get_force_field().get_type() == MAGNETIC) item_info[ID_item] = ("Cell: "+grid_item[ID_item]+" Force field: MAGNETIC");
+    else if(get_force_field().get_type() == GRAVITY) item_info[ID_item] = ("Cell: "+grid_item[ID_item]+" Force field: GRAVITY");
+    else if(get_force_field().get_pattern() == PERLIN) item_info[ID_item] = ("Cell: "+grid_item[ID_item]+" Force field: PERLIN");
+    else if(get_force_field().get_pattern() == EQUATION) item_info[ID_item] = ("Cell: "+grid_item[ID_item]+" Force field: EQUATION");
+    else if(get_force_field().get_pattern() == CHAOS) item_info[ID_item] = ("Cell: "+grid_item[ID_item]+" Force field: CHAOS");
+    else if(get_force_field().get_pattern() == IMAGE) item_info[ID_item] = ("Cell: "+grid_item[ID_item]+" Force field: IMAGE");
   }
 
   /**
@@ -265,7 +267,7 @@ class FF extends Romanesco {
   /**
   SHOW FIELD
   */
-  private void show_field(Force_field ff, float scale, float range_colour, int colour, float thickness) {
+  private void show_field(Force_field ff, float scale, float range_colour, iVec2 aspect, float thickness, float ratio, int costume) {
     if(ff != null) {
       Vec2 offset = Vec2(ff.get_resolution());
       offset.sub(ff.get_resolution()/2);
@@ -276,11 +278,11 @@ class FF extends Romanesco {
           Vec2 dir = Vec2(ff.field[x][y].x,ff.field[x][y].y);
           if(ff.get_super_type() == r.STATIC) {
             float mag = ff.field[x][y].w;
-            pattern_field(dir, mag, pos, ff.resolution *scale,range_colour,colour,thickness);
+            pattern_field(dir, mag, pos, ff.resolution *scale,range_colour,aspect,thickness,ratio,costume);
           } else {
             pos.add(offset);
             float mag = (float)Math.sqrt(dir.x*dir.x + dir.y*dir.y + dir.z*dir.z); ;
-            pattern_field(dir, mag, pos, ff.resolution *scale,range_colour,colour,thickness);
+            pattern_field(dir, mag, pos, ff.resolution *scale,range_colour,aspect,thickness,ratio,costume);
           }
         }
       }
@@ -288,7 +290,7 @@ class FF extends Romanesco {
   }
 
   // Renders a vector object 'v' as an arrow and a position 'x,y'
-  private void pattern_field(Vec2 dir, float mag, Vec2 pos, float scale, float range_colour, int c,float thickness) {
+  private void pattern_field(Vec2 dir, float mag, Vec2 pos, float scale, float range_colour, iVec2 aspect,float thickness, float ratio, int costume) {
     Vec5 colorMode = Vec5(getColorMode());
     colorMode(HSB,1);
 
@@ -298,27 +300,36 @@ class FF extends Romanesco {
     // Call vector heading function to get direction (note that pointing to the right is a heading of 0) and rotate
     rotate(dir.angle());
     // Calculate length of vector & scale it to be dir_vector or smaller if dir_vector
-    float len = mag *scale;
+    float size = mag *scale;
 
     float max = range_colour *mag;
 
     // float value = map(abs(len), 0, scale,max,min);
+    int colour_fill = aspect.x;
+    float hue_fill = hue(colour_fill)+max;
+    if(hue_fill >= g.colorModeX) hue_fill -= g.colorModeX;
+    if(hue_fill < 0) hue_fill = (g.colorModeX +hue_fill);
+    Vec4 c_fill = Vec4(hue_fill,saturation(colour_fill),brightness(colour_fill),alpha(colour_fill));
 
-    float hue = hue(c)+max;
-    if(hue >= g.colorModeX) hue -= g.colorModeX;
-    if(hue < 0) hue = (g.colorModeX +hue);
-    float sat = saturation(c);
-    float bright = brightness(c);
-    float alpha = alpha(c);
+    int colour_stroke = aspect.y;
+    float hue_stroke = hue(colour_stroke)+max;
+    if(hue_stroke >= g.colorModeX) hue_stroke -= g.colorModeX;
+    if(hue_stroke < 0) hue_stroke = (g.colorModeX +hue_stroke);
+    Vec4 c_stroke = Vec4(hue_stroke,saturation(colour_stroke),brightness(colour_stroke),alpha(colour_stroke));
+
     
-    strokeWeight(thickness);
-    noFill();
-    stroke(hue,sat,bright,alpha);
-
-    if(len > scale) len = scale ;
-    // line(0,0,len,0);
-    line(-len,0,len,0);
-
+    aspect_rope(c_fill,c_stroke,thickness);
+    set_ratio_costume_size(map(ratio,width*.1, width*TAU,0,1));
+    
+    // costume_rope(Vec2(),Vec3(size),costume);
+    // pass by costume for the line is very slow
+    if(costume != LINE_ROPE) {
+      set_ratio_costume_size(map(ratio,width*.1, width*TAU,0,1));
+      costume_rope(Vec2(),Vec3(size),costume);
+    } else {
+      if(size > scale) size = scale;
+      line(-size,0,size,0);
+    }
     popMatrix();
 
     colorMode(colorMode);

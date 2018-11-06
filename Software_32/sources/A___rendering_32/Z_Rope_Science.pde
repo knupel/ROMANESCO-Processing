@@ -1,10 +1,10 @@
 /**
 ROPE SCIENCE
-v 0.2.3.1
+v 0.2.4.0
 * Copyleft (c) 2014-2018 
 * Stan le Punk > http://stanlepunk.xyz/
 * @author Stan le Punk
-* @see https://github.com/StanLepunK/Rope
+* @see https://github.com/StanLepunK/Rope_method
 *
 the sketch method tab is not included on this repository if you need
 * @see https://github.com/StanLepunK/Old_code/tree/master/Science_rope_2017_12_8
@@ -626,100 +626,138 @@ void primitive(Vec pos_raw, float radius, int summits, float angle, Vec2 dir_P3D
   } else if(pos_raw instanceof Vec3) {
     pos = Vec3(pos_raw.x, pos_raw.y, pos_raw.z);
   }
-  //  if(summits < 3) summits = 3 ;
-  if(summits < 2) summits = 2 ;
-  Vec3 [] points = new Vec3[summits] ;
-  // create coord of the shape
-  if(dir_P3D == null ) {
-    // call POLYGON 2D
-    for (int i = 0 ; i < summits ; i++) points[i] = polygon_2D(summits, angle)[i].copy() ;
-  } else if (dir_P3D != null && renderer_P3D()) {
-    /**
-    // call POLYGON 3D
-    but must be refactoring because the method polygon_3D is a little shitty !!!!!
-    for (int i = 0 ; i < summits ; i++) {points[i] = polygon_3D(summits, orientation, dir)[i].copy() ;
-    */
-    // for (int i = 0 ; i < summits ; i++) points[i] = polygon_3D(pos, radius, summits, orientation, dir)[i].copy() ;
-    /**
-    // classic version with polygon_2D method
-    */
-    // start_matrix_3D(pos, dir) ;
-    for (int i = 0 ; i < summits ; i++) points[i] = polygon_2D(summits, angle)[i].copy() ;
-    // stop_matrix() ;
-  } else {
-    for (int i = 0 ; i < summits ; i++) points[i] = polygon_2D(summits, angle)[i].copy() ;
+
+  if(summits < 2) {
+    summits = 2;
   }
-  //draw the shape
+
+  Vec3 [] points = new Vec3[summits];
+  // create coord of the shape
+  if(summits == 2 && angle == 0) {
+    points[0] = Vec3(-.5,0,0);
+    points[1] = Vec3(.5,0,0);
+  } else {
+    for (int i = 0 ; i < summits ; i++) {
+      points[i] = polygon_2D(summits, angle)[i].copy();
+    }
+  }
+
+  draw_primitive(pos,dir_P3D,radius,points);
+  
+
   /**
-  this rotate part must be integrate with a cartesian method in the circle method
-  */
-  draw_primitive(pos, dir_P3D, radius, points) ;
-  /**
+  * IN FUTURE MUST BE COMPUTE with POLYGON 3D may be in 2028 ??????
+
+  if (dir_P3D != null && renderer_P3D()) {
+    // polygon_3D()
+    // method must be used in the future when this one is not shitty instead polugon2D() with matrix();
+    // classic version with polygon_2D method
+    for (int i = 0 ; i < summits ; i++) {
+      printTempo(60,"param",i,summits,angle);
+      points[i] = polygon_2D(summits, angle)[i].copy();
+      printTempo(60,"point",points[i]);
+    }
+  } else {
+    for (int i = 0 ; i < summits ; i++) {
+      points[i] = polygon_2D(summits, angle)[i].copy();
+    }
+  }
+
+  // draw the shape
+  // this rotate part must be integrate with a cartesian method in the circle method
+  draw_primitive(pos,dir_P3D,radius,points);
+
+  
   With advance shitty version of Polygon_3D
+  if(dir == null ) {
+    draw_primitive(pos, radius, points); 
+  } else if (dir != null && renderer_P3D()) {
+    draw_primitive( points);
+  }
   */
-  // if(dir == null ) draw_primitive(pos, radius, points) ; else if (dir != null && renderer_P3D()) draw_primitive( points) ;
 }
 
 
+
+
+
+
+
+
+
 // local method
-void draw_primitive (Vec3 [] pts) {
+void draw_primitive(Vec3 [] pts) {
   Vec3 pos = Vec3() ;
   // Vec2 dir_polar = Vec2() ;
   int radius = 1 ;
   draw_primitive (pos, radius, pts) ;
 }
 
-void draw_primitive (float radius, Vec3 [] pts) {
+void draw_primitive(float radius, Vec3 [] pts) {
   Vec3 pos = Vec3() ;
   // Vec2 dir_polar = Vec2() ;
-  draw_primitive (pos, radius, pts) ;
+  draw_primitive (pos,radius,pts) ;
 }
 
-void draw_primitive (Vec3 pos, Vec2 dir, float radius, Vec3 [] pts) {
-  // special one because we have direction for the polygone, so we must use the matrix system until have a good algorithm for the cartesian direction
+void draw_primitive(Vec3 pos, Vec2 dir, float radius, Vec3 [] pts) {
+  // special one because we have direction for the polygon, 
+  // so we must use the matrix system until have a good algorithm for the cartesian direction
+  /*
   if(renderer_P3D()) {
-    start_matrix_3D(pos, dir) ; 
+    start_matrix_3D(pos, dir); 
   } else {
-    start_matrix_2D(Vec2(pos.x, pos.y), 0) ;
+    start_matrix_2D(Vec2(pos.x, pos.y),0);
   }
-  draw_primitive (radius, pts) ;
-  stop_matrix() ;
+  */
+  draw_primitive(Vec3(),radius,pts);
+  // stop_matrix();
 }
 
-// main draw primitive
-void draw_primitive (Vec3 pos, float radius, Vec3 [] pts) {
-  beginShape() ;
-  for (int i = 0 ; i < pts.length ; i++) {
-    if (pts[i] != null ) {
-      pts[i].mult(radius) ;
-      pts[i].add(pos) ;
-      // test the rendering and if the shape if a line or not, to coice between vertex and line display
-      if(renderer_P3D())  {
-        if ( pts.length <= 2 && pts.length > 1 ) {
-          // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> here we make an exception in the structure code for the pts[i+1] because this one haven't make .mult() and .add() method to the final position
-          if (i < pts.length -1) line(pts[i], pts[i+1].mult(radius).add(pos)) ;
-        } else {
-          vertex(pts[i]) ;
-        }
-      // 2D  
-      } else {
-        if ( pts.length <= 2 && pts.length > 1 ) {
-          
-          if (i < pts.length -1) {
-            // >>>>>>>>>>>>>here we make an exception in the structure code for the pts[i+1] because this one haven't make .mult() and .add() method to the final position
-            Vec2 point_b = new Vec2(pts[i+1].x, pts[i+1].y) ;
-            point_b.mult(radius).add(Vec2(pos.x, pos.y)) ;
-            line(pts[i].x,pts[i].y, point_b.x, point_b.y) ;
 
-          } 
+
+
+
+
+
+
+/**
+* main draw primitive
+* the line rendering is awful, very very low when there is a lot of shape,
+* may be the compute on polygon_2D() is guilty
+*/
+void draw_primitive (Vec3 pos, float radius, Vec3 [] pts) {
+  boolean check_line = false;
+  if(pts.length == 2) {
+    check_line = true;
+  }
+
+  if(check_line) {
+    if(renderer_P3D()) {
+      line(pts[0],pts[1].mult(radius).add(pos));
+    } else {
+      Vec2 point_b = Vec2(pts[1].x,pts[1].y);
+      point_b.mult(radius).add(Vec2(pos.x,pos.y));
+      line(pts[0].x,pts[0].y,point_b.x,point_b.y);
+    }
+  } else if(!check_line) {
+    beginShape();
+    for (int i = 0 ; i < pts.length ; i++) {
+      if (pts[i] != null ) {
+        pts[i].mult(radius);
+        pts[i].add(pos);
+        // test the rendering and if the shape if a line or not, to choice between vertex and line display
+        if(renderer_P3D()) {
+          vertex(pts[i]);
         } else {
-          vertex(pts[i].x, pts[i].y) ;
+          vertex(pts[i].x,pts[i].y);
         }
       }
     }
+    endShape(CLOSE) ;
   }
-  endShape(CLOSE) ;
 }
+
+
 
 
 
@@ -752,6 +790,7 @@ POLYGON
 */
 /**
 POLYGON 2D
+v 0.1.0
 */
 Vec3 [] polygon_2D (int num) {
   float new_orientation = 0 ;
@@ -761,23 +800,30 @@ Vec3 [] polygon_2D (int num) {
 
 // main method
 Vec3 [] polygon_2D (int num, float new_orientation) {
-  Vec3 [] p = new Vec3 [num] ;
+  Vec3 [] p = new Vec3[num];
   // choice your starting point
-  float startingAnglePos = PI*.5 +new_orientation;
-  if(num == 4) startingAnglePos = PI*.25 +new_orientation;
-  // calcul the position of each summit, step by step
-  for( int i=0 ; i < num ; i++) {
-    float stepAngle = map(i, 0, num, 0, TAU) ; 
-    float orientation = TAU -stepAngle -startingAnglePos ;
-    Vec2 temp_orientation_xy = to_cartesian_2D(orientation) ;
-    
-    float x = temp_orientation_xy.x  ;
-    float y = temp_orientation_xy.y  ;
-    float z = 0 ;
-    p[i] = Vec3(x,y,z) ;
+  float start_angle = PI*.5 +new_orientation;
+  if(num == 4) {
+    start_angle = PI*.25 +new_orientation;
   }
-  return p ;
+  // calcul the position of each summit, step by step
+  for(int i = 0 ; i < num ; i++) {
+    p[i] = compute_coord_polygon_2D(i,num,start_angle).copy();
+  }
+  return p;
 }
+
+Vec3 compute_coord_polygon_2D(int target, int num, float start_angle) {
+  float step_angle = map(target,0,num,0,TAU); 
+  float orientation = TAU -step_angle -start_angle;
+  Vec2 temp_orientation_xy = to_cartesian_2D(orientation);
+  float x = temp_orientation_xy.x;
+  float y = temp_orientation_xy.y;
+  float z = 0 ;
+  return Vec3(x,y,z);
+}
+
+
 /**
 POLYGON 3D
 but must be refactoring because the metod is a little shitty !!!!!
