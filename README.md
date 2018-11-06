@@ -22,7 +22,7 @@ Romanesco Prescene and Scene need a lot of memory to run in processing. You will
 ## Help to code
 If you want to code in Romanesco, there are a few compulsory variables, methods and functions. You can find the different helpful files in the "[Misc](./MISC)" folder.
 
-## Build Romanesco
+## Build and code Romanesco
 https://github.com/StanLepunK/ROMANESCO-Processing/wiki/Export-Application
 
 ## LICENSE
