@@ -13,21 +13,25 @@ void init_force_field() {
   init_force_field(num_spot_minimum);
 }
 void init_force_field(int num_spot) {
+  int range_detection = 5;
   int type = get_type_force_field();
   int pattern = get_pattern_force_field();
   if(num_spot < 2) num_spot = 2;
   if(type == r.FLUID) {
     force_romanesco = new Force_field(ref_cell_size,r.FLUID,r.BLANK);
-    force_romanesco.add_spot();
+    force_romanesco.add_spot(num_spot);
   } else if(type == r.MAGNETIC) {
     force_romanesco = new Force_field(ref_cell_size,r.MAGNETIC,r.BLANK);
     force_romanesco.add_spot(num_spot);
-    force_romanesco.set_spot_detection(5);
+    force_romanesco.set_spot_detection(range_detection);
   } else if(type == r.GRAVITY){
+    // println("init_force_field();",ref_cell_size,r.GRAVITY,r.BLANK);
     force_romanesco = new Force_field(ref_cell_size,r.GRAVITY,r.BLANK);
     force_romanesco.add_spot(num_spot);
-    force_romanesco.set_spot_detection(5);
+    force_romanesco.set_spot_detection(range_detection);
   }
+
+  
 
   if(pattern == r.PERLIN) {
     force_romanesco = new Force_field(ref_cell_size,r.STATIC,r.PERLIN);
@@ -36,7 +40,34 @@ void init_force_field(int num_spot) {
   } else if(pattern == r.EQUATION) {
     force_romanesco = new Force_field(ref_cell_size,r.STATIC,r.EQUATION);
   }
+
+  init_dynamic_force_field();
 }
+
+
+
+
+// USE only at the itit setup :(
+void init_dynamic_force_field() {
+  for(int i = 0 ; i < force_romanesco.get_spot_num() ; i++) {
+    float x = random(width);
+    float y = random(height);
+    force_romanesco.set_spot_pos(x,y,i);
+  }
+
+  // fluid setting
+  set_force_fluid_frequence(2/frameRate);
+  set_force_fluid_viscosity(.001);
+  set_force_fluid_diffusion(1.);
+  // magnetic setting
+  set_force_magnetic_tesla(20,-20);
+  set_force_magnetic_diam(50);
+  // gravity setting
+  set_force_gravity_mass(25);
+
+}
+
+
 
 
 
@@ -51,10 +82,7 @@ void force() {
 
 
 
-// detection
-void set_spot_detection_force_field(int detection) {
-  force_romanesco.set_spot_detection(detection);
-}
+
 
 // type
 int type_force_field;
@@ -62,9 +90,7 @@ int get_type_force_field() {
   return type_force_field;
 }
 
-void set_type_force_field(int type) {
-  type_force_field = type;
-}
+
 
 // set pattern
 int pattern_force_field;
@@ -72,18 +98,14 @@ int get_pattern_force_field() {
   return pattern_force_field;
 }
 
-void set_pattern_force_field(int pattern) {
-  pattern_force_field = pattern;
-}
+
 
 
 int get_cell_force_field() {
   return ref_cell_size;
 }
 
-void set_cell_force_field(int size) {
-  ref_cell_size = size;
-}
+
 
 
 boolean puppet_master_force_field_is = false ;
@@ -115,26 +137,31 @@ void update_force_field() {
 
 
 
+// SET
+void set_type_force_field(int type) {
+  type_force_field = type;
+}
 
 
+void set_cell_force_field(int size) {
+  ref_cell_size = size;
+}
+
+
+void set_pattern_force_field(int pattern) {
+  pattern_force_field = pattern;
+}
+// detection
+void set_spot_detection_force_field(int detection) {
+  force_romanesco.set_spot_detection(detection);
+}
 
 // SET DIFFERENT FORCE FIELD
 
 
-// USE only at the itit setup :(
 
 
 
-void set_different_force_field() {
-  if(force_romanesco.get_type() == r.FLUID) {
-    set_force_fluid_frequence(2/frameRate);
-    set_force_fluid_viscosity(.001);
-    set_force_fluid_diffusion(1.);
-  } else if(force_romanesco.get_type() == r.MAGNETIC) {
-    set_force_magnetic_tesla(20,-20);
-    set_force_magnetic_diam(50);
-  }
-}
 // set force field fluid
 void set_force_fluid_frequence(float frequence) {
   force_romanesco.set_frequence(frequence);
@@ -211,6 +238,13 @@ boolean update_force_field_is() {
 }
 
 
+
+
+
+
+
+
+
 /**
 SPOT ROMANESCO MANAGER
 */
@@ -236,6 +270,34 @@ void set_spot_pos(Vec pos, int index) {
 void set_spot_pos(float x, float y, int index) {
   force_romanesco.set_spot_pos(Vec2(x,y),index);  
 }
+
+
+Vec3 [] get_spot_pos() {
+  Vec3 [] pos = new Vec3[force_romanesco.get_spot_num()];
+  for(int i = 0 ; i < pos.length ; i++) {
+    pos[i] = force_romanesco.get_spot_pos(i);
+  }
+  return pos;
+}
+
+float [] get_spot_mass() {
+  float [] mass = new float[force_romanesco.get_spot_num()];
+  for(int i = 0 ; i < mass.length ; i++) {
+    mass[i] = force_romanesco.get_spot_mass(i);
+  }
+  return mass;
+}
+
+
+int [] get_spot_tesla() {
+  int [] tesla = new int[force_romanesco.get_spot_num()];
+  for(int i = 0 ; i < tesla.length ; i++) {
+    tesla[i] = force_romanesco.get_spot_tesla(i);
+  }
+  return tesla;
+}
+
+
 
 Vec3 get_spot_pos(int index) {
   if(index < force_romanesco.get_spot_num()) {

@@ -208,7 +208,8 @@ void check_button_item_console() {
   if(NUM_ITEM > 0){
     // item available
     int num = button_item_num +BUTTON_ITEM_CONSOLE;
-    for(int i = BUTTON_ITEM_CONSOLE+1 ; i < num ; i++) {
+    for(int i = BUTTON_ITEM_CONSOLE ; i < num ; i++) {
+    // for(int i = BUTTON_ITEM_CONSOLE+1 ; i < num ; i++) {
       if(button_item[i].is()) {
         item_button_state[i-BUTTON_ITEM_CONSOLE] = true; 
       } else {

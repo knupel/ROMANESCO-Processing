@@ -1,6 +1,6 @@
 /**
 Rope UTILS 
-v 1.48.0
+v 1.48.3
 * Copyleft (c) 2014-2018 
 * Stan le Punk > http://stanlepunk.xyz/
 Rope – Romanesco Processing Environment – 
@@ -129,13 +129,6 @@ PGraphics get_layer(int target) {
     return rope_layer[0];
   }
 }
-
-
-
-
-
-
-
 
 
 
@@ -934,7 +927,7 @@ PImage image_copy_window(PImage src, PGraphics pg, int where) {
 
 /**
 IMAGE
-v 0.2.0
+v 0.2.1
 2016-2018
 */
 
@@ -957,6 +950,8 @@ void image(PImage img, int what) {
     float ratio = 1.;
     int diff_w = width-w;
     int diff_h = height-h;
+
+
     if(what == r.FIT) {
       if(diff_w > diff_h) {
         ratio = (float)height / (float)h;
@@ -964,11 +959,20 @@ void image(PImage img, int what) {
         ratio = (float)width / (float)w;
       }
     } else if(what == SCREEN) {
+      float ratio_w = (float)width / (float)w;
+      float ratio_h = (float)height / (float)h;
+      if(ratio_w > ratio_h) {
+        ratio = ratio_w;
+      } else {
+        ratio = ratio_h;
+      }
+      /*
       if(diff_w > diff_h) {
         ratio = (float)width / (float)w;
       } else {
         ratio = (float)height/ (float)h;
       }
+      */
     } else if(what == PORTRAIT) {
       ratio = (float)height / (float)h;
     } else if(what == LANDSCAPE) {
@@ -2781,61 +2785,29 @@ void write_row(TableRow row, String col_name, Object o) {
 
 /**
 print
-v 0.1.3
+v 0.2.0
 */
-// util variable
-
 // print Err
 void printErr(Object... obj) {
-  String message= ("");
-  for(int i = 0 ; i < obj.length ; i++) {
-    message = write_print_message(message, obj[i], obj.length, i);
-  }
-  System.err.println(message);
+  System.err.println(write_message(obj));
 }
 
 // print tempo
 void printErrTempo(int tempo, Object... obj) {
   if(frameCount%tempo == 0 || frameCount <= 1) {
-    String message= ("");
-    for(int i = 0 ; i < obj.length ; i++) {
-      message = write_print_message(message, obj[i], obj.length, i);
-    }
+    String message = write_message(obj);
     System.err.println(message);
   }
 }
 
 void printTempo(int tempo, Object... obj) {
   if(frameCount%tempo == 0 || frameCount <= 1) {
-    String message= ("");
-    for(int i = 0 ; i < obj.length ; i++) {
-      message = write_print_message(message, obj[i], obj.length, i);
-    }
+    String message = write_message(obj);
     println(message);
   }
 }
 
 
-
-// local method
-String write_print_message(String message, Object obj, int length, int i) {
-  String add = "";
-  if(i == length -1) { 
-    if(obj == null) {
-      add = "null";
-    } else {
-      add = obj.toString();
-    }
-    return message += add;
-  } else {
-    if(obj == null) {
-      add = "null";
-    } else {
-      add = obj.toString();
-    }
-    return message += add + " ";
-  }
-}
 
 
 void printArrayTempo(int tempo, Object[] obj) {
@@ -4605,6 +4577,40 @@ boolean in_range_wheel(float min, float max, float roof_max, float value) {
 STRING UTILS
 v 0.3.3
 */
+String write_message(Object... obj) {
+  String mark = " ";
+  return write_message_sep(mark,obj);
+}
+String write_message_sep(String mark, Object... obj) {
+  String m = "";
+  for(int i = 0 ; i < obj.length ; i++) {
+    m += write_message(obj[i], obj.length,i,mark);
+  }
+  return m;
+}
+
+// local method
+String write_message(Object obj, int length, int i, String mark) {
+  String message = "";
+  String add = "";
+  if(i == length -1) { 
+    if(obj == null) {
+      add = "null";
+    } else {
+      add = obj.toString();
+    }
+    return message += add;
+  } else {
+    if(obj == null) {
+      add = "null";
+    } else {
+      add = obj.toString();
+    }
+    return message += add + mark;
+  }
+}
+
+
 
 //STRING SPLIT
 String [] split_text(String str, String separator) {

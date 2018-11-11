@@ -191,7 +191,8 @@ boolean objectInfoDisplay[ID_item] use to display info or what you want show on 
 
 String objectName[ID_item] return the name of your object
 
-String objectInfo[ID_item]  can be use to add info who can be display in the info option when you push "i" on the prescene
+void info(Object... info);
+>can be use to add info who can be display in the info option when you push "i" on the prescene
 
 int objectID[ID_item] return the ID of the object
 

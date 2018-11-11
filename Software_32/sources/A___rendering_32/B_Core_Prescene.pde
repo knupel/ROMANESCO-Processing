@@ -242,7 +242,10 @@ void key_true() {
   if (key == 'k') key_k = true;
   if (key == 'l') key_l = true;
   if (key == 'm') key_m = true;
-  if (key == 'n') key_n = true;
+  if (key == 'n') {
+    println("new, new quoi",frameCount);
+    key_n = true;
+  }
   if (key == 'o') key_o = true;
   if (key == 'p') key_p = true;
   if (key == 'q') key_q = true;

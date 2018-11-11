@@ -12,7 +12,7 @@ void init_filter() {
     pattern_field = r.BLANK;
     set_type_force_field(type_field);
     init_force_field();
-    set_different_force_field();
+    // set_different_force_field();
     println("init filter Force Field part");
     // warp
     init_warp();

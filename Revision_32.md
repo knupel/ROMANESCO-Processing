@@ -1,8 +1,44 @@
-Romanesco dui
+*Romanesco dui
+revision 32
+
+*MAJOR
+
+>Serial the item ranking, no need to give id and group in the code.
+
+*MINOR
+
+>fix -partial- bug of button alert when there is item with a lot loop with thousand or more object
+>fix bug of bad position of camera when the app starting
+
+*ITEM
+
+>Force Field : add costume to  item
+>Force Field : put limit for the size shape, particulary necessary for the magnetic and gravity mode
+>Force Field fix bug with Magnetic and Gravity but for the case where the ite mPuppet Master is off.
+>remove Text
+>remove Damier
+>improve Vectorial : display warning when there is no vectorial media in the library.
+
+
+*BUG FIX
+
+
+
+
+
+
+
+
+
+
+
+
+*Romanesco dui
 revision 31
---
-MAJOR
---
+November 2018
+
+*MAJOR
+
 >improve dropdown and sliders method
 >remove menu web-cam from controller
 >add menu filter to controller
@@ -29,8 +65,8 @@ MAJOR
 >add camera setting rotation, translate and deceleration
 
 
-MINOR
---
+*MINOR
+
 >improve OSC architecture
 >improve OSC dialogue between controller > prescene > scene > miroir
 >common external file to name and use slider item
@@ -45,12 +81,11 @@ MINOR
 >add shortcut to clear the midi selection
 >improve method costume to display pixel from force field
 >fix reset bug on the main camera
->increasi visibility when the curtain is ON or OFF
+>increase visibility when the curtain is ON or OFF
 
 
+*ITEM
 
-ITEM
---
 >add Pulsar
 >add BoumBoum
 >add Force Field
@@ -67,8 +102,8 @@ ITEM
 >remove movie
 
 
-BUG FIX
---
+*BUG FIX
+
 >size for item atoms
 >setting size window for prescene and scene
 >fix item inventory on_off state changing when the window size change
@@ -80,18 +115,28 @@ BUG FIX
 
 
 
-Romanesco unu
+
+
+
+
+
+
+
+
+
+
+*Romanesco unu
 revision 30
---
-GLOBAL
---
+
+*GLOBAL
+
 > Improve Mirror system, now you can right a list of address IP, to send imformation to few computer in local network.
 
 
-PRESCENE & SCENE
---
-MAJOR
---
+*PRESCENE & SCENE
+
+*MAJOR
+
 > add item Vectorial
 > add item Movisco
 > add item ecosysteme agent
@@ -105,8 +150,8 @@ MAJOR
 > fix bug OSC bug for the shortcut keyboard action between prescene and scene. Except in case where there is a lot of shape in the rendering, like boids or a lot of interacting particles.
 
 
-MINOR
---
+*MINOR
+
 > remove item Anillos
 > add method to load svg file.svg
 > add method to load movie file.mov
@@ -225,7 +270,7 @@ CORE
 ADD
 
 * SLIDER
---------
+--
 * slider attraction
 * slider repulsion
 * slider alignement

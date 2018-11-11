@@ -221,7 +221,6 @@ void romanesco() {
   update_raw_item_value();
 
   
-  
   if(IAM.equals("prescene")) {
     updateCommand();
     leapMotionUpdate();
@@ -247,9 +246,10 @@ void romanesco() {
   puppet_master(false); // use to resset puppet for the force field
   update_temp_value();
   media_update(180);
-  nextPreviousKeypressed(); // check if this method is always used or not
+  pad_up_down_left_right(); // check if this method is always used or not
   change_slider_ref();
   load_dial();
+  reset_button_alert();
 
 
   if(IAM.equals("scene")) {
@@ -338,7 +338,7 @@ void keyPressed () {
       send_message(true);
     }
     shortcuts_prescene();
-    nextPreviousKeypressed();
+    pad_up_down_left_right();
     key_true();
   }
 

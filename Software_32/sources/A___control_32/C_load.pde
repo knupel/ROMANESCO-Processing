@@ -402,20 +402,23 @@ void load_saved_file_controller(String path) {
     
     // item list
     if(s.equals("Item")) {
-      info_list_item_ID[count_item] = row.getInt("Item ID") ;
+      // security in case the developper remove item.
+      // because if that's happen there is an Out Bound Exception
+      if(count_item <  info_list_item_ID.length) {
+        info_list_item_ID[count_item] = row.getInt("Item ID");
+        String [] temp_item_info_split = split(item_info_raw[count_item +1], "/") ;
+        int ID =  Integer.parseInt(temp_item_info_split[2]) ;
+        boolean on_off = false ;
+        if(row.getInt("Item On Off") == 1) {
+          on_off = true; 
+        } else {
+          on_off = false;
+        }
 
-      String [] temp_item_info_split = split(item_info_raw[count_item +1], "/") ;
-      int ID =  Integer.parseInt(temp_item_info_split[2]) ;
-      boolean on_off = false ;
-      if(row.getInt("Item On Off") == 1) {
-        on_off = true; 
-      } else {
-        on_off = false;
-      }
-
-      inventory[ID].name = item_name[count_item +1]; 
-      inventory[ID].set_is(on_off); 
-      count_item++ ;
+        inventory[ID].name = item_name[count_item +1]; 
+        inventory[ID].set_is(on_off); 
+        count_item++ ;
+      }      
     }
   }
 }

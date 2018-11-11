@@ -1,19 +1,11 @@
 /**
-VARIABLE
-Prescene, Scene
+VARIABLE SCENE
+
 Romanesco Processing Environment
 2015-2018
-v 1.6.2
+v 1.7.0
 */
 
-/** 
-SCENE VARIABLE
-*/
-/**
-Variable_Scene
-2014_2018
-v 0.1.2
-*/
 boolean scene, prescene;
 boolean miroir_on_off = false ;
 
@@ -82,13 +74,13 @@ java.awt.Insets insets;
 
 boolean OPEN_APP = false;
 // WINDOW VAR
-int MIN_WINDOW_WIDTH = 128 ; 
-int MIN_WINDOW_HEIGHT = 128 ;
+int MIN_WINDOW_WIDTH = 128; 
+int MIN_WINDOW_HEIGHT = 128;
 
 int scene_width,scene_height;
 
 // Max value whi is return from the slider controller
-int MAX_VALUE_SLIDER = 360 ;
+int MAX_VALUE_SLIDER = 360;
 
 
 //variable for the tracking
@@ -167,17 +159,17 @@ float value_slider_item []  = new float [NUM_MOLETTE_ITEM];
 /**
 Var item
 */
-Table index_item ;
-TableRow [] row_index_item ;
+Table index_item;
+TableRow [] row_index_item;
 //MISC var
 //info object
-String [] item_info, item_name, item_author, item_version, item_pack ;
-int [] item_ID ;
-boolean [] item_info_display ;
+String [] item_info, item_name, item_author, item_version, item_pack;
+int [] item_ID;
+boolean [] item_info_display;
 //for the leap motion ?
-int objectLeapID[] ;
+int objectLeapID[];
 //BUTTON CONTROLER
-boolean objectParameter[] ;
+boolean objectParameter[];
 
 //raw
 int fill_hue_raw, fill_sat_raw, fill_bright_raw, fill_alpha_raw;
@@ -204,6 +196,8 @@ float influence_raw, calm_raw, spectrum_raw;
 
 float grid_raw;
 float viscosity_raw, diffusion_raw;
+float power_raw;
+float mass_raw;
 
 
 
@@ -235,6 +229,9 @@ Vec2 spectrum_min_max;
 Vec2 grid_min_max;
 Vec2 viscosity_min_max,diffusion_min_max;
 
+Vec2 power_min_max;
+Vec2 mass_min_max;
+
 
 
 
@@ -265,6 +262,119 @@ float influence_temp, calm_temp, spectrum_temp;
 float grid_temp;
 float viscosity_temp, diffusion_temp;
 
+float power_temp;
+float mass_temp;
+
+/**
+String name
+Used for SCENE don't delete
+*/
+String fill_hue_name = "fill_hue";     
+String fill_sat_name = "fill_sat";     
+String fill_bright_name= "fill_bright";     
+String fill_alpha_name = "fill_alpha";
+
+String stroke_hue_name = "stroke_hue"; 
+String stroke_sat_name = "stroke_sat"; 
+String stroke_bright_name= "stroke_bright"; 
+String stroke_alpha_name = "stroke_alpha";
+
+String thickness_name = "thickness"; 
+
+String size_x_name = "size_x";     
+String size_y_name = "size_y";     
+String size_z_name = "size_z";
+
+String diameter_name = "diameter";
+
+String canvas_x_name = "canvas_x"; 
+String canvas_y_name = "canvas_y"; 
+String canvas_z_name = "canvas_z";
+
+String frequence_name = "frequence" ;
+
+String speed_x_name = "speed_x"; 
+String speed_y_name = "speed_y"; 
+String speed_z_name = "speed_z";
+
+String spurt_x_name = "spurt_x"; 
+String spurt_y_name= "spurt_y"; 
+String spurt_z_name = "spurt_z";
+
+String dir_x_name = "dir_x"; 
+String dir_y_name = "dir_y"; 
+String dir_z_name = "dir_z";
+
+String jitter_x_name = "jitter_x"; 
+String jitter_y_name = "jitter_y"; 
+String jitter_z_name = "jitter_z";
+
+String swing_x_name = "swing_x"; 
+String swing_y_name = "swing_y"; 
+String swing_z_name = "swing_z";
+
+String quantity_name = "quantity"; 
+String variety_name = "variety"; 
+
+String life_name = "life"; 
+String flow_name = "flow"; 
+String quality_name = "quality";
+
+String area_name = "area"; 
+String angle_name = "angle"; 
+String scope_name = "scope"; 
+String scan_name = "scan";
+
+String alignment_name = "alignment"; 
+String repulsion_name = "repulsion"; 
+String attraction_name = "attraction"; 
+String density_name = "density";
+
+String influence_name = "influence"; 
+String calm_name = "calm"; 
+String spectrum_name = "spectrum";
+
+String grid_name = "grid"; 
+String viscosity_name = "viscosity"; 
+String diffusion_name = "diffusion";
+
+String power_name = "power"; 
+String mass_name = "mass";
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -294,78 +404,10 @@ float [] influence_item, calm_item, spectrum_item;
 float [] grid_item;
 float [] viscosity_item,diffusion_item;
 
-/**
-String name
-Used for SCENE don't delete
-*/
-String fill_hue_name = "fill_hue" ;     
-String fill_sat_name = "fill_sat" ;     
-String fill_bright_name= "fill_bright" ;     
-String fill_alpha_name = "fill_alpha" ;
+float [] power_item;
+float [] mass_item;
 
-String stroke_hue_name = "stroke_hue" ; 
-String stroke_sat_name = "stroke_sat" ; 
-String stroke_bright_name= "stroke_bright" ; 
-String stroke_alpha_name = "stroke_alpha" ;
 
-String thickness_name = "thickness" ; 
-
-String size_x_name = "size_x" ;     
-String size_y_name = "size_y" ;     
-String size_z_name = "size_z" ;
-
-String diameter_name = "diameter";
-
-String canvas_x_name = "canvas_x" ; 
-String canvas_y_name = "canvas_y" ; 
-String canvas_z_name = "canvas_z" ;
-
-String frequence_name = "frequence" ;
-
-String speed_x_name = "speed_x" ; 
-String speed_y_name = "speed_y" ; 
-String speed_z_name = "speed_z" ;
-
-String spurt_x_name = "spurt_x" ; 
-String spurt_y_name= "spurt_y"; 
-String spurt_z_name = "spurt_z" ;
-
-String dir_x_name = "dir_x" ; 
-String dir_y_name = "dir_y" ; 
-String dir_z_name = "dir_z" ;
-
-String jitter_x_name = "jitter_x" ; 
-String jitter_y_name = "jitter_y" ; 
-String jitter_z_name = "jitter_z" ;
-
-String swing_x_name = "swing_x" ; 
-String swing_y_name = "swing_y" ; 
-String swing_z_name = "swing_z";
-
-String quantity_name = "quantity" ; 
-String variety_name = "variety"; 
-
-String life_name = "life" ; 
-String flow_name = "flow" ; 
-String quality_name = "quality";
-
-String area_name = "area" ; 
-String angle_name = "angle" ; 
-String scope_name = "scope" ; 
-String scan_name = "scan" ;
-
-String alignment_name = "alignment" ; 
-String repulsion_name = "repulsion" ; 
-String attraction_name = "attraction" ; 
-String density_name = "density" ;
-
-String influence_name = "influence" ; 
-String calm_name = "calm" ; 
-String spectrum_name = "spectrum" ;
-
-String grid_name = "grid" ; 
-String viscosity_name = "viscosity" ; 
-String diffusion_name = "diffusion" ;
 
 String [] bitmap_path_ref, svg_path_ref;
 // movie_path_ref;
@@ -396,32 +438,32 @@ Vec3 [] dir_item_final;
 Vec3 [] dir_item_ref;
 
 // master and follower
-int [] master_ID ;
-boolean [] follower ;
+int [] master_ID;
+boolean [] follower;
 //setting and save
-int NUM_SETTING_CAMERA  ;
-int numSettingOrientationObject = 1 ;
-Vec3 [][] item_setting_position ;
-Vec3 [][] item_setting_direction ;
-Vec3 [] eyeCameraSetting, sceneCameraSetting ;
+int NUM_SETTING_CAMERA;
+int numSettingOrientationObject = 1;
+Vec3 [][] item_setting_position;
+Vec3 [][] item_setting_direction;
+Vec3 [] eyeCameraSetting, sceneCameraSetting;
 
 //position of object and wheel
-Vec3 [] mouse, pen ;
+Vec3 [] mouse, pen;
 boolean [] clickShortLeft, clickShortRight, clickLongLeft, clickLongRight;
-int wheel[] ;
+int wheel[];
 
 
 //boolean object
 boolean [] birth, colour, dimension, horizon, motion, orbit, reverse, special, wire;
-boolean [] fill_is, stroke_is ;
-boolean [] setting, clearList ;
+boolean [] fill_is, stroke_is;
+boolean [] setting, clearList;
 
 //font
-int numFont = 50 ;
-String [] path_font_library, path_font_item ;
-String path_font_default_ttf ;
-PFont font_library ;
-PFont [] font_item ;
+int numFont = 50;
+String [] path_font_library, path_font_item;
+String path_font_default_ttf;
+PFont font_library;
+PFont [] font_item;
 
 
 
@@ -438,16 +480,16 @@ PFont [] font_item ;
 
 //MISC
 //var to init the data of the object when is switch ON for the first time
-boolean [] init_value_mouse, init_value_controller ;
+boolean [] init_value_mouse, init_value_controller;
 //parameter for the super class
-float [] left,right,mix ;
+float [] left,right,mix;
 // transient
 float [][] transient_value;
 // float [] beat, kick, snare, hat ;
 // spectrum
-float band[][] ;
+float band[][];
 //tempo
-float [] tempo, tempoBeat, tempoKick, tempoSnare, tempoHat ;
+float [] tempo, tempoBeat, tempoKick, tempoSnare, tempoHat;
 
 
 
@@ -700,7 +742,12 @@ void create_var_item_slider() {
   grid_item = new float[NUM_ITEM_PLUS_MASTER];
   viscosity_item = new float[NUM_ITEM_PLUS_MASTER];
   diffusion_item = new float[NUM_ITEM_PLUS_MASTER];
+
+  power_item = new float[NUM_ITEM_PLUS_MASTER];
+  mass_item = new float[NUM_ITEM_PLUS_MASTER];
 }
+
+
 
 
 
@@ -732,10 +779,8 @@ void create_var_item_slider() {
 
 /**
 INIT VAR 
-v 1.1.2
 */
 void init_variable_item_min_max() {
-
   float ratio_min_deci = .1;
   float ratio_min_centi = .01;
   float ratio_min_milli = .001;
@@ -811,7 +856,11 @@ void init_variable_item_min_max() {
 
   grid_min_max = Vec2(max_size *ratio_min_deci, max_size *ratio_max); 
   viscosity_min_max = Vec2(0,1); 
-  diffusion_min_max = Vec2(01);
+  diffusion_min_max = Vec2(0,1);
+
+  power_min_max = Vec2(0,1); 
+
+  mass_min_max = Vec2(0,1);
 }
 
 
@@ -842,13 +891,13 @@ void init_variable_item() {
     size_y_item [i] = (float)width *.05; 
     size_z_item [i] = (float)width *.05;
 
-    size_x_item [i] = 10 ;
+    size_x_item [i] = 10;
 
     canvas_x_item [i] = width; 
     canvas_y_item [i] = width; 
     canvas_z_item [i] = width;
 
-    // COL B
+    // COL 2
     frequence_item[i] = 0;
 
     speed_x_item [i] = 0; 
@@ -871,7 +920,7 @@ void init_variable_item() {
     swing_y_item [i] = 0; 
     swing_z_item [i] = 0; 
     
-    // col C
+    // COL 3
     quantity_item [i] = .1; 
     variety_item [i] = 0; 
 
@@ -892,14 +941,17 @@ void init_variable_item() {
     influence_item [i] = 0; 
     calm_item [i] = 0; 
     spectrum_item [i] = 0; 
-    // col D
+
+    // COL 4
     grid_item [i] = width; 
     viscosity_item [i] = 0; 
     diffusion_item [i] = 0; 
+    power_item [i] = 0; 
+    mass_item [i] = 0; 
   }
     // init global var for the color obj preview mode display
-  COLOR_FILL_ITEM_PREVIEW = color (0,0,100,30); 
-  COLOR_STROKE_ITEM_PREVIEW = color (0,0,100,30);
+  COLOR_FILL_ITEM_PREVIEW = color(0,0,100,30); 
+  COLOR_STROKE_ITEM_PREVIEW = color(0,0,100,30);
 }
 
 
@@ -926,7 +978,6 @@ void init_slider_variable_world() {
   value_slider_background[1] = g.colorModeY;
   value_slider_background[2] = 0;
   value_slider_background[3] = g.colorModeA;
-
 }
 
 
@@ -946,32 +997,90 @@ void init_slider_variable_world() {
 /**
 button general var setting
 */
-
-// general button
-boolean curtain_button_is() {
-  return curtain_button_is;
-}
-
-boolean reset_camera_button_is() {
+/**
+ALERT BUTTON
+*this button must became false immetiatly after using
+*/
+// general button alert
+boolean reset_camera_button_alert_is() {
   return reset_camera_button_is;
 }
 
-boolean reset_item_on_button_is() {
+boolean reset_item_on_button_alert_is() {
   return reset_item_on_button_is;
 }
 
-boolean birth_button_is() {
+boolean birth_button_alert_is() {
   return birth_button_is;
 }
 
-boolean dimension_button_is() {
+boolean dimension_button_alert_is() {
   return dimension_button_is;
+}
+
+
+// set boolean button alert
+void reset_camera_button_alert_is(boolean is) {
+  reset_camera_button_is = is;
+}
+
+void reset_item_on_button_alert_is(boolean is) {
+  reset_item_on_button_is = is;
+}
+
+void birth_button_alert_is(boolean is) {
+  birth_button_is = is;
+}
+
+void dimension_button_alert_is(boolean is) {
+  dimension_button_is = is;
+}
+
+
+// set false button alert
+boolean button_alert_is = false;
+void reset_button_alert() {
+  if(reset_camera_button_alert_is() && button_alert_is) {
+    reset_camera_button_alert_is(false);
+    button_alert_is = false;
+  }
+
+  if(reset_item_on_button_alert_is() && button_alert_is) {
+    reset_item_on_button_alert_is(false);
+    button_alert_is = false;
+  }
+
+  if(birth_button_alert_is() && button_alert_is) {
+    birth_button_alert_is(false);
+    button_alert_is = false;
+  }
+
+  if(dimension_button_alert_is()&& button_alert_is) {
+    dimension_button_alert_is(false);
+    button_alert_is = false;
+  }
+
+  if(reset_camera_button_alert_is() || reset_item_on_button_alert_is() || birth_button_alert_is() || dimension_button_alert_is()) {
+    button_alert_is = true;
+  }
+}
+
+
+
+
+
+
+/**
+CLASSIC BUTTON
+*/
+// general button classic
+boolean curtain_button_is() {
+  return curtain_button_is;
 }
 
 boolean background_button_is() {
   return background_button_is;
 }
-
 
 boolean ambient_button_is() {
   return ambient_button_is;
@@ -1007,27 +1116,10 @@ boolean fx_button_is(int index) {
 
 
 // set boolean
-
-
 void curtain_button_is(boolean is) {
   curtain_button_is = is;
 }
 
-void reset_camera_button_is(boolean is) {
-  reset_camera_button_is = is;
-}
-
-void reset_item_on_button_is(boolean is) {
-  reset_item_on_button_is = is;
-}
-
-void birth_button_is(boolean is) {
-  birth_button_is = is;
-}
-
-void dimension_button_is(boolean is) {
-  dimension_button_is = is;
-}
 
 void background_button_is(boolean is) {
   background_button_is = is;
@@ -1090,9 +1182,9 @@ v 0.0.2
 Those value are used to updated the object data value, and updated at the end of the loop the temp value
 */
 void update_raw_item_value() {
-   int minSource = 0 ;
-   int smooth_slider = 2 ;
-   // COL A
+  int minSource = 0 ;
+  int smooth_slider = 2 ;
+  // COL 1
   // fill
   fill_hue_raw = (int)map(value_slider_item[0], minSource, MAX_VALUE_SLIDER, fill_hue_min_max.x, fill_hue_min_max.y);
   fill_sat_raw = (int)map(value_slider_item[1], minSource, MAX_VALUE_SLIDER, fill_sat_min_max.x, fill_sat_min_max.y);    
@@ -1116,7 +1208,7 @@ void update_raw_item_value() {
   canvas_y_raw = map_smooth_start(value_slider_item[14], minSource, MAX_VALUE_SLIDER, canvas_y_min_max.x, canvas_y_min_max.y, smooth_slider);
   canvas_z_raw = map_smooth_start(value_slider_item[15], minSource, MAX_VALUE_SLIDER, canvas_z_min_max.x, canvas_z_min_max.y, smooth_slider);
   
-  // COL B
+  // COL 2
   // frequence raw
   frequence_raw = map(value_slider_item[16], minSource, MAX_VALUE_SLIDER, frequence_min_max.x, frequence_min_max.y);
   // speed
@@ -1140,7 +1232,7 @@ void update_raw_item_value() {
   swing_y_raw = map(value_slider_item[30], minSource, MAX_VALUE_SLIDER, swing_y_min_max.x, swing_y_min_max.y);
   swing_z_raw = map(value_slider_item[31], minSource, MAX_VALUE_SLIDER, swing_z_min_max.x, swing_z_min_max.y);
   
-  // COL C
+  // COL 3
   // misc
   quantity_raw = map(value_slider_item[32], minSource, MAX_VALUE_SLIDER, quantity_min_max.x, quantity_min_max.y);
   variety_raw = map(value_slider_item[33], minSource, MAX_VALUE_SLIDER, variety_min_max.x, variety_min_max.y);
@@ -1164,18 +1256,20 @@ void update_raw_item_value() {
   calm_raw = map(value_slider_item[46], minSource, MAX_VALUE_SLIDER, calm_min_max.x, calm_min_max.y);
   spectrum_raw = map(value_slider_item[47], minSource, MAX_VALUE_SLIDER, spectrum_min_max.x, spectrum_min_max.y); 
 
-  // COL D
+  // COL 4
   grid_raw = map(value_slider_item[48], minSource, MAX_VALUE_SLIDER, grid_min_max.x, grid_min_max.y);
 
   viscosity_raw = map(value_slider_item[49], minSource, MAX_VALUE_SLIDER, viscosity_min_max.x, viscosity_min_max.y);
   diffusion_raw = map(value_slider_item[50], minSource, MAX_VALUE_SLIDER, diffusion_min_max.x, diffusion_min_max.y); 
 
+  power_raw = map(value_slider_item[51], minSource, MAX_VALUE_SLIDER, power_min_max.x, power_min_max.y);
+  mass_raw = map(value_slider_item[52], minSource, MAX_VALUE_SLIDER, mass_min_max.x, mass_min_max.y); 
 }
 
 
 /* Those temp value are used to know is the object value must be updated */
 void update_temp_value() {
-  // COL A
+  // COL 1
   fill_hue_temp = fill_hue_raw;
   fill_sat_temp = fill_sat_raw;    
   fill_bright_temp = fill_bright_raw;   
@@ -1185,7 +1279,7 @@ void update_temp_value() {
   stroke_sat_temp = stroke_sat_raw;  
   stroke_bright_temp = stroke_bright_raw; 
   stroke_alpha_temp = stroke_alpha_raw;
-  //
+
   thickness_temp= thickness_raw;
 
   size_x_temp = size_x_raw;
@@ -1197,7 +1291,8 @@ void update_temp_value() {
   canvas_x_temp = canvas_x_raw;
   canvas_y_temp = canvas_y_raw;
   canvas_z_temp = canvas_z_raw;
-  // COL B
+
+  // COL 2
   // misc
   frequence_temp = frequence_raw;
   // speed
@@ -1220,7 +1315,8 @@ void update_temp_value() {
   swing_x_temp = swing_x_raw;
   swing_y_temp = swing_y_raw;
   swing_z_temp = swing_z_raw;
-  // COL C
+
+  // COL 3
   quantity_temp = quantity_raw;
   variety_temp = variety_raw;
 
@@ -1241,10 +1337,14 @@ void update_temp_value() {
   influence_temp = influence_raw;
   calm_temp = calm_raw;
   spectrum_temp = spectrum_raw;
-  // COL D
+
+  // COL 4
   grid_temp = grid_raw;
   viscosity_temp = viscosity_raw;
   diffusion_temp = diffusion_raw;
+
+  power_temp = power_raw;
+  mass_temp = mass_raw;
 }
 
 

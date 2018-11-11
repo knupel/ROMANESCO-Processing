@@ -5,22 +5,16 @@ Todo Romanesco
 
 */
 
-*ON / OFF
 
-Gros bouton pour éteindre et allumer
+*WEB CAM
+
+Problem when there is two camera connected ???? example with the laptop one and the display one, the both is one and the app lag deeply.
 
 
-*Souris
-
-Mouvements trop brutaux, option smooth
 
 *Instruction
 
 For building software changed the name of cyberpunk.txt for readme.txt or hack_the_mac.md
-
-*FILL
-
-probleme avec les slider couleur, ils ne gardent pas en memoire les réglage et ça revient vers le rouge
 
 
 *MIDI
@@ -133,6 +127,11 @@ Finalize save Scene when all slider are done
 *ITEM and SHADER effect
 
 
+*Force Field
+
+big problem with the gravity mode > crash the app
+The problem is the initialization, that's ok when Puppet master is ON, but without MAGNETIC don't work and GRAVITY cause a CRASH
+
 *Letter
 
 ITEM NE FONCTIONNAT PAS SUITE AU CHANGEMENT DE METHODE COSTUME
@@ -152,6 +151,8 @@ Quand il n'y a pas de couleur cela doit être en noir et blanc
 *Background
 
 May add a possibility to read picture and video on it ?
+
+
 
 
 
@@ -187,9 +188,6 @@ use line instead rect to show colour
 Supprimer cette librairie
 
 
-*2D
-
-Bouton pour bloquer les rotations de caméra, comme cela on pourra faire de la 2D dans un monde 3D
 
 *camera video
 

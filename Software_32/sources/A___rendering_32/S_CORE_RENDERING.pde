@@ -1246,17 +1246,34 @@ float cycle(float add) {
 }
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /**
-NEXT PREVIOUS
+PAD TRACKING
+2013-2018
 */
-void nextPreviousKeypressed() {
+void pad_up_down_left_right() {
   nextPrevious = true ;
 }
 
 /**
 tracking with pad
 */
-int tracking(int t, int n) {
+int pad_tracking(int t, int n) {
   if (nextPrevious) {
     if (key_down && t < n-1 ) {
       trackerUpdate = +1 ;
