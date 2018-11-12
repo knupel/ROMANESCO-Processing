@@ -1,9 +1,11 @@
 /**
 ADD MEDIA
-v 0.1.0
+v 0.1.1
 */
+String input_ref;
 void add_media() {
-  if(load_media_input) {
+  if(load_media_input && input() != null && !input().equals(input_ref)) {
+    input_ref = input();
     add_media(input());
     load_media_input = false;
     autosave();  

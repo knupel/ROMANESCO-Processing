@@ -1,13 +1,13 @@
 /**
 Kino
 2018-2018
-v 0.0.5
+v 0.0.6
 */
 class Kino extends Romanesco {
 	public Kino() {
 		item_name = "Kino";
 		item_author  = "Stan le Punk";
-		item_version = "Version 0.0.5";
+		item_version = "Version 0.0.6";
 		item_pack = "Base 2018-2018";
 		item_costume = ""; // separate the differentes mode by "/"
 		item_mode = "Movie/Diaporama/Movie 3D/Diaporama 3D"; // separate the differentes mode by "/"
@@ -62,34 +62,50 @@ class Kino extends Romanesco {
     // influence_is = true;
     // calm_is = true;
     spectrum_is = true;
+
+    // grid_is = true;
+    // viscosity_is = true;
+    // diffusion_is = true;
+    pos_x_is = true;
+    // pos_y_is = true;
+    // pos_z_is = true;
 	}
 
 	void setup() {
 		setting_start_position(ID_item,0,0,0);
 		load_movie(true,ID_item);
 	}
-  
 
-  
+
+
+  float pos_ref;
 	void draw() {
     param();
-    if(movie[ID_item] != null && mode[ID_item] != 0 && mode[ID_item] != 2) {
-      movie[ID_item].pause();
+    if(get_movie() != null && get_mode() != 0 && get_mode() != 2) {
+      get_movie().pause();
     }
 
-		if(movie[ID_item] != null && mode[ID_item] == 2) {
+		if(get_movie() != null && get_mode() == 2) {
 			kino_movie(colour,FIT);
-		} else if(mode[ID_item] == 3) {
+		} else if(get_mode() == 3) {
 			kino_bitmap(colour,FIT);
 		}
+
+    if(parameter_is() && get_movie() != null) {
+      if(pos_ref != get_pos_x()) {
+        pos_ref = get_pos_x();
+        float pos = get_pos_x() *get_movie().duration();
+        get_movie().jump(pos);
+      }     
+    }
 	}
 
   void draw_2D() {
     param();
-    if(mode[ID_item] == 0) {
+    if(get_mode() == 0) {
       kino_movie(colour,SCREEN);
 
-    } else if(mode[ID_item] == 1) {
+    } else if(get_mode() == 1) {
       kino_bitmap(colour,SCREEN);
     }
   }
@@ -102,22 +118,25 @@ class Kino extends Romanesco {
   // kino movie
   int ref_which_movie;
 	private void kino_movie(int c, int what) {
-		if(ref_which_movie != which_movie[ID_item]) {
+		if(ref_which_movie != which_movie()) {
+      movie_time[ref_which_movie] = get_movie().time();
 			load_movie(true,ID_item);
-
-			ref_which_movie = which_movie[ID_item];
+      if(movie_time[which_movie()] < get_movie().duration()) {
+        get_movie().jump(movie_time[which_movie()]);
+      }
+			ref_which_movie = which_movie();
 		} else {
 			// need to write in case the movie path file change or new movie is imported
 			load_movie(false,ID_item);
 		}
-    if(movie[ID_item] != null) {
-  		if(motion[ID_item]) {
-  			movie[ID_item].loop();
+    if(get_movie() != null) {
+  		if(motion_is()) {
+  			get_movie().loop();
   		} else {
-  			movie[ID_item].pause();
+  			get_movie().pause();
   		}
       manage_tint(c);
-      image(movie[ID_item],what);
+      image(get_movie(),what);
     }
 	}
 
@@ -126,7 +145,7 @@ class Kino extends Romanesco {
 	private void kino_bitmap(int c, int what) {
 		load_bitmap(ID_item);
     manage_tint(c);
-		image(bitmap[ID_item],what);
+		image(get_bitmap(),what);
 	}
 
 

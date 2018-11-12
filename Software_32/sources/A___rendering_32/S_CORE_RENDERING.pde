@@ -1,7 +1,7 @@
 /**
 CORE SCENE and PRESCENE 
 2015-2018
-v 1.6.2
+v 1.6.3
 */
 import java.net.*;
 import java.io.*;
@@ -406,22 +406,6 @@ void message_opening() {
 MANAGE SAVE
 v 0.0.5
 */
-void media_init_path() {
-  update_movie_path();
-  update_svg_path();
-  update_text_path();
-  update_bitmap_path();
-}
-void media_update(int frequence) {
-  if(frameCount%frequence == 0) {
-    update_movie_path();
-    update_svg_path();
-    update_text_path();
-    update_bitmap_path();
-    thread("load_autosave");
-  }
-}
-
 void load_autosave() {
   load_save(autosave_path);
 }
@@ -446,23 +430,43 @@ void load_save(String path) {
 
 
 
+/*
+MANAGE MEDIA
+v 1.0.0
+*/
+void media_init_path() {
+  update_movie_path();
+  update_svg_path();
+  update_text_path();
+  update_bitmap_path();
+}
+void media_update(int frequence) {
+  if(frameCount%frequence == 0) {
+    update_movie_path();
+    update_svg_path();
+    update_text_path();
+    update_bitmap_path();
+    thread("load_autosave");
+  }
+}
+
 
 /**
 svg
 */
-ROPE_svg[] svg_import ;
-String svg_current_path ;
-String [] svg_path ;
-void load_svg(int ID) {
+ROPE_svg[] svg_import;
+String svg_current_path;
+String [] svg_path;
+void load_svg(int id) {
   // which_bitmap is the int return from the dropdown menu
-  if(which_shape[ID] > svg_path.length ) which_shape[ID] = 0;
+  if(which_shape[id] > svg_path.length ) which_shape[id] = 0;
 
-  if(svg_path != null && svg_path.length > 0 && svg_path[which_shape[ID]] != null) {
-    svg_current_path = svg_path[which_shape[ID]];
-    if(!svg_current_path.equals(svg_path_ref[ID])) {
-      svg_import[ID] = new ROPE_svg(this, svg_current_path, "bricks");
+  if(svg_path != null && svg_path.length > 0 && which_shape[id] < svg_path.length && svg_path[which_shape[id]] != null) {
+    svg_current_path = svg_path[which_shape[id]];
+    if(!svg_current_path.equals(svg_path_ref[id])) {
+      svg_import[id] = new ROPE_svg(this, svg_current_path, "bricks");
     }
-    svg_path_ref[ID] = svg_current_path;
+    svg_path_ref[id] = svg_current_path;
   }
 }
 
@@ -476,6 +480,19 @@ void update_svg_path() {
   }
 }
 
+void change_svg_from_pad(int ID) {
+  which_shape[ID] = pad_inc(which_shape[ID],UP);
+  which_shape[ID] = pad_inc(which_shape[ID],DOWN);
+  which_shape[ID] = pad_inc(which_shape[ID],RIGHT);
+  which_shape[ID] = pad_inc(which_shape[ID],LEFT);
+
+  if(which_shape[ID] < 0) {
+    which_shape[ID] = svg_path.length -1;
+  } else if (which_shape[ID] >= svg_path.length) {
+     which_shape[ID] = 0;
+  }
+}
+
 
 
 
@@ -485,13 +502,13 @@ text
 */
 String[] text_import ;
 String [] text_path;
-void load_txt(int ID) {
+void load_txt(int id) {
   // which_text is the int return from the dropdown menu
-  if(text_path != null && text_path.length > 0 && text_path[which_text[ID]] != null) {
-    if(which_text[ID] > text_path.length ) which_text[ID] = 0;
-    text_import[ID] = importText(text_path[which_text[ID]]);
+  if(text_path != null && text_path.length > 0 && which_text[id] < text_path.length && text_path[which_text[id]] != null) {
+    if(which_text[id] > text_path.length ) which_text[id] = 0;
+    text_import[id] = importText(text_path[which_text[id]]);
   } else {
-    text_import[ID] = "Big Brother has been burning all books, it's not possible to read anything";
+    text_import[id] = "Big Brother has been burning all books, it's not possible to read anything";
   }    
 }
 
@@ -506,6 +523,20 @@ void update_text_path() {
   }
 }
 
+void change_text_from_pad(int ID) {
+  which_text[ID] = pad_inc(which_text[ID],UP);
+  which_text[ID] = pad_inc(which_text[ID],DOWN);
+  which_text[ID] = pad_inc(which_text[ID],RIGHT);
+  which_text[ID] = pad_inc(which_text[ID],LEFT);
+
+  if(which_text[ID] < 0) {
+    which_text[ID] = text_path.length -1;
+  } else if (which_text[ID] >= text_path.length) {
+     which_text[ID] = 0;
+  }
+}
+
+
 
 
 
@@ -515,15 +546,16 @@ bitmap
 */
 PImage[] bitmap ;
 String [] bitmap_path ;
-void load_bitmap(int ID) {
-  if(which_bitmap[ID] > bitmap_path.length) which_bitmap[ID] = 0;
-
-  if(bitmap_path != null && bitmap_path.length > 0 && bitmap_path[which_bitmap[ID]] != null) {
-    String bitmap_current_path = bitmap_path[which_bitmap[ID]];
-    if(!bitmap_current_path.equals(bitmap_path_ref[ID])) {
-      bitmap[ID] = loadImage(bitmap_current_path);
+void load_bitmap(int id) {
+  if(which_bitmap[id] > bitmap_path.length) {
+    which_bitmap[id] = 0;
+  }
+  if(bitmap_path != null && bitmap_path.length > 0 && which_bitmap[id] < bitmap_path.length && bitmap_path[which_bitmap[id]] != null) {
+    String bitmap_current_path = bitmap_path[which_bitmap[id]];
+    if(!bitmap_current_path.equals(bitmap_path_ref[id])) {
+      bitmap[id] = loadImage(bitmap_current_path);
     }
-    bitmap_path_ref[ID] = bitmap_current_path;
+    bitmap_path_ref[id] = bitmap_current_path;
   }
 }
 
@@ -538,21 +570,17 @@ void update_bitmap_path() {
 }
 
 
+void change_bitmap_from_pad(int ID) {
+  which_bitmap[ID] = pad_inc(which_bitmap[ID],UP);
+  which_bitmap[ID] = pad_inc(which_bitmap[ID],DOWN);
+  which_bitmap[ID] = pad_inc(which_bitmap[ID],RIGHT);
+  which_bitmap[ID] = pad_inc(which_bitmap[ID],LEFT);
 
-
-
-
-/**
-movie 
-*/
-Movie[] movie ;
-String [] movie_path;
-String [] movie_path_ref;
-void load_movie(boolean change_movie_is, int id) {
-  boolean new_movie_is = check_for_new_movie();
-  if(movie_path.length > 0 && (new_movie_is || change_movie_is)) {
-    setting_movie(id,movie_path[which_movie[id]]);
-  }  
+  if(which_bitmap[ID] < 0) {
+    which_bitmap[ID] = bitmap_path.length -1;
+  } else if (which_bitmap[ID] >= bitmap_path.length) {
+     which_bitmap[ID] = 0;
+  }
 }
 
 
@@ -560,11 +588,46 @@ void load_movie(boolean change_movie_is, int id) {
 
 
 
+/**
+movie 
+*/
+void load_movie(boolean change_movie_is, int id) {
+  boolean new_movie_is = check_for_new_movie();
+  if(movie_path.length > 0 && which_movie[id] < movie_path.length && (new_movie_is || change_movie_is)) {
+    setting_movie(id,movie_path[which_movie[id]]);
+  }  
+}
+
+
+void change_movie_from_pad(int ID) {
+  which_movie[ID] = pad_inc(which_movie[ID],UP);
+  which_movie[ID] = pad_inc(which_movie[ID],DOWN);
+  which_movie[ID] = pad_inc(which_movie[ID],RIGHT);
+  which_movie[ID] = pad_inc(which_movie[ID],LEFT);
+
+  if(which_movie[ID] < 0) {
+    which_movie[ID] = movie_path.length -1;
+  } else if (which_movie[ID] >= movie_path.length) {
+    which_movie[ID] = 0;
+  }
+}
+
+
+
+
+
+
+
+
+float [] movie_time;
+String [] movie_path;
+String [] movie_path_ref;
 boolean check_for_new_movie() {
   boolean new_movie_is = false;
   if(movie_path_ref == null || movie_path_ref.length != movie_path.length) {
     new_movie_is = true;
     movie_path_ref = new String[movie_path.length];
+    movie_time = new float[movie_path.length];
   }
   
   // in case there a same quantity of ref we must check if the path ref is the same
@@ -574,11 +637,11 @@ boolean check_for_new_movie() {
       new_movie_is = !movie_path_ref[i].equals(movie_path[i]);
     }
     catch (ArrayIndexOutOfBoundsException e) {
-      System.out.println("boolean check_for_new_movie() catch: ArrayIndexOutOfBoundsException");
+      printErrTempo(60,"boolean check_for_new_movie() catch: ArrayIndexOutOfBoundsException");
 
     }
     catch(Exception e){
-        System.out.println("boolean check_for_new_movie() catch: Some Other exception");
+        printErrTempo(60,"boolean check_for_new_movie() catch: Some Other exception");
      }
     
     if(new_movie_is) {
@@ -1177,119 +1240,20 @@ void repere(int size) {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/**
-UTIL 
-v 0.2.1
-*/
-/**
-detection
-*/
-//CIRLCLE
-boolean insideCircle (PVector pos, int diam) {
-  if (dist(pos.x, pos.y, mouseX, mouseY) < diam) return true  ; else return false ;
-}
-
-//RECTANGLE
-boolean insideRect(PVector pos, PVector size) { 
-    if(mouse[0].x > pos.x && mouse[0].x < pos.x + size.x && mouse[0].y >  pos.y && mouse[0].y < pos.y + size.y) return true ; else return false ;
-}
-
-
-/**
-time
-*/
-int minClock() {
-  return hour()*60 + minute() ;
-}
-
-//timer
-int chrnmtr, chronometer, newChronometer ;
-
-int timer(float tempo) {
-  int translateTempo = int(1000 *tempo) ;
-  newChronometer = millis()%translateTempo ;
-  if ( chronometer > newChronometer ) {
-    chrnmtr += 1  ;
-  }
-  chronometer = newChronometer ;
-  return chrnmtr ;
-}
-
-//make cycle from speed
-float totalCycle ;
-float cycle(float add) {
-  totalCycle += add ; // choice here the speed of the cycle
-  return sin(totalCycle) ;
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 /**
 PAD TRACKING
-2013-2018
 */
-void pad_up_down_left_right() {
-  nextPrevious = true ;
-}
-
-/**
-tracking with pad
-*/
-int pad_tracking(int t, int n) {
-  if (nextPrevious) {
-    if (key_down && t < n-1 ) {
-      trackerUpdate = +1 ;
-    } else if (key_up  && t > 0 ) {
-      trackerUpdate = -1 ;
-    } 
+int pad_inc(int target, int pad) {
+  if(pad == UP && key_up) {
+    target ++;
+  } else if(pad == DOWN && key_down) {
+    target --;
+  } else if(pad == LEFT && key_left) {
+    target --;
+  } else if(pad == RIGHT && key_right) {
+    target ++;
   }
-  if (nextPrevious) {
-    if ( key_left  && t > 0 ) {
-      trackerUpdate = -1 ;
-    } else if ( key_right && t < n-1 ) {
-      trackerUpdate = +1 ;
-    }
-  }
-  nextPrevious = false ;
-  return trackerUpdate ;
+  return target;
 }
 
 
@@ -1571,8 +1535,6 @@ void set_transient() {
   sounda.set_transient_ratio_log(100,50,40,30); 
   sounda.set_transient_threshold_low(.05,.08,.12,.16);
   sounda.set_transient_threshold_high(.8,.3,.25,.20);
-
-
 }
 
 

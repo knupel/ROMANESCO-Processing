@@ -42,6 +42,7 @@ String ROM_VISCOSITY = "";
 String ROM_DIFFUSION = "";
 String ROM_POWER = "";
 String ROM_MASS = "";
+String ROM_POS_X,ROM_POS_Y,ROM_POS_Z = "";
 
 
 void romanesco_build_item() {
@@ -139,10 +140,45 @@ void set_slider_item_name() {
   ROM_DIFFUSION = slider_name[3][2];
   ROM_POWER = slider_name[3][3];
   ROM_MASS = slider_name[3][4];
+  ROM_POS_X = slider_name[3][5];
+  ROM_POS_Y = slider_name[3][6];
+  ROM_POS_Z = slider_name[3][7];
+  /*
+  ROM_XXX = slider_name[3][8];
+  ROM_XXX = slider_name[3][9];
+  ROM_XXX = slider_name[3][10];
+  ROM_XXX = slider_name[3][11];
+  ROM_XXX = slider_name[3][12];
+  ROM_XXX = slider_name[3][13];
+  ROM_XXX = slider_name[3][14];
+  ROM_XXX = slider_name[3][15];
+    */
 }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 //Update the var of the object
+int which_movie_ref, which_bitmap_ref, which_shape_ref, which_text_ref;
 void update_var_items(int ID) {
+  // info
+  item_info_display[ID] = displayInfo?true:false;
+
   //initialization
   if(!init_value_mouse[ID]) { 
     mouse[ID] = mouse[0].copy();
@@ -159,15 +195,30 @@ void update_var_items(int ID) {
     which_shape[ID] = which_shape[0];
     which_movie[ID] = which_movie[0];
   }
-  
-  // info
-  item_info_display[ID] = displayInfo?true:false;
+
+
   
   if(parameter[ID]) {
-    which_bitmap[ID] = which_bitmap[0];
-    which_text[ID] = which_text[0];
-    which_shape[ID] = which_shape[0];
-    which_movie[ID] = which_movie[0];
+    if(which_bitmap_ref !=  which_bitmap[0]) {
+      which_bitmap[ID] = which_bitmap[0];
+      which_bitmap_ref = which_bitmap[0];
+    }
+
+    if(which_text_ref !=  which_text[0]) {
+      which_text[ID] = which_text[0];
+      which_text_ref = which_text[0];
+    }
+
+    if(which_movie_ref !=  which_movie[0]) {
+      which_movie[ID] = which_movie[0];
+      which_movie_ref = which_movie[0];
+    }
+
+    if(which_shape_ref !=  which_shape[0]) {
+      which_shape[ID] = which_shape[0];
+      which_shape_ref = which_shape[0];
+    }
+
     font_item[ID] = font_library;
     update_slider_value(ID);
   }
@@ -195,8 +246,35 @@ void update_var_items(int ID) {
     clickLongRight[ID] = ORDER_TWO;
     clickShortLeft[ID] = clickShortLeft[0];
     clickShortRight[ID] = clickShortRight[0];
+
+    change_bitmap_from_pad(ID);
+    change_movie_from_pad(ID);
+    change_text_from_pad(ID);
+    change_svg_from_pad(ID);
+
+    if(motion[ID]) {
+      if(movie[ID] != null) movie[ID].loop();
+    } else {
+      if(movie[ID] != null) movie[ID].pause();
+    }
   }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -350,6 +428,9 @@ void update_slider_value(int ID) {
   if (diffusion_raw != diffusion_temp || !init) diffusion_item[ID] = diffusion_raw;
   if (power_raw != power_temp || !init) power_item[ID] = power_raw;
   if (mass_raw != mass_temp || !init) mass_item[ID] = mass_raw;
+  if (pos_x_raw != pos_x_temp || !init) pos_x_item[ID] = pos_x_raw; 
+  if (pos_y_raw != pos_y_temp || !init) pos_y_item[ID] = pos_y_raw; 
+  if (pos_z_raw != pos_z_temp || !init) pos_z_item[ID] = pos_z_raw;
   /** 
   make the obj has be never update in the future except by the moving slider 
   */

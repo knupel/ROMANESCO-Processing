@@ -78,7 +78,7 @@ LOAD
 */
 
 void key_pressed_media_input() {
-  if(key_pressed(KEY_CTRL_OS) && key_pressed(KeyEvent.VK_I) ) {
+  if(key_pressed(KEY_CTRL_OS) && key_pressed(KeyEvent.VK_I)) {
     if(system().equals("Mac OS X")) {
       println("CMD + i: load media input",frameCount);
     } else {
@@ -91,7 +91,7 @@ void key_pressed_media_input() {
 }
 
 void key_pressed_media_folder() {
-  if(key_pressed(KEY_CTRL_OS) && key_pressed(KeyEvent.VK_F) ) {
+  if(key_pressed(KEY_CTRL_OS) && key_pressed(KeyEvent.VK_F)) {
     if(system().equals("Mac OS X")) {
       println("CMD + f: load media folder",frameCount);
     } else {
@@ -106,11 +106,11 @@ void key_pressed_media_folder() {
 
 
 void key_pressed_load_scene() {
-  if(key_pressed(KEY_CTRL_OS) && key_pressed(KeyEvent.VK_L) ) {
+  if(key_pressed(KEY_CTRL_OS) && key_pressed(KeyEvent.VK_L)) {
     if(system().equals("Mac OS X")) {
-      println("CMD + l: load scene", frameCount);
+      println("CMD + l: load scene",frameCount);
     } else {
-      println("CTRL + l: load scene", frameCount);
+      println("CTRL + l: load scene",frameCount);
     }
     load_scene_setting = true;
     keyboard[keyCode] = false;   //  
@@ -118,11 +118,11 @@ void key_pressed_load_scene() {
 }
 
 void key_pressed_load_controller() {
-  if(key_pressed(KEY_CTRL_OS) && key_pressed(KeyEvent.VK_O) ) { 
+  if(key_pressed(KEY_CTRL_OS) && key_pressed(KeyEvent.VK_O)) { 
     if(system().equals("Mac OS X")) {
-      println("CMD + o: load controller", frameCount);
+      println("CMD + o: load controller",frameCount);
     } else {
-      println("CTRL + o: load controller", frameCount);
+      println("CTRL + o: load controller",frameCount);
     }
     selectInput("Load setting controller", "load_setting_controller"); // ("display info in the window" , "name of the method callingBack" )
     keyboard[keyCode] = false;   //  
@@ -137,9 +137,9 @@ SAVE
 void key_pressed_save_scene_CURRENT_path() {
   if(key_pressed(KEY_CTRL_OS) && key_pressed(KeyEvent.VK_D) ) {
     if(system().equals("Mac OS X")) {
-      println("CMD + d: save current scene on the last save", frameCount);
+      println("CMD + d: save current scene on the last save",frameCount);
     } else {
-      println("CTRL + d: save current scene on the last save", frameCount);
+      println("CTRL + d: save current scene on the last save",frameCount);
     }
     save_current_scene_setting = true ;
     keyboard[keyCode] = false ;   // just open one window, when use only the keyboard, if you don't use that open all the windows save and open
@@ -149,9 +149,9 @@ void key_pressed_save_scene_CURRENT_path() {
 void key_pressed_save_scene_NEW_path() {
   if(key_pressed(KEY_CTRL_OS) && key_pressed(KeyEvent.VK_S) ) {
     if(system().equals("Mac OS X")) {
-      println("CMD + s: save a new save", frameCount);
+      println("CMD + s: save a new save",frameCount);
     } else {
-      println("CTRL + s: save a new save", frameCount);
+      println("CTRL + s: save a new save",frameCount);
     }
     save_new_scene_setting = true ;
     keyboard[keyCode] = false ;   // just open one window, when use only the keyboard, if you don't use that open all the windows save and open
@@ -160,11 +160,11 @@ void key_pressed_save_scene_NEW_path() {
 
 
 void key_pressed_save_controller_CURRENT_path() {
-  if(key_pressed(KEY_CTRL_OS) && key_pressed(KeyEvent.VK_R) ) {
+  if(key_pressed(KEY_CTRL_OS) && key_pressed(KeyEvent.VK_R)) {
     if(system().equals("Mac OS X")) {
-      println("CMD + r: save controller on the last save controller", frameCount);
+      println("CMD + r: save controller on the last save controller",frameCount);
     } else {
-      println("CTRL + r: save controller on the last save controller", frameCount);
+      println("CTRL + r: save controller on the last save controller",frameCount);
     }
     show_all_slider_item = true ;
     if (savePathSetting.equals("")) {
@@ -177,11 +177,11 @@ void key_pressed_save_controller_CURRENT_path() {
 // Controller new save
 // CTRL + SHIFT + E
 void key_pressed_save_controller_NEW_path() {
-  if(key_pressed(KEY_CTRL_OS) && key_pressed(KeyEvent.VK_E) ) {
+  if(key_pressed(KEY_CTRL_OS) && key_pressed(KeyEvent.VK_E)) {
     if(system().equals("Mac OS X")) {
-      println("CMD + e: save new controller save", frameCount);
+      println("CMD + e: save new controller save",frameCount);
     } else {
-      println("CTRL + e: save new controller save", frameCount);
+      println("CTRL + e: save new controller save",frameCount);
     }
     show_all_slider_item = true ; 
     File tempFileName = new File ("your_controller_setting.csv");
@@ -189,3 +189,9 @@ void key_pressed_save_controller_NEW_path() {
     keyboard[keyCode] = false ;   // just open one window, when use only the keyboard, if you don't use that open all the windows save and open
   }
 }
+
+
+
+
+
+

@@ -105,8 +105,6 @@ void draw() {
 
   show_dropdown();
   
-
-
   midi_manager(false);
   update_midi();
   update_OSC();

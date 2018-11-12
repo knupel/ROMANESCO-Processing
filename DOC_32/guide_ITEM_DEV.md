@@ -39,8 +39,7 @@ RPE_pack = "Base 2016" ;
 
 *method item
 
-void info(Object... info);
->write the message display when the user ask for information on the Scene
+*get method
 
 int get_costume();
 >return the reference of the costume selected for your item
@@ -53,6 +52,95 @@ int get_id()
 
 int get_id_group()
 >return the group of your item
+
+Movie get_movie()
+> return the current item movie
+
+PImage get_bitmap();
+>return the current item image
+  
+String get_text()
+>return the current item text
+
+ROPE_svg get_svg();
+>return the current item vectorial file
+
+
+
+*is method from prescene
+
+boolean birth_is();
+
+boolean colour_is();
+
+boolean dimension_is();
+  
+boolean horizon_is();
+
+boolean motion_is();
+
+boolean orbit_is();
+
+boolean reverse_is();
+
+boolean special_is();
+
+boolean wire_is();
+
+boolean fill_is();
+
+boolean stroke_is();
+
+boolean setting_is();
+
+boolean clear_list_is();
+
+*get slider method
+
+
+Vec3 get_pos();
+
+float get_pos_x();
+
+float get_pos_y();
+
+float get_pos_z();
+
+
+*is method
+
+boolean show_is();
+  
+boolean sound_is();
+
+boolean action_is();
+
+boolean parameter_is();
+
+*misc method
+
+int pad_inc(int target, int pad);
+>the method is linked with the ARROW key
+
+>parameter
+int target : is incremented and returned
+int pad
+if pad == UP or pad == RIGHT target += 1
+if pad == DOWN or pad == LEFT target += 1
+
+
+void info(Object... info);
+>write the message display when the user ask for information on the Scene
+
+int which_movie();
+>return the rank of current movie 
+
+void load_movie(boolean is, int ID_item) {
+>load the current movie
+
+void load_bitmap(ID_item)
+>load the current bitmap;
+
 
 
 

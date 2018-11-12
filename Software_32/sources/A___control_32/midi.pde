@@ -416,11 +416,7 @@ void update_midi_slider(Slider slider, Cropinfo[] cropinfo) {
       }
       slider.set_id_midi(-2);
     } else if(slider.molette_used_is()) {
-      for(int i = 0 ; i < cropinfo.length ; i++) {
-        if(slider.get_id() == cropinfo[slider.get_id()].get_id()) {
-          cropinfo[i].set_id_midi(midi_CC_romanesco);
-        }
-      }
+      cropinfo[slider.get_id()].set_id_midi(midi_CC_romanesco);
       slider.set_id_midi(midi_CC_romanesco);
     }
   }

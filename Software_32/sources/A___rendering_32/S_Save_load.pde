@@ -287,6 +287,10 @@ void save_data_scene(String path) {
     data_item.setFloat(grid_name, grid_item[i]);
     data_item.setFloat(viscosity_name, viscosity_item[i]);
     data_item.setFloat(diffusion_name, diffusion_item[i]);
+
+    data_item.setFloat(pos_x_name, pos_x_item[i]);
+    data_item.setFloat(pos_y_name, pos_y_item[i]);
+    data_item.setFloat(pos_z_name, pos_z_item[i]);
         
     // position & orientation
     data_item.setFloat("pos x item", pos_item_final[i].x /width);

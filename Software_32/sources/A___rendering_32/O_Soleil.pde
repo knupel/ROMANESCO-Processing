@@ -13,7 +13,6 @@ class Soleil extends Romanesco {
     item_pack = "Base 2013-2018" ;
     item_costume = "" ;
     item_mode = "Beam/Lie'Bro'One/Lie'Bro'Two/Lie'Bro Noisy" ;
-    // item_slider = "Fill hue,Fill sat,Fill bright,Fill alpha,Stroke hue,Stroke sat,Stroke bright,Stroke alpha,Thickness,Canvas X,Quantity,Speed X,Spurt X,Canvas X,Jitter Z" ;
     hue_fill_is = true;
     sat_fill_is = true;
     bright_fill_is = true;

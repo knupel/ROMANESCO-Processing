@@ -14,5 +14,5 @@ slider item b,0,frequence,speed X,speed Y,speed Z,spurt X,spurt Y,spurt Z,direct
 
 slider item c,0,quantity,variety,life,flow,quality,area,angle,scope,scan,alignment,repulsion,attraction,density,influence,calm,spectrum
 
-slider item d,0,grid,viscosity,diffusion,power,mass,< >,< >,< >,< >,< >,< >,< >,< >,< >,< >,< >
+slider item d,0,grid,viscosity,diffusion,power,mass,pos X,pos Y,pos Z,< >,< >,< >,< >,< >,< >,< >,< >
 

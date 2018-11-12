@@ -4,11 +4,13 @@ revision 32
 *MAJOR
 
 >Serial the item ranking, no need to give id and group in the code.
+>Fix MIDI saving slider bug
+>add method in class Romanesco to catch the item parameter easily
 
 *MINOR
 
->fix -partial- bug of button alert when there is item with a lot loop with thousand or more object
->fix bug of bad position of camera when the app starting
+>add method to change media from pad : LEFT,RIGHT,UP,DOWN
+>add slider position
 
 *ITEM
 
@@ -18,14 +20,15 @@ revision 32
 >remove Text
 >remove Damier
 >improve Vectorial : display warning when there is no vectorial media in the library.
+>improve Kino, add slider to control the movie position
 
 
 *BUG FIX
 
-
-
-
-
+>fix -partial- bug of button alert when there is item with a lot loop with thousand or more object
+>fix bug of bad position of camera when the app starting
+>fix importing media bug.
+>fix out bound exception when new media is uploaded
 
 
 

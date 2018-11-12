@@ -154,6 +154,7 @@ void message_general_osc(OscMessage m) {
 }
 
 void message_item_osc(OscMessage m) {
+  // add item slider
   for ( int i = 0 ; i < NUM_SLIDER_ITEM ; i++) {
     add_data_item(m,value_slider_item[i]); 
   }

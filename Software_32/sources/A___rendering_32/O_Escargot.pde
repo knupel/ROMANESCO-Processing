@@ -1,14 +1,14 @@
 /**
 ESCARGOT 
 2011-2018
-V 1.4.8
+V 1.4.9
 */
 class Escargot extends Romanesco {
   public Escargot() {
     //from the index_objects.csv
     item_name = "Image" ;
     item_author  = "Stan le Punk";
-    item_version = "version 1.4.8";
+    item_version = "version 1.4.9";
     item_pack = "Base 2012-2018" ;
     item_costume = "";
     item_mode = "Original/Raw/Point/Ellipse/Rectangle/Box/Cross/SVG/Vitraux" ;
@@ -154,8 +154,7 @@ class Escargot extends Romanesco {
   //SETUP
   void setup() {
     setting_start_position(ID_item, width/2, height/2, 0) ;
-
-    load_bitmap(ID_item) ;
+    load_bitmap(ID_item);
     if(!FULL_RENDERING) maxVoronoiPoints = 250 ;
     //load pattern SVG to display a Pixel pattern you create in Illustrator or other software
     pathSVG = preference_path +"pixel/model.svg" ;
@@ -183,7 +182,9 @@ class Escargot extends Romanesco {
     }
     */
     
-    if(parameter[ID_item]) load_bitmap(ID_item) ;
+    if(parameter[ID_item]) {
+      load_bitmap(ID_item);
+    }
 
     if(bitmap[ID_item] != null) {  
       //MOTION
@@ -402,7 +403,7 @@ class Escargot extends Romanesco {
       PVector newSize = new PVector() ;
       newSize = newSize2D(size, p.size, rangeThreeHundredSixty, rangeHundred, musicFactor, c, forceBeat) ; //<>// //<>//
       
-      if (soundButton[ID_item] == 1) strokeWeight(newSize.x) ; else strokeWeight(p.size.x *size.x) ;
+      if (sound_is()) strokeWeight(newSize.x) ; else strokeWeight(p.size.x *size.x) ;
       
        point(p.pos.x *ratio.x, p.pos.y *ratio.y) ; 
     }
@@ -521,9 +522,9 @@ class Escargot extends Romanesco {
       //show
       box(newSize.x, newSize.y, newSize.z) ;
       /*
-      if (soundButton[ID_item] == 1) { 
+      if (sound_is()) { 
         if( witness > size.z) box(newSize.x, newSize.y, newSize.z) ; 
-      } else if (soundButton[ID_item] == 0){ 
+      } else if (!sound_is()){ 
         box(newSize.x, newSize.y, newSize.z) ; 
       }
       */
@@ -732,7 +733,7 @@ class Escargot extends Romanesco {
   // 2D PIXEL
   PVector newSize2D(PVector size, PVector classSize, PVector range360, PVector range100, PVector factor, int c, int beatAmplitude) {
     PVector result = new PVector() ;
-    if (result.z > size.z || soundButton[ID_item] == 1) {
+    if (result.z > size.z || sound_is()) {
     result.x = beatReactivityHSB(size, classSize, c, range360, range100, factor).x *map(all_transient(ID_item),1,40,1,beatAmplitude);
     result.y = beatReactivityHSB(size, classSize, c, range360, range100, factor).y *map(all_transient(ID_item),1,40,1,beatAmplitude) ;
     result.z = beatReactivityHSB(size, classSize, c, range360, range100, factor).z ;
@@ -751,7 +752,7 @@ class Escargot extends Romanesco {
     result.y = beatReactivityHSB(size, classSize, c, range360, range100, factor).y *map(all_transient(ID_item),1,40,1,beatAmplitude) ;
     result.z = beatReactivityHSB(size, classSize, c, range360, range100, factor).z ;
       
-    if (soundButton[ID_item] == 1) {
+    if (sound_is()) {
       result.x = result.x *size.x ;
       result.y = result.y *size.y ;
       result.z = result.z *size.z *ratioDepth ;
@@ -1791,3 +1792,31 @@ void changeColorOfPixel(ArrayList listMustBeChange ) {
     p.updatePalette() ; 
   }
 }
+
+
+
+
+
+
+
+
+
+
+
+//timer
+int chrnmtr, chronometer, newChronometer ;
+int timer(float tempo) {
+  int translateTempo = int(1000 *tempo) ;
+  newChronometer = millis()%translateTempo ;
+  if (chronometer > newChronometer ) {
+    chrnmtr += 1;
+  }
+  chronometer = newChronometer ;
+  return chrnmtr ;
+}
+
+
+
+
+
+

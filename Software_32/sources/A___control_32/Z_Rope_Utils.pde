@@ -1,6 +1,6 @@
 /**
 Rope UTILS 
-v 1.48.4
+v 1.48.5
 * Copyleft (c) 2014-2018 
 * Stan le Punk > http://stanlepunk.xyz/
 Rope – Romanesco Processing Environment – 
@@ -21,7 +21,6 @@ int which_rope_layer = 0;
 void init_layer() {
   init_layer(width,height,get_renderer(),1);
 }
-
 
 void init_layer(int num) {
   init_layer(width,height,get_renderer(),num);
@@ -927,7 +926,7 @@ PImage image_copy_window(PImage src, PGraphics pg, int where) {
 
 /**
 IMAGE
-v 0.2.1
+v 0.2.2
 2016-2018
 */
 
@@ -941,66 +940,70 @@ void image(PImage img) {
 }
 
 void image(PImage img, int what) {
-  float x = 0 ;
-  float y = 0 ;
-  int w = img.width;
-  int h = img.height;
-  int where = CENTER;
-  if(what == r.FIT || what == LANDSCAPE || what == PORTRAIT || what == SCREEN) {
-    float ratio = 1.;
-    int diff_w = width-w;
-    int diff_h = height-h;
+  if(img != null) {
+    float x = 0 ;
+    float y = 0 ;
+    int w = img.width;
+    int h = img.height;
+    int where = CENTER;
+    if(what == r.FIT || what == LANDSCAPE || what == PORTRAIT || what == SCREEN) {
+      float ratio = 1.;
+      int diff_w = width-w;
+      int diff_h = height-h;
 
 
-    if(what == r.FIT) {
-      if(diff_w > diff_h) {
+      if(what == r.FIT) {
+        if(diff_w > diff_h) {
+          ratio = (float)height / (float)h;
+        } else {
+          ratio = (float)width / (float)w;
+        }
+      } else if(what == SCREEN) {
+        float ratio_w = (float)width / (float)w;
+        float ratio_h = (float)height / (float)h;
+        if(ratio_w > ratio_h) {
+          ratio = ratio_w;
+        } else {
+          ratio = ratio_h;
+        }
+        /*
+        if(diff_w > diff_h) {
+          ratio = (float)width / (float)w;
+        } else {
+          ratio = (float)height/ (float)h;
+        }
+        */
+      } else if(what == PORTRAIT) {
         ratio = (float)height / (float)h;
-      } else {
+      } else if(what == LANDSCAPE) {
         ratio = (float)width / (float)w;
       }
-    } else if(what == SCREEN) {
-      float ratio_w = (float)width / (float)w;
-      float ratio_h = (float)height / (float)h;
-      if(ratio_w > ratio_h) {
-        ratio = ratio_w;
-      } else {
-        ratio = ratio_h;
-      }
-      /*
-      if(diff_w > diff_h) {
-        ratio = (float)width / (float)w;
-      } else {
-        ratio = (float)height/ (float)h;
-      }
-      */
-    } else if(what == PORTRAIT) {
-      ratio = (float)height / (float)h;
-    } else if(what == LANDSCAPE) {
-      ratio = (float)width / (float)w;
+      w *= ratio;
+      h *= ratio;
+    } else {
+      where = what;
     }
-    w *= ratio;
-    h *= ratio;
-  } else {
-    where = what;
-  }
 
-  if(where == CENTER) {
-    x = (width /2.) -(w /2.);
-    y = (height /2.) -(h /2.);   
-  } else if(where == LEFT) {
-    x = 0;
-    y = (height /2.) -(h /2.);
-  } else if(where == RIGHT) {
-    x = width -w;
-    y = (height /2.) -(h /2.);
-  } else if(where == TOP) {
-    x = (width /2.) -(w /2.);
-    y = 0;
-  } else if(where == BOTTOM) {
-    x = (width /2.) -(w /2.);
-    y = height -h; 
-  }
-  image(img,x,y,w,h);
+    if(where == CENTER) {
+      x = (width /2.) -(w /2.);
+      y = (height /2.) -(h /2.);   
+    } else if(where == LEFT) {
+      x = 0;
+      y = (height /2.) -(h /2.);
+    } else if(where == RIGHT) {
+      x = width -w;
+      y = (height /2.) -(h /2.);
+    } else if(where == TOP) {
+      x = (width /2.) -(w /2.);
+      y = 0;
+    } else if(where == BOTTOM) {
+      x = (width /2.) -(w /2.);
+      y = height -h; 
+    }
+    image(img,x,y,w,h);
+  } else {
+    printErrTempo(60,"image(); no PImage has pass to the method, img is null");
+  } 
 }
 
 void image(PImage img, float coor) {

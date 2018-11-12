@@ -1,14 +1,14 @@
 /**
 SURFACE
 2014-2018
-v 1.0.7
+v 1.0.8
 */
 
 class Surface extends Romanesco {
   public Surface() {
     item_name = "Surface" ;
     item_author  = "Stan le Punk";
-    item_version = "Version 1.0.7";
+    item_version = "Version 1.0.8";
     item_pack = "Base 2014-2018";
     item_costume = "" ;
     item_mode = "Surfimage/Vague/Vague++" ; // separate the differentes mode by "/"
@@ -76,8 +76,8 @@ class Surface extends Romanesco {
   // setup
   void setup() {
     setting_start_position(ID_item, width/2, height/2, -height/2) ;
-    setting_start_direction(ID_item, 45, -10) ;
-    load_bitmap(ID_item) ;
+    setting_start_direction(ID_item,45,-10) ;
+    load_bitmap(ID_item);
   }
   
   // declare VAR
@@ -101,7 +101,9 @@ class Surface extends Romanesco {
     fill_color = Vec4(hue(fill_item[ID_item]),saturation(fill_item[ID_item]),brightness(fill_item[ID_item]),alpha(fill_item[ID_item])) ;
     stroke_color = Vec4(hue(stroke_item[ID_item]),saturation(stroke_item[ID_item]),brightness(stroke_item[ID_item]),alpha(stroke_item[ID_item])) ;
     // load image
-    if(parameter[ID_item]) load_bitmap(ID_item) ;
+    if(parameter[ID_item]) {
+      load_bitmap(ID_item);
+    }
 
     //ratio speed
     float ratio_speed = speed_x_item[ID_item] *speed_x_item[ID_item] *speed_x_item[ID_item] ;

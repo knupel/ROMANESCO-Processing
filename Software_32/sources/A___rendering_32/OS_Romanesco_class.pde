@@ -1,15 +1,21 @@
 /**
 Abstract CLASS ROMANESCO
-v 0.0.5
+v 0.1.0
 2013-2018
 */
-
-
-
 public abstract class Romanesco implements rope.core.RConstants {
-  protected String item_name, item_author, item_version, item_pack, romanesco_renderer, item_costume, item_mode, item_slider;
-  protected int ID_item, ID_group;
-  //object manager return
+  protected String item_name;
+  protected String item_author;
+  protected String item_version;
+  protected String item_pack;
+  protected String romanesco_renderer;
+  protected String item_costume;
+  protected String item_mode;
+  protected String item_slider;
+
+  protected int ID_item;
+  protected int ID_group;
+  // item manager return
   Romanesco_manager item_romanesco;
 
   // slider
@@ -70,6 +76,9 @@ public abstract class Romanesco implements rope.core.RConstants {
   protected boolean diffusion_is;
   protected boolean power_is;
   protected boolean mass_is;
+  protected boolean pos_x_is;
+  protected boolean pos_y_is;
+  protected boolean pos_z_is;
   // }
 
   
@@ -148,7 +157,11 @@ public abstract class Romanesco implements rope.core.RConstants {
     if(!diffusion_is) item_slider +="," ; else item_slider += (ROM_DIFFUSION+",");
     if(!power_is) item_slider +="," ; else item_slider += (ROM_POWER+",");
     if(!mass_is) item_slider +="," ; else item_slider += (ROM_MASS+",");
+    if(!pos_x_is) item_slider +="," ; else item_slider += (ROM_POS_X+",");
+    if(!pos_y_is) item_slider +="," ; else item_slider += (ROM_POS_Y+",");
+    if(!pos_z_is) item_slider +="," ; else item_slider += (ROM_POS_Z+",");
   }
+
   
 
   // Must be declared in the sub-classes
@@ -165,7 +178,9 @@ public abstract class Romanesco implements rope.core.RConstants {
     item_info[ID_item] = write_message_sep(mark,obj);
   }
 
-
+  /**
+  * set method
+  */
   public void set_id(int id) {
     ID_item = id;
   }
@@ -174,6 +189,136 @@ public abstract class Romanesco implements rope.core.RConstants {
     ID_group = group;
   }
 
+  /**
+  * misc method
+  */
+
+  public int which_movie() {
+    return which_movie[ID_item];
+  }
+
+
+  /**
+  * is method from prescene
+  */
+  public boolean birth_is() {
+    return birth[ID_item];
+  }
+
+  public boolean colour_is() {
+    return colour[ID_item];
+
+  }
+  public boolean dimension_is() {
+    return dimension[ID_item];
+  }
+  
+  public boolean horizon_is() {
+    return horizon[ID_item];
+  }
+
+  public boolean motion_is() {
+    return motion[ID_item];
+  }
+
+  public boolean orbit_is() {
+    return orbit[ID_item];
+  }
+
+  public boolean reverse_is() {
+    return reverse[ID_item];
+  }
+
+  public boolean special_is() {
+    return special[ID_item];
+  }
+
+  public boolean wire_is() {
+    return wire[ID_item];
+  }
+
+  public boolean fill_is() {
+    return fill_is[ID_item];
+  }
+
+  public boolean stroke_is() {
+    return stroke_is[ID_item];
+  }
+
+  public boolean setting_is() {
+    return setting[ID_item];
+  }
+
+  public boolean clear_list_is() {
+    return clearList[ID_item];
+  }
+
+  /*
+  * is method from controler
+  */
+  public boolean show_is() {
+    return show_item[ID_item];
+  }
+
+  public boolean sound_is() {
+    return sound[ID_item];
+  }
+
+  public boolean action_is() {
+    return action[ID_item]; 
+  } 
+
+  public boolean parameter_is() {
+    return parameter[ID_item];
+  }
+  
+
+  /**
+  * get slider method 
+  */
+  public Vec3 get_pos() {
+    return Vec3(get_pos_x(),get_pos_y(),get_pos_z());
+  }
+
+  public float get_pos_x() {
+    return pos_x_item[ID_item];
+  }
+
+  public float get_pos_y() {
+    return pos_y_item[ID_item];
+  }
+
+  public float get_pos_z() {
+    return pos_z_item[ID_item];
+  }
+
+
+  /**
+  * get method
+  */
+  public Movie get_movie() {
+    if(movie[ID_item] != null) {
+      return movie[ID_item];
+    } else return null;
+  }
+
+  public PImage get_bitmap() {
+    if(bitmap[ID_item] != null) {
+      return bitmap[ID_item];
+    } else return null;
+  }
+  
+  public String get_text() {
+    if(text_import[ID_item] != null) {
+      return text_import[ID_item];
+    } else return null;
+  }
+
+  public ROPE_svg get_svg() {
+    if(svg_import[ID_item] != null) {
+      return svg_import[ID_item];
+    } else return null;
+  }
 
   public int get_id() {
     return ID_item;

@@ -102,9 +102,6 @@ void device_update() {
   //re-init the mouse button for the short click
   clickShortLeft[0] = false; 
   clickShortRight[0] = false;
-  
-  //why this line is here ????
-  if (nextPrevious) nextPreviousInt = 1 ; else nextPreviousInt = 0;
 }
 
 
