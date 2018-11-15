@@ -1,5 +1,7 @@
 /**
 VARIABLE SCENE
+
+Romanesco Processing Environment
 2015-2018
 v 1.7.1
 */
@@ -1395,4 +1397,3 @@ float all_transient(int ID) {
   }
   return val ;
 }
-

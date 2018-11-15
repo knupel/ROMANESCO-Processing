@@ -2,7 +2,7 @@
 Romanesco Manager
 Prescene and Scene
 2013-2018
-v 1.4.0
+v 1.3.0
 */
 Romanesco_manager rpe_manager;
 // col 1
@@ -152,7 +152,7 @@ void set_slider_item_name() {
   ROM_XXX = slider_name[3][13];
   ROM_XXX = slider_name[3][14];
   ROM_XXX = slider_name[3][15];
-  */
+    */
 }
 
 
@@ -288,9 +288,107 @@ void change_slider_ref() {
 
 void update_slider_value(int ID) {
   boolean init = first_opening_item[ID];
-  
   // COL 1
-  update_slider_value_aspect(init,ID);
+  if(FULL_RENDERING) {
+    if(!init) {
+      fill_item_ref[ID] = Vec4(fill_hue_raw,fill_sat_raw,fill_bright_raw,fill_alpha_raw);
+      fill_raw_ref = Vec4(fill_hue_raw,fill_sat_raw,fill_bright_raw,fill_alpha_raw);
+      fill_item[ID] = color(fill_hue_raw,fill_sat_raw,fill_bright_raw,fill_alpha_raw);
+
+      stroke_item_ref[ID] = Vec4(stroke_hue_raw,stroke_sat_raw,stroke_bright_raw,stroke_alpha_raw);
+      stroke_raw_ref = Vec4(stroke_hue_raw,stroke_sat_raw,stroke_bright_raw,stroke_alpha_raw);
+      stroke_item[ID] = color(stroke_hue_raw,stroke_sat_raw,stroke_bright_raw,stroke_alpha_raw);  
+    }
+    
+    // FILL part
+    boolean change_fill_h = false;
+    boolean change_fill_s = false;
+    boolean change_fill_b = false;
+    boolean change_fill_a = false;
+    // check hsba value
+    if(fill_raw_ref.r != fill_hue_raw) change_fill_h = true;
+    if(fill_raw_ref.g != fill_sat_raw) change_fill_s = true;
+    if(fill_raw_ref.b != fill_bright_raw) change_fill_b = true;
+    if(fill_raw_ref.a != fill_alpha_raw) change_fill_a = true;
+
+    if(change_fill_h || change_fill_s || change_fill_b || change_fill_a) {
+      /*
+      println("update_slider_value(int ID)");
+      println("hue",change_fill_h,change_fill_s,change_fill_b,change_fill_a,fill_item_ref[ID].r,hue(fill_item[ID]),"raw",fill_hue_raw);
+      println("bright",change_fill_h,change_fill_s,change_fill_b,change_fill_a,fill_item_ref[ID].b,brightness(fill_item[ID]),"raw",fill_bright_raw);
+      */
+    }
+    
+
+    if(change_fill_h) {
+      fill_item[ID] = color(fill_hue_raw,fill_item_ref[ID].g,fill_item_ref[ID].b,fill_item_ref[ID].a);
+      fill_item_ref[ID] = color_HSBA(fill_item[ID]);
+    }
+
+    if(change_fill_s) {
+      fill_item[ID] = color(fill_item_ref[ID].r,fill_sat_raw,fill_item_ref[ID].b,fill_item_ref[ID].a);
+      fill_item_ref[ID] = color_HSBA(fill_item[ID]);
+      /*
+      println("update_slider_value(int ID)");
+      println("change sat",fill_item_ref[ID].r,fill_sat_raw,fill_item_ref[ID].b,fill_item_ref[ID].a,"result",fill_item_ref[ID]);
+      */
+    }
+
+    if(change_fill_b) {
+      fill_item[ID] = color(fill_item_ref[ID].r,fill_item_ref[ID].g,fill_bright_raw,fill_item_ref[ID].a);
+      fill_item_ref[ID] = color_HSBA(fill_item[ID]);
+    }
+
+
+    if(change_fill_a) {
+      fill_item[ID] = color(fill_item_ref[ID].r,fill_item_ref[ID].g,fill_item_ref[ID].b,fill_alpha_raw); 
+      fill_item_ref[ID] = color_HSBA(fill_item[ID]);
+    }
+    
+
+
+    // STROKE part
+    boolean change_stroke_h = false;
+    boolean change_stroke_s = false;
+    boolean change_stroke_b = false;
+    boolean change_stroke_a = false;
+    // check hsba value
+    if(stroke_raw_ref.r != stroke_hue_raw) change_stroke_h = true;
+    if(stroke_raw_ref.g != stroke_sat_raw) change_stroke_s = true;
+    if(stroke_raw_ref.b != stroke_bright_raw) change_stroke_b = true;
+    if(stroke_raw_ref.a != stroke_alpha_raw) change_stroke_a = true;
+    
+
+    if(change_stroke_h) {
+      stroke_item[ID] = color(stroke_hue_raw,stroke_item_ref[ID].g,stroke_item_ref[ID].b,stroke_item_ref[ID].a);
+      stroke_item_ref[ID] = color_HSBA(stroke_item[ID]);
+    }
+
+    if(change_stroke_s) {
+      stroke_item[ID] = color(stroke_item_ref[ID].r,stroke_sat_raw,stroke_item_ref[ID].b,stroke_item_ref[ID].a);
+      stroke_item_ref[ID] = color_HSBA(stroke_item[ID]);
+    }
+
+    if(change_stroke_b) {
+      stroke_item[ID] = color(stroke_item_ref[ID].r,stroke_item_ref[ID].g,stroke_bright_raw,stroke_item_ref[ID].a);
+      stroke_item_ref[ID] = color_HSBA(stroke_item[ID]);
+    }
+
+    if(change_stroke_a) {
+      stroke_item[ID] = color(stroke_item_ref[ID].r,stroke_item_ref[ID].g,stroke_item_ref[ID].b,stroke_alpha_raw); 
+      stroke_item_ref[ID] = color_HSBA(stroke_item[ID]);
+    }
+
+    // thickness
+    if (thickness_raw != thickness_temp || !init) {
+      thickness_item[ID] = thickness_raw;
+    }
+  } else {
+    // preview display
+    fill_item[ID] = COLOR_FILL_ITEM_PREVIEW ;
+    stroke_item[ID] =  COLOR_STROKE_ITEM_PREVIEW ;
+    thickness_item[ID] = THICKNESS_ITEM_PREVIEW ;
+  }
   if (size_x_raw != size_x_temp || !init) size_x_item[ID] = size_x_raw; 
   if (size_y_raw != size_y_temp || !init) size_y_item[ID] = size_y_raw; 
   if (size_z_raw != size_z_temp || !init) size_z_item[ID] = size_z_raw;
@@ -298,6 +396,7 @@ void update_slider_value(int ID) {
   if (canvas_x_raw != canvas_x_temp || !init) canvas_x_item[ID] = canvas_x_raw; 
   if (canvas_y_raw != canvas_y_temp || !init) canvas_y_item[ID] = canvas_y_raw; 
   if (canvas_z_raw != canvas_z_temp || !init) canvas_z_item[ID] = canvas_z_raw;
+
 
   // COL 2
   if (frequence_raw != frequence_temp || !init) frequence_item[ID] = frequence_raw; 
@@ -349,117 +448,6 @@ void update_slider_value(int ID) {
   */
   first_opening_item[ID] = true; 
 }
-
-
-void update_slider_value_aspect(boolean init, int ID) {
-  if(FULL_RENDERING) {
-    if(!init) {
-      fill_item_ref[ID] = Vec4(fill_hue_raw,fill_sat_raw,fill_bright_raw,fill_alpha_raw);
-      fill_raw_ref = Vec4(fill_hue_raw,fill_sat_raw,fill_bright_raw,fill_alpha_raw);
-      fill_item[ID] = color(fill_hue_raw,fill_sat_raw,fill_bright_raw,fill_alpha_raw);
-
-      stroke_item_ref[ID] = Vec4(stroke_hue_raw,stroke_sat_raw,stroke_bright_raw,stroke_alpha_raw);
-      stroke_raw_ref = Vec4(stroke_hue_raw,stroke_sat_raw,stroke_bright_raw,stroke_alpha_raw);
-      stroke_item[ID] = color(stroke_hue_raw,stroke_sat_raw,stroke_bright_raw,stroke_alpha_raw);  
-    }
-    
-    // FILL part
-    bVec4 fill_is = bVec4();
-    // check hsba value
-    if(fill_raw_ref.r != fill_hue_raw) fill_is.x = true;
-    if(fill_raw_ref.g != fill_sat_raw) fill_is.y = true;
-    if(fill_raw_ref.b != fill_bright_raw) fill_is.z = true;
-    if(fill_raw_ref.a != fill_alpha_raw) fill_is.w = true;
-
-    if(fill_is.x) {
-      fill_item[ID] = color(fill_hue_raw,fill_item_ref[ID].g,fill_item_ref[ID].b,fill_item_ref[ID].a);
-      fill_item_ref[ID] = color_HSBA(fill_item[ID]);
-    }
-
-    if(fill_is.y) {
-      fill_item[ID] = color(fill_item_ref[ID].r,fill_sat_raw,fill_item_ref[ID].b,fill_item_ref[ID].a);
-      fill_item_ref[ID] = color_HSBA(fill_item[ID]);
-    }
-
-    if(fill_is.z) {
-      fill_item[ID] = color(fill_item_ref[ID].r,fill_item_ref[ID].g,fill_bright_raw,fill_item_ref[ID].a);
-      fill_item_ref[ID] = color_HSBA(fill_item[ID]);
-    }
-
-    if(fill_is.w) {
-      fill_item[ID] = color(fill_item_ref[ID].r,fill_item_ref[ID].g,fill_item_ref[ID].b,fill_alpha_raw); 
-      fill_item_ref[ID] = color_HSBA(fill_item[ID]);
-    }
-
-    // zero security value
-    if(fill_item_ref[ID].r == 0) {
-      fill_item_ref[ID].r = fill_hue_raw;
-    }
-
-    if(fill_item_ref[ID].g == 0) {
-      fill_item_ref[ID].g = fill_sat_raw;
-    }
-
-    if(fill_item_ref[ID].b == 0) {
-      fill_item_ref[ID].b = fill_bright_raw;
-    }
-    
-    // STROKE part
-    bVec4 stroke_is = bVec4();
-    // check hsba value
-    if(stroke_raw_ref.r != stroke_hue_raw) stroke_is.x = true;
-    if(stroke_raw_ref.g != stroke_sat_raw) stroke_is.y = true;
-    if(stroke_raw_ref.b != stroke_bright_raw) stroke_is.z = true;
-    if(stroke_raw_ref.a != stroke_alpha_raw) stroke_is.w = true;
-    
-
-    if(stroke_is.x) {
-      stroke_item[ID] = color(stroke_hue_raw,stroke_item_ref[ID].g,stroke_item_ref[ID].b,stroke_item_ref[ID].a);
-      stroke_item_ref[ID] = color_HSBA(stroke_item[ID]);
-    }
-
-    if(stroke_is.y) {
-      stroke_item[ID] = color(stroke_item_ref[ID].r,stroke_sat_raw,stroke_item_ref[ID].b,stroke_item_ref[ID].a);
-      stroke_item_ref[ID] = color_HSBA(stroke_item[ID]);
-    }
-
-    if(stroke_is.z) {
-      stroke_item[ID] = color(stroke_item_ref[ID].r,stroke_item_ref[ID].g,stroke_bright_raw,stroke_item_ref[ID].a);
-      stroke_item_ref[ID] = color_HSBA(stroke_item[ID]);
-    }
-
-    if(stroke_is.w) {
-      stroke_item[ID] = color(stroke_item_ref[ID].r,stroke_item_ref[ID].g,stroke_item_ref[ID].b,stroke_alpha_raw); 
-      stroke_item_ref[ID] = color_HSBA(stroke_item[ID]);
-    }
-
-
-    // zero security value
-    if(stroke_item_ref[ID].r == 0) {
-      stroke_item_ref[ID].r = stroke_hue_raw;
-    }
-
-    if(stroke_item_ref[ID].g == 0) {
-      stroke_item_ref[ID].g = stroke_sat_raw;
-    }
-
-    if(stroke_item_ref[ID].b == 0) {
-      stroke_item_ref[ID].b = stroke_bright_raw;
-    }
-
-    // thickness
-    if (thickness_raw != thickness_temp || !init) {
-      thickness_item[ID] = thickness_raw;
-    }
-  } else {
-    // preview display
-    fill_item[ID] = COLOR_FILL_ITEM_PREVIEW ;
-    stroke_item[ID] =  COLOR_STROKE_ITEM_PREVIEW ;
-    thickness_item[ID] = THICKNESS_ITEM_PREVIEW ;
-  }
-}
-
-
 
 
 
@@ -799,20 +787,3 @@ class Romanesco_manager {
     }
   }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

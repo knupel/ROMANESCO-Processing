@@ -29,6 +29,7 @@ revision 32
 >fix bug of bad position of camera when the app starting
 >fix importing media bug.
 >fix out bound exception when new media is uploaded
+>fix bug aspect color, when the saturation or brightness arg is equal to zero to keep the value storage for hue.
 
 
 
