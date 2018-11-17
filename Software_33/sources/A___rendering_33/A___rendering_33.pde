@@ -36,7 +36,6 @@ boolean LIVE = false;
 boolean FULL_RENDERING = true;
 
 
-
 /**
 DEV SCENE LIVE
 */
@@ -69,6 +68,7 @@ String IAM = "prescene";
 boolean LIVE = true;
 boolean FULL_RENDERING = false;
 */
+
 
 // SCENE LIVE 
 /*
@@ -112,10 +112,10 @@ LIVE must change from the launcher, the info must be write in the external loadi
 
 void settings() {
   size(124,124,P3D); // when the bug will be resolved, return to this config.
-/*  
+/*
   fullScreen(P3D); // original
   FULL_SCREEN = true;
- */
+*/
   
   
   syphon_settings();

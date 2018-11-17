@@ -1,9 +1,20 @@
 Todo Romanesco
 --
+*REMOVE
+
+void color_setup() in the rendering sketch
+
+
+
 
 *MAJOR
 
 */
+
+*KINO or MOVIE
+
+the color bug with hue is stayng only for movie
+
 
 
 *WEB CAM

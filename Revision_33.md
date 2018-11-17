@@ -1,4 +1,30 @@
 *Romanesco dui
+revision 33
+
+*MAJOR
+
+
+
+*MINOR
+
+
+
+*ITEM
+
+>KINO, add method to swithc off the sound
+>KINO, change the direction for padding image up and down
+
+*BUG FIX
+
+
+
+
+
+
+
+
+
+*Romanesco dui
 revision 32
 
 *MAJOR
