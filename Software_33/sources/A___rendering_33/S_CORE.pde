@@ -398,6 +398,7 @@ void load_data_item(String path) {
     size_x_item[ID] = data_item.getFloat("width") *width ;
     size_y_item[ID] = data_item.getFloat("height") *width ;
     size_z_item[ID] = data_item.getFloat("depth") *width ;
+    
     canvas_x_item[ID] = data_item.getFloat("canvas x") *width ;
     canvas_y_item[ID] = data_item.getFloat("canvas y") *width ;
     canvas_z_item[ID] = data_item.getFloat("canvas z") *width ;
@@ -406,10 +407,24 @@ void load_data_item(String path) {
     quantity_item[ID] = data_item.getFloat("quantity") ;
     life_item[ID] = data_item.getFloat("life") ;
 
-    speed_x_item[ID] = data_item.getFloat("speed") ;
-    dir_x_item[ID] = data_item.getFloat("direction") ;
+    speed_x_item[ID] = data_item.getFloat("speed x");
+    speed_y_item[ID] = data_item.getFloat("speed y");
+    speed_z_item[ID] = data_item.getFloat("speed z");
+
+    dir_x_item[ID] = data_item.getFloat("direction x");
+    dir_y_item[ID] = data_item.getFloat("direction y");
+    dir_z_item[ID] = data_item.getFloat("direction z");
+
     angle_item[ID] = data_item.getFloat("angle") ;
-    swing_x_item[ID] = data_item.getFloat("amplitude") ;
+
+    swing_x_item[ID] = data_item.getFloat("swing x");
+    swing_y_item[ID] = data_item.getFloat("swing y");
+    swing_z_item[ID] = data_item.getFloat("swing z");
+
+    pos_x_item[ID] = data_item.getFloat("pos x");
+    pos_y_item[ID] = data_item.getFloat("pos y");
+    pos_z_item[ID] = data_item.getFloat("pos z");
+
     repulsion_item[ID] = data_item.getFloat("repulsion") ;
     attraction_item[ID] = data_item.getFloat("attraction") ;
     alignment_item[ID] = data_item.getFloat("aligmnent") ;

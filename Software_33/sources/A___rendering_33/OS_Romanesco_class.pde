@@ -1,6 +1,6 @@
 /**
 Abstract CLASS ROMANESCO
-v 0.1.0
+v 0.1.2
 2013-2018
 */
 public abstract class Romanesco implements rope.core.RConstants {
@@ -271,11 +271,169 @@ public abstract class Romanesco implements rope.core.RConstants {
   public boolean parameter_is() {
     return parameter[ID_item];
   }
-  
+
 
   /**
   * get slider method 
   */
+
+  public int get_fill() {
+    return fill_item[ID_item];
+  }
+
+  public int get_stroke() {
+    return stroke_item[ID_item];
+  }
+
+  public float get_thickness() {
+    return thickness_item[ID_item];
+  }
+  
+
+  // size
+  public Vec3 get_size() {
+    return Vec3(get_size_x(),get_size_y(),get_size_z());
+  }
+
+  public float get_size_x() {
+    return size_x_item[ID_item];
+  }
+
+  public float get_size_y() {
+    return size_y_item[ID_item];
+  }
+
+  public float get_size_z() {
+    return size_z_item[ID_item];
+  }
+
+  // canvas
+  public Vec3 get_canvas() {
+    return Vec3(get_canvas_x(),get_canvas_y(),get_canvas_z());
+  }
+
+  public float get_canvas_x() {
+    return canvas_x_item[ID_item];
+  }
+
+  public float get_canvas_y() {
+    return canvas_y_item[ID_item];
+  }
+
+  public float get_canvas_z() {
+    return canvas_z_item[ID_item];
+  }
+
+
+  // COL 2
+  // speed
+  public Vec3 get_speed() {
+    return Vec3(get_speed_x(),get_speed_y(),get_speed_z());
+  }
+
+  public float get_speed_x() {
+    return speed_x_item[ID_item];
+  }
+
+  public float get_speed_y() {
+    return speed_y_item[ID_item];
+  }
+
+  public float get_speed_z() {
+    return speed_z_item[ID_item];
+  }
+
+  // jitter
+  public Vec3 get_jitter() {
+    return Vec3(get_jitter_x(),get_jitter_y(),get_jitter_z());
+  }
+
+  public float get_jitter_x() {
+    return jitter_x_item[ID_item];
+  }
+
+  public float get_jitter_y() {
+    return jitter_y_item[ID_item];
+  }
+
+  public float get_jitter_z() {
+    return jitter_z_item[ID_item];
+  }
+
+
+  // spurt
+  public Vec3 get_spurt() {
+    return Vec3(get_spurt_x(),get_spurt_y(),get_spurt_z());
+  }
+
+  public float get_spurt_x() {
+    return spurt_x_item[ID_item];
+  }
+
+  public float get_spurt_y() {
+    return spurt_y_item[ID_item];
+  }
+
+  public float get_spurt_z() {
+    return spurt_z_item[ID_item];
+  }
+
+  // swing
+  public Vec3 get_swing() {
+    return Vec3(get_swing_x(),get_swing_y(),get_swing_z());
+  }
+
+  public float get_swing_x() {
+    return swing_x_item[ID_item];
+  }
+
+  public float get_swing_y() {
+    return swing_y_item[ID_item];
+  }
+
+  public float get_swing_z() {
+    return swing_z_item[ID_item];
+  }
+
+
+
+  // dir
+  public Vec3 get_dir() {
+    return Vec3(get_dir_x(),get_dir_y(),get_dir_z());
+  }
+
+  public float get_dir_x() {
+    return dir_x_item[ID_item];
+  }
+
+  public float get_dir_y() {
+    return dir_y_item[ID_item];
+  }
+
+  public float get_dir_z() {
+    return dir_z_item[ID_item];
+  }
+
+
+
+  
+
+
+
+
+
+  // col 3
+  public float get_quantity() {
+    return quantity_item[ID_item];
+  }
+
+  public float get_area() {
+    return area_item[ID_item];
+  }
+
+
+  // col 4
+  // pos
   public Vec3 get_pos() {
     return Vec3(get_pos_x(),get_pos_y(),get_pos_z());
   }
@@ -296,6 +454,15 @@ public abstract class Romanesco implements rope.core.RConstants {
   /**
   * get method
   */
+  public float get_band(int target) {
+    if(target >= 0 && target < band[ID_item].length) {
+      return band[ID_item][target];
+    } else {
+      printErrTempo(180,"get_band(): target",target, "is out of the band range, value '0' is return");
+      return 0;
+    }
+  }
+  
   public Movie get_movie() {
     if(movie[ID_item] != null) {
       return movie[ID_item];
@@ -387,7 +554,6 @@ public abstract class Romanesco implements rope.core.RConstants {
       if(!dimension[get_id()]) {
         costume[get_id()] = PENTAGON_ROPE; 
       } else {
-        printErrTempo(60,"method select_costume(): No shape match in P3D with Pentagon");
         costume[get_id()] = PENTAGON_ROPE;
       }
     } else if(costume_romanesco.equals("cross") || costume_romanesco.equals("CROSS") || costume_romanesco.equals("Cross")) {

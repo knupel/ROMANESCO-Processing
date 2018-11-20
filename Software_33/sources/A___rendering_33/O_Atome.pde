@@ -140,7 +140,7 @@ class Atome extends Romanesco {
       if(key_space_long && action[ID_item]) {
         newDirection = new PVector (-pen[ID_item].x, -pen[ID_item].y ) ;
       } else { 
-        newDirection = normal_direction(int(dir_x_item[ID_item])) ;
+        newDirection = normal_direction(int(get_dir_x())) ;
       }
     } else {
       newDirection = new PVector () ;

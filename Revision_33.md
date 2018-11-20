@@ -7,12 +7,13 @@ revision 33
 
 *MINOR
 
-
+>change min-max variable for angle, direction and scope from 0 to 360 for 0 to TAU and update the item linked with that.
 
 *ITEM
 
 >KINO, add method to swithc off the sound
 >KINO, change the direction for padding image up and down
+>BOXOLYZER add costume to change shape easily and other improvement.
 
 *BUG FIX
 

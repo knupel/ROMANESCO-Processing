@@ -1,14 +1,14 @@
 /**
 ESCARGOT 
 2011-2018
-V 1.4.9
+V 1.4.10
 */
 class Escargot extends Romanesco {
   public Escargot() {
     //from the index_objects.csv
     item_name = "Image" ;
     item_author  = "Stan le Punk";
-    item_version = "version 1.4.9";
+    item_version = "version 1.4.10";
     item_pack = "Base 2012-2018" ;
     item_costume = "";
     item_mode = "Original/Raw/Point/Ellipse/Rectangle/Box/Cross/SVG/Vitraux" ;
@@ -189,15 +189,15 @@ class Escargot extends Romanesco {
     if(bitmap[ID_item] != null) {  
       //MOTION
       windForce = (int)map(speed_x_item[ID_item],0,1,0,13) ;
-      windDirection = (int)dir_x_item[ID_item] ;
-      if(reverse[ID_item]) windDirection += 180 ;
+      windDirection = (int)get_dir_x();
+      if(reverse[ID_item]) windDirection += PI;
       internal_motion_pixel = map(calm_item[ID_item],0,1, 0,20) *(1.0 + pen[ID_item].z) ;
       motionInfo.y = windForce ;
       motionInfo.z = internal_motion_pixel ;
       //PEN
        if (pen[ID_item].z == 1 ) pen[ID_item].z = 0 ; else pen[ID_item].z = pen[ID_item].z ;
        if( (pen[ID_item].x == 1.0 && pen[ID_item].y == 1.0) || (pen[ID_item].x == 0.0 && pen[ID_item].y == 0.0) ) {
-         motionInfo.x = windDirection  ; 
+         motionInfo.x = map(windDirection,0,TAU,0,360); 
        } else {
          PVector convertTilt = new PVector (-pen[ID_item].x, -pen[ID_item].y) ;
          motionInfo.x = deg360(convertTilt) ;

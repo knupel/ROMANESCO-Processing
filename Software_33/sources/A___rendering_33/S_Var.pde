@@ -1,7 +1,7 @@
 /**
 VARIABLE SCENE
 2015-2018
-v 1.7.1
+v 1.8.0
 */
 
 boolean scene, prescene;
@@ -833,9 +833,9 @@ void init_variable_item_min_max() {
   spurt_y_min_max = Vec2(0,1); 
   spurt_z_min_max = Vec2(0,1);
 
-  dir_x_min_max = Vec2(0,360); // data from controller value 0 - 360 
-  dir_y_min_max = Vec2(0,360); //  data from controller value 0 - 360
-  dir_z_min_max = Vec2(0,360); // data from controller value 0 - 360
+  dir_x_min_max = Vec2(0,TAU);
+  dir_y_min_max = Vec2(0,TAU);
+  dir_z_min_max = Vec2(0,TAU);
 
   jitter_x_min_max = Vec2(0,1); 
   jitter_y_min_max = Vec2(0,1); 
@@ -853,9 +853,9 @@ void init_variable_item_min_max() {
   quality_min_max = Vec2(0,1);
 
   area_min_max = Vec2(max_size *ratio_min_deci, max_size *ratio_max); 
-  angle_min_max = Vec2(0,360);  // data from controller value 0 - 360
+  angle_min_max = Vec2(0,TAU); 
   scope_min_max = Vec2(max_size *ratio_min_deci, max_size *ratio_max); 
-  scan_min_max = Vec2(0,360); // data from controller value 0 - 360
+  scan_min_max = Vec2(0,TAU);
 
   alignment_min_max = Vec2(0,1); 
   repulsion_min_max = Vec2(0,1); 
@@ -946,7 +946,7 @@ void init_variable_item() {
     area_item [i] = width; 
     angle_item [i] = 0; 
     scope_item [i] = width;
-    scan_item [i] = 90; 
+    scan_item [i] = PI/2; 
 
     alignment_item [i] = 0; 
     repulsion_item [i] = 0;  

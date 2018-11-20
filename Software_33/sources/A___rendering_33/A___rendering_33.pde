@@ -47,6 +47,7 @@ boolean LIVE = true;
 boolean FULL_RENDERING = true;
 */
 
+
 /**
 * RENDERING
 * Here you can choice between the three common rendering mode
@@ -68,6 +69,7 @@ String IAM = "prescene";
 boolean LIVE = true;
 boolean FULL_RENDERING = false;
 */
+
 
 
 // SCENE LIVE 
@@ -115,9 +117,7 @@ void settings() {
 /*
   fullScreen(P3D); // original
   FULL_SCREEN = true;
-*/
-  
-  
+*/ 
   syphon_settings();
 
   if(IAM.equals("prescene")) {

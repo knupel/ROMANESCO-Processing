@@ -1,13 +1,13 @@
 /**
 Puppet Master
 2018-2018
-v 0.0.7
+v 0.0.8
 */
 class Puppet_master extends Romanesco {
 	public Puppet_master() {
 		item_name = "FF Puppet Master";
 		item_author  = "Stan le Punk";
-		item_version = "Version 0.0.7";
+		item_version = "Version 0.0.8";
 		item_pack = "Force 2018-2018";
     item_costume = "none/pixel/point/ellipse/triangle/rect/cross/pentagon/Star 5/Star 7/Super Star 8/Super Star 12";
     item_mode = "solo/duo/valse 2D/<valse 3D>/whisky walk/random";
@@ -114,7 +114,7 @@ class Puppet_master extends Romanesco {
     } 
 
     // num spiral
-    int num_spiral = (int)map(angle_item[ID_item],0,360,1,13);
+    int num_spiral = (int)map(angle_item[ID_item],0,TAU,1,13);
 
     // range min_max for the radius
     Vec2 range = Vec2(swing_x_item[ID_item],swing_x_item[ID_item]*5);

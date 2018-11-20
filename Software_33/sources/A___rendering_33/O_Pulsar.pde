@@ -1,7 +1,7 @@
 /**
 Pulsar
 2018-2018
-v 0.0.3
+v 0.0.4
 */
 
 //object one
@@ -11,7 +11,7 @@ class Pulsar extends Romanesco {
   public Pulsar() {
     item_name = "Pulsar" ;
     item_author  = "Stan le Punk";
-    item_version = "version 0.0.3";
+    item_version = "version 0.0.4";
     item_pack = "Base 2018";
     item_costume = "point/ellipse/triangle/rect/cross/pentagon/star";
     item_mode = "nothing/cyclus/heart/ring cyclus/ring heart/helmet cyclus/helmet heart" ;
@@ -94,8 +94,6 @@ class Pulsar extends Romanesco {
     Vec3 speed = Vec3(speed_x_item[ID_item],speed_y_item[ID_item],speed_z_item[ID_item]);
     speed.pow(3).div(2);
 
-    Vec3 orientation = Vec3(dir_x_item[ID_item],dir_y_item[ID_item],dir_z_item[ID_item]);
-    orientation.map(0,360,0,TAU);
     // cloud_3D.ring(.01, false);
     // cloud_3D.helmet(.005, false);
     float ratio_size = map(area_item[ID_item],width*.1, width*TAU,0,1);
@@ -115,7 +113,7 @@ class Pulsar extends Romanesco {
       pulsar.rotation_x(speed.x,false);
       pulsar.rotation_y(speed.y,false);
       pulsar.rotation_z(speed.z,false);
-      pulsar.orientation(orientation);
+      pulsar.orientation(get_dir());
 
       mode();
       float swing = swing_x_item[ID_item] *swing_x_item[ID_item];

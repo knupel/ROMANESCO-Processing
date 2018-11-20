@@ -1,7 +1,7 @@
 /**
 LIGNES
 2011-2018
-v 1.2.1
+v 1.2.2
 */
 Line line ;
 //object three
@@ -9,7 +9,7 @@ class Lignes extends Romanesco {
   public Lignes() {
     item_name = "Lignes" ;
     item_author  = "Stan le Punk";
-    item_version = "Version 1.2.1";
+    item_version = "Version 1.2.2";
     item_pack = "Base 2011-2018" ;
     item_costume = "" ;
     item_mode = "Lines 1/Lines 2/Lines 3/Lines 4/Lines 5/Lines 6" ;
@@ -101,7 +101,7 @@ class Lignes extends Romanesco {
     //quantity
     float ratio_num = map(quantity_item[ID_item]*quantity_item[ID_item],0,1,1,100);
 
-    int step_angle = (int)angle_item[ID_item] ;
+    int step_angle = (int)map(angle_item[ID_item],0,TAU,0,360);
     float step_rotate = map(alignment_item[ID_item],0,1,0,TAU);
     
 

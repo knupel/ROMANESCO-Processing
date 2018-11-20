@@ -1,15 +1,15 @@
 /**
 Boum Boum / Transient detection
-2018
-v 0.0.4
+2018-2018
+v 0.0.6
 */
 class BoumBoum extends Romanesco {
 	public BoumBoum() {
 		item_name = "BoumBoum";
 		item_author  = "Stan le Punk";
-		item_version = "Version 0.0.4";
+		item_version = "Version 0.0.6";
 		item_pack = "Base 2018-2018";
-    item_costume = "point/ellipse/triangle/rect/cross/pentagon/Star 5/Star 7/Super Star 8/Super Star 12";
+    item_costume = "ellipse/triangle/rect/cross/pentagon/Star 5/Star 7/Super Star 8/Super Star 12";
     item_mode = "";
 
 	  hue_fill_is = true;
@@ -95,8 +95,8 @@ class BoumBoum extends Romanesco {
     // give position for the shapes centered 
     float offset_x = (canvas_x_item[ID_item] /2) -(width/2);
     Vec3 pos = Vec3(-offset_x,height/2,0);
-    Vec3 dir = Vec3(dir_x_item[ID_item],dir_y_item[ID_item],dir_z_item[ID_item]);
-    dir.map(0,360,0,TAU);
+    Vec3 dir = Vec3(get_dir());
+
     
     // speed
     if(motion[ID_item]) {
