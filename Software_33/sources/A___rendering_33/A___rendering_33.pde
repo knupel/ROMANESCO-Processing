@@ -188,8 +188,14 @@ void setup() {
 
 boolean init_app;
 void draw() {
-  if(init_app) {
+  if(init_app) { 
+    String title = nameVersion + " " +prettyVersion+"."+version+ " | "+ IAM + " | FPS: "+round(frameRate);
+    if(MIROIR) title = nameVersion + " " +prettyVersion+"."+version+ " | "+ "miroir" + " | FPS: "+round(frameRate);
+    surface.setTitle(title);
+    if(!FULL_SCREEN) update_window_location();
+
     romanesco();
+
     if(width == 1 || height == 1) {
       printErr("width:",width,"heigh:",height, "this window size is not usable the process is stoped,\nplease set preference size via the launcher or directly in file sceneProperty.csv");
       exit();
@@ -205,9 +211,7 @@ void draw() {
 
 void romanesco() {
 
-  String title = nameVersion + " " +prettyVersion+"."+version+ " | "+ IAM + " | FPS: "+round(frameRate);
-  if(MIROIR) title = nameVersion + " " +prettyVersion+"."+version+ " | "+ "miroir" + " | FPS: "+round(frameRate);
-  surface.setTitle(title);
+
   init_romanesco();
   if(FULL_RENDERING) start_PNG("screenshot Romanesco prescene", "Romanesco_"+year()+"_"+month()+"_"+day()+"_"+hour()+"_"+minute()+"_"+second()) ;
 

@@ -56,6 +56,7 @@ void settings() {
 void setup() {
   colorMode(HSB,360,100,100);
   // surface.setLocation(0,20);
+  load_window_location();
   path_setting();
   version();
   setting_misc();
@@ -83,6 +84,7 @@ void setup() {
 
 void draw() {
   check_size_window();
+  update_window_location();
   check_slider_item();
   
   add_media();

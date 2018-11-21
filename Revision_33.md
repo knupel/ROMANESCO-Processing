@@ -3,7 +3,7 @@ revision 33
 
 *MAJOR
 
-
+>the window position is keeping from previous session
 
 *MINOR
 

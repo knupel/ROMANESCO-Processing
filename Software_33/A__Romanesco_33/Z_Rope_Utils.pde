@@ -1,6 +1,6 @@
 /**
 Rope UTILS 
-v 1.48.3
+v 1.49.1
 * Copyleft (c) 2014-2018 
 * Stan le Punk > http://stanlepunk.xyz/
 Rope – Romanesco Processing Environment – 
@@ -21,7 +21,6 @@ int which_rope_layer = 0;
 void init_layer() {
   init_layer(width,height,get_renderer(),1);
 }
-
 
 void init_layer(int num) {
   init_layer(width,height,get_renderer(),num);
@@ -927,7 +926,7 @@ PImage image_copy_window(PImage src, PGraphics pg, int where) {
 
 /**
 IMAGE
-v 0.2.1
+v 0.2.2
 2016-2018
 */
 
@@ -941,66 +940,70 @@ void image(PImage img) {
 }
 
 void image(PImage img, int what) {
-  float x = 0 ;
-  float y = 0 ;
-  int w = img.width;
-  int h = img.height;
-  int where = CENTER;
-  if(what == r.FIT || what == LANDSCAPE || what == PORTRAIT || what == SCREEN) {
-    float ratio = 1.;
-    int diff_w = width-w;
-    int diff_h = height-h;
+  if(img != null) {
+    float x = 0 ;
+    float y = 0 ;
+    int w = img.width;
+    int h = img.height;
+    int where = CENTER;
+    if(what == r.FIT || what == LANDSCAPE || what == PORTRAIT || what == SCREEN) {
+      float ratio = 1.;
+      int diff_w = width-w;
+      int diff_h = height-h;
 
 
-    if(what == r.FIT) {
-      if(diff_w > diff_h) {
+      if(what == r.FIT) {
+        if(diff_w > diff_h) {
+          ratio = (float)height / (float)h;
+        } else {
+          ratio = (float)width / (float)w;
+        }
+      } else if(what == SCREEN) {
+        float ratio_w = (float)width / (float)w;
+        float ratio_h = (float)height / (float)h;
+        if(ratio_w > ratio_h) {
+          ratio = ratio_w;
+        } else {
+          ratio = ratio_h;
+        }
+        /*
+        if(diff_w > diff_h) {
+          ratio = (float)width / (float)w;
+        } else {
+          ratio = (float)height/ (float)h;
+        }
+        */
+      } else if(what == PORTRAIT) {
         ratio = (float)height / (float)h;
-      } else {
+      } else if(what == LANDSCAPE) {
         ratio = (float)width / (float)w;
       }
-    } else if(what == SCREEN) {
-      float ratio_w = (float)width / (float)w;
-      float ratio_h = (float)height / (float)h;
-      if(ratio_w > ratio_h) {
-        ratio = ratio_w;
-      } else {
-        ratio = ratio_h;
-      }
-      /*
-      if(diff_w > diff_h) {
-        ratio = (float)width / (float)w;
-      } else {
-        ratio = (float)height/ (float)h;
-      }
-      */
-    } else if(what == PORTRAIT) {
-      ratio = (float)height / (float)h;
-    } else if(what == LANDSCAPE) {
-      ratio = (float)width / (float)w;
+      w *= ratio;
+      h *= ratio;
+    } else {
+      where = what;
     }
-    w *= ratio;
-    h *= ratio;
-  } else {
-    where = what;
-  }
 
-  if(where == CENTER) {
-    x = (width /2.) -(w /2.);
-    y = (height /2.) -(h /2.);   
-  } else if(where == LEFT) {
-    x = 0;
-    y = (height /2.) -(h /2.);
-  } else if(where == RIGHT) {
-    x = width -w;
-    y = (height /2.) -(h /2.);
-  } else if(where == TOP) {
-    x = (width /2.) -(w /2.);
-    y = 0;
-  } else if(where == BOTTOM) {
-    x = (width /2.) -(w /2.);
-    y = height -h; 
-  }
-  image(img,x,y,w,h);
+    if(where == CENTER) {
+      x = (width /2.) -(w /2.);
+      y = (height /2.) -(h /2.);   
+    } else if(where == LEFT) {
+      x = 0;
+      y = (height /2.) -(h /2.);
+    } else if(where == RIGHT) {
+      x = width -w;
+      y = (height /2.) -(h /2.);
+    } else if(where == TOP) {
+      x = (width /2.) -(w /2.);
+      y = 0;
+    } else if(where == BOTTOM) {
+      x = (width /2.) -(w /2.);
+      y = height -h; 
+    }
+    image(img,x,y,w,h);
+  } else {
+    printErrTempo(60,"image(); no PImage has pass to the method, img is null");
+  } 
 }
 
 void image(PImage img, float coor) {
@@ -4387,6 +4390,53 @@ Rectangle get_screen(int target_screen) {
 
 
 
+/**
+sketch location 
+0.0.2
+*/
+iVec2 get_sketch_location() {
+  return iVec2(get_sketch_location_x(),get_sketch_location_y());
+}
+
+int get_sketch_location_x() {
+  if(get_renderer() != P3D && get_renderer() != P2D) {
+    return getJFrame(surface).getX();
+  } else {
+    return get_rectangle(surface).getX();
+
+  }
+  
+}
+
+int get_sketch_location_y() {
+  if(get_renderer() != P3D && get_renderer() != P2D) {
+    return getJFrame(surface).getY();
+  } else {
+    return get_rectangle(surface).getY();
+  }
+}
+
+
+com.jogamp.nativewindow.util.Rectangle get_rectangle(PSurface surface) {
+  com.jogamp.newt.opengl.GLWindow window = (com.jogamp.newt.opengl.GLWindow) surface.getNative();
+  com.jogamp.nativewindow.util.Rectangle rectangle = window.getBounds();
+  return rectangle;
+}
+
+
+static final javax.swing.JFrame getJFrame(final PSurface surface) {
+  return (javax.swing.JFrame)
+  (
+    (processing.awt.PSurfaceAWT.SmoothCanvas) surface.getNative()
+  ).getFrame();
+}
+
+
+
+
+
+
+
 
 /**
 Check renderer
@@ -4444,17 +4494,12 @@ String get_renderer(final PGraphics graph) {
 
 /**
 CHECK
-v 0.2.3
+v 0.2.4
 */
 /**
 Check Type
-v 0.0.3
+v 0.0.4
 */
-@Deprecated
-String object_type(Object obj) {
-  return get_type(obj);
-}
-
 String get_type(Object obj) {
   if(obj instanceof Integer) {
     return "Integer";
@@ -4482,6 +4527,8 @@ String get_type(Object obj) {
     return "iVec";
   } else if(obj instanceof bVec) {
     return "bVec";
+  } else if(obj == null) {
+    return "null";
   } else return "Unknow" ;
 }
 

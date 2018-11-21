@@ -1,6 +1,6 @@
 /**
 RENDERING
-v 1.0.0
+v 1.1.0
 */
 void rendering() {
   boolean show_is = true;
@@ -173,7 +173,7 @@ void init_romanesco() {
 /**
 DISPLAY SETUP
 2015-2018
-v 1.1.0
+v 1.2.0
 */
 String displayMode = ("");
 int depth_scene;
@@ -209,23 +209,13 @@ void set_screen() {
   TableRow row = configurationScene.getRow(0);
   int w = width;
   int h = height;
-  int x = 0;
-  int y = 0;
-
-  if(IAM.equals("prescene")) {
-    x = row.getInt("prescene_x"); 
-    y = row.getInt("prescene_y");
-  } else {
-    x = row.getInt("scene_x"); 
-    y = row.getInt("scene_y");
-  }
 
   if(FULL_RENDERING) {
     w = row.getInt("width"); 
     h = row.getInt("height");
     
     if(!FULL_SCREEN) {
-      surface.setLocation(x,y);
+      load_window_location();
       surface.setSize(w,h);
     } else {
       int target_screen = row.getInt("whichScreen");
@@ -248,7 +238,7 @@ void set_screen() {
   } else {
     w = row.getInt("preview_width"); 
     h = row.getInt("preview_height");
-    surface.setLocation(x,y);
+    load_window_location();
     surface.setSize(w,h);
   }
   scene_width = w;
