@@ -6,6 +6,7 @@ v 0.1.2
 public abstract class Romanesco implements rope.core.RConstants {
   protected String item_name;
   protected String item_author;
+  protected String item_references;
   protected String item_version;
   protected String item_pack;
   protected String romanesco_renderer;
@@ -85,9 +86,9 @@ public abstract class Romanesco implements rope.core.RConstants {
   public Romanesco() {
     item_name = "Unknown" ;
     item_author = "Anonymous";
+    item_references = "none";
     item_version = "Alpha";
     item_pack = "Base" ;
-    romanesco_renderer = "classic" ;
     item_costume = "" ; // separate the name by a slash and write the next mode immadialtly after this one.
     item_mode = "" ; // separate the name by a slash and write the next mode immadialtly after this one.
     item_slider = "" ;
@@ -276,7 +277,6 @@ public abstract class Romanesco implements rope.core.RConstants {
   /**
   * get slider method 
   */
-
   public int get_fill() {
     return fill_item[ID_item];
   }
@@ -434,6 +434,11 @@ public abstract class Romanesco implements rope.core.RConstants {
 
   // col 4
   // pos
+  public float get_grid() {
+    return grid_item[ID_item];
+  }
+
+
   public Vec3 get_pos() {
     return Vec3(get_pos_x(),get_pos_y(),get_pos_z());
   }

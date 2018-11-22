@@ -42,11 +42,8 @@ void rendering_item_3D(boolean use_layer_is, int which_layer) {
 
 
 void rendering_item_final_3D() {
- 
   camera_romanesco_draw();
-
-  // LIGHT
-  
+  // light
   light_position_draw(mouse[0], wheel[0]); // not in the conditional because we need to display in the info box
   light_update_position_direction();
   if(FULL_RENDERING) {

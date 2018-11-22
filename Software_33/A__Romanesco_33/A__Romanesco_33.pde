@@ -1,8 +1,7 @@
 /**
-Romanesco Unu
-2012 – 2018
-version  2.0.0
-release 31
+Romanesco dui
+2012–2018
+release 33
 Processing 3.4
 /**
 2015 730 lines of code the 4th may !!!! 

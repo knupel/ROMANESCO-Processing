@@ -1,7 +1,7 @@
 /**
 Rope Costume
 * Copyleft (c) 2014-2018
-v 1.3.0
+v 1.3.1
 * @author Stan le Punk
 * @see https://github.com/StanLepunK/Costume_rope
 */
@@ -846,11 +846,11 @@ void costume_rope(Vec3 pos, Vec3 size, Vec rot, int which_costume) {
 		start_matrix();
 		translate(pos);
 		rotate_behavior(rot);
-		rect(Vec2(),Vec2(size.x,size.y));
+		rect(Vec2(-size.x,-size.y).div(2),Vec2(size.x,size.y));
 		stop_matrix();
 
 	} else if (which_costume == LINE_ROPE) {
-		primitive(pos, size.x, 2, rot.x);
+		primitive(pos,size.x,2,rot.x);
 	}
 
 
@@ -858,62 +858,62 @@ void costume_rope(Vec3 pos, Vec3 size, Vec rot, int which_costume) {
 		else if (which_costume == TRIANGLE_ROPE) {
 		start_matrix();
 		translate(pos);
-		rotate_behavior(rot) ;
-		primitive(Vec3(0), size.x, 3) ;
-		stop_matrix() ;
+		rotate_behavior(rot);
+		primitive(Vec3(0),size.x,3);
+		stop_matrix();
 	}  else if (which_costume == SQUARE_ROPE) {
 		start_matrix();
 		translate(pos);
 		rotate_behavior(rot);
-		primitive(Vec3(0), size.x, 4) ;
-		stop_matrix() ;
+		primitive(Vec3(0),size.x,4);
+		stop_matrix();
 	} else if (which_costume == PENTAGON_ROPE) {
 		start_matrix();
 		translate(pos);
-		rotate_behavior(rot) ;
-		primitive(Vec3(0), size.x, 5) ;
-		stop_matrix() ;
+		rotate_behavior(rot);
+		primitive(Vec3(0),size.x,5);
+		stop_matrix();
 	} else if (which_costume == HEXAGON_ROPE) {
-		start_matrix() ;
-		translate(pos) ;
-		rotate_behavior(rot) ;
-		primitive(Vec3(0), size.x, 6) ;
+		start_matrix();
+		translate(pos);
+		rotate_behavior(rot);
+		primitive(Vec3(0),size.x,6);
 		stop_matrix() ;
 	} else if (which_costume == HEPTAGON_ROPE) {
-		start_matrix() ;
-		translate(pos) ;
-		rotate_behavior(rot) ;
-		primitive(Vec3(0), size.x, 7) ;
-		stop_matrix() ;
+		start_matrix();
+		translate(pos);
+		rotate_behavior(rot);
+		primitive(Vec3(0),size.x,7);
+		stop_matrix();
 	} else if (which_costume == OCTOGON_ROPE) {
-		start_matrix() ;
-		translate(pos) ;
+		start_matrix();
+		translate(pos);
 		rotate_behavior(rot) ;
-		primitive(Vec3(0), size.x, 8) ;
-		stop_matrix() ;
+		primitive(Vec3(0),size.x,8);
+		stop_matrix();
 	} else if (which_costume == NONAGON_ROPE) {
-		start_matrix() ;
-		translate(pos) ;
+		start_matrix();
+		translate(pos);
 		rotate_behavior(rot) ;
-		primitive(Vec3(0), size.x, 9) ;
-		stop_matrix() ;
+		primitive(Vec3(0),size.x,9);
+		stop_matrix();
 	} else if (which_costume == DECAGON_ROPE) {
-		start_matrix() ;
-		translate(pos) ;
+		start_matrix();
+		translate(pos);
 		rotate_behavior(rot) ;
-		primitive(Vec3(0), size.x, 10) ;
-		stop_matrix() ;
+		primitive(Vec3(0),size.x,10);
+		stop_matrix();
 	} else if (which_costume == HENDECAGON_ROPE) {
-		start_matrix() ;
-		translate(pos) ;
+		start_matrix();
+		translate(pos);
 		rotate_behavior(rot) ;
-		primitive(Vec3(0), size.x, 11);
-		stop_matrix() ;
+		primitive(Vec3(0),size.x,11);
+		stop_matrix();
 	} else if (which_costume == DODECAGON_ROPE) {
 		start_matrix();
 		translate(pos);
 		rotate_behavior(rot) ;
-		primitive(Vec3(0), size.x, 12);
+		primitive(Vec3(0),size.x,12);
 		stop_matrix();
 	}
 
@@ -945,7 +945,7 @@ void costume_rope(Vec3 pos, Vec3 size, Vec rot, int which_costume) {
 	  	start_matrix();
 	  	translate(pos);
 	  	rotate_behavior(rot);
-	  	textSize(size.x) ;
+	  	textSize(size.x);
 	  	if(costume_text_rope != null) {
 	  		text(costume_text_rope,0,0);
 	  	} else {
@@ -959,163 +959,163 @@ void costume_rope(Vec3 pos, Vec3 size, Vec rot, int which_costume) {
 
 
 		else if (which_costume == SPHERE_LOW_ROPE) {
-		start_matrix() ;
-		translate(pos) ;
-		rotate_behavior(rot) ;
+		start_matrix();
+		translate(pos);
+		rotate_behavior(rot);
 		sphereDetail(5);
-		sphere(size.x) ;
-		stop_matrix() ;
+		sphere(size.x);
+		stop_matrix();
 	} else if (which_costume == SPHERE_MEDIUM_ROPE) {
-		start_matrix() ;
-		translate(pos) ;
-		rotate_behavior(rot) ;
+		start_matrix();
+		translate(pos);
+		rotate_behavior(rot);
 		sphereDetail(12);
-		sphere(size.x) ;
-		stop_matrix() ;
+		sphere(size.x);
+		stop_matrix();
 	} else if (which_costume == SPHERE_HIGH_ROPE) {
-		start_matrix() ;
-		translate(pos) ;
-		rotate_behavior(rot) ;
-		sphere(size.x) ;
-		stop_matrix() ;
+		start_matrix();
+		translate(pos);
+		rotate_behavior(rot);
+		sphere(size.x);
+		stop_matrix();
 	} else if (which_costume == TETRAHEDRON_ROPE) {
-		start_matrix() ;
-		translate(pos) ;
-		rotate_behavior(rot) ;
-		tetrahedron((int)size.x) ;
-		stop_matrix() ;
+		start_matrix();
+		translate(pos);
+		rotate_behavior(rot);
+		tetrahedron((int)size.x);
+		stop_matrix();
 	} else if (which_costume == BOX_ROPE) {
-		start_matrix() ;
-		translate(pos) ;
-		rotate_behavior(rot) ;
-		box(size) ;
-		stop_matrix() ;
+		start_matrix();
+		translate(pos);
+		rotate_behavior(rot);
+		box(size);
+		stop_matrix();
 	} 
 
 	else if (which_costume == STAR_4_ROPE) {
-		float [] ratio = {.38} ;
-		start_matrix() ;
-		translate(pos) ;
-		rotate_behavior(rot) ;
-		float angle_null = 0 ;
-		star(Vec3(0), size, 4, angle_null, ratio) ;
-		stop_matrix() ;
+		float [] ratio = {.38};
+		start_matrix();
+		translate(pos);
+		rotate_behavior(rot);
+		float angle_null = 0;
+		star(Vec3(0),size,4,angle_null,ratio);
+		stop_matrix();
 	}  else if (which_costume == STAR_5_ROPE) {
 		float [] ratio = {.38} ;
-		start_matrix() ;
-		translate(pos) ;
-		rotate_behavior(rot) ;
-		float angle_null = 0 ;
-		star(Vec3(0), size, 5, angle_null, ratio) ;
-		stop_matrix() ;
+		start_matrix();
+		translate(pos);
+		rotate_behavior(rot);
+		float angle_null = 0;
+		star(Vec3(0),size,5,angle_null,ratio);
+		stop_matrix();
 	} else if (which_costume == STAR_6_ROPE) {
-		float [] ratio = {.38} ;
-		start_matrix() ;
-		translate(pos) ;
-		rotate_behavior(rot) ;
-		float angle_null = 0 ;
-		star(Vec3(0), size, 6, angle_null, ratio) ;
-		stop_matrix() ;
+		float [] ratio = {.38};
+		start_matrix();
+		translate(pos);
+		rotate_behavior(rot);
+		float angle_null = 0;
+		star(Vec3(0),size,6,angle_null,ratio);
+		stop_matrix();
 	} else if (which_costume == STAR_7_ROPE) {
-		float [] ratio = {.38} ;
-		start_matrix() ;
-		translate(pos) ;
-		rotate_behavior(rot) ;
-		float angle_null = 0 ;
-		star(Vec3(0), size, 7, angle_null, ratio) ;
-		stop_matrix() ;
+		float [] ratio = {.38};
+		start_matrix();
+		translate(pos);
+		rotate_behavior(rot);
+		float angle_null = 0;
+		star(Vec3(0),size,7,angle_null,ratio);
+		stop_matrix();
 	} else if (which_costume == STAR_8_ROPE) {
 		float [] ratio = {.38} ;
-		start_matrix() ;
-		translate(pos) ;
-		rotate_behavior(rot) ;
-		float angle_null = 0 ;
-		star(Vec3(0), size, 8, angle_null, ratio) ;
-		stop_matrix() ;
+		start_matrix();
+		translate(pos);
+		rotate_behavior(rot);
+		float angle_null = 0;
+		star(Vec3(0),size,8,angle_null,ratio);
+		stop_matrix();
 	} else if (which_costume == STAR_9_ROPE) {
 		float [] ratio = {.38} ;
-		start_matrix() ;
-		translate(pos) ;
-		rotate_behavior(rot) ;
-		float angle_null = 0 ;
-		star(Vec3(0), size, 9, angle_null, ratio) ;
-		stop_matrix() ;
+		start_matrix();
+		translate(pos);
+		rotate_behavior(rot);
+		float angle_null = 0;
+		star(Vec3(0),size,9,angle_null,ratio);
+		stop_matrix();
 	} else if (which_costume == STAR_10_ROPE) {
-		float [] ratio = {.38} ;
-		start_matrix() ;
-		translate(pos) ;
-		rotate_behavior(rot) ;
-		float angle_null = 0 ;
-		star(Vec3(0), size, 10, angle_null, ratio) ;
-		stop_matrix() ;
+		float [] ratio = {.38};
+		start_matrix();
+		translate(pos);
+		rotate_behavior(rot);
+		float angle_null = 0;
+		star(Vec3(0),size,10,angle_null,ratio);
+		stop_matrix();
 	} else if (which_costume == STAR_11_ROPE) {
-		float [] ratio = {.38} ;
-		start_matrix() ;
-		translate(pos) ;
-		rotate_behavior(rot) ;
-		float angle_null = 0 ;
-		star(Vec3(0), size, 11, angle_null, ratio) ;
-		stop_matrix() ;
+		float [] ratio = {.38};
+		start_matrix();
+		translate(pos);
+		rotate_behavior(rot);
+		float angle_null = 0;
+		star(Vec3(0),size,11,angle_null,ratio);
+		stop_matrix();
 	} else if (which_costume == STAR_12_ROPE) {
 		float [] ratio = {.38} ;
-		start_matrix() ;
-		translate(pos) ;
-		rotate_behavior(rot) ;
-		float angle_null = 0 ;
-		star(Vec3(0), size, 12, angle_null, ratio) ;
-		stop_matrix() ;
+		start_matrix();
+		translate(pos);
+		rotate_behavior(rot);
+		float angle_null = 0;
+		star(Vec3(0),size,12,angle_null,ratio);
+		stop_matrix();
 	} 
 
 
 
 	else if (which_costume == SUPER_STAR_8_ROPE) {
-		start_matrix() ;
-		translate(pos) ;
-		rotate_behavior(rot) ;
-		float angle_null = 0 ;
-		star(Vec3(0), size, 8, angle_null, 2., .5, 1., .5) ;
-		stop_matrix() ;
+		start_matrix();
+		translate(pos);
+		rotate_behavior(rot);
+		float angle_null = 0;
+		star(Vec3(0),size,8,angle_null,2.,.5,1.,.5);
+		stop_matrix();
 	} else if (which_costume == SUPER_STAR_12_ROPE) {
-		start_matrix() ;
-		translate(pos) ;
-		rotate_behavior(rot) ;
-		float angle_null = 0 ;
-		star(Vec3(0), size, 12, angle_null, 2., .5, 1., .5, 1., .5) ;
-		stop_matrix() ;
+		start_matrix();
+		translate(pos);
+		rotate_behavior(rot);
+		float angle_null = 0;
+		star(Vec3(0),size,12,angle_null,2.,.5,1.,.5,1.,.5);
+		stop_matrix();
 	}
 
 
 
 	else if (which_costume == TETRAHEDRON_LINE_ROPE) {
-		start_matrix() ;
-		translate(pos) ;
-		rotate_behavior(rot) ;
-		polyhedron("TETRAHEDRON","LINE", (int)size.x) ;
-		stop_matrix() ;
+		start_matrix();
+		translate(pos);
+		rotate_behavior(rot);
+		polyhedron("TETRAHEDRON","LINE",(int)size.x);
+		stop_matrix();
 	} else if (which_costume == CUBE_LINE_ROPE) {
-		start_matrix() ;
-		translate(pos) ;
-		rotate_behavior(rot) ;
-		polyhedron("CUBE","LINE", (int)size.x) ;
-		stop_matrix() ;
+		start_matrix();
+		translate(pos);
+		rotate_behavior(rot);
+		polyhedron("CUBE","LINE",(int)size.x);
+		stop_matrix();
 	} else if (which_costume == OCTOHEDRON_LINE_ROPE) {
-		start_matrix() ;
-		translate(pos) ;
-		rotate_behavior(rot) ;
-		polyhedron("OCTOHEDRON","LINE", (int)size.x) ;
-		stop_matrix() ;
+		start_matrix();
+		translate(pos);
+		rotate_behavior(rot);
+		polyhedron("OCTOHEDRON","LINE",(int)size.x);
+		stop_matrix();
 	} else if (which_costume == RHOMBIC_COSI_DODECAHEDRON_SMALL_LINE_ROPE) {
-		start_matrix() ;
-		translate(pos) ;
-		rotate_behavior(rot) ;
-		polyhedron("RHOMBIC COSI DODECAHEDRON SMALL","LINE", (int)size.x) ;
-		stop_matrix() ;
+		start_matrix();
+		translate(pos);
+		rotate_behavior(rot);
+		polyhedron("RHOMBIC COSI DODECAHEDRON SMALL","LINE",(int)size.x);
+		stop_matrix();
 	} else if (which_costume == ICOSI_DODECAHEDRON_LINE_ROPE) {
-		start_matrix() ;
-		translate(pos) ;
-		rotate_behavior(rot) ;
-		polyhedron("ICOSI DODECAHEDRON","LINE", (int)size.x) ;
-		stop_matrix() ;
+		start_matrix();
+		translate(pos);
+		rotate_behavior(rot);
+		polyhedron("ICOSI DODECAHEDRON","LINE",(int)size.x);
+		stop_matrix();
 	}
 
 
@@ -1357,17 +1357,17 @@ void costume_rope(Vec3 pos, Vec3 size, Vec rot, int which_costume) {
 		virus(Vec3(), size, 3, 8, 64, 0, -1) ;
 		stop_matrix() ;
 	} else if(which_costume == VIRUS_3_8_128_ROPE) {
-		start_matrix() ;
-		translate(pos) ;
-		rotate_behavior(rot) ;
-		virus(Vec3(), size, 3, 8, 128, 0, -1) ;
-		stop_matrix() ;
+		start_matrix();
+		translate(pos);
+		rotate_behavior(rot);
+		virus(Vec3(),size,3,8,128,0,-1);
+		stop_matrix();
 	} else if(which_costume == VIRUS_3_8_256_ROPE) {
-		start_matrix() ;
-		translate(pos) ;
-		rotate_behavior(rot) ;
-		virus(Vec3(), size, 3, 8, 256, 0, -1);
-		stop_matrix() ;
+		start_matrix();
+		translate(pos);
+		rotate_behavior(rot);
+		virus(Vec3(),size,3,8,256,0,-1);
+		stop_matrix();
 	}
 
 

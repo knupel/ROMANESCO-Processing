@@ -1,6 +1,6 @@
 /**
 Vec, iVec and bVec method
-v 0.1.0
+v 0.1.1
 * Copyleft (c) 2018-2018
 * Stan le Punk > http://stanlepunk.xyz/
 Rope – Romanesco Processing Environment: 2015–2018
@@ -791,14 +791,16 @@ Map
 * return mapping vector
 * @return Vec
 */
-Vec2 map_vec(Vec2 v,float minIn, float maxIn, float minOut, float maxOut) {
+Vec2 map(Vec2 v,float minIn, float maxIn, float minOut, float maxOut) {
   if(v != null) {
     float x = map(v.x, minIn, maxIn, minOut, maxOut) ;
     float y = map(v.y, minIn, maxIn, minOut, maxOut) ;
     return new Vec2(x,y) ;
   } else return null ;
 }
-Vec3 map_vec(Vec3 v,float minIn, float maxIn, float minOut, float maxOut) {
+
+
+Vec3 map(Vec3 v,float minIn, float maxIn, float minOut, float maxOut) {
   if(v != null) {
     float x = map(v.x, minIn, maxIn, minOut, maxOut) ;
     float y = map(v.y, minIn, maxIn, minOut, maxOut) ;
@@ -806,7 +808,9 @@ Vec3 map_vec(Vec3 v,float minIn, float maxIn, float minOut, float maxOut) {
     return new Vec3(x,y,z) ;
   } else return null ;
 }
-Vec4 map_vec(Vec4 v,float minIn, float maxIn, float minOut, float maxOut) {
+
+
+Vec4 map(Vec4 v,float minIn, float maxIn, float minOut, float maxOut) {
   if(v != null) {
     float x = map(v.x, minIn, maxIn, minOut, maxOut) ;
     float y = map(v.y, minIn, maxIn, minOut, maxOut) ;
@@ -815,6 +819,7 @@ Vec4 map_vec(Vec4 v,float minIn, float maxIn, float minOut, float maxOut) {
     return new Vec4(x,y,z,w) ;
   } else return null ;
 }
+
 
 /**
 Magnitude or length

@@ -1,17 +1,16 @@
 
 /**
 ARBRE 2012-2018
-v 1.4.1
+v 1.4.2
 */
-Arbre arbre ;
-
 class ArbreRomanesco extends Romanesco {
-  
+  Arbre arbre ;
   public ArbreRomanesco() {
     //from the index_objects.csv
     item_name = "Arbre" ;
     item_author  = "Stan le Punk";
-    item_version = "Version 1.4.1";
+    item_references = "";
+    item_version = "Version 1.4.2";
     item_pack = "Base 2012-2018" ;
     item_costume = "point/ellipse/triangle/rect/cross/pentagon/Star 5/Star 7/Super Star 8/Super Star 12";
     item_mode = "";
@@ -149,106 +148,108 @@ class ArbreRomanesco extends Romanesco {
     }
     
     //info
-    item_info[ID_item] = ("Nodes " +(n-1) + " - Amplitude " + amplitude.x +","+ amplitude.y + " - Orientation " +direction +  " - Speed " + (int)map(speed,0,4,0,100) );
+    info("Nodes ",(n-1),"- Amplitude ",amplitude.x,",",amplitude.y,"- Orientation ",direction," - Speed ",(int)map(speed,0,4,0,100) );
     
-  } 
+  }
+
+  // CLASS ARBRE
+  private class Arbre {
+    float theta, angleDirection;
+    float rotation = 90.;
+    float direction = 0;
+    float deep = 0;
+
+    Arbre() {}
+
+   
+  //::::::::::::::::::::  
+    void show(float d) {
+      direction = d ;
+    }
+
+    void set_horizon(float deep) {
+      this.deep = deep ;
+    }
+  //::::::::::::::::::::::::::::  
+    void update(float e, Vec3 size, Vec2 div, iVec2 fork, Vec2 amplitude, int n, int which_costume, boolean bool_line, float angle, float speed, int ID) {
+      rotation += speed ;
+      if (rotation > angle +90) speed*=-1 ; else if ( rotation < angle ) speed*=-1 ; 
+      angle = rotation ; // de 0 à 180
+      // Convert it to radians
+      theta = radians(angle);
+      angleDirection = radians (direction) ;
+      pushMatrix () ;
+      // Start the recursive branching
+      rotate (angleDirection) ;
+      branch(e,size,div,fork,amplitude,n,which_costume,bool_line,ID);
+      popMatrix () ;
+
+      
+    }
+    
+    
+    //float fourche = 10.0 ; 
+    void branch(float thickness, Vec3 size, Vec2 div, iVec2 fork, Vec2 amplitude, int n, int which_costume, boolean bool_line,int ID) {
+      Vec3 newSize = size.copy();
+      newSize.x = size.x *div.x;
+      newSize.y = size.y *div.y;
+      newSize.z = size.z *(div.sum() *.5);
+      if(newSize.x < 0.1 ) {
+        newSize.x = 0.1 ;
+      }
+      
+      thickness *= .66 ;
+      
+      // recursive need an happy end!
+      n = n-1 ;
+      if (n >0) {
+       int branch_ID = 0;
+       displayBranch(thickness,newSize,div,fork,amplitude,n,-theta,which_costume,bool_line,ID,branch_ID); 
+       branch_ID = 1;
+       displayBranch(thickness,newSize,div,fork,amplitude,n,theta,which_costume,bool_line,ID,branch_ID);
+      }
+    }
+    
+    //annexe branch
+    void displayBranch(float thickness, Vec3 size, Vec2 div, iVec2 fork, Vec2 amplitude, int n, float t, int which_costume, boolean bool_line, int ID, int branch_ID) {
+      float factor = 0.0 ;
+      if(key_v_long && pen[0].z != 0) {
+        factor = deep * map(pen[0].z,0.01,1, 1.2,-1.2); 
+      } else {
+        factor = deep ;
+      }
+
+      start_matrix();    // Save the current state of transformation (i.e. where are we now)
+      rotate(t);   // Rotate by theta
+
+      aspect_is(fill_is(),stroke_is());
+      aspect_rope(get_fill(),get_stroke(),thickness);
+      Vec3 pos_a = Vec3();
+      Vec3 pos_b = Vec3(0, -amplitude.x, -amplitude.y *factor);
+      
+      if (bool_line && n > 1) {
+         line(pos_a, pos_b) ;
+      } 
+
+      // Draw the branch
+      set_ratio_costume_size(map(get_area(),width*.1, width*TAU,0,1));
+      int offset_z = branch_ID;
+      costume_rope(Vec3(0,0,offset_z),size,which_costume);
+      
+      // horizon   
+      translate(pos_b) ;
+       
+      branch(thickness,size,div,fork,amplitude,n,which_costume,bool_line,ID); // Ok, now call myself to draw two new branches!!
+      stop_matrix();     // Whenever we get back here, we "pop" in order to restore the previous matrix state
+    }
+  }
 }
 //end object two
 
 
 
 
-// CLASS ARBRE
-class Arbre {
-  float theta, angleDirection;
-  float rotation = 90.;
-  float direction = 0;
-  float deep = 0;
 
-  Arbre() {}
-
- 
-//::::::::::::::::::::  
-  void show(float d) {
-    direction = d ;
-  }
-
-  void set_horizon(float deep) {
-    this.deep = deep ;
-  }
-//::::::::::::::::::::::::::::  
-  void update(float e, Vec3 size, Vec2 div, iVec2 fork, Vec2 amplitude, int n, int which_costume, boolean bool_line, float angle, float speed, int ID) {
-    rotation += speed ;
-    if (rotation > angle +90) speed*=-1 ; else if ( rotation < angle ) speed*=-1 ; 
-    angle = rotation ; // de 0 à 180
-    // Convert it to radians
-    theta = radians(angle);
-    angleDirection = radians (direction) ;
-    pushMatrix () ;
-    // Start the recursive branching
-    rotate (angleDirection) ;
-    branch(e,size,div,fork,amplitude,n,which_costume,bool_line,ID);
-    popMatrix () ;
-
-    
-  }
-  
-  
-  //float fourche = 10.0 ; 
-  void branch(float thickness, Vec3 size, Vec2 div, iVec2 fork, Vec2 amplitude, int n, int which_costume, boolean bool_line,int ID) {
-    Vec3 newSize = size.copy();
-    newSize.x = size.x *div.x;
-    newSize.y = size.y *div.y;
-    newSize.z = size.z *(div.sum() *.5);
-    if(newSize.x < 0.1 ) {
-      newSize.x = 0.1 ;
-    }
-    
-    thickness *= .66 ;
-    
-    // recursive need an happy end!
-    n = n-1 ;
-    if (n >0) {
-     int branch_ID = 0;
-     displayBranch(thickness,newSize,div,fork,amplitude,n,-theta,which_costume,bool_line,ID,branch_ID); 
-     branch_ID = 1;
-     displayBranch(thickness,newSize,div,fork,amplitude,n,theta,which_costume,bool_line,ID,branch_ID);
-    }
-  }
-  
-  //annexe branch
-  void displayBranch(float thickness, Vec3 size, Vec2 div, iVec2 fork, Vec2 amplitude, int n, float t, int which_costume, boolean bool_line, int ID, int branch_ID) {
-    float factor = 0.0 ;
-    if(key_v_long && pen[0].z != 0) {
-      factor = deep * map(pen[0].z,0.01,1, 1.2,-1.2); 
-    } else {
-      factor = deep ;
-    }
-
-    start_matrix();    // Save the current state of transformation (i.e. where are we now)
-    rotate(t);   // Rotate by theta
-
-    aspect_is(fill_is[ID],stroke_is[ID]);
-    aspect_rope(fill_item[ID],stroke_item[ID],thickness);
-    Vec3 pos_a = Vec3();
-    Vec3 pos_b = Vec3(0, -amplitude.x, -amplitude.y *factor);
-    
-    if (bool_line && n > 1) {
-       line(pos_a, pos_b) ;
-    } 
-
-    // Draw the branch
-    set_ratio_costume_size(map(area_item[ID],width*.1, width*TAU,0,1));
-    int offset_z = branch_ID;
-    costume_rope(Vec3(0,0,offset_z),size,which_costume);
-    
-    // horizon   
-    translate(pos_b) ;
-     
-    branch(thickness,size,div,fork,amplitude,n,which_costume,bool_line,ID); // Ok, now call myself to draw two new branches!!
-    stop_matrix();     // Whenever we get back here, we "pop" in order to restore the previous matrix state
-  }
-}
 
 
 

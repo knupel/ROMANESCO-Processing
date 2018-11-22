@@ -643,8 +643,8 @@ class Romanesco_manager {
       row_index_item[i].setInt("ID",item.ID_item);
       row_index_item[i].setInt("Group",item.ID_group);
       row_index_item[i].setString("Author",item.item_author);
+      row_index_item[i].setString("References",item.item_references);
       row_index_item[i].setString("Version",item.item_version);
-      row_index_item[i].setString("Renderer",item.romanesco_renderer);
       row_index_item[i].setString("Pack",item.item_pack);
       row_index_item[i].setString("Costume",item.item_costume);
       row_index_item[i].setString("Mode",item.item_mode);
