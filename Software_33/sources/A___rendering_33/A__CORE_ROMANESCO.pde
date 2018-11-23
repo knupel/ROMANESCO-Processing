@@ -2,7 +2,7 @@
 Core Romanesco
 COMMON SKETCH for CONTROLLER, PRESCENE & SCENE
 2018-2018
-v 0.2.0
+v 0.3.0
 */
 int NUM_COL_SLIDER = 4;
 int NUM_SLIDER_ITEM_BY_COL = 16;
@@ -31,12 +31,12 @@ int NUM_SLIDER_SOUND = 2;
 int NUM_SLIDER_SOUND_SETTING = 5; // 5
 int NUM_SLIDER_CAMERA = 10;
 
-int NUM_SLIDER_GENERAL 	= NUM_SLIDER_BACKGROUND 
-												+ NUM_SLIDER_FX 
-												+ NUM_SLIDER_LIGHT 
-												+ NUM_SLIDER_SOUND 
-												+ NUM_SLIDER_SOUND_SETTING 
-												+ NUM_SLIDER_CAMERA;
+int NUM_SLIDER_GENERAL  = NUM_SLIDER_BACKGROUND 
+                        + NUM_SLIDER_FX 
+                        + NUM_SLIDER_LIGHT 
+                        + NUM_SLIDER_SOUND 
+                        + NUM_SLIDER_SOUND_SETTING 
+                        + NUM_SLIDER_CAMERA;
 
 // for the case where the slider is a multislider, important for the sending and receiving OSC data
 int NUM_MOLETTE_BACKGROUND = NUM_SLIDER_BACKGROUND;
@@ -47,11 +47,11 @@ int NUM_MOLETTE_SOUND_SETTING = 11; // here the value is different because it's 
 int NUM_MOLETTE_CAMERA = NUM_SLIDER_CAMERA;
 
 int NUM_MOLETTE_GENERAL = NUM_MOLETTE_BACKGROUND 
-												+ NUM_MOLETTE_FX 
-												+ NUM_MOLETTE_LIGHT 
-												+ NUM_MOLETTE_SOUND 
-												+ NUM_MOLETTE_SOUND_SETTING 
-												+ NUM_MOLETTE_CAMERA;
+                        + NUM_MOLETTE_FX 
+                        + NUM_MOLETTE_LIGHT 
+                        + NUM_MOLETTE_SOUND 
+                        + NUM_MOLETTE_SOUND_SETTING 
+                        + NUM_MOLETTE_CAMERA;
 
 int NUM_GROUP_SLIDER = 2; // '0' for general / '1' for the item
 
@@ -74,27 +74,162 @@ String version = "";
 String prettyVersion = "";
 String nameVersion = "";
 void version() {
-	String [] s = loadStrings(preference_path+"version.txt");
-	String [] v = split(s[0],"/");
-	prettyVersion = v[0];
-	version = v[1];
-	nameVersion = v[2];
+  String [] s = loadStrings(preference_path+"version.txt");
+  String [] v = split(s[0],"/");
+  prettyVersion = v[0];
+  version = v[1];
+  nameVersion = v[2];
 }
 
 
 String system() {
-	return System.getProperty("os.name");
+  return System.getProperty("os.name");
 }
 
 void set_system_specification() {
-	String system = system();
-	println("System:",system);
-	if(system.equals("Mac OS X")) {
-		KEY_CTRL_OS = 157;
-	} else {
-		KEY_CTRL_OS = CONTROL;
-	}
+  String system = system();
+  println("System:",system);
+  if(system.equals("Mac OS X")) {
+    KEY_CTRL_OS = 157;
+  } else {
+    KEY_CTRL_OS = CONTROL;
+  }
 }
+
+
+
+
+/**
+MISC
+*/
+File [] list_files(String path) {
+  File file = new File(path);
+  if (file.isDirectory()) {
+    File[] files = file.listFiles();
+    return files;
+  } else {
+    // If it's not a directory
+    return null;
+  }
+}
+
+
+
+
+
+
+
+
+
+/**
+FONT LOADING
+0.0.1
+*/
+ROFont [] font;
+void create_font() {
+  int size_font = 200;
+  String path = sketchPath(0)+"/data";
+  File [] file = list_files(path);
+  // check if the file is a font or not
+  int num = 0 ;
+  for(int i = 0 ; i < file.length ; i++) {
+    if(extension_font(file[i].getAbsolutePath())) {
+      num++;
+      // println("num",num);
+    }
+  }
+  font = new ROFont[num];
+   
+  int target= 0;
+  for(int i = 0 ; i < file.length ; i++) {
+    if(extension_font(file[i].getAbsolutePath())) {
+      font[target] = new ROFont(file[i].getAbsolutePath(),size_font);
+      target++;
+    } else {
+      printErr("method create_font(), problem at",i,file[i].getAbsolutePath());
+    }
+    
+  }
+}
+
+
+
+
+boolean extension_font(String path) {
+  if(extension(path).equals("ttf") || extension(path).equals("TTF") || extension(path).equals("otf") || extension(path).equals("OTF")) {
+    return true;
+  } else return false;
+}
+
+
+
+class ROFont {
+  PFont font;
+  String path;
+  String type;
+  int size;
+
+  ROFont(String path, int size) {
+    if(extension_font(path)) {
+      this.font = createFont(path,size);
+      this.path = path;
+      this.size = size;
+      this.type = extension(path);
+      //println(path,type);
+    } else {
+      printErr("class ROFont: path don't match with any font type >",path);
+    }
+  }
+
+  PFont get_font() {
+    return font;
+  }
+
+  String get_path() {
+    return path;
+  }
+
+  String get_type() {
+    return type;
+  }
+
+  int get_size() {
+    return size;
+  }
+
+  String get_name() {
+    return font.getName();
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -200,7 +335,7 @@ void write_window_location() {
 
 
 
-void load_window_location(iVec2 window) {
+void load_window_location() {
   String[] location = loadStrings("location.loc");
   iVec2 loc = iVec2();
   loc.x = Integer.parseInt(location[0]);
@@ -209,8 +344,8 @@ void load_window_location(iVec2 window) {
   // First check the num of screen device
   println("location loaded from save file",loc);
   if(get_screen_num() < 2) {
-    if(loc.x < 0 || loc.x > get_screen_size().x -window.x || loc.y < 0 || loc.y > get_screen_size().y -window.y) {
-      center_sketch(loc,window);
+    if(loc.x < 0 || loc.x > get_screen_size().x -width || loc.y < 0 || loc.y > get_screen_size().y -height) {
+      center_sketch(loc);
     }
   } else if (get_screen_num() >= 2) {
     int begin_x = 0;
@@ -236,20 +371,20 @@ void load_window_location(iVec2 window) {
         end_y += get_screen_size(i).y;
       }
     }
-    if(loc.x < begin_x || loc.x > (end_x - window.x) || loc.y < begin_y || loc.y > (end_y - window.y)) {
-      center_sketch(loc,window);
+    if(loc.x < begin_x || loc.x > (end_x - width) || loc.y < begin_y || loc.y > (end_y - height)) {
+      center_sketch(loc);
 
     }
   }
   surface.setLocation(loc.x,loc.y);
 }
 
-void center_sketch(iVec2 loc, iVec2 window) {
+void center_sketch(iVec2 loc) {
   int term_x_0 = get_screen_size().x /2;
-  int term_x_1 = window.x/2;
+  int term_x_1 = width/2;
   loc.x = term_x_0 - term_x_1;
   int term_y_0 = get_screen_size().y /2;
-  int term_y_1 = window.y/2;
+  int term_y_1 = height/2;
   loc.y = term_y_0 - term_y_1;
 }
 
