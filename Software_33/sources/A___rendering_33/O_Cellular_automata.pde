@@ -133,7 +133,6 @@ class Cellular_automata extends Romanesco {
 
 
   private class CA {
-
     int generation;  // How many generations?
     int[] ruleset;   // An array to store the ruleset, for example {0,1,1,0,1,1,0,1}
     int cell_size = 5;

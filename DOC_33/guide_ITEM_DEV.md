@@ -150,13 +150,13 @@ void load_bitmap(ID_item)
 
 
 
-*LIBRARY OR EXTERNAL CLASSES
+*PASS Processing PAplet in class Romanesco
 
-when you code in the class romanesco and call external class or library need (this) you must write (callingClass) :
+when you code in the class romanesco and call external class or library need method(this) you must write method(papplet) :
 example 
 * name = new LibraryOrClass(this);) >>>
->>> become >>>
-<<< name = new LibraryOrClass(callingClass);)
+become >>>
+name = new LibraryOrClass(paaplet);)
 
 
 

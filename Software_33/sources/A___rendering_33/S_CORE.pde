@@ -1,7 +1,7 @@
 /**
 CORE SCENE and PRESCENE 
 2015-2018
-v 1.6.4
+v 1.7.0
 */
 import java.net.*;
 import java.io.*;
@@ -16,21 +16,7 @@ import oscP5.*;
 import netP5.*;
 import processing.net.*;
 import processing.pdf.*;
-//FLUX RSS or TWITTER ????
-/*
-import com.sun.syndication.feed.synd.*;
-import com.sun.syndication.io.*;
-*/
-//GEOMERATIVE
-import geomerative.*;
-//TOXIC
-import toxi.geom.*;
-import toxi.geom.mesh2d.*;
-import toxi.util.*;
-import toxi.util.datatypes.*;
-import toxi.processing.*;
 
-// SYPHON
 import codeanticode.syphon.*;
 
 
@@ -473,7 +459,7 @@ void load_data_item(String path) {
 
 /**
 FONT MANAGER 
-v 2.0.1.1
+v 2.1.0
 */
 PFont SansSerif10 ;
 
@@ -501,105 +487,108 @@ Three_Hardway ;
 
 void create_font() {
   int size_font = 200 ;
-  String prefix_path_font = import_path +"font/typo_OTF_TTF/" ;
+  String prefix_path_font = import_path +"font/typo_OTF_TTF/";
+  // init the font "zero" for the case where there is no font selected or no actio on the controller
+  path_font_library[0] = prefix_path_font + "Tokyo-OneSolid.otf";
+
+
 
   // path_font_item
-  path_font_library[1] = prefix_path_font + "AmericanTypewriter.ttf" ;
-  American_Typewriter = createFont(path_font_library[1], size_font) ;
+  path_font_library[1] = prefix_path_font + "AmericanTypewriter.ttf";
+  American_Typewriter = createFont(path_font_library[1],size_font);
 
-  path_font_library[2] = prefix_path_font + "Banco.ttf" ;
-  Banco = createFont(path_font_library[2], size_font) ;
+  path_font_library[2] = prefix_path_font + "Banco.ttf";
+  Banco = createFont(path_font_library[2],size_font);
 
-  path_font_library[3] = prefix_path_font + "Cinquenta.ttf" ;
-  Cinquenta = createFont(path_font_library[3], size_font) ;
+  path_font_library[3] = prefix_path_font + "Cinquenta.ttf";
+  Cinquenta = createFont(path_font_library[3],size_font);
 
-  path_font_library[4] = prefix_path_font + "Container-Regular.otf" ;
-  Container_Regular = createFont(path_font_library[4], size_font) ;
+  path_font_library[4] = prefix_path_font + "Container-Regular.otf";
+  Container_Regular = createFont(path_font_library[4],size_font);
 
-  path_font_library[5] = prefix_path_font + "Diesel.otf" ;
-  Diesel = createFont(path_font_library[5], size_font) ;
+  path_font_library[5] = prefix_path_font + "Diesel.otf";
+  Diesel = createFont(path_font_library[5], size_font);
 
-  path_font_library[6] = prefix_path_font + "Digital.ttf" ;
-  Digital = createFont(path_font_library[6], size_font) ;
+  path_font_library[6] = prefix_path_font + "Digital.ttf";
+  Digital = createFont(path_font_library[6], size_font);
   
-  path_font_library[7] = prefix_path_font + "DIN-Black.otf" ;
-  DIN_Black = createFont(path_font_library[7], size_font) ;
-  path_font_library[8] = prefix_path_font + "DIN-Bold.otf" ;
-  DIN_Bold = createFont(path_font_library[8], size_font) ; 
-  path_font_library[9] = prefix_path_font + "DIN-Light.otf" ;
-  DIN_Light = createFont(path_font_library[9], size_font) ;  
-  path_font_library[10] = prefix_path_font + "DIN-Medium.otf" ;
-  DIN_Medium = createFont(path_font_library[10], size_font) ; 
-  path_font_library[11] = prefix_path_font + "DIN-Regular.otf" ;
-  DIN_Regular = createFont(path_font_library[11], size_font) ;
+  path_font_library[7] = prefix_path_font + "DIN-Black.otf";
+  DIN_Black = createFont(path_font_library[7],size_font);
+  path_font_library[8] = prefix_path_font + "DIN-Bold.otf";
+  DIN_Bold = createFont(path_font_library[8],size_font); 
+  path_font_library[9] = prefix_path_font + "DIN-Light.otf";
+  DIN_Light = createFont(path_font_library[9],size_font);  
+  path_font_library[10] = prefix_path_font + "DIN-Medium.otf";
+  DIN_Medium = createFont(path_font_library[10],size_font); 
+  path_font_library[11] = prefix_path_font + "DIN-Regular.otf";
+  DIN_Regular = createFont(path_font_library[11],size_font);
 
-  path_font_library[12] = prefix_path_font + "DosEquis.ttf" ;
-  DosEquis = createFont(path_font_library[12], size_font) ;
+  path_font_library[12] = prefix_path_font + "DosEquis.ttf";
+  DosEquis = createFont(path_font_library[12],size_font);
   
-  path_font_library[13] = prefix_path_font + "EastBloc-Closed.otf" ;
-  EastBloc_Closed = createFont(path_font_library[13], size_font) ; 
-  path_font_library[14] = prefix_path_font + "EastBloc-ClosedAlt.otf" ;
-  EastBloc_ClosedAlt = createFont( path_font_library[14], size_font) ;
-  path_font_library[15] = prefix_path_font + "EastBloc-Open.otf" ;
-  EastBloc_Open = createFont(path_font_library[15], size_font) ;
-  path_font_library[16] = prefix_path_font + "EastBloc-OpenAlt.otf" ;
-  EastBloc_OpenAlt = createFont(path_font_library[16], size_font) ;
+  path_font_library[13] = prefix_path_font + "EastBloc-Closed.otf";
+  EastBloc_Closed = createFont(path_font_library[13],size_font); 
+  path_font_library[14] = prefix_path_font + "EastBloc-ClosedAlt.otf";
+  EastBloc_ClosedAlt = createFont( path_font_library[14], size_font);
+  path_font_library[15] = prefix_path_font + "EastBloc-Open.otf";
+  EastBloc_Open = createFont(path_font_library[15],size_font);
+  path_font_library[16] = prefix_path_font + "EastBloc-OpenAlt.otf";
+  EastBloc_OpenAlt = createFont(path_font_library[16], size_font);
   
-  path_font_library[17] = prefix_path_font + "FetteFraktur.ttf" ;
-  FetteFraktur = createFont(path_font_library[17], size_font) ;
+  path_font_library[17] = prefix_path_font + "FetteFraktur.ttf";
+  FetteFraktur = createFont(path_font_library[17],size_font);
 
-  path_font_library[18] = prefix_path_font + "FuturaStencil.ttf" ;
-  FuturaStencil = createFont(path_font_library[18], size_font) ;
+  path_font_library[18] = prefix_path_font + "FuturaStencil.ttf";
+  FuturaStencil = createFont(path_font_library[18],size_font);
 
-  path_font_library[19] = prefix_path_font + "GangBangCrime.ttf" ;
-  GangBangCrime = createFont(path_font_library[19], size_font) ;
+  path_font_library[19] = prefix_path_font + "GangBangCrime.ttf";
+  GangBangCrime = createFont(path_font_library[19],size_font);
   
-  path_font_library[20] = prefix_path_font + "Juanita.ttf" ;
-  Juanita = createFont(path_font_library[20], size_font) ; 
-  path_font_library[21] = prefix_path_font + "JuanitaDeco.ttf" ;
-  JuanitaDeco = createFont(path_font_library[21], size_font) ; 
+  path_font_library[20] = prefix_path_font + "Juanita.ttf";
+  Juanita = createFont(path_font_library[20],size_font); 
+  path_font_library[21] = prefix_path_font + "JuanitaDeco.ttf";
+  JuanitaDeco = createFont(path_font_library[21],size_font); 
   
-  path_font_library[22] = prefix_path_font + "Komikahuna.ttf" ;
-  Komikahuna = createFont(path_font_library[22], size_font) ; 
+  path_font_library[22] = prefix_path_font + "Komikahuna.ttf";
+  Komikahuna = createFont(path_font_library[22],size_font); 
 
-  path_font_library[23] = prefix_path_font + "Mesquite.otf" ;
-  Mesquite = createFont(path_font_library[23], size_font) ; 
+  path_font_library[23] = prefix_path_font + "Mesquite.otf";
+  Mesquite = createFont(path_font_library[23],size_font); 
   
-  path_font_library[24] = prefix_path_font + "Minion-Black.otf" ;
-  Minion_Black = createFont(path_font_library[24], size_font) ;
-  path_font_library[25] = prefix_path_font + "Minion-Bold.otf" ;
-  Minion_Bold = createFont(path_font_library[25], size_font) ; 
-  path_font_library[26] = prefix_path_font + "Minion-BoldItalic.otf" ;
-  Minion_BoldItalic = createFont(path_font_library[26], size_font) ; 
+  path_font_library[24] = prefix_path_font + "Minion-Black.otf";
+  Minion_Black = createFont(path_font_library[24],size_font);
+  path_font_library[25] = prefix_path_font + "Minion-Bold.otf";
+  Minion_Bold = createFont(path_font_library[25],size_font); 
+  path_font_library[26] = prefix_path_font + "Minion-BoldItalic.otf";
+  Minion_BoldItalic = createFont(path_font_library[26],size_font); 
   path_font_library[27] = prefix_path_font + "Minion-Italic.otf" ;
-  Minion_Italic = createFont( path_font_library[27], size_font) ;
-  path_font_library[28] = prefix_path_font + "Minion-Regular.otf" ;
-  Minion_Regular = createFont(path_font_library[28], size_font) ;
+  Minion_Italic = createFont( path_font_library[27],size_font);
+  path_font_library[28] = prefix_path_font + "Minion-Regular.otf";
+  Minion_Regular = createFont(path_font_library[28],size_font);
   
-  path_font_library[29] = prefix_path_font + "Rosewood.otf" ;
-  Rosewood = createFont(path_font_library[29], size_font) ;
+  path_font_library[29] = prefix_path_font + "Rosewood.otf";
+  Rosewood = createFont(path_font_library[29],size_font);
 
-  path_font_library[30] = prefix_path_font + "Tokyo-One.otf" ;
-  Tokyo_One = createFont(path_font_library[30], size_font) ; 
-  path_font_library[31] = prefix_path_font + "Tokyo-OneSolid.otf" ;
-  Tokyo_OneSolid = createFont(path_font_library[31], size_font) ; 
-  path_font_library[32] = prefix_path_font + "Tokyo-Two.otf" ;
-  Tokyo_Two = createFont(path_font_library[32], size_font) ; 
-  path_font_library[33] = prefix_path_font + "Tokyo-TwoSolid.otf" ;
-  Tokyo_TwoSolid = createFont(path_font_library[33], size_font) ;
+  path_font_library[30] = prefix_path_font + "Tokyo-One.otf";
+  Tokyo_One = createFont(path_font_library[30],size_font); 
+  path_font_library[31] = prefix_path_font + "Tokyo-OneSolid.otf";
+  Tokyo_OneSolid = createFont(path_font_library[31],size_font); 
+  path_font_library[32] = prefix_path_font + "Tokyo-Two.otf";
+  Tokyo_Two = createFont(path_font_library[32],size_font); 
+  path_font_library[33] = prefix_path_font + "Tokyo-TwoSolid.otf";
+  Tokyo_TwoSolid = createFont(path_font_library[33],size_font);
   
-  path_font_library[34] = prefix_path_font + "3Hardway.ttf" ;
-  Three_Hardway = createFont(path_font_library[34], size_font) ;
+  path_font_library[34] = prefix_path_font + "3Hardway.ttf";
+  Three_Hardway = createFont(path_font_library[34],size_font);
 
   // default and special font
-  String prefix_default_path_font = import_path +"font/default_font/" ;
+  String prefix_default_path_font = import_path +"font/default_font/";
 
-  
 
   SansSerif10 = loadFont(prefix_default_path_font+"SansSerif-10.vlw");
   
   // default font
-  path_font_default_ttf = prefix_path_font + "DINEngschrift-Regular.ttf" ;
+  path_font_default_ttf = prefix_path_font + "DINEngschrift-Regular.ttf";
   font_library = DIN_Bold ;
   // 
   println("font build setup done") ;

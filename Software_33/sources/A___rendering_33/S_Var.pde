@@ -3,12 +3,10 @@ VARIABLE SCENE
 2015-2018
 v 1.8.0
 */
-
 boolean scene, prescene;
 boolean miroir_on_off = false ;
 
 boolean check_size = false ;
-
 
 // In the Miroir and Scene sketch presceneOnly must be true for the final work.
 Boolean internet = true ;
@@ -64,8 +62,8 @@ String data_osc_prescene[] = new String [135];
 
 
 
-//CALLING class or library in Other Class, you must call the PApplet too in your class
-PApplet callingClass = this ;
+//to pass processing in an embeded class, you must call the PApplet too in your class
+PApplet papplet = this ;
 // use for the border of window (top and right)
 java.awt.Insets insets; 
 
@@ -419,8 +417,6 @@ float [] mass_item;
 float [] pos_x_item,pos_y_item,pos_z_item;
 
 
-
-
 // int [] soundButton, actionButton;
 // parameterButton;
 boolean [] show_item, sound, action, parameter;
@@ -428,7 +424,6 @@ boolean [] show_item, sound, action, parameter;
 int [] mode;
 int [] costume_controller_selection;
 int [] costume;
-
 
 //BUTTON
 int [] value_button_item;

@@ -78,7 +78,6 @@ class The_Abbyss extends Romanesco {
   void setup() {
     setting_start_position(ID_item, width/2, height/2, 0) ;
     creatureManager = new CreatureManager(this);
-    // creatureManager = new CreatureManager(callingClass);
   }
   //DRAW
   void draw() {
@@ -150,7 +149,6 @@ class The_Abbyss extends Romanesco {
     //boolean highTextQuality = false;
     
     CreatureManager(Romanesco parent) {
-    // CreatureManager(PApplet parent) {
       this.parent = parent;
       releasePoint = PVector.random3D();
       releasePoint.mult(100);

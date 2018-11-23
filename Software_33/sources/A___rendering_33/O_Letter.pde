@@ -1,13 +1,16 @@
 /**
 LETTER
 2012-2018
-v 1.3.3
+v 1.4.0
 */
+//GEOMERATIVE
+
+
 class Letter extends Romanesco {
   public Letter() {
     item_name = "Letter" ;
     item_author  = "Stan le Punk";
-    item_version = "Version 1.3.3";
+    item_version = "Version 1.4.0";
     item_pack = "Base 2012" ;
 
     item_costume = "Point/Line/Triangle";
@@ -31,7 +34,7 @@ class Letter extends Romanesco {
     // canvas_z_is = true;
 
     // frequence_is = true;
-    // speed_x_is = true;
+    speed_x_is = true;
     // speed_y_is = true;
     // speed_z_is = true;
     // spurt_x_is = true;
@@ -40,14 +43,14 @@ class Letter extends Romanesco {
     // dir_x_is = true;
     // dir_y_is = true;
     // dir_z_is = true;
-    // jit_x_is = true;
-    // jit_y_is = true;
-    // jit_z_is = true;
+    jit_x_is = true;
+    jit_y_is = true;
+    jit_z_is = true;
     // swing_x_is = true;
     // swing_y_is = true;
     // swing_z_is = true;
 
-    // quantity_is = true;
+    quantity_is = true;
     // variety_is = true;
     // life_is = true;
     // flow_is = true;
@@ -80,103 +83,118 @@ class Letter extends Romanesco {
   
   //SETUP
   void setup() {
-    setting_start_position(ID_item, width/2, height/2, 0) ;
+    setting_start_position(ID_item,width/2,height/2,0);
+    // geomerative.RG.init(papplet); // Geomerative
   }
   
   
   
   
   //DRAW
+  float speed = 0 ;
+  String sentence;
   void draw() {
     load_txt(ID_item) ;
     // test the font is a ttf or not
-    if(!path_font_item[ID_item].endsWith("ttf")) {
-      path_font_item[ID_item] = path_font_default_ttf ;
+    if(!get_font_path().endsWith("ttf")) {
+      set_font_path(path_font_default_ttf);
     }
     //init and re-init Geomerative if few stuff change about this line like text, font and the size of the font
-    sizeFont = int(map(size_x_item[ID_item],size_x_min_max.x, size_x_min_max.y, (float)height *.01, (float)height *.7));
+    sizeFont = int(map(get_size_x(),size_x_min_max.x, size_x_min_max.y, (float)height *.01, (float)height *.7));
     //text
-    String sentence = whichSentence(text_import[ID_item], 0, 0) ;
+    sentence = whichSentence(text_import[ID_item],0,0);
     
 
-    
     //check if something change to update the RG.getText
-    if (sizeRef == sizeFont && sentenceRef.equals(sentence) && pathRef.equals(path_font_item[ID_item])) {
+    if (sizeRef == sizeFont && sentenceRef.equals(sentence) && pathRef.equals(get_font_path())) {
       newSetting = true  ; 
     } else {
       newSetting = false ;
     }
 
-    sizeRef = sizeFont ;
-    sentenceRef = (sentence) ;
-    pathRef = (path_font_item[ID_item]) ;
+    sizeRef = sizeFont;
+    sentenceRef = (sentence);
+    pathRef = (get_font_path());
+    
 
+    // println(grp,frameCount);
+    update();
+    /*
+    if(grp == null) {
+       println("sentence",sentence);
+       println("font path",get_font_path());
+       println("size_font",(int)sizeFont);
+      // geomerative.RG.getText(sentence,get_font_path(),(int)sizeFont,CENTER)
+      // println(geomerative.RG.getText("truc","FreeSans.ttf",72,CENTER));
+      // grp = new RShape();
+    } else {
+      println("update() letter",frameCount);
+      update();
+    } 
+    */
+
+    // INFO
+    info("Quantity of letter display:",numLetter," - Speed:",int(speed*100));
+
+  }
+
+
+  void update() {
     if(!newSetting || reset(ID_item)) {
-      grp = RG.getText(sentence, path_font_item[ID_item], (int)sizeFont, CENTER); 
-      newSetting = true ;
-      axeLetter = int(random (grp.countChildren())) ;
+      println(get_font_path());
+      grp = geomerative.RG.getText(sentence,"FuturaStencil.ttf",(int)sizeFont,CENTER);
+      // grp = RG.getText(sentence,get_font_path(),(int)sizeFont,CENTER); 
+      newSetting = true;
+      axeLetter = int(random (grp.countChildren()));
     }
 
     if(reset(ID_item)) {
-      int choiceDir = floor(random(2)) ;
+      int choiceDir = floor(random(2));
       if(choiceDir == 0 ) {
-        startDirection = -1 ; 
+        startDirection = -1; 
       } else {
-        startDirection = 1 ;
+        startDirection = 1;
       }
     }
     
     if(all_transient(ID_item) > 10 || key_n ) {
       axeLetter = int(random (grp.countChildren())) ;
     }
-    
-    
 
-    
-    
     /////////
     //ENGINE
-    
-    //speed
-    float speed = 0 ;
-
     if(!motion[ID_item]) {
-      speed = map(speed_x_item[ID_item], 0,1, 0.000, 0.3 ) *tempo[ID_item]  ; 
+      speed = map(get_speed_x(), 0,1, 0.000, 0.3 ) *tempo[ID_item]  ; 
     } 
     //to stop the move
     //if (!action[ID_item]) speed = 0.0 ; 
     if(reverse[ID_item]) speed = -speed ;
     
     //num letter to display
-    numLetter = (int)map(quantity_item[ID_item],0,1, 0,grp.countChildren() +1) ;
+    numLetter = (int)map(get_quantity(),0,1, 0,grp.countChildren() +1) ;
     
     //DISPLAY
     // thickness
-    float thicknessLetter = map(thickness_item[ID_item], .1, height/3, 0.1, height /10) ; ;
+    float thicknessLetter = map(get_thickness(), .1, height/3, 0.1, height /10) ; ;
 
     // color
     if(get_costume() != TRIANGLE_ROPE) {
       noFill() ; 
-      stroke(fill_item[ID_item]) ; 
+      stroke(get_fill()) ; 
       strokeWeight(thicknessLetter) ;
     } else {
       fill(fill_item[ID_item]) ; 
-      stroke(stroke_item[ID_item]) ; 
+      stroke(get_stroke()) ; 
       strokeWeight(thicknessLetter) ;
     }
     //jitter
-    float jitterX = map(jitter_x_item[ID_item],0,1, 0, (float)width *.1) ;
-    float jitterY = map(jitter_y_item[ID_item],0,1, 0, (float)width *.1) ;
-    float jitterZ = map(jitter_z_item[ID_item],0,1, 0, (float)width *.1) ;
+    float jitterX = map(get_jitter_x(),0,1, 0, (float)width *.1) ;
+    float jitterY = map(get_jitter_y(),0,1, 0, (float)width *.1) ;
+    float jitterZ = map(get_jitter_z(),0,1, 0, (float)width *.1) ;
     PVector jitter = new PVector (jitterX *jitterX, jitterY *jitterY, jitterZ *jitterZ) ;
 
     letters(speed, axeLetter, jitter) ;
     //END YOUR WORK
-    
-
-    
-    // INFO
-    item_info[ID_item] = ("Quantity of letter display " + numLetter + " - Speed " +int(speed*100)) ;
 
   }
   
@@ -220,7 +238,7 @@ class Letter extends Romanesco {
     // direction rotation for each one
     if(frameCount%160 == 0 || key_n) whichOneChangeDirection = round(random(1,num)) ;
     //position
-    for ( int i = 0 ; i < num ; i++) {
+    for (int i = 0 ; i < num ; i++) {
       int targetLetter ;
       targetLetter = whichLetter +i ;
       if (targetLetter < grp.countChildren() ) {

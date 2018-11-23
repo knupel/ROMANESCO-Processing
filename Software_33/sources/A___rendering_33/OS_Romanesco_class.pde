@@ -100,7 +100,7 @@ public abstract class Romanesco implements rope.core.RConstants {
   }
   
   //manager return
-  void set_item_romanesco(Romanesco_manager item_romanesco) {
+  public void set_item_romanesco(Romanesco_manager item_romanesco) {
     this.item_romanesco = item_romanesco;
     if(!hue_fill_is) item_slider +="," ; else item_slider += (ROM_HUE_FILL +",");
     if(!sat_fill_is) item_slider +="," ; else item_slider +=(ROM_SAT_FILL+",");
@@ -190,12 +190,21 @@ public abstract class Romanesco implements rope.core.RConstants {
     ID_group = group;
   }
 
+
+  protected void set_font_path(String path) {
+    path_font_item[ID_item] = path;
+  }
+
   /**
   * misc method
   */
 
   public int which_movie() {
     return which_movie[ID_item];
+  }
+
+  protected String get_font_path() {
+    return path_font_item[ID_item];
   }
 
 

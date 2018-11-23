@@ -76,7 +76,7 @@ void load_txt(int id) {
     if(which_text[id] > text_path.length ) which_text[id] = 0;
     text_import[id] = importText(text_path[which_text[id]]);
   } else {
-    text_import[id] = "Big Brother has been burning all books, it's not possible to read anything";
+    text_import[id] = "Big Brother has been burning all books.\nCheck the controller if there is any text imported";
   }    
 }
 

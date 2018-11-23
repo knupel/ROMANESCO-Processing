@@ -2,7 +2,7 @@
 Core Romanesco
 COMMON SKETCH for CONTROLLER, PRESCENE & SCENE
 2018-2018
-v 0.2.0
+v 0.3.0
 */
 int NUM_COL_SLIDER = 4;
 int NUM_SLIDER_ITEM_BY_COL = 16;
@@ -95,6 +95,141 @@ void set_system_specification() {
 		KEY_CTRL_OS = CONTROL;
 	}
 }
+
+
+
+
+/**
+MISC
+*/
+File [] list_files(String path) {
+  File file = new File(path);
+  if (file.isDirectory()) {
+    File[] files = file.listFiles();
+    return files;
+  } else {
+    // If it's not a directory
+    return null;
+  }
+}
+
+
+
+
+
+
+
+
+
+/**
+FONT LOADING
+0.0.1
+*/
+ROFont [] font;
+void create_font() {
+  int size_font = 200;
+  String path = sketchPath(0)+"/data";
+  File [] file = list_files(path);
+  // check if the file is a font or not
+  int num = 0 ;
+  for(int i = 0 ; i < file.length ; i++) {
+    if(extension_font(file[i].getAbsolutePath())) {
+      num++;
+      // println("num",num);
+    }
+  }
+  font = new ROFont[num];
+   
+  int target= 0;
+  for(int i = 0 ; i < file.length ; i++) {
+    if(extension_font(file[i].getAbsolutePath())) {
+      font[target] = new ROFont(file[i].getAbsolutePath(),size_font);
+      target++;
+    } else {
+      printErr("method create_font(), problem at",i,file[i].getAbsolutePath());
+    }
+    
+  }
+}
+
+
+
+
+boolean extension_font(String path) {
+  if(extension(path).equals("ttf") || extension(path).equals("TTF") || extension(path).equals("otf") || extension(path).equals("OTF")) {
+    return true;
+  } else return false;
+}
+
+
+
+class ROFont {
+  PFont font;
+  String path;
+  String type;
+  int size;
+
+  ROFont(String path, int size) {
+    if(extension_font(path)) {
+      this.font = createFont(path,size);
+      this.path = path;
+      this.size = size;
+      this.type = extension(path);
+      //println(path,type);
+    } else {
+      printErr("class ROFont: path don't match with any font type >",path);
+    }
+  }
+
+  PFont get_font() {
+    return font;
+  }
+
+  String get_path() {
+    return path;
+  }
+
+  String get_type() {
+    return type;
+  }
+
+  int get_size() {
+    return size;
+  }
+
+  String get_name() {
+    return font.getName();
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

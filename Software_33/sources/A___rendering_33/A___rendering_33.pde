@@ -131,6 +131,7 @@ void settings() {
 }
 
 
+import geomerative.*;
 
 void setup() {
   path_setting();
@@ -144,8 +145,6 @@ void setup() {
   int num_layer = 3;
   int frame_rate = 60;
   display_setup(frame_rate,num_layer); // the int value is the frameRate
-
-  RG.init(this); // Geomerative
 
   romanesco_build_item();
 
@@ -167,6 +166,7 @@ void setup() {
   init_variable_item();
   init_slider_variable_world();
   create_font();
+  update_path_font_item();
   
   if(USE_SOUND) sound_setup();
 
@@ -175,7 +175,12 @@ void setup() {
 
   init_filter();
   init_masking();
+
+  RG.init(this); // Geomerative
 }
+
+
+
 
 
 

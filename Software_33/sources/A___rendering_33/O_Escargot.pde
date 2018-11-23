@@ -3,6 +3,15 @@ ESCARGOT
 2011-2018
 V 1.4.10
 */
+//TOXIC
+import toxi.geom.*;
+import toxi.geom.mesh2d.*;
+import toxi.util.*;
+import toxi.util.datatypes.*;
+import toxi.processing.*;
+
+
+
 class Escargot extends Romanesco {
   public Escargot() {
     //from the index_objects.csv
@@ -613,7 +622,7 @@ class Escargot extends Romanesco {
     // focus y positions around bottom (w/ 50% standard deviation)
     ypos=new BiasedFloatRange(0, height, height, 0.5f);
     
-    gfx = new ToxiclibsSupport(callingClass);
+    gfx = new ToxiclibsSupport(papplet);
   }
   
   // DRAW

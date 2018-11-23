@@ -11,7 +11,6 @@ v 0.1.1
 import rope.core.*;
 import rope.vector.*;
 
-
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.Random;
