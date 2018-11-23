@@ -17,8 +17,10 @@ import netP5.*;
 import processing.net.*;
 import processing.pdf.*;
 //FLUX RSS or TWITTER ????
+/*
 import com.sun.syndication.feed.synd.*;
 import com.sun.syndication.io.*;
+*/
 //GEOMERATIVE
 import geomerative.*;
 //TOXIC
