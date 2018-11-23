@@ -200,7 +200,7 @@ void write_window_location() {
 
 
 
-void load_window_location() {
+void load_window_location(iVec2 window) {
   String[] location = loadStrings("location.loc");
   iVec2 loc = iVec2();
   loc.x = Integer.parseInt(location[0]);
@@ -209,8 +209,8 @@ void load_window_location() {
   // First check the num of screen device
   println("location loaded from save file",loc);
   if(get_screen_num() < 2) {
-    if(loc.x < 0 || loc.x > get_screen_size().x -width || loc.y < 0 || loc.y > get_screen_size().y -height) {
-      center_sketch(loc);
+    if(loc.x < 0 || loc.x > get_screen_size().x -window.x || loc.y < 0 || loc.y > get_screen_size().y -window.y) {
+      center_sketch(loc,window);
     }
   } else if (get_screen_num() >= 2) {
     int begin_x = 0;
@@ -236,20 +236,20 @@ void load_window_location() {
         end_y += get_screen_size(i).y;
       }
     }
-    if(loc.x < begin_x || loc.x > (end_x - width) || loc.y < begin_y || loc.y > (end_y - height)) {
-      center_sketch(loc);
+    if(loc.x < begin_x || loc.x > (end_x - window.x) || loc.y < begin_y || loc.y > (end_y - window.y)) {
+      center_sketch(loc,window);
 
     }
   }
   surface.setLocation(loc.x,loc.y);
 }
 
-void center_sketch(iVec2 loc) {
+void center_sketch(iVec2 loc, iVec2 window) {
   int term_x_0 = get_screen_size().x /2;
-  int term_x_1 = width/2;
+  int term_x_1 = window.x/2;
   loc.x = term_x_0 - term_x_1;
   int term_y_0 = get_screen_size().y /2;
-  int term_y_1 = height/2;
+  int term_y_1 = window.y/2;
   loc.y = term_y_0 - term_y_1;
 }
 

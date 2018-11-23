@@ -170,7 +170,7 @@ void init_romanesco() {
 /**
 DISPLAY SETUP
 2015-2018
-v 1.2.0
+v 1.3.0
 */
 String displayMode = ("");
 int depth_scene;
@@ -180,7 +180,7 @@ void display_setup(int frame_rate, int num_layer) {
     noCursor();
   }
   frameRate(frame_rate);  // Le frameRate doit être le même dans tous les Sketches
-  colorMode(HSB, HSBmode.r, HSBmode.g, HSBmode.b, HSBmode.a);
+  colorMode(HSB, HSBmode.r,HSBmode.g,HSBmode.b,HSBmode.a);
 
 
   set_screen();
@@ -204,18 +204,19 @@ void display_setup(int frame_rate, int num_layer) {
 void set_screen() {
   Table configurationScene = loadTable(preference_path +"sceneProperty.csv","header");
   TableRow row = configurationScene.getRow(0);
-  int w = width;
-  int h = height;
+  iVec2 window = iVec2(width,height);
+  int target_screen = row.getInt("whichScreen");
 
   if(FULL_RENDERING) {
-    w = row.getInt("width"); 
-    h = row.getInt("height");
+    window.x = row.getInt("width"); 
+    window.y = row.getInt("height");
     
     if(!FULL_SCREEN) {
-      load_window_location();
-      surface.setSize(w,h);
+      window.set(resize_screen(window,target_screen));
+      load_window_location(window);
+      
+      surface.setSize(window.x,window.y);
     } else {
-      int target_screen = row.getInt("whichScreen");
       println("The",IAM,"is on the screen",target_screen,"on",get_display_num(),"screen available");    
       int ox = get_screen_location(target_screen).x;
       int oy = get_screen_location(target_screen).y;
@@ -229,18 +230,25 @@ void set_screen() {
       }
       println("target screen",target_screen,"location:",ox,oy);
       println("target screen",target_screen,"size:",sx,sy);
-      w = sx; 
-      h = sy;
+      window.set(sx,sy);
     }   
   } else {
-    w = row.getInt("preview_width"); 
-    h = row.getInt("preview_height");
-    load_window_location();
-    surface.setSize(w,h);
+    window.set(row.getInt("preview_width"),row.getInt("preview_height"));
+    load_window_location(window);
+    surface.setSize(window.x,window.y);
   }
-  scene_width = w;
-  scene_height = h;
-  println(IAM,"screen size [",w,",",h,"]"); 
+  scene_width = window.x;
+  scene_height = window.y;
+  println(IAM,"screen size:",window); 
+}
+
+// resize_screen_if_parameter_is_too_big
+iVec2 resize_screen(iVec2 window, int target) {
+  if(window.x >= get_screen_size(target).x) window.x = get_screen_size(target).x -100;
+  if(window.y >= get_screen_size(target).y) window.y = get_screen_size(target).y -100;
+  return window;
+
+
 }
 
 

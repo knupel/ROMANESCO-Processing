@@ -117,7 +117,7 @@ void settings() {
 /*
   fullScreen(P3D); // original
   FULL_SCREEN = true;
-*/ 
+*/
   syphon_settings();
 
   if(IAM.equals("prescene")) {
@@ -210,8 +210,6 @@ void draw() {
 
 
 void romanesco() {
-
-
   init_romanesco();
   if(FULL_RENDERING) start_PNG("screenshot Romanesco prescene", "Romanesco_"+year()+"_"+month()+"_"+day()+"_"+hour()+"_"+minute()+"_"+second()) ;
 
