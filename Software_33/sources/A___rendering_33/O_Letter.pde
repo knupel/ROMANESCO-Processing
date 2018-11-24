@@ -4,7 +4,7 @@ LETTER
 v 1.4.0
 */
 //GEOMERATIVE
-
+import geomerative.*;
 
 class Letter extends Romanesco {
   public Letter() {
@@ -25,7 +25,7 @@ class Letter extends Romanesco {
     bright_stroke_is = true;
     alpha_stroke_is = true;
     thickness_is = true;
-    // size_x_is = true;
+    size_x_is = true;
     // size_y_is = true;
     // size_z_is = true;
     // diameter_is = true;
@@ -70,7 +70,7 @@ class Letter extends Romanesco {
   //GLOBAL
   RFont f;
   RShape grp;
-  boolean newSetting ;
+  
   int sizeRef, sizeFont ;
   String sentenceRef = ("") ; 
   String pathRef = ("") ;
@@ -84,7 +84,7 @@ class Letter extends Romanesco {
   //SETUP
   void setup() {
     setting_start_position(ID_item,width/2,height/2,0);
-    // geomerative.RG.init(papplet); // Geomerative
+    geomerative.RG.init(papplet); // Geomerative
   }
   
   
@@ -96,8 +96,11 @@ class Letter extends Romanesco {
   void draw() {
     load_txt(ID_item) ;
     // test the font is a ttf or not
-    if(!get_font_path().endsWith("ttf")) {
-      set_font_path(path_font_default_ttf);
+    boolean warning_font = false;
+    if(!get_font_type().equals("ttf") || !get_font_type().equals("TTF")) {
+      //set_font_path(path_font_default_ttf);
+      select_font_type("ttf");
+      warning_font = true;
     }
     //init and re-init Geomerative if few stuff change about this line like text, font and the size of the font
     sizeFont = int(map(get_size_x(),size_x_min_max.x, size_x_min_max.y, (float)height *.01, (float)height *.7));
@@ -106,49 +109,40 @@ class Letter extends Romanesco {
     
 
     //check if something change to update the RG.getText
-    if (sizeRef == sizeFont && sentenceRef.equals(sentence) && pathRef.equals(get_font_path())) {
-      newSetting = true  ; 
-    } else {
-      newSetting = false ;
-    }
-
-    sizeRef = sizeFont;
-    sentenceRef = (sentence);
-    pathRef = (get_font_path());
-    
-
-    // println(grp,frameCount);
-    update();
-    /*
-    if(grp == null) {
-       println("sentence",sentence);
-       println("font path",get_font_path());
-       println("size_font",(int)sizeFont);
-      // geomerative.RG.getText(sentence,get_font_path(),(int)sizeFont,CENTER)
-      // println(geomerative.RG.getText("truc","FreeSans.ttf",72,CENTER));
-      // grp = new RShape();
-    } else {
-      println("update() letter",frameCount);
-      update();
+    boolean reset = false;
+    boolean reset_font = false;
+    if (sizeRef != sizeFont || !sentenceRef.equals(sentence) || !pathRef.equals(get_font_path())) {
+      sizeRef = sizeFont;
+      sentenceRef = (sentence);
+      pathRef = (get_font_path());
+      reset = true;
+      reset_font = true;
+    } else if(birth_is()) {
+      reset = true; 
+      set_birth(false);
     } 
-    */
+
+    update(reset,reset_font);
 
     // INFO
-    info("Quantity of letter display:",numLetter," - Speed:",int(speed*100));
+    String warning_font_type = "font type accepted is TTF";
+    if(warning_font) warning_font_type = "font type is not TTF, instead class Letter use a first TTF from library";
+    info("Quantity of letter display:",numLetter," - Speed:",int(speed*100),"font",get_font_name(),warning_font_type);
 
   }
 
 
-  void update() {
-    if(!newSetting || reset(ID_item)) {
-      println(get_font_path());
-      grp = geomerative.RG.getText(sentence,"FuturaStencil.ttf",(int)sizeFont,CENTER);
-      // grp = RG.getText(sentence,get_font_path(),(int)sizeFont,CENTER); 
-      newSetting = true;
+  void update(boolean reset,boolean reset_font) {
+    if(grp == null) {
+      grp = geomerative.RG.getText(sentence,get_font_path(),(int)sizeFont,CENTER);
+    }
+    if(reset || reset_font) {
+      println(reset,reset_font,frameCount);
+      grp = geomerative.RG.getText(sentence,get_font_path(),(int)sizeFont,CENTER);
       axeLetter = int(random (grp.countChildren()));
     }
 
-    if(reset(ID_item)) {
+    if(reverse_is()) {
       int choiceDir = floor(random(2));
       if(choiceDir == 0 ) {
         startDirection = -1; 
@@ -163,8 +157,12 @@ class Letter extends Romanesco {
 
     /////////
     //ENGINE
-    if(!motion[ID_item]) {
-      speed = map(get_speed_x(), 0,1, 0.000, 0.3 ) *tempo[ID_item]  ; 
+    if(motion[ID_item]) {
+      if(sound_is()) {
+        speed = map(get_speed_x()*get_speed_x(),0,1,0.,.3) *tempo[ID_item];
+      } else {
+        speed = map(get_speed_x()*get_speed_x(),0,1,0.,.1);
+      } 
     } 
     //to stop the move
     //if (!action[ID_item]) speed = 0.0 ; 
@@ -183,7 +181,7 @@ class Letter extends Romanesco {
       stroke(get_fill()) ; 
       strokeWeight(thicknessLetter) ;
     } else {
-      fill(fill_item[ID_item]) ; 
+      fill(get_fill()) ; 
       stroke(get_stroke()) ; 
       strokeWeight(thicknessLetter) ;
     }
@@ -203,7 +201,7 @@ class Letter extends Romanesco {
   float rotation ;
   
   void letters(float speed, int axeLetter, PVector jttr) {
-    if (sound[ID_item]) {
+    if (sound_is()) {
       whichLetter = (int)all_transient(ID_item) ; 
     } else {
       whichLetter = 0 ;
@@ -273,7 +271,7 @@ class Letter extends Romanesco {
   //jitter for PVector points
   PVector jitterPVector(PVector range) {
     float factor = 0.0 ;
-    if(sound[ID_item]) factor = 2.0 ; else factor = 0.1  ;
+    if(sound_is()) factor = 2.0 ; else factor = 0.1  ;
     int rangeX = int(range.x *left[ID_item] *factor) ;
     int rangeY = int(range.y *right[ID_item] *factor) ;
     int rangeZ = int(range.z *mix[ID_item] *factor) ;
@@ -294,5 +292,10 @@ class Letter extends Romanesco {
     }
     return pts ;
   }
-  
 }
+
+
+
+
+
+

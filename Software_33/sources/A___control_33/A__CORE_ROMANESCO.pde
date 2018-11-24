@@ -2,7 +2,7 @@
 Core Romanesco
 COMMON SKETCH for CONTROLLER, PRESCENE & SCENE
 2018-2018
-v 0.3.0
+v 0.3.2
 */
 int NUM_COL_SLIDER = 4;
 int NUM_SLIDER_ITEM_BY_COL = 16;
@@ -31,12 +31,12 @@ int NUM_SLIDER_SOUND = 2;
 int NUM_SLIDER_SOUND_SETTING = 5; // 5
 int NUM_SLIDER_CAMERA = 10;
 
-int NUM_SLIDER_GENERAL 	= NUM_SLIDER_BACKGROUND 
-												+ NUM_SLIDER_FX 
-												+ NUM_SLIDER_LIGHT 
-												+ NUM_SLIDER_SOUND 
-												+ NUM_SLIDER_SOUND_SETTING 
-												+ NUM_SLIDER_CAMERA;
+int NUM_SLIDER_GENERAL  = NUM_SLIDER_BACKGROUND 
+                        + NUM_SLIDER_FX 
+                        + NUM_SLIDER_LIGHT 
+                        + NUM_SLIDER_SOUND 
+                        + NUM_SLIDER_SOUND_SETTING 
+                        + NUM_SLIDER_CAMERA;
 
 // for the case where the slider is a multislider, important for the sending and receiving OSC data
 int NUM_MOLETTE_BACKGROUND = NUM_SLIDER_BACKGROUND;
@@ -47,11 +47,11 @@ int NUM_MOLETTE_SOUND_SETTING = 11; // here the value is different because it's 
 int NUM_MOLETTE_CAMERA = NUM_SLIDER_CAMERA;
 
 int NUM_MOLETTE_GENERAL = NUM_MOLETTE_BACKGROUND 
-												+ NUM_MOLETTE_FX 
-												+ NUM_MOLETTE_LIGHT 
-												+ NUM_MOLETTE_SOUND 
-												+ NUM_MOLETTE_SOUND_SETTING 
-												+ NUM_MOLETTE_CAMERA;
+                        + NUM_MOLETTE_FX 
+                        + NUM_MOLETTE_LIGHT 
+                        + NUM_MOLETTE_SOUND 
+                        + NUM_MOLETTE_SOUND_SETTING 
+                        + NUM_MOLETTE_CAMERA;
 
 int NUM_GROUP_SLIDER = 2; // '0' for general / '1' for the item
 
@@ -74,26 +74,26 @@ String version = "";
 String prettyVersion = "";
 String nameVersion = "";
 void version() {
-	String [] s = loadStrings(preference_path+"version.txt");
-	String [] v = split(s[0],"/");
-	prettyVersion = v[0];
-	version = v[1];
-	nameVersion = v[2];
+  String [] s = loadStrings(preference_path+"version.txt");
+  String [] v = split(s[0],"/");
+  prettyVersion = v[0];
+  version = v[1];
+  nameVersion = v[2];
 }
 
 
 String system() {
-	return System.getProperty("os.name");
+  return System.getProperty("os.name");
 }
 
 void set_system_specification() {
-	String system = system();
-	println("System:",system);
-	if(system.equals("Mac OS X")) {
-		KEY_CTRL_OS = 157;
-	} else {
-		KEY_CTRL_OS = CONTROL;
-	}
+  String system = system();
+  println("System:",system);
+  if(system.equals("Mac OS X")) {
+    KEY_CTRL_OS = 157;
+  } else {
+    KEY_CTRL_OS = CONTROL;
+  }
 }
 
 
@@ -123,12 +123,12 @@ File [] list_files(String path) {
 
 /**
 FONT LOADING
-0.0.1
+0.0.2
 */
 ROFont [] font;
 void create_font() {
   int size_font = 200;
-  String path = sketchPath(0)+"/data";
+  String path = import_path+"/font/typo_OTF_TTF";
   File [] file = list_files(path);
   // check if the file is a font or not
   int num = 0 ;
@@ -308,8 +308,22 @@ boolean check_already_existing_path(String path) {
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
 /**
 Manage window position
+v 0.0.2
 */
 iVec2 ref_window_location;
 void update_window_location() {
@@ -336,6 +350,10 @@ void write_window_location() {
 
 
 void load_window_location() {
+  load_window_location(iVec2(width,height));
+}
+
+void load_window_location(iVec2 window) {
   String[] location = loadStrings("location.loc");
   iVec2 loc = iVec2();
   loc.x = Integer.parseInt(location[0]);
@@ -344,7 +362,7 @@ void load_window_location() {
   // First check the num of screen device
   println("location loaded from save file",loc);
   if(get_screen_num() < 2) {
-    if(loc.x < 0 || loc.x > get_screen_size().x -width || loc.y < 0 || loc.y > get_screen_size().y -height) {
+    if(loc.x < 0 || loc.x > get_screen_size().x -window.x || loc.y < 0 || loc.y > get_screen_size().y -window.y) {
       center_sketch(loc);
     }
   } else if (get_screen_num() >= 2) {
@@ -371,9 +389,8 @@ void load_window_location() {
         end_y += get_screen_size(i).y;
       }
     }
-    if(loc.x < begin_x || loc.x > (end_x - width) || loc.y < begin_y || loc.y > (end_y - height)) {
+    if(loc.x < begin_x || loc.x > (end_x -window.x) || loc.y < begin_y || loc.y > (end_y - window.y)) {
       center_sketch(loc);
-
     }
   }
   surface.setLocation(loc.x,loc.y);
@@ -387,6 +404,14 @@ void center_sketch(iVec2 loc) {
   int term_y_1 = height/2;
   loc.y = term_y_0 - term_y_1;
 }
+
+
+
+
+
+
+
+
 
 
 

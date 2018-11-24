@@ -168,9 +168,9 @@ void set_slider_item_name() {
 
 
 
-void update_path_font_item() {
+void update_font_item() {
   for(int i = 0 ; i < rpe_manager.size() ; i++) {
-    path_font_item[i] = path_font_library[0];
+    font_item[i] = current_font;
   }
 }
 
@@ -190,8 +190,7 @@ void update_var_items(int ID) {
     init_value_mouse[ID] = true;
   }
   if(!init_value_controller[ID]) {
-    font_item[ID] = font_library;
-    path_font_item[ID] = path_font_library[0];
+    font_item[ID] = current_font;
     update_slider_value(ID) ;
     init_value_controller[ID] = true;
     which_bitmap[ID] = which_bitmap[0];
@@ -221,7 +220,7 @@ void update_var_items(int ID) {
       which_shape_ref = which_shape[0];
     }
 
-    font_item[ID] = font_library;
+    font_item[ID] = current_font;
     update_slider_value(ID);
   }
   update_var_sound(ID);

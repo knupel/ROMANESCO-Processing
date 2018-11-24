@@ -131,7 +131,7 @@ void settings() {
 }
 
 
-import geomerative.*;
+
 
 void setup() {
   path_setting();
@@ -165,8 +165,10 @@ void setup() {
   init_variable_item_min_max();
   init_variable_item();
   init_slider_variable_world();
+  load_system_font();
   create_font();
-  update_path_font_item();
+  init_font();
+  update_font_item();
   
   if(USE_SOUND) sound_setup();
 
@@ -176,7 +178,7 @@ void setup() {
   init_filter();
   init_masking();
 
-  RG.init(this); // Geomerative
+  // RG.init(this); // Geomerative
 }
 
 

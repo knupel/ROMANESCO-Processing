@@ -463,11 +463,10 @@ boolean [] fill_is, stroke_is;
 boolean [] setting, clearList;
 
 //font
-int numFont = 50;
-String [] path_font_library, path_font_item;
-String path_font_default_ttf;
-PFont font_library;
-PFont [] font_item;
+ROFont current_font;
+ROFont [] font_item;
+
+
 
 
 
@@ -583,18 +582,9 @@ void create_var_misc() {
   // TEXT
   text_import = new String [NUM_ITEM_PLUS_MASTER];
   which_text = new int[NUM_ITEM_PLUS_MASTER];
-  //main font for each object
-  // font = new PFont[NUM_ITEM_PLUS_MASTER] ;
-  /*
-  path_font_item_TTF = new String[NUM_ITEM_PLUS_MASTER] ;
-  path_font_TTF = new String [numFont] ;  
-  pathFontVLW = new String [numFont] ;
-  */ 
 
-  path_font_library = new String[numFont];
-  path_font_item = new String[NUM_ITEM_PLUS_MASTER];
-
-  font_item = new PFont[NUM_ITEM_PLUS_MASTER];
+  // font managing
+  font_item = new ROFont[NUM_ITEM_PLUS_MASTER];
 
   //MISC
   //var to init the data of the object when is switch ON for the first time

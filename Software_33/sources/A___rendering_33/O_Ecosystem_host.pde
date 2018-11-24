@@ -1,13 +1,13 @@
 /**
 Ecosysteme Host 
 2016-2018
-V 0.1.7
+V 0.1.8
 */
 class Ecosystem_DNA extends Romanesco {
 	public Ecosystem_DNA() {
 		item_name = "Eco DNA" ;
 		item_author  = "Stan le Punk";
-		item_version = "Version 0.1.7";
+		item_version = "Version 0.1.8";
 		item_pack = "Ecosystem 2016-2018";
     item_costume = "Point/Ellipse/Triangle/Rect/Cross/ABC" ;
 		item_mode = "" ; // separate the differentes mode by "/"
@@ -118,7 +118,7 @@ class Ecosystem_DNA extends Romanesco {
       motion_bool_host = false;
     }
 
-    if(birth[ID_item]) {
+    if(birth_is()) {
       set_host(pos, size, canvas, quantity_item[ID_item]) ;
       init_symbiosis() ;
     	birth[ID_item] = false ;
@@ -127,7 +127,7 @@ class Ecosystem_DNA extends Romanesco {
     boolean_host(fill_is[ID_item], stroke_is[ID_item], wire[ID_item]) ;
 
     if(get_costume() == TEXT_ROPE) {
-      textFont(font_item[ID_item]);
+      textFont(get_font());
     }
 
     float direction = get_dir_x();

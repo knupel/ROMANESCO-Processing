@@ -147,9 +147,9 @@ class Honeycomb extends Romanesco {
     popMatrix() ;
     
     // new honeycomb
-    if((birth[ID_item])) {
+    if((birth_is())) {
       newHoneycomb = true ;
-      birth[ID_item] = false ;
+      set_birth(false);
     }
     
     if(newHoneycomb) {

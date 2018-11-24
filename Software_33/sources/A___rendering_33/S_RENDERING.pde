@@ -471,7 +471,7 @@ void displayInfoScene(color bg_txt, color txt) {
   rect(0,-5,width, 15*posInfo) ;
   posInfo = 2 ;
   fill(txt) ;
-  textFont(SansSerif10, 10) ;
+  textFont(system_font,10);
   //INFO SIZE and RENDERER
   String displayModeInfo ;
   if (displayMode.equals("Classic") ) displayModeInfo = ("classic") ; else displayModeInfo = displayMode ;
@@ -507,7 +507,7 @@ void displayInfoObject(color bg_txt, color txt) {
   float heightBox = 15*posInfoObj ;
   rect(0, height -heightBox,width, heightBox) ;
   fill(txt) ;
-  textFont(SansSerif10, 10) ;
+  textFont(system_font,10);
   
   posInfoObj = 1 ;
   // for (Romanesco objR : RomanescoList)
@@ -535,7 +535,7 @@ void displayInfo3D(color txt) {
   String posCam = ( int(-1 *sceneCamera.x ) + " / " + int(sceneCamera.y) + " / " +  int(sceneCamera.z -height/2));
   String eyeDirectionCam = (int(eyeCamera.x) + " / " + int(eyeCamera.y));
   fill(txt); 
-  textFont(SansSerif10, 10);
+  textFont(system_font,10);
   textAlign(RIGHT);
   text("Position " +posCam, width/2 -30 , height/2 -30);
   text("Direction " +eyeDirectionCam, width/2 -30 , height/2 -15);

@@ -1,7 +1,7 @@
 /**
 ATOME 
 2012-2018
-v 1.3.7
+v 1.3.8
 */
 ArrayList<Atom> atomList ;
 //object one
@@ -10,7 +10,7 @@ class Atome extends Romanesco {
     //from the index_objects.csv
     item_name = "Atome" ;
     item_author  = "Stan le Punk";
-    item_version = "version 1.3.7";
+    item_version = "version 1.3.8";
     item_pack = "Base 2012-2018" ;
     item_costume = "";
     item_mode = "Chemical Name/File text/Electronic cloud/Ellipse circle/Ellipse triangle/Ellipse cloud/Triangle circle/Triangle triangle/Triangle cloud/Rectangle rectangle/Rectangle cloud" ;
@@ -238,9 +238,9 @@ class Atome extends Romanesco {
       //MODE OF DISPLAY
       //item_mode = "Chemical Name/File text/Electronic cloud/Ellipse schema/Ellipse cloud/Triangle schema/Triangle cloud/Rectangle schema/Rectangle cloud/Box schema/Box cloud/Sphere schema/Sphere cloud" ;
       if (mode[ID_item] == 0 || mode[ID_item] == 255 ) {
-        atm.titleAtom2D (fill_item[ID_item], stroke_item[ID_item], font_item[ID_item], sizeTextName, sizeTextInfo, posTextInfo, angle_item[ID_item]) ; // (color name, color Info, PFont, int sizeTextName,int  sizeTextInfo )
+        atm.titleAtom2D (fill_item[ID_item], stroke_item[ID_item], get_font(), sizeTextName, sizeTextInfo, posTextInfo, angle_item[ID_item]) ; // (color name, color Info, PFont, int sizeTextName,int  sizeTextInfo )
       } else if (mode[ID_item] == 1 ) { 
-        atm.title2D(fill_item[ID_item], font_item[ID_item], sizeTextName, posText, angle_item[ID_item]) ;
+        atm.title2D(fill_item[ID_item], get_font(), sizeTextName, posText, angle_item[ID_item]) ;
       } else if (mode[ID_item] == 2 ) {
         atm.display("", "POINT", sizeAtomeXYZ, fill_item[ID_item], stroke_item[ID_item], thickness, angle_item[ID_item]) ;
       } else if (mode[ID_item] == 3 ) {

@@ -85,11 +85,11 @@ class FF extends Romanesco {
   void draw() { 
     minimum_spot();
     set_ff();
-    if(ref_cell != grid_item[ID_item] || ref_mode != mode[ID_item] || ref_detection != area_item[ID_item] || birth[ID_item]) {
+    if(ref_cell != grid_item[ID_item] || ref_mode != mode[ID_item] || ref_detection != area_item[ID_item] || birth_is()) {
       ref_mode = mode[ID_item];
       ref_cell = grid_item[ID_item];
       ref_detection = area_item[ID_item];
-      birth[ID_item] = false;
+      set_birth(false);
       init_force_field(get_spot_num());
       // EQUATION
       if(get_pattern_force_field() == EQUATION) {

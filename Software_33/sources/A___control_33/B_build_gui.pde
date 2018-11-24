@@ -433,18 +433,12 @@ v 1.1.0
 */
 void build_dropdown_bar() {
   //font
-  /*
-  String pList [] = loadStrings(import_path+"font/fontList.txt") ;
-  String policeList = join(pList, "") ;
-    font_dropdown_list = split(policeList, "/") ;
-  */
   String path_font = import_path +"font/typo_OTF_TTF";
   File [] file = list_files(path_font);
   int num = 0 ;
   for(int i = 0 ; i < file.length ; i++) {
     if(extension_font(file[i].getAbsolutePath())) {
       num++;
-      // println("num",num);
     }
   }
   

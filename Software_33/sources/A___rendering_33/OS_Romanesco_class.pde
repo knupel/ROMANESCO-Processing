@@ -171,10 +171,10 @@ public abstract class Romanesco implements rope.core.RConstants {
   abstract void draw();
 
 
-  public void draw_2D() {}
+  protected void draw_2D() {}
 
 
-  public void info(Object... obj) {
+  protected void info(Object... obj) {
     String mark = " | ";
     item_info[ID_item] = write_message_sep(mark,obj);
   }
@@ -182,30 +182,51 @@ public abstract class Romanesco implements rope.core.RConstants {
   /**
   * set method
   */
-  public void set_id(int id) {
+  protected void set_id(int id) {
     ID_item = id;
   }
 
-  public void set_group(int group) {
+  protected void set_group(int group) {
     ID_group = group;
   }
 
+  protected void set_birth(boolean is) {
+    birth[ID_item] = is;
+  }
 
-  protected void set_font_path(String path) {
-    path_font_item[ID_item] = path;
+
+  protected void select_font_type(String type) {
+    for(int i = 0 ; i < font.length ;i++) {
+      if(font[i].get_type().equals(type)) {
+        font_item[ID_item] = font[i];
+        break;
+      }
+    }
   }
 
   /**
   * misc method
   */
-
   public int which_movie() {
     return which_movie[ID_item];
   }
 
   protected String get_font_path() {
-    return path_font_item[ID_item];
+    return font_item[ID_item].get_path();
   }
+
+  protected String get_font_name() {
+    return font_item[ID_item].get_name();
+  }
+
+  protected PFont get_font() {
+    return font_item[ID_item].get_font();
+  }
+
+  protected String get_font_type() {
+    return font_item[ID_item].get_type();
+  }
+
 
 
   /**

@@ -108,7 +108,11 @@ void message_general_osc(OscMessage m) {
   // dropdown general
   add_data_general(m,dropdown_bar[0].get_selection()); // font or shader ?
   add_data_general(m,dropdown_bar[1].get_selection()); // filter
-  add_data_general(m,dropdown_bar[2].get_selection()); // font ?
+    int target = dropdown_bar[2].get_selection();
+  // println(target);
+  add_data_general(m,target); // font ?
+  //add_data_general(m,dropdown_bar[2].get_selection()); // font ?
+
   add_data_general(m,dropdown_bar[3].get_selection()); // text
   add_data_general(m,dropdown_bar[4].get_selection()); // bitmap
   add_data_general(m,dropdown_bar[5].get_selection()); // shape

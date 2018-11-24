@@ -249,7 +249,7 @@ class Ecosystem_agent extends Romanesco {
 
 
     // INIT
-    init(birth[ID_item]) ;
+    init(birth_is()) ;
 
 		if(init_ecosystem) {
       Vec3 ratio_size = Vec3(size_x_item[ID_item],size_y_item[ID_item],size_z_item[ID_item]) ;

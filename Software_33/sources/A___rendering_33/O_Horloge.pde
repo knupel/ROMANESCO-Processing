@@ -1,7 +1,7 @@
 /**
 HORLOGE
 2012-2018
-v 2.0.8
+v 2.0.9
 */
 
 class Horloge extends Romanesco {
@@ -9,7 +9,7 @@ class Horloge extends Romanesco {
     //from the index_objects.csv
     item_name = "Horloge" ;
     item_author  = "Stan Le Punk";
-    item_version = "Version 2.0.8";
+    item_version = "Version 2.0.9";
     item_pack = "Base 2012-2018" ;
     item_mode = "Ellipse Clock 12/Ellipse Clock 24/Line Clock 12/Line Clock 24/minutes/secondes";// separate the name by a slash and write the next mode immadialtly after this one.
     item_costume = "";
@@ -18,14 +18,14 @@ class Horloge extends Romanesco {
     sat_fill_is = true;
     bright_fill_is = true;
     alpha_fill_is = true;
-    hue_stroke_is = false;
-    sat_stroke_is = false;
-    bright_stroke_is = false;
-    alpha_stroke_is = false;
-    thickness_is = false;
-    size_x_is = false;
-    size_y_is = false;
-    size_z_is = false;
+    // hue_stroke_is = true;
+    // sat_stroke_is = true;
+    // bright_stroke_is = true;
+    // alpha_stroke_is = true;
+    // thickness_is = true;
+    // size_x_is = true;
+    // size_y_is = true;
+    // size_z_is = true;
     diameter_is = true;
     canvas_x_is = true;
     canvas_y_is = true;
@@ -35,35 +35,35 @@ class Horloge extends Romanesco {
     speed_x_is = true;
     speed_y_is = true;
     speed_z_is = true;
-    spurt_x_is = false;
-    spurt_y_is = false;
-    spurt_z_is = false;
-    dir_x_is = false;
-    dir_y_is = false;
-    dir_z_is = false;
-    jit_x_is = false;
-    jit_y_is = false;
-    jit_z_is  = false;
-    swing_x_is = false;
-    swing_y_is = false;
-    swing_z_is = false;
+    // spurt_x_is = true;
+    // spurt_y_is = true;
+    // spurt_z_is = true;
+    // dir_x_is = true;
+    // dir_y_is = true;
+    // dir_z_is = true;
+    // jit_x_is = true;
+    // jit_y_is = true;
+    // jit_z_is = true;
+    // swing_x_is = true;
+    // swing_y_is = true;
+    // swing_z_is = true;
 
-    quantity_is = false;
-    variety_is = false;
-    life_is = false;
-    flow_is = false;
-    quality_is = false;
+    // quantity_is= true;
+    // variety_is = true;
+    // life_is = true;
+    // flow_is = true;
+    // quality_is = true;
     area_is = true;
     angle_is = true;
-    scope_is = false;
-    scan_is = false;
-    align_is = false;
-    repulsion_is = false;
-    attraction_is = false;
-    density_is = false;
-    influence_is = false;
-    calm_is = false;
-    spectrum_is = false;
+    // scope_is = true;
+    // scan_is = true;
+    // align_is = true;
+    // repulsion_is = true;
+    // attraction_is = true;
+    // density_is = true;
+    // influence_is = true;
+    // calm_is = true;
+    // spectrum_is = true;
   }
   //GLOBAL
   Vec3 pos_clock = Vec3() ; 
@@ -84,7 +84,8 @@ class Horloge extends Romanesco {
     // typo
     float size_font = (size_x_item[ID_item] +12) *all_transient(ID_item) ;
     if(size_font < 1) size_font = 1 ;
-    textFont(font_item[ID_item], size_font);
+    textFont(get_font(), size_font);
+    //println(get_font_name());
     
     // couleur du texte
     float t = alpha(fill_item[ID_item]) * abs(mix[ID_item]) ;
