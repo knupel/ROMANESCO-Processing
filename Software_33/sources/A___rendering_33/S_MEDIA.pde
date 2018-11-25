@@ -300,45 +300,6 @@ void classic_movie(int id, int place, boolean full_width, boolean full_height) {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 /**
 TEXT MANAGER
 */
@@ -348,50 +309,9 @@ String importText(String path) {
   return join(importRaw, "") ;
 }
 
-// info num Chapters
-int numChapters(String txt) {
-  String chapters [] = split(txt, "*") ;
-  return chapters.length ;
-}
-
-// info num Sentences
-int numMaxSentencesByChapter(String txt) {
-  String chapters [] = split(txt, "*") ;
-  // find the quantity of chapter and sentences by chapter to create the final double array String
-  int numChapter = chapters.length ;
-  int maxSentencesByChapter = 0 ;  
-  for ( int i = 0 ; i < numChapter ; i++) {
-    String sentences [] = split(chapters[i], "/") ;
-    if ( sentences.length > maxSentencesByChapter ) maxSentencesByChapter = sentences.length ; 
-  }
-  return maxSentencesByChapter ;
-}
 
 
 
-String whichSentence(String txt, int whichChapter, int whichSentence) {
-  String chapters [] = split(txt, "*") ;
-  String  [][] repartition ;
-  
-  // find the quantity of chapter and sentences by chapter to create the final double array String
-  int numChapter = chapters.length ;
-  int maxSentencesByChapter = 0 ;  
-  for ( int i = 0 ; i < numChapter ; i++) {
-    String sentences [] = split(chapters[i], "/") ;
-    if ( sentences.length > maxSentencesByChapter ) maxSentencesByChapter = sentences.length ; 
-  }
-  //create the final double array string
-  repartition = new String [numChapter][maxSentencesByChapter] ;
-  //put the sentences in the double String by chapter
-  for ( int i = 0 ; i < numChapter ; i++) {
-    String sentences [] = split(chapters[i], "/") ;
-    for ( int j = 0 ; j <  sentences.length ; j++) {
-      repartition [i][j] = sentences[j] ;
-    }
-  }
-  //security
-  if(whichChapter > chapters.length ) whichChapter = 0 ;
-  if(whichSentence > maxSentencesByChapter ) whichSentence = 0 ;
-  
-  return repartition[whichChapter][whichSentence] ;
-}
+
+
+

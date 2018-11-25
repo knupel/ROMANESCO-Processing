@@ -429,30 +429,19 @@ void build_console_item() {
 
 /**
 Build DROPDOWN 
-v 1.1.0
+v 1.2.0
 */
 void build_dropdown_bar() {
-  //font
-  String path_font = import_path +"font/typo_OTF_TTF";
-  File [] file = list_files(path_font);
-  int num = 0 ;
-  for(int i = 0 ; i < file.length ; i++) {
-    if(extension_font(file[i].getAbsolutePath())) {
-      num++;
-    }
-  }
-  
-  font_dropdown_list = new String[num];
-  int target= 0;
-  for(int i = 0 ; i < file.length ; i++) {
-    if(extension_font(file[i].getAbsolutePath())) {
-      ROFont font = new ROFont(file[i].getAbsolutePath(),10);
+  String path_font = import_path+"font/typo_OTF_TTF";
+  String[] path_list = alphabetical_font_path(path_font);
+  font_dropdown_list = new String[path_list.length];;
+  int target = 0;
+  for(int i = 0 ; i < path_list.length ; i++) {
+    if(extension_font(path_list[i])) {
+      ROFont font = new ROFont(path_list[i],10);
       font_dropdown_list[target] = font.get_name();
       target++;
-    } else {
-      printErr("method create_font(), problem at",i,file[i].getAbsolutePath());
-    }
-    
+    } 
   }
 
   

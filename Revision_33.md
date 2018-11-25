@@ -4,6 +4,7 @@ revision 33
 *MAJOR
 
 >the window position is keeping from previous session
+>add dynamic method to manage font
 
 *MINOR
 

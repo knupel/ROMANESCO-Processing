@@ -207,9 +207,10 @@ public abstract class Romanesco implements rope.core.RConstants {
   /**
   * misc method
   */
-  public int which_movie() {
+  protected int which_movie() {
     return which_movie[ID_item];
   }
+
 
   protected String get_font_path() {
     return font_item[ID_item].get_path();
@@ -226,6 +227,9 @@ public abstract class Romanesco implements rope.core.RConstants {
   protected String get_font_type() {
     return font_item[ID_item].get_type();
   }
+
+
+
 
 
 
@@ -428,19 +432,19 @@ public abstract class Romanesco implements rope.core.RConstants {
 
 
   // dir
-  public Vec3 get_dir() {
+  protected Vec3 get_dir() {
     return Vec3(get_dir_x(),get_dir_y(),get_dir_z());
   }
 
-  public float get_dir_x() {
+  protected float get_dir_x() {
     return dir_x_item[ID_item];
   }
 
-  public float get_dir_y() {
+  protected float get_dir_y() {
     return dir_y_item[ID_item];
   }
 
-  public float get_dir_z() {
+  protected float get_dir_z() {
     return dir_z_item[ID_item];
   }
 
@@ -453,35 +457,35 @@ public abstract class Romanesco implements rope.core.RConstants {
 
 
   // col 3
-  public float get_quantity() {
+  protected float get_quantity() {
     return quantity_item[ID_item];
   }
 
-  public float get_area() {
+  protected float get_area() {
     return area_item[ID_item];
   }
 
 
   // col 4
   // pos
-  public float get_grid() {
+  protected float get_grid() {
     return grid_item[ID_item];
   }
 
 
-  public Vec3 get_pos() {
+  protected Vec3 get_pos() {
     return Vec3(get_pos_x(),get_pos_y(),get_pos_z());
   }
 
-  public float get_pos_x() {
+  protected float get_pos_x() {
     return pos_x_item[ID_item];
   }
 
-  public float get_pos_y() {
+  protected float get_pos_y() {
     return pos_y_item[ID_item];
   }
 
-  public float get_pos_z() {
+  protected float get_pos_z() {
     return pos_z_item[ID_item];
   }
 
@@ -489,7 +493,7 @@ public abstract class Romanesco implements rope.core.RConstants {
   /**
   * get method
   */
-  public float get_band(int target) {
+  protected float get_band(int target) {
     if(target >= 0 && target < band[ID_item].length) {
       return band[ID_item][target];
     } else {
@@ -498,47 +502,47 @@ public abstract class Romanesco implements rope.core.RConstants {
     }
   }
   
-  public Movie get_movie() {
+  protected Movie get_movie() {
     if(movie[ID_item] != null) {
       return movie[ID_item];
     } else return null;
   }
 
-  public PImage get_bitmap() {
+  protected PImage get_bitmap() {
     if(bitmap[ID_item] != null) {
       return bitmap[ID_item];
     } else return null;
   }
   
-  public String get_text() {
+  protected String get_text() {
     if(text_import[ID_item] != null) {
       return text_import[ID_item];
     } else return null;
   }
 
-  public ROPE_svg get_svg() {
+  protected ROPE_svg get_svg() {
     if(svg_import[ID_item] != null) {
       return svg_import[ID_item];
     } else return null;
   }
 
-  public int get_id() {
+  protected int get_id() {
     return ID_item;
   }
 
-  public int get_id_group() {
+  protected int get_id_group() {
     return ID_group;
   }
 
-  public String get_name() {
+  protected String get_name() {
     return item_name;
   }
 
-  public int get_mode() {
+  protected int get_mode() {
     return mode[ID_item];
   }
   
-  public int get_costume() {
+  protected int get_costume() {
 
     String [] costume_split = new String[1];
     costume_split = split(item_costume,"/");

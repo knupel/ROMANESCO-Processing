@@ -6,13 +6,15 @@ import geomerative.*;
 void setup(){
   // Initilaize the sketch
   size(600,400);
-  geom_setup("FreeSans.ttf");
+  //geom_setup("FreeSans.ttf");
   create_font();
 
   for(int i = 0 ; i < font.length ; i++) {
     println(font[i].get_name());
   }
+
 }
+
 
 
 int which_font = 0;
@@ -29,30 +31,37 @@ ROFont [] font;
 void create_font() {
   int size_font = 200;
   String path = sketchPath(0)+"/data";
-  File [] file = list_files(path);
+  String[] path_list = alphabetical_font_path(path);
+
+  font = new ROFont[path_list.length];
+  for(int i = 0 ; i < path_list.length ; i++) {
+    if(extension_font(path_list[i])) {
+      font[i] = new ROFont(path_list[i],size_font);
+    } 
+  }
+}
+
+String [] alphabetical_font_path(String folder_path) {
+  File [] file = list_files(folder_path);
   // check if the file is a font or not
   int num = 0 ;
   for(int i = 0 ; i < file.length ; i++) {
     if(extension_font(file[i].getAbsolutePath())) {
       num++;
-      // println("num",num);
     }
   }
-  font = new ROFont[num];
-   
+
+  String[] path_list = new String[num];
   int target= 0;
   for(int i = 0 ; i < file.length ; i++) {
     if(extension_font(file[i].getAbsolutePath())) {
-      font[target] = new ROFont(file[i].getAbsolutePath(),size_font);
+      path_list[target] = file[i].getAbsolutePath();
       target++;
-    } else {
-      printErr("method create_font(), problem at",i,file[i].getAbsolutePath());
-    }
-    
+    } 
   }
+  Arrays.sort(path_list);
+  return path_list;
 }
-
-
 
 File [] list_files(String path) {
   File file = new File(path);

@@ -1,7 +1,7 @@
 /**
 LETTER
 2012-2018
-v 1.4.0
+v 1.4.1
 */
 //GEOMERATIVE
 import geomerative.*;
@@ -10,8 +10,8 @@ class Letter extends Romanesco {
   public Letter() {
     item_name = "Letter" ;
     item_author  = "Stan le Punk";
-    item_version = "Version 1.4.0";
-    item_pack = "Base 2012" ;
+    item_version = "Version 1.4.1";
+    item_pack = "Base 2012-2018" ;
 
     item_costume = "Point/Line/Triangle";
     item_mode = "";
@@ -97,24 +97,25 @@ class Letter extends Romanesco {
     load_txt(ID_item) ;
     // test the font is a ttf or not
     boolean warning_font = false;
-    if(!get_font_type().equals("ttf") || !get_font_type().equals("TTF")) {
-      //set_font_path(path_font_default_ttf);
+    if(!get_font_type().equals("ttf") && !get_font_type().equals("TTF")) {
       select_font_type("ttf");
       warning_font = true;
     }
-    //init and re-init Geomerative if few stuff change about this line like text, font and the size of the font
+
     sizeFont = int(map(get_size_x(),size_x_min_max.x, size_x_min_max.y, (float)height *.01, (float)height *.7));
-    //text
-    sentence = whichSentence(text_import[ID_item],0,0);
+    int max_string = 49;
+    if(get_text().length() < max_string) max_string = get_text().length();
+    sentence = get_text().substring(0,max_string);
     
 
     //check if something change to update the RG.getText
     boolean reset = false;
     boolean reset_font = false;
+
     if (sizeRef != sizeFont || !sentenceRef.equals(sentence) || !pathRef.equals(get_font_path())) {
       sizeRef = sizeFont;
       sentenceRef = (sentence);
-      pathRef = (get_font_path());
+      pathRef = get_font_path();
       reset = true;
       reset_font = true;
     } else if(birth_is()) {
@@ -138,6 +139,7 @@ class Letter extends Romanesco {
     }
     if(reset || reset_font) {
       println(reset,reset_font,frameCount);
+      println(get_font_path());
       grp = geomerative.RG.getText(sentence,get_font_path(),(int)sizeFont,CENTER);
       axeLetter = int(random (grp.countChildren()));
     }
@@ -163,7 +165,9 @@ class Letter extends Romanesco {
       } else {
         speed = map(get_speed_x()*get_speed_x(),0,1,0.,.1);
       } 
-    } 
+    } else {
+      speed = 0;
+    }
     //to stop the move
     //if (!action[ID_item]) speed = 0.0 ; 
     if(reverse[ID_item]) speed = -speed ;
@@ -189,7 +193,7 @@ class Letter extends Romanesco {
     float jitterX = map(get_jitter_x(),0,1, 0, (float)width *.1) ;
     float jitterY = map(get_jitter_y(),0,1, 0, (float)width *.1) ;
     float jitterZ = map(get_jitter_z(),0,1, 0, (float)width *.1) ;
-    PVector jitter = new PVector (jitterX *jitterX, jitterY *jitterY, jitterZ *jitterZ) ;
+    Vec3 jitter = Vec3(jitterX *jitterX, jitterY *jitterY, jitterZ *jitterZ) ;
 
     letters(speed, axeLetter, jitter) ;
     //END YOUR WORK
@@ -200,7 +204,7 @@ class Letter extends Romanesco {
   // ANNEXE
   float rotation ;
   
-  void letters(float speed, int axeLetter, PVector jttr) {
+  void letters(float speed, int axeLetter, Vec3 jttr) {
     if (sound_is()) {
       whichLetter = (int)all_transient(ID_item) ; 
     } else {
@@ -222,7 +226,7 @@ class Letter extends Romanesco {
     } else if (axeLetter >= grp.countChildren()) {
       axeLetter = grp.countChildren() - 1 ;
     }
-    displayLetter(axeLetter, jttr) ;
+    displayLetter(axeLetter,jttr);
   }
 
 
@@ -232,7 +236,7 @@ class Letter extends Romanesco {
   
   int whichOneChangeDirection = 1 ;
   
-  void wheelLetter(int num, float speed, PVector jttr) {
+  void wheelLetter(int num, float speed, Vec3 jttr) {
     // direction rotation for each one
     if(frameCount%160 == 0 || key_n) whichOneChangeDirection = round(random(1,num)) ;
     //position
@@ -247,46 +251,46 @@ class Letter extends Romanesco {
         if(speed != 0) {
           grp.children[targetLetter].rotate(speed, grp.children[axeLetter].getCenter());
         }
-        displayLetter(targetLetter, jttr) ;
+        displayLetter(targetLetter,jttr);
       }
     }
   }
   
-  void displayLetter(int which, PVector ampJttr) {
-    RPoint[] pnts = grp.children[which].getPoints() ; 
-    PVector [] points = geomerativeFontPoints(pnts)  ;
+  void displayLetter(int which, Vec3 ampJttr) {
+    RPoint[] pnts = grp.children[which].getPoints(); 
+    Vec3 [] points = geomerativeFontPoints(pnts);
 
-    for ( int i = 0; i < points.length; i++ ) {
-      points[i].add(jitterPVector(ampJttr)) ;
-      float factor = 40.0 ;
-      points[i].z = points[i].z +(all_transient(ID_item) *factor) ; 
-      if(get_costume() == POINT_ROPE ) point(points[i].x, points[i].y, points[i].z) ;
-      if(get_costume() == LINE_ROPE ) if(i > 0 ) line( points[i-1].x, points[i-1].y, points[i-1].z,   points[i].x, points[i].y, points[i].z );
-      if(get_costume() == TRIANGLE_ROPE ) if(i > 1 ) triangle(points[i-2].x, points[i-2].y, points[i-2].z,   points[i-1].x, points[i-1].y, points[i-1].z,   points[i].x, points[i].y, points[i].z );
+    for (int i = 0; i < points.length; i++) {
+      points[i].add(jitterPVector(ampJttr));
+      float factor = 40.;
+      points[i].z = points[i].z +(all_transient(ID_item) *factor); 
+      if(get_costume() == POINT_ROPE ) point(points[i]);
+      if(get_costume() == LINE_ROPE ) if(i > 0 ) line( points[i-1],points[i]);
+      if(get_costume() == TRIANGLE_ROPE ) if(i > 1 ) triangle(points[i-2].x, points[i-2].y, points[i-2].z,   points[i-1].x, points[i-1].y, points[i-1].z, points[i].x, points[i].y, points[i].z );
       
     }
   }
   
   //ANNEXE VOID
   //jitter for PVector points
-  PVector jitterPVector(PVector range) {
+  Vec3 jitterPVector(Vec3 range) {
     float factor = 0.0 ;
-    if(sound_is()) factor = 2.0 ; else factor = 0.1  ;
-    int rangeX = int(range.x *left[ID_item] *factor) ;
-    int rangeY = int(range.y *right[ID_item] *factor) ;
-    int rangeZ = int(range.z *mix[ID_item] *factor) ;
-    PVector jitting = new PVector(0,0,0) ;
-    jitting.x = random(-rangeX, rangeX) ;
-    jitting.y = random(-rangeY, rangeY) ;
-    jitting.z = random(-rangeZ, rangeZ) ;
-    return jitting ;
+    if(sound_is()) factor = 2.0 ; else factor = .1;
+    int rangeX = int(range.x *left[ID_item] *factor);
+    int rangeY = int(range.y *right[ID_item] *factor);
+    int rangeZ = int(range.z *mix[ID_item] *factor);
+    Vec3 jitting = Vec3();
+    jitting.x = random(-rangeX, rangeX);
+    jitting.y = random(-rangeY, rangeY);
+    jitting.z = random(-rangeZ, rangeZ);
+    return jitting;
   }
   
   //void work with geomerative
-  PVector [] geomerativeFontPoints(RPoint[] p) {
-    PVector [] pts = new PVector [p.length] ;
-    for(int i = 0 ; i <pts.length ; i++) {
-      pts[i] = new PVector(0,0,0) ;
+  Vec3 [] geomerativeFontPoints(RPoint[] p) {
+    Vec3 [] pts = new Vec3[p.length] ;
+    for(int i = 0 ; i < pts.length ; i++) {
+      pts[i] = Vec3();
       pts[i].x = p[i].x ; 
       pts[i].y = p[i].y ;  
     }
