@@ -1,6 +1,6 @@
 /**
 Class Romanesco_manager
-v 1.2.1
+v 1.2.2
 inspired by Andreas Gysin work for The Abyss Project
 @see https://github.com/ertdfgcvb/TheAbyss
 */
@@ -23,26 +23,33 @@ class Romanesco_manager {
     ArrayList<Class> classes = new ArrayList<Class>();
 
     Class[] c = parent.getClass().getDeclaredClasses();
-    
+    String template = "Template";
     //create the index table
     for (int i=0; i<c.length; i++) {
       if (c[i].getSuperclass() != null && c[i].getSuperclass().getSimpleName().equals(super_Class_name)) {
-        classes.add(c[i]);
-        num_classes = classes.size() ;
+        
+        if(!c[i].getSimpleName().equals(template)) {
+          classes.add(c[i]);
+          num_classes = classes.size();
+        } 
       }
     }
     create_index(num_classes) ;
     
     //init the String info
     item_class_name = new String[num_classes] ;
-    for (int i = 0 ; i <item_class_name.length ; i++) item_class_name[i] =("");
+    for (int i = 0 ; i < item_class_name.length ; i++) {
+      item_class_name[i] = ("");
+    }
     
     //add class in Romanesco, plus add info in the String for the index
-    int numObjectRomanesco = 0 ;
-    for (int i=0; i<c.length; i++) {
+    int num = 0;
+    for (int i = 0 ; i < c.length ; i++) {
       if (c[i].getSuperclass() != null && c[i].getSuperclass().getSimpleName().equals(super_Class_name)) {
-        item_class_name[numObjectRomanesco] = c[i].getSimpleName() ;
-        numObjectRomanesco += 1 ;
+        if(!c[i].getSimpleName().equals(template)) {
+          item_class_name[num] = c[i].getSimpleName();
+          num++;
+        }
       }
     }
     begin_index() ;
