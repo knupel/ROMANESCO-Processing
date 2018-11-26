@@ -171,7 +171,7 @@ class ArbreRomanesco extends Romanesco {
       this.deep = deep ;
     }
   //::::::::::::::::::::::::::::  
-    void update(float e, Vec3 size, Vec2 div, iVec2 fork, Vec2 amplitude, int n, int which_costume, boolean bool_line, float angle, float speed, int ID) {
+    void update(float e, Vec3 size, Vec2 div, iVec2 fork, Vec2 amplitude, int n, Costume costume, boolean bool_line, float angle, float speed, int ID) {
       rotation += speed ;
       if (rotation > angle +90) speed*=-1 ; else if ( rotation < angle ) speed*=-1 ; 
       angle = rotation ; // de 0 à 180
@@ -181,7 +181,7 @@ class ArbreRomanesco extends Romanesco {
       pushMatrix () ;
       // Start the recursive branching
       rotate (angleDirection) ;
-      branch(e,size,div,fork,amplitude,n,which_costume,bool_line,ID);
+      branch(e,size,div,fork,amplitude,n,costume,bool_line,ID);
       popMatrix () ;
 
       
@@ -189,7 +189,7 @@ class ArbreRomanesco extends Romanesco {
     
     
     //float fourche = 10.0 ; 
-    void branch(float thickness, Vec3 size, Vec2 div, iVec2 fork, Vec2 amplitude, int n, int which_costume, boolean bool_line,int ID) {
+    void branch(float thickness, Vec3 size, Vec2 div, iVec2 fork, Vec2 amplitude, int n, Costume costume, boolean bool_line,int ID) {
       Vec3 newSize = size.copy();
       newSize.x = size.x *div.x;
       newSize.y = size.y *div.y;
@@ -204,14 +204,14 @@ class ArbreRomanesco extends Romanesco {
       n = n-1 ;
       if (n >0) {
        int branch_ID = 0;
-       displayBranch(thickness,newSize,div,fork,amplitude,n,-theta,which_costume,bool_line,ID,branch_ID); 
+       displayBranch(thickness,newSize,div,fork,amplitude,n,-theta,costume,bool_line,ID,branch_ID); 
        branch_ID = 1;
-       displayBranch(thickness,newSize,div,fork,amplitude,n,theta,which_costume,bool_line,ID,branch_ID);
+       displayBranch(thickness,newSize,div,fork,amplitude,n,theta,costume,bool_line,ID,branch_ID);
       }
     }
     
     //annexe branch
-    void displayBranch(float thickness, Vec3 size, Vec2 div, iVec2 fork, Vec2 amplitude, int n, float t, int which_costume, boolean bool_line, int ID, int branch_ID) {
+    void displayBranch(float thickness, Vec3 size, Vec2 div, iVec2 fork, Vec2 amplitude, int n, float t, Costume costume, boolean bool_line, int ID, int branch_ID) {
       float factor = 0.0 ;
       if(key_v_long && pen[0].z != 0) {
         factor = deep * map(pen[0].z,0.01,1, 1.2,-1.2); 
@@ -234,12 +234,12 @@ class ArbreRomanesco extends Romanesco {
       // Draw the branch
       set_ratio_costume_size(map(get_area(),width*.1, width*TAU,0,1));
       int offset_z = branch_ID;
-      costume_rope(Vec3(0,0,offset_z),size,which_costume);
+      costume(Vec3(0,0,offset_z),size,costume);
       
       // horizon   
       translate(pos_b) ;
        
-      branch(thickness,size,div,fork,amplitude,n,which_costume,bool_line,ID); // Ok, now call myself to draw two new branches!!
+      branch(thickness,size,div,fork,amplitude,n,costume,bool_line,ID); // Ok, now call myself to draw two new branches!!
       stop_matrix();     // Whenever we get back here, we "pop" in order to restore the previous matrix state
     }
   }

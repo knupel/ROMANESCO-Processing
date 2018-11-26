@@ -147,24 +147,24 @@ class Pulsar extends Romanesco {
 
 
   void mode() {
-    if(mode[ID_item] == 0) {
+    if(get_mode() == 0) {
       pulsar.set_behavior("RADIUS"); // nothing
-    } else if(mode[ID_item] == 1) {
+    } else if(get_mode() == 1) {
       pulsar.set_behavior("SIN"); // cyclus
 
-    } else if(mode[ID_item] == 2) {
+    } else if(get_mode() == 2) {
       pulsar.set_behavior("SIN_POW_SIN"); // heart
 
-    } else if(mode[ID_item] == 3) {
+    } else if(get_mode() == 3) {
       pulsar.set_behavior("SIN"); // cyclus ring
       pulsar.ring(.01, false);
-    } else if(mode[ID_item] == 4) {
+    } else if(get_mode() == 4) {
       pulsar.set_behavior("SIN_POW_SIN"); // heart ring
       pulsar.ring(.01, false);
-    } else if(mode[ID_item] == 5) {
+    } else if(get_mode() == 5) {
       pulsar.set_behavior("SIN"); // cyclus helmet
       pulsar.helmet(.01, false);
-    } else if(mode[ID_item] == 6) {
+    } else if(get_mode() == 6) {
       pulsar.set_behavior("SIN_POW_SIN"); // hear helmet
       pulsar.helmet(.01, false);
     }

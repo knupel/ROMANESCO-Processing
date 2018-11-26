@@ -180,7 +180,7 @@ class Letter extends Romanesco {
     float thicknessLetter = map(get_thickness(), .1, height/3, 0.1, height /10) ; ;
 
     // color
-    if(get_costume() != TRIANGLE_ROPE) {
+    if(get_costume().get_type() != TRIANGLE_ROPE) {
       noFill() ; 
       stroke(get_fill()) ; 
       strokeWeight(thicknessLetter) ;
@@ -264,9 +264,9 @@ class Letter extends Romanesco {
       points[i].add(jitterPVector(ampJttr));
       float factor = 40.;
       points[i].z = points[i].z +(all_transient(ID_item) *factor); 
-      if(get_costume() == POINT_ROPE ) point(points[i]);
-      if(get_costume() == LINE_ROPE ) if(i > 0 ) line( points[i-1],points[i]);
-      if(get_costume() == TRIANGLE_ROPE ) if(i > 1 ) triangle(points[i-2].x, points[i-2].y, points[i-2].z,   points[i-1].x, points[i-1].y, points[i-1].z, points[i].x, points[i].y, points[i].z );
+      if(get_costume().get_type() == POINT_ROPE ) point(points[i]);
+      if(get_costume().get_type() == LINE_ROPE ) if(i > 0 ) line( points[i-1],points[i]);
+      if(get_costume().get_type() == TRIANGLE_ROPE ) if(i > 1 ) triangle(points[i-2].x, points[i-2].y, points[i-2].z,   points[i-1].x, points[i-1].y, points[i-1].z, points[i].x, points[i].y, points[i].z );
       
     }
   }

@@ -51,7 +51,7 @@ void set_herbivore(Agent a, Vec3 pos, Info_dict carac, Info_Object style) {
   int starving = (int) carac.get("starving")[0].catch_obj(0) ;
   float digestion = (float) carac.get("digestion")[0].catch_obj(0) ;
 
-  a.set_costume((int)style.catch_obj(0)) ;
+  a.set_costume((Costume)style.catch_obj(0)) ;
   a.set_fill((Vec4)style.catch_obj(1)) ;
   a.set_stroke((Vec4)style.catch_obj(2)) ;
   a.set_thickness((float)style.catch_obj(3)) ;
@@ -308,7 +308,7 @@ void set_carnivore(Agent c, Vec3 pos, Info_dict carac, Info_Object style) {
   int starving = (int) carac.get("starving")[0].catch_obj(0) ;
   float digestion = (float) carac.get("digestion")[0].catch_obj(0) ;
 
-  c.set_costume((int)style.catch_obj(0)) ;
+  c.set_costume((Costume)style.catch_obj(0)) ;
   c.set_fill((Vec4)style.catch_obj(1)) ;
   c.set_stroke((Vec4)style.catch_obj(2)) ;
   c.set_thickness((float)style.catch_obj(3)) ;
@@ -426,7 +426,7 @@ void set_bacterium(Agent b, Vec3 pos, Info_dict carac, Info_Object style) {
   int starving = (int) carac.get("starving")[0].catch_obj(0) ;
   int nutrient_quality = (int) carac.get("nutrient_quality")[0].catch_obj(0) ;
   
-  b.set_costume((int)style.catch_obj(0)) ;
+  b.set_costume((Costume)style.catch_obj(0)) ;
   b.set_fill((Vec4)style.catch_obj(1)) ;
   b.set_stroke((Vec4)style.catch_obj(2)) ;
   b.set_thickness((float)style.catch_obj(3)) ;
@@ -694,7 +694,7 @@ void add_flora(ArrayList<Agent> list_f, Vec3 pos, Info_dict carac, Info_Object s
   Flora f = new Flora(pos, size, life_expectancy, name) ;
    list_f.add(f) ;
    // aspect
-   f.set_costume((int)style.catch_obj(0)) ;
+   f.set_costume((Costume)style.catch_obj(0));
    f.set_fill((Vec4)style.catch_obj(1)) ;
    f.set_stroke((Vec4)style.catch_obj(2)) ;
    f.set_thickness((float)style.catch_obj(3)) ;
@@ -897,7 +897,7 @@ void set_dead(Agent d, Vec pos, Info_dict carac, Info_Object style) {
 
   int nutrient_quality = (int) carac.get("nutrient_quality")[0].catch_obj(0) ;
 
-  d.set_costume((int)style.catch_obj(0)) ;
+  d.set_costume((Costume)style.catch_obj(0)) ;
   d.set_fill((Vec4)style.catch_obj(1)) ;
   d.set_stroke((Vec4)style.catch_obj(2)) ;
   d.set_thickness((float)style.catch_obj(3)) ;

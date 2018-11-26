@@ -168,7 +168,7 @@ class Puppet_master extends Romanesco {
     for(int i =  0 ; i < get_spot_num() ; i++) {
       Vec3 pos = Vec3(get_spot_pos(i));
       set_ratio_costume_size(ratio_size_costume);
-      costume_rope(pos,size,get_costume());
+      costume(pos,size,get_costume());
     }
   }
 

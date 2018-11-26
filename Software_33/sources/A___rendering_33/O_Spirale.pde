@@ -186,8 +186,7 @@ class Spirale {
   float rotation ;
   float angle  ;
 
-  Spirale () { 
-  }
+  Spirale () { }
 
 
 
@@ -220,7 +219,7 @@ class Spirale {
   float translate = 1. ;
   float ratioSize = 1. ;
 
-  void show (int n, int nMax, Vec3 size, float z, Vec3 canvas, int which_costume, boolean horizon, float alignment, float ratio_size) {
+  void show (int n, int nMax, Vec3 size, float z, Vec3 canvas, Costume costume, boolean horizon, float alignment, float ratio_size) {
     n = n-1 ;
     
     translate += z ;
@@ -241,7 +240,7 @@ class Spirale {
     //display Mode
     Vec3 pos = Vec3();
     set_ratio_costume_size(ratio_size);
-    costume_rope(pos, size_final, which_costume) ;
+    costume(pos, size_final,costume);
     //
     Vec3 canvas_temp = canvas.copy();
     canvas_temp = mult(canvas,translate);
@@ -260,7 +259,7 @@ class Spirale {
     rotate ( PI/6 ) ;
 
     if ( n > 0) { 
-      show(n,nMax,size,z,canvas,which_costume,horizon,alignment,ratio_size); 
+      show(n,nMax,size,z,canvas,costume,horizon,alignment,ratio_size); 
     } else{
       translate = 1.;
       ratioSize = 1.;

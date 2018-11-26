@@ -1,7 +1,7 @@
 
 /**
 CLASS PIX 
-v 0.7.2
+v 0.8.0
 2016-2018
 * @author Stan le Punk
 * @see https://github.com/StanLepunK/Pixel
@@ -18,7 +18,7 @@ abstract class Pix implements rope.core.RConstants {
 
   Vec3 grid_position ;
   int ID, rank ;
-  int costume_ID = 0 ; // 0 is for point
+  Costume costume; // 0 is for point
   float ratio_costume_size = Float.MAX_VALUE;
   float costume_angle = 0 ;
   Vec4 colour, new_colour  ;
@@ -93,7 +93,7 @@ abstract class Pix implements rope.core.RConstants {
   }
 
   public void costume_angle(float costume_angle) {
-    if(costume_ID == POINT_ROPE) {
+    if(costume.get_type() == POINT_ROPE) {
       printErrTempo(180, "class Pix method costume_angle() cannot be used with costume_ID POINT_ROPE");
     }
     this.costume_angle = costume_angle ;
@@ -101,8 +101,16 @@ abstract class Pix implements rope.core.RConstants {
 
 
   // set costume
-  public void costume(int costume_ID) {
-    this.costume_ID = costume_ID ;
+  public void costume(int type) {
+    if(costume == null) {
+      costume = new Costume(type);
+    } else {
+      this.costume.set_type(type);
+    }
+  }
+
+  public void costume(Costume costume) {
+    this.costume = costume;
   }
 
   public void costume_ratio_size(float ratio_costume_size) {
@@ -664,7 +672,7 @@ class Cloud extends Pix {
       if(ratio_costume_size != Float.MAX_VALUE) {
         set_ratio_costume_size(ratio_costume_size);
       }
-      costume_rope(coord[i], size, costume_angle, costume_ID);
+      costume.draw(coord[i],size,Vec3(0,0,costume_angle));
     }
   }
 
@@ -1120,7 +1128,7 @@ class Cloud_3D extends Cloud {
         if(ratio_costume_size != Float.MAX_VALUE) {
           set_ratio_costume_size(ratio_costume_size);
         }
-        costume_rope(coord[i], size, costume_angle, costume_ID) ;
+        costume.draw(coord[i],size,Vec3(0,0,costume_angle));
       }
     } else {
       // method from here don't need to pass info about arg
@@ -1160,7 +1168,7 @@ class Cloud_3D extends Cloud {
       if(ratio_costume_size != Float.MAX_VALUE) {
         set_ratio_costume_size(ratio_costume_size);
       }
-      costume_rope(pos_local_primitive, size, costume_angle, costume_ID);
+      costume.draw(pos_local_primitive, size,Vec3(0,0,costume_angle));
       stop_matrix() ;
       stop_matrix() ;
     }
@@ -1222,52 +1230,8 @@ class Pixel extends Pix  {
     new_colour = Vec4(colour) ;
   }
 
-  // Constructor with costume indication
-  public Pixel(Vec2 pos_2D, Vec2 size_2D, int costume_ID) {
-    init_mother_arg() ;
-    this.costume_ID = costume_ID ;
-    this.pos = new Vec3(pos_2D.x,pos_2D.y, 0)  ;
-    this.size = new Vec3(size_2D.x,size_2D.y,0) ; ;
-  }
-  
-  // Constructor plus color components
-  public Pixel(Vec2 pos_2D, Vec4 color_vec, int costume_ID) {
-    init_mother_arg() ;
-    this.costume_ID = costume_ID ;
-    this.pos = new Vec3(pos_2D.x,pos_2D.y, 0)  ;
-    colour = color_vec.copy() ;
-    new_colour = colour.copy() ;
-    
-  }
 
-  public Pixel(Vec2 pos_2D, Vec2 size_2D, Vec4 color_vec, int costume_ID) {
-    init_mother_arg() ;
-    this.costume_ID = costume_ID ;
-    this.pos = new Vec3(pos_2D.x,pos_2D.y, 0)  ;
-    this.size = new Vec3(size_2D.x,size_2D.y,0) ;
-    colour = color_vec.copy() ;
-    new_colour = colour.copy() ;
-  }
-
-  // Constructor plus color components
-  public Pixel(Vec2 pos_2D, int colour_int, int costume_ID) {
-    init_mother_arg() ;
-    this.costume_ID = costume_ID ;
-    this.pos = new Vec3(pos_2D.x,pos_2D.y, 0)  ;
-    colour = int_color_to_vec4_color(colour_int) ;
-    new_colour = Vec4(colour) ;
-  }
-
-  public Pixel(Vec2 pos_2D, Vec2 size_2D, int colour_int, int costume_ID) {
-    init_mother_arg() ;
-    this.costume_ID = costume_ID ;
-    this.pos = new Vec3(pos_2D.x,pos_2D.y, 0)  ;
-    this.size = new Vec3(size_2D.x,size_2D.y,0) ;
-    colour = int_color_to_vec4_color(colour_int) ;
-    new_colour = Vec4(colour) ;
-  }
-
-
+ 
 
   //PIXEL 3D
   public Pixel(Vec3 pos_3D) {
@@ -1296,30 +1260,6 @@ class Pixel extends Pix  {
     new_colour = colour.copy() ;
   }
 
-  // with costume indication
-  public Pixel(Vec3 pos_3D, Vec3 size_3D, int costume_ID) {
-    init_mother_arg() ;
-    this.costume_ID = costume_ID ;
-    this.pos = pos_3D ;
-    this.size = size_3D ;
-  }
-  // constructor plus color component
-  public Pixel(Vec3 pos_3D,  Vec4 color_vec, int costume_ID) {
-    init_mother_arg() ;
-    this.costume_ID = costume_ID ;
-    this.pos = pos_3D ;
-    colour = color_vec.copy() ;
-    new_colour = colour.copy() ;
-  }
-  
-  public Pixel(Vec3 pos_3D, Vec3 size_3D, Vec4 color_vec, int costume_ID) {
-    init_mother_arg() ;
-    this.costume_ID = costume_ID ;
-    this.pos = pos_3D ;
-    this.size = size_3D ;
-    colour = color_vec.copy() ;
-    new_colour = colour.copy() ;
-  }
 
   
   //RANK PIXEL CONSTRUCTOR
@@ -1343,19 +1283,19 @@ class Pixel extends Pix  {
 
   // set summit
   private void set_summits(int summits) {
-    if(summits == 1) this.costume_ID = POINT_ROPE ;
-    else if(summits == 2) this.costume_ID  = LINE_ROPE ;
-    else if(summits == 3) this.costume_ID  = TRIANGLE_ROPE ;
-    else if(summits == 4) this.costume_ID  = SQUARE_ROPE ;
-    else if(summits == 5) this.costume_ID  = PENTAGON_ROPE ;
-    else if(summits == 6) this.costume_ID  = HEXAGON_ROPE ;
-    else if(summits == 7) this.costume_ID  = HEPTAGON_ROPE ;
-    else if(summits == 8) this.costume_ID  = OCTOGON_ROPE ;
-    else if(summits == 9) this.costume_ID  = NONAGON_ROPE ;
-    else if(summits == 10) this.costume_ID  = DECAGON_ROPE ;
-    else if(summits == 11) this.costume_ID  = HENDECAGON_ROPE ;
-    else if(summits == 12) this.costume_ID  = DODECAGON_ROPE ;
-    else if(summits > 12) this.costume_ID  = ELLIPSE_ROPE ;
+    if(summits == 1) this.costume.set_type(POINT_ROPE);
+    else if(summits == 2) this.costume.set_type(LINE_ROPE);
+    else if(summits == 3) this.costume.set_type(TRIANGLE_ROPE);
+    else if(summits == 4) this.costume.set_type(SQUARE_ROPE);
+    else if(summits == 5) this.costume.set_type(PENTAGON_ROPE);
+    else if(summits == 6) this.costume.set_type(HEXAGON_ROPE);
+    else if(summits == 7) this.costume.set_type(HEPTAGON_ROPE);
+    else if(summits == 8) this.costume.set_type(OCTOGON_ROPE);
+    else if(summits == 9) this.costume.set_type(NONAGON_ROPE);
+    else if(summits == 10) this.costume.set_type(DECAGON_ROPE);
+    else if(summits == 11) this.costume.set_type(HENDECAGON_ROPE);
+    else if(summits == 12) this.costume.set_type(DODECAGON_ROPE);
+    else if(summits > 12) this.costume.set_type(ELLIPSE_ROPE);
   }
 
 
@@ -1366,9 +1306,9 @@ class Pixel extends Pix  {
       set_ratio_costume_size(ratio_costume_size);
     }
     if (renderer_P3D()) {
-      costume_rope(pos,size,dir,costume_ID) ;
+      this.costume.draw(pos,size,dir);
     } else {
-      costume_rope(pos,size,costume_angle,costume_ID) ;
+      this.costume.draw(pos,size,Vec3(0,0,costume_angle));
     }
   }
 }

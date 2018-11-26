@@ -129,7 +129,7 @@ class Galaxie extends Romanesco {
       max = 150 ;
     }
     float quantity = map(quantity_item[ID_item],0,1,min,max) ;
-    if (get_costume() == POINT_ROPE) {
+    if (get_costume().get_type() == POINT_ROPE) {
       numFromController = int(quantity *10); 
     } else {
       numFromController = int(quantity);
@@ -256,7 +256,7 @@ class Galaxie extends Romanesco {
       Vec3 pos = Vec3(grain[i].x, grain[i].y, z_pos) ;
       aspect_rope(fill_item[ID], stroke_item[ID], thickness_item[ID]);
       set_ratio_costume_size(map(area_item[ID],width*.1, width*TAU*4,0,1));
-      costume_rope(pos,size,get_costume()) ;
+      costume(pos,size,get_costume()) ;
 
     }
   }

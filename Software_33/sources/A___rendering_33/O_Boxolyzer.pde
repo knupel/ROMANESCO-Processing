@@ -149,7 +149,7 @@ class Boxolyzer extends Romanesco {
       boxolyzer.set_dir(get_dir());
       boxolyzer.set_ratio_spectrum(factorSpectrum);
       boxolyzer.set_ratio_costume(get_area());
-      boxolyzer.set_costume(get_costume());
+      boxolyzer.set_costume(get_costume().get_type());
       boxolyzer.show(groundPosition);
     }
   }
@@ -178,7 +178,7 @@ class Boxolyzer extends Romanesco {
       boxolyzer.set_dir(get_dir());
       boxolyzer.set_ratio_spectrum(factorSpectrum);
       boxolyzer.set_ratio_costume(get_area());
-      boxolyzer.set_costume(get_costume());
+      boxolyzer.set_costume(get_costume().get_type());
       boxolyzer.show(groundPosition);
     }
   }
@@ -259,7 +259,7 @@ class Boxolyzer extends Romanesco {
         pos.set(pos.x,horizon,pos.z);
       }
       set_ratio_costume_size(map(ratio_costume,width*.1, width*TAU,0,1));
-      costume_rope(pos,size,dir,costume);
+      costume(pos,size,dir,costume);
     }
   }
 }

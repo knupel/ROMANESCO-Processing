@@ -423,7 +423,7 @@ boolean [] show_item, sound, action, parameter;
 
 int [] mode;
 int [] costume_controller_selection;
-int [] costume;
+Costume [] costume;
 
 //BUTTON
 int [] value_button_item;
@@ -563,7 +563,7 @@ void create_var_misc() {
   stroke_is = new boolean[NUM_ITEM_PLUS_MASTER];
 
   // costume
-  costume = new int[NUM_ITEM_PLUS_MASTER];
+  costume = new Costume[NUM_ITEM_PLUS_MASTER];
 
   // IMAGE
   bitmap = new PImage[NUM_ITEM_PLUS_MASTER];
@@ -883,7 +883,7 @@ void init_variable_item() {
     wheel[i] = 0;
 
     // costume 
-    costume[i] = POINT_ROPE;
+    costume[i] = new Costume(POINT_ROPE);
     // init slider var item except fill and stroke
     thickness_item [i] =1.; 
 

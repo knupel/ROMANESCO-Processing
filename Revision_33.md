@@ -5,6 +5,7 @@ revision 33
 
 >the window position is keeping from previous session
 >add dynamic method to manage font
+>update costume method
 
 *MINOR
 

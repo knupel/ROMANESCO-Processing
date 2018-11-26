@@ -91,7 +91,7 @@ class Kofosphere extends Romanesco {
     float ratio_num = quantity_item[ID_item] *quantity_item[ID_item];
     int max = 300;
     int quantity = (int)map(ratio_num,0,1,10,max); 
-    if(get_costume() == POINT_ROPE && FULL_RENDERING) {
+    if(get_costume().get_type() == POINT_ROPE && FULL_RENDERING) {
       quantity *= 10;
     }
     
@@ -137,7 +137,7 @@ private class Sphere{
 
   
   float newRadius ;
-  void drawSpheres(Vec3 size, Vec2 speed, float radiusFactor, float quantity, int which_costume, int ID) {
+  void drawSpheres(Vec3 size, Vec2 speed, float radiusFactor, float quantity, Costume costume, int ID) {
     boolean kofosphereInColor ;
     //color mode
     if(mode[ID]==0) {
@@ -220,7 +220,7 @@ private class Sphere{
         aspect_is(fill_is[ID],stroke_is[ID]);
         set_ratio_costume_size(map(area_item[ID],width*.1, width*TAU,0,1));
         Vec3 pos = Vec3(pos_x *deform, pos_y *deform, pos_z *deform);
-        costume_rope(pos,def_size,which_costume);
+        costume(pos,def_size,costume);
         
       }
     }

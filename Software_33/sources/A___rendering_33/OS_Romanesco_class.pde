@@ -542,8 +542,11 @@ public abstract class Romanesco implements rope.core.RConstants {
     return mode[ID_item];
   }
   
-  protected int get_costume() {
-
+  protected Costume get_costume() {
+  // protected int get_costume() {
+    if(costume[get_id()] == null) {
+      costume[get_id()] = new Costume();
+    }
     String [] costume_split = new String[1];
     costume_split = split(item_costume,"/");
 
@@ -555,116 +558,133 @@ public abstract class Romanesco implements rope.core.RConstants {
 
     if(costume_romanesco.equals("pixel") || costume_romanesco.equals("PIXEL") || costume_romanesco.equals("Pixel")) {
       if(!dimension[get_id()]) {
-        costume[get_id()] = PIXEL_ROPE; 
+        costume[get_id()].set_type(PIXEL_ROPE); 
       } else {
-        costume[get_id()] = PIXEL_ROPE;
+        costume[get_id()].set_type(PIXEL_ROPE);
       }
     } else if(costume_romanesco.equals("point") || costume_romanesco.equals("POINT") || costume_romanesco.equals("Point")) {
       if(!dimension[get_id()]) {
-        costume[get_id()] = POINT_ROPE; 
+        costume[get_id()].set_type(POINT_ROPE); 
       } else {
-        costume[get_id()] = SPHERE_LOW_ROPE;
+        costume[get_id()].set_type(SPHERE_LOW_ROPE);
       }
     } else if(costume_romanesco.equals("line") || costume_romanesco.equals("LINE") || costume_romanesco.equals("Line")) {
       if(!dimension[get_id()]) {
-        costume[get_id()] = LINE_ROPE; 
+        costume[get_id()].set_type(LINE_ROPE); 
       } else {
-        costume[get_id()] = LINE_ROPE;
+        costume[get_id()].set_type(LINE_ROPE);
       }
     } else if(costume_romanesco.equals("ellipse") || costume_romanesco.equals("ELLIPSE") || costume_romanesco.equals("Ellipse") || costume_romanesco.equals("disc") || costume_romanesco.equals("DISC") || costume_romanesco.equals("Disc")) {
       if(!dimension[get_id()]) {
-        costume[get_id()] = ELLIPSE_ROPE; 
+        costume[get_id()].set_type(ELLIPSE_ROPE); 
       } else {
-        costume[get_id()] = SPHERE_MEDIUM_ROPE;
+        costume[get_id()].set_type(SPHERE_MEDIUM_ROPE);
       }
     } else if(costume_romanesco.equals("triangle") || costume_romanesco.equals("TRIANGLE") || costume_romanesco.equals("Triangle")) {
       if(!dimension[get_id()]) {
-        costume[get_id()] = TRIANGLE_ROPE; 
+        costume[get_id()].set_type(TRIANGLE_ROPE); 
       } else {
-        costume[get_id()] = TETRAHEDRON_ROPE;
+        costume[get_id()].set_type(TETRAHEDRON_ROPE);
       }
     } else if(costume_romanesco.equals("rectangle") || costume_romanesco.equals("RECTANGLE") || costume_romanesco.equals("Rectangle") || costume_romanesco.equals("rect") || costume_romanesco.equals("RECT") || costume_romanesco.equals("Rect")) {
       if(!dimension[get_id()]) {
-        costume[get_id()] = RECT_ROPE; 
+        costume[get_id()].set_type(RECT_ROPE); 
       } else {
-        costume[get_id()] = BOX_ROPE;
+        costume[get_id()].set_type(BOX_ROPE);
       }
     } else if(costume_romanesco.equals("pentagon") || costume_romanesco.equals("PENTAGON") || costume_romanesco.equals("Pentagon")) {
       if(!dimension[get_id()]) {
-        costume[get_id()] = PENTAGON_ROPE; 
+        costume[get_id()].set_type(PENTAGON_ROPE); 
       } else {
-        costume[get_id()] = PENTAGON_ROPE;
+        costume[get_id()].set_type(PENTAGON_ROPE);
       }
     } else if(costume_romanesco.equals("cross") || costume_romanesco.equals("CROSS") || costume_romanesco.equals("Cross")) {
       if(!dimension[get_id()]) {
-        costume[get_id()] = CROSS_BOX_2_ROPE; 
+        costume[get_id()].set_type(CROSS_BOX_2_ROPE); 
       } else {
-        costume[get_id()] = CROSS_BOX_3_ROPE;
+        costume[get_id()].set_type(CROSS_BOX_3_ROPE);
       }
     } else if(costume_romanesco.equals("star 4") || costume_romanesco.equals("STAR 4") || costume_romanesco.equals("Star 4")) {
       if(!dimension[get_id()]) {
-        costume[get_id()] = STAR_4_ROPE; 
+        costume[get_id()].set_type(STAR_ROPE);
+        costume[get_id()].set_summit(4);
       } else {
-        costume[get_id()] = STAR_4_ROPE;
+        costume[get_id()].set_type(STAR_3D_ROPE);
+        costume[get_id()].set_summit(4);
       }
     } else if(costume_romanesco.equals("star 5") || costume_romanesco.equals("STAR 5") || costume_romanesco.equals("Star 5")) {
       if(!dimension[get_id()]) {
-        costume[get_id()] = STAR_5_ROPE; 
+        costume[get_id()].set_type(STAR_ROPE);
+        costume[get_id()].set_summit(5);
       } else {
-        costume[get_id()] = STAR_5_ROPE;
+        costume[get_id()].set_type(STAR_3D_ROPE);
+        costume[get_id()].set_summit(5);
       }
     } else if(costume_romanesco.equals("star 6") || costume_romanesco.equals("STAR 6") || costume_romanesco.equals("Star 6")) {
       if(!dimension[get_id()]) {
-        costume[get_id()] = STAR_6_ROPE; 
+        costume[get_id()].set_type(STAR_ROPE);
+        costume[get_id()].set_summit(6);
       } else {
-        costume[get_id()] = STAR_6_ROPE;
+        costume[get_id()].set_type(STAR_3D_ROPE);
+        costume[get_id()].set_summit(6);
       }
     } else if(costume_romanesco.equals("star 7") || costume_romanesco.equals("STAR 7") || costume_romanesco.equals("Star 7")) {
       if(!dimension[get_id()]) {
-        costume[get_id()] = STAR_7_ROPE; 
+        costume[get_id()].set_type(STAR_ROPE);
+        costume[get_id()].set_summit(7);
       } else {
-        costume[get_id()] = STAR_7_ROPE;
+        costume[get_id()].set_type(STAR_3D_ROPE);
+        costume[get_id()].set_summit(7);
       }
     }
     else if(costume_romanesco.equals("star 8") || costume_romanesco.equals("STAR 8") || costume_romanesco.equals("Star 8")) {
       if(!dimension[get_id()]) {
-        costume[get_id()] = STAR_8_ROPE; 
+        costume[get_id()].set_type(STAR_ROPE);
+        costume[get_id()].set_summit(8);
       } else {
-        costume[get_id()] = STAR_8_ROPE;
+        costume[get_id()].set_type(STAR_3D_ROPE);
+        costume[get_id()].set_summit(8);
       }
     } else if(costume_romanesco.equals("super star 8") || costume_romanesco.equals("SUPER STAR 8") || costume_romanesco.equals("Super Star 8")) {
       if(!dimension[get_id()]) {
-        costume[get_id()] = SUPER_STAR_8_ROPE; 
+        costume[get_id()].set_type(STAR_ROPE);
+        costume[get_id()].set_summit(8);
+        costume[get_id()].set_ratio(2.,.5,1.,.5);
       } else {
-        costume[get_id()] = SUPER_STAR_8_ROPE;
+        costume[get_id()].set_type(STAR_3D_ROPE);
+        costume[get_id()].set_summit(8);
+        costume[get_id()].set_ratio(2.,.5,1.,.5);
       }
     } else if(costume_romanesco.equals("super star 12") || costume_romanesco.equals("SUPER STAR 12") || costume_romanesco.equals("Super Star 12")) {
       if(!dimension[get_id()]) {
-        costume[get_id()] = SUPER_STAR_12_ROPE; 
+        costume[get_id()].set_type(STAR_ROPE);
+        costume[get_id()].set_summit(12);
+        costume[get_id()].set_ratio(2.,.5,1.,.5,1.,.5);
       } else {
-        costume[get_id()] = SUPER_STAR_12_ROPE;
+        costume[get_id()].set_type(STAR_3D_ROPE);
+        costume[get_id()].set_summit(12);
+        costume[get_id()].set_ratio(2.,.5,1.,.5,1.,.5);
       }
     } else if(costume_romanesco.equals("abc") || costume_romanesco.equals("ABC") || costume_romanesco.equals("Abc")) {
       if(!dimension[get_id()]) {
-        costume[get_id()] = TEXT_ROPE; 
+        costume[get_id()].set_type(TEXT_ROPE); 
       } else {
-        costume[get_id()] = TEXT_ROPE;
+        costume[get_id()].set_type(TEXT_ROPE);
       }
     } else if(costume_romanesco.equals("none") || costume_romanesco.equals("NONE") || costume_romanesco.equals("None") ||
               costume_romanesco.equals("nothing") || costume_romanesco.equals("NOTHING") || costume_romanesco.equals("Nothing") || 
               costume_romanesco.equals("null") || costume_romanesco.equals("NULL") || costume_romanesco.equals("Null")) {
       if(!dimension[get_id()]) {
-        costume[get_id()] = NULL; 
+        costume[get_id()].set_type(NULL); 
       } else {
-        costume[get_id()] = NULL;
+        costume[get_id()].set_type(NULL);
       }
     } else {
-      costume[get_id()] = NULL;
+      costume[get_id()].set_type(NULL);
     }
 
     return costume[get_id()];
   }
-  
 }
 
 

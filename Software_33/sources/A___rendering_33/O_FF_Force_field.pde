@@ -113,7 +113,7 @@ class FF extends Romanesco {
     
     Force_field ff = get_force_field();
     
-    if(get_costume() == NULL) {
+    if(get_costume().get_type() == NULL) {
       // nothing
     } else {
       show_field(ff,scale,range,aspect_colour,thickness,area_item[ID_item],get_costume());
@@ -285,7 +285,7 @@ class FF extends Romanesco {
   /**
   SHOW FIELD
   */
-  private void show_field(Force_field ff, float scale, float range_colour, iVec2 aspect, float thickness, float ratio, int costume) {
+  private void show_field(Force_field ff, float scale, float range_colour, iVec2 aspect, float thickness, float ratio, Costume costume) {
     if(ff != null) {
       Vec2 offset = Vec2(ff.get_resolution());
       offset.sub(ff.get_resolution()/2);
@@ -308,7 +308,7 @@ class FF extends Romanesco {
   }
 
   // Renders a vector object 'v' as an arrow and a position 'x,y'
-  private void pattern_field(Vec2 dir, float mag, Vec2 pos, float scale, float range_colour, iVec2 aspect,float thickness, float ratio, int costume) {
+  private void pattern_field(Vec2 dir, float mag, Vec2 pos, float scale, float range_colour, iVec2 aspect,float thickness, float ratio, Costume costume) {
     Vec5 colorMode = Vec5(getColorMode());
     colorMode(HSB,1);
 
@@ -342,9 +342,9 @@ class FF extends Romanesco {
     
     // costume_rope(Vec2(),Vec3(size),costume);
     // pass by costume for the line is very slow
-    if(costume != LINE_ROPE) {
+    if(costume.get_type() != LINE_ROPE) {
       set_ratio_costume_size(map(ratio,width*.1, width*TAU,0,1));
-      costume_rope(Vec2(),Vec3(size),costume);
+      costume(Vec2(),Vec3(size),costume);
     } else {
       if(size > scale) size = scale;
       line(-size,0,size,0);

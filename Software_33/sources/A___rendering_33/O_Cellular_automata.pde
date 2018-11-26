@@ -185,7 +185,7 @@ class Cellular_automata extends Romanesco {
       generation++;
     }
 
-    void show(int costume, Vec3 size, float area) {
+    void show(Costume costume, Vec3 size, float area) {
       int offset = generation%rows;
       int displacement_x = (canvas.x-width)/2;
       int displacement_y = (canvas.y-height)/2;;
@@ -199,7 +199,7 @@ class Cellular_automata extends Romanesco {
             float temp_y = ((y-1)*cell_size) -displacement_y;
             Vec3 pos = Vec3(temp_x,temp_y,0);
             set_ratio_costume_size(map(area,area_min_max.x,area_min_max.y,0,1));
-            costume_rope(pos,temp_size,costume);
+            costume(pos,temp_size,costume);
           } 
         }
       }

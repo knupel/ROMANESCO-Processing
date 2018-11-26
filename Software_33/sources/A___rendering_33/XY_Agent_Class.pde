@@ -1,10 +1,10 @@
 /**
-CLASS AGENT 1.0.2
+CLASS AGENT 1.1.0
 */
 /**
 
 
-INTERFACE AGENT 0.1.0
+INTERFACE AGENT 0.1.1
 
 
 */
@@ -46,16 +46,17 @@ interface Agent {
   /**
   aspect
   */
-  void costume(int which) ;
-  void costume() ;
-  void set_costume(int which) ;
+
+  void costume();
+  void set_costume(int which);
+  void set_costume(Costume costume);
   
   void aspect(Vec4 f, Vec4 s, float t) ;
 
-  int get_costume() ;
-  Vec4 get_fill_style() ;
-  Vec4 get_stroke_style() ;
-  float get_thickness() ;
+  Costume get_costume();
+  Vec4 get_fill_style();
+  Vec4 get_stroke_style();
+  float get_thickness();
 
   Vec4 get_melanin() ;
 
@@ -138,7 +139,7 @@ END INTERFACE AGENT
 
 
 
-Agent_model ABSTRACT CLASS 0.1.2
+Agent_model ABSTRACT CLASS 0.2.0
 
 */
 abstract class Agent_model implements Agent {
@@ -193,7 +194,7 @@ abstract class Agent_model implements Agent {
   Vec4 stroke_style = Vec4(0,0,0,g.colorModeA) ;
   float thickness = 1 ;
 
-  int costume = 0 ; // costume 0 is point in Z_costume_rope library
+  Costume costume; // costume 0 is point in Z_costume_rope library
 
   int alpha_cursor = 0 ;
   float alpha_back = 1. ;
@@ -320,8 +321,8 @@ abstract class Agent_model implements Agent {
   /**
   get style
   */
-  int get_costume() { 
-    return costume ; 
+  Costume get_costume() { 
+    return costume; 
   }
   Vec4 get_fill_style() { 
     return fill_style ; 
@@ -583,15 +584,15 @@ abstract class Agent_model implements Agent {
   COSTUME
   */
   void costume() {
-    costume_rope(pos, size, costume) ;
+    this.costume.draw(pos,size,Vec3());
   }
 
-  void costume(int costume) {
-    costume_rope(pos, size, costume) ;
+  void set_costume(Costume costume) {
+    this.costume = costume;
   }
 
-  void set_costume(int costume) {
-    this.costume = costume ;
+  void set_costume(int which_costume) {
+    this.costume.set_type(which_costume);
   }
 
 

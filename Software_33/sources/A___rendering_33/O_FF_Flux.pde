@@ -85,14 +85,14 @@ class Flux extends Romanesco {
 
 
   void draw() {
-    if(get_costume() != PIXEL_ROPE) {
+    if(get_costume().get_type() != PIXEL_ROPE) {
       int mult_particle = 1;
       draw_flux(mult_particle);
     }
   }
 
   void draw_2D() {
-    if(get_costume() == PIXEL_ROPE) {
+    if(get_costume().get_type() == PIXEL_ROPE) {
       int mult_particle = 10 ;
       draw_flux(mult_particle);
     }
@@ -182,14 +182,14 @@ class Flux extends Romanesco {
     manage_border_is = (manage_border_is == true) ? false:true;
   }
 
-  private void show_vehicle(Vec size, float ratio, int costume) {
+  private void show_vehicle(Vec size, float ratio, Costume costume) {
     for (Vehicle v : vehicles) {
       float theta = v.get_direction() + radians(90);
       set_ratio_costume_size(map(ratio,width*.1, width*TAU,0,1));
-      if(get_costume() == PIXEL_ROPE) {
-        costume_rope(v.get_position().mult(displayDensity()),size,theta,costume);
+      if(get_costume().get_type() == PIXEL_ROPE) {
+        costume(v.get_position().mult(displayDensity()),size,theta,costume);
       } else {
-        costume_rope(v.get_position(),size,theta,costume);
+        costume(v.get_position(),size,theta,costume);
       }
       
     }

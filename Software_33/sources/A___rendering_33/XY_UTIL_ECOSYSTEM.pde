@@ -963,13 +963,13 @@ void update_aspect(Info_Object style, ArrayList list) {
   boolean fill_is = true ;
   boolean stroke_is = true ;
 
-  if(style.catch_obj(0) != null) costume_ID = (int)style.catch_obj(0) ;
-  if(style.catch_obj(1) != null) fill_vec = (Vec4)style.catch_obj(1) ;
-  if(style.catch_obj(2) != null) stroke_vec = (Vec4)style.catch_obj(2) ; 
-  if(style.catch_obj(3) != null) thickness = (float)style.catch_obj(3) ;
+  if(style.catch_obj(0) != null) costume_ID = ((Costume)style.catch_obj(0)).get_type();
+  if(style.catch_obj(1) != null) fill_vec = (Vec4)style.catch_obj(1);
+  if(style.catch_obj(2) != null) stroke_vec = (Vec4)style.catch_obj(2); 
+  if(style.catch_obj(3) != null) thickness = (float)style.catch_obj(3);
   // if(style.catch_obj(4) != null) alpha_behavior = (float)style.catch_obj(4) ;
-  if(style.catch_obj(5) != null) fill_is = (boolean)style.catch_obj(5) ;
-  if(style.catch_obj(6) != null) stroke_is = (boolean)style.catch_obj(6) ;
+  if(style.catch_obj(5) != null) fill_is = (boolean)style.catch_obj(5);
+  if(style.catch_obj(6) != null) stroke_is = (boolean)style.catch_obj(6);
 
 
 
@@ -1023,8 +1023,8 @@ void update_aspect(Info_Object style, ArrayList list) {
         thickness_def = 0 ;
       }
       a.aspect(fill_def, stroke_def, thickness_def) ;
-      if(costume_ID != a.get_costume()) {
-        a.costume(costume_ID) ; 
+      if(costume_ID != a.get_costume().get_type()) {
+        a.set_costume(costume_ID) ; 
       } else {
         a.costume() ;
       }

@@ -131,7 +131,7 @@ class Lorenz extends Romanesco {
   }
 
 
-  private void show_lorenz_attractor(Vec3 size, Vec3 dir, float canvas, Vec3 jitter, ArrayList<Vec3> list, int mode, int which_costume) {
+  private void show_lorenz_attractor(Vec3 size, Vec3 dir, float canvas, Vec3 jitter, ArrayList<Vec3> list, int mode, Costume costume) {
 
     if(mode == 1 ) beginShape() ;
     for(Vec3 p : list) {
@@ -143,7 +143,7 @@ class Lorenz extends Romanesco {
       if(mode == 1) {
         vertex(pos) ;
       } else {
-        costume_rope(pos,size,dir,which_costume);
+        costume(pos,size,dir,costume);
       }
     }
     if(mode == 1) endShape() ;

@@ -159,7 +159,7 @@ class BaliseRomanesco extends Romanesco {
     Vec3 pos = Vec3();
     balise.update(pos,speed);
 
-    balise.display(amp, left_right_sound, size, factor, int(radiusBalise), authorization, costume[ID_item], snake_mode,ratio_size) ;
+    balise.display(amp, left_right_sound, size, factor, int(radiusBalise), authorization, get_costume(), snake_mode,ratio_size) ;
     
     
     item_info[ID_item] = ("Size "+(int)size.x + " / " + (int)size.y + " / " + (int)size.z  + " Radius " + int(radiusBalise) ) ;
@@ -204,7 +204,7 @@ class Balise {
 
 
   
-  void display(float amp, Vec2 sound_input, Vec3 size, float factor, int max, boolean authorization, int which_costume, boolean snake_mode, float ratio_size) {
+  void display(float amp, Vec2 sound_input, Vec3 size, float factor, int max, boolean authorization, Costume costume, boolean snake_mode, float ratio_size) {
 
     pushMatrix() ;
     rectMode(CENTER) ;
@@ -228,7 +228,7 @@ class Balise {
 
       // ellipse(pos.x,pos.y,final_size.x,final_size.y);
       set_ratio_costume_size(ratio_size);
-      costume_rope(pos,final_size,which_costume) ;
+      costume(pos,final_size,costume) ;
       if(snake_mode) {
         stop_matrix() ;
       }
