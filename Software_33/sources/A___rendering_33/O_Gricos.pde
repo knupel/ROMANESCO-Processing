@@ -34,21 +34,21 @@ class Gricos extends Romanesco {
     canvas_z_is = true;
     // COL 2
     // frequence_is = true;
-    // speed_x_is = true;
-    // speed_y_is = true;
-    // speed_z_is = true;
+    speed_x_is = true;
+    speed_y_is = true;
+    speed_z_is = true;
     // spurt_x_is = true;
     // spurt_y_is = true;
     // spurt_z_is = true;
-    //dir_x_is = true;
-    // dir_y_is = true;
-    // dir_z_is = true;
-    // jit_x_is = true;
-    // jit_y_is = true;
-    // jit_z_is  = true;
-    // swing_x_is = true;
-    // swing_y_is = true;
-    // swing_z_is = true;
+    dir_x_is = true;
+    dir_y_is = true;
+    dir_z_is = true;
+    jit_x_is = true;
+    jit_y_is = true;
+    jit_z_is  = true;
+    swing_x_is = true;
+    swing_y_is = true;
+    swing_z_is = true;
     // COL 3
     // quantity_is = true;
     // variety_is =true;
@@ -81,26 +81,98 @@ class Gricos extends Romanesco {
   }
   
   //DRAW
+  Vec3 offset [][][];
+  Vec3 dir [][][];
+  int ref_num;
   void draw() {
-    iVec3 canvas = round(map(get_canvas(),canvas_x_min_max.x,canvas_x_min_max.y,1,11));
+    iVec3 canvas = round(map(get_canvas(),canvas_x_min_max.x,canvas_x_min_max.y,1,19));
+    if(ref_num != canvas.x*canvas.y*canvas.z) {
+      reset(canvas); 
+    }
+
+    direction(canvas);
+    offset(canvas);
+
+
     aspect(get_fill(),get_stroke(),get_thickness());
-    // iVec3 [][][] grid = new iVec3[canvas.x][canvas.y][canvas.z];
-    int cell = (int)map(get_grid(),grid_min_max.x,grid_min_max.y,5,height/10);
+    int cell = (int)map(get_grid(),grid_min_max.x,grid_min_max.y,5,height);
     for(int x = 0 ; x < canvas.x ; x++) {
       for(int y = 0 ; y < canvas.y ; y++) {
         for(int z = 0 ; z < canvas.z ; z++) {
           float pos_x = -((canvas.x*cell)/2)+(cell/2)+(cell*x);
           float pos_y = -((canvas.y*cell)/2)+(cell/2)+(cell*y);
           float pos_z = -((canvas.z*cell)/2)+(cell/2)+(cell*z);
-          Vec3 pos = Vec3(pos_x,pos_y,pos_z);
-          costume(pos,get_size(),get_costume());
+          Vec3 pos = (Vec3(pos_x,pos_y,pos_z)).add(offset[x][y][z]);
+          manage_costume(pos,dir[x][y][z]);
+          
         }
       }
     }
 
     // here if you want code in 3D mode
-    info("info about the item","more","more");
-  }  
+    info("items",canvas.x*canvas.y*canvas.z);
+  }
+
+  void manage_costume(Vec3 pos, Vec3 dir) {
+    Vec3 size = get_size().copy();
+    if(get_costume().get_type() == STAR_3D_ROPE) {
+      size.div(1,1,10);
+    } else if(get_costume().get_type() == CROSS_BOX_3_ROPE || get_costume().get_type() == CROSS_BOX_2_ROPE) {
+      set_ratio_costume_size(map(get_area(),area_min_max.x,area_min_max.y,0,1));
+    }
+    costume(pos,size,dir,get_costume());
+  }
+
+  void direction(iVec3 canvas) {
+    if(!get_dir().equals(0) || motion_is()) {
+      for(int x = 0 ; x < canvas.x ; x++) {
+        for(int y = 0 ; y < canvas.y ; y++) {
+          for(int z = 0 ; z < canvas.z ; z++) {
+            dir[x][y][z].set(get_dir());
+          }
+        }
+      }
+    }
+  }
+
+
+  void offset(iVec3 canvas) {
+    if(!get_speed().equals(0) || !get_jitter().equals(0) || motion_is()) {
+      Vec3 swing = map(get_swing().mult(get_swing()),0,1,0,width/2);
+      Vec3 s = map(get_speed(),speed_x_min_max.x,speed_y_min_max.y,0,.01);
+      s.x = cos(s.x *frameCount);
+      s.y = cos(s.y *frameCount);
+      s.z = cos(s.z *frameCount);
+
+      Vec3 range = map(get_jitter().mult(get_jitter()),0,1,0,height/2);
+
+      for(int x = 0 ; x < canvas.x ; x++) {
+        for(int y = 0 ; y < canvas.y ; y++) {
+          for(int z = 0 ; z < canvas.z ; z++) {
+            Vec3 temp = mult(swing,s);
+            // offset[x][y][z].set(temp);
+            Vec3 jit = Vec3().jitter(range);
+            offset[x][y][z].set(temp.add(jit));
+          }
+        }
+      }
+    }
+  }
+
+
+  void reset(iVec3 canvas) {
+    offset = new Vec3[canvas.x][canvas.y][canvas.z];
+    dir = new Vec3[canvas.x][canvas.y][canvas.z];
+    ref_num = canvas.x*canvas.y*canvas.z;
+    for(int x = 0 ; x < canvas.x ; x++) {
+      for(int y = 0 ; y < canvas.y ; y++) {
+        for(int z = 0 ; z < canvas.z ; z++) {
+          offset[x][y][z] = Vec3();
+          dir[x][y][z] = Vec3();
+        }
+      }
+    }
+  }
 }
 
 
