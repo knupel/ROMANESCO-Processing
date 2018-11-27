@@ -1,13 +1,13 @@
 /**
-* Gricos
+* Grillo
 * the tab is the template that you can duplicate to add the item you want in your Romanesco.
 * You must change the class name and this one must be unique.
 v 0.0.1
 */
-class Gricos extends Romanesco {
-  public Gricos() {
+class Grillo extends Romanesco {
+  public Grillo() {
     //from the index_objects.csv
-    item_name = "Gricos" ;
+    item_name = "Grillo" ;
     item_author  = "Stan le Punk";
     item_references = "";
     item_version = "Version 0.0.1";
@@ -83,15 +83,22 @@ class Gricos extends Romanesco {
   //DRAW
   Vec3 offset [][][];
   Vec3 dir [][][];
+  boolean grillo_is[][][];
   int ref_num;
   void draw() {
     iVec3 canvas = round(map(get_canvas(),canvas_x_min_max.x,canvas_x_min_max.y,1,19));
     if(ref_num != canvas.x*canvas.y*canvas.z) {
-      reset(canvas); 
+      reset(canvas);
+      pile_ou_face(canvas,true);
     }
 
     direction(canvas);
     offset(canvas);
+
+    if(birth_is()) {
+      pile_ou_face(canvas,true);
+      set_birth(false);
+    }
 
 
     aspect(get_fill(),get_stroke(),get_thickness());
@@ -99,12 +106,14 @@ class Gricos extends Romanesco {
     for(int x = 0 ; x < canvas.x ; x++) {
       for(int y = 0 ; y < canvas.y ; y++) {
         for(int z = 0 ; z < canvas.z ; z++) {
-          float pos_x = -((canvas.x*cell)/2)+(cell/2)+(cell*x);
-          float pos_y = -((canvas.y*cell)/2)+(cell/2)+(cell*y);
-          float pos_z = -((canvas.z*cell)/2)+(cell/2)+(cell*z);
-          Vec3 pos = (Vec3(pos_x,pos_y,pos_z)).add(offset[x][y][z]);
-          manage_costume(pos,dir[x][y][z]);
-          
+
+          if(grillo_is[x][y][z]) {
+            float pos_x = -((canvas.x*cell)/2)+(cell/2)+(cell*x);
+            float pos_y = -((canvas.y*cell)/2)+(cell/2)+(cell*y);
+            float pos_z = -((canvas.z*cell)/2)+(cell/2)+(cell*z);
+            Vec3 pos = (Vec3(pos_x,pos_y,pos_z)).add(offset[x][y][z]);
+            manage_costume(pos,dir[x][y][z]);
+          }
         }
       }
     }
@@ -159,10 +168,30 @@ class Gricos extends Romanesco {
     }
   }
 
+  void pile_ou_face(iVec3 canvas, boolean coin_toss) {
+    for(int x = 0 ; x < canvas.x ; x++) {
+      for(int y = 0 ; y < canvas.y ; y++) {
+        for(int z = 0 ; z < canvas.z ; z++) {
+          if(coin_toss) {
+            float pile_ou_face = random(1);
+             if(pile_ou_face < .5) {
+              grillo_is[x][y][z] = true;
+            } else {
+              grillo_is[x][y][z] = false;
+            }
+          } else {
+            grillo_is[x][y][z] = true;
+          }
+        }
+      }
+    }
+  }
+
 
   void reset(iVec3 canvas) {
     offset = new Vec3[canvas.x][canvas.y][canvas.z];
     dir = new Vec3[canvas.x][canvas.y][canvas.z];
+    grillo_is = new boolean[canvas.x][canvas.y][canvas.z];
     ref_num = canvas.x*canvas.y*canvas.z;
     for(int x = 0 ; x < canvas.x ; x++) {
       for(int y = 0 ; y < canvas.y ; y++) {
