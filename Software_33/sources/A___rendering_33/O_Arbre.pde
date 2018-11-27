@@ -1,7 +1,7 @@
 
 /**
 ARBRE 2012-2018
-v 1.4.2
+v 1.4.3
 */
 class ArbreRomanesco extends Romanesco {
   Arbre arbre ;
@@ -10,7 +10,7 @@ class ArbreRomanesco extends Romanesco {
     item_name = "Arbre" ;
     item_author  = "Stan le Punk";
     item_references = "";
-    item_version = "Version 1.4.2";
+    item_version = "Version 1.4.3";
     item_pack = "Base 2012-2018" ;
     item_costume = "point/ellipse/triangle/rect/cross/pentagon/Star 5/Star 7/Super Star 8/Super Star 12";
     item_mode = "";
@@ -223,7 +223,7 @@ class ArbreRomanesco extends Romanesco {
       rotate(t);   // Rotate by theta
 
       aspect_is(fill_is(),stroke_is());
-      aspect_rope(get_fill(),get_stroke(),thickness);
+      aspect(get_fill(),get_stroke(),thickness);
       Vec3 pos_a = Vec3();
       Vec3 pos_b = Vec3(0, -amplitude.x, -amplitude.y *factor);
       

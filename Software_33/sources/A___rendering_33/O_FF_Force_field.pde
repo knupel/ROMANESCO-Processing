@@ -1,13 +1,13 @@
 /**
 Force Field
 2018-2018
-v 0.0.6
+v 0.0.7
 */
 class FF extends Romanesco {
 	public FF() {
 		item_name = "FF Force Field";
 		item_author  = "Stan le Punk";
-		item_version = "Version 0.0.6";
+		item_version = "Version 0.0.7";
 		item_pack = "Force 2018-2018";
     item_costume = "line/triangle/rect/cross/pentagon/Star 5/Star 7/Super Star 8/Super Star 12/none";
     item_mode = "fluid/magnetic/gravity/perlin/equation/chaos/image";
@@ -337,7 +337,7 @@ class FF extends Romanesco {
     Vec4 c_stroke = Vec4(hue_stroke,saturation(colour_stroke),brightness(colour_stroke),alpha(colour_stroke));
 
     
-    aspect_rope(c_fill,c_stroke,thickness);
+    aspect(c_fill,c_stroke,thickness);
     set_ratio_costume_size(map(ratio,width*.1, width*TAU,0,1));
     
     // costume_rope(Vec2(),Vec3(size),costume);

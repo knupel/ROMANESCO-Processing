@@ -1,7 +1,7 @@
 /**
 BOXOLYZER
 2012-2018
-v 2.0.0
+v 2.0.1
 */
 
   
@@ -11,7 +11,7 @@ class Boxolyzer extends Romanesco {
     //from the index_objects.csv
     item_name = "Boxolyzer" ;
     item_author  = "Stan le Punk";
-    item_version = "Version 2.0.0";
+    item_version = "Version 2.0.1";
     item_pack = "Base 2012-2018" ;
 
     item_costume = "ellipse/triangle/rect/cross/pentagon/Star 5/Star 7/Super Star 8/Super Star 12";
@@ -96,7 +96,7 @@ class Boxolyzer extends Romanesco {
 
     // color and thickness
     
-    aspect_rope(get_fill(), get_stroke(), get_thickness());
+    aspect(get_fill(), get_stroke(), get_thickness());
     aspect_is(fill_is(),stroke_is()); 
     //
     distribution(num_box, new_distribution);

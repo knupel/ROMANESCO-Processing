@@ -1,13 +1,13 @@
 /**
 Puppet Master
 2018-2018
-v 0.0.8
+v 0.0.9
 */
 class Puppet_master extends Romanesco {
 	public Puppet_master() {
 		item_name = "FF Puppet Master";
 		item_author  = "Stan le Punk";
-		item_version = "Version 0.0.8";
+		item_version = "Version 0.0.9";
 		item_pack = "Force 2018-2018";
     item_costume = "none/pixel/point/ellipse/triangle/rect/cross/pentagon/Star 5/Star 7/Super Star 8/Super Star 12";
     item_mode = "solo/duo/valse 2D/<valse 3D>/whisky walk/random";
@@ -163,7 +163,7 @@ class Puppet_master extends Romanesco {
     float ratio_size_costume = map(area_item[ID_item],width*.1, width*TAU,0,width*.001);
     Vec3 size = Vec3(size_x_item[ID_item],size_y_item[ID_item],size_z_item[ID_item]);
     aspect_is(fill_is[ID_item],stroke_is[ID_item]);
-    aspect_rope(fill_item[ID_item], stroke_item[ID_item],thickness_item[ID_item]);
+    aspect(fill_item[ID_item], stroke_item[ID_item],thickness_item[ID_item]);
     
     for(int i =  0 ; i < get_spot_num() ; i++) {
       Vec3 pos = Vec3(get_spot_pos(i));

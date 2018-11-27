@@ -1,7 +1,7 @@
 /**
 RUBIS
 2013-2018
-v 1.0.6
+v 1.0.7
 */
 
 class Rubis extends Romanesco {
@@ -9,8 +9,8 @@ class Rubis extends Romanesco {
     //from the index_objects.csv
     item_name = "Rubis" ;
     item_author  = "Stan le Punk";
-    item_version = "version 1.0.6";
-    item_pack = "Base 2013" ;
+    item_version = "version 1.0.7";
+    item_pack = "Base 2013-2018" ;
     item_costume = "";
     item_mode = "Vertex/Point";
 
@@ -135,9 +135,9 @@ class Rubis extends Romanesco {
     
     
     if(mode[ID_item] == 1) {
-      aspect_rope(fill_item[ID_item], stroke_item[ID_item], thickness_item[ID_item], POINT_ROPE) ;
+      aspect(fill_item[ID_item], stroke_item[ID_item], thickness_item[ID_item], POINT_ROPE) ;
     } else {
-      aspect_rope(fill_item[ID_item], stroke_item[ID_item], thickness_item[ID_item]) ;
+      aspect(fill_item[ID_item], stroke_item[ID_item], thickness_item[ID_item]) ;
     }
 
     ami_heart_move(center, speed, radiusMin, radiusMax, jitter, mode[ID_item]) ;

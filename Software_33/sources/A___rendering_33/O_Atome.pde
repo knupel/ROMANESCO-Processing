@@ -1,7 +1,7 @@
 /**
 ATOME 
 2012-2018
-v 1.3.8
+v 1.3.9
 */
 ArrayList<Atom> atomList ;
 //object one
@@ -10,7 +10,7 @@ class Atome extends Romanesco {
     //from the index_objects.csv
     item_name = "Atome" ;
     item_author  = "Stan le Punk";
-    item_version = "version 1.3.8";
+    item_version = "version 1.3.9";
     item_pack = "Base 2012-2018" ;
     item_costume = "";
     item_mode = "Chemical Name/File text/Electronic cloud/Ellipse circle/Ellipse triangle/Ellipse cloud/Triangle circle/Triangle triangle/Triangle cloud/Rectangle rectangle/Rectangle cloud" ;
@@ -912,7 +912,7 @@ class Atom {
   ////////////////////
   //DISPLAY
   void display(String core, String cloud, PVector size, color colorFill, color colorStroke, float thickness, float orientation) {
-    aspect_rope(colorFill, colorStroke, thickness) ;
+    aspect(colorFill, colorStroke, thickness) ;
     //check size
     PVector temp_size = size.copy();
     temp_size.mult(diamAtom);
@@ -939,7 +939,7 @@ class Atom {
       stroke(colorFill) ;
       strokeWeight(thickness *2.) ;
       cloudPoint(size.x *.2) ;
-      aspect_rope(colorFill, colorStroke,thickness) ;
+      aspect(colorFill, colorStroke,thickness) ;
     }
     
     popMatrix() ;   

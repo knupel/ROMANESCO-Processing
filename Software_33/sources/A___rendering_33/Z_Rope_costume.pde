@@ -1,7 +1,7 @@
 /**
 Rope Costume
 * Copyleft (c) 2014-2018
-v 1.4.3
+v 1.4.4
 * @author Stan le Punk
 * @see https://github.com/StanLepunK/Costume_rope
 */
@@ -53,13 +53,18 @@ Info_int_dict costume_dict = new Info_int_dict();
 boolean list_costume_is_built = false ;
 int ref_size_pic = -1 ;
 
+
+Costume aspect_rope;
+
 String costume_text_rope = null;
 boolean fill_rope_is = true;
 boolean stroke_rope_is = true;
 
+/*
 float fill_rope = 0;
 float stroke_rope = 0;
 float thickness_rope = 1.;
+*/
 
 void costume_list() {
 	if(!list_costume_is_built) {
@@ -188,184 +193,82 @@ ASPECT ROPE 2016-2018
 v 0.1.3
 */
 void aspect_is(boolean fill_is, boolean stroke_is) {
-	fill_rope_is = fill_is ;
-	stroke_rope_is = stroke_is ;
+	if(aspect_rope == null) aspect_rope = new Costume();
+	aspect_rope.aspect_is(fill_is,stroke_is);
+	fill_rope_is = aspect_rope.fill_is();
+	stroke_rope_is = aspect_rope.stroke_is();
 }
 
 void init_bool_aspect() {
-	fill_rope_is = true ;
-  stroke_rope_is = true ;
+	if(aspect_rope == null) aspect_rope = new Costume();
+	aspect_rope.aspect_is(true,true);
 }
 
-void aspect_rope(int fill, int stroke, float thickness) {
-  //checkfill color
-  if(alpha(fill) <= 0 || !fill_rope_is)  {
-    noFill(); 
-  } else {
-  	manage_fill(fill);
-  } 
-  //check stroke color
-  if(alpha(stroke) <=0 || thickness <= 0 || !stroke_rope_is) {
-    noStroke();
-  } else {
-  	manage_stroke(stroke);
-    manage_thickness(thickness);
-  }
-  //
-  init_bool_aspect();
+void aspect(int fill, int stroke, float thickness) {
+	if(aspect_rope == null) aspect_rope = new Costume();
+	aspect_is(aspect_rope.fill_is(),aspect_rope.stroke_is());
+	aspect_rope.aspect(fill,stroke,thickness);
 }
 
-void aspect_rope(int fill, int stroke, float thickness, Costume costume) {
-	aspect_rope(fill,stroke,thickness,costume.get_type());
+void aspect(int fill, int stroke, float thickness, Costume costume) {
+	if(aspect_rope == null) aspect_rope = new Costume();
+	aspect_is(aspect_rope.fill_is(),aspect_rope.stroke_is());
+	aspect_rope.aspect(fill,stroke,thickness,costume.get_type());
 }
 
-void aspect_rope(int fill, int stroke, float thickness, int costume) {
-	if(costume == r.NULL) {
-    // 
-	} else if(costume != r.NULL || costume != POINT_ROPE || costume != POINT) {
-    if(alpha(fill) <= 0 || !fill_rope_is) {
-    	noFill(); 
-    } else {
-    	manage_fill(fill);
-    }
+void aspect(int fill, int stroke, float thickness, int costume) {
+	if(aspect_rope == null) aspect_rope = new Costume();
+	aspect_is(aspect_rope.fill_is(),aspect_rope.stroke_is());
+	aspect_rope.aspect(fill,stroke,thickness,costume);
+}
 
-    if(alpha(stroke) <= 0  || thickness <= 0 || !stroke_rope_is) {
-    	noStroke(); 
-    } else {
-    	manage_stroke(stroke);
-      manage_thickness(thickness);
-    }   
-  } else {
-    if(alpha(fill) == 0) {
-    	noStroke(); 
-    } else {
-    	// case where the fill is use like a stroke, for point, pixel...
-    	manage_stroke(fill);
-    	manage_thickness(thickness);
-    }
-    noFill();   
-  }
-  //
-  init_bool_aspect();
+void aspect(Vec fill, Vec stroke, float thickness) {
+	if(aspect_rope == null) aspect_rope = new Costume();
+	aspect_is(aspect_rope.fill_is(),aspect_rope.stroke_is());
+	aspect_rope.aspect(fill,stroke,thickness);
+}
+
+void aspect(Vec fill, Vec stroke, float thickness, Costume costume) {
+	if(aspect_rope == null) aspect_rope = new Costume();
+	aspect_is(aspect_rope.fill_is(),aspect_rope.stroke_is());
+	aspect_rope.aspect(fill,stroke,thickness,costume.get_type());
+}
+
+
+void aspect(Vec fill, Vec stroke, float thickness, int costume) {
+	if(aspect_rope == null) aspect_rope = new Costume();
+	aspect_is(aspect_rope.fill_is(),aspect_rope.stroke_is());
+	aspect_rope.aspect(fill,stroke,thickness,costume);
 }
 
 
 
-void aspect_rope(Vec fill, Vec stroke, float thickness) {
-  //checkfill color
-  if(fill.w <=0 || !fill_rope_is)  {
-    noFill() ; 
-  } else {
-    manage_fill(fill);
-  } 
-  //check stroke color
-  if(stroke.w <=0 || thickness <= 0 || !stroke_rope_is) {
-    noStroke();
-  } else {
-    manage_stroke(stroke);
-    manage_thickness(thickness);
-  }
-  //
-  init_bool_aspect();
-}
-
-void aspect_rope(Vec fill, Vec stroke, float thickness, Costume costume) {
-	aspect_rope(fill,stroke,thickness,costume.get_type());
-}
 
 
-void aspect_rope(Vec fill, Vec stroke, float thickness, int costume) {
-  if(costume == r.NULL) {
-    // 
-	} else if(costume != r.NULL || costume != POINT_ROPE || costume != POINT) {
-    if(fill.w <= 0 || !fill_rope_is) {
-    	noFill() ; 
-    } else {
-    	manage_fill(fill);
-    } 
-    if(stroke.w <= 0  || thickness <= 0 || !stroke_rope_is) {
-    	noStroke(); 
-    } else {
-    	manage_stroke(stroke);
-    	manage_thickness(thickness);
-    }   
-  } else {
-    if(fill.w <= 0 || !fill_rope_is) {
-    	noStroke(); 
-    } else {
-    	// case where the fill is use like a stroke, for point, pixel...
-    	manage_stroke(fill); 
-    	manage_thickness(thickness);
-    }
-    noFill();   
-  }
-  //
-  init_bool_aspect();
-}
 
 
-/**
-v 0.0.1
-* component manger
-*/
-void manage_fill(Object arg) {
-	if(arg instanceof Vec2) {
-		Vec2 c = (Vec2)arg;
-		fill_rope = color(c.x,c.x,c.x,c.y);
-		fill(c) ;
-	} else if(arg instanceof Vec3) {
-		Vec3 c = (Vec3)arg;
-		fill_rope = color(c.x,c.y,c.z,g.colorModeA);
-		fill(c) ;
-	} else if(arg instanceof Vec4) {
-		Vec4 c = (Vec4)arg;
-		fill_rope = color(c.x,c.y,c.z,c.w);
-		fill(c);
-	} else if(arg instanceof Integer) {
-		int c = (int)arg;
-		fill_rope = c;
-		fill(c);
+int get_fill_rope() {
+	if(aspect_rope != null) {
+		return aspect_rope.get_fill();
+	} else {
+		return color(g.colorModeX);
 	}
 }
 
-void manage_stroke(Object arg) {
-	if(arg instanceof Vec2) {
-		Vec2 c = (Vec2)arg;
-		stroke_rope = color(c.x,c.x,c.x,c.y);
-		stroke(c);
-	} else if(arg instanceof Vec3) {
-		Vec3 c = (Vec3)arg;
-		stroke_rope = color(c.x,c.y,c.z,g.colorModeA);
-		stroke(c);
-	} else if(arg instanceof Vec4) {
-		Vec4 c = (Vec4)arg;
-		stroke_rope = color(c.x,c.y,c.z,c.w);
-		stroke(c);
-	} else if(arg instanceof Integer) {
-		int c = (int)arg;
-		stroke_rope = c;
-		stroke(c);
+int get_stroke_rope() {
+	if(aspect_rope != null) {
+		return aspect_rope.get_stroke();
+	} else {
+		return color(0);
 	}
-}
-
-
-void manage_thickness(float thickness) {
-	thickness_rope = thickness;
-	strokeWeight(thickness);
-
-}
-
-
-float get_fill_rope() {
-	return fill_rope;
-}
-
-float get_stroke_rope() {
-	return stroke_rope;
 }
 
 float get_thickness_rope() {
-	return thickness_rope;
+	if(aspect_rope != null) {
+		return aspect_rope.get_thickness();
+	} else {
+		return 1.;
+	}
 }
 
 
@@ -516,14 +419,14 @@ void load_costume_pic(String path) {
 
 
 
-class Costume_pic {
+public class Costume_pic {
 	PImage img ;
 	ROPE_svg svg ;
 	int type = -1 ; 
 
 	String name ;
 	int ID ;
-	Costume_pic(PApplet p5, String path, int ID) {
+	public Costume_pic(PApplet p5, String path, int ID) {
 		// add png
 		if(path.endsWith("png") || path.endsWith("PNG")) {
 			img = loadImage(path) ;
@@ -760,9 +663,15 @@ void costume(Vec3 pos, Vec3 size, Vec rot, Costume costume) {
 /**
 class Costume 
 2018-2018
-v 0.0.3
+v 0.1.0
 */
-class Costume {
+public class Costume {
+	boolean fill_is;
+	boolean stroke_is;
+	int fill;
+	int stroke;
+	float thickness = 1.;
+
 	int type;
 	int node;
 	int summits;
@@ -772,10 +681,16 @@ class Costume {
 	float [] ratio;
 	boolean is_3D = false;
 	boolean is_vertex = true;
-	Costume() {
+	public Costume() {
 	}
+/*
+	public Costume(PApplet papplet) {
+		this.papplet = papplet;
+	}
+	*/
 
-	Costume(int type) {
+
+	public Costume(int type) {
 		this.type = type;
 	}
   
@@ -819,6 +734,19 @@ class Costume {
 
 
 	// get
+	public int get_fill() {
+		return fill;
+	}
+
+	public int get_stroke() {
+		return stroke;
+	}
+
+	public float get_thickness() {
+		return thickness;
+	}
+
+
 	public int get_type() {
 		return type;
 	}
@@ -855,7 +783,189 @@ class Costume {
 		return is_vertex;
 	}
 
-	void draw(Vec3 pos, Vec3 size, Vec rot) {
+	public boolean fill_is() {
+		return this.fill_is;
+	}
+
+	public boolean stroke_is() {
+		return this.stroke_is;
+	}
+
+
+
+
+
+
+	// ASPECT
+	public void aspect_is(boolean fill_is, boolean stroke_is) {
+		this.fill_is = fill_is;
+		this.stroke_is = stroke_is;
+	}
+
+	public void init_bool_aspect() {
+		this.fill_is = true ;
+	  this.stroke_is = true ;
+	}
+
+	public void aspect(int fill, int stroke, float thickness) {
+	  //checkfill color
+	  if(alpha(fill) <= 0 || !this.fill_is)  {
+	    noFill(); 
+	  } else {
+	  	manage_fill(fill);
+	  } 
+	  //check stroke color
+	  if(alpha(stroke) <=0 || thickness <= 0 || !this.stroke_is) {
+	    noStroke();
+	  } else {
+	  	manage_stroke(stroke);
+	    manage_thickness(thickness);
+	  }
+	  //
+	  init_bool_aspect();
+	}
+
+	public void aspect(int fill, int stroke, float thickness, Costume costume) {
+		aspect(fill,stroke,thickness,costume.get_type());
+	}
+
+	public void aspect(int fill, int stroke, float thickness, int costume) {
+		if(costume == r.NULL) {
+	    // 
+		} else if(costume != r.NULL || costume != POINT_ROPE || costume != POINT) {
+	    if(alpha(fill) <= 0 || !fill_rope_is) {
+	    	noFill(); 
+	    } else {
+	    	manage_fill(fill);
+	    }
+
+	    if(alpha(stroke) <= 0  || thickness <= 0 || !stroke_rope_is) {
+	    	noStroke(); 
+	    } else {
+	    	manage_stroke(stroke);
+	      manage_thickness(thickness);
+	    }   
+	  } else {
+	    if(alpha(fill) == 0) {
+	    	noStroke(); 
+	    } else {
+	    	// case where the fill is use like a stroke, for point, pixel...
+	    	manage_stroke(fill);
+	    	manage_thickness(thickness);
+	    }
+	    noFill();   
+	  }
+	  //
+	  init_bool_aspect();
+	}
+
+
+
+	public void aspect(Vec fill, Vec stroke, float thickness) {
+	  //checkfill color
+	  if(fill.w <=0 || !this.fill_is)  {
+	    noFill() ; 
+	  } else {
+	    manage_fill(fill);
+	  } 
+	  //check stroke color
+	  if(stroke.w <=0 || thickness <= 0 || !this.stroke_is) {
+	    noStroke();
+	  } else {
+	    manage_stroke(stroke);
+	    manage_thickness(thickness);
+	  }
+	  //
+	  init_bool_aspect();
+	}
+
+	void aspect(Vec fill, Vec stroke, float thickness, Costume costume) {
+		aspect(fill,stroke,thickness,costume.get_type());
+	}
+
+
+	void aspect(Vec fill, Vec stroke, float thickness, int costume) {
+	  if(costume == r.NULL) {
+	    // 
+		} else if(costume != r.NULL || costume != POINT_ROPE || costume != POINT) {
+	    if(fill.w <= 0 || !this.fill_is) {
+	    	noFill() ; 
+	    } else {
+	    	manage_fill(fill);
+	    } 
+	    if(stroke.w <= 0  || thickness <= 0 || !this.stroke_is) {
+	    	noStroke(); 
+	    } else {
+	    	manage_stroke(stroke);
+	    	manage_thickness(thickness);
+	    }   
+	  } else {
+	    if(fill.w <= 0 || !this.fill_is) {
+	    	noStroke(); 
+	    } else {
+	    	// case where the fill is use like a stroke, for point, pixel...
+	    	manage_stroke(fill); 
+	    	manage_thickness(thickness);
+	    }
+	    noFill();   
+	  }
+	  //
+	  init_bool_aspect();
+	}
+
+
+	private void manage_fill(Object arg) {
+		if(arg instanceof Vec2) {
+			Vec2 c = (Vec2)arg;
+			this.fill = color(c.x,c.x,c.x,c.y);
+			fill(c) ;
+		} else if(arg instanceof Vec3) {
+			Vec3 c = (Vec3)arg;
+			this.fill = color(c.x,c.y,c.z,g.colorModeA);
+			fill(c) ;
+		} else if(arg instanceof Vec4) {
+			Vec4 c = (Vec4)arg;
+			this.fill = color(c.x,c.y,c.z,c.w);
+			fill(c);
+		} else if(arg instanceof Integer) {
+			int c = (int)arg;
+			this.fill = c;
+			fill(c);
+		}
+	}
+
+	private void manage_stroke(Object arg) {
+		if(arg instanceof Vec2) {
+			Vec2 c = (Vec2)arg;
+			this.stroke = color(c.x,c.x,c.x,c.y);
+			stroke(c);
+		} else if(arg instanceof Vec3) {
+			Vec3 c = (Vec3)arg;
+			this.stroke = color(c.x,c.y,c.z,g.colorModeA);
+			stroke(c);
+		} else if(arg instanceof Vec4) {
+			Vec4 c = (Vec4)arg;
+			this.stroke = color(c.x,c.y,c.z,c.w);
+			stroke(c);
+		} else if(arg instanceof Integer) {
+			int c = (int)arg;
+			this.stroke = c;
+			stroke(c);
+		}
+	}
+
+
+	private void manage_thickness(float thickness) {
+		this.thickness = thickness;
+		strokeWeight(this.thickness);
+	}
+
+
+
+
+
+
+	public void draw(Vec3 pos, Vec3 size, Vec rot) {
 		if(rot.x != 0) costume_rotate_x();
 		if(rot.y != 0) costume_rotate_y();
 		if(rot.z != 0) costume_rotate_z();
@@ -885,7 +995,7 @@ class Costume {
 
 
 
-			else if (this.get_type() == TRIANGLE_ROPE) {
+		else if (this.get_type() == TRIANGLE_ROPE) {
 			start_matrix();
 			translate(pos);
 			rotate_behavior(rot);
@@ -1121,6 +1231,18 @@ class Costume {
 		ratio_costume_size = 1;
 	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

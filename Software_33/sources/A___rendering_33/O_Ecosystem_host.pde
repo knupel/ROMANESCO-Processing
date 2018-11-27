@@ -1,13 +1,13 @@
 /**
 Ecosysteme Host 
 2016-2018
-V 0.1.8
+V 0.1.9
 */
 class Ecosystem_DNA extends Romanesco {
 	public Ecosystem_DNA() {
 		item_name = "Eco DNA" ;
 		item_author  = "Stan le Punk";
-		item_version = "Version 0.1.8";
+		item_version = "Version 0.1.9";
 		item_pack = "Ecosystem 2016-2018";
     item_costume = "Point/Ellipse/Triangle/Rect/Cross/ABC" ;
 		item_mode = "" ; // separate the differentes mode by "/"
@@ -283,7 +283,7 @@ void costume_DNA(Helix helix, int target, Vec3 size, float direction, Costume co
   float alpha_max = .8 ;
   
   aspect_is(display_fill_is, display_stroke_is) ;
-  aspect_rope(fill_int, stroke_int, thickness) ;
+  aspect(fill_int, stroke_int, thickness) ;
   if(link_is) line(pos_a, pos_b) ;
   
 
@@ -321,7 +321,7 @@ void costume_DNA(Helix helix, int target, Vec3 size, float direction, Costume co
 
 
   aspect_is(display_fill_is, display_stroke_is) ;
-  aspect_rope(fill_strand_a, stroke_strand_a, thickness,costume);
+  aspect(fill_strand_a, stroke_strand_a, thickness,costume);
 
   if(costume.get_type() == TEXT_ROPE) {
     String nuc_a = "" +helix.get_DNA(0).sequence_a.get(target).nac ;
@@ -335,7 +335,7 @@ void costume_DNA(Helix helix, int target, Vec3 size, float direction, Costume co
   
 
   aspect_is(display_fill_is, display_stroke_is) ;
-  aspect_rope(fill_strand_b, stroke_strand_b, thickness,costume) ;
+  aspect(fill_strand_b, stroke_strand_b, thickness,costume) ;
   
   if(costume.get_type() == TEXT_ROPE) {
     String nuc_b = "" +helix.get_DNA(0).sequence_b.get(target).nac ;

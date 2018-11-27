@@ -1,7 +1,7 @@
 /**
 GALAXIE
 2012-2018
-V 1.5.1
+V 1.5.2
 */
 
 class Galaxie extends Romanesco {
@@ -16,7 +16,7 @@ class Galaxie extends Romanesco {
     //from the index_objects.csv
     item_name = "Galaxie" ;
     item_author  = "Stan le Punk";
-    item_version = "Version 1.5.1";
+    item_version = "Version 1.5.2";
     item_pack = "Base 2012-2018" ;
     // item_mode ="Point/Ellipse/Rectangle/Box" ;
     item_costume = "Point/Ellipse/Triangle/Rectangle/Cross/Star 5/Star 7/Super Star 8/Super Star 12" ;
@@ -209,7 +209,7 @@ class Galaxie extends Romanesco {
     // select_costume();
 
     
-    // aspect_rope(fill_item[ID_item], stroke_item[ID_item], thickness_item[ID_item], get_costume()) ;
+    // aspect(fill_item[ID_item], stroke_item[ID_item], thickness_item[ID_item], get_costume()) ;
     show(size, thickness,ID_item);
     
    
@@ -254,7 +254,7 @@ class Galaxie extends Romanesco {
       // ratio is used to don't have "moirage" problem
       z_pos += ratio ;
       Vec3 pos = Vec3(grain[i].x, grain[i].y, z_pos) ;
-      aspect_rope(fill_item[ID], stroke_item[ID], thickness_item[ID]);
+      aspect(fill_item[ID], stroke_item[ID], thickness_item[ID]);
       set_ratio_costume_size(map(area_item[ID],width*.1, width*TAU*4,0,1));
       costume(pos,size,get_costume()) ;
 

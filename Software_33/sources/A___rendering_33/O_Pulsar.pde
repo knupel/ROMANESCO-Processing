@@ -1,7 +1,7 @@
 /**
 Pulsar
 2018-2018
-v 0.0.4
+v 0.0.5
 */
 
 //object one
@@ -11,8 +11,8 @@ class Pulsar extends Romanesco {
   public Pulsar() {
     item_name = "Pulsar" ;
     item_author  = "Stan le Punk";
-    item_version = "version 0.0.4";
-    item_pack = "Base 2018";
+    item_version = "version 0.0.5";
+    item_pack = "Base 2018-2018";
     item_costume = "point/ellipse/triangle/rect/cross/pentagon/star";
     item_mode = "nothing/cyclus/heart/ring cyclus/ring heart/helmet cyclus/helmet heart" ;
     // item_slider = "Fill hue,Fill sat,Fill bright,Fill alpha,Thickness,Size X,Size Y,Canvas X,Canvas Y,Quantity,Reactivity,Angle,Life,Spurt X,Flow,Direction X,Direction Y" ;
@@ -101,7 +101,7 @@ class Pulsar extends Romanesco {
     // cloud_3D.size((height/4) *abs(sin(frameCount *.01)));
     // cloud_3D.orientation_y(map(mouseY,0,height,-PI,PI));
     // cloud_3D.angle(frameCount *.01);
-    aspect_rope(fill_item[ID_item], stroke_item[ID_item], thickness_item[ID_item]);
+    aspect(fill_item[ID_item], stroke_item[ID_item], thickness_item[ID_item]);
     
 
 

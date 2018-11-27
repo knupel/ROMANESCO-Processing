@@ -1,7 +1,7 @@
 
 /**
 CLASS PIX 
-v 0.8.0
+v 0.9.0
 2016-2018
 * @author Stan le Punk
 * @see https://github.com/StanLepunK/Pixel
@@ -286,7 +286,8 @@ abstract class Pix implements rope.core.RConstants {
   */
   public void aspect() {
     float thickness = 1 ;
-    aspect_rope(colour,colour,thickness);
+    if(costume == null) costume = new Costume();
+    costume.aspect(colour,colour,thickness);
   }
 
   public void aspect(boolean new_colour_choice) {
@@ -297,7 +298,8 @@ abstract class Pix implements rope.core.RConstants {
     } else {
       color_choice.set(colour);
     }
-    aspect_rope(color_choice,color_choice,thickness) ;
+    if(costume == null) costume = new Costume();
+    costume.aspect(color_choice,color_choice,thickness) ;
   }
 
   public void aspect(boolean new_colour_choice, float thickness) {
@@ -307,30 +309,36 @@ abstract class Pix implements rope.core.RConstants {
     } else {
       color_choice.set(colour);
     }
-    aspect_rope(color_choice,color_choice,thickness);
+    if(costume == null) costume = new Costume();
+    costume.aspect(color_choice,color_choice,thickness);
   }
 
   public void aspect(float thickness) {
-    aspect_rope(colour,colour,thickness);
+    if(costume == null) costume = new Costume();
+    costume.aspect(colour,colour,thickness);
   }
 
   public void aspect(int c) {
     float thickness = 1 ;
-    Vec4 color_pix = int_color_to_vec4_color(c).copy() ;
-    aspect_rope(color_pix, color_pix, thickness);
+    Vec4 color_pix = int_color_to_vec4_color(c).copy();
+    if(costume == null) costume = new Costume();
+    costume.aspect(color_pix, color_pix, thickness);
   }
 
   public void aspect(Vec4 color_pix) {
     float thickness = 1 ;
-    aspect_rope(color_pix, color_pix, thickness) ;
+    if(costume == null) costume = new Costume();
+    costume.aspect(color_pix, color_pix, thickness) ;
   }
 
   public void aspect(Vec4 color_pix, float thickness) {
-    aspect_rope(color_pix, color_pix, thickness) ;
+    if(costume == null) costume = new Costume();
+    costume.aspect(color_pix, color_pix, thickness) ;
   }
   
   public void aspect(Vec4 color_fill, Vec4 color_stroke, float thickness) {
-    aspect_rope(color_fill,color_stroke,thickness);
+    if(costume == null) costume = new Costume();
+    costume.aspect(color_fill,color_stroke,thickness);
   }
   
 

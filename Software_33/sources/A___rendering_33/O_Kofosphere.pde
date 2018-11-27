@@ -1,13 +1,13 @@
 /**
 KOFOSPHERE 
 2013-2018
-v 1.1.1
+v 1.1.2
 */
 class Kofosphere extends Romanesco {
   public Kofosphere() {
     item_name = "Kofosphere" ;
     item_author  = "Kof";
-    item_version = "Version 1.1.1";
+    item_version = "Version 1.1.2";
     item_pack = "Base 2013-2018" ;
     item_costume = "point/ellipse/triangle/rect/cross/pentagon/Star 5/Star 7/Super Star 8/Super Star 12";
     item_mode = "monochrome/polychrome" ;
@@ -216,7 +216,7 @@ private class Sphere{
         float deform = noise((frameCount +lerp(f,ff,noise((frameCount+ff)/222.0))) *.003) *1.33;
         
         // display
-        aspect_rope(c_fill,c_stroke,thickness);
+        aspect(c_fill,c_stroke,thickness);
         aspect_is(fill_is[ID],stroke_is[ID]);
         set_ratio_costume_size(map(area_item[ID],width*.1, width*TAU,0,1));
         Vec3 pos = Vec3(pos_x *deform, pos_y *deform, pos_z *deform);
