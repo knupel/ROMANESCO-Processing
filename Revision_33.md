@@ -10,14 +10,15 @@ revision 33
 *MINOR
 
 >change min-max variable for angle, direction and scope from 0 to 360 for 0 to TAU and update the item linked with that.
+>add class Mode to mange the name and the id item mode
 
 *ITEM
 
 >KINO, add method to swithc off the sound
 >KINO, change the direction for padding image up and down
 >BOXOLYZER add costume to change shape easily and other improvement.
->AUTOMATA new item
->GRILLO new item about 3D grid and coin flip !
+>new item AUTOMATA 
+>new item GRILLO about 3D grid and coin flip !
 
 *BUG FIX
 

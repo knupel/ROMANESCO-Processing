@@ -2,7 +2,7 @@
 * Grillo
 * the tab is the template that you can duplicate to add the item you want in your Romanesco.
 * You must change the class name and this one must be unique.
-v 0.0.1
+v 0.0.2
 */
 class Grillo extends Romanesco {
   public Grillo() {
@@ -10,7 +10,7 @@ class Grillo extends Romanesco {
     item_name = "Grillo" ;
     item_author  = "Stan le Punk";
     item_references = "";
-    item_version = "Version 0.0.1";
+    item_version = "Version 0.0.2";
     item_pack = "Base 2018-2018" ;
     item_costume = "point/ellipse/triangle/rect/cross/pentagon/Star 5/Star 7/Super Star 8/Super Star 12"; // costume available from get_costume();
     item_mode = "Random/Automata/Full";
@@ -85,18 +85,28 @@ class Grillo extends Romanesco {
   Vec3 dir [][][];
   boolean grillo_is[][][];
   int ref_num;
+  String ref_mode;
   void draw() {
     iVec3 canvas = round(map(get_canvas(),canvas_x_min_max.x,canvas_x_min_max.y,1,19));
-    if(ref_num != canvas.x*canvas.y*canvas.z) {
+    if(ref_num != canvas.x*canvas.y*canvas.z || !get_mode_name().equals(ref_mode)) {
       reset(canvas);
-      pile_ou_face(canvas,true);
+      if(get_mode_name().equals("Random")) {
+        pile_ou_face(canvas,true);
+      } else if(get_mode_name().equals("Full")) {
+        pile_ou_face(canvas,false);
+      }
+      ref_mode = get_mode_name();
     }
 
     direction(canvas);
     offset(canvas);
 
     if(birth_is()) {
-      pile_ou_face(canvas,true);
+      if(get_mode_name().equals("Random")) {
+        pile_ou_face(canvas,true);
+      } else {
+        pile_ou_face(canvas,false);
+      }
       set_birth(false);
     }
 
@@ -119,7 +129,7 @@ class Grillo extends Romanesco {
     }
 
     // here if you want code in 3D mode
-    info("items",canvas.x*canvas.y*canvas.z,"Mode",get_mode_name(get_mode_id()));
+    info("items: "+(canvas.x*canvas.y*canvas.z),"Mode: "+get_mode_name());
   }
 
   void manage_costume(Vec3 pos, Vec3 dir) {
