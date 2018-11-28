@@ -82,13 +82,13 @@ class Kino extends Romanesco {
 	void draw() {
     param();
 
-    if(get_movie() != null && get_mode() != 0 && get_mode() != 2) {
+    if(get_movie() != null && get_mode_id() != 0 && get_mode_id() != 2) {
       get_movie().pause();
     }
 
-		if(get_movie() != null && get_mode() == 2) {
+		if(get_movie() != null && get_mode_id() == 2) {
 			kino_movie(colour,FIT);
-		} else if(get_mode() == 3) {
+		} else if(get_mode_id() == 3) {
 			kino_bitmap(colour,FIT);
 		}
 
@@ -103,10 +103,10 @@ class Kino extends Romanesco {
 
   void draw_2D() {
     param();
-    if(get_mode() == 0) {
+    if(get_mode_id() == 0) {
       kino_movie(colour,SCREEN);
 
-    } else if(get_mode() == 1) {
+    } else if(get_mode_id() == 1) {
       kino_bitmap(colour,SCREEN);
     }
   }

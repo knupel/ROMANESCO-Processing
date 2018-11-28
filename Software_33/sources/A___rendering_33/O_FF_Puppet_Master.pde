@@ -139,20 +139,20 @@ class Puppet_master extends Romanesco {
     
 
     // SPOT POSITION
-    if(get_mode() == 0) {
+    if(get_mode_id() == 0) {
       solo_spot();
-    } else if(get_mode() == 1) {
+    } else if(get_mode_id() == 1) {
       duo_spot();
-    } else if(get_mode() == 2) {
+    } else if(get_mode_id() == 2) {
       num_spot_management(300, quantity_item[ID_item],true);
       valse_2D_spot(canvas_x_item[ID_item],speed,num_spiral,range,which_behavior);
-    } else if(get_mode() == 3) {
+    } else if(get_mode_id() == 3) {
       num_spot_management(300, quantity_item[ID_item],true);
       valse_3D_spot();
-    } else if(get_mode() == 4) {
+    } else if(get_mode_id() == 4) {
       num_spot_management(300, quantity_item[ID_item],true);
       whisky_spot(canvas_ff,speed,limit_w,limit_h,limit_d);
-    } else if(get_mode() == 5) {
+    } else if(get_mode_id() == 5) {
       num_spot_management(300, quantity_item[ID_item],true);
       random_spot(frameCount%60 == 0);
     }

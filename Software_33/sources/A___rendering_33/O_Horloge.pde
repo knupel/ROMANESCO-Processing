@@ -1,7 +1,7 @@
 /**
 HORLOGE
 2012-2018
-v 2.0.9
+v 2.0.10
 */
 
 class Horloge extends Romanesco {
@@ -9,7 +9,7 @@ class Horloge extends Romanesco {
     //from the index_objects.csv
     item_name = "Horloge" ;
     item_author  = "Stan Le Punk";
-    item_version = "Version 2.0.9";
+    item_version = "Version 2.0.10";
     item_pack = "Base 2012-2018" ;
     item_mode = "Ellipse Clock 12/Ellipse Clock 24/Line Clock 12/Line Clock 24/minutes/secondes";// separate the name by a slash and write the next mode immadialtly after this one.
     item_costume = "";
@@ -121,17 +121,17 @@ class Horloge extends Romanesco {
     
     //CHANGE MODE DISPLAY
     /////////////////////
-    if (mode[ID_item] == 0 ) {
+    if (get_mode_id() == 0 ) {
       horlogeCercle (pos_clock, angle, amp, 12 ) ; // on 12 hours model english clock
-    } else if (mode[ID_item] == 1 ) {
+    } else if (get_mode_id() == 1 ) {
       horlogeCercle (pos_clock, angle,  amp, 24 ) ; // on 24 hours model international clock
-    } else if (mode[ID_item] == 2 ) {
+    } else if (get_mode_id() == 2 ) {
       horlogeLigne  (pos_clock, angle, amp, 12 ) ; // on 12 hours model english clock
-    } else if (mode[ID_item] == 3 ) {
+    } else if (get_mode_id() == 3 ) {
       horlogeLigne  (pos_clock, angle, amp, 24 ) ; // on 24 hours model international clock
-    } else if (mode[ID_item] == 4 ) {
+    } else if (get_mode_id() == 4 ) {
       horlogeMinute(pos_clock, angle) ;
-    } else if (mode[ID_item] == 5 ) {
+    } else if (get_mode_id() == 5 ) {
       horlogeSeconde(pos_clock, angle) ;
     }
 

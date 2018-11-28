@@ -1,6 +1,6 @@
 /**
 Abstract CLASS ROMANESCO
-v 0.1.2
+v 0.2.0
 2013-2018
 */
 public abstract class Romanesco implements rope.core.RConstants {
@@ -538,8 +538,20 @@ public abstract class Romanesco implements rope.core.RConstants {
     return item_name;
   }
 
-  protected int get_mode() {
+  protected Mode get_mode() {
     return mode[ID_item];
+  }
+
+  protected int get_mode_id() {
+    return mode[ID_item].get_id();
+  }
+
+  protected String [] get_mode_name() {
+    return mode[ID_item].get_name();
+  }
+
+  protected String get_mode_name(int id) {
+    return mode[ID_item].get_name(id);
   }
   
   protected Costume get_costume() {

@@ -1,7 +1,7 @@
 /**
 ATOME 
 2012-2018
-v 1.3.9
+v 1.3.10
 */
 ArrayList<Atom> atomList ;
 //object one
@@ -10,7 +10,7 @@ class Atome extends Romanesco {
     //from the index_objects.csv
     item_name = "Atome" ;
     item_author  = "Stan le Punk";
-    item_version = "version 1.3.9";
+    item_version = "version 1.3.10";
     item_pack = "Base 2012-2018" ;
     item_costume = "";
     item_mode = "Chemical Name/File text/Electronic cloud/Ellipse circle/Ellipse triangle/Ellipse cloud/Triangle circle/Triangle triangle/Triangle cloud/Rectangle rectangle/Rectangle cloud" ;
@@ -237,34 +237,34 @@ class Atome extends Romanesco {
 
       //MODE OF DISPLAY
       //item_mode = "Chemical Name/File text/Electronic cloud/Ellipse schema/Ellipse cloud/Triangle schema/Triangle cloud/Rectangle schema/Rectangle cloud/Box schema/Box cloud/Sphere schema/Sphere cloud" ;
-      if (mode[ID_item] == 0 || mode[ID_item] == 255 ) {
+      if (get_mode_id() == 0 || get_mode_id() == 255 ) {
         atm.titleAtom2D (fill_item[ID_item], stroke_item[ID_item], get_font(), sizeTextName, sizeTextInfo, posTextInfo, angle_item[ID_item]) ; // (color name, color Info, PFont, int sizeTextName,int  sizeTextInfo )
-      } else if (mode[ID_item] == 1 ) { 
+      } else if (get_mode_id() == 1 ) { 
         atm.title2D(fill_item[ID_item], get_font(), sizeTextName, posText, angle_item[ID_item]) ;
-      } else if (mode[ID_item] == 2 ) {
+      } else if (get_mode_id() == 2 ) {
         atm.display("", "POINT", sizeAtomeXYZ, fill_item[ID_item], stroke_item[ID_item], thickness, angle_item[ID_item]) ;
-      } else if (mode[ID_item] == 3 ) {
+      } else if (get_mode_id() == 3 ) {
         if(threeDimension) atm.display("SPHERE", "ELLIPSE", sizeAtomeXYZ, fill_item[ID_item], stroke_item[ID_item], thickness, angle_item[ID_item]) ;
         else atm.display("ELLIPSE", "ELLIPSE", sizeAtomeXYZ, fill_item[ID_item], stroke_item[ID_item], thickness, angle_item[ID_item]) ;
-      } else if (mode[ID_item] == 4 ) {
+      } else if (get_mode_id() == 4 ) {
         if(threeDimension) atm.display("SPHERE", "TRIANGLE", sizeAtomeXYZ, fill_item[ID_item], stroke_item[ID_item], thickness, angle_item[ID_item]) ;
         else atm.display("ELLIPSE", "TRIANGLE", sizeAtomeXYZ, fill_item[ID_item], stroke_item[ID_item], thickness, angle_item[ID_item]) ;
-      } else if (mode[ID_item] == 5 ) {
+      } else if (get_mode_id() == 5 ) {
         if(threeDimension) atm.display("SPHERE", "POINT", sizeAtomeXYZ, fill_item[ID_item], stroke_item[ID_item], thickness, angle_item[ID_item]) ;
         else atm.display("ELLIPSE", "POINT", sizeAtomeXYZ, fill_item[ID_item], stroke_item[ID_item], thickness, angle_item[ID_item]) ;
-      } else if (mode[ID_item] == 6 ) {
+      } else if (get_mode_id() == 6 ) {
         if(threeDimension) atm.display("TETRA", "ELLIPSE", sizeAtomeXYZ, fill_item[ID_item], stroke_item[ID_item], thickness, angle_item[ID_item]) ;
         else atm.display("TRIANGLE", "ELLIPSE", sizeAtomeXYZ, fill_item[ID_item], stroke_item[ID_item], thickness, angle_item[ID_item]) ;
-      } else if (mode[ID_item] == 7 ) {
+      } else if (get_mode_id() == 7 ) {
         if(threeDimension) atm.display("TETRA", "TRIANGLE", sizeAtomeXYZ, fill_item[ID_item], stroke_item[ID_item], thickness, angle_item[ID_item]) ;
         else atm.display("TRIANGLE", "TRIANGLE", sizeAtomeXYZ, fill_item[ID_item], stroke_item[ID_item], thickness, angle_item[ID_item]) ;
-      } else if (mode[ID_item] == 8 ) {
+      } else if (get_mode_id() == 8 ) {
         if(threeDimension) atm.display("TETRA", "POINT", sizeAtomeXYZ, fill_item[ID_item], stroke_item[ID_item], thickness, angle_item[ID_item]) ;
         else atm.display("TRIANGLE", "POINT", sizeAtomeXYZ, fill_item[ID_item], stroke_item[ID_item], thickness, angle_item[ID_item]) ;
-      } else if (mode[ID_item] == 9 ) {
+      } else if (get_mode_id() == 9 ) {
         if(threeDimension) atm.display("BOX", "RECTANGLE", sizeAtomeXYZ, fill_item[ID_item], stroke_item[ID_item], thickness, angle_item[ID_item]) ;
         else atm.display("RECTANGLE", "RECTANGLE", sizeAtomeXYZ, fill_item[ID_item], stroke_item[ID_item], thickness, angle_item[ID_item]) ;
-      } else if (mode[ID_item] == 10 ) {
+      } else if (get_mode_id() == 10 ) {
         if(threeDimension) atm.display("BOX", "POINT", sizeAtomeXYZ, fill_item[ID_item], stroke_item[ID_item], thickness, angle_item[ID_item]) ;
         else atm.display("RECTANGLE", "POINT", sizeAtomeXYZ, fill_item[ID_item], stroke_item[ID_item], thickness, angle_item[ID_item]) ;
       }

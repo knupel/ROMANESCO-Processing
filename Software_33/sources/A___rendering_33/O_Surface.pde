@@ -1,14 +1,14 @@
 /**
 SURFACE
 2014-2018
-v 1.0.8
+v 1.0.9
 */
 
 class Surface extends Romanesco {
   public Surface() {
     item_name = "Surface" ;
     item_author  = "Stan le Punk";
-    item_version = "Version 1.0.8";
+    item_version = "Version 1.0.9";
     item_pack = "Base 2014-2018";
     item_costume = "" ;
     item_mode = "Surfimage/Vague/Vague++" ; // separate the differentes mode by "/"
@@ -143,7 +143,7 @@ class Surface extends Romanesco {
     
     // simple grid param
     ////////////////////
-    if(mode[ID_item] != 0 ) {
+    if(get_mode_id() != 0 ) {
       //size pixel triangle
       int sizePixMin = 7 ;
       int sizePix_grid_simple = int(sizePixMin +size_x_item[ID_item] /11) ;
@@ -167,14 +167,14 @@ class Surface extends Romanesco {
       }
       
       // Vague + clear
-      if(mode[ID_item] == 1 ) {
+      if(get_mode_id() == 1 ) {
         if(refSizeTriangle != size_x_item[ID_item] || !canvasRef.equals(newCanvas)) {
-          if(mode[ID_item] == 1 ) grid_surface_simple.clear() ;
+          if(get_mode_id() == 1 ) grid_surface_simple.clear() ;
           create_surface_simple(sizePix_grid_simple,newCanvas) ;
         }
       }
       // vague ++
-      if(mode[ID_item] == 2) {
+      if(get_mode_id() == 2) {
         if(refSizeTriangle != size_x_item[ID_item] || !canvasRef.equals(newCanvas)) {
           create_surface_simple(sizePix_grid_simple,newCanvas) ;
         }
@@ -191,16 +191,16 @@ class Surface extends Romanesco {
     
     // update all mode
     /////////////////////////////
-    update_and_clean(mode[ID_item]) ;
+    update_and_clean(get_mode_id()) ;
     
     // info
-    if(mode[ID_item] == 0 ) {
+    if(get_mode_id() == 0 ) {
       String about_img = ("no image available");
       if(image != null) {
         about_img = ("size: "+image.width+"x"+image.height);
       }
-      item_info[ID_item] =("Mode: " + mode[ID_item] +" | Triangles:"+grid_surface_image.size() + " | " + about_img); 
-    } else item_info[ID_item] =("Mode: " + mode[ID_item] +" | Triangles:"+grid_surface_simple.size()) ;
+      item_info[ID_item] =("Mode: " + get_mode_name() +" | Triangles:"+grid_surface_image.size() + " | " + about_img); 
+    } else item_info[ID_item] =("Mode: " + get_mode_name() +" | Triangles:"+grid_surface_simple.size()) ;
     
     
   }

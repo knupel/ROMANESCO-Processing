@@ -1,7 +1,7 @@
 /**
 VARIABLE SCENE
 2015-2018
-v 1.8.0
+v 1.8.1
 */
 boolean scene, prescene;
 boolean miroir_on_off = false ;
@@ -421,7 +421,7 @@ float [] pos_x_item,pos_y_item,pos_z_item;
 // parameterButton;
 boolean [] show_item, sound, action, parameter;
 
-int [] mode;
+Mode [] mode;
 int [] costume_controller_selection;
 Costume [] costume;
 
@@ -649,7 +649,7 @@ void create_var_item_button() {
   sound = new boolean [NUM_ITEM_PLUS_MASTER];
   action = new boolean [NUM_ITEM_PLUS_MASTER];
   parameter = new boolean [NUM_ITEM_PLUS_MASTER];
-  mode = new int [NUM_ITEM_PLUS_MASTER];
+  mode = new Mode [NUM_ITEM_PLUS_MASTER];
   costume_controller_selection = new int [NUM_ITEM_PLUS_MASTER];
   
   // you must init this var, because we launch this part of code before the controller. And if we don't init the value is NaN and return an error.
@@ -884,6 +884,7 @@ void init_variable_item() {
 
     // costume 
     costume[i] = new Costume(POINT_ROPE);
+    mode[i] = new Mode();
     // init slider var item except fill and stroke
     thickness_item [i] =1.; 
 

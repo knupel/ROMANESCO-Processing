@@ -17,6 +17,7 @@ revision 33
 >KINO, change the direction for padding image up and down
 >BOXOLYZER add costume to change shape easily and other improvement.
 >AUTOMATA new item
+>GRILLO new item about 3D grid and coin flip !
 
 *BUG FIX
 

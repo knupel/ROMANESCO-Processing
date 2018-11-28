@@ -1,7 +1,7 @@
 /**
 Lorenz attractor
 2016-2018
-v 0.1.1
+v 0.1.2
 Inspirated by Nature of Code of Daniel Shiffman
 */
 /*
@@ -12,7 +12,7 @@ class Lorenz extends Romanesco {
 	public Lorenz() {
 		item_name = "Lorenz attractor";
 		item_author  = "Stan le Punk";
-		item_version = "Version 0.1.1";
+		item_version = "Version 0.1.2";
 		item_pack = "Nature of Code 2016-2018";
     item_costume = "point/ellipse/triangle/rect/cross/pentagon/Star 5";
     item_mode = "Costume/Surface";
@@ -99,7 +99,7 @@ class Lorenz extends Romanesco {
         stroke(stroke_item[ID_item]);
         strokeWeight(thickness_item[ID_item]);
         set_ratio_costume_size(map(area_item[ID_item],width*.1, width*TAU,0,1));
-        show_lorenz_attractor(size,dir,canvas,jitter,list_points,mode[ID_item],get_costume());
+        show_lorenz_attractor(size,dir,canvas,jitter,list_points,get_mode_id(),get_costume());
       }
 
 

@@ -1,7 +1,7 @@
 /**
 SOLEIL
 2012-2018
-1.1.6
+1.1.7
 */
 
 class Soleil extends Romanesco {
@@ -9,7 +9,7 @@ class Soleil extends Romanesco {
     //from the index_objects.csv
     item_name = "Soleil" ;
     item_author  = "Stan le Punk";
-    item_version = "Version 1.1.6";
+    item_version = "Version 1.1.7";
     item_pack = "Base 2013-2018" ;
     item_costume = "" ;
     item_mode = "Beam/Lie'Bro'One/Lie'Bro'Two/Lie'Bro Noisy" ;
@@ -113,10 +113,10 @@ class Soleil extends Romanesco {
     rotate (radians(angleRotation)) ;
 
     // mode
-    if(mode[ID_item] == 0) soleil(pos, diam, numBeam) ;
-    if(mode[ID_item] == 1) soleil(pos, diam, numBeam, spurting) ;
-    if(mode[ID_item] == 2) soleil(pos, diam, numBeam, spurt) ;
-    if(mode[ID_item] == 3) soleil(pos, diam, numBeam, spurt, jitter) ;
+    if(get_mode_id() == 0) soleil(pos, diam, numBeam) ;
+    if(get_mode_id() == 1) soleil(pos, diam, numBeam, spurting) ;
+    if(get_mode_id() == 2) soleil(pos, diam, numBeam, spurt) ;
+    if(get_mode_id() == 3) soleil(pos, diam, numBeam, spurt, jitter) ;
     
     // info display
     String revolution = ("") ;

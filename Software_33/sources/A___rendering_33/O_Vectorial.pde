@@ -1,14 +1,14 @@
 /**
 VECTORIAL
 2015-2018
-v 0.0.6
+v 0.0.7
 */
 class Vectorial extends Romanesco {
  
   public Vectorial() {
     item_name = "Vectorial" ;
     item_author  = "Stan le Punk";
-    item_version = "Version 0.0.6";
+    item_version = "Version 0.0.7";
     item_pack = "Base 2015-2018" ;
     item_costume = "" ;
     item_mode = "Classic original/Classic custom/Walker original/Walker custom" ; // separate the differentes mode by "/"
@@ -154,7 +154,7 @@ class Vectorial extends Romanesco {
     // pos
     Vec3 pos_3D = Vec3 (mouse[ID_item].x,mouse[ID_item].y, mouse[ID_item].z); 
 
-    if(mode[ID_item] == 0 ) {
+    if(get_mode_id() == 0 ) {
       if(walker) {
         svg_import[ID_item].build() ;
         walker = false ;
@@ -163,7 +163,7 @@ class Vectorial extends Romanesco {
       normalize_stroke.set(1,normalize_sat_stroke,normalize_bright_stroke, normalize_alpha_stroke) ;
       full_svg_3D(pos_3D, scale_3D, jitting, svg_import[ID_item], normalize_fill, normalize_stroke, true) ;
     // classic colour  
-    } else if(mode[ID_item] == 1 ) {
+    } else if(get_mode_id() == 1 ) {
       if(walker) {
         svg_import[ID_item].build() ;
         walker = false ;
@@ -172,7 +172,7 @@ class Vectorial extends Romanesco {
       normalize_stroke.set(normalize_hue_stroke,normalize_sat_stroke,normalize_bright_stroke, normalize_alpha_stroke) ;
       full_svg_3D(pos_3D, scale_3D, jitting, svg_import[ID_item], normalize_fill, normalize_stroke, thickness_item[ID_item], false) ;
     // walker  
-    } else if(mode[ID_item] == 2 && FULL_RENDERING) {
+    } else if(get_mode_id() == 2 && FULL_RENDERING) {
       walker = true ;
       normalize_fill.set(1, normalize_sat_fill,normalize_bright_fill, normalize_alpha_fill) ;
       normalize_stroke.set(1,normalize_sat_stroke,normalize_bright_stroke, normalize_alpha_stroke) ;
@@ -180,7 +180,7 @@ class Vectorial extends Romanesco {
       if(key_n ) svg_import[ID_item].build() ;
       if(beat_factor > 5 && FULL_RENDERING) svg_import[ID_item].build() ;
     // walker colour
-    } else if(mode[ID_item] == 3 && FULL_RENDERING) {
+    } else if(get_mode_id() == 3 && FULL_RENDERING) {
       walker = true ;
       normalize_fill.set(normalize_hue_fill, normalize_sat_fill,normalize_bright_fill, normalize_alpha_fill) ;
       normalize_stroke.set(normalize_hue_stroke,normalize_sat_stroke,normalize_bright_stroke, normalize_alpha_stroke) ;

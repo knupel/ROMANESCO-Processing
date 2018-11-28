@@ -1,13 +1,13 @@
 /**
 Ecosysteme 
 2016-2018
-v 0.1.6
+v 0.1.8
 */
 class Ecosystem_agent extends Romanesco {
 	public Ecosystem_agent() {
 		item_name = "Eco Agents";
 		item_author  = "Stan le Punk";
-		item_version = "Version 0.1.6";
+		item_version = "Version 0.1.8";
 		item_pack = "Ecosystem 2016-2018";
     item_costume = "";
 		item_mode = "Virus/Human/Alien/Other"; // separate the differentes mode by "/"
@@ -299,16 +299,16 @@ class Ecosystem_agent extends Romanesco {
   METHOD
   */
   void init(boolean new_birth) {
-    if(mode[ID_item] != mode_ref || new_birth) {
-      mode_ref = mode[ID_item] ;
+    if(get_mode_id() != mode_ref || new_birth) {
+      mode_ref = get_mode_id();
       birth[ID_item] = false ;
-      if(mode[ID_item] == 0) {
+      if(get_mode_id() == 0) {
         set_pop(true, false, false, false, false) ;
-      } else if(mode[ID_item] == 1) {
+      } else if(get_mode_id() == 1) {
         set_pop(true, true, false, false, true) ;
-      } else if(mode[ID_item] == 2) {
+      } else if(get_mode_id() == 2) {
         set_pop(true, true, true, false, true) ;
-      } else if(mode[ID_item] == 3) {
+      } else if(get_mode_id() == 3) {
         set_pop(true, true, true, true, true) ;
       } 
       init_ecosystem() ;

@@ -1,13 +1,13 @@
 /**
 Force Field
 2018-2018
-v 0.0.7
+v 0.0.9
 */
 class FF extends Romanesco {
 	public FF() {
 		item_name = "FF Force Field";
 		item_author  = "Stan le Punk";
-		item_version = "Version 0.0.7";
+		item_version = "Version 0.0.9";
 		item_pack = "Force 2018-2018";
     item_costume = "line/triangle/rect/cross/pentagon/Star 5/Star 7/Super Star 8/Super Star 12/none";
     item_mode = "fluid/magnetic/gravity/perlin/equation/chaos/image";
@@ -85,8 +85,8 @@ class FF extends Romanesco {
   void draw() { 
     minimum_spot();
     set_ff();
-    if(ref_cell != grid_item[ID_item] || ref_mode != mode[ID_item] || ref_detection != area_item[ID_item] || birth_is()) {
-      ref_mode = mode[ID_item];
+    if(ref_cell != grid_item[ID_item] || ref_mode != get_mode_id() || ref_detection != area_item[ID_item] || birth_is()) {
+      ref_mode = get_mode_id();
       ref_cell = grid_item[ID_item];
       ref_detection = area_item[ID_item];
       set_birth(false);
@@ -218,23 +218,23 @@ class FF extends Romanesco {
     int cell_size = (int)map(grid_item[ID_item],width *.1,width*TAU,height/10,2);
     set_cell_force_field(cell_size);
     // set type
-    if(mode[ID_item] == 0) {
+    if(get_mode_id() == 0) {
       set_type_force_field(FLUID);
-    } else if(mode[ID_item] == 1) {
+    } else if(get_mode_id() == 1) {
       set_type_force_field(MAGNETIC);
-    } else if(mode[ID_item] == 2) {
+    } else if(get_mode_id() == 2) {
       set_type_force_field(GRAVITY);
     } else {
       set_type_force_field(STATIC);
     }
     // set pattern
-    if(mode[ID_item] == 3) {
+    if(get_mode_id() == 3) {
       set_pattern_force_field(PERLIN);
-    } else if(mode[ID_item] == 4) {
+    } else if(get_mode_id() == 4) {
       set_pattern_force_field(EQUATION);
-    } else if(mode[ID_item] == 5) {
+    } else if(get_mode_id() == 5) {
       set_pattern_force_field(CHAOS);
-    } else if(mode[ID_item] == 6) {
+    } else if(get_mode_id() == 6) {
       set_pattern_force_field(IMAGE);
     } else {
       set_pattern_force_field(BLANK);

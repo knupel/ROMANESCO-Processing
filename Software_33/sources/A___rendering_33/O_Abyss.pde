@@ -1,7 +1,7 @@
 /**
 The ABBYSS
 2014
-v 2.1.3
+v 2.1.4
 */
 
 
@@ -16,7 +16,7 @@ class The_Abbyss extends Romanesco {
     //from the index_objects.csv
     item_name = "The Abbyss" ;
     item_author  = "Andreas Gysin";
-    item_version = "version 2.1.3";
+    item_version = "version 2.1.4";
     item_pack = "Base 2014-2018" ;
     item_costume = "";
     item_mode = "Box Fish/Cubus/Floater/Radio/Worm/Sea Fly/Breather/Spider/Manta/Father/Super Nova" ;// separate the name by a slash and write the next mode immadialtly after this one.
@@ -94,19 +94,19 @@ class The_Abbyss extends Romanesco {
     //CHANGE MODE DISPLAY
     /////////////////////
     int whichCreature ; 
-    if (mode[ID_item] == 0 || mode[ID_item] == 255 ) whichCreature = 0 ;
-    else if (mode[ID_item] == 1 ) whichCreature = 1 ;
-    else if (mode[ID_item] == 2 ) whichCreature = 2 ;
-    else if (mode[ID_item] == 3 ) whichCreature = 3 ;
-    else if (mode[ID_item] == 4 ) whichCreature = 4 ;
-    else if (mode[ID_item] == 5 ) whichCreature = 5 ;
-    else if (mode[ID_item] == 6 ) whichCreature = 6 ;
-    else if (mode[ID_item] == 7 ) whichCreature = 7 ;
-    else if (mode[ID_item] == 8 ) whichCreature = 8 ;
-    else if (mode[ID_item] == 9 ) whichCreature = 9 ;
-    else if (mode[ID_item] == 10 ) whichCreature = 10 ;
-    else if (mode[ID_item] == 11 ) whichCreature = 11 ;
-    else if (mode[ID_item] == 12 ) whichCreature = 12 ;
+    if (get_mode_id() == 0 || get_mode_id() == 255 ) whichCreature = 0 ;
+    else if (get_mode_id() == 1 ) whichCreature = 1 ;
+    else if (get_mode_id() == 2 ) whichCreature = 2 ;
+    else if (get_mode_id() == 3 ) whichCreature = 3 ;
+    else if (get_mode_id() == 4 ) whichCreature = 4 ;
+    else if (get_mode_id() == 5 ) whichCreature = 5 ;
+    else if (get_mode_id() == 6 ) whichCreature = 6 ;
+    else if (get_mode_id() == 7 ) whichCreature = 7 ;
+    else if (get_mode_id() == 8 ) whichCreature = 8 ;
+    else if (get_mode_id() == 9 ) whichCreature = 9 ;
+    else if (get_mode_id() == 10 ) whichCreature = 10 ;
+    else if (get_mode_id() == 11 ) whichCreature = 11 ;
+    else if (get_mode_id() == 12 ) whichCreature = 12 ;
     else whichCreature = 0 ;
     
     if(action[ID_item]) {

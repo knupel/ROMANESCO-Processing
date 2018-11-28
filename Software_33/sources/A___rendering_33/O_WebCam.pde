@@ -1,14 +1,14 @@
 /**
 WEBCAM 
 2011-2018
-v 1.2.8
+v 1.2.9
 */
 class Webcam extends Romanesco {
   public Webcam() {
     //from the index_objects.csv
     item_name = "Webcam" ;
     item_author  = "Stan le Punk";
-    item_version = "Version 1.2.8";
+    item_version = "Version 1.2.9";
     item_pack = "Base 2012-2018" ;
     item_costume = "" ;
     item_mode = "Rectangle color/Rectangle mono/Point color/Point mono/Box color/Box mono" ;
@@ -129,7 +129,7 @@ class Webcam extends Romanesco {
 
             PVector hsb = new PVector (hue(get_cam().pixels[loc]), saturation(get_cam().pixels[loc]), brightness(get_cam().pixels[loc]) ) ;
             // Make a new color with an alpha component
-            displayPix(mode[ID_item],hsb) ; 
+            displayPix(get_mode_id(),hsb) ; 
           }
         }
       } 

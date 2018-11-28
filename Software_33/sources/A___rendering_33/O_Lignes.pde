@@ -1,7 +1,7 @@
 /**
 LIGNES
 2011-2018
-v 1.2.2
+v 1.2.3
 */
 Line line ;
 //object three
@@ -9,7 +9,7 @@ class Lignes extends Romanesco {
   public Lignes() {
     item_name = "Lignes" ;
     item_author  = "Stan le Punk";
-    item_version = "Version 1.2.2";
+    item_version = "Version 1.2.3";
     item_pack = "Base 2011-2018" ;
     item_costume = "" ;
     item_mode = "Lines 1/Lines 2/Lines 3/Lines 4/Lines 5/Lines 6" ;
@@ -109,7 +109,7 @@ class Lignes extends Romanesco {
     // because mode[ID_item] have allways a same value after the mode is selected from controller
     for(int i = 0 ; i < 6 ; i++) {
       int num_grid = i +1 ;
-      if(mode[ID_item] == i) {
+      if(get_mode_id() == i) {
         loop_display_line(num_grid, step_angle, step_rotate /num_grid, canvas, ratio_num, speed, thicknessLine);
       }
     }

@@ -1,7 +1,7 @@
 /**
 ESCARGOT 
 2011-2018
-V 1.4.10
+V 1.4.11
 */
 //TOXIC
 import toxi.geom.*;
@@ -17,7 +17,7 @@ class Escargot extends Romanesco {
     //from the index_objects.csv
     item_name = "Image" ;
     item_author  = "Stan le Punk";
-    item_version = "version 1.4.10";
+    item_version = "version 1.4.11";
     item_pack = "Base 2012-2018" ;
     item_costume = "";
     item_mode = "Original/Raw/Point/Ellipse/Rectangle/Box/Cross/SVG/Vitraux" ;
@@ -233,7 +233,7 @@ class Escargot extends Romanesco {
       maxEntryPoints = n *n ;
       
       // security for the voronoï displaying, because if you change the analyze in the voronoi process, Romanesco make the Arraylist error
-      if(mode[ID_item] != 8 || (maxEntryPoints != maxEntryPointsRef && scene) ) {
+      if(get_mode_id() != 8 || (maxEntryPoints != maxEntryPointsRef && scene) ) {
         //if (maxEntryPoints > listPixelRaw.size() / 4 ) maxEntryPoints = listPixelRaw.size() ;
         radiusAnalyze = int(map(swing_x_item[ID_item],0,1,2,100));
         pixelAnalyzeSize = int(map(quality_item[ID_item],0,1,100,2));
@@ -311,23 +311,23 @@ class Escargot extends Romanesco {
       pushMatrix() ;
       translate(-bitmap[ID_item].width /4, -bitmap[ID_item].height /4) ;
       
-      if (mode[ID_item] == 0 || mode[ID_item] == 255 ) {
+      if (get_mode_id() == 0 || get_mode_id() == 255 ) {
         displayRawPixel(sizePoint, fill_item[ID_item], rangeReactivitySoundHundred, rangeReactivitySoundThreeHundredSixty, musicFactor, ratioImgWindow) ;
-      } else if (mode[ID_item] == 1 ) {
+      } else if (get_mode_id() == 1 ) {
         escargotRaw(sizePoint, fill_item[ID_item], rangeReactivitySoundHundred, rangeReactivitySoundThreeHundredSixty, musicFactor, ratioImgWindow) ;
-      } else if (mode[ID_item] == 2 ) {
+      } else if (get_mode_id() == 2 ) {
         escargotPoint(sizePix, fill_item[ID_item], rangeReactivitySoundHundred, rangeReactivitySoundThreeHundredSixty, musicFactor, ratioImgWindow) ;
-      } else if (mode[ID_item] == 3 ) {
+      } else if (get_mode_id() == 3 ) {
         escargotEllipse(sizePix, thickPix, fill_item[ID_item], stroke_item[ID_item], rangeReactivitySoundHundred, rangeReactivitySoundThreeHundredSixty, musicFactor, ratioImgWindow) ;
-      } else if (mode[ID_item] == 4 ) {
+      } else if (get_mode_id() == 4 ) {
         escargotRect(sizePix, thickPix, fill_item[ID_item], stroke_item[ID_item], rangeReactivitySoundHundred, rangeReactivitySoundThreeHundredSixty, musicFactor, ratioImgWindow) ;
-      }else if (mode[ID_item] == 5 ) {
+      }else if (get_mode_id() == 5 ) {
         escargotBox(sizePix, thickPix, fill_item[ID_item], stroke_item[ID_item], rangeReactivitySoundHundred, rangeReactivitySoundThreeHundredSixty, musicFactor, ratioImgWindow, horizon[ID_item]) ;
-      } else if (mode[ID_item] == 6 ) {
+      } else if (get_mode_id() == 6 ) {
         escargotCross(sizePix, thickPix, fill_item[ID_item], rangeReactivitySoundHundred, rangeReactivitySoundThreeHundredSixty, musicFactor, ratioImgWindow) ;
-      } else if (mode[ID_item] == 7 ) {
+      } else if (get_mode_id() == 7 ) {
         escargotSVG(sizePix, thickPix, fill_item[ID_item], stroke_item[ID_item], rangeReactivitySoundHundred, rangeReactivitySoundThreeHundredSixty, musicFactor, ratioImgWindow) ;
-      } else if (mode[ID_item] == 8 ) {
+      } else if (get_mode_id() == 8 ) {
         //if( listEscargot.size() < 600) {
         if( listEscargot.size() < maxVoronoiPoints + maxVoronoiPoints/10) {
           voronoiStatic(fill_item[ID_item], stroke_item[ID_item], thickPix, useNewPalettePixColorToDisplay, ratioImgWindow) ; 

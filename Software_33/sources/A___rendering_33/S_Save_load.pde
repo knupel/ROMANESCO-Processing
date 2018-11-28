@@ -217,7 +217,7 @@ void save_data_scene(String path) {
     data_item.setInt("which text", which_text[i]); // problem with var which_text[]
         // display mode
     data_item.setInt("Costume item", costume_controller_selection[i]);
-    data_item.setInt("Mode item", mode[i]);
+    data_item.setInt("Mode item", mode[i].get_id());
         // slider 
     data_item.setFloat(fill_hue_name, hue(fill_item[i]));
     data_item.setFloat(fill_sat_name, saturation(fill_item[i]));

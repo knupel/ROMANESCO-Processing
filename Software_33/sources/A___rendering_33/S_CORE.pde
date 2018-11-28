@@ -1,7 +1,7 @@
 /**
 CORE SCENE and PRESCENE 
 2015-2018
-v 1.7.0
+v 1.8.0
 */
 import java.net.*;
 import java.io.*;
@@ -359,7 +359,7 @@ void load_data_item(String path) {
     which_movie[ID] = data_item.getInt("which movie");
     which_text[ID] = data_item.getInt("which text");
     // display mode
-    mode[ID] = data_item.getInt("Mode obj");
+    mode[ID].set_id(data_item.getInt("Mode obj"));
     costume_controller_selection[ID] = data_item.getInt("Costume selection item");
 
     // slider fill
@@ -467,6 +467,55 @@ void init_font() {
     font_item[i] = current_font;
   }
 }
+
+
+
+
+
+
+
+
+
+/**
+MODE
+v 0.0.1
+*/
+class Mode {
+  String [] name;
+  int id;
+
+  Mode() {} 
+
+  Mode(int id, String... name) {
+    this.name = name;
+    this.id = id;
+  }
+
+  String get_name(int id) {
+    return this.name[id];
+  }
+
+  String [] get_name() {
+    return this.name;
+  }
+
+  int get_id() {
+    return this.id;
+  }
+
+  // set
+  void set_id(int id) {
+    this.id = id;
+  }
+
+  void set_name(String... name) {
+    this.name = name;
+  }
+}
+
+
+
+
 
 
 

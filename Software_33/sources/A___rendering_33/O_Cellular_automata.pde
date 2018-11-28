@@ -91,24 +91,24 @@ class Cellular_automata extends Romanesco {
     int cell_size = (int)map(get_grid(),grid_min_max.x,grid_min_max.y,height/10,1);
     iVec2 canvas = iVec2((int)get_canvas_x(),(int)get_canvas_y());
 
-    if(ca == null || cell_size != cell_size_ref || !canvas_ref.equals(canvas) || ref_mode != get_mode()) {
+    if(ca == null || cell_size != cell_size_ref || !canvas_ref.equals(canvas) || ref_mode != get_mode_id()) {
       int[] ruleset = {0,1,1,1,1,0,0,0}; // rule 30
       int[] ruleset_30 = {0,1,1,1,1,0,0,0}; 
       int[] ruleset_110 = {0,1,1,1,0,1,1,0}; 
       int[] ruleset_190 = {0,1,1,1,1,1,0,1};   
       int[] ruleset_222 = {0,1,1,1,1,0,1,1}; 
 
-      if(get_mode() == 0) {
+      if(get_mode_id() == 0) {
         ruleset = ruleset_30;
-      } else if(get_mode() == 1) {
+      } else if(get_mode_id() == 1) {
          ruleset = ruleset_110;
-      } else if(get_mode() == 2) {
+      } else if(get_mode_id() == 2) {
          ruleset = ruleset_190;
-      } else if(get_mode() == 3) {
+      } else if(get_mode_id() == 3) {
          ruleset = ruleset_222;
       }
       // ref part
-      ref_mode = get_mode();
+      ref_mode = get_mode_id();
       cell_size_ref = cell_size;
       if(canvas_ref == null) {
         canvas_ref = canvas.copy();

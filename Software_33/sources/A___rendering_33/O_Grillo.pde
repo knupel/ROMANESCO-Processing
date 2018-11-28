@@ -13,7 +13,7 @@ class Grillo extends Romanesco {
     item_version = "Version 0.0.1";
     item_pack = "Base 2018-2018" ;
     item_costume = "point/ellipse/triangle/rect/cross/pentagon/Star 5/Star 7/Super Star 8/Super Star 12"; // costume available from get_costume();
-    item_mode = "";
+    item_mode = "Random/Automata/Full";
     // define slider
     // COL 1
     hue_fill_is = true;
@@ -119,7 +119,7 @@ class Grillo extends Romanesco {
     }
 
     // here if you want code in 3D mode
-    info("items",canvas.x*canvas.y*canvas.z);
+    info("items",canvas.x*canvas.y*canvas.z,"Mode",get_mode_name(get_mode_id()));
   }
 
   void manage_costume(Vec3 pos, Vec3 dir) {

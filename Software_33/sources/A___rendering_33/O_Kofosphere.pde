@@ -1,13 +1,13 @@
 /**
 KOFOSPHERE 
 2013-2018
-v 1.1.2
+v 1.2.0
 */
 class Kofosphere extends Romanesco {
   public Kofosphere() {
     item_name = "Kofosphere" ;
     item_author  = "Kof";
-    item_version = "Version 1.1.2";
+    item_version = "Version 1.2.0";
     item_pack = "Base 2013-2018" ;
     item_costume = "point/ellipse/triangle/rect/cross/pentagon/Star 5/Star 7/Super Star 8/Super Star 12";
     item_mode = "monochrome/polychrome" ;
@@ -113,128 +113,128 @@ class Kofosphere extends Romanesco {
     item_info[ID_item] = ("Quantity " + quantity +  " - Speed ") ;
 
   }
-}
+  //
+  private class Sphere{
+    
+    Vec2 pos;
+    float radius;
+    float density = 6.;
+    float speedRotateX  ;
+    float speedRotateY ;
 
-
-
-
-//
-private class Sphere{
-  
-  Vec2 pos;
-  float radius;
-  float density = 6.;
-  float speedRotateX  ;
-  float speedRotateY ;
-
-  // CONSTRUCTOR
-  Sphere(Vec2 pos, float radius){
-    this.pos = pos.copy();
-    this.radius = radius;
-    // as always
-    noiseSeed(19);
-  }
-
-  
-  float newRadius ;
-  void drawSpheres(Vec3 size, Vec2 speed, float radiusFactor, float quantity, Costume costume, int ID) {
-    boolean kofosphereInColor ;
-    //color mode
-    if(mode[ID]==0) {
-      kofosphereInColor = false; 
-    } else {
-      kofosphereInColor = true;
+    // CONSTRUCTOR
+    private Sphere(Vec2 pos, float radius){
+      this.pos = pos.copy();
+      this.radius = radius;
+      // as always
+      noiseSeed(19);
     }
-    
-    float number_quantity = 1500.;
-    quantity = (float)quantity *(1/number_quantity) ;
-    // param
-    speedRotateX += speed.x ;
-    speedRotateY += speed.y ;
-    //
-    newRadius = radius *radiusFactor ;
-    /// color
-    float hueIn = hue(fill_item[ID]) ;
-    float saturationIn = saturation(fill_item[ID]) ;
-    float brightnessIn = brightness(fill_item[ID]) ;
-    float opacityIn = alpha(fill_item[ID]) ;
-    
-    float hueOut = hue( stroke_item[ID]) ;
-    float saturationOut = saturation(stroke_item[ID]) ;
-    float brightnessOut = brightness(stroke_item[ID]) ;
-    float opacityOut = alpha(stroke_item[ID]) ;
 
     
-    pushMatrix();
-    translate(pos);
-    //speed rotation
-    rotateX(speedRotateX);
-    rotateY(speedRotateY);
-    
-
-    // int frequence = 100 ; KOF value
-    float frequence = map(frequence_item[ID],1,0,1,200);
-    if(frequence < 1) frequence = 1;
-    float d = noise(frameCount/frequence)*(number_quantity +(number_quantity *quantity));
-    density = 2.9 +(20*(1 -quantity));
-    
-
-    
-    for(float f = -180 ; f < d; f += density){
-      // we put this calcul here, because we don't need this calcul in the next loop.
-      // it's more lighty for the computation
-      if(kofosphereInColor) {
-        hueIn = map(f,0,d,0,360) ;
-        hueOut = map(f,0,d,0,360) ;
+    float newRadius ;
+    void drawSpheres(Vec3 size, Vec2 speed, float radiusFactor, float quantity, Costume costume, int ID) {
+      boolean kofosphereInColor ;
+      //color mode
+      if(get_mode_id()==0) {
+        kofosphereInColor = false; 
+      } else {
+        kofosphereInColor = true;
       }
-      int c_fill = color(hueIn,saturationIn,brightnessIn,opacityIn);
-      int c_stroke = color(hueOut,saturationOut,brightnessOut,opacityOut);
-        
-      for(float ff = -90 ; ff < 90; ff += density){
-        
-        // apparence
-        // float max_factor = 250.; // KOF value
-        float max_factor = width;
-        float x = cos(radians(f)) *max_factor *cos(radians(ff));
-        float y = sin(radians(f)) *max_factor *cos(radians(ff));
-        float z = sin(radians(ff)) *max_factor;
-        float ratio_size = modelZ(x,y,z);
-        float factor_size = map(abs(ratio_size),0,max_factor,.005,1);
+      
+      float number_quantity = 1500.;
+      quantity = (float)quantity *(1/number_quantity) ;
+      // param
+      speedRotateX += speed.x ;
+      speedRotateY += speed.y ;
+      //
+      newRadius = radius *radiusFactor ;
+      /// color
+      float hueIn = hue(fill_item[ID]) ;
+      float saturationIn = saturation(fill_item[ID]) ;
+      float brightnessIn = brightness(fill_item[ID]) ;
+      float opacityIn = alpha(fill_item[ID]) ;
+      
+      float hueOut = hue( stroke_item[ID]) ;
+      float saturationOut = saturation(stroke_item[ID]) ;
+      float brightnessOut = brightness(stroke_item[ID]) ;
+      float opacityOut = alpha(stroke_item[ID]) ;
 
-        float thickness = thickness_item[ID];
-        Vec3 def_size = size.copy();
-        boolean use_factor_is = true;
-        if(use_factor_is) {
-          thickness *= factor_size;
-          def_size.mult(factor_size);
+      
+      pushMatrix();
+      translate(pos);
+      //speed rotation
+      rotateX(speedRotateX);
+      rotateY(speedRotateY);
+      
+
+      // int frequence = 100 ; KOF value
+      float frequence = map(frequence_item[ID],1,0,1,200);
+      if(frequence < 1) frequence = 1;
+      float d = noise(frameCount/frequence)*(number_quantity +(number_quantity *quantity));
+      density = 2.9 +(20*(1 -quantity));
+      
+
+      
+      for(float f = -180 ; f < d; f += density){
+        // we put this calcul here, because we don't need this calcul in the next loop.
+        // it's more lighty for the computation
+        if(kofosphereInColor) {
+          hueIn = map(f,0,d,0,360) ;
+          hueOut = map(f,0,d,0,360) ;
         }
-        
-        // position
-        float pos_x = cos(radians(f)) *newRadius *cos(radians(ff));
-        float pos_y = sin(radians(f)) *newRadius *cos(radians(ff));
-        float pos_z = sin(radians(ff)) *newRadius;
-        float deform = noise((frameCount +lerp(f,ff,noise((frameCount+ff)/222.0))) *.003) *1.33;
-        
-        // display
-        aspect(c_fill,c_stroke,thickness);
-        aspect_is(fill_is[ID],stroke_is[ID]);
-        set_ratio_costume_size(map(area_item[ID],width*.1, width*TAU,0,1));
-        Vec3 pos = Vec3(pos_x *deform, pos_y *deform, pos_z *deform);
-        costume(pos,def_size,costume);
-        
+        int c_fill = color(hueIn,saturationIn,brightnessIn,opacityIn);
+        int c_stroke = color(hueOut,saturationOut,brightnessOut,opacityOut);
+          
+        for(float ff = -90 ; ff < 90; ff += density){
+          
+          // apparence
+          // float max_factor = 250.; // KOF value
+          float max_factor = width;
+          float x = cos(radians(f)) *max_factor *cos(radians(ff));
+          float y = sin(radians(f)) *max_factor *cos(radians(ff));
+          float z = sin(radians(ff)) *max_factor;
+          float ratio_size = modelZ(x,y,z);
+          float factor_size = map(abs(ratio_size),0,max_factor,.005,1);
+
+          float thickness = thickness_item[ID];
+          Vec3 def_size = size.copy();
+          boolean use_factor_is = true;
+          if(use_factor_is) {
+            thickness *= factor_size;
+            def_size.mult(factor_size);
+          }
+          
+          // position
+          float pos_x = cos(radians(f)) *newRadius *cos(radians(ff));
+          float pos_y = sin(radians(f)) *newRadius *cos(radians(ff));
+          float pos_z = sin(radians(ff)) *newRadius;
+          float deform = noise((frameCount +lerp(f,ff,noise((frameCount+ff)/222.0))) *.003) *1.33;
+          
+          // display
+          aspect(c_fill,c_stroke,thickness);
+          aspect_is(fill_is[ID],stroke_is[ID]);
+          set_ratio_costume_size(map(area_item[ID],width*.1, width*TAU,0,1));
+          Vec3 pos = Vec3(pos_x *deform, pos_y *deform, pos_z *deform);
+          costume(pos,def_size,costume);
+          
+        }
       }
+
+      // axis();
+      popMatrix();
+
     }
 
-    // axis();
-    popMatrix();
-
-  }
-
-  void axis(){
-    stroke(255,20);
-    strokeWeight(3);
-    line(-200,0,0,200,0,0);
-    line(0,-200,0,0,200,0);
-    line(0,0,-200,0,0,200);
+    void axis(){
+      stroke(255,20);
+      strokeWeight(3);
+      line(-200,0,0,200,0,0);
+      line(0,-200,0,0,200,0);
+      line(0,0,-200,0,0,200);
+    }
   }
 }
+
+
+
+

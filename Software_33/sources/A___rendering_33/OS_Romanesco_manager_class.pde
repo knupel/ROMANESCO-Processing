@@ -1,6 +1,6 @@
 /**
 Class Romanesco_manager
-v 1.2.2
+v 1.3.0
 inspired by Andreas Gysin work for The Abyss Project
 @see https://github.com/ertdfgcvb/TheAbyss
 */
@@ -212,6 +212,8 @@ class Romanesco_manager {
     for (Romanesco item : RomanescoList) {
       motion[item.get_id()] = true;
       init_value_mouse[item.get_id()] = true;
+      mode[item.get_id()].set_name(item.item_mode.split("/"));
+
       num++;
       item.setup();
       println("setup of", item.item_name, item.get_id(), "is done");
