@@ -3,14 +3,13 @@ ROPE - Romanesco processing environment –
 * Copyleft (c) 2014-2018
 * Stan le Punk > http://stanlepunk.xyz/
 ROPE core
-v 0.1.0
+v 0.1.1
 2017-2018
 * @author Stan le Punk
 * @see https://github.com/StanLepunK/Rope
 */
 import rope.core.*;
 import rope.vector.*;
-
 
 import java.util.Arrays;
 import java.util.Iterator;

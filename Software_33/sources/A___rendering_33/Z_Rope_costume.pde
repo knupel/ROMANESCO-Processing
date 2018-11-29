@@ -1,7 +1,7 @@
 /**
 Rope Costume
 * Copyleft (c) 2014-2018
-v 1.4.4
+v 1.4.5
 * @author Stan le Punk
 * @see https://github.com/StanLepunK/Costume_rope
 */
@@ -60,11 +60,6 @@ String costume_text_rope = null;
 boolean fill_rope_is = true;
 boolean stroke_rope_is = true;
 
-/*
-float fill_rope = 0;
-float stroke_rope = 0;
-float thickness_rope = 1.;
-*/
 
 void costume_list() {
 	if(!list_costume_is_built) {
@@ -319,8 +314,6 @@ float get_thickness_rope() {
 COSTUME
 v 0.0.1
 */
-
-
 /**
 simple text 
 v 0.0.1
@@ -460,9 +453,8 @@ public class Costume_pic {
 
 
 /**
-DISPLAY
+SHOW
 */
-
 /**
 Costume selection in shape catalogue
 */
@@ -506,7 +498,6 @@ void costume(Vec pos, Vec size, Object data) {
 	} else {
 		costume(pos,size,rotation,which_costume,sentence);
 	}
-	// costume(pos, size, rotation, which_costume,null);
 }
 
 void costume(Vec pos, Vec size, float rotation, Object data) {
@@ -622,7 +613,7 @@ void costume(Vec pos, Vec size, Vec rotation, int which_costume, String sentence
 /**
 MAIN METHOD 
 String COSTUME
-v 0.1.0
+v 0.1.1
 Change the method for method with 
 case and which_costume
 and 
@@ -654,7 +645,6 @@ void costume(Vec3 pos, Vec3 size, Vec rot, int which_costume) {
 }
 
 void costume(Vec3 pos, Vec3 size, Vec rot, Costume costume) {
-	//Costume costume = new Costume(which_costume);
 	costume.draw(pos,size,rot);
 }
 
@@ -663,7 +653,7 @@ void costume(Vec3 pos, Vec3 size, Vec rot, Costume costume) {
 /**
 class Costume 
 2018-2018
-v 0.1.0
+v 0.1.1
 */
 public class Costume {
 	boolean fill_is;
@@ -681,14 +671,8 @@ public class Costume {
 	float [] ratio;
 	boolean is_3D = false;
 	boolean is_vertex = true;
-	public Costume() {
-	}
-/*
-	public Costume(PApplet papplet) {
-		this.papplet = papplet;
-	}
-	*/
 
+	public Costume() {}
 
 	public Costume(int type) {
 		this.type = type;
@@ -993,8 +977,6 @@ public class Costume {
 			primitive(pos,size.x,2,rot.x);
 		}
 
-
-
 		else if (this.get_type() == TRIANGLE_ROPE) {
 			start_matrix();
 			translate(pos);
@@ -1119,7 +1101,7 @@ public class Costume {
 			start_matrix();
 			translate(pos);
 			rotate_behavior(rot);
-			tetrahedron((int)size.x);
+			polyhedron("TETRAHEDRON","VERTEX",(int)size.x);
 			stop_matrix();
 		} else if (this.get_type() == BOX_ROPE) {
 			start_matrix();

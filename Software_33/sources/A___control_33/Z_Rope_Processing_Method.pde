@@ -1,6 +1,6 @@
 /**
 ROPE METHOD
-v 2.0.3
+v 2.1.0
 * Copyleft (c) 2014-2018
 * Stan le Punk > http://stanlepunk.xyz/
 
@@ -915,7 +915,7 @@ void matrix_start() {
 /**
 GHOST METHODS for PROCESSING
 2018-2018
-v 0.1.2
+v 0.2.0
 */
 // colorMode
 void colorMode(int mode) {
@@ -1225,6 +1225,23 @@ void strokeCapstrokeCap(int cap) {
 /**
 shape
 */
+
+void rectMode(int mode) {
+  if(get_layer() != null) {
+    get_layer().rectMode(mode);
+  } else {
+    g.rectMode(mode);
+  }
+}
+
+void ellipseMode(int mode) {
+  if(get_layer() != null) {
+    get_layer().ellipseMode(mode);
+  } else {
+    g.ellipseMode(mode);
+  }
+}
+
 // rect
 void rect(float px, float py, float sx, float sy) {
   if(get_layer() != null) {

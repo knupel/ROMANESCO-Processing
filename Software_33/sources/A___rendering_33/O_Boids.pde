@@ -1,14 +1,14 @@
 /**
 BOIDS
 2015-2018
-V 1.0.4
+V 1.0.5
 */
 
 class Boids extends Romanesco {
   public Boids() {
     item_name = "Boids" ;
     item_author  = "Stan le Punk";
-    item_version = "Version 1.0.4";
+    item_version = "Version 1.0.5";
     item_pack = "Base 2015-2018" ;
     item_costume = "";
     item_mode = "Tetra monochrome/Tetra camaieu" ; // separate the differentes mode by "/"
@@ -86,7 +86,7 @@ class Boids extends Romanesco {
    flock = new Flock() ;
 
    // tetrahedronAdd() : weird why this method is here ?
-   tetrahedronAdd() ;
+   // tetrahedron_add();
 
   }
   
@@ -581,7 +581,10 @@ class Boid {
     strokeWeight(thickness) ;
     if(thickness <= 0 || alpha(strokeBoid) == 0 ) noStroke() ; else stroke(strokeBoid);
     if(alpha(fillBoid) == 0 ) noFill() ; else  fill(fillBoid);
-    tetrahedron(size) ;
+    // costume(Vec3(),Vec3(size),TRIANGLE_ROPE);
+    // polyhedron(String type, String style, int size)
+    // tetrahedron(size) ;
+    polyhedron("TETRAHEDRON","VERTEX",(int)size);
 
     
     endShape();
