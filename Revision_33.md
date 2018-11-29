@@ -19,6 +19,8 @@ revision 33
 >BOXOLYZER add costume to change shape easily and other improvement.
 >new item AUTOMATA 
 >new item GRILLO about 3D grid and coin flip !
+>new item TARTAN
+>new item SIMPLE
 
 *BUG FIX
 
