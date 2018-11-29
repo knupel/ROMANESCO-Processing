@@ -1,6 +1,6 @@
 /**
 CROPE
-v 0.9.6
+v 0.9.7
 CONTROL ROMANESCO PROCESSING ENVIRONMENT
 * Copyleft (c) 2018-2018
 *
@@ -1438,10 +1438,10 @@ public class Slider extends Crope {
   public void show_molette() {
     for(int i = 0 ; i < molette.length ; i++) {
       if(molette[i].inside_is()) {
-        aspect_rope(fill_molette_in,stroke_molette_in,thickness_molette);
+        aspect(fill_molette_in,stroke_molette_in,thickness_molette);
         molette_shape(i);
       } else {
-        aspect_rope(fill_molette_out,stroke_molette_out,thickness_molette);
+        aspect(fill_molette_out,stroke_molette_out,thickness_molette);
         molette_shape(i);
       }   
     }
@@ -2046,9 +2046,9 @@ public class Sladj extends Slider {
   public void show_adj() {
     strokeWeight(thickness_adj) ;
     if(locked_min || locked_max || inside_max() || inside_min()) {
-      aspect_rope(fill_adj_in,stroke_adj_in,thickness_adj);
+      aspect(fill_adj_in,stroke_adj_in,thickness_adj);
     } else {
-      aspect_rope(fill_adj_out,stroke_adj_out,thickness_adj);
+      aspect(fill_adj_out,stroke_adj_out,thickness_adj);
     }
 
     Vec2 pos = Vec2(pos_min.x, pos_min.y +size_min_max.y *pos_norm_adj.y);

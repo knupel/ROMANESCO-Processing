@@ -4,16 +4,16 @@
 * You must change the class name and this one must be unique.
 v 0.0.1
 */
-class Template extends Romanesco {
-  public Template() {
+class Tartan extends Romanesco {
+  public Tartan() {
     //from the index_objects.csv
-    item_name = "Template" ;
+    item_name = "Tartan" ;
     item_author  = "Stan le Punk";
     item_references = "";
     item_version = "Version 0.0.1";
-    item_pack = "Template 2012-2018" ;
-    item_costume = "point/ellipse/triangle/rect/cross/pentagon/Star 5/Star 7/Super Star 8/Super Star 12"; // costume available from get_costume();
-    item_mode = "";
+    item_pack = "Tartan 2018-2018" ;
+    item_costume = ""; // costume available from get_costume();
+    item_mode = "Tartan/Strip";
     // define slider
     // COL 1
     hue_fill_is = true;
@@ -27,10 +27,10 @@ class Template extends Romanesco {
     thickness_is = true;
     size_x_is = true;
     size_y_is = true;
-    size_z_is = true;
+    //size_z_is = true;
     // diameter_is = true;
-    // canvas_x_is = true;
-    // canvas_y_is = true;
+    canvas_x_is = true;
+    canvas_y_is = true;
     // canvas_z_is = true;
     // COL 2
     // frequence_is = true;
@@ -50,7 +50,7 @@ class Template extends Romanesco {
     // swing_y_is = true;
     // swing_z_is = true;
     // COL 3
-    // quantity_is = true;
+    quantity_is = true;
     // variety_is =true;
     // life_is = true;
     // flow_is = true;
@@ -82,15 +82,47 @@ class Template extends Romanesco {
   //DRAW
   void draw() {
     // here if you want code in 3D mode
-    info("info about the item","more","more");
-    aspect(get_fill(),get_stroke(),get_thickness());
-    set_ratio_costume_size(map(get_area(),area_min_max.x,area_min_max.y,0,1));
-    costume(Vec3(),get_size(),get_costume());
-  }
+    if(get_mode_name().equals("Tartan")) {
+      tartan();
+    } else if(get_mode_name().equals("Strip")) {
+      strip();
 
+    }
+    info("info about the item","more","more");
+  }
+   /*
   void draw_2D() {
     // here if you want code in 2D mode
   }   
+  */
+
+  void tartan() {
+    strip();
+
+  }
+  
+
+  // int ref_num_strip;
+  void strip() {
+    int num_strip = (int)map(get_quantity()*get_quantity(),quantity_min_max.x,quantity_min_max.y,1,111);
+    int w_strip = (int)get_size_x()*5;
+    int h_strip = (int)get_size_y()*2;
+
+    int space = (int)map(get_canvas_y(),canvas_y_min_max.x,canvas_y_min_max.y,h_strip,h_strip*(height*.1));
+    int total_height = num_strip *(h_strip+space);
+    float start_y = -(total_height*.5);
+    // float start_x = -(w_strip*.5);
+    float start_x = 0;
+    rectMode(CENTER);
+    aspect(get_fill(),get_stroke(),get_thickness());
+    for(int i = 0 ; i < num_strip ; i++) {
+      float x = start_x ;
+      float y = start_y +(i*(h_strip+space));
+      rect(x,y,w_strip,h_strip);
+    }
+
+
+  }
 }
 
 

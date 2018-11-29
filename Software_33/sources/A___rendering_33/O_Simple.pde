@@ -4,15 +4,15 @@
 * You must change the class name and this one must be unique.
 v 0.0.1
 */
-class Template extends Romanesco {
-  public Template() {
+class Simple extends Romanesco {
+  public Simple() {
     //from the index_objects.csv
-    item_name = "Template" ;
+    item_name = "Simple" ;
     item_author  = "Stan le Punk";
     item_references = "";
     item_version = "Version 0.0.1";
-    item_pack = "Template 2012-2018" ;
-    item_costume = "point/ellipse/triangle/rect/cross/pentagon/Star 5/Star 7/Super Star 8/Super Star 12"; // costume available from get_costume();
+    item_pack = "Simple 2018-2018" ;
+    item_costume = "ellipse/triangle/rect/cross/pentagon/Star 5/Star 7/Super Star 8/Super Star 12"; // costume available from get_costume();
     item_mode = "";
     // define slider
     // COL 1
@@ -40,9 +40,9 @@ class Template extends Romanesco {
     // spurt_x_is = true;
     // spurt_y_is = true;
     // spurt_z_is = true;
-    //dir_x_is = true;
-    // dir_y_is = true;
-    // dir_z_is = true;
+    dir_x_is = true;
+    dir_y_is = true;
+    dir_z_is = true;
     // jit_x_is = true;
     // jit_y_is = true;
     // jit_z_is  = true;
@@ -55,7 +55,7 @@ class Template extends Romanesco {
     // life_is = true;
     // flow_is = true;
     // quality_is = true;
-    // area_is = true;
+    area_is = true;
     // angle_is = true;
     // scope_is = true;
     // scan_is = true;
@@ -85,12 +85,13 @@ class Template extends Romanesco {
     info("info about the item","more","more");
     aspect(get_fill(),get_stroke(),get_thickness());
     set_ratio_costume_size(map(get_area(),area_min_max.x,area_min_max.y,0,1));
-    costume(Vec3(),get_size(),get_costume());
+    costume(Vec3(),get_size().mult(3),get_costume());
   }
-
+/*
   void draw_2D() {
     // here if you want code in 2D mode
-  }   
+  } 
+  */  
 }
 
 
