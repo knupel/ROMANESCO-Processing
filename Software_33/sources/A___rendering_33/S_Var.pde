@@ -199,7 +199,7 @@ float grid_raw;
 float viscosity_raw, diffusion_raw;
 float power_raw;
 float mass_raw;
-float pos_x_raw, pos_y_raw, pos_z_raw;
+float coord_x_raw, coord_y_raw, coord_z_raw;
 
 
 
@@ -267,7 +267,7 @@ float viscosity_temp, diffusion_temp;
 
 float power_temp;
 float mass_temp;
-float pos_x_temp,pos_y_temp,pos_z_temp;
+float coord_x_temp,coord_y_temp,coord_z_temp;
 
 /**
 String name
@@ -389,6 +389,8 @@ String pos_z_name = "pos_z";
 // item target final
 boolean [] first_opening_item; // used to check if this object is already opening before
 Vec4 [] fill_item_ref,stroke_item_ref;
+
+/*
 int [] fill_item, stroke_item;
 float [] thickness_item; 
 float [] size_x_item, size_y_item, size_z_item;
@@ -415,15 +417,16 @@ float [] viscosity_item,diffusion_item;
 float [] power_item;
 float [] mass_item;
 float [] pos_x_item,pos_y_item,pos_z_item;
+*/
 
 
 // int [] soundButton, actionButton;
 // parameterButton;
-boolean [] show_item, sound, action, parameter;
+// boolean [] show_item, sound, action, parameter;
 
-Mode [] mode;
+// Mode [] mode;
 int [] costume_controller_selection;
-Costume [] costume;
+// Costume [] costume;
 
 //BUTTON
 int [] value_button_item;
@@ -458,13 +461,15 @@ int wheel[];
 
 
 //boolean object
+/*
 boolean [] birth, colour, dimension, horizon, motion, orbit, reverse, special, wire;
 boolean [] fill_is, stroke_is;
 boolean [] setting, clearList;
+*/
 
 //font
 ROFont current_font;
-ROFont [] font_item;
+//ROFont [] font_item;
 
 
 
@@ -544,7 +549,7 @@ void create_variable() {
 void create_var_misc() {
   objectLeapID = new int[NUM_ITEM_PLUS_MASTER];
   item_info_display = new boolean[NUM_ITEM_PLUS_MASTER];
-
+/*
   setting = new boolean [NUM_ITEM_PLUS_MASTER];
   // boolean clear
   clearList = new boolean[NUM_ITEM_PLUS_MASTER];
@@ -564,7 +569,7 @@ void create_var_misc() {
 
   // costume
   costume = new Costume[NUM_ITEM_PLUS_MASTER];
-
+*/
   // IMAGE
   bitmap = new PImage[NUM_ITEM_PLUS_MASTER];
   which_bitmap = new int[NUM_ITEM_PLUS_MASTER];
@@ -584,7 +589,7 @@ void create_var_misc() {
   which_text = new int[NUM_ITEM_PLUS_MASTER];
 
   // font managing
-  font_item = new ROFont[NUM_ITEM_PLUS_MASTER];
+  // font_item = new ROFont[NUM_ITEM_PLUS_MASTER];
 
   //MISC
   //var to init the data of the object when is switch ON for the first time
@@ -645,11 +650,13 @@ void create_var_sound() {
 
 //
 void create_var_item_button() {
+  /*
   show_item = new boolean [NUM_ITEM_PLUS_MASTER];
   sound = new boolean [NUM_ITEM_PLUS_MASTER];
   action = new boolean [NUM_ITEM_PLUS_MASTER];
   parameter = new boolean [NUM_ITEM_PLUS_MASTER];
   mode = new Mode [NUM_ITEM_PLUS_MASTER];
+  */
   costume_controller_selection = new int [NUM_ITEM_PLUS_MASTER];
   
   // you must init this var, because we launch this part of code before the controller. And if we don't init the value is NaN and return an error.
@@ -674,6 +681,7 @@ void create_var_item_slider() {
   first_opening_item = new boolean[NUM_ITEM_PLUS_MASTER] ; // used to check if this object is already opening before
   fill_item_ref = new Vec4[NUM_ITEM_PLUS_MASTER];
   stroke_item_ref = new Vec4[NUM_ITEM_PLUS_MASTER];
+  /*
   fill_item = new color[NUM_ITEM_PLUS_MASTER];
   stroke_item = new color[NUM_ITEM_PLUS_MASTER];
   // column 2
@@ -742,6 +750,7 @@ void create_var_item_slider() {
   pos_x_item = new float[NUM_ITEM_PLUS_MASTER]; 
   pos_y_item = new float[NUM_ITEM_PLUS_MASTER];
   pos_z_item = new float[NUM_ITEM_PLUS_MASTER];
+  */
 }
 
 
@@ -867,10 +876,8 @@ void init_variable_item_min_max() {
 // init var item
 void init_variable_item() {
   for (int i = 0 ; i < NUM_ITEM_PLUS_MASTER ; i++ ) {
-    // display boolean 
-    fill_is[i] = true;
-    stroke_is[i] = true;
-    wire[i] = true;
+
+
     // master follower
     master_ID[i] = 0;
     follower[i] = false;
@@ -882,73 +889,47 @@ void init_variable_item() {
     mouse[i] = Vec3();
     wheel[i] = 0;
 
-    // costume 
-    costume[i] = new Costume(POINT_ROPE);
-    mode[i] = new Mode();
-    // init slider var item except fill and stroke
-    thickness_item [i] =1.; 
+    Romanesco item = rpe_manager.get(i);
+    if(item != null) {
+      item.init();
+      item.set_size(width *.5);
+      item.set_diameter(10);
+      item.set_canvas(width);
 
-    size_x_item [i] = (float)width *.05; 
-    size_y_item [i] = (float)width *.05; 
-    size_z_item [i] = (float)width *.05;
+      item.set_frequence(0);
 
-    size_x_item [i] = 10;
+      item.set_speed(0);
+      item.set_spurt(0);
+      item.set_dir(0);
+      item.set_jitter(0);
+      item.set_swing(0);
 
-    canvas_x_item [i] = width; 
-    canvas_y_item [i] = width; 
-    canvas_z_item [i] = width;
+      item.set_quantity(.1);
+      item.set_variety(0);
+      item.set_life(.1);
+      item.set_flow(0);
+      item.set_quality(.1);
 
-    // COL 2
-    frequence_item[i] = 0;
+      item.set_area(width);
+      item.set_angle(0);
+      item.set_scope(width);
+      item.set_scan(PI/2);
 
-    speed_x_item [i] = 0; 
-    speed_y_item [i] = 0; 
-    speed_z_item [i] = 0;
+      item.set_alignment(0);
+      item.set_repulsion(0);
+      item.set_attraction(0);
+      item.set_density(0);;
 
-    spurt_x_item [i] = 0; 
-    spurt_y_item [i] = 0; 
-    spurt_z_item [i] = 0; 
+      item.set_influence(0);
+      item.set_calm(0);
+      item.set_spectrum(0);
 
-    dir_x_item [i] = 0; 
-    dir_y_item [i] = 0; 
-    dir_z_item [i] = 0; 
-
-    jitter_x_item [i] = 0; 
-    jitter_y_item [i] = 0; 
-    jitter_z_item [i] = 0; 
-
-    swing_x_item [i] = 0; 
-    swing_y_item [i] = 0; 
-    swing_z_item [i] = 0; 
-    
-    // COL 3
-    quantity_item [i] = .1; 
-    variety_item [i] = 0; 
-
-    life_item [i] = .1;
-    flow_item [i] = 0; 
-    quality_item [i] = .1;
-
-    area_item [i] = width; 
-    angle_item [i] = 0; 
-    scope_item [i] = width;
-    scan_item [i] = PI/2; 
-
-    alignment_item [i] = 0; 
-    repulsion_item [i] = 0;  
-    attraction_item [i] = 0; 
-    density_item [i] = 0; 
-
-    influence_item [i] = 0; 
-    calm_item [i] = 0; 
-    spectrum_item [i] = 0; 
-
-    // COL 4
-    grid_item [i] = width; 
-    viscosity_item [i] = 0; 
-    diffusion_item [i] = 0; 
-    power_item [i] = 0; 
-    mass_item [i] = 0; 
+      item.set_grid(width);
+      item.set_viscosity(0);
+      item.set_diffusion(0);
+      item.set_power(0);
+      item.set_mass(0);
+    }
   }
     // init global var for the color obj preview mode display
   COLOR_FILL_ITEM_PREVIEW = color(0,0,100,30); 
@@ -1269,9 +1250,9 @@ void update_raw_item_value() {
 
   power_raw = map(value_slider_item[col+3], minSource, MAX_VALUE_SLIDER, power_min_max.x, power_min_max.y);
   mass_raw = map(value_slider_item[col+4], minSource, MAX_VALUE_SLIDER, mass_min_max.x, mass_min_max.y); 
-  pos_x_raw = map(value_slider_item[col+5], minSource, MAX_VALUE_SLIDER, pos_x_min_max.x, pos_x_min_max.y);
-  pos_y_raw = map(value_slider_item[col+6], minSource, MAX_VALUE_SLIDER, pos_y_min_max.x, pos_y_min_max.y);
-  pos_z_raw = map(value_slider_item[col+7], minSource, MAX_VALUE_SLIDER, pos_z_min_max.x, pos_z_min_max.y);
+  coord_x_raw = map(value_slider_item[col+5], minSource, MAX_VALUE_SLIDER, pos_x_min_max.x, pos_x_min_max.y);
+  coord_y_raw = map(value_slider_item[col+6], minSource, MAX_VALUE_SLIDER, pos_y_min_max.x, pos_y_min_max.y);
+  coord_z_raw = map(value_slider_item[col+7], minSource, MAX_VALUE_SLIDER, pos_z_min_max.x, pos_z_min_max.y);
 /*
   value_slider_item[col+8]
   value_slider_item[col+9]
@@ -1366,9 +1347,9 @@ void update_temp_value() {
   power_temp = power_raw;
   mass_temp = mass_raw;
 
-  pos_x_temp = pos_x_raw;
-  pos_y_temp = pos_y_raw;
-  pos_z_temp = pos_z_raw;
+  coord_x_temp = coord_x_raw;
+  coord_y_temp = coord_y_raw;
+  coord_z_temp = coord_z_raw;
 }
 
 

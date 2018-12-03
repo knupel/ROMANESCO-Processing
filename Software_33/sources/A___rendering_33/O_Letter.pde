@@ -120,7 +120,7 @@ class Letter extends Romanesco {
       reset_font = true;
     } else if(birth_is()) {
       reset = true; 
-      set_birth(false);
+      birth_is(false);
     } 
 
     update(reset,reset_font);
@@ -157,7 +157,7 @@ class Letter extends Romanesco {
 
     /////////
     //ENGINE
-    if(motion[ID_item]) {
+    if(motion_is()) {
       if(sound_is()) {
         speed = map(get_speed_x()*get_speed_x(),0,1,0.,.3) *tempo[ID_item];
       } else {
@@ -167,8 +167,8 @@ class Letter extends Romanesco {
       speed = 0;
     }
     //to stop the move
-    //if (!action[ID_item]) speed = 0.0 ; 
-    if(reverse[ID_item]) speed = -speed ;
+    //if (!action_is()) speed = 0.0 ; 
+    if(reverse_is()) speed = -speed ;
     
     //num letter to display
     numLetter = (int)map(get_quantity(),0,1, 0,grp.countChildren() +1) ;

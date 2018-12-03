@@ -1,7 +1,7 @@
 /**
 HORLOGE
 2012-2018
-v 2.0.10
+v 1.0.11
 */
 
 class Horloge extends Romanesco {
@@ -9,7 +9,7 @@ class Horloge extends Romanesco {
     //from the index_objects.csv
     item_name = "Horloge" ;
     item_author  = "Stan Le Punk";
-    item_version = "Version 2.0.10";
+    item_version = "Version 1.0.11";
     item_pack = "Base 2012-2018" ;
     item_mode = "Ellipse Clock 12/Ellipse Clock 24/Line Clock 12/Line Clock 24/minutes/secondes";// separate the name by a slash and write the next mode immadialtly after this one.
     item_costume = "";
@@ -23,7 +23,7 @@ class Horloge extends Romanesco {
     // bright_stroke_is = true;
     // alpha_stroke_is = true;
     // thickness_is = true;
-    // size_x_is = true;
+    size_x_is = true;
     // size_y_is = true;
     // size_z_is = true;
     diameter_is = true;
@@ -82,15 +82,15 @@ class Horloge extends Romanesco {
   void draw() {
     textAlign(CENTER);
     // typo
-    float size_font = (size_x_item[ID_item] +12) *all_transient(ID_item) ;
-    if(size_font < 1) size_font = 1 ;
-    textFont(get_font(), size_font);
-    //println(get_font_name());
+    float size_font = (get_size_x() *2) +12;
+    if(sound_is()) size_font *= all_transient(ID_item);
+    if(size_font < 1) size_font = 1;
+    textFont(get_font(),size_font);
     
     // couleur du texte
-    float t = alpha(fill_item[ID_item]) * abs(mix[ID_item]) ;
-    if (sound[ID_item]) t = alpha(fill_item[ID_item]) ;
-    color c = color(hue(fill_item[ID_item]), saturation(fill_item[ID_item]), brightness(fill_item[ID_item]), t ) ;
+    float t = alpha(get_fill()) * abs(mix[ID_item]) ;
+    if (sound_is()) t = alpha(get_fill()) ;
+    color c = color(hue(get_fill()), saturation(get_fill()), brightness(get_fill()), t ) ;
     // security against the blavk bug opacity
     if (alpha(c) == 0 ) {
       noFill() ; 
@@ -100,27 +100,26 @@ class Horloge extends Romanesco {
     }
     
     //rotation / deg
-    float angle = angle_item[ID_item];
+    float angle = get_angle();
     //amplitude
-    float amp = map(area_item[ID_item], area_min_max.x,area_min_max.y, area_min_max.x *.4, area_min_max.y *.2) ;
+    float amp = map(get_area(), area_min_max.x,area_min_max.y, area_min_max.x *.4, area_min_max.y *.2) ;
 
     // pos clock
-    if(motion[ID_item]) {
+    if(motion_is()) {
       local_frameCount += 1 ;
       int direction = 1 ;
-      if(reverse[ID_item]) direction = -1 ;
-      float speed_x = speed_x_item[ID_item] *.1 ;
-      float speed_y = speed_y_item[ID_item] *.1 ;
-      float speed_z = speed_z_item[ID_item] *.1 ;
-      float pos_x = sin(local_frameCount *speed_x *direction) *map(canvas_x_item[ID_item],width/10,width *r.PHI,0,width *r.PHI) ;
-      float pos_y = cos(local_frameCount *speed_y *direction) *map(canvas_y_item[ID_item],width/10,width *r.PHI,0,width *r.PHI) ;
-      float pos_z = sin(local_frameCount *speed_z *direction) *map(canvas_z_item[ID_item],width/10,width *r.PHI,0,width *r.PHI) ;
+      if(reverse_is()) direction = -1 ;
+      float speed_x = get_speed_x() *.1 ;
+      float speed_y = get_speed_y() *.1 ;
+      float speed_z = get_speed_z() *.1 ;
+      float pos_x = sin(local_frameCount *speed_x *direction) *map(get_canvas_x(),width/10,width *r.PHI,0,width *r.PHI) ;
+      float pos_y = cos(local_frameCount *speed_y *direction) *map(get_canvas_y(),width/10,width *r.PHI,0,width *r.PHI) ;
+      float pos_z = sin(local_frameCount *speed_z *direction) *map(get_canvas_z(),width/10,width *r.PHI,0,width *r.PHI) ;
       pos_clock = Vec3(pos_x,pos_y,pos_z) ;
     }
 
     
     //CHANGE MODE DISPLAY
-    /////////////////////
     if (get_mode_id() == 0 ) {
       horlogeCercle (pos_clock, angle, amp, 12 ) ; // on 12 hours model english clock
     } else if (get_mode_id() == 1 ) {

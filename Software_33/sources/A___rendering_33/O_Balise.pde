@@ -81,7 +81,7 @@ class BaliseRomanesco extends Romanesco {
     // authorization to make something with the sound in Prescene mode
     boolean authorization = false ;
     float tempo_balise = 1 ;
-    if(sound[ID_item] && FULL_RENDERING) {
+    if(sound_is() && FULL_RENDERING) {
       authorization = true ;
       tempo_balise = tempo[ID_item] *.01;
     } else {
@@ -90,7 +90,7 @@ class BaliseRomanesco extends Romanesco {
 
     //reverse
     int rotation_direction = 1;
-    if(reverse[ID_item]) {
+    if(reverse_is()) {
       rotation_direction = 1; 
     } else {
       rotation_direction = -1;
@@ -98,34 +98,34 @@ class BaliseRomanesco extends Romanesco {
 
 
 
-    if (motion[ID_item]) {
-      float speed_base = map(speed_x_item[ID_item], 0,1, 0,20);
+    if (motion_is()) {
+      float speed_base = map(get_speed_x(), 0,1, 0,20);
       speed = speed_base *tempo_balise *rotation_direction ; 
     } else {
       speed = 0.;
     }
 
     //amplitude
-    float amp = map(canvas_x_item[ID_item],canvas_x_min_max.x, canvas_x_min_max.y,1,width*10);
+    float amp = map(get_canvas_x(),canvas_x_min_max.x, canvas_x_min_max.y,1,width*10);
     
     //factor size
-    float factor_base = map(repulsion_item[ID_item],0,1,1,height/4);
+    float factor_base = map(get_repulsion(),0,1,1,height/4);
     float factor = 1;
-    if(sound[ID_item]) {
+    if(sound_is()) {
       factor = factor_base *(all_transient(ID_item) *.2);
     } 
     if(factor < 1.0 ) factor = 1.0 ;
 
     // snake mode
     boolean snake_mode = false ;
-    if(special[ID_item]) {
+    if(special_is()) {
       snake_mode = true ; 
     } else {
       snake_mode = false ;
     }
 
     // aspect
-    aspect(fill_item[ID_item], stroke_item[ID_item], thickness_item[ID_item], get_costume());
+    aspect(get_fill(), get_stroke(), get_thickness(), get_costume());
 
     
     
@@ -134,7 +134,7 @@ class BaliseRomanesco extends Romanesco {
     float ratio = .5 ;
     float tempo_effect = 1 + ((transient_value[0][ID_item] *ratio) + (transient_value[2][ID_item] *ratio) + (transient_value[3][ID_item] *ratio) + (transient_value[4][ID_item] *ratio));
 
-    Vec3 size = Vec3(size_x_item[ID_item],size_y_item[ID_item],size_z_item[ID_item]);
+    Vec3 size = Vec3(get_size_x(),get_size_y(),get_size_z());
     size.mult(15);
 
     Vec2 left_right_sound = Vec2(1) ;
@@ -153,8 +153,8 @@ class BaliseRomanesco extends Romanesco {
     //quantity
     int maxBalise = 511 ;
     if(!FULL_RENDERING) maxBalise = 64 ;
-    float radiusBalise = map(quantity_item[ID_item], 0,1, 2, maxBalise); // here the value max is 511 because we work with buffersize with 512 field
-    float ratio_size = map(area_item[ID_item],width*.1, width*TAU,0,1);
+    float radiusBalise = map(get_quantity(), 0,1, 2, maxBalise); // here the value max is 511 because we work with buffersize with 512 field
+    float ratio_size = map(get_area(),width*.1, width*TAU,0,1);
     
     Vec3 pos = Vec3();
     balise.update(pos,speed);

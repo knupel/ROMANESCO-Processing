@@ -85,11 +85,11 @@ class FF extends Romanesco {
   void draw() { 
     minimum_spot();
     set_ff();
-    if(ref_cell != grid_item[ID_item] || ref_mode != get_mode_id() || ref_detection != area_item[ID_item] || birth_is()) {
+    if(ref_cell != get_grid() || ref_mode != get_mode_id() || ref_detection != get_area() || birth_is()) {
       ref_mode = get_mode_id();
-      ref_cell = grid_item[ID_item];
-      ref_detection = area_item[ID_item];
-      set_birth(false);
+      ref_cell = get_grid();
+      ref_detection = get_area();
+      birth_is(false);
       init_force_field(get_spot_num());
       // EQUATION
       if(get_pattern_force_field() == EQUATION) {
@@ -99,16 +99,16 @@ class FF extends Romanesco {
     }
 
     update_force_field_is(true);
-    iVec2 aspect_colour = iVec2(fill_item[ID_item],stroke_item[ID_item]);
-    aspect_is(fill_is[ID_item],stroke_is[ID_item]);
+    iVec2 aspect_colour = iVec2(get_fill(),get_stroke());
+    aspect_is(fill_is(),stroke_is());
 
-    float thickness = thickness_item[ID_item];
-    float scale = size_x_item[ID_item] *.1;
+    float thickness = get_thickness();
+    float scale = get_size_x() *.1;
     float range = 0 ;
-    if(reverse[ID_item]) {
-      range = map(spectrum_item[ID_item],0,360,0,-1);
+    if(reverse_is()) {
+      range = map(get_spectrum(),0,360,0,-1);
     } else {
-      range = map(spectrum_item[ID_item],0,360,0,1);
+      range = map(get_spectrum(),0,360,0,1);
     }
     
     Force_field ff = get_force_field();
@@ -116,7 +116,7 @@ class FF extends Romanesco {
     if(get_costume().get_type() == NULL) {
       // nothing
     } else {
-      show_field(ff,scale,range,aspect_colour,thickness,area_item[ID_item],get_costume());
+      show_field(ff,scale,range,aspect_colour,thickness,get_area(),get_costume());
     }
     
     info();
@@ -157,13 +157,13 @@ class FF extends Romanesco {
 
 
   private void info() {
-    if(get_force_field().get_type() == FLUID) info("Cell: "+grid_item[ID_item],"Force field: FLUID frequence: "+ get_force_field().get_frequence(),"viscosity: "+ get_force_field().get_viscosity(),"diffusion: "+ get_force_field().get_diffusion());
-    else if(get_force_field().get_type() == MAGNETIC) info("Cell: "+grid_item[ID_item],"Force field: MAGNETIC");
-    else if(get_force_field().get_type() == GRAVITY) info("Cell: "+grid_item[ID_item],"Force field: GRAVITY");
-    else if(get_force_field().get_pattern() == PERLIN) info("Cell: "+grid_item[ID_item],"Force field: PERLIN");
-    else if(get_force_field().get_pattern() == EQUATION) info("Cell: "+grid_item[ID_item],"Force field: EQUATION");
-    else if(get_force_field().get_pattern() == CHAOS) info("Cell: "+grid_item[ID_item],"Force field: CHAOS");
-    else if(get_force_field().get_pattern() == IMAGE) info("Cell: "+grid_item[ID_item],"Force field: IMAGE");
+    if(get_force_field().get_type() == FLUID) info("Cell: "+get_grid(),"Force field: FLUID frequence: "+ get_force_field().get_frequence(),"viscosity: "+ get_force_field().get_viscosity(),"diffusion: "+ get_force_field().get_diffusion());
+    else if(get_force_field().get_type() == MAGNETIC) info("Cell: "+get_grid(),"Force field: MAGNETIC");
+    else if(get_force_field().get_type() == GRAVITY) info("Cell: "+get_grid(),"Force field: GRAVITY");
+    else if(get_force_field().get_pattern() == PERLIN) info("Cell: "+get_grid(),"Force field: PERLIN");
+    else if(get_force_field().get_pattern() == EQUATION) info("Cell: "+get_grid(),"Force field: EQUATION");
+    else if(get_force_field().get_pattern() == CHAOS) info("Cell: "+get_grid(),"Force field: CHAOS");
+    else if(get_force_field().get_pattern() == IMAGE) info("Cell: "+get_grid(),"Force field: IMAGE");
   }
 
   /**
@@ -190,7 +190,7 @@ class FF extends Romanesco {
       }
 
       // update spot position
-      if(motion[ID_item]) {
+      if(motion_is()) {
         force_romanesco.set_spot_pos(mouse[0].x,mouse[0].y,0);
         force_romanesco.set_spot_pos(width -mouse[0].x,height -mouse[0].y,1);
       }
@@ -210,12 +210,12 @@ class FF extends Romanesco {
   */
   private void set_ff() {
     // set detection
-    int level_detection = (int)map(scope_item[ID_item],width *.1,width*TAU,10,1);
+    int level_detection = (int)map(get_scope(),width *.1,width*TAU,10,1);
     // println("level",level_detection);
     set_spot_detection_force_field(level_detection);
 
     // set cell
-    int cell_size = (int)map(grid_item[ID_item],width *.1,width*TAU,height/10,2);
+    int cell_size = (int)map(get_grid(),width *.1,width*TAU,height/10,2);
     set_cell_force_field(cell_size);
     // set type
     if(get_mode_id() == 0) {
@@ -252,15 +252,15 @@ class FF extends Romanesco {
   }
 
   private void set_magnetic_field() {
-    int tesla = ceil(map(power_item[ID_item],0,1,1,height/3));
+    int tesla = ceil(map(get_power(),0,1,1,height/3));
     set_force_magnetic_tesla(tesla,-tesla);
 
-    int diam = ceil(diameter_item[ID_item]);
+    int diam = ceil(get_diameter());
     set_force_magnetic_diam(diam);
   }
 
   private void set_gravity_field() {
-    int mass = ceil(map(mass_item[ID_item],0,1,1,height/3));
+    int mass = ceil(map(get_mass(),0,1,1,height/3));
     set_force_gravity_mass(mass);
   }
 
@@ -270,12 +270,12 @@ class FF extends Romanesco {
       set_force_fluid_viscosity(.001);
       set_force_fluid_diffusion(1.);
       */
-      float frequence = map(frequence_item[ID_item],0,1,.01,.1);
+      float frequence = map(get_frequence(),0,1,.01,.1);
       // set_force_fluid_frequence(frequence/frameRate);
       set_force_fluid_frequence(frequence);
-      float viscosity = (viscosity_item[ID_item]*viscosity_item[ID_item]*viscosity_item[ID_item])*.25;
+      float viscosity = (get_viscosity()*get_viscosity()*get_viscosity())*.25;
       set_force_fluid_viscosity(viscosity);
-      float diffusion = diffusion_item[ID_item];
+      float diffusion = get_diffusion();
       set_force_fluid_diffusion(diffusion);
 
   }

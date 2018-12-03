@@ -231,8 +231,7 @@ void receive_data_general_slider(OscMessage receive, int in, int out) {
 void receive_data_slider_item(OscMessage receive, int in) {
   for (int i = 0 ; i < NUM_MOLETTE_ITEM ; i++) {
     int index = in + i;
-    int target = i;
-    value_slider_item[target] = Float.valueOf(receive.get(index).intValue());
+    value_slider_item[i] = Float.valueOf(receive.get(index).intValue());
   }
 }
 
@@ -241,19 +240,19 @@ void receive_data_button_item(OscMessage receive, int in) {
   int num = BUTTON_ITEM_CONSOLE;
   for (int i = 0 ; i < NUM_ITEM ; i++) {
     int index = in + (i*num);
-    int target = i+1;
-    show_item[target] = to_bool(receive,index +0);
-    parameter[target] = to_bool(receive,index +1);
-    sound[target] = to_bool(receive,index +2);
-    action[target] = to_bool(receive,index +3);
+    Romanesco item = rpe_manager.get(i);
+    item.show_is(to_bool(receive,index+0));
+    item.parameter_is(to_bool(receive,index+1));
+    item.sound_is(to_bool(receive,index+2));
+    item.action_is(to_bool(receive,index+3));
   }
 }
 
 void receive_data_dropdown_mode_item(OscMessage receive, int in) {
   for (int i = 0 ; i < NUM_ITEM ; i++) {
     int index = i+in;
-    int target = i+1;
-    mode[target].set_id(receive.get(index).intValue());
+    Romanesco item = rpe_manager.get(i);
+    item.mode.set_id(receive.get(index).intValue());
   }
 }
 

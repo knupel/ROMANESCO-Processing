@@ -90,29 +90,29 @@ class Rubis extends Romanesco {
     Vec3 center = Vec3() ;
 
     // speed
-    float speed = map(speed_x_item[ID_item],0,1,.0001,.2);
+    float speed = map(get_speed_x(),0,1,.0001,.2);
     speed = speed*speed ;
-    if(sound[ID_item] && sound_is()) {
+    if(sound_is() && sound_is()) {
       speed *= all_transient(ID_item);
     }
 
 
 
     Vec3 jitter = Vec3() ;
-    if(sound[ID_item] && sound_is()) {
-      float valueX = left[ID_item] *jitter_x_item[ID_item] *width ;
-      float valueY = right[ID_item] *jitter_y_item[ID_item] *width ;
-      float valueZ = mix[ID_item] *jitter_z_item[ID_item] *width ;
+    if(sound_is() && sound_is()) {
+      float valueX = left[ID_item] *get_jitter_x() *width ;
+      float valueY = right[ID_item] *get_jitter_y() *width ;
+      float valueZ = mix[ID_item] *get_jitter_z() *width ;
       jitter.set(valueX,valueY,valueZ) ;
     }
 
     // size of the rubis
-    float radiusMax = canvas_x_item[ID_item] *.7 ;
-    float radiusMin = map(swing_x_item[ID_item], 0, 1, radiusMax, radiusMax /10) ;
+    float radiusMax = get_canvas_x() *.7 ;
+    float radiusMin = map(get_swing_x(), 0, 1, radiusMax, radiusMax /10) ;
 
 
      // stop motion
-    if(!motion[ID_item]) { 
+    if(!motion_is()) { 
       speed = 0 ; 
       jitter.set(0) ;
     }
@@ -123,10 +123,11 @@ class Rubis extends Romanesco {
     
     // new population
     int max_people = 150 ;
-    if(!FULL_RENDERING)  quantity_item[ID_item] *= .1 ;
-    numPeople = (int)map(quantity_item[ID_item],0, 1, 10, max_people) ; 
+    float quantity = get_quantity();
+    if(!FULL_RENDERING)  quantity *= .1 ;
+    numPeople = (int)map(quantity,0, 1, 10, max_people) ; 
     if ( numPeople != refNumPeople ) newPopulation = true ;
-    refNumPeople = (int)map(quantity_item[ID_item],0, 1, 10, max_people) ;
+    refNumPeople = (int)map(quantity,0, 1, 10, max_people) ;
     if(newPopulation) {
       listPeople.clear() ;
       amiSetting(numPeople, rangePeople) ;
@@ -135,9 +136,9 @@ class Rubis extends Romanesco {
     
     
     if(get_mode_id() == 1) {
-      aspect(fill_item[ID_item], stroke_item[ID_item], thickness_item[ID_item], POINT_ROPE) ;
+      aspect(get_fill(), get_stroke(), get_thickness(), POINT_ROPE) ;
     } else {
-      aspect(fill_item[ID_item], stroke_item[ID_item], thickness_item[ID_item]) ;
+      aspect(get_fill(), get_stroke(), get_thickness()) ;
     }
 
     ami_heart_move(center, speed, radiusMin, radiusMax, jitter,get_mode_id()) ;

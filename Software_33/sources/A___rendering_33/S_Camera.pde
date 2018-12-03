@@ -229,12 +229,13 @@ void item_move(boolean movePos, boolean moveDir, int ID) {
 
 
 
-void item_follower(int ID) {
-  if(follower[ID]) {
-    int ID_master = master_ID[ID] ;
-    action[ID] = action[ID_master] ; 
+void item_follower(Romanesco item) {
+  if(follower[item.get_id()]) {
+    int ID_master = master_ID[item.get_id()];
+    Romanesco item_master = rpe_manager.get(ID_master);
+    item.action_is(item_master.action_is()); 
   }
-  add_ref_item(ID) ;
+  add_ref_item(item.get_id()) ;
 }
 
 // Create ref position

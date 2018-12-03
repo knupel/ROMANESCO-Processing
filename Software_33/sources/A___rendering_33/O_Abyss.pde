@@ -82,9 +82,9 @@ class The_Abbyss extends Romanesco {
   //DRAW
   void draw() {
 
-    if(alpha(stroke_item[ID_item]) == 0 ) thickness_item[ID_item] = 0 ;
+    if(alpha(get_stroke()) == 0) set_thickness(0);
    //  pushMatrix();
-    creatureManager.loop(fill_item[ID_item], stroke_item[ID_item], thickness_item[ID_item], speed_x_item[ID_item] *100.0);
+    creatureManager.loop(get_fill(), get_stroke(), get_thickness(), get_speed_x() *100.0);
     // popMatrix();
     // resetMatrix();
     
@@ -109,7 +109,7 @@ class The_Abbyss extends Romanesco {
     else if (get_mode_id() == 12 ) whichCreature = 12 ;
     else whichCreature = 0 ;
     
-    if(action[ID_item]) {
+    if(action_is()) {
       if (key_n_long && frameCount % 3 == 0) creatureManager.addCurrentCreature(whichCreature);
       //to cennect the creature to the camera
       if(key_c_long) {
@@ -118,10 +118,10 @@ class The_Abbyss extends Romanesco {
       }
     }
     //
-    if (reset(ID_item)) creatureManager.killAll(whichCreature);
+    if (reset(this)) creatureManager.killAll(whichCreature);
     
     // info display
-    item_info[ID_item] = ("Creatures "+ creatureManager.creatures.size()) ;
+    info("Creatures "+ creatureManager.creatures.size()) ;
 
   }
 

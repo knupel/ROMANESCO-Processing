@@ -91,7 +91,7 @@ class Vectorial extends Romanesco {
 
   void draw() {
     if(svg_import[ID_item] != null) {
-      if(parameter[ID_item]) {
+      if(parameter_is()) {
         load_svg(ID_item);
         println("svg_current_path",svg_current_path);
         ref_name = svg_import[ID_item].name ;  
@@ -120,24 +120,24 @@ class Vectorial extends Romanesco {
 
   void rendering() {
     // color
-    float normalize_hue_fill = map(hue(fill_item[ID_item]),0,360,0,1) ;
-    float normalize_sat_fill = map(saturation(fill_item[ID_item]),0,100,0,1) ;
-    float normalize_bright_fill = map(brightness(fill_item[ID_item]),0,100,0,1) ;
-    float normalize_alpha_fill = map(alpha(fill_item[ID_item]),0,100,0,1) ;
+    float normalize_hue_fill = map(hue(get_fill()),0,360,0,1) ;
+    float normalize_sat_fill = map(saturation(get_fill()),0,100,0,1) ;
+    float normalize_bright_fill = map(brightness(get_fill()),0,100,0,1) ;
+    float normalize_alpha_fill = map(alpha(get_fill()),0,100,0,1) ;
 
-    float normalize_hue_stroke = map(hue(stroke_item[ID_item]),0,360,0,1) ;
-    float normalize_sat_stroke = map(saturation(stroke_item[ID_item]),0,100,0,1) ;
-    float normalize_bright_stroke = map(brightness(stroke_item[ID_item]),0,100,0,1) ;
-    float normalize_alpha_stroke = map(alpha(stroke_item[ID_item]),0,100,0,1) ;
+    float normalize_hue_stroke = map(hue(get_stroke()),0,360,0,1) ;
+    float normalize_sat_stroke = map(saturation(get_stroke()),0,100,0,1) ;
+    float normalize_bright_stroke = map(brightness(get_stroke()),0,100,0,1) ;
+    float normalize_alpha_stroke = map(alpha(get_stroke()),0,100,0,1) ;
 
 
     // scale
-    float scale_x = map(canvas_x_item[ID_item], canvas_x_min_max.x, canvas_x_min_max.y, .1, 8);
-    float scale_y = map(canvas_y_item[ID_item], canvas_y_min_max.x, canvas_y_min_max.y, .1, 8);
+    float scale_x = map(get_canvas_x(), canvas_x_min_max.x, canvas_x_min_max.y, .1, 8);
+    float scale_y = map(get_canvas_y(), canvas_y_min_max.x, canvas_y_min_max.y, .1, 8);
     Vec3 scale_3D = Vec3(scale_x, scale_y,1) ;
 
     // beat factor
-    if(sound[ID_item]) beat_factor = all_transient(ID_item) ; else beat_factor = 1. ;
+    if(sound_is()) beat_factor = all_transient(ID_item) ; else beat_factor = 1. ;
 
 
     
@@ -145,7 +145,7 @@ class Vectorial extends Romanesco {
     
 
     if(FULL_RENDERING) {
-      jitting.set(jitter_x_item[ID_item],jitter_y_item[ID_item],jitter_z_item[ID_item]);
+      jitting.set(get_jitter_x(),get_jitter_y(),get_jitter_z());
       jitting.mult((int)height/2 *beat_factor) ;
     } else {
       jitting.set(0) ;
@@ -170,7 +170,7 @@ class Vectorial extends Romanesco {
       }
       normalize_fill.set(normalize_hue_fill, normalize_sat_fill,normalize_bright_fill, normalize_alpha_fill) ;
       normalize_stroke.set(normalize_hue_stroke,normalize_sat_stroke,normalize_bright_stroke, normalize_alpha_stroke) ;
-      full_svg_3D(pos_3D, scale_3D, jitting, svg_import[ID_item], normalize_fill, normalize_stroke, thickness_item[ID_item], false) ;
+      full_svg_3D(pos_3D, scale_3D, jitting, svg_import[ID_item], normalize_fill, normalize_stroke, get_thickness(), false) ;
     // walker  
     } else if(get_mode_id() == 2 && FULL_RENDERING) {
       walker = true ;
@@ -184,7 +184,7 @@ class Vectorial extends Romanesco {
       walker = true ;
       normalize_fill.set(normalize_hue_fill, normalize_sat_fill,normalize_bright_fill, normalize_alpha_fill) ;
       normalize_stroke.set(normalize_hue_stroke,normalize_sat_stroke,normalize_bright_stroke, normalize_alpha_stroke) ;
-      walker_svg_3D(pos_3D, scale_3D, svg_import[ID_item], normalize_fill, normalize_stroke, thickness_item[ID_item], false) ;
+      walker_svg_3D(pos_3D, scale_3D, svg_import[ID_item], normalize_fill, normalize_stroke, get_thickness(), false) ;
       if(key_n ) svg_import[ID_item].build() ;
       if(beat_factor > 5 && FULL_RENDERING) svg_import[ID_item].build() ;
     } else {
@@ -208,7 +208,7 @@ class Vectorial extends Romanesco {
 
   }
   void walker_svg_3D(Vec3 pos_3D, Vec3 scale_3D, ROPE_svg svg, Vec4 factor_fill, Vec4 factor_stroke, float thickness, boolean original_colour) {
-    Vec3 swing = Vec3(swing_x_item[ID_item],swing_y_item[ID_item],swing_z_item[ID_item]) ;
+    Vec3 swing = Vec3(get_swing_x(),get_swing_y(),get_swing_z()) ;
     swing.mult(height /5 *beat_factor) ;
     for(int ID = 0 ; ID < svg.num_brick() ; ID++ ) {
       int length = svg.list_svg_Vec(ID).length ;

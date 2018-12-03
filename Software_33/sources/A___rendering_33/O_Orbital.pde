@@ -119,7 +119,7 @@ class Orbital extends Romanesco {
   // draw
   void draw() {
     // it's nice to code the variable from the sliders or from sound... here to see easily what's happen in your object.
-    float quantity = map(quantity_item[ID_item], 0, 1, .001, 1) ;
+    float quantity = map(get_quantity(), 0, 1, .001, 1) ;
 
     // display
     orbital_1(quantity) ;
@@ -139,9 +139,9 @@ class Orbital extends Romanesco {
   
     checkControls();
   
-    rotationToReach.x += rfactors.x * vel * speed_x_item[ID_item];
-    rotationToReach.y += rfactors.y * vel * speed_x_item[ID_item];
-    rotationToReach.z += rfactors.z * vel * speed_x_item[ID_item];
+    rotationToReach.x += rfactors.x * vel * get_speed_x();
+    rotationToReach.y += rfactors.y * vel * get_speed_x();
+    rotationToReach.z += rfactors.z * vel * get_speed_x();
     rotation.x += (rotationToReach.x - rotation.x) * smoothf;
     rotation.y += (rotationToReach.y - rotation.y) * smoothf;
     rotation.z += (rotationToReach.z - rotation.z) * smoothf;
@@ -155,7 +155,7 @@ class Orbital extends Romanesco {
     float lSpreadL = 1 ;
     float lSpreadW = 1 ;
     for(int i = 0; i < it; i++) {
-        if (sound[ID_item] && i < NUM_BANDS) {
+        if (sound_is() && i < NUM_BANDS) {
             lSpreadL = spreadL * band[ID_item][i];
             lSpreadW = spreadW * band[ID_item][i];
         }
@@ -175,23 +175,23 @@ class Orbital extends Romanesco {
   }
  
   void checkControls() {
-     if (key_n && action[ID_item]) randomPos();
+     if (key_n && action_is()) randomPos();
      // else if (key_j) ;//randomiserad = D_MIN + random(D_MAX - D_MIN);
-     else if (key_o && action[ID_item]) resetOrbit();
-     else if (reverse[ID_item]) jump();
+     else if (key_o && action_is()) resetOrbit();
+     else if (reverse_is()) jump();
   }
  
   void render() {
       //flock.render();
-      flock.render(hue(fill_item[ID_item]),
-                   saturation(fill_item[ID_item]),
-                   brightness(fill_item[ID_item]),
-                   alpha(fill_item[ID_item]),
+      flock.render(hue(get_fill()),
+                   saturation(get_fill()),
+                   brightness(get_fill()),
+                   alpha(get_fill()),
                   
-                   hue(stroke_item[ID_item]),
-                   saturation(stroke_item[ID_item]),
-                   brightness(stroke_item[ID_item]),
-                   alpha(stroke_item[ID_item])
+                   hue(get_stroke()),
+                   saturation(get_stroke()),
+                   brightness(get_stroke()),
+                   alpha(get_stroke())
                );
                  
   }

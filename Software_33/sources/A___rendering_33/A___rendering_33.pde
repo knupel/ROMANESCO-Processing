@@ -200,6 +200,9 @@ void draw() {
     if(MIROIR) title = nameVersion + " " +prettyVersion+"."+version+ " | "+ "miroir" + " | FPS: "+round(frameRate);
     surface.setTitle(title);
     if(!FULL_SCREEN) update_window_location();
+    // script
+    if(frameCount%30 == 0 ) rpe_manager.script();
+
 
     romanesco();
 

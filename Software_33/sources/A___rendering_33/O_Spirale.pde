@@ -87,7 +87,7 @@ class Spirale_romanesco extends Romanesco {
     //quantity
     int n ;
     int nMax = 1 ;
-     nMax = 1 + int(quantity_item[ID_item] *300) ; 
+     nMax = 1 + int(get_quantity() *300) ; 
     if(!FULL_RENDERING) nMax *= .1 ;
     n = nMax ;
 
@@ -95,19 +95,19 @@ class Spirale_romanesco extends Romanesco {
     float z = max ;
     //speed
     
-    // if(reverse[ID_item]) reverseSpeed = !reverseSpeed ;
+    // if(reverse_is()) reverseSpeed = !reverseSpeed ;
     
-    if(motion[ID_item]) {
-      float s = map(speed_x_item[ID_item],0,1,0,8) ;
+    if(motion_is()) {
+      float s = map(get_speed_x(),0,1,0,8) ;
       s *= s ;
-      if(reverse[ID_item]) speed = s *tempo[ID_item] ; else speed = s *tempo[ID_item] *-1. ;
+      if(reverse_is()) speed = s *tempo[ID_item] ; else speed = s *tempo[ID_item] *-1. ;
     } else { 
       speed = 0.0 ;
     }
     //sound volume
     float minValueVol = .8 ;
     float maxValueVol = 5.5 ;
-    if(!sound[ID_item]) maxValueVol = 1 ;
+    if(!sound_is()) maxValueVol = 1 ;
     float volumeLeft = map (left[ID_item], 0,1, minValueVol, maxValueVol ) ;
     float volumeRight = map (right[ID_item], 0,1, minValueVol, maxValueVol ) ;
     float volumeMix = map (mix[ID_item], 0,1, minValueVol, maxValueVol ) ;
@@ -118,9 +118,9 @@ class Spirale_romanesco extends Romanesco {
     float minValueSize = .5 ;
     float maxValueSize = width *.003 ;
     
-    float sx = map(size_x_item[ID_item], .1, width, minValueSize, maxValueSize) ;
-    float sy = map(size_y_item[ID_item], .1, width, minValueSize, maxValueSize) ;
-    float sz  = map(size_z_item[ID_item], .1, width, minValueSize, maxValueSize) ; 
+    float sx = map(get_size_x(), .1, width, minValueSize, maxValueSize) ;
+    float sy = map(get_size_y(), .1, width, minValueSize, maxValueSize) ;
+    float sz  = map(get_size_z(), .1, width, minValueSize, maxValueSize) ; 
     sx *= sx ;
     sy *= sy ;
     sz *= sz ;
@@ -134,16 +134,16 @@ class Spirale_romanesco extends Romanesco {
     //amplitude of the translate
     float minValueCanvas = .01 ;
     float maxValueCanvas = 3 *(transient_value[2][ID_item] *.7);
-    float canvasXtemp = map(canvas_x_item[ID_item], width *.1, width,minValueCanvas,maxValueCanvas);
-    float canvasYtemp = map(canvas_y_item[ID_item], width *.1, width,minValueCanvas,maxValueCanvas);
-    float canvasZtemp = map(canvas_z_item[ID_item], width *.1, width,minValueCanvas,maxValueCanvas);
+    float canvasXtemp = map(get_canvas_x(), width *.1, width,minValueCanvas,maxValueCanvas);
+    float canvasYtemp = map(get_canvas_y(), width *.1, width,minValueCanvas,maxValueCanvas);
+    float canvasZtemp = map(get_canvas_z(), width *.1, width,minValueCanvas,maxValueCanvas);
     Vec3 canvas = Vec3(canvasXtemp,canvasYtemp,canvasZtemp);
 
     // alignement
-    float max_align = alignment_item[ID_item] *(height/10) ;
-    if(swing_x_item[ID_item] > 0 && motion[ID_item] && horizon[ID_item]) {
+    float max_align = get_alignment() *(height/10) ;
+    if(get_swing_x() > 0 && motion_is() && horizon_is()) {
       float align ;
-      float speed_swing = swing_x_item[ID_item] *swing_x_item[ID_item] ;
+      float speed_swing = get_swing_x() *get_swing_x() ;
       if(pos_swing > max_align || pos_swing < -max_align || all_transient(ID_item) > 8) {
         dir_swing *= -1 ;
       }
@@ -158,13 +158,13 @@ class Spirale_romanesco extends Romanesco {
     }
 
     // aspect
-    aspect(fill_item[ID_item], stroke_item[ID_item], thickness_item[ID_item], get_costume()) ;
+    aspect(get_fill(), get_stroke(), get_thickness(), get_costume()) ;
 
     // mode    
     Vec3 pos = Vec3() ; // we write that because the first part of the void is not available any more.
     spirale.update(pos, speed);
-    float ratio_size = map(area_item[ID_item],width*.1, width*TAU,0,1);
-    spirale.show(n, nMax, size, z, canvas, get_costume(), horizon[ID_item], pos_swing,ratio_size) ;
+    float ratio_size = map(get_area(),width*.1, width*TAU,0,1);
+    spirale.show(n, nMax, size, z, canvas, get_costume(), horizon_is(), pos_swing,ratio_size) ;
     
     // info display
     item_info[ID_item] = ("Speed "+speed+ " - Amplitude " + map(z, 1.01, 1.27, 1,100) + " - Quantity " + nMax) ;

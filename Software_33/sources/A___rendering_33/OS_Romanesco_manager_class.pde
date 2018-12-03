@@ -1,6 +1,6 @@
 /**
 Class Romanesco_manager
-v 1.3.0
+v 1.5.0
 inspired by Andreas Gysin work for The Abyss Project
 @see https://github.com/ertdfgcvb/TheAbyss
 */
@@ -57,7 +57,7 @@ class Romanesco_manager {
   }
 
 
-  //create the canvas index
+  //create the index
   void create_index(int num) {
     index_item = new Table() ;
     index_item.addColumn("Library Order");
@@ -159,7 +159,7 @@ class Romanesco_manager {
   }
   
   
-  //ADD OBJECT from the sub-classes
+  // add itemfrom the sub-classes
   public void add_item_romanesco() {
     int n = item_list.size();
     for( int i = 0 ; i < n ; i++) {
@@ -199,7 +199,7 @@ class Romanesco_manager {
   
   // finalization of adding object
   private void add_romaneco_item(Romanesco item) {
-    item.set_item_romanesco(this);
+    item.set_item_romanesco();
     RomanescoList.add(item);
   }
   
@@ -210,9 +210,9 @@ class Romanesco_manager {
   public boolean init_items() {
     int num = 0 ;
     for (Romanesco item : RomanescoList) {
-      motion[item.get_id()] = true;
+      item.motion_is(true);
       init_value_mouse[item.get_id()] = true;
-      mode[item.get_id()].set_name(item.item_mode.split("/"));
+      item.mode.set_name(item.item_mode.split("/"));
 
       num++;
       item.setup();
@@ -221,7 +221,6 @@ class Romanesco_manager {
         pos_item_ref[item.get_id()] = Vec3();
       }
       pos_item_ref[item.get_id()].set(item_setting_position[0][item.get_id()]);
-      // update_var_items(item.get_id());
     }
 
     if(num == RomanescoList.size()) {
@@ -231,7 +230,41 @@ class Romanesco_manager {
     }
   }
 
+
+
+
+
+
+
+  // SCRIPT
+  protected void script() {
+    long time_millis = new Date().getTime();
+    Timestamp time = new Timestamp(time_millis);
+    // println("time",time);
+    for (int i = 0 ; i < RomanescoList.size() ; i++ ) {
+      Romanesco item = (Romanesco) RomanescoList.get(i);
+      //println(item.get_name(),item.show_is());
+    }
+  }
+
   
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
   // DRAW
   public void show_item_3D(boolean movePos, boolean moveDir, boolean movePosAndDir) {
@@ -242,14 +275,14 @@ class Romanesco_manager {
     }
     
     //the method
-    if (show_item != null) {
+   // if (show_item != null) {
       for (Romanesco item : RomanescoList) {
-        if (show_item[item.get_id()]) {
-          update_var_items(item.get_id());
+        if (item.show_is()) {
+          update_var_items(item);
           pushMatrix();
           add_ref_item(item.get_id());
-          item_follower(item.get_id());
-          if((key_v_long || reset_item_on_button_alert_is()) && action[item.get_id()]) {
+          item_follower(item);
+          if((key_v_long || reset_item_on_button_alert_is()) && item.action_is()) {
             item_move(movePos, moveDir, item.get_id());
           }
           final_pos_item(item.get_id());
@@ -259,13 +292,13 @@ class Romanesco_manager {
           if(movie[item.get_id()] != null) movie[item.get_id()].pause();
         }
       }
-    }
+  //  }
   }
 
 
   public void show_item_2D() {
     for (Romanesco item : RomanescoList) {
-      if (show_item[item.get_id()]) {
+      if (item.show_is()) {
         item.draw_2D();
       } else {
         if(movie[item.get_id()] != null) movie[item.get_id()].pause();
@@ -273,3 +306,4 @@ class Romanesco_manager {
     }
   }
 }
+

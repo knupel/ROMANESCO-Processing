@@ -89,16 +89,16 @@ class Lorenz extends Romanesco {
       list_points = new ArrayList<Vec3>() ;
     } else {
       build_lorenz_attractor(list_points) ;
-      if(alpha(fill_item[ID_item]) > 0 || thickness_item[ID_item] > 0) {
-        float canvas = canvas_x_item[ID_item] *.01 ;
-        Vec3 jitter = Vec3(jitter_x_item[ID_item],jitter_y_item[ID_item],jitter_z_item[ID_item]);
+      if(alpha(get_fill()) > 0 || get_thickness() > 0) {
+        float canvas = get_canvas_x() *.01 ;
+        Vec3 jitter = get_jitter().copy();
         jitter.mult(height/10) ;
-        Vec3 size = Vec3(size_x_item[ID_item],size_y_item[ID_item],size_z_item[ID_item]);
-        Vec3 dir = Vec3(dir_x_item[ID_item],dir_y_item[ID_item],dir_z_item[ID_item]);
-        fill(fill_item[ID_item]);
-        stroke(stroke_item[ID_item]);
-        strokeWeight(thickness_item[ID_item]);
-        set_ratio_costume_size(map(area_item[ID_item],width*.1, width*TAU,0,1));
+        Vec3 size = get_size().copy();
+        Vec3 dir = get_dir().copy();
+        fill(get_fill());
+        stroke(get_stroke());
+        strokeWeight(get_thickness());
+        set_ratio_costume_size(map(get_area(),width*.1, width*TAU,0,1));
         show_lorenz_attractor(size,dir,canvas,jitter,list_points,get_mode_id(),get_costume());
       }
 
@@ -106,7 +106,7 @@ class Lorenz extends Romanesco {
       // keep the size of list reasonable :)
       int max = 5000 ;
       if(!FULL_RENDERING) max /= 50 ;
-      int threshold = 2 + int(life_item[ID_item] *max);
+      int threshold = 2 + int(get_life() *max);
       if(list_points.size() > threshold) {
         int remove_size = list_points.size() - threshold;
         for(int i = 0 ; i < remove_size ; i++) {

@@ -79,7 +79,7 @@ class Boids extends Romanesco {
    // build the canvas where the boid can move
    PVector pos = new PVector (0, 0, 0) ;
    PVector size = new PVector(width,width,width) ;
-   // PVector size = new PVector(canvas_x_item[ID_item],canvas_y_item[ID_item],canvas_z_item[ID_item]) ;
+   // PVector size = new PVector(get_canvas_x(),get_canvas_y(),get_canvas_z()) ;
    myCanvas = new Canvas(pos, size) ;
    // color colorBoid = color(80,100,100) ;
    birthPlace = pos.copy() ;
@@ -93,11 +93,11 @@ class Boids extends Romanesco {
   // draw
   void draw() {
     // MAIN method
-    float thickness = map(thickness_item[ID_item],0,width/3,0,width/30 ) ;
-    int size = (int)map(size_x_item[ID_item],.1,width, 2,width/10) ;
-    float alignment = map(alignment_item[ID_item],0,1,0,10) ;
-    float cohesion = map(attraction_item[ID_item],0,1,0,10) ;
-    float separation = map(repulsion_item[ID_item],0,1,0,10) ;
+    float thickness = map(get_thickness(),0,width/3,0,width/30 ) ;
+    int size = (int)map(get_size_x(),.1,width, 2,width/10) ;
+    float alignment = map(get_alignment(),0,1,0,10) ;
+    float cohesion = map(get_attraction(),0,1,0,10) ;
+    float separation = map(get_repulsion(),0,1,0,10) ;
     PVector unity = new PVector(cohesion, separation) ;
     if(flock.listBoid.size() > 0 )flock.run(alignment, unity);
     
@@ -106,62 +106,62 @@ class Boids extends Romanesco {
     // GOAL of the boids
     if(key_space_long) {
       float depthGoal =sin(frameCount *.002) *width ;
-      float pos_x = map(mouse[ID_item].x,0,width, -canvas_x_item[ID_item], canvas_x_item[ID_item] ) ;
-      float pos_y = map(mouse[ID_item].y,0,height, -canvas_y_item[ID_item], canvas_y_item[ID_item] ) ;
+      float pos_x = map(mouse[ID_item].x,0,width, -get_canvas_x(), get_canvas_x() ) ;
+      float pos_y = map(mouse[ID_item].y,0,height, -get_canvas_y(), get_canvas_y() ) ;
       flock.goal(pos_x,pos_y, depthGoal);
     }
 
     int beat_sensibility = 5 ;
     if(all_transient(ID_item) > beat_sensibility) {      
       float depthGoal =sin(frameCount *.003) *width ;
-      float pos_x = sin(frameCount *.003) *canvas_x_item[ID_item] ;
-      float pos_y = cos(frameCount *.003) *canvas_y_item[ID_item] ;
+      float pos_x = sin(frameCount *.003) *get_canvas_x() ;
+      float pos_y = cos(frameCount *.003) *get_canvas_y() ;
       flock.goal(pos_x,pos_y, depthGoal);
     }
 
 
     
     // INFLUENCE of the boid around him
-    float ratioInfluence = influence_item[ID_item] *400 +1 ;
+    float ratioInfluence = get_influence() *400 +1 ;
     float influenceArea =  abs(sin(frameCount *.001) *ratioInfluence) ;
     flock.influence(influenceArea);
     
     // SPEED
-    float speed = map(speed_x_item[ID_item],0,1,.1,7) ;
+    float speed = map(get_speed_x(),0,1,.1,7) ;
     speed *= speed ;
-    if(sound[ID_item] )speed *= (map(mix[ID_item],0,1,.00000001,7)) ;
-    if(!motion[ID_item] || (sound[ID_item] && get_time_track() < .2)) speed = .00000001 ;
+    if(sound_is() )speed *= (map(mix[ID_item],0,1,.00000001,7)) ;
+    if(!motion_is() || (sound_is() && get_time_track() < .2)) speed = .00000001 ;
     flock.speed(speed) ;
     
     // cage size
-    myCanvas.size.x = canvas_x_item[ID_item] *10 ;
-    myCanvas.size.y = canvas_y_item[ID_item] *10 ;
-    myCanvas.size.z = canvas_z_item[ID_item] *10 ;
+    myCanvas.size.x = get_canvas_x() *10 ;
+    myCanvas.size.y = get_canvas_y() *10 ;
+    myCanvas.size.z = get_canvas_z() *10 ;
     myCanvas.update() ;
   
     flock.canvasSetting(myCanvas.left, myCanvas.right, myCanvas.top, myCanvas.bottom, myCanvas.front, myCanvas.back) ;
     
     // quantity of boids
-    numOfBoid = int(quantity_item[ID_item] *700 +30); //amount of boids to start the program with
+    numOfBoid = int(get_quantity() *700 +30); //amount of boids to start the program with
     if(!FULL_RENDERING) numOfBoid /= 15 ;
     
     // change the setting of the boid
     for(Boid b : flock.listBoid) {
-      b.fillBoid = color(hue(b.fillBoid), saturation(fill_item[ID_item]), brightness(fill_item[ID_item]), alpha(fill_item[ID_item])) ;
-      b.strokeBoid = color(hue(b.strokeBoid), saturation(stroke_item[ID_item]), brightness(stroke_item[ID_item]), alpha(stroke_item[ID_item])) ;
+      b.fillBoid = color(hue(b.fillBoid), saturation(get_fill()), brightness(get_fill()), alpha(get_fill())) ;
+      b.strokeBoid = color(hue(b.strokeBoid), saturation(get_stroke()), brightness(get_stroke()), alpha(get_stroke())) ;
       b.size = size ;
       b.thickness = thickness;
     }
     
     
     if(flock.listBoid.size() < 1 ) {
-      flock.add(birthPlace, numOfBoid, fill_item[ID_item], stroke_item[ID_item], maxColorRef, rangeAroundYourColor) ;
+      flock.add(birthPlace, numOfBoid, get_fill(), get_stroke(), maxColorRef, rangeAroundYourColor) ;
     }
     
     // clear the boids list
     // flock.clear() ;
-    if(key_n && action[ID_item]) {
-      flock.add(birthPlace, numOfBoid, fill_item[ID_item], stroke_item[ID_item], maxColorRef, rangeAroundYourColor) ;
+    if(key_n && action_is()) {
+      flock.add(birthPlace, numOfBoid, get_fill(), get_stroke(), maxColorRef, rangeAroundYourColor) ;
     }
     
     // INFO

@@ -1,7 +1,7 @@
 /**
 CORE SCENE and PRESCENE 
 2015-2018
-v 1.8.0
+v 1.8.1
 */
 import java.net.*;
 import java.io.*;
@@ -256,6 +256,7 @@ void list_cameras() {
 LOAD
 v 0.2.0
 */
+/*
 void load_data_item(String path) {
   JSONArray load = new JSONArray() ;
   load = loadJSONArray(path);
@@ -281,12 +282,12 @@ void load_data_item(String path) {
   color_light[0].b = dataWorld.getFloat("brightness ambient") ;
   color_light[0].a = dataWorld.getFloat("alpha ambient") ;
   // pos ambient light
-  /**
-  Not use at this time
-  dataWorld.setFloat("pos x ambient", value) ;
-  dataWorld.setFloat("pos y ambient", value) ;
-  dataWorld.setFloat("pos z ambient", value) ;
-  */
+  
+ // Not use at this time
+  //dataWorld.setFloat("pos x ambient", value) ;
+  //dataWorld.setFloat("pos y ambient", value) ;
+  //dataWorld.setFloat("pos z ambient", value) ;
+
   // color light one
   color_light[1].r = dataWorld.getFloat("hue light 1") ;
   color_light[1].g = dataWorld.getFloat("saturation light 1") ;
@@ -306,15 +307,15 @@ void load_data_item(String path) {
   dir_light[2].y = dataWorld.getFloat("pos y light 2") ;
   dir_light[2].z = dataWorld.getFloat("pos z light 2") ;
   // sound
-  /**
+
   // I don't know, if it's pertinent to save this data ?
-  dataWorld.setFloat("sound left", value) ;
-  dataWorld.setFloat("sound right", value) ;
-  dataWorld.setBoolean("beat", value) ;
-  dataWorld.setBoolean("kick", value) ;
-  dataWorld.setBoolean("snare", value) ;
-  dataWorld.setBoolean("hat", value) ;
-  */
+  // dataWorld.setFloat("sound left", value) ;
+  // dataWorld.setFloat("sound right", value) ;
+  // dataWorld.setBoolean("beat", value) ;
+  // dataWorld.setBoolean("kick", value) ;
+  // dataWorld.setBoolean("snare", value) ;
+  // dataWorld.setBoolean("hat", value) ;
+
 
 
 
@@ -335,11 +336,11 @@ void load_data_item(String path) {
     centerCamY = dataCam.getFloat("pos y") ;
     centerCamY = dataCam.getFloat("pos z") ;
     upX = dataCam.getFloat("upX");
-    /**
+   
     // not use in this time, maybe for the future
-    upY = dataCam.getFloat("upY"); ;
-    upZ = dataCam.getFloat("upZ"); ;
-    */
+    // upY = dataCam.getFloat("upY"); ;
+    // upZ = dataCam.getFloat("upZ"); ;
+   
     // curent position
     finalSceneCamera.x = dataCam.getFloat("scene x") *width ;
     finalSceneCamera.y = dataCam.getFloat("scene y") *width ;
@@ -373,14 +374,14 @@ void load_data_item(String path) {
     float b_stroke = data_item.getFloat("brightness stroke");
     float a_stroke = data_item.getFloat("alpha stroke");
     if(FULL_RENDERING) {
-      fill_item[ID] = color(h_fill, s_fill, b_fill, a_fill) ;
-      stroke_item[ID] = color(h_stroke, s_stroke, b_stroke, a_stroke) ;
-      thickness_item[ID] = data_item.getFloat("thickness") *height ;
+      get_fill() = color(h_fill, s_fill, b_fill, a_fill) ;
+     get_stroke() = color(h_stroke, s_stroke, b_stroke, a_stroke) ;
+      get_thickness() = data_item.getFloat("thickness") *height ;
     } else {
       // preview display
-      fill_item[ID] = COLOR_FILL_ITEM_PREVIEW ;
-      stroke_item[ID] =  COLOR_STROKE_ITEM_PREVIEW ;
-      thickness_item[ID] = THICKNESS_ITEM_PREVIEW ;
+      get_fill() = COLOR_FILL_ITEM_PREVIEW ;
+     get_stroke() =  COLOR_STROKE_ITEM_PREVIEW ;
+      get_thickness() = THICKNESS_ITEM_PREVIEW ;
       }
 
     size_x_item[ID] = data_item.getFloat("width") *width ;
@@ -426,7 +427,7 @@ void load_data_item(String path) {
     dir_item[ID].y  = data_item.getFloat("latitude obj") ;
   }
 }
-
+*/
 
 
 
@@ -463,8 +464,9 @@ void select_font(int target)  {
 
 void init_font() {
   current_font = font[0];
-  for(int i = 0 ; i < font_item.length ; i++) {
-    font_item[i] = current_font;
+  for(int i = 0 ; i < rpe_manager.size() ; i++) {
+    Romanesco item = rpe_manager.get(i);
+   item.set_font(current_font);
   }
 }
 

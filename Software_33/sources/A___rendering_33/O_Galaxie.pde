@@ -118,7 +118,7 @@ class Galaxie extends Romanesco {
   void draw() {
     
     //surface
-    PVector marge = new PVector(map(canvas_x_item[ID_item],width/10, width, width/20, width*10), map(canvas_y_item[ID_item],width/10, width, height/20, height*10), map(canvas_z_item[ID_item], width/10, width, width/10, width *10))  ;
+    PVector marge = new PVector(map(get_canvas_x(),width/10, width, width/20, width*10), map(get_canvas_y(),width/10, width, height/20, height*10), map(get_canvas_z(), width/10, width, width/10, width *10))  ;
     PVector surface = new PVector(marge.x *2 +width, marge.y *2 +height) ;
     
     //quantity of star
@@ -128,7 +128,7 @@ class Galaxie extends Romanesco {
       min = 30 ;
       max = 150 ;
     }
-    float quantity = map(quantity_item[ID_item],0,1,min,max) ;
+    float quantity = map(get_quantity(),0,1,min,max) ;
     if (get_costume().get_type() == POINT_ROPE) {
       numFromController = int(quantity *10); 
     } else {
@@ -136,7 +136,7 @@ class Galaxie extends Romanesco {
     }
     
 
-    if ((numGrains != numFromController && parameter[ID_item]) || reset(ID_item) ) {
+    if ((numGrains != numFromController && parameter_is()) || reset(this) ) {
       makeSand = true;
     }
     
@@ -152,8 +152,8 @@ class Galaxie extends Romanesco {
     deformationGrain = orientationStyletGrain.copy() ; ;
     
     // speed / vitesse
-     speedDust = map(speed_x_item[ID_item],0,1, 0.00005 ,.5) ; 
-     if(sound[ID_item]) speedDust *= 3 ;
+     speedDust = map(get_speed_x(),0,1, 0.00005 ,.5) ; 
+     if(sound_is()) speedDust *= 3 ;
         
     vitesseGrainA = map(left[ID_item],0,1, 1, 17) ;
     vitesseGrainB = map(right[ID_item],0,1, 1, 17) ;
@@ -162,7 +162,7 @@ class Galaxie extends Romanesco {
     
     vitesseGrain.x = vitesseGrainA *speedDust *tempo[ID_item] *pressionGrain  ;
     vitesseGrain.y = vitesseGrainB *speedDust *tempo[ID_item] *pressionGrain  ;
-    if(reverse[ID_item]) {
+    if(reverse_is()) {
       vitesseGrain.x = vitesseGrain.x *1 ; 
       vitesseGrain.y = vitesseGrain.y *1 ; 
     } else {
@@ -172,19 +172,19 @@ class Galaxie extends Romanesco {
     
     // force
     int maxInfluence = 11 ;
-    variableRayonGrain = map(influence_item[ID_item], 0,1, 0, maxInfluence ) ;
+    variableRayonGrain = map(get_influence(), 0,1, 0, maxInfluence ) ;
     
     //size
-    float objWidth =  .1 +size_x_item[ID_item] *mix[ID_item] ;
-    float objHeight = .1 +size_y_item[ID_item] *mix[ID_item] ;
-    float objDepth = .1 +size_z_item[ID_item] *mix[ID_item] ;
+    float objWidth =  .1 +get_size_x() *mix[ID_item] ;
+    float objHeight = .1 +get_size_y() *mix[ID_item] ;
+    float objDepth = .1 +get_size_z() *mix[ID_item] ;
     Vec3 size = Vec3(objWidth, objHeight,objDepth) ;
     
     //thickness / épaisseur
-    float thickness = thickness_item[ID_item] ;
+    float thickness = get_thickness() ;
 
-    int colorIn = fill_item[ID_item] ;
-    int colorOut = stroke_item[ID_item] ;
+    int colorIn = get_fill() ;
+    int colorOut = get_stroke() ;
     
 
     
@@ -202,14 +202,14 @@ class Galaxie extends Romanesco {
     
     /////////
     //UPDATE
-    if(motion[ID_item]) if (speed_x_item[ID_item] >= 0.01) updateGrain(key_up, key_down, key_left, key_right, clickLongLeft[ID_item], marge);
+    if(motion_is()) if (get_speed_x() >= 0.01) updateGrain(key_up, key_down, key_left, key_right, clickLongLeft[ID_item], marge);
     
     //////////////
     //DISPLAY MODE
     // select_costume();
 
     
-    // aspect(fill_item[ID_item], stroke_item[ID_item], thickness_item[ID_item], get_costume()) ;
+    // aspect(get_fill(), get_stroke(), get_thickness(), get_costume()) ;
     show(size, thickness,ID_item);
     
    
@@ -254,8 +254,8 @@ class Galaxie extends Romanesco {
       // ratio is used to don't have "moirage" problem
       z_pos += ratio ;
       Vec3 pos = Vec3(grain[i].x, grain[i].y, z_pos) ;
-      aspect(fill_item[ID], stroke_item[ID], thickness_item[ID]);
-      set_ratio_costume_size(map(area_item[ID],width*.1, width*TAU*4,0,1));
+      aspect(get_fill(),get_stroke(), get_thickness());
+      set_ratio_costume_size(map(get_area(),width*.1, width*TAU*4,0,1));
       costume(pos,size,get_costume()) ;
 
     }

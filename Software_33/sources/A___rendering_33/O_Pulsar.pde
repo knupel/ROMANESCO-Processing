@@ -76,7 +76,7 @@ class Pulsar extends Romanesco {
   //DRAW
   int num_ref ;
   void draw() {
-    float num_temp = quantity_item[ID_item];
+    float num_temp = get_quantity();
     num_temp = num_temp *num_temp *num_temp;
     int num = int(5 + (5000 *num_temp));
     if(pulsar == null || num_ref != num) {
@@ -89,19 +89,19 @@ class Pulsar extends Romanesco {
 
 
   void pulsar() {
-    int radius = (int)canvas_x_item[ID_item];
+    int radius = (int)get_canvas_x();
 
-    Vec3 speed = Vec3(speed_x_item[ID_item],speed_y_item[ID_item],speed_z_item[ID_item]);
+    Vec3 speed = Vec3(get_speed_x(),get_speed_y(),get_speed_z());
     speed.pow(3).div(2);
 
     // cloud_3D.ring(.01, false);
     // cloud_3D.helmet(.005, false);
-    float ratio_size = map(area_item[ID_item],width*.1, width*TAU,0,1);
-    pulsar.size(size_x_item[ID_item],size_y_item[ID_item],size_z_item[ID_item]);
+    float ratio_size = map(get_area(),width*.1, width*TAU,0,1);
+    pulsar.size(get_size_x(),get_size_y(),get_size_z());
     // cloud_3D.size((height/4) *abs(sin(frameCount *.01)));
     // cloud_3D.orientation_y(map(mouseY,0,height,-PI,PI));
     // cloud_3D.angle(frameCount *.01);
-    aspect(fill_item[ID_item], stroke_item[ID_item], thickness_item[ID_item]);
+    aspect(get_fill(), get_stroke(), get_thickness());
     
 
 
@@ -109,18 +109,18 @@ class Pulsar extends Romanesco {
     // rendering
 
 
-    if(motion[ID_item]) {
+    if(motion_is()) {
       pulsar.rotation_x(speed.x,false);
       pulsar.rotation_y(speed.y,false);
       pulsar.rotation_z(speed.z,false);
       pulsar.orientation(get_dir());
 
       mode();
-      float swing = swing_x_item[ID_item] *swing_x_item[ID_item];
+      float swing = get_swing_x() *get_swing_x();
       swing = map(swing,0,1,0,80);
 
       pulsar.set_tempo((int)swing);
-      if(!sound[ID_item]) {
+      if(!sound_is()) {
 
         // pulsar.set_tempo(80);   
       } else {

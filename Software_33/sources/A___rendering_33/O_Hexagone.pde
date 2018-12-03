@@ -3,9 +3,10 @@ HONEYCOMB
 2011-2018
 v 0.1.4
 */
-ArrayList <Hexagon> grid = new ArrayList <Hexagon> (); // the arrayList to store the whole grid of cells
+
 
 class Honeycomb extends Romanesco {
+  ArrayList <Hexagon> grid; // the arrayList to store the whole grid of cells
   public Honeycomb() {
     //from the index_objects.csv
     item_name = "Nid d'abeille" ;
@@ -86,23 +87,24 @@ class Honeycomb extends Romanesco {
     setting_start_position(ID_item, width/2, height/2, 0) ;
     canvas = new PVector(width, height) ;
     canvasRef = canvas.copy();
+    if(grid == null) grid = new ArrayList<Hexagon>();
     initGrid(canvas); // initialize the CA grid of hexagons (including neighbour search and creation of hexagon vertex positions)
   }
   //DRAW
   void draw() {
     neighbourDistance = hexagonRadius *2;
-    hexagonStroke = thickness_item[ID_item] ;
-    hexagonRadius = map(size_x_item[ID_item],.1,width, width /40, width/15)  ;
+    hexagonStroke = get_thickness() ;
+    hexagonRadius = map(get_size_x(),.1,width, width /40, width/15)  ;
 
     
     // limitation for the preview
     int minSize = width/80 ;
     if(FULL_RENDERING) {
-      sliderCanvasX = map(canvas_x_item[ID_item], width/10, width, minSize, width *4) ;
-      sliderCanvasY = map(canvas_y_item[ID_item], width/10, width, minSize, width *4) ;      
+      sliderCanvasX = map(get_canvas_x(), width/10, width, minSize, width *4) ;
+      sliderCanvasY = map(get_canvas_y(), width/10, width, minSize, width *4) ;      
     } else {
-      sliderCanvasX = map(canvas_x_item[ID_item], width/10, width, minSize, width) ;
-      sliderCanvasY = map(canvas_y_item[ID_item], width/10, width, minSize, width) ;
+      sliderCanvasX = map(get_canvas_x(), width/10, width, minSize, width) ;
+      sliderCanvasY = map(get_canvas_y(), width/10, width, minSize, width) ;
     }
     
     
@@ -142,14 +144,14 @@ class Honeycomb extends Romanesco {
     
     for (Hexagon h : grid) {
       h.changeColor();
-      h.display(v, fill_item[ID_item],soundSizeFactor);
+      h.display(v, get_fill(),soundSizeFactor);
     }
     popMatrix() ;
     
     // new honeycomb
     if((birth_is())) {
       newHoneycomb = true ;
-      set_birth(false);
+      birth_is(false);
     }
     
     if(newHoneycomb) {
@@ -168,7 +170,7 @@ class Honeycomb extends Romanesco {
   // ANNEXE VOID
   // do everything needed to start up the grid ONCE
   void initGrid(PVector canvas) {
-    grid.clear(); // clear the grid
+  grid.clear(); // clear the grid
     
     // calculate horizontal grid size based on sketch width, hexagonRadius and a 'safety margin'
     int hX = int(canvas.x/hexagonRadius/3)+2;
@@ -195,16 +197,8 @@ class Honeycomb extends Romanesco {
       v[i] = new PVector(r*cos(theta), r*sin(theta));
     }
   }
-}
-//end object two
 
-
-
-
-
-
-
-/*
+  /*
 
  Hexagon class to store a single cell inside a grid that can do the following things:
  - calculate it's own actual xy position based on it's ij coordinates within the grid
@@ -217,73 +211,84 @@ class Honeycomb extends Romanesco {
  
 */
 
-class Hexagon {
-  float x, y; // actual xy position
-  ArrayList <Hexagon> neighbours = new ArrayList <Hexagon> (); // arrayList to store the neighbours
-  float currentColor, newColor; // store the current and new colors (actually just the hue)
+  private class Hexagon {
+    float x, y; // actual xy position
+    ArrayList <Hexagon> neighbours = new ArrayList <Hexagon> (); // arrayList to store the neighbours
+    float currentColor, newColor; // store the current and new colors (actually just the hue)
 
-  Hexagon(int i, int j, float radius) {
-    x = 3*radius*(i+((j%2==0)?0:0.5)); // calculate the actual x position within the sketch window
-    y = 0.866*radius*j; // calculate the actual y position within the sketch window
-    resetColor(0); // set the initial color
-  }
+    Hexagon(int i, int j, float radius) {
+      x = 3*radius*(i+((j%2==0)?0:0.5)); // calculate the actual x position within the sketch window
+      y = 0.866*radius*j; // calculate the actual y position within the sketch window
+      resetColor(0); // set the initial color
+    }
 
-  void resetColor(float r) {
-    currentColor = (r+sin(x+r*0.01)*30+y/6)%360; // could be anything, but this makes the grid look good! :D
-  }
+    void resetColor(float r) {
+      currentColor = (r+sin(x+r*0.01)*30+y/6)%360; // could be anything, but this makes the grid look good! :D
+    }
 
-  // given a distance parameter, this will add all the neighbours within range to the list
-  void getNeighbours(float distance) {
-    // neighbours.clear(); // in this sketch not required because neighbours are only searched once
-    for (Hexagon h : grid) { // for all the cells in the grid
-      if (h!=this) { // if it's not the cell itself
-        if (dist(x,y, h.x,h.y) < distance) { // if it's within distance
-          neighbours.add( h ); // then add it to the list: "Welcome neighbour!"
+    // given a distance parameter, this will add all the neighbours within range to the list
+    void getNeighbours(float distance) {
+      // neighbours.clear(); // in this sketch not required because neighbours are only searched once
+      for (Hexagon h : grid) { // for all the cells in the grid
+        if (h!=this) { // if it's not the cell itself
+          if (dist(x,y, h.x,h.y) < distance) { // if it's within distance
+            neighbours.add( h ); // then add it to the list: "Welcome neighbour!"
+          }
         }
       }
     }
-  }
-  
-  // calculate the new color based on a completely arbitrary set of 'rules'
-  // this could be anything, right now it's this, which makes the CA pretty dynamic
-  // if you tweak this in the wrong way you quickly end up with boring static states
-  void calculateNewColor() {
-    float avgColor = averageColor(); // get the average of the neighbours (see other method)
-    float tmpColor = currentColor;
-    if (avgColor < 0) {
-      tmpColor = 50; // if the average color is below 0, set the color to 50
-    } else if (avgColor < 150) {
-      tmpColor += 5; // if the average color is between 0 and 150, add 5 to the color
-    } else if (avgColor > 210) {
-      tmpColor -= 5; // if the average color is above 210, subtract 5 from the color
+    
+    // calculate the new color based on a completely arbitrary set of 'rules'
+    // this could be anything, right now it's this, which makes the CA pretty dynamic
+    // if you tweak this in the wrong way you quickly end up with boring static states
+    void calculateNewColor() {
+      float avgColor = averageColor(); // get the average of the neighbours (see other method)
+      float tmpColor = currentColor;
+      if (avgColor < 0) {
+        tmpColor = 50; // if the average color is below 0, set the color to 50
+      } else if (avgColor < 150) {
+        tmpColor += 5; // if the average color is between 0 and 150, add 5 to the color
+      } else if (avgColor > 210) {
+        tmpColor -= 5; // if the average color is above 210, subtract 5 from the color
+      }
+      // in all other cases (aka the average color is between 150 and 210) the color remains unchanged
+      newColor = tmpColor;
     }
-    // in all other cases (aka the average color is between 150 and 210) the color remains unchanged
-    newColor = tmpColor;
-  }
-  
-  // returns the average color (aka hue) of the neighbours
-  float averageColor() {
-    float avgColor = 0; // start with 0
-    for (Hexagon h : neighbours) {
-      avgColor += h.currentColor; // add the color from each neighbour
+    
+    // returns the average color (aka hue) of the neighbours
+    float averageColor() {
+      float avgColor = 0; // start with 0
+      for (Hexagon h : neighbours) {
+        avgColor += h.currentColor; // add the color from each neighbour
+      }
+      avgColor /= neighbours.size(); // divide by the number of neighbours
+      return avgColor; // done!
     }
-    avgColor /= neighbours.size(); // divide by the number of neighbours
-    return avgColor; // done!
-  }
-  
-  void changeColor() {
-    currentColor = newColor; // set the current color to the new(ly calculated) color
-  }
+    
+    void changeColor() {
+      currentColor = newColor; // set the current color to the new(ly calculated) color
+    }
 
-  // display the hexagon at position xy with the current color
-  // use the vertex positions that have been pre-calculated ONCE (instead of re-calculating these for each cell on each draw)
-  void display(PVector[] v, color in, float factor) {
-    pushMatrix();
-    translate(x, y);
-    fill(currentColor, saturation(in), brightness(in), alpha(in));
-    beginShape();
-    for (int i=0; i<6; i++) { vertex(v[i].x *factor, v[i].y *factor); }
-    endShape();
-    popMatrix();
+    // display the hexagon at position xy with the current color
+    // use the vertex positions that have been pre-calculated ONCE (instead of re-calculating these for each cell on each draw)
+    void display(PVector[] v, color in, float factor) {
+      pushMatrix();
+      translate(x, y);
+      fill(currentColor, saturation(in), brightness(in), alpha(in));
+      beginShape();
+      for (int i=0; i<6; i++) { vertex(v[i].x *factor, v[i].y *factor); }
+      endShape();
+      popMatrix();
+    }
   }
 }
+//end object two
+
+
+
+
+
+
+
+
+

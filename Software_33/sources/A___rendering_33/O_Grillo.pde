@@ -107,7 +107,7 @@ class Grillo extends Romanesco {
       } else {
         pile_ou_face(canvas,false);
       }
-      set_birth(false);
+      birth_is(false);
     }
 
 

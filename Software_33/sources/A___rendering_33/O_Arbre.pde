@@ -82,9 +82,9 @@ class ArbreRomanesco extends Romanesco {
     // num fork for the tree
     iVec2 fork = iVec2(maxFork);
   
-    int n = int(map(quantity_item[ID_item],0,1,2,maxFork*2)) ;
+    int n = int(map(get_quantity(),0,1,2,maxFork*2)) ;
     
-    float epaisseur = thickness_item[ID_item] ;
+    float epaisseur = get_thickness() ;
     float ratioLeft = map(left[ID_item], 0, 1, .5, 2) ;
     float ratioRight = map(right[ID_item], 0, 1, .5, 2) ;
     if(!FULL_RENDERING) {
@@ -95,25 +95,25 @@ class ArbreRomanesco extends Romanesco {
 
     //size of the shape
     Vec2 div = Vec2(.66);
-    if(sound[ID_item]) {
+    if(sound_is()) {
       div.set(ratioLeft,ratioRight);
     } 
 
       
     //size
     int div_size = 20 ;
-    float x = map(size_x_item[ID_item],.1,width,.1,width /div_size) ;
-    float y = map(size_y_item[ID_item],.1,width,.1,width /div_size) ;
-    float z = map(size_z_item[ID_item],.1,width,.1,width /div_size) ;
+    float x = map(get_size_x(),.1,width,.1,width /div_size) ;
+    float y = map(get_size_y(),.1,width,.1,width /div_size) ;
+    float z = map(get_size_z(),.1,width,.1,width /div_size) ;
     x = x *x *ratioMix ;
     y = y *y *ratioMix ;
     z = z *z *ratioMix ;
 
     Vec3 size  = Vec3(x,y,z) ;
     //orientation
-    float direction = dir_x_item[ID_item] ;
+    float direction = get_dir_x() ;
     //amplitude
-    Vec2 amplitude = Vec2(canvas_x_item[ID_item] *.5,canvas_y_item[ID_item] *.5) ;
+    Vec2 amplitude = Vec2(get_canvas_x() *.5,get_canvas_y() *.5) ;
     if(FULL_RENDERING) {
       amplitude.mult(all_transient(ID_item));
     }
@@ -124,11 +124,11 @@ class ArbreRomanesco extends Romanesco {
     // angle
     float angle = 90 ; // but this function must be remove because it give no effect
     // speed
-    if(motion[ID_item] && FULL_RENDERING) {
-      float s = map(speed_x_item[ID_item],0,1,0,2) ;
+    if(motion_is() && FULL_RENDERING) {
+      float s = map(get_speed_x(),0,1,0,2) ;
       s *= s;
       speed = s *tempo[ID_item]; 
-    } else if (!motion[ID_item] && FULL_RENDERING){ 
+    } else if (!motion_is() && FULL_RENDERING){ 
       speed = 0.;
     } else {
       speed = 1.;
@@ -136,15 +136,15 @@ class ArbreRomanesco extends Romanesco {
     
     
     boolean bool_link = false ;
-    if(wire[ID_item]) bool_link = true ; else bool_link = false ;
+    if(wire_is()) bool_link = true ; else bool_link = false ;
     
 
     arbre.show(direction);
     arbre.update(epaisseur,size,div,fork,amplitude,n,get_costume(),bool_link,angle,speed,ID_item) ;
-    if(horizon[ID_item]) {
+    if(horizon_is()) {
       arbre.set_horizon(0) ; 
     } else {
-      arbre.set_horizon(map(alignment_item[ID_item],0,1,-1,1));
+      arbre.set_horizon(map(get_alignment(),0,1,-1,1));
     }
     
     //info

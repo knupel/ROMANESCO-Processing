@@ -102,19 +102,19 @@ class Flux extends Romanesco {
 
 
   void draw_flux(int mult_particle) {
-    float ratio_num = quantity_item[ID_item] *quantity_item[ID_item] *quantity_item[ID_item];
+    float ratio_num = get_quantity() *get_quantity() *get_quantity();
     int num = (int)map(ratio_num,0,1,10,3000); // > 100_000;
     num *= mult_particle;
     
     set_vehicle(num);
     init_vehicle(num,get_force_field()); 
     
-    float speed = .1 + (speed_x_item[ID_item]*2.);
+    float speed = .1 + (get_speed_x()*2.);
     update_vehicle(get_force_field(),speed);
-    aspect(fill_item[ID_item], stroke_item[ID_item],thickness_item[ID_item]);
-    Vec3 size = Vec3(size_x_item[ID_item],size_y_item[ID_item],size_z_item[ID_item]);
+    aspect(get_fill(), get_stroke(),get_thickness());
+    Vec3 size = Vec3(get_size_x(),get_size_y(),get_size_z());
     // size.map(size_x_min_max.x,size_x_min_max.y,1,size_x_min_max.y);
-    show_vehicle(size,area_item[ID_item],get_costume());
+    show_vehicle(size,get_area(),get_costume());
 
     //
     item_info[ID_item] = ("vehicles: " +vehicles.size());

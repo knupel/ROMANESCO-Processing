@@ -81,52 +81,52 @@ class Puppet_master extends Romanesco {
   void draw() {
     puppet_master(true);
     // int num, float quantity_slider, boolean use_slider_quantity
-    // num_spot_management(300, quantity_item[ID_item],true);
+    // num_spot_management(300, get_quantity(),true);
 
     iVec2 canvas_ff = get_force_field().get_canvas();
-    float max_w = map(canvas_x_item[ID_item],width *.1,(float)width *TAU,canvas_ff.x,5*canvas_ff.x);
+    float max_w = map(get_canvas_x(),width *.1,(float)width *TAU,canvas_ff.x,5*canvas_ff.x);
     Vec2 limit_w = Vec2(-(max_w-canvas_ff.x),max_w);
 
-    float max_h = map(canvas_y_item[ID_item],width *.1,(float)width *TAU,canvas_ff.y,5*canvas_ff.y);
+    float max_h = map(get_canvas_y(),width *.1,(float)width *TAU,canvas_ff.y,5*canvas_ff.y);
     Vec2 limit_h = Vec2(-(max_h-canvas_ff.y),max_h);
     
     // here we use the y component of canvas because the `z`don't exist.
-    float max_d = map(canvas_z_item[ID_item],width *.1,(float)width *TAU,canvas_ff.y*.1,5*canvas_ff.y);
+    float max_d = map(get_canvas_z(),width *.1,(float)width *TAU,canvas_ff.y*.1,5*canvas_ff.y);
     Vec2 limit_d = Vec2(-(max_d-canvas_ff.y),max_d);
 
 
 
     
     // motion
-    if(motion[ID_item]) {
+    if(motion_is()) {
       // speed rotation
-      speed.x = (speed_x_item[ID_item]*speed_x_item[ID_item]*speed_x_item[ID_item]);
+      speed.x = (get_speed_x()*get_speed_x()*get_speed_x());
       speed.x *= .1;
       //angle growth
-      speed.y = speed_y_item[ID_item]*speed_y_item[ID_item]*speed_y_item[ID_item];
+      speed.y = get_speed_y()*get_speed_y()*get_speed_y();
       speed.y *= .1;
       //angle growth
-      speed.z = speed_z_item[ID_item]*speed_z_item[ID_item]*speed_z_item[ID_item];
+      speed.z = get_speed_z()*get_speed_z()*get_speed_z();
       speed.z *= .1;
-      if(reverse[ID_item]) {
+      if(reverse_is()) {
         speed.mult(-1);
       }
     } 
 
     // num spiral
-    int num_spiral = (int)map(angle_item[ID_item],0,TAU,1,13);
+    int num_spiral = (int)map(get_angle(),0,TAU,1,13);
 
     // range min_max for the radius
-    Vec2 range = Vec2(swing_x_item[ID_item],swing_x_item[ID_item]*5);
+    Vec2 range = Vec2(get_swing_x(),get_swing_x()*5);
 
-    int which_behavior = floor(map(variety_item[ID_item],0,1,0,6));
+    int which_behavior = floor(map(get_variety(),0,1,0,6));
     if(which_behavior == 6) which_behavior = 5;
 
     // attractivity / repulsion
-    int diameter = (int)map(diameter_item[ID_item],width *.1,(float)width *TAU,2,height/3);
-    int attraction = (int)map(attraction_item[ID_item],0,1,0,100);
-    int repulsion = (int)map(repulsion_item[ID_item],0,1,0,-100);
-    int mass =(int)map(density_item[ID_item],0,1,0,100);
+    int diameter = (int)map(get_diameter(),width *.1,(float)width *TAU,2,height/3);
+    int attraction = (int)map(get_attraction(),0,1,0,100);
+    int repulsion = (int)map(get_repulsion(),0,1,0,-100);
+    int mass =(int)map(get_density(),0,1,0,100);
 
     if(get_type_force_field() == MAGNETIC) {
       set_force_magnetic_tesla(attraction,repulsion);
@@ -144,26 +144,26 @@ class Puppet_master extends Romanesco {
     } else if(get_mode_id() == 1) {
       duo_spot();
     } else if(get_mode_id() == 2) {
-      num_spot_management(300, quantity_item[ID_item],true);
-      valse_2D_spot(canvas_x_item[ID_item],speed,num_spiral,range,which_behavior);
+      num_spot_management(300, get_quantity(),true);
+      valse_2D_spot(get_canvas_x(),speed,num_spiral,range,which_behavior);
     } else if(get_mode_id() == 3) {
-      num_spot_management(300, quantity_item[ID_item],true);
+      num_spot_management(300, get_quantity(),true);
       valse_3D_spot();
     } else if(get_mode_id() == 4) {
-      num_spot_management(300, quantity_item[ID_item],true);
+      num_spot_management(300, get_quantity(),true);
       whisky_spot(canvas_ff,speed,limit_w,limit_h,limit_d);
     } else if(get_mode_id() == 5) {
-      num_spot_management(300, quantity_item[ID_item],true);
+      num_spot_management(300, get_quantity(),true);
       random_spot(frameCount%60 == 0);
     }
 
 
 
     // SHOW SPOT
-    float ratio_size_costume = map(area_item[ID_item],width*.1, width*TAU,0,width*.001);
-    Vec3 size = Vec3(size_x_item[ID_item],size_y_item[ID_item],size_z_item[ID_item]);
-    aspect_is(fill_is[ID_item],stroke_is[ID_item]);
-    aspect(fill_item[ID_item], stroke_item[ID_item],thickness_item[ID_item]);
+    float ratio_size_costume = map(get_area(),width*.1, width*TAU,0,width*.001);
+    Vec3 size = Vec3(get_size_x(),get_size_y(),get_size_z());
+    aspect_is(fill_is(),stroke_is());
+    aspect(get_fill(), get_stroke(),get_thickness());
     
     for(int i =  0 ; i < get_spot_num() ; i++) {
       Vec3 pos = Vec3(get_spot_pos(i));
@@ -176,12 +176,12 @@ class Puppet_master extends Romanesco {
 
 
   private void solo_spot() {
-    num_spot_management(1, quantity_item[ID_item],false);
+    num_spot_management(1, get_quantity(),false);
     set_spot_pos(mouse[ID_item],0);
   }
 
   private void duo_spot() {
-    num_spot_management(2, quantity_item[ID_item],false);
+    num_spot_management(2, get_quantity(),false);
     set_spot_pos(mouse[ID_item],0);
     set_spot_pos(width -mouse[ID_item].x,height -mouse[ID_item].y,1);
   }
@@ -240,9 +240,9 @@ class Puppet_master extends Romanesco {
   // END CLASS
   private void random_spot(boolean condition) {
     boolean random_draw = false;
-    if(sound[ID_item] && transient_is(0)) {
+    if(sound_is() && transient_is(0)) {
     	random_draw = true;
-    } else if(!sound[ID_item] && condition) {
+    } else if(!sound_is() && condition) {
     	random_draw = true;
     }
 

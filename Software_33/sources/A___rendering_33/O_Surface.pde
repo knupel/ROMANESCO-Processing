@@ -98,39 +98,39 @@ class Surface extends Romanesco {
   // draw
   void draw() {
     // color to Vec4 composant
-    fill_color = Vec4(hue(fill_item[ID_item]),saturation(fill_item[ID_item]),brightness(fill_item[ID_item]),alpha(fill_item[ID_item])) ;
-    stroke_color = Vec4(hue(stroke_item[ID_item]),saturation(stroke_item[ID_item]),brightness(stroke_item[ID_item]),alpha(stroke_item[ID_item])) ;
+    fill_color = Vec4(hue(get_fill()),saturation(get_fill()),brightness(get_fill()),alpha(get_fill())) ;
+    stroke_color = Vec4(hue(get_stroke()),saturation(get_stroke()),brightness(get_stroke()),alpha(get_stroke())) ;
     // load image
-    if(parameter[ID_item]) {
+    if(parameter_is()) {
       load_bitmap(ID_item);
     }
 
     //ratio speed
-    float ratio_speed = speed_x_item[ID_item] *speed_x_item[ID_item] *speed_x_item[ID_item] ;
+    float ratio_speed = get_speed_x() *get_speed_x() *get_speed_x() ;
 
     //speed
-    if(motion[ID_item] ) {
+    if(motion_is() ) {
       speed = ratio_speed ; 
     } else { 
       speed = 0 ;
     }
     // swing
-    if(sound[ID_item] && sound_is()) { 
+    if(sound_is() && sound_is()) { 
       ratio_swing = all_transient(ID_item) ; 
     } else {
       ratio_swing = 2 ;
     }
     // update motion
-    if(motion[ID_item]) {
+    if(motion_is()) {
       float speed_image = ratio_speed ;
-      float amplitude_image = swing_x_item[ID_item] *width *ratio_swing ;
+      float amplitude_image = get_swing_x() *width *ratio_swing ;
       altitude_image = int(sin(frameCount *speed_image) *amplitude_image) ;
     }
     
     
     
     // IMAGE GRID
-    sizePixel_image = floor(map(quality_item[ID_item], 0,1,width/20,2)) ;
+    sizePixel_image = floor(map(get_quality(), 0,1,width/20,2)) ;
     if(!FULL_RENDERING) sizePixel_image *= 3 ;
     // update data of the image
     if(key_n) {
@@ -146,41 +146,41 @@ class Surface extends Romanesco {
     if(get_mode_id() != 0 ) {
       //size pixel triangle
       int sizePixMin = 7 ;
-      int sizePix_grid_simple = int(sizePixMin +size_x_item[ID_item] /11) ;
+      int sizePix_grid_simple = int(sizePixMin +get_size_x() /11) ;
       if(!FULL_RENDERING) sizePix_grid_simple *= 3 ;
       //size canvas grid
-      Vec2 newCanvas = Vec2(canvas_x_item[ID_item],canvas_y_item[ID_item]) ;
+      Vec2 newCanvas = Vec2(get_canvas_x(),get_canvas_y()) ;
       newCanvas.mult(4.5) ;
       // create grid if there is no grid
       if(grid_surface_simple.size() < 1) create_surface_simple(sizePix_grid_simple,newCanvas) ;
       
       // from of the wave
-      int maxStep = (int)map(influence_item[ID_item],0,1,2,50) ;
+      int maxStep = (int)map(get_influence(),0,1,2,50) ;
       step = map(noise(5),0,1,0,maxStep) ; // break the linear mode of the wave
       // amplitude
-      amplitude_simple_grid = swing_x_item[ID_item] *height *.07 *ratio_swing  ;
+      amplitude_simple_grid = get_swing_x() *height *.07 *ratio_swing  ;
       amplitude_simple_grid *= amplitude_simple_grid  ;
       
       // clear the list
-      if(refSizeTriangle != size_x_item[ID_item] || !canvasRef.equals(newCanvas)) {
+      if(refSizeTriangle != get_size_x() || !canvasRef.equals(newCanvas)) {
         grid_surface_simple.clear() ;
       }
       
       // Vague + clear
       if(get_mode_id() == 1 ) {
-        if(refSizeTriangle != size_x_item[ID_item] || !canvasRef.equals(newCanvas)) {
+        if(refSizeTriangle != get_size_x() || !canvasRef.equals(newCanvas)) {
           if(get_mode_id() == 1 ) grid_surface_simple.clear() ;
           create_surface_simple(sizePix_grid_simple,newCanvas) ;
         }
       }
       // vague ++
       if(get_mode_id() == 2) {
-        if(refSizeTriangle != size_x_item[ID_item] || !canvasRef.equals(newCanvas)) {
+        if(refSizeTriangle != get_size_x() || !canvasRef.equals(newCanvas)) {
           create_surface_simple(sizePix_grid_simple,newCanvas) ;
         }
       }
       // make the reference
-      refSizeTriangle = size_x_item[ID_item] ;
+      refSizeTriangle = get_size_x() ;
       canvasRef = newCanvas ;
     }
     // END simple grid param
@@ -216,10 +216,10 @@ class Surface extends Romanesco {
   void update_and_clean(int whichMode) {
     if(whichMode == 0 ) {
       if( grid_surface_simple.size() > 0 )grid_surface_simple.clear() ;
-      update_surface_image(sizePixel_image, fill_color, stroke_color,thickness_item[ID_item], altitude_image) ;
+      update_surface_image(sizePixel_image, fill_color, stroke_color,get_thickness(), altitude_image) ;
     } else if (whichMode == 1 || whichMode == 2 ) {
       if( grid_surface_image.size() > 0 )grid_surface_image.clear() ;
-      update_surface_simple(fill_item[ID_item], stroke_item[ID_item], thickness_item[ID_item], speed, amplitude_simple_grid, step) ;
+      update_surface_simple(get_fill(), get_stroke(), get_thickness(), speed, amplitude_simple_grid, step) ;
     }
   }
   

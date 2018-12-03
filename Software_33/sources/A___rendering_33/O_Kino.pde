@@ -66,9 +66,9 @@ class Kino extends Romanesco {
     // grid_is = true;
     // viscosity_is = true;
     // diffusion_is = true;
-    pos_x_is = true;
-    // pos_y_is = true;
-    // pos_z_is = true;
+    coord_x_is = true;
+    // coord_y_is = true;
+    // coord_z_is = true;
 	}
 
 	void setup() {
@@ -78,7 +78,7 @@ class Kino extends Romanesco {
 
 
 
-  float pos_ref;
+  float coord_ref;
 	void draw() {
     param();
 
@@ -93,9 +93,9 @@ class Kino extends Romanesco {
 		}
 
     if(parameter_is() && get_movie() != null) {
-      if(pos_ref != get_pos_x()) {
-        pos_ref = get_pos_x();
-        float pos = get_pos_x() *get_movie().duration();
+      if(coord_ref != get_coord_x()) {
+        coord_ref = get_coord_x();
+        float pos = get_coord_x() *get_movie().duration();
         get_movie().jump(pos);
       }     
     }
@@ -113,7 +113,7 @@ class Kino extends Romanesco {
 
   int colour;
   void param() {
-    colour = fill_item[ID_item];
+    colour = get_fill();
   }
   
   // kino movie

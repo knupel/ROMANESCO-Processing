@@ -94,20 +94,20 @@ class Webcam extends Romanesco {
     // size
     float minVal = 0.1 ;
     float maxVal = height / 50 ;
-    float size_x = map(size_x_item[ID_item],0.1,width, minVal, maxVal) *transient_value[3][ID_item] ;
-    float size_y = map(size_y_item[ID_item],0.1,width, minVal, maxVal) *transient_value[2][ID_item] ;
-    float size_z = map(size_z_item[ID_item],0.1,width, minVal, maxVal) *transient_value[4][ID_item] ;
+    float size_x = map(get_size_x(),0.1,width, minVal, maxVal) *transient_value[3][ID_item] ;
+    float size_y = map(get_size_y(),0.1,width, minVal, maxVal) *transient_value[2][ID_item] ;
+    float size_z = map(get_size_z(),0.1,width, minVal, maxVal) *transient_value[4][ID_item] ;
     Vec3 factorSizePix = Vec3(size_x, size_y, size_z) ; 
     factorDisplayPixel.set(factorDisplayCam.x *factorSizePix.x,factorDisplayCam.y *factorSizePix.y, factorSizePix.z) ;//PARAMETER THAT YOU CAN USE
     
     //PART TWO
 
     if(FULL_RENDERING) {
-      cellSizeX = int(map(canvas_y_item[ID_item],width/10, width, 50, 1))  ; 
-      cellSizeY = int(map(canvas_x_item[ID_item],width/10, width, 50, 1))  ;
+      cellSizeX = int(map(get_canvas_y(),width/10, width, 50, 1))  ; 
+      cellSizeY = int(map(get_canvas_x(),width/10, width, 50, 1))  ;
     } else {
-      cellSizeX = int(map(canvas_y_item[ID_item],width/10, width, 50, 20))  ; 
-      cellSizeY = int(map(canvas_x_item[ID_item],width/10, width, 50, 20))  ;
+      cellSizeX = int(map(get_canvas_y(),width/10, width, 50, 20))  ; 
+      cellSizeY = int(map(get_canvas_x(),width/10, width, 50, 20))  ;
     }
     if(cellSizeX < 1 ) cellSizeX = 1 ;
     if(cellSizeY < 1 ) cellSizeY = 1 ;
@@ -134,8 +134,8 @@ class Webcam extends Romanesco {
         }
       } 
     } else {
-      fill(fill_item[ID_item]) ;
-      textSize(size_x_item[ID_item]/10) ;
+      fill(get_fill()) ;
+      textSize(get_size_x()/10) ;
       text("Big Brother stops watching you, you're so boring !",0,0) ;
     } 
     rectMode (CORNER) ;
@@ -158,7 +158,7 @@ class Webcam extends Romanesco {
     
     float newCellSizeX = cellSizeX *factorDisplayPixel.x *left[ID_item] ;
     float newCellSizeY = cellSizeY *factorDisplayPixel.y *right[ID_item] ;
-    float factorSizeZ = map(size_z_item[ID_item], .1, width, .01, height/100) ;
+    float factorSizeZ = map(get_size_z(), .1, width, .01, height/100) ;
     PVector newCellSize = new PVector (newCellSizeX, newCellSizeY, factorSizeZ ) ;
     //init the position of image on the middle of the screen
     Vec3 posMouseCam = Vec3( width / 2, height /2, 0) ;
@@ -235,7 +235,7 @@ class Webcam extends Romanesco {
   //
   void boxMonochrome(PVector pos, PVector size, PVector hsb) {
     float depth = (hsb.z +.05) *size.z ;
-    if(horizon[ID_item]) translate(pos.x, pos.y, depth *.5); else translate(pos.x, pos.y, pos.z);
+    if(horizon_is()) translate(pos.x, pos.y, depth *.5); else translate(pos.x, pos.y, pos.z);
     monochrome(hsb) ;
     fill(colorPixelCam) ;
     antiBugFillBlack(colorPixelCam) ;
@@ -245,7 +245,7 @@ class Webcam extends Romanesco {
   //
   void boxColour(PVector pos, PVector size, PVector hsb) {
     float depth = (hsb.z +.05) *size.z ;
-    if(horizon[ID_item]) translate(pos.x, pos.y, depth *.5); else translate(pos.x, pos.y, pos.z);
+    if(horizon_is()) translate(pos.x, pos.y, depth *.5); else translate(pos.x, pos.y, pos.z);
     colour(hsb) ;
     fill(colorPixelCam) ;
     antiBugFillBlack(colorPixelCam) ;
@@ -275,16 +275,16 @@ class Webcam extends Romanesco {
   }
   
   void colour(PVector hsb) {
-    float newSat = hsb.y *map(saturation(fill_item[ID_item]),0,100,0,1) ;
-    float newBrigth = hsb.z *map(brightness(fill_item[ID_item]),0,100,0,1) ;
-    colorPixelCam = color(hsb.x, newSat, newBrigth, alpha(fill_item[ID_item]));
+    float newSat = hsb.y *map(saturation(get_fill()),0,100,0,1) ;
+    float newBrigth = hsb.z *map(brightness(get_fill()),0,100,0,1) ;
+    colorPixelCam = color(hsb.x, newSat, newBrigth, alpha(get_fill()));
   }
   
   void monochrome(PVector hsb) {
-    float newHue = hue(fill_item[ID_item]) ;
-    float newSat = hsb.y *map(saturation(fill_item[ID_item]),0,100,0,1) ;
-    float newBrigth = hsb.z *map(brightness(fill_item[ID_item]),0,100,0,1) ;
+    float newHue = hue(get_fill()) ;
+    float newSat = hsb.y *map(saturation(get_fill()),0,100,0,1) ;
+    float newBrigth = hsb.z *map(brightness(get_fill()),0,100,0,1) ;
     //display the result
-    colorPixelCam = color(newHue, newSat, newBrigth, alpha(fill_item[ID_item]));
+    colorPixelCam = color(newHue, newSat, newBrigth, alpha(get_fill()));
   }
 }

@@ -81,26 +81,26 @@ class BoumBoum extends Romanesco {
     if(size == null || size.length != shape_num) {
       size = new Vec3 [shape_num];
       for(int i = 0 ; i < size.length ; i++) {
-        size[i] = Vec3(size_x_item[ID_item],size_y_item[ID_item],size_z_item[ID_item]);
+        size[i] = Vec3(get_size_x(),get_size_y(),get_size_z());
         size[i].mult(.3);
       }
     } else {
       for(int i = 0 ; i < size.length ; i++) {
-        size[i].set(size_x_item[ID_item],size_y_item[ID_item],size_z_item[ID_item]);
+        size[i].set(get_size_x(),get_size_y(),get_size_z());
       }
     }
 
     
-    float dist_between_shape = canvas_x_item[ID_item] /(shape_num+1);
+    float dist_between_shape = get_canvas_x() /(shape_num+1);
     // give position for the shapes centered 
-    float offset_x = (canvas_x_item[ID_item] /2) -(width/2);
+    float offset_x = (get_canvas_x() /2) -(width/2);
     Vec3 pos = Vec3(-offset_x,height/2,0);
     Vec3 dir = Vec3(get_dir());
 
     
     // speed
-    if(motion[ID_item]) {
-      Vec3 inc_speed = Vec3(speed_x_item[ID_item],speed_y_item[ID_item],speed_z_item[ID_item]);
+    if(motion_is()) {
+      Vec3 inc_speed = Vec3(get_speed_x(),get_speed_y(),get_speed_z());
       inc_speed.mult(inc_speed);
       if(speed == null) {
         speed = Vec3(inc_speed);
@@ -117,10 +117,10 @@ class BoumBoum extends Romanesco {
       temp_pos.x += int(dist_between_shape *step);
       Vec3 temp_size = size[i].copy();
       temp_size.mult(transient_value[i+1][ID_item]);
-      fill(fill_item[ID_item]);
-      stroke(stroke_item[ID_item]);
-      strokeWeight(thickness_item[ID_item]);
-      set_ratio_costume_size(map(area_item[ID_item],width*.1, width*TAU,0,1));
+      fill(get_fill());
+      stroke(get_stroke());
+      strokeWeight(get_thickness());
+      set_ratio_costume_size(map(get_area(),width*.1, width*TAU,0,1));
       costume(temp_pos, temp_size, dir,get_costume());
     }
   }

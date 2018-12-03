@@ -75,39 +75,39 @@ class Soleil extends Romanesco {
   PVector pos = new PVector() ;
   //DRAW
   void draw() {
-    aspect(fill_item[ID_item], stroke_item[ID_item], thickness_item[ID_item]) ;
+    aspect(get_fill(), get_stroke(), get_thickness()) ;
     // orbital revolution
-    if((key_space_long && action[ID_item]) || orbit[ID_item]) pos.set(mouse[ID_item].x -width/2, mouse[ID_item].y -height/2,0) ; else pos.set(0,0,0) ;
+    if((key_space_long && action_is()) || orbit_is()) pos.set(mouse[ID_item].x -width/2, mouse[ID_item].y -height/2,0) ; else pos.set(0,0,0) ;
     // diam
-    int diam = int(canvas_x_item[ID_item] *all_transient(ID_item)) ;
+    int diam = int(get_canvas_x() *all_transient(ID_item)) ;
     // num beam
-    float num_temp = quantity_item[ID_item] *quantity_item[ID_item] ;
+    float num_temp = get_quantity() *get_quantity() ;
     int numBeam = (int)(num_temp *87 +1) ;
     if(!FULL_RENDERING) numBeam /= 20 ;
     if(numBeam < 2 ) numBeam = 2 ;
     
     // spurt
-    float ratio_spurt = (spurt_x_item[ID_item] *spurt_x_item[ID_item]) +.005 ;
+    float ratio_spurt = (get_spurt_x() *get_spurt_x()) +.005 ;
     spurt += (ratio_spurt *.33)  ;
     float spurting = cos(spurt) *tempo[ID_item] ;
 
     // jitter
     PVector jitter = new PVector() ;
-    float ratio_jitter = jitter_z_item[ID_item] *jitter_z_item[ID_item] ;
+    float ratio_jitter = get_jitter_z() *get_jitter_z() ;
     float amp = sq(ratio_jitter *(height /10)) ;
     float right_jit =  ((right[ID_item] *right[ID_item] *5) *amp) ;
     float left_jit = ((left[ID_item] *left[ID_item] *5) *amp) ;
-    if (sound[ID_item]) jitter = new PVector(right_jit, left_jit) ; else jitter = new PVector(amp,amp) ;
+    if (sound_is()) jitter = new PVector(right_jit, left_jit) ; else jitter = new PVector(amp,amp) ;
 
     // rotation direction
     int direction = 1 ;
-    if(reverse[ID_item]) direction = 1 ; else direction = -1 ;
-    if(!motion[ID_item]) direction = 0 ;
+    if(reverse_is()) direction = 1 ; else direction = -1 ;
+    if(!motion_is()) direction = 0 ;
     
     // rotation speed
     float speedRotation = 0 ;
-    float ratio_speed = (speed_x_item[ID_item] *speed_x_item[ID_item]) +.05 ;
-    if(speed_x_item[ID_item] <= 0) ratio_speed = 0 ;
+    float ratio_speed = (get_speed_x() *get_speed_x()) +.05 ;
+    if(get_speed_x() <= 0) ratio_speed = 0 ;
     speedRotation = sq(ratio_speed *8.0 *tempo[ID_item]) *direction ;
     angleRotation += speedRotation ;
     rotate (radians(angleRotation)) ;
@@ -120,7 +120,7 @@ class Soleil extends Romanesco {
     
     // info display
     String revolution = ("") ;
-    if((key_space_long && action[ID_item]) || orbit[ID_item]) revolution =("false") ; else revolution = ("true") ;
+    if((key_space_long && action_is()) || orbit_is()) revolution =("false") ; else revolution = ("true") ;
     item_info[ID_item] = ("The sun have " + numBeam + " beams - Motion "+revolution ) ;
     
     

@@ -78,31 +78,31 @@ class Lignes extends Romanesco {
   //DRAW
   void draw() {
     if(transient_value[0][ID_item] > 1 ) {
-      ampLine = transient_value[0][ID_item] *(map(swing_x_item[ID_item], 0,1, 0, 3)) ;
-      thicknessLine = (thickness_item[ID_item] *ampLine ) ;
+      ampLine = transient_value[0][ID_item] *(map(get_swing_x(), 0,1, 0, 3)) ;
+      thicknessLine = (get_thickness() *ampLine ) ;
     } else {
-      thicknessLine = thickness_item[ID_item] ;
+      thicknessLine = get_thickness() ;
     }
 
     //speed
-    if(motion[ID_item]) {
-      speed = map(speed_x_item[ID_item]*speed_x_item[ID_item],0,1,0,height/20) * tempo[ID_item]; 
+    if(motion_is()) {
+      speed = map(get_speed_x()*get_speed_x(),0,1,0,height/20) * tempo[ID_item]; 
     } else {
       speed = 0;
     }
     
-    if(reverse[ID_item]) speed = speed *1 ; else speed = speed * -1 ;
+    if(reverse_is()) speed = speed *1 ; else speed = speed * -1 ;
 
     // size canvas
-    float canvas_x = map(canvas_x_item[ID_item],canvas_x_min_max.x,canvas_x_min_max.y, width/2, width *4);
-    float canvas_y = map(canvas_y_item[ID_item],canvas_y_min_max.x,canvas_y_min_max.y, height/2, height *4);
+    float canvas_x = map(get_canvas_x(),canvas_x_min_max.x,canvas_x_min_max.y, width/2, width *4);
+    float canvas_y = map(get_canvas_y(),canvas_y_min_max.x,canvas_y_min_max.y, height/2, height *4);
     Vec2 canvas = Vec2(canvas_x,canvas_y);
 
     //quantity
-    float ratio_num = map(quantity_item[ID_item]*quantity_item[ID_item],0,1,1,100);
+    float ratio_num = map(get_quantity()*get_quantity(),0,1,1,100);
 
-    int step_angle = (int)map(angle_item[ID_item],0,TAU,0,360);
-    float step_rotate = map(alignment_item[ID_item],0,1,0,TAU);
+    int step_angle = (int)map(get_angle(),0,TAU,0,360);
+    float step_rotate = map(get_alignment(),0,1,0,TAU);
     
 
     // this loop is a bullshit must be refactor, 
@@ -129,10 +129,10 @@ class Lignes extends Romanesco {
   
 
   void display_line(Vec2 canvas, float ratio_num, float speed, float thickness, int start_angle_deg) {
-    float direction = dir_x_item[ID_item] +start_angle_deg ;
+    float direction = get_dir_x() +start_angle_deg ;
     rotation(direction, 0, 0) ;
     //display
-    line.drawLine (speed,ratio_num,fill_item[ID_item],thickness, canvas) ;
+    line.drawLine (speed,ratio_num,get_fill(),thickness, canvas) ;
 
   }
 }

@@ -512,7 +512,9 @@ void displayInfoObject(color bg_txt, color txt) {
   posInfoObj = 1 ;
   // for (Romanesco objR : RomanescoList)
   for(int i = 0 ; i < NUM_ITEM_PLUS_MASTER ; i++) {
-    if(show_item[i]) {
+    Romanesco item = rpe_manager.get(i);
+    println(i, item.get_name());
+    if(item.show_is()) {
       posInfoObj += 1 ;
       String position = ("x:" +(int)pos_item[i].x + " y:" + (int)pos_item[i].y+ " z:" + (int)pos_item[i].z) ;
       text(item_name[i] + " - Coord " + position + " - " + item_info[item_ID[i]], 10, height -(15 *(posInfoObj -1))) ;

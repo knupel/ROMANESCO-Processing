@@ -84,11 +84,11 @@ class Kofosphere extends Romanesco {
   //DRAW
   void draw() {
     float beatFactor = map(all_transient(ID_item), 1,12, 1., 3.5);
-    float radius = map(canvas_x_item[ID_item], width/10, width, .01, 1.1);
-    if(sound[ID_item]) radius = sq(radius) *beatFactor ; 
+    float radius = map(get_canvas_x(), width/10, width, .01, 1.1);
+    if(sound_is()) radius = sq(radius) *beatFactor ; 
     
     // quantity of particules
-    float ratio_num = quantity_item[ID_item] *quantity_item[ID_item];
+    float ratio_num = get_quantity() *get_quantity();
     int max = 300;
     int quantity = (int)map(ratio_num,0,1,10,max); 
     if(get_costume().get_type() == POINT_ROPE && FULL_RENDERING) {
@@ -97,14 +97,14 @@ class Kofosphere extends Romanesco {
     
     // speed
     float ratio_speed = .1 ;
-    float norm_speed = map(speed_x_item[ID_item],0,1,0,1.5) ;
+    float norm_speed = map(get_speed_x(),0,1,0,1.5) ;
     norm_speed *= norm_speed ;
-    if(reverse[ID_item]) norm_speed *= ratio_speed ; else norm_speed *= -ratio_speed;
+    if(reverse_is()) norm_speed *= ratio_speed ; else norm_speed *= -ratio_speed;
     Vec2 speed = Vec2(norm_speed) ;
     speed.mult(.5 +left[ID_item], .5 +right[ID_item]) ;
 
     // size for the box
-    Vec3 size = Vec3(size_x_item[ID_item],size_y_item[ID_item],size_z_item[ID_item]); 
+    Vec3 size = Vec3(get_size_x(),get_size_y(),get_size_z()); 
     size.mult(2);
     sphere.drawSpheres(size,speed,radius,quantity,get_costume(),ID_item);
 
@@ -149,15 +149,15 @@ class Kofosphere extends Romanesco {
       //
       newRadius = radius *radiusFactor ;
       /// color
-      float hueIn = hue(fill_item[ID]) ;
-      float saturationIn = saturation(fill_item[ID]) ;
-      float brightnessIn = brightness(fill_item[ID]) ;
-      float opacityIn = alpha(fill_item[ID]) ;
+      float hueIn = hue(get_fill()) ;
+      float saturationIn = saturation(get_fill()) ;
+      float brightnessIn = brightness(get_fill()) ;
+      float opacityIn = alpha(get_fill()) ;
       
-      float hueOut = hue( stroke_item[ID]) ;
-      float saturationOut = saturation(stroke_item[ID]) ;
-      float brightnessOut = brightness(stroke_item[ID]) ;
-      float opacityOut = alpha(stroke_item[ID]) ;
+      float hueOut = hue(get_stroke()) ;
+      float saturationOut = saturation(get_stroke()) ;
+      float brightnessOut = brightness(get_stroke()) ;
+      float opacityOut = alpha(get_stroke()) ;
 
       
       pushMatrix();
@@ -168,7 +168,7 @@ class Kofosphere extends Romanesco {
       
 
       // int frequence = 100 ; KOF value
-      float frequence = map(frequence_item[ID],1,0,1,200);
+      float frequence = map(get_frequence(),1,0,1,200);
       if(frequence < 1) frequence = 1;
       float d = noise(frameCount/frequence)*(number_quantity +(number_quantity *quantity));
       density = 2.9 +(20*(1 -quantity));
@@ -196,7 +196,7 @@ class Kofosphere extends Romanesco {
           float ratio_size = modelZ(x,y,z);
           float factor_size = map(abs(ratio_size),0,max_factor,.005,1);
 
-          float thickness = thickness_item[ID];
+          float thickness = get_thickness();
           Vec3 def_size = size.copy();
           boolean use_factor_is = true;
           if(use_factor_is) {
@@ -212,8 +212,8 @@ class Kofosphere extends Romanesco {
           
           // display
           aspect(c_fill,c_stroke,thickness);
-          aspect_is(fill_is[ID],stroke_is[ID]);
-          set_ratio_costume_size(map(area_item[ID],width*.1, width*TAU,0,1));
+          aspect_is(fill_is(),stroke_is());
+          set_ratio_costume_size(map(get_area(),width*.1, width*TAU,0,1));
           Vec3 pos = Vec3(pos_x *deform, pos_y *deform, pos_z *deform);
           costume(pos,def_size,costume);
           
