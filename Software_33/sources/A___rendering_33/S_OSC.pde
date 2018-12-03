@@ -1,8 +1,7 @@
 /**
 OSC CORE 
-v 1.5.2
+v 1.6.0
 */
-
 void OSC_setup() {
   OSC_controller_setup();
   if(IAM.equals("prescene") && LIVE) {
@@ -381,21 +380,11 @@ void send_message(boolean send_message_is) {
 // OSC prescene send
 void OSC_send() {
   OscMessage RomanescoScene = new OscMessage("Prescene");
-  bool_load_save_scene() ;
 
   //SEND data to SCENE
   RomanescoScene.add(toScene);
 
-  // send the load path to the scene to also open the save setting in the scene with only one opening window input
-  RomanescoScene.add(path_to_load_scene_setting) ;
-  // reset the path for the next send, because the Scene check this path, to know if this one is not null,
-  // and if this one is not null, the Scene load data.
-  path_to_load_scene_setting = ("") ;
-
-  RomanescoScene.add(booleanLoadSave) ;
-
   //send
- // if(target_scene);
   if(ad_scene == null) {
     printErr("OSC_send(): prescene app exit because the global variable 'DEV_MODE' must be false");
     exit();
@@ -412,46 +401,6 @@ void OSC_send() {
 }
 
 
-
-
-
-
-// OSC prescene load
-String booleanLoadSave = ("") ;
-
-void bool_load_save_scene() {
-  boolean load, save_current, save_new ;
-
-  if (load_SCENE_Setting_GLOBAL || load_Scene_Setting_local) {
-    load = true ; 
-  } else {
-    load = false ;
-  }
-
-  if (save_Current_SCENE_Setting_GLOBAL || save_Current_Scene_Setting_local) {
-    save_current = true ; 
-  } else {
-    save_current = false ;
-  }
-
-  if (save_New_SCENE_Setting_GLOBAL || save_New_Scene_Setting_local) {
-    save_new = true ;
-  } else {
-    save_new = false ;
-  }
-
-  String load_string = String.valueOf(load) ;
-  String saveCurrent_string = String.valueOf(save_current) ;
-  String saveNew_string = String.valueOf(save_new) ;
-
-  // we change to false boolean load and data to false each 1 second to have a time to load and save
-  if(frameCount%60 == 0) { 
-    load_SCENE_Setting_GLOBAL = save_Current_SCENE_Setting_GLOBAL = save_New_SCENE_Setting_GLOBAL = false ;
-    load_Scene_Setting_local = save_Current_Scene_Setting_local = save_New_Scene_Setting_local = false ;
-  }
-
-  booleanLoadSave = load_string + "/" +  saveCurrent_string + "/" + saveNew_string ;
-}
 
 
 
@@ -682,7 +631,7 @@ void join_osc_data() {
 /**
 SCENE OSC
 2013-2018
-v 1.0.0
+v 1.0.1
 * this part is used when the sketch is build like a scene
 */
 String dataPrescene = ("") ;
@@ -713,7 +662,6 @@ void prescene_reception(OscMessage m) {
 
 void catchDataFromPrescene(OscMessage receive) {
   dataPrescene = receive.get(0).stringValue() ;
-  path_to_load_scene_setting = receive.get(1).stringValue() ;
   from_prescene_boolean_load_save = receive.get(2).stringValue() ;
 }
 

@@ -6,6 +6,7 @@ revision 33
 >the window position is keeping from previous session
 >add dynamic method to manage font
 >update costume method
+>try to detect the system font, to load from this one. If that's don't work use the font folder from Romanesco.
 
 *MINOR
 

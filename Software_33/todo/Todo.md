@@ -1,5 +1,10 @@
 Todo Romanesco
 --
+*BUG
+
+nullpointer when filter is calling with nothing from menu
+
+
 *REMOVE
 
 void color_setup() in the rendering sketch

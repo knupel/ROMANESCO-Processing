@@ -232,11 +232,7 @@ void romanesco() {
   if(IAM.equals("prescene")) {
     updateCommand();
     leapMotionUpdate();
-    load_prescene();
-  } else if (IAM.equals("scene")) {
-    load_scene();
-    save_scene();
-  }
+  } 
 
   rendering();
 

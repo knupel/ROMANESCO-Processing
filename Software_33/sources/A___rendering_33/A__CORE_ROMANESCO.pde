@@ -2,7 +2,7 @@
 Core Romanesco
 COMMON SKETCH for CONTROLLER, PRESCENE & SCENE
 2018-2018
-v 0.3.4
+v 0.3.6
 */
 int NUM_COL_SLIDER = 4;
 int NUM_SLIDER_ITEM_BY_COL = 16;
@@ -59,6 +59,7 @@ int ITEM_GROUP = 1;
 
 String preference_path;
 String import_path;
+String font_path;
 String items_path;
 String autosave_path;
 void path_setting() {
@@ -66,6 +67,11 @@ void path_setting() {
   if(!DEV_MODE) folder_position = 0;
   preference_path = sketchPath(folder_position)+"/preferences/";
   import_path = sketchPath(folder_position)+"/import/";
+  font_path = "/Users/"+System.getProperty("user.name")+"/library/Fonts";
+  File file = new File(font_path);
+  if(!file.isDirectory()) {
+    font_path = import_path+"font/typo_OTF_TTF";
+  }
   items_path = sketchPath(folder_position)+"/items/";
   autosave_path = sketchPath(folder_position)+"/autosave.csv";
 }
@@ -130,8 +136,7 @@ FONT LOADING
 ROFont [] font;
 void create_font() {
   int size_font = 200;
-  String path = import_path+"/font/typo_OTF_TTF";
-  String[] path_list = alphabetical_font_path(path);
+  String[] path_list = alphabetical_font_path(font_path);
 
   font = new ROFont[path_list.length]; 
   for(int i = 0 ; i < path_list.length ; i++) {
