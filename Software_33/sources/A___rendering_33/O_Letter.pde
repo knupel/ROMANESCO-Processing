@@ -138,8 +138,6 @@ class Letter extends Romanesco {
       grp = geomerative.RG.getText(sentence,get_font_path(),(int)sizeFont,CENTER);
     }
     if(reset || reset_font) {
-      println(reset,reset_font,frameCount);
-      println(get_font_path());
       grp = geomerative.RG.getText(sentence,get_font_path(),(int)sizeFont,CENTER);
       axeLetter = int(random (grp.countChildren()));
     }

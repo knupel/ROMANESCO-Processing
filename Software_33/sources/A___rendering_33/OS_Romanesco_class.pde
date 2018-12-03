@@ -236,74 +236,74 @@ public abstract class Romanesco implements rope.core.RConstants {
   /**
   * is method from prescene
   */
-  public boolean birth_is() {
+  protected boolean birth_is() {
     return birth[ID_item];
   }
 
-  public boolean colour_is() {
+  protected boolean colour_is() {
     return colour[ID_item];
 
   }
-  public boolean dimension_is() {
+  protected boolean dimension_is() {
     return dimension[ID_item];
   }
   
-  public boolean horizon_is() {
+  protected boolean horizon_is() {
     return horizon[ID_item];
   }
 
-  public boolean motion_is() {
+  protected boolean motion_is() {
     return motion[ID_item];
   }
 
-  public boolean orbit_is() {
+  protected boolean orbit_is() {
     return orbit[ID_item];
   }
 
-  public boolean reverse_is() {
+  protected boolean reverse_is() {
     return reverse[ID_item];
   }
 
-  public boolean special_is() {
+  protected boolean special_is() {
     return special[ID_item];
   }
 
-  public boolean wire_is() {
+  protected boolean wire_is() {
     return wire[ID_item];
   }
 
-  public boolean fill_is() {
+  protected boolean fill_is() {
     return fill_is[ID_item];
   }
 
-  public boolean stroke_is() {
+  protected boolean stroke_is() {
     return stroke_is[ID_item];
   }
 
-  public boolean setting_is() {
+  protected boolean setting_is() {
     return setting[ID_item];
   }
 
-  public boolean clear_list_is() {
+  protected boolean clear_list_is() {
     return clearList[ID_item];
   }
 
   /*
   * is method from controler
   */
-  public boolean show_is() {
+  protected boolean show_is() {
     return show_item[ID_item];
   }
 
-  public boolean sound_is() {
+  protected boolean sound_is() {
     return sound[ID_item];
   }
 
-  public boolean action_is() {
+  protected boolean action_is() {
     return action[ID_item]; 
   } 
 
-  public boolean parameter_is() {
+  protected boolean parameter_is() {
     return parameter[ID_item];
   }
 
@@ -311,121 +311,128 @@ public abstract class Romanesco implements rope.core.RConstants {
   /**
   * get slider method 
   */
-  public int get_fill() {
+  protected int get_fill() {
     return fill_item[ID_item];
   }
 
-  public int get_stroke() {
+  protected int get_stroke() {
     return stroke_item[ID_item];
   }
 
-  public float get_thickness() {
+  protected float get_thickness() {
     return thickness_item[ID_item];
   }
   
 
   // size
-  public Vec3 get_size() {
+  protected Vec3 get_size() {
     return Vec3(get_size_x(),get_size_y(),get_size_z());
   }
 
-  public float get_size_x() {
+  protected float get_size_x() {
     return size_x_item[ID_item];
   }
 
-  public float get_size_y() {
+  protected float get_size_y() {
     return size_y_item[ID_item];
   }
 
-  public float get_size_z() {
+  protected float get_size_z() {
     return size_z_item[ID_item];
   }
 
+  protected float get_diameter() {
+    return diameter_item[ID_item];
+  }
+
   // canvas
-  public Vec3 get_canvas() {
+  protected Vec3 get_canvas() {
     return Vec3(get_canvas_x(),get_canvas_y(),get_canvas_z());
   }
 
-  public float get_canvas_x() {
+  protected float get_canvas_x() {
     return canvas_x_item[ID_item];
   }
 
-  public float get_canvas_y() {
+  protected float get_canvas_y() {
     return canvas_y_item[ID_item];
   }
 
-  public float get_canvas_z() {
+  protected float get_canvas_z() {
     return canvas_z_item[ID_item];
   }
 
 
   // COL 2
+  protected float get_frequence() {
+    return frequence_item[ID_item];
+  }
   // speed
-  public Vec3 get_speed() {
+  protected Vec3 get_speed() {
     return Vec3(get_speed_x(),get_speed_y(),get_speed_z());
   }
 
-  public float get_speed_x() {
+  protected float get_speed_x() {
     return speed_x_item[ID_item];
   }
 
-  public float get_speed_y() {
+  protected float get_speed_y() {
     return speed_y_item[ID_item];
   }
 
-  public float get_speed_z() {
+  protected float get_speed_z() {
     return speed_z_item[ID_item];
   }
 
   // jitter
-  public Vec3 get_jitter() {
+  protected Vec3 get_jitter() {
     return Vec3(get_jitter_x(),get_jitter_y(),get_jitter_z());
   }
 
-  public float get_jitter_x() {
+  protected float get_jitter_x() {
     return jitter_x_item[ID_item];
   }
 
-  public float get_jitter_y() {
+  protected float get_jitter_y() {
     return jitter_y_item[ID_item];
   }
 
-  public float get_jitter_z() {
+  protected float get_jitter_z() {
     return jitter_z_item[ID_item];
   }
 
 
   // spurt
-  public Vec3 get_spurt() {
+  protected Vec3 get_spurt() {
     return Vec3(get_spurt_x(),get_spurt_y(),get_spurt_z());
   }
 
-  public float get_spurt_x() {
+  protected float get_spurt_x() {
     return spurt_x_item[ID_item];
   }
 
-  public float get_spurt_y() {
+  protected float get_spurt_y() {
     return spurt_y_item[ID_item];
   }
 
-  public float get_spurt_z() {
+  protected float get_spurt_z() {
     return spurt_z_item[ID_item];
   }
 
   // swing
-  public Vec3 get_swing() {
+  protected Vec3 get_swing() {
     return Vec3(get_swing_x(),get_swing_y(),get_swing_z());
   }
 
-  public float get_swing_x() {
+  protected float get_swing_x() {
     return swing_x_item[ID_item];
   }
 
-  public float get_swing_y() {
+  protected float get_swing_y() {
     return swing_y_item[ID_item];
   }
 
-  public float get_swing_z() {
+  protected float get_swing_z() {
     return swing_z_item[ID_item];
   }
 
@@ -461,8 +468,64 @@ public abstract class Romanesco implements rope.core.RConstants {
     return quantity_item[ID_item];
   }
 
+  protected float get_variety() {
+    return variety_item[ID_item];
+  }
+
+  protected float get_life() {
+    return life_item[ID_item];
+  }
+
+  protected float get_flow() {
+    return flow_item[ID_item];
+  }
+
+  protected float get_quality() {
+    return quality_item[ID_item];
+  }
+
   protected float get_area() {
     return area_item[ID_item];
+  }
+
+  protected float get_angle() {
+    return angle_item[ID_item];
+  }
+
+  protected float get_scope() {
+    return scope_item[ID_item];
+  }
+
+  protected float get_scan() {
+    return scan_item[ID_item];
+  }
+
+  protected float get_alignment() {
+    return alignment_item[ID_item];
+  }
+
+  protected float get_repulsion() {
+    return repulsion_item[ID_item];
+  }
+
+  protected float get_attraction() {
+    return attraction_item[ID_item];
+  }
+
+  protected float get_density() {
+    return density_item[ID_item];
+  }
+
+  protected float get_influence() {
+    return influence_item[ID_item];
+  }
+
+  protected float get_calm() {
+    return calm_item[ID_item];
+  }
+
+  protected float get_spectrum() {
+    return spectrum_item[ID_item];
   }
 
 
@@ -470,6 +533,22 @@ public abstract class Romanesco implements rope.core.RConstants {
   // pos
   protected float get_grid() {
     return grid_item[ID_item];
+  }
+
+  protected float get_viscosity() {
+    return viscosity_item[ID_item];
+  }
+
+  protected float get_diffusion() {
+    return diffusion_item[ID_item];
+  }
+
+  protected float get_power() {
+    return power_item[ID_item];
+  }
+
+  protected float get_mass() {
+    return mass_item[ID_item];
   }
 
 
