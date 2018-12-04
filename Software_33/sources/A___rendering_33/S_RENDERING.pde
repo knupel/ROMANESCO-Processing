@@ -510,7 +510,6 @@ void displayInfoObject(color bg_txt, color txt) {
   textFont(system_font,10);
   
   posInfoObj = 1 ;
-  // for (Romanesco objR : RomanescoList)
   for(int i = 0 ; i < NUM_ITEM_PLUS_MASTER ; i++) {
     Romanesco item = rpe_manager.get(i);
     println(i, item.get_name());

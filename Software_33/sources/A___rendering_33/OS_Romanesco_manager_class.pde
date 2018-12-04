@@ -1,11 +1,11 @@
 /**
 Class Romanesco_manager
-v 1.5.0
-inspired by Andreas Gysin work for The Abyss Project
+v 1.6.0
+class manager inspired by Andreas Gysin work for The Abyss Project
 @see https://github.com/ertdfgcvb/TheAbyss
 */
 class Romanesco_manager {
-  private ArrayList<Romanesco>RomanescoList;
+  private ArrayList<Romanesco>romanesco_item_list;
   private ArrayList<Class>item_list;
 
   PApplet parent;
@@ -13,7 +13,7 @@ class Romanesco_manager {
   int num_classes;
   Romanesco_manager(PApplet parent) {
     this.parent = parent;
-    RomanescoList = new ArrayList<Romanesco>() ;
+    romanesco_item_list = new ArrayList<Romanesco>() ;
     //scan the existant classes
     item_list = scan_classes(parent,"Romanesco");
   }
@@ -108,8 +108,8 @@ class Romanesco_manager {
   */
   void finish_index() {
   // catch the different parameter from object class Romanesco
-    for (int i=0 ; i < RomanescoList.size() ; i++ ) {
-      Romanesco item = (Romanesco) RomanescoList.get(i);
+    for (int i=0 ; i < romanesco_item_list.size() ; i++ ) {
+      Romanesco item = (Romanesco) romanesco_item_list.get(i);
       row_index_item[i].setString("Name",item.item_name);
       row_index_item[i].setInt("ID",item.ID_item);
       row_index_item[i].setInt("Group",item.ID_group);
@@ -126,8 +126,8 @@ class Romanesco_manager {
   // ADD info for the user
   void write_info_user() {
     // catch the different parameter from object class Romanesco
-    for (int i=0 ; i < RomanescoList.size() ; i++) {
-      Romanesco item = (Romanesco) RomanescoList.get(i);
+    for (int i=0 ; i < romanesco_item_list.size() ; i++) {
+      Romanesco item = (Romanesco) romanesco_item_list.get(i);
       item_ID[item.ID_item] = item.ID_item;
       item_name[item.ID_item] = item.item_name;
       item_author[item.ID_item] = item.item_author;
@@ -138,16 +138,16 @@ class Romanesco_manager {
 
   int id_item_from_library(int index) {
     int id = -1 ;
-    if(index < RomanescoList.size()) {
-      Romanesco item = (Romanesco) RomanescoList.get(index);
+    if(index < romanesco_item_list.size()) {
+      Romanesco item = (Romanesco) romanesco_item_list.get(index);
       id = item.ID_item;
     }  
     return id;
   }
 
   public Romanesco get(int index) {
-    if(index < RomanescoList.size()) {
-      return RomanescoList.get(index);
+    if(index < romanesco_item_list.size()) {
+      return romanesco_item_list.get(index);
     } else {
       return null;
     }  
@@ -160,26 +160,25 @@ class Romanesco_manager {
   
   
   // add itemfrom the sub-classes
-  public void add_item_romanesco() {
-    int n = item_list.size();
-    for( int i = 0 ; i < n ; i++) {
+  public void add_item() {
+    for(int i = 0 ; i < item_list.size() ; i++) {
       add_item(i);
     }
   }
 
   //
-  public Romanesco add_item(int i) {
+  private Romanesco add_item(int i) {
     if (i < 0 || i >= item_list.size()) {
       return null;
     }
     
-    Romanesco class_romanesco_item = null;
+    Romanesco item = null;
     try {
       Class c = item_list.get(i);
       Constructor[] constructors = c.getConstructors();
-      class_romanesco_item = (Romanesco)constructors[0].newInstance(parent);
-      class_romanesco_item.set_id(i+1);
-      class_romanesco_item.set_group(1);
+      item = (Romanesco)constructors[0].newInstance(parent);
+      item.set_id(i+1);
+      item.set_group(1);
     }
     catch (InvocationTargetException e) {
       System.out.println(e);
@@ -190,17 +189,45 @@ class Romanesco_manager {
     catch (IllegalAccessException e) {
       System.out.println(e);
     } 
-    //add object 
-    if (class_romanesco_item != null) {
-      add_romaneco_item(class_romanesco_item);
+    //add item
+    if (item != null) {
+      // item.set_slider();
+      romanesco_item_list.add(item);
+      // add_item(item);
     }
-    return class_romanesco_item;
+    return item;
   }
   
-  // finalization of adding object
-  private void add_romaneco_item(Romanesco item) {
-    item.set_item_romanesco();
-    RomanescoList.add(item);
+
+
+  public void set_item(String path) {
+    Table slider_item_data = loadTable(path,"header");
+    String [][] slider_name = new String[4][16];
+    for(int i = 0 ; i < slider_item_data.getRowCount() ;i++) {
+      TableRow row = slider_item_data.getRow(i);
+      for(int line = 0 ; line < 4 ; line++) {
+        String name = "";
+        if(line == 0) {
+          name = "slider item a";
+        } else if(line == 1) {
+          name = "slider item b";
+        } else if(line == 2) {
+          name = "slider item c";
+        } else if(line == 3) {
+          name = "slider item d";
+        }
+        if(row.getString("name").equals(name)) {
+          for(int k = 0 ; k < slider_item_data.getColumnCount()-1 ; k++) {
+            if(k < slider_name[line].length) {
+              slider_name[line][k] = row.getString("col "+Integer.toString(k)) ;
+            }
+          }
+        }
+      }
+    }
+    for(Romanesco item : romanesco_item_list) {
+      item.set_slider(slider_name);
+    }
   }
   
   
@@ -209,7 +236,7 @@ class Romanesco_manager {
   // SETUP
   public boolean init_items() {
     int num = 0 ;
-    for (Romanesco item : RomanescoList) {
+    for (Romanesco item : romanesco_item_list) {
       item.motion_is(true);
       init_value_mouse[item.get_id()] = true;
       item.mode.set_name(item.item_mode.split("/"));
@@ -223,7 +250,7 @@ class Romanesco_manager {
       pos_item_ref[item.get_id()].set(item_setting_position[0][item.get_id()]);
     }
 
-    if(num == RomanescoList.size()) {
+    if(num == romanesco_item_list.size()) {
       return true ;
     } else {
       return false;
@@ -241,8 +268,8 @@ class Romanesco_manager {
     long time_millis = new Date().getTime();
     Timestamp time = new Timestamp(time_millis);
     // println("time",time);
-    for (int i = 0 ; i < RomanescoList.size() ; i++ ) {
-      Romanesco item = (Romanesco) RomanescoList.get(i);
+    for (int i = 0 ; i < romanesco_item_list.size() ; i++ ) {
+      Romanesco item = (Romanesco) romanesco_item_list.get(i);
       //println(item.get_name(),item.show_is());
     }
   }
@@ -275,29 +302,27 @@ class Romanesco_manager {
     }
     
     //the method
-   // if (show_item != null) {
-      for (Romanesco item : RomanescoList) {
-        if (item.show_is()) {
-          update_var_items(item);
-          pushMatrix();
-          add_ref_item(item.get_id());
-          item_follower(item);
-          if((key_v_long || reset_item_on_button_alert_is()) && item.action_is()) {
-            item_move(movePos, moveDir, item.get_id());
-          }
-          final_pos_item(item.get_id());
-          item.draw();
-          popMatrix();
-        } else {
-          if(movie[item.get_id()] != null) movie[item.get_id()].pause();
+    for (Romanesco item : romanesco_item_list) {
+      if (item.show_is()) {
+        update_var_items(item);
+        pushMatrix();
+        add_ref_item(item.get_id());
+        item_follower(item);
+        if((key_v_long || reset_item_on_button_alert_is()) && item.action_is()) {
+          item_move(movePos, moveDir, item.get_id());
         }
+        final_pos_item(item.get_id());
+        item.draw();
+        popMatrix();
+      } else {
+        if(movie[item.get_id()] != null) movie[item.get_id()].pause();
       }
-  //  }
+    }
   }
 
 
   public void show_item_2D() {
-    for (Romanesco item : RomanescoList) {
+    for (Romanesco item : romanesco_item_list) {
       if (item.show_is()) {
         item.draw_2D();
       } else {

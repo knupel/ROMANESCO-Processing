@@ -1,6 +1,6 @@
 /**
 Abstract CLASS ROMANESCO
-v 0.4.0
+v 1.1.0
 2013-2018
 */
 import java.util.Date;
@@ -55,7 +55,6 @@ public abstract class Romanesco implements rope.core.RConstants {
 
   Mode mode;
   Costume costume;
-
 
   boolean birth, colour, dimension, horizon, motion, orbit, reverse, special, wire;
   boolean fill_is, stroke_is;
@@ -128,7 +127,7 @@ public abstract class Romanesco implements rope.core.RConstants {
 
   
   public Romanesco() {
-    item_name = "Unknown" ;
+    item_name = "Unknown";
     item_author = "Anonymous";
     item_references = "none";
     item_version = "Alpha";
@@ -142,68 +141,68 @@ public abstract class Romanesco implements rope.core.RConstants {
     hue_fill_is = false;
     sat_fill_is = false;
   }
-  
+
   //manager return
-  public void set_item_romanesco() {
-    if(!hue_fill_is) item_slider +="," ; else item_slider += (ROM_HUE_FILL +",");
-    if(!sat_fill_is) item_slider +="," ; else item_slider +=(ROM_SAT_FILL+",");
-    if(!bright_fill_is) item_slider +="," ; else item_slider +=(ROM_BRIGHT_FILL+",");
-    if(!alpha_fill_is) item_slider +="," ; else item_slider +=(ROM_ALPHA_FILL+",");
-    if(!hue_stroke_is) item_slider +="," ; else item_slider += (ROM_HUE_STROKE +",");
-    if(!sat_stroke_is) item_slider +="," ; else item_slider +=(ROM_SAT_STROKE+",");
-    if(!bright_stroke_is) item_slider +="," ; else item_slider +=(ROM_BRIGHT_STROKE+",");
-    if(!alpha_stroke_is) item_slider +="," ; else item_slider +=(ROM_ALPHA_STROKE+",");
-    if(!thickness_is) item_slider +="," ; else item_slider += (ROM_THICKNESS+",");
-    if(!size_x_is) item_slider +="," ; else item_slider += (ROM_SIZE_X+",");
-    if(!size_y_is) item_slider +="," ; else item_slider += (ROM_SIZE_Y+",");
-    if(!size_z_is) item_slider +="," ; else item_slider += (ROM_SIZE_Z+",");
-    if(!diameter_is) item_slider +="," ; else item_slider += (ROM_DIAMETER+",");
-    if(!canvas_x_is) item_slider +="," ; else item_slider += (ROM_CANVAS_X+",");
-    if(!canvas_y_is) item_slider +="," ; else item_slider += (ROM_CANVAS_Y+",");
-    if(!canvas_z_is) item_slider +="," ; else item_slider += (ROM_CANVAS_Z+",");
+  public void set_slider(String [][] slider) {
+    if(!hue_fill_is) item_slider +="," ; else item_slider += (slider[0][0] +",");
+    if(!sat_fill_is) item_slider +="," ; else item_slider += (slider[0][1]+",");
+    if(!bright_fill_is) item_slider +="," ; else item_slider += (slider[0][2]+",");
+    if(!alpha_fill_is) item_slider +="," ; else item_slider += (slider[0][3]+",");
+    if(!hue_stroke_is) item_slider +="," ; else item_slider += (slider[0][4] +",");
+    if(!sat_stroke_is) item_slider +="," ; else item_slider += (slider[0][5]+",");
+    if(!bright_stroke_is) item_slider +="," ; else item_slider += (slider[0][6]+",");
+    if(!alpha_stroke_is) item_slider +="," ; else item_slider += (slider[0][7]+",");
+    if(!thickness_is) item_slider +="," ; else item_slider += (slider[0][8]+",");
+    if(!size_x_is) item_slider +="," ; else item_slider += (slider[0][9]+",");
+    if(!size_y_is) item_slider +="," ; else item_slider += (slider[0][10]+",");
+    if(!size_z_is) item_slider +="," ; else item_slider += (slider[0][11]+",");
+    if(!diameter_is) item_slider +="," ; else item_slider += (slider[0][12]+",");
+    if(!canvas_x_is) item_slider +="," ; else item_slider += (slider[0][13]+",");
+    if(!canvas_y_is) item_slider +="," ; else item_slider += (slider[0][14]+",");
+    if(!canvas_z_is) item_slider +="," ; else item_slider += (slider[0][15]+",");
 
-    if(!frequence_is) item_slider +="," ; else item_slider += (ROM_FREQUENCE+",");
-    if(!speed_x_is) item_slider +="," ; else item_slider += (ROM_SPEED_X+",");
-    if(!speed_y_is) item_slider +="," ; else item_slider += (ROM_SPEED_Y+",");
-    if(!speed_z_is) item_slider +="," ; else item_slider += (ROM_SPEED_Z+",");
-    if(!spurt_x_is) item_slider +="," ; else item_slider += (ROM_SPURT_X+",");
-    if(!spurt_y_is) item_slider +="," ; else item_slider += (ROM_SPURT_Y+",");
-    if(!spurt_z_is) item_slider +="," ; else item_slider += (ROM_SPURT_Z+",");
-    if(!dir_x_is) item_slider +="," ; else item_slider += (ROM_DIR_X+",");
-    if(!dir_y_is) item_slider +="," ; else item_slider += (ROM_DIR_Y+",");
-    if(!dir_z_is) item_slider +="," ; else item_slider += (ROM_DIR_Z+",");
-    if(!jit_x_is) item_slider +="," ; else item_slider += (ROM_JIT_X+",");
-    if(!jit_y_is) item_slider +="," ; else item_slider += (ROM_JIT_Y+",");
-    if(!jit_z_is) item_slider +="," ; else item_slider += (ROM_JIT_Z+",");
-    if(!swing_x_is) item_slider +="," ; else item_slider += (ROM_SWIWG_X+",");
-    if(!swing_y_is) item_slider +="," ; else item_slider += (ROM_SWIWG_Y+",");
-    if(!swing_z_is) item_slider +="," ; else item_slider += (ROM_SWIWG_Z+",");
+    if(!frequence_is) item_slider +="," ; else item_slider += (slider[1][0]+",");
+    if(!speed_x_is) item_slider +="," ; else item_slider += (slider[1][1]+",");
+    if(!speed_y_is) item_slider +="," ; else item_slider += (slider[1][2]+",");
+    if(!speed_z_is) item_slider +="," ; else item_slider += (slider[1][3]+",");
+    if(!spurt_x_is) item_slider +="," ; else item_slider += (slider[1][4]+",");
+    if(!spurt_y_is) item_slider +="," ; else item_slider += (slider[1][5]+",");
+    if(!spurt_z_is) item_slider +="," ; else item_slider += (slider[1][6]+",");
+    if(!dir_x_is) item_slider +="," ; else item_slider += (slider[1][7]+",");
+    if(!dir_y_is) item_slider +="," ; else item_slider += (slider[1][8]+",");
+    if(!dir_z_is) item_slider +="," ; else item_slider += (slider[1][9]+",");
+    if(!jit_x_is) item_slider +="," ; else item_slider += (slider[1][10]+",");
+    if(!jit_y_is) item_slider +="," ; else item_slider += (slider[1][11]+",");
+    if(!jit_z_is) item_slider +="," ; else item_slider += (slider[1][12]+",");
+    if(!swing_x_is) item_slider +="," ; else item_slider += (slider[1][13]+",");
+    if(!swing_y_is) item_slider +="," ; else item_slider += (slider[1][14]+",");
+    if(!swing_z_is) item_slider +="," ; else item_slider += (slider[1][15]+",");
 
-    if(!quantity_is) item_slider +="," ; else item_slider += (ROM_QUANTITY+",");
-    if(!variety_is) item_slider +="," ; else item_slider += (ROM_VARIETY+",");
-    if(!life_is) item_slider +="," ; else item_slider += (ROM_LIFE+",");
-    if(!flow_is) item_slider +="," ; else item_slider += (ROM_FLOW+",");
-    if(!quality_is) item_slider +="," ; else item_slider += (ROM_QUALITY+",");
-    if(!area_is) item_slider +="," ; else item_slider += (ROM_AREA+",");
-    if(!angle_is) item_slider +="," ; else item_slider += (ROM_ANGLE+",");
-    if(!scope_is) item_slider +="," ; else item_slider += (ROM_SCOPE+",");
-    if(!scan_is) item_slider +="," ; else item_slider += (ROM_SCAN+",");
-    if(!align_is) item_slider +="," ; else item_slider += (ROM_ALIGN+",");
-    if(!repulsion_is) item_slider +="," ; else item_slider += (ROM_REPULSION+",");
-    if(!attraction_is) item_slider +="," ; else item_slider += (ROM_ATTRACTION+",");
-    if(!density_is) item_slider +="," ; else item_slider += (ROM_DENSITY+",");
-    if(!influence_is) item_slider +="," ; else item_slider += (ROM_INFLUENCE+",");
-    if(!calm_is) item_slider +="," ; else item_slider += (ROM_CALM+",");
-    if(!spectrum_is) item_slider +="," ; else item_slider += (ROM_SPECTRUM+",");
+    if(!quantity_is) item_slider +="," ; else item_slider += (slider[2][0]+",");
+    if(!variety_is) item_slider +="," ; else item_slider += (slider[2][1]+",");
+    if(!life_is) item_slider +="," ; else item_slider += (slider[2][2]+",");
+    if(!flow_is) item_slider +="," ; else item_slider += (slider[2][3]+",");
+    if(!quality_is) item_slider +="," ; else item_slider += (slider[2][4]+",");
+    if(!area_is) item_slider +="," ; else item_slider += (slider[2][5]+",");
+    if(!angle_is) item_slider +="," ; else item_slider += (slider[2][6]+",");
+    if(!scope_is) item_slider +="," ; else item_slider += (slider[2][7]+",");
+    if(!scan_is) item_slider +="," ; else item_slider += (slider[2][8]+",");
+    if(!align_is) item_slider +="," ; else item_slider += (slider[2][9]+",");
+    if(!repulsion_is) item_slider +="," ; else item_slider += (slider[2][10]+",");
+    if(!attraction_is) item_slider +="," ; else item_slider += (slider[2][11]+",");
+    if(!density_is) item_slider +="," ; else item_slider += (slider[2][12]+",");
+    if(!influence_is) item_slider +="," ; else item_slider += (slider[2][13]+",");
+    if(!calm_is) item_slider +="," ; else item_slider += (slider[2][14]+",");
+    if(!spectrum_is) item_slider +="," ; else item_slider += (slider[2][15]+",");
 
-    if(!grid_is) item_slider +="," ; else item_slider += (ROM_GRID+",");
-    if(!viscosity_is) item_slider +="," ; else item_slider += (ROM_VISCOSITY+",");
-    if(!diffusion_is) item_slider +="," ; else item_slider += (ROM_DIFFUSION+",");
-    if(!power_is) item_slider +="," ; else item_slider += (ROM_POWER+",");
-    if(!mass_is) item_slider +="," ; else item_slider += (ROM_MASS+",");
-    if(!coord_x_is) item_slider +="," ; else item_slider += (ROM_COORD_X+",");
-    if(!coord_y_is) item_slider +="," ; else item_slider += (ROM_COORD_Y+",");
-    if(!coord_z_is) item_slider +="," ; else item_slider += (ROM_COORD_Z+",");
+    if(!grid_is) item_slider +="," ; else item_slider += (slider[3][0]+",");
+    if(!viscosity_is) item_slider +="," ; else item_slider += (slider[3][1]+",");
+    if(!diffusion_is) item_slider +="," ; else item_slider += (slider[3][2]+",");
+    if(!power_is) item_slider +="," ; else item_slider += (slider[3][3]+",");
+    if(!mass_is) item_slider +="," ; else item_slider += (slider[3][4]+",");
+    if(!coord_x_is) item_slider +="," ; else item_slider += (slider[3][5]+",");
+    if(!coord_y_is) item_slider +="," ; else item_slider += (slider[3][6]+",");
+    if(!coord_z_is) item_slider +="," ; else item_slider += (slider[3][7]+",");
   }
 
   

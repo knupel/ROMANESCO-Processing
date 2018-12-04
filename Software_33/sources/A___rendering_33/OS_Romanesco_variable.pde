@@ -2,159 +2,19 @@
 Romanesco Manager
 Prescene and Scene
 2013-2018
-v 1.5.0
+v 1.6.0
 */
 Romanesco_manager rpe_manager;
-// col 1
-String ROM_HUE_FILL, ROM_SAT_FILL,ROM_BRIGHT_FILL, ROM_ALPHA_FILL = "";
-String ROM_HUE_STROKE,ROM_SAT_STROKE,ROM_BRIGHT_STROKE,ROM_ALPHA_STROKE = "";
-String ROM_THICKNESS = "";
-String ROM_SIZE_X,ROM_SIZE_Y,ROM_SIZE_Z = "";
-String ROM_DIAMETER = "";
-String ROM_CANVAS_X,ROM_CANVAS_Y,ROM_CANVAS_Z = "";
-// col 2
-String ROM_FREQUENCE = "";
-String ROM_SPEED_X,ROM_SPEED_Y,ROM_SPEED_Z = "";
-String ROM_SPURT_X,ROM_SPURT_Y,ROM_SPURT_Z = "";
-String ROM_DIR_X,ROM_DIR_Y,ROM_DIR_Z = "";
-String ROM_JIT_X,ROM_JIT_Y,ROM_JIT_Z = "j";
-String ROM_SWIWG_X,ROM_SWIWG_Y,ROM_SWIWG_Z = "";
-// col 3
-String ROM_QUANTITY = "";
-String ROM_VARIETY = "";
-String ROM_LIFE = "";
-String ROM_FLOW = "";
-String ROM_QUALITY = "";
-String ROM_AREA = "";
-String ROM_ANGLE = "";
-String ROM_SCOPE = "";
-String ROM_SCAN = "";
-String ROM_ALIGN = "";
-String ROM_REPULSION = "";
-String ROM_ATTRACTION = "";
-String ROM_DENSITY = "";
-String ROM_INFLUENCE = "";
-String ROM_CALM = "";
-String ROM_SPECTRUM = "";
-// col 4
-String ROM_GRID = "";
-String ROM_VISCOSITY = "";
-String ROM_DIFFUSION = "";
-String ROM_POWER = "";
-String ROM_MASS = "";
-String ROM_COORD_X,ROM_COORD_Y,ROM_COORD_Z = "";
-
 
 void romanesco_build_item() {
-  set_slider_item_name();
+  // set_slider_item_name();
   rpe_manager = new Romanesco_manager(this);
-  rpe_manager.add_item_romanesco();
+  rpe_manager.add_item();
+  rpe_manager.set_item(preference_path+"gui_info_en.csv");
   rpe_manager.finish_index();
   rpe_manager.write_info_user();
   println("Romanesco setup done");
 }
-
-void set_slider_item_name() {
-  Table slider_item_data = loadTable(preference_path+"gui_info_en.csv","header");
-  String [][] slider_name = new String[4][16];
-  for(int i = 0 ; i < slider_item_data.getRowCount() ;i++) {
-    TableRow row = slider_item_data.getRow(i);
-    for(int line = 0 ; line < 4 ; line++) {
-      String name = "";
-      if(line == 0) {
-        name = "slider item a";
-      } else if(line == 1) {
-        name = "slider item b";
-      } else if(line == 2) {
-        name = "slider item c";
-      } else if(line == 3) {
-        name = "slider item d";
-      }
-      if(row.getString("name").equals(name)) {
-        for(int k = 0 ; k < slider_item_data.getColumnCount()-1 ; k++) {
-          if(k < slider_name[line].length) {
-            slider_name[line][k] = row.getString("col "+Integer.toString(k)) ;
-            println("slider",line,k,slider_name[line][k]);
-          }
-        }
-      }
-    }
-  }
-  // COL 1
-  ROM_HUE_FILL = slider_name[0][0];
-  ROM_SAT_FILL = slider_name[0][1];
-  ROM_BRIGHT_FILL = slider_name[0][2];
-  ROM_ALPHA_FILL = slider_name[0][3];
-  ROM_HUE_STROKE = slider_name[0][4];
-  ROM_SAT_STROKE = slider_name[0][5];
-  ROM_BRIGHT_STROKE = slider_name[0][6];
-  ROM_ALPHA_STROKE = slider_name[0][7];
-  ROM_THICKNESS = slider_name[0][8];
-  ROM_SIZE_X = slider_name[0][9];
-  ROM_SIZE_Y = slider_name[0][10];
-  ROM_SIZE_Z = slider_name[0][11];
-  ROM_DIAMETER = slider_name[0][12];
-  ROM_CANVAS_X = slider_name[0][13];
-  ROM_CANVAS_Y = slider_name[0][14];
-  ROM_CANVAS_Z = slider_name[0][15];
-
-  // COL 2
-  ROM_FREQUENCE = slider_name[1][0];
-  ROM_SPEED_X = slider_name[1][1];
-  ROM_SPEED_Y = slider_name[1][2];
-  ROM_SPEED_Z = slider_name[1][3];
-  ROM_SPURT_X = slider_name[1][4];
-  ROM_SPURT_Y = slider_name[1][5];
-  ROM_SPURT_Z = slider_name[1][6];
-  ROM_DIR_X = slider_name[1][7];
-  ROM_DIR_Y = slider_name[1][8];
-  ROM_DIR_Z = slider_name[1][9];
-  ROM_JIT_X = slider_name[1][10];
-  ROM_JIT_Y = slider_name[1][11];
-  ROM_JIT_Z = slider_name[1][12];
-  ROM_SWIWG_X = slider_name[1][13];
-  ROM_SWIWG_Y = slider_name[1][14];
-  ROM_SWIWG_Z = slider_name[1][15];
-
-  // COL 3
-  ROM_QUANTITY = slider_name[2][0];
-  ROM_VARIETY = slider_name[2][1];
-  ROM_LIFE = slider_name[2][2];
-  ROM_FLOW = slider_name[2][3];
-  ROM_QUALITY = slider_name[2][4];
-  ROM_AREA = slider_name[2][5];
-  ROM_ANGLE = slider_name[2][6];
-  ROM_SCOPE = slider_name[2][7];
-  ROM_SCAN = slider_name[2][8];
-  ROM_ALIGN = slider_name[2][9];
-  ROM_REPULSION = slider_name[2][10];
-  ROM_ATTRACTION = slider_name[2][11];
-  ROM_DENSITY = slider_name[2][12];
-  ROM_INFLUENCE = slider_name[2][13];
-  ROM_CALM = slider_name[2][14];
-  ROM_SPECTRUM = slider_name[2][15];
-
-  // COL 4
-  ROM_GRID = slider_name[3][0];
-  ROM_VISCOSITY = slider_name[3][1];
-  ROM_DIFFUSION = slider_name[3][2];
-  ROM_POWER = slider_name[3][3];
-  ROM_MASS = slider_name[3][4];
-  ROM_COORD_X = slider_name[3][5];
-  ROM_COORD_Y = slider_name[3][6];
-  ROM_COORD_Z = slider_name[3][7];
-  /*
-  ROM_XXX = slider_name[3][8];
-  ROM_XXX = slider_name[3][9];
-  ROM_XXX = slider_name[3][10];
-  ROM_XXX = slider_name[3][11];
-  ROM_XXX = slider_name[3][12];
-  ROM_XXX = slider_name[3][13];
-  ROM_XXX = slider_name[3][14];
-  ROM_XXX = slider_name[3][15];
-  */
-}
-
 
 
 
