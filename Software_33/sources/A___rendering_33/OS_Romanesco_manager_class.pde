@@ -191,9 +191,7 @@ class Romanesco_manager {
     } 
     //add item
     if (item != null) {
-      // item.set_slider();
       romanesco_item_list.add(item);
-      // add_item(item);
     }
     return item;
   }
@@ -264,13 +262,41 @@ class Romanesco_manager {
 
 
   // SCRIPT
+  ArrayList<String>script_history;
+  int max_script = 20;
   protected void script() {
+    if(script_history == null) script_history = new ArrayList<String>();
+    if(script_history.size() > max_script) {
+      script_history.remove(0);
+    }
+
     long time_millis = new Date().getTime();
     Timestamp time = new Timestamp(time_millis);
-    // println("time",time);
+    String script = "";
+    script += (time_millis+"\n");
     for (int i = 0 ; i < romanesco_item_list.size() ; i++ ) {
       Romanesco item = (Romanesco) romanesco_item_list.get(i);
-      //println(item.get_name(),item.show_is());
+      script += (item.get_name()+"/"+item.show_is()+"\n");
+    }
+    script_history.add(script);
+  }
+
+  protected int script_size() {
+    if(script_history != null) {
+      return script_history.size();
+    } else return 0;
+  }
+
+
+  protected String get_script(int target) {
+    if(script_history == null) {
+      return null;
+    } else {
+      if(target < script_history.size()) {
+        return script_history.get(target);
+      } else {
+        return script_history.get(script_history.size()-1);
+      }
     }
   }
 

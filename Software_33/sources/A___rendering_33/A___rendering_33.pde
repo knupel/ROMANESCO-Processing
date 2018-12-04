@@ -201,7 +201,11 @@ void draw() {
     surface.setTitle(title);
     if(!FULL_SCREEN) update_window_location();
     // script
-    if(frameCount%30 == 0 ) rpe_manager.script();
+    if(frameCount%30 == 0 ) {
+      rpe_manager.script();
+      int size = rpe_manager.script_size();
+      println(rpe_manager.get_script(size));
+    }
 
 
     romanesco();

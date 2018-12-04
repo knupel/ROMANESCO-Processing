@@ -7,7 +7,6 @@ v 1.6.0
 Romanesco_manager rpe_manager;
 
 void romanesco_build_item() {
-  // set_slider_item_name();
   rpe_manager = new Romanesco_manager(this);
   rpe_manager.add_item();
   rpe_manager.set_item(preference_path+"gui_info_en.csv");
