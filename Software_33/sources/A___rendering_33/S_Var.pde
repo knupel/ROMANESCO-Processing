@@ -390,43 +390,7 @@ String pos_z_name = "pos_z";
 boolean [] first_opening_item; // used to check if this object is already opening before
 Vec4 [] fill_item_ref,stroke_item_ref;
 
-/*
-int [] fill_item, stroke_item;
-float [] thickness_item; 
-float [] size_x_item, size_y_item, size_z_item;
-float [] diameter_item;
-float [] canvas_x_item, canvas_y_item, canvas_z_item;
 
-float [] frequence_item;
-float [] speed_x_item, speed_y_item, speed_z_item;
-float [] spurt_x_item, spurt_y_item, spurt_z_item;
-float [] dir_x_item,dir_y_item,dir_z_item;
-float [] jitter_x_item, jitter_y_item, jitter_z_item;
-float [] swing_x_item, swing_y_item, swing_z_item;
-
-float [] quantity_item, variety_item;
-float [] life_item, flow_item, quality_item;
-
-float [] area_item, angle_item, scope_item, scan_item;
-float [] alignment_item, repulsion_item, attraction_item, density_item;
-float [] influence_item, calm_item, spectrum_item;
-
-float [] grid_item;
-float [] viscosity_item,diffusion_item;
-
-float [] power_item;
-float [] mass_item;
-float [] pos_x_item,pos_y_item,pos_z_item;
-*/
-
-
-// int [] soundButton, actionButton;
-// parameterButton;
-// boolean [] show_item, sound, action, parameter;
-
-// Mode [] mode;
-int [] costume_controller_selection;
-// Costume [] costume;
 
 //BUTTON
 int [] value_button_item;
@@ -460,16 +424,8 @@ boolean [] clickShortLeft, clickShortRight, clickLongLeft, clickLongRight;
 int wheel[];
 
 
-//boolean object
-/*
-boolean [] birth, colour, dimension, horizon, motion, orbit, reverse, special, wire;
-boolean [] fill_is, stroke_is;
-boolean [] setting, clearList;
-*/
-
 //font
 ROFont current_font;
-//ROFont [] font_item;
 
 
 
@@ -534,7 +490,6 @@ void create_variable() {
   NUM_SETTING_CAMERA = 1;
 
   create_var_misc();
-  create_var_item_button();
   create_var_sound();
 
   create_var_P3D(NUM_SETTING_CAMERA);
@@ -549,27 +504,7 @@ void create_variable() {
 void create_var_misc() {
   objectLeapID = new int[NUM_ITEM_PLUS_MASTER];
   item_info_display = new boolean[NUM_ITEM_PLUS_MASTER];
-/*
-  setting = new boolean [NUM_ITEM_PLUS_MASTER];
-  // boolean clear
-  clearList = new boolean[NUM_ITEM_PLUS_MASTER];
-  // boolean action from keyboard
-  birth = new boolean[NUM_ITEM_PLUS_MASTER];
-  colour = new boolean [NUM_ITEM_PLUS_MASTER];
-  dimension = new boolean [NUM_ITEM_PLUS_MASTER];
-  horizon = new boolean [NUM_ITEM_PLUS_MASTER];
-  motion = new boolean [NUM_ITEM_PLUS_MASTER];
-  orbit = new boolean [NUM_ITEM_PLUS_MASTER];
-  reverse = new boolean [NUM_ITEM_PLUS_MASTER];
-  special = new boolean [NUM_ITEM_PLUS_MASTER];
-  wire = new boolean [NUM_ITEM_PLUS_MASTER];
 
-  fill_is = new boolean[NUM_ITEM_PLUS_MASTER];
-  stroke_is = new boolean[NUM_ITEM_PLUS_MASTER];
-
-  // costume
-  costume = new Costume[NUM_ITEM_PLUS_MASTER];
-*/
   // IMAGE
   bitmap = new PImage[NUM_ITEM_PLUS_MASTER];
   which_bitmap = new int[NUM_ITEM_PLUS_MASTER];
@@ -588,8 +523,6 @@ void create_var_misc() {
   text_import = new String [NUM_ITEM_PLUS_MASTER];
   which_text = new int[NUM_ITEM_PLUS_MASTER];
 
-  // font managing
-  // font_item = new ROFont[NUM_ITEM_PLUS_MASTER];
 
   //MISC
   //var to init the data of the object when is switch ON for the first time
@@ -646,21 +579,7 @@ void create_var_sound() {
    tempoSnare = new float [NUM_ITEM_PLUS_MASTER];
    tempoHat = new float [NUM_ITEM_PLUS_MASTER];
 }
-//
 
-//
-void create_var_item_button() {
-  /*
-  show_item = new boolean [NUM_ITEM_PLUS_MASTER];
-  sound = new boolean [NUM_ITEM_PLUS_MASTER];
-  action = new boolean [NUM_ITEM_PLUS_MASTER];
-  parameter = new boolean [NUM_ITEM_PLUS_MASTER];
-  mode = new Mode [NUM_ITEM_PLUS_MASTER];
-  */
-  costume_controller_selection = new int [NUM_ITEM_PLUS_MASTER];
-  
-  // you must init this var, because we launch this part of code before the controller. And if we don't init the value is NaN and return an error.
-}
 
 
 void create_var_item_manipulation(int num_item_setting) {
@@ -681,76 +600,6 @@ void create_var_item_slider() {
   first_opening_item = new boolean[NUM_ITEM_PLUS_MASTER] ; // used to check if this object is already opening before
   fill_item_ref = new Vec4[NUM_ITEM_PLUS_MASTER];
   stroke_item_ref = new Vec4[NUM_ITEM_PLUS_MASTER];
-  /*
-  fill_item = new color[NUM_ITEM_PLUS_MASTER];
-  stroke_item = new color[NUM_ITEM_PLUS_MASTER];
-  // column 2
-  thickness_item = new float[NUM_ITEM_PLUS_MASTER]; 
-
-  size_x_item = new float[NUM_ITEM_PLUS_MASTER]; 
-  size_y_item = new float[NUM_ITEM_PLUS_MASTER]; 
-  size_z_item = new float[NUM_ITEM_PLUS_MASTER];
-
-  diameter_item = new float[NUM_ITEM_PLUS_MASTER];
-
-  canvas_x_item = new float[NUM_ITEM_PLUS_MASTER]; 
-  canvas_y_item = new float[NUM_ITEM_PLUS_MASTER]; 
-  canvas_z_item = new float[NUM_ITEM_PLUS_MASTER];
-
-   //column 3
-  frequence_item = new float[NUM_ITEM_PLUS_MASTER];
-
-  speed_x_item = new float[NUM_ITEM_PLUS_MASTER]; 
-  speed_y_item = new float[NUM_ITEM_PLUS_MASTER];
-  speed_z_item = new float[NUM_ITEM_PLUS_MASTER];
-
-  spurt_x_item = new float[NUM_ITEM_PLUS_MASTER]; 
-  spurt_y_item = new float[NUM_ITEM_PLUS_MASTER];
-  spurt_z_item = new float[NUM_ITEM_PLUS_MASTER];
-
-  dir_x_item = new float[NUM_ITEM_PLUS_MASTER]; 
-  dir_y_item = new float[NUM_ITEM_PLUS_MASTER];
-  dir_z_item = new float[NUM_ITEM_PLUS_MASTER];
-
-  jitter_x_item = new float[NUM_ITEM_PLUS_MASTER]; 
-  jitter_y_item = new float[NUM_ITEM_PLUS_MASTER];
-  jitter_z_item = new float[NUM_ITEM_PLUS_MASTER];
-
-  swing_x_item = new float[NUM_ITEM_PLUS_MASTER]; 
-  swing_y_item = new float[NUM_ITEM_PLUS_MASTER];
-  swing_z_item = new float[NUM_ITEM_PLUS_MASTER];
-
-  quantity_item = new float[NUM_ITEM_PLUS_MASTER]; 
-  variety_item = new float[NUM_ITEM_PLUS_MASTER]; 
-
-  life_item = new float[NUM_ITEM_PLUS_MASTER];
-  flow_item = new float[NUM_ITEM_PLUS_MASTER];
-  quality_item = new float[NUM_ITEM_PLUS_MASTER];
-
-  area_item = new float[NUM_ITEM_PLUS_MASTER];
-  angle_item = new float[NUM_ITEM_PLUS_MASTER];
-  scope_item = new float[NUM_ITEM_PLUS_MASTER];
-  scan_item = new float[NUM_ITEM_PLUS_MASTER];
-
-  alignment_item = new float[NUM_ITEM_PLUS_MASTER];
-  repulsion_item = new float[NUM_ITEM_PLUS_MASTER];
-  attraction_item = new float[NUM_ITEM_PLUS_MASTER];
-  density_item = new float[NUM_ITEM_PLUS_MASTER];
-
-  influence_item = new float[NUM_ITEM_PLUS_MASTER];
-  calm_item = new float[NUM_ITEM_PLUS_MASTER];
-  spectrum_item = new float[NUM_ITEM_PLUS_MASTER];
-
-  grid_item = new float[NUM_ITEM_PLUS_MASTER];
-  viscosity_item = new float[NUM_ITEM_PLUS_MASTER];
-  diffusion_item = new float[NUM_ITEM_PLUS_MASTER];
-
-  power_item = new float[NUM_ITEM_PLUS_MASTER];
-  mass_item = new float[NUM_ITEM_PLUS_MASTER];
-  pos_x_item = new float[NUM_ITEM_PLUS_MASTER]; 
-  pos_y_item = new float[NUM_ITEM_PLUS_MASTER];
-  pos_z_item = new float[NUM_ITEM_PLUS_MASTER];
-  */
 }
 
 

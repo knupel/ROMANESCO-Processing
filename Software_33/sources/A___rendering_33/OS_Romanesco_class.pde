@@ -1,6 +1,6 @@
 /**
 Abstract CLASS ROMANESCO
-v 1.1.0
+v 1.1.1
 2013-2018
 */
 import java.util.Date;
@@ -55,8 +55,9 @@ public abstract class Romanesco implements rope.core.RConstants {
 
   Mode mode;
   Costume costume;
+  int costume_id;
 
-  boolean birth, colour, dimension, horizon, motion, orbit, reverse, special, wire;
+  boolean birth, colour, dimension, horizon, motion, follow, reverse, special, wire;
   boolean fill_is, stroke_is;
   boolean setting, clearList;
 
@@ -245,8 +246,20 @@ public abstract class Romanesco implements rope.core.RConstants {
   protected void set_mode(Mode mode) {
     this.mode = mode;
   }
-  protected void set_costume(Costume costume) {
+  
+  /**
+  * set costume from here is tricky, because there is dependancy from the String item_custume
+  */
+  protected void set_costume_id(int costume_id) {
+    if(costume_id >= 0 && costume_id < split(item_costume,"/").length) {
+      this.costume_id = costume_id;
+    }
+  }
+
+
+  protected void set_costume(Costume costume, int id) {
     this.costume = costume;
+    this.costume_id = costume_id;
   }
   
   // set boolean button controller
@@ -553,8 +566,8 @@ public abstract class Romanesco implements rope.core.RConstants {
     this.motion = motion;
   }
 
-  protected void orbit_is(boolean orbit) {
-    this.orbit = orbit;
+  protected void follow_is(boolean follow) {
+    this.follow = follow;
   }
 
   protected void reverse_is(boolean reverse) {
@@ -577,10 +590,6 @@ public abstract class Romanesco implements rope.core.RConstants {
     this.stroke_is = stroke_is;
   }
 
-  protected void setting_is(boolean setting) {
-    this.setting = setting;
-  }
-
   protected void switch_birth() {
     this.birth = !this.birth;
   }
@@ -601,8 +610,8 @@ public abstract class Romanesco implements rope.core.RConstants {
     this.motion = !this.motion;
   }
 
-  protected void switch_orbit() {
-    this.orbit = !this.orbit;
+  protected void switch_follow() {
+    this.follow = !this.follow;
   }
 
   protected void switch_reverse() {
@@ -667,12 +676,28 @@ public abstract class Romanesco implements rope.core.RConstants {
     return ID_item;
   }
 
-  protected int get_id_group() {
+  protected int get_group() {
     return ID_group;
   }
 
   protected String get_name() {
     return item_name;
+  }
+
+  protected boolean show_is() {
+    return show;
+  }
+
+  protected boolean sound_is() {
+    return sound;
+  }
+
+  protected boolean action_is() {
+    return action; 
+  } 
+
+  protected boolean parameter_is() {
+    return parameter;
   }
 
   protected Mode get_mode() {
@@ -695,41 +720,28 @@ public abstract class Romanesco implements rope.core.RConstants {
     return get_costume_private();
   }
 
-
-
-
-
-
-
-  /*
-  * is method from controler
-  */
-  protected boolean show_is() {
-    return show;
-  }
-
-  protected boolean sound_is() {
-    return sound;
-  }
-
-  protected boolean action_is() {
-    return action; 
-  } 
-
-  protected boolean parameter_is() {
-    return parameter;
+  protected int get_costume_id() {
+    return costume_id;
   }
 
 
 
 
   /**
-  * is method from prescene
+  state method use in Prescene generally
   */
+  protected boolean fill_is() {
+    return fill_is;
+  }
+
+  protected boolean stroke_is() {
+    return stroke_is;
+  }
+
   protected boolean birth_is() {
     return birth;
   }
-
+  
   protected boolean colour_is() {
     return colour;
 
@@ -746,38 +758,28 @@ public abstract class Romanesco implements rope.core.RConstants {
     return motion;
   }
 
-  protected boolean orbit_is() {
-    return orbit;
+  protected boolean follow_is() {
+    return follow;
   }
 
   protected boolean reverse_is() {
     return reverse;
   }
 
-  protected boolean special_is() {
-    return special;
-  }
-
   protected boolean wire_is() {
     return wire;
   }
 
-  protected boolean fill_is() {
-    return fill_is;
+  protected boolean special_is() {
+    return special;
   }
 
-  protected boolean stroke_is() {
-    return stroke_is;
-  }
 
   protected boolean clear_list_is() {
     return clearList;
   }
   
-  // what is method ??????
-  protected boolean setting_is() {
-    return setting; 
-  }
+
 
   /**
   * get slider method 
@@ -1119,9 +1121,6 @@ public abstract class Romanesco implements rope.core.RConstants {
   /**
   deep method
   */
-
-
-
   private Costume get_costume_private() {
     if(costume == null) {
       costume = new Costume();
@@ -1131,8 +1130,7 @@ public abstract class Romanesco implements rope.core.RConstants {
 
     String costume_romanesco = "unknow" ;
     if(costume_split[0] != null) {
-      int target = costume_controller_selection[get_id()];
-      costume_romanesco = costume_split[target];
+      costume_romanesco = costume_split[get_costume_id()];
     } 
 
     if(costume_romanesco.equals("pixel") || costume_romanesco.equals("PIXEL") || costume_romanesco.equals("Pixel")) {

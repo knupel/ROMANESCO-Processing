@@ -1,6 +1,6 @@
 /**
 OSC CORE 
-v 1.6.0
+v 1.6.1
 */
 void OSC_setup() {
   OSC_controller_setup();
@@ -260,7 +260,8 @@ void receive_data_dropdown_costume_item(OscMessage receive, int in) {
   for (int i = 0 ; i < NUM_ITEM ; i++) {
     int index = i+in;
     int target = i+1;
-    costume_controller_selection[target] = receive.get(index).intValue();
+    Romanesco item = rpe_manager.get(i);
+    item.set_costume_id(receive.get(index).intValue());
   }
 }
 

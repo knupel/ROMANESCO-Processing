@@ -1,15 +1,14 @@
 /**
 SOLEIL
 2012-2018
-1.1.7
+1.1.8
 */
-
 class Soleil extends Romanesco {
   public Soleil() {
     //from the index_objects.csv
     item_name = "Soleil" ;
     item_author  = "Stan le Punk";
-    item_version = "Version 1.1.7";
+    item_version = "Version 1.1.8";
     item_pack = "Base 2013-2018" ;
     item_costume = "" ;
     item_mode = "Beam/Lie'Bro'One/Lie'Bro'Two/Lie'Bro Noisy" ;
@@ -75,13 +74,14 @@ class Soleil extends Romanesco {
   PVector pos = new PVector() ;
   //DRAW
   void draw() {
-    aspect(get_fill(), get_stroke(), get_thickness()) ;
+    aspect(get_fill(),get_stroke(),get_thickness());
     // orbital revolution
-    if((key_space_long && action_is()) || orbit_is()) pos.set(mouse[ID_item].x -width/2, mouse[ID_item].y -height/2,0) ; else pos.set(0,0,0) ;
+    if((key_space_long && action_is()) || special_is()) pos.set(mouse[ID_item].x -width/2, mouse[ID_item].y -height/2,0) ; else pos.set(0,0,0) ;
     // diam
-    int diam = int(get_canvas_x() *all_transient(ID_item)) ;
+    float diam = get_canvas_x();
+    if(sound_is()) diam *= all_transient(ID_item);
     // num beam
-    float num_temp = get_quantity() *get_quantity() ;
+    float num_temp = get_quantity() *get_quantity();
     int numBeam = (int)(num_temp *87 +1) ;
     if(!FULL_RENDERING) numBeam /= 20 ;
     if(numBeam < 2 ) numBeam = 2 ;
@@ -97,7 +97,7 @@ class Soleil extends Romanesco {
     float amp = sq(ratio_jitter *(height /10)) ;
     float right_jit =  ((right[ID_item] *right[ID_item] *5) *amp) ;
     float left_jit = ((left[ID_item] *left[ID_item] *5) *amp) ;
-    if (sound_is()) jitter = new PVector(right_jit, left_jit) ; else jitter = new PVector(amp,amp) ;
+    if(sound_is()) jitter = new PVector(right_jit, left_jit) ; else jitter = new PVector(amp,amp);
 
     // rotation direction
     int direction = 1 ;
@@ -120,22 +120,22 @@ class Soleil extends Romanesco {
     
     // info display
     String revolution = ("") ;
-    if((key_space_long && action_is()) || orbit_is()) revolution =("false") ; else revolution = ("true") ;
-    item_info[ID_item] = ("The sun have " + numBeam + " beams - Motion "+revolution ) ;
+    if((key_space_long && action_is()) || special_is()) revolution =("false") ; else revolution = ("true") ;
+    info("The sun have ",numBeam," beams - Motion ",revolution);
     
     
   }
   
   // ANNEXE
   // soleil with jitter
-  void soleil(PVector pos, int diam, int numBeam, float spurt, PVector jitter) {
+  void soleil(PVector pos, float diam, int numBeam, float spurt, PVector jitter) {
     int numPoints = numBeam *2 ;
     for (int i = 0 ; i < numPoints -1 ; i = i +2) {
       float vibration = random(-jitter.x, jitter.y) ;
       PVector p1 = new PVector() ;
       PVector p2 = new PVector() ;
-      p1 = circle(pos, diam, numPoints, spurt)[i].copy() ;
-      p2 = circle(pos, diam, numPoints, spurt)[i +1].copy() ;
+      p1 = circle(pos, (int)diam, numPoints, spurt)[i].copy() ;
+      p2 = circle(pos, (int)diam, numPoints, spurt)[i +1].copy() ;
   
       beginShape() ;
       vertex(pos.x, pos.y, pos.z) ;
@@ -147,13 +147,13 @@ class Soleil extends Romanesco {
   
   
   // soleil with jitter
-  void soleil(PVector pos, int diam, int numBeam, float jitter) {
+  void soleil(PVector pos, float diam, int numBeam, float jitter) {
     int numPoints = numBeam *2 ;
     for (int i = 0 ; i < numPoints -1 ; i = i +2) {
       PVector p1 = new PVector() ;
       PVector p2 = new PVector() ;
-      p1 = circle(pos, diam, numPoints, jitter)[i].copy() ;
-      p2 = circle(pos, diam, numPoints, jitter)[i +1].copy() ;
+      p1 = circle(pos, (int)diam, numPoints, jitter)[i].copy() ;
+      p2 = circle(pos, (int)diam, numPoints, jitter)[i +1].copy() ;
   
       beginShape() ;
       vertex(pos.x, pos.y, pos.z) ;
@@ -164,13 +164,13 @@ class Soleil extends Romanesco {
   }
   
   // classic soleil
-  void soleil(PVector pos, int diam, int numBeam) {
+  void soleil(PVector pos, float diam, int numBeam) {
     int numPoints = numBeam *2 ;
     for (int i = 0 ; i < numPoints -1 ; i = i +2) {
       PVector p1 = new PVector() ;
       PVector p2 = new PVector() ;
-      p1 = circle(pos, diam, numPoints)[i].copy() ;
-      p2 = circle(pos, diam, numPoints)[i +1].copy() ;
+      p1 = circle(pos, (int)diam, numPoints)[i].copy() ;
+      p2 = circle(pos, (int)diam, numPoints)[i +1].copy() ;
       beginShape() ;
       vertex(pos.x, pos.y, pos.z) ;
       vertex(p1.x, p1.y, p1.z) ;

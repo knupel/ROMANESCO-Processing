@@ -1,6 +1,5 @@
 
-
-Romanesco dui 2.0.1.32
+Romanesco dui 2.0.2.33
 2011-2018
 Guide to code the item Class Romanesco.
 
@@ -26,12 +25,15 @@ void draw_2D()
 
 
 
-*INFO item
+*INFO
 
-RPE_name = "Unknown" ;
-RPE_author = "Anonymous";
-RPE_ersion = "Alpha";
-RPE_pack = "Base 2016" ; 
+item_name = "Unknown" ; // showing in controler
+item_author = "Anonymous"; // showing in controler
+item_references = "";
+item_version = "Alpha"; // showing in controler
+item_pack = "Base 2016" ; 
+item_costume = "point/ellipse/triangle/rect/cross/pentagon/Star 5/Star 7/Super Star 8/Super Star 12"; 
+item_mode = "";
 
 
 
@@ -69,6 +71,10 @@ ROPE_svg get_svg();
 
 *is method from prescene
 
+boolean fill_is();
+
+boolean stroke_is();
+
 boolean birth_is();
 
 boolean colour_is();
@@ -79,7 +85,7 @@ boolean horizon_is();
 
 boolean motion_is();
 
-boolean orbit_is();
+boolean follow_is();
 
 boolean reverse_is();
 
@@ -87,24 +93,153 @@ boolean special_is();
 
 boolean wire_is();
 
-boolean fill_is();
-
-boolean stroke_is();
-
-boolean setting_is();
-
 boolean clear_list_is();
+
+
+*set boolean state
+
+void fill_is(boolean is);
+
+void stroke_is(boolean is);
+
+void birth_is(boolean is);
+
+void colour_is(boolean is);
+
+void dimension_is(boolean is);
+  
+void horizon_is(boolean is);
+
+void motion_is(boolean is);
+
+void follow_is(boolean is);
+
+void reverse_is(boolean is);
+
+void special_is(boolean is);
+
+void wire_is(boolean is);
+
+
 
 *get slider method
 
 
-Vec3 get_pos();
+int get_fill();
 
-float get_pos_x();
+int get_stroke();
 
-float get_pos_y();
+float get_thickness();
+  
+Vec3 get_size();
 
-float get_pos_z();
+float get_size_x();
+
+float get_size_y();
+
+float get_size_z();
+
+float get_diameter();
+
+get_canvas();
+
+float get_canvas_x();
+
+float get_canvas_y();
+
+float get_canvas_z();
+
+get_frequence();
+
+Vec3 get_speed();
+
+float get_speed_x();
+
+float get_speed_y();
+
+float get_speed_z();
+
+Vec3 get_jitter();
+
+float get_jitter_x();
+
+float get_jitter_y();
+
+float get_jitter_z();
+
+Vec3 get_spurt();
+
+float get_spurt_x();
+
+float get_spurt_y();
+
+float get_spurt_z();
+
+Vec3 get_swing();
+
+float get_swing_x();
+
+float get_swing_y();
+
+float get_swing_z();
+
+Vec3 get_dir();
+
+float get_dir_x();
+
+float get_dir_y();
+
+float get_dir_z();
+
+float get_quantity();
+
+float get_variety();
+
+float get_life();
+
+float get_flow();
+
+float get_quality();
+
+float get_area();
+
+float get_angle();
+
+float get_scope();
+
+float get_scan();
+
+float get_alignment();
+
+float get_repulsion();
+
+float get_attraction();
+
+float get_density();
+
+float get_influence();
+
+float get_calm();
+
+float get_spectrum();
+
+float get_grid();
+
+float get_viscosity();
+
+float get_diffusion();
+
+float get_power();
+
+float get_mass();
+
+Vec3 get_coord();
+
+float get_coord_x();
+
+float get_coord_y();
+
+float get_coord_z();
 
 
 *is method

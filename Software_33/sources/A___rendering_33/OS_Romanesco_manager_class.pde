@@ -261,7 +261,12 @@ class Romanesco_manager {
 
 
 
-  // SCRIPT
+  /**
+  * SCRIPT
+  * v 0.0.1
+  * use to write and read the history
+  */
+
   ArrayList<String>script_history;
   int max_script = 20;
   protected void script() {
@@ -273,10 +278,32 @@ class Romanesco_manager {
     long time_millis = new Date().getTime();
     Timestamp time = new Timestamp(time_millis);
     String script = "";
-    script += (time_millis+"\n");
+    script += (time+"\n");
+    //script += (time_millis+"\n");
     for (int i = 0 ; i < romanesco_item_list.size() ; i++ ) {
       Romanesco item = (Romanesco) romanesco_item_list.get(i);
-      script += (item.get_name()+"/"+item.show_is()+"\n");
+      script += ("/CONTROLLER BUTTON\n");
+      script += ("/"+item.get_name()+":"+item.show_is()+"\n");
+      script += ("/id:"+item.get_id()+"\n");
+      script += ("/group:"+item.get_group()+"\n");
+      script += ("/parameter:"+item.parameter_is()+"\n");
+      script += ("/sound:"+item.sound_is()+"\n");
+      script += ("/action:"+item.action_is()+"\n");
+      script += ("/costume:"+item.get_costume_id()+"\n");
+      script += ("/mode:"+item.get_mode_id()+"\n");
+
+      script += ("/STATE\n");
+      script += ("/fill is:"+item.fill_is()+"\n");
+      script += ("/stroke is:"+item.stroke_is()+"\n");
+      script += ("/birth:"+item.birth_is()+"\n");
+      script += ("/colour:"+item.colour_is()+"\n");
+      script += ("/dimension:"+item.dimension_is()+"\n");
+      script += ("/horizon:"+item.horizon_is()+"\n");
+      script += ("/motion:"+item.motion_is()+"\n");
+      script += ("/follow:"+item.follow_is()+"\n");
+      script += ("/reverse:"+item.reverse_is()+"\n");
+      script += ("/wire:"+item.wire_is()+"\n");
+      script += ("/special:"+item.special_is()+"\n");
     }
     script_history.add(script);
   }

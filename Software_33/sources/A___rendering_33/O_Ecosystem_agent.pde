@@ -91,7 +91,7 @@ class Ecosystem_agent extends Romanesco {
     canvas.mult(ratio_canvas) ;
 
 
-    host_mode_ref = orbit_is() ;
+    host_mode_ref = follow_is() ;
     init_environment(pos, canvas) ;
     use_horizon(true) ;
     use_rebound(false) ;
@@ -110,7 +110,7 @@ class Ecosystem_agent extends Romanesco {
   
 	void draw() {
     // Master and Follower item 
-    if(orbit_is()) {
+    if(follow_is()) {
       follower[ID_item] = true ;
     } else {
       follower[ID_item] = false ;

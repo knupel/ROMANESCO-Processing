@@ -97,10 +97,11 @@ void update_var_items(Romanesco item) {
     if (key_d || dimension_button_alert_is()) item.switch_dimension();
     if (key_h) item.switch_horizon();
     if (key_m) item.switch_motion();
-    if (key_o) item.switch_orbit();
+    if (key_f) item.switch_follow();
     if (key_r) item.switch_reverse();
-    if (key_f) item.switch_special();
     if (key_w) item.switch_wire();
+    if (key_s) item.switch_special();
+
 
     if (key_j)item.switch_fill();
     if (key_k) item.switch_stroke();
