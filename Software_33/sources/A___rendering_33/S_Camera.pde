@@ -2,7 +2,7 @@
 Camera Romanesco
 Prescene and Scene
 2013-2018
-v 1.3.0
+v 1.3.1
 */
 //travelling
 boolean goto_camera_pos_is, gotoCameraEye, travellingPriority;
@@ -11,7 +11,6 @@ float speed_follow_camera_romanesco;
 
 //CAMERA Stuff
 boolean moveScene, moveEye;
-// boolean reset_camera_is;
 
 Vec3 targetPosCam = Vec3();
 
@@ -346,10 +345,11 @@ Vec3 update_position_item(Vec3 pos, int ID, boolean authorization) {
 
 
 // FINAL POSITION
-void final_pos_item(int ID) {
-  translate(pos_item_final[ID]);
-  rotateX(radians(dir_item_final[ID].x));
-  rotateY(radians(dir_item_final[ID].y));
+void final_pos_item(Romanesco item) {
+  int id = item.get_id();
+  translate(pos_item_final[id]);
+  rotateX(radians(dir_item_final[id].x));
+  rotateY(radians(dir_item_final[id].y));
 }
 
 
@@ -436,9 +436,6 @@ Main method camera draw
 void camera_romanesco_draw() {
   set_var_camera_romanesco();
   update_camera_romanesco(LEAPMOTION_DETECTED) ;
-  // set camera variable
-  /* look if the user is on the Prescene or not, and other stuff to display the good views */
-  // set_var_camera_romanesco();
 
   // deformation and focal of the lenz camera
   paralaxe(focal,deformation);
@@ -455,12 +452,6 @@ void camera_romanesco_draw() {
 
   //catch ref camera
   catch_camera_info();
-
-  /*
-  if(reset_camera_is) {
-    reset_camera_is = false;
-  }
-  */
 }
 
 
@@ -583,10 +574,10 @@ void final_camera_low_rendering() {
   upY = 1 ;
   upZ = 0 ;
   // final camera position
-  finalSceneCamera = new Vec3 (width/2, height, -width) ;
-  float longitude = -45 ;
-  float latitude = 0 ;
-  finalEyeCamera = new Vec2 (longitude, latitude) ;
+  finalSceneCamera = new Vec3 (width/2,height,-width);
+  float longitude = -45;
+  float latitude = 0;
+  finalEyeCamera = new Vec2(longitude,latitude);
 }
 
 

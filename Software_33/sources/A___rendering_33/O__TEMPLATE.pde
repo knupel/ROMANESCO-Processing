@@ -2,7 +2,7 @@
 * Template
 * the tab is the template that you can duplicate to add the item you want in your Romanesco.
 * You must change the class name and this one must be unique.
-v 0.0.1
+v 0.0.2
 */
 class Template extends Romanesco {
   public Template() {
@@ -72,6 +72,9 @@ class Template extends Romanesco {
     // diffusion_is = true;
     // power_is = true;
     // mass_is = true;
+    // coord_x_is = true;
+    // coord_y_is = true;
+    // coord_z_is = true;
   }
 
   void setup() {

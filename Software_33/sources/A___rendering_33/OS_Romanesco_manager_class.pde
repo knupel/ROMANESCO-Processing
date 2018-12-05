@@ -279,10 +279,14 @@ class Romanesco_manager {
     Timestamp time = new Timestamp(time_millis);
     String script = "";
     script += ("\n"+time+"\n");
+    script += ("________________________________________________________________WORLD\n");
+    script += ("/translate:"+finalSceneCamera+"\n");
+    script += ("/rotate:"+finalEyeCamera+"\n");
+
     //script += (time_millis+"\n");
     for (int i = 0 ; i < romanesco_item_list.size() ; i++ ) {
       Romanesco item = (Romanesco) romanesco_item_list.get(i);
-      script += ("/______________________________________"+item.get_name()+"\n");
+      script += ("/______________________________________________________________"+item.get_name()+"\n");
       script += ("/"+item.get_name()+":"+item.show_is()+"\n");
       script += ("/id:"+item.get_id()+"\n");
       script += ("/group:"+item.get_group()+"\n");
@@ -292,11 +296,11 @@ class Romanesco_manager {
       script += ("/costume:"+item.get_costume_id()+"\n");
       script += ("/mode:"+item.get_mode_id()+"\n");
 
-      script += ("/__________________________DISPOSITION\n");
+      script += ("/____________________________DISPOSITION\n");
       script += ("/translate:"+pos_item_final[item.get_id()]+"\n");
       script += ("/rotate:"+dir_item_final[item.get_id()]+"\n");
 
-      script += ("/__________________________STATE\n");
+      script += ("/__________________________________STATE\n");
       script += ("/fill is:"+item.fill_is()+"\n");
       script += ("/stroke is:"+item.stroke_is()+"\n");
 
@@ -310,7 +314,7 @@ class Romanesco_manager {
       script += ("/wire:"+item.wire_is()+"\n");
       script += ("/special:"+item.special_is()+"\n");
 
-      script += ("/__________________________SLIDER\n");
+      script += ("/________________________________SLIDER\n");
       script += ("/fill:"+item.get_fill()+"\n");
       script += ("/stroke:"+item.get_stroke()+"\n");
       script += ("/size:"+item.get_size()+"\n");
@@ -408,7 +412,7 @@ class Romanesco_manager {
         if((key_v_long || reset_item_on_button_alert_is()) && item.action_is()) {
           item_move(movePos, moveDir, item.get_id());
         }
-        final_pos_item(item.get_id());
+        final_pos_item(item);
         item.draw();
         popMatrix();
       } else {

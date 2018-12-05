@@ -177,8 +177,6 @@ void setup() {
 
   init_filter();
   init_masking();
-
-  // RG.init(this); // Geomerative
 }
 
 
@@ -204,7 +202,7 @@ void draw() {
     if(frameCount%180 == 0) {
       rpe_manager.script();
       int size = rpe_manager.script_size();
-      println(rpe_manager.get_script(size));
+      // println(rpe_manager.get_script(size));
     }
 
 

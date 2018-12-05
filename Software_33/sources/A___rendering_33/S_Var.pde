@@ -1,7 +1,7 @@
 /**
 VARIABLE SCENE
 2015-2018
-v 1.8.1
+v 1.8.1.1
 */
 boolean scene, prescene;
 boolean miroir_on_off = false ;
@@ -239,7 +239,7 @@ Vec2 pos_x_min_max,pos_y_min_max,pos_z_min_max;
 
 
 // temp
-/* value used to know if the value slider have change or nor */
+// value used to know if the value slider have change or nor 
 // col A
 int fill_hue_temp, fill_sat_temp, fill_bright_temp, fill_alpha_temp;
 int stroke_hue_temp, stroke_sat_temp, stroke_bright_temp, stroke_alpha_temp;
@@ -449,7 +449,6 @@ boolean [] init_value_mouse, init_value_controller;
 float [] left,right,mix;
 // transient
 float [][] transient_value;
-// float [] beat, kick, snare, hat ;
 // spectrum
 float band[][];
 //tempo
@@ -601,20 +600,6 @@ void create_var_item_slider() {
   fill_item_ref = new Vec4[NUM_ITEM_PLUS_MASTER];
   stroke_item_ref = new Vec4[NUM_ITEM_PLUS_MASTER];
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
