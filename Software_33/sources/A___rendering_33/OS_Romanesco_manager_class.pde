@@ -278,11 +278,11 @@ class Romanesco_manager {
     long time_millis = new Date().getTime();
     Timestamp time = new Timestamp(time_millis);
     String script = "";
-    script += (time+"\n");
+    script += ("\n"+time+"\n");
     //script += (time_millis+"\n");
     for (int i = 0 ; i < romanesco_item_list.size() ; i++ ) {
       Romanesco item = (Romanesco) romanesco_item_list.get(i);
-      script += ("/CONTROLLER BUTTON\n");
+      script += ("/______________________________________"+item.get_name()+"\n");
       script += ("/"+item.get_name()+":"+item.show_is()+"\n");
       script += ("/id:"+item.get_id()+"\n");
       script += ("/group:"+item.get_group()+"\n");
@@ -292,9 +292,14 @@ class Romanesco_manager {
       script += ("/costume:"+item.get_costume_id()+"\n");
       script += ("/mode:"+item.get_mode_id()+"\n");
 
-      script += ("/STATE\n");
+      script += ("/__________________________DISPOSITION\n");
+      script += ("/translate:"+pos_item_final[item.get_id()]+"\n");
+      script += ("/rotate:"+dir_item_final[item.get_id()]+"\n");
+
+      script += ("/__________________________STATE\n");
       script += ("/fill is:"+item.fill_is()+"\n");
       script += ("/stroke is:"+item.stroke_is()+"\n");
+
       script += ("/birth:"+item.birth_is()+"\n");
       script += ("/colour:"+item.colour_is()+"\n");
       script += ("/dimension:"+item.dimension_is()+"\n");
@@ -304,6 +309,45 @@ class Romanesco_manager {
       script += ("/reverse:"+item.reverse_is()+"\n");
       script += ("/wire:"+item.wire_is()+"\n");
       script += ("/special:"+item.special_is()+"\n");
+
+      script += ("/__________________________SLIDER\n");
+      script += ("/fill:"+item.get_fill()+"\n");
+      script += ("/stroke:"+item.get_stroke()+"\n");
+      script += ("/size:"+item.get_size()+"\n");
+      script += ("/diameter:"+item.get_diameter()+"\n");
+      script += ("/canvas:"+item.get_canvas()+"\n");
+
+      script += ("/frequence:"+item.get_frequence()+"\n");
+      script += ("/speed:"+item.get_speed()+"\n");
+      script += ("/spurt:"+item.get_spurt()+"\n");
+      script += ("/dir:"+item.get_dir()+"\n");
+      script += ("/jitter:"+item.get_jitter()+"\n");
+      script += ("/swing:"+item.get_swing()+"\n");
+
+      script += ("/quantity:"+item.get_quantity()+"\n");
+      script += ("/variety:"+item.get_variety()+"\n");
+      script += ("/life:"+item.get_life()+"\n");
+      script += ("/flow:"+item.get_flow()+"\n");
+      script += ("/quality:"+item.get_quality()+"\n");
+      script += ("/area:"+item.get_area()+"\n");
+      script += ("/angle:"+item.get_angle()+"\n");
+      script += ("/scope:"+item.get_scope()+"\n");
+      script += ("/scan:"+item.get_scan()+"\n");
+      script += ("/alignment:"+item.get_alignment()+"\n");
+      script += ("/repulsion:"+item.get_repulsion()+"\n");
+      script += ("/attraction:"+item.get_attraction()+"\n");
+      script += ("/density:"+item.get_density()+"\n");
+      script += ("/influence:"+item.get_influence()+"\n");
+      script += ("/calm:"+item.get_calm()+"\n");
+      script += ("/spectrum:"+item.get_spectrum()+"\n");
+
+      script += ("/grid:"+item.get_grid()+"\n");
+      script += ("/viscosity:"+item.get_viscosity()+"\n");
+      script += ("/diffusion:"+item.get_diffusion()+"\n");
+      script += ("/power:"+item.get_power()+"\n");
+      script += ("/mass:"+item.get_mass()+"\n");
+      script += ("/coord:"+item.get_coord()+"\n");
+
     }
     script_history.add(script);
   }

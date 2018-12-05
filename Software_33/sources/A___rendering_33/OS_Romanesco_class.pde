@@ -1,6 +1,6 @@
 /**
 Abstract CLASS ROMANESCO
-v 1.1.1
+v 1.1.2
 2013-2018
 */
 import java.util.Date;
@@ -857,6 +857,42 @@ public abstract class Romanesco implements rope.core.RConstants {
     return speed_z;
   }
 
+  // spurt
+  protected Vec3 get_spurt() {
+    return Vec3(get_spurt_x(),get_spurt_y(),get_spurt_z());
+  }
+
+  protected float get_spurt_x() {
+    return spurt_x;
+  }
+
+  protected float get_spurt_y() {
+    return spurt_y;
+  }
+
+  protected float get_spurt_z() {
+    return spurt_z;
+  }
+
+
+
+  // dir
+  protected Vec3 get_dir() {
+    return Vec3(get_dir_x(),get_dir_y(),get_dir_z());
+  }
+
+  protected float get_dir_x() {
+    return dir_x;
+  }
+
+  protected float get_dir_y() {
+    return dir_y;
+  }
+
+  protected float get_dir_z() {
+    return dir_z;
+  }
+
   // jitter
   protected Vec3 get_jitter() {
     return Vec3(get_jitter_x(),get_jitter_y(),get_jitter_z());
@@ -875,22 +911,7 @@ public abstract class Romanesco implements rope.core.RConstants {
   }
 
 
-  // spurt
-  protected Vec3 get_spurt() {
-    return Vec3(get_spurt_x(),get_spurt_y(),get_spurt_z());
-  }
 
-  protected float get_spurt_x() {
-    return spurt_x;
-  }
-
-  protected float get_spurt_y() {
-    return spurt_y;
-  }
-
-  protected float get_spurt_z() {
-    return spurt_z;
-  }
 
   // swing
   protected Vec3 get_swing() {
@@ -910,22 +931,7 @@ public abstract class Romanesco implements rope.core.RConstants {
   }
 
 
-  // dir
-  protected Vec3 get_dir() {
-    return Vec3(get_dir_x(),get_dir_y(),get_dir_z());
-  }
 
-  protected float get_dir_x() {
-    return dir_x;
-  }
-
-  protected float get_dir_y() {
-    return dir_y;
-  }
-
-  protected float get_dir_z() {
-    return dir_z;
-  }
 
 
   // col 3
