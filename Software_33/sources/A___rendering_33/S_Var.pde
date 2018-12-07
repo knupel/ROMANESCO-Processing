@@ -238,36 +238,7 @@ Vec2 pos_x_min_max,pos_y_min_max,pos_z_min_max;
 
 
 
-// temp
-// value used to know if the value slider have change or nor 
-// col A
-int fill_hue_temp, fill_sat_temp, fill_bright_temp, fill_alpha_temp;
-int stroke_hue_temp, stroke_sat_temp, stroke_bright_temp, stroke_alpha_temp;
-float thickness_temp; 
-float size_x_temp, size_y_temp, size_z_temp;
-float diameter_temp;
-float canvas_x_temp, canvas_y_temp, canvas_z_temp;
-// col B
-float frequence_temp;
-float speed_x_temp, speed_y_temp, speed_z_temp;
-float spurt_x_temp, spurt_y_temp, spurt_z_temp;
-float dir_x_temp,dir_y_temp,dir_z_temp;
-float jitter_x_temp, jitter_y_temp, jitter_z_temp;
-float swing_x_temp, swing_y_temp, swing_z_temp;
-// col C
-float quantity_temp, variety_temp;
-float life_temp, flow_temp, quality_temp;
-float area_temp, angle_temp, scope_temp, scan_temp;
 
-float alignment_temp, repulsion_temp, attraction_temp, density_temp;
-float influence_temp, calm_temp, spectrum_temp;
-// col D
-float grid_temp;
-float viscosity_temp, diffusion_temp;
-
-float power_temp;
-float mass_temp;
-float coord_x_temp,coord_y_temp,coord_z_temp;
 
 /**
 String name
@@ -1102,88 +1073,120 @@ void update_raw_item_value() {
 }
 
 
+
+
 /* Those temp value are used to know is the object value must be updated */
+// value used to know if the value slider have change or nor 
+// col A
+int fill_hue_ref, fill_sat_ref, fill_bright_ref, fill_alpha_ref;
+int stroke_hue_ref, stroke_sat_ref, stroke_bright_ref, stroke_alpha_ref;
+float thickness_ref; 
+float size_x_ref, size_y_ref, size_z_ref;
+float diameter_ref;
+float canvas_x_ref, canvas_y_ref, canvas_z_ref;
+// col B
+float frequence_ref;
+float speed_x_ref, speed_y_ref, speed_z_ref;
+float spurt_x_ref, spurt_y_ref, spurt_z_ref;
+float dir_x_ref,dir_y_ref,dir_z_ref;
+float jitter_x_ref, jitter_y_ref, jitter_z_ref;
+float swing_x_ref, swing_y_ref, swing_z_ref;
+// col C
+float quantity_ref, variety_ref;
+float life_ref, flow_ref, quality_ref;
+float area_ref, angle_ref, scope_ref, scan_ref;
+
+float alignment_ref, repulsion_ref, attraction_ref, density_ref;
+float influence_ref, calm_ref, spectrum_ref;
+// col D
+float grid_ref;
+float viscosity_ref, diffusion_ref;
+
+float power_ref;
+float mass_ref;
+float coord_x_ref,coord_y_ref,coord_z_ref;
+
 void update_temp_value() {
   // COL 1
-  fill_hue_temp = fill_hue_raw;
-  fill_sat_temp = fill_sat_raw;    
-  fill_bright_temp = fill_bright_raw;   
-  fill_alpha_temp = fill_alpha_raw;
+  fill_hue_ref = fill_hue_raw;
+  fill_sat_ref = fill_sat_raw;    
+  fill_bright_ref = fill_bright_raw;   
+  fill_alpha_ref = fill_alpha_raw;
 
-  stroke_hue_temp = stroke_hue_raw; 
-  stroke_sat_temp = stroke_sat_raw;  
-  stroke_bright_temp = stroke_bright_raw; 
-  stroke_alpha_temp = stroke_alpha_raw;
+  stroke_hue_ref = stroke_hue_raw; 
+  stroke_sat_ref = stroke_sat_raw;  
+  stroke_bright_ref = stroke_bright_raw; 
+  stroke_alpha_ref = stroke_alpha_raw;
 
-  thickness_temp = thickness_raw;
+  thickness_ref = thickness_raw;
 
-  size_x_temp = size_x_raw;
-  size_y_temp = size_y_raw;
-  size_z_temp = size_z_raw;
+  size_x_ref = size_x_raw;
+  size_y_ref = size_y_raw;
+  size_z_ref = size_z_raw;
 
-  diameter_temp = diameter_raw;
+  diameter_ref = diameter_raw;
 
-  canvas_x_temp = canvas_x_raw;
-  canvas_y_temp = canvas_y_raw;
-  canvas_z_temp = canvas_z_raw;
+  canvas_x_ref = canvas_x_raw;
+  canvas_y_ref = canvas_y_raw;
+  canvas_z_ref = canvas_z_raw;
 
   // COL 2
   // misc
-  frequence_temp = frequence_raw;
+  frequence_ref = frequence_raw;
   // speed
-  speed_x_temp = speed_x_raw;
-  speed_y_temp = speed_y_raw;
-  speed_z_temp = speed_z_raw;
+  speed_x_ref = speed_x_raw;
+  speed_y_ref = speed_y_raw;
+  speed_z_ref = speed_z_raw;
   // spurt
-  spurt_x_temp = spurt_x_raw;
-  spurt_y_temp = spurt_y_raw;
-  spurt_z_temp = spurt_z_raw;
+  spurt_x_ref = spurt_x_raw;
+  spurt_y_ref = spurt_y_raw;
+  spurt_z_ref = spurt_z_raw;
   // direction
-  dir_x_temp = dir_x_raw;
-  dir_y_temp = dir_y_raw;
-  dir_z_temp = dir_z_raw;
+  dir_x_ref = dir_x_raw;
+  dir_y_ref = dir_y_raw;
+  dir_z_ref = dir_z_raw;
   // jitter
-  jitter_x_temp = jitter_x_raw;
-  jitter_y_temp = jitter_y_raw;
-  jitter_z_temp = jitter_z_raw;
+  jitter_x_ref = jitter_x_raw;
+  jitter_y_ref = jitter_y_raw;
+  jitter_z_ref = jitter_z_raw;
   // direction
-  swing_x_temp = swing_x_raw;
-  swing_y_temp = swing_y_raw;
-  swing_z_temp = swing_z_raw;
+  swing_x_ref = swing_x_raw;
+  swing_y_ref = swing_y_raw;
+  swing_z_ref = swing_z_raw;
 
   // COL 3
-  quantity_temp = quantity_raw;
-  variety_temp = variety_raw;
+  quantity_ref = quantity_raw;
+  variety_ref = variety_raw;
 
-  life_temp = life_raw;
-  flow_temp = flow_raw;
-  quality_temp = quality_raw;
+  life_ref = life_raw;
+  flow_ref = flow_raw;
+  quality_ref = quality_raw;
 
-  area_temp = area_raw;
-  angle_temp = angle_raw;
-  scope_temp = scope_raw;
-  scan_temp = scan_raw;
+  area_ref = area_raw;
+  angle_ref = angle_raw;
+  scope_ref = scope_raw;
+  scan_ref = scan_raw;
   // force
-  alignment_temp = alignment_raw;
-  repulsion_temp = repulsion_raw;
-  attraction_temp = attraction_raw;
-  density_temp = density_raw;
+  alignment_ref = alignment_raw;
+  repulsion_ref = repulsion_raw;
+  attraction_ref = attraction_raw;
+  density_ref = density_raw;
 
-  influence_temp = influence_raw;
-  calm_temp = calm_raw;
-  spectrum_temp = spectrum_raw;
+  influence_ref = influence_raw;
+  calm_ref = calm_raw;
+  spectrum_ref = spectrum_raw;
 
   // COL 4
-  grid_temp = grid_raw;
-  viscosity_temp = viscosity_raw;
-  diffusion_temp = diffusion_raw;
+  grid_ref = grid_raw;
+  viscosity_ref = viscosity_raw;
+  diffusion_ref = diffusion_raw;
 
-  power_temp = power_raw;
-  mass_temp = mass_raw;
+  power_ref = power_raw;
+  mass_ref = mass_raw;
 
-  coord_x_temp = coord_x_raw;
-  coord_y_temp = coord_y_raw;
-  coord_z_temp = coord_z_raw;
+  coord_x_ref = coord_x_raw;
+  coord_y_ref = coord_y_raw;
+  coord_z_ref = coord_z_raw;
 }
 
 

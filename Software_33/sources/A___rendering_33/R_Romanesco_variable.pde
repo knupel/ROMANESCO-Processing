@@ -143,12 +143,7 @@ void update_var_items(Romanesco item) {
 
 
 
-Vec4 fill_raw_ref;
-Vec4 stroke_raw_ref;
-void change_slider_ref() {
-  fill_raw_ref = Vec4(fill_hue_raw,fill_sat_raw,fill_bright_raw,fill_alpha_raw);
-  stroke_raw_ref = Vec4(stroke_hue_raw,stroke_sat_raw,stroke_bright_raw,stroke_alpha_raw);
-}
+
 
 void update_slider_value(Romanesco item) {
   //Romanesco item = rpe_manager.get(ID);
@@ -157,63 +152,70 @@ void update_slider_value(Romanesco item) {
   
   // COL 1
   update_slider_value_aspect(init,item);
-  if (size_x_raw != size_x_temp || !init) item.set_size_x(size_x_raw); 
-  if (size_y_raw != size_y_temp || !init) item.set_size_y(size_y_raw); 
-  if (size_z_raw != size_z_temp || !init) item.set_size_z(size_z_raw);
-  if (diameter_raw != diameter_temp || !init) item.set_diameter(diameter_raw); 
-  if (canvas_x_raw != canvas_x_temp || !init) item.set_canvas_x(canvas_x_raw); 
-  if (canvas_y_raw != canvas_y_temp || !init) item.set_canvas_y(canvas_y_raw); 
-  if (canvas_z_raw != canvas_z_temp || !init) item.set_canvas_z(canvas_z_raw);
+  if (size_x_raw != size_x_ref || !init) item.set_size_x(size_x_raw); 
+  if (size_y_raw != size_y_ref || !init) item.set_size_y(size_y_raw); 
+  if (size_z_raw != size_z_ref || !init) item.set_size_z(size_z_raw);
+  if (diameter_raw != diameter_ref || !init) item.set_diameter(diameter_raw); 
+  if (canvas_x_raw != canvas_x_ref || !init) item.set_canvas_x(canvas_x_raw); 
+  if (canvas_y_raw != canvas_y_ref || !init) item.set_canvas_y(canvas_y_raw); 
+  if (canvas_z_raw != canvas_z_ref || !init) item.set_canvas_z(canvas_z_raw);
 
   // COL 2
-  if (frequence_raw != frequence_temp || !init) item.set_frequence(frequence_raw); 
-  if (speed_x_raw != speed_x_temp || !init) item.set_speed_x(speed_x_raw); 
-  if (speed_y_raw != speed_y_temp || !init) item.set_speed_y(speed_y_raw); 
-  if (speed_z_raw != speed_z_temp || !init) item.set_speed_z(speed_z_raw);
-  if (spurt_x_raw != spurt_x_temp || !init) item.set_spurt_x(spurt_x_raw); 
-  if (spurt_y_raw != spurt_y_temp || !init) item.set_spurt_y(spurt_y_raw); 
-  if (spurt_z_raw != spurt_z_temp || !init) item.set_spurt_z(spurt_z_raw);
-  if (dir_x_raw != dir_x_temp || !init) item.set_dir_x(dir_x_raw); 
-  if (dir_y_raw != dir_y_temp || !init) item.set_dir_y(dir_y_raw); 
-  if (dir_z_raw != dir_z_temp || !init) item.set_dir_z(dir_z_raw);
-  if (jitter_x_raw != jitter_x_temp || !init) item.set_jitter_x(jitter_x_raw); 
-  if (jitter_y_raw != jitter_y_temp || !init) item.set_jitter_y(jitter_y_raw); 
-  if (jitter_z_raw != jitter_z_temp || !init) item.set_jitter_z(jitter_z_raw);
-  if (swing_x_raw != swing_x_temp || !init) item.set_swing_x(swing_x_raw); 
-  if (swing_y_raw != swing_y_temp || !init) item.set_swing_y(swing_y_raw); 
-  if (swing_z_raw != swing_z_temp || !init) item.set_swing_z(swing_z_raw);
+  if (frequence_raw != frequence_ref || !init) item.set_frequence(frequence_raw); 
+  if (speed_x_raw != speed_x_ref || !init) item.set_speed_x(speed_x_raw); 
+  if (speed_y_raw != speed_y_ref || !init) item.set_speed_y(speed_y_raw); 
+  if (speed_z_raw != speed_z_ref || !init) item.set_speed_z(speed_z_raw);
+  if (spurt_x_raw != spurt_x_ref || !init) item.set_spurt_x(spurt_x_raw); 
+  if (spurt_y_raw != spurt_y_ref || !init) item.set_spurt_y(spurt_y_raw); 
+  if (spurt_z_raw != spurt_z_ref || !init) item.set_spurt_z(spurt_z_raw);
+  if (dir_x_raw != dir_x_ref || !init) item.set_dir_x(dir_x_raw); 
+  if (dir_y_raw != dir_y_ref || !init) item.set_dir_y(dir_y_raw); 
+  if (dir_z_raw != dir_z_ref || !init) item.set_dir_z(dir_z_raw);
+  if (jitter_x_raw != jitter_x_ref || !init) item.set_jitter_x(jitter_x_raw); 
+  if (jitter_y_raw != jitter_y_ref || !init) item.set_jitter_y(jitter_y_raw); 
+  if (jitter_z_raw != jitter_z_ref || !init) item.set_jitter_z(jitter_z_raw);
+  if (swing_x_raw != swing_x_ref || !init) item.set_swing_x(swing_x_raw); 
+  if (swing_y_raw != swing_y_ref || !init) item.set_swing_y(swing_y_raw); 
+  if (swing_z_raw != swing_z_ref || !init) item.set_swing_z(swing_z_raw);
 
   // COL 3
-  if (quantity_raw != quantity_temp || !init) item.set_quantity(quantity_raw);
-  if (variety_raw != variety_temp || !init) item.set_variety(variety_raw);
-  if (life_raw != life_temp || !init) item.set_life(life_raw);
-  if (flow_raw != flow_temp || !init) item.set_flow(flow_raw);
-  if (quality_raw != quality_temp || !init) item.set_quality(quality_raw);
-  if (area_raw != area_temp || !init) item.set_area(area_raw);
-  if (angle_raw != angle_temp || !init) item.set_angle(angle_raw);
-  if (scope_raw != scope_temp || !init) item.set_scope(scope_raw);
-  if (scan_raw != scan_temp || !init) item.set_scan(scan_raw);
-  if (alignment_raw != alignment_temp || !init) item.set_alignment(alignment_raw);
-  if (repulsion_raw != repulsion_temp || !init) item.set_repulsion(repulsion_raw);
-  if (attraction_raw != attraction_temp || !init) item.set_attraction(attraction_raw);
-  if (density_raw != density_temp || !init) item.set_density(density_raw);
-  if (influence_raw != influence_temp || !init) item.set_influence(influence_raw);
-  if (calm_raw != calm_temp || !init) item.set_calm(calm_raw);
-  if (spectrum_raw != spectrum_temp || !init) item.set_spectrum(spectrum_raw);
+  if (quantity_raw != quantity_ref || !init) item.set_quantity(quantity_raw);
+  if (variety_raw != variety_ref || !init) item.set_variety(variety_raw);
+  if (life_raw != life_ref || !init) item.set_life(life_raw);
+  if (flow_raw != flow_ref || !init) item.set_flow(flow_raw);
+  if (quality_raw != quality_ref || !init) item.set_quality(quality_raw);
+  if (area_raw != area_ref || !init) item.set_area(area_raw);
+  if (angle_raw != angle_ref || !init) item.set_angle(angle_raw);
+  if (scope_raw != scope_ref || !init) item.set_scope(scope_raw);
+  if (scan_raw != scan_ref || !init) item.set_scan(scan_raw);
+  if (alignment_raw != alignment_ref || !init) item.set_alignment(alignment_raw);
+  if (repulsion_raw != repulsion_ref || !init) item.set_repulsion(repulsion_raw);
+  if (attraction_raw != attraction_ref || !init) item.set_attraction(attraction_raw);
+  if (density_raw != density_ref || !init) item.set_density(density_raw);
+  if (influence_raw != influence_ref || !init) item.set_influence(influence_raw);
+  if (calm_raw != calm_ref || !init) item.set_calm(calm_raw);
+  if (spectrum_raw != spectrum_ref || !init) item.set_spectrum(spectrum_raw);
 
   // COL 4
-  if (grid_raw != grid_temp || !init) item.set_grid(grid_raw);
-  if (viscosity_raw != viscosity_temp || !init) item.set_viscosity(viscosity_raw);
-  if (diffusion_raw != diffusion_temp || !init) item.set_diffusion(diffusion_raw);
-  if (power_raw != power_temp || !init) item.set_power(power_raw);
-  if (mass_raw != mass_temp || !init) item.set_mass(mass_raw);
-  if (coord_x_raw != coord_x_temp || !init) item.set_coord_x(coord_x_raw); 
-  if (coord_y_raw != coord_y_temp || !init) item.set_coord_y(coord_y_raw); 
-  if (coord_z_raw != coord_z_temp || !init) item.set_coord_z(coord_z_raw);
+  if (grid_raw != grid_ref || !init) item.set_grid(grid_raw);
+  if (viscosity_raw != viscosity_ref || !init) item.set_viscosity(viscosity_raw);
+  if (diffusion_raw != diffusion_ref || !init) item.set_diffusion(diffusion_raw);
+  if (power_raw != power_ref || !init) item.set_power(power_raw);
+  if (mass_raw != mass_ref || !init) item.set_mass(mass_raw);
+  if (coord_x_raw != coord_x_ref || !init) item.set_coord_x(coord_x_raw); 
+  if (coord_y_raw != coord_y_ref || !init) item.set_coord_y(coord_y_raw); 
+  if (coord_z_raw != coord_z_ref || !init) item.set_coord_z(coord_z_raw);
   /** 
   make the obj has be never update in the future except by the moving slider 
   */
   first_opening_item[id] = true; 
+}
+
+Vec4 fill_local_ref;
+Vec4 stroke_local_ref;
+void change_slider_ref() {
+  fill_local_ref = Vec4(fill_hue_raw,fill_sat_raw,fill_bright_raw,fill_alpha_raw);
+  stroke_local_ref = Vec4(stroke_hue_raw,stroke_sat_raw,stroke_bright_raw,stroke_alpha_raw);
 }
 
 
@@ -222,21 +224,21 @@ void update_slider_value_aspect(boolean init, Romanesco item) {
   if(FULL_RENDERING) {
     if(!init) {
       fill_item_ref[id] = Vec4(fill_hue_raw,fill_sat_raw,fill_bright_raw,fill_alpha_raw);
-      fill_raw_ref = Vec4(fill_hue_raw,fill_sat_raw,fill_bright_raw,fill_alpha_raw);
+      fill_local_ref = Vec4(fill_hue_raw,fill_sat_raw,fill_bright_raw,fill_alpha_raw);
       item.set_fill(color(fill_hue_raw,fill_sat_raw,fill_bright_raw,fill_alpha_raw));
 
       stroke_item_ref[id] = Vec4(stroke_hue_raw,stroke_sat_raw,stroke_bright_raw,stroke_alpha_raw);
-      stroke_raw_ref = Vec4(stroke_hue_raw,stroke_sat_raw,stroke_bright_raw,stroke_alpha_raw);
+      stroke_local_ref = Vec4(stroke_hue_raw,stroke_sat_raw,stroke_bright_raw,stroke_alpha_raw);
       item.set_stroke(color(stroke_hue_raw,stroke_sat_raw,stroke_bright_raw,stroke_alpha_raw));  
     }
     
     // FILL part
     bVec4 fill_is = bVec4();
     // check hsba value
-    if(fill_raw_ref.r != fill_hue_raw) fill_is.x = true;
-    if(fill_raw_ref.g != fill_sat_raw) fill_is.y = true;
-    if(fill_raw_ref.b != fill_bright_raw) fill_is.z = true;
-    if(fill_raw_ref.a != fill_alpha_raw) fill_is.w = true;
+    if(fill_local_ref.r != fill_hue_raw) fill_is.x = true;
+    if(fill_local_ref.g != fill_sat_raw) fill_is.y = true;
+    if(fill_local_ref.b != fill_bright_raw) fill_is.z = true;
+    if(fill_local_ref.a != fill_alpha_raw) fill_is.w = true;
 
     if(fill_is.x) {
       item.set_fill(color(fill_hue_raw,fill_item_ref[id].g,fill_item_ref[id].b,fill_item_ref[id].a));
@@ -274,10 +276,10 @@ void update_slider_value_aspect(boolean init, Romanesco item) {
     // STROKE part
     bVec4 stroke_is = bVec4();
     // check hsba value
-    if(stroke_raw_ref.r != stroke_hue_raw) stroke_is.x = true;
-    if(stroke_raw_ref.g != stroke_sat_raw) stroke_is.y = true;
-    if(stroke_raw_ref.b != stroke_bright_raw) stroke_is.z = true;
-    if(stroke_raw_ref.a != stroke_alpha_raw) stroke_is.w = true;
+    if(stroke_local_ref.r != stroke_hue_raw) stroke_is.x = true;
+    if(stroke_local_ref.g != stroke_sat_raw) stroke_is.y = true;
+    if(stroke_local_ref.b != stroke_bright_raw) stroke_is.z = true;
+    if(stroke_local_ref.a != stroke_alpha_raw) stroke_is.w = true;
     
 
     if(stroke_is.x) {
@@ -315,7 +317,7 @@ void update_slider_value_aspect(boolean init, Romanesco item) {
     }
 
     // thickness
-    if (thickness_raw != thickness_temp || !init) {
+    if (thickness_raw != thickness_ref || !init) {
       item.set_thickness(thickness_raw);
     }
   } else {
