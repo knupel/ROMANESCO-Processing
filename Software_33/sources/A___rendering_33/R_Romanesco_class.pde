@@ -3,11 +3,6 @@ Abstract CLASS ROMANESCO
 v 1.1.2
 2013-2018
 */
-import java.util.Date;
-import java.sql.Timestamp;
-
-
-
 public abstract class Romanesco implements rope.core.RConstants {
   protected String item_name;
   protected String item_author;

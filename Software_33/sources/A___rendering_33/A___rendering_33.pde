@@ -200,9 +200,9 @@ void draw() {
     if(!FULL_SCREEN) update_window_location();
     // script
     if(frameCount%180 == 0) {
-      rpe_manager.script();
-      int size = rpe_manager.script_size();
-      // println(rpe_manager.get_script(size));
+      rpe_manager.historic();
+      int size = rpe_manager.historic_size();
+      //rpe_manager.print_historic();
     }
 
 

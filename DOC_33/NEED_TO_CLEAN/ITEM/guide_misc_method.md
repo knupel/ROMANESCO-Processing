@@ -65,6 +65,10 @@ void setting_start_position(int ID_item, Vec3 pos);
 
 void setting_start_position(int ID_item, int pos_x, int pos_y, int pos_z);
 
+boolean setting[int ID_item]
+> to block the setting at the beggining and when you come back to the button setting to don't go immediatly on the value slider...not finish in progress
+
+
 
 
 

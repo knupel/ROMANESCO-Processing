@@ -124,6 +124,7 @@ void wire_is(boolean is);
 
 *get slider method
 
+All method return value from controller slider
 
 int get_fill();
 
@@ -141,7 +142,7 @@ float get_size_z();
 
 float get_diameter();
 
-get_canvas();
+Vec3 get_canvas();
 
 float get_canvas_x();
 

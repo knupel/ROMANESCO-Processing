@@ -18,7 +18,7 @@ boolean enterTouch, returnTouch, shiftTouch, altTouch, escTouch, cmdTouch ;
 
 RESERVED CORE
 --
-'B' 'C' I' 'P' 'S' 'V' 'Y' 'DELETE' 'SPACE'
+'B' 'C' I' 'P' 'S' 'V' 'Y' 'X' 'DELETE' 'SPACE'
 
 B 
 >switch camera rotation from Y axe and Z axe
@@ -44,7 +44,7 @@ V
 
 RESERVED ITEM
 --
-'D' 'F' 'J' 'K' 'M' 'N' 'O' 'R' 'X' 'N' 'M' 'W'
+'D' 'F' 'J' 'K' 'M' 'N' 'O' 'R' 'S' 'X' 'N' 'M' 'W'
 >this key are associated with different boolean item array see chapter item_variables.md
 
 

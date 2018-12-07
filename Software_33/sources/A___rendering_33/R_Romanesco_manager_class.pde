@@ -4,6 +4,11 @@ v 1.6.0
 class manager inspired by Andreas Gysin work for The Abyss Project
 @see https://github.com/ertdfgcvb/TheAbyss
 */
+
+import java.util.Date;
+import java.sql.Timestamp;
+
+
 class Romanesco_manager {
   private ArrayList<Romanesco>romanesco_item_list;
   private ArrayList<Class>item_list;
@@ -262,118 +267,112 @@ class Romanesco_manager {
 
 
   /**
-  * SCRIPT
-  * v 0.0.1
+  * HISTORIC
+  * v 0.0.2
   * use to write and read the history
   */
+  History historic = new History(20);
 
-  ArrayList<String>script_history;
-  int max_script = 20;
-  protected void script() {
-    if(script_history == null) script_history = new ArrayList<String>();
-    if(script_history.size() > max_script) {
-      script_history.remove(0);
-    }
+  protected void historic() {
+    Script script = new Script();
+    script.add("translate","world",finalSceneCamera);
+    script.add("rotate:","world",finalEyeCamera);
 
-    long time_millis = new Date().getTime();
-    Timestamp time = new Timestamp(time_millis);
-    String script = "";
-    script += ("\n"+time+"\n");
-    script += ("________________________________________________________________WORLD\n");
-    script += ("/translate:"+finalSceneCamera+"\n");
-    script += ("/rotate:"+finalEyeCamera+"\n");
-
-    //script += (time_millis+"\n");
     for (int i = 0 ; i < romanesco_item_list.size() ; i++ ) {
       Romanesco item = (Romanesco) romanesco_item_list.get(i);
-      script += ("/______________________________________________________________"+item.get_name()+"\n");
-      script += ("/"+item.get_name()+":"+item.show_is()+"\n");
-      script += ("/id:"+item.get_id()+"\n");
-      script += ("/group:"+item.get_group()+"\n");
-      script += ("/parameter:"+item.parameter_is()+"\n");
-      script += ("/sound:"+item.sound_is()+"\n");
-      script += ("/action:"+item.action_is()+"\n");
-      script += ("/costume:"+item.get_costume_id()+"\n");
-      script += ("/mode:"+item.get_mode_id()+"\n");
+      String family = item.get_name();
+      script.add("show",family,item.show_is());
+      script.add("id",family,item.get_id());
+      script.add("group",family,item.get_group());
+      script.add("parameter",family,item.parameter_is());
+      script.add("sound",family,item.sound_is());
+      script.add("action",family,item.action_is());
+      script.add("costume",family,item.get_costume_id());
+      script.add("mode",family,item.get_mode_id());
 
-      script += ("/____________________________DISPOSITION\n");
-      script += ("/translate:"+pos_item_final[item.get_id()]+"\n");
-      script += ("/rotate:"+dir_item_final[item.get_id()]+"\n");
+      // disposition
+      script.add("translate",family,pos_item_final[item.get_id()]);
+      script.add("rotate",family,dir_item_final[item.get_id()]);
+      // STATE
+      script.add("fill is",family,item.fill_is());
+      script.add("stroke is",family,item.stroke_is());
 
-      script += ("/__________________________________STATE\n");
-      script += ("/fill is:"+item.fill_is()+"\n");
-      script += ("/stroke is:"+item.stroke_is()+"\n");
+      script.add("birth",family,item.birth_is());
+      script.add("colour",family,item.colour_is());
+      script.add("dimension",family,item.dimension_is());
+      script.add("horizon",family,item.horizon_is());
+      script.add("motion",family,item.motion_is());
+      script.add("follow",family,item.follow_is());
+      script.add("reverse",family,item.reverse_is());
+      script.add("wire",family,item.wire_is());
+      script.add("special",family,item.special_is());
+      // SLIDER
+      script.add("fill",family,item.get_fill());
+      script.add("stroke",family,item.get_stroke());
+      script.add("size",family,item.get_size());
+      script.add("diameter",family,item.get_diameter());
+      script.add("canvas",family,item.get_canvas());
 
-      script += ("/birth:"+item.birth_is()+"\n");
-      script += ("/colour:"+item.colour_is()+"\n");
-      script += ("/dimension:"+item.dimension_is()+"\n");
-      script += ("/horizon:"+item.horizon_is()+"\n");
-      script += ("/motion:"+item.motion_is()+"\n");
-      script += ("/follow:"+item.follow_is()+"\n");
-      script += ("/reverse:"+item.reverse_is()+"\n");
-      script += ("/wire:"+item.wire_is()+"\n");
-      script += ("/special:"+item.special_is()+"\n");
+      script.add("frequence",family,item.get_frequence());
+      script.add("speed",family,item.get_speed());
+      script.add("spurt",family,item.get_spurt());
+      script.add("dir",family,item.get_dir());
+      script.add("jitter",family,item.get_jitter());
+      script.add("swing",family,item.get_swing());
 
-      script += ("/________________________________SLIDER\n");
-      script += ("/fill:"+item.get_fill()+"\n");
-      script += ("/stroke:"+item.get_stroke()+"\n");
-      script += ("/size:"+item.get_size()+"\n");
-      script += ("/diameter:"+item.get_diameter()+"\n");
-      script += ("/canvas:"+item.get_canvas()+"\n");
+      script.add("quantity",family,item.get_quantity());
+      script.add("variety",family,item.get_variety());
+      script.add("life",family,item.get_life());
+      script.add("flow",family,item.get_flow());
+      script.add("quality",family,item.get_quality());
+      script.add("area",family,item.get_area());
+      script.add("angle",family,item.get_angle());
+      script.add("scope",family,item.get_scope());
+      script.add("scan",family,item.get_scan());
+      script.add("alignment",family,item.get_alignment());
+      script.add("repulsion",family,item.get_repulsion());
+      script.add("attraction",family,item.get_attraction());
+      script.add("density",family,item.get_density());
+      script.add("influence",family,item.get_influence());
+      script.add("calm",family,item.get_calm());
+      script.add("spectrum",family,item.get_spectrum());
 
-      script += ("/frequence:"+item.get_frequence()+"\n");
-      script += ("/speed:"+item.get_speed()+"\n");
-      script += ("/spurt:"+item.get_spurt()+"\n");
-      script += ("/dir:"+item.get_dir()+"\n");
-      script += ("/jitter:"+item.get_jitter()+"\n");
-      script += ("/swing:"+item.get_swing()+"\n");
-
-      script += ("/quantity:"+item.get_quantity()+"\n");
-      script += ("/variety:"+item.get_variety()+"\n");
-      script += ("/life:"+item.get_life()+"\n");
-      script += ("/flow:"+item.get_flow()+"\n");
-      script += ("/quality:"+item.get_quality()+"\n");
-      script += ("/area:"+item.get_area()+"\n");
-      script += ("/angle:"+item.get_angle()+"\n");
-      script += ("/scope:"+item.get_scope()+"\n");
-      script += ("/scan:"+item.get_scan()+"\n");
-      script += ("/alignment:"+item.get_alignment()+"\n");
-      script += ("/repulsion:"+item.get_repulsion()+"\n");
-      script += ("/attraction:"+item.get_attraction()+"\n");
-      script += ("/density:"+item.get_density()+"\n");
-      script += ("/influence:"+item.get_influence()+"\n");
-      script += ("/calm:"+item.get_calm()+"\n");
-      script += ("/spectrum:"+item.get_spectrum()+"\n");
-
-      script += ("/grid:"+item.get_grid()+"\n");
-      script += ("/viscosity:"+item.get_viscosity()+"\n");
-      script += ("/diffusion:"+item.get_diffusion()+"\n");
-      script += ("/power:"+item.get_power()+"\n");
-      script += ("/mass:"+item.get_mass()+"\n");
-      script += ("/coord:"+item.get_coord()+"\n");
+      script.add("grid",family,item.get_grid());
+      script.add("viscosity",family,item.get_viscosity());
+      script.add("diffusion",family,item.get_diffusion());
+      script.add("power",family,item.get_power());
+      script.add("mass",family,item.get_mass());
+      script.add("coord",family,item.get_coord());
 
     }
-    script_history.add(script);
+    historic.add(script);
   }
 
-  protected int script_size() {
-    if(script_history != null) {
-      return script_history.size();
+  protected int historic_size() {
+    if(historic != null) {
+      return historic.size();
     } else return 0;
   }
 
+  protected void print_historic() {
+    println(historic.get(0).get("grid","Grillo"));
 
-  protected String get_script(int target) {
-    if(script_history == null) {
+  }
+
+  /*
+  protected Script get_script(int target) {
+    if(historic == null) {
       return null;
     } else {
-      if(target < script_history.size()) {
-        return script_history.get(target);
+      if(target < historic.size()) {
+        return historic.get(target);
       } else {
-        return script_history.get(script_history.size()-1);
+        return historic.get(historic.size()-1);
       }
     }
   }
+  */
+
 
   
 

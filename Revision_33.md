@@ -14,6 +14,8 @@ revision 33
 
 >change min-max variable for angle, direction and scope from 0 to 360 for 0 to TAU and update the item linked with that.
 >add class Mode to mange the name and the id item mode
+>remove method boolean get_orbit() statement from keyboard prescene command
+>add method boolean get_follow() statement from keyboard prescene command
 
 *ITEM
 
@@ -24,6 +26,7 @@ revision 33
 >new item GRILLO about 3D grid and coin flip !
 >new item TARTAN
 >new item SIMPLE
+>SOLEIL improvement the revolution part
 
 *BUG FIX
 
