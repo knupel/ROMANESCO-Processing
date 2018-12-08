@@ -152,59 +152,59 @@ void update_slider_value(Romanesco item) {
   
   // COL 1
   update_slider_value_aspect(init,item);
-  if (size_x_raw != size_x_ref || !init) item.set_size_x(size_x_raw); 
-  if (size_y_raw != size_y_ref || !init) item.set_size_y(size_y_raw); 
-  if (size_z_raw != size_z_ref || !init) item.set_size_z(size_z_raw);
-  if (diameter_raw != diameter_ref || !init) item.set_diameter(diameter_raw); 
-  if (canvas_x_raw != canvas_x_ref || !init) item.set_canvas_x(canvas_x_raw); 
-  if (canvas_y_raw != canvas_y_ref || !init) item.set_canvas_y(canvas_y_raw); 
-  if (canvas_z_raw != canvas_z_ref || !init) item.set_canvas_z(canvas_z_raw);
+  if (size_x_raw != size_x_ref || !init) item.set_size_x(size_x_raw,2,0); 
+  if (size_y_raw != size_y_ref || !init) item.set_size_y(size_y_raw,2,0); 
+  if (size_z_raw != size_z_ref || !init) item.set_size_z(size_z_raw,2,0);
+  if (diameter_raw != diameter_ref || !init) item.set_diameter(diameter_raw,0,0); 
+  if (canvas_x_raw != canvas_x_ref || !init) item.set_canvas_x(canvas_x_raw,2,0); 
+  if (canvas_y_raw != canvas_y_ref || !init) item.set_canvas_y(canvas_y_raw,2,0); 
+  if (canvas_z_raw != canvas_z_ref || !init) item.set_canvas_z(canvas_z_raw,2,0);
 
   // COL 2
-  if (frequence_raw != frequence_ref || !init) item.set_frequence(frequence_raw); 
-  if (speed_x_raw != speed_x_ref || !init) item.set_speed_x(speed_x_raw); 
-  if (speed_y_raw != speed_y_ref || !init) item.set_speed_y(speed_y_raw); 
-  if (speed_z_raw != speed_z_ref || !init) item.set_speed_z(speed_z_raw);
-  if (spurt_x_raw != spurt_x_ref || !init) item.set_spurt_x(spurt_x_raw); 
-  if (spurt_y_raw != spurt_y_ref || !init) item.set_spurt_y(spurt_y_raw); 
-  if (spurt_z_raw != spurt_z_ref || !init) item.set_spurt_z(spurt_z_raw);
-  if (dir_x_raw != dir_x_ref || !init) item.set_dir_x(dir_x_raw); 
-  if (dir_y_raw != dir_y_ref || !init) item.set_dir_y(dir_y_raw); 
-  if (dir_z_raw != dir_z_ref || !init) item.set_dir_z(dir_z_raw);
-  if (jitter_x_raw != jitter_x_ref || !init) item.set_jitter_x(jitter_x_raw); 
-  if (jitter_y_raw != jitter_y_ref || !init) item.set_jitter_y(jitter_y_raw); 
-  if (jitter_z_raw != jitter_z_ref || !init) item.set_jitter_z(jitter_z_raw);
-  if (swing_x_raw != swing_x_ref || !init) item.set_swing_x(swing_x_raw); 
-  if (swing_y_raw != swing_y_ref || !init) item.set_swing_y(swing_y_raw); 
-  if (swing_z_raw != swing_z_ref || !init) item.set_swing_z(swing_z_raw);
+  if (frequence_raw != frequence_ref || !init) item.set_frequence(frequence_raw,0,0); 
+  if (speed_x_raw != speed_x_ref || !init) item.set_speed_x(speed_x_raw,2,0); 
+  if (speed_y_raw != speed_y_ref || !init) item.set_speed_y(speed_y_raw,2,0); 
+  if (speed_z_raw != speed_z_ref || !init) item.set_speed_z(speed_z_raw,2,0);
+  if (spurt_x_raw != spurt_x_ref || !init) item.set_spurt_x(spurt_x_raw,2,0); 
+  if (spurt_y_raw != spurt_y_ref || !init) item.set_spurt_y(spurt_y_raw,2,0); 
+  if (spurt_z_raw != spurt_z_ref || !init) item.set_spurt_z(spurt_z_raw,2,0);
+  if (dir_x_raw != dir_x_ref || !init) item.set_dir_x(dir_x_raw,0,0); 
+  if (dir_y_raw != dir_y_ref || !init) item.set_dir_y(dir_y_raw,0,0); 
+  if (dir_z_raw != dir_z_ref || !init) item.set_dir_z(dir_z_raw,0,0);
+  if (jitter_x_raw != jitter_x_ref || !init) item.set_jitter_x(jitter_x_raw,0,0); 
+  if (jitter_y_raw != jitter_y_ref || !init) item.set_jitter_y(jitter_y_raw,0,0); 
+  if (jitter_z_raw != jitter_z_ref || !init) item.set_jitter_z(jitter_z_raw,0,0);
+  if (swing_x_raw != swing_x_ref || !init) item.set_swing_x(swing_x_raw,0,0); 
+  if (swing_y_raw != swing_y_ref || !init) item.set_swing_y(swing_y_raw,0,0); 
+  if (swing_z_raw != swing_z_ref || !init) item.set_swing_z(swing_z_raw,0,0);
 
   // COL 3
-  if (quantity_raw != quantity_ref || !init) item.set_quantity(quantity_raw);
-  if (variety_raw != variety_ref || !init) item.set_variety(variety_raw);
-  if (life_raw != life_ref || !init) item.set_life(life_raw);
-  if (flow_raw != flow_ref || !init) item.set_flow(flow_raw);
-  if (quality_raw != quality_ref || !init) item.set_quality(quality_raw);
-  if (area_raw != area_ref || !init) item.set_area(area_raw);
-  if (angle_raw != angle_ref || !init) item.set_angle(angle_raw);
-  if (scope_raw != scope_ref || !init) item.set_scope(scope_raw);
-  if (scan_raw != scan_ref || !init) item.set_scan(scan_raw);
-  if (alignment_raw != alignment_ref || !init) item.set_alignment(alignment_raw);
-  if (repulsion_raw != repulsion_ref || !init) item.set_repulsion(repulsion_raw);
-  if (attraction_raw != attraction_ref || !init) item.set_attraction(attraction_raw);
-  if (density_raw != density_ref || !init) item.set_density(density_raw);
-  if (influence_raw != influence_ref || !init) item.set_influence(influence_raw);
-  if (calm_raw != calm_ref || !init) item.set_calm(calm_raw);
-  if (spectrum_raw != spectrum_ref || !init) item.set_spectrum(spectrum_raw);
+  if (quantity_raw != quantity_ref || !init) item.set_quantity(quantity_raw,0,0);
+  if (variety_raw != variety_ref || !init) item.set_variety(variety_raw,0,0);
+  if (life_raw != life_ref || !init) item.set_life(life_raw,0,0);
+  if (flow_raw != flow_ref || !init) item.set_flow(flow_raw,0,0);
+  if (quality_raw != quality_ref || !init) item.set_quality(quality_raw,0,0);
+  if (area_raw != area_ref || !init) item.set_area(area_raw,2,0);
+  if (angle_raw != angle_ref || !init) item.set_angle(angle_raw,0,0);
+  if (scope_raw != scope_ref || !init) item.set_scope(scope_raw,0,0);
+  if (scan_raw != scan_ref || !init) item.set_scan(scan_raw,0,0);
+  if (alignment_raw != alignment_ref || !init) item.set_alignment(alignment_raw,0,0);
+  if (repulsion_raw != repulsion_ref || !init) item.set_repulsion(repulsion_raw,0,0);
+  if (attraction_raw != attraction_ref || !init) item.set_attraction(attraction_raw,0,0);
+  if (density_raw != density_ref || !init) item.set_density(density_raw,0,0);
+  if (influence_raw != influence_ref || !init) item.set_influence(influence_raw,0,0);
+  if (calm_raw != calm_ref || !init) item.set_calm(calm_raw,0,0);
+  if (spectrum_raw != spectrum_ref || !init) item.set_spectrum(spectrum_raw,0,0);
 
   // COL 4
-  if (grid_raw != grid_ref || !init) item.set_grid(grid_raw);
-  if (viscosity_raw != viscosity_ref || !init) item.set_viscosity(viscosity_raw);
-  if (diffusion_raw != diffusion_ref || !init) item.set_diffusion(diffusion_raw);
-  if (power_raw != power_ref || !init) item.set_power(power_raw);
-  if (mass_raw != mass_ref || !init) item.set_mass(mass_raw);
-  if (coord_x_raw != coord_x_ref || !init) item.set_coord_x(coord_x_raw); 
-  if (coord_y_raw != coord_y_ref || !init) item.set_coord_y(coord_y_raw); 
-  if (coord_z_raw != coord_z_ref || !init) item.set_coord_z(coord_z_raw);
+  if (grid_raw != grid_ref || !init) item.set_grid(grid_raw,0,0);
+  if (viscosity_raw != viscosity_ref || !init) item.set_viscosity(viscosity_raw,0,0);
+  if (diffusion_raw != diffusion_ref || !init) item.set_diffusion(diffusion_raw,0,0);
+  if (power_raw != power_ref || !init) item.set_power(power_raw,0,0);
+  if (mass_raw != mass_ref || !init) item.set_mass(mass_raw,0,0);
+  if (coord_x_raw != coord_x_ref || !init) item.set_coord_x(coord_x_raw,0,0); 
+  if (coord_y_raw != coord_y_ref || !init) item.set_coord_y(coord_y_raw,0,0); 
+  if (coord_z_raw != coord_z_ref || !init) item.set_coord_z(coord_z_raw,0,0);
   /** 
   make the obj has be never update in the future except by the moving slider 
   */
@@ -318,13 +318,13 @@ void update_slider_value_aspect(boolean init, Romanesco item) {
 
     // thickness
     if (thickness_raw != thickness_ref || !init) {
-      item.set_thickness(thickness_raw);
+      item.set_thickness(thickness_raw,0,0);
     }
   } else {
     // preview display
     item.set_fill(COLOR_FILL_ITEM_PREVIEW);
     item.set_stroke(COLOR_STROKE_ITEM_PREVIEW);
-    item.set_thickness(THICKNESS_ITEM_PREVIEW);
+    item.set_thickness(THICKNESS_ITEM_PREVIEW,0,0);
   }
 }
 

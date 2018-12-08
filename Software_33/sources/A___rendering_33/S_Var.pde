@@ -684,7 +684,7 @@ void init_variable_item() {
     // use the 250 value for "z" to keep the position light on the front
     mouse[i] = Vec3();
     wheel[i] = 0;
-
+  
     Romanesco item = rpe_manager.get(i);
     if(item != null) {
       item.init();
@@ -726,6 +726,7 @@ void init_variable_item() {
       item.set_power(0);
       item.set_mass(0);
     }
+   
   }
     // init global var for the color obj preview mode display
   COLOR_FILL_ITEM_PREVIEW = color(0,0,100,30); 

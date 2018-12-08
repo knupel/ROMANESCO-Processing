@@ -1,6 +1,6 @@
 /**
 Rope UTILS 
-v 1.50.0
+v 1.50.2
 * Copyleft (c) 2014-2018 
 * Stan le Punk > http://stanlepunk.xyz/
 Rope – Romanesco Processing Environment – 
@@ -2099,10 +2099,6 @@ void show_canvas(int num) {
   }  
 }
 
-/**
-END IMAGE ROPE
-
-*/
 
 
 
@@ -2249,31 +2245,8 @@ Integer int_from_4_bytes(byte [] array_byte, boolean little_endian) {
 
 
 
-
-
-
-// be carefull here we use the class Byte, not the primitive byte  'B' vs 'b'
-
-
-
-
-/*
-@Deprecated // because infine is a byte thread like a short
-int int_from_2_bytes(byte [] array_byte) {
-  if(array_byte.length == 2) {
-    int result = -1 ;
-    return result ;
-  } else {
-    Integer null_data = null ;
-    return null_data ;
-  }
-}
-*/
-
-
 // return byte
 byte[] to_byte(Object obj) {
-
   if(obj instanceof Boolean) {
     boolean value = (boolean)obj;
     byte [] array = new byte[1];
@@ -2430,9 +2403,6 @@ Vec4 array_to_Vec4_rgba(float... f) {
   return v;
 }
 
-/**
-END TRANSLATOR
-*/
 
 
 
@@ -4193,8 +4163,9 @@ float map_locked(float value, float sourceMin, float sourceMax, float targetMin,
   return result; 
 }
 
-// to map not linear, start the curve slowly to finish hardly
-float map_smooth_start(float value, float sourceMin, float sourceMax, float targetMin, float targetMax, int level) {
+
+// to map not linear, start the curve hardly to start slowly
+float map_begin(float value, float sourceMin, float sourceMax, float targetMin, float targetMax, int level) {
   if (value < sourceMin ) value = sourceMin ;
   if (value > sourceMax ) value = sourceMax ;
   float newMax = sourceMax - sourceMin ;
@@ -4206,35 +4177,50 @@ float map_smooth_start(float value, float sourceMin, float sourceMax, float targ
 }
 
 // to map not linear, start the curve hardly to finish slowly
-float map_smooth_end(float value, float sourceMin, float sourceMax, float targetMin, float targetMax, int level) {
+float map_end(float value, float sourceMin, float sourceMax, float targetMin, float targetMax, int level) {
   if (value < sourceMin ) value = sourceMin ;
   if (value > sourceMax ) value = sourceMax ;
   float newMax = sourceMax - sourceMin ;
   float deltaTarget = targetMax - targetMin ;
   float ratio = ((value - sourceMin) / newMax ) ;
-  // ratio = roots(ratio, level) ; // the method roots is use in math util
   ratio = pow(ratio, 1.0/level) ;
   float result = targetMin +deltaTarget *ratio;
   return result;
 }
 
-// to map not linear, like a "S"
-float map_smooth(float value, float sourceMin, float sourceMax, float targetMin, float targetMax, int level) {
-  if (value < sourceMin ) value = sourceMin ;
-  if (value > sourceMax ) value = sourceMax ;
-  float newMax = sourceMax - sourceMin ;
-  float deltaTarget = targetMax - targetMin ;
-  float ratio = ((value - sourceMin) / newMax ) ;
-  ratio = map(ratio,0,1, -1, 1 ) ;
-  int correction = 1 ;
-  if(level % 2 == 1 ) correction = 1 ; else correction = -1 ;
-  if (ratio < 0 ) ratio = pow(ratio, level) *correction  ; else ratio = pow(ratio, level)  ;
-  ratio = map(ratio, -1,1, 0,1) ;
-  float result = targetMin +deltaTarget *ratio;
-  return result;
+float map(float value, float start_1, float stop_1, float start_2, float stop_2, int begin, int end) {
+  begin = abs(begin);
+  end = abs(end);
+  if(begin != 0 && end != 0) {
+    if (value < start_1 ) value = start_1;
+    if (value > stop_2 ) value = stop_2;
+
+    float new_max = stop_2 - start_1;
+    float delta = stop_2 - start_2;
+    float ratio = (value - start_1) / new_max;
+
+    ratio = map(ratio,0,1,-1,1);
+    if (ratio < 0) {
+      if(begin < 2) ratio = pow(ratio,begin) ;
+      else ratio = pow(ratio,begin) *(-1);
+      if(ratio > 0) ratio *= -1;
+    } else {
+      ratio = pow(ratio,end);
+    }
+    
+    ratio = map(ratio,-1,1,0,1);
+    float result = start_2 +delta *ratio;
+    return result;
+  } else if(begin == 0 && end != 0) {
+    return map_end(value,start_1,stop_1,start_2,stop_2,end);
+  } else if(end == 0 && begin != 0) {
+    return map_begin(value,start_1,stop_1,start_2,stop_2,begin);
+  } else {
+    return map(value,start_1,stop_1,start_2,stop_2,1,1);
+  }
+
 }
-// END MAP
-//////////
+
 
 
 
