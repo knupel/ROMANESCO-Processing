@@ -64,7 +64,7 @@ public class Varom {
     if(begin == 0 && end == 0) {
       result = map(this.raw,min_raw,max_raw,min,max);
     } else {
-       result = map(this.raw,min_raw,max_raw,min,max,begin,end);
+      result = map(this.raw,min_raw,max_raw,min,max,begin,end);
     }
   }
 
