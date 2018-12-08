@@ -2,7 +2,7 @@
 * Grillo
 * the tab is the template that you can duplicate to add the item you want in your Romanesco.
 * You must change the class name and this one must be unique.
-v 0.0.2
+v 0.0.3
 */
 class Grillo extends Romanesco {
   public Grillo() {
@@ -10,7 +10,7 @@ class Grillo extends Romanesco {
     item_name = "Grillo" ;
     item_author  = "Stan le Punk";
     item_references = "";
-    item_version = "Version 0.0.2";
+    item_version = "Version 0.0.3";
     item_pack = "Base 2018-2018" ;
     item_costume = "point/ellipse/triangle/rect/cross/pentagon/Star 5/Star 7/Super Star 8/Super Star 12"; // costume available from get_costume();
     item_mode = "Random/Automata/Full";
@@ -87,7 +87,7 @@ class Grillo extends Romanesco {
   int ref_num;
   String ref_mode;
   void draw() {
-    iVec3 canvas = round(map(get_canvas(),canvas_x_min_max.x,canvas_x_min_max.y,1,19));
+    iVec3 canvas = round(map(get_canvas(),get_canvas_x_min(),get_canvas_x_max(),1,19));
     if(ref_num != canvas.x*canvas.y*canvas.z || !get_mode_name().equals(ref_mode)) {
       reset(canvas);
       if(get_mode_name().equals("Random")) {
@@ -112,7 +112,7 @@ class Grillo extends Romanesco {
 
 
     aspect(get_fill(),get_stroke(),get_thickness());
-    int cell = (int)map(get_grid(),grid_min_max.x,grid_min_max.y,5,height);
+    int cell = (int)map(get_grid(),get_grid_min(),get_grid_max(),5,height);
     for(int x = 0 ; x < canvas.x ; x++) {
       for(int y = 0 ; y < canvas.y ; y++) {
         for(int z = 0 ; z < canvas.z ; z++) {
@@ -137,7 +137,7 @@ class Grillo extends Romanesco {
     if(get_costume().get_type() == STAR_3D_ROPE) {
       size.div(1,1,10);
     } else if(get_costume().get_type() == CROSS_BOX_3_ROPE || get_costume().get_type() == CROSS_BOX_2_ROPE) {
-      set_ratio_costume_size(map(get_area(),area_min_max.x,area_min_max.y,0,1));
+      set_ratio_costume_size(map(get_area(),get_area_min(),get_area_max(),0,1));
     }
     costume(pos,size,dir,get_costume());
   }
@@ -158,7 +158,7 @@ class Grillo extends Romanesco {
   void offset(iVec3 canvas) {
     if(!get_speed().equals(0) || !get_jitter().equals(0) || motion_is()) {
       Vec3 swing = map(get_swing().mult(get_swing()),0,1,0,width/2);
-      Vec3 s = map(get_speed(),speed_x_min_max.x,speed_y_min_max.y,0,.01);
+      Vec3 s = map(get_speed(),get_speed_x_min(),get_speed_x_max(),0,.01);
       s.x = cos(s.x *frameCount);
       s.y = cos(s.y *frameCount);
       s.z = cos(s.z *frameCount);

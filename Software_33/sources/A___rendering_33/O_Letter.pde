@@ -1,7 +1,7 @@
 /**
 LETTER
 2012-2018
-v 1.4.1
+v 1.4.2
 */
 //GEOMERATIVE
 import geomerative.*;
@@ -10,7 +10,7 @@ class Letter extends Romanesco {
   public Letter() {
     item_name = "Letter" ;
     item_author  = "Stan le Punk";
-    item_version = "Version 1.4.1";
+    item_version = "Version 1.4.2";
     item_pack = "Base 2012-2018" ;
 
     item_costume = "Point/Line/Triangle";
@@ -102,7 +102,7 @@ class Letter extends Romanesco {
       warning_font = true;
     }
 
-    sizeFont = int(map(get_size_x(),size_x_min_max.x, size_x_min_max.y, (float)height *.01, (float)height *.7));
+    sizeFont = int(map(get_size_x(),get_size_x_min(), get_size_x_max(), (float)height *.01, (float)height *.7));
     int max_string = 49;
     if(get_text().length() < max_string) max_string = get_text().length();
     sentence = get_text().substring(0,max_string);

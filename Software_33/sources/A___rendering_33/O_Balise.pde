@@ -1,7 +1,7 @@
 /**
 BALISE
 2011-2018
-v 1.3.6
+v 1.3.7
 */
 Balise balise ;
 //object three
@@ -10,7 +10,7 @@ class BaliseRomanesco extends Romanesco {
     //from the index_objects.csv
     item_name = "Balise" ;
     item_author  = "Stan le Punk";
-    item_version = "Version 1.3.6";
+    item_version = "Version 1.3.7";
     item_pack = "Base 2011-2018" ; 
     item_costume = "point/ellipse/triangle/rect/cross/pentagon/Star 5/Star 7/Super Star 8/Super Star 12" ;
     // item_mode = "Disc/Rectangle/Box/Box Snake" ;
@@ -106,7 +106,7 @@ class BaliseRomanesco extends Romanesco {
     }
 
     //amplitude
-    float amp = map(get_canvas_x(),canvas_x_min_max.x, canvas_x_min_max.y,1,width*10);
+    float amp = map(get_canvas_x(),get_canvas_x_min(),get_canvas_x_max(),1,width*10);
     
     //factor size
     float factor_base = map(get_repulsion(),0,1,1,height/4);

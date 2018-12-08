@@ -1,14 +1,14 @@
 /**
 Cellular Automata
 2018-2018
-v 0.0.2
+v 0.0.3
 */
 class Cellular_automata extends Romanesco {
 	public Cellular_automata() {
 		item_name = "Automata";
 		item_author  = "Stan le Punk";
     item_references = "Item based on Daniel Shiffman code\nand behavior from Stephen Wolfram\nhttps://natureofcode.com/";
-		item_version = "Version 0.0.2";
+		item_version = "Version 0.0.3";
 		item_pack = "Nature of Code 2018-2018";
     item_costume = "point/ellipse/triangle/rect/cross/pentagon/Star 5/Star 7/Super Star 8/Super Star 12";
     item_mode = "rules 30/rules 110/rules 190/rules 222";
@@ -88,7 +88,7 @@ class Cellular_automata extends Romanesco {
   iVec2 canvas_ref;
   int ref_mode;
   void draw() {
-    int cell_size = (int)map(get_grid(),grid_min_max.x,grid_min_max.y,height/10,1);
+    int cell_size = (int)map(get_grid(),get_grid_min(),get_grid_max(),height/10,1);
     iVec2 canvas = iVec2((int)get_canvas_x(),(int)get_canvas_y());
 
     if(ca == null || cell_size != cell_size_ref || !canvas_ref.equals(canvas) || ref_mode != get_mode_id()) {
@@ -121,7 +121,7 @@ class Cellular_automata extends Romanesco {
     aspect_is(fill_is(),stroke_is());
     aspect(get_fill(),get_stroke(),get_thickness());
 
-    Vec3 size = map(get_size(),size_x_min_max.x,size_x_min_max.y,0.01,cell_size*4);
+    Vec3 size = map(get_size(),get_size_x_min(),get_size_x_max(),0.01,cell_size*4);
     float area = get_area();
 
     ca.show(get_costume(),size,area);
@@ -198,7 +198,7 @@ class Cellular_automata extends Romanesco {
             float temp_x = (i*cell_size) -displacement_x;
             float temp_y = ((y-1)*cell_size) -displacement_y;
             Vec3 pos = Vec3(temp_x,temp_y,0);
-            set_ratio_costume_size(map(area,area_min_max.x,area_min_max.y,0,1));
+            set_ratio_costume_size(map(area,get_area_min(),get_area_max(),0,1));
             costume(pos,temp_size,costume);
           } 
         }

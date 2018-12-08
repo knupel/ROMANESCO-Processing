@@ -1,7 +1,7 @@
 /**
 LIGNES
 2011-2018
-v 1.2.3
+v 1.2.4
 */
 Line line ;
 //object three
@@ -9,7 +9,7 @@ class Lignes extends Romanesco {
   public Lignes() {
     item_name = "Lignes" ;
     item_author  = "Stan le Punk";
-    item_version = "Version 1.2.3";
+    item_version = "Version 1.2.4";
     item_pack = "Base 2011-2018" ;
     item_costume = "" ;
     item_mode = "Lines 1/Lines 2/Lines 3/Lines 4/Lines 5/Lines 6" ;
@@ -94,8 +94,8 @@ class Lignes extends Romanesco {
     if(reverse_is()) speed = speed *1 ; else speed = speed * -1 ;
 
     // size canvas
-    float canvas_x = map(get_canvas_x(),canvas_x_min_max.x,canvas_x_min_max.y, width/2, width *4);
-    float canvas_y = map(get_canvas_y(),canvas_y_min_max.x,canvas_y_min_max.y, height/2, height *4);
+    float canvas_x = map(get_canvas_x(),get_canvas_x_min(),get_canvas_x_max(), width/2, width *4);
+    float canvas_y = map(get_canvas_y(),get_canvas_y_min(),get_canvas_y_max(), height/2, height *4);
     Vec2 canvas = Vec2(canvas_x,canvas_y);
 
     //quantity

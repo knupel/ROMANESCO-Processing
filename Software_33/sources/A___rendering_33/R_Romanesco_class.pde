@@ -1,6 +1,6 @@
 /**
 Abstract CLASS ROMANESCO
-v 1.1.2
+v 1.2.0
 2013-2018
 */
 public abstract class Romanesco implements rope.core.RConstants {
@@ -19,31 +19,35 @@ public abstract class Romanesco implements rope.core.RConstants {
 
   // value slider
   int fill,stroke;
-  float thickness; 
-  float size_x,size_y,size_z;
-  float diameter;
-  float canvas_x,canvas_y,canvas_z;
 
-  float frequence;
-  float speed_x,speed_y,speed_z;
-  float spurt_x,spurt_y,spurt_z;
-  float dir_x,dir_y,dir_z;
-  float jitter_x,jitter_y,jitter_z;
-  float swing_x,swing_y,swing_z;
+  Varom fill_hue,fill_sat,fill_bright,fill_alpha;
+  Varom stroke_hue,stroke_sat,stroke_bright,stroke_alpha;
+  Varom thickness; 
+  Varom size_x,size_y,size_z;
+  Varom diameter;
+  Varom canvas_x,canvas_y,canvas_z;
 
-  float quantity,variety;
-  float life,flow,quality;
+  Varom frequence;
+  Varom speed_x,speed_y,speed_z;
+  Varom spurt_x,spurt_y,spurt_z;
+  Varom dir_x,dir_y,dir_z;
+  Varom jitter_x,jitter_y,jitter_z;
+  Varom swing_x,swing_y,swing_z;
 
-  float area,angle,scope,scan;
-  float alignment,repulsion,attraction,density;
-  float influence,calm,spectrum;
+  Varom quantity,variety;
+  Varom life,flow,quality;
 
-  float grid;
-  float viscosity,diffusion;
+  Varom area,angle,scope,scan;
+  Varom alignment,repulsion,attraction,density;
+  Varom influence,calm,spectrum;
 
-  float power;
-  float mass;
-  float coord_x,coord_y,coord_z;
+  Varom grid;
+  Varom viscosity,diffusion;
+
+  Varom power;
+  Varom mass;
+  Varom coord_x,coord_y,coord_z;
+
 
   // parameter
   boolean show,sound,action,parameter;
@@ -274,255 +278,841 @@ public abstract class Romanesco implements rope.core.RConstants {
     this.parameter = parameter;
   }
 
-  // set controller slider
+  /**
+  * SET CONTROL SLIDER
+  */
+  // FILL
   protected void set_fill(int fill) {
     this.fill = fill;
   }
 
+  protected void set_fill_hue(float fill_hue) {
+    if(this.fill_hue == null) this.fill_hue = new Varom();
+    this.fill_hue.set_raw(fill_hue);
+  }
+
+  protected void set_fill_hue_min_max(float min_raw, float max_raw, float min, float max) {
+    if(this.fill_hue == null) this.fill_hue = new Varom();
+    this.fill_hue.set_min_raw(min_raw);
+    this.fill_hue.set_max_raw(max_raw);
+    this.fill_hue.set_min(min);
+    this.fill_hue.set_max(max);
+  }
+
+  protected void set_fill_sat(float fill_sat) {
+    if(this.fill_sat == null) this.fill_sat = new Varom();
+    this.fill_sat.set_raw(fill_sat);
+  }
+
+  protected void set_fill_sat_min_max(float min_raw, float max_raw, float min, float max) {
+    if(this.fill_sat == null) this.fill_sat = new Varom();
+    this.fill_sat.set_min_raw(min_raw);
+    this.fill_sat.set_max_raw(max_raw);
+    this.fill_sat.set_min(min);
+    this.fill_sat.set_max(max);
+  }
+
+  protected void set_fill_bright(float fill_bright) {
+    if(this.fill_bright == null) this.fill_bright = new Varom();
+    this.fill_bright.set_raw(fill_bright);
+  }
+
+  protected void set_fill_bright_min_max(float min_raw, float max_raw, float min, float max) {
+    if(this.fill_bright == null) this.fill_bright = new Varom();
+    this.fill_bright.set_min_raw(min_raw);
+    this.fill_bright.set_max_raw(max_raw);
+    this.fill_bright.set_min(min);
+    this.fill_bright.set_max(max);
+  }
+
+  protected void set_fill_alpha(float fill_alpha) {
+    if(this.fill_alpha == null) this.fill_alpha = new Varom();
+    this.fill_alpha.set_raw(fill_alpha);
+  }
+
+  protected void set_fill_alpha_min_max(float min_raw, float max_raw, float min, float max) {
+    if(this.fill_alpha == null) this.fill_alpha = new Varom();
+    this.fill_alpha.set_min_raw(min_raw);
+    this.fill_alpha.set_max_raw(max_raw);
+    this.fill_alpha.set_min(min);
+    this.fill_alpha.set_max(max);
+  }
+
+
+  // STROKE
   protected void set_stroke(int stroke) {
     this.stroke = stroke;
   }
 
-  protected void set_thickness(float thickness) {
-    this.thickness = thickness;
+  protected void set_stroke_hue(float stroke_hue) {
+    if(this.stroke_hue == null) this.stroke_hue = new Varom();
+    this.stroke_hue.set_raw(stroke_hue);
   }
 
+  protected void set_stroke_hue_min_max(float min_raw, float max_raw, float min, float max) {
+    if(this.stroke_hue == null) this.stroke_hue = new Varom();
+    this.stroke_hue.set_min_raw(min_raw);
+    this.stroke_hue.set_max_raw(max_raw);
+    this.stroke_hue.set_min(min);
+    this.stroke_hue.set_max(max);
+  }
+
+  protected void set_stroke_sat(float stroke_sat) {
+    if(this.stroke_sat == null) this.stroke_sat = new Varom();
+    this.stroke_sat.set_raw(stroke_sat);
+  }
+
+  protected void set_stroke_sat_min_max(float min_raw, float max_raw, float min, float max) {
+    if(this.stroke_sat == null) this.stroke_sat = new Varom();
+    this.stroke_sat.set_min_raw(min_raw);
+    this.stroke_sat.set_max_raw(max_raw);
+    this.stroke_sat.set_min(min);
+    this.stroke_sat.set_max(max);
+  }
+
+  protected void set_stroke_bright(float stroke_bright) {
+    if(this.stroke_bright == null) this.stroke_bright = new Varom();
+    this.stroke_bright.set_raw(stroke_bright);
+  }
+
+  protected void set_stroke_bright_min_max(float min_raw, float max_raw, float min, float max) {
+    if(this.stroke_bright == null) this.stroke_bright = new Varom();
+    this.stroke_bright.set_min_raw(min_raw);
+    this.stroke_bright.set_max_raw(max_raw);
+    this.stroke_bright.set_min(min);
+    this.stroke_bright.set_max(max);
+  }
+
+  protected void set_stroke_alpha(float stroke_alpha) {
+    if(this.stroke_alpha == null) this.stroke_alpha = new Varom();
+    this.stroke_alpha.set_raw(stroke_alpha);
+  }
+
+  protected void set_stroke_alpha_min_max(float min_raw, float max_raw, float min, float max) {
+    if(this.stroke_alpha == null) this.stroke_alpha = new Varom();
+    this.stroke_alpha.set_min_raw(min_raw);
+    this.stroke_alpha.set_max_raw(max_raw);
+    this.stroke_alpha.set_min(min);
+    this.stroke_alpha.set_max(max);
+  }
+  
+
+  // thickness
+  protected void set_thickness(float thickness) {
+    if(this.thickness == null) this.thickness = new Varom();
+    this.thickness.set_raw(thickness);
+  }
+
+  protected void set_thickness_min_max(float min_raw, float max_raw, float min, float max) {
+    if(this.thickness == null) this.thickness = new Varom();
+    this.thickness.set_min_raw(min_raw);
+    this.thickness.set_max_raw(max_raw);
+    this.thickness.set_min(min);
+    this.thickness.set_max(max);
+  }
+
+  // SIZE
   protected void set_size(float size) {
-    this.size_x = size;
-    this.size_y = size;
-    this.size_z = size;
+    set_size_x(size);
+    set_size_y(size);
+    set_size_z(size);
   }
 
   protected void set_size_x(float size_x) {
-    this.size_x = size_x;
+    if(this.size_x == null) this.size_x = new Varom();
+    this.size_x.set_raw(size_x);
+  }
+
+  protected void set_size_x_min_max(float min_raw, float max_raw, float min, float max) {
+    if(this.size_x == null) this.size_x = new Varom();
+    this.size_x.set_min_raw(min_raw);
+    this.size_x.set_max_raw(max_raw);
+    this.size_x.set_min(min);
+    this.size_x.set_max(max);
   }
 
   protected void set_size_y(float size_y) {
-    this.size_y = size_y;
+    if(this.size_y == null) this.size_y = new Varom();
+    this.size_y.set_raw(size_y);
+  }
+
+  protected void set_size_y_min_max(float min_raw, float max_raw, float min, float max) {
+    if(this.size_y == null) this.size_y = new Varom();
+    this.size_y.set_min_raw(min_raw);
+    this.size_y.set_max_raw(max_raw);
+    this.size_y.set_min(min);
+    this.size_y.set_max(max);
   }
 
   protected void set_size_z(float size_z) {
-    this.size_z = size_z;
+    if(this.size_z == null) this.size_z = new Varom();
+    this.size_z.set_raw(size_z);
   }
 
+  protected void set_size_z_min_max(float min_raw, float max_raw, float min, float max) {
+    if(this.size_z == null) this.size_z = new Varom();
+    this.size_z.set_min_raw(min_raw);
+    this.size_z.set_max_raw(max_raw);
+    this.size_z.set_min(min);
+    this.size_z.set_max(max);
+  }
+  
+  // diameter
   protected void set_diameter(float diameter) {
-    this.diameter = diameter;
+    if(this.diameter == null) this.diameter = new Varom();
+    this.diameter.set_raw(diameter);
   }
 
+  protected void set_diameter_min_max(float min_raw, float max_raw, float min, float max) {
+    if(this.diameter == null) this.diameter = new Varom();
+    this.diameter.set_min_raw(min_raw);
+    this.diameter.set_max_raw(max_raw);
+    this.diameter.set_min(min);
+    this.diameter.set_max(max);
+  }
+  
+  // CANVAS
   protected void set_canvas(float canvas) {
-    this.canvas_x = canvas;
-    this.canvas_y = canvas;
-    this.canvas_z = canvas;
+    set_canvas_x(canvas);
+    set_canvas_y(canvas);
+    set_canvas_z(canvas);
   }
 
   protected void set_canvas_x(float canvas_x) {
-    this.canvas_x = canvas_x;
+    if(this.canvas_x == null) this.canvas_x = new Varom();
+    this.canvas_x.set_raw(canvas_x);
+  }
+
+  protected void set_canvas_x_min_max(float min_raw, float max_raw, float min, float max) {
+    if(this.canvas_x == null) this.canvas_x = new Varom();
+    this.canvas_x.set_min_raw(min_raw);
+    this.canvas_x.set_max_raw(max_raw);
+    this.canvas_x.set_min(min);
+    this.canvas_x.set_max(max);
   }
 
   protected void set_canvas_y(float canvas_y) {
-    this.canvas_y = canvas_y;
+    if(this.canvas_y == null) this.canvas_y = new Varom();
+    this.canvas_y.set_raw(canvas_y);
+  }
+
+  protected void set_canvas_y_min_max(float min_raw, float max_raw, float min, float max) {
+    if(this.canvas_y == null) this.canvas_y = new Varom();
+    this.canvas_y.set_min_raw(min_raw);
+    this.canvas_y.set_max_raw(max_raw);
+    this.canvas_y.set_min(min);
+    this.canvas_y.set_max(max);
   }
 
   protected void set_canvas_z(float canvas_z) {
-    this.canvas_z = canvas_z;
+    if(this.canvas_z == null) this.canvas_z = new Varom();
+    this.canvas_z.set_raw(canvas_z);
   }
 
+  protected void set_canvas_z_min_max(float min_raw, float max_raw, float min, float max) {
+    if(this.canvas_z == null) this.canvas_z = new Varom();
+    this.canvas_z.set_min_raw(min_raw);
+    this.canvas_z.set_max_raw(max_raw);
+    this.canvas_z.set_min(min);
+    this.canvas_z.set_max(max);
+  }
+  
+  // COL 2
+  // frequence
   protected void set_frequence(float frequence) {
-    this.frequence = frequence;
+    if(this.frequence == null) this.frequence = new Varom();
+    this.frequence.set_raw(frequence);
   }
 
+  protected void set_frequence_min_max(float min_raw, float max_raw, float min, float max) {
+    if(this.frequence == null) this.frequence = new Varom();
+    this.frequence.set_min_raw(min_raw);
+    this.frequence.set_max_raw(max_raw);
+    this.frequence.set_min(min);
+    this.frequence.set_max(max);
+  }
+  
+  // SPEED
   protected void set_speed(float speed) {
-    this.speed_x = speed;
-    this.speed_y = speed;
-    this.speed_z = speed;
+    set_speed_x(speed);
+    set_speed_y(speed);
+    set_speed_z(speed);
   }
 
   protected void set_speed_x(float speed_x) {
-    this.speed_x = speed_x;
+    if(this.speed_x == null) this.speed_x = new Varom();
+    this.speed_x.set_raw(speed_x);
+  }
+
+  protected void set_speed_x_min_max(float min_raw, float max_raw, float min, float max) {
+    if(this.speed_x == null) this.speed_x = new Varom();
+    this.speed_x.set_min_raw(min_raw);
+    this.speed_x.set_max_raw(max_raw);
+    this.speed_x.set_min(min);
+    this.speed_x.set_max(max);
   }
 
   protected void set_speed_y(float speed_y) {
-    this.speed_y = speed_y;
+    if(this.speed_y == null) this.speed_y = new Varom();
+    this.speed_y.set_raw(speed_y);
+  }
+
+  protected void set_speed_y_min_max(float min_raw, float max_raw, float min, float max) {
+    if(this.speed_y == null) this.speed_y = new Varom();
+    this.speed_y.set_min_raw(min_raw);
+    this.speed_y.set_max_raw(max_raw);
+    this.speed_y.set_min(min);
+    this.speed_y.set_max(max);
   }
 
   protected void set_speed_z(float speed_z) {
-    this.speed_z = speed_z;
+    if(this.speed_z == null) this.speed_z = new Varom();
+    this.speed_z.set_raw(speed_z);
   }
 
+  protected void set_speed_z_min_max(float min_raw, float max_raw, float min, float max) {
+    if(this.speed_z == null) this.speed_z = new Varom();
+    this.speed_z.set_min_raw(min_raw);
+    this.speed_z.set_max_raw(max_raw);
+    this.speed_z.set_min(min);
+    this.speed_z.set_max(max);
+  }
+  
+  // SPURT
   protected void set_spurt(float spurt) {
-    this.spurt_x = spurt;
-    this.spurt_y = spurt;
-    this.spurt_z = spurt;
+    set_spurt_x(spurt);
+    set_spurt_y(spurt);
+    set_spurt_z(spurt);
   }
 
   protected void set_spurt_x(float spurt_x) {
-    this.spurt_x = spurt_x;
+    if(this.spurt_x == null) this.spurt_x = new Varom();
+    this.spurt_x.set_raw(spurt_x);
+  }
+
+  protected void set_spurt_x_min_max(float min_raw, float max_raw, float min, float max) {
+    if(this.spurt_x == null) this.spurt_x = new Varom();
+    this.spurt_x.set_min_raw(min_raw);
+    this.spurt_x.set_max_raw(max_raw);
+    this.spurt_x.set_min(min);
+    this.spurt_x.set_max(max);
   }
 
   protected void set_spurt_y(float spurt_y) {
-    this.spurt_y = spurt_y;
+    if(this.spurt_y == null) this.spurt_y = new Varom();
+    this.spurt_y.set_raw(spurt_y);
+  }
+
+  protected void set_spurt_y_min_max(float min_raw, float max_raw, float min, float max) {
+    if(this.spurt_y == null) this.spurt_y = new Varom();
+    this.spurt_y.set_min_raw(min_raw);
+    this.spurt_y.set_max_raw(max_raw);
+    this.spurt_y.set_min(min);
+    this.spurt_y.set_max(max);
   }
 
   protected void set_spurt_z(float spurt_z) {
-    this.spurt_z = spurt_z;
+    if(this.spurt_z == null) this.spurt_z = new Varom();
+    this.spurt_z.set_raw(spurt_z);
   }
 
+  protected void set_spurt_z_min_max(float min_raw, float max_raw, float min, float max) {
+    if(this.spurt_z == null) this.spurt_z = new Varom();
+    this.spurt_z.set_min_raw(min_raw);
+    this.spurt_z.set_max_raw(max_raw);
+    this.spurt_z.set_min(min);
+    this.spurt_z.set_max(max);
+  }
+  
+  // DIR
   protected void set_dir(float dir) {
-    this.dir_x = dir;
-    this.dir_y = dir;
-    this.dir_z = dir;
+    set_dir_x(dir);
+    set_dir_y(dir);
+    set_dir_z(dir);
   }
 
   protected void set_dir_x(float dir_x) {
-    this.dir_x = dir_x;
+    if(this.dir_x == null) this.dir_x = new Varom();
+    this.dir_x.set_raw(dir_x);
+  }
+
+  protected void set_dir_x_min_max(float min_raw, float max_raw, float min, float max) {
+    if(this.dir_x == null) this.dir_x = new Varom();
+    this.dir_x.set_min_raw(min_raw);
+    this.dir_x.set_max_raw(max_raw);
+    this.dir_x.set_min(min);
+    this.dir_x.set_max(max);
   }
 
   protected void set_dir_y(float dir_y) {
-    this.dir_y = dir_y;
+    if(this.dir_y == null) this.dir_y = new Varom();
+    this.dir_y.set_raw(dir_y);
+  }
+
+  protected void set_dir_y_min_max(float min_raw, float max_raw, float min, float max) {
+    if(this.dir_y == null) this.dir_y = new Varom();
+    this.dir_y.set_min_raw(min_raw);
+    this.dir_y.set_max_raw(max_raw);
+    this.dir_y.set_min(min);
+    this.dir_y.set_max(max);
   }
 
   protected void set_dir_z(float dir_z) {
-    this.dir_z = dir_z;
+    if(this.dir_z == null) this.dir_z = new Varom();
+    this.dir_z.set_raw(dir_z);
   }
 
+  protected void set_dir_z_min_max(float min_raw, float max_raw, float min, float max) {
+    if(this.dir_z == null) this.dir_z = new Varom();
+    this.dir_z.set_min_raw(min_raw);
+    this.dir_z.set_max_raw(max_raw);
+    this.dir_z.set_min(min);
+    this.dir_z.set_max(max);
+  }
+  
+  // JITTER
   protected void set_jitter(float jitter) {
-    this.jitter_x = jitter;
-    this.jitter_y = jitter;
-    this.jitter_z = jitter;
+    set_jitter_x(jitter);
+    set_jitter_y(jitter);
+    set_jitter_z(jitter);
   }
 
   protected void set_jitter_x(float jitter_x) {
-    this.jitter_x = jitter_x;
+    if(this.jitter_x == null) this.jitter_x = new Varom();
+    this.jitter_x.set_raw(jitter_x);
+  }
+
+  protected void set_jitter_x_min_max(float min_raw, float max_raw, float min, float max) {
+    if(this.jitter_x == null) this.jitter_x = new Varom();
+    this.jitter_x.set_min_raw(min_raw);
+    this.jitter_x.set_max_raw(max_raw);
+    this.jitter_x.set_min(min);
+    this.jitter_x.set_max(max);
   }
 
   protected void set_jitter_y(float jitter_y) {
-    this.jitter_y = jitter_y;
+    if(this.jitter_y == null) this.jitter_y = new Varom();
+    this.jitter_y.set_raw(jitter_y);
+  }
+
+  protected void set_jitter_y_min_max(float min_raw, float max_raw, float min, float max) {
+    if(this.jitter_y == null) this.jitter_y = new Varom();
+    this.jitter_y.set_min_raw(min_raw);
+    this.jitter_y.set_max_raw(max_raw);
+    this.jitter_y.set_min(min);
+    this.jitter_y.set_max(max);
   }
 
   protected void set_jitter_z(float jitter_z) {
-    this.jitter_z = jitter_z;
+    if(this.jitter_z == null) this.jitter_z = new Varom();
+    this.jitter_z.set_raw(jitter_z);
   }
 
+  protected void set_jitter_z_min_max(float min_raw, float max_raw, float min, float max) {
+    if(this.jitter_z == null) this.jitter_z = new Varom();
+    this.jitter_z.set_min_raw(min_raw);
+    this.jitter_z.set_max_raw(max_raw);
+    this.jitter_z.set_min(min);
+    this.jitter_z.set_max(max);
+  }
+  
+  // SWING
   protected void set_swing(float swing) {
-    this.swing_x = swing;
-    this.swing_y = swing;
-    this.swing_z = swing;
+    set_swing_x(swing);
+    set_swing_y(swing);
+    set_swing_z(swing);
   }
 
   protected void set_swing_x(float swing_x) {
-    this.swing_x = swing_x;
+    if(this.swing_x == null) this.swing_x = new Varom();
+    this.swing_x.set_raw(swing_x);
+  }
+
+  protected void set_swing_x_min_max(float min_raw, float max_raw, float min, float max) {
+    if(this.swing_x == null) this.swing_x = new Varom();
+    this.swing_x.set_min_raw(min_raw);
+    this.swing_x.set_max_raw(max_raw);
+    this.swing_x.set_min(min);
+    this.swing_x.set_max(max);
   }
 
   protected void set_swing_y(float swing_y) {
-    this.swing_y = swing_y;
+    if(this.swing_y == null) this.swing_y = new Varom();
+    this.swing_y.set_raw(swing_y);
+  }
+
+  protected void set_swing_y_min_max(float min_raw, float max_raw, float min, float max) {
+    if(this.swing_y == null) this.swing_y = new Varom();
+    this.swing_y.set_min_raw(min_raw);
+    this.swing_y.set_max_raw(max_raw);
+    this.swing_y.set_min(min);
+    this.swing_y.set_max(max);
   }
 
   protected void set_swing_z(float swing_z) {
-    this.swing_z = swing_z;
+    if(this.swing_z == null) this.swing_z = new Varom();
+    this.swing_z.set_raw(swing_z);
   }
 
+  protected void set_swing_z_min_max(float min_raw, float max_raw, float min, float max) {
+    if(this.swing_z == null) this.swing_z = new Varom();
+    this.swing_z.set_min_raw(min_raw);
+    this.swing_z.set_max_raw(max_raw);
+    this.swing_z.set_min(min);
+    this.swing_z.set_max(max);
+  }
+
+
+  // COL 3
+  //quantity
   protected void set_quantity(float quantity) {
-    this.quantity = quantity;
+    if(this.quantity == null) this.quantity = new Varom();
+    this.quantity.set_raw(quantity);
   }
 
+  protected void set_quantity_min_max(float min_raw, float max_raw, float min, float max) {
+    if(this.quantity == null) this.quantity = new Varom();
+    this.quantity.set_min_raw(min_raw);
+    this.quantity.set_max_raw(max_raw);
+    this.quantity.set_min(min);
+    this.quantity.set_max(max);
+  }
+  
+  // variety
   protected void set_variety(float variety) {
-    this.variety = variety;
+    if(this.variety == null) this.variety = new Varom();
+    this.variety.set_raw(variety);
   }
 
+  protected void set_variety_min_max(float min_raw, float max_raw, float min, float max) {
+    if(this.variety == null) this.variety = new Varom();
+    this.variety.set_min_raw(min_raw);
+    this.variety.set_max_raw(max_raw);
+    this.variety.set_min(min);
+    this.variety.set_max(max);
+  }
+
+  // life
   protected void set_life(float life) {
-    this.life = life;
+    if(this.life == null) this.life = new Varom();
+    this.life.set_raw(life);
   }
 
+  protected void set_life_min_max(float min_raw, float max_raw, float min, float max) {
+    if(this.life == null) this.life = new Varom();
+    this.life.set_min_raw(min_raw);
+    this.life.set_max_raw(max_raw);
+    this.life.set_min(min);
+    this.life.set_max(max);
+  }
+
+  // flow
   protected void set_flow(float flow) {
-    this.flow = flow;
+    if(this.flow == null) this.flow = new Varom();
+    this.flow.set_raw(flow);
   }
 
+  protected void set_flow_min_max(float min_raw, float max_raw, float min, float max) {
+    if(this.flow == null) this.flow = new Varom();
+    this.flow.set_min_raw(min_raw);
+    this.flow.set_max_raw(max_raw);
+    this.flow.set_min(min);
+    this.flow.set_max(max);
+  }
+
+  // quality
   protected void set_quality(float quality) {
-    this.quality = quality;
+    if(this.quality == null) this.quality = new Varom();
+    this.quality.set_raw(quality);
   }
 
+  protected void set_quality_min_max(float min_raw, float max_raw, float min, float max) {
+    if(this.quality == null) this.quality = new Varom();
+    this.quality.set_min_raw(min_raw);
+    this.quality.set_max_raw(max_raw);
+    this.quality.set_min(min);
+    this.quality.set_max(max);
+  }
+
+  // area
   protected void set_area(float area) {
-    this.area = area;
+    if(this.area == null) this.area = new Varom();
+    this.area.set_raw(area);
   }
 
+  protected void set_area_min_max(float min_raw, float max_raw, float min, float max) {
+    if(this.area == null) this.area = new Varom();
+    this.area.set_min_raw(min_raw);
+    this.area.set_max_raw(max_raw);
+    this.area.set_min(min);
+    this.area.set_max(max);
+  }
+
+  // angle
   protected void set_angle(float angle) {
-    this.angle = angle;
+    if(this.angle == null) this.angle = new Varom();
+    this.angle.set_raw(angle);
   }
 
+  protected void set_angle_min_max(float min_raw, float max_raw, float min, float max) {
+    if(this.angle == null) this.angle = new Varom();
+    this.angle.set_min_raw(min_raw);
+    this.angle.set_max_raw(max_raw);
+    this.angle.set_min(min);
+    this.angle.set_max(max);
+  }
 
+  // scope
   protected void set_scope(float scope) {
-    this.scope = scope;
+    if(this.scope == null) this.scope = new Varom();
+    this.scope.set_raw(scope);
   }
 
+  protected void set_scope_min_max(float min_raw, float max_raw, float min, float max) {
+    if(this.scope == null) this.scope = new Varom();
+    this.scope.set_min_raw(min_raw);
+    this.scope.set_max_raw(max_raw);
+    this.scope.set_min(min);
+    this.scope.set_max(max);
+  }
+
+  // scan
   protected void set_scan(float scan) {
-    this.scan = scan;
+    if(this.scan == null) this.scan = new Varom();
+    this.scan.set_raw(scan);
   }
 
+  protected void set_scan_min_max(float min_raw, float max_raw, float min, float max) {
+    if(this.scan == null) this.scan = new Varom();
+    this.scan.set_min_raw(min_raw);
+    this.scan.set_max_raw(max_raw);
+    this.scan.set_min(min);
+    this.scan.set_max(max);
+  }
+
+  // alignment
   protected void set_alignment(float alignment) {
-    this.alignment = alignment;
+    if(this.alignment == null) this.alignment = new Varom();
+    this.alignment.set_raw(alignment);
   }
 
+  protected void set_alignment_min_max(float min_raw, float max_raw, float min, float max) {
+    if(this.alignment == null) this.alignment = new Varom();
+    this.alignment.set_min_raw(min_raw);
+    this.alignment.set_max_raw(max_raw);
+    this.alignment.set_min(min);
+    this.alignment.set_max(max);
+  }
+  
+  // repulsion
   protected void set_repulsion(float repulsion) {
-    this.repulsion = repulsion;
+    if(this.repulsion == null) this.repulsion = new Varom();
+    this.repulsion.set_raw(repulsion);
   }
 
+  protected void set_repulsion_min_max(float min_raw, float max_raw, float min, float max) {
+    if(this.repulsion == null) this.repulsion = new Varom();
+    this.repulsion.set_min_raw(min_raw);
+    this.repulsion.set_max_raw(max_raw);
+    this.repulsion.set_min(min);
+    this.repulsion.set_max(max);
+  }
+  
+  // attraction
   protected void set_attraction(float attraction) {
-    this.attraction = attraction;
+    if(this.attraction == null) this.attraction = new Varom();
+    this.attraction.set_raw(attraction);
   }
 
+  protected void set_attraction_min_max(float min_raw, float max_raw, float min, float max) {
+    if(this.attraction == null) this.attraction = new Varom();
+    this.attraction.set_min_raw(min_raw);
+    this.attraction.set_max_raw(max_raw);
+    this.attraction.set_min(min);
+    this.attraction.set_max(max);
+  }
+  
+  //density
   protected void set_density(float density) {
-    this.density = density;
+    if(this.density == null) this.density = new Varom();
+    this.density.set_raw(density);
   }
 
+  protected void set_density_min_max(float min_raw, float max_raw, float min, float max) {
+    if(this.density == null) this.density = new Varom();
+    this.density.set_min_raw(min_raw);
+    this.density.set_max_raw(max_raw);
+    this.density.set_min(min);
+    this.density.set_max(max);
+  }
+  
+  // influence
   protected void set_influence(float influence) {
-    this.influence = influence;
+    if(this.influence == null) this.influence = new Varom();
+    this.influence.set_raw(influence);
   }
 
+  protected void set_influence_min_max(float min_raw, float max_raw, float min, float max) {
+    if(this.influence == null) this.influence = new Varom();
+    this.influence.set_min_raw(min_raw);
+    this.influence.set_max_raw(max_raw);
+    this.influence.set_min(min);
+    this.influence.set_max(max);
+  }
+  
+  // calm
   protected void set_calm(float calm) {
-    this.calm = calm;
+    if(this.calm == null) this.calm = new Varom();
+    this.calm.set_raw(calm);
   }
 
+  protected void set_calm_min_max(float min_raw, float max_raw, float min, float max) {
+    if(this.calm == null) this.calm = new Varom();
+    this.calm.set_min_raw(min_raw);
+    this.calm.set_max_raw(max_raw);
+    this.calm.set_min(min);
+    this.calm.set_max(max);
+  }
+
+  // spectrum
   protected void set_spectrum(float spectrum) {
-    this.spectrum = spectrum;
+    if(this.spectrum == null) this.spectrum = new Varom();
+    this.spectrum.set_raw(spectrum);
   }
 
+  protected void set_spectrum_min_max(float min_raw, float max_raw, float min, float max) {
+    if(this.spectrum == null) this.spectrum = new Varom();
+    this.spectrum.set_min_raw(min_raw);
+    this.spectrum.set_max_raw(max_raw);
+    this.spectrum.set_min(min);
+    this.spectrum.set_max(max);
+  }
+  
+  // COL 4
+  // grid
   protected void set_grid(float grid) {
-    this.grid = grid;
+    if(this.grid == null) this.grid = new Varom();
+    this.grid.set_raw(grid);
   }
 
+  protected void set_grid_min_max(float min_raw, float max_raw, float min, float max) {
+    if(this.grid == null) this.grid = new Varom();
+    this.grid.set_min_raw(min_raw);
+    this.grid.set_max_raw(max_raw);
+    this.grid.set_min(min);
+    this.grid.set_max(max);
+  }
+  
+  // viscosity
   protected void set_viscosity(float viscosity) {
-    this.viscosity = viscosity;
+    if(this.viscosity == null) this.viscosity = new Varom();
+    this.viscosity.set_raw(viscosity);
   }
 
+  protected void set_viscosity_min_max(float min_raw, float max_raw, float min, float max) {
+    if(this.viscosity == null) this.viscosity = new Varom();
+    this.viscosity.set_min_raw(min_raw);
+    this.viscosity.set_max_raw(max_raw);
+    this.viscosity.set_min(min);
+    this.viscosity.set_max(max);
+  }
+  
+  // diffusion
   protected void set_diffusion(float diffusion) {
-    this.diffusion = diffusion;
+    if(this.diffusion == null) this.diffusion = new Varom();
+    this.diffusion.set_raw(diffusion);
   }
 
+  protected void set_diffusion_min_max(float min_raw, float max_raw, float min, float max) {
+    if(this.diffusion == null) this.diffusion = new Varom();
+    this.diffusion.set_min_raw(min_raw);
+    this.diffusion.set_max_raw(max_raw);
+    this.diffusion.set_min(min);
+    this.diffusion.set_max(max);
+  }
+  
+  // power
   protected void set_power(float power) {
-    this.power = power;
+    if(this.power == null) this.power = new Varom();
+    this.power.set_raw(power);
   }
 
+  protected void set_power_min_max(float min_raw, float max_raw, float min, float max) {
+    if(this.power == null) this.power = new Varom();
+    this.power.set_min_raw(min_raw);
+    this.power.set_max_raw(max_raw);
+    this.power.set_min(min);
+    this.power.set_max(max);
+  }
+  
+  // mass
   protected void set_mass(float mass) {
-    this.mass = mass;
+    if(this.mass == null) this.mass = new Varom();
+    this.mass.set_raw(mass);
   }
 
+  protected void set_mass_min_max(float min_raw, float max_raw, float min, float max) {
+    if(this.mass == null) this.mass = new Varom();
+    this.mass.set_min_raw(min_raw);
+    this.mass.set_max_raw(max_raw);
+    this.mass.set_min(min);
+    this.mass.set_max(max);
+  }
+  
+  // COORD
   protected void set_coord(float coord) {
-    this.coord_x = coord;
-    this.coord_y = coord;
-    this.coord_z = coord;
+    set_coord_x(coord);
+    set_coord_y(coord);
+    set_coord_z(coord);
   }
 
   protected void set_coord_x(float coord_x) {
-    this.coord_x = coord_x;
+    if(this.coord_x == null) this.coord_x = new Varom();
+    this.coord_x.set_raw(coord_x);
+  }
+
+  protected void set_coord_x_min_max(float min_raw, float max_raw, float min, float max) {
+    if(this.coord_x == null) this.coord_x = new Varom();
+    this.coord_x.set_min_raw(min_raw);
+    this.coord_x.set_max_raw(max_raw);
+    this.coord_x.set_min(min);
+    this.coord_x.set_max(max);
   }
 
   protected void set_coord_y(float coord_y) {
-    this.coord_y = coord_y;
+    if(this.coord_y == null) this.coord_y = new Varom();
+    this.coord_y.set_raw(coord_y);
+  }
+
+  protected void set_coord_y_min_max(float min_raw, float max_raw, float min, float max) {
+    if(this.coord_y == null) this.coord_y = new Varom();
+    this.coord_y.set_min_raw(min_raw);
+    this.coord_y.set_max_raw(max_raw);
+    this.coord_y.set_min(min);
+    this.coord_y.set_max(max);
   }
 
   protected void set_coord_z(float coord_z) {
-    this.coord_z = coord_z;
+    if(this.coord_z == null) this.coord_z = new Varom();
+    this.coord_z.set_raw(coord_z);
   }
+
+  protected void set_coord_z_min_max(float min_raw, float max_raw, float min, float max) {
+    if(this.coord_z == null) this.coord_z = new Varom();
+    this.coord_z.set_min_raw(min_raw);
+    this.coord_z.set_max_raw(max_raw);
+    this.coord_z.set_min(min);
+    this.coord_z.set_max(max);
+  }
+
+
+
+
+
+
+
+
+
 
   // set boolean
   protected void set_show(boolean show) {
@@ -779,16 +1369,166 @@ public abstract class Romanesco implements rope.core.RConstants {
   /**
   * get slider method 
   */
+  // FILL
   protected int get_fill() {
     return fill;
   }
+  
+  // fill_hue
+  protected float get_fill_hue() {
+    return fill_hue.get();
+  }
 
+  protected float get_fill_hue_raw() {
+    return fill_hue.raw();
+  }
+
+  protected float get_fill_hue_max() {
+    return fill_hue.max();
+  }
+
+  protected float get_fill_hue_min() {
+    return fill_hue.min();
+  }
+  
+  // fill_sat
+  protected float get_fill_sat() {
+    return fill_sat.get();
+  }
+
+  protected float get_fill_sat_raw() {
+    return fill_sat.raw();
+  }
+
+  protected float get_fill_sat_max() {
+    return fill_sat.max();
+  }
+
+  protected float get_fill_sat_min() {
+    return fill_sat.min();
+  }
+  
+  // fill_bright
+  protected float get_fill_bright() {
+    return fill_bright.get();
+  }
+
+  protected float get_fill_bright_raw() {
+    return fill_bright.raw();
+  }
+
+  protected float get_fill_bright_max() {
+    return fill_bright.max();
+  }
+
+  protected float get_fill_bright_min() {
+    return fill_bright.min();
+  }
+  
+  // fill_alpha
+  protected float get_fill_alpha() {
+    return fill_alpha.get();
+  }
+
+  protected float get_fill_alpha_raw() {
+    return fill_alpha.raw();
+  }
+
+  protected float get_fill_alpha_max() {
+    return fill_alpha.max();
+  }
+
+  protected float get_fill_alpha_min() {
+    return fill_alpha.min();
+  }
+  
+  // STROKE
   protected int get_stroke() {
     return stroke;
   }
+  // stroke_hue
+  protected float get_stroke_hue() {
+    return stroke_hue.get();
+  }
 
+  protected float get_stroke_hue_raw() {
+    return stroke_hue.raw();
+  }
+
+  protected float get_stroke_hue_max() {
+    return stroke_hue.max();
+  }
+
+  protected float get_stroke_hue_min() {
+    return stroke_hue.min();
+  }
+  
+  // stroke_sat
+  protected float get_stroke_sat() {
+    return stroke_sat.get();
+  }
+
+  protected float get_stroke_sat_raw() {
+    return stroke_sat.raw();
+  }
+
+  protected float get_stroke_sat_max() {
+    return stroke_sat.max();
+  }
+
+  protected float get_stroke_sat_min() {
+    return stroke_sat.min();
+  }
+  
+  // stroke_bright
+  protected float get_stroke_bright() {
+    return stroke_bright.get();
+  }
+
+  protected float get_stroke_bright_raw() {
+    return stroke_bright.raw();
+  }
+
+  protected float get_stroke_bright_max() {
+    return stroke_bright.max();
+  }
+
+  protected float get_stroke_bright_min() {
+    return stroke_bright.min();
+  }
+  
+  // stroke_alpha
+  protected float get_stroke_alpha() {
+    return stroke_alpha.get();
+  }
+
+  protected float get_stroke_alpha_raw() {
+    return stroke_alpha.raw();
+  }
+
+  protected float get_stroke_alpha_max() {
+    return stroke_alpha.max();
+  }
+
+  protected float get_stroke_alpha_min() {
+    return stroke_alpha.min();
+  }
+
+  // thickness
   protected float get_thickness() {
-    return thickness;
+    return thickness.get();
+  }
+
+  protected float get_thickness_raw() {
+    return thickness.raw();
+  }
+
+  protected float get_thickness_max() {
+    return thickness.max();
+  }
+
+  protected float get_thickness_min() {
+    return thickness.min();
   }
   
 
@@ -796,21 +1536,73 @@ public abstract class Romanesco implements rope.core.RConstants {
   protected Vec3 get_size() {
     return Vec3(get_size_x(),get_size_y(),get_size_z());
   }
-
+  
+  // size x
   protected float get_size_x() {
-    return size_x;
+    return size_x.get();
   }
 
+  protected float get_size_x_raw() {
+    return size_x.raw();
+  }
+
+  protected float get_size_x_max() {
+    return size_x.max();
+  }
+
+  protected float get_size_x_min() {
+    return size_x.min();
+  }
+
+  // size y
   protected float get_size_y() {
-    return size_y;
+    return size_y.get();
   }
 
+  protected float get_size_y_raw() {
+    return size_y.raw();
+  }
+
+  protected float get_size_y_max() {
+    return size_y.max();
+  }
+
+  protected float get_size_y_min() {
+    return size_y.min();
+  }
+
+  // size z
   protected float get_size_z() {
-    return size_z;
+    return size_z.get();
   }
 
+  protected float get_size_z_raw() {
+    return size_z.raw();
+  }
+
+  protected float get_size_z_max() {
+    return size_z.max();
+  }
+
+  protected float get_size_z_min() {
+    return size_z.min();
+  }
+  
+  // diameter
   protected float get_diameter() {
-    return diameter;
+    return diameter.get();
+  }
+
+  protected float get_diameter_raw() {
+    return diameter.raw();
+  }
+
+  protected float get_diameter_max() {
+    return diameter.max();
+  }
+
+  protected float get_diameter_min() {
+    return diameter.min();
   }
 
   // canvas
@@ -818,38 +1610,131 @@ public abstract class Romanesco implements rope.core.RConstants {
     return Vec3(get_canvas_x(),get_canvas_y(),get_canvas_z());
   }
 
+  // canvas x
   protected float get_canvas_x() {
-    return canvas_x;
+    return canvas_x.get();
   }
 
+  protected float get_canvas_x_raw() {
+    return canvas_x.raw();
+  }
+
+  protected float get_canvas_x_max() {
+    return canvas_x.max();
+  }
+
+  protected float get_canvas_x_min() {
+    return canvas_x.min();
+  }
+
+  // size y
   protected float get_canvas_y() {
-    return canvas_y;
+    return canvas_y.get();
   }
 
+  protected float get_canvas_y_raw() {
+    return canvas_y.raw();
+  }
+
+  protected float get_canvas_y_max() {
+    return canvas_y.max();
+  }
+
+  protected float get_canvas_y_min() {
+    return canvas_y.min();
+  }
+
+  // size z
   protected float get_canvas_z() {
-    return canvas_z;
+    return canvas_z.get();
+  }
+
+  protected float get_canvas_z_raw() {
+    return canvas_z.raw();
+  }
+
+  protected float get_canvas_z_max() {
+    return canvas_z.max();
+  }
+
+  protected float get_canvas_z_min() {
+    return canvas_z.min();
   }
 
 
   // COL 2
+  // frequence
   protected float get_frequence() {
-    return frequence;
+    return frequence.get();
   }
+
+  protected float get_frequence_raw() {
+    return frequence.raw();
+  }
+
+  protected float get_frequence_max() {
+    return frequence.max();
+  }
+
+  protected float get_frequence_min() {
+    return frequence.min();
+  }
+
+
   // speed
   protected Vec3 get_speed() {
     return Vec3(get_speed_x(),get_speed_y(),get_speed_z());
   }
 
+  // speed x
   protected float get_speed_x() {
-    return speed_x;
+    return speed_x.get();
   }
 
+  protected float get_speed_x_raw() {
+    return speed_x.raw();
+  }
+
+  protected float get_speed_x_max() {
+    return speed_x.max();
+  }
+
+  protected float get_speed_x_min() {
+    return speed_x.min();
+  }
+
+  // speed y
   protected float get_speed_y() {
-    return speed_y;
+    return speed_y.get();
   }
 
+  protected float get_speed_y_raw() {
+    return speed_y.raw();
+  }
+
+  protected float get_speed_y_max() {
+    return speed_y.max();
+  }
+
+  protected float get_speed_y_min() {
+    return speed_y.min();
+  }
+
+  // speed z
   protected float get_speed_z() {
-    return speed_z;
+    return speed_z.get();
+  }
+
+  protected float get_speed_z_raw() {
+    return speed_z.raw();
+  }
+
+  protected float get_speed_z_max() {
+    return speed_z.max();
+  }
+
+  protected float get_speed_z_min() {
+    return speed_z.min();
   }
 
   // spurt
@@ -857,181 +1742,641 @@ public abstract class Romanesco implements rope.core.RConstants {
     return Vec3(get_spurt_x(),get_spurt_y(),get_spurt_z());
   }
 
+  // spurt x
   protected float get_spurt_x() {
-    return spurt_x;
+    return spurt_x.get();
   }
 
+  protected float get_spurt_x_raw() {
+    return spurt_x.raw();
+  }
+
+  protected float get_spurt_x_max() {
+    return spurt_x.max();
+  }
+
+  protected float get_spurt_x_min() {
+    return spurt_x.min();
+  }
+
+  // spurt y
   protected float get_spurt_y() {
-    return spurt_y;
+    return spurt_y.get();
   }
 
+  protected float get_spurt_y_raw() {
+    return spurt_y.raw();
+  }
+
+  protected float get_spurt_y_max() {
+    return spurt_y.max();
+  }
+
+  protected float get_spurt_y_min() {
+    return spurt_y.min();
+  }
+
+  // spurt z
   protected float get_spurt_z() {
-    return spurt_z;
+    return spurt_z.get();
   }
 
+  protected float get_spurt_z_raw() {
+    return spurt_z.raw();
+  }
 
+  protected float get_spurt_z_max() {
+    return spurt_z.max();
+  }
 
-  // dir
+  protected float get_spurt_z_min() {
+    return spurt_z.min();
+  }
+
+  // DIR
   protected Vec3 get_dir() {
     return Vec3(get_dir_x(),get_dir_y(),get_dir_z());
   }
 
+  // dir x
   protected float get_dir_x() {
-    return dir_x;
+    return dir_x.get();
   }
 
+  protected float get_dir_x_raw() {
+    return dir_x.raw();
+  }
+
+  protected float get_dir_x_max() {
+    return dir_x.max();
+  }
+
+  protected float get_dir_x_min() {
+    return dir_x.min();
+  }
+
+  // dir y
   protected float get_dir_y() {
-    return dir_y;
+    return dir_y.get();
   }
 
+  protected float get_dir_y_raw() {
+    return dir_y.raw();
+  }
+
+  protected float get_dir_y_max() {
+    return dir_y.max();
+  }
+
+  protected float get_dir_y_min() {
+    return dir_y.min();
+  }
+
+  // dir z
   protected float get_dir_z() {
-    return dir_z;
+    return dir_z.get();
   }
 
-  // jitter
+  protected float get_dir_z_raw() {
+    return dir_z.raw();
+  }
+
+  protected float get_dir_z_max() {
+    return dir_z.max();
+  }
+
+  protected float get_dir_z_min() {
+    return dir_z.min();
+  }
+
+  // JITTER
   protected Vec3 get_jitter() {
     return Vec3(get_jitter_x(),get_jitter_y(),get_jitter_z());
   }
 
+  // jitter x
   protected float get_jitter_x() {
-    return jitter_x;
+    return jitter_x.get();
   }
 
+  protected float get_jitter_x_raw() {
+    return jitter_x.raw();
+  }
+
+  protected float get_jitter_x_max() {
+    return jitter_x.max();
+  }
+
+  protected float get_jitter_x_min() {
+    return jitter_x.min();
+  }
+
+  // jitter y
   protected float get_jitter_y() {
-    return jitter_y;
+    return jitter_y.get();
   }
 
+  protected float get_jitter_y_raw() {
+    return jitter_y.raw();
+  }
+
+  protected float get_jitter_y_max() {
+    return jitter_y.max();
+  }
+
+  protected float get_jitter_y_min() {
+    return jitter_y.min();
+  }
+
+  // jitter z
   protected float get_jitter_z() {
-    return jitter_z;
+    return jitter_z.get();
+  }
+
+  protected float get_jitter_z_raw() {
+    return jitter_z.raw();
+  }
+
+  protected float get_jitter_z_max() {
+    return jitter_z.max();
+  }
+
+  protected float get_jitter_z_min() {
+    return jitter_z.min();
   }
 
 
-
-
-  // swing
+  // SWING
   protected Vec3 get_swing() {
     return Vec3(get_swing_x(),get_swing_y(),get_swing_z());
   }
 
+  // swing x
   protected float get_swing_x() {
-    return swing_x;
+    return swing_x.get();
   }
 
+  protected float get_swing_x_raw() {
+    return swing_x.raw();
+  }
+
+  protected float get_swing_x_max() {
+    return swing_x.max();
+  }
+
+  protected float get_swing_x_min() {
+    return swing_x.min();
+  }
+
+  // swing y
   protected float get_swing_y() {
-    return swing_y;
+    return swing_y.get();
   }
 
+  protected float get_swing_y_raw() {
+    return swing_y.raw();
+  }
+
+  protected float get_swing_y_max() {
+    return swing_y.max();
+  }
+
+  protected float get_swing_y_min() {
+    return swing_y.min();
+  }
+
+  // swing z
   protected float get_swing_z() {
-    return swing_z;
+    return swing_z.get();
+  }
+
+  protected float get_swing_z_raw() {
+    return swing_z.raw();
+  }
+
+  protected float get_swing_z_max() {
+    return swing_z.max();
+  }
+
+  protected float get_swing_z_min() {
+    return swing_z.min();
   }
 
 
-
-
-
-  // col 3
+  // COL3
+  // quantity
   protected float get_quantity() {
-    return quantity;
+    return quantity.get();
   }
 
+  protected float get_quantity_raw() {
+    return quantity.raw();
+  }
+
+  protected float get_quantity_max() {
+    return quantity.max();
+  }
+
+  protected float get_quantity_min() {
+    return quantity.min();
+  }
+  
+  // variety
   protected float get_variety() {
-    return variety;
+    return variety.get();
   }
 
+  protected float get_variety_raw() {
+    return variety.raw();
+  }
+
+  protected float get_variety_max() {
+    return variety.max();
+  }
+
+  protected float get_variety_min() {
+    return variety.min();
+  }
+  
+  // life
   protected float get_life() {
-    return life;
+    return life.get();
   }
 
+  protected float get_life_raw() {
+    return life.raw();
+  }
+
+  protected float get_life_max() {
+    return life.max();
+  }
+
+  protected float get_life_min() {
+    return life.min();
+  }
+  
+  // flow
   protected float get_flow() {
-    return flow;
+    return flow.get();
   }
 
+  protected float get_flow_raw() {
+    return flow.raw();
+  }
+
+  protected float get_flow_max() {
+    return flow.max();
+  }
+
+  protected float get_flow_min() {
+    return flow.min();
+  }
+  
+  // quality
   protected float get_quality() {
-    return quality;
+    return quality.get();
   }
 
+  protected float get_quality_raw() {
+    return quality.raw();
+  }
+
+  protected float get_quality_max() {
+    return quality.max();
+  }
+
+  protected float get_quality_min() {
+    return quality.min();
+  }
+  
+  // area
   protected float get_area() {
-    return area;
+    return area.get();
   }
 
+  protected float get_area_raw() {
+    return area.raw();
+  }
+
+  protected float get_area_max() {
+    return area.max();
+  }
+
+  protected float get_area_min() {
+    return area.min();
+  }
+  
+  // angle
   protected float get_angle() {
-    return angle;
+    return angle.get();
   }
 
+  protected float get_angle_raw() {
+    return angle.raw();
+  }
+
+  protected float get_angle_max() {
+    return angle.max();
+  }
+
+  protected float get_angle_min() {
+    return angle.min();
+  }
+  
+  // scope
   protected float get_scope() {
-    return scope;
+    return scope.get();
   }
 
+  protected float get_scope_raw() {
+    return scope.raw();
+  }
+
+  protected float get_scope_max() {
+    return scope.max();
+  }
+
+  protected float get_scope_min() {
+    return scope.min();
+  }
+  
+  // scan
   protected float get_scan() {
-    return scan;
+    return scan.get();
   }
 
+  protected float get_scan_raw() {
+    return scan.raw();
+  }
+
+  protected float get_scan_max() {
+    return scan.max();
+  }
+
+  protected float get_scan_min() {
+    return scan.min();
+  }
+  
+  // alignment
   protected float get_alignment() {
-    return alignment;
+    return alignment.get();
   }
 
+  protected float get_alignment_raw() {
+    return alignment.raw();
+  }
+
+  protected float get_alignment_max() {
+    return alignment.max();
+  }
+
+  protected float get_alignment_min() {
+    return alignment.min();
+  }
+  
+  // repulsion
   protected float get_repulsion() {
-    return repulsion;
+    return repulsion.get();
   }
 
+  protected float get_repulsion_raw() {
+    return repulsion.raw();
+  }
+
+  protected float get_repulsion_max() {
+    return repulsion.max();
+  }
+
+  protected float get_repulsion_min() {
+    return repulsion.min();
+  }
+  
+  // attraction
   protected float get_attraction() {
-    return attraction;
+    return attraction.get();
   }
 
+  protected float get_attraction_raw() {
+    return attraction.raw();
+  }
+
+  protected float get_attraction_max() {
+    return attraction.max();
+  }
+
+  protected float get_attraction_min() {
+    return attraction.min();
+  }
+  
+  // density
   protected float get_density() {
-    return density;
+    return density.get();
   }
 
+  protected float get_density_raw() {
+    return density.raw();
+  }
+
+  protected float get_density_max() {
+    return density.max();
+  }
+
+  protected float get_density_min() {
+    return density.min();
+  }
+  
+  // influence
   protected float get_influence() {
-    return influence;
+    return influence.get();
   }
 
+  protected float get_influence_raw() {
+    return influence.raw();
+  }
+
+  protected float get_influence_max() {
+    return influence.max();
+  }
+
+  protected float get_influence_min() {
+    return influence.min();
+  }
+  
+  // calm
   protected float get_calm() {
-    return calm;
+    return calm.get();
   }
 
+  protected float get_calm_raw() {
+    return calm.raw();
+  }
+
+  protected float get_calm_max() {
+    return calm.max();
+  }
+
+  protected float get_calm_min() {
+    return calm.min();
+  }
+  
+  // spectrum
   protected float get_spectrum() {
-    return spectrum;
+    return spectrum.get();
+  }
+
+  protected float get_spectrum_raw() {
+    return spectrum.raw();
+  }
+
+  protected float get_spectrum_max() {
+    return spectrum.max();
+  }
+
+  protected float get_spectrum_min() {
+    return spectrum.min();
   }
 
 
-  // col 4
-  // pos
+  // COL 4
+  // grid
   protected float get_grid() {
-    return grid;
+    return grid.get();
   }
 
+  protected float get_grid_raw() {
+    return grid.raw();
+  }
+
+  protected float get_grid_max() {
+    return grid.max();
+  }
+
+  protected float get_grid_min() {
+    return grid.min();
+  }
+  
+  // viscosity
   protected float get_viscosity() {
-    return viscosity;
+    return viscosity.get();
   }
 
+  protected float get_viscosity_raw() {
+    return viscosity.raw();
+  }
+
+  protected float get_viscosity_max() {
+    return viscosity.max();
+  }
+
+  protected float get_viscosity_min() {
+    return viscosity.min();
+  }
+  
+  // diffusion
   protected float get_diffusion() {
-    return diffusion;
+    return diffusion.get();
   }
 
+  protected float get_diffusion_raw() {
+    return diffusion.raw();
+  }
+
+  protected float get_diffusion_max() {
+    return diffusion.max();
+  }
+
+  protected float get_diffusion_min() {
+    return diffusion.min();
+  }
+  
+  // power
   protected float get_power() {
-    return power;
+    return power.get();
   }
 
+  protected float get_power_raw() {
+    return power.raw();
+  }
+
+  protected float get_power_max() {
+    return power.max();
+  }
+
+  protected float get_power_min() {
+    return power.min();
+  }
+
+  // mass
   protected float get_mass() {
-    return mass;
+    return mass.get();
   }
 
+  protected float get_mass_raw() {
+    return mass.raw();
+  }
 
+  protected float get_mass_max() {
+    return mass.max();
+  }
+
+  protected float get_mass_min() {
+    return mass.min();
+  }
+
+  // COORD
   protected Vec3 get_coord() {
     return Vec3(get_coord_x(),get_coord_y(),get_coord_z());
   }
-
+  
+  // coord x
   protected float get_coord_x() {
-    return coord_x;
+    return coord_x.get();
   }
 
+  protected float get_coord_x_raw() {
+    return coord_x.raw();
+  }
+
+  protected float get_coord_x_max() {
+    return coord_x.max();
+  }
+
+  protected float get_coord_x_min() {
+    return coord_x.min();
+  }
+
+  // swing y
   protected float get_coord_y() {
-    return coord_y;
+    return coord_y.get();
   }
 
+  protected float get_coordg_y_raw() {
+    return coord_y.raw();
+  }
+
+  protected float get_coord_y_max() {
+    return coord_y.max();
+  }
+
+  protected float get_coord_y_min() {
+    return coord_y.min();
+  }
+
+  // swing z
   protected float get_coord_z() {
-    return coord_z;
+    return coord_z.get();
+  }
+
+  protected float get_coord_z_raw() {
+    return coord_z.raw();
+  }
+
+  protected float get_coord_z_max() {
+    return coord_z.max();
+  }
+
+  protected float get_coord_z_min() {
+    return coord_z.min();
   }
 
 

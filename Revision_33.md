@@ -9,6 +9,7 @@ revision 33
 >try to detect the system font, to load from this one. If that's don't work use the font folder from Romanesco.
 >remove direct access to item variables.
 >add setting method for item variables.
+>add get_method in class Romanesco to catch the arg : min, max, raw from slider value.
 
 *MINOR
 

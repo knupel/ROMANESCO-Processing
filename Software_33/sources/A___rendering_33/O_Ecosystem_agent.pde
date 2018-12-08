@@ -1,13 +1,13 @@
 /**
 Ecosysteme 
 2016-2018
-v 0.1.8
+v 0.1.9
 */
 class Ecosystem_agent extends Romanesco {
 	public Ecosystem_agent() {
 		item_name = "Eco Agents";
 		item_author  = "Stan le Punk";
-		item_version = "Version 0.1.8";
+		item_version = "Version 0.1.9";
 		item_pack = "Ecosystem 2016-2018";
     item_costume = "";
 		item_mode = "Virus/Human/Alien/Other"; // separate the differentes mode by "/"
@@ -99,7 +99,7 @@ class Ecosystem_agent extends Romanesco {
     init(true) ;
     if(init_ecosystem) {
       Vec3 ratio_size = Vec3(get_size_x(),get_size_y(),get_size_z()) ;
-      ecosystem_setting(biomass,follower[ID_item],ratio_size,get_life(),get_speed_x());
+      ecosystem_setting(biomass,follower[ID_item],ratio_size,get_life(),get_speed_x(),this);
       init_ecosystem = false ;
       first_save = true ;
     }
@@ -263,7 +263,7 @@ class Ecosystem_agent extends Romanesco {
 
 		if(init_ecosystem) {
       Vec3 ratio_size = Vec3(get_size_x(),get_size_y(),get_size_z()) ;
-			ecosystem_setting(biomass, follower[ID_item], ratio_size, get_life(), get_speed_x()) ;
+			ecosystem_setting(biomass, follower[ID_item], ratio_size, get_life(), get_speed_x(),this);
 			init_ecosystem = false ;
 			first_save = true ;
 		}
@@ -427,11 +427,11 @@ Info_dict dead_carac = new Info_dict() ;
 
 
 // main method
-void ecosystem_setting(Biomass b, boolean host_mode, Vec3 factor_size, float factor_life, float ratio_speed) {
-  factor_size.x = map(factor_size.x, size_x_min_max.x, size_x_min_max.y, width/2000, width/100) ;
-  factor_size.y = map(factor_size.y, size_y_min_max.x, size_y_min_max.y, width/2000, width/100) ;
-  factor_size.z = map(factor_size.z, size_z_min_max.x, size_z_min_max.y, width/2000, width/100) ;
-  factor_life = map(factor_life, life_min_max.x, life_min_max.y, .5, 3) ;
+void ecosystem_setting(Biomass b, boolean host_mode, Vec3 factor_size, float factor_life, float ratio_speed, Romanesco item) {
+  factor_size.x = map(factor_size.x, item.get_size_x_min(), item.get_size_x_max(), width/2000, width/100) ;
+  factor_size.y = map(factor_size.y, item.get_size_y_min(), item.get_size_y_max(), width/2000, width/100) ;
+  factor_size.z = map(factor_size.z, item.get_size_z_min(), item.get_size_z_max(), width/2000, width/100) ;
+  factor_life = map(factor_life, item.get_life_min(), item.get_life_max(), .5, 3) ;
   ratio_speed = map(ratio_speed, 0,1, .5, 8) ;
     // b.set_humus(ECO_BOX_SIZE.x *ECO_BOX_SIZE.y *.01) ;
 

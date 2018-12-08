@@ -1,7 +1,7 @@
 /**
 Flux Force Field
 2018-2018
-v 0.0.6
+v 0.0.7
 */
 class Flux extends Romanesco {
 
@@ -10,7 +10,7 @@ class Flux extends Romanesco {
 	public Flux() {
 		item_name = "FF Flux";
 		item_author  = "Stan le Punk";
-		item_version = "Version 0.0.6";
+		item_version = "Version 0.0.7";
 		item_pack = "Force 2018-2018";
     item_costume = "pixel/point/ellipse/triangle/rect/cross/pentagon/Star 5/Star 7/Super Star 8/Super Star 12";
     item_mode = "";
@@ -113,7 +113,7 @@ class Flux extends Romanesco {
     update_vehicle(get_force_field(),speed);
     aspect(get_fill(), get_stroke(),get_thickness());
     Vec3 size = Vec3(get_size_x(),get_size_y(),get_size_z());
-    // size.map(size_x_min_max.x,size_x_min_max.y,1,size_x_min_max.y);
+    // size.map(get_size_x_min(),get_size_x_max(),1,get_size_x_max());
     show_vehicle(size,get_area(),get_costume());
 
     //

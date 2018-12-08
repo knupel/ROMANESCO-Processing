@@ -1,6 +1,6 @@
 /**
 Class Romanesco_manager
-v 1.6.0
+v 1.6.1
 class manager inspired by Andreas Gysin work for The Abyss Project
 @see https://github.com/ertdfgcvb/TheAbyss
 */
@@ -149,7 +149,14 @@ class Romanesco_manager {
     }  
     return id;
   }
+  
 
+  /**
+  get item
+  */
+  public ArrayList<Romanesco> get() {
+    return romanesco_item_list;
+  }
   public Romanesco get(int index) {
     if(index < romanesco_item_list.size()) {
       return romanesco_item_list.get(index);

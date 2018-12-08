@@ -1,7 +1,7 @@
 /**
 HORLOGE
 2012-2018
-v 1.0.11
+v 1.0.12
 */
 
 class Horloge extends Romanesco {
@@ -9,7 +9,7 @@ class Horloge extends Romanesco {
     //from the index_objects.csv
     item_name = "Horloge" ;
     item_author  = "Stan Le Punk";
-    item_version = "Version 1.0.11";
+    item_version = "Version 1.0.12";
     item_pack = "Base 2012-2018" ;
     item_mode = "Ellipse Clock 12/Ellipse Clock 24/Line Clock 12/Line Clock 24/minutes/secondes";// separate the name by a slash and write the next mode immadialtly after this one.
     item_costume = "";
@@ -102,7 +102,7 @@ class Horloge extends Romanesco {
     //rotation / deg
     float angle = get_angle();
     //amplitude
-    float amp = map(get_area(), area_min_max.x,area_min_max.y, area_min_max.x *.4, area_min_max.y *.2) ;
+    float amp = map(get_area(), get_area_min(),get_area_max(), get_area_min() *.4, get_area_max() *.2) ;
 
     // pos clock
     if(motion_is()) {

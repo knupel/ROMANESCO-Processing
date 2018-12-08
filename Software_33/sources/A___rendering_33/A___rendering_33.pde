@@ -253,7 +253,7 @@ void romanesco() {
 
   // misc
   puppet_master(false); // use to resset puppet for the force field
-  update_temp_value();
+  update_slider_ref();
   media_update(180);
   change_slider_ref();
   load_dial();

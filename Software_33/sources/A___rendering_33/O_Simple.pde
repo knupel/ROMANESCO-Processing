@@ -1,8 +1,6 @@
 /**
-* Template
-* the tab is the template that you can duplicate to add the item you want in your Romanesco.
-* You must change the class name and this one must be unique.
-v 0.0.1
+* Simple
+v 0.0.2
 */
 class Simple extends Romanesco {
   public Simple() {
@@ -10,7 +8,7 @@ class Simple extends Romanesco {
     item_name = "Simple" ;
     item_author  = "Stan le Punk";
     item_references = "";
-    item_version = "Version 0.0.1";
+    item_version = "Version 0.0.2";
     item_pack = "Simple 2018-2018" ;
     item_costume = "ellipse/triangle/rect/cross/pentagon/Star 5/Star 7/Super Star 8/Super Star 12"; // costume available from get_costume();
     item_mode = "";
@@ -84,7 +82,7 @@ class Simple extends Romanesco {
     // here if you want code in 3D mode
     info("info about the item","more","more");
     aspect(get_fill(),get_stroke(),get_thickness());
-    set_ratio_costume_size(map(get_area(),area_min_max.x,area_min_max.y,0,1));
+    set_ratio_costume_size(map(get_area(),get_area_min(),get_area_max(),0,1));
     costume(Vec3(),get_size().mult(3),get_costume());
   }
 /*

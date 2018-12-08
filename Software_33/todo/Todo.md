@@ -9,7 +9,9 @@ nullpointer when filter is calling with nothing from menu
 
 void color_setup() in the rendering sketch
 
+*FILL STROKE
 
+problem when the slider value sat or brightness going to zero, after the hue is changing for the slider value and don't keep the value from the item.
 
 
 *MAJOR

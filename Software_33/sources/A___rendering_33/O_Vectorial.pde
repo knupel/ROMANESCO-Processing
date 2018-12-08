@@ -1,14 +1,14 @@
 /**
 VECTORIAL
 2015-2018
-v 0.0.7
+v 0.0.8
 */
 class Vectorial extends Romanesco {
  
   public Vectorial() {
     item_name = "Vectorial" ;
     item_author  = "Stan le Punk";
-    item_version = "Version 0.0.7";
+    item_version = "Version 0.0.8";
     item_pack = "Base 2015-2018" ;
     item_costume = "" ;
     item_mode = "Classic original/Classic custom/Walker original/Walker custom" ; // separate the differentes mode by "/"
@@ -132,8 +132,8 @@ class Vectorial extends Romanesco {
 
 
     // scale
-    float scale_x = map(get_canvas_x(), canvas_x_min_max.x, canvas_x_min_max.y, .1, 8);
-    float scale_y = map(get_canvas_y(), canvas_y_min_max.x, canvas_y_min_max.y, .1, 8);
+    float scale_x = map(get_canvas_x(), get_canvas_x_min(), get_canvas_x_max(), .1, 8);
+    float scale_y = map(get_canvas_y(), get_canvas_y_min(), get_canvas_y_max(), .1, 8);
     Vec3 scale_3D = Vec3(scale_x, scale_y,1) ;
 
     // beat factor
