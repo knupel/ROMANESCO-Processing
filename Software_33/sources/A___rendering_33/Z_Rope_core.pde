@@ -84,6 +84,7 @@ public void scroll(MouseEvent e) {
 	}
 }
 
+
 public Vec2 get_scroll() {
 	if(scroll_event == null) {
 		scroll_event = Vec2();
@@ -95,6 +96,7 @@ public Vec2 get_scroll() {
 
 /**
 add for the future
+import java.awt.event.MouseWheelEvent;
 void mouseWheelMoved(MouseWheelEvent e) {
   println(e.getWheelRotation());
   println(e.getScrollType());

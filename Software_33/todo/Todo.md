@@ -9,7 +9,9 @@ nullpointer when filter is calling with nothing from menu
 
 void color_setup() in the rendering sketch
 
+*FONT
 
+managing actived font on mac : https://developer.apple.com/documentation/appkit/nsfontcollection
 
 *FILL STROKE
 

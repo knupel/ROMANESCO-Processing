@@ -2,7 +2,7 @@
 Core Romanesco
 COMMON SKETCH for CONTROLLER, PRESCENE & SCENE
 2018-2018
-v 0.3.6
+v 0.3.7
 */
 int NUM_COL_SLIDER = 4;
 int NUM_SLIDER_ITEM_BY_COL = 16;
@@ -172,13 +172,17 @@ String [] alphabetical_font_path(String folder_path) {
 
 
 boolean extension_font(String path) {
-  if(extension(path).equals("ttf") || extension(path).equals("TTF") || extension(path).equals("otf") || extension(path).equals("OTF")) {
-    return true;
-  } else return false;
+  return extension_is(path,"ttf","TTF","otf","OTF");
 }
 
 
 
+
+/**
+ROFont
+v 0.2.0
+2018-2018
+*/
 class ROFont {
   PFont font;
   String path;
@@ -186,6 +190,7 @@ class ROFont {
   int size;
 
   ROFont(String path, int size) {
+    //if(extension_is(path,"ttf","TTF","otf","OTF")) {
     if(extension_font(path)) {
       this.font = createFont(path,size);
       this.path = path;

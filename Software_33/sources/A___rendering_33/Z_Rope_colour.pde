@@ -1,9 +1,21 @@
-
 /**
-COLOUR 
-v 0.5.0
-Pack of method to use colour, palette...
+Rope COLOUR
+v 0.6.1
+* Copyleft (c) 2016-2018 
+* Stan le Punk > http://stanlepunk.xyz/
+Rope – Romanesco Processing Environment – 
+Processing 3.4
+* @author Stan le Punk
+* @see https://github.com/StanLepunK/Rope
+*
+* Pack of method to use colour, palette and method conversion
+*
 */
+
+
+
+
+
 
 
 /**
@@ -398,24 +410,80 @@ boolean hue_range(float min, float max, int colour) {
 
 
 /**
-convert color 0.0.1
+convert color 0.1.0
 */
 //convert color HSB to RVB
-Vec3 HSB_to_RGB(float hue, float saturation, float brightness) {
-  Vec4 vecRGB = HSB_to_RGB(hue, saturation, brightness, g.colorModeA).copy() ;
-  return Vec3(vecRGB.x,vecRGB.y,vecRGB.z) ;
-}
-
-Vec4 HSB_to_RGB(float hue, float saturation, float brightness, float alpha) {
-  Vec4 ref = Vec4(g.colorModeX, g.colorModeY, g.colorModeY, g.colorModeA) ;
-  color c = color (hue, saturation, brightness, alpha);
+Vec3 hsb_to_rgb(float hue, float saturation, float brightness) {
+  Vec4 ref = Vec4(g.colorModeX, g.colorModeY, g.colorModeY, g.colorModeA);
+  int c = color(hue,saturation,brightness);
 
   colorMode(RGB,255) ;
-  Vec4 vecRGBa = Vec4 (red(c), green(c), blue(c), alpha(c)) ;
+  Vec3 rgb = Vec3(red(c),green(c),blue(c)) ;
   // return to the previous colorMode
   colorMode(HSB,ref.r, ref.g, ref.b, ref.a) ;
-  return vecRGBa ;
+  return rgb;
 }
+
+
+Vec4 rgb_to_cmyk(float r, float g, float b) {
+  // convert to 0 > 1 value
+  r = r/this.g.colorModeX;
+  g = g/this.g.colorModeY;
+  b = b/this.g.colorModeZ;
+  // RGB to CMY
+  float c = 1.-r;
+  float m = 1.-g;
+  float y = 1.-b;
+  // CMY to CMYK
+  float var_k = 1;
+  if ( c < var_k ) var_k = c;
+  if ( m < var_k ) var_k = m;
+  if ( y < var_k ) var_k = y;
+  // black case
+  if ( var_k == 1 ) { 
+    c = 0;
+    m = 0;
+    y = 0;
+  } else {
+    c = (c-var_k)/(1-var_k);
+    m = (m-var_k)/(1-var_k);
+    y = (y-var_k)/(1-var_k);
+  }
+  float k = var_k; 
+  return Vec4(c,m,y,k);
+}
+
+Vec3 cmyk_to_rgb(float c, float m, float y, float k) {
+  Vec3 rgb = null;
+   // cmyk value must be from 0 to 1
+  if(colour_normal_range_is(c) && colour_normal_range_is(m) && colour_normal_range_is(y) && colour_normal_range_is(k)) {
+    // CMYK > CMY
+    c = (c *(1.-k)+k);
+    m = (m *(1.-k)+k);
+    y = (y *(1.-k)+k);
+    //CMY > RGB
+    float red = (1.- c) * g.colorModeX;
+    float green = (1.- m) * g.colorModeY;
+    float blue = (1.- y) * g.colorModeZ;
+    rgb = Vec3(red,green,blue);
+
+  } else {
+    printErr("method cmyk_to_rgb(): the values c,m,y,k must have value from 0 to 1.\n","yours values is cyan",c,"magenta",m,"yellow",y,"black",k);
+  }
+  return rgb;
+  
+}
+
+boolean colour_normal_range_is(float v) {
+  if(v >= 0. && v <= 1.) return true; else return false;
+}
+
+
+
+
+
+
+
 
 
 
@@ -432,3 +500,13 @@ int color_context(int colorRef, int threshold, int clear, int dark) {
   }
   return new_color ;
 }
+
+
+
+
+
+
+
+
+
+

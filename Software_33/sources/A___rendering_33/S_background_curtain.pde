@@ -1,6 +1,6 @@
 /**
 ROMANESCO BACKGROUND 
-v 1.2.0
+v 1.2.1
 */
 Vec4 colorBackground, colorBackgroundRef, colorBackgroundPrescene;
 void background_setup() {
@@ -101,15 +101,20 @@ void rectangle(Vec2 pos, Vec3 size, PShader s) {
   pushMatrix() ;
   translate(mult(temp_size,-.5));
   shader(s);
-
-  Vec4 RGBbackground = HSB_to_RGB( map(value_slider_background[0],0,MAX_VALUE_SLIDER,0,g.colorModeX), 
+  Vec3 rgb_background = hsb_to_rgb( map(value_slider_background[0],0,MAX_VALUE_SLIDER,0,g.colorModeX), 
+                                    map(value_slider_background[1],0,MAX_VALUE_SLIDER,0,g.colorModeY), 
+                                    map(value_slider_background[2],0,MAX_VALUE_SLIDER,0,g.colorModeZ));
+/*
+  Vec4 RGBbackground = hsb_to_rgb(map(value_slider_background[0],0,MAX_VALUE_SLIDER,0,g.colorModeX), 
                                 map(value_slider_background[1],0,MAX_VALUE_SLIDER,0,g.colorModeY), 
                                 map(value_slider_background[2],0,MAX_VALUE_SLIDER,0,g.colorModeZ),
                                 map(value_slider_background[3],0,MAX_VALUE_SLIDER,0,g.colorModeA)  ) ;
-  float r = map(RGBbackground.x,0,255,0,1);
-  float g = map(RGBbackground.y,0,255,0,1);
-  float b = map(RGBbackground.z,0,255,0,1);
-  float a = map(RGBbackground.w,0,255,0,1);
+                                */
+  float alpha_background = map(value_slider_background[3],0,MAX_VALUE_SLIDER,0,g.colorModeA);
+  float r = map(rgb_background.x,0,255,0,1);
+  float g = map(rgb_background.y,0,255,0,1);
+  float b = map(rgb_background.z,0,255,0,1);
+  float a = map(alpha_background,0,255,0,1);
   float f_time = (float)frameCount *.1;
   // quantity
   float quantity = map(value_slider_background[4],0,MAX_VALUE_SLIDER,0,1);
