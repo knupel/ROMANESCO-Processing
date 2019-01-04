@@ -1,13 +1,13 @@
 /**
-NAVIER-STOKES
-v 0.3.2.0
-by Stan le Punk
-http://stanlepunk.xyz
+* NAVIER-STOKES by Stan le Punk
+* 2017-2017
+* v 0.3.2.0
+* @see http://stanlepunk.xyz
 Java implementation of the Navier-Stokes-Solver based on the Jos Tam's work :
-http://www.dgp.toronto.edu/people/stam/reality/Research/pdf/GDC03.pdf
-*/
-/**
-Processing implementation for Processing 3.3.6
+* @see http://www.dgp.toronto.edu/people/stam/reality/Research/pdf/GDC03.pdf
+* @see https://github.com/StanLepunK/Navier_Stokes_Jos_Stam_imp
+*
+* Processing implementation for Processing 3.4
 */
 abstract class Navier_Stokes {
   int N = -1;

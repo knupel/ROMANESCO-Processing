@@ -2,7 +2,7 @@
 Romanesco Manager
 Prescene and Scene
 2013-2018
-v 1.6.0
+v 1.6.1
 */
 Romanesco_manager rpe_manager;
 
@@ -242,22 +242,22 @@ void update_slider_value_aspect(boolean init, Romanesco item) {
 
     if(fill_is.x) {
       item.set_fill(color(fill_hue_raw,fill_item_ref[id].g,fill_item_ref[id].b,fill_item_ref[id].a));
-      fill_item_ref[id] = color_HSBA(item.get_fill());
+      fill_item_ref[id] = color_hsba(item.get_fill());
     }
 
     if(fill_is.y) {
       item.set_fill(color(fill_item_ref[id].r,fill_sat_raw,fill_item_ref[id].b,fill_item_ref[id].a));
-      fill_item_ref[id] = color_HSBA(item.get_fill());
+      fill_item_ref[id] = color_hsba(item.get_fill());
     }
 
     if(fill_is.z) {
       item.set_fill(color(fill_item_ref[id].r,fill_item_ref[id].g,fill_bright_raw,fill_item_ref[id].a));
-      fill_item_ref[id] = color_HSBA(item.get_fill());
+      fill_item_ref[id] = color_hsba(item.get_fill());
     }
 
     if(fill_is.w) {
       item.set_fill(color(fill_item_ref[id].r,fill_item_ref[id].g,fill_item_ref[id].b,fill_alpha_raw)); 
-      fill_item_ref[id] = color_HSBA(item.get_fill());
+      fill_item_ref[id] = color_hsba(item.get_fill());
     }
 
     // zero security value
@@ -284,22 +284,22 @@ void update_slider_value_aspect(boolean init, Romanesco item) {
 
     if(stroke_is.x) {
       item.set_stroke(color(stroke_hue_raw,stroke_item_ref[id].g,stroke_item_ref[id].b,stroke_item_ref[id].a));
-      stroke_item_ref[id] = color_HSBA(item.get_stroke());
+      stroke_item_ref[id] = color_hsba(item.get_stroke());
     }
 
     if(stroke_is.y) {
       item.set_stroke(color(stroke_item_ref[id].r,stroke_sat_raw,stroke_item_ref[id].b,stroke_item_ref[id].a));
-      stroke_item_ref[id] = color_HSBA(item.get_stroke());
+      stroke_item_ref[id] = color_hsba(item.get_stroke());
     }
 
     if(stroke_is.z) {
       item.set_stroke(color(stroke_item_ref[id].r,stroke_item_ref[id].g,stroke_bright_raw,stroke_item_ref[id].a));
-      stroke_item_ref[id] = color_HSBA(item.get_stroke());
+      stroke_item_ref[id] = color_hsba(item.get_stroke());
     }
 
     if(stroke_is.w) {
       item.set_stroke(color(stroke_item_ref[id].r,stroke_item_ref[id].g,stroke_item_ref[id].b,stroke_alpha_raw)); 
-      stroke_item_ref[id] = color_HSBA(item.get_stroke());
+      stroke_item_ref[id] = color_hsba(item.get_stroke());
     }
 
 

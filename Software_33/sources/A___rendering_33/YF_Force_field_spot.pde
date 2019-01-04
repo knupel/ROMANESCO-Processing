@@ -1,5 +1,7 @@
 /**
 SPOT
+* @see http://stanlepunk.xyz
+* @see https://github.com/StanLepunK/Force_Field
 v 0.2.0
 */
 public class Spot {

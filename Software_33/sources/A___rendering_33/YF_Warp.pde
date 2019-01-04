@@ -1,6 +1,9 @@
 /**
-Warp
-v 0.5.3
+* Force field warp texture
+* @see http://stanlepunk.xyz
+* @see https://github.com/StanLepunK/Force_Field
+* 2017-2019
+v 0.6.0
 */
 
 class Warp {
@@ -32,8 +35,10 @@ class Warp {
   
 
   private void shader(String main_folder_path) {
-    rope_warp_shader = loadShader(main_folder_path+"warp/rope_warp_frag.glsl");
-    rope_warp_blur = loadShader(main_folder_path+"filter/rope_filter_gaussian_blur.glsl"); 
+    rope_warp_shader = loadShader(main_folder_path+"texture/warp_tex.glsl");
+    rope_warp_blur = loadShader(main_folder_path+"texture/blur_gaussian.glsl"); 
+    // rope_warp_shader = loadShader(main_folder_path+"warp/rope_warp_frag.glsl");
+    // rope_warp_blur = loadShader(main_folder_path+"filter/rope_filter_gaussian_blur.glsl"); 
   }
 
 
@@ -370,22 +375,11 @@ class Warp {
 
 
 
-  /**
-  use force field on picture example
-  v 0.1.6.0
-  */
 
   /**
-  warp image Mastermethod
-  v 0.3.1
-  */
-
-
-
-  /**
-
-  EFFECT PART MUST BE IMPROVE TO BE INTERESTING
-
+  * warp image Master method
+  * v 0.4.0
+  * EFFECT PART MUST BE IMPROVE TO BE INTERESTING
   */
   // refresh effect
   private boolean refresh_mix_is; // default effect
@@ -533,34 +527,15 @@ class Warp {
   private void warp_image_graphic_processor(PGraphics result, PImage tex, Force_field ff, float intensity) {
     float grid_w = ff.get_tex_velocity().width;
     float grid_h = ff.get_tex_velocity().height;
-
     PImage tex_dir_blur = ff.get_tex_direction().copy();
     smooth_texture(int(grid_w), int(grid_h), tex_dir_blur);
    
     rope_warp_shader.set("mode",shader_warp_mode);
-    rope_warp_shader.set("intensity",intensity);
-
-    rope_warp_shader.set("wh_grid_ratio",1f/grid_w, 1f/grid_h);
-    rope_warp_shader.set("wh_renderer_ratio",1f/result.width, 1f/result.height);
+    rope_warp_shader.set("strength",intensity);
 
     rope_warp_shader.set("texture",tex);
-    rope_warp_shader.set("vel_texture",ff.get_tex_velocity());
-    rope_warp_shader.set("dir_texture",pass2);
-    rope_warp_shader.set("filter_is",shader_warp_filter); // need give the commande to reverse the y axis in the glsl frag
-
-    // use to map the direction on PI or TWO_PI, strangly is not a same result for static field creation
-    /**
-    The problem can come when we use pattern not blank with a dynamic type of force field 
-    */
-    if(ff.get_super_type() == r.STATIC) {
-    // if(ff.get_type() == IMAGE || ff.get_type() == r.CHAOS || ff.get_type() == r.PERLIN) {
-      rope_warp_shader.set("static_field_is",true); 
-    } else {
-      rope_warp_shader.set("static_field_is",false); 
-    }
-    
-
-    // rope_warp_shader.set("dir_texture",ff.direction_texture());
+    rope_warp_shader.set("texture_velocity",ff.get_tex_velocity());
+    rope_warp_shader.set("texture_direction",pass2);
     
     // shader filter
     if(shader_warp_filter) { 
@@ -587,10 +562,10 @@ class Warp {
       // blur direction texture
     if(pass1 == null) pass1 = createGraphics(w,h,P2D);
     if(pass2 == null) pass2 = createGraphics(w,h,P2D);
-    rope_warp_blur.set("blurSize",7);
+    rope_warp_blur.set("radius",7);
     rope_warp_blur.set("sigma",3f); 
     // Applying the blur shader along the vertical direction   
-    rope_warp_blur.set("horizontalPass", true);
+    rope_warp_blur.set("horizontal_pass",true);
     pass1.beginDraw();            
     pass1.shader(rope_warp_blur);
     pass1.image(tex,0,0); 
@@ -598,7 +573,7 @@ class Warp {
 
    
     // Applying the blur shader along the horizontal direction        
-    rope_warp_blur.set("horizontalPass", false);
+    rope_warp_blur.set("horizontal_pass",false);
     pass2.beginDraw();            
     pass2.shader(rope_warp_blur);  
     pass2.image(pass1,0,0);

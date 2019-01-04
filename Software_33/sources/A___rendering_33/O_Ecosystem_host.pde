@@ -1,7 +1,7 @@
 /**
 Ecosysteme Host 
 2016-2018
-V 0.1.9
+V 0.1.10
 */
 class Ecosystem_DNA extends Romanesco {
 	public Ecosystem_DNA() {
@@ -287,8 +287,8 @@ void costume_DNA(Helix helix, int target, Vec3 size, float direction, Costume co
   if(link_is) line(pos_a, pos_b) ;
   
 
-  Vec4 fill = color_HSBA(fill_int) ;
-  Vec4 stroke = color_HSBA(stroke_int) ;
+  Vec4 fill = color_hsba(fill_int) ;
+  Vec4 stroke = color_hsba(stroke_int) ;
 
   // alpha
   float ratio_a = map(pos_a.z , -radius, radius, 0 +alpha_min, alpha_max) ;

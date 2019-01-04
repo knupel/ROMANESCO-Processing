@@ -1,9 +1,9 @@
-
 /**
 Force Field
 2017-2018
-http://stanlepunk.xyz/
-v 1.11.6
+* @see http://stanlepunk.xyz
+* @see https://github.com/StanLepunK/Force_Field
+v 1.11.7
 Processing 3.4
 */
 
@@ -1405,8 +1405,8 @@ public class Force_field implements rope.core.RConstants {
   */
   private float spot_gravity_force(Spot s, Vec2 pos_cell) {
     Vec2 spot_pos = Vec2(s.get_pos());
-    float m_2 = s.get_mass();
-    float m_1 = mass_field;
+    float m_2 = s.get_mass() ;
+    float m_1 = mass_field ;
     float dist = dist(spot_pos, pos_cell);
     double gravity = 1. / (g_force(dist, m_1, m_2) *1000000000L);
     return (float)gravity;
@@ -1552,7 +1552,7 @@ public class Force_field implements rope.core.RConstants {
     Vec2 vel = sub(target, pos_ref_2D);
 
     Vec2 cell = canvas.div(ns.get_NX(),ns.get_NY());
-    iVec2 target_cell = floor(div(target,cell));
+    iVec2 target_cell = iVec2(floor(div(target,cell)));
 
     vel.x = (abs(vel.x) > limit_vel)? 
     Math.signum(vel.x) *limit_vel : 
@@ -1574,7 +1574,7 @@ public class Force_field implements rope.core.RConstants {
 
     Vec3 cell = canvas.div(ns.get_N());
     Vec3 vel = sub(target, pos_ref_3D);
-    iVec3 target_cell = floor(div(target,cell));
+    iVec3 target_cell = iVec3(floor(div(target,cell)));
 
     vel.x = (abs(vel.x) > limit_vel)? 
     Math.signum(vel.x) *limit_vel : 

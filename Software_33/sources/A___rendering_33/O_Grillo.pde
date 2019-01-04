@@ -2,7 +2,7 @@
 * Grillo
 * the tab is the template that you can duplicate to add the item you want in your Romanesco.
 * You must change the class name and this one must be unique.
-v 0.0.3
+v 0.0.4
 */
 class Grillo extends Romanesco {
   public Grillo() {
@@ -87,7 +87,7 @@ class Grillo extends Romanesco {
   int ref_num;
   String ref_mode;
   void draw() {
-    iVec3 canvas = round(map(get_canvas(),get_canvas_x_min(),get_canvas_x_max(),1,19));
+    iVec3 canvas = iVec3(round(map(get_canvas(),get_canvas_x_min(),get_canvas_x_max(),1,19)));
     if(ref_num != canvas.x*canvas.y*canvas.z || !get_mode_name().equals(ref_mode)) {
       reset(canvas);
       if(get_mode_name().equals("Random")) {

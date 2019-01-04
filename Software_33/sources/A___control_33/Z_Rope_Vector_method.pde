@@ -1,9 +1,8 @@
 /**
-Vec, iVec and bVec method
-v 0.1.1
-* Copyleft (c) 2018-2018
+ROPE Vec, iVec and bVec method
+v 0.1.2
+* Copyleft (c) 2018-2019
 * Stan le Punk > http://stanlepunk.xyz/
-Rope – Romanesco Processing Environment: 2015–2018
 * @author Stan le Punk
 * @see https://github.com/StanLepunK/Rope
 */
@@ -1102,19 +1101,19 @@ Vec2 norm_dir(String type, float direction) {
 /**
 translate int color to Vec4 color
 */
-Vec4 color_HSBA(int c) {
+Vec4 color_hsba(int c) {
   return Vec4(hue(c), saturation(c), brightness(c), alpha(c)) ;
 }
 
-Vec4 color_RGBA(int c) {
+Vec4 color_rgba(int c) {
   return Vec4(red(c), green(c), blue(c), alpha(c)) ;
 }
 
-Vec3 color_HSB(int c) {
+Vec3 color_hsb(int c) {
   return Vec3(hue(c), saturation(c), brightness(c)) ;
 }
 
-Vec3 color_RGB(int c) {
+Vec3 color_rgb(int c) {
   return Vec3(red(c), green(c), blue(c)) ;
 }
 
@@ -1402,6 +1401,7 @@ iVec2 iVec2(int x, int y) {
   return new iVec2(x,y) ;
 }
 
+
 iVec2 iVec2(int [] array) {
   if(array.length == 1) {
     return new iVec2(array[0],array[0]);
@@ -1420,6 +1420,35 @@ iVec2 iVec2(iVec p) {
     return new iVec2(p.a,p.b) ;
   } else {
     return new iVec2(p.x,p.y) ;
+  }
+}
+
+iVec2 iVec2(float v) {
+  return new iVec2(int(v),int(v));
+}
+
+iVec2 iVec2(float x, float y) { 
+  return new iVec2(int(x),int(y));
+}
+
+iVec2 iVec2(float [] array) {
+  if(array.length == 1) {
+    return new iVec2(int(array[0]),int(array[0]));
+  } else if (array.length > 1) {
+    return new iVec2(int(array[0]),int(array[1]));
+  } else {
+    return null;
+  }
+}
+
+iVec2 iVec2(Vec p) {
+  if(p == null) {
+    println("Vec null, instead '0' is used to build iVec") ;
+    return new iVec2(0,0) ;
+  } else if(p instanceof Vec5 || p instanceof Vec6) {
+    return new iVec2(int(p.a),int(p.b));
+  } else {
+    return new iVec2(int(p.x),int(p.y));
   }
 }
 
@@ -1461,6 +1490,37 @@ iVec3 iVec3(iVec p) {
   }
 }
 
+iVec3 iVec3(float v) {
+  return new iVec3(int(v),int(v),int(v));
+}
+
+iVec3 iVec3(float x, float y,float z) { 
+  return new iVec3(int(x),int(y),int(z));
+}
+
+iVec3 iVec3(float [] array) {
+  if(array.length == 1) {
+    return new iVec3(int(array[0]),int(array[0]),int(array[0]));
+  } else if (array.length == 2) {
+    return new iVec3(int(array[0]),int(array[1]),0);
+  } else if (array.length > 2) {
+    return new iVec3(int(array[0]),int(array[1]),int(array[2]));
+  } else {
+    return null;
+  }
+}
+
+iVec3 iVec3(Vec p) {
+  if(p == null) {
+    println("Vec null, instead '0' is used to build iVec") ;
+    return new iVec3(0,0,0) ;
+  } else if(p instanceof Vec5 || p instanceof Vec6) {
+    return new iVec3(int(p.a),int(p.b),int(p.c));
+  } else {
+    return new iVec3(int(p.x),int(p.y),int(p.z));
+  }
+}
+
 /**
 iVec4
 */
@@ -1498,6 +1558,40 @@ iVec4 iVec4(iVec p) {
     return new iVec4(p.a,p.b,p.c,p.d) ;
   } else {
     return new iVec4(p.x,p.y,p.z,p.w) ;
+  }
+}
+
+iVec4 iVec4(float v) {
+  return new iVec4(int(v),int(v),int(v),int(v));
+}
+
+iVec4 iVec4(float x, float y, float z, float w) { 
+  return new iVec4(int(x),int(y),int(z),int(w));
+}
+
+iVec4 iVec4(float [] array) {
+  if(array.length == 1) {
+    return new iVec4(int(array[0]),int(array[0]),int(array[0]),int(array[0]));
+  } else if (array.length == 2) {
+    return new iVec4(int(array[0]),int(array[1]),0,0);
+  } else if (array.length == 3) {
+    return new iVec4(int(array[0]),int(array[1]),int(array[2]),0);
+  } else if (array.length > 3) {
+    return new iVec4(int(array[0]),int(array[1]),int(array[2]),int(array[3]));
+  } else {
+    return null;
+  }
+}
+
+
+iVec4 iVec4(Vec p) {
+  if(p == null) {
+    println("Vec null, instead '0' is used to build iVec") ;
+    return new iVec4(0,0,0,0) ;
+  } else if(p instanceof Vec5 || p instanceof Vec6) {
+    return new iVec4(int(p.a),int(p.b),int(p.c),int(p.d));
+  } else {
+    return new iVec4(int(p.x),int(p.y),int(p.z),int(p.w));
   }
 }
 
@@ -1543,6 +1637,17 @@ iVec5 iVec5(iVec p) {
   }
 }
 
+iVec5 iVec5(Vec p) {
+  if(p == null) {
+    println("Vec null, instead '0' is used to build iVec") ;
+    return new iVec5(0,0,0,0,0) ;
+  } else if(p instanceof Vec5 || p instanceof Vec6) {
+    return new iVec5(int(p.a),int(p.b),int(p.c),int(p.d),int(p.e));
+  } else {
+    return new iVec5(int(p.x),int(p.y),int(p.z),int(p.w),0);
+  }
+}
+
 /**
 iVec6
 */
@@ -1584,6 +1689,17 @@ iVec6 iVec6(iVec p) {
     return new iVec6(p.a,p.b,p.c,p.d,p.e,p.f) ;
   } else {
     return new iVec6(p.x,p.y,p.z,p.w,0,0) ;
+  }
+}
+
+iVec6 iVec6(Vec p) {
+  if(p == null) {
+    println("Vec null, instead '0' is used to build iVec") ;
+    return new iVec6(0,0,0,0,0,0) ;
+  } else if(p instanceof Vec5 || p instanceof Vec6) {
+    return new iVec6(int(p.a),int(p.b),int(p.c),int(p.d),int(p.e),int(p.f));
+  } else {
+    return new iVec6(int(p.x),int(p.y),int(p.z),int(p.w),0,0);
   }
 }
 

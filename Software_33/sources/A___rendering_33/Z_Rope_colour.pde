@@ -1,6 +1,6 @@
 /**
 Rope COLOUR
-v 0.6.1
+v 0.6.4
 * Copyleft (c) 2016-2018 
 * Stan le Punk > http://stanlepunk.xyz/
 Rope – Romanesco Processing Environment – 
@@ -410,7 +410,7 @@ boolean hue_range(float min, float max, int colour) {
 
 
 /**
-convert color 0.1.0
+convert color 0.1.2
 */
 //convert color HSB to RVB
 Vec3 hsb_to_rgb(float hue, float saturation, float brightness) {
@@ -422,6 +422,10 @@ Vec3 hsb_to_rgb(float hue, float saturation, float brightness) {
   // return to the previous colorMode
   colorMode(HSB,ref.r, ref.g, ref.b, ref.a) ;
   return rgb;
+}
+
+Vec4 to_cmyk(int c) {
+  return rgb_to_cmyk(red(c),green(c),blue(c));
 }
 
 
@@ -436,11 +440,11 @@ Vec4 rgb_to_cmyk(float r, float g, float b) {
   float y = 1.-b;
   // CMY to CMYK
   float var_k = 1;
-  if ( c < var_k ) var_k = c;
-  if ( m < var_k ) var_k = m;
-  if ( y < var_k ) var_k = y;
-  // black case
-  if ( var_k == 1 ) { 
+  if (c < var_k) var_k = c;
+  if (m < var_k) var_k = m;
+  if (y < var_k) var_k = y;
+  // black only
+  if (var_k == 1) { 
     c = 0;
     m = 0;
     y = 0;
@@ -452,6 +456,35 @@ Vec4 rgb_to_cmyk(float r, float g, float b) {
   float k = var_k; 
   return Vec4(c,m,y,k);
 }
+
+// same result
+/*
+Vec4 rgb_to_cmyk_2(float r, float g, float b) {
+  // convert to 0 > 1 value
+  r = r/this.g.colorModeX;
+  g = g/this.g.colorModeY;
+  b = b/this.g.colorModeZ;
+  // RGB to CMY
+  float c = 1.-r;
+  float m = 1.-g;
+  float y = 1.-b;
+  // CMY to CMYK
+  float min_cmy = min(c,m,y);
+  c = (c - min_cmy) / (1 - min_cmy);
+  m = (m - min_cmy) / (1 - min_cmy);
+  y = (y - min_cmy) / (1 - min_cmy);
+  float k = min_cmy;
+  return Vec4(c,m,y,k);
+}
+*/
+
+
+
+
+
+
+
+
 
 Vec3 cmyk_to_rgb(float c, float m, float y, float k) {
   Vec3 rgb = null;
@@ -491,15 +524,17 @@ boolean colour_normal_range_is(float v) {
 /*
 * good when the text is on different background
 */
-int color_context(int colorRef, int threshold, int clear, int dark) {
+int color_context(int color_ref, int threshold, int clear, int dark) {
   int new_color ;
-  if( brightness( colorRef ) < threshold ) {
+  if(brightness(color_ref) < threshold ) {
     new_color = clear;
   } else {
     new_color = dark ;
   }
   return new_color ;
 }
+
+
 
 
 

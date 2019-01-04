@@ -1,20 +1,18 @@
 /**
-Vehicle
-refactoring by Stan le Punk
-http://stanlepunk.xyz/
-v 1.3.0
-*/
-/**
-Run on Processing 3.3.6
-*/
-/**
-Vehicle
-work based on the code traduction of Daniel Shiffman from Reynolds Study algorithm
-about
-http://natureofcode.com
-http://natureofcode.com/book/chapter-6-autonomous-agents/
-About Craig Reynolds 
-http://www.red3d.com/cwr/
+* Vehicle
+* refactoring by Stan le Punk
+* @see http://stanlepunk.xyz
+* @see https://github.com/StanLepunK/Force_Field
+* 2017-2018
+* v 1.3.0
+*
+* Run on Processing 3.4
+*
+* work based on the code traduction of Daniel Shiffman from Reynolds Study algorithm
+* @see http://natureofcode.com
+* @see http://natureofcode.com/book/chapter-6-autonomous-agents/
+* About Craig Reynolds 
+* @see http://www.red3d.com/cwr/
 */
 
 public class Vehicle implements rope.core.RConstants {

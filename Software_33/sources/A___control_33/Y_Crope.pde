@@ -1,11 +1,11 @@
 /**
-CROPE
-v 0.9.7
-CONTROL ROMANESCO PROCESSING ENVIRONMENT
-* Copyleft (c) 2018-2018
-*
+* CROPE
+*CONTROL ROMANESCO PROCESSING ENVIRONMENT
+* v 0.9.8
+* Copyleft (c) 2018-2019
+* Processing 3.4
 * @author Stan le Punk
-* @see https://github.com/StanLepunK
+* @see https://github.com/StanLepunK/Crope
 * @see http://stanlepunk.xyz/
 */
 import java.util.Arrays;
@@ -1463,7 +1463,7 @@ public class Slider extends Crope {
   
   private void molette_shape(int index) {
     if(molette_type == ELLIPSE) {
-      iVec2 temp = round(mult(molette[index].size,.5));
+      iVec2 temp = iVec2(round(mult(molette[index].size,.5)));
       iVec2 pos = iadd(molette[index].pos,temp);
       ellipse(pos,molette[index].size);
     } else if(molette_type == RECT) {

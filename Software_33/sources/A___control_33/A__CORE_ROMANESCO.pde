@@ -172,9 +172,12 @@ String [] alphabetical_font_path(String folder_path) {
 
 
 boolean extension_font(String path) {
+  return extension_is(path,"ttf","TTF","otf","OTF");
+  /*
   if(extension(path).equals("ttf") || extension(path).equals("TTF") || extension(path).equals("otf") || extension(path).equals("OTF")) {
     return true;
   } else return false;
+  */
 }
 
 
