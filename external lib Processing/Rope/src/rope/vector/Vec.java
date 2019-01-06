@@ -2,7 +2,7 @@ package rope.vector;
 import rope.core.BigBangRope;
 /**
  * Vec class
- * v 1.17.0
+ * v 1.17.1
 * 2015-2018
 * Processing 3.4 compatible
 * Vector class with a float precision
@@ -47,7 +47,7 @@ public abstract class Vec extends BigBangRope {
       float array [] = {x,y,z,w};
       return array;
     } else if(num == 5) {
-      float array [] = {a,b,c,d,e,f};
+      float array [] = {a,b,c,d,e};
       return array;
     } else if(num == 6) {
       float array [] = {a,b,c,d,e,f};

@@ -38,8 +38,9 @@ public class iVec4 extends iVec {
   	return this;
   }
   
-  public void set(int arg){
+  public iVec4 set(int arg){
     set(arg,arg,arg,arg);
+    return this;
   }
 
   public iVec4 set(iVec v) {

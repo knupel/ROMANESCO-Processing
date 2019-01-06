@@ -267,13 +267,13 @@ public class Vec3 extends Vec {
 
   public Vec3 sub(Vec v) {
     if(v != null) {
-      sub(v.x,v.y,v.z);
+      return sub(v.x,v.y,v.z);
     } return null;
   }
 
   public Vec3 sub(iVec v) {
     if(v != null) {
-      sub(v.x,v.y,v.z);
+      return sub(v.x,v.y,v.z);
     } return null;
   }
   

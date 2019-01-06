@@ -39,8 +39,9 @@ public class iVec5 extends iVec {
   	return this;
   }
   
-  public void set(int arg){
+  public iVec5 set(int arg){
     set(arg,arg,arg,arg,arg);
+    return this;
   }
 
   public iVec5 set(iVec v) {
@@ -91,12 +92,12 @@ public class iVec5 extends iVec {
    * @return
    */
   public iVec5 copy() {
-    return new iVec5(a,b,c,d,e) ;
+    return new iVec5(a,b,c,d,e);
   }
   
   @Override 
   public String toString() {
-    return "[ " + a + ", " + b + ", " + c + ", " + d + ", " + e + " ]" ;
+    return "[ " + a + ", " + b + ", " + c + ", " + d + ", " + e + " ]";
   }
 
 }

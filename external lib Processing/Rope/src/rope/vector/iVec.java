@@ -2,7 +2,7 @@ package rope.vector;
 import rope.core.BigBangRope;
 /**
  * iVec class
- * v 1.0.0
+ * v 1.0.1
  * 2015-2018
  * Processing 3.4
  * Vector with a integer precision
@@ -45,7 +45,7 @@ public abstract class iVec extends BigBangRope {
 			int array [] = {x,y,z,w};
 			return array;
 		} else if(num == 5) {
-			int array [] = {a,b,c,d,e,f};
+			int array [] = {a,b,c,d,e};
 			return array;
 		} else if(num == 6) {
 			int array [] = {a,b,c,d,e,f};

@@ -35,8 +35,9 @@ public class iVec3 extends iVec {
   	return this;
   }
   
-  public void set(int arg){
-    set(arg,arg, arg);
+  public iVec3 set(int arg){
+    set(arg,arg,arg);
+    return this;
   }
 
   public iVec3 set(iVec v) {
