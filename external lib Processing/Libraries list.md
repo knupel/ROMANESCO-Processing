@@ -1,4 +1,14 @@
-Romanesco libraries:
-Rope, LeapMotion you find this one in this folder.
-For the other download it on Processing web site
-Tablet, Minim, oscP5, Syphon, Toxiclib, Geomerative and Processing Video
+*Romanesco libraries in this folder
+
+Rope
+LeapMotion
+
+*Other libraries must be download via Processing app
+
+Tablet
+Minim
+oscP5
+Syphon
+Toxiclib
+Geomerative
+Processing Video

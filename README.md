@@ -8,7 +8,7 @@ Generative Live Art Application
 To download the last built version, go to [app 2.0.1.32](http://romanescoproject.wordpress.com/download/)
 
 ## Build and code Romanesco
-https://github.com/StanLepunK/ROMANESCO-Processing/wiki/Export-Application
+https://github.com/StanLepunK/ROMANESCO-Processing/wiki/Developement
 
 ## LICENSE
 ROMANESCO is under the licence [CeCILL](http://www.cecill.info/licences/Licence_CeCILL_V2.1-en.html).
