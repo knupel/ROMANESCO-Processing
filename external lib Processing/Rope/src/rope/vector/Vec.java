@@ -36,7 +36,7 @@ public abstract class Vec extends BigBangRope {
   * return the list of component
   * @return float []
   */
-  public float [] get_array() {
+  public float [] array() {
     if(num == 2) {
       float array [] = {x,y};
       return array;

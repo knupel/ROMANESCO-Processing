@@ -34,7 +34,7 @@ public abstract class iVec extends BigBangRope {
 	* return the list of component
 	* @return float []
 	*/
-	public int [] get_array() {
+	public int [] array() {
 		if(num == 2) {
 			int array [] = {x,y};
 			return array;

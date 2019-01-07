@@ -23,7 +23,7 @@ public abstract class bVec extends BigBangRope {
 	}
 	
 	
-	public boolean [] get_array() {
+	public boolean [] array() {
     if(num == 2) {
       boolean array [] = {x,y};
       return array;
