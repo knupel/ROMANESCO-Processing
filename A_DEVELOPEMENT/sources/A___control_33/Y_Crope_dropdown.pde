@@ -1,7 +1,7 @@
 /**
 DROPDOWN 
-v 0.1.3
-2018-2018
+v 0.1.4
+2018-2019
 */
 /**
 method to know is dropdown is active or not
@@ -404,7 +404,7 @@ public class Dropdown extends Crope {
       int index = 0; // first pos molette from the array pos molette
       //give the position in list of Item with the position from the slider's molette
       if (slider) {
-        offset_slider = round(map(slider_dd.get_value(index),0,1,0,missing));
+        offset_slider = round(map(slider_dd.get(index),0,1,0,missing));
       }
       set_box_width(longest_String_pixel(font_box,this.content));
       for (int i = start +offset_slider ; i < end +offset_slider ; i++) {

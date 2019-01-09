@@ -95,7 +95,7 @@ void save_info_slider() {
   int start = 0;
   // background
   for (int i = start ; i < NUM_SLIDER_BACKGROUND ; i++) {
-    cropinfo_slider_background[i].set_value(slider_adj_background[i].get_value(0));
+    cropinfo_slider_background[i].set_value(slider_adj_background[i].get(0));
     cropinfo_slider_background[i].set_min(slider_adj_background[i].get_min_norm());
     cropinfo_slider_background[i].set_max(slider_adj_background[i].get_max_norm());
     set_data_slider(i,cropinfo_slider_background[i],"Slider background");
@@ -103,7 +103,7 @@ void save_info_slider() {
 
   // FX
   for (int i = start ; i < NUM_SLIDER_FX ; i++) {
-    cropinfo_slider_fx[i].set_value(slider_adj_fx[i].get_value(0));
+    cropinfo_slider_fx[i].set_value(slider_adj_fx[i].get(0));
     cropinfo_slider_fx[i].set_min(slider_adj_fx[i].get_min_norm());
     cropinfo_slider_fx[i].set_max(slider_adj_fx[i].get_max_norm());
     set_data_slider(i,cropinfo_slider_fx[i],"Slider fx");
@@ -111,7 +111,7 @@ void save_info_slider() {
 
   // light
   for (int i = start ; i < NUM_SLIDER_LIGHT ; i++) {
-    cropinfo_slider_light[i].set_value(slider_adj_light[i].get_value(0));
+    cropinfo_slider_light[i].set_value(slider_adj_light[i].get(0));
     cropinfo_slider_light[i].set_min(slider_adj_light[i].get_min_norm());
     cropinfo_slider_light[i].set_max(slider_adj_light[i].get_max_norm());
     set_data_slider(i,cropinfo_slider_light[i],"Slider light");
@@ -119,7 +119,7 @@ void save_info_slider() {
 
   // sound
   for (int i = start ; i < NUM_SLIDER_SOUND ; i++) {
-    cropinfo_slider_sound[i].set_value(slider_adj_sound[i].get_value(0));
+    cropinfo_slider_sound[i].set_value(slider_adj_sound[i].get(0));
     cropinfo_slider_sound[i].set_min(slider_adj_sound[i].get_min_norm());
     cropinfo_slider_sound[i].set_max(slider_adj_sound[i].get_max_norm());
     set_data_slider(i,cropinfo_slider_sound[i],"Slider sound");
@@ -127,14 +127,14 @@ void save_info_slider() {
 
   // sound setting
   for (int i = start ; i < NUM_SLIDER_SOUND_SETTING ; i++) {
-    cropinfo_slider_sound_setting[i].set_value(slider_sound_setting[i].get_value());
+    cropinfo_slider_sound_setting[i].set_value(slider_sound_setting[i].get());
     set_data_slider(i,cropinfo_slider_sound_setting[i],"Slider sound setting");
   }
 
   // camera
   for (int i = start ; i < NUM_SLIDER_CAMERA ; i++) {
     // int temp = i-1 ;
-    cropinfo_slider_camera[i].set_value(slider_adj_camera[i].get_value(0));
+    cropinfo_slider_camera[i].set_value(slider_adj_camera[i].get(0));
     cropinfo_slider_camera[i].set_min(slider_adj_camera[i].get_min_norm());
     cropinfo_slider_camera[i].set_max(slider_adj_camera[i].get_max_norm());
     set_data_slider(i,cropinfo_slider_camera[i],"Slider camera");
@@ -151,7 +151,7 @@ void save_info_slider() {
     int slider_ID = i;
     for(int k = 0 ; k < cropinfo_slider_item.length ;k++) {
       if(cropinfo_slider_item[k].get_id() == slider_ID) {
-        cropinfo_slider_item[k].set_value(slider_adj_item[slider_ID].get_value(0));
+        cropinfo_slider_item[k].set_value(slider_adj_item[slider_ID].get(0));
         cropinfo_slider_item[k].set_min(slider_adj_item[slider_ID].get_min_norm());
         cropinfo_slider_item[k].set_max(slider_adj_item[slider_ID].get_max_norm());
         int min = NUM_SLIDER_ITEM_BY_COL *index;

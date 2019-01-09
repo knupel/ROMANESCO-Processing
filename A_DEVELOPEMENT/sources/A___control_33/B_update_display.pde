@@ -477,7 +477,7 @@ void show_slider_sound_setting() {
     if(!dropdown_is()) {
       update_slider(slider_sound_setting[i],cropinfo_slider_sound_setting);
     }
-    rank += slider_sound_setting[i].get_value().length;
+    rank += slider_sound_setting[i].get().length;
 
     slider_sound_setting[i].show_structure();
     slider_sound_setting[i].show_molette();
@@ -517,7 +517,7 @@ void pass_slider_general_to_osc() {
   int rank = 0;
   for (int i = 0 ; i < NUM_SLIDER_SOUND_SETTING ; i++) {
     pass_multi_slider_to_osc_arg(slider_sound_setting[i],value_slider_sound_setting,rank);
-    rank += slider_sound_setting[i].get_value().length;
+    rank += slider_sound_setting[i].get().length;
   }
 
   for (int i = 0 ; i < NUM_SLIDER_CAMERA ; i++) {   
@@ -846,7 +846,7 @@ pass info for OSC
 */
 void pass_slider_to_osc_arg(Slider slider, float [] value_slider) {
   int valueMax = 360;
-  float val_single_slider = slider.get_value(0);
+  float val_single_slider = slider.get(0);
   value_slider[slider.get_id()] = constrain(map(val_single_slider,0,1,0,valueMax),0,valueMax);
 }
 
@@ -854,8 +854,8 @@ void pass_slider_to_osc_arg(Slider slider, float [] value_slider) {
 
 void pass_multi_slider_to_osc_arg(Slider slider, float [] value_slider, int rank) {
   int valueMax = 360;
-  for(int i = 0 ; i < slider.get_value().length ; i++) {
-    float value = slider.get_value(i);
+  for(int i = 0 ; i < slider.get().length ; i++) {
+    float value = slider.get(i);
     value_slider[rank] = constrain(map(value,0,1,0,valueMax),0,valueMax);
     rank++;
   } 
