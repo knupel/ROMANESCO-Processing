@@ -10,6 +10,10 @@ To download the last built version, go to [app 2.0.1.32](http://romanescoproject
 ## Build and code Romanesco
 read the developement guide [here](https://github.com/StanLepunK/ROMANESCO-Processing/wiki)
 
+## rope library
+to use the set rope method you need to downlow Rope library
+[download](https://github.com/StanLepunK/Rope/blob/master/Rope.zip)
+
 ## LICENSE
 ROMANESCO is under the licence [CeCILL](http://www.cecill.info/licences/Licence_CeCILL_V2.1-en.html).
 
