@@ -1,13 +1,39 @@
 /**
 Rope UTILS 
-v 1.53.0
-* Copyleft (c) 2014-2018 
+v 1.55.0
+* Copyleft (c) 2014-2019
 * Stan le Punk > http://stanlepunk.xyz/
 Rope – Romanesco Processing Environment – 
 Processing 3.4
 * @author Stan le Punk
 * @see https://github.com/StanLepunK/Rope
 */
+
+
+/**
+CHECK SIZE WINDOW
+return true if the window size has changed
+*/
+iVec2 rope_window_size;
+boolean window_change_is() {
+  if(rope_window_size == null || !all(equal(iVec2(width,height),rope_window_size))) {
+    check_window_size();
+    return true;
+  } else {
+    return false;
+  }
+}
+
+void check_window_size() {
+  if(rope_window_size == null) {
+    rope_window_size = iVec2(width,height);
+  } else {
+    rope_window_size.set(width,height);
+  }
+}
+
+
+
 
 
 
@@ -333,7 +359,7 @@ v 0.3.1
 */
 /**
 Save Frame
-V 0.1.1
+V 0.1.2
 */
 void saveFrame(String where, String filename, PImage img) {
   float compression = 1. ;
@@ -362,18 +388,16 @@ void saveFrame(String where, String filename, float compression, PImage img) {
     loadPixels(); 
     BufferedImage buff_img;
     if(img == null) {
-      buff_img = new BufferedImage(pixelWidth, pixelHeight, BufferedImage.TYPE_INT_RGB);
-      buff_img.setRGB(0, 0, pixelWidth, pixelHeight, pixels, 0, pixelWidth);
+      printErr("method saveFrame(): the PImage is null, no save can be done");
     } else {
       buff_img = new BufferedImage(img.width, img.height, BufferedImage.TYPE_INT_RGB);
       buff_img.setRGB(0, 0, img.width, img.height, img.pixels, 0, img.width);
-    }
-
-    if(path.contains(".bmp") || path.contains(".BMP")) {
-      saveBMP(os, buff_img);
-    } else if(path.contains(".jpeg") || path.contains(".jpg") || path.contains(".JPG") || path.contains(".JPEG")) {
-      saveJPG(os, compression, buff_img);
-    }
+      if(path.contains(".bmp") || path.contains(".BMP")) {
+        saveBMP(os, buff_img);
+      } else if(path.contains(".jpeg") || path.contains(".jpg") || path.contains(".JPG") || path.contains(".JPEG")) {
+        saveJPG(os, compression, buff_img);
+      }
+    } 
   }  catch (FileNotFoundException e) {
     //
   }
@@ -477,120 +501,6 @@ PImage loadImageBMP(String fileName) {
     return null ;
   }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -941,41 +851,6 @@ Vec4 array_to_Vec4_rgba(float... f) {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 /**
 EXPORT FILE PDF_PNG 0.1.1
 */
@@ -1104,6 +979,751 @@ void event_PNG() {
 
 
 
+/**
+print
+v 0.2.0
+*/
+// print Err
+void printErr(Object... obj) {
+  System.err.println(write_message(obj));
+}
+
+// print tempo
+void printErrTempo(int tempo, Object... obj) {
+  if(frameCount%tempo == 0 || frameCount <= 1) {
+    String message = write_message(obj);
+    System.err.println(message);
+  }
+}
+
+void printTempo(int tempo, Object... obj) {
+  if(frameCount%tempo == 0 || frameCount <= 1) {
+    String message = write_message(obj);
+    println(message);
+  }
+}
+
+
+
+
+void printArrayTempo(int tempo, Object[] obj) {
+  if(frameCount%tempo == 0 || frameCount <= 1) {
+    printArray(obj);
+  }
+}
+
+void printArrayTempo(int tempo, float[] var) {
+  if(frameCount%tempo == 0 || frameCount <= 10) {
+    printArray(var);
+  }
+}
+
+void printArrayTempo(int tempo, int[] var) {
+  if(frameCount%tempo == 0 || frameCount <= 10) {
+    printArray(var);
+  }
+}
+
+void printArrayTempo(int tempo, String[] var) {
+  if(frameCount%tempo == 0 || frameCount <= 10) {
+    printArray(var);
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+/**
+MAP
+map the value between the min and the max
+@ return float
+*/
+float map_cycle(float value, float min, float max) {
+  max += .000001 ;
+  float newValue ;
+  if(min < 0 && max >= 0 ) {
+    float tempMax = max +abs(min) ;
+    value += abs(min) ;
+    float tempMin = 0 ;
+    newValue =  tempMin +abs(value)%(tempMax - tempMin)  ;
+    newValue -= abs(min) ;
+    return newValue ;
+  } else if ( min < 0 && max < 0) {
+    newValue = abs(value)%(abs(max)+min) -max ;
+    return newValue ;
+  } else {
+    newValue = min + abs(value)%(max - min) ;
+    return newValue ;
+  }
+}
+
+
+
+
+/*
+map the value between the min and the max, but this value is lock between the min and the max
+@ return float
+*/
+float map_locked(float value, float sourceMin, float sourceMax, float targetMin, float targetMax) {
+  if(sourceMax >= targetMax ) sourceMax = targetMax ;
+  if (value < sourceMin ) value = sourceMin ;
+  if (value > sourceMax ) value = sourceMax ;
+  float newMax = sourceMax - sourceMin ;
+  float deltaTarget = targetMax - targetMin ;
+  float ratio = ((value - sourceMin) / newMax ) ;
+  float result = targetMin +deltaTarget *ratio;
+  return result; 
+}
+
+
+// to map not linear, start the curve hardly to start slowly
+float map_begin(float value, float sourceMin, float sourceMax, float targetMin, float targetMax, int level) {
+  if (value < sourceMin ) value = sourceMin ;
+  if (value > sourceMax ) value = sourceMax ;
+  float newMax = sourceMax - sourceMin ;
+  float deltaTarget = targetMax - targetMin ;
+  float ratio = ((value - sourceMin) / newMax ) ;
+  ratio = pow(ratio, level) ;
+  float result = targetMin +deltaTarget *ratio;
+  return result;
+}
+
+// to map not linear, start the curve hardly to finish slowly
+float map_end(float value, float sourceMin, float sourceMax, float targetMin, float targetMax, int level) {
+  if (value < sourceMin ) value = sourceMin ;
+  if (value > sourceMax ) value = sourceMax ;
+  float newMax = sourceMax - sourceMin ;
+  float deltaTarget = targetMax - targetMin ;
+  float ratio = ((value - sourceMin) / newMax ) ;
+  ratio = pow(ratio, 1.0/level) ;
+  float result = targetMin +deltaTarget *ratio;
+  return result;
+}
+
+float map(float value, float start_1, float stop_1, float start_2, float stop_2, int begin, int end) {
+  begin = abs(begin);
+  end = abs(end);
+  if(begin != 0 && end != 0) {
+    if (value < start_1 ) value = start_1;
+    if (value > stop_2 ) value = stop_2;
+
+    float new_max = stop_2 - start_1;
+    float delta = stop_2 - start_2;
+    float ratio = (value - start_1) / new_max;
+
+    ratio = map(ratio,0,1,-1,1);
+    if (ratio < 0) {
+      if(begin < 2) ratio = pow(ratio,begin) ;
+      else ratio = pow(ratio,begin) *(-1);
+      if(ratio > 0) ratio *= -1;
+    } else {
+      ratio = pow(ratio,end);
+    }
+    
+    ratio = map(ratio,-1,1,0,1);
+    float result = start_2 +delta *ratio;
+    return result;
+  } else if(begin == 0 && end != 0) {
+    return map_end(value,start_1,stop_1,start_2,stop_2,end);
+  } else if(end == 0 && begin != 0) {
+    return map_begin(value,start_1,stop_1,start_2,stop_2,begin);
+  } else {
+    return map(value,start_1,stop_1,start_2,stop_2,1,1);
+  }
+
+}
+
+
+
+
+
+
+
+
+
+
+
+/**
+MISC
+v 0.0.6
+*/
+/**
+stop trhead draw by using loop and noLoop()
+*/
+boolean freeze_is ;
+void freeze() {
+  freeze_is = (freeze_is)? false:true ;
+  if (freeze_is)  {
+    noLoop();
+  } else {
+    loop();
+  }
+}
+
+
+
+/**
+Gaussian randomize
+v 0.0.2
+*/
+@Deprecated
+float random_gaussian(float value) {
+  return random_gaussian(value, .4) ;
+}
+
+@Deprecated
+float random_gaussian(float value, float range) {
+  /*
+  * It's cannot possible to indicate a value result here, this part need from the coder ?
+  */
+  printErrTempo(240,"float random_gaussian(); method must be improved or totaly deprecated");
+  range = abs(range) ;
+  float distrib = random(-1, 1) ;
+  float result = 0 ;
+  if(value == 0) {
+    value = 1 ;
+    result = (pow(distrib,5)) *(value *range) +value ;
+    result-- ;
+  } else {
+    result = (pow(distrib,5)) *(value *range) +value ;
+  }
+  return result;
+}
+
+
+
+/**
+Next Gaussian randomize
+v 0.0.2
+*/
+/**
+* return value from -1 to 1
+* @return float
+*/
+Random random = new Random();
+float random_next_gaussian() {
+  return random_next_gaussian(1,1);
+}
+
+float random_next_gaussian(int n) {
+  return random_next_gaussian(1,n);
+}
+
+float random_next_gaussian(float range) {
+  return random_next_gaussian(range,1);
+}
+
+float random_next_gaussian(float range, int n) {
+  float roots = (float)random.nextGaussian();
+  float var = map(roots,-2.5,2.5,-1,1);  
+  if(n > 1) {
+    if(n%2 ==0 && var < 0) {
+       var = -1 *pow(var,n);
+     } else {
+       var = pow(var,n);
+     }
+     return var *range ;
+  } else {
+    return var *range ;
+  }
+}
+
+
+
+
+/**
+PIXEL UTILS
+v 0.0.2
+2017-2017
+*/
+int [][] loadPixels_array_2D() {
+  int [][] array_pix ;
+  loadPixels() ;
+  array_pix = new int[height][width] ;
+  int which_pix = 0 ;
+  for(int y = 0 ; y < height ; y++) {
+    for(int x = 0 ; x < width ; x++) {
+      which_pix = y *width +x ;
+      array_pix[y][x] = pixels[which_pix] ;
+    }
+  }
+  if(array_pix != null) {
+    return array_pix ;
+  } else {
+    return null ;
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/**
+CHECK
+v 0.2.4
+*/
+/**
+Check Type
+v 0.0.4
+*/
+String get_type(Object obj) {
+  if(obj instanceof Integer) {
+    return "Integer";
+  } else if(obj instanceof Float) {
+    return "Float";
+  } else if(obj instanceof String) {
+    return "String";
+  } else if(obj instanceof Double) {
+    return "Double";
+  } else if(obj instanceof Long) {
+    return "Long";
+  } else if(obj instanceof Short) {
+    return "Short";
+  } else if(obj instanceof Boolean) {
+    return "Boolean";
+  } else if(obj instanceof Byte) {
+    return "Byte";
+  } else if(obj instanceof Character) {
+    return "Character";
+  } else if(obj instanceof PVector) {
+    return "PVector";
+  } else if(obj instanceof Vec) {
+    return "Vec";
+  } else if(obj instanceof iVec) {
+    return "iVec";
+  } else if(obj instanceof bVec) {
+    return "bVec";
+  } else if(obj == null) {
+    return "null";
+  } else return "Unknow" ;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/**
+check value in range
+*/
+boolean in_range(float min, float max, float value) {
+  if(value <= max && value >= min) {
+    return true ; 
+  } else {
+    return false ;
+  }
+}
+
+boolean in_range_wheel(float min, float max, float roof_max, float value) {
+  if(value <= max && value >= min) {
+    return true ;
+  } else {
+    // wheel value
+    if(max > roof_max ) {
+      // test hight value
+      if(value <= (max - roof_max)) {
+        return true ;
+      } 
+    } 
+    if (min < 0) {
+      // here it's + min 
+      if(value >= (roof_max + min)) {
+        return true ;
+      } 
+    } 
+    return false ;
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/**
+STRING UTILS
+v 0.3.3
+*/
+String write_message(Object... obj) {
+  String mark = " ";
+  return write_message_sep(mark,obj);
+}
+String write_message_sep(String mark, Object... obj) {
+  String m = "";
+  for(int i = 0 ; i < obj.length ; i++) {
+    m += write_message(obj[i], obj.length,i,mark);
+  }
+  return m;
+}
+
+// local method
+String write_message(Object obj, int length, int i, String mark) {
+  String message = "";
+  String add = "";
+  if(i == length -1) { 
+    if(obj == null) {
+      add = "null";
+    } else {
+      add = obj.toString();
+    }
+    return message += add;
+  } else {
+    if(obj == null) {
+      add = "null";
+    } else {
+      add = obj.toString();
+    }
+    return message += add + mark;
+  }
+}
+
+
+
+//STRING SPLIT
+String [] split_text(String str, String separator) {
+  String [] text = str.split(separator) ;
+  return text  ;
+}
+
+
+//STRING COMPARE LIST SORT
+//raw compare
+int longest_String(String[] string_list) {
+  int finish = 0;
+  if(string_list != null) finish = string_list.length;
+  return longest_String(string_list, 0, finish);
+}
+
+//with starting and end keypoint in the String must be sort
+int longest_String(String[] string_list, int start, int finish) {
+  int length = 0;
+  if(string_list != null) {
+    for ( int i = start ; i < finish ; i++) {
+      if (string_list[i].length() > length ) length = string_list[i].length() ;
+    }
+  }
+  return length;
+}
+
+/**
+Longuest String with PFont
+*/
+int longest_String_pixel(PFont font, String[] string_list) {
+  int [] size_font = new int[1];
+  size_font[0] = font.getSize();
+  int finish = 0;
+  if(string_list != null) finish = string_list.length;
+  return longest_String_pixel(font.getName(), string_list, size_font, 0, finish);
+}
+
+int longest_String_pixel(PFont font, String[] string_list, int... size_font) {
+  int finish = 0;
+  if(string_list != null) finish = string_list.length;
+  return longest_String_pixel(font.getName(), string_list, size_font, 0, finish);
+}
+
+int longest_String_pixel(PFont font, String[] string_list, int [] size_font, int start, int finish) {
+  return longest_String_pixel(font.getName(), string_list, size_font, start, finish);
+}
+
+/**
+Longuest String with String name Font
+*/
+int longest_String_pixel(String font_name, String[] string_list, int... size_font) {
+  int finish = 0;
+  if(string_list != null) finish = string_list.length;
+  return longest_String_pixel(font_name, string_list, size_font, 0, finish);
+}
+
+// diferrent size by line
+int longest_String_pixel(String font_name, String[] string_list, int size_font, int start, int finish) {
+  int [] s_font = new int[1];
+  s_font[0] = size_font;
+  return longest_String_pixel(font_name, string_list, s_font, start, finish);
+}
+
+int longest_String_pixel(String font_name, String[] string_list, int [] size_font, int start, int finish) {
+  int width_pix = 0 ;
+  if(string_list != null) {
+    int target_size_font = 0;
+    for (int i = start ; i < finish && i < string_list.length; i++) {
+      if(i >= size_font.length) target_size_font = 0 ;
+      if (width_String(font_name, string_list[i], size_font[target_size_font]) > width_pix) {
+        width_pix = width_String(string_list[i],size_font[target_size_font]);
+      }
+      target_size_font++;
+    }
+  }
+  return width_pix;
+}
+
+
+
+
+/**
+width String
+*/
+int width_String(String target, int size) {
+  return width_String("defaultFont", target, size) ;
+}
+
+int width_String(PFont pfont, String target, int size) {
+  return width_String(pfont.getName(), target, size);
+}
+
+int width_String(String font_name, String target, int size) {
+  Font font = new Font(font_name, Font.BOLD, size) ;
+  BufferedImage img = new BufferedImage(1, 1, BufferedImage.TYPE_INT_ARGB);
+  FontMetrics fm = img.getGraphics().getFontMetrics(font);
+  if(target ==null) {
+    printErr("method width_String(): String target =",target);
+    target = "";
+  }
+  return fm.stringWidth(target);
+}
+
+
+
+
+int width_char(char target, int size) {
+  return width_char("defaultFont", target, size) ;
+}
+
+int width_char(PFont pfont, char target, int size) {
+  return width_char(pfont.getName(), target, size);
+}
+int width_char(String font_name, char target, int size) {
+  Font font = new Font(font_name, Font.BOLD, size) ;
+  BufferedImage img = new BufferedImage(1, 1, BufferedImage.TYPE_INT_ARGB);
+  FontMetrics fm = img.getGraphics().getFontMetrics(font);
+  return fm.charWidth(target);
+}
+
+
+
+
+// Research a specific word in String
+boolean research_in_String(String research, String target) {
+  boolean result = false ;
+  for(int i = 0 ; i < target.length() - research.length() +1; i++) {
+    result = target.regionMatches(i,research,0,research.length()) ;
+    if (result) break ;
+  }
+  return result ;
+}
+
+
+
+
+
+/**
+String file utils
+2014-2018
+v 0.2.0
+*/
+/**
+* remove element of the sketch path
+*/
+String sketchPath(int minus) {
+  minus = abs(minus);
+  String [] element = split(sketchPath(),"/");
+  String new_path ="" ;
+  if(minus < element.length ) {
+    for(int i = 0 ; i < element.length -minus ; i++) {
+      new_path +="/";
+      new_path +=element[i];
+    }
+    return new_path; 
+  } else {
+    printErr("The number of path elements is lower that elements must be remove, instead a data folder is used");
+    return sketchPath()+"/data";
+  }  
+}
+
+
+
+// remove the path of your file
+String file_name(String s) {
+  String file_name = "" ;
+  String [] split_path = s.split("/") ;
+  file_name = split_path[split_path.length -1] ;
+  return file_name ;
+}
+
+/**
+* work around extension
+*/
+String extension(String filename) {
+  if(filename != null) {
+    if(filename.contains(".")) {
+      return filename.substring(filename.lastIndexOf(".") + 1, filename.length());
+    } else {
+      return null;
+    } 
+  } else {
+    return null;
+  }
+}
+
+boolean extension_is(String... data) {
+  boolean is = false;
+  if(data.length >= 2) {
+    String extension_to_compare = extension(data[0]);
+    if(extension_to_compare != null) {
+      for(int i = 1 ; i < data.length ; i++) {
+        if(extension_to_compare.equals(data[i])) {
+          is = true;
+          break;
+        } else {
+          is = false;
+        }
+      }
+    } else {
+      printErr("method extension_is(): [",data[0],"] this path don't have any extension");
+    }
+  } else {
+    printErr("method extension_is() need almost two components, the first is the path and the next is extension");
+  }
+  return is;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -1190,107 +1810,6 @@ void write_row(TableRow row, String col_name, Object o) {
     row.setString(col_name, s);
   } 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/**
-print
-v 0.2.0
-*/
-// print Err
-void printErr(Object... obj) {
-  System.err.println(write_message(obj));
-}
-
-// print tempo
-void printErrTempo(int tempo, Object... obj) {
-  if(frameCount%tempo == 0 || frameCount <= 1) {
-    String message = write_message(obj);
-    System.err.println(message);
-  }
-}
-
-void printTempo(int tempo, Object... obj) {
-  if(frameCount%tempo == 0 || frameCount <= 1) {
-    String message = write_message(obj);
-    println(message);
-  }
-}
-
-
-
-
-void printArrayTempo(int tempo, Object[] obj) {
-  if(frameCount%tempo == 0 || frameCount <= 1) {
-    printArray(obj);
-  }
-}
-
-void printArrayTempo(int tempo, float[] var) {
-  if(frameCount%tempo == 0 || frameCount <= 10) {
-    printArray(var);
-  }
-}
-
-void printArrayTempo(int tempo, int[] var) {
-  if(frameCount%tempo == 0 || frameCount <= 10) {
-    printArray(var);
-  }
-}
-
-void printArrayTempo(int tempo, String[] var) {
-  if(frameCount%tempo == 0 || frameCount <= 10) {
-    printArray(var);
-  }
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 /**
 Info_dict 
 v 0.3.0.1
@@ -2449,679 +2968,6 @@ class Info_Object extends Info_method {
 }
 /**
 END INFO LIST
-
 */
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/**
-MAP
-map the value between the min and the max
-@ return float
-*/
-float map_cycle(float value, float min, float max) {
-  max += .000001 ;
-  float newValue ;
-  if(min < 0 && max >= 0 ) {
-    float tempMax = max +abs(min) ;
-    value += abs(min) ;
-    float tempMin = 0 ;
-    newValue =  tempMin +abs(value)%(tempMax - tempMin)  ;
-    newValue -= abs(min) ;
-    return newValue ;
-  } else if ( min < 0 && max < 0) {
-    newValue = abs(value)%(abs(max)+min) -max ;
-    return newValue ;
-  } else {
-    newValue = min + abs(value)%(max - min) ;
-    return newValue ;
-  }
-}
-
-
-
-
-/*
-map the value between the min and the max, but this value is lock between the min and the max
-@ return float
-*/
-float map_locked(float value, float sourceMin, float sourceMax, float targetMin, float targetMax) {
-  if(sourceMax >= targetMax ) sourceMax = targetMax ;
-  if (value < sourceMin ) value = sourceMin ;
-  if (value > sourceMax ) value = sourceMax ;
-  float newMax = sourceMax - sourceMin ;
-  float deltaTarget = targetMax - targetMin ;
-  float ratio = ((value - sourceMin) / newMax ) ;
-  float result = targetMin +deltaTarget *ratio;
-  return result; 
-}
-
-
-// to map not linear, start the curve hardly to start slowly
-float map_begin(float value, float sourceMin, float sourceMax, float targetMin, float targetMax, int level) {
-  if (value < sourceMin ) value = sourceMin ;
-  if (value > sourceMax ) value = sourceMax ;
-  float newMax = sourceMax - sourceMin ;
-  float deltaTarget = targetMax - targetMin ;
-  float ratio = ((value - sourceMin) / newMax ) ;
-  ratio = pow(ratio, level) ;
-  float result = targetMin +deltaTarget *ratio;
-  return result;
-}
-
-// to map not linear, start the curve hardly to finish slowly
-float map_end(float value, float sourceMin, float sourceMax, float targetMin, float targetMax, int level) {
-  if (value < sourceMin ) value = sourceMin ;
-  if (value > sourceMax ) value = sourceMax ;
-  float newMax = sourceMax - sourceMin ;
-  float deltaTarget = targetMax - targetMin ;
-  float ratio = ((value - sourceMin) / newMax ) ;
-  ratio = pow(ratio, 1.0/level) ;
-  float result = targetMin +deltaTarget *ratio;
-  return result;
-}
-
-float map(float value, float start_1, float stop_1, float start_2, float stop_2, int begin, int end) {
-  begin = abs(begin);
-  end = abs(end);
-  if(begin != 0 && end != 0) {
-    if (value < start_1 ) value = start_1;
-    if (value > stop_2 ) value = stop_2;
-
-    float new_max = stop_2 - start_1;
-    float delta = stop_2 - start_2;
-    float ratio = (value - start_1) / new_max;
-
-    ratio = map(ratio,0,1,-1,1);
-    if (ratio < 0) {
-      if(begin < 2) ratio = pow(ratio,begin) ;
-      else ratio = pow(ratio,begin) *(-1);
-      if(ratio > 0) ratio *= -1;
-    } else {
-      ratio = pow(ratio,end);
-    }
-    
-    ratio = map(ratio,-1,1,0,1);
-    float result = start_2 +delta *ratio;
-    return result;
-  } else if(begin == 0 && end != 0) {
-    return map_end(value,start_1,stop_1,start_2,stop_2,end);
-  } else if(end == 0 && begin != 0) {
-    return map_begin(value,start_1,stop_1,start_2,stop_2,begin);
-  } else {
-    return map(value,start_1,stop_1,start_2,stop_2,1,1);
-  }
-
-}
-
-
-
-
-
-
-
-
-
-
-
-/**
-MISC
-v 0.0.6
-
-*/
-/**
-stop trhead draw by using loop and noLoop()
-*/
-boolean freeze_is ;
-void freeze() {
-  freeze_is = (freeze_is)? false:true ;
-  if (freeze_is)  {
-    noLoop();
-  } else {
-    loop();
-  }
-}
-
-
-
-/**
-Gaussian randomize
-v 0.0.2
-*/
-@Deprecated
-float random_gaussian(float value) {
-  return random_gaussian(value, .4) ;
-}
-
-@Deprecated
-float random_gaussian(float value, float range) {
-  /*
-  * It's cannot possible to indicate a value result here, this part need from the coder ?
-  */
-  printErrTempo(240,"float random_gaussian(); method must be improved or totaly deprecated");
-  range = abs(range) ;
-  float distrib = random(-1, 1) ;
-  float result = 0 ;
-  if(value == 0) {
-    value = 1 ;
-    result = (pow(distrib,5)) *(value *range) +value ;
-    result-- ;
-  } else {
-    result = (pow(distrib,5)) *(value *range) +value ;
-  }
-  return result;
-}
-
-
-
-/**
-Next Gaussian randomize
-v 0.0.2
-*/
-/**
-* return value from -1 to 1
-* @return float
-*/
-Random random = new Random();
-float random_next_gaussian() {
-  return random_next_gaussian(1,1);
-}
-
-float random_next_gaussian(int n) {
-  return random_next_gaussian(1,n);
-}
-
-float random_next_gaussian(float range) {
-  return random_next_gaussian(range,1);
-}
-
-float random_next_gaussian(float range, int n) {
-  float roots = (float)random.nextGaussian();
-  float var = map(roots,-2.5,2.5,-1,1);  
-  if(n > 1) {
-    if(n%2 ==0 && var < 0) {
-       var = -1 *pow(var,n);
-     } else {
-       var = pow(var,n);
-     }
-     return var *range ;
-  } else {
-    return var *range ;
-  }
-}
-
-
-
-
-
-
-/**
-PIXEL UTILS
-v 0.0.2
-2017-2017
-*/
-int [][] loadPixels_array_2D() {
-  int [][] array_pix ;
-  loadPixels() ;
-  array_pix = new int[height][width] ;
-  int which_pix = 0 ;
-  for(int y = 0 ; y < height ; y++) {
-    for(int x = 0 ; x < width ; x++) {
-      which_pix = y *width +x ;
-      array_pix[y][x] = pixels[which_pix] ;
-    }
-  }
-  if(array_pix != null) {
-    return array_pix ;
-  } else {
-    return null ;
-  }
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/**
-CHECK
-v 0.2.4
-*/
-/**
-Check Type
-v 0.0.4
-*/
-String get_type(Object obj) {
-  if(obj instanceof Integer) {
-    return "Integer";
-  } else if(obj instanceof Float) {
-    return "Float";
-  } else if(obj instanceof String) {
-    return "String";
-  } else if(obj instanceof Double) {
-    return "Double";
-  } else if(obj instanceof Long) {
-    return "Long";
-  } else if(obj instanceof Short) {
-    return "Short";
-  } else if(obj instanceof Boolean) {
-    return "Boolean";
-  } else if(obj instanceof Byte) {
-    return "Byte";
-  } else if(obj instanceof Character) {
-    return "Character";
-  } else if(obj instanceof PVector) {
-    return "PVector";
-  } else if(obj instanceof Vec) {
-    return "Vec";
-  } else if(obj instanceof iVec) {
-    return "iVec";
-  } else if(obj instanceof bVec) {
-    return "bVec";
-  } else if(obj == null) {
-    return "null";
-  } else return "Unknow" ;
-}
-
-
-
-
-
-
-
-
-
-
-
-
-/**
-check value in range
-*/
-boolean in_range(float min, float max, float value) {
-  if(value <= max && value >= min) {
-    return true ; 
-  } else {
-    return false ;
-  }
-}
-
-boolean in_range_wheel(float min, float max, float roof_max, float value) {
-  if(value <= max && value >= min) {
-    return true ;
-  } else {
-    // wheel value
-    if(max > roof_max ) {
-      // test hight value
-      if(value <= (max - roof_max)) {
-        return true ;
-      } 
-    } 
-    if (min < 0) {
-      // here it's + min 
-      if(value >= (roof_max + min)) {
-        return true ;
-      } 
-    } 
-    return false ;
-  }
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/**
-STRING UTILS
-v 0.3.3
-*/
-String write_message(Object... obj) {
-  String mark = " ";
-  return write_message_sep(mark,obj);
-}
-String write_message_sep(String mark, Object... obj) {
-  String m = "";
-  for(int i = 0 ; i < obj.length ; i++) {
-    m += write_message(obj[i], obj.length,i,mark);
-  }
-  return m;
-}
-
-// local method
-String write_message(Object obj, int length, int i, String mark) {
-  String message = "";
-  String add = "";
-  if(i == length -1) { 
-    if(obj == null) {
-      add = "null";
-    } else {
-      add = obj.toString();
-    }
-    return message += add;
-  } else {
-    if(obj == null) {
-      add = "null";
-    } else {
-      add = obj.toString();
-    }
-    return message += add + mark;
-  }
-}
-
-
-
-//STRING SPLIT
-String [] split_text(String str, String separator) {
-  String [] text = str.split(separator) ;
-  return text  ;
-}
-
-
-//STRING COMPARE LIST SORT
-//raw compare
-int longest_String(String[] string_list) {
-  int finish = 0;
-  if(string_list != null) finish = string_list.length;
-  return longest_String(string_list, 0, finish);
-}
-
-//with starting and end keypoint in the String must be sort
-int longest_String(String[] string_list, int start, int finish) {
-  int length = 0;
-  if(string_list != null) {
-    for ( int i = start ; i < finish ; i++) {
-      if (string_list[i].length() > length ) length = string_list[i].length() ;
-    }
-  }
-  return length;
-}
-
-/**
-Longuest String with PFont
-*/
-int longest_String_pixel(PFont font, String[] string_list) {
-  int [] size_font = new int[1];
-  size_font[0] = font.getSize();
-  int finish = 0;
-  if(string_list != null) finish = string_list.length;
-  return longest_String_pixel(font.getName(), string_list, size_font, 0, finish);
-}
-
-int longest_String_pixel(PFont font, String[] string_list, int... size_font) {
-  int finish = 0;
-  if(string_list != null) finish = string_list.length;
-  return longest_String_pixel(font.getName(), string_list, size_font, 0, finish);
-}
-
-int longest_String_pixel(PFont font, String[] string_list, int [] size_font, int start, int finish) {
-  return longest_String_pixel(font.getName(), string_list, size_font, start, finish);
-}
-
-/**
-Longuest String with String name Font
-*/
-int longest_String_pixel(String font_name, String[] string_list, int... size_font) {
-  int finish = 0;
-  if(string_list != null) finish = string_list.length;
-  return longest_String_pixel(font_name, string_list, size_font, 0, finish);
-}
-
-// diferrent size by line
-int longest_String_pixel(String font_name, String[] string_list, int size_font, int start, int finish) {
-  int [] s_font = new int[1];
-  s_font[0] = size_font;
-  return longest_String_pixel(font_name, string_list, s_font, start, finish);
-}
-
-int longest_String_pixel(String font_name, String[] string_list, int [] size_font, int start, int finish) {
-  int width_pix = 0 ;
-  if(string_list != null) {
-    int target_size_font = 0;
-    for (int i = start ; i < finish && i < string_list.length; i++) {
-      if(i >= size_font.length) target_size_font = 0 ;
-      if (width_String(font_name, string_list[i], size_font[target_size_font]) > width_pix) {
-        width_pix = width_String(string_list[i],size_font[target_size_font]);
-      }
-      target_size_font++;
-    }
-  }
-  return width_pix;
-}
-
-
-
-
-/**
-width String
-*/
-int width_String(String target, int size) {
-  return width_String("defaultFont", target, size) ;
-}
-
-int width_String(PFont pfont, String target, int size) {
-  return width_String(pfont.getName(), target, size);
-}
-
-int width_String(String font_name, String target, int size) {
-  Font font = new Font(font_name, Font.BOLD, size) ;
-  BufferedImage img = new BufferedImage(1, 1, BufferedImage.TYPE_INT_ARGB);
-  FontMetrics fm = img.getGraphics().getFontMetrics(font);
-  if(target ==null) {
-    printErr("method width_String(): String target =",target);
-    target = "";
-  }
-  return fm.stringWidth(target);
-}
-
-
-
-
-int width_char(char target, int size) {
-  return width_char("defaultFont", target, size) ;
-}
-
-int width_char(PFont pfont, char target, int size) {
-  return width_char(pfont.getName(), target, size);
-}
-int width_char(String font_name, char target, int size) {
-  Font font = new Font(font_name, Font.BOLD, size) ;
-  BufferedImage img = new BufferedImage(1, 1, BufferedImage.TYPE_INT_ARGB);
-  FontMetrics fm = img.getGraphics().getFontMetrics(font);
-  return fm.charWidth(target);
-}
-
-
-
-
-
-
-
-// Research a specific word in String
-boolean research_in_String(String research, String target) {
-  boolean result = false ;
-  for(int i = 0 ; i < target.length() - research.length() +1; i++) {
-    result = target.regionMatches(i,research,0,research.length()) ;
-    if (result) break ;
-  }
-  return result ;
-}
-
-
-
-
-/**
-String file utils
-2014-2018
-v 0.2.0
-*/
-/**
-* remove element of the sketch path
-*/
-String sketchPath(int minus) {
-  minus = abs(minus);
-  String [] element = split(sketchPath(),"/");
-  String new_path ="" ;
-  if(minus < element.length ) {
-    for(int i = 0 ; i < element.length -minus ; i++) {
-      new_path +="/";
-      new_path +=element[i];
-    }
-    return new_path; 
-  } else {
-    printErr("The number of path elements is lower that elements must be remove, instead a data folder is used");
-    return sketchPath()+"/data";
-  }  
-}
-
-
-
-// remove the path of your file
-String file_name(String s) {
-  String file_name = "" ;
-  String [] split_path = s.split("/") ;
-  file_name = split_path[split_path.length -1] ;
-  return file_name ;
-}
-
-/**
-* work around extension
-*/
-String extension(String filename) {
-  if(filename != null) {
-    if(filename.contains(".")) {
-      return filename.substring(filename.lastIndexOf(".") + 1, filename.length());
-    } else {
-      return null;
-    } 
-  } else {
-    return null;
-  }
-}
-
-boolean extension_is(String... data) {
-  boolean is = false;
-  if(data.length >= 2) {
-    String extension_to_compare = extension(data[0]);
-    if(extension_to_compare != null) {
-      for(int i = 1 ; i < data.length ; i++) {
-        if(extension_to_compare.equals(data[i])) {
-          is = true;
-          break;
-        } else {
-          is = false;
-        }
-      }
-    } else {
-      printErr("method extension_is(): [",data[0],"] this path don't have any extension");
-    }
-  } else {
-    printErr("method extension_is() need almost two components, the first is the path and the next is extension");
-  }
-  return is;
-}

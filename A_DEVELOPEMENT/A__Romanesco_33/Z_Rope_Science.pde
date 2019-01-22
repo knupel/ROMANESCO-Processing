@@ -1,14 +1,78 @@
 /**
 ROPE SCIENCE
-v 0.2.3.1
+v 0.4.0
 * Copyleft (c) 2014-2018 
 * Stan le Punk > http://stanlepunk.xyz/
 * @author Stan le Punk
-* @see https://github.com/StanLepunK/Rope
+* @see https://github.com/StanLepunK/Rope_method
 *
 the sketch method tab is not included on this repository if you need
 * @see https://github.com/StanLepunK/Old_code/tree/master/Science_rope_2017_12_8
 */
+
+/**
+WAVE
+*/
+float sin_wave(float speed, float scale) {
+  return sin(frameCount*speed)*scale;
+}
+
+Vec2 sin_wave(Vec2 speed, Vec2 scale) {
+  float x = sin(frameCount*speed.x)*scale.x;
+  float y = sin(frameCount*speed.y)*scale.y;
+  return Vec2(x,y);
+}
+
+Vec3 sin_wave(Vec3 speed, Vec3 scale) {
+  float x = sin(frameCount*speed.x)*scale.x;
+  float y = sin(frameCount*speed.y)*scale.y;
+  float z = sin(frameCount*speed.z)*scale.z;
+  return Vec3(x,y,z);
+}
+
+Vec4 sin_wave(Vec4 speed, Vec4 scale) {
+  float x = sin(frameCount*speed.x)*scale.x;
+  float y = sin(frameCount*speed.y)*scale.y;
+  float z = sin(frameCount*speed.z)*scale.z;
+  float w = sin(frameCount*speed.w)*scale.w;
+  return Vec4(x,y,z,w);
+}
+
+
+float cos_wave(float speed, float scale) {
+  return cos(frameCount*speed)*scale;
+}
+
+Vec2 cos_wave(Vec2 speed, Vec2 scale) {
+  float x = cos(frameCount*speed.x)*scale.x;
+  float y = cos(frameCount*speed.y)*scale.y;
+  return Vec2(x,y);
+}
+
+Vec3 cos_wave(Vec3 speed, Vec3 scale) {
+  float x = cos(frameCount*speed.x)*scale.x;
+  float y = cos(frameCount*speed.y)*scale.y;
+  float z = cos(frameCount*speed.z)*scale.z;
+  return Vec3(x,y,z);
+}
+
+Vec4 cos_wave(Vec4 speed, Vec4 scale) {
+  float x = cos(frameCount*speed.x)*scale.x;
+  float y = cos(frameCount*speed.y)*scale.y;
+  float z = cos(frameCount*speed.z)*scale.z;
+  float w = cos(frameCount*speed.w)*scale.w;
+  return Vec4(x,y,z,w);
+}
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -595,27 +659,27 @@ v 1.0.1
 with "n" summits
 */
 void primitive(float radius, int summits) {
-  Vec3 pos = Vec3 () ;
-  float angle = 0 ;
-  Vec2 dir_P3D = Vec2() ;
-  primitive(pos, radius, summits, angle, dir_P3D) ;
+  Vec3 pos = Vec3();
+  float angle = 0;
+  Vec2 dir_P3D = Vec2();
+  primitive(pos,radius,summits,angle,dir_P3D);
 }
 
 // Primitive with Vec method
 void primitive(Vec pos, float radius, int summits) {
   float angle = 0;
   Vec2 dir_P3D = Vec2();
-  primitive(pos, radius, summits, angle, dir_P3D) ;
+  primitive(pos,radius,summits,angle,dir_P3D);
 }
 
 void primitive(Vec pos, float radius, int summits, Vec2 dir_P3D) {
-  float angle = 0 ;
-  primitive(pos, radius, summits, angle, dir_P3D);
+  float angle = 0;
+  primitive(pos,radius,summits,angle,dir_P3D);
 }
 
 void primitive(Vec pos, float radius, int summits, float angle) {
   Vec2 dir_P3D = Vec2();
-  primitive(pos, radius, summits, angle, dir_P3D) ;
+  primitive(pos,radius,summits,angle,dir_P3D);
 }
 
 // Primitive with Vec method and angle to display
@@ -626,100 +690,138 @@ void primitive(Vec pos_raw, float radius, int summits, float angle, Vec2 dir_P3D
   } else if(pos_raw instanceof Vec3) {
     pos = Vec3(pos_raw.x, pos_raw.y, pos_raw.z);
   }
-  //  if(summits < 3) summits = 3 ;
-  if(summits < 2) summits = 2 ;
-  Vec3 [] points = new Vec3[summits] ;
-  // create coord of the shape
-  if(dir_P3D == null ) {
-    // call POLYGON 2D
-    for (int i = 0 ; i < summits ; i++) points[i] = polygon_2D(summits, angle)[i].copy() ;
-  } else if (dir_P3D != null && renderer_P3D()) {
-    /**
-    // call POLYGON 3D
-    but must be refactoring because the method polygon_3D is a little shitty !!!!!
-    for (int i = 0 ; i < summits ; i++) {points[i] = polygon_3D(summits, orientation, dir)[i].copy() ;
-    */
-    // for (int i = 0 ; i < summits ; i++) points[i] = polygon_3D(pos, radius, summits, orientation, dir)[i].copy() ;
-    /**
-    // classic version with polygon_2D method
-    */
-    // start_matrix_3D(pos, dir) ;
-    for (int i = 0 ; i < summits ; i++) points[i] = polygon_2D(summits, angle)[i].copy() ;
-    // stop_matrix() ;
-  } else {
-    for (int i = 0 ; i < summits ; i++) points[i] = polygon_2D(summits, angle)[i].copy() ;
+
+  if(summits < 2) {
+    summits = 2;
   }
-  //draw the shape
+
+  Vec3 [] points = new Vec3[summits];
+  // create coord of the shape
+  if(summits == 2 && angle == 0) {
+    points[0] = Vec3(-.5,0,0);
+    points[1] = Vec3(.5,0,0);
+  } else {
+    for (int i = 0 ; i < summits ; i++) {
+      points[i] = polygon_2D(summits, angle)[i].copy();
+    }
+  }
+
+  draw_primitive(pos,dir_P3D,radius,points);
+  
+
   /**
-  this rotate part must be integrate with a cartesian method in the circle method
-  */
-  draw_primitive(pos, dir_P3D, radius, points) ;
-  /**
+  * IN FUTURE MUST BE COMPUTE with POLYGON 3D may be in 2028 ??????
+
+  if (dir_P3D != null && renderer_P3D()) {
+    // polygon_3D()
+    // method must be used in the future when this one is not shitty instead polugon2D() with matrix();
+    // classic version with polygon_2D method
+    for (int i = 0 ; i < summits ; i++) {
+      printTempo(60,"param",i,summits,angle);
+      points[i] = polygon_2D(summits, angle)[i].copy();
+      printTempo(60,"point",points[i]);
+    }
+  } else {
+    for (int i = 0 ; i < summits ; i++) {
+      points[i] = polygon_2D(summits, angle)[i].copy();
+    }
+  }
+
+  // draw the shape
+  // this rotate part must be integrate with a cartesian method in the circle method
+  draw_primitive(pos,dir_P3D,radius,points);
+
+  
   With advance shitty version of Polygon_3D
+  if(dir == null ) {
+    draw_primitive(pos, radius, points); 
+  } else if (dir != null && renderer_P3D()) {
+    draw_primitive( points);
+  }
   */
-  // if(dir == null ) draw_primitive(pos, radius, points) ; else if (dir != null && renderer_P3D()) draw_primitive( points) ;
 }
 
 
+
+
+
+
+
+
+
 // local method
-void draw_primitive (Vec3 [] pts) {
+void draw_primitive(Vec3 [] pts) {
   Vec3 pos = Vec3() ;
   // Vec2 dir_polar = Vec2() ;
   int radius = 1 ;
   draw_primitive (pos, radius, pts) ;
 }
 
-void draw_primitive (float radius, Vec3 [] pts) {
+void draw_primitive(float radius, Vec3 [] pts) {
   Vec3 pos = Vec3() ;
   // Vec2 dir_polar = Vec2() ;
-  draw_primitive (pos, radius, pts) ;
+  draw_primitive (pos,radius,pts) ;
 }
 
-void draw_primitive (Vec3 pos, Vec2 dir, float radius, Vec3 [] pts) {
-  // special one because we have direction for the polygone, so we must use the matrix system until have a good algorithm for the cartesian direction
+void draw_primitive(Vec3 pos, Vec2 dir, float radius, Vec3 [] pts) {
+  // special one because we have direction for the polygon, 
+  // so we must use the matrix system until have a good algorithm for the cartesian direction
+  /*
   if(renderer_P3D()) {
-    start_matrix_3D(pos, dir) ; 
+    start_matrix_3D(pos, dir); 
   } else {
-    start_matrix_2D(Vec2(pos.x, pos.y), 0) ;
+    start_matrix_2D(Vec2(pos.x, pos.y),0);
   }
-  draw_primitive (radius, pts) ;
-  stop_matrix() ;
+  */
+  draw_primitive(Vec3(),radius,pts);
+  // stop_matrix();
 }
 
-// main draw primitive
-void draw_primitive (Vec3 pos, float radius, Vec3 [] pts) {
-  beginShape() ;
-  for (int i = 0 ; i < pts.length ; i++) {
-    if (pts[i] != null ) {
-      pts[i].mult(radius) ;
-      pts[i].add(pos) ;
-      // test the rendering and if the shape if a line or not, to coice between vertex and line display
-      if(renderer_P3D())  {
-        if ( pts.length <= 2 && pts.length > 1 ) {
-          // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> here we make an exception in the structure code for the pts[i+1] because this one haven't make .mult() and .add() method to the final position
-          if (i < pts.length -1) line(pts[i], pts[i+1].mult(radius).add(pos)) ;
-        } else {
-          vertex(pts[i]) ;
-        }
-      // 2D  
-      } else {
-        if ( pts.length <= 2 && pts.length > 1 ) {
-          
-          if (i < pts.length -1) {
-            // >>>>>>>>>>>>>here we make an exception in the structure code for the pts[i+1] because this one haven't make .mult() and .add() method to the final position
-            Vec2 point_b = new Vec2(pts[i+1].x, pts[i+1].y) ;
-            point_b.mult(radius).add(Vec2(pos.x, pos.y)) ;
-            line(pts[i].x,pts[i].y, point_b.x, point_b.y) ;
 
-          } 
+
+
+
+
+
+
+/**
+* main draw primitive
+* the line rendering is awful, very very low when there is a lot of shape,
+* may be the compute on polygon_2D() is guilty
+*/
+void draw_primitive(Vec3 pos, float radius, Vec3 [] pts) {
+  boolean check_line = false;
+  if(pts.length == 2) {
+    check_line = true;
+  }
+
+  if(check_line) {
+    if(renderer_P3D()) {
+      line(pts[0],pts[1].mult(radius).add(pos));
+    } else {
+      Vec2 point_b = Vec2(pts[1].x,pts[1].y);
+      point_b.mult(radius).add(Vec2(pos.x,pos.y));
+      line(pts[0].x,pts[0].y,point_b.x,point_b.y);
+    }
+  } else if(!check_line) {
+    beginShape();
+    for (int i = 0 ; i < pts.length ; i++) {
+      if (pts[i] != null ) {
+        pts[i].mult(radius);
+        pts[i].add(pos);
+        // test the rendering and if the shape if a line or not, to choice between vertex and line display
+        if(renderer_P3D()) {
+          vertex(pts[i]);
         } else {
-          vertex(pts[i].x, pts[i].y) ;
+          vertex(pts[i].x,pts[i].y);
         }
       }
     }
+    endShape(CLOSE) ;
   }
-  endShape(CLOSE) ;
 }
+
+
 
 
 
@@ -752,6 +854,7 @@ POLYGON
 */
 /**
 POLYGON 2D
+v 0.1.0
 */
 Vec3 [] polygon_2D (int num) {
   float new_orientation = 0 ;
@@ -761,55 +864,64 @@ Vec3 [] polygon_2D (int num) {
 
 // main method
 Vec3 [] polygon_2D (int num, float new_orientation) {
-  Vec3 [] p = new Vec3 [num] ;
+  Vec3 [] p = new Vec3[num];
   // choice your starting point
-  float startingAnglePos = PI*.5 +new_orientation;
-  if(num == 4) startingAnglePos = PI*.25 +new_orientation;
-  // calcul the position of each summit, step by step
-  for( int i=0 ; i < num ; i++) {
-    float stepAngle = map(i, 0, num, 0, TAU) ; 
-    float orientation = TAU -stepAngle -startingAnglePos ;
-    Vec2 temp_orientation_xy = to_cartesian_2D(orientation) ;
-    
-    float x = temp_orientation_xy.x  ;
-    float y = temp_orientation_xy.y  ;
-    float z = 0 ;
-    p[i] = Vec3(x,y,z) ;
+  float start_angle = PI*.5 +new_orientation;
+  if(num == 4) {
+    start_angle = PI*.25 +new_orientation;
   }
-  return p ;
+  // calcul the position of each summit, step by step
+  for(int i = 0 ; i < num ; i++) {
+    p[i] = compute_coord_polygon_2D(i,num,start_angle).copy();
+  }
+  return p;
 }
+
+Vec3 compute_coord_polygon_2D(int target, int num, float start_angle) {
+  float step_angle = map(target,0,num,0,TAU); 
+  float orientation = TAU -step_angle -start_angle;
+  Vec2 temp_orientation_xy = to_cartesian_2D(orientation);
+  float x = temp_orientation_xy.x;
+  float y = temp_orientation_xy.y;
+  float z = 0 ;
+  return Vec3(x,y,z);
+}
+
+
 /**
 POLYGON 3D
 but must be refactoring because the metod is a little shitty !!!!!
 */
 // polygon with 3D direction in cartesian world
-Vec3 [] polygon_3D (int num, float new_orientation, Vec3 dir) {
-  Vec3 pos = Vec3() ;
+Vec3 [] polygon_3D(int num, float new_orientation, Vec3 dir) {
+  Vec3 pos = Vec3();
   int radius = 1 ;
   return polygon_3D (pos, radius, num, new_orientation, dir) ;
 }
 
-Vec3 [] polygon_3D (Vec3 pos, float radius, int num, float new_orientation, Vec3 dir) {
-  /*
-  Inspirated by : Creating a polygon perpendicular to a line segment Written by Paul Bourke February 1997
-  http://paulbourke.net/geometry/circlesphere/
-  */
-  Vec3 p1 = dir.copy() ;
-  Vec3 p2 = to_cartesian_3D(PI,PI) ;
-  Vec3 support = to_cartesian_3D(PI,PI) ;
+
+/**
+Inspirated by : Creating a polygon perpendicular to a line segment Written by Paul Bourke February 1997
+@see http://paulbourke.net/geometry/circlesphere/
+*/
+Vec3 [] polygon_3D(Vec3 pos, float radius, int num, float new_orientation, Vec3 dir) {
+
+  Vec3 p1 = dir.copy();
+  Vec3 p2 = to_cartesian_3D(PI,PI);
+  Vec3 support = to_cartesian_3D(PI,PI);
   /*
   Vec3 p2 = Vec3(0,0,1) ;
   Vec3 support = Vec3 (1,0,0) ;
   */
   // prepare the vector direction
-  Vec3 r = Vec3() ;
-  Vec3 s = Vec3() ;
+  Vec3 r = Vec3();
+  Vec3 s = Vec3();
   Vec3 p2_sub_p1 = sub(p1,p2);
 
-  r = cross(p2_sub_p1, support, r) ;
-  s = cross(p2_sub_p1, r, s) ;
-  r.dir() ;
-  s.dir() ;
+  r = cross(p2_sub_p1,support,r);
+  s = cross(p2_sub_p1,r,s);
+  r.dir();
+  s.dir();
 
   // prepare polygone in 3D world
   Vec3 plane = Vec3();
@@ -882,21 +994,15 @@ void triangle(Vec2 aa, Vec2 bb, Vec2 cc) {
   Vec3 a = Vec3(aa.x, aa.y, 0) ;
   Vec3 b = Vec3(bb.x, bb.y, 0) ;
   Vec3 c = Vec3(cc.x, cc.y, 0) ;
-  triangle(a, b, c) ;
+  triangle(a,b,c) ;
 }
 
 void triangle(Vec3 a, Vec3 b, Vec3 c) {
-  beginShape() ;
-  if(renderer_P3D()) {
-    vertex(a.x, a.y, a.z) ;
-    vertex(b.x, b.y, b.z) ;
-    vertex(c.x, c.y, c.z) ;
-  } else {
-    vertex(a.x, a.y) ;
-    vertex(b.x, b.y) ;
-    vertex(c.x, c.y) ;
-  }
-  endShape(CLOSE) ;
+  beginShape();
+  vertex(a);
+  vertex(b);
+  vertex(c);
+  endShape(CLOSE);
 }
 
 
@@ -921,72 +1027,11 @@ void triangle(Vec3 a, Vec3 b, Vec3 c) {
 
 /**
 PRIMITIVE 3D
-
 */
-/**
-SIMPLE TETRAHEDRON
-*/
-ArrayList listPointTetrahedron = new ArrayList() ;
-// main method
-/* The starting size is around "one pixel */
-void tetrahedron(int size) {
-  tetrahedronClear() ;
-  tetrahedronAdd() ;
-  tetrahedronDisplay(size) ;
-}
-
-// add function
-void tetrahedronAdd() {
-  listPointTetrahedron.add (new PVector(1, 1, 1));
-  listPointTetrahedron.add (new PVector(-1, -1, 1));
-  listPointTetrahedron.add (new PVector(-1, 1, -1));
-  listPointTetrahedron.add (new PVector(1, -1, -1));
-}
-
-
-// clear function
-void tetrahedronClear() {
-  listPointTetrahedron.clear() ;
-}
-void tetrahedronDisplay(int size) {
-  int finalSize = size /2 ;
-  int n = 4 ; // quantity of face of Tetrahedron
-  for(int i = 0 ; i < n ; i++) {
-    // choice of each point
-    int a = i ;
-    int b = i+1 ;
-    int c = i+2 ;
-    if(i == n-2 ) c = 0 ;
-    if(i == n-1 ) {
-      b = 0 ;
-      c = 1 ;
-    }
-    PVector v1 = (PVector)listPointTetrahedron.get(a) ;
-    PVector v2 = (PVector)listPointTetrahedron.get(b) ;
-    PVector v3 = (PVector)listPointTetrahedron.get(c) ;
-    // scale the position of the points
-    v1 = new PVector(v1.x *finalSize, v1.y *finalSize, v1.z *finalSize) ;
-    v2 = new PVector(v2.x *finalSize, v2.y *finalSize, v2.z *finalSize) ;
-    v3 = new PVector(v3.x *finalSize, v3.y *finalSize, v3.z *finalSize) ;
-    renderTetrahedron(v1, v2, v3) ;
-  }
-}
-
-void renderTetrahedron(PVector v1, PVector v2, PVector v3) {
-  beginShape() ;
-  vertex(v1.x, v1.y, v1.z) ;
-  vertex(v2.x, v2.y, v2.z) ;
-  vertex(v3.x, v3.y, v3.z) ;
-  endShape() ;
-}
-
-
-
-
-
 
 /**
 POLYDRON
+v 0.2.0
 */
   //create Polyhedron
   /*
@@ -998,36 +1043,40 @@ POLYDRON
   */
   
 // MAIN VOID to create polyhedron
-void polyhedron(String whichPolyhedron, String whichStyleToDraw, int size) {
+void polyhedron(String type, String style, int size) {
   //This is where the actual defining of the polyhedrons takes place
 
-   
-  listPVectorPolyhedron.clear(); //clear out whatever verts are currently defined
+  if(vec_polyhedron_list != null) {
+    //clear out whatever verts are currently defined
+    vec_polyhedron_list.clear();
+  } else {
+    vec_polyhedron_list = new ArrayList();
+  }
   
-  if(whichPolyhedron.equals("TETRAHEDRON")) tetrahedron_poly(size) ;
-  if(whichPolyhedron.equals("CUBE")) cube(size) ;
-  if(whichPolyhedron.equals("OCTOHEDRON")) octohedron(size) ;
-  if(whichPolyhedron.equals("DODECAHEDRON"))dodecahedron(size) ;
-  if(whichPolyhedron.equals("ICOSAHEDRON"))icosahedron(size) ;
-  if(whichPolyhedron.equals("CUBOCTAHEDRON"))cuboctahedron(size) ;
-  if(whichPolyhedron.equals("ICOSI DODECAHEDRON"))icosi_dodecahedron(size) ;
+  if(type.equals("TETRAHEDRON")) tetrahedron_poly(size) ;
+  if(type.equals("CUBE")) cube(size) ;
+  if(type.equals("OCTOHEDRON")) octohedron(size) ;
+  if(type.equals("DODECAHEDRON"))dodecahedron(size) ;
+  if(type.equals("ICOSAHEDRON"))icosahedron(size) ;
+  if(type.equals("CUBOCTAHEDRON"))cuboctahedron(size) ;
+  if(type.equals("ICOSI DODECAHEDRON"))icosi_dodecahedron(size) ;
 
-  if(whichPolyhedron.equals("TRUNCATED CUBE"))truncated_cube(size) ;
-  if(whichPolyhedron.equals("TRUNCATED OCTAHEDRON"))truncated_octahedron(size) ;
-  if(whichPolyhedron.equals("TRUNCATED DODECAHEDRON"))truncated_dodecahedron(size) ;
-  if(whichPolyhedron.equals("TRUNCATED ICOSAHEDRON"))truncated_icosahedron(size) ;
-  if(whichPolyhedron.equals("TRUNCATED CUBOCTAHEDRON"))truncated_cuboctahedron(size) ;
+  if(type.equals("TRUNCATED CUBE"))truncated_cube(size) ;
+  if(type.equals("TRUNCATED OCTAHEDRON"))truncated_octahedron(size) ;
+  if(type.equals("TRUNCATED DODECAHEDRON"))truncated_dodecahedron(size) ;
+  if(type.equals("TRUNCATED ICOSAHEDRON"))truncated_icosahedron(size) ;
+  if(type.equals("TRUNCATED CUBOCTAHEDRON"))truncated_cuboctahedron(size) ;
   
-  if(whichPolyhedron.equals("RHOMBIC CUBOCTAHEDRON"))rhombic_cuboctahedron(size) ;
-  if(whichPolyhedron.equals("RHOMBIC DODECAHEDRON"))rhombic_dodecahedron(size) ;
-  if(whichPolyhedron.equals("RHOMBIC TRIACONTAHEDRON"))rhombic_triacontahedron(size) ;
-  if(whichPolyhedron.equals("RHOMBIC COSI DODECAHEDRON SMALL"))rhombic_cosi_dodecahedron_small(size) ;
-  if(whichPolyhedron.equals("RHOMBIC COSI DODECAHEDRON GREAT"))rhombic_cosi_dodecahedron_great(size) ;
+  if(type.equals("RHOMBIC CUBOCTAHEDRON"))rhombic_cuboctahedron(size) ;
+  if(type.equals("RHOMBIC DODECAHEDRON"))rhombic_dodecahedron(size) ;
+  if(type.equals("RHOMBIC TRIACONTAHEDRON"))rhombic_triacontahedron(size) ;
+  if(type.equals("RHOMBIC COSI DODECAHEDRON SMALL"))rhombic_cosi_dodecahedron_small(size) ;
+  if(type.equals("RHOMBIC COSI DODECAHEDRON GREAT"))rhombic_cosi_dodecahedron_great(size) ;
   
   // which method to draw
-  if(whichStyleToDraw.equals("LINE")) drawLinePolyhedron(whichPolyhedron) ;
-  if(whichStyleToDraw.equals("POINT")) drawPointPolyhedron(whichPolyhedron) ;
-  if(whichStyleToDraw.equals("VERTEX")) drawVertexPolyhedron(whichPolyhedron) ;
+  if(style.equals("LINE")) polyhedron_draw_line(type) ;
+  if(style.equals("POINT")) polyhedron_draw_point(type) ;
+  if(style.equals("VERTEX")) polyhedron_draw_vertex(type) ;
 
 }
 
@@ -1035,131 +1084,131 @@ void polyhedron(String whichPolyhedron, String whichStyleToDraw, int size) {
 
 
 // POLYHEDRON DETAIL 
-////////////
 //set up initial polyhedron
-float factorSizePolyhedron ;
+float factor_size_polyhedron ;
 //some variables to hold the current polyhedron...
-ArrayList listPVectorPolyhedron = new ArrayList();
-float edgeLengthOfPolyhedron;
+ArrayList<Vec3>vec_polyhedron_list;
+float edge_polyhedron_length;
 String strName, strNotes;
 
 // FEW POLYHEDRON
 // BASIC
 void tetrahedron_poly(int size) {
-  listPVectorPolyhedron.add(new PVector(1, 1, 1)) ;
-  listPVectorPolyhedron.add(new PVector(-1, -1, 1)) ;
-  listPVectorPolyhedron.add(new PVector(-1, 1, -1)) ;
-  listPVectorPolyhedron.add(new PVector(1, -1, -1)) ;
-  edgeLengthOfPolyhedron = 0 ;
-  factorSizePolyhedron = size /2;
+  if(vec_polyhedron_list == null) vec_polyhedron_list = new ArrayList();
+  vec_polyhedron_list.add(Vec3(1,1,1));
+  vec_polyhedron_list.add(Vec3(-1,-1,1));
+  vec_polyhedron_list.add(Vec3(-1,1,-1));
+  vec_polyhedron_list.add(Vec3(1,-1,-1));
+  edge_polyhedron_length = 0 ;
+  factor_size_polyhedron = size /2;
 }
 
 void cube(int size) {
   addVerts(1, 1, 1);
-  edgeLengthOfPolyhedron = 2;
-  factorSizePolyhedron = size /2;
+  edge_polyhedron_length = 2;
+  factor_size_polyhedron = size /2;
 }
 
 void octohedron(int size) {
   addPermutations(1, 0, 0);
-  edgeLengthOfPolyhedron = r.ROOT2;
-  factorSizePolyhedron = size *.8;
+  edge_polyhedron_length = r.ROOT2;
+  factor_size_polyhedron = size *.8;
 }
 
 void dodecahedron(int size) {
   addVerts(1, 1, 1);
   addPermutations(0, 1/r.PHI, r.PHI);
-  edgeLengthOfPolyhedron = 2/r.PHI;
-  factorSizePolyhedron = size /2.5;
+  edge_polyhedron_length = 2/r.PHI;
+  factor_size_polyhedron = size /2.5;
 }
 
 
 // SPECIAL
 void icosahedron(int size) {
   addPermutations(0,1,r.PHI);
-  edgeLengthOfPolyhedron = 2.0;
-  factorSizePolyhedron = size /2.7;
+  edge_polyhedron_length = 2.0;
+  factor_size_polyhedron = size /2.7;
 }
 
 void icosi_dodecahedron(int size) {
   addPermutations(0,0,2*r.PHI);
   addPermutations(1,r.PHI,sq(r.PHI));
-  edgeLengthOfPolyhedron = 2;
-  factorSizePolyhedron = size/5;
+  edge_polyhedron_length = 2;
+  factor_size_polyhedron = size/5;
 }
 
 void cuboctahedron(int size) {
   addPermutations(1,0,1);
-  edgeLengthOfPolyhedron = r.ROOT2;
-  factorSizePolyhedron = size /1.9;
+  edge_polyhedron_length = r.ROOT2;
+  factor_size_polyhedron = size /1.9;
 }
 
 
 // TRUNCATED
 void truncated_cube(int size) {
   addPermutations(r.ROOT2-1,1,1);
-  edgeLengthOfPolyhedron = 2*(r.ROOT2-1);     
-  factorSizePolyhedron = size /2.1;
+  edge_polyhedron_length = 2*(r.ROOT2-1);     
+  factor_size_polyhedron = size /2.1;
 }
 
 void truncated_octahedron(int size) {
   addPermutations(0,1,2);
   addPermutations(2,1,0);
-  edgeLengthOfPolyhedron = r.ROOT2;
-  factorSizePolyhedron = size/3.4;
+  edge_polyhedron_length = r.ROOT2;
+  factor_size_polyhedron = size/3.4;
 }
 
 void truncated_cuboctahedron(int size) {
   addPermutations(r.ROOT2+1,2*r.ROOT2 + 1, 1);
   addPermutations(r.ROOT2+1,1,2*r.ROOT2 + 1);
-  edgeLengthOfPolyhedron = 2;
-  factorSizePolyhedron = size/6.9;
+  edge_polyhedron_length = 2;
+  factor_size_polyhedron = size/6.9;
 }
 
 void truncated_dodecahedron(int size) {
   addPermutations(0,1/r.PHI,r.PHI+2);
   addPermutations(1/r.PHI,r.PHI,2*r.PHI);
   addPermutations(r.PHI,2,sq(r.PHI));
-  edgeLengthOfPolyhedron = 2*(r.PHI - 1);
-  factorSizePolyhedron = size/6;
+  edge_polyhedron_length = 2*(r.PHI - 1);
+  factor_size_polyhedron = size/6;
 }
 
 void truncated_icosahedron(int size) {
   addPermutations(0,1,3*r.PHI);
   addPermutations(2,2*r.PHI+1,r.PHI);
   addPermutations(1,r.PHI+2,2*r.PHI);
-  edgeLengthOfPolyhedron = 2;
-  factorSizePolyhedron = size/8;
+  edge_polyhedron_length = 2;
+  factor_size_polyhedron = size/8;
 }
 
 // RHOMBIC
 void rhombic_dodecahedron(int size) {
   addVerts(1,1,1);
   addPermutations(0,0,2);
-  edgeLengthOfPolyhedron = sqrt(3);
-  factorSizePolyhedron = size /2.8;
+  edge_polyhedron_length = sqrt(3);
+  factor_size_polyhedron = size /2.8;
 }
 
 void rhombic_triacontahedron(int size) {
   addVerts(sq(r.PHI), sq(r.PHI), sq(r.PHI));
   addPermutations(sq(r.PHI), 0, pow(r.PHI, 3));
   addPermutations(0,r.PHI, pow(r.PHI,3));
-  edgeLengthOfPolyhedron = r.PHI*sqrt(r.PHI+2);
-  factorSizePolyhedron = size /7.2;
+  edge_polyhedron_length = r.PHI*sqrt(r.PHI+2);
+  factor_size_polyhedron = size /7.2;
 }
 
 void rhombic_cuboctahedron(int size) {
   addPermutations(r.ROOT2 + 1, 1, 1);
-  edgeLengthOfPolyhedron = 2;
-  factorSizePolyhedron = size/4.2;
+  edge_polyhedron_length = 2;
+  factor_size_polyhedron = size/4.2;
 }
 
 void rhombic_cosi_dodecahedron_small(int size) {
   addPermutations(1, 1, pow(r.PHI,3));
   addPermutations(sq(r.PHI),r.PHI,2*r.PHI);
   addPermutations(r.PHI+2,0,sq(r.PHI));
-  edgeLengthOfPolyhedron = 2;
-  factorSizePolyhedron = size/7.4;
+  edge_polyhedron_length = 2;
+  factor_size_polyhedron = size/7.4;
 }
 
 void rhombic_cosi_dodecahedron_great(int size) {
@@ -1168,8 +1217,8 @@ void rhombic_cosi_dodecahedron_great(int size) {
   addPermutations(1/r.PHI, sq(r.PHI),3*r.PHI-1);
   addPermutations(2*r.PHI-1,2,r.PHI+2);
   addPermutations(r.PHI,3,2*r.PHI);
-  edgeLengthOfPolyhedron = 2*r.PHI-2;
-  factorSizePolyhedron = size/7.8;
+  edge_polyhedron_length = 2*r.PHI-2;
+  factor_size_polyhedron = size/7.8;
 }
 
 
@@ -1177,45 +1226,46 @@ void rhombic_cosi_dodecahedron_great(int size) {
 //Built Tetrahedron
 // EASY METHOD, for direct and single drawing
 // classic and easy method
-void drawPointPolyhedron(String polyhedronName) {
-  for (int i=0; i <listPVectorPolyhedron.size(); i++) {
-    PVector point = (PVector)listPVectorPolyhedron.get(i) ;
-    if(polyhedronName.equals("TETRAHEDRON")) {
+void polyhedron_draw_point(String name) {
+  for (int i = 0 ; i < vec_polyhedron_list.size() ; i++) {
+    Vec3 point = vec_polyhedron_list.get(i);
+    if(name.equals("TETRAHEDRON")) {
       pushMatrix() ;
       rotateX(TAU -1) ;
       rotateY(PI/4) ;
     }
-    point(point.x *factorSizePolyhedron, point.y *factorSizePolyhedron, point.z *factorSizePolyhedron);
-    if(polyhedronName.equals("TETRAHEDRON")) popMatrix() ;
+    point(point.x *factor_size_polyhedron, point.y *factor_size_polyhedron, point.z *factor_size_polyhedron);
+    if(name.equals("TETRAHEDRON")) popMatrix() ;
   }
 }
 
-void drawLinePolyhedron(String polyhedronName) {
-  for (int i=0; i <listPVectorPolyhedron.size(); i++) {
-    for (int j=i +1; j < listPVectorPolyhedron.size(); j++) {
-      if (isEdge(i, j, listPVectorPolyhedron) || edgeLengthOfPolyhedron == 0 ) {
-        PVector v1 = (PVector)listPVectorPolyhedron.get(i) ;
-        PVector v2 = (PVector)listPVectorPolyhedron.get(j) ;
-        if(polyhedronName.equals("TETRAHEDRON")) {
+void polyhedron_draw_line(String name) {
+  for (int i=0; i <vec_polyhedron_list.size(); i++) {
+    for (int j=i +1; j < vec_polyhedron_list.size(); j++) {
+      if (isEdge(i, j, vec_polyhedron_list) || edge_polyhedron_length == 0 ) {
+        Vec3 v1 = vec_polyhedron_list.get(i).copy();
+        Vec3 v2 = vec_polyhedron_list.get(j).copy();
+        if(name.equals("TETRAHEDRON")) {
           pushMatrix() ;
           rotateX(TAU -1) ;
           rotateY(PI/4) ;
         }
-        line(v1.x *factorSizePolyhedron, v1.y *factorSizePolyhedron, v1.z *factorSizePolyhedron, v2.x *factorSizePolyhedron, v2.y *factorSizePolyhedron, v2.z *factorSizePolyhedron);
-        if(polyhedronName.equals("TETRAHEDRON")) popMatrix() ;
+        line(v1.x *factor_size_polyhedron, v1.y *factor_size_polyhedron, v1.z *factor_size_polyhedron, v2.x *factor_size_polyhedron, v2.y *factor_size_polyhedron, v2.z *factor_size_polyhedron);
+        if(name.equals("TETRAHEDRON")) popMatrix() ;
       }
     }
   }
 }
 
-void drawVertexPolyhedron(String polyhedronName) {
+void polyhedron_draw_vertex(String name) {
   // TETRAHEDRON
-  if(polyhedronName.equals("TETRAHEDRON")) {
+  if(name.equals("TETRAHEDRON")) {
     pushMatrix() ;
     rotateX(TAU -1) ;
     rotateY(PI/4) ;
     int n = 4 ; // quantity of face of Tetrahedron
     for(int i = 0 ; i < n ; i++) {
+      // println("je suis là face",i);
       // choice of each point
       int a = i ;
       int b = i+1 ;
@@ -1225,35 +1275,35 @@ void drawVertexPolyhedron(String polyhedronName) {
         b = 0 ;
         c = 1 ;
       }
-      PVector v1 = (PVector)listPVectorPolyhedron.get(a) ;
-      PVector v2 = (PVector)listPVectorPolyhedron.get(b) ;
-      PVector v3 = (PVector)listPVectorPolyhedron.get(c) ;
+      Vec3 v1 = vec_polyhedron_list.get(a).copy();
+      Vec3 v2 = vec_polyhedron_list.get(b).copy();
+      Vec3 v3 = vec_polyhedron_list.get(c).copy();
       // scale the position of the points
-      v1 = new PVector(v1.x *factorSizePolyhedron, v1.y *factorSizePolyhedron, v1.z *factorSizePolyhedron) ;
-      v2 = new PVector(v2.x *factorSizePolyhedron, v2.y *factorSizePolyhedron, v2.z *factorSizePolyhedron) ;
-      v3 = new PVector(v3.x *factorSizePolyhedron, v3.y *factorSizePolyhedron, v3.z *factorSizePolyhedron) ;
+      v1.mult(factor_size_polyhedron);
+      v2.mult(factor_size_polyhedron);
+      v3.mult(factor_size_polyhedron);
       
       // drawing
       beginShape() ;
-      vertex(v1.x, v1.y, v1.z) ;
-      vertex(v2.x, v2.y, v2.z) ;
-      vertex(v3.x, v3.y, v3.z) ;
+      vertex(v1) ;
+      vertex(v2) ;
+      vertex(v3) ;
       endShape(CLOSE) ;
     }
     popMatrix() ;
   // OTHER POLYHEDRON
   } else {
     beginShape() ;
-    for (int i=0; i <listPVectorPolyhedron.size(); i++) {
-      for (int j=i +1; j <listPVectorPolyhedron.size(); j++) {
-        if (isEdge(i, j, listPVectorPolyhedron) || edgeLengthOfPolyhedron == 0 ) {
-          // vLine((PVector)listPVectorPolyhedron.get(i), (PVector)listPVectorPolyhedron.get(j));
-          PVector v1 = (PVector)listPVectorPolyhedron.get(i) ;
-          PVector v2 = (PVector)listPVectorPolyhedron.get(j) ;
-          v1 = new PVector(v1.x *factorSizePolyhedron, v1.y *factorSizePolyhedron, v1.z *factorSizePolyhedron) ;
-          v2 = new PVector(v2.x *factorSizePolyhedron, v2.y *factorSizePolyhedron, v2.z *factorSizePolyhedron) ;
-          vertex(v1.x, v1.y, v1.z) ;
-          vertex(v2.x, v2.y, v2.z) ;
+    for (int i= 0; i <vec_polyhedron_list.size(); i++) {
+      for (int j= i +1; j <vec_polyhedron_list.size(); j++) {
+        if (isEdge(i, j, vec_polyhedron_list) || edge_polyhedron_length == 0 ) {
+          // vLine((PVector)vec_polyhedron_list.get(i), (PVector)vec_polyhedron_list.get(j));
+          Vec3 v1 = vec_polyhedron_list.get(i).copy();
+          Vec3 v2 = vec_polyhedron_list.get(j).copy();
+          v1.mult(factor_size_polyhedron);
+          v2.mult(factor_size_polyhedron);;
+          vertex(v1);
+          vertex(v2);
         }
       }
     }
@@ -1269,23 +1319,22 @@ void drawVertexPolyhedron(String polyhedronName) {
 /**
 annexe draw polyhedron
 */
-boolean isEdge(int vID1, int vID2, ArrayList listPoint) {
+boolean isEdge(int vID1, int vID2, ArrayList<Vec3>listPoint) {
   //had some rounding errors that were messing things up, so I had to make it a bit more forgiving...
   int pres = 1000;
-  PVector v1 = (PVector)listPoint.get(vID1);
-  PVector v2 = (PVector)listPoint.get(vID2);
+  Vec3 v1 = listPoint.get(vID1).copy();
+  Vec3 v2 = listPoint.get(vID2).copy();
   float d = sqrt(sq(v1.x - v2.x) + sq(v1.y - v2.y) + sq(v1.z - v2.z)) + .00001;
-  return (int(d *pres)==int(edgeLengthOfPolyhedron *pres));
+  return (int(d *pres)==int(edge_polyhedron_length *pres));
 }
 
-// END DRAW POLYHEDRON
-//////////////////////
+
+
+
 
 
 // ADD POINTS for built POLYHEDRON
 /////////////////////////////////
-
- 
 void addPermutations(float x, float y, float z) {
   //adds vertices for all three permutations of x, y, and z
   addVerts(x, y, z);
@@ -1297,21 +1346,21 @@ void addPermutations(float x, float y, float z) {
  
 void addVerts(float x, float y, float z) {
   //adds the requested vert and all "mirrored" verts
-  listPVectorPolyhedron.add (new PVector(x, y, z));
+  vec_polyhedron_list.add (Vec3(x,y,z));
   // z
-  if (z != 0.0) listPVectorPolyhedron.add (new PVector(x, y, -z)); 
+  if (z != 0.0) vec_polyhedron_list.add (Vec3(x,y,-z)); 
   // y
   if (y != 0.0) {
-    listPVectorPolyhedron.add (new PVector(x, -y, z));
-    if (z != 0.0) listPVectorPolyhedron.add (new PVector(x, -y, -z));
+    vec_polyhedron_list.add (Vec3(x, -y, z));
+    if (z != 0.0) vec_polyhedron_list.add(Vec3(x,-y,-z));
   } 
   // x
   if (x != 0.0) {
-    listPVectorPolyhedron.add (new PVector(-x, y, z));
-    if (z != 0.0) listPVectorPolyhedron.add(new PVector(-x, y, -z));
+    vec_polyhedron_list.add (Vec3(-x, y, z));
+    if (z != 0.0) vec_polyhedron_list.add(Vec3(-x,y,-z));
     if (y != 0.0) {
-      listPVectorPolyhedron.add (new PVector(-x, -y, z));
-      if (z != 0.0) listPVectorPolyhedron.add (new PVector(-x, -y, -z));
+      vec_polyhedron_list.add(Vec3(-x, -y, z));
+      if (z != 0.0) vec_polyhedron_list.add(Vec3(-x,-y,-z));
     }
   }
 }

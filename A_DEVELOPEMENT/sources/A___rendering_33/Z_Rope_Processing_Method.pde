@@ -1,6 +1,6 @@
 /**
 ROPE PROCESSING METHOD
-v 2.1.1
+v 2.1.2
 * Copyleft (c) 2014-2019
 * Stan le Punk > http://stanlepunk.xyz/
 * @author Stan le Punk
@@ -2367,6 +2367,8 @@ void set(int x, int y, PImage img) {
 
 /**
 text
+2017-2019
+v 0.1.1
 */
 void text(char c, float x, float y) {
   if(get_layer() != null) {
@@ -2514,19 +2516,23 @@ void textSize(float size) {
 
 
 // textFont
-void textFont(PFont which) {
-  if(get_layer() != null) {
-    get_layer().textFont(which);
-  } else {
-    g.textFont(which);
+void textFont(PFont font) {
+  if(font != null) {
+    if(get_layer() != null) {
+      get_layer().textFont(font);
+    } else {
+      g.textFont(font);
+    }
   }
 }
 
-void textFont(PFont which, float size) {
-  if(get_layer() != null) {
-    get_layer().textFont(which,size);
-  } else {
-    g.textFont(which,size);
+void textFont(PFont font, float size) {
+  if(font != null) {
+    if(get_layer() != null) {
+      get_layer().textFont(font,size);
+    } else {
+      g.textFont(font,size);
+    }
   }
 }
 

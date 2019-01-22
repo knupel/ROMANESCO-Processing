@@ -1,9 +1,8 @@
 /**
-Vec, iVec and bVec method
-v 0.1.1
-* Copyleft (c) 2018-2018
+Vec, iVec and bVec rope method
+v 0.1.5
+* Copyleft (c) 2018-2019
 * Stan le Punk > http://stanlepunk.xyz/
-Rope – Romanesco Processing Environment: 2015–2018
 * @author Stan le Punk
 * @see https://github.com/StanLepunK/Rope
 */
@@ -646,59 +645,59 @@ Vec3 cross(Vec3 v1, Vec3 v2, Vec3 target) {
 Equals
 v 0.0.2
 */
-/**
-* Compare Vector with or without area
-* we must add a compare method for the case when we need to compare in vector in the a class
-*
-* @return boolean
-*/
-// Vec2 equals
-
-/**
-* @deprecated instead use compare()
-*/
-@Deprecated
+/*
+@Deprecated // use compare()
 boolean equals(Vec2 v_a, Vec2 v_b) {
   return compare(v_a,v_b);
 }
-/**
-* @deprecated instead use compare()
-*/
-@Deprecated
+
+@Deprecated // use compare()
 boolean equals(Vec3 v_a, Vec3 v_b) {
   return compare(v_a,v_b);
 }
-/**
-* @deprecated instead use compare()
-*/
-@Deprecated
+
+@Deprecated // use compare()
 boolean equals(Vec4 v_a, Vec4 v_b) {
   return compare(v_a,v_b);
 }
-/**
-* @deprecated instead use compare()
-*/
-@Deprecated
+
+@Deprecated // use compare()
 boolean equals(Vec2 v_a, Vec2 v_b, Vec2 area) {
   return compare(v_a,v_b, area);
 }
-/**
-* @deprecated instead use compare()
-*/
-@Deprecated
+
+@Deprecated // use compare()
 boolean equals(Vec3 v_a, Vec3 v_b, Vec3 area) {
    return compare(v_a,v_b, area);
 }
-/**
-* @deprecated instead use compare()
-*/
-@Deprecated
+
+@Deprecated // use compare()
 boolean equals(Vec4 v_a, Vec4 v_b, Vec4 area) {
   return compare(v_a,v_b, area);
 }
+*/
 
 
 
+/** 
+* compare if the first vector is in the area of the second vector, 
+* the area of the second vector is define by a Vec area, 
+* that give the possibility of different size for each component
+* @return boolean
+* v 0.2.0
+*/
+
+boolean compare(iVec2 a, iVec2 b) {
+  return compare(Vec2(a),Vec2(b));
+}
+
+boolean compare(iVec3 a, iVec3 b) {
+  return compare(Vec3(a),Vec3(b));
+}
+
+boolean compare(iVec4 a, iVec4 b) {
+  return compare(Vec4(a),Vec4(b));
+}
 
 
 boolean compare(Vec2 a, Vec2 b) {
@@ -706,7 +705,7 @@ boolean compare(Vec2 a, Vec2 b) {
     println("Is not possible to compare", a, "to", b) ;
     return false ;
   } else {
-    return equals(Vec4(a.x,a.y,0,0),Vec4(b.x,b.y,0,0)) ;
+    return compare(Vec4(a.x,a.y,0,0),Vec4(b.x,b.y,0,0)) ;
   }
 }
 
@@ -716,14 +715,14 @@ boolean compare(Vec3 a, Vec3 b) {
     println("Is not possible to compare", a, "to", b) ;
     return false ;
   } else {
-    return equals(Vec4(a.x,a.y,a.z, 0),Vec4(b.x,b.y,b.z, 0)) ;
+    return compare(Vec4(a.x,a.y,a.z, 0),Vec4(b.x,b.y,b.z, 0)) ;
   }
 }
 // Vec4 compare
 boolean compare(Vec4 a, Vec4 b) {
   if(a != null && b != null ) {
     if((a.x == b.x) && (a.y == b.y) && (a.z == b.z) && (a.w == b.w)) {
-            return true ; 
+      return true ; 
     } else {
       return false ;
     }
@@ -733,22 +732,27 @@ boolean compare(Vec4 a, Vec4 b) {
 }
 
 
-/** 
-* compare if the first vector is in the area of the second vector, 
-* the area of the second vector is define by a Vec area, 
-* that give the possibility of different size for each component
-* @return boolean
-*/
-// Vec method
 /**
 * compare with area
 */
+boolean compare(iVec2 a, iVec2 b, iVec2 area) {
+  return compare(Vec2(a),Vec2(b),Vec2(area));
+}
+
+boolean compare(iVec3 a, iVec3 b, iVec3 area) {
+  return compare(Vec3(a),Vec3(b),Vec3(area));
+}
+
+boolean compare(iVec4 a, iVec4 b, iVec4 area) {
+  return compare(Vec4(a),Vec4(b),Vec4(area));
+}
+
 boolean compare(Vec2 a, Vec2 b, Vec2 area) {
   if(a == null || b == null || area == null) {
     println("Is not possible to compare", a, "with", b, "with", area) ;
     return false ;
   } else {
-    return equals(Vec4(a.x,a.y, 0, 0),Vec4(b.x,b.y, 0, 0),Vec4(area.x, area.y, 0, 0)) ;
+    return compare(Vec4(a.x,a.y, 0, 0),Vec4(b.x,b.y, 0, 0),Vec4(area.x, area.y, 0, 0)) ;
   }
 }
 
@@ -757,7 +761,7 @@ boolean compare(Vec3 a, Vec3 b, Vec3 area) {
     println("Is not possible to compare", a, "with", b, "with", area) ;
     return false ;
   } else {
-    return equals(Vec4(a.x,a.y,a.z, 0),Vec4(b.x,b.y,b.z, 0),Vec4(area.x, area.y, area.z, 0)) ;
+    return compare(Vec4(a.x,a.y,a.z, 0),Vec4(b.x,b.y,b.z, 0),Vec4(area.x, area.y, area.z, 0)) ;
   }
 }
 
@@ -1102,19 +1106,19 @@ Vec2 norm_dir(String type, float direction) {
 /**
 translate int color to Vec4 color
 */
-Vec4 color_HSBA(int c) {
+Vec4 color_hsba(int c) {
   return Vec4(hue(c), saturation(c), brightness(c), alpha(c)) ;
 }
 
-Vec4 color_RGBA(int c) {
+Vec4 color_rgba(int c) {
   return Vec4(red(c), green(c), blue(c), alpha(c)) ;
 }
 
-Vec3 color_HSB(int c) {
+Vec3 color_hsb(int c) {
   return Vec3(hue(c), saturation(c), brightness(c)) ;
 }
 
-Vec3 color_RGB(int c) {
+Vec3 color_rgb(int c) {
   return Vec3(red(c), green(c), blue(c)) ;
 }
 
@@ -1402,6 +1406,7 @@ iVec2 iVec2(int x, int y) {
   return new iVec2(x,y) ;
 }
 
+
 iVec2 iVec2(int [] array) {
   if(array.length == 1) {
     return new iVec2(array[0],array[0]);
@@ -1420,6 +1425,52 @@ iVec2 iVec2(iVec p) {
     return new iVec2(p.a,p.b) ;
   } else {
     return new iVec2(p.x,p.y) ;
+  }
+}
+
+iVec2 iVec2(float v) {
+  return new iVec2(int(v),int(v));
+}
+
+iVec2 iVec2(float x, float y) { 
+  return new iVec2(int(x),int(y));
+}
+
+iVec2 iVec2(float [] array) {
+  if(array.length == 1) {
+    return new iVec2(int(array[0]),int(array[0]));
+  } else if (array.length > 1) {
+    return new iVec2(int(array[0]),int(array[1]));
+  } else {
+    return null;
+  }
+}
+
+iVec2 iVec2(Vec p) {
+  if(p == null) {
+    println("Vec null, instead '0' is used to build iVec") ;
+    return new iVec2(0,0) ;
+  } else if(p instanceof Vec5 || p instanceof Vec6) {
+    return new iVec2(int(p.a),int(p.b));
+  } else {
+    return new iVec2(int(p.x),int(p.y));
+  }
+}
+
+
+iVec2 iVec2(PGraphics media) {
+  if(media != null) {
+    return new iVec2(media.width,media.height);
+  } else {
+    return null;
+  }
+}
+
+iVec2 iVec2(PImage media) {
+  if(media != null) {
+    return new iVec2(media.width,media.height);
+  } else {
+    return null;
   }
 }
 
@@ -1458,6 +1509,37 @@ iVec3 iVec3(iVec p) {
     return new iVec3(p.a,p.b,p.c) ;
   } else {
     return new iVec3(p.x,p.y,p.z) ;
+  }
+}
+
+iVec3 iVec3(float v) {
+  return new iVec3(int(v),int(v),int(v));
+}
+
+iVec3 iVec3(float x, float y,float z) { 
+  return new iVec3(int(x),int(y),int(z));
+}
+
+iVec3 iVec3(float [] array) {
+  if(array.length == 1) {
+    return new iVec3(int(array[0]),int(array[0]),int(array[0]));
+  } else if (array.length == 2) {
+    return new iVec3(int(array[0]),int(array[1]),0);
+  } else if (array.length > 2) {
+    return new iVec3(int(array[0]),int(array[1]),int(array[2]));
+  } else {
+    return null;
+  }
+}
+
+iVec3 iVec3(Vec p) {
+  if(p == null) {
+    println("Vec null, instead '0' is used to build iVec") ;
+    return new iVec3(0,0,0) ;
+  } else if(p instanceof Vec5 || p instanceof Vec6) {
+    return new iVec3(int(p.a),int(p.b),int(p.c));
+  } else {
+    return new iVec3(int(p.x),int(p.y),int(p.z));
   }
 }
 
@@ -1501,6 +1583,40 @@ iVec4 iVec4(iVec p) {
   }
 }
 
+iVec4 iVec4(float v) {
+  return new iVec4(int(v),int(v),int(v),int(v));
+}
+
+iVec4 iVec4(float x, float y, float z, float w) { 
+  return new iVec4(int(x),int(y),int(z),int(w));
+}
+
+iVec4 iVec4(float [] array) {
+  if(array.length == 1) {
+    return new iVec4(int(array[0]),int(array[0]),int(array[0]),int(array[0]));
+  } else if (array.length == 2) {
+    return new iVec4(int(array[0]),int(array[1]),0,0);
+  } else if (array.length == 3) {
+    return new iVec4(int(array[0]),int(array[1]),int(array[2]),0);
+  } else if (array.length > 3) {
+    return new iVec4(int(array[0]),int(array[1]),int(array[2]),int(array[3]));
+  } else {
+    return null;
+  }
+}
+
+
+iVec4 iVec4(Vec p) {
+  if(p == null) {
+    println("Vec null, instead '0' is used to build iVec") ;
+    return new iVec4(0,0,0,0) ;
+  } else if(p instanceof Vec5 || p instanceof Vec6) {
+    return new iVec4(int(p.a),int(p.b),int(p.c),int(p.d));
+  } else {
+    return new iVec4(int(p.x),int(p.y),int(p.z),int(p.w));
+  }
+}
+
 /**
 iVec5
 */
@@ -1540,6 +1656,17 @@ iVec5 iVec5(iVec p) {
     return new iVec5(p.a,p.b,p.c,p.d,p.e) ;
   } else {
     return new iVec5(p.x,p.y,p.z,p.w,0) ;
+  }
+}
+
+iVec5 iVec5(Vec p) {
+  if(p == null) {
+    println("Vec null, instead '0' is used to build iVec") ;
+    return new iVec5(0,0,0,0,0) ;
+  } else if(p instanceof Vec5 || p instanceof Vec6) {
+    return new iVec5(int(p.a),int(p.b),int(p.c),int(p.d),int(p.e));
+  } else {
+    return new iVec5(int(p.x),int(p.y),int(p.z),int(p.w),0);
   }
 }
 
@@ -1587,6 +1714,17 @@ iVec6 iVec6(iVec p) {
   }
 }
 
+iVec6 iVec6(Vec p) {
+  if(p == null) {
+    println("Vec null, instead '0' is used to build iVec") ;
+    return new iVec6(0,0,0,0,0,0) ;
+  } else if(p instanceof Vec5 || p instanceof Vec6) {
+    return new iVec6(int(p.a),int(p.b),int(p.c),int(p.d),int(p.e),int(p.f));
+  } else {
+    return new iVec6(int(p.x),int(p.y),int(p.z),int(p.w),0,0);
+  }
+}
+
 
 
 
@@ -1612,7 +1750,6 @@ iVec6 iVec6(iVec p) {
 
 /**
 Return a new Vec
-v 0.0.4
 */
 /**
 Vec 2
@@ -1689,6 +1826,23 @@ Vec2 Vec2(String s, int a, int b, int c, int d) {
 
 Vec2 Vec2(String s, int v) {
   return new Vec2(s,v);
+}
+
+
+Vec2 Vec2(PGraphics media) {
+  if(media != null) {
+    return new Vec2(media.width,media.height);
+  } else {
+    return null;
+  }
+}
+
+Vec2 Vec2(PImage media) {
+  if(media != null) {
+    return new Vec2(media.width,media.height);
+  } else {
+    return null;
+  }
 }
 /**
 Vec 3

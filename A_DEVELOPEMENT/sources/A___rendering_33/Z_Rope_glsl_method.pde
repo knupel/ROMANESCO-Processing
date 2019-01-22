@@ -1,6 +1,6 @@
 /**
 ROPE GLSL METHOD
-v 0.0.2
+v 0.0.6
 * Copyleft (c) 2019-2019
 * Stan le Punk > http://stanlepunk.xyz/
 * @author Stan le Punk
@@ -187,5 +187,454 @@ Vec4 clamp(Vec4 x, Vec4 min, Vec4 max) {
   return min(max(x,min),max);
 }
 
+
+
+
+/**
+equal
+*/
+boolean equal(float x, float y) {
+  return x==y?true:false;
+}
+
+boolean equal(int x, int y) {
+  return equal((float)x,(float)y);
+}
+
+// with Vec
+bVec2 equal(Vec2 x, Vec2 y) {
+  if(x != null && y != null) {
+    return bVec2(equal(x.x,y.x),equal(x.y,y.y));
+  } else return null;
+}
+
+bVec3 equal(Vec3 x, Vec3 y) {
+  if(x != null && y != null) {
+    return bVec3(equal(x.x,y.x),equal(x.y,y.y),equal(x.z,y.z));
+  } else return null;
+}
+
+bVec4 equal(Vec4 x, Vec4 y) {
+  if(x != null && y != null) {
+    return bVec4(equal(x.x,y.x),equal(x.y,y.y),equal(x.z,y.z),equal(x.w,y.w));
+  } else return null;
+}
+
+// width iVec
+bVec2 equal(iVec2 x, iVec2 y) {
+  if(x != null && y != null) {
+    return bVec2(equal(x.x,y.x),equal(x.y,y.y));
+  } else return null;
+}
+
+bVec3 equal(iVec3 x, iVec3 y) {
+  if(x != null && y != null) {
+    return bVec3(equal(x.x,y.x),equal(x.y,y.y),equal(x.z,y.z));
+  } else return null;
+}
+
+bVec4 equal(iVec4 x, iVec4 y) {
+  if(x != null && y != null) {
+    return bVec4(equal(x.x,y.x),equal(x.y,y.y),equal(x.z,y.z),equal(x.w,y.w));
+  } else return null;
+}
+
+
+
+
+/**
+lessThan
+*/
+boolean lessThan(float x, float y) {
+  return x<y?true:false;
+}
+
+boolean lessThan(int x, int y) {
+  return lessThan((float)x,(float)y);
+}
+
+// with Vec
+bVec2 lessThan(Vec2 x, Vec2 y) {
+  if(x != null && y != null) {
+    return bVec2(lessThan(x.x,y.x),lessThan(x.y,y.y));
+  } else return null;
+}
+
+bVec3 lessThan(Vec3 x, Vec3 y) {
+  if(x != null && y != null) {
+    return bVec3(lessThan(x.x,y.x),lessThan(x.y,y.y),lessThan(x.z,y.z));
+  } else return null;
+}
+
+bVec4 lessThan(Vec4 x, Vec4 y) {
+  if(x != null && y != null) {
+    return bVec4(lessThan(x.x,y.x),lessThan(x.y,y.y),lessThan(x.z,y.z),lessThan(x.w,y.w));
+  } else return null;
+}
+
+// width iVec
+bVec2 lessThan(iVec2 x, iVec2 y) {
+  if(x != null && y != null) {
+    return bVec2(lessThan(x.x,y.x),lessThan(x.y,y.y));
+  } else return null;
+}
+
+bVec3 lessThan(iVec3 x, iVec3 y) {
+  if(x != null && y != null) {
+    return bVec3(lessThan(x.x,y.x),lessThan(x.y,y.y),lessThan(x.z,y.z));
+  } else return null;
+}
+
+bVec4 lessThan(iVec4 x, iVec4 y) {
+  if(x != null && y != null) {
+    return bVec4(lessThan(x.x,y.x),lessThan(x.y,y.y),lessThan(x.z,y.z),lessThan(x.w,y.w));
+  } else return null;
+}
+
+
+
+
+
+/**
+greaterThan
+*/
+boolean greaterThan(float x, float y) {
+  return x>y?true:false;
+}
+
+boolean greaterThan(int x, int y) {
+  return greaterThan((float)x,(float)y);
+}
+
+// with Vec
+bVec2 greaterThan(Vec2 x, Vec2 y) {
+  if(x != null && y != null) {
+    return bVec2(greaterThan(x.x,y.x),greaterThan(x.y,y.y));
+  } else return null; 
+}
+
+bVec3 greaterThan(Vec3 x, Vec3 y) {
+  if(x != null && y != null) {
+    return bVec3(greaterThan(x.x,y.x),greaterThan(x.y,y.y),greaterThan(x.z,y.z));
+  } else return null; 
+}
+
+bVec4 greaterThan(Vec4 x, Vec4 y) {
+  if(x != null && y != null) {
+    return bVec4(greaterThan(x.x,y.x),greaterThan(x.y,y.y),greaterThan(x.z,y.z),greaterThan(x.w,y.w));
+  } else return null; 
+}
+
+// width iVec
+bVec2 greaterThan(iVec2 x, iVec2 y) {
+  if(x != null && y != null) {
+    return bVec2(greaterThan(x.x,y.x),greaterThan(x.y,y.y));
+  } else return null; 
+}
+
+bVec3 greaterThan(iVec3 x, iVec3 y) {
+  if(x != null && y != null) {
+    return bVec3(greaterThan(x.x,y.x),greaterThan(x.y,y.y),greaterThan(x.z,y.z));
+  } else return null; 
+}
+
+bVec4 greaterThan(iVec4 x, iVec4 y) {
+  if(x != null && y != null) {
+    return bVec4(greaterThan(x.x,y.x),greaterThan(x.y,y.y),greaterThan(x.z,y.z),greaterThan(x.w,y.w));
+  } else return null; 
+}
+
+
+
+
+
+
+/**
+greaterThanEqual
+*/
+boolean greaterThanEqual(float x, float y) {
+  return x>=y?true:false;
+}
+
+boolean greaterThanEqual(int x, int y) {
+  return greaterThanEqual((float)x,(float)y);
+}
+
+// with Vec
+bVec2 greaterThanEqual(Vec2 x, Vec2 y) {
+  if(x != null && y != null) {
+    return bVec2(greaterThanEqual(x.x,y.x),greaterThanEqual(x.y,y.y));
+  } else return null; 
+}
+
+bVec3 greaterThanEqual(Vec3 x, Vec3 y) {
+  if(x != null && y != null) {
+    return bVec3(greaterThanEqual(x.x,y.x),greaterThanEqual(x.y,y.y),greaterThanEqual(x.z,y.z));
+  } else return null; 
+}
+
+bVec4 greaterThanEqual(Vec4 x, Vec4 y) {
+  if(x != null && y != null) {
+    return bVec4(greaterThanEqual(x.x,y.x),greaterThanEqual(x.y,y.y),greaterThanEqual(x.z,y.z),greaterThanEqual(x.w,y.w));
+  } else return null; 
+}
+
+// width iVec
+bVec2 greaterThanEqual(iVec2 x, iVec2 y) {
+  if(x != null && y != null) {
+    return bVec2(greaterThanEqual(x.x,y.x),greaterThanEqual(x.y,y.y));
+  } else return null; 
+}
+
+bVec3 greaterThanEqual(iVec3 x, iVec3 y) {
+  if(x != null && y != null) {
+    return bVec3(greaterThanEqual(x.x,y.x),greaterThanEqual(x.y,y.y),greaterThanEqual(x.z,y.z));
+  } else return null; 
+}
+
+bVec4 greaterThanEqual(iVec4 x, iVec4 y) {
+  if(x != null && y != null) {
+    return bVec4(greaterThanEqual(x.x,y.x),greaterThanEqual(x.y,y.y),greaterThanEqual(x.z,y.z),greaterThanEqual(x.w,y.w));
+  } else return null; 
+}
+
+
+
+
+
+
+/**
+lessThanEqual
+*/
+boolean lessThanEqual(float x, float y) {
+  return x<=y?true:false;
+}
+
+boolean lessThanEqual(int x, int y) {
+  return lessThanEqual((float)x,(float)y);
+}
+
+// with Vec
+bVec2 lessThanEqual(Vec2 x, Vec2 y) {
+  if(x != null && y != null) {
+    return bVec2(lessThanEqual(x.x,y.x),lessThanEqual(x.y,y.y));
+  } else return null; 
+}
+
+bVec3 lessThanEqual(Vec3 x, Vec3 y) {
+  if(x != null && y != null) {
+    return bVec3(lessThanEqual(x.x,y.x),lessThanEqual(x.y,y.y),lessThanEqual(x.z,y.z));
+  } else return null; 
+}
+
+bVec4 lessThanEqual(Vec4 x, Vec4 y) {
+  if(x != null && y != null) {
+    return bVec4(lessThanEqual(x.x,y.x),lessThanEqual(x.y,y.y),lessThanEqual(x.z,y.z),lessThanEqual(x.w,y.w));
+  } else return null; 
+}
+
+// width iVec
+bVec2 lessThanEqual(iVec2 x, iVec2 y) {
+  if(x != null && y != null) {
+    return bVec2(lessThanEqual(x.x,y.x),lessThanEqual(x.y,y.y));
+  } else return null; 
+}
+
+bVec3 lessThanEqual(iVec3 x, iVec3 y) {
+  if(x != null && y != null) {
+    return bVec3(lessThanEqual(x.x,y.x),lessThanEqual(x.y,y.y),lessThanEqual(x.z,y.z));
+  } else return null; 
+}
+
+bVec4 lessThanEqual(iVec4 x, iVec4 y) {
+  if(x != null && y != null) {
+    return bVec4(lessThanEqual(x.x,y.x),lessThanEqual(x.y,y.y),lessThanEqual(x.z,y.z),lessThanEqual(x.w,y.w));
+  } else return null; 
+}
+
+
+
+
+
+
+
+/**
+all
+*/
+boolean all(bVec2 b) {
+  if(b != null) {
+    boolean [] list = b.array();
+    boolean result = true;
+    for(int i = 0 ; i < list.length ; i++) {
+      if(list[i] == false) {
+        result = false;
+        break;
+      }
+    }
+    return result;
+  } else {
+    printErr("method all() return false because argument is",b);
+    return false;
+  }
+}
+
+boolean all(bVec3 b) {
+  if(b != null) {
+    boolean [] list = b.array();
+    boolean result = true;
+    for(int i = 0 ; i < list.length ; i++) {
+      if(list[i] == false) {
+        result = false;
+        break;
+      }
+    }
+    return result;
+  } else {
+    printErr("method all() return false because argument is",b);
+    return false;
+  }
+}
+
+boolean all(bVec4 b) {
+  if(b != null) {
+    boolean [] list = b.array();
+    boolean result = true;
+    for(int i = 0 ; i < list.length ; i++) {
+      if(list[i] == false) {
+        result = false;
+        break;
+      }
+    }
+    return result;
+  } else {
+    printErr("method all() return false because argument is",b);
+    return false;
+  }
+}
+
+boolean all(bVec5 b) {
+  if(b != null) {
+    boolean [] list = b.array();
+    boolean result = true;
+    for(int i = 0 ; i < list.length ; i++) {
+      if(list[i] == false) {
+        result = false;
+        break;
+      }
+    }
+    return result;
+  } else {
+    printErr("method all() return false because argument is",b);
+    return false;
+  }
+}
+
+boolean all(bVec6 b) {
+  if(b != null) {
+    boolean [] list = b.array();
+    boolean result = true;
+    for(int i = 0 ; i < list.length ; i++) {
+      if(list[i] == false) {
+        result = false;
+        break;
+      }
+    }
+    return result;
+  } else {
+    printErr("method all() return false because argument is",b);
+    return false;
+  }
+}
+
+
+
+
+/**
+any
+*/
+boolean any(bVec2 b) {
+  if(b != null) {
+    boolean [] list = b.array();
+    boolean result = false;
+    for(int i = 0 ; i < list.length ; i++) {
+      if(list[i] == true) {
+        result = true;
+        break;
+      }
+    }
+    return result;
+  } else {
+    printErr("method any() return false because argument is",b);
+    return false;
+  }
+}
+
+boolean any(bVec3 b) {
+  if(b != null) {
+    boolean [] list = b.array();
+    boolean result = false;
+    for(int i = 0 ; i < list.length ; i++) {
+      if(list[i] == true) {
+        result = true;
+        break;
+      }
+    }
+    return result;
+  } else {
+    printErr("method any() return false because argument is",b);
+    return false;
+  }
+}
+
+boolean any(bVec4 b) {
+  if(b != null) {
+    boolean [] list = b.array();
+    boolean result = false;
+    for(int i = 0 ; i < list.length ; i++) {
+      if(list[i] == true) {
+        result = true;
+        break;
+      }
+    }
+    return result;
+  } else {
+    printErr("method any() return false because argument is",b);
+    return false;
+  }
+}
+
+boolean any(bVec5 b) {
+  if(b != null) {
+    boolean [] list = b.array();
+    boolean result = false;
+    for(int i = 0 ; i < list.length ; i++) {
+      if(list[i] == true) {
+        result = true;
+        break;
+      }
+    }
+    return result;
+  } else {
+    printErr("method any() return false because argument is",b);
+    return false;
+  }
+}
+
+boolean any(bVec6 b) {
+  if(b != null) {
+    boolean [] list = b.array();
+    boolean result = false;
+    for(int i = 0 ; i < list.length ; i++) {
+      if(list[i] == true) {
+        result = true;
+        break;
+      }
+    }
+    return result;
+  } else {
+    printErr("method any() return false because argument is",b);
+    return false;
+  }
+}
 
 
