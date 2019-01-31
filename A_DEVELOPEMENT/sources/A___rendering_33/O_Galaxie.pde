@@ -88,7 +88,7 @@ class Galaxie extends Romanesco {
   boolean makeSand = true ;
   boolean shiftGrain = false ;
   boolean gravityGrain = true ;
-  Vec3 posCenterGrain = Vec3();
+  vec3 posCenterGrain = vec3();
 
   PVector orientationStyletGrain ;
 
@@ -178,7 +178,7 @@ class Galaxie extends Romanesco {
     float objWidth =  .1 +get_size_x() *mix[ID_item] ;
     float objHeight = .1 +get_size_y() *mix[ID_item] ;
     float objDepth = .1 +get_size_z() *mix[ID_item] ;
-    Vec3 size = Vec3(objWidth, objHeight,objDepth) ;
+    vec3 size = vec3(objWidth, objHeight,objDepth) ;
     
     //thickness / épaisseur
     float thickness = get_thickness() ;
@@ -194,7 +194,7 @@ class Galaxie extends Romanesco {
     float ratioX = surface.x / float(width) ;
     float ratioY = surface.y / float(height) ;
     
-    Vec3 newPosCenterGrain = Vec3() ;
+    vec3 newPosCenterGrain = vec3() ;
     newPosCenterGrain.x = posCenterGrain.x *ratioX -marge.x ;
     newPosCenterGrain.y = posCenterGrain.y *ratioY -marge.y ;
     // copy the final result
@@ -246,14 +246,14 @@ class Galaxie extends Romanesco {
   //ANNEXE VOID
   //DISPLAY MODE
 
-  void show(Vec3 size, float thickness, int ID) {
+  void show(vec3 size, float thickness, int ID) {
     float z_pos = 0 ;
     float ratio = .001 ;
     
     for(int i = 0; i < grain.length; i++) {
       // ratio is used to don't have "moirage" problem
       z_pos += ratio ;
-      Vec3 pos = Vec3(grain[i].x, grain[i].y, z_pos) ;
+      vec3 pos = vec3(grain[i].x, grain[i].y, z_pos) ;
       aspect(get_fill(),get_stroke(), get_thickness());
       set_ratio_costume_size(map(get_area(),width*.1, width*TAU*4,0,1));
       costume(pos,size,get_costume()) ;

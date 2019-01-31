@@ -4,14 +4,14 @@ BUTTON 2.0.0
 class Button
 {
   boolean inside, OnOff ;
-  Vec2 pos, size ;
+  vec2 pos, size ;
   color On_In, On_Out, Off_In, Off_Out ;
   String textOn, textOff ;
   
   //CONSTRUCTOR
   
   //basic Button
-  Button(Vec2 pos, Vec2 size) {
+  Button(vec2 pos, vec2 size) {
     Off_In = color (27,100,100) ; //orange
     Off_Out = color (9,100,70) ; //rouge
     On_In = color (88,85,71) ; // vert clair
@@ -20,7 +20,7 @@ class Button
     this.size = size ;
   }
   //with specific color
-  Button(Vec2 pos, Vec2 size, color Off_In, color Off_Out, color On_In, color On_Out) {
+  Button(vec2 pos, vec2 size, color Off_In, color Off_Out, color On_In, color On_Out) {
     this.Off_In = Off_In ;
     this.Off_Out = Off_Out ;
     this.On_In = On_In ; 
@@ -30,7 +30,7 @@ class Button
   }
   
   //text Button with two text
-  Button(Vec2 pos, Vec2 size, String textOn, String textOff) {
+  Button(vec2 pos, vec2 size, String textOn, String textOff) {
     Off_In = color (27,100,100) ; //orange
     Off_Out = color (9,100,70) ; //rouge
     On_In = color (88,85,71) ; // vert clair
@@ -41,7 +41,7 @@ class Button
     this.size = size ;
   }
   //text button with specific color with two text
-  Button(Vec2 pos, Vec2 size, color Off_In, color Off_Out, color On_In, color On_Out, String textOn, String textOff) {
+  Button(vec2 pos, vec2 size, color Off_In, color Off_Out, color On_In, color On_Out, String textOn, String textOff) {
     this.Off_In = Off_In ;
     this.Off_Out = Off_Out ;
     this.On_In = On_In ; 
@@ -52,7 +52,7 @@ class Button
     this.size = size ;
   }
     //text button with specific color with one text
-  Button(Vec2 pos, Vec2 size, color Off_In, color Off_Out, color On_In, color On_Out, String textOn) {
+  Button(vec2 pos, vec2 size, color Off_In, color Off_Out, color On_In, color On_Out, String textOn) {
     this.Off_In = Off_In ;
     this.Off_Out = Off_Out ;
     this.On_In = On_In ; 

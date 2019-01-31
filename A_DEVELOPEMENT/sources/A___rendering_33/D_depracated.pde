@@ -146,7 +146,7 @@ class Old_Pixel {
   
   //CHANGE COLOR 
   // hue from Range
-  void changeHue(Vec4 HSBinfo, int[] newHue,  int[] start, int[] end) {
+  void changeHue(vec4 HSBinfo, int[] newHue,  int[] start, int[] end) {
     float h = hue(this.colour) ;
     
     for( int i = 0 ; i < newHue.length ; i++) {
@@ -163,7 +163,7 @@ class Old_Pixel {
   }
   
   // saturation from Range
-  void changeSat(Vec4 HSBinfo, int[] newSat,  int[] start, int[] end) {
+  void changeSat(vec4 HSBinfo, int[] newSat,  int[] start, int[] end) {
     float s = saturation(this.colour) ;
     
     for( int i = 0 ; i < newSat.length ; i++) {
@@ -180,7 +180,7 @@ class Old_Pixel {
   }
   
   // saturation from Range
-  void changeBright(Vec4 HSBinfo, int[] newBright,  int[] start, int[] end) {
+  void changeBright(vec4 HSBinfo, int[] newBright,  int[] start, int[] end) {
     float b = brightness(this.colour) ;
 
     
@@ -510,7 +510,7 @@ MUST BE REMPLACED BY PRIMITIVE
 // CLASS POLYGONE june 2015 / 1.1.2
 ///////////////////////////////////
 class Polygon {
-  Vec4 [] points ;
+  vec4 [] points ;
   PVector pos ;
   float radius ;
   // put the alpha to zero by default in case there is polygon outside the array when you want change the color of polygone
@@ -530,7 +530,7 @@ class Polygon {
     this.pos = pos.copy() ;
     this.radius = radius ;
     this.ID = ID ;
-    points = new Vec4 [num_of_summit] ;
+    points = new vec4 [num_of_summit] ;
     float angle = TAU / num_of_summit ;
 
     for (int i = 0; i < num_of_summit; i++) {
@@ -538,7 +538,7 @@ class Polygon {
       float x = pos.x + cos(newAngle +rotation) *radius;
       float y = pos.y + sin(newAngle +rotation) *radius;
       float z = pos.z ;
-      points[i] = new Vec4(x, y, z, ID) ;
+      points[i] = new vec4(x, y, z, ID) ;
     }
     /*
     // Maybe need to remove this option

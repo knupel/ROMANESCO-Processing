@@ -2,11 +2,11 @@
 ROMANESCO BACKGROUND 
 v 1.2.1
 */
-Vec4 colorBackground, colorBackgroundRef, colorBackgroundPrescene;
+vec4 colorBackground, colorBackgroundRef, colorBackgroundPrescene;
 void background_setup() {
-  colorBackgroundRef = Vec4();
-  colorBackground = Vec4();
-  colorBackgroundPrescene = Vec4(0,0,20,g.colorModeA) ;
+  colorBackgroundRef = vec4();
+  colorBackground = vec4();
+  colorBackgroundPrescene = vec4(0,0,20,g.colorModeA) ;
 }
 
 void background_romanesco() {
@@ -25,7 +25,7 @@ void background_romanesco() {
         // choice the rendering color palette for the classic background
         if(FULL_RENDERING) {
           // check if the slider background are move, if it's true update the color background
-          if(!equals(colorBackgroundRef,update_background())) {
+          if(!compare(colorBackgroundRef,update_background())) {
             colorBackground.set(update_background()) ;
           } else {
             colorBackgroundRef.set(update_background()) ;
@@ -41,7 +41,7 @@ void background_romanesco() {
 }
 
 // ANNEXE VOID BACKGROUND
-Vec4 update_background() {
+vec4 update_background() {
   //to smooth the curve of transparency background
   // HSB
   float hue_bg = map(value_slider_background[0],0,MAX_VALUE_SLIDER,0,HSBmode.r);
@@ -52,7 +52,7 @@ Vec4 update_background() {
   float nx = norm(value_slider_background[3],.0,MAX_VALUE_SLIDER);
   float alpha = pow (nx, factorSmooth);
   alpha = map(alpha,0,1,.8,HSBmode.a);
-  return Vec4(hue_bg,saturation_bg,brigthness_bg,alpha) ;
+  return vec4(hue_bg,saturation_bg,brigthness_bg,alpha) ;
 }
 
 // BACKGROUND SHADER
@@ -71,8 +71,8 @@ void background_shader_setup() {
 
 void background_shader_draw(int which_one) {
   if(FULL_RENDERING) {
-    Vec2 pos_shader = Vec2();
-    Vec3 size_shader = Vec3(width,height,height) ; 
+    vec2 pos_shader = vec2();
+    vec3 size_shader = vec3(width,height,height) ; 
     fill(0); 
     noStroke();
 
@@ -94,18 +94,18 @@ void background_shader_draw(int which_one) {
 }
 
 float shaderMouseX, shaderMouseY ;
-void rectangle(Vec2 pos, Vec3 size, PShader s) {
+void rectangle(vec2 pos, vec3 size, PShader s) {
   // weird algorithm to have a nice display
   int ratio = 10;
-  Vec3 temp_size = mult(size, ratio);
+  vec3 temp_size = mult(size, ratio);
   pushMatrix() ;
   translate(mult(temp_size,-.5));
   shader(s);
-  Vec3 rgb_background = hsb_to_rgb( map(value_slider_background[0],0,MAX_VALUE_SLIDER,0,g.colorModeX), 
+  vec3 rgb_background = hsb_to_rgb( map(value_slider_background[0],0,MAX_VALUE_SLIDER,0,g.colorModeX), 
                                     map(value_slider_background[1],0,MAX_VALUE_SLIDER,0,g.colorModeY), 
                                     map(value_slider_background[2],0,MAX_VALUE_SLIDER,0,g.colorModeZ));
 /*
-  Vec4 RGBbackground = hsb_to_rgb(map(value_slider_background[0],0,MAX_VALUE_SLIDER,0,g.colorModeX), 
+  vec4 RGBbackground = hsb_to_rgb(map(value_slider_background[0],0,MAX_VALUE_SLIDER,0,g.colorModeX), 
                                 map(value_slider_background[1],0,MAX_VALUE_SLIDER,0,g.colorModeY), 
                                 map(value_slider_background[2],0,MAX_VALUE_SLIDER,0,g.colorModeZ),
                                 map(value_slider_background[3],0,MAX_VALUE_SLIDER,0,g.colorModeA)  ) ;

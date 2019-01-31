@@ -180,15 +180,15 @@ void multiply(PImage tex, PImage inc) {
   multiply(tex, inc, 1);
 }
 
-void multiply(PImage tex, PImage inc, Vec2 ratio) {
+void multiply(PImage tex, PImage inc, vec2 ratio) {
   multiply(tex, inc, ratio.x, ratio.y);
 }
 
-void multiply(PImage tex, PImage inc, Vec3 ratio) {
+void multiply(PImage tex, PImage inc, vec3 ratio) {
   multiply(tex, inc, ratio.x, ratio.y, ratio.z);
 }
 
-void multiply(PImage tex, PImage inc, Vec4 ratio) {
+void multiply(PImage tex, PImage inc, vec4 ratio) {
   multiply(tex, inc, ratio.x, ratio.y, ratio.z, ratio.w);
 }
 
@@ -212,15 +212,15 @@ void multiply(PGraphics p, PImage tex, PImage inc) {
   multiply(p, tex, inc, 1);
 }
 
-void multiply(PGraphics p, PImage tex, PImage inc, Vec2 ratio) {
+void multiply(PGraphics p, PImage tex, PImage inc, vec2 ratio) {
   multiply(p, tex, inc, ratio.x, ratio.y);
 }
 
-void multiply(PGraphics p, PImage tex, PImage inc, Vec3 ratio) {
+void multiply(PGraphics p, PImage tex, PImage inc, vec3 ratio) {
   multiply(p, tex, inc, ratio.x, ratio.y, ratio.z);
 }
 
-void multiply(PGraphics p, PImage tex, PImage inc, Vec4 ratio) {
+void multiply(PGraphics p, PImage tex, PImage inc, vec4 ratio) {
   multiply(p, tex, inc, ratio.x, ratio.y, ratio.z, ratio.w);
 }
 /**
@@ -228,12 +228,12 @@ void multiply(PGraphics p, PImage tex, PImage inc, Vec4 ratio) {
 * this method have a purpose to blend the four channel color.
 * @param Pimage tex, is the image must be back
 * @param Pimage inc, is the image must be incrusted on the background picture
-* @param float [], Vec2, Vec3 or Vec4 is the normal ratio overlaying
+* @param float [], vec2, vec3 or vec4 is the normal ratio overlaying
 */
 void multiply(PGraphics p, PImage tex, PImage inc, float... ratio) {
   set_multiply_shader();
   
-  Vec4 r = array_to_Vec4_rgba(ratio);
+  vec4 r = array_to_vec4_rgba(ratio);
 
   rope_shader_multiply.set("incrustation",inc);
   rope_shader_multiply.set("ratio",r.x,r.z,r.w,r.z);
@@ -297,15 +297,15 @@ void overlay(PImage tex, PImage inc) {
   overlay(tex, inc, 1);
 }
 
-void overlay(PImage tex, PImage inc, Vec2 ratio) {
+void overlay(PImage tex, PImage inc, vec2 ratio) {
   overlay(tex, inc, ratio.x, ratio.y);
 }
 
-void overlay(PImage tex, PImage inc, Vec3 ratio) {
+void overlay(PImage tex, PImage inc, vec3 ratio) {
   overlay(tex, inc, ratio.x, ratio.y, ratio.z);
 }
 
-void overlay(PImage tex, PImage inc, Vec4 ratio) {
+void overlay(PImage tex, PImage inc, vec4 ratio) {
   overlay(tex, inc, ratio.x, ratio.y, ratio.z, ratio.w);
 }
 
@@ -329,15 +329,15 @@ void overlay(PGraphics p, PImage tex, PImage inc) {
   overlay(p, tex, inc, 1);
 }
 
-void overlay(PGraphics p, PImage tex, PImage inc, Vec2 ratio) {
+void overlay(PGraphics p, PImage tex, PImage inc, vec2 ratio) {
   overlay(p, tex, inc, ratio.x, ratio.y);
 }
 
-void overlay(PGraphics p, PImage tex, PImage inc, Vec3 ratio) {
+void overlay(PGraphics p, PImage tex, PImage inc, vec3 ratio) {
   overlay(p, tex, inc, ratio.x, ratio.y, ratio.z);
 }
 
-void overlay(PGraphics p, PImage tex, PImage inc, Vec4 ratio) {
+void overlay(PGraphics p, PImage tex, PImage inc, vec4 ratio) {
   overlay(p, tex, inc, ratio.x, ratio.y, ratio.z, ratio.w);
 }
 /**
@@ -345,12 +345,12 @@ void overlay(PGraphics p, PImage tex, PImage inc, Vec4 ratio) {
 * this method have a purpose to blend the four channel color.
 * @param Pimage tex, is the image must be back
 * @param Pimage inc, is the image must be incrusted on the background picture
-* @param float [], Vec2, Vec3 or Vec4 is the normal ratio overlaying
+* @param float [], vec2, vec3 or vec4 is the normal ratio overlaying
 */
 void overlay(PGraphics p, PImage tex, PImage inc, float... ratio) { 
   set_overlay_shader();
 
-  Vec4 r = array_to_Vec4_rgba(ratio);
+  vec4 r = array_to_vec4_rgba(ratio);
   
   rope_shader_overlay.set("incrustation",inc);
   rope_shader_overlay.set("ratio",r.x,r.z,r.w,r.z);
@@ -415,15 +415,15 @@ void blend_flip(boolean bx_tex, boolean by_tex, boolean bx_inc, boolean by_inc) 
 /**
 * follower method
 */
-void blend(PImage tex, PImage inc, float blend, Vec2 ratio) {
+void blend(PImage tex, PImage inc, float blend, vec2 ratio) {
   blend(null, tex, inc, blend, ratio.x, ratio.y);
 }
 
-void blend(PImage tex, PImage inc, float blend, Vec3 ratio) {
+void blend(PImage tex, PImage inc, float blend, vec3 ratio) {
   blend(null, tex, inc, blend, ratio.x, ratio.y, ratio.z);
 }
 
-void blend(PImage tex, PImage inc, float blend, Vec4 ratio) {
+void blend(PImage tex, PImage inc, float blend, vec4 ratio) {
   blend(null, tex, inc, blend, ratio.x, ratio.y, ratio.z, ratio.w);
 }
 
@@ -447,15 +447,15 @@ void blend(PGraphics p, PImage tex, float blend, PImage inc) {
   blend(p, tex, inc, blend, 1);
 }
 
-void blend(PGraphics p, PImage tex, PImage inc, float blend, Vec2 ratio) {
+void blend(PGraphics p, PImage tex, PImage inc, float blend, vec2 ratio) {
   blend(p, tex, inc, blend, ratio.x, ratio.y);
 }
 
-void blend(PGraphics p, PImage tex, PImage inc, float blend, Vec3 ratio) {
+void blend(PGraphics p, PImage tex, PImage inc, float blend, vec3 ratio) {
   blend(p, tex, inc, blend, ratio.x, ratio.y, ratio.z);
 }
 
-void blend(PGraphics p, PImage tex, PImage inc, float blend, Vec4 ratio) {
+void blend(PGraphics p, PImage tex, PImage inc, float blend, vec4 ratio) {
   blend(p, tex, inc, blend, ratio.x, ratio.y, ratio.z, ratio.w);
 }
 
@@ -467,12 +467,12 @@ void blend(PGraphics p, PImage tex, PImage inc, float blend, Vec4 ratio) {
 * this method have a purpose to blend the four channel color.
 * @param Pimage tex, is the image must be back
 * @param Pimage inc, is the image must be incrusted on the background picture
-* @param float [], Vec2, Vec3 or Vec4 is the normal ratio overlaying
+* @param float [], vec2, vec3 or vec4 is the normal ratio overlaying
 */
 void blend(PGraphics p, PImage tex, PImage inc, float blend, float... ratio) { 
   set_blend_shader();
 
-  Vec4 r = array_to_Vec4_rgba(ratio);
+  vec4 r = array_to_vec4_rgba(ratio);
   
   rope_shader_blend.set("incrustation",inc);
   rope_shader_blend.set("blend", blend);
@@ -538,15 +538,15 @@ void mix(PImage tex, PImage inc) {
   mix(null, tex, inc, 1);
 }
 
-void mix(PImage tex, PImage inc, Vec2 ratio) {
+void mix(PImage tex, PImage inc, vec2 ratio) {
   mix(null, tex, inc, ratio.x, ratio.y);
 }
 
-void mix(PImage tex, PImage inc, Vec3 ratio) {
+void mix(PImage tex, PImage inc, vec3 ratio) {
   mix(null, tex, inc, ratio.x, ratio.y, ratio.z);
 }
 
-void mix(PImage tex, PImage inc, Vec4 ratio) {
+void mix(PImage tex, PImage inc, vec4 ratio) {
   mix(null, tex, inc, ratio.x, ratio.y, ratio.z, ratio.w);
 }
 
@@ -569,15 +569,15 @@ void mix(PGraphics p, PImage tex, PImage inc) {
   mix(p, tex, inc, 1);
 }
 
-void mix(PGraphics p, PImage tex, PImage inc, Vec2 ratio) {
+void mix(PGraphics p, PImage tex, PImage inc, vec2 ratio) {
   mix(p, tex, inc, ratio.x, ratio.y);
 }
 
-void mix(PGraphics p, PImage tex, PImage inc, Vec3 ratio) {
+void mix(PGraphics p, PImage tex, PImage inc, vec3 ratio) {
   mix(p, tex, inc, ratio.x, ratio.y, ratio.z);
 }
 
-void mix(PGraphics p, PImage tex, PImage inc, Vec4 ratio) {
+void mix(PGraphics p, PImage tex, PImage inc, vec4 ratio) {
   mix(p, tex, inc, ratio.x, ratio.y, ratio.z, ratio.w);
 }
 
@@ -588,7 +588,7 @@ void mix(PGraphics p, PImage tex, PImage inc, Vec4 ratio) {
 void mix(PGraphics p, PImage tex, PImage inc, float... ratio) {
   set_mix_shader();
 
-  Vec4 r = array_to_Vec4_rgba(ratio); 
+  vec4 r = array_to_vec4_rgba(ratio); 
   
   rope_shader_mix.set("incrustation",inc);
   rope_shader_mix.set("ratio",r.r,r.g,r.b,r.a);
@@ -640,15 +640,15 @@ void level_flip(boolean bx, boolean by) {
 /**
 * follower method
 */
-void level(PImage tex, Vec2 level) {
+void level(PImage tex, vec2 level) {
   level(tex,level.x,level.y);
 }
 
-void level(PImage tex, Vec3 level) {
+void level(PImage tex, vec3 level) {
   level(tex,level.x,level.y,level.z);
 }
 
-void level(PImage tex, Vec4 level) {
+void level(PImage tex, vec4 level) {
   level(tex,level.r,level.g,level.b,level.a);
 }
 
@@ -671,15 +671,15 @@ void level(PGraphics p, PImage tex, PImage inc) {
   level(p, tex, 1);
 }
 
-void level(PGraphics p, PImage tex, Vec2 ratio) {
+void level(PGraphics p, PImage tex, vec2 ratio) {
   level(p, tex, ratio.x, ratio.y);
 }
 
-void level(PGraphics p, PImage tex, Vec3 ratio) {
+void level(PGraphics p, PImage tex, vec3 ratio) {
   level(p, tex, ratio.x, ratio.y, ratio.z);
 }
 
-void level(PGraphics p, PImage tex, Vec4 ratio) {
+void level(PGraphics p, PImage tex, vec4 ratio) {
   level(p, tex, ratio.x, ratio.y, ratio.z, ratio.w);
 }
 /**
@@ -695,7 +695,7 @@ void level(PGraphics p, PImage tex, float... ratio) {
     }  
   } 
 
-  Vec4 r = array_to_Vec4_rgba(ratio);
+  vec4 r = array_to_vec4_rgba(ratio);
  
   rope_shader_level.set("level",r.r,r.g,r.b,r.a);
 

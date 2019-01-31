@@ -96,7 +96,7 @@ class Lignes extends Romanesco {
     // size canvas
     float canvas_x = map(get_canvas_x(),get_canvas_x_min(),get_canvas_x_max(), width/2, width *4);
     float canvas_y = map(get_canvas_y(),get_canvas_y_min(),get_canvas_y_max(), height/2, height *4);
-    Vec2 canvas = Vec2(canvas_x,canvas_y);
+    vec2 canvas = vec2(canvas_x,canvas_y);
 
     //quantity
     float ratio_num = map(get_quantity()*get_quantity(),0,1,1,100);
@@ -115,7 +115,7 @@ class Lignes extends Romanesco {
     }
   }
 
-  void loop_display_line(int num_grid, int step, float step_rotate, Vec2 canvas, float ratio_num, float speed, float thickness) {
+  void loop_display_line(int num_grid, int step, float step_rotate, vec2 canvas, float ratio_num, float speed, float thickness) {
     for(int i = 0 ; i < num_grid ; i++) {
       int angle = step *i ;
       float rotation_grid = step_rotate *i ;
@@ -128,7 +128,7 @@ class Lignes extends Romanesco {
 
   
 
-  void display_line(Vec2 canvas, float ratio_num, float speed, float thickness, int start_angle_deg) {
+  void display_line(vec2 canvas, float ratio_num, float speed, float thickness, int start_angle_deg) {
     float direction = get_dir_x() +start_angle_deg ;
     rotation(direction, 0, 0) ;
     //display
@@ -150,7 +150,7 @@ class Line {
   float speed;
   float vd, vg ;
   
-  void drawLine (float v, float ratio_num, color c, float e, Vec2 canvas) {
+  void drawLine (float v, float ratio_num, color c, float e, vec2 canvas) {
     if( e < 0.1 ) e = .1; //security for the negative value
      strokeWeight(e);
     // security against the black brightness bug opacity

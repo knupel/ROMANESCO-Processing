@@ -81,13 +81,13 @@ class Grillo extends Romanesco {
   }
   
   //DRAW
-  Vec3 offset [][][];
-  Vec3 dir [][][];
+  vec3 offset [][][];
+  vec3 dir [][][];
   boolean grillo_is[][][];
   int ref_num;
   String ref_mode;
   void draw() {
-    iVec3 canvas = iVec3(round(map(get_canvas(),get_canvas_x_min(),get_canvas_x_max(),1,19)));
+    ivec3 canvas = ivec3(round(map(get_canvas(),get_canvas_x_min(),get_canvas_x_max(),1,19)));
     if(ref_num != canvas.x*canvas.y*canvas.z || !get_mode_name().equals(ref_mode)) {
       reset(canvas);
       if(get_mode_name().equals("Random")) {
@@ -121,7 +121,7 @@ class Grillo extends Romanesco {
             float pos_x = -((canvas.x*cell)/2)+(cell/2)+(cell*x);
             float pos_y = -((canvas.y*cell)/2)+(cell/2)+(cell*y);
             float pos_z = -((canvas.z*cell)/2)+(cell/2)+(cell*z);
-            Vec3 pos = (Vec3(pos_x,pos_y,pos_z)).add(offset[x][y][z]);
+            vec3 pos = (vec3(pos_x,pos_y,pos_z)).add(offset[x][y][z]);
             manage_costume(pos,dir[x][y][z]);
           }
         }
@@ -132,8 +132,8 @@ class Grillo extends Romanesco {
     info("items: "+(canvas.x*canvas.y*canvas.z),"Mode: "+get_mode_name());
   }
 
-  void manage_costume(Vec3 pos, Vec3 dir) {
-    Vec3 size = get_size().copy();
+  void manage_costume(vec3 pos, vec3 dir) {
+    vec3 size = get_size().copy();
     if(get_costume().get_type() == STAR_3D_ROPE) {
       size.div(1,1,10);
     } else if(get_costume().get_type() == CROSS_BOX_3_ROPE || get_costume().get_type() == CROSS_BOX_2_ROPE) {
@@ -142,7 +142,7 @@ class Grillo extends Romanesco {
     costume(pos,size,dir,get_costume());
   }
 
-  void direction(iVec3 canvas) {
+  void direction(ivec3 canvas) {
     if(!get_dir().equals(0) || motion_is()) {
       for(int x = 0 ; x < canvas.x ; x++) {
         for(int y = 0 ; y < canvas.y ; y++) {
@@ -155,22 +155,22 @@ class Grillo extends Romanesco {
   }
 
 
-  void offset(iVec3 canvas) {
+  void offset(ivec3 canvas) {
     if(!get_speed().equals(0) || !get_jitter().equals(0) || motion_is()) {
-      Vec3 swing = map(get_swing().mult(get_swing()),0,1,0,width/2);
-      Vec3 s = map(get_speed(),get_speed_x_min(),get_speed_x_max(),0,.01);
+      vec3 swing = map(get_swing().mult(get_swing()),0,1,0,width/2);
+      vec3 s = map(get_speed(),get_speed_x_min(),get_speed_x_max(),0,.01);
       s.x = cos(s.x *frameCount);
       s.y = cos(s.y *frameCount);
       s.z = cos(s.z *frameCount);
 
-      Vec3 range = map(get_jitter().mult(get_jitter()),0,1,0,height/2);
+      vec3 range = map(get_jitter().mult(get_jitter()),0,1,0,height/2);
 
       for(int x = 0 ; x < canvas.x ; x++) {
         for(int y = 0 ; y < canvas.y ; y++) {
           for(int z = 0 ; z < canvas.z ; z++) {
-            Vec3 temp = mult(swing,s);
+            vec3 temp = mult(swing,s);
             // offset[x][y][z].set(temp);
-            Vec3 jit = Vec3().jitter(range);
+            vec3 jit = vec3().jitter(range);
             offset[x][y][z].set(temp.add(jit));
           }
         }
@@ -178,7 +178,7 @@ class Grillo extends Romanesco {
     }
   }
 
-  void pile_ou_face(iVec3 canvas, boolean coin_toss) {
+  void pile_ou_face(ivec3 canvas, boolean coin_toss) {
     for(int x = 0 ; x < canvas.x ; x++) {
       for(int y = 0 ; y < canvas.y ; y++) {
         for(int z = 0 ; z < canvas.z ; z++) {
@@ -198,16 +198,16 @@ class Grillo extends Romanesco {
   }
 
 
-  void reset(iVec3 canvas) {
-    offset = new Vec3[canvas.x][canvas.y][canvas.z];
-    dir = new Vec3[canvas.x][canvas.y][canvas.z];
+  void reset(ivec3 canvas) {
+    offset = new vec3[canvas.x][canvas.y][canvas.z];
+    dir = new vec3[canvas.x][canvas.y][canvas.z];
     grillo_is = new boolean[canvas.x][canvas.y][canvas.z];
     ref_num = canvas.x*canvas.y*canvas.z;
     for(int x = 0 ; x < canvas.x ; x++) {
       for(int y = 0 ; y < canvas.y ; y++) {
         for(int z = 0 ; z < canvas.z ; z++) {
-          offset[x][y][z] = Vec3();
-          dir[x][y][z] = Vec3();
+          offset[x][y][z] = vec3();
+          dir[x][y][z] = vec3();
         }
       }
     }

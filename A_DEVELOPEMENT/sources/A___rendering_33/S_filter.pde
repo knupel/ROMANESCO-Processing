@@ -62,7 +62,7 @@ void warp() {
   float cy = map(value_slider_fx[3],0,360,0,1);
   float cz = map(value_slider_fx[4],0,360,0,1);
   float ca = 1; // change nothing at this time
-  Vec4 refresh_warp = Vec4(cx,cy,cz,ca);
+  vec4 refresh_warp = vec4(cx,cy,cz,ca);
   if(ratio > 0) {
     refresh_warp.mult(cycling);
   }

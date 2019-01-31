@@ -3,10 +3,10 @@
 * refactoring by Stan le Punk
 * @see http://stanlepunk.xyz
 * @see https://github.com/StanLepunK/Force_Field
-* 2017-2018
-* v 1.3.0
+* 2017-2019
+* v 1.4.0
 *
-* Run on Processing 3.4
+* Run on Processing 3.5.2
 *
 * work based on the code traduction of Daniel Shiffman from Reynolds Study algorithm
 * @see http://natureofcode.com
@@ -17,10 +17,10 @@
 
 public class Vehicle implements rope.core.RConstants {
   // The usual stuff
-  private Vec2 starting_direction;
-  private Vec2 position;
-  private Vec2 velocity;
-  private Vec2 acceleration;
+  private vec2 starting_direction;
+  private vec2 position;
+  private vec2 velocity;
+  private vec2 acceleration;
   private float radius = 1.;
   private float max_force;    // Maximum steering force
   private float ref_max_force;    // Maximum steering force
@@ -32,12 +32,12 @@ public class Vehicle implements rope.core.RConstants {
 
   private Force_field ff ;
 
-  public Vehicle(Vec2 position, float max_speed, float max_force) {
+  public Vehicle(vec2 position, float max_speed, float max_force) {
     this.position = position.copy();
     this.ref_max_speed = this.max_speed = max_speed;
     this.ref_max_force = this.max_force = max_force;
-    acceleration = Vec2();
-    velocity = Vec2();
+    acceleration = vec2();
+    velocity = vec2();
   }
   /**
   set
@@ -46,9 +46,9 @@ public class Vehicle implements rope.core.RConstants {
     this.radius = radius;
   }
 
-  public void set_position(Vec2 position) {
+  public void set_position(vec2 position) {
     if(this.position == null) {
-      this.position = Vec2(position);
+      this.position = vec2(position);
     } else {
       this.position.set(position);
     }
@@ -69,12 +69,12 @@ public class Vehicle implements rope.core.RConstants {
   /**
   get
   */
-  public Vec2 get_position() {
-    Vec2 temp_pos = position.copy() ;
-    return temp_pos.add(Vec2(ff.canvas_pos));
+  public vec2 get_position() {
+    vec2 temp_pos = position.copy() ;
+    return temp_pos.add(vec2(ff.canvas_pos));
   }
 
-  public Vec2 get_absolute_position() {
+  public vec2 get_absolute_position() {
     return position ;
   }
   
@@ -137,9 +137,9 @@ public class Vehicle implements rope.core.RConstants {
   */
   private void swap_spot(float offset_cell_vehicle) {
     for(int index = 0 ; index < ff.get_spot_num() ; index++) {
-      Vec2 pos_vehicle = get_position().copy();
-      Vec2 pos_spot = Vec2(ff.get_spot_pos(index).x,ff.get_spot_pos(index).y);
-      Vec2 diam = ff.get_spot_size(index);
+      vec2 pos_vehicle = get_position().copy();
+      vec2 pos_spot = vec2(ff.get_spot_pos(index).x,ff.get_spot_pos(index).y);
+      vec2 diam = ff.get_spot_size(index);
       int tesla = ff.get_spot_tesla(index);
       
       // GRAVITY case
@@ -169,8 +169,8 @@ public class Vehicle implements rope.core.RConstants {
   }
 
 
-  boolean out_of_canvas(float offset_cell_vehicle, Vec2 pos_vehicle) {
-    return inside(Vec2(-offset_cell_vehicle), Vec2(ff.get_canvas()), pos_vehicle, RECT);
+  boolean out_of_canvas(float offset_cell_vehicle, vec2 pos_vehicle) {
+    return inside(vec2(-offset_cell_vehicle), vec2(ff.get_canvas()), pos_vehicle, RECT);
   }
   /**
   go
@@ -185,8 +185,8 @@ public class Vehicle implements rope.core.RConstants {
     int spot_emitter = floor(random(list.size()));
     Spot spot = list.get(spot_emitter);
     if(spot.get_size() != null && spot.get_pos() != null) {
-      position.set(Vec2(0));
-      position.add(Vec2(spot.get_pos()));
+      position.set(vec2(0));
+      position.add(vec2(spot.get_pos()));
     } else {
       /*
       * recursive in case the spot not initialized, may be it's little dangerous if no spot has be init !
@@ -251,10 +251,10 @@ public class Vehicle implements rope.core.RConstants {
   */
   // Implementing Reynolds' flow field following algorithm
   public void follow() {
-    Vec2 temp_pos = get_absolute_position().copy();
-    Vec2 desired  = ff.dir_in_grid(temp_pos);
-    Vec2 steer = Vec2();
-    Vec2 velocity_total = velocity.copy();
+    vec2 temp_pos = get_absolute_position().copy();
+    vec2 desired  = ff.dir_in_grid(temp_pos);
+    vec2 steer = vec2();
+    vec2 velocity_total = velocity.copy();
 
     if(desired != null) {
       starting_direction = null;
@@ -265,7 +265,7 @@ public class Vehicle implements rope.core.RConstants {
     } else {
       if(starting_direction == null) {
         float theta = random(-PI,PI);
-        starting_direction = Vec2(cos(theta),sin(theta));
+        starting_direction = vec2(cos(theta),sin(theta));
       }
       steer = sub(starting_direction, velocity_total);
     }
@@ -281,7 +281,7 @@ public class Vehicle implements rope.core.RConstants {
     this.max_force = this.ref_max_force;
   }
 
-  private void apply_force(Vec2 steer) {
+  private void apply_force(vec2 steer) {
     // We could add mass here if we want A = F / M
     acceleration.add(steer);
   }

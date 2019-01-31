@@ -77,22 +77,22 @@ class Puppet_master extends Romanesco {
   }
   
 
-  Vec3 speed = Vec3();
+  vec3 speed = vec3();
   void draw() {
     puppet_master(true);
     // int num, float quantity_slider, boolean use_slider_quantity
     // num_spot_management(300, get_quantity(),true);
 
-    iVec2 canvas_ff = get_force_field().get_canvas();
+    ivec2 canvas_ff = get_force_field().get_canvas();
     float max_w = map(get_canvas_x(),width *.1,(float)width *TAU,canvas_ff.x,5*canvas_ff.x);
-    Vec2 limit_w = Vec2(-(max_w-canvas_ff.x),max_w);
+    vec2 limit_w = vec2(-(max_w-canvas_ff.x),max_w);
 
     float max_h = map(get_canvas_y(),width *.1,(float)width *TAU,canvas_ff.y,5*canvas_ff.y);
-    Vec2 limit_h = Vec2(-(max_h-canvas_ff.y),max_h);
+    vec2 limit_h = vec2(-(max_h-canvas_ff.y),max_h);
     
     // here we use the y component of canvas because the `z`don't exist.
     float max_d = map(get_canvas_z(),width *.1,(float)width *TAU,canvas_ff.y*.1,5*canvas_ff.y);
-    Vec2 limit_d = Vec2(-(max_d-canvas_ff.y),max_d);
+    vec2 limit_d = vec2(-(max_d-canvas_ff.y),max_d);
 
 
 
@@ -117,7 +117,7 @@ class Puppet_master extends Romanesco {
     int num_spiral = (int)map(get_angle(),0,TAU,1,13);
 
     // range min_max for the radius
-    Vec2 range = Vec2(get_swing_x(),get_swing_x()*5);
+    vec2 range = vec2(get_swing_x(),get_swing_x()*5);
 
     int which_behavior = floor(map(get_variety(),0,1,0,6));
     if(which_behavior == 6) which_behavior = 5;
@@ -161,12 +161,12 @@ class Puppet_master extends Romanesco {
 
     // SHOW SPOT
     float ratio_size_costume = map(get_area(),width*.1, width*TAU,0,width*.001);
-    Vec3 size = Vec3(get_size_x(),get_size_y(),get_size_z());
+    vec3 size = vec3(get_size_x(),get_size_y(),get_size_z());
     aspect_is(fill_is(),stroke_is());
     aspect(get_fill(), get_stroke(),get_thickness());
     
     for(int i =  0 ; i < get_spot_num() ; i++) {
-      Vec3 pos = Vec3(get_spot_pos(i));
+      vec3 pos = vec3(get_spot_pos(i));
       set_ratio_costume_size(ratio_size_costume);
       costume(pos,size,get_costume());
     }
@@ -190,7 +190,7 @@ class Puppet_master extends Romanesco {
 
   Cloud_2D valse_2D;
   int ref_num;
-  private void valse_2D_spot(float radius, Vec3 speed, int num_spiral, Vec2 range, int which_behavior) {
+  private void valse_2D_spot(float radius, vec3 speed, int num_spiral, vec2 range, int which_behavior) {
     if(valse_2D == null || ref_num != get_spot_num()) {
       valse_2D = new Cloud_2D(get_spot_num(),r.ORDER);
       ref_num = get_spot_num();
@@ -216,10 +216,10 @@ class Puppet_master extends Romanesco {
     }
     valse_2D.update();
     // update spot position from cloud
-    //Vec3 [] temp = cloud_2D.list();
+    //vec3 [] temp = cloud_2D.list();
     for(int i = 0 ; i < get_spot_num() &&  i < valse_2D.length(); i++) {
       set_spot_pos(valse_2D.list()[i],i);
-      //pos[i] = Vec2(temp[i].x,temp[i].y);
+      //pos[i] = vec2(temp[i].x,temp[i].y);
     }
 
 
@@ -252,7 +252,7 @@ class Puppet_master extends Romanesco {
   }
 
 
-  private void whisky_spot(iVec2 canvas, Vec3 speed, Vec2 limit_w, Vec2 limit_h, Vec2 limit_d) {
+  private void whisky_spot(ivec2 canvas, vec3 speed, vec2 limit_w, vec2 limit_h, vec2 limit_d) {
   	float sx = speed.x;
   	float sy = speed.y;
   	float sz = speed.z;
@@ -263,19 +263,19 @@ class Puppet_master extends Romanesco {
   	sz *= sz;
   	sz *= (width/50);	
   	for(int i = 0 ; i < get_spot_num() ; i++) {
-  		Vec3 vel = new Vec3(RANDOM,sx,sy,sz);
-  		Vec3 tempo_pos = get_spot_pos(i);
+  		vec3 vel = new vec3(RANDOM,sx,sy,sz);
+  		vec3 tempo_pos = get_spot_pos(i);
   		tempo_pos.add(vel);
   		set_spot_pos(tempo_pos,i);
   	}
   	random_spot(false);
     // manage spot when those too drunk and go beyond the galaxy
     for(int i =  0 ; i < get_spot_num() ; i++) {
-      Vec3 pos = Vec3(get_spot_pos(i));
+      vec3 pos = vec3(get_spot_pos(i));
       if(in_vec(limit_w,pos.x) && in_vec(limit_h,pos.y) && in_vec(limit_d,pos.z)) {
         // nothing happen
       } else {
-        Vec3 new_pos = new Vec3(r.RANDOM,canvas.x,canvas.y,0);
+        vec3 new_pos = new vec3(r.RANDOM,canvas.x,canvas.y,0);
         set_spot_pos(new_pos,i);
       }
     }
@@ -311,17 +311,17 @@ class Puppet_master extends Romanesco {
 
 
   private void random_distribution_2D(int w, int h) {
-  	random_distribution_2D(Vec2(0,w), Vec2(0,h));
+  	random_distribution_2D(vec2(0,w), vec2(0,h));
   }
 
-  private void random_distribution_2D(Vec2 range_w, Vec2 range_h) {
+  private void random_distribution_2D(vec2 range_w, vec2 range_h) {
   	for(int i = 0 ; i < get_spot_num() ; i++) {
   		set_spot_pos(random(range_w.x,range_w.y),random(range_h.x,range_h.y),i);
   	}
   }
 
 
-  private boolean in_vec(Vec2 ref, float value) {
+  private boolean in_vec(vec2 ref, float value) {
     if(value < ref.x && value < ref.y) {
       return false;
     } else if(value > ref.x && value > ref.y) {

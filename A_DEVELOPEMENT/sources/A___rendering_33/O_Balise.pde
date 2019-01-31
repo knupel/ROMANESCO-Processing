@@ -134,13 +134,13 @@ class BaliseRomanesco extends Romanesco {
     float ratio = .5 ;
     float tempo_effect = 1 + ((transient_value[0][ID_item] *ratio) + (transient_value[2][ID_item] *ratio) + (transient_value[3][ID_item] *ratio) + (transient_value[4][ID_item] *ratio));
 
-    Vec3 size = Vec3(get_size_x(),get_size_y(),get_size_z());
+    vec3 size = vec3(get_size_x(),get_size_y(),get_size_z());
     size.mult(15);
 
-    Vec2 left_right_sound = Vec2(1) ;
+    vec2 left_right_sound = vec2(1) ;
     if(authorization) {
       size.mult(tempo_effect,tempo_effect,1);
-      left_right_sound = Vec2(left[ID_item] *5,right[ID_item] *5) ;
+      left_right_sound = vec2(left[ID_item] *5,right[ID_item] *5) ;
     }
     
     if(left_right_sound.x <= 0) {
@@ -156,7 +156,7 @@ class BaliseRomanesco extends Romanesco {
     float radiusBalise = map(get_quantity(), 0,1, 2, maxBalise); // here the value max is 511 because we work with buffersize with 512 field
     float ratio_size = map(get_area(),width*.1, width*TAU,0,1);
     
-    Vec3 pos = Vec3();
+    vec3 pos = vec3();
     balise.update(pos,speed);
 
     balise.display(amp, left_right_sound, size, factor, int(radiusBalise), authorization, get_costume(), snake_mode,ratio_size) ;
@@ -180,13 +180,13 @@ class Balise {
 
   Balise () { }
 
-  void update(Vec pos_temp, float speed) {
-    Vec3 pos = Vec3() ;
-    if(pos_temp instanceof Vec2) {
-      Vec2 p = (Vec2) pos_temp ;
+  void update(vec pos_temp, float speed) {
+    vec3 pos = vec3() ;
+    if(pos_temp instanceof vec2) {
+      vec2 p = (vec2) pos_temp ;
       pos.set(p.x, p.y, 0) ;
-    } else if(pos_temp instanceof Vec3) {
-      Vec3 p = (Vec3) pos_temp ;
+    } else if(pos_temp instanceof vec3) {
+      vec3 p = (vec3) pos_temp ;
       pos.set(p) ;
     }
     Float s = speed ;
@@ -204,7 +204,7 @@ class Balise {
 
 
   
-  void display(float amp, Vec2 sound_input, Vec3 size, float factor, int max, boolean authorization, Costume costume, boolean snake_mode, float ratio_size) {
+  void display(float amp, vec2 sound_input, vec3 size, float factor, int max, boolean authorization, Costume costume, boolean snake_mode, float ratio_size) {
 
     pushMatrix() ;
     rectMode(CENTER) ;
@@ -214,12 +214,12 @@ class Balise {
     }
 
     for(int i = 0 ; i < max ; i++) {
-      Vec2 var = Vec2(input(i,max,sound_input,authorization).x, input(i,max,sound_input,authorization).y) ;
-      Vec2 pos = Vec2(amp *var.x, amp *var.y);
+      vec2 var = vec2(input(i,max,sound_input,authorization).x, input(i,max,sound_input,authorization).y) ;
+      vec2 pos = vec2(amp *var.x, amp *var.y);
       
       var.set(abs(var.x *factor), abs(var.y *factor));
 
-      Vec3 final_size = Vec3(size.x *var.x, size.y *var.y, size.z *((var.x +var.y)*.5));
+      vec3 final_size = vec3(size.x *var.x, size.y *var.y, size.z *((var.x +var.y)*.5));
       if(snake_mode) {
         //println("snake");
         start_matrix();
@@ -257,14 +257,14 @@ class Balise {
   */
   
   //calculate and return the position for each brick of the balise
-  Vec2 input(int whichOne, int max, Vec2 var, boolean authorization) {
-    Vec2 value = Vec2(1) ;
+  vec2 input(int whichOne, int max, vec2 var, boolean authorization) {
+    vec2 value = vec2(1) ;
     if(authorization) {
-      value = Vec2((get_left(whichOne)*var.x), (get_right(whichOne)*var.y) ) ; 
+      value = vec2((get_left(whichOne)*var.x), (get_right(whichOne)*var.y) ) ; 
     } else {
       float n = (float)whichOne ;
       n = n - (max/2) ;
-      value = Vec2( n*var.x *.01, n*var.y *.01); 
+      value = vec2( n*var.x *.01, n*var.y *.01); 
     } 
     return value ;
   }

@@ -1,6 +1,6 @@
 /**
 Rope UTILS 
-v 1.55.0
+v 1.56.1
 * Copyleft (c) 2014-2019
 * Stan le Punk > http://stanlepunk.xyz/
 Rope – Romanesco Processing Environment – 
@@ -14,9 +14,9 @@ Processing 3.4
 CHECK SIZE WINDOW
 return true if the window size has changed
 */
-iVec2 rope_window_size;
+ivec2 rope_window_size;
 boolean window_change_is() {
-  if(rope_window_size == null || !all(equal(iVec2(width,height),rope_window_size))) {
+  if(rope_window_size == null || !all(equal(ivec2(width,height),rope_window_size))) {
     check_window_size();
     return true;
   } else {
@@ -26,7 +26,7 @@ boolean window_change_is() {
 
 void check_window_size() {
   if(rope_window_size == null) {
-    rope_window_size = iVec2(width,height);
+    rope_window_size = ivec2(width,height);
   } else {
     rope_window_size.set(width,height);
   }
@@ -671,19 +671,19 @@ byte[] to_byte(Object obj) {
 
 
 /**
-* from iVec, Vec to PVector
+* from ivec, vec to PVector
 */
 PVector to_PVector(Object obj) {
-  if(obj instanceof Vec || obj instanceof iVec) {
-    if(obj instanceof Vec) {
-      Vec v = (Vec)obj;
+  if(obj instanceof vec || obj instanceof ivec) {
+    if(obj instanceof vec) {
+      vec v = (vec)obj;
       return new PVector(v.x,v.y,v.z);
     } else {
-      iVec iv = (iVec)obj;
+      ivec iv = (ivec)obj;
       return new PVector(iv.x,iv.y,iv.z);
     }
   } else {
-    printErr("method to_PVectro(): wait for Object of type Vec or iVec");
+    printErr("method to_Pvectro(): wait for Object of type vec or ivec");
     return null;
   }
 }
@@ -802,10 +802,10 @@ String int_to_String(int data) {
 
 
 /**
-array float to Vec
+array float to vec
 */
-Vec4 array_to_Vec4_rgba(float... f) {
-  Vec4 v = Vec4(1);
+vec4 array_to_vec4_rgba(float... f) {
+  vec4 v = vec4(1);
   if(f.length == 1) {
     v.set(f[0],f[0],f[0],1.);
   } else if(f.length == 2) {
@@ -1169,89 +1169,26 @@ void freeze() {
 
 
 
-/**
-Gaussian randomize
-v 0.0.2
-*/
-@Deprecated
-float random_gaussian(float value) {
-  return random_gaussian(value, .4) ;
-}
 
-@Deprecated
-float random_gaussian(float value, float range) {
-  /*
-  * It's cannot possible to indicate a value result here, this part need from the coder ?
-  */
-  printErrTempo(240,"float random_gaussian(); method must be improved or totaly deprecated");
-  range = abs(range) ;
-  float distrib = random(-1, 1) ;
-  float result = 0 ;
-  if(value == 0) {
-    value = 1 ;
-    result = (pow(distrib,5)) *(value *range) +value ;
-    result-- ;
-  } else {
-    result = (pow(distrib,5)) *(value *range) +value ;
-  }
-  return result;
-}
-
-
-
-/**
-Next Gaussian randomize
-v 0.0.2
-*/
-/**
-* return value from -1 to 1
-* @return float
-*/
-Random random = new Random();
-float random_next_gaussian() {
-  return random_next_gaussian(1,1);
-}
-
-float random_next_gaussian(int n) {
-  return random_next_gaussian(1,n);
-}
-
-float random_next_gaussian(float range) {
-  return random_next_gaussian(range,1);
-}
-
-float random_next_gaussian(float range, int n) {
-  float roots = (float)random.nextGaussian();
-  float var = map(roots,-2.5,2.5,-1,1);  
-  if(n > 1) {
-    if(n%2 ==0 && var < 0) {
-       var = -1 *pow(var,n);
-     } else {
-       var = pow(var,n);
-     }
-     return var *range ;
-  } else {
-    return var *range ;
-  }
-}
 
 
 
 
 /**
 PIXEL UTILS
-v 0.0.2
-2017-2017
+v 0.0.3
 */
 int [][] loadPixels_array_2D() {
-  int [][] array_pix ;
-  loadPixels() ;
+  int [][] array_pix;
+  loadPixels();
   array_pix = new int[height][width] ;
-  int which_pix = 0 ;
-  for(int y = 0 ; y < height ; y++) {
-    for(int x = 0 ; x < width ; x++) {
-      which_pix = y *width +x ;
-      array_pix[y][x] = pixels[which_pix] ;
+  int which_pix = 0;
+  if(pixels != null) {
+    for(int y = 0 ; y < height ; y++) {
+      for(int x = 0 ; x < width ; x++) {
+        which_pix = y *width +x ;
+        array_pix[y][x] = pixels[which_pix] ;
+      }
     }
   }
   if(array_pix != null) {
@@ -1322,12 +1259,12 @@ String get_type(Object obj) {
     return "Character";
   } else if(obj instanceof PVector) {
     return "PVector";
-  } else if(obj instanceof Vec) {
-    return "Vec";
-  } else if(obj instanceof iVec) {
-    return "iVec";
-  } else if(obj instanceof bVec) {
-    return "bVec";
+  } else if(obj instanceof vec) {
+    return "vec";
+  } else if(obj instanceof ivec) {
+    return "ivec";
+  } else if(obj instanceof bvec) {
+    return "bvec";
   } else if(obj == null) {
     return "null";
   } else return "Unknow" ;
@@ -2277,85 +2214,85 @@ public class Info_String_dict extends Info_dict {
 
 
 /**
-Info_Vec_dict
+Info_vec_dict
 */
-public class Info_Vec_dict extends Info_dict {
-  ArrayList<Info_Vec> list_Vec ;
-  Info_Vec_dict() {
+public class Info_vec_dict extends Info_dict {
+  ArrayList<Info_vec> list_vec ;
+  Info_vec_dict() {
     super('v') ;
-    list_Vec = new ArrayList<Info_Vec>() ;
+    list_vec = new ArrayList<Info_vec>() ;
   }
 
-  // add Vec
-  void add(String name, Vec a) {
-    Info_Vec info = new Info_Vec(name,a);
-    list_Vec.add(info);
+  // add vec
+  void add(String name, vec a) {
+    Info_vec info = new Info_vec(name,a);
+    list_vec.add(info);
   }
-  void add(String name, Vec a, Vec b) {
-    Info_Vec info = new Info_Vec(name,a,b);
-    list_Vec.add(info);
+  void add(String name, vec a, vec b) {
+    Info_vec info = new Info_vec(name,a,b);
+    list_vec.add(info);
   }
-  void add(String name, Vec a, Vec b, Vec c) {
-    Info_Vec info = new Info_Vec(name,a,b,c);
-    list_Vec.add(info);
+  void add(String name, vec a, vec b, vec c) {
+    Info_vec info = new Info_vec(name,a,b,c);
+    list_vec.add(info);
   }
-  void add(String name, Vec a, Vec b, Vec c, Vec d) {
-    Info_Vec info = new Info_Vec(name,a,b,c,d);
-    list_Vec.add(info);
+  void add(String name, vec a, vec b, vec c, vec d) {
+    Info_vec info = new Info_vec(name,a,b,c,d);
+    list_vec.add(info);
   }
-  void add(String name, Vec a, Vec b, Vec c, Vec d, Vec e) {
-    Info_Vec info = new Info_Vec(name,a,b,c,d,e);
-    list_Vec.add(info);
+  void add(String name, vec a, vec b, vec c, vec d, vec e) {
+    Info_vec info = new Info_vec(name,a,b,c,d,e);
+    list_vec.add(info);
   }
-  void add(String name, Vec a, Vec b, Vec c, Vec d, Vec e, Vec f) {
-    Info_Vec info = new Info_Vec(name,a,b,c,d,e,f);
-    list_Vec.add(info);
+  void add(String name, vec a, vec b, vec c, vec d, vec e, vec f) {
+    Info_vec info = new Info_vec(name,a,b,c,d,e,f);
+    list_vec.add(info);
   }
-  void add(String name, Vec a, Vec b, Vec c, Vec d, Vec e, Vec f, Vec g) {
-    Info_Vec info = new Info_Vec(name,a,b,c,d,e,f,g);
-    list_Vec.add(info);
+  void add(String name, vec a, vec b, vec c, vec d, vec e, vec f, vec g) {
+    Info_vec info = new Info_vec(name,a,b,c,d,e,f,g);
+    list_vec.add(info);
   }
 
   // size
   int size() {
-    return list_Vec.size();
+    return list_vec.size();
   }
 
   //read
   void read() {
-    println("Vec list");
-    for(Info a : list_Vec) {
-      println(a,"Vec");
+    println("vec list");
+    for(Info a : list_vec) {
+      println(a,"vec");
     }
   }
   
 
   // get
-  Info_Vec get(int target) {
-    if(target < list_Vec.size() && target >= 0) {
-      return list_Vec.get(target);
+  Info_vec get(int target) {
+    if(target < list_vec.size() && target >= 0) {
+      return list_vec.get(target);
     } else return null;
   }
   
-  Info_Vec [] get(String which) {
-    Info_Vec [] info;
+  Info_vec [] get(String which) {
+    Info_vec [] info;
     int count = 0 ;
-    for(Info_Vec a : list_Vec) {
+    for(Info_vec a : list_vec) {
       if(a.get_name().equals(which)) {
         count++;
       }
     }
     if (count > 0 ) {
-      info = new Info_Vec[count];
+      info = new Info_vec[count];
       count = 0 ;
-      for(Info_Vec a : list_Vec) {
+      for(Info_vec a : list_vec) {
         if(a.get_name().equals(which)) {
           info[count] = a;
           count++ ;
         }
       }
     } else {
-      info = new Info_Vec[1];
+      info = new Info_vec[1];
       info[0] = null ;
     }
     if(info.length == 1 && info[0] == null )return null ; else return info;
@@ -2363,22 +2300,22 @@ public class Info_Vec_dict extends Info_dict {
 
   // clear
   void clear() {
-    list_Vec.clear();
+    list_vec.clear();
   }
 
   // remove
   void remove(String which) {
-    for(int i = 0 ; i < list_Vec.size() ; i++) {
-      Info_Vec a = list_Vec.get(i) ;
+    for(int i = 0 ; i < list_vec.size() ; i++) {
+      Info_vec a = list_vec.get(i) ;
       if(a.get_name().equals(which)) {
-        list_Vec.remove(i);
+        list_vec.remove(i);
       }
     }
   }
   
   void remove(int target) {
-   if(target < list_Vec.size()) {
-      list_Vec.remove(target);
+   if(target < list_vec.size()) {
+      list_vec.remove(target);
     }
   }
 }
@@ -2741,20 +2678,20 @@ class Info_float extends Info_method {
 }
 
 /**
-INFO Vec
+INFO vec
 v 0.0.2
 */
-class Info_Vec extends Info_method {
+class Info_vec extends Info_method {
   char type = 'v' ;
-  Vec a, b, c, d, e, f, g ;
+  vec a, b, c, d, e, f, g ;
   int num_value ;  
 
-  Info_Vec(String name) {
+  Info_vec(String name) {
     super(name) ;
   }
 
-  // Vec value
-  Info_Vec(String name, Vec... var) {
+  // vec value
+  Info_vec(String name, vec... var) {
     super(name) ;
     if(var.length > 7 ) {
       num_value = 7 ; 
@@ -2774,12 +2711,12 @@ class Info_Vec extends Info_method {
 
 
   // get
-  Vec [] get() {
-    Vec [] list = new Vec[]{a,b,c,d,e,f,g} ;
+  vec [] get() {
+    vec [] list = new vec[]{a,b,c,d,e,f,g} ;
     return list ;
   }
 
-  Vec get(int which) {
+  vec get(int which) {
     if(which == 0) {
       return a ; 
     } else if(which == 1) {

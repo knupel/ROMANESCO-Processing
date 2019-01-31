@@ -20,8 +20,8 @@ void display_structure() {
 
   // display
   noStroke();
-  iVec2 pos = iVec2(0,0);
-  iVec2 size = iVec2(width, height_header);
+  ivec2 pos = ivec2(0,0);
+  ivec2 size = ivec2(width, height_header);
   display_structure_header(pos,size, fill_header_struc);
 
   pos.set(0,pos_y_button_top);
@@ -50,12 +50,12 @@ void display_structure() {
 
 
 
-void display_structure_header(iVec2 pos, iVec2 size, int colour_bg) {
+void display_structure_header(ivec2 pos, ivec2 size, int colour_bg) {
   fill(colour_bg); 
   rect(pos,size);
 }
 
-void display_structure_top_button(iVec2 pos, iVec2 size, int colour_bg, int colour_line) {
+void display_structure_top_button(ivec2 pos, ivec2 size, int colour_bg, int colour_line) {
   fill(colour_bg); 
   rect(pos,size); 
 
@@ -63,7 +63,7 @@ void display_structure_top_button(iVec2 pos, iVec2 size, int colour_bg, int colo
   rect(pos.x,pos.y,size.x,thickness_line_deco) ;
 }
 
-void display_structure_dropdown_menu_general(iVec2 pos, iVec2 size, int colour_bg, int colour_line) {
+void display_structure_dropdown_menu_general(ivec2 pos, ivec2 size, int colour_bg, int colour_line) {
   fill(colour_bg); 
   rect(pos,size);
   // decoration 
@@ -71,12 +71,12 @@ void display_structure_dropdown_menu_general(iVec2 pos, iVec2 size, int colour_b
   rect(pos.x,pos.y,size.x,thickness_line_deco) ;
 }
 
-void display_structure_general(iVec2 pos, iVec2 size, int colour_bg, int colour_line) {
+void display_structure_general(ivec2 pos, ivec2 size, int colour_bg, int colour_line) {
   fill(colour_bg); 
   rect(pos,size);
 }
 
-void display_structure_menu_sound(iVec2 pos, iVec2 size, int colour_bg, int colour_line) {
+void display_structure_menu_sound(ivec2 pos, ivec2 size, int colour_bg, int colour_line) {
   fill(colour_bg) ;
   rect(pos,size); 
   // decoration
@@ -84,7 +84,7 @@ void display_structure_menu_sound(iVec2 pos, iVec2 size, int colour_bg, int colo
   rect(pos.x,pos.y,size.x,thickness_line_deco); 
 }
 
-void display_structure_item_selected(iVec2 pos, iVec2 size, int colour_bg, int colour_line) {
+void display_structure_item_selected(ivec2 pos, ivec2 size, int colour_bg, int colour_line) {
   fill(colour_bg);
   rect(pos,size); 
   // decoration
@@ -92,7 +92,7 @@ void display_structure_item_selected(iVec2 pos, iVec2 size, int colour_bg, int c
   rect(pos.x,pos.y,size.x,thickness_line_deco); 
 }
 
-void display_structure_inventory_item(iVec2 pos, iVec2 size, int colour_bg, int colour_line) {
+void display_structure_inventory_item(ivec2 pos, ivec2 size, int colour_bg, int colour_line) {
   fill(colour_bg);
   rect(pos,size); 
 }
@@ -195,7 +195,7 @@ void update_dropdown_bar_content() {
 
 void update_dropdown_item() {
   int pointer = 0 ;
-  iVec2 offset_selection = iVec2(18,8);
+  ivec2 offset_selection = ivec2(18,8);
   for (int i = 1 ; i <= NUM_ITEM ; i++) {
     update_dropdown_item(dd_item_costume, list_item_costume, inventory, i,offset_selection, pointer);
     update_dropdown_item(dd_item_mode, list_item_mode, inventory, i,offset_selection,pointer);
@@ -205,7 +205,7 @@ void update_dropdown_item() {
   }
 }
 
-void update_dropdown_item(Dropdown [] dd, String [] list, Inventory [] inventory, int index, iVec2 offset, int pointer) {
+void update_dropdown_item(Dropdown [] dd, String [] list, Inventory [] inventory, int index, ivec2 offset, int pointer) {
   if(inventory[index].is()) {
     int distance = pointer *DIST_BETWEEN_ITEM;
     dd[index].offset(distance, 0);
@@ -224,7 +224,7 @@ void update_dropdown_item(Dropdown [] dd, String [] list, Inventory [] inventory
       dd[index].show_header_text(name);  
     } else {
       fill(r.GRAY_3);
-      iVec2 pos = dd[index].get_pos().add(dd[index].get_header_text_pos());
+      ivec2 pos = dd[index].get_pos().add(dd[index].get_header_text_pos());
       PFont font = dd[index].get_font();
       textFont(font);
       text(dd[index].get_name(),pos);
@@ -233,7 +233,7 @@ void update_dropdown_item(Dropdown [] dd, String [] list, Inventory [] inventory
 }
 
 
-void show_dropdown_box_item(Dropdown [] dd, String [] list, Inventory [] inventory, int index, iVec2 offset, int pointer) {
+void show_dropdown_box_item(Dropdown [] dd, String [] list, Inventory [] inventory, int index, ivec2 offset, int pointer) {
   if(inventory[index].is()) {
     int distance = pointer *DIST_BETWEEN_ITEM;
     dd[index].offset(distance, 0);
@@ -539,8 +539,8 @@ And you must add the name of this one in the 'preferences/'  folder slider_name_
 boolean slider_light_0_show_structure_colour() {
   int start = 0;
   int length = 3 ;
-  iVec2 [] pos = new iVec2[length];
-  iVec2 [] size = new iVec2[length];
+  ivec2 [] pos = new ivec2[length];
+  ivec2 [] size = new ivec2[length];
   float [] value = new float[length];
   System.arraycopy(pos_slider_light,start,pos,0,length);
   System.arraycopy(size_slider_light,start,size,0,length);
@@ -551,8 +551,8 @@ boolean slider_light_0_show_structure_colour() {
 boolean slider_light_1_show_structure_colour() {
   int start = 3 ;
   int length = 3 ;
-  iVec2 [] pos = new iVec2[length];
-  iVec2 [] size = new iVec2[length];
+  ivec2 [] pos = new ivec2[length];
+  ivec2 [] size = new ivec2[length];
   float [] value = new float[length];
   System.arraycopy(pos_slider_light,start,pos,0,length);
   System.arraycopy(size_slider_light,start,size,0,length);
@@ -563,8 +563,8 @@ boolean slider_light_1_show_structure_colour() {
 boolean slider_light_2_show_structure_colour() {
   int start = 6 ;
   int length = 3 ;
-  iVec2 [] pos = new iVec2[length];
-  iVec2 [] size = new iVec2[length];
+  ivec2 [] pos = new ivec2[length];
+  ivec2 [] size = new ivec2[length];
   float [] value = new float[length];
   System.arraycopy(pos_slider_light,start,pos,0,length);
   System.arraycopy(size_slider_light,start,size,0,length);
@@ -576,7 +576,7 @@ boolean slider_light_2_show_structure_colour() {
 
 
 // supra local void
-boolean show_slider_structure_colour(iVec2 [] pos, iVec2 [] size, float [] value) {
+boolean show_slider_structure_colour(ivec2 [] pos, ivec2 [] size, float [] value) {
   if (mouseX > (pos[0].x ) && mouseX < ( pos[0].x +size[0].x) 
       && mouseY > ( pos[0].y - 5) && mouseY < pos[0].y +40) {
     show_slider_hue_structure(pos[0], size[0]) ;
@@ -679,16 +679,16 @@ boolean show_slider_item_colour(int hueRank, int satRank, int brightRank) {
 /**
 display item info
 */
-void item_thumbnail_info(iVec2 pos, iVec2 size, int IDorder, int IDfamily) {
+void item_thumbnail_info(ivec2 pos, ivec2 size, int IDorder, int IDfamily) {
   if (mouseX > pos.x && mouseX < (size.x + pos.x ) && mouseY > pos.y - 10 && mouseY <  (size.y + pos.y) -20 ) {
-    iVec2 fontPos = iVec2(-10, -20 ) ; 
+    ivec2 fontPos = ivec2(-10, -20 ) ; 
     if (NUM_ITEM > 0 ) {
       display_info_item(IDorder, fontPos) ;
     }
   }
 }
 
-void display_info_item(int IDorder, iVec2 pos) {
+void display_info_item(int IDorder, ivec2 pos) {
   int whichLine = 0 ;
   int num = inventory_item_table.getRowCount() ;
   for ( int j = 0 ; j < num ; j++) {
@@ -713,13 +713,13 @@ void display_info_item(int IDorder, iVec2 pos) {
 
   // background window
   int pos_correction_y = -30 ;
-  Vec2 pos_window = Vec2(pos.x +mouseX , pos.y + mouseY +pos_correction_y) ;
-  Vec2 ratio_size = Vec2( 1.4, 1.3) ;
+  vec2 pos_window = vec2(pos.x +mouseX , pos.y + mouseY +pos_correction_y) ;
+  vec2 ratio_size = vec2( 1.4, 1.3) ;
   int speed = 7 ;
   int size_angle = 2 ;
   fill(fill_info_window_rect,150);
-  Vec2 range_check = Vec2(0,1) ;
-  background_text_list(Vec2(pos_window.x +2, pos_window.y), text, size_text, size_angle, speed, ratio_size, range_check,FuturaStencil_20) ;
+  vec2 range_check = vec2(0,1) ;
+  background_text_list(vec2(pos_window.x +2, pos_window.y), text, size_text, size_angle, speed, ratio_size, range_check,FuturaStencil_20) ;
 
 
   // text
@@ -734,9 +734,9 @@ void display_info_item(int IDorder, iVec2 pos) {
   text(text[3], pos_window.x, pos_window.y +40);
 }
 
-void background_text_list(Vec2 pos, String [] list, int [] size_text, int size_angle, int speed_rotation, Vec2 ratio_size, Vec2 start_end, PFont font) {
+void background_text_list(vec2 pos, String [] list, int [] size_text, int size_angle, int speed_rotation, vec2 ratio_size, vec2 start_end, PFont font) {
   // create the starting point of the shape
-  pos = Vec2(pos.x -(size_text[0] *.5), pos.y -size_text[0]) ;
+  pos = vec2(pos.x -(size_text[0] *.5), pos.y -size_text[0]) ;
 
   // spacing
   float spacing = 0;
@@ -756,10 +756,10 @@ void background_text_list(Vec2 pos, String [] list, int [] size_text, int size_a
   
   // create the point to build the background
 
-  Vec2 a = Vec2(pos.x + 0,pos.y + 0);
-  Vec2 b = Vec2(pos.x + width_rect, pos.y + 0);
-  Vec2 c = Vec2(pos.x + width_rect, pos.y + height_rect);
-  Vec2 d = Vec2(pos.x + 0, pos.y + height_rect);
+  vec2 a = vec2(pos.x + 0,pos.y + 0);
+  vec2 b = vec2(pos.x + width_rect, pos.y + 0);
+  vec2 c = vec2(pos.x + width_rect, pos.y + height_rect);
+  vec2 d = vec2(pos.x + 0, pos.y + height_rect);
   
   // display background
   beginShape();
@@ -794,7 +794,7 @@ slider method
 */
 
 // hue
-void show_slider_hue_structure(iVec2 pos, iVec2 size) {
+void show_slider_hue_structure(ivec2 pos, ivec2 size) {
   pushMatrix();
   translate (pos.x , pos.y -(size.y *.5));
   for (int i = 0 ; i < size.x ; i++) {
@@ -808,7 +808,7 @@ void show_slider_hue_structure(iVec2 pos, iVec2 size) {
 }
 
 // saturation
-void show_slider_saturation_structure(iVec2 pos, iVec2 size, float colour, float s, float d) {
+void show_slider_saturation_structure(ivec2 pos, ivec2 size, float colour, float s, float d) {
   pushMatrix ();
   translate (pos.x, pos.y-(size.y *.5));
   for ( int i = 0 ; i < size.x ; i++) {
@@ -823,7 +823,7 @@ void show_slider_saturation_structure(iVec2 pos, iVec2 size, float colour, float
 }
 
 // brightness
-void show_slider_brightness_structure(iVec2 pos, iVec2 size, float colour, float s, float d) {
+void show_slider_brightness_structure(ivec2 pos, ivec2 size, float colour, float s, float d) {
   pushMatrix ();
   translate (pos.x, pos.y-(size.y *.5));
   for (int i = 0 ; i < size.x ; i++) {
@@ -1001,11 +1001,11 @@ void show_button() {
 
 void display_button_header() {
   // background window
-  Vec2 pos_window = Vec2(mouseX , mouseY -20);
-  Vec2 ratio_size = Vec2(1.6, 1.3);
+  vec2 pos_window = vec2(mouseX , mouseY -20);
+  vec2 ratio_size = vec2(1.6, 1.3);
   int speed = 7;
   int size_angle = 2;
-  Vec2 range_check = Vec2(0,0);
+  vec2 range_check = vec2(0,0);
   String [] text = new String[1];
   int [] size_text = new int[1];
   size_text [0] = 20 ;
@@ -1018,7 +1018,7 @@ void display_button_header() {
     text [0] = ("CUT") ;
     noStroke() ;
     fill(fill_info_window_rect, alpha_bg_rollover) ;
-    background_text_list(Vec2(pos_window.x, pos_window.y), text, size_text, size_angle, speed, ratio_size,range_check,FuturaStencil_20);
+    background_text_list(vec2(pos_window.x, pos_window.y), text, size_text, size_angle, speed, ratio_size,range_check,FuturaStencil_20);
     fill(fill_info_window_text);
     text(text [0], pos_window.x, pos_window.y);
   }
@@ -1026,7 +1026,7 @@ void display_button_header() {
   if(button_midi.inside()) {
     text[0] = ("MIDI");
     fill(fill_info_window_rect, alpha_bg_rollover);
-    background_text_list(Vec2(pos_window.x, pos_window.y), text, size_text, size_angle, speed, ratio_size, range_check, FuturaStencil_20);
+    background_text_list(vec2(pos_window.x, pos_window.y), text, size_text, size_angle, speed, ratio_size, range_check, FuturaStencil_20);
     fill(fill_info_window_text);
     text(text[0],pos_window.x, pos_window.y);
   }
@@ -1035,7 +1035,7 @@ void display_button_header() {
   if(button_reset_camera.inside()) {
     text[0] = ("RESET CAMERA");
     fill(fill_info_window_rect, alpha_bg_rollover);
-    background_text_list(Vec2(pos_window.x, pos_window.y), text, size_text, size_angle, speed, ratio_size, range_check, FuturaStencil_20);
+    background_text_list(vec2(pos_window.x, pos_window.y), text, size_text, size_angle, speed, ratio_size, range_check, FuturaStencil_20);
     fill(fill_info_window_text);
     text(text[0],pos_window.x, pos_window.y);
   }
@@ -1043,7 +1043,7 @@ void display_button_header() {
   if(button_reset_item_on.inside()) {
     text[0] = ("RESET COORD ITEM ON");
     fill(fill_info_window_rect, alpha_bg_rollover);
-    background_text_list(Vec2(pos_window.x, pos_window.y), text, size_text, size_angle, speed, ratio_size, range_check, FuturaStencil_20);
+    background_text_list(vec2(pos_window.x, pos_window.y), text, size_text, size_angle, speed, ratio_size, range_check, FuturaStencil_20);
     fill(fill_info_window_text);
     text(text[0],pos_window.x, pos_window.y);
   }
@@ -1051,7 +1051,7 @@ void display_button_header() {
   if(button_birth.inside()) {
     text[0] = ("BIRTH");
     fill(fill_info_window_rect, alpha_bg_rollover);
-    background_text_list(Vec2(pos_window.x, pos_window.y), text, size_text, size_angle, speed, ratio_size, range_check, FuturaStencil_20);
+    background_text_list(vec2(pos_window.x, pos_window.y), text, size_text, size_angle, speed, ratio_size, range_check, FuturaStencil_20);
     fill(fill_info_window_text);
     text(text[0],pos_window.x, pos_window.y);
   }
@@ -1059,7 +1059,7 @@ void display_button_header() {
   if(button_3D.inside()) {
     text[0] = ("3 DIMENSIONS");
     fill(fill_info_window_rect, alpha_bg_rollover);
-    background_text_list(Vec2(pos_window.x, pos_window.y), text, size_text, size_angle, speed, ratio_size, range_check, FuturaStencil_20);
+    background_text_list(vec2(pos_window.x, pos_window.y), text, size_text, size_angle, speed, ratio_size, range_check, FuturaStencil_20);
     fill(fill_info_window_text);
     text(text[0],pos_window.x, pos_window.y);
   }

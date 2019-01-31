@@ -191,7 +191,7 @@ class Letter extends Romanesco {
     float jitterX = map(get_jitter_x(),0,1, 0, (float)width *.1) ;
     float jitterY = map(get_jitter_y(),0,1, 0, (float)width *.1) ;
     float jitterZ = map(get_jitter_z(),0,1, 0, (float)width *.1) ;
-    Vec3 jitter = Vec3(jitterX *jitterX, jitterY *jitterY, jitterZ *jitterZ) ;
+    vec3 jitter = vec3(jitterX *jitterX, jitterY *jitterY, jitterZ *jitterZ) ;
 
     letters(speed, axeLetter, jitter) ;
     //END YOUR WORK
@@ -202,7 +202,7 @@ class Letter extends Romanesco {
   // ANNEXE
   float rotation ;
   
-  void letters(float speed, int axeLetter, Vec3 jttr) {
+  void letters(float speed, int axeLetter, vec3 jttr) {
     if (sound_is()) {
       whichLetter = (int)all_transient(ID_item) ; 
     } else {
@@ -234,7 +234,7 @@ class Letter extends Romanesco {
   
   int whichOneChangeDirection = 1 ;
   
-  void wheelLetter(int num, float speed, Vec3 jttr) {
+  void wheelLetter(int num, float speed, vec3 jttr) {
     // direction rotation for each one
     if(frameCount%160 == 0 || key_n) whichOneChangeDirection = round(random(1,num)) ;
     //position
@@ -254,9 +254,9 @@ class Letter extends Romanesco {
     }
   }
   
-  void displayLetter(int which, Vec3 ampJttr) {
+  void displayLetter(int which, vec3 ampJttr) {
     RPoint[] pnts = grp.children[which].getPoints(); 
-    Vec3 [] points = geomerativeFontPoints(pnts);
+    vec3 [] points = geomerativeFontPoints(pnts);
 
     for (int i = 0; i < points.length; i++) {
       points[i].add(jitterPVector(ampJttr));
@@ -271,13 +271,13 @@ class Letter extends Romanesco {
   
   //ANNEXE VOID
   //jitter for PVector points
-  Vec3 jitterPVector(Vec3 range) {
+  vec3 jitterPVector(vec3 range) {
     float factor = 0.0 ;
     if(sound_is()) factor = 2.0 ; else factor = .1;
     int rangeX = int(range.x *left[ID_item] *factor);
     int rangeY = int(range.y *right[ID_item] *factor);
     int rangeZ = int(range.z *mix[ID_item] *factor);
-    Vec3 jitting = Vec3();
+    vec3 jitting = vec3();
     jitting.x = random(-rangeX, rangeX);
     jitting.y = random(-rangeY, rangeY);
     jitting.z = random(-rangeZ, rangeZ);
@@ -285,10 +285,10 @@ class Letter extends Romanesco {
   }
   
   //void work with geomerative
-  Vec3 [] geomerativeFontPoints(RPoint[] p) {
-    Vec3 [] pts = new Vec3[p.length] ;
+  vec3 [] geomerativeFontPoints(RPoint[] p) {
+    vec3 [] pts = new vec3[p.length] ;
     for(int i = 0 ; i < pts.length ; i++) {
-      pts[i] = Vec3();
+      pts[i] = vec3();
       pts[i].x = p[i].x ; 
       pts[i].y = p[i].y ;  
     }

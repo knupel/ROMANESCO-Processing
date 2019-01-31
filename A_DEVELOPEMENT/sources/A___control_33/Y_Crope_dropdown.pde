@@ -1,6 +1,6 @@
 /**
 DROPDOWN 
-v 0.1.4
+v 0.2.0
 2018-2019
 */
 /**
@@ -34,7 +34,7 @@ public class Dropdown extends Crope {
   protected boolean selected_type;
   //Slider dropdown
   private Slider slider_dd;
-  private iVec2 size_box;
+  private ivec2 size_box;
   // font
   private PFont font_box;
   //dropdown
@@ -60,11 +60,11 @@ public class Dropdown extends Crope {
   private int colour_box_text_out = r.GRAY_4;
 
 
-  private iVec2 pos_header_text;
-  private iVec2 pos_box_text;
+  private ivec2 pos_header_text;
+  private ivec2 pos_box_text;
 
   private int pos_ref_x, pos_ref_y ;
-  private iVec2 change_pos;
+  private ivec2 change_pos;
   // private float factorPos; // use to calculate the margin between the box
   // box
   private int height_box;
@@ -84,7 +84,7 @@ public class Dropdown extends Crope {
   /**
   CONSTRUCTOR
   */
-  public Dropdown(iVec2 pos, iVec2 size, String name, String [] content) {
+  public Dropdown(ivec2 pos, ivec2 size, String name, String [] content) {
     super("Dropdown");
     int size_header_text = int(size.y *.6);
     this.font = createFont("defaultFont",size_header_text);
@@ -109,14 +109,14 @@ public class Dropdown extends Crope {
   }
 
 
-  public Dropdown set_header_text_pos(iVec2 pos) {
+  public Dropdown set_header_text_pos(ivec2 pos) {
     set_header_text_pos(pos.x, pos.y);
     return this;
   }
 
   public Dropdown set_header_text_pos(int x, int y) {
     if(pos_header_text == null) {
-      this.pos_header_text = iVec2(x,y);
+      this.pos_header_text = ivec2(x,y);
     } else {
       this.pos_header_text.set(x,y);
     }
@@ -124,14 +124,14 @@ public class Dropdown extends Crope {
   }
 
 
-  public Dropdown set_box_text_pos(iVec2 pos) {
+  public Dropdown set_box_text_pos(ivec2 pos) {
     set_box_text_pos(pos.x, pos.y);
     return this;
   }
 
   public Dropdown set_box_text_pos(int x, int y) {
     if(pos_box_text == null) {
-      this.pos_box_text = iVec2(x,y);
+      this.pos_box_text = ivec2(x,y);
     } else {
       this.pos_box_text.set(x,y);
     }
@@ -189,9 +189,9 @@ public class Dropdown extends Crope {
   public Dropdown set_box_height(int h) {
     this.height_box = h;
     if(size_box == null) {
-      size_box = iVec2(longest_String_pixel(font_box,this.content), this.height_box);
+      size_box = ivec2(longest_String_pixel(font_box,this.content), this.height_box);
     } else {
-      size_box.set(iVec2(longest_String_pixel(font_box,this.content), this.height_box));
+      size_box.set(ivec2(longest_String_pixel(font_box,this.content), this.height_box));
     }
     return this;
   }
@@ -254,14 +254,14 @@ public class Dropdown extends Crope {
 
 
   private void update_slider() {
-    iVec2 size_slider = iVec2(round(height_box *.5), round((end *height_box) -pos.z));
+    ivec2 size_slider = ivec2(round(height_box *.5), round((end *height_box) -pos.z));
     int x = pos.x -size_slider.x;
     int y = pos.y +(height_box *box_starting_rank_position);
-    iVec2 pos_slider = iVec2(x,y);
+    ivec2 pos_slider = ivec2(x,y);
   
     float ratio = float(content.length) / float(end -1);
     
-    iVec2 size_molette =  iVec2(size_slider.x, round(size_slider.y /ratio));
+    ivec2 size_molette =  ivec2(size_slider.x, round(size_slider.y /ratio));
     
     boolean keep_pos_mol_is = false;
     int index = 0 ; // so catch the first molette of the index ;
@@ -291,12 +291,12 @@ public class Dropdown extends Crope {
 
   public void offset(int x, int y) {
     pos.set(pos_ref_x, pos_ref_y);
-    iVec2 temp = iVec2(x,y);
+    ivec2 temp = ivec2(x,y);
     pos.add(temp);
     update_slider();
   }
 
-  public void offset(iVec2 offset) {
+  public void offset(ivec2 offset) {
     offset(offset.x, offset.y);
   }
 
@@ -418,7 +418,7 @@ public class Dropdown extends Crope {
         }
         
         float pos_temp_y = pos.y + (size_box.y *step);
-        iVec2 temp_pos = iVec2(pos.x, (int)pos_temp_y);
+        ivec2 temp_pos = ivec2(pos.x, (int)pos_temp_y);
         boolean inside = inside(temp_pos,size_box,cursor,RECT);
         render_box(temp_pos,content[i],step,inside);
         step++;
@@ -437,7 +437,7 @@ public class Dropdown extends Crope {
     }
   }
 
-  private void render_box(iVec2 pos, String content, int step, boolean inside) {
+  private void render_box(ivec2 pos, String content, int step, boolean inside) {
     // box part
     noStroke() ;  
     if (inside) {
@@ -478,8 +478,8 @@ public class Dropdown extends Crope {
   int current_line ;
   public int get_selection() {
     float size_temp_y = size_box.y *num_box;
-    iVec2 temp_size = iVec2(size_box.x, (int)size_temp_y);
-    iVec2 temp_pos = pos.copy();
+    ivec2 temp_size = ivec2(size_box.x, (int)size_temp_y);
+    ivec2 temp_pos = pos.copy();
     temp_pos.y += (box_starting_rank_position *height_box);
     boolean inside_open_box = inside(temp_pos,temp_size,cursor,RECT);
     if(!inside_open_box) {
@@ -518,11 +518,11 @@ public class Dropdown extends Crope {
     return font_box;
   }
 
-  public iVec2 get_header_text_pos() {
+  public ivec2 get_header_text_pos() {
     return pos_header_text;
   }
 
-  public iVec2 get_content_text_pos() {
+  public ivec2 get_content_text_pos() {
     return pos_box_text;
   }
 

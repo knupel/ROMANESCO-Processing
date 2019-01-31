@@ -129,7 +129,7 @@ class Spirale_romanesco extends Romanesco {
     float temp_size_x = pow(sx, 3) *volumeLeft *transient_map;
     float temp_size_y = pow(sy, 3) *volumeRight *transient_map;
     float temp_size_z = pow(sz, 3) *volumeMix *transient_map;  
-    Vec3 size = Vec3(temp_size_x,temp_size_y,temp_size_z);
+    vec3 size = vec3(temp_size_x,temp_size_y,temp_size_z);
     
     //amplitude of the translate
     float minValueCanvas = .01 ;
@@ -137,7 +137,7 @@ class Spirale_romanesco extends Romanesco {
     float canvasXtemp = map(get_canvas_x(), width *.1, width,minValueCanvas,maxValueCanvas);
     float canvasYtemp = map(get_canvas_y(), width *.1, width,minValueCanvas,maxValueCanvas);
     float canvasZtemp = map(get_canvas_z(), width *.1, width,minValueCanvas,maxValueCanvas);
-    Vec3 canvas = Vec3(canvasXtemp,canvasYtemp,canvasZtemp);
+    vec3 canvas = vec3(canvasXtemp,canvasYtemp,canvasZtemp);
 
     // alignement
     float max_align = get_alignment() *(height/10) ;
@@ -161,7 +161,7 @@ class Spirale_romanesco extends Romanesco {
     aspect(get_fill(), get_stroke(), get_thickness(), get_costume()) ;
 
     // mode    
-    Vec3 pos = Vec3() ; // we write that because the first part of the void is not available any more.
+    vec3 pos = vec3() ; // we write that because the first part of the void is not available any more.
     spirale.update(pos, speed);
     float ratio_size = map(get_area(),width*.1, width*TAU,0,1);
     spirale.show(n, nMax, size, z, canvas, get_costume(), horizon_is(), pos_swing,ratio_size) ;
@@ -193,13 +193,13 @@ class Spirale {
 
 
 
-  void update(Vec pos_temp, float speed) {
-    Vec3 pos = Vec3() ;
-    if(pos_temp instanceof Vec2) {
-      Vec2 p = (Vec2) pos_temp ;
+  void update(vec pos_temp, float speed) {
+    vec3 pos = vec3() ;
+    if(pos_temp instanceof vec2) {
+      vec2 p = (vec2) pos_temp ;
       pos.set(p.x, p.y, 0) ;
-    } else if(pos_temp instanceof Vec3) {
-      Vec3 p = (Vec3) pos_temp ;
+    } else if(pos_temp instanceof vec3) {
+      vec3 p = (vec3) pos_temp ;
       pos.set(p) ;
     }
     Float s = speed ;
@@ -219,7 +219,7 @@ class Spirale {
   float translate = 1. ;
   float ratioSize = 1. ;
 
-  void show (int n, int nMax, Vec3 size, float z, Vec3 canvas, Costume costume, boolean horizon, float alignment, float ratio_size) {
+  void show (int n, int nMax, vec3 size, float z, vec3 canvas, Costume costume, boolean horizon, float alignment, float ratio_size) {
     n = n-1 ;
     
     translate += z ;
@@ -233,16 +233,16 @@ class Spirale {
     }
     
     
-    Vec3 size_final = Vec3(size.x *ratioSize *ratioRendering, size.y *ratioSize *ratioRendering, size.z *ratioSize *ratioRendering) ;
+    vec3 size_final = vec3(size.x *ratioSize *ratioRendering, size.y *ratioSize *ratioRendering, size.z *ratioSize *ratioRendering) ;
 
 
 
     //display Mode
-    Vec3 pos = Vec3();
+    vec3 pos = vec3();
     set_ratio_costume_size(ratio_size);
     costume(pos, size_final,costume);
     //
-    Vec3 canvas_temp = canvas.copy();
+    vec3 canvas_temp = canvas.copy();
     canvas_temp = mult(canvas,translate);
     canvas_temp.mult(ratioRendering);
     if(horizon) canvas_temp.z = canvas.z *.5 *alignment;

@@ -1,7 +1,7 @@
 /**
 Costume method
 * Copyleft (c) 2014-2019
-v 1.5.0
+v 1.7.0
 * @author Stan le Punk
 * @see https://github.com/StanLepunK/Rope_method
 */
@@ -56,7 +56,7 @@ SHOW
 /**
 Costume selection in shape catalogue
 */
-void costume(Vec pos, int size_int, Object data) {
+void costume(vec pos, int size_int, Object data) {
 	int which_costume = 0;
 	String sentence = null;
 	if(data instanceof Costume) {
@@ -69,8 +69,8 @@ void costume(Vec pos, int size_int, Object data) {
 	}
 
 	// int which_costume = cast_data(costume_obj);
-	Vec3 rotation = Vec3();
-	Vec3 size = Vec3(size_int);
+	vec3 rotation = vec3();
+	vec3 size = vec3(size_int);
 	if(sentence == null) {
 		costume(pos,size,rotation,which_costume,null);
 	} else {
@@ -78,7 +78,7 @@ void costume(Vec pos, int size_int, Object data) {
 	}
 }
 
-void costume(Vec pos, Vec size, Object data) {
+void costume(vec pos, vec size, Object data) {
 	int which_costume = 0;
 	String sentence = null;
 	if(data instanceof Costume) {
@@ -90,7 +90,7 @@ void costume(Vec pos, Vec size, Object data) {
 		which_costume = MAX_INT;
 	}
 
-	Vec3 rotation = Vec3() ;
+	vec3 rotation = vec3() ;
 	if(sentence == null) {
 		costume(pos,size,rotation,which_costume,null);
 	} else {
@@ -98,7 +98,7 @@ void costume(Vec pos, Vec size, Object data) {
 	}
 }
 
-void costume(Vec pos, Vec size, float rotation, Object data) {
+void costume(vec pos, vec size, float rotation, Object data) {
 	int which_costume = 0;
 	String sentence = null;
 	if(data instanceof Costume) {
@@ -111,13 +111,13 @@ void costume(Vec pos, Vec size, float rotation, Object data) {
 	}
 
 	if(sentence == null) {
-		costume(pos, size, Vec3(0,0,rotation),which_costume,null);
+		costume(pos, size, vec3(0,0,rotation),which_costume,null);
 	} else {
-		costume(pos,size,Vec3(0,0,rotation),which_costume,sentence);
+		costume(pos,size,vec3(0,0,rotation),which_costume,sentence);
 	}
 }
 
-void costume(Vec pos, Vec size, Vec rotation, Object data) {
+void costume(vec pos, vec size, vec rotation, Object data) {
 	int which_costume = 0;
 	String sentence = null;
 	if(data instanceof Costume) {
@@ -140,26 +140,26 @@ void costume(Vec pos, Vec size, Vec rotation, Object data) {
 /**
 managing costume rope method
 */
-void costume(Vec pos, Vec size, Vec rotation, int which_costume, String sentence) {
-  Vec3 pos_final = Vec3(0) ;
-  Vec3 size_final = Vec3(1) ;
-	if((pos instanceof Vec2 || pos instanceof Vec3) 
-			&& (size instanceof Vec2 || size instanceof Vec3)
-			&& (rotation instanceof Vec2 || rotation instanceof Vec3)) {
+void costume(vec pos, vec size, vec rotation, int which_costume, String sentence) {
+  vec3 pos_final = vec3(0) ;
+  vec3 size_final = vec3(1) ;
+	if((pos instanceof vec2 || pos instanceof vec3) 
+			&& (size instanceof vec2 || size instanceof vec3)
+			&& (rotation instanceof vec2 || rotation instanceof vec3)) {
 		// pos
-		if(pos instanceof Vec2) {
-			Vec2 temp_pos = (Vec2)pos;
+		if(pos instanceof vec2) {
+			vec2 temp_pos = (vec2)pos;
 			pos_final.set(temp_pos.x, temp_pos.y, 0);
-		} else if(pos instanceof Vec3) {
-			Vec3 temp_pos = (Vec3)pos;
+		} else if(pos instanceof vec3) {
+			vec3 temp_pos = (vec3)pos;
 			pos_final.set(temp_pos);
 		}
 		//size
-		if(size instanceof Vec2) {
-			Vec2 temp_size = (Vec2)size;
+		if(size instanceof vec2) {
+			vec2 temp_size = (vec2)size;
 			size_final.set(temp_size.x, temp_size.y, 1);
-		} else if(size instanceof Vec3) {
-			Vec3 temp_size = (Vec3)size;
+		} else if(size instanceof vec3) {
+			vec3 temp_size = (vec3)size;
 			size_final.set(temp_size);
 		}
 		//send
@@ -169,7 +169,7 @@ void costume(Vec pos, Vec size, Vec rotation, int which_costume, String sentence
 			costume(pos_final,size_final,rotation,sentence);
 		}		
 	} else {
-		printErrTempo(180,"Vec pos or Vec size if not an instanceof Vec2 or Vec3, it's not possible to process costume_rope()");
+		printErrTempo(180,"vec pos or vec size if not an instanceof vec2 or vec3, it's not possible to process costume_rope()");
 	}
 }
 
@@ -182,7 +182,7 @@ case and which_costume
 and 
 break
 */
-void costume(Vec3 pos, Vec3 size, Vec rot, String sentence) {
+void costume(vec3 pos, vec3 size, vec rot, String sentence) {
 	if(rot.x != 0) costume_rotate_x();
 	if(rot.y != 0) costume_rotate_y();
 	if(rot.z != 0) costume_rotate_z();
@@ -197,12 +197,12 @@ void costume(Vec3 pos, Vec3 size, Vec rot, String sentence) {
 /**
 method to pass costume to class costume
 */
-void costume(Vec3 pos, Vec3 size, Vec rot, int which_costume) {
+void costume(vec3 pos, vec3 size, vec rot, int which_costume) {
 	Costume costume = new Costume(which_costume);
 	costume.draw(pos,size,rot);
 }
 
-void costume(Vec3 pos, Vec3 size, Vec rot, Costume costume) {
+void costume(vec3 pos, vec3 size, vec rot, Costume costume) {
 	costume.draw(pos,size,rot);
 }
 
@@ -292,20 +292,20 @@ void aspect(int fill, int stroke, float thickness, int costume) {
 	aspect_rope.aspect(fill,stroke,thickness,costume);
 }
 
-void aspect(Vec fill, Vec stroke, float thickness) {
+void aspect(vec fill, vec stroke, float thickness) {
 	if(aspect_rope == null) aspect_rope = new Costume();
 	aspect_is(aspect_rope.fill_is(),aspect_rope.stroke_is());
 	aspect_rope.aspect(fill,stroke,thickness);
 }
 
-void aspect(Vec fill, Vec stroke, float thickness, Costume costume) {
+void aspect(vec fill, vec stroke, float thickness, Costume costume) {
 	if(aspect_rope == null) aspect_rope = new Costume();
 	aspect_is(aspect_rope.fill_is(),aspect_rope.stroke_is());
 	aspect_rope.aspect(fill,stroke,thickness,costume.get_type());
 }
 
 
-void aspect(Vec fill, Vec stroke, float thickness, int costume) {
+void aspect(vec fill, vec stroke, float thickness, int costume) {
 	if(aspect_rope == null) aspect_rope = new Costume();
 	aspect_is(aspect_rope.fill_is(),aspect_rope.stroke_is());
 	aspect_rope.aspect(fill,stroke,thickness,costume);
@@ -418,7 +418,7 @@ void costume_rotate_z() {
 	costume_rot_z = true;
 }
 
-void rotate_behavior(Vec rotate) {
+void rotate_behavior(vec rotate) {
 	if(costume_rot_x && rotate.x != 0) {
 		rotateX(rotate.x);
 		costume_rot_x = false;
@@ -534,7 +534,7 @@ void load_costume_pic(String path) {
 house method
 */
 House house_costume_rope;
-void house(Vec3 size) {
+void house(vec3 size) {
 	if(house_costume_rope != null) {
 		house_costume_rope.set_size(size);
 		house_costume_rope.show();
@@ -600,7 +600,7 @@ void star_3D_is(boolean is_3D) {
 }
 
 
-void set_costume_star_summits(int summits) {
+void star_summits(int summits) {
 	if(star_costume_rope != null) {
 		star_costume_rope.set_summits(summits);
 	} else {
@@ -608,7 +608,7 @@ void set_costume_star_summits(int summits) {
 	}
 }
 
-void set_costume_star_angle(float angle) {
+void star_angle(float angle) {
 	if(star_costume_rope != null) {
 		star_costume_rope.set_angle(angle);
 	} else {
@@ -616,7 +616,7 @@ void set_costume_star_angle(float angle) {
 	}
 }
 
-void set_costume_star_ratio(float... ratio) {
+void star_ratio(float... ratio) {
 	if(star_costume_rope != null) {
 		star_costume_rope.set_ratio(ratio);
 	} else {
@@ -625,7 +625,7 @@ void set_costume_star_ratio(float... ratio) {
 }
 
 
-void star(Vec position, Vec size) {
+void star(vec position, vec size) {
 	if(star_costume_rope != null) {
 		star_costume_rope.show(position,size);
 	} else {
@@ -664,10 +664,10 @@ void star(Vec position, Vec size) {
 /**
 CROSS
 */
-void cross_rect(iVec2 pos, int thickness, int radius) {
+void cross_rect(ivec2 pos, int thickness, int radius) {
   // verticale one
-	Vec2 size = Vec2(thickness, radius *2);
-	Vec2 pos_temp = Vec2(pos.x, pos.y -floor(size.y/2) +(thickness /2));
+	vec2 size = vec2(thickness, radius *2);
+	vec2 pos_temp = vec2(pos.x, pos.y -floor(size.y/2) +(thickness /2));
 	pos_temp.sub(thickness/2);
 	rect(pos_temp,size);
 	  // horizontal one
@@ -679,9 +679,9 @@ void cross_rect(iVec2 pos, int thickness, int radius) {
 	//rect(small_part, size.y, small_part);
 }
 
-void cross_box_2(Vec2 size) {
+void cross_box_2(vec2 size) {
 	// float ratio = map(ratio_costume_size,0,1,.3,.9);
-//void cross_box_2(Vec2 size, float ratio) {
+//void cross_box_2(vec2 size, float ratio) {
 	float scale_cross = size.sum() *.5;
 	float small_part = scale_cross *ratio_costume_size;
 
@@ -689,9 +689,9 @@ void cross_box_2(Vec2 size) {
 	box(small_part,size.y,small_part);
 }
 
-void cross_box_3(Vec3 size) {
+void cross_box_3(vec3 size) {
 	// float ratio = .3;
-	// void cross_box_3(Vec3 size, float ratio) {
+	// void cross_box_3(vec3 size, float ratio) {
 	float scale_cross = size.sum() *.3;
 	float small_part = scale_cross *ratio_costume_size;
    
@@ -720,13 +720,13 @@ VIRUS
 2015-2018
 v 0.2.0
 */
-void virus(Vec pos, Vec size) {
+void virus(vec pos, vec size) {
 	int close = -1 ;
 	float angle = 0 ;
 	virus(pos,size,angle,close) ;
 }
 
-void virus(Vec pos, Vec size, float angle) {
+void virus(vec pos, vec size, float angle) {
 	int close = -1;
 	virus(pos,size,angle,close);
 }
@@ -735,7 +735,7 @@ void virus(Vec pos, Vec size, float angle) {
 // main method
 Virus virus_costume_rope;
 boolean make_virus = true ;
-void virus(Vec pos, Vec size, float angle, int close) {
+void virus(vec pos, vec size, float angle, int close) {
 	if(make_virus) {
 		virus_costume_rope = new Virus() ;
 		make_virus = false ;
@@ -750,19 +750,19 @@ void virus(Vec pos, Vec size, float angle, int close) {
 	virus_costume_rope.show(close) ;	
 }
 
-void set_costume_virus_mutation(int mutation) {
+void virus_mutation(int mutation) {
 	if(virus_costume_rope != null && mutation != 0 && mutation != virus_costume_rope.get_mutation()) {
 		virus_costume_rope.set_mutation(abs(mutation));
 	}
 }
 
-void set_costume_virus_num(int num) {
+void virus_num(int num) {
 	if(virus_costume_rope != null && num != 0 && num != virus_costume_rope.get_num()) {
 		virus_costume_rope.set_num(abs(num));
 	}
 }
 
-void set_costume_virus_node(int node) {
+void virus_node(int node) {
 	if(virus_costume_rope != null && node != 0 && node != virus_costume_rope.get_node()) {
 		virus_costume_rope.set_node(abs(node));
 	}

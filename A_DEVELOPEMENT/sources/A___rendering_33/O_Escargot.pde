@@ -122,7 +122,7 @@ class Escargot extends Romanesco {
   int satColor[] =    new int [(int)HSBpalette.y] ;
   int brightColor[] = new int [(int)HSBpalette.z] ;
   //spectrum for the color mode and more if you need
-  Vec4 HSBmode = new Vec4 (360,100,100,100) ; // give the color mode in HSB
+  vec4 HSBmode = new vec4 (360,100,100,100) ; // give the color mode in HSB
   
   //MOTION POSITION
   //Wind force, direction
@@ -1606,7 +1606,7 @@ int [] brightPalette, brightPaletteRef ;
 //DRAW OR SETUP
 //MAKE PALETTE
 // random hue Palette
-void paletteRandom(PVector n, Vec4 spectrum) {
+void paletteRandom(PVector n, vec4 spectrum) {
   huePalette = new int [(int)n.x] ;
   huePaletteRef = new int [(int)n.x] ;
   for (int i = 0 ; i < (int)n.x ; i++) huePalette [i] = huePaletteRef [i] = (int)random(spectrum.x) ;

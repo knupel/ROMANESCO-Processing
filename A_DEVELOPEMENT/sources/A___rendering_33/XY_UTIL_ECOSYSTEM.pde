@@ -1,7 +1,8 @@
 /**
-
 ECOSYSTEM UTIL 
-v 1.0.6
+v 1.1.0
+2015-2019
+Processing 3.5.2
 
 * HOST and SYMBIOSIS
 * WORLD
@@ -20,10 +21,10 @@ HOST SYMBIOSIS MANAGEMENT 0.0.5
 
 */
 int [] target_host ;
-Vec4 [] symbiosis_area ;
-Vec3 pos_host, radius_host, canvas_host, size_host ;
+vec4 [] symbiosis_area ;
+vec3 pos_host, radius_host, canvas_host, size_host ;
 
-Vec4 [] get_symbiosis_area() {
+vec4 [] get_symbiosis_area() {
   if(symbiosis_area != null) return symbiosis_area ; else return null ;
 }
 
@@ -32,10 +33,10 @@ int symbiosis_area_size() {
   else return -1 ;
 }
 
-Vec3 [] get_symbiosis_area_pos() {
-  Vec3 [] list = new Vec3[symbiosis_area.length] ;
+vec3 [] get_symbiosis_area_pos() {
+  vec3 [] list = new vec3[symbiosis_area.length] ;
   for(int i = 0 ; i < list.length ; i++) {
-    list[i] = Vec3(symbiosis_area[i].x, symbiosis_area[i].y, symbiosis_area[i].z) ;
+    list[i] = vec3(symbiosis_area[i].x, symbiosis_area[i].y, symbiosis_area[i].z) ;
   }
   if(list != null) return list ; else return null ;
 }
@@ -50,7 +51,7 @@ int [] get_symbiosis_area_id() {
 
 
 void init_symbiosis_area(int num) {
-  symbiosis_area = new Vec4[num];
+  symbiosis_area = new vec4[num];
 }
 
 void init_host_target(int num) {
@@ -70,9 +71,9 @@ void set_host_address(int target, int value) {
 /**
 pos host
 */
-void pos_host(Vec pos) {
+void pos_host(vec pos) {
   if(pos_host == null) {
-    pos_host = Vec3(pos.x,pos.y,pos.z) ;
+    pos_host = vec3(pos.x,pos.y,pos.z) ;
   } else {
     pos_host.set(pos.x, pos.y, pos.z) ;
   }
@@ -80,22 +81,22 @@ void pos_host(Vec pos) {
 
 void pos_host(float x, float y, float z) {
   if(pos_host == null) {
-    pos_host = Vec3(x,y,z) ;
+    pos_host = vec3(x,y,z) ;
   } else {
     pos_host.set(x,y,z) ;
   }
 }
 
-Vec3 get_pos_host() {
+vec3 get_pos_host() {
   return pos_host ;
 }
 
 /**
 radius host
 */
-void radius_host(Vec radius) {
+void radius_host(vec radius) {
   if(radius_host == null) {
-    radius_host = Vec3(radius.x,radius.y,radius.z) ;
+    radius_host = vec3(radius.x,radius.y,radius.z) ;
   } else {
     radius_host.set(radius.x, radius.y, radius.z) ;
   }
@@ -103,22 +104,22 @@ void radius_host(Vec radius) {
 
 void radius_host(float x, float y, float z) {
   if(radius_host == null) {
-    radius_host = Vec3(x,y,z) ;
+    radius_host = vec3(x,y,z) ;
   } else {
     radius_host.set(x,y,z) ;
   }
 }
 
-Vec3 get_radius_host() {
+vec3 get_radius_host() {
   return radius_host ;
 }
 
 /**
 size host
 */
-void size_host(Vec size) {
+void size_host(vec size) {
   if(size_host == null) {
-    size_host = Vec3(size.x,size.y,size.z) ;
+    size_host = vec3(size.x,size.y,size.z) ;
   } else {
     size_host.set(size.x, size.y, size.z) ;
   }
@@ -126,13 +127,13 @@ void size_host(Vec size) {
 
 void size_host(float x, float y, float z) {
   if(size_host == null) {
-    size_host = Vec3(x,y,z) ;
+    size_host = vec3(x,y,z) ;
   } else {
     size_host.set(x,y,z) ;
   }
 }
 
-Vec3 get_size_host() {
+vec3 get_size_host() {
   return size_host ;
 }
 
@@ -140,9 +141,9 @@ Vec3 get_size_host() {
 /**
 canvas host
 */
-void canvas_host(Vec canvas) {
+void canvas_host(vec canvas) {
   if(canvas_host == null) {
-    canvas_host = Vec3(canvas.x,canvas.y,canvas.z) ;
+    canvas_host = vec3(canvas.x,canvas.y,canvas.z) ;
   } else {
     canvas_host.set(canvas.x, canvas.y, canvas.z) ;
   }
@@ -150,13 +151,13 @@ void canvas_host(Vec canvas) {
 
 void canvas_host(float x, float y, float z) {
   if(canvas_host == null) {
-    canvas_host = Vec3(x,y,z) ;
+    canvas_host = vec3(x,y,z) ;
   } else {
     canvas_host.set(x,y,z) ;
   }
 }
 
-Vec3 get_canvas_host() {
+vec3 get_canvas_host() {
   return canvas_host ;
 }
 
@@ -164,9 +165,9 @@ Vec3 get_canvas_host() {
 /**
 symbiosis area
 */
-void set_symbiosis_area(Vec3 [] target_host_list) {
+void set_symbiosis_area(vec3 [] target_host_list) {
   for(int i = 0 ; i < symbiosis_area.length ; i++) {
-    if(symbiosis_area[i] == null) symbiosis_area[i] = Vec4() ;
+    if(symbiosis_area[i] == null) symbiosis_area[i] = vec4() ;
     int where = (int)random(target_host_list.length) ;
     set_host_address(i, where) ;
     symbiosis_area[i].set(target_host_list[where].x, target_host_list[where].y, target_host_list[where].z, where) ;
@@ -175,11 +176,11 @@ void set_symbiosis_area(Vec3 [] target_host_list) {
 
 
 
-void update_symbiosis_area(Vec3 [] target_host_list) {
+void update_symbiosis_area(vec3 [] target_host_list) {
   if(symbiosis_area != null) {
     for(int i = 0 ; i < symbiosis_area.length ; i++) {
       int where = (int)symbiosis_area[i].w ;
-      Vec3 pos = target_host_list[where] ;
+      vec3 pos = target_host_list[where] ;
       symbiosis_area[i].x = pos.x ;
       symbiosis_area[i].y = pos.y ;
       symbiosis_area[i].z = pos.z ;
@@ -190,7 +191,7 @@ void update_symbiosis_area(Vec3 [] target_host_list) {
 /**
 symbiosis 0.0.4
 */
-void symbiosis(ArrayList<Agent> symbiotic_agent_list, Vec3 [] list_coord_host, int [] address) {
+void symbiosis(ArrayList<Agent> symbiotic_agent_list, vec3 [] list_coord_host, int [] address) {
   if(list_coord_host.length > 0 && address.length > 0 && symbiotic_agent_list.size() > 0) {
     int max_loop = address.length ;
     if(max_loop > symbiotic_agent_list.size()) max_loop = symbiotic_agent_list.size() ;
@@ -204,7 +205,7 @@ void symbiosis(ArrayList<Agent> symbiotic_agent_list, Vec3 [] list_coord_host, i
 }
 
 
-void sync_symbiosis(ArrayList<Agent> symbiotic_agent_list, Vec3 pos) {
+void sync_symbiosis(ArrayList<Agent> symbiotic_agent_list, vec3 pos) {
   for(Agent a : symbiotic_agent_list) {
     if(a.get_home_id() != -1) {
       if(symbiosis_area_size() > a.get_home_id()) {
@@ -213,7 +214,7 @@ void sync_symbiosis(ArrayList<Agent> symbiotic_agent_list, Vec3 pos) {
         symbiotic_agent_list.remove(a) ;
         break ;
       }
-      if(pos != null && !pos.equals(Vec3(0))) {
+      if(pos != null && !pos.equals(vec3(0))) {
         a.set_pos(a.get_home_pos().add(pos)) ;
       } else {
         a.set_pos(a.get_home_pos()) ;
@@ -226,7 +227,7 @@ void sync_symbiosis(ArrayList<Agent> symbiotic_agent_list, Vec3 pos) {
 
 
 void sync_symbiosis(ArrayList<Agent> symbiotic_agent_list) {
-  Vec3 pos = Vec3() ;
+  vec3 pos = vec3() ;
   sync_symbiosis(symbiotic_agent_list, pos) ;
 }
 
@@ -258,9 +259,9 @@ WORLD 0.1.1
 boolean HORIZON_ALPHA = false ;
 int HORIZON = 0 ;
 int ENVIRONMENT = 2 ; // 2 is for 2D, 3 for 3D
-Vec3 ECO_BOX_SIZE = Vec3(100,100,100) ;
-Vec3 ECO_BOX_POS = Vec3() ;
-Vec6 LIMIT = Vec6(0, ECO_BOX_SIZE.x, 0, ECO_BOX_SIZE.y, 0, ECO_BOX_SIZE.z) ;
+vec3 ECO_BOX_SIZE = vec3(100,100,100) ;
+vec3 ECO_BOX_POS = vec3() ;
+vec6 LIMIT = vec6(0, ECO_BOX_SIZE.x, 0, ECO_BOX_SIZE.y, 0, ECO_BOX_SIZE.z) ;
 
 boolean REBOUND ;
 int SIZE_TEXT_INFO ;
@@ -287,24 +288,24 @@ void use_rebound(boolean rebound) {
   REBOUND = rebound ;
 }
 
-Vec3 get_box_pos() {
+vec3 get_box_pos() {
   return ECO_BOX_POS ;
 }
 
-Vec3 get_box_size() {
+vec3 get_box_size() {
   return ECO_BOX_SIZE ;
 }
 
-void build_box(Vec3 pos, Vec3 size) {
+void build_box(vec3 pos, vec3 size) {
   set_pos_box(pos) ;
   set_size_box(size) ;
 }
 
-void set_size_box(Vec3 size) {
+void set_size_box(vec3 size) {
   ECO_BOX_SIZE.set(size) ;
 }
 
-void set_pos_box(Vec3 pos) {
+void set_pos_box(vec3 pos) {
   ECO_BOX_POS.set(pos) ;
 }
 
@@ -501,7 +502,7 @@ Find new target, Big Brother is hunting you !
 */
 void find_target_hunter(Agent_dynamic hunter, ArrayList<Agent> list_target) {
   // float [] dist_list = new float[0] ;
-  ArrayList <Vec3> closest_target = new ArrayList<Vec3>() ;
+  ArrayList <vec3> closest_target = new ArrayList<vec3>() ;
   // find the closest target 
   for(Agent a : list_target) {
     if(a instanceof Agent_dynamic) {
@@ -512,7 +513,7 @@ void find_target_hunter(Agent_dynamic hunter, ArrayList<Agent> list_target) {
         // plus catch index in the list and the ID target
         // and add in the nice target list
 
-        Vec3 new_target = Vec3(dist, list_target.indexOf(target_d), target_d.get_ID()) ;
+        vec3 new_target = vec3(dist, list_target.indexOf(target_d), target_d.get_ID()) ;
         closest_target.add(new_target) ;
         // compare the target to see which one is the closest.
         if(closest_target.size() > 1) if (closest_target.get(1).x <= closest_target.get(0).x ) closest_target.remove(0) ; else closest_target.remove(1) ;
@@ -760,7 +761,7 @@ void set_baby(Agent_dynamic deliver, Agent baby, ArrayList<Agent> list_child, In
     deliver.genome_father = null ;
     // set motion of the baby
     n.set_pos(deliver.pos) ;
-    n.dir = Vec3("RANDOM",1) ;
+    n.dir = vec3("RANDOM",1) ;
     // here we change velocity to don't have a same from parent, can be change that in the future
     float new_velocity = deliver.velocity +random(-1,1) ;
     if(new_velocity < .1) new_velocity = .1 ;
@@ -928,8 +929,8 @@ Info_Object info
 * boolean info = (boolean)info.catch_obj(0) ;
 * boolean original = (boolean)info.catch_obj(1) ;
 * int costume_ID = (int)info.catch_obj(2) ;
-* Vec4 fill = (Vec4)info.catch_obj(3) ;
-* Vec4 stroke = (Vec4)info.catch_obj(4) ; 
+* vec4 fill = (vec4)info.catch_obj(3) ;
+* vec4 stroke = (vec4)info.catch_obj(4) ; 
 * float thickness = (float)info.catch_obj(5) ;
 */ 
 void show_agent_dynamic(Info_Object style, ArrayList<Agent>... all_list) {
@@ -956,16 +957,16 @@ update aspect
 */
 void update_aspect(Info_Object style, ArrayList list) {
   int costume_ID = 0 ;
-  Vec4 fill_vec =  Vec4(0, 0 , g.colorModeZ, g.colorModeA) ; 
-  Vec4 stroke_vec = Vec4(g.colorModeX, g.colorModeY, g.colorModeZ, g.colorModeA) ; 
+  vec4 fill_vec =  vec4(0, 0 , g.colorModeZ, g.colorModeA) ; 
+  vec4 stroke_vec = vec4(g.colorModeX, g.colorModeY, g.colorModeZ, g.colorModeA) ; 
   float thickness = 1 ;
   // float alpha_behavior = (float)style.catch_obj(4) ;
   boolean fill_is = true ;
   boolean stroke_is = true ;
 
   if(style.catch_obj(0) != null) costume_ID = ((Costume)style.catch_obj(0)).get_type();
-  if(style.catch_obj(1) != null) fill_vec = (Vec4)style.catch_obj(1);
-  if(style.catch_obj(2) != null) stroke_vec = (Vec4)style.catch_obj(2); 
+  if(style.catch_obj(1) != null) fill_vec = (vec4)style.catch_obj(1);
+  if(style.catch_obj(2) != null) stroke_vec = (vec4)style.catch_obj(2); 
   if(style.catch_obj(3) != null) thickness = (float)style.catch_obj(3);
   // if(style.catch_obj(4) != null) alpha_behavior = (float)style.catch_obj(4) ;
   if(style.catch_obj(5) != null) fill_is = (boolean)style.catch_obj(5);
@@ -978,8 +979,8 @@ void update_aspect(Info_Object style, ArrayList list) {
     if(o instanceof Agent) {
       Agent a = (Agent) o ;
       boolean original_aspect = true ;
-      Vec4 fill_def ;
-      Vec4 stroke_def ;
+      vec4 fill_def ;
+      vec4 stroke_def ;
       float thickness_def ;
 
       if(fill_vec != a.get_fill_style() || stroke_vec != a.get_stroke_style() || thickness != a.get_thickness()) {
@@ -999,7 +1000,7 @@ void update_aspect(Info_Object style, ArrayList list) {
 
       if(use_style) {
         if(a.get_melanin() != null) {
-          Vec4 map = map(a.get_melanin(), -1, 1, 0, 2);
+          vec4 map = map(a.get_melanin(), -1, 1, 0, 2);
           fill_def.mult(map) ;
           stroke_def.mult(map) ;
         }
@@ -1039,8 +1040,8 @@ void update_aspect(Info_Object style, ArrayList list) {
       }
       if(original_aspect) {
         if(HORIZON_ALPHA) {
-          Vec4 new_fill = Vec4(d.get_fill_style().x, d.get_fill_style().y, d.get_fill_style().z, alpha(d)) ;
-          Vec4 new_stroke = Vec4(d.get_stroke_style().x, d.get_stroke_style().y, d.get_stroke_style().z, alpha(d)) ;
+          vec4 new_fill = vec4(d.get_fill_style().x, d.get_fill_style().y, d.get_fill_style().z, alpha(d)) ;
+          vec4 new_stroke = vec4(d.get_stroke_style().x, d.get_stroke_style().y, d.get_stroke_style().z, alpha(d)) ;
           d.aspect(new_fill, new_stroke, thickness) ;
         } else {
           d.aspect(d.get_fill_style(), d.get_stroke_style(), d.get_thickness()) ;
@@ -1049,8 +1050,8 @@ void update_aspect(Info_Object style, ArrayList list) {
 
       } else {
         if(HORIZON_ALPHA) {
-          Vec4 new_fill = Vec4(fill_vec.x, fill_vec.y, fill_vec.z, alpha(d)) ;
-          Vec4 new_stroke = Vec4(stroke_vec.x, stroke_vec.y, stroke_vec.z, alpha(d)) ;
+          vec4 new_fill = vec4(fill_vec.x, fill_vec.y, fill_vec.z, alpha(d)) ;
+          vec4 new_stroke = vec4(stroke_vec.x, stroke_vec.y, stroke_vec.z, alpha(d)) ;
           d.aspect(new_fill, new_stroke, thickness) ;
         } else {
           d.aspect(fill_vec, stroke_vec, thickness) ;
@@ -1069,7 +1070,7 @@ void update_aspect(Info_Object style, ArrayList list) {
 
 
 float alpha(Agent a) {
-  Vec3 temp_pos = a.get_pos() ;
+  vec3 temp_pos = a.get_pos() ;
   int horizon_back = int(HORIZON * a.get_alpha_back()) ;
   int horizon_front = int(HORIZON * a.get_alpha_front()) ;
   horizon_back += a.get_alpha_cursor() ;
@@ -1644,8 +1645,8 @@ void info_agent_track_line(ArrayList<Agent> list) {
   }
 }
 
-void track_line(Vec3 pos, Vec3 pos_target, Vec4 colour) {
-  if(!pos_target.equals(Vec3(MAX_INT))) {
+void track_line(vec3 pos, vec3 pos_target, vec4 colour) {
+  if(!pos_target.equals(vec3(MAX_INT))) {
     stroke(colour) ;
     strokeWeight(1) ;
     line(pos, pos_target) ;

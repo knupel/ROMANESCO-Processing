@@ -91,7 +91,7 @@ class Pulsar extends Romanesco {
   void pulsar() {
     int radius = (int)get_canvas_x();
 
-    Vec3 speed = Vec3(get_speed_x(),get_speed_y(),get_speed_z());
+    vec3 speed = vec3(get_speed_x(),get_speed_y(),get_speed_z());
     speed.pow(3).div(2);
 
     // cloud_3D.ring(.01, false);
@@ -134,7 +134,7 @@ class Pulsar extends Romanesco {
     }
     pulsar.set_radius(radius);
 
-    Vec3 pos = Vec3();
+    vec3 pos = vec3();
     
     pulsar.pos(pos);
     pulsar.update();

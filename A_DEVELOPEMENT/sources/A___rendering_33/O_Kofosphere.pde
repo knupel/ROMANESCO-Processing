@@ -75,7 +75,7 @@ class Kofosphere extends Romanesco {
   void setup() {
    setting_start_position(ID_item, width/2, height/2, 0) ;
    float startingRadius = width ;
-   sphere = new Sphere(Vec2(item_setting_position[0][ID_item].x,item_setting_position[0][ID_item].y),startingRadius);
+   sphere = new Sphere(vec2(item_setting_position[0][ID_item].x,item_setting_position[0][ID_item].y),startingRadius);
  }
   
   
@@ -100,11 +100,11 @@ class Kofosphere extends Romanesco {
     float norm_speed = map(get_speed_x(),0,1,0,1.5) ;
     norm_speed *= norm_speed ;
     if(reverse_is()) norm_speed *= ratio_speed ; else norm_speed *= -ratio_speed;
-    Vec2 speed = Vec2(norm_speed) ;
+    vec2 speed = vec2(norm_speed) ;
     speed.mult(.5 +left[ID_item], .5 +right[ID_item]) ;
 
     // size for the box
-    Vec3 size = Vec3(get_size_x(),get_size_y(),get_size_z()); 
+    vec3 size = vec3(get_size_x(),get_size_y(),get_size_z()); 
     size.mult(2);
     sphere.drawSpheres(size,speed,radius,quantity,get_costume(),ID_item);
 
@@ -116,14 +116,14 @@ class Kofosphere extends Romanesco {
   //
   private class Sphere{
     
-    Vec2 pos;
+    vec2 pos;
     float radius;
     float density = 6.;
     float speedRotateX  ;
     float speedRotateY ;
 
     // CONSTRUCTOR
-    private Sphere(Vec2 pos, float radius){
+    private Sphere(vec2 pos, float radius){
       this.pos = pos.copy();
       this.radius = radius;
       // as always
@@ -132,7 +132,7 @@ class Kofosphere extends Romanesco {
 
     
     float newRadius ;
-    void drawSpheres(Vec3 size, Vec2 speed, float radiusFactor, float quantity, Costume costume, int ID) {
+    void drawSpheres(vec3 size, vec2 speed, float radiusFactor, float quantity, Costume costume, int ID) {
       boolean kofosphereInColor ;
       //color mode
       if(get_mode_id()==0) {
@@ -197,7 +197,7 @@ class Kofosphere extends Romanesco {
           float factor_size = map(abs(ratio_size),0,max_factor,.005,1);
 
           float thickness = get_thickness();
-          Vec3 def_size = size.copy();
+          vec3 def_size = size.copy();
           boolean use_factor_is = true;
           if(use_factor_is) {
             thickness *= factor_size;
@@ -214,7 +214,7 @@ class Kofosphere extends Romanesco {
           aspect(c_fill,c_stroke,thickness);
           aspect_is(fill_is(),stroke_is());
           set_ratio_costume_size(map(get_area(),width*.1, width*TAU,0,1));
-          Vec3 pos = Vec3(pos_x *deform, pos_y *deform, pos_z *deform);
+          vec3 pos = vec3(pos_x *deform, pos_y *deform, pos_z *deform);
           costume(pos,def_size,costume);
           
         }

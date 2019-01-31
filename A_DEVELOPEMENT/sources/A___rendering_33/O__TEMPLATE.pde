@@ -88,7 +88,7 @@ class Template extends Romanesco {
     info("info about the item","more","more");
     aspect(get_fill(),get_stroke(),get_thickness());
     set_ratio_costume_size(map(get_area(),get_area_min(),get_area_max(),0,1));
-    costume(Vec3(),get_size(),get_costume());
+    costume(vec3(),get_size(),get_costume());
   }
 
   void draw_2D() {

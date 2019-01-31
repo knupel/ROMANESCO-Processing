@@ -1,5 +1,8 @@
 /**
-CLASS AGENT 1.1.0
+CLASS AGENT 
+v 1.2.0
+2016-2019
+
 */
 /**
 
@@ -20,9 +23,9 @@ interface Agent {
   int get_stamina() ;
   Genome get_genome() ;
   boolean get_alive() ;
-  Vec3 get_pos() ;
+  vec3 get_pos() ;
 
-  Vec3 get_size() ;
+  vec3 get_size() ;
   int get_mass() ;
   float get_density() ;
 
@@ -34,8 +37,8 @@ interface Agent {
   /**
   get home
   */
-  Vec4 get_home() ;
-  Vec3 get_home_pos() ;
+  vec4 get_home() ;
+  vec3 get_home_pos() ;
   int get_home_id() ;
 
 
@@ -51,18 +54,18 @@ interface Agent {
   void set_costume(int which);
   void set_costume(Costume costume);
   
-  void aspect(Vec4 f, Vec4 s, float t) ;
+  void aspect(vec4 f, vec4 s, float t) ;
 
   Costume get_costume();
-  Vec4 get_fill_style();
-  Vec4 get_stroke_style();
+  vec4 get_fill_style();
+  vec4 get_stroke_style();
   float get_thickness();
 
-  Vec4 get_melanin() ;
+  vec4 get_melanin() ;
 
-  Vec4 get_first_colour() ;
-  Vec4 get_second_colour() ;
-  Vec4 get_third_colour() ;
+  vec4 get_first_colour() ;
+  vec4 get_second_colour() ;
+  vec4 get_third_colour() ;
 
 
   /**
@@ -71,23 +74,23 @@ interface Agent {
   /**
   set home
   */
-  void set_home(Vec4 home) ;
-  void set_home(Vec3 pos, int id_home) ;
-  void set_home_pos(Vec3 pos) ;
+  void set_home(vec4 home) ;
+  void set_home(vec3 pos, int id_home) ;
+  void set_home_pos(vec3 pos) ;
   void set_home_ID(int id_home) ;
 
   /**
   set aspect
   */
-  void set_aspect(Vec4 fill_style, Vec4 stroke_style, float thickness) ;
-  void set_fill(Vec4 fill_style) ;
-  void set_stroke(Vec4 stroke_style) ;
+  void set_aspect(vec4 fill_style, vec4 stroke_style, float thickness) ;
+  void set_fill(vec4 fill_style) ;
+  void set_stroke(vec4 stroke_style) ;
   void set_thickness(float thickness) ;
-  void set_alpha(Vec3 alpha_behavior) ;
+  void set_alpha(vec3 alpha_behavior) ;
   /**
   set coor, motion...
   */
-  void set_pos(Vec pos) ; 
+  void set_pos(vec pos) ; 
   /**
   set caracterictic
   */
@@ -96,7 +99,7 @@ interface Agent {
   /**
   INFO
   */
-  void info(Vec4 colour, int size_text)  ;
+  void info(vec4 colour, int size_text)  ;
 }
 
 /**
@@ -178,20 +181,20 @@ abstract class Agent_model implements Agent {
   int stamina, stamina_ref ;
   int nutrient_quality = 1 ;
   // size
-  Vec3 size, size_ref, size_max ;
+  vec3 size, size_ref, size_max ;
   int mass, mass_ref ;
   float density = 1 ;
   /**
   colour use by ADN
   */
-  Vec4 melanin ;
-  Vec4 first_colour, second_colour, third_colour ;
+  vec4 melanin ;
+  vec4 first_colour, second_colour, third_colour ;
   /**
   aspect 
   not use in the ADN, just for display
   */
-  Vec4 fill_style = Vec4(0,0,0,g.colorModeA) ;
-  Vec4 stroke_style = Vec4(0,0,0,g.colorModeA) ;
+  vec4 fill_style = vec4(0,0,0,g.colorModeA) ;
+  vec4 stroke_style = vec4(0,0,0,g.colorModeA) ;
   float thickness = 1 ;
 
   Costume costume; // costume 0 is point in Z_costume_rope library
@@ -202,18 +205,18 @@ abstract class Agent_model implements Agent {
   /**
   pos
   */
-  Vec3 pos = Vec3() ;
+  vec3 pos = vec3() ;
 
   /**
   home
   */
-  Vec4 home ;
+  vec4 home ;
 
 
  /**
  home
   */
-  void set_home(Vec4 home) {
+  void set_home(vec4 home) {
     if(this.home != null) {
       this.home.set(home) ;
     } else {
@@ -221,19 +224,19 @@ abstract class Agent_model implements Agent {
     }
   }
 
-  void set_home(Vec3 pos, int id_home) {
+  void set_home(vec3 pos, int id_home) {
     if(this.home != null) {
       this.home.set(pos.x, pos.y, pos.z, id_home) ;
     } else {
-      this.home = Vec4(pos.x, pos.y, pos.z, id_home) ;
+      this.home = vec4(pos.x, pos.y, pos.z, id_home) ;
     }
   }
 
-  void set_home_pos(Vec3 pos) {
+  void set_home_pos(vec3 pos) {
     if(this.home != null) {
       this.home.set(pos.x, pos.y, pos.z, this.home.w) ;
     } else {
-      this.home = Vec4(pos.x, pos.y, pos.z, -1) ;
+      this.home = vec4(pos.x, pos.y, pos.z, -1) ;
     }
   }
 
@@ -241,7 +244,7 @@ abstract class Agent_model implements Agent {
     if(this.home != null) {
       this.home.set(this.home.x, this.home.y, this.home.z, id_home) ;
     } else {
-      this.home = Vec4(0, 0, 0, id_home) ;
+      this.home = vec4(0, 0, 0, id_home) ;
     }
   }
 
@@ -283,7 +286,7 @@ abstract class Agent_model implements Agent {
   boolean get_alive() { 
     return alive ;
   }
-  Vec3 get_size() { 
+  vec3 get_size() { 
     return size ; 
   }
   int get_stamina() { 
@@ -298,19 +301,19 @@ abstract class Agent_model implements Agent {
     return density ; 
   }
 
-  Vec3 get_pos() { 
+  vec3 get_pos() { 
     return pos ;
   }
 
  /**
   get home
   */
-  Vec4 get_home() { 
+  vec4 get_home() { 
     return home ;
   }
 
-  Vec3 get_home_pos() { 
-    if(home != null) return Vec3(home.x, home.y, home.z) ; else return null ;
+  vec3 get_home_pos() { 
+    if(home != null) return vec3(home.x, home.y, home.z) ; else return null ;
   }
 
   int get_home_id() { 
@@ -324,27 +327,27 @@ abstract class Agent_model implements Agent {
   Costume get_costume() { 
     return costume; 
   }
-  Vec4 get_fill_style() { 
+  vec4 get_fill_style() { 
     return fill_style ; 
   }
-  Vec4 get_stroke_style() { 
+  vec4 get_stroke_style() { 
     return stroke_style ; 
   }
   float get_thickness() { 
     return thickness ; 
   }
 
-  Vec4 get_melanin() { 
+  vec4 get_melanin() { 
     return first_colour ; 
   }
 
-  Vec4 get_first_colour() { 
+  vec4 get_first_colour() { 
     return first_colour ; 
   }
-  Vec4 get_second_colour() { 
+  vec4 get_second_colour() { 
     return second_colour ; 
   }
-  Vec4 get_third_colour() { 
+  vec4 get_third_colour() { 
     return third_colour ; 
   }
 
@@ -410,17 +413,17 @@ abstract class Agent_model implements Agent {
   /**
   set aspect
   */
-  void set_aspect(Vec4 fill_style, Vec4 stroke_style, float thickness) {
+  void set_aspect(vec4 fill_style, vec4 stroke_style, float thickness) {
     this.fill_style.set(fill_style) ;
     this.stroke_style.set(stroke_style) ;
     this.thickness = thickness ;
   }
 
-  void set_fill(Vec4 fill_style) {
+  void set_fill(vec4 fill_style) {
     this.fill_style.set(fill_style) ;
   }
 
-  void set_stroke(Vec4 stroke_style) {
+  void set_stroke(vec4 stroke_style) {
     this.stroke_style.set(stroke_style) ;
   }
 
@@ -430,7 +433,7 @@ abstract class Agent_model implements Agent {
 
 
   // void set_alpha(int alpha_cursor, float alpha_back, float alpha_front) {
-  void set_alpha(Vec3 alpha_behavior) {
+  void set_alpha(vec3 alpha_behavior) {
     this.alpha_cursor = (int)alpha_behavior.x ;
     this.alpha_back = abs(alpha_behavior.y) ;
     this.alpha_front = alpha_behavior.z ;
@@ -445,13 +448,13 @@ abstract class Agent_model implements Agent {
 
   void set_size(int size) {
     if(this.size != null) {
-      this.size = Vec3(size) ;
+      this.size = vec3(size) ;
     } else this.size.set(size) ;
   }
 
-  void set_size(Vec3 size) {
+  void set_size(vec3 size) {
     if(this.size != null) {
-      this.size = Vec3(size) ;
+      this.size = vec3(size) ;
     } else this.size.set(size) ;
   }
 
@@ -566,7 +569,7 @@ abstract class Agent_model implements Agent {
     }
   }
   
-  void aspect(Vec4 c_fill, Vec4 c_stroke, float thickness) {
+  void aspect(vec4 c_fill, vec4 c_stroke, float thickness) {
     if(thickness <= 0) { 
       noStroke() ;
       fill(c_fill) ;
@@ -584,7 +587,7 @@ abstract class Agent_model implements Agent {
   COSTUME
   */
   void costume() {
-    this.costume.draw(pos,size,Vec3());
+    this.costume.draw(pos,size,vec3());
   }
 
   void set_costume(Costume costume) {
@@ -621,9 +624,9 @@ abstract class Agent_model implements Agent {
   /**
   info print
   */
-  void info(Vec4 colour, int size_text) {
+  void info(vec4 colour, int size_text) {
     if(starving_bool) {
-      Vec4 colour_starving = Vec4() ;
+      vec4 colour_starving = vec4() ;
       float ratio_speed_warning = .05 ;
       float alpha = abs(sin(frameCount *ratio_speed_warning)) ;
       colour_starving.set(colour.r, colour.g, colour.b, colour.a *alpha) ;
@@ -638,11 +641,11 @@ abstract class Agent_model implements Agent {
   /**
   fake
   */
-  void info_visual(Vec4 colour) {
+  void info_visual(vec4 colour) {
 
   }
 
-  void info_text(Vec4 colour, int size) {
+  void info_text(vec4 colour, int size) {
 
   }
   
@@ -659,12 +662,12 @@ abstract class Agent_model implements Agent {
 
   }
 
-  Vec4 colour_info(Vec4 original_colour) {
+  vec4 colour_info(vec4 original_colour) {
     return colour_info(original_colour, true, false, false) ;
   }
 
-  Vec4 colour_info(Vec4 original_colour, boolean satiate, boolean pregnant, boolean fertility) {
-    Vec4 colour = Vec4(original_colour) ;
+  vec4 colour_info(vec4 original_colour, boolean satiate, boolean pregnant, boolean fertility) {
+    vec4 colour = vec4(original_colour) ;
     if(!satiate) colour.z = g.colorModeZ *.5 ;
     if(pregnant) colour.y = g.colorModeY *.1 ;
     if(fertility) colour.y = g.colorModeY *.45 ;
@@ -725,8 +728,8 @@ abstract class Agent_dynamic extends Agent_model {
   /**
   target
   */
-  Vec2 ID_target = Vec2(-1) ;
-  Vec3 pos_target = Vec3(0) ;
+  vec2 ID_target = vec2(-1) ;
+  vec3 pos_target = vec3(0) ;
   Agent target ;
 
 
@@ -783,9 +786,9 @@ abstract class Agent_dynamic extends Agent_model {
   /**
   motion, pos, coord
   */
-  Vec3 motion = Vec3() ;
-  Vec3 dir = Vec3() ;
-  Vec3 velocity_xyz = Vec3() ;
+  vec3 motion = vec3() ;
+  vec3 dir = vec3() ;
+  vec3 velocity_xyz = vec3() ;
   float velocity, velocity_ref ;
 
   float vel_slow_4 = .1 ;
@@ -812,7 +815,7 @@ Info_Object style ;
   CONSTRUCTOR 
   Dynamic Agent from caracteristic
 
-  @param Vec3 pos, give the x,y,z coord of the agent
+  @param vec3 pos, give the x,y,z coord of the agent
   @param int size, give a data to give size to the agent
   @param int life, give the life and and use to give the maximum life of the agent
   @param int stamina, give the stamina and and use to give the maximum stamina of the agent
@@ -820,14 +823,14 @@ Info_Object style ;
   @param String name... no comment !
   */
   Agent_dynamic(Info_dict carac, Info_Object style, int gender) {
-  // Agent_dynamic(int size, int stamina, int life_expectancy, int velocity, int sense_range, String name, Vec2 sex_appeal, int gender) {
+  // Agent_dynamic(int size, int stamina, int life_expectancy, int velocity, int sense_range, String name, vec2 sex_appeal, int gender) {
     // set aspect
     this.style = style ;
-    set_aspect((Vec4)style.catch_obj(1), (Vec4)style.catch_obj(2), (float)style.catch_obj(3)) ;
+    set_aspect((vec4)style.catch_obj(1), (vec4)style.catch_obj(2), (float)style.catch_obj(3)) ;
 
     // catch caracteristic
     String temp_name = "Nobody" ;
-    Vec3 temp_size = Vec3(1) ;
+    vec3 temp_size = vec3(1) ;
     float temp_density = 1 ;
 
     int temp_stamina = 1 ;
@@ -835,22 +838,22 @@ Info_Object style ;
     int temp_sense_range = 1 ;
     int temp_life_expectancy = MAX_INT ;
     int species_life_cycle = MAX_INT ;
-    Vec2 temp_sex_appeal = Vec2(1) ;
+    vec2 temp_sex_appeal = vec2(1) ;
     float temp_multiple_pregnancy = 0 ;
     
-    Vec4 temp_first = Vec4(1) ;
-    Vec4 temp_second = Vec4(1) ;
-    Vec4 temp_third = Vec4(1) ;
+    vec4 temp_first = vec4(1) ;
+    vec4 temp_second = vec4(1) ;
+    vec4 temp_third = vec4(1) ;
 
-    Vec4 temp_melanin = Vec4(0) ;
+    vec4 temp_melanin = vec4(0) ;
     //
     float range_norm = .15 ;
     //
 
     if (carac.get("name") != null) temp_name = (String) carac.get("name")[0].catch_obj(0) ;
 
-    if (carac.get("size") != null && carac.get("size")[0].catch_obj(0) instanceof Vec3) {
-      temp_size = (Vec3)carac.get("size")[0].catch_obj(0) ;
+    if (carac.get("size") != null && carac.get("size")[0].catch_obj(0) instanceof vec3) {
+      temp_size = (vec3)carac.get("size")[0].catch_obj(0) ;
       temp_size.x = random_gaussian(temp_size.x) ;
       temp_size.y = random_gaussian(temp_size.y) ;
       temp_size.z = random_gaussian(temp_size.z) ;
@@ -862,30 +865,30 @@ Info_Object style ;
     if (carac.get("sense_range") != null) temp_sense_range = (int) random_gaussian((int)carac.get("sense_range")[0].catch_obj(0)) ;
     // colour
     
-    if (carac.get("first_colour") != null && carac.get("first_colour")[0].catch_obj(0) instanceof Vec4) {
-      temp_first = (Vec4)carac.get("first_colour")[0].catch_obj(0) ;
+    if (carac.get("first_colour") != null && carac.get("first_colour")[0].catch_obj(0) instanceof vec4) {
+      temp_first = (vec4)carac.get("first_colour")[0].catch_obj(0) ;
       temp_first.x = random_gaussian(temp_first.x, range_norm) ;
       temp_first.y = random_gaussian(temp_first.y, range_norm) ;
       temp_first.z = random_gaussian(temp_first.z, range_norm) ;
       temp_first.a = random_gaussian(temp_first.a, range_norm) ;
     }
-    if (carac.get("second_colour") != null && carac.get("second_colour")[0].catch_obj(0) instanceof Vec4) {
-      temp_second = (Vec4)carac.get("second_colour")[0].catch_obj(0) ;
+    if (carac.get("second_colour") != null && carac.get("second_colour")[0].catch_obj(0) instanceof vec4) {
+      temp_second = (vec4)carac.get("second_colour")[0].catch_obj(0) ;
       temp_second.x = random_gaussian(temp_second.x, range_norm) ;
       temp_second.y = random_gaussian(temp_second.y, range_norm) ;
       temp_second.z = random_gaussian(temp_second.z, range_norm) ;
       temp_second.a = random_gaussian(temp_second.a, range_norm) ;
     }
-    if (carac.get("third_colour") != null && carac.get("third_colour")[0].catch_obj(0) instanceof Vec4) {
-      temp_third = (Vec4)carac.get("third_colour")[0].catch_obj(0) ;
+    if (carac.get("third_colour") != null && carac.get("third_colour")[0].catch_obj(0) instanceof vec4) {
+      temp_third = (vec4)carac.get("third_colour")[0].catch_obj(0) ;
       temp_third.x = random_gaussian(temp_third.x, range_norm) ;
       temp_third.y = random_gaussian(temp_third.y, range_norm) ;
       temp_third.z = random_gaussian(temp_third.z, range_norm) ;
       temp_third.a = random_gaussian(temp_third.a, range_norm) ;
     }
     // melanin
-    if (carac.get("melanin") != null && carac.get("melanin")[0].catch_obj(0) instanceof Vec4) {
-      temp_melanin = (Vec4)carac.get("melanin")[0].catch_obj(0) ;
+    if (carac.get("melanin") != null && carac.get("melanin")[0].catch_obj(0) instanceof vec4) {
+      temp_melanin = (vec4)carac.get("melanin")[0].catch_obj(0) ;
       temp_melanin.x = random_gaussian(temp_melanin.x, range_norm) ;
       temp_melanin.y = random_gaussian(temp_melanin.y, range_norm) ;
       temp_melanin.z = random_gaussian(temp_melanin.z, range_norm) ;
@@ -898,8 +901,8 @@ Info_Object style ;
     if (carac.get("life_expectancy") != null) species_life_cycle = (int) random_gaussian((int)carac.get("life_expectancy")[0].catch_obj(0)) ;
     if (carac.get("sex_appeal") != null) {
       Object obj = carac.get("sex_appeal")[0].catch_obj(0) ;
-      if(obj instanceof Vec2) { 
-        Vec2 temp = (Vec2) obj ;
+      if(obj instanceof vec2) { 
+        vec2 temp = (vec2) obj ;
         temp_sex_appeal.x = random_gaussian(temp.x);
         temp_sex_appeal.y = random_gaussian(temp.y);
       }
@@ -984,7 +987,7 @@ Info_Object style ;
   Agent_dynamic(Genome mother, Genome father, Info_Object style) {
     // aspect
     this.style = style ;
-    set_aspect((Vec4)style.catch_obj(1), (Vec4)style.catch_obj(2), (float)style.catch_obj(3)) ;
+    set_aspect((vec4)style.catch_obj(1), (vec4)style.catch_obj(2), (float)style.catch_obj(3)) ;
 
     init_ID() ;
     init_dir() ;
@@ -1007,7 +1010,7 @@ Info_Object style ;
 
 
     // chromosome Float
-    this.size = Vec3((Float)genome.get_gene_product(0,0).catch_obj(0), (Float)genome.get_gene_product(0,1).catch_obj(0), (Float)genome.get_gene_product(0,2).catch_obj(0)) ;
+    this.size = vec3((Float)genome.get_gene_product(0,0).catch_obj(0), (Float)genome.get_gene_product(0,1).catch_obj(0), (Float)genome.get_gene_product(0,2).catch_obj(0)) ;
 
 
     // generation is genome.get_gene_product(0,3).catch_obj(0)
@@ -1021,18 +1024,18 @@ Info_Object style ;
     */
     this.sense_range = int( (Float)genome.get_gene_product(0,7).catch_obj(0)) ;
     // sex appeal
-    Vec2 sex_appeal = Vec2((Float)genome.get_gene_product(0,8).catch_obj(0), (Float)genome.get_gene_product(0,9).catch_obj(0)) ;
+    vec2 sex_appeal = vec2((Float)genome.get_gene_product(0,8).catch_obj(0), (Float)genome.get_gene_product(0,9).catch_obj(0)) ;
     // multi_pregnancy
     this.multiple_pregnancy = (Float)genome.get_gene_product(0,10).catch_obj(0) ;
 
     // cycle life
     int species_life_cycle = int((Float)genome.get_gene_product(0,11).catch_obj(0)) ;
 
-    this.first_colour = Vec4((Float)genome.get_gene_product(0,12).catch_obj(0), (Float)genome.get_gene_product(0,13).catch_obj(0),(Float)genome.get_gene_product(0,14).catch_obj(0), (Float)genome.get_gene_product(0,15).catch_obj(0)) ;
-    this.second_colour = Vec4((Float)genome.get_gene_product(0,16).catch_obj(0), (Float)genome.get_gene_product(0,17).catch_obj(0),(Float)genome.get_gene_product(0,18).catch_obj(0), (Float)genome.get_gene_product(0,19).catch_obj(0)) ;
-    this.third_colour = Vec4((Float)genome.get_gene_product(0,20).catch_obj(0), (Float)genome.get_gene_product(0,21).catch_obj(0),(Float)genome.get_gene_product(0,22).catch_obj(0), (Float)genome.get_gene_product(0,23).catch_obj(0)) ;
+    this.first_colour = vec4((Float)genome.get_gene_product(0,12).catch_obj(0), (Float)genome.get_gene_product(0,13).catch_obj(0),(Float)genome.get_gene_product(0,14).catch_obj(0), (Float)genome.get_gene_product(0,15).catch_obj(0)) ;
+    this.second_colour = vec4((Float)genome.get_gene_product(0,16).catch_obj(0), (Float)genome.get_gene_product(0,17).catch_obj(0),(Float)genome.get_gene_product(0,18).catch_obj(0), (Float)genome.get_gene_product(0,19).catch_obj(0)) ;
+    this.third_colour = vec4((Float)genome.get_gene_product(0,20).catch_obj(0), (Float)genome.get_gene_product(0,21).catch_obj(0),(Float)genome.get_gene_product(0,22).catch_obj(0), (Float)genome.get_gene_product(0,23).catch_obj(0)) ;
 
-    this.melanin = Vec4((Float)genome.get_gene_product(0,24).catch_obj(0), (Float)genome.get_gene_product(0,25).catch_obj(0),(Float)genome.get_gene_product(0,26).catch_obj(0), (Float)genome.get_gene_product(0,27).catch_obj(0)) ;
+    this.melanin = vec4((Float)genome.get_gene_product(0,24).catch_obj(0), (Float)genome.get_gene_product(0,25).catch_obj(0),(Float)genome.get_gene_product(0,26).catch_obj(0), (Float)genome.get_gene_product(0,27).catch_obj(0)) ;
     
     this.density = (Float)genome.get_gene_product(0,28).catch_obj(0) ;
     
@@ -1058,8 +1061,8 @@ Info_Object style ;
   /**
   GENOME
   */
-  void build_archetype_genome(Vec3 size, float density, int life_expectancy, int velocity, int sense_range, String name, Vec2 sex_appeal, float multiple_pregnancy, int species_life_cycle, 
-                              Vec4 first_colour, Vec4 second_colour, Vec4 third_colour, Vec4 melanin, 
+  void build_archetype_genome(vec3 size, float density, int life_expectancy, int velocity, int sense_range, String name, vec2 sex_appeal, float multiple_pregnancy, int species_life_cycle, 
+                              vec4 first_colour, vec4 second_colour, vec4 third_colour, vec4 melanin, 
                               int generation, int gender) {
     float [] data_float = new float[42] ;
     data_float[0] = size.x ;
@@ -1128,7 +1131,7 @@ Info_Object style ;
   internal setting for constructor
   based on arbitrary life cycle model
   */
-  void init_var_life_cycle(int life_expectancy, int species_life_expectancy, Vec3 size, float density) {
+  void init_var_life_cycle(int life_expectancy, int species_life_expectancy, vec3 size, float density) {
 
     this.life_expectancy = life_expectancy ;
     this.life = life_expectancy ;
@@ -1155,7 +1158,7 @@ Info_Object style ;
   }
 
   void init_dir() {
-    this.dir = Vec3("RANDOM",1) ;
+    this.dir = vec3("RANDOM",1) ;
   }
 
 
@@ -1187,7 +1190,7 @@ Info_Object style ;
   }
 
 
-  void set_reproduction(Vec2 sex_appeal_ratio) {
+  void set_reproduction(vec2 sex_appeal_ratio) {
     if(this.gender == 0) {
       this.reproduction_area = this.mass *2 ; 
       this.sex_appeal = int(this.mass *sex_appeal_ratio.x) ; 
@@ -1236,7 +1239,7 @@ Info_Object style ;
   /**
   set motion
   */
-  void set_dir(Vec3 dir) {
+  void set_dir(vec3 dir) {
     this.dir.set(dir) ;
   }
 
@@ -1244,14 +1247,14 @@ Info_Object style ;
     this.velocity = velocity ;
   }
 
-  void set_pos(Vec pos) {
-    if(pos instanceof Vec3) {
-      Vec3 temp_pos = (Vec3) pos ;
+  void set_pos(vec pos) {
+    if(pos instanceof vec3) {
+      vec3 temp_pos = (vec3) pos ;
       this.pos.set(temp_pos) ;
       this.motion.set(temp_pos) ;
     }
-    if(pos instanceof Vec2) {
-      Vec2 temp_pos = (Vec2) pos ;
+    if(pos instanceof vec2) {
+      vec2 temp_pos = (vec2) pos ;
       this.pos.set(temp_pos.x, temp_pos.y,0) ;
       this.motion.set(this.pos) ;
     }
@@ -1305,10 +1308,10 @@ Info_Object style ;
   /**
   GET pos
   */
-  Vec3 get_pos_target() {
+  vec3 get_pos_target() {
     return pos_target ;
   }
-  Vec3 get_pos() {
+  vec3 get_pos() {
     return pos ;
   }
   /**
@@ -1673,7 +1676,7 @@ COMMON HUNT & SEARCH
 
 
   void change_direction() {
-    dir.set(Vec3("RANDOM", 1)) ;
+    dir.set(vec3("RANDOM", 1)) ;
   }
 
 
@@ -1707,7 +1710,7 @@ COMMON HUNT & SEARCH
     }
     this.velocity = this.velocity_ref *ratio ;
   }
-  void rebound(Vec6 limit, boolean rebound_on_limit) {
+  void rebound(vec6 limit, boolean rebound_on_limit) {
     if(ENVIRONMENT == 2 ) {
       rebound(limit.a, limit.b, limit.c, limit.d, 0, 0, rebound_on_limit) ;
     } else if(ENVIRONMENT == 3) {
@@ -1716,14 +1719,14 @@ COMMON HUNT & SEARCH
   }
   
   void rebound(float left, float right, float top, float bottom, float front, float back, boolean rebound_on_limit) {
-    Vec3 pos_temp = Vec3(pos.x, pos.y, pos.z);
-    Vec3 dir_temp = Vec3(dir.x, dir.y, dir.z);
+    vec3 pos_temp = vec3(pos.x, pos.y, pos.z);
+    vec3 dir_temp = vec3(dir.x, dir.y, dir.z);
     
     if(rebound_on_limit) {
       dir_temp.set(rebound(left, right, top, bottom, front, back, pos_temp, dir_temp)) ;
       dir.set(dir_temp) ;
     } else {
-      Vec3 motion_temp = Vec3(motion.x, motion.y,motion.z) ;
+      vec3 motion_temp = vec3(motion.x, motion.y,motion.z) ;
       motion_temp.set(jump(left, right, top, bottom, front, back, motion_temp)) ;
       motion.set(motion_temp) ;
     }
@@ -1731,7 +1734,7 @@ COMMON HUNT & SEARCH
 
 
   // rebound
-  Vec3 rebound(float left, float right, float top, float bottom, float front, float back, Vec3 pos, Vec3 dir) {
+  vec3 rebound(float left, float right, float top, float bottom, float front, float back, vec3 pos, vec3 dir) {
     // here we use size to have a physical rebound
     float effect = this.mass ;
 
@@ -1767,11 +1770,11 @@ COMMON HUNT & SEARCH
       dir.z *= -1 ;
       pos.z = back ;
     } 
-    return Vec3(dir) ;
+    return vec3(dir) ;
   }
 
   // jump
-  Vec3 jump(float left, float right, float top, float bottom, float front, float back, Vec3 motion) {
+  vec3 jump(float left, float right, float top, float bottom, float front, float back, vec3 motion) {
     // here we use sense_range to find a good jump
     int effect = this.mass ;
     // effect = 0 ;
@@ -1799,7 +1802,7 @@ COMMON HUNT & SEARCH
     } else if (pos.z < front) {
       motion.z = back ;
     }
-    return Vec3(motion) ;
+    return vec3(motion) ;
   }
   /**
 
@@ -1854,7 +1857,7 @@ COMMON HUNT & SEARCH
       just_after_satiate = true ;
     }
 
-    if(!alive) dir.set(Vec3(0)) ;
+    if(!alive) dir.set(vec3(0)) ;
   }
 
   /**
@@ -1888,7 +1891,7 @@ COMMON HUNT & SEARCH
   void chill(int step, float ratio_speed_motion) {
     if(frameCount%step == 0) {
       // velocity = velocity_ref *ratio_speed_motion ;
-      //dir.set(Vec3("RANDOM", 1)) ;
+      //dir.set(vec3("RANDOM", 1)) ;
       change_direction() ;
     }
   }
@@ -1913,18 +1916,18 @@ COMMON HUNT & SEARCH
   INFO
 
   */
-  void info_visual(Vec4 colour) {
-    Vec3 pos_temp = Vec3(0) ;
-    aspect(Vec4(0), colour_info(colour, satiate, pregnant, fertility), 1) ;
+  void info_visual(vec4 colour) {
+    vec3 pos_temp = vec3(0) ;
+    aspect(vec4(0), colour_info(colour, satiate, pregnant, fertility), 1) ;
     start_matrix() ;
     translate(pos) ;
     ellipse(pos_temp.x, pos_temp.y, size.x *2, size.y *2) ;
     stop_matrix() ;
   }
 
-  void info_text(Vec4 colour, int size_text) {
+  void info_text(vec4 colour, int size_text) {
     aspect(colour_info(colour, satiate, pregnant, fertility), colour_info(colour, satiate, pregnant, fertility), 1) ;
-    Vec2 pos_text = Vec2(0) ;
+    vec2 pos_text = vec2(0) ;
     start_matrix() ;
     translate(pos) ;
     textSize(size_text) ;
@@ -2194,7 +2197,7 @@ abstract class Agent_static extends Agent_model {
   Constructor
 
   */
-  Agent_static(Vec3 pos, Vec3 size, int life_expectancy, String name) {
+  Agent_static(vec3 pos, vec3 size, int life_expectancy, String name) {
     this.pos.set(pos) ;
     this.life_expectancy = life_expectancy ;
     this.life = life_expectancy ;
@@ -2207,13 +2210,13 @@ abstract class Agent_static extends Agent_model {
 
   Agent_static(Info_dict carac, Info_Object style, int gender) {
     String temp_name = "Nobody" ;
-    Vec3 temp_size = Vec3(1) ;
+    vec3 temp_size = vec3(1) ;
     float temp_density = 1 ;
 
-    Vec4 temp_first = Vec4(1) ;
-    Vec4 temp_second = Vec4(1) ;
-    Vec4 temp_third = Vec4(1) ;
-    Vec4 temp_melanin = Vec4(1) ;
+    vec4 temp_first = vec4(1) ;
+    vec4 temp_second = vec4(1) ;
+    vec4 temp_third = vec4(1) ;
+    vec4 temp_melanin = vec4(1) ;
     // 
     float range_norm = .15 ;
     // 
@@ -2221,8 +2224,8 @@ abstract class Agent_static extends Agent_model {
     this.ID = (short) Math.round(random(Short.MAX_VALUE)) ;
     if (carac.get("name") != null) temp_name = (String) carac.get("name")[0].catch_obj(0) ;
 
-    if (carac.get("size") != null && carac.get("size")[0].catch_obj(0) instanceof Vec3) {
-      temp_size = (Vec3)carac.get("size")[0].catch_obj(0) ;
+    if (carac.get("size") != null && carac.get("size")[0].catch_obj(0) instanceof vec3) {
+      temp_size = (vec3)carac.get("size")[0].catch_obj(0) ;
       temp_size.x = random_gaussian(temp_size.x) ;
       temp_size.y = random_gaussian(temp_size.y) ;
       temp_size.z = random_gaussian(temp_size.z) ;
@@ -2231,21 +2234,21 @@ abstract class Agent_static extends Agent_model {
 
     
     if (carac.get("first_colour") != null) {
-      temp_first = (Vec4)carac.get("first_colour")[0].catch_obj(0) ;
+      temp_first = (vec4)carac.get("first_colour")[0].catch_obj(0) ;
       temp_first.x = random_gaussian(temp_first.x, range_norm) ;
       temp_first.y = random_gaussian(temp_first.y, range_norm) ;
       temp_first.z = random_gaussian(temp_first.z, range_norm) ;
       temp_first.a = random_gaussian(temp_first.a, range_norm) ;
     }
     if (carac.get("second_colour") != null) {
-      temp_second = (Vec4)carac.get("second_colour")[0].catch_obj(0) ;
+      temp_second = (vec4)carac.get("second_colour")[0].catch_obj(0) ;
       temp_second.x = random_gaussian(temp_second.x, range_norm) ;
       temp_second.y = random_gaussian(temp_second.y, range_norm) ;
       temp_second.z = random_gaussian(temp_second.z, range_norm) ;
       temp_second.a = random_gaussian(temp_second.a, range_norm) ;
     }
     if (carac.get("third_colour") != null) {
-      temp_third = (Vec4)carac.get("second_colour")[0].catch_obj(0) ;
+      temp_third = (vec4)carac.get("second_colour")[0].catch_obj(0) ;
       temp_third.x = random_gaussian(temp_third.x, range_norm) ;
       temp_third.y = random_gaussian(temp_third.y, range_norm) ;
       temp_third.z = random_gaussian(temp_third.z, range_norm) ;
@@ -2253,8 +2256,8 @@ abstract class Agent_static extends Agent_model {
     }
 
      // melanin
-    if (carac.get("melanin") != null && carac.get("melanin")[0].catch_obj(0) instanceof Vec4) {
-      temp_melanin = (Vec4)carac.get("melanin")[0].catch_obj(0) ;
+    if (carac.get("melanin") != null && carac.get("melanin")[0].catch_obj(0) instanceof vec4) {
+      temp_melanin = (vec4)carac.get("melanin")[0].catch_obj(0) ;
       temp_melanin.x = random_gaussian(temp_melanin.x, range_norm) ;
       temp_melanin.y = random_gaussian(temp_melanin.y, range_norm) ;
       temp_melanin.z = random_gaussian(temp_melanin.z, range_norm) ;
@@ -2277,13 +2280,13 @@ abstract class Agent_static extends Agent_model {
   set position
   * set_pos(arg) is not in the abstract class because for the dynamic agent the method is specific.
   */
-  void set_pos(Vec pos) {
-    if(pos instanceof Vec3) {
-      Vec3 temp_pos = (Vec3) pos ;
+  void set_pos(vec pos) {
+    if(pos instanceof vec3) {
+      vec3 temp_pos = (vec3) pos ;
       this.pos.set(temp_pos) ;
     }
-    if(pos instanceof Vec2) {
-      Vec2 temp_pos = (Vec2) pos ;
+    if(pos instanceof vec2) {
+      vec2 temp_pos = (vec2) pos ;
       this.pos.set(temp_pos.x, temp_pos.y,0) ;
     }
   }
@@ -2304,9 +2307,9 @@ abstract class Agent_static extends Agent_model {
   /**
   info
   */
-  void info_text(Vec4 colour, int size_text) {
+  void info_text(vec4 colour, int size_text) {
     aspect(colour, colour, 1) ;
-    Vec2 pos_text = Vec2(0) ;
+    vec2 pos_text = vec2(0) ;
     start_matrix() ;
     translate(pos) ;
     textSize(size_text) ;

@@ -153,11 +153,11 @@ void init_romanesco() {
       reset_direction_item (which_setting, i) ;
       update_ref_direction(i) ;
       // check for null before start
-      if(dir_item_final[i] == null) dir_item_final[i] = Vec3() ;
+      if(dir_item_final[i] == null) dir_item_final[i] = vec3() ;
       if(pos_item_final[i] == null) {
         float x = -(width/2) ;
         float y = -(height/2) ;
-        pos_item_final[i] = Vec3(x,y,0) ;
+        pos_item_final[i] = vec3(x,y,0) ;
       }
     }
     init_romanesco = false ;
@@ -204,7 +204,7 @@ void display_setup(int frame_rate, int num_layer) {
 void set_screen() {
   Table configurationScene = loadTable(preference_path +"sceneProperty.csv","header");
   TableRow row = configurationScene.getRow(0);
-  iVec2 window = iVec2(width,height);
+  ivec2 window = ivec2(width,height);
   int target_screen = row.getInt("whichScreen");
 
   if(FULL_RENDERING) {
@@ -243,7 +243,7 @@ void set_screen() {
 }
 
 // resize_screen_if_parameter_is_too_big
-iVec2 resize_screen(iVec2 window, int target) {
+ivec2 resize_screen(ivec2 window, int target) {
   if(window.x >= get_screen_size(target).x) window.x = get_screen_size(target).x -100;
   if(window.y >= get_screen_size(target).y) window.y = get_screen_size(target).y -100;
   return window;
@@ -482,7 +482,7 @@ void displayInfoScene(color bg_txt, color txt) {
   text("Syphon " +syphon_on_off + " / press “y“ to on/off the Syphon",15, 15 *posInfo ) ;
   posInfo += 1 ;
   //INFO MOUSE and PEN
-  text("Mouse " + mouseX + " / " + mouseY + " molette " + wheel[0] + " pen orientation " + (int)deg360(Vec2(pen[0].x,pen[0].y)) +"°   stylet pressur " + int(pen[0].z *10),15, 15 *posInfo ) ;  
+  text("Mouse " + mouseX + " / " + mouseY + " molette " + wheel[0] + " pen orientation " + (int)deg360(vec2(pen[0].x,pen[0].y)) +"°   stylet pressur " + int(pen[0].z *10),15, 15 *posInfo ) ;  
   posInfo += 1 ;
   // LIGHT INFO
   text("Directional light ONE || pos " + int(pos_light[1].x)+ " / " + int(pos_light[1].y) + " / "+ int(pos_light[1].z) + " || dir " + decimale(dir_light[1].x,2) + " / " + decimale(dir_light[1].y,2) + " / "+ decimale(dir_light[1].z,2),15, 15 *posInfo  ) ;

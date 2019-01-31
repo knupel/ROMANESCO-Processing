@@ -134,37 +134,37 @@ void save_mask_border() {
   save_file_masking(get_file_masking(),sketchPath(1)+ "/save/last_border_mask.csv");
 }
 
-iVec2 [] coord_connected;
-iVec2 [] coord_block_1,coord_block_2,coord_block_3,coord_block_4;
+ivec2 [] coord_connected;
+ivec2 [] coord_block_1,coord_block_2,coord_block_3,coord_block_4;
 void masking_border_default() {
   int marge = 40;
-  coord_connected = new iVec2 [8];
+  coord_connected = new ivec2 [8];
   // outside
-  coord_connected[0] = iVec2(0,0);
-  coord_connected[1] = iVec2(width,0);
-  coord_connected[2] = iVec2(width,height);
-  coord_connected[3] = iVec2(0,height);
+  coord_connected[0] = ivec2(0,0);
+  coord_connected[1] = ivec2(width,0);
+  coord_connected[2] = ivec2(width,height);
+  coord_connected[3] = ivec2(0,height);
   // inside
-  coord_connected[4] = iVec2(marge,marge);
-  coord_connected[5] = iVec2(width-marge,marge);
-  coord_connected[6] = iVec2(width-marge,height-marge);
-  coord_connected[7] = iVec2(marge,height-marge);
+  coord_connected[4] = ivec2(marge,marge);
+  coord_connected[5] = ivec2(width-marge,marge);
+  coord_connected[6] = ivec2(width-marge,height-marge);
+  coord_connected[7] = ivec2(marge,height-marge);
   
   // coord_block_1
-  coord_block_1 = new iVec2 [2];
-  coord_block_1[0] = iVec2(width -width/3,marge);
-  coord_block_1[1] = iVec2(width/3,marge);
+  coord_block_1 = new ivec2 [2];
+  coord_block_1[0] = ivec2(width -width/3,marge);
+  coord_block_1[1] = ivec2(width/3,marge);
 
   // coord_block_2
-  coord_block_2 = new iVec2 [0];
+  coord_block_2 = new ivec2 [0];
 
   // coord_block_3
-  coord_block_3 = new iVec2 [2];
-  coord_block_3[0] = iVec2(width/3,height-marge);
-  coord_block_3[1] = iVec2(width-width/3,height-marge);
+  coord_block_3 = new ivec2 [2];
+  coord_block_3[0] = ivec2(width/3,height-marge);
+  coord_block_3[1] = ivec2(width-width/3,height-marge);
 
   // coord_block_4
-  coord_block_4 = new iVec2 [0];
+  coord_block_4 = new ivec2 [0];
 }
 
 
@@ -265,26 +265,26 @@ void data_masking_blocks(Coord_mask [] coord, int num_points_by_mask) {
   int marge = 100;
 
   for(int i = 0 ; i < coord.length ; i++) {
-    iVec2 [] coord_mask = new iVec2[num_points_by_mask];
-    iVec2 p = iVec2((int)random(marge,width-marge),(int)random(marge,height-marge));
+    ivec2 [] coord_mask = new ivec2[num_points_by_mask];
+    ivec2 p = ivec2((int)random(marge,width-marge),(int)random(marge,height-marge));
     for(int k = 0 ; k < coord_mask.length ; k++) {
       int range = marge/2 ;
-      coord_mask[k] = iVec2(p.x + int(random(-range,range)),p.y + int(random(-range,range)));
+      coord_mask[k] = ivec2(p.x + int(random(-range,range)),p.y + int(random(-range,range)));
     }
     coord[i] = new Coord_mask(coord_mask);
   }
 }
 
 class Coord_mask {
-  iVec2 [] coord;
-  Coord_mask(iVec2 [] coord_pos) {
-    this.coord = new iVec2[coord_pos.length];
+  ivec2 [] coord;
+  Coord_mask(ivec2 [] coord_pos) {
+    this.coord = new ivec2[coord_pos.length];
     for(int i = 0 ; i < this.coord.length ;i++) {
-      this.coord[i]= iVec2(coord_pos[i]);
+      this.coord[i]= ivec2(coord_pos[i]);
     }
   }
 
-  iVec2 [] get() {
+  ivec2 [] get() {
     return coord;
   }
 
@@ -292,7 +292,7 @@ class Coord_mask {
     if(coord[i] != null) {
       coord[i].set(x,y);
     } else {
-      coord[i] = iVec2(x,y);
+      coord[i] = ivec2(x,y);
     }
   }
 }
@@ -311,21 +311,21 @@ void mask_mapping_2_blocks(boolean change_is) {
 }
 
 // blocks
-iVec2 [] coord_mask_0, coord_mask_1;
+ivec2 [] coord_mask_0, coord_mask_1;
 int num_mask_mapping;
 void data_mask_mapping_blocks() {
   int marge = 40;
-  coord_mask_0 = new iVec2[4];
-  coord_mask_0[0] = iVec2(0,0);
-  coord_mask_0[1] = iVec2(width,0);
-  coord_mask_0[2] = iVec2(width,marge);
-  coord_mask_0[3] = iVec2(0,marge);
+  coord_mask_0 = new ivec2[4];
+  coord_mask_0[0] = ivec2(0,0);
+  coord_mask_0[1] = ivec2(width,0);
+  coord_mask_0[2] = ivec2(width,marge);
+  coord_mask_0[3] = ivec2(0,marge);
 
-  coord_mask_1 = new iVec2[4];
-  coord_mask_1[0] = iVec2(0,height-marge);
-  coord_mask_1[1] = iVec2(width,height-marge);
-  coord_mask_1[2] = iVec2(width,height);
-  coord_mask_1[3] = iVec2(0,height);
+  coord_mask_1 = new ivec2[4];
+  coord_mask_1[0] = ivec2(0,height-marge);
+  coord_mask_1[1] = ivec2(width,height-marge);
+  coord_mask_1[2] = ivec2(width,height);
+  coord_mask_1[3] = ivec2(0,height);
 
   num_mask_mapping = 2;
 }

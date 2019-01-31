@@ -9,7 +9,7 @@ SUB CLASS HERBIVORE 0.2.1
 */
 class Herbivore extends Agent_dynamic {
 
-  // Herbivore(int size, int stamina, int life_expectancy, int velocity, int sense_range, String name, Vec2 sex_appeal, int gender) {
+  // Herbivore(int size, int stamina, int life_expectancy, int velocity, int sense_range, String name, vec2 sex_appeal, int gender) {
   Herbivore(Info_dict carac, Info_Object style, int gender) {
 
     // super(size, stamina, life_expectancy, velocity, sense_range, name, sex_appeal, gender) ;
@@ -34,9 +34,9 @@ class Herbivore extends Agent_dynamic {
   /**
   info
   */
-  void info_visual(Vec4 colour) {
-    aspect(Vec4(),colour_info(colour, satiate, pregnant, fertility), 1) ;
-    Vec3 pos_temp = Vec3(0) ;
+  void info_visual(vec4 colour) {
+    aspect(vec4(),colour_info(colour, satiate, pregnant, fertility), 1) ;
+    vec3 pos_temp = vec3(0) ;
     start_matrix() ;
     translate(pos) ;
     ellipse(pos_temp.x, pos_temp.y, sense_range*2, sense_range*2) ;
@@ -70,7 +70,7 @@ SUB CLASS OMNIVORE 0.2.1
 */
 class Omnivore extends Agent_dynamic {
   /*
-  Omnivore(int size, int stamina, int life_expectancy, int velocity, int sense_range, String name, Vec2 sex_appeal, int gender) {
+  Omnivore(int size, int stamina, int life_expectancy, int velocity, int sense_range, String name, vec2 sex_appeal, int gender) {
     super(size, stamina, life_expectancy, velocity, sense_range, name, sex_appeal, gender) ;
     */
   Omnivore(Info_dict carac, Info_Object style, int gender) {
@@ -94,9 +94,9 @@ class Omnivore extends Agent_dynamic {
   /**
   info
   */
-  void info_visual(Vec4 colour) {
-    aspect(Vec4(),colour_info(colour, satiate, pregnant, fertility), 1) ;
-    Vec3 pos_temp = Vec3(0) ;
+  void info_visual(vec4 colour) {
+    aspect(vec4(),colour_info(colour, satiate, pregnant, fertility), 1) ;
+    vec3 pos_temp = vec3(0) ;
     start_matrix() ;
     translate(pos) ;
     ellipse(pos_temp.x, pos_temp.y, sense_range*2, sense_range*2) ;
@@ -131,7 +131,7 @@ SUB CLASS CARNIVORE 0.2.1
 */
 class Carnivore extends Agent_dynamic {
   /*
-  Carnivore(int size, int stamina, int life_expectancy, int velocity, int sense_range, String name, Vec2 sex_appeal, int gender) {
+  Carnivore(int size, int stamina, int life_expectancy, int velocity, int sense_range, String name, vec2 sex_appeal, int gender) {
   super(size, stamina, life_expectancy, velocity, sense_range, name, sex_appeal, gender) ;
   */
   Carnivore(Info_dict carac, Info_Object style, int gender) {
@@ -156,9 +156,9 @@ class Carnivore extends Agent_dynamic {
   /**
   info
   */
-  void info_visual(Vec4 colour) {
-    Vec3 pos_temp = Vec3(0) ;
-    aspect(Vec4(), colour_info(colour, satiate, pregnant, fertility), 1) ;
+  void info_visual(vec4 colour) {
+    vec3 pos_temp = vec3(0) ;
+    aspect(vec4(), colour_info(colour, satiate, pregnant, fertility), 1) ;
     start_matrix() ;
     translate(pos) ;
     // info feed
@@ -203,11 +203,11 @@ SUB CLASS BACTERIUM 0.2.0
 class Bacterium extends Agent_dynamic {
   float humus_prod_ratio = .25 ;
   float humus_production  ;
-   Vec2 sex_appeal = Vec2() ;
+   vec2 sex_appeal = vec2() ;
 
   /*
   Bacterium(int size, int stamina, int life_expectancy, int velocity, int sense_range, String name, int gender) {
-    super(size, stamina, life_expectancy, velocity, sense_range, name, Vec2(), gender) ;
+    super(size, stamina, life_expectancy, velocity, sense_range, name, vec2(), gender) ;
     */
   Bacterium(Info_dict carac, Info_Object style, int gender) {
     super(carac, style, gender) ;
@@ -273,9 +273,9 @@ class Bacterium extends Agent_dynamic {
   /**
   info
   */
-  void info_visual(Vec4 colour) {
-    aspect(Vec4(), colour_info(colour, satiate, pregnant, fertility), 1) ;
-    Vec3 pos_temp = Vec3 (0) ;
+  void info_visual(vec4 colour) {
+    aspect(vec4(), colour_info(colour, satiate, pregnant, fertility), 1) ;
+    vec3 pos_temp = vec3 (0) ;
     start_matrix() ;
     translate(pos) ;
     ellipse(pos_temp.x, pos_temp.y, sense_range*2, sense_range*2) ;
@@ -336,7 +336,7 @@ SUB CLASS FLORA 0.2.0
 */
 class Flora extends Agent_static {
 
-   Flora(Vec3 pos, Vec3 size, int life_expectancy,  String name) {
+   Flora(vec3 pos, vec3 size, int life_expectancy,  String name) {
       super(pos, size, life_expectancy, name) ;
       this.mass = int((size.x + size.y + size.z) *.33) ;
       this.stamina = this.stamina_ref = this.mass ;
@@ -375,9 +375,9 @@ class Flora extends Agent_static {
    /**
    // info
    */
-   void info_visual(Vec4 colour) {
-      Vec3 pos_temp = Vec3(0) ;
-      aspect(Vec4(), colour_info(colour), 1) ;
+   void info_visual(vec4 colour) {
+      vec3 pos_temp = vec3(0) ;
+      aspect(vec4(), colour_info(colour), 1) ;
       start_matrix() ;
       translate(pos) ;
       // info feed
@@ -415,7 +415,7 @@ class Dead extends Agent_static {
    /**
    MUST BE IMPROVE
    */
-	Dead(Vec3 pos, Vec3 size, Vec3 size_ref, int nutrient_quality, String name) {
+	Dead(vec3 pos, vec3 size, vec3 size_ref, int nutrient_quality, String name) {
     // int life = 0 ;
     super(pos, size, 0, name + " dead") ;
 
@@ -423,7 +423,7 @@ class Dead extends Agent_static {
 		this.size_ref = size_ref ;
     this.mass = (int)size.average() ;
 		this.alive = false ;
-		Vec4 colour_of_death = Vec4(0,0,30,g.colorModeA);
+		vec4 colour_of_death = vec4(0,0,30,g.colorModeA);
 		fill_style.set(colour_of_death) ;
 		stroke_style.set(colour_of_death) ;
 
@@ -437,9 +437,9 @@ class Dead extends Agent_static {
 	/**
    // info
    */
-   void info_visual(Vec4 colour) {
-      Vec3 pos_temp = Vec3(0) ;
-      aspect(Vec4(), colour_info(colour), 1) ;
+   void info_visual(vec4 colour) {
+      vec3 pos_temp = vec3(0) ;
+      aspect(vec4(), colour_info(colour), 1) ;
       start_matrix() ;
       translate(pos) ;
 

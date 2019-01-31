@@ -99,7 +99,7 @@ class FF extends Romanesco {
     }
 
     update_force_field_is(true);
-    iVec2 aspect_colour = iVec2(get_fill(),get_stroke());
+    ivec2 aspect_colour = ivec2(get_fill(),get_stroke());
     aspect_is(fill_is(),stroke_is());
 
     float thickness = get_thickness();
@@ -285,15 +285,15 @@ class FF extends Romanesco {
   /**
   SHOW FIELD
   */
-  private void show_field(Force_field ff, float scale, float range_colour, iVec2 aspect, float thickness, float ratio, Costume costume) {
+  private void show_field(Force_field ff, float scale, float range_colour, ivec2 aspect, float thickness, float ratio, Costume costume) {
     if(ff != null) {
-      Vec2 offset = Vec2(ff.get_resolution());
+      vec2 offset = vec2(ff.get_resolution());
       offset.sub(ff.get_resolution()/2);
       //
       for (int x = 0; x < ff.cols; x++) {
         for (int y = 0; y < ff.rows; y++) {
-          Vec2 pos = Vec2(x *ff.get_resolution(), y *ff.get_resolution());
-          Vec2 dir = Vec2(ff.field[x][y].x,ff.field[x][y].y);
+          vec2 pos = vec2(x *ff.get_resolution(), y *ff.get_resolution());
+          vec2 dir = vec2(ff.field[x][y].x,ff.field[x][y].y);
           if(ff.get_super_type() == r.STATIC) {
             float mag = ff.field[x][y].w;
             pattern_field(dir, mag, pos, ff.resolution *scale,range_colour,aspect,thickness,ratio,costume);
@@ -308,8 +308,8 @@ class FF extends Romanesco {
   }
 
   // Renders a vector object 'v' as an arrow and a position 'x,y'
-  private void pattern_field(Vec2 dir, float mag, Vec2 pos, float scale, float range_colour, iVec2 aspect,float thickness, float ratio, Costume costume) {
-    Vec5 colorMode = Vec5(getColorMode());
+  private void pattern_field(vec2 dir, float mag, vec2 pos, float scale, float range_colour, ivec2 aspect,float thickness, float ratio, Costume costume) {
+    vec5 colorMode = vec5(getColorMode());
     colorMode(HSB,1);
 
     pushMatrix();
@@ -328,23 +328,23 @@ class FF extends Romanesco {
     float hue_fill = hue(colour_fill)+max;
     if(hue_fill >= g.colorModeX) hue_fill -= g.colorModeX;
     if(hue_fill < 0) hue_fill = (g.colorModeX +hue_fill);
-    Vec4 c_fill = Vec4(hue_fill,saturation(colour_fill),brightness(colour_fill),alpha(colour_fill));
+    vec4 c_fill = vec4(hue_fill,saturation(colour_fill),brightness(colour_fill),alpha(colour_fill));
 
     int colour_stroke = aspect.y;
     float hue_stroke = hue(colour_stroke)+max;
     if(hue_stroke >= g.colorModeX) hue_stroke -= g.colorModeX;
     if(hue_stroke < 0) hue_stroke = (g.colorModeX +hue_stroke);
-    Vec4 c_stroke = Vec4(hue_stroke,saturation(colour_stroke),brightness(colour_stroke),alpha(colour_stroke));
+    vec4 c_stroke = vec4(hue_stroke,saturation(colour_stroke),brightness(colour_stroke),alpha(colour_stroke));
 
     
     aspect(c_fill,c_stroke,thickness);
     set_ratio_costume_size(map(ratio,width*.1, width*TAU,0,1));
     
-    // costume_rope(Vec2(),Vec3(size),costume);
+    // costume_rope(vec2(),vec3(size),costume);
     // pass by costume for the line is very slow
     if(costume.get_type() != LINE_ROPE) {
       set_ratio_costume_size(map(ratio,width*.1, width*TAU,0,1));
-      costume(Vec2(),Vec3(size),costume);
+      costume(vec2(),vec3(size),costume);
     } else {
       if(size > scale) size = scale;
       line(-size,0,size,0);

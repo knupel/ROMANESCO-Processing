@@ -114,11 +114,11 @@ v 1.3.0
 Capture cam;
 String[] cameras ;
 String[] cam_name ;
-iVec2[] cam_size ;
+ivec2[] cam_size ;
 int[] cam_fps ;
 int which_cam = 0;
 int ref_cam = -1;
-iVec2 CAM_SIZE;
+ivec2 CAM_SIZE;
 boolean CAMERA_AVAILABLE;
 boolean BROADCAST;
 
@@ -159,7 +159,7 @@ Capture get_cam() {
   return cam;
 }
 
-iVec2 [] get_cam_size() {
+ivec2 [] get_cam_size() {
   return cam_size ;
 }
 
@@ -207,7 +207,7 @@ void init_camera(int which_camra) {
 void list_cameras() {
   cameras = Capture.list();
   cam_name = new String[cameras.length] ;
-  cam_size = new iVec2[cameras.length] ;
+  cam_size = new ivec2[cameras.length] ;
   cam_fps = new int[cameras.length] ;
   
   // about the camera
@@ -220,7 +220,7 @@ void list_cameras() {
       // size camera
       String size = cam_data [1].substring(5,cam_data[1].length()) ;
       String [] sizeXY = split(size,"x") ;
-      cam_size[i] = iVec2(Integer.parseInt(sizeXY[0]), Integer.parseInt(sizeXY[1])) ;  // Integer.parseInt("1234");
+      cam_size[i] = ivec2(Integer.parseInt(sizeXY[0]), Integer.parseInt(sizeXY[1])) ;  // Integer.parseInt("1234");
       // fps
       String fps = cam_data [2].substring(4,cam_data[2].length()) ;
       cam_fps[i] = Integer.parseInt(fps) ;

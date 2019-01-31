@@ -1,6 +1,6 @@
 /**
 * ROPE IMAGE
-v 0.3.0
+v 0.3.1
 * Copyleft (c) 2014-2019
 * Stan le Punk > http://stanlepunk.xyz/
 Rope – Romanesco Processing Environment – 
@@ -517,7 +517,7 @@ v 0.2.2
 */
 /**
 * additionnal method for image
-* @see other method in Vec mini library
+* @see other method in vec mini library
 */
 void image(PImage img) {
   if(img != null) image(img, 0, 0);
@@ -596,28 +596,28 @@ void image(PImage img, float coor) {
   else printErr("Object PImage pass to method image() is null");
 }
 
-void image(PImage img, iVec pos) {
-  if(pos instanceof iVec2) {
-    image(img, Vec2(pos.x, pos.y));
-  } else if(pos instanceof iVec3) {
-    image(img, Vec3(pos.x, pos.y, pos.z));
+void image(PImage img, ivec pos) {
+  if(pos instanceof ivec2) {
+    image(img, vec2(pos.x, pos.y));
+  } else if(pos instanceof ivec3) {
+    image(img, vec3(pos.x, pos.y, pos.z));
   }
 }
 
-void image(PImage img, iVec pos, iVec2 size) {
-  if(pos instanceof iVec2) {
-    image(img, Vec2(pos.x, pos.y), Vec2(size.x, size.y));
-  } else if(pos instanceof iVec3) {
-    image(img, Vec3(pos.x, pos.y, pos.z), Vec2(size.x, size.y));
+void image(PImage img, ivec pos, ivec2 size) {
+  if(pos instanceof ivec2) {
+    image(img, vec2(pos.x, pos.y), vec2(size.x, size.y));
+  } else if(pos instanceof ivec3) {
+    image(img, vec3(pos.x, pos.y, pos.z), vec2(size.x, size.y));
   } 
 }
 
-void image(PImage img, Vec pos) {
-  if(pos instanceof Vec2) {
-    Vec2 p = (Vec2) pos ;
+void image(PImage img, vec pos) {
+  if(pos instanceof vec2) {
+    vec2 p = (vec2) pos ;
     image(img, p.x, p.y) ;
-  } else if(pos instanceof Vec3) {
-    Vec3 p = (Vec3) pos ;
+  } else if(pos instanceof vec3) {
+    vec3 p = (vec3) pos ;
     start_matrix() ;
     translate(p) ;
     image(img, 0,0) ;
@@ -625,12 +625,12 @@ void image(PImage img, Vec pos) {
   }
 }
 
-void image(PImage img, Vec pos, Vec2 size) {
-  if(pos instanceof Vec2) {
-    Vec2 p = (Vec2) pos ;
+void image(PImage img, vec pos, vec2 size) {
+  if(pos instanceof vec2) {
+    vec2 p = (vec2) pos ;
     image(img, p.x, p.y, size.x, size.y) ;
-  } else if(pos instanceof Vec3) {
-    Vec3 p = (Vec3) pos ;
+  } else if(pos instanceof vec3) {
+    vec3 p = (vec3) pos ;
     start_matrix() ;
     translate(p) ;
     image(img, 0,0, size.x, size.y) ;
@@ -782,23 +782,23 @@ PImage paste_vertical(PImage img, int entry, int [] array_pix) {
 
 /**
 CANVAS
-v 0.1.2.1
+v 0.2.0
 */
-PImage [] canvas;
-int current_canvas;
+PImage [] rope_canvas;
+int current_canvas_rope;
 
 // build canvas
 void new_canvas(int num) {
-  canvas = new PImage[num];
+  rope_canvas = new PImage[num];
 }
 
 void create_canvas(int w, int h, int type) {
-  canvas = new PImage[1];
-  canvas[0] = createImage(w, h, type);
+  rope_canvas = new PImage[1];
+  rope_canvas[0] = createImage(w, h, type);
 }
 
 void create_canvas(int w, int h, int type, int which_one) {
-  canvas[which_one] = createImage(w, h, type);
+  rope_canvas[which_one] = createImage(w, h, type);
 }
 
 // clean
@@ -808,7 +808,7 @@ void clean_canvas(int which_canvas) {
 }
 
 void clean_canvas(int which_canvas, int c) {
-  if(which_canvas < canvas.length) {
+  if(which_canvas < rope_canvas.length) {
     select_canvas(which_canvas) ;
     for(int i = 0 ; i < get_canvas().pixels.length ; i++) {
       get_canvas().pixels[i] = c ;
@@ -823,46 +823,46 @@ void clean_canvas(int which_canvas, int c) {
 
 // misc
 int canvas_size() {
-  return canvas.length;
+  return rope_canvas.length;
 }
 
 // select the canvas must be used for your next work
 void select_canvas(int which_one) {
-  if(which_one < canvas.length && which_one >= 0) {
-    current_canvas = which_one;
+  if(which_one < rope_canvas.length && which_one >= 0) {
+    current_canvas_rope = which_one;
   } else {
     String message = ("void select_canvas(): Your selection " + which_one + " is not available, canvas '0' be use");
     printErr(message);
-    current_canvas = 0;
+    current_canvas_rope = 0;
   }
 }
 
 // get
 PImage get_canvas(int which) {
-  if(which < canvas.length) {
-    return canvas[which];
+  if(which < rope_canvas.length) {
+    return rope_canvas[which];
   } else return null; 
 }
 
 PImage get_canvas() {
-  return canvas[current_canvas];
+  return rope_canvas[current_canvas_rope];
 }
 
 int get_canvas_id() {
-  return current_canvas;
+  return current_canvas_rope;
 }
 
 // update
 void update_canvas(PImage img) {
-  update_canvas(img,current_canvas);
+  update_canvas(img,current_canvas_rope);
 }
 
 void update_canvas(PImage img, int which_one) {
-  if(which_one < canvas.length && which_one >= 0) {
-    canvas[which_one] = img;
+  if(which_one < rope_canvas.length && which_one >= 0) {
+    rope_canvas[which_one] = img;
   } else {
     println("void update_canvas() : Your selection" ,which_one, "is not available, canvas '0' be use");
-    canvas[0] = img;
+    rope_canvas[0] = img;
   }  
 }
 
@@ -898,7 +898,7 @@ show canvas
 v 0.0.4
 */
 boolean fullscreen_canvas_is = false ;
-iVec2 show_pos ;
+ivec2 show_pos ;
 /**
 Add to set the center of the canvas in relation with the window
 */
@@ -910,12 +910,12 @@ void set_show() {
   } else {
     offset_canvas_x = width/2 - (get_canvas().width/2);
     offset_canvas_y = height/2 - (get_canvas().height/2);
-    show_pos = iVec2(offset_canvas_x,offset_canvas_y) ;
+    show_pos = ivec2(offset_canvas_x,offset_canvas_y) ;
   }
 }
 
-iVec2 get_offset_canvas() {
-  return iVec2(offset_canvas_x, offset_canvas_y);
+ivec2 get_offset_canvas() {
+  return ivec2(offset_canvas_x, offset_canvas_y);
 }
 
 int get_offset_canvas_x() {
@@ -967,28 +967,28 @@ float MAX_RATIO_DEPTH = 6.9 ;
 /**
 Background classic processing
 */
-// Vec
-void background(Vec4 c) {
+// vec
+void background(vec4 c) {
   background(c.r,c.g,c.b,c.a) ;
 }
 
-void background(Vec3 c) {
+void background(vec3 c) {
   background(c.r,c.g,c.b) ;
 }
 
-void background(Vec2 c) {
+void background(vec2 c) {
   background(c.x,c.y) ;
 }
-// iVec
-void background(iVec4 c) {
+// ivec
+void background(ivec4 c) {
   background(c.x,c.y,c.z,c.w) ;
 }
 
-void background(iVec3 c) {
+void background(ivec3 c) {
   background(c.x,c.y,c.z) ;
 }
 
-void background(iVec2 c) {
+void background(ivec2 c) {
   background(c.x,c.y) ;
 }
 
@@ -999,15 +999,15 @@ void background(iVec2 c) {
 Normalize background
 */
 
-void background_norm(Vec4 bg) {
+void background_norm(vec4 bg) {
   background_norm(bg.x, bg.y, bg.z, bg.a) ;
 }
 
-void background_norm(Vec3 bg) {
+void background_norm(vec3 bg) {
   background_norm(bg.x, bg.y, bg.z, 1) ;
 }
 
-void background_norm(Vec2 bg) {
+void background_norm(vec2 bg) {
   background_norm(bg.x, bg.x, bg.x, bg.y) ;
 }
 
@@ -1090,15 +1090,15 @@ void background_rope(float c, float w) {
   background_rope(c,c,c,w);
 }
 
-void background_rope(Vec4 c) {
+void background_rope(vec4 c) {
   background_rope(c.x,c.y,c.z,c.w);
 }
 
-void background_rope(Vec3 c) {
+void background_rope(vec3 c) {
   background_rope(c.x,c.y,c.z);
 }
 
-void background_rope(Vec2 c) {
+void background_rope(vec2 c) {
   background_rope(c.x,c.x,c.x,c.y);
 }
 
@@ -1141,22 +1141,22 @@ v 0.3.3
 SCREEN
 */
 void set_window(int px, int py, int sx, int sy) {
-  set_window(iVec2(px,py), iVec2(sx,sy), get_screen_location(0));
+  set_window(ivec2(px,py), ivec2(sx,sy), get_screen_location(0));
 }
 
 void set_window(int px, int py, int sx, int sy, int target) {
-  set_window(iVec2(px,py), iVec2(sx,sy), get_screen_location(target));
+  set_window(ivec2(px,py), ivec2(sx,sy), get_screen_location(target));
 }
 
-void set_window(iVec2 pos, iVec2 size) {
+void set_window(ivec2 pos, ivec2 size) {
   set_window(pos, size, get_screen_location(0));
 }
 
-void set_window(iVec2 pos, iVec2 size, int target) {
+void set_window(ivec2 pos, ivec2 size, int target) {
   set_window(pos, size, get_screen_location(target));
 }
 
-void set_window(iVec2 pos, iVec2 size, iVec2 pos_screen) { 
+void set_window(ivec2 pos, ivec2 size, ivec2 pos_screen) { 
   int offset_x = pos.x;
   int offset_y = pos.y;
   int dx = pos_screen.x;
@@ -1171,11 +1171,11 @@ check screen
 /**
 screen size
 */
-iVec2 get_screen_size() {
+ivec2 get_screen_size() {
   return get_display_size(sketchDisplay() -1);
 }
 
-iVec2 get_screen_size(int target) {
+ivec2 get_screen_size(int target) {
   if(target >= get_display_num()) {
     target = 0;
     printErr("method get_screen_size(int target): target screen",target,"don't match with any screen device instead target '0' is used");
@@ -1184,27 +1184,27 @@ iVec2 get_screen_size(int target) {
 }
 
 @Deprecated
-iVec2 get_display_size() {
+ivec2 get_display_size() {
   return get_display_size(sketchDisplay() -1);
 }
 
 
-iVec2 get_display_size(int target) {
+ivec2 get_display_size(int target) {
   if(target >= get_display_num()) {
     target = 0;
     printErr("method get_screen_size(int target): target screen",target,"don't match with any screen device instead target '0' is used");
   }  
   Rectangle display = get_screen(target);
-  return iVec2((int)display.getWidth(), (int)display.getHeight()); 
+  return ivec2((int)display.getWidth(), (int)display.getHeight()); 
 }
 
 /**
 screen location
 */
 
-iVec2 get_screen_location(int target) {
+ivec2 get_screen_location(int target) {
   Rectangle display = get_screen(target);
-  return iVec2((int)display.getX(), (int)display.getY());
+  return ivec2((int)display.getX(), (int)display.getY());
 }
 
 /**
@@ -1245,8 +1245,8 @@ Rectangle get_screen(int target_screen) {
 sketch location 
 0.0.2
 */
-iVec2 get_sketch_location() {
-  return iVec2(get_sketch_location_x(),get_sketch_location_y());
+ivec2 get_sketch_location() {
+  return ivec2(get_sketch_location_x(),get_sketch_location_y());
 }
 
 int get_sketch_location_x() {

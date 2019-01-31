@@ -1,6 +1,6 @@
 /**
 ROPE SVG
-v 1.3.0
+v 1.4.0
 * Copyleft (c) 2014-2018
 Rope – Romanesco Processing Environment – 
 * @author Stan le Punk
@@ -34,18 +34,18 @@ class ROPE_svg {
   private boolean display_stroke_custom = false ;
   private boolean display_thickness_custom = false ;
 
-  private Vec3 pos = Vec3() ;
-  private Vec3 jitter_svg = Vec3() ;
-  private Vec3 scale_svg = Vec3() ;
+  private vec3 pos = vec3() ;
+  private vec3 jitter_svg = vec3() ;
+  private vec3 scale_svg = vec3() ;
 
   // Aspect default
   private String [] st ;
-  private Vec4 fill_custom = Vec4(0,0,0,g.colorModeA) ;
-  private Vec4 stroke_custom = Vec4(g.colorModeX,g.colorModeY,g.colorModeZ,g.colorModeA) ;
+  private vec4 fill_custom = vec4(0,0,0,g.colorModeA) ;
+  private vec4 stroke_custom = vec4(g.colorModeX,g.colorModeY,g.colorModeZ,g.colorModeA) ;
   private float thickness_custom = 1 ;
 
-  private Vec4 fill_factor = Vec4(1) ;
-  private Vec4 stroke_factor = Vec4(1) ;
+  private vec4 fill_factor = vec4(1) ;
+  private vec4 stroke_factor = vec4(1) ;
 
 
 
@@ -132,10 +132,10 @@ class ROPE_svg {
 
   public void draw(String layer_or_group_name) {
     reset() ;
-    Vec3 new_pos = pos.copy() ;
+    vec3 new_pos = pos.copy() ;
     if(bool_scale_translation) {
       start_matrix() ;
-      Vec3 translation = Vec3() ;
+      vec3 translation = vec3() ;
       translation = scale_translation(scale_svg, layer_or_group_name); 
       translate(translation) ;
     }
@@ -147,16 +147,16 @@ class ROPE_svg {
   }
 
 
-  private Vec3 scale_translation(Vec3 scale_svg, String layer_name) {
-    Vec3 translation = Vec3() ;
+  private vec3 scale_translation(vec3 scale_svg, String layer_name) {
+    vec3 translation = vec3() ;
 
     int num = 0 ;
-    Vec3 correction = Vec3() ;
+    vec3 correction = vec3() ;
     for(int i = 0 ; i < list_brick_SVG.size() ; i++) {
       Brick_SVG b = (Brick_SVG) list_brick_SVG.get(i) ;
       if( b.family_name.contains(layer_name)) {
         // catch position before the scaling
-        for(int k = 0 ; k < list_svg_Vec(b.ID).length ; k++) {
+        for(int k = 0 ; k < list_svg_vec(b.ID).length ; k++) {
           num++ ;
           // special translate for the shape kind rect, because this one move from the corner
           if(b.kind == "rect") {
@@ -168,26 +168,26 @@ class ROPE_svg {
       }
     }
 
-    Vec3 [] list_raw = new Vec3[num] ;
+    vec3 [] list_raw = new vec3[num] ;
     for(int i = 0 ; i < list_brick_SVG.size() ; i++) {
       Brick_SVG b = (Brick_SVG) list_brick_SVG.get(i) ;
       if( b.family_name.contains(layer_name)) {
         // catch position before the scaling
-        for(int k = 0 ; k < list_svg_Vec(b.ID).length ; k++) {
-          list_raw[k] = list_svg_Vec(b.ID)[k].copy()  ;
+        for(int k = 0 ; k < list_svg_vec(b.ID).length ; k++) {
+          list_raw[k] = list_svg_vec(b.ID)[k].copy()  ;
         }
       }
     }
 
     // result
-    Vec3 barycenter = barycenter(list_raw) ;
+    vec3 barycenter = barycenter(list_raw) ;
     if(position_center) {
-      Vec3 center_pos = Vec3(canvas().x,canvas().y, 0) ;
+      vec3 center_pos = vec3(canvas().x,canvas().y, 0) ;
       center_pos.mult(.5) ;
       barycenter.sub(center_pos) ;
     }
     if(!correction.equals(0)) barycenter.add(correction);
-    Vec3 barycenter_translated = mult(barycenter, scale_svg) ;
+    vec3 barycenter_translated = mult(barycenter, scale_svg) ;
     translation = sub(barycenter, barycenter_translated) ;
 
     return translation ;
@@ -218,13 +218,13 @@ class ROPE_svg {
     pos.set(x,y,z) ;
   }
 
-  public void pos(Vec pos_raw) {
+  public void pos(vec pos_raw) {
     bool_pos = true ;
-    if(pos_raw instanceof Vec2) {
-      Vec2 pos_2D = (Vec2) pos_raw ;
+    if(pos_raw instanceof vec2) {
+      vec2 pos_2D = (vec2) pos_raw ;
       pos.set(pos_2D.x, pos_2D.y, 0) ;
-    } else if (pos_raw instanceof Vec3) {
-      Vec3 pos_3D = (Vec3) pos_raw ;
+    } else if (pos_raw instanceof vec3) {
+      vec3 pos_3D = (vec3) pos_raw ;
       pos.set(pos_3D) ;
     }
   }
@@ -234,41 +234,41 @@ class ROPE_svg {
   */
   // scale_translation
   private void scaling(float x) {
-    scaling(false, Vec3(x,x,0)) ;
+    scaling(false, vec3(x,x,0)) ;
   }
 
   private void scaling(float x, float y) {
-    scaling(false, Vec3(x,y,0)) ;
+    scaling(false, vec3(x,y,0)) ;
   }
 
   private void scaling(float x, float y, float z) {
-    scaling(false, Vec3(x,y,z)) ;
+    scaling(false, vec3(x,y,z)) ;
   }
 
-  private void scaling(Vec scale_raw) {
+  private void scaling(vec scale_raw) {
     scaling(false, scale_raw) ;
   }
 
   private void scaling(boolean translation, float x) {
-    scaling(translation, Vec3(x,x,0)) ;
+    scaling(translation, vec3(x,x,0)) ;
   }
 
   private void scaling(boolean translation, float x, float y) {
-    scaling(translation, Vec3(x,y,0)) ;
+    scaling(translation, vec3(x,y,0)) ;
   }
 
   private void scaling(boolean translation, float x, float y, float z) {
-    scaling(translation, Vec3(x,y,z)) ;
+    scaling(translation, vec3(x,y,z)) ;
   }
 
-  private void scaling(boolean translation, Vec scale_raw) {
+  private void scaling(boolean translation, vec scale_raw) {
     bool_scale_translation = translation ;
     bool_scale_svg = true ;
-    if(scale_raw instanceof Vec2) {
-      Vec2 scale = (Vec2) scale_raw ;
+    if(scale_raw instanceof vec2) {
+      vec2 scale = (vec2) scale_raw ;
       scale_svg.set(scale.x, scale.y, 1) ;
-    } else if (scale_raw instanceof Vec3) {
-      Vec3 scale = (Vec3) scale_raw ;
+    } else if (scale_raw instanceof vec3) {
+      vec3 scale = (vec3) scale_raw ;
       scale_svg.set(scale) ;
     }
   }
@@ -293,13 +293,13 @@ class ROPE_svg {
     jitter_svg.set(x,y,z) ;
   }
 
-  public void jitter(Vec jitter_raw) {
+  public void jitter(vec jitter_raw) {
     bool_jitter_svg = true ;
-    if(jitter_raw instanceof Vec2) {
-      Vec2 jitter = (Vec2) jitter_raw ;
+    if(jitter_raw instanceof vec2) {
+      vec2 jitter = (vec2) jitter_raw ;
       jitter_svg.set(jitter.x, jitter.y, 0) ;
-    } else if (jitter_raw instanceof Vec3) {
-      Vec3 jitter = (Vec3) jitter_raw ;
+    } else if (jitter_raw instanceof vec3) {
+      vec3 jitter = (vec3) jitter_raw ;
       jitter_svg.set(jitter) ;
     }
   }
@@ -393,17 +393,17 @@ class ROPE_svg {
     fill_custom.set(x,y,z,a) ;
   }
 
-  public void fill(Vec v) {
+  public void fill(vec v) {
     display_fill_original = false ;
     display_fill_custom = true ;
-    if(v instanceof Vec2) {
-      Vec2 v2 = (Vec2) v ;
+    if(v instanceof vec2) {
+      vec2 v2 = (vec2) v ;
       fill_custom.set(v2.x, v2.x, v2.x, v2.y) ;
-    } else if(v instanceof Vec3) {
-      Vec3 v3 = (Vec3) v ;
+    } else if(v instanceof vec3) {
+      vec3 v3 = (vec3) v ;
       fill_custom.set(v3.x,v3.y,v3.z, g.colorModeA) ;
-    } else if(v instanceof Vec3 ) {
-      Vec4 v4 = (Vec4) v ;
+    } else if(v instanceof vec3 ) {
+      vec4 v4 = (vec4) v ;
       fill_custom.set(v4.x, v4.y, v4.z, v4.w) ;
     }
   }
@@ -449,17 +449,17 @@ class ROPE_svg {
   }
 
 
-  public void stroke(Vec v) {
+  public void stroke(vec v) {
     display_stroke_original = false ;
     display_stroke_custom = true ;
-    if(v instanceof Vec2) {
-      Vec2 v2 = (Vec2) v ;
+    if(v instanceof vec2) {
+      vec2 v2 = (vec2) v ;
       stroke_custom.set(v2.x, v2.x, v2.x, v2.y) ;
-    } else if(v instanceof Vec3) {
-      Vec3 v3 = (Vec3) v ;
+    } else if(v instanceof vec3) {
+      vec3 v3 = (vec3) v ;
       stroke_custom.set(v3.x,v3.y,v3.z, g.colorModeA) ;
-    } else if(v instanceof Vec3 ) {
-      Vec4 v4 = (Vec4) v ;
+    } else if(v instanceof vec3 ) {
+      vec4 v4 = (vec4) v ;
       stroke_custom.set(v4.x, v4.y, v4.z, v4.w) ;
     }
   }
@@ -504,11 +504,11 @@ class ROPE_svg {
     stroke_factor.set(x,y,z,a) ;
   }
 
-  public void fill_factor(Vec4 f) {
+  public void fill_factor(vec4 f) {
     fill_factor.set(f.x,f.y,f.z,f.a) ;
   }
 
-  public void stroke_factor(Vec4 f) {
+  public void stroke_factor(vec4 f) {
     stroke_factor.set(f.x,f.y,f.z,f.a) ;
   }
 
@@ -516,28 +516,28 @@ class ROPE_svg {
   PERMANENTE CHANGE
   This change modify the original points
   */
-  public void add_def(int target, Vec3... value) {
+  public void add_def(int target, vec3... value) {
     if(list_brick_SVG.size() > 0) {
       Brick_SVG b = (Brick_SVG) list_brick_SVG.get(target) ;
       if(b.kind == "polygon" || b.kind == "path" || b.kind == "polyline") {
         for(Vertices v : list_vertice_SVG) {
-          if(v.ID == b.ID) v.add_value(value) ;
+          if(v.ID == b.get_id()) v.add_value(value) ;
         }
       } else if(b.kind == "line") {
         for(Line l : list_line_SVG) {
-          if(l.ID == b.ID) l.add_value(value) ;
+          if(l.ID == b.get_id()) l.add_value(value) ;
         }
       } else if(b.kind == "circle" || b.kind == "ellipse") {
         for(Ellipse e : list_ellipse_SVG) {
-          if(e.ID == b.ID) e.add_value(value) ;
+          if(e.ID == b.get_id()) e.add_value(value) ;
         }
       } else if(b.kind == "rect") {
         for(Rectangle r : list_rectangle_SVG) {
-          if(r.ID == b.ID) r.add_value(value) ;
+          if(r.ID == b.get_id()) r.add_value(value) ;
         }
       } else if(b.kind == "text") {
-        for(Text t : list_text_SVG) {
-          if(t.ID == b.ID) t.add_value(value) ;
+        for(ROPEText t : list_text_SVG) {
+          if(t.get_id() == b.get_id()) t.add_value(value) ;
         }
       } 
     } 
@@ -560,9 +560,9 @@ class ROPE_svg {
   /**
   list
   */
-  public Vec3 [] list_svg_Vec(int target) {
-    Vec3 [] p = new Vec3[1] ;
-    p[0] = Vec3(2147483647,2147483647,2147483647) ; // it's maximum value of int in 8 bit :)
+  public vec3 [] list_svg_vec(int target) {
+    vec3 [] p = new vec3[1] ;
+    p[0] = vec3(2147483647,2147483647,2147483647) ; // it's maximum value of int in 8 bit :)
 
     if(list_brick_SVG.size() > 0) {
       Brick_SVG b = (Brick_SVG) list_brick_SVG.get(target) ;
@@ -600,8 +600,8 @@ class ROPE_svg {
 
   public PVector [] list_svg_PVector(int target) {
     PVector [] p  ;
-    Vec3 [] temp_list ;
-    temp_list = list_svg_Vec(target).clone() ;
+    vec3 [] temp_list ;
+    temp_list = list_svg_vec(target).clone() ;
     int num = temp_list.length ;
     p = new PVector[num] ;
     for(int i = 0 ; i < num ; i++) {
@@ -686,11 +686,11 @@ class ROPE_svg {
     }
   }
   
-  public Vec2 canvas() {
+  public vec2 canvas() {
     if(shape_SVG != null) {
-      return Vec2(shape_SVG.width, shape_SVG.height) ; 
+      return vec2(shape_SVG.width, shape_SVG.height) ; 
     } else { 
-      return Vec2() ;
+      return vec2() ;
     }
   }
   
@@ -715,11 +715,11 @@ class ROPE_svg {
     } else return 0 ;
   }
   
-  public Vec2 canvas_brick(int target) {
+  public vec2 canvas_brick(int target) {
     if(list_brick_SVG.size() > 0 && target <list_brick_SVG.size()) {
       Brick_SVG b_svg = list_brick_SVG.get(target) ;
-      return Vec2(b_svg.width, b_svg.height) ;
-    } else return Vec2() ;
+      return vec2(b_svg.width, b_svg.height) ;
+    } else return vec2() ;
   }
 
 
@@ -814,7 +814,7 @@ class ROPE_svg {
   Draw all shape
   */
   // INTERN METHOD 2D
-  private void draw_SVG(Vec pos_, Vec scale_, Vec jitter_) {
+  private void draw_SVG(vec pos_, vec scale_, vec jitter_) {
     for(int i = 0 ; i < list_brick_SVG.size() ; i++) {
       Brick_SVG b = (Brick_SVG) list_brick_SVG.get(i) ;
       draw_final(pos_, scale_, jitter_, b) ;
@@ -826,7 +826,7 @@ class ROPE_svg {
   Draw shape by ID
   */
   // 2D
-  private void draw_SVG (Vec pos_, Vec scale_, Vec jitter_, int ID) {
+  private void draw_SVG (vec pos_, vec scale_, vec jitter_, int ID) {
     if(ID < list_brick_SVG.size()) {
       Brick_SVG b = (Brick_SVG) list_brick_SVG.get(ID) ;
       draw_final(pos_, scale_, jitter_, b) ;
@@ -839,7 +839,7 @@ class ROPE_svg {
   */
   // draw all file from shape or group of layer
   // must be factoring is very ligth method :)
-  private void draw_SVG (Vec pos_, Vec scale_, Vec jitter_, String layer_name) {
+  private void draw_SVG (vec pos_, vec scale_, vec jitter_, String layer_name) {
     for(int i = 0 ; i < list_brick_SVG.size() ; i++) {
       Brick_SVG b = (Brick_SVG) list_brick_SVG.get(i) ;
       if( b.family_name.contains(layer_name)) {
@@ -848,7 +848,7 @@ class ROPE_svg {
     }
   }
 
-  private void draw_final(Vec pos_, Vec scale_, Vec jitter_, Brick_SVG b) {
+  private void draw_final(vec pos_, vec scale_, vec jitter_, Brick_SVG b) {
     if(b.font != null) textFont(b.font) ;
     if(b.size_font != MAX_INT) textSize(b.size_font) ;
 
@@ -954,25 +954,25 @@ class ROPE_svg {
   Main display method
 
   */
-  private void display_shape(Brick_SVG b, Vec pos_raw, Vec scale_raw, Vec jitter_raw) {
-    if(pos_raw instanceof Vec2 && scale_raw instanceof Vec2 && jitter_raw instanceof Vec2) {
-      Vec2 pos_temp = (Vec2) pos_raw ;
-      Vec2 scale_temp = (Vec2) scale_raw ;
-      Vec2 jitter_temp = (Vec2) jitter_raw ;
+  private void display_shape(Brick_SVG b, vec pos_raw, vec scale_raw, vec jitter_raw) {
+    if(pos_raw instanceof vec2 && scale_raw instanceof vec2 && jitter_raw instanceof vec2) {
+      vec2 pos_temp = (vec2) pos_raw ;
+      vec2 scale_temp = (vec2) scale_raw ;
+      vec2 jitter_temp = (vec2) jitter_raw ;
 
-      Vec3 pos = Vec3(pos_temp) ;
-      Vec3 scale = Vec3(scale_temp) ;
-      Vec3 jitter = Vec3(jitter_temp) ;
+      vec3 pos = vec3(pos_temp) ;
+      vec3 scale = vec3(scale_temp) ;
+      vec3 jitter = vec3(jitter_temp) ;
       display_shape_3D(b, pos, scale, jitter) ;
-    } else if (pos_raw instanceof Vec3 && scale_raw instanceof Vec3 && jitter_raw instanceof Vec3) {
-      Vec3 pos = (Vec3) pos_raw ;
-      Vec3 scale = (Vec3) scale_raw ;
-      Vec3 jitter = (Vec3) jitter_raw ;
+    } else if (pos_raw instanceof vec3 && scale_raw instanceof vec3 && jitter_raw instanceof vec3) {
+      vec3 pos = (vec3) pos_raw ;
+      vec3 scale = (vec3) scale_raw ;
+      vec3 jitter = (vec3) jitter_raw ;
       display_shape_3D(b, pos, scale, jitter) ;
     }
   }
 
-  private void display_shape_3D(Brick_SVG b, Vec3 pos, Vec3 scale, Vec3 jitter) {
+  private void display_shape_3D(Brick_SVG b, vec3 pos, vec3 scale, vec3 jitter) {
     if(b.kind == "path" || b.kind == "polygon" || b.kind == "polyline") {
       for(Vertices v : list_vertice_SVG) {
         if(v.ID == b.ID) build_path(pos, scale, jitter, v) ;
@@ -996,7 +996,7 @@ class ROPE_svg {
         }
       }
     } else if(b.kind == "text") {
-      for(Text t : list_text_SVG) {
+      for(ROPEText t : list_text_SVG) {
         if(t.ID == b.ID) {
           build_text(pos, scale, jitter, t) ;
         }
@@ -1036,14 +1036,14 @@ class ROPE_svg {
   TEXT
   */
   // list of group SVG
-  ArrayList<Text> list_text_SVG = new ArrayList<Text>() ;
+  ArrayList<ROPEText> list_text_SVG = new ArrayList<ROPEText>() ;
       
   //
   private void text_count(XML xml_shape, int ID) {
-    Vec6 matrix = matrix_vec(xml_shape) ;
+    vec6 matrix = matrix_vec(xml_shape) ;
     String sentence = xml_shape.getChild("text").getContent() ;
 
-    Text t = new Text(matrix, sentence, ID) ;
+    ROPEText t = new ROPEText(matrix, sentence, ID) ;
     list_text_SVG.add(t) ;
   }
 
@@ -1054,18 +1054,18 @@ class ROPE_svg {
   /**
   Main method to draw text
   */
-  void build_text(Vec3 pos, Vec3 scale, Vec3 jitter, Text t) {
-    Vec3 temp_pos = Vec3(t.pos.x, t.pos.y,0)   ;
+  void build_text(vec3 pos, vec3 scale, vec3 jitter, ROPEText t) {
+    vec3 temp_pos = vec3(t.pos.x, t.pos.y,0)   ;
     // the order of operation is very weird, because is not a same for the build_vertex()
     if(position_center) {
-      Vec3 center_pos = Vec3(canvas().x,canvas().y, 0) ;
+      vec3 center_pos = vec3(canvas().x,canvas().y, 0) ;
       center_pos.mult(.5) ; 
       temp_pos.sub(center_pos) ;
     }
-    if(!scale.equals(Vec3(1))) {
+    if(!scale.equals(vec3(1))) {
       temp_pos.mult(scale) ; 
     }
-    if(!pos.equals(Vec3())) {
+    if(!pos.equals(vec3())) {
       temp_pos.add(pos) ;
     }
 
@@ -1116,23 +1116,23 @@ class ROPE_svg {
   /**
   Main method to draw ellipse
   */
-  void build_line(Vec3 pos, Vec3 scale, Vec3 jitter, Line l) {
-    Vec3 temp_pos_a = Vec3(l.pos_a.x, l.pos_a.y,0)  ;
-    Vec3 temp_pos_b = Vec3(l.pos_b.x, l.pos_b.y,0)  ;
+  void build_line(vec3 pos, vec3 scale, vec3 jitter, Line l) {
+    vec3 temp_pos_a = vec3(l.pos_a.x, l.pos_a.y,0)  ;
+    vec3 temp_pos_b = vec3(l.pos_b.x, l.pos_b.y,0)  ;
 
   
     // the order of operation is very weird, because is not a same for the build_vertex()
     if(position_center) {
-      Vec3 center_pos = Vec3(canvas().x,canvas().y, 0) ;
+      vec3 center_pos = vec3(canvas().x,canvas().y, 0) ;
       center_pos.mult(.5) ; 
       temp_pos_a.sub(center_pos) ;
       temp_pos_b.sub(center_pos) ;
     }
-    if(!scale.equals(Vec3(1))) {
+    if(!scale.equals(vec3(1))) {
       temp_pos_a.mult(scale) ; 
       temp_pos_b.mult(scale) ; 
     }
-    if(!pos.equals(Vec3())) {
+    if(!pos.equals(vec3())) {
       temp_pos_a.add(pos) ;
       temp_pos_b.add(pos) ;
     }
@@ -1156,7 +1156,7 @@ class ROPE_svg {
   ArrayList<Ellipse> list_ellipse_SVG = new ArrayList<Ellipse>() ;
 
   private void ellipse_count(XML xml_shape, int ID) {
-    Vec6 matrix = matrix_vec(xml_shape) ;
+    vec6 matrix = matrix_vec(xml_shape) ;
     float r = xml_shape.getChild(0).getFloat("r") ;
     float rx = (float)xml_shape.getChild(0).getFloat("rx") ;
     float ry = (float)xml_shape.getChild(0).getFloat("ry") ;
@@ -1172,25 +1172,25 @@ class ROPE_svg {
   /**
   Main method to draw ellipse
   */
-  void build_ellipse(Vec3 pos, Vec3 scale, Vec3 jitter, Ellipse e) {
-    Vec3 temp_pos = Vec3(e.pos.x, e.pos.y,0)  ;
+  void build_ellipse(vec3 pos, vec3 scale, vec3 jitter, Ellipse e) {
+    vec3 temp_pos = vec3(e.pos.x, e.pos.y,0)  ;
 
   
     // the order of operation is very weird, because is not a same for the build_vertex()
     if(position_center) {
-      Vec3 center_pos = Vec3(canvas().x,canvas().y, 0) ;
+      vec3 center_pos = vec3(canvas().x,canvas().y, 0) ;
       center_pos.mult(.5) ; 
       temp_pos.sub(center_pos) ;
     }
-    if(!scale.equals(Vec3(1))) temp_pos.mult(scale) ; 
-    if(!pos.equals(Vec3())) temp_pos.add(pos) ;
+    if(!scale.equals(vec3(1))) temp_pos.mult(scale) ; 
+    if(!pos.equals(vec3())) temp_pos.add(pos) ;
   
-    Vec2 temp_size = e.size.copy() ;
+    vec2 temp_size = e.size.copy() ;
 
     if(check_matrix(e.matrix)) {
       start_matrix() ;
       matrix(e.matrix, temp_pos) ;
-      ellipse(Vec2(0), temp_size.mult(scale.x, scale.y)) ;
+      ellipse(vec2(0), temp_size.mult(scale.x, scale.y)) ;
       stop_matrix() ;
     } else {
       // if there is no matrix effect
@@ -1213,7 +1213,7 @@ class ROPE_svg {
   private ArrayList<Rectangle> list_rectangle_SVG = new ArrayList<Rectangle>() ;
   
   private void rectangle_count(XML xml_shape, int ID) {
-    Vec6 matrix = matrix_vec(xml_shape) ;
+    vec6 matrix = matrix_vec(xml_shape) ;
     float x = xml_shape.getChild(0).getFloat("x") ;
     float y = xml_shape.getChild(0).getFloat("y") ;
     float width_rect = xml_shape.getChild(0).getFloat("width") ;
@@ -1227,24 +1227,24 @@ class ROPE_svg {
   Main method to draw ellipse
   */
   
-  private void build_rectangle(Vec3 pos, Vec3 scale, Vec3 jitter, Rectangle r) {
-    Vec3 temp_pos = Vec3(r.pos.x, r.pos.y,0)  ;
+  private void build_rectangle(vec3 pos, vec3 scale, vec3 jitter, Rectangle r) {
+    vec3 temp_pos = vec3(r.pos.x, r.pos.y,0)  ;
   
     // the order of operation is very weird, because is not a same for the build_vertex()
     if(position_center) {
-      Vec3 center_pos = Vec3(canvas().x,canvas().y, 0) ;
+      vec3 center_pos = vec3(canvas().x,canvas().y, 0) ;
       center_pos.mult(.5) ; 
       temp_pos.sub(center_pos) ;
     }
-    if(!scale.equals(Vec3(1))) temp_pos.mult(scale) ; 
-    if(!pos.equals(Vec3())) temp_pos.add(pos) ;
+    if(!scale.equals(vec3(1))) temp_pos.mult(scale) ; 
+    if(!pos.equals(vec3())) temp_pos.add(pos) ;
   
-    Vec2 temp_size = r.size.copy() ;
+    vec2 temp_size = r.size.copy() ;
 
     if(check_matrix(r.matrix)) {
       start_matrix() ;
       matrix(r.matrix, temp_pos) ;
-      Vec2 pos_def = Vec2() ;
+      vec2 pos_def = vec2() ;
       // pos_def.x += (temp_size.x *.5) ;
       // pos_def.y += (temp_size.y *.5) ;
       // pos_def.x += mouseX ;
@@ -1286,14 +1286,14 @@ class ROPE_svg {
   // list of group SVG
   private ArrayList<Vertices> list_vertice_SVG = new ArrayList<Vertices>() ;
   // here we must build few object for each group, but how ?
-  private Vec3 [] vert ;
+  private vec3 [] vert ;
   private int [] vertex_code ;
   private int code_vertex_count ;
   
   private void vertex_count(PShape geom_shape, String geom_name, int ID) {
     int num = geom_shape.getVertexCount() ;
     vertex_code = new int[num] ;
-    vert = new Vec3[num] ;
+    vert = new vec3[num] ;
     vertex_code = geom_shape.getVertexCodes() ;
     code_vertex_count = geom_shape.getVertexCodeCount() ;
     
@@ -1318,10 +1318,10 @@ class ROPE_svg {
   */
 
 
-  private void build_path(Vec3 pos, Vec3 scale, Vec3 jitter, Vertices v) {
-    Vec3 center_pos = Vec3(canvas().x,canvas().y,0) ;
+  private void build_path(vec3 pos, vec3 scale, vec3 jitter, Vertices v) {
+    vec3 center_pos = vec3(canvas().x,canvas().y,0) ;
     center_pos.mult(.5) ; 
-    if(!scale.equals(Vec3(1))) center_pos.mult(scale) ; 
+    if(!scale.equals(vec3(1))) center_pos.mult(scale) ; 
   
     if (v.vert == null) return;
   
@@ -1330,18 +1330,18 @@ class ROPE_svg {
     // for the simple vertex
     if (v.code_vertex_count == 0) {  
       for (int i = 0; i <  v.vert.length; i++) {
-        Vec3 temp_pos_a = v.vert[i].copy() ;
+        vec3 temp_pos_a = v.vert[i].copy() ;
         //
-        if(!scale.equals(Vec3(1))) temp_pos_a.mult(scale) ;
+        if(!scale.equals(vec3(1))) temp_pos_a.mult(scale) ;
         //
-        if(!jitter.equals(Vec3())) {
-          Vec3 jitter_pos = Vec3().jitter((int)jitter.x,(int)jitter.y,(int)jitter.z) ;
+        if(!jitter.equals(vec3())) {
+          vec3 jitter_pos = vec3().jitter((int)jitter.x,(int)jitter.y,(int)jitter.z) ;
           temp_pos_a.add(jitter_pos) ;
         }
         //
         if(position_center) temp_pos_a.sub(center_pos) ;
         //
-        if(!pos.equals(Vec3())) temp_pos_a.add(pos) ;
+        if(!pos.equals(vec3())) temp_pos_a.add(pos) ;
         //
         vertex(temp_pos_a);
       }
@@ -1349,23 +1349,23 @@ class ROPE_svg {
     } else {  
       int index = 0;
       for (int j = 0; j < v.code_vertex_count; j++) {
-        Vec3 temp_pos_a , temp_pos_b, temp_pos_c ;
+        vec3 temp_pos_a , temp_pos_b, temp_pos_c ;
   
         switch (v.vertex_code[j]) {
           //----------
           case VERTEX:
           temp_pos_a = v.vert[index].copy() ;
           //
-          if(!scale.equals(Vec3(1))) temp_pos_a.mult(scale) ;
+          if(!scale.equals(vec3(1))) temp_pos_a.mult(scale) ;
           //
-          if(!jitter.equals(Vec3())) {
-            Vec3 jitter_pos = Vec3().jitter((int)jitter.x,(int)jitter.y,(int)jitter.z) ;
+          if(!jitter.equals(vec3())) {
+            vec3 jitter_pos = vec3().jitter((int)jitter.x,(int)jitter.y,(int)jitter.z) ;
             temp_pos_a.add(jitter_pos) ;
           }
           //
           if(position_center) temp_pos_a.sub(center_pos) ;
           //
-          if(!pos.equals(Vec3())) temp_pos_a.add(pos) ;
+          if(!pos.equals(vec3())) temp_pos_a.add(pos) ;
           //
           vertex(temp_pos_a);
           index++;
@@ -1375,15 +1375,15 @@ class ROPE_svg {
           temp_pos_a = v.vert[index].copy() ;
           temp_pos_b = v.vert[index +1].copy() ;
           //
-          if(!scale.equals(Vec3(1))) {
+          if(!scale.equals(vec3(1))) {
             temp_pos_a.mult(scale) ;
             temp_pos_b.mult(scale) ;
           }
           //
-          if(!jitter.equals(Vec3())) {
-            Vec3 jitter_pos = Vec3().jitter((int)jitter.x,(int)jitter.y,(int)jitter.z) ;
+          if(!jitter.equals(vec3())) {
+            vec3 jitter_pos = vec3().jitter((int)jitter.x,(int)jitter.y,(int)jitter.z) ;
             temp_pos_a.add(jitter_pos) ;
-            jitter_pos = Vec3().jitter((int)jitter.x,(int)jitter.y,(int)jitter.z) ;
+            jitter_pos = vec3().jitter((int)jitter.x,(int)jitter.y,(int)jitter.z) ;
             temp_pos_b.add(jitter_pos) ;
           }
           //
@@ -1392,7 +1392,7 @@ class ROPE_svg {
             temp_pos_b.sub(center_pos) ;
           }
           //
-          if(!pos.equals(Vec3())) {
+          if(!pos.equals(vec3())) {
             temp_pos_a.add(pos) ;
             temp_pos_b.add(pos) ;
           }
@@ -1406,18 +1406,18 @@ class ROPE_svg {
           temp_pos_b = v.vert[index +1].copy() ;
           temp_pos_c = v.vert[index +2].copy() ;
           //
-          if(!scale.equals(Vec3(1))) {
+          if(!scale.equals(vec3(1))) {
             temp_pos_a.mult(scale) ;
             temp_pos_b.mult(scale) ;
             temp_pos_c.mult(scale) ;
           }
           //
-          if(!jitter.equals(Vec3())) {
-            Vec3 jitter_pos = Vec3().jitter((int)jitter.x,(int)jitter.y,(int)jitter.z) ;
+          if(!jitter.equals(vec3())) {
+            vec3 jitter_pos = vec3().jitter((int)jitter.x,(int)jitter.y,(int)jitter.z) ;
             temp_pos_a.add(jitter_pos) ;
-            jitter_pos = Vec3().jitter((int)jitter.x,(int)jitter.y,(int)jitter.z) ;
+            jitter_pos = vec3().jitter((int)jitter.x,(int)jitter.y,(int)jitter.z) ;
             temp_pos_b.add(jitter_pos) ;
-            jitter_pos = Vec3().jitter((int)jitter.x,(int)jitter.y,(int)jitter.z) ;
+            jitter_pos = vec3().jitter((int)jitter.x,(int)jitter.y,(int)jitter.z) ;
             temp_pos_c.add(jitter_pos) ;
           }
           //
@@ -1427,7 +1427,7 @@ class ROPE_svg {
             temp_pos_c.sub(center_pos) ;
           }
           //
-          if(!pos.equals(Vec3())) {
+          if(!pos.equals(vec3())) {
             temp_pos_a.add(pos) ;
             temp_pos_b.add(pos) ;
             temp_pos_c.add(pos) ;
@@ -1440,16 +1440,16 @@ class ROPE_svg {
           case CURVE_VERTEX:
           temp_pos_a = v.vert[index].copy() ;
           //
-          if(!scale.equals(Vec3(1))) temp_pos_a.mult(scale) ;
+          if(!scale.equals(vec3(1))) temp_pos_a.mult(scale) ;
           //
-          if(!jitter.equals(Vec3())) {
-            Vec3 jitter_pos = Vec3().jitter((int)jitter.x,(int)jitter.y,(int)jitter.z) ;
+          if(!jitter.equals(vec3())) {
+            vec3 jitter_pos = vec3().jitter((int)jitter.x,(int)jitter.y,(int)jitter.z) ;
             temp_pos_a.add(jitter_pos) ;
           }
           //
           if(position_center) temp_pos_a.sub(center_pos) ;
           //
-          if(!pos.equals(Vec3())) temp_pos_a.add(pos) ;
+          if(!pos.equals(vec3())) temp_pos_a.add(pos) ;
           //
           curveVertex(temp_pos_a);
           index++;
@@ -1504,7 +1504,7 @@ class ROPE_svg {
 
   */
 
-  private Vec6 matrix_vec(XML xml_shape) {
+  private vec6 matrix_vec(XML xml_shape) {
     if(xml_shape.getChild(0).getString("transform") != null) {
       String matrix = xml_shape.getChild(0).getString("transform") ;
       if(matrix.startsWith("matrix(")) {
@@ -1526,7 +1526,7 @@ class ROPE_svg {
 
       float e = Float.parseFloat(transform[4] );
       float f = Float.parseFloat(transform[5] );
-      Vec6 m = Vec6(a,b,c,d,e,f) ;
+      vec6 m = vec6(a,b,c,d,e,f) ;
       return m ;
     } else return null ;
   }
@@ -1534,7 +1534,7 @@ class ROPE_svg {
 
 
 
-  private boolean check_matrix(Vec6 matrix) {
+  private boolean check_matrix(vec6 matrix) {
     if(matrix != null) {
       float a = matrix.a ;
       float b = matrix.b ;
@@ -1548,7 +1548,7 @@ class ROPE_svg {
 
 
 
-  private void matrix(Vec6 matrix, Vec3 pos) {
+  private void matrix(vec6 matrix, vec3 pos) {
     float a = matrix.a ;
     float b = matrix.b ;
     float c = matrix.c ;
@@ -1707,14 +1707,14 @@ class ROPE_svg {
     if (v.vert == null) return;
     if (v.code_vertex_count == 0) {  
       for (int i = 0; i <  v.vert.length; i++) {
-        Vec3 temp_pos_a = v.vert[i].copy() ;
+        vec3 temp_pos_a = v.vert[i].copy() ;
         vertex(temp_pos_a);
       }
     // for the complex draw vertex, with bezier, curve...
     } else {  
       int index = 0;
       for (int j = 0; j < v.code_vertex_count; j++) {
-        Vec3 temp_pos_a , temp_pos_b, temp_pos_c ;
+        vec3 temp_pos_a , temp_pos_b, temp_pos_c ;
         switch (v.vertex_code[j]) {
           case VERTEX:
           temp_pos_a = v.vert[index].copy() ;
@@ -2064,7 +2064,7 @@ class ROPE_svg {
   
   /**
   PRIVATE CLASS
-
+  
   */
   /**
   class brick
@@ -2138,6 +2138,10 @@ class ROPE_svg {
       String name = "no name" ;
       if(target.getString("id") != null) name = target.getString("id") ;
       return name ;
+    }
+
+    int get_id() {
+      return ID;
     }
 
     /**
@@ -2322,7 +2326,7 @@ class ROPE_svg {
     
     
     
-    private void aspect_fill(Vec4 factor) {
+    private void aspect_fill(vec4 factor) {
       // HSB mmode
       if(noFill) {
         p5.noFill() ;
@@ -2339,7 +2343,7 @@ class ROPE_svg {
       }
     }
 
-    private void aspect_stroke(float scale, Vec4 factor) {
+    private void aspect_stroke(float scale, vec4 factor) {
       if(noStroke) {
         p5.noStroke() ;
       } else {
@@ -2387,23 +2391,27 @@ class ROPE_svg {
   Class Text
   */
 
-  private class Text {
+  private class ROPEText {
     String shape_name ;
-    Vec3 pos ;
-    Vec6 matrix ;
+    vec3 pos ;
+    vec6 matrix ;
     int ID ;
     String sentence = null ;
   
-    Text(Vec6 matrix, String sentence, int ID) {
+    ROPEText (vec6 matrix, String sentence, int ID) {
       this.ID = ID ;
-      this.pos = Vec3(matrix.e, matrix.f,0) ;
+      this.pos = vec3(matrix.e, matrix.f,0) ;
       this.matrix = matrix ;
 
       this.sentence = sentence ;
     }
     
-    void add_value(Vec3... value) {
+    void add_value(vec3... value) {
       pos.add(value[0]) ;
+    }
+
+    int get_id() {
+      return ID;
     }
   }
 
@@ -2412,16 +2420,16 @@ class ROPE_svg {
   */
   private class Line {
     String shape_name ;
-    Vec3 pos_a, pos_b ;
+    vec3 pos_a, pos_b ;
     int ID ;
   
     Line(float x_a, float y_a,  float x_b, float y_b, int ID) {
       this.ID = ID ;
-      this.pos_a = Vec3(x_a, y_a,0) ;
-      this.pos_b = Vec3(x_b, y_b,0) ;
+      this.pos_a = vec3(x_a, y_a,0) ;
+      this.pos_b = vec3(x_b, y_b,0) ;
     }
     
-    void add_value(Vec3... value) {
+    void add_value(vec3... value) {
       pos_a.add(value[0]) ;
       pos_b.add(value[0]) ;
     }
@@ -2436,8 +2444,8 @@ class ROPE_svg {
   */
   private class Vertices {
     String shape_name = "my name is noboby" ;
-    Vec2 size ;
-    Vec3 [] vert ;
+    vec2 size ;
+    vec3 [] vert ;
     int [] vertex_code ;
     int code_vertex_count ;
     int num ;
@@ -2451,23 +2459,23 @@ class ROPE_svg {
   
       this.code_vertex_count = code_vertex_count ;
       
-      vert = new Vec3[num] ;
+      vert = new vec3[num] ;
       vertex_code = new int[num] ;
       vertex_code = p.getVertexCodes() ;
-      size = Vec2(p.width, p.height);
+      size = vec2(p.width, p.height);
     }
     
     void build_vertices_3D(PShape path) {
       for(int i = 0 ; i < num ; i++) {
-        vert[i] = Vec3(path.getVertex(i)) ;
+        vert[i] = vec3(path.getVertex(i)) ;
       }
     }
     
-    Vec3 [] vertices() {
+    vec3 [] vertices() {
       return vert ;
     }
 
-    void add_value(Vec3... value) {
+    void add_value(vec3... value) {
       if(value.length <= vert.length) {
         for(int i = 0 ; i < value.length ; i++) {
           vert[i].add(value[i]) ;
@@ -2487,19 +2495,19 @@ class ROPE_svg {
 
   private class Ellipse {
     String shape_name ;
-    Vec3 pos ;
-    Vec2 size ;
-    Vec6 matrix ;
+    vec3 pos ;
+    vec2 size ;
+    vec6 matrix ;
     int ID ;
   
-    Ellipse(Vec6 matrix, float cx, float cy,  float rx, float ry, int ID) {
+    Ellipse(vec6 matrix, float cx, float cy,  float rx, float ry, int ID) {
       this.matrix = matrix ;
       this.ID = ID ;
-      this.pos = Vec3(cx, cy,0) ;
-      this.size = Vec2(rx, ry).mult(2) ;
+      this.pos = vec3(cx, cy,0) ;
+      this.size = vec2(rx, ry).mult(2) ;
     }
     
-    void add_value(Vec3... value) {
+    void add_value(vec3... value) {
       pos.add(value[0]) ;
     }
   }
@@ -2509,19 +2517,19 @@ class ROPE_svg {
   */
   private class Rectangle {
     String shape_name ;
-    Vec3 pos ;
-    Vec2 size ;
-    Vec6 matrix ;
+    vec3 pos ;
+    vec2 size ;
+    vec6 matrix ;
     int ID ;
   
-    Rectangle(Vec6 matrix, float x, float y,  float width_rect, float height_rect, int ID) {
+    Rectangle(vec6 matrix, float x, float y,  float width_rect, float height_rect, int ID) {
       this.matrix = matrix ;
       this.ID = ID ;
-      this.pos = Vec3(x, y,0) ;
-      this.size = Vec2(width_rect, height_rect) ;
+      this.pos = vec3(x, y,0) ;
+      this.size = vec2(width_rect, height_rect) ;
     }
     
-    void add_value(Vec3... value) {
+    void add_value(vec3... value) {
       pos.add(value[0]) ;
     }
   }

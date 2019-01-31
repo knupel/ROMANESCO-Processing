@@ -7,10 +7,10 @@ Processing 3.4
 */
 public class Equation implements rope.core.RConstants {
   // ArrayList<Integer> rank ;
-  Vec3 center_eq_dir, center_eq_len;
-  ArrayList<iVec4> pow;
-  ArrayList<iVec4> root;
-  ArrayList<Vec4> mult;
+  vec3 center_eq_dir, center_eq_len;
+  ArrayList<ivec4> pow;
+  ArrayList<ivec4> root;
+  ArrayList<vec4> mult;
   boolean reverse_len;
   int num_op = 0 ;
   int x = 1;
@@ -51,24 +51,24 @@ public class Equation implements rope.core.RConstants {
 
   // operation
   public void mult(float mx, float my, float mz) {
-    if(mult == null) mult = new ArrayList<Vec4>();
+    if(mult == null) mult = new ArrayList<vec4>();
     int rank = get_op() ;
-    mult.add(Vec4(mx,my,mz,rank));
+    mult.add(vec4(mx,my,mz,rank));
     rank();
   }
 
   public void pow(int px, int py, int pz) {
-    if(pow == null) pow = new ArrayList<iVec4>();
+    if(pow == null) pow = new ArrayList<ivec4>();
     int rank = get_op();
     if(px < 1) px = 1;
     if(py < 1) py = 1;
     if(pz < 1) pz = 1;
-    pow.add(iVec4(px,py,pz,rank));
+    pow.add(ivec4(px,py,pz,rank));
     rank();
   }
 
   public void root(int rx, int ry, int rz) {
-    if(root == null) root = new ArrayList<iVec4>();
+    if(root == null) root = new ArrayList<ivec4>();
     int rank = get_op();
     int min = 1;
     int max = 4;
@@ -80,37 +80,37 @@ public class Equation implements rope.core.RConstants {
 
     if(rz < min) rz = min;
     if(rz > max) rz = max;
-    root.add(iVec4(rx,ry,rz,rank));
+    root.add(ivec4(rx,ry,rz,rank));
     rank();
   }
 
   // Center dir
   private void eq_center_dir(float x, float y, float z) {
-    center_eq_dir = Vec3(x,y,z);
+    center_eq_dir = vec3(x,y,z);
   }
 
-  Vec2 get_center_dir_2D() {
-    if(center_eq_dir != null) return Vec2(center_eq_dir.x,center_eq_dir.y);
+  vec2 get_center_dir_2D() {
+    if(center_eq_dir != null) return vec2(center_eq_dir.x,center_eq_dir.y);
     else return null ;
   }
 
-  Vec3 get_center_dir_3D() {
-    if(center_eq_dir != null) return Vec3(center_eq_dir.x,center_eq_dir.y,center_eq_dir.z);
+  vec3 get_center_dir_3D() {
+    if(center_eq_dir != null) return vec3(center_eq_dir.x,center_eq_dir.y,center_eq_dir.z);
     else return null;
   }
 
   // Center len
   private void eq_center_len(float x, float y, float z) {
-    center_eq_len = Vec3(x,y,z);
+    center_eq_len = vec3(x,y,z);
   }
 
-  Vec2 get_center_len_2D() {
-    if(center_eq_len != null) return Vec2(center_eq_len.x,center_eq_len.y);
+  vec2 get_center_len_2D() {
+    if(center_eq_len != null) return vec2(center_eq_len.x,center_eq_len.y);
     else return null;
   }
 
-  Vec3 get_center_len_3D() {
-    if(center_eq_len != null) return Vec3(center_eq_len.x,center_eq_dir.y,center_eq_len.z);
+  vec3 get_center_len_3D() {
+    if(center_eq_len != null) return vec3(center_eq_len.x,center_eq_dir.y,center_eq_len.z);
     else return null;
   }
 }

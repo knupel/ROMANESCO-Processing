@@ -80,7 +80,7 @@ class ArbreRomanesco extends Romanesco {
     if(FULL_RENDERING) maxFork = 8 ; else maxFork = 4 ; // we can go beyond but by after the calcul slowing too much the computer... 14 is a good limit
     // int maxNode = 32 ; // 
     // num fork for the tree
-    iVec2 fork = iVec2(maxFork);
+    ivec2 fork = ivec2(maxFork);
   
     int n = int(map(get_quantity(),0,1,2,maxFork*2)) ;
     
@@ -94,7 +94,7 @@ class ArbreRomanesco extends Romanesco {
     float ratioMix = ratioLeft + ratioRight ;
 
     //size of the shape
-    Vec2 div = Vec2(.66);
+    vec2 div = vec2(.66);
     if(sound_is()) {
       div.set(ratioLeft,ratioRight);
     } 
@@ -109,11 +109,11 @@ class ArbreRomanesco extends Romanesco {
     y = y *y *ratioMix ;
     z = z *z *ratioMix ;
 
-    Vec3 size  = Vec3(x,y,z) ;
+    vec3 size  = vec3(x,y,z) ;
     //orientation
     float direction = get_dir_x() ;
     //amplitude
-    Vec2 amplitude = Vec2(get_canvas_x() *.5,get_canvas_y() *.5) ;
+    vec2 amplitude = vec2(get_canvas_x() *.5,get_canvas_y() *.5) ;
     if(FULL_RENDERING) {
       amplitude.mult(all_transient(ID_item));
     }
@@ -171,7 +171,7 @@ class ArbreRomanesco extends Romanesco {
       this.deep = deep ;
     }
   //::::::::::::::::::::::::::::  
-    void update(float e, Vec3 size, Vec2 div, iVec2 fork, Vec2 amplitude, int n, Costume costume, boolean bool_line, float angle, float speed, int ID) {
+    void update(float e, vec3 size, vec2 div, ivec2 fork, vec2 amplitude, int n, Costume costume, boolean bool_line, float angle, float speed, int ID) {
       rotation += speed ;
       if (rotation > angle +90) speed*=-1 ; else if ( rotation < angle ) speed*=-1 ; 
       angle = rotation ; // de 0 à 180
@@ -189,8 +189,8 @@ class ArbreRomanesco extends Romanesco {
     
     
     //float fourche = 10.0 ; 
-    void branch(float thickness, Vec3 size, Vec2 div, iVec2 fork, Vec2 amplitude, int n, Costume costume, boolean bool_line,int ID) {
-      Vec3 newSize = size.copy();
+    void branch(float thickness, vec3 size, vec2 div, ivec2 fork, vec2 amplitude, int n, Costume costume, boolean bool_line,int ID) {
+      vec3 newSize = size.copy();
       newSize.x = size.x *div.x;
       newSize.y = size.y *div.y;
       newSize.z = size.z *(div.sum() *.5);
@@ -211,7 +211,7 @@ class ArbreRomanesco extends Romanesco {
     }
     
     //annexe branch
-    void displayBranch(float thickness, Vec3 size, Vec2 div, iVec2 fork, Vec2 amplitude, int n, float t, Costume costume, boolean bool_line, int ID, int branch_ID) {
+    void displayBranch(float thickness, vec3 size, vec2 div, ivec2 fork, vec2 amplitude, int n, float t, Costume costume, boolean bool_line, int ID, int branch_ID) {
       float factor = 0.0 ;
       if(key_v_long && pen[0].z != 0) {
         factor = deep * map(pen[0].z,0.01,1, 1.2,-1.2); 
@@ -224,8 +224,8 @@ class ArbreRomanesco extends Romanesco {
 
       aspect_is(fill_is(),stroke_is());
       aspect(get_fill(),get_stroke(),thickness);
-      Vec3 pos_a = Vec3();
-      Vec3 pos_b = Vec3(0, -amplitude.x, -amplitude.y *factor);
+      vec3 pos_a = vec3();
+      vec3 pos_b = vec3(0, -amplitude.x, -amplitude.y *factor);
       
       if (bool_line && n > 1) {
          line(pos_a, pos_b) ;
@@ -234,7 +234,7 @@ class ArbreRomanesco extends Romanesco {
       // Draw the branch
       set_ratio_costume_size(map(get_area(),width*.1, width*TAU,0,1));
       int offset_z = branch_ID;
-      costume(Vec3(0,0,offset_z),size,costume);
+      costume(vec3(0,0,offset_z),size,costume);
       
       // horizon   
       translate(pos_b) ;

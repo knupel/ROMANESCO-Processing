@@ -301,12 +301,12 @@ public class Sounda implements rope.core.RConstants {
     this.section = section;
   }
 
-  public void set_section(iVec2[] in_out) {
+  public void set_section(ivec2[] in_out) {
     int len = buffer_size();
     set_section(len, in_out);
   }
 
-  public void set_section(int len, iVec2[] in_out) {
+  public void set_section(int len, ivec2[] in_out) {
     int num_section = in_out.length;
     section = new Section[num_section];
     // check the max value of section
@@ -381,7 +381,7 @@ public class Sounda implements rope.core.RConstants {
   v 0.1.0
   */
   Transient transient_detection;
-  public void init_transient(Vec2... threshold) {
+  public void init_transient(vec2... threshold) {
     if(transient_detection == null) transient_detection = new Transient();
     audio_buffer(MIX);
     buffering();
@@ -389,7 +389,7 @@ public class Sounda implements rope.core.RConstants {
     transient_detection.set_transient_detection(section,threshold);
   }
 
-  public void set_transient(int index, Vec2 threshold) {
+  public void set_transient(int index, vec2 threshold) {
     transient_detection.set_transient_detection(section,index,threshold);
   }
 
@@ -539,11 +539,11 @@ public class Sounda implements rope.core.RConstants {
     }
   }
 
-  public Vec2 get_transient_threshold(int section_target, int band_target) {
+  public vec2 get_transient_threshold(int section_target, int band_target) {
     return transient_detection.get_transient_threshold(section_target, band_target);
   }
 
-  public Vec2 get_transient_threshold(int section_target) {
+  public vec2 get_transient_threshold(int section_target) {
     if(transient_detection != null) {
       return transient_detection.get_transient_threshold(section_target);
     } else {
@@ -572,10 +572,10 @@ public class Sounda implements rope.core.RConstants {
  
   // setting
   public void set_beat(float... threshold) {
-    iVec2 [] in_out = new iVec2[threshold.length];
+    ivec2 [] in_out = new ivec2[threshold.length];
     int part = spectrum_size() / in_out.length;
     for(int i = 0 ; i < in_out.length ; i++) {
-      in_out[i] = iVec2(i*part,(i+1)*part);
+      in_out[i] = ivec2(i*part,(i+1)*part);
     }
     set_section(in_out);
     int [] id_beat_section = new int [threshold.length];
@@ -822,7 +822,7 @@ public class Sounda implements rope.core.RConstants {
     }
 
 
-    public Section(int length, int in, int out, Vec2 threshold_transient) {
+    public Section(int length, int in, int out, vec2 threshold_transient) {
       this.length = length;
       leg = new int[out -in +1];
       this.in = in;
@@ -860,7 +860,7 @@ public class Sounda implements rope.core.RConstants {
     */
 
     // set 
-    public void set_threshold_transient(Vec2 threshold_transient) {
+    public void set_threshold_transient(vec2 threshold_transient) {
       this.threshold_low = threshold_transient.x;
       this.threshold_high = threshold_transient.y;
     }
@@ -880,8 +880,8 @@ public class Sounda implements rope.core.RConstants {
     }
 
     // get
-    public Vec2 get_threshold_transient() {
-      return Vec2(threshold_low,threshold_high);
+    public vec2 get_threshold_transient() {
+      return vec2(threshold_low,threshold_high);
     }
 
     public float get_threshold_beat() {
@@ -991,19 +991,19 @@ public class Sounda implements rope.core.RConstants {
   */
   /*
   int [] color_spectrum(int component, int sort) {
-    Vec2 range = Vec2(-1) ;
+    vec2 range = vec2(-1) ;
     return color_spectrum(component, sort, range);
   }
 
 
-  int [] color_spectrum(int component, int sort, Vec2... range) {
+  int [] color_spectrum(int component, int sort, vec2... range) {
     boolean reverse_alpha = true;
     // set range
     boolean range_is = false ;
-    Vec2 range_x = null;
-    Vec2 range_y = null;
-    Vec2 range_z = null;
-    Vec2 range_a = null;
+    vec2 range_x = null;
+    vec2 range_y = null;
+    vec2 range_z = null;
+    vec2 range_a = null;
     if(range.length == 1 && range[0].equals(-1)) {
       range_is = false ;
     } else {
@@ -1050,7 +1050,7 @@ public class Sounda implements rope.core.RConstants {
     int offset_3 = 0;
 
     for(int i = 0 ; i < line.length ; i++) {
-      iVec5 sort_colour = sort_colour(i, line.length, component, sort);
+      ivec5 sort_colour = sort_colour(i, line.length, component, sort);
       where = sort_colour.a;
       offset_0 = sort_colour.b;
       offset_1 = sort_colour.c;
@@ -1169,8 +1169,8 @@ public class Sounda implements rope.core.RConstants {
   int SORT_BLOCK_ARGB = 1;
 
 
-  iVec5 sort_colour(int i, int line_length, int component, int sort) {
-    // iVec5 result = iVec5();
+  ivec5 sort_colour(int i, int line_length, int component, int sort) {
+    // ivec5 result = ivec5();
     int w = 0;
     int r = 0;
     int g = 0;
@@ -1201,7 +1201,7 @@ public class Sounda implements rope.core.RConstants {
       g = line_length *2;
       b = line_length *3;
     }
-    return iVec5(w,r,g,b,a);
+    return ivec5(w,r,g,b,a);
   }
   */
 }
@@ -1313,7 +1313,7 @@ class Transient extends Sounda {
 
 
   // setting
-  public void set_transient_detection(Section [] section, Vec2... threshold) {
+  public void set_transient_detection(Section [] section, vec2... threshold) {
     int [] id_transient_section = new int [threshold.length];
     for(int i = 0 ; i < id_transient_section.length ; i++) {
       id_transient_section[i]=i;
@@ -1321,18 +1321,18 @@ class Transient extends Sounda {
     set_transient_detection(section,id_transient_section,threshold);
   }
 
-  public void set_transient_detection(Section [] section, int index, Vec2 threshold) {
+  public void set_transient_detection(Section [] section, int index, vec2 threshold) {
     if(index < section_size()) {
       section[index].set_threshold_transient(threshold);
     } else {
-      printErrTempo(60,"class Transient – method set_transient(int"+index+" Vec2 "+threshold+") is out of the range");
+      printErrTempo(60,"class Transient – method set_transient(int"+index+" vec2 "+threshold+") is out of the range");
     }
   }
 
 
   private boolean transient_advance_is ;
   private boolean [][] transient_leg_is ;
-  private void set_transient_detection(Section [] section, int[] target_transient_section, Vec2... threshold) {
+  private void set_transient_detection(Section [] section, int[] target_transient_section, vec2... threshold) {
     if(buffer != null && section != null) {
       transient_advance_is = true;
       transient_leg_is = new boolean [target_transient_section.length][buffer.length];
@@ -1659,8 +1659,8 @@ class Transient extends Sounda {
 
 
   // get bet threshold
-  public Vec2 get_transient_threshold(Section [] section, int section_target, int band_target) {
-    Vec2 threshold = Vec2(Float.MAX_VALUE) ;
+  public vec2 get_transient_threshold(Section [] section, int section_target, int band_target) {
+    vec2 threshold = vec2(Float.MAX_VALUE) ;
     // check if the target is on the beat range analyze
     if(transient_advance_is && transient_leg_is[section_target][band_target]) {
       threshold = section[section_target].get_threshold_transient().copy();
@@ -1669,7 +1669,7 @@ class Transient extends Sounda {
   }
 
 
-  public Vec2 get_transient_threshold(Section [] section, int section_target) {
+  public vec2 get_transient_threshold(Section [] section, int section_target) {
     return section[section_target].get_threshold_transient();
   }
 }

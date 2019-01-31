@@ -1,10 +1,10 @@
 /**
 Force Field
-2017-2018
+2017-2019
 * @see http://stanlepunk.xyz
 * @see https://github.com/StanLepunK/Force_Field
-v 1.11.7
-Processing 3.4
+v 1.12.0
+Processing 3.5.2
 */
 
 /**
@@ -31,15 +31,15 @@ At this moment the force field is available only in 2D mode
 
 public class Force_field implements rope.core.RConstants {
   // FIELD
-  private Vec4[][] field;
-  private Vec4[][] field_save;
+  private vec4[][] field;
+  private vec4[][] field_save;
   private int type = STATIC; // or STATIC, FLUID, MAGNETIC, CHAOS
   private int super_type = STATIC; // or STATIC, DYNAMIC
   private int pattern = PERLIN; // CHAOS, PERLIN, BLANK, IMAGE
   private float sum_activities;
 
   // CANVAS
-  private iVec2 canvas, canvas_pos;
+  private ivec2 canvas, canvas_pos;
   private int cols, rows; // Columns and Rows
   private int resolution; // How large is each "cell" of the flow field
   
@@ -50,7 +50,7 @@ public class Force_field implements rope.core.RConstants {
   
   // SPOT
   private int spot_area_level = 1 ;
-  private ArrayList<Vec> spot_fluid_pos_ref;
+  private ArrayList<vec> spot_fluid_pos_ref;
   private ArrayList<Boolean> reset_ref_spot_pos_list_is;
   private ArrayList<Spot> spot_list;
   private ArrayList<Spot> spot_mag_north_list;
@@ -58,7 +58,7 @@ public class Force_field implements rope.core.RConstants {
   private ArrayList<Spot> spot_mag_neutral_list;
   
   // EQUATION
-  Vec2 center_equation_dir, center_equation_len;
+  vec2 center_equation_dir, center_equation_len;
 
   // GRAVITY
   private float mass_field = 1.;
@@ -73,7 +73,7 @@ public class Force_field implements rope.core.RConstants {
   private float limit_vel = 100.;
 
   // IMAGE
-  private iVec4 sort;
+  private ivec4 sort;
   
   // MISC
   private boolean border_is = false;
@@ -98,9 +98,9 @@ public class Force_field implements rope.core.RConstants {
     init_super_type(this.type);  
     this.pattern = pattern;
     this.is = true ;
-    iVec2 canvas_pos = iVec2();
-    iVec2 canvas = iVec2(width,height);
-    set_canvas(iVec2(this.resolution/2 +canvas_pos.x, this.resolution/2 +canvas_pos.y), iVec2(canvas.x,canvas.y));
+    ivec2 canvas_pos = ivec2();
+    ivec2 canvas = ivec2(width,height);
+    set_canvas(ivec2(this.resolution/2 +canvas_pos.x, this.resolution/2 +canvas_pos.y), ivec2(canvas.x,canvas.y));
 
     cols = NX = canvas.x/this.resolution;
     rows = NY = canvas.y/this.resolution +1;
@@ -114,20 +114,20 @@ public class Force_field implements rope.core.RConstants {
       printErr("FLUID have square or cube canvas, the HEIGHT be used for the canvas side");
       int iteration = 20 ;
       border_is = false;
-      ns_2D = new Navier_Stokes_2D(iVec2(NX,NY), iteration);
+      ns_2D = new Navier_Stokes_2D(ivec2(NX,NY), iteration);
     } 
     set_field();
   }
 
   // CLASSIC
-  public Force_field(int resolution, iVec2 canvas_pos, iVec2 canvas, int type, int pattern) {
+  public Force_field(int resolution, ivec2 canvas_pos, ivec2 canvas, int type, int pattern) {
     set_resolution(resolution);
     this.type = type ;
     init_super_type(this.type);  
     this.pattern = pattern;
     this.is = true ;
 
-    set_canvas(iVec2(this.resolution/2 +canvas_pos.x, this.resolution/2 +canvas_pos.y), iVec2(canvas.x,canvas.y));
+    set_canvas(ivec2(this.resolution/2 +canvas_pos.x, this.resolution/2 +canvas_pos.y), ivec2(canvas.x,canvas.y));
 
     cols = NX = canvas.x/this.resolution;
     rows = NY = canvas.y/this.resolution +1;
@@ -141,13 +141,13 @@ public class Force_field implements rope.core.RConstants {
       printErr("FLUID have square or cube canvas, the HEIGHT be used for the canvas side");
       int iteration = 20 ;
       border_is = false;
-      ns_2D = new Navier_Stokes_2D(iVec2(NX,NY), iteration);
+      ns_2D = new Navier_Stokes_2D(ivec2(NX,NY), iteration);
     } 
     set_field();
   }
 
   //PImage
-  public Force_field(int resolution, iVec2 canvas_pos, PImage src, int... component_sorting) {
+  public Force_field(int resolution, ivec2 canvas_pos, PImage src, int... component_sorting) {
     set_resolution(resolution);
     this.type = STATIC;
     init_super_type(this.type);
@@ -167,7 +167,7 @@ public class Force_field implements rope.core.RConstants {
       this.src.updatePixels(); 
     }
     // Determine the number of columns and rows based on sketch's width and height
-    set_canvas(iVec2(resolution/2 +canvas_pos.x, resolution/2 +canvas_pos.y), iVec2(this.src.width,this.src.height));
+    set_canvas(ivec2(resolution/2 +canvas_pos.x, resolution/2 +canvas_pos.y), ivec2(this.src.width,this.src.height));
     cols = canvas.x/resolution;
     rows = canvas.y/resolution;
     init_field();
@@ -199,8 +199,8 @@ public class Force_field implements rope.core.RConstants {
 
   private void init_field() {
     sum_activities = 0;
-    field = new Vec4[cols][rows];
-    field_save = new Vec4[cols][rows];
+    field = new vec4[cols][rows];
+    field_save = new vec4[cols][rows];
   }
 
   private void init_spot() {
@@ -282,7 +282,7 @@ public class Force_field implements rope.core.RConstants {
 
 
 
-  private void eq_swap(Vec2 dir) {
+  private void eq_swap(vec2 dir) {
     float x = dir.x;
     float y = dir.y;
     if(eq.x == 2) dir.x = y;
@@ -298,8 +298,8 @@ public class Force_field implements rope.core.RConstants {
   }
 
   // specific op_ration
-  private Vec2 eq_pow(iVec4 pow, Vec2 v) {
-    Vec2 r = Vec2(v);
+  private vec2 eq_pow(ivec4 pow, vec2 v) {
+    vec2 r = vec2(v);
     if(pow.x > 1) {
       if(pow.x%2 == 0) {
         r.x = pow(v.x,pow.x);
@@ -317,8 +317,8 @@ public class Force_field implements rope.core.RConstants {
     return r;
   }
 
-  private Vec2 eq_mult(Vec4 mult, Vec2 v) {
-    Vec2 r = Vec2(v);
+  private vec2 eq_mult(vec4 mult, vec2 v) {
+    vec2 r = vec2(v);
     if(mult.x != 1) {
       r.x = v.x *mult.x;
     }
@@ -328,8 +328,8 @@ public class Force_field implements rope.core.RConstants {
     return r;
   }
 
-  private Vec2 eq_root(iVec4 root, Vec2 v) {
-    Vec2 r = Vec2(v);
+  private vec2 eq_root(ivec4 root, vec2 v) {
+    vec2 r = vec2(v);
     if(root.x == 2) {
       r.x = sqrt(r.x);
     } else if(root.x == 3) {
@@ -349,10 +349,10 @@ public class Force_field implements rope.core.RConstants {
   }
 
   // compute op-eration
-  private void eq_op(Vec2 dir) {
+  private void eq_op(vec2 dir) {
     for(int rank = 0 ; rank < eq.get_op() ; rank++) {
       if(eq.pow != null) {
-        for(iVec4 pv : eq.pow) {
+        for(ivec4 pv : eq.pow) {
           if(pv.w == rank) {
             dir.set(eq_pow(pv,dir));
             break;
@@ -360,7 +360,7 @@ public class Force_field implements rope.core.RConstants {
         }
       }
       if(eq.mult != null) {
-        for(Vec4 mv : eq.mult) {
+        for(vec4 mv : eq.mult) {
           if(mv.w == rank) {
             dir.set(eq_mult(mv,dir));
             break;
@@ -368,7 +368,7 @@ public class Force_field implements rope.core.RConstants {
         }
       }
       if(eq.root != null) {
-        for(iVec4 rv : eq.root) {
+        for(ivec4 rv : eq.root) {
           if(rv.w == rank) {
             dir.set(eq_root(rv,dir));
             break;
@@ -386,12 +386,12 @@ public class Force_field implements rope.core.RConstants {
       if(eq.get_center_len_2D() != null) center_equation_len = eq.get_center_len_2D().copy();
     }   
 
-    if(center_equation_dir == null) center_equation_dir = Vec2(0);
-    if(center_equation_len == null) center_equation_len = Vec2(0);
+    if(center_equation_dir == null) center_equation_dir = vec2(0);
+    if(center_equation_len == null) center_equation_len = vec2(0);
     set_field_equation(center_equation_dir, center_equation_len);
   }
 
-  private void set_field_equation(Vec2 c_dir,Vec2 c_len) {
+  private void set_field_equation(vec2 c_dir,vec2 c_len) {
     int dir_offset_x = int(cols *(c_dir.x - .5));
     int dir_offset_y = int(rows *(c_dir.y - .5));
 
@@ -400,7 +400,7 @@ public class Force_field implements rope.core.RConstants {
 
     for (int x = dir_offset_x ; x < cols +dir_offset_x ; x++) {
       for (int y = dir_offset_y ; y < rows +dir_offset_y ; y++) {
-        Vec2 d = Vec2(x,y);
+        vec2 d = vec2(x,y);
         // dir
         if(eq != null) {
           eq_swap(d);
@@ -412,7 +412,7 @@ public class Force_field implements rope.core.RConstants {
         float ty = map(d.y, 0, rows, 0,PI);
              
         // len
-        Vec2 l = Vec2(x,y);
+        vec2 l = vec2(x,y);
         if(eq != null ) {
           // l.set(eq_root(eq.root,l));
         }
@@ -433,8 +433,8 @@ public class Force_field implements rope.core.RConstants {
 
         int cx = x -dir_offset_x;
         int cy = y -dir_offset_y;
-        field[cx][cy] = Vec4(xx,yy,zz,ww); 
-        field_save[cx][cy] = Vec4(xx,yy,zz,ww);
+        field[cx][cy] = vec4(xx,yy,zz,ww); 
+        field_save[cx][cy] = vec4(xx,yy,zz,ww);
         sum_activities += field[cx][cy].sum() ;     
       }
     }
@@ -444,8 +444,8 @@ public class Force_field implements rope.core.RConstants {
   private void set_field_blank() {
     for (int x = 0 ; x < cols ; x++) {
       for (int y = 0 ; y < rows ; y++) {
-        field[x][y] = Vec4(0); 
-        field_save[x][y] = Vec4(0);   
+        field[x][y] = vec4(0); 
+        field_save[x][y] = vec4(0);   
       }
     }
     sum_activities += 0 ;
@@ -461,8 +461,8 @@ public class Force_field implements rope.core.RConstants {
         float yy = sin(theta) ;
         float zz = 0 ;
         float ww = dist ;
-        field[x][y] = Vec4(xx,yy,zz,ww); 
-        field_save[x][y] = Vec4(xx,yy,zz,ww);
+        field[x][y] = vec4(xx,yy,zz,ww); 
+        field_save[x][y] = vec4(xx,yy,zz,ww);
         sum_activities += field[x][y].sum() ;     
       }
     }
@@ -480,8 +480,8 @@ public class Force_field implements rope.core.RConstants {
         float yy = sin(theta) ;
         float zz = 0 ;
         float ww = dist ;
-        field[x][y] = Vec4(xx,yy,zz,ww); 
-        field_save[x][y] = Vec4(xx,yy,zz,ww);
+        field[x][y] = vec4(xx,yy,zz,ww); 
+        field_save[x][y] = vec4(xx,yy,zz,ww);
         sum_activities += field[x][y].sum() ;     
         yoff += .1;
       }
@@ -504,8 +504,8 @@ public class Force_field implements rope.core.RConstants {
         float yy = sin(theta_y) ;
         float zz = 0 ;
         float ww = vel ;
-        field[x][y] = Vec4(xx,yy,zz,ww); 
-        field_save[x][y] = Vec4(xx,yy,zz,ww);     
+        field[x][y] = vec4(xx,yy,zz,ww); 
+        field_save[x][y] = vec4(xx,yy,zz,ww);     
 
         sum_activities += field[x][y].sum() ;
       }
@@ -582,13 +582,13 @@ public class Force_field implements rope.core.RConstants {
   }
 
   public void map_velocity(int x, int y, float start1, float stop1, float start2, float stop2) {
-    map_velocity(iVec2(x,y), start1, stop1, start2, stop2);
+    map_velocity(ivec2(x,y), start1, stop1, start2, stop2);
   }
   public void map_velocity(int x, int y, int z, float start1, float stop1, float start2, float stop2) {
-    map_velocity(iVec3(x,y,z), start1, stop1, start2, stop2);
+    map_velocity(ivec3(x,y,z), start1, stop1, start2, stop2);
   }
 
-  public void map_velocity(iVec coord, float start1, float stop1, float start2, float stop2) {
+  public void map_velocity(ivec coord, float start1, float stop1, float start2, float stop2) {
     if(field != null && field_save != null && coord.x < cols && coord.y < rows) {
       field[coord.x][coord.y].w = map(field[coord.x][coord.y].w,start1,stop1,start2,stop2);
     } else {
@@ -613,13 +613,13 @@ public class Force_field implements rope.core.RConstants {
   }
 
   public void mult_velocity(int x, int y, float mult) {
-    mult_velocity(iVec2(x,y), mult);
+    mult_velocity(ivec2(x,y), mult);
   }
   public void mult_velocity(int x, int y, int z, float mult) {
-    mult_velocity(iVec3(x,y,z), mult);
+    mult_velocity(ivec3(x,y,z), mult);
   }
 
-  public void mult_velocity(iVec coord, float mult) {
+  public void mult_velocity(ivec coord, float mult) {
     if(field != null && field_save != null && coord.x < cols && coord.y < rows) {
       // field[coord.x][coord.y].set(field_original[coord.x][coord.y]);
       field[coord.x][coord.y].w *= mult;
@@ -655,17 +655,17 @@ public class Force_field implements rope.core.RConstants {
     }
   }
 
-  public void set_spot(Vec pos, Vec2 size) {
+  public void set_spot(vec pos, vec2 size) {
     for(int i = 0 ; i < spot_list.size() ; i++) {
       set_spot(pos,size,i);
     }
   }
 
   public void set_spot(float pos_x, float pos_y, float size_x, float size_y, int which_one) {
-    set_spot(Vec2(pos_x,pos_y), Vec2(size_x,size_y),which_one);
+    set_spot(vec2(pos_x,pos_y), vec2(size_x,size_y),which_one);
   }
 
-  public void set_spot(Vec pos, Vec2 size, int which_one) {
+  public void set_spot(vec pos, vec2 size, int which_one) {
     set_spot_pos(pos,which_one);
     set_spot_diam(size.x,size.y,which_one);
   }
@@ -695,18 +695,18 @@ public class Force_field implements rope.core.RConstants {
     } 
   }
 
-  public void set_spot_pos(Vec pos) {
+  public void set_spot_pos(vec pos) {
     for(int i = 0 ; i < spot_list.size() ; i++) {
       set_spot_pos(pos, i);  
     }
   }
 
   public void set_spot_pos(float x, float y, int which_one) {
-    set_spot_pos(Vec3(x,y,0),which_one);  
+    set_spot_pos(vec3(x,y,0),which_one);  
   }
 
   // main method set pos
-  public void set_spot_pos(Vec pos, int which_one) {
+  public void set_spot_pos(vec pos, int which_one) {
     /**
     emergency fix, not enought but stop the bleeding
     */
@@ -723,15 +723,15 @@ public class Force_field implements rope.core.RConstants {
       }
     }
 
-    // Vec2 spot_pos = pos.copy();
-    Vec2 temp_pos = Vec2(pos.x,pos.y);
-    // Vec2 spot_raw_pos = pos.copy();
+    // vec2 spot_pos = pos.copy();
+    vec2 temp_pos = vec2(pos.x,pos.y);
+    // vec2 spot_raw_pos = pos.copy();
 
-    temp_pos.sub(Vec2(canvas_pos));
+    temp_pos.sub(vec2(canvas_pos));
     if(which_one < spot_list.size()) {
       Spot spot = spot_list.get(which_one);
    //   spot.set_raw_pos(spot_raw_pos);
-      Vec3 final_spot = Vec3(temp_pos.x,temp_pos.y,pos.z);
+      vec3 final_spot = vec3(temp_pos.x,temp_pos.y,pos.z);
       spot.set_pos(final_spot);
     } else {
       System.err.println("void set_spot_pos(): No Spot match with your target, you must add new spot in the list before set it");
@@ -747,20 +747,20 @@ public class Force_field implements rope.core.RConstants {
     }
   }
 
-  public void set_spot_diam(Vec2 size) {
+  public void set_spot_diam(vec2 size) {
     for(int i = 0 ; i <spot_list.size() ; i++) {
       set_spot_diam(size.x,size.y,i);
     }
   }
 
   public void set_spot_diam(float x, float y, int which_one) {
-    set_spot_diam(Vec2(x,y),which_one);  
+    set_spot_diam(vec2(x,y),which_one);  
   }
   /*
   * main method set size
   */
-  public void set_spot_diam(Vec2 size, int which_one) {
-    Vec2 final_size = size.copy();
+  public void set_spot_diam(vec2 size, int which_one) {
+    vec2 final_size = size.copy();
     if(which_one < spot_list.size()) {
       Spot spot = spot_list.get(which_one);
       spot.set_size(final_size);
@@ -828,21 +828,21 @@ public class Force_field implements rope.core.RConstants {
     else return -1;
   }
 
-  public Vec3 [] get_spot_pos() {
-    Vec3 [] pos = new Vec3[spot_list.size()] ;
+  public vec3 [] get_spot_pos() {
+    vec3 [] pos = new vec3[spot_list.size()] ;
     for(int i = 0 ; i < spot_list.size() ; i++) {
       Spot s = spot_list.get(i);
 
-      pos[i] = Vec3(s.get_pos()).copy();
+      pos[i] = vec3(s.get_pos()).copy();
       pos[i].add(canvas_pos.x,canvas_pos.y,0);
     }
     return pos;  
   }
 
-  public Vec3 get_spot_pos(int which_one) {
+  public vec3 get_spot_pos(int which_one) {
     if(spot_list != null && spot_list.size() > which_one) {
       Spot spot = spot_list.get(which_one);
-      return Vec3(spot.get_pos()).add(canvas_pos.x,canvas_pos.y,0);
+      return vec3(spot.get_pos()).add(canvas_pos.x,canvas_pos.y,0);
     } else return null ;
   }
 
@@ -850,19 +850,19 @@ public class Force_field implements rope.core.RConstants {
   /**
   * get spot size
   */
-  public Vec2 [] get_spot_size() {
-    Vec2 [] size = new Vec2[spot_list.size()] ;
+  public vec2 [] get_spot_size() {
+    vec2 [] size = new vec2[spot_list.size()] ;
     for(int i = 0 ; i < spot_list.size() ; i++) {
       Spot s = spot_list.get(i) ;
-      size[i] = Vec2(s.get_size()).copy() ;
+      size[i] = vec2(s.get_size()).copy() ;
     }
     return size;
   }
 
-  public Vec2 get_spot_size(int which_one) {
+  public vec2 get_spot_size(int which_one) {
     if(spot_list != null && spot_list.size() > which_one) {
       Spot spot = spot_list.get(which_one);
-      return Vec2(spot.get_size());
+      return vec2(spot.get_size());
     } else return null ;
   }
 
@@ -954,36 +954,36 @@ public class Force_field implements rope.core.RConstants {
   /**
   *set canvas
   */
-  public void set_canvas(iVec2 pos, iVec2 size) {
+  public void set_canvas(ivec2 pos, ivec2 size) {
     set_canvas_pos(pos);
     set_canvas_size(size);
   }
 
-  public void set_canvas_pos(iVec2 canvas_pos) {
+  public void set_canvas_pos(ivec2 canvas_pos) {
     if(this.canvas_pos != null) {
       this.canvas_pos.set(canvas_pos);
     } else {
-      this.canvas_pos = iVec2(canvas_pos);
+      this.canvas_pos = ivec2(canvas_pos);
     }
   }
 
-  public void set_canvas_size(iVec2 canvas) {
+  public void set_canvas_size(ivec2 canvas) {
     if(this.canvas != null) {
       this.canvas.set(canvas);
     } else {
-      this.canvas = iVec2(canvas);
+      this.canvas = ivec2(canvas);
     }
   }
 
   /*
   * get canvas
   */
-  public iVec2 get_canvas() {
+  public ivec2 get_canvas() {
     return canvas;
   }
 
-  public iVec2 get_canvas_pos() {
-    if(canvas_pos == null) return iVec2(); else return canvas_pos;
+  public ivec2 get_canvas_pos() {
+    if(canvas_pos == null) return ivec2(); else return canvas_pos;
   }
 
   public int get_resolution() {
@@ -1112,7 +1112,7 @@ public class Force_field implements rope.core.RConstants {
     sum_activities = 0;
     for (int x = 0; x < cols ; x++) {
       for (int y = 0; y < rows ; y++) {
-        field[x][y] = Vec4(0);
+        field[x][y] = vec4(0);
         if(type == FLUID) {
           ns_2D.set_dx(x,y,0);
           ns_2D.set_dy(x,y,0);
@@ -1130,10 +1130,10 @@ public class Force_field implements rope.core.RConstants {
     if(spot_list != null && spot_list.size() > 0) {
       for(Spot s : spot_list) {
         if(s.get_pos() != null && s.get_detection() != null && s.get_detection().size() > 0) {
-          for(iVec2 coord : s.get_detection()) {
-            Vec2 pos_cell = mult(coord, resolution);
+          for(ivec2 coord : s.get_detection()) {
+            vec2 pos_cell = mult(coord, resolution);
             pos_cell.add(s.get_pos());
-            Vec2 d = Vec2(s.get_pos().x,s.get_pos().y);
+            vec2 d = vec2(s.get_pos().x,s.get_pos().y);
             d.div(resolution);
             int x = coord.x +(int)d.x;
             int y = coord.y +(int)d.y;
@@ -1263,7 +1263,7 @@ public class Force_field implements rope.core.RConstants {
           // dz and dw serve to nothing in this case
           float dz = 0 ;
           float dw = 0 ;
-          field[x][y] = Vec4(dx,dy,dz,dw);
+          field[x][y] = vec4(dx,dy,dz,dw);
           field_to_texture(x,y,dx,dy);
           sum_activities += field[x][y].sum() ;
         }
@@ -1284,11 +1284,11 @@ public class Force_field implements rope.core.RConstants {
     for(Spot s : spot_list) {
       if(s.get_pos() != null && s.get_detection() != null && s.get_detection().size() > 0) {
         s.reverse_emitter(reverse_is);
-        for(iVec2 coord : s.get_detection()) {
-          Vec2 pos_cell = mult(coord, resolution);
+        for(ivec2 coord : s.get_detection()) {
+          vec2 pos_cell = mult(coord, resolution);
           pos_cell.add(s.get_pos());
-          float theta = theta_2D(pos_cell,Vec2(s.get_pos().x,s.get_pos().y));
-          Vec2 vector = Vec2(cos(theta),sin(theta));  
+          float theta = theta_2D(pos_cell,vec2(s.get_pos().x,s.get_pos().y));
+          vec2 vector = vec2(cos(theta),sin(theta));  
           
           float force = 0;
           /**
@@ -1307,7 +1307,7 @@ public class Force_field implements rope.core.RConstants {
           }
           vector.mult(force);
           
-          Vec2 d = Vec2(s.get_pos().x,s.get_pos().y);
+          vec2 d = vec2(s.get_pos().x,s.get_pos().y);
           d.div(resolution);
 
           int x = coord.x +(int)d.x;
@@ -1339,8 +1339,8 @@ public class Force_field implements rope.core.RConstants {
     // so when the spot list is big... the frameRate decrease fast
     for (int x = 0; x < cols ; x++) {
       for (int y = 0; y < rows ; y++) {
-        Vec2 flow = flow(Vec2(x,y), spot_list);
-        field[x][y] = Vec4(flow.x,flow.y,0,0);
+        vec2 flow = flow(vec2(x,y), spot_list);
+        field[x][y] = vec4(flow.x,flow.y,0,0);
         field_to_texture(x,y,field[x][y].x,field[x][y].y);
         sum_activities += field[x][y].sum() ;
       }
@@ -1348,15 +1348,15 @@ public class Force_field implements rope.core.RConstants {
   }
 
   @Deprecated
-  private Vec2 flow(Vec2 coord, ArrayList<Spot> list) {
-    Vec2 pos_cell = mult(coord, resolution);
-    Vec2 field_dir = Vec2();
+  private vec2 flow(vec2 coord, ArrayList<Spot> list) {
+    vec2 pos_cell = mult(coord, resolution);
+    vec2 field_dir = vec2();
     float force = 0;
     // each case of field, must now the spot influencer to get it the data force
     for(Spot s : list) {
       s.reverse_emitter(reverse_is);
-      float theta = theta_2D(pos_cell,Vec2(s.get_pos()));
-      Vec2 temp_field = Vec2(cos(theta),sin(theta));   
+      float theta = theta_2D(pos_cell,vec2(s.get_pos()));
+      vec2 temp_field = vec2(cos(theta),sin(theta));   
       if(type == GRAVITY) {
         force = spot_gravity_force(s,pos_cell);
       } else if(type == MAGNETIC) {
@@ -1376,8 +1376,8 @@ public class Force_field implements rope.core.RConstants {
   * spot_magnetic_force
   * @return float magnetic force
   */
-  private float spot_magnetic_force(Spot s, Vec2 pos_cell) {
-    Vec2 spot_pos = Vec2(s.get_pos());
+  private float spot_magnetic_force(Spot s, vec2 pos_cell) {
+    vec2 spot_pos = vec2(s.get_pos());
     float dist = dist(spot_pos, pos_cell);
     int tesla_charge = s.get_tesla();
     return intensity(dist, tesla_charge);
@@ -1403,8 +1403,8 @@ public class Force_field implements rope.core.RConstants {
   * spot_gravity_force
   * @return float gravity force
   */
-  private float spot_gravity_force(Spot s, Vec2 pos_cell) {
-    Vec2 spot_pos = Vec2(s.get_pos());
+  private float spot_gravity_force(Spot s, vec2 pos_cell) {
+    vec2 spot_pos = vec2(s.get_pos());
     float m_2 = s.get_mass() ;
     float m_1 = mass_field ;
     float dist = dist(spot_pos, pos_cell);
@@ -1419,14 +1419,14 @@ public class Force_field implements rope.core.RConstants {
   private void convert_field_to_texture() {
     for (int x = 0; x < cols ; x++) {
       for (int y = 0; y < rows ; y++) {
-        // here we convert the vector field Vec4 to Vec2 to have a real vector
+        // here we convert the vector field vec4 to vec2 to have a real vector
         /*
-        Vec2 flow = Vec2(field[x][y].x,field[x][y].y).mult(field[x][y].w);
+        vec2 flow = vec2(field[x][y].x,field[x][y].y).mult(field[x][y].w);
         field_to_texture(x,y,flow.x,flow.y);
         */
-        Vec2 flow_dir = Vec2(field[x][y].x,field[x][y].y);
+        vec2 flow_dir = vec2(field[x][y].x,field[x][y].y);
         field_to_tex_dir(x,y,flow_dir.x,flow_dir.y);
-        //Vec2 flow_vel = Vec2(field[x][y].x,field[x][y].y));
+        //vec2 flow_vel = vec2(field[x][y].x,field[x][y].y));
         field_to_tex_vel(x,y,field[x][y].w);
         sum_activities += field[x][y].sum() ;
       }
@@ -1499,60 +1499,60 @@ public class Force_field implements rope.core.RConstants {
     }
   }
 
-  private void update_spot_fluid_ref(Navier_Stokes n, Vec pos_ref, int which_one) {
+  private void update_spot_fluid_ref(Navier_Stokes n, vec pos_ref, int which_one) {
     // init
     if(spot_fluid_pos_ref == null) {
-      spot_fluid_pos_ref = new ArrayList<Vec>();
+      spot_fluid_pos_ref = new ArrayList<vec>();
     }
     // rebuilt ref list if necessary, in case the spot num change
     if(spot_fluid_pos_ref.size() != spot_list.size()) {
       spot_fluid_pos_ref.clear();
       for(Spot s : spot_list) {
-        Vec pos = Vec2(s.get_pos());
+        vec pos = vec2(s.get_pos());
         spot_fluid_pos_ref.add(pos);
       }
     }
 
     if(n instanceof Navier_Stokes_2D) {
-      spot_fluid_pos_ref.set(which_one, Vec2(pos_ref));
+      spot_fluid_pos_ref.set(which_one, vec2(pos_ref));
     } else if(n instanceof Navier_Stokes_3D) {
-      spot_fluid_pos_ref.set(which_one, Vec3(pos_ref));
+      spot_fluid_pos_ref.set(which_one, vec3(pos_ref));
     }   
   }
 
-  private Vec get_spot_fluid_ref(int which_one) {
+  private vec get_spot_fluid_ref(int which_one) {
     if(spot_fluid_pos_ref != null) {
       return spot_fluid_pos_ref.get(which_one);
     } else return null;
   }
 
-  private void update_spot_fluid(Navier_Stokes n, Vec spot_pos, int which_one) {
+  private void update_spot_fluid(Navier_Stokes n, vec spot_pos, int which_one) {
     if(n instanceof Navier_Stokes_2D) {
       Navier_Stokes_2D ns = (Navier_Stokes_2D)n;
-      Vec2 c = Vec2(canvas);
-      Vec2 c_pos = Vec2(canvas_pos);
-      Vec2 target = Vec2(spot_pos);
+      vec2 c = vec2(canvas);
+      vec2 c_pos = vec2(canvas_pos);
+      vec2 target = vec2(spot_pos);
       update_spot_fluid_2D(ns, target, c, c_pos, which_one);
     } else if(n instanceof Navier_Stokes_3D) {
       Navier_Stokes_3D ns = (Navier_Stokes_3D)n;
-      Vec3 target = Vec3(spot_pos);
-      Vec3 c = Vec3(canvas);
-      Vec3 c_pos = Vec3(canvas_pos);
+      vec3 target = vec3(spot_pos);
+      vec3 c = vec3(canvas);
+      vec3 c_pos = vec3(canvas_pos);
       update_spot_fluid_3D(ns, target, c, c_pos, which_one);     
     }
   }
   
-  private void update_spot_fluid_2D(Navier_Stokes_2D ns, Vec2 target, Vec2 canvas, Vec2 canvas_pos, int which_one) {
-    Vec2 pos_ref_2D = Vec2();
+  private void update_spot_fluid_2D(Navier_Stokes_2D ns, vec2 target, vec2 canvas, vec2 canvas_pos, int which_one) {
+    vec2 pos_ref_2D = vec2();
     if(spot_fluid_pos_ref != null || reset_ref_spot_pos_list_is.get(which_one)) {
-      pos_ref_2D = Vec2(get_spot_fluid_ref(which_one));
+      pos_ref_2D = vec2(get_spot_fluid_ref(which_one));
       reset_ref_spot_pos_list_is.set(which_one,false);
     } 
     
-    Vec2 vel = sub(target, pos_ref_2D);
+    vec2 vel = sub(target, pos_ref_2D);
 
-    Vec2 cell = canvas.div(ns.get_NX(),ns.get_NY());
-    iVec2 target_cell = iVec2(floor(div(target,cell)));
+    vec2 cell = canvas.div(ns.get_NX(),ns.get_NY());
+    ivec2 target_cell = ivec2(floor(div(target,cell)));
 
     vel.x = (abs(vel.x) > limit_vel)? 
     Math.signum(vel.x) *limit_vel : 
@@ -1563,8 +1563,8 @@ public class Force_field implements rope.core.RConstants {
     ns.apply_force(target_cell.x, target_cell.y, vel.x, vel.y);
   }
   
-  private void update_spot_fluid_3D(Navier_Stokes_3D ns, Vec3 target, Vec3 canvas, Vec3 canvas_pos, int which_one) {
-    Vec3 pos_ref_3D = Vec3();
+  private void update_spot_fluid_3D(Navier_Stokes_3D ns, vec3 target, vec3 canvas, vec3 canvas_pos, int which_one) {
+    vec3 pos_ref_3D = vec3();
     /*
     if(pos_ref_3D == null || reset_ref_spot_pos_list_is.get(which_one)) {
       pos_fluid_spot_ref(target);
@@ -1572,9 +1572,9 @@ public class Force_field implements rope.core.RConstants {
     } 
     */
 
-    Vec3 cell = canvas.div(ns.get_N());
-    Vec3 vel = sub(target, pos_ref_3D);
-    iVec3 target_cell = iVec3(floor(div(target,cell)));
+    vec3 cell = canvas.div(ns.get_N());
+    vec3 vel = sub(target, pos_ref_3D);
+    ivec3 target_cell = ivec3(floor(div(target,cell)));
 
     vel.x = (abs(vel.x) > limit_vel)? 
     Math.signum(vel.x) *limit_vel : 
@@ -1665,7 +1665,7 @@ public class Force_field implements rope.core.RConstants {
   get grid
   v 0.1.0
   */
-  public Vec4 [][] get_field() {
+  public vec4 [][] get_field() {
     if(field != null) return field ;
     else return null;
   }
@@ -1762,11 +1762,11 @@ public class Force_field implements rope.core.RConstants {
   */
   /**
   * it's most important method, this one give the direction of the vehicle in according force field.
-  * @return Vec2
+  * @return vec2
   Here must improve the algorithm, when there is a spot in the cell, because in this case the precision direction need be very exact.
   */
-  public Vec2 dir_in_grid(Vec2 vehicle_pos) {
-    Vec2 dir = Vec2(0) ;
+  public vec2 dir_in_grid(vec2 vehicle_pos) {
+    vec2 dir = vec2(0) ;
     int max_col = cols-1;
     int max_row = rows-1;
 
@@ -1775,7 +1775,7 @@ public class Force_field implements rope.core.RConstants {
 
     if(field != null) {
       if(Double.isNaN(field[x][y].x) || Double.isNaN(field[x][y].y)) {
-        dir = Vec2(1).copy() ;
+        dir = vec2(1).copy() ;
       } else {
         // Need to check the position vehicle, in the case this one is in the last cell, where the spot is. 
         // If the the spot and the vehicle are in the same cell, it's necessary to return a direction very focus on spot.
@@ -1790,8 +1790,8 @@ public class Force_field implements rope.core.RConstants {
     return dir ;
   }
 
-  Vec2 dir_check_rank(int x, int y,Vec2 pos_v) {
-    Vec2 dir = Vec2() ;
+  vec2 dir_check_rank(int x, int y,vec2 pos_v) {
+    vec2 dir = vec2() ;
     if((type == MAGNETIC || type == GRAVITY)) {
       int rank = match_spot(pos_v);
       if(rank != -1) {
@@ -1799,10 +1799,10 @@ public class Force_field implements rope.core.RConstants {
         if(s.emitter_is()) {
           dir = null ;
         } else {
-          Vec2 pos_cell = mult(Vec2(x,y),resolution);
+          vec2 pos_cell = mult(vec2(x,y),resolution);
           float theta = 0;
           pos_v.sub(resolution *.5);
-          theta = theta_2D(pos_v,Vec2(s.get_pos()));
+          theta = theta_2D(pos_v,vec2(s.get_pos()));
 
           float force = 1 ;
           if(type == MAGNETIC) { 
@@ -1812,29 +1812,29 @@ public class Force_field implements rope.core.RConstants {
             force = spot_gravity_force(s,pos_cell); 
           }
 
-          Vec2 temp_field = Vec2(cos(theta),sin(theta));
+          vec2 temp_field = vec2(cos(theta),sin(theta));
           temp_field.mult(force);
           dir.set(0);
           dir.add(temp_field);
         } 
       } else {
-        dir = Vec2(field[x][y].x,field[x][y].y);
+        dir = vec2(field[x][y].x,field[x][y].y);
       }     
     } else {
-      dir = Vec2(field[x][y].x,field[x][y].y);
+      dir = vec2(field[x][y].x,field[x][y].y);
     }
     return dir;
   }
 
-  private int match_spot(Vec2 vehicle_pos) {
+  private int match_spot(vec2 vehicle_pos) {
     int spot_match = -1;
     if(spot_list != null) {
       for(int i = 0 ; i < spot_list.size() ; i++) {
         // check if the vehicle is in the range of the spot
         Spot s = spot_list.get(i);
         if(s.get_pos() != null && s.get_size() != null) {
-          Vec2 spot_pos = Vec2(s.get_pos().x,s.get_pos().y);
-          Vec2 spot_size = Vec2(s.get_size().x, s.get_size().y);
+          vec2 spot_pos = vec2(s.get_pos().x,s.get_pos().y);
+          vec2 spot_size = vec2(s.get_size().x, s.get_size().y);
           if(compare(vehicle_pos,spot_pos, spot_size.mult(2))) {
             spot_match = i ;
             break;
@@ -1861,12 +1861,12 @@ public class Force_field implements rope.core.RConstants {
 
 
 
-  private Spot get_spot(Vec2 vehicle_pos) {
+  private Spot get_spot(vec2 vehicle_pos) {
     Spot spot = new Spot();
     if(spot_list != null) {
       for(Spot s : spot_list) {
         // check if the vehicle is in the range of the spot
-        if(compare(vehicle_pos, (Vec2)s.get_pos(), Vec2(s.get_size().x, s.get_size().y).mult(2) ) ) {
+        if(compare(vehicle_pos, (vec2)s.get_pos(), vec2(s.get_size().x, s.get_size().y).mult(2) ) ) {
           spot = s ;
           break;
         } 
@@ -1882,7 +1882,7 @@ public class Force_field implements rope.core.RConstants {
   Warp position
   */
   
-  public Vec2 field_warp(Vec2 uv, float scale) {
+  public vec2 field_warp(vec2 uv, float scale) {
 
     int cell_x = (int) Math.floor(uv.x*NX);
     int cell_y = (int) Math.floor(uv.y*NY);
@@ -1908,7 +1908,7 @@ public class Force_field implements rope.core.RConstants {
     if(cy_add >= get_rows()) cy_add -= get_rows();
 
     // compute
-    Vec2 result = Vec2();
+    vec2 result = vec2();
 
     result.x = (cell_u > .5)? 
     lerp(field[cx][cy].x, field[cx_add][cy].x, cell_u-.5) : 
@@ -1955,10 +1955,10 @@ public class Force_field implements rope.core.RConstants {
   /**
   * compute angle to vectorial direction
   */
-  private float theta_2D(Vec2 current_coord, Vec2 target) {
-    Vec2 current_cell_pos = current_coord.copy() ;
+  private float theta_2D(vec2 current_coord, vec2 target) {
+    vec2 current_cell_pos = current_coord.copy() ;
     current_cell_pos.add(resolution *.5);
-    Vec2 dir = look_at(current_cell_pos, target);
+    vec2 dir = look_at(current_cell_pos, target);
     // why multiply by '-1' it's a mistery
     return -1 *dir.angle();
   }
@@ -1972,18 +1972,18 @@ public class Force_field implements rope.core.RConstants {
   */
   private void sorting_channel(int... sorting) {
     if(sorting.length == 1) {
-      this.sort = iVec4(sorting[0],sorting[0],sorting[0],sorting[0]);
+      this.sort = ivec4(sorting[0],sorting[0],sorting[0],sorting[0]);
     } else if(sorting.length == 2) {
-      this.sort = iVec4(sorting[0],sorting[0],sorting[0],sorting[1]);
+      this.sort = ivec4(sorting[0],sorting[0],sorting[0],sorting[1]);
     } else if(sorting.length == 3) {
-      this.sort = iVec4(sorting[0],sorting[1],-1,sorting[2]);
+      this.sort = ivec4(sorting[0],sorting[1],-1,sorting[2]);
     } else if(sorting.length == 4){
-      this.sort = iVec4(sorting[0],sorting[1],sorting[2],sorting[3]);
+      this.sort = ivec4(sorting[0],sorting[1],sorting[2],sorting[3]);
     } else if(sorting.length > 4){
-      this.sort = iVec4(sorting[0],sorting[1],sorting[2],sorting[3]);
+      this.sort = ivec4(sorting[0],sorting[1],sorting[2],sorting[3]);
       printErr("void sorting_channel(): Too much channel to sort, the first 4 is used");
     } else {
-      this.sort = iVec4(1) ;
+      this.sort = ivec4(1) ;
       printErr("void sorting_channel(): No channel available to sort, the value 1 is used for all component");
     }
   }

@@ -73,15 +73,15 @@ class BoumBoum extends Romanesco {
   }
 
 
-  Vec3 [] size ;
-  Vec3 speed ;
+  vec3 [] size ;
+  vec3 speed ;
 	void draw() {
     int shape_num = 4 ;
     // size shape
     if(size == null || size.length != shape_num) {
-      size = new Vec3 [shape_num];
+      size = new vec3 [shape_num];
       for(int i = 0 ; i < size.length ; i++) {
-        size[i] = Vec3(get_size_x(),get_size_y(),get_size_z());
+        size[i] = vec3(get_size_x(),get_size_y(),get_size_z());
         size[i].mult(.3);
       }
     } else {
@@ -94,16 +94,16 @@ class BoumBoum extends Romanesco {
     float dist_between_shape = get_canvas_x() /(shape_num+1);
     // give position for the shapes centered 
     float offset_x = (get_canvas_x() /2) -(width/2);
-    Vec3 pos = Vec3(-offset_x,height/2,0);
-    Vec3 dir = Vec3(get_dir());
+    vec3 pos = vec3(-offset_x,height/2,0);
+    vec3 dir = vec3(get_dir());
 
     
     // speed
     if(motion_is()) {
-      Vec3 inc_speed = Vec3(get_speed_x(),get_speed_y(),get_speed_z());
+      vec3 inc_speed = vec3(get_speed_x(),get_speed_y(),get_speed_z());
       inc_speed.mult(inc_speed);
       if(speed == null) {
-        speed = Vec3(inc_speed);
+        speed = vec3(inc_speed);
       } else {
         speed.add(inc_speed);
       }   
@@ -113,9 +113,9 @@ class BoumBoum extends Romanesco {
 
     for(int i = 0 ; i < shape_num ;i++) {
       int step = (i+1);
-      Vec3 temp_pos = pos.copy();
+      vec3 temp_pos = pos.copy();
       temp_pos.x += int(dist_between_shape *step);
-      Vec3 temp_size = size[i].copy();
+      vec3 temp_size = size[i].copy();
       temp_size.mult(transient_value[i+1][ID_item]);
       fill(get_fill());
       stroke(get_stroke());

@@ -85,11 +85,11 @@ class Cellular_automata extends Romanesco {
   }
   
   int cell_size_ref = 5;
-  iVec2 canvas_ref;
+  ivec2 canvas_ref;
   int ref_mode;
   void draw() {
     int cell_size = (int)map(get_grid(),get_grid_min(),get_grid_max(),height/10,1);
-    iVec2 canvas = iVec2((int)get_canvas_x(),(int)get_canvas_y());
+    ivec2 canvas = ivec2((int)get_canvas_x(),(int)get_canvas_y());
 
     if(ca == null || cell_size != cell_size_ref || !canvas_ref.equals(canvas) || ref_mode != get_mode_id()) {
       int[] ruleset = {0,1,1,1,1,0,0,0}; // rule 30
@@ -121,7 +121,7 @@ class Cellular_automata extends Romanesco {
     aspect_is(fill_is(),stroke_is());
     aspect(get_fill(),get_stroke(),get_thickness());
 
-    Vec3 size = map(get_size(),get_size_x_min(),get_size_x_max(),0.01,cell_size*4);
+    vec3 size = map(get_size(),get_size_x_min(),get_size_x_max(),0.01,cell_size*4);
     float area = get_area();
 
     ca.show(get_costume(),size,area);
@@ -137,13 +137,13 @@ class Cellular_automata extends Romanesco {
     int[] ruleset;   // An array to store the ruleset, for example {0,1,1,0,1,1,0,1}
     int cell_size = 5;
     int[][] matrix;  // Store a history of generations in 2D array, not just one
-    iVec2 canvas;
+    ivec2 canvas;
 
     int cols;
     int rows;
 
 
-    CA(int[] r, iVec2 canvas,int cell_size) {
+    CA(int[] r, ivec2 canvas,int cell_size) {
       this.canvas = canvas.copy();
       this.cell_size = cell_size;
       ruleset = r;
@@ -185,7 +185,7 @@ class Cellular_automata extends Romanesco {
       generation++;
     }
 
-    void show(Costume costume, Vec3 size, float area) {
+    void show(Costume costume, vec3 size, float area) {
       int offset = generation%rows;
       int displacement_x = (canvas.x-width)/2;
       int displacement_y = (canvas.y-height)/2;;
@@ -194,10 +194,10 @@ class Cellular_automata extends Romanesco {
           int y = j - offset;
           if (y <= 0) y = rows + y;
           if (matrix[i][j] == 1) {
-            Vec3 temp_size = Vec3(cell_size).mult(size);
+            vec3 temp_size = vec3(cell_size).mult(size);
             float temp_x = (i*cell_size) -displacement_x;
             float temp_y = ((y-1)*cell_size) -displacement_y;
-            Vec3 pos = Vec3(temp_x,temp_y,0);
+            vec3 pos = vec3(temp_x,temp_y,0);
             set_ratio_costume_size(map(area,get_area_min(),get_area_max(),0,1));
             costume(pos,temp_size,costume);
           } 

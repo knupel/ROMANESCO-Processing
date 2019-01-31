@@ -191,7 +191,7 @@ void set_force_magnetic_diam(int... diam) {
   if(diam.length <= force_romanesco.get_spot_num()) {
     int index =0;
     for(int i = 0 ; i < force_romanesco.get_spot_num() ;i++) {
-      force_romanesco.set_spot_diam(Vec2(diam[index]),i);
+      force_romanesco.set_spot_diam(vec2(diam[index]),i);
       index++;
       if(index >= diam.length) index = 0;
     }   
@@ -263,17 +263,17 @@ void clear_spot() {
 }
 
 
-void set_spot_pos(Vec pos, int index) {
+void set_spot_pos(vec pos, int index) {
   force_romanesco.set_spot_pos(pos,index);
 }
 
 void set_spot_pos(float x, float y, int index) {
-  force_romanesco.set_spot_pos(Vec2(x,y),index);  
+  force_romanesco.set_spot_pos(vec2(x,y),index);  
 }
 
 
-Vec3 [] get_spot_pos() {
-  Vec3 [] pos = new Vec3[force_romanesco.get_spot_num()];
+vec3 [] get_spot_pos() {
+  vec3 [] pos = new vec3[force_romanesco.get_spot_num()];
   for(int i = 0 ; i < pos.length ; i++) {
     pos[i] = force_romanesco.get_spot_pos(i);
   }
@@ -299,7 +299,7 @@ int [] get_spot_tesla() {
 
 
 
-Vec3 get_spot_pos(int index) {
+vec3 get_spot_pos(int index) {
   if(index < force_romanesco.get_spot_num()) {
     return force_romanesco.get_spot_pos(index);
   } else {

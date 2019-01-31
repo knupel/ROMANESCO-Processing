@@ -2,17 +2,17 @@
 SPOT
 * @see http://stanlepunk.xyz
 * @see https://github.com/StanLepunK/Force_Field
-v 0.2.0
+v 0.3.0
 */
 public class Spot {
-  private Vec previous_pos;
-  private Vec pos; 
+  private vec previous_pos;
+  private vec pos; 
   // private Vec raw_pos;
-  private Vec size;
+  private vec size;
   private boolean reverse_charge_is;
   private boolean emitter_is;
 
-  ArrayList<iVec2> area_detection;
+  ArrayList<ivec2> area_detection;
 
   private int tesla = 0;
   private int mass = 0;
@@ -25,29 +25,29 @@ public class Spot {
 
 
   // set
-  public void set_pos(Vec pos) {
-    if(pos instanceof Vec2) {
+  public void set_pos(vec pos) {
+    if(pos instanceof vec2) {
       if(this.pos == null) {
-        this.previous_pos = Vec2();
+        this.previous_pos = vec2();
       } else {
-        this.previous_pos = Vec2(this.pos.x, this.pos.y);
+        this.previous_pos = vec2(this.pos.x, this.pos.y);
       }
-      this.pos = Vec2((Vec2)pos);
-    } else if(pos instanceof Vec3) {
+      this.pos = vec2((vec2)pos);
+    } else if(pos instanceof vec3) {
       if(this.pos == null) {
-        this.previous_pos = Vec3();
+        this.previous_pos = vec3();
       } else {
-        this.previous_pos = Vec3(this.pos.x, this.pos.y,this.pos.z);
+        this.previous_pos = vec3(this.pos.x, this.pos.y,this.pos.z);
       }
-      this.pos = Vec3((Vec3)pos);
+      this.pos = vec3((vec3)pos);
     }
   }
 
-  public void set_size(Vec size) {
-    if(size instanceof Vec2) {
-      this.size = Vec2((Vec2)size);
-    } else if(size instanceof Vec3) {
-      this.size = Vec3((Vec3)size);
+  public void set_size(vec size) {
+    if(size instanceof vec2) {
+      this.size = vec2((vec2)size);
+    } else if(size instanceof vec3) {
+      this.size = vec3((vec3)size);
     }
   }
 
@@ -69,20 +69,28 @@ public class Spot {
   }
 
   public int get_tesla() {
-    if(!reverse_charge_is) return tesla; else return -tesla ;
+    if(!reverse_charge_is) {
+      return tesla; 
+    } else {
+      return -tesla;
+    }
   }
 
-  public Vec get_pos() {
+  public vec get_pos() {
     return pos;
   }
 
-  public Vec get_size() {
+  public vec get_size() {
     return size;
   }
 
   // misc
   public boolean emitter_is() {
-    if(get_tesla() < 0 || emitter_is) return true ; else return false;
+    if(get_tesla() < 0 || emitter_is) {
+      return true; 
+    } else {
+      return false;
+    }
   }
 
   public void reverse_emitter(boolean state) {
@@ -93,7 +101,7 @@ public class Spot {
   // area_detection
   private void detection(int radius) {
     if(area_detection == null) {
-      area_detection = new ArrayList<iVec2>(); 
+      area_detection = new ArrayList<ivec2>(); 
       add(radius);
     } else {
       area_detection.clear();
@@ -104,15 +112,15 @@ public class Spot {
   private void add(int radius) {
     for(int x = -radius ; x <= radius ; x++) {
       for(int y = -radius ; y <= radius ; y++) {
-        if(inside(Vec2(0), Vec2(radius), Vec2(x,y), ELLIPSE)) {
-          iVec2 in = iVec2(x,y);
+        if(inside(vec2(0), vec2(radius), vec2(x,y), ELLIPSE)) {
+          ivec2 in = ivec2(x,y);
           area_detection.add(in);
         }  
       }
     }
   }
 
-  ArrayList<iVec2> get_detection() {
+  ArrayList<ivec2> get_detection() {
     return area_detection;
   }
 

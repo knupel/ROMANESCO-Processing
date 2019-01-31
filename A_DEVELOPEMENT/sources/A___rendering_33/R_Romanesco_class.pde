@@ -1821,8 +1821,8 @@ public abstract class Romanesco implements rope.core.RConstants {
   
 
   // size
-  protected Vec3 get_size() {
-    return Vec3(get_size_x(),get_size_y(),get_size_z());
+  protected vec3 get_size() {
+    return vec3(get_size_x(),get_size_y(),get_size_z());
   }
   
   // size x
@@ -1894,8 +1894,8 @@ public abstract class Romanesco implements rope.core.RConstants {
   }
 
   // canvas
-  protected Vec3 get_canvas() {
-    return Vec3(get_canvas_x(),get_canvas_y(),get_canvas_z());
+  protected vec3 get_canvas() {
+    return vec3(get_canvas_x(),get_canvas_y(),get_canvas_z());
   }
 
   // canvas x
@@ -1970,8 +1970,8 @@ public abstract class Romanesco implements rope.core.RConstants {
 
 
   // speed
-  protected Vec3 get_speed() {
-    return Vec3(get_speed_x(),get_speed_y(),get_speed_z());
+  protected vec3 get_speed() {
+    return vec3(get_speed_x(),get_speed_y(),get_speed_z());
   }
 
   // speed x
@@ -2026,8 +2026,8 @@ public abstract class Romanesco implements rope.core.RConstants {
   }
 
   // spurt
-  protected Vec3 get_spurt() {
-    return Vec3(get_spurt_x(),get_spurt_y(),get_spurt_z());
+  protected vec3 get_spurt() {
+    return vec3(get_spurt_x(),get_spurt_y(),get_spurt_z());
   }
 
   // spurt x
@@ -2082,8 +2082,8 @@ public abstract class Romanesco implements rope.core.RConstants {
   }
 
   // DIR
-  protected Vec3 get_dir() {
-    return Vec3(get_dir_x(),get_dir_y(),get_dir_z());
+  protected vec3 get_dir() {
+    return vec3(get_dir_x(),get_dir_y(),get_dir_z());
   }
 
   // dir x
@@ -2138,8 +2138,8 @@ public abstract class Romanesco implements rope.core.RConstants {
   }
 
   // JITTER
-  protected Vec3 get_jitter() {
-    return Vec3(get_jitter_x(),get_jitter_y(),get_jitter_z());
+  protected vec3 get_jitter() {
+    return vec3(get_jitter_x(),get_jitter_y(),get_jitter_z());
   }
 
   // jitter x
@@ -2195,8 +2195,8 @@ public abstract class Romanesco implements rope.core.RConstants {
 
 
   // SWING
-  protected Vec3 get_swing() {
-    return Vec3(get_swing_x(),get_swing_y(),get_swing_z());
+  protected vec3 get_swing() {
+    return vec3(get_swing_x(),get_swing_y(),get_swing_z());
   }
 
   // swing x
@@ -2612,8 +2612,8 @@ public abstract class Romanesco implements rope.core.RConstants {
   }
 
   // COORD
-  protected Vec3 get_coord() {
-    return Vec3(get_coord_x(),get_coord_y(),get_coord_z());
+  protected vec3 get_coord() {
+    return vec3(get_coord_x(),get_coord_y(),get_coord_z());
   }
   
   // coord x

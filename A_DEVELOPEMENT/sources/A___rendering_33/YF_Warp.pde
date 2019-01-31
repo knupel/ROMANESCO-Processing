@@ -198,26 +198,26 @@ class Warp {
   * @return none
   * @brief refresh the PImage to the begin
   */
-  public void refresh(Vec ratio) {
+  public void refresh(vec ratio) {
     refresh_image_is(true);
 
-    if(ratio instanceof Vec2) {
-      Vec2 r = (Vec2) ratio ;
+    if(ratio instanceof vec2) {
+      vec2 r = (vec2) ratio ;
       refresh_image(r.x,r.x,r.x,r.y);
-    } else if (ratio instanceof Vec3) {
-      Vec3 r = (Vec3) ratio ;
+    } else if (ratio instanceof vec3) {
+      vec3 r = (vec3) ratio ;
       refresh_image(r.x,r.y,r.z,1);
-    } else if (ratio instanceof Vec4) {
-      Vec4 r = (Vec4) ratio ;
+    } else if (ratio instanceof vec4) {
+      vec4 r = (vec4) ratio ;
       refresh_image(r.x,r.y,r.z,r.w);
     } else {
-      printErr("method refresh() from class Warp : ratio is not an instance of Vec2, Vec3 or Vec4, instead the value max '.5' is used");
+      printErr("method refresh() from class Warp : ratio is not an instance of vec2, vec3 or vec4, instead the value max '.5' is used");
       refresh_image(.5,.5,.5,.5);
     } 
   }
 
   public void refresh(float... value) {
-    Vec4 v = array_to_Vec4_rgba(value);
+    vec4 v = array_to_vec4_rgba(value);
     refresh_image_is(true);
     refresh_image(v.x,v.y,v.z,v.w);
   }
@@ -356,10 +356,10 @@ class Warp {
   /**
   refresh component is must have a normal value 0 > 1
   */
-  private Vec4 warp_img_refresh ;
+  private vec4 warp_img_refresh ;
   private void refresh_image(float x, float y, float z, float w) {
     if(this.warp_img_refresh == null) {
-      warp_img_refresh = Vec4(x,y,z,w);
+      warp_img_refresh = vec4(x,y,z,w);
     } else {
       warp_img_refresh.set(x,y,z,w);
     }
@@ -392,11 +392,11 @@ class Warp {
   }
 
   private boolean refresh_multiply_is ;
-  private Vec4 refresh_multiply_value ;
+  private vec4 refresh_multiply_value ;
   public void refresh_multiply(boolean refresh_multiply_is, float... value) {
-    Vec4 v = array_to_Vec4_rgba(value);
+    vec4 v = array_to_vec4_rgba(value);
     if(refresh_multiply_value == null) {
-      refresh_multiply_value = Vec4(v.x,v.y,v.z,v.w);
+      refresh_multiply_value = vec4(v.x,v.y,v.z,v.w);
     } else {
       refresh_multiply_value.set(v.x,v.y,v.z,v.w);
     }
@@ -408,11 +408,11 @@ class Warp {
   }
 
   private boolean refresh_overlay_is ;
-  private Vec4 refresh_overlay_value ;
+  private vec4 refresh_overlay_value ;
   public void refresh_overlay(boolean refresh_overlay_is, float... value) {
-    Vec4 v = array_to_Vec4_rgba(value);
+    vec4 v = array_to_vec4_rgba(value);
     if(refresh_overlay_value == null) {
-      refresh_overlay_value = Vec4(v.x,v.y,v.z,v.w);
+      refresh_overlay_value = vec4(v.x,v.y,v.z,v.w);
     } else {
       refresh_overlay_value.set(v.x,v.y,v.z,v.w);
     }
@@ -424,11 +424,11 @@ class Warp {
 
   // normal effect
   private boolean effect_multiply_is ;
-  private Vec4 effect_multiply_value ;
+  private vec4 effect_multiply_value ;
   public void effect_multiply(boolean effect_multiply_is, float... value) {
-    Vec4 v = array_to_Vec4_rgba(value);
+    vec4 v = array_to_vec4_rgba(value);
     if(effect_multiply_value == null) {
-      effect_multiply_value = Vec4(v.x,v.y,v.z,v.w);
+      effect_multiply_value = vec4(v.x,v.y,v.z,v.w);
     } else {
       effect_multiply_value.set(v.x,v.y,v.z,v.w);
     }
@@ -436,11 +436,11 @@ class Warp {
   }
 
   private boolean effect_overlay_is ;
-  private Vec4 effect_overlay_value ;
+  private vec4 effect_overlay_value ;
   public void effect_overlay(boolean effect_overlay_is, float... value) {
-    Vec4 v = array_to_Vec4_rgba(value);
+    vec4 v = array_to_vec4_rgba(value);
     if(effect_overlay_value == null) {
-      effect_overlay_value = Vec4(v.x,v.y,v.z,v.w);
+      effect_overlay_value = vec4(v.x,v.y,v.z,v.w);
     } else {
       effect_overlay_value.set(v.x,v.y,v.z,v.w);
     }
@@ -621,10 +621,10 @@ class Warp {
     result.loadPixels();
     int [] c_array = result.pixels ;
 
-    iVec2 canvas = iVec2(ff.get_canvas());
-    iVec2 img_canvas = iVec2(result.width, result.height);
+    ivec2 canvas = ivec2(ff.get_canvas());
+    ivec2 img_canvas = ivec2(result.width, result.height);
     
-    Vec2 ratio_canvas = Vec2(1).div(canvas);
+    vec2 ratio_canvas = vec2(1).div(canvas);
 
     int start_x = 0 ;
     int start_y = 0 ;
@@ -634,15 +634,15 @@ class Warp {
     // this part must be send to shader GLSL  
     for (int x = start_x ; x < end_x ; x++) {
       for (int y = start_y ; y < end_y ; y++) {
-        Vec2 uv = ratio_canvas.copy().mult(x,y);
-        Vec2 warp = ff.field_warp(uv,intensity);
+        vec2 uv = ratio_canvas.copy().mult(x,y);
+        vec2 warp = ff.field_warp(uv,intensity);
         if(warp != null) {
           warp.mult(canvas);
           int c = apply_warp(warp,c_array,result,inc);
           result.set(x,y,c);
 
         } else {
-          printErr("error in fluid_image() caught Vec2 warp is null for " + uv);
+          printErr("error in fluid_image() caught vec2 warp is null for " + uv);
           int c = color(r.BLACK);
           result.set(x,y,c);
         }
@@ -653,7 +653,7 @@ class Warp {
   /**
   * problem the pixel have a tendances to go on the the right :(
   */
-  public int apply_warp(Vec2 warp, int [] pix, PImage src, PImage img_fluid) {
+  public int apply_warp(vec2 warp, int [] pix, PImage src, PImage img_fluid) {
     // security out bound
     if (warp.x < 0) warp.x = 0;
     if (warp.y < 0 ) warp.y = 0;

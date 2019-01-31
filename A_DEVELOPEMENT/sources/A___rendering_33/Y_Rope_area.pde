@@ -321,17 +321,17 @@ class Area {
 
   // internal class
   private class Bag {
-    ArrayList<Vec3> bag ;
+    ArrayList<vec3> bag ;
     float colour_ID ;
 
     private Bag(float colour_ID) {
       this.colour_ID = colour_ID ;
-      bag = new ArrayList<Vec3>()  ;
+      bag = new ArrayList<vec3>()  ;
     }
 
 
     private void add(int x, int y, int c) {
-      bag.add(Vec3(x,y,c)) ;
+      bag.add(vec3(x,y,c)) ;
     }
     
     public int size() {
@@ -339,18 +339,18 @@ class Area {
     }
     
     
-    public Vec3 get(int target) {
-      Vec3 v = bag.get(target) ;
+    public vec3 get(int target) {
+      vec3 v = bag.get(target) ;
       return v ;
     }
     
-    public Vec2 get_pos(int target) {
-      Vec3 v = bag.get(target) ;
-      return Vec2(v.x,v.y) ;
+    public vec2 get_pos(int target) {
+      vec3 v = bag.get(target) ;
+      return vec2(v.x,v.y) ;
     }
     
     public int get_colour(int target) {
-      Vec3 v = bag.get(target) ;
+      vec3 v = bag.get(target) ;
       return (int)v.z ;
     }
   }

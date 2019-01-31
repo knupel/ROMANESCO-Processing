@@ -67,8 +67,8 @@ class Webcam extends Romanesco {
   //GLOBAL
   int cameraStatut = 0 ;
 
-  Vec2 factorDisplayCam ;
-  Vec3 factorDisplayPixel ;
+  vec2 factorDisplayCam ;
+  vec3 factorDisplayPixel ;
   
   color colorPixelCam ;
   
@@ -80,8 +80,8 @@ class Webcam extends Romanesco {
   //SETUP
   void setup() {
     setting_start_position(ID_item, 0, 0, 0) ;
-    factorDisplayCam = Vec2();
-    factorDisplayPixel = Vec3();
+    factorDisplayCam = vec2();
+    factorDisplayPixel = vec3();
   }
   //DRAW
   void draw() {
@@ -97,7 +97,7 @@ class Webcam extends Romanesco {
     float size_x = map(get_size_x(),0.1,width, minVal, maxVal) *transient_value[3][ID_item] ;
     float size_y = map(get_size_y(),0.1,width, minVal, maxVal) *transient_value[2][ID_item] ;
     float size_z = map(get_size_z(),0.1,width, minVal, maxVal) *transient_value[4][ID_item] ;
-    Vec3 factorSizePix = Vec3(size_x, size_y, size_z) ; 
+    vec3 factorSizePix = vec3(size_x, size_y, size_z) ; 
     factorDisplayPixel.set(factorDisplayCam.x *factorSizePix.x,factorDisplayCam.y *factorSizePix.y, factorSizePix.z) ;//PARAMETER THAT YOU CAN USE
     
     //PART TWO
@@ -161,7 +161,7 @@ class Webcam extends Romanesco {
     float factorSizeZ = map(get_size_z(), .1, width, .01, height/100) ;
     PVector newCellSize = new PVector (newCellSizeX, newCellSizeY, factorSizeZ ) ;
     //init the position of image on the middle of the screen
-    Vec3 posMouseCam = Vec3( width / 2, height /2, 0) ;
+    vec3 posMouseCam = vec3( width / 2, height /2, 0) ;
     if (mouse[ID_item].x >= -item_setting_position[0][ID_item].x && mouse[ID_item].y >= -item_setting_position[0][ID_item].y) posMouseCam.set(mouse[ID_item]) ;
     //create the ratio for the translate position in functiun of the size of the Scene, not really good algorythm
     float ratioDisplay = (float)width / (float)height ;

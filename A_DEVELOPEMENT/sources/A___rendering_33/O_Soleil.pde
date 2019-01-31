@@ -79,7 +79,7 @@ class Soleil extends Romanesco {
     setting_start_position(ID_item,width/2,height/2,0);
   }
   
-  Vec3 pos;
+  vec3 pos;
   //DRAW
   void draw() {
     aspect(get_fill(),get_stroke(),get_thickness());
@@ -89,7 +89,7 @@ class Soleil extends Romanesco {
       revolution = true;
     }
     
-    if(pos == null) pos = Vec3(0);
+    if(pos == null) pos = vec3(0);
     if(revolution) {
       pos.set(get_coord_x()*width,get_coord_y()*height,0); 
     } else {
@@ -144,7 +144,7 @@ class Soleil extends Romanesco {
   
   // ANNEXE
   // soleil with jitter
-  void soleil(Vec3 pos, float diam, int numBeam, float spurt, PVector jitter) {
+  void soleil(vec3 pos, float diam, int numBeam, float spurt, PVector jitter) {
     int numPoints = numBeam *2 ;
     for (int i = 0 ; i < numPoints -1 ; i = i +2) {
       float vibration = random(-jitter.x, jitter.y) ;
@@ -163,7 +163,7 @@ class Soleil extends Romanesco {
   
   
   // soleil with jitter
-  void soleil(Vec3 pos, float diam, int numBeam, float jitter) {
+  void soleil(vec3 pos, float diam, int numBeam, float jitter) {
     int numPoints = numBeam *2 ;
     for (int i = 0 ; i < numPoints -1 ; i = i +2) {
       PVector p1 = new PVector();
@@ -180,7 +180,7 @@ class Soleil extends Romanesco {
   }
   
   // classic soleil
-  void soleil(Vec3 pos, float diam, int numBeam) {
+  void soleil(vec3 pos, float diam, int numBeam) {
     int numPoints = numBeam *2 ;
     for (int i = 0 ; i < numPoints -1 ; i = i +2) {
       PVector p1 = new PVector() ;
@@ -195,7 +195,7 @@ class Soleil extends Romanesco {
     }
   }
 
-  PVector to_PVector(Vec v) {
+  PVector to_PVector(vec v) {
     return new PVector(v.x,v.y,v.z);
   }
 }

@@ -129,9 +129,9 @@ void load_data_GUI(String path) {
   println("sliders item",count_slider_item);
 
   // info_slider_general = new Vec5 [count_slider_general];
-  info_button_general = new iVec3 [NUM_BUTTON_GENERAL];
+  info_button_general = new ivec3 [NUM_BUTTON_GENERAL];
   for(int i = 0 ; i < info_button_general.length ; i++) {
-    info_button_general[i] = iVec3();
+    info_button_general[i] = ivec3();
   }
   
   
@@ -147,9 +147,9 @@ void load_data_GUI(String path) {
   info_list_item_ID = new int [NUM_ITEM] ;
   
   // we don't count from the save in case we add object and this one has never use before and he don't exist in the data base
-  info_button_item = new iVec3 [NUM_ITEM *BUTTON_ITEM_CONSOLE +BUTTON_ITEM_CONSOLE] ; 
+  info_button_item = new ivec3 [NUM_ITEM *BUTTON_ITEM_CONSOLE +BUTTON_ITEM_CONSOLE] ; 
   for(int i = 0 ; i < info_button_item.length ; i++) {
-    info_button_item[i] = iVec3();
+    info_button_item[i] = ivec3();
   }
 }
 

@@ -76,7 +76,7 @@ void updateCommand() {
 /**
 update cursor 1.2.0
 */
-Vec3 mouse_ref;
+vec3 mouse_ref;
 int mouseZ ;
 void device_update() {
   update_leap_command();
@@ -112,7 +112,7 @@ void update_wheel() {
 
 void update_tablet() {
   if(pen[0] == null) {
-    pen[0] = Vec3(0,0,.02);
+    pen[0] = vec3(0,0,.02);
   }
 
   if(TABLET) {
@@ -133,7 +133,7 @@ void update_mouse() {
   }
 
   if(mouse_ref == null) {
-    mouse_ref = Vec3(mouse[0]);
+    mouse_ref = vec3(mouse[0]);
   } else mouse_ref.set(mouse[0]);
 }
 
@@ -142,7 +142,7 @@ void update_leapmotion() {
   float y = -averageTranslatePosition(speedLeapmotion).y;
   float z = averageTranslatePosition(speedLeapmotion).z;
   if(mouse[0] == null) {
-    mouse[0] = Vec3(x,y,z);
+    mouse[0] = vec3(x,y,z);
   } else mouse[0].set(x,y,z);
 }
 

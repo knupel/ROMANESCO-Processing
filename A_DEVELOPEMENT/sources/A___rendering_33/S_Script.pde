@@ -14,8 +14,8 @@ public class Script {
   ArrayList <Data_float> data_float;
   ArrayList <Data_long> data_long;
   ArrayList <Data_String> data_String;
-  ArrayList <Data_iVec> data_iVec;
-  ArrayList <Data_Vec> data_Vec;
+  ArrayList <Data_ivec> data_ivec;
+  ArrayList <Data_vec> data_vec;
 
 
   long time_millis;
@@ -30,16 +30,16 @@ public class Script {
     data_float = new ArrayList<Data_float>();
     data_long = new ArrayList<Data_long>();
     data_String = new ArrayList<Data_String>();
-    data_iVec = new ArrayList<Data_iVec>();
-    data_Vec = new ArrayList<Data_Vec>();
+    data_ivec = new ArrayList<Data_ivec>();
+    data_vec = new ArrayList<Data_vec>();
 
     data_list.add(data_boolean);
     data_list.add(data_int);
     data_list.add(data_float);
     data_list.add(data_long);
     data_list.add(data_String);
-    data_list.add(data_iVec);
-    data_list.add(data_Vec);
+    data_list.add(data_ivec);
+    data_list.add(data_vec);
 
 
   }
@@ -106,14 +106,14 @@ public class Script {
               result = d.get();
               break;
             }
-          } else if(obj instanceof Data_iVec) {
-            Data_iVec d = (Data_iVec)obj;
+          } else if(obj instanceof Data_ivec) {
+            Data_ivec d = (Data_ivec)obj;
             if(is) {
               result = d.get();
               break;
             }
-          } else if(obj instanceof Data_Vec) {
-            Data_Vec d = (Data_Vec)obj;
+          } else if(obj instanceof Data_vec) {
+            Data_vec d = (Data_vec)obj;
             if(is) {
               result = d.get();
               break;
@@ -147,8 +147,8 @@ public class Script {
     else if(arg instanceof Integer) add_int(name,family,(int)arg);
     else if(arg instanceof Long) add_long(name,family,(long)arg);
     else if(arg instanceof String) add_String(name,family,(String)arg);
-    else if(arg instanceof iVec) add_iVec(name,family,(iVec)arg);
-    else if(arg instanceof Vec) add_Vec(name,family,(Vec)arg);
+    else if(arg instanceof ivec) add_ivec(name,family,(ivec)arg);
+    else if(arg instanceof vec) add_vec(name,family,(vec)arg);
   }
   
   public void add(Object... f) {
@@ -191,15 +191,15 @@ public class Script {
     data_list.get(4).add(data);
   }
 
-  private void add_iVec(String name, String family, iVec arg) {
-    Data_iVec data = new Data_iVec(arg);
+  private void add_ivec(String name, String family, ivec arg) {
+    Data_ivec data = new Data_ivec(arg);
     data.set_name(name);
     data.set_family(family);
     data_list.get(5).add(data);
   }
   
-  private void add_Vec(String name, String family, Vec arg) {
-    Data_Vec data = new Data_Vec(arg);
+  private void add_vec(String name, String family, vec arg) {
+    Data_vec data = new Data_vec(arg);
     data.set_name(name);
     data.set_family(family);
     data_list.get(6).add(data);
@@ -289,48 +289,48 @@ public class Script {
     }
   }
 
-  private class Data_iVec extends Data {
-    private iVec arg;
-    private Data_iVec( iVec arg) {
+  private class Data_ivec extends Data {
+    private ivec arg;
+    private Data_ivec( ivec arg) {
       super();
-      if(arg instanceof iVec2) {
-        this.arg = ((iVec2)arg).copy();
-      } else if(arg instanceof iVec3) {
-        this.arg = ((iVec3)arg).copy();
-      } else if(arg instanceof iVec4) {
-        this.arg = ((iVec4)arg).copy();
-      } else if(arg instanceof iVec5) {
-        this.arg = ((iVec5)arg).copy();      
-      } else if(arg instanceof iVec6) {
-        this.arg = ((iVec6)arg).copy();
+      if(arg instanceof ivec2) {
+        this.arg = ((ivec2)arg).copy();
+      } else if(arg instanceof ivec3) {
+        this.arg = ((ivec3)arg).copy();
+      } else if(arg instanceof ivec4) {
+        this.arg = ((ivec4)arg).copy();
+      } else if(arg instanceof ivec5) {
+        this.arg = ((ivec5)arg).copy();      
+      } else if(arg instanceof ivec6) {
+        this.arg = ((ivec6)arg).copy();
       }
     }
 
-    protected iVec get() {
+    protected ivec get() {
       return arg;
     }
   }
 
 
-  private class Data_Vec extends Data {
-    private Vec arg;
-    private Data_Vec(Vec arg) {
+  private class Data_vec extends Data {
+    private vec arg;
+    private Data_vec(vec arg) {
       super();
       //this.arg = Vec(arg);
-      if(arg instanceof Vec2) {
-        this.arg = ((Vec2)arg).copy();
-      } else if(arg instanceof Vec3) {
-        this.arg = ((Vec3)arg).copy();
-      } else if(arg instanceof Vec4) {
-        this.arg = ((Vec4)arg).copy();
-      } else if(arg instanceof Vec5) {
-        this.arg = ((Vec5)arg).copy();        
-      } else if(arg instanceof Vec6) {
-        this.arg = ((Vec6)arg).copy();
+      if(arg instanceof vec2) {
+        this.arg = ((vec2)arg).copy();
+      } else if(arg instanceof vec3) {
+        this.arg = ((vec3)arg).copy();
+      } else if(arg instanceof vec4) {
+        this.arg = ((vec4)arg).copy();
+      } else if(arg instanceof vec5) {
+        this.arg = ((vec5)arg).copy();        
+      } else if(arg instanceof vec6) {
+        this.arg = ((vec6)arg).copy();
       }
     }
 
-    protected Vec get() {
+    protected vec get() {
       return arg;
     }
   }

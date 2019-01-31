@@ -1,7 +1,7 @@
 
 /**
 CLASS PIX 
-v 0.9.0
+v 0.10.0
 2016-2018
 * @author Stan le Punk
 * @see https://github.com/StanLepunK/Pixel
@@ -10,32 +10,32 @@ v 0.9.0
 
 abstract class Pix implements rope.core.RConstants {
   // P3D mode
-  Vec3 pos, new_pos ;
-  Vec3 size  ;
+  vec3 pos, new_pos ;
+  vec3 size  ;
   
   // in cartesian mode
-  Vec3 dir = null ;
+  vec3 dir = null ;
 
-  Vec3 grid_position ;
+  vec3 grid_position ;
   int ID, rank ;
   Costume costume; // 0 is for point
   float ratio_costume_size = Float.MAX_VALUE;
   float costume_angle = 0 ;
-  Vec4 colour, new_colour  ;
+  vec4 colour, new_colour  ;
   
   // use for the motion
   float field = 1.0 ;
 
 
   void init_mother_arg() {
-    pos = Vec3(width/2, height/2,0) ;
+    pos = vec3(width/2, height/2,0) ;
     if(new_pos == null) {
       new_pos = pos.copy();
     } else {
       new_pos.set(pos);
     }
     if(size == null) {
-      size = Vec3(1) ;
+      size = vec3(1) ;
     } else {
       size.set(1);
     }
@@ -47,9 +47,9 @@ abstract class Pix implements rope.core.RConstants {
     // give a WHITE color to the pixel
     if(colour == null) {
       if(g.colorMode == 3 ) {
-        colour = Vec4(0, 0, g.colorModeZ, g.colorModeA) ; 
+        colour = vec4(0, 0, g.colorModeZ, g.colorModeA) ; 
       } else {
-        colour = Vec4(g.colorModeX, g.colorModeY, g.colorModeZ, g.colorModeA) ;
+        colour = vec4(g.colorModeX, g.colorModeY, g.colorModeZ, g.colorModeA) ;
       }
     } else {
       if(g.colorMode == 3 ) {
@@ -70,13 +70,13 @@ abstract class Pix implements rope.core.RConstants {
   }
   
   
-  // RETURN color in Vec4
+  // RETURN color in vec4
   // test the color mode to return the good data for each component
-  Vec4 int_color_to_vec4_color(int c) {
-    Vec4 color_temp = Vec4() ;
-    if(g.colorMode == 3 ) color_temp = Vec4(hue(c),saturation(c),brightness(c),alpha(c)) ;
-    else color_temp = Vec4(red(c),green(c),blue(c),alpha(c)) ;
-    return Vec4(color_temp) ;
+  vec4 int_color_to_vec4_color(int c) {
+    vec4 color_temp = vec4() ;
+    if(g.colorMode == 3 ) color_temp = vec4(hue(c),saturation(c),brightness(c),alpha(c)) ;
+    else color_temp = vec4(red(c),green(c),blue(c),alpha(c)) ;
+    return vec4(color_temp) ;
   }
 
 
@@ -128,7 +128,7 @@ abstract class Pix implements rope.core.RConstants {
     size(x,y,1) ;
   }
 
-  public void size(Vec size) {
+  public void size(vec size) {
     if(size.z == 0) {
       size(size.x, size.y, 1);
     } else {
@@ -136,7 +136,7 @@ abstract class Pix implements rope.core.RConstants {
     }
   }
 
-  public void size(iVec size) {
+  public void size(ivec size) {
     if(size.z == 0) {
       size(size.x, size.y, 1);
     } else {
@@ -146,7 +146,7 @@ abstract class Pix implements rope.core.RConstants {
 
   public void size(float x, float y, float z) {
     if(size == null) {
-      size = Vec3(x,y,z) ;
+      size = vec3(x,y,z) ;
     } else {
       size.set(x,y,z);
     }
@@ -155,7 +155,7 @@ abstract class Pix implements rope.core.RConstants {
  
   // normal direction
   @Deprecated
-  public void direction(Vec3 d) {
+  public void direction(vec3 d) {
     dir(d.x,d.y,d.z);
   }
   @Deprecated
@@ -183,7 +183,7 @@ abstract class Pix implements rope.core.RConstants {
     if(this.dir != null) {
       dir.x = x ;
     } else {
-      this.dir = Vec3(x,0,0);
+      this.dir = vec3(x,0,0);
     }
   }
   
@@ -191,7 +191,7 @@ abstract class Pix implements rope.core.RConstants {
     if(this.dir != null) {
       dir.y = y ;
     } else {
-      this.dir = Vec3(0,y,0);
+      this.dir = vec3(0,y,0);
     }
   }
 
@@ -199,11 +199,11 @@ abstract class Pix implements rope.core.RConstants {
     if(this.dir != null) {
       dir.z = z;
     } else {
-      this.dir = Vec3(0,0,z);
+      this.dir = vec3(0,0,z);
     }
   }
 
-  public void dir(Vec d) {
+  public void dir(vec d) {
     if(d != null) {
       dir(d.x,d.y,d.z);
     } else {
@@ -215,7 +215,7 @@ abstract class Pix implements rope.core.RConstants {
 
   public void dir(float x, float y, float z) {
     if(this.dir == null) {
-      this.dir = Vec3(x,y,z);
+      this.dir = vec3(x,y,z);
     } else {
       this.dir.set(x,y,z);
     }
@@ -225,7 +225,7 @@ abstract class Pix implements rope.core.RConstants {
 
   // position
   @Deprecated
-  public void position(Vec pos) {
+  public void position(vec pos) {
     this.pos.set(pos);
   }
   
@@ -239,7 +239,7 @@ abstract class Pix implements rope.core.RConstants {
     this.pos.set(x,y,z);
   }
   
-  public void pos(iVec pos) {
+  public void pos(ivec pos) {
     if(pos != null) {
       pos(pos.x,pos.y,pos.z);
     } else {
@@ -247,7 +247,7 @@ abstract class Pix implements rope.core.RConstants {
     }
   }
 
-  public void pos(Vec pos) {
+  public void pos(vec pos) {
     if(pos != null) {
       pos(pos.x,pos.y,pos.z);
     } else {
@@ -292,7 +292,7 @@ abstract class Pix implements rope.core.RConstants {
 
   public void aspect(boolean new_colour_choice) {
     float thickness = 1 ;
-    Vec4 color_choice = Vec4();
+    vec4 color_choice = vec4();
     if(new_colour_choice) {
       color_choice.set(new_colour); 
     } else {
@@ -303,7 +303,7 @@ abstract class Pix implements rope.core.RConstants {
   }
 
   public void aspect(boolean new_colour_choice, float thickness) {
-    Vec4 color_choice = Vec4() ;
+    vec4 color_choice = vec4() ;
     if(new_colour_choice) {
       color_choice.set(new_colour) ; 
     } else {
@@ -320,23 +320,23 @@ abstract class Pix implements rope.core.RConstants {
 
   public void aspect(int c) {
     float thickness = 1 ;
-    Vec4 color_pix = int_color_to_vec4_color(c).copy();
+    vec4 color_pix = int_color_to_vec4_color(c).copy();
     if(costume == null) costume = new Costume();
     costume.aspect(color_pix, color_pix, thickness);
   }
 
-  public void aspect(Vec4 color_pix) {
+  public void aspect(vec4 color_pix) {
     float thickness = 1 ;
     if(costume == null) costume = new Costume();
     costume.aspect(color_pix, color_pix, thickness) ;
   }
 
-  public void aspect(Vec4 color_pix, float thickness) {
+  public void aspect(vec4 color_pix, float thickness) {
     if(costume == null) costume = new Costume();
     costume.aspect(color_pix, color_pix, thickness) ;
   }
   
-  public void aspect(Vec4 color_fill, Vec4 color_stroke, float thickness) {
+  public void aspect(vec4 color_fill, vec4 color_stroke, float thickness) {
     if(costume == null) costume = new Costume();
     costume.aspect(color_fill,color_stroke,thickness);
   }
@@ -393,38 +393,38 @@ abstract class Pix implements rope.core.RConstants {
     float hue_temp ; ;
     if(!use_new_colour) hue_temp = set_color_component_from_specific_component("hue", colour.r, new_hue, start, end) ; 
     else hue_temp = set_color_component_from_specific_component("hue", new_colour.r, new_hue, start, end) ;
-    new_colour = Vec4(hue_temp, new_colour.y, new_colour.z, new_colour.w)  ;
+    new_colour = vec4(hue_temp, new_colour.y, new_colour.z, new_colour.w)  ;
   }
   void set_saturation(int new_saturation, int start, int end, boolean use_new_colour) {
     float saturation_temp ;
     if(!use_new_colour) saturation_temp = set_color_component_from_specific_component("saturation", colour.g, new_saturation, start, end) ;
     else saturation_temp = set_color_component_from_specific_component("saturation", new_colour.g, new_saturation, start, end) ;
-    new_colour = Vec4(new_colour.x, saturation_temp, new_colour.z, new_colour.w)  ;
+    new_colour = vec4(new_colour.x, saturation_temp, new_colour.z, new_colour.w)  ;
   }
   void set_brightness(int new_brightness, int start, int end, boolean use_new_colour) {
     float brightness_temp ;
     if(!use_new_colour) brightness_temp = set_color_component_from_specific_component("brightness", colour.b, new_brightness, start, end) ;
     else brightness_temp = set_color_component_from_specific_component("brightness", new_colour.b, new_brightness, start, end) ;
-    new_colour = Vec4(new_colour.x, new_colour.y, brightness_temp, new_colour.w)  ;
+    new_colour = vec4(new_colour.x, new_colour.y, brightness_temp, new_colour.w)  ;
   }
   // RGB change
   void set_red(int new_red, int start, int end, boolean use_new_colour) {
     float red_temp ;
     if(!use_new_colour) red_temp = set_color_component_from_specific_component("red", colour.r, new_red, start, end) ;
     else red_temp = set_color_component_from_specific_component("red", new_colour.r, new_red, start, end) ;
-    new_colour = Vec4(red_temp, new_colour.y, new_colour.z, new_colour.w)  ;
+    new_colour = vec4(red_temp, new_colour.y, new_colour.z, new_colour.w)  ;
   }
   void set_green(int new_green, int start, int end, boolean use_new_colour) {
     float green_temp ;
     if(!use_new_colour) green_temp = set_color_component_from_specific_component("green", colour.g, new_green, start, end) ;
     else green_temp = set_color_component_from_specific_component("green", new_colour.g, new_green, start, end) ;
-    new_colour = Vec4(new_colour.x, green_temp, new_colour.z, new_colour.w)  ;
+    new_colour = vec4(new_colour.x, green_temp, new_colour.z, new_colour.w)  ;
   }
   void set_blue(int new_blue, int start, int end, boolean use_new_colour) {
     float blue_temp ;
     if(!use_new_colour) blue_temp = set_color_component_from_specific_component("blue", colour.b, new_blue, start, end) ;
     else blue_temp = set_color_component_from_specific_component("blue", new_colour.b, new_blue, start, end) ;
-    new_colour = Vec4(new_colour.x, new_colour.y, blue_temp, new_colour.w)  ;
+    new_colour = vec4(new_colour.x, new_colour.y, blue_temp, new_colour.w)  ;
   }
 
   // ALPHA change
@@ -432,7 +432,7 @@ abstract class Pix implements rope.core.RConstants {
     float alpha_temp ;
     if(!use_new_colour) alpha_temp = set_color_component_from_specific_component("alpha", colour.a, new_alpha, start, end) ;
     else alpha_temp = set_color_component_from_specific_component("alpha", new_colour.a, new_alpha, start, end) ;
-    new_colour = Vec4(new_colour.x, new_colour.y, new_colour.z, alpha_temp)  ;
+    new_colour = vec4(new_colour.x, new_colour.y, new_colour.z, alpha_temp)  ;
   }
 
 
@@ -507,12 +507,12 @@ class Cloud extends Pix {
   float tempo_ref = .001 ;
   float tempo = .001 ;
   String behavior = "RADIUS";
-  Vec3 [] coord;
+  vec3 [] coord;
   int type = r.CARTESIAN ;
   int distribution;
   String renderer_dimension;
   float radius = 1;
-  Vec3 orientation;
+  vec3 orientation;
 
   float angle_growth;
   float dist_growth ;
@@ -521,13 +521,13 @@ class Cloud extends Pix {
   float dist;
   int spiral_rounds;
 
-  Vec2 range;
+  vec2 range;
 
 
   public Cloud(int num, String renderer_dimension) {
     init_mother_arg();
     this.num = num ;
-    coord = new Vec3[num];
+    coord = new vec3[num];
     choice_renderer_dimension(renderer_dimension);
   }
 
@@ -591,10 +591,10 @@ class Cloud extends Pix {
     for(int i = 0 ; i < num ; i++ ) {
       if(distribution == r.ORDER) {
         tetha = dist +(angle *i);
-        coord[i] = Vec3(cos(tetha),sin(tetha), 0 ) ; 
+        coord[i] = vec3(cos(tetha),sin(tetha), 0 ) ; 
       } else {
         tetha = dist + random(-PI, PI) ;
-        coord[i] = Vec3(cos(tetha),sin(tetha), 0 ) ;
+        coord[i] = vec3(cos(tetha),sin(tetha), 0 ) ;
       }
     }
   }
@@ -613,7 +613,7 @@ class Cloud extends Pix {
       for(int i = 0 ; i < coord.length ; i++ ) {
         float tetha  = random(-PI, PI) ;
         float phi  = random(-TAU, TAU) ;
-        coord[i] = Vec3(cos(tetha) *cos(phi),
+        coord[i] = vec3(cos(tetha) *cos(phi),
                         cos(tetha) *sin(phi), 
                         sin(tetha) ) ; 
       }
@@ -625,7 +625,7 @@ class Cloud extends Pix {
     float step = TAU ;
     if(distribution == ORDER) {
       for (int i = 0; i < coord.length ; i++) {      
-        coord[i] = Vec3() ;
+        coord[i] = vec3() ;
         coord[i].x = distribution_polar_fibonacci_sphere(i, num, step).x ;
         coord[i].y = distribution_polar_fibonacci_sphere(i, num, step).y ;
         coord[i].z = 0  ;
@@ -633,7 +633,7 @@ class Cloud extends Pix {
     } else {
       for (int i = 0; i < coord.length ; i++) {
         int which = floor(random(num)) ;
-        coord[i] = Vec3() ;
+        coord[i] = vec3() ;
         coord[i].x = distribution_polar_fibonacci_sphere(which, num, step).x ;
         coord[i].y = distribution_polar_fibonacci_sphere(which, num, step).y ;
         coord[i].z = 0  ;
@@ -680,7 +680,7 @@ class Cloud extends Pix {
       if(ratio_costume_size != Float.MAX_VALUE) {
         set_ratio_costume_size(ratio_costume_size);
       }
-      costume.draw(coord[i],size,Vec3(0,0,costume_angle));
+      costume.draw(coord[i],size,vec3(0,0,costume_angle));
     }
   }
 
@@ -696,7 +696,7 @@ class Cloud extends Pix {
     time_count = count;
   }
 
-  public Vec3 [] list() {
+  public vec3 [] list() {
     return coord;   
   }
 
@@ -718,12 +718,12 @@ class Cloud extends Pix {
   void range();
   Use with the bahavior, it's ratio mult for the radius
   */
-  public void range(Vec2 range) {
+  public void range(vec2 range) {
     range(range.x,range.y);
   }
   public void range(float min, float max) {
     if(range == null) {
-      range = Vec2(min, max);
+      range = vec2(min, max);
     } else {
       range.set(min,max);
     }
@@ -743,7 +743,7 @@ class Cloud extends Pix {
     if(spiral_rounds > 0) {
       int round = 0 ;
       if(range == null) {
-        range = Vec2(0,1);
+        range = vec2(0,1);
       }
       float height_step = ((range.y -range.x) /coord.length) /spiral_rounds;
       float floor = (range.y -range.x) / spiral_rounds;
@@ -751,7 +751,7 @@ class Cloud extends Pix {
         float range_in = range.x + (height_step *i) + (floor *round) ;
         
         if(behavior != "RADIUS") {
-          Vec2 temp_range = range.copy();
+          vec2 temp_range = range.copy();
           temp_range.set(range_in,range.y);
           radius_temp = distribution_behavior(temp_range,radius);
         } else {
@@ -778,7 +778,7 @@ class Cloud extends Pix {
   distribution behavior
   */
   // internal method
-  private float distribution_behavior(Vec2 range, float radius) {
+  private float distribution_behavior(vec2 range, float radius) {
     float normal_distribution = 1 ;
     
     // rules
@@ -889,7 +889,7 @@ class Cloud_2D extends Cloud {
     super(num,P3D);
     // choice_renderer_dimension(renderer_dimension);
     this.distribution = ORDER;
-    orientation = Vec3(0,PI/2,0); 
+    orientation = vec3(0,PI/2,0); 
     init() ;
   }
 
@@ -945,7 +945,7 @@ class Cloud_3D extends Cloud {
     super(num,P3D);
     // choice_renderer_dimension(renderer_dimension);
     this.distribution = ORDER;
-    this.orientation = Vec3(0,PI/2,0); 
+    this.orientation = vec3(0,PI/2,0); 
     init() ;
   }
 
@@ -956,7 +956,7 @@ class Cloud_3D extends Cloud {
   public Cloud_3D(int num, String renderer_dimension) {
     super(num, renderer_dimension);
     this.distribution = ORDER;
-    this.orientation = Vec3(0,PI/2,0); 
+    this.orientation = vec3(0,PI/2,0); 
     init();
   }
 
@@ -964,7 +964,7 @@ class Cloud_3D extends Cloud {
   public Cloud_3D(int num, String renderer_dimension, int distribution) {
     super(num, renderer_dimension);
     this.distribution = distribution ;
-    this.orientation = Vec3(0,PI/2,0); 
+    this.orientation = vec3(0,PI/2,0); 
     init();
   }
 
@@ -976,7 +976,7 @@ class Cloud_3D extends Cloud {
     }
 
     this.distribution = distribution ;
-    this.orientation = Vec3(0,PI/2,0);
+    this.orientation = vec3(0,PI/2,0);
     if(this.type == r.POLAR) {
       polar(true);
     } else {
@@ -989,7 +989,7 @@ class Cloud_3D extends Cloud {
     super(num, renderer_dimension);
     polar(false);
     this.distribution = r.ORDER ;
-    this.orientation = Vec3(0,PI/2,0);
+    this.orientation = vec3(0,PI/2,0);
     set_angle_step(step_angle);
     /*
     if(type == r.POLAR) {
@@ -1004,7 +1004,7 @@ class Cloud_3D extends Cloud {
 
 
   // change orientation
-  public void orientation(Vec3 orientation) {
+  public void orientation(vec3 orientation) {
     orientation(orientation.x, orientation.y, orientation.z);
   }
 
@@ -1024,7 +1024,7 @@ class Cloud_3D extends Cloud {
      if(!polar_is) {
       printErrTempo(180, "void orientation() class Cloud work only with type r.POLAR");
     }
-    this.orientation = Vec3(x,y,z) ;
+    this.orientation = vec3(x,y,z) ;
   }
 
 
@@ -1136,7 +1136,7 @@ class Cloud_3D extends Cloud {
         if(ratio_costume_size != Float.MAX_VALUE) {
           set_ratio_costume_size(ratio_costume_size);
         }
-        costume.draw(coord[i],size,Vec3(0,0,costume_angle));
+        costume.draw(coord[i],size,vec3(0,0,costume_angle));
       }
     } else {
       // method from here don't need to pass info about arg
@@ -1158,25 +1158,25 @@ class Cloud_3D extends Cloud {
       if(rotation_x) rotateX(dist_x); 
       if(rotation_y) rotateY(dist_y); 
       if(rotation_z) rotateZ(dist_z); 
-      // Vec2 coord_temp = Vec2(coord[i].x,coord[i].y).add(dist);
-      Vec2 coord_temp = Vec2(coord[i].x,coord[i].y);
+      // vec2 coord_temp = vec2(coord[i].x,coord[i].y).add(dist);
+      vec2 coord_temp = vec2(coord[i].x,coord[i].y);
       rotateYZ(coord_temp) ;
       
       if(rotation_fx_x) rotateX(dist_fx_x); // interesting
       if(rotation_fx_y) rotateY(dist_fx_y); // interesting
       if(rotation_fx_z) rotateZ(dist_fx_z); // interesting
 
-      Vec3 pos_primitive = Vec3(radius,0,0) ;
+      vec3 pos_primitive = vec3(radius,0,0) ;
       translate(pos_primitive) ;
 
       start_matrix();
       rotateXYZ(orientation) ;
-      Vec3 pos_local_primitive = Vec3();
+      vec3 pos_local_primitive = vec3();
 
       if(ratio_costume_size != Float.MAX_VALUE) {
         set_ratio_costume_size(ratio_costume_size);
       }
-      costume.draw(pos_local_primitive, size,Vec3(0,0,costume_angle));
+      costume.draw(pos_local_primitive, size,vec3(0,0,costume_angle));
       stop_matrix() ;
       stop_matrix() ;
     }
@@ -1210,57 +1210,57 @@ class Pixel extends Pix  {
   // CONSTRUCTOR
   
   // PIXEL 2D
-  public Pixel(Vec2 pos_2D) {
+  public Pixel(vec2 pos_2D) {
     init_mother_arg() ;
-    this.pos = new Vec3(pos_2D.x,pos_2D.y, 0)  ;
+    this.pos = new vec3(pos_2D.x,pos_2D.y, 0)  ;
   }
 
-  public Pixel(Vec2 pos_2D, Vec2 size_2D) {
+  public Pixel(vec2 pos_2D, vec2 size_2D) {
     init_mother_arg() ;
-    this.pos = new Vec3(pos_2D.x,pos_2D.y, 0)  ;
-    this.size = new Vec3(size_2D.x,size_2D.y,0) ; ;
+    this.pos = new vec3(pos_2D.x,pos_2D.y, 0)  ;
+    this.size = new vec3(size_2D.x,size_2D.y,0) ; ;
   }
   
   // Constructor plus color components
-  public Pixel(Vec2 pos_2D, Vec4 color_vec) {
+  public Pixel(vec2 pos_2D, vec4 color_vec) {
     init_mother_arg() ;
-    this.pos = new Vec3(pos_2D.x,pos_2D.y, 0)  ;
-    colour = Vec4(color_vec) ;
-    new_colour = Vec4(colour) ;
+    this.pos = new vec3(pos_2D.x,pos_2D.y, 0)  ;
+    colour = vec4(color_vec) ;
+    new_colour = vec4(colour) ;
     
   }
 
-  public Pixel(Vec2 pos_2D, Vec2 size_2D, Vec4 color_vec) {
+  public Pixel(vec2 pos_2D, vec2 size_2D, vec4 color_vec) {
     init_mother_arg() ;
-    this.pos = new Vec3(pos_2D.x,pos_2D.y, 0)  ;
-    this.size = new Vec3(size_2D.x,size_2D.y,0) ;
-    colour = Vec4(color_vec) ;
-    new_colour = Vec4(colour) ;
+    this.pos = new vec3(pos_2D.x,pos_2D.y, 0)  ;
+    this.size = new vec3(size_2D.x,size_2D.y,0) ;
+    colour = vec4(color_vec) ;
+    new_colour = vec4(colour) ;
   }
 
 
  
 
   //PIXEL 3D
-  public Pixel(Vec3 pos_3D) {
+  public Pixel(vec3 pos_3D) {
     init_mother_arg() ;
     this.pos = pos_3D  ;
   }
 
-  public Pixel(Vec3 pos_3D, Vec3 size_3D) {
+  public Pixel(vec3 pos_3D, vec3 size_3D) {
     init_mother_arg() ;
     this.pos = pos_3D ;
     this.size = size_3D ;
   }
   // constructor plus color component
-  public Pixel(Vec3 pos_3D,  Vec4 color_vec) {
+  public Pixel(vec3 pos_3D,  vec4 color_vec) {
     init_mother_arg() ;
     this.pos = pos_3D ;
     colour = color_vec.copy() ;
     new_colour = colour.copy() ;
   }
   
-  public Pixel(Vec3 pos_3D, Vec3 size_3D, Vec4 color_vec) {
+  public Pixel(vec3 pos_3D, vec3 size_3D, vec4 color_vec) {
     init_mother_arg() ;
     this.pos = pos_3D ;
     this.size = size_3D ;
@@ -1276,12 +1276,12 @@ class Pixel extends Pix  {
     this.rank = rank ;
   }
   
-  public Pixel(int rank, Vec2 grid_position_2D) {
+  public Pixel(int rank, vec2 grid_position_2D) {
     init_mother_arg() ;
     this.rank = rank ;
-    this.grid_position = new Vec3(grid_position_2D.x,grid_position_2D.y,0) ;
+    this.grid_position = new vec3(grid_position_2D.x,grid_position_2D.y,0) ;
   }
-  public Pixel(int rank, Vec3 grid_position) {
+  public Pixel(int rank, vec3 grid_position) {
     init_mother_arg() ;
     this.rank = rank ;
     this.grid_position = grid_position ;
@@ -1316,7 +1316,7 @@ class Pixel extends Pix  {
     if (renderer_P3D()) {
       this.costume.draw(pos,size,dir);
     } else {
-      this.costume.draw(pos,size,Vec3(0,0,costume_angle));
+      this.costume.draw(pos,size,vec3(0,0,costume_angle));
     }
   }
 }
@@ -1359,48 +1359,48 @@ class Pixel_motion extends Pix  {
   float life = 1.0 ;
 
   // CONSTRUCTOR 2D
-  Pixel_motion(Vec2 pos_2D, float field, int colour_int) {
+  Pixel_motion(vec2 pos_2D, float field, int colour_int) {
     init_mother_arg() ;
-    this.pos = Vec3(pos_2D) ;
+    this.pos = vec3(pos_2D) ;
     this.field = field ;
     colour = int_color_to_vec4_color(colour_int) ;
-    new_colour = Vec4(colour) ;
+    new_colour = vec4(colour) ;
   }
 
-  Pixel_motion(Vec2 pos_2D, float field, Vec4 colour_vec) {
+  Pixel_motion(vec2 pos_2D, float field, vec4 colour_vec) {
     init_mother_arg() ;
-    this.pos = Vec3(pos_2D) ;
+    this.pos = vec3(pos_2D) ;
     this.field = field ;
-    colour = Vec4(colour_vec) ;
-    new_colour = Vec4(colour) ;
+    colour = vec4(colour_vec) ;
+    new_colour = vec4(colour) ;
   }
 
-  Pixel_motion(Vec2 pos_2D, float field) {
+  Pixel_motion(vec2 pos_2D, float field) {
     init_mother_arg() ;
-    this.pos = Vec3(pos_2D) ;
+    this.pos = vec3(pos_2D) ;
     this.field = field ;
   }
   
   // CONSTRUCTOR 3D
-  Pixel_motion(Vec3 pos, float field, int colour_int) {
+  Pixel_motion(vec3 pos, float field, int colour_int) {
     init_mother_arg() ;
-    this.pos = Vec3(pos) ;
+    this.pos = vec3(pos) ;
     this.field = field ;
     colour = int_color_to_vec4_color(colour_int) ;
-    new_colour = Vec4(colour) ;
+    new_colour = vec4(colour) ;
   }
 
-  Pixel_motion(Vec3 pos, float field, Vec4 colour_vec) {
+  Pixel_motion(vec3 pos, float field, vec4 colour_vec) {
     init_mother_arg() ;
-    this.pos = Vec3(pos) ;
+    this.pos = vec3(pos) ;
     this.field = field ;
-    colour = Vec4(colour_vec) ;
-    new_colour = Vec4(colour) ;
+    colour = vec4(colour_vec) ;
+    new_colour = vec4(colour) ;
   }
 
-  Pixel_motion(Vec3 pos, float field) {
+  Pixel_motion(vec3 pos, float field) {
     init_mother_arg() ;
-    this.pos = Vec3(pos) ;
+    this.pos = vec3(pos) ;
     this.field = field ;
   }
 
@@ -1490,9 +1490,9 @@ class Pixel_motion extends Pix  {
   
   //UPDATE POSITION with the wind
   void update_position_2D(PVector effectPosition, PImage pic) {
-    Vec2 dir_2D = norm_dir("DEG",effectPosition.x) ;
+    vec2 dir_2D = norm_dir("DEG",effectPosition.x) ;
     
-    velocity_2D = Vec2 (  1.0 *dir_2D.x *effectPosition.y  + random(-effectPosition.z) ,
+    velocity_2D = vec2 (  1.0 *dir_2D.x *effectPosition.y  + random(-effectPosition.z) ,
                       1.0 *dir_2D.y *effectPosition.y  + random(-effectPosition.z))   ;
     pos_2D.add(wind_2D) ;
     //keep the pixel in the scene
@@ -1505,12 +1505,12 @@ class Pixel_motion extends Pix  {
   
   
   //return position with display size
-  Vec2 position_2D(PVector effectPosition, PImage pic) {
-    Vec2 dir_2D = norm_dir("DEG",effectPosition.x) ;
+  vec2 position_2D(PVector effectPosition, PImage pic) {
+    vec2 dir_2D = norm_dir("DEG",effectPosition.x) ;
 
     new_pos_2D = pos_2D.copy() ;
     
-    direction_2D = Vec2 (  1.0 *dir_2D.x *effectPosition.y  + random(-effectPosition.z, effectPosition.z) ,
+    direction_2D = vec2 (  1.0 *dir_2D.x *effectPosition.y  + random(-effectPosition.z, effectPosition.z) ,
                       1.0 *dir_2D.y *effectPosition.y  + random(-effectPosition.z, effectPosition.z))   ;
                   
     new_pos_2D.add(wind_2D) ;

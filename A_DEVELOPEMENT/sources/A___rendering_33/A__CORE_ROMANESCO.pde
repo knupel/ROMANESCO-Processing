@@ -346,7 +346,7 @@ boolean check_already_existing_path(String path) {
 Manage window position
 v 0.0.2
 */
-iVec2 ref_window_location;
+ivec2 ref_window_location;
 void update_window_location() {
   if(ref_window_location == null) {
     ref_window_location = get_sketch_location().copy();
@@ -371,12 +371,12 @@ void write_window_location() {
 
 
 void load_window_location() {
-  load_window_location(iVec2(width,height));
+  load_window_location(ivec2(width,height));
 }
 
-void load_window_location(iVec2 window) {
+void load_window_location(ivec2 window) {
   String[] location = loadStrings("location.loc");
-  iVec2 loc = iVec2();
+  ivec2 loc = ivec2();
   loc.x = Integer.parseInt(location[0]);
   loc.y = Integer.parseInt(location[1]);
   // check if the save position can be used and don't display the sketch in a innaccessible place
@@ -417,7 +417,7 @@ void load_window_location(iVec2 window) {
   surface.setLocation(loc.x,loc.y);
 }
 
-void center_sketch(iVec2 loc) {
+void center_sketch(ivec2 loc) {
   int term_x_0 = get_screen_size().x /2;
   int term_x_1 = width/2;
   loc.x = term_x_0 - term_x_1;

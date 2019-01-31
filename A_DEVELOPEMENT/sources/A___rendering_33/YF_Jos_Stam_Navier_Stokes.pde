@@ -1,17 +1,17 @@
 /**
 * NAVIER-STOKES by Stan le Punk
-* 2017-2017
-* v 0.3.2.0
+* 2017-2019
+* v 0.4.0
 * @see http://stanlepunk.xyz
 Java implementation of the Navier-Stokes-Solver based on the Jos Tam's work :
 * @see http://www.dgp.toronto.edu/people/stam/reality/Research/pdf/GDC03.pdf
 * @see https://github.com/StanLepunK/Navier_Stokes_Jos_Stam_imp
 *
-* Processing implementation for Processing 3.4
+* Processing implementation for Processing 3.5.2
 */
 abstract class Navier_Stokes {
   int N = -1;
-  iVec NXYZ;
+  ivec NXYZ;
   int iter;
   boolean three_Dimension_is;
   float[] u,v;
@@ -36,11 +36,11 @@ abstract class Navier_Stokes {
   }
 
   // implemented with NXYZ
-  Navier_Stokes(iVec NXYZ, boolean three_Dimension_is) {
+  Navier_Stokes(ivec NXYZ, boolean three_Dimension_is) {
     build(NXYZ, 20, three_Dimension_is);
   }
 
-  Navier_Stokes(iVec NXYZ, int iter, boolean three_Dimension_is) {
+  Navier_Stokes(ivec NXYZ, int iter, boolean three_Dimension_is) {
     build(NXYZ, iter, three_Dimension_is);
   }
 
@@ -51,7 +51,7 @@ abstract class Navier_Stokes {
   //build
     private void build(int N, int iter, boolean three_Dimension_is) {
     this.N = N ;
-    this.NXYZ = iVec3(N);
+    this.NXYZ = ivec3(N);
     this.iter = iter ;
     this.three_Dimension_is = three_Dimension_is ;
 
@@ -76,8 +76,8 @@ abstract class Navier_Stokes {
   }
 
 
-  private void build(iVec NXYZ, int iter, boolean three_Dimension_is) {
-    this.NXYZ = iVec3(NXYZ.x,NXYZ.y,NXYZ.z);
+  private void build(ivec NXYZ, int iter, boolean three_Dimension_is) {
+    this.NXYZ = ivec3(NXYZ.x,NXYZ.y,NXYZ.z);
     this.iter = iter ;
     this.three_Dimension_is = three_Dimension_is ;
 
@@ -116,18 +116,18 @@ abstract class Navier_Stokes {
     return N;
   }
 
-  public iVec3 get_NXYZ() {
+  public ivec3 get_NXYZ() {
     if(NXYZ == null) {
       printErr("Navier Stokes is implemented with NX,NY and NZ");
     }
-    return iVec3(NXYZ.x,NXYZ.y,NXYZ.z);
+    return ivec3(NXYZ.x,NXYZ.y,NXYZ.z);
   }
 
-  public iVec2 get_NXY() {
+  public ivec2 get_NXY() {
     if(NXYZ == null) {
       printErr("Navier Stokes is implemented with NX,NY and NZ");
     }
-    return iVec2(NXYZ.x,NXYZ.y);
+    return ivec2(NXYZ.x,NXYZ.y);
   }
 
   public int get_NX() {
@@ -193,10 +193,10 @@ public class Navier_Stokes_2D extends Navier_Stokes {
   }
 
 
-  public Navier_Stokes_2D(iVec2 NXY) {
+  public Navier_Stokes_2D(ivec2 NXY) {
     super(NXY, 20, false);
   }
-  public Navier_Stokes_2D(iVec2 NXY, int iter) {
+  public Navier_Stokes_2D(ivec2 NXY, int iter) {
     super(NXY, iter, false);
   }
 
@@ -515,10 +515,10 @@ public class Navier_Stokes_3D extends Navier_Stokes {
     super(N, iter, true);
   }
 
-  public Navier_Stokes_3D(iVec3 NXYZ) {
+  public Navier_Stokes_3D(ivec3 NXYZ) {
     super(NXYZ, 20, false);
   }
-  public Navier_Stokes_3D(iVec3 NXYZ, int iter) {
+  public Navier_Stokes_3D(ivec3 NXYZ, int iter) {
     super(NXYZ, iter, false);
   }
 

@@ -134,10 +134,10 @@ Genome archetype(float [] float_data, String [] string_data, String [] data_name
     chromosome_name[0] = "Float" ;
     for(int i = 0 ; i < float_data.length ; i++) {
       int locus = i ;
-      Vec2 mother = Vec2(float_data[i]) ;
-      Vec2 father = Vec2(float_data[i]) ;
-      Vec2 mother_dominance = Vec2("RANDOM ZERO", 1) ;
-      Vec2 father_dominance = Vec2("RANDOM ZERO", 1) ;
+      vec2 mother = vec2(float_data[i]) ;
+      vec2 father = vec2(float_data[i]) ;
+      vec2 mother_dominance = vec2("RANDOM ZERO", 1) ;
+      vec2 father_dominance = vec2("RANDOM ZERO", 1) ;
       gene_data_mother [i] = new Gene(chromosome_name[0], gene_name [pointer], locus, mother, mother_dominance) ;
       gene_data_father [i] = new Gene(chromosome_name[0], gene_name [pointer], locus, father, father_dominance) ;
       pointer++ ;
@@ -153,8 +153,8 @@ Genome archetype(float [] float_data, String [] string_data, String [] data_name
       String mother_right = string_data[i] ;
       String father_left = string_data[i] ;
       String father_right = string_data[i] ;
-      Vec2 mother_dominance = Vec2("RANDOM ZERO", 1) ;
-      Vec2 father_dominance = Vec2("RANDOM ZERO", 1) ;
+      vec2 mother_dominance = vec2("RANDOM ZERO", 1) ;
+      vec2 father_dominance = vec2("RANDOM ZERO", 1) ;
       gene_data_mother [pointer] = new Gene(chromosome_name[ID_chromosome], gene_name [pointer], locus, mother_left, mother_right, round(mother_dominance.x), round(mother_dominance.y))  ;
       gene_data_father [pointer] = new Gene(chromosome_name[ID_chromosome], gene_name [pointer], locus, father_left, father_right, round(father_dominance.x), round(father_dominance.y))  ;
       pointer++ ;
@@ -194,8 +194,8 @@ class Helix {
   int num_strand ;
   int num_nucleotide ;
   int level ;
-  Vec2 radius ;
-  Vec3 final_pos ;
+  vec2 radius ;
+  vec3 final_pos ;
   DNA [] dna_seq ; 
 
   Helix (int num_strand, int num_nucleotide, int nucleotide_by_revolution) {
@@ -238,7 +238,7 @@ class Helix {
 
   void set_radius(int r_x, int r_y) {
     if(radius == null) {
-      radius = Vec2(r_x, r_y) ;
+      radius = vec2(r_x, r_y) ;
     } else {
       radius.set(r_x, r_y) ;
     }
@@ -268,7 +268,7 @@ class Helix {
     }
   }
 
-  void set_final_pos(Vec3 pos) {
+  void set_final_pos(vec3 pos) {
     if(this.final_pos == null) {
       this.final_pos = pos.copy() ;
     } else {
@@ -306,8 +306,8 @@ class Helix {
     return strand[0].size() ;
   }
 
-  Vec2 get_radius() {
-    if(radius == null) radius = Vec2(1) ;
+  vec2 get_radius() {
+    if(radius == null) radius = vec2(1) ;
     return radius ;
   }
 
@@ -339,7 +339,7 @@ class Helix {
 
 
   // get pos
-  Vec3 get_final_pos() {
+  vec3 get_final_pos() {
     return final_pos ;
   }
   
@@ -374,12 +374,12 @@ class Helix {
 
 
   // get array pos
-  Vec3 [] get_nuc_pos() {
+  vec3 [] get_nuc_pos() {
     int count = 0 ;
-    Vec3 [] pos = new Vec3[num_nucleotide *num_strand] ;
+    vec3 [] pos = new vec3[num_nucleotide *num_strand] ;
     for(int i = 0 ; i < num_strand ; i++) {
       for(int k = 0 ; k < num_nucleotide ; k++) {
-        pos[count] = Vec3() ;
+        pos[count] = vec3() ;
         pos[count].set(strand[i].get_pos(k)) ;
         pos[count].add(final_pos) ;
         // center the helix
@@ -390,11 +390,11 @@ class Helix {
     return pos ;
   }
 
-  Vec3 [] get_nuc_pos(int which_strand) {
+  vec3 [] get_nuc_pos(int which_strand) {
     if(which_strand < num_strand) {
-      Vec3 [] pos = new Vec3[strand[which_strand].size()] ;
+      vec3 [] pos = new vec3[strand[which_strand].size()] ;
       for(int i = 0 ; i < num_nucleotide ; i++) {
-        pos[i] = Vec3() ;
+        pos[i] = vec3() ;
         pos[i].set(strand[which_strand].get_pos(i)) ;
         pos[i].add(final_pos) ;
         // center the helix
@@ -427,7 +427,7 @@ class Helix {
   private class Strand_DNA 0.2.0
   */
   private class Strand_DNA {
-    private Vec4 [] coord ;
+    private vec4 [] coord ;
     int num_nucleotide ; 
     int nucleotide_by_revolution ;
 
@@ -437,7 +437,7 @@ class Helix {
     Strand_DNA(int num_nucleotide, int nucleotide_by_revolution, float start_angle) {
       this.nucleotide_by_revolution = nucleotide_by_revolution ;
       this.num_nucleotide = num_nucleotide ;
-      coord = new Vec4[num_nucleotide] ;
+      coord = new vec4[num_nucleotide] ;
 
       spacing = 1. / (float)nucleotide_by_revolution ;
       coord = nuc_coord(num_nucleotide, nucleotide_by_revolution, spacing, radius, start_angle) ;
@@ -447,11 +447,11 @@ class Helix {
     // set
     void set_pos(float new_angle) {
       if(coord != null) {
-        Vec4 [] temp_pos = new Vec4[coord.length] ;
+        vec4 [] temp_pos = new vec4[coord.length] ;
         temp_pos = nuc_coord(num_nucleotide, nucleotide_by_revolution, spacing, radius, new_angle) ;
         for(int i = 0 ; i < temp_pos.length ; i++) {
           if(coord[i] == null ) {
-            coord[i] = Vec4(temp_pos[i]) ;
+            coord[i] = vec4(temp_pos[i]) ;
           } else {
             coord[i].set(temp_pos[i]) ;
           }
@@ -490,9 +490,9 @@ class Helix {
     }
 
 
-    Vec3 get_pos(int target) {
+    vec3 get_pos(int target) {
       if(target < coord.length) {
-        return Vec3(coord[target].x, coord[target].y, coord[target].z) ;
+        return vec3(coord[target].x, coord[target].y, coord[target].z) ;
       } else return null ;
     }
 
@@ -510,7 +510,7 @@ class Helix {
     
 
     // add
-    void add(int target, Vec3 v) {
+    void add(int target, vec3 v) {
       if(target < coord.length) {
         coord[target].add(v) ;
       } 
@@ -518,9 +518,9 @@ class Helix {
     
 
 
-    private Vec4 [] nuc_coord(int num, int revolution, float spacing, float radius, float start_angle) {
+    private vec4 [] nuc_coord(int num, int revolution, float spacing, float radius, float start_angle) {
       int level = num / revolution ;
-      Vec4 [] pos_angle = new Vec4[num] ;
+      vec4 [] pos_angle = new vec4[num] ;
       float angle = TAU / revolution ;
       float z = 0 ;
       int count = 0 ;
@@ -531,13 +531,13 @@ class Helix {
             float angle_dir = k *angle +start_angle ;
             angle_dir *= -1 ;
             angle_proj += angle ;
-            Vec2 pos_XY = projection(angle_proj, radius) ;
+            vec2 pos_XY = projection(angle_proj, radius) ;
 
             z += spacing ;
-            Vec3 pos_XYZ = Vec3(pos_XY.x, z, pos_XY.y) ;
+            vec3 pos_XYZ = vec3(pos_XY.x, z, pos_XY.y) ;
             
             if(count < pos_angle.length) {
-              pos_angle[count] = Vec4(pos_XYZ.x, pos_XYZ.y, pos_XYZ.z, angle_dir) ; ;
+              pos_angle[count] = vec4(pos_XYZ.x, pos_XYZ.y, pos_XYZ.z, angle_dir) ; ;
               count ++ ;
             } else {
               break ;
@@ -559,7 +559,7 @@ class Helix {
 method public nucleotide position
 */
 /*
-Vec3 [] helix(int num, int revolution, float spacing, float radius, float start_angle) {
+vec3 [] helix(int num, int revolution, float spacing, float radius, float start_angle) {
   return nuc_pos(num, revolution, spacing, radius, start_angle)
 }
 */
@@ -1734,7 +1734,7 @@ class Gene {
   }
 
 
-  Gene(String chromosome_name, String gene_name, int locus, Vec2 data, Vec2 dominance) {
+  Gene(String chromosome_name, String gene_name, int locus, vec2 data, vec2 dominance) {
     this.chromosome_name = chromosome_name ;
     this.gene_name = gene_name ;
     this.locus = locus ;
@@ -1744,7 +1744,7 @@ class Gene {
     this.dominance_right_arm = dominance.y ;
   }
 
-  Gene(String chromosome_name, String gene_name, int locus, String data_left_arm, String data_right_arm, Vec2 dominance) {
+  Gene(String chromosome_name, String gene_name, int locus, String data_left_arm, String data_right_arm, vec2 dominance) {
     this.chromosome_name = chromosome_name ;
     this.gene_name = gene_name ;
     this.locus = locus ;
@@ -1776,7 +1776,7 @@ class Gene {
   }
 
 
-  Gene(String chromosome_name, String gene_name, Vec2 data, Vec2 dominance) {
+  Gene(String chromosome_name, String gene_name, vec2 data, vec2 dominance) {
     this.chromosome_name = chromosome_name ;
     this.gene_name = gene_name ;
     this.data_left_arm = float_to_String_3(data.x) ;
@@ -1785,7 +1785,7 @@ class Gene {
     this.dominance_right_arm = dominance.y ;
   }
 
-  Gene(String chromosome_name, String gene_name, String data_left_arm, String data_right_arm, Vec2 dominance) {
+  Gene(String chromosome_name, String gene_name, String data_left_arm, String data_right_arm, vec2 dominance) {
     this.chromosome_name = chromosome_name ;
     this.gene_name = gene_name ;
     this.data_left_arm = data_left_arm ;

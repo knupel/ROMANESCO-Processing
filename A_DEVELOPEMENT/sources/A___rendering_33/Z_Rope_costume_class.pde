@@ -1,7 +1,7 @@
 /**
 COSTUME family class
 * Copyleft (c) 2019-2019
-* v 0.0.1
+* v 0.3.2
 * @author Stan le Punk
 * @see https://github.com/StanLepunK/Rope_method
 * Here you finf the class Costume and all the class shape used.
@@ -10,7 +10,7 @@ COSTUME family class
 /**
 Class House
 2019-2019
-v 0.0.4
+v 0.0.6
 */
 public class House {
 	private int fill_roof = r.BLOOD;
@@ -23,28 +23,34 @@ public class House {
 	private boolean aspect_is;
 
 	private int level;
-	private Vec3 pos;
-	private Vec3 size;
+	private vec3 pos;
+	private vec3 size;
 	private boolean roof_ar, roof_cr; // to draw or not the small roof side
-	private Vec3 offset = Vec3(-.5,0,.5); // to center the house; 
+	private vec3 offset = vec3(-.5,0,.5); // to center the house; 
 
-  private Vec3 [] pa;
-	private Vec3 [] pc;
+  private vec3 [] pa;
+	private vec3 [] pc;
+
+	private int type = CENTER;
 	public House() {
 		build();
 	}
   
   public House(float size) {
-  	this.size = Vec3(size);
+  	this.size = vec3(size);
 		build();
 	}
 
 	public House(float sx, float sy, float sz) {
-		this.size = Vec3(sx,sy,sz);
+		this.size = vec3(sx,sy,sz);
 		build();
 	}
 
-	public void set_pos(Vec3 pos) {
+	public void mode(int type) {
+		this.type = type;
+	}
+
+	public void set_pos(vec3 pos) {
 		if(this.pos == null) {
 			this.pos = pos.copy();
 		} else {
@@ -52,7 +58,7 @@ public class House {
 		}
 	}
 
-	public void set_size(Vec3 size) {
+	public void set_size(vec3 size) {
 		if(this.size == null) {
 			this.size = size.copy();
 		} else {
@@ -171,20 +177,20 @@ public class House {
   
   // build
 	private void build() {
-		pa = new Vec3[5];
-		pc = new Vec3[5];
+		pa = new vec3[5];
+		pc = new vec3[5];
 		
-		pa[0] = Vec3(1,-1,-0.5); // roof peak
-		pa[1] = Vec3(1,0,-1);
-		pa[2] = Vec3(1,1,-1);
-		pa[3] = Vec3(1,1,0);
-		pa[4] = Vec3(1,0,0);
+		pa[0] = vec3(1,-1,-0.5); // roof peak
+		pa[1] = vec3(1,0,-1);
+		pa[2] = vec3(1,1,-1);
+		pa[3] = vec3(1,1,0);
+		pa[4] = vec3(1,0,0);
 
-		pc[0] = Vec3(0,-1,-0.5); // roof peak
-		pc[1] = Vec3(0,0,-1);
-		pc[2] = Vec3(0,1,-1);
-		pc[3] = Vec3(0,1,0);
-		pc[4] = Vec3(0,0,0);
+		pc[0] = vec3(0,-1,-0.5); // roof peak
+		pc[1] = vec3(0,0,-1);
+		pc[2] = vec3(0,1,-1);
+		pc[3] = vec3(0,1,0);
+		pc[4] = vec3(0,0,0);
 
 		for(int i = 0 ; i < pa.length ; i++) {
 			pa[i].add(offset);
@@ -201,25 +207,47 @@ public class House {
 			}
 		}
 
-		// WALL
-		if(aspect_is) {
+    // DEFINE FINAL OFFSET
+    vec3 def_pos = null;
+	  if(this.type == TOP) {
+	  	if(pos == null) {
+	  		def_pos = vec3();
+	  		def_pos.add(vec3(0,size.y*.5,0));
+	  	} else {
+	  		def_pos = pos.copy();
+	  		def_pos.add(vec3(0,size.y*.5,0));		
+	  	}
+	  } else if(this.type == BOTTOM) {
+	  	if(pos == null) {
+	  		def_pos = vec3();
+	  		def_pos.add(vec3(0,-size.y,0));
+	  	} else {
+	  		def_pos = pos.copy();
+	  		def_pos.add(vec3(0,-size.y,0));		
+	  	}
+	  }
+
+
+
+	  // WALL
+	  if(aspect_is) {
 	  	aspect(fill_wall,stroke_wall,thickness);
 	  }
 		// draw A : WALL > small and special side
 		beginShape();
-		if(pos == null) {
+		if(def_pos == null) {
 			if(!roof_ar) {
-				vertex(pa[0].copy().mult(Vec3(size.x,smallest_size,size.z))); // special point for the roof peak
+				vertex(pa[0].copy().mult(vec3(size.x,smallest_size,size.z))); // special point for the roof peak
 			}
 			for(int i = 1 ; i < pa.length ; i++) {
 				vertex(pa[i].copy().mult(size));
 			}
 		} else {
 			if(!roof_ar) {
-				vertex(pa[0].copy().mult(Vec3(size.x,smallest_size,size.z)).add(pos)); // special point for the roof peak
+				vertex(pa[0].copy().mult(vec3(size.x,smallest_size,size.z)).add(def_pos)); // special point for the roof peak
 			}
 			for(int i = 1 ; i < pa.length ; i++) {
-				vertex(pa[i].copy().mult(size).add(pos));
+				vertex(pa[i].copy().mult(size).add(def_pos));
 			}
 		}
 		endShape(CLOSE);
@@ -227,55 +255,52 @@ public class House {
 
 	  // draw B : WALL > main wall
 	  beginShape();
-		if(pos == null) {
+		if(def_pos == null) {
 			vertex(pa[2].copy().mult(size));
 			vertex(pa[1].copy().mult(size));
 			vertex(pc[1].copy().mult(size));
 			vertex(pc[2].copy().mult(size));
 		} else {
-			vertex(pa[2].copy().mult(size).add(pos));
-			vertex(pa[1].copy().mult(size).add(pos));
-			vertex(pc[1].copy().mult(size).add(pos));
-			vertex(pc[2].copy().mult(size).add(pos));
+			vertex(pa[2].copy().mult(size).add(def_pos));
+			vertex(pa[1].copy().mult(size).add(def_pos));
+			vertex(pc[1].copy().mult(size).add(def_pos));
+			vertex(pc[2].copy().mult(size).add(def_pos));
 		}
 		endShape(CLOSE);
 
 	  // draw C : WALL > small and special side
 		beginShape();
-		if(pos == null) {
+		if(def_pos == null) {
 			if(!roof_cr) {
-				vertex(pc[0].copy().mult(Vec3(size.x,smallest_size,size.z))); // special point for the roof peak
+				vertex(pc[0].copy().mult(vec3(size.x,smallest_size,size.z))); // special point for the roof peak
 			}
 			for(int i = 1 ; i < pc.length ; i++) {
 				vertex(pc[i].copy().mult(size));
 			}
 		} else {
 			if(!roof_cr) {
-				vertex(pc[0].copy().mult(Vec3(size.x,smallest_size,size.z)).add(pos)); // special point for the roof peak
+				vertex(pc[0].copy().mult(vec3(size.x,smallest_size,size.z)).add(def_pos)); // special point for the roof peak
 			}
 			for(int i = 1 ; i < pc.length ; i++) {
-				vertex(pc[i].copy().mult(size).add(pos));
+				vertex(pc[i].copy().mult(size).add(def_pos));
 			}	
 		}
 		endShape(CLOSE);
 
 		// draw D : WALL > main wall
 		beginShape();
-		if(pos == null) {
+		if(def_pos == null) {
 			vertex(pa[3].copy().mult(size));
 			vertex(pa[4].copy().mult(size));
 			vertex(pc[4].copy().mult(size));
 			vertex(pc[3].copy().mult(size));
 		} else {
-			vertex(pa[3].copy().mult(size).add(pos));
-			vertex(pa[4].copy().mult(size).add(pos));
-			vertex(pc[4].copy().mult(size).add(pos));
-			vertex(pc[3].copy().mult(size).add(pos));
+			vertex(pa[3].copy().mult(size).add(def_pos));
+			vertex(pa[4].copy().mult(size).add(def_pos));
+			vertex(pc[4].copy().mult(size).add(def_pos));
+			vertex(pc[3].copy().mult(size).add(def_pos));
 		}
 		endShape(CLOSE);
-
-
-
 
 
 
@@ -287,21 +312,18 @@ public class House {
 	  }
 		// draw G : GROUND
 		beginShape();
-		if(pos == null) {
+		if(def_pos == null) {
 			vertex(pa[2].copy().mult(size));
 			vertex(pc[2].copy().mult(size));
 			vertex(pc[3].copy().mult(size));
 			vertex(pa[3].copy().mult(size));
 		} else {
-			vertex(pa[2].copy().mult(size).add(pos));
-			vertex(pc[2].copy().mult(size).add(pos));
-			vertex(pc[3].copy().mult(size).add(pos));
-			vertex(pa[3].copy().mult(size).add(pos));
+			vertex(pa[2].copy().mult(size).add(def_pos));
+			vertex(pc[2].copy().mult(size).add(def_pos));
+			vertex(pc[3].copy().mult(size).add(def_pos));
+			vertex(pa[3].copy().mult(size).add(def_pos));
 		}
 		endShape(CLOSE);
-
-
-
 
 
 
@@ -311,45 +333,45 @@ public class House {
 	  }
     // draw E : ROOF > main roof
 		beginShape();
-		if(pos == null) {
+		if(def_pos == null) {
 			vertex(pa[4].copy().mult(size));
-			vertex(pa[0].copy().mult(Vec3(size.x,smallest_size,size.z))); // special point for the roof peak
-			vertex(pc[0].copy().mult(Vec3(size.x,smallest_size,size.z))); // special point for the roof peak
-			vertex(pc[4].copy().mult(size));
+			vertex(pa[0].copy().mult(vec3(size.x,smallest_size,size.z))); // special point for the roof peak
+			vertex(pc[0].copy().mult(vec3(size.x,smallest_size,size.z))); // special point for the roof peak
+			vertex(pc[4].copy().mult(size));			
 		} else {
-			vertex(pa[4].copy().mult(size).add(pos));
-			vertex(pa[0].copy().mult(Vec3(size.x,smallest_size,size.z)).add(pos)); // special point for the roof peak
-			vertex(pc[0].copy().mult(Vec3(size.x,smallest_size,size.z)).add(pos)); // special point for the roof peak
-			vertex(pc[4].copy().mult(size).add(pos));
+			vertex(pa[4].copy().mult(size).add(def_pos));
+			vertex(pa[0].copy().mult(vec3(size.x,smallest_size,size.z)).add(def_pos)); // special point for the roof peak
+			vertex(pc[0].copy().mult(vec3(size.x,smallest_size,size.z)).add(def_pos)); // special point for the roof peak
+			vertex(pc[4].copy().mult(size).add(def_pos));
 		}
 		endShape(CLOSE);
 
 		// draw F : ROOF > main roof
 		beginShape();
-		if(pos == null) {
-			vertex(pa[0].copy().mult(Vec3(size.x,smallest_size,size.z))); // special point for the roof peak
+		if(def_pos == null) {
+			vertex(pa[0].copy().mult(vec3(size.x,smallest_size,size.z))); // special point for the roof peak
 			vertex(pa[1].copy().mult(size));
 			vertex(pc[1].copy().mult(size));
-			vertex(pc[0].copy().mult(Vec3(size.x,smallest_size,size.z))); // special point for the roof peak
+			vertex(pc[0].copy().mult(vec3(size.x,smallest_size,size.z))); // special point for the roof peak
 		} else {
-			vertex(pa[0].copy().mult(Vec3(size.x,smallest_size,size.z)).add(pos)); // special point for the roof peak
-			vertex(pa[1].copy().mult(size).add(pos));
-			vertex(pc[1].copy().mult(size).add(pos));
-			vertex(pc[0].copy().mult(Vec3(size.x,smallest_size,size.z)).add(pos)); // special point for the roof peak
+			vertex(pa[0].copy().mult(vec3(size.x,smallest_size,size.z)).add(def_pos)); // special point for the roof peak
+			vertex(pa[1].copy().mult(size).add(def_pos));
+			vertex(pc[1].copy().mult(size).add(def_pos));
+			vertex(pc[0].copy().mult(vec3(size.x,smallest_size,size.z)).add(def_pos)); // special point for the roof peak
 		}
 		endShape(CLOSE);
 
 		// DRAW AR  > small side roof
 		if(roof_ar) {
 			beginShape();
-			if(pos == null) {
-				vertex(pa[0].copy().mult(Vec3(size.x,smallest_size,size.z))); // special point for the roof peak
+			if(def_pos == null) {
+				vertex(pa[0].copy().mult(vec3(size.x,smallest_size,size.z))); // special point for the roof peak
 				vertex(pa[1].copy().mult(size));
 				vertex(pa[4].copy().mult(size));
 			} else {
-				vertex(pa[0].copy().mult(Vec3(size.x,smallest_size,size.z)).add(pos)); // special point for the roof peak
-				vertex(pa[1].copy().mult(size).add(pos));
-				vertex(pa[4].copy().mult(size).add(pos));
+				vertex(pa[0].copy().mult(vec3(size.x,smallest_size,size.z)).add(def_pos)); // special point for the roof peak
+				vertex(pa[1].copy().mult(size).add(def_pos));
+				vertex(pa[4].copy().mult(size).add(def_pos));
 			}
 			endShape(CLOSE);
 		}
@@ -357,19 +379,30 @@ public class House {
 		// DRAW CR > small side roof
 		if(roof_cr) {
 			beginShape();
-			if(pos == null) {
-				vertex(pc[0].copy().mult(Vec3(size.x,smallest_size,size.z))); // special point for the roof peak
+			if(def_pos == null) {
+				vertex(pc[0].copy().mult(vec3(size.x,smallest_size,size.z))); // special point for the roof peak
 				vertex(pc[1].copy().mult(size));
 				vertex(pc[4].copy().mult(size));
 			} else {
-				vertex(pc[0].copy().mult(Vec3(size.x,smallest_size,size.z)).add(pos)); // special point for the roof peak
-				vertex(pc[1].copy().mult(size).add(pos));
-				vertex(pc[4].copy().mult(size).add(pos));
+				vertex(pc[0].copy().mult(vec3(size.x,smallest_size,size.z)).add(def_pos)); // special point for the roof peak
+				vertex(pc[1].copy().mult(size).add(def_pos));
+				vertex(pc[4].copy().mult(size).add(def_pos));
 			}
 			endShape(CLOSE);
 		}
 	}
 }
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -396,15 +429,15 @@ v 0.1.0
 */
 public class Star {
 	boolean is_3D = false;
-	Vec3 pos;
-	Vec3 size;
+	vec3 pos;
+	vec3 size;
 	int summits;
 	float angle;
 	float [] ratio;
 
 	public Star() {
-		pos = Vec3();
-		size = Vec3(1);
+		pos = vec3();
+		size = vec3(1);
 		summits = 5;
 		ratio = new float[1]; 
 		ratio[0] = .38;
@@ -427,20 +460,20 @@ public class Star {
 		this.ratio = ratio;
 	}
 
-	public void show(Vec position, Vec size_raw) {
-		if(position instanceof Vec2) {
-			Vec2 p = (Vec2) position;
+	public void show(vec position, vec size_raw) {
+		if(position instanceof vec2) {
+			vec2 p = (vec2) position;
 			pos.set(p.x,p.y,0);
-		} else if(position instanceof Vec3) {
-			Vec3 p = (Vec3)position;
+		} else if(position instanceof vec3) {
+			vec3 p = (vec3)position;
 			pos.set(p);
 		}
 
-		if(size_raw instanceof Vec2) {
-			Vec2 s = (Vec2)size_raw;
+		if(size_raw instanceof vec2) {
+			vec2 s = (vec2)size_raw;
 			size.set(s.x,s.y,1);
-		} else if(size_raw instanceof Vec3) {
-			Vec3 s = (Vec3)size_raw;
+		} else if(size_raw instanceof vec3) {
+			vec3 s = (vec3)size_raw;
 			size.set(s.x,s.y,s.z);
 		}
 
@@ -449,7 +482,7 @@ public class Star {
 			translate(0,0,pos.z);
 		}
 
-		Vec3 [] p = polygon_2D(summits*2,angle);
+		vec3 [] p = polygon_2D(summits*2,angle);
     
     if(is_3D) {
     	star_3D(pos,size,p,ratio);
@@ -464,7 +497,7 @@ public class Star {
 		}
 	}
 
-	private void star_3D(Vec3 pos, Vec3 size, Vec3 [] p, float[] ratio) {
+	private void star_3D(vec3 pos, vec3 size, vec3 [] p, float[] ratio) {
 		int count_ratio = 0;
 		for(int i = 0 ; i < p.length ; i++) {
 			// make a star, change the interior radius
@@ -484,9 +517,9 @@ public class Star {
 	  
 	  float top = size.z;
 	  float bottom = -size.z;
-	  Vec3 center = barycenter(p);
-	  Vec3 center_top = Vec3(center.x,center.y,top);
-	  Vec3 center_bottom = Vec3(center.x,center.y,bottom);
+	  vec3 center = barycenter(p);
+	  vec3 center_top = vec3(center.x,center.y,top);
+	  vec3 center_bottom = vec3(center.x,center.y,bottom);
 
 		for(int i = 0 ; i < p.length ; i++) {
 			// face top
@@ -514,7 +547,7 @@ public class Star {
 
 
 
-	private void star_2D(Vec3 pos, Vec3 size, Vec3 [] p, float[] ratio) {
+	private void star_2D(vec3 pos, vec3 size, vec3 [] p, float[] ratio) {
 		int count_ratio = 0;
 		for(int i = 0 ; i < p.length ; i++) {
 			// make a star, change the interior radius
@@ -552,41 +585,47 @@ public class Star {
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /**
 CLASS VIRUS
 2015-2018
 v 0.2.0
 */
 public class Virus {
-	Vec3 [][] branch;
-	Vec3 size;
-	Vec3 pos ;
+	vec3 [][] branch;
+	vec3 size;
+	vec3 pos ;
 	int node = 4;
 	int num = 4;
 	int mutation = 4;
 
 	float angle = 0 ;
 	public Virus() {
-		size = Vec3(1);
-		pos = Vec3(0);
+		size = vec3(1);
+		pos = vec3(0);
 		set_branch();
-		/*
-		branch = new Vec3 [node][num] ;
-		for(int i = 0 ; i < node ; i++) {
-			for(int k = 0 ; k < num ; k++) {
-				Vec3 dir = new Vec3("RANDOM", 1) ;
-				branch[i][k] = projection(dir) ;
-			}
-		}
-		*/
 	}
 
   // set
 	private void set_branch() {
-		branch = new Vec3 [node][num] ;
+		branch = new vec3 [node][num] ;
 		for(int i = 0 ; i < node ; i++) {
 			for(int k = 0 ; k < num ; k++) {
-				Vec3 dir = new Vec3("RANDOM", 1) ;
+				vec3 dir = new vec3("RANDOM", 1) ;
 				branch[i][k] = projection(dir) ;
 			}
 		}
@@ -629,32 +668,32 @@ public class Virus {
 	public void reset() {
 		for(int i = 0 ; i < node ; i++) {
 			for(int k = 0 ; k < num ; k++) {
-				Vec3 dir = new Vec3("RANDOM", 1) ;
+				vec3 dir = new vec3("RANDOM", 1) ;
 				branch[i][k].set(projection(dir)) ;
 			}
 		}
 	}
   
   // set
-  public void set_size(Vec s) {
-  	Vec3 final_size = Vec3(1) ;
-		if(s instanceof Vec2) {
-			Vec2 size_temp = (Vec2) s ;
+  public void set_size(vec s) {
+  	vec3 final_size = vec3(1) ;
+		if(s instanceof vec2) {
+			vec2 size_temp = (vec2) s ;
 			final_size.set(size_temp.x, size_temp.y, 1) ;
-		} else if (s instanceof Vec3) {
-			Vec3 size_temp = (Vec3) s ;
+		} else if (s instanceof vec3) {
+			vec3 size_temp = (vec3) s ;
 			final_size.set(size_temp) ;
 		}
 		size.set(final_size) ;
 	}
 
-	public void set_pos(Vec p) {
-  	Vec3 final_pos = Vec3() ;
-		if(p instanceof Vec2) {
-			Vec2 pos_temp = (Vec2) p ;
+	public void set_pos(vec p) {
+  	vec3 final_pos = vec3() ;
+		if(p instanceof vec2) {
+			vec2 pos_temp = (vec2) p ;
 			final_pos.set(pos_temp.x, pos_temp.y, 1) ;
-		} else if (p instanceof Vec3) {
-			Vec3 pos_temp = (Vec3) p ;
+		} else if (p instanceof vec3) {
+			vec3 pos_temp = (vec3) p ;
 			final_pos.set(pos_temp) ;
 		}
 		pos.set(final_pos) ;
@@ -666,7 +705,7 @@ public class Virus {
   	// System.err.println("Virus rotation() don't work must be coded for the future") ;
   }
 
-	public Vec2 angle(float angle) {
+	public vec2 angle(float angle) {
 		return to_cartesian_2D(angle) ;
 	}
   
@@ -686,26 +725,26 @@ public class Virus {
 		}
 		for(int k = 0 ; k < num ; k++) {
 			if(node == 2) {
-				Vec3 final_pos_a = branch[0][k].copy() ;
+				vec3 final_pos_a = branch[0][k].copy() ;
 				final_pos_a.add(angle(angle)) ;
 				final_pos_a.mult(size) ;
 				if(angle == 0) final_pos_a.add(pos) ;
 
-				Vec3 final_pos_b = branch[1][k].copy() ;
+				vec3 final_pos_b = branch[1][k].copy() ;
 				final_pos_b.mult(size) ;
 				if(angle == 0) final_pos_b.add(pos) ;
 				line(final_pos_a, final_pos_b) ;
 			} else if( node > 2) {
 				beginShape() ;
 				for(int m = 0 ; m < node ; m++) {
-					Vec3 final_pos = branch[m][k].copy() ;
+					vec3 final_pos = branch[m][k].copy() ;
 					final_pos.mult(size) ;
 					if(angle == 0) final_pos.add(pos) ;
 					vertex(final_pos) ;
 				}
 				if(close == CLOSE) endShape(CLOSE) ; else endShape() ;
 			} else {
-				Vec3 final_pos = branch[0][k].copy() ;
+				vec3 final_pos = branch[0][k].copy() ;
 				//final_pos.add(angle(angle)) ;
 				final_pos.mult(size) ;
 				if(angle == 0) final_pos.add(pos) ;
@@ -716,7 +755,7 @@ public class Virus {
 	}
   
   // get
-	public Vec3 [][] get() {
+	public vec3 [][] get() {
 		return branch ;
 	}
 }
@@ -1015,7 +1054,7 @@ public class Costume {
 
 
 
-	public void aspect(Vec fill, Vec stroke, float thickness) {
+	public void aspect(vec fill, vec stroke, float thickness) {
 	  //checkfill color
 	  if(fill.w <=0 || !this.fill_is)  {
 	    noFill() ; 
@@ -1033,12 +1072,12 @@ public class Costume {
 	  init_bool_aspect();
 	}
 
-	void aspect(Vec fill, Vec stroke, float thickness, Costume costume) {
+	void aspect(vec fill, vec stroke, float thickness, Costume costume) {
 		aspect(fill,stroke,thickness,costume.get_type());
 	}
 
 
-	void aspect(Vec fill, Vec stroke, float thickness, int costume) {
+	void aspect(vec fill, vec stroke, float thickness, int costume) {
 	  if(costume == r.NULL) {
 	    // 
 		} else if(costume != r.NULL || costume != POINT_ROPE || costume != POINT) {
@@ -1069,16 +1108,16 @@ public class Costume {
 
 
 	private void manage_fill(Object arg) {
-		if(arg instanceof Vec2) {
-			Vec2 c = (Vec2)arg;
+		if(arg instanceof vec2) {
+			vec2 c = (vec2)arg;
 			this.fill = color(c.x,c.x,c.x,c.y);
 			fill(c) ;
-		} else if(arg instanceof Vec3) {
-			Vec3 c = (Vec3)arg;
+		} else if(arg instanceof vec3) {
+			vec3 c = (vec3)arg;
 			this.fill = color(c.x,c.y,c.z,g.colorModeA);
 			fill(c) ;
-		} else if(arg instanceof Vec4) {
-			Vec4 c = (Vec4)arg;
+		} else if(arg instanceof vec4) {
+			vec4 c = (vec4)arg;
 			this.fill = color(c.x,c.y,c.z,c.w);
 			fill(c);
 		} else if(arg instanceof Integer) {
@@ -1089,16 +1128,16 @@ public class Costume {
 	}
 
 	private void manage_stroke(Object arg) {
-		if(arg instanceof Vec2) {
-			Vec2 c = (Vec2)arg;
+		if(arg instanceof vec2) {
+			vec2 c = (vec2)arg;
 			this.stroke = color(c.x,c.x,c.x,c.y);
 			stroke(c);
-		} else if(arg instanceof Vec3) {
-			Vec3 c = (Vec3)arg;
+		} else if(arg instanceof vec3) {
+			vec3 c = (vec3)arg;
 			this.stroke = color(c.x,c.y,c.z,g.colorModeA);
 			stroke(c);
-		} else if(arg instanceof Vec4) {
-			Vec4 c = (Vec4)arg;
+		} else if(arg instanceof vec4) {
+			vec4 c = (vec4)arg;
 			this.stroke = color(c.x,c.y,c.z,c.w);
 			stroke(c);
 		} else if(arg instanceof Integer) {
@@ -1119,7 +1158,7 @@ public class Costume {
 
 
 
-	public void draw(Vec3 pos, Vec3 size, Vec rot) {
+	public void draw(vec3 pos, vec3 size, vec rot) {
 		if(rot.x != 0) costume_rotate_x();
 		if(rot.y != 0) costume_rotate_y();
 		if(rot.z != 0) costume_rotate_z();
@@ -1133,14 +1172,14 @@ public class Costume {
 			start_matrix();
 			translate(pos);
 			rotate_behavior(rot);
-			ellipse(Vec2(),size);
+			ellipse(vec2(),size);
 			stop_matrix();
 
 		} else if (this.get_type() == RECT_ROPE) {
 			start_matrix();
 			translate(pos);
 			rotate_behavior(rot);
-			rect(Vec2(-size.x,-size.y).div(2),Vec2(size.x,size.y));
+			rect(vec2(-size.x,-size.y).div(2),vec2(size.x,size.y));
 			stop_matrix();
 
 		} else if (this.get_type() == LINE_ROPE) {
@@ -1151,61 +1190,61 @@ public class Costume {
 			start_matrix();
 			translate(pos);
 			rotate_behavior(rot);
-			primitive(Vec3(0),size.x,3);
+			primitive(vec3(0),size.x,3);
 			stop_matrix();
 		}  else if (this.get_type() == SQUARE_ROPE) {
 			start_matrix();
 			translate(pos);
 			rotate_behavior(rot);
-			primitive(Vec3(0),size.x,4);
+			primitive(vec3(0),size.x,4);
 			stop_matrix();
 		} else if (this.get_type() == PENTAGON_ROPE) {
 			start_matrix();
 			translate(pos);
 			rotate_behavior(rot);
-			primitive(Vec3(0),size.x,5);
+			primitive(vec3(0),size.x,5);
 			stop_matrix();
 		} else if (this.get_type() == HEXAGON_ROPE) {
 			start_matrix();
 			translate(pos);
 			rotate_behavior(rot);
-			primitive(Vec3(0),size.x,6);
+			primitive(vec3(0),size.x,6);
 			stop_matrix() ;
 		} else if (this.get_type() == HEPTAGON_ROPE) {
 			start_matrix();
 			translate(pos);
 			rotate_behavior(rot);
-			primitive(Vec3(0),size.x,7);
+			primitive(vec3(0),size.x,7);
 			stop_matrix();
 		} else if (this.get_type() == OCTOGON_ROPE) {
 			start_matrix();
 			translate(pos);
 			rotate_behavior(rot) ;
-			primitive(Vec3(0),size.x,8);
+			primitive(vec3(0),size.x,8);
 			stop_matrix();
 		} else if (this.get_type() == NONAGON_ROPE) {
 			start_matrix();
 			translate(pos);
 			rotate_behavior(rot) ;
-			primitive(Vec3(0),size.x,9);
+			primitive(vec3(0),size.x,9);
 			stop_matrix();
 		} else if (this.get_type() == DECAGON_ROPE) {
 			start_matrix();
 			translate(pos);
 			rotate_behavior(rot) ;
-			primitive(Vec3(0),size.x,10);
+			primitive(vec3(0),size.x,10);
 			stop_matrix();
 		} else if (this.get_type() == HENDECAGON_ROPE) {
 			start_matrix();
 			translate(pos);
 			rotate_behavior(rot) ;
-			primitive(Vec3(0),size.x,11);
+			primitive(vec3(0),size.x,11);
 			stop_matrix();
 		} else if (this.get_type() == DODECAGON_ROPE) {
 			start_matrix();
 			translate(pos);
 			rotate_behavior(rot) ;
-			primitive(Vec3(0),size.x,12);
+			primitive(vec3(0),size.x,12);
 			stop_matrix();
 		}
 
@@ -1213,14 +1252,14 @@ public class Costume {
 			start_matrix();
 			translate(pos);
 			rotate_behavior(rot);
-			cross_rect(iVec2(0),(int)size.y,(int)size.x);
+			cross_rect(ivec2(0),(int)size.y,(int)size.x);
 			stop_matrix() ;
 		} else if (this.get_type() == CROSS_BOX_2_ROPE) {
 			start_matrix();
 			translate(pos);
 			rotate_behavior(rot);
-			//cross_box_2(Vec2(size.x, size.y),ratio_size);
-			cross_box_2(Vec2(size.x, size.y));
+			//cross_box_2(vec2(size.x, size.y),ratio_size);
+			cross_box_2(vec2(size.x, size.y));
 			stop_matrix() ;
 		} else if (this.get_type() == CROSS_BOX_3_ROPE) {
 			start_matrix();
@@ -1289,7 +1328,7 @@ public class Costume {
 			rotate_behavior(rot);
 
 			star_3D_is(false);
-			star(Vec3(),size);
+			star(vec3(),size);
 			stop_matrix();
 		} else if (this.get_type() == STAR_3D_ROPE) {
 			float [] ratio = {.38};
@@ -1298,7 +1337,7 @@ public class Costume {
 			rotate_behavior(rot);
 
 			star_3D_is(true);
-			star(Vec3(),size);
+			star(vec3(),size);
 			stop_matrix();
 		} 
 
@@ -1348,7 +1387,7 @@ public class Costume {
 			start_matrix();
 			translate(pos);
 			rotate_behavior(rot);
-			virus(Vec3(),size,0,-1);
+			virus(vec3(),size,0,-1);
 			stop_matrix();
 		}
 
@@ -1371,11 +1410,11 @@ public class Costume {
 						image(img_temp,0,0);
 						break ;
 					} else if(p.type == 2) {
-						Vec2 scale = Vec2(1) ;
+						vec2 scale = vec2(1) ;
 						if(size.x == size.y) {
-	            scale = Vec2(size.x / p.svg.width(), size.x / p.svg.width());
+	            scale = vec2(size.x / p.svg.width(), size.x / p.svg.width());
 						} else {
-							scale = Vec2(size.x / p.svg.width(), size.y / p.svg.height());
+							scale = vec2(size.x / p.svg.width(), size.y / p.svg.height());
 						}
 						
 						p.svg.scaling(scale) ;

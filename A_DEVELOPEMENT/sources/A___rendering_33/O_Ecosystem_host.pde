@@ -64,10 +64,10 @@ class Ecosystem_DNA extends Romanesco {
     spectrum_is = true;
   }
 
-  Vec3 pos, canvas, radius, size ;
+  vec3 pos, canvas, radius, size ;
   int min_host = 5 ;
   int max_host = 1000 ;
-  Vec3 ratio_canvas = Vec3(.5, 1.5, .5) ;
+  vec3 ratio_canvas = vec3(.5, 1.5, .5) ;
   float ratio_size = .5 ;
 
   void setup() {
@@ -75,11 +75,11 @@ class Ecosystem_DNA extends Romanesco {
     setting_start_position(ID_item, 0,0,0) ;
     load_nucleotide_table(items_path+"ecosystem/code.csv");
 
-    canvas = Vec3(get_canvas_x(), get_canvas_y(), get_canvas_z()) ;
+    canvas = vec3(get_canvas_x(), get_canvas_y(), get_canvas_z()) ;
     canvas.mult(ratio_canvas) ;
-    size = Vec3(get_size_x(), get_size_y(), get_size_z()) ;
+    size = vec3(get_size_x(), get_size_y(), get_size_z()) ;
     size.mult(ratio_size) ;
-    pos = Vec3(width/2, height/2, 0) ;
+    pos = vec3(width/2, height/2, 0) ;
     
     set_host(pos, size, canvas, get_quantity()) ;
     init_symbiosis() ;
@@ -146,8 +146,8 @@ class Ecosystem_DNA extends Romanesco {
 
 
 
-  void set_host(Vec3 pos, Vec3 size, Vec3 canvas, float ratio_quantity) {
-    radius = Vec3(canvas) ;
+  void set_host(vec3 pos, vec3 size, vec3 canvas, float ratio_quantity) {
+    radius = vec3(canvas) ;
     int num = num_host(min_host, max_host, ratio_quantity) ;
     create_host(num, get_density(), pos, size, canvas, radius) ; 
   }
@@ -167,7 +167,7 @@ class Ecosystem_DNA extends Romanesco {
 /**
 CREATE
 */
-void create_host(int num, float density, Vec3 pos, Vec3 size, Vec3 canvas, Vec3 radius) {
+void create_host(int num, float density, vec3 pos, vec3 size, vec3 canvas, vec3 radius) {
   // host
   pos_host(pos) ;
   size_host(size) ;
@@ -218,7 +218,7 @@ DNA
 Helix strand_DNA ;
 
 
-void create_dna(int num_helix, int num, int by_revolution, Vec3 pos, Vec3 size, int height_dna, int radius_dna) {
+void create_dna(int num_helix, int num, int by_revolution, vec3 pos, vec3 size, int height_dna, int radius_dna) {
   int nucleotide = num ;
 
   int num_strand = num_helix ;
@@ -235,7 +235,7 @@ void create_dna(int num_helix, int num, int by_revolution, Vec3 pos, Vec3 size, 
 /**
 SHOW
 */
-void show_host(Vec3 size, Vec3 canvas, Vec3 radius, float direction, float speed_rotation_host, int direction_host, Costume costume, int fill, int stroke, float thickness, float spectrum, boolean rotation_bool_host, boolean info) {
+void show_host(vec3 size, vec3 canvas, vec3 radius, float direction, float speed_rotation_host, int direction_host, Costume costume, int fill, int stroke, float thickness, float spectrum, boolean rotation_bool_host, boolean info) {
 	int height_dna = (int)canvas.y ;
 	int radius_dna = (int)radius.x ;
   show_dna(size, height_dna, radius_dna, direction, speed_rotation_host, direction_host, costume, fill, stroke, thickness, spectrum, rotation_bool_host, info) ;
@@ -244,7 +244,7 @@ void show_host(Vec3 size, Vec3 canvas, Vec3 radius, float direction, float speed
 
 
 float rotation_dna = 0 ;
-void show_dna(Vec3 size, int height_dna, int radius_dna, float direction, float speed_rotation_dna, int direction_dna, Costume costume, int fill, int stroke, float thickness, float spectrum, boolean rotation_bool_dna, boolean info) {
+void show_dna(vec3 size, int height_dna, int radius_dna, float direction, float speed_rotation_dna, int direction_dna, Costume costume, int fill, int stroke, float thickness, float spectrum, boolean rotation_bool_dna, boolean info) {
 	// show DNA
   if(height_dna > 0 ) {
     if(rotation_bool_dna) {
@@ -269,9 +269,9 @@ void boolean_host(boolean fill_is, boolean stroke_is, boolean link_is) {
   this.link_is = link_is ;
 }
 
-void costume_DNA(Helix helix, int target, Vec3 size, float direction, Costume costume, int fill_int, int stroke_int, float thickness, float spectrum, boolean info) {
-  Vec3 pos_a = helix.get_nuc_pos(0)[target] ;
-  Vec3 pos_b = helix.get_nuc_pos(1)[target] ;
+void costume_DNA(Helix helix, int target, vec3 size, float direction, Costume costume, int fill_int, int stroke_int, float thickness, float spectrum, boolean info) {
+  vec3 pos_a = helix.get_nuc_pos(0)[target] ;
+  vec3 pos_b = helix.get_nuc_pos(1)[target] ;
 
   float angle_a = helix.get_nuc_angle(0)[target]  +direction ;
   float angle_b = helix.get_nuc_angle(1)[target]  +direction ;
@@ -287,8 +287,8 @@ void costume_DNA(Helix helix, int target, Vec3 size, float direction, Costume co
   if(link_is) line(pos_a, pos_b) ;
   
 
-  Vec4 fill = color_hsba(fill_int) ;
-  Vec4 stroke = color_hsba(stroke_int) ;
+  vec4 fill = color_hsba(fill_int) ;
+  vec4 stroke = color_hsba(stroke_int) ;
 
   // alpha
   float ratio_a = map(pos_a.z , -radius, radius, 0 +alpha_min, alpha_max) ;
@@ -297,8 +297,8 @@ void costume_DNA(Helix helix, int target, Vec3 size, float direction, Costume co
   float stroke_alpha_a = alpha_a * map(stroke.w, 0,100,0,1) ;
 
 
-  Vec4 fill_strand_a = Vec4(fill.x, fill.y, fill.z, fill_alpha_a) ;
-  Vec4 stroke_strand_a = Vec4(stroke.x, stroke.y, stroke.z, stroke_alpha_a) ;
+  vec4 fill_strand_a = vec4(fill.x, fill.y, fill.z, fill_alpha_a) ;
+  vec4 stroke_strand_a = vec4(stroke.x, stroke.y, stroke.z, stroke_alpha_a) ;
 
   // change for the opposite color
   float hue_fill = fill.x +(spectrum *.5)  ;
@@ -314,8 +314,8 @@ void costume_DNA(Helix helix, int target, Vec3 size, float direction, Costume co
   
 
 
-  Vec4 fill_strand_b = Vec4(hue_fill, fill.y, fill.z, fill_alpha_b) ;
-  Vec4 stroke_strand_b = Vec4(hue_stroke, stroke.y, stroke.z, stroke_alpha_b) ;
+  vec4 fill_strand_b = vec4(hue_fill, fill.y, fill.z, fill_alpha_b) ;
+  vec4 stroke_strand_b = vec4(hue_stroke, stroke.y, stroke.z, stroke_alpha_b) ;
   
   
 

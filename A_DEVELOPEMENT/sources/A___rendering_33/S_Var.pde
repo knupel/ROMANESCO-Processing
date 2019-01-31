@@ -20,8 +20,8 @@ void scene_variables_setup() {
   }
   
   for (int i = 0 ; i < NUM_ITEM ; i++ ) {
-    pen[i] = Vec3();
-    mouse[i] = Vec3();
+    pen[i] = vec3();
+    mouse[i] = vec3();
     wheel[i] = 0;
   }
   println("Rendering variables setup done");
@@ -83,7 +83,7 @@ int MAX_VALUE_SLIDER = 360;
 
 
 //spectrum for the color mode and more if you need
-Vec4 HSBmode = new Vec4 (360,100,100,100) ; // give the color mode in HSB
+vec4 HSBmode = new vec4 (360,100,100,100) ; // give the color mode in HSB
 //path to open the controleur
 String findPath ; 
 
@@ -351,7 +351,7 @@ String pos_z_name = "pos_z";
 
 // item target final
 boolean [] first_opening_item; // used to check if this object is already opening before
-Vec4 [] fill_item_ref,stroke_item_ref;
+vec4 [] fill_item_ref,stroke_item_ref;
 
 
 
@@ -359,17 +359,17 @@ Vec4 [] fill_item_ref,stroke_item_ref;
 int [] value_button_item;
 
 //position
-Vec3 [] pos_item_final;
-Vec3 [] pos_item;
-Vec3 [] pos_item_ref;
+vec3 [] pos_item_final;
+vec3 [] pos_item;
+vec3 [] pos_item_ref;
 
 
 // direction
 boolean [] reset_camera_direction_item;
-Vec3 [] temp_item_canvas_direction;
-Vec3 [] dir_item;
-Vec3 [] dir_item_final;
-Vec3 [] dir_item_ref;
+vec3 [] temp_item_canvas_direction;
+vec3 [] dir_item;
+vec3 [] dir_item_final;
+vec3 [] dir_item_ref;
 
 // master and follower
 int [] master_ID;
@@ -377,12 +377,12 @@ boolean [] follower;
 //setting and save
 int NUM_SETTING_CAMERA;
 int numSettingOrientationObject = 1;
-Vec3 [][] item_setting_position;
-Vec3 [][] item_setting_direction;
-Vec3 [] eyeCameraSetting, sceneCameraSetting;
+vec3 [][] item_setting_position;
+vec3 [][] item_setting_direction;
+vec3 [] eyeCameraSetting, sceneCameraSetting;
 
 //position of object and wheel
-Vec3 [] mouse, pen;
+vec3 [] mouse, pen;
 boolean [] clickShortLeft, clickShortRight, clickLongLeft, clickLongRight;
 int wheel[];
 
@@ -499,14 +499,14 @@ void create_var_misc() {
 // var cursor
 void create_var_cursor() {
   //position of object and wheel
-   mouse  = new Vec3[NUM_ITEM_PLUS_MASTER];
+   mouse  = new vec3[NUM_ITEM_PLUS_MASTER];
    clickShortLeft = new boolean [NUM_ITEM_PLUS_MASTER];
    clickShortRight = new boolean [NUM_ITEM_PLUS_MASTER];
    clickLongLeft = new boolean [NUM_ITEM_PLUS_MASTER];
    clickLongRight = new boolean [NUM_ITEM_PLUS_MASTER];
    wheel = new int [NUM_ITEM_PLUS_MASTER];
   //pen info
-   pen = new Vec3[NUM_ITEM_PLUS_MASTER];
+   pen = new vec3[NUM_ITEM_PLUS_MASTER];
 }
 
 
@@ -515,13 +515,13 @@ void create_var_cursor() {
 // P3D
 void create_var_P3D(int num_setting_camera) {
    // setting and save
-   eyeCameraSetting = new Vec3 [num_setting_camera];
-   sceneCameraSetting = new Vec3 [num_setting_camera];
+   eyeCameraSetting = new vec3 [num_setting_camera];
+   sceneCameraSetting = new vec3 [num_setting_camera];
    
    reset_camera_direction_item = new boolean[NUM_ITEM_PLUS_MASTER];
-   pos_item_ref = new Vec3[NUM_ITEM_PLUS_MASTER];
-   pos_item = new Vec3[NUM_ITEM_PLUS_MASTER];
-   dir_item = new Vec3[NUM_ITEM_PLUS_MASTER];
+   pos_item_ref = new vec3[NUM_ITEM_PLUS_MASTER];
+   pos_item = new vec3[NUM_ITEM_PLUS_MASTER];
+   dir_item = new vec3[NUM_ITEM_PLUS_MASTER];
 }
 
 void create_var_sound() {
@@ -545,13 +545,13 @@ void create_var_sound() {
 
 
 void create_var_item_manipulation(int num_item_setting) {
-  pos_item_final = new Vec3 [NUM_ITEM_PLUS_MASTER] ;
-  item_setting_position = new Vec3 [num_item_setting] [NUM_ITEM_PLUS_MASTER];
+  pos_item_final = new vec3 [NUM_ITEM_PLUS_MASTER] ;
+  item_setting_position = new vec3 [num_item_setting] [NUM_ITEM_PLUS_MASTER];
 
-  dir_item_final = new Vec3 [NUM_ITEM_PLUS_MASTER];
-  dir_item_ref = new Vec3 [NUM_ITEM_PLUS_MASTER];
-  temp_item_canvas_direction = new Vec3 [NUM_ITEM_PLUS_MASTER];
-  item_setting_direction = new Vec3 [num_item_setting] [NUM_ITEM_PLUS_MASTER];
+  dir_item_final = new vec3 [NUM_ITEM_PLUS_MASTER];
+  dir_item_ref = new vec3 [NUM_ITEM_PLUS_MASTER];
+  temp_item_canvas_direction = new vec3 [NUM_ITEM_PLUS_MASTER];
+  item_setting_direction = new vec3 [num_item_setting] [NUM_ITEM_PLUS_MASTER];
 
   // master and follower
   master_ID = new int[NUM_ITEM_PLUS_MASTER];
@@ -560,8 +560,8 @@ void create_var_item_manipulation(int num_item_setting) {
 
 void create_var_item_slider() {
   first_opening_item = new boolean[NUM_ITEM_PLUS_MASTER] ; // used to check if this object is already opening before
-  fill_item_ref = new Vec4[NUM_ITEM_PLUS_MASTER];
-  stroke_item_ref = new Vec4[NUM_ITEM_PLUS_MASTER];
+  fill_item_ref = new vec4[NUM_ITEM_PLUS_MASTER];
+  stroke_item_ref = new vec4[NUM_ITEM_PLUS_MASTER];
 }
 
 
@@ -679,10 +679,10 @@ void init_variable_item() {
     follower[i] = false;
 
     reset_camera_direction_item[i] = true;
-    temp_item_canvas_direction[i] = Vec3();
-    pen[i] = Vec3();
+    temp_item_canvas_direction[i] = vec3();
+    pen[i] = vec3();
     // use the 250 value for "z" to keep the position light on the front
-    mouse[i] = Vec3();
+    mouse[i] = vec3();
     wheel[i] = 0;
   
     Romanesco item = rpe_manager.get(i);

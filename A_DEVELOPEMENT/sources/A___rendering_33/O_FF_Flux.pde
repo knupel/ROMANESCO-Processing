@@ -112,7 +112,7 @@ class Flux extends Romanesco {
     float speed = .1 + (get_speed_x()*2.);
     update_vehicle(get_force_field(),speed);
     aspect(get_fill(), get_stroke(),get_thickness());
-    Vec3 size = Vec3(get_size_x(),get_size_y(),get_size_z());
+    vec3 size = vec3(get_size_x(),get_size_y(),get_size_z());
     // size.map(get_size_x_min(),get_size_x_max(),1,get_size_x_max());
     show_vehicle(size,get_area(),get_costume());
 
@@ -151,13 +151,13 @@ class Flux extends Romanesco {
     if(vehicles == null) vehicles = new ArrayList<Vehicle>();
     int w = ff.get_canvas().x;
     int h = ff.get_canvas().y;
-    Vec2 range_speed = Vec2(1.,2.);
-    Vec2 range_force = Vec2(.2,1.);
+    vec2 range_speed = vec2(1.,2.);
+    vec2 range_force = vec2(.2,1.);
 
     for (int i = 0; i < num; i++) {
       float max_speed = +range_speed.x + random_next_gaussian(range_speed.y,3);
       float max_force = +range_force.x + random_next_gaussian(range_force.y,3);
-      Vec2 pos = Vec2(RANDOM_ZERO,w,h);
+      vec2 pos = vec2(RANDOM_ZERO,w,h);
       vehicles.add(new Vehicle(pos,max_speed,max_force));
     }
   }
@@ -182,7 +182,7 @@ class Flux extends Romanesco {
     manage_border_is = (manage_border_is == true) ? false:true;
   }
 
-  private void show_vehicle(Vec size, float ratio, Costume costume) {
+  private void show_vehicle(vec size, float ratio, Costume costume) {
     for (Vehicle v : vehicles) {
       float theta = v.get_direction() + radians(90);
       set_ratio_costume_size(map(ratio,width*.1, width*TAU,0,1));

@@ -255,7 +255,7 @@ class Romanesco_manager {
       item.setup();
       println("setup of", item.item_name, item.get_id(), "is done");
       if(pos_item_ref[item.get_id()] == null) {
-        pos_item_ref[item.get_id()] = Vec3();
+        pos_item_ref[item.get_id()] = vec3();
       }
       pos_item_ref[item.get_id()].set(item_setting_position[0][item.get_id()]);
     }

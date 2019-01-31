@@ -363,7 +363,7 @@ class The_Abbyss extends Romanesco {
         currentCameraCreature--;
         //security for the arraylist !
         if (currentCameraCreature < 0) currentCameraCreature = creatures.size()-1;
-        travelling(Vec3(creatures.get(currentCameraCreature).getPos())) ;
+        travelling(vec3(creatures.get(currentCameraCreature).getPos())) ;
       } else {
         currentCameraCreature = -1;
       }
@@ -372,7 +372,7 @@ class The_Abbyss extends Romanesco {
       if (creatures.size() > 0) {
         
         currentCameraCreature = ++currentCameraCreature % creatures.size();
-        travelling(Vec3(creatures.get(currentCameraCreature).getPos())) ;
+        travelling(vec3(creatures.get(currentCameraCreature).getPos())) ;
       } else {
         currentCameraCreature = -1;
       }

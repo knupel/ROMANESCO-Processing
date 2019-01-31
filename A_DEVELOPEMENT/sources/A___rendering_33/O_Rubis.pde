@@ -87,7 +87,7 @@ class Rubis extends Romanesco {
 
   //DRAW
   void draw() {
-    Vec3 center = Vec3() ;
+    vec3 center = vec3() ;
 
     // speed
     float speed = map(get_speed_x(),0,1,.0001,.2);
@@ -98,7 +98,7 @@ class Rubis extends Romanesco {
 
 
 
-    Vec3 jitter = Vec3() ;
+    vec3 jitter = vec3() ;
     if(sound_is() && sound_is()) {
       float valueX = left[ID_item] *get_jitter_x() *width ;
       float valueY = right[ID_item] *get_jitter_y() *width ;
@@ -173,7 +173,7 @@ class Rubis extends Romanesco {
   }
   //draw
   //different points
-  void ami_heart_move(Vec3 posCenter, float speed, float distMin, float distMax, Vec3 jitter, int mode) {
+  void ami_heart_move(vec3 posCenter, float speed, float distMin, float distMax, vec3 jitter, int mode) {
     // new distribution
     if(newPeoplePosition) {
       for(int i = 0 ; i < listPeople.size() ; i++) {

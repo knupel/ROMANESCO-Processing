@@ -318,7 +318,7 @@ class Atome extends Romanesco {
   
 
   //Add atom with a specific name
-  void atomAdd(String name, Vec3 newPos) {
+  void atomAdd(String name, vec3 newPos) {
     //data
     //amplitude
     //give the field of type of atome must be create
@@ -1007,7 +1007,7 @@ class Atom {
   // ANNEXE DISPLAY
   // CORE 2D
   void coreTriangle(PVector size) {
-    primitive(Vec2(),size.x,3) ;
+    primitive(vec2(),size.x,3) ;
   }
   void coreEllipse(PVector size) {
     ellipse(0,0,size.x, size.y) ;
@@ -1063,8 +1063,8 @@ class Atom {
     electronicInfo() ;
     noFill() ; 
     float radius = radiusElectronicFieldCovalent() *newAmplitudeElectrocField ;
-    primitive(Vec2(),radius,3) ;
-    primitive(Vec2(),radius,3) ;
+    primitive(vec2(),radius,3) ;
+    primitive(vec2(),radius,3) ;
   }
   
   // CLOUD POINT

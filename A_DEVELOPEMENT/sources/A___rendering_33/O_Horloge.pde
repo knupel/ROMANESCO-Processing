@@ -66,13 +66,13 @@ class Horloge extends Romanesco {
     // spectrum_is = true;
   }
   //GLOBAL
-  Vec3 pos_clock = Vec3() ; 
+  vec3 pos_clock = vec3() ; 
   int local_frameCount ;
   
   //SETUP
   void setup() {
     setting_start_position(ID_item, width/2, height/2, -width) ;
-    pos_clock = Vec3(width/2,height/2,0) ;
+    pos_clock = vec3(width/2,height/2,0) ;
   }
   
   
@@ -115,7 +115,7 @@ class Horloge extends Romanesco {
       float pos_x = sin(local_frameCount *speed_x *direction) *map(get_canvas_x(),width/10,width *r.PHI,0,width *r.PHI) ;
       float pos_y = cos(local_frameCount *speed_y *direction) *map(get_canvas_y(),width/10,width *r.PHI,0,width *r.PHI) ;
       float pos_z = sin(local_frameCount *speed_z *direction) *map(get_canvas_z(),width/10,width *r.PHI,0,width *r.PHI) ;
-      pos_clock = Vec3(pos_x,pos_y,pos_z) ;
+      pos_clock = vec3(pos_x,pos_y,pos_z) ;
     }
 
     
@@ -138,7 +138,7 @@ class Horloge extends Romanesco {
   
   
   //ANNEXE
-  void horlogeCercle(Vec3 posHorloge, float angle, float  amp, int timeMode) {
+  void horlogeCercle(vec3 posHorloge, float angle, float  amp, int timeMode) {
     //Angles pour sin() et cos() départ à 3h, enlever PI/2 pour un départ à midi
     float s = map (second(), 0, 60, 0,    TWO_PI ) - HALF_PI ;
     float m = map (minute(), 0, 60, 0,    TWO_PI ) - HALF_PI ;
@@ -162,7 +162,7 @@ class Horloge extends Romanesco {
   
   
   ////
-  void horlogeLigne(Vec3 posHorloge, float angle, float amp, int timeMode) {
+  void horlogeLigne(vec3 posHorloge, float angle, float amp, int timeMode) {
     //seconde
     textAlign(CENTER, CENTER) ;
     translate(posHorloge.x, posHorloge.y, posHorloge.z) ;
@@ -175,7 +175,7 @@ class Horloge extends Romanesco {
   }
   
   ////
-  void horlogeMinute(Vec3 posHorloge, float angle) {
+  void horlogeMinute(vec3 posHorloge, float angle) {
     textAlign(CENTER, CENTER) ;
     translate(posHorloge.x, posHorloge.y, posHorloge.z) ;
     rotate(angle) ;
@@ -184,7 +184,7 @@ class Horloge extends Romanesco {
   }
   
   ////
-  void horlogeSeconde(Vec3 posHorloge, float angle) {
+  void horlogeSeconde(vec3 posHorloge, float angle) {
     textAlign(CENTER, CENTER) ;
     translate(posHorloge.x, posHorloge.y, posHorloge.z) ;
     rotate(angle) ;

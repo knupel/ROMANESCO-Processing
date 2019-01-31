@@ -147,12 +147,12 @@ void update_section_setting() {
 }
 
 void update_transient_setting() {
-  Vec2 [] transient_threshold = new Vec2[4];
+  vec2 [] transient_threshold = new vec2[4];
   for(int i = 0 ; i < transient_threshold.length ; i++) {
     int index = i*2;
     float threshold_low = map(value_slider_sound_setting[index+3],0,360,4,0);
     float threshold_high = map(value_slider_sound_setting[index+4],0,360,4,0);
-    transient_threshold[i] = Vec2(threshold_low,threshold_high);
+    transient_threshold[i] = vec2(threshold_low,threshold_high);
     sounda.set_transient(i,transient_threshold[i]);
   }
 }
@@ -194,21 +194,21 @@ SET
 void set_section_analyze(int... section_entry) {
   int len = sounda.buffer_size();
   int num_part = section_entry.length +1;
-  iVec2 [] in_out = new iVec2[num_part];
+  ivec2 [] in_out = new ivec2[num_part];
   int part = len/(num_part*2);
-  in_out[0] = iVec2(0,section_entry[0]); 
-  in_out[1] = iVec2(section_entry[0],section_entry[1]);
-  in_out[2] = iVec2(section_entry[1],section_entry[2]);
-  in_out[3] = iVec2(section_entry[2],len);
+  in_out[0] = ivec2(0,section_entry[0]); 
+  in_out[1] = ivec2(section_entry[0],section_entry[1]);
+  in_out[2] = ivec2(section_entry[1],section_entry[2]);
+  in_out[3] = ivec2(section_entry[2],len);
   sounda.set_section(in_out);
 }
 
 void set_transient() {
-  Vec2 [] transient_part_threshold = new Vec2[sounda.section_size()];
-  transient_part_threshold[0] = Vec2(.1, 2.5);
-  transient_part_threshold[1] = Vec2(.1, 2.5);
-  transient_part_threshold[2] = Vec2(.1, 2.5);
-  transient_part_threshold[3] = Vec2(.1, 2.5);
+  vec2 [] transient_part_threshold = new vec2[sounda.section_size()];
+  transient_part_threshold[0] = vec2(.1, 2.5);
+  transient_part_threshold[1] = vec2(.1, 2.5);
+  transient_part_threshold[2] = vec2(.1, 2.5);
+  transient_part_threshold[3] = vec2(.1, 2.5);
 
   sounda.init_transient(transient_part_threshold);
   sounda.set_transient_low_pass(20);     

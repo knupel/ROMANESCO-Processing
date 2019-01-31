@@ -91,15 +91,15 @@ class Surface extends Romanesco {
   float ratio_swing = 4 ;
   float step  = .01 ;  
   float refSizeTriangle ;
-  Vec2 canvasRef ;
-  Vec4 fill_color, stroke_color ;
+  vec2 canvasRef ;
+  vec4 fill_color, stroke_color ;
   
   
   // draw
   void draw() {
-    // color to Vec4 composant
-    fill_color = Vec4(hue(get_fill()),saturation(get_fill()),brightness(get_fill()),alpha(get_fill())) ;
-    stroke_color = Vec4(hue(get_stroke()),saturation(get_stroke()),brightness(get_stroke()),alpha(get_stroke())) ;
+    // color to vec4 composant
+    fill_color = vec4(hue(get_fill()),saturation(get_fill()),brightness(get_fill()),alpha(get_fill())) ;
+    stroke_color = vec4(hue(get_stroke()),saturation(get_stroke()),brightness(get_stroke()),alpha(get_stroke())) ;
     // load image
     if(parameter_is()) {
       load_bitmap(ID_item);
@@ -149,7 +149,7 @@ class Surface extends Romanesco {
       int sizePix_grid_simple = int(sizePixMin +get_size_x() /11) ;
       if(!FULL_RENDERING) sizePix_grid_simple *= 3 ;
       //size canvas grid
-      Vec2 newCanvas = Vec2(get_canvas_x(),get_canvas_y()) ;
+      vec2 newCanvas = vec2(get_canvas_x(),get_canvas_y()) ;
       newCanvas.mult(4.5) ;
       // create grid if there is no grid
       if(grid_surface_simple.size() < 1) create_surface_simple(sizePix_grid_simple,newCanvas) ;
@@ -225,7 +225,7 @@ class Surface extends Romanesco {
   
   
   // SURFACE SIMPLE
-  void create_surface_simple(int sizePix, Vec2 canvas) {
+  void create_surface_simple(int sizePix, vec2 canvas) {
     /*
     PVector setting_position give the starting position for the drawing grid, the value is -1 to 1
     if you start with (0,0) the canvas start from the center, if you use the extreme value, the draw start from corner.
@@ -280,14 +280,14 @@ class Surface extends Romanesco {
   
   
   // BUILD SURFACE IMAGE
-  Vec4 stroke_ref = Vec4()  ;
-  Vec4 fill_ref = Vec4()  ;
+  vec4 stroke_ref = vec4()  ;
+  vec4 fill_ref = vec4()  ;
   // float alpha_fill_ref  ;
   float thickness_ref  ;
   int altitude_ref ;
   boolean refresh_surface ;
     // advice method
-  void update_surface_image(int sizePix, Vec4 color_fill, Vec4 color_stroke, float thickness, int altitude) {
+  void update_surface_image(int sizePix, vec4 color_fill, vec4 color_stroke, float thickness, int altitude) {
     if( !stroke_ref.equals(color_stroke) || !fill_ref.equals(color_fill) || thickness_ref != thickness || altitude_ref != altitude) refresh_surface = true ;
     stroke_ref = color_stroke.copy() ;
     fill_ref = color_fill.copy() ;
@@ -310,7 +310,7 @@ class Surface extends Romanesco {
   
   // SURFACE METHODE
   // annexe method
-  void surface_build_image_grid(float x, float y, int altitude, int sizeTriangle, ArrayList<Polygon> gridTriangle, Vec4 color_fill, Vec4 color_stroke, float thickness) {
+  void surface_build_image_grid(float x, float y, int altitude, int sizeTriangle, ArrayList<Polygon> gridTriangle, vec4 color_fill, vec4 color_stroke, float thickness) {
       //setting grid
     PVector pos = new PVector(x, y) ; 
     /*
@@ -342,13 +342,13 @@ class Surface extends Romanesco {
       listTrianglePoint.clear() ;
       
       //classic grid method
-      Vec2 canvas = Vec2(imgSurface.width, imgSurface.height);
+      vec2 canvas = vec2(imgSurface.width, imgSurface.height);
       surfaceGrid(sizePix, canvas, pos, gridTriangle) ;
     }
   }
   
   // color surface
-  void surfaceImgColor(ArrayList<Polygon> gridTriangle, Vec4 color_fill, Vec4 color_stroke, float thickness) {
+  void surfaceImgColor(ArrayList<Polygon> gridTriangle, vec4 color_fill, vec4 color_stroke, float thickness) {
     /* We calculated the value of first pixel in the pixel arraylist to remove or add this "firstValue" to the other the pixel, 
      because we need have count from zero to find give the good color to the good polygon. */
     Polygon ref = (Polygon) grid_surface_image.get(0) ;
@@ -451,7 +451,7 @@ class Surface extends Romanesco {
 ArrayList<PVector> listTrianglePoint = new ArrayList<PVector>() ;
 
 // Main void
-void surfaceGrid(int triangleSize, Vec2 canvas, PVector pos, ArrayList<Polygon> gridTriangle) {
+void surfaceGrid(int triangleSize, vec2 canvas, PVector pos, ArrayList<Polygon> gridTriangle) {
   buildTriangleGrid(triangleSize, canvas, pos, gridTriangle) ;
   selectCommonSummit(gridTriangle) ;
 }
@@ -459,7 +459,7 @@ void surfaceGrid(int triangleSize, Vec2 canvas, PVector pos, ArrayList<Polygon> 
 
 // Annexe void
 // build the grid
-void buildTriangleGrid(int triangleSize, Vec2 canvas, PVector startingPositionToDraw, ArrayList<Polygon> gridTriangle) {
+void buildTriangleGrid(int triangleSize, vec2 canvas, PVector startingPositionToDraw, ArrayList<Polygon> gridTriangle) {
   triangleSize *=2 ;
   // setting var
   PVector pos =new PVector() ;

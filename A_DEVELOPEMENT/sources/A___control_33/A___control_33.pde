@@ -49,7 +49,7 @@ boolean DEV_MODE = false; // inter alia, path preferences folder, curtain
 
 void settings() {
   size(670,725);
-  size_window_ref = iVec2(width,height);
+  size_window_ref = ivec2(width,height);
   set_design();
 }
 

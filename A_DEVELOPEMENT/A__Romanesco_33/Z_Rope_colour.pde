@@ -152,115 +152,115 @@ float camaieu(float max, float color_ref, float range) {
 color pool 
 v 0.2.0
 */
-// color pool Vec4 RGB
-Vec4 [] color_pool_RGB(int num) {
-  Vec2 sat_range = Vec2(g.colorModeY) ;
-  Vec2 bright_range = Vec2(g.colorModeZ) ;
-  Vec2 alpha_range = Vec2(g.colorModeA) ;
+// color pool vec4 RGB
+vec4 [] color_pool_RGB(int num) {
+  vec2 sat_range = vec2(g.colorModeY) ;
+  vec2 bright_range = vec2(g.colorModeZ) ;
+  vec2 alpha_range = vec2(g.colorModeA) ;
   float range = g.colorModeX *.5 ;
   int num_group = 1 ;
   float key_hue = -1 ;
   return color_pool_RGB(num, num_group, key_hue, range, sat_range, bright_range, alpha_range) ;
 }
 
-Vec4 [] color_pool_RGB(int num, float key_hue) {
-  Vec2 sat_range = Vec2(g.colorModeY) ;
-  Vec2 bright_range = Vec2(g.colorModeZ) ;
-  Vec2 alpha_range = Vec2(g.colorModeA) ;
+vec4 [] color_pool_RGB(int num, float key_hue) {
+  vec2 sat_range = vec2(g.colorModeY) ;
+  vec2 bright_range = vec2(g.colorModeZ) ;
+  vec2 alpha_range = vec2(g.colorModeA) ;
   float range = g.colorModeX *.5 ;
   int num_group = 1 ;
   return color_pool_RGB(num, num_group, key_hue, range, sat_range, bright_range, alpha_range) ;
 }
 
 
-Vec4 [] color_pool_RGB(int num, int num_group, float hue_range) {
-  Vec2 sat_range = Vec2(g.colorModeY) ;
-  Vec2 bright_range = Vec2(g.colorModeZ) ;
-  Vec2 alpha_range = Vec2(g.colorModeA) ;
+vec4 [] color_pool_RGB(int num, int num_group, float hue_range) {
+  vec2 sat_range = vec2(g.colorModeY) ;
+  vec2 bright_range = vec2(g.colorModeZ) ;
+  vec2 alpha_range = vec2(g.colorModeA) ;
   float key_hue = -1 ;
   return color_pool_RGB(num, num_group, key_hue, hue_range, sat_range, bright_range, alpha_range) ;
 }
 
 
-Vec4 [] color_pool_RGB(int num, int num_group, float key_hue, float hue_range) {
-  Vec2 sat_range = Vec2(g.colorModeY) ;
-  Vec2 bright_range = Vec2(g.colorModeZ) ;
-  Vec2 alpha_range = Vec2(g.colorModeA) ;
+vec4 [] color_pool_RGB(int num, int num_group, float key_hue, float hue_range) {
+  vec2 sat_range = vec2(g.colorModeY) ;
+  vec2 bright_range = vec2(g.colorModeZ) ;
+  vec2 alpha_range = vec2(g.colorModeA) ;
   return color_pool_RGB(num, num_group, key_hue, hue_range, sat_range, bright_range, alpha_range) ;
 }
 
-Vec4 [] color_pool_RGB(int num, int num_group, float hue_range, Vec2 sat_range, Vec2 bright_range, Vec2 alpha_range) {
+vec4 [] color_pool_RGB(int num, int num_group, float hue_range, vec2 sat_range, vec2 bright_range, vec2 alpha_range) {
   float key_hue = -1 ;
   return color_pool_RGB(num, num_group, key_hue, hue_range, sat_range, bright_range, alpha_range) ;
 }
 
 
-Vec4 [] color_pool_RGB(int num, int num_group, float key_hue, float hue_range, Vec2 sat_range, Vec2 bright_range, Vec2 alpha_range) {
-  Vec4 [] list = new Vec4[num]  ;
+vec4 [] color_pool_RGB(int num, int num_group, float key_hue, float hue_range, vec2 sat_range, vec2 bright_range, vec2 alpha_range) {
+  vec4 [] list = new vec4[num]  ;
   int [] c = color_pool(num, num_group, key_hue, hue_range, sat_range, bright_range, alpha_range) ;
   for(int i = 0 ; i <list.length ; i++) {
-    list[i] = new Vec4(red(c[i]),green(c[i]),blue(c[i]),alpha(c[i])) ;
+    list[i] = new vec4(red(c[i]),green(c[i]),blue(c[i]),alpha(c[i])) ;
   }
   return list ;
 }
 
-// color pool Vec4 HSB
-Vec4 [] color_pool_HSB(int num) {
-  Vec2 sat_range = Vec2(g.colorModeY) ;
-  Vec2 bright_range = Vec2(g.colorModeZ) ;
-  Vec2 alpha_range = Vec2(g.colorModeA) ;
+// color pool vec4 HSB
+vec4 [] color_pool_HSB(int num) {
+  vec2 sat_range = vec2(g.colorModeY) ;
+  vec2 bright_range = vec2(g.colorModeZ) ;
+  vec2 alpha_range = vec2(g.colorModeA) ;
   float range = g.colorModeX *.5 ;
   int num_group = 1 ;
   float key_hue = -1 ;
   return color_pool_HSB(num, num_group, key_hue, range, sat_range, bright_range, alpha_range) ;
 }
 
-Vec4 [] color_pool_HSB(int num, float key_hue) {
-  Vec2 sat_range = Vec2(g.colorModeY) ;
-  Vec2 bright_range = Vec2(g.colorModeZ) ;
-  Vec2 alpha_range = Vec2(g.colorModeA) ;
+vec4 [] color_pool_HSB(int num, float key_hue) {
+  vec2 sat_range = vec2(g.colorModeY) ;
+  vec2 bright_range = vec2(g.colorModeZ) ;
+  vec2 alpha_range = vec2(g.colorModeA) ;
   float range = g.colorModeX *.5 ;
   int num_group = 1 ;
   return color_pool_HSB(num, num_group, key_hue, range, sat_range, bright_range, alpha_range) ;
 }
 
 
-Vec4 [] color_pool_HSB(int num, int num_group, float hue_range) {
-  Vec2 sat_range = Vec2(g.colorModeY) ;
-  Vec2 bright_range = Vec2(g.colorModeZ) ;
-  Vec2 alpha_range = Vec2(g.colorModeA) ;
+vec4 [] color_pool_HSB(int num, int num_group, float hue_range) {
+  vec2 sat_range = vec2(g.colorModeY) ;
+  vec2 bright_range = vec2(g.colorModeZ) ;
+  vec2 alpha_range = vec2(g.colorModeA) ;
   float key_hue = -1 ;
   return color_pool_HSB(num, num_group, key_hue, hue_range, sat_range, bright_range, alpha_range) ;
 }
 
 
-Vec4 [] color_pool_HSB(int num, int num_group, float key_hue, float hue_range) {
-  Vec2 sat_range = Vec2(g.colorModeY) ;
-  Vec2 bright_range = Vec2(g.colorModeZ) ;
-  Vec2 alpha_range = Vec2(g.colorModeA) ;
+vec4 [] color_pool_HSB(int num, int num_group, float key_hue, float hue_range) {
+  vec2 sat_range = vec2(g.colorModeY) ;
+  vec2 bright_range = vec2(g.colorModeZ) ;
+  vec2 alpha_range = vec2(g.colorModeA) ;
   return color_pool_HSB(num, num_group, key_hue, hue_range, sat_range, bright_range, alpha_range) ;
 }
 
-Vec4 [] color_pool_HSB(int num, int num_group, float hue_range, Vec2 sat_range, Vec2 bright_range, Vec2 alpha_range) {
+vec4 [] color_pool_HSB(int num, int num_group, float hue_range, vec2 sat_range, vec2 bright_range, vec2 alpha_range) {
   float key_hue = -1 ;
   return color_pool_HSB(num, num_group, key_hue, hue_range, sat_range, bright_range, alpha_range) ;
 }
 
 
-Vec4 [] color_pool_HSB(int num, int num_group, float key_hue, float hue_range, Vec2 sat_range, Vec2 bright_range, Vec2 alpha_range) {
-  Vec4 [] list = new Vec4[num]  ;
+vec4 [] color_pool_HSB(int num, int num_group, float key_hue, float hue_range, vec2 sat_range, vec2 bright_range, vec2 alpha_range) {
+  vec4 [] list = new vec4[num]  ;
   int [] c = color_pool(num, num_group, key_hue, hue_range, sat_range, bright_range, alpha_range) ;
   for(int i = 0 ; i <list.length ; i++) {
-    list[i] = new Vec4(hue(c[i]),saturation(c[i]),brightness(c[i]),alpha(c[i])) ;
+    list[i] = new vec4(hue(c[i]),saturation(c[i]),brightness(c[i]),alpha(c[i])) ;
   }
   return list ;
 }
 
 // color pool int
 int [] color_pool(int num) {
-  Vec2 sat_range = Vec2(g.colorModeY) ;
-  Vec2 bright_range = Vec2(g.colorModeZ) ;
-  Vec2 alpha_range = Vec2(g.colorModeA) ;
+  vec2 sat_range = vec2(g.colorModeY) ;
+  vec2 bright_range = vec2(g.colorModeZ) ;
+  vec2 alpha_range = vec2(g.colorModeA) ;
   float range = g.colorModeX *.5 ;
   int num_group = 1 ;
   float key_hue = -1 ;
@@ -268,37 +268,37 @@ int [] color_pool(int num) {
 }
 
 int [] color_pool(int num, float key_hue) {
-  Vec2 sat_range = Vec2(g.colorModeY) ;
-  Vec2 bright_range = Vec2(g.colorModeZ) ;
-  Vec2 alpha_range = Vec2(g.colorModeA) ;
+  vec2 sat_range = vec2(g.colorModeY) ;
+  vec2 bright_range = vec2(g.colorModeZ) ;
+  vec2 alpha_range = vec2(g.colorModeA) ;
   float range = g.colorModeX *.5 ;
   int num_group = 1 ;
   return color_pool(num, num_group, key_hue, range, sat_range, bright_range, alpha_range) ;
 }
 
 int [] color_pool(int num, int num_group, float hue_range) {
-  Vec2 sat_range = Vec2(g.colorModeY) ;
-  Vec2 bright_range = Vec2(g.colorModeZ) ;
-  Vec2 alpha_range = Vec2(g.colorModeA) ;
+  vec2 sat_range = vec2(g.colorModeY) ;
+  vec2 bright_range = vec2(g.colorModeZ) ;
+  vec2 alpha_range = vec2(g.colorModeA) ;
   float key_hue = -1 ;
   return color_pool(num, num_group, key_hue, hue_range, sat_range, bright_range, alpha_range) ;
 }
 
 int [] color_pool(int num, int num_group, float key_hue, float hue_range) {
-  Vec2 sat_range = Vec2(g.colorModeY) ;
-  Vec2 bright_range = Vec2(g.colorModeZ) ;
-  Vec2 alpha_range = Vec2(g.colorModeA) ;
+  vec2 sat_range = vec2(g.colorModeY) ;
+  vec2 bright_range = vec2(g.colorModeZ) ;
+  vec2 alpha_range = vec2(g.colorModeA) ;
   return color_pool(num, num_group, key_hue, hue_range, sat_range, bright_range, alpha_range) ;
 }
 
-int [] color_pool(int num, int num_group, float hue_range, Vec2 sat_range, Vec2 bright_range, Vec2 alpha_range) {
+int [] color_pool(int num, int num_group, float hue_range, vec2 sat_range, vec2 bright_range, vec2 alpha_range) {
   float key_hue = -1 ;
   return color_pool(num, num_group, key_hue, hue_range, sat_range, bright_range, alpha_range) ;
 
 }
 
 // color pool by group
-int [] color_pool(int num, int num_group, float key_hue, float hue_range, Vec2 sat_range, Vec2 bright_range, Vec2 alpha_range) {
+int [] color_pool(int num, int num_group, float key_hue, float hue_range, vec2 sat_range, vec2 bright_range, vec2 alpha_range) {
   int ref = g.colorMode ;
   float x = g.colorModeX ;
   float y = g.colorModeY ;
@@ -413,23 +413,23 @@ boolean hue_range(float min, float max, int colour) {
 convert color 0.1.2
 */
 //convert color HSB to RVB
-Vec3 hsb_to_rgb(float hue, float saturation, float brightness) {
-  Vec4 ref = Vec4(g.colorModeX, g.colorModeY, g.colorModeY, g.colorModeA);
+vec3 hsb_to_rgb(float hue, float saturation, float brightness) {
+  vec4 ref = vec4(g.colorModeX, g.colorModeY, g.colorModeY, g.colorModeA);
   int c = color(hue,saturation,brightness);
 
   colorMode(RGB,255) ;
-  Vec3 rgb = Vec3(red(c),green(c),blue(c)) ;
+  vec3 rgb = vec3(red(c),green(c),blue(c)) ;
   // return to the previous colorMode
   colorMode(HSB,ref.r, ref.g, ref.b, ref.a) ;
   return rgb;
 }
 
-Vec4 to_cmyk(int c) {
+vec4 to_cmyk(int c) {
   return rgb_to_cmyk(red(c),green(c),blue(c));
 }
 
 
-Vec4 rgb_to_cmyk(float r, float g, float b) {
+vec4 rgb_to_cmyk(float r, float g, float b) {
   // convert to 0 > 1 value
   r = r/this.g.colorModeX;
   g = g/this.g.colorModeY;
@@ -454,12 +454,12 @@ Vec4 rgb_to_cmyk(float r, float g, float b) {
     y = (y-var_k)/(1-var_k);
   }
   float k = var_k; 
-  return Vec4(c,m,y,k);
+  return vec4(c,m,y,k);
 }
 
 // same result
 /*
-Vec4 rgb_to_cmyk_2(float r, float g, float b) {
+vec4 rgb_to_cmyk_2(float r, float g, float b) {
   // convert to 0 > 1 value
   r = r/this.g.colorModeX;
   g = g/this.g.colorModeY;
@@ -474,7 +474,7 @@ Vec4 rgb_to_cmyk_2(float r, float g, float b) {
   m = (m - min_cmy) / (1 - min_cmy);
   y = (y - min_cmy) / (1 - min_cmy);
   float k = min_cmy;
-  return Vec4(c,m,y,k);
+  return vec4(c,m,y,k);
 }
 */
 
@@ -486,8 +486,8 @@ Vec4 rgb_to_cmyk_2(float r, float g, float b) {
 
 
 
-Vec3 cmyk_to_rgb(float c, float m, float y, float k) {
-  Vec3 rgb = null;
+vec3 cmyk_to_rgb(float c, float m, float y, float k) {
+  vec3 rgb = null;
    // cmyk value must be from 0 to 1
   if(colour_normal_range_is(c) && colour_normal_range_is(m) && colour_normal_range_is(y) && colour_normal_range_is(k)) {
     // CMYK > CMY
@@ -498,7 +498,7 @@ Vec3 cmyk_to_rgb(float c, float m, float y, float k) {
     float red = (1.- c) * g.colorModeX;
     float green = (1.- m) * g.colorModeY;
     float blue = (1.- y) * g.colorModeZ;
-    rgb = Vec3(red,green,blue);
+    rgb = vec3(red,green,blue);
 
   } else {
     printErr("method cmyk_to_rgb(): the values c,m,y,k must have value from 0 to 1.\n","yours values is cyan",c,"magenta",m,"yellow",y,"black",k);

@@ -1,6 +1,6 @@
 /**
 ROPE SCIENCE
-v 0.4.0
+v 0.5.1
 * Copyleft (c) 2014-2018 
 * Stan le Punk > http://stanlepunk.xyz/
 * @author Stan le Punk
@@ -11,31 +11,114 @@ the sketch method tab is not included on this repository if you need
 */
 
 /**
+Gaussian randomize
+v 0.0.2
+*/
+@Deprecated
+float random_gaussian(float value) {
+  return random_gaussian(value, .4) ;
+}
+
+@Deprecated
+float random_gaussian(float value, float range) {
+  /*
+  * It's cannot possible to indicate a value result here, this part need from the coder ?
+  */
+  printErrTempo(240,"float random_gaussian(); method must be improved or totaly deprecated");
+  range = abs(range) ;
+  float distrib = random(-1, 1) ;
+  float result = 0 ;
+  if(value == 0) {
+    value = 1 ;
+    result = (pow(distrib,5)) *(value *range) +value ;
+    result-- ;
+  } else {
+    result = (pow(distrib,5)) *(value *range) +value ;
+  }
+  return result;
+}
+
+
+
+/**
+Next Gaussian randomize
+v 0.0.2
+*/
+/**
+* return value from -1 to 1
+* @return float
+*/
+Random random = new Random();
+float random_next_gaussian() {
+  return random_next_gaussian(1,1);
+}
+
+float random_next_gaussian(int n) {
+  return random_next_gaussian(1,n);
+}
+
+float random_next_gaussian(float range) {
+  return random_next_gaussian(range,1);
+}
+
+float random_next_gaussian(float range, int n) {
+  float roots = (float)random.nextGaussian();
+  float var = map(roots,-2.5,2.5,-1,1);  
+  if(n > 1) {
+    if(n%2 ==0 && var < 0) {
+       var = -1 *pow(var,n);
+     } else {
+       var = pow(var,n);
+     }
+     return var *range ;
+  } else {
+    return var *range ;
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/**
 WAVE
 */
 float sin_wave(float speed, float scale) {
   return sin(frameCount*speed)*scale;
 }
 
-Vec2 sin_wave(Vec2 speed, Vec2 scale) {
+vec2 sin_wave(vec2 speed, vec2 scale) {
   float x = sin(frameCount*speed.x)*scale.x;
   float y = sin(frameCount*speed.y)*scale.y;
-  return Vec2(x,y);
+  return vec2(x,y);
 }
 
-Vec3 sin_wave(Vec3 speed, Vec3 scale) {
+vec3 sin_wave(vec3 speed, vec3 scale) {
   float x = sin(frameCount*speed.x)*scale.x;
   float y = sin(frameCount*speed.y)*scale.y;
   float z = sin(frameCount*speed.z)*scale.z;
-  return Vec3(x,y,z);
+  return vec3(x,y,z);
 }
 
-Vec4 sin_wave(Vec4 speed, Vec4 scale) {
+vec4 sin_wave(vec4 speed, vec4 scale) {
   float x = sin(frameCount*speed.x)*scale.x;
   float y = sin(frameCount*speed.y)*scale.y;
   float z = sin(frameCount*speed.z)*scale.z;
   float w = sin(frameCount*speed.w)*scale.w;
-  return Vec4(x,y,z,w);
+  return vec4(x,y,z,w);
 }
 
 
@@ -43,25 +126,25 @@ float cos_wave(float speed, float scale) {
   return cos(frameCount*speed)*scale;
 }
 
-Vec2 cos_wave(Vec2 speed, Vec2 scale) {
+vec2 cos_wave(vec2 speed, vec2 scale) {
   float x = cos(frameCount*speed.x)*scale.x;
   float y = cos(frameCount*speed.y)*scale.y;
-  return Vec2(x,y);
+  return vec2(x,y);
 }
 
-Vec3 cos_wave(Vec3 speed, Vec3 scale) {
+vec3 cos_wave(vec3 speed, vec3 scale) {
   float x = cos(frameCount*speed.x)*scale.x;
   float y = cos(frameCount*speed.y)*scale.y;
   float z = cos(frameCount*speed.z)*scale.z;
-  return Vec3(x,y,z);
+  return vec3(x,y,z);
 }
 
-Vec4 cos_wave(Vec4 speed, Vec4 scale) {
+vec4 cos_wave(vec4 speed, vec4 scale) {
   float x = cos(frameCount*speed.x)*scale.x;
   float y = cos(frameCount*speed.y)*scale.y;
   float z = cos(frameCount*speed.z)*scale.z;
   float w = cos(frameCount*speed.w)*scale.w;
-  return Vec4(x,y,z,w);
+  return vec4(x,y,z,w);
 }
 
 
@@ -109,7 +192,7 @@ float roots(float valueToRoots, int n) {
 
 // Decimal
 // @return a specific quantity of decimal after comma
-float decimale (float var, int n) {
+float decimale(float var, int n) {
   float div = pow(10, abs(n)) ;
   return Math.round(var *div) / div;
 }
@@ -128,22 +211,22 @@ float radius_from_circle_surface(int surface) {
 }
 
 
-boolean inside(iVec pos, iVec size, iVec2 target_pos) {
-  return inside(Vec2(pos.x,pos.y), Vec2(size.x,size.y), Vec2(target_pos), ELLIPSE);
+boolean inside(ivec pos, ivec size, ivec2 target_pos) {
+  return inside(vec2(pos.x,pos.y), vec2(size.x,size.y), vec2(target_pos), ELLIPSE);
 }
 
-boolean inside(iVec pos, iVec size, iVec2 target_pos, int type) {
-  return inside(Vec2(pos.x,pos.y), Vec2(size.x,size.y), Vec2(target_pos), type);
+boolean inside(ivec pos, ivec size, ivec2 target_pos, int type) {
+  return inside(vec2(pos.x,pos.y), vec2(size.x,size.y), vec2(target_pos), type);
 }
 
-boolean inside(Vec pos, Vec size, Vec2 target_pos) {
+boolean inside(vec pos, vec size, vec2 target_pos) {
   return inside(pos, size, target_pos, ELLIPSE);
 }
 
-boolean inside(Vec pos, Vec size, Vec2 target_pos, int type) {
+boolean inside(vec pos, vec size, vec2 target_pos, int type) {
   if(type == ELLIPSE) {
     // this part can be improve to check the 'x' and the 'y'
-    if (dist(Vec2(pos.x,pos.y), target_pos) < size.x *.5) return true ; 
+    if (dist(vec2(pos.x,pos.y), target_pos) < size.x *.5) return true ; 
     else return false ;
   } else {
     if(target_pos.x > pos.x && target_pos.x < pos.x +size.x && 
@@ -194,11 +277,11 @@ float angle_degrees(float y, float range) {
   return map(y, 0,range, 0, 360) ;
 }
 
-float angle(Vec2 a, Vec2 b) {
+float angle(vec2 a, vec2 b) {
   return atan2(b.y -a.y, b.x -a.x);
 }
 
-float angle(Vec2 v) {
+float angle(vec2 v) {
   return atan2(v.y, v.x);
 }
 
@@ -208,9 +291,9 @@ float angle(Vec2 v) {
 
 /* 
 return a vector info : radius,longitude, latitude
-@return Vec3
+@return vec3
 */
-Vec3 to_polar(Vec3 cart) {
+vec3 to_polar(vec3 cart) {
   float radius = sqrt(cart.x * cart.x + cart.y * cart.y + cart.z * cart.z);
   float phi = acos(cart.x / sqrt(cart.x * cart.x + cart.y * cart.y)) * (cart.y < 0 ? -1 : 1);
   float theta = acos(cart.z / radius) * (cart.z < 0 ? -1 : 1);
@@ -219,38 +302,38 @@ Vec3 to_polar(Vec3 cart) {
   if (Float.isNaN(theta)) theta = 0 ;
   if (Float.isNaN(radius)) radius = 0 ;
   // result
-  //return new Vec3(radius, longitude, latitude) ;
-  return new Vec3(phi, theta, radius) ;
+  //return new vec3(radius, longitude, latitude) ;
+  return new vec3(phi, theta, radius) ;
 }
 
 
 ///////////////
 // Cartesian 3D
 /*
-@ return Vec3
+@ return vec3
 return the position of point on Sphere, with longitude and latitude
 */
 //If you want just the final pos
-Vec3 to_cartesian_3D(Vec2 pos, Vec2 range, float sizeField)  {
+vec3 to_cartesian_3D(vec2 pos, vec2 range, float sizeField)  {
   // vertical plan position
-  float verticalY = to_cartesian_2D(pos.y, Vec2(0,range.y), Vec2(0,TAU), sizeField).x ;
-  float verticalZ = to_cartesian_2D(pos.y, Vec2(0,range.y), Vec2(0,TAU), sizeField).y ; 
-  Vec3 posVertical = new Vec3(0, verticalY, verticalZ) ;
+  float verticalY = to_cartesian_2D(pos.y, vec2(0,range.y), vec2(0,TAU), sizeField).x ;
+  float verticalZ = to_cartesian_2D(pos.y, vec2(0,range.y), vec2(0,TAU), sizeField).y ; 
+  vec3 posVertical = new vec3(0, verticalY, verticalZ) ;
   // horizontal plan position
-  float horizontalX = to_cartesian_2D(pos.x, Vec2(0,range.x), Vec2(0,TAU), sizeField).x ; 
-  float horizontalZ = to_cartesian_2D(pos.x, Vec2(0,range.x), Vec2(0,TAU), sizeField).y  ;
-  Vec3 posHorizontal = new Vec3(horizontalX, 0, horizontalZ) ;
+  float horizontalX = to_cartesian_2D(pos.x, vec2(0,range.x), vec2(0,TAU), sizeField).x ; 
+  float horizontalZ = to_cartesian_2D(pos.x, vec2(0,range.x), vec2(0,TAU), sizeField).y  ;
+  vec3 posHorizontal = new vec3(horizontalX, 0, horizontalZ) ;
   
   return projection(middle(posVertical, posHorizontal), sizeField) ;
 }
 
-Vec3 to_cartesian_3D(float latitude, float longitude) {
+vec3 to_cartesian_3D(float latitude, float longitude) {
   float radius_normal = 1 ;
   return to_cartesian_3D(latitude, longitude, radius_normal);
 }
 
 // main method
-Vec3 to_cartesian_3D(float latitude, float longitude,  float radius) {
+vec3 to_cartesian_3D(float latitude, float longitude,  float radius) {
   // https://en.wikipedia.org/wiki/List_of_common_coordinate_transformations
   
 
@@ -263,15 +346,15 @@ Vec3 to_cartesian_3D(float latitude, float longitude,  float radius) {
   float x = radius *sin(theta) *cos(phi);
   float y = radius *sin(theta) *sin(phi);
   float z = radius *cos(theta);
-  return new Vec3(x, y, z);
+  return new vec3(x, y, z);
 }
 /*
-Vec3 to_cartesian_3D(float longitude, float latitude, float radius) {
+vec3 to_cartesian_3D(float longitude, float latitude, float radius) {
   // https://en.wikipedia.org/wiki/List_of_common_coordinate_transformations
   float x = radius *sin(latitude) *cos(longitude);
   float y = radius *sin(latitude) *sin(longitude);
   float z = radius *cos(latitude);
-  return new Vec3(x, y, z);
+  return new vec3(x, y, z);
 }
 */
 
@@ -279,24 +362,24 @@ Vec3 to_cartesian_3D(float longitude, float latitude, float radius) {
 
 //Step 1 : translate the mouse position x and y  on the sphere, we must do that separately
 /*
-@ return Vec2 
+@ return vec2 
 return linear value on the circle perimeter
 */
-Vec2 to_cartesian_2D (float posMouse, Vec2 range, Vec2 targetRadian, float distance) {
+vec2 to_cartesian_2D (float posMouse, vec2 range, vec2 targetRadian, float distance) {
   float rotationPlan = map(posMouse, range.x, range.y, targetRadian.x, targetRadian.y)  ;
   return to_cartesian_2D (rotationPlan, distance) ;
 }
 
-Vec2 to_cartesian_2D (float angle) {
+vec2 to_cartesian_2D (float angle) {
   float radius_normal = 1 ;
   return to_cartesian_2D (angle, radius_normal) ;
 }
 
 // main method
-Vec2 to_cartesian_2D (float angle, float radius) {
+vec2 to_cartesian_2D (float angle, float radius) {
   float x = cos(angle) *radius;
   float y = sin(angle) *radius ;
-  return Vec2(x,y) ;
+  return vec2(x,y) ;
 }
 
 
@@ -309,40 +392,40 @@ Vec2 to_cartesian_2D (float angle, float radius) {
 Projection
 */
 // Cartesian projection 2D
-Vec2 projection(Vec2 direction) {
-  return projection(direction, Vec2(), 1.) ;
+vec2 projection(vec2 direction) {
+  return projection(direction, vec2(), 1.) ;
 }
 
-Vec2 projection(Vec2 direction, float radius) {
-  return projection(direction, Vec2(), radius) ;
+vec2 projection(vec2 direction, float radius) {
+  return projection(direction, vec2(), radius) ;
 }
-Vec2 projection(Vec2 direction, Vec2 origin, float radius) {
-  // Vec3 p = point_to_project.normalize(origin) ;
-  Vec2 ref = direction.copy() ;
-  Vec2 p = ref.dir(origin) ;
+vec2 projection(vec2 direction, vec2 origin, float radius) {
+  // vec3 p = point_to_project.normalize(origin) ;
+  vec2 ref = direction.copy() ;
+  vec2 p = ref.dir(origin) ;
   p.mult(radius) ;
   p.add(origin) ;
   return p ;
 }
 // polar projection 2D
-Vec2 projection(float angle) {
+vec2 projection(float angle) {
   return projection(angle, 1) ;
 }
-Vec2 projection(float angle, float radius) {
-  return Vec2(cos(angle) *radius, sin(angle) *radius) ;
+vec2 projection(float angle, float radius) {
+  return vec2(cos(angle) *radius, sin(angle) *radius) ;
 }
 // cartesian projection 3D
-Vec3 projection(Vec3 direction) {
-  return projection(direction, Vec3(), 1.) ;
+vec3 projection(vec3 direction) {
+  return projection(direction, vec3(), 1.) ;
 }
 
-Vec3 projection(Vec3 direction, float radius) {
-  return projection(direction, Vec3(), radius) ;
+vec3 projection(vec3 direction, float radius) {
+  return projection(direction, vec3(), radius) ;
 }
 
-Vec3 projection(Vec3 direction, Vec3 origin, float radius) {
-  Vec3 ref = direction.copy() ;
-  Vec3 p = ref.dir(origin) ;
+vec3 projection(vec3 direction, vec3 origin, float radius) {
+  vec3 ref = direction.copy() ;
+  vec3 p = ref.dir(origin) ;
   p.mult(radius) ;
   p.add(origin) ;
   return p ;
@@ -356,23 +439,23 @@ v 0.0.2
 */
 // Target direction return the normal direction of the target from the origin
 @Deprecated
-Vec2 target_direction(Vec2 target, Vec2 my_position) {
-  printErrTempo(240, "Vec2 target_direction() deprecated instead use look_at(Vec target, Vec origin) method, becareful the result is mult by -1");
+vec2 target_direction(vec2 target, vec2 my_position) {
+  printErrTempo(240, "vec2 target_direction() deprecated instead use look_at(vec target, vec origin) method, becareful the result is mult by -1");
   return projection(target, my_position, 1).sub(my_position);
 }
 
 @Deprecated
-Vec3 target_direction(Vec3 target, Vec3 my_position) {
-   printErrTempo(240, "Vec2 target_direction() deprecated instead use look_at(Vec target, Vec origin) method, becareful the result is mult by -1");
+vec3 target_direction(vec3 target, vec3 my_position) {
+   printErrTempo(240, "vec2 target_direction() deprecated instead use look_at(vec target, vec origin) method, becareful the result is mult by -1");
   return projection(target, my_position, 1).sub(my_position) ;
 }
 
 
-Vec2 look_at(Vec2 target, Vec2 origin) {
+vec2 look_at(vec2 target, vec2 origin) {
   return projection(target, origin, 1).sub(origin).mult(-1,1);
 }
 
-Vec3 look_at(Vec3 target, Vec3 origin) {
+vec3 look_at(vec3 target, vec3 origin) {
   return projection(target, origin, 1).sub(origin);
 }
 
@@ -386,9 +469,9 @@ SPHERE PROJECTION
 /**
 FIBONACCI SPHERE PROJECTION CARTESIAN
 */
-Vec3 [] list_cartesian_fibonacci_sphere (int num, float step, float root) {
+vec3 [] list_cartesian_fibonacci_sphere (int num, float step, float root) {
   float root_sphere = root *num ;
-  Vec3 [] list_points = new Vec3[num] ;
+  vec3 [] list_points = new vec3[num] ;
   for (int i = 0; i < list_points.length ; i++) list_points[i] = distribution_cartesian_fibonacci_sphere(i, num, step, root_sphere) ;
   return list_points ;
 }
@@ -398,7 +481,7 @@ float root_cartesian_fibonnaci(int num) {
 }
 */
 
-Vec3 distribution_cartesian_fibonacci_sphere(int n, int num, float step, float root) {
+vec3 distribution_cartesian_fibonacci_sphere(int n, int num, float step, float root) {
   if(n<num) {
     float offset = 2. / num ;
     float y  = (n *offset) -1 + (offset / 2.) ;
@@ -408,19 +491,19 @@ Vec3 distribution_cartesian_fibonacci_sphere(int n, int num, float step, float r
     float x = cos(phi) *r ;
     float z = sin(phi) *r ;
     
-    return Vec3(x,y,z) ;
-  } else return Vec3() ;
+    return vec3(x,y,z) ;
+  } else return vec3() ;
 }
 
 /**
 POLAR PROJECTION FIBONACCI SPHERE
 */
-Vec2 [] list_polar_fibonacci_sphere(int num, float step) {
-  Vec2 [] list_points = new Vec2[num] ;
+vec2 [] list_polar_fibonacci_sphere(int num, float step) {
+  vec2 [] list_points = new vec2[num] ;
   for (int i = 0; i < list_points.length ; i++) list_points[i] = distribution_polar_fibonacci_sphere(i, num, step) ;
   return list_points ;
 }
-Vec2 distribution_polar_fibonacci_sphere(int n, int num, float step) {
+vec2 distribution_polar_fibonacci_sphere(int n, int num, float step) {
   if(n<num) {
     float longitude = r.PHI *TAU *n;
     longitude /= step ;
@@ -430,8 +513,8 @@ Vec2 distribution_polar_fibonacci_sphere(int n, int num, float step) {
     if (longitude > PI)  longitude -= TAU;
     // Convert dome height (which is proportional to surface area) to latitude
     float latitude = asin(-1 + 2*n/(float)num);
-    return Vec2(longitude, latitude) ;
-  } else return Vec2() ;
+    return vec2(longitude, latitude) ;
+  } else return vec2() ;
 
 }
 
@@ -454,7 +537,7 @@ float deg360 (PVector dir) {
   return deg360 ;
 }
 
-float deg360 (Vec2 dir) {
+float deg360 (vec2 dir) {
   float deg360 ;
   deg360 = 360 -(degrees(atan2(dir.x, dir.y)) +180)   ;
   return deg360 ;
@@ -468,28 +551,28 @@ void rotation (float angle, float posX, float posY) {
   translate(posX, posY ) ;
   rotate (radians(angle) ) ;
 }
-void rotation (float angle, Vec2 pos) {
+void rotation (float angle, vec2 pos) {
   translate(pos.x, pos.y) ;
   rotate (radians(angle) ) ;
 }
 
-Vec2 rotation (Vec2 ref, Vec2 lattice, float angle) {
+vec2 rotation (vec2 ref, vec2 lattice, float angle) {
   float a = angle(lattice, ref) + angle;
   float d = lattice.dist(ref);
   float x = lattice.x + cos( a ) * d;
   float y = lattice.y + sin( a ) * d;
-  return Vec2(x,y);
+  return vec2(x,y);
 }
 
 /**
 May be must push to deprecated
 */
-Vec2 rotation_lattice(Vec2 ref, Vec2 lattice, float angle) {
+vec2 rotation_lattice(vec2 ref, vec2 lattice, float angle) {
   float a = angle( lattice, ref ) + angle;
   float d = dist( lattice, ref );
   float x = lattice.x + cos( a ) * d;
   float y = lattice.y + sin( a ) * d;
-  return Vec2(x,y);
+  return vec2(x,y);
 }
 
 
@@ -659,53 +742,52 @@ v 1.0.1
 with "n" summits
 */
 void primitive(float radius, int summits) {
-  Vec3 pos = Vec3();
+  vec3 pos = vec3();
   float angle = 0;
-  Vec2 dir_P3D = Vec2();
+  vec2 dir_P3D = vec2();
   primitive(pos,radius,summits,angle,dir_P3D);
 }
 
-// Primitive with Vec method
-void primitive(Vec pos, float radius, int summits) {
+// Primitive with vec method
+void primitive(vec pos, float radius, int summits) {
   float angle = 0;
-  Vec2 dir_P3D = Vec2();
+  vec2 dir_P3D = vec2();
   primitive(pos,radius,summits,angle,dir_P3D);
 }
 
-void primitive(Vec pos, float radius, int summits, Vec2 dir_P3D) {
+void primitive(vec pos, float radius, int summits, vec2 dir_P3D) {
   float angle = 0;
   primitive(pos,radius,summits,angle,dir_P3D);
 }
 
-void primitive(Vec pos, float radius, int summits, float angle) {
-  Vec2 dir_P3D = Vec2();
+void primitive(vec pos, float radius, int summits, float angle) {
+  vec2 dir_P3D = vec2();
   primitive(pos,radius,summits,angle,dir_P3D);
 }
 
-// Primitive with Vec method and angle to display
-void primitive(Vec pos_raw, float radius, int summits, float angle, Vec2 dir_P3D) {
-  Vec3 pos = null ;
-  if(pos_raw instanceof Vec2) {
-    pos = Vec3(pos_raw.x, pos_raw.y, 0);
-  } else if(pos_raw instanceof Vec3) {
-    pos = Vec3(pos_raw.x, pos_raw.y, pos_raw.z);
+// Primitive with vec method and angle to display
+void primitive(vec pos_raw, float radius, int summits, float angle, vec2 dir_P3D) {
+  vec3 pos = null ;
+  if(pos_raw instanceof vec2) {
+    pos = vec3(pos_raw.x, pos_raw.y, 0);
+  } else if(pos_raw instanceof vec3) {
+    pos = vec3(pos_raw.x, pos_raw.y, pos_raw.z);
   }
 
   if(summits < 2) {
     summits = 2;
   }
 
-  Vec3 [] points = new Vec3[summits];
+  vec3 [] points = new vec3[summits];
   // create coord of the shape
   if(summits == 2 && angle == 0) {
-    points[0] = Vec3(-.5,0,0);
-    points[1] = Vec3(.5,0,0);
+    points[0] = vec3(-.5,0,0);
+    points[1] = vec3(.5,0,0);
   } else {
     for (int i = 0 ; i < summits ; i++) {
       points[i] = polygon_2D(summits, angle)[i].copy();
     }
   }
-
   draw_primitive(pos,dir_P3D,radius,points);
   
 
@@ -750,30 +832,30 @@ void primitive(Vec pos_raw, float radius, int summits, float angle, Vec2 dir_P3D
 
 
 // local method
-void draw_primitive(Vec3 [] pts) {
-  Vec3 pos = Vec3() ;
-  // Vec2 dir_polar = Vec2() ;
+void draw_primitive(vec3 [] pts) {
+  vec3 pos = vec3() ;
+  // vec2 dir_polar = vec2() ;
   int radius = 1 ;
   draw_primitive (pos, radius, pts) ;
 }
 
-void draw_primitive(float radius, Vec3 [] pts) {
-  Vec3 pos = Vec3() ;
-  // Vec2 dir_polar = Vec2() ;
+void draw_primitive(float radius, vec3 [] pts) {
+  vec3 pos = vec3() ;
+  // vec2 dir_polar = vec2() ;
   draw_primitive (pos,radius,pts) ;
 }
 
-void draw_primitive(Vec3 pos, Vec2 dir, float radius, Vec3 [] pts) {
+void draw_primitive(vec3 pos, vec2 dir, float radius, vec3 [] pts) {
   // special one because we have direction for the polygon, 
   // so we must use the matrix system until have a good algorithm for the cartesian direction
   /*
   if(renderer_P3D()) {
     start_matrix_3D(pos, dir); 
   } else {
-    start_matrix_2D(Vec2(pos.x, pos.y),0);
+    start_matrix_2D(vec2(pos.x, pos.y),0);
   }
   */
-  draw_primitive(Vec3(),radius,pts);
+  draw_primitive(pos,radius,pts);
   // stop_matrix();
 }
 
@@ -789,7 +871,7 @@ void draw_primitive(Vec3 pos, Vec2 dir, float radius, Vec3 [] pts) {
 * the line rendering is awful, very very low when there is a lot of shape,
 * may be the compute on polygon_2D() is guilty
 */
-void draw_primitive(Vec3 pos, float radius, Vec3 [] pts) {
+void draw_primitive(vec3 pos, float radius, vec3 [] pts) {
   boolean check_line = false;
   if(pts.length == 2) {
     check_line = true;
@@ -799,8 +881,8 @@ void draw_primitive(Vec3 pos, float radius, Vec3 [] pts) {
     if(renderer_P3D()) {
       line(pts[0],pts[1].mult(radius).add(pos));
     } else {
-      Vec2 point_b = Vec2(pts[1].x,pts[1].y);
-      point_b.mult(radius).add(Vec2(pos.x,pos.y));
+      vec2 point_b = vec2(pts[1].x,pts[1].y);
+      point_b.mult(radius).add(vec2(pos.x,pos.y));
       line(pts[0].x,pts[0].y,point_b.x,point_b.y);
     }
   } else if(!check_line) {
@@ -856,15 +938,15 @@ POLYGON
 POLYGON 2D
 v 0.1.0
 */
-Vec3 [] polygon_2D (int num) {
+vec3 [] polygon_2D (int num) {
   float new_orientation = 0 ;
   return polygon_2D (num, new_orientation) ;
 }
 
 
 // main method
-Vec3 [] polygon_2D (int num, float new_orientation) {
-  Vec3 [] p = new Vec3[num];
+vec3 [] polygon_2D (int num, float new_orientation) {
+  vec3 [] p = new vec3[num];
   // choice your starting point
   float start_angle = PI*.5 +new_orientation;
   if(num == 4) {
@@ -877,14 +959,14 @@ Vec3 [] polygon_2D (int num, float new_orientation) {
   return p;
 }
 
-Vec3 compute_coord_polygon_2D(int target, int num, float start_angle) {
+vec3 compute_coord_polygon_2D(int target, int num, float start_angle) {
   float step_angle = map(target,0,num,0,TAU); 
   float orientation = TAU -step_angle -start_angle;
-  Vec2 temp_orientation_xy = to_cartesian_2D(orientation);
+  vec2 temp_orientation_xy = to_cartesian_2D(orientation);
   float x = temp_orientation_xy.x;
   float y = temp_orientation_xy.y;
   float z = 0 ;
-  return Vec3(x,y,z);
+  return vec3(x,y,z);
 }
 
 
@@ -893,8 +975,8 @@ POLYGON 3D
 but must be refactoring because the metod is a little shitty !!!!!
 */
 // polygon with 3D direction in cartesian world
-Vec3 [] polygon_3D(int num, float new_orientation, Vec3 dir) {
-  Vec3 pos = Vec3();
+vec3 [] polygon_3D(int num, float new_orientation, vec3 dir) {
+  vec3 pos = vec3();
   int radius = 1 ;
   return polygon_3D (pos, radius, num, new_orientation, dir) ;
 }
@@ -904,19 +986,19 @@ Vec3 [] polygon_3D(int num, float new_orientation, Vec3 dir) {
 Inspirated by : Creating a polygon perpendicular to a line segment Written by Paul Bourke February 1997
 @see http://paulbourke.net/geometry/circlesphere/
 */
-Vec3 [] polygon_3D(Vec3 pos, float radius, int num, float new_orientation, Vec3 dir) {
+vec3 [] polygon_3D(vec3 pos, float radius, int num, float new_orientation, vec3 dir) {
 
-  Vec3 p1 = dir.copy();
-  Vec3 p2 = to_cartesian_3D(PI,PI);
-  Vec3 support = to_cartesian_3D(PI,PI);
+  vec3 p1 = dir.copy();
+  vec3 p2 = to_cartesian_3D(PI,PI);
+  vec3 support = to_cartesian_3D(PI,PI);
   /*
-  Vec3 p2 = Vec3(0,0,1) ;
-  Vec3 support = Vec3 (1,0,0) ;
+  vec3 p2 = vec3(0,0,1) ;
+  vec3 support = vec3 (1,0,0) ;
   */
   // prepare the vector direction
-  Vec3 r = Vec3();
-  Vec3 s = Vec3();
-  Vec3 p2_sub_p1 = sub(p1,p2);
+  vec3 r = vec3();
+  vec3 s = vec3();
+  vec3 p2_sub_p1 = sub(p1,p2);
 
   r = cross(p2_sub_p1,support,r);
   s = cross(p2_sub_p1,r,s);
@@ -924,13 +1006,13 @@ Vec3 [] polygon_3D(Vec3 pos, float radius, int num, float new_orientation, Vec3 
   s.dir();
 
   // prepare polygone in 3D world
-  Vec3 plane = Vec3();
+  vec3 plane = vec3();
   int num_temp = num +1 ;
-  Vec3 [] p ;
-  p = new Vec3 [num_temp] ;
+  vec3 [] p ;
+  p = new vec3 [num_temp] ;
 
-  // init Vec3 p
-  for(int i = 0 ; i < num_temp ; i++) p[i] = Vec3() ;
+  // init vec3 p
+  for(int i = 0 ; i < num_temp ; i++) p[i] = vec3() ;
   
   // create normal direction for the point
   float theta, delta;
@@ -978,26 +1060,26 @@ END POLYGON
 TRIANGLE
 */
 void triangle(float x_a, float y_a, float z_a, float x_b, float y_b, float z_b, float x_c, float y_c, float z_c) {
-  Vec3 a = Vec3(x_a, y_a, z_a) ;
-  Vec3 b = Vec3(x_b, y_b, z_b) ;
-  Vec3 c = Vec3(x_c, y_c, z_c) ;
+  vec3 a = vec3(x_a, y_a, z_a) ;
+  vec3 b = vec3(x_b, y_b, z_b) ;
+  vec3 c = vec3(x_c, y_c, z_c) ;
   triangle(a, b, c) ;
 }
 void triangle(float x_a, float y_a, float x_b, float y_b, float x_c, float y_c) {
-  Vec3 a = Vec3(x_a, y_a, 0) ;
-  Vec3 b = Vec3(x_b, y_b, 0) ;
-  Vec3 c = Vec3(x_c, y_c, 0) ;
+  vec3 a = vec3(x_a, y_a, 0) ;
+  vec3 b = vec3(x_b, y_b, 0) ;
+  vec3 c = vec3(x_c, y_c, 0) ;
   triangle(a, b, c) ;
 }
 
-void triangle(Vec2 aa, Vec2 bb, Vec2 cc) {
-  Vec3 a = Vec3(aa.x, aa.y, 0) ;
-  Vec3 b = Vec3(bb.x, bb.y, 0) ;
-  Vec3 c = Vec3(cc.x, cc.y, 0) ;
+void triangle(vec2 aa, vec2 bb, vec2 cc) {
+  vec3 a = vec3(aa.x, aa.y, 0) ;
+  vec3 b = vec3(bb.x, bb.y, 0) ;
+  vec3 c = vec3(cc.x, cc.y, 0) ;
   triangle(a,b,c) ;
 }
 
-void triangle(Vec3 a, Vec3 b, Vec3 c) {
+void triangle(vec3 a, vec3 b, vec3 c) {
   beginShape();
   vertex(a);
   vertex(b);
@@ -1087,7 +1169,7 @@ void polyhedron(String type, String style, int size) {
 //set up initial polyhedron
 float factor_size_polyhedron ;
 //some variables to hold the current polyhedron...
-ArrayList<Vec3>vec_polyhedron_list;
+ArrayList<vec3>vec_polyhedron_list;
 float edge_polyhedron_length;
 String strName, strNotes;
 
@@ -1095,10 +1177,10 @@ String strName, strNotes;
 // BASIC
 void tetrahedron_poly(int size) {
   if(vec_polyhedron_list == null) vec_polyhedron_list = new ArrayList();
-  vec_polyhedron_list.add(Vec3(1,1,1));
-  vec_polyhedron_list.add(Vec3(-1,-1,1));
-  vec_polyhedron_list.add(Vec3(-1,1,-1));
-  vec_polyhedron_list.add(Vec3(1,-1,-1));
+  vec_polyhedron_list.add(vec3(1,1,1));
+  vec_polyhedron_list.add(vec3(-1,-1,1));
+  vec_polyhedron_list.add(vec3(-1,1,-1));
+  vec_polyhedron_list.add(vec3(1,-1,-1));
   edge_polyhedron_length = 0 ;
   factor_size_polyhedron = size /2;
 }
@@ -1228,7 +1310,7 @@ void rhombic_cosi_dodecahedron_great(int size) {
 // classic and easy method
 void polyhedron_draw_point(String name) {
   for (int i = 0 ; i < vec_polyhedron_list.size() ; i++) {
-    Vec3 point = vec_polyhedron_list.get(i);
+    vec3 point = vec_polyhedron_list.get(i);
     if(name.equals("TETRAHEDRON")) {
       pushMatrix() ;
       rotateX(TAU -1) ;
@@ -1243,8 +1325,8 @@ void polyhedron_draw_line(String name) {
   for (int i=0; i <vec_polyhedron_list.size(); i++) {
     for (int j=i +1; j < vec_polyhedron_list.size(); j++) {
       if (isEdge(i, j, vec_polyhedron_list) || edge_polyhedron_length == 0 ) {
-        Vec3 v1 = vec_polyhedron_list.get(i).copy();
-        Vec3 v2 = vec_polyhedron_list.get(j).copy();
+        vec3 v1 = vec_polyhedron_list.get(i).copy();
+        vec3 v2 = vec_polyhedron_list.get(j).copy();
         if(name.equals("TETRAHEDRON")) {
           pushMatrix() ;
           rotateX(TAU -1) ;
@@ -1275,9 +1357,9 @@ void polyhedron_draw_vertex(String name) {
         b = 0 ;
         c = 1 ;
       }
-      Vec3 v1 = vec_polyhedron_list.get(a).copy();
-      Vec3 v2 = vec_polyhedron_list.get(b).copy();
-      Vec3 v3 = vec_polyhedron_list.get(c).copy();
+      vec3 v1 = vec_polyhedron_list.get(a).copy();
+      vec3 v2 = vec_polyhedron_list.get(b).copy();
+      vec3 v3 = vec_polyhedron_list.get(c).copy();
       // scale the position of the points
       v1.mult(factor_size_polyhedron);
       v2.mult(factor_size_polyhedron);
@@ -1298,8 +1380,8 @@ void polyhedron_draw_vertex(String name) {
       for (int j= i +1; j <vec_polyhedron_list.size(); j++) {
         if (isEdge(i, j, vec_polyhedron_list) || edge_polyhedron_length == 0 ) {
           // vLine((PVector)vec_polyhedron_list.get(i), (PVector)vec_polyhedron_list.get(j));
-          Vec3 v1 = vec_polyhedron_list.get(i).copy();
-          Vec3 v2 = vec_polyhedron_list.get(j).copy();
+          vec3 v1 = vec_polyhedron_list.get(i).copy();
+          vec3 v2 = vec_polyhedron_list.get(j).copy();
           v1.mult(factor_size_polyhedron);
           v2.mult(factor_size_polyhedron);;
           vertex(v1);
@@ -1319,11 +1401,11 @@ void polyhedron_draw_vertex(String name) {
 /**
 annexe draw polyhedron
 */
-boolean isEdge(int vID1, int vID2, ArrayList<Vec3>listPoint) {
+boolean isEdge(int vID1, int vID2, ArrayList<vec3>listPoint) {
   //had some rounding errors that were messing things up, so I had to make it a bit more forgiving...
   int pres = 1000;
-  Vec3 v1 = listPoint.get(vID1).copy();
-  Vec3 v2 = listPoint.get(vID2).copy();
+  vec3 v1 = listPoint.get(vID1).copy();
+  vec3 v2 = listPoint.get(vID2).copy();
   float d = sqrt(sq(v1.x - v2.x) + sq(v1.y - v2.y) + sq(v1.z - v2.z)) + .00001;
   return (int(d *pres)==int(edge_polyhedron_length *pres));
 }
@@ -1346,21 +1428,21 @@ void addPermutations(float x, float y, float z) {
  
 void addVerts(float x, float y, float z) {
   //adds the requested vert and all "mirrored" verts
-  vec_polyhedron_list.add (Vec3(x,y,z));
+  vec_polyhedron_list.add (vec3(x,y,z));
   // z
-  if (z != 0.0) vec_polyhedron_list.add (Vec3(x,y,-z)); 
+  if (z != 0.0) vec_polyhedron_list.add (vec3(x,y,-z)); 
   // y
   if (y != 0.0) {
-    vec_polyhedron_list.add (Vec3(x, -y, z));
-    if (z != 0.0) vec_polyhedron_list.add(Vec3(x,-y,-z));
+    vec_polyhedron_list.add (vec3(x, -y, z));
+    if (z != 0.0) vec_polyhedron_list.add(vec3(x,-y,-z));
   } 
   // x
   if (x != 0.0) {
-    vec_polyhedron_list.add (Vec3(-x, y, z));
-    if (z != 0.0) vec_polyhedron_list.add(Vec3(-x,y,-z));
+    vec_polyhedron_list.add (vec3(-x, y, z));
+    if (z != 0.0) vec_polyhedron_list.add(vec3(-x,y,-z));
     if (y != 0.0) {
-      vec_polyhedron_list.add(Vec3(-x, -y, z));
-      if (z != 0.0) vec_polyhedron_list.add(Vec3(-x,-y,-z));
+      vec_polyhedron_list.add(vec3(-x, -y, z));
+      if (z != 0.0) vec_polyhedron_list.add(vec3(-x,-y,-z));
     }
   }
 }

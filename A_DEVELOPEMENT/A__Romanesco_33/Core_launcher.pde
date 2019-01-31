@@ -1,7 +1,8 @@
 /**
 CORE LAUNCHER
-2014-2018
-v 1.1.0
+2014-2019
+v 1.2.0
+Processing 3.5.2
 */
 
 
@@ -234,13 +235,13 @@ void color_setup() {
 
 void set_structure() {
   // renderer
-  Vec2 pos_home = Vec2(100,40);
-  Vec2 pos_live = Vec2 (180,40);
-  Vec2 pos_mirror = Vec2 (240,40);
+  vec2 pos_home = vec2(100,40);
+  vec2 pos_live = vec2 (180,40);
+  vec2 pos_mirror = vec2 (240,40);
 
-  Vec2 size_home = Vec2(85,20);
-  Vec2 size_live = Vec2(85,20);
-  Vec2 size_mirror = Vec2(85,20);
+  vec2 size_home = vec2(85,20);
+  vec2 size_live = vec2(85,20);
+  vec2 size_mirror = vec2(85,20);
 
   renderer[0] = new Button(pos_home, size_home, c1, c2, c3, c4, "Home");
   renderer[1] = new Button(pos_live, size_live, c1, c2, c3, c4, "Live");
@@ -248,18 +249,18 @@ void set_structure() {
   
   
   // size and display type
-  Vec2 pos_window = Vec2(10,70);
-  Vec2 pos_fullscreen = Vec2(120,70);
+  vec2 pos_window = vec2(10,70);
+  vec2 pos_fullscreen = vec2(120,70);
 
-  Vec2 size_window = Vec2(120,20);
-  Vec2 size_fullscreen = Vec2(180,20);
+  vec2 size_window = vec2(120,20);
+  vec2 size_fullscreen = vec2(180,20);
 
   buttonWindow = new Button(pos_window, size_window, c1, c2, c3, c4, "Window");
   buttonFullscreen = new Button(pos_fullscreen, size_fullscreen, c1, c2, c3, c4, "Full Screen");
   
   // start
-  Vec2 pos_start = Vec2(10, 190) ;
-  Vec2 size_start = Vec2(210, 20) ;
+  vec2 pos_start = vec2(10, 190) ;
+  vec2 size_start = vec2(210, 20) ;
 
   buttonStart = new Button(pos_start, size_start, colorIN, colorOUT, colorIN, colorOUT, "Launch Romanesco");
 
@@ -686,8 +687,8 @@ void set_which_screen(int n , PVector infoPos) {
   int space = (int)infoPos.z ;
   
   for ( int i = 0 ; i <  screenNum ; i++) {
-    Vec2 pos = Vec2( x +( i *space), y ) ;
-    Vec2 size = Vec2(20,20) ;
+    vec2 pos = vec2( x +( i *space), y ) ;
+    vec2 size = vec2(20,20) ;
     String title = Integer.toString(i+1) ;
     whichScreenButton[i] = new Button(pos, size, c1, c2, c3, c4, title) ;
   }

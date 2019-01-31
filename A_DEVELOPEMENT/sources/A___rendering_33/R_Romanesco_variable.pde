@@ -211,11 +211,11 @@ void update_slider_value(Romanesco item) {
   first_opening_item[id] = true; 
 }
 
-Vec4 fill_local_ref;
-Vec4 stroke_local_ref;
+vec4 fill_local_ref;
+vec4 stroke_local_ref;
 void change_slider_ref() {
-  fill_local_ref = Vec4(fill_hue_raw,fill_sat_raw,fill_bright_raw,fill_alpha_raw);
-  stroke_local_ref = Vec4(stroke_hue_raw,stroke_sat_raw,stroke_bright_raw,stroke_alpha_raw);
+  fill_local_ref = vec4(fill_hue_raw,fill_sat_raw,fill_bright_raw,fill_alpha_raw);
+  stroke_local_ref = vec4(stroke_hue_raw,stroke_sat_raw,stroke_bright_raw,stroke_alpha_raw);
 }
 
 
@@ -223,17 +223,17 @@ void update_slider_value_aspect(boolean init, Romanesco item) {
   int id = item.get_id();
   if(FULL_RENDERING) {
     if(!init) {
-      fill_item_ref[id] = Vec4(fill_hue_raw,fill_sat_raw,fill_bright_raw,fill_alpha_raw);
-      fill_local_ref = Vec4(fill_hue_raw,fill_sat_raw,fill_bright_raw,fill_alpha_raw);
+      fill_item_ref[id] = vec4(fill_hue_raw,fill_sat_raw,fill_bright_raw,fill_alpha_raw);
+      fill_local_ref = vec4(fill_hue_raw,fill_sat_raw,fill_bright_raw,fill_alpha_raw);
       item.set_fill(color(fill_hue_raw,fill_sat_raw,fill_bright_raw,fill_alpha_raw));
 
-      stroke_item_ref[id] = Vec4(stroke_hue_raw,stroke_sat_raw,stroke_bright_raw,stroke_alpha_raw);
-      stroke_local_ref = Vec4(stroke_hue_raw,stroke_sat_raw,stroke_bright_raw,stroke_alpha_raw);
+      stroke_item_ref[id] = vec4(stroke_hue_raw,stroke_sat_raw,stroke_bright_raw,stroke_alpha_raw);
+      stroke_local_ref = vec4(stroke_hue_raw,stroke_sat_raw,stroke_bright_raw,stroke_alpha_raw);
       item.set_stroke(color(stroke_hue_raw,stroke_sat_raw,stroke_bright_raw,stroke_alpha_raw));  
     }
     
     // FILL part
-    bVec4 fill_is = bVec4();
+    bvec4 fill_is = bvec4();
     // check hsba value
     if(fill_local_ref.r != fill_hue_raw) fill_is.x = true;
     if(fill_local_ref.g != fill_sat_raw) fill_is.y = true;
@@ -274,7 +274,7 @@ void update_slider_value_aspect(boolean init, Romanesco item) {
     }
     
     // STROKE part
-    bVec4 stroke_is = bVec4();
+    bvec4 stroke_is = bvec4();
     // check hsba value
     if(stroke_local_ref.r != stroke_hue_raw) stroke_is.x = true;
     if(stroke_local_ref.g != stroke_sat_raw) stroke_is.y = true;

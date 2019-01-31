@@ -17,16 +17,16 @@ float mix(float x, float y, float a) {
   return x*(1-a)+y*a;
 }
 
-Vec2 mix(Vec2 x, Vec2 y, Vec2 a) {
-  return Vec2(mix(x.x,y.x,a.x),mix(x.y,y.y,a.y));
+vec2 mix(vec2 x, vec2 y, vec2 a) {
+  return vec2(mix(x.x,y.x,a.x),mix(x.y,y.y,a.y));
 }
 
-Vec3 mix(Vec3 x, Vec3 y, Vec3 a) {
-  return Vec3(mix(x.x,y.x,a.x),mix(x.y,y.y,a.y),mix(x.z,y.z,a.z));
+vec3 mix(vec3 x, vec3 y, vec3 a) {
+  return vec3(mix(x.x,y.x,a.x),mix(x.y,y.y,a.y),mix(x.z,y.z,a.z));
 }
 
-Vec4 mix(Vec4 x, Vec4 y, Vec4 a) {
-  return Vec4(mix(x.x,y.x,a.x),mix(x.y,y.y,a.y),mix(x.z,y.z,a.z),mix(x.w,y.w,a.w));
+vec4 mix(vec4 x, vec4 y, vec4 a) {
+  return vec4(mix(x.x,y.x,a.x),mix(x.y,y.y,a.y),mix(x.z,y.z,a.z),mix(x.w,y.w,a.w));
 }
 
 /**
@@ -36,16 +36,16 @@ float fract(float x) {
   return x - floor(x);
 }
 
-Vec2 fract(Vec2 v) {
-  return Vec2(fract(v.x),fract(v.y));
+vec2 fract(vec2 v) {
+  return vec2(fract(v.x),fract(v.y));
 }
 
-Vec3 fract(Vec3 v) {
-  return Vec3(fract(v.x),fract(v.y),fract(v.z));
+vec3 fract(vec3 v) {
+  return vec3(fract(v.x),fract(v.y),fract(v.z));
 }
 
-Vec4 fract(Vec4 v) {
-  return Vec4(fract(v.x),fract(v.y),fract(v.z),fract(v.w));
+vec4 fract(vec4 v) {
+  return vec4(fract(v.x),fract(v.y),fract(v.z),fract(v.w));
 }
 
 /**
@@ -59,16 +59,16 @@ float sign(float x) {
   } else return 0.0;
 }
 
-Vec2 sign(Vec2 x) {
-  return Vec2(sign(x.x),sign(x.y));
+vec2 sign(vec2 x) {
+  return vec2(sign(x.x),sign(x.y));
 }
 
-Vec3 sign(Vec3 x) {
-  return Vec3(sign(x.x),sign(x.y),sign(x.z));
+vec3 sign(vec3 x) {
+  return vec3(sign(x.x),sign(x.y),sign(x.z));
 }
 
-Vec4 sign(Vec4 x) {
-  return Vec4(sign(x.x),sign(x.y),sign(x.z),sign(x.w));
+vec4 sign(vec4 x) {
+  return vec4(sign(x.x),sign(x.y),sign(x.z),sign(x.w));
 }
 
 
@@ -76,16 +76,16 @@ int sign(int x) {
   return int(sign(float(x)));
 }
 
-iVec2 sign(iVec2 x) {
-  return iVec2(sign(x.x),sign(x.y));
+ivec2 sign(ivec2 x) {
+  return ivec2(sign(x.x),sign(x.y));
 }
 
-iVec3 sign(iVec3 x) {
-  return iVec3(sign(x.x),sign(x.y),sign(x.z));
+ivec3 sign(ivec3 x) {
+  return ivec3(sign(x.x),sign(x.y),sign(x.z));
 }
 
-iVec4 sign(iVec4 x) {
-  return iVec4(sign(x.x),sign(x.y),sign(x.z),sign(x.w));
+ivec4 sign(ivec4 x) {
+  return ivec4(sign(x.x),sign(x.y),sign(x.z),sign(x.w));
 }
 
 
@@ -96,16 +96,16 @@ float step(float edge, float x) {
   if(x < edge) return 0; else return 1;
 }
 
-Vec2 step(Vec2 edge, Vec2 x) {
-  return Vec2(step(edge.x,x.x),step(edge.y,x.y));
+vec2 step(vec2 edge, vec2 x) {
+  return vec2(step(edge.x,x.x),step(edge.y,x.y));
 }
 
-Vec3 step(Vec3 edge, Vec3 x) {
-  return Vec3(step(edge.x,x.x),step(edge.y,x.y),step(edge.z,x.z));
+vec3 step(vec3 edge, vec3 x) {
+  return vec3(step(edge.x,x.x),step(edge.y,x.y),step(edge.z,x.z));
 }
 
-Vec4 step(Vec4 edge, Vec4 x) {
-  return Vec4(step(edge.x,x.x),step(edge.y,x.y),step(edge.z,x.z),step(edge.w,x.w));
+vec4 step(vec4 edge, vec4 x) {
+  return vec4(step(edge.x,x.x),step(edge.y,x.y),step(edge.z,x.z),step(edge.w,x.w));
 }
 
 
@@ -123,16 +123,16 @@ float smoothstep(float edge0, float edge1, float x) {
   }
 }
 
-Vec2 smoothstep(Vec2 edge0, Vec2 edge1, Vec2 x) {
-  return Vec2(smoothstep(edge0.x,edge1.x,x.x),smoothstep(edge0.y,edge1.y,x.y));
+vec2 smoothstep(vec2 edge0, vec2 edge1, vec2 x) {
+  return vec2(smoothstep(edge0.x,edge1.x,x.x),smoothstep(edge0.y,edge1.y,x.y));
 }
 
-Vec3 smoothstep(Vec3 edge0, Vec3 edge1, Vec3 x) {
-  return Vec3(smoothstep(edge0.x,edge1.x,x.x),smoothstep(edge0.y,edge1.y,x.y),smoothstep(edge0.z,edge1.z,x.z));
+vec3 smoothstep(vec3 edge0, vec3 edge1, vec3 x) {
+  return vec3(smoothstep(edge0.x,edge1.x,x.x),smoothstep(edge0.y,edge1.y,x.y),smoothstep(edge0.z,edge1.z,x.z));
 }
 
-Vec4 smoothstep(Vec4 edge0, Vec4 edge1, Vec4 x) {
-  return Vec4(smoothstep(edge0.x,edge1.x,x.x),smoothstep(edge0.y,edge1.y,x.y),smoothstep(edge0.z,edge1.z,x.z),smoothstep(edge0.w,edge1.w,x.w));
+vec4 smoothstep(vec4 edge0, vec4 edge1, vec4 x) {
+  return vec4(smoothstep(edge0.x,edge1.x,x.x),smoothstep(edge0.y,edge1.y,x.y),smoothstep(edge0.z,edge1.z,x.z),smoothstep(edge0.w,edge1.w,x.w));
 }
 
 
@@ -144,28 +144,28 @@ float mod(float x, float y) {
   return x-y*floor(x/y);
 }
 
-Vec2 mod(Vec2 x, Vec2 y) {
-  return Vec2(mod(x.x,y.x),mod(x.y,y.y));
+vec2 mod(vec2 x, vec2 y) {
+  return vec2(mod(x.x,y.x),mod(x.y,y.y));
 }
 
-Vec3 mod(Vec3 x, Vec3 y) {
-  return Vec3(mod(x.x,y.x),mod(x.y,y.y),mod(x.z,y.z));
+vec3 mod(vec3 x, vec3 y) {
+  return vec3(mod(x.x,y.x),mod(x.y,y.y),mod(x.z,y.z));
 }
 
-Vec4 mod(Vec4 x, Vec4 y) {
-  return Vec4(mod(x.x,y.x),mod(x.y,y.y),mod(x.z,y.z),mod(x.w,y.w));
+vec4 mod(vec4 x, vec4 y) {
+  return vec4(mod(x.x,y.x),mod(x.y,y.y),mod(x.z,y.z),mod(x.w,y.w));
 }
 
-iVec2 mod(iVec2 x, iVec2 y) {
-  return iVec2(mod(x.x,y.x),mod(x.y,y.y));
+ivec2 mod(ivec2 x, ivec2 y) {
+  return ivec2(mod(x.x,y.x),mod(x.y,y.y));
 }
 
-iVec3 mod(iVec3 x, iVec3 y) {
-  return iVec3(mod(x.x,y.x),mod(x.y,y.y),mod(x.z,y.z));
+ivec3 mod(ivec3 x, ivec3 y) {
+  return ivec3(mod(x.x,y.x),mod(x.y,y.y),mod(x.z,y.z));
 }
 
-iVec4 mod(iVec4 x, iVec4 y) {
-  return iVec4(mod(x.x,y.x),mod(x.y,y.y),mod(x.z,y.z),mod(x.w,y.w));
+ivec4 mod(ivec4 x, ivec4 y) {
+  return ivec4(mod(x.x,y.x),mod(x.y,y.y),mod(x.z,y.z),mod(x.w,y.w));
 }
 
 /**
@@ -175,15 +175,15 @@ float clamp(float x, float min, float max) {
   return min(max(x,min),max);
 }
 
-Vec2 clamp(Vec2 x, Vec2 min, Vec2 max) {
+vec2 clamp(vec2 x, vec2 min, vec2 max) {
   return min(max(x,min),max);
 }
 
-Vec3 clamp(Vec3 x, Vec3 min, Vec3 max) {
+vec3 clamp(vec3 x, vec3 min, vec3 max) {
   return min(max(x,min),max);
 }
 
-Vec4 clamp(Vec4 x, Vec4 min, Vec4 max) {
+vec4 clamp(vec4 x, vec4 min, vec4 max) {
   return min(max(x,min),max);
 }
 
@@ -201,41 +201,41 @@ boolean equal(int x, int y) {
   return equal((float)x,(float)y);
 }
 
-// with Vec
-bVec2 equal(Vec2 x, Vec2 y) {
+// with vec
+bvec2 equal(vec2 x, vec2 y) {
   if(x != null && y != null) {
-    return bVec2(equal(x.x,y.x),equal(x.y,y.y));
+    return bvec2(equal(x.x,y.x),equal(x.y,y.y));
   } else return null;
 }
 
-bVec3 equal(Vec3 x, Vec3 y) {
+bvec3 equal(vec3 x, vec3 y) {
   if(x != null && y != null) {
-    return bVec3(equal(x.x,y.x),equal(x.y,y.y),equal(x.z,y.z));
+    return bvec3(equal(x.x,y.x),equal(x.y,y.y),equal(x.z,y.z));
   } else return null;
 }
 
-bVec4 equal(Vec4 x, Vec4 y) {
+bvec4 equal(vec4 x, vec4 y) {
   if(x != null && y != null) {
-    return bVec4(equal(x.x,y.x),equal(x.y,y.y),equal(x.z,y.z),equal(x.w,y.w));
+    return bvec4(equal(x.x,y.x),equal(x.y,y.y),equal(x.z,y.z),equal(x.w,y.w));
   } else return null;
 }
 
-// width iVec
-bVec2 equal(iVec2 x, iVec2 y) {
+// width ivec
+bvec2 equal(ivec2 x, ivec2 y) {
   if(x != null && y != null) {
-    return bVec2(equal(x.x,y.x),equal(x.y,y.y));
+    return bvec2(equal(x.x,y.x),equal(x.y,y.y));
   } else return null;
 }
 
-bVec3 equal(iVec3 x, iVec3 y) {
+bvec3 equal(ivec3 x, ivec3 y) {
   if(x != null && y != null) {
-    return bVec3(equal(x.x,y.x),equal(x.y,y.y),equal(x.z,y.z));
+    return bvec3(equal(x.x,y.x),equal(x.y,y.y),equal(x.z,y.z));
   } else return null;
 }
 
-bVec4 equal(iVec4 x, iVec4 y) {
+bvec4 equal(ivec4 x, ivec4 y) {
   if(x != null && y != null) {
-    return bVec4(equal(x.x,y.x),equal(x.y,y.y),equal(x.z,y.z),equal(x.w,y.w));
+    return bvec4(equal(x.x,y.x),equal(x.y,y.y),equal(x.z,y.z),equal(x.w,y.w));
   } else return null;
 }
 
@@ -253,41 +253,41 @@ boolean lessThan(int x, int y) {
   return lessThan((float)x,(float)y);
 }
 
-// with Vec
-bVec2 lessThan(Vec2 x, Vec2 y) {
+// with vec
+bvec2 lessThan(vec2 x, vec2 y) {
   if(x != null && y != null) {
-    return bVec2(lessThan(x.x,y.x),lessThan(x.y,y.y));
+    return bvec2(lessThan(x.x,y.x),lessThan(x.y,y.y));
   } else return null;
 }
 
-bVec3 lessThan(Vec3 x, Vec3 y) {
+bvec3 lessThan(vec3 x, vec3 y) {
   if(x != null && y != null) {
-    return bVec3(lessThan(x.x,y.x),lessThan(x.y,y.y),lessThan(x.z,y.z));
+    return bvec3(lessThan(x.x,y.x),lessThan(x.y,y.y),lessThan(x.z,y.z));
   } else return null;
 }
 
-bVec4 lessThan(Vec4 x, Vec4 y) {
+bvec4 lessThan(vec4 x, vec4 y) {
   if(x != null && y != null) {
-    return bVec4(lessThan(x.x,y.x),lessThan(x.y,y.y),lessThan(x.z,y.z),lessThan(x.w,y.w));
+    return bvec4(lessThan(x.x,y.x),lessThan(x.y,y.y),lessThan(x.z,y.z),lessThan(x.w,y.w));
   } else return null;
 }
 
-// width iVec
-bVec2 lessThan(iVec2 x, iVec2 y) {
+// width ivec
+bvec2 lessThan(ivec2 x, ivec2 y) {
   if(x != null && y != null) {
-    return bVec2(lessThan(x.x,y.x),lessThan(x.y,y.y));
+    return bvec2(lessThan(x.x,y.x),lessThan(x.y,y.y));
   } else return null;
 }
 
-bVec3 lessThan(iVec3 x, iVec3 y) {
+bvec3 lessThan(ivec3 x, ivec3 y) {
   if(x != null && y != null) {
-    return bVec3(lessThan(x.x,y.x),lessThan(x.y,y.y),lessThan(x.z,y.z));
+    return bvec3(lessThan(x.x,y.x),lessThan(x.y,y.y),lessThan(x.z,y.z));
   } else return null;
 }
 
-bVec4 lessThan(iVec4 x, iVec4 y) {
+bvec4 lessThan(ivec4 x, ivec4 y) {
   if(x != null && y != null) {
-    return bVec4(lessThan(x.x,y.x),lessThan(x.y,y.y),lessThan(x.z,y.z),lessThan(x.w,y.w));
+    return bvec4(lessThan(x.x,y.x),lessThan(x.y,y.y),lessThan(x.z,y.z),lessThan(x.w,y.w));
   } else return null;
 }
 
@@ -306,41 +306,41 @@ boolean greaterThan(int x, int y) {
   return greaterThan((float)x,(float)y);
 }
 
-// with Vec
-bVec2 greaterThan(Vec2 x, Vec2 y) {
+// with vec
+bvec2 greaterThan(vec2 x, vec2 y) {
   if(x != null && y != null) {
-    return bVec2(greaterThan(x.x,y.x),greaterThan(x.y,y.y));
+    return bvec2(greaterThan(x.x,y.x),greaterThan(x.y,y.y));
   } else return null; 
 }
 
-bVec3 greaterThan(Vec3 x, Vec3 y) {
+bvec3 greaterThan(vec3 x, vec3 y) {
   if(x != null && y != null) {
-    return bVec3(greaterThan(x.x,y.x),greaterThan(x.y,y.y),greaterThan(x.z,y.z));
+    return bvec3(greaterThan(x.x,y.x),greaterThan(x.y,y.y),greaterThan(x.z,y.z));
   } else return null; 
 }
 
-bVec4 greaterThan(Vec4 x, Vec4 y) {
+bvec4 greaterThan(vec4 x, vec4 y) {
   if(x != null && y != null) {
-    return bVec4(greaterThan(x.x,y.x),greaterThan(x.y,y.y),greaterThan(x.z,y.z),greaterThan(x.w,y.w));
+    return bvec4(greaterThan(x.x,y.x),greaterThan(x.y,y.y),greaterThan(x.z,y.z),greaterThan(x.w,y.w));
   } else return null; 
 }
 
-// width iVec
-bVec2 greaterThan(iVec2 x, iVec2 y) {
+// width ivec
+bvec2 greaterThan(ivec2 x, ivec2 y) {
   if(x != null && y != null) {
-    return bVec2(greaterThan(x.x,y.x),greaterThan(x.y,y.y));
+    return bvec2(greaterThan(x.x,y.x),greaterThan(x.y,y.y));
   } else return null; 
 }
 
-bVec3 greaterThan(iVec3 x, iVec3 y) {
+bvec3 greaterThan(ivec3 x, ivec3 y) {
   if(x != null && y != null) {
-    return bVec3(greaterThan(x.x,y.x),greaterThan(x.y,y.y),greaterThan(x.z,y.z));
+    return bvec3(greaterThan(x.x,y.x),greaterThan(x.y,y.y),greaterThan(x.z,y.z));
   } else return null; 
 }
 
-bVec4 greaterThan(iVec4 x, iVec4 y) {
+bvec4 greaterThan(ivec4 x, ivec4 y) {
   if(x != null && y != null) {
-    return bVec4(greaterThan(x.x,y.x),greaterThan(x.y,y.y),greaterThan(x.z,y.z),greaterThan(x.w,y.w));
+    return bvec4(greaterThan(x.x,y.x),greaterThan(x.y,y.y),greaterThan(x.z,y.z),greaterThan(x.w,y.w));
   } else return null; 
 }
 
@@ -360,41 +360,41 @@ boolean greaterThanEqual(int x, int y) {
   return greaterThanEqual((float)x,(float)y);
 }
 
-// with Vec
-bVec2 greaterThanEqual(Vec2 x, Vec2 y) {
+// with vec
+bvec2 greaterThanEqual(vec2 x, vec2 y) {
   if(x != null && y != null) {
-    return bVec2(greaterThanEqual(x.x,y.x),greaterThanEqual(x.y,y.y));
+    return bvec2(greaterThanEqual(x.x,y.x),greaterThanEqual(x.y,y.y));
   } else return null; 
 }
 
-bVec3 greaterThanEqual(Vec3 x, Vec3 y) {
+bvec3 greaterThanEqual(vec3 x, vec3 y) {
   if(x != null && y != null) {
-    return bVec3(greaterThanEqual(x.x,y.x),greaterThanEqual(x.y,y.y),greaterThanEqual(x.z,y.z));
+    return bvec3(greaterThanEqual(x.x,y.x),greaterThanEqual(x.y,y.y),greaterThanEqual(x.z,y.z));
   } else return null; 
 }
 
-bVec4 greaterThanEqual(Vec4 x, Vec4 y) {
+bvec4 greaterThanEqual(vec4 x, vec4 y) {
   if(x != null && y != null) {
-    return bVec4(greaterThanEqual(x.x,y.x),greaterThanEqual(x.y,y.y),greaterThanEqual(x.z,y.z),greaterThanEqual(x.w,y.w));
+    return bvec4(greaterThanEqual(x.x,y.x),greaterThanEqual(x.y,y.y),greaterThanEqual(x.z,y.z),greaterThanEqual(x.w,y.w));
   } else return null; 
 }
 
-// width iVec
-bVec2 greaterThanEqual(iVec2 x, iVec2 y) {
+// width ivec
+bvec2 greaterThanEqual(ivec2 x, ivec2 y) {
   if(x != null && y != null) {
-    return bVec2(greaterThanEqual(x.x,y.x),greaterThanEqual(x.y,y.y));
+    return bvec2(greaterThanEqual(x.x,y.x),greaterThanEqual(x.y,y.y));
   } else return null; 
 }
 
-bVec3 greaterThanEqual(iVec3 x, iVec3 y) {
+bvec3 greaterThanEqual(ivec3 x, ivec3 y) {
   if(x != null && y != null) {
-    return bVec3(greaterThanEqual(x.x,y.x),greaterThanEqual(x.y,y.y),greaterThanEqual(x.z,y.z));
+    return bvec3(greaterThanEqual(x.x,y.x),greaterThanEqual(x.y,y.y),greaterThanEqual(x.z,y.z));
   } else return null; 
 }
 
-bVec4 greaterThanEqual(iVec4 x, iVec4 y) {
+bvec4 greaterThanEqual(ivec4 x, ivec4 y) {
   if(x != null && y != null) {
-    return bVec4(greaterThanEqual(x.x,y.x),greaterThanEqual(x.y,y.y),greaterThanEqual(x.z,y.z),greaterThanEqual(x.w,y.w));
+    return bvec4(greaterThanEqual(x.x,y.x),greaterThanEqual(x.y,y.y),greaterThanEqual(x.z,y.z),greaterThanEqual(x.w,y.w));
   } else return null; 
 }
 
@@ -414,41 +414,41 @@ boolean lessThanEqual(int x, int y) {
   return lessThanEqual((float)x,(float)y);
 }
 
-// with Vec
-bVec2 lessThanEqual(Vec2 x, Vec2 y) {
+// with vec
+bvec2 lessThanEqual(vec2 x, vec2 y) {
   if(x != null && y != null) {
-    return bVec2(lessThanEqual(x.x,y.x),lessThanEqual(x.y,y.y));
+    return bvec2(lessThanEqual(x.x,y.x),lessThanEqual(x.y,y.y));
   } else return null; 
 }
 
-bVec3 lessThanEqual(Vec3 x, Vec3 y) {
+bvec3 lessThanEqual(vec3 x, vec3 y) {
   if(x != null && y != null) {
-    return bVec3(lessThanEqual(x.x,y.x),lessThanEqual(x.y,y.y),lessThanEqual(x.z,y.z));
+    return bvec3(lessThanEqual(x.x,y.x),lessThanEqual(x.y,y.y),lessThanEqual(x.z,y.z));
   } else return null; 
 }
 
-bVec4 lessThanEqual(Vec4 x, Vec4 y) {
+bvec4 lessThanEqual(vec4 x, vec4 y) {
   if(x != null && y != null) {
-    return bVec4(lessThanEqual(x.x,y.x),lessThanEqual(x.y,y.y),lessThanEqual(x.z,y.z),lessThanEqual(x.w,y.w));
+    return bvec4(lessThanEqual(x.x,y.x),lessThanEqual(x.y,y.y),lessThanEqual(x.z,y.z),lessThanEqual(x.w,y.w));
   } else return null; 
 }
 
-// width iVec
-bVec2 lessThanEqual(iVec2 x, iVec2 y) {
+// width ivec
+bvec2 lessThanEqual(ivec2 x, ivec2 y) {
   if(x != null && y != null) {
-    return bVec2(lessThanEqual(x.x,y.x),lessThanEqual(x.y,y.y));
+    return bvec2(lessThanEqual(x.x,y.x),lessThanEqual(x.y,y.y));
   } else return null; 
 }
 
-bVec3 lessThanEqual(iVec3 x, iVec3 y) {
+bvec3 lessThanEqual(ivec3 x, ivec3 y) {
   if(x != null && y != null) {
-    return bVec3(lessThanEqual(x.x,y.x),lessThanEqual(x.y,y.y),lessThanEqual(x.z,y.z));
+    return bvec3(lessThanEqual(x.x,y.x),lessThanEqual(x.y,y.y),lessThanEqual(x.z,y.z));
   } else return null; 
 }
 
-bVec4 lessThanEqual(iVec4 x, iVec4 y) {
+bvec4 lessThanEqual(ivec4 x, ivec4 y) {
   if(x != null && y != null) {
-    return bVec4(lessThanEqual(x.x,y.x),lessThanEqual(x.y,y.y),lessThanEqual(x.z,y.z),lessThanEqual(x.w,y.w));
+    return bvec4(lessThanEqual(x.x,y.x),lessThanEqual(x.y,y.y),lessThanEqual(x.z,y.z),lessThanEqual(x.w,y.w));
   } else return null; 
 }
 
@@ -461,7 +461,7 @@ bVec4 lessThanEqual(iVec4 x, iVec4 y) {
 /**
 all
 */
-boolean all(bVec2 b) {
+boolean all(bvec2 b) {
   if(b != null) {
     boolean [] list = b.array();
     boolean result = true;
@@ -478,7 +478,7 @@ boolean all(bVec2 b) {
   }
 }
 
-boolean all(bVec3 b) {
+boolean all(bvec3 b) {
   if(b != null) {
     boolean [] list = b.array();
     boolean result = true;
@@ -495,7 +495,7 @@ boolean all(bVec3 b) {
   }
 }
 
-boolean all(bVec4 b) {
+boolean all(bvec4 b) {
   if(b != null) {
     boolean [] list = b.array();
     boolean result = true;
@@ -512,7 +512,7 @@ boolean all(bVec4 b) {
   }
 }
 
-boolean all(bVec5 b) {
+boolean all(bvec5 b) {
   if(b != null) {
     boolean [] list = b.array();
     boolean result = true;
@@ -529,7 +529,7 @@ boolean all(bVec5 b) {
   }
 }
 
-boolean all(bVec6 b) {
+boolean all(bvec6 b) {
   if(b != null) {
     boolean [] list = b.array();
     boolean result = true;
@@ -552,7 +552,7 @@ boolean all(bVec6 b) {
 /**
 any
 */
-boolean any(bVec2 b) {
+boolean any(bvec2 b) {
   if(b != null) {
     boolean [] list = b.array();
     boolean result = false;
@@ -569,7 +569,7 @@ boolean any(bVec2 b) {
   }
 }
 
-boolean any(bVec3 b) {
+boolean any(bvec3 b) {
   if(b != null) {
     boolean [] list = b.array();
     boolean result = false;
@@ -586,7 +586,7 @@ boolean any(bVec3 b) {
   }
 }
 
-boolean any(bVec4 b) {
+boolean any(bvec4 b) {
   if(b != null) {
     boolean [] list = b.array();
     boolean result = false;
@@ -603,7 +603,7 @@ boolean any(bVec4 b) {
   }
 }
 
-boolean any(bVec5 b) {
+boolean any(bvec5 b) {
   if(b != null) {
     boolean [] list = b.array();
     boolean result = false;
@@ -620,7 +620,7 @@ boolean any(bVec5 b) {
   }
 }
 
-boolean any(bVec6 b) {
+boolean any(bvec6 b) {
   if(b != null) {
     boolean [] list = b.array();
     boolean result = false;

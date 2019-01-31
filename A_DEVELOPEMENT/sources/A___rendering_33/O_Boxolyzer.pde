@@ -92,7 +92,7 @@ class Boxolyzer extends Romanesco {
       new_distribution = true;
     }
     num_box_ref = num_box;
-    Vec3 size = get_size().copy();
+    vec3 size = get_size().copy();
 
     // color and thickness
     
@@ -130,7 +130,7 @@ class Boxolyzer extends Romanesco {
     
     int n = box_list.size() ;
     float factorSpectrum = 0 ;
-    Vec3 pos = Vec3() ;
+    vec3 pos = vec3() ;
     for(int i=0; i < n; i++) {
       if(i < band_length()) {
         factorSpectrum = band [ID_item][i] ;
@@ -158,12 +158,12 @@ class Boxolyzer extends Romanesco {
 
   // EQUALIZER CLASSIC
   void boxolyzer_line(boolean groundPosition) {
-    Vec3 pos = Vec3(0,height *.5,0);
+    vec3 pos = vec3(0,height *.5,0);
     float factorSpectrum = 0;
     int num = box_list.size();
     int canvasFinal = (int)map(get_canvas_x(), width/10, width, width/2,width*3)  ;
     int displacement_symetric = int(width *.5 -canvasFinal *.5) ;
-    Vec3 displacement = Vec3(width/2, height/2, 0) ;
+    vec3 displacement = vec3(width/2, height/2, 0) ;
     for(int i = 0 ; i < num ; i++) {
       pos.x = (i *canvasFinal /num) + (canvasFinal /(num *2)) +displacement_symetric ;
       if(i < band_length()) {
@@ -196,26 +196,26 @@ class Boxolyzer extends Romanesco {
   }
   //
   void addBoite(int ID) {
-    Vec3 size = Vec3(1) ;
+    vec3 size = vec3(1) ;
     Equalyzer boxolyzer = new Equalyzer(size, ID) ; 
     box_list.add(boxolyzer) ;
   }
   // END GLOBAL VOID
   private class Equalyzer {
-    Vec3 size;
+    vec3 size;
     int ID;
-    Vec3 pos;
-    Vec3 dir;
+    vec3 pos;
+    vec3 dir;
     float ratio_spectrum;
     int costume;
     float ratio_costume;
 
-    Equalyzer(Vec3 size, int ID) {
+    Equalyzer(vec3 size, int ID) {
       this.ID = ID ;
       this.size = size ;
     }
 
-    void set_size(Vec3 size) {
+    void set_size(vec3 size) {
       if(this.size == null) {
         this.size = size.copy();
       } else {
@@ -223,7 +223,7 @@ class Boxolyzer extends Romanesco {
       }
     }
 
-    void set_pos(Vec3 pos) {
+    void set_pos(vec3 pos) {
       if(this.pos == null) {
         this.pos = pos.copy();
       } else {
@@ -231,7 +231,7 @@ class Boxolyzer extends Romanesco {
       }
     }
 
-    void set_dir(Vec3 dir) {
+    void set_dir(vec3 dir) {
       if(this.dir == null) {
         this.dir = dir.copy();
       } else {

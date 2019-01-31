@@ -581,7 +581,7 @@ class Boid {
     strokeWeight(thickness) ;
     if(thickness <= 0 || alpha(strokeBoid) == 0 ) noStroke() ; else stroke(strokeBoid);
     if(alpha(fillBoid) == 0 ) noFill() ; else  fill(fillBoid);
-    // costume(Vec3(),Vec3(size),TRIANGLE_ROPE);
+    // costume(vec3(),vec3(size),TRIANGLE_ROPE);
     // polyhedron(String type, String style, int size)
     // tetrahedron(size) ;
     polyhedron("TETRAHEDRON","VERTEX",(int)size);

@@ -72,8 +72,8 @@ class Lorenz extends Romanesco {
   float a = 10;
   float b = 28;
   float c = 8. / 3.;
-  Vec3 pos;
-  ArrayList<Vec3> list_points;
+  vec3 pos;
+  ArrayList<vec3> list_points;
 
 
 
@@ -85,16 +85,16 @@ class Lorenz extends Romanesco {
 
 	void draw() {
     if(list_points == null) {
-      pos = Vec3(.01, 0, 0) ;
-      list_points = new ArrayList<Vec3>() ;
+      pos = vec3(.01, 0, 0) ;
+      list_points = new ArrayList<vec3>() ;
     } else {
       build_lorenz_attractor(list_points) ;
       if(alpha(get_fill()) > 0 || get_thickness() > 0) {
         float canvas = get_canvas_x() *.01 ;
-        Vec3 jitter = get_jitter().copy();
+        vec3 jitter = get_jitter().copy();
         jitter.mult(height/10) ;
-        Vec3 size = get_size().copy();
-        Vec3 dir = get_dir().copy();
+        vec3 size = get_size().copy();
+        vec3 dir = get_dir().copy();
         fill(get_fill());
         stroke(get_stroke());
         strokeWeight(get_thickness());
@@ -118,26 +118,26 @@ class Lorenz extends Romanesco {
 
 
 
-  private void build_lorenz_attractor(ArrayList<Vec3> list) {
+  private void build_lorenz_attractor(ArrayList<vec3> list) {
     float dt = .01 ;
-    Vec3 d = Vec3() ;
+    vec3 d = vec3() ;
     d.x = (a * (pos.y -pos.x)) *dt ;
     d.y = (pos.x * (b -pos.z) - pos.y) *dt ;
     d.z = (pos.x * pos.y -c *pos.z) *dt ;
     
     pos.add(d) ;
-    Vec3 final_pos = pos.copy() ;
+    vec3 final_pos = pos.copy() ;
     list.add(final_pos) ;
   }
 
 
-  private void show_lorenz_attractor(Vec3 size, Vec3 dir, float canvas, Vec3 jitter, ArrayList<Vec3> list, int mode, Costume costume) {
+  private void show_lorenz_attractor(vec3 size, vec3 dir, float canvas, vec3 jitter, ArrayList<vec3> list, int mode, Costume costume) {
 
     if(mode == 1 ) beginShape() ;
-    for(Vec3 p : list) {
-      Vec3 pos = p.copy() ;
+    for(vec3 p : list) {
+      vec3 pos = p.copy() ;
       pos.mult(canvas,canvas,1);
-      Vec3 offset = pos.copy().div(2);
+      vec3 offset = pos.copy().div(2);
       pos.sub(offset.x,offset.y,0);
       pos.jitter(jitter);
       if(mode == 1) {
