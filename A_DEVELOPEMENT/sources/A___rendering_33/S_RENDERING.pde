@@ -1,6 +1,6 @@
 /**
 RENDERING
-v 1.1.0
+v 1.2.0
 */
 void rendering() {
   boolean show_is = true;
@@ -55,7 +55,7 @@ void rendering_item_final_3D() {
   //use romanesco object
   rpe_manager.show_item_3D(ORDER_ONE,ORDER_TWO,ORDER_THREE);
 
-  grid_romanesco(displayInfo3D);
+  grid_romanesco(show_info_camera);
   stop_camera();
 }
 
@@ -444,26 +444,26 @@ void syphon_draw() {
 
 /**
 DISPLAY INFO
-v 0.2.1
+v 0.3.0
 */
-boolean displayInfo, displayInfo3D ;
+boolean displayInfo, show_info_camera ;
 int posInfo = 2 ;
 void info() {
   sounda.info(displayInfo);
-  color color_text = color(0,0,100);
-  color color_bg = color(0,100,100,50);
+  int color_text = color(0,0,100);
+  int color_bg = color(0,100,100,50);
 
   if (displayInfo) {
     //perspective() ;
-    displayInfoScene(color_bg,color_text) ;
-    displayInfoObject(color_bg,color_text) ;
+    show_info_rendering(color_bg,color_text) ;
+    show_info_item(color_bg,color_text) ;
   }
-  if (displayInfo3D) {
-    displayInfo3D(color_text);
+  if (show_info_camera) {
+    show_info_camera(color_text);
   }
 }
 
-void displayInfoScene(color bg_txt, color txt) {
+void show_info_rendering(int bg_txt, int txt) {
   noStroke() ;
   fill(bg_txt) ;
   rectMode(CORNER) ;
@@ -499,25 +499,26 @@ void displayInfoScene(color bg_txt, color txt) {
 
 
 int posInfoObj = 1 ;
-void displayInfoObject(color bg_txt, color txt) {
+void show_info_item(int color_bg, int color_text) {
   noStroke() ;
-  fill(bg_txt) ;
+  fill(color_bg) ;
   rectMode(CORNER) ;
   textAlign(LEFT) ;
   float heightBox = 15*posInfoObj ;
   rect(0, height -heightBox,width, heightBox) ;
-  fill(txt) ;
+  fill(color_text) ;
   textFont(system_font,10);
   
   posInfoObj = 1 ;
   for(int i = 0 ; i < NUM_ITEM_PLUS_MASTER ; i++) {
     Romanesco item = rpe_manager.get(i);
-    println(i, item.get_name());
-    if(item.show_is()) {
-      posInfoObj += 1 ;
-      String position = ("x:" +(int)pos_item[i].x + " y:" + (int)pos_item[i].y+ " z:" + (int)pos_item[i].z) ;
-      text(item_name[i] + " - Coord " + position + " - " + item_info[item_ID[i]], 10, height -(15 *(posInfoObj -1))) ;
-    }
+    if(item != null) {
+      if(item.show_is()) {
+        posInfoObj += 1 ;
+        String position = ("x:" +(int)pos_item[i].x + " y:" + (int)pos_item[i].y+ " z:" + (int)pos_item[i].z) ;
+        text(item_name[i] + " - Coord " + position + " - " + item_info[item_ID[i]], 10, height -(15 *(posInfoObj -1))) ;
+      }
+    }   
   }
 }
 
@@ -532,7 +533,7 @@ void displayInfoObject(color bg_txt, color txt) {
 
 
 //INFO 3D
-void displayInfo3D(color txt) {
+void show_info_camera(color txt) {
   String posCam = ( int(-1 *sceneCamera.x ) + " / " + int(sceneCamera.y) + " / " +  int(sceneCamera.z -height/2));
   String eyeDirectionCam = (int(eyeCamera.x) + " / " + int(eyeCamera.y));
   fill(txt); 

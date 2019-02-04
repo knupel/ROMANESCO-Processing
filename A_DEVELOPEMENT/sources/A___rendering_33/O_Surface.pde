@@ -562,11 +562,6 @@ class Polygon {
   int ID ;
 
 
-  /*
-  Maybe need to remove this option
-  */
- //  PShape polygon;
-
 
   Polygon(PVector pos, float radius, float rotation, int num_of_summit, int ID) {
     this.pos = pos.copy() ;
@@ -582,11 +577,6 @@ class Polygon {
       float z = pos.z ;
       points[i] = new vec4(x, y, z, ID) ;
     }
-    /*
-    // Maybe need to remove this option
-    polygon = createShape();
-    create_poly_in_PShape();
-    */
   }
 
   // DRAW
@@ -674,21 +664,7 @@ class Polygon {
     }
     popMatrix() ;
   }
-  //
-  /*
-  // Maybe need to remove this option
-  void create_poly_in_PShape() {
-    polygon.beginShape();
 
-    polygon.fill(color_fill) ;
-    polygon.stroke(color_stroke) ;
-    polygon.strokeWeight(strokeWeight) ;
-    for (int i = 0; i < points.length; i++) {
-      polygon.vertex(points[i].x, points[i].y, points[i].z);
-    }
-    polygon.endShape(CLOSE) ;
-  }
-*/
 
   //UPDATE ALL THE POINT
   void update_AllPoints_Zpos_Polygon(float newPosZ) {
@@ -706,7 +682,7 @@ class Polygon {
     }
   }
 
-
+  /*
   boolean check_SpecificPoint_Polygon(PVector ref, float newPosZ) {
     boolean checked = false ;
     for (int i = 0; i < points.length; i++) {
@@ -716,12 +692,10 @@ class Polygon {
     }
     return checked ;
   }
+  */
 
 }
-/**
 
-END POLYGON
-*/
 
 
 

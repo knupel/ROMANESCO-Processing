@@ -339,7 +339,7 @@ v 1.0.0
 */
 void keyPressed () {
   if (key == 'i') displayInfo = !displayInfo;
-  if (key == 'g') displayInfo3D = !displayInfo3D;
+  if (key == 'g') show_info_camera = !show_info_camera;
 
   if(IAM.equals("prescene")) {
     if(LIVE) {

@@ -35,7 +35,7 @@ Tablet tablet;
 void prescene_setup() {
   leap = new com.leapmotion.leap.Controller();
   if(TABLET) tablet = new Tablet(this);
-  if(FULL_RENDERING) displayInfo3D = false ; else displayInfo3D = true;
+  if(FULL_RENDERING) show_info_camera = false ; else show_info_camera = true;
 }
 
 
