@@ -1,6 +1,7 @@
 /**
 GENETIC 
-v 0.6.0
+v 0.6.1
+* 2016-2019
 * @author Stan le Punk
 * @see https://github.com/StanLepunK/Digital-Life-Processing/tree/master/GENETIC_SYSTEM
 */
@@ -136,8 +137,8 @@ Genome archetype(float [] float_data, String [] string_data, String [] data_name
       int locus = i ;
       vec2 mother = vec2(float_data[i]) ;
       vec2 father = vec2(float_data[i]) ;
-      vec2 mother_dominance = vec2("RANDOM ZERO", 1) ;
-      vec2 father_dominance = vec2("RANDOM ZERO", 1) ;
+      vec2 mother_dominance = vec2().rand(1);
+      vec2 father_dominance = vec2().rand(1);;
       gene_data_mother [i] = new Gene(chromosome_name[0], gene_name [pointer], locus, mother, mother_dominance) ;
       gene_data_father [i] = new Gene(chromosome_name[0], gene_name [pointer], locus, father, father_dominance) ;
       pointer++ ;
@@ -153,8 +154,8 @@ Genome archetype(float [] float_data, String [] string_data, String [] data_name
       String mother_right = string_data[i] ;
       String father_left = string_data[i] ;
       String father_right = string_data[i] ;
-      vec2 mother_dominance = vec2("RANDOM ZERO", 1) ;
-      vec2 father_dominance = vec2("RANDOM ZERO", 1) ;
+      vec2 mother_dominance = vec2().rand(1);;
+      vec2 father_dominance = vec2().rand(1);;
       gene_data_mother [pointer] = new Gene(chromosome_name[ID_chromosome], gene_name [pointer], locus, mother_left, mother_right, round(mother_dominance.x), round(mother_dominance.y))  ;
       gene_data_father [pointer] = new Gene(chromosome_name[ID_chromosome], gene_name [pointer], locus, father_left, father_right, round(father_dominance.x), round(father_dominance.y))  ;
       pointer++ ;

@@ -1,7 +1,7 @@
 /**
 LETTER
-2012-2018
-v 1.4.2
+2012-2019
+v 1.4.3
 */
 //GEOMERATIVE
 import geomerative.*;
@@ -10,8 +10,8 @@ class Letter extends Romanesco {
   public Letter() {
     item_name = "Letter" ;
     item_author  = "Stan le Punk";
-    item_version = "Version 1.4.2";
-    item_pack = "Base 2012-2018" ;
+    item_version = "Version 1.4.3";
+    item_pack = "Base 2012-2019" ;
 
     item_costume = "Point/Line/Triangle";
     item_mode = "";
@@ -264,7 +264,14 @@ class Letter extends Romanesco {
       points[i].z = points[i].z +(all_transient(ID_item) *factor); 
       if(get_costume().get_type() == POINT_ROPE ) point(points[i]);
       if(get_costume().get_type() == LINE_ROPE ) if(i > 0 ) line( points[i-1],points[i]);
-      if(get_costume().get_type() == TRIANGLE_ROPE ) if(i > 1 ) triangle(points[i-2].x, points[i-2].y, points[i-2].z,   points[i-1].x, points[i-1].y, points[i-1].z, points[i].x, points[i].y, points[i].z );
+      if(get_costume().get_type() == TRIANGLE_ROPE ) if(i > 1 ) {
+        beginShape();
+        vertex(points[i-2]);
+        vertex(points[i-1]);
+        vertex(points[i]);
+        endShape(CLOSE);
+        // triangle(points[i-2].x, points[i-2].y, points[i-2].z,   points[i-1].x, points[i-1].y, points[i-1].z, points[i].x, points[i].y, points[i].z );
+      }
       
     }
   }

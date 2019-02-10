@@ -1,6 +1,6 @@
 /**
 Vec, iVec and bVec rope method
-v 0.2.0
+v 0.3.0
 * Copyleft (c) 2018-2019
 * Stan le Punk > http://stanlepunk.xyz/
 * @author Stan le Punk
@@ -1816,17 +1816,6 @@ vec2 vec2(ivec p) {
 }
 
 
-vec2 vec2(String s, int x, int y) { 
-  return new vec2(s,x,y);
-}
-
-vec2 vec2(String s, int a, int b, int c, int d) { 
-  return new vec2(s,a,b,c,d);
-}
-
-vec2 vec2(String s, int v) {
-  return new vec2(s,v);
-}
 
 
 vec2 vec2(PGraphics media) {
@@ -1913,17 +1902,6 @@ vec3 vec3(ivec p) {
 
 
 
-vec3 vec3(String s, int x, int y, int z) { 
-  return new vec3(s,x,y,z);
-}
-
-vec3 vec3(String s, int a, int b, int c, int d, int e, int f) { 
-  return new vec3(s,a,b,c,d,e,f);
-}
-
-vec3 vec3(String s, int v) {
-  return new vec3(s,v);
-}
 /**
 Vec 4
 */
@@ -1997,17 +1975,6 @@ vec4 vec4(ivec p) {
 
 
 
-vec4 vec4(String s, int x, int y, int z, int w) { 
-  return new vec4(s,x,y,z,w);
-}
-
-vec4 vec4(String s, int a, int b, int c, int d, int e, int f, int g, int h) { 
-  return new vec4(s,a,b,c,d,e,f,g,h);
-}
-
-vec4 vec4(String s, int v) {
-  return new vec4(s,v);
-}
 /**
 Vec 5
 */
@@ -2084,17 +2051,6 @@ vec5 vec5(ivec p) {
 }
 
 
-vec5 vec5(String s, int a, int b, int c, int d, int e) { 
-  return new vec5(s,a,b,c,d,e);
-}
-
-vec5 vec5(String s, int a, int b, int c, int d, int e, int f, int g, int h, int i, int j) { 
-  return new vec5(s,a,b,c,d,e,f,g,h,i,j);
-}
-
-vec5 vec5(String s, int v) {
-  return new vec5(s,v);
-}
 /**
 Vec 6
 */
@@ -2175,18 +2131,6 @@ vec6 vec6(ivec p) {
 }
 
 
-
-vec6 vec6(String s, int a, int b, int c, int d, int e, int f) { 
-  return new vec6(s,a,b,c,d,e,f);
-}
-
-vec6 vec6(String s, int a, int b, int c, int d, int e, int f, int g, int h, int i, int j, int k, int l) { 
-  return new vec6(s,a,b,c,d,e,f,g,h,i,j,k,l);
-}
-
-vec6 vec6(String s, int v) {
-  return new vec6(s,v);
-}
 
 
 

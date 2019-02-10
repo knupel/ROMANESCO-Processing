@@ -1,15 +1,15 @@
 /**
 VECTORIAL
-2015-2018
-v 0.0.8
+2015-2019
+v 0.0.9
 */
 class Vectorial extends Romanesco {
  
   public Vectorial() {
     item_name = "Vectorial" ;
     item_author  = "Stan le Punk";
-    item_version = "Version 0.0.8";
-    item_pack = "Base 2015-2018" ;
+    item_version = "Version 0.0.9";
+    item_pack = "Base 2015-2019" ;
     item_costume = "" ;
     item_mode = "Classic original/Classic custom/Walker original/Walker custom" ; // separate the differentes mode by "/"
 
@@ -214,7 +214,7 @@ class Vectorial extends Romanesco {
       int length = svg.list_svg_vec(ID).length ;
       vec3 [] value = new vec3[length] ;
       for(int i = 0 ; i < value.length ; i++) {
-        value[i] = new vec3("RANDOM", (int)swing.x, (int)swing.y,(int)swing.z) ;
+        value[i] = vec3().rand(vec2(-swing.x,swing.x),vec2(-swing.y,swing.y),vec2(-swing.z,swing.z));
         value[i].mult(.1) ;
       }
       svg.add_def(ID, value) ;

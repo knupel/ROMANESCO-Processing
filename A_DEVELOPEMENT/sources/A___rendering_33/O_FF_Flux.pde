@@ -1,7 +1,7 @@
 /**
 Flux Force Field
-2018-2018
-v 0.0.7
+2018-2019
+v 0.0.8
 */
 class Flux extends Romanesco {
 
@@ -10,8 +10,8 @@ class Flux extends Romanesco {
 	public Flux() {
 		item_name = "FF Flux";
 		item_author  = "Stan le Punk";
-		item_version = "Version 0.0.7";
-		item_pack = "Force 2018-2018";
+		item_version = "Version 0.0.9";
+		item_pack = "Force 2018-2019";
     item_costume = "pixel/point/ellipse/triangle/rect/cross/pentagon/Star 5/Star 7/Super Star 8/Super Star 12";
     item_mode = "";
 
@@ -157,7 +157,7 @@ class Flux extends Romanesco {
     for (int i = 0; i < num; i++) {
       float max_speed = +range_speed.x + random_next_gaussian(range_speed.y,3);
       float max_force = +range_force.x + random_next_gaussian(range_force.y,3);
-      vec2 pos = vec2(RANDOM_ZERO,w,h);
+      vec2 pos = vec2().rand(vec2(0,w),vec2(0,h));
       vehicles.add(new Vehicle(pos,max_speed,max_force));
     }
   }

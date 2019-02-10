@@ -1,13 +1,13 @@
 /**
 CLASS AGENT 
-v 1.2.0
+v 1.2.1
 2016-2019
 
 */
 /**
 
 
-INTERFACE AGENT 0.1.1
+INTERFACE AGENT 0.1.2
 
 
 */
@@ -1158,7 +1158,7 @@ Info_Object style ;
   }
 
   void init_dir() {
-    this.dir = vec3("RANDOM",1) ;
+    this.dir = vec3().rand(-1,1);
   }
 
 
@@ -1676,7 +1676,7 @@ COMMON HUNT & SEARCH
 
 
   void change_direction() {
-    dir.set(vec3("RANDOM", 1)) ;
+    dir.set(vec3().rand(-1,1)) ;
   }
 
 

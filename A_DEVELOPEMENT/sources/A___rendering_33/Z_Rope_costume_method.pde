@@ -1,7 +1,7 @@
 /**
 Costume method
 * Copyleft (c) 2014-2019
-v 1.7.0
+v 1.7.2
 * @author Stan le Punk
 * @see https://github.com/StanLepunK/Rope_method
 */
@@ -56,6 +56,19 @@ SHOW
 /**
 Costume selection in shape catalogue
 */
+void costume(float x, float y, float sx, float sy, Object data) {
+	costume(vec2(x,y),vec2(sx,sy),data);
+}
+
+void costume(float x, float y, float z, float sx, float sy, Object data) {
+	costume(vec3(x,y,z),vec2(sx,sy),data);
+}
+
+void costume(float x, float y, float z, float sx, float sy, float sz, Object data) {
+	costume(vec3(x,y,z),vec3(sx,sy,sz),data);
+}
+
+
 void costume(vec pos, int size_int, Object data) {
 	int which_costume = 0;
 	String sentence = null;
@@ -197,9 +210,13 @@ void costume(vec3 pos, vec3 size, vec rot, String sentence) {
 /**
 method to pass costume to class costume
 */
+Costume costume_rope_buffer;
 void costume(vec3 pos, vec3 size, vec rot, int which_costume) {
-	Costume costume = new Costume(which_costume);
-	costume.draw(pos,size,rot);
+	if(costume_rope_buffer == null) {
+		costume_rope_buffer = new Costume(which_costume);
+	}
+	// Costume costume = new Costume(which_costume);
+	costume_rope_buffer.draw(pos,size,rot);
 }
 
 void costume(vec3 pos, vec3 size, vec rot, Costume costume) {
@@ -665,35 +682,33 @@ void star(vec position, vec size) {
 CROSS
 */
 void cross_rect(ivec2 pos, int thickness, int radius) {
+	float h = radius;
+	float w = thickness/3;
+
   // verticale one
-	vec2 size = vec2(thickness, radius *2);
-	vec2 pos_temp = vec2(pos.x, pos.y -floor(size.y/2) +(thickness /2));
-	pos_temp.sub(thickness/2);
+	vec2 size = vec2(w,h);
+	vec2 pos_temp = vec2(pos.x, pos.y -floor(size.y/2) +(w/2));
+	pos_temp.sub(w/2);
 	rect(pos_temp,size);
-	  // horizontal one
-	size.set(radius *2, thickness);
-	pos_temp.set(pos.x -floor(size.x/2) +(thickness /2),pos.y);
-	pos_temp.sub(thickness/2);
+	
+	// horizontal one
+	size.set(h,w);
+	pos_temp.set(pos.x-floor(size.x/2) +(w/2),pos.y);
+	pos_temp.sub(w/2);
 	rect(pos_temp,size);
-	//rect(pos, size);
-	//rect(small_part, size.y, small_part);
 }
 
 void cross_box_2(vec2 size) {
-	// float ratio = map(ratio_costume_size,0,1,.3,.9);
-//void cross_box_2(vec2 size, float ratio) {
 	float scale_cross = size.sum() *.5;
-	float small_part = scale_cross *ratio_costume_size;
+	float small_part = scale_cross *ratio_costume_size *.3;
 
 	box(size.x,small_part,small_part);
 	box(small_part,size.y,small_part);
 }
 
 void cross_box_3(vec3 size) {
-	// float ratio = .3;
-	// void cross_box_3(vec3 size, float ratio) {
 	float scale_cross = size.sum() *.3;
-	float small_part = scale_cross *ratio_costume_size;
+	float small_part = scale_cross *ratio_costume_size *.3;
    
 	box(size.x,small_part,small_part);
 	box(small_part,size.y,small_part);

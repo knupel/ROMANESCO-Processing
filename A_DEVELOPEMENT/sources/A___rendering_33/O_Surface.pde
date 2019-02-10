@@ -1,14 +1,14 @@
 /**
 SURFACE
-2014-2018
-v 1.0.9
+2014-2019
+v 1.1.0
 */
 
 class Surface extends Romanesco {
   public Surface() {
     item_name = "Surface" ;
     item_author  = "Stan le Punk";
-    item_version = "Version 1.0.9";
+    item_version = "Version 1.1.0";
     item_pack = "Base 2014-2018";
     item_costume = "" ;
     item_mode = "Surfimage/Vague/Vague++" ; // separate the differentes mode by "/"
@@ -69,9 +69,9 @@ class Surface extends Romanesco {
   boolean newPicture ;
   boolean choicePicture = false ;
   PImage image  ;
-  ArrayList<Polygon> grid_surface_image = new ArrayList<Polygon>();
+  ArrayList<Polygon> grid_surface_image;
   // Main method surface simple
-  ArrayList<Polygon> grid_surface_simple = new ArrayList<Polygon>();
+  ArrayList<Polygon> grid_surface_simple;
   
   // setup
   void setup() {
@@ -97,6 +97,8 @@ class Surface extends Romanesco {
   
   // draw
   void draw() {
+    if(grid_surface_image == null) grid_surface_image = new ArrayList<Polygon>();
+    if(grid_surface_simple == null) grid_surface_simple = new ArrayList<Polygon>();
     // color to vec4 composant
     fill_color = vec4(hue(get_fill()),saturation(get_fill()),brightness(get_fill()),alpha(get_fill())) ;
     stroke_color = vec4(hue(get_stroke()),saturation(get_stroke()),brightness(get_stroke()),alpha(get_stroke())) ;
@@ -238,7 +240,7 @@ class Surface extends Romanesco {
   
   void update_surface_simple(color c_fill, color c_stroke, float thickness, float speed, float amplitude, float step) {
     moveAllTriangle(speed, amplitude, step) ;
-    for ( Polygon t : grid_surface_simple) {
+    for (Polygon t : grid_surface_simple) {
       t.color_fill = c_fill ;
       t.color_stroke = c_stroke ;
       t.strokeWeight = thickness ;
@@ -551,6 +553,7 @@ MUST BE REMPLACED BY PRIMITIVE
 */
 // CLASS POLYGONE june 2015 / 1.1.2
 ///////////////////////////////////
+
 class Polygon {
   vec4 [] points ;
   PVector pos ;
@@ -681,20 +684,8 @@ class Polygon {
       if ((ref.x <= points[i].x +range && ref.x >= points[i].x -range)  && (ref.y <= points[i].y +range && ref.y >= points[i].y -range) ) points[i].z = newPosZ ;
     }
   }
-
-  /*
-  boolean check_SpecificPoint_Polygon(PVector ref, float newPosZ) {
-    boolean checked = false ;
-    for (int i = 0; i < points.length; i++) {
-      float range = .1 ; // we use a range around the point to be sure to catch it.
-      if ((ref.x <= points[i].x +range && ref.x >= points[i].x -range)  && (ref.y <= points[i].y +range && ref.y >= points[i].y -range) ) checked = true ; 
-      else checked = false ;
-    }
-    return checked ;
-  }
-  */
-
 }
+
 
 
 

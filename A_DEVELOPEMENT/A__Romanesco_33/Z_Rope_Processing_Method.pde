@@ -1,10 +1,11 @@
 /**
 ROPE PROCESSING METHOD
-v 2.1.3
+v 2.3.0
 * Copyleft (c) 2014-2019
 * Stan le Punk > http://stanlepunk.xyz/
 * @author Stan le Punk
 * @see https://github.com/StanLepunK/Rope_method
+* Processing 3.5.3
 */
 
 
@@ -119,6 +120,34 @@ vec3 ceil(vec3 arg) {
 
 vec4 ceil(vec4 arg) {
   return vec4(ceil(arg.x),ceil(arg.y),ceil(arg.z),ceil(arg.w));
+}
+
+
+/**
+abs
+*/
+vec2 abs(vec2 arg) {
+  return vec2(abs(arg.x),abs(arg.y));
+}
+
+vec3 abs(vec3 arg) {
+  return vec3(abs(arg.x),abs(arg.y),abs(arg.z));
+}
+
+vec4 abs(vec4 arg) {
+  return vec4(abs(arg.x),abs(arg.y),abs(arg.z),abs(arg.w));
+}
+
+ivec2 abs(ivec2 arg) {
+  return ivec2(abs(arg.x),abs(arg.y));
+}
+
+ivec3 abs(ivec3 arg) {
+  return ivec3(abs(arg.x),abs(arg.y),abs(arg.z));
+}
+
+ivec4 abs(ivec4 arg) {
+  return ivec4(abs(arg.x),abs(arg.y),abs(arg.z),abs(arg.w));
 }
 
 
@@ -308,6 +337,31 @@ void rect(ivec3 p, ivec2 s) {
   vec3 temp_pos = vec3((int)p.x,(int)p.y,(int)p.z);
   vec2 temp_size = vec2((int)s.x,(int)s.y);
   rect(temp_pos,temp_size);
+}
+
+
+/**
+Triangle
+*/
+void triangle(ivec a, ivec b, ivec2 c) {
+  triangle(vec3(a.x,a.y,a.z),vec3(b.x,b.y,b.z),vec3(c.x,c.y,c.z));
+}
+
+void triangle(vec a, vec b, vec c) {
+  if(a.z == 0 && b.z == 0 && c.z == 0) {
+    triangle(a.x,a.y,b.x,b.y,c.x,c.y);
+  } else {
+    if(renderer_P3D()) {
+      beginShape();
+      vertex(a.x,a.y,a.z);
+      vertex(b.x,b.y,b.z);
+      vertex(c.x,c.y,c.z);
+      endShape(CLOSE);
+    } else {
+
+      triangle(a.x,a.y,b.x,b.y,c.x,c.y);
+    }
+  }
 }
 
 

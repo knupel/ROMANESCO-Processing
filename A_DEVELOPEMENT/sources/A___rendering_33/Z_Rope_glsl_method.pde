@@ -460,6 +460,7 @@ bvec4 lessThanEqual(ivec4 x, ivec4 y) {
 
 /**
 all
+v 0.0.2
 */
 boolean all(bvec2 b) {
   if(b != null) {
@@ -473,7 +474,7 @@ boolean all(bvec2 b) {
     }
     return result;
   } else {
-    printErr("method all() return false because argument is",b);
+    printErr("method all(bvec2 b) return false because argument is",b);
     return false;
   }
 }
@@ -490,7 +491,7 @@ boolean all(bvec3 b) {
     }
     return result;
   } else {
-    printErr("method all() return false because argument is",b);
+    printErr("method all(bvec3 b) return false because argument is",b);
     return false;
   }
 }
@@ -507,7 +508,7 @@ boolean all(bvec4 b) {
     }
     return result;
   } else {
-    printErr("method all() return false because argument is",b);
+    printErr("method all(bvec4 b) return false because argument is",b);
     return false;
   }
 }
@@ -524,7 +525,7 @@ boolean all(bvec5 b) {
     }
     return result;
   } else {
-    printErr("method all() return false because argument is",b);
+    printErr("method all(bvec5 b) return false because argument is",b);
     return false;
   }
 }
@@ -541,7 +542,7 @@ boolean all(bvec6 b) {
     }
     return result;
   } else {
-    printErr("method all() return false because argument is",b);
+    printErr("method all(bvec6 b) return false because argument is",b);
     return false;
   }
 }

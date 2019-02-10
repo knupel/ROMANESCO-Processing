@@ -1,7 +1,7 @@
 /**
 ATOME 
-2012-2018
-v 1.3.10
+2012-2019
+v 1.3.11
 */
 ArrayList<Atom> atomList ;
 //object one
@@ -10,8 +10,8 @@ class Atome extends Romanesco {
     //from the index_objects.csv
     item_name = "Atome" ;
     item_author  = "Stan le Punk";
-    item_version = "version 1.3.10";
-    item_pack = "Base 2012-2018" ;
+    item_version = "version 1.3.11";
+    item_pack = "Base 2012-2019" ;
     item_costume = "";
     item_mode = "Chemical Name/File text/Electronic cloud/Ellipse circle/Ellipse triangle/Ellipse cloud/Triangle circle/Triangle triangle/Triangle cloud/Rectangle rectangle/Rectangle cloud" ;
 
@@ -1007,7 +1007,7 @@ class Atom {
   // ANNEXE DISPLAY
   // CORE 2D
   void coreTriangle(PVector size) {
-    primitive(vec2(),size.x,3) ;
+    new Primitive().draw(vec2(),size.x,3);
   }
   void coreEllipse(PVector size) {
     ellipse(0,0,size.x, size.y) ;
@@ -1063,8 +1063,8 @@ class Atom {
     electronicInfo() ;
     noFill() ; 
     float radius = radiusElectronicFieldCovalent() *newAmplitudeElectrocField ;
-    primitive(vec2(),radius,3) ;
-    primitive(vec2(),radius,3) ;
+    new Primitive().draw(vec2(),radius,3) ;
+    new Primitive().draw(vec2(),radius,3) ;
   }
   
   // CLOUD POINT

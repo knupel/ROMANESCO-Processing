@@ -1,8 +1,8 @@
 /**
 ECOSYSTEM UTIL 
-v 1.1.0
+v 1.1.1
 2015-2019
-Processing 3.5.2
+Processing 3.5.3
 
 * HOST and SYMBIOSIS
 * WORLD
@@ -761,7 +761,7 @@ void set_baby(Agent_dynamic deliver, Agent baby, ArrayList<Agent> list_child, In
     deliver.genome_father = null ;
     // set motion of the baby
     n.set_pos(deliver.pos) ;
-    n.dir = vec3("RANDOM",1) ;
+    n.dir = vec3().rand(1);;
     // here we change velocity to don't have a same from parent, can be change that in the future
     float new_velocity = deliver.velocity +random(-1,1) ;
     if(new_velocity < .1) new_velocity = .1 ;
