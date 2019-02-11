@@ -46,17 +46,27 @@ void reset_button_flash() {
 
 
 
-void info_bg_shader() {
-  int n = shaderBackgroundList.getRowCount();
+void info_shader_background() {
+  int n = shader_background_table.getRowCount();
   shader_bg_name = new String[n];
   shader_bg_author = new String[n];
   for (int i = 0 ; i < n ; i++) {
-    TableRow row = shaderBackgroundList.getRow(i);
+    TableRow row = shader_background_table.getRow(i);
     shader_bg_name[i] = row.getString("Name");
     shader_bg_author[i] = row.getString("Author");
   }
 }
 
+void info_shader_fx() {
+  int n = shader_fx_table.getRowCount();
+  shader_fx_name = new String[n];
+  shader_fx_author = new String[n];
+  for (int i = 0 ; i < n ; i++) {
+    TableRow row = shader_fx_table.getRow(i);
+    shader_fx_name[i] = row.getString("Name");
+    shader_fx_author[i] = row.getString("Author");
+  }
+}
 
 
 

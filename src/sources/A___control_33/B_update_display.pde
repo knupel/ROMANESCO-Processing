@@ -183,7 +183,7 @@ void update_dropdown(Dropdown... dd) {
 
 void update_dropdown_bar_content() {
   dropdown_content [0] = shader_bg_name;
-  dropdown_content [1] = filter_dropdown_list;
+  dropdown_content [1] = shader_fx_name;
   dropdown_content [2] = font_dropdown_list;
   dropdown_content [3] = file_text_dropdown_list;
   

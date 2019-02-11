@@ -1,6 +1,6 @@
 /**
 Class Romanesco_manager
-v 1.6.1
+v 1.6.2
 class manager inspired by Andreas Gysin work for The Abyss Project
 @see https://github.com/ertdfgcvb/TheAbyss
 */
@@ -12,6 +12,9 @@ import java.sql.Timestamp;
 class Romanesco_manager {
   private ArrayList<Romanesco>romanesco_item_list;
   private ArrayList<Class>item_list;
+
+  private Table index_item;
+  private TableRow [] row_index_item;
 
   PApplet parent;
   String item_class_name [];
@@ -84,7 +87,7 @@ class Romanesco_manager {
       row_index_item[i] = index_item.addRow();
     }
     
-    // create var for info object, need to be create here
+    // create var for info item, need to be create here
     int num_plus_one = num+1;
     item_ID = new int[num_plus_one];
     item_name = new String[num_plus_one];
@@ -93,7 +96,7 @@ class Romanesco_manager {
     item_pack = new String[num_plus_one];
     item_info = new String[num_plus_one];
     // init var
-    for ( int i = 0 ; i< num_plus_one ; i++ ) {
+    for ( int i = 0 ; i < num_plus_one ; i++ ) {
       item_name [i] = "My name is Nobody";
       item_info [i] = "Sorry nobody write about me!";
       item_ID [i] = 0;

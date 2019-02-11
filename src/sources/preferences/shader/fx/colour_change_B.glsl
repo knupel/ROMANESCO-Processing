@@ -1,51 +1,62 @@
 /**
-Line by Stan le punk 
-@see https://github.com/StanLepunK
-v 0.0.3
-2018-2018
+* colour change B 
+* by Stan le punk 
+* @see https://github.com/StanLepunK
+* @see https://github.com/StanLepunK/Filter
+* v 0.0.4
+2018-2019
 */
 // Processing implementation
 #ifdef GL_ES
 precision highp float;
 #endif
 #define PROCESSING_TEXTURE_SHADER
-uniform vec2 texOffset; // from Processing core don't to pass in sketch vector (1/width, 1/height)
 varying vec4 vertColor;
 varying vec4 vertTexCoord;
 
 // sketch implementation template, uniform use by most of filter Romanesco shader
-uniform sampler2D texture;
-// uniform sampler2D texture_pattern;
+uniform sampler2D texture_source;
+uniform vec2 resolution_source;
+uniform bvec2 flip_source; // can be use to flip texture
 
-// uniform vec2 resolution;
-// uniform vec2 resolution_pattern;
 
-// uniform vec2 position; // mapped or not that's a question?
-// uniform float time;
-
-// uniform int mode;
-
-// uniform vec4 color_arg;
-// uniform int color_mode; // 0 is RGB / 3 is HSB
-
-// uniform int num;
-// uniform iVec3 size;
 uniform float strength;
 
 uniform float angle;
-// uniform float threshold;
-// uniform float quality;
-// uniform vec2 offset;
-// uniform float scale;
-
-// uniform int rows;
-// uniform int cols;
-
-// uniform bool use_fx_color;
-// uniform bool use_fx;
-
 
 #define PI 3.1415926535897932384626433832795
+
+
+// UTIL TEMPLATE
+vec2 set_uv(bool flip_vertical, bool flip_horizontal, vec2 res) {
+  vec2 uv;
+  if(all(equal(vec2(0),res))) {
+    uv = vertTexCoord.st;
+  } else if(all(greaterThan(res,vertTexCoord.st))) {
+    uv = vertTexCoord.st;
+  } else {
+    uv = res;
+  }
+  // flip 
+  if(!flip_vertical && !flip_horizontal) {
+    return uv;
+  } else if(flip_vertical && !flip_horizontal) {
+    uv.y = 1 -uv.y;
+    return uv;
+  } else if(!flip_vertical && flip_horizontal) {
+    uv.x = 1 -uv.x;
+    return uv;
+  } else if(flip_vertical && flip_horizontal) {
+    return vec2(1) -uv;
+  } return uv;
+}
+
+vec2 set_uv(bvec2 flip, vec2 res) {
+  return set_uv(flip.x,flip.y,res);
+}
+
+
+
 
 /** 
 * HSV <-> RGB functions
@@ -91,8 +102,8 @@ float random(vec2 seed){
 
 
 void main() {
-	vec2 uv = vertTexCoord.st;
-	vec4 color = texture2D(texture,uv);
+	vec2 uv = set_uv(flip_source,resolution_source);
+	vec4 color = texture2D(texture_source,uv);
 	
 	float hue = rgb_to_hsb(color.rgb).x; // hue
 	float saturation = rgb_to_hsb(color.rgb).y; // saturation
@@ -102,20 +113,9 @@ void main() {
 	float blue = color.b; // red
 	
 	float distance = brightness *strength;
-	//vec2 translation = vec2(color.r,color.g);
-	// vec2 translation = vec2(saturation,brightness);
 	vec2 translation = translate(angle,distance);
-	/*
-	float rx = random(gl_FragCoord.xy);
-	float ry = random(gl_FragCoord.xy);
-	vec2 translation = vec2(rx,ry);
-	*/
-	vec2 coord = vertTexCoord.xy;
-	// gl_FragColor = texture2D(texture,coord);
-  // coord += translation;
-  coord *= translation;
-  // gl_FragColor = texture2D(texture,coord);
-  gl_FragColor = texture2D(texture,translation);
+
+  gl_FragColor = texture2D(texture_source,translation);
 }
 
 

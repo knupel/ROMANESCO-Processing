@@ -1,8 +1,8 @@
 /**
 Stan le punk refactoring
 @see https://github.com/StanLepunK
-v 0.0.1
-2018-2018
+v 0.0.2
+2018-2019
 Based on https://www.shadertoy.com/view/XdXGz4 by ushiostarfish 
 and SableRaf interpretation
 */
@@ -12,15 +12,48 @@ precision highp float;
 #endif
 // from Processing texture
 #define PROCESSING_TEXTURE_SHADER
-uniform vec2 texOffset; // The inverse of the texture dimensions along X and Y
 varying vec4 vertColor;
 varying vec4 vertTexCoord;
 
 // from Sketch
-uniform sampler2D texture;
-uniform vec2 position;//x,y
-uniform vec2 resolution;
+uniform sampler2D texture_source;
+uniform vec2 resolution_source;
+uniform bvec2 flip_source;
+
+uniform vec2 position; 
 uniform vec2 offset;
+
+/**
+UTIL TEMPLATE
+*/
+vec2 set_uv(bool flip_vertical, bool flip_horizontal, vec2 res) {
+  vec2 uv;
+  if(all(equal(vec2(0),res))) {
+    uv = vertTexCoord.st;
+  } else if(all(greaterThan(res,vertTexCoord.st))) {
+    uv = vertTexCoord.st;
+  } else {
+    uv = res;
+  }
+  // flip 
+  if(!flip_vertical && !flip_horizontal) {
+    return uv;
+  } else if(flip_vertical && !flip_horizontal) {
+    uv.y = 1 -uv.y;
+    return uv;
+  } else if(!flip_vertical && flip_horizontal) {
+    uv.x = 1 -uv.x;
+    return uv;
+  } else if(flip_vertical && flip_horizontal) {
+    return vec2(1) -uv;
+  } return uv;
+}
+
+vec2 set_uv(bvec2 flip, vec2 res) {
+  return set_uv(flip.x,flip.y,res);
+}
+
+
 
 
 
@@ -44,7 +77,8 @@ float noise(in vec3 x) {
 }
 
 void main() {
-	vec2 uv = vertTexCoord.st;
+	vec2 uv = set_uv(flip_source,resolution_source);
+	// vec2 uv = vertTexCoord.st;
 
 	//float mult = resolution.x * .01;
 	float mult = 2.;
@@ -63,9 +97,9 @@ void main() {
 	vec2 green_uv = uv + vec2(-displacement_x, -displacement_y);
 	vec2 blue_uv = uv + vec2(0);
 
-	float r = texture2D(texture,red_uv).r;
-	float g = texture2D(texture,green_uv).g;
-	float b = texture2D(texture,blue_uv).b;
+	float r = texture2D(texture_source,red_uv).r;
+	float g = texture2D(texture_source,green_uv).g;
+	float b = texture2D(texture_source,blue_uv).b;
 	
 	gl_FragColor = vec4(r,g,b,1);
 }

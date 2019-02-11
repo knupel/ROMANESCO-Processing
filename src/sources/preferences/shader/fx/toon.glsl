@@ -1,9 +1,14 @@
 /**
-toon from https://www.geeks3d.com
-Stan le punk version
-@see https://github.com/StanLepunK
-v 0.0.1
-2018-2018
+* TOON from https://www.geeks3d.com
+* Stan le punk refactoring
+* @see http://stanlepunk.xyz
+* @see https://github.com/StanLepunK/Filter
+v 0.0.3
+2018-2019
+*/
+
+/**
+DONT WORK
 */
 
 #ifdef GL_ES
@@ -11,15 +16,16 @@ precision highp float;
 #endif
 // Processing implementation
 #define PROCESSING_TEXTURE_SHADER
-uniform vec2 texOffset; // from Processing core don't to pass in sketch vector (1/width, 1/height)
+// uniform vec2 texOffset; // from Processing core don't to pass in sketch vector (1/width, 1/height)
 varying vec4 vertColor;
 varying vec4 vertTexCoord;
 
 // #version 150
 
-
-uniform sampler2D texture;
-uniform float mouse_x_offset; // 0.5
+uniform sampler2D texture_source;
+uniform vec2 resolution_source;
+uniform bvec2 flip_source;
+uniform vec2 offset; // 0.5
 // in vec4 Vertex_UV;
 
 
@@ -29,6 +35,38 @@ uniform float edge_thres2; // 5.0;
 #define HueLevCount 6
 #define SatLevCount 7
 #define ValLevCount 4
+
+
+
+vec2 set_uv(bool flip_vertical, bool flip_horizontal, vec2 res) {
+  vec2 uv;
+  if(all(equal(vec2(0),res))) {
+    uv = vertTexCoord.st;
+  } else if(all(greaterThan(res,vertTexCoord.st))) {
+    uv = vertTexCoord.st;
+  } else {
+    uv = res;
+  }
+  // flip 
+  if(!flip_vertical && !flip_horizontal) {
+    return uv;
+  } else if(flip_vertical && !flip_horizontal) {
+    uv.y = 1 -uv.y;
+    return uv;
+  } else if(!flip_vertical && flip_horizontal) {
+    uv.x = 1 -uv.x;
+    return uv;
+  } else if(flip_vertical && flip_horizontal) {
+    return vec2(1) -uv;
+  } return uv;
+}
+
+vec2 set_uv(bvec2 flip, vec2 res) {
+  return set_uv(flip.x,flip.y,res);
+}
+
+
+
 
 float[HueLevCount] HueLevels = float[] (0.0,140.0,160.0,240.0,240.0,360.0);
 float[SatLevCount] SatLevels = float[] (0.0,0.15,0.3,0.45,0.6,0.8,1.0);
@@ -153,13 +191,13 @@ float avg_intensity(vec4 pix) {
 }
 
 vec4 get_pixel(vec2 coords, float dx, float dy) {
- return texture(texture,coords + vec2(dx,dy));
+ return texture(texture_source,coords + vec2(dx,dy));
 }
 
 // returns pixel color
 float IsEdge(in vec2 coords) {
-  float dxtex = 1.0 /float(textureSize(texture,0)) ;
-  float dytex = 1.0 /float(textureSize(texture,0));
+  float dxtex = 1.0 /float(textureSize(texture_source,0)) ;
+  float dytex = 1.0 /float(textureSize(texture_source,0));
   float pix[9];
   int k = -1;
   float delta;
@@ -184,12 +222,11 @@ float IsEdge(in vec2 coords) {
   return clamp(edge_thres2*delta,0.0,1.0);
 }
 
-void main(void) {
-  // vec2 uv = Vertex_UV.xy;
-  vec2 uv = vertTexCoord.st;
+void main() {
+  vec2 uv = set_uv(flip_source,resolution_source);
   vec4 tc = vec4(1.0, 0.0, 0.0, 1.0);
-  if (uv.x > (mouse_x_offset+0.002)) {
-    vec3 colorOrg = texture(texture, uv).rgb;
+  if (uv.x > (offset.x+0.002)) {
+    vec3 colorOrg = texture(texture_source, uv).rgb;
     vec3 vHSV =  RGBtoHSV(colorOrg.r,colorOrg.g,colorOrg.b);
     vHSV.x = nearestLevel(vHSV.x, 0);
     vHSV.y = nearestLevel(vHSV.y, 1);
@@ -197,8 +234,8 @@ void main(void) {
     float edg = IsEdge(uv);
     vec3 vRGB = (edg >= edge_thres)? vec3(0.0,0.0,0.0):HSVtoRGB(vHSV.x,vHSV.y,vHSV.z);
     tc = vec4(vRGB.x,vRGB.y,vRGB.z, 1);  
-  } else if (uv.x < (mouse_x_offset-0.002)) {
-    tc = texture(texture,uv);
+  } else if (uv.x < (offset.x-0.002)) {
+    tc = texture(texture_source,uv);
   }
   gl_FragColor = tc;
 }

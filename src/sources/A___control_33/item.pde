@@ -46,19 +46,20 @@ void info_item() {
 
 
 void create_and_initialize_data() {
-  inventory_item_table = loadTable(preference_path+"index_romanesco_items.csv", "header") ;
-  shaderBackgroundList = loadTable(preference_path+"shader/shaderBackgroundList.csv", "header") ;
+  inventory_item_table = loadTable(preference_path+"index_romanesco_items.csv","header");
+  shader_fx_table = loadTable(preference_path+"index_fx.csv","header");
+  shader_background_table = loadTable(preference_path+"index_fx_background.csv","header");
   item_inventory();
   init_var_item();
-  //init_slider();
+
   init_inventory();
   init_button_inventory();
 
   init_button_item_console();
 
- // init_dropdown();
   info_item();
-  info_bg_shader();
+  info_shader_background();
+  info_shader_fx();
 }
 
 void init_var_item() {
@@ -209,7 +210,6 @@ void check_button_item_console() {
     // item available
     int num = button_item_num +BUTTON_ITEM_CONSOLE;
     for(int i = BUTTON_ITEM_CONSOLE ; i < num ; i++) {
-    // for(int i = BUTTON_ITEM_CONSOLE+1 ; i < num ; i++) {
       if(button_item[i].is()) {
         item_button_state[i-BUTTON_ITEM_CONSOLE] = true; 
       } else {

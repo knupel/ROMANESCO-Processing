@@ -432,7 +432,6 @@ Build DROPDOWN
 v 1.2.0
 */
 void build_dropdown_bar() {
-  // String path_font = import_path+"font/typo_OTF_TTF";
   String[] path_list = alphabetical_font_path(font_path);
   font_dropdown_list = new String[path_list.length];;
   int target = 0;

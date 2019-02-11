@@ -27,12 +27,17 @@ void load_save(String path) {
 
 
 // LOAD INFO OBJECT from the PRESCENE
-Table inventory_item_table, shaderBackgroundList;
+
+Table inventory_item_table;
+Table shader_background_table;
+Table shader_fx_table;
 int numGroup []; 
 int [] item_rank, item_ID, item_group, item_camera_video_on_off, item_GUI_on_off;
 String [] item_info, item_info_raw;
 String [] item_name, item_author, item_version, item_pack, item_load_name, item_slider; 
+
 String [] shader_bg_name, shader_bg_author;
+String [] shader_fx_name, shader_fx_author;
 
 //BUTTON
 
@@ -707,13 +712,16 @@ void apply_text_gui() {
       for(int k = 0 ; k < NUM_SLIDER_FX ; k++) {
         slider_filter_name[k] = row.getString("col "+k);
       }
-    } else if(name.equals("dropdown filter")) {
+    } 
+    /*
+    else if(name.equals("dropdown filter")) {
       int num_box = row.getInt("num");
       filter_dropdown_list = new String[num_box];
       for(int k = 0 ; k < num_box ; k++) {
         filter_dropdown_list[k] = row.getString("col "+k);
       }
-    } else if(name.equals("slider light")) {
+    } 
+    */else if(name.equals("slider light")) {
       for(int k = 0 ; k < NUM_SLIDER_LIGHT ; k++) {
         slider_light_name[k] = row.getString("col "+k);
       }

@@ -713,7 +713,7 @@ int pos_y_dropdown_top;
 int which_bg_shader, which_filter, which_font, which_text, which_bitmap, which_shape, which_movie;
 Dropdown [] dropdown_bar;
 ivec2 [] dropdown_bar_pos, dropdown_bar_size;
-String [] filter_dropdown_list, font_dropdown_list, bitmap_dropdown_list, shape_dropdown_list, movie_dropdown_list, file_text_dropdown_list;
+String [] font_dropdown_list, bitmap_dropdown_list, shape_dropdown_list, movie_dropdown_list, file_text_dropdown_list;
 int num_dropdown_bar ;
 int pos_y_dropdown_bar ;
 int [] pos_x_dropdown_bar ;

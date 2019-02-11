@@ -17,6 +17,16 @@ void init_filter() {
     // warp
     init_warp();
     println("init filter warp part");
+    // set path fx shader;
+    set_fx_path(preference_path+"/shader/fx/");
+    get_fx_path();
+    if(fx_rope_path_exists) {
+      println("fx path filter",fx_rope_path,"exists");
+    } else {
+      printErr("fx path filter",fx_rope_path,"don't exists");
+    }
+
+    write_fx_index();
   }
 }
 
@@ -25,6 +35,38 @@ void filter() {
   if(FULL_RENDERING && fx_button_is(0)) {
     warp();
   } 
+}
+
+
+void write_fx_index() {
+  Table index_fx = new Table();
+  index_fx.addColumn("Name");
+  index_fx.addColumn("Author");
+  index_fx.addColumn("Version");
+  index_fx.addColumn("Pack");
+  
+
+  int num = 2;
+  TableRow [] info_fx = new TableRow [num];
+
+  for(int i = 0 ; i < info_fx.length ; i++) {
+    info_fx[i] = index_fx.addRow();
+  }
+
+  info_fx[0].setString("Name","Force");
+  info_fx[0].setString("Author","Stan le Punk");
+  info_fx[0].setString("Version","0.1.0");
+  info_fx[0].setString("Pack","Base 2014");
+
+  info_fx[1].setString("Name","Dither");
+  info_fx[1].setString("Author","Stan le Punk");
+  info_fx[1].setString("Version","0.1.0");
+  info_fx[1].setString("Pack","Base 2019");
+
+
+
+  saveTable(index_fx, preference_path+"index_fx.csv"); 
+
 }
 
 

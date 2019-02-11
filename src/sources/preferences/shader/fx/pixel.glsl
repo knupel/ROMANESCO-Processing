@@ -1,46 +1,31 @@
 /**
-Pixel by Stan le punk 
-@see https://github.com/StanLepunK
-v 0.0.2
-2018-2018
+* Pixel by Stan le punk 
+* @see https://github.com/StanLepunK
+* @see https://github.com/StanLepunK/Filter
+* v 0.0.4
+* 2018-2019
 */
 // Processing implementation
 #ifdef GL_ES
 precision highp float;
 #endif
+
 #define PROCESSING_TEXTURE_SHADER
-uniform vec2 texOffset; // from Processing core don't to pass in sketch vector (1/width, 1/height)
 varying vec4 vertColor;
 varying vec4 vertTexCoord;
+/**
+WARNING VERY IMPORTANT
+*/
+uniform vec2 resolution; // need this name for unknow reason :( here your pass your resolution texture
 
 // sketch implementation template, uniform use by most of filter Romanesco shader
-uniform sampler2D texture;
-// uniform sampler2D texture_pattern;
-
-uniform vec2 resolution;
-// uniform vec2 resolution_pattern;
-
-uniform vec4 color_arg;
+uniform sampler2D texture_source;
+uniform vec2 resolution_source;
+uniform bvec2 flip_source; // can be use to flip texture
+uniform vec4 level_source;
 
 uniform int num;
 uniform ivec2 size;
-// uniform float strength;
-// uniform int mode;
-// uniform int color_mode;
-
-// uniform vec2 position;
-// uniform float angle;
-// uniform float threshold;
-// uniform int rows;
-// uniform int cols;
-
-// uniform float quality;
-
-// uniform vec2 offset;
-
-// uniform float scale;
-
-// uniform float time;
 
 uniform bool use_fx_color;
 
@@ -54,6 +39,35 @@ const int max_palette = 16;
 * or post https://stackoverflow.com/questions/15095909/from-rgb-to-hsv-in-opengl-glsl
 * All components are in the range [0 > 1], including hue.
 */
+// UTIL TEMPLATE
+vec2 set_uv(bool flip_vertical, bool flip_horizontal, vec2 res) {
+  vec2 uv;
+  if(all(equal(vec2(0),res))) {
+    uv = vertTexCoord.st;
+  } else if(all(greaterThan(res,vertTexCoord.st))) {
+    uv = vertTexCoord.st;
+  } else {
+    uv = res;
+  }
+  // flip 
+  if(!flip_vertical && !flip_horizontal) {
+    return uv;
+  } else if(flip_vertical && !flip_horizontal) {
+    uv.y = 1 -uv.y;
+    return uv;
+  } else if(!flip_vertical && flip_horizontal) {
+    uv.x = 1 -uv.x;
+    return uv;
+  } else if(flip_vertical && flip_horizontal) {
+    return vec2(1) -uv;
+  } return uv;
+}
+
+vec2 set_uv(bvec2 flip, vec2 res) {
+  return set_uv(flip.x,flip.y,res);
+}
+
+
 
 vec3 rgb_to_hsb(vec3 c) {
   vec4 K = vec4(0, -1./3., 2./3., -1.);
@@ -71,18 +85,23 @@ vec3 hsb_to_rgb(vec3 c) {
   return c.z*mix(K.xxx,clamp(p-K.xxx, 0., 1.),c.y);
 }
 
-vec2 pixel_size() {
-	return vec2(1)/(resolution/size.xy);
+vec2 pixel_size(vec2 res) {
+	return vec2(1)/(res/size.xy);
 }
 
 
-vec3 pixelate() {
-	vec2 uv = vertTexCoord.st;
-	uv = uv - mod(uv,pixel_size());
-	return texture2D(texture,uv).xyz;
+vec3 pixelate(vec2 uv, sampler2D tex, vec2 res) {
+	//return texture2D(tex,uv).xyz;
+	// uv = uv - mod(uv,size);
+	// uv = uv - mod(uv,.01);
+	// uv = uv - mod(uv,vec2(1)/size.xy);
+	uv = uv - mod(uv,vec2(1)/(res/size.xy));
+	// uv = uv - mod(uv,pixel_size(res));
+	return texture2D(tex,uv).xyz;
+	
 }
 
-vec3 palette(vec3 rgb_arg) {
+vec3 palette(vec3 rgb_arg, vec3 level) {
 	vec3 palette [max_palette];
 	float temp_num = num;
 	if(temp_num < 2) {
@@ -92,9 +111,9 @@ vec3 palette(vec3 rgb_arg) {
 
 	}
 	float step_brightness = 1./temp_num;
-	float hue = color_arg.x;
-	float sat = color_arg.y;
-	float bright = color_arg.z;
+	float hue = level.x;
+	float sat = level.y;
+	float bright = level.z;
 
 	for(int i = 0 ; i < temp_num ; i++) {
 		// palette[i] = vec3(hue,color_rgb.y,step_brightness*i +step_brightness); // interesting but weird
@@ -113,18 +132,20 @@ vec3 palette(vec3 rgb_arg) {
 			color_hsb = palette[int(temp_num-1)];
 		}
 	}
-	color_hsb.yz = vec2(color_hsb.yz) *color_arg.yz;
+	color_hsb.yz = vec2(color_hsb.yz) *level.yz;
 
 	return hsb_to_rgb(color_hsb);
 }
 
 
 void main() {
-	vec3 color_rgb = pixelate();
+	vec2 uv = set_uv(flip_source,resolution_source);
+	vec3 color_rgb = pixelate(uv,texture_source,resolution);
+	
 	if(use_fx_color) {
-		gl_FragColor = vec4(palette(color_rgb),color_arg.w);
+		gl_FragColor = vec4(palette(color_rgb,level_source.xyz),1);
 	} else {
-		gl_FragColor = vec4(color_rgb,color_arg.w);
+		gl_FragColor = vec4(color_rgb,1);
 	}	
 }
 

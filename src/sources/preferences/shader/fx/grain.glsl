@@ -2,8 +2,8 @@
 Grain refactoring
 Stan le Punk 
 @see https://github.com/StanLepunK
-v 0.0.1
-2018-2018
+v 0.0.2
+2018-2019
 based on work of jcant0n from ShaderToy
 @see https://www.shadertoy.com/view/4sXSWs
 */
@@ -12,22 +12,51 @@ based on work of jcant0n from ShaderToy
 precision highp float;
 #endif
 #define PROCESSING_TEXTURE_SHADER
-uniform vec2 texOffset; // from Processing core don't to pass in sketch vector (1/width, 1/height)
 varying vec4 vertColor;
 varying vec4 vertTexCoord;
 
-// sketch implementation
-uniform sampler2D texture;
 uniform vec2 resolution;
+// sketch implementation template, uniform use by most of filter Romanesco shader
+uniform sampler2D texture_source;
+uniform vec2 resolution_source;
+uniform bvec2 flip_source; // can be use to flip texture
+
+
 uniform int mode;
 uniform float offset;
 
+// UTIL TEMPLATE
+vec2 set_uv(bool flip_vertical, bool flip_horizontal, vec2 res) {
+  vec2 uv;
+  if(all(equal(vec2(0),res))) {
+    uv = vertTexCoord.st;
+  } else if(all(greaterThan(res,vertTexCoord.st))) {
+    uv = vertTexCoord.st;
+  } else {
+    uv = res;
+  }
+  // flip 
+  if(!flip_vertical && !flip_horizontal) {
+    return uv;
+  } else if(flip_vertical && !flip_horizontal) {
+    uv.y = 1 -uv.y;
+    return uv;
+  } else if(!flip_vertical && flip_horizontal) {
+    uv.x = 1 -uv.x;
+    return uv;
+  } else if(flip_vertical && flip_horizontal) {
+    return vec2(1) -uv;
+  } return uv;
+}
 
+vec2 set_uv(bvec2 flip, vec2 res) {
+  return set_uv(flip.x,flip.y,res);
+}
 
-vec3 grain(vec2 uv, float offset) {
+vec3 grain(vec2 uv, vec2 res, float offset) {
     vec4 uvs;
     uvs.xy = uv + vec2(offset);
-    uvs.zw = uvs.xy + vec2(1.0 / resolution.x, 1.0 / resolution.y);
+    uvs.zw = uvs.xy + vec2(1.0 / res.x, 1.0 / res.y);
 
     uvs = fract(uvs * vec2(21.5932, 21.77156).xyxy);
 
@@ -47,11 +76,10 @@ vec3 grain(vec2 uv, float offset) {
 }
 
 void main() {
-  vec2 uv = vertTexCoord.xy;
-  vec3 img = texture2D(texture,uv).rgb;
-  vec3 grain = grain(uv,offset).xyz;
+  vec2 uv = set_uv(flip_source,resolution_source);
+  vec3 img = texture2D(texture_source,uv).rgb;
 
-  vec3 color = grain; // grain RVB
+  vec3 color = grain(uv,resolution,offset); // grain RGB
   if (mode == 0) {
     color = color.xxx; // black and white
   }

@@ -1,7 +1,7 @@
 /**
 VARIABLE RENDERING
-2015-2018
-v 1.9.0
+2015-2019
+v 1.9.1
 */
 boolean scene, prescene;
 boolean miroir_on_off = false;
@@ -160,8 +160,6 @@ float value_slider_item []  = new float [NUM_MOLETTE_ITEM];
 /**
 Var item
 */
-Table index_item;
-TableRow [] row_index_item;
 //MISC var
 //info object
 String [] item_info, item_name, item_author, item_version, item_pack;

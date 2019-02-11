@@ -1,8 +1,9 @@
 /**
 * warp procedural refactoring by Stan le punk 
+* @see http://stanlepunk.xyz
 * @see https://github.com/StanLepunK/Filter
 * inspired by ushiostarfish https://www.shadertoy.com/user/ushiostarfish
-*@see https://www.shadertoy.com/view/4sX3RN
+* @see https://www.shadertoy.com/view/4sX3RN
 
 v 0.0.3
 2018-2018
@@ -12,48 +13,45 @@ v 0.0.3
 precision highp float;
 #endif
 #define PROCESSING_TEXTURE_SHADER
-uniform vec2 texOffset; // from Processing core don't to pass in sketch vector (1/width, 1/height)
 varying vec4 vertColor;
 varying vec4 vertTexCoord;
 
 // sketch implementation template, uniform use by most of filter Romanesco shader
-uniform sampler2D texture;
-// uniform sampler2D texture_pattern;
-uniform sampler2D texture_direction;
-uniform sampler2D texture_velocity;
+uniform sampler2D texture_source;
+uniform vec2 resolution_source;
+uniform bvec2 flip_source;
 
-// uniform vec2 resolution;
-// uniform vec2 resolution_pattern;
-
-uniform vec2 resolution_direction;
-uniform vec2 resolution_velocity;
-
-
-// uniform vec2 position; // mapped or not that's a question?
-// uniform float time;
-
-// uniform int mode;
-
-// uniform vec4 color_arg;
-// uniform int color_mode; // 0 is RGB / 3 is HSB
-
-// uniform int num;
-// uniform iVec3 size;
 uniform float strength;
 
-uniform float time;
-// uniform float angle;
-// uniform float threshold;
-// uniform float quality;
-// uniform vec2 offset;
-// uniform float scale;
 
-// uniform int rows;
-// uniform int cols;
 
-// uniform bool use_fx_color;
-// uniform bool use_fx;
+// UTIL TEMPLATE
+vec2 set_uv(bool flip_vertical, bool flip_horizontal, vec2 res) {
+  vec2 uv;
+  if(all(equal(vec2(0),res))) {
+    uv = vertTexCoord.st;
+  } else if(all(greaterThan(res,vertTexCoord.st))) {
+    uv = vertTexCoord.st;
+  } else {
+    uv = res;
+  }
+  // flip 
+  if(!flip_vertical && !flip_horizontal) {
+    return uv;
+  } else if(flip_vertical && !flip_horizontal) {
+    uv.y = 1 -uv.y;
+    return uv;
+  } else if(!flip_vertical && flip_horizontal) {
+    uv.x = 1 -uv.x;
+    return uv;
+  } else if(flip_vertical && flip_horizontal) {
+    return vec2(1) -uv;
+  } return uv;
+}
 
+vec2 set_uv(bvec2 flip, vec2 res) {
+  return set_uv(flip.x,flip.y,res);
+}
 
 
 
@@ -94,11 +92,11 @@ float noise3d(vec3 p) {
 }
 
 void main() {
-	vec2 uv = vertTexCoord.st;
+	vec2 uv = set_uv(flip_source,resolution_source);
 	float v1 = noise3d(vec3(uv * strength, 0.0));
 	float v2 = noise3d(vec3(uv * strength, 1.0));
 	
-	vec4 color  = texture(texture, uv + vec2(v1,v2) * 0.1);
+	vec4 color  = texture(texture_source, uv + vec2(v1,v2) * 0.1);
 	gl_FragColor = color;
 }
 
