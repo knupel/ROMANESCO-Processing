@@ -1,7 +1,7 @@
 /**
 * Rope Filter collection
 * 2019-2019
-* v 0.1.1
+* v 0.1.2
 * all filter bellow has been tested.
 * @see http://stanlepunk.xyz
 * @see https://github.com/StanLepunK/Filter
@@ -48,7 +48,7 @@ PGraphics fx_template(PImage source, boolean on_g, vec4 level_source) {
 			fx_template = loadShader(path);
 			println("load shader: template.glsl");
 		}
-		println("load shader: template.glsl");
+		println("load shader:",path);
 	} else {
 		if(on_g) set_flip_shader(fx_template,source);
 		fx_template.set("texture_source",source);
@@ -136,7 +136,7 @@ PGraphics fx_blur_circular(PImage source, boolean on_g, vec3 strength, int num) 
 		String path = get_fx_path()+"blur_circular.glsl";
 		if(fx_rope_path_exists) {
 			fx_blur_circular = loadShader(path);
-			println("load shader: blur_circular.glsl");
+			println("load shader:",path);
 		}
 	} else {
 		if(on_g) set_flip_shader(fx_blur_circular,source);
@@ -228,7 +228,7 @@ PGraphics fx_blur_gaussian(PImage source, boolean on_g, boolean second_pass, ive
 		String path = get_fx_path()+"blur_gaussian.glsl";
 		if(fx_rope_path_exists) {
 			fx_blur_gaussian = loadShader(path);
-			println("load shader: blur_gaussian.glsl");
+			println("load shader:",path);
 		}
 	} else {
 		// flip part, for the case it's a texture, PImage or PGraphics
@@ -381,7 +381,7 @@ PGraphics fx_blur_radial(PImage source, boolean on_g, vec2 pos, float strength, 
 		String path = get_fx_path()+"blur_radial.glsl";
 		if(fx_rope_path_exists) {
 			fx_blur_radial = loadShader(path);
-			println("load shader: blur_radial.glsl");
+			println("load shader:",path);
 		}
 	} else {
 		if(on_g) set_flip_shader(fx_blur_radial,source);
@@ -456,7 +456,7 @@ PGraphics fx_colour_change_a(PImage source, boolean on_g, int num, vec3... mat) 
 		String path = get_fx_path()+"colour_change_A.glsl";
 		if(fx_rope_path_exists) {
 			fx_colour_change_a = loadShader(path);
-			println("load shader: colour_change_A.glsl");
+			println("load shader:",path);
 		}
 	} else {
 		if(on_g) set_flip_shader(fx_colour_change_a,source);
@@ -541,7 +541,7 @@ PGraphics fx_colour_change_b(PImage source, boolean on_g, float angle, float str
 		String path = get_fx_path()+"colour_change_B.glsl";
 		if(fx_rope_path_exists) {
 			fx_colour_change_b = loadShader(path);
-			println("load shader: colour_change_B.glsl");
+			println("load shader:",path);
 		}
 	} else {
 		if(on_g) set_flip_shader(fx_colour_change_b,source);
@@ -623,7 +623,7 @@ PGraphics fx_dither(PImage source, PImage layer, boolean on_g) {
 		String path = get_fx_path()+"dither.glsl";
 		if(fx_rope_path_exists) {
 			fx_dither = loadShader(path);
-			println("load shader: dither.glsl");
+			println("load shader:",path);
 		}
 	} else {
 		if(on_g) set_flip_shader(fx_dither,source,layer);
@@ -695,7 +695,7 @@ PGraphics fx_grain(PImage source, boolean on_g, float offset, int mode) {
 		String path = get_fx_path()+"grain.glsl";
 		if(fx_rope_path_exists) {
 			fx_grain = loadShader(path);
-			println("load shader: grain.glsl");
+			println("load shader:",path);
 		}
 	} else {
 		if(on_g) set_flip_shader(fx_grain,source);
@@ -766,7 +766,7 @@ PGraphics fx_grain_scatter(PImage source, boolean on_g,float strength) {
 		String path = get_fx_path()+"grain_scatter.glsl";
 		if(fx_rope_path_exists) {
 			fx_grain_scatter = loadShader(path);
-			println("load shader: grain_scatter.glsl");
+			println("load shader:",path);
 		}
 	} else {
 		if(on_g) set_flip_shader(fx_grain_scatter,source);
@@ -870,7 +870,7 @@ PGraphics fx_halftone_dot(PImage source, boolean on_g, vec2 pos, float size, flo
 		String path = get_fx_path()+"halftone.glsl";
 		if(fx_rope_path_exists) {
 			fx_halftone = loadShader(path);
-			println("load shader: halftone.glsl");
+			println("load shader:",path);
 		}
 	} else {
 		if(on_g) set_flip_shader(fx_halftone,source);
@@ -910,7 +910,7 @@ PGraphics fx_halftone_dot(PImage source, boolean on_g, vec2 pos, float size, flo
 
 /**
 * halftone line
-* v 0.0.5
+* v 0.0.6
 * 2018-2019
 */
 
@@ -935,6 +935,7 @@ PGraphics fx_halftone_line(PImage source, FX fx) {
 	if(fx.get_threshold() != null) {
 		threshold = fx.get_threshold().copy();
 	}
+	println("fx",fx.get_name(),fx.on_g());
 	return fx_halftone_line(source,fx.on_g(),pos,angle,mode,num,quality,threshold);	
 }
 
@@ -968,7 +969,7 @@ PGraphics fx_halftone_line(PImage source, boolean on_g, vec2 pos, vec3 angle, in
 		String path = get_fx_path()+"halftone_line.glsl";
 		if(fx_rope_path_exists) {
 			fx_halftone_line = loadShader(path);
-			println("load shader: halftone_line.glsl");
+			println("load shader:",path);
 		}
 	} else {
 		if(on_g) set_flip_shader(fx_halftone_line,source);
@@ -1053,7 +1054,7 @@ PGraphics fx_level(PImage source, boolean on_g, int mode, float... level) {
 		String path = get_fx_path()+"level.glsl";
 		if(fx_rope_path_exists) {
 			fx_level = loadShader(path);
-			println("load shader: level.glsl");
+			println("load shader:",path);
 		}
 	} else {
 		if(on_g) set_flip_shader(fx_level,source);
@@ -1174,7 +1175,7 @@ PGraphics fx_mix(PImage source, PImage layer, boolean on_g, int mode, vec3 level
 		String path = get_fx_path()+"mix.glsl";
 		if(fx_rope_path_exists) {
 			fx_mix = loadShader(path);
-			println("load shader: mix.glsl");
+			println("load shader:",path);
 		}
 	} else {
 		if(on_g) set_flip_shader(fx_mix,source);
@@ -1269,7 +1270,7 @@ PGraphics fx_pixel(PImage source, boolean on_g, ivec2 size, int num, vec3 level_
 		String path = get_fx_path()+"pixel.glsl";
 		if(fx_rope_path_exists) {
 			fx_pixel = loadShader(path);
-			println("load shader: pixel.glsl");
+			println("load shader:",path);
 		}
 	} else {
 		if(on_g) set_flip_shader(fx_pixel,source);
@@ -1373,7 +1374,7 @@ PGraphics fx_reaction_diffusion(PImage source, boolean on_g, vec2 conc_uv, vec2 
 			String path = get_fx_path()+"reaction_diffusion.glsl";
 			if(fx_rope_path_exists) {
 				fx_reac_diff = loadShader(path);
-				println("load shader: reaction_diffusion.glsl");
+				println("load shader:",path);
 			}
 		}
 		if(result_reac_diff == null) {
@@ -1557,7 +1558,7 @@ PGraphics fx_scale(PImage source, boolean on_g, ivec2 resolution) {
 		String path = get_fx_path()+"scale.glsl";
 		if(fx_rope_path_exists) {
 			fx_scale = loadShader(path);
-			println("load shader: scale.glsl");
+			println("load shader:",path);
 		}
 	} else {
 		if(on_g) set_flip_shader(fx_scale,source);
@@ -1646,7 +1647,7 @@ PGraphics fx_rgb_split(PImage source, boolean on_g, vec2 offset) {
 		String path = get_fx_path()+"rgb_split.glsl";
 		if(fx_rope_path_exists) {
 			fx_rgb_split = loadShader(path);
-			println("load shader: rgb_split.glsl");
+			println("load shader:",path);
 		}
 	} else {
     if(on_g) set_flip_shader(fx_rgb_split,source);
@@ -1705,7 +1706,7 @@ PGraphics fx_warp_proc(PImage source, boolean on_g, float strength) {
 		String path = get_fx_path()+"warp_proc.glsl";
 		if(fx_rope_path_exists) {
 			fx_warp_proc = loadShader(path);
-			println("load shader: warp_proc.glsl");
+			println("load shader:",path);
 		}
 	} else {
 		if(on_g) set_flip_shader(fx_warp_proc,source);
@@ -1774,7 +1775,7 @@ PGraphics fx_warp_tex(PImage source, PImage velocity, PImage direction, boolean 
 		String path = get_fx_path()+"warp_tex.glsl";
 		if(fx_rope_path_exists) {
 			fx_warp_tex = loadShader(path);
-			println("load shader: warp_tex.glsl");
+			println("load shader:",path);
 		}
 	} else {
 		if(on_g) set_flip_shader(fx_warp_tex,source);

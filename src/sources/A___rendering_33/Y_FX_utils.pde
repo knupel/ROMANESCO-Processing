@@ -2,7 +2,7 @@
 * SHADER FX
 * @see http://stanlepunk.xyz
 * @see https://github.com/StanLepunK/Filter
-* v 0.0.4
+* v 0.1.3
 * 2019-2019
 *
 */
@@ -61,9 +61,13 @@ FX get_fx(String name) {
 	return buffer;
 }
 
-
-
 void init_fx(String name, int type) {
+	init_fx(name,type,-1, null, null, null,-1);
+}
+
+
+
+void init_fx(String name, int type, int id, String author, String pack, String version, int revision) {
 	boolean exist = false;
 	if(fx_manager == null) {
 		fx_manager = new ArrayList<FX>();
@@ -77,17 +81,72 @@ void init_fx(String name, int type) {
 			}
 		}
 		if(!exist) {
-			FX new_fx = new FX(name,type);
-			fx_manager.add(new_fx);
+			add_fx_to_manager(name,type,id,author,pack,version,revision);
 		}
 	} else {
-
-		FX new_fx = new FX(name,type);
-		fx_manager.add(new_fx);
+		add_fx_to_manager(name,type,id,author,pack,version,revision);
 	}
 }
 
+void add_fx_to_manager(String name, int type, int id, String author, String pack, String version, int revision) {
+	FX fx = new FX(name,type);
+	fx.set_id(id);
+	fx.set_author(author);
+	fx.set_pack(pack);
+	fx.set_version(version);
+	fx.set_revision(revision);
+	fx_manager.add(fx);
+}
 
+
+
+
+
+/**
+select fx from FX class
+*/
+void select_fx(PImage main, PImage layer_a, PImage layer_b, FX... fx) {
+	for(int i = 0 ; i < fx.length ;i++) {
+		if(fx[i].get_type() == FX_MIX) {
+			fx_mix(main,layer_a,fx[i]);
+		}
+			else if(fx[i].get_type() == FX_BLUR_GAUSSIAN) {
+			fx_blur_gaussian(main,fx[i]); 
+		} else if(fx[i].get_type() == FX_BLUR_CIRCULAR) {
+			fx_blur_circular(main,fx[i]);
+		} else if(fx[i].get_type() == FX_BLUR_RADIAL) {
+			fx_blur_radial(main,fx[i]);
+		} else if(fx[i].get_type() == FX_COLOUR_CHANGE_A) {
+			fx_colour_change_a(main,fx[i]);
+		} else if(fx[i].get_type() == FX_COLOUR_CHANGE_B) {
+			fx_colour_change_b(main,fx[i]);
+		} else if(fx[i].get_type() == FX_DITHER) {
+			fx_dither(main,layer_a,fx[i]);
+		} else if(fx[i].get_type() == FX_GRAIN) {
+			 fx_grain(main,fx[i]);
+		} else if(fx[i].get_type() == FX_GRAIN_SCATTER) {
+			fx_grain_scatter(main,fx[i]);
+		} else if(fx[i].get_type() == FX_HALFTONE_DOT) {
+			fx_halftone_dot(main,fx[i]);
+		} else if(fx[i].get_type() == FX_HALFTONE_LINE) {
+			fx_halftone_line(main,fx[i]); 
+		} else if(fx[i].get_type() == FX_LEVEL) {
+			fx_level(main,fx[i]); 
+		} else if(fx[i].get_type() == FX_PIXEL) {
+			fx_pixel(main,fx[i]);
+		} else if(fx[i].get_type() == FX_REAC_DIFF) {
+			fx_reaction_diffusion(main,fx[i]);
+		} else if(fx[i].get_type() == FX_SPLIT_RGB) {
+			fx_rgb_split(main,fx[i]); 
+		} else if(fx[i].get_type() == FX_SCALE) {
+			fx_scale(main,fx[i]);
+		} else if(fx[i].get_type() == FX_WARP_PROC) {
+			fx_warp_proc(main,fx[i]); 
+		} else if(fx[i].get_type() == FX_WARP_TEX) {
+			fx_warp_tex(main,layer_a,layer_b,fx[i]); 
+		}    
+	}
+}
 
 
 

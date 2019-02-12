@@ -1,6 +1,6 @@
 /**
  * CLASS FX 
- * v 0.0.3
+ * v 0.1.1
  * 2019-2019
  * class used to create easy setting for shader fx
 */
@@ -8,6 +8,10 @@ public class FX {
 	private int id;
 	private int type;
 	private String name;
+	private String author;
+	private String pack;
+	private String version;
+	private int revision;
 	private boolean on_g = true;
 	// paameter
 	private int mode; // 0
@@ -50,8 +54,28 @@ public class FX {
   	this.type = type;
   }
 
+  public void set_id(int id) {
+  	this.id = id;
+  }
+
   public void set_name(String name) {
   	this.name = name;
+  }
+
+  public void set_author(String author) {
+  	this.author = author;
+  }
+
+  public void set_pack(String pack) {
+  	this.pack = pack;
+  }
+
+  public void set_version(String version) {
+  	this.version = version;
+  }
+
+  public void set_revision(int revision) {
+  	this.revision = revision;
   }
 
   public void set(int which, Object... arg) {
@@ -270,12 +294,28 @@ public class FX {
 		return name;
 	}
 
-	public int get_type() {
-		return type;
-	}
-
 	public int get_id() {
 		return id;
+	}
+
+	public String get_author() {
+  	 return author;
+  }
+
+  public String get_pack() {
+  	return pack;
+  }
+
+  public String get_version() {
+  	return version;
+  }
+
+  public  int get_revision() {
+  	return revision;
+  }
+
+	public int get_type() {
+		return type;
 	}
 
 	public int get_mode() {

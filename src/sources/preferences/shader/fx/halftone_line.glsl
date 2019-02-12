@@ -2,7 +2,7 @@
 * Halftone line full refactoring Stan le Punk 
 * @see https://github.com/StanLepunK
 * @see https://github.com/StanLepunK/Filter
-* v 0.0.4
+* v 0.0.5
 * 2018-2019
 * Based https://www.shadertoy.com/view/4dXBRf by Cacheflowe
 */
@@ -67,15 +67,15 @@ float rgb_to_gray(vec4 rgba) {
 float average_gray(vec2 uv, sampler2D tex, float step_x, float step_y) {
 	// get samples around pixel
 	vec4 colors[9];
-	colors[0] = texture(tex,uv + vec2(-step_x, step_y));
-	colors[1] = texture(tex,uv + vec2(0, step_y));
-	colors[2] = texture(tex,uv + vec2(step_x, step_y));
-	colors[3] = texture(tex,uv + vec2(-step_x, 0));
-	colors[4] = texture(tex,uv);
-	colors[5] = texture(tex,uv + vec2(step_x, 0));
-	colors[6] = texture(tex,uv + vec2(-step_x, -step_y));
-	colors[7] = texture(tex,uv + vec2(0, -step_y));
-	colors[8] = texture(tex,uv + vec2(step_x, -step_y));
+	colors[0] = texture2D(tex,uv + vec2(-step_x, step_y));
+	colors[1] = texture2D(tex,uv + vec2(0, step_y));
+	colors[2] = texture2D(tex,uv + vec2(step_x, step_y));
+	colors[3] = texture2D(tex,uv + vec2(-step_x, 0));
+	colors[4] = texture2D(tex,uv);
+	colors[5] = texture2D(tex,uv + vec2(step_x, 0));
+	colors[6] = texture2D(tex,uv + vec2(-step_x, -step_y));
+	colors[7] = texture2D(tex,uv + vec2(0, -step_y));
+	colors[8] = texture2D(tex,uv + vec2(step_x, -step_y));
 	// sum + return averaged gray
 	vec4 result = vec4(0);
 	for (int i = 0; i < 9; i++) {
@@ -145,7 +145,7 @@ void main() {
   	float dist_from_row_center = 1.0 - distance(uv_row.y, 0.5) * 2.0;
   	color = vec3(1.0 - smoothstep(average_gray - temp_threshold, average_gray + temp_threshold, dist_from_row_center));
   } else if(temp_mode == 6) {
-  	vec4 original_color = texture(texture_source, uv_floor_y);
+  	vec4 original_color = texture2D(texture_source, uv_floor_y);
   	float dist_from_row_center = 1.0 - distance(uv_row.y, 0.5) * 2.0;
   	float mix_val = 1.0 - smoothstep(average_gray - temp_threshold, average_gray + temp_threshold, dist_from_row_center);
   	color = mix(original_color.rgb, vec3(1.), mix_val);
