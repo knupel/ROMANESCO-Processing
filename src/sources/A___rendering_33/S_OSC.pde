@@ -158,13 +158,13 @@ void receive_data_menu_bar(OscMessage receive, int in) {
 }
 
 void receive_data_general_dropdown(OscMessage receive, int in) {
-  which_shader = receive.get(0+in).intValue();
-  which_filter = receive.get(1+in).intValue();
-  select_font(receive.get(2+in).intValue());
-  which_text[0] = receive.get(3+in).intValue();
-  which_bitmap[0] = receive.get(4+in).intValue();
-  which_shape[0] = receive.get(5+in).intValue();
-  which_movie[0] = receive.get(6+in).intValue();
+  which_shader = receive.get(0+in).intValue(); // shader
+  which_fx = receive.get(1+in).intValue(); // filter
+  select_font(receive.get(2+in).intValue()); // font
+  which_text[0] = receive.get(3+in).intValue(); // text
+  which_bitmap[0] = receive.get(4+in).intValue(); // bitmap
+  which_shape[0] = receive.get(5+in).intValue(); // shape
+  which_movie[0] = receive.get(6+in).intValue(); // movie
 }
 
 

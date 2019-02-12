@@ -19,7 +19,7 @@ void rendering() {
     rendering_item_3D(USE_LAYER,1);
 
     rendering_item_2D(USE_LAYER,1);
-    force();
+    apply_force_field();
     filter();   
     rendering_info(USE_LAYER);
 

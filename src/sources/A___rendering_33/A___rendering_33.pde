@@ -354,7 +354,7 @@ void keyPressed () {
   keyPressed_mask_border_hide('H');
   keyPressed_mask_save('S');
   keyPressed_mask_load('L');
-  warp_keyPressed('N');
+  warp_force_keyPressed('N');
 }
 
 

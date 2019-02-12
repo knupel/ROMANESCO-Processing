@@ -132,7 +132,7 @@ boolean light_1_button_is,light_1_action_button_is;
 boolean light_2_button_is,light_2_action_button_is;
 
 int which_shader;
-int which_filter; 
+int which_fx; 
 
 
 // media

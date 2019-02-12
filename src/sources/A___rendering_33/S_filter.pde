@@ -4,7 +4,7 @@ FILTER
 2018-2018
 v 0.0.3
 */
-Warp warp_romanesco;
+Force warp_force_romanesco;
 void init_filter() {
   if(FULL_RENDERING) {
     // force
@@ -15,7 +15,7 @@ void init_filter() {
     // set_different_force_field();
     println("init filter Force Field part");
     // warp
-    init_warp();
+    init_force();
     println("init filter warp part");
     // set path fx shader;
     set_fx_path(preference_path+"/shader/fx/");
@@ -33,7 +33,12 @@ void init_filter() {
 
 void filter() {
   if(FULL_RENDERING && fx_button_is(0)) {
-    warp();
+    println(which_fx);
+    if(which_fx == 0) {
+      warp_force();
+    } else if(which_fx == 1) {
+
+    }
   } 
 }
 
@@ -79,18 +84,18 @@ WARP
 v 0.0.3
 this chapter is the place where the pixel is filtering
 */
-void init_warp() {
-  if(warp_romanesco == null) {
-    warp_romanesco = new Warp(preference_path+"/shader/");
-    warp_romanesco.add(g);
+void init_force() {
+  if(force_romanesco == null) {
+    warp_force_romanesco = new Force(preference_path+"/shader/");
+    warp_force_romanesco.add(g);
   }
 }
 
 
-void warp() {
-  float intensity_warp = map(value_slider_fx[0],0,360,0,1);
-  intensity_warp *= intensity_warp;
-  intensity_warp = map(intensity_warp,0,1,0,10);
+void warp_force() {
+  float intensity_warp_force = map(value_slider_fx[0],0,360,0,1);
+  intensity_warp_force *= intensity_warp_force;
+  intensity_warp_force = map(intensity_warp_force,0,1,0,10);
   
   // cycling
   float cycling = 1;
@@ -104,22 +109,22 @@ void warp() {
   float cy = map(value_slider_fx[3],0,360,0,1);
   float cz = map(value_slider_fx[4],0,360,0,1);
   float ca = 1; // change nothing at this time
-  vec4 refresh_warp = vec4(cx,cy,cz,ca);
+  vec4 refresh_warp_force = vec4(cx,cy,cz,ca);
   if(ratio > 0) {
-    refresh_warp.mult(cycling);
+    refresh_warp_force.mult(cycling);
   }
 
-  warp_romanesco.refresh(refresh_warp);
-  warp_romanesco.shader_init();
+  warp_force_romanesco.refresh(refresh_warp_force);
+  warp_force_romanesco.shader_init();
   boolean filter_fx = fx_button_is(1);
-  warp_romanesco.shader_filter(filter_fx);
-  warp_romanesco.shader_mode(0);
+  warp_force_romanesco.shader_filter(filter_fx);
+  warp_force_romanesco.shader_mode(0);
   // here Force_field is pass
-  warp_romanesco.show(force_romanesco,intensity_warp);
+  warp_force_romanesco.show(force_romanesco,intensity_warp_force);
 
-  if(warp_reset) {
-    warp_romanesco.reset();
-    warp_reset = false;
+  if(warp_force_reset) {
+    warp_force_romanesco.reset();
+    warp_force_reset = false;
   }
 }
 
@@ -132,11 +137,11 @@ void warp() {
 
 
 
-boolean warp_reset;
-void warp_keyPressed(char c_1) {
+boolean warp_force_reset;
+void warp_force_keyPressed(char c_1) {
   if(key == c_1) {
-    println("Reset Warp",frameCount);
-    warp_reset = true;
+    println("Reset Warp Force",frameCount);
+    warp_force_reset = true;
   }
 }
 
