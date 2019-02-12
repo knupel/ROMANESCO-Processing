@@ -42,6 +42,7 @@ void init_filter() {
 
 void filter() {
   if(FULL_RENDERING && fx_button_is(0)) {
+    upate_fx_classic();
     int target = which_fx-1; // min 1 cause the first one is a special one;
     if(which_fx == 0) {
       warp_force();
@@ -112,8 +113,11 @@ int fx_classic_nun;
 void setting_fx_classic() {
   setting_blur_gaussian();
   setting_haltone_line();
+}
 
-
+void upate_fx_classic() {
+  update_fx_blur_gaussian();
+  update_fx_haltone_line();
 }
 
 
@@ -128,7 +132,9 @@ void setting_blur_gaussian() {
   int id = fx_classic_nun;
   init_fx(set_blur_gaussian,FX_BLUR_GAUSSIAN,id,author,pack,version,revision);
   fx_classic_nun++;
+}
 
+void update_fx_blur_gaussian() {
   float x = mouseX -(width/2);
   float y = mouseY -(height/2);
   int max_blur = 40;
@@ -151,6 +157,10 @@ void setting_haltone_line() {
   init_fx(set_halftone_line,FX_HALFTONE_LINE,id,author,pack,version,revision);
   fx_classic_nun++;
 
+  
+}
+
+void update_fx_haltone_line() {
   if(mousePressed) {
     fx_set_mode(set_halftone_line,0); 
     int num_line = (int)map(mouseY,0,height,20,100); 
