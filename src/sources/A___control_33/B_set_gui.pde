@@ -397,7 +397,7 @@ void set_console_slider_background(ivec2 pos, ivec2 size) {
   // button
   int offset_button_y = -int(size.y *1.5);
   pos_button_background = ivec2(pos.x, pos.y +offset_button_y);
-  size_button_background = ivec2(120,10);
+  size_button_background = ivec2(80,10);
   // slider
   for(int i = 0 ; i < NUM_SLIDER_BACKGROUND ; i++) {
     int offset_y = offset_y(pos.y, size.y, i);
@@ -412,11 +412,20 @@ void set_console_slider_fx(ivec2 pos, ivec2 size) {
   int offset_button_y = -int(size.y *1.5);
   int x = pos.x;
   int y = pos.y +offset_button_y;
+  // set a default button
   for(int i = 0 ; i < NUM_BUTTON_FX ; i++) {
     button_fx_is[i] = 0;
-    size_button_fx[i] = ivec2(40,10);
-    int s = size_button_fx[i].x ;
-    x = ((s*i) +pos.x);
+    size_button_fx[i] = ivec2(38,10);
+  }
+  // set special button
+  // size_button_fx[0] = ivec2(62,10);
+  // set position from size
+  int offset_x = 0;
+  for(int i = 0 ; i < NUM_BUTTON_FX ; i++) {
+    
+    x = pos.x + offset_x;
+    offset_x += size_button_fx[i].x ;
+    // x = ((s*i) +pos.x);
     pos_button_fx[i] = ivec2(x,y);
   }
 
@@ -432,22 +441,22 @@ void set_console_slider_fx(ivec2 pos, ivec2 size) {
 void set_console_slider_light(ivec2 pos, ivec2 size) {
   int offset_button_y = -int(size.y *1.5);
 
-  size_light_ambient_buttonButton = ivec2(80,10);
+  size_light_ambient_buttonButton = ivec2(75,10);
   size_light_ambient_button_action = ivec2(45,10);
   pos_light_ambient_buttonButton = ivec2(pos.x, pos.y +offset_button_y);
-  pos_light_ambient_button_action = ivec2(pos.x +90, pos_light_ambient_buttonButton.y); // for the y we take the y of the button
+  pos_light_ambient_button_action = ivec2(pos.x +size_light_ambient_buttonButton.x, pos_light_ambient_buttonButton.y); // for the y we take the y of the button
   
   // light one button
   size_light_1_button = ivec2(80,10);
   size_light_1_button_action = ivec2(45,10);
   pos_light_1_button = ivec2(pos.x, pos.y +(5*spacing_slider) +offset_button_y);
-  pos_light_1_button_action = ivec2(pos.x +90, pos_light_1_button.y); // for the y we take the y of the button
+  pos_light_1_button_action = ivec2(pos.x +size_light_1_button.x, pos_light_1_button.y); // for the y we take the y of the button
   // light two button
   
-  size_light_2_button = ivec2(80,10);
+  size_light_2_button = ivec2(82,10);
   size_light_2_button_action = ivec2(45,10);
   pos_light_2_button = ivec2(pos.x, pos.y +(10*spacing_slider) +offset_button_y);
-  pos_light_2_button_action = ivec2(pos.x +90, pos_light_2_button.y); // for the y we take the y of the button
+  pos_light_2_button_action = ivec2(pos.x +size_light_2_button.x, pos_light_2_button.y); // for the y we take the y of the button
   
   //slider
   int count = 0;

@@ -11,9 +11,7 @@ void build_console() {
   build_console_filter();
   build_console_light();
   build_console_sound();
-
   build_console_setting();
-  // 
   build_console_item();  
 }
 
@@ -67,6 +65,7 @@ void build_console_background() {
   button_bg.set_is(true);
   button_bg.set_aspect_on_off(button_on_in, button_on_out, button_off_in, button_off_out);
   button_bg.set_font(FuturaExtraBold_10);
+  // button_bg.set_label("BACKGROUND ON/OFF");
 }
 
 void build_console_filter() {
@@ -90,9 +89,15 @@ void build_console_filter() {
 
   for(int i = 0 ; i < NUM_BUTTON_FX ; i++) {
     button_fx[i] = new Button(pos_button_fx[i], size_button_fx[i]);
-    button_fx[i].set_aspect_on_off(button_on_in, button_on_out, button_off_in, button_off_out);
+    button_fx[i].set_aspect_on_off(button_on_in,button_on_out,button_off_in,button_off_out);
     button_fx[i].set_font(FuturaExtraBold_10);
-    button_fx[i].set_label("FX "+i);
+    if(i == 0) {
+      // button_fx[i].set_label("FX ON/OFF");
+    } else if (i == 1) {
+      button_fx[i].set_label("MOVE");
+    } else if (i == 2) {
+      button_fx[i].set_label("EXTRA");
+    }
   }
 }
 
@@ -174,7 +179,7 @@ void build_console_sound() {
 
 
 void build_console_setting() {
-  String [] content = {"sound setting","camera setting"};
+  String [] content = {"SOUND","CAMERA"};
   dropdown_setting = new Dropdown(dropdown_setting_pos,dropdown_setting_size,"Romanesco setting",content);
   dropdown_setting.set_colour(dropdown_colour);
   dropdown_setting.wheel(true);

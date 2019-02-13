@@ -1068,39 +1068,46 @@ void display_button_header() {
 
 
 void display_button_general() {
-  if(button_bg.is()) {
-    button_bg.set_label(shader_bg_name[which_bg_shader] + " on");
+    if(button_bg.is()) {
+    button_bg.set_label("BACKGROUND ON");
+    // button_bg.set_label(shader_bg_name[which_bg_shader] + " on");
   } else {
-    button_bg.set_label(shader_bg_name[which_bg_shader] + " off");
+    button_bg.set_label("BACKGROUND OFF");
+    // button_bg.set_label(shader_bg_name[which_bg_shader] + " off");
   }
   button_bg.show_label();
 
   // FX
+  if(button_fx[0].is()) {
+    button_fx[0].set_label("FX ON");
+  } else {
+    button_fx[0].set_label("FX OFF");
+  }
   for(int i = 0 ; i < NUM_BUTTON_FX ; i++) {
     button_fx[i].show_label();
   }
 
   // Light ambient
   if(button_light_ambient.is()) {
-    button_light_ambient.set_label("ambient on");
+    button_light_ambient.set_label("AMBIENT ON");
   } else {
-    button_light_ambient.set_label("ambient off");
+    button_light_ambient.set_label("AMBIENT OFF");
   }
   button_light_ambient.show_label();
   button_light_ambient_action.show_label();
   //LIGHT ONE
   if(button_light_1.is()) {
-    button_light_1.set_label("spot light on");
+    button_light_1.set_label("LIGHT ONE ON");
   } else {
-    button_light_1.set_label("spot light off");
+    button_light_1.set_label("LIGHT ONE OFF");
   }
   button_light_1.show_label();
   button_light_1_action.show_label();
   // LIGHT TWO
   if(button_light_2.is()) {
-    button_light_2.set_label("spot light on");
+    button_light_2.set_label("LIGHT TWO ON");
   } else {
-    button_light_2.set_label("spot light off");
+    button_light_2.set_label("LIGHT TWO OFF");
   }
   button_light_2.show_label();
   button_light_2_action.show_label();
