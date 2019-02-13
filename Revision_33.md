@@ -3,13 +3,14 @@ revision 33
 
 *MAJOR
 
+>add POST-FX shader glsl : blur, grain, pixelate...
 >the window position is keeping from previous session
 >add dynamic method to manage font
->update costume method
 >try to detect the system font, to load from this one. If that's don't work use the font folder from Romanesco.
 >remove direct access to item variables.
 >add setting method for item variables.
 >add get_method in class Romanesco to catch the arg : min, max, raw from slider value.
+
 
 *MINOR
 
@@ -17,6 +18,8 @@ revision 33
 >add class Mode to mange the name and the id item mode
 >remove method boolean get_orbit() statement from keyboard prescene command
 >add method boolean get_follow() statement from keyboard prescene command
+>refactoring button general
+>update costume method
 
 *ITEM
 

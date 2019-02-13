@@ -65,14 +65,12 @@ void build_console_background() {
   button_bg.set_is(true);
   button_bg.set_aspect_on_off(button_on_in, button_on_out, button_off_in, button_off_out);
   button_bg.set_font(FuturaExtraBold_10);
-  // button_bg.set_label("BACKGROUND ON/OFF");
 }
 
 void build_console_filter() {
   for (int i = 0 ; i < NUM_SLIDER_FX ; i++) {
     ivec2 temp_size_mol = ivec2(round(size_slider_fx[i].y *ratio_size_molette), round(size_slider_fx[i].y *ratio_size_molette));
     ivec2 temp_pos = ivec2(pos_slider_fx[i].x, round(pos_slider_fx[i].y -(slider_height_filter *.6)));
-    if(cropinfo_slider_fx[i].get_id() > -1) {
       slider_adj_fx[i] = new Sladj(temp_pos,size_slider_fx[i]);
       slider_adj_fx[i].set_molette(ELLIPSE);
       slider_adj_fx[i].size_molette(temp_size_mol);
@@ -84,7 +82,6 @@ void build_console_filter() {
       slider_adj_fx[i].set_fill(struc_dark);
       slider_adj_fx[i].set_fill_molette(molette_in_dark,molette_out_dark);
       slider_adj_fx[i].set_fill_adj(adj_in_dark,adj_out_dark);
-    }
   }
 
   for(int i = 0 ; i < NUM_BUTTON_FX ; i++) {
@@ -92,7 +89,7 @@ void build_console_filter() {
     button_fx[i].set_aspect_on_off(button_on_in,button_on_out,button_off_in,button_off_out);
     button_fx[i].set_font(FuturaExtraBold_10);
     if(i == 0) {
-      // button_fx[i].set_label("FX ON/OFF");
+      //button_fx[i].set_label("FX ON/OFF");
     } else if (i == 1) {
       button_fx[i].set_label("MOVE");
     } else if (i == 2) {
@@ -105,19 +102,17 @@ void build_console_light() {
   for (int i = 0 ; i < NUM_SLIDER_LIGHT ; i++) {
     ivec2 temp_size_mol = ivec2(round(size_slider_light[i].y *ratio_size_molette), round(size_slider_light[i].y *ratio_size_molette));
     ivec2 temp_pos = ivec2(pos_slider_light[i].x, round(pos_slider_light[i].y -(slider_height_light *.6)));
-    if(cropinfo_slider_light[i].get_id() > -1) {
-      slider_adj_light[i] = new Sladj(temp_pos, size_slider_light[i]);
-      slider_adj_light[i].set_molette(ELLIPSE);
-      slider_adj_light[i].size_molette(temp_size_mol);
-      slider_adj_light[i].set_id(i);
-      slider_adj_light[i].set_label(slider_light_name[i],iadd(slider_adj_light[i].get_size(),ivec2(3,0)));
-      slider_adj_light[i].set_font(textUsual_1);
-      slider_adj_light[i].set_rounded(rounded_slider);
-      slider_adj_light[i].set_fill_label(label_in_dark,label_out_dark);
-      slider_adj_light[i].set_fill(struc_dark);
-      slider_adj_light[i].set_fill_molette(molette_in_dark,molette_out_dark);
-      slider_adj_light[i].set_fill_adj(adj_in_dark,adj_out_dark);
-    }
+    slider_adj_light[i] = new Sladj(temp_pos, size_slider_light[i]);
+    slider_adj_light[i].set_molette(ELLIPSE);
+    slider_adj_light[i].size_molette(temp_size_mol);
+    slider_adj_light[i].set_id(i);
+    slider_adj_light[i].set_label(slider_light_name[i],iadd(slider_adj_light[i].get_size(),ivec2(3,0)));
+    slider_adj_light[i].set_font(textUsual_1);
+    slider_adj_light[i].set_rounded(rounded_slider);
+    slider_adj_light[i].set_fill_label(label_in_dark,label_out_dark);
+    slider_adj_light[i].set_fill(struc_dark);
+    slider_adj_light[i].set_fill_molette(molette_in_dark,molette_out_dark);
+    slider_adj_light[i].set_fill_adj(adj_in_dark,adj_out_dark);
   }
 
   // LIGHT AMBIENT
@@ -154,19 +149,17 @@ void build_console_sound() {
   for (int i = 0 ; i < NUM_SLIDER_SOUND ; i++) {
     ivec2 temp_size_mol = ivec2(round(size_slider_sound[i].y *ratio_size_molette), round(size_slider_sound[i].y *ratio_size_molette));
     ivec2 temp_pos = ivec2(pos_slider_sound[i].x, round(pos_slider_sound[i].y -(slider_height_sound *.6)));
-    if(cropinfo_slider_sound[i].get_id() > -1) {
-      slider_adj_sound[i] = new Sladj(temp_pos, size_slider_sound[i]);
-      slider_adj_sound[i].set_molette(ELLIPSE);
-      slider_adj_sound[i].size_molette(temp_size_mol);
-      slider_adj_sound[i].set_id(i);
-      slider_adj_sound[i].set_label(slider_sound_name[i],iadd(slider_adj_sound[i].get_size(),ivec2(3,0)));
-      slider_adj_sound[i].set_font(textUsual_1);
-      slider_adj_sound[i].set_rounded(rounded_slider);
-      slider_adj_sound[i].set_fill_label(label_in_dark,label_out_dark);
-      slider_adj_sound[i].set_fill(struc_dark);
-      slider_adj_sound[i].set_fill_molette(molette_in_dark,molette_out_dark);
-      slider_adj_sound[i].set_fill_adj(adj_in_dark,adj_out_dark);
-    }
+    slider_adj_sound[i] = new Sladj(temp_pos, size_slider_sound[i]);
+    slider_adj_sound[i].set_molette(ELLIPSE);
+    slider_adj_sound[i].size_molette(temp_size_mol);
+    slider_adj_sound[i].set_id(i);
+    slider_adj_sound[i].set_label(slider_sound_name[i],iadd(slider_adj_sound[i].get_size(),ivec2(3,0)));
+    slider_adj_sound[i].set_font(textUsual_1);
+    slider_adj_sound[i].set_rounded(rounded_slider);
+    slider_adj_sound[i].set_fill_label(label_in_dark,label_out_dark);
+    slider_adj_sound[i].set_fill(struc_dark);
+    slider_adj_sound[i].set_fill_molette(molette_in_dark,molette_out_dark);
+    slider_adj_sound[i].set_fill_adj(adj_in_dark,adj_out_dark);
   }
 
   for(int i = 0 ; i < NUM_BUTTON_TRANSIENT ; i++) {
@@ -197,18 +190,16 @@ void build_console_sound_setting() {
   // slider range transient
   ivec2 size_mol = ivec2(round(size_slider_sound_setting[0].y *ratio_size_molette), round(size_slider_sound_setting[0].y *ratio_size_molette));
   ivec2 pos_slider = ivec2(pos_slider_sound_setting[0].x, round(pos_slider_sound_setting[0].y -(slider_height_sound_setting *.6)));
-  if(cropinfo_slider_sound_setting[0].get_id() > -1) {
-    slider_sound_setting[0] = new Slider(pos_slider, size_slider_sound_setting[0]);
-    slider_sound_setting[0].set_id(0);
-    slider_sound_setting[0].set_molette_num(3);
-    slider_sound_setting[0].size_molette(size_mol.x/2,size_mol.y);
-    slider_sound_setting[0].set_label(slider_sound_setting_name[0],iadd(slider_sound_setting[0].get_size(),ivec2(3,0)));
-    slider_sound_setting[0].set_font(textUsual_1);
-    slider_sound_setting[0].set_rounded(rounded_slider);
-    slider_sound_setting[0].set_fill_label(label_in_light,label_out_light);
-    slider_sound_setting[0].set_fill(struc_light);
-    slider_sound_setting[0].set_fill_molette(molette_in_dark,molette_out_light);
-  }
+  slider_sound_setting[0] = new Slider(pos_slider, size_slider_sound_setting[0]);
+  slider_sound_setting[0].set_id(0);
+  slider_sound_setting[0].set_molette_num(3);
+  slider_sound_setting[0].size_molette(size_mol.x/2,size_mol.y);
+  slider_sound_setting[0].set_label(slider_sound_setting_name[0],iadd(slider_sound_setting[0].get_size(),ivec2(3,0)));
+  slider_sound_setting[0].set_font(textUsual_1);
+  slider_sound_setting[0].set_rounded(rounded_slider);
+  slider_sound_setting[0].set_fill_label(label_in_light,label_out_light);
+  slider_sound_setting[0].set_fill(struc_light);
+  slider_sound_setting[0].set_fill_molette(molette_in_dark,molette_out_light);
   // slider transient threshold
   int in_slider_double = 1;
   int out_slider_double = 5;
@@ -234,18 +225,16 @@ void build_console_sound_setting() {
   for (int i =  in_slider_single ; i < out_slider_single ; i++) {
     ivec2 temp_size_mol = ivec2(round(size_slider_sound_setting[i].y *ratio_size_molette), round(size_slider_sound_setting[i].y *ratio_size_molette));
     ivec2 temp_pos = ivec2(pos_slider_sound_setting[i].x, round(pos_slider_sound_setting[i].y -(slider_height_sound_setting *.6)));
-    if(cropinfo_slider_sound_setting[i].get_id() > -1) {
-      slider_sound_setting[i] = new Slider(temp_pos, size_slider_sound_setting[i]);
-      slider_sound_setting[i].set_molette(ELLIPSE);
-      slider_sound_setting[i].size_molette(temp_size_mol);
-      slider_sound_setting[i].set_id(i);
-      slider_sound_setting[i].set_label(slider_sound_setting_name[i],iadd(slider_sound_setting[i].get_size(),ivec2(3,0)));
-      slider_sound_setting[i].set_font(textUsual_1);
-      slider_sound_setting[i].set_rounded(rounded_slider);
-      slider_sound_setting[i].set_fill_label(label_in_dark,label_out_dark);
-      slider_sound_setting[i].set_fill(struc_dark);
-      slider_sound_setting[i].set_fill_molette(molette_in_dark,molette_out_dark);
-    }
+    slider_sound_setting[i] = new Slider(temp_pos, size_slider_sound_setting[i]);
+    slider_sound_setting[i].set_molette(ELLIPSE);
+    slider_sound_setting[i].size_molette(temp_size_mol);
+    slider_sound_setting[i].set_id(i);
+    slider_sound_setting[i].set_label(slider_sound_setting_name[i],iadd(slider_sound_setting[i].get_size(),ivec2(3,0)));
+    slider_sound_setting[i].set_font(textUsual_1);
+    slider_sound_setting[i].set_rounded(rounded_slider);
+    slider_sound_setting[i].set_fill_label(label_in_dark,label_out_dark);
+    slider_sound_setting[i].set_fill(struc_dark);
+    slider_sound_setting[i].set_fill_molette(molette_in_dark,molette_out_dark);
   }
 }
 
@@ -253,19 +242,17 @@ void build_console_camera() {
   for (int i = 0 ; i < NUM_SLIDER_CAMERA ; i++) {
     ivec2 temp_size_mol = ivec2(round(size_slider_camera[i].y *ratio_size_molette), round(size_slider_camera[i].y *ratio_size_molette));
     ivec2 temp_pos = ivec2(pos_slider_camera[i].x, round(pos_slider_camera[i].y -(slider_height_camera *.6)));
-    if(cropinfo_slider_camera[i].get_id() > -1) {
-      slider_adj_camera[i] = new Sladj(temp_pos, size_slider_camera[i]);
-      slider_adj_camera[i].set_molette(ELLIPSE);
-      slider_adj_camera[i].size_molette(temp_size_mol);
-      slider_adj_camera[i].set_id(i);
-      slider_adj_camera[i].set_label(slider_camera_name[i],iadd(slider_adj_camera[i].get_size(),ivec2(3,0)));
-      slider_adj_camera[i].set_font(textUsual_1);
-      slider_adj_camera[i].set_rounded(rounded_slider);
-      slider_adj_camera[i].set_fill_label(label_in_dark,label_out_dark);
-      slider_adj_camera[i].set_fill(struc_dark);
-      slider_adj_camera[i].set_fill_molette(molette_in_dark,molette_out_dark);
-      slider_adj_camera[i].set_fill_adj(adj_in_dark,adj_out_dark);
-    }
+    slider_adj_camera[i] = new Sladj(temp_pos, size_slider_camera[i]);
+    slider_adj_camera[i].set_molette(ELLIPSE);
+    slider_adj_camera[i].size_molette(temp_size_mol);
+    slider_adj_camera[i].set_id(i);
+    slider_adj_camera[i].set_label(slider_camera_name[i],iadd(slider_adj_camera[i].get_size(),ivec2(3,0)));
+    slider_adj_camera[i].set_font(textUsual_1);
+    slider_adj_camera[i].set_rounded(rounded_slider);
+    slider_adj_camera[i].set_fill_label(label_in_dark,label_out_dark);
+    slider_adj_camera[i].set_fill(struc_dark);
+    slider_adj_camera[i].set_fill_molette(molette_in_dark,molette_out_dark);
+    slider_adj_camera[i].set_fill_adj(adj_in_dark,adj_out_dark);
   }
 }
 

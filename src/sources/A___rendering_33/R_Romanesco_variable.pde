@@ -4,32 +4,23 @@ Prescene and Scene
 2013-2018
 v 1.6.1
 */
-Romanesco_manager rpe_manager;
+Romanesco_manager rom_manager;
 
 void romanesco_build_item() {
-  rpe_manager = new Romanesco_manager(this);
-  rpe_manager.add_item();
-  rpe_manager.set_item(preference_path+"gui_info_en.csv");
-  rpe_manager.finish_index();
-  rpe_manager.write_info_user();
+  rom_manager = new Romanesco_manager(this);
+  rom_manager.add_item();
+  rom_manager.set_item(preference_path+"gui_info_en.csv");
+  rom_manager.finish_index();
+  rom_manager.write_info_user();
   println("Romanesco setup done");
 }
 
 
 
 
-
-
-
-
-
-
-
-
-
 void update_font_item() {
-  for(int i = 0 ; i < rpe_manager.size() ; i++) {
-    Romanesco item = rpe_manager.get(i);
+  for(int i = 0 ; i < rom_manager.size() ; i++) {
+    Romanesco item = rom_manager.get(i);
     item.set_font(current_font);
   }
 }
@@ -40,7 +31,7 @@ void update_font_item() {
 //Update the var of the object
 int which_movie_ref, which_bitmap_ref, which_shape_ref, which_text_ref;
 void update_var_items(Romanesco item) {
-  // Romanesco item = rpe_manager.get(ID);
+  // Romanesco item = rom_manager.get(ID);
   int id = item.get_id();
   // info
   item_info_display[id] = displayInfo?true:false;
@@ -132,21 +123,8 @@ void update_var_items(Romanesco item) {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 void update_slider_value(Romanesco item) {
-  //Romanesco item = rpe_manager.get(ID);
+  //Romanesco item = rom_manager.get(ID);
   int id = item.get_id();
   boolean init = first_opening_item[id];
   

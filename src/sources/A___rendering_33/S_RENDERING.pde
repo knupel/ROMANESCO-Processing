@@ -53,7 +53,7 @@ void rendering_item_final_3D() {
   }
   
   //use romanesco object
-  rpe_manager.show_item_3D(ORDER_ONE,ORDER_TWO,ORDER_THREE);
+  rom_manager.show_item_3D(ORDER_ONE,ORDER_TWO,ORDER_THREE);
 
   grid_romanesco(show_info_camera);
   stop_camera();
@@ -79,10 +79,10 @@ void rendering_item_2D(boolean use_layer_is, int which_layer) {
   if(use_layer_is) {
     get_layer(which_layer);
     begin_layer();
-    rpe_manager.show_item_2D();
+    rom_manager.show_item_2D();
     end_layer();
   } else {
-    rpe_manager.show_item_2D();
+    rom_manager.show_item_2D();
   }
 }
 
@@ -511,7 +511,7 @@ void show_info_item(int color_bg, int color_text) {
   
   posInfoObj = 1 ;
   for(int i = 0 ; i < NUM_ITEM_PLUS_MASTER ; i++) {
-    Romanesco item = rpe_manager.get(i);
+    Romanesco item = rom_manager.get(i);
     if(item != null) {
       if(item.show_is()) {
         posInfoObj += 1 ;

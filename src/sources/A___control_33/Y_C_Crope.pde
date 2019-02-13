@@ -1,7 +1,7 @@
 /**
 * CROPE
 * Control ROmanesco Processing Environment
-* v 0.9.14
+* v 0.9.15
 * Copyleft (c) 2018-2019
 * Processing 3.5.3
 * @author Stan le Punk
@@ -30,8 +30,8 @@ ArrayList<Crope> get_crope() {
 
 /**
 Crope info > Cropinfo
-v 0.1.1
-2018-2018
+v 0.1.2
+2018-2019
 */
 public class Cropinfo {
   private int rank = -1;
@@ -144,11 +144,22 @@ public class Cropinfo {
   
   // get slider info
   public float [] get_value(){
+    if(this.value == null) {
+      return null;
+    }
     return this.value;
   }
 
   public float get_value(int index){
-    return this.value[index];
+    if(this.value != null && index < this.value.length && index >= 0) {
+      return this.value[index];
+    } else if(this.value == null) {
+      printErr("class Cropinfo method get_value(): value is null, may be you need to init it");
+      return 0;    
+    } else {
+      printErr("class Cropinfo method get_value(",index,") is out of the range first value is return");
+      return this.value[0];  
+    }    
   }
 
   public float get_min(){
@@ -172,6 +183,10 @@ public class Cropinfo {
     info += "id: "+id + ", ";
     info += "midi: "+id_midi + ", ";
     info += "is: "+is + ", ";
+    if(value == null) {
+      value = new float[1];
+      value[0] = 0;
+    }
     for(int i = 0 ; i < value.length ;i++) {
       info += "value "+i+": "+value[i] + ", ";
     }

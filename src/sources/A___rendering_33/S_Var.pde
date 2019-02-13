@@ -443,7 +443,7 @@ CREATE VAR
 v 1.1.0
 */
 void create_variable() {
-  NUM_ITEM = rpe_manager.size();
+  NUM_ITEM = rom_manager.size();
   NUM_ITEM_PLUS_MASTER = NUM_ITEM +1;
 
   NUM_SETTING_ITEM = 1;
@@ -590,7 +590,7 @@ void init_variable_item_min_max() {
   float min_size = .1;
   float max_size = width;
   
-  for(Romanesco item : rpe_manager.get()) {
+  for(Romanesco item : rom_manager.get()) {
     // COL 1
     item.set_fill_hue_min_max(0,MAX_VALUE_SLIDER,0,360);
     item.set_fill_sat_min_max(0,MAX_VALUE_SLIDER,0,HSBmode.g);
@@ -683,7 +683,7 @@ void init_variable_item() {
     mouse[i] = vec3();
     wheel[i] = 0;
   
-    Romanesco item = rpe_manager.get(i);
+    Romanesco item = rom_manager.get(i);
     if(item != null) {
       item.init();
       item.set_size(width *.5);
@@ -734,7 +734,7 @@ void init_variable_item() {
 
 
 boolean items_loaded_is() {
-  return rpe_manager.init_items();
+  return rom_manager.init_items();
 }
 
 

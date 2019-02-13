@@ -1,8 +1,8 @@
 /**
 SOUNDA Rope
 for SOUNDA > SOUND-Analyze
-v 1.4.5
-* Copyleft (c) 2017-2018
+v 1.5.1
+* Copyleft (c) 2017-2019
 * Stan le Punk > http://stanlepunk.xyz/
 * @author Stan le Punk
 * @see https://github.com/StanLepunK/Sound_rope
@@ -788,7 +788,7 @@ public class Sounda implements rope.core.RConstants {
   */
   /**
   class Section
-  v 0.4.0
+  v 0.4.1
   */
   protected class Section {
     // transient param
@@ -816,17 +816,15 @@ public class Sounda implements rope.core.RConstants {
 
     public Section(int length, int in, int out) {
       this.length = length;
-      leg = new int[out -in +1];
-      this.in = in;
-      this.out = out;
+      set_in_out(in,out);
+      leg = new int[this.out-this.in];
     }
 
 
     public Section(int length, int in, int out, vec2 threshold_transient) {
       this.length = length;
-      leg = new int[out -in +1];
-      this.in = in;
-      this.out = out;
+      set_in_out(in,out);
+      leg = new int[this.out-this.in];
       this.threshold_low = threshold_transient.x;
       this.threshold_high = threshold_transient.y;
       //this.threshold_transient = threshold_transient.copy();
@@ -834,10 +832,17 @@ public class Sounda implements rope.core.RConstants {
 
     public Section(int length, int in, int out, float threshold_beat) {
       this.length = length;
-      leg = new int[out -in +1];
+      set_in_out(in,out);
+      leg = new int[this.out-this.in];
+      this.threshold_beat = threshold_beat;
+    }
+
+    private void set_in_out(int in, int out) {
+      if(out <= in ) {
+        out = in +1;
+      }
       this.in = in;
       this.out = out;
-      this.threshold_beat = threshold_beat;
     }
      
 
@@ -1050,7 +1055,7 @@ public class Sounda implements rope.core.RConstants {
     int offset_3 = 0;
 
     for(int i = 0 ; i < line.length ; i++) {
-      ivec5 sort_colour = sort_colour(i, line.length, component, sort);
+      iVec5 sort_colour = sort_colour(i, line.length, component, sort);
       where = sort_colour.a;
       offset_0 = sort_colour.b;
       offset_1 = sort_colour.c;
@@ -1169,8 +1174,8 @@ public class Sounda implements rope.core.RConstants {
   int SORT_BLOCK_ARGB = 1;
 
 
-  ivec5 sort_colour(int i, int line_length, int component, int sort) {
-    // ivec5 result = ivec5();
+  iVec5 sort_colour(int i, int line_length, int component, int sort) {
+    // iVec5 result = iVec5();
     int w = 0;
     int r = 0;
     int g = 0;
@@ -1201,7 +1206,7 @@ public class Sounda implements rope.core.RConstants {
       g = line_length *2;
       b = line_length *3;
     }
-    return ivec5(w,r,g,b,a);
+    return iVec5(w,r,g,b,a);
   }
   */
 }
@@ -1424,99 +1429,96 @@ class Transient extends Sounda {
 
   public boolean detection_is(Section [] section, int section_index) {
  
-    boolean transient_event_is = false;
-    if(buffer != null) {
-      int in = floor(section[section_index].in);
-      int out = floor(section[section_index].out);
-      int num_leg = out - in ;
-      if(section_index < section.length && num_leg > 0) {
-        // set the value must be analyze
-        float [] pow_value = new float[num_leg];
-        float [] value_fast = new float[num_leg];
-        float [] value_slow = new float[num_leg];
-        float [] diff_value = new float[num_leg];
-        float [] log_value = new float[num_leg];
-        boolean [] transient_is = new boolean[num_leg];
-        float [] raw_value = new float[num_leg];
+    boolean transient_event_is = false;   
+    
+    int in = floor(section[section_index].in);
+    int out = floor(section[section_index].out);
+    int num_leg = out - in ;
+    if(section_index < section.length && num_leg > 0) {
+      // set the value must be analyze
+      float [] pow_value = new float[num_leg];
+      float [] value_fast = new float[num_leg];
+      float [] value_slow = new float[num_leg];
+      float [] diff_value = new float[num_leg];
+      float [] log_value = new float[num_leg];
+      boolean [] transient_is = new boolean[num_leg];
+      float [] raw_value = new float[num_leg];
 
-        for(int index = in ; index < out ; index++) {
-          int index_value = index - in ;
-          if(index < buffer.length) {
-            raw_value[index_value] = buffer[index];
-          } else {
-            raw_value[index_value] = 0;
-          }
+      for(int index = in ; index < out ; index++) {
+        int index_value = index - in ;
+        if(index < buffer.length) {
+          raw_value[index_value] = buffer[index];
+        } else {
+          raw_value[index_value] = 0;
         }
-
-        low_pass(section[section_index].low_pass,in,out);
-        // here pass the first filtering value from first low pass
-        for(int i = 0 ; i  < pow_value.length ; i++) {
-          pow_value[i] = low_pass_value[i];
-          pow_value[i] = pow(pow_value[i],2);
-        }
-        // new low pass fast
-        float ref_fast = pow_value[0];
-        float smoothing_fast = abs(section[section_index].smooth_fast)+1;
-        for(int i = 0 ; i  < value_fast.length ; i++) {
-          float current_value = pow_value[i];
-          ref_fast += (current_value - ref_fast) / smoothing_fast;
-          value_fast[i] = ref_fast;
-        }
-
-        // new low pass slow
-        float ref_slow = pow_value[0];
-        float smoothing_slow = abs(section[section_index].smooth_slow)+1;
-        // pass second thread value: first low pass and pow treatment
-        for(int i = 0 ; i  < value_slow.length ; i++) {
-          float current_value = pow_value[i];
-          ref_slow += (current_value - ref_slow) / smoothing_slow;
-          value_slow[i] = ref_slow;
-        }
-
-        // difference between quick and fast low pass
-        for(int i = 0 ; i < diff_value.length ; i++) {
-          //diff_value[i] = low_pass_value_slow[i] - low_pass_value_fast[i];
-          diff_value[i] = value_fast[i] - value_slow[i];
-        }
-
-        // log 
-        for(int i = 0 ; i  < log_value.length ; i++) {
-          log_value[i] = log(1+(section[section_index].ratio_log*diff_value[i]));
-        }
-        
-        // transiente detection and hysteresie
-        for(int i = 0 ; i < log_value.length ; i++) {
-          transient_is[i] = false;
-          float value = log_value[i];
-          if(value > section[section_index].threshold_high && !transient_is[i]) {
-            value = 1;
-            transient_is[i] = true;
-          } else if(value < section[section_index].threshold_low && transient_is[i]) {
-            value = 0;
-            transient_is[i] = false;
-          }
-        }
-       
-        
-        for(int i = 0 ; i < transient_is.length ; i++) {
-          if(transient_is[i]) {
-            transient_event_is = true;
-            break ;
-          }
-        }
-
-        // display just for devellopement
-        if(info) {
-          show_visual(in, transient_is, raw_value, low_pass_value, pow_value, value_fast, value_slow, diff_value, log_value);
-        }
-
-        // end display dev   
-      } else {
-        printErrTempo(60,"method transient_is(section",section_index,") is out of the range, by default method return false",frameCount);
       }
 
-    }   
-    // result
+      low_pass(section[section_index].low_pass,in,out);
+      // here pass the first filtering value from first low pass
+      for(int i = 0 ; i  < pow_value.length ; i++) {
+        pow_value[i] = low_pass_value[i];
+        pow_value[i] = pow(pow_value[i],2);
+      }
+      // new low pass fast
+      float ref_fast = pow_value[0];
+      float smoothing_fast = abs(section[section_index].smooth_fast)+1;
+      for(int i = 0 ; i  < value_fast.length ; i++) {
+        float current_value = pow_value[i];
+        ref_fast += (current_value - ref_fast) / smoothing_fast;
+        value_fast[i] = ref_fast;
+      }
+
+      // new low pass slow
+      float ref_slow = pow_value[0];
+      float smoothing_slow = abs(section[section_index].smooth_slow)+1;
+      // pass second thread value: first low pass and pow treatment
+      for(int i = 0 ; i  < value_slow.length ; i++) {
+        float current_value = pow_value[i];
+        ref_slow += (current_value - ref_slow) / smoothing_slow;
+        value_slow[i] = ref_slow;
+      }
+
+      // difference between quick and fast low pass
+      for(int i = 0 ; i < diff_value.length ; i++) {
+        //diff_value[i] = low_pass_value_slow[i] - low_pass_value_fast[i];
+        diff_value[i] = value_fast[i] - value_slow[i];
+      }
+
+      // log 
+      for(int i = 0 ; i  < log_value.length ; i++) {
+        log_value[i] = log(1+(section[section_index].ratio_log*diff_value[i]));
+      }
+      
+      // transiente detection and hysteresie
+      for(int i = 0 ; i < log_value.length ; i++) {
+        transient_is[i] = false;
+        float value = log_value[i];
+        if(value > section[section_index].threshold_high && !transient_is[i]) {
+          value = 1;
+          transient_is[i] = true;
+        } else if(value < section[section_index].threshold_low && transient_is[i]) {
+          value = 0;
+          transient_is[i] = false;
+        }
+      }
+     
+      
+      for(int i = 0 ; i < transient_is.length ; i++) {
+        if(transient_is[i]) {
+          transient_event_is = true;
+          break ;
+        }
+      }
+
+      // display just for devellopement
+      if(info) {
+        show_visual(in, transient_is, raw_value, low_pass_value, pow_value, value_fast, value_slow, diff_value, log_value);
+      }
+
+      // end display dev   
+    } else {
+      printErrTempo(60,"method transient_is(section",section_index,") is out of the range, by default method return false",frameCount);
+    }
     return transient_event_is;
   }
 

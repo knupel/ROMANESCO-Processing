@@ -1,8 +1,8 @@
 /**
-Core Romanesco
-COMMON SKETCH for CONTROLLER, PRESCENE & SCENE
-2018-2018
-v 0.3.7
+* Core Romanesco
+* common code for CONTROLLER and RENDERER
+* 2018-2019
+* v 0.3.10
 */
 int NUM_COL_SLIDER = 4;
 int NUM_SLIDER_ITEM_BY_COL = 16;
@@ -11,21 +11,26 @@ int NUM_MOLETTE_ITEM = NUM_SLIDER_ITEM;
 
 int KEY_CTRL_OS = 157; // it's macOS CMD // for MAC 
 
-int NUM_BUTTON_CURTAIN = 1;
+
+int NUM_DROPDOWN_GENERAL = 7;
+// the MIDI BUTTON is not count because is not use in the OSC bridge
+int NUM_BUTTON_MISC = 3; // with out MIDI button.
 int NUM_BUTTON_RESET = 2;
+int NUM_TOP_BUTTON = NUM_BUTTON_MISC + NUM_BUTTON_RESET;
+
 int NUM_BUTTON_BACKGROUND = 1;
-int NUM_BUTTON_FX = 2;
+int NUM_BUTTON_FX = 3;
 int NUM_BUTTON_LIGHT = 6;
 int NUM_BUTTON_TRANSIENT = 4;
-int NUM_BUTTON_GENERAL = NUM_BUTTON_CURTAIN 
-                        + NUM_BUTTON_RESET
-                        + NUM_BUTTON_BACKGROUND 
-                        + NUM_BUTTON_FX 
-                        + NUM_BUTTON_LIGHT 
-                        + NUM_BUTTON_TRANSIENT;
+int NUM_MID_BUTTON = NUM_BUTTON_BACKGROUND 
+                      + NUM_BUTTON_FX 
+                      + NUM_BUTTON_LIGHT 
+                      + NUM_BUTTON_TRANSIENT;
+
+int NUM_BUTTON_GENERAL = NUM_TOP_BUTTON + NUM_MID_BUTTON;
 
 int NUM_SLIDER_BACKGROUND = 14;
-int NUM_SLIDER_FX = 12;
+int NUM_SLIDER_FX = 14;
 int NUM_SLIDER_LIGHT = 9;
 int NUM_SLIDER_SOUND = 2;
 int NUM_SLIDER_SOUND_SETTING = 5; // 5

@@ -79,28 +79,21 @@ void controller_reception(OscMessage receive) {
 void thread_data_controller_general(OscMessage receive) {
   int rank = 0 ;
   receive_data_misc(receive,rank); // 3 arg
+  // load_SCENE_Setting_GLOBAL > +1;
+  // save_Current_SCENE_Setting_GLOBAL > +1;
+  // save_New_SCENE_Setting_GLOBAL > +1;
+  // total +3
   rank += 3;
-  /*
-  * curtain x 1
-  * 1 arg
-  */
   receive_data_menu_bar(receive,rank); 
-  rank += 5;
-  /*
-  * dropdown menu general x7
-  *  7 arg
-  */
-  receive_data_general_dropdown(receive,rank); 
-  rank += 7;
-  /*
-  * background x1
-  * fx x2
-  * light x6
-  * beat x4
-  * 13 arg
-  */
-  receive_data_general_button(receive,rank); 
-  rank += 13;  
+
+  rank += NUM_TOP_BUTTON;
+  receive_data_general_dropdown(receive,rank);
+
+  rank += NUM_DROPDOWN_GENERAL;
+  //rank += 7;
+  receive_data_general_button(receive,rank);
+
+  rank += NUM_MID_BUTTON;  
   receive_data_general_slider(receive,rank,rank +NUM_MOLETTE_GENERAL); // NUM_SLIDER_GENERAL 
 }
 
@@ -169,24 +162,28 @@ void receive_data_general_dropdown(OscMessage receive, int in) {
 
 
 void receive_data_general_button(OscMessage receive, int in) {
-  background_button_is(to_bool(receive,0+in));
-  int index_osc = 1 ;
+  int target = 0;
+  background_button_is(to_bool(receive,target+in));
+  target++;
   for(int i = 0 ; i < fx_button_is.length ; i++) {
-    fx_button_is(i,to_bool(receive,index_osc+in));
-    index_osc++;
+    fx_button_is(i,to_bool(receive,target+in));
+    target++;
   }
-
-  ambient_button_is(to_bool(receive,3+in));
-  ambient_action_button_is(to_bool(receive,4+in));
-  light_1_button_is(to_bool(receive,5+in));
-  light_1_action_button_is(to_bool(receive,6+in));
-  light_2_button_is(to_bool(receive,7+in));
-  light_2_action_button_is(to_bool(receive,8+in));
-  
-  index_osc = 9 ;
+  ambient_button_is(to_bool(receive,target+in));
+  target++;
+  ambient_action_button_is(to_bool(receive,target+in));
+  target++;
+  light_1_button_is(to_bool(receive,target+in));
+  target++;
+  light_1_action_button_is(to_bool(receive,target+in));
+  target++;
+  light_2_button_is(to_bool(receive,target+in));
+  target++;
+  light_2_action_button_is(to_bool(receive,target+in));
+  target++;
   for(int i = 1 ; i < transient_button_is.length ; i++) {
-    transient_button_is(i,to_bool(receive,index_osc+in));
-    index_osc++;
+    transient_button_is(i,to_bool(receive,target+in));
+    target++;
   }
   // index_osc finish at 12
 }
@@ -240,7 +237,7 @@ void receive_data_button_item(OscMessage receive, int in) {
   int num = BUTTON_ITEM_CONSOLE;
   for (int i = 0 ; i < NUM_ITEM ; i++) {
     int index = in + (i*num);
-    Romanesco item = rpe_manager.get(i);
+    Romanesco item = rom_manager.get(i);
     item.show_is(to_bool(receive,index+0));
     item.parameter_is(to_bool(receive,index+1));
     item.sound_is(to_bool(receive,index+2));
@@ -251,7 +248,7 @@ void receive_data_button_item(OscMessage receive, int in) {
 void receive_data_dropdown_mode_item(OscMessage receive, int in) {
   for (int i = 0 ; i < NUM_ITEM ; i++) {
     int index = i+in;
-    Romanesco item = rpe_manager.get(i);
+    Romanesco item = rom_manager.get(i);
     item.mode.set_id(receive.get(index).intValue());
   }
 }
@@ -260,7 +257,7 @@ void receive_data_dropdown_costume_item(OscMessage receive, int in) {
   for (int i = 0 ; i < NUM_ITEM ; i++) {
     int index = i+in;
     int target = i+1;
-    Romanesco item = rpe_manager.get(i);
+    Romanesco item = rom_manager.get(i);
     item.set_costume_id(receive.get(index).intValue());
   }
 }

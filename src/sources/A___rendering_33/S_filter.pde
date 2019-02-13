@@ -6,7 +6,6 @@ FILTER
 */
 
 
-Force warp_force_romanesco;
 void init_filter() {
   if(FULL_RENDERING) {
     // FORCE FIELD FX
@@ -40,7 +39,12 @@ void init_filter() {
 }
 
 
+boolean move_filter_fx;
+boolean extra_filter_fx;
 void filter() {
+  move_filter_fx = fx_button_is(1);
+  extra_filter_fx = fx_button_is(2);
+
   if(FULL_RENDERING && fx_button_is(0)) {
     upate_fx_classic();
     int target = which_fx-1; // min 1 cause the first one is a special one;
@@ -116,16 +120,18 @@ void setting_fx_classic() {
 }
 
 void upate_fx_classic() {
-  update_fx_blur_gaussian();
-  update_fx_haltone_line();
+  update_fx_blur_gaussian(move_filter_fx);
+  update_fx_haltone_line(move_filter_fx);
 }
 
 
 
-// blur gaussian
+/**
+* gaussian blur
+*/
 String set_blur_gaussian = "blur gaussian";
 void setting_blur_gaussian() {
-  String version = "0.0.1";
+  String version = "0.0.2";
   int revision = 1;
   String author = "Stan le Punk";
   String pack = "Base 2019";
@@ -134,22 +140,27 @@ void setting_blur_gaussian() {
   fx_classic_nun++;
 }
 
-void update_fx_blur_gaussian() {
-  float x = mouseX -(width/2);
-  float y = mouseY -(height/2);
-  int max_blur = 40;
-  vec2 size = vec2(map(abs(x),0,width/2,0,max_blur),map(abs(y),0,height/2,0,max_blur));
-  fx_set_size(set_blur_gaussian,size.x,size.y);
+void update_fx_blur_gaussian(boolean move_is) {
+  if(move_is) {
+    float x = mouseX -(width/2);
+    float y = mouseY -(height/2);
+    int max_blur = 40;
+    vec2 size = vec2(map(abs(x),0,width/2,0,max_blur),map(abs(y),0,height/2,0,max_blur));
+    fx_set_size(set_blur_gaussian,size.x,size.y);
+  }
+
 }
 
 
 
 
 
-// halftone line
+/**
+* halftone line
+*/
 String set_halftone_line = "halftone line";
 void setting_haltone_line() {
-  String version = "0.0.1";
+  String version = "0.0.2";
   int revision = 1;
   String author = "Stan le Punk";
   String pack = "Base 2019";
@@ -160,8 +171,8 @@ void setting_haltone_line() {
   
 }
 
-void update_fx_haltone_line() {
-  if(mousePressed) {
+void update_fx_haltone_line(boolean move_is) {
+  if(move_is) {
     fx_set_mode(set_halftone_line,0); 
     int num_line = (int)map(mouseY,0,height,20,100); 
     fx_set_num(set_halftone_line,num_line);  
@@ -225,9 +236,10 @@ void update_fx_haltone_line() {
 * 2018-2018
 * v 0.0.3
 */
+Warp_Force warp_force_romanesco;
 void init_warp_force() {
-  if(force_romanesco == null) {
-    warp_force_romanesco = new Force(preference_path+"/shader/");
+  if(warp_force_romanesco == null) {
+    warp_force_romanesco = new Warp_Force(preference_path+"/shader/");
     warp_force_romanesco.add(g);
   }
 }
@@ -257,8 +269,7 @@ void warp_force() {
 
   warp_force_romanesco.refresh(refresh_warp_force);
   warp_force_romanesco.shader_init();
-  boolean filter_fx = fx_button_is(1);
-  warp_force_romanesco.shader_filter(filter_fx);
+  warp_force_romanesco.shader_filter(extra_filter_fx);
   warp_force_romanesco.shader_mode(0);
   // here Force_field is pass
   warp_force_romanesco.show(force_romanesco,intensity_warp_force);

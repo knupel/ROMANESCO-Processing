@@ -1,7 +1,7 @@
 /**
 LOAD 
-v 2.8.0
-2013-2018
+v 2.9.0
+2013-2019
 */
 void load_setup() {
   load_save(preference_path+"setting/defaultSetting.csv");
@@ -139,14 +139,66 @@ void load_data_GUI(String path) {
     info_button_general[i] = ivec3();
   }
   
-  
+  if(count_slider_background != NUM_SLIDER_BACKGROUND) {
+    count_slider_background = NUM_SLIDER_BACKGROUND;
+    printErr("info save SLIDER BACKGROUND is not the same than constant NUM_SLIDER_BACKGROUND, the constast has used instead, to prevent error");
+  }
   cropinfo_slider_background = new Cropinfo[count_slider_background];
+  for(int i = 0 ; i < count_slider_background ; i++) {
+    cropinfo_slider_background[i] = new Cropinfo();
+  }
+  
+  if(count_slider_fx != NUM_SLIDER_FX) {
+    count_slider_fx = NUM_SLIDER_FX;
+    printErr("info save SLIDER FX is not the same than constant NUM_SLIDER_FX, the constast has used instead, to prevent error");
+  }
   cropinfo_slider_fx = new Cropinfo[count_slider_fx];
+  for(int i = 0 ; i < count_slider_fx ; i++) {
+    cropinfo_slider_fx[i] = new Cropinfo();
+  }
+  
+
+  if(count_slider_light != NUM_SLIDER_LIGHT) {
+    count_slider_light = NUM_SLIDER_LIGHT;
+    printErr("info save SLIDER LIGHT is not the same than constant NUM_SLIDER_LIGHT, the constast has used instead, to prevent error");
+  }
   cropinfo_slider_light = new Cropinfo[count_slider_light];
+  for(int i = 0 ; i < count_slider_light ; i++) {
+    cropinfo_slider_light[i] = new Cropinfo();
+  }
+
+  if(count_slider_sound != NUM_SLIDER_SOUND) {
+    count_slider_sound = NUM_SLIDER_SOUND;
+    printErr("info save SLIDER SOUND is not the same than constant NUM_SLIDER_SOUND, the constast has used instead, to prevent error");
+  }
   cropinfo_slider_sound = new Cropinfo[count_slider_sound];
+  for(int i = 0 ; i < count_slider_sound ; i++) {
+    cropinfo_slider_sound[i] = new Cropinfo();
+  }
+
+  if(count_slider_sound_setting != NUM_SLIDER_SOUND_SETTING) {
+    count_slider_sound_setting = NUM_SLIDER_SOUND_SETTING;
+    printErr("info save SLIDER SOUND SETTING is not the same than constant NUM_SLIDER_SOUND_SETTING, the constast has used instead, to prevent error");
+  }
   cropinfo_slider_sound_setting = new Cropinfo[count_slider_sound_setting];
+  for(int i = 0 ; i < count_slider_sound_setting ; i++) {
+    cropinfo_slider_sound_setting[i] = new Cropinfo();
+  }
+
+  if(count_slider_camera != NUM_SLIDER_CAMERA) {
+    count_slider_camera = NUM_SLIDER_CAMERA;
+    printErr("info save SLIDER CAMERA is not the same than constant NUM_SLIDER_CAMERA, the constast has used instead, to prevent error");
+  }
   cropinfo_slider_camera = new Cropinfo[count_slider_camera];
+  for(int i = 0 ; i < count_slider_camera ; i++) {
+    cropinfo_slider_camera[i] = new Cropinfo();
+  }
+
+
   cropinfo_slider_item = new Cropinfo[count_slider_item];
+  for(int i = 0 ; i < count_slider_item ; i++) {
+    cropinfo_slider_item[i] = new Cropinfo();
+  }
 
   // create the var info for the item we need
   info_list_item_ID = new int [NUM_ITEM] ;
@@ -320,86 +372,86 @@ void load_saved_file_controller(String path) {
 
     // slider background
     if(s.equals("Slider background")) {
-      if(cropinfo_slider_background[count_slider_background] == null) {
-        cropinfo_slider_background[count_slider_background] = new Cropinfo();
-      }
+      // if(cropinfo_slider_background[count_slider_background] == null) {
+      //   cropinfo_slider_background[count_slider_background] = new Cropinfo();
+      // }
       set_info_slider(row, "Slider background", cropinfo_slider_background[count_slider_background]);
       count_slider_background++;
     }
 
     // slider FX
     if(s.equals("Slider fx")) {
-      if(cropinfo_slider_fx[count_slider_fx] == null) {
-        cropinfo_slider_fx[count_slider_fx] = new Cropinfo();
-      }
+      // if(cropinfo_slider_fx[count_slider_fx] == null) {
+      //   cropinfo_slider_fx[count_slider_fx] = new Cropinfo();
+      // }
       set_info_slider(row, "Slider fx", cropinfo_slider_fx[count_slider_fx]);
       count_slider_fx++;
     }    
     // slider light
     if(s.equals("Slider light")) {
-      if(cropinfo_slider_light[count_slider_light] == null) {
-        cropinfo_slider_light[count_slider_light] = new Cropinfo();
-      }
+      // if(cropinfo_slider_light[count_slider_light] == null) {
+      //   cropinfo_slider_light[count_slider_light] = new Cropinfo();
+      // }
       set_info_slider(row, "Slider light", cropinfo_slider_light[count_slider_light]);
       count_slider_light++;
     }
 
     // slider sound
     if(s.equals("Slider sound")) {
-      if(cropinfo_slider_sound[count_slider_sound] == null) {
-        cropinfo_slider_sound[count_slider_sound] = new Cropinfo();
-      }
+      // if(cropinfo_slider_sound[count_slider_sound] == null) {
+      //   cropinfo_slider_sound[count_slider_sound] = new Cropinfo();
+      // }
       set_info_slider(row, "Slider sound", cropinfo_slider_sound[count_slider_sound]);
       count_slider_sound++;
     }
 
     // slider sound setting
     if(s.equals("Slider sound setting")) {
-      if(cropinfo_slider_sound_setting[count_slider_sound_setting] == null) {
-        cropinfo_slider_sound_setting[count_slider_sound_setting] = new Cropinfo();
-      }
+      // if(cropinfo_slider_sound_setting[count_slider_sound_setting] == null) {
+      //   cropinfo_slider_sound_setting[count_slider_sound_setting] = new Cropinfo();
+      // }
       set_info_slider(row, "Slider sound setting", cropinfo_slider_sound_setting[count_slider_sound_setting]);
       count_slider_sound_setting++;
     }
     
     // slider camera
     if(s.equals("Slider camera")) {
-      if(cropinfo_slider_camera[count_slider_camera] == null) {
-        cropinfo_slider_camera[count_slider_camera] = new Cropinfo();
-      }
+      // if(cropinfo_slider_camera[count_slider_camera] == null) {
+      //   cropinfo_slider_camera[count_slider_camera] = new Cropinfo();
+      // }
       set_info_slider(row, "Slider camera", cropinfo_slider_camera[count_slider_camera]);
       count_slider_camera++;
     }
 
     // slider item
     if(s.equals("Slider item a")) {
-      if(cropinfo_slider_item[count_slider_item] == null) {
-        cropinfo_slider_item[count_slider_item] = new Cropinfo();
-      }
+      // if(cropinfo_slider_item[count_slider_item] == null) {
+      //   cropinfo_slider_item[count_slider_item] = new Cropinfo();
+      // }
       set_info_slider(row, "Slider item a", cropinfo_slider_item[count_slider_item]);
       count_slider_item++;
     }
 
     if(s.equals("Slider item b")) {
-      if(cropinfo_slider_item[count_slider_item] == null) {
-        cropinfo_slider_item[count_slider_item] = new Cropinfo();
-      }
+      // if(cropinfo_slider_item[count_slider_item] == null) {
+      //   cropinfo_slider_item[count_slider_item] = new Cropinfo();
+      // }
       set_info_slider(row, "Slider item b", cropinfo_slider_item[count_slider_item]);
       count_slider_item++;
     }
 
     if(s.equals("Slider item c")) {
-      if(cropinfo_slider_item[count_slider_item] == null) {
-        cropinfo_slider_item[count_slider_item] = new Cropinfo();
-      }
+      // if(cropinfo_slider_item[count_slider_item] == null) {
+      //   cropinfo_slider_item[count_slider_item] = new Cropinfo();
+      // }
       set_info_slider(row, "Slider item c", cropinfo_slider_item[count_slider_item]);
       count_slider_item++;
     }
 
     if(s.equals("Slider item d")) {
-      if(cropinfo_slider_item[count_slider_item] == null) {
-        cropinfo_slider_item[count_slider_item] = new Cropinfo();
-      }
+      // if(cropinfo_slider_item[count_slider_item] == null) {
+      //   cropinfo_slider_item[count_slider_item] = new Cropinfo();
+      // }
       set_info_slider(row, "Slider item d", cropinfo_slider_item[count_slider_item]);
       count_slider_item++;
     }
@@ -530,7 +582,7 @@ void set_slider_data_group() {
 // local method of set_slider_save()
 void setting_data_slider(Slider slider, Cropinfo info) {
   slider.set_id_midi(info.get_id_midi());
-  if(slider.molette.length > info.get_value().length){
+  if(info.get_value() != null && slider.molette.length > info.get_value().length){
     float [] value;
     float step = 1. / (slider.molette.length +1);
     value = new float[slider.molette.length];
@@ -538,7 +590,7 @@ void setting_data_slider(Slider slider, Cropinfo info) {
       value[i] = (i+1)*step;
     }
     slider.set_molette_pos_norm(value);
-  } else {
+  } else if(info.get_value() != null) {
     slider.set_molette_pos_norm(info.get_value());
   }
 

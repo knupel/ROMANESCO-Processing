@@ -200,9 +200,9 @@ void draw() {
     if(!FULL_SCREEN) update_window_location();
     // script
     if(frameCount%180 == 0) {
-      rpe_manager.historic();
-      int size = rpe_manager.historic_size();
-      //rpe_manager.print_historic();
+      rom_manager.historic();
+      int size = rom_manager.historic_size();
+      //rom_manager.print_historic();
     }
 
 

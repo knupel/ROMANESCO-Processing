@@ -417,15 +417,12 @@ void set_console_slider_fx(ivec2 pos, ivec2 size) {
     button_fx_is[i] = 0;
     size_button_fx[i] = ivec2(38,10);
   }
-  // set special button
-  // size_button_fx[0] = ivec2(62,10);
   // set position from size
   int offset_x = 0;
   for(int i = 0 ; i < NUM_BUTTON_FX ; i++) {
     
     x = pos.x + offset_x;
     offset_x += size_button_fx[i].x ;
-    // x = ((s*i) +pos.x);
     pos_button_fx[i] = ivec2(x,y);
   }
 

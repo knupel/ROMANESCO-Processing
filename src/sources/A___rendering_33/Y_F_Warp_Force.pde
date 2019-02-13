@@ -3,10 +3,10 @@
 * @see http://stanlepunk.xyz
 * @see https://github.com/StanLepunK/Force_Field
 * 2017-2019
-v 0.7.0
+v 0.8.0
 */
 
-class Force {
+class Warp_Force {
   private PImage buffer_img;
   private PGraphics pg;
   private boolean shader_warp_filter = false ;
@@ -19,11 +19,11 @@ class Force {
   private PShader rope_warp_shader, rope_warp_blur;
   
 
-  public Force() {
+  public Warp_Force() {
     build("shader/");
   }
 
-  public Force(String path) {
+  public Warp_Force(String path) {
      build(path);
   }
 
