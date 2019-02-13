@@ -1,7 +1,7 @@
 /**
 * Rope Filter collection
 * 2019-2019
-* v 0.1.2
+* v 0.1.4
 * all filter bellow has been tested.
 * @see http://stanlepunk.xyz
 * @see https://github.com/StanLepunK/Filter
@@ -168,14 +168,14 @@ PGraphics fx_blur_circular(PImage source, boolean on_g, vec3 strength, int num) 
 
 /**
 * gaussian blur
-* v 0.1.0
+* v 0.2.2
 * 2018-2019
 */
 // setting by class FX
 PGraphics fx_blur_gaussian(PImage source, FX fx) {
 	ivec2 res = ivec2();
 	boolean second_pass = true;
-	return fx_blur_gaussian(source,fx.on_g(),second_pass,res,fx.get_size().x);
+	return fx_blur_gaussian(source,fx.on_g(),second_pass,res,fx.get_strength().x);
 }
 
 
@@ -190,7 +190,7 @@ PGraphics fx_blur_gaussian(PImage source, boolean on_g) {
 // main
 PShader fx_blur_gaussian;
 PGraphics result_blur_gaussian;
-PGraphics fx_blur_gaussian(PImage source, boolean on_g, boolean second_pass, ivec2 resolution, float size) {
+PGraphics fx_blur_gaussian(PImage source, boolean on_g, boolean second_pass, ivec2 resolution, float strength) {
 	if(!on_g && (result_blur_gaussian == null || (source.width != result_blur_gaussian.width && source.height != result_blur_gaussian.height))) {
 		result_blur_gaussian = createGraphics(source.width,source.height,get_renderer());
 	}
@@ -249,7 +249,8 @@ PGraphics fx_blur_gaussian(PImage source, boolean on_g, boolean second_pass, ive
 
 
 		// external parameter
-		fx_blur_gaussian.set("size",size); // from 1 to nowhere
+		if(strength <= 0.001) strength = 0.001;
+		fx_blur_gaussian.set("size",strength); // from 1 to nowhere
 		fx_blur_gaussian.set("sigma",.5); // better between 0 and 1
 		fx_blur_gaussian.set("horizontal_pass",true);
 	  
