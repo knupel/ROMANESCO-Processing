@@ -137,8 +137,6 @@ class ArbreRomanesco extends Romanesco {
     
     boolean bool_link = false ;
     if(wire_is()) bool_link = true ; else bool_link = false ;
-    
-
     arbre.show(direction);
     arbre.update(epaisseur,size,div,fork,amplitude,n,get_costume(),bool_link,angle,speed,ID_item) ;
     if(horizon_is()) {
