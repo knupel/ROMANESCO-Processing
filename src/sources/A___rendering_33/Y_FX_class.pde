@@ -1,6 +1,6 @@
 /**
  * CLASS FX 
- * v 0.1.1
+ * v 0.1.2
  * 2019-2019
  * class used to create easy setting for shader fx
 */
@@ -457,7 +457,7 @@ public class FX {
 		if(event != null && which < event.length  && which >= 0) {
 			return event[which];
 		} else {
-			printErr("class FX method get_vent(",which,") is out of the list available");
+			printErr("class FX method get_event(",which,") is out of the list available");
 			return false;
 		}
 	}

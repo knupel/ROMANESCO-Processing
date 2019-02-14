@@ -1,7 +1,7 @@
 name,num,col 0,col 1,col 2,col 3,col 4,col 5,col 6,col 7,col 8,col 9,col 10,col 11,col 12,col 13,col 14,col 15,col 16
 general,0,typography,curtain,
 slider background,0,hue,saturation,brigthness,refresh,quantity,variety,size X,size Y,speed X,speed Y,speed Z,direction X,direction Y,direction Z
-slider filter,0,red,green,blue,position X,position Y,size X,size Y,strength X, strnegth Y,quantity,quality,speed,angle
+slider filter,0,red,green,blue,position X,position Y,size X,size Y,strength X, strength Y,quantity,quality,speed,angle,threshold
 slider light,0,hue,saturation,brigthness,hue,saturation,brigthness,hue,saturation,brigthness,alpha
 slider sound,0,left,right,
 slider sound setting,0,range,x-bass,bass,medium,high,

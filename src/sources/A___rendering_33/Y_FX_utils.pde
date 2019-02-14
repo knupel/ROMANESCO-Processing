@@ -2,7 +2,7 @@
 * SHADER FX
 * @see http://stanlepunk.xyz
 * @see https://github.com/StanLepunK/Filter
-* v 0.1.3
+* v 0.1.4
 * 2019-2019
 *
 */
@@ -137,7 +137,7 @@ void select_fx(PImage main, PImage layer_a, PImage layer_b, FX... fx) {
 		} else if(fx[i].get_type() == FX_REAC_DIFF) {
 			fx_reaction_diffusion(main,fx[i]);
 		} else if(fx[i].get_type() == FX_SPLIT_RGB) {
-			fx_rgb_split(main,fx[i]); 
+			fx_split_rgb(main,fx[i]); 
 		} else if(fx[i].get_type() == FX_SCALE) {
 			fx_scale(main,fx[i]);
 		} else if(fx[i].get_type() == FX_WARP_PROC) {

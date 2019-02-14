@@ -1,5 +1,8 @@
 Name,Author,Version,Pack
 Force,Stan le Punk,0.1.0,Base 2014
+blur circular,Stan le Punk,0.0.1,Base 2019
 blur gaussian,Stan le Punk,0.0.3,Base 2019
+blur radial,Stan le Punk,0.0.1,Base 2019
 halftone line,Stan le Punk,0.0.2,Base 2019
+pixel,Stan le Punk,0.0.1,Base 2019
 split rgb,Stan le Punk,0.0.1,Base 2019

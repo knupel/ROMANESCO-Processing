@@ -1,7 +1,7 @@
 /**
 * Rope Filter collection
 * 2019-2019
-* v 0.1.4
+* v 0.1.5
 * all filter bellow has been tested.
 * @see http://stanlepunk.xyz
 * @see https://github.com/StanLepunK/Filter
@@ -911,7 +911,7 @@ PGraphics fx_halftone_dot(PImage source, boolean on_g, vec2 pos, float size, flo
 
 /**
 * halftone line
-* v 0.0.6
+* v 0.0.7
 * 2018-2019
 */
 
@@ -936,7 +936,6 @@ PGraphics fx_halftone_line(PImage source, FX fx) {
 	if(fx.get_threshold() != null) {
 		threshold = fx.get_threshold().copy();
 	}
-	println("fx",fx.get_name(),fx.on_g());
 	return fx_halftone_line(source,fx.on_g(),pos,angle,mode,num,quality,threshold);	
 }
 
@@ -1613,53 +1612,56 @@ PGraphics fx_scale(PImage source, boolean on_g, ivec2 resolution) {
 * split rgb
 * @see http://stanlepunk.xyz
 * @see https://github.com/StanLepunK/Filter
-* v 0.0.5
+* v 0.0.6
 * 2019-2019
 */
 
 // use setting
-PGraphics fx_rgb_split(PImage source, FX fx) {
-	return fx_rgb_split(source,fx.on_g(),vec2(fx.get_offset()));
+PGraphics fx_split_rgb(PImage source, FX fx) {
+	return fx_split_rgb(source,fx.on_g(),fx.get_pair(0),fx.get_pair(1),fx.get_pair(2));
 }
 
 
-
-
-// test
-PGraphics fx_rgb_split(PImage source, boolean on_g) {
-	float ox = sin(frameCount *.001) *(width/10);
-	float oy = cos(frameCount *.001) *(height/10);
-	vec2 offset = vec2(ox,oy);
-	return fx_rgb_split(source,on_g,offset);
-}
 
 
 // main
-PShader fx_rgb_split;
-PGraphics result_rgb_split;
-PGraphics fx_rgb_split(PImage source, boolean on_g, vec2 offset) {
-	if(!on_g && (result_rgb_split == null 
-								|| (source.width != result_rgb_split.width 
-								&& source.height != result_rgb_split.height))) {
-		result_rgb_split = createGraphics(source.width,source.height,get_renderer());
+PShader fx_split_rgb;
+PGraphics result_split_rgb;
+PGraphics fx_split_rgb(PImage source, boolean on_g, vec2 offset_red, vec2 offset_green, vec2 offset_blue) {
+	if(!on_g && (result_split_rgb == null 
+								|| (source.width != result_split_rgb.width 
+								&& source.height != result_split_rgb.height))) {
+		result_split_rgb = createGraphics(source.width,source.height,get_renderer());
 	}
 
-	if(fx_rgb_split == null) {
-		String path = get_fx_path()+"rgb_split.glsl";
+	if(fx_split_rgb == null) {
+		String path = get_fx_path()+"split_rgb_simple.glsl";
 		if(fx_rope_path_exists) {
-			fx_rgb_split = loadShader(path);
+			fx_split_rgb = loadShader(path);
 			println("load shader:",path);
 		}
 	} else {
-    if(on_g) set_flip_shader(fx_rgb_split,source);
-		fx_rgb_split.set("texture_source",source);
-		fx_rgb_split.set("resolution_source",source.width,source.height);
+    if(on_g) set_flip_shader(fx_split_rgb,source);
+		fx_split_rgb.set("texture_source",source);
+		fx_split_rgb.set("resolution_source",source.width,source.height);
 
 		// external param
-		fx_rgb_split.set("offset",offset.x,offset.y);
+		// fx_split.set("offset",offset.x,offset.y);
+		if(offset_red != null) {
+			fx_split_rgb.set("offset_red",offset_red.x,offset_red.y);
+		}
+
+		if(offset_green != null) {
+			fx_split_rgb.set("offset_green",offset_green.x,offset_green.y);
+		}
+		
+		if(offset_blue != null) {
+			fx_split_rgb.set("offset_blue",offset_blue.x,offset_blue.y);
+		} 
+		
 
 		 // rendering
-    render_shader(fx_rgb_split,result_rgb_split,source,on_g);
+    render_shader(fx_split_rgb,result_split_rgb,source,on_g);
 	}
 
 	// end
@@ -1667,7 +1669,7 @@ PGraphics fx_rgb_split(PImage source, boolean on_g, vec2 offset) {
 	if(on_g) {
 		return null;
 	} else {
-		return result_rgb_split; 
+		return result_split_rgb; 
 	}
 }
 
