@@ -1,7 +1,7 @@
 /**
 The ABBYSS
 2014
-v 2.1.4
+v 2.1.5
 */
 
 
@@ -16,7 +16,7 @@ class The_Abbyss extends Romanesco {
     //from the index_objects.csv
     item_name = "The Abbyss" ;
     item_author  = "Andreas Gysin";
-    item_version = "version 2.1.4";
+    item_version = "version 2.1.5";
     item_pack = "Base 2014-2018" ;
     item_costume = "";
     item_mode = "Box Fish/Cubus/Floater/Radio/Worm/Sea Fly/Breather/Spider/Manta/Father/Super Nova" ;// separate the name by a slash and write the next mode immadialtly after this one.

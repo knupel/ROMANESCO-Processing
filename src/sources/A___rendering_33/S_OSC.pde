@@ -54,8 +54,10 @@ v 0.0.2
 int security_to_dont_duplicate_osc_packet ;
 void oscEvent(OscMessage receive) {
   if(security_to_dont_duplicate_osc_packet != frameCount) {
-    controller_reception(receive) ;
-    if(IAM.equals("scene")) prescene_reception(receive); 
+    controller_reception(receive);
+    if(IAM.equals("scene")) {
+      prescene_reception(receive);
+    }
   }
   security_to_dont_duplicate_osc_packet = frameCount;
 }
@@ -652,9 +654,12 @@ void OSC_scene_setup() {
 
 void prescene_reception(OscMessage m) {
   if(m.addrPattern().equals("Prescene")) {
+    println("je reçois un truc",frameCount);
+    
     catchDataFromPrescene(m);
     data_osc_prescene = split(dataPrescene, '/') ;
     data_save_osc_prescene_reception();
+    
   } 
 }
 

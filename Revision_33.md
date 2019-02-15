@@ -30,6 +30,7 @@ revision 33
 >new item GRILLO about 3D grid and coin flip !
 >new item TARTAN
 >new item SIMPLE
+>new item MER
 >SOLEIL improvement the revolution part
 
 *BUG FIX

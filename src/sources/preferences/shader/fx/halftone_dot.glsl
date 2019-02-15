@@ -2,7 +2,7 @@
 Halftone full refactoring
 Stan le Punk 
 @see https://github.com/StanLepunK
-v 0.0.1
+v 0.0.2
 2018-2018
 Based https://www.shadertoy.com/view/XslGRM by Atomek
 Halftone dot matrix shader
@@ -78,7 +78,7 @@ void main() {
 
   float rasterization = added(offset, sin(angle), cos(angle), position, PI / size * 680.0);
 
-  vec4 color = texture(texture_source,uv);
+  vec4 color = texture2D(texture_source,uv);
         
   float average = 0.2125 * color.r + 0.7154 * color.g + 0.0721 * color.b;
   float gray = (rasterization * threshold + average - threshold) / (1.0 - threshold);

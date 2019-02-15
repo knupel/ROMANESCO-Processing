@@ -1,7 +1,7 @@
 /**
 * Rope Filter collection
 * 2019-2019
-* v 0.1.5
+* v 0.1.6
 * all filter bellow has been tested.
 * @see http://stanlepunk.xyz
 * @see https://github.com/StanLepunK/Filter
@@ -868,7 +868,7 @@ PGraphics fx_halftone_dot(PImage source, boolean on_g, vec2 pos, float size, flo
 	}
 
 	if(fx_halftone == null) {
-		String path = get_fx_path()+"halftone.glsl";
+		String path = get_fx_path()+"halftone_dot.glsl";
 		if(fx_rope_path_exists) {
 			fx_halftone = loadShader(path);
 			println("load shader:",path);

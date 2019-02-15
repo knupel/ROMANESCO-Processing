@@ -8,7 +8,7 @@ class Mer extends Romanesco {
     item_name = "Mer" ;
     item_author  = "Stan le Punk";
     item_references = "";
-    item_version = "Version 0.0.1";
+    item_version = "Version 0.0.2";
     item_pack = "Base 2019-2019" ;
     item_costume = "point/ellipse/triangle/rect/cross/pentagon/Star 5/Star 7/Super Star 8/Super Star 12"; // costume available from get_costume();
     item_mode = "";
@@ -26,7 +26,7 @@ class Mer extends Romanesco {
     size_x_is = true;
     size_y_is = true;
     //size_z_is = true;
-    // diameter_is = true;
+    diameter_is = true;
     canvas_x_is = true;
     canvas_y_is = true;
     // canvas_z_is = true;
@@ -74,11 +74,16 @@ class Mer extends Romanesco {
 
   int cols = 2;
   int rows = 2;
-  Wave [] ani = new Wave[cols *rows];
+  int cell_x = 2;
+  int cell_y = 2;
+  int offset_x = cell_x/2;
+  int offset_y = cell_y/2;
+  Wave [] ani ;
   boolean build_sea_is;
 
   void setup() {
     // give the starting position of your item on the 3D grid
+    ani = new Wave[cols*rows];
     setting_start_position(ID_item,width/2,height/2,0);
   }
   
@@ -96,39 +101,52 @@ class Mer extends Romanesco {
       birth_is(false);
     }
     if(!build_sea_is) {
+      cols = (int)map(get_canvas_x(),0,get_canvas_x_max(),2,width/10);
+      rows = (int)map(get_canvas_y(),0,get_canvas_y_max(),2,height/10);
+      ani = new Wave[cols*rows];
+      cell_x = width/cols;
+      cell_y = height/rows;
+      offset_x = cell_x/2;
+      offset_y = cell_y/2;
       float min_size_wave = 5;
-      vec2 size_max_wave = vec2(50,50);
-      float max_speed = 1;
+      vec2 size_max_wave = vec2(get_size_x(),get_size_y());
       float start_hue_fill = get_fill_hue();
-      build_sea_grid(min_size_wave,size_max_wave,max_speed,start_hue_fill);
+      build_sea_grid(min_size_wave,size_max_wave,get_speed_x(),start_hue_fill);
       build_sea_is = true;
     }
 
     // show
-    int cell_x = width/cols;
-    int cell_y = height/rows;
-    int offset_x = cell_x/2;
-    int offset_y = cell_y/2;
+    // float max_speed = get_speed_x();
     int count = 0;
-    // push();
-    // translate(width,0);
-    // rotate(PI/2);
-    println("direct",get_fill_hue(),get_fill_sat(),get_fill_bright(),get_fill_alpha());
-    println("compute",hue(get_fill()),saturation(get_fill()),brightness(get_fill()),alpha(get_fill()));
-    for(int i = 0; i < cols ; i++) {
-      for(int j = 0 ; j < rows ; j++) {  
+    for(int j = 0; j < rows ; j++) {
+      for(int i = 0 ; i < cols ; i++) {  
         int x = i * cell_x +offset_x;
         int y = j * cell_y +offset_y;
-        ani[count].update();
-        ani[count].apparence(get_fill_alpha(),get_stroke_alpha(),get_thickness());
-        ani[count].render_shape(x,y,get_size_x(),get_costume());
-        count++;
+        if(count < ani.length) {
+          ani[count].update();
+          // ani[count].set_speed(get_speed_x());
+          // ani[count].set_radius(get_size_x(),get_size_y());
+          ani[count].apparence(get_fill_alpha(),get_stroke_alpha(),get_thickness());
+          ani[count].render_shape(x,y,get_diameter(),get_costume());
+          count++; 
+        }
       }
     }
-    // pop();
-
-
-
+    // int count = 0;
+    // for(int i = 0; i < cols ; i++) {
+    //   for(int j = 0 ; j < rows ; j++) {  
+    //     int x = i * cell_x +offset_x;
+    //     int y = j * cell_y +offset_y;
+    //     if(count < ani.length) {
+    //       ani[count].update();
+    //       // ani[count].set_speed(get_speed_x());
+    //       // ani[count].set_radius(get_size_x(),get_size_y());
+    //       ani[count].apparence(get_fill_alpha(),get_stroke_alpha(),get_thickness());
+    //       ani[count].render_shape(x,y,get_diameter(),get_costume());
+    //       count++; 
+    //     }
+    //   }
+    // }
     // info("info about the item","more","more");
   }
 
@@ -153,9 +171,12 @@ class Mer extends Romanesco {
 
     Wave() {}
 
+    void reset_cycle() {
+      cycle = 0;
+    }
+
     void set_speed(float speed) {
       this.speed = speed;
-      cycle = 0;
     }
 
     void set_start_hue(float start_hue) {
@@ -171,7 +192,6 @@ class Mer extends Romanesco {
     void update() {
       dir += speed;
       cycle++;
-
     }
 
     void apparence(float fill_alpha, float stroke_alpha, float thickness) {
@@ -197,7 +217,6 @@ class Mer extends Romanesco {
     }
   }
   //
-
 }
 
 

@@ -164,8 +164,11 @@ void setting_fx_classic() {
   setting_fx_blur_gaussian();
   setting_fx_blur_radial();
 
+  setting_fx_haltone_dot();
   setting_fx_haltone_line();
+
   setting_fx_pixel();
+
   setting_fx_split_rgb();
 }
 
@@ -198,9 +201,12 @@ void update_fx_classic() {
   update_fx_blur_circular(move_filter_fx,quantity,str_x);
   update_fx_blur_gaussian(move_filter_fx,str_x);
   update_fx_blur_radial(move_filter_fx,vec2(px,py),str_x);
-
+  
+  update_fx_haltone_dot(move_filter_fx,vec2(px,py),sx,angle,threshold);
   update_fx_haltone_line(move_filter_fx,vec2(px,py),quantity,angle);
+
   update_fx_pixel(move_filter_fx,quantity,vec2(sx,sy),vec3(cx,cy,cz));
+
   update_fx_split_rgb(move_filter_fx,vec2(str_x,str_y),speed);
 
 
@@ -285,6 +291,53 @@ void update_fx_blur_radial(boolean move_is, vec2 pos,float strength) {
     fx_set_strength(set_blur_radial,str);
   }
 }
+
+
+
+
+
+
+
+
+
+/**
+* halftone line
+*/
+String set_halftone_dot = "halftone dot";
+void setting_fx_haltone_dot() {
+  String version = "0.0.1";
+  int revision = 1;
+  String author = "Stan le Punk";
+  String pack = "Base 2019";
+  int id = fx_classic_num;
+  init_fx(set_halftone_dot,FX_HALFTONE_DOT,id,author,pack,version,revision);
+  fx_classic_num++; 
+}
+
+void update_fx_haltone_dot(boolean move_is, vec2 pos, float size, float angle, float threshold) {
+  if(move_is) {
+    float pix_size = map(size,0,1,2,height/5); 
+    fx_set_size(set_halftone_dot,pix_size);  
+
+    angle = map(angle,0,1,-TAU,TAU);
+    fx_set_angle(set_halftone_dot,angle);
+
+    fx_set_threshold(set_halftone_dot,threshold);
+
+    fx_set_pos(set_halftone_dot,pos.array());
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
 
 
 

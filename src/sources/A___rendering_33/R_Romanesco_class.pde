@@ -479,7 +479,7 @@ public abstract class Romanesco implements rope.core.RConstants {
 
   // thickness
   protected void set_thickness_raw(float thickness) {
-     set_thickness_raw(thickness,0,0);
+    set_thickness_raw(thickness,0,0);
   }
 
   protected void set_thickness_raw(float thickness, int begin, int end) {
@@ -497,7 +497,7 @@ public abstract class Romanesco implements rope.core.RConstants {
 
   // SIZE
   protected void set_size_raw(float size) {
-     set_size_raw(size,0,0);
+    set_size_raw(size,0,0);
   }
 
   protected void set_size_raw(float size, int begin, int end) {
@@ -508,7 +508,7 @@ public abstract class Romanesco implements rope.core.RConstants {
   
   // size x
   protected void set_size_x_raw(float size_x) {
-     set_size_x_raw(size_x,0,0);
+    set_size_x_raw(size_x,0,0);
   }
 
   protected void set_size_x_raw(float size_x, int begin, int end) {
@@ -526,7 +526,7 @@ public abstract class Romanesco implements rope.core.RConstants {
   
   // size y
   protected void set_size_y_raw(float size_y) {
-     set_size_y_raw(size_y,0,0);
+    set_size_y_raw(size_y,0,0);
   }
 
   protected void set_size_y_raw(float size_y, int begin, int end) {
@@ -544,7 +544,7 @@ public abstract class Romanesco implements rope.core.RConstants {
 
   // size z
   protected void set_size_z_raw(float size_z) {
-     set_size_z_raw(size_z,0,0);
+    set_size_z_raw(size_z,0,0);
   }
 
   protected void set_size_z_raw(float size_z, int begin, int end) {
@@ -646,7 +646,7 @@ public abstract class Romanesco implements rope.core.RConstants {
   // COL 2
   // frequence
   protected void set_frequence_raw(float frequence) {
-     set_frequence_raw(frequence,0,0);
+    set_frequence_raw(frequence,0,0);
   }
 
   protected void set_frequence_raw(float frequence, int begin, int end) {
@@ -711,7 +711,7 @@ public abstract class Romanesco implements rope.core.RConstants {
   
   // speed z
   protected void set_speed_z_raw(float speed_z) {
-     set_speed_z_raw(speed_z,0,0);
+    set_speed_z_raw(speed_z,0,0);
   }
 
   protected void set_speed_z_raw(float speed_z, int begin, int end) {
@@ -729,7 +729,7 @@ public abstract class Romanesco implements rope.core.RConstants {
   
   // SPURT
   protected void set_spurt_raw(float spurt) {
-     set_spurt_raw(spurt,0,0);
+    set_spurt_raw(spurt,0,0);
   }
 
   protected void set_spurt_raw(float spurt, int begin, int end) {

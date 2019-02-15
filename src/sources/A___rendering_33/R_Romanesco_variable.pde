@@ -2,7 +2,7 @@
 Romanesco Manager
 Prescene and Scene
 2013-2019
-v 1.7.0
+v 1.7.1
 */
 Romanesco_manager rom_manager;
 
