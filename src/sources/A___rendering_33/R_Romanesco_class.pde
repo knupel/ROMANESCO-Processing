@@ -221,7 +221,7 @@ public abstract class Romanesco implements rope.core.RConstants {
     mode = new Mode();
     fill_is(true);
     stroke_is(true);
-    set_thickness(1,0,0);
+    set_thickness_raw(1,0,0);
     wire_is(true);
   }
 
@@ -292,10 +292,14 @@ public abstract class Romanesco implements rope.core.RConstants {
   
   // hue
   protected void set_fill_hue(float fill_hue) {
-     set_fill_hue(fill_hue,0,0);
+    this.fill_hue.set(fill_hue);
   }
 
-  protected void set_fill_hue(float fill_hue, int begin, int end) {
+  protected void set_fill_hue_raw(float fill_hue) {
+    set_fill_hue_raw(fill_hue,0,0);
+  }
+
+  protected void set_fill_hue_raw(float fill_hue, int begin, int end) {
     if(this.fill_hue == null) this.fill_hue = new Varom();
     this.fill_hue.set_raw(fill_hue,begin,end);
   }
@@ -310,10 +314,14 @@ public abstract class Romanesco implements rope.core.RConstants {
   
   // sat
   protected void set_fill_sat(float fill_sat) {
-     set_fill_sat(fill_sat,0,0);
+     this.fill_sat.set(fill_sat);
   }
 
-  protected void set_fill_sat(float fill_sat, int begin, int end) {
+  protected void set_fill_sat_raw(float fill_sat) {
+     set_fill_sat_raw(fill_sat,0,0);
+  }
+
+  protected void set_fill_sat_raw(float fill_sat, int begin, int end) {
     if(this.fill_sat == null) this.fill_sat = new Varom();
     this.fill_sat.set_raw(fill_sat,begin,end);
   }
@@ -328,10 +336,14 @@ public abstract class Romanesco implements rope.core.RConstants {
   
   // bright
   protected void set_fill_bright(float fill_bright) {
-     set_fill_bright(fill_bright,0,0);
+     this.fill_bright.set(fill_bright);
   }
 
-  protected void set_fill_bright(float fill_bright, int begin, int end) {
+  protected void set_fill_bright_raw(float fill_bright) {
+     set_fill_bright_raw(fill_bright,0,0);
+  }
+
+  protected void set_fill_bright_raw(float fill_bright, int begin, int end) {
     if(this.fill_bright == null) this.fill_bright = new Varom();
     this.fill_bright.set_raw(fill_bright,begin,end);
   }
@@ -346,10 +358,14 @@ public abstract class Romanesco implements rope.core.RConstants {
   
   // alpha
   protected void set_fill_alpha(float fill_alpha) {
-     set_fill_alpha(fill_alpha,0,0);
+     this.fill_alpha.set(fill_alpha);
   }
 
-  protected void set_fill_alpha(float fill_alpha, int begin, int end) {
+  protected void set_fill_alpha_raw(float fill_alpha) {
+     set_fill_alpha_raw(fill_alpha,0,0);
+  }
+
+  protected void set_fill_alpha_raw(float fill_alpha, int begin, int end) {
     if(this.fill_alpha == null) this.fill_alpha = new Varom();
     this.fill_alpha.set_raw(fill_alpha,begin,end);
   }
@@ -374,10 +390,14 @@ public abstract class Romanesco implements rope.core.RConstants {
   
   // stroke hue
   protected void set_stroke_hue(float stroke_hue) {
-     set_stroke_hue(stroke_hue,0,0);
+     this.stroke_hue.set(stroke_hue);
   }
 
-  protected void set_stroke_hue(float stroke_hue, int begin, int end) {
+  protected void set_stroke_hue_raw(float stroke_hue) {
+     set_stroke_hue_raw(stroke_hue,0,0);
+  }
+
+  protected void set_stroke_hue_raw(float stroke_hue, int begin, int end) {
     if(this.stroke_hue == null) this.stroke_hue = new Varom();
     this.stroke_hue.set_raw(stroke_hue,begin,end);
   }
@@ -392,10 +412,14 @@ public abstract class Romanesco implements rope.core.RConstants {
   
   // stroke sat
   protected void set_stroke_sat(float stroke_sat) {
-     set_stroke_sat(stroke_sat,0,0);
+     this.stroke_sat.set(stroke_sat);
   }
 
-  protected void set_stroke_sat(float stroke_sat, int begin, int end) {
+  protected void set_stroke_sat_raw(float stroke_sat) {
+     set_stroke_sat_raw(stroke_sat,0,0);
+  }
+
+  protected void set_stroke_sat_raw(float stroke_sat, int begin, int end) {
     if(this.stroke_sat == null) this.stroke_sat = new Varom();
     this.stroke_sat.set_raw(stroke_sat,begin,end);
   }
@@ -410,10 +434,14 @@ public abstract class Romanesco implements rope.core.RConstants {
   
   // stroke bright
   protected void set_stroke_bright(float stroke_bright) {
-     set_stroke_bright(stroke_bright,0,0);
+     this.stroke_bright.set(stroke_bright);
   }
 
-  protected void set_stroke_bright(float stroke_bright, int begin, int end) {
+  protected void set_stroke_bright_raw(float stroke_bright) {
+     set_stroke_bright_raw(stroke_bright,0,0);
+  }
+
+  protected void set_stroke_bright_raw(float stroke_bright, int begin, int end) {
     if(this.stroke_bright == null) this.stroke_bright = new Varom();
     this.stroke_bright.set_raw(stroke_bright,begin,end);
   }
@@ -428,10 +456,14 @@ public abstract class Romanesco implements rope.core.RConstants {
 
   // stroke alpha
   protected void set_stroke_alpha(float stroke_alpha) {
-     set_stroke_alpha(stroke_alpha,0,0);
+     this.stroke_alpha.set(stroke_alpha);
   }
 
-  protected void set_stroke_alpha(float stroke_alpha, int begin, int end) {
+  protected void set_stroke_alpha_raw(float stroke_alpha) {
+     set_stroke_alpha_raw(stroke_alpha,0,0);
+  }
+
+  protected void set_stroke_alpha_raw(float stroke_alpha, int begin, int end) {
     if(this.stroke_alpha == null) this.stroke_alpha = new Varom();
     this.stroke_alpha.set_raw(stroke_alpha,begin,end);
   }
@@ -446,11 +478,11 @@ public abstract class Romanesco implements rope.core.RConstants {
   
 
   // thickness
-  protected void set_thickness(float thickness) {
-     set_thickness(thickness,0,0);
+  protected void set_thickness_raw(float thickness) {
+     set_thickness_raw(thickness,0,0);
   }
 
-  protected void set_thickness(float thickness, int begin, int end) {
+  protected void set_thickness_raw(float thickness, int begin, int end) {
     if(this.thickness == null) this.thickness = new Varom();
     this.thickness.set_raw(thickness,begin,end);
   }
@@ -464,22 +496,22 @@ public abstract class Romanesco implements rope.core.RConstants {
   }
 
   // SIZE
-  protected void set_size(float size) {
-     set_size(size,0,0);
+  protected void set_size_raw(float size) {
+     set_size_raw(size,0,0);
   }
 
-  protected void set_size(float size, int begin, int end) {
-    set_size_x(size,begin,end);
-    set_size_y(size,begin,end);
-    set_size_z(size,begin,end);
+  protected void set_size_raw(float size, int begin, int end) {
+    set_size_x_raw(size,begin,end);
+    set_size_y_raw(size,begin,end);
+    set_size_z_raw(size,begin,end);
   }
   
   // size x
-  protected void set_size_x(float size_x) {
-     set_size_x(size_x,0,0);
+  protected void set_size_x_raw(float size_x) {
+     set_size_x_raw(size_x,0,0);
   }
 
-  protected void set_size_x(float size_x, int begin, int end) {
+  protected void set_size_x_raw(float size_x, int begin, int end) {
     if(this.size_x == null) this.size_x = new Varom();
     this.size_x.set_raw(size_x,begin,end);
   }
@@ -493,11 +525,11 @@ public abstract class Romanesco implements rope.core.RConstants {
   }
   
   // size y
-  protected void set_size_y(float size_y) {
-     set_size_y(size_y,0,0);
+  protected void set_size_y_raw(float size_y) {
+     set_size_y_raw(size_y,0,0);
   }
 
-  protected void set_size_y(float size_y, int begin, int end) {
+  protected void set_size_y_raw(float size_y, int begin, int end) {
     if(this.size_y == null) this.size_y = new Varom();
     this.size_y.set_raw(size_y,begin,end);
   }
@@ -511,11 +543,11 @@ public abstract class Romanesco implements rope.core.RConstants {
   }
 
   // size z
-  protected void set_size_z(float size_z) {
-     set_size_z(size_z,0,0);
+  protected void set_size_z_raw(float size_z) {
+     set_size_z_raw(size_z,0,0);
   }
 
-  protected void set_size_z(float size_z, int begin, int end) {
+  protected void set_size_z_raw(float size_z, int begin, int end) {
     if(this.size_z == null) this.size_z = new Varom();
     this.size_z.set_raw(size_z,begin,end);
   }
@@ -529,11 +561,11 @@ public abstract class Romanesco implements rope.core.RConstants {
   }
   
   // diameter
-  protected void set_diameter(float diameter) {
-     set_diameter(diameter,0,0);
+  protected void set_diameter_raw(float diameter) {
+     set_diameter_raw(diameter,0,0);
   }
 
-  protected void set_diameter(float diameter, int begin, int end) {
+  protected void set_diameter_raw(float diameter, int begin, int end) {
     if(this.diameter == null) this.diameter = new Varom();
     this.diameter.set_raw(diameter,begin,end);
   }
@@ -547,22 +579,22 @@ public abstract class Romanesco implements rope.core.RConstants {
   }
   
   // CANVAS
-  protected void set_canvas(float canvas) {
-     set_canvas(canvas,0,0);
+  protected void set_canvas_raw(float canvas) {
+     set_canvas_raw(canvas,0,0);
   }
 
-  protected void set_canvas(float canvas, int begin, int end) {
-    set_canvas_x(canvas,begin,end);
-    set_canvas_y(canvas,begin,end);
-    set_canvas_z(canvas,begin,end);
+  protected void set_canvas_raw(float canvas, int begin, int end) {
+    set_canvas_x_raw(canvas,begin,end);
+    set_canvas_y_raw(canvas,begin,end);
+    set_canvas_z_raw(canvas,begin,end);
   }
 
   // canvas x
-  protected void set_canvas_x(float canvas_x) {
-     set_canvas_x(canvas_x,0,0);
+  protected void set_canvas_x_raw(float canvas_x) {
+     set_canvas_x_raw(canvas_x,0,0);
   }
 
-  protected void set_canvas_x(float canvas_x, int begin, int end) {
+  protected void set_canvas_x_raw(float canvas_x, int begin, int end) {
     if(this.canvas_x == null) this.canvas_x = new Varom();
     this.canvas_x.set_raw(canvas_x,begin,end);
   }
@@ -576,11 +608,11 @@ public abstract class Romanesco implements rope.core.RConstants {
   }
 
   // canvas y
-  protected void set_canvas_y(float canvas_y) {
-     set_canvas_y(canvas_y,0,0);
+  protected void set_canvas_y_raw(float canvas_y) {
+     set_canvas_y_raw(canvas_y,0,0);
   }
 
-  protected void set_canvas_y(float canvas_y, int begin, int end) {
+  protected void set_canvas_y_raw(float canvas_y, int begin, int end) {
     if(this.canvas_y == null) this.canvas_y = new Varom();
     this.canvas_y.set_raw(canvas_y,begin,end);
   }
@@ -594,11 +626,11 @@ public abstract class Romanesco implements rope.core.RConstants {
   }
 
   // canvas z
-  protected void set_canvas_z(float canvas_z) {
-     set_canvas_z(canvas_z,0,0);
+  protected void set_canvas_z_raw(float canvas_z) {
+     set_canvas_z_raw(canvas_z,0,0);
   }
 
-  protected void set_canvas_z(float canvas_z, int begin, int end) {
+  protected void set_canvas_z_raw(float canvas_z, int begin, int end) {
     if(this.canvas_z == null) this.canvas_z = new Varom();
     this.canvas_z.set_raw(canvas_z,begin,end);
   }
@@ -613,11 +645,11 @@ public abstract class Romanesco implements rope.core.RConstants {
   
   // COL 2
   // frequence
-  protected void set_frequence(float frequence) {
-     set_frequence(frequence,0,0);
+  protected void set_frequence_raw(float frequence) {
+     set_frequence_raw(frequence,0,0);
   }
 
-  protected void set_frequence(float frequence, int begin, int end) {
+  protected void set_frequence_raw(float frequence, int begin, int end) {
     if(this.frequence == null) this.frequence = new Varom();
     this.frequence.set_raw(frequence,begin,end);
   }
@@ -631,22 +663,22 @@ public abstract class Romanesco implements rope.core.RConstants {
   }
   
   // SPEED
-  protected void set_speed(float speed) {
-     set_speed(speed,0,0);
+  protected void set_speed_raw(float speed) {
+     set_speed_raw(speed,0,0);
   }
 
-  protected void set_speed(float speed, int begin, int end) {
-    set_speed_x(speed,begin,end);
-    set_speed_y(speed,begin,end);
-    set_speed_z(speed,begin,end);
+  protected void set_speed_raw(float speed, int begin, int end) {
+    set_speed_x_raw(speed,begin,end);
+    set_speed_y_raw(speed,begin,end);
+    set_speed_z_raw(speed,begin,end);
   }
   
   // speed x
-  protected void set_speed_x(float speed_x) {
-     set_speed_x(speed_x,0,0);
+  protected void set_speed_x_raw(float speed_x) {
+     set_speed_x_raw(speed_x,0,0);
   }
 
-  protected void set_speed_x(float speed_x, int begin, int end) {
+  protected void set_speed_x_raw(float speed_x, int begin, int end) {
     if(this.speed_x == null) this.speed_x = new Varom();
     this.speed_x.set_raw(speed_x,begin,end);
   }
@@ -660,11 +692,11 @@ public abstract class Romanesco implements rope.core.RConstants {
   }
   
   // speed y
-  protected void set_speed_y(float speed_y) {
-     set_speed_y(speed_y,0,0);
+  protected void set_speed_y_raw(float speed_y) {
+     set_speed_y_raw(speed_y,0,0);
   }
 
-  protected void set_speed_y(float speed_y, int begin, int end) {
+  protected void set_speed_y_raw(float speed_y, int begin, int end) {
     if(this.speed_y == null) this.speed_y = new Varom();
     this.speed_y.set_raw(speed_y,begin,end);
   }
@@ -678,11 +710,11 @@ public abstract class Romanesco implements rope.core.RConstants {
   }
   
   // speed z
-  protected void set_speed_z(float speed_z) {
-     set_speed_z(speed_z,0,0);
+  protected void set_speed_z_raw(float speed_z) {
+     set_speed_z_raw(speed_z,0,0);
   }
 
-  protected void set_speed_z(float speed_z, int begin, int end) {
+  protected void set_speed_z_raw(float speed_z, int begin, int end) {
     if(this.speed_z == null) this.speed_z = new Varom();
     this.speed_z.set_raw(speed_z,begin,end);
   }
@@ -696,22 +728,22 @@ public abstract class Romanesco implements rope.core.RConstants {
   }
   
   // SPURT
-  protected void set_spurt(float spurt) {
-     set_spurt(spurt,0,0);
+  protected void set_spurt_raw(float spurt) {
+     set_spurt_raw(spurt,0,0);
   }
 
-  protected void set_spurt(float spurt, int begin, int end) {
-    set_spurt_x(spurt,begin,end);
-    set_spurt_y(spurt,begin,end);
-    set_spurt_z(spurt,begin,end);
+  protected void set_spurt_raw(float spurt, int begin, int end) {
+    set_spurt_x_raw(spurt,begin,end);
+    set_spurt_y_raw(spurt,begin,end);
+    set_spurt_z_raw(spurt,begin,end);
   }
   
   // spurt x
-  protected void set_spurt_x(float spurt_x) {
-     set_spurt_x(spurt_x,0,0);
+  protected void set_spurt_x_raw(float spurt_x) {
+     set_spurt_x_raw(spurt_x,0,0);
   }
 
-  protected void set_spurt_x(float spurt_x, int begin, int end) {
+  protected void set_spurt_x_raw(float spurt_x, int begin, int end) {
     if(this.spurt_x == null) this.spurt_x = new Varom();
     this.spurt_x.set_raw(spurt_x,begin,end);
   }
@@ -725,11 +757,11 @@ public abstract class Romanesco implements rope.core.RConstants {
   }
 
   // spurt y
-  protected void set_spurt_y(float spurt_y) {
-     set_spurt_y(spurt_y,0,0);
+  protected void set_spurt_y_raw(float spurt_y) {
+     set_spurt_y_raw(spurt_y,0,0);
   }
 
-  protected void set_spurt_y(float spurt_y, int begin, int end) {
+  protected void set_spurt_y_raw(float spurt_y, int begin, int end) {
     if(this.spurt_y == null) this.spurt_y = new Varom();
     this.spurt_y.set_raw(spurt_y,begin,end);
   }
@@ -743,11 +775,11 @@ public abstract class Romanesco implements rope.core.RConstants {
   }
 
   // spurt z
-  protected void set_spurt_z(float spurt_z) {
-     set_spurt_z(spurt_z,0,0);
+  protected void set_spurt_z_raw(float spurt_z) {
+     set_spurt_z_raw(spurt_z,0,0);
   }
 
-  protected void set_spurt_z(float spurt_z, int begin, int end) {
+  protected void set_spurt_z_raw(float spurt_z, int begin, int end) {
     if(this.spurt_z == null) this.spurt_z = new Varom();
     this.spurt_z.set_raw(spurt_z,begin,end);
   }
@@ -761,22 +793,22 @@ public abstract class Romanesco implements rope.core.RConstants {
   }
   
   // DIR
-  protected void set_dir(float dir) {
-     set_dir(dir,0,0);
+  protected void set_dir_raw(float dir) {
+     set_dir_raw(dir,0,0);
   }
 
-  protected void set_dir(float dir, int begin, int end) {
-    set_dir_x(dir,begin,end);
-    set_dir_y(dir,begin,end);
-    set_dir_z(dir,begin,end);
+  protected void set_dir_raw(float dir, int begin, int end) {
+    set_dir_x_raw(dir,begin,end);
+    set_dir_y_raw(dir,begin,end);
+    set_dir_z_raw(dir,begin,end);
   }
   
   // dir x
-  protected void set_dir_x(float dir_x) {
-     set_dir_x(dir_x,0,0);
+  protected void set_dir_x_raw(float dir_x) {
+     set_dir_x_raw(dir_x,0,0);
   }
 
-  protected void set_dir_x(float dir_x, int begin, int end) {
+  protected void set_dir_x_raw(float dir_x, int begin, int end) {
     if(this.dir_x == null) this.dir_x = new Varom();
     this.dir_x.set_raw(dir_x,begin,end);
   }
@@ -790,11 +822,11 @@ public abstract class Romanesco implements rope.core.RConstants {
   }
 
   // dir y
-  protected void set_dir_y(float dir_y) {
-     set_dir_y(dir_y,0,0);
+  protected void set_dir_y_raw(float dir_y) {
+     set_dir_y_raw(dir_y,0,0);
   }
 
-  protected void set_dir_y(float dir_y, int begin, int end) {
+  protected void set_dir_y_raw(float dir_y, int begin, int end) {
     if(this.dir_y == null) this.dir_y = new Varom();
     this.dir_y.set_raw(dir_y,begin,end);
   }
@@ -808,11 +840,11 @@ public abstract class Romanesco implements rope.core.RConstants {
   }
 
   // dir z
-  protected void set_dir_z(float dir_z) {
-     set_dir_z(dir_z,0,0);
+  protected void set_dir_z_raw(float dir_z) {
+     set_dir_z_raw(dir_z,0,0);
   }
 
-  protected void set_dir_z(float dir_z, int begin, int end) {
+  protected void set_dir_z_raw(float dir_z, int begin, int end) {
     if(this.dir_z == null) this.dir_z = new Varom();
     this.dir_z.set_raw(dir_z,begin,end);
   }
@@ -826,22 +858,22 @@ public abstract class Romanesco implements rope.core.RConstants {
   }
   
   // JITTER
-  protected void set_jitter(float jitter) {
-     set_jitter(jitter,0,0);
+  protected void set_jitter_raw(float jitter) {
+     set_jitter_raw(jitter,0,0);
   }
 
-  protected void set_jitter(float jitter, int begin, int end) {
-    set_jitter_x(jitter,begin,end);
-    set_jitter_y(jitter,begin,end);
-    set_jitter_z(jitter,begin,end);
+  protected void set_jitter_raw(float jitter, int begin, int end) {
+    set_jitter_x_raw(jitter,begin,end);
+    set_jitter_y_raw(jitter,begin,end);
+    set_jitter_z_raw(jitter,begin,end);
   }
 
   // jitter x
-  protected void set_jitter_x(float jitter_x) {
-     set_jitter_x(jitter_x,0,0);
+  protected void set_jitter_x_raw(float jitter_x) {
+     set_jitter_x_raw(jitter_x,0,0);
   }
 
-  protected void set_jitter_x(float jitter_x, int begin, int end) {
+  protected void set_jitter_x_raw(float jitter_x, int begin, int end) {
     if(this.jitter_x == null) this.jitter_x = new Varom();
     this.jitter_x.set_raw(jitter_x,begin,end);
   }
@@ -855,11 +887,11 @@ public abstract class Romanesco implements rope.core.RConstants {
   }
 
   // jitter y
-  protected void set_jitter_y(float jitter_y) {
-     set_jitter_y(jitter_y,0,0);
+  protected void set_jitter_y_raw(float jitter_y) {
+     set_jitter_y_raw(jitter_y,0,0);
   }
 
-  protected void set_jitter_y(float jitter_y, int begin, int end) {
+  protected void set_jitter_y_raw(float jitter_y, int begin, int end) {
     if(this.jitter_y == null) this.jitter_y = new Varom();
     this.jitter_y.set_raw(jitter_y,begin,end);
   }
@@ -873,11 +905,11 @@ public abstract class Romanesco implements rope.core.RConstants {
   }
 
   // jitter z
-  protected void set_jitter_z(float jitter_z) {
-     set_jitter_z(jitter_z,0,0);
+  protected void set_jitter_z_raw(float jitter_z) {
+     set_jitter_z_raw(jitter_z,0,0);
   }
 
-  protected void set_jitter_z(float jitter_z, int begin, int end) {
+  protected void set_jitter_z_raw(float jitter_z, int begin, int end) {
     if(this.jitter_z == null) this.jitter_z = new Varom();
     this.jitter_z.set_raw(jitter_z,begin,end);
   }
@@ -891,22 +923,22 @@ public abstract class Romanesco implements rope.core.RConstants {
   }
   
   // SWING
-  protected void set_swing(float swing) {
-     set_swing(swing,0,0);
+  protected void set_swing_raw(float swing) {
+     set_swing_raw(swing,0,0);
   }
 
-  protected void set_swing(float swing, int begin, int end) {
-    set_swing_x(swing,begin,end);
-    set_swing_y(swing,begin,end);
-    set_swing_z(swing,begin,end);
+  protected void set_swing_raw(float swing, int begin, int end) {
+    set_swing_x_raw(swing,begin,end);
+    set_swing_y_raw(swing,begin,end);
+    set_swing_z_raw(swing,begin,end);
   }
   
   // swing x
-  protected void set_swing_x(float swing_x) {
-     set_swing_x(swing_x,0,0);
+  protected void set_swing_x_raw(float swing_x) {
+     set_swing_x_raw(swing_x,0,0);
   }
 
-  protected void set_swing_x(float swing_x, int begin, int end) {
+  protected void set_swing_x_raw(float swing_x, int begin, int end) {
     if(this.swing_x == null) this.swing_x = new Varom();
     this.swing_x.set_raw(swing_x,begin,end);
   }
@@ -920,11 +952,11 @@ public abstract class Romanesco implements rope.core.RConstants {
   }
   
   // swing y
-  protected void set_swing_y(float swing_y) {
-     set_swing_y(swing_y,0,0);
+  protected void set_swing_y_raw(float swing_y) {
+     set_swing_y_raw(swing_y,0,0);
   }
 
-  protected void set_swing_y(float swing_y, int begin, int end) {
+  protected void set_swing_y_raw(float swing_y, int begin, int end) {
     if(this.swing_y == null) this.swing_y = new Varom();
     this.swing_y.set_raw(swing_y,begin,end);
   }
@@ -938,11 +970,11 @@ public abstract class Romanesco implements rope.core.RConstants {
   }
   
   // swing z
-  protected void set_swing_z(float swing_z) {
-     set_swing_z(swing_z,0,0);
+  protected void set_swing_z_raw(float swing_z) {
+     set_swing_z_raw(swing_z,0,0);
   }
 
-  protected void set_swing_z(float swing_z, int begin, int end) {
+  protected void set_swing_z_raw(float swing_z, int begin, int end) {
     if(this.swing_z == null) this.swing_z = new Varom();
     this.swing_z.set_raw(swing_z,begin,end);
   }
@@ -958,11 +990,11 @@ public abstract class Romanesco implements rope.core.RConstants {
 
   // COL 3
   //quantity
-  protected void set_quantity(float quantity) {
-     set_quantity(quantity,0,0);
+  protected void set_quantity_raw(float quantity) {
+     set_quantity_raw(quantity,0,0);
   }
 
-  protected void set_quantity(float quantity, int begin, int end) {
+  protected void set_quantity_raw(float quantity, int begin, int end) {
     if(this.quantity == null) this.quantity = new Varom();
     this.quantity.set_raw(quantity,begin,end);
   }
@@ -976,11 +1008,11 @@ public abstract class Romanesco implements rope.core.RConstants {
   }
   
   // variety
-  protected void set_variety(float variety) {
-     set_variety(variety,0,0);
+  protected void set_variety_raw(float variety) {
+     set_variety_raw(variety,0,0);
   }
 
-  protected void set_variety(float variety, int begin, int end) {
+  protected void set_variety_raw(float variety, int begin, int end) {
     if(this.variety == null) this.variety = new Varom();
     this.variety.set_raw(variety,begin,end);
   }
@@ -994,11 +1026,11 @@ public abstract class Romanesco implements rope.core.RConstants {
   }
 
   // life
-  protected void set_life(float life) {
-     set_life(life,0,0);
+  protected void set_life_raw(float life) {
+     set_life_raw(life,0,0);
   }
 
-  protected void set_life(float life, int begin, int end) {
+  protected void set_life_raw(float life, int begin, int end) {
     if(this.life == null) this.life = new Varom();
     this.life.set_raw(life,begin,end);
   }
@@ -1012,11 +1044,11 @@ public abstract class Romanesco implements rope.core.RConstants {
   }
 
   // flow
-  protected void set_flow(float flow) {
-     set_flow(flow,0,0);
+  protected void set_flow_raw(float flow) {
+     set_flow_raw(flow,0,0);
   }
 
-  protected void set_flow(float flow, int begin, int end) {
+  protected void set_flow_raw(float flow, int begin, int end) {
     if(this.flow == null) this.flow = new Varom();
     this.flow.set_raw(flow,begin,end);
   }
@@ -1030,11 +1062,11 @@ public abstract class Romanesco implements rope.core.RConstants {
   }
 
   // quality
-  protected void set_quality(float quality) {
-     set_quality(quality,0,0);
+  protected void set_quality_raw(float quality) {
+     set_quality_raw(quality,0,0);
   }
 
-  protected void set_quality(float quality, int begin, int end) {
+  protected void set_quality_raw(float quality, int begin, int end) {
     if(this.quality == null) this.quality = new Varom();
     this.quality.set_raw(quality,begin,end);
   }
@@ -1048,11 +1080,11 @@ public abstract class Romanesco implements rope.core.RConstants {
   }
 
   // area
-  protected void set_area(float area) {
-    set_area(area,0,0);
+  protected void set_area_raw(float area) {
+    set_area_raw(area,0,0);
   }
 
-  protected void set_area(float area, int begin, int end) {
+  protected void set_area_raw(float area, int begin, int end) {
     if(this.area == null) this.area = new Varom();
     this.area.set_raw(area,begin,end);
   }
@@ -1066,11 +1098,11 @@ public abstract class Romanesco implements rope.core.RConstants {
   }
 
   // angle
-  protected void set_angle(float angle) {
-    set_angle(angle,0,0);
+  protected void set_angle_raw(float angle) {
+    set_angle_raw(angle,0,0);
   }
 
-  protected void set_angle(float angle, int begin, int end) {
+  protected void set_angle_raw(float angle, int begin, int end) {
     if(this.angle == null) this.angle = new Varom();
     this.angle.set_raw(angle,begin,end);
   }
@@ -1084,11 +1116,11 @@ public abstract class Romanesco implements rope.core.RConstants {
   }
 
   // scope
-  protected void set_scope(float scope) {
-    set_scope(scope,0,0);
+  protected void set_scope_raw(float scope) {
+    set_scope_raw(scope,0,0);
   }
 
-  protected void set_scope(float scope, int begin, int end) {
+  protected void set_scope_raw(float scope, int begin, int end) {
     if(this.scope == null) this.scope = new Varom();
     this.scope.set_raw(scope,begin,end);
   }
@@ -1102,11 +1134,11 @@ public abstract class Romanesco implements rope.core.RConstants {
   }
 
   // scan
-  protected void set_scan(float scan) {
-    set_scan(scan,0,0);
+  protected void set_scan_raw(float scan) {
+    set_scan_raw(scan,0,0);
   }
 
-  protected void set_scan(float scan, int begin, int end) {
+  protected void set_scan_raw(float scan, int begin, int end) {
     if(this.scan == null) this.scan = new Varom();
     this.scan.set_raw(scan,begin,end);
   }
@@ -1120,11 +1152,11 @@ public abstract class Romanesco implements rope.core.RConstants {
   }
 
   // alignment
-  protected void set_alignment(float alignment) {
-    set_alignment(alignment,0,0);
+  protected void set_alignment_raw(float alignment) {
+    set_alignment_raw(alignment,0,0);
   }
 
-  protected void set_alignment(float alignment, int begin, int end) {
+  protected void set_alignment_raw(float alignment, int begin, int end) {
     if(this.alignment == null) this.alignment = new Varom();
     this.alignment.set_raw(alignment,begin,end);
   }
@@ -1138,11 +1170,11 @@ public abstract class Romanesco implements rope.core.RConstants {
   }
   
   // repulsion
-  protected void set_repulsion(float repulsion) {
-    set_repulsion(repulsion,0,0);
+  protected void set_repulsion_raw(float repulsion) {
+    set_repulsion_raw(repulsion,0,0);
   }
 
-  protected void set_repulsion(float repulsion, int begin, int end) {
+  protected void set_repulsion_raw(float repulsion, int begin, int end) {
     if(this.repulsion == null) this.repulsion = new Varom();
     this.repulsion.set_raw(repulsion,begin,end);
   }
@@ -1156,11 +1188,11 @@ public abstract class Romanesco implements rope.core.RConstants {
   }
   
   // attraction
-  protected void set_attraction(float attraction) {
-    set_attraction(attraction,0,0);
+  protected void set_attraction_raw(float attraction) {
+    set_attraction_raw(attraction,0,0);
   }
 
-  protected void set_attraction(float attraction, int begin, int end) {
+  protected void set_attraction_raw(float attraction, int begin, int end) {
     if(this.attraction == null) this.attraction = new Varom();
     this.attraction.set_raw(attraction,begin,end);
   }
@@ -1174,11 +1206,11 @@ public abstract class Romanesco implements rope.core.RConstants {
   }
   
   // density
-  protected void set_density(float density) {
-    set_density(density,0,0);
+  protected void set_density_raw(float density) {
+    set_density_raw(density,0,0);
   }
 
-  protected void set_density(float density, int begin, int end) {
+  protected void set_density_raw(float density, int begin, int end) {
     if(this.density == null) this.density = new Varom();
     this.density.set_raw(density,begin,end);
   }
@@ -1192,11 +1224,11 @@ public abstract class Romanesco implements rope.core.RConstants {
   }
   
   // influence
-  protected void set_influence(float influence) {
-    set_influence(influence,0,0);
+  protected void set_influence_raw(float influence) {
+    set_influence_raw(influence,0,0);
   }
 
-  protected void set_influence(float influence, int begin, int end) {
+  protected void set_influence_raw(float influence, int begin, int end) {
     if(this.influence == null) this.influence = new Varom();
     this.influence.set_raw(influence,begin,end);
   }
@@ -1210,11 +1242,11 @@ public abstract class Romanesco implements rope.core.RConstants {
   }
   
   // calm
-  protected void set_calm(float calm) {
-    set_calm(calm,0,0);
+  protected void set_calm_raw(float calm) {
+    set_calm_raw(calm,0,0);
   }
 
-  protected void set_calm(float calm, int begin, int end) {
+  protected void set_calm_raw(float calm, int begin, int end) {
     if(this.calm == null) this.calm = new Varom();
     this.calm.set_raw(calm,begin,end);
   }
@@ -1228,11 +1260,11 @@ public abstract class Romanesco implements rope.core.RConstants {
   }
 
   // spectrum
-  protected void set_spectrum(float spectrum) {
-    set_spectrum(spectrum,0,0);
+  protected void set_spectrum_raw(float spectrum) {
+    set_spectrum_raw(spectrum,0,0);
   }
 
-  protected void set_spectrum(float spectrum, int begin, int end) {
+  protected void set_spectrum_raw(float spectrum, int begin, int end) {
     if(this.spectrum == null) this.spectrum = new Varom();
     this.spectrum.set_raw(spectrum,begin,end);
   }
@@ -1247,11 +1279,11 @@ public abstract class Romanesco implements rope.core.RConstants {
   
   // COL 4
   // grid
-  protected void set_grid(float grid) {
-    set_grid(grid,0,0);
+  protected void set_grid_raw(float grid) {
+    set_grid_raw(grid,0,0);
   }
 
-  protected void set_grid(float grid, int begin, int end) {
+  protected void set_grid_raw(float grid, int begin, int end) {
     if(this.grid == null) this.grid = new Varom();
     this.grid.set_raw(grid,begin,end);
   }
@@ -1265,11 +1297,11 @@ public abstract class Romanesco implements rope.core.RConstants {
   }
   
   // viscosity
-  protected void set_viscosity(float viscosity) {
-    set_viscosity(viscosity,0,0);
+  protected void set_viscosity_raw(float viscosity) {
+    set_viscosity_raw(viscosity,0,0);
   }
 
-  protected void set_viscosity(float viscosity, int begin, int end) {
+  protected void set_viscosity_raw(float viscosity, int begin, int end) {
     if(this.viscosity == null) this.viscosity = new Varom();
     this.viscosity.set_raw(viscosity,begin,end);
   }
@@ -1283,11 +1315,11 @@ public abstract class Romanesco implements rope.core.RConstants {
   }
   
   // diffusion
-  protected void set_diffusion(float diffusion) {
-    set_diffusion(diffusion,0,0);
+  protected void set_diffusion_raw(float diffusion) {
+    set_diffusion_raw(diffusion,0,0);
   }
 
-  protected void set_diffusion(float diffusion, int begin, int end) {
+  protected void set_diffusion_raw(float diffusion, int begin, int end) {
     if(this.diffusion == null) this.diffusion = new Varom();
     this.diffusion.set_raw(diffusion,begin,end);
   }
@@ -1301,11 +1333,11 @@ public abstract class Romanesco implements rope.core.RConstants {
   }
   
   // power
-  protected void set_power(float power) {
-    set_power(power,0,0);
+  protected void set_power_raw(float power) {
+    set_power_raw(power,0,0);
   }
 
-  protected void set_power(float power, int begin, int end) {
+  protected void set_power_raw(float power, int begin, int end) {
     if(this.power == null) this.power = new Varom();
     this.power.set_raw(power,begin,end);
   }
@@ -1319,11 +1351,11 @@ public abstract class Romanesco implements rope.core.RConstants {
   }
   
   // mass
-  protected void set_mass(float mass) {
-    set_mass(mass,0,0);
+  protected void set_mass_raw(float mass) {
+    set_mass_raw(mass,0,0);
   }
 
-  protected void set_mass(float mass, int begin, int end) {
+  protected void set_mass_raw(float mass, int begin, int end) {
     if(this.mass == null) this.mass = new Varom();
     this.mass.set_raw(mass,begin,end);
   }
@@ -1337,22 +1369,22 @@ public abstract class Romanesco implements rope.core.RConstants {
   }
   
   // COORD
-  protected void set_coord(float coord) {
-    set_coord(coord,0,0);
+  protected void set_coord_raw(float coord) {
+    set_coord_raw(coord,0,0);
   }
 
-  protected void set_coord(float coord, int begin, int end) {
-    set_coord_x(coord,begin,end);
-    set_coord_y(coord,begin,end);
-    set_coord_z(coord,begin,end);
+  protected void set_coord_raw(float coord, int begin, int end) {
+    set_coord_x_raw(coord,begin,end);
+    set_coord_y_raw(coord,begin,end);
+    set_coord_z_raw(coord,begin,end);
   }
 
   // coord x
-  protected void set_coord_x(float coord_x) {
-    set_coord_x(coord_x,0,0);
+  protected void set_coord_x_raw(float coord_x) {
+    set_coord_x_raw(coord_x,0,0);
   }
 
-  protected void set_coord_x(float coord_x, int begin, int end) {
+  protected void set_coord_x_raw(float coord_x, int begin, int end) {
     if(this.coord_x == null) this.coord_x = new Varom();
     this.coord_x.set_raw(coord_x,begin,end);
   }
@@ -1366,11 +1398,11 @@ public abstract class Romanesco implements rope.core.RConstants {
   }
 
   // coord y
-  protected void set_coord_y(float coord_y) {
-    set_coord_y(coord_y,0,0);
+  protected void set_coord_y_raw(float coord_y) {
+    set_coord_y_raw(coord_y,0,0);
   }
 
-  protected void set_coord_y(float coord_y, int begin, int end) {
+  protected void set_coord_y_raw(float coord_y, int begin, int end) {
     if(this.coord_y == null) this.coord_y = new Varom();
     this.coord_y.set_raw(coord_y,begin,end);
   }
@@ -1384,11 +1416,11 @@ public abstract class Romanesco implements rope.core.RConstants {
   }
 
   // coord z
-  protected void set_coord_z(float coord_z) {
-    set_coord_z(coord_z,0,0);
+  protected void set_coord_z_raw(float coord_z) {
+    set_coord_z_raw(coord_z,0,0);
   }
 
-  protected void set_coord_z(float coord_z, int begin, int end) {
+  protected void set_coord_z_raw(float coord_z, int begin, int end) {
     if(this.coord_z == null) this.coord_z = new Varom();
     this.coord_z.set_raw(coord_z,begin,end);
   }

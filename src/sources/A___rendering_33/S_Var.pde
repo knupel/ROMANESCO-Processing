@@ -687,43 +687,44 @@ void init_variable_item() {
     Romanesco item = rom_manager.get(i);
     if(item != null) {
       item.init();
-      item.set_size(width *.5);
-      item.set_diameter(10);
-      item.set_canvas(width);
+      item.set_size_raw(width *.5);
+      item.set_diameter_raw(10);
+      item.set_canvas_raw(width);
 
-      item.set_frequence(0);
+      item.set_frequence_raw(0);
 
-      item.set_speed(0);
-      item.set_spurt(0);
-      item.set_dir(0);
-      item.set_jitter(0);
-      item.set_swing(0);
+      item.set_speed_raw(0);
+      item.set_spurt_raw(0);
+      item.set_dir_raw(0);
+      item.set_jitter_raw(0);
+      item.set_swing_raw(0);
 
-      item.set_quantity(.1);
-      item.set_variety(0);
-      item.set_life(.1);
-      item.set_flow(0);
-      item.set_quality(.1);
+      item.set_quantity_raw(.1);
+      item.set_variety_raw(0);
+      item.set_life_raw(.1);
+      item.set_flow_raw(0);
+      item.set_quality_raw(.1);
 
-      item.set_area(width);
-      item.set_angle(0);
-      item.set_scope(width);
-      item.set_scan(PI/2);
+      item.set_area_raw(width);
+      item.set_angle_raw(0);
+      item.set_scope_raw(width);
+      item.set_scan_raw(PI/2);
 
-      item.set_alignment(0);
-      item.set_repulsion(0);
-      item.set_attraction(0);
-      item.set_density(0);;
+      item.set_alignment_raw(0);
+      item.set_repulsion_raw(0);
+      item.set_attraction_raw(0);
+      item.set_density_raw(0);
 
-      item.set_influence(0);
-      item.set_calm(0);
-      item.set_spectrum(0);
+      item.set_influence_raw(0);
+      item.set_calm_raw(0);
+      item.set_spectrum_raw(0);
 
-      item.set_grid(width);
-      item.set_viscosity(0);
-      item.set_diffusion(0);
-      item.set_power(0);
-      item.set_mass(0);
+      item.set_grid_raw(width);
+      item.set_viscosity_raw(0);
+      item.set_diffusion_raw(0);
+      item.set_power_raw(0);
+      item.set_mass_raw(0);
+      item.set_coord_raw(0);
     }
    
   }

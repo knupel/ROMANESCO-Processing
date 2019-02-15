@@ -82,7 +82,7 @@ class The_Abbyss extends Romanesco {
   //DRAW
   void draw() {
 
-    if(alpha(get_stroke()) == 0) set_thickness(0,0,0); // this line is dangerous...direct access to something resrved for the slider ????
+    if(alpha(get_stroke()) == 0) set_thickness_raw(0,0,0); // this line is dangerous...direct access to something resrved for the slider ????
    //  pushMatrix();
     creatureManager.loop(get_fill(), get_stroke(), get_thickness(), get_speed_x() *100.0);
     // popMatrix();
