@@ -372,86 +372,56 @@ void load_saved_file_controller(String path) {
 
     // slider background
     if(s.equals("Slider background")) {
-      // if(cropinfo_slider_background[count_slider_background] == null) {
-      //   cropinfo_slider_background[count_slider_background] = new Cropinfo();
-      // }
       set_info_slider(row, "Slider background", cropinfo_slider_background[count_slider_background]);
       count_slider_background++;
     }
 
     // slider FX
     if(s.equals("Slider fx")) {
-      // if(cropinfo_slider_fx[count_slider_fx] == null) {
-      //   cropinfo_slider_fx[count_slider_fx] = new Cropinfo();
-      // }
       set_info_slider(row, "Slider fx", cropinfo_slider_fx[count_slider_fx]);
       count_slider_fx++;
     }    
     // slider light
     if(s.equals("Slider light")) {
-      // if(cropinfo_slider_light[count_slider_light] == null) {
-      //   cropinfo_slider_light[count_slider_light] = new Cropinfo();
-      // }
       set_info_slider(row, "Slider light", cropinfo_slider_light[count_slider_light]);
       count_slider_light++;
     }
 
     // slider sound
     if(s.equals("Slider sound")) {
-      // if(cropinfo_slider_sound[count_slider_sound] == null) {
-      //   cropinfo_slider_sound[count_slider_sound] = new Cropinfo();
-      // }
       set_info_slider(row, "Slider sound", cropinfo_slider_sound[count_slider_sound]);
       count_slider_sound++;
     }
 
     // slider sound setting
     if(s.equals("Slider sound setting")) {
-      // if(cropinfo_slider_sound_setting[count_slider_sound_setting] == null) {
-      //   cropinfo_slider_sound_setting[count_slider_sound_setting] = new Cropinfo();
-      // }
       set_info_slider(row, "Slider sound setting", cropinfo_slider_sound_setting[count_slider_sound_setting]);
       count_slider_sound_setting++;
     }
     
     // slider camera
     if(s.equals("Slider camera")) {
-      // if(cropinfo_slider_camera[count_slider_camera] == null) {
-      //   cropinfo_slider_camera[count_slider_camera] = new Cropinfo();
-      // }
       set_info_slider(row, "Slider camera", cropinfo_slider_camera[count_slider_camera]);
       count_slider_camera++;
     }
 
     // slider item
     if(s.equals("Slider item a")) {
-      // if(cropinfo_slider_item[count_slider_item] == null) {
-      //   cropinfo_slider_item[count_slider_item] = new Cropinfo();
-      // }
       set_info_slider(row, "Slider item a", cropinfo_slider_item[count_slider_item]);
       count_slider_item++;
     }
 
     if(s.equals("Slider item b")) {
-      // if(cropinfo_slider_item[count_slider_item] == null) {
-      //   cropinfo_slider_item[count_slider_item] = new Cropinfo();
-      // }
       set_info_slider(row, "Slider item b", cropinfo_slider_item[count_slider_item]);
       count_slider_item++;
     }
 
     if(s.equals("Slider item c")) {
-      // if(cropinfo_slider_item[count_slider_item] == null) {
-      //   cropinfo_slider_item[count_slider_item] = new Cropinfo();
-      // }
       set_info_slider(row, "Slider item c", cropinfo_slider_item[count_slider_item]);
       count_slider_item++;
     }
 
     if(s.equals("Slider item d")) {
-      // if(cropinfo_slider_item[count_slider_item] == null) {
-      //   cropinfo_slider_item[count_slider_item] = new Cropinfo();
-      // }
       set_info_slider(row, "Slider item d", cropinfo_slider_item[count_slider_item]);
       count_slider_item++;
     }
@@ -492,7 +462,6 @@ void set_info_slider(TableRow row, String name, Cropinfo info) {
 
   }
  
-  // float value = row.getFloat("Value slider 0"); 
   float min = row.getFloat("Min slider");
   float max = row.getFloat("Max slider");
   info.set_id(id).set_id_midi(id_midi).set_value(value).set_min(min).set_max(max);
@@ -650,21 +619,6 @@ void set_button_from_saved_file() {
     button_transient[i].set_id_midi((int)info_button_general[rank].y); 
     rank++ ;
   }
-  /*
-  if(info_button_general[rank].z == 1.0) button_kick.set_is(true); else button_kick.set_is(false);
-  button_kick.set_id_midi((int)info_button_general[rank].y); 
-  rank++ ;
-  if(info_button_general[rank].z == 1.0) button_snare.set_is(true); else button_snare.set_is(false);
-  button_snare.set_id_midi((int)info_button_general[rank].y);
-  rank++ ;
-  if(info_button_general[rank].z == 1.0) button_hat.set_is(true); else button_hat.set_is(false);
-  button_hat.set_id_midi((int)info_button_general[rank].y); 
-  rank++ ;
-  */
-  
-  //
-  
-  //
   
 
   /**
@@ -764,16 +718,7 @@ void apply_text_gui() {
       for(int k = 0 ; k < NUM_SLIDER_FX ; k++) {
         slider_filter_name[k] = row.getString("col "+k);
       }
-    } 
-    /*
-    else if(name.equals("dropdown filter")) {
-      int num_box = row.getInt("num");
-      filter_dropdown_list = new String[num_box];
-      for(int k = 0 ; k < num_box ; k++) {
-        filter_dropdown_list[k] = row.getString("col "+k);
-      }
-    } 
-    */else if(name.equals("slider light")) {
+    } else if(name.equals("slider light")) {
       for(int k = 0 ; k < NUM_SLIDER_LIGHT ; k++) {
         slider_light_name[k] = row.getString("col "+k);
       }
@@ -824,6 +769,7 @@ void set_import_pic_button() {
     // reset
     pic_reset_camera[i] = loadImage("picto/picto_camera_"+i+".png");
     pic_reset_item_on[i] = loadImage("picto/picto_item_selected_"+i+".png");
+    pic_reset_fx[i] = loadImage("picto/picto_fx_"+i+".png");
     // misc
     pic_birth[i] = loadImage("picto/picto_birth_"+i+".png");
     pic_3D[i] = loadImage("picto/picto_3D_"+i+".png");

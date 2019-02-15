@@ -102,6 +102,7 @@ void message_general_osc(OscMessage m) {
   add_data_general(m,button_curtain.is());
   add_data_general(m,button_reset_camera.is());
   add_data_general(m,button_reset_item_on.is());
+  add_data_general(m,button_reset_fx.is());
   add_data_general(m,button_birth.is());
   add_data_general(m,button_3D.is());
  

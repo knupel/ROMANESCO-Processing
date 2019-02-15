@@ -124,6 +124,7 @@ boolean [] fx_button_is = new boolean[NUM_BUTTON_FX];
 boolean curtain_button_is;
 boolean reset_camera_button_is;
 boolean reset_item_on_button_is;
+boolean reset_fx_button_is;
 boolean birth_button_is;
 boolean dimension_button_is;
 boolean background_button_is;
@@ -787,6 +788,11 @@ boolean reset_item_on_button_alert_is() {
   return reset_item_on_button_is;
 }
 
+boolean reset_fx_button_alert_is() {
+  return reset_fx_button_is;
+}
+
+// misc
 boolean birth_button_alert_is() {
   return birth_button_is;
 }
@@ -797,6 +803,7 @@ boolean dimension_button_alert_is() {
 
 
 // set boolean button alert
+// reset
 void reset_camera_button_alert_is(boolean is) {
   reset_camera_button_is = is;
 }
@@ -805,6 +812,11 @@ void reset_item_on_button_alert_is(boolean is) {
   reset_item_on_button_is = is;
 }
 
+void reset_fx_button_alert_is(boolean is) {
+  reset_fx_button_is = is;
+}
+
+// misc
 void birth_button_alert_is(boolean is) {
   birth_button_is = is;
 }
@@ -827,6 +839,11 @@ void reset_button_alert() {
     button_alert_is = false;
   }
 
+  if(reset_fx_button_alert_is() && button_alert_is) {
+    reset_fx_button_alert_is(false);
+    button_alert_is = false;
+  }
+
   if(birth_button_alert_is() && button_alert_is) {
     birth_button_alert_is(false);
     button_alert_is = false;
@@ -837,7 +854,11 @@ void reset_button_alert() {
     button_alert_is = false;
   }
 
-  if(reset_camera_button_alert_is() || reset_item_on_button_alert_is() || birth_button_alert_is() || dimension_button_alert_is()) {
+  if(reset_camera_button_alert_is() 
+  || reset_item_on_button_alert_is() 
+  || reset_fx_button_alert_is() 
+  || birth_button_alert_is() 
+  || dimension_button_alert_is()) {
     button_alert_is = true;
   }
 }

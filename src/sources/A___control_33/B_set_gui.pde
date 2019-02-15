@@ -380,11 +380,14 @@ void set_console_general() {
   // RESET ITEM ON COORD
   pos_reset_item_on_button = ivec2(grid_col[0] +70, pos_y_button_top +9);
   size_reset_item_on_button = ivec2(26,26);
+  // RESET FX LIST
+  pos_reset_fx_button = ivec2(grid_col[0] +100, pos_y_button_top +9);
+  size_reset_fx_button = ivec2(26,26);
   // BIRTH
-  pos_birth_button = ivec2(grid_col[0] +100, pos_y_button_top +9);
+  pos_birth_button = ivec2(grid_col[0] +130, pos_y_button_top +9);
   size_birth_button = ivec2(26,26);
   // 3D
-  pos_3D_button = ivec2(grid_col[0] +130, pos_y_button_top +9);
+  pos_3D_button = ivec2(grid_col[0] +160, pos_y_button_top +9);
   size_3D_button = ivec2(26,26);
 
   // MIDI
@@ -764,6 +767,13 @@ Button button_reset_item_on;
 int button_reset_item_on_is;
 ivec2 pos_reset_item_on_button;
 ivec2 size_reset_item_on_button;
+
+// reset fx
+PImage[] pic_reset_fx = new PImage[4];
+Button button_reset_fx;
+int button_reset_fx_is;
+ivec2 pos_reset_fx_button;
+ivec2 size_reset_fx_button;
 
 // birth
 PImage[] pic_birth = new PImage[4];

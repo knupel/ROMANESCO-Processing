@@ -64,7 +64,12 @@ void filter() {
     }
   }
 
-  if(active_fx != null) println("active_fx",active_fx.size());
+  if(active_fx != null) {
+    if(reset_fx_button_alert_is()) {
+      active_fx.clear();
+      println("active_fx",active_fx.size());
+    }
+  }
 
 
 

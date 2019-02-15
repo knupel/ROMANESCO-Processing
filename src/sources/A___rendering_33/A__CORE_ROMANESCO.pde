@@ -2,7 +2,7 @@
 * Core Romanesco
 * common code for CONTROLLER and RENDERER
 * 2018-2019
-* v 0.3.10
+* v 0.3.11
 */
 int NUM_COL_SLIDER = 4;
 int NUM_SLIDER_ITEM_BY_COL = 16;
@@ -15,7 +15,7 @@ int KEY_CTRL_OS = 157; // it's macOS CMD // for MAC
 int NUM_DROPDOWN_GENERAL = 7;
 // the MIDI BUTTON is not count because is not use in the OSC bridge
 int NUM_BUTTON_MISC = 3; // with out MIDI button.
-int NUM_BUTTON_RESET = 2;
+int NUM_BUTTON_RESET = 3;
 int NUM_TOP_BUTTON = NUM_BUTTON_MISC + NUM_BUTTON_RESET;
 
 int NUM_BUTTON_BACKGROUND = 1;

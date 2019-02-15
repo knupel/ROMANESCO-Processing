@@ -139,11 +139,13 @@ void receive_data_misc(OscMessage receive, int in) {
 
 void receive_data_menu_bar(OscMessage receive, int in) {
   curtain_button_is(to_bool(receive,0+in));
-  // alert button
+  // reset button alert
   reset_camera_button_alert_is(to_bool(receive,1+in));
   reset_item_on_button_alert_is(to_bool(receive,2+in));
-  birth_button_alert_is(to_bool(receive,3+in));
-  dimension_button_alert_is(to_bool(receive,4+in));
+  reset_fx_button_alert_is(to_bool(receive,3+in));
+  // misc
+  birth_button_alert_is(to_bool(receive,4+in));
+  dimension_button_alert_is(to_bool(receive,5+in));
 /*
   if(birth_button_is()) println("receive_data_menu_bar() :birth",birth_button_is(),frameCount);
   if(dimension_button_is()) println("receive_data_menu_bar: dimension",dimension_button_is(),frameCount);

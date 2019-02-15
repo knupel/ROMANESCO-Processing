@@ -922,28 +922,48 @@ void check_button_general() {
     if(button_fx[i].is()) button_fx_is[i] = 1 ; else button_fx_is[i] = 0 ;
   }
   //LIGHT ONE
-  if(button_light_ambient.is())  light_ambient_button_is = 1 ; else  light_ambient_button_is = 0 ;
-  if(button_light_ambient_action.is()) light_ambient_action_button_is = 1 ; else light_ambient_action_button_is =  0 ;
+  if(button_light_ambient.is()) light_ambient_button_is = 1; 
+  else  light_ambient_button_is = 0;
+  if(button_light_ambient_action.is()) light_ambient_action_button_is = 1; 
+  else light_ambient_action_button_is =  0;
   //LIGHT ONE
-  if(button_light_1.is()) light_light_1_button_is = 1 ; else light_light_1_button_is = 0 ;
-  if(button_light_1_action.is()) light_light_action_1_button_is = 1 ; else light_light_action_1_button_is = 0 ;
+  if(button_light_1.is()) light_light_1_button_is = 1; 
+  else light_light_1_button_is = 0;
+
+  if(button_light_1_action.is()) light_light_action_1_button_is = 1;
+   else light_light_action_1_button_is = 0;
   // LIGHT TWO
-  if(button_light_2.is()) light_light_2_button_is = 1 ; else light_light_2_button_is = 0 ;
-  if(button_light_2_action.is()) light_light_action_2_button_is = 1 ; else light_light_action_2_button_is = 0 ;
+  if(button_light_2.is()) light_light_2_button_is = 1; 
+  else light_light_2_button_is = 0;
+  if(button_light_2_action.is()) light_light_action_2_button_is = 1; 
+  else light_light_action_2_button_is = 0;
   //SOUND
   for(int i = 0 ; i < NUM_BUTTON_TRANSIENT ; i++) {
-    if(button_transient[i].is()) button_transient_is[i] = 1 ; else button_transient_is[i] = 0 ;
+    if(button_transient[i].is()) button_transient_is[i] = 1; 
+    else button_transient_is[i] = 0;
   }
   //Check position of button
-  if(button_curtain.is()) button_curtain_is = 1 ; else button_curtain_is = 0;
-  if(button_midi.is()) button_midi_is = 1 ; else button_midi_is = 0;
+  if(button_curtain.is()) button_curtain_is = 1; 
+  else button_curtain_is = 0;
+
+  if(button_midi.is()) button_midi_is = 1; 
+  else button_midi_is = 0;
   // reset button
-  if(button_reset_camera.is()) button_reset_camera_is = 1 ; else button_reset_camera_is = 0;
+  if(button_reset_camera.is()) button_reset_camera_is = 1; 
+  else button_reset_camera_is = 0;
 
   // misc item button
-  if(button_reset_item_on.is()) button_reset_item_on_is = 1 ; else button_reset_item_on_is = 0;
-  if(button_birth.is()) button_birth_is = 1 ; else button_birth_is = 0;
-  if(button_3D.is()) button_3D_is = 1 ; else button_3D_is = 0;
+  if(button_reset_item_on.is()) button_reset_item_on_is = 1; 
+  else button_reset_item_on_is = 0;
+
+  if(button_reset_fx.is()) button_reset_fx_is = 1; 
+  else button_reset_fx_is = 0;
+
+  if(button_birth.is()) button_birth_is = 1; 
+  else button_birth_is = 0;
+
+  if(button_3D.is()) button_3D_is = 1; 
+  else button_3D_is = 0;
 
 }
 
@@ -971,11 +991,12 @@ void mousePressed_button_general() {
     if(button_transient[i].inside()) button_transient[i].switch_is();
   }
   if(button_midi.inside()) button_midi.switch_is();
-  if(button_curtain.inside())button_curtain.switch_is();
+  if(button_curtain.inside()) button_curtain.switch_is();
   // reset button
   if(button_reset_camera.inside()) button_reset_camera.switch_is();
   // item action
-  if(button_reset_item_on.inside())button_reset_item_on.switch_is();
+  if(button_reset_item_on.inside()) button_reset_item_on.switch_is();
+  if(button_reset_fx.inside()) button_reset_fx.switch_is();
   if(button_birth.inside()) button_birth.switch_is();
   if(button_3D.inside())button_3D.switch_is();
 }
@@ -1015,7 +1036,7 @@ void display_button_header() {
   int alpha_bg_rollover = int(g.colorModeA *.8);
 
   if(button_curtain.inside()) {
-    text [0] = ("CUT") ;
+    text[0] = ("CUT") ;
     noStroke() ;
     fill(fill_info_window_rect, alpha_bg_rollover) ;
     background_text_list(vec2(pos_window.x, pos_window.y), text, size_text, size_angle, speed, ratio_size,range_check,FuturaStencil_20);
@@ -1042,6 +1063,14 @@ void display_button_header() {
 
   if(button_reset_item_on.inside()) {
     text[0] = ("RESET COORD ITEM ON");
+    fill(fill_info_window_rect, alpha_bg_rollover);
+    background_text_list(vec2(pos_window.x, pos_window.y), text, size_text, size_angle, speed, ratio_size, range_check, FuturaStencil_20);
+    fill(fill_info_window_text);
+    text(text[0],pos_window.x, pos_window.y);
+  }
+
+  if(button_reset_fx.inside()) {
+    text[0] = ("RESET FX LIST");
     fill(fill_info_window_rect, alpha_bg_rollover);
     background_text_list(vec2(pos_window.x, pos_window.y), text, size_text, size_angle, speed, ratio_size, range_check, FuturaStencil_20);
     fill(fill_info_window_text);
@@ -1121,6 +1150,7 @@ void display_button_general() {
   // RESET
   button_reset_camera.show_picto(pic_reset_camera);
   button_reset_item_on.show_picto(pic_reset_item_on);
+  button_reset_fx.show_picto(pic_reset_fx);
   // MISC
   button_birth.show_picto(pic_birth);
   button_3D.show_picto(pic_3D);
@@ -1136,16 +1166,13 @@ update
 void update_button() {
   update_button_general();
   update_button_inventory();
-  /**
-  void update_button_item(); 
-  > the method don't exist, 
-  it is include in method display_button_item_console(boolean keep_setting)
-  */
 }
 
 void update_button_general() {
-  update_button_local(button_curtain,button_reset_camera,button_reset_item_on,button_birth,button_3D);
+  // button on the top
+  update_button_local(button_curtain,button_reset_camera,button_reset_item_on,button_reset_fx,button_birth,button_3D);
   update_button_local(button_midi);
+  // button on the middle
   update_button_local(button_bg,
                       button_light_ambient,button_light_ambient_action,
                       button_light_1,button_light_1_action,

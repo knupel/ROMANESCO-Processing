@@ -37,6 +37,7 @@ void reset() {
 void reset_button_flash() {
   button_reset_camera.set_is(false);
   button_reset_item_on.set_is(false);
+  button_reset_fx.set_is(false);
   button_birth.set_is(false);
   button_3D.set_is(false);
 }
