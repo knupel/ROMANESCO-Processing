@@ -1,7 +1,7 @@
 /**
 Abstract CLASS ROMANESCO
-v 1.2.0
-2013-2018
+v 1.3.0
+2013-2019
 */
 public abstract class Romanesco implements rope.core.RConstants {
   protected String item_name;
@@ -284,6 +284,10 @@ public abstract class Romanesco implements rope.core.RConstants {
   // FILL
   protected void set_fill(int fill) {
     this.fill = fill;
+    set_fill_hue(hue(fill));
+    set_fill_sat(saturation(fill));
+    set_fill_bright(brightness(fill));
+    set_fill_alpha(alpha(fill));
   }
   
   // hue
@@ -293,7 +297,7 @@ public abstract class Romanesco implements rope.core.RConstants {
 
   protected void set_fill_hue(float fill_hue, int begin, int end) {
     if(this.fill_hue == null) this.fill_hue = new Varom();
-    this.fill_hue.set(fill_hue,begin,end);
+    this.fill_hue.set_raw(fill_hue,begin,end);
   }
 
   protected void set_fill_hue_min_max(float min_raw, float max_raw, float min, float max) {
@@ -311,7 +315,7 @@ public abstract class Romanesco implements rope.core.RConstants {
 
   protected void set_fill_sat(float fill_sat, int begin, int end) {
     if(this.fill_sat == null) this.fill_sat = new Varom();
-    this.fill_sat.set(fill_sat,begin,end);
+    this.fill_sat.set_raw(fill_sat,begin,end);
   }
 
   protected void set_fill_sat_min_max(float min_raw, float max_raw, float min, float max) {
@@ -329,7 +333,7 @@ public abstract class Romanesco implements rope.core.RConstants {
 
   protected void set_fill_bright(float fill_bright, int begin, int end) {
     if(this.fill_bright == null) this.fill_bright = new Varom();
-    this.fill_bright.set(fill_bright,begin,end);
+    this.fill_bright.set_raw(fill_bright,begin,end);
   }
 
   protected void set_fill_bright_min_max(float min_raw, float max_raw, float min, float max) {
@@ -347,7 +351,7 @@ public abstract class Romanesco implements rope.core.RConstants {
 
   protected void set_fill_alpha(float fill_alpha, int begin, int end) {
     if(this.fill_alpha == null) this.fill_alpha = new Varom();
-    this.fill_alpha.set(fill_alpha,begin,end);
+    this.fill_alpha.set_raw(fill_alpha,begin,end);
   }
 
   protected void set_fill_alpha_min_max(float min_raw, float max_raw, float min, float max) {
@@ -362,6 +366,10 @@ public abstract class Romanesco implements rope.core.RConstants {
   // STROKE
   protected void set_stroke(int stroke) {
     this.stroke = stroke;
+    set_stroke_hue(hue(stroke));
+    set_stroke_sat(saturation(stroke));
+    set_stroke_bright(brightness(stroke));
+    set_stroke_alpha(alpha(stroke));
   }
   
   // stroke hue
@@ -371,7 +379,7 @@ public abstract class Romanesco implements rope.core.RConstants {
 
   protected void set_stroke_hue(float stroke_hue, int begin, int end) {
     if(this.stroke_hue == null) this.stroke_hue = new Varom();
-    this.stroke_hue.set(stroke_hue,begin,end);
+    this.stroke_hue.set_raw(stroke_hue,begin,end);
   }
 
   protected void set_stroke_hue_min_max(float min_raw, float max_raw, float min, float max) {
@@ -389,7 +397,7 @@ public abstract class Romanesco implements rope.core.RConstants {
 
   protected void set_stroke_sat(float stroke_sat, int begin, int end) {
     if(this.stroke_sat == null) this.stroke_sat = new Varom();
-    this.stroke_sat.set(stroke_sat,begin,end);
+    this.stroke_sat.set_raw(stroke_sat,begin,end);
   }
 
   protected void set_stroke_sat_min_max(float min_raw, float max_raw, float min, float max) {
@@ -407,7 +415,7 @@ public abstract class Romanesco implements rope.core.RConstants {
 
   protected void set_stroke_bright(float stroke_bright, int begin, int end) {
     if(this.stroke_bright == null) this.stroke_bright = new Varom();
-    this.stroke_bright.set(stroke_bright,begin,end);
+    this.stroke_bright.set_raw(stroke_bright,begin,end);
   }
 
   protected void set_stroke_bright_min_max(float min_raw, float max_raw, float min, float max) {
@@ -425,7 +433,7 @@ public abstract class Romanesco implements rope.core.RConstants {
 
   protected void set_stroke_alpha(float stroke_alpha, int begin, int end) {
     if(this.stroke_alpha == null) this.stroke_alpha = new Varom();
-    this.stroke_alpha.set(stroke_alpha,begin,end);
+    this.stroke_alpha.set_raw(stroke_alpha,begin,end);
   }
 
   protected void set_stroke_alpha_min_max(float min_raw, float max_raw, float min, float max) {
@@ -444,7 +452,7 @@ public abstract class Romanesco implements rope.core.RConstants {
 
   protected void set_thickness(float thickness, int begin, int end) {
     if(this.thickness == null) this.thickness = new Varom();
-    this.thickness.set(thickness,begin,end);
+    this.thickness.set_raw(thickness,begin,end);
   }
 
   protected void set_thickness_min_max(float min_raw, float max_raw, float min, float max) {
@@ -473,7 +481,7 @@ public abstract class Romanesco implements rope.core.RConstants {
 
   protected void set_size_x(float size_x, int begin, int end) {
     if(this.size_x == null) this.size_x = new Varom();
-    this.size_x.set(size_x,begin,end);
+    this.size_x.set_raw(size_x,begin,end);
   }
 
   protected void set_size_x_min_max(float min_raw, float max_raw, float min, float max) {
@@ -491,7 +499,7 @@ public abstract class Romanesco implements rope.core.RConstants {
 
   protected void set_size_y(float size_y, int begin, int end) {
     if(this.size_y == null) this.size_y = new Varom();
-    this.size_y.set(size_y,begin,end);
+    this.size_y.set_raw(size_y,begin,end);
   }
 
   protected void set_size_y_min_max(float min_raw, float max_raw, float min, float max) {
@@ -509,7 +517,7 @@ public abstract class Romanesco implements rope.core.RConstants {
 
   protected void set_size_z(float size_z, int begin, int end) {
     if(this.size_z == null) this.size_z = new Varom();
-    this.size_z.set(size_z,begin,end);
+    this.size_z.set_raw(size_z,begin,end);
   }
 
   protected void set_size_z_min_max(float min_raw, float max_raw, float min, float max) {
@@ -527,7 +535,7 @@ public abstract class Romanesco implements rope.core.RConstants {
 
   protected void set_diameter(float diameter, int begin, int end) {
     if(this.diameter == null) this.diameter = new Varom();
-    this.diameter.set(diameter,begin,end);
+    this.diameter.set_raw(diameter,begin,end);
   }
 
   protected void set_diameter_min_max(float min_raw, float max_raw, float min, float max) {
@@ -556,7 +564,7 @@ public abstract class Romanesco implements rope.core.RConstants {
 
   protected void set_canvas_x(float canvas_x, int begin, int end) {
     if(this.canvas_x == null) this.canvas_x = new Varom();
-    this.canvas_x.set(canvas_x,begin,end);
+    this.canvas_x.set_raw(canvas_x,begin,end);
   }
 
   protected void set_canvas_x_min_max(float min_raw, float max_raw, float min, float max) {
@@ -574,7 +582,7 @@ public abstract class Romanesco implements rope.core.RConstants {
 
   protected void set_canvas_y(float canvas_y, int begin, int end) {
     if(this.canvas_y == null) this.canvas_y = new Varom();
-    this.canvas_y.set(canvas_y,begin,end);
+    this.canvas_y.set_raw(canvas_y,begin,end);
   }
 
   protected void set_canvas_y_min_max(float min_raw, float max_raw, float min, float max) {
@@ -592,7 +600,7 @@ public abstract class Romanesco implements rope.core.RConstants {
 
   protected void set_canvas_z(float canvas_z, int begin, int end) {
     if(this.canvas_z == null) this.canvas_z = new Varom();
-    this.canvas_z.set(canvas_z,begin,end);
+    this.canvas_z.set_raw(canvas_z,begin,end);
   }
 
   protected void set_canvas_z_min_max(float min_raw, float max_raw, float min, float max) {
@@ -611,7 +619,7 @@ public abstract class Romanesco implements rope.core.RConstants {
 
   protected void set_frequence(float frequence, int begin, int end) {
     if(this.frequence == null) this.frequence = new Varom();
-    this.frequence.set(frequence,begin,end);
+    this.frequence.set_raw(frequence,begin,end);
   }
 
   protected void set_frequence_min_max(float min_raw, float max_raw, float min, float max) {
@@ -640,7 +648,7 @@ public abstract class Romanesco implements rope.core.RConstants {
 
   protected void set_speed_x(float speed_x, int begin, int end) {
     if(this.speed_x == null) this.speed_x = new Varom();
-    this.speed_x.set(speed_x,begin,end);
+    this.speed_x.set_raw(speed_x,begin,end);
   }
 
   protected void set_speed_x_min_max(float min_raw, float max_raw, float min, float max) {
@@ -658,7 +666,7 @@ public abstract class Romanesco implements rope.core.RConstants {
 
   protected void set_speed_y(float speed_y, int begin, int end) {
     if(this.speed_y == null) this.speed_y = new Varom();
-    this.speed_y.set(speed_y,begin,end);
+    this.speed_y.set_raw(speed_y,begin,end);
   }
 
   protected void set_speed_y_min_max(float min_raw, float max_raw, float min, float max) {
@@ -676,7 +684,7 @@ public abstract class Romanesco implements rope.core.RConstants {
 
   protected void set_speed_z(float speed_z, int begin, int end) {
     if(this.speed_z == null) this.speed_z = new Varom();
-    this.speed_z.set(speed_z,begin,end);
+    this.speed_z.set_raw(speed_z,begin,end);
   }
 
   protected void set_speed_z_min_max(float min_raw, float max_raw, float min, float max) {
@@ -705,7 +713,7 @@ public abstract class Romanesco implements rope.core.RConstants {
 
   protected void set_spurt_x(float spurt_x, int begin, int end) {
     if(this.spurt_x == null) this.spurt_x = new Varom();
-    this.spurt_x.set(spurt_x,begin,end);
+    this.spurt_x.set_raw(spurt_x,begin,end);
   }
 
   protected void set_spurt_x_min_max(float min_raw, float max_raw, float min, float max) {
@@ -723,7 +731,7 @@ public abstract class Romanesco implements rope.core.RConstants {
 
   protected void set_spurt_y(float spurt_y, int begin, int end) {
     if(this.spurt_y == null) this.spurt_y = new Varom();
-    this.spurt_y.set(spurt_y,begin,end);
+    this.spurt_y.set_raw(spurt_y,begin,end);
   }
 
   protected void set_spurt_y_min_max(float min_raw, float max_raw, float min, float max) {
@@ -741,7 +749,7 @@ public abstract class Romanesco implements rope.core.RConstants {
 
   protected void set_spurt_z(float spurt_z, int begin, int end) {
     if(this.spurt_z == null) this.spurt_z = new Varom();
-    this.spurt_z.set(spurt_z,begin,end);
+    this.spurt_z.set_raw(spurt_z,begin,end);
   }
 
   protected void set_spurt_z_min_max(float min_raw, float max_raw, float min, float max) {
@@ -770,7 +778,7 @@ public abstract class Romanesco implements rope.core.RConstants {
 
   protected void set_dir_x(float dir_x, int begin, int end) {
     if(this.dir_x == null) this.dir_x = new Varom();
-    this.dir_x.set(dir_x,begin,end);
+    this.dir_x.set_raw(dir_x,begin,end);
   }
 
   protected void set_dir_x_min_max(float min_raw, float max_raw, float min, float max) {
@@ -788,7 +796,7 @@ public abstract class Romanesco implements rope.core.RConstants {
 
   protected void set_dir_y(float dir_y, int begin, int end) {
     if(this.dir_y == null) this.dir_y = new Varom();
-    this.dir_y.set(dir_y,begin,end);
+    this.dir_y.set_raw(dir_y,begin,end);
   }
 
   protected void set_dir_y_min_max(float min_raw, float max_raw, float min, float max) {
@@ -806,7 +814,7 @@ public abstract class Romanesco implements rope.core.RConstants {
 
   protected void set_dir_z(float dir_z, int begin, int end) {
     if(this.dir_z == null) this.dir_z = new Varom();
-    this.dir_z.set(dir_z,begin,end);
+    this.dir_z.set_raw(dir_z,begin,end);
   }
 
   protected void set_dir_z_min_max(float min_raw, float max_raw, float min, float max) {
@@ -835,7 +843,7 @@ public abstract class Romanesco implements rope.core.RConstants {
 
   protected void set_jitter_x(float jitter_x, int begin, int end) {
     if(this.jitter_x == null) this.jitter_x = new Varom();
-    this.jitter_x.set(jitter_x,begin,end);
+    this.jitter_x.set_raw(jitter_x,begin,end);
   }
 
   protected void set_jitter_x_min_max(float min_raw, float max_raw, float min, float max) {
@@ -853,7 +861,7 @@ public abstract class Romanesco implements rope.core.RConstants {
 
   protected void set_jitter_y(float jitter_y, int begin, int end) {
     if(this.jitter_y == null) this.jitter_y = new Varom();
-    this.jitter_y.set(jitter_y,begin,end);
+    this.jitter_y.set_raw(jitter_y,begin,end);
   }
 
   protected void set_jitter_y_min_max(float min_raw, float max_raw, float min, float max) {
@@ -871,7 +879,7 @@ public abstract class Romanesco implements rope.core.RConstants {
 
   protected void set_jitter_z(float jitter_z, int begin, int end) {
     if(this.jitter_z == null) this.jitter_z = new Varom();
-    this.jitter_z.set(jitter_z,begin,end);
+    this.jitter_z.set_raw(jitter_z,begin,end);
   }
 
   protected void set_jitter_z_min_max(float min_raw, float max_raw, float min, float max) {
@@ -900,7 +908,7 @@ public abstract class Romanesco implements rope.core.RConstants {
 
   protected void set_swing_x(float swing_x, int begin, int end) {
     if(this.swing_x == null) this.swing_x = new Varom();
-    this.swing_x.set(swing_x,begin,end);
+    this.swing_x.set_raw(swing_x,begin,end);
   }
 
   protected void set_swing_x_min_max(float min_raw, float max_raw, float min, float max) {
@@ -918,7 +926,7 @@ public abstract class Romanesco implements rope.core.RConstants {
 
   protected void set_swing_y(float swing_y, int begin, int end) {
     if(this.swing_y == null) this.swing_y = new Varom();
-    this.swing_y.set(swing_y,begin,end);
+    this.swing_y.set_raw(swing_y,begin,end);
   }
 
   protected void set_swing_y_min_max(float min_raw, float max_raw, float min, float max) {
@@ -936,7 +944,7 @@ public abstract class Romanesco implements rope.core.RConstants {
 
   protected void set_swing_z(float swing_z, int begin, int end) {
     if(this.swing_z == null) this.swing_z = new Varom();
-    this.swing_z.set(swing_z,begin,end);
+    this.swing_z.set_raw(swing_z,begin,end);
   }
 
   protected void set_swing_z_min_max(float min_raw, float max_raw, float min, float max) {
@@ -956,7 +964,7 @@ public abstract class Romanesco implements rope.core.RConstants {
 
   protected void set_quantity(float quantity, int begin, int end) {
     if(this.quantity == null) this.quantity = new Varom();
-    this.quantity.set(quantity,begin,end);
+    this.quantity.set_raw(quantity,begin,end);
   }
 
   protected void set_quantity_min_max(float min_raw, float max_raw, float min, float max) {
@@ -974,7 +982,7 @@ public abstract class Romanesco implements rope.core.RConstants {
 
   protected void set_variety(float variety, int begin, int end) {
     if(this.variety == null) this.variety = new Varom();
-    this.variety.set(variety,begin,end);
+    this.variety.set_raw(variety,begin,end);
   }
 
   protected void set_variety_min_max(float min_raw, float max_raw, float min, float max) {
@@ -992,7 +1000,7 @@ public abstract class Romanesco implements rope.core.RConstants {
 
   protected void set_life(float life, int begin, int end) {
     if(this.life == null) this.life = new Varom();
-    this.life.set(life,begin,end);
+    this.life.set_raw(life,begin,end);
   }
 
   protected void set_life_min_max(float min_raw, float max_raw, float min, float max) {
@@ -1010,7 +1018,7 @@ public abstract class Romanesco implements rope.core.RConstants {
 
   protected void set_flow(float flow, int begin, int end) {
     if(this.flow == null) this.flow = new Varom();
-    this.flow.set(flow,begin,end);
+    this.flow.set_raw(flow,begin,end);
   }
 
   protected void set_flow_min_max(float min_raw, float max_raw, float min, float max) {
@@ -1028,7 +1036,7 @@ public abstract class Romanesco implements rope.core.RConstants {
 
   protected void set_quality(float quality, int begin, int end) {
     if(this.quality == null) this.quality = new Varom();
-    this.quality.set(quality,begin,end);
+    this.quality.set_raw(quality,begin,end);
   }
 
   protected void set_quality_min_max(float min_raw, float max_raw, float min, float max) {
@@ -1046,7 +1054,7 @@ public abstract class Romanesco implements rope.core.RConstants {
 
   protected void set_area(float area, int begin, int end) {
     if(this.area == null) this.area = new Varom();
-    this.area.set(area,begin,end);
+    this.area.set_raw(area,begin,end);
   }
 
   protected void set_area_min_max(float min_raw, float max_raw, float min, float max) {
@@ -1064,7 +1072,7 @@ public abstract class Romanesco implements rope.core.RConstants {
 
   protected void set_angle(float angle, int begin, int end) {
     if(this.angle == null) this.angle = new Varom();
-    this.angle.set(angle,begin,end);
+    this.angle.set_raw(angle,begin,end);
   }
 
   protected void set_angle_min_max(float min_raw, float max_raw, float min, float max) {
@@ -1082,7 +1090,7 @@ public abstract class Romanesco implements rope.core.RConstants {
 
   protected void set_scope(float scope, int begin, int end) {
     if(this.scope == null) this.scope = new Varom();
-    this.scope.set(scope,begin,end);
+    this.scope.set_raw(scope,begin,end);
   }
 
   protected void set_scope_min_max(float min_raw, float max_raw, float min, float max) {
@@ -1100,7 +1108,7 @@ public abstract class Romanesco implements rope.core.RConstants {
 
   protected void set_scan(float scan, int begin, int end) {
     if(this.scan == null) this.scan = new Varom();
-    this.scan.set(scan,begin,end);
+    this.scan.set_raw(scan,begin,end);
   }
 
   protected void set_scan_min_max(float min_raw, float max_raw, float min, float max) {
@@ -1118,7 +1126,7 @@ public abstract class Romanesco implements rope.core.RConstants {
 
   protected void set_alignment(float alignment, int begin, int end) {
     if(this.alignment == null) this.alignment = new Varom();
-    this.alignment.set(alignment,begin,end);
+    this.alignment.set_raw(alignment,begin,end);
   }
 
   protected void set_alignment_min_max(float min_raw, float max_raw, float min, float max) {
@@ -1136,7 +1144,7 @@ public abstract class Romanesco implements rope.core.RConstants {
 
   protected void set_repulsion(float repulsion, int begin, int end) {
     if(this.repulsion == null) this.repulsion = new Varom();
-    this.repulsion.set(repulsion,begin,end);
+    this.repulsion.set_raw(repulsion,begin,end);
   }
 
   protected void set_repulsion_min_max(float min_raw, float max_raw, float min, float max) {
@@ -1154,7 +1162,7 @@ public abstract class Romanesco implements rope.core.RConstants {
 
   protected void set_attraction(float attraction, int begin, int end) {
     if(this.attraction == null) this.attraction = new Varom();
-    this.attraction.set(attraction,begin,end);
+    this.attraction.set_raw(attraction,begin,end);
   }
 
   protected void set_attraction_min_max(float min_raw, float max_raw, float min, float max) {
@@ -1172,7 +1180,7 @@ public abstract class Romanesco implements rope.core.RConstants {
 
   protected void set_density(float density, int begin, int end) {
     if(this.density == null) this.density = new Varom();
-    this.density.set(density,begin,end);
+    this.density.set_raw(density,begin,end);
   }
 
   protected void set_density_min_max(float min_raw, float max_raw, float min, float max) {
@@ -1190,7 +1198,7 @@ public abstract class Romanesco implements rope.core.RConstants {
 
   protected void set_influence(float influence, int begin, int end) {
     if(this.influence == null) this.influence = new Varom();
-    this.influence.set(influence,begin,end);
+    this.influence.set_raw(influence,begin,end);
   }
 
   protected void set_influence_min_max(float min_raw, float max_raw, float min, float max) {
@@ -1208,7 +1216,7 @@ public abstract class Romanesco implements rope.core.RConstants {
 
   protected void set_calm(float calm, int begin, int end) {
     if(this.calm == null) this.calm = new Varom();
-    this.calm.set(calm,begin,end);
+    this.calm.set_raw(calm,begin,end);
   }
 
   protected void set_calm_min_max(float min_raw, float max_raw, float min, float max) {
@@ -1226,7 +1234,7 @@ public abstract class Romanesco implements rope.core.RConstants {
 
   protected void set_spectrum(float spectrum, int begin, int end) {
     if(this.spectrum == null) this.spectrum = new Varom();
-    this.spectrum.set(spectrum,begin,end);
+    this.spectrum.set_raw(spectrum,begin,end);
   }
 
   protected void set_spectrum_min_max(float min_raw, float max_raw, float min, float max) {
@@ -1245,7 +1253,7 @@ public abstract class Romanesco implements rope.core.RConstants {
 
   protected void set_grid(float grid, int begin, int end) {
     if(this.grid == null) this.grid = new Varom();
-    this.grid.set(grid,begin,end);
+    this.grid.set_raw(grid,begin,end);
   }
 
   protected void set_grid_min_max(float min_raw, float max_raw, float min, float max) {
@@ -1263,7 +1271,7 @@ public abstract class Romanesco implements rope.core.RConstants {
 
   protected void set_viscosity(float viscosity, int begin, int end) {
     if(this.viscosity == null) this.viscosity = new Varom();
-    this.viscosity.set(viscosity,begin,end);
+    this.viscosity.set_raw(viscosity,begin,end);
   }
 
   protected void set_viscosity_min_max(float min_raw, float max_raw, float min, float max) {
@@ -1281,7 +1289,7 @@ public abstract class Romanesco implements rope.core.RConstants {
 
   protected void set_diffusion(float diffusion, int begin, int end) {
     if(this.diffusion == null) this.diffusion = new Varom();
-    this.diffusion.set(diffusion,begin,end);
+    this.diffusion.set_raw(diffusion,begin,end);
   }
 
   protected void set_diffusion_min_max(float min_raw, float max_raw, float min, float max) {
@@ -1299,7 +1307,7 @@ public abstract class Romanesco implements rope.core.RConstants {
 
   protected void set_power(float power, int begin, int end) {
     if(this.power == null) this.power = new Varom();
-    this.power.set(power,begin,end);
+    this.power.set_raw(power,begin,end);
   }
 
   protected void set_power_min_max(float min_raw, float max_raw, float min, float max) {
@@ -1317,7 +1325,7 @@ public abstract class Romanesco implements rope.core.RConstants {
 
   protected void set_mass(float mass, int begin, int end) {
     if(this.mass == null) this.mass = new Varom();
-    this.mass.set(mass,begin,end);
+    this.mass.set_raw(mass,begin,end);
   }
 
   protected void set_mass_min_max(float min_raw, float max_raw, float min, float max) {
@@ -1346,7 +1354,7 @@ public abstract class Romanesco implements rope.core.RConstants {
 
   protected void set_coord_x(float coord_x, int begin, int end) {
     if(this.coord_x == null) this.coord_x = new Varom();
-    this.coord_x.set(coord_x,begin,end);
+    this.coord_x.set_raw(coord_x,begin,end);
   }
 
   protected void set_coord_x_min_max(float min_raw, float max_raw, float min, float max) {
@@ -1364,7 +1372,7 @@ public abstract class Romanesco implements rope.core.RConstants {
 
   protected void set_coord_y(float coord_y, int begin, int end) {
     if(this.coord_y == null) this.coord_y = new Varom();
-    this.coord_y.set(coord_y,begin,end);
+    this.coord_y.set_raw(coord_y,begin,end);
   }
 
   protected void set_coord_y_min_max(float min_raw, float max_raw, float min, float max) {
@@ -1382,7 +1390,7 @@ public abstract class Romanesco implements rope.core.RConstants {
 
   protected void set_coord_z(float coord_z, int begin, int end) {
     if(this.coord_z == null) this.coord_z = new Varom();
-    this.coord_z.set(coord_z,begin,end);
+    this.coord_z.set_raw(coord_z,begin,end);
   }
 
   protected void set_coord_z_min_max(float min_raw, float max_raw, float min, float max) {

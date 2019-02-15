@@ -1,7 +1,7 @@
 /**
 FILTER
 * 2018-2019
-* v 0.1.0
+* v 0.1.1
 * here is calling classic FX ROPE + FX FORCE FIELD
 */
 
@@ -67,7 +67,6 @@ void filter() {
   if(active_fx != null) {
     if(reset_fx_button_alert_is()) {
       active_fx.clear();
-      println("active_fx",active_fx.size());
     }
   }
 
@@ -77,7 +76,7 @@ void filter() {
     update_fx_classic();
 
     if(extra_filter_fx && active_fx != null && active_fx.size() > 0) {
-      println("active fx size",active_fx.size());
+      // println("active fx size",active_fx.size());
       for(int i : active_fx) {
         // println(i);
         draw_fx(i);

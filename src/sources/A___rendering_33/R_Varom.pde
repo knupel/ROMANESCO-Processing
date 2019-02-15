@@ -1,7 +1,7 @@
 /**
 Varom
-V 0.0.5
-2018-2018
+V 0.0.6
+2018-2019
 */
 public class Varom {
   private float raw = 0;
@@ -19,7 +19,7 @@ public class Varom {
     set_max(max);
     set_min_raw(min_raw);
     set_max_raw(max_raw);
-    set(raw);
+    set_raw(raw);
   }
 
 
@@ -55,11 +55,11 @@ public class Varom {
   /**
   set
   */
-  public void set(float raw) {
-    set(raw,0,0);
+  public void set_raw(float raw) {
+    set_raw(raw,0,0);
   }
 
-  public void set(float raw, int begin, int end) {
+  public void set_raw(float raw, int begin, int end) {
     this.raw = raw;
     if(begin == 0 && end == 0) {
       result = map(this.raw,min_raw,max_raw,min,max);

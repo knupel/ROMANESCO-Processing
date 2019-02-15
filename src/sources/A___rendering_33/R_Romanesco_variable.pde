@@ -1,8 +1,8 @@
 /**
 Romanesco Manager
 Prescene and Scene
-2013-2018
-v 1.6.1
+2013-2019
+v 1.7.0
 */
 Romanesco_manager rom_manager;
 

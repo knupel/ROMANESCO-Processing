@@ -1,7 +1,7 @@
 /**
 VARIABLE RENDERING
 2015-2019
-v 1.9.1
+v 1.10.0
 */
 boolean scene, prescene;
 boolean miroir_on_off = false;
@@ -986,15 +986,15 @@ void update_raw_item_value() {
 
   int col = NUM_SLIDER_ITEM_BY_COL *0;
   // fill
-  fill_hue_raw = value_slider_item[col+0];
-  fill_sat_raw = value_slider_item[col+1];    
-  fill_bright_raw = value_slider_item[col+2];   
-  fill_alpha_raw = value_slider_item[col+3];
+  fill_hue_raw = map(value_slider_item[col+0],0,MAX_VALUE_SLIDER,0,g.colorModeX);
+  fill_sat_raw = map(value_slider_item[col+1],0,MAX_VALUE_SLIDER,0,g.colorModeY);    
+  fill_bright_raw = map(value_slider_item[col+2],0,MAX_VALUE_SLIDER,0,g.colorModeZ);  
+  fill_alpha_raw = map(value_slider_item[col+3],0,MAX_VALUE_SLIDER,0,g.colorModeA);
   // stroke
-  stroke_hue_raw = value_slider_item[col+4];   
-  stroke_sat_raw = value_slider_item[col+5];  
-  stroke_bright_raw = value_slider_item[col+6]; 
-  stroke_alpha_raw = value_slider_item[col+7];
+  stroke_hue_raw = map(value_slider_item[col+4],0,MAX_VALUE_SLIDER,0,g.colorModeX); 
+  stroke_sat_raw = map(value_slider_item[col+5],0,MAX_VALUE_SLIDER,0,g.colorModeY);  
+  stroke_bright_raw = map(value_slider_item[col+6],0,MAX_VALUE_SLIDER,0,g.colorModeZ);  
+  stroke_alpha_raw = map(value_slider_item[col+7],0,MAX_VALUE_SLIDER,0,g.colorModeA);
   // 
   thickness_raw = value_slider_item[col+8];
 
