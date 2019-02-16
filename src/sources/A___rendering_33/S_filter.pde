@@ -97,11 +97,70 @@ void draw_fx(int which) {
     int target = which- num_of_special_fx; // min 1 cause the first one is a special one;
     for(int i = 0 ; i < fx_classic_num ; i++) {
       if(target == i) {
-        select_fx(g,null,null,get_fx(target));
+        if(get_fx(target).get_type() == FX_WARP_TEX) {
+          if(fx_pattern == null) {
+            draw_fx_pattern(16,16,2,RGB,true);
+          } else {
+            draw_fx_pattern(16,16,2,RGB,reset_fx_button_alert_is());
+          }
+          select_fx(g,get_fx_pattern(0),get_fx_pattern(1),get_fx(target));
+        } else {
+          select_fx(g,null,null,get_fx(target));
+        }      
       }
     }
   }
 }
+
+
+
+
+/**
+UTIL FILTER
+*/
+PImage [] fx_pattern;
+PImage get_fx_pattern(int which) {
+  if(fx_pattern != null && which < fx_pattern.length) {
+    return fx_pattern[which];
+  } else {
+    return null;
+  }
+}
+
+
+void draw_fx_pattern(int w, int h, int num, int mode, boolean event) {
+  if(fx_pattern == null || num < fx_pattern.length) {
+    fx_pattern = new PImage[num];
+  }
+  for(int i = 0; i < fx_pattern.length ; i++) {
+    if(event || fx_pattern[i] == null) {
+      if(mode == RGB) {
+        fx_pattern[i] = generate_fx_pattern(3,w,h); // warp RGB
+      } else if(mode == GRAY) {
+        fx_pattern[i] = generate_fx_pattern(0,w,h); // warp GRAY
+      } 
+    }
+  }  
+}
+
+
+PGraphics generate_fx_pattern(int mode, int sx, int sw) {
+  vec3 inc = vec3(random(1)*random(1),random(1)*random(1),random(1)*random(1));
+  if(mode == 0) {
+    // black and white
+    return pattern_noise(sx,sw,inc.x);
+  } else if(mode == 3) {
+    // rgb
+    return pattern_noise(sx,sw,inc.array());
+  } else return null;
+}
+
+
+
+
+
+
+
 
 
 void write_filter_index() {
@@ -152,6 +211,10 @@ void write_filter_index() {
 
 
 
+
+
+
+
 /**
 FX ROMANESCO
 * classic FX class
@@ -170,6 +233,9 @@ void setting_fx_classic() {
   setting_fx_pixel();
 
   setting_fx_split_rgb();
+
+  setting_fx_warp_proc();
+  setting_fx_warp_tex();
 }
 
 void update_fx_classic() {
@@ -208,6 +274,10 @@ void update_fx_classic() {
   update_fx_pixel(move_filter_fx,quantity,vec2(sx,sy),vec3(cx,cy,cz));
 
   update_fx_split_rgb(move_filter_fx,vec2(str_x,str_y),speed);
+  
+ 
+  update_fx_warp_proc(move_filter_fx,str_x,speed);
+  update_fx_warp_tex(move_filter_fx,str_x);
 
 
 }
@@ -451,6 +521,56 @@ void update_fx_split_rgb(boolean move_is, vec2 str, float speed) {
 
 
 
+/**
+* warp proc
+* v 0.0.1
+*/
+String set_warp_proc = "warp proc";
+void setting_fx_warp_proc() {
+  String version = "0.0.1";
+  int revision = 1;
+  String author = "Stan le Punk";
+  String pack = "Base 2019";
+  int id = fx_classic_num;
+  init_fx(set_warp_proc,FX_WARP_PROC,id,author,pack,version,revision);
+  fx_classic_num++; 
+}
+
+
+void update_fx_warp_proc(boolean move_is, float str, float speed) {
+  if(move_is) {
+    float max = map(str,0,1,1,height/20);
+    float strength = sin(frameCount *(speed*speed)) *max;
+    fx_set_strength(set_warp_proc,strength);
+  }
+}
+
+
+/**
+* warp tex
+* v 0.0.1
+*/
+String set_warp_tex = "warp tex";
+void setting_fx_warp_tex() {
+  String version = "0.0.1";
+  int revision = 1;
+  String author = "Stan le Punk";
+  String pack = "Base 2019";
+  int id = fx_classic_num;
+  init_fx(set_warp_tex,FX_WARP_TEX,id,author,pack,version,revision);
+  fx_classic_num++; 
+}
+
+
+void update_fx_warp_tex(boolean move_is, float str) {
+  if(move_is) {
+    fx_set_strength(set_warp_tex,str);
+  }
+}
+
+
+
+
 
 
 
@@ -538,6 +658,30 @@ void warp_force_keyPressed(char c_1) {
     warp_force_reset = true;
   }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

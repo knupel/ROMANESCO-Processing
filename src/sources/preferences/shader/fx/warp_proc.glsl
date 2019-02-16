@@ -5,8 +5,8 @@
 * inspired by ushiostarfish https://www.shadertoy.com/user/ushiostarfish
 * @see https://www.shadertoy.com/view/4sX3RN
 
-v 0.0.3
-2018-2018
+v 0.0.4
+2018-2019
 */
 // Processing implementation
 #ifdef GL_ES
@@ -96,7 +96,7 @@ void main() {
 	float v1 = noise3d(vec3(uv * strength, 0.0));
 	float v2 = noise3d(vec3(uv * strength, 1.0));
 	
-	vec4 color  = texture(texture_source, uv + vec2(v1,v2) * 0.1);
+	vec4 color  = texture2D(texture_source, uv + vec2(v1,v2) * 0.1);
 	gl_FragColor = color;
 }
 
