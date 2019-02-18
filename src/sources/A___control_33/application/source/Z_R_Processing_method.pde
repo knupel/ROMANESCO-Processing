@@ -830,7 +830,7 @@ void start_matrix_3D(vec pos, vec3 dir_cart) {
     translate(p) ;
   } else {
     printErr("Error in void start_matrix_3D(), vec pos is not an instance of vec2 or vec3, the matrix don't translate your object") ;
-    // exit() ;
+    exit() ;
   }
   float radius = sqrt(dir.x * dir.x + dir.y * dir.y + dir.z * dir.z);
   float longitude = acos(dir.x / sqrt(dir.x * dir.x + dir.y * dir.y)) * (dir.y < 0 ? -1 : 1);
@@ -856,7 +856,7 @@ void start_matrix_3D(vec pos, vec2 dir_polar) {
     rotateXY(dir_polar);
   } else {
     printErr("Error in void start_matrix_3D(), vec pos is not an instance of vec2 or vec3, the matrix cannot be init") ;
-    // exit() ;
+    exit() ;
   }
 }
 
@@ -873,7 +873,7 @@ void start_matrix_2D(vec pos, float orientation) {
     rotate(orientation);
   } else {
     printErr("Error in void start_matrix_3D(), vec pos is not an instance of vec2 or vec3, the matrix cannot be init") ;
-    // exit();
+    exit();
   }
 }
 
@@ -2597,7 +2597,3 @@ void textFont(PFont font, float size) {
 
 
   
-
-
-
-

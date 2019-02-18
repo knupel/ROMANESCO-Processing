@@ -47,260 +47,6 @@ void OSC_controller_setup() {
 
 
 
-/**
-EVENT & THREAD
-v 0.0.2
-*/
-int security_to_dont_duplicate_osc_packet ;
-void oscEvent(OscMessage receive) {
-  if(security_to_dont_duplicate_osc_packet != frameCount) {
-    controller_reception(receive);
-    if(IAM.equals("scene")) {
-      prescene_reception(receive);
-    }
-  }
-  security_to_dont_duplicate_osc_packet = frameCount;
-}
-
-boolean controller_osc_is = false ;
-void controller_reception(OscMessage receive) {
-  if(receive.addrPattern().equals("Controller general")) {
-    thread_data_controller_general(receive);
-    controller_osc_is = true;
-  }
-
-  if(receive.addrPattern().equals("Controller item")) {
-    thread_data_controller_item(receive);
-    controller_osc_is = true;
-  }
-}
-
-
-
-
-void thread_data_controller_general(OscMessage receive) {
-  int rank = 0 ;
-  receive_data_misc(receive,rank); // 3 arg
-  // load_SCENE_Setting_GLOBAL > +1;
-  // save_Current_SCENE_Setting_GLOBAL > +1;
-  // save_New_SCENE_Setting_GLOBAL > +1;
-  // total +3
-  rank += 3;
-  receive_data_menu_bar(receive,rank); 
-
-  rank += NUM_TOP_BUTTON;
-  receive_data_general_dropdown(receive,rank);
-
-  rank += NUM_DROPDOWN_GENERAL;
-  //rank += 7;
-  receive_data_general_button(receive,rank);
-
-  rank += NUM_MID_BUTTON;  
-  receive_data_general_slider(receive,rank,rank +NUM_MOLETTE_GENERAL); // NUM_SLIDER_GENERAL 
-}
-
-
-void thread_data_controller_item(OscMessage receive) {
-  int rank = 0 ;
-  receive_data_slider_item(receive,rank); // num arg = NUM_SLIDER_ITEM
-  rank += NUM_SLIDER_ITEM;
-  receive_data_button_item(receive,rank); // num arg = NUM_ITEM_PLUS_MASTER *BUTTON_ITEM_CONSOLE
-  rank += (NUM_ITEM *BUTTON_ITEM_CONSOLE);
-  receive_data_dropdown_costume_item(receive,rank); // num arg = NUM_ITEM_PLUS_MASTER
-  rank += NUM_ITEM;
-  receive_data_dropdown_mode_item(receive,rank); // num arg = NUM_ITEM_PLUS_MASTER
-
-}
-
-
-
-// local method
-boolean to_bool(OscMessage receive, int index) {
-  Object obj = receive.arguments()[index];
-  if(obj instanceof Integer) {
-    int i = (int)obj;
-    if(i == 0) return false ; else return true;
-  } if(obj instanceof Float) {
-    float f = (float)obj;
-    if(f == 0) return false ; else return true;
-  } else {
-    if(IAM.equals("prescene")) {
-      // not possible to use print when the presne is used because the rendering prescene and scene is from the same sketch
-      printErr("OSC message index",index, "cannot be cast by default false value has be used");
-    }
-    return false;
-  }
-}
-
-void receive_data_misc(OscMessage receive, int in) {
-  load_SCENE_Setting_GLOBAL = to_bool(receive,0+in);
-  save_Current_SCENE_Setting_GLOBAL = to_bool(receive,1+in);
-  save_New_SCENE_Setting_GLOBAL = to_bool(receive,2+in);
-}
-
-
-void receive_data_menu_bar(OscMessage receive, int in) {
-  curtain_button_is(to_bool(receive,0+in));
-  // reset button alert
-  reset_camera_button_alert_is(to_bool(receive,1+in));
-  reset_item_on_button_alert_is(to_bool(receive,2+in));
-  reset_fx_button_alert_is(to_bool(receive,3+in));
-  // misc
-  birth_button_alert_is(to_bool(receive,4+in));
-  dimension_button_alert_is(to_bool(receive,5+in));
-/*
-  if(birth_button_is()) println("receive_data_menu_bar() :birth",birth_button_is(),frameCount);
-  if(dimension_button_is()) println("receive_data_menu_bar: dimension",dimension_button_is(),frameCount);
-  */
-}
-
-void receive_data_general_dropdown(OscMessage receive, int in) {
-  which_shader = receive.get(0+in).intValue(); // shader
-  which_fx = receive.get(1+in).intValue(); // filter
-  select_font(receive.get(2+in).intValue()); // font
-  which_text[0] = receive.get(3+in).intValue(); // text
-  which_bitmap[0] = receive.get(4+in).intValue(); // bitmap
-  which_shape[0] = receive.get(5+in).intValue(); // shape
-  which_movie[0] = receive.get(6+in).intValue(); // movie
-}
-
-
-void receive_data_general_button(OscMessage receive, int in) {
-  int target = 0;
-  background_button_is(to_bool(receive,target+in));
-  target++;
-  for(int i = 0 ; i < fx_button_is.length ; i++) {
-    fx_button_is(i,to_bool(receive,target+in));
-    target++;
-  }
-  ambient_button_is(to_bool(receive,target+in));
-  target++;
-  ambient_action_button_is(to_bool(receive,target+in));
-  target++;
-  light_1_button_is(to_bool(receive,target+in));
-  target++;
-  light_1_action_button_is(to_bool(receive,target+in));
-  target++;
-  light_2_button_is(to_bool(receive,target+in));
-  target++;
-  light_2_action_button_is(to_bool(receive,target+in));
-  target++;
-  for(int i = 1 ; i < transient_button_is.length ; i++) {
-    transient_button_is(i,to_bool(receive,target+in));
-    target++;
-  }
-  // index_osc finish at 12
-}
-
-void receive_data_general_slider(OscMessage receive, int in, int out) {
-  int in_background = in ;
-  int out_background = in_background +NUM_MOLETTE_BACKGROUND;
-
-  int in_fx =  out_background;
-  int out_fx = in_fx +NUM_MOLETTE_FX;
-
-  int in_light =  out_fx;
-  int out_light = in_light +NUM_MOLETTE_LIGHT;
-
-  int in_sound =  out_light;
-  int out_sound = in_sound +NUM_MOLETTE_SOUND;
-
-  int in_sound_setting =  out_sound;
-  int out_sound_setting = in_sound_setting +NUM_MOLETTE_SOUND_SETTING;
-
-  int in_camera =  out_sound_setting;
-  int out_camera = in_camera +NUM_MOLETTE_CAMERA;
-
-  for (int i = in ; i < out ; i++) {
-    if(i < out_background) {
-      value_slider_background[i -in] = receive.get(i).intValue();
-    } else if(i >= in_fx && i < out_fx) {
-      value_slider_fx[i -in_fx] = receive.get(i).intValue();
-    } else if(i >= in_light && i < out_light) {
-      value_slider_light[i -in_light] = receive.get(i).intValue();
-    } else if(i >= in_sound && i < out_sound) {
-      value_slider_sound[i -in_sound] = receive.get(i).intValue();
-    } else if(i >= in_sound_setting && i < out_sound_setting) {
-      value_slider_sound_setting[i -in_sound_setting] = receive.get(i).intValue();
-    } else if(i >= in_camera && i < out_camera) {
-      value_slider_camera[i -in_camera] = receive.get(i).intValue();
-    }
-  } 
-}
-
-
-void receive_data_slider_item(OscMessage receive, int in) {
-  for (int i = 0 ; i < NUM_MOLETTE_ITEM ; i++) {
-    int index = in + i;
-    value_slider_item[i] = Float.valueOf(receive.get(index).intValue());
-  }
-}
-
-
-void receive_data_button_item(OscMessage receive, int in) {
-  int num = BUTTON_ITEM_CONSOLE;
-  for (int i = 0 ; i < NUM_ITEM ; i++) {
-    int index = in + (i*num);
-    Romanesco item = rom_manager.get(i);
-    item.show_is(to_bool(receive,index+0));
-    item.parameter_is(to_bool(receive,index+1));
-    item.sound_is(to_bool(receive,index+2));
-    item.action_is(to_bool(receive,index+3));
-  }
-}
-
-void receive_data_dropdown_mode_item(OscMessage receive, int in) {
-  for (int i = 0 ; i < NUM_ITEM ; i++) {
-    int index = i+in;
-    Romanesco item = rom_manager.get(i);
-    item.mode.set_id(receive.get(index).intValue());
-  }
-}
-
-void receive_data_dropdown_costume_item(OscMessage receive, int in) {
-  for (int i = 0 ; i < NUM_ITEM ; i++) {
-    int index = i+in;
-    int target = i+1;
-    Romanesco item = rom_manager.get(i);
-    item.set_costume_id(receive.get(index).intValue());
-  }
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -309,10 +55,14 @@ void receive_data_dropdown_costume_item(OscMessage receive, int in) {
 
 
 /**
-OSC Prescene 
-2014-2018
-v 1.4.0
+* SEND OSC
+* use to send info from prescene to scene
+* commnande key, mouse, leapmotion.
 * this part is used when the sketch is build like a prescene
+*
+* 2014-2019
+* v 1.4.1
+* 
 */
 NetAddress [] ad_scene ;
 String [] ID_address_scene ;
@@ -339,7 +89,7 @@ void OSC_thread_send_scene_setup() {
       if(temp[i].equals("IP_address") || temp[i].equals("")) {
         // nothing happens
       } else {
-        num_valid_address ++ ;
+        num_valid_address++;
       }   
     }
     if (youCanSendToScene) {
@@ -348,7 +98,7 @@ void OSC_thread_send_scene_setup() {
     }
     
     for(int i = 0 ; i < num_valid_address ; i++) {
-      ID_address_scene[i] = temp[i+1] ;
+      ID_address_scene[i] = temp[i+1];
     }
 
     for(int i = 0 ; i < ad_scene.length ; i++) {
@@ -380,31 +130,25 @@ void send_message(boolean send_message_is) {
 
 // OSC prescene send
 void OSC_send() {
-  OscMessage RomanescoScene = new OscMessage("Prescene");
-
-  //SEND data to SCENE
-  RomanescoScene.add(toScene);
+  OscMessage message_prescene_to_scene = new OscMessage("Prescene");
+  message_prescene_to_scene.add(toScene);
 
   //send
   if(ad_scene == null) {
     printErr("OSC_send(): prescene app exit because the global variable 'DEV_MODE' must be false");
-    exit();
+    // exit();
   } else {
     if(MIROIR) {
       for(int i = 0 ; i < ad_scene.length ; i++) {
         println("void OSC_send():",ad_scene[i]);
-        osc_send_scene.send(RomanescoScene, ad_scene[i]);
+        osc_send_scene.send(message_prescene_to_scene,ad_scene[i]);
       } 
     } else if(!MIROIR) {
-      osc_send_scene.send(RomanescoScene, ad_scene[0]);
+      osc_send_scene.send(message_prescene_to_scene,ad_scene[0]);
+      dataPrescene = message_prescene_to_scene.get(0).stringValue();
     }  
   }
 }
-
-
-
-
-
 
 
 // OSC prescene write
@@ -552,6 +296,7 @@ void write_osc_event() {
   if (ORDER_TWO) data_osc_prescene[132] = ("1") ; else data_osc_prescene[132] = ("0");
   if (ORDER_THREE) data_osc_prescene[133] = ("1") ; else data_osc_prescene[133] = ("0");
   if (LEAPMOTION_DETECTED) data_osc_prescene[134] = ("1") ; else data_osc_prescene[134] = ("0");
+
 }
 
 
@@ -629,18 +374,53 @@ void join_osc_data() {
 
 
 
+
+
+
+
+
+
+
+
+
+
 /**
-SCENE OSC
-2013-2018
-v 1.0.1
+* RECEPTION OSC
+* v 0.0.1
+*
+*
+*
+*
+*
+*/
+/**
+EVENT & THREAD
+v 0.0.2
+*/
+int security_to_dont_duplicate_osc_packet ;
+void oscEvent(OscMessage receive) {
+  if(security_to_dont_duplicate_osc_packet != frameCount) {
+    controller_reception(receive);
+    if(IAM.equals("scene")) {
+      prescene_reception(receive);
+    }
+  }
+  security_to_dont_duplicate_osc_packet = frameCount;
+}
+
+
+
+
+/**
+* PRESCENE RECEPTION
+* 2013-2019
+*v 1.1.0
 * this part is used when the sketch is build like a scene
+*
 */
 String dataPrescene = ("") ;
 String from_prescene_boolean_load_save = ("") ;
-
-
 OscP5 osc_receive_prescene ;
-
 
 // OSC prescene setup 
 void OSC_scene_setup() {
@@ -650,41 +430,19 @@ void OSC_scene_setup() {
   println("OSC Scene setup done");
 }
 
-
-
 void prescene_reception(OscMessage m) {
-  if(m.addrPattern().equals("Prescene")) {
-    println("je reçois un truc",frameCount);
-    
-    catchDataFromPrescene(m);
-    data_osc_prescene = split(dataPrescene, '/') ;
-    data_save_osc_prescene_reception();
-    
+  if(m.addrPattern().equals("Prescene")) {  
+    catch_data_from_precene(m);
+    data_osc_prescene = split(dataPrescene,'/');
   } 
 }
 
-
-void catchDataFromPrescene(OscMessage receive) {
-  dataPrescene = receive.get(0).stringValue() ;
-  from_prescene_boolean_load_save = receive.get(2).stringValue() ;
+void catch_data_from_precene(OscMessage receive) { 
+  dataPrescene = receive.get(0).stringValue();
+  if(receive.arguments().length > 2 ) {
+    from_prescene_boolean_load_save = receive.get(2).stringValue();
+  }
 }
-
-
-
-
-
-void data_save_osc_prescene_reception() {
-  String [] booleanSave  ;
-  booleanSave = split(from_prescene_boolean_load_save, '/') ;
-  // convert string to boolean
-  load_SCENE_Setting_order_from_presecene = Boolean.valueOf(booleanSave[0]).booleanValue();
-  save_Current_SCENE_Setting_order_from_presecene = Boolean.valueOf(booleanSave[1]).booleanValue();
-  save_New_SCENE_Setting_order_from_presecene = Boolean.valueOf(booleanSave[2]).booleanValue();
-}
-
-
-
-
 
 void update_OSC_data() {
   translate_event_prescene() ;
@@ -809,6 +567,218 @@ void translate_event_prescene() {
   if(data_osc_prescene[133].equals("0")) ORDER_THREE = false; else ORDER_THREE = true;
   if(data_osc_prescene[134].equals("0")) LEAPMOTION_DETECTED = false; else LEAPMOTION_DETECTED = true;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/** 
+* CONTROLLER RECEPTION
+*/
+boolean controller_osc_is = false ;
+void controller_reception(OscMessage receive) {
+  if(receive.addrPattern().equals("Controller general")) {
+    thread_data_controller_general(receive);
+    controller_osc_is = true;
+  }
+
+  if(receive.addrPattern().equals("Controller item")) {
+    thread_data_controller_item(receive);
+    controller_osc_is = true;
+  }
+}
+
+
+void thread_data_controller_general(OscMessage receive) {
+  int rank = 0 ;
+  receive_data_menu_bar(receive,rank); 
+
+  rank += NUM_TOP_BUTTON;
+  receive_data_general_dropdown(receive,rank);
+
+  rank += NUM_DROPDOWN_GENERAL;
+  //rank += 7;
+  receive_data_general_button(receive,rank);
+
+  rank += NUM_MID_BUTTON;  
+  receive_data_general_slider(receive,rank,rank +NUM_MOLETTE_GENERAL); // NUM_SLIDER_GENERAL 
+}
+
+
+void thread_data_controller_item(OscMessage receive) {
+  int rank = 0 ;
+  receive_data_slider_item(receive,rank); // num arg = NUM_SLIDER_ITEM
+  rank += NUM_SLIDER_ITEM;
+  receive_data_button_item(receive,rank); // num arg = NUM_ITEM_PLUS_MASTER *BUTTON_ITEM_CONSOLE
+  rank += (NUM_ITEM *BUTTON_ITEM_CONSOLE);
+  receive_data_dropdown_costume_item(receive,rank); // num arg = NUM_ITEM_PLUS_MASTER
+  rank += NUM_ITEM;
+  receive_data_dropdown_mode_item(receive,rank); // num arg = NUM_ITEM_PLUS_MASTER
+
+}
+
+
+
+// local method
+boolean to_bool(OscMessage receive, int index) {
+  Object obj = receive.arguments()[index];
+  if(obj instanceof Integer) {
+    int i = (int)obj;
+    if(i == 0) return false ; else return true;
+  } if(obj instanceof Float) {
+    float f = (float)obj;
+    if(f == 0) return false ; else return true;
+  } else {
+    if(IAM.equals("prescene")) {
+      // not possible to use print when the presne is used because the rendering prescene and scene is from the same sketch
+      printErr("OSC message index",index, "cannot be cast by default false value has be used");
+    }
+    return false;
+  }
+}
+
+
+
+void receive_data_menu_bar(OscMessage receive, int in) {
+  curtain_button_is(to_bool(receive,0+in));
+  // reset button alert
+  reset_camera_button_alert_is(to_bool(receive,1+in));
+  reset_item_on_button_alert_is(to_bool(receive,2+in));
+  reset_fx_button_alert_is(to_bool(receive,3+in));
+  // misc
+  birth_button_alert_is(to_bool(receive,4+in));
+  dimension_button_alert_is(to_bool(receive,5+in));
+/*
+  if(birth_button_is()) println("receive_data_menu_bar() :birth",birth_button_is(),frameCount);
+  if(dimension_button_is()) println("receive_data_menu_bar: dimension",dimension_button_is(),frameCount);
+  */
+}
+
+void receive_data_general_dropdown(OscMessage receive, int in) {
+  which_shader = receive.get(0+in).intValue(); // shader
+  which_fx = receive.get(1+in).intValue(); // filter
+  select_font(receive.get(2+in).intValue()); // font
+  which_text[0] = receive.get(3+in).intValue(); // text
+  which_bitmap[0] = receive.get(4+in).intValue(); // bitmap
+  which_shape[0] = receive.get(5+in).intValue(); // shape
+  which_movie[0] = receive.get(6+in).intValue(); // movie
+}
+
+
+void receive_data_general_button(OscMessage receive, int in) {
+  int target = 0;
+  background_button_is(to_bool(receive,target+in));
+  target++;
+  for(int i = 0 ; i < fx_button_is.length ; i++) {
+    fx_button_is(i,to_bool(receive,target+in));
+    target++;
+  }
+  ambient_button_is(to_bool(receive,target+in));
+  target++;
+  ambient_action_button_is(to_bool(receive,target+in));
+  target++;
+  light_1_button_is(to_bool(receive,target+in));
+  target++;
+  light_1_action_button_is(to_bool(receive,target+in));
+  target++;
+  light_2_button_is(to_bool(receive,target+in));
+  target++;
+  light_2_action_button_is(to_bool(receive,target+in));
+  target++;
+  for(int i = 1 ; i < transient_button_is.length ; i++) {
+    transient_button_is(i,to_bool(receive,target+in));
+    target++;
+  }
+  // index_osc finish at 12
+}
+
+void receive_data_general_slider(OscMessage receive, int in, int out) {
+  int in_background = in ;
+  int out_background = in_background +NUM_MOLETTE_BACKGROUND;
+
+  int in_fx =  out_background;
+  int out_fx = in_fx +NUM_MOLETTE_FX;
+
+  int in_light =  out_fx;
+  int out_light = in_light +NUM_MOLETTE_LIGHT;
+
+  int in_sound =  out_light;
+  int out_sound = in_sound +NUM_MOLETTE_SOUND;
+
+  int in_sound_setting =  out_sound;
+  int out_sound_setting = in_sound_setting +NUM_MOLETTE_SOUND_SETTING;
+
+  int in_camera =  out_sound_setting;
+  int out_camera = in_camera +NUM_MOLETTE_CAMERA;
+
+  for (int i = in ; i < out ; i++) {
+    if(i < out_background) {
+      value_slider_background[i -in] = receive.get(i).intValue();
+    } else if(i >= in_fx && i < out_fx) {
+      value_slider_fx[i -in_fx] = receive.get(i).intValue();
+    } else if(i >= in_light && i < out_light) {
+      value_slider_light[i -in_light] = receive.get(i).intValue();
+    } else if(i >= in_sound && i < out_sound) {
+      value_slider_sound[i -in_sound] = receive.get(i).intValue();
+    } else if(i >= in_sound_setting && i < out_sound_setting) {
+      value_slider_sound_setting[i -in_sound_setting] = receive.get(i).intValue();
+    } else if(i >= in_camera && i < out_camera) {
+      value_slider_camera[i -in_camera] = receive.get(i).intValue();
+    }
+  } 
+}
+
+
+void receive_data_slider_item(OscMessage receive, int in) {
+  for (int i = 0 ; i < NUM_MOLETTE_ITEM ; i++) {
+    int index = in + i;
+    value_slider_item[i] = Float.valueOf(receive.get(index).intValue());
+  }
+}
+
+
+void receive_data_button_item(OscMessage receive, int in) {
+  int num = BUTTON_ITEM_CONSOLE;
+  for (int i = 0 ; i < NUM_ITEM ; i++) {
+    int index = in + (i*num);
+    Romanesco item = rom_manager.get(i);
+    item.show_is(to_bool(receive,index+0));
+    item.parameter_is(to_bool(receive,index+1));
+    item.sound_is(to_bool(receive,index+2));
+    item.action_is(to_bool(receive,index+3));
+  }
+}
+
+void receive_data_dropdown_mode_item(OscMessage receive, int in) {
+  for (int i = 0 ; i < NUM_ITEM ; i++) {
+    int index = i+in;
+    Romanesco item = rom_manager.get(i);
+    item.mode.set_id(receive.get(index).intValue());
+  }
+}
+
+void receive_data_dropdown_costume_item(OscMessage receive, int in) {
+  for (int i = 0 ; i < NUM_ITEM ; i++) {
+    int index = i+in;
+    int target = i+1;
+    Romanesco item = rom_manager.get(i);
+    item.set_costume_id(receive.get(index).intValue());
+  }
+}
+
+
 
 
 

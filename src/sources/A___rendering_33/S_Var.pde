@@ -1,7 +1,7 @@
 /**
 VARIABLE RENDERING
 2015-2019
-v 1.10.1
+v 1.11.0
 */
 boolean scene, prescene;
 boolean miroir_on_off = false;
@@ -96,12 +96,6 @@ boolean MOUSE_IN_OUT = true ;
 // command from leap motion, mouse or other devices if we code for that :)
 boolean ORDER, ORDER_ONE, ORDER_TWO, ORDER_THREE ;
 boolean LEAPMOTION_DETECTED ;
-
-
-// SAVE SCENE
-boolean load_Scene_Setting_local, save_Current_Scene_Setting_local, save_New_Scene_Setting_local;
-boolean load_SCENE_Setting_order_from_presecene, save_Current_SCENE_Setting_order_from_presecene, save_New_SCENE_Setting_order_from_presecene ;
-boolean load_SCENE_Setting_GLOBAL, save_Current_SCENE_Setting_GLOBAL, save_New_SCENE_Setting_GLOBAL;
 
 
 //spectrum band

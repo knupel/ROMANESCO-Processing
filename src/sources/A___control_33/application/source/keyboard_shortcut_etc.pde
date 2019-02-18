@@ -146,9 +146,3 @@ void key_pressed_save_controller_NEW_path() {
     keyboard[keyCode] = false ;  // just open one window, when use only the keyboard, if you don't use that open all the windows save and open
   }
 }
-
-
-
-
-
-

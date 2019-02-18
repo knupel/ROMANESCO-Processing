@@ -20,6 +20,7 @@ revision 33
 >add method boolean get_follow() statement from keyboard prescene command
 >refactoring button general
 >update costume method
+>remove save scene option
 
 *ITEM
 
@@ -35,7 +36,7 @@ revision 33
 
 *BUG FIX
 
-
+>preview "prescene" don't pass data to scene
 
 
 

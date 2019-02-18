@@ -174,45 +174,6 @@ KEYBOARD & SHORTCUTS
 import java.awt.event.KeyEvent;
 boolean[] keyboard = new boolean[526];
 
-void shortcuts_prescene() {
-  keyboard[keyCode] = true ;
-  // save Scene
-  check_keyboard_save_scene_CURRENT_path();
-  check_keyboard_save_scene_NEW_path();
-  check_keyboard_load_scene();
-}
-
-
-
-// SCENE
-// Scene load
-// CTRL + O
-void check_keyboard_load_scene() {
-  if(check_keyboard(CONTROL) && !check_keyboard(SHIFT) && check_keyboard(KeyEvent.VK_O) ) { 
-    load_Scene_Setting_local = true ;
-    keyboard[keyCode] = false;    
-  }
-}
-
-// Scene current save
-// CTRL + S
-void check_keyboard_save_scene_CURRENT_path() {
-  if(check_keyboard(CONTROL) && !check_keyboard(SHIFT) && check_keyboard(KeyEvent.VK_S) ) {
-    save_Current_Scene_Setting_local = true ;
-    keyboard[keyCode] = false ;   // just open one window, when use only the keyboard, if you don't use that open all the windows save and open
-   }
-}
-
-// Scene new save
-// CTRL + SHIFT + S
-void check_keyboard_save_scene_NEW_path() {
-  if(check_keyboard(CONTROL) && check_keyboard(SHIFT) && check_keyboard(KeyEvent.VK_S) ) {
-    save_New_Scene_Setting_local = true ;
-    keyboard[keyCode] = false ;   // just open one window, when use only the keyboard, if you don't use that open all the windows save and open
-  }
-}
-
-
 
 boolean check_keyboard(int c) {
   if (keyboard.length >= c) {

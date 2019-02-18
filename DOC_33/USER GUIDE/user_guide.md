@@ -1,16 +1,13 @@
---
-Romanesco unu 1.3.0.31
+*Romanesco unu
+
 2013-2018
---
-USER GUIDE
---
+*Romanesco dui 2.1.0.33
 
+2018-2019
+--
+*USER GUIDE
 
---
---
-CONTROLLER
---
---
+*CONTROLLER
 
 SAVE
 -- 
@@ -22,23 +19,15 @@ CMD + R
 CMD + E
 >new save controller
 
-
 Save Scene setting
 --
 CMD + D
 >save on the current path
 
-CMD + S
->new save for Scene
-
 LOAD
 -- 
 CMD + O 
 >load save Controller
-
-CMD + L
->load save Scene
-
 
 CMD + i
 >import media
@@ -48,16 +37,8 @@ CMD + SHIFT + i > not sur forthis shortcut
 
 
 
+*MIDI
 
-
-
-
-
-
-
-
-MIDI
---
 To set your midi device, put 'ON' the midi button next selectect button or slider and move your midi device.
 
 To clear all midi selection, put 'ON' the midi select button and then press 'BACKSPACE' or 'DELETE'
@@ -65,11 +46,8 @@ To clear all midi selection, put 'ON' the midi select button and then press 'BAC
 
 
 
+*SLIDER
 
-
-
-SLIDER
---
 select few sliders click mouse left + SHIFT
 
 set range slider
@@ -77,13 +55,8 @@ set range slider
 You can set the min max of the slider by clicking the extremity of the middle line of the slider
 
 
+*CAMERA
 
-
-
-
-
-CAMERA
---
 'C' + click left 
 >translate main camera
 
@@ -109,19 +82,14 @@ CAMERA
 >back to the preset settting camera
 
 
+*SCREEN SHOT
 
-
-
-
-
-SCREEN SHOT
---
 >'p' > minuscule < SAVE IMG
 save png a window Scene or Prescene is on a full rendering mode
 
 
-SHORTCUT SCENE
---
+*SHORTCUT SCENE
+
 'y' > minuscule < Syphon
 >disable or enable Syphon mode
 
@@ -129,11 +97,8 @@ SHORTCUT SCENE
 >disable or enable grid 3D
 
 
+*SHORTCUT ITEM SCENE
 
-
-
-SHORTCUT ITEM SCENE
---
 If it's available
 
 'i' > minuscule < Info item
@@ -170,5 +135,11 @@ If it's available
 
 'k' > minuscule < special / bizarre, weird, specific... action on item
 > add boolean special[ID_item]
+
+
+
+
+
+
 
 

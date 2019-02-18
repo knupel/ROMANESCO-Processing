@@ -50,6 +50,7 @@ boolean FULL_RENDERING = false;
 */
 
 
+
 /**
 DEV SCENE LIVE
 */
@@ -79,39 +80,48 @@ boolean FULL_RENDERING = true;
 
 
 
+
+
+
+
+
+
+
+
+
+
+
 /**
 * RENDERING
 * Here you can choice between the three common rendering mode
 */
 // PRESCENE FULL RENDERING
-/*
-boolean USE_LAYER = false;
-boolean DEV_MODE = false; // inter alia, path preferences folder, curtain
-String IAM = "prescene";
-boolean LIVE = false;
-boolean FULL_RENDERING = true;
-*/
+// boolean USE_LAYER = false;
+// boolean DEV_MODE = false; // inter alia, path preferences folder, curtain
+// String IAM = "prescene";
+// boolean LIVE = false;
+// boolean FULL_RENDERING = true;
+
 
 // PRESCENE LIVE PREVIEW
-/*
-boolean USE_LAYER = false;
-boolean DEV_MODE = false; // inter alia, path preferences folder, curtain
-String IAM = "prescene";
-boolean LIVE = true;
-boolean FULL_RENDERING = false;
-*/
+// boolean USE_LAYER = false;
+// boolean DEV_MODE = false; // inter alia, path preferences folder, curtain
+// String IAM = "prescene";
+// boolean LIVE = true;
+// boolean FULL_RENDERING = false;
+
 
 
 
 
 
 // SCENE LIVE 
-
 boolean USE_LAYER = false;
 boolean DEV_MODE = false; // inter alia, path preferences folder, curtain
 String IAM = "scene";
 boolean LIVE = false; 
 boolean FULL_RENDERING = true;
+
 
 
 
@@ -147,7 +157,7 @@ LIVE must change from the launcher, the info must be write in the external loadi
 
 
 void settings() {
-  //size(124,124,P3D); // when the bug will be resolved, return to this config.
+  // size(124,124,P3D); // when the bug will be resolved, return to this config.
 
   fullScreen(P3D); // original
   FULL_SCREEN = true;
@@ -244,7 +254,7 @@ void draw() {
 
     if(width == 1 || height == 1) {
       printErr("width:",width,"heigh:",height, "this window size is not usable the process is stoped,\nplease set preference size via the launcher or directly in file sceneProperty.csv");
-      exit();
+      // exit();
     }
   } else {
     if(FULL_RENDERING) {
@@ -379,7 +389,8 @@ void keyPressed () {
     if(LIVE) {
       send_message(true);
     }
-    shortcuts_prescene();
+     keyboard[keyCode] = true ;
+    // shortcuts_prescene();
     key_true();
   }
 
