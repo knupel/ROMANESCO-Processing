@@ -303,7 +303,7 @@ void update_fx_classic() {
   update_fx_blur_gaussian(move_filter_fx,fx_str_x);
   update_fx_blur_radial(move_filter_fx,vec2(fx_px,fx_py),fx_str_x);
   
-  update_fx_haltone_dot(move_filter_fx,vec2(fx_px,fx_py),fx_sx,fx_angle,fx_threshold);
+  update_fx_haltone_dot(move_filter_fx,vec2(fx_px,fx_py),fx_quantity,fx_angle);
   update_fx_haltone_line(move_filter_fx,vec2(fx_px,fx_py),fx_quantity,fx_angle);
 
   update_fx_pixel(move_filter_fx,fx_quantity,vec2(fx_sx,fx_sy),vec3(fx_cx,fx_cy,fx_cz));
@@ -418,15 +418,15 @@ void setting_fx_haltone_dot() {
   fx_classic_num++; 
 }
 
-void update_fx_haltone_dot(boolean move_is, vec2 pos, float size, float angle, float threshold) {
+void update_fx_haltone_dot(boolean move_is, vec2 pos, float quantity, float angle) {
   if(move_is) {
-    float pix_size = map(size,0,1,2,height/5); 
+    float pix_size = map(quantity,0,1,height/4,2); 
     fx_set_size(set_halftone_dot,pix_size);  
 
     angle = map(angle,0,1,-TAU,TAU);
     fx_set_angle(set_halftone_dot,angle);
 
-    fx_set_threshold(set_halftone_dot,threshold);
+    fx_set_threshold(set_halftone_dot,1);
 
     fx_set_pos(set_halftone_dot,pos.array());
   }
@@ -486,7 +486,7 @@ void update_fx_haltone_line(boolean move_is, vec2 pos, float num, float angle) {
 
 /**
 * pixel
-* v 0.0.1
+* v 0.0.2
 */
 String set_pixel = "pixel";
 // boolean effect_pixel_is;
@@ -503,8 +503,8 @@ void setting_fx_pixel() {
 void update_fx_pixel(boolean move_is, float num, vec2 size, vec3 hsb) {
 
   if(move_is) {
-    float sx = map(size.x,0,1,1,width);
-    float sy = map(size.y,0,1,1,height);
+    float sx = map(size.x *size.x *size.x,0,1,1,width);
+    float sy = map(size.y *size.y *size.y,0,1,1,height);
     fx_set_size(set_pixel,sx,sy);
 
     int palette_num = (int)map(num,0,1,2,16);
@@ -526,7 +526,7 @@ void update_fx_pixel(boolean move_is, float num, vec2 size, vec3 hsb) {
 
 /**
 * split
-* v 0.0.1
+* v 0.0.2
 */
 String set_split_rgb = "split rgb";
 void setting_fx_split_rgb() {
@@ -542,10 +542,20 @@ void setting_fx_split_rgb() {
 
 void update_fx_split_rgb(boolean move_is, vec2 str, float speed) {
   if(move_is) {
-    vec2 strength = map(str,0,1,1,4);
-    vec2 offset_red = vec2().wave_cos(frameCount,speed*.2,speed *.5).mult(strength);
-    vec2 offset_green = vec2().wave_sin(frameCount,speed *.2,speed *.1).mult(strength);
-    vec2 offset_blue = vec2().wave_cos(frameCount,speed*.1,speed *.2).mult(strength);
+    vec2 strength = map(str.pow(2),0,1,0,6);
+
+    vec2 offset_red = vec2().wave_cos(frameCount,speed*.2,speed *.5);
+    offset_red.x = map(offset_red.x,-1,1,-strength.x,strength.x);
+    offset_red.y = map(offset_red.y,-1,1,-strength.y,strength.y);
+
+    vec2 offset_green = vec2().wave_sin(frameCount,speed *.2,speed *.1);
+    offset_green.x = map(offset_green.x,-1,1,-strength.x,strength.x);
+    offset_green.y = map(offset_green.y,-1,1,-strength.y,strength.y);
+
+    vec2 offset_blue = vec2().wave_cos(frameCount,speed*.1,speed *.2);
+    offset_blue.x = map(offset_blue.x,-1,1,-strength.x,strength.x);
+    offset_blue.y = map(offset_blue.y,-1,1,-strength.y,strength.y);
+
     fx_set_pair(set_split_rgb,0,offset_red.array());
     fx_set_pair(set_split_rgb,1,offset_green.array());
     fx_set_pair(set_split_rgb,2,offset_blue.array());
