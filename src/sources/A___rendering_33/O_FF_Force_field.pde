@@ -191,8 +191,8 @@ class FF extends Romanesco {
 
       // update spot position
       if(motion_is()) {
-        force_romanesco.set_spot_pos(mouse[0].x,mouse[0].y,0);
-        force_romanesco.set_spot_pos(width -mouse[0].x,height -mouse[0].y,1);
+        force_field_romanesco.set_spot_pos(mouse[0].x,mouse[0].y,0);
+        force_field_romanesco.set_spot_pos(width -mouse[0].x,height -mouse[0].y,1);
       }
     } else {
       puppet_master_is = true;

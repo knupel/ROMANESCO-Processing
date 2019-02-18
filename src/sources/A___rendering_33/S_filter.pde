@@ -1,11 +1,9 @@
 /**
 FILTER
 * 2018-2019
-* v 0.1.1
+* v 0.1.2
 * here is calling classic FX ROPE + FX FORCE FIELD
 */
-
-
 void init_filter() {
   if(FULL_RENDERING) {
     // FORCE FIELD FX
@@ -31,7 +29,6 @@ void init_filter() {
     }
 
     setting_fx_classic();
-
 
     // CLASSIC FX + FORCE FIELD FX
     write_filter_index();
@@ -70,15 +67,11 @@ void filter() {
     }
   }
 
-
-
   if(FULL_RENDERING && fx_button_is(0)) {
+    update_fx_value_from_slider();
     update_fx_classic();
-
     if(extra_filter_fx && active_fx != null && active_fx.size() > 0) {
-      // println("active fx size",active_fx.size());
       for(int i : active_fx) {
-        // println(i);
         draw_fx(i);
       }
     } else {
@@ -87,12 +80,17 @@ void filter() {
   } 
 }
 
+
+
+
 void draw_fx(int which) {
   // select fx 
   int num_of_special_fx = 1 ;
   
    if(which < num_of_special_fx) {
-      warp_force();
+      apply_force_field();
+      warp_force(fx_str_x,fx_speed,vec3(fx_cx,fx_cy,fx_cz));
+      // warp_force();
    } else {
     int target = which- num_of_special_fx; // min 1 cause the first one is a special one;
     for(int i = 0 ; i < fx_classic_num ; i++) {
@@ -111,6 +109,7 @@ void draw_fx(int which) {
     }
   }
 }
+
 
 
 
@@ -154,13 +153,6 @@ PGraphics generate_fx_pattern(int mode, int sx, int sw) {
     return pattern_noise(sx,sw,inc.array());
   } else return null;
 }
-
-
-
-
-
-
-
 
 
 void write_filter_index() {
@@ -215,6 +207,33 @@ void write_filter_index() {
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /**
 FX ROMANESCO
 * classic FX class
@@ -238,46 +257,61 @@ void setting_fx_classic() {
   setting_fx_warp_tex();
 }
 
+float fx_cx;
+float fx_cy;
+float fx_cz;
+float fx_px;
+float fx_py;
+float fx_sx;
+float fx_sy;
+float fx_str_x;
+float fx_str_y;
+float fx_quantity;
+float fx_quality;
+float fx_speed;
+float fx_angle;
+float fx_threshold;
+void update_fx_value_from_slider() {
+  fx_cx = map(value_slider_fx[0],0,MAX_VALUE_SLIDER,0,1);
+  fx_cy = map(value_slider_fx[1],0,MAX_VALUE_SLIDER,0,1);
+  fx_cz = map(value_slider_fx[2],0,MAX_VALUE_SLIDER,0,1);
+
+  fx_px = map(value_slider_fx[3],0,MAX_VALUE_SLIDER,0,1);
+  fx_py = map(value_slider_fx[4],0,MAX_VALUE_SLIDER,0,1);
+
+  fx_sx = map(value_slider_fx[5],0,MAX_VALUE_SLIDER,0,1);
+  fx_sy = map(value_slider_fx[6],0,MAX_VALUE_SLIDER,0,1);
+
+  fx_str_x = map(value_slider_fx[7],0,MAX_VALUE_SLIDER,0,1);
+  fx_str_y = map(value_slider_fx[8],0,MAX_VALUE_SLIDER,0,1);
+
+  fx_quantity = map(value_slider_fx[9],0,MAX_VALUE_SLIDER,0,1);
+
+  fx_quality = map(value_slider_fx[10],0,MAX_VALUE_SLIDER,0,1);
+
+  fx_speed = map(value_slider_fx[11],0,MAX_VALUE_SLIDER,0,1);
+
+  fx_angle = map(value_slider_fx[12],0,MAX_VALUE_SLIDER,0,1);
+
+  fx_threshold = map(value_slider_fx[13],0,MAX_VALUE_SLIDER,0,1);
+
+}
+
 void update_fx_classic() {
-  // catch value slider
-  float cx = map(value_slider_fx[0],0,MAX_VALUE_SLIDER,0,1);
-  float cy = map(value_slider_fx[1],0,MAX_VALUE_SLIDER,0,1);
-  float cz = map(value_slider_fx[2],0,MAX_VALUE_SLIDER,0,1);
 
-  float px = map(value_slider_fx[3],0,MAX_VALUE_SLIDER,0,1);
-  float py = map(value_slider_fx[4],0,MAX_VALUE_SLIDER,0,1);
-
-  float sx = map(value_slider_fx[5],0,MAX_VALUE_SLIDER,0,1);
-  float sy = map(value_slider_fx[6],0,MAX_VALUE_SLIDER,0,1);
-
-  float str_x = map(value_slider_fx[7],0,MAX_VALUE_SLIDER,0,1);
-  float str_y = map(value_slider_fx[8],0,MAX_VALUE_SLIDER,0,1);
-
-  float quantity = map(value_slider_fx[9],0,MAX_VALUE_SLIDER,0,1);
-
-  float quality = map(value_slider_fx[10],0,MAX_VALUE_SLIDER,0,1);
-
-  float speed = map(value_slider_fx[11],0,MAX_VALUE_SLIDER,0,1);
-
-  float angle = map(value_slider_fx[12],0,MAX_VALUE_SLIDER,0,1);
-
-  float threshold = map(value_slider_fx[13],0,MAX_VALUE_SLIDER,0,1);
+  update_fx_blur_circular(move_filter_fx,fx_quantity,fx_str_x);
+  update_fx_blur_gaussian(move_filter_fx,fx_str_x);
+  update_fx_blur_radial(move_filter_fx,vec2(fx_px,fx_py),fx_str_x);
   
+  update_fx_haltone_dot(move_filter_fx,vec2(fx_px,fx_py),fx_sx,fx_angle,fx_threshold);
+  update_fx_haltone_line(move_filter_fx,vec2(fx_px,fx_py),fx_quantity,fx_angle);
 
-  update_fx_blur_circular(move_filter_fx,quantity,str_x);
-  update_fx_blur_gaussian(move_filter_fx,str_x);
-  update_fx_blur_radial(move_filter_fx,vec2(px,py),str_x);
+  update_fx_pixel(move_filter_fx,fx_quantity,vec2(fx_sx,fx_sy),vec3(fx_cx,fx_cy,fx_cz));
+
+  update_fx_split_rgb(move_filter_fx,vec2(fx_str_x,fx_str_y),fx_speed);
   
-  update_fx_haltone_dot(move_filter_fx,vec2(px,py),sx,angle,threshold);
-  update_fx_haltone_line(move_filter_fx,vec2(px,py),quantity,angle);
-
-  update_fx_pixel(move_filter_fx,quantity,vec2(sx,sy),vec3(cx,cy,cz));
-
-  update_fx_split_rgb(move_filter_fx,vec2(str_x,str_y),speed);
-  
- 
-  update_fx_warp_proc(move_filter_fx,str_x,speed);
-  update_fx_warp_tex(move_filter_fx,str_x);
+  update_fx_warp_proc(move_filter_fx,fx_str_x,fx_speed);
+  update_fx_warp_tex(move_filter_fx,fx_str_x);
 
 
 }
@@ -601,8 +635,8 @@ void update_fx_warp_tex(boolean move_is, float str) {
 * X SPECIAL
 * this FX is linked with item and call a huge method and 
 * class Force Field and class Force
-* 2018-2018
-* v 0.0.3
+* 2018-2019
+* v 0.0.4
 */
 Warp_Force warp_force_romanesco;
 void init_warp_force() {
@@ -613,39 +647,34 @@ void init_warp_force() {
 }
 
 
-void warp_force() {
-  float intensity_warp_force = map(value_slider_fx[0],0,360,0,1);
-  intensity_warp_force *= intensity_warp_force;
-  intensity_warp_force = map(intensity_warp_force,0,1,0,10);
+void warp_force(float strength, float speed, vec3 colour) {
+  strength *= strength;
+  strength = map(strength,0,1,0,10);
   
   // cycling
   float cycling = 1;
-  float ratio = map(value_slider_fx[1],0,360,0,.8);
+  float ratio = map(speed,0,1,0,.8);
   if(ratio > 0) {
     ratio = (ratio*ratio*ratio);
     cycling = abs(sin(frameCount *ratio));
   }
 
-  float cx = map(value_slider_fx[2],0,360,0,1);
-  float cy = map(value_slider_fx[3],0,360,0,1);
-  float cz = map(value_slider_fx[4],0,360,0,1);
-  float ca = 1; // change nothing at this time
-  vec4 refresh_warp_force = vec4(cx,cy,cz,ca);
+  vec4 refresh_warp_force = vec4(colour.x,colour.y,colour.z,1);
   if(ratio > 0) {
     refresh_warp_force.mult(cycling);
   }
-
   warp_force_romanesco.refresh(refresh_warp_force);
   warp_force_romanesco.shader_init();
   warp_force_romanesco.shader_filter(extra_filter_fx);
   warp_force_romanesco.shader_mode(0);
   // here Force_field is pass
-  warp_force_romanesco.show(force_romanesco,intensity_warp_force);
+  warp_force_romanesco.show(force_field_romanesco,strength);
 
   if(warp_force_reset) {
     warp_force_romanesco.reset();
     warp_force_reset = false;
   }
+
 }
 
 

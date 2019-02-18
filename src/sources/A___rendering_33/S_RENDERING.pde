@@ -1,6 +1,6 @@
 /**
 RENDERING
-v 1.2.0
+v 1.2.1
 */
 void rendering() {
   boolean show_is = true;
@@ -17,9 +17,7 @@ void rendering() {
     rendering_background(USE_LAYER,0);
 
     rendering_item_3D(USE_LAYER,1);
-
     rendering_item_2D(USE_LAYER,1);
-    apply_force_field();
     filter();   
     rendering_info(USE_LAYER);
 
@@ -27,6 +25,12 @@ void rendering() {
     rendering_curtain(USE_LAYER);   
   }
 }
+
+
+
+
+
+
 
 
 void rendering_item_3D(boolean use_layer_is, int which_layer) {

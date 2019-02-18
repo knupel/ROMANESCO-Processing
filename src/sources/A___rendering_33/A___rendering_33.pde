@@ -27,40 +27,34 @@ BUG with warp on MacBook Pro 2018 or HighSierra / Mojave
 
 
 /**
-DEV PRESCENE DIRECT
+* DEVELOPER SETTING
 */
-/*
+
 boolean USE_LAYER = false;
 boolean DEV_MODE = true; // inter alia, path preferences folder, curtain
 String IAM = "prescene";
 boolean LIVE = false;
 boolean FULL_RENDERING = true;
-*/
-
-
-/**
-DEV PRESCENE LIVE
-*/
-/*
-boolean USE_LAYER = false;
-boolean DEV_MODE = true; // inter alia, path preferences folder, curtain
-String IAM = "prescene";
-boolean LIVE = true;
-boolean FULL_RENDERING = false;
-*/
 
 
 
-/**
-DEV SCENE LIVE
-*/
-/*
-boolean USE_LAYER = false;
-boolean DEV_MODE = true; // inter alia, path preferences folder, curtain
-String IAM = "scene";
-boolean LIVE = false;
-boolean FULL_RENDERING = true;
-*/
+// PRESCENE LIVE
+
+// boolean USE_LAYER = false;
+// boolean DEV_MODE = true; // inter alia, path preferences folder, curtain
+// String IAM = "prescene";
+// boolean LIVE = true;
+// boolean FULL_RENDERING = false;
+
+
+// SCENE LIVE
+
+// boolean USE_LAYER = false;
+// boolean DEV_MODE = true; // inter alia, path preferences folder, curtain
+// String IAM = "scene";
+// boolean LIVE = false;
+// boolean FULL_RENDERING = true;
+
 
 
 
@@ -92,10 +86,11 @@ boolean FULL_RENDERING = true;
 
 
 /**
-* RENDERING
+* EXPORT SETTING
 * Here you can choice between the three common rendering mode
 */
 // PRESCENE FULL RENDERING
+
 // boolean USE_LAYER = false;
 // boolean DEV_MODE = false; // inter alia, path preferences folder, curtain
 // String IAM = "prescene";
@@ -104,6 +99,7 @@ boolean FULL_RENDERING = true;
 
 
 // PRESCENE LIVE PREVIEW
+
 // boolean USE_LAYER = false;
 // boolean DEV_MODE = false; // inter alia, path preferences folder, curtain
 // String IAM = "prescene";
@@ -111,16 +107,12 @@ boolean FULL_RENDERING = true;
 // boolean FULL_RENDERING = false;
 
 
-
-
-
-
 // SCENE LIVE 
-boolean USE_LAYER = false;
-boolean DEV_MODE = false; // inter alia, path preferences folder, curtain
-String IAM = "scene";
-boolean LIVE = false; 
-boolean FULL_RENDERING = true;
+// boolean USE_LAYER = false;
+// boolean DEV_MODE = false; // inter alia, path preferences folder, curtain
+// String IAM = "scene";
+// boolean LIVE = false; 
+// boolean FULL_RENDERING = true;
 
 
 
@@ -158,9 +150,10 @@ LIVE must change from the launcher, the info must be write in the external loadi
 
 void settings() {
   // size(124,124,P3D); // when the bug will be resolved, return to this config.
+  size(500,500,P3D);
 
-  fullScreen(P3D); // original
-  FULL_SCREEN = true;
+  // fullScreen(P3D); // original
+  // FULL_SCREEN = true;
 
   syphon_settings();
 
@@ -228,13 +221,6 @@ void setup() {
 
 
 
-
-
-
-
-
-
-
 boolean init_app;
 void draw() {
   if(init_app) { 
@@ -267,11 +253,15 @@ void draw() {
 
 void romanesco() {
   init_romanesco();
-  if(FULL_RENDERING) start_PNG("screenshot Romanesco prescene", "Romanesco_"+year()+"_"+month()+"_"+day()+"_"+hour()+"_"+minute()+"_"+second()) ;
+  if(FULL_RENDERING) {
+    start_PNG("screenshot Romanesco prescene", "Romanesco_"+year()+"_"+month()+"_"+day()+"_"+hour()+"_"+minute()+"_"+second());
+  }
 
   syphon_draw();
 
-  if(USE_SOUND) sound_draw();
+  if(USE_SOUND) {
+    sound_draw();
+  }
 
   OSC_update();
 
@@ -469,3 +459,6 @@ void mouseWheel(MouseEvent e) {
     wheel[0] = e.getCount() *speedWheel;
   } 
 }
+
+
+

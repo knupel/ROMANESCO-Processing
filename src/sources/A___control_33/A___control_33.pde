@@ -13,15 +13,13 @@ V 1.2.0
 2018 June 5_000 lines of code without CROPE and ROPE internal library who have around 18_000 lines
 */
 String IAM = "controller";
-/**
-LIVE must change from the launcher, the info must be write in the external loading preference app
-*/
 
 // DEV SETTING
-// boolean DEV_MODE = true; // inter alia, path preferences folder, curtain
-// boolean LIVE = false;
-// boolean MIROIR = false;
-// boolean KEEP_BUTTON_ITEM_STATE = true;
+
+boolean DEV_MODE = true; // inter alia, path preferences folder, curtain
+boolean LIVE = false;
+boolean MIROIR = false;
+boolean KEEP_BUTTON_ITEM_STATE = true;
 
 
 
@@ -41,10 +39,10 @@ LIVE must change from the launcher, the info must be write in the external loadi
 // boolean DEV_MODE = false;  // inter alia, path preferences folder, curtain
 
 // LIVE
-boolean LIVE = true;
-boolean MIROIR = false;
-boolean KEEP_BUTTON_ITEM_STATE = true;
-boolean DEV_MODE = false; // inter alia, path preferences folder, curtain
+// boolean LIVE = true;
+// boolean MIROIR = false;
+// boolean KEEP_BUTTON_ITEM_STATE = true;
+// boolean DEV_MODE = false; // inter alia, path preferences folder, curtain
 
 
 

@@ -3,7 +3,7 @@
 * @see http://stanlepunk.xyz
 * @see https://github.com/StanLepunK/Force_Field
 * 2017-2019
-v 0.8.0
+v 0.8.1
 */
 
 class Warp_Force {
@@ -270,7 +270,7 @@ class Warp_Force {
 
     if(pg == null && img_manager.get() != null) { 
       set(img_manager.get());
-    } else if(img_manager.get() != null) {   
+    } else if(img_manager.get() != null) {  
       update(force_field,img_manager.get(),intensity);
     }
   }
@@ -533,7 +533,7 @@ class Warp_Force {
     rope_warp_shader.set("mode",shader_warp_mode);
     rope_warp_shader.set("strength",intensity);
 
-    rope_warp_shader.set("texture",tex);
+    rope_warp_shader.set("texture_source",tex);
     rope_warp_shader.set("texture_velocity",ff.get_tex_velocity());
     rope_warp_shader.set("texture_direction",pass2);
     
