@@ -161,6 +161,7 @@ void write_filter_index() {
   index_fx.addColumn("Author");
   index_fx.addColumn("Version");
   index_fx.addColumn("Pack");
+  index_fx.addColumn("Slider");
   
 
   int num = fx_classic_num+1; // +1 cause of the special force field fx
@@ -183,6 +184,16 @@ void write_filter_index() {
     info_fx[target].setString("Author",fx.get_author());
     info_fx[target].setString("Version",fx.get_version());
     info_fx[target].setString("Pack",fx.get_pack());
+    String s = "";
+    int max =  fx.get_name_slider().length;
+    for(int k = 0 ; k < max ; k++) {
+      if(i < max - 1) {
+        s += (fx.get_name_slider()[k]+"/");
+      } else {
+        s += (fx.get_name_slider()[k]);
+      }
+    }
+    info_fx[target].setString("Slider",s);
   }
 
 
@@ -326,8 +337,9 @@ void setting_fx_blur_circular() {
   int revision = 1;
   String author = "Stan le Punk";
   String pack = "Base 2019";
+  String [] slider = {"quantity","strength X"};
   int id = fx_classic_num;
-  init_fx(set_blur_circular,FX_BLUR_CIRCULAR,id,author,pack,version,revision);
+  init_fx(set_blur_circular,FX_BLUR_CIRCULAR,id,author,pack,version,revision,slider,null);
   fx_classic_num++;
 }
 
@@ -353,8 +365,9 @@ void setting_fx_blur_gaussian() {
   int revision = 3;
   String author = "Stan le Punk";
   String pack = "Base 2019";
+  String [] slider = {"strength X"};
   int id = fx_classic_num;
-  init_fx(set_blur_gaussian,FX_BLUR_GAUSSIAN,id,author,pack,version,revision);
+  init_fx(set_blur_gaussian,FX_BLUR_GAUSSIAN,id,author,pack,version,revision,slider,null);
   fx_classic_num++;
 }
 
@@ -378,8 +391,9 @@ void setting_fx_blur_radial() {
   int revision = 1;
   String author = "Stan le Punk";
   String pack = "Base 2019";
+  String [] slider = {"strength_x"};
   int id = fx_classic_num;
-  init_fx(set_blur_radial,FX_BLUR_RADIAL,id,author,pack,version,revision);
+  init_fx(set_blur_radial,FX_BLUR_RADIAL,id,author,pack,version,revision,slider,null);
   fx_classic_num++;
 }
 
@@ -413,8 +427,9 @@ void setting_fx_haltone_dot() {
   int revision = 1;
   String author = "Stan le Punk";
   String pack = "Base 2019";
+  String [] slider = {"position X","position Y","angle","threshold"};
   int id = fx_classic_num;
-  init_fx(set_halftone_dot,FX_HALFTONE_DOT,id,author,pack,version,revision);
+  init_fx(set_halftone_dot,FX_HALFTONE_DOT,id,author,pack,version,revision,slider,null);
   fx_classic_num++; 
 }
 
@@ -456,8 +471,9 @@ void setting_fx_haltone_line() {
   int revision = 1;
   String author = "Stan le Punk";
   String pack = "Base 2019";
+  String [] slider = {"position X","position Y","quantity","angle"};
   int id = fx_classic_num;
-  init_fx(set_halftone_line,FX_HALFTONE_LINE,id,author,pack,version,revision);
+  init_fx(set_halftone_line,FX_HALFTONE_LINE,id,author,pack,version,revision,slider,null);
   fx_classic_num++; 
 }
 
@@ -495,8 +511,9 @@ void setting_fx_pixel() {
   int revision = 1;
   String author = "Stan le Punk";
   String pack = "Base 2019";
+  String [] slider = {"quantity","size X","size Y","red","green","blue"};
   int id = fx_classic_num;
-  init_fx(set_pixel,FX_PIXEL,id,author,pack,version,revision);
+  init_fx(set_pixel,FX_PIXEL,id,author,pack,version,revision,slider,null);
   fx_classic_num++;
 }
 
@@ -534,8 +551,9 @@ void setting_fx_split_rgb() {
   int revision = 1;
   String author = "Stan le Punk";
   String pack = "Base 2019";
+  String [] slider = {"red","green","blue","quantity","size X","size Y"};
   int id = fx_classic_num;
-  init_fx(set_split_rgb,FX_SPLIT_RGB,id,author,pack,version,revision);
+  init_fx(set_split_rgb,FX_SPLIT_RGB,id,author,pack,version,revision,slider,null);
   fx_classic_num++; 
 }
 
@@ -575,8 +593,9 @@ void setting_fx_warp_proc() {
   int revision = 1;
   String author = "Stan le Punk";
   String pack = "Base 2019";
+  String [] slider = {"strength X"};
   int id = fx_classic_num;
-  init_fx(set_warp_proc,FX_WARP_PROC,id,author,pack,version,revision);
+  init_fx(set_warp_proc,FX_WARP_PROC,id,author,pack,version,revision,slider,null);
   fx_classic_num++; 
 }
 
@@ -600,8 +619,9 @@ void setting_fx_warp_tex() {
   int revision = 1;
   String author = "Stan le Punk";
   String pack = "Base 2019";
+  String [] slider = {"strength X"};
   int id = fx_classic_num;
-  init_fx(set_warp_tex,FX_WARP_TEX,id,author,pack,version,revision);
+  init_fx(set_warp_tex,FX_WARP_TEX,id,author,pack,version,revision,slider,null);
   fx_classic_num++; 
 }
 

@@ -1,6 +1,6 @@
 /**
  * CLASS FX 
- * v 0.1.2
+ * v 0.2.0
  * 2019-2019
  * class used to create easy setting for shader fx
 */
@@ -8,10 +8,13 @@ public class FX {
 	private int id;
 	private int type;
 	private String name;
+	private String [] name_slider;
+	private String [] name_button;
 	private String author;
 	private String pack;
 	private String version;
 	private int revision;
+
 	private boolean on_g = true;
 	// paameter
 	private int mode; // 0
@@ -60,6 +63,20 @@ public class FX {
 
   public void set_name(String name) {
   	this.name = name;
+  }
+
+  public void set_name_slider(String... name) {
+  	name_slider = new String[name.length];
+  	for(int i = 0 ; i < name_slider.length ; i++) {
+  		this.name_slider[i] = name[i];
+  	}
+  }
+
+  public void set_name_button(String... name) {
+  	name_button = new String[name.length];
+  	for(int i = 0 ; i < name_button.length ; i++) {
+  		this.name_button[i] = name[i];
+  	}
   }
 
   public void set_author(String author) {
@@ -293,6 +310,14 @@ public class FX {
 	public String get_name() {
 		return name;
 	}
+
+	public String [] get_name_slider() {
+  	return name_slider;
+  }
+
+  public String [] get_name_button() {
+  	return name_button;
+  }
 
 	public int get_id() {
 		return id;

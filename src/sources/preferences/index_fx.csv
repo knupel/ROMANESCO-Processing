@@ -1,11 +1,11 @@
-Name,Author,Version,Pack
-Force,Stan le Punk,0.1.0,Base 2014
-blur circular,Stan le Punk,0.0.1,Base 2019
-blur gaussian,Stan le Punk,0.0.3,Base 2019
-blur radial,Stan le Punk,0.0.1,Base 2019
-halftone dot,Stan le Punk,0.0.1,Base 2019
-halftone line,Stan le Punk,0.0.2,Base 2019
-pixel,Stan le Punk,0.0.1,Base 2019
-split rgb,Stan le Punk,0.0.1,Base 2019
-warp proc,Stan le Punk,0.0.1,Base 2019
-warp tex,Stan le Punk,0.0.1,Base 2019
+Name,Author,Version,Pack,Slider
+Force,Stan le Punk,0.1.0,Base 2014,
+blur circular,Stan le Punk,0.0.1,Base 2019,quantity/strength X/
+blur gaussian,Stan le Punk,0.0.3,Base 2019,strength X
+blur radial,Stan le Punk,0.0.1,Base 2019,strength_x
+halftone dot,Stan le Punk,0.0.1,Base 2019,position Xposition Yanglethreshold
+halftone line,Stan le Punk,0.0.2,Base 2019,position Xposition Yquantityangle
+pixel,Stan le Punk,0.0.1,Base 2019,quantitysize Xsize Yredgreenblue
+split rgb,Stan le Punk,0.0.1,Base 2019,redgreenbluequantitysize Xsize Y
+warp proc,Stan le Punk,0.0.1,Base 2019,strength X
+warp tex,Stan le Punk,0.0.1,Base 2019,strength X

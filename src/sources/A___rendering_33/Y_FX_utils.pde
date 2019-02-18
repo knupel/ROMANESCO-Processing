@@ -2,7 +2,7 @@
 * SHADER FX
 * @see http://stanlepunk.xyz
 * @see https://github.com/StanLepunK/Filter
-* v 0.1.4
+* v 0.2.0
 * 2019-2019
 *
 */
@@ -62,12 +62,12 @@ FX get_fx(String name) {
 }
 
 void init_fx(String name, int type) {
-	init_fx(name,type,-1, null, null, null,-1);
+	init_fx(name,type,-1, null, null, null,-1,null,null);
 }
 
 
 
-void init_fx(String name, int type, int id, String author, String pack, String version, int revision) {
+void init_fx(String name, int type, int id, String author, String pack, String version, int revision, String [] name_slider, String [] name_button) {
 	boolean exist = false;
 	if(fx_manager == null) {
 		fx_manager = new ArrayList<FX>();
@@ -81,20 +81,22 @@ void init_fx(String name, int type, int id, String author, String pack, String v
 			}
 		}
 		if(!exist) {
-			add_fx_to_manager(name,type,id,author,pack,version,revision);
+			add_fx_to_manager(name,type,id,author,pack,version,revision,name_slider,name_button);
 		}
 	} else {
-		add_fx_to_manager(name,type,id,author,pack,version,revision);
+		add_fx_to_manager(name,type,id,author,pack,version,revision,name_slider,name_button);
 	}
 }
 
-void add_fx_to_manager(String name, int type, int id, String author, String pack, String version, int revision) {
+void add_fx_to_manager(String name, int type, int id, String author, String pack, String version, int revision, String [] name_slider, String [] name_button) {
 	FX fx = new FX(name,type);
 	fx.set_id(id);
-	fx.set_author(author);
+	if(author != null) fx.set_author(author);
 	fx.set_pack(pack);
-	fx.set_version(version);
+	if(version != null) fx.set_version(version);
 	fx.set_revision(revision);
+	if(name_slider != null) fx.set_name_slider(name_slider);
+	if(name_button != null) fx.set_name_button(name_button);
 	fx_manager.add(fx);
 }
 
