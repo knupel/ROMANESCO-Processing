@@ -290,7 +290,7 @@ void romanesco() {
   update_slider_ref();
   media_update(180);
   change_slider_ref();
-  load_dial();
+  load_dial_controller();
   reset_button_alert();
 
 

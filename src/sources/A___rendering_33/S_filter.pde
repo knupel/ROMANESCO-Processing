@@ -42,6 +42,8 @@ void init_filter() {
 
 boolean move_filter_fx;
 boolean extra_filter_fx;
+int num_special_fx;
+int ref_num_active_fx;
 ArrayList<Integer>active_fx;
 int fx_classic_num;
 void filter() {
@@ -50,7 +52,10 @@ void filter() {
 
   // add fx
   if(extra_filter_fx) {
-    if(active_fx == null) active_fx = new ArrayList<Integer>();
+    if(active_fx == null) {
+      active_fx = new ArrayList<Integer>();
+    }
+
     boolean add_fx = true;
     if(active_fx.size() > 0) {  
       for(Integer i : active_fx) {
@@ -63,6 +68,7 @@ void filter() {
     if(add_fx) {
       active_fx.add(which_fx);
     }
+
   }
 
   if(active_fx != null) {
@@ -70,6 +76,11 @@ void filter() {
       active_fx.clear();
     }
   }
+  if(active_fx != null && ref_num_active_fx != active_fx.size()) {
+    save_dial_scene(preference_path);
+    ref_num_active_fx = active_fx.size();
+  }
+  
 
   if(FULL_RENDERING && fx_button_is(0)) {
     update_fx_value_from_slider();
@@ -89,14 +100,12 @@ void filter() {
 
 void draw_fx(int which) {
   // select fx 
-  int num_of_special_fx = 1 ;
-  
-   if(which < num_of_special_fx) {
-      apply_force_field();
-      warp_force(fx_str_x,fx_speed,vec3(fx_cx,fx_cy,fx_cz));
-      // warp_force();
+  num_special_fx = 1 ;
+  if(which < num_special_fx) {
+    apply_force_field();
+    warp_force(fx_str_x,fx_speed,vec3(fx_cx,fx_cy,fx_cz));
    } else {
-    int target = which- num_of_special_fx; // min 1 cause the first one is a special one;
+    int target = which- num_special_fx; // min 1 cause the first one is a special one;
     for(int i = 0 ; i < fx_classic_num ; i++) {
       if(target == i) {
         if(get_fx(fx_manager,target).get_type() == FX_WARP_TEX) {

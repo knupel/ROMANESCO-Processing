@@ -18,7 +18,6 @@ void load_save(String path) {
   load_data_GUI(path) ;
   load_saved_file_controller(path) ;
   apply_text_gui() ;
-
 }
 
 
@@ -27,7 +26,6 @@ void load_save(String path) {
 
 
 // LOAD INFO OBJECT from the PRESCENE
-
 Table inventory_item_table;
 Table shader_fx_bg_table;
 Table shader_fx_table;
@@ -45,9 +43,7 @@ String [] shader_fx_author;
 String [] shader_fx_slider;
 
 //BUTTON
-
 int button_general_num;
-
 int [] value_button_general; 
 
 
@@ -63,7 +59,6 @@ int [] pos_button_width_item, pos_button_height_item, width_button_item, height_
 
 
 Inventory [] inventory ;
-
 class Inventory {
   String name = "" ;
   boolean is = false ;
@@ -91,7 +86,29 @@ class Inventory {
 
 
 
+/**
+MANAGE DIALOGUE
+v 0.0.5
+*/
+boolean load_dial_scene_is = false;
+String slider_fx_active_list = "";
+void load_dial_scene() {
+  if(load_dial_scene_is) {
+  // if(load_dial_scene_is && frameCount%240 == 0) {
+    Table dial_table = loadTable(preference_path +"dialogue_from_scene.csv","header");
+    TableRow row = dial_table.getRow(0);
+    slider_fx_active_list = row.getString("fx slider active");
+    load_dial_scene_is(false);
+  }
+}
 
+void load_dial_scene_is(boolean is) {
+  load_dial_scene_is = is;
+}
+
+boolean load_dial_scene_is() {
+  return load_dial_scene_is;
+}
 
 
 

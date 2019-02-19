@@ -1,7 +1,7 @@
 /**
 Core Prescene
-v 1.3.0
-2013-2018
+v 1.3.1
+2013-2019
 * Here you find
 * variable Prescene
 * update command for the mouse, cursor...
@@ -149,17 +149,7 @@ void update_leapmotion() {
 
 
 
-/**
-load dialogue prescene
-*/
-void load_dial() {
-  if(frameCount%240 == 0) {
-    Table dial_table = loadTable(preference_path +"dialogue.csv","header");
-    TableRow row = dial_table.getRow(0);
-    float temp_reactivity = row.getFloat("mouse reactivity");
-    mouse_reactivity = temp_reactivity *temp_reactivity;
-  }
-}
+
 
 
 

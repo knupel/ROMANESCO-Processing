@@ -1,7 +1,7 @@
 /**
 CORE SCENE and PRESCENE 
-2015-2018
-v 1.8.1
+2015-2019
+v 1.9.0
 */
 import java.net.*;
 import java.io.*;
@@ -46,6 +46,36 @@ void load_save(String path) {
     }
   }
 }
+
+
+
+/**
+MANAGE DIALOGUE
+v 0.0.5
+*/
+void load_dial_controller() {
+  if(frameCount%240 == 0) {
+    Table dial_table = loadTable(preference_path +"dialogue_from_controller.csv","header");
+    TableRow row = dial_table.getRow(0);
+    float temp_reactivity = row.getFloat("mouse reactivity");
+    mouse_reactivity = temp_reactivity *temp_reactivity;
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

@@ -60,3 +60,47 @@ void init_value_temp_prescene() {
     if(data_osc_prescene[i].equals("1")) data_osc_prescene[i] = "0" ;
   }
 }
+
+
+
+
+
+
+
+
+
+
+/**
+* MANAGE DIALOGUE SCENE
+*/
+void save_dial_scene(String path) {
+  Table save_dial = new Table();
+  save_dial.addColumn("fx active");
+  save_dial.addColumn("fx slider active");
+  TableRow table_row = save_dial.addRow();
+
+  // slider fx
+  String list_slider = "";
+  String list_fx = "";
+  if(active_fx != null && active_fx.size() > 0) {  
+    for(Integer i : active_fx) {
+      int target = i - num_special_fx;
+      if(target >= 0) {
+        String [] names = get_fx(fx_manager,target).get_name_slider();
+        list_fx += get_fx(fx_manager,target).get_name() + "/";
+        if(names != null && names.length > 0) {
+          for(int k = 0 ; k < names.length ; k++) {
+            list_slider += names[k] + "/";    
+          }
+        }
+      }
+    }
+  }
+  table_row.setString("fx active",list_fx);
+  table_row.setString("fx slider active",list_slider);
+  saveTable(save_dial,path+"/dialogue_from_scene.csv");
+}
+
+
+
+

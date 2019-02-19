@@ -29,12 +29,12 @@ void autosave() {
 /**
 * dialogue data is a save can be read not often by the scene like setting mouse...
 */
-void save_dial_data(String path) {
+void save_dial_controller(String path) {
   Table save_dial = new Table();
   save_dial.addColumn("mouse reactivity");
   TableRow table_row = save_dial.addRow() ;
   table_row.setFloat("mouse reactivity",mouse_reactivity);
-  saveTable(save_dial,path+"/dialogue.csv");
+  saveTable(save_dial,path+"/dialogue_from_controller.csv");
 }
 
 

@@ -427,16 +427,37 @@ void show_slider_background() {
   }
 }
 
+
+
+
 void show_slider_filter() {
+  boolean multi_fx_is = false;
+  if(button_fx[2].is()) {
+    multi_fx_is = true;
+    if(button_fx[2].get_label().equals("EXTRA") && frameCount%120 == 0) {  
+      load_dial_scene_is(true);
+    } else if(!button_fx[2].get_label().equals("EXTRA")) {
+      printErr("method show_slider_filter(): EXTRA is waiting, but the result",button_fx[2].get_label(),"check the code");
+    }
+  }
+  
   // select which slider must be display
+  String [] list = null ;
   int target = dropdown_bar[1].get_selection();
   String which_slider = shader_fx_slider[target];
-  String [] list = split(which_slider,"/");
+  // String [] list = split(which_slider,"/");
+  if(!multi_fx_is) {
+    list = split(which_slider,"/");
+  } else {
+    list = split(slider_fx_active_list,"/");
+  }
+  // println(slider_fx_active_list);
+  // printArray(list);
   // show
   for (int i = 0 ; i < NUM_SLIDER_FX ; i++) {
     if(list.length > 0) {
       for(int k = 0 ; k < list.length ; k++) {
-        if(list[k].equals(slider_adj_fx[i].get_name())) {
+        if(list != null && list[k].equals(slider_adj_fx[i].get_name())) {
           if(!dropdown_is()) {
             update_slider(slider_adj_fx[i],cropinfo_slider_fx);
           }    

@@ -97,7 +97,7 @@ void draw() {
   check_button();
 
   manage_autosave();
-  
+  load_dial_scene();
   update_media();
   
   surface.setTitle(nameVersion + ": " +prettyVersion+"."+version+ " - Controller");

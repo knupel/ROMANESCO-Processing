@@ -120,7 +120,6 @@ manage autosave
 void manage_autosave() {
   boolean state = false ;
   state = change_size_window_is();
-  
   if(state) {
     autosave();
     load_autosave();
@@ -140,9 +139,8 @@ float mouse_reactivity_ref = .5;
 void update_dial() {
   mouse_reactivity = map(value_slider_camera[6],0,360,0.001,1);
   if(mouse_reactivity_ref != mouse_reactivity) {
-    save_dial_data(preference_path);
+    save_dial_controller(preference_path);
     mouse_reactivity_ref = mouse_reactivity;
-
   }
 }
 
@@ -168,7 +166,7 @@ void update_dial() {
 
 
 /**
-FONT
+* FONT
 */
 PFont textUsual_1, textUsual_2, textUsual_3; 
 PFont title_medium, title_big;  
@@ -200,7 +198,7 @@ void set_font() {
 
 
 /**
-DETECTION CURSOR
+* DETECTION CURSOR
 */
 boolean locked (boolean inside) {
   if (inside && mousePressed) return true ; else return false ;
