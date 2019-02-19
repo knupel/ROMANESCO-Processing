@@ -1,6 +1,6 @@
-## Romanesco dui 2.0.2.33
+## Romanesco dui 2.1.0.33
 Generative Live Art Application
-2011-2018
+2011-2019
 
 ![romanesco dui](https://github.com/StanLepunK/ROMANESCO-Processing/blob/master/import_github_pic/Romaneco_soft_32_18_11_5.jpg)
 
@@ -21,4 +21,4 @@ Romanesco is a FOSS / Free and Open Source Software
 
 For commercial use, [making a donation can be good](http://romanescoproject.wordpress.com/download/) to support the project !
 
-ROMANESCO 2011-2018.
+ROMANESCO 2011-2019.
