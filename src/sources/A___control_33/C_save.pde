@@ -95,10 +95,10 @@ void save_info_slider() {
   int start = 0;
   // background
   for (int i = start ; i < NUM_SLIDER_BACKGROUND ; i++) {
-    cropinfo_slider_background[i].set_value(slider_adj_background[i].get(0));
-    cropinfo_slider_background[i].set_min(slider_adj_background[i].get_min_norm());
-    cropinfo_slider_background[i].set_max(slider_adj_background[i].get_max_norm());
-    set_data_slider(i,cropinfo_slider_background[i],"Slider background");
+    cropinfo_slider_fx_bg[i].set_value(slider_adj_background[i].get(0));
+    cropinfo_slider_fx_bg[i].set_min(slider_adj_background[i].get_min_norm());
+    cropinfo_slider_fx_bg[i].set_max(slider_adj_background[i].get_max_norm());
+    set_data_slider(i,cropinfo_slider_fx_bg[i],"Slider background");
   }
 
   // FX

@@ -1,11 +1,11 @@
 Name,Author,Version,Pack,Slider
 Force,Stan le Punk,0.1.0,Base 2014,
-blur circular,Stan le Punk,0.0.1,Base 2019,quantity/strength X/
+blur circular,Stan le Punk,0.0.1,Base 2019,quantity/strength X
 blur gaussian,Stan le Punk,0.0.3,Base 2019,strength X
-blur radial,Stan le Punk,0.0.1,Base 2019,strength_x
-halftone dot,Stan le Punk,0.0.1,Base 2019,position Xposition Yanglethreshold
-halftone line,Stan le Punk,0.0.2,Base 2019,position Xposition Yquantityangle
-pixel,Stan le Punk,0.0.1,Base 2019,quantitysize Xsize Yredgreenblue
-split rgb,Stan le Punk,0.0.1,Base 2019,redgreenbluequantitysize Xsize Y
-warp proc,Stan le Punk,0.0.1,Base 2019,strength X
+blur radial,Stan le Punk,0.0.1,Base 2019,position X/position Y/strength X
+halftone dot,Stan le Punk,0.0.1,Base 2019,position X/position Y/angle/quantity
+halftone line,Stan le Punk,0.0.2,Base 2019,position X/position Y/quantity/angle
+pixel,Stan le Punk,0.0.1,Base 2019,quantity/size X/size Y/red/green/blue
+split rgb,Stan le Punk,0.0.1,Base 2019,strength X/strength Y/speed
+warp proc,Stan le Punk,0.0.1,Base 2019,strength X/speed
 warp tex,Stan le Punk,0.0.1,Base 2019,strength X

@@ -45,10 +45,8 @@ void info_item() {
 
 
 
-void create_and_initialize_data() {
+void create_and_initialize_item() {
   inventory_item_table = loadTable(preference_path+"index_romanesco_items.csv","header");
-  shader_fx_table = loadTable(preference_path+"index_fx.csv","header");
-  shader_background_table = loadTable(preference_path+"index_fx_background.csv","header");
   item_inventory();
   init_var_item();
 
@@ -58,8 +56,6 @@ void create_and_initialize_data() {
   init_button_item_console();
 
   info_item();
-  info_shader_background();
-  info_shader_fx();
 }
 
 void init_var_item() {

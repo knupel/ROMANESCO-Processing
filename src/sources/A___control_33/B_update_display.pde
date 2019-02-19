@@ -1,7 +1,7 @@
 /**
 update, display and design
-v 0.0.6
-2018-2018
+v 0.1.0
+2018-2019
 */
 
 /**
@@ -139,7 +139,7 @@ void show_misc_text() {
 
 
 /**
-DROPDOWN UPDATE and DISPLAY
+* DROPDOWN UPDATE and DISPLAY
 */
 /**
 display
@@ -182,7 +182,7 @@ void update_dropdown(Dropdown... dd) {
 }
 
 void update_dropdown_bar_content() {
-  dropdown_content [0] = shader_bg_name;
+  dropdown_content [0] = shader_fx_bg_name;
   dropdown_content [1] = shader_fx_name;
   dropdown_content [2] = font_dropdown_list;
   dropdown_content [3] = file_text_dropdown_list;
@@ -193,6 +193,7 @@ void update_dropdown_bar_content() {
 }
 
 
+// dropdown item
 void update_dropdown_item() {
   int pointer = 0 ;
   ivec2 offset_selection = ivec2(18,8);
@@ -293,7 +294,7 @@ void show_slider_controller() {
 
 
 /**
-manageslider part
+manage slider part
 */
 boolean slider_already_used;
 void slider_already_used(boolean state) {
@@ -401,31 +402,72 @@ void update_slider(Slider slider, Cropinfo [] info_slider) {
 // SLIDER DRAW
 void show_slider_background() {
   boolean show_is = false;
+  // select which slider must be display
+  int target = dropdown_bar[0].get_selection();
+  String which_slider = shader_fx_bg_slider[target];
+  String [] list = split(which_slider,"/");
+
   if(!dropdown_is()) {
     show_is = show_slider_structure_colour(pos_slider_background, size_slider_background, value_slider_background);
   }
   for (int i = 0 ; i < NUM_SLIDER_BACKGROUND ; i++) {
-    if(!dropdown_is()) {
-      update_slider(slider_adj_background[i],cropinfo_slider_background);
+    if(list.length > 0) {
+      for(int k = 0 ; k < list.length ; k++) {
+        if(list[k].equals(slider_adj_background[i].get_name())) {
+          if(!dropdown_is()) {
+            update_slider(slider_adj_background[i],cropinfo_slider_fx_bg);
+          }
+          if(!show_is || i >= 3 ) slider_adj_background[i].show_structure();   
+          slider_adj_background[i].show_adj();
+          slider_adj_background[i].show_molette();
+          slider_adj_background[i].show_label();
+        }
+      }      
     }
-    if(!show_is || i >= 3 ) slider_adj_background[i].show_structure();
-    slider_adj_background[i].show_adj();
-    slider_adj_background[i].show_molette();
-    slider_adj_background[i].show_label();
   }
 }
 
 void show_slider_filter() {
+  // select which slider must be display
+  int target = dropdown_bar[1].get_selection();
+  String which_slider = shader_fx_slider[target];
+  String [] list = split(which_slider,"/");
+  // show
   for (int i = 0 ; i < NUM_SLIDER_FX ; i++) {
-    if(!dropdown_is()) {
-      update_slider(slider_adj_fx[i],cropinfo_slider_fx);
-    }    
-    slider_adj_fx[i].show_structure();
-    slider_adj_fx[i].show_adj();
-    slider_adj_fx[i].show_molette();
-    slider_adj_fx[i].show_label();
+    if(list.length > 0) {
+      for(int k = 0 ; k < list.length ; k++) {
+        if(list[k].equals(slider_adj_fx[i].get_name())) {
+          if(!dropdown_is()) {
+            update_slider(slider_adj_fx[i],cropinfo_slider_fx);
+          }    
+          slider_adj_fx[i].show_structure();
+          slider_adj_fx[i].show_adj();
+          slider_adj_fx[i].show_molette();
+          slider_adj_fx[i].show_label();
+        }
+      }      
+    } 
   }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 void show_slider_light() {
   boolean [] is = new boolean[3];
@@ -589,12 +631,36 @@ boolean show_slider_structure_colour(ivec2 [] pos, ivec2 [] size, float [] value
 }
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /**
-Item
-*/
-/*
-When you add a new sliders, you must change the starting value from 'NAN' to a value between 0 and 1 in the file 'defaultSetting.csv' in the 'preferences/setting' folder.
-And you must add the name of this one in the 'preferences/'  folder slider_name_en.csv' and in the 'slider_name_fr' file
+* SLIDER Item
+* When you add a new sliders, you must change the starting value from 'NAN' 
+* to a value between 0 and 1 in the file 'defaultSetting.csv' in the 'preferences/setting' folder.
+* And you must add the name of this one in the 'preferences/' 
+* folder slider_name_en.csv' and in the 'slider_name_fr' file
 */
 void show_slider_item() {
   boolean [] is = new boolean[2];
@@ -608,7 +674,7 @@ void show_slider_item() {
         if (item_group[i] == 1) { 
           for(int k = 0 ; k < NUM_SLIDER_ITEM ; k++) {
             if (display_slider[k]) {
-              show_slider(k,is);
+              show_slider_item(k,is);
             }
           }
         }
@@ -620,13 +686,13 @@ void show_slider_item() {
       is[1] = show_slider_item_colour(hue_stroke_rank, sat_stroke_rank, bright_stroke_rank); // stroke
     }
     for(int i = 0 ; i < NUM_SLIDER_ITEM ; i++) {
-      show_slider(i,is);
+      show_slider_item(i,is);
     }
   } 
 }
 
 
-void show_slider(int index, boolean [] is) {
+void show_slider_item(int index, boolean [] is) {
   if(!dropdown_is()) {
     update_slider(slider_adj_item[index],cropinfo_slider_item);
   }

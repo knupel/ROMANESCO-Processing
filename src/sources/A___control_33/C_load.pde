@@ -29,15 +29,20 @@ void load_save(String path) {
 // LOAD INFO OBJECT from the PRESCENE
 
 Table inventory_item_table;
-Table shader_background_table;
+Table shader_fx_bg_table;
 Table shader_fx_table;
 int numGroup []; 
 int [] item_rank, item_ID, item_group, item_camera_video_on_off, item_GUI_on_off;
 String [] item_info, item_info_raw;
 String [] item_name, item_author, item_version, item_pack, item_load_name, item_slider; 
 
-String [] shader_bg_name, shader_bg_author;
-String [] shader_fx_name, shader_fx_author;
+String [] shader_fx_bg_name;
+String [] shader_fx_bg_author;
+String [] shader_fx_bg_slider;
+
+String [] shader_fx_name;
+String [] shader_fx_author;
+String [] shader_fx_slider;
 
 //BUTTON
 
@@ -143,9 +148,9 @@ void load_data_GUI(String path) {
     count_slider_background = NUM_SLIDER_BACKGROUND;
     printErr("info save SLIDER BACKGROUND is not the same than constant NUM_SLIDER_BACKGROUND, the constast has used instead, to prevent error");
   }
-  cropinfo_slider_background = new Cropinfo[count_slider_background];
+  cropinfo_slider_fx_bg = new Cropinfo[count_slider_background];
   for(int i = 0 ; i < count_slider_background ; i++) {
-    cropinfo_slider_background[i] = new Cropinfo();
+    cropinfo_slider_fx_bg[i] = new Cropinfo();
   }
   
   if(count_slider_fx != NUM_SLIDER_FX) {
@@ -157,7 +162,6 @@ void load_data_GUI(String path) {
     cropinfo_slider_fx[i] = new Cropinfo();
   }
   
-
   if(count_slider_light != NUM_SLIDER_LIGHT) {
     count_slider_light = NUM_SLIDER_LIGHT;
     printErr("info save SLIDER LIGHT is not the same than constant NUM_SLIDER_LIGHT, the constast has used instead, to prevent error");
@@ -193,7 +197,6 @@ void load_data_GUI(String path) {
   for(int i = 0 ; i < count_slider_camera ; i++) {
     cropinfo_slider_camera[i] = new Cropinfo();
   }
-
 
   cropinfo_slider_item = new Cropinfo[count_slider_item];
   for(int i = 0 ; i < count_slider_item ; i++) {
@@ -372,7 +375,7 @@ void load_saved_file_controller(String path) {
 
     // slider background
     if(s.equals("Slider background")) {
-      set_info_slider(row, "Slider background", cropinfo_slider_background[count_slider_background]);
+      set_info_slider(row, "Slider background", cropinfo_slider_fx_bg[count_slider_background]);
       count_slider_background++;
     }
 
@@ -512,8 +515,8 @@ void set_data() {
 // Setting SLIDER from save
 void set_slider_data_group() {
   for (int i = 0 ; i < NUM_SLIDER_BACKGROUND ; i++) {
-    setting_data_slider(slider_adj_background[i],cropinfo_slider_background[i]);
-    update_slider(slider_adj_background[i],cropinfo_slider_background);
+    setting_data_slider(slider_adj_background[i],cropinfo_slider_fx_bg[i]);
+    update_slider(slider_adj_background[i],cropinfo_slider_fx_bg);
   }
 
   for (int i = 0 ; i < NUM_SLIDER_FX ; i++) {
@@ -645,33 +648,6 @@ void set_button_from_saved_file() {
 }
 
 
-
-
-// info_save_raw_list read info to translate and give a good position
-/*
-Vec5 info_save_raw_list(Vec5[] list, int index) {
-  if(list != null) {
-    Vec5 info = Vec5() ;
-    float value_slider = 0 ;
-    float value_slider_min = 0 ;
-    float value_slider_max = 1 ;
-    float IDmidi = 0 ;
-    for(int i = 0 ; i < list.length ;i++) {
-      if(list[i] != null ) if((int)list[i].a == index) {
-        value_slider = list[i].c ;
-        value_slider_min = list[i].d ;
-        value_slider_max = list[i].e ;
-        IDmidi = list[i].b ;
-        info = Vec5(index, IDmidi,value_slider,value_slider_min,value_slider_max) ;
-        break;
-      } else {
-        info = Vec5(-1) ;
-      }
-    }
-    return info ;
-  } else return null; 
-}
-*/
 
 
 

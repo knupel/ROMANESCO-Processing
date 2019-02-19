@@ -1,6 +1,38 @@
 /**
-ROMANESCO BACKGROUND 
-v 1.2.1
+* ROMANESCO BACKGROUND + CURTAIN
+* v 1.2.1
+* 2015-2019
+*/
+
+
+
+
+
+
+/**
+curtain
+*/
+void curtain() {
+  rectMode(CORNER) ;
+  fill (0) ; 
+  noStroke() ;
+  rect(-1,-1, width+2, height+2);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+/** 
+* BACKGROUND
 */
 vec4 colorBackground, colorBackgroundRef, colorBackgroundPrescene;
 void background_setup() {
@@ -55,18 +87,43 @@ vec4 update_background() {
   return vec4(hue_bg,saturation_bg,brigthness_bg,alpha) ;
 }
 
-// BACKGROUND SHADER
-PShader cellular, heart, necklace, neon, psy, snow;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/**
+* BACKGROUND SHADER
+* v 0.4.0
+* 2013-2019
+*/
+ArrayList<FX> fx_background_manager;
+
 
 void background_shader_setup() {
-  String pathShaderBG = preference_path +"shader/shader_bg/" ;
-
-  cellular = loadShader(pathShaderBG+"cellular.glsl") ;
-  heart = loadShader(pathShaderBG+"heart.glsl") ;
-  necklace = loadShader(pathShaderBG+"necklace.glsl") ;
-  neon = loadShader(pathShaderBG+"neon.glsl") ;
-  psy = loadShader(pathShaderBG+"psy.glsl") ;
-  snow = loadShader(pathShaderBG+"snow.glsl") ;
+  if(FULL_RENDERING) {
+    fx_background_manager = new ArrayList<FX>();
+    String path = preference_path +"shader/fx_bg/";
+    setting_fx_background(fx_background_manager,path);
+    write_fx_backgound_index(fx_background_manager);
+    
+  }
 }
 
 void background_shader_draw(int which_one) {
@@ -93,11 +150,168 @@ void background_shader_draw(int which_one) {
   } 
 }
 
+PShader cellular;
+PShader heart;
+PShader necklace;
+PShader neon;
+PShader psy;
+PShader snow;
+int fx_background_num;
+void setting_fx_background(ArrayList<FX> fx_list, String path) {
+  setting_fx_bg_classic(fx_list,path);
+  setting_fx_bg_cellular(fx_list,path);
+  setting_fx_bg_heart(fx_list,path);
+  setting_fx_bg_necklace(fx_list,path);
+  setting_fx_bg_neon(fx_list,path);
+  setting_fx_bg_psy(fx_list,path);
+  setting_fx_bg_snow(fx_list,path);
+}
+
+String fx_bg_classic = "Classic";
+void setting_fx_bg_classic(ArrayList<FX> fx_list, String path) {
+  // no shader to download at this time !!!
+  String version = "0.0.1";
+  int revision = 1;
+  String author = "Stan le Punk";
+  String pack = "Base 2013-2019";
+  String [] slider = {"hue","saturation","brightness","refresh"};
+  int id = fx_background_num;
+  init_fx(fx_list,fx_bg_classic,FX_BG_CLASSIC,id,author,pack,version,revision,slider,null);
+  fx_background_num++;
+}
+
+String fx_bg_cellular = "Cellular";
+void setting_fx_bg_cellular(ArrayList<FX> fx_list, String path) {
+  cellular = loadShader(path+"cellular.glsl");
+  String version = "0.0.1";
+  int revision = 1;
+  String author = "Josh P";
+  String pack = "Base 2016-2019";
+  String [] slider = {"hue","saturation","brightness","refresh","quality","quantity","speed"};
+  int id = fx_background_num;
+  init_fx(fx_list,fx_bg_cellular,FX_BG_CELLULAR,id,author,pack,version,revision,slider,null);
+  fx_background_num++;
+}
+
+String fx_bg_heart = "Heart";
+void setting_fx_bg_heart(ArrayList<FX> fx_list, String path) {
+  heart = loadShader(path+"heart.glsl");
+  String version = "0.0.1";
+  int revision = 1;
+  String author = "Josh P";
+  String pack = "Base 2016-2019";
+  String [] slider = {"hue","saturation","brightness","refresh"};
+  int id = fx_background_num;
+  init_fx(fx_list,fx_bg_heart,FX_BG_HEART,id,author,pack,version,revision,slider,null);
+  fx_background_num++;
+}
+
+String fx_bg_necklace = "Necklace";
+void setting_fx_bg_necklace(ArrayList<FX> fx_list, String path) {
+  necklace = loadShader(path+"necklace.glsl");
+  String version = "0.0.1";
+  int revision = 1;
+  String author = "Sandbox";
+  String pack = "Base 2016-2019";
+  String [] slider = {"refresh","quantity","size X","size Y"};
+  int id = fx_background_num;
+  init_fx(fx_list,fx_bg_necklace,FX_BG_NECKLACE,id,author,pack,version,revision,slider,null);
+  fx_background_num++;
+}
+
+
+String fx_bg_neon = "Neon";
+void setting_fx_bg_neon(ArrayList<FX> fx_list, String path) {
+  neon = loadShader(path+"neon.glsl");
+  String version = "0.0.1";
+  int revision = 1;
+  String author = "Sandbox";
+  String pack = "Base 2016-2019";
+  String [] slider = {""};
+  int id = fx_background_num;
+  init_fx(fx_list,fx_bg_neon,FX_BG_NEON,id,author,pack,version,revision,slider,null);
+  fx_background_num++;
+}
+
+String fx_bg_psy = "Psy";
+void setting_fx_bg_psy(ArrayList<FX> fx_list, String path) {
+  psy = loadShader(path+"psy.glsl");
+  String version = "0.0.1";
+  int revision = 1;
+  String author = "Sandbox";
+  String pack = "Base 2016-2019";
+  String [] slider = {""};
+  int id = fx_background_num;
+  init_fx(fx_list,fx_bg_psy,FX_BG_PSY,id,author,pack,version,revision,slider,null);
+  fx_background_num++;
+}
+
+String fx_bg_snow = "Snow";
+void setting_fx_bg_snow(ArrayList<FX> fx_list, String path) {
+  snow = loadShader(path+"snow.glsl");
+  String version = "0.0.1";
+  int revision = 1;
+  String author = "Sandbox";
+  String pack = "Base 2016-2019";
+  String [] slider = {"hue","saturation","brightness","refresh","speed X"};
+  int id = fx_background_num;
+  init_fx(fx_list,fx_bg_snow,FX_BG_SNOW,id,author,pack,version,revision,slider,null);
+  fx_background_num++;
+}
+
+
+
+
+// info to gui
+void write_fx_backgound_index(ArrayList<FX> fx_list) {
+  Table index_fx_bg = new Table();
+  index_fx_bg.addColumn("Name");
+  index_fx_bg.addColumn("Author");
+  index_fx_bg.addColumn("Version");
+  index_fx_bg.addColumn("Pack");
+  index_fx_bg.addColumn("Slider");
+  
+
+  int num = fx_background_num; // +1 cause of the special force field fx
+  TableRow [] info_fx_bg = new TableRow [num];
+
+  for(int i = 0 ; i < info_fx_bg.length ; i++) {
+    info_fx_bg[i] = index_fx_bg.addRow();
+  }
+
+
+  for(int i = 0 ; i < fx_background_num ; i++) {
+    FX fx = get_fx(fx_list,i); 
+    info_fx_bg[i].setString("Name",fx.get_name());
+    info_fx_bg[i].setString("Author",fx.get_author());
+    info_fx_bg[i].setString("Version",fx.get_version());
+    info_fx_bg[i].setString("Pack",fx.get_pack());
+    String s = "";
+    int max =  fx.get_name_slider().length;
+    for(int k = 0 ; k < max ; k++) {
+      if(k < max - 1) {
+        s += (fx.get_name_slider()[k]+"/");
+      } else {
+        s += (fx.get_name_slider()[k]);
+      }
+    }
+    info_fx_bg[i].setString("Slider",s);
+  }
+
+  saveTable(index_fx_bg, preference_path+"index_fx_bg.csv"); 
+}
+
+
+
+
+
+
+
 float shaderMouseX, shaderMouseY ;
-void rectangle(vec2 pos, vec3 size, PShader s) {
+void rectangle(vec2 pos, vec3 resolution, PShader s) {
   // weird algorithm to have a nice display
   int ratio = 10;
-  vec3 temp_size = mult(size, ratio);
+  vec3 temp_size = mult(resolution, ratio);
   pushMatrix() ;
   translate(mult(temp_size,-.5));
   shader(s);
@@ -119,11 +333,11 @@ void rectangle(vec2 pos, vec3 size, PShader s) {
   // quantity
   float quantity = map(value_slider_background[4],0,MAX_VALUE_SLIDER,0,1);
   // variety
-  float var = map(value_slider_background[5],0,MAX_VALUE_SLIDER,0,1);
-  var *= var;
+  float quality = map(value_slider_background[5],0,MAX_VALUE_SLIDER,0,1);
+  quality *= quality;
   // size / canvas
-  float size_slider_x = map(value_slider_background[6],0,MAX_VALUE_SLIDER,0,1);
-  float size_slider_y = map(value_slider_background[7],0,MAX_VALUE_SLIDER,0,1);
+  float size_x = map(value_slider_background[6],0,MAX_VALUE_SLIDER,0,1);
+  float size_y = map(value_slider_background[7],0,MAX_VALUE_SLIDER,0,1);
   // speed
   float speed_x = map(value_slider_background[8],0,MAX_VALUE_SLIDER,0,1);
   speed_x *= speed_x;
@@ -141,19 +355,21 @@ void rectangle(vec2 pos, vec3 size, PShader s) {
     shaderMouseY = map(mouse[0].y,0,height,0,1) ;
   }
   
-  s.set("rgba",r,g,b,a); 
-  s.set("mixSound", mix[0]) ;
-  s.set("timeTrack", get_time_track()) ;
-  s.set("tempo", tempo[0]) ;
-  s.set("beat", all_transient(0));
-  s.set("quantity", quantity);
-  s.set("variety", var);
+  s.set("timeTrack",get_time_track());
+  s.set("mixSound",mix[0]) ;
+  s.set("tempo",tempo[0]) ;
+  s.set("beat",all_transient(0));
   s.set("mouse",shaderMouseX, shaderMouseY);
-  s.set("resolution",size.x,size.y);
+  s.set("resolution",resolution.x,resolution.y);
+    s.set("time", f_time);
+
+  // external param
+  s.set("rgba",r,g,b,a); 
+  s.set("quantity",quantity);
+  s.set("quality",quality);
   s.set("direction",dir_x,dir_y,dir_z);
-  s.set("time", f_time);
-  s.set("speed", speed_x,speed_y,speed_z);
-  s.set("size", size_slider_x,size_slider_y);
+  s.set("speed",speed_x,speed_y,speed_z);
+  s.set("size",size_x,size_y);
   
   beginShape(QUADS) ;
   vertex(pos.x,pos.y) ;
@@ -174,12 +390,25 @@ void rectangle(vec2 pos, vec3 size, PShader s) {
 
 
 
-/**
-curtain
-*/
-void curtain() {
-  rectMode(CORNER) ;
-  fill (0) ; 
-  noStroke() ;
-  rect(-1,-1, width+2, height+2);
-}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

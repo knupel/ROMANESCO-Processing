@@ -2,10 +2,12 @@
 * SHADER FX
 * @see http://stanlepunk.xyz
 * @see https://github.com/StanLepunK/Filter
-* v 0.2.0
+* v 0.3.0
 * 2019-2019
 *
 */
+
+// CONSTANT FX
 int FX_BLUR_GAUSSIAN = 100;
 int FX_BLUR_RADIAL = 101;
 int FX_BLUR_CIRCULAR = 102;
@@ -37,21 +39,36 @@ int FX_TOON = 800; // don't work
 int FX_WARP_TEX = 1000;
 int FX_WARP_PROC = 1001;
 
+// CONSTANT FX_BG
+int FX_BG_CLASSIC = 9999;
 
-ArrayList<FX>fx_manager;
+int FX_BG_CELLULAR = 10000;
 
-FX get_fx(int target) {
-	if(fx_manager != null && target < fx_manager.size()) {
-		return fx_manager.get(target);
+int FX_BG_HEART = 10100;
+
+
+int FX_BG_NECKLACE = 10200;
+
+int FX_BG_NEON = 10300;
+
+int FX_BG_PSY = 10400;
+
+int FX_BG_SNOW = 10500;
+
+
+
+FX get_fx(ArrayList<FX> fx_list, int target) {
+	if(fx_list != null && target < fx_list.size()) {
+		return fx_list.get(target);
 	} else {
 		return null;
 	}
 }
 
-FX get_fx(String name) {
+FX get_fx(ArrayList<FX> fx_list, String name) {
 	FX buffer = null;
-	if(fx_manager != null && fx_manager.size() > 0) {	
-		for(FX fx : fx_manager) {
+	if(fx_list != null && fx_list.size() > 0) {	
+		for(FX fx : fx_list) {
 			if(fx.get_name().equals(name)){
 				buffer = fx;
 				break;
@@ -61,34 +78,36 @@ FX get_fx(String name) {
 	return buffer;
 }
 
-void init_fx(String name, int type) {
-	init_fx(name,type,-1, null, null, null,-1,null,null);
+void init_fx(ArrayList<FX> fx_list, String name, int type) {
+	init_fx(fx_list,name,type,-1, null, null, null,-1,null,null);
 }
 
 
 
-void init_fx(String name, int type, int id, String author, String pack, String version, int revision, String [] name_slider, String [] name_button) {
+void init_fx(ArrayList<FX> fx_list, String name, int type, int id, String author, String pack, String version, int revision, String [] name_slider, String [] name_button) {
 	boolean exist = false;
-	if(fx_manager == null) {
-		fx_manager = new ArrayList<FX>();
+	/*
+	if(fx_list == null) {
+		fx_list = new ArrayList<FX>();
 	}
+	*/
 
-	if(fx_manager != null && fx_manager.size() > 0) {
-		for(FX fx : fx_manager) {
+	if(fx_list != null && fx_list.size() > 0) {
+		for(FX fx : fx_list) {
 			if(fx.get_name().equals(name)) {
 				exist = true;
 				break;
 			}
 		}
 		if(!exist) {
-			add_fx_to_manager(name,type,id,author,pack,version,revision,name_slider,name_button);
+			add_fx_to_manager(fx_list,name,type,id,author,pack,version,revision,name_slider,name_button);
 		}
 	} else {
-		add_fx_to_manager(name,type,id,author,pack,version,revision,name_slider,name_button);
+		add_fx_to_manager(fx_list,name,type,id,author,pack,version,revision,name_slider,name_button);
 	}
 }
 
-void add_fx_to_manager(String name, int type, int id, String author, String pack, String version, int revision, String [] name_slider, String [] name_button) {
+void add_fx_to_manager(ArrayList<FX> fx_list, String name, int type, int id, String author, String pack, String version, int revision, String [] name_slider, String [] name_button) {
 	FX fx = new FX(name,type);
 	fx.set_id(id);
 	if(author != null) fx.set_author(author);
@@ -97,7 +116,7 @@ void add_fx_to_manager(String name, int type, int id, String author, String pack
 	fx.set_revision(revision);
 	if(name_slider != null) fx.set_name_slider(name_slider);
 	if(name_button != null) fx.set_name_button(name_button);
-	fx_manager.add(fx);
+	fx_list.add(fx);
 }
 
 
@@ -160,213 +179,211 @@ v 0.0.2
 /**
 mode
 */
-void fx_set_mode(String name, int mode) {
-	fx_set(0,name,mode);
+void fx_set_mode(ArrayList<FX> fx_list, String name, int mode) {
+	fx_set(fx_list,0,name,mode);
 }
 
-void fx_set_num(String name, int num) {
-	fx_set(1,name,num);
+void fx_set_num(ArrayList<FX> fx_list, String name, int num) {
+	fx_set(fx_list,1,name,num);
 }
 
-void fx_set_quality(String name, float quality) {
-	fx_set(2,name,quality);
+void fx_set_quality(ArrayList<FX> fx_list, String name, float quality) {
+	fx_set(fx_list,2,name,quality);
 }
 
-void fx_set_scale(String name, float... arg) {
+void fx_set_scale(ArrayList<FX> fx_list, String name, float... arg) {
 	int which = 10;
 	if(arg.length == 1) {
-		fx_set(which,name,arg[0]);
+		fx_set(fx_list,which,name,arg[0]);
 	} else if(arg.length == 2) {
-		fx_set(which,name,arg[0],arg[1]);
+		fx_set(fx_list,which,name,arg[0],arg[1]);
 	} else if(arg.length > 2) {
-		fx_set(which,name,arg[0],arg[1]);
+		fx_set(fx_list,which,name,arg[0],arg[1]);
 	}
 }
 
 
-void fx_set_resolution(String name, float... arg) {
+void fx_set_resolution(ArrayList<FX> fx_list, String name, float... arg) {
 	int which = 11;
 	if(arg.length == 1) {
-		fx_set(which,name,arg[0]);
+		fx_set(fx_list,which,name,arg[0]);
 	} else if(arg.length == 2) {
-		fx_set(which,name,arg[0],arg[1]);
+		fx_set(fx_list,which,name,arg[0],arg[1]);
 	} else if(arg.length > 2) {
-		fx_set(which,name,arg[0],arg[1]);
+		fx_set(fx_list,which,name,arg[0],arg[1]);
 	}
 }
 
 
-void fx_set_strength(String name, float... arg) {
+void fx_set_strength(ArrayList<FX> fx_list, String name, float... arg) {
 	int which = 20;
 	if(arg.length == 1) {
-		fx_set(which,name,arg[0]);
+		fx_set(fx_list,which,name,arg[0]);
 	} else if(arg.length == 2) {
-		fx_set(which,name,arg[0],arg[1]);
+		fx_set(fx_list,which,name,arg[0],arg[1]);
 	} else if(arg.length == 3) {
-		fx_set(which,name,arg[0],arg[1],arg[2]);
+		fx_set(fx_list,which,name,arg[0],arg[1],arg[2]);
 	} else if(arg.length > 3) {
-		fx_set(which,name,arg[0],arg[1],arg[2]);
+		fx_set(fx_list,which,name,arg[0],arg[1],arg[2]);
 	}
 }
 
-void fx_set_angle(String name, float... arg) {
+void fx_set_angle(ArrayList<FX> fx_list, String name, float... arg) {
 	int which = 21;
 	if(arg.length == 1) {
-		fx_set(which,name,arg[0]);
+		fx_set(fx_list,which,name,arg[0]);
 	} else if(arg.length == 2) {
-		fx_set(which,name,arg[0],arg[1]);
+		fx_set(fx_list,which,name,arg[0],arg[1]);
 	} else if(arg.length == 3) {
-		fx_set(which,name,arg[0],arg[1],arg[2]);
+		fx_set(fx_list,which,name,arg[0],arg[1],arg[2]);
 	} else if(arg.length > 3) {
-		fx_set(which,name,arg[0],arg[1],arg[2]);
+		fx_set(fx_list,which,name,arg[0],arg[1],arg[2]);
 	}
 }
 
-void fx_set_threshold(String name, float... arg) {
+void fx_set_threshold(ArrayList<FX> fx_list, String name, float... arg) {
 	int which = 22;
 	if(arg.length == 1) {
-		fx_set(which,name,arg[0]);
+		fx_set(fx_list,which,name,arg[0]);
 	} else if(arg.length == 2) {
-		fx_set(which,name,arg[0],arg[1]);
+		fx_set(fx_list,which,name,arg[0],arg[1]);
 	} else if(arg.length == 3) {
-		fx_set(which,name,arg[0],arg[1],arg[2]);
+		fx_set(fx_list,which,name,arg[0],arg[1],arg[2]);
 	} else if(arg.length > 3) {
-		fx_set(which,name,arg[0],arg[1],arg[2]);
+		fx_set(fx_list,which,name,arg[0],arg[1],arg[2]);
 	}
 }
 
-void fx_set_pos(String name, float... arg) {
+void fx_set_pos(ArrayList<FX> fx_list, String name, float... arg) {
 	int which = 23;
 	if(arg.length == 1) {
-		fx_set(which,name,arg[0]);
+		fx_set(fx_list,which,name,arg[0]);
 	} else if(arg.length == 2) {
-		fx_set(which,name,arg[0],arg[1]);
+		fx_set(fx_list,which,name,arg[0],arg[1]);
 	} else if(arg.length == 3) {
-		fx_set(which,name,arg[0],arg[1],arg[2]);
+		fx_set(fx_list,which,name,arg[0],arg[1],arg[2]);
 	} else if(arg.length > 3) {
-		fx_set(which,name,arg[0],arg[1],arg[2]);
+		fx_set(fx_list,which,name,arg[0],arg[1],arg[2]);
 	}
 }
 
-void fx_set_size(String name, float... arg) {
+void fx_set_size(ArrayList<FX> fx_list, String name, float... arg) {
 	int which = 24;
 	if(arg.length == 1) {
-		fx_set(which,name,arg[0]);
+		fx_set(fx_list,which,name,arg[0]);
 	} else if(arg.length == 2) {
-		fx_set(which,name,arg[0],arg[1]);
+		fx_set(fx_list,which,name,arg[0],arg[1]);
 	} else if(arg.length == 3) {
-		fx_set(which,name,arg[0],arg[1],arg[2]);
+		fx_set(fx_list,which,name,arg[0],arg[1],arg[2]);
 	} else if(arg.length > 3) {
-		fx_set(which,name,arg[0],arg[1],arg[2]);
+		fx_set(fx_list,which,name,arg[0],arg[1],arg[2]);
 	}
 }
 
-void fx_set_offset(String name, float... arg) {
+void fx_set_offset(ArrayList<FX> fx_list, String name, float... arg) {
 	int which = 25;
 	if(arg.length == 1) {
-		fx_set(which,name,arg[0]);
+		fx_set(fx_list,which,name,arg[0]);
 	} else if(arg.length == 2) {
-		fx_set(which,name,arg[0],arg[1]);
+		fx_set(fx_list,which,name,arg[0],arg[1]);
 	} else if(arg.length == 3) {
-		fx_set(which,name,arg[0],arg[1],arg[2]);
+		fx_set(fx_list,which,name,arg[0],arg[1],arg[2]);
 	} else if(arg.length > 3) {
-		fx_set(which,name,arg[0],arg[1],arg[2]);
+		fx_set(fx_list,which,name,arg[0],arg[1],arg[2]);
 	}
 }
 
-void fx_set_level_source(String name, float... arg) {
+void fx_set_level_source(ArrayList<FX> fx_list, String name, float... arg) {
 	int which = 30;
 	if(arg.length == 1) {
-		fx_set(which,name,arg[0]);
+		fx_set(fx_list,which,name,arg[0]);
 	} else if(arg.length == 2) {
-		fx_set(which,name,arg[0],arg[1]);
+		fx_set(fx_list,which,name,arg[0],arg[1]);
 	} else if(arg.length == 3) {
-		fx_set(which,name,arg[0],arg[1],arg[2]);
+		fx_set(fx_list,which,name,arg[0],arg[1],arg[2]);
 	} else if(arg.length == 4) {
-		fx_set(which,name,arg[0],arg[1],arg[2],arg[3]);
+		fx_set(fx_list,which,name,arg[0],arg[1],arg[2],arg[3]);
 	} else if(arg.length > 4) {
-		fx_set(which,name,arg[0],arg[1],arg[2],arg[3]);
+		fx_set(fx_list,which,name,arg[0],arg[1],arg[2],arg[3]);
 	}
 }
 
-void fx_set_level_layer(String name, float... arg) {
+void fx_set_level_layer(ArrayList<FX> fx_list, String name, float... arg) {
 	int which = 31;
 	if(arg.length == 1) {
-		fx_set(which,name,arg[0]);
+		fx_set(fx_list,which,name,arg[0]);
 	} else if(arg.length == 2) {
-		fx_set(which,name,arg[0],arg[1]);
+		fx_set(fx_list,which,name,arg[0],arg[1]);
 	} else if(arg.length == 3) {
-		fx_set(which,name,arg[0],arg[1],arg[2]);
+		fx_set(fx_list,which,name,arg[0],arg[1],arg[2]);
 	} else if(arg.length == 4) {
-		fx_set(which,name,arg[0],arg[1],arg[2],arg[3]);
+		fx_set(fx_list,which,name,arg[0],arg[1],arg[2],arg[3]);
 	} else if(arg.length > 4) {
-		fx_set(which,name,arg[0],arg[1],arg[2],arg[3]);
+		fx_set(fx_list,which,name,arg[0],arg[1],arg[2],arg[3]);
 	}
 }
 
-void fx_set_colour(String name, float... arg) {
+void fx_set_colour(ArrayList<FX> fx_list, String name, float... arg) {
 	int which = 32;
 	if(arg.length == 1) {
-		fx_set(which,name,arg[0]);
+		fx_set(fx_list,which,name,arg[0]);
 	} else if(arg.length == 2) {
-		fx_set(which,name,arg[0],arg[1]);
+		fx_set(fx_list,which,name,arg[0],arg[1]);
 	} else if(arg.length == 3) {
-		fx_set(which,name,arg[0],arg[1],arg[2]);
+		fx_set(fx_list,which,name,arg[0],arg[1],arg[2]);
 	} else if(arg.length == 4) {
-		fx_set(which,name,arg[0],arg[1],arg[2],arg[3]);
+		fx_set(fx_list,which,name,arg[0],arg[1],arg[2],arg[3]);
 	} else if(arg.length > 4) {
-		fx_set(which,name,arg[0],arg[1],arg[2],arg[3]);
+		fx_set(fx_list,which,name,arg[0],arg[1],arg[2],arg[3]);
 	}
 }
 
 
 // modulair param
-void fx_set_matrix(String name, int target, float... arg) {
+void fx_set_matrix(ArrayList<FX> fx_list, String name, int target, float... arg) {
 	int which = 40+target;
 	if(arg.length == 1) {
-		fx_set(which,name,arg[0]);
+		fx_set(fx_list,which,name,arg[0]);
 	} else if(arg.length == 2) {
-		fx_set(which,name,arg[0],arg[1]);
+		fx_set(fx_list,which,name,arg[0],arg[1]);
 	} else if(arg.length == 3) {
-		fx_set(which,name,arg[0],arg[1],arg[2]);
+		fx_set(fx_list,which,name,arg[0],arg[1],arg[2]);
 	} else if(arg.length > 3) {
-		fx_set(which,name,arg[0],arg[1],arg[2]);
+		fx_set(fx_list,which,name,arg[0],arg[1],arg[2]);
 	}
 }
 
 
-void fx_set_pair(String name, int target, float... arg) {
+void fx_set_pair(ArrayList<FX> fx_list, String name, int target, float... arg) {
 	int which = 50+target;
 	if(arg.length == 1) {
-		fx_set(which,name,arg[0]);
+		fx_set(fx_list,which,name,arg[0]);
 	} else if(arg.length == 2) {
-		fx_set(which,name,arg[0],arg[1]);
+		fx_set(fx_list,which,name,arg[0],arg[1]);
 	} else if(arg.length > 3) {
-		fx_set(which,name,arg[0],arg[1]);
+		fx_set(fx_list,which,name,arg[0],arg[1]);
 	}
 }
 
-void fx_set_event(String name, int target, boolean arg) {
+void fx_set_event(ArrayList<FX> fx_list, String name, int target, boolean arg) {
 	int which = 100+target;
-	fx_set(which,name,arg);
+	fx_set(fx_list,which,name,arg);
 }
 
 
 /**
-main setting methode
+* main setting methode
 */
-void fx_set(int which_setting, String name, Object... arg) {
-	if(fx_manager == null) {
-		fx_manager = new ArrayList<FX>();
-	} else {
-		if(fx_manager.size() > 0) {
-			for(FX fx : fx_manager) {
+void fx_set(ArrayList<FX> fx_list, int which_setting, String name, Object... arg) {
+	if(fx_list != null) {
+		if(fx_list.size() > 0) {
+			for(FX fx : fx_list) {
 				if(fx.get_name().equals(name)) {
 					fx.set(which_setting,arg);
 				}
 			}	
 		} 
-	}	
+	}
 }
 
 

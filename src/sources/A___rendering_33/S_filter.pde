@@ -4,8 +4,12 @@ FILTER
 * v 0.1.2
 * here is calling classic FX ROPE + FX FORCE FIELD
 */
+ArrayList<FX> fx_manager;
+
 void init_filter() {
   if(FULL_RENDERING) {
+    fx_manager = new ArrayList<FX>();
+
     // FORCE FIELD FX
     type_field = r.FLUID;
     pattern_field = r.BLANK;
@@ -28,7 +32,7 @@ void init_filter() {
       printErr("fx path filter",fx_rope_path,"don't exists");
     }
 
-    setting_fx_classic();
+    setting_fx_classic(fx_manager);
 
     // CLASSIC FX + FORCE FIELD FX
     write_filter_index();
@@ -69,7 +73,7 @@ void filter() {
 
   if(FULL_RENDERING && fx_button_is(0)) {
     update_fx_value_from_slider();
-    update_fx_classic();
+    update_fx_classic(fx_manager);
     if(extra_filter_fx && active_fx != null && active_fx.size() > 0) {
       for(int i : active_fx) {
         draw_fx(i);
@@ -95,15 +99,15 @@ void draw_fx(int which) {
     int target = which- num_of_special_fx; // min 1 cause the first one is a special one;
     for(int i = 0 ; i < fx_classic_num ; i++) {
       if(target == i) {
-        if(get_fx(target).get_type() == FX_WARP_TEX) {
+        if(get_fx(fx_manager,target).get_type() == FX_WARP_TEX) {
           if(fx_pattern == null) {
             draw_fx_pattern(16,16,2,RGB,true);
           } else {
             draw_fx_pattern(16,16,2,RGB,reset_fx_button_alert_is());
           }
-          select_fx(g,get_fx_pattern(0),get_fx_pattern(1),get_fx(target));
+          select_fx(g,get_fx_pattern(0),get_fx_pattern(1),get_fx(fx_manager,target));
         } else {
-          select_fx(g,null,null,get_fx(target));
+          select_fx(g,null,null,get_fx(fx_manager,target));
         }      
       }
     }
@@ -178,7 +182,7 @@ void write_filter_index() {
 
 
   for(int i = 0 ; i < fx_classic_num ; i++) {
-    FX fx = get_fx(i); 
+    FX fx = get_fx(fx_manager,i); 
     int target = i+1;
     info_fx[target].setString("Name",fx.get_name());
     info_fx[target].setString("Author",fx.get_author());
@@ -187,7 +191,7 @@ void write_filter_index() {
     String s = "";
     int max =  fx.get_name_slider().length;
     for(int k = 0 ; k < max ; k++) {
-      if(i < max - 1) {
+      if(k < max - 1) {
         s += (fx.get_name_slider()[k]+"/");
       } else {
         s += (fx.get_name_slider()[k]);
@@ -252,20 +256,20 @@ FX ROMANESCO
 * 2019-2019
 */
 
-void setting_fx_classic() {
-  setting_fx_blur_circular();
-  setting_fx_blur_gaussian();
-  setting_fx_blur_radial();
+void setting_fx_classic(ArrayList<FX> fx_list) {
+  setting_fx_blur_circular(fx_list);
+  setting_fx_blur_gaussian(fx_list);
+  setting_fx_blur_radial(fx_list);
 
-  setting_fx_haltone_dot();
-  setting_fx_haltone_line();
+  setting_fx_haltone_dot(fx_list);
+  setting_fx_haltone_line(fx_list);
 
-  setting_fx_pixel();
+  setting_fx_pixel(fx_list);
 
-  setting_fx_split_rgb();
+  setting_fx_split_rgb(fx_list);
 
-  setting_fx_warp_proc();
-  setting_fx_warp_tex();
+  setting_fx_warp_proc(fx_list);
+  setting_fx_warp_tex(fx_list);
 }
 
 float fx_cx;
@@ -308,21 +312,21 @@ void update_fx_value_from_slider() {
 
 }
 
-void update_fx_classic() {
+void update_fx_classic(ArrayList<FX> fx_list) {
 
-  update_fx_blur_circular(move_filter_fx,fx_quantity,fx_str_x);
-  update_fx_blur_gaussian(move_filter_fx,fx_str_x);
-  update_fx_blur_radial(move_filter_fx,vec2(fx_px,fx_py),fx_str_x);
+  update_fx_blur_circular(fx_list,move_filter_fx,fx_quantity,fx_str_x);
+  update_fx_blur_gaussian(fx_list,move_filter_fx,fx_str_x);
+  update_fx_blur_radial(fx_list,move_filter_fx,vec2(fx_px,fx_py),fx_str_x);
   
-  update_fx_haltone_dot(move_filter_fx,vec2(fx_px,fx_py),fx_quantity,fx_angle);
-  update_fx_haltone_line(move_filter_fx,vec2(fx_px,fx_py),fx_quantity,fx_angle);
+  update_fx_haltone_dot(fx_list,move_filter_fx,vec2(fx_px,fx_py),fx_quantity,fx_angle);
+  update_fx_haltone_line(fx_list,move_filter_fx,vec2(fx_px,fx_py),fx_quantity,fx_angle);
 
-  update_fx_pixel(move_filter_fx,fx_quantity,vec2(fx_sx,fx_sy),vec3(fx_cx,fx_cy,fx_cz));
+  update_fx_pixel(fx_list,move_filter_fx,fx_quantity,vec2(fx_sx,fx_sy),vec3(fx_cx,fx_cy,fx_cz));
 
-  update_fx_split_rgb(move_filter_fx,vec2(fx_str_x,fx_str_y),fx_speed);
+  update_fx_split_rgb(fx_list,move_filter_fx,vec2(fx_str_x,fx_str_y),fx_speed);
   
-  update_fx_warp_proc(move_filter_fx,fx_str_x,fx_speed);
-  update_fx_warp_tex(move_filter_fx,fx_str_x);
+  update_fx_warp_proc(fx_list,move_filter_fx,fx_str_x,fx_speed);
+  update_fx_warp_tex(fx_list,move_filter_fx,fx_str_x);
 
 
 }
@@ -332,25 +336,25 @@ void update_fx_classic() {
 * blur circular
 */
 String set_blur_circular = "blur circular";
-void setting_fx_blur_circular() {
+void setting_fx_blur_circular(ArrayList<FX> fx_list) {
   String version = "0.0.1";
   int revision = 1;
   String author = "Stan le Punk";
   String pack = "Base 2019";
   String [] slider = {"quantity","strength X"};
   int id = fx_classic_num;
-  init_fx(set_blur_circular,FX_BLUR_CIRCULAR,id,author,pack,version,revision,slider,null);
+  init_fx(fx_list,set_blur_circular,FX_BLUR_CIRCULAR,id,author,pack,version,revision,slider,null);
   fx_classic_num++;
 }
 
-void update_fx_blur_circular(boolean move_is, float num, float strength_x) {
+void update_fx_blur_circular(ArrayList<FX> fx_list, boolean move_is, float num, float str_x) {
   if(move_is) {
     int iteration = (int)map(num,0,1,2,64);
-    fx_set_num(set_blur_circular,iteration);
+    fx_set_num(fx_list,set_blur_circular,iteration);
 
     int max_blur = width;
-    float str = strength_x*max_blur;
-    fx_set_strength(set_blur_circular,str);
+    float str = (str_x*str_x)*max_blur;
+    fx_set_strength(fx_list,set_blur_circular,str);
   }
 }
 
@@ -360,22 +364,22 @@ void update_fx_blur_circular(boolean move_is, float num, float strength_x) {
 * gaussian blur
 */
 String set_blur_gaussian = "blur gaussian";
-void setting_fx_blur_gaussian() {
+void setting_fx_blur_gaussian(ArrayList<FX> fx_list) {
   String version = "0.0.3";
   int revision = 3;
   String author = "Stan le Punk";
   String pack = "Base 2019";
   String [] slider = {"strength X"};
   int id = fx_classic_num;
-  init_fx(set_blur_gaussian,FX_BLUR_GAUSSIAN,id,author,pack,version,revision,slider,null);
+  init_fx(fx_list,set_blur_gaussian,FX_BLUR_GAUSSIAN,id,author,pack,version,revision,slider,null);
   fx_classic_num++;
 }
 
-void update_fx_blur_gaussian(boolean move_is, float strength_x) {
+void update_fx_blur_gaussian(ArrayList<FX> fx_list, boolean move_is, float strength_x) {
   if(move_is) {
     int max_blur = height/10;
     float str = strength_x*max_blur;
-    fx_set_strength(set_blur_gaussian,str);
+    fx_set_strength(fx_list,set_blur_gaussian,str);
   }
 }
 
@@ -386,27 +390,23 @@ void update_fx_blur_gaussian(boolean move_is, float strength_x) {
 * blur radial
 */
 String set_blur_radial = "blur radial";
-void setting_fx_blur_radial() {
+void setting_fx_blur_radial(ArrayList<FX> fx_list) {
   String version = "0.0.1";
   int revision = 1;
   String author = "Stan le Punk";
   String pack = "Base 2019";
-  String [] slider = {"strength_x"};
+  String [] slider = {"position X","position Y","strength X"};
   int id = fx_classic_num;
-  init_fx(set_blur_radial,FX_BLUR_RADIAL,id,author,pack,version,revision,slider,null);
+  init_fx(fx_list,set_blur_radial,FX_BLUR_RADIAL,id,author,pack,version,revision,slider,null);
   fx_classic_num++;
 }
 
-void update_fx_blur_radial(boolean move_is, vec2 pos,float strength) {
+void update_fx_blur_radial(ArrayList<FX> fx_list, boolean move_is, vec2 pos,float strength) {
   if(move_is) {
-    fx_set_pos(set_blur_radial,pos.x,pos.y);
-    
-    // scale change nothing
-    // float scale = size*width;
-    // fx_set_scale(set_blur_radial,scale);
-    
-    float str = strength*20;
-    fx_set_strength(set_blur_radial,str);
+    fx_set_pos(fx_list,set_blur_radial,pos.x,pos.y);
+        
+    float str = (strength*strength)*(height/20);
+    fx_set_strength(fx_list,set_blur_radial,str);
   }
 }
 
@@ -422,28 +422,28 @@ void update_fx_blur_radial(boolean move_is, vec2 pos,float strength) {
 * halftone line
 */
 String set_halftone_dot = "halftone dot";
-void setting_fx_haltone_dot() {
+void setting_fx_haltone_dot(ArrayList<FX> fx_list) {
   String version = "0.0.1";
   int revision = 1;
   String author = "Stan le Punk";
   String pack = "Base 2019";
-  String [] slider = {"position X","position Y","angle","threshold"};
+  String [] slider = {"position X","position Y","angle","quantity"};
   int id = fx_classic_num;
-  init_fx(set_halftone_dot,FX_HALFTONE_DOT,id,author,pack,version,revision,slider,null);
+  init_fx(fx_list,set_halftone_dot,FX_HALFTONE_DOT,id,author,pack,version,revision,slider,null);
   fx_classic_num++; 
 }
 
-void update_fx_haltone_dot(boolean move_is, vec2 pos, float quantity, float angle) {
+void update_fx_haltone_dot(ArrayList<FX> fx_list, boolean move_is, vec2 pos, float quantity, float angle) {
   if(move_is) {
     float pix_size = map(quantity,0,1,height/4,2); 
-    fx_set_size(set_halftone_dot,pix_size);  
+    fx_set_size(fx_list,set_halftone_dot,pix_size);  
 
     angle = map(angle,0,1,-TAU,TAU);
-    fx_set_angle(set_halftone_dot,angle);
+    fx_set_angle(fx_list,set_halftone_dot,angle);
 
-    fx_set_threshold(set_halftone_dot,1);
+    fx_set_threshold(fx_list,set_halftone_dot,1);
 
-    fx_set_pos(set_halftone_dot,pos.array());
+    fx_set_pos(fx_list,set_halftone_dot,pos.array());
   }
 }
 
@@ -466,32 +466,32 @@ void update_fx_haltone_dot(boolean move_is, vec2 pos, float quantity, float angl
 * halftone line
 */
 String set_halftone_line = "halftone line";
-void setting_fx_haltone_line() {
+void setting_fx_haltone_line(ArrayList<FX> fx_list) {
   String version = "0.0.2";
   int revision = 1;
   String author = "Stan le Punk";
   String pack = "Base 2019";
   String [] slider = {"position X","position Y","quantity","angle"};
   int id = fx_classic_num;
-  init_fx(set_halftone_line,FX_HALFTONE_LINE,id,author,pack,version,revision,slider,null);
+  init_fx(fx_list,set_halftone_line,FX_HALFTONE_LINE,id,author,pack,version,revision,slider,null);
   fx_classic_num++; 
 }
 
-void update_fx_haltone_line(boolean move_is, vec2 pos, float num, float angle) {
+void update_fx_haltone_line(ArrayList<FX> fx_list, boolean move_is, vec2 pos, float num, float angle) {
   if(move_is) {
-    fx_set_mode(set_halftone_line,0); 
+    fx_set_mode(fx_list,set_halftone_line,0); 
 
     int num_line = (int)map(num,0,1,20,100); 
-    fx_set_num(set_halftone_line,num_line);  
+    fx_set_num(fx_list,set_halftone_line,num_line);  
 
     // pass nothing with this two parameter
     // fx_set_quality(set_halftone_line,quality);
     // fx_set_threshold(set_halftone_line,threshold);
 
     angle = map(angle,0,1,-TAU,TAU);
-    fx_set_angle(set_halftone_line,angle);
+    fx_set_angle(fx_list,set_halftone_line,angle);
 
-    fx_set_pos(set_halftone_line,pos.array());
+    fx_set_pos(fx_list,set_halftone_line,pos.array());
   }
 }
 
@@ -506,35 +506,35 @@ void update_fx_haltone_line(boolean move_is, vec2 pos, float num, float angle) {
 */
 String set_pixel = "pixel";
 // boolean effect_pixel_is;
-void setting_fx_pixel() {
+void setting_fx_pixel(ArrayList<FX> fx_list) {
   String version = "0.0.1";
   int revision = 1;
   String author = "Stan le Punk";
   String pack = "Base 2019";
   String [] slider = {"quantity","size X","size Y","red","green","blue"};
   int id = fx_classic_num;
-  init_fx(set_pixel,FX_PIXEL,id,author,pack,version,revision,slider,null);
+  init_fx(fx_list,set_pixel,FX_PIXEL,id,author,pack,version,revision,slider,null);
   fx_classic_num++;
 }
 
-void update_fx_pixel(boolean move_is, float num, vec2 size, vec3 hsb) {
+void update_fx_pixel(ArrayList<FX> fx_list, boolean move_is, float num, vec2 size, vec3 hsb) {
 
   if(move_is) {
     float sx = map(size.x *size.x *size.x,0,1,1,width);
     float sy = map(size.y *size.y *size.y,0,1,1,height);
-    fx_set_size(set_pixel,sx,sy);
+    fx_set_size(fx_list,set_pixel,sx,sy);
 
     int palette_num = (int)map(num,0,1,2,16);
-    fx_set_num(set_pixel,palette_num);
+    fx_set_num(fx_list,set_pixel,palette_num);
     
     float h = hsb.x; // from 0 to 1 where
     float s = hsb.y; // from 0 to 1 where
     float b = hsb.z; // from 0 to 1 where
     if(s < 0) s = 0; else if (s > 1) s = 1;
     if(b < 0) b = 0; else if (b > 1) s = 1;
-    fx_set_level_source(set_pixel,h,s,b); // not used ????
+    fx_set_level_source(fx_list,set_pixel,h,s,b); // not used ????
 
-    fx_set_event(set_pixel,0,false);
+    fx_set_event(fx_list,set_pixel,0,false);
   }
 }
 
@@ -546,19 +546,19 @@ void update_fx_pixel(boolean move_is, float num, vec2 size, vec3 hsb) {
 * v 0.0.2
 */
 String set_split_rgb = "split rgb";
-void setting_fx_split_rgb() {
+void setting_fx_split_rgb(ArrayList<FX> fx_list) {
   String version = "0.0.1";
   int revision = 1;
   String author = "Stan le Punk";
   String pack = "Base 2019";
-  String [] slider = {"red","green","blue","quantity","size X","size Y"};
+  String [] slider = {"strength X","strength Y","speed"};
   int id = fx_classic_num;
-  init_fx(set_split_rgb,FX_SPLIT_RGB,id,author,pack,version,revision,slider,null);
+  init_fx(fx_list,set_split_rgb,FX_SPLIT_RGB,id,author,pack,version,revision,slider,null);
   fx_classic_num++; 
 }
 
 
-void update_fx_split_rgb(boolean move_is, vec2 str, float speed) {
+void update_fx_split_rgb(ArrayList<FX> fx_list, boolean move_is, vec2 str, float speed) {
   if(move_is) {
     vec2 strength = map(str.pow(2),0,1,0,6);
 
@@ -574,9 +574,9 @@ void update_fx_split_rgb(boolean move_is, vec2 str, float speed) {
     offset_blue.x = map(offset_blue.x,-1,1,-strength.x,strength.x);
     offset_blue.y = map(offset_blue.y,-1,1,-strength.y,strength.y);
 
-    fx_set_pair(set_split_rgb,0,offset_red.array());
-    fx_set_pair(set_split_rgb,1,offset_green.array());
-    fx_set_pair(set_split_rgb,2,offset_blue.array());
+    fx_set_pair(fx_list,set_split_rgb,0,offset_red.array());
+    fx_set_pair(fx_list,set_split_rgb,1,offset_green.array());
+    fx_set_pair(fx_list,set_split_rgb,2,offset_blue.array());
   }
 }
 
@@ -588,23 +588,23 @@ void update_fx_split_rgb(boolean move_is, vec2 str, float speed) {
 * v 0.0.1
 */
 String set_warp_proc = "warp proc";
-void setting_fx_warp_proc() {
+void setting_fx_warp_proc(ArrayList<FX> fx_list) {
   String version = "0.0.1";
   int revision = 1;
   String author = "Stan le Punk";
   String pack = "Base 2019";
-  String [] slider = {"strength X"};
+  String [] slider = {"strength X","speed"};
   int id = fx_classic_num;
-  init_fx(set_warp_proc,FX_WARP_PROC,id,author,pack,version,revision,slider,null);
+  init_fx(fx_list,set_warp_proc,FX_WARP_PROC,id,author,pack,version,revision,slider,null);
   fx_classic_num++; 
 }
 
 
-void update_fx_warp_proc(boolean move_is, float str, float speed) {
+void update_fx_warp_proc(ArrayList<FX> fx_list, boolean move_is, float str, float speed) {
   if(move_is) {
     float max = map(str,0,1,1,height/20);
     float strength = sin(frameCount *(speed*speed)) *max;
-    fx_set_strength(set_warp_proc,strength);
+    fx_set_strength(fx_list,set_warp_proc,strength);
   }
 }
 
@@ -614,21 +614,21 @@ void update_fx_warp_proc(boolean move_is, float str, float speed) {
 * v 0.0.1
 */
 String set_warp_tex = "warp tex";
-void setting_fx_warp_tex() {
+void setting_fx_warp_tex(ArrayList<FX> fx_list) {
   String version = "0.0.1";
   int revision = 1;
   String author = "Stan le Punk";
   String pack = "Base 2019";
   String [] slider = {"strength X"};
   int id = fx_classic_num;
-  init_fx(set_warp_tex,FX_WARP_TEX,id,author,pack,version,revision,slider,null);
+  init_fx(fx_list,set_warp_tex,FX_WARP_TEX,id,author,pack,version,revision,slider,null);
   fx_classic_num++; 
 }
 
 
-void update_fx_warp_tex(boolean move_is, float str) {
+void update_fx_warp_tex(ArrayList<FX> fx_list, boolean move_is, float str) {
   if(move_is) {
-    fx_set_strength(set_warp_tex,str);
+    fx_set_strength(fx_list,set_warp_tex,str);
   }
 }
 

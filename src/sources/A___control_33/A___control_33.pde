@@ -67,7 +67,8 @@ void setup() {
   setting_misc();
   init_button_general();
   init_midi();
-  create_and_initialize_data(); 
+  init_info_shader();
+  create_and_initialize_item(); 
   load_setup();
   // load_filter();
   

@@ -422,8 +422,7 @@ void set_console_slider_fx(ivec2 pos, ivec2 size) {
   }
   // set position from size
   int offset_x = 0;
-  for(int i = 0 ; i < NUM_BUTTON_FX ; i++) {
-    
+  for(int i = 0 ; i < NUM_BUTTON_FX ; i++) {  
     x = pos.x + offset_x;
     offset_x += size_button_fx[i].x ;
     pos_button_fx[i] = ivec2(x,y);
@@ -808,7 +807,7 @@ int button_background_is;
 ivec2 pos_button_background, size_button_background;
 // background slider
 Sladj [] slider_adj_background = new Sladj[NUM_SLIDER_BACKGROUND];
-Cropinfo [] cropinfo_slider_background; 
+Cropinfo [] cropinfo_slider_fx_bg; 
 int slider_width_background;
 int slider_height_background;
 ivec2 [] pos_slider_background = new ivec2[NUM_SLIDER_BACKGROUND]; 

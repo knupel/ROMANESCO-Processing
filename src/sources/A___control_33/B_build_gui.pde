@@ -41,7 +41,7 @@ void build_console_background() {
   for (int i = 0 ; i < NUM_SLIDER_BACKGROUND ; i++) {
     ivec2 temp_size_mol = ivec2(round(size_slider_background[i].y *ratio_size_molette), round(size_slider_background[i].y *ratio_size_molette));
     ivec2 temp_pos = ivec2(pos_slider_background[i].x, round(pos_slider_background[i].y -(slider_height_background *.6)));
-    if(cropinfo_slider_background[i].get_id() != -1) {
+    if(cropinfo_slider_fx_bg[i].get_id() != -1) {
       slider_adj_background[i] = new Sladj(temp_pos, size_slider_background[i]);
       slider_adj_background[i].set_molette(ELLIPSE);
       slider_adj_background[i].size_molette(temp_size_mol);
@@ -102,7 +102,7 @@ void build_console_filter() {
     button_fx[i].set_aspect_on_off(button_on_in,button_on_out,button_off_in,button_off_out);
     button_fx[i].set_font(FuturaExtraBold_10);
     if(i == 0) {
-      //button_fx[i].set_label("FX ON/OFF");
+      //
     } else if (i == 1) {
       button_fx[i].set_label("MOVE");
     } else if (i == 2) {

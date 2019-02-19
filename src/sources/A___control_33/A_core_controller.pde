@@ -31,7 +31,6 @@ void reset() {
     slider_already_used(false);
     set_dna_gui_processing(0);
   }
-  // slider_already_used(false);
 }
 
 void reset_button_flash() {
@@ -47,14 +46,32 @@ void reset_button_flash() {
 
 
 
-void info_shader_background() {
-  int n = shader_background_table.getRowCount();
-  shader_bg_name = new String[n];
-  shader_bg_author = new String[n];
+
+
+
+
+
+
+
+// shader info
+void init_info_shader() {
+  shader_fx_table = loadTable(preference_path+"index_fx.csv","header");
+  shader_fx_bg_table = loadTable(preference_path+"index_fx_bg.csv","header");
+  info_shader_fx_bg();
+  info_shader_fx();
+}
+
+
+void info_shader_fx_bg() {
+  int n = shader_fx_bg_table.getRowCount();
+  shader_fx_bg_name = new String[n];
+  shader_fx_bg_author = new String[n];
+  shader_fx_bg_slider = new String[n];
   for (int i = 0 ; i < n ; i++) {
-    TableRow row = shader_background_table.getRow(i);
-    shader_bg_name[i] = row.getString("Name");
-    shader_bg_author[i] = row.getString("Author");
+    TableRow row = shader_fx_bg_table.getRow(i);
+    shader_fx_bg_name[i] = row.getString("Name");
+    shader_fx_bg_author[i] = row.getString("Author");
+    shader_fx_bg_slider[i] = row.getString("Slider");
   }
 }
 
@@ -62,10 +79,12 @@ void info_shader_fx() {
   int n = shader_fx_table.getRowCount();
   shader_fx_name = new String[n];
   shader_fx_author = new String[n];
+  shader_fx_slider = new String[n];
   for (int i = 0 ; i < n ; i++) {
     TableRow row = shader_fx_table.getRow(i);
     shader_fx_name[i] = row.getString("Name");
     shader_fx_author[i] = row.getString("Author");
+    shader_fx_slider[i] = row.getString("Slider");
   }
 }
 

@@ -1,7 +1,8 @@
 /**
-psyfrag
-inspiration maybe sand box ?
-2014-2018
+* psyfrag
+* inspiration maybe sand box ?
+* 2014-2018
+* v 0.0.2
 */
 #ifdef GL_ES
 precision mediump float;
@@ -13,13 +14,21 @@ precision mediump float;
 uniform float time;
 uniform vec2 mouse;
 uniform vec2 resolution;
-uniform vec4 rgba;
+// uniform vec4 rgba;
 uniform float tempo ;
 uniform float timeTrack ;
 
-vec3 rotateX(vec3 p, float f) { return vec3(p.x, cos(f)*p.y - sin(f)*p.z, sin(f)*p.y + cos(f)*p.z); }
-vec3 rotateY(vec3 p, float f) { return vec3(cos(f)*p.x + sin(f)*p.z, p.y, cos(f)*p.z - sin(f)*p.x); }
-vec3 rotateZ(vec3 p, float f) { return vec3(cos(f)*p.x - sin(f)*p.y, sin(f)*p.x + cos(f)*p.y, p.z);}
+vec3 rotateX(vec3 p, float f) { 
+	return vec3(p.x, cos(f)*p.y - sin(f)*p.z, sin(f)*p.y + cos(f)*p.z); 
+}
+
+vec3 rotateY(vec3 p, float f) { 
+	return vec3(cos(f)*p.x + sin(f)*p.z, p.y, cos(f)*p.z - sin(f)*p.x); 
+}
+
+vec3 rotateZ(vec3 p, float f) { 
+	return vec3(cos(f)*p.x - sin(f)*p.y, sin(f)*p.x + cos(f)*p.y, p.z);
+}
 
 float obj_udRoundBox(vec3 p) { // ray marching objects
 	vec3 b = vec3(.3);

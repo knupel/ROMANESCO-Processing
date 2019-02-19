@@ -6,7 +6,7 @@ inspiration maybe sand box ?
 #ifdef GL_ES
 precision mediump float;
 #endif
-uniform float varOne;
+// uniform float varOne;
 uniform float time;
 uniform vec2 mouse;
 uniform vec2 resolution;
