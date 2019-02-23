@@ -1,22 +1,26 @@
-/*
-From Sand Box
-Stan le Punk modification 
-v 0.0.3
-2014-2018
+/**
+* NECKLACE refactoring by Stan le Punk
+* v 0.1.0
+* 2014-2019
+* @see https://github.com/StanLepunK
+* @see https://github.com/StanLepunK/Shader
+* original shader Sandox
 */
 #ifdef GL_ES
 precision lowp float;
 #endif
 
 
-uniform vec4 rgba;
-uniform vec2 mouse;
 uniform vec2 resolution;
-uniform float quantity;
 
 uniform float time;
-uniform float speed;
+uniform vec2 position;
 uniform vec2 size;
+uniform float alpha;
+uniform int num;
+uniform float speed;
+
+
 #define PI 3.14159265359793
 /*
 #define M  0.9
@@ -30,32 +34,36 @@ uniform vec2 size;
 
 void main(){
 
-	vec2 newMouse = vec2(mouse.x, 1.0 -mouse.y) ;
+	vec2 new_pos = vec2(position.x, 1.0 -position.y);
 
-	vec2 position = (gl_FragCoord.xy -newMouse.xy *resolution) / min(resolution.x, resolution.y);
+	vec2 pos = (gl_FragCoord.xy -new_pos.xy *resolution) / min(resolution.x, resolution.y) + vec2(.5,.5);
+
 	vec2 t = vec2(gl_FragCoord.xy /resolution);
 
 	vec3 c = vec3(0);
 	float y = 0.;
 	float x = 0.;
 
-	int pearl = int(quantity *200.) ;
+	int pearl = num;
 	if(pearl < 5) pearl = 5;
 
 	float size_x = M *size.x;
 	float size_y = D *size.y;
   
   float speed_time = time*speed;
+
+
+
 	for(int i = 0; i < pearl ; i++) {
 		float t = 1.9 *PI *float(i *8) /50. *speed_time *.5;
 		x = size_x *cos(t+x+y);
 		y = size_y *sin(t+y+x);
 		// vec2 pearl_position = 0.3 *vec2(x, y);
-		vec2 pearl_position = vec2(x, y);
+		vec2 pearl_position = vec2(x,y);
 		float r = fract(y+x);
 		float g = 1. - r;
-		c += 0.0015 / (length(position - pearl_position)) *vec3(r, g, x+y);
+		c += 0.0015 / (length(pos - pearl_position)) *vec3(r, g, x+y);
 	}
 
-	gl_FragColor = vec4(c, rgba.w);
+	gl_FragColor = vec4(c,alpha);
 }

@@ -21,6 +21,24 @@ import codeanticode.syphon.*;
 
 
 
+/**
+curtain
+*/
+void curtain() {
+  rectMode(CORNER) ;
+  fill (0) ; 
+  noStroke() ;
+  rect(-1,-1, width+2, height+2);
+}
+
+
+
+
+
+
+
+
+
 
 
 /**

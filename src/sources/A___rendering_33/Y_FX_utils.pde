@@ -1,62 +1,69 @@
 /**
 * SHADER FX
 * @see http://stanlepunk.xyz
-* @see https://github.com/StanLepunK/Filter
-* v 0.3.0
+* @see https://github.com/StanLepunK/Shader
+* v 0.7.1
 * 2019-2019
 *
 */
+int NO_FX = -1;
+// CONSTANT FX POST
+int FX_TEMPLATE = 0;
 
-// CONSTANT FX
-int FX_BLUR_GAUSSIAN = 100;
-int FX_BLUR_RADIAL = 101;
-int FX_BLUR_CIRCULAR = 102;
+int FX_BLUR_GAUSSIAN = 200;
+int FX_BLUR_RADIAL = 201;
+int FX_BLUR_CIRCULAR = 202;
 
-int FX_COLOUR_CHANGE_A = 150;
-int FX_COLOUR_CHANGE_B = 151;
+int FX_COLOUR_CHANGE_A = 300;
+int FX_COLOUR_CHANGE_B = 301;
 
-int FX_DITHER = 200;
+int FX_DITHER = 400;
 
-int FX_GRAIN = 250;
-int FX_GRAIN_SCATTER = 251;
+int FX_GRAIN = 700;
+int FX_GRAIN_SCATTER = 701;
 
-int FX_HALFTONE_DOT = 300;
-int FX_HALFTONE_LINE = 301;
+int FX_HALFTONE_DOT = 800;
+int FX_HALFTONE_LINE = 801;
+int FX_HALFTONE_MULTI = 810;
 
-int FX_MIX = 0;
+int FX_LEVEL = 12_00;
 
-int FX_LEVEL = 510;
+int FX_MIX = 13_00;
 
-int FX_PIXEL = 600;
+int FX_PIXEL = 16_00;
 
-int FX_REAC_DIFF = 700;
+int FX_REAC_DIFF = 18_00;
 
-int FX_SCALE = 500;
-int FX_SPLIT_RGB = 400;
+int FX_SCALE = 19_00;
+int FX_SPLIT_RGB = 19_50;
 
-int FX_TOON = 800; // don't work
+int FX_TOON = 20_00; // don't work
 
-int FX_WARP_TEX = 1000;
-int FX_WARP_PROC = 1001;
-
-// CONSTANT FX_BG
-int FX_BG_CLASSIC = 9999;
-
-int FX_BG_CELLULAR = 10000;
-
-int FX_BG_HEART = 10100;
+int FX_WARP_TEX = 23_00;
+int FX_WARP_PROC = 23_01;
 
 
-int FX_BG_NECKLACE = 10200;
+// CONSTANT FX BACKGROUND
+// here we start arbitrarily at 10_000 to no conflict with FX constant arounf 1_000.
 
-int FX_BG_NEON = 10300;
+int FX_BG_TEMPLATE = 1;
 
-int FX_BG_PSY = 10400;
+int FX_BG_CELLULAR = 3_0000;
 
-int FX_BG_SNOW = 10500;
+int FX_BG_HEART = 8_0000;
+
+int FX_BG_NECKLACE = 14_0000;
+
+int FX_BG_NEON = 14_0000;
+
+int FX_BG_PSY = 16_0000;
+
+int FX_BG_SNOW = 19_0000;
+
+int FX_BG_VORONOI_HEX = 22_0000;
 
 
-
+// get method
 FX get_fx(ArrayList<FX> fx_list, int target) {
 	if(fx_list != null && target < fx_list.size()) {
 		return fx_list.get(target);
@@ -78,19 +85,16 @@ FX get_fx(ArrayList<FX> fx_list, String name) {
 	return buffer;
 }
 
+
+
+// init method
 void init_fx(ArrayList<FX> fx_list, String name, int type) {
 	init_fx(fx_list,name,type,-1, null, null, null,-1,null,null);
 }
 
 
-
 void init_fx(ArrayList<FX> fx_list, String name, int type, int id, String author, String pack, String version, int revision, String [] name_slider, String [] name_button) {
 	boolean exist = false;
-	/*
-	if(fx_list == null) {
-		fx_list = new ArrayList<FX>();
-	}
-	*/
 
 	if(fx_list != null && fx_list.size() > 0) {
 		for(FX fx : fx_list) {
@@ -107,8 +111,12 @@ void init_fx(ArrayList<FX> fx_list, String name, int type, int id, String author
 	}
 }
 
+
+// add FX
 void add_fx_to_manager(ArrayList<FX> fx_list, String name, int type, int id, String author, String pack, String version, int revision, String [] name_slider, String [] name_button) {
-	FX fx = new FX(name,type);
+	FX fx = new FX();
+	fx.set_name(name);
+	fx.set_type(type);
 	fx.set_id(id);
 	if(author != null) fx.set_author(author);
 	fx.set_pack(pack);
@@ -123,61 +131,110 @@ void add_fx_to_manager(ArrayList<FX> fx_list, String name, int type, int id, Str
 
 
 
+
 /**
-select fx from FX class
+* SELECT FX
 */
-void select_fx(PImage main, PImage layer_a, PImage layer_b, FX... fx) {
+
+// POST FX from FX class
+void select_fx_post(PImage main, PImage layer_a, PImage layer_b, FX... fx) {
 	for(int i = 0 ; i < fx.length ;i++) {
-		if(fx[i].get_type() == FX_MIX) {
-			fx_mix(main,layer_a,fx[i]);
+		if(fx[i] != null) {
+			if(fx[i].get_type() == FX_MIX) {
+				fx_mix(main,layer_a,fx[i]);
+			} else if(fx[i].get_type() == FX_BLUR_GAUSSIAN) {
+				fx_blur_gaussian(main,fx[i]); 
+			} else if(fx[i].get_type() == FX_BLUR_CIRCULAR) {
+				fx_blur_circular(main,fx[i]);
+			} else if(fx[i].get_type() == FX_BLUR_RADIAL) {
+				fx_blur_radial(main,fx[i]);
+			} else if(fx[i].get_type() == FX_COLOUR_CHANGE_A) {
+				fx_colour_change_a(main,fx[i]);
+			} else if(fx[i].get_type() == FX_COLOUR_CHANGE_B) {
+				fx_colour_change_b(main,fx[i]);
+			} else if(fx[i].get_type() == FX_DITHER) {
+				fx_dither(main,layer_a,fx[i]);
+			} else if(fx[i].get_type() == FX_GRAIN) {
+				 fx_grain(main,fx[i]);
+			} else if(fx[i].get_type() == FX_GRAIN_SCATTER) {
+				fx_grain_scatter(main,fx[i]);
+			} else if(fx[i].get_type() == FX_HALFTONE_DOT) {
+				fx_halftone_dot(main,fx[i]);
+			} else if(fx[i].get_type() == FX_HALFTONE_LINE) {
+				fx_halftone_line(main,fx[i]); 
+			} else if(fx[i].get_type() == FX_HALFTONE_LINE) {
+				fx_halftone_line(main,fx[i]); 
+			} else if(fx[i].get_type() == FX_HALFTONE_MULTI) {
+				fx_halftone_multi(main,fx[i]); 
+			} else if(fx[i].get_type() == FX_PIXEL) {
+				fx_pixel(main,fx[i]);
+			} else if(fx[i].get_type() == FX_REAC_DIFF) {
+				fx_reaction_diffusion(main,fx[i]);
+			} else if(fx[i].get_type() == FX_SPLIT_RGB) {
+				fx_split_rgb(main,fx[i]); 
+			} else if(fx[i].get_type() == FX_SCALE) {
+				fx_scale(main,fx[i]);
+			} else if(fx[i].get_type() == FX_WARP_PROC) {
+				fx_warp_proc(main,fx[i]); 
+			} else if(fx[i].get_type() == FX_WARP_TEX) {
+				fx_warp_tex(main,layer_a,layer_b,fx[i]); 
+			} else {
+				printErrTempo(60,"method select_fx_post(): fx",fx[i].get_name(),fx[i].get_type(),"don't match with any fx available");
+			}
+		} else {
+			printErrTempo(60,"method select_fx_post(): fx",i,"is",fx[i],"maybe fx need to be init or instantiate");
 		}
-			else if(fx[i].get_type() == FX_BLUR_GAUSSIAN) {
-			fx_blur_gaussian(main,fx[i]); 
-		} else if(fx[i].get_type() == FX_BLUR_CIRCULAR) {
-			fx_blur_circular(main,fx[i]);
-		} else if(fx[i].get_type() == FX_BLUR_RADIAL) {
-			fx_blur_radial(main,fx[i]);
-		} else if(fx[i].get_type() == FX_COLOUR_CHANGE_A) {
-			fx_colour_change_a(main,fx[i]);
-		} else if(fx[i].get_type() == FX_COLOUR_CHANGE_B) {
-			fx_colour_change_b(main,fx[i]);
-		} else if(fx[i].get_type() == FX_DITHER) {
-			fx_dither(main,layer_a,fx[i]);
-		} else if(fx[i].get_type() == FX_GRAIN) {
-			 fx_grain(main,fx[i]);
-		} else if(fx[i].get_type() == FX_GRAIN_SCATTER) {
-			fx_grain_scatter(main,fx[i]);
-		} else if(fx[i].get_type() == FX_HALFTONE_DOT) {
-			fx_halftone_dot(main,fx[i]);
-		} else if(fx[i].get_type() == FX_HALFTONE_LINE) {
-			fx_halftone_line(main,fx[i]); 
-		} else if(fx[i].get_type() == FX_LEVEL) {
-			fx_level(main,fx[i]); 
-		} else if(fx[i].get_type() == FX_PIXEL) {
-			fx_pixel(main,fx[i]);
-		} else if(fx[i].get_type() == FX_REAC_DIFF) {
-			fx_reaction_diffusion(main,fx[i]);
-		} else if(fx[i].get_type() == FX_SPLIT_RGB) {
-			fx_split_rgb(main,fx[i]); 
-		} else if(fx[i].get_type() == FX_SCALE) {
-			fx_scale(main,fx[i]);
-		} else if(fx[i].get_type() == FX_WARP_PROC) {
-			fx_warp_proc(main,fx[i]); 
-		} else if(fx[i].get_type() == FX_WARP_TEX) {
-			fx_warp_tex(main,layer_a,layer_b,fx[i]); 
-		}    
+		   
 	}
 }
+
+
+// BACKGROUND FX from FX class
+void select_fx_background(FX fx) {
+	if(fx != null) {
+		if(fx.get_type() == FX_BG_TEMPLATE) {
+			fx_bg_template(fx);
+		} else if(fx.get_type() == FX_BG_CELLULAR) {
+			fx_bg_cellular(fx);
+		} else if(fx.get_type() == FX_BG_HEART) {
+			fx_bg_heart(fx);
+		} else if(fx.get_type() == FX_BG_NECKLACE) {
+			fx_bg_necklace(fx);
+		} else if(fx.get_type() == FX_BG_NEON) {
+			fx_bg_neon(fx);
+		} else if(fx.get_type() == FX_BG_PSY) {
+			fx_bg_psy(fx);
+		} else if(fx.get_type() == FX_BG_SNOW) {
+			fx_bg_snow(fx);
+		} else if(fx.get_type() == FX_BG_VORONOI_HEX) {
+			fx_bg_voronoi_hex(fx);
+		} else {
+			fx_bg_template(fx);
+		}
+	} else {
+		printErrTempo(60,"method select_fx_background(): fx is",fx,"maybe fx need to be init or instantiate");
+	}
+	    
+}
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
 
 /**
 prepare your setting
-v 0.0.2
-*/
-/**
-mode
+v 0.1.0
 */
 void fx_set_mode(ArrayList<FX> fx_list, String name, int mode) {
 	fx_set(fx_list,0,name,mode);
@@ -202,7 +259,6 @@ void fx_set_scale(ArrayList<FX> fx_list, String name, float... arg) {
 	}
 }
 
-
 void fx_set_resolution(ArrayList<FX> fx_list, String name, float... arg) {
 	int which = 11;
 	if(arg.length == 1) {
@@ -213,7 +269,6 @@ void fx_set_resolution(ArrayList<FX> fx_list, String name, float... arg) {
 		fx_set(fx_list,which,name,arg[0],arg[1]);
 	}
 }
-
 
 void fx_set_strength(ArrayList<FX> fx_list, String name, float... arg) {
 	int which = 20;
@@ -293,6 +348,19 @@ void fx_set_offset(ArrayList<FX> fx_list, String name, float... arg) {
 	}
 }
 
+void fx_set_speed(ArrayList<FX> fx_list, String name, float... arg) {
+	int which = 26;
+	if(arg.length == 1) {
+		fx_set(fx_list,which,name,arg[0]);
+	} else if(arg.length == 2) {
+		fx_set(fx_list,which,name,arg[0],arg[1]);
+	} else if(arg.length == 3) {
+		fx_set(fx_list,which,name,arg[0],arg[1],arg[2]);
+	} else if(arg.length > 3) {
+		fx_set(fx_list,which,name,arg[0],arg[1],arg[2]);
+	}
+}
+
 void fx_set_level_source(ArrayList<FX> fx_list, String name, float... arg) {
 	int which = 30;
 	if(arg.length == 1) {
@@ -336,6 +404,34 @@ void fx_set_colour(ArrayList<FX> fx_list, String name, float... arg) {
 	} else if(arg.length > 4) {
 		fx_set(fx_list,which,name,arg[0],arg[1],arg[2],arg[3]);
 	}
+}
+
+void fx_set_hue(ArrayList<FX> fx_list, String name, float hue) {
+	fx_set(fx_list,200,name,hue);
+}
+
+void fx_set_saturation(ArrayList<FX> fx_list, String name, float saturation) {
+	fx_set(fx_list,201,name,saturation);
+}
+
+void fx_set_brightness(ArrayList<FX> fx_list, String name, float brightness) {
+	fx_set(fx_list,202,name,brightness);
+}
+
+void fx_set_red(ArrayList<FX> fx_list, String name, float red) {
+	fx_set(fx_list,300,name,red);
+}
+
+void fx_set_green(ArrayList<FX> fx_list, String name, float green) {
+	fx_set(fx_list,301,name,green);
+}
+
+void fx_set_blue(ArrayList<FX> fx_list, String name, float blue) {
+	fx_set(fx_list,302,name,blue);
+}
+
+void fx_set_alpha(ArrayList<FX> fx_list, String name, float alpha) {
+	fx_set(fx_list,400,name,alpha);
 }
 
 
@@ -423,34 +519,89 @@ void fx_set(ArrayList<FX> fx_list, int which_setting, String name, Object... arg
 
 /**
 * path shader
-* v 0.0.2
+* v 0.3.0
 */
-String fx_rope_path = null;
-boolean fx_rope_path_exists = false;
-String get_fx_path() {
-	if(fx_rope_path == null) {
-		fx_rope_path = sketchPath()+"/shader/fx/";
-		File f = new File(fx_rope_path);
+// post fx path
+String fx_post_rope_path = null;
+boolean fx_post_rope_path_exists = false;
+
+boolean fx_post_path_exist() {
+	return fx_post_rope_path_exists;
+}
+
+String get_fx_post_path() {
+	if(fx_post_rope_path == null) {
+		fx_post_rope_path = sketchPath()+"/shader/fx_post/";
+		File f = new File(fx_post_rope_path);
 		if(!f.exists()) {
-			printErrTempo(60,"get_fx_path()",fx_rope_path,"no folder found");
+			printErrTempo(60,"get_fx_post_path()",fx_post_rope_path,"no folder found");
 		} else {
-			fx_rope_path_exists = true;
+			fx_post_rope_path_exists = true;
 		}
 	} else {
-		File f = new File(fx_rope_path);
+		File f = new File(fx_post_rope_path);
 		if(!f.exists()) {
-			printErrTempo(60,"get_fx_path()",fx_rope_path,"no folder found");
+			printErrTempo(60,"get_fx_post_path()",fx_post_rope_path,"no folder found");
 		} else {
-			fx_rope_path_exists = true;
+			fx_post_rope_path_exists = true;
 		}
 
 	}
-	return fx_rope_path;
+	return fx_post_rope_path;
 }
 
-void set_fx_path(String path) {
-	fx_rope_path = path;
+void set_fx_post_path(String path) {
+	fx_post_rope_path = path;
 }
+
+
+
+
+// background fx path
+String fx_bg_rope_path = null;
+boolean fx_bg_rope_path_exists = false;
+
+boolean fx_bg_path_exist() {
+	return fx_bg_rope_path_exists;
+}
+
+String get_fx_bg_path() {
+	if(fx_bg_rope_path == null) {
+		fx_bg_rope_path = sketchPath()+"/shader/fx_bg/";
+		File f = new File(fx_bg_rope_path);
+		if(!f.exists()) {
+			printErrTempo(60,"get_fx_bg_path()",fx_bg_rope_path,"no folder found");
+		} else {
+			fx_bg_rope_path_exists = true;
+		}
+	} else {
+		File f = new File(fx_bg_rope_path);
+		if(!f.exists()) {
+			printErrTempo(60,"get_fx_bg_path()",fx_bg_rope_path,"no folder found");
+		} else {
+			fx_bg_rope_path_exists = true;
+		}
+
+	}
+	return fx_bg_rope_path;
+}
+
+void set_fx_bg_path(String path) {
+	fx_bg_rope_path = path;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -458,7 +609,7 @@ void set_fx_path(String path) {
 * send information to shader.glsl to flip the source in case this one is a PGraphics or PImage
 * v 0.0.1
 */
-void set_flip_shader(PShader ps, PImage... img) {
+void set_shader_flip(PShader ps, PImage... img) {
 	int num = img.length;
 	ps.set("flip_source",true,false);
 	
@@ -475,6 +626,34 @@ void set_flip_shader(PShader ps, PImage... img) {
 		}
 	}
 }
+
+
+
+
+void set_shader_resolution(PShader ps, ivec2 canvas, boolean on_g) {
+	if(!on_g && canvas != null) {
+		ps.set("resolution",canvas.x,canvas.y);
+	} else {
+		ps.set("resolution",width,height);
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 /**
 reverse graphics for the case is not a texture but a direct shader

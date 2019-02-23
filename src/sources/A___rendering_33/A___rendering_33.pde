@@ -212,7 +212,8 @@ void setup() {
   light_position_setup();
   light_setup();
 
-  init_filter();
+  init_fx_post();
+  init_fx_background();
   init_masking();
 }
 

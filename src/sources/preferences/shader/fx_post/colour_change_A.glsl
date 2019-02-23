@@ -5,7 +5,8 @@
 * 2018-2019
 * Based on rdex project
 * Copyright (C) 2008,2009 Claude Heiland-Allen <claudiusmaximus@goto10.org>
-* @see https://github.com/StanLepunK
+* @see http://stanlepunk.xyz
+* @see https://github.com/StanLepunK/Shader
 */
 #ifdef GL_ES
 precision highp float;

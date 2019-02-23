@@ -1,36 +1,31 @@
 /**
-Grain scatter refactoring
-Stan le Punk 
-@see https://github.com/StanLepunK
-v 0.0.4
-2018-2019
-Based https://www.shadertoy.com/view/XtsBz8 by FlexMonkey
+* Stan le punk version
+* @see http://stanlepunk.xyz
+* @see https://github.com/StanLepunK/Shader
+* v 0.0.2
+* 2018-2019
 */
 
-
-/**
-WARNING
-this filter work only with texture PGraphics, not with method
-g.filter(PSharder pshader);
-*/
-// Processing implementation
 #ifdef GL_ES
 precision highp float;
 #endif
+// from Processing
 #define PROCESSING_TEXTURE_SHADER
 varying vec4 vertColor;
 varying vec4 vertTexCoord;
 
-uniform vec2 resolution;
-// sketch implementation template, uniform use by most of filter Romanesco shader
+// from Sketch
 uniform sampler2D texture_source;
-uniform vec2 resolution_source;
 uniform bvec2 flip_source; // can be use to flip texture
+uniform vec2 resolution_source;
 
+uniform vec2 position;
 uniform float strength;
+uniform float scale;
 
-
-// UTIL TEMPLATE
+/**
+UTIL TEMPLATE
+*/
 vec2 set_uv(bool flip_vertical, bool flip_horizontal, vec2 res) {
   vec2 uv;
   if(all(equal(vec2(0),res))) {
@@ -60,28 +55,22 @@ vec2 set_uv(bvec2 flip, vec2 res) {
 
 
 
-
-// shader method
-float noise(vec2 co) {
-  vec2 seed = vec2(cos(co.x),sin(co.y));
-  // return fract(sin(dot(seed ,vec2(12.9898,78.233))) * 43758.5453);
-  return fract(cos(dot(seed ,vec2(12.9898,78.233))) * 43758.5453);
-}
-
-void main() {
-  float value = strength;
+void main() {   
   vec2 uv = set_uv(flip_source,resolution_source);
+  vec2 position_temp = vec2(position.x,1-position.y);
+  float strength_temp = strength;
+  float scale_temp = scale;
+  // if(scale_temp <= 0) scale_temp = .9;
+  if(strength_temp < 2) strength_temp = 2;
 
-  vec2 offset = -value + vec2(noise(uv), noise(uv.yx)) *value;
-  
-  vec2 uv_2 = uv + (offset/resolution); // on PGraphics ext
-    
-  gl_FragColor = texture(texture_source,uv_2);
+  vec4 color;
+  for(float i = 0.0; i < 1.0 ; i += 1.0/strength_temp) {
+    float v = scale_temp + i * 0.1;//convert "i" to the 0.9 to 1 range
+    color += texture2D(texture_source,uv * v +(position_temp) *(1.0-v));
+  }
+
+  color /= strength_temp;
+  gl_FragColor =  color *vertColor;
 }
-
-
-
-
-
 
 

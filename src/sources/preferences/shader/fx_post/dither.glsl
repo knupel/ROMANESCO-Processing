@@ -1,6 +1,7 @@
 /**
 Stan le punk version
-@see https://github.com/StanLepunK
+* @see http://stanlepunk.xyz
+* @see https://github.com/StanLepunK/Shader
 v 0.0.1
 2018-2018
 based on work of Raphaël de Courville 

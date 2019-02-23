@@ -6,7 +6,7 @@ FILTER
 */
 ArrayList<FX> fx_manager;
 
-void init_filter() {
+void init_fx_post() {
   if(FULL_RENDERING) {
     fx_manager = new ArrayList<FX>();
 
@@ -24,18 +24,18 @@ void init_filter() {
 
     // FX CLASSIC
     // set path fx shader;
-    set_fx_path(preference_path+"shader/fx/");
-    get_fx_path();
-    if(fx_rope_path_exists) {
+    set_fx_post_path(preference_path+"shader/fx_post/");
+    get_fx_post_path();
+    if(fx_post_path_exist()) {
       println("FX CLASSIC shader loaded");
     } else {
-      printErr("fx path filter",fx_rope_path,"don't exists");
+      printErr("fx path filter",get_fx_post_path(),"don't exists");
     }
 
     setting_fx_classic(fx_manager);
 
     // CLASSIC FX + FORCE FIELD FX
-    write_filter_index();
+    write_fx_post_index();
   }
 }
 
@@ -46,7 +46,7 @@ int num_special_fx;
 int ref_num_active_fx;
 ArrayList<Integer>active_fx;
 int fx_classic_num;
-void filter() {
+void fx_post() {
   move_filter_fx = fx_button_is(1);
   extra_filter_fx = fx_button_is(2);
 
@@ -83,7 +83,7 @@ void filter() {
   
 
   if(FULL_RENDERING && fx_button_is(0)) {
-    update_fx_value_from_slider();
+    update_fx_post_slider();
     update_fx_classic(fx_manager);
     if(extra_filter_fx && active_fx != null && active_fx.size() > 0) {
       for(int i : active_fx) {
@@ -114,9 +114,9 @@ void draw_fx(int which) {
           } else {
             draw_fx_pattern(16,16,2,RGB,reset_fx_button_alert_is());
           }
-          select_fx(g,get_fx_pattern(0),get_fx_pattern(1),get_fx(fx_manager,target));
+          select_fx_post(g,get_fx_pattern(0),get_fx_pattern(1),get_fx(fx_manager,target));
         } else {
-          select_fx(g,null,null,get_fx(fx_manager,target));
+          select_fx_post(g,null,null,get_fx(fx_manager,target));
         }      
       }
     }
@@ -168,7 +168,7 @@ PGraphics generate_fx_pattern(int mode, int sx, int sw) {
 }
 
 
-void write_filter_index() {
+void write_fx_post_index() {
   Table index_fx = new Table();
   index_fx.addColumn("Name");
   index_fx.addColumn("Author");
@@ -295,7 +295,7 @@ float fx_quality;
 float fx_speed;
 float fx_angle;
 float fx_threshold;
-void update_fx_value_from_slider() {
+void update_fx_post_slider() {
   fx_cx = map(value_slider_fx[0],0,MAX_VALUE_SLIDER,0,1);
   fx_cy = map(value_slider_fx[1],0,MAX_VALUE_SLIDER,0,1);
   fx_cz = map(value_slider_fx[2],0,MAX_VALUE_SLIDER,0,1);
@@ -318,7 +318,6 @@ void update_fx_value_from_slider() {
   fx_angle = map(value_slider_fx[12],0,MAX_VALUE_SLIDER,0,1);
 
   fx_threshold = map(value_slider_fx[13],0,MAX_VALUE_SLIDER,0,1);
-
 }
 
 void update_fx_classic(ArrayList<FX> fx_list) {

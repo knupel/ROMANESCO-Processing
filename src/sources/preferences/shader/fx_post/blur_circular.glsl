@@ -1,7 +1,7 @@
 /**
 * blur circular Stan le punk version
 * @see https://github.com/StanLepunK
-* @see https://github.com/StanLepunK/Filter
+* @see https://github.com/StanLepunK/Shader
 v 0.0.5
 2018-2019
 refactoring from project

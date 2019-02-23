@@ -1,91 +1,62 @@
 /**
-* ROMANESCO BACKGROUND + CURTAIN
+* FX BACKGROUND
 * v 1.2.1
 * 2015-2019
 */
+void init_fx_background() {
+
+}
 
 
+void fx_background() {
+
+}
 
 
+void select_fx_background_rope(int which_shader) {
 
+}
 
-/**
-curtain
+/*
+float fx_cx;
+float fx_cy;
+float fx_cz;
+float fx_px;
+float fx_py;
+float fx_sx;
+float fx_sy;
+float fx_str_x;
+float fx_str_y;
+float fx_quantity;
+float fx_quality;
+float fx_speed;
+float fx_angle;
+float fx_threshold;
+void update_fx_background_slider() {
+  fx_cx = map(value_slider_fx[0],0,MAX_VALUE_SLIDER,0,1);
+  fx_cy = map(value_slider_fx[1],0,MAX_VALUE_SLIDER,0,1);
+  fx_cz = map(value_slider_fx[2],0,MAX_VALUE_SLIDER,0,1);
+
+  fx_px = map(value_slider_fx[3],0,MAX_VALUE_SLIDER,0,1);
+  fx_py = map(value_slider_fx[4],0,MAX_VALUE_SLIDER,0,1);
+
+  fx_sx = map(value_slider_fx[5],0,MAX_VALUE_SLIDER,0,1);
+  fx_sy = map(value_slider_fx[6],0,MAX_VALUE_SLIDER,0,1);
+
+  fx_str_x = map(value_slider_fx[7],0,MAX_VALUE_SLIDER,0,1);
+  fx_str_y = map(value_slider_fx[8],0,MAX_VALUE_SLIDER,0,1);
+
+  fx_quantity = map(value_slider_fx[9],0,MAX_VALUE_SLIDER,0,1);
+
+  fx_quality = map(value_slider_fx[10],0,MAX_VALUE_SLIDER,0,1);
+
+  fx_speed = map(value_slider_fx[11],0,MAX_VALUE_SLIDER,0,1);
+
+  fx_angle = map(value_slider_fx[12],0,MAX_VALUE_SLIDER,0,1);
+
+  fx_threshold = map(value_slider_fx[13],0,MAX_VALUE_SLIDER,0,1);
+}
 */
-void curtain() {
-  rectMode(CORNER) ;
-  fill (0) ; 
-  noStroke() ;
-  rect(-1,-1, width+2, height+2);
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-/** 
-* BACKGROUND
-*/
-vec4 colorBackground, colorBackgroundRef, colorBackgroundPrescene;
-void background_setup() {
-  colorBackgroundRef = vec4();
-  colorBackground = vec4();
-  colorBackgroundPrescene = vec4(0,0,20,g.colorModeA) ;
-}
-
-void background_romanesco() {
-  // in preview mode the background is always on, to remove the trace effect
-  if(!FULL_RENDERING) { 
-    background_button_is(false) ;
-    colorBackground = colorBackgroundPrescene.copy() ;
-    background_rope(0,0,get_layer().colorModeZ *.2,get_layer().colorModeA) ;
-  } else if(FULL_RENDERING) {
-    if(background_button_is()) {
-      if(which_shader == 0) {
-        // check if the color model is changed after the shader used
-        if(get_layer().colorMode != 3 || get_layer().colorModeX != 360 || get_layer().colorModeY != 100 || get_layer().colorModeZ !=100 || get_layer().colorModeA !=100) {
-          colorMode(HSB,360,100,100,100);
-        }
-        // choice the rendering color palette for the classic background
-        if(FULL_RENDERING) {
-          // check if the slider background are move, if it's true update the color background
-          if(!compare(colorBackgroundRef,update_background())) {
-            colorBackground.set(update_background()) ;
-          } else {
-            colorBackgroundRef.set(update_background()) ;
-          }
-          background_rope(colorBackground) ;
-        }
-        background_rope(colorBackground) ;
-      } else {
-        background_shader_draw(which_shader) ;
-      }
-    }
-  }
-}
-
-// ANNEXE VOID BACKGROUND
-vec4 update_background() {
-  //to smooth the curve of transparency background
-  // HSB
-  float hue_bg = map(value_slider_background[0],0,MAX_VALUE_SLIDER,0,HSBmode.r);
-  float saturation_bg = map(value_slider_background[1],0,MAX_VALUE_SLIDER,0,HSBmode.g);
-  float brigthness_bg = map(value_slider_background[2],0,MAX_VALUE_SLIDER,0,HSBmode.b);
-  // ALPHA
-  float factorSmooth = 2.5;
-  float nx = norm(value_slider_background[3],.0,MAX_VALUE_SLIDER);
-  float alpha = pow (nx, factorSmooth);
-  alpha = map(alpha,0,1,.8,HSBmode.a);
-  return vec4(hue_bg,saturation_bg,brigthness_bg,alpha) ;
-}
 
 
 
@@ -126,7 +97,8 @@ void background_shader_setup() {
   }
 }
 
-void background_shader_draw(int which_one) {
+/*
+void select_fx_background(int which_one) {
   if(FULL_RENDERING) {
     vec2 pos_shader = vec2();
     vec3 size_shader = vec3(width,height,height) ; 
@@ -149,13 +121,11 @@ void background_shader_draw(int which_one) {
     text("Shader is ON", sizeText, height/3) ;
   } 
 }
+*/
 
-PShader cellular;
-PShader heart;
-PShader necklace;
-PShader neon;
-PShader psy;
-PShader snow;
+
+
+
 int fx_background_num;
 void setting_fx_background(ArrayList<FX> fx_list, String path) {
   setting_fx_bg_classic(fx_list,path);
@@ -176,88 +146,95 @@ void setting_fx_bg_classic(ArrayList<FX> fx_list, String path) {
   String pack = "Base 2013-2019";
   String [] slider = {"hue","saturation","brightness","refresh"};
   int id = fx_background_num;
-  init_fx(fx_list,fx_bg_classic,FX_BG_CLASSIC,id,author,pack,version,revision,slider,null);
+  init_fx(fx_list,fx_bg_classic,NO_FX,id,author,pack,version,revision,slider,null);
   fx_background_num++;
 }
 
-String fx_bg_cellular = "Cellular";
+
+
+
+String setting_fx_bg_cellular = "Cellular";
 void setting_fx_bg_cellular(ArrayList<FX> fx_list, String path) {
-  cellular = loadShader(path+"cellular.glsl");
   String version = "0.0.1";
   int revision = 1;
   String author = "Josh P";
   String pack = "Base 2016-2019";
   String [] slider = {"hue","saturation","brightness","refresh","quality","quantity","speed"};
   int id = fx_background_num;
-  init_fx(fx_list,fx_bg_cellular,FX_BG_CELLULAR,id,author,pack,version,revision,slider,null);
+  init_fx(fx_list,setting_fx_bg_cellular,FX_BG_CELLULAR,id,author,pack,version,revision,slider,null);
   fx_background_num++;
 }
 
-String fx_bg_heart = "Heart";
+
+
+String setting_fx_bg_heart = "Heart";
 void setting_fx_bg_heart(ArrayList<FX> fx_list, String path) {
-  heart = loadShader(path+"heart.glsl");
   String version = "0.0.1";
   int revision = 1;
   String author = "Josh P";
   String pack = "Base 2016-2019";
   String [] slider = {"hue","saturation","brightness","refresh"};
   int id = fx_background_num;
-  init_fx(fx_list,fx_bg_heart,FX_BG_HEART,id,author,pack,version,revision,slider,null);
+  init_fx(fx_list,setting_fx_bg_heart,FX_BG_HEART,id,author,pack,version,revision,slider,null);
   fx_background_num++;
 }
 
-String fx_bg_necklace = "Necklace";
+
+
+String setting_fx_bg_necklace = "Necklace";
 void setting_fx_bg_necklace(ArrayList<FX> fx_list, String path) {
-  necklace = loadShader(path+"necklace.glsl");
   String version = "0.0.1";
   int revision = 1;
   String author = "Sandbox";
   String pack = "Base 2016-2019";
   String [] slider = {"refresh","quantity","size X","size Y"};
   int id = fx_background_num;
-  init_fx(fx_list,fx_bg_necklace,FX_BG_NECKLACE,id,author,pack,version,revision,slider,null);
+  init_fx(fx_list,setting_fx_bg_necklace,FX_BG_NECKLACE,id,author,pack,version,revision,slider,null);
   fx_background_num++;
 }
 
 
-String fx_bg_neon = "Neon";
+String setting_fx_bg_neon = "Neon";
 void setting_fx_bg_neon(ArrayList<FX> fx_list, String path) {
-  neon = loadShader(path+"neon.glsl");
   String version = "0.0.1";
   int revision = 1;
   String author = "Sandbox";
   String pack = "Base 2016-2019";
   String [] slider = {""};
   int id = fx_background_num;
-  init_fx(fx_list,fx_bg_neon,FX_BG_NEON,id,author,pack,version,revision,slider,null);
+  init_fx(fx_list,setting_fx_bg_neon,FX_BG_NEON,id,author,pack,version,revision,slider,null);
   fx_background_num++;
 }
 
-String fx_bg_psy = "Psy";
+String setting_fx_bg_psy = "Psy";
 void setting_fx_bg_psy(ArrayList<FX> fx_list, String path) {
-  psy = loadShader(path+"psy.glsl");
   String version = "0.0.1";
   int revision = 1;
   String author = "Sandbox";
   String pack = "Base 2016-2019";
   String [] slider = {""};
   int id = fx_background_num;
-  init_fx(fx_list,fx_bg_psy,FX_BG_PSY,id,author,pack,version,revision,slider,null);
+  init_fx(fx_list,setting_fx_bg_psy,FX_BG_PSY,id,author,pack,version,revision,slider,null);
   fx_background_num++;
 }
 
-String fx_bg_snow = "Snow";
+String setting_fx_bg_snow = "Snow";
 void setting_fx_bg_snow(ArrayList<FX> fx_list, String path) {
-  snow = loadShader(path+"snow.glsl");
   String version = "0.0.1";
   int revision = 1;
   String author = "Sandbox";
   String pack = "Base 2016-2019";
   String [] slider = {"hue","saturation","brightness","refresh","speed X"};
   int id = fx_background_num;
-  init_fx(fx_list,fx_bg_snow,FX_BG_SNOW,id,author,pack,version,revision,slider,null);
+  init_fx(fx_list,setting_fx_bg_snow,FX_BG_SNOW,id,author,pack,version,revision,slider,null);
   fx_background_num++;
 }
+
+
+
+
+
+
 
 
 
@@ -408,6 +385,71 @@ void rectangle(vec2 pos, vec3 resolution, PShader s) {
 
 
 
+
+
+
+
+
+
+
+
+/** 
+* BACKGROUND
+* 2013-2016
+* v 1.0.0
+*/
+vec4 colorBackground, colorBackgroundRef, colorBackgroundPrescene;
+void background_setup() {
+  colorBackgroundRef = vec4();
+  colorBackground = vec4();
+  colorBackgroundPrescene = vec4(0,0,20,g.colorModeA) ;
+}
+
+void background_romanesco() {
+  // in preview mode the background is always on, to remove the trace effect
+  if(!FULL_RENDERING) { 
+    background_button_is(false) ;
+    colorBackground = colorBackgroundPrescene.copy() ;
+    background_rope(0,0,get_layer().colorModeZ *.2,get_layer().colorModeA) ;
+  } else if(FULL_RENDERING) {
+    if(background_button_is()) {
+      if(which_shader == 0) {
+        // check if the color model is changed after the shader used
+        if(get_layer().colorMode != 3 || get_layer().colorModeX != 360 || get_layer().colorModeY != 100 || get_layer().colorModeZ !=100 || get_layer().colorModeA !=100) {
+          colorMode(HSB,360,100,100,100);
+        }
+        // choice the rendering color palette for the classic background
+        if(FULL_RENDERING) {
+          // check if the slider background are move, if it's true update the color background
+          if(!compare(colorBackgroundRef,update_background())) {
+            colorBackground.set(update_background()) ;
+          } else {
+            colorBackgroundRef.set(update_background()) ;
+          }
+          background_rope(colorBackground) ;
+        }
+        background_rope(colorBackground) ;
+      } else {
+        select_fx_background_rope(which_shader);
+      }
+    }
+  }
+}
+
+// ANNEXE VOID BACKGROUND
+vec4 update_background() {
+  //to smooth the curve of transparency background
+  // HSB
+  float hue_bg = map(value_slider_background[0],0,MAX_VALUE_SLIDER,0,HSBmode.r);
+  float saturation_bg = map(value_slider_background[1],0,MAX_VALUE_SLIDER,0,HSBmode.g);
+  float brigthness_bg = map(value_slider_background[2],0,MAX_VALUE_SLIDER,0,HSBmode.b);
+  // ALPHA
+  float factorSmooth = 2.5;
+  float nx = norm(value_slider_background[3],.0,MAX_VALUE_SLIDER);
+  float alpha = pow (nx, factorSmooth);
+  alpha = map(alpha,0,1,.8,HSBmode.a);
+  return vec4(hue_bg,saturation_bg,brigthness_bg,alpha) ;
+}
 
 
 

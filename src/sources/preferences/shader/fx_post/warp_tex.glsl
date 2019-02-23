@@ -1,7 +1,7 @@
 /**
 * warp texture by Stan le punk
-* @see http://stanlepunk.xyz 
-* @see https://github.com/StanLepunK/Filter
+* @see http://stanlepunk.xyz
+* @see https://github.com/StanLepunK/Shader
 * v 0.0.8
 * 2018-2019
 */

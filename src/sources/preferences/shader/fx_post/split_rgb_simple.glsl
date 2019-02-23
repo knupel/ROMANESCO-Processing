@@ -1,8 +1,9 @@
 /**
-Stan le punk refactoring
-@see https://github.com/StanLepunK
-v 0.0.3
-2018-2019
+* Stan le punk refactoring
+* @see http://stanlepunk.xyz
+* @see https://github.com/StanLepunK/Shader
+* v 0.0.3
+* 2018-2019
 */
 
 #ifdef GL_ES

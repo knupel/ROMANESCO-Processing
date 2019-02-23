@@ -1,9 +1,12 @@
 /**
-* psyfrag
+* PSY FRAG sinus refactoring by Stan le Punk
+* 2014-2019
+* v 0.0.3
+* @see https://github.com/StanLepunK
+* @see https://github.com/StanLepunK/Shader
 * inspiration maybe sand box ?
-* 2014-2018
-* v 0.0.2
 */
+
 #ifdef GL_ES
 precision mediump float;
 #endif
@@ -12,11 +15,9 @@ precision mediump float;
 // my first raymarching \o/ - thanks to iq and his wonderful tools
 
 uniform float time;
-uniform vec2 mouse;
 uniform vec2 resolution;
-// uniform vec4 rgba;
-uniform float tempo ;
-uniform float timeTrack ;
+
+uniform int num;
 
 vec3 rotateX(vec3 p, float f) { 
 	return vec3(p.x, cos(f)*p.y - sin(f)*p.z, sin(f)*p.y + cos(f)*p.z); 
@@ -60,9 +61,9 @@ void main(void) {
 	vec3 p;
 
 	float f = 0.5;
-	int numLoop =  int(2) ;
-	if(timeTrack > 0.3) numLoop = 3 ; else numLoop = 2 ;
-	for(int i = 0; i < numLoop; i++) {
+	// int numLoop =  int(2) ;
+	// if(timeTrack > 0.3) numLoop = 3 ; else numLoop = 2 ;
+	for(int i = 0; i < num; i++) {
 	    	if ((abs(d) < .04) || (f > maxd)) break;
 	    	f += d;
 	    	p = vec3(2.) + scp*f;

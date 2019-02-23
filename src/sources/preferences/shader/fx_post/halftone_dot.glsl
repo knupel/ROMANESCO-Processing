@@ -1,7 +1,8 @@
 /**
 Halftone full refactoring
 Stan le Punk 
-@see https://github.com/StanLepunK
+* @see http://stanlepunk.xyz
+* @see https://github.com/StanLepunK/Shader
 v 0.0.2
 2018-2018
 Based https://www.shadertoy.com/view/XslGRM by Atomek

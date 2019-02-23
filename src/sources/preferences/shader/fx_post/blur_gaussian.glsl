@@ -1,7 +1,7 @@
 /**
 * Gausian blur
 * Stan le punk refactoring version
-* @see https://github.com/StanLepunK/Filter
+* @see https://github.com/StanLepunK/Shader
 * v 0.0.8
 * 2018-2019
 * Adapted from:

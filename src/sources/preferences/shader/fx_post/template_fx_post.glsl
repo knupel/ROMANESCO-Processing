@@ -1,9 +1,9 @@
 /**
-* Template by Stan le punk 
+* Template POST FX
 * @see http://stanlepunk.xyz
-* @see https://github.com/StanLepunK/Filter
-v 0.0.10
-2018-2019
+* @see https://github.com/StanLepunK/Shader
+* v 0.0.11
+* 2018-2019
 */
 // Processing implementation
 #ifdef GL_ES
@@ -12,15 +12,10 @@ precision highp float;
 #define PROCESSING_TEXTURE_SHADER
 varying vec4 vertColor;
 varying vec4 vertTexCoord;
-
-/**
-WARNING VERY IMPORTANT
-*/
-uniform vec2 resolution; // need this name for unknow reason :( here your pass your resolution texture
+uniform vec2 resolution; // WARNING VERY IMPORTANT // need this name for unknow reason :( here your pass your resolution texture
 // vec2 texOffset   = vec2(1) / resolution; // only work with uniform resolution
 
-// sketch implementation template, uniform use by most of filter Romanesco shader
-uniform sampler2D texture_source;
+// Rope implementationuniform sampler2D texture_source;
 uniform vec2 resolution_source;
 uniform bvec2 flip_source; // can be use to flip texture source
 uniform vec4 level_source;
@@ -30,10 +25,9 @@ uniform vec4 level_source;
 // uniform bvec2 flip_layer; // can be use to flip texture layer
 // uniform vec4 level_layer;
 
+// uniform vec2 position; // maneep to receive a normal information 0 > 1
 
-// uniform vec2 position; // mapped or not that's a question?
 // uniform float time;
-
 // uniform int mode;
 
 uniform int color_mode; // 0 is RGB / 3 is HSB

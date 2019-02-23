@@ -1,19 +1,23 @@
 /**
-cellular
-2013-2019
-v 0.0.3
+* Cellular refactoring by Stan le Punk
+* 2013-2019
+* v 0.0.5
+* @see https://github.com/StanLepunK
+* @see https://github.com/StanLepunK/Shader
+* original unkown inspiration maybe sandbox ?
 */
 #ifdef GL_ES
 precision mediump float;
 #endif
 
-uniform vec4 rgba; 
+
 uniform float time;
-// uniform vec2 mouse;
 uniform vec2 resolution;
+
+uniform vec4 rgba; 
 uniform float quality;
-uniform float quantity;
-uniform vec3 speed;
+uniform int num;
+uniform vec2 speed;
 // uniform vec3 direction;
 
 float field(in vec3 p) {
@@ -21,7 +25,7 @@ float field(in vec3 p) {
 	float accum = 0.;
 	float prev = 0.;
 	float tw = 0.;
-	float max = 12 + (quantity *20);
+	float max = 12 + num;
 
 	for (int i = 0; i < max; i++) {
 		float mag = dot(p,p);

@@ -1,8 +1,8 @@
 /**
 * colour change B 
 * by Stan le punk 
-* @see https://github.com/StanLepunK
-* @see https://github.com/StanLepunK/Filter
+* @see http://stanlepunk.xyz
+* @see https://github.com/StanLepunK/Shader
 * v 0.0.4
 2018-2019
 */

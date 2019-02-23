@@ -18,7 +18,7 @@ void rendering() {
 
     rendering_item_3D(USE_LAYER,1);
     rendering_item_2D(USE_LAYER,1);
-    filter();   
+    fx_post();   
     rendering_info(USE_LAYER);
 
   } else {

@@ -1,10 +1,11 @@
 /**
-Stan le punk refactoring
-@see https://github.com/StanLepunK
-v 0.0.2
-2018-2019
-Based on https://www.shadertoy.com/view/XdXGz4 by ushiostarfish 
-and SableRaf interpretation
+* Stan le punk refactoring
+* @see http://stanlepunk.xyz
+* @see https://github.com/StanLepunK/Shader
+* v 0.0.2
+* 2018-2019
+* @see https://www.shadertoy.com/view/XdXGz4 by ushiostarfish 
+* and SableRaf interpretation
 */
 
 #ifdef GL_ES

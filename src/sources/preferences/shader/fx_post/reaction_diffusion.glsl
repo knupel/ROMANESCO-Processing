@@ -5,7 +5,8 @@ $ @see https://groups.csail.mit.edu/mac/projects/amorphous/GrayScott/
 * @see https://en.wikipedia.org/wiki/Reaction%E2%80%93diffusion_system
 * Copyright (C) 2008,2009  Claude Heiland-Allen <claudiusmaximus@goto10.org>
 * Stan le punk version
-* @see https://github.com/StanLepunK
+* @see http://stanlepunk.xyz
+* @see https://github.com/StanLepunK/Shader
 * v 0.0.4
 * 2018-2019
 */

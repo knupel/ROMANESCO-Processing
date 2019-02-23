@@ -1,7 +1,8 @@
 /**
 Grain refactoring
 Stan le Punk 
-@see https://github.com/StanLepunK
+* @see http://stanlepunk.xyz
+* @see https://github.com/StanLepunK/Shader
 v 0.0.2
 2018-2019
 based on work of jcant0n from ShaderToy

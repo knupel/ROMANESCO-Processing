@@ -3,7 +3,7 @@
 * @see http://stanlepunk.xyz
 * @see https://github.com/StanLepunK/Force_Field
 * 2017-2019
-v 0.8.1
+v 0.8.2
 */
 
 class Warp_Force {
@@ -35,8 +35,8 @@ class Warp_Force {
   
 
   private void shader(String main_folder_path) {
-    rope_warp_shader = loadShader(main_folder_path+"fx/warp_tex.glsl");
-    rope_warp_blur = loadShader(main_folder_path+"fx/blur_gaussian.glsl"); 
+    rope_warp_shader = loadShader(main_folder_path+"fx_post/warp_tex.glsl");
+    rope_warp_blur = loadShader(main_folder_path+"fx_post/blur_gaussian.glsl"); 
     // rope_warp_shader = loadShader(main_folder_path+"warp/rope_warp_frag.glsl");
     // rope_warp_blur = loadShader(main_folder_path+"filter/rope_filter_gaussian_blur.glsl"); 
   }

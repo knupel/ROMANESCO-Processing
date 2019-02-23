@@ -2,7 +2,7 @@
 * TOON from https://www.geeks3d.com
 * Stan le punk refactoring
 * @see http://stanlepunk.xyz
-* @see https://github.com/StanLepunK/Filter
+* @see https://github.com/StanLepunK/Shader
 v 0.0.3
 2018-2019
 */

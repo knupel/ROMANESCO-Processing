@@ -1,22 +1,27 @@
 /**
  * CLASS FX 
- * v 0.2.0
+ * v 0.4.0
+ * @see http://stanlepunk.xyz
+ * @see https://github.com/StanLepunK/Shader
  * 2019-2019
  * class used to create easy setting for shader fx
 */
 public class FX {
+	// processing parameter
 	private int id;
 	private int type;
 	private String name;
+	private ivec2 canvas;
 	private String [] name_slider;
 	private String [] name_button;
 	private String author;
 	private String pack;
 	private String version;
 	private int revision;
-
 	private boolean on_g = true;
-	// paameter
+
+
+	// glsl parameter
 	private int mode; // 0
 	private int num; // 1 
 	private float quality; // 2
@@ -30,27 +35,43 @@ public class FX {
 	private vec3 pos; // 23
 	private vec3 size; // 24
 	private vec3 offset; // 25
+	private vec3 speed; // 26
 
 	private vec4 level_source; // 30
 	private vec4 level_layer; // 31
 	private vec4 colour; // 32
 
+  private float hue; // 200
+	private float saturation; // 201
+	private float brightness; // 202
 
-	// modulair
+	private float red; // 300
+	private float green; // 301
+	private float blue; // 302
+
+	private float alpha; // 400
+
+	// modular
 	private vec3 [] matrix; // 40 > 42
 	private vec2 [] pair; // 50 > 42
 	private boolean [] event; // 10O-102
 
 
-	public FX(String name, int type) {
-	// public FX(int id, String name, int type) {
-		// this.id = id;
-		this.name = name;
-		this.type = type;
-	}
+
+  // CONSTRUCTOR
+  public FX () {}
+
   // set
   public void set_on_g(boolean is) {
   	on_g = is;
+  }
+
+  public void set_canvas(int x, int y) {
+  	if(this.canvas == null) {
+  		this.canvas = ivec2(x,y);
+  	} else {
+  		this.canvas.set(x,y);
+  	}
   }
 
   public void set_type(int type) {
@@ -122,6 +143,8 @@ public class FX {
   		set_size(to_float_array(arg));
   	} else if(which == 25) {
   		set_offset(to_float_array(arg));
+  	} else if(which == 26) {
+  		set_speed(to_float_array(arg));
   	}
 
   		else if(which == 30) {
@@ -256,6 +279,14 @@ public class FX {
 		}
 	}
 
+	private void set_speed(float... arg) {
+		if(this.speed == null) {
+			this.speed = vec3(build_3(arg));
+		} else {
+			this.speed.set(build_3(arg));
+		}
+	}
+
 	private void set_level_source(float... arg) {
 		if(this.level_source == null) {
 			this.level_source = vec4(build_4(arg));
@@ -278,6 +309,34 @@ public class FX {
 		} else {
 			this.colour.set(build_4(arg));
 		}
+	}
+
+	private void set_hue(float hue) {
+		this.hue = hue;
+	}
+
+	private void set_saturation(float saturation) {
+		this.saturation = saturation;
+	}
+
+	private void set_brightness(float brightness) {
+		this.brightness = brightness;
+	}
+
+	private void set_red(float red) {
+		this.red = red;
+	}
+
+	private void set_green(float green) {
+		this.green = green;
+	}
+
+	private void set_blue(float blue) {
+		this.blue = blue;
+	}
+
+	private void set_alpha(float alpha) {
+		this.alpha = alpha;
 	}
 
 	private void set_matrix(int which, float... arg) {
@@ -309,6 +368,10 @@ public class FX {
 
 	public String get_name() {
 		return name;
+	}
+
+	public ivec2 get_canvas() {
+		return this.canvas;
 	}
 
 	public String [] get_name_slider() {
@@ -419,6 +482,14 @@ public class FX {
 		return offset;
 	}
 
+	public vec3 get_speed() {
+		if(speed == null) {
+			speed = vec3(0);
+			printErr("class FX method get_offset(): arg",null,"instead set arg and return",speed);
+		}
+		return speed;
+	}
+
 	public vec4 get_level_source() {
 		if(level_source == null) {
 			level_source = vec4(1);
@@ -442,7 +513,35 @@ public class FX {
 		}
 		return colour;
 	}
-  
+
+	public float get_hue() {
+		return hue;
+	}
+
+	public float get_saturation() {
+		return saturation;
+	}
+
+	public float get_brightness() {
+		return brightness;
+	}
+
+	public float get_red() {
+		return red;
+	}
+
+	public float get_green() {
+		return green;
+	}
+
+	public float get_blue() {
+		return blue;
+	}
+
+	public float get_alpha() {
+		return alpha;
+	}   
+
   // matrix
 	public vec3 get_matrix(int which) {
 		if(matrix != null  && which < matrix.length && which >= 0) {
