@@ -18,9 +18,8 @@ void rendering() {
 
     rendering_item_3D(USE_LAYER,1);
     rendering_item_2D(USE_LAYER,1);
-    fx_post();   
+    fx_post();
     rendering_info(USE_LAYER);
-
   } else {
     rendering_curtain(USE_LAYER);   
   }
@@ -173,8 +172,8 @@ void init_romanesco() {
 
 /**
 DISPLAY SETUP
-2015-2018
-v 1.3.0
+2015-2019
+v 1.3.1
 */
 String displayMode = ("");
 int depth_scene;
@@ -183,14 +182,11 @@ void display_setup(int frame_rate, int num_layer) {
     background_rope(0);
     noCursor();
   }
-  frameRate(frame_rate);  // Le frameRate doit être le même dans tous les Sketches
-  colorMode(HSB, HSBmode.r,HSBmode.g,HSBmode.b,HSBmode.a);
-
+  frameRate(frame_rate);
+  colorMode(HSB,HSBmode.r,HSBmode.g,HSBmode.b,HSBmode.a);
 
   set_screen();
   depth_scene = height;
-  background_setup();
-  background_shader_setup();
 
   // resize layer
   if(USE_LAYER) {

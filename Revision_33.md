@@ -22,6 +22,12 @@ revision 33
 >update costume method
 >remove save scene option
 
+*SHADER
+
+>add shader background voronoi
+>remove shader neon
+>total refactoring the FX BACKGROUND shader system to have a same manager fx system than FX POST
+
 *ITEM
 
 >KINO, add method to swithc off the sound

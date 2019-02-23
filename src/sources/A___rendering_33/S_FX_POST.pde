@@ -84,7 +84,7 @@ void fx_post() {
 
   if(FULL_RENDERING && fx_button_is(0)) {
     update_fx_post_slider();
-    update_fx_classic(fx_manager);
+    update_fx_post(fx_manager);
     if(extra_filter_fx && active_fx != null && active_fx.size() > 0) {
       for(int i : active_fx) {
         draw_fx(i);
@@ -320,7 +320,7 @@ void update_fx_post_slider() {
   fx_threshold = map(value_slider_fx[13],0,MAX_VALUE_SLIDER,0,1);
 }
 
-void update_fx_classic(ArrayList<FX> fx_list) {
+void update_fx_post(ArrayList<FX> fx_list) {
 
   update_fx_blur_circular(fx_list,move_filter_fx,fx_quantity,fx_str_x);
   update_fx_blur_gaussian(fx_list,move_filter_fx,fx_str_x);
@@ -335,7 +335,6 @@ void update_fx_classic(ArrayList<FX> fx_list) {
   
   update_fx_warp_proc(fx_list,move_filter_fx,fx_str_x,fx_speed);
   update_fx_warp_tex(fx_list,move_filter_fx,fx_str_x);
-
 
 }
 

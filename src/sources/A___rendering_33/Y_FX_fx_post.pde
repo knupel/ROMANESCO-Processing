@@ -2,7 +2,7 @@
 * POST FX shader collection
 *
 * 2019-2019
-* v 0.1.6
+* v 0.1.7
 * all filter bellow has been tested.
 * @see http://stanlepunk.xyz
 * @see https://github.com/StanLepunK/Shader
@@ -321,10 +321,9 @@ PGraphics fx_blur_gaussian(PImage source, boolean on_g, boolean second_pass, ive
 
 /**
 * Blur radial
-v 0.2.1
+v 0.2.3
 2018-2019
 */
-
 // setting by class FX
 PGraphics fx_blur_radial(PImage source, FX fx) {
 	float str = 0;
@@ -338,37 +337,6 @@ PGraphics fx_blur_radial(PImage source, FX fx) {
 	}
 	return fx_blur_radial(source,fx.on_g(),vec2(fx.get_pos()),str,scl);
 }
-
-
-
-
-
-// test
-vec2 pos_blur_rad;
-float scale_fx_blur_radial = .9;
-PGraphics fx_blur_radial(PImage source, boolean on_g) {
-	if(pos_blur_rad == null) pos_blur_rad = vec2();
-	if(mousePressed) {
-		pos_blur_rad.set_x(map(mouseX,0,width,0,1));
-		pos_blur_rad.set_y(map(mouseY,0,height,0,1));
-	}
-  
-  // strength
-	float strength = 40.;
-
-	// scale
-	// float var = get_wheel_scale();
-	float var = 10;
-	scale_fx_blur_radial += var *.01;
-	if(scale_fx_blur_radial < -1) {
-		scale_fx_blur_radial = -1;
-	} else if(scale_fx_blur_radial > 1) {
-		scale_fx_blur_radial = 1;
-	}
-
-	return fx_blur_radial(source,on_g,pos_blur_rad,strength,scale_fx_blur_radial);
-}
-
 
 
 
@@ -395,7 +363,7 @@ PGraphics fx_blur_radial(PImage source, boolean on_g, vec2 pos, float strength, 
 		fx_blur_radial.set("texture_source",source);
 
     // external parameter
-		fx_blur_radial.set("scale",scale_fx_blur_radial); // from 0 to beyond but good around .9;
+		fx_blur_radial.set("scale",scale); // from 0 to beyond but good around .9;
 		fx_blur_radial.set("strength",strength);
 		if(pos != null) fx_blur_radial.set("position",pos.x,pos.y);
 		

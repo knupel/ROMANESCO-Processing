@@ -1,6 +1,6 @@
 /**
 * NECKLACE refactoring by Stan le Punk
-* v 0.1.0
+* v 0.1.1
 * 2014-2019
 * @see https://github.com/StanLepunK
 * @see https://github.com/StanLepunK/Shader
@@ -34,7 +34,7 @@ uniform float speed;
 
 void main(){
 
-	vec2 new_pos = vec2(position.x, 1.0 -position.y);
+	vec2 new_pos = vec2(position.x,1.-position.y);
 
 	vec2 pos = (gl_FragCoord.xy -new_pos.xy *resolution) / min(resolution.x, resolution.y) + vec2(.5,.5);
 

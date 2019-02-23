@@ -2,7 +2,7 @@
 * BACKGROUND FX
 * Rope background shader fx collection
 * 2019-2019
-* v 0.1.6
+* v 0.2.0
 * all filter bellow has been tested.
 * @see http://stanlepunk.xyz
 * @see https://github.com/StanLepunK/Shader
@@ -45,8 +45,7 @@ PGraphics fx_bg_template(ivec2 canvas, boolean on_g, vec3 colour) {
 		if(fx_bg_rope_path_exists) {
 			fx_bg_template = loadShader(path);
 			println("load shader: template_fx_bg.glsl");
-		}
-		println("load shader:",path);
+		} 
 	} else {
 		set_shader_resolution(fx_bg_template,canvas,on_g);
 
@@ -79,7 +78,7 @@ PGraphics fx_bg_template(ivec2 canvas, boolean on_g, vec3 colour) {
 /**
 * Cellular fx backgournd by Stan le punk
 * this template can be used for texture or direct filtering
-* v 0.0.1
+* v 0.0.3
 * 2019-2019
 */
 // setting by class FX
@@ -105,20 +104,18 @@ PGraphics fx_bg_cellular(ivec2 canvas, boolean on_g, vec4 colour, int num, vec2 
 		if(fx_bg_rope_path_exists) {
 			fx_bg_cellular = loadShader(path);
 			println("load shader: cellular.glsl");
-		}
-		println("load shader:",path);
+		}	
 	} else {
-		println(fx_bg_cellular);
 		set_shader_resolution(fx_bg_cellular,canvas,on_g);
 
-		fx_bg_cellular.set("time",frameCount *.1); 
+		fx_bg_cellular.set("time",float(frameCount)); 
 
 
     // external paramter
 		fx_bg_cellular.set("rgba",colour.x,colour.y,colour.z,colour.w); // value from 0 to 1
 		fx_bg_cellular.set("num",num); // value from 0 to 1
 		fx_bg_cellular.set("speed",speed.x,speed.y); // value from 0 to 1
-		fx_bg_cellular.set("quality",quality); // value from 0 to 1
+		fx_bg_cellular.set("quality",quality); // value from 0 to .2
 
 		if(on_g) {
 			filter(fx_bg_cellular);
@@ -144,12 +141,12 @@ PGraphics fx_bg_cellular(ivec2 canvas, boolean on_g, vec4 colour, int num, vec2 
 /**
 * Heart fx backgournd by Stan le punk
 * this template can be used for texture or direct filtering
-* v 0.0.1
+* v 0.0.3
 * 2019-2019
 */
 // setting by class FX
 PGraphics fx_bg_heart(FX fx) {
-	return fx_bg_heart(fx.get_canvas(),fx.on_g(),vec3(fx.get_colour()),fx.get_num(),fx.get_speed().x,fx.get_quality(),fx.get_strength().x);
+	return fx_bg_heart(fx.get_canvas(),fx.on_g(),vec3(fx.get_colour()),fx.get_num(),fx.get_angle().x,fx.get_quality(),fx.get_strength().x,fx.get_speed().x);
 }
 
 
@@ -158,7 +155,7 @@ PGraphics fx_bg_heart(FX fx) {
 // main
 PShader fx_bg_heart;
 PGraphics pg_heart_fx_bg;
-PGraphics fx_bg_heart(ivec2 canvas, boolean on_g, vec3 colour, int num, float speed, float quality, float strength) {
+PGraphics fx_bg_heart(ivec2 canvas, boolean on_g, vec3 colour, int num, float angle, float quality, float strength, float speed) {
 	if(!on_g && (pg_heart_fx_bg == null
 								|| (canvas.x != pg_heart_fx_bg.width 
 								&& canvas.y != pg_heart_fx_bg.height))) {
@@ -171,18 +168,18 @@ PGraphics fx_bg_heart(ivec2 canvas, boolean on_g, vec3 colour, int num, float sp
 			fx_bg_heart = loadShader(path);
 			println("load shader: heart.glsl");
 		}
-		println("load shader:",path);
 	} else {
 		set_shader_resolution(fx_bg_heart,canvas,on_g);
 
-		fx_bg_heart.set("time",frameCount *.1); 
+		fx_bg_heart.set("time",float(frameCount)); 
 
-
+    // println("angle",angle);
     // external paramter
 		fx_bg_heart.set("rgb",colour.x,colour.y,colour.z); // value from 0 to 1
 		fx_bg_heart.set("num",num); // value from 0 to 1
-		fx_bg_heart.set("speed",speed); // value from 0 to 1
+		fx_bg_heart.set("angle",angle); // in radians
 		fx_bg_heart.set("quality",quality); // value from 0 to 1
+		fx_bg_heart.set("speed",speed); // value from 0 to 1
 
 		fx_bg_heart.set("strength",strength); // value from 1 to ++
 		if(on_g) {
@@ -209,7 +206,7 @@ PGraphics fx_bg_heart(ivec2 canvas, boolean on_g, vec3 colour, int num, float sp
 /**
 * Necklace fx backgournd by Stan le punk
 * this template can be used for texture or direct filtering
-* v 0.0.1
+* v 0.0.2
 * 2019-2019
 */
 // setting by class FX
@@ -236,12 +233,12 @@ PGraphics fx_bg_necklace(ivec2 canvas, boolean on_g, vec2 pos, vec2 size, float 
 			fx_bg_necklace = loadShader(path);
 			println("load shader: necklace.glsl");
 		}
-		println("load shader:",path);
 	} else {
 		set_shader_resolution(fx_bg_necklace,canvas,on_g);
 
 
-		fx_bg_necklace.set("time",frameCount); 
+		fx_bg_necklace.set("time",float(frameCount)); 
+		println("speed",speed);
     // external paramter
     fx_bg_necklace.set("position",pos.x,pos.y); // value from 0 to 1
     fx_bg_necklace.set("size",size.x,size.y); // value from 0 to 1
@@ -299,12 +296,12 @@ PGraphics fx_bg_neon(ivec2 canvas, boolean on_g, vec2 pos, float speed) {
 			fx_bg_neon = loadShader(path);
 			println("load shader: neon.glsl");
 		}
-		println("load shader:",path);
 	} else {
 		set_shader_resolution(fx_bg_neon,canvas,on_g);
 
 
-		fx_bg_neon.set("time",frameCount *speed); 
+		fx_bg_neon.set("time",float(frameCount));
+		fx_bg_neon.set("speed",speed);  
     // external paramter
     fx_bg_neon.set("position",pos.x,pos.y); // value from 0 to 1
 
@@ -362,12 +359,11 @@ PGraphics fx_bg_psy(ivec2 canvas, boolean on_g, int num, float speed) {
 			fx_bg_psy = loadShader(path);
 			println("load shader: psy.glsl");
 		}
-		println("load shader:",path);
 	} else {
 		set_shader_resolution(fx_bg_psy,canvas,on_g);
 
 
-		fx_bg_psy.set("time",frameCount *speed); // speed value must be low from 0.0001 to 0.05 and it's very fast
+		fx_bg_psy.set("time",float(frameCount) *speed); // speed value must be low from 0.0001 to 0.05 and it's very fast
     // external paramter
     fx_bg_psy.set("num",num); // 2 or 3
 
@@ -419,15 +415,12 @@ PGraphics fx_bg_snow(ivec2 canvas, boolean on_g, vec2 pos, vec3 colour, float sp
 			fx_bg_snow = loadShader(path);
 			println("load shader: snow.glsl");
 		}
-		println("load shader:",path);
 	} else {
 		set_shader_resolution(fx_bg_snow,canvas,on_g);
 
     fx_bg_snow.set("rgb",colour.x,colour.y,colour.z); // speed value must be low from 0.0001 to 0.05 and it's very fast
-		fx_bg_snow.set("time",frameCount *speed); // speed value must be low from 0.0001 to 0.05 and it's very fast
-
-		fx_bg_snow.set("position",pos.x,pos.y); // speed value must be low from 0.0001 to 0.05 and it's very fast
-
+		fx_bg_snow.set("time",float(frameCount)); 
+		fx_bg_snow.set("speed",speed); // speed value must be low from 0.0001 to 0.05 and it's very fast	
 		fx_bg_snow.set("quality",quality); // speed value must be low from 0.0001 to 0.05 and it's very fast
     // external paramter
 
@@ -461,7 +454,7 @@ PGraphics fx_bg_snow(ivec2 canvas, boolean on_g, vec2 pos, vec3 colour, float sp
 
 
 /**
-* VORONOI THREE P
+* VORONOI HEX
 * refactoring
 * oroginal shader see glsl file for the link
 * v 0.0.1
@@ -489,11 +482,18 @@ PGraphics fx_bg_voronoi_hex(ivec2 canvas, boolean on_g, float size, vec3 colour,
 			fx_bg_voronoi_hex = loadShader(path);
 			println("load shader: voronoi_hex.glsl");
 		}
-		println("load shader:",path);
 	} else {
 		set_shader_resolution(fx_bg_voronoi_hex,canvas,on_g);
 		// processing parameter
 		fx_bg_voronoi_hex.set("time",float(frameCount)); 
+
+		println("rgb",colour.x,colour.y,colour.z); // from 0 to 1
+   println("size",size); // from 1 to 10++
+    println("speed_mutation",speed_mutation); // from 0 to 1
+    println("speed_colour",speed_colour); // from 0 to 1
+		println("strength",strength); // from -0.05 to 0.05
+		println("threshold",threshold); // from 0.1 to 0.3
+		println("mode",mode); // from 0 to 1
     
     // external parameter
     fx_bg_voronoi_hex.set("rgb",colour.x,colour.y,colour.z); // from 0 to 1

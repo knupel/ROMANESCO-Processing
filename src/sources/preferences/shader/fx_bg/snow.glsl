@@ -2,7 +2,7 @@
 * SNOW FRAG sinus refactoring by Stan le Punk
 * alias the cosmic background the univers state after 380.000 years, the first print of him
 * 2014-2019
-* v 0.0.4
+* v 0.0.5
 * @see https://github.com/StanLepunK
 * @see https://github.com/StanLepunK/Shader
 * inspiration maybe sand box ?
@@ -17,13 +17,11 @@ uniform vec2 resolution;
 uniform float time;
 
 uniform vec3 rgb;
-
-uniform vec2 position;
 uniform float speed;
 uniform float quality;
 
 void main() {
-	float temp_time = time * (speed -.5);
+	float temp_time = time *speed;
 	float min = .001;
   float a = 1000 *(quality +min);
   float b = 489.9 *(quality +min);

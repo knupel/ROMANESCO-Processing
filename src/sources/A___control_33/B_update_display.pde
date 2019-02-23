@@ -148,9 +148,6 @@ void show_dropdown() {
   update_dropdown_bar_content() ;
   
   for(int i = 0 ; i < dropdown_bar.length ; i++) {
-    if(i == 1) {
-      //
-    }
     dropdown_bar[i].set_content(dropdown_content[i]);
   }
 
