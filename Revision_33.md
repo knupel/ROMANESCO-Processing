@@ -24,7 +24,9 @@ revision 33
 
 *SHADER
 
->add shader background voronoi
+>add shader BACKGROUDN FX voronoi
+>add shader POST FX dither bayer 8
+>add shader POST FX threshold
 >remove shader neon
 >total refactoring the FX BACKGROUND shader system to have a same manager fx system than FX POST
 
