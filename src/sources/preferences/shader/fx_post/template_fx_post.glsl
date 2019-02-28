@@ -2,7 +2,7 @@
 * Template POST FX
 * @see http://stanlepunk.xyz
 * @see https://github.com/StanLepunK/Shader
-* v 0.0.11
+* v 0.0.12
 * 2018-2019
 */
 // Processing implementation
@@ -15,7 +15,8 @@ varying vec4 vertTexCoord;
 uniform vec2 resolution; // WARNING VERY IMPORTANT // need this name for unknow reason :( here your pass your resolution texture
 // vec2 texOffset   = vec2(1) / resolution; // only work with uniform resolution
 
-// Rope implementationuniform sampler2D texture_source;
+// Rope implementation
+uniform sampler2D texture_source;
 uniform vec2 resolution_source;
 uniform bvec2 flip_source; // can be use to flip texture source
 uniform vec4 level_source;
@@ -43,7 +44,7 @@ uniform int color_mode; // 0 is RGB / 3 is HSB
 // uniform float scale;
 
 // uniform int rows;
-// uniform int cols;
+// uniform int cols;x
 
 // uniform bool use_fx_color;
 // uniform bool use_fx;
@@ -158,7 +159,7 @@ vec4 change_hue(vec2 uv) {
 
 void main() {
   vec2 uv = set_uv(flip_source,resolution_source);
-  gl_FragColor = texture(texture_source,uv);
+  gl_FragColor = texture2D(texture_source,uv);
 
 	// gl_FragColor = change_hue(uv);
 }

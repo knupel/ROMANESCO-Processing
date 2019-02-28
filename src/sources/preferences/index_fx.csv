@@ -3,9 +3,11 @@ Force,Stan le Punk,0.1.0,Base 2014,
 blur circular,Stan le Punk,0.0.1,Base 2019,quantity/strength X
 blur gaussian,Stan le Punk,0.0.3,Base 2019,strength X
 blur radial,Stan le Punk,0.0.1,Base 2019,position X/position Y/strength X
+dither bayer,Mattias / Shader Toy,0.0.1,Base 2019,red/green/blue
 halftone dot,Stan le Punk,0.0.1,Base 2019,position X/position Y/angle/quantity
 halftone line,Stan le Punk,0.0.2,Base 2019,position X/position Y/quantity/angle
 pixel,Stan le Punk,0.0.1,Base 2019,quantity/size X/size Y/red/green/blue
 split rgb,Stan le Punk,0.0.1,Base 2019,strength X/strength Y/speed
+threshold,Stan le Punk,0.0.1,Base 2019,red/green/blue
 warp proc,Stan le Punk,0.0.1,Base 2019,strength X/speed
 warp tex,Stan le Punk,0.0.1,Base 2019,strength X

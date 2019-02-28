@@ -17,7 +17,7 @@ int FX_BLUR_CIRCULAR = 202;
 int FX_COLOUR_CHANGE_A = 300;
 int FX_COLOUR_CHANGE_B = 301;
 
-int FX_DITHER = 400;
+int FX_DITHER_BAYER_8 = 408;
 
 int FX_GRAIN = 700;
 int FX_GRAIN_SCATTER = 701;
@@ -37,10 +37,15 @@ int FX_REAC_DIFF = 18_00;
 int FX_SCALE = 19_00;
 int FX_SPLIT_RGB = 19_50;
 
-int FX_TOON = 20_00; // don't work
 
-int FX_WARP_TEX = 23_00;
-int FX_WARP_PROC = 23_01;
+int FX_THRESHOLD = 20_00; // don't work
+int FX_TOON = 20_20; // don't work
+
+
+int FX_WARP_PROC = 23_00;
+
+int FX_WARP_TEX_A = 23_10;
+int FX_WARP_TEX_B = 23_11;
 
 
 // CONSTANT FX BACKGROUND
@@ -152,10 +157,10 @@ void select_fx_post(PImage main, PImage layer_a, PImage layer_b, FX... fx) {
 				fx_colour_change_a(main,fx[i]);
 			} else if(fx[i].get_type() == FX_COLOUR_CHANGE_B) {
 				fx_colour_change_b(main,fx[i]);
-			} else if(fx[i].get_type() == FX_DITHER) {
-				fx_dither(main,layer_a,fx[i]);
+			} else if(fx[i].get_type() == FX_DITHER_BAYER_8) {
+				fx_dither_bayer_8(main,fx[i]);
 			} else if(fx[i].get_type() == FX_GRAIN) {
-				 fx_grain(main,fx[i]);
+				fx_grain(main,fx[i]);
 			} else if(fx[i].get_type() == FX_GRAIN_SCATTER) {
 				fx_grain_scatter(main,fx[i]);
 			} else if(fx[i].get_type() == FX_HALFTONE_DOT) {
@@ -174,10 +179,14 @@ void select_fx_post(PImage main, PImage layer_a, PImage layer_b, FX... fx) {
 				fx_split_rgb(main,fx[i]); 
 			} else if(fx[i].get_type() == FX_SCALE) {
 				fx_scale(main,fx[i]);
+			} else if(fx[i].get_type() == FX_THRESHOLD) {
+				fx_threshold(main,fx[i]);
 			} else if(fx[i].get_type() == FX_WARP_PROC) {
 				fx_warp_proc(main,fx[i]); 
-			} else if(fx[i].get_type() == FX_WARP_TEX) {
-				fx_warp_tex(main,layer_a,layer_b,fx[i]); 
+			} else if(fx[i].get_type() == FX_WARP_TEX_A) {
+				fx_warp_tex_a(main,layer_a,layer_b,fx[i]); 
+			} else if(fx[i].get_type() == FX_WARP_TEX_B) {
+				fx_warp_tex_b(main,layer_a,fx[i]); 
 			} else {
 				printErrTempo(60,"method select_fx_post(): fx",fx[i].get_name(),fx[i].get_type(),"don't match with any fx available");
 			}

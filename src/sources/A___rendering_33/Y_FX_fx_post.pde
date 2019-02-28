@@ -2,7 +2,7 @@
 * POST FX shader collection
 *
 * 2019-2019
-* v 0.1.7
+* v 0.1.9
 * all filter bellow has been tested.
 * @see http://stanlepunk.xyz
 * @see https://github.com/StanLepunK/Shader
@@ -392,9 +392,6 @@ PGraphics fx_blur_radial(PImage source, boolean on_g, vec2 pos, float strength, 
 
 /**
 * Colour change A by Stan le punk
-
-* @see http://stanlepunk.xyz
-* @see https://github.com/StanLepunK/Filter
 v 0.2.2
 2018-2019
 */
@@ -560,55 +557,47 @@ PGraphics fx_colour_change_b(PImage source, boolean on_g, float angle, float str
 
 
 /**
-* Dither
-* v 0.1.2
+* Dither bayer 8
+* v 0.2.0
 * 2018-2019
 */
 
 // setting by class FX
-PGraphics fx_dither(PImage source, PImage layer, FX fx) {
-	return fx_dither(source,layer,fx.on_g());	
+PGraphics fx_dither_bayer_8(PImage source, FX fx) {
+	return fx_dither_bayer_8(source,fx.on_g(),vec3(fx.get_level_source()),fx.get_mode());	
 }
-
-
-
-
-// test
-/*
-// cannot use : cause loop error because it's a same function that a main one
-PGraphics fx_dither(PImage source, PImage layer, boolean on_g) {
-	return fx_dither(source,layer,on_g);
-}
-*/
 
 
 
 // main
-PShader fx_dither;
-PGraphics result_dither;
-PGraphics fx_dither(PImage source, PImage layer, boolean on_g) {
-	if(!on_g && (result_dither == null 
-								|| (source.width != result_dither.width 
-								&& source.height != result_dither.height))) {
-		result_dither = createGraphics(source.width,source.height,get_renderer());
+PShader fx_dither_bayer_8;
+PGraphics pg_dither_bayer_8;
+PGraphics fx_dither_bayer_8(PImage source, boolean on_g, vec3 level, int mode) {
+	if(!on_g && (pg_dither_bayer_8 == null 
+								|| (source.width != pg_dither_bayer_8.width 
+								&& source.height != pg_dither_bayer_8.height))) {
+		pg_dither_bayer_8 = createGraphics(source.width,source.height,get_renderer());
 	}
 
 	
-	if(fx_dither == null) {
-		String path = get_fx_post_path()+"dither.glsl";
+	if(fx_dither_bayer_8 == null) {
+		String path = get_fx_post_path()+"dither_bayer_8.glsl";
 		if(fx_post_rope_path_exists) {
-			fx_dither = loadShader(path);
+			fx_dither_bayer_8 = loadShader(path);
 			println("load shader:",path);
 		}
 	} else {
-		if(on_g) set_shader_flip(fx_dither,source,layer);
-		fx_dither.set("texture_source",source);
-		fx_dither.set("texture_layer",layer);
-		fx_dither.set("resolution_source",source.width,source.height);
-		fx_dither.set("resolution_layer",layer.width,layer.height);
+		if(on_g) set_shader_flip(fx_dither_bayer_8,source);
+		fx_dither_bayer_8.set("texture_source",source);
+		fx_dither_bayer_8.set("resolution_source",source.width,source.height);
+
+
+		// external parameter
+    fx_dither_bayer_8.set("level_source",level.x,level.y,level.z);
+    fx_dither_bayer_8.set("mode",mode); // mode 0 : gray / 1 is rgb
 
     // rendering
-		render_shader(fx_dither,result_dither,source,on_g);
+		render_shader(fx_dither_bayer_8,pg_dither_bayer_8,source,on_g);
 	}
 
 	// return
@@ -616,9 +605,10 @@ PGraphics fx_dither(PImage source, PImage layer, boolean on_g) {
 	if(on_g) {
 		return null;
 	} else {
-		return result_dither; 
+		return pg_dither_bayer_8; 
 	}
 }
+
 
 
 
@@ -788,7 +778,6 @@ PGraphics fx_grain_scatter(PImage source, boolean on_g,float strength) {
 * v 0.0.5
 * 2018-2019
 */
-
 // setting by class FX
 PGraphics fx_halftone_dot(PImage source, FX fx) {
 	vec2 pos = vec2(source.width/2,source.height/2);
@@ -888,8 +877,6 @@ PGraphics fx_halftone_dot(PImage source, boolean on_g, vec2 pos, float size, flo
 * v 0.0.7
 * 2018-2019
 */
-
-
 // use setting
 PGraphics fx_halftone_line(PImage source, FX fx) {
 	vec2 pos = vec2(source.width/2,source.height/2);
@@ -1265,8 +1252,6 @@ PGraphics fx_mix(PImage source, PImage layer, boolean on_g, int mode, vec3 level
 * v 0.0.5
 * 2018-2019
 */
-
-
 // setting by class FX
 PGraphics fx_pixel(PImage source, FX fx) {
 	ivec2 size = ivec2(5);
@@ -1350,8 +1335,6 @@ PGraphics fx_pixel(PImage source, boolean on_g, ivec2 size, int num, vec3 level_
 
 /**
 * Reaction diffusion
-* @see http://stanlepunk.xyz
-* @see https://github.com/StanLepunK/Filter
 * v 0.0.4
 * 2018-2019
 */
@@ -1554,14 +1537,10 @@ PGraphics fx_reaction_diffusion(PImage source, boolean on_g, vec2 conc_uv, vec2 
 
 
 /**
-* Scale line by Stan le punk
-* @see http://stanlepunk.xyz
-* @see https://github.com/StanLepunK/Filter
+* Scale line
 * v 0.0.5
 * 2018-2019
 */
-
-
 PGraphics fx_scale(PImage source, FX fx) {
 	ivec2 res = ivec2(source.width/2, source.height/2);
 	if(fx.get_resolution() != null) {
@@ -1645,8 +1624,6 @@ PGraphics fx_scale(PImage source, boolean on_g, ivec2 resolution) {
 
 /**
 * split rgb
-* @see http://stanlepunk.xyz
-* @see https://github.com/StanLepunK/Filter
 * v 0.0.6
 * 2019-2019
 */
@@ -1707,6 +1684,69 @@ PGraphics fx_split_rgb(PImage source, boolean on_g, vec2 offset_red, vec2 offset
 		return result_split_rgb; 
 	}
 }
+
+
+
+
+
+
+
+/**
+* Threshold
+* v 0.2.0
+* 2018-2019
+*/
+// setting by class FX
+PGraphics fx_threshold(PImage source, FX fx) {
+	return fx_threshold(source,fx.on_g(),vec3(fx.get_level_source()),fx.get_mode());	
+}
+
+
+// main
+PShader fx_threshold;
+PGraphics pg_threshold;
+PGraphics fx_threshold(PImage source, boolean on_g, vec3 level, int mode) {
+	if(!on_g && (pg_threshold == null 
+								|| (source.width != pg_threshold.width 
+								&& source.height != pg_threshold.height))) {
+		pg_threshold = createGraphics(source.width,source.height,get_renderer());
+	}
+
+	
+	if(fx_threshold == null) {
+		String path = get_fx_post_path()+"threshold.glsl";
+		if(fx_post_rope_path_exists) {
+			fx_threshold = loadShader(path);
+			println("load shader:",path);
+		}
+	} else {
+		if(on_g) set_shader_flip(fx_threshold,source);
+		fx_threshold.set("texture_source",source);
+		fx_threshold.set("resolution_source",source.width,source.height);
+
+		// external parameter
+		level = map(level,0,1,.05,1.50);
+    fx_threshold.set("level_source",level.x,level.y,level.z);
+    fx_threshold.set("mode",mode); // mode 0 : gray / 1 is rgb
+
+    // rendering
+		render_shader(fx_threshold,pg_threshold,source,on_g);
+	}
+
+	// return
+	reset_reverse_g(false);
+	if(on_g) {
+		return null;
+	} else {
+		return pg_threshold; 
+	}
+}
+
+
+
+
+
+
 
 
 
@@ -1780,28 +1820,21 @@ PGraphics fx_warp_proc(PImage source, boolean on_g, float strength) {
 
 
 /**
-* warp texture 
-* v 0.2.0
+* warp texture type A
+* v 0.2.1
 * 2018-2019
 */
 // use setting
-PGraphics fx_warp_tex(PImage source, PImage velocity, PImage direction, FX fx) {
-	return fx_warp_tex(source,velocity,direction,fx.on_g(),fx.get_mode(),fx.get_strength().x);
+PGraphics fx_warp_tex_a(PImage source, PImage velocity, PImage direction, FX fx) {
+	return fx_warp_tex_a(source,velocity,direction,fx.on_g(),fx.get_mode(),fx.get_strength().x);
 }
 
-
-// test
-PGraphics fx_warp_tex(PImage source, boolean on_g) {
-	float strength = map(mouseX,0,width,-1,1);
-	int mode = 0; // 0 show warp, 500 velocity, 501 direction
-	return fx_warp_tex(source,null,null,on_g,mode,strength);
-}
 
 
 // main
-PShader fx_warp_tex;
-PGraphics result_warp_tex;
-PGraphics fx_warp_tex(PImage source, PImage velocity, PImage direction, boolean on_g, int mode, float strength) {
+PShader fx_warp_tex_a;
+PGraphics pg_warp_tex_a;
+PGraphics fx_warp_tex_a(PImage source, PImage velocity, PImage direction, boolean on_g, int mode, float strength) {
 	if(!on_g && (result_warp_proc == null 
 								|| (source.width != result_warp_proc.width 
 								&& source.height != result_warp_proc.height))) {
@@ -1809,33 +1842,32 @@ PGraphics fx_warp_tex(PImage source, PImage velocity, PImage direction, boolean 
 	}
   
 
-	if(fx_warp_tex == null) {
-		String path = get_fx_post_path()+"warp_tex.glsl";
+	if(fx_warp_tex_a == null) {
+		String path = get_fx_post_path()+"warp_tex_a.glsl";
 		if(fx_post_rope_path_exists) {
-			fx_warp_tex = loadShader(path);
+			fx_warp_tex_a = loadShader(path);
 			println("load shader:",path);
 		}
 	} else {
-		if(on_g) set_shader_flip(fx_warp_tex,source);
-		fx_warp_tex.set("texture_source",source);
-		fx_warp_tex.set("resolution_source",source.width,source.height);
+		if(on_g) set_shader_flip(fx_warp_tex_a,source);
+		fx_warp_tex_a.set("texture_source",source);
+		fx_warp_tex_a.set("resolution_source",source.width,source.height);
 
 		
 		// external parameter
 		// warp sources
 		if(direction != null) {
-			fx_warp_tex.set("texture_direction",direction);
+			fx_warp_tex_a.set("texture_direction",direction);
 		}
 		if(velocity != null) {
-			fx_warp_tex.set("texture_velocity",velocity);
+			fx_warp_tex_a.set("texture_velocity",velocity);
 		}
 		//setting external param
-		fx_warp_tex.set("strength",strength); // good for normal value 0 > 1
-		fx_warp_tex.set("mode",mode); // mode 0 > show warp / mode 500 show texture velocity / mode 501 show texture direction
-
+		fx_warp_tex_a.set("strength",strength); // good for normal value 0 > 1
+		fx_warp_tex_a.set("mode",mode); // mode 0 > show warp / mode 500 show texture velocity / mode 501 show texture direction
 
 		// rendering
-		render_shader(fx_warp_tex,result_warp_tex,source,on_g);
+		render_shader(fx_warp_tex_a,pg_warp_tex_a,source,on_g);
 	}
 
 	// return
@@ -1843,7 +1875,66 @@ PGraphics fx_warp_tex(PImage source, PImage velocity, PImage direction, boolean 
 	if(on_g) {
 		return null;
 	} else {
-		return result_warp_tex; 
+		return pg_warp_tex_a; 
+	}
+}
+
+
+
+
+
+
+
+
+/**
+* warp texture type B
+* v 0.0.1
+* 2019-2019
+*/
+// use setting
+PGraphics fx_warp_tex_b(PImage source, PImage layer, FX fx) {
+	return fx_warp_tex_b(source,layer,fx.on_g(),fx.get_strength().x);
+}
+
+
+
+
+// main
+PShader fx_warp_tex_b;
+PGraphics pg_warp_tex_b;
+PGraphics fx_warp_tex_b(PImage source, PImage layer, boolean on_g,float strength) {
+	if(!on_g && (pg_warp_tex_b == null 
+								|| (source.width != pg_warp_tex_b.width 
+								&& source.height != pg_warp_tex_b.height))) {
+		pg_warp_tex_b = createGraphics(source.width,source.height,get_renderer());
+	}
+
+	if(fx_warp_tex_b == null) {
+		String path = get_fx_post_path()+"warp_tex_b.glsl";
+		if(fx_post_rope_path_exists) {
+			fx_warp_tex_b = loadShader(path);
+			println("load shader:",path);
+		}
+	} else {
+    if(on_g) set_shader_flip(fx_warp_tex_b,source,layer);
+		fx_warp_tex_b.set("texture_source",source);
+		fx_warp_tex_b.set("resolution_source",source.width,source.height);
+		fx_warp_tex_b.set("texture_layer",layer);
+		fx_warp_tex_b.set("resolution_layer",layer.width,layer.height);
+
+		// external param
+		fx_warp_tex_b.set("strength",strength);
+
+		 // rendering
+    render_shader(fx_warp_tex_b,pg_warp_tex_b,source,on_g);
+	}
+
+	// end
+	reset_reverse_g(false);
+	if(on_g) {
+		return null;
+	} else {
+		return pg_warp_tex_b; 
 	}
 }
 

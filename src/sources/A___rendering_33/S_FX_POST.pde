@@ -6,6 +6,54 @@ FILTER
 */
 ArrayList<FX> fx_manager;
 
+
+float sl_fx_color_x;
+float sl_fx_color_y;
+float sl_fx_color_z;
+float sl_fx_pos_x;
+float sl_fx_pos_y;
+float sl_fx_size_x;
+float sl_fx_size_y;
+float sl_fx_strength_x;
+float sl_fx_strength_y;
+float sl_fx_quantity;
+float sl_fx_quality;
+float sl_fx_speed;
+float sl_fx_angle;
+float sl_fx_threshold;
+void update_fx_post_slider() {
+  sl_fx_color_x = map(value_slider_fx[0],0,MAX_VALUE_SLIDER,0,1);
+  sl_fx_color_y = map(value_slider_fx[1],0,MAX_VALUE_SLIDER,0,1);
+  sl_fx_color_z = map(value_slider_fx[2],0,MAX_VALUE_SLIDER,0,1);
+
+  sl_fx_pos_x = map(value_slider_fx[3],0,MAX_VALUE_SLIDER,0,1);
+  sl_fx_pos_y = map(value_slider_fx[4],0,MAX_VALUE_SLIDER,0,1);
+
+  sl_fx_size_x = map(value_slider_fx[5],0,MAX_VALUE_SLIDER,0,1);
+  sl_fx_size_y = map(value_slider_fx[6],0,MAX_VALUE_SLIDER,0,1);
+
+  sl_fx_strength_x = map(value_slider_fx[7],0,MAX_VALUE_SLIDER,0,1);
+  sl_fx_strength_y = map(value_slider_fx[8],0,MAX_VALUE_SLIDER,0,1);
+
+  sl_fx_quantity = map(value_slider_fx[9],0,MAX_VALUE_SLIDER,0,1);
+
+  sl_fx_quality = map(value_slider_fx[10],0,MAX_VALUE_SLIDER,0,1);
+
+  sl_fx_speed = map(value_slider_fx[11],0,MAX_VALUE_SLIDER,0,1);
+
+  sl_fx_angle = map(value_slider_fx[12],0,MAX_VALUE_SLIDER,0,1);
+
+  sl_fx_threshold = map(value_slider_fx[13],0,MAX_VALUE_SLIDER,0,1);
+}
+
+
+
+
+
+
+
+
+
 void init_fx_post() {
   if(FULL_RENDERING) {
     fx_manager = new ArrayList<FX>();
@@ -103,12 +151,12 @@ void draw_fx(int which) {
   num_special_fx = 1 ;
   if(which < num_special_fx) {
     apply_force_field();
-    warp_force(fx_str_x,fx_speed,vec3(fx_cx,fx_cy,fx_cz));
+    warp_force(sl_fx_strength_x,sl_fx_speed,vec3(sl_fx_color_x,sl_fx_color_y,sl_fx_color_z));
    } else {
     int target = which- num_special_fx; // min 1 cause the first one is a special one;
     for(int i = 0 ; i < fx_classic_num ; i++) {
       if(target == i) {
-        if(get_fx(fx_manager,target).get_type() == FX_WARP_TEX) {
+        if(get_fx(fx_manager,target).get_type() == FX_WARP_TEX_A) {
           if(fx_pattern == null) {
             draw_fx_pattern(16,16,2,RGB,true);
           } else {
@@ -270,6 +318,8 @@ void setting_fx_classic(ArrayList<FX> fx_list) {
   setting_fx_blur_gaussian(fx_list);
   setting_fx_blur_radial(fx_list);
 
+  setting_fx_dither_bayer(fx_list);
+
   setting_fx_haltone_dot(fx_list);
   setting_fx_haltone_line(fx_list);
 
@@ -277,64 +327,35 @@ void setting_fx_classic(ArrayList<FX> fx_list) {
 
   setting_fx_split_rgb(fx_list);
 
+  setting_fx_threshold(fx_list);
+
   setting_fx_warp_proc(fx_list);
   setting_fx_warp_tex(fx_list);
 }
 
-float fx_cx;
-float fx_cy;
-float fx_cz;
-float fx_px;
-float fx_py;
-float fx_sx;
-float fx_sy;
-float fx_str_x;
-float fx_str_y;
-float fx_quantity;
-float fx_quality;
-float fx_speed;
-float fx_angle;
-float fx_threshold;
-void update_fx_post_slider() {
-  fx_cx = map(value_slider_fx[0],0,MAX_VALUE_SLIDER,0,1);
-  fx_cy = map(value_slider_fx[1],0,MAX_VALUE_SLIDER,0,1);
-  fx_cz = map(value_slider_fx[2],0,MAX_VALUE_SLIDER,0,1);
 
-  fx_px = map(value_slider_fx[3],0,MAX_VALUE_SLIDER,0,1);
-  fx_py = map(value_slider_fx[4],0,MAX_VALUE_SLIDER,0,1);
-
-  fx_sx = map(value_slider_fx[5],0,MAX_VALUE_SLIDER,0,1);
-  fx_sy = map(value_slider_fx[6],0,MAX_VALUE_SLIDER,0,1);
-
-  fx_str_x = map(value_slider_fx[7],0,MAX_VALUE_SLIDER,0,1);
-  fx_str_y = map(value_slider_fx[8],0,MAX_VALUE_SLIDER,0,1);
-
-  fx_quantity = map(value_slider_fx[9],0,MAX_VALUE_SLIDER,0,1);
-
-  fx_quality = map(value_slider_fx[10],0,MAX_VALUE_SLIDER,0,1);
-
-  fx_speed = map(value_slider_fx[11],0,MAX_VALUE_SLIDER,0,1);
-
-  fx_angle = map(value_slider_fx[12],0,MAX_VALUE_SLIDER,0,1);
-
-  fx_threshold = map(value_slider_fx[13],0,MAX_VALUE_SLIDER,0,1);
-}
 
 void update_fx_post(ArrayList<FX> fx_list) {
 
-  update_fx_blur_circular(fx_list,move_filter_fx,fx_quantity,fx_str_x);
-  update_fx_blur_gaussian(fx_list,move_filter_fx,fx_str_x);
-  update_fx_blur_radial(fx_list,move_filter_fx,vec2(fx_px,fx_py),fx_str_x);
+  update_fx_blur_circular(fx_list,move_filter_fx,sl_fx_quantity,sl_fx_strength_x);
+  update_fx_blur_gaussian(fx_list,move_filter_fx,sl_fx_strength_x);
+  update_fx_blur_radial(fx_list,move_filter_fx,vec2(sl_fx_pos_x,sl_fx_pos_y),sl_fx_strength_x);
   
-  update_fx_haltone_dot(fx_list,move_filter_fx,vec2(fx_px,fx_py),fx_quantity,fx_angle);
-  update_fx_haltone_line(fx_list,move_filter_fx,vec2(fx_px,fx_py),fx_quantity,fx_angle);
-
-  update_fx_pixel(fx_list,move_filter_fx,fx_quantity,vec2(fx_sx,fx_sy),vec3(fx_cx,fx_cy,fx_cz));
-
-  update_fx_split_rgb(fx_list,move_filter_fx,vec2(fx_str_x,fx_str_y),fx_speed);
+  int mode_dither = 1 ; // rgb
+  update_fx_dither_bayer(fx_list,move_filter_fx,vec3(sl_fx_color_x,sl_fx_color_y,sl_fx_color_z),mode_dither);
   
-  update_fx_warp_proc(fx_list,move_filter_fx,fx_str_x,fx_speed);
-  update_fx_warp_tex(fx_list,move_filter_fx,fx_str_x);
+  update_fx_haltone_dot(fx_list,move_filter_fx,vec2(sl_fx_pos_x,sl_fx_pos_y),sl_fx_quantity,sl_fx_angle);
+  update_fx_haltone_line(fx_list,move_filter_fx,vec2(sl_fx_pos_x,sl_fx_pos_y),sl_fx_quantity,sl_fx_angle);
+
+  update_fx_pixel(fx_list,move_filter_fx,sl_fx_quantity,vec2(sl_fx_size_x,sl_fx_size_y),vec3(sl_fx_color_x,sl_fx_color_y,sl_fx_color_z));
+
+  update_fx_split_rgb(fx_list,move_filter_fx,vec2(sl_fx_strength_x,sl_fx_strength_y),sl_fx_speed);
+  
+  int mode_threshold = 1; // rgb
+  update_fx_threshold(fx_list,move_filter_fx,vec3(sl_fx_color_x,sl_fx_color_y,sl_fx_color_z),mode_threshold);
+  
+  update_fx_warp_proc(fx_list,move_filter_fx,sl_fx_strength_x,sl_fx_speed);
+  update_fx_warp_tex(fx_list,move_filter_fx,sl_fx_strength_x);
 
 }
 
@@ -414,6 +435,29 @@ void update_fx_blur_radial(ArrayList<FX> fx_list, boolean move_is, vec2 pos,floa
         
     float str = (strength*strength)*(height/20);
     fx_set_strength(fx_list,set_blur_radial,str);
+  }
+}
+
+
+/**
+* dither bayer
+*/
+String set_dither_bayer = "dither bayer";
+void setting_fx_dither_bayer(ArrayList<FX> fx_list) {
+  String version = "0.0.1";
+  int revision = 1;
+  String author = "Mattias / Shader Toy";
+  String pack = "Base 2019";
+  String [] slider = {"red","green","blue"};
+  int id = fx_classic_num;
+  init_fx(fx_list,set_dither_bayer,FX_DITHER_BAYER_8,id,author,pack,version,revision,slider,null);
+  fx_classic_num++;
+}
+
+void update_fx_dither_bayer(ArrayList<FX> fx_list, boolean move_is, vec3 colour, int mode) {
+  if(move_is) {
+    fx_set_mode(fx_list,set_dither_bayer,mode);
+    fx_set_level_source(fx_list,set_dither_bayer,colour.array());
   }
 }
 
@@ -591,6 +635,31 @@ void update_fx_split_rgb(ArrayList<FX> fx_list, boolean move_is, vec2 str, float
 
 
 /**
+* dither bayer
+*/
+String set_threshold = "threshold";
+void setting_fx_threshold(ArrayList<FX> fx_list) {
+  String version = "0.0.1";
+  int revision = 1;
+  String author = "Stan le Punk";
+  String pack = "Base 2019";
+  String [] slider = {"red","green","blue"};
+  int id = fx_classic_num;
+  init_fx(fx_list,set_threshold,FX_THRESHOLD,id,author,pack,version,revision,slider,null);
+  fx_classic_num++;
+}
+
+void update_fx_threshold(ArrayList<FX> fx_list, boolean move_is, vec3 colour, int mode) {
+  if(move_is) {
+    fx_set_mode(fx_list,set_threshold,mode);
+    fx_set_level_source(fx_list,set_threshold,colour.array());
+  }
+}
+
+
+
+
+/**
 * warp proc
 * v 0.0.1
 */
@@ -628,7 +697,7 @@ void setting_fx_warp_tex(ArrayList<FX> fx_list) {
   String pack = "Base 2019";
   String [] slider = {"strength X"};
   int id = fx_classic_num;
-  init_fx(fx_list,set_warp_tex,FX_WARP_TEX,id,author,pack,version,revision,slider,null);
+  init_fx(fx_list,set_warp_tex,FX_WARP_TEX_A,id,author,pack,version,revision,slider,null);
   fx_classic_num++; 
 }
 
