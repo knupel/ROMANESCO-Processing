@@ -124,7 +124,6 @@ void update_var_items(Romanesco item) {
 
 
 void update_slider_value(Romanesco item) {
-  //Romanesco item = rom_manager.get(ID);
   int id = item.get_id();
   boolean init = first_opening_item[id];
   
@@ -203,11 +202,10 @@ void update_slider_value_aspect(boolean init, Romanesco item) {
     if(!init) {
       fill_item_ref[id] = vec4(fill_hue_raw,fill_sat_raw,fill_bright_raw,fill_alpha_raw);
       fill_local_ref = vec4(fill_hue_raw,fill_sat_raw,fill_bright_raw,fill_alpha_raw);
-      item.set_fill(color(fill_hue_raw,fill_sat_raw,fill_bright_raw,fill_alpha_raw));
-
+      item.set_fill(fill_hue_raw,fill_sat_raw,fill_bright_raw,fill_alpha_raw);
       stroke_item_ref[id] = vec4(stroke_hue_raw,stroke_sat_raw,stroke_bright_raw,stroke_alpha_raw);
       stroke_local_ref = vec4(stroke_hue_raw,stroke_sat_raw,stroke_bright_raw,stroke_alpha_raw);
-      item.set_stroke(color(stroke_hue_raw,stroke_sat_raw,stroke_bright_raw,stroke_alpha_raw));  
+      item.set_stroke(stroke_hue_raw,stroke_sat_raw,stroke_bright_raw,stroke_alpha_raw);  
     }
     
     // FILL part
@@ -219,23 +217,23 @@ void update_slider_value_aspect(boolean init, Romanesco item) {
     if(fill_local_ref.a != fill_alpha_raw) fill_is.w = true;
 
     if(fill_is.x) {
-      item.set_fill(color(fill_hue_raw,fill_item_ref[id].g,fill_item_ref[id].b,fill_item_ref[id].a));
-      fill_item_ref[id] = color_hsba(item.get_fill());
+      item.set_fill(fill_hue_raw,fill_item_ref[id].g,fill_item_ref[id].b,fill_item_ref[id].a);
+      fill_item_ref[id] = to_hsba(item.get_fill());
     }
 
     if(fill_is.y) {
-      item.set_fill(color(fill_item_ref[id].r,fill_sat_raw,fill_item_ref[id].b,fill_item_ref[id].a));
-      fill_item_ref[id] = color_hsba(item.get_fill());
+      item.set_fill(fill_item_ref[id].r,fill_sat_raw,fill_item_ref[id].b,fill_item_ref[id].a);
+      fill_item_ref[id] = to_hsba(item.get_fill());
     }
 
     if(fill_is.z) {
-      item.set_fill(color(fill_item_ref[id].r,fill_item_ref[id].g,fill_bright_raw,fill_item_ref[id].a));
-      fill_item_ref[id] = color_hsba(item.get_fill());
+      item.set_fill(fill_item_ref[id].r,fill_item_ref[id].g,fill_bright_raw,fill_item_ref[id].a);
+      fill_item_ref[id] = to_hsba(item.get_fill());
     }
 
     if(fill_is.w) {
-      item.set_fill(color(fill_item_ref[id].r,fill_item_ref[id].g,fill_item_ref[id].b,fill_alpha_raw)); 
-      fill_item_ref[id] = color_hsba(item.get_fill());
+      item.set_fill(fill_item_ref[id].r,fill_item_ref[id].g,fill_item_ref[id].b,fill_alpha_raw); 
+      fill_item_ref[id] = to_hsba(item.get_fill());
     }
 
     // zero security value
@@ -261,23 +259,23 @@ void update_slider_value_aspect(boolean init, Romanesco item) {
     
 
     if(stroke_is.x) {
-      item.set_stroke(color(stroke_hue_raw,stroke_item_ref[id].g,stroke_item_ref[id].b,stroke_item_ref[id].a));
-      stroke_item_ref[id] = color_hsba(item.get_stroke());
+      item.set_stroke(stroke_hue_raw,stroke_item_ref[id].g,stroke_item_ref[id].b,stroke_item_ref[id].a);
+      stroke_item_ref[id] = to_hsba(item.get_stroke());
     }
 
     if(stroke_is.y) {
-      item.set_stroke(color(stroke_item_ref[id].r,stroke_sat_raw,stroke_item_ref[id].b,stroke_item_ref[id].a));
-      stroke_item_ref[id] = color_hsba(item.get_stroke());
+      item.set_stroke(stroke_item_ref[id].r,stroke_sat_raw,stroke_item_ref[id].b,stroke_item_ref[id].a);
+      stroke_item_ref[id] = to_hsba(item.get_stroke());
     }
 
     if(stroke_is.z) {
-      item.set_stroke(color(stroke_item_ref[id].r,stroke_item_ref[id].g,stroke_bright_raw,stroke_item_ref[id].a));
-      stroke_item_ref[id] = color_hsba(item.get_stroke());
+      item.set_stroke(stroke_item_ref[id].r,stroke_item_ref[id].g,stroke_bright_raw,stroke_item_ref[id].a);
+      stroke_item_ref[id] = to_hsba(item.get_stroke());
     }
 
     if(stroke_is.w) {
-      item.set_stroke(color(stroke_item_ref[id].r,stroke_item_ref[id].g,stroke_item_ref[id].b,stroke_alpha_raw)); 
-      stroke_item_ref[id] = color_hsba(item.get_stroke());
+      item.set_stroke(stroke_item_ref[id].r,stroke_item_ref[id].g,stroke_item_ref[id].b,stroke_alpha_raw); 
+      stroke_item_ref[id] = to_hsba(item.get_stroke());
     }
 
 
@@ -300,8 +298,8 @@ void update_slider_value_aspect(boolean init, Romanesco item) {
     }
   } else {
     // preview display
-    item.set_fill(COLOR_FILL_ITEM_PREVIEW);
-    item.set_stroke(COLOR_STROKE_ITEM_PREVIEW);
+    item.set_fill(to_hsba(COLOR_FILL_ITEM_PREVIEW).array());
+    item.set_stroke(to_hsba(COLOR_STROKE_ITEM_PREVIEW).array());
     item.set_thickness_raw(THICKNESS_ITEM_PREVIEW,0,0);
   }
 }

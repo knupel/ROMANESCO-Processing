@@ -287,8 +287,8 @@ void costume_DNA(Helix helix, int target, vec3 size, float direction, Costume co
   if(link_is) line(pos_a, pos_b) ;
   
 
-  vec4 fill = color_hsba(fill_int) ;
-  vec4 stroke = color_hsba(stroke_int) ;
+  vec4 fill = to_hsba(fill_int) ;
+  vec4 stroke = to_hsba(stroke_int) ;
 
   // alpha
   float ratio_a = map(pos_a.z , -radius, radius, 0 +alpha_min, alpha_max) ;

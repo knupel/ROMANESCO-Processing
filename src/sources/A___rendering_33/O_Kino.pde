@@ -1,14 +1,14 @@
 /**
 Kino
-2018-2018
-v 0.0.7
+2018-2019
+v 0.0.8
 */
 class Kino extends Romanesco {
 	public Kino() {
 		item_name = "Kino";
 		item_author  = "Stan le Punk";
-		item_version = "Version 0.0.7";
-		item_pack = "Base 2018-2018";
+		item_version = "Version 0.0.8";
+		item_pack = "Base 2018-2019";
 		item_costume = ""; // separate the differentes mode by "/"
 		item_mode = "Movie/Diaporama/Movie 3D/Diaporama 3D"; // separate the differentes mode by "/"
 
@@ -105,20 +105,27 @@ class Kino extends Romanesco {
     param();
     if(get_mode_id() == 0) {
       kino_movie(colour,SCREEN);
-
     } else if(get_mode_id() == 1) {
       kino_bitmap(colour,SCREEN);
     }
   }
 
-  int colour;
+  vec4 colour;
   void param() {
-    colour = get_fill();
+    float h = get_fill_hue();
+    float s = get_fill_sat();
+    float b = get_fill_bright();
+    float a = get_fill_alpha();
+    if(colour == null) {
+      colour = vec4(h,s,b,a);
+    } else {
+      colour.set(h,s,b,a);
+    }
   }
   
   // kino movie
   int ref_which_movie;
-	private void kino_movie(int c, int what) {
+	private void kino_movie(vec4 c, int what) {
 		if(ref_which_movie != which_movie()) {
       movie_time[ref_which_movie] = get_movie().time();
 			load_movie(true,ID_item);
@@ -132,35 +139,27 @@ class Kino extends Romanesco {
 		}
     if(get_movie() != null) {
   		if(motion_is()) {
-        if(sound_is()) get_movie().volume(1) ; else get_movie().volume(0);
+        if(sound_is()) {
+          get_movie().volume(1); 
+        } else {
+          get_movie().volume(0);
+        }
   			get_movie().loop();
   		} else {
   			get_movie().pause();
   		}
-      manage_tint(c);
+      tint(c);
       image(get_movie(),what);
     }
 	}
 
 
 	// kino movie
-	private void kino_bitmap(int c, int what) {
+	private void kino_bitmap(vec4 c, int what) {
 		load_bitmap(ID_item);
-    manage_tint(c);
+    tint(c);
 		image(get_bitmap(),what);
 	}
-
-
-  private void manage_tint(int c) {
-    float h = hue(c);
-    /**
-    bug or not
-    */
-    float s = g.colorModeY -saturation(c);
-    float b = brightness(c);
-    float a = alpha(c);
-    tint(h,s,b,a);
-  }
 }
 
 

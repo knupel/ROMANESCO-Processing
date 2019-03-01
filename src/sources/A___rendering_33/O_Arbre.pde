@@ -76,6 +76,7 @@ class ArbreRomanesco extends Romanesco {
   
   //DRAW
   void draw() {
+    // printTempo(60,"arbre: h",get_fill_hue(),"s",get_fill_sat(),"b",get_fill_bright(),"a",get_fill_alpha());
     int maxFork ;
     if(FULL_RENDERING) maxFork = 8 ; else maxFork = 4 ; // we can go beyond but by after the calcul slowing too much the computer... 14 is a good limit
     // int maxNode = 32 ; // 

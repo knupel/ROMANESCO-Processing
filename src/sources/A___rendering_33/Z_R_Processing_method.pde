@@ -1,6 +1,6 @@
 /**
 ROPE PROCESSING METHOD
-v 2.3.0
+v 2.3.1
 * Copyleft (c) 2014-2019
 * Stan le Punk > http://stanlepunk.xyz/
 * @author Stan le Punk
@@ -2285,6 +2285,30 @@ void tint(float v1, float v2, float v3) {
   } else {
     g.tint(v1,v2,v3);
   }
+}
+
+void tint(ivec4 v) {
+  tint(v.x,v.y,v.z,v.w);
+}
+
+void tint(ivec3 v) {
+  tint(v.x,v.y,v.z,g.colorModeA);
+}
+
+void tint(ivec2 v) {
+  tint(v.x,v.x,v.x,v.y);
+}
+
+void tint(vec4 v) {
+  tint(v.x,v.y,v.z,v.w);
+}
+
+void tint(vec3 v) {
+  tint(v.x,v.y,v.z,g.colorModeA);
+}
+
+void tint(vec2 v) {
+  tint(v.x,v.x,v.x,v.y);
 }
 
 void tint(float v1, float v2, float v3, float alpha) {

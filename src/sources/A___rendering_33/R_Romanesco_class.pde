@@ -1,6 +1,6 @@
 /**
 Abstract CLASS ROMANESCO
-v 1.3.0
+v 1.4.0
 2013-2019
 */
 public abstract class Romanesco implements rope.core.RConstants {
@@ -278,17 +278,38 @@ public abstract class Romanesco implements rope.core.RConstants {
     this.parameter = parameter;
   }
 
+
+
+
+
+
   /**
   * SET CONTROL SLIDER
+  * v 0.1.0
   */
   // FILL
-  protected void set_fill(int fill) {
-    this.fill = fill;
-    set_fill_hue(hue(fill));
-    set_fill_sat(saturation(fill));
-    set_fill_bright(brightness(fill));
-    set_fill_alpha(alpha(fill));
+  protected void set_fill(float... arg) {
+    if(arg.length == 1) {
+      set_fill(arg[0],arg[0],arg[0],g.colorModeA);
+    } else if(arg.length == 2) {
+      set_fill(arg[0],arg[0],arg[0],arg[1]);
+    } else if(arg.length == 3) {
+      set_fill(arg[0],arg[1],arg[2],g.colorModeA);
+    } else if(arg.length == 4) {
+      set_fill(arg[0],arg[1],arg[2],arg[3]);
+    } else {
+      printErrTempo(60,"method set_fill(float... arg) wait for an array length from 1 to 4");
+    }
   }
+
+  protected void set_fill(float x, float y, float z, float a) {
+    this.fill = color(x,y,z,a);
+    set_fill_hue(x);
+    set_fill_sat(y);
+    set_fill_bright(z);
+    set_fill_alpha(a);
+  }
+
   
   // hue
   protected void set_fill_hue(float fill_hue) {
@@ -380,13 +401,28 @@ public abstract class Romanesco implements rope.core.RConstants {
 
 
   // STROKE
-  protected void set_stroke(int stroke) {
-    this.stroke = stroke;
-    set_stroke_hue(hue(stroke));
-    set_stroke_sat(saturation(stroke));
-    set_stroke_bright(brightness(stroke));
-    set_stroke_alpha(alpha(stroke));
+  protected void set_stroke(float... arg) {
+    if(arg.length == 1) {
+      set_stroke(arg[0],arg[0],arg[0],g.colorModeA);
+    } else if(arg.length == 2) {
+      set_stroke(arg[0],arg[0],arg[0],arg[1]);
+    } else if(arg.length == 3) {
+      set_stroke(arg[0],arg[1],arg[2],g.colorModeA);
+    } else if(arg.length == 4) {
+      set_stroke(arg[0],arg[1],arg[2],arg[3]);
+    } else {
+      printErrTempo(60,"method set_stroke(float... arg) wait for an array length from 1 to 4");
+    }
   }
+
+  protected void set_stroke(float x, float y, float z, float a) {
+    this.stroke = color(x,y,z,a);
+    set_stroke_hue(x);
+    set_stroke_sat(y);
+    set_stroke_bright(z);
+    set_stroke_alpha(a);
+  }
+
   
   // stroke hue
   protected void set_stroke_hue(float stroke_hue) {

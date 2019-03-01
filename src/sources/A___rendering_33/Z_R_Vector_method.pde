@@ -1,6 +1,6 @@
 /**
 Vec, iVec and bVec rope method
-v 0.3.0
+v 0.4.0
 * Copyleft (c) 2018-2019
 * Stan le Punk > http://stanlepunk.xyz/
 * @author Stan le Punk
@@ -1099,31 +1099,6 @@ vec2 norm_dir(String type, float direction) {
   }
   return new vec2(x,y) ;
 }
-
-
-
-
-/**
-translate int color to vec4 color
-*/
-vec4 color_hsba(int c) {
-  return vec4(hue(c), saturation(c), brightness(c), alpha(c)) ;
-}
-
-vec4 color_rgba(int c) {
-  return vec4(red(c), green(c), blue(c), alpha(c)) ;
-}
-
-vec3 color_hsb(int c) {
-  return vec3(hue(c), saturation(c), brightness(c)) ;
-}
-
-vec3 color_rgb(int c) {
-  return vec3(red(c), green(c), blue(c)) ;
-}
-
-
-
 
 
 

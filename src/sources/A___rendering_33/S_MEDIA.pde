@@ -1,6 +1,6 @@
 /*
 MANAGE MEDIA
-v 1.0.0
+v 1.0.1
 */
 void media_init_path() {
   update_movie_path();
@@ -219,7 +219,7 @@ boolean check_for_new_movie() {
 
   // in case there is a new movie make a new ref path
   if(new_movie_is) {
-    for(int i = 0 ; i < movie_files.size() ; i++) {
+    for(int i = 0 ; i < movie_path_ref.length && i < movie_files.size() ; i++) {
       movie_path_ref[i] = movie_path[i];
     }
   }
