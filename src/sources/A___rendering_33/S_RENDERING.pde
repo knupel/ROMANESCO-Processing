@@ -208,13 +208,14 @@ void set_screen() {
   int target_screen = row.getInt("whichScreen");
 
   if(FULL_RENDERING) {
-    window.x = row.getInt("width"); 
-    window.y = row.getInt("height");
-    
+    if(!DEV_MODE) {
+      window.x = row.getInt("width"); 
+      window.y = row.getInt("height");
+    }
+ 
     if(!FULL_SCREEN) {
       window.set(resize_screen(window,target_screen));
       load_window_location(window);
-      
       surface.setSize(window.x,window.y);
     } else {
       println("The",IAM,"is on the screen",target_screen,"on",get_display_num(),"screen available");    
@@ -247,8 +248,6 @@ ivec2 resize_screen(ivec2 window, int target) {
   if(window.x >= get_screen_size(target).x) window.x = get_screen_size(target).x -100;
   if(window.y >= get_screen_size(target).y) window.y = get_screen_size(target).y -100;
   return window;
-
-
 }
 
 

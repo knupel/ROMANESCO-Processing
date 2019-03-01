@@ -149,8 +149,10 @@ LIVE must change from the launcher, the info must be write in the external loadi
 
 
 void settings() {
-  // size(124,124,P3D); // when the bug will be resolved, return to this config.
-  size(500,500,P3D);
+  size(2300,1200,P3D); // DEV MODE PARAM
+  
+  // EXPORTING PARAM 
+  // size(124,124,P3D);
 
   // fullScreen(P3D); // original
   // FULL_SCREEN = true;
