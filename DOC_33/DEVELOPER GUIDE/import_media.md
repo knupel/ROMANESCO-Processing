@@ -108,8 +108,3 @@ String whichSentence(String txt, int whichChapter, int whichSentence) return Str
 
 
 
-
-
-// DEPRECATED / UNKNOW / USELESS ????
-
-textPath[whichText] ; text from the dropdown menu

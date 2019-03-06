@@ -1,13 +1,13 @@
 /**
 Kino
 2018-2019
-v 0.0.8
+v 0.1.0
 */
 class Kino extends Romanesco {
 	public Kino() {
 		item_name = "Kino";
 		item_author  = "Stan le Punk";
-		item_version = "Version 0.0.8";
+		item_version = "Version 0.1.0";
 		item_pack = "Base 2018-2019";
 		item_costume = ""; // separate the differentes mode by "/"
 		item_mode = "Movie/Diaporama/Movie 3D/Diaporama 3D"; // separate the differentes mode by "/"
@@ -81,15 +81,16 @@ class Kino extends Romanesco {
   float coord_ref;
 	void draw() {
     param();
-
+    
     if(get_movie() != null && get_mode_id() != 0 && get_mode_id() != 2) {
       get_movie().pause();
     }
 
+    boolean background_is = false;
 		if(get_movie() != null && get_mode_id() == 2) {
-			kino_movie(colour,FIT);
+			kino_movie(colour,FIT,background_is);
 		} else if(get_mode_id() == 3) {
-			kino_bitmap(colour,FIT);
+			kino_bitmap(colour,FIT,background_is);
 		}
 
     if(parameter_is() && get_movie() != null) {
@@ -103,10 +104,11 @@ class Kino extends Romanesco {
 
   void draw_2D() {
     param();
+    boolean background_is = true;
     if(get_mode_id() == 0) {
-      kino_movie(colour,SCREEN);
+      kino_movie(colour,SCREEN,background_is);
     } else if(get_mode_id() == 1) {
-      kino_bitmap(colour,SCREEN);
+      kino_bitmap(colour,SCREEN,background_is);
     }
   }
 
@@ -125,7 +127,7 @@ class Kino extends Romanesco {
   
   // kino movie
   int ref_which_movie;
-	private void kino_movie(vec4 c, int what) {
+	private void kino_movie(vec4 c, int what, boolean background_is) {
 		if(ref_which_movie != which_movie()) {
       movie_time[ref_which_movie] = get_movie().time();
 			load_movie(true,ID_item);
@@ -149,16 +151,28 @@ class Kino extends Romanesco {
   			get_movie().pause();
   		}
       tint(c);
-      image(get_movie(),what);
+      if(background_is) {
+        set_background(get_movie(),what);
+        // background(get_movie(),what);
+      } else {
+        image(get_movie(),what);
+      }
     }
 	}
 
 
 	// kino movie
-	private void kino_bitmap(vec4 c, int what) {
+	private void kino_bitmap(vec4 c, int what, boolean background_is) {
 		load_bitmap(ID_item);
-    tint(c);
-		image(get_bitmap(),what);
+    if(get_bitmap() != null) {
+      tint(c);
+      if(background_is) {
+        set_background(get_bitmap(),what);
+        // background(get_bitmap(),what);
+      } else {
+        image(get_bitmap(),what);
+      }
+    }
 	}
 }
 

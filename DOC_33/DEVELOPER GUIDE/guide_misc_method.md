@@ -17,6 +17,12 @@ void draw_2D()
 >optional method to draw in 2D renderer, when this method is used all method to move your item or scene is disable.
 
 
+*BACKGROUND
+
+set_background(PImage img, int mode);
+> mode : SCREEN
+> mode : CENTER
+> this method can be use to pass an Image to the background, if that happen the main background is disable for the last PImage passed.
 
 
 *FORCE FIELD
@@ -26,8 +32,6 @@ Force_field get_force_field();
 void update_force_field_is(boolean is);
 
 void init_force_field();
-
-
 
 
 

@@ -10,6 +10,7 @@ revision 33
 >remove direct access to item variables.
 >add setting method for item variables.
 >add get_method in class Romanesco to catch the arg : min, max, raw from slider value.
+>add methode set_background() to pass PImage from item to the main background.
 
 
 *MINOR
@@ -32,8 +33,9 @@ revision 33
 
 *ITEM
 
->KINO, add method to swithc off the sound
+>KINO, add method to swith off the sound
 >KINO, change the direction for padding image up and down
+>KINO pass image to background.
 >BOXOLYZER add costume to change shape easily and other improvement.
 >new item AUTOMATA 
 >new item GRILLO about 3D grid and coin flip !

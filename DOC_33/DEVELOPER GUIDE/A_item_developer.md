@@ -1,5 +1,5 @@
 
-Romanesco dui 2.0.2.33
+Romanesco dui 2.1.0.33
 2011-2018
 Guide to code the item Class Romanesco.
 
@@ -313,7 +313,7 @@ name = new LibraryOrClass(paaplet);)
 *IMPORT
 
 IMAGE IMPORT
-–––––––––––––––––––––––
+
 load image from the menu controller:
 img_bitmap[ID_item] = loadImage(imagePath[whichImage[ID_item]]) ;
 
