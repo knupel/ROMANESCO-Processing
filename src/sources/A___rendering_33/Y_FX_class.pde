@@ -1,7 +1,7 @@
 /**
  * CLASS FX 
- * v 0.4.0
- * @see http://stanlepunk.xyz
+ * v 0.4.1
+ * @author @stanlepunk
  * @see https://github.com/StanLepunK/Shader
  * 2019-2019
  * class used to create easy setting for shader fx
@@ -40,6 +40,8 @@ public class FX {
 	private vec4 level_source; // 30
 	private vec4 level_layer; // 31
 	private vec4 colour; // 32
+	private vec4 cardinal; // 33 > north, east, south, west > top, right, bottom, left
+
 
   private float hue; // 200
 	private float saturation; // 201
@@ -153,6 +155,8 @@ public class FX {
   		set_level_layer(to_float_array(arg));
   	} else if(which == 32) {
   		set_colour(to_float_array(arg));
+  	} else if(which == 33) {
+  		set_cardinal(to_float_array(arg));
   	}
 
   		else if(which == 40) {
@@ -308,6 +312,14 @@ public class FX {
 			this.colour = vec4(build_4(arg));
 		} else {
 			this.colour.set(build_4(arg));
+		}
+	}
+
+	private void set_cardinal(float... arg) {
+		if(this.cardinal == null) {
+			this.cardinal = vec4(build_4(arg));
+		} else {
+			this.cardinal.set(build_4(arg));
 		}
 	}
 
@@ -512,6 +524,14 @@ public class FX {
 			printErr("class FX method get_colour(): arg",null,"instead set arg and return",colour);
 		}
 		return colour;
+	}
+
+	public vec4 get_cardinal() {
+		if(cardinal == null) {
+			cardinal = vec4(1);
+			printErr("class FX method get_cardinal(): arg",null,"instead set arg and return",cardinal);
+		}
+		return cardinal;
 	}
 
 	public float get_hue() {

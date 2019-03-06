@@ -1,12 +1,11 @@
 /**
-ROPE - Romanesco processing environment – 
-* Copyleft (c) 2014-2018
-* Stan le Punk > http://stanlepunk.xyz/
-ROPE core
-v 0.1.1
-2017-2018
-* @author Stan le Punk
-* @see https://github.com/StanLepunK/Rope
+ROPE FRAMEWORK - Romanesco processing environment – 
+* Copyleft (c) 2014-2019
+* @author @stanlepunk
+* @see https://github.com/StanLepunK/Rope_framework
+* ROPE core
+* v 0.1.1
+* 2017-2018
 */
 import rope.core.*;
 import rope.vector.*;

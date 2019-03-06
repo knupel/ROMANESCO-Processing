@@ -2,9 +2,8 @@
 Vec, iVec and bVec rope method
 v 0.4.0
 * Copyleft (c) 2018-2019
-* Stan le Punk > http://stanlepunk.xyz/
-* @author Stan le Punk
-* @see https://github.com/StanLepunK/Rope
+* @author @stanlepunk
+* @see https://github.com/StanLepunK/Rope_framework
 */
 
 

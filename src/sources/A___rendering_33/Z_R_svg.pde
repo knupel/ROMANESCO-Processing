@@ -3,9 +3,8 @@ ROPE SVG
 v 1.4.0
 * Copyleft (c) 2014-2018
 Rope – Romanesco Processing Environment – 
-* @author Stan le Punk
-* @see https://github.com/StanLepunK/SVG_Vertex-Processing
-  2016-2018
+* @author @stanlepunk
+* @see https://github.com/StanLepunK/Rope_framework
 */
 
 class ROPE_svg {

@@ -3,8 +3,8 @@ ROPE PROCESSING METHOD
 v 2.3.1
 * Copyleft (c) 2014-2019
 * Stan le Punk > http://stanlepunk.xyz/
-* @author Stan le Punk
-* @see https://github.com/StanLepunK/Rope_method
+* @author @stanlepunk
+* @see https://github.com/StanLepunK/Rope_framework
 * Processing 3.5.3
 */
 

@@ -3,8 +3,8 @@ ROPE SCIENCE
 v 0.7.2
 * Copyleft (c) 2014-2019 
 * Stan le Punk > http://stanlepunk.xyz/
-* @author Stan le Punk
-* @see https://github.com/StanLepunK/Rope_method
+* @author @stanlepunk
+* @see https://github.com/StanLepunK/Rope_framework
 *
 the sketch method tab is not included on this repository if you need
 * @see https://github.com/StanLepunK/Old_code/tree/master/Science_rope_2017_12_8

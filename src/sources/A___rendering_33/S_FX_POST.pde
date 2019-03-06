@@ -72,7 +72,8 @@ void init_fx_post() {
 
     // FX CLASSIC
     // set path fx shader;
-    set_fx_post_path(preference_path+"shader/fx_post/");
+    // set_fx_post_path(sketchpath()+"data/shader/fx_post/");
+    // set_fx_post_path(preference_path+"shader/fx_post/");
     get_fx_post_path();
     if(fx_post_path_exist()) {
       println("FX CLASSIC shader loaded");
@@ -742,12 +743,12 @@ void update_fx_warp_tex(ArrayList<FX> fx_list, boolean move_is, float str) {
 * this FX is linked with item and call a huge method and 
 * class Force Field and class Force
 * 2018-2019
-* v 0.0.4
+* v 0.0.5
 */
 Warp_Force warp_force_romanesco;
 void init_warp_force() {
   if(warp_force_romanesco == null) {
-    warp_force_romanesco = new Warp_Force(preference_path+"/shader/");
+    warp_force_romanesco = new Warp_Force();
     warp_force_romanesco.add(g);
   }
 }

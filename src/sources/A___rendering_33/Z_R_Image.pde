@@ -1,12 +1,11 @@
 /**
-* ROPE IMAGE
-v 0.3.1
+* ROPE FRAMEWORK IMAGE
+* Rope – Romanesco Processing Environment – 
+* v 0.4.0
 * Copyleft (c) 2014-2019
-* Stan le Punk > http://stanlepunk.xyz/
-Rope – Romanesco Processing Environment – 
-Processing 3.4
-* @author Stan le Punk
-* @see https://github.com/StanLepunK/Rope
+* Processing 3.5.3
+* @author @stanlepunk
+* @see https://github.com/StanLepunK/Rope_framework
 */
 
 
@@ -960,7 +959,7 @@ void show_canvas(int num) {
 
 /**
 BACKGROUND_2D_3D 
-v 0.1.0
+v 0.2.0
 */
 float MAX_RATIO_DEPTH = 6.9 ;
 
@@ -995,10 +994,100 @@ void background(ivec2 c) {
 
 
 
+
+/**
+background image
+*/
+void background(PImage img, int mode) {
+  background_calc(img,null,null,null,null,mode);
+}
+
+void background(PImage img, int mode, float red, float green, float blue) {
+  vec3 colour_curtain = abs(vec3(red,green,blue).div(vec3(g.colorModeX,g.colorModeY,g.colorModeZ)));
+  background_calc(img,null,null,colour_curtain,null,mode);
+}
+
+void background(PImage img, float px, float py, float red, float green, float blue) {
+  vec3 colour_curtain = abs(vec3(red,green,blue).div(vec3(g.colorModeX,g.colorModeY,g.colorModeZ)));
+  vec2 pos = vec2(px /width, py /height);
+  background_calc(img,pos,null,colour_curtain,null,r.SCALE);
+}
+
+void background(PImage img, float px, float py, float scale_x, float red, float green, float blue) {
+  vec3 colour_curtain = abs(vec3(red,green,blue).div(vec3(g.colorModeX,g.colorModeY,g.colorModeZ)));
+  vec2 pos = vec2(px /width, py /height);
+  vec2 scale = vec2(scale_x);
+  background_calc(img,pos,scale,colour_curtain,null,r.SCALE);
+}
+
+void background(PImage img, float px, float py, float scale_x, float red, float green, float blue, float curtain_position) {
+  vec3 colour_curtain = abs(vec3(red,green,blue).div(vec3(g.colorModeX,g.colorModeY,g.colorModeZ)));
+  vec2 pos = vec2(px /width, py /height);
+  vec2 scale = vec2(scale_x);
+  vec4 curtain_pos = vec4(curtain_position,0,curtain_position,0);
+  background_calc(img,pos,scale,colour_curtain,curtain_pos,r.SCALE);
+}
+
+void background(PImage img, vec2 pos, vec2 scale, vec3 colour_background, vec4 pos_curtain, int mode) {
+  background_calc(img,pos,scale,colour_background,pos_curtain,mode);
+}
+
+
+
+PShader img_shader_calc_rope;
+void background_calc(PImage img, vec2 pos, vec2 scale, vec3 colour_background, vec4 pos_curtain, int mode) {
+  if(img_shader_calc_rope == null) {
+    img_shader_calc_rope = loadShader("shader/fx_post/image.glsl");
+  }
+
+  img_shader_calc_rope.set("flip_source",true,false);
+  img_shader_calc_rope.set("texture_source",img);
+  img_shader_calc_rope.set("resolution",width,height);
+  img_shader_calc_rope.set("resolution_source",img.width,img.height); 
+  
+  if(colour_background != null) {
+    img_shader_calc_rope.set("colour",colour_background.x,colour_background.y,colour_background.z); // definr RGB color from 0 to 1
+  }
+
+  if(pos_curtain != null) {
+    img_shader_calc_rope.set("curtain",pos_curtain.x,pos_curtain.y,pos_curtain.z,pos_curtain.w); // definr RGB color from 0 to 1
+  }
+
+  if(pos != null) {
+    img_shader_calc_rope.set("position",pos.x,pos.y); // from 0 to 1
+  }
+  
+  if(scale != null) {
+    img_shader_calc_rope.set("scale",scale.x,scale.y);
+  }
+  
+  int shader_mode = 0;
+  if(mode == CENTER) {
+    shader_mode = 0;
+  } else if(mode == SCREEN) {
+    shader_mode = 1;
+  } else if(mode == r.SCALE) {
+    shader_mode = 2;
+  }
+  img_shader_calc_rope.set("mode",shader_mode);
+
+  filter(img_shader_calc_rope);
+}
+
+
+
+
+
+
+
+
+
+
+
+
 /**
 Normalize background
 */
-
 void background_norm(vec4 bg) {
   background_norm(bg.x, bg.y, bg.z, bg.a) ;
 }

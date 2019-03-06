@@ -2,8 +2,8 @@
 Costume method
 * Copyleft (c) 2014-2019
 v 1.7.3
-* @author Stan le Punk
-* @see https://github.com/StanLepunK/Rope_method
+* @author @stanlepunk
+* @see https://github.com/StanLepunK/Rope_framework
 */
 final int POINT_ROPE = 1;
 final int ELLIPSE_ROPE = 2;

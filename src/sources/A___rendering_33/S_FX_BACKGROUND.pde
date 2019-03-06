@@ -1,14 +1,12 @@
 /**
 * FX BACKGROUND
-* v 1.2.1
+* v 1.2.2
 * 2019-2019
 */
 ArrayList<FX> fx_background_manager;
 void init_fx_background() {
   if(FULL_RENDERING) {
     fx_background_manager = new ArrayList<FX>();
-    String path = preference_path +"shader/fx_bg/";
-    set_fx_bg_path(path);
     get_fx_bg_path();
     if(fx_bg_path_exist()) {
       println("FX BACKGROUND shader loaded");

@@ -29,7 +29,6 @@ BUG with warp on MacBook Pro 2018 or HighSierra / Mojave
 /**
 * DEVELOPER SETTING
 */
-
 boolean USE_LAYER = false;
 boolean DEV_MODE = true; // inter alia, path preferences folder, curtain
 String IAM = "prescene";
@@ -39,7 +38,6 @@ boolean FULL_RENDERING = true;
 
 
 // PRESCENE LIVE
-
 // boolean USE_LAYER = false;
 // boolean DEV_MODE = true; // inter alia, path preferences folder, curtain
 // String IAM = "prescene";
@@ -48,7 +46,6 @@ boolean FULL_RENDERING = true;
 
 
 // SCENE LIVE
-
 // boolean USE_LAYER = false;
 // boolean DEV_MODE = true; // inter alia, path preferences folder, curtain
 // String IAM = "scene";
@@ -90,7 +87,6 @@ boolean FULL_RENDERING = true;
 * Here you can choice between the three common rendering mode
 */
 // PRESCENE FULL RENDERING
-
 // boolean USE_LAYER = false;
 // boolean DEV_MODE = false; // inter alia, path preferences folder, curtain
 // String IAM = "prescene";
@@ -149,7 +145,7 @@ LIVE must change from the launcher, the info must be write in the external loadi
 
 
 void settings() {
-  size(900,450,P3D); // DEV MODE PARAM
+  size(1000,600,P3D); // DEV MODE PARAM
   
   // EXPORTING PARAM 
   // size(124,124,P3D);
@@ -174,7 +170,7 @@ void settings() {
 
 void setup() {
   path_setting();
-  shader_folder_filter(preference_path+"shader/filter/");
+  // shader_folder_filter(preference_path+"shader/filter/");
   load_save(preference_path+"setting/defaultSetting.csv");
   media_init_path();
   version();

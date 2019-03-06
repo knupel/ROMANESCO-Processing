@@ -2,7 +2,7 @@
 * SHADER FX
 * @see http://stanlepunk.xyz
 * @see https://github.com/StanLepunK/Shader
-* v 0.7.1
+* v 0.7.3
 * 2019-2019
 *
 */
@@ -26,6 +26,8 @@ int FX_HALFTONE_DOT = 800;
 int FX_HALFTONE_LINE = 801;
 int FX_HALFTONE_MULTI = 810;
 
+int FX_IMAGE = 900;
+
 int FX_LEVEL = 12_00;
 
 int FX_MIX = 13_00;
@@ -34,9 +36,7 @@ int FX_PIXEL = 16_00;
 
 int FX_REAC_DIFF = 18_00;
 
-int FX_SCALE = 19_00;
 int FX_SPLIT_RGB = 19_50;
-
 
 int FX_THRESHOLD = 20_00; // don't work
 int FX_TOON = 20_20; // don't work
@@ -160,7 +160,7 @@ void select_fx_post(PImage main, PImage layer_a, PImage layer_b, FX... fx) {
 			} else if(fx[i].get_type() == FX_DITHER_BAYER_8) {
 				fx_dither_bayer_8(main,fx[i]);
 			} else if(fx[i].get_type() == FX_GRAIN) {
-				fx_grain(main,fx[i]);
+				 fx_grain(main,fx[i]);
 			} else if(fx[i].get_type() == FX_GRAIN_SCATTER) {
 				fx_grain_scatter(main,fx[i]);
 			} else if(fx[i].get_type() == FX_HALFTONE_DOT) {
@@ -171,14 +171,14 @@ void select_fx_post(PImage main, PImage layer_a, PImage layer_b, FX... fx) {
 				fx_halftone_line(main,fx[i]); 
 			} else if(fx[i].get_type() == FX_HALFTONE_MULTI) {
 				fx_halftone_multi(main,fx[i]); 
+			} else if(fx[i].get_type() == FX_IMAGE) {
+				fx_image(main,fx[i]);
 			} else if(fx[i].get_type() == FX_PIXEL) {
 				fx_pixel(main,fx[i]);
 			} else if(fx[i].get_type() == FX_REAC_DIFF) {
 				fx_reaction_diffusion(main,fx[i]);
 			} else if(fx[i].get_type() == FX_SPLIT_RGB) {
 				fx_split_rgb(main,fx[i]); 
-			} else if(fx[i].get_type() == FX_SCALE) {
-				fx_scale(main,fx[i]);
 			} else if(fx[i].get_type() == FX_THRESHOLD) {
 				fx_threshold(main,fx[i]);
 			} else if(fx[i].get_type() == FX_WARP_PROC) {
@@ -258,162 +258,57 @@ void fx_set_quality(ArrayList<FX> fx_list, String name, float quality) {
 }
 
 void fx_set_scale(ArrayList<FX> fx_list, String name, float... arg) {
-	int which = 10;
-	if(arg.length == 1) {
-		fx_set(fx_list,which,name,arg[0]);
-	} else if(arg.length == 2) {
-		fx_set(fx_list,which,name,arg[0],arg[1]);
-	} else if(arg.length > 2) {
-		fx_set(fx_list,which,name,arg[0],arg[1]);
-	}
+	set_fx_float_2(10,fx_list,name,arg);
 }
 
 void fx_set_resolution(ArrayList<FX> fx_list, String name, float... arg) {
-	int which = 11;
-	if(arg.length == 1) {
-		fx_set(fx_list,which,name,arg[0]);
-	} else if(arg.length == 2) {
-		fx_set(fx_list,which,name,arg[0],arg[1]);
-	} else if(arg.length > 2) {
-		fx_set(fx_list,which,name,arg[0],arg[1]);
-	}
+	set_fx_float_2(11,fx_list,name,arg);
 }
 
 void fx_set_strength(ArrayList<FX> fx_list, String name, float... arg) {
-	int which = 20;
-	if(arg.length == 1) {
-		fx_set(fx_list,which,name,arg[0]);
-	} else if(arg.length == 2) {
-		fx_set(fx_list,which,name,arg[0],arg[1]);
-	} else if(arg.length == 3) {
-		fx_set(fx_list,which,name,arg[0],arg[1],arg[2]);
-	} else if(arg.length > 3) {
-		fx_set(fx_list,which,name,arg[0],arg[1],arg[2]);
-	}
+	set_fx_float_3(20,fx_list,name,arg);
 }
 
 void fx_set_angle(ArrayList<FX> fx_list, String name, float... arg) {
-	int which = 21;
-	if(arg.length == 1) {
-		fx_set(fx_list,which,name,arg[0]);
-	} else if(arg.length == 2) {
-		fx_set(fx_list,which,name,arg[0],arg[1]);
-	} else if(arg.length == 3) {
-		fx_set(fx_list,which,name,arg[0],arg[1],arg[2]);
-	} else if(arg.length > 3) {
-		fx_set(fx_list,which,name,arg[0],arg[1],arg[2]);
-	}
+	set_fx_float_3(21,fx_list,name,arg);
 }
 
 void fx_set_threshold(ArrayList<FX> fx_list, String name, float... arg) {
-	int which = 22;
-	if(arg.length == 1) {
-		fx_set(fx_list,which,name,arg[0]);
-	} else if(arg.length == 2) {
-		fx_set(fx_list,which,name,arg[0],arg[1]);
-	} else if(arg.length == 3) {
-		fx_set(fx_list,which,name,arg[0],arg[1],arg[2]);
-	} else if(arg.length > 3) {
-		fx_set(fx_list,which,name,arg[0],arg[1],arg[2]);
-	}
+	set_fx_float_3(22,fx_list,name,arg);
 }
 
 void fx_set_pos(ArrayList<FX> fx_list, String name, float... arg) {
-	int which = 23;
-	if(arg.length == 1) {
-		fx_set(fx_list,which,name,arg[0]);
-	} else if(arg.length == 2) {
-		fx_set(fx_list,which,name,arg[0],arg[1]);
-	} else if(arg.length == 3) {
-		fx_set(fx_list,which,name,arg[0],arg[1],arg[2]);
-	} else if(arg.length > 3) {
-		fx_set(fx_list,which,name,arg[0],arg[1],arg[2]);
-	}
+	set_fx_float_3(23,fx_list,name,arg);
 }
 
 void fx_set_size(ArrayList<FX> fx_list, String name, float... arg) {
-	int which = 24;
-	if(arg.length == 1) {
-		fx_set(fx_list,which,name,arg[0]);
-	} else if(arg.length == 2) {
-		fx_set(fx_list,which,name,arg[0],arg[1]);
-	} else if(arg.length == 3) {
-		fx_set(fx_list,which,name,arg[0],arg[1],arg[2]);
-	} else if(arg.length > 3) {
-		fx_set(fx_list,which,name,arg[0],arg[1],arg[2]);
-	}
+	set_fx_float_3(24,fx_list,name,arg);
 }
 
 void fx_set_offset(ArrayList<FX> fx_list, String name, float... arg) {
-	int which = 25;
-	if(arg.length == 1) {
-		fx_set(fx_list,which,name,arg[0]);
-	} else if(arg.length == 2) {
-		fx_set(fx_list,which,name,arg[0],arg[1]);
-	} else if(arg.length == 3) {
-		fx_set(fx_list,which,name,arg[0],arg[1],arg[2]);
-	} else if(arg.length > 3) {
-		fx_set(fx_list,which,name,arg[0],arg[1],arg[2]);
-	}
+	set_fx_float_3(25,fx_list,name,arg);
 }
 
 void fx_set_speed(ArrayList<FX> fx_list, String name, float... arg) {
-	int which = 26;
-	if(arg.length == 1) {
-		fx_set(fx_list,which,name,arg[0]);
-	} else if(arg.length == 2) {
-		fx_set(fx_list,which,name,arg[0],arg[1]);
-	} else if(arg.length == 3) {
-		fx_set(fx_list,which,name,arg[0],arg[1],arg[2]);
-	} else if(arg.length > 3) {
-		fx_set(fx_list,which,name,arg[0],arg[1],arg[2]);
-	}
+	set_fx_float_3(26,fx_list,name,arg);
 }
 
 void fx_set_level_source(ArrayList<FX> fx_list, String name, float... arg) {
-	int which = 30;
-	if(arg.length == 1) {
-		fx_set(fx_list,which,name,arg[0]);
-	} else if(arg.length == 2) {
-		fx_set(fx_list,which,name,arg[0],arg[1]);
-	} else if(arg.length == 3) {
-		fx_set(fx_list,which,name,arg[0],arg[1],arg[2]);
-	} else if(arg.length == 4) {
-		fx_set(fx_list,which,name,arg[0],arg[1],arg[2],arg[3]);
-	} else if(arg.length > 4) {
-		fx_set(fx_list,which,name,arg[0],arg[1],arg[2],arg[3]);
-	}
+	set_fx_float_4(30,fx_list,name,arg);
 }
 
 void fx_set_level_layer(ArrayList<FX> fx_list, String name, float... arg) {
-	int which = 31;
-	if(arg.length == 1) {
-		fx_set(fx_list,which,name,arg[0]);
-	} else if(arg.length == 2) {
-		fx_set(fx_list,which,name,arg[0],arg[1]);
-	} else if(arg.length == 3) {
-		fx_set(fx_list,which,name,arg[0],arg[1],arg[2]);
-	} else if(arg.length == 4) {
-		fx_set(fx_list,which,name,arg[0],arg[1],arg[2],arg[3]);
-	} else if(arg.length > 4) {
-		fx_set(fx_list,which,name,arg[0],arg[1],arg[2],arg[3]);
-	}
+	set_fx_float_4(31,fx_list,name,arg);
 }
 
 void fx_set_colour(ArrayList<FX> fx_list, String name, float... arg) {
-	int which = 32;
-	if(arg.length == 1) {
-		fx_set(fx_list,which,name,arg[0]);
-	} else if(arg.length == 2) {
-		fx_set(fx_list,which,name,arg[0],arg[1]);
-	} else if(arg.length == 3) {
-		fx_set(fx_list,which,name,arg[0],arg[1],arg[2]);
-	} else if(arg.length == 4) {
-		fx_set(fx_list,which,name,arg[0],arg[1],arg[2],arg[3]);
-	} else if(arg.length > 4) {
-		fx_set(fx_list,which,name,arg[0],arg[1],arg[2],arg[3]);
-	}
+	set_fx_float_4(32,fx_list,name,arg);
 }
+
+void fx_set_cardinal(ArrayList<FX> fx_list, String name, float... arg) {
+	set_fx_float_4(33,fx_list,name,arg);
+}
+
 
 void fx_set_hue(ArrayList<FX> fx_list, String name, float hue) {
 	fx_set(fx_list,200,name,hue);
@@ -447,27 +342,13 @@ void fx_set_alpha(ArrayList<FX> fx_list, String name, float alpha) {
 // modulair param
 void fx_set_matrix(ArrayList<FX> fx_list, String name, int target, float... arg) {
 	int which = 40+target;
-	if(arg.length == 1) {
-		fx_set(fx_list,which,name,arg[0]);
-	} else if(arg.length == 2) {
-		fx_set(fx_list,which,name,arg[0],arg[1]);
-	} else if(arg.length == 3) {
-		fx_set(fx_list,which,name,arg[0],arg[1],arg[2]);
-	} else if(arg.length > 3) {
-		fx_set(fx_list,which,name,arg[0],arg[1],arg[2]);
-	}
+	set_fx_float_3(which,fx_list,name,arg);
 }
 
 
 void fx_set_pair(ArrayList<FX> fx_list, String name, int target, float... arg) {
 	int which = 50+target;
-	if(arg.length == 1) {
-		fx_set(fx_list,which,name,arg[0]);
-	} else if(arg.length == 2) {
-		fx_set(fx_list,which,name,arg[0],arg[1]);
-	} else if(arg.length > 3) {
-		fx_set(fx_list,which,name,arg[0],arg[1]);
-	}
+	set_fx_float_2(which,fx_list,name,arg);
 }
 
 void fx_set_event(ArrayList<FX> fx_list, String name, int target, boolean arg) {
@@ -479,6 +360,42 @@ void fx_set_event(ArrayList<FX> fx_list, String name, int target, boolean arg) {
 /**
 * main setting methode
 */
+void set_fx_float_2(int which, ArrayList<FX> fx_list, String name, float... arg) {
+	if(arg.length == 1) {
+		fx_set(fx_list,which,name,arg[0]);
+	} else if(arg.length == 2) {
+		fx_set(fx_list,which,name,arg[0],arg[1]);
+	} else if(arg.length > 2) {
+		fx_set(fx_list,which,name,arg[0],arg[1]);
+	}
+}
+
+void set_fx_float_3(int which, ArrayList<FX> fx_list, String name, float... arg) {
+	if(arg.length == 1) {
+		fx_set(fx_list,which,name,arg[0]);
+	} else if(arg.length == 2) {
+		fx_set(fx_list,which,name,arg[0],arg[1]);
+	} else if(arg.length == 3) {
+		fx_set(fx_list,which,name,arg[0],arg[1],arg[2]);
+	} else if(arg.length > 3) {
+		fx_set(fx_list,which,name,arg[0],arg[1],arg[2]);
+	}
+}
+
+void set_fx_float_4(int which, ArrayList<FX> fx_list, String name, float... arg) {
+	if(arg.length == 1) {
+		fx_set(fx_list,which,name,arg[0]);
+	} else if(arg.length == 2) {
+		fx_set(fx_list,which,name,arg[0],arg[1]);
+	} else if(arg.length == 3) {
+		fx_set(fx_list,which,name,arg[0],arg[1],arg[2]);
+	} else if(arg.length == 4) {
+		fx_set(fx_list,which,name,arg[0],arg[1],arg[2],arg[3]);
+	} else if(arg.length > 4) {
+		fx_set(fx_list,which,name,arg[0],arg[1],arg[2],arg[3]);
+	}
+}
+
 void fx_set(ArrayList<FX> fx_list, int which_setting, String name, Object... arg) {
 	if(fx_list != null) {
 		if(fx_list.size() > 0) {
@@ -528,7 +445,7 @@ void fx_set(ArrayList<FX> fx_list, int which_setting, String name, Object... arg
 
 /**
 * path shader
-* v 0.3.0
+* v 0.3.1
 */
 // post fx path
 String fx_post_rope_path = null;
@@ -540,13 +457,8 @@ boolean fx_post_path_exist() {
 
 String get_fx_post_path() {
 	if(fx_post_rope_path == null) {
-		fx_post_rope_path = sketchPath()+"/shader/fx_post/";
-		File f = new File(fx_post_rope_path);
-		if(!f.exists()) {
-			printErrTempo(60,"get_fx_post_path()",fx_post_rope_path,"no folder found");
-		} else {
-			fx_post_rope_path_exists = true;
-		}
+		fx_post_rope_path = "shader/fx_post/";
+		fx_post_rope_path_exists = true;
 	} else {
 		File f = new File(fx_post_rope_path);
 		if(!f.exists()) {
@@ -576,13 +488,8 @@ boolean fx_bg_path_exist() {
 
 String get_fx_bg_path() {
 	if(fx_bg_rope_path == null) {
-		fx_bg_rope_path = sketchPath()+"/shader/fx_bg/";
-		File f = new File(fx_bg_rope_path);
-		if(!f.exists()) {
-			printErrTempo(60,"get_fx_bg_path()",fx_bg_rope_path,"no folder found");
-		} else {
-			fx_bg_rope_path_exists = true;
-		}
+		fx_bg_rope_path = "shader/fx_bg/";
+		fx_bg_rope_path_exists = true;
 	} else {
 		File f = new File(fx_bg_rope_path);
 		if(!f.exists()) {
@@ -700,7 +607,7 @@ void reset_reverse_g(boolean state){
 /**
 * render shader
 * this method test if the shader must be display on the main Processing render or return a PGraphics
-* v 0.0.3
+* v 0.0.4
 */
 void render_shader(PShader ps, PGraphics pg, PImage src, boolean on_g) {
 	if(pg != null && !on_g) {
@@ -710,7 +617,7 @@ void render_shader(PShader ps, PGraphics pg, PImage src, boolean on_g) {
   	pg.resetShader();
   	pg.endDraw();
   } else {
-  	g.filter(ps);
+  	filter(ps);
   }
 }
 

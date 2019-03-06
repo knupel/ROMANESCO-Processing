@@ -214,7 +214,7 @@ void set_screen() {
     }
  
     if(!FULL_SCREEN) {
-      window.set(resize_screen(window,target_screen));
+      if(!DEV_MODE) window.set(resize_screen(window,target_screen));
       load_window_location(window);
       surface.setSize(window.x,window.y);
     } else {
@@ -245,8 +245,12 @@ void set_screen() {
 
 // resize_screen_if_parameter_is_too_big
 ivec2 resize_screen(ivec2 window, int target) {
-  if(window.x >= get_screen_size(target).x) window.x = get_screen_size(target).x -100;
-  if(window.y >= get_screen_size(target).y) window.y = get_screen_size(target).y -100;
+  if(window.x >= get_screen_size(target).x) {
+    window.x = get_screen_size(target).x -100;
+  }
+  if(window.y >= get_screen_size(target).y) {
+    window.y = get_screen_size(target).y -100;
+  }
   return window;
 }
 

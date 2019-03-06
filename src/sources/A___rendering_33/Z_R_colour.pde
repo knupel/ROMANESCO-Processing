@@ -5,8 +5,8 @@ v 0.7.0
 * Stan le Punk > http://stanlepunk.xyz/
 Rope – Romanesco Processing Environment – 
 Processing 3.4
-* @author Stan le Punk
-* @see https://github.com/StanLepunK/Rope
+* @author @stanlepunk
+* @see https://github.com/StanLepunK/Rope_framework
 *
 * Pack of method to use colour, palette and method conversion
 *

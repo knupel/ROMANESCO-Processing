@@ -5,8 +5,8 @@ ROPE - Romanesco processing environment –
 Rope Motion  2015 – 2018
 v 1.3.0
 Rope – Romanesco Processing Environment – 
-* @author Stan le Punk
-* @see https://github.com/StanLepunK/Rope
+* @author @stanlepunk
+* @see https://github.com/StanLepunK/Rope_framework
 */
 
 

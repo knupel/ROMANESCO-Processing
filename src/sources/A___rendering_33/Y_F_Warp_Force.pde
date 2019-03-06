@@ -1,9 +1,9 @@
 /**
 * Force field warp texture
-* @see http://stanlepunk.xyz
+* @author @stanlepunk
 * @see https://github.com/StanLepunK/Force_Field
 * 2017-2019
-v 0.8.3
+v 0.9.2
 */
 
 class Warp_Force {
@@ -23,10 +23,6 @@ class Warp_Force {
     build("shader/");
   }
 
-  public Warp_Force(String path) {
-     build(path);
-  }
-
 
   private void build(String path) {
     img_manager = new ROPImage_Manager();
@@ -35,10 +31,10 @@ class Warp_Force {
   
 
   private void shader(String main_folder_path) {
-    rope_warp_shader = loadShader(main_folder_path+"fx_post/warp_tex_a.glsl");
-    rope_warp_blur = loadShader(main_folder_path+"fx_post/blur_gaussian.glsl"); 
-    // rope_warp_shader = loadShader(main_folder_path+"warp/rope_warp_frag.glsl");
-    // rope_warp_blur = loadShader(main_folder_path+"filter/rope_filter_gaussian_blur.glsl"); 
+    String path = main_folder_path+"fx_post/warp_tex_a.glsl";
+    rope_warp_shader = loadShader(path);
+    path = main_folder_path+"fx_post/blur_gaussian.glsl";
+    rope_warp_blur = loadShader(path); 
   }
 
 
@@ -203,23 +199,34 @@ class Warp_Force {
 
     if(ratio instanceof vec2) {
       vec2 r = (vec2) ratio ;
-      refresh_image(r.x,r.x,r.x,r.y);
+      refresh_image(r.x,r.x,r.x);
     } else if (ratio instanceof vec3) {
       vec3 r = (vec3) ratio ;
-      refresh_image(r.x,r.y,r.z,1);
-    } else if (ratio instanceof vec4) {
-      vec4 r = (vec4) ratio ;
-      refresh_image(r.x,r.y,r.z,r.w);
+      refresh_image(r.x,r.y,r.z);
     } else {
       printErr("method refresh() from class Warp : ratio is not an instance of vec2, vec3 or vec4, instead the value max '.5' is used");
-      refresh_image(.5,.5,.5,.5);
+      refresh_image(.5,.5,.5);
     } 
   }
 
   public void refresh(float... value) {
-    vec4 v = array_to_vec4_rgba(value);
+    vec3 v = array_to_rgb_vec3(value);
     refresh_image_is(true);
-    refresh_image(v.x,v.y,v.z,v.w);
+    refresh_image(v.x,v.y,v.z);
+  }
+
+  private vec3 array_to_rgb_vec3(float... f) {
+    vec3 v = vec3(1);
+    if(f.length == 1) {
+      v.set(f[0],f[0],f[0]);
+    } else if(f.length == 2) {
+      v.set(f[0],f[0],f[0]);
+    } else if(f.length == 3) {
+      v.set(f[0],f[1],f[2]);
+    } else if(f.length > 3) {
+      v.set(f[0],f[1],f[2]);
+    }
+    return v;
   }
 
 
@@ -356,12 +363,12 @@ class Warp_Force {
   /**
   refresh component is must have a normal value 0 > 1
   */
-  private vec4 warp_img_refresh ;
-  private void refresh_image(float x, float y, float z, float w) {
+  private vec3 warp_img_refresh ;
+  private void refresh_image(float x, float y, float z) {
     if(this.warp_img_refresh == null) {
-      warp_img_refresh = vec4(x,y,z,w);
+      warp_img_refresh = vec3(x,y,z);
     } else {
-      warp_img_refresh.set(x,y,z,w);
+      warp_img_refresh.set(x,y,z);
     }
   }
 
@@ -392,13 +399,13 @@ class Warp_Force {
   }
 
   private boolean refresh_multiply_is ;
-  private vec4 refresh_multiply_value ;
+  private vec3 refresh_multiply_value ;
   public void refresh_multiply(boolean refresh_multiply_is, float... value) {
-    vec4 v = array_to_vec4_rgba(value);
+    vec3 v = array_to_rgb_vec3(value);
     if(refresh_multiply_value == null) {
-      refresh_multiply_value = vec4(v.x,v.y,v.z,v.w);
+      refresh_multiply_value = vec3(v.x,v.y,v.z);
     } else {
-      refresh_multiply_value.set(v.x,v.y,v.z,v.w);
+      refresh_multiply_value.set(v.x,v.y,v.z);
     }
     this.refresh_multiply_is = refresh_multiply_is;
   }
@@ -408,13 +415,13 @@ class Warp_Force {
   }
 
   private boolean refresh_overlay_is ;
-  private vec4 refresh_overlay_value ;
+  private vec3 refresh_overlay_value ;
   public void refresh_overlay(boolean refresh_overlay_is, float... value) {
-    vec4 v = array_to_vec4_rgba(value);
+    vec3 v = array_to_rgb_vec3(value);
     if(refresh_overlay_value == null) {
-      refresh_overlay_value = vec4(v.x,v.y,v.z,v.w);
+      refresh_overlay_value = vec3(v.x,v.y,v.z);
     } else {
-      refresh_overlay_value.set(v.x,v.y,v.z,v.w);
+      refresh_overlay_value.set(v.x,v.y,v.z);
     }
     this.refresh_overlay_is = refresh_overlay_is;
   }
@@ -424,25 +431,25 @@ class Warp_Force {
 
   // normal effect
   private boolean effect_multiply_is ;
-  private vec4 effect_multiply_value ;
+  private vec3 effect_multiply_value ;
   public void effect_multiply(boolean effect_multiply_is, float... value) {
-    vec4 v = array_to_vec4_rgba(value);
+    vec3 v = array_to_rgb_vec3(value);
     if(effect_multiply_value == null) {
-      effect_multiply_value = vec4(v.x,v.y,v.z,v.w);
+      effect_multiply_value = vec3(v.x,v.y,v.z);
     } else {
-      effect_multiply_value.set(v.x,v.y,v.z,v.w);
+      effect_multiply_value.set(v.x,v.y,v.z);
     }
     this.effect_multiply_is = effect_multiply_is;
   }
 
   private boolean effect_overlay_is ;
-  private vec4 effect_overlay_value ;
+  private vec3 effect_overlay_value ;
   public void effect_overlay(boolean effect_overlay_is, float... value) {
-    vec4 v = array_to_vec4_rgba(value);
+    vec3 v = array_to_rgb_vec3(value);
     if(effect_overlay_value == null) {
-      effect_overlay_value = vec4(v.x,v.y,v.z,v.w);
+      effect_overlay_value = vec3(v.x,v.y,v.z);
     } else {
-      effect_overlay_value.set(v.x,v.y,v.z,v.w);
+      effect_overlay_value.set(v.x,v.y,v.z);
     }
     this.effect_overlay_is = effect_overlay_is;
   }
@@ -484,20 +491,26 @@ class Warp_Force {
 
 
   private void refresh_rendering_gpu(PGraphics result, PImage buffer, PImage inc, Force_field ff, float intensity) {
-    if (refresh_image_is) {
+    if(refresh_image_is) {
       refresh_mix(true);
       refresh_multiply(false); // add value is possible refresh_multiply(boolean b, float... val)
       refresh_overlay(false); // add value is possible refresh_overlay(boolean b, float... val)
 
       result.beginDraw();
       if(refresh_mix_is) {
-        mix(result, buffer, inc, warp_img_refresh);
+        int mix_mode_mix = 17;
+        result = fx_mix(buffer,inc,false,mix_mode_mix,warp_img_refresh,vec3(1));
       }
-      if(refresh_multiply_is) {    
-        multiply(result,buffer,inc,refresh_multiply_value);
+      if(refresh_multiply_is) {  
+        int mix_mode_multiply = 1;
+        result = fx_mix(buffer,inc,false,mix_mode_multiply,vec3(1),refresh_multiply_value);
       }
       if(refresh_overlay_is) {
-        overlay(result,buffer,inc,refresh_overlay_value);
+         int mix_mode_overlay = 4;
+         result = fx_mix(buffer,inc,false,mix_mode_overlay,vec3(1),refresh_overlay_value);
+      }
+      if(result.pixels == null) {
+        result.loadPixels();
       }
       result.endDraw();
     }
@@ -510,12 +523,14 @@ class Warp_Force {
     warp_image_graphic_processor(result,inc,ff,intensity);
 
     if(effect_multiply_is) {
-      multiply_flip(false,true);
-      multiply(result,result,result,effect_multiply_value);
+      int mix_mode_multiply = 1;
+      println("multiply",refresh_multiply_value);
+      result = fx_mix(buffer,inc,false,mix_mode_multiply,vec3(1),refresh_multiply_value);
     }
     if(effect_overlay_is) {
-      overlay_flip(false,true);
-      overlay(result, result, result, effect_overlay_value);
+      println("overlay",refresh_overlay_value);
+      int mix_mode_overlay = 4;
+      result = fx_mix(buffer,inc,false,mix_mode_overlay,vec3(1),refresh_overlay_value);
     }
     result.endDraw();
   }
@@ -539,7 +554,8 @@ class Warp_Force {
     
     // shader filter
     if(shader_warp_filter) { 
-      try {   
+      try {
+        // rope_warp_shader.set("flip_source",true,false);
         result.filter(rope_warp_shader);
       } catch(java.lang.RuntimeException e) { 
         printErrTempo(60,"class Warp void warp_image_graphic_processor: Too many calls to pushMatrix()",frameCount);
@@ -609,7 +625,9 @@ class Warp_Force {
   private void rendering_computer_processor(PGraphics result, PImage buffer, PImage inc, Force_field ff, float intensity) {
     result.beginDraw();
     if(refresh_image_is) {
-      mix(result,buffer,inc,warp_img_refresh);
+      int mix_mode_mix = 17;
+      result = fx_mix(buffer,inc,false,mix_mode_mix,warp_img_refresh,vec3(1));
+      // mix(result,buffer,inc,warp_img_refresh);
     }
     warp_image_computer_processor(result,buffer,inc,ff,intensity);
     result.endDraw();

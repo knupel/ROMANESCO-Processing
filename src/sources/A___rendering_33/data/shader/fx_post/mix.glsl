@@ -2,7 +2,7 @@
 Mix by Stan le punk 
 * @see http://stanlepunk.xyz
 * @see https://github.com/StanLepunK/Shader
-v 0.0.3
+v 0.0.4
 2019-2019
 */
 // Processing implementation
@@ -194,8 +194,8 @@ void main() {
   vec2 uv_source = set_uv(flip_source,resolution_source);
   vec2 uv_layer = set_uv(flip_layer,resolution_source);
 
-	vec4 source = set_color(texture(texture_source,uv_source),vec4(level_source,1));
-	vec4 layer = set_color(texture(texture_layer,uv_layer),vec4(level_layer,1));
+	vec4 source = set_color(texture2D(texture_source,uv_source),vec4(level_source,1));
+	vec4 layer = set_color(texture2D(texture_layer,uv_layer),vec4(level_layer,1));
   float alpha = 1.;
   if(mode == -2) {
     gl_FragColor = vec4(source(source.xyz,layer.xyz),alpha);

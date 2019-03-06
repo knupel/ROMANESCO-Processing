@@ -2,11 +2,10 @@
 Rope UTILS 
 v 1.56.2
 * Copyleft (c) 2014-2019
-* Stan le Punk > http://stanlepunk.xyz/
 Rope – Romanesco Processing Environment – 
 Processing 3.5.3
-* @author Stan le Punk
-* @see https://github.com/StanLepunK/Rope
+* @author @stanlepunk
+* @see https://github.com/StanLepunK/Rope_framework
 */
 
 
@@ -797,25 +796,6 @@ String int_to_String(int data) {
   String float_string_value ;
   float_string_value = Integer.toString(data ) ;
   return float_string_value ;
-}
-
-
-
-/**
-array float to vec
-*/
-vec4 array_to_vec4_rgba(float... f) {
-  vec4 v = vec4(1);
-  if(f.length == 1) {
-    v.set(f[0],f[0],f[0],1.);
-  } else if(f.length == 2) {
-    v.set(f[0],f[0],f[0],f[1]);
-  } else if(f.length == 3) {
-    v.set(f[0],f[1],f[2],1);
-  } else if(f.length > 3) {
-    v.set(f[0],f[1],f[2],f[3]);
-  }
-  return v;
 }
 
 

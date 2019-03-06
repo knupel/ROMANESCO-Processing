@@ -1,8 +1,8 @@
 /**
 LIGHT SHADER 
 Prescene and Scene
-V 1.4.2
-2015-2018
+V 1.4.3
+2015-2019
 */
 vec3 var_light_pos  ;
 vec3 var_light_dir  ;
@@ -45,7 +45,7 @@ boolean [] on_off_light, on_off_light_action ;
 
 
 void shader_setup() {
-  String path = (preference_path +"shader/shader_light/") ;
+  String path = ("shader/fx_light/") ;
   light_shader = loadShader(path+"light_pix_frag_romanesco.glsl", path+"light_pix_vert_romanesco.glsl");
   shader(light_shader);
 }
