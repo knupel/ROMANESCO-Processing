@@ -1317,7 +1317,6 @@ PGraphics fx_mix(PImage source, PImage layer, boolean on_g, int mode, vec3 level
 		fx_mix.set("mode",mode); 
     
     // rendering
-    println("coupable");
     render_shader(fx_mix,result_mix,source,on_g);
  
 	}
