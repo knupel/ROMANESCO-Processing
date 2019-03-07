@@ -1177,6 +1177,8 @@ PGraphics fx_level(PImage source, boolean on_g, int mode, float... level) {
 		if(on_g) set_shader_flip(fx_level,source);
 		fx_level.set("texture_source",source);
 		fx_level.set("resolution_source",source.width,source.height);
+
+		// println(level);
 		if(level.length == 1) {
 			fx_level.set("level_source",level[0],level[0],level[0],1);
 		} else if(level.length == 2) {

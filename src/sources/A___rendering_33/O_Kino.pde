@@ -1,13 +1,13 @@
 /**
 Kino
 2018-2019
-v 0.1.0
+v 0.2.0
 */
 class Kino extends Romanesco {
 	public Kino() {
 		item_name = "Kino";
 		item_author  = "Stan le Punk";
-		item_version = "Version 0.1.0";
+		item_version = "Version 0.2.0";
 		item_pack = "Base 2018-2019";
 		item_costume = ""; // separate the differentes mode by "/"
 		item_mode = "Movie/Diaporama/Movie 3D/Diaporama 3D"; // separate the differentes mode by "/"
@@ -79,6 +79,7 @@ class Kino extends Romanesco {
 
 
   float coord_ref;
+  boolean to_white;
 	void draw() {
     param();
     
@@ -105,6 +106,7 @@ class Kino extends Romanesco {
   void draw_2D() {
     param();
     boolean background_is = true;
+
     if(get_mode_id() == 0) {
       kino_movie(colour,SCREEN,background_is);
     } else if(get_mode_id() == 1) {
@@ -123,6 +125,9 @@ class Kino extends Romanesco {
     } else {
       colour.set(h,s,b,a);
     }
+    // normalize colour
+    colour.div(vec4(g.colorModeX,g.colorModeY,g.colorModeZ,g.colorModeA));
+    colour.a(colour.x *colour.a *colour.a);
   }
   
   // kino movie
@@ -150,12 +155,11 @@ class Kino extends Romanesco {
   		} else {
   			get_movie().pause();
   		}
-      tint(c);
       if(background_is) {
-        set_background(get_movie(),what);
-        // background(get_movie(),what);
+        set_background(fx_level(get_movie(),false,0,c.array()),what);
       } else {
-        image(get_movie(),what);
+        image(fx_level(get_movie(),false,0,c.array()),CENTER);
+        // image(get_movie(),what);
       }
     }
 	}
@@ -165,12 +169,11 @@ class Kino extends Romanesco {
 	private void kino_bitmap(vec4 c, int what, boolean background_is) {
 		load_bitmap(ID_item);
     if(get_bitmap() != null) {
-      tint(c);
       if(background_is) {
-        set_background(get_bitmap(),what);
-        // background(get_bitmap(),what);
+        set_background(fx_level(get_bitmap(),false,0,c.array()),what);
       } else {
-        image(get_bitmap(),what);
+        image(fx_level(get_bitmap(),false,0,c.array()));
+        //image(get_bitmap(),what);
       }
     }
 	}
