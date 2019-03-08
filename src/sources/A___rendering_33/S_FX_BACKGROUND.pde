@@ -487,7 +487,9 @@ void background_romanesco() {
     background_rope(0,0,get_layer().colorModeZ *.2,get_layer().colorModeA) ;
   } else if(FULL_RENDERING) {
     if(background_button_is()) {
+
       if(background_romanesco == null) {
+        // println("ALIEN is in the SPACE",background_romanesco,frameCount);
         if(which_shader == 0) {
           // check if the color model is changed after the shader used
           if(get_layer().colorMode != 3 || get_layer().colorModeX != 360 || get_layer().colorModeY != 100 || get_layer().colorModeZ !=100 || get_layer().colorModeA !=100) {
@@ -508,6 +510,17 @@ void background_romanesco() {
           fx_background(which_shader); 
         }
       } else {
+        // println("ALIEN is in the NOSTROMO",background_romanesco,frameCount);
+        // println("ALIEN is coming width",background_romanesco.width);
+        // println("ALIEN is coming height",background_romanesco.height);
+        // println("ALIEN is coming pixels",background_romanesco.pixels);
+        if(background_romanesco.pixels == null) {
+          background_romanesco.loadPixels();
+        }
+        // println("ALIEN is coming length",background_romanesco.pixels.length);
+        // println("ALIEN is coming mode",mode_bg_romanesco);
+        // println("CENTER",CENTER);
+        // println("SCREEN",SCREEN);
         background(background_romanesco,mode_bg_romanesco);
       }
     }

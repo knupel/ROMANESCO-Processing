@@ -1,2 +1,2 @@
 fx active,fx slider active
-blur radial/blur circular/,position X/position Y/strength X/quantity/strength X/
+blur radial/dither bayer/,position X/position Y/strength X/red/green/blue/

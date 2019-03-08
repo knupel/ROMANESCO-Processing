@@ -145,7 +145,7 @@ LIVE must change from the launcher, the info must be write in the external loadi
 
 
 void settings() {
-  size(1000,600,P3D); // DEV MODE PARAM
+  size(900,550,P3D); // DEV MODE PARAM
   
   // EXPORTING PARAM 
   // size(124,124,P3D);

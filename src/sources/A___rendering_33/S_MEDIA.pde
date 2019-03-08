@@ -246,6 +246,7 @@ void setting_movie(int id, String path) {
     movie[id].stop();
   }
   if(ext(path,"mov") || ext(path,"MOV") || ext(path,"avi") || ext(path,"AVI") || ext(path,"mp4") || ext(path,"MP4") || ext(path,"mkv") || ext(path,"MKV")) {
+    println(path);
     movie[id] = new Movie(this,path);
     movie[id].loop();
     movie[id].pause();

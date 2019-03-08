@@ -1,7 +1,7 @@
 /**
 * ROPE FRAMEWORK IMAGE
 * Rope – Romanesco Processing Environment – 
-* v 0.4.0
+* v 0.4.1
 * Copyleft (c) 2014-2019
 * Processing 3.5.3
 * @author @stanlepunk
@@ -959,7 +959,7 @@ void show_canvas(int num) {
 
 /**
 * BACKGROUND
-* v 0.2.1
+* v 0.2.2
 * 2015-2019
 */
 /**
@@ -1035,46 +1035,47 @@ void background(PImage src, vec2 pos, vec2 scale, vec3 colour_background, vec4 p
 
 PShader img_shader_calc_rope;
 void background_calc(PImage src, vec2 pos, vec2 scale, vec3 colour_background, vec4 pos_curtain, int mode) {
-  if(img_shader_calc_rope == null) {
-    img_shader_calc_rope = loadShader("shader/fx_post/image.glsl");
-  }
-  if(graphics_is(src).equals("PGraphics")) {
-    img_shader_calc_rope.set("flip_source",false,false);
-  } else {
-    img_shader_calc_rope.set("flip_source",true,false);
-  }
-  
-  img_shader_calc_rope.set("texture_source",src);
-  img_shader_calc_rope.set("resolution",width,height);
-  img_shader_calc_rope.set("resolution_source",src.width,src.height); 
-  
-  if(colour_background != null) {
-    img_shader_calc_rope.set("colour",colour_background.x,colour_background.y,colour_background.z); // definr RGB color from 0 to 1
-  }
+  if(src != null && src.width > 0 && src.height > 0) {
+    if(img_shader_calc_rope == null) {
+      img_shader_calc_rope = loadShader("shader/fx_post/image.glsl");
+    }
+    if(graphics_is(src).equals("PGraphics")) {
+      img_shader_calc_rope.set("flip_source",false,false);
+    } else {
+      img_shader_calc_rope.set("flip_source",true,false);
+    }
+    
+    img_shader_calc_rope.set("texture_source",src);
+    img_shader_calc_rope.set("resolution",width,height);
+    img_shader_calc_rope.set("resolution_source",src.width,src.height); 
+    if(colour_background != null) {
+      img_shader_calc_rope.set("colour",colour_background.x,colour_background.y,colour_background.z); // definr RGB color from 0 to 1
+    }
 
-  if(pos_curtain != null) {
-    img_shader_calc_rope.set("curtain",pos_curtain.x,pos_curtain.y,pos_curtain.z,pos_curtain.w); // definr RGB color from 0 to 1
-  }
+    if(pos_curtain != null) {
+      img_shader_calc_rope.set("curtain",pos_curtain.x,pos_curtain.y,pos_curtain.z,pos_curtain.w); // definr RGB color from 0 to 1
+    }
 
-  if(pos != null) {
-    img_shader_calc_rope.set("position",pos.x,pos.y); // from 0 to 1
-  }
-  
-  if(scale != null) {
-    img_shader_calc_rope.set("scale",scale.x,scale.y);
-  }
-  
-  int shader_mode = 0;
-  if(mode == CENTER) {
-    shader_mode = 0;
-  } else if(mode == SCREEN) {
-    shader_mode = 1;
-  } else if(mode == r.SCALE) {
-    shader_mode = 2;
-  }
-  img_shader_calc_rope.set("mode",shader_mode);
+    if(pos != null) {
+      img_shader_calc_rope.set("position",pos.x,pos.y); // from 0 to 1
+    }
+    
+    if(scale != null) {
+      img_shader_calc_rope.set("scale",scale.x,scale.y);
+    }
+    
+    int shader_mode = 0;
+    if(mode == CENTER) {
+      shader_mode = 0;
+    } else if(mode == SCREEN) {
+      shader_mode = 1;
+    } else if(mode == r.SCALE) {
+      shader_mode = 2;
+    }
+    img_shader_calc_rope.set("mode",shader_mode);
 
-  filter(img_shader_calc_rope);
+    filter(img_shader_calc_rope);
+  }
 }
 
 
@@ -1396,12 +1397,12 @@ String get_renderer() {
 
 String get_renderer(final PGraphics graph) {
   try {
-    if (Class.forName(JAVA2D).isInstance(graph))  return JAVA2D;
-    if (Class.forName(FX2D).isInstance(graph))    return FX2D;
-    if (Class.forName(P2D).isInstance(graph))     return P2D;
-    if (Class.forName(P3D).isInstance(graph))     return P3D;
-    if (Class.forName(PDF).isInstance(graph))     return PDF;
-    if (Class.forName(DXF).isInstance(graph))     return DXF;
+    if (Class.forName(JAVA2D).isInstance(graph)) return JAVA2D;
+    if (Class.forName(FX2D).isInstance(graph)) return FX2D;
+    if (Class.forName(P2D).isInstance(graph)) return P2D;
+    if (Class.forName(P3D).isInstance(graph)) return P3D;
+    if (Class.forName(PDF).isInstance(graph)) return PDF;
+    if (Class.forName(DXF).isInstance(graph)) return DXF;
   }
 
   catch (ClassNotFoundException ex) {
