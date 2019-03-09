@@ -1,12 +1,12 @@
 /**
 Rope COLOUR
-v 0.6.4
-* Copyleft (c) 2016-2018 
+v 0.7.0
+* Copyleft (c) 2016-2019 
 * Stan le Punk > http://stanlepunk.xyz/
 Rope – Romanesco Processing Environment – 
 Processing 3.4
-* @author Stan le Punk
-* @see https://github.com/StanLepunK/Rope
+* @author @stanlepunk
+* @see https://github.com/StanLepunK/Rope_framework
 *
 * Pack of method to use colour, palette and method conversion
 *
@@ -410,9 +410,8 @@ boolean hue_range(float min, float max, int colour) {
 
 
 /**
-convert color 0.1.2
+convert color 0.3.0
 */
-//convert color HSB to RVB
 vec3 hsb_to_rgb(float hue, float saturation, float brightness) {
   vec4 ref = vec4(g.colorModeX, g.colorModeY, g.colorModeY, g.colorModeA);
   int c = color(hue,saturation,brightness);
@@ -420,13 +419,33 @@ vec3 hsb_to_rgb(float hue, float saturation, float brightness) {
   colorMode(RGB,255) ;
   vec3 rgb = vec3(red(c),green(c),blue(c)) ;
   // return to the previous colorMode
-  colorMode(HSB,ref.r, ref.g, ref.b, ref.a) ;
+  colorMode(HSB,ref.x,ref.y,ref.z,ref.w) ;
   return rgb;
 }
 
 vec4 to_cmyk(int c) {
   return rgb_to_cmyk(red(c),green(c),blue(c));
 }
+
+
+vec3 to_rgb(int c) {
+  return vec3(red(c),green(c),blue(c));
+}
+
+vec4 to_rgba(int c) {
+  return vec4(red(c),green(c),blue(c),alpha(c));
+}
+
+vec3 to_hsb(int c) {
+  return vec3(hue(c),saturation(c),brightness(c));
+}
+
+vec4 to_hsba(int c) {
+  return vec4(hue(c),saturation(c),brightness(c),alpha(c));
+}
+
+
+
 
 
 vec4 rgb_to_cmyk(float r, float g, float b) {
@@ -456,29 +475,6 @@ vec4 rgb_to_cmyk(float r, float g, float b) {
   float k = var_k; 
   return vec4(c,m,y,k);
 }
-
-// same result
-/*
-vec4 rgb_to_cmyk_2(float r, float g, float b) {
-  // convert to 0 > 1 value
-  r = r/this.g.colorModeX;
-  g = g/this.g.colorModeY;
-  b = b/this.g.colorModeZ;
-  // RGB to CMY
-  float c = 1.-r;
-  float m = 1.-g;
-  float y = 1.-b;
-  // CMY to CMYK
-  float min_cmy = min(c,m,y);
-  c = (c - min_cmy) / (1 - min_cmy);
-  m = (m - min_cmy) / (1 - min_cmy);
-  y = (y - min_cmy) / (1 - min_cmy);
-  float k = min_cmy;
-  return vec4(c,m,y,k);
-}
-*/
-
-
 
 
 

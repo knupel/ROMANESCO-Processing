@@ -1,7 +1,7 @@
 /**
 * ROPE FRAMEWORK IMAGE
 * Rope – Romanesco Processing Environment – 
-* v 0.4.1
+* v 0.4.2
 * Copyleft (c) 2014-2019
 * Processing 3.5.3
 * @author @stanlepunk
@@ -959,7 +959,7 @@ void show_canvas(int num) {
 
 /**
 * BACKGROUND
-* v 0.2.2
+* v 0.2.3
 * 2015-2019
 */
 /**
@@ -967,11 +967,11 @@ Background classic processing
 */
 // vec
 void background(vec4 c) {
-  background(c.r,c.g,c.b,c.a) ;
+  background(c.x,c.y,c.z,c.w) ;
 }
 
 void background(vec3 c) {
-  background(c.r,c.g,c.b) ;
+  background(c.x,c.y,c.z) ;
 }
 
 void background(vec2 c) {
@@ -1048,6 +1048,7 @@ void background_calc(PImage src, vec2 pos, vec2 scale, vec3 colour_background, v
     img_shader_calc_rope.set("texture_source",src);
     img_shader_calc_rope.set("resolution",width,height);
     img_shader_calc_rope.set("resolution_source",src.width,src.height); 
+    
     if(colour_background != null) {
       img_shader_calc_rope.set("colour",colour_background.x,colour_background.y,colour_background.z); // definr RGB color from 0 to 1
     }
@@ -1093,27 +1094,27 @@ void background_calc(PImage src, vec2 pos, vec2 scale, vec3 colour_background, v
 Normalize background
 */
 void background_norm(vec4 bg) {
-  background_norm(bg.x, bg.y, bg.z, bg.a) ;
+  background_norm(bg.x,bg.y,bg.z,bg.w) ;
 }
 
 void background_norm(vec3 bg) {
-  background_norm(bg.x, bg.y, bg.z, 1) ;
+  background_norm(bg.x,bg.y,bg.z,1) ;
 }
 
 void background_norm(vec2 bg) {
-  background_norm(bg.x, bg.x, bg.x, bg.y) ;
+  background_norm(bg.x,bg.x,bg.x,bg.y) ;
 }
 
 void background_norm(float c, float a) {
-  background_norm(c, c, c, a) ;
+  background_norm(c,c,c,a) ;
 }
 
 void background_norm(float c) {
-  background_norm(c, c, c, 1) ;
+  background_norm(c,c,c,1) ;
 }
 
 void background_norm(float r,float g, float b) {
-  background_norm(r, g, b, 1) ;
+  background_norm(r,g,b,1) ;
 }
 
 // Main method

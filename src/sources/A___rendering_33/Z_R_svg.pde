@@ -1,8 +1,7 @@
 /**
-ROPE SVG
-v 1.4.0
-* Copyleft (c) 2014-2018
-Rope – Romanesco Processing Environment – 
+* ROPE SVG
+* v 1.5.0
+* Copyleft (c) 2014-2019
 * @author @stanlepunk
 * @see https://github.com/StanLepunK/Rope_framework
 */
@@ -504,11 +503,11 @@ class ROPE_svg {
   }
 
   public void fill_factor(vec4 f) {
-    fill_factor.set(f.x,f.y,f.z,f.a) ;
+    fill_factor.set(f.x,f.y,f.z,f.w) ;
   }
 
   public void stroke_factor(vec4 f) {
-    stroke_factor.set(f.x,f.y,f.z,f.a) ;
+    stroke_factor.set(f.x,f.y,f.z,f.w) ;
   }
 
   /**
@@ -889,12 +888,12 @@ class ROPE_svg {
   }
 
   private  void aspect_custom() {
-    if(fill_custom.a > 0 && display_fill_custom && !display_fill_original) {
-      p5.fill(fill_custom.r *fill_factor.x, fill_custom.g *fill_factor.y, fill_custom.b *fill_factor.y, fill_custom.a *fill_factor.w) ; 
+    if(fill_custom.alp() > 0 && display_fill_custom && !display_fill_original) {
+      p5.fill(fill_custom.red() *fill_factor.x, fill_custom.gre() *fill_factor.y, fill_custom.blu() *fill_factor.y, fill_custom.alp() *fill_factor.w) ; 
     }
     if(display_stroke_custom && !display_stroke_original) {
-      if(stroke_custom.a > 0 || thickness_custom > 0 ) {
-        p5.stroke(stroke_custom.r *stroke_factor.x, stroke_custom.g *stroke_factor.y, stroke_custom.b *stroke_factor.z, stroke_custom.a *stroke_factor.w) ;
+      if(stroke_custom.alp() > 0 || thickness_custom > 0 ) {
+        p5.stroke(stroke_custom.red() *stroke_factor.x, stroke_custom.gre() *stroke_factor.y, stroke_custom.blu() *stroke_factor.z, stroke_custom.alp() *stroke_factor.w) ;
         p5.strokeWeight(thickness_custom) ;
       }
     }
@@ -1535,10 +1534,10 @@ class ROPE_svg {
 
   private boolean check_matrix(vec6 matrix) {
     if(matrix != null) {
-      float a = matrix.a ;
-      float b = matrix.b ;
-      float c = matrix.c ;
-      float d = matrix.d ;
+      float a = matrix.a();
+      float b = matrix.b();
+      float c = matrix.c();
+      float d = matrix.d();
       if(a == 1 && b == 0 && c == 0 && d == 1) {
         return false ; 
       } else return true ;
@@ -1548,10 +1547,10 @@ class ROPE_svg {
 
 
   private void matrix(vec6 matrix, vec3 pos) {
-    float a = matrix.a ;
-    float b = matrix.b ;
-    float c = matrix.c ;
-    float d = matrix.d ;
+    float a = matrix.a();
+    float b = matrix.b();
+    float c = matrix.c();
+    float d = matrix.d();
     // about matrix 
     // http://stackoverflow.com/questions/4361242/extract-rotation-scale-values-from-2d-transformation-matrix
     boolean matrix_bool = false ;
@@ -1601,47 +1600,47 @@ class ROPE_svg {
     matrix case
     */
     if(matrix_bool) {
-      float angle = atan(-matrix.b / matrix.a) ; 
+      float angle = atan(-matrix.b()/ matrix.a()) ; 
 
       // rotate
       if(rotate_bool && !scale_bool && !skew_bool) {
-        translate(pos) ;
+        translate(pos);
         if(d <= 0 ) {
-          angle = angle + PI ;
+          angle = angle +PI;
         }
-        rotate(-angle) ;
+        rotate(-angle);
       }
 
       // scale
       if(scale_bool && !rotate_bool && !skew_bool) {
         float sx = sqrt((a * a) + (c * c)) ;
         if(a < 0 || c < 0) {
-          sx *= -1 ;
+          sx *= -1;
         }
         float sy = sqrt((b * b) + (d * d)) ;
         if(b < 0 || d < 0) {
           sy *= -1 ;
         }
 
-        translate(pos.x, pos.y) ;
-        scale(sx, sy) ;
+        translate(pos.x,pos.y);
+        scale(sx, sy);
       }
 
       // scale and rotate
       if(scale_bool && rotate_bool && !skew_bool) {
         // rotation
         if(d <= 0 ) {
-          angle += PI ;
+          angle += PI;
         }
         // scale
-        float sx_1 = a / cos(angle) ;
-        float sx_2 = -c / sin(angle) ;
-        float sy_1 = b / sin(angle) ;
-        float sy_2 = d / cos(angle) ;
+        float sx_1 = a /cos(angle);
+        float sx_2 = -c /sin(angle);
+        float sy_1 = b /sin(angle);
+        float sy_2 = d /cos(angle);
         
-        translate(pos) ;
-        rotate(-angle) ;
-        scale(sx_1, sy_2) ;
+        translate(pos);
+        rotate(-angle);
+        scale(sx_1,sy_2);
       }
       
       // SKEW
@@ -1653,16 +1652,16 @@ class ROPE_svg {
       if(skew_bool && !rotate_bool && !scale_bool) {
         // calcule the angle for skew-scaling
         // scale
-        float sx_1 = a / cos(angle) ;
-        float sx_2 = -c / sin(angle) ;
-        float sy_1 = b / sin(angle) ;
-        float sy_2 = d / cos(angle) ;
+        float sx_1 = a /cos(angle);
+        float sx_2 = -c /sin(angle);
+        float sy_1 = b /sin(angle);
+        float sy_2 = d /cos(angle);
 
-        translate(pos) ;
+        translate(pos);
 
-        shearX(c) ;
-        shearY(b) ;
-        scale(sx_1, sy_2) ;
+        shearX(c);
+        shearY(b);
+        scale(sx_1,sy_2);
         
       }
     }

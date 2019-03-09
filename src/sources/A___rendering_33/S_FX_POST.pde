@@ -1,7 +1,7 @@
 /**
 FILTER
 * 2018-2019
-* v 0.1.2
+* v 0.1.3
 * here is calling classic FX ROPE + FX FORCE FIELD
 */
 ArrayList<FX> fx_manager;
@@ -614,15 +614,15 @@ void update_fx_split_rgb(ArrayList<FX> fx_list, boolean move_is, vec2 str, float
   if(move_is) {
     vec2 strength = map(str.pow(2),0,1,0,6);
 
-    vec2 offset_red = vec2().wave_cos(frameCount,speed*.2,speed *.5);
+    vec2 offset_red = vec2().cos_wave(frameCount,speed*.2,speed *.5);
     offset_red.x = map(offset_red.x,-1,1,-strength.x,strength.x);
     offset_red.y = map(offset_red.y,-1,1,-strength.y,strength.y);
 
-    vec2 offset_green = vec2().wave_sin(frameCount,speed *.2,speed *.1);
+    vec2 offset_green = vec2().sin_wave(frameCount,speed *.2,speed *.1);
     offset_green.x = map(offset_green.x,-1,1,-strength.x,strength.x);
     offset_green.y = map(offset_green.y,-1,1,-strength.y,strength.y);
 
-    vec2 offset_blue = vec2().wave_cos(frameCount,speed*.1,speed *.2);
+    vec2 offset_blue = vec2().cos_wave(frameCount,speed*.1,speed *.2);
     offset_blue.x = map(offset_blue.x,-1,1,-strength.x,strength.x);
     offset_blue.y = map(offset_blue.y,-1,1,-strength.y,strength.y);
 

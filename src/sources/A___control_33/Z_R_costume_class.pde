@@ -2,8 +2,8 @@
 COSTUME class
 * Copyleft (c) 2019-2019
 * v 0.6.1
-* @author Stan le Punk
-* @see https://github.com/StanLepunK/Rope_method
+* @author @stanlepunk
+* @see https://github.com/StanLepunK/Rope_framework
 * Here you finf the class Costume and all the class shape used.
 * Processing 3.5.3
 */

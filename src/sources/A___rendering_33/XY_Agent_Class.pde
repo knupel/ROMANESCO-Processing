@@ -1,15 +1,14 @@
 /**
-CLASS AGENT 
-v 1.2.1
-2016-2019
-
+* CLASS AGENT 
+* v 1.2.2
+* 2016-2019
+* @author @stanlepunk
+* @see https://github.com/StanLepunK/Life
 */
-/**
 
 
-INTERFACE AGENT 0.1.2
-
-
+/*
+* INTERFACE AGENT 0.1.2
 */
 interface Agent {
   float CLOCK = 1.5 ;
@@ -629,7 +628,7 @@ abstract class Agent_model implements Agent {
       vec4 colour_starving = vec4() ;
       float ratio_speed_warning = .05 ;
       float alpha = abs(sin(frameCount *ratio_speed_warning)) ;
-      colour_starving.set(colour.r, colour.g, colour.b, colour.a *alpha) ;
+      colour_starving.set(colour.x, colour.y, colour.z, colour.w *alpha) ;
       info_visual(colour_info(colour_starving, satiate, pregnant, fertility)) ;
       info_text(colour_info(colour_starving, satiate, pregnant, fertility), size_text) ;
     } else {
@@ -870,21 +869,21 @@ Info_Object style ;
       temp_first.x = random_gaussian(temp_first.x, range_norm) ;
       temp_first.y = random_gaussian(temp_first.y, range_norm) ;
       temp_first.z = random_gaussian(temp_first.z, range_norm) ;
-      temp_first.a = random_gaussian(temp_first.a, range_norm) ;
+      temp_first.w = random_gaussian(temp_first.w, range_norm) ;
     }
     if (carac.get("second_colour") != null && carac.get("second_colour")[0].catch_obj(0) instanceof vec4) {
       temp_second = (vec4)carac.get("second_colour")[0].catch_obj(0) ;
       temp_second.x = random_gaussian(temp_second.x, range_norm) ;
       temp_second.y = random_gaussian(temp_second.y, range_norm) ;
       temp_second.z = random_gaussian(temp_second.z, range_norm) ;
-      temp_second.a = random_gaussian(temp_second.a, range_norm) ;
+      temp_second.w = random_gaussian(temp_second.w, range_norm) ;
     }
     if (carac.get("third_colour") != null && carac.get("third_colour")[0].catch_obj(0) instanceof vec4) {
       temp_third = (vec4)carac.get("third_colour")[0].catch_obj(0) ;
       temp_third.x = random_gaussian(temp_third.x, range_norm) ;
       temp_third.y = random_gaussian(temp_third.y, range_norm) ;
       temp_third.z = random_gaussian(temp_third.z, range_norm) ;
-      temp_third.a = random_gaussian(temp_third.a, range_norm) ;
+      temp_third.w = random_gaussian(temp_third.w, range_norm) ;
     }
     // melanin
     if (carac.get("melanin") != null && carac.get("melanin")[0].catch_obj(0) instanceof vec4) {
@@ -892,7 +891,7 @@ Info_Object style ;
       temp_melanin.x = random_gaussian(temp_melanin.x, range_norm) ;
       temp_melanin.y = random_gaussian(temp_melanin.y, range_norm) ;
       temp_melanin.z = random_gaussian(temp_melanin.z, range_norm) ;
-      temp_melanin.a = random_gaussian(temp_melanin.a, range_norm) ;
+      temp_melanin.w = random_gaussian(temp_melanin.w, range_norm) ;
     }
 
     // agent
@@ -1085,22 +1084,22 @@ Info_Object style ;
     data_float[12] = first_colour.x ;
     data_float[13] = first_colour.y ;
     data_float[14] = first_colour.z ;
-    data_float[15] = first_colour.a ;
+    data_float[15] = first_colour.w ;
 
     data_float[16] = second_colour.x ;
     data_float[17] = second_colour.y ;
     data_float[18] = second_colour.z ;
-    data_float[19] = second_colour.a ;
+    data_float[19] = second_colour.w ;
 
     data_float[20] = third_colour.x ;
     data_float[21] = third_colour.y ;
     data_float[22] = third_colour.z ;
-    data_float[23] = third_colour.a ;
+    data_float[23] = third_colour.w ;
 
     data_float[24] = melanin.x ;
     data_float[25] = melanin.y ;
     data_float[26] = melanin.z ;
-    data_float[27] = melanin.a ;
+    data_float[27] = melanin.w ;
 
     data_float[28] = density ;
 
@@ -1712,9 +1711,9 @@ COMMON HUNT & SEARCH
   }
   void rebound(vec6 limit, boolean rebound_on_limit) {
     if(ENVIRONMENT == 2 ) {
-      rebound(limit.a, limit.b, limit.c, limit.d, 0, 0, rebound_on_limit) ;
+      rebound(limit.a(), limit.b(), limit.c(), limit.d(), 0, 0, rebound_on_limit) ;
     } else if(ENVIRONMENT == 3) {
-      rebound(limit.a, limit.b, limit.c, limit.d, limit.e, limit.f, rebound_on_limit) ;
+      rebound(limit.a(), limit.b(), limit.c(), limit.d(), limit.e(), limit.f(), rebound_on_limit) ;
     }
   }
   
@@ -2238,21 +2237,21 @@ abstract class Agent_static extends Agent_model {
       temp_first.x = random_gaussian(temp_first.x, range_norm) ;
       temp_first.y = random_gaussian(temp_first.y, range_norm) ;
       temp_first.z = random_gaussian(temp_first.z, range_norm) ;
-      temp_first.a = random_gaussian(temp_first.a, range_norm) ;
+      temp_first.w = random_gaussian(temp_first.w, range_norm) ;
     }
     if (carac.get("second_colour") != null) {
       temp_second = (vec4)carac.get("second_colour")[0].catch_obj(0) ;
       temp_second.x = random_gaussian(temp_second.x, range_norm) ;
       temp_second.y = random_gaussian(temp_second.y, range_norm) ;
       temp_second.z = random_gaussian(temp_second.z, range_norm) ;
-      temp_second.a = random_gaussian(temp_second.a, range_norm) ;
+      temp_second.w = random_gaussian(temp_second.w, range_norm) ;
     }
     if (carac.get("third_colour") != null) {
       temp_third = (vec4)carac.get("second_colour")[0].catch_obj(0) ;
       temp_third.x = random_gaussian(temp_third.x, range_norm) ;
       temp_third.y = random_gaussian(temp_third.y, range_norm) ;
       temp_third.z = random_gaussian(temp_third.z, range_norm) ;
-      temp_third.a = random_gaussian(temp_third.a, range_norm) ;
+      temp_third.w = random_gaussian(temp_third.w, range_norm) ;
     }
 
      // melanin
@@ -2261,7 +2260,7 @@ abstract class Agent_static extends Agent_model {
       temp_melanin.x = random_gaussian(temp_melanin.x, range_norm) ;
       temp_melanin.y = random_gaussian(temp_melanin.y, range_norm) ;
       temp_melanin.z = random_gaussian(temp_melanin.z, range_norm) ;
-      temp_melanin.a = random_gaussian(temp_melanin.a, range_norm) ;
+      temp_melanin.w = random_gaussian(temp_melanin.w, range_norm) ;
     }
 
     this.name = temp_name ;

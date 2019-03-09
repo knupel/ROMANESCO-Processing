@@ -1,10 +1,9 @@
 /**
 Vec, iVec and bVec rope method
-v 0.3.0
+v 0.4.1
 * Copyleft (c) 2018-2019
-* Stan le Punk > http://stanlepunk.xyz/
-* @author Stan le Punk
-* @see https://github.com/StanLepunK/Rope
+* @author @stanlepunk
+* @see https://github.com/StanLepunK/Rope_framework
 */
 
 
@@ -1103,31 +1102,6 @@ vec2 norm_dir(String type, float direction) {
 
 
 
-/**
-translate int color to vec4 color
-*/
-vec4 color_hsba(int c) {
-  return vec4(hue(c), saturation(c), brightness(c), alpha(c)) ;
-}
-
-vec4 color_rgba(int c) {
-  return vec4(red(c), green(c), blue(c), alpha(c)) ;
-}
-
-vec3 color_hsb(int c) {
-  return vec3(hue(c), saturation(c), brightness(c)) ;
-}
-
-vec3 color_rgb(int c) {
-  return vec3(red(c), green(c), blue(c)) ;
-}
-
-
-
-
-
-
-
 
 
 
@@ -1155,7 +1129,7 @@ vec3 color_rgb(int c) {
 
 /**
 New Vec, iVec and bVec
-v 0.0.2
+v 0.0.3
 */
 
 /**
@@ -1194,7 +1168,7 @@ bvec2 bvec2(bvec b) {
     println("bVec null, instead 'false' is used to build bVec") ;
     return new bvec2(false,false) ;
   } else if(b instanceof bvec5 || b instanceof bvec6) {
-    return new bvec2(b.a,b.b) ;
+    return new bvec2(b.a(),b.b()) ;
   } else {
     return new bvec2(b.x,b.y) ;
   }
@@ -1231,8 +1205,6 @@ bvec3 bvec3(bvec b) {
   if(b == null) {
     println("bVec null, instead 'false' is used to build bVec") ;
     return new bvec3(false,false,false) ;
-  } else if(b instanceof bvec5 || b instanceof bvec6) {
-    return new bvec3(b.a,b.b,b.c) ;
   } else {
     return new bvec3(b.x,b.y,b.z) ;
   }
@@ -1271,8 +1243,6 @@ bvec4 bvec4(bvec b) {
   if(b == null) {
     println("bVec null, instead 'false' is used to build bVec") ;
     return new bvec4(false,false,false,false) ;
-  } else if(b instanceof bvec5 || b instanceof bvec6) {
-    return new bvec4(b.a,b.b,b.c,b.d) ;
   } else {
     return new bvec4(b.x,b.y,b.z,b.w) ;
   }
@@ -1314,7 +1284,7 @@ bvec5 bvec5(bvec b) {
     println("bVec null, instead 'false' is used to build bVec") ;
     return new bvec5(false,false,false,false,false) ;
   } else if(b instanceof bvec5 || b instanceof bvec6) {
-    return new bvec5(b.a,b.b,b.c,b.d,b.e) ;
+    return new bvec5(b.a(),b.b(),b.c(),b.d(),b.e) ;
   } else {
     return new bvec5(b.x,b.y,b.z,b.w,false) ;
   }
@@ -1358,7 +1328,7 @@ bvec6 bvec6(bvec b) {
     println("bVec null, instead 'false' is used to build bVec") ;
     return new bvec6(false,false,false,false,false,false) ;
   } else if(b instanceof bvec5 || b instanceof bvec6) {
-    return new bvec6(b.a,b.b,b.c,b.d,b.e,b.f) ;
+    return new bvec6(b.a(),b.b(),b.c(),b.d(),b.e,b.f) ;
   } else {
     return new bvec6(b.x,b.y,b.z,b.w,false,false) ;
   }
@@ -1421,8 +1391,6 @@ ivec2 ivec2(ivec p) {
   if(p == null) {
     println("iVec null, instead '0' is used to build iVec") ;
     return new ivec2(0,0) ;
-  } else if(p instanceof ivec5 || p instanceof ivec6) {
-    return new ivec2(p.a,p.b) ;
   } else {
     return new ivec2(p.x,p.y) ;
   }
@@ -1450,8 +1418,6 @@ ivec2 ivec2(vec p) {
   if(p == null) {
     println("Vec null, instead '0' is used to build iVec") ;
     return new ivec2(0,0) ;
-  } else if(p instanceof vec5 || p instanceof vec6) {
-    return new ivec2(int(p.a),int(p.b));
   } else {
     return new ivec2(int(p.x),int(p.y));
   }
@@ -1505,8 +1471,6 @@ ivec3 ivec3(ivec p) {
   if(p == null) {
     println("iVec null, instead '0' is used to build iVec") ;
     return new ivec3(0,0,0) ;
-  } else if(p instanceof ivec5 || p instanceof ivec6) {
-    return new ivec3(p.a,p.b,p.c) ;
   } else {
     return new ivec3(p.x,p.y,p.z) ;
   }
@@ -1536,8 +1500,6 @@ ivec3 ivec3(vec p) {
   if(p == null) {
     println("Vec null, instead '0' is used to build iVec") ;
     return new ivec3(0,0,0) ;
-  } else if(p instanceof vec5 || p instanceof vec6) {
-    return new ivec3(int(p.a),int(p.b),int(p.c));
   } else {
     return new ivec3(int(p.x),int(p.y),int(p.z));
   }
@@ -1576,8 +1538,6 @@ ivec4 ivec4(ivec p) {
   if(p == null) {
     println("iVec null, instead '0' is used to build iVec") ;
     return new ivec4(0,0,0,0) ;
-  } else if(p instanceof ivec5 || p instanceof ivec6) {
-    return new ivec4(p.a,p.b,p.c,p.d) ;
   } else {
     return new ivec4(p.x,p.y,p.z,p.w) ;
   }
@@ -1610,8 +1570,6 @@ ivec4 ivec4(vec p) {
   if(p == null) {
     println("Vec null, instead '0' is used to build iVec") ;
     return new ivec4(0,0,0,0) ;
-  } else if(p instanceof vec5 || p instanceof vec6) {
-    return new ivec4(int(p.a),int(p.b),int(p.c),int(p.d));
   } else {
     return new ivec4(int(p.x),int(p.y),int(p.z),int(p.w));
   }
@@ -1653,7 +1611,7 @@ ivec5 ivec5(ivec p) {
     println("iVec null, instead '0' is used to build iVec") ;
     return new ivec5(0,0,0,0,0) ;
   } else if(p instanceof ivec5 || p instanceof ivec6) {
-    return new ivec5(p.a,p.b,p.c,p.d,p.e) ;
+    return new ivec5(p.a(),p.b(),p.c(),p.d(),p.e) ;
   } else {
     return new ivec5(p.x,p.y,p.z,p.w,0) ;
   }
@@ -1664,7 +1622,7 @@ ivec5 ivec5(vec p) {
     println("Vec null, instead '0' is used to build iVec") ;
     return new ivec5(0,0,0,0,0) ;
   } else if(p instanceof vec5 || p instanceof vec6) {
-    return new ivec5(int(p.a),int(p.b),int(p.c),int(p.d),int(p.e));
+    return new ivec5(int(p.a()),int(p.b()),int(p.c()),int(p.d()),int(p.e));
   } else {
     return new ivec5(int(p.x),int(p.y),int(p.z),int(p.w),0);
   }
@@ -1708,7 +1666,7 @@ ivec6 ivec6(ivec p) {
     println("iVec null, instead '0' is used to build iVec") ;
     return new ivec6(0,0,0,0,0,0) ;
   } else if(p instanceof ivec5 || p instanceof ivec6) {
-    return new ivec6(p.a,p.b,p.c,p.d,p.e,p.f) ;
+    return new ivec6(p.a(),p.b(),p.c(),p.d(),p.e,p.f) ;
   } else {
     return new ivec6(p.x,p.y,p.z,p.w,0,0) ;
   }
@@ -1719,7 +1677,7 @@ ivec6 ivec6(vec p) {
     println("Vec null, instead '0' is used to build iVec") ;
     return new ivec6(0,0,0,0,0,0) ;
   } else if(p instanceof vec5 || p instanceof vec6) {
-    return new ivec6(int(p.a),int(p.b),int(p.c),int(p.d),int(p.e),int(p.f));
+    return new ivec6(int(p.a()),int(p.b()),int(p.c()),int(p.d()),int(p.e),int(p.f));
   } else {
     return new ivec6(int(p.x),int(p.y),int(p.z),int(p.w),0,0);
   }
@@ -1797,8 +1755,6 @@ vec2 vec2(PVector p) {
 vec2 vec2(vec p) {
   if(p == null) {
     return new vec2(0,0);
-  } else if(p instanceof vec5 || p instanceof vec6) {
-    return new vec2(p.a,p.b);
   } else {
     return new vec2(p.x,p.y);
   }
@@ -1808,8 +1764,6 @@ vec2 vec2(vec p) {
 vec2 vec2(ivec p) {
   if(p == null) {
     return new vec2(0,0);
-  } else if(p instanceof ivec5 || p instanceof ivec6) {
-    return new vec2(p.a,p.b);
   } else {
     return new vec2(p.x,p.y);
   }
@@ -1883,8 +1837,6 @@ vec3 vec3(PVector p) {
 vec3 vec3(vec p) {
   if(p == null) {
     return new vec3(0,0,0);
-  } else if(p instanceof vec5 || p instanceof vec6) {
-    return new vec3(p.a,p.b,p.c);
   } else {
     return new vec3(p.x,p.y,p.z);
   }
@@ -1893,8 +1845,6 @@ vec3 vec3(vec p) {
 vec3 vec3(ivec p) {
   if(p == null) {
     return new vec3(0,0,0);
-  } else if(p instanceof ivec5 || p instanceof ivec6) {
-    return new vec3(p.a,p.b,p.c);
   } else {
     return new vec3(p.x,p.y,p.z);
   }
@@ -1956,8 +1906,6 @@ vec4 vec4(PVector p) {
 vec4 vec4(vec p) {
   if(p == null) {
     return new vec4(0,0,0,0);
-  } else if(p instanceof vec5 || p instanceof vec6) {
-    return new vec4(p.a,p.b,p.c,p.d);
   } else {
     return new vec4(p.x,p.y,p.z,p.w);
   }
@@ -1966,8 +1914,6 @@ vec4 vec4(vec p) {
 vec4 vec4(ivec p) {
   if(p == null) {
     return new vec4(0,0,0,0);
-  } else if(p instanceof ivec5 || p instanceof ivec6) {
-    return new vec4(p.a,p.b,p.c,p.d);
   } else {
     return new vec4(p.x,p.y,p.z,p.w);
   }
@@ -2034,7 +1980,7 @@ vec5 vec5(vec p) {
   if(p == null) {
     return new vec5(0,0,0,0,0);
   } else if(p instanceof vec5 || p instanceof vec6) {
-    return new vec5(p.a,p.b,p.c,p.d,p.e);
+    return new vec5(p.a(),p.b(),p.c(),p.d(),p.e);
   } else {
     return new vec5(p.x,p.y,p.z,p.w,p.e);
   }
@@ -2044,7 +1990,7 @@ vec5 vec5(ivec p) {
   if(p == null) {
     return new vec5(0,0,0,0,0);
   }  else if(p instanceof ivec5 || p instanceof ivec6) {
-    return new vec5(p.a,p.b,p.c,p.d,p.e);
+    return new vec5(p.a(),p.b(),p.c(),p.d(),p.e);
   } else {
     return new vec5(p.x,p.y,p.z,p.w,p.e);
   }
@@ -2114,7 +2060,7 @@ vec6 vec6(vec p) {
   if(p == null) {
     return new vec6(0,0,0,0,0,0);
   } else if(p instanceof vec5 || p instanceof vec6) {
-    return new vec6(p.a,p.b,p.c,p.d,p.e,p.f);
+    return new vec6(p.a(),p.b(),p.c(),p.d(),p.e,p.f);
   } else {
     return new vec6(p.x,p.y,p.z,p.w,p.e,p.f);
   }
@@ -2124,7 +2070,7 @@ vec6 vec6(ivec p) {
   if(p == null) {
     return new vec6(0,0,0,0,0,0) ;
   } else if(p instanceof ivec5 || p instanceof ivec6) {
-    return new vec6(p.a,p.b,p.c,p.d,p.e,p.f);
+    return new vec6(p.a(),p.b(),p.c(),p.d(),p.e,p.f);
   } else {
     return new vec6(p.x,p.y,p.z,p.w,p.e,p.f);
   }

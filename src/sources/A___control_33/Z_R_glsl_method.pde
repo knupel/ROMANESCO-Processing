@@ -2,9 +2,8 @@
 ROPE GLSL METHOD
 v 0.0.6
 * Copyleft (c) 2019-2019
-* Stan le Punk > http://stanlepunk.xyz/
-* @author Stan le Punk
-* @see https://github.com/StanLepunK/Rope_method
+* @author @stanlepunk
+* @see https://github.com/StanLepunK/Rope_framework
 */
 
 /**

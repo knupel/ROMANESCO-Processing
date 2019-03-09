@@ -1,7 +1,7 @@
 /**
-VARIABLE RENDERING
-2015-2019
-v 1.11.0
+* VARIABLE
+* 2015-2019
+* v 1.11.1
 */
 boolean scene, prescene;
 boolean miroir_on_off = false;
@@ -588,14 +588,14 @@ void init_variable_item_min_max() {
   for(Romanesco item : rom_manager.get()) {
     // COL 1
     item.set_fill_hue_min_max(0,MAX_VALUE_SLIDER,0,360);
-    item.set_fill_sat_min_max(0,MAX_VALUE_SLIDER,0,HSBmode.g);
-    item.set_fill_bright_min_max(0,MAX_VALUE_SLIDER,0,HSBmode.b);
-    item.set_fill_alpha_min_max(0,MAX_VALUE_SLIDER,0,HSBmode.a);
+    item.set_fill_sat_min_max(0,MAX_VALUE_SLIDER,0,HSBmode.sat());
+    item.set_fill_bright_min_max(0,MAX_VALUE_SLIDER,0,HSBmode.bri());
+    item.set_fill_alpha_min_max(0,MAX_VALUE_SLIDER,0,HSBmode.alp());
 
     item.set_stroke_hue_min_max(0,MAX_VALUE_SLIDER,0,360);
-    item.set_stroke_sat_min_max(0,MAX_VALUE_SLIDER,0,HSBmode.g);
-    item.set_stroke_bright_min_max(0,MAX_VALUE_SLIDER,0,HSBmode.b);
-    item.set_stroke_alpha_min_max(0,MAX_VALUE_SLIDER,0,HSBmode.a);
+    item.set_stroke_sat_min_max(0,MAX_VALUE_SLIDER,0,HSBmode.sat());
+    item.set_stroke_bright_min_max(0,MAX_VALUE_SLIDER,0,HSBmode.bri());
+    item.set_stroke_alpha_min_max(0,MAX_VALUE_SLIDER,0,HSBmode.alp());
 
     item.set_thickness_min_max(0,MAX_VALUE_SLIDER,min_size,max_size *ratio_min_centi);
     item.set_size_x_min_max(0,MAX_VALUE_SLIDER,max_size *ratio_min_milli,max_size);

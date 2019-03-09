@@ -1,8 +1,7 @@
 /**
-LIGHT SHADER 
-Prescene and Scene
-V 1.4.3
-2015-2019
+* LIGHT SHADER 
+* 1.4.4
+* 2015-2019
 */
 vec3 var_light_pos  ;
 vec3 var_light_dir  ;
@@ -121,7 +120,10 @@ void light_update_position_direction() {
 void light_display() {
   // ambient light
   if(on_off_light[0]){ 
-    vec4 newRef = vec4(map(color_setting [0].r,0,MAX_VALUE_SLIDER,0,HSBmode.r), map(color_setting [0].g,0,MAX_VALUE_SLIDER,0,HSBmode.g), map(color_setting [0].b,0,MAX_VALUE_SLIDER,0,HSBmode.b),HSBmode.a) ;
+    vec4 newRef = vec4( map(color_setting [0].hue(),0,MAX_VALUE_SLIDER,0,HSBmode.hue()), 
+                        map(color_setting[0].sat(),0,MAX_VALUE_SLIDER,0,HSBmode.sat()), 
+                        map(color_setting [0].bri(),0,MAX_VALUE_SLIDER,0,HSBmode.bri()),
+                        HSBmode.alp()) ;
     if(!compare(newRef, color_light_ref[0])) color_light[0] = newRef.copy() ;
     color_light_ref[0] = newRef.copy() ;
     ambientLightPix(color_light[0]) ;
@@ -134,10 +136,10 @@ void light_display() {
 
   // display light
   if(on_off_light[1]) {
-    light_spot_display(color_light[1], pos_light[1], dir_light[1], angle, concentration) ;
+    light_spot_display(color_light[1], pos_light[1], dir_light[1], angle, concentration);
   }
   if(on_off_light[2]) {
-    light_spot_display(color_light[2], pos_light[2], dir_light[2], angle, concentration) ;
+    light_spot_display(color_light[2], pos_light[2], dir_light[2], angle, concentration);
   }
 }
 
@@ -145,15 +147,14 @@ void light_display() {
 
 void shader_draw() {
   // Color value fro the global vertex
-  vec4 RGBa = new vec4(1, 1, 1, .5) ; // it's OPENGL data between 0 to 1, the range is between -1 to 1, you can go beyond but take care at your life !
-  PVector RGB = new PVector(RGBa.r, RGBa.g, RGBa.b);
+  vec4 rgba = new vec4(1,1,1,.5) ; // it's OPENGL data between 0 to 1, the range is between -1 to 1, you can go beyond but take care at your life !
 
-  light_shader.set("colorVertex", RGB);
-  light_shader.set("alphaVertex", RGBa.a);
+  light_shader.set("colorVertex",rgba.red(),rgba.gre(),rgba.blu());
+  light_shader.set("alphaVertex",rgba.alp());
   
   // vertex position
-  PVector canvasXYZ = new PVector (1,1,1) ;
-  light_shader.set("canvas", canvasXYZ);
+  vec3 canvas = vec3(1,1,1) ;
+  light_shader.set("canvas",canvas.x,canvas.y,canvas.z);
   light_shader.set("zoom", 1.);
 }
 
@@ -189,11 +190,10 @@ open a list of lights with a max of height lights
 Here we use a direction of light
 */
 void light_directional_display(vec4 rgba, vec3 dir) {
-  rgba = check_colorMode_for_alpha(rgba).copy() ;
-  directionalLight(rgba.r, rgba.g, rgba.b, dir.x, dir.y, dir.z);
+  rgba = check_colorMode_for_alpha(rgba).copy();
+  directionalLight(rgba.red(),rgba.gre(),rgba.blu(),dir.x,dir.y,dir.z);
 }
 // END DIRECTIONAL LIGHT
-////////////////////////
 
 
 
@@ -202,18 +202,16 @@ void light_directional_display(vec4 rgba, vec3 dir) {
 
 
 // AMBIENT LIGHT
-/////////////////
 void ambientLightPix(vec4 rgba) {
-  rgba = check_colorMode_for_alpha(rgba).copy() ;
-  ambientLight(rgba.r, rgba.g, rgba.b);
+  rgba = check_colorMode_for_alpha(rgba).copy();
+  ambientLight(rgba.red(),rgba.gre(),rgba.blu());
 }
 
 void ambientLightPix(vec4 rgba, vec3 pos) {
-  rgba = check_colorMode_for_alpha(rgba).copy() ;
-  ambientLight(rgba.r, rgba.g, rgba.b, pos.x, pos.y, pos.z);
+  rgba = check_colorMode_for_alpha(rgba).copy();
+  ambientLight(rgba.red(),rgba.gre(),rgba.blu(),pos.x,pos.y,pos.z);
 }
-// END AMBIENT LIGHT
-////////////////////
+
 
 
 
@@ -228,8 +226,8 @@ void ambientLightPix(vec4 rgba, vec3 pos) {
 Here we use a position of light
 */
 void light_point_display(vec4 rgba, vec3 pos) {
-  rgba = check_colorMode_for_alpha(rgba).copy() ;
-  pointLight(rgba.r, rgba.g, rgba.b, pos.x, pos.y, pos.z);
+  rgba = check_colorMode_for_alpha(rgba).copy();
+  pointLight(rgba.red(),rgba.gre(),rgba.blu(), pos.x,pos.y,pos.z);
 }
 
 
@@ -238,7 +236,7 @@ SPOT LIGHT
 */
 void light_spot_display(vec4 rgba, vec3 pos, vec3 dir, float angle, float concentration) {
   rgba = check_colorMode_for_alpha(rgba).copy() ;
-  spotLight(rgba.r, rgba.g, rgba.b, pos.x, pos.y, pos.z, dir.x, dir.y, dir.z, angle, concentration) ;
+  spotLight(rgba.red(),rgba.gre(),rgba.blu(), pos.x,pos.y,pos.z, dir.x,dir.y,dir.z, angle, concentration) ;
 }
 
 
@@ -258,7 +256,9 @@ vec4 light_color(vec3 value, int max, vec4 color_univers, vec4 color_light, vec4
 vec3 light_direction(vec3 var, vec6 range3D, boolean authorization, vec3 dir, vec3 dir_ref) {
   if(authorization) {
     
-    vec3 newRefDir = vec3(map(var.x,range3D.a,range3D.b, -1,1),map(var.y,range3D.c,range3D.d, -1,1),map(var.z,range3D.e,range3D.f, -1,1)) ;
+    vec3 newRefDir = vec3(map(var.x,range3D.a(),range3D.b(), -1,1),
+                          map(var.y,range3D.c(),range3D.d(), -1,1),
+                          map(var.z,range3D.e(),range3D.f(), -1,1)) ;
     if(!compare(newRefDir, dir_ref)) dir = newRefDir.copy() ;
     dir_ref = newRefDir.copy() ; 
   }
@@ -269,7 +269,9 @@ vec3 light_direction(vec3 var, vec6 range3D, boolean authorization, vec3 dir, ve
 // update position
 vec3 light_position(vec3 var, vec6 range3D, vec6 range3D_target,boolean authorization, vec3 pos, vec3 pos_ref) {
   if(authorization) {
-    vec3 newRefPos = vec3(map(var.x,range3D.a,range3D.b, range3D_target.a,range3D_target.b),map(var.y,range3D.c,range3D.d, range3D_target.c,range3D_target.d),map(var.z,range3D.e,range3D.f, range3D_target.e,range3D_target.f)) ;
+    vec3 newRefPos = vec3(map(var.x,range3D.a(),range3D.b(), range3D_target.a(),range3D_target.b()),
+                          map(var.y,range3D.c(),range3D.d(), range3D_target.c(),range3D_target.d()),
+                          map(var.z,range3D.e(),range3D.f(), range3D_target.e(),range3D_target.f())) ;
     if(!compare(newRefPos, pos_ref)) pos = newRefPos.copy() ;
     pos_ref = newRefPos.copy() ; 
   }
@@ -280,15 +282,27 @@ vec3 light_position(vec3 var, vec6 range3D, vec6 range3D_target,boolean authoriz
 check the color mode of your skecth, if this one is on RGB, you must apply the alpha on RGB component, else in HSB you must apply only on SB components 
 */
 vec4 check_colorMode_for_alpha(vec4 rgba) {
-  float alphaNormal = map(rgba.a,0,g.colorModeA,0,1) ;
+  float alpha_norm = map(rgba.alp(),0,g.colorModeA,0,1);
 
-  if(g.colorMode == 1 ) {
-    rgba.r *= alphaNormal ;
-    rgba.g *= alphaNormal ;
-    rgba.b *= alphaNormal; 
+  if(g.colorMode == 1) {
+    // rgba.x *= alpha_norm;
+    // rgba.y *= alpha_norm;
+    // rgba.z *= alpha_norm; 
+
+    // rgba.r *= alphaNormal; // before earthquake ROPE 0.3.0
+    // rgba.g *= alphaNormal; // before earthquake ROPE 0.3.0
+    // rgba.b *= alphaNormal; // before earthquake ROPE 0.3.0
+    rgba.red(rgba.x *alpha_norm);
+    rgba.gre(rgba.y *alpha_norm);
+    rgba.blu(rgba.z *alpha_norm);
   } else {
-    rgba.g *= alphaNormal ; 
-    rgba.b *= alphaNormal  ;
+    rgba.sat(rgba.y *alpha_norm);
+    rgba.bri(rgba.z *alpha_norm);
+    // rgba.y *= alpha_norm; 
+    // rgba.z *= alpha_norm;
+
+    // rgba.g *= alphaNormal; // before earthquake ROPE 0.3.0
+    // rgba.b *= alphaNormal; // before earthquake ROPE 0.3.0
   }
   return rgba ;
 }

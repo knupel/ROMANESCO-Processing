@@ -2,11 +2,10 @@
 Rope UTILS 
 v 1.56.2
 * Copyleft (c) 2014-2019
-* Stan le Punk > http://stanlepunk.xyz/
 Rope – Romanesco Processing Environment – 
 Processing 3.5.3
-* @author Stan le Punk
-* @see https://github.com/StanLepunK/Rope
+* @author @stanlepunk
+* @see https://github.com/StanLepunK/Rope_framework
 */
 
 

@@ -1,8 +1,7 @@
 /**
-Romanesco Manager
-Prescene and Scene
-2013-2019
-v 1.7.1
+* Romanesco Manager
+* 2013-2019
+* v 1.7.2
 */
 Romanesco_manager rom_manager;
 
@@ -211,85 +210,85 @@ void update_slider_value_aspect(boolean init, Romanesco item) {
     // FILL part
     bvec4 fill_is = bvec4();
     // check hsba value
-    if(fill_local_ref.r != fill_hue_raw) fill_is.x = true;
-    if(fill_local_ref.g != fill_sat_raw) fill_is.y = true;
-    if(fill_local_ref.b != fill_bright_raw) fill_is.z = true;
-    if(fill_local_ref.a != fill_alpha_raw) fill_is.w = true;
+    if(fill_local_ref.hue() != fill_hue_raw) fill_is.x = true;
+    if(fill_local_ref.sat() != fill_sat_raw) fill_is.y = true;
+    if(fill_local_ref.bri() != fill_bright_raw) fill_is.z = true;
+    if(fill_local_ref.alp() != fill_alpha_raw) fill_is.w = true;
 
     if(fill_is.x) {
-      item.set_fill(fill_hue_raw,fill_item_ref[id].g,fill_item_ref[id].b,fill_item_ref[id].a);
+      item.set_fill(fill_hue_raw,fill_item_ref[id].sat(),fill_item_ref[id].bri(),fill_item_ref[id].alp());
       fill_item_ref[id] = to_hsba(item.get_fill());
     }
 
     if(fill_is.y) {
-      item.set_fill(fill_item_ref[id].r,fill_sat_raw,fill_item_ref[id].b,fill_item_ref[id].a);
+      item.set_fill(fill_item_ref[id].hue(),fill_sat_raw,fill_item_ref[id].bri(),fill_item_ref[id].alp());
       fill_item_ref[id] = to_hsba(item.get_fill());
     }
 
     if(fill_is.z) {
-      item.set_fill(fill_item_ref[id].r,fill_item_ref[id].g,fill_bright_raw,fill_item_ref[id].a);
+      item.set_fill(fill_item_ref[id].hue(),fill_item_ref[id].sat(),fill_bright_raw,fill_item_ref[id].alp());
       fill_item_ref[id] = to_hsba(item.get_fill());
     }
 
     if(fill_is.w) {
-      item.set_fill(fill_item_ref[id].r,fill_item_ref[id].g,fill_item_ref[id].b,fill_alpha_raw); 
+      item.set_fill(fill_item_ref[id].hue(),fill_item_ref[id].sat(),fill_item_ref[id].bri(),fill_alpha_raw); 
       fill_item_ref[id] = to_hsba(item.get_fill());
     }
 
     // zero security value
-    if(fill_item_ref[id].r == 0) {
-      fill_item_ref[id].r = fill_hue_raw;
+    if(fill_item_ref[id].hue() == 0) {
+      fill_item_ref[id].hue(fill_hue_raw);
     }
 
-    if(fill_item_ref[id].g == 0) {
-      fill_item_ref[id].g = fill_sat_raw;
+    if(fill_item_ref[id].sat() == 0) {
+      fill_item_ref[id].sat(fill_sat_raw);
     }
 
-    if(fill_item_ref[id].b == 0) {
-      fill_item_ref[id].b = fill_bright_raw;
+    if(fill_item_ref[id].bri() == 0) {
+      fill_item_ref[id].bri(fill_bright_raw);
     }
     
     // STROKE part
     bvec4 stroke_is = bvec4();
     // check hsba value
-    if(stroke_local_ref.r != stroke_hue_raw) stroke_is.x = true;
-    if(stroke_local_ref.g != stroke_sat_raw) stroke_is.y = true;
-    if(stroke_local_ref.b != stroke_bright_raw) stroke_is.z = true;
-    if(stroke_local_ref.a != stroke_alpha_raw) stroke_is.w = true;
+    if(stroke_local_ref.hue() != stroke_hue_raw) stroke_is.x = true;
+    if(stroke_local_ref.sat() != stroke_sat_raw) stroke_is.y = true;
+    if(stroke_local_ref.bri() != stroke_bright_raw) stroke_is.z = true;
+    if(stroke_local_ref.alp() != stroke_alpha_raw) stroke_is.w = true;
     
 
     if(stroke_is.x) {
-      item.set_stroke(stroke_hue_raw,stroke_item_ref[id].g,stroke_item_ref[id].b,stroke_item_ref[id].a);
+      item.set_stroke(stroke_hue_raw,stroke_item_ref[id].sat(),stroke_item_ref[id].bri(),stroke_item_ref[id].alp());
       stroke_item_ref[id] = to_hsba(item.get_stroke());
     }
 
     if(stroke_is.y) {
-      item.set_stroke(stroke_item_ref[id].r,stroke_sat_raw,stroke_item_ref[id].b,stroke_item_ref[id].a);
+      item.set_stroke(stroke_item_ref[id].hue(),stroke_sat_raw,stroke_item_ref[id].bri(),stroke_item_ref[id].alp());
       stroke_item_ref[id] = to_hsba(item.get_stroke());
     }
 
     if(stroke_is.z) {
-      item.set_stroke(stroke_item_ref[id].r,stroke_item_ref[id].g,stroke_bright_raw,stroke_item_ref[id].a);
+      item.set_stroke(stroke_item_ref[id].hue(),stroke_item_ref[id].sat(),stroke_bright_raw,stroke_item_ref[id].alp());
       stroke_item_ref[id] = to_hsba(item.get_stroke());
     }
 
     if(stroke_is.w) {
-      item.set_stroke(stroke_item_ref[id].r,stroke_item_ref[id].g,stroke_item_ref[id].b,stroke_alpha_raw); 
+      item.set_stroke(stroke_item_ref[id].hue(),stroke_item_ref[id].sat(),stroke_item_ref[id].bri(),stroke_alpha_raw); 
       stroke_item_ref[id] = to_hsba(item.get_stroke());
     }
 
 
     // zero security value
-    if(stroke_item_ref[id].r == 0) {
-      stroke_item_ref[id].r = stroke_hue_raw;
+    if(stroke_item_ref[id].hue() == 0) {
+      stroke_item_ref[id].hue(stroke_hue_raw);
     }
 
-    if(stroke_item_ref[id].g == 0) {
-      stroke_item_ref[id].g = stroke_sat_raw;
+    if(stroke_item_ref[id].sat() == 0) {
+      stroke_item_ref[id].sat(stroke_sat_raw);
     }
 
-    if(stroke_item_ref[id].b == 0) {
-      stroke_item_ref[id].b = stroke_bright_raw;
+    if(stroke_item_ref[id].bri() == 0) {
+      stroke_item_ref[id].bri(stroke_bright_raw);
     }
 
     // thickness

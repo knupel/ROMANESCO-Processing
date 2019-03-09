@@ -410,7 +410,7 @@ boolean hue_range(float min, float max, int colour) {
 
 
 /**
-convert color 0.2.0
+convert color 0.3.0
 */
 vec3 hsb_to_rgb(float hue, float saturation, float brightness) {
   vec4 ref = vec4(g.colorModeX, g.colorModeY, g.colorModeY, g.colorModeA);
@@ -419,7 +419,7 @@ vec3 hsb_to_rgb(float hue, float saturation, float brightness) {
   colorMode(RGB,255) ;
   vec3 rgb = vec3(red(c),green(c),blue(c)) ;
   // return to the previous colorMode
-  colorMode(HSB,ref.r, ref.g, ref.b, ref.a) ;
+  colorMode(HSB,ref.x,ref.y,ref.z,ref.w) ;
   return rgb;
 }
 

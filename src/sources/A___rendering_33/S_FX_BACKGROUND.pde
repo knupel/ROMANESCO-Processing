@@ -1,6 +1,6 @@
 /**
 * FX BACKGROUND
-* v 1.2.2
+* v 1.2.4
 * 2019-2019
 */
 ArrayList<FX> fx_background_manager;
@@ -462,8 +462,8 @@ void write_fx_backgound_index(ArrayList<FX> fx_list) {
 
 /** 
 * BACKGROUND
-* 2013-2016
-* v 1.0.0
+* 2013-2019
+* v 1.0.1
 */
 vec4 colorBackground, colorBackgroundRef, colorBackgroundPrescene;
 void init_background() {
@@ -510,18 +510,13 @@ void background_romanesco() {
           fx_background(which_shader); 
         }
       } else {
-        // println("ALIEN is in the NOSTROMO",background_romanesco,frameCount);
-        // println("ALIEN is coming width",background_romanesco.width);
-        // println("ALIEN is coming height",background_romanesco.height);
-        // println("ALIEN is coming pixels",background_romanesco.pixels);
-        if(background_romanesco.pixels == null) {
-          background_romanesco.loadPixels();
+        if(background_romanesco.width > 0 && background_romanesco.height > 0) {
+          if(background_romanesco.pixels == null) {
+            background_romanesco.loadPixels();
+          }
+          background(background_romanesco,mode_bg_romanesco);
         }
-        // println("ALIEN is coming length",background_romanesco.pixels.length);
-        // println("ALIEN is coming mode",mode_bg_romanesco);
-        // println("CENTER",CENTER);
-        // println("SCREEN",SCREEN);
-        background(background_romanesco,mode_bg_romanesco);
+        
       }
     }
     set_background(null,0);
@@ -532,14 +527,14 @@ void background_romanesco() {
 vec4 update_background() {
   //to smooth the curve of transparency background
   // HSB
-  float hue_bg = map(value_slider_background[0],0,MAX_VALUE_SLIDER,0,HSBmode.r);
-  float saturation_bg = map(value_slider_background[1],0,MAX_VALUE_SLIDER,0,HSBmode.g);
-  float brigthness_bg = map(value_slider_background[2],0,MAX_VALUE_SLIDER,0,HSBmode.b);
+  float hue_bg = map(value_slider_background[0],0,MAX_VALUE_SLIDER,0,HSBmode.hue());
+  float saturation_bg = map(value_slider_background[1],0,MAX_VALUE_SLIDER,0,HSBmode.sat());
+  float brigthness_bg = map(value_slider_background[2],0,MAX_VALUE_SLIDER,0,HSBmode.bri());
   // ALPHA
   float factorSmooth = 2.5;
   float nx = norm(value_slider_background[3],.0,MAX_VALUE_SLIDER);
   float alpha = pow (nx, factorSmooth);
-  alpha = map(alpha,0,1,.8,HSBmode.a);
+  alpha = map(alpha,0,1,.8,HSBmode.alp());
   return vec4(hue_bg,saturation_bg,brigthness_bg,alpha) ;
 }
 

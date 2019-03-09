@@ -1,9 +1,8 @@
-
 /**
-CLASS PIX 
-v 0.10.0
-2016-2018
-* @author Stan le Punk
+* CLASS PIX 
+* v 0.10.1
+* 2016-2018
+* @author @stanlepunk
 * @see https://github.com/StanLepunK/Pixel
 */
 
@@ -391,47 +390,47 @@ abstract class Pix implements rope.core.RConstants {
   // HSB change
   void set_hue(int new_hue, int start, int end, boolean use_new_colour) {
     float hue_temp ; ;
-    if(!use_new_colour) hue_temp = set_color_component_from_specific_component("hue", colour.r, new_hue, start, end) ; 
-    else hue_temp = set_color_component_from_specific_component("hue", new_colour.r, new_hue, start, end) ;
+    if(!use_new_colour) hue_temp = set_color_component_from_specific_component("hue", colour.hue(), new_hue, start, end) ; 
+    else hue_temp = set_color_component_from_specific_component("hue", new_colour.hue(), new_hue, start, end) ;
     new_colour = vec4(hue_temp, new_colour.y, new_colour.z, new_colour.w)  ;
   }
   void set_saturation(int new_saturation, int start, int end, boolean use_new_colour) {
     float saturation_temp ;
-    if(!use_new_colour) saturation_temp = set_color_component_from_specific_component("saturation", colour.g, new_saturation, start, end) ;
-    else saturation_temp = set_color_component_from_specific_component("saturation", new_colour.g, new_saturation, start, end) ;
+    if(!use_new_colour) saturation_temp = set_color_component_from_specific_component("saturation", colour.sat(), new_saturation, start, end) ;
+    else saturation_temp = set_color_component_from_specific_component("saturation", new_colour.sat(), new_saturation, start, end) ;
     new_colour = vec4(new_colour.x, saturation_temp, new_colour.z, new_colour.w)  ;
   }
   void set_brightness(int new_brightness, int start, int end, boolean use_new_colour) {
     float brightness_temp ;
-    if(!use_new_colour) brightness_temp = set_color_component_from_specific_component("brightness", colour.b, new_brightness, start, end) ;
-    else brightness_temp = set_color_component_from_specific_component("brightness", new_colour.b, new_brightness, start, end) ;
+    if(!use_new_colour) brightness_temp = set_color_component_from_specific_component("brightness", colour.bri(), new_brightness, start, end) ;
+    else brightness_temp = set_color_component_from_specific_component("brightness", new_colour.bri(), new_brightness, start, end) ;
     new_colour = vec4(new_colour.x, new_colour.y, brightness_temp, new_colour.w)  ;
   }
   // RGB change
   void set_red(int new_red, int start, int end, boolean use_new_colour) {
     float red_temp ;
-    if(!use_new_colour) red_temp = set_color_component_from_specific_component("red", colour.r, new_red, start, end) ;
-    else red_temp = set_color_component_from_specific_component("red", new_colour.r, new_red, start, end) ;
+    if(!use_new_colour) red_temp = set_color_component_from_specific_component("red", colour.red(), new_red, start, end) ;
+    else red_temp = set_color_component_from_specific_component("red", new_colour.red(), new_red, start, end) ;
     new_colour = vec4(red_temp, new_colour.y, new_colour.z, new_colour.w)  ;
   }
   void set_green(int new_green, int start, int end, boolean use_new_colour) {
     float green_temp ;
-    if(!use_new_colour) green_temp = set_color_component_from_specific_component("green", colour.g, new_green, start, end) ;
-    else green_temp = set_color_component_from_specific_component("green", new_colour.g, new_green, start, end) ;
+    if(!use_new_colour) green_temp = set_color_component_from_specific_component("green", colour.gre(), new_green, start, end) ;
+    else green_temp = set_color_component_from_specific_component("green", new_colour.gre(), new_green, start, end) ;
     new_colour = vec4(new_colour.x, green_temp, new_colour.z, new_colour.w)  ;
   }
   void set_blue(int new_blue, int start, int end, boolean use_new_colour) {
     float blue_temp ;
-    if(!use_new_colour) blue_temp = set_color_component_from_specific_component("blue", colour.b, new_blue, start, end) ;
-    else blue_temp = set_color_component_from_specific_component("blue", new_colour.b, new_blue, start, end) ;
+    if(!use_new_colour) blue_temp = set_color_component_from_specific_component("blue", colour.blu(), new_blue, start, end) ;
+    else blue_temp = set_color_component_from_specific_component("blue", new_colour.blu(), new_blue, start, end) ;
     new_colour = vec4(new_colour.x, new_colour.y, blue_temp, new_colour.w)  ;
   }
 
   // ALPHA change
   void set_alpha(int new_alpha, int start, int end, boolean use_new_colour) {
     float alpha_temp ;
-    if(!use_new_colour) alpha_temp = set_color_component_from_specific_component("alpha", colour.a, new_alpha, start, end) ;
-    else alpha_temp = set_color_component_from_specific_component("alpha", new_colour.a, new_alpha, start, end) ;
+    if(!use_new_colour) alpha_temp = set_color_component_from_specific_component("alpha", colour.alp(), new_alpha, start, end) ;
+    else alpha_temp = set_color_component_from_specific_component("alpha", new_colour.alp(), new_alpha, start, end) ;
     new_colour = vec4(new_colour.x, new_colour.y, new_colour.z, alpha_temp)  ;
   }
 

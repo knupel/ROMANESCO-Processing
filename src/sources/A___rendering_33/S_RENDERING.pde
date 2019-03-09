@@ -1,6 +1,7 @@
 /**
-RENDERING
-v 1.2.1
+* RENDERING
+* 2016-2019
+* v 1.2.1
 */
 void rendering() {
   boolean show_is = true;
@@ -183,7 +184,8 @@ void display_setup(int frame_rate, int num_layer) {
     noCursor();
   }
   frameRate(frame_rate);
-  colorMode(HSB,HSBmode.r,HSBmode.g,HSBmode.b,HSBmode.a);
+  colorMode(HSB,HSBmode);
+  //colorMode(HSB,HSBmode.hue(),HSBmode.sat(),HSBmode.bri(),HSBmode.alp());
 
   set_screen();
   depth_scene = height;
@@ -194,7 +196,8 @@ void display_setup(int frame_rate, int num_layer) {
     for(int i = 0 ; i < get_layer_num() ; i++) {
       select_layer(i);
       begin_layer();
-      colorMode(HSB, HSBmode.r, HSBmode.g, HSBmode.b, HSBmode.a);
+      colorMode(HSB,HSBmode);
+      // colorMode(HSB,HSBmode.hue(),HSBmode.sat(),HSBmode.bri(),HSBmode.alp());
       end_layer();
     }
   } 

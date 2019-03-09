@@ -1,9 +1,14 @@
 /**
-DYNAMIC SUB METHOD 
-V 0.2.1
-2016-2019
-
+* DYNAMIC SUB METHOD 
+* 0.2.2
+* 2016-2019
+* @author @stanlepunk
+* @see https://github.com/StanLepunK/Life
 */
+
+
+
+
 /**
 METHOD HERBIVORE 1.0.1
 
@@ -17,10 +22,10 @@ void build_herbivore(ArrayList<Agent> list,  Info_dict carac, Info_Object style,
     if(gender > 1) gender = 0 ;
     String name = "human" ;
     if(ENVIRONMENT == 2 ) {
-      vec2 pos = vec2().rand(vec2(LIMIT.a,LIMIT.b),vec2(LIMIT.c,LIMIT.d));
+      vec2 pos = vec2().rand(vec2(LIMIT.a(),LIMIT.b()),vec2(LIMIT.c(),LIMIT.d()));
       add_herbivore(list, pos, carac, gender, style) ;
     } else {
-      vec3 pos = vec3().rand(vec2(LIMIT.a,LIMIT.b),vec2(LIMIT.c,LIMIT.d),vec2(LIMIT.e,LIMIT.f));
+      vec3 pos = vec3().rand(vec2(LIMIT.a(),LIMIT.b()),vec2(LIMIT.c(),LIMIT.d()),vec2(LIMIT.e(),LIMIT.f()));
       add_herbivore(list, pos, carac, gender, style) ;
     }
     gender++ ;
@@ -146,11 +151,11 @@ void build_omnivore(ArrayList<Agent> list, Info_dict carac, Info_Object style, i
   for(int i = 0 ; i < num ; i++) {
     if(gender > 1) gender = 0 ;
     if(ENVIRONMENT == 2 ) {
-      vec2 pos = vec2().rand(vec2(LIMIT.a,LIMIT.b),vec2(LIMIT.c,LIMIT.d));
+      vec2 pos = vec2().rand(vec2(LIMIT.a(),LIMIT.b()),vec2(LIMIT.c(),LIMIT.d()));
       // add_omnivore(list_h, pos, carac.get("size"), carac.get("stamina"), carac.get("life"), carac.get("velocity"), carac.get("sense_range"), name, gender, carac.get("nutrient_quality"), colour) ;
       add_omnivore(list, pos, carac, gender, style) ;
     } else {
-      vec3 pos = vec3().rand(vec2(LIMIT.a,LIMIT.b),vec2(LIMIT.c,LIMIT.d),vec2(LIMIT.e,LIMIT.f));
+      vec3 pos = vec3().rand(vec2(LIMIT.a(),LIMIT.b()),vec2(LIMIT.c(),LIMIT.d()),vec2(LIMIT.e(),LIMIT.f()));
       add_omnivore(list, pos, carac, gender, style) ;
     }
     gender++ ;
@@ -268,10 +273,10 @@ void build_carnivore(ArrayList<Agent> list, Info_dict carac, Info_Object style, 
     if(gender > 1) gender = 0 ;
     String name = "ALIEN" ;
     if(ENVIRONMENT == 2 ) {
-      vec2 pos = vec2().rand(vec2(LIMIT.a,LIMIT.b),vec2(LIMIT.c,LIMIT.d));
+      vec2 pos = vec2().rand(vec2(LIMIT.a(),LIMIT.b()),vec2(LIMIT.c(),LIMIT.d()));
       add_carnivore(list, pos, carac, gender, style) ;
     } else {
-      vec3 pos = vec3().rand(vec2(LIMIT.a,LIMIT.b),vec2(LIMIT.c,LIMIT.d),vec2(LIMIT.e,LIMIT.f));
+      vec3 pos = vec3().rand(vec2(LIMIT.a(),LIMIT.b()),vec2(LIMIT.c(),LIMIT.d()),vec2(LIMIT.e(),LIMIT.f()));
       add_carnivore(list, pos, carac, gender, style) ;
     }
     gender++ ;
@@ -397,10 +402,10 @@ void build_bacterium(ArrayList<Agent> list, Info_dict carac, Info_Object style, 
   for(int i = 0 ; i < num ; i++) {
     String name = "bacterium" ;
     if(ENVIRONMENT == 2 ) {
-      vec2 pos = vec2().rand(vec2(LIMIT.a,LIMIT.b),vec2(LIMIT.c,LIMIT.d));
+      vec2 pos = vec2().rand(vec2(LIMIT.a(),LIMIT.b()),vec2(LIMIT.c(),LIMIT.d()));
       add_bacterium(list, pos, carac, style) ;
     } else {
-      vec3 pos = vec3().rand(vec2(LIMIT.a,LIMIT.b),vec2(LIMIT.c,LIMIT.d),vec2(LIMIT.e,LIMIT.f));
+      vec3 pos = vec3().rand(vec2(LIMIT.a(),LIMIT.b()),vec2(LIMIT.c(),LIMIT.d()),vec2(LIMIT.e(),LIMIT.f()));
       add_bacterium(list, pos, carac, style) ;
     }
   }
@@ -618,10 +623,10 @@ build 0.3.0
 void build_flora(ArrayList<Agent> list_f, Info_dict carac, Info_Object style, int num) {
   for(int i = 0 ; i < num ; i++) {
     if(ENVIRONMENT == 2 ) {
-      vec2 pos = vec2().rand(vec2(LIMIT.a,LIMIT.b),vec2(LIMIT.c,LIMIT.d));
+      vec2 pos = vec2().rand(vec2(LIMIT.a(),LIMIT.b()),vec2(LIMIT.c(),LIMIT.d()));
       add_flora(list_f, pos, carac, style) ;
     } else if (ENVIRONMENT == 3 ) {
-      vec3 pos = vec3().rand(vec2(LIMIT.a,LIMIT.b),vec2(LIMIT.c,LIMIT.d),vec2(LIMIT.e,LIMIT.f));
+      vec3 pos = vec3().rand(vec2(LIMIT.a(),LIMIT.b()),vec2(LIMIT.c(),LIMIT.d()),vec2(LIMIT.e(),LIMIT.f()));
       add_flora(list_f, pos, carac, style) ;
     }
   }
@@ -785,8 +790,8 @@ void flora_update_opacity(ArrayList<Agent> list_f) {
       float ratio = float(f.mass) / float(f.mass_ref) ;
       float alpha = g.colorModeA *ratio ;
       if(alpha <= 0) alpha = .001 ;
-      f.fill_style.set(f.fill_style.r, f.fill_style.g, f.fill_style.b, alpha) ;
-      f.stroke_style.set(f.stroke_style.r, f.stroke_style.g, f.stroke_style.b, alpha) ;
+      f.fill_style.set(f.fill_style.x, f.fill_style.y, f.fill_style.z, alpha) ;
+      f.stroke_style.set(f.stroke_style.x, f.stroke_style.y, f.stroke_style.z, alpha) ;
     }
   }
 }
@@ -866,10 +871,10 @@ void set_aspect_corpse(vec4 fill_colour, vec4 stroke_colour, float thickness) {
 void build_dead(ArrayList<Dead> list, Info_dict carac, Info_Object style, int num) {
   for(int i = 0 ; i < num ; i++) {
     if(ENVIRONMENT == 2 ) {
-      vec2 pos = vec2().rand(vec2(LIMIT.a,LIMIT.b),vec2(LIMIT.c,LIMIT.d));
+      vec2 pos = vec2().rand(vec2(LIMIT.a(),LIMIT.b()),vec2(LIMIT.c(),LIMIT.d()));
       add_dead(list, pos, carac, style) ;
     } else {
-      vec3 pos = vec3().rand(vec2(LIMIT.a,LIMIT.b),vec2(LIMIT.c,LIMIT.d),vec2(LIMIT.e,LIMIT.f));
+      vec3 pos = vec3().rand(vec2(LIMIT.a(),LIMIT.b()),vec2(LIMIT.c(),LIMIT.d()),vec2(LIMIT.e(),LIMIT.f()));
       add_dead(list, pos, carac, style) ;
     }
   }

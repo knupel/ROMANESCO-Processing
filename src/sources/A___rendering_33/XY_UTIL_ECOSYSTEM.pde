@@ -1,9 +1,10 @@
 /**
-ECOSYSTEM UTIL 
-v 1.1.1
-2015-2019
-Processing 3.5.3
-
+* ECOSYSTEM UTIL 
+* v 1.1.2
+* 2015-2019
+* Processing 3.5.3
+* @author @stanlepunk
+* @see https://github.com/StanLepunK/Life
 * HOST and SYMBIOSIS
 * WORLD
 * BIOMASS
@@ -13,12 +14,10 @@ Processing 3.5.3
 * SHOW and COSTUME
 * INFO
 * GROWTH, LIFE and DIE
-
 */
+
 /**
-
-HOST SYMBIOSIS MANAGEMENT 0.0.5
-
+* HOST SYMBIOSIS MANAGEMENT 0.0.5
 */
 int [] target_host ;
 vec4 [] symbiosis_area ;
@@ -1018,7 +1017,7 @@ void update_aspect(Info_Object style, ArrayList list) {
       // display
 
       if(!fill_is) {
-        fill_def.a = 0 ;
+        fill_def.alp(0);
       }
       if(!stroke_is) {
         thickness_def = 0 ;

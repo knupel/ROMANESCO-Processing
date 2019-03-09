@@ -1,15 +1,15 @@
 /**
 SURFACE
 2014-2019
-v 1.1.0
+v 1.1.1
 */
 
 class Surface extends Romanesco {
   public Surface() {
     item_name = "Surface" ;
     item_author  = "Stan le Punk";
-    item_version = "Version 1.1.0";
-    item_pack = "Base 2014-2018";
+    item_version = "Version 1.1.1";
+    item_pack = "Base 2014-2019";
     item_costume = "" ;
     item_mode = "Surfimage/Vague/Vague++" ; // separate the differentes mode by "/"
 
@@ -365,10 +365,10 @@ class Surface extends Romanesco {
         int colorTriangle = imgSurface.pixels[rankPixel] ;
         float newSat = saturation(colorTriangle) ;
         float newBright = brightness(colorTriangle) ;
-        if (color_fill.g <= newSat ) newSat = color_fill.g ;
-        if (color_fill.b <= newBright ) newBright = color_fill.b ;
-        t.color_fill = color(hue(colorTriangle),newSat, newBright, color_fill.a) ;
-        t.color_stroke = color(stroke_color.r,stroke_color.g,stroke_color.b,stroke_color.a)  ;
+        if (color_fill.gre() <= newSat ) newSat = color_fill.gre();
+        if (color_fill.bri() <= newBright ) newBright = color_fill.bri();
+        t.color_fill = color(hue(colorTriangle),newSat, newBright, color_fill.w) ;
+        t.color_stroke = color(stroke_color.x,stroke_color.y,stroke_color.z,stroke_color.w)  ;
         t.strokeWeight = thickness ;
       }
     }

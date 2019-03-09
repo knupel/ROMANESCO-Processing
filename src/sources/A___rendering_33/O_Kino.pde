@@ -1,13 +1,13 @@
 /**
 Kino
 2018-2019
-v 0.2.0
+v 0.2.1
 */
 class Kino extends Romanesco {
 	public Kino() {
 		item_name = "Kino";
 		item_author  = "Stan le Punk";
-		item_version = "Version 0.2.0";
+		item_version = "Version 0.2.1";
 		item_pack = "Base 2018-2019";
 		item_costume = ""; // separate the differentes mode by "/"
 		item_mode = "Movie/Diaporama/Movie 3D/Diaporama 3D"; // separate the differentes mode by "/"
@@ -128,7 +128,7 @@ class Kino extends Romanesco {
     }
     // normalize colour
     colour.div(vec4(g.colorModeX,g.colorModeY,g.colorModeZ,g.colorModeA));
-    colour.a(colour.x *colour.a *colour.a);
+    colour.w(colour.x *colour.w *colour.w);
 
     // to make the colour to white or black
     if(reverse_is()) {
@@ -139,9 +139,9 @@ class Kino extends Romanesco {
     
     // if(ref_speed_x() != ref_speed_x) {
       // ref_speed_slider = get_speed_x();
-      float temp_speed = map(get_speed_x(),0,1,-1,1);
-      temp_speed = temp_speed *temp_speed *temp_speed;
-      temp_speed = map(temp_speed,-1,1,-12,12);
+      // float temp_speed = map(get_speed_x(),0,1,-1,1);
+      float temp_speed = get_speed_x() *get_speed_x() *get_speed_x();
+      temp_speed = map(temp_speed,0,1,0,30);
       float range = .3;
       if(temp_speed < 1. + range && temp_speed > 1. -range) temp_speed = 1.;
       speed_movie = temp_speed;
@@ -151,7 +151,6 @@ class Kino extends Romanesco {
   
   // kino movie
   int ref_which_movie;
-  boolean security_load_is = false;
 	private void kino_movie(vec4 c, int what, boolean background_is, int mode_to_black_or_white) {
 		if(ref_which_movie != which_movie() && ref_which_movie < movie_time.length) {
       movie_time[ref_which_movie] = get_movie().time();
@@ -165,7 +164,8 @@ class Kino extends Romanesco {
 			load_movie(false,ID_item);
 		}
     if(get_movie() != null) {
-      // get_movie().speed(speed_movie);
+      println("movie speed",speed_movie);
+      get_movie().speed(speed_movie);
   		if(motion_is()) {
         if(sound_is()) {
           get_movie().volume(1); 
@@ -178,43 +178,8 @@ class Kino extends Romanesco {
   		}
 
       if(background_is) {
-        if(!security_load_is && get_movie().width > 0 && get_movie().height > 0) {
-          // println("every thing is ok you can fly Rypley");
-          // println(get_movie().width, get_movie().height, get_movie().pixels, frameCount);
-          // get_movie().loadPixels();
-          security_load_is = true;
-        }
-
-        if(get_movie().width == 0 && get_movie().height == 0) {
-          // println("WARNING Rypley");
-          // println(get_movie().width, get_movie().height, get_movie().pixels, frameCount);
-          security_load_is = false;
-        }
-
-        if(security_load_is) {
-          // println("Every thing is OK you can fly with the NOSTROMO");
-          // println(get_movie().width, get_movie().height, get_movie().pixels, get_movie().pixels.length, frameCount);
-        }
-        // println("pixels movie", get_movie().pixels);
-        // image(fx_level(get_movie(),false,mode_to_black_or_white,c.array()),CENTER);
-        /*
-        surface.setSize(get_movie().width,get_movie().height);
-        if(get_movie().width == width && get_movie().height == height) {
-          println("width",width); 
-          println("height",height);
-          println("width movie",get_movie().width); 
-          println("height movie",get_movie().height);
-          int target = floor(random(get_movie().pixels.length));
-          println("target pixel",target,get_movie().pixels[target]); // all pixel are at zero ?????
-          println("length",get_movie().pixels.length);
-          println("length window",width*height);
-          get_movie().loadPixels();
-          background(get_movie());
-
-        }
-        */
-        set_background(get_movie(),what);
-        //set_background(fx_level(get_movie(),false,mode_to_black_or_white,c.array()),what);
+        // set_background(get_movie(),what);
+        set_background(fx_level(get_movie(),false,mode_to_black_or_white,c.array()),what);
       } else {
         image(fx_level(get_movie(),false,mode_to_black_or_white,c.array()),what);
       }

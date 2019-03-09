@@ -1,9 +1,9 @@
 /**
-GENETIC 
-v 0.6.1
+* GENETIC 
+*v 0.6.2
 * 2016-2019
-* @author Stan le Punk
-* @see https://github.com/StanLepunK/Digital-Life-Processing/tree/master/GENETIC_SYSTEM
+* @author @stanlepunk
+* @see https://github.com/StanLepunK/Life
 */
 
 
@@ -500,7 +500,7 @@ class Helix {
 
     float get_angle(int target) {
       if(target < coord.length) {
-        return coord[target].a ;
+        return coord[target].x;
       } else {
         System.err.println("target out of bounds") ;
         return 0 ;

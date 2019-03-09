@@ -1,13 +1,13 @@
 /**
 Ecosysteme 
 2016-2018
-v 0.1.9
+v 0.1.10
 */
 class Ecosystem_agent extends Romanesco {
 	public Ecosystem_agent() {
 		item_name = "Eco Agents";
 		item_author  = "Stan le Punk";
-		item_version = "Version 0.1.9";
+		item_version = "Version 0.1.10";
 		item_pack = "Ecosystem 2016-2018";
     item_costume = "";
 		item_mode = "Virus/Human/Alien/Other"; // separate the differentes mode by "/"
@@ -996,8 +996,8 @@ void set_virus_costume() {
   float change_alpha = random(100) ;
   fill_flora.x += change_hue ;
   stroke_flora.x += change_hue ;
-  fill_flora.a -= change_alpha ;
-  stroke_flora.a -= change_alpha ;
+  fill_flora.w -= change_alpha ;
+  stroke_flora.w -= change_alpha ;
 
   Costume costume = new Costume();
   costume.set_type(VIRUS_ROPE);
