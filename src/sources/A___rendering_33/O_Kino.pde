@@ -1,7 +1,7 @@
 /**
 Kino
 2018-2019
-v 0.2.1
+v 0.2.2
 */
 class Kino extends Romanesco {
 	public Kino() {
@@ -30,7 +30,7 @@ class Kino extends Romanesco {
     // canvas_z_is = true;
 
     // frequence_is = true;
-    speed_x_is = true;
+    // speed_x_is = true;
     // speed_y_is = true;
     // speed_z_is = true;
     // spurt_x_is = true;
@@ -114,7 +114,7 @@ class Kino extends Romanesco {
 
   vec4 colour;
   int to_white = 0;
-  float speed_movie = 1;
+  // float speed_movie = 1;
   // float ref_speed_slider;
   void param() {
     float h = get_fill_hue();
@@ -135,17 +135,17 @@ class Kino extends Romanesco {
       to_white = 1;
     }
 
-    // change the video speed
-    
+    // change the video speed 
     // if(ref_speed_x() != ref_speed_x) {
-      // ref_speed_slider = get_speed_x();
-      // float temp_speed = map(get_speed_x(),0,1,-1,1);
-      float temp_speed = get_speed_x() *get_speed_x() *get_speed_x();
-      temp_speed = map(temp_speed,0,1,0,30);
-      float range = .3;
-      if(temp_speed < 1. + range && temp_speed > 1. -range) temp_speed = 1.;
-      speed_movie = temp_speed;
-  //  }
+    // ref_speed_slider = get_speed_x();
+    // float temp_speed = map(get_speed_x(),0,1,-1,1);
+    // }
+
+    // float temp_speed = get_speed_x() *get_speed_x() *get_speed_x();
+    // temp_speed = map(temp_speed,0,1,0,30);
+    // float range = .3;
+    // if(temp_speed < 1. + range && temp_speed > 1. -range) temp_speed = 1.;
+    // speed_movie = temp_speed;
 
   }
   
@@ -164,8 +164,7 @@ class Kino extends Romanesco {
 			load_movie(false,ID_item);
 		}
     if(get_movie() != null) {
-      println("movie speed",speed_movie);
-      get_movie().speed(speed_movie);
+      // get_movie().speed(speed_movie);
   		if(motion_is()) {
         if(sound_is()) {
           get_movie().volume(1); 

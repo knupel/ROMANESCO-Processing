@@ -1,13 +1,13 @@
 /**
 Puppet Master
 2018-2019
-v 0.0.10
+v 0.0.11
 */
 class Puppet_master extends Romanesco {
 	public Puppet_master() {
 		item_name = "FF Puppet Master";
 		item_author  = "Stan le Punk";
-		item_version = "Version 0.0.10";
+		item_version = "Version 0.0.11";
 		item_pack = "Force 2018-2019";
     item_costume = "none/pixel/point/ellipse/triangle/rect/cross/pentagon/Star 5/Star 7/Super Star 8/Super Star 12";
     item_mode = "solo/duo/valse 2D/<valse 3D>/whisky walk/random";
@@ -192,7 +192,7 @@ class Puppet_master extends Romanesco {
   int ref_num;
   private void valse_2D_spot(float radius, vec3 speed, int num_spiral, vec2 range, int which_behavior) {
     if(valse_2D == null || ref_num != get_spot_num()) {
-      valse_2D = new Cloud_2D(get_spot_num(),r.ORDER);
+      valse_2D = new Cloud_2D(p5,get_spot_num(),r.ORDER);
       ref_num = get_spot_num();
     }
     // cloud_2D.pos(ref_pos);

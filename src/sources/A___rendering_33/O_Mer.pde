@@ -1,6 +1,7 @@
 /**
 * Wave
-v 0.0.2
+* 2019-2019
+* v 0.0.23
 */
 class Mer extends Romanesco {
   public Mer() {
@@ -8,7 +9,7 @@ class Mer extends Romanesco {
     item_name = "Mer" ;
     item_author  = "Stan le Punk";
     item_references = "";
-    item_version = "Version 0.0.2";
+    item_version = "Version 0.0.3";
     item_pack = "Base 2019-2019" ;
     item_costume = "point/ellipse/triangle/rect/cross/pentagon/Star 5/Star 7/Super Star 8/Super Star 12"; // costume available from get_costume();
     item_mode = "";

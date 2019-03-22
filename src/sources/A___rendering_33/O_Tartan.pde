@@ -1,6 +1,7 @@
 /**
 * Tartan
-v 0.0.2
+* v 0.0.3
+* 2018-2019
 */
 class Tartan extends Romanesco {
   public Tartan() {
@@ -8,8 +9,8 @@ class Tartan extends Romanesco {
     item_name = "Tartan" ;
     item_author  = "Stan le Punk";
     item_references = "";
-    item_version = "Version 0.0.2";
-    item_pack = "Tartan 2018-2018" ;
+    item_version = "Version 0.0.3";
+    item_pack = "Tartan 2018-2019" ;
     item_costume = ""; // costume available from get_costume();
     item_mode = "Tartan/Strip";
     // define slider

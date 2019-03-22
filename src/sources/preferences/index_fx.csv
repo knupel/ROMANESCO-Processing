@@ -3,6 +3,7 @@ Force,Stan le Punk,0.1.0,Base 2014,
 blur circular,Stan le Punk,0.0.1,Base 2019,quantity/strength X
 blur gaussian,Stan le Punk,0.0.3,Base 2019,strength X
 blur radial,Stan le Punk,0.0.1,Base 2019,position X/position Y/strength X
+datamosh,Alexandre Rivaux refactoring by Stan le Punk,0.0.1,Base 2019,red/green/blue/strength X/threshold
 dither bayer,Mattias / Shader Toy,0.0.1,Base 2019,red/green/blue
 halftone dot,Stan le Punk,0.0.1,Base 2019,position X/position Y/angle/quantity
 halftone line,Stan le Punk,0.0.2,Base 2019,position X/position Y/quantity/angle

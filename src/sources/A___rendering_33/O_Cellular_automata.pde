@@ -1,15 +1,15 @@
 /**
 Cellular Automata
-2018-2018
-v 0.0.3
+2018-2019
+v 0.0.4
 */
 class Cellular_automata extends Romanesco {
 	public Cellular_automata() {
 		item_name = "Automata";
 		item_author  = "Stan le Punk";
     item_references = "Item based on Daniel Shiffman code\nand behavior from Stephen Wolfram\nhttps://natureofcode.com/";
-		item_version = "Version 0.0.3";
-		item_pack = "Nature of Code 2018-2018";
+		item_version = "Version 0.0.4";
+		item_pack = "Nature of Code 2018-2019";
     item_costume = "point/ellipse/triangle/rect/cross/pentagon/Star 5/Star 7/Super Star 8/Super Star 12";
     item_mode = "rules 30/rules 110/rules 190/rules 222";
 

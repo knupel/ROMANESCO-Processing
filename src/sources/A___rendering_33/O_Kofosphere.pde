@@ -1,14 +1,14 @@
 /**
 KOFOSPHERE 
-2013-2018
-v 1.2.0
+2013-2019
+v 1.2.1
 */
 class Kofosphere extends Romanesco {
   public Kofosphere() {
     item_name = "Kofosphere" ;
     item_author  = "Kof";
-    item_version = "Version 1.2.0";
-    item_pack = "Base 2013-2018" ;
+    item_version = "Version 1.2.1";
+    item_pack = "Base 2013-2019" ;
     item_costume = "point/ellipse/triangle/rect/cross/pentagon/Star 5/Star 7/Super Star 8/Super Star 12";
     item_mode = "monochrome/polychrome" ;
     /*

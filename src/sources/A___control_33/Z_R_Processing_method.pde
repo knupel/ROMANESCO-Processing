@@ -1,6 +1,6 @@
 /**
 ROPE PROCESSING METHOD
-v 2.4.2
+v 2.4.3
 * Copyleft (c) 2014-2019
 * Stan le Punk > http://stanlepunk.xyz/
 * @author @stanlepunk

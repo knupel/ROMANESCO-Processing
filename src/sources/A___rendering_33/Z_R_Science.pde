@@ -1,6 +1,6 @@
 /**
 ROPE SCIENCE
-v 0.7.2
+v 0.7.3
 * Copyleft (c) 2014-2019 
 * Stan le Punk > http://stanlepunk.xyz/
 * @author @stanlepunk
@@ -99,7 +99,7 @@ Physic Rope
 v 0.0.2
 */
 public double g_force(double dist, double m_1, double m_2) {
-  return RConstants.G *(dist*dist)/(m_1 *m_2);
+  return R_Constants.G *(dist*dist)/(m_1 *m_2);
 }
 
 
@@ -297,9 +297,9 @@ vec3 to_cartesian_3D(float longitude, float latitude, float radius) {
 
 
 // To cartesian 2D
-vec2 to_cartesian_2D (float posMouse, vec2 range, vec2 targetRadian, float distance) {
-  float rotationPlan = map(posMouse, range.x, range.y, targetRadian.x, targetRadian.y)  ;
-  return to_cartesian_2D (rotationPlan, distance) ;
+vec2 to_cartesian_2D (float pos, vec2 range, vec2 target_rad, float distance) {
+  float rotation_plan = map(pos, range.x, range.y, target_rad.x, target_rad.y)  ;
+  return to_cartesian_2D (rotation_plan, distance) ;
 }
 
 

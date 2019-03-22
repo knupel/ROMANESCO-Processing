@@ -1,14 +1,14 @@
 /**
 Ecosysteme 
-2016-2018
-v 0.1.10
+2016-2019
+v 0.1.11
 */
 class Ecosystem_agent extends Romanesco {
 	public Ecosystem_agent() {
 		item_name = "Eco Agents";
 		item_author  = "Stan le Punk";
-		item_version = "Version 0.1.10";
-		item_pack = "Ecosystem 2016-2018";
+		item_version = "Version 0.1.11";
+		item_pack = "Ecosystem 2016-2019";
     item_costume = "";
 		item_mode = "Virus/Human/Alien/Other"; // separate the differentes mode by "/"
 
@@ -218,29 +218,29 @@ class Ecosystem_agent extends Romanesco {
 
     vec3 alpha_behavior_common = vec3(0, -1, 1) ;
 
-    Costume costume_flora = new Costume(VIRUS_ROPE);
+    Costume costume_flora = new Costume(p5,VIRUS_ROPE);
     costume_flora.set_num(2);
     costume_flora.set_node(3);
     costume_flora.set_mutation(64);
-    Costume costume_herbivore = new Costume(TRIANGLE_ROPE);
-    Costume costume_carnivore =new Costume(STAR_ROPE);
+    Costume costume_herbivore = new Costume(p5,TRIANGLE_ROPE);
+    Costume costume_carnivore =new Costume(p5,STAR_ROPE);
     costume_carnivore.set_summit(9);
-    Costume costume_omnivore =new Costume(STAR_ROPE);
+    Costume costume_omnivore =new Costume(p5,STAR_ROPE);
     costume_omnivore.set_summit(5);
-    Costume costume_bacterium =new Costume(SQUARE_ROPE);
-    Costume costume_dead =new Costume(CROSS_BOX_2_ROPE);
+    Costume costume_bacterium =new Costume(p5,SQUARE_ROPE);
+    Costume costume_dead =new Costume(p5,CROSS_BOX_2_ROPE);
     if(dimension_is()) {
-      costume_flora = new Costume(VIRUS_ROPE);
+      costume_flora = new Costume(p5,VIRUS_ROPE);
       costume_flora.set_num(3);
       costume_flora.set_node(8);
       costume_flora.set_mutation(64);
-      costume_herbivore =new Costume(TETRAHEDRON_ROPE);
-      costume_carnivore =new Costume(STAR_3D_ROPE);
+      costume_herbivore =new Costume(p5,TETRAHEDRON_ROPE);
+      costume_carnivore =new Costume(p5,STAR_3D_ROPE);
       costume_carnivore.set_summit(9);
-      costume_omnivore =new Costume(STAR_3D_ROPE);
+      costume_omnivore =new Costume(p5,STAR_3D_ROPE);
       costume_omnivore.set_summit(5);
-      costume_bacterium =new Costume(RECT_ROPE);
-      costume_dead =new Costume(CROSS_BOX_3_ROPE);
+      costume_bacterium =new Costume(p5,RECT_ROPE);
+      costume_dead =new Costume(p5,CROSS_BOX_3_ROPE);
 
     }
 
@@ -441,7 +441,7 @@ void ecosystem_setting(Biomass b, boolean host_mode, vec3 factor_size, float fac
 
   set_caracteristic_agent(factor_size, factor_life, ratio_speed) ;
 
-  Costume costume = new Costume();
+  Costume costume = new Costume(this);
   float thickness = 1. ;
   vec3 alpha_behavior_flora = vec3(0, -1, 1) ; // it's like 100% all the time
   boolean fill_is = true ;
@@ -999,7 +999,7 @@ void set_virus_costume() {
   fill_flora.w -= change_alpha ;
   stroke_flora.w -= change_alpha ;
 
-  Costume costume = new Costume();
+  Costume costume = new Costume(this);
   costume.set_type(VIRUS_ROPE);
   costume.set_node(3);
   costume.set_num(4);

@@ -1,7 +1,7 @@
 /**
 LETTER
 2012-2019
-v 1.4.3
+v 1.4.4
 */
 //GEOMERATIVE
 import geomerative.*;
@@ -10,7 +10,7 @@ class Letter extends Romanesco {
   public Letter() {
     item_name = "Letter" ;
     item_author  = "Stan le Punk";
-    item_version = "Version 1.4.3";
+    item_version = "Version 1.4.4";
     item_pack = "Base 2012-2019" ;
 
     item_costume = "Point/Line/Triangle";

@@ -2,11 +2,15 @@
 * POST FX shader collection
 *
 * 2019-2019
-* v 0.1.14
+* v 0.2.1
 * all filter bellow has been tested.
 * @author @stanlepunk
 * @see https://github.com/StanLepunK/Shader
 */
+
+
+
+
 
 
 
@@ -45,6 +49,7 @@ PGraphics fx_template(PImage source, boolean on_g, vec4 level_source) {
 	} else {
 		if(on_g) set_shader_flip(fx_template,source);
 		fx_template.set("texture_source",source);
+		fx_template.set("resolution",(float)source.width,(float)source.height);
 
   
     // fx_template.set("color_mode",3); // mode 0 RGB / mode 3 HSB
@@ -168,14 +173,14 @@ PGraphics fx_blur_circular(PImage source, boolean on_g, vec3 strength, int num) 
 
 /**
 * gaussian blur
-* v 0.2.2
+* v 0.2.3
 * 2018-2019
 */
 // setting by class FX
 PGraphics fx_blur_gaussian(PImage source, FX fx) {
 	ivec2 res = ivec2();
 	boolean second_pass = true;
-	return fx_blur_gaussian(source,fx.on_g(),second_pass,res,fx.get_strength().x);
+	return fx_blur_gaussian(source,fx.on_g(),second_pass,res,fx.get_strength().x());
 }
 
 
@@ -314,19 +319,19 @@ PGraphics fx_blur_gaussian(PImage source, boolean on_g, boolean second_pass, ive
 
 /**
 * Blur radial
-v 0.2.3
+v 0.2.4
 2018-2019
 */
 // setting by class FX
 PGraphics fx_blur_radial(PImage source, FX fx) {
 	float str = 0;
 	if(fx.get_strength() != null) {
-		str = fx.get_strength().x;
+		str = fx.get_strength().x();
 	}
 
 	float scl = 0;
 	if(fx.get_scale() != null) {
-		scl = fx.get_scale().x;
+		scl = fx.get_scale().x();
 	}
 	return fx_blur_radial(source,fx.on_g(),vec2(fx.get_pos()),str,scl);
 }
@@ -385,7 +390,7 @@ PGraphics fx_blur_radial(PImage source, boolean on_g, vec2 pos, float strength, 
 
 /**
 * Colour change A by Stan le punk
-v 0.2.3
+v 0.2.2
 2018-2019
 */
 
@@ -494,12 +499,12 @@ PGraphics fx_colour_change_b(PImage source, boolean on_g) {
 }
 
 PShader fx_colour_change_b;
-PGraphics result_colour_change_b;
+PGraphics pg_colour_change_b;
 PGraphics fx_colour_change_b(PImage source, boolean on_g, float angle, float strength) {
-	if(!on_g && (result_colour_change_b == null 
-								|| (source.width != result_colour_change_b.width 
-								&& source.height != result_colour_change_b.height))) {
-		result_colour_change_b = createGraphics(source.width,source.height,get_renderer());
+	if(!on_g && (pg_colour_change_b == null 
+								|| (source.width != pg_colour_change_b.width 
+								&& source.height != pg_colour_change_b.height))) {
+		pg_colour_change_b = createGraphics(source.width,source.height,get_renderer());
 	}
 
 	if(fx_colour_change_b == null) {
@@ -518,7 +523,7 @@ PGraphics fx_colour_change_b(PImage source, boolean on_g, float angle, float str
     fx_colour_change_b.set("strength",1.);
 
     // rendering
-		render_shader(fx_colour_change_b,result_colour_change_b,source,on_g);
+		render_shader(fx_colour_change_b,pg_colour_change_b,source,on_g);
 	}
 
 	// return
@@ -526,9 +531,125 @@ PGraphics fx_colour_change_b(PImage source, boolean on_g, float angle, float str
 	if(on_g) {
 		return null;
 	} else {
-		return result_colour_change_b; 
+		return pg_colour_change_b; 
 	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/**
+* Datamosh inpired by an algorithm of Alexandre Rivaux 
+* @see https://github.com/alexr4/datamoshing-GLSL
+* v 0.0.2
+*2019-2019
+*/
+// setting by class FX
+PGraphics fx_datamosh(PImage source, FX fx) {
+	return fx_datamosh(source,fx.on_g(),fx.get_threshold().x(),fx.get_strength().x(),fx.get_pair(0),fx.get_pair(1),fx.get_pair(2));
+}
+
+// main
+PShader fx_datamosh;
+PShader fx_flip_datamosh;
+PGraphics pg_datamosh;
+PGraphics fx_datamosh(PImage source, boolean on_g, float threshold, float strength, vec2 offset_red, vec2 offset_green, vec2 offset_blue) {
+	if(!on_g && (pg_datamosh == null 
+								|| (source.width != pg_datamosh.width 
+								&& source.height != pg_datamosh.height))) {
+		pg_datamosh = createGraphics(source.width,source.height,get_renderer());
+	}
+
+	if(fx_datamosh == null) {
+		// main glsl
+		String path = get_fx_post_path()+"datamosh.glsl";
+		if(fx_post_rope_path_exists) {
+			fx_datamosh = loadShader(path);
+			println("load shader: datamosh.glsl");
+		}
+		println("load shader:",path);
+		// flip glsl
+		path = get_fx_post_path()+"flip.glsl";
+		if(fx_post_rope_path_exists) {
+			fx_flip_datamosh = loadShader(path);
+			println("load shader: flip.glsl");
+		}
+		println("load shader:",path);
+	} else {
+		if(on_g) set_shader_flip(fx_datamosh,source);
+
+		fx_datamosh.set("resolution",(float)source.width,(float)source.height);
+		fx_datamosh.set("resolution_source",(float)source.width,(float)source.height);
+
+    fx_datamosh.set("texture",source);
+    
+    fx_datamosh.set("strength",strength); // value from -infinite to infinite 
+		fx_datamosh.set("threshold",threshold); // value from 0 to 1
+
+		if(offset_red != null) {
+			fx_datamosh.set("offset_red",offset_red.x(),offset_red.y());
+		}
+
+		if(offset_green != null) {
+			fx_datamosh.set("offset_green",offset_green.x(),offset_green.y());
+		}
+		
+		if(offset_blue != null) {
+			fx_datamosh.set("offset_blue",offset_blue.x(),offset_blue.y());
+		} 
+
+		if(pg_datamosh == null) {
+			pg_datamosh = createGraphics(source.width,source.height,get_renderer());
+		} else {
+			fx_datamosh.set("texture_layer",pg_datamosh);
+		}
+		if(pg_datamosh.width > 0 && pg_datamosh.height > 0) {
+			pg_datamosh.beginDraw();
+			pg_datamosh.shader(fx_datamosh);
+			pg_datamosh.image(source,0,0);
+			pg_datamosh.endDraw();
+		}
+	}
+
+	// return
+	reset_reverse_g(false);
+	if(on_g) {
+		background(pg_datamosh,CENTER);
+		fx_flip_datamosh.set("texture_source",g);
+		fx_flip_datamosh.set("resolution_source",width,height);
+		fx_flip_datamosh.set("flip_source",1,1);
+		filter(fx_flip_datamosh);
+		return null;
+	} else {
+		return pg_datamosh; 
+	}
+}
+
+
+
+
+
+
+
 
 
 
@@ -554,13 +675,10 @@ PGraphics fx_colour_change_b(PImage source, boolean on_g, float angle, float str
 * v 0.2.0
 * 2018-2019
 */
-
 // setting by class FX
 PGraphics fx_dither_bayer_8(PImage source, FX fx) {
 	return fx_dither_bayer_8(source,fx.on_g(),vec3(fx.get_level_source()),fx.get_mode());	
 }
-
-
 
 // main
 PShader fx_dither_bayer_8;
@@ -604,6 +722,69 @@ PGraphics fx_dither_bayer_8(PImage source, boolean on_g, vec3 level, int mode) {
 
 
 
+
+
+
+
+
+
+
+
+
+/**
+* Flip
+* v 0.0.1
+*2019-2019
+*/
+// setting by class FX
+PGraphics fx_flip(PImage source, FX fx) {
+	return fx_flip(source,fx.on_g(),fx.get_event(0).xy());
+}
+
+// main
+PShader fx_flip;
+PGraphics pg_flip;
+PGraphics fx_flip(PImage source, boolean on_g, bvec2 flip) {
+	if(!on_g && (pg_flip == null 
+								|| (source.width != pg_flip.width 
+								&& source.height != pg_flip.height))) {
+		pg_flip = createGraphics(source.width,source.height,get_renderer());
+	}
+
+	if(fx_flip == null) {
+		// main glsl
+		String path = get_fx_post_path()+"flip.glsl";
+		if(fx_post_rope_path_exists) {
+			fx_flip = loadShader(path);
+			println("load shader: flip.glsl");
+		}
+		println("load shader:",path);
+	} else {
+
+		ivec2 iflip = ivec2(0);
+		if(flip.x) iflip.x(1);
+		if(flip.y) iflip.y(1);
+		if(on_g) {
+			iflip.y = 1-iflip.y;
+		}
+
+		fx_flip.set("resolution",(float)source.width,(float)source.height);
+		fx_flip.set("resolution_source",(float)source.width,(float)source.height);
+    fx_flip.set("texture_source",source);
+		fx_flip.set("flip_source",iflip.x(),iflip.y()); // value: 0 or 1
+
+    // rendering
+		render_shader(fx_flip,pg_flip,source,on_g);
+	}
+
+	// return
+	reset_reverse_g(false);
+	if(on_g) {
+		return null;
+	} else {
+		return pg_flip; 
+	}
+}
 
 
 
@@ -775,22 +956,22 @@ PGraphics fx_grain_scatter(PImage source, boolean on_g,float strength) {
 PGraphics fx_halftone_dot(PImage source, FX fx) {
 	vec2 pos = vec2(source.width/2,source.height/2);
 	if(fx.get_pos() != null) {
-		pos = vec2(fx.get_pos().x,fx.get_pos().y);
+		pos = vec2(fx.get_pos().x(),fx.get_pos().y());
 	}
 
 	float threshold = .95;
 	if(fx.get_threshold() != null) {
-		threshold = fx.get_threshold().x;
+		threshold = fx.get_threshold().x();
 	}
 
 	float angle = 0;
 	if(fx.get_angle() != null) {
-		angle = fx.get_angle().x;
+		angle = fx.get_angle().x();
 	}
 
 	float pixel_size = 5;
 	if(fx.get_angle() != null) {
-		pixel_size = fx.get_size().x;
+		pixel_size = fx.get_size().x();
 	}
 
 	return fx_halftone_dot(source,fx.on_g(),pos,pixel_size,angle,threshold);
@@ -1177,8 +1358,6 @@ PGraphics fx_level(PImage source, boolean on_g, int mode, float... level) {
 		if(on_g) set_shader_flip(fx_level,source);
 		fx_level.set("texture_source",source);
 		fx_level.set("resolution_source",source.width,source.height);
-
-		// println(level);
 		if(level.length == 1) {
 			fx_level.set("level_source",level[0],level[0],level[0],1);
 		} else if(level.length == 2) {
@@ -1304,10 +1483,10 @@ PGraphics fx_mix(PImage source, PImage layer, boolean on_g, int mode, vec3 level
 		fx_mix.set("texture_layer",layer);
 		
 		if(graphics_is(layer).equals("PGraphics")) {
-			fx_mix.set("flip_layer",false,false);
+			fx_mix.set("flip_layer",0,0);
 		} else {
 			if(on_g) {
-				fx_mix.set("flip_layer",true,false);
+				fx_mix.set("flip_layer",1,0);
 			}
 		}
 		
@@ -1365,7 +1544,7 @@ PGraphics fx_pixel(PImage source, FX fx) {
 	if(fx.get_level_source() != null) {
 		level_source.set(fx.get_level_source());
 	}
-	return fx_pixel(source,fx.on_g(),size,fx.get_num(),level_source,fx.get_event(0));
+	return fx_pixel(source,fx.on_g(),size,fx.get_num(),level_source,fx.get_event(0).x());
 }
 
 
@@ -1447,7 +1626,7 @@ the g part is not not not not optimized...too slow :((((((
 */
 
 PGraphics fx_reaction_diffusion(PImage source, FX fx) {
-	return fx_reaction_diffusion(source,fx.on_g(),fx.get_pair(0),fx.get_pair(1),vec2(fx.get_scale()),vec3(fx.get_colour()),fx.get_num(),fx.get_event(0));
+	return fx_reaction_diffusion(source,fx.on_g(),fx.get_pair(0),fx.get_pair(1),vec2(fx.get_scale()),vec3(fx.get_colour()),fx.get_num(),fx.get_event(0).x());
 }
 
 

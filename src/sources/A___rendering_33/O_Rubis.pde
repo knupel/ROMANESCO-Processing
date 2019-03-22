@@ -1,6 +1,6 @@
 /**
 RUBIS
-2013-2018
+2013-2019
 v 1.0.8
 */
 
@@ -9,8 +9,8 @@ class Rubis extends Romanesco {
     //from the index_objects.csv
     item_name = "Rubis" ;
     item_author  = "Stan le Punk";
-    item_version = "version 1.0.8";
-    item_pack = "Base 2013-2018" ;
+    item_version = "version 1.0.9";
+    item_pack = "Base 2013-2019";
     item_costume = "";
     item_mode = "Vertex/Point";
 

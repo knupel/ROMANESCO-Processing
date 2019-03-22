@@ -1,14 +1,14 @@
 /**
 VECTORIAL
 2015-2019
-v 0.0.9
+v 0.0.10
 */
 class Vectorial extends Romanesco {
  
   public Vectorial() {
     item_name = "Vectorial" ;
     item_author  = "Stan le Punk";
-    item_version = "Version 0.0.9";
+    item_version = "Version 0.0.10";
     item_pack = "Base 2015-2019" ;
     item_costume = "" ;
     item_mode = "Classic original/Classic custom/Walker original/Walker custom" ; // separate the differentes mode by "/"

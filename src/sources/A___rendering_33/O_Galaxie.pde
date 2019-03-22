@@ -1,7 +1,7 @@
 /**
 GALAXIE
-2012-2018
-V 1.5.2
+2012-2019
+V 1.5.3
 */
 
 class Galaxie extends Romanesco {
@@ -16,8 +16,8 @@ class Galaxie extends Romanesco {
     //from the index_objects.csv
     item_name = "Galaxie" ;
     item_author  = "Stan le Punk";
-    item_version = "Version 1.5.2";
-    item_pack = "Base 2012-2018" ;
+    item_version = "Version 1.5.3";
+    item_pack = "Base 2012-2019";
     // item_mode ="Point/Ellipse/Rectangle/Box" ;
     item_costume = "Point/Ellipse/Triangle/Rectangle/Cross/Star 5/Star 7/Super Star 8/Super Star 12" ;
     item_mode = "" ;

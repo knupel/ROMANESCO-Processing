@@ -1,7 +1,7 @@
 /**
 SPIRALE
-2011-2018
-v 1.3.10
+2011-2019
+v 1.3.11
 */
 
 Spirale spirale ; 
@@ -11,8 +11,8 @@ class Spirale_romanesco extends Romanesco {
     //from the index_objects.csv
     item_name = "Spirale" ;
     item_author  = "Stan le Punk";
-    item_version = "Version 1.3.10";
-    item_pack = "Base 2011-2018" ;
+    item_version = "Version 1.3.11";
+    item_pack = "Base 2011-2019" ;
     item_costume = "point/ellipse/triangle/rect/cross/pentagon/Star 5/Star 7/Super Star 8/Super Star 12" ;
     item_mode = "" ;
 

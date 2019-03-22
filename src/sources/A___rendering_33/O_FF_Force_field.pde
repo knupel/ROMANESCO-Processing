@@ -1,14 +1,14 @@
 /**
 Force Field
-2018-2018
-v 0.0.9
+2018-2019
+v 0.0.10
 */
 class FF extends Romanesco {
 	public FF() {
 		item_name = "FF Force Field";
 		item_author  = "Stan le Punk";
-		item_version = "Version 0.0.9";
-		item_pack = "Force 2018-2018";
+		item_version = "Version 0.0.10";
+		item_pack = "Force 2018-2019";
     item_costume = "line/triangle/rect/cross/pentagon/Star 5/Star 7/Super Star 8/Super Star 12/none";
     item_mode = "fluid/magnetic/gravity/perlin/equation/chaos/image";
 

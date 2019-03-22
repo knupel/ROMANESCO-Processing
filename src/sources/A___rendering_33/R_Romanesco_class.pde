@@ -1,9 +1,9 @@
 /**
 Abstract CLASS ROMANESCO
-v 1.4.0
+v 1.4.1
 2013-2019
 */
-public abstract class Romanesco implements rope.core.RConstants {
+public abstract class Romanesco implements rope.core.R_Constants {
   protected String item_name;
   protected String item_author;
   protected String item_references;
@@ -123,8 +123,7 @@ public abstract class Romanesco implements rope.core.RConstants {
   protected boolean mass_is;
   protected boolean coord_x_is;
   protected boolean coord_y_is;
-  protected boolean coord_z_is;
-
+  protected boolean coord_z_is;  
   
   public Romanesco() {
     item_name = "Unknown";
@@ -217,7 +216,7 @@ public abstract class Romanesco implements rope.core.RConstants {
 
 
   protected void init() {
-    costume = new Costume(ELLIPSE_ROPE);
+    costume = new Costume(p5,ELLIPSE_ROPE);
     mode = new Mode();
     fill_is(true);
     stroke_is(true);
@@ -2833,7 +2832,7 @@ public abstract class Romanesco implements rope.core.RConstants {
   */
   private Costume get_costume_private() {
     if(costume == null) {
-      costume = new Costume();
+      costume = new Costume(p5);
     }
     String [] costume_split = new String[1];
     costume_split = split(item_costume,"/");

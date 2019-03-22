@@ -1,12 +1,12 @@
 /**
 SOUNDA Rope
-for SOUNDA > SOUND-Analyze
-v 1.5.1
+* for SOUNDA > SOUND-Analyze
+* v 1.5.2
 * Copyleft (c) 2017-2019
-* Stan le Punk > http://stanlepunk.xyz/
-* @author Stan le Punk
+* @author @stanlepunk
 * @see https://github.com/StanLepunK/Sound_rope
-
+* Processing 3.5.3
+* Rope Library 0.4.0
 * Class Sounda use Minim library
 * more information about this library
 * @author Damien Quartz
@@ -17,9 +17,9 @@ v 1.5.1
 
 /**
 Class Sounda
-v 0.2.0
+v 0.2.1
 */
-public class Sounda implements rope.core.RConstants {
+public class Sounda implements rope.core.R_Constants {
   boolean info = false;
   private int analyze_length;
   Section section[];

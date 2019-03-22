@@ -1,6 +1,6 @@
 /**
 Rope UTILS 
-v 1.56.2
+v 1.56.3
 * Copyleft (c) 2014-2019
 Rope – Romanesco Processing Environment – 
 Processing 3.5.3
@@ -42,10 +42,10 @@ print Constants
 v 0.0.3
 */
 Constant_list processing_constants_list = new Constant_list(PConstants.class);
-Constant_list rope_constants_list = new Constant_list(rope.core.RConstants.class);
+Constant_list rope_constants_list = new Constant_list(rope.core.R_Constants.class);
 public void print_constants_rope() {
   if(rope_constants_list == null) {
-    rope_constants_list = new Constant_list(rope.core.RConstants.class);
+    rope_constants_list = new Constant_list(rope.core.R_Constants.class);
   }
   println("ROPE CONSTANTS");
   for(String s: rope_constants_list.list()){
@@ -69,7 +69,7 @@ public void print_constants() {
   }
 
   if(rope_constants_list == null) {
-    rope_constants_list = new Constant_list(rope.core.RConstants.class);
+    rope_constants_list = new Constant_list(rope.core.R_Constants.class);
   }
 
   println("ROPE CONSTANTS");

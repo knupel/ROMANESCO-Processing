@@ -2,7 +2,7 @@
 * BACKGROUND FX
 * Rope background shader fx collection
 * 2019-2019
-* v 0.1.8
+* v 0.1.7
 * all filter bellow has been tested.
 * @see http://stanlepunk.xyz
 * @see https://github.com/StanLepunK/Shader

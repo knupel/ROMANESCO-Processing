@@ -1,14 +1,14 @@
 /**
 SURFACE
 2014-2019
-v 1.1.1
+v 1.1.2
 */
 
 class Surface extends Romanesco {
   public Surface() {
     item_name = "Surface" ;
     item_author  = "Stan le Punk";
-    item_version = "Version 1.1.1";
+    item_version = "Version 1.1.2";
     item_pack = "Base 2014-2019";
     item_costume = "" ;
     item_mode = "Surfimage/Vague/Vague++" ; // separate the differentes mode by "/"

@@ -1,10 +1,11 @@
 /**
 Force Field
 2017-2019
-* @see http://stanlepunk.xyz
+* @see @stanlepunk
 * @see https://github.com/StanLepunK/Force_Field
-v 1.12.0
-Processing 3.5.2
+* v 1.12.1
+* Processing 3.5.3
+* Rope library 0.4.0
 */
 
 /**
@@ -29,7 +30,7 @@ int FLUID, CHAOS, PERLIN, GRAVITY, MAGNETIC, IMAGE
 At this moment the force field is available only in 2D mode
 */
 
-public class Force_field implements rope.core.RConstants {
+public class Force_field implements rope.core.R_Constants {
   // FIELD
   private vec4[][] field;
   private vec4[][] field_save;

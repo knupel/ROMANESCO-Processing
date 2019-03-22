@@ -1,7 +1,7 @@
 /**
 FILTER
 * 2018-2019
-* v 0.1.3
+* v 0.1.5
 * here is calling classic FX ROPE + FX FORCE FIELD
 */
 ArrayList<FX> fx_manager;
@@ -117,7 +117,6 @@ void fx_post() {
     if(add_fx) {
       active_fx.add(which_fx);
     }
-
   }
 
   if(active_fx != null) {
@@ -146,8 +145,14 @@ void fx_post() {
 
 
 
+int which_current_movie;
+boolean draw_fx_before_rendering_is;
+boolean draw_fx_before_rendering_is() {
+  return draw_fx_before_rendering_is;
+}
 
 void draw_fx(int which) {
+  draw_fx_before_rendering_is = false;
   // select fx 
   num_special_fx = 1 ;
   if(which < num_special_fx) {
@@ -164,6 +169,19 @@ void draw_fx(int which) {
             draw_fx_pattern(16,16,2,RGB,reset_fx_button_alert_is());
           }
           select_fx_post(g,get_fx_pattern(0),get_fx_pattern(1),get_fx(fx_manager,target));
+        } else if (get_fx(fx_manager,target).get_type() == FX_DATAMOSH) {
+          draw_fx_before_rendering_is = true;
+          if(movie[which_current_movie] == null) {
+            for(int which_movie = 0 ; which_movie < rom_manager.size() ; which_movie++) {
+              if(movie[which_movie] != null) {
+                which_current_movie = which_movie;
+                break;
+              }
+            }         
+          } else {
+            movie[which_current_movie].loop();
+            select_fx_post(movie[which_current_movie],null,null,get_fx(fx_manager,target));
+          }
         } else {
           select_fx_post(g,null,null,get_fx(fx_manager,target));
         }      
@@ -257,8 +275,6 @@ void write_fx_post_index() {
     }
     info_fx[target].setString("Slider",s);
   }
-
-
   saveTable(index_fx, preference_path+"index_fx.csv"); 
 
 }
@@ -319,6 +335,8 @@ void setting_fx_classic(ArrayList<FX> fx_list) {
   setting_fx_blur_gaussian(fx_list);
   setting_fx_blur_radial(fx_list);
 
+  setting_fx_datamosh(fx_list);
+
   setting_fx_dither_bayer(fx_list);
 
   setting_fx_haltone_dot(fx_list);
@@ -337,10 +355,11 @@ void setting_fx_classic(ArrayList<FX> fx_list) {
 
 
 void update_fx_post(ArrayList<FX> fx_list) {
-
   update_fx_blur_circular(fx_list,move_filter_fx,sl_fx_quantity,sl_fx_strength_x);
   update_fx_blur_gaussian(fx_list,move_filter_fx,sl_fx_strength_x);
   update_fx_blur_radial(fx_list,move_filter_fx,vec2(sl_fx_pos_x,sl_fx_pos_y),sl_fx_strength_x);
+
+  update_fx_datamosh(fx_list,move_filter_fx,sl_fx_strength_x,sl_fx_threshold,vec3(sl_fx_color_x,sl_fx_color_y,sl_fx_color_z));
   
   int mode_dither = 1 ; // rgb
   update_fx_dither_bayer(fx_list,move_filter_fx,vec3(sl_fx_color_x,sl_fx_color_y,sl_fx_color_z),mode_dither);
@@ -438,6 +457,40 @@ void update_fx_blur_radial(ArrayList<FX> fx_list, boolean move_is, vec2 pos,floa
     fx_set_strength(fx_list,set_blur_radial,str);
   }
 }
+
+
+
+
+/**
+* datamosh
+*/
+String set_datamosh = "datamosh";
+void setting_fx_datamosh(ArrayList<FX> fx_list) {
+  String version = "0.0.1";
+  int revision = 1;
+  String author = "Alexandre Rivaux refactoring by Stan le Punk";
+  String pack = "Base 2019";
+  String [] slider = {"red","green","blue","strength X","threshold"};
+  int id = fx_classic_num;
+  init_fx(fx_list,set_datamosh,FX_DATAMOSH,id,author,pack,version,revision,slider,null);
+  fx_classic_num++;
+}
+
+void update_fx_datamosh(ArrayList<FX> fx_list, boolean move_is, float strength, float threshold, vec3 colour) {
+  if(move_is) {
+    fx_set_strength(fx_list,set_datamosh, map(strength,0,1,-100,100));
+    fx_set_threshold(fx_list,set_datamosh, (1.0 -threshold) *0.1);
+    vec2 offset_red = vec2(-colour.red(), colour.red()).mult(.1);
+    vec2 offset_green = vec2(-colour.gre(), colour.gre()).mult(.1);
+    vec2 offset_blue = vec2(-colour.blu(), colour.blu()).mult(.1);
+    fx_set_pair(fx_list,set_datamosh,0, offset_red.array());
+    fx_set_pair(fx_list,set_datamosh,1, offset_green.array());
+    fx_set_pair(fx_list,set_datamosh,2, offset_blue.array());
+  }
+}
+
+
+
 
 
 /**

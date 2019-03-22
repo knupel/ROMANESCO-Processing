@@ -1,8 +1,8 @@
 
 /**
 ORBITAL
-2015-2018
-v 0.0.4
+2015-2019
+v 0.0.5
 */
 class Orbital extends Romanesco {
   float r_min;
@@ -31,8 +31,8 @@ class Orbital extends Romanesco {
   public Orbital() {
     item_name = "Orbital" ;
     item_author  = "Alexandre Petit";
-    item_version = "Version 0.0.4";
-    item_pack = "Workshop 2015" ;
+    item_version = "Version 0.0.5";
+    item_pack = "Workshop 2015-2019" ;
     item_costume = "" ; // separate the differentes mode by "/"
     item_mode = "" ; // separate the differentes mode by "/"
     /** 

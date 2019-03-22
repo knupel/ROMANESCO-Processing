@@ -1,7 +1,7 @@
 /**
 Flux Force Field
 2018-2019
-v 0.0.8
+v 0.0.10
 */
 class Flux extends Romanesco {
 
@@ -10,7 +10,7 @@ class Flux extends Romanesco {
 	public Flux() {
 		item_name = "FF Flux";
 		item_author  = "Stan le Punk";
-		item_version = "Version 0.0.9";
+		item_version = "Version 0.0.10";
 		item_pack = "Force 2018-2019";
     item_costume = "pixel/point/ellipse/triangle/rect/cross/pentagon/Star 5/Star 7/Super Star 8/Super Star 12";
     item_mode = "";

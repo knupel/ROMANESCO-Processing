@@ -1,12 +1,11 @@
 /**
 * Multi haltone 
-* refactoring by Stan le Punk
+* refactoring
 * original by VIDVOX
 * @see https://www.interactiveshaderformat.com/sketches/3719
-* v 0.0.1
+* v 0.0.2
 * 2019-2019
-
-* @see http://stanlepunk.xyz
+* @see @stanlepunk
 * @see https://github.com/StanLepunK/Shader
 */
 // Processing implementation
@@ -20,7 +19,7 @@ uniform vec2 resolution;
 // Rope implementation
 uniform sampler2D texture_source;
 uniform vec2 resolution_source;
-uniform bvec2 flip_source;
+uniform ivec2 flip_source;
 
 
 /** 
@@ -35,6 +34,36 @@ uniform float sharpness;
 uniform int mode;
 
 const float TAU = 6.28318530718;
+
+
+vec2 set_uv(int flip_vertical, int flip_horizontal, vec2 res) {
+  vec2 uv;
+  if(all(equal(vec2(0),res))) {
+    uv = vertTexCoord.st;
+  } else if(all(greaterThan(res,vertTexCoord.st))) {
+    uv = vertTexCoord.st;
+  } else {
+    uv = res;
+  }
+  // flip 
+  float condition_y = step(0.1, flip_vertical);
+  uv.y = 1.0 -(uv.y *condition_y +(1.0 -uv.y) *(1.0 -condition_y));
+
+  float condition_x = step(0.1, flip_horizontal);
+  uv.x = 1.0 -(uv.x *condition_x +(1.0 -uv.x) *(1.0 -condition_x));
+
+  return uv;
+}
+
+vec2 set_uv(ivec2 flip, vec2 res) {
+  return set_uv(flip.x,flip.y,res);
+}
+
+vec2 set_uv() {
+  return set_uv(0,0,vec2(0));
+}
+
+
 
 vec3 rgb2hsv(vec3 c)  {
   vec4 K = vec4(0.0, -1.0 / 3.0, 2.0 / 3.0, -1.0);
@@ -121,7 +150,7 @@ float rand(vec2 co){
 
 
 void main() {
-  vec2 uv = vertTexCoord.st;
+  vec2 uv = set_uv(flip_source,resolution_source);
   vec4 color = texture2D(texture_source,uv);
   vec2 d = 1.0/resolution;
   vec4 colorL = texture2D(texture_source,left_coord(uv,d));

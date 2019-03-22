@@ -1,15 +1,15 @@
 /**
 BOIDS
-2015-2018
-V 1.0.5
+2015-2019
+V 1.0.6
 */
 
 class Boids extends Romanesco {
   public Boids() {
     item_name = "Boids" ;
     item_author  = "Stan le Punk";
-    item_version = "Version 1.0.5";
-    item_pack = "Base 2015-2018" ;
+    item_version = "Version 1.0.6";
+    item_pack = "Base 2015-2019" ;
     item_costume = "";
     item_mode = "Tetra monochrome/Tetra camaieu" ; // separate the differentes mode by "/"
 

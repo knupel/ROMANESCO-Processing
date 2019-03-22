@@ -1,12 +1,13 @@
 /**
 * Vehicle
 * refactoring by Stan le Punk
-* @see http://stanlepunk.xyz
+* @see @stanlepunk
 * @see https://github.com/StanLepunK/Force_Field
 * 2017-2019
-* v 1.4.0
+* v 1.4.1
 *
-* Run on Processing 3.5.2
+* Run on Processing 3.5.3
+* Rope library 0.4.0
 *
 * work based on the code traduction of Daniel Shiffman from Reynolds Study algorithm
 * @see http://natureofcode.com
@@ -15,7 +16,7 @@
 * @see http://www.red3d.com/cwr/
 */
 
-public class Vehicle implements rope.core.RConstants {
+public class Vehicle implements rope.core.R_Constants {
   // The usual stuff
   private vec2 starting_direction;
   private vec2 position;

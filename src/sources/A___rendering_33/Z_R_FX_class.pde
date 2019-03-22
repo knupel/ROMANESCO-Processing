@@ -1,6 +1,6 @@
 /**
  * CLASS FX 
- * v 0.4.1
+ * v 0.4.2
  * @author @stanlepunk
  * @see https://github.com/StanLepunK/Shader
  * 2019-2019
@@ -25,6 +25,7 @@ public class FX {
 	private int mode; // 0
 	private int num; // 1 
 	private float quality; // 2
+	private float time; // 3
 
 	private vec2 scale; // 10
 	private vec2 resolution; // 11
@@ -42,7 +43,6 @@ public class FX {
 	private vec4 colour; // 32
 	private vec4 cardinal; // 33 > north, east, south, west > top, right, bottom, left
 
-
   private float hue; // 200
 	private float saturation; // 201
 	private float brightness; // 202
@@ -56,7 +56,7 @@ public class FX {
 	// modular
 	private vec3 [] matrix; // 40 > 42
 	private vec2 [] pair; // 50 > 42
-	private boolean [] event; // 10O-102
+	private bvec4 [] event; // 10O-102
 
 
 
@@ -125,7 +125,9 @@ public class FX {
   		set_num((int)arg[0]);
   	} else if(which == 2) {
   		set_quality((float)arg[0]);
-  	} 
+  	} else if(which == 3) {
+  		set_time((float)arg[0]);
+  	}
 
   		else if(which == 10) {
   		set_scale(to_float_array(arg));
@@ -182,14 +184,14 @@ public class FX {
   	}	
 
   		else if(which == 100) {
-  		if(event == null || event.length < 1) event = new boolean[1];
-  		set_event(0,(boolean)arg[0]);
+  		if(event == null || event.length < 1) event = new bvec4[1];
+  		set_event(0,to_boolean_array(arg));
   	} else if(which == 101) {
-  		if(event == null || event.length < 2) event = new boolean[2];
-  		set_event(1,(boolean)arg[0]);
+  		if(event == null || event.length < 2) event = new bvec4[2];
+  		set_event(1,to_boolean_array(arg));
   	} else if(which == 102) {
-  		if(event == null || event.length < 3) event = new boolean[3];
-  		set_event(2,(boolean)arg[0]);
+  		if(event == null || event.length < 3) event = new bvec4[3];
+  		set_event(2,to_boolean_array(arg));
   	}
   }
 
@@ -199,11 +201,25 @@ public class FX {
   		if(arg[i] instanceof Float) {
   			f[i] = (float)arg[i];
   		} else {
-  			printErr("class FX method set(): arg",arg,"cannot be cast to float");
+  			printErr("class FX method to_float_array(): arg",arg,"cannot be cast to float");
   			f[i] = 0;
   		}
   	}
   	return f;
+  }
+
+
+  private boolean[] to_boolean_array(Object... arg) {
+  	boolean [] b = new boolean[arg.length];
+  	for(int i = 0 ; i < arg.length ; i++) {
+  		if(arg[i] instanceof Boolean) {
+  			b[i] = (boolean)arg[i];
+  		} else {
+  			printErr("class FX method to_boolean_array(): arg",arg,"cannot be cast to boolean");
+  			b[i] = false;
+  		}
+  	}
+  	return b;
   }
 
 
@@ -219,107 +235,111 @@ public class FX {
 		this.quality = quality;
 	}
 
+	private void set_time(float time) {
+		this.time = time;
+	}
+
 	private void set_scale(float... arg) {
 		if(this.scale == null) {
-			this.scale = vec2(build_2(arg));
+			this.scale = vec2(build_float_2(arg));
 		} else {
-			this.scale.set(build_2(arg));
+			this.scale.set(build_float_2(arg));
 		}
 	}
 
 	private void set_resolution(float... arg) {
 		if(this.resolution == null) {
-			this.resolution = vec2(build_2(arg));
+			this.resolution = vec2(build_float_2(arg));
 		} else {
-			this.resolution.set(build_2(arg));
+			this.resolution.set(build_float_2(arg));
 		}
 	}
 
 	private void set_strength(float... arg) {
 		if(this.strength == null) {
-			this.strength = vec3(build_3(arg));
+			this.strength = vec3(build_float_3(arg));
 		} else {
-			this.strength.set(build_3(arg));
+			this.strength.set(build_float_3(arg));
 		}
 	}
 
 	private void set_angle(float... arg) {
 		if(this.angle == null) {
-			this.angle = vec3(build_3(arg));
+			this.angle = vec3(build_float_3(arg));
 		} else {
-			this.angle.set(build_3(arg));
+			this.angle.set(build_float_3(arg));
 		}
 	}
 
 	private void set_threshold(float... arg) {
 		if(this.threshold == null) {
-			this.threshold = vec3(build_3(arg));
+			this.threshold = vec3(build_float_3(arg));
 		} else {
-			this.threshold.set(build_3(arg));
+			this.threshold.set(build_float_3(arg));
 		}
 	}
 
 	private void set_pos(float... arg) {
 		if(this.pos == null) {
-			this.pos = vec3(build_3(arg));
+			this.pos = vec3(build_float_3(arg));
 		} else {
-			this.pos.set(build_3(arg));
+			this.pos.set(build_float_3(arg));
 		}
 	}
 
 	private void set_size(float... arg) {
 		if(this.size == null) {
-			this.size = vec3(build_3(arg));
+			this.size = vec3(build_float_3(arg));
 		} else {
-			this.size.set(build_3(arg));
+			this.size.set(build_float_3(arg));
 		}
 	}
 
 	private void set_offset(float... arg) {
 		if(this.offset == null) {
-			this.offset = vec3(build_3(arg));
+			this.offset = vec3(build_float_3(arg));
 		} else {
-			this.offset.set(build_3(arg));
+			this.offset.set(build_float_3(arg));
 		}
 	}
 
 	private void set_speed(float... arg) {
 		if(this.speed == null) {
-			this.speed = vec3(build_3(arg));
+			this.speed = vec3(build_float_3(arg));
 		} else {
-			this.speed.set(build_3(arg));
+			this.speed.set(build_float_3(arg));
 		}
 	}
 
 	private void set_level_source(float... arg) {
 		if(this.level_source == null) {
-			this.level_source = vec4(build_4(arg));
+			this.level_source = vec4(build_float_4(arg));
 		} else {
-			this.level_source.set(build_4(arg));
+			this.level_source.set(build_float_4(arg));
 		}
 	}
 
 	private void set_level_layer(float... arg) {
 		if(this.level_layer == null) {
-			this.level_layer = vec4(build_4(arg));
+			this.level_layer = vec4(build_float_4(arg));
 		} else {
-			this.level_layer.set(build_4(arg));
+			this.level_layer.set(build_float_4(arg));
 		}
 	}
 
 	private void set_colour(float... arg) {
 		if(this.colour == null) {
-			this.colour = vec4(build_4(arg));
+			this.colour = vec4(build_float_4(arg));
 		} else {
-			this.colour.set(build_4(arg));
+			this.colour.set(build_float_4(arg));
 		}
 	}
 
 	private void set_cardinal(float... arg) {
 		if(this.cardinal == null) {
-			this.cardinal = vec4(build_4(arg));
+			this.cardinal = vec4(build_float_4(arg));
 		} else {
-			this.cardinal.set(build_4(arg));
+			this.cardinal.set(build_float_4(arg));
 		}
 	}
 
@@ -353,22 +373,26 @@ public class FX {
 
 	private void set_matrix(int which, float... arg) {
 		if(this.matrix[which] == null) {
-			this.matrix[which] = vec3(build_3(arg));
+			this.matrix[which] = vec3(build_float_3(arg));
 		} else {
-			this.matrix[which].set(build_3(arg));
+			this.matrix[which].set(build_float_3(arg));
 		}
 	}
 
 	private void set_pair(int which, float... arg) {
 		if(this.pair[which] == null) {
-			this.pair[which] = vec2(build_2(arg));
+			this.pair[which] = vec2(build_float_2(arg));
 		} else {
-			this.pair[which].set(build_2(arg));
+			this.pair[which].set(build_float_2(arg));
 		}
 	}
 
-	private void set_event(int which, boolean is) {
-		this.event[which] = is;
+	private void set_event(int which, boolean... arg) {
+		if(this.event[which] == null) {
+			this.event[which] = bvec4(build_boolean_4(arg));
+		} else {
+			this.event[which].set(build_boolean_4(arg));
+		}
 	}
 
 
@@ -428,6 +452,10 @@ public class FX {
 
 	public float get_quality() {
 		return quality;
+	}
+
+	public float get_time() {
+		return time;
 	}
 
 	public vec2 get_scale() {
@@ -597,23 +625,38 @@ public class FX {
 	}
   
   // event
-  public boolean get_event(int which) {
+  public bvec4 get_event(int which) {
 		if(event != null && which < event.length  && which >= 0) {
 			return event[which];
 		} else {
 			printErr("class FX method get_event(",which,") is out of the list available");
-			return false;
+			return null;
 		}
 	}
 
-	public boolean [] get_event() {
+	public bvec4 [] get_event() {
 		if(event != null) {
 			return event;
 		} else return null;
 	}
 
 	// util
-	private vec4 build_4(float... arg) {
+	private bvec4 build_boolean_4(boolean... arg) {
+		if(arg.length == 1 ) {
+			return bvec4(arg[0],false,false,false);
+		} else if(arg.length == 2) {
+			return bvec4(arg[0],arg[1],false,false);
+		} else if(arg.length == 3) {
+			return bvec4(arg[0],arg[1],arg[2],false);
+		} else if(arg.length == 4) {
+			return bvec4(arg[0],arg[1],arg[2],arg[3]);
+		} else {
+			return bvec4(false);
+		}
+	}
+
+
+	private vec4 build_float_4(float... arg) {
 		if(arg.length == 1 ) {
 			return vec4(arg[0],arg[0],arg[0],g.colorModeA);
 		} else if(arg.length == 2) {
@@ -627,7 +670,7 @@ public class FX {
 		}
 	}
 
-	private vec3 build_3(float... arg) {
+	private vec3 build_float_3(float... arg) {
 		if(arg.length == 1 ) {
 			return vec3(arg[0],arg[0],arg[0]);
 		} else if(arg.length == 2) {
@@ -639,12 +682,12 @@ public class FX {
 		}
 	}
 
-	private vec2 build_2(float... arg) {
+	private vec2 build_float_2(float... arg) {
 		if(arg.length == 1 ) {
 			return vec2(arg[0],arg[0]);
 		} else if(arg.length == 2) {
 			return vec2(arg[0],arg[1]);
-		}  else {
+		} else {
 			return vec2(0);
 		}
 	}

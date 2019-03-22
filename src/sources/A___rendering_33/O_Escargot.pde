@@ -1,7 +1,7 @@
 /**
 ESCARGOT 
-2011-2018
-V 1.4.11
+2011-2019
+V 1.4.12
 */
 //TOXIC
 import toxi.geom.*;
@@ -17,8 +17,8 @@ class Escargot extends Romanesco {
     //from the index_objects.csv
     item_name = "Image" ;
     item_author  = "Stan le Punk";
-    item_version = "version 1.4.11";
-    item_pack = "Base 2012-2018" ;
+    item_version = "version 1.4.12";
+    item_pack = "Base 2012-2019" ;
     item_costume = "";
     item_mode = "Original/Raw/Point/Ellipse/Rectangle/Box/Cross/SVG/Vitraux" ;
 

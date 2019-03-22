@@ -1,6 +1,6 @@
 /*
 MANAGE MEDIA
-v 1.0.1
+v 1.0.2
 */
 void media_init_path() {
   update_movie_path();
@@ -138,16 +138,16 @@ void update_bitmap_path() {
 }
 
 
-void change_bitmap_from_pad(int ID) {
-  which_bitmap[ID] = pad_inc(which_bitmap[ID],UP);
-  which_bitmap[ID] = pad_inc(which_bitmap[ID],DOWN);
-  which_bitmap[ID] = pad_inc(which_bitmap[ID],RIGHT);
-  which_bitmap[ID] = pad_inc(which_bitmap[ID],LEFT);
+void change_bitmap_from_pad(int id) {
+  which_bitmap[id] = pad_inc(which_bitmap[id],UP);
+  which_bitmap[id] = pad_inc(which_bitmap[id],DOWN);
+  which_bitmap[id] = pad_inc(which_bitmap[id],RIGHT);
+  which_bitmap[id] = pad_inc(which_bitmap[id],LEFT);
 
-  if(which_bitmap[ID] < 0) {
-    which_bitmap[ID] = bitmap_path.length -1;
-  } else if (which_bitmap[ID] >= bitmap_path.length) {
-     which_bitmap[ID] = 0;
+  if(which_bitmap[id] < 0) {
+    which_bitmap[id] = bitmap_path.length -1;
+  } else if (which_bitmap[id] >= bitmap_path.length) {
+     which_bitmap[id] = 0;
   }
 }
 
@@ -167,16 +167,16 @@ void load_movie(boolean change_movie_is, int id) {
 }
 
 
-void change_movie_from_pad(int ID) {
-  which_movie[ID] = pad_inc(which_movie[ID],UP);
-  which_movie[ID] = pad_inc(which_movie[ID],DOWN);
-  which_movie[ID] = pad_inc(which_movie[ID],RIGHT);
-  which_movie[ID] = pad_inc(which_movie[ID],LEFT);
+void change_movie_from_pad(int id) {
+  which_movie[id] = pad_inc(which_movie[id],UP);
+  which_movie[id] = pad_inc(which_movie[id],DOWN);
+  which_movie[id] = pad_inc(which_movie[id],RIGHT);
+  which_movie[id] = pad_inc(which_movie[id],LEFT);
 
-  if(which_movie[ID] < 0) {
-    which_movie[ID] = movie_path.length -1;
-  } else if (which_movie[ID] >= movie_path.length) {
-    which_movie[ID] = 0;
+  if(which_movie[id] < 0) {
+    which_movie[id] = movie_path.length -1;
+  } else if (which_movie[id] >= movie_path.length) {
+    which_movie[id] = 0;
   }
 }
 

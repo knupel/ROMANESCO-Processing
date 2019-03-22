@@ -1,10 +1,10 @@
 /**
 Rope COLOUR
-v 0.7.0
+v 0.7.1
 * Copyleft (c) 2016-2019 
 * Stan le Punk > http://stanlepunk.xyz/
 Rope – Romanesco Processing Environment – 
-Processing 3.4
+Processing 3.5.3
 * @author @stanlepunk
 * @see https://github.com/StanLepunK/Rope_framework
 *
@@ -27,7 +27,7 @@ v 0.0.2
 
 * get the colour by index or name
 */
-public class ROPE_colour implements rope.core.RConstants {
+public class ROPE_colour implements rope.core.R_Constants {
 	int [] c;
 	public ROPE_colour(int... c) {
 		this.c = new int[c.length];

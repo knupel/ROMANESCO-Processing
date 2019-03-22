@@ -1,7 +1,7 @@
 /**
 LIGNES
-2011-2018
-v 1.2.4
+2011-2019
+v 1.2.5
 */
 Line line ;
 //object three
@@ -9,8 +9,8 @@ class Lignes extends Romanesco {
   public Lignes() {
     item_name = "Lignes" ;
     item_author  = "Stan le Punk";
-    item_version = "Version 1.2.4";
-    item_pack = "Base 2011-2018" ;
+    item_version = "Version 1.2.5";
+    item_pack = "Base 2011-2019" ;
     item_costume = "" ;
     item_mode = "Lines 1/Lines 2/Lines 3/Lines 4/Lines 5/Lines 6" ;
 

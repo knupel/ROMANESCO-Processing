@@ -1,7 +1,7 @@
 /**
 HONEYCOMB
-2011-2018
-v 0.1.4
+2011-2019
+v 0.1.5
 */
 
 
@@ -11,8 +11,8 @@ class Honeycomb extends Romanesco {
     //from the index_objects.csv
     item_name = "Nid d'abeille" ;
     item_author  = "Amnon Owed";
-    item_version = "Version 0.1.4";
-    item_pack = "Base 2012-2018" ;
+    item_version = "Version 0.1.5";
+    item_pack = "Base 2012-2019" ;
     item_costume = "" ;
     item_mode = "" ;
 

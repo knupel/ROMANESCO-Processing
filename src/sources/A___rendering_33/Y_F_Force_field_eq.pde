@@ -1,11 +1,12 @@
 /**
-EQUATION
-2018-2018
-v 0.1.0
-Processing 3.4
+* Force EQUATION
+* 2018-2019
+* v 0.1.0
+* Processing 3.5.3
+* Rope library 0.4.0
 * Equation work with field array 2D
 */
-public class Equation implements rope.core.RConstants {
+public class Equation implements rope.core.R_Constants {
   // ArrayList<Integer> rank ;
   vec3 center_eq_dir, center_eq_len;
   ArrayList<ivec4> pow;

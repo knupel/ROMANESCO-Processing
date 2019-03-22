@@ -167,8 +167,9 @@ void settings() {
 
 
 
-
+PApplet p5;
 void setup() {
+  p5 = this;
   path_setting();
   // shader_folder_filter(preference_path+"shader/filter/");
   load_save(preference_path+"setting/defaultSetting.csv");

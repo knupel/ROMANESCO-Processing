@@ -1,14 +1,14 @@
 /**
 SOLEIL
-2012-2018
-1.2.0
+2012-2019
+1.2.1
 */
 class Soleil extends Romanesco {
   public Soleil() {
     item_name = "Soleil" ;
     item_author  = "Stan le Punk";
-    item_version = "Version 1.2.0";
-    item_pack = "Base 2013-2018" ;
+    item_version = "Version 1.2.1";
+    item_pack = "Base 2013-2019";
     item_costume = "" ;
     item_mode = "Beam/Lie'Bro'One/Lie'Bro'Two/Lie'Bro Noisy";
     hue_fill_is = true;

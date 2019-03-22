@@ -1,383 +1,12 @@
 /**
 COSTUME class
 * Copyleft (c) 2019-2019
-* v 0.6.1
+* v 0.6.3
 * @author @stanlepunk
 * @see https://github.com/StanLepunK/Rope_framework
 * Here you finf the class Costume and all the class shape used.
 * Processing 3.5.3
 */
-
-
-/**
-PRIMITIVE
-2019-2019
-v 0.1.0
-*/
-public class Primitive implements RConstants {
-	private vec3 pos;
-	private float diam = 0;
-	private vec2 dir;
-  private vec3 [] pts;
-  private int summits = 0;
-  private float angle = 0;
-
-	public Primitive () {}
-  
-
-  vec3 [] get_normal() {
-  	return pts;
-  }
-
-  vec3 [] get() {
-  	vec3 [] temp = new vec3[pts.length];
-  	float radius = diam *.5;
-  	for(int i = 0 ; i < temp.length ; i++) {
-  		temp[i] = pts[i].copy();
-  		if(temp.length == 2) {
-  			temp[i].mult(diam).add(pos);
-  		} else {
-  			temp[i].mult(radius).add(pos);
-  		}
-  	}
-  	return temp;
-  }
-
-
-  vec3 get_pos() {
-  	return pos;
-  }
-
-  vec2 get_dir() {
-  	return dir;
-  }
-
-  float get_diam() {
-  	return diam;
-  }
-
-  float get_radius() {
-  	return diam*.5;
-  }
-
-  int get_summits() {
-  	return summits;
-  }
-
-  float get_angle() {
-  	return angle;
-  }
-
-
-  /**
-  * draw
-  * calcule and show result in same methode
-  */
-	public void draw(float diam, int summits) {
-	  draw(vec3(),diam,summits,0,vec2());
-	}
-
-	public void draw(vec pos, float diam, int summits) {
-	  draw(pos,diam,summits,0,vec2());
-	}
-
-	public void draw(vec pos, float diam, int summits, vec2 dir_P3D) {
-	  draw(pos,diam,summits,0,dir_P3D);
-	}
-
-	public void draw(vec pos, float diam, int summits, float angle) {
-	  draw(pos,diam,summits,angle,vec2());
-	}
-
-	public void draw(vec pos, float diam, int summits, float angle, vec2 dir_P3D) {
-    calc(pos,diam,summits,angle,dir_P3D);
-		show();
-	}
-  
-
-  /**
-  * calcule all points for shape
-  */
-  public void calc(float diam, int summits) {
-	  calc(vec3(),diam,summits,0,vec2());
-	}
-
-	// Primitive with vec method
-	public void calc(vec pos, float diam, int summits) {
-	  calc(pos,diam,summits,0,vec2());
-	}
-
-	public void calc(vec pos, float diam, int summits, vec2 dir_P3D) {
-	  calc(pos,diam,summits,0,dir_P3D);
-	}
-
-	public void calc(vec pos, float diam, int summits, float angle) {
-	  calc(pos,diam,summits,angle,vec2());
-	}
-	// Primitive with vec method and angle to display
-	public void calc(vec pos, float diam, int summits, float angle, vec2 dir_P3D) {
-		this.diam = diam;
-
-		if(this.pos == null) {
-			this.pos = vec3(pos.x,pos.y,pos.z);
-		} else {
-			this.pos.set(pos.x,pos.y,pos.z);
-		}
-
-		if(this.dir == null) {
-			this.dir = vec2(dir_P3D.x,dir_P3D.y);
-		} else {
-			this.dir.set(dir_P3D.x,dir_P3D.y);
-		}
-    // println("this",this.summits,this.angle);
-    // println("new",summits,angle);
-    if(this.summits != summits || this.angle != angle) {
-    	this.summits = summits;
-    	this.angle = angle;
-    	build();
-    }
-
-	  /**
-	  * IN FUTURE MUST BE COMPUTE with POLYGON 3D may be in 2028 ??????
-
-	  if (dir_P3D != null && renderer_P3D()) {
-	    // polygon_3D()
-	    // method must be used in the future when this one is not shitty instead polygon2D() with matrix();
-	    // classic version with polygon_2D method
-	    for (int i = 0 ; i < summits ; i++) {
-	      printTempo(60,"param",i,summits,angle);
-	      points[i] = polygon_2D(summits, angle)[i].copy();
-	      printTempo(60,"point",points[i]);
-	    }
-	  } else {
-	    for (int i = 0 ; i < summits ; i++) {
-	      points[i] = polygon_2D(summits, angle)[i].copy();
-	    }
-	  }
-
-	  // draw the shape
-	  // this rotate part must be integrate with a cartesian method in the circle method
-	  draw_primitive(pos,dir_P3D,radius,points);
-
-	  
-	  With advance shitty version of Polygon_3D
-	  if(dir == null ) {
-	    draw_primitive(pos, radius, points); 
-	  } else if (dir != null && renderer_P3D()) {
-	    draw_primitive( points);
-	  }
-	  */
-	}
-
-
-
-
-
-
-
-
-  /**
-  * build all the point if necessary, that increase the speed rendering
-  */
-	private void build() {
-    // security for the sinple, null or negative point quantity
-	  if(this.summits < 2) {
-	    this.summits = 2;
-	  }
-
-	  pts = new vec3[this.summits];
-	  // create coord of the shape
-	  if(this.summits == 2 && this.angle == 0) {
-	    pts[0] = vec3(-.5,0,0);
-	    pts[1] = vec3(.5,0,0);
-	  } else {
-	    for (int i = 0 ; i < this.summits ; i++) {
-	      pts[i] = polygon_2D(this.summits,this.angle)[i].copy();
-	    }
-	  }
-	}
-
-
-
-
-
-	/**
-	* main SHOW primitive
-	* the line rendering is awful, very very low when there is a lot of shape,
-	* may be the compute on polygon_2D() is guilty
-	*/
-	private void show() {
-		float radius = diam *.5;
-	  boolean check_line = false;
-
-	  vec3 [] temp_pos = new vec3[pts.length];
-	  for(int i = 0 ; i < temp_pos.length ; i++) {
-	  	temp_pos[i] = pts[i].copy();
-	  }
-
-	  if(temp_pos.length == 2) {
-	  	for(int i = 0 ; i < temp_pos.length ; i++) {
-	  		temp_pos[i].mult(diam).add(pos);
-	  	}
-	  	line(temp_pos[0],temp_pos[1]);
-	  } else if(temp_pos.length == 3) {
-	  	// faster method to display a lot of triangle
-	  	for(int i = 0 ; i < temp_pos.length ; i++) {
-	  		temp_pos[i].mult(radius).add(pos);
-	  	}
-	  	triangle(temp_pos[0],temp_pos[1],temp_pos[2]);
-	  } else if (temp_pos.length == 4) {
-	  	// faster method to display a lot of rect
-	  	rectMode(CENTER);
-	  	float side = diam*.5 *ROOT2;
-	  	square(pos.x,pos.y,side);
-	  } else {
-	    beginShape();
-	    for (int i = 0 ; i < temp_pos.length ; i++) {
-	      if (temp_pos[i] != null ) {
-	        vertex(temp_pos[i].mult(radius).add(pos));
-	      }
-	    }
-	    endShape(CLOSE) ;
-	  }
-	}
-
-
-
-	/**
-	POLYGON 2D
-	v 0.1.0
-	*/
-	public vec3 [] polygon_2D (int num) {
-	  float new_orientation = 0;
-	  return polygon_2D (num,new_orientation);
-	}
-
-
-	// main method
-	public vec3 [] polygon_2D (int num, float new_orientation) {
-	  vec3 [] p = new vec3[num];
-	  // choice your starting point
-	  float start_angle = PI*.5 +new_orientation;
-	  if(num == 4) {
-	    start_angle = PI*.25 +new_orientation;
-	  }
-	  // calcul the position of each summit, step by step
-	  for(int i = 0 ; i < num ; i++) {
-	    p[i] = compute_coord_polygon_2D(i,num,start_angle).copy();
-	  }
-	  return p;
-	}
-
-	public vec3 compute_coord_polygon_2D(int target, int num, float start_angle) {
-	  float step_angle = map(target,0,num,0,TAU); 
-	  float orientation = TAU -step_angle -start_angle;
-	  vec2 temp_orientation_xy = to_cartesian_2D(orientation);
-	  float x = temp_orientation_xy.x;
-	  float y = temp_orientation_xy.y;
-	  float z = 0 ;
-	  return vec3(x,y,z);
-	}
-
-
-	/**
-	POLYGON 3D
-	but must be refactoring because the metod is a little shitty !!!!!
-	*/
-	// polygon with 3D direction in cartesian world
-	public vec3 [] polygon_3D(int num, float new_orientation, vec3 dir) {
-	  vec3 pos = vec3();
-	  int radius = 1 ;
-	  return polygon_3D (pos,radius,num,new_orientation,dir);
-	}
-
-
-	/**
-	Inspirated by : Creating a polygon perpendicular to a line segment Written by Paul Bourke February 1997
-	@see http://paulbourke.net/geometry/circlesphere/
-	*/
-	public vec3 [] polygon_3D(vec3 pos, float radius, int num, float new_orientation, vec3 dir) {
-
-	  vec3 p1 = dir.copy();
-	  vec3 p2 = to_cartesian_3D(PI,PI);
-	  vec3 support = to_cartesian_3D(PI,PI);
-	  /*
-	  vec3 p2 = vec3(0,0,1) ;
-	  vec3 support = vec3 (1,0,0) ;
-	  */
-	  // prepare the vector direction
-	  vec3 r = vec3();
-	  vec3 s = vec3();
-	  vec3 p2_sub_p1 = sub(p1,p2);
-
-	  r = cross(p2_sub_p1,support,r);
-	  s = cross(p2_sub_p1,r,s);
-	  r.dir();
-	  s.dir();
-
-	  // prepare polygone in 3D world
-	  vec3 plane = vec3();
-	  int num_temp = num +1 ;
-	  vec3 [] p ;
-	  p = new vec3 [num_temp] ;
-
-	  // init vec3 p
-	  for(int i = 0 ; i < num_temp ; i++) p[i] = vec3() ;
-	  
-	  // create normal direction for the point
-	  float theta, delta;
-	  delta = TAU / num;
-	  int step = 0 ;
-	  for (theta = 0 ; theta < TAU ; theta += delta) {
-	    plane.x = p1.x + r.x * cos(theta +delta) + s.x * sin(theta +delta);
-	    plane.y = p1.y + r.y * cos(theta +delta) + s.y * sin(theta +delta);
-	    plane.z = p1.z + r.z * cos(theta +delta) + s.z * sin(theta +delta);
-	    /**
-	    plane is not a normal value, it's big problem :(((((((
-	    */
-	    plane.mult(radius);
-	    plane.add(pos);
-	    // write summits
-	    p[step] = plane.copy();
-
-	    step++ ;
-	  }
-	  return p ;
-	}
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -798,176 +427,6 @@ public class House {
 
 
 
-/**
-STAR
-2016-2018
-v 0.1.0
-*/
-public class Star {
-	boolean is_3D = false;
-	vec3 pos;
-	vec3 size;
-	int summits;
-	float angle;
-	float [] ratio;
-
-	public Star() {
-		pos = vec3();
-		size = vec3(1);
-		summits = 5;
-		ratio = new float[1]; 
-		ratio[0] = .38;
-		angle = 0;
-	}
-
-	public void is_3D(boolean is_3D) {
-		this.is_3D = is_3D;
-	}
-
-	public void set_summits(int summits) {
-		if(summits > 3) this.summits = summits;
-	}
-
-	public void set_angle(float angle) {
-		this.angle = angle;
-	}
-
-	public void set_ratio(float... ratio) {
-		this.ratio = ratio;
-	}
-
-	public void show(vec position, vec size_raw) {
-		if(position instanceof vec2) {
-			vec2 p = (vec2) position;
-			pos.set(p.x,p.y,0);
-		} else if(position instanceof vec3) {
-			vec3 p = (vec3)position;
-			pos.set(p);
-		}
-
-		if(size_raw instanceof vec2) {
-			vec2 s = (vec2)size_raw;
-			size.set(s.x,s.y,1);
-		} else if(size_raw instanceof vec3) {
-			vec3 s = (vec3)size_raw;
-			size.set(s.x,s.y,s.z);
-		}
-
-		if(pos.z != 0) {
-			start_matrix();
-			translate(0,0,pos.z);
-		}
-
-		vec3 [] p = new Primitive().polygon_2D(summits*2,angle);
-    
-    if(is_3D) {
-    	star_3D(pos,size,p,ratio);
-    } else {
-    	star_2D(pos,size,p,ratio);
-    }
-		
-
-
-		if(pos.z != 0) {
-			stop_matrix();
-		}
-	}
-
-	private void star_3D(vec3 pos, vec3 size, vec3 [] p, float[] ratio) {
-		int count_ratio = 0;
-		for(int i = 0 ; i < p.length ; i++) {
-			// make a star, change the interior radius
-			if(ratio.length <= 1 ) {
-				if(i%2 != 0) p[i].mult(ratio[0]);
-			} else {
-				if(i%(ratio.length) == 0) {
-					count_ratio = 0;
-
-				}
-				p[i].mult(ratio[count_ratio]) ;
-				count_ratio++;
-			}
-			p[i].mult(size);
-			p[i].add(pos);
-		}
-	  
-	  float top = size.z;
-	  float bottom = -size.z;
-	  vec3 center = barycenter(p);
-	  vec3 center_top = vec3(center.x,center.y,top);
-	  vec3 center_bottom = vec3(center.x,center.y,bottom);
-
-		for(int i = 0 ; i < p.length ; i++) {
-			// face top
-			beginShape() ;
-			vertex(p[i]);
-	    vertex(center_top);
-			if(i+1 < p.length)  {
-				vertex(p[i+1]);
-			} else {
-				vertex(p[0]);
-			}
-			endShape(CLOSE);
-			// face bottom
-			beginShape() ;
-			vertex(p[i]);
-	    vertex(center_bottom);
-			if(i+1 < p.length)  {
-				vertex(p[i+1]);
-			} else {
-				vertex(p[0]);
-			}
-			endShape(CLOSE);
-		}
-	}
-
-
-
-	private void star_2D(vec3 pos, vec3 size, vec3 [] p, float[] ratio) {
-		int count_ratio = 0;
-		for(int i = 0 ; i < p.length ; i++) {
-			// make a star, change the interior radius
-			if(ratio.length <= 1 ) {
-				if(i%2 != 0) p[i].mult(ratio[0]);
-			} else {
-				if(i%(ratio.length) == 0) {
-					count_ratio = 0;
-
-				}
-				p[i].mult(ratio[count_ratio]) ;
-				count_ratio++;
-			}
-			p[i].mult(size);
-			p[i].add(pos);
-		}
-		// draww star
-		beginShape() ;
-		for(int i = 0 ; i < p.length ; i++) {
-			vertex(p[i]);
-		}
-		endShape(CLOSE);
-	}
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -981,6 +440,7 @@ CLASS VIRUS
 2015-2018
 v 0.2.0
 */
+/*
 public class Virus {
 	vec3 [][] branch;
 	vec3 size;
@@ -1136,7 +596,7 @@ public class Virus {
 	}
 }
 
-
+*/
 
 
 
@@ -1240,6 +700,7 @@ class Costume
 2018-2019
 v 0.2.0
 */
+import rope.costume.R_Primitive;
 public class Costume {
 	boolean fill_is;
 	boolean stroke_is;
@@ -1256,11 +717,16 @@ public class Costume {
 	float [] ratio;
 	boolean is_3D = false;
 	boolean is_vertex = true;
-	Primitive prim;
+	R_Primitive prim;
+	PApplet papplet;
 
-	public Costume() {}
+	public Costume(PApplet pa) {
+		this.papplet = pa;
 
-	public Costume(int type) {
+	}
+
+	public Costume(PApplet pa,int type) {
+		this.papplet = pa;
 		this.type = type;
 	}
   
@@ -1560,79 +1026,94 @@ public class Costume {
 			stop_matrix();
 
 		} else if (this.get_type() == LINE_ROPE) {
-			if(prim == null) prim = new Primitive();
-			prim.draw(pos,size.x,2,rot.x);
+			if(prim == null) prim = new R_Primitive(papplet,2);
+			start_matrix();
+			translate(pos);
+			rotate_behavior(rot);
+			prim.size((int)size.x);
+			prim.show();
+			stop_matrix();
 		}
 
 		else if (this.get_type() == TRIANGLE_ROPE) {
-			if(prim == null) prim = new Primitive();
+			if(prim == null) prim = new R_Primitive(papplet,3);
 			start_matrix();
 			translate(pos);
 			rotate_behavior(rot);
-			prim.draw(vec3(0),size.x,3);
+			prim.size((int)size.x);
+			prim.show();
 			stop_matrix();
 		}  else if (this.get_type() == SQUARE_ROPE) {
-			if(prim == null) prim = new Primitive();
+			if(prim == null) prim = new R_Primitive(papplet,4);
 			start_matrix();
 			translate(pos);
 			rotate_behavior(rot);
-			prim.draw(vec3(0),size.x,4);
+			prim.size((int)size.x);
+			prim.show();
 			stop_matrix();
 		} else if (this.get_type() == PENTAGON_ROPE) {
-			if(prim == null) prim = new Primitive();
+			if(prim == null) prim = new R_Primitive(papplet,5);
 			start_matrix();
 			translate(pos);
 			rotate_behavior(rot);
-			prim.draw(vec3(0),size.x,5);
+			prim.size((int)size.x);
+			prim.show();
 			stop_matrix();
 		} else if (this.get_type() == HEXAGON_ROPE) {
-			if(prim == null) prim = new Primitive();
+			if(prim == null) prim = new R_Primitive(papplet,6);
 			start_matrix();
 			translate(pos);
 			rotate_behavior(rot);
-			prim.draw(vec3(0),size.x,6);
+			prim.size((int)size.x);
+			prim.show();
 			stop_matrix() ;
 		} else if (this.get_type() == HEPTAGON_ROPE) {
-			if(prim == null) prim = new Primitive();
+			if(prim == null) prim = new R_Primitive(papplet,7);
 			start_matrix();
 			translate(pos);
 			rotate_behavior(rot);
-			prim.draw(vec3(0),size.x,7);
+			prim.size((int)size.x);
+			prim.show();
 			stop_matrix();
 		} else if (this.get_type() == OCTOGON_ROPE) {
-			if(prim == null) prim = new Primitive();
+			if(prim == null) prim = new R_Primitive(papplet,8);
 			start_matrix();
 			translate(pos);
 			rotate_behavior(rot) ;
-			prim.draw(vec3(0),size.x,8);
+			prim.size((int)size.x);
+			prim.show();
 			stop_matrix();
 		} else if (this.get_type() == NONAGON_ROPE) {
-			if(prim == null) prim = new Primitive();
+			if(prim == null) prim = new R_Primitive(papplet,9);
 			start_matrix();
 			translate(pos);
 			rotate_behavior(rot) ;
-			prim.draw(vec3(0),size.x,9);
+			prim.size((int)size.x);
+			prim.show();
 			stop_matrix();
 		} else if (this.get_type() == DECAGON_ROPE) {
-			if(prim == null) prim = new Primitive();
+			if(prim == null) prim = new R_Primitive(papplet,10);
 			start_matrix();
 			translate(pos);
 			rotate_behavior(rot) ;
-			prim.draw(vec3(0),size.x,10);
+			prim.size((int)size.x);
+			prim.show();
 			stop_matrix();
 		} else if (this.get_type() == HENDECAGON_ROPE) {
-			if(prim == null) prim = new Primitive();
+			if(prim == null) prim = new R_Primitive(papplet,11);
 			start_matrix();
 			translate(pos);
 			rotate_behavior(rot) ;
-			prim.draw(vec3(0),size.x,11);
+			prim.size((int)size.x);
+			prim.show();
 			stop_matrix();
 		} else if (this.get_type() == DODECAGON_ROPE) {
-			if(prim == null) prim = new Primitive();
+			if(prim == null) prim = new R_Primitive(papplet,12);
 			start_matrix();
 			translate(pos);
 			rotate_behavior(rot) ;
-			prim.draw(vec3(0),size.x,12);
+			prim.size((int)size.x);
+			prim.show();
 			stop_matrix();
 		}
 

@@ -1,16 +1,17 @@
 /**
-ATOME 
-2012-2019
-v 1.3.11
+* ATOME 
+* 2012-2019
+* v 1.3.12
 */
-ArrayList<Atom> atomList ;
+ArrayList<Atom> atomList;
+import rope.costume.R_Primitive;
 //object one
 class Atome extends Romanesco {
   public Atome() {
     //from the index_objects.csv
     item_name = "Atome" ;
     item_author  = "Stan le Punk";
-    item_version = "version 1.3.11";
+    item_version = "version 1.3.12";
     item_pack = "Base 2012-2019" ;
     item_costume = "";
     item_mode = "Chemical Name/File text/Electronic cloud/Ellipse circle/Ellipse triangle/Ellipse cloud/Triangle circle/Triangle triangle/Triangle cloud/Rectangle rectangle/Rectangle cloud" ;
@@ -114,7 +115,7 @@ class Atome extends Romanesco {
     int diam = 5 ;
     int Kstart = int(abs( mix[ID_item]) *1000) ; // Temperature of Atom, influence the mouvement behavior
     //motion
-    Atom atm = new Atom( pos, vel, Z, ion, rebound, diam,  Kstart) ; 
+    Atom atm = new Atom(p5,pos, vel, Z, ion, rebound, diam,  Kstart) ; 
     atomList.add(atm) ;
   }
 
@@ -340,7 +341,7 @@ class Atome extends Romanesco {
     for (Atom atm : atomList) {
       if(atm.insideField()) return;
     }
-    Atom atm = new Atom(name, posA, velA, Z, ion, rebound, diam,  Kstart) ; 
+    Atom atm = new Atom(p5,name, posA, velA, Z, ion, rebound, diam,  Kstart) ; 
     atomList.add(atm) ;
   }
 
@@ -367,6 +368,7 @@ class Atome extends Romanesco {
 ///////////
 //CLASS ATOM
 class Atom {
+  PApplet p5;
   String [] nameAtom = { "Atom", "H",                                                                                                                                                                                         "He", 
                                  "Li", "Be",                                                                                                                                                 "B",  "C",   "N",   "O",  "F",   "Ne", 
                                  "Na", "Mg",                                                                                                                                                 "Al", "Si",  "P",   "S",  "Cl",  "Ar",
@@ -423,7 +425,8 @@ class Atom {
  
   /////////////////////CONSTRUCTOR ATOM////////////////////////////////////////////////////////////////
   //simple constructor
-  Atom (PVector pos_, PVector vel_, float rebound_, int d_ ) {
+  Atom (PApplet p5,PVector pos_, PVector vel_, float rebound_, int d_ ) {
+    this.p5 = p5;
     pos = pos_  ;
     vel = vel_  ;
     rebound = rebound_ ; 
@@ -433,7 +436,8 @@ class Atom {
     nvrs = new Univers() ;
   }
   //Atomic constructor  
-  Atom (PVector pos_, PVector vel_, int proton_, int ion_, float rebound_,int d_, int Kelvin_ ) {
+  Atom (PApplet p5,PVector pos_, PVector vel_, int proton_, int ion_, float rebound_,int d_, int Kelvin_ ) {
+    this.p5 = p5;
     pos = pos_  ;
     vel = vel_  ;
     proton = proton_;
@@ -462,7 +466,7 @@ class Atom {
   }
   
   //Atomic constructor with nickname  
-  Atom (String name, PVector pos_, PVector vel_, int proton_, int ion_, float rebound_,int d_, int Kelvin_ ) {
+  Atom (PApplet p5,String name, PVector pos_, PVector vel_, int proton_, int ion_, float rebound_,int d_, int Kelvin_) {
     nickName = name ;
     pos = pos_  ;
     vel = vel_  ;
@@ -925,7 +929,7 @@ class Atom {
     // CORE
     if(core.equals("ELLIPSE")) coreEllipse(size) ;
     if(core.equals("RECTANGLE")) coreRect(size) ;
-    if(core.equals("TRIANGLE")) coreTriangle(size) ;
+    if(core.equals("TRIANGLE")) coreTriangle(p5,size);
     if(core.equals("SPHERE")) coreSphere(size) ;
     if(core.equals("BOX")) coreBox(size) ;
     if(core.equals("TETRA")) coreTetra(size) ;
@@ -1006,8 +1010,12 @@ class Atom {
   
   // ANNEXE DISPLAY
   // CORE 2D
-  void coreTriangle(PVector size) {
-    new Primitive().draw(vec2(),size.x,3);
+  void coreTriangle(PApplet p5, PVector size) {
+    //new R_Primitive().draw(vec2(),size.x,3);
+    R_Primitive prim = new R_Primitive(p5,3);
+    prim.pos(vec2());
+    prim.size((int)size.x);
+    prim.show();
   }
   void coreEllipse(PVector size) {
     ellipse(0,0,size.x, size.y) ;
@@ -1026,7 +1034,7 @@ class Atom {
     sphere(size.x *.4) ;
     int face ;
     face = int(size.x * .2) ;
-    if(face < minFace ) face = minFace; else if(face > maxFace ) face = maxFace ;
+    if(face < minFace) face = minFace; else if(face > maxFace ) face = maxFace ;
     sphereDetail(face) ;
   }
   
@@ -1063,8 +1071,11 @@ class Atom {
     electronicInfo() ;
     noFill() ; 
     float radius = radiusElectronicFieldCovalent() *newAmplitudeElectrocField ;
-    new Primitive().draw(vec2(),radius,3) ;
-    new Primitive().draw(vec2(),radius,3) ;
+
+    R_Primitive prim = new R_Primitive(p5,3);
+    prim.pos(vec2());
+    prim.size((int)radius);
+    prim.show();
   }
   
   // CLOUD POINT

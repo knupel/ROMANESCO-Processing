@@ -16,10 +16,14 @@ void rendering() {
   // display
   if(show_is) {
     rendering_background(USE_LAYER,0);
-
+    if(draw_fx_before_rendering_is()) {
+      fx_post();
+    }
     rendering_item_3D(USE_LAYER,1);
     rendering_item_2D(USE_LAYER,1);
-    fx_post();
+    if(!draw_fx_before_rendering_is()) {
+      fx_post();
+    }
     rendering_info(USE_LAYER);
   } else {
     rendering_curtain(USE_LAYER);   

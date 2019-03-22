@@ -1,9 +1,7 @@
 /**
 * TOON from https://www.geeks3d.com
-* Stan le punk refactoring
-* @see http://stanlepunk.xyz
-* @see https://github.com/StanLepunK/Shader
-v 0.0.3
+* @see @stanlepunkLepunK/Shader
+v 0.0.4
 2018-2019
 */
 
@@ -24,7 +22,7 @@ varying vec4 vertTexCoord;
 
 uniform sampler2D texture_source;
 uniform vec2 resolution_source;
-uniform bvec2 flip_source;
+uniform ivec2 flip_source;
 uniform vec2 offset; // 0.5
 // in vec4 Vertex_UV;
 
@@ -38,7 +36,8 @@ uniform float edge_thres2; // 5.0;
 
 
 
-vec2 set_uv(bool flip_vertical, bool flip_horizontal, vec2 res) {
+// UTIL TEMPLATE
+vec2 set_uv(int flip_vertical, int flip_horizontal, vec2 res) {
   vec2 uv;
   if(all(equal(vec2(0),res))) {
     uv = vertTexCoord.st;
@@ -48,22 +47,23 @@ vec2 set_uv(bool flip_vertical, bool flip_horizontal, vec2 res) {
     uv = res;
   }
   // flip 
-  if(!flip_vertical && !flip_horizontal) {
-    return uv;
-  } else if(flip_vertical && !flip_horizontal) {
-    uv.y = 1 -uv.y;
-    return uv;
-  } else if(!flip_vertical && flip_horizontal) {
-    uv.x = 1 -uv.x;
-    return uv;
-  } else if(flip_vertical && flip_horizontal) {
-    return vec2(1) -uv;
-  } return uv;
+  float condition_y = step(0.1, flip_vertical);
+  uv.y = 1.0 -(uv.y *condition_y +(1.0 -uv.y) *(1.0 -condition_y));
+
+  float condition_x = step(0.1, flip_horizontal);
+  uv.x = 1.0 -(uv.x *condition_x +(1.0 -uv.x) *(1.0 -condition_x));
+
+  return uv;
 }
 
-vec2 set_uv(bvec2 flip, vec2 res) {
+vec2 set_uv(ivec2 flip, vec2 res) {
   return set_uv(flip.x,flip.y,res);
 }
+
+vec2 set_uv() {
+  return set_uv(0,0,vec2(0));
+}
+
 
 
 

@@ -1,6 +1,7 @@
 /**
 * Simple
-v 0.0.2
+v 0.0.3
+* 2018-2019
 */
 class Simple extends Romanesco {
   public Simple() {
@@ -8,8 +9,8 @@ class Simple extends Romanesco {
     item_name = "Simple" ;
     item_author  = "Stan le Punk";
     item_references = "";
-    item_version = "Version 0.0.2";
-    item_pack = "Simple 2018-2018" ;
+    item_version = "Version 0.0.3";
+    item_pack = "Simple 2018-2019" ;
     item_costume = "ellipse/triangle/rect/cross/pentagon/Star 5/Star 7/Super Star 8/Super Star 12"; // costume available from get_costume();
     item_mode = "";
     // define slider

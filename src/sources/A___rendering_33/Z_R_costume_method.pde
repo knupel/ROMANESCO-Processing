@@ -1,7 +1,7 @@
 /**
 Costume method
 * Copyleft (c) 2014-2019
-v 1.7.3
+v 1.7.4
 * @author @stanlepunk
 * @see https://github.com/StanLepunK/Rope_framework
 */
@@ -225,7 +225,7 @@ method to pass costume to class costume
 Costume costume_rope_buffer;
 void costume_impl(vec3 pos, vec3 size, vec rot, int which_costume) {
 	if(costume_rope_buffer == null) {
-		costume_rope_buffer = new Costume(which_costume);
+		costume_rope_buffer = new Costume(this,which_costume);
 	} else {
 		costume_rope_buffer.set_type(which_costume);
 	}
@@ -293,50 +293,50 @@ ASPECT ROPE 2016-2018
 v 0.1.3
 */
 void aspect_is(boolean fill_is, boolean stroke_is) {
-	if(aspect_rope == null) aspect_rope = new Costume();
+	if(aspect_rope == null) aspect_rope = new Costume(this);
 	aspect_rope.aspect_is(fill_is,stroke_is);
 	fill_rope_is = aspect_rope.fill_is();
 	stroke_rope_is = aspect_rope.stroke_is();
 }
 
 void init_bool_aspect() {
-	if(aspect_rope == null) aspect_rope = new Costume();
+	if(aspect_rope == null) aspect_rope = new Costume(this);
 	aspect_rope.aspect_is(true,true);
 }
 
 void aspect(int fill, int stroke, float thickness) {
-	if(aspect_rope == null) aspect_rope = new Costume();
+	if(aspect_rope == null) aspect_rope = new Costume(this);
 	aspect_is(aspect_rope.fill_is(),aspect_rope.stroke_is());
 	aspect_rope.aspect(fill,stroke,thickness);
 }
 
 void aspect(int fill, int stroke, float thickness, Costume costume) {
-	if(aspect_rope == null) aspect_rope = new Costume();
+	if(aspect_rope == null) aspect_rope = new Costume(this);
 	aspect_is(aspect_rope.fill_is(),aspect_rope.stroke_is());
 	aspect_rope.aspect(fill,stroke,thickness,costume.get_type());
 }
 
 void aspect(int fill, int stroke, float thickness, int costume) {
-	if(aspect_rope == null) aspect_rope = new Costume();
+	if(aspect_rope == null) aspect_rope = new Costume(this);
 	aspect_is(aspect_rope.fill_is(),aspect_rope.stroke_is());
 	aspect_rope.aspect(fill,stroke,thickness,costume);
 }
 
 void aspect(vec fill, vec stroke, float thickness) {
-	if(aspect_rope == null) aspect_rope = new Costume();
+	if(aspect_rope == null) aspect_rope = new Costume(this);
 	aspect_is(aspect_rope.fill_is(),aspect_rope.stroke_is());
 	aspect_rope.aspect(fill,stroke,thickness);
 }
 
 void aspect(vec fill, vec stroke, float thickness, Costume costume) {
-	if(aspect_rope == null) aspect_rope = new Costume();
+	if(aspect_rope == null) aspect_rope = new Costume(this);
 	aspect_is(aspect_rope.fill_is(),aspect_rope.stroke_is());
 	aspect_rope.aspect(fill,stroke,thickness,costume.get_type());
 }
 
 
 void aspect(vec fill, vec stroke, float thickness, int costume) {
-	if(aspect_rope == null) aspect_rope = new Costume();
+	if(aspect_rope == null) aspect_rope = new Costume(this);
 	aspect_is(aspect_rope.fill_is(),aspect_rope.stroke_is());
 	aspect_rope.aspect(fill,stroke,thickness,costume);
 }
@@ -620,12 +620,13 @@ SHAPE CATALOGUE
 /**
 STAR
 */
-Star star_costume_rope;
+import rope.costume.R_Star;
+R_Star star_costume_rope;
 void star_3D_is(boolean is_3D) {
 	if(star_costume_rope != null) {
 		star_costume_rope.is_3D(is_3D);
 	} else {
-		star_costume_rope = new Star();
+		star_costume_rope = new R_Star(this);
 	}
 }
 
@@ -634,7 +635,7 @@ void star_summits(int summits) {
 	if(star_costume_rope != null) {
 		star_costume_rope.set_summits(summits);
 	} else {
-		star_costume_rope = new Star();
+		star_costume_rope = new R_Star(this);
 	}
 }
 
@@ -642,7 +643,7 @@ void star_angle(float angle) {
 	if(star_costume_rope != null) {
 		star_costume_rope.set_angle(angle);
 	} else {
-		star_costume_rope = new Star();
+		star_costume_rope = new R_Star(this);
 	}
 }
 
@@ -650,16 +651,18 @@ void star_ratio(float... ratio) {
 	if(star_costume_rope != null) {
 		star_costume_rope.set_ratio(ratio);
 	} else {
-		star_costume_rope = new Star();
+		star_costume_rope = new R_Star(this);
 	}
 }
 
 
 void star(vec position, vec size) {
 	if(star_costume_rope != null) {
-		star_costume_rope.show(position,size);
+		star_costume_rope.pos(position);
+		star_costume_rope.size(size);
+		star_costume_rope.show();
 	} else {
-		star_costume_rope = new Star();
+		star_costume_rope = new R_Star(this);
 	}
 }
 
@@ -761,11 +764,12 @@ void virus(vec pos, vec size, float angle) {
 
 
 // main method
-Virus virus_costume_rope;
+import rope.costume.R_Virus;
+R_Virus virus_costume_rope;
 boolean make_virus = true ;
 void virus(vec pos, vec size, float angle, int close) {
 	if(make_virus) {
-		virus_costume_rope = new Virus() ;
+		virus_costume_rope = new R_Virus(this);
 		make_virus = false ;
 	}
 
@@ -773,9 +777,9 @@ void virus(vec pos, vec size, float angle, int close) {
 		virus_costume_rope.reset() ;
 	}
   virus_costume_rope.rotation(angle) ;
-	virus_costume_rope.set_pos(pos) ;
-	virus_costume_rope.set_size(size) ;
-	virus_costume_rope.show(close) ;	
+	virus_costume_rope.pos(pos) ;
+	virus_costume_rope.size(size) ;
+	virus_costume_rope.show() ;	
 }
 
 void virus_mutation(int mutation) {
