@@ -15,7 +15,6 @@ V 1.2.0
 String IAM = "controller";
 
 // DEV SETTING
-
 boolean DEV_MODE = true; // inter alia, path preferences folder, curtain
 boolean LIVE = false;
 boolean MIROIR = false;
@@ -31,14 +30,15 @@ boolean KEEP_BUTTON_ITEM_STATE = true;
 
 
 // EXPORT SETTING
-
 // DIRECT
+// APP: control_##
 // boolean LIVE = false;
 // boolean MIROIR = false;
 // boolean KEEP_BUTTON_ITEM_STATE = true;
-// boolean DEV_MODE = false;  // inter alia, path preferences folder, curtain
+// boolean DEV_MODE = false;  // inter alias, path preferences folder, curtain > we talk about what here ?
 
 // LIVE
+// APP: control_##_live
 // boolean LIVE = true;
 // boolean MIROIR = false;
 // boolean KEEP_BUTTON_ITEM_STATE = true;

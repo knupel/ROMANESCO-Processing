@@ -22,12 +22,14 @@ revision 33
 >refactoring button general
 >update costume method
 >remove save scene option
+>add method to select the first movie meet from the item like the global movie > must be improve properly in the future
 
 *SHADER
 
->add shader BACKGROUDN FX voronoi
->add shader POST FX dither bayer 8
->add shader POST FX threshold
+>add background fx voronoi
+>add post fx dither bayer 8
+>add post fx threshold
+>add post fx datamosh
 >remove shader neon
 >total refactoring the FX BACKGROUND shader system to have a same manager fx system than FX POST
 

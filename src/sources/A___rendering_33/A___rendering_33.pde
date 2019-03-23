@@ -35,8 +35,6 @@ String IAM = "prescene";
 boolean LIVE = false;
 boolean FULL_RENDERING = true;
 
-
-
 // PRESCENE LIVE
 // boolean USE_LAYER = false;
 // boolean DEV_MODE = true; // inter alia, path preferences folder, curtain
@@ -87,6 +85,7 @@ boolean FULL_RENDERING = true;
 * Here you can choice between the three common rendering mode
 */
 // PRESCENE FULL RENDERING
+// APP: prescene_##
 // boolean USE_LAYER = false;
 // boolean DEV_MODE = false; // inter alia, path preferences folder, curtain
 // String IAM = "prescene";
@@ -95,7 +94,7 @@ boolean FULL_RENDERING = true;
 
 
 // PRESCENE LIVE PREVIEW
-
+// APP: prescene_##_live
 // boolean USE_LAYER = false;
 // boolean DEV_MODE = false; // inter alia, path preferences folder, curtain
 // String IAM = "prescene";
@@ -103,7 +102,10 @@ boolean FULL_RENDERING = true;
 // boolean FULL_RENDERING = false;
 
 
-// SCENE LIVE 
+// SCENE LIVE
+// for the scene live export, two export set in void settings() 
+// APP: scene_##_live_fullscreen  > with fullScreen()
+// APP: scene_##_live > size()
 // boolean USE_LAYER = false;
 // boolean DEV_MODE = false; // inter alia, path preferences folder, curtain
 // String IAM = "scene";
