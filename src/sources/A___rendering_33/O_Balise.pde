@@ -1,7 +1,7 @@
 /**
-BALISE
-2011-2018
-v 1.3.7
+* BALISE
+* 2011-2019
+* v 1.3.8
 */
 Balise balise ;
 //object three
@@ -10,9 +10,9 @@ class BaliseRomanesco extends Romanesco {
     //from the index_objects.csv
     item_name = "Balise" ;
     item_author  = "Stan le Punk";
-    item_version = "Version 1.3.7";
+    item_version = "Version 1.3.8";
     item_pack = "Base 2011-2018" ; 
-    item_costume = "point/ellipse/triangle/rect/cross/pentagon/Star 5/Star 7/Super Star 8/Super Star 12" ;
+    item_costume = "point/ellipse/triangle/rect/cross/pentagon/flower/Star 5/Star 7/Super Star 8/Super Star 12" ;
     // item_mode = "Disc/Rectangle/Box/Box Snake" ;
     item_mode = "" ;
 

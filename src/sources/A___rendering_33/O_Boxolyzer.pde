@@ -1,7 +1,7 @@
 /**
-BOXOLYZER
-2012-2019
-v 2.0.3
+* BOXOLYZER
+* 2012-2019
+* v 2.0.4
 */
 
   
@@ -11,10 +11,10 @@ class Boxolyzer extends Romanesco {
     //from the index_objects.csv
     item_name = "Boxolyzer" ;
     item_author  = "Stan le Punk";
-    item_version = "Version 2.0.3";
+    item_version = "Version 2.0.4";
     item_pack = "Base 2012-2019";
 
-    item_costume = "ellipse/triangle/rect/cross/pentagon/Star 5/Star 7/Super Star 8/Super Star 12";
+    item_costume = "ellipse/triangle/rect/cross/pentagon/flower 5/flower 7/Star 5/Star 7/Super Star 8/Super Star 12";
     item_mode = "Line/Circle";
 
     hue_fill_is = true;

@@ -1,7 +1,7 @@
-
 /**
-ARBRE 2012-2019
-v 1.4.4
+* ARBRE 
+* 2012-2019
+* v 1.4.5
 */
 class ArbreRomanesco extends Romanesco {
   Arbre arbre ;
@@ -10,9 +10,9 @@ class ArbreRomanesco extends Romanesco {
     item_name = "Arbre" ;
     item_author  = "Stan le Punk";
     item_references = "";
-    item_version = "Version 1.4.4";
-    item_pack = "Base 2012-2018" ;
-    item_costume = "ellipse/triangle/rect/cross/pentagon/Star 5/Star 7/Super Star 8/Super Star 12";
+    item_version = "Version 1.4.5";
+    item_pack = "Base 2012-2019" ;
+    item_costume = "ellipse/triangle/rect/cross/pentagon/flower/Star 5/Star 7/Super Star 8/Super Star 12";
     item_mode = "";
     // define slider
     hue_fill_is = true;

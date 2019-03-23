@@ -9,7 +9,7 @@ class Ecosystem_DNA extends Romanesco {
 		item_author  = "Stan le Punk";
 		item_version = "Version 0.1.9";
 		item_pack = "Ecosystem 2016-2018";
-    item_costume = "Point/Ellipse/Triangle/Rect/Cross/ABC" ;
+    item_costume = "Point/Ellipse/Triangle/Rect/flower/Cross/ABC" ;
 		item_mode = "" ; // separate the differentes mode by "/"
 
 	  hue_fill_is = true;

@@ -2890,6 +2890,75 @@ public abstract class Romanesco implements rope.core.R_Constants {
       } else {
         costume.set_type(CROSS_BOX_3_ROPE);
       }
+    } 
+
+      else if(costume_romanesco.equals("flower") || costume_romanesco.equals("FLOWER") || costume_romanesco.equals("Flower")) {
+      if(!dimension) {
+        costume.set_type(FLOWER_ROPE);
+        costume.set_summit(5);
+      } else {
+        costume.set_type(FLOWER_ROPE);
+        costume.set_summit(5);
+      }
+    } else if(costume_romanesco.equals("flower 3") || costume_romanesco.equals("FLOWER 3") || costume_romanesco.equals("Flower 3")) {
+      if(!dimension) {
+        costume.set_type(FLOWER_ROPE);
+        costume.set_summit(3);
+      } else {
+        costume.set_type(FLOWER_ROPE);
+        costume.set_summit(3);
+      }
+    } else if(costume_romanesco.equals("flower 5") || costume_romanesco.equals("FLOWER 5") || costume_romanesco.equals("Flower 5")) {
+      if(!dimension) {
+        costume.set_type(FLOWER_ROPE);
+        costume.set_summit(5);
+      } else {
+        costume.set_type(FLOWER_ROPE);
+        costume.set_summit(5);
+      }
+    } else if(costume_romanesco.equals("flower 7") || costume_romanesco.equals("FLOWER 7") || costume_romanesco.equals("Flower 7")) {
+      if(!dimension) {
+        costume.set_type(FLOWER_ROPE);
+        costume.set_summit(7);
+      } else {
+        costume.set_type(FLOWER_ROPE);
+        costume.set_summit(7);
+      }
+    } else if(costume_romanesco.equals("flower 9") || costume_romanesco.equals("FLOWER 9") || costume_romanesco.equals("Flower 9")) {
+      if(!dimension) {
+        costume.set_type(FLOWER_ROPE); 
+        costume.set_summit(9);
+      } else {
+        costume.set_type(FLOWER_ROPE);
+        costume.set_summit(9);
+      }
+    } else if(costume_romanesco.equals("flower 12") || costume_romanesco.equals("FLOWER 12") || costume_romanesco.equals("Flower 12")) {
+      if(!dimension) {
+        costume.set_type(FLOWER_ROPE); 
+        costume.set_summit(12);
+      } else {
+        costume.set_type(FLOWER_ROPE);
+        costume.set_summit(12);
+      }
+    } else if(costume_romanesco.equals("flower 24") || costume_romanesco.equals("FLOWER 24") || costume_romanesco.equals("Flower 24")) {
+      if(!dimension) {
+        costume.set_type(FLOWER_ROPE);
+        costume.set_summit(24);
+      } else {
+        costume.set_type(FLOWER_ROPE);
+        costume.set_summit(24);
+      }
+    }
+
+
+      else if(costume_romanesco.equals("star") || costume_romanesco.equals("STAR") || costume_romanesco.equals("Star")) {
+      if(!dimension) {
+        costume.set_type(STAR_ROPE);
+        costume.set_summit(5);
+      } else {
+        costume.set_type(STAR_3D_ROPE);
+        costume.set_summit(5);
+      }
     } else if(costume_romanesco.equals("star 4") || costume_romanesco.equals("STAR 4") || costume_romanesco.equals("Star 4")) {
       if(!dimension) {
         costume.set_type(STAR_ROPE);
@@ -2922,8 +2991,7 @@ public abstract class Romanesco implements rope.core.R_Constants {
         costume.set_type(STAR_3D_ROPE);
         costume.set_summit(7);
       }
-    }
-    else if(costume_romanesco.equals("star 8") || costume_romanesco.equals("STAR 8") || costume_romanesco.equals("Star 8")) {
+    } else if(costume_romanesco.equals("star 8") || costume_romanesco.equals("STAR 8") || costume_romanesco.equals("Star 8")) {
       if(!dimension) {
         costume.set_type(STAR_ROPE);
         costume.set_summit(8);
@@ -2931,7 +2999,9 @@ public abstract class Romanesco implements rope.core.R_Constants {
         costume.set_type(STAR_3D_ROPE);
         costume.set_summit(8);
       }
-    } else if(costume_romanesco.equals("super star 8") || costume_romanesco.equals("SUPER STAR 8") || costume_romanesco.equals("Super Star 8")) {
+    } 
+
+      else if(costume_romanesco.equals("super star 8") || costume_romanesco.equals("SUPER STAR 8") || costume_romanesco.equals("Super Star 8")) {
       if(!dimension) {
         costume.set_type(STAR_ROPE);
         costume.set_summit(8);
@@ -2951,13 +3021,19 @@ public abstract class Romanesco implements rope.core.R_Constants {
         costume.set_summit(12);
         costume.set_ratio(2.,.5,1.,.5,1.,.5);
       }
-    } else if(costume_romanesco.equals("abc") || costume_romanesco.equals("ABC") || costume_romanesco.equals("Abc")) {
+    } 
+
+      
+      else if(costume_romanesco.equals("abc") || costume_romanesco.equals("ABC") || costume_romanesco.equals("Abc")) {
       if(!dimension) {
         costume.set_type(TEXT_ROPE); 
       } else {
         costume.set_type(TEXT_ROPE);
       }
-    } else if(costume_romanesco.equals("none") || costume_romanesco.equals("NONE") || costume_romanesco.equals("None") ||
+    } 
+
+
+      else if(costume_romanesco.equals("none") || costume_romanesco.equals("NONE") || costume_romanesco.equals("None") ||
               costume_romanesco.equals("nothing") || costume_romanesco.equals("NOTHING") || costume_romanesco.equals("Nothing") || 
               costume_romanesco.equals("null") || costume_romanesco.equals("NULL") || costume_romanesco.equals("Null")) {
       if(!dimension) {

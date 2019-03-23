@@ -1,6 +1,6 @@
 /**
 * Simple
-v 0.0.3
+* v 0.0.4
 * 2018-2019
 */
 class Simple extends Romanesco {
@@ -11,7 +11,7 @@ class Simple extends Romanesco {
     item_references = "";
     item_version = "Version 0.0.3";
     item_pack = "Simple 2018-2019" ;
-    item_costume = "ellipse/triangle/rect/cross/pentagon/Star 5/Star 7/Super Star 8/Super Star 12"; // costume available from get_costume();
+    item_costume = "ellipse/triangle/rect/cross/pentagon/flower 5/flower 7/flower 12/flower 24/Star 5/Star 7/Super Star 8/Super Star 12"; // costume available from get_costume();
     item_mode = "";
     // define slider
     // COL 1

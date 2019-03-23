@@ -1,7 +1,7 @@
 /**
-Pulsar
-2018-2019
-v 0.0.7
+* Pulsar
+* 2018-2019
+* v 0.0.8
 */
 
 //object one
@@ -11,9 +11,9 @@ class Pulsar extends Romanesco {
   public Pulsar() {
     item_name = "Pulsar" ;
     item_author  = "Stan le Punk";
-    item_version = "version 0.0.7";
+    item_version = "version 0.0.8";
     item_pack = "Base 2018-2019";
-    item_costume = "point/ellipse/triangle/rect/cross/pentagon/star";
+    item_costume = "point/ellipse/triangle/rect/cross/pentagon/flower/star";
     item_mode = "nothing/cyclus/heart/ring cyclus/ring heart/helmet cyclus/helmet heart" ;
     // item_slider = "Fill hue,Fill sat,Fill bright,Fill alpha,Thickness,Size X,Size Y,Canvas X,Canvas Y,Quantity,Reactivity,Angle,Life,Spurt X,Flow,Direction X,Direction Y" ;
     hue_fill_is = true;

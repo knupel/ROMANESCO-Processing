@@ -1,7 +1,7 @@
 /**
-Boum Boum / Transient detection
-2018-2019
-v 0.0.7
+* Boum Boum / Transient detection
+* 2018-2019
+* v 0.0.8
 */
 class BoumBoum extends Romanesco {
 	public BoumBoum() {
@@ -9,7 +9,7 @@ class BoumBoum extends Romanesco {
 		item_author  = "Stan le Punk";
 		item_version = "Version 0.0.7";
 		item_pack = "Base 2018-2019";
-    item_costume = "ellipse/triangle/rect/cross/pentagon/Star 5/Star 7/Super Star 8/Super Star 12";
+    item_costume = "ellipse/triangle/rect/cross/pentagon/flower 5/flower 7/flower 9/flower 12/Star 5/Star 7/Super Star 8/Super Star 12";
     item_mode = "";
 
 	  hue_fill_is = true;

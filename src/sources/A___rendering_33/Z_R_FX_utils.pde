@@ -143,6 +143,7 @@ void add_fx_to_manager(ArrayList<FX> fx_list, String name, int type, int id, Str
 /**
 * SELECT FX
 */
+
 // POST FX from FX class
 void select_fx_post(PImage main, PImage layer_a, PImage layer_b, FX... fx) {
 	for(int i = 0 ; i < fx.length ;i++) {
@@ -166,7 +167,7 @@ void select_fx_post(PImage main, PImage layer_a, PImage layer_b, FX... fx) {
 			} else if(fx[i].get_type() == FX_FLIP) {
 				fx_flip(main,fx[i]);
 			} else if(fx[i].get_type() == FX_GRAIN) {
-				fx_grain(main,fx[i]);
+				 fx_grain(main,fx[i]);
 			} else if(fx[i].get_type() == FX_GRAIN_SCATTER) {
 				fx_grain_scatter(main,fx[i]);
 			} else if(fx[i].get_type() == FX_HALFTONE_DOT) {

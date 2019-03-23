@@ -85,7 +85,7 @@ boolean FULL_RENDERING = true;
 * Here you can choice between the three common rendering mode
 */
 // PRESCENE FULL RENDERING
-// APP: prescene_##
+// APP: prescene_## > change for size(124,124)
 // boolean USE_LAYER = false;
 // boolean DEV_MODE = false; // inter alia, path preferences folder, curtain
 // String IAM = "prescene";
@@ -94,7 +94,7 @@ boolean FULL_RENDERING = true;
 
 
 // PRESCENE LIVE PREVIEW
-// APP: prescene_##_live
+// APP: prescene_##_live > change for size(124,124) in settings()
 // boolean USE_LAYER = false;
 // boolean DEV_MODE = false; // inter alia, path preferences folder, curtain
 // String IAM = "prescene";
@@ -104,8 +104,8 @@ boolean FULL_RENDERING = true;
 
 // SCENE LIVE
 // for the scene live export, two export set in void settings() 
-// APP: scene_##_live_fullscreen  > with fullScreen()
-// APP: scene_##_live > size()
+// APP: scene_##_live_fullscreen  > change for  fullScreen() in settings()
+// APP: scene_##_live > change for size(124,124) in settings()
 // boolean USE_LAYER = false;
 // boolean DEV_MODE = false; // inter alia, path preferences folder, curtain
 // String IAM = "scene";

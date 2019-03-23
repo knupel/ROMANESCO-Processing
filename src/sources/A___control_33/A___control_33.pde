@@ -1,16 +1,17 @@
 /**
-Romanesco dui
-2012–2019
-version 32
-Processing 3.5.3
+* Romanesco dui
+* 2012–2019
+* version 32
+* Processing 3.5.3
+* Rope library 0.4.0
 */
 /**
-Controller 
-V 1.2.0
-2015 may 4_100 lines of code
-2016 september 8_700 lines of code
-2017 March 11_100 lines of code
-2018 June 5_000 lines of code without CROPE and ROPE internal library who have around 18_000 lines
+* Controller 
+* V 1.2.0
+* 2015 may 4_100 lines of code
+* 2016 september 8_700 lines of code
+* 2017 March 11_100 lines of code
+* 2018 June 5_000 lines of code without CROPE and ROPE internal library who have around 18_000 lines
 */
 String IAM = "controller";
 

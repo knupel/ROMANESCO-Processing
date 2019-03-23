@@ -1,7 +1,7 @@
 /**
 Lorenz attractor
 2016-2019
-v 0.1.3
+v 0.1.4
 Inspirated by Nature of Code of Daniel Shiffman
 */
 /*
@@ -12,9 +12,9 @@ class Lorenz extends Romanesco {
 	public Lorenz() {
 		item_name = "Lorenz attractor";
 		item_author  = "Stan le Punk";
-		item_version = "Version 0.1.3";
+		item_version = "Version 0.1.4";
 		item_pack = "Nature of Code 2016-2019";
-    item_costume = "point/ellipse/triangle/rect/cross/pentagon/Star 5";
+    item_costume = "point/ellipse/triangle/rect/cross/pentagon/flower/Star 5";
     item_mode = "Costume/Surface";
 
 	  hue_fill_is = true;

@@ -1,15 +1,15 @@
 /**
 Puppet Master
 2018-2019
-v 0.0.11
+v 0.0.12
 */
 class Puppet_master extends Romanesco {
 	public Puppet_master() {
 		item_name = "FF Puppet Master";
 		item_author  = "Stan le Punk";
-		item_version = "Version 0.0.11";
+		item_version = "Version 0.0.12";
 		item_pack = "Force 2018-2019";
-    item_costume = "none/pixel/point/ellipse/triangle/rect/cross/pentagon/Star 5/Star 7/Super Star 8/Super Star 12";
+    item_costume = "none/pixel/point/ellipse/triangle/rect/cross/pentagon/flower/Star 5/Star 7/Super Star 8/Super Star 12";
     item_mode = "solo/duo/valse 2D/<valse 3D>/whisky walk/random";
 
 	  hue_fill_is = true;
