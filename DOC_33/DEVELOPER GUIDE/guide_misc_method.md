@@ -1,9 +1,11 @@
-ROMANESC0 1.2.0.31
-2012-2018
-ITEM
-ROMANESCO PROCESSING ENVIRONMENT
---
-
+*
+* DEVOLOPER MISC GUIDE
+* Romanesco dui 
+* 2013-2019
+* v 2.1.0.33
+* Processing 3.5.3
+* Rope Library 0.5.1
+* 
 
 
 *MAIN METHOD
@@ -32,6 +34,15 @@ Force_field get_force_field();
 void update_force_field_is(boolean is);
 
 void init_force_field();
+
+
+*CAMERA
+
+boolean camera_global_is();
+> return if the global camera is active
+
+boolean camera_item_is();
+> return if the item orientation is active
 
 
 

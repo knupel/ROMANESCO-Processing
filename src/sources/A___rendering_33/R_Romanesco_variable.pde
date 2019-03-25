@@ -30,7 +30,6 @@ void update_font_item() {
 //Update the var of the object
 int which_movie_ref, which_bitmap_ref, which_shape_ref, which_text_ref;
 void update_var_items(Romanesco item) {
-  // Romanesco item = rom_manager.get(ID);
   int id = item.get_id();
   // info
   item_info_display[id] = displayInfo?true:false;
@@ -93,7 +92,7 @@ void update_var_items(Romanesco item) {
     if (key_s) item.switch_special();
 
 
-    if (key_j)item.switch_fill();
+    if (key_j) item.switch_fill();
     if (key_k) item.switch_stroke();
 
     clickLongLeft[id] = ORDER_ONE;

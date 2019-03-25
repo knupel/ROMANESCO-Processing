@@ -371,7 +371,7 @@ void romanesco() {
 
 /**
 EVENT
-v 1.0.0
+v 2.0.0
 2014-2018
 */
 void keyPressed () {
@@ -387,11 +387,11 @@ void keyPressed () {
     key_true();
   }
 
-
   keyPressed_mask_set('M');
   keyPressed_mask_border_hide('H');
   keyPressed_mask_save('S');
   keyPressed_mask_load('L');
+
   warp_force_keyPressed('N');
 }
 
@@ -403,6 +403,10 @@ void keyReleased() {
     }
     key_long_false();
     keyboard[keyCode] = false;
+  }
+
+  if(key == 'c') {
+    camera_global_is = camera_global_is? false:true;
   }
 }
 

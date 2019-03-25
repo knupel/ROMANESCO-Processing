@@ -418,7 +418,7 @@ class Romanesco_manager {
         pushMatrix();
         add_ref_item(item.get_id());
         item_follower(item);
-        if((key_v_long || reset_item_on_button_alert_is()) && item.action_is()) {
+        if((camera_item_is() || reset_item_on_button_alert_is()) && item.action_is()) {
           item_move(movePos, moveDir, item.get_id());
         }
         final_pos_item(item);

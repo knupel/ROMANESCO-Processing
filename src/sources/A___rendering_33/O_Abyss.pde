@@ -110,11 +110,16 @@ class The_Abbyss extends Romanesco {
     else whichCreature = 0 ;
     
     if(action_is()) {
-      if (key_n_long && frameCount % 3 == 0) creatureManager.addCurrentCreature(whichCreature);
-      //to cennect the creature to the camera
-      if(key_c_long) {
-        if (key_up )    creatureManager.nextCameraCreature();
-        else if (key_down )  creatureManager.prevCameraCreature();
+      if (key_n_long && frameCount % 3 == 0) {
+        creatureManager.addCurrentCreature(whichCreature);
+      }
+      //to connect the creature to the camera
+      if(camera_global_is()) {
+        if (key_up) {
+          creatureManager.nextCameraCreature();
+        } else if (key_down ) { 
+          creatureManager.prevCameraCreature();
+        }
       }
     }
     //

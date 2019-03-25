@@ -1,8 +1,11 @@
-
-Romanesco dui 2.1.0.33
-2011-2018
-Guide to code the item Class Romanesco.
-
+*
+* DEVOLOPER ITEM
+* Romanesco dui 
+* 2013-2019
+* v 2.1.0.33
+* Processing 3.5.3
+* Rope Library 0.5.1
+* 
 WARNING
 
 all the method below can be use only in Romanesco class

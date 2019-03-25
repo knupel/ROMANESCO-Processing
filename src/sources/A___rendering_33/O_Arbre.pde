@@ -1,7 +1,7 @@
 /**
 * ARBRE 
 * 2012-2019
-* v 1.4.5
+* v 1.4.6
 */
 class ArbreRomanesco extends Romanesco {
   Arbre arbre ;
@@ -10,7 +10,7 @@ class ArbreRomanesco extends Romanesco {
     item_name = "Arbre" ;
     item_author  = "Stan le Punk";
     item_references = "";
-    item_version = "Version 1.4.5";
+    item_version = "Version 1.4.6";
     item_pack = "Base 2012-2019" ;
     item_costume = "ellipse/triangle/rect/cross/pentagon/flower/Star 5/Star 7/Super Star 8/Super Star 12";
     item_mode = "";
@@ -212,7 +212,7 @@ class ArbreRomanesco extends Romanesco {
     //annexe branch
     void displayBranch(float thickness, vec3 size, vec2 div, ivec2 fork, vec2 amplitude, int n, float t, Costume costume, boolean bool_line, int ID, int branch_ID) {
       float factor = 0.0 ;
-      if(key_v_long && pen[0].z != 0) {
+      if(camera_item_is() && pen[0].z != 0) {
         factor = deep * map(pen[0].z,0.01,1, 1.2,-1.2); 
       } else {
         factor = deep ;

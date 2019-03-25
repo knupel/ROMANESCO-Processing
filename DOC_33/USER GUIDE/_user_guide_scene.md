@@ -13,12 +13,14 @@ When you're not in live mode Prescene is the Scene
 
 
 
-*CAMERA *P
+*CAMERA GLOBAL *P
 
-'c' + click left 
+activate camera press 'c'
+
+click left + actived camera
 >translate main camera
 
-'c' + click right
+click right + actived camera
 >rotate main camera
 
 'c' + '0' 
@@ -30,6 +32,9 @@ When you're not in live mode Prescene is the Scene
 'SPACE'
 >stop and reset inertia
 
+
+*CAMERA ITEM *P
+
 'v' + click left 
 >translate item camera
 
@@ -39,12 +44,18 @@ When you're not in live mode Prescene is the Scene
 'v' + '0' 
 >back to the preset settting camera
 
-*ITEM *P
+
+
+*ITEM 
 
 If it's available on the item selected
 
+*ITEM INFO *P
+
 'i' 
 > display a window info
+
+*ITEM ACTION
 
 'n'
 > add boolean birth[ID_item] 
@@ -78,13 +89,10 @@ If it's available on the item selected
 > add boolean special[ID_item]
 
 
-
-
 *SCREEN SHOT *S
 
 >'p'
 save png a window Scene or Prescene is on a full rendering mode
-
 
 *SYPHON *S
 
@@ -104,6 +112,16 @@ SHIFT + 'm'
 SHIFT + 'h'
 > display mask
 
+SHIFT + 'l'
+> load mast
+
+SHIF + 's'
+> save mask
+
+*WARP FORCE FLUID *S
+
+SHIFT + 'N'
+> ????
 
 
 

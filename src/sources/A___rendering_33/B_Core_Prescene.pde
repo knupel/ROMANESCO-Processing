@@ -1,6 +1,6 @@
 /**
 Core Prescene
-v 1.3.1
+v 1.4.0
 2013-2019
 * Here you find
 * variable Prescene
@@ -159,7 +159,7 @@ void update_leapmotion() {
 
 
 /**
-KEYBOARD & SHORTCUTS
+* KEYBOARD & SHORTCUTS
 */
 import java.awt.event.KeyEvent;
 boolean[] keyboard = new boolean[526];
@@ -260,7 +260,6 @@ void key_true() {
   // long
   if (key == ' ') key_space_long = true; 
 
-  if (key == 'c') key_c_long = true; 
   if (key == 'l') key_l_long = true; 
   if (key == 'n') key_n_long = true; 
   if (key == 'v') key_v_long = true; 
@@ -270,7 +269,6 @@ void key_true() {
 
 void key_long_false() {
   if (key == ' ') key_space_long = false; 
-  if (key == 'c') key_c_long = false;
   if (key == 'l') key_l_long = false;
   if (key == 'n') key_n_long = false;
   if (key == 'v') key_v_long = false;

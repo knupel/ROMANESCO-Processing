@@ -1,5 +1,11 @@
-*MEDIA IMPORT
-
+*
+* DEVOLOPER MEDIA IMPORT
+* Romanesco dui 
+* 2013-2019
+* v 2.1.0.33
+* Processing 3.5.3
+* Rope Library 0.5.1
+* 
 
 
 text

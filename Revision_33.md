@@ -11,6 +11,7 @@ revision 33
 >add setting method for item variables.
 >add get_method in class Romanesco to catch the arg : min, max, raw from slider value.
 >add methode set_background() to pass PImage from item to the main background.
+>change commande to actived the main camera, now don't to keep 'c' pressed, one hit to able or enable.
 
 
 *MINOR

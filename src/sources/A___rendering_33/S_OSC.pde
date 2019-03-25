@@ -222,7 +222,7 @@ void write_osc_event() {
 
   // if (key_a_long) data_osc_prescene[63] = ("1"); else data_osc_prescene[63] = ("0");
   //if (key_b_long) data_osc_prescene[64] = ("1"); else data_osc_prescene[64] = ("0");
-  if (key_c_long) data_osc_prescene[65] = ("1"); else data_osc_prescene[65] = ("0");
+  // if (key_c_long) data_osc_prescene[65] = ("1"); else data_osc_prescene[65] = ("0");
   //if (key_d_long) data_osc_prescene[66] = ("1"); else data_osc_prescene[66] = ("0");
   //if (key_e_long) data_osc_prescene[67] = ("1"); else data_osc_prescene[67] = ("0");
   //if (key_f_long) data_osc_prescene[68] = ("1"); else data_osc_prescene[68] = ("0");
@@ -241,7 +241,7 @@ void write_osc_event() {
   //if (key_s_long) data_osc_prescene[81] = ("1"); else data_osc_prescene[81] = ("0");
   //if (key_t_long) data_osc_prescene[82] = ("1"); else data_osc_prescene[82] = ("0");
   //if (key_u_long) data_osc_prescene[83] = ("1"); else data_osc_prescene[83] = ("0");
-  if (key_v_long) data_osc_prescene[84] = ("1"); else data_osc_prescene[84] = ("0");
+  // if (key_v_long) data_osc_prescene[84] = ("1"); else data_osc_prescene[84] = ("0");
   //if (key_w_long) data_osc_prescene[85] = ("1"); else data_osc_prescene[85] = ("0");
   //if (key_x_long) data_osc_prescene[86] = ("1"); else data_osc_prescene[86] = ("0");
   //if (key_y_long) data_osc_prescene[87] = ("1"); else data_osc_prescene[87] = ("0");
@@ -256,24 +256,30 @@ void write_osc_event() {
   // .../...
   //data_osc_prescene [99] = ("");
 
-  if (key_space) data_osc_prescene[100] = ("1") ; else data_osc_prescene[100] =("0") ;
-  if (key_enter) data_osc_prescene[101] = ("1") ; else data_osc_prescene[101] = ("0") ;
-  if (key_return) data_osc_prescene[102] = ("1") ; else data_osc_prescene[102] = ("0") ;
-  if (key_delete) data_osc_prescene[103] = ("1") ; else data_osc_prescene[103] = ("0") ;
-  if (key_backspace) data_osc_prescene[104] = ("1") ; else data_osc_prescene[104] = ("0") ;
-  if (key_alt) data_osc_prescene[105] = ("1") ; else data_osc_prescene[105] = ("0") ;
-  if (key_ctrl) data_osc_prescene[106] = ("1") ; else data_osc_prescene[106] = ("0") ;
-  if (key_cmd) data_osc_prescene[107] = ("1") ; else data_osc_prescene[107] = ("0") ;
+  if (key_space) data_osc_prescene[100] = ("1") ; else data_osc_prescene[100] =("0");
+  if (key_enter) data_osc_prescene[101] = ("1") ; else data_osc_prescene[101] = ("0");
+  if (key_return) data_osc_prescene[102] = ("1") ; else data_osc_prescene[102] = ("0");
+  if (key_delete) data_osc_prescene[103] = ("1") ; else data_osc_prescene[103] = ("0");
+  if (key_backspace) data_osc_prescene[104] = ("1") ; else data_osc_prescene[104] = ("0");
+  if (key_alt) data_osc_prescene[105] = ("1") ; else data_osc_prescene[105] = ("0");
+  if (key_ctrl) data_osc_prescene[106] = ("1") ; else data_osc_prescene[106] = ("0");
+  if (key_cmd) data_osc_prescene[107] = ("1") ; else data_osc_prescene[107] = ("0");
 
-  if (key_up) data_osc_prescene[108] = ("1") ; else data_osc_prescene[108] = ("0") ;
-  if (key_down) data_osc_prescene[109] = ("1") ; else data_osc_prescene[109] = ("0") ;
-  if (key_right) data_osc_prescene[110] = ("1") ; else data_osc_prescene[110] = ("0") ;
-  if (key_left) data_osc_prescene[111] = ("1") ; else data_osc_prescene[111] = ("0") ;
+  if (key_up) data_osc_prescene[108] = ("1") ; else data_osc_prescene[108] = ("0");
+  if (key_down) data_osc_prescene[109] = ("1") ; else data_osc_prescene[109] = ("0");
+  if (key_right) data_osc_prescene[110] = ("1") ; else data_osc_prescene[110] = ("0");
+  if (key_left) data_osc_prescene[111] = ("1") ; else data_osc_prescene[111] = ("0");
 
-  
-  //data_osc_prescene [112] = ("");
-  // .../...
-  //data_osc_prescene [119] = ("");
+  // if (######) data_osc_prescene[112] = ("1") ; else data_osc_prescene[112] = ("0") ;
+  // if (######) data_osc_prescene[113] = ("1") ; else data_osc_prescene[113] = ("0") ;
+  // if (######) data_osc_prescene[114] = ("1") ; else data_osc_prescene[114] = ("0") ;
+
+  if (camera_global_is) data_osc_prescene[115] = ("1") ; else data_osc_prescene[115] = ("0");
+  if (camera_item_is) data_osc_prescene[116] = ("1") ; else data_osc_prescene[116] = ("0");
+
+  // if (######) data_osc_prescene[117] = ("1") ; else data_osc_prescene[117] = ("0") ;
+  // if (######) data_osc_prescene[118] = ("1") ; else data_osc_prescene[118] = ("0") ;
+  // if (######) data_osc_prescene[119] = ("1") ; else data_osc_prescene[119] = ("0") ;
 
   data_osc_prescene[120] = float_to_String_3(pen[0].x); 
   data_osc_prescene[121] = float_to_String_3(pen[0].y); 
@@ -449,94 +455,97 @@ void update_OSC_data() {
 }
 
 void translate_event_prescene() {
-  if(data_osc_prescene[1].equals("0") ) key_a = false; else key_a = true;
-  if(data_osc_prescene[2].equals("0") ) key_b = false; else key_b = true;
-  if(data_osc_prescene[3].equals("0") ) key_c = false; else key_c = true;
-  if(data_osc_prescene[4].equals("0") ) key_d = false; else key_d = true;
-  if(data_osc_prescene[5].equals("0") ) key_e = false; else key_e = true;
-  if(data_osc_prescene[6].equals("0") ) key_f = false; else key_f = true;
-  if(data_osc_prescene[7].equals("0") ) key_g = false; else key_g = true;
-  if(data_osc_prescene[8].equals("0") ) key_h = false; else key_h = true;
-  if(data_osc_prescene[9].equals("0") ) key_i = false; else key_i = true;
-  if(data_osc_prescene[10].equals("0") ) key_j = false; else key_j = true;
-  if(data_osc_prescene[11].equals("0") ) key_k = false; else key_k = true;
-  if(data_osc_prescene[12].equals("0") ) key_l = false; else key_l = true;
-  if(data_osc_prescene[13].equals("0") ) key_m = false; else key_m = true;
-  if(data_osc_prescene[14].equals("0") ) key_n = false; else key_n = true;
-  if(data_osc_prescene[15].equals("0") ) key_o = false; else key_o = true;
-  if(data_osc_prescene[16].equals("0") ) key_p = false; else key_p = true;
-  if(data_osc_prescene[17].equals("0") ) key_q = false; else key_q = true;
-  if(data_osc_prescene[18].equals("0") ) key_r = false; else key_r = true;
-  if(data_osc_prescene[19].equals("0") ) key_s = false; else key_s = true;
-  if(data_osc_prescene[20].equals("0") ) key_t = false; else key_t = true;
-  if(data_osc_prescene[21].equals("0") ) key_u = false; else key_u = true;
-  if(data_osc_prescene[22].equals("0") ) key_v = false; else key_v = true;
-  if(data_osc_prescene[23].equals("0") ) key_w = false; else key_w = true;
-  if(data_osc_prescene[24].equals("0") ) key_x = false; else key_x = true;
-  if(data_osc_prescene[25].equals("0") ) key_y = false; else key_y = true;
-  if(data_osc_prescene[26].equals("0") ) key_z = false; else key_z = true;
+  if(data_osc_prescene[1].equals("0")) key_a = false; else key_a = true;
+  if(data_osc_prescene[2].equals("0")) key_b = false; else key_b = true;
+  if(data_osc_prescene[3].equals("0")) key_c = false; else key_c = true;
+  if(data_osc_prescene[4].equals("0")) key_d = false; else key_d = true;
+  if(data_osc_prescene[5].equals("0")) key_e = false; else key_e = true;
+  if(data_osc_prescene[6].equals("0")) key_f = false; else key_f = true;
+  if(data_osc_prescene[7].equals("0")) key_g = false; else key_g = true;
+  if(data_osc_prescene[8].equals("0")) key_h = false; else key_h = true;
+  if(data_osc_prescene[9].equals("0")) key_i = false; else key_i = true;
+  if(data_osc_prescene[10].equals("0")) key_j = false; else key_j = true;
+  if(data_osc_prescene[11].equals("0")) key_k = false; else key_k = true;
+  if(data_osc_prescene[12].equals("0")) key_l = false; else key_l = true;
+  if(data_osc_prescene[13].equals("0")) key_m = false; else key_m = true;
+  if(data_osc_prescene[14].equals("0")) key_n = false; else key_n = true;
+  if(data_osc_prescene[15].equals("0")) key_o = false; else key_o = true;
+  if(data_osc_prescene[16].equals("0")) key_p = false; else key_p = true;
+  if(data_osc_prescene[17].equals("0")) key_q = false; else key_q = true;
+  if(data_osc_prescene[18].equals("0")) key_r = false; else key_r = true;
+  if(data_osc_prescene[19].equals("0")) key_s = false; else key_s = true;
+  if(data_osc_prescene[20].equals("0")) key_t = false; else key_t = true;
+  if(data_osc_prescene[21].equals("0")) key_u = false; else key_u = true;
+  if(data_osc_prescene[22].equals("0")) key_v = false; else key_v = true;
+  if(data_osc_prescene[23].equals("0")) key_w = false; else key_w = true;
+  if(data_osc_prescene[24].equals("0")) key_x = false; else key_x = true;
+  if(data_osc_prescene[25].equals("0")) key_y = false; else key_y = true;
+  if(data_osc_prescene[26].equals("0")) key_z = false; else key_z = true;
 
-  if(data_osc_prescene[27].equals("0") ) key_A = false; else key_A = true;
-  if(data_osc_prescene[28].equals("0") ) key_B = false; else key_B = true;
-  if(data_osc_prescene[29].equals("0") ) key_C = false; else key_C = true;
-  if(data_osc_prescene[30].equals("0") ) key_D = false; else key_D = true;
-  if(data_osc_prescene[31].equals("0") ) key_E = false; else key_E = true;
-  if(data_osc_prescene[32].equals("0") ) key_F = false; else key_F = true;
-  if(data_osc_prescene[33].equals("0") ) key_G = false; else key_G = true;
-  if(data_osc_prescene[34].equals("0") ) key_H = false; else key_H = true;
-  if(data_osc_prescene[35].equals("0") ) key_I = false; else key_I = true;
-  if(data_osc_prescene[36].equals("0") ) key_J = false; else key_J = true;
-  if(data_osc_prescene[37].equals("0") ) key_K = false; else key_K = true;
-  if(data_osc_prescene[38].equals("0") ) key_L = false; else key_L = true;
-  if(data_osc_prescene[39].equals("0") ) key_M = false; else key_M = true;
-  if(data_osc_prescene[40].equals("0") ) key_N = false; else key_N = true;
-  if(data_osc_prescene[41].equals("0") ) key_O = false; else key_O = true;
-  if(data_osc_prescene[42].equals("0") ) key_P = false; else key_P = true;
-  if(data_osc_prescene[43].equals("0") ) key_Q = false; else key_Q = true;
-  if(data_osc_prescene[44].equals("0") ) key_R = false; else key_R = true;
-  if(data_osc_prescene[45].equals("0") ) key_S = false; else key_S = true;
-  if(data_osc_prescene[46].equals("0") ) key_T = false; else key_T = true;
-  if(data_osc_prescene[47].equals("0") ) key_U = false; else key_U = true;
-  if(data_osc_prescene[48].equals("0") ) key_V = false; else key_V = true;
-  if(data_osc_prescene[49].equals("0") ) key_W = false; else key_W = true;
-  if(data_osc_prescene[50].equals("0") ) key_X = false; else key_X = true;
-  if(data_osc_prescene[51].equals("0") ) key_Y = false; else key_Y = true;
-  if(data_osc_prescene[52].equals("0") ) key_Z = false; else key_Z = true;
+  if(data_osc_prescene[27].equals("0")) key_A = false; else key_A = true;
+  if(data_osc_prescene[28].equals("0")) key_B = false; else key_B = true;
+  if(data_osc_prescene[29].equals("0")) key_C = false; else key_C = true;
+  if(data_osc_prescene[30].equals("0")) key_D = false; else key_D = true;
+  if(data_osc_prescene[31].equals("0")) key_E = false; else key_E = true;
+  if(data_osc_prescene[32].equals("0")) key_F = false; else key_F = true;
+  if(data_osc_prescene[33].equals("0")) key_G = false; else key_G = true;
+  if(data_osc_prescene[34].equals("0")) key_H = false; else key_H = true;
+  if(data_osc_prescene[35].equals("0")) key_I = false; else key_I = true;
+  if(data_osc_prescene[36].equals("0")) key_J = false; else key_J = true;
+  if(data_osc_prescene[37].equals("0")) key_K = false; else key_K = true;
+  if(data_osc_prescene[38].equals("0")) key_L = false; else key_L = true;
+  if(data_osc_prescene[39].equals("0")) key_M = false; else key_M = true;
+  if(data_osc_prescene[40].equals("0")) key_N = false; else key_N = true;
+  if(data_osc_prescene[41].equals("0")) key_O = false; else key_O = true;
+  if(data_osc_prescene[42].equals("0")) key_P = false; else key_P = true;
+  if(data_osc_prescene[43].equals("0")) key_Q = false; else key_Q = true;
+  if(data_osc_prescene[44].equals("0")) key_R = false; else key_R = true;
+  if(data_osc_prescene[45].equals("0")) key_S = false; else key_S = true;
+  if(data_osc_prescene[46].equals("0")) key_T = false; else key_T = true;
+  if(data_osc_prescene[47].equals("0")) key_U = false; else key_U = true;
+  if(data_osc_prescene[48].equals("0")) key_V = false; else key_V = true;
+  if(data_osc_prescene[49].equals("0")) key_W = false; else key_W = true;
+  if(data_osc_prescene[50].equals("0")) key_X = false; else key_X = true;
+  if(data_osc_prescene[51].equals("0")) key_Y = false; else key_Y = true;
+  if(data_osc_prescene[52].equals("0")) key_Z = false; else key_Z = true;
  
-  if(data_osc_prescene[53].equals("0") ) key_1 = false; else key_1 = true;
-  if(data_osc_prescene[54].equals("0") ) key_2 = false; else key_2 = true;
-  if(data_osc_prescene[55].equals("0") ) key_3 = false; else key_3 = true;
-  if(data_osc_prescene[56].equals("0") ) key_4 = false; else key_4 = true;
-  if(data_osc_prescene[57].equals("0") ) key_5 = false; else key_5 = true;
-  if(data_osc_prescene[58].equals("0") ) key_6 = false; else key_6 = true;
-  if(data_osc_prescene[59].equals("0") ) key_7 = false; else key_7 = true;
-  if(data_osc_prescene[60].equals("0") ) key_8 = false; else key_8 = true;
-  if(data_osc_prescene[61].equals("0") ) key_9 = false; else key_9 = true;
-  if(data_osc_prescene[62].equals("0") ) key_0 = false; else key_0 = true;
+  if(data_osc_prescene[53].equals("0")) key_1 = false; else key_1 = true;
+  if(data_osc_prescene[54].equals("0")) key_2 = false; else key_2 = true;
+  if(data_osc_prescene[55].equals("0")) key_3 = false; else key_3 = true;
+  if(data_osc_prescene[56].equals("0")) key_4 = false; else key_4 = true;
+  if(data_osc_prescene[57].equals("0")) key_5 = false; else key_5 = true;
+  if(data_osc_prescene[58].equals("0")) key_6 = false; else key_6 = true;
+  if(data_osc_prescene[59].equals("0")) key_7 = false; else key_7 = true;
+  if(data_osc_prescene[60].equals("0")) key_8 = false; else key_8 = true;
+  if(data_osc_prescene[61].equals("0")) key_9 = false; else key_9 = true;
+  if(data_osc_prescene[62].equals("0")) key_0 = false; else key_0 = true;
 
-  if(data_osc_prescene[65].equals("0")) key_c_long = false; else key_c_long = true;
+  // if(data_osc_prescene[65].equals("0")) key_c_long = false; else key_c_long = true;
   if(data_osc_prescene[74].equals("0")) key_l_long = false; else key_l_long = true;
   if(data_osc_prescene[76].equals("0")) key_n_long = false; else key_n_long = true;
-  if(data_osc_prescene[84].equals("0")) key_v_long = false; else key_v_long = true;
+  // if(data_osc_prescene[84].equals("0")) key_v_long = false; else key_v_long = true;
    
   // SPECIAL TOUCH
-  if(data_osc_prescene[89].equals("0") ) key_space_long = false; else key_space_long = true;
+  if(data_osc_prescene[89].equals("0")) key_space_long = false; else key_space_long = true;
   if(data_osc_prescene[90].equals("0")) key_shift_long = false; else key_shift_long = true;
   
-  if(data_osc_prescene[100].equals("0") ) key_space = false; else key_space = true;
-  if(data_osc_prescene[101].equals("0") ) key_enter = false; else key_enter = true;
-  if(data_osc_prescene[102].equals("0") ) key_return = false; else key_return = true;
-  if(data_osc_prescene[103].equals("0") ) key_delete = false; else key_delete = true;
-  if(data_osc_prescene[104].equals("0") ) key_backspace = false; else key_backspace = true;
-  if(data_osc_prescene[105].equals("0") ) key_alt = false; else key_alt = true;
-  if(data_osc_prescene[106].equals("0") ) key_ctrl = false; else key_ctrl = true;
-  if(data_osc_prescene[107].equals("0") ) key_cmd = false; else key_cmd = true;
+  if(data_osc_prescene[100].equals("0")) key_space = false; else key_space = true;
+  if(data_osc_prescene[101].equals("0")) key_enter = false; else key_enter = true;
+  if(data_osc_prescene[102].equals("0")) key_return = false; else key_return = true;
+  if(data_osc_prescene[103].equals("0")) key_delete = false; else key_delete = true;
+  if(data_osc_prescene[104].equals("0")) key_backspace = false; else key_backspace = true;
+  if(data_osc_prescene[105].equals("0")) key_alt = false; else key_alt = true;
+  if(data_osc_prescene[106].equals("0")) key_ctrl = false; else key_ctrl = true;
+  if(data_osc_prescene[107].equals("0")) key_cmd = false; else key_cmd = true;
 
-  if(data_osc_prescene[108].equals("0") ) key_up = false; else key_up = true;
-  if(data_osc_prescene[109].equals("0") ) key_down = false; else key_down = true;
-  if(data_osc_prescene[110].equals("0") ) key_right = false; else key_right = true;
-  if(data_osc_prescene[111].equals("0") ) key_left = false; else key_left = true;
+  if(data_osc_prescene[108].equals("0")) key_up = false; else key_up = true;
+  if(data_osc_prescene[109].equals("0")) key_down = false; else key_down = true;
+  if(data_osc_prescene[110].equals("0")) key_right = false; else key_right = true;
+  if(data_osc_prescene[111].equals("0")) key_left = false; else key_left = true;
 
+
+  if(data_osc_prescene[115].equals("0")) camera_global_is = false; else camera_global_is = true;
+  if(data_osc_prescene[116].equals("0")) camera_item_is = false; else camera_item_is = true;
 
 
   //PEN

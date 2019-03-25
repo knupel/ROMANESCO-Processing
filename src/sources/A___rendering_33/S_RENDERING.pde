@@ -1,7 +1,7 @@
 /**
 * RENDERING
 * 2016-2019
-* v 1.2.1
+* v 1.2.2
 */
 void rendering() {
   boolean show_is = true;
@@ -544,8 +544,8 @@ void show_info_item(int color_bg, int color_text) {
 
 //INFO 3D
 void show_info_camera(color txt) {
-  String posCam = ( int(-1 *sceneCamera.x ) + " / " + int(sceneCamera.y) + " / " +  int(sceneCamera.z -height/2));
-  String eyeDirectionCam = (int(eyeCamera.x) + " / " + int(eyeCamera.y));
+  String posCam = ( int(-1 *scene_camera.x ) + " / " + int(scene_camera.y) + " / " +  int(scene_camera.z -height/2));
+  String eyeDirectionCam = (int(eye_camera.x) + " / " + int(eye_camera.y));
   fill(txt); 
   textFont(system_font,10);
   textAlign(RIGHT);
