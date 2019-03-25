@@ -2,7 +2,7 @@
 * POST FX shader collection
 *
 * 2019-2019
-* v 0.2.0
+* v 0.2.1
 * all filter bellow has been tested.
 * @author @stanlepunk
 * @see https://github.com/StanLepunK/Shader
@@ -1531,7 +1531,7 @@ PGraphics fx_mix(PImage source, PImage layer, boolean on_g, int mode, vec3 level
 
 /**
 * Pixel 
-* v 0.0.5
+* v 0.0.6
 * 2018-2019
 */
 // setting by class FX
@@ -1547,15 +1547,6 @@ PGraphics fx_pixel(PImage source, FX fx) {
 	return fx_pixel(source,fx.on_g(),size,fx.get_num(),level_source,fx.get_event(0).x());
 }
 
-
-// test
-PGraphics fx_pixel(PImage source, boolean on_g) {
-	ivec2 size = ivec2(5);
-	int num = 8;
-	vec3 level_source = vec3(1);
-  boolean effect_is = true;
-	return fx_pixel(source,on_g,size,num,level_source,effect_is);
-}
 
 
 // main

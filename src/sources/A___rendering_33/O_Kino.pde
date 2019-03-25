@@ -50,7 +50,7 @@ class Kino extends Romanesco {
     // variety_is = true;
     // life_is = true;
     // flow_is = true;
-    quality_is = true;
+    // quality_is = true;
     // area_is = true;
     // angle_is = true;
     // scope_is = true;
