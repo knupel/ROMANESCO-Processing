@@ -1,10 +1,15 @@
 sketches_work/
 design/
 
+
 # build stuff in case there is
-A_DEVELOPEMENT/A__Romanesco_33/build-tmp/
-A_DEVELOPEMENT/source/A___control_33/build-tmp/
-A_DEVELOPEMENT/source/A___rendering_33/build-tmp/
+src/A__Romanesco_33/build-tmp
+src/sources/A___control_33/build-tmp
+src/sources/A___rendering_33/build-tmp
+#export
+src/A__Romanesco_33/application
+src/sources/A___control_33/application
+src/sources/A___rendering_33/application
 
 # Runtime data
 pids
