@@ -364,7 +364,7 @@ void update_fx_post(ArrayList<FX> fx_list) {
   int mode_dither = 1 ; // rgb
   update_fx_dither_bayer(fx_list,move_filter_fx,vec3(sl_fx_color_x,sl_fx_color_y,sl_fx_color_z),mode_dither);
   
-  update_fx_haltone_dot(fx_list,move_filter_fx,vec2(sl_fx_pos_x,sl_fx_pos_y),sl_fx_quantity,sl_fx_angle);
+  update_fx_haltone_dot(fx_list,move_filter_fx,sl_fx_quantity,sl_fx_angle);
   update_fx_haltone_line(fx_list,move_filter_fx,vec2(sl_fx_pos_x,sl_fx_pos_y),sl_fx_quantity,sl_fx_angle);
 
   update_fx_pixel(fx_list,move_filter_fx,sl_fx_quantity,vec2(sl_fx_size_x,sl_fx_size_y),vec3(sl_fx_color_x,sl_fx_color_y,sl_fx_color_z));
@@ -532,23 +532,25 @@ void setting_fx_haltone_dot(ArrayList<FX> fx_list) {
   int revision = 1;
   String author = "Stan le Punk";
   String pack = "Base 2019";
-  String [] slider = {"position X","position Y","angle","quantity"};
+  String [] slider = {"angle","quantity"};
   int id = fx_classic_num;
   init_fx(fx_list,set_halftone_dot,FX_HALFTONE_DOT,id,author,pack,version,revision,slider,null);
   fx_classic_num++; 
 }
 
-void update_fx_haltone_dot(ArrayList<FX> fx_list, boolean move_is, vec2 pos, float quantity, float angle) {
+void update_fx_haltone_dot(ArrayList<FX> fx_list, boolean move_is, float quantity, float angle) {
   if(move_is) {
-    float pix_size = map(quantity,0,1,height/4,2); 
+    
+    float temp = map(quantity,0,1,1,0);
+    temp = pow(temp,4);
+    temp = 1-temp;
+    float pix_size = map(temp,0,1,height/4,.01);
     fx_set_size(fx_list,set_halftone_dot,pix_size);  
 
     angle = map(angle,0,1,-TAU,TAU);
     fx_set_angle(fx_list,set_halftone_dot,angle);
 
     fx_set_threshold(fx_list,set_halftone_dot,1);
-
-    fx_set_pos(fx_list,set_halftone_dot,pos.array());
   }
 }
 

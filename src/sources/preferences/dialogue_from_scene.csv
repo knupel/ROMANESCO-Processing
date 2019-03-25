@@ -1,2 +1,2 @@
 fx active,fx slider active
-split rgb/warp proc/pixel/,strength X/strength Y/speed/strength X/speed/quantity/size X/size Y/red/green/blue/
+warp proc/split rgb/,strength X/speed/strength X/strength Y/speed/
