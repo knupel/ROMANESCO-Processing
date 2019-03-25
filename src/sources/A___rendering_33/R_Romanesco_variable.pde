@@ -1,7 +1,7 @@
 /**
 * Romanesco Manager
 * 2013-2019
-* v 1.7.2
+* v 1.7.3
 */
 Romanesco_manager rom_manager;
 
@@ -77,7 +77,7 @@ void update_var_items(Romanesco item) {
   update_var_sound(item);
   
   if(item.action_is()){
-    if(key_space_long) {
+    if(space_is()) {
       pen[id].set(pen[0]);
       mouse[id].set(mouse[0]);
     }
@@ -372,7 +372,7 @@ void update_var_sound(Romanesco item) {
 boolean reset(Romanesco item) {
   boolean state = false;
   //global delete
-  if (key_backspace) state = true;
+  if (space_is()) state = true;
   //SPECIFIC DELETE when the paramer button of contrôleur is ON
   else if (key_delete) if (item.action_is() || item.parameter_is()) state = true ;
   return state;

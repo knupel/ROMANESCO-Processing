@@ -13,6 +13,8 @@ boolean camera_item_is =false;
 Boolean internet = true;
 String bigBrother = ("BIG BROTHER DON'T WATCHING YOU !!");
 
+ivec6 render_canvas;
+
 //init var
 //GLOBAL
 void scene_variables_setup() {

@@ -19,9 +19,11 @@ void set_design() {
 set structure
 */
 void set_design_structure() {
+  num_box_dropdown_item = 15;
+  num_box_dropdown_general = 30;
+
   height_box_dropdown = 15;
   dropdown_pos_text = ivec2(3,10);
-
   ratio_size_molette = 1.3;
   // vertical grid
   marge = 10;
@@ -34,7 +36,7 @@ void set_design_structure() {
     grid_col[i] = col_width +grid_col[i-1];
   }
 
-  sizeTitleButton = 10 ;
+  size_title_button = 10 ;
 
   spacing_slider = 11;
   rounded_slider = 4;
@@ -963,12 +965,14 @@ int height_header;
 
 
 // button slider
-int sizeTitleButton;
+int size_title_button;
 
 /**
-DROPDOWN
+* DROPDOWN
 */
 int height_box_dropdown;
+int num_box_dropdown_item;
+int num_box_dropdown_general;
 
 
 

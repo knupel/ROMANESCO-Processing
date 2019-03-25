@@ -181,7 +181,7 @@ DISPLAY SETUP
 v 1.3.1
 */
 String displayMode = ("");
-int depth_scene;
+// int depth_scene;
 void display_setup(int frame_rate, int num_layer) {
   if(IAM.equals("scene")) {
     background_rope(0);
@@ -192,7 +192,8 @@ void display_setup(int frame_rate, int num_layer) {
   //colorMode(HSB,HSBmode.hue(),HSBmode.sat(),HSBmode.bri(),HSBmode.alp());
 
   set_screen();
-  depth_scene = height;
+  render_canvas = ivec6(0,width,0,height,-height,height);
+  // depth_scene = height;
 
   // resize layer
   if(USE_LAYER) {

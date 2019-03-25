@@ -285,9 +285,9 @@ void write_osc_event() {
   data_osc_prescene[121] = float_to_String_3(pen[0].y); 
   data_osc_prescene[122] = float_to_String_1(pen[0].z); 
 
-  data_osc_prescene[123] = float_to_String_3(norm(mouse[0].x, 0, width)); 
-  data_osc_prescene[124] = float_to_String_3(norm(mouse[0].y,0,height));
-  data_osc_prescene[125] = float_to_String_3(norm(mouse[0].z,-depth_scene,depth_scene));
+  data_osc_prescene[123] = float_to_String_3(norm(mouse[0].x,get_render_canvas().x(),get_render_canvas().y())); 
+  data_osc_prescene[124] = float_to_String_3(norm(mouse[0].y,get_render_canvas().z(),get_render_canvas().w()));
+  data_osc_prescene[125] = float_to_String_3(norm(mouse[0].z,get_render_canvas().e(),get_render_canvas().f()));
 
   if (clickShortLeft[0]) data_osc_prescene[126] = ("1"); else data_osc_prescene[126] = ("0");
   if (clickShortRight[0]) data_osc_prescene[127] = ("1"); else data_osc_prescene[127] = ("0");

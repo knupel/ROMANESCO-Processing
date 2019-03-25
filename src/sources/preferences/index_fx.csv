@@ -1,14 +1,15 @@
 Name,Author,Version,Pack,Slider
 Force,Stan le Punk,0.1.0,Base 2014,
 blur circular,Stan le Punk,0.0.1,Base 2019,quantity/strength X
-blur gaussian,Stan le Punk,0.0.3,Base 2019,strength X
-blur radial,Stan le Punk,0.0.1,Base 2019,position X/position Y/strength X
+blur gaussian,Stan le Punk,0.1.0,Base 2019,strength X
+blur radial,Stan le Punk,0.0.1,Base 2019,strength X
 datamosh,Alexandre Rivaux refactoring by Stan le Punk,0.0.1,Base 2019,red/green/blue/strength X/threshold
 dither bayer,Mattias / Shader Toy,0.0.1,Base 2019,red/green/blue
-halftone dot,Stan le Punk,0.0.1,Base 2019,position X/position Y/angle/quantity
-halftone line,Stan le Punk,0.0.2,Base 2019,position X/position Y/quantity/angle
-pixel,Stan le Punk,0.0.1,Base 2019,quantity/size X/size Y/red/green/blue
-split rgb,Stan le Punk,0.0.1,Base 2019,strength X/strength Y/speed
+halftone dot,Stan le Punk,0.0.1,Base 2019,angle/quantity
+halftone line,Stan le Punk,0.0.2,Base 2019,quantity/angle
+halftone multi,Stan le Punk,0.0.1,Base 2019,red/green/quantity/angle/threshold
+pixel,Stan le Punk,0.0.2,Base 2019,quantity/size X/size Y/red/green/blue
+split rgb,Stan le Punk,0.0.2,Base 2019,strength X/strength Y/speed
 threshold,Stan le Punk,0.0.1,Base 2019,red/green/blue
 warp proc,Stan le Punk,0.0.1,Base 2019,strength X/speed
 warp tex,Stan le Punk,0.0.1,Base 2019,strength X

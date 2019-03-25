@@ -61,7 +61,7 @@ class Kino extends Romanesco {
     // density_is = true;
     // influence_is = true;
     // calm_is = true;
-    spectrum_is = true;
+    // spectrum_is = true;
 
     // grid_is = true;
     // viscosity_is = true;

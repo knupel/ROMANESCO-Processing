@@ -212,10 +212,7 @@ class Escargot extends Romanesco {
          motionInfo.x = deg360(convertTilt) ;
        }
        
-       // if (!key_space_long) for( Old_Pixel p : listEscargot) {
-       //alternat beween the pen and the controleur
-       // if( pen[ID_item].x == 0 && pen[ID_item].y == 0 ) newDirection = normalDir(int(map(valueObj[ID_item][18],0,100,0,360))) ; else newDirection = new PVector (-pen[ID_item].x  , -pen[ID_item].y ) ;
-       
+      
        if (!motion_is()) for(Old_Pixel p : listEscargot) {
          p.updatePosPixel(motionInfo, bitmap[ID_item]) ;
        }

@@ -36,7 +36,7 @@ void update_force_field_is(boolean is);
 void init_force_field();
 
 
-*CAMERA
+*GET
 
 boolean camera_global_is();
 > return if the global camera is active
@@ -44,8 +44,11 @@ boolean camera_global_is();
 boolean camera_item_is();
 > return if the item orientation is active
 
+boolean space_is();
+>return if a long space is hit, generally this method is used to authorize passing coordinate of vec mouse[0], vec pmouse[0], vec pen[0] to 'ITEM' or to 'BACKGROUND FX' or 'POST FX'
 
-
+ivec6 get_render_canvas();
+>return the render canvas of the prescene or scene
 
 
 *SPOT

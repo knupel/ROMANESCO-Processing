@@ -27,15 +27,6 @@ float ref_cam_deceleration;
 float ref_cam_ratio_rotate,ref_cam_ratio_translate;
 
 
-
-boolean camera_global_is() {
-  return camera_global_is;
-}
-
-boolean camera_item_is() {
-  camera_item_is = key_v_long;
-  return camera_item_is;
-}
 // Camera SETUP
 void camera_setup() {
   float speed_cam_follow = ref_speed_follow_cam = .01;

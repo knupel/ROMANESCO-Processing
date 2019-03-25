@@ -455,14 +455,13 @@ void build_dropdown_bar() {
   for(int i = 0 ; i < dropdown_bar.length ; i++) {
     dropdown_bar_pos[i] = ivec2(pos_x_dropdown_bar[i],pos_y_dropdown_bar);
     dropdown_bar_size[i] = ivec2(width_dropdown_bar[i],height_dropdown_header_bar);
-    int num_box = 7;
 
     dropdown_bar[i] = new Dropdown(dropdown_bar_pos[i],dropdown_bar_size[i],name_dropdown_bar[i],dropdown_content[i]);
     dropdown_bar[i].set_colour(dropdown_colour);
     dropdown_bar[i].set_header_text_pos(dropdown_pos_text);
     dropdown_bar[i].wheel(true);
     dropdown_bar[i].set_box_text_pos(dropdown_pos_text);
-    dropdown_bar[i].set_box(num_box,2);
+    dropdown_bar[i].set_box(num_box_dropdown_general,2);
     dropdown_bar[i].set_box_height(height_box_dropdown);
     dropdown_bar[i].set_font(title_medium);
     dropdown_bar[i].set_box_font(textUsual_1);
@@ -496,7 +495,7 @@ void build_local_dd_item(Dropdown [] dd, Table inventory_table, String [] list_g
       dd[i].set_header_text_pos(pos_text);
       dd[i].wheel(true);
       dd[i].set_box_text_pos(pos_text);
-      dd[i].set_box(7);
+      dd[i].set_box(num_box_dropdown_item);
       dd[i].set_box_height(height_box_dropdown);
       dd[i].set_font(title_medium);
       dd[i].set_box_font(textUsual_1);

@@ -1,7 +1,7 @@
 /**
 * ATOME 
 * 2012-2019
-* v 1.3.12
+* v 1.3.13
 */
 ArrayList<Atom> atomList;
 import rope.costume.R_Primitive;
@@ -11,7 +11,7 @@ class Atome extends Romanesco {
     //from the index_objects.csv
     item_name = "Atome" ;
     item_author  = "Stan le Punk";
-    item_version = "version 1.3.12";
+    item_version = "version 1.3.13";
     item_pack = "Base 2012-2019" ;
     item_costume = "";
     item_mode = "Chemical Name/File text/Electronic cloud/Ellipse circle/Ellipse triangle/Ellipse cloud/Triangle circle/Triangle triangle/Triangle cloud/Rectangle rectangle/Rectangle cloud" ;
@@ -138,7 +138,7 @@ class Atome extends Romanesco {
     
     //VELOCITY and DIRECTION of atom
     if(motion_is()) {
-      if(key_space_long && action_is()) {
+      if(space_is() && action_is()) {
         newDirection = new PVector (-pen[ID_item].x, -pen[ID_item].y ) ;
       } else { 
         newDirection = normal_direction(int(get_dir_x())) ;

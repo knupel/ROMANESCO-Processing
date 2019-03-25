@@ -1,7 +1,7 @@
 /**
-CORE SCENE and PRESCENE 
-2015-2019
-v 1.9.0
+* CORE RENDERING
+* 2015-2019
+* v 1.10.0
 */
 import java.net.*;
 import java.io.*;
@@ -18,6 +18,27 @@ import processing.net.*;
 import processing.pdf.*;
 
 import codeanticode.syphon.*;
+
+
+/**
+* get
+*/
+boolean camera_global_is() {
+  return camera_global_is;
+}
+
+boolean camera_item_is() {
+  camera_item_is = key_v_long;
+  return camera_item_is;
+}
+
+boolean space_is() {
+  return key_space_long;
+}
+
+ivec6 get_render_canvas() {
+  return render_canvas;
+}
 
 
 

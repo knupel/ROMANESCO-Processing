@@ -4,6 +4,24 @@ FILTER
 * v 0.1.5
 * here is calling classic FX ROPE + FX FORCE FIELD
 */
+
+/**
+slider available
+* "red",
+* "green",
+* "blue",
+* "position X"
+* "position Y
+* "size X"
+* "size Y"
+* "strength X"
+* "strength Y"
+* "quantity"
+* "quality"
+* "speed"
+* "angle"
+* "threshold"
+*/
 ArrayList<FX> fx_manager;
 
 
@@ -341,6 +359,7 @@ void setting_fx_classic(ArrayList<FX> fx_list) {
 
   setting_fx_haltone_dot(fx_list);
   setting_fx_haltone_line(fx_list);
+  setting_fx_haltone_multi(fx_list);
 
   setting_fx_pixel(fx_list);
 
@@ -352,12 +371,38 @@ void setting_fx_classic(ArrayList<FX> fx_list) {
   setting_fx_warp_tex(fx_list);
 }
 
-
-
+/**
+* sl_fx_color_x;
+* sl_fx_color_y;
+* sl_fx_color_z;
+* sl_fx_pos_x;
+* sl_fx_pos_y;
+* sl_fx_size_x;
+* sl_fx_size_y;
+* sl_fx_strength_x;
+* sl_fx_strength_y;
+* sl_fx_quantity;
+* sl_fx_quality;
+* sl_fx_speed;
+* sl_fx_angle;
+* sl_fx_threshold;
+*/
+vec3 mouse_fx_post;
 void update_fx_post(ArrayList<FX> fx_list) {
+  if(mouse_fx_post == null) {
+    mouse_fx_post = vec3(.5,.5,0);
+  }
+
+  if(space_is()) {
+    float norm_x = map(mouse[0].x(),get_render_canvas().x(),get_render_canvas().y(),0,1);
+    float norm_y = map(mouse[0].y(),get_render_canvas().z(),get_render_canvas().w(),0,1);
+    float norm_z = map(mouse[0].z(),get_render_canvas().e(),get_render_canvas().f(),0,1);
+    mouse_fx_post.set(norm_x,norm_y,norm_z);
+  }
+
   update_fx_blur_circular(fx_list,move_filter_fx,sl_fx_quantity,sl_fx_strength_x);
   update_fx_blur_gaussian(fx_list,move_filter_fx,sl_fx_strength_x);
-  update_fx_blur_radial(fx_list,move_filter_fx,vec2(sl_fx_pos_x,sl_fx_pos_y),sl_fx_strength_x);
+  update_fx_blur_radial(fx_list,move_filter_fx,mouse_fx_post.xy(),sl_fx_strength_x);
 
   update_fx_datamosh(fx_list,move_filter_fx,sl_fx_strength_x,sl_fx_threshold,vec3(sl_fx_color_x,sl_fx_color_y,sl_fx_color_z));
   
@@ -365,7 +410,8 @@ void update_fx_post(ArrayList<FX> fx_list) {
   update_fx_dither_bayer(fx_list,move_filter_fx,vec3(sl_fx_color_x,sl_fx_color_y,sl_fx_color_z),mode_dither);
   
   update_fx_haltone_dot(fx_list,move_filter_fx,sl_fx_quantity,sl_fx_angle);
-  update_fx_haltone_line(fx_list,move_filter_fx,vec2(sl_fx_pos_x,sl_fx_pos_y),sl_fx_quantity,sl_fx_angle);
+  update_fx_haltone_line(fx_list,move_filter_fx,mouse_fx_post.xy(),sl_fx_quantity,sl_fx_angle);
+  update_fx_haltone_multi(fx_list,move_filter_fx,sl_fx_color_x,sl_fx_color_y,mouse_fx_post.xy(),sl_fx_quantity,sl_fx_angle,sl_fx_threshold);
 
   update_fx_pixel(fx_list,move_filter_fx,sl_fx_quantity,vec2(sl_fx_size_x,sl_fx_size_y),vec3(sl_fx_color_x,sl_fx_color_y,sl_fx_color_z));
 
@@ -413,7 +459,7 @@ void update_fx_blur_circular(ArrayList<FX> fx_list, boolean move_is, float num, 
 */
 String set_blur_gaussian = "blur gaussian";
 void setting_fx_blur_gaussian(ArrayList<FX> fx_list) {
-  String version = "0.0.3";
+  String version = "0.1.0";
   int revision = 3;
   String author = "Stan le Punk";
   String pack = "Base 2019";
@@ -443,7 +489,7 @@ void setting_fx_blur_radial(ArrayList<FX> fx_list) {
   int revision = 1;
   String author = "Stan le Punk";
   String pack = "Base 2019";
-  String [] slider = {"position X","position Y","strength X"};
+  String [] slider = {"strength X"};
   int id = fx_classic_num;
   init_fx(fx_list,set_blur_radial,FX_BLUR_RADIAL,id,author,pack,version,revision,slider,null);
   fx_classic_num++;
@@ -578,7 +624,7 @@ void setting_fx_haltone_line(ArrayList<FX> fx_list) {
   int revision = 1;
   String author = "Stan le Punk";
   String pack = "Base 2019";
-  String [] slider = {"position X","position Y","quantity","angle"};
+  String [] slider = {"quantity","angle"};
   int id = fx_classic_num;
   init_fx(fx_list,set_halftone_line,FX_HALFTONE_LINE,id,author,pack,version,revision,slider,null);
   fx_classic_num++; 
@@ -603,18 +649,76 @@ void update_fx_haltone_line(ArrayList<FX> fx_list, boolean move_is, vec2 pos, fl
 }
 
 
+/*
+* "red",
+* "green",
+* "blue",
+* "position X"
+* "position Y
+* "size X"
+* "size Y"
+* "strength X"
+* "strength Y"
+* "quantity"
+* "quality"
+* "speed"
+* "angle"
+* "threshold"
+*/
+/**
+* halftone multi
+*/
+String set_halftone_multi = "halftone multi";
+void setting_fx_haltone_multi(ArrayList<FX> fx_list) {
+  String version = "0.0.1";
+  int revision = 1;
+  String author = "Stan le Punk";
+  String pack = "Base 2019";
+  String [] slider = {"red","green","quantity","angle","threshold",};
+  int id = fx_classic_num;
+  init_fx(fx_list,set_halftone_multi,FX_HALFTONE_MULTI,id,author,pack,version,revision,slider,null);
+  fx_classic_num++; 
+}
+
+void update_fx_haltone_multi(ArrayList<FX> fx_list, boolean move_is, float red, float green, vec2 pos, float quantity, float angle, float threshold) {
+
+  fx_set_mode(fx_list,set_halftone_multi,0); 
+
+  if(move_is) {
+    float quality = (int)map(red,0,1,0,32); // use red for hue...because that's talk about the number of color, I believe???
+    fx_set_quality(fx_list,set_halftone_multi,quality); // 1 to 16++
+
+    // green because the seconde comp in green > same line of saturation r-G-b <> h-S-b
+    fx_set_saturation(fx_list,set_halftone_multi,green); // from 0 to 1
+
+    float temp = map(quantity,0,1,1,0);
+    temp = pow(temp,4);
+    temp = 1-temp;
+    float pix_size = map(temp,0,1,height/4,.01);
+    fx_set_size(fx_list,set_halftone_multi,pix_size);
+
+    angle = map(angle,0,1,-TAU,TAU);
+    fx_set_angle(fx_list,set_halftone_multi,angle);
+
+    threshold = map(threshold,0,1,0,3);
+    fx_set_threshold(fx_list,set_halftone_multi,threshold); // from 0 to 2++
+
+    fx_set_pos(fx_list,set_halftone_multi,pos.array());
+  }
+}
+
+
 
 
 
 
 /**
 * pixel
-* v 0.0.2
 */
 String set_pixel = "pixel";
 // boolean effect_pixel_is;
 void setting_fx_pixel(ArrayList<FX> fx_list) {
-  String version = "0.0.1";
+  String version = "0.0.2";
   int revision = 1;
   String author = "Stan le Punk";
   String pack = "Base 2019";
@@ -650,11 +754,10 @@ void update_fx_pixel(ArrayList<FX> fx_list, boolean move_is, float num, vec2 siz
 
 /**
 * split
-* v 0.0.2
 */
 String set_split_rgb = "split rgb";
 void setting_fx_split_rgb(ArrayList<FX> fx_list) {
-  String version = "0.0.1";
+  String version = "0.0.2";
   int revision = 1;
   String author = "Stan le Punk";
   String pack = "Base 2019";
@@ -691,7 +794,7 @@ void update_fx_split_rgb(ArrayList<FX> fx_list, boolean move_is, vec2 str, float
 
 
 /**
-* dither bayer
+* threshold
 */
 String set_threshold = "threshold";
 void setting_fx_threshold(ArrayList<FX> fx_list) {
@@ -717,7 +820,6 @@ void update_fx_threshold(ArrayList<FX> fx_list, boolean move_is, vec3 colour, in
 
 /**
 * warp proc
-* v 0.0.1
 */
 String set_warp_proc = "warp proc";
 void setting_fx_warp_proc(ArrayList<FX> fx_list) {
@@ -743,7 +845,6 @@ void update_fx_warp_proc(ArrayList<FX> fx_list, boolean move_is, float str, floa
 
 /**
 * warp tex
-* v 0.0.1
 */
 String set_warp_tex = "warp tex";
 void setting_fx_warp_tex(ArrayList<FX> fx_list) {
