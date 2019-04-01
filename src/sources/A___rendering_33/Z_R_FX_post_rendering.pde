@@ -2,17 +2,11 @@
 * POST FX shader collection
 *
 * 2019-2019
-* v 0.2.1
+* v 0.2.2
 * all filter bellow has been tested.
 * @author @stanlepunk
 * @see https://github.com/StanLepunK/Shader
 */
-
-
-
-
-
-
 
 
 /**
@@ -25,9 +19,6 @@ v 0.1.3
 PGraphics fx_template(PImage source, FX fx) {
 	return fx_template(source,fx.on_g(),null);
 }
-
-
-
 
 // main
 PShader fx_template;
@@ -112,22 +103,13 @@ PGraphics fx_template(PImage source, boolean on_g, vec4 level_source) {
 
 /**
 * Blur circular
-* v 0.1.4
+* v 0.1.5
 * 2018-2019
 */
 // use fx setting
 PGraphics fx_blur_circular(PImage source, FX fx) {
 	return fx_blur_circular(source,fx.on_g(),fx.get_strength(),fx.get_num());
-
 }
-
-// test setting
-PGraphics fx_blur_circular(PImage source, boolean on_g) {
-	float strength = map(mouseX,0,width,0,100);
-	int num = 36; // samples: 16 is default / max 256 but in this cas you need a very very robust graphics engine
-	return fx_blur_circular(source,on_g,vec3(strength),num);
-}
-
 
 // main 
 PShader fx_blur_circular;
@@ -173,7 +155,7 @@ PGraphics fx_blur_circular(PImage source, boolean on_g, vec3 strength, int num) 
 
 /**
 * gaussian blur
-* v 0.2.3
+* v 0.2.4
 * 2018-2019
 */
 // setting by class FX
@@ -181,15 +163,6 @@ PGraphics fx_blur_gaussian(PImage source, FX fx) {
 	ivec2 res = ivec2();
 	boolean second_pass = true;
 	return fx_blur_gaussian(source,fx.on_g(),second_pass,res,fx.get_strength().x());
-}
-
-
-// test setting
-PGraphics fx_blur_gaussian(PImage source, boolean on_g) {
-	ivec2 res = ivec2();
-	boolean second_pass = true;
-	float size = 5; // blur
-	return fx_blur_gaussian(source,on_g,second_pass,res,size);
 }
 
 // main
@@ -336,10 +309,6 @@ PGraphics fx_blur_radial(PImage source, FX fx) {
 	return fx_blur_radial(source,fx.on_g(),vec2(fx.get_pos()),str,scl);
 }
 
-
-
-
-
 // main
 PShader fx_blur_radial;
 PGraphics result_blur_radial;
@@ -390,27 +359,13 @@ PGraphics fx_blur_radial(PImage source, boolean on_g, vec2 pos, float strength, 
 
 /**
 * Colour change A by Stan le punk
-v 0.2.2
+v 0.2.3
 2018-2019
 */
-
 // setting by class FX
 PGraphics fx_colour_change_a(PImage source, FX fx) {
 	return fx_colour_change_a(source,fx.on_g(),fx.get_num(),fx.get_matrix());
 }
-
-// test
-PGraphics fx_colour_change_a(PImage source, boolean on_g) {
-	vec3 col_0 = vec3().sin_wave(frameCount,.001,.02,.005).mult(10);
-  vec3 col_1 = vec3().cos_wave(frameCount,.001,.02,.005).mult(10);
-  vec3 col_2 = vec3().sin_wave(frameCount,.01,.002,.002).mult(10);
-		// 	vec3 col_0 = vec3(-1,0,1);
-		// vec3 col_1 = vec3(1,0,-1);
-		// vec3 col_2 = vec3(-1,0,1);	
-	int num = (int)map(mouseX,0,width,1,32);
-	return fx_colour_change_a(source,false,num,col_0);
-}
-
 
 // main
 PShader fx_colour_change_a;
@@ -473,7 +428,7 @@ PGraphics fx_colour_change_a(PImage source, boolean on_g, int num, vec3... mat) 
 
 /**
 * colour change B
-* v 0.0.4
+* v 0.0.5
 * 2018-2019
 */
 
@@ -489,13 +444,6 @@ PGraphics fx_colour_change_b(PImage source, FX fx) {
 		strength = fx.get_strength().x;
 	}
 	return fx_colour_change_b(source,fx.on_g(),angle,strength);
-}
-
-// test
-PGraphics fx_colour_change_b(PImage source, boolean on_g) {
-	float angle = map(mouseX,0,width,0,TAU);
-	float strength = map(mouseY,0,height,1,10);
-	return fx_colour_change_b(source,on_g,angle,strength);
 }
 
 PShader fx_colour_change_b;
@@ -890,7 +838,6 @@ PGraphics fx_grain_scatter(PImage source, FX fx) {
 	return fx_grain_scatter(source,fx.on_g(),str);
 }
 
-
 // main
 PShader fx_grain_scatter;
 PGraphics result_grain_scatter;
@@ -949,7 +896,7 @@ PGraphics fx_grain_scatter(PImage source, boolean on_g,float strength) {
 
 /**
 * halftone dot
-* v 0.0.5
+* v 0.0.6
 * 2018-2019
 */
 // setting by class FX
@@ -976,23 +923,6 @@ PGraphics fx_halftone_dot(PImage source, FX fx) {
 
 	return fx_halftone_dot(source,fx.on_g(),pos,pixel_size,angle,threshold);
 }
-
-
-
-
-// test
-PGraphics fx_halftone_dot(PImage source, boolean on_g) {
-	vec2 pos = vec2(mouseX,mouseY);
-	float threshold = .95;
-	float size = 30;
-	float pixel_size = (abs(sin(frameCount *.01))) *size +1;
-	float angle = sin(frameCount *.001) *TAU;
-
-	return fx_halftone_dot(source,on_g,pos,pixel_size,angle,threshold);
-}
-
-
-
 
 // main
 PShader fx_halftone;
@@ -1051,7 +981,7 @@ PGraphics fx_halftone_dot(PImage source, boolean on_g, vec2 pos, float size, flo
 
 /**
 * halftone line
-* v 0.0.7
+* v 0.0.8
 * 2018-2019
 */
 // use setting
@@ -1075,22 +1005,6 @@ PGraphics fx_halftone_line(PImage source, FX fx) {
 		threshold = fx.get_threshold().copy();
 	}
 	return fx_halftone_line(source,fx.on_g(),pos,angle,mode,num,quality,threshold);	
-}
-
-
-
-
-
-// local test setting
-PGraphics fx_halftone_line(PImage source, boolean on_g) {
-	int mode = 0; // from 0 to 6
-	int num = 30; // number of line
-	float quality = .5; 
-	float threshold = .2; // good between 0.05 and 0.3
-	float angle = sin(frameCount *.001) * PI; // angle in radians
-	float pos_x = map(width/2,0,width,0,1); // normal position
-	float pos_y = map(height/2,0,height,0,1); // normal position
-	return fx_halftone_line(source,on_g,vec2(pos_x,pos_y),vec3(angle),mode,num,quality,vec3(threshold));
 }
 
 // main
@@ -1151,7 +1065,6 @@ PGraphics fx_halftone_line(PImage source, boolean on_g, vec2 pos, vec3 angle, in
 PGraphics fx_halftone_multi(PImage source, FX fx) {
 	return fx_halftone_multi(source,fx.on_g(),vec2(fx.get_pos()),fx.get_size().x,fx.get_angle().x,fx.get_quality(),fx.get_threshold().x,fx.get_saturation(),fx.get_mode());
 }
-
 
 // main
 PShader fx_halftone_multi;
@@ -1218,7 +1131,6 @@ PGraphics fx_halftone_multi(PImage source, boolean on_g, vec2 pos, float size, f
 PGraphics fx_image(PImage source, FX fx) {
 	return fx_image(source,fx.on_g(),vec2(fx.get_pos()),vec2(fx.get_size()),vec3(fx.get_colour()),fx.get_cardinal(),fx.get_mode());
 }
-
 
 // main
 PShader fx_image;
@@ -1319,7 +1231,7 @@ PGraphics fx_image(PImage source, boolean on_g, vec2 pos, vec2 scale, vec3 colou
 
 /**
 * Level
-v 0.0.3
+v 0.0.4
 2019-2019
 */
 // direct filtering
@@ -1329,13 +1241,6 @@ PGraphics fx_level(PImage source, FX fx) {
 		level.set(fx.get_level_source());
 	}
 	return fx_level(source,fx.on_g(),fx.get_mode(),level.array());
-}
-
-// PGraphics filtering
-PGraphics fx_level(PImage source, boolean on_g) {
-	int mode = 0;
-	vec3 level = abs(vec3().sin_wave(frameCount,.01,.02,.04));
-	return fx_level(source,on_g,mode,level.array());
 }
 
 // main method
@@ -1436,7 +1341,7 @@ PGraphics fx_level(PImage source, boolean on_g, int mode, float... level) {
 * 24 layer
 */
 
-// test
+// witj class FX
 PGraphics fx_mix(PImage source, PImage layer, FX fx) {
 	vec3 level_source = vec3(.5);
 	if(fx.get_level_source() != null) {
@@ -1449,15 +1354,6 @@ PGraphics fx_mix(PImage source, PImage layer, FX fx) {
   return fx_mix(source,layer,true,fx.get_mode(),level_source,level_layer);
 	
 }
-
-// test
-PGraphics fx_mix(PImage source, PImage layer, boolean on_g) {
-	int mode = 1; // multiply
-	vec3 level_source = abs(vec3().sin_wave(frameCount,.01,.025,.05));
-	vec3 level_layer = abs(vec3().cos_wave(frameCount,.01,.025,.05));
-	return fx_mix(source,layer,on_g,mode,level_source,level_layer);
-}
-
 
 // main
 PShader fx_mix;
@@ -1547,8 +1443,6 @@ PGraphics fx_pixel(PImage source, FX fx) {
 	return fx_pixel(source,fx.on_g(),size,fx.get_num(),level_source,fx.get_event(0).x());
 }
 
-
-
 // main
 PShader fx_pixel;
 PGraphics result_pixel;
@@ -1615,37 +1509,9 @@ PGraphics fx_pixel(PImage source, boolean on_g, ivec2 size, int num, vec3 level_
 WARNING
 the g part is not not not not optimized...too slow :((((((
 */
-
 PGraphics fx_reaction_diffusion(PImage source, FX fx) {
 	return fx_reaction_diffusion(source,fx.on_g(),fx.get_pair(0),fx.get_pair(1),vec2(fx.get_scale()),vec3(fx.get_colour()),fx.get_num(),fx.get_event(0).x());
 }
-
-
-
-// test
-PGraphics fx_reaction_diffusion(PImage source) {
-	float u = 0.25f;
-  float v = 0.04f;
-  vec2 conc_uv = vec2(u,v);
-  
-  float k = 0.047f;
-  float f = 0.1f;
-  vec2 kf = vec2(k,f);
-  
-  vec2 scale = vec2(.6);
-
-  float r = 0;
-  float g = 0;
-  float b = 0;
-  vec3 rgb = vec3(r,g,b);
-
-  int iteration = 20;
-  boolean event = mousePressed;
-	return fx_reaction_diffusion(source,true,conc_uv,kf,scale,rgb,iteration,event);
-}
-
-
-
 
 // main
 PShader fx_reac_diff;
@@ -1830,9 +1696,6 @@ PGraphics fx_split_rgb(PImage source, FX fx) {
 	return fx_split_rgb(source,fx.on_g(),fx.get_pair(0),fx.get_pair(1),fx.get_pair(2));
 }
 
-
-
-
 // main
 PShader fx_split_rgb;
 PGraphics result_split_rgb;
@@ -1897,7 +1760,6 @@ PGraphics fx_split_rgb(PImage source, boolean on_g, vec2 offset_red, vec2 offset
 PGraphics fx_threshold(PImage source, FX fx) {
 	return fx_threshold(source,fx.on_g(),vec3(fx.get_level_source()),fx.get_mode());	
 }
-
 
 // main
 PShader fx_threshold;
@@ -2026,8 +1888,6 @@ PGraphics fx_warp_tex_a(PImage source, PImage velocity, PImage direction, FX fx)
 	return fx_warp_tex_a(source,velocity,direction,fx.on_g(),fx.get_mode(),fx.get_strength().x);
 }
 
-
-
 // main
 PShader fx_warp_tex_a;
 PGraphics pg_warp_tex_a;
@@ -2083,6 +1943,8 @@ PGraphics fx_warp_tex_a(PImage source, PImage velocity, PImage direction, boolea
 
 
 
+
+
 /**
 * warp texture type B
 * v 0.0.1
@@ -2092,9 +1954,6 @@ PGraphics fx_warp_tex_a(PImage source, PImage velocity, PImage direction, boolea
 PGraphics fx_warp_tex_b(PImage source, PImage layer, FX fx) {
 	return fx_warp_tex_b(source,layer,fx.on_g(),fx.get_strength().x);
 }
-
-
-
 
 // main
 PShader fx_warp_tex_b;

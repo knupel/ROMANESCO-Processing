@@ -3,27 +3,74 @@ ADD MEDIA
 v 0.1.1
 */
 String input_ref;
+String input_media_ref;
+String input_image_ref;
+String input_shape_ref;
+String input_text_ref;
+String input_movie_ref;
 void add_media() {
-  if(load_media_input && input() != null && !input().equals(input_ref)) {
+  boolean any_input_is = false;
+  if(input_is() && !input().equals(input_ref)) {
     input_ref = input();
     add_media(input());
-    load_media_input = false;
+    input_is(false);
+    any_input_is = true;
+  }
+  // println(input_is("media"));
+  // if(input("media") != null) println(input("media"));
+  if(input_is("media") && input("media") != null && !input("media").equals(input_media_ref)) {
+    input_media_ref = input("media");
+    add_media(input_media_ref);
+    input_is("media",false);
+    any_input_is = true;
+  }
+
+  if(input_is("image") && input("image") != null && !input("image").equals(input_image_ref)) {
+    input_image_ref = input("image");
+    add_media(input_image_ref);
+    input_is("image",false);
+    any_input_is = true;
+  }
+
+  if(input_is("shape") && input("shape") != null &&  !input("shape").equals(input_shape_ref)) {
+    input_shape_ref = input("shape");
+    add_media(input_shape_ref);
+    input_is("shape",false);
+    any_input_is = true;
+  }
+
+  if(input_is("text") && input("text") != null && !input("text").equals(input_text_ref)) {
+    input_text_ref = input("text");
+    add_media(input_text_ref);
+    input_is("text",false);
+    any_input_is = true;
+  }
+
+  if(input_is("movie") && input("movie") != null &&  !input("movie").equals(input_movie_ref)) {
+    input_movie_ref = input("movie");
+    add_media(input_movie_ref);
+    input_is("movie",false);
+    any_input_is = true;
+  }
+
+  if(any_input_is) {
     autosave();  
   }
 
-  if(load_media_folder) { 
+
+  if(folder_input_default_is()) {
     boolean explore_sub_folder = false;
     explore_folder(folder(),explore_sub_folder,
-                            "mov","MOV","AVI","AVI","mkv","MKV","mp4","MP4",
-                            "jpeg","JPEG","jpg","jpeg","tif","TIF","tiff","TIFF","tga","TGA","gif","GIF",
-                            "txt","TXT",
-                            "svg","SVG");
+                            "mov","avi","mkv","mp4",
+                            "jpeg","jpg","tif","tiff","tga","gif","png",
+                            "txt",
+                            "svg");
     if(get_files() != null && get_files().size() > 0) {
       for(File f : get_files()) {
         println(f.getAbsolutePath());
         add_media(f.getAbsolutePath());
       }
-      load_media_folder = false;
+      folder_is(false);
       get_files().clear();
     }
     autosave();  

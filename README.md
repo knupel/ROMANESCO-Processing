@@ -2,6 +2,14 @@
 Generative Live Art Application
 2011-2019
 
+## What is it ?
+Romanesco is a Free and Open Source Software coded with Processing | FOSS.
+I lead and code this project from many years on my freetime. Ths app have for purpose to make a realtime performance.
+It makes it possible to select algorithmic shapes - items - in the library and modify them with different controllers – user interface, Midi controller, sound – and move them in a three dimensional world with the help of different kinds of devices – mouse, leapmotion and pen.
+
+## Where Romanesco from...
+The main source of this project is my desire to make live motion picture like the musician play music in band and play with them too!!! The second source of inspiration is my passion to the science and the nature and the various things that constitute it. And the third my love for the creative coding.
+
 ![romanesco dui](https://github.com/StanLepunK/ROMANESCO-Processing/blob/master/import_github_pic/Romaneco_soft_32_18_11_5.jpg)
 
 ### Download build version

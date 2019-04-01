@@ -4,6 +4,16 @@ v 3.3.1
 2014-2018
 Romanesco Processing Environment
 */
+
+Crope_Bar controler_bar;
+void build_bar() {
+  controler_bar = new Crope_Bar(this);
+  controler_bar.set("import,import image,import shape,import text,import movie");
+  controler_bar.show();
+
+}
+
+
 void build_console() {
   build_console_general();
   build_console_bar();

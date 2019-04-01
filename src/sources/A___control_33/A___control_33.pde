@@ -78,7 +78,9 @@ void setup() {
   set_display_slider();
   set_import_pic_button();
   set_console();
-  set_button_item_console();  
+  set_button_item_console();
+
+  build_bar();
   build_console();
   build_dropdown_bar();
   build_dropdown_item_selected();

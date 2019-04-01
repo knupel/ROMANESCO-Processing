@@ -4,9 +4,9 @@
 * v 0.9.15
 * Copyleft (c) 2018-2019
 * Processing 3.5.3
-* @author Stan le Punk
+* Rope library 0.5.1
+* @author @stanlepunk
 * @see https://github.com/StanLepunK/Crope
-* @see http://stanlepunk.xyz/
 */
 import java.util.Arrays;
 

@@ -25,7 +25,7 @@ boolean dropdown_is() {
 
 /**
 * DROPDOWN class
-* v 2.6.0
+* v 2.6.1
 * 2014-2018
 */
 public class Dropdown extends Crope {
@@ -66,7 +66,7 @@ public class Dropdown extends Crope {
   // private float factorPos; // use to calculate the margin between the box
   // box
   private int height_box;
-  private int num_box;
+  private int num_box = 9;
 
 
 

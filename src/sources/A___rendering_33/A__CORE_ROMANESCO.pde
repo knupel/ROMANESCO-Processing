@@ -2,7 +2,9 @@
 * Core Romanesco
 * common code for CONTROLLER and RENDERER
 * 2018-2019
-* v 0.3.11
+* v 0.3.12
+* Processing 3.5.3
+* Rope library 0.5.1
 */
 int NUM_COL_SLIDER = 4;
 int NUM_SLIDER_ITEM_BY_COL = 16;
@@ -272,8 +274,8 @@ class ROFont {
 
 /**
 MEDIA
-2014-2018
-v 0.1.4
+2014-2019
+v 0.1.5
 */
 ArrayList<File> text_files = new ArrayList<File>();
 ArrayList<File> bitmap_files = new ArrayList<File>();
@@ -288,14 +290,13 @@ String ref_path;
 void add_media(String path) {
   if(path != null && !path.equals(ref_path)) {
     ref_path = path;
-    // movie case
-    if(ext(path,"mov") || ext(path,"MOV") || ext(path,"avi") || ext(path,"AVI") || ext(path,"mp4") || ext(path,"MP4") || ext(path,"mkv") || ext(path,"MKV")) {
+    if(ext(path,"mov") || ext(path,"avi") || ext(path,"mp4") || ext(path,"mkv")) {
       add_input(movie_files,path);
-    } else if(ext(path,"jpeg") || ext(path,"JPEG") || ext(path,"jpg") || ext(path,"jpeg") || ext(path,"tif") || ext(path,"TIF") || ext(path,"tiff") || ext(path,"TIFF") || ext(path,"tga") || ext(path,"TGA") || ext(path,"gif") || ext(path,"GIF")) {
+    } else if(ext(path,"jpeg") || ext(path,"jpg") || ext(path,"tif") || ext(path,"tiff") || ext(path,"tga") || ext(path,"gif") || ext(path,"png")) {
       add_input(bitmap_files,path);
-    } else if(ext(path,"txt") || ext(path,"TXT")) {
+    } else if(ext(path,"txt")) {
       add_input(text_files,path);
-    } else if(ext(path,"svg") || ext(path,"SVG")) {
+    } else if(ext(path,"svg")) {
       add_input(svg_files,path);
     }
   }
@@ -303,7 +304,7 @@ void add_media(String path) {
 
 
 boolean ext(String path, String extension) {
-  return extension(path).equals(extension);
+  return extension(path.toLowerCase()).equals(extension.toLowerCase());
 }
 
 
@@ -430,16 +431,6 @@ void center_sketch(ivec2 loc) {
   int term_y_1 = height/2;
   loc.y = term_y_0 - term_y_1;
 }
-
-
-
-
-
-
-
-
-
-
 
 
 

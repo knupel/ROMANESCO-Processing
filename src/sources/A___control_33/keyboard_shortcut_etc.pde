@@ -65,12 +65,10 @@ void key_false() {
 /**
 LOAD SAVE
 */
-boolean load_media_input;
-boolean load_media_folder;
+
 /**
 LOAD
 */
-
 void key_pressed_media_input() {
   if(key_pressed(KEY_CTRL_OS) && key_pressed(KeyEvent.VK_I)) {
     if(system().equals("Mac OS X")) {
@@ -78,8 +76,8 @@ void key_pressed_media_input() {
     } else {
       println("CTRL + i: load media input",frameCount);
     }
-    select_input();
-    load_media_input = true;
+    select_input("media");
+    input_is("media",true);
     keyboard[keyCode] = false;
   }
 }
@@ -92,7 +90,7 @@ void key_pressed_media_folder() {
       println("CTRL + f: load media folder",frameCount);
     }
     select_folder();
-    load_media_folder = true;
+    folder_is(true);
     keyboard[keyCode] = false;
   }
 }
