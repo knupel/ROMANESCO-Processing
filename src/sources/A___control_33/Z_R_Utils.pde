@@ -1,6 +1,6 @@
 /**
 Rope UTILS 
-v 1.58.3
+v 1.58.4
 * Copyleft (c) 2014-2019
 * Rope – Romanesco Processing Environment – 
 * Processing 3.5.3
@@ -140,7 +140,7 @@ class Constant_list {
 
 /**
 * FOLDER & FILE MANAGER
-* v 0.5.3
+* v 0.6.0
 */
 String warning_input_file_folder_message = "Window was closed or the user hit cancel.";
 String warning_input_file_not_accepted = "This file don't match with any extension accepted:";
@@ -154,151 +154,134 @@ R_Input [] input_rope;
 
 
 // filter
-static final String[] ext_image = { "png", "jpeg", "jpg", "tif", "tga", "gif"};
-static final String[] ext_movie = { "mov", "avi", "mp4", "mpg", "mkv"};
-static final String[] ext_setting = { "csv", "txt", "json"};
-static final String[] ext_shape = { "svg", "obj"};
-static final String[] ext_sound = { "mp3", "wav"};
-static final String[] ext_text = { "txt", "md"};
+String[] ext_default;
+String[] ext_image = { "png", "jpeg", "jpg", "tif", "tga", "gif"};
+String[] ext_load;
+String[] ext_media;
+String[] ext_movie = { "mov", "avi", "mp4", "mpg", "mkv"};
+String[] ext_preference;
+String[] ext_setting = { "csv", "txt", "json"};
+String[] ext_shape = { "svg", "obj"};
+String[] ext_sound = { "mp3", "wav"};
+String[] ext_text = { "txt", "md"};
 
 
+void set_filter_input(String type, String... ext) {
+  if(type.equals("image")) {
+    ext_image = ext;
+  } else if(type.equals("movie")) {
+    ext_movie = ext;
+  } else if(type.equals("setting")) {
+    ext_setting = ext;
+  } else if(type.equals("shape")) {
+    ext_shape = ext;
+  } else if(type.equals("sound")) {
+    ext_sound = ext;
+  } else if(type.equals("text")) {
+    ext_text = ext;
+  } else if(type.equals("default")) {
+    ext_default = ext;
+  }
+}
 
 void print_extension_filter() {
-  println("default: no filter");
-
-  println("image:");
-  printArray(ext_image);
-
-  println("load: no filter");
-
-  println("media: no filter");
-
-  println("movie:");
-  printArray(ext_movie);
-  println("preference:");
-  printArray(ext_setting);
-  println("setting:");
-  printArray(ext_setting);
-  println("shape:");
-  printArray(ext_shape);
-  println("sound:");
-  printArray(ext_sound);
-
+  print_extension_filter("all");
 }
 
-import java.io.FilenameFilter;
-// filter image
-static final FilenameFilter filter_input_image = new FilenameFilter() {
-  boolean accept(File dir, String name) {
-    name = name.toLowerCase();
-    for (int i = ext_image.length; i-- != 0;) {
-      if (name.endsWith("."+ext_image[i]))  {
-        return true;
-      }
+void print_extension_filter(String type) {
+  if(type.equals("all")) {
+    if(ext_default == null) {
+      println("default: no filter");
+    } else {
+      println("default:");
+      printArray(ext_default);
     }
-    return false;
-  }
-};
- 
-static final File[] get_folder_for_image(File dir) {
-  return dir.listFiles(filter_input_image);
-}
-
-
-// filter movie
-static final FilenameFilter filter_input_movie = new FilenameFilter() {
-  boolean accept(File dir, String name) {
-    name = name.toLowerCase();
-    for (int i = ext_movie.length; i-- != 0;) {
-      if (name.endsWith("."+ext_movie[i]))  {
-        return true;
-      }
+    println("image:");
+    printArray(ext_image);
+    if(ext_load == null) {
+      println("load: no filter");
+    } else {
+      println("load:");
+      printArray(ext_load);
     }
-    return false;
-  }
-};
- 
-static final File[] get_folder_for_movie(File dir) {
-  return dir.listFiles(filter_input_movie);
-}
-
-
-// filter shape
-static final FilenameFilter filter_input_shape = new FilenameFilter() {
-  boolean accept(File dir, String name) {
-    name = name.toLowerCase();
-    for (int i = ext_shape.length; i-- != 0;) {
-      if (name.endsWith("."+ext_shape[i]))  {
-        return true;
-      }
+    if(ext_media == null) {
+      println("media: no filter");
+    } else {
+      println("media:");
+      printArray(ext_media);
     }
-    return false;
-  }
-};
- 
-static final File[] get_folder_for_shape(File dir) {
-  return dir.listFiles(filter_input_shape);
-}
-
-
-// filter sound
-static final FilenameFilter filter_input_sound = new FilenameFilter() {
-  boolean accept(File dir, String name) {
-    name = name.toLowerCase();
-    for (int i = ext_sound.length; i-- != 0;) {
-      if (name.endsWith("."+ext_sound[i]))  {
-        return true;
-      }
+    println("movie:");
+    printArray(ext_movie);
+    if(ext_preference == null) {
+      println("preference: no filter");
+    } else {
+      println("preference:");
+      printArray(ext_preference);
     }
-    return false;
-  }
-};
- 
-static final File[] get_folder_for_sound(File dir) {
-  return dir.listFiles(filter_input_sound);
-}
-
-
-// filter text
-static final FilenameFilter filter_input_text = new FilenameFilter() {
-  boolean accept(File dir, String name) {
-    name = name.toLowerCase();
-    for (int i = ext_text.length; i-- != 0;) {
-      if (name.endsWith("."+ext_text[i]))  {
-        return true;
-      }
+    println("setting:");
+    printArray(ext_setting);
+    println("shape:");
+    printArray(ext_shape);
+    println("sound:");
+    printArray(ext_sound);
+  // default
+  } else if(type.equals("default")) {
+    if(ext_default == null) {
+      println("default: no filter");
+    } else {
+      println("default:");
+      printArray(ext_default);
     }
-    return false;
-  }
-};
- 
-static final File[] get_folder_for_text(File dir) {
-  return dir.listFiles(filter_input_text);
-}
-
-
-// filter setting and preference
-static final FilenameFilter filter_input_setting = new FilenameFilter() {
-  boolean accept(File dir, String name) {
-    name = name.toLowerCase();
-    for (int i = ext_setting.length; i-- != 0;) {
-      if (name.endsWith("."+ext_setting[i]))  {
-        return true;
-      }
+  // image
+  } else if(type.equals("image")) {
+    println("image:");
+    printArray(ext_image);
+  // load  
+  } else if(type.equals("load")) {
+    if(ext_load == null) {
+      println("load: no filter");
+    } else {
+      println("load:");
+      printArray(ext_load);
     }
-    return false;
+  // media  
+  } else if(type.equals("media")) {
+    if(ext_media == null) {
+      println("media: no filter");
+    } else {
+      println("media:");
+      printArray(ext_media);
+    }
+  // movie
+  } else if(type.equals("movie")) {
+    println("movie:");
+    printArray(ext_movie);
+  // preference  
+  } else if(type.equals("preference")) {
+    if(ext_preference == null) {
+      println("preference: no filter");
+    } else {
+      println("preference:");
+      printArray(ext_preference);
+    }
+  // setting
+  } else if(type.equals("setting")) {
+    println("setting:");
+    printArray(ext_setting);
+  // shape
+  } else if(type.equals("shape")) {
+    println("shape:");
+    printArray(ext_shape);
+  // sound
+  } else if(type.equals("sound")) {
+    println("sound:");
+    printArray(ext_sound);
+  // text
+  } else if(type.equals("text")) {
+    println("text:");
+    printArray(ext_text);
   }
-};
- 
-static final File[] get_folder_for_setting(File dir) {
-  return dir.listFiles(filter_input_setting);
 }
-
-
-
-
-
-
 
 
 
@@ -541,7 +524,17 @@ void input_default(File selection) {
     println(warning_input_file_folder_message);
   } else {
     println("Input default path is:" + selection.getAbsolutePath());
-    set_input("default",selection);
+    if(ext_image == null) {
+      set_input("default",selection);
+    } else {
+      if(accept_input(selection.getAbsolutePath(),ext_default)) {
+        set_input("default",selection);
+      } else {
+        printErr(warning_input_file_not_accepted, selection.getAbsolutePath());
+        println("extension accepted:");
+        printArray(ext_default);
+      }
+    }
   }
 }
 
@@ -567,7 +560,17 @@ void input_media(File selection) {
     println(warning_input_file_folder_message);
   } else {
     println("Input media path is:" +selection.getAbsolutePath());
-    set_input("media",selection);
+    if(ext_media == null) {
+      set_input("media",selection);
+    } else {
+      if(accept_input(selection.getAbsolutePath(),ext_media)) {
+        set_input("media",selection);
+      } else {
+        printErr(warning_input_file_not_accepted, selection.getAbsolutePath());
+        println("extension accepted:");
+        printArray(ext_media);
+      }
+    }
   }
 }
 
@@ -643,7 +646,17 @@ void input_load(File selection) {
     println(warning_input_file_folder_message);
   } else {
     println("Input load path is:" +selection.getAbsolutePath());
-    set_input("load",selection);
+    if(ext_load == null) {
+      set_input("load",selection);
+    } else {
+      if(accept_input(selection.getAbsolutePath(),ext_load)) {
+        set_input("load",selection);
+      } else {
+        printErr(warning_input_file_not_accepted, selection.getAbsolutePath());
+        println("extension accepted:");
+        printArray(ext_load);
+      }
+    }
   }
 }
 
@@ -653,12 +666,16 @@ void input_preference(File selection) {
     println(warning_input_file_folder_message);
   } else {
     println("Input preference path is:" +selection.getAbsolutePath());
-    if(accept_input(selection.getAbsolutePath(),ext_setting)) {
+    if(ext_preference == null) {
       set_input("preference",selection);
     } else {
-      printErr(warning_input_file_not_accepted, selection.getAbsolutePath());
-      println("extension accepted:");
-      printArray(ext_setting);
+      if(accept_input(selection.getAbsolutePath(),ext_preference)) {
+        set_input("preference",selection);
+      } else {
+        printErr(warning_input_file_not_accepted, selection.getAbsolutePath());
+        println("extension accepted:");
+        printArray(ext_preference);
+      }
     }
   }
 }
