@@ -10,6 +10,24 @@ void save_controller_setting(File selection) {
   }
 }
 
+void save_controller_setting(String path) {
+  println("Save controller in progress:",path);
+  save_info_slider();
+  save_info_item();
+  save_info_media();
+  // for the fake item 0 with all the buttom console
+  for(int i = 0 ; i < BUTTON_ITEM_CONSOLE ;i++) {
+    set_data_button(i, 0,false,"Button item");
+  }  
+  midi_manager(true);
+  saveTable(saveSetting, path);
+  saveSetting.clearRows() ;
+}
+
+
+
+
+
 
 void autosave() {
   println("Autosave in progress");
@@ -62,19 +80,7 @@ void save_dial_controller(String path) {
 
 
 
-void save_controller_setting(String path) {
-  println("Save controller in progress:",path);
-  save_info_slider();
-  save_info_item();
-  save_info_media();
-  // for the fake item 0 with all the buttom console
-  for(int i = 0 ; i < BUTTON_ITEM_CONSOLE ;i++) {
-    set_data_button(i, 0,false,"Button item");
-  }  
-  midi_manager(true);
-  saveTable(saveSetting, path);
-  saveSetting.clearRows() ;
-}
+
 
 
 

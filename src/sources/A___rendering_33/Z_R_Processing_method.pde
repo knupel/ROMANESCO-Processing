@@ -1,6 +1,6 @@
 /**
 ROPE PROCESSING METHOD
-v 2.4.3
+v 2.4.4
 * Copyleft (c) 2014-2019
 * Stan le Punk > http://stanlepunk.xyz/
 * @author @stanlepunk
@@ -1975,9 +1975,9 @@ void shininess(float shine) {
 
 
 /**
-camera ghost
+* camera ghost
+* v 0.2.0
 */
-// camera
 void camera() {
   if(get_layer_is_correct()) {
     get_layer().camera();
@@ -1986,11 +1986,14 @@ void camera() {
   }
 }
 
-void camera(float eyeX, float eyeY, float eyeZ, float centerX, float centerY, float centerZ, float upX, float upY, float upZ) {
+void camera(float orientation_x, float orientation_y, float orientation_z, float pos_x, float pos_y, float pos_z, float up_x, float up_y, float up_z) {
+  // orientation is eye
+  // pos i center
+  // up is up !
   if(get_layer_is_correct()) {
-    get_layer().camera(eyeX,eyeY,eyeZ,centerX,centerY,centerZ,upX,upY,upZ);
+    get_layer().camera(orientation_x,orientation_y,orientation_z, pos_x,pos_y,pos_z, up_x,up_y,up_z);
   } else {
-    g.camera(eyeX,eyeY,eyeZ,centerX,centerY,centerZ,upX,upY,upZ);
+    g.camera(orientation_x,orientation_y,orientation_z, pos_x,pos_y,pos_z, up_x,up_y,up_z);
   }
 }
 

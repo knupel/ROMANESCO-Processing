@@ -8,9 +8,18 @@ Romanesco Processing Environment
 Crope_Bar controler_bar;
 void build_bar() {
   controler_bar = new Crope_Bar(this);
-  controler_bar.set("import,import image,import shape,import text,import movie");
+  JSONObject menu = loadJSONObject(preference_path+"menu_bar_controller.json");
+  controler_bar.set(menu);
   controler_bar.show();
+}
 
+
+void what_happen_in_menu(String what, ActionEvent ae) {
+  println("here code your the behavior of", what);
+  if(what.equals("midi map")) {
+    selectMidi = selectMidi ? false:true;
+
+  }
 }
 
 

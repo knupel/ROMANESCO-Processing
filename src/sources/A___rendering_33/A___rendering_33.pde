@@ -147,7 +147,7 @@ LIVE must change from the launcher, the info must be write in the external loadi
 
 
 void settings() {
-  size(1200,750,P3D); // DEV MODE PARAM
+  size(1100,650,P3D); // DEV MODE PARAM
   
   // EXPORTING PARAM 
   // size(124,124,P3D);
@@ -418,7 +418,7 @@ void mousePressed() {
     if(LIVE) {
       send_message(true);
     }
-    if(mouseButton == LEFT ) {
+    if(mouseButton == LEFT) {
       clickShortLeft[0] = true;
       clickLongLeft[0] = true;
     }

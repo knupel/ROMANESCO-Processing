@@ -125,7 +125,9 @@ void key_pressed_save_controller_CURRENT_path() {
     if (savePathSetting.equals("")) {
       File tempFileName = new File ("your_controller_setting.csv");
       selectOutput("Save setting", "save_controller_setting", tempFileName);
-    } else save_controller_setting(savePathSetting) ;
+    } else {
+      save_controller_setting(savePathSetting);
+    }
     keyboard[keyCode] = false ;   // just open one window, when use only the keyboard, if you don't use that open all the windows save and open
   }
 }
@@ -140,6 +142,7 @@ void key_pressed_save_controller_NEW_path() {
     }
     show_all_slider_item = true ; 
     File tempFileName = new File ("your_controller_setting.csv");
+    // selectOutput("Save setting", "truc", tempFileName);
     selectOutput("Save setting", "save_controller_setting", tempFileName);
     keyboard[keyCode] = false ;  // just open one window, when use only the keyboard, if you don't use that open all the windows save and open
   }

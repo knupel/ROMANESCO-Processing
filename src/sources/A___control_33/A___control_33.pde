@@ -3,11 +3,11 @@
 * 2012–2019
 * version 32
 * Processing 3.5.3
-* Rope library 0.4.0
+* Rope library 0.5.1
 */
 /**
 * Controller 
-* V 1.2.0
+* V 1.2.1
 * 2015 may 4_100 lines of code
 * 2016 september 8_700 lines of code
 * 2017 March 11_100 lines of code
@@ -15,11 +15,17 @@
 */
 String IAM = "controller";
 
-// DEV SETTING
+// DEV SETTING 
 boolean DEV_MODE = true; // inter alia, path preferences folder, curtain
 boolean LIVE = false;
 boolean MIROIR = false;
 boolean KEEP_BUTTON_ITEM_STATE = true;
+
+// DEV SETTING LIVE
+// boolean DEV_MODE = true; // inter alia, path preferences folder, curtain
+// boolean LIVE = true;
+// boolean MIROIR = false;
+// boolean KEEP_BUTTON_ITEM_STATE = true;
 
 
 

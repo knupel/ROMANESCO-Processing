@@ -1,0 +1,16 @@
+{
+  "help": {"menu": "controler,prescene,scene"},
+
+  "file": {
+    "load recent": "blaubird.rope,youngtimer.rope",
+    "menu": "load>o>cmd,load recent+,|,save>s>cmd,save as>s>cmd>shift,save as a copy>s>cmd>shift>alt"
+  },
+
+  "import": {"menu": "media>i>cmd,image,video,text,shape,|,import folder>i>cmd>shift"},
+
+  "misc": {"menu": "midi map?,syphon?,mask?"},
+
+  "blend": {"menu": "multiply?,overlay?"},
+
+  "menu bar": "file,import,filter,misc,help"
+}

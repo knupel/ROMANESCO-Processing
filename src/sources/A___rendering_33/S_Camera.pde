@@ -1,22 +1,25 @@
 /**
 * Camera RENDER
 * 2013-2019
-* v 1.4.0
+* v 1.4.1
 */
-
-
 //travelling
-boolean goto_camera_pos_is, goto_camera_eye, travelling_priority;
+boolean goto_camera_position_is;
+boolean goto_camera_orientation_is;
+boolean travelling_priority_is;
+
 //speed must be 1 or less
 float speed_follow_camera_romanesco;
 
 //CAMERA Stuff
-boolean moveScene, moveEye;
+boolean move_position_camera_is;
+boolean move_orientation_camera_is;
 
-vec3 targetPosCam = vec3();
+vec3 target_pos_camera = vec3();
 
 // motion effect on camera
-Motion motion_translate, motion_rotate;
+Motion motion_translate;
+Motion motion_rotate;
 
 //float ratio_speed_camera_inertia_rotate = 3;
 float acc_camera_rope = .01;
@@ -24,7 +27,8 @@ float dec_camera_rope = .01;
 
 float ref_speed_follow_cam;
 float ref_cam_deceleration;
-float ref_cam_ratio_rotate,ref_cam_ratio_translate;
+float ref_cam_ratio_rotate;
+float ref_cam_ratio_translate;
 
 
 // Camera SETUP
@@ -184,34 +188,30 @@ vec3 get_dir_item(int id_item) {
 
 
 /**
-ITEM CAMERA
-v 1.0.1
-final position and direction for the items
-Master and follower updating
+* ITEM CAMERA
+* v 1.0.1
+* final position and direction for the items
+* Master and follower updating
 */
-void item_move(boolean movePos, boolean moveDir, int ID) {
+void item_move(boolean move_pos_is, boolean move_orientation_is, int ID) {
   //position
-  if (!movePos) {
+  if (!move_pos_is) {
     update_ref_position_mouse() ;
     update_ref_position(pos_item[ID], ID) ;
   }
-  vec3 newPos = update_position_item(pos_item[ID], ID, movePos) ;
+  vec3 newPos = update_position_item(pos_item[ID], ID, move_pos_is) ;
   pos_item_final[ID].set(newPos) ;
 
   //direction
-  if (!moveDir) {
+  if (!move_orientation_is) {
     update_ref_direction_mouse() ;
     update_ref_direction(ID) ;
   }
   //speed rotation
   float speed = width / 10 ; // 150 is medium speed rotation
-  vec2 speedDirectionOfObject = vec2(speed /(float)width, speed /(float)height) ;
+  vec2 speed_direction_item = vec2(speed /(float)width, speed /(float)height) ;
   
-  dir_item_final[ID].set(update_direction_item(speedDirectionOfObject, ID, moveDir)) ;
-
-
-
-
+  dir_item_final[ID].set(update_direction_item(speed_direction_item, ID, move_orientation_is)) ;
 
   //RESET
   if(key_0 || reset_item_on_button_alert_is()) {
@@ -223,7 +223,6 @@ void item_move(boolean movePos, boolean moveDir, int ID) {
     int which = 0 ;
     reset_direction_item(which, ID) ; 
   }
-
   add_ref_item(ID) ;
 }
 
@@ -287,7 +286,7 @@ void update_ref_direction(int ID) {
 
 vec3 update_direction_item(vec2 speed, int ID, boolean authorization) {
   if(authorization) {
-  //to create a only one ref position
+    //to create a only one ref position
     //create the delta between the ref and the mouse position
     vec3 delta = vec3() ;
     if(!reset_camera_direction_item[ID]) {
@@ -336,7 +335,6 @@ vec3 update_position_item(vec3 pos, int ID, boolean authorization) {
   // special op with the wheel value
   delta.z *= -1. ;
 
-  // PVector temp_pos = PVector.add(new PVector(pos_item_ref[ID].x,pos_item_ref[ID].y,pos_item_ref[ID].z), delta) ;
   pos = add(pos_item_ref[ID], delta) ;
   return pos ;
 }
@@ -418,18 +416,27 @@ void final_pos_item(Romanesco item) {
 
 
 /**
-MOVE CAMERA GLOBAL 
-v 1.2.0
+* MOVE CAMERA GLOBAL 
+* v 1.2.1
 */
-float dirCamX,dirCamY,dirCamZ,
-      centerCamX,centerCamY,centerCamZ,
-      upX,upY,upZ ;
-float focal, deformation ;
-vec3 finalSceneCamera ;
-vec2 finalEyeCamera ;
+vec2 final_orientation_render_camera;
+float orientation_camera_x;
+float orientation_camera_y;
+float orientation_camera_z;
+
+vec3 final_position_render_camera;
+float position_camera_x;
+float position_camera_y;
+float position_camera_z;
+
+float up_camera_x;
+float up_camera_y;
+float up_camera_z;
+
+float focal;
+float deformation;
+
 boolean reset_camera_romanesco ;
-
-
 
 /**
 Main method camera draw
@@ -447,8 +454,8 @@ void camera_romanesco_draw() {
   start_camera();
   
   //to change the scene position with a specific point
-  if(goto_camera_pos_is || goto_camera_eye ) {
-    move_camera(scene_camera, targetPosCam, speed_follow_camera_romanesco) ;
+  if(goto_camera_position_is || goto_camera_orientation_is ) {
+    move_camera(scene_camera, target_pos_camera, speed_follow_camera_romanesco) ;
   }
 
   //catch ref camera
@@ -479,23 +486,23 @@ void final_camera_full_rendering() {
   focal = map(value_slider_camera[0],0,360,28,200);
   deformation = map(value_slider_camera[1],0,360,-1,1);
   // camera
-  dirCamX = map(value_slider_camera[2],0,360,0,width); // on controler is Eye X
-  dirCamY = map(value_slider_camera[3],0,360,0,height); // on controler is Eye Y
-  // dirCamZ = map(value_slider_camera[4],0,360,0,width)  ; // on controler is Eye Z
+  orientation_camera_x = map(value_slider_camera[2],0,360,0,width); // on controler is Eye X
+  orientation_camera_y = map(value_slider_camera[3],0,360,0,height); // on controler is Eye Y
+  // orientation_camera_z = map(value_slider_camera[4],0,360,0,width)  ; // on controler is Eye Z
   
-  centerCamX = map(value_slider_camera[4],0,360,0,width); // on controler is Position X
-  centerCamY = map(180,0,360,0,height); // on controler is Position Y
-  // centerCamZ = map(value_slider_camera[7],0,360,0,width)  ; // on controler is Position Z
+  position_camera_x = map(value_slider_camera[4],0,360,0,width); // on controler is Position X
+  position_camera_y = map(180,0,360,0,height); // on controler is Position Y
+  // position_camera_z = map(value_slider_camera[7],0,360,0,width)  ; // on controler is Position Z
 
-  upX = map(value_slider_camera[5],0,360,-1,1);
-  upY = 1 ; // not interesting
-  upZ = 0 ; // not interesting
+  up_camera_x = map(value_slider_camera[5],0,360,-1,1);
+  up_camera_y = 1 ; // not interesting
+  up_camera_z = 0 ; // not interesting
 
   // displacement of the scene
   vec3 displacement_scene = vec3(width/2, height/2, 0);
   
   // Check the special move camera
-  vec3 compare_pos_scene = sub(finalSceneCamera, scene_camera);
+  vec3 compare_pos_scene = sub(final_position_render_camera, scene_camera);
 
   // intertia camera
   float speed_follow_cam = .01;
@@ -531,16 +538,16 @@ void final_camera_full_rendering() {
   // final camera position
   if (check_cursor_rotate(camera_global_is()) || move_camera_is) { 
     // eye
-    if(finalEyeCamera == null) {
-      finalEyeCamera = vec2(radians(eye_camera.x),radians(eye_camera.y) ) ;
+    if(final_orientation_render_camera == null) {
+      final_orientation_render_camera = vec2(radians(eye_camera.x),radians(eye_camera.y) ) ;
     } else {
-      finalEyeCamera.set(radians(eye_camera.x),radians(eye_camera.y) ) ;
+      final_orientation_render_camera.set(radians(eye_camera.x),radians(eye_camera.y) ) ;
     }
     // translate scene
-    if(finalSceneCamera == null) {
-      finalSceneCamera = vec3(add(scene_camera, displacement_scene)) ;
+    if(final_position_render_camera == null) {
+      final_position_render_camera = vec3(add(scene_camera, displacement_scene)) ;
     } else {
-      finalSceneCamera.set(add(scene_camera, displacement_scene)) ;
+      final_position_render_camera.set(add(scene_camera, displacement_scene)) ;
     } 
   }
 }
@@ -549,36 +556,36 @@ void final_camera_full_rendering() {
 void final_camera_low_rendering() {
   // default setting camera from Processing.org example, like the camera above
   /*
-  float dirCamX = width/2.0 ; // eye X
-  float dirCamY = height/2.0 ; // eye Y
-  float dirCamZ = (height/2.0) / tan(PI*30.0 / 180.0) ; // // eye Z
-  float centerCamX = width/2.0 ; // Position X
-  float centerCamY = height/2.0 ; // Position Y
-  float centerCamZ = 0 ; // Position Z
-  float upX = 0 ;
-  float upY = 1 ;
-  float upZ = 0 ;
+  float orientation_camera_x = width/2.0 ; // eye X
+  float orientation_camera_y = height/2.0 ; // eye Y
+  float orientation_camera_z = (height/2.0) / tan(PI*30.0 / 180.0) ; // // eye Z
+  float position_camera_x = width/2.0 ; // Position X
+  float position_camera_y = height/2.0 ; // Position Y
+  float position_camera_z = 0 ; // Position Z
+  float up_camera_x = 0 ;
+  float up_camera_y = 1 ;
+  float up_camera_z = 0 ;
   */
    // world rendering
   focal = 40; // 28-200
   deformation = 0; // -1 to 1 
   // camera
-  dirCamX = width/2.0; // eye X
-  dirCamY = height/2.0; // eye Y
-  dirCamZ = (height/2.0) / tan(PI*30.0 /180.0); // eye Z
+  orientation_camera_x = width/2.0; // eye X
+  orientation_camera_y = height/2.0; // eye Y
+  orientation_camera_z = (height/2.0) / tan(PI*30.0 /180.0); // eye Z
   
-  centerCamX = width/2.0 ; // Position X
-  centerCamY = height/2.0 ; // Position Y
-  centerCamZ = 0 ; // Position Z
+  position_camera_x = width/2.0 ; // Position X
+  position_camera_y = height/2.0 ; // Position Y
+  position_camera_z = 0 ; // Position Z
   
-  upX = 0;
-  upY = 1;
-  upZ = 0;
+  up_camera_x = 0;
+  up_camera_y = 1;
+  up_camera_z = 0;
   // final camera position
-  finalSceneCamera = new vec3 (width/2,height,-width);
+  final_position_render_camera = new vec3 (width/2,height,-width);
   float longitude = -45;
   float latitude = 0;
-  finalEyeCamera = new vec2(longitude,latitude);
+  final_orientation_render_camera = new vec2(longitude,latitude);
 }
 
 
@@ -604,14 +611,14 @@ void order_camera() {
   boolean authorization = camera_global_is();
   if(authorization || reset_camera_button_alert_is()) {
     if(ORDER_ONE || ORDER_THREE) {
-      moveScene = true; 
+      move_position_camera_is = true; 
     } else {
-      moveScene = false;
+      move_position_camera_is = false;
     } 
     if(ORDER_TWO || ORDER_THREE) {
-      moveEye = true; 
+      move_orientation_camera_is = true; 
     } else {
-      moveEye = false;
+      move_orientation_camera_is = false;
     }
       
     //update z position of the camera
@@ -626,8 +633,8 @@ void order_camera() {
       reset_camera(0);
     }
   } else if (!authorization || (ORDER_ONE && ORDER_ONE && ORDER_THREE)) {
-    moveScene = false;
-    moveEye = false;
+    move_position_camera_is = false;
+    move_orientation_camera_is = false;
   }  
 }
 
@@ -636,16 +643,16 @@ void order_camera() {
 boolean switch_rotate_YZ;
 void start_camera() {
   pushMatrix();
-  camera(dirCamX, dirCamY, dirCamZ, centerCamX, centerCamY, centerCamZ, upX, upY, upZ);
+  camera(orientation_camera_x, orientation_camera_y, orientation_camera_z, position_camera_x, position_camera_y, position_camera_z, up_camera_x, up_camera_y, up_camera_z);
   beginCamera();
   // scene position
-  translate(finalSceneCamera);
+  translate(final_position_render_camera);
   // scene orientation direction
   /* 
   eye_camera, is not a good terminilogy 
   because the real eye camera is not use here. Here we just move the world. 
   */
-  rotateX(finalEyeCamera.x);
+  rotateX(final_orientation_render_camera.x);
   if(key_b) {
     if(switch_rotate_YZ) {
       switch_rotate_YZ = false; 
@@ -655,11 +662,11 @@ void start_camera() {
   }
 
   if(switch_rotate_YZ) {
-    rotateY(finalEyeCamera.y);
+    rotateY(final_orientation_render_camera.y);
     rotateZ(0) ;
   } else {
     rotateY(0) ;
-    rotateZ(finalEyeCamera.y);
+    rotateZ(final_orientation_render_camera.y);
   }
 }
 
@@ -705,13 +712,21 @@ void update_camera_romanesco(boolean leapMotion) {
 
   // make ref
   if(camera_global_is) {
-    if (moveScene) {
-      mouse_ref_inertia_translate = mouse[0].copy(); 
-    } else {
-      mouse_ref_inertia_translate.set(mouse[0]); 
+    // position
+    if(move_position_camera_is) {
+      // ok when it's a direct render
+      // bug in LIVE for the case where the mouse go outside og preview window
+      // the reset shorcut via prescene work only when the iniertia is not finish
+      // STOP the inertia when the mouse is not clicked and restart when the mouse is out of the preview window...
+      if(mouse_ref_inertia_translate == null) {
+        mouse_ref_inertia_translate = mouse[0].copy(); 
+      } else {
+        mouse_ref_inertia_translate.set(mouse[0]); 
+      }
     }
-
-    if (moveEye) {
+    
+    // orienttion
+    if (move_orientation_camera_is) {
       if(mouse_ref_inertia_rotate == null) {
         mouse_ref_inertia_rotate = mouse[0].copy(); 
       } else {
@@ -725,34 +740,35 @@ void update_camera_romanesco(boolean leapMotion) {
   // create new pos
   if(camera_global_is) { 
     // scene / translate
-    if(moveScene || motion_translate.velocity_is()) {
-      cursor_final_translate.set(update_cursor(motion_translate, mouse_ref_inertia_translate, cursor_final_translate)) ;
+
+    if(move_position_camera_is || motion_translate.velocity_is()) {
+      cursor_final_translate.set(update_cursor(motion_translate, mouse_ref_inertia_translate, cursor_final_translate));
       cursor_move_scene_is = true;
     } else {
       cursor_move_scene_is = false;
     }
 
     // eye / rotate
-    if(moveEye || motion_rotate.velocity_is()) {
-      cursor_final_rotate.set(update_cursor(motion_rotate, mouse_ref_inertia_rotate, cursor_final_rotate)) ;
+    if(move_orientation_camera_is || motion_rotate.velocity_is()) {
+      cursor_final_rotate.set(update_cursor(motion_rotate, mouse_ref_inertia_rotate, cursor_final_rotate));
       cursor_move_eye_is = true;
     } else {
       cursor_move_eye_is = false;
     }
   } else {
     if(motion_translate.velocity_is()) {
-      cursor_final_translate.set(update_cursor(motion_translate, mouse_ref_inertia_translate, cursor_final_translate)) ;
+      cursor_final_translate.set(update_cursor(motion_translate, mouse_ref_inertia_translate, cursor_final_translate));
     }
 
     // eye / rotate
     if(motion_rotate.velocity_is()) {
-      cursor_final_rotate.set(update_cursor(motion_rotate, mouse_ref_inertia_rotate, cursor_final_rotate)) ;
+      cursor_final_rotate.set(update_cursor(motion_rotate, mouse_ref_inertia_rotate, cursor_final_rotate));
     } 
   }
   
   //update pos
-  update_position_camera(cursor_move_scene_is, leapMotion, cursor_final_translate) ;
-  update_direction_camera(cursor_move_eye_is, cursor_final_rotate) ;
+  update_position_camera(cursor_move_scene_is, leapMotion, cursor_final_translate);
+  update_direction_camera(cursor_move_eye_is, cursor_final_rotate);
  
 
   // reset inertia
@@ -768,7 +784,7 @@ void update_camera_romanesco(boolean leapMotion) {
 }
 
 vec3 update_cursor(Motion motion, vec3 ref, vec3 cursor_final) {
-  return motion.leading(ref, cursor_final) ;
+  return motion.leading(ref, cursor_final);
 }
 
 /**
@@ -778,7 +794,7 @@ check camera
 // we must use that to don't update the scene when we load the save scene setting
 
 // translate
-vec3 mouse_camera_translate_ref  ;
+vec3 mouse_camera_translate_ref;
 boolean check_cursor_translate(boolean authorization) {
   boolean cursor_move_is;
   if(authorization && (!compare(mouse_camera_translate_ref, cursor_final_translate) || wheelCheckRef != wheel[0])) {
@@ -827,10 +843,10 @@ boolean check_cursor_rotate(boolean authorization) {
 
 // move camera to target
 void move_camera(vec3 origin, vec3 target, float speed_follow) {
-  if(!moveScene) {
+  if(!move_position_camera_is) {
     scene_camera.set(follow(origin,target,speed_follow));
   }
-  if(!moveEye && (goto_camera_pos_is || goto_camera_eye)) {
+  if(!move_orientation_camera_is && (goto_camera_position_is || goto_camera_orientation_is)) {
     eye_camera.set(back_eye());
   }
 }
@@ -844,15 +860,14 @@ void reset_camera(int ID) {
   scene_camera.set(scene_cameraSetting[ID]);
 
   temp_eye_camera.set(0);
-  goto_camera_pos_is = false;
-  goto_camera_eye = false;
+  goto_camera_position_is = false;
+  goto_camera_orientation_is = false;
 
   motion_translate.reset();
   motion_rotate.reset();
 
   cursor_final_translate.set(mouse[0]);
   cursor_final_rotate.set(mouse[0]);
-  mouse_ref_inertia_translate.set(mouse[0]);
   mouse_ref_inertia_translate.set(mouse[0]);
 
   update_direction_camera(!reset_camera_romanesco,eye_camera);
@@ -890,7 +905,7 @@ vec3 eye_back_ref;
 void travelling(vec3 target) {
   dist_follow_cam_ref = dist(target, scene_camera);
   
-  targetPosCam = target;
+  target_pos_camera = target;
   if(eye_back_ref == null) {
     eye_back_ref = get_eye_camera().copy();
   } else {
@@ -902,8 +917,8 @@ void travelling(vec3 target) {
   } else {
     abs_position.set(0);
   }
-  goto_camera_pos_is = true;
-  goto_camera_eye = true;
+  goto_camera_position_is = true;
+  goto_camera_orientation_is = true;
 }
 //END INIT FOLLOW
 
@@ -914,9 +929,9 @@ float speed_eye_y;
 vec3 back_eye() {
   vec3 eye = vec3();
 
-  if(goto_camera_eye) {
+  if(goto_camera_orientation_is) {
     if(current_dist_to_target > 2 ) {
-      travelling_priority = true ;
+      travelling_priority_is = true ;
       if (eye_back_ref.x < 180) {
         eye.x = map(current_dist_to_target,dist_follow_cam_ref,0,eye_back_ref.x,0); 
       } else {
@@ -931,8 +946,8 @@ vec3 back_eye() {
       if(eye.x < 2 || eye.x > 358 ) eye.x = 0;
       if(eye.y < 2 || eye.y > 358 ) eye.y = 0; 
       if(eye.x == 0  && eye.y == 0) {
-        goto_camera_eye = false ;
-        travelling_priority = false ;
+        goto_camera_orientation_is = false ;
+        travelling_priority_is = false ;
       }
     } else {
       //speed of the eye to return to original position
@@ -942,12 +957,12 @@ vec3 back_eye() {
       float ratio_y = eye_back_ref.y / frameRate *speed_back_eye;
       speed_eye_x += ratio_x;
       speed_eye_y += ratio_y;
-      if (eye_back_ref.x < 180 && !travelling_priority ) {
+      if (eye_back_ref.x < 180 && !travelling_priority_is ) {
         eye.x = eye_back_ref.x -speed_eye_x; 
       } else {
         eye.x = eye_back_ref.x +speed_eye_x;
       }
-      if (eye_back_ref.y < 180 && !travelling_priority ) {
+      if (eye_back_ref.y < 180 && !travelling_priority_is ) {
         eye.y = eye_back_ref.y -speed_eye_y; 
       } else {
         eye.y = eye_back_ref.y +speed_eye_y;
@@ -957,8 +972,8 @@ vec3 back_eye() {
       if(eye.y < 2 || eye.y > 358 ) eye.y = 0;  
       
       if(eye.x == 0  && eye.y == 0) {
-        travelling_priority = false;
-        goto_camera_eye = false;
+        travelling_priority_is = false;
+        goto_camera_orientation_is = false;
         speed_eye_x = 0;
         speed_eye_y = 0;
       }
@@ -1059,7 +1074,7 @@ vec3 follow(vec3 origin, vec3 target, float speed) {
     abs_position.x += 0;
     abs_position.y += 0;
     abs_position.z += 0;
-    goto_camera_pos_is = false;
+    goto_camera_position_is = false;
   }
   
   //very weird I must inverse the value to have the good result !

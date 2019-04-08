@@ -1,6 +1,6 @@
 /**
 Class Romanesco_manager
-v 1.6.2
+v 1.6.3
 class manager inspired by Andreas Gysin work for The Abyss Project
 @see https://github.com/ertdfgcvb/TheAbyss
 */
@@ -285,8 +285,8 @@ class Romanesco_manager {
 
   protected void historic() {
     Script script = new Script();
-    script.add("translate","world",finalSceneCamera);
-    script.add("rotate:","world",finalEyeCamera);
+    script.add("translate","world",final_position_render_camera);
+    script.add("rotate:","world",final_orientation_render_camera);
 
     for (int i = 0 ; i < romanesco_item_list.size() ; i++ ) {
       Romanesco item = (Romanesco) romanesco_item_list.get(i);
