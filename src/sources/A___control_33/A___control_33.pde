@@ -128,6 +128,8 @@ void draw() {
   update_OSC();
   update_dial();
 
+  show_window_info();
+
   reset();
   credit();
 }

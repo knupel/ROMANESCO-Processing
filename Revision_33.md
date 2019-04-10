@@ -25,6 +25,7 @@ revision 33
 >update costume method
 >remove save scene option
 >add method to select the first movie meet from the item like the global movie > must be improve properly in the future
+>remove MIDI icone setting, now the acces is on the menu bar.
 
 *SHADER
 

@@ -1,18 +1,13 @@
 /**
-Variable
-v 0.3.0
+* Variable controller
+* 2014-2019
+* v 0.4.0
 */
-/**
-design
-*/
+
 void set_design() {
   set_design_structure();
   set_design_aspect();
 }
-
-
-
-
 
 
 /**
@@ -49,8 +44,12 @@ void set_design_structure() {
   height_menu_general = 193;
   pos_y_menu_general = height_header +height_button_top +height_dropdown_top;
   pos_y_menu_general_content = pos_y_menu_general +5;
+  
 
+  height_dropdown_header_bar = height_box_dropdown;
+  set_design_structure_media_bar();
   set_design_structure_menu_bar();
+
   set_design_structure_background(1);
   set_design_structure_light(1);
   set_design_structure_filter(1);
@@ -151,39 +150,53 @@ void set_design_structure_inventory() {
 }
 
 
+void set_design_structure_media_bar() {
+  num_dd_media_bar = 4;
+  pos_y_dd_media_bar = 50;
+  // pos x
+  pos_x_dd_media_bar = new int[num_dd_media_bar];
+  pos_x_dd_media_bar[0] = 280; // text
+  pos_x_dd_media_bar[1] = 370; // bitmap
+  pos_x_dd_media_bar[2] = 455; // shape
+  pos_x_dd_media_bar[3] = 535; // movie
+  
+  // width
+ // height_dropdown_header_bar = height_box_dropdown;
+  width_dd_media_bar = new int[num_dd_media_bar];
+  width_dd_media_bar[0] = 60; // text
+  width_dd_media_bar[1] = 60; // bitmap
+  width_dd_media_bar[2] = 40; // shape
+  width_dd_media_bar[3] = 60; // movie
+  
+  // name
+  name_dd_media_bar = new String[num_dd_media_bar];
+  name_dd_media_bar[0] = "text";
+  name_dd_media_bar[1] = "bitmap";
+  name_dd_media_bar[2] = "shape";
+  name_dd_media_bar[3] = "movie";
+
+
+}
+
+
 void set_design_structure_menu_bar() {
-  spacing_midi_info = 13;
-  size_x_window_info_midi = 200;
+  num_dd_menu_bar = 3;
+  pos_y_dd_menu_bar = 73;
+  pos_x_dd_menu_bar = new int[num_dd_menu_bar];
+  pos_x_dd_menu_bar[0] = 5;
+  pos_x_dd_menu_bar[1] = 100;
+  pos_x_dd_menu_bar[2] = 160; // font
 
-  num_dropdown_bar = 7;
-  pos_y_dropdown_bar = 73;
-  pos_x_dropdown_bar = new int[num_dropdown_bar];
-  pos_x_dropdown_bar [0] = 5;
-  pos_x_dropdown_bar [1] = 100;
-  pos_x_dropdown_bar [2] = 160;
-  pos_x_dropdown_bar [3] = 280;
-  pos_x_dropdown_bar [4] = 370;
-  pos_x_dropdown_bar [5] = 455;
-  pos_x_dropdown_bar [6] = 535;
+  
+  width_dd_menu_bar = new int[num_dd_menu_bar];
+  width_dd_menu_bar[0] = 75;
+  width_dd_menu_bar[1] = 40;
+  width_dd_menu_bar[2] = 60; // font
 
-  height_dropdown_header_bar = height_box_dropdown;
-  width_dropdown_bar = new int[num_dropdown_bar];
-  width_dropdown_bar [0] = 75;
-  width_dropdown_bar [1] = 40;
-  width_dropdown_bar [2] = 60;
-  width_dropdown_bar [3] = 60;
-  width_dropdown_bar [4] = 60;
-  width_dropdown_bar [5] = 40;
-  width_dropdown_bar [6] = 60;
-
-  name_dropdown_bar = new String[num_dropdown_bar];
-  name_dropdown_bar[0] = "background";
-  name_dropdown_bar[1] = "filter";
-  name_dropdown_bar[2] = "font";
-  name_dropdown_bar[3] = "text";
-  name_dropdown_bar[4] = "bitmap";
-  name_dropdown_bar[5] = "shape";
-  name_dropdown_bar[6] = "movie";
+  name_dd_menu_bar = new String[num_dd_menu_bar];
+  name_dd_menu_bar[0] = "background";
+  name_dd_menu_bar[1] = "filter";
+  name_dd_menu_bar[2] = "font";
 }
 
 
@@ -230,6 +243,12 @@ void set_design_aspect() {
 
   struc_colour_credit_background = r.GRAY_2;
   struc_colour_credit_text = r.WHITE;
+  
+  // colour window info
+  text_colour_window_info = r.WHITE;
+  struc_colour_window_info = r.GRAY_2;
+
+
 
   // colour button
   button_on_in = r.GREEN;
@@ -370,6 +389,15 @@ void set_console() {
   set_console_slider_camera(ivec2(offset_camera_x,offset_camera_y),ivec2(slider_width_camera, slider_height_camera));
 
   set_console_slider_item(height_item_selected +local_pos_y_slider_item,ivec2(slider_width_item, slider_height_item));
+
+  set_console_window_info();
+}
+
+
+void set_console_window_info() {
+  size_window_info = ivec2(250,height/5);
+  pos_window_info = ivec2(grid_col[6],height -size_window_info.y -12);
+  
 }
 
 void set_console_general() {
@@ -391,12 +419,10 @@ void set_console_general() {
   // 3D
   pos_3D_button = ivec2(grid_col[0] +160, pos_y_button_top +9);
   size_3D_button = ivec2(26,26);
-
-  // MIDI
-  pos_midi_button = ivec2(grid_col[11] +5, pos_y_button_top +9);
-  size_midi_button = ivec2(50,26);
-  pos_midi_info = vec2(pos_midi_button.x -size_x_window_info_midi, pos_midi_button.y +10); 
 }
+
+
+
 
 void set_console_slider_background(ivec2 pos, ivec2 size) {
   // button
@@ -544,435 +570,6 @@ local offset for slider
 int offset_y(int pos_y, int offset_title, int rank) {
   return round((pos_y+offset_title) +(rank *spacing_slider));
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/**
-MUST BE REMOVE
-*/
-int height_menu_general;
-int pos_y_menu_general;
-int pos_y_menu_general_content;
-
-
-/**
-COLOUR
-*/
-ROPE_colour dropdown_colour;
-ROPE_colour dropdown_color_item;
-/**
-colour structure
-*/
-int fill_header_struc;
-int structure_background_mass_a;
-int structure_background_mass_b;
-int structure_background_line_a;
-int structure_background_line_b;
-
-int fill_text_title_in;
-int fill_text_title_out;
-
-int fill_info_window_rect;
-int fill_info_window_text;
-
-int fill_midi_no_selection;
-int fill_midi_selection;
-int fill_midi_window_no_selection;
-int fill_midi_window_selection;
-
-int struc_colour_credit_background;
-int struc_colour_credit_text;
-/**
-colour dropdown
-*/
-int selected_dd_text;
-
-int color_dd_background;
-
-int color_dd_header_in;
-int color_dd_header_out;
-int color_dd_header_text_in;
-int color_dd_header_text_out;
-
-int color_dd_item_in;
-int color_dd_item_out;
-int color_dd_item_text_in;
-int color_dd_item_text_out;
-
-int color_dd_box_in;
-int color_dd_box_out;
-int color_dd_box_text_in;
-int color_dd_box_text_out;
-/**
-colour slider light
-*/
-int molette_in_light;
-int molette_out_light;
-
-int adj_in_light;
-int adj_out_light;
-
-int struc_light;
-
-int label_in_light;
-int label_out_light;
-
-/**
-colour slider dark
-*/
-int molette_in_dark;
-int molette_out_dark;
-
-int adj_in_dark;
-int adj_out_dark;
-
-int struc_dark;
-
-int label_in_dark;
-int label_out_dark;
-
-/**
-colour slider dark
-*/
-int button_off_in;
-int button_off_out;
-
-int button_on_in;
-int button_on_out;
-
-
-
-
-
-
-
-
-
-/**
-ITEM
-*/
-int NUM_ITEM;
-int DIST_BETWEEN_ITEM;
-int BUTTON_ITEM_CONSOLE = 4;
-ivec3 [] info_button_item;
-int [] info_list_item_ID; 
-
-PImage[] OFF_in_thumbnail;
-PImage[] OFF_out_thumbnail;
-PImage[] ON_in_thumbnail;
-PImage[] ON_out_thumbnail;
-
-PImage[] picSetting = new PImage[4];
-PImage[] picSound = new PImage[4];
-PImage[] picAction = new PImage[4];
-
-Dropdown dd_item_costume[];
-Dropdown dd_item_mode[];
-
-ivec2 size_window_ref;
-
-//LOAD PICTURE VIGNETTE
-int numVignette ;
-
-
-
-
-
-// slider mode display
-int slider_mode_display = 0 ;
-
-
-
-/**
-DROPDOWN 
-*/
-Dropdown dropdown_setting;
-ivec2 dropdown_setting_pos;
-ivec2 dropdown_setting_size;
-ivec2 dropdown_pos_text;
-
-
-
-
-
-
-
-// top
-int height_button_top;
-int pos_y_button_top;
-int height_dropdown_top;
-int pos_y_dropdown_top;
-
-// DROPDOWN bar
-int which_bg_shader, which_filter, which_font, which_text, which_bitmap, which_shape, which_movie;
-Dropdown [] dropdown_bar;
-ivec2 [] dropdown_bar_pos, dropdown_bar_size;
-String [] font_dropdown_list, bitmap_dropdown_list, shape_dropdown_list, movie_dropdown_list, file_text_dropdown_list;
-int num_dropdown_bar ;
-int pos_y_dropdown_bar ;
-int [] pos_x_dropdown_bar ;
-int height_dropdown_header_bar ;
-int [] width_dropdown_bar  ;
-String [] name_dropdown_bar ;
-String [][] dropdown_content;
-
-ivec3 [] info_button_general;
-
-// midi
-PImage[] pic_midi = new PImage[4];
-Button button_midi;
-int sliderMidi, midi_value_romanesco, midi_channel_romanesco ;
-int midi_CC_romanesco = -1 ;
-boolean saveMidi ;
-boolean selectMidi = false ;
-int button_midi_is;
-ivec2 pos_midi_button, size_midi_button;
-vec2 pos_midi_info;
-
-int spacing_midi_info;
-int size_x_window_info_midi;
-
-// Curtain
-PImage[] pic_curtain = new PImage[4];
-Button button_curtain;
-boolean curtainOpenClose ;
-int button_curtain_is;
-ivec2 pos_curtain_button, size_curtain_button;
-
-// reset camera
-PImage[] pic_reset_camera = new PImage[4];
-Button button_reset_camera;
-int button_reset_camera_is;
-ivec2 pos_reset_camera_button;
-ivec2 size_reset_camera_button;
-
-// reset coor item selected
-PImage[] pic_reset_item_on = new PImage[4];
-Button button_reset_item_on;
-int button_reset_item_on_is;
-ivec2 pos_reset_item_on_button;
-ivec2 size_reset_item_on_button;
-
-// reset fx
-PImage[] pic_reset_fx = new PImage[4];
-Button button_reset_fx;
-int button_reset_fx_is;
-ivec2 pos_reset_fx_button;
-ivec2 size_reset_fx_button;
-
-// birth
-PImage[] pic_birth = new PImage[4];
-Button button_birth;
-int button_birth_is;
-ivec2 pos_birth_button;
-ivec2 size_birth_button;
-
-// 3D
-PImage[] pic_3D = new PImage[4];
-Button button_3D;
-int button_3D_is;
-ivec2 pos_3D_button;
-ivec2 size_3D_button;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// background button
-Button button_bg;
-int button_background_is;
-ivec2 pos_button_background, size_button_background;
-// background slider
-Sladj [] slider_adj_background = new Sladj[NUM_SLIDER_BACKGROUND];
-Cropinfo [] cropinfo_slider_fx_bg; 
-int slider_width_background;
-int slider_height_background;
-ivec2 [] pos_slider_background = new ivec2[NUM_SLIDER_BACKGROUND]; 
-ivec2 [] size_slider_background = new ivec2[NUM_SLIDER_BACKGROUND];
-float [] value_slider_background = new float[NUM_SLIDER_BACKGROUND];
-String[] slider_background_name = new String[NUM_SLIDER_BACKGROUND];
-int offset_background_x;
-int offset_background_y;
-
-// filter button
-Button [] button_fx = new Button[NUM_BUTTON_FX];
-int [] button_fx_is = new int[NUM_BUTTON_FX];
-ivec2 [] pos_button_fx = new ivec2[NUM_BUTTON_FX];
-ivec2 [] size_button_fx = new ivec2[NUM_BUTTON_FX];
-// String [] name_button_fx = new String[NUM_BUTTON_FILTER];
-// filter slider
-Sladj [] slider_adj_fx = new Sladj[NUM_SLIDER_FX];
-Cropinfo [] cropinfo_slider_fx;
-int slider_width_filter;
-int slider_height_filter;
-ivec2 [] pos_slider_fx = new ivec2[NUM_SLIDER_FX]; 
-ivec2 [] size_slider_fx = new ivec2[NUM_SLIDER_FX];
-float [] value_slider_filter = new float[NUM_SLIDER_FX];
-String[] slider_filter_name = new String[NUM_SLIDER_FX];
-int offset_filter_x;
-int offset_filter_y;
-
-// light button
-Button button_light_ambient, button_light_ambient_action,
-        button_light_1, button_light_1_action,
-        button_light_2, button_light_2_action;
-int light_ambient_button_is, light_ambient_action_button_is;
-int light_light_1_button_is, light_light_action_1_button_is; 
-int light_light_2_button_is, light_light_action_2_button_is;
-ivec2 pos_light_ambient_buttonButton, size_light_ambient_buttonButton;
-ivec2 pos_light_ambient_button_action, size_light_ambient_button_action; 
-ivec2 pos_light_1_button_action, size_light_1_button_action;
-ivec2 pos_light_1_button, size_light_1_button;
-ivec2 pos_light_2_button_action, size_light_2_button_action; 
-ivec2 pos_light_2_button, size_light_2_button;
-
-// light slider
-Sladj [] slider_adj_light = new Sladj[NUM_SLIDER_LIGHT];
-Cropinfo [] cropinfo_slider_light;
-int slider_width_light;
-int slider_height_light;
-ivec2 [] pos_slider_light = new ivec2[NUM_SLIDER_LIGHT]; 
-ivec2 [] size_slider_light = new ivec2[NUM_SLIDER_LIGHT];
-float [] value_slider_light = new float[NUM_SLIDER_LIGHT];
-String[] slider_light_name = new String[NUM_SLIDER_LIGHT];
-int offset_light_x;
-int offset_light_y;
-
-// sound button transient
-Button [] button_transient = new Button[NUM_BUTTON_TRANSIENT];
-int [] button_transient_is = new int[NUM_BUTTON_TRANSIENT];
-ivec2 [] pos_button_transient = new ivec2[NUM_BUTTON_TRANSIENT];
-ivec2 [] size_button_transient = new ivec2[NUM_BUTTON_TRANSIENT];
-
-
-// sound slider
-Sladj [] slider_adj_sound = new Sladj[NUM_SLIDER_SOUND];
-Cropinfo [] cropinfo_slider_sound;
-int slider_width_sound;
-int slider_height_sound;
-ivec2 [] pos_slider_sound = new ivec2[NUM_SLIDER_SOUND]; 
-ivec2 [] size_slider_sound = new ivec2[NUM_SLIDER_SOUND];
-float [] value_slider_sound = new float[NUM_SLIDER_SOUND];
-String[] slider_sound_name = new String[NUM_SLIDER_SOUND];
-int offset_sound_x;
-int offset_sound_y;
-
-// sound setting
-Slider [] slider_sound_setting = new Slider[NUM_SLIDER_SOUND_SETTING];
-Cropinfo [] cropinfo_slider_sound_setting;
-int slider_width_sound_setting;
-int slider_height_sound_setting;
-ivec2 [] pos_slider_sound_setting = new ivec2[NUM_SLIDER_SOUND_SETTING]; 
-ivec2 [] size_slider_sound_setting = new ivec2[NUM_SLIDER_SOUND_SETTING];
-float [] value_slider_sound_setting = new float[NUM_MOLETTE_SOUND_SETTING];
-String[] slider_sound_setting_name = new String[NUM_SLIDER_SOUND_SETTING];
-int offset_sound_setting_x;
-int offset_sound_setting_y;
-
-// camera slider
-Sladj [] slider_adj_camera = new Sladj[NUM_SLIDER_CAMERA];
-Cropinfo [] cropinfo_slider_camera;
-int slider_width_camera;
-int slider_height_camera;
-ivec2 [] pos_slider_camera = new ivec2[NUM_SLIDER_CAMERA]; 
-ivec2 [] size_slider_camera = new ivec2[NUM_SLIDER_CAMERA];
-float [] value_slider_camera = new float[NUM_SLIDER_CAMERA];
-String[] slider_camera_name = new String[NUM_SLIDER_CAMERA];
-int offset_camera_x;
-int offset_camera_y;
-
-// item button
-int local_pos_y_button_item;
-int height_item_button_console;
-// item dropdown 
-int local_pos_y_dropdown_item;
-String [] list_item_mode;
-String [] list_item_costume;
-// item slider
-Sladj [] slider_adj_item = new Sladj[NUM_SLIDER_ITEM];
-Cropinfo [] cropinfo_slider_item;
-int slider_width_item;
-int slider_height_item;
-ivec2 [] pos_slider_item = new ivec2[NUM_SLIDER_ITEM]; 
-ivec2 [] size_slider_item = new ivec2[NUM_SLIDER_ITEM];
-float [] value_slider_item = new float[NUM_SLIDER_ITEM];
-String [] slider_item_name = new String[NUM_SLIDER_ITEM];
-int local_pos_y_slider_item;
-int pos_y_item_selected;
-int height_item_selected;
-int offset_x_item;
-int item_a_col;
-int item_b_col;
-int item_c_col;
-int item_d_col;
-
-// inventory
-int pos_y_inventory;
-int height_inventory;
-
-
-
-
-
-
-/**
-MISC var
-*/
-float ratio_size_molette ; 
-
-int col_width ;
-int spacing_slider ;
-int rounded_slider ;
-// the position is calculated in ratio of the slider position. Not optimize for the vertical slider
-float ratio_pos_slider_adjustable ; 
-// the height size is calculated in ratio of the slider height size.  Not optimize for the vertical slider
-float ratio_size_slider_adjustable ; 
-
-// vertical grid
-int marge;
-int [] grid_col;
-
-// this not a position but the height of the rectangle
-int height_header;
-
-
-
-
-
-// button slider
-int size_title_button;
-
-/**
-* DROPDOWN
-*/
-int height_box_dropdown;
-int num_box_dropdown_item;
-int num_box_dropdown_general;
 
 
 

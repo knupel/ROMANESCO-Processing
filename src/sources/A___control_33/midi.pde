@@ -161,7 +161,7 @@ void reset_input_midi_device() {
 
 
 // DISPLAY INFO MIDI INPUT
-void display_midi_device_available(vec2 pos, int spacing) {
+void display_midi_device_available(ivec2 pos, int spacing) {
   int num_line = 0 ;
   if (!choice_midi_device || !choice_midi_default_device) {
     text("Press the ID number to select an input Midi", pos.x, pos.y) ;
@@ -180,7 +180,7 @@ void display_midi_device_available(vec2 pos, int spacing) {
 
 
 
-void display_select_midi_device(vec2 pos, int spacing) {
+void display_select_midi_device(ivec2 pos, int spacing) {
   if(which_midi_input < num_midi_input ) {
     if (which_midi_input >= 0 && (choice_midi_device || choice_midi_default_device)) {
       text("Current midi device is " + name_midi_input [which_midi_input], pos.x, pos.y) ;
@@ -193,22 +193,6 @@ void display_select_midi_device(vec2 pos, int spacing) {
 
 
 
-void window_midi_info(vec2 pos, int size_x, int spacing) {
-  int pos_x = (int)pos.x -(spacing/2) ;
-  int pos_y = (int)pos.y -spacing ;
-  int size_y = 0 ;
-  if (!choice_midi_device || !choice_midi_default_device) {
-    size_y = int(spacing *2.5 +(spacing *(num_midi_input *1.2))) ;
-  } else {
-    size_y = int(spacing *2.5) ;
-  }
-  rect(pos_x, pos_y, size_x, size_y) ;
-}
-
-
-
-
-
 
 
 
@@ -218,38 +202,10 @@ void window_midi_info(vec2 pos, int size_x, int spacing) {
 // ANNEXE don't need MIDI LIBRARIE CODE
 boolean init_midi ;
 void midi_select(int which_one, int num) {
-  if(selectMidi || !init_midi) {
+  if(select_midi_is || !init_midi) {
     open_input_midi(which_one, num) ;
     init_midi = true ;
   }
-
-  if(selectMidi) {  
-    if(num < 1 ) {
-      fill(fill_midi_no_selection); 
-    } else {
-      fill(fill_midi_selection);
-    }
-    noStroke();
-    window_midi_info(pos_midi_info, size_x_window_info_midi, spacing_midi_info) ;
-
-    textFont(textUsual_1);  
-    textAlign(LEFT);
-    if(num < 1 ) {
-      fill(fill_midi_window_no_selection); 
-    } else {
-      fill(fill_midi_window_selection);
-    }
-
-    display_select_midi_device(pos_midi_info, spacing_midi_info) ;
-    display_midi_device_available(pos_midi_info, spacing_midi_info) ;
-  }
-  /*
-  if (button_midi_is == 1) {
-    selectMidi = true; 
-  } else {
-    selectMidi = false;
-  }
-  */
 }
 
 
@@ -274,7 +230,7 @@ void keypressed_midi() {
     reset_input_midi_device();
   }
   if(keyCode == BACKSPACE || keyCode == DELETE) {
-    if(selectMidi) {
+    if(select_midi_is) {
       reset_midi_selection = true;
     }   
   } 
@@ -363,7 +319,7 @@ void midi_button(Button b, int id, boolean saveButton, String type) {
 }
 
 void setting_midi_button(Button b) {
-  if(selectMidi) {
+  if(select_midi_is) {
     if(reset_midi_selection) {
       b.set_id_midi(-2);
     } else if (b.inside && mousePressed) {
@@ -406,7 +362,7 @@ void update_midi_slider(Slider slider, Cropinfo[] cropinfo) {
     slider.update_midi(midi_value_romanesco);
   }
 
-  if(selectMidi) {
+  if(select_midi_is) {
     if(reset_midi_selection) {
       for(int i = 0 ; i < cropinfo.length ; i++) {
         if(slider.get_id() == cropinfo[slider.get_id()].get_id()) {
@@ -421,7 +377,7 @@ void update_midi_slider(Slider slider, Cropinfo[] cropinfo) {
   }
   
   //ID midi from controller midi button setting
-  // if (selectMidi && slider.molette_used_is()) slider.set_id_midi(midi_CC_romanesco);
+  // if (select_midi_is && slider.molette_used_is()) slider.set_id_midi(midi_CC_romanesco);
   
   //ID midi from save
   if(LOAD_SETTING) {

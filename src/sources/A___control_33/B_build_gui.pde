@@ -1,8 +1,8 @@
 /**
-Build interface 
-v 3.3.1
-2014-2018
-Romanesco Processing Environment
+* Build interface 
+* v 3.4.0
+* 2014-2019
+*
 */
 
 Crope_Bar controler_bar;
@@ -17,7 +17,7 @@ void build_bar() {
 void what_happen_in_menu(String what, ActionEvent ae) {
   println("here code your the behavior of", what);
   if(what.equals("midi map")) {
-    selectMidi = selectMidi ? false:true;
+    select_midi_is = select_midi_is ? false:true;
 
   }
 }
@@ -25,7 +25,8 @@ void what_happen_in_menu(String what, ActionEvent ae) {
 
 void build_console() {
   build_console_general();
-  build_console_bar();
+  build_console_media_bar();
+  build_console_menu_bar();
   build_console_background();
   build_console_filter();
   build_console_light();
@@ -36,7 +37,6 @@ void build_console() {
 
 
 void build_console_general() {
-  button_midi = new Button(pos_midi_button, size_midi_button);
   button_curtain = new Button(pos_curtain_button, size_curtain_button);
   button_reset_camera = new Button(pos_reset_camera_button, size_reset_camera_button);
   button_reset_item_on = new Button(pos_reset_item_on_button, size_reset_item_on_button);
@@ -45,12 +45,21 @@ void build_console_general() {
   button_3D = new Button(pos_3D_button, size_3D_button);
 }
 
-void build_console_bar() {
-  dropdown_bar = new Dropdown[num_dropdown_bar];
-  dropdown_bar_pos = new ivec2[num_dropdown_bar];
-  dropdown_bar_size = new ivec2[num_dropdown_bar];
-  dropdown_content = new String[num_dropdown_bar][0];
+void build_console_media_bar() {
+  dd_media_bar = new Dropdown[num_dd_media_bar];
+  dd_media_bar_pos = new ivec2[num_dd_media_bar];
+  dd_media_bar_size = new ivec2[num_dd_media_bar];
+  dd_media_bar_content = new String[num_dd_media_bar][0];
 }
+
+void build_console_menu_bar() {
+  dd_menu_bar = new Dropdown[num_dd_menu_bar];
+  dd_menu_bar_pos = new ivec2[num_dd_menu_bar];
+  dd_menu_bar_size = new ivec2[num_dd_menu_bar];
+  dd_menu_bar_content = new String[num_dd_menu_bar][0];
+}
+
+
 
 
 
@@ -452,8 +461,9 @@ void build_console_item() {
 
 
 /**
-Build DROPDOWN 
-v 1.2.0
+* Build DROPDOWN 
+* v 1.3.0
+* 2016-2019
 */
 void build_dropdown_bar() {
   String[] path_list = alphabetical_font_path(font_path);
@@ -467,23 +477,44 @@ void build_dropdown_bar() {
     } 
   }
 
-  
-  //image
-  update_media() ;
+  build_dd_menu_bar();
  
-  for(int i = 0 ; i < dropdown_bar.length ; i++) {
-    dropdown_bar_pos[i] = ivec2(pos_x_dropdown_bar[i],pos_y_dropdown_bar);
-    dropdown_bar_size[i] = ivec2(width_dropdown_bar[i],height_dropdown_header_bar);
+  update_media();
+  build_dd_media_bar();
+}
 
-    dropdown_bar[i] = new Dropdown(dropdown_bar_pos[i],dropdown_bar_size[i],name_dropdown_bar[i],dropdown_content[i]);
-    dropdown_bar[i].set_colour(dropdown_colour);
-    dropdown_bar[i].set_header_text_pos(dropdown_pos_text);
-    dropdown_bar[i].wheel(true);
-    dropdown_bar[i].set_box_text_pos(dropdown_pos_text);
-    dropdown_bar[i].set_box(num_box_dropdown_general,2);
-    dropdown_bar[i].set_box_height(height_box_dropdown);
-    dropdown_bar[i].set_font(title_medium);
-    dropdown_bar[i].set_box_font(textUsual_1);
+
+void build_dd_menu_bar() {
+  for(int i = 0 ; i < dd_menu_bar.length ; i++) {
+    dd_menu_bar_pos[i] = ivec2(pos_x_dd_menu_bar[i],pos_y_dd_menu_bar);
+    dd_menu_bar_size[i] = ivec2(width_dd_menu_bar[i],height_dropdown_header_bar);
+
+    dd_menu_bar[i] = new Dropdown(dd_menu_bar_pos[i],dd_menu_bar_size[i],name_dd_menu_bar[i],dd_menu_bar_content[i]);
+    dd_menu_bar[i].set_colour(dropdown_colour);
+    dd_menu_bar[i].set_header_text_pos(dropdown_pos_text);
+    dd_menu_bar[i].wheel(true);
+    dd_menu_bar[i].set_box_text_pos(dropdown_pos_text);
+    dd_menu_bar[i].set_box(num_box_dropdown_general,2);
+    dd_menu_bar[i].set_box_height(height_box_dropdown);
+    dd_menu_bar[i].set_font(title_medium);
+    dd_menu_bar[i].set_box_font(textUsual_1);
+  }
+}
+
+void build_dd_media_bar() {
+  for(int i = 0 ; i < dd_media_bar.length ; i++) {
+    dd_media_bar_pos[i] = ivec2(pos_x_dd_media_bar[i],pos_y_dd_menu_bar);
+    dd_media_bar_size[i] = ivec2(width_dd_media_bar[i],height_dropdown_header_bar);
+
+    dd_media_bar[i] = new Dropdown(dd_media_bar_pos[i],dd_media_bar_size[i],name_dd_media_bar[i],dd_media_bar_content[i]);
+    dd_media_bar[i].set_colour(dropdown_colour);
+    dd_media_bar[i].set_header_text_pos(dropdown_pos_text);
+    dd_media_bar[i].wheel(true);
+    dd_media_bar[i].set_box_text_pos(dropdown_pos_text);
+    dd_media_bar[i].set_box(num_box_dropdown_general,2);
+    dd_media_bar[i].set_box_height(height_box_dropdown);
+    dd_media_bar[i].set_font(title_medium);
+    dd_media_bar[i].set_box_font(textUsual_1);
   }
 }
 

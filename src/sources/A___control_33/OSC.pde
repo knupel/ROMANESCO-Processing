@@ -101,15 +101,17 @@ void message_general_osc(OscMessage m) {
   add_data_general(m,button_reset_fx.is());
   add_data_general(m,button_birth.is());
   add_data_general(m,button_3D.is());
- 
-  // dropdown general
-  add_data_general(m,dropdown_bar[0].get_selection()); // shader
-  add_data_general(m,dropdown_bar[1].get_selection()); // filter
-  add_data_general(m,dropdown_bar[2].get_selection()); // font 
-  add_data_general(m,dropdown_bar[3].get_selection()); // text
-  add_data_general(m,dropdown_bar[4].get_selection()); // bitmap
-  add_data_general(m,dropdown_bar[5].get_selection()); // shape
-  add_data_general(m,dropdown_bar[6].get_selection()); // movie
+  
+  // dropdown menu
+  for(int i = 0 ; i < dd_menu_bar.length ; i++) {
+    add_data_general(m,dd_menu_bar[i].get_selection());
+  }
+  
+  // dropdown media
+  for(int i = 0 ; i < dd_media_bar.length ; i++) {
+    add_data_general(m,dd_media_bar[i].get_selection());
+  }
+
 
   // button general background
   add_data_general(m,button_bg.is());

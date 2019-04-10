@@ -1,7 +1,8 @@
 /**
-LOAD 
-v 2.9.0
-2013-2019
+* LOAD 
+* setting, save....
+* v 2.10.0
+* 2013-2019
 */
 void load_setup() {
   load_save(preference_path+"setting/defaultSetting.csv");
@@ -758,7 +759,6 @@ void set_import_pic_button() {
   //picto setting
   for(int i = 0 ; i < 4 ; i++) {
     pic_curtain[i] = loadImage("picto/picto_curtain_"+i+".png");
-    pic_midi[i] = loadImage("picto/picto_midi_"+i+".png");
     // reset
     pic_reset_camera[i] = loadImage("picto/picto_camera_"+i+".png");
     pic_reset_item_on[i] = loadImage("picto/picto_item_selected_"+i+".png");

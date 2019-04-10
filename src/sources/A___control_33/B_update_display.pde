@@ -141,29 +141,27 @@ void show_misc_text() {
 /**
 * DROPDOWN UPDATE and DISPLAY
 */
-/**
-display
-*/
 void show_dropdown() {
-  update_dropdown_bar_content() ;
+  update_dd_menu_bar_content();
+  update_dd_media_bar_content();
   
-  for(int i = 0 ; i < dropdown_bar.length ; i++) {
-    dropdown_bar[i].set_content(dropdown_content[i]);
-  }
+  
 
   update_dropdown(dropdown_setting);
-  update_dropdown(dropdown_bar);
+  update_dropdown(dd_media_bar);
+  update_dropdown(dd_menu_bar);
 
   // item
   update_dropdown_item() ;
   
-  which_bg_shader = dropdown_bar[0].get_selection();
-  which_filter = dropdown_bar[1].get_selection();
-  which_font = dropdown_bar[2].get_selection();
-  which_text = dropdown_bar[3].get_selection();
-  which_bitmap = dropdown_bar[4].get_selection();
-  which_shape = dropdown_bar[5].get_selection();
-  which_movie = dropdown_bar[6].get_selection();  
+  which_bg_shader = dd_menu_bar[0].get_selection();
+  which_filter = dd_menu_bar[1].get_selection();
+  which_font = dd_menu_bar[2].get_selection();
+
+  which_text = dd_media_bar[0].get_selection();
+  which_bitmap = dd_media_bar[1].get_selection();
+  which_shape = dd_media_bar[2].get_selection();
+  which_movie = dd_media_bar[3].get_selection();  
 }
 
 /**
@@ -178,15 +176,23 @@ void update_dropdown(Dropdown... dd) {
   }
 }
 
-void update_dropdown_bar_content() {
-  dropdown_content [0] = shader_fx_bg_name;
-  dropdown_content [1] = shader_fx_name;
-  dropdown_content [2] = font_dropdown_list;
-  dropdown_content [3] = file_text_dropdown_list;
-  
-  dropdown_content [4] = bitmap_dropdown_list;
-  dropdown_content [5] = shape_dropdown_list;
-  dropdown_content [6] = movie_dropdown_list;
+void update_dd_menu_bar_content() {
+  dd_menu_bar_content [0] = shader_fx_bg_name;
+  dd_menu_bar_content [1] = shader_fx_name;
+  dd_menu_bar_content [2] = font_dropdown_list;
+  for(int i = 0 ; i < dd_menu_bar.length ; i++) {
+    dd_menu_bar[i].set_content(dd_menu_bar_content[i]);
+  }
+}
+
+void update_dd_media_bar_content() {
+  dd_media_bar_content [0] = file_text_dropdown_list; 
+  dd_media_bar_content [1] = bitmap_dropdown_list;
+  dd_media_bar_content [2] = shape_dropdown_list;
+  dd_media_bar_content [3] = movie_dropdown_list;
+  for(int i = 0 ; i < dd_media_bar.length ; i++) {
+    dd_media_bar[i].set_content(dd_media_bar_content[i]);
+  }
 }
 
 
@@ -400,7 +406,7 @@ void update_slider(Slider slider, Cropinfo [] info_slider) {
 void show_slider_background() {
   boolean show_is = false;
   // select which slider must be display
-  int target = dropdown_bar[0].get_selection();
+  int target = dd_menu_bar[0].get_selection();
   String which_slider = shader_fx_bg_slider[target];
   String [] list = split(which_slider,"/");
 
@@ -440,7 +446,7 @@ void show_slider_filter() {
   
   // select which slider must be display
   String [] list = null ;
-  int target = dropdown_bar[1].get_selection();
+  int target = dd_menu_bar[1].get_selection();
   String which_slider = shader_fx_slider[target];
   // String [] list = split(which_slider,"/");
   if(!multi_fx_is) {
@@ -1030,8 +1036,8 @@ void check_button_general() {
   if(button_curtain.is()) button_curtain_is = 1; 
   else button_curtain_is = 0;
 
-  if(button_midi.is()) button_midi_is = 1; 
-  else button_midi_is = 0;
+  // if(button_midi.is()) button_midi_is = 1; 
+  // else button_midi_is = 0;
   // reset button
   if(button_reset_camera.is()) button_reset_camera_is = 1; 
   else button_reset_camera_is = 0;
@@ -1074,7 +1080,7 @@ void mousePressed_button_general() {
   for(int i = 0 ; i < NUM_BUTTON_TRANSIENT ; i++) {
     if(button_transient[i].inside()) button_transient[i].switch_is();
   }
-  if(button_midi.inside()) button_midi.switch_is();
+  // if(button_midi.inside()) button_midi.switch_is();
   if(button_curtain.inside()) button_curtain.switch_is();
   // reset button
   if(button_reset_camera.inside()) button_reset_camera.switch_is();
@@ -1128,15 +1134,6 @@ void display_button_header() {
     text(text [0], pos_window.x, pos_window.y);
   }
 
-  if(button_midi.inside()) {
-    text[0] = ("MIDI");
-    fill(fill_info_window_rect, alpha_bg_rollover);
-    background_text_list(vec2(pos_window.x, pos_window.y), text, size_text, size_angle, speed, ratio_size, range_check, FuturaStencil_20);
-    fill(fill_info_window_text);
-    text(text[0],pos_window.x, pos_window.y);
-  }
-
-
   if(button_reset_camera.inside()) {
     text[0] = ("RESET CAMERA");
     fill(fill_info_window_rect, alpha_bg_rollover);
@@ -1183,10 +1180,8 @@ void display_button_header() {
 void display_button_general() {
     if(button_bg.is()) {
     button_bg.set_label("BACKGROUND ON");
-    // button_bg.set_label(shader_bg_name[which_bg_shader] + " on");
   } else {
     button_bg.set_label("BACKGROUND OFF");
-    // button_bg.set_label(shader_bg_name[which_bg_shader] + " off");
   }
   button_bg.show_label();
 
@@ -1238,9 +1233,6 @@ void display_button_general() {
   // MISC
   button_birth.show_picto(pic_birth);
   button_3D.show_picto(pic_3D);
-  // 
-  button_midi.show_picto(pic_midi);
-
 }
 
 
@@ -1255,7 +1247,6 @@ void update_button() {
 void update_button_general() {
   // button on the top
   update_button_local(button_curtain,button_reset_camera,button_reset_item_on,button_reset_fx,button_birth,button_3D);
-  update_button_local(button_midi);
   // button on the middle
   update_button_local(button_bg,
                       button_light_ambient,button_light_ambient_action,
