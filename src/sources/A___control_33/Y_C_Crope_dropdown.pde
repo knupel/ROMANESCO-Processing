@@ -43,19 +43,19 @@ public class Dropdown extends Crope {
   private boolean slider;
   // private boolean inside_box;
   // color
-  private int colour_structure = r.GRAY_2;
+  private int colour_structure = r.GRAY[4];
 
-  private int colour_box_in = r.GRAY_6;
-  private int colour_box_out = r.GRAY_9;
+  private int colour_box_in = r.GRAY[12];
+  private int colour_box_out = r.GRAY[18];
 
-  private int colour_header_in = r.GRAY_6;
-  private int colour_header_out = r.GRAY_9; 
+  private int colour_header_in = r.GRAY[12];
+  private int colour_header_out = r.GRAY[18]; 
 
-  private int colour_header_text_in = r.GRAY_2;
-  private int colour_header_text_out = r.GRAY_4;
+  private int colour_header_text_in = r.GRAY[4];
+  private int colour_header_text_out = r.GRAY[8];
 
-  private int colour_box_text_in = r.GRAY_2;
-  private int colour_box_text_out = r.GRAY_4;
+  private int colour_box_text_in = r.GRAY[4];
+  private int colour_box_text_out = r.GRAY[8];
 
 
   private ivec2 pos_header_text;

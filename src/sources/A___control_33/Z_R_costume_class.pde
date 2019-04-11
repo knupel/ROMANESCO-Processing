@@ -1,7 +1,7 @@
 /**
 * COSTUME class
 * Copyleft (c) 2019-2019
-* v 0.8.1
+* v 0.8.2
 * @author @stanlepunk
 * @see https://github.com/StanLepunK/Rope_framework
 * Here you finf the class Costume and all the class shape used.
@@ -824,11 +824,11 @@ public class Costume_pic {
 /**
 Class House
 2019-2019
-v 0.0.6
+v 0.0.7
 */
 public class House {
 	private int fill_roof = r.BLOOD;
-	private int fill_wall = r.GRAY_3;
+	private int fill_wall = r.GRAY[6];
 	private int fill_ground = r.BLACK;
 	private int stroke_roof = r.BLACK;
 	private int stroke_wall = r.BLACK;

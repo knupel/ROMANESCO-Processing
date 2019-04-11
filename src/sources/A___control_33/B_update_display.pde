@@ -1,6 +1,6 @@
 /**
 update, display and design
-v 0.1.0
+v 0.1.1
 2018-2019
 */
 
@@ -13,7 +13,7 @@ void display_structure() {
   if(button_curtain_is == 1) {
     set_colour_structure_background_mass(r.GRENAT_PROFOND,r.BLOOD);
   } else {
-    set_colour_structure_background_mass(r.GRAY_1,r.GRAY_3);
+    set_colour_structure_background_mass(r.GRAY[0],r.GRAY[1]);
   }
 
 
@@ -26,11 +26,11 @@ void display_structure() {
 
   pos.set(0,pos_y_button_top);
   size.set(width,height_button_top);
-  display_structure_top_button(pos,size,structure_background_mass_a,structure_background_line_a);
+  display_structure_console_general(pos,size,structure_background_mass_a,structure_background_mass_b);
 
-  pos.set(0,pos_y_dropdown_top);
-  size.set(width, height_dropdown_top);
-  display_structure_dropdown_menu_general(pos,size,structure_background_mass_a,structure_background_line_a);
+  // pos.set(0,pos_y_dropdown_top);
+  // size.set(width, height_dropdown_top);
+  // display_structure_dropdown_menu_general(pos,size,structure_background_mass_a,structure_background_line_a);
 
   pos.set(0,pos_y_menu_general);
   size.set(width,height_menu_general);
@@ -55,21 +55,21 @@ void display_structure_header(ivec2 pos, ivec2 size, int colour_bg) {
   rect(pos,size);
 }
 
-void display_structure_top_button(ivec2 pos, ivec2 size, int colour_bg, int colour_line) {
-  fill(colour_bg); 
+void display_structure_console_general(ivec2 pos, ivec2 size, int colour_up, int colour_down) {
+  fill(colour_up); 
   rect(pos,size); 
 
-  fill(colour_line) ;
-  rect(pos.x,pos.y,size.x,thickness_line_deco) ;
+  fill(colour_down);
+  rect(pos.x(),pos.y()+size.y(),size.x(),size.y());
 }
 
-void display_structure_dropdown_menu_general(ivec2 pos, ivec2 size, int colour_bg, int colour_line) {
-  fill(colour_bg); 
-  rect(pos,size);
-  // decoration 
-  fill (colour_line) ;
-  rect(pos.x,pos.y,size.x,thickness_line_deco) ;
-}
+// void display_structure_dropdown_menu_general(ivec2 pos, ivec2 size, int colour_bg, int colour_line) {
+//   fill(colour_bg); 
+//   rect(pos,size);
+//   // decoration 
+//   fill (colour_line) ;
+//   rect(pos.x,pos.y,size.x,thickness_line_deco) ;
+// }
 
 void display_structure_general(ivec2 pos, ivec2 size, int colour_bg, int colour_line) {
   fill(colour_bg); 
@@ -227,7 +227,7 @@ void update_dropdown_item(Dropdown [] dd, String [] list, Inventory [] inventory
       String name = dd[index].get_name() + " " + selection;
       dd[index].show_header_text(name);  
     } else {
-      fill(r.GRAY_3);
+      fill(r.GRAY[6]);
       ivec2 pos = dd[index].get_pos().add(dd[index].get_header_text_pos());
       PFont font = dd[index].get_font();
       textFont(font);

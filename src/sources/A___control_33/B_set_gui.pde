@@ -31,7 +31,7 @@ void set_design_structure() {
     grid_col[i] = col_width +grid_col[i-1];
   }
 
-  size_title_button = 10 ;
+  size_title_button = 10;
 
   spacing_slider = 11;
   rounded_slider = 4;
@@ -39,17 +39,14 @@ void set_design_structure() {
   height_header = 23;
   height_button_top = 44 ;
   pos_y_button_top = height_header;
+
   height_dropdown_top = 32;
   pos_y_dropdown_top = height_header +height_button_top;
+
   height_menu_general = 193;
   pos_y_menu_general = height_header +height_button_top +height_dropdown_top;
   pos_y_menu_general_content = pos_y_menu_general +5;
   
-
-  height_dropdown_header_bar = height_box_dropdown;
-  set_design_structure_media_bar();
-  set_design_structure_menu_bar();
-
   set_design_structure_background(1);
   set_design_structure_light(1);
   set_design_structure_filter(1);
@@ -150,73 +147,6 @@ void set_design_structure_inventory() {
 }
 
 
-void set_design_structure_media_bar() {
-  num_dd_media_bar = 4;
-  pos_y_dd_media_bar = 50;
-  // pos x
-  pos_x_dd_media_bar = new int[num_dd_media_bar];
-  pos_x_dd_media_bar[0] = 280; // text
-  pos_x_dd_media_bar[1] = 370; // bitmap
-  pos_x_dd_media_bar[2] = 455; // shape
-  pos_x_dd_media_bar[3] = 535; // movie
-  
-  // width
- // height_dropdown_header_bar = height_box_dropdown;
-  width_dd_media_bar = new int[num_dd_media_bar];
-  width_dd_media_bar[0] = 60; // text
-  width_dd_media_bar[1] = 60; // bitmap
-  width_dd_media_bar[2] = 40; // shape
-  width_dd_media_bar[3] = 60; // movie
-  
-  // name
-  name_dd_media_bar = new String[num_dd_media_bar];
-  name_dd_media_bar[0] = "text";
-  name_dd_media_bar[1] = "bitmap";
-  name_dd_media_bar[2] = "shape";
-  name_dd_media_bar[3] = "movie";
-
-
-}
-
-
-void set_design_structure_menu_bar() {
-  num_dd_menu_bar = 3;
-  pos_y_dd_menu_bar = 73;
-  pos_x_dd_menu_bar = new int[num_dd_menu_bar];
-  pos_x_dd_menu_bar[0] = 5;
-  pos_x_dd_menu_bar[1] = 100;
-  pos_x_dd_menu_bar[2] = 160; // font
-
-  
-  width_dd_menu_bar = new int[num_dd_menu_bar];
-  width_dd_menu_bar[0] = 75;
-  width_dd_menu_bar[1] = 40;
-  width_dd_menu_bar[2] = 60; // font
-
-  name_dd_menu_bar = new String[num_dd_menu_bar];
-  name_dd_menu_bar[0] = "background";
-  name_dd_menu_bar[1] = "filter";
-  name_dd_menu_bar[2] = "font";
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -226,7 +156,7 @@ aspect
 */
 void set_design_aspect() {
   set_colour_structure_background_header(r.BLOOD);
-  set_colour_structure_background_mass(r.GRAY_1,r.GRAY_3);
+  // set_colour_structure_background_mass(r.GRAY_1,r.BLOOD);
   set_colour_structure_background_line(r.ORANGE,r.BLOOD);
 
   fill_text_title_in = r.YELLOW;
@@ -236,17 +166,17 @@ void set_design_aspect() {
   fill_info_window_text = r.YELLOW;
 
   fill_midi_no_selection = r.CARMIN;
-  fill_midi_selection = r.GRAY_2;
+  fill_midi_selection = r.GRAY[4];
 
   fill_midi_window_no_selection = r.WHITE;
   fill_midi_window_selection = r.WHITE;
 
-  struc_colour_credit_background = r.GRAY_2;
+  struc_colour_credit_background = r.GRAY[4];
   struc_colour_credit_text = r.WHITE;
   
   // colour window info
   text_colour_window_info = r.WHITE;
-  struc_colour_window_info = r.GRAY_2;
+  struc_colour_window_info = r.GRAY[4];
 
 
 
@@ -280,29 +210,28 @@ void set_design_aspect() {
   selected_dd_text = r.BOTTLE;
 
   // colour slider light
-  molette_in_light = r.GRAY_7;
-  molette_out_light = r.GRAY_5;
+  molette_in_light = r.ORANGE;
+  molette_out_light = r.GRAY[6];
 
-  adj_in_light = r.GRAY_7;
-  adj_out_light = r.GRAY_5;
+  adj_in_light = r.GRAY[14];
+  adj_out_light = r.GRAY[6];
 
-  struc_light = r.GRAY_3;
+  struc_light = r.GRAY[4];
 
-  label_in_light = r.GRAY_7;
-  label_out_light = r.GRAY_5;
-
+  label_in_light = r.GRAY[14];
+  label_out_light = r.GRAY[10];
 
   // colour slider dark
-  molette_in_dark = r.GRAY_5;
-  molette_out_dark = r.GRAY_3;
+  molette_in_dark = r.ORANGE;
+  molette_out_dark = r.GRAY[6];
 
-  adj_in_dark = r.GRAY_5;
-  adj_out_dark = r.GRAY_3;
+  adj_in_dark = r.GRAY[10];
+  adj_out_dark = r.GRAY[6];
 
-  struc_dark = r.GRAY_2;
+  struc_dark = r.GRAY[2];
 
-  label_in_dark = r.GRAY_5;
-  label_out_dark = r.GRAY_3;
+  label_in_dark = r.GRAY[10];
+  label_out_dark = r.GRAY[6];
 
   dropdown_colour = new ROPE_colour(color_dd_background, 
                                     color_dd_header_in, 
@@ -327,22 +256,19 @@ void set_design_aspect() {
 }
 
 
-
-
 void set_colour_structure_background_header(int c) {
   fill_header_struc = c;
 }
 
-void set_colour_structure_background_mass(int c_a, int c_b) {
-  structure_background_mass_a = c_a;
-  structure_background_mass_b = c_b;
-
+void set_colour_structure_background_mass(int... c) {
+  structure_background_mass_a = c[0];
+  structure_background_mass_b = c[1];
+  // structure_background_mass_c = c_c;
 }
 
 void set_colour_structure_background_line(int c_a, int c_b) {
   structure_background_line_a = c_a;
   structure_background_line_b = c_b;
-
 }
 
 
@@ -376,7 +302,8 @@ void set_colour_structure_background_line(int c_a, int c_b) {
 
 
 /**
-set console
+* set console
+* all button, slider and dropdown is set here
 */
 void set_console() {
   set_console_general();
@@ -419,6 +346,66 @@ void set_console_general() {
   // 3D
   pos_3D_button = ivec2(grid_col[0] +160, pos_y_button_top +9);
   size_3D_button = ivec2(26,26);
+
+  
+  // MEDIA DROPDOWN
+  int pos_x_last_item = pos_3D_button.x() +35;
+  height_dropdown_header_bar = height_box_dropdown;
+  set_console_media_bar(pos_x_last_item);
+  set_console_menu_bar();
+}
+
+
+void set_console_media_bar(int start_x) {
+  num_dd_media_bar = 4;
+  pos_y_dd_media_bar = 32;
+  int step = width/6;
+  // pos x
+  pos_x_dd_media_bar = new int[num_dd_media_bar];
+  // pos_x_dd_media_bar[0] = start_x +(step *0); // text
+  // pos_x_dd_media_bar[1] = start_x +(step *1);// bitmap
+  // pos_x_dd_media_bar[2] = start_x +(step *2);// shape
+  // pos_x_dd_media_bar[3] = start_x +(step *3);// movie
+  pos_x_dd_media_bar[0] = grid_col[4]; // text
+  pos_x_dd_media_bar[1] = grid_col[6];// bitmap
+  pos_x_dd_media_bar[2] = grid_col[8];// shape
+  pos_x_dd_media_bar[3] = grid_col[10];// movie
+  
+  // width
+ // height_dropdown_header_bar = height_box_dropdown;
+  width_dd_media_bar = new int[num_dd_media_bar];
+  width_dd_media_bar[0] = 60; // text
+  width_dd_media_bar[1] = 60; // bitmap
+  width_dd_media_bar[2] = 40; // shape
+  width_dd_media_bar[3] = 60; // movie
+  
+  // name
+  name_dd_media_bar = new String[num_dd_media_bar];
+  name_dd_media_bar[0] = "text";
+  name_dd_media_bar[1] = "bitmap";
+  name_dd_media_bar[2] = "shape";
+  name_dd_media_bar[3] = "movie";
+}
+
+
+void set_console_menu_bar() {
+  num_dd_menu_bar = 3;
+  pos_y_dd_menu_bar = 70;
+  pos_x_dd_menu_bar = new int[num_dd_menu_bar];
+  pos_x_dd_menu_bar[0] = grid_col[0];
+  pos_x_dd_menu_bar[1] = grid_col[3];
+  pos_x_dd_menu_bar[2] = grid_col[6]; // font
+
+  
+  width_dd_menu_bar = new int[num_dd_menu_bar];
+  width_dd_menu_bar[0] = 75;
+  width_dd_menu_bar[1] = 40;
+  width_dd_menu_bar[2] = 60; // font
+
+  name_dd_menu_bar = new String[num_dd_menu_bar];
+  name_dd_menu_bar[0] = "background";
+  name_dd_menu_bar[1] = "filter";
+  name_dd_menu_bar[2] = "font";
 }
 
 

@@ -462,7 +462,7 @@ void build_console_item() {
 
 /**
 * Build DROPDOWN 
-* v 1.3.0
+* v 1.3.1
 * 2016-2019
 */
 void build_dropdown_bar() {
@@ -503,7 +503,7 @@ void build_dd_menu_bar() {
 
 void build_dd_media_bar() {
   for(int i = 0 ; i < dd_media_bar.length ; i++) {
-    dd_media_bar_pos[i] = ivec2(pos_x_dd_media_bar[i],pos_y_dd_menu_bar);
+    dd_media_bar_pos[i] = ivec2(pos_x_dd_media_bar[i],pos_y_dd_media_bar);
     dd_media_bar_size[i] = ivec2(width_dd_media_bar[i],height_dropdown_header_bar);
 
     dd_media_bar[i] = new Dropdown(dd_media_bar_pos[i],dd_media_bar_size[i],name_dd_media_bar[i],dd_media_bar_content[i]);

@@ -1,12 +1,17 @@
 /**
 * Costume method
 * Copyleft (c) 2014-2019
-* v 1.8.1
+* v 1.8.3
 * processing 3.5.3
-* Rope Library 0.5.1
+* Rope Library 0.6.0
 * @author @stanlepunk
 * @see https://github.com/StanLepunK/Rope_framework
 */
+
+import rope.costume.R_Circle;
+import rope.costume.R_Bezier;
+import rope.costume.R_Star;
+import rope.costume.R_Virus;
 
 
 
@@ -529,8 +534,6 @@ void house(vec3 size) {
 * 2019-2019
 * v 0.0.2
 */
-import rope.costume.R_Circle;
-import rope.costume.R_Bezier;
 R_Circle flower_costume_rope;
 void flower(vec pos, int diam, int petals_num) {
 	if(flower_costume_rope == null || flower_costume_rope.get_summit() != petals_num) {
@@ -619,7 +622,7 @@ SHAPE CATALOGUE
 /**
 STAR
 */
-import rope.costume.R_Star;
+
 R_Star star_costume_rope;
 void star_3D_is(boolean is_3D) {
 	if(star_costume_rope != null) {
@@ -748,7 +751,7 @@ void cross_box_3(vec3 size) {
 /**
 VIRUS
 2015-2018
-v 0.2.0
+v 0.2.1
 */
 void virus(vec pos, vec size) {
 	int close = -1 ;
@@ -763,7 +766,6 @@ void virus(vec pos, vec size, float angle) {
 
 
 // main method
-import rope.costume.R_Virus;
 R_Virus virus_costume_rope;
 boolean make_virus = true ;
 void virus(vec pos, vec size, float angle, int close) {
@@ -788,8 +790,8 @@ void virus_mutation(int mutation) {
 }
 
 void virus_num(int num) {
-	if(virus_costume_rope != null && num != 0 && num != virus_costume_rope.get_num()) {
-		virus_costume_rope.set_num(abs(num));
+	if(virus_costume_rope != null && num != 0 && num != virus_costume_rope.get_summits()) {
+		virus_costume_rope.set_summits(abs(num));
 	}
 }
 
