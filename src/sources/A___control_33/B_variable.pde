@@ -1,7 +1,7 @@
 /**
 * variable déclaration
 * 2019-2019
-* 0.0.1
+* 0.0.2
 */
 int height_menu_general;
 int pos_y_menu_general;
@@ -166,10 +166,17 @@ int pos_y_dropdown_top;
 
 
 // DROPDOWN media bar
-int which_text, which_bitmap, which_shape, which_movie;
 Dropdown [] dd_media_bar;
-ivec2 [] dd_media_bar_pos, dd_media_bar_size;
-String [] bitmap_dropdown_list, shape_dropdown_list, movie_dropdown_list, file_text_dropdown_list;
+int which_text;
+int which_bitmap;
+int which_shape;
+int which_movie;
+ivec2 [] dd_media_bar_pos;
+ivec2 [] dd_media_bar_size;
+String [] bitmap_dropdown_list;
+String [] shape_dropdown_list;
+String [] movie_dropdown_list;
+String [] file_text_dropdown_list;
 int num_dd_media_bar;
 int pos_y_dd_media_bar;
 int [] pos_x_dd_media_bar;
@@ -178,9 +185,13 @@ String [] name_dd_media_bar;
 String [][] dd_media_bar_content;
 
 // DROPDOWN menu bar
-int which_bg_shader, which_filter, which_font;
 Dropdown [] dd_menu_bar;
-ivec2 [] dd_menu_bar_pos, dd_menu_bar_size;
+int which_bg_shader;
+int which_filter;
+int which_mix;
+int which_font;
+ivec2 [] dd_menu_bar_pos;
+ivec2 [] dd_menu_bar_size;
 String [] font_dropdown_list;
 int num_dd_menu_bar;
 int pos_y_dd_menu_bar;
@@ -275,12 +286,18 @@ String[] slider_background_name = new String[NUM_SLIDER_BACKGROUND];
 int offset_background_x;
 int offset_background_y;
 
-// filter button
+// FX button
 Button [] button_fx = new Button[NUM_BUTTON_FX];
 int [] button_fx_is = new int[NUM_BUTTON_FX];
 ivec2 [] pos_button_fx = new ivec2[NUM_BUTTON_FX];
 ivec2 [] size_button_fx = new ivec2[NUM_BUTTON_FX];
-// String [] name_button_fx = new String[NUM_BUTTON_FILTER];
+
+// MIX button
+Button [] button_fx_mix = new Button[NUM_BUTTON_MIX];
+int [] button_fx_mix_is = new int[NUM_BUTTON_MIX];
+ivec2 [] pos_button_fx_mix = new ivec2[NUM_BUTTON_MIX];
+ivec2 [] size_button_fx_mix = new ivec2[NUM_BUTTON_MIX];
+
 // filter slider
 Sladj [] slider_adj_fx = new Sladj[NUM_SLIDER_FX];
 Cropinfo [] cropinfo_slider_fx;
@@ -288,10 +305,23 @@ int slider_width_filter;
 int slider_height_filter;
 ivec2 [] pos_slider_fx = new ivec2[NUM_SLIDER_FX]; 
 ivec2 [] size_slider_fx = new ivec2[NUM_SLIDER_FX];
-float [] value_slider_filter = new float[NUM_SLIDER_FX];
-String[] slider_filter_name = new String[NUM_SLIDER_FX];
-int offset_filter_x;
-int offset_filter_y;
+float [] value_slider_fx = new float[NUM_SLIDER_FX];
+String[] slider_fx_name = new String[NUM_SLIDER_FX];
+int offset_fx_x;
+int offset_fx_y;
+
+
+// mix slider
+Sladj [] slider_adj_fx_mix = new Sladj[NUM_SLIDER_MIX];
+Cropinfo [] cropinfo_slider_fx_mix;
+int slider_width_fx_mix;
+int slider_height_fx_mix;
+ivec2 [] pos_slider_fx_mix = new ivec2[NUM_SLIDER_MIX]; 
+ivec2 [] size_slider_fx_mix = new ivec2[NUM_SLIDER_MIX];
+float [] value_slider_fx_mix = new float[NUM_SLIDER_MIX];
+String[] slider_fx_mix_name = new String[NUM_SLIDER_MIX];
+int offset_fx_mix_x;
+int offset_fx_mix_y;
 
 // light button
 Button button_light_ambient, button_light_ambient_action,

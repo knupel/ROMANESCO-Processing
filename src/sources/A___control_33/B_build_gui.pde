@@ -29,6 +29,7 @@ void build_console() {
   build_console_menu_bar();
   build_console_background();
   build_console_filter();
+  build_console_mix();
   build_console_light();
   build_console_sound();
   build_console_setting();
@@ -107,7 +108,7 @@ void build_console_filter() {
     slider_adj_fx[i].set_molette(ELLIPSE);
     slider_adj_fx[i].size_molette(temp_size_mol);
     slider_adj_fx[i].set_id(i);
-    slider_adj_fx[i].set_label(slider_filter_name[i],iadd(slider_adj_fx[i].get_size(),ivec2(3,0)));
+    slider_adj_fx[i].set_label(slider_fx_name[i],iadd(slider_adj_fx[i].get_size(),ivec2(3,0)));
     slider_adj_fx[i].set_font(textUsual_1);
     slider_adj_fx[i].set_rounded(rounded_slider);
     slider_adj_fx[i].set_fill_label(label_in_light,label_out_dark);
@@ -138,6 +139,41 @@ void build_console_filter() {
     }
   }
 }
+
+
+
+void build_console_mix() {
+  for (int i = 0 ; i < NUM_SLIDER_MIX ; i++) {
+    ivec2 temp_size_mol = ivec2(round(size_slider_fx_mix[i].y *ratio_size_molette), round(size_slider_fx_mix[i].y *ratio_size_molette));
+    ivec2 temp_pos = ivec2(pos_slider_fx_mix[i].x, round(pos_slider_fx_mix[i].y -(slider_height_fx_mix *.6)));
+    slider_adj_fx_mix[i] = new Sladj(temp_pos,size_slider_fx_mix[i]);
+    slider_adj_fx_mix[i].set_molette(ELLIPSE);
+    slider_adj_fx_mix[i].size_molette(temp_size_mol);
+    slider_adj_fx_mix[i].set_id(i);
+    slider_adj_fx_mix[i].set_label(slider_fx_mix_name[i],iadd(slider_adj_fx_mix[i].get_size(),ivec2(3,0)));
+    slider_adj_fx_mix[i].set_font(textUsual_1);
+    slider_adj_fx_mix[i].set_rounded(rounded_slider);
+    slider_adj_fx_mix[i].set_fill_label(label_in_light,label_out_dark);
+    slider_adj_fx_mix[i].set_fill(struc_light);
+    slider_adj_fx_mix[i].set_fill_molette(molette_in_light,molette_out_light);
+    slider_adj_fx_mix[i].set_fill_adj(adj_in_light,adj_out_light);
+  }
+
+  // change color for the next slider after colour slider
+  for(int i = 3 ; i < slider_adj_fx_mix.length ; i++) {
+    slider_adj_fx_mix[i].set_fill(struc_dark);
+    slider_adj_fx_mix[i].set_fill_molette(molette_in_dark,molette_out_dark);
+    slider_adj_fx_mix[i].set_fill_adj(adj_in_dark,adj_out_dark);
+  }
+
+  for(int i = 0 ; i < NUM_BUTTON_MIX ; i++) {
+    button_fx_mix[i] = new Button(pos_button_fx_mix[i], size_button_fx_mix[i]);
+    button_fx_mix[i].set_aspect_on_off(button_on_in,button_on_out,button_off_in,button_off_out);
+    button_fx_mix[i].set_font(FuturaExtraBold_10);
+  }
+}
+
+
 
 void build_console_light() {
   for (int i = 0 ; i < NUM_SLIDER_LIGHT ; i++) {

@@ -113,7 +113,7 @@ int num_special_fx;
 int ref_num_active_fx;
 ArrayList<Integer>active_fx;
 int fx_classic_num;
-void fx_post() {
+void post_fx() {
   move_filter_fx = fx_button_is(1);
   extra_filter_fx = fx_button_is(2);
 
@@ -146,7 +146,7 @@ void fx_post() {
     save_dial_scene(preference_path);
     ref_num_active_fx = active_fx.size();
   }
-  
+
 
   if(FULL_RENDERING && fx_button_is(0)) {
     update_fx_post_slider();

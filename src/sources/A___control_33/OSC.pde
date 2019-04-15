@@ -102,15 +102,16 @@ void message_general_osc(OscMessage m) {
   add_data_general(m,button_birth.is());
   add_data_general(m,button_3D.is());
   
+  // dropdown media
+  for(int i = 0 ; i < dd_media_bar.length ; i++) {
+    add_data_general(m,dd_media_bar[i].get_selection());
+  }
+
   // dropdown menu
   for(int i = 0 ; i < dd_menu_bar.length ; i++) {
     add_data_general(m,dd_menu_bar[i].get_selection());
   }
   
-  // dropdown media
-  for(int i = 0 ; i < dd_media_bar.length ; i++) {
-    add_data_general(m,dd_media_bar[i].get_selection());
-  }
 
 
   // button general background
@@ -118,6 +119,10 @@ void message_general_osc(OscMessage m) {
   // button fx
   for(int i = 0 ; i < NUM_BUTTON_FX ; i++) {
     add_data_general(m,button_fx[i].is());
+  }
+
+  for(int i = 0 ; i < NUM_BUTTON_MIX ; i++) {
+    add_data_general(m,button_fx_mix[i].is());
   }
   // button general light
   add_data_general(m,button_light_ambient.is());
@@ -130,22 +135,36 @@ void message_general_osc(OscMessage m) {
   for(int i = 0 ; i < NUM_BUTTON_TRANSIENT ; i++) {
     add_data_general(m,button_transient[i].is());
   }
-  // add slider general
+  // add slider background
   for(int i = 0 ; i < value_slider_background.length ; i++) {
     add_data_general(m,value_slider_background[i]);
   }
-  for(int i = 0 ; i < value_slider_filter.length ; i++) {
-    add_data_general(m,value_slider_filter[i]);
+
+  // add slider fx
+  for(int i = 0 ; i < value_slider_fx.length ; i++) {
+    add_data_general(m,value_slider_fx[i]);
   }
+  
+  // add slider mix
+  for(int i = 0 ; i < value_slider_fx_mix.length ; i++) {
+    add_data_general(m,value_slider_fx_mix[i]);
+  }
+  
+  // add slider light
   for(int i = 0 ; i < value_slider_light.length ; i++) {
     add_data_general(m,value_slider_light[i]);
   }
+
+  // add slider sound
   for(int i = 0 ; i < value_slider_sound.length ; i++) {
     add_data_general(m,value_slider_sound[i]);
   }
+
   for(int i = 0 ; i < value_slider_sound_setting.length ; i++) {
     add_data_general(m,value_slider_sound_setting[i]);
   }
+
+  // add slider camera
   for(int i = 0 ; i < value_slider_camera.length ; i++) {
     // for information the value "6" is no more use, because it is save on the dial table void save_dial_data(String path)
     add_data_general(m,value_slider_camera[i]);

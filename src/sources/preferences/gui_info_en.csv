@@ -2,6 +2,7 @@ name,num,col 0,col 1,col 2,col 3,col 4,col 5,col 6,col 7,col 8,col 9,col 10,col 
 general,0,typography,curtain,
 slider background,0,hue,saturation,brightness,refresh,position X,position Y,size,strength,quantity,quality,speed X,speed Y,angle,threshold
 slider filter,0,red,green,blue,position X,position Y,size X,size Y,strength X,strength Y,quantity,quality,speed,angle,threshold
+slider mix,0,red src,green src,blue src,red,green,blue
 slider light,0,hue,saturation,brigthness,hue,saturation,brigthness,hue,saturation,brigthness,alpha
 slider sound,0,left,right,
 slider sound setting,0,range,x-bass,bass,medium,high,

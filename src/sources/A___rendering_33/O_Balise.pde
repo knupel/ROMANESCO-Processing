@@ -221,7 +221,6 @@ class Balise {
 
       vec3 final_size = vec3(size.x *var.x, size.y *var.y, size.z *((var.x +var.y)*.5));
       if(snake_mode) {
-        //println("snake");
         start_matrix();
         translate(pos);
       }

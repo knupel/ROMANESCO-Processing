@@ -1,7 +1,7 @@
 /**
 Core controller
-v 0.1.0
-2018-2018
+v 0.2.0
+2018-2019
 */
 import java.awt.event.KeyEvent;
 import java.awt.image.*;
@@ -57,8 +57,10 @@ void reset_button_flash() {
 void init_info_shader() {
   shader_fx_table = loadTable(preference_path+"index_fx.csv","header");
   shader_fx_bg_table = loadTable(preference_path+"index_fx_bg.csv","header");
+  shader_fx_mix_table = loadTable(preference_path+"index_fx_mix.csv","header");
   info_shader_fx_bg();
   info_shader_fx();
+  info_shader_fx_mix();
 }
 
 
@@ -85,6 +87,18 @@ void info_shader_fx() {
     shader_fx_name[i] = row.getString("Name");
     shader_fx_author[i] = row.getString("Author");
     shader_fx_slider[i] = row.getString("Slider");
+  }
+}
+
+
+void info_shader_fx_mix() {
+  int n = shader_fx_mix_table.getRowCount();
+  shader_fx_mix_name = new String[n];
+  shader_fx_mix_slider = new String[n];
+  for (int i = 0 ; i < n ; i++) {
+    TableRow row = shader_fx_mix_table.getRow(i);
+    shader_fx_mix_name[i] = row.getString("Name");
+    shader_fx_mix_slider[i] = row.getString("Slider");
   }
 }
 

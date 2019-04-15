@@ -211,7 +211,6 @@ class FF extends Romanesco {
   private void set_ff() {
     // set detection
     int level_detection = (int)map(get_scope(),width *.1,width*TAU,10,1);
-    // println("level",level_detection);
     set_spot_detection_force_field(level_detection);
 
     // set cell

@@ -296,7 +296,6 @@ void romanesco() {
   load_dial_controller();
   reset_button_alert();
 
-
   if(IAM.equals("scene")) {
     init_value_temp_prescene();
     if (!miroir_on_off && OPEN_APP) {

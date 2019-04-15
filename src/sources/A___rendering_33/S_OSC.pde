@@ -611,17 +611,20 @@ void controller_reception(OscMessage receive) {
 
 
 void thread_data_controller_general(OscMessage receive) {
-  int rank = 0 ;
+  int rank = 0;
+
   receive_data_menu_bar(receive,rank); 
-
   rank += NUM_TOP_BUTTON;
-  receive_data_general_dropdown(receive,rank);
 
-  rank += NUM_DROPDOWN_GENERAL;
-  //rank += 7;
+  receive_data_dd_media(receive,rank);
+  rank += NUM_DROPDOWN_MEDIA;
+
+  receive_data_dd_menu(receive,rank);
+  rank += NUM_DROPDOWN_MENU;
+
   receive_data_general_button(receive,rank);
+  rank += NUM_MID_BUTTON;
 
-  rank += NUM_MID_BUTTON;  
   receive_data_general_slider(receive,rank,rank +NUM_MOLETTE_GENERAL); // NUM_SLIDER_GENERAL 
 }
 
@@ -675,15 +678,21 @@ void receive_data_menu_bar(OscMessage receive, int in) {
   */
 }
 
-void receive_data_general_dropdown(OscMessage receive, int in) {
+void receive_data_dd_media(OscMessage receive, int in) {
+  which_text[0] = receive.get(0+in).intValue(); // text
+  which_bitmap[0] = receive.get(1+in).intValue(); // bitmap
+  which_shape[0] = receive.get(2+in).intValue(); // shape
+  which_movie[0] = receive.get(3+in).intValue(); // movie
+}
+
+void receive_data_dd_menu(OscMessage receive, int in) {
   which_shader = receive.get(0+in).intValue(); // shader
   which_fx = receive.get(1+in).intValue(); // filter
-  select_font(receive.get(2+in).intValue()); // font
-  which_text[0] = receive.get(3+in).intValue(); // text
-  which_bitmap[0] = receive.get(4+in).intValue(); // bitmap
-  which_shape[0] = receive.get(5+in).intValue(); // shape
-  which_movie[0] = receive.get(6+in).intValue(); // movie
+  which_mix = receive.get(2+in).intValue(); // mix
+  select_font(receive.get(3+in).intValue()); // font
 }
+
+
 
 
 void receive_data_general_button(OscMessage receive, int in) {
@@ -692,6 +701,10 @@ void receive_data_general_button(OscMessage receive, int in) {
   target++;
   for(int i = 0 ; i < fx_button_is.length ; i++) {
     fx_button_is(i,to_bool(receive,target+in));
+    target++;
+  }
+  for(int i = 0 ; i < fx_mix_button_is.length ; i++) {
+    fx_mix_button_is(i,to_bool(receive,target+in));
     target++;
   }
   ambient_button_is(to_bool(receive,target+in));
@@ -720,7 +733,10 @@ void receive_data_general_slider(OscMessage receive, int in, int out) {
   int in_fx =  out_background;
   int out_fx = in_fx +NUM_MOLETTE_FX;
 
-  int in_light =  out_fx;
+  int in_fx_mix =  out_fx;
+  int out_fx_mix = in_fx_mix +NUM_MOLETTE_MIX;
+
+  int in_light =  out_fx_mix;
   int out_light = in_light +NUM_MOLETTE_LIGHT;
 
   int in_sound =  out_light;
@@ -737,6 +753,8 @@ void receive_data_general_slider(OscMessage receive, int in, int out) {
       value_slider_background[i -in] = receive.get(i).intValue();
     } else if(i >= in_fx && i < out_fx) {
       value_slider_fx[i -in_fx] = receive.get(i).intValue();
+    } else if(i >= in_fx_mix && i < out_fx_mix) {
+      value_slider_fx_mix[i -in_fx_mix] = receive.get(i).intValue();
     } else if(i >= in_light && i < out_light) {
       value_slider_light[i -in_light] = receive.get(i).intValue();
     } else if(i >= in_sound && i < out_sound) {

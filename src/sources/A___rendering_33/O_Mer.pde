@@ -201,8 +201,6 @@ class Mer extends Romanesco {
       float brightness = g.colorModeZ;
       int colour_fill = color(hue,saturation,brightness,fill_alpha);
       int colour_stroke = color(hue,saturation,brightness,stroke_alpha);
-      // println(hue,saturation,brightness,fill_alpha);
-      // println(colour_fill,colour_stroke,thickness);
       aspect(colour_fill,colour_stroke,thickness);
       // fill(r.WHITE);
     }

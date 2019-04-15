@@ -115,6 +115,14 @@ void save_info_slider() {
     set_data_slider(i,cropinfo_slider_fx[i],"Slider fx");
   }
 
+  // MIX
+  for (int i = start ; i < NUM_SLIDER_MIX ; i++) {
+    cropinfo_slider_fx_mix[i].set_value(slider_adj_fx_mix[i].get(0));
+    cropinfo_slider_fx_mix[i].set_min(slider_adj_fx_mix[i].get_min_norm());
+    cropinfo_slider_fx_mix[i].set_max(slider_adj_fx_mix[i].get_max_norm());
+    set_data_slider(i,cropinfo_slider_fx_mix[i],"Slider mix");
+  }
+
   // light
   for (int i = start ; i < NUM_SLIDER_LIGHT ; i++) {
     cropinfo_slider_light[i].set_value(slider_adj_light[i].get(0));

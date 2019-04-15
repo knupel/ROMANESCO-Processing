@@ -156,7 +156,8 @@ void show_dropdown() {
   
   which_bg_shader = dd_menu_bar[0].get_selection();
   which_filter = dd_menu_bar[1].get_selection();
-  which_font = dd_menu_bar[2].get_selection();
+  which_mix = dd_menu_bar[2].get_selection();
+  which_font = dd_menu_bar[3].get_selection();
 
   which_text = dd_media_bar[0].get_selection();
   which_bitmap = dd_media_bar[1].get_selection();
@@ -179,7 +180,8 @@ void update_dropdown(Dropdown... dd) {
 void update_dd_menu_bar_content() {
   dd_menu_bar_content [0] = shader_fx_bg_name;
   dd_menu_bar_content [1] = shader_fx_name;
-  dd_menu_bar_content [2] = font_dropdown_list;
+  dd_menu_bar_content [2] = shader_fx_mix_name;
+  dd_menu_bar_content [3] = font_dropdown_list;
   for(int i = 0 ; i < dd_menu_bar.length ; i++) {
     dd_menu_bar[i].set_content(dd_menu_bar_content[i]);
   }
@@ -275,6 +277,7 @@ SLIDER UPDATE and DISPLAY
 void show_slider_controller() {
   show_slider_background();
   show_slider_filter();
+  show_slider_mix();
   show_slider_light();
   show_slider_sound();
   if(dropdown_setting.get_selection() == 0) {
@@ -448,14 +451,11 @@ void show_slider_filter() {
   String [] list = null ;
   int target = dd_menu_bar[1].get_selection();
   String which_slider = shader_fx_slider[target];
-  // String [] list = split(which_slider,"/");
   if(!multi_fx_is) {
     list = split(which_slider,"/");
   } else {
     list = split(slider_fx_active_list,"/");
   }
-  // println(slider_fx_active_list);
-  // printArray(list);
   // show
   for (int i = 0 ; i < NUM_SLIDER_FX ; i++) {
     if(list.length > 0) {
@@ -468,6 +468,33 @@ void show_slider_filter() {
           slider_adj_fx[i].show_adj();
           slider_adj_fx[i].show_molette();
           slider_adj_fx[i].show_label();
+        }
+      }      
+    } 
+  }
+}
+
+
+void show_slider_mix() {
+
+  // select which slider must be display
+  String [] list = null ;
+  int target = dd_menu_bar[2].get_selection();
+  String which_slider = shader_fx_mix_slider[target];
+  list = split(which_slider,"/");
+
+  // show
+  for (int i = 0 ; i < NUM_SLIDER_MIX ; i++) {
+    if(list.length > 0) {
+      for(int k = 0 ; k < list.length ; k++) {
+        if(list != null && list[k].equals(slider_adj_fx_mix[i].get_name())) {
+          if(!dropdown_is()) {
+            update_slider(slider_adj_fx_mix[i],cropinfo_slider_fx_mix);
+          }   
+          slider_adj_fx_mix[i].show_structure();
+          slider_adj_fx_mix[i].show_adj();
+          slider_adj_fx_mix[i].show_molette();
+          slider_adj_fx_mix[i].show_label();
         }
       }      
     } 
@@ -569,7 +596,11 @@ void pass_slider_general_to_osc() {
   }
 
   for (int i = 0 ; i < NUM_SLIDER_FX ; i++) {    
-    pass_slider_to_osc_arg(slider_adj_fx[i], value_slider_filter);
+    pass_slider_to_osc_arg(slider_adj_fx[i], value_slider_fx);
+  }
+
+  for (int i = 0 ; i < NUM_SLIDER_MIX ; i++) {    
+    pass_slider_to_osc_arg(slider_adj_fx_mix[i], value_slider_fx_mix);
   }
 
   for (int i = 0 ; i < NUM_SLIDER_LIGHT ; i++) { 
@@ -988,9 +1019,6 @@ void pass_multi_slider_to_osc_arg(Slider slider, float [] value_slider, int rank
 /**
 BUTTON
 */
-/**
-init
-*/
 void init_button_general() {
   button_general_num = 20;
   value_button_general = new int[button_general_num];
@@ -1009,11 +1037,26 @@ void check_button_general() {
   if(button_bg.is()) button_background_is = 1 ; else button_background_is = 0 ;
   // FX
   for(int i = 0 ; i < NUM_BUTTON_FX ; i++) {
-    if(button_fx[i].is()) button_fx_is[i] = 1 ; else button_fx_is[i] = 0 ;
+    if(button_fx[i].is()) {
+      button_fx_is[i] = 1; 
+    } else {
+      button_fx_is[i] = 0;
+    }
   }
-  //LIGHT ONE
+  
+  // MIX
+  for(int i = 0 ; i < NUM_BUTTON_MIX ; i++) {
+    if(button_fx_mix[i].is()) {
+      button_fx_mix_is[i] = 1; 
+    } else {
+      button_fx_mix_is[i] = 0;
+    }
+  }
+
+  //LIGHT AMBIENT
   if(button_light_ambient.is()) light_ambient_button_is = 1; 
   else  light_ambient_button_is = 0;
+
   if(button_light_ambient_action.is()) light_ambient_action_button_is = 1; 
   else light_ambient_action_button_is =  0;
   //LIGHT ONE
@@ -1021,7 +1064,7 @@ void check_button_general() {
   else light_light_1_button_is = 0;
 
   if(button_light_1_action.is()) light_light_action_1_button_is = 1;
-   else light_light_action_1_button_is = 0;
+  else light_light_action_1_button_is = 0;
   // LIGHT TWO
   if(button_light_2.is()) light_light_2_button_is = 1; 
   else light_light_2_button_is = 0;
@@ -1036,8 +1079,6 @@ void check_button_general() {
   if(button_curtain.is()) button_curtain_is = 1; 
   else button_curtain_is = 0;
 
-  // if(button_midi.is()) button_midi_is = 1; 
-  // else button_midi_is = 0;
   // reset button
   if(button_reset_camera.is()) button_reset_camera_is = 1; 
   else button_reset_camera_is = 0;
@@ -1058,14 +1099,15 @@ void check_button_general() {
 }
 
 
-/**
-mouse pressed
-*/
 void mousePressed_button_general() {
   if(button_bg.inside()) button_bg.switch_is();
 
   for(int i = 0 ; i < NUM_BUTTON_FX ; i++) {
     if(button_fx[i].inside()) button_fx[i].switch_is();
+  }
+
+  for(int i = 0 ; i < NUM_BUTTON_MIX ; i++) {
+    if(button_fx_mix[i].inside()) button_fx_mix[i].switch_is();
   }
 
   if(button_light_ambient.inside()) button_light_ambient.switch_is();
@@ -1195,6 +1237,16 @@ void display_button_general() {
     button_fx[i].show_label();
   }
 
+  // MIX
+  if(button_fx_mix[0].is()) {
+    button_fx_mix[0].set_label("MIX ON");
+  } else {
+    button_fx_mix[0].set_label("MIX OFF");
+  }
+  for(int i = 0 ; i < NUM_BUTTON_MIX ; i++) {
+    button_fx_mix[i].show_label();
+  }
+
   // Light ambient
   if(button_light_ambient.is()) {
     button_light_ambient.set_label("AMBIENT ON");
@@ -1205,17 +1257,17 @@ void display_button_general() {
   button_light_ambient_action.show_label();
   //LIGHT ONE
   if(button_light_1.is()) {
-    button_light_1.set_label("LIGHT ONE ON");
+    button_light_1.set_label("LIGHT ON");
   } else {
-    button_light_1.set_label("LIGHT ONE OFF");
+    button_light_1.set_label("LIGHT OFF");
   }
   button_light_1.show_label();
   button_light_1_action.show_label();
   // LIGHT TWO
   if(button_light_2.is()) {
-    button_light_2.set_label("LIGHT TWO ON");
+    button_light_2.set_label("LIGHT ON");
   } else {
-    button_light_2.set_label("LIGHT TWO OFF");
+    button_light_2.set_label("LIGHT OFF");
   }
   button_light_2.show_label();
   button_light_2_action.show_label();
@@ -1253,6 +1305,7 @@ void update_button_general() {
                       button_light_1,button_light_1_action,
                       button_light_2,button_light_2_action);
   update_button_local(button_fx);
+  update_button_local(button_fx_mix);
   update_button_local(button_transient);
 }
 

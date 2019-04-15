@@ -1,7 +1,7 @@
 /**
 * Costume method
 * Copyleft (c) 2014-2019
-* v 1.8.3
+* v 1.8.4
 * processing 3.5.3
 * Rope Library 0.6.0
 * @author @stanlepunk
@@ -532,11 +532,11 @@ void house(vec3 size) {
 /**
 * flower method
 * 2019-2019
-* v 0.0.2
+* v 0.0.3
 */
 R_Circle flower_costume_rope;
 void flower(vec pos, int diam, int petals_num) {
-	if(flower_costume_rope == null || flower_costume_rope.get_summit() != petals_num) {
+	if(flower_costume_rope == null || flower_costume_rope.get_summits() != petals_num) {
 		flower_costume_rope = new R_Circle(this,petals_num);
 	} else {
 		flower_costume_rope.pos(pos);
@@ -643,7 +643,7 @@ void star_summits(int summits) {
 
 void star_angle(float angle) {
 	if(star_costume_rope != null) {
-		star_costume_rope.set_angle(angle);
+		star_costume_rope.angle(angle);
 	} else {
 		star_costume_rope = new R_Star(this);
 	}
@@ -751,7 +751,7 @@ void cross_box_3(vec3 size) {
 /**
 VIRUS
 2015-2018
-v 0.2.1
+v 0.2.2
 */
 void virus(vec pos, vec size) {
 	int close = -1 ;
@@ -777,7 +777,7 @@ void virus(vec pos, vec size, float angle, int close) {
 	if(virus_costume_rope.get_mutation() > 0 && frameCount%virus_costume_rope.get_mutation() == 0) {
 		virus_costume_rope.reset() ;
 	}
-  virus_costume_rope.rotation(angle) ;
+  virus_costume_rope.angle(angle) ;
 	virus_costume_rope.pos(pos) ;
 	virus_costume_rope.size(size) ;
 	virus_costume_rope.show() ;	

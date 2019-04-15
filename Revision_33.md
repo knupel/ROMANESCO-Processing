@@ -1,5 +1,6 @@
 *Romanesco dui
-revision 33
+
+*revision 33
 
 *MAJOR
 
@@ -13,7 +14,7 @@ revision 33
 >add methode set_background() to pass PImage from item to the main background.
 >change commande to actived the main camera, now don't to keep 'c' pressed, one hit to able or enable.
 >add top bar for the controler
-
+>add mix mode to use multiply, overlay... and other incrustation effect
 
 *MINOR
 
@@ -60,7 +61,8 @@ revision 33
 
 
 *Romanesco dui
-revision 32
+
+*revision 32 | December 2018
 
 *MAJOR
 
@@ -98,9 +100,12 @@ revision 32
 
 
 
+
 *Romanesco dui
-revision 31
-November 2018
+
+*revision 31 | November 2018
+
+
 
 *MAJOR
 
@@ -191,7 +196,8 @@ November 2018
 
 
 *Romanesco unu
-revision 30
+
+*revision 30
 
 *GLOBAL
 
@@ -282,9 +288,10 @@ MAJOR
 
 
 
-Romanesco unu
-revision 29
---
+*Romanesco unu
+
+*revision 29
+
 > new build for the last OSX 10.11.3
 > fix Scene position and display, when there is only one screen connected – thx VKING for the report – 
 > remove fullscreen when there is only one screen detected
@@ -296,9 +303,10 @@ revision 29
 
 
 
-Romanesco unu
-revision 28
---
+*Romanesco unu
+
+*revision 28
+
 CORE
 --
 > remove graphic enviroment 
@@ -327,15 +335,16 @@ CORE
 
 
 
-Romanesco unu
-revision 27
---
+*Romanesco unu
+
+*revision 27
+
 CORE
 --
 ADD
 
 * SLIDER
---
+
 * slider attraction
 * slider repulsion
 * slider alignement
@@ -343,20 +352,20 @@ ADD
 * option to change the minimum and maximum value for the slider
 
 * MIDI
-------
+
 * add option to change midi device
 
 * CAMERA
---------
+
 * Global view of your Prescene. Now when you don't use the camera to move or rotate you've a global view of the world.
 * Add slider to set your camera.
 
 * LIGHT
--------
+
 * add an ambient light
 
 ** CLASS
---------
+
 * class canvas
 * class Vec2, Vec3, Vec4, Vec5
 	    this class is close of PVector :
@@ -370,12 +379,12 @@ ADD
 	    you can copy your PVector to Vec, create Vec directly from your PVector.
 
 
-** VOID
--------
+VOID
+
 * void camaieu
 
-** SAVE
--------
+SAVE
+
 * Now you can save you Scene setting, not only you Controler setting. And it's very big step.
 save
 > CTRL + S 			> save on the current save Scene setting
@@ -451,11 +460,10 @@ CHANGE OBJ
 * Webcam: add beat reactivity
 * Image: change shortcup to anchor point
 
-/// BUG FIXE OBJ
+BUG FIXE OBJ
 * Arbre : fix bug size when there is no sound
 
 /// END OBJECT ///
-------------------
 
 
 
@@ -472,9 +480,11 @@ CHANGE OBJ
 
 
 
-Romanesco unu
-revision 26
---
+
+*Romanesco unu
+
+*revision 26
+
 ADD
 --
 * void primitive(int x, int y, int radius, int summits) to create regulare polygone with "n" summits

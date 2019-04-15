@@ -1,7 +1,7 @@
 /**
 * Variable controller
 * 2014-2019
-* v 0.4.0
+* v 0.5.0
 */
 
 void set_design() {
@@ -24,7 +24,7 @@ void set_design_structure() {
   marge = 10;
 
   int width_inside = width -(2*marge);
-  grid_col = new int[12];
+  grid_col = new int[15];
   col_width = width_inside/grid_col.length;
   grid_col[0] = marge;
   for(int i = 1 ; i < grid_col.length ; i++) {
@@ -50,6 +50,7 @@ void set_design_structure() {
   set_design_structure_background(1);
   set_design_structure_light(1);
   set_design_structure_filter(1);
+  set_design_structure_mix(1);
   set_design_structure_sound(1);
   set_design_structure_setting(4);
 
@@ -71,7 +72,7 @@ void set_design_structure_background(int rank) {
 
 
 void set_design_structure_setting(int rank) {
-  int px = grid_col[9];
+  int px = grid_col[12];
   int py = pos_y_menu_general_content +(rank *spacing_slider);
   dropdown_setting_pos = ivec2(px,py);
   int sx = 100;
@@ -85,7 +86,7 @@ void set_design_structure_setting(int rank) {
 void set_design_structure_camera(int rank) {
   slider_width_camera = 100;
   slider_height_camera = 8;
-  offset_camera_x = grid_col[9];
+  offset_camera_x = grid_col[12];
   offset_camera_y = pos_y_menu_general_content +(rank *spacing_slider);
 }
 
@@ -93,7 +94,7 @@ void set_design_structure_camera(int rank) {
 void set_design_structure_sound_setting(int rank) {
   slider_width_sound_setting = 100;
   slider_height_sound_setting = 8;
-  offset_sound_setting_x = grid_col[9];
+  offset_sound_setting_x = grid_col[12];
   offset_sound_setting_y = pos_y_menu_general_content +(rank *spacing_slider);
 }
 
@@ -101,22 +102,29 @@ void set_design_structure_sound_setting(int rank) {
 void set_design_structure_filter(int rank) {
   slider_width_filter = 100;
   slider_height_filter = 8;
-  offset_filter_x = grid_col[3];
-  offset_filter_y = pos_y_menu_general_content +(rank *spacing_slider);
+  offset_fx_x = grid_col[3];
+  offset_fx_y = pos_y_menu_general_content +(rank *spacing_slider);
+}
+
+void set_design_structure_mix(int rank) {
+  slider_width_fx_mix = 100;
+  slider_height_fx_mix = 8;
+  offset_fx_mix_x = grid_col[6];
+  offset_fx_mix_y = pos_y_menu_general_content +(rank *spacing_slider);
 }
 
 
 void set_design_structure_light(int rank) {
   slider_width_light = 100;
   slider_height_light = 8;
-  offset_light_x = grid_col[6];
+  offset_light_x = grid_col[9];
   offset_light_y = pos_y_menu_general_content +(rank *spacing_slider);
 }
 
 void set_design_structure_sound(int rank) {
   slider_width_sound = 100;
   slider_height_sound = 8;
-  offset_sound_x = grid_col[9];
+  offset_sound_x = grid_col[12];
   offset_sound_y = pos_y_menu_general_content +(rank *spacing_slider);
 }
 
@@ -309,7 +317,8 @@ void set_console() {
   set_console_general();
 
   set_console_slider_background(ivec2(offset_background_x,offset_background_y),ivec2(slider_width_background, slider_height_background));
-  set_console_slider_fx(ivec2(offset_filter_x,offset_filter_y),ivec2(slider_width_filter, slider_height_filter));
+  set_console_slider_fx(ivec2(offset_fx_x,offset_fx_y),ivec2(slider_width_filter, slider_height_filter));
+  set_console_slider_mix(ivec2(offset_fx_mix_x,offset_fx_mix_y),ivec2(slider_width_fx_mix, slider_height_fx_mix));
   set_console_slider_light(ivec2(offset_light_x,offset_light_y),ivec2(slider_width_light, slider_height_light));
   set_console_sound(ivec2(offset_sound_x,offset_sound_y),ivec2(slider_width_sound, slider_height_sound));
   set_console_slider_sound_setting(ivec2(offset_sound_setting_x,offset_sound_setting_y),ivec2(slider_width_sound_setting, slider_height_sound_setting));
@@ -389,23 +398,26 @@ void set_console_media_bar(int start_x) {
 
 
 void set_console_menu_bar() {
-  num_dd_menu_bar = 3;
+  num_dd_menu_bar = 4;
   pos_y_dd_menu_bar = 70;
   pos_x_dd_menu_bar = new int[num_dd_menu_bar];
-  pos_x_dd_menu_bar[0] = grid_col[0];
-  pos_x_dd_menu_bar[1] = grid_col[3];
-  pos_x_dd_menu_bar[2] = grid_col[6]; // font
+  pos_x_dd_menu_bar[0] = grid_col[0]; // background
+  pos_x_dd_menu_bar[1] = grid_col[3]; // fx
+  pos_x_dd_menu_bar[2] = grid_col[6]; // mix
+  pos_x_dd_menu_bar[3] = grid_col[12]; // font
 
   
   width_dd_menu_bar = new int[num_dd_menu_bar];
-  width_dd_menu_bar[0] = 75;
-  width_dd_menu_bar[1] = 40;
-  width_dd_menu_bar[2] = 60; // font
+  width_dd_menu_bar[0] = 75; // background
+  width_dd_menu_bar[1] = 40; // fx
+  width_dd_menu_bar[2] = 40; // mix
+  width_dd_menu_bar[3] = 60; // font
 
   name_dd_menu_bar = new String[num_dd_menu_bar];
   name_dd_menu_bar[0] = "background";
   name_dd_menu_bar[1] = "filter";
-  name_dd_menu_bar[2] = "font";
+  name_dd_menu_bar[2] = "mix";
+  name_dd_menu_bar[3] = "font";
 }
 
 
@@ -450,7 +462,30 @@ void set_console_slider_fx(ivec2 pos, ivec2 size) {
   }
 }
 
+void set_console_slider_mix(ivec2 pos, ivec2 size) {
+  int offset_button_y = -int(size.y *1.5);
+  int x = pos.x;
+  int y = pos.y +offset_button_y;
+  // set a default button
 
+  for(int i = 0 ; i < NUM_BUTTON_MIX ; i++) {
+    button_fx_mix_is[i] = 0;
+    size_button_fx_mix[i] = ivec2(38,10);
+  }
+  // set position from size
+  int offset_x = 0;
+  for(int i = 0 ; i < NUM_BUTTON_MIX ; i++) {  
+    x = pos.x + offset_x;
+    offset_x += size_button_fx_mix[i].x ;
+    pos_button_fx_mix[i] = ivec2(x,y);
+  }
+
+  for(int i = 0 ; i < NUM_SLIDER_MIX ; i++) {
+    int offset_y = offset_y(pos.y, size.y, i);
+    pos_slider_fx_mix[i] = ivec2(pos.x, offset_y);
+    size_slider_fx_mix[i] = ivec2(size);
+  }
+}
 
 void set_console_slider_light(ivec2 pos, ivec2 size) {
   int offset_button_y = -int(size.y *1.5);

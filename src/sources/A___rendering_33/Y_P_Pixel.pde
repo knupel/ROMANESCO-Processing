@@ -1,13 +1,31 @@
 /**
 * CLASS PIX 
-* v 0.10.2
+* v 0.10.3
 * 2016-2018
 * Processing 3.5.3
-* Rope library 0.4.0
+* Rope library 0.6.2
 * @author @stanlepunk
 * @see https://github.com/StanLepunK/Pixel
 */
-
+static final String RANDOM = "RANDOM";
+@Deprecated
+static final String RANDOM_ZERO = "RANDOM ZERO";
+@Deprecated
+static final String RANDOM_RANGE = "RANDOM RANGE";
+@Deprecated
+static final String RANDOM_ROOT = "ROOT_RANDOM";
+@Deprecated
+static final String RANDOM_QUARTER ="QUARTER_RANDOM";
+@Deprecated
+static final String RANDOM_2 = "2_RANDOM";
+@Deprecated
+static final String RANDOM_3 = "3_RANDOM";
+@Deprecated
+static final String RANDOM_4 = "4_RANDOM";
+@Deprecated
+static final String RANDOM_X_A = "SPECIAL_A_RANDOM";
+@Deprecated
+static final String RANDOM_X_B = "SPECIAL_B_RANDOM";
 
 abstract class Pix implements rope.core.R_Constants {
   PApplet p5;

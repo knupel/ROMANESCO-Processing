@@ -60,7 +60,7 @@ boolean KEEP_BUTTON_ITEM_STATE = true;
 
 
 void settings() {
-  size(670,725);
+  size(810,725);
   size_window_ref = ivec2(width,height);
   set_design();
 }

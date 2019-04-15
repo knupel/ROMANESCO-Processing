@@ -1,15 +1,35 @@
 /**
-ROPE SCIENCE
-v 0.7.3
+* ROPE SCIENCE
+* v 0.7.4
 * Copyleft (c) 2014-2019 
-* Stan le Punk > http://stanlepunk.xyz/
 * @author @stanlepunk
 * @see https://github.com/StanLepunK/Rope_framework
-*
-the sketch method tab is not included on this repository if you need
-* @see https://github.com/StanLepunK/Old_code/tree/master/Science_rope_2017_12_8
 * Processing 3.5.3
 */
+
+
+
+
+/**
+* check if int number is prime number
+*/
+boolean is_prime(int n) {
+  if(n == 2) {
+    return true;
+  } else if (n%2==0) {
+    return false;
+  } else {
+    for(int i=3; i*i<=n ; i+=2) {
+      if(n%i==0) {
+        return false;
+      }
+    }
+    return true;
+  } 
+}
+
+
+
 
 /**
 Gaussian randomize
