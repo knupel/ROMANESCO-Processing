@@ -8,6 +8,12 @@
 * 
 
 
+*UTIL
+
+void print_debug(OBject... parameter_to_print)
+> work when the Constant DEBUG_MODE is true;
+
+
 *MAIN METHOD
 
 void setup()
