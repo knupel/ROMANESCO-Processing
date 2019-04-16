@@ -3,6 +3,8 @@
 * 2016-2019
 * v 1.2.2
 */
+boolean fx_filter_is_done = false;
+boolean fx_mix_is_done = false;
 void rendering() {
   boolean show_is = true;
   // setting display
@@ -15,25 +17,53 @@ void rendering() {
 
   // display
   if(show_is) {
+    fx_filter_is_done = false;
+    fx_mix_is_done = false;
     rendering_background(USE_LAYER,0);
-
-    post_mix_before();
-
-    if(draw_fx_before_rendering_is()) {
-      post_fx();
-    }
+    println("FX",frameCount);
+    pre_fx();
     rendering_item_3D(USE_LAYER,1);
     rendering_item_2D(USE_LAYER,1);
-    if(!draw_fx_before_rendering_is()) {
-      post_fx();
-    }
+    pre_fx();
 
-    post_mix_after();
+    fx_mix_after();
 
     rendering_info(USE_LAYER);
   } else {
     rendering_curtain(USE_LAYER);   
   }
+}
+
+/**
+* This method is used to choice when make a copy of Image to create the temp effect
+*/
+
+void pre_fx() {
+    // FX MIX
+  if(!draw_fx_mix_before_rendering_is() && !fx_mix_is_done) {
+    println("MIX",frameCount);
+    fx_mix_is_done = true;
+    
+    fx_mix_before();
+  } else if(!fx_mix_is_done) {
+    println("MIX",frameCount);
+    fx_mix_is_done = true;
+    fx_mix_before();
+  }
+
+  // FX FILTER
+  if(!draw_fx_filter_before_rendering_is() && !fx_filter_is_done) {
+    fx_filter_is_done = true;
+    println("FILTER",frameCount,draw_fx_filter_before_rendering_is());
+    fx_filter();
+  } else if(!fx_filter_is_done) {
+    fx_filter_is_done = true;
+    println("FILTER",frameCount,draw_fx_filter_before_rendering_is());
+    fx_filter();
+  }
+
+  // FX MIX
+  
 }
 
 

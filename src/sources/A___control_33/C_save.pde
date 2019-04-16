@@ -108,15 +108,15 @@ void save_info_slider() {
   }
 
   // FX
-  for (int i = start ; i < NUM_SLIDER_FX ; i++) {
-    cropinfo_slider_fx[i].set_value(slider_adj_fx[i].get(0));
-    cropinfo_slider_fx[i].set_min(slider_adj_fx[i].get_min_norm());
-    cropinfo_slider_fx[i].set_max(slider_adj_fx[i].get_max_norm());
-    set_data_slider(i,cropinfo_slider_fx[i],"Slider fx");
+  for (int i = start ; i < NUM_SLIDER_FX_FILTER ; i++) {
+    cropinfo_slider_fx_filter[i].set_value(slider_adj_fx_filter[i].get(0));
+    cropinfo_slider_fx_filter[i].set_min(slider_adj_fx_filter[i].get_min_norm());
+    cropinfo_slider_fx_filter[i].set_max(slider_adj_fx_filter[i].get_max_norm());
+    set_data_slider(i,cropinfo_slider_fx_filter[i],"Slider filter");
   }
 
   // MIX
-  for (int i = start ; i < NUM_SLIDER_MIX ; i++) {
+  for (int i = start ; i < NUM_SLIDER_FX_MIX ; i++) {
     cropinfo_slider_fx_mix[i].set_value(slider_adj_fx_mix[i].get(0));
     cropinfo_slider_fx_mix[i].set_min(slider_adj_fx_mix[i].get_min_norm());
     cropinfo_slider_fx_mix[i].set_max(slider_adj_fx_mix[i].get_max_norm());

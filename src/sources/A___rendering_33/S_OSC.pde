@@ -668,7 +668,7 @@ void receive_data_menu_bar(OscMessage receive, int in) {
   // reset button alert
   reset_camera_button_alert_is(to_bool(receive,1+in));
   reset_item_on_button_alert_is(to_bool(receive,2+in));
-  reset_fx_button_alert_is(to_bool(receive,3+in));
+  reset_fx_filter_button_alert_is(to_bool(receive,3+in));
   // misc
   birth_button_alert_is(to_bool(receive,4+in));
   dimension_button_alert_is(to_bool(receive,5+in));
@@ -683,17 +683,9 @@ void receive_data_dd_media(OscMessage receive, int in) {
 
 void receive_data_dd_menu(OscMessage receive, int in) {
   which_shader = receive.get(0+in).intValue(); // shader
-  which_fx = receive.get(1+in).intValue(); // filter
-  which_mix = receive.get(2+in).intValue(); // mix
+  which_fx_filter = receive.get(1+in).intValue(); // filter
+  which_fx_mix = receive.get(2+in).intValue(); // mix
   select_font(receive.get(3+in).intValue()); // font
-
-  print_debug("void receive_data_dd_menu()",receive.get(0+in).intValue(),receive.get(1+in).intValue(),receive.get(2+in).intValue(),receive.get(3+in).intValue());
-  
-  /* 
-  if(DEBUG_MODE) {
-    println("void receive_data_dd_menu()",receive.get(0+in).intValue(),receive.get(1+in).intValue(),receive.get(2+in).intValue(),receive.get(3+in).intValue());
-  }
-  */
 }
 
 
@@ -703,8 +695,8 @@ void receive_data_general_button(OscMessage receive, int in) {
   int target = 0;
   background_button_is(to_bool(receive,target+in));
   target++;
-  for(int i = 0 ; i < fx_button_is.length ; i++) {
-    fx_button_is(i,to_bool(receive,target+in));
+  for(int i = 0 ; i < fx_filter_button_is.length ; i++) {
+    fx_filter_button_is(i,to_bool(receive,target+in));
     target++;
   }
   for(int i = 0 ; i < fx_mix_button_is.length ; i++) {
@@ -733,11 +725,11 @@ void receive_data_general_slider(OscMessage receive, int in, int out) {
   int in_background = in ;
   int out_background = in_background +NUM_MOLETTE_BACKGROUND;
 
-  int in_fx =  out_background;
-  int out_fx = in_fx +NUM_MOLETTE_FX;
+  int in_fx_filter =  out_background;
+  int out_fx_filter = in_fx_filter +NUM_MOLETTE_FX_FILTER;
 
-  int in_fx_mix =  out_fx;
-  int out_fx_mix = in_fx_mix +NUM_MOLETTE_MIX;
+  int in_fx_mix =  out_fx_filter;
+  int out_fx_mix = in_fx_mix +NUM_MOLETTE_FX_MIX;
 
   int in_light =  out_fx_mix;
   int out_light = in_light +NUM_MOLETTE_LIGHT;
@@ -754,8 +746,8 @@ void receive_data_general_slider(OscMessage receive, int in, int out) {
   for (int i = in ; i < out ; i++) {
     if(i < out_background) {
       value_slider_background[i -in] = receive.get(i).intValue();
-    } else if(i >= in_fx && i < out_fx) {
-      value_slider_fx[i -in_fx] = receive.get(i).intValue();
+    } else if(i >= in_fx_filter && i < out_fx_filter) {
+      value_slider_fx_filter[i -in_fx_filter] = receive.get(i).intValue();
     } else if(i >= in_fx_mix && i < out_fx_mix) {
       value_slider_fx_mix[i -in_fx_mix] = receive.get(i).intValue();
     } else if(i >= in_light && i < out_light) {

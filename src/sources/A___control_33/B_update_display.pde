@@ -251,8 +251,8 @@ SLIDER UPDATE and DISPLAY
 */
 void show_slider_controller() {
   show_slider_background();
-  show_slider_filter();
-  show_slider_mix();
+  show_slider_fx_filter();
+  show_slider_fx_mix();
   show_slider_light();
   show_slider_sound();
   if(dropdown_setting.get_selection() == 0) {
@@ -411,14 +411,14 @@ void show_slider_background() {
 
 
 
-void show_slider_filter() {
-  boolean multi_fx_is = false;
-  if(button_fx[2].is()) {
-    multi_fx_is = true;
-    if(button_fx[2].get_label().equals("EXTRA") && frameCount%120 == 0) {  
+void show_slider_fx_filter() {
+  boolean multi_fx_filter_is = false;
+  if(button_fx_filter[2].is()) {
+    multi_fx_filter_is = true;
+    if(button_fx_filter[2].get_label().equals("EXTRA") && frameCount%120 == 0) {  
       load_dial_scene_is(true);
-    } else if(!button_fx[2].get_label().equals("EXTRA")) {
-      printErr("method show_slider_filter(): EXTRA is waiting, but the result",button_fx[2].get_label(),"check the code");
+    } else if(!button_fx_filter[2].get_label().equals("EXTRA")) {
+      printErr("method show_slider_filter(): EXTRA is waiting, but the result",button_fx_filter[2].get_label(),"check the code");
     }
   }
   
@@ -426,23 +426,23 @@ void show_slider_filter() {
   String [] list = null ;
   int target = dd_menu_bar[1].get_selection();
   String which_slider = shader_fx_slider[target];
-  if(!multi_fx_is) {
+  if(!multi_fx_filter_is) {
     list = split(which_slider,"/");
   } else {
-    list = split(slider_fx_active_list,"/");
+    list = split(slider_fx_filter_active_list,"/");
   }
   // show
-  for (int i = 0 ; i < NUM_SLIDER_FX ; i++) {
+  for (int i = 0 ; i < NUM_SLIDER_FX_FILTER ; i++) {
     if(list.length > 0) {
       for(int k = 0 ; k < list.length ; k++) {
-        if(list != null && list[k].equals(slider_adj_fx[i].get_name())) {
+        if(list != null && list[k].equals(slider_adj_fx_filter[i].get_name())) {
           if(!dropdown_is()) {
-            update_slider(slider_adj_fx[i],cropinfo_slider_fx);
+            update_slider(slider_adj_fx_filter[i],cropinfo_slider_fx_filter);
           }    
-          slider_adj_fx[i].show_structure();
-          slider_adj_fx[i].show_adj();
-          slider_adj_fx[i].show_molette();
-          slider_adj_fx[i].show_label();
+          slider_adj_fx_filter[i].show_structure();
+          slider_adj_fx_filter[i].show_adj();
+          slider_adj_fx_filter[i].show_molette();
+          slider_adj_fx_filter[i].show_label();
         }
       }      
     } 
@@ -450,7 +450,7 @@ void show_slider_filter() {
 }
 
 
-void show_slider_mix() {
+void show_slider_fx_mix() {
 
   // select which slider must be display
   String [] list = null ;
@@ -459,7 +459,7 @@ void show_slider_mix() {
   list = split(which_slider,"/");
 
   // show
-  for (int i = 0 ; i < NUM_SLIDER_MIX ; i++) {
+  for (int i = 0 ; i < NUM_SLIDER_FX_MIX ; i++) {
     if(list.length > 0) {
       for(int k = 0 ; k < list.length ; k++) {
         if(list != null && list[k].equals(slider_adj_fx_mix[i].get_name())) {
@@ -570,11 +570,11 @@ void pass_slider_general_to_osc() {
     pass_slider_to_osc_arg(slider_adj_background[i], value_slider_background);
   }
 
-  for (int i = 0 ; i < NUM_SLIDER_FX ; i++) {    
-    pass_slider_to_osc_arg(slider_adj_fx[i], value_slider_fx);
+  for (int i = 0 ; i < NUM_SLIDER_FX_FILTER ; i++) {    
+    pass_slider_to_osc_arg(slider_adj_fx_filter[i], value_slider_fx_filter);
   }
 
-  for (int i = 0 ; i < NUM_SLIDER_MIX ; i++) {    
+  for (int i = 0 ; i < NUM_SLIDER_FX_MIX ; i++) {    
     pass_slider_to_osc_arg(slider_adj_fx_mix[i], value_slider_fx_mix);
   }
 
@@ -1002,25 +1002,29 @@ void init_button_general() {
 check button
 */
 void check_button() {
-  check_button_general() ;
-  check_button_item_console() ;
-  check_button_inventory() ;
+  check_button_general();
+  check_button_item_console();
+  check_button_inventory();
 }
 
 void check_button_general() {
   /* Check to send by OSC to Scene and Prescene */
-  if(button_bg.is()) button_background_is = 1 ; else button_background_is = 0 ;
-  // FX
-  for(int i = 0 ; i < NUM_BUTTON_FX ; i++) {
-    if(button_fx[i].is()) {
-      button_fx_is[i] = 1; 
+  if(button_bg.is()) {
+    button_background_is = 1; 
+  } else {
+    button_background_is = 0;
+  }
+  // FX FILTER
+  for(int i = 0 ; i < NUM_BUTTON_FX_FILTER ; i++) {
+    if(button_fx_filter[i].is()) {
+      button_fx_filter_is[i] = 1; 
     } else {
-      button_fx_is[i] = 0;
+      button_fx_filter_is[i] = 0;
     }
   }
   
-  // MIX
-  for(int i = 0 ; i < NUM_BUTTON_MIX ; i++) {
+  // FX MIX
+  for(int i = 0 ; i < NUM_BUTTON_FX_MIX ; i++) {
     if(button_fx_mix[i].is()) {
       button_fx_mix_is[i] = 1; 
     } else {
@@ -1077,11 +1081,11 @@ void check_button_general() {
 void mousePressed_button_general() {
   if(button_bg.inside()) button_bg.switch_is();
 
-  for(int i = 0 ; i < NUM_BUTTON_FX ; i++) {
-    if(button_fx[i].inside()) button_fx[i].switch_is();
+  for(int i = 0 ; i < NUM_BUTTON_FX_FILTER ; i++) {
+    if(button_fx_filter[i].inside()) button_fx_filter[i].switch_is();
   }
 
-  for(int i = 0 ; i < NUM_BUTTON_MIX ; i++) {
+  for(int i = 0 ; i < NUM_BUTTON_FX_MIX ; i++) {
     if(button_fx_mix[i].inside()) button_fx_mix[i].switch_is();
   }
 
@@ -1202,23 +1206,30 @@ void display_button_general() {
   }
   button_bg.show_label();
 
-  // FX
-  if(button_fx[0].is()) {
-    button_fx[0].set_label("FX ON");
+  // FX FILTER
+  if(button_fx_filter[0].is()) {
+    button_fx_filter[0].set_label("FX ON");
   } else {
-    button_fx[0].set_label("FX OFF");
+    button_fx_filter[0].set_label("FX OFF");
   }
-  for(int i = 0 ; i < NUM_BUTTON_FX ; i++) {
-    button_fx[i].show_label();
+  for(int i = 0 ; i < NUM_BUTTON_FX_FILTER ; i++) {
+    button_fx_filter[i].show_label();
   }
 
-  // MIX
+  // FX MIX
   if(button_fx_mix[0].is()) {
     button_fx_mix[0].set_label("MIX ON");
   } else {
     button_fx_mix[0].set_label("MIX OFF");
   }
-  for(int i = 0 ; i < NUM_BUTTON_MIX ; i++) {
+
+  if(button_fx_mix[1].is()) {
+    button_fx_mix[1].set_label("FULL");
+  } else {
+    button_fx_mix[1].set_label("HALF");
+  }
+
+  for(int i = 0 ; i < NUM_BUTTON_FX_MIX ; i++) {
     button_fx_mix[i].show_label();
   }
 
@@ -1279,7 +1290,7 @@ void update_button_general() {
                       button_light_ambient,button_light_ambient_action,
                       button_light_1,button_light_1_action,
                       button_light_2,button_light_2_action);
-  update_button_local(button_fx);
+  update_button_local(button_fx_filter);
   update_button_local(button_fx_mix);
   update_button_local(button_transient);
 }

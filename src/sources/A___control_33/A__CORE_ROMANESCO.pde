@@ -2,7 +2,7 @@
 * Core Romanesco
 * common code for CONTROLLER and RENDERER
 * 2018-2019
-* v 0.4.3
+* v 0.5.1
 * Processing 3.5.3
 * Rope library 0.6.2
 */
@@ -22,28 +22,28 @@ int NUM_BUTTON_RESET = 3;
 int NUM_TOP_BUTTON = NUM_BUTTON_MISC + NUM_BUTTON_RESET;
 
 int NUM_BUTTON_BACKGROUND = 1;
-int NUM_BUTTON_FX = 3;
-int NUM_BUTTON_MIX = 1;
+int NUM_BUTTON_FX_FILTER = 3;
+int NUM_BUTTON_FX_MIX = 2;
 int NUM_BUTTON_LIGHT = 6;
 int NUM_BUTTON_TRANSIENT = 4;
 int NUM_MID_BUTTON = NUM_BUTTON_BACKGROUND 
-                      + NUM_BUTTON_FX 
-                      + NUM_BUTTON_MIX
+                      + NUM_BUTTON_FX_FILTER 
+                      + NUM_BUTTON_FX_MIX
                       + NUM_BUTTON_LIGHT 
                       + NUM_BUTTON_TRANSIENT;
 
 int NUM_BUTTON_GENERAL = NUM_TOP_BUTTON + NUM_MID_BUTTON;
 
 int NUM_SLIDER_BACKGROUND = 14;
-int NUM_SLIDER_FX = 14;
-int NUM_SLIDER_MIX = 6;
+int NUM_SLIDER_FX_FILTER = 14;
+int NUM_SLIDER_FX_MIX = 6;
 int NUM_SLIDER_LIGHT = 9;
 int NUM_SLIDER_SOUND = 2;
 int NUM_SLIDER_SOUND_SETTING = 5; // 5
 int NUM_SLIDER_CAMERA = 10;
 
 int NUM_SLIDER_GENERAL  = NUM_SLIDER_BACKGROUND 
-                        + NUM_SLIDER_FX 
+                        + NUM_SLIDER_FX_FILTER 
                         + NUM_SLIDER_LIGHT 
                         + NUM_SLIDER_SOUND 
                         + NUM_SLIDER_SOUND_SETTING 
@@ -51,16 +51,16 @@ int NUM_SLIDER_GENERAL  = NUM_SLIDER_BACKGROUND
 
 // for the case where the slider is a multislider, important for the sending and receiving OSC data
 int NUM_MOLETTE_BACKGROUND = NUM_SLIDER_BACKGROUND;
-int NUM_MOLETTE_FX = NUM_SLIDER_FX;
-int NUM_MOLETTE_MIX = NUM_SLIDER_MIX;
+int NUM_MOLETTE_FX_FILTER = NUM_SLIDER_FX_FILTER;
+int NUM_MOLETTE_FX_MIX = NUM_SLIDER_FX_MIX;
 int NUM_MOLETTE_LIGHT = NUM_SLIDER_LIGHT;
 int NUM_MOLETTE_SOUND = NUM_SLIDER_SOUND;
 int NUM_MOLETTE_SOUND_SETTING = 11; // here the value is different because it's slider with few molette
 int NUM_MOLETTE_CAMERA = NUM_SLIDER_CAMERA;
 
 int NUM_MOLETTE_GENERAL = NUM_MOLETTE_BACKGROUND 
-                        + NUM_MOLETTE_FX 
-                        + NUM_MOLETTE_MIX 
+                        + NUM_MOLETTE_FX_FILTER 
+                        + NUM_MOLETTE_FX_MIX 
                         + NUM_MOLETTE_LIGHT 
                         + NUM_MOLETTE_SOUND 
                         + NUM_MOLETTE_SOUND_SETTING 

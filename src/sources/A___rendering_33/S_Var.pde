@@ -118,12 +118,12 @@ int BUTTON_ITEM_CONSOLE = 4;
 
 // button
 boolean [] transient_button_is;
-boolean [] fx_button_is = new boolean[NUM_BUTTON_FX];
-boolean [] fx_mix_button_is = new boolean[NUM_BUTTON_MIX];
+boolean [] fx_filter_button_is = new boolean[NUM_BUTTON_FX_FILTER];
+boolean [] fx_mix_button_is = new boolean[NUM_BUTTON_FX_MIX];
 boolean curtain_button_is;
 boolean reset_camera_button_is;
 boolean reset_item_on_button_is;
-boolean reset_fx_button_is;
+boolean reset_fx_filter_button_is;
 boolean birth_button_is;
 boolean dimension_button_is;
 boolean background_button_is;
@@ -132,8 +132,8 @@ boolean light_1_button_is,light_1_action_button_is;
 boolean light_2_button_is,light_2_action_button_is;
 
 int which_shader;
-int which_fx; 
-int which_mix; 
+int which_fx_filter; 
+int which_fx_mix; 
 
 // media
 int [] which_bitmap;
@@ -149,8 +149,8 @@ Movie[] movie;
 //SLIDER
 // becareful if the number of MISC SLIDERS is upper than OBJ SLIDER, that can be a problem in the future.
 float value_slider_background [] = new float [NUM_MOLETTE_BACKGROUND];
-float value_slider_fx [] = new float [NUM_MOLETTE_FX];
-float value_slider_fx_mix [] = new float [NUM_MOLETTE_MIX];
+float value_slider_fx_filter [] = new float [NUM_MOLETTE_FX_FILTER];
+float value_slider_fx_mix [] = new float [NUM_MOLETTE_FX_MIX];
 float value_slider_light [] = new float [NUM_MOLETTE_LIGHT];
 float value_slider_sound [] = new float [NUM_MOLETTE_SOUND];
 float value_slider_sound_setting [] = new float [NUM_MOLETTE_SOUND_SETTING];
@@ -793,8 +793,8 @@ boolean reset_item_on_button_alert_is() {
   return reset_item_on_button_is;
 }
 
-boolean reset_fx_button_alert_is() {
-  return reset_fx_button_is;
+boolean reset_fx_filter_button_alert_is() {
+  return reset_fx_filter_button_is;
 }
 
 // misc
@@ -817,8 +817,8 @@ void reset_item_on_button_alert_is(boolean is) {
   reset_item_on_button_is = is;
 }
 
-void reset_fx_button_alert_is(boolean is) {
-  reset_fx_button_is = is;
+void reset_fx_filter_button_alert_is(boolean is) {
+  reset_fx_filter_button_is = is;
 }
 
 // misc
@@ -844,8 +844,8 @@ void reset_button_alert() {
     button_alert_is = false;
   }
 
-  if(reset_fx_button_alert_is() && button_alert_is) {
-    reset_fx_button_alert_is(false);
+  if(reset_fx_filter_button_alert_is() && button_alert_is) {
+    reset_fx_filter_button_alert_is(false);
     button_alert_is = false;
   }
 
@@ -861,7 +861,7 @@ void reset_button_alert() {
 
   if(reset_camera_button_alert_is() 
   || reset_item_on_button_alert_is() 
-  || reset_fx_button_alert_is() 
+  || reset_fx_filter_button_alert_is() 
   || birth_button_alert_is() 
   || dimension_button_alert_is()) {
     button_alert_is = true;
@@ -913,8 +913,8 @@ boolean transient_button_is(int index) {
   return transient_button_is[index];
 }
 
-boolean fx_button_is(int index) {
-  return fx_button_is[index];
+boolean fx_filter_button_is(int index) {
+  return fx_filter_button_is[index];
 }
 
 boolean fx_mix_button_is(int index) {
@@ -961,8 +961,8 @@ void transient_button_is(int index, boolean is) {
   transient_button_is[index] = is;
 }
 
-void fx_button_is(int index, boolean is) {
-  fx_button_is[index] = is;
+void fx_filter_button_is(int index, boolean is) {
+  fx_filter_button_is[index] = is;
 }
 
 void fx_mix_button_is(int index, boolean is) {

@@ -81,13 +81,13 @@ void save_dial_scene(String path) {
 
   // slider fx
   String list_slider = "";
-  String list_fx = "";
-  if(active_fx != null && active_fx.size() > 0) {  
-    for(Integer i : active_fx) {
-      int target = i - num_special_fx;
+  String list_fx_filter = "";
+  if(active_fx_filter != null && active_fx_filter.size() > 0) {  
+    for(Integer i : active_fx_filter) {
+      int target = i - num_special_fx_filter;
       if(target >= 0) {
-        String [] names = get_fx(fx_manager,target).get_name_slider();
-        list_fx += get_fx(fx_manager,target).get_name() + "/";
+        String [] names = get_fx(fx_filter_manager,target).get_name_slider();
+        list_fx_filter += get_fx(fx_filter_manager,target).get_name() + "/";
         if(names != null && names.length > 0) {
           for(int k = 0 ; k < names.length ; k++) {
             list_slider += names[k] + "/";    
@@ -96,7 +96,7 @@ void save_dial_scene(String path) {
       }
     }
   }
-  table_row.setString("fx active",list_fx);
+  table_row.setString("fx active",list_fx_filter);
   table_row.setString("fx slider active",list_slider);
   saveTable(save_dial,path+"/dialogue_from_scene.csv");
 }

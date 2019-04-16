@@ -1,7 +1,7 @@
 /**
 * LOAD 
 * setting, save....
-* v 2.12.0
+* v 2.12.1
 * 2013-2019
 */
 void load_setup() {
@@ -96,13 +96,13 @@ MANAGE DIALOGUE
 v 0.0.5
 */
 boolean load_dial_scene_is = false;
-String slider_fx_active_list = "";
+String slider_fx_filter_active_list = "";
 void load_dial_scene() {
   if(load_dial_scene_is) {
   // if(load_dial_scene_is && frameCount%240 == 0) {
     Table dial_table = loadTable(preference_path +"dialogue_from_scene.csv","header");
     TableRow row = dial_table.getRow(0);
-    slider_fx_active_list = row.getString("fx slider active");
+    slider_fx_filter_active_list = row.getString("fx slider active");
     load_dial_scene_is(false);
   }
 }
@@ -132,8 +132,8 @@ void load_data_GUI(String path) {
   Table table = loadTable(path, "header");
   // create the var info for the slider we need
   int count_slider_background = 0;
-  int count_slider_fx = 0;
-  int count_slider_mix = 0;
+  int count_slider_fx_filter = 0;
+  int count_slider_fx_mix = 0;
   int count_slider_light = 0;
   int count_slider_sound = 0;
   int count_slider_sound_setting = 0;
@@ -147,23 +147,22 @@ void load_data_GUI(String path) {
     else if(s.equals("Slider item c")) count_slider_item++;
     else if(s.equals("Slider item d")) count_slider_item++;
     else if(s.equals("Slider background")) count_slider_background++;
-    else if(s.equals("Slider fx")) count_slider_fx++; 
-    else if(s.equals("Slider mix")) count_slider_mix++; 
+    else if(s.equals("Slider fx filter")) count_slider_fx_filter++; 
+    else if(s.equals("Slider fx mix")) count_slider_fx_mix++; 
     else if(s.equals("Slider light")) count_slider_light++; 
     else if(s.equals("Slider sound")) count_slider_sound++;
     else if(s.equals("Slider sound setting")) count_slider_sound_setting++;  
     else if(s.equals("Slider camera")) count_slider_camera++; 
   }
   println("sliders background",count_slider_background);
-  println("sliders fx",count_slider_fx);
-  println("sliders mix",count_slider_mix);
+  println("sliders fx filter",count_slider_fx_filter);
+  println("sliders fx mix",count_slider_fx_mix);
   println("sliders light",count_slider_light);
   println("sliders sound",count_slider_sound);
   println("sliders sound setting",count_slider_sound_setting);
   println("sliders camera",count_slider_camera);
   println("sliders item",count_slider_item);
 
-  // info_slider_general = new Vec5 [count_slider_general];
   info_button_general = new ivec3 [NUM_BUTTON_GENERAL];
   for(int i = 0 ; i < info_button_general.length ; i++) {
     info_button_general[i] = ivec3();
@@ -180,22 +179,22 @@ void load_data_GUI(String path) {
   }
   
   // FILTER FX
-  if(count_slider_fx != NUM_SLIDER_FX) {
-    count_slider_fx = NUM_SLIDER_FX;
-    printErr("info save SLIDER FX is not the same than constant NUM_SLIDER_FX, the constast has used instead, to prevent error");
+  if(count_slider_fx_filter != NUM_SLIDER_FX_FILTER) {
+    count_slider_fx_filter = NUM_SLIDER_FX_FILTER;
+    printErr("info save SLIDER FX is not the same than constant NUM_SLIDER_FX_FILTER, the constast has used instead, to prevent error");
   }
-  cropinfo_slider_fx = new Cropinfo[count_slider_fx];
-  for(int i = 0 ; i < count_slider_fx ; i++) {
-    cropinfo_slider_fx[i] = new Cropinfo();
+  cropinfo_slider_fx_filter = new Cropinfo[count_slider_fx_filter];
+  for(int i = 0 ; i < count_slider_fx_filter ; i++) {
+    cropinfo_slider_fx_filter[i] = new Cropinfo();
   }
 
   // MIX
-  if(count_slider_mix != NUM_SLIDER_MIX) {
-    count_slider_mix = NUM_SLIDER_MIX;
-    printErr("info save SLIDER MIX is not the same than constant NUM_SLIDER_MIX, the constast has used instead, to prevent error");
+  if(count_slider_fx_mix != NUM_SLIDER_FX_MIX) {
+    count_slider_fx_mix = NUM_SLIDER_FX_MIX;
+    printErr("info save SLIDER MIX is not the same than constant NUM_SLIDER_FX_MIX, the constast has used instead, to prevent error");
   }
-  cropinfo_slider_fx_mix = new Cropinfo[count_slider_mix];
-  for(int i = 0 ; i < count_slider_mix ; i++) {
+  cropinfo_slider_fx_mix = new Cropinfo[count_slider_fx_mix];
+  for(int i = 0 ; i < count_slider_fx_mix ; i++) {
     cropinfo_slider_fx_mix[i] = new Cropinfo();
   }
   
@@ -295,9 +294,9 @@ void load_data_GUI(String path) {
 
 
 /**
-LOAD file
-v 2.1.0
-2014-2018
+* LOAD file
+* v 2.2.0
+* 2014-2019
 */
 void load_setting_controller(File selection) {
   if (selection != null) {
@@ -318,8 +317,8 @@ void load_saved_file_controller(String path) {
   int count_button_general = 0;
   int count_slider_general = 0;
   int count_slider_background = 0;
-  int count_slider_fx = 0;
-  int count_slider_mix = 0;
+  int count_slider_fx_filter = 0;
+  int count_slider_fx_mix = 0;
   int count_slider_light = 0;
   int count_slider_sound = 0;
   int count_slider_sound_setting = 0;
@@ -355,7 +354,17 @@ void load_saved_file_controller(String path) {
       count_button_general++;
     }
 
-    if(s.equals("Button fx")){ 
+    if(s.equals("Button fx filter")){ 
+      int IDbutton = row.getInt("ID button");
+      int IDmidi = row.getInt("ID midi");
+      int onOff = row.getInt("On Off");
+      if(count_button_general < info_button_general.length) {
+        info_button_general[count_button_general].set(IDbutton,IDmidi,onOff);
+      }
+      count_button_general++;
+    }
+
+    if(s.equals("Button fx mix")){ 
       int IDbutton = row.getInt("ID button");
       int IDmidi = row.getInt("ID midi");
       int onOff = row.getInt("On Off");
@@ -423,15 +432,15 @@ void load_saved_file_controller(String path) {
     }
 
     // slider FX
-    if(s.equals("Slider fx")) {
-      set_info_slider(row, "Slider fx", cropinfo_slider_fx[count_slider_fx]);
-      count_slider_fx++;
+    if(s.equals("Slider filter")) {
+      set_info_slider(row, "Slider filter", cropinfo_slider_fx_filter[count_slider_fx_filter]);
+      count_slider_fx_filter++;
     }  
 
     // slider MIX
     if(s.equals("Slider mix")) {
-      set_info_slider(row, "Slider mix", cropinfo_slider_fx_mix[count_slider_mix]);
-      count_slider_mix++;
+      set_info_slider(row, "Slider mix", cropinfo_slider_fx_mix[count_slider_fx_mix]);
+      count_slider_fx_mix++;
     } 
 
     // slider light
@@ -569,9 +578,14 @@ void set_slider_data_group() {
     update_slider(slider_adj_background[i],cropinfo_slider_fx_bg);
   }
 
-  for (int i = 0 ; i < NUM_SLIDER_FX ; i++) {
-    setting_data_slider(slider_adj_fx[i],cropinfo_slider_fx[i]);
-    update_slider(slider_adj_fx[i],cropinfo_slider_fx);
+  for (int i = 0 ; i < NUM_SLIDER_FX_FILTER ; i++) {
+    setting_data_slider(slider_adj_fx_filter[i],cropinfo_slider_fx_filter[i]);
+    update_slider(slider_adj_fx_filter[i],cropinfo_slider_fx_filter);
+  }
+
+  for (int i = 0 ; i < NUM_SLIDER_FX_MIX ; i++) {
+    setting_data_slider(slider_adj_fx_mix[i],cropinfo_slider_fx_mix[i]);
+    update_slider(slider_adj_fx_mix[i],cropinfo_slider_fx_mix);
   }
 
   for (int i = 0 ; i < NUM_SLIDER_LIGHT ; i++) {
@@ -639,10 +653,16 @@ void set_button_from_saved_file() {
   if(info_button_general[rank].z == 1.0) button_curtain.set_is(true); else button_curtain.set_is(false);
   button_curtain.set_id_midi((int)info_button_general[rank].y); 
   rank++ ;
-  // fx
-  for(int i = 0 ; i < NUM_BUTTON_FX; i++) {
-    if(info_button_general[rank].z == 1.0) button_fx[i].set_is(true); else button_fx[i].set_is(false);
-    button_fx[i].set_id_midi((int)info_button_general[rank].y); 
+  // FX FILTER
+  for(int i = 0 ; i < NUM_BUTTON_FX_FILTER; i++) {
+    if(info_button_general[rank].z == 1.0) button_fx_filter[i].set_is(true); else button_fx_filter[i].set_is(false);
+    button_fx_filter[i].set_id_midi((int)info_button_general[rank].y); 
+    rank++ ;
+  }
+
+  for(int i = 0 ; i < NUM_BUTTON_FX_MIX; i++) {
+    if(info_button_general[rank].z == 1.0) button_fx_mix[i].set_is(true); else button_fx_mix[i].set_is(false);
+    button_fx_mix[i].set_id_midi((int)info_button_general[rank].y); 
     rank++ ;
   }
   // light ambient
@@ -741,11 +761,11 @@ void apply_text_gui() {
         slider_background_name[k] = row.getString("col "+k);
       } 
     } else if(name.equals("slider filter")) {
-      for(int k = 0 ; k < NUM_SLIDER_FX ; k++) {
-        slider_fx_name[k] = row.getString("col "+k);
+      for(int k = 0 ; k < NUM_SLIDER_FX_FILTER ; k++) {
+        slider_fx_filter_name[k] = row.getString("col "+k);
       }
     } else if(name.equals("slider mix")) {
-      for(int k = 0 ; k < NUM_SLIDER_MIX ; k++) {
+      for(int k = 0 ; k < NUM_SLIDER_FX_MIX ; k++) {
         slider_fx_mix_name[k] = row.getString("col "+k);
       }
     } else if(name.equals("slider light")) {

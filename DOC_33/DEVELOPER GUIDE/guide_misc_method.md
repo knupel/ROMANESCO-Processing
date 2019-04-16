@@ -4,14 +4,16 @@
 * 2013-2019
 * v 2.1.0.33
 * Processing 3.5.3
-* Rope Library 0.5.1
+* Rope Library 0.6.2
 * 
 
 
 *UTIL
 
-void print_debug(OBject... parameter_to_print)
+void print_debug(Object... parameter_to_print)
 > work when the Constant DEBUG_MODE is true;
+
+
 
 
 *MAIN METHOD

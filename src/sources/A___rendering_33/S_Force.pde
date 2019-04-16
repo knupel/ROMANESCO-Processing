@@ -72,7 +72,7 @@ void init_dynamic_force_field() {
 
 
 void apply_force_field() {
-  if(FULL_RENDERING && (fx_button_is(0) || update_force_field_is())) {
+  if(FULL_RENDERING && (fx_filter_button_is(0) || update_force_field_is())) {
     update_force_field();
   }
   update_force_field_is(false);

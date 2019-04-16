@@ -49,8 +49,8 @@ void set_design_structure() {
   
   set_design_structure_background(1);
   set_design_structure_light(1);
-  set_design_structure_filter(1);
-  set_design_structure_mix(1);
+  set_design_structure_fx_filter(1);
+  set_design_structure_fx_mix(1);
   set_design_structure_sound(1);
   set_design_structure_setting(4);
 
@@ -99,14 +99,14 @@ void set_design_structure_sound_setting(int rank) {
 }
 
 
-void set_design_structure_filter(int rank) {
-  slider_width_filter = 100;
-  slider_height_filter = 8;
-  offset_fx_x = grid_col[3];
-  offset_fx_y = pos_y_menu_general_content +(rank *spacing_slider);
+void set_design_structure_fx_filter(int rank) {
+  slider_width_fx_filter = 100;
+  slider_height_fx_filter = 8;
+  offset_fx_filter_x = grid_col[3];
+  offset_fx_filter_y = pos_y_menu_general_content +(rank *spacing_slider);
 }
 
-void set_design_structure_mix(int rank) {
+void set_design_structure_fx_mix(int rank) {
   slider_width_fx_mix = 100;
   slider_height_fx_mix = 8;
   offset_fx_mix_x = grid_col[6];
@@ -317,8 +317,8 @@ void set_console() {
   set_console_general();
 
   set_console_slider_background(ivec2(offset_background_x,offset_background_y),ivec2(slider_width_background, slider_height_background));
-  set_console_slider_fx(ivec2(offset_fx_x,offset_fx_y),ivec2(slider_width_filter, slider_height_filter));
-  set_console_slider_mix(ivec2(offset_fx_mix_x,offset_fx_mix_y),ivec2(slider_width_fx_mix, slider_height_fx_mix));
+  set_console_slider_fx_filter(ivec2(offset_fx_filter_x,offset_fx_filter_y),ivec2(slider_width_fx_filter, slider_height_fx_filter));
+  set_console_slider_fx_mix(ivec2(offset_fx_mix_x,offset_fx_mix_y),ivec2(slider_width_fx_mix, slider_height_fx_mix));
   set_console_slider_light(ivec2(offset_light_x,offset_light_y),ivec2(slider_width_light, slider_height_light));
   set_console_sound(ivec2(offset_sound_x,offset_sound_y),ivec2(slider_width_sound, slider_height_sound));
   set_console_slider_sound_setting(ivec2(offset_sound_setting_x,offset_sound_setting_y),ivec2(slider_width_sound_setting, slider_height_sound_setting));
@@ -438,49 +438,49 @@ void set_console_slider_background(ivec2 pos, ivec2 size) {
 
 
 
-void set_console_slider_fx(ivec2 pos, ivec2 size) {
+void set_console_slider_fx_filter(ivec2 pos, ivec2 size) {
   int offset_button_y = -int(size.y *1.5);
   int x = pos.x;
   int y = pos.y +offset_button_y;
   // set a default button
-  for(int i = 0 ; i < NUM_BUTTON_FX ; i++) {
-    button_fx_is[i] = 0;
-    size_button_fx[i] = ivec2(38,10);
+  for(int i = 0 ; i < NUM_BUTTON_FX_FILTER ; i++) {
+    button_fx_filter_is[i] = 0;
+    size_button_fx_filter[i] = ivec2(38,10);
   }
   // set position from size
   int offset_x = 0;
-  for(int i = 0 ; i < NUM_BUTTON_FX ; i++) {  
+  for(int i = 0 ; i < NUM_BUTTON_FX_FILTER ; i++) {  
     x = pos.x + offset_x;
-    offset_x += size_button_fx[i].x ;
-    pos_button_fx[i] = ivec2(x,y);
+    offset_x += size_button_fx_filter[i].x ;
+    pos_button_fx_filter[i] = ivec2(x,y);
   }
 
-  for(int i = 0 ; i < NUM_SLIDER_FX ; i++) {
+  for(int i = 0 ; i < NUM_SLIDER_FX_FILTER ; i++) {
     int offset_y = offset_y(pos.y, size.y, i);
-    pos_slider_fx[i] = ivec2(pos.x, offset_y);
-    size_slider_fx[i] = ivec2(size);
+    pos_slider_fx_filter[i] = ivec2(pos.x, offset_y);
+    size_slider_fx_filter[i] = ivec2(size);
   }
 }
 
-void set_console_slider_mix(ivec2 pos, ivec2 size) {
+void set_console_slider_fx_mix(ivec2 pos, ivec2 size) {
   int offset_button_y = -int(size.y *1.5);
   int x = pos.x;
   int y = pos.y +offset_button_y;
   // set a default button
 
-  for(int i = 0 ; i < NUM_BUTTON_MIX ; i++) {
+  for(int i = 0 ; i < NUM_BUTTON_FX_MIX ; i++) {
     button_fx_mix_is[i] = 0;
-    size_button_fx_mix[i] = ivec2(38,10);
+    size_button_fx_mix[i] = ivec2(47,10);
   }
   // set position from size
   int offset_x = 0;
-  for(int i = 0 ; i < NUM_BUTTON_MIX ; i++) {  
+  for(int i = 0 ; i < NUM_BUTTON_FX_MIX ; i++) {  
     x = pos.x + offset_x;
-    offset_x += size_button_fx_mix[i].x ;
+    offset_x += size_button_fx_mix[i].x;
     pos_button_fx_mix[i] = ivec2(x,y);
   }
 
-  for(int i = 0 ; i < NUM_SLIDER_MIX ; i++) {
+  for(int i = 0 ; i < NUM_SLIDER_FX_MIX ; i++) {
     int offset_y = offset_y(pos.y, size.y, i);
     pos_slider_fx_mix[i] = ivec2(pos.x, offset_y);
     size_slider_fx_mix[i] = ivec2(size);

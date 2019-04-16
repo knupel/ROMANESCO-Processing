@@ -15,7 +15,7 @@ pin_light,red src/green src/blue src/red/green/blue
 hard_mix,red src/green src/blue src/red/green/blue
 subtract,red src/green src/blue src/red/green/blue
 divide,red src/green src/blue src/red/green/blue
-addition,red src,green src,blue src,red,green,blue
+addition,red src/green src/blue src/red/green/blue
 difference,red src/green src/blue src/red/green/blue
 darken,red src/green src/blue src/red/green/blue
 lighten,red src/green src/blue src/red/green/blue

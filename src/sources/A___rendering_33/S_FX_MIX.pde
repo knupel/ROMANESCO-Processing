@@ -32,24 +32,26 @@
 * 24 layer
 */
 
-void post_mix_before() {
+void fx_mix_before() {
   if(FULL_RENDERING && fx_mix_button_is(0)) {
-    if(incrust_is()) {
-      fx_mix_inc_copy(g);
-    }
-    set_mix_inc();
+    fx_mix_inc_copy(g);
     update_fx_mix_slider();
   }
 }
 
-
-void post_mix_after() {
+void fx_mix_after() {
   if(FULL_RENDERING && fx_mix_button_is(0)) {
-    if(incrust_is()) {
-      fx_mix_inc(g);
-    }
+    fx_mix_inc(g);
   }
 }
+
+
+
+
+
+
+
+
 
 vec3 fx_mix_colour_source;
 vec3 fx_mix_colour_layer;
@@ -60,26 +62,35 @@ void update_fx_mix_slider() {
   fx_mix_colour_source.x(map(value_slider_fx_mix[0],0,MAX_VALUE_SLIDER,0,1));
   fx_mix_colour_source.y(map(value_slider_fx_mix[1],0,MAX_VALUE_SLIDER,0,1));
   fx_mix_colour_source.z(map(value_slider_fx_mix[2],0,MAX_VALUE_SLIDER,0,1));
-  
+  fx_mix_colour_source.pow(2);
+  fx_mix_colour_source.map(0,1,0,4);
+ 
   if(fx_mix_colour_layer == null) {
     fx_mix_colour_layer = vec3();
   }
   fx_mix_colour_layer.x(map(value_slider_fx_mix[3],0,MAX_VALUE_SLIDER,0,1));
   fx_mix_colour_layer.y(map(value_slider_fx_mix[4],0,MAX_VALUE_SLIDER,0,1));
   fx_mix_colour_layer.z(map(value_slider_fx_mix[5],0,MAX_VALUE_SLIDER,0,1));
+  fx_mix_colour_layer.pow(2);
+  fx_mix_colour_layer.map(0,1,0,4);
 }
 
-
+int current_mix = 1;
 void fx_mix_inc(PImage src) {
   boolean on_g = true;
   if(inc_fx != null && src.width == inc_fx.width && src.height == inc_fx.height) {
     
-    int mix = which_mix +1;
-    println("which mix",mix);
-    fx_mix(src,inc_fx, on_g, mix, fx_mix_colour_source,fx_mix_colour_layer);
+    if(current_mix != which_fx_mix +1) {
+      current_mix = which_fx_mix +1;
+    }
+    fx_mix(src,inc_fx, on_g, current_mix, fx_mix_colour_source,fx_mix_colour_layer);
   }
 }
 
+
+boolean draw_fx_mix_before_rendering_is() {
+  return fx_mix_button_is(1);
+}
 
 
 
@@ -89,23 +100,4 @@ void fx_mix_inc_copy(PImage src) {
     inc_fx = createImage(src.width,src.height,RGB);
   }
   inc_fx.copy(src,0,0,src.width,src.height, 0,0,src.width,src.height);
-}
-
-
-void set_mix_inc() {
-  if(which_mix != 0) {
-    incrust_is(true);
-  } else {
-    incrust_is(false);
-  }
-}
-
-
-boolean incrust_is = false;
-void incrust_is(boolean is) {
-  incrust_is = is;
-}
-
-boolean incrust_is() {
-  return incrust_is;
 }

@@ -80,12 +80,9 @@ void update_OSC() {
   OscMessage mess_general = new OscMessage("Controller general");
   message_general_osc(mess_general);
   if(send_general_is()) {
-    println("void update_OSC(): send general", frameCount);
-    /*
-    if(DEBUG_MODE) {
-      println("void update_OSC(): send general", frameCount);
-    }
-    */
+    print_debug("void update_OSC(): send general", frameCount);
+    print_debug("void update_OSC(): dd_menu_bar[2].get_selection()",dd_menu_bar[2].get_selection());
+
     send_OSC(osc_prescene_general,osc_scene_general,prescene_net_address_general,scene_net_addresses_general,mess_general);
   }
 
@@ -95,11 +92,6 @@ void update_OSC() {
 
   if(send_item_is()) {
     print_debug("void update_OSC(): send item", frameCount);
-    /*
-    if(DEBUG_MODE) {
-      println("void update_OSC(): send item", frameCount);
-    }
-    */
     send_OSC(osc_prescene_item,osc_scene_item,prescene_net_address_item,scene_net_addresses_item,mess_item);
   }
 }
@@ -125,15 +117,14 @@ void message_general_osc(OscMessage m) {
   }
   
 
-
   // button general background
   add_data_general(m,button_bg.is());
   // button fx
-  for(int i = 0 ; i < NUM_BUTTON_FX ; i++) {
-    add_data_general(m,button_fx[i].is());
+  for(int i = 0 ; i < NUM_BUTTON_FX_FILTER ; i++) {
+    add_data_general(m,button_fx_filter[i].is());
   }
 
-  for(int i = 0 ; i < NUM_BUTTON_MIX ; i++) {
+  for(int i = 0 ; i < NUM_BUTTON_FX_MIX ; i++) {
     add_data_general(m,button_fx_mix[i].is());
   }
   // button general light
@@ -153,8 +144,8 @@ void message_general_osc(OscMessage m) {
   }
 
   // add slider fx
-  for(int i = 0 ; i < value_slider_fx.length ; i++) {
-    add_data_general(m,value_slider_fx[i]);
+  for(int i = 0 ; i < value_slider_fx_filter.length ; i++) {
+    add_data_general(m,value_slider_fx_filter[i]);
   }
   
   // add slider mix

@@ -276,40 +276,42 @@ String[] slider_background_name = new String[NUM_SLIDER_BACKGROUND];
 int offset_background_x;
 int offset_background_y;
 
-// FX button
-Button [] button_fx = new Button[NUM_BUTTON_FX];
-int [] button_fx_is = new int[NUM_BUTTON_FX];
-ivec2 [] pos_button_fx = new ivec2[NUM_BUTTON_FX];
-ivec2 [] size_button_fx = new ivec2[NUM_BUTTON_FX];
-
-// MIX button
-Button [] button_fx_mix = new Button[NUM_BUTTON_MIX];
-int [] button_fx_mix_is = new int[NUM_BUTTON_MIX];
-ivec2 [] pos_button_fx_mix = new ivec2[NUM_BUTTON_MIX];
-ivec2 [] size_button_fx_mix = new ivec2[NUM_BUTTON_MIX];
+// FX FILTER button
+Button [] button_fx_filter = new Button[NUM_BUTTON_FX_FILTER];
+int [] button_fx_filter_is = new int[NUM_BUTTON_FX_FILTER];
+ivec2 [] pos_button_fx_filter = new ivec2[NUM_BUTTON_FX_FILTER];
+ivec2 [] size_button_fx_filter = new ivec2[NUM_BUTTON_FX_FILTER];
 
 // filter slider
-Sladj [] slider_adj_fx = new Sladj[NUM_SLIDER_FX];
-Cropinfo [] cropinfo_slider_fx;
-int slider_width_filter;
-int slider_height_filter;
-ivec2 [] pos_slider_fx = new ivec2[NUM_SLIDER_FX]; 
-ivec2 [] size_slider_fx = new ivec2[NUM_SLIDER_FX];
-float [] value_slider_fx = new float[NUM_SLIDER_FX];
-String[] slider_fx_name = new String[NUM_SLIDER_FX];
-int offset_fx_x;
-int offset_fx_y;
+Sladj [] slider_adj_fx_filter = new Sladj[NUM_SLIDER_FX_FILTER];
+Cropinfo [] cropinfo_slider_fx_filter;
+int slider_width_fx_filter;
+int slider_height_fx_filter;
+ivec2 [] pos_slider_fx_filter = new ivec2[NUM_SLIDER_FX_FILTER]; 
+ivec2 [] size_slider_fx_filter = new ivec2[NUM_SLIDER_FX_FILTER];
+float [] value_slider_fx_filter = new float[NUM_SLIDER_FX_FILTER];
+String[] slider_fx_filter_name = new String[NUM_SLIDER_FX_FILTER];
+int offset_fx_filter_x;
+int offset_fx_filter_y;
 
+
+
+
+// FX MIX button
+Button [] button_fx_mix = new Button[NUM_BUTTON_FX_MIX];
+int [] button_fx_mix_is = new int[NUM_BUTTON_FX_MIX];
+ivec2 [] pos_button_fx_mix = new ivec2[NUM_BUTTON_FX_MIX];
+ivec2 [] size_button_fx_mix = new ivec2[NUM_BUTTON_FX_MIX];
 
 // mix slider
-Sladj [] slider_adj_fx_mix = new Sladj[NUM_SLIDER_MIX];
+Sladj [] slider_adj_fx_mix = new Sladj[NUM_SLIDER_FX_MIX];
 Cropinfo [] cropinfo_slider_fx_mix;
 int slider_width_fx_mix;
 int slider_height_fx_mix;
-ivec2 [] pos_slider_fx_mix = new ivec2[NUM_SLIDER_MIX]; 
-ivec2 [] size_slider_fx_mix = new ivec2[NUM_SLIDER_MIX];
-float [] value_slider_fx_mix = new float[NUM_SLIDER_MIX];
-String[] slider_fx_mix_name = new String[NUM_SLIDER_MIX];
+ivec2 [] pos_slider_fx_mix = new ivec2[NUM_SLIDER_FX_MIX]; 
+ivec2 [] size_slider_fx_mix = new ivec2[NUM_SLIDER_FX_MIX];
+float [] value_slider_fx_mix = new float[NUM_SLIDER_FX_MIX];
+String[] slider_fx_mix_name = new String[NUM_SLIDER_FX_MIX];
 int offset_fx_mix_x;
 int offset_fx_mix_y;
 

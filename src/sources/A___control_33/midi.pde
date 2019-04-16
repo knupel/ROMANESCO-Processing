@@ -262,10 +262,16 @@ void midi_manager(boolean saveButton) {
   midi_button(button_3D,rank,saveButton,"Button 3D");
   rank++;
 
-  for(int i = 0 ; i < NUM_BUTTON_FX ; i++) {
-    midi_button(button_fx[i],rank,saveButton,"Button fx");
+  for(int i = 0 ; i < NUM_BUTTON_FX_FILTER ; i++) {
+    midi_button(button_fx_filter[i],rank,saveButton,"Button fx filter");
     rank++;
   }
+
+  for(int i = 0 ; i < NUM_BUTTON_FX_MIX ; i++) {
+    midi_button(button_fx_mix[i],rank,saveButton,"Button fx mix");
+    rank++;
+  }
+
   midi_button(button_light_ambient,rank,saveButton,"Button light ambient");
   rank++;
   midi_button(button_light_ambient_action,rank,saveButton,"Button light ambient");
