@@ -1,7 +1,7 @@
 /**
 * variable déclaration
 * 2019-2019
-* 0.0.2
+* 0.0.3
 */
 int height_menu_general;
 int pos_y_menu_general;
@@ -167,10 +167,6 @@ int pos_y_dropdown_top;
 
 // DROPDOWN media bar
 Dropdown [] dd_media_bar;
-int which_text;
-int which_bitmap;
-int which_shape;
-int which_movie;
 ivec2 [] dd_media_bar_pos;
 ivec2 [] dd_media_bar_size;
 String [] bitmap_dropdown_list;
@@ -186,10 +182,6 @@ String [][] dd_media_bar_content;
 
 // DROPDOWN menu bar
 Dropdown [] dd_menu_bar;
-int which_bg_shader;
-int which_filter;
-int which_mix;
-int which_font;
 ivec2 [] dd_menu_bar_pos;
 ivec2 [] dd_menu_bar_size;
 String [] font_dropdown_list;
@@ -199,8 +191,6 @@ int [] pos_x_dd_menu_bar;
 int [] width_dd_menu_bar;
 String [] name_dd_menu_bar;
 String [][] dd_menu_bar_content;
-
-
 
 
 

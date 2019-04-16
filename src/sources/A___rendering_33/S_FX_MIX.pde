@@ -33,25 +33,19 @@
 */
 
 void post_mix_before() {
-  if(FULL_RENDERING) {
-    println("before");
+  if(FULL_RENDERING && fx_mix_button_is(0)) {
     if(incrust_is()) {
-      println("before in");
       fx_mix_inc_copy(g);
     }
     set_mix_inc();
-    if(fx_mix_button_is(0)) {
-      update_fx_mix_slider();
-    }
+    update_fx_mix_slider();
   }
 }
 
 
 void post_mix_after() {
-  if(FULL_RENDERING) {
-     println("after");
+  if(FULL_RENDERING && fx_mix_button_is(0)) {
     if(incrust_is()) {
-      println("after in");
       fx_mix_inc(g);
     }
   }
@@ -71,7 +65,7 @@ void update_fx_mix_slider() {
     fx_mix_colour_layer = vec3();
   }
   fx_mix_colour_layer.x(map(value_slider_fx_mix[3],0,MAX_VALUE_SLIDER,0,1));
-  fx_mix_colour_layer.z(map(value_slider_fx_mix[4],0,MAX_VALUE_SLIDER,0,1));
+  fx_mix_colour_layer.y(map(value_slider_fx_mix[4],0,MAX_VALUE_SLIDER,0,1));
   fx_mix_colour_layer.z(map(value_slider_fx_mix[5],0,MAX_VALUE_SLIDER,0,1));
 }
 
@@ -79,7 +73,10 @@ void update_fx_mix_slider() {
 void fx_mix_inc(PImage src) {
   boolean on_g = true;
   if(inc_fx != null && src.width == inc_fx.width && src.height == inc_fx.height) {
-    fx_mix(src,inc_fx,on_g,which_mix,fx_mix_colour_source,fx_mix_colour_layer);
+    
+    int mix = which_mix +1;
+    println("which mix",mix);
+    fx_mix(src,inc_fx, on_g, mix, fx_mix_colour_source,fx_mix_colour_layer);
   }
 }
 

@@ -2,7 +2,7 @@
 * Core Romanesco
 * common code for CONTROLLER and RENDERER
 * 2018-2019
-* v 0.4.2
+* v 0.4.3
 * Processing 3.5.3
 * Rope library 0.6.2
 */
@@ -134,7 +134,14 @@ File [] list_files(String path) {
 
 
 
-
+/**
+* DEBUG
+*/
+void print_debug(Object... obj) {
+  if(DEBUG_MODE) {
+    println(obj);
+  }
+}
 
 
 
@@ -363,7 +370,6 @@ void update_window_location() {
   if(ref_window_location == null) {
     ref_window_location = get_sketch_location().copy();
     write_window_location();
-    // println(ref_window_location,frameCount);
   } else {
     if(!ref_window_location.equals(get_sketch_location())) {
       ref_window_location.set(get_sketch_location());

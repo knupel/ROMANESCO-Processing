@@ -80,6 +80,12 @@ void update_OSC() {
   OscMessage mess_general = new OscMessage("Controller general");
   message_general_osc(mess_general);
   if(send_general_is()) {
+    println("void update_OSC(): send general", frameCount);
+    /*
+    if(DEBUG_MODE) {
+      println("void update_OSC(): send general", frameCount);
+    }
+    */
     send_OSC(osc_prescene_general,osc_scene_general,prescene_net_address_general,scene_net_addresses_general,mess_general);
   }
 
@@ -88,6 +94,12 @@ void update_OSC() {
   message_item_osc(mess_item);
 
   if(send_item_is()) {
+    print_debug("void update_OSC(): send item", frameCount);
+    /*
+    if(DEBUG_MODE) {
+      println("void update_OSC(): send item", frameCount);
+    }
+    */
     send_OSC(osc_prescene_item,osc_scene_item,prescene_net_address_item,scene_net_addresses_item,mess_item);
   }
 }

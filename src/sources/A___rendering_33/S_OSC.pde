@@ -672,10 +672,6 @@ void receive_data_menu_bar(OscMessage receive, int in) {
   // misc
   birth_button_alert_is(to_bool(receive,4+in));
   dimension_button_alert_is(to_bool(receive,5+in));
-/*
-  if(birth_button_is()) println("receive_data_menu_bar() :birth",birth_button_is(),frameCount);
-  if(dimension_button_is()) println("receive_data_menu_bar: dimension",dimension_button_is(),frameCount);
-  */
 }
 
 void receive_data_dd_media(OscMessage receive, int in) {
@@ -690,6 +686,14 @@ void receive_data_dd_menu(OscMessage receive, int in) {
   which_fx = receive.get(1+in).intValue(); // filter
   which_mix = receive.get(2+in).intValue(); // mix
   select_font(receive.get(3+in).intValue()); // font
+
+  print_debug("void receive_data_dd_menu()",receive.get(0+in).intValue(),receive.get(1+in).intValue(),receive.get(2+in).intValue(),receive.get(3+in).intValue());
+  
+  /* 
+  if(DEBUG_MODE) {
+    println("void receive_data_dd_menu()",receive.get(0+in).intValue(),receive.get(1+in).intValue(),receive.get(2+in).intValue(),receive.get(3+in).intValue());
+  }
+  */
 }
 
 
@@ -723,7 +727,6 @@ void receive_data_general_button(OscMessage receive, int in) {
     transient_button_is(i,to_bool(receive,target+in));
     target++;
   }
-  // index_osc finish at 12
 }
 
 void receive_data_general_slider(OscMessage receive, int in, int out) {

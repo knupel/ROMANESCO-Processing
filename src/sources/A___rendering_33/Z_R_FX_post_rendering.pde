@@ -1388,7 +1388,6 @@ PGraphics fx_mix(PImage source, PImage layer, boolean on_g, int mode, vec3 level
 		
 
     // external paramer
-    println("void fx_mix(): level source",level_source);
     fx_mix.set("level_source",level_source.x,level_source.y,level_source.z);
 		fx_mix.set("level_layer",level_layer.x,level_layer.y,level_layer.z);
 

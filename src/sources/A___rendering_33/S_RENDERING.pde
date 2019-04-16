@@ -30,7 +30,6 @@ void rendering() {
 
     post_mix_after();
 
-
     rendering_info(USE_LAYER);
   } else {
     rendering_curtain(USE_LAYER);   

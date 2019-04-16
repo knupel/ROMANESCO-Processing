@@ -1,7 +1,7 @@
 /**
-update, display and design
-v 0.1.1
-2018-2019
+* update, display and design
+* v 0.1.2
+* 2018-2019
 */
 
 /**
@@ -17,7 +17,6 @@ void display_structure() {
   }
 
 
-
   // display
   noStroke();
   ivec2 pos = ivec2(0,0);
@@ -27,10 +26,6 @@ void display_structure() {
   pos.set(0,pos_y_button_top);
   size.set(width,height_button_top);
   display_structure_console_general(pos,size,structure_background_mass_a,structure_background_mass_b);
-
-  // pos.set(0,pos_y_dropdown_top);
-  // size.set(width, height_dropdown_top);
-  // display_structure_dropdown_menu_general(pos,size,structure_background_mass_a,structure_background_line_a);
 
   pos.set(0,pos_y_menu_general);
   size.set(width,height_menu_general);
@@ -63,13 +58,6 @@ void display_structure_console_general(ivec2 pos, ivec2 size, int colour_up, int
   rect(pos.x(),pos.y()+size.y(),size.x(),size.y());
 }
 
-// void display_structure_dropdown_menu_general(ivec2 pos, ivec2 size, int colour_bg, int colour_line) {
-//   fill(colour_bg); 
-//   rect(pos,size);
-//   // decoration 
-//   fill (colour_line) ;
-//   rect(pos.x,pos.y,size.x,thickness_line_deco) ;
-// }
 
 void display_structure_general(ivec2 pos, ivec2 size, int colour_bg, int colour_line) {
   fill(colour_bg); 
@@ -144,25 +132,13 @@ void show_misc_text() {
 void show_dropdown() {
   update_dd_menu_bar_content();
   update_dd_media_bar_content();
-  
-  
 
   update_dropdown(dropdown_setting);
   update_dropdown(dd_media_bar);
   update_dropdown(dd_menu_bar);
 
   // item
-  update_dropdown_item() ;
-  
-  which_bg_shader = dd_menu_bar[0].get_selection();
-  which_filter = dd_menu_bar[1].get_selection();
-  which_mix = dd_menu_bar[2].get_selection();
-  which_font = dd_menu_bar[3].get_selection();
-
-  which_text = dd_media_bar[0].get_selection();
-  which_bitmap = dd_media_bar[1].get_selection();
-  which_shape = dd_media_bar[2].get_selection();
-  which_movie = dd_media_bar[3].get_selection();  
+  update_dropdown_item() ; 
 }
 
 /**
@@ -245,7 +221,6 @@ void show_dropdown_box_item(Dropdown [] dd, String [] list, Inventory [] invento
     dd[index].offset(distance, 0);
     String boxes[] = split(list[index],"/");
     if (boxes.length > 1) {
-      // dd[index].update(mouseX,mouseY); 
       dd[index].show_box();
     } 
   }
