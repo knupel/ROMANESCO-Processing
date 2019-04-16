@@ -1,7 +1,7 @@
 /**
 * RENDERING
 * 2016-2019
-* v 1.2.2
+* v 1.3.0
 */
 boolean fx_filter_is_done = false;
 boolean fx_mix_is_done = false;
@@ -20,11 +20,10 @@ void rendering() {
     fx_filter_is_done = false;
     fx_mix_is_done = false;
     rendering_background(USE_LAYER,0);
-    println("FX",frameCount);
-    pre_fx();
+    pre_fx(0);
     rendering_item_3D(USE_LAYER,1);
     rendering_item_2D(USE_LAYER,1);
-    pre_fx();
+    pre_fx(1);
 
     fx_mix_after();
 
@@ -37,33 +36,29 @@ void rendering() {
 /**
 * This method is used to choice when make a copy of Image to create the temp effect
 */
-
-void pre_fx() {
-    // FX MIX
-  if(!draw_fx_mix_before_rendering_is() && !fx_mix_is_done) {
-    println("MIX",frameCount);
-    fx_mix_is_done = true;
-    
-    fx_mix_before();
-  } else if(!fx_mix_is_done) {
-    println("MIX",frameCount);
+void pre_fx(int step) {
+  // FX MIX
+  if(!draw_fx_mix_before_rendering_is() && !fx_mix_is_done && step == 0) {
     fx_mix_is_done = true;
     fx_mix_before();
   }
 
   // FX FILTER
-  if(!draw_fx_filter_before_rendering_is() && !fx_filter_is_done) {
-    fx_filter_is_done = true;
-    println("FILTER",frameCount,draw_fx_filter_before_rendering_is());
-    fx_filter();
-  } else if(!fx_filter_is_done) {
-    fx_filter_is_done = true;
-    println("FILTER",frameCount,draw_fx_filter_before_rendering_is());
-    fx_filter();
+  if(step == 1) {
+    if(!draw_fx_filter_before_rendering_is() && !fx_filter_is_done) {
+      fx_filter_is_done = true;
+      fx_filter();
+    } else if(!fx_filter_is_done) {
+      fx_filter_is_done = true;
+      fx_filter();
+    }
   }
 
   // FX MIX
-  
+  if(draw_fx_mix_before_rendering_is() && !fx_mix_is_done && step == 1) {
+    fx_mix_is_done = true; 
+    fx_mix_before();
+  }
 }
 
 
