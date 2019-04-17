@@ -27,6 +27,8 @@
 >remove save scene option
 >add method to select the first movie meet from the item like the global movie > must be improve properly in the future
 >remove MIDI icone setting, now the acces is on the menu bar.
+>add: event syphon to apple bar
+>remove: keyevent syphon from rendering sketch
 
 *SHADER
 

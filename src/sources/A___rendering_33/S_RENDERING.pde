@@ -443,24 +443,25 @@ void message_opening() {
 
 
 /**
-MIROIR
-v 0.1.0
+* SYPHON
+* v 0.1.1
 */
-boolean syphon_on_off  ;
-SyphonServer server ;
+boolean syphon_is ;
+SyphonServer server;
 void syphon_settings() {
   PJOGL.profile=1;
 }
 
 void syphon_setup() {
-  String name_syphon = (nameVersion + " " + prettyVersion +"."+version) ;
+  String name_syphon = (nameVersion + " " + prettyVersion +"."+version);
   server = new SyphonServer(this, name_syphon);
-  println("Syphon setup done") ;
+  println("Syphon setup done");
 }
 
 void syphon_draw() {
-  if(key_y) syphon_on_off = !syphon_on_off ;
-  if(syphon_on_off) server.sendScreen();
+  if(syphon_is) {
+    server.sendScreen();
+  }
 }
 
 
@@ -521,7 +522,7 @@ void show_info_rendering(int bg_txt, int txt) {
   if(FULL_RENDERING) infoRendering = ("Full rendering") ; else infoRendering = ("Preview rendering") ;
   text("Size " + width + "x" + height + " / "  + infoRendering + " / Render mode " + displayModeInfo + " / FrameRate " + (int)frameRate, 15,15) ;
   // INFO SYPHON
-  text("Syphon " +syphon_on_off + " / press “y“ to on/off the Syphon",15, 15 *posInfo ) ;
+  text("Syphon " +syphon_is + " / press “y“ to on/off the Syphon",15, 15 *posInfo ) ;
   posInfo += 1 ;
   //INFO MOUSE and PEN
   text("Mouse " + mouseX + " / " + mouseY + " molette " + wheel[0] + " pen orientation " + (int)deg360(vec2(pen[0].x,pen[0].y)) +"°   stylet pressur " + int(pen[0].z *10),15, 15 *posInfo ) ;  

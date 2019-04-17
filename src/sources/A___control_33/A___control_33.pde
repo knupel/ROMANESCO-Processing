@@ -16,18 +16,18 @@
 String IAM = "controller";
 
 // DEV SETTING 
-// boolean DEBUG_MODE = true;
-// boolean DEV_MODE = true; // inter alia, path preferences folder, curtain
-// boolean LIVE = false;
-// boolean MIROIR = false;
-// boolean KEEP_BUTTON_ITEM_STATE = true;
-
-// DEV SETTING LIVE
 boolean DEBUG_MODE = true;
 boolean DEV_MODE = true; // inter alia, path preferences folder, curtain
-boolean LIVE = true;
+boolean LIVE = false;
 boolean MIROIR = false;
 boolean KEEP_BUTTON_ITEM_STATE = true;
+
+// DEV SETTING LIVE
+// boolean DEBUG_MODE = true;
+// boolean DEV_MODE = true; // inter alia, path preferences folder, curtain
+// boolean LIVE = true;
+// boolean MIROIR = false;
+// boolean KEEP_BUTTON_ITEM_STATE = true;
 
 
 
@@ -100,6 +100,8 @@ void setup() {
 }
 
 void draw() {
+  print_debug_tempo(240,"void draw(): sketch controller is",focused);
+
   check_size_window();
   update_window_location();
   check_slider_item();
@@ -149,6 +151,7 @@ void mousePressed () {
   } 
 }
 
+boolean send_data_is;
 void keyPressed() {
   keypressed_midi();
   shortcuts_controller();

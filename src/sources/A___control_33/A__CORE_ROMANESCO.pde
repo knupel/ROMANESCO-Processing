@@ -2,7 +2,7 @@
 * Core Romanesco
 * common code for CONTROLLER and RENDERER
 * 2018-2019
-* v 0.5.2
+* v 0.5.3
 * Processing 3.5.3
 * Rope library 0.6.2
 */
@@ -13,7 +13,7 @@ int NUM_MOLETTE_ITEM = NUM_SLIDER_ITEM;
 
 int KEY_CTRL_OS = 157; // it's macOS CMD // for MAC 
 
-
+int NUM_EVENT_APPLE_BAR = 1;
 int NUM_DROPDOWN_MEDIA = 4;
 int NUM_DROPDOWN_MENU = 4;
 // the MIDI BUTTON is not count because is not use in the OSC bridge

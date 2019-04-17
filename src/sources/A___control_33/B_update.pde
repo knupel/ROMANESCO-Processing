@@ -451,7 +451,6 @@ void show_slider_fx_filter() {
 
 
 void show_slider_fx_mix() {
-
   // select which slider must be display
   String [] list = null ;
   int target = dd_menu_bar[2].get_selection();

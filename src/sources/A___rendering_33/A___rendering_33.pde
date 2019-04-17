@@ -232,9 +232,6 @@ void setup() {
 
 boolean init_app;
 void draw() {
-  // println("void draw(): frameCount",frameCount);
-  print_debug_tempo(60,"void draw(): sketch rendering is",focused);
-
   if(init_app) { 
     String title = nameVersion + " " +prettyVersion+"."+version+ " | "+ IAM + " | FPS: "+round(frameRate);
     if(MIROIR) title = nameVersion + " " +prettyVersion+"."+version+ " | "+ "miroir" + " | FPS: "+round(frameRate);

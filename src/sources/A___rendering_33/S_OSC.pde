@@ -613,6 +613,9 @@ void controller_reception(OscMessage receive) {
 void thread_data_controller_general(OscMessage receive) {
   int rank = 0;
 
+  receive_data_apple_bar(receive,rank);
+  rank += NUM_EVENT_APPLE_BAR;
+  
   receive_data_menu_bar(receive,rank); 
   rank += NUM_TOP_BUTTON;
 
@@ -661,7 +664,9 @@ boolean to_bool(OscMessage receive, int index) {
   }
 }
 
-
+void receive_data_apple_bar(OscMessage receive, int in) {
+  syphon_is = to_bool(receive,0+in);
+}
 
 void receive_data_menu_bar(OscMessage receive, int in) {
   curtain_button_is(to_bool(receive,0+in));

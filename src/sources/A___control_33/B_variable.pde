@@ -1,15 +1,46 @@
 /**
 * variable déclaration
 * 2019-2019
-* 0.0.3
+* 0.1.0
 */
-int height_menu_general;
-int pos_y_menu_general;
-int pos_y_menu_general_content;
+
 
 
 /**
-COLOUR
+* MISC var
+*/
+// GUI
+int spacing_slider ;
+int rounded_slider ;
+int height_menu_general;
+int pos_y_menu_general;
+int pos_y_menu_general_content;
+float ratio_size_molette ; 
+float ratio_pos_slider_adjustable ; 
+float ratio_size_slider_adjustable ;
+int size_title_button;
+int marge;
+int col_width ;
+int [] grid_col;
+int height_header;
+
+// syphon
+boolean syphon_is;
+
+
+
+
+
+
+
+
+
+
+
+
+
+/**
+* COLOUR
 */
 ROPE_colour dropdown_colour;
 ROPE_colour dropdown_color_item;
@@ -420,30 +451,7 @@ ivec2 size_window_info;
 
 
 
-// MISC var
-float ratio_size_molette ; 
 
-int col_width ;
-int spacing_slider ;
-int rounded_slider ;
-// the position is calculated in ratio of the slider position. Not optimize for the vertical slider
-float ratio_pos_slider_adjustable ; 
-// the height size is calculated in ratio of the slider height size.  Not optimize for the vertical slider
-float ratio_size_slider_adjustable ; 
-
-// vertical grid
-int marge;
-int [] grid_col;
-
-// this not a position but the height of the rectangle
-int height_header;
-
-
-
-
-
-// button slider
-int size_title_button;
 
 
 

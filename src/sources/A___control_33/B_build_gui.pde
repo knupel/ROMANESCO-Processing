@@ -5,6 +5,11 @@
 *
 */
 
+/**
+* CONTROL BAR
+* v 0.0.2
+* 2019-2019
+*/
 Crope_Bar controler_bar;
 void build_bar() {
   controler_bar = new Crope_Bar(this);
@@ -13,14 +18,27 @@ void build_bar() {
   controler_bar.show();
 }
 
-
 void what_happen_in_menu(String what, ActionEvent ae) {
   println("here code your the behavior of", what);
   if(what.equals("midi map")) {
     select_midi_is = select_midi_is ? false:true;
+  }
 
+  if(what.equals("syphon")) {
+    syphon_is = syphon_is ? false:true;
   }
 }
+
+
+
+
+
+
+
+
+
+
+
 
 
 void build_console() {

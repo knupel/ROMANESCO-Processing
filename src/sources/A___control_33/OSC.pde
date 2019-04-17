@@ -1,7 +1,7 @@
 /**
 OSC Controller
 2014 - 2018
-v 1.2.0
+v 1.2.1
 */
 import oscP5.*;
 import netP5.*;
@@ -98,7 +98,9 @@ void update_OSC() {
 
 
 void message_general_osc(OscMessage m) {
-  // add menu bar
+  // add control bar apple
+  add_data_general(m,syphon_is);
+  // add menu bar 
   add_data_general(m,button_curtain.is());
   add_data_general(m,button_reset_camera.is());
   add_data_general(m,button_reset_item_on.is());
