@@ -13,6 +13,10 @@
 void print_debug(Object... parameter_to_print)
 > work when the Constant DEBUG_MODE is true;
 
+void print_debug_tempo(int tempo, Object... parameter_to_print)
+> work when the Constant DEBUG_MODE is true
+> display print to each tempo frame
+
 
 
 

@@ -44,8 +44,6 @@ boolean FULL_RENDERING = true;
 // boolean LIVE = true;
 // boolean FULL_RENDERING = false;
 
-
-
 // SCENE LIVE
 // boolean DEBUG_MODE = true;
 // boolean USE_LAYER = false;
@@ -234,6 +232,9 @@ void setup() {
 
 boolean init_app;
 void draw() {
+  // println("void draw(): frameCount",frameCount);
+  print_debug_tempo(60,"void draw(): sketch rendering is",focused);
+
   if(init_app) { 
     String title = nameVersion + " " +prettyVersion+"."+version+ " | "+ IAM + " | FPS: "+round(frameRate);
     if(MIROIR) title = nameVersion + " " +prettyVersion+"."+version+ " | "+ "miroir" + " | FPS: "+round(frameRate);

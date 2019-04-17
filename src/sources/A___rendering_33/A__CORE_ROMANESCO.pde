@@ -2,7 +2,7 @@
 * Core Romanesco
 * common code for CONTROLLER and RENDERER
 * 2018-2019
-* v 0.5.1
+* v 0.5.2
 * Processing 3.5.3
 * Rope library 0.6.2
 */
@@ -140,6 +140,12 @@ File [] list_files(String path) {
 void print_debug(Object... obj) {
   if(DEBUG_MODE) {
     println(obj);
+  }
+}
+
+void print_debug_tempo(int tempo, Object... obj) {
+  if(DEBUG_MODE) {
+    printTempo(tempo,obj);
   }
 }
 
