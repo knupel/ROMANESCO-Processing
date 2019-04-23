@@ -1,10 +1,10 @@
 /**
 Rope UTILS 
-v 1.59.4
+v 1.59.6
 * Copyleft (c) 2014-2019
 * Rope – Romanesco Processing Environment – 
 * Processing 3.5.3
-* Rope library 0.5.1
+* Rope library 0.7.0.24
 * @author @stanlepunk
 * @see https://github.com/StanLepunK/Rope_framework
 */
@@ -254,10 +254,20 @@ void check_window_size() {
 
 /**
 print Constants
-v 0.0.3
+v 0.1.1
 */
-Constant_list processing_constants_list = new Constant_list(PConstants.class);
-Constant_list rope_constants_list = new Constant_list(rope.core.R_Constants.class);
+Constant_list rope_constants_colour_list;
+public void print_constants_colour_rope() {
+  if(rope_constants_colour_list == null) {
+    rope_constants_colour_list = new Constant_list(rope.core.R_Constants_Colour.class);
+  }
+  println("ROPE CONSTANTS COLOUR");
+  for(String s: rope_constants_colour_list.list()){
+    println(s);
+  }
+}
+
+Constant_list rope_constants_list;
 public void print_constants_rope() {
   if(rope_constants_list == null) {
     rope_constants_list = new Constant_list(rope.core.R_Constants.class);
@@ -268,6 +278,7 @@ public void print_constants_rope() {
   }
 }
 
+Constant_list processing_constants_list;
 public void print_constants_processing() {
   if(processing_constants_list == null) {
     processing_constants_list = new Constant_list(PConstants.class);
@@ -279,23 +290,11 @@ public void print_constants_processing() {
 } 
 
 public void print_constants() {
-  if(processing_constants_list == null) {
-    processing_constants_list = new Constant_list(PConstants.class);
-  }
-
-  if(rope_constants_list == null) {
-    rope_constants_list = new Constant_list(rope.core.R_Constants.class);
-  }
-
-  println("ROPE CONSTANTS");
-  for(String s: rope_constants_list.list()){
-    println(s);
-  }
-  println();
-  println("PROCESSING CONSTANTS");
-  for(String s: processing_constants_list.list()){
-    println(s);
-  }
+  print_constants_rope();
+  println(" ");
+  print_constants_colour_rope();
+  println(" ");
+  print_constants_processing();
 } 
 
 /*
