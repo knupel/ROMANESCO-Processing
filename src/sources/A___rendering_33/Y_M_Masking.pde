@@ -1,15 +1,15 @@
 /**
 * class Mask_mapping
-* v 0.3.1
+* v 0.4.0
 * 2018-2019
-* Processing 3.5.3
-* Rope library 0.4.0
+* Processing 3.5.3.269
+* Rope library 0.7.1.25
 
 use " M " maj to able or enable mask
 $
 
 */
-public class Masking implements rope.core.R_Constants {
+public class Masking implements rope.core.R_Constants, rope.core.R_Constants_Colour {
   PGraphics pg;
   private ivec3 [] coord;
   private ivec3 [] coord_block_1, coord_block_2, coord_block_3, coord_block_4;

@@ -165,22 +165,44 @@ class Ecosystem_agent extends Romanesco {
 
     
     if(hue_fill_ref != hue(get_fill())) {
-      vec4 [] pool_fill = color_pool_HSB(type_agents, colour_groups, hue(get_fill()), range_colour) ;
+      int [] pool_temp_fill = color_pool(type_agents, colour_groups, hue(get_fill()), range_colour);
+      vec4 [] pool_fill = new vec4[pool_temp_fill.length];
+      for(int i = 0 ; i < pool_fill.length ; i++) {
+        pool_fill[i] = to_hsba(pool_temp_fill[i]);
+      }
+      //vec4 [] pool_fill = color_pool_HSB(type_agents, colour_groups, hue(get_fill()), range_colour) ;
       for(int i = 0 ; i < hue_fill.length ; i++) {
         hue_fill[i] = pool_fill[i].x ;
       }
       hue_fill_ref = hue_fill[0] = hue(get_fill()) ;
     }
     if(hue_stroke_ref != hue(get_stroke())) {
-      vec4 [] pool_stroke = color_pool_HSB(type_agents, colour_groups, hue(get_stroke()), range_colour) ;
+      int [] pool_temp_stroke = color_pool(type_agents, colour_groups, hue(get_stroke()), range_colour);
+      vec4 [] pool_stroke = new vec4[pool_temp_stroke.length];
+      for(int i = 0 ; i < pool_stroke.length ; i++) {
+        pool_stroke[i] = to_hsba(pool_temp_stroke[i]);
+      }
+      // vec4 [] pool_stroke = color_pool_HSB(type_agents, colour_groups, hue(get_stroke()), range_colour) ;
       for(int i = 0 ; i < hue_stroke.length ; i++) {
         hue_stroke[i] = pool_stroke[i].x ;
       }
       hue_stroke_ref = hue_stroke[0] = hue(get_stroke()) ;
     }
     if(colour_is()) {
-      vec4 [] pool_fill = color_pool_HSB(type_agents, colour_groups, random(g.colorModeX), range_colour) ;
-      vec4 [] pool_stroke = color_pool_HSB(type_agents, colour_groups, random(g.colorModeX), range_colour) ;
+      int [] pool_temp_fill = color_pool(type_agents, colour_groups, random(g.colorModeX), range_colour);
+      vec4 [] pool_fill = new vec4[pool_temp_fill.length];
+      for(int i = 0 ; i < pool_fill.length ; i++) {
+        pool_fill[i] = to_hsba(pool_temp_fill[i]);
+      }
+
+      int [] pool_temp_stroke = color_pool(type_agents, colour_groups, random(g.colorModeX), range_colour);
+      vec4 [] pool_stroke = new vec4[pool_temp_stroke.length];
+      for(int i = 0 ; i < pool_stroke.length ; i++) {
+        pool_stroke[i] = to_hsba(pool_temp_stroke[i]);
+      }
+
+      // vec4 [] pool_fill = color_pool_HSB(type_agents, colour_groups, random(g.colorModeX), range_colour) ;
+      // vec4 [] pool_stroke = color_pool_HSB(type_agents, colour_groups, random(g.colorModeX), range_colour) ;
       for(int i = 0 ; i < type_agents ; i++) {
         hue_fill[i] = pool_fill[i].x ;
         hue_stroke[i] = pool_stroke[i].x ;
