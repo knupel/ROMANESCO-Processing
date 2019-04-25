@@ -25,7 +25,7 @@ boolean dropdown_is() {
 
 /**
 * DROPDOWN class
-* v 2.6.1
+* v 2.7.0
 * 2014-2018
 */
 public class Dropdown extends Crope {
@@ -138,20 +138,20 @@ public class Dropdown extends Crope {
 
 
 
-  public Dropdown set_colour(ROPE_colour rc) {
-    this.colour_structure = rc.get_colour()[0];
+  public Dropdown set_colour(R_Colour rc) {
+    this.colour_structure = rc.get()[0];
 
-    this.colour_header_in = rc.get_colour()[1];
-    this.colour_header_out = rc.get_colour()[2];
+    this.colour_header_in = rc.get()[1];
+    this.colour_header_out = rc.get()[2];
 
-    this.colour_header_text_in = rc.get_colour()[3];
-    this.colour_header_text_out = rc.get_colour()[4];
+    this.colour_header_text_in = rc.get()[3];
+    this.colour_header_text_out = rc.get()[4];
 
-    this.colour_box_in = rc.get_colour()[5];
-    this.colour_box_out = rc.get_colour()[6]; 
+    this.colour_box_in = rc.get()[5];
+    this.colour_box_out = rc.get()[6]; 
 
-    this.colour_box_text_in = rc.get_colour()[7];
-    this.colour_box_text_out = rc.get_colour()[8];
+    this.colour_box_text_in = rc.get()[7];
+    this.colour_box_text_out = rc.get()[8];
     return this;
   }
 

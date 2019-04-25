@@ -11,7 +11,7 @@ int thickness_line_deco = 2 ;
 void display_structure() {
   // check event for structure
   if(button_curtain_is == 1) {
-    set_colour_structure_background_mass(r.GRENAT_PROFOND,r.BLOOD);
+    set_colour_structure_background_mass(r.GRENAT,r.BLOOD);
   } else {
     set_colour_structure_background_mass(r.GRAY[0],r.GRAY[1]);
   }

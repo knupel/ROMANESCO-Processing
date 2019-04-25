@@ -42,8 +42,8 @@ boolean syphon_is;
 /**
 * COLOUR
 */
-ROPE_colour dropdown_colour;
-ROPE_colour dropdown_color_item;
+R_Colour dropdown_colour;
+R_Colour dropdown_color_item;
 /**
 colour structure
 */

@@ -1,7 +1,7 @@
 /**
 * Variable controller
 * 2014-2019
-* v 0.5.0
+* v 0.5.1
 */
 
 void set_design() {
@@ -190,7 +190,7 @@ void set_design_aspect() {
 
   // colour button
   button_on_in = r.GREEN;
-  button_on_out = r.BOTTLE;
+  button_on_out = r.BOUTEILLE;
 
   button_off_in = r.RED;
   button_off_out = r.CARMIN;
@@ -215,7 +215,7 @@ void set_design_aspect() {
   color_dd_box_text_in = r.BLOOD;
   color_dd_box_text_out = r.BLOOD;
 
-  selected_dd_text = r.BOTTLE;
+  selected_dd_text = r.BOUTEILLE;
 
   // colour slider light
   molette_in_light = r.ORANGE;
@@ -241,7 +241,7 @@ void set_design_aspect() {
   label_in_dark = r.GRAY[10];
   label_out_dark = r.GRAY[6];
 
-  dropdown_colour = new ROPE_colour(color_dd_background, 
+  dropdown_colour = new R_Colour(this,color_dd_background, 
                                     color_dd_header_in, 
                                     color_dd_header_out,
                                     color_dd_header_text_in, 
@@ -251,7 +251,7 @@ void set_design_aspect() {
                                     color_dd_box_text_in, 
                                     color_dd_box_text_out);
 
-  dropdown_color_item = new ROPE_colour(color_dd_background, 
+  dropdown_color_item = new R_Colour(this,color_dd_background, 
                                         color_dd_item_in, 
                                         color_dd_item_out,
                                         color_dd_item_text_in,
