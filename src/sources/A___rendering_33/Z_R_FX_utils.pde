@@ -2,7 +2,7 @@
 * SHADER FX
 * @see @stanlepunk
 * @see https://github.com/StanLepunK/Shader
-* v 0.8.0
+* v 0.8.1
 * 2019-2019
 *
 */
@@ -479,7 +479,7 @@ void fx_set(ArrayList<FX> fx_list, int which_setting, String name, Object... arg
 
 /**
 * path shader
-* v 0.3.1
+* v 0.3.2
 */
 // post fx path
 String fx_post_rope_path = null;
@@ -491,12 +491,13 @@ boolean fx_post_path_exist() {
 
 String get_fx_post_path() {
 	if(fx_post_rope_path == null) {
-		fx_post_rope_path = "shader/fx_post/";
+		fx_post_rope_path = "data/shader/fx_post/";
 		fx_post_rope_path_exists = true;
 	} else {
-		File f = new File(fx_post_rope_path);
-		if(!f.exists()) {
-			printErrTempo(60,"get_fx_post_path()",fx_post_rope_path,"no folder found");
+		File f = new File(sketchPath()+"/"+fx_post_rope_path);
+		if(!f.isDirectory()) {
+			fx_post_rope_path_exists = false;
+			printErrTempo(60,"method get_fx_post_path()",fx_post_rope_path,"no folder found");
 		} else {
 			fx_post_rope_path_exists = true;
 		}
@@ -654,11 +655,3 @@ void render_shader(PShader ps, PGraphics pg, PImage src, boolean on_g) {
   	filter(ps);
   }
 }
-
-
-
-
-
-
-
-

@@ -51,6 +51,8 @@
 >new item SIMPLE
 >new item MER
 >SOLEIL improvement the revolution part
+>remove Galaxie
+>add Rosace
 
 *BUG FIX
 

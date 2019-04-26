@@ -2,7 +2,7 @@
 * POST FX shader collection
 *
 * 2019-2019
-* v 0.2.2
+* v 0.2.4
 * all filter bellow has been tested.
 * @author @stanlepunk
 * @see https://github.com/StanLepunK/Shader
@@ -1124,8 +1124,8 @@ PGraphics fx_halftone_multi(PImage source, boolean on_g, vec2 pos, float size, f
 
 
 /**
-* IMAGE MAPPING
-* 
+* IMAGE
+* v 0.1.0
 */
 // setting by class FX
 PGraphics fx_image(PImage source, FX fx) {
@@ -1154,7 +1154,11 @@ PGraphics fx_image(PImage source, boolean on_g, vec2 pos, vec2 scale, vec3 colou
 		if(on_g) set_shader_flip(fx_image,source);
 		// fx_image.set("flip_source",true,false);
 		fx_image.set("texture_source",source);
-		fx_image.set("resolution",width,height);
+		if(on_g) {
+			fx_image.set("resolution",width,height);
+		} else {
+			fx_image.set("resolution",source.width,source.height);
+		}
 		fx_image.set("resolution_source",source.width,source.height); 
 		
 		// fx_image.set("flip_source",true,false);
@@ -1164,7 +1168,6 @@ PGraphics fx_image(PImage source, boolean on_g, vec2 pos, vec2 scale, vec3 colou
 
     // external parameter
 		if(colour_background != null) {
-			println("colour",colour_background);
 	    fx_image.set("colour",colour_background.x,colour_background.y,colour_background.z); // definr RGB color from 0 to 1
 	  }
 
@@ -1181,7 +1184,7 @@ PGraphics fx_image(PImage source, boolean on_g, vec2 pos, vec2 scale, vec3 colou
 	  }
 	  
 	  if(scale != null) {
-	    fx_image.set("scale",scale.x,scale.y);
+	    fx_image.set("scale",scale.x,scale.y); // from 0 to 1
 	  }
 	  
 	  int shader_mode = 0;
@@ -1993,5 +1996,3 @@ PGraphics fx_warp_tex_b(PImage source, PImage layer, boolean on_g,float strength
 		return pg_warp_tex_b; 
 	}
 }
-
-
