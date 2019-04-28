@@ -1,13 +1,13 @@
 /**
 Puppet Master
 2018-2019
-v 0.0.12
+v 0.1.0
 */
 class Puppet_master extends Romanesco {
 	public Puppet_master() {
 		item_name = "FF Puppet Master";
 		item_author  = "Stan le Punk";
-		item_version = "Version 0.0.12";
+		item_version = "Version 0.1.0";
 		item_pack = "Force 2018-2019";
     item_costume = "none/pixel/point/ellipse/triangle/rect/cross/pentagon/flower/Star 5/Star 7/Super Star 8/Super Star 12";
     item_mode = "solo/duo/valse 2D/<valse 3D>/whisky walk/random";
@@ -162,7 +162,7 @@ class Puppet_master extends Romanesco {
     // SHOW SPOT
     float ratio_size_costume = map(get_area(),width*.1, width*TAU,0,width*.001);
     vec3 size = vec3(get_size_x(),get_size_y(),get_size_z());
-    aspect_is(fill_is(),stroke_is());
+    aspect_is(fill_is(),stroke_is(), alpha_is());
     aspect(get_fill(), get_stroke(),get_thickness());
     
     for(int i =  0 ; i < get_spot_num() ; i++) {

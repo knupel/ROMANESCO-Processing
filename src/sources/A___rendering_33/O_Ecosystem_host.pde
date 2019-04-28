@@ -1,14 +1,14 @@
 /**
 Ecosysteme Host 
-2016-2018
-V 0.1.10
+2016-2019
+V 0.2.0
 */
 class Ecosystem_DNA extends Romanesco {
 	public Ecosystem_DNA() {
 		item_name = "Eco DNA" ;
 		item_author  = "Stan le Punk";
-		item_version = "Version 0.1.9";
-		item_pack = "Ecosystem 2016-2018";
+		item_version = "Version 0.2.0";
+		item_pack = "Ecosystem 2016-2019";
     item_costume = "Point/Ellipse/Triangle/Rect/flower/Cross/ABC" ;
 		item_mode = "" ; // separate the differentes mode by "/"
 
@@ -124,7 +124,7 @@ class Ecosystem_DNA extends Romanesco {
     	birth_is(false);
     }
     
-    boolean_host(fill_is(), stroke_is(), wire_is()) ;
+    boolean_host(fill_is(), stroke_is(), alpha_is(), wire_is()) ;
 
     if(get_costume().get_type() == TEXT_ROPE) {
       textFont(get_font());
@@ -261,11 +261,14 @@ void show_dna(vec3 size, int height_dna, int radius_dna, float direction, float 
 }
 
 
-boolean display_fill_is, display_stroke_is ;
+boolean display_fill_is;
+boolean display_stroke_is ;
+boolean use_alpha_is;
 boolean link_is ;
-void boolean_host(boolean fill_is, boolean stroke_is, boolean link_is) {
+void boolean_host(boolean fill_is, boolean stroke_is, boolean alpha_is, boolean link_is) {
   display_fill_is = fill_is ;
   display_stroke_is = stroke_is ;
+  use_alpha_is = alpha_is;
   this.link_is = link_is ;
 }
 
@@ -282,7 +285,7 @@ void costume_DNA(Helix helix, int target, vec3 size, float direction, Costume co
   float alpha_min = .01 ;
   float alpha_max = .8 ;
   
-  aspect_is(display_fill_is, display_stroke_is) ;
+  aspect_is(display_fill_is, display_stroke_is, use_alpha_is) ;
   aspect(fill_int, stroke_int, thickness) ;
   if(link_is) line(pos_a, pos_b) ;
   
@@ -320,7 +323,7 @@ void costume_DNA(Helix helix, int target, vec3 size, float direction, Costume co
   
 
 
-  aspect_is(display_fill_is, display_stroke_is) ;
+  aspect_is(display_fill_is, display_stroke_is, use_alpha_is) ;
   aspect(fill_strand_a, stroke_strand_a, thickness,costume);
 
   if(costume.get_type() == TEXT_ROPE) {
@@ -334,7 +337,7 @@ void costume_DNA(Helix helix, int target, vec3 size, float direction, Costume co
 
   
 
-  aspect_is(display_fill_is, display_stroke_is) ;
+  aspect_is(display_fill_is, display_stroke_is, use_alpha_is);
   aspect(fill_strand_b, stroke_strand_b, thickness,costume) ;
   
   if(costume.get_type() == TEXT_ROPE) {

@@ -1,14 +1,14 @@
 /**
 * Cellular Automata
 * 2018-2019
-* v 0.0.5
+* v 0.1.0
 */
 class Cellular_automata extends Romanesco {
 	public Cellular_automata() {
 		item_name = "Automata";
 		item_author  = "Stan le Punk";
     item_references = "Item based on Daniel Shiffman code\nand behavior from Stephen Wolfram\nhttps://natureofcode.com/";
-		item_version = "Version 0.0.5";
+		item_version = "Version 0.1.0";
 		item_pack = "Nature of Code 2018-2019";
     item_costume = "point/ellipse/triangle/rect/cross/pentagon/flower/Star 5/Star 7/Super Star 8/Super Star 12";
     item_mode = "rules 30/rules 110/rules 190/rules 222";
@@ -118,7 +118,7 @@ class Cellular_automata extends Romanesco {
       ca = new CA(ruleset,canvas,cell_size_ref);
     }
 
-    aspect_is(fill_is(),stroke_is());
+    aspect_is(fill_is(),stroke_is(),alpha_is());
     aspect(get_fill(),get_stroke(),get_thickness());
 
     vec3 size = map(get_size(),get_size_x_min(),get_size_x_max(),0.01,cell_size*4);

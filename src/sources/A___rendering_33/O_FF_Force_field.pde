@@ -100,7 +100,7 @@ class FF extends Romanesco {
 
     update_force_field_is(true);
     ivec2 aspect_colour = ivec2(get_fill(),get_stroke());
-    aspect_is(fill_is(),stroke_is());
+    aspect_is(fill_is(), stroke_is(), alpha_is());
 
     float thickness = get_thickness();
     float scale = get_size_x() *.1;

@@ -76,12 +76,14 @@ final int VIRUS_ROPE = 88_888_888;
 /**
 class Costume 
 2018-2019
-v 0.3.1
+v 0.4.0
 */
 import rope.costume.R_Primitive;
 public class Costume {
 	boolean fill_is;
 	boolean stroke_is;
+	boolean alpha_is;
+
 	int fill;
 	int stroke;
 	float thickness = 1.;
@@ -221,15 +223,32 @@ public class Costume {
 		return this.stroke_is;
 	}
 
+	public boolean alpha_is() {
+		return this.alpha_is;
+	}
+
 
 
 
 
 
 	// ASPECT
-	public void aspect_is(boolean fill_is, boolean stroke_is) {
+	public void fill_is(boolean fill_is) {
+		this.fill_is = fill_is;
+	}
+
+	public void stroke_is(boolean stroke_is) {
+		this.stroke_is = stroke_is;
+	}
+
+	public void alpha_is(boolean alpha_is) {
+		this.alpha_is = alpha_is;
+	}
+
+	public void aspect_is(boolean fill_is, boolean stroke_is, boolean alpha_is) {
 		this.fill_is = fill_is;
 		this.stroke_is = stroke_is;
+		this.alpha_is = alpha_is;
 	}
 
 	public void init_bool_aspect() {
@@ -347,40 +366,73 @@ public class Costume {
 	private void manage_fill(Object arg) {
 		if(arg instanceof vec2) {
 			vec2 c = (vec2)arg;
-			this.fill = color(c.x,c.x,c.x,c.y);
-			fill(c) ;
+			if(alpha_is()) {
+				this.fill = color(c.x(),c.x(),c.x(),c.y());
+			} else { 
+				this.fill = color(c.x(),c.x(),c.x(),g.colorModeA);
+			}
+			fill(this.fill);
 		} else if(arg instanceof vec3) {
 			vec3 c = (vec3)arg;
-			this.fill = color(c.x,c.y,c.z,g.colorModeA);
-			fill(c) ;
+			this.fill = color(c.x(),c.y(),c.z(),g.colorModeA);
+			fill(this.fill);
 		} else if(arg instanceof vec4) {
 			vec4 c = (vec4)arg;
-			this.fill = color(c.x,c.y,c.z,c.w);
-			fill(c);
+			if(alpha_is()) {
+				this.fill = color(c.x(),c.y(),c.z(),c.w());
+			} else {
+				this.fill = color(c.x(),c.y(),c.z(),g.colorModeA);
+			}
+			fill(this.fill);
 		} else if(arg instanceof Integer) {
 			int c = (int)arg;
-			this.fill = c;
-			fill(c);
+			if(alpha_is()) {
+				fill(c);	
+			} else {
+				if(g.colorMode == 3) {
+					this.fill = color(hue(c),saturation(c),brightness(c),g.colorModeA);
+				} else {
+					this.fill = color(red(c),green(c),blue(c),g.colorModeA);
+				}
+				fill(this.fill);
+			}
+			
 		}
 	}
 
 	private void manage_stroke(Object arg) {
 		if(arg instanceof vec2) {
 			vec2 c = (vec2)arg;
-			this.stroke = color(c.x,c.x,c.x,c.y);
-			stroke(c);
+			if(alpha_is()) {
+				this.stroke = color(c.x(),c.x(),c.x(),c.y());
+			} else {
+				this.stroke = color(c.x(),c.x(),c.x(),g.colorModeA);
+			}
+			stroke(this.stroke);
 		} else if(arg instanceof vec3) {
 			vec3 c = (vec3)arg;
-			this.stroke = color(c.x,c.y,c.z,g.colorModeA);
-			stroke(c);
+			this.stroke = color(c.x(),c.y(),c.z(),g.colorModeA);
+			stroke(this.stroke);
 		} else if(arg instanceof vec4) {
 			vec4 c = (vec4)arg;
-			this.stroke = color(c.x,c.y,c.z,c.w);
-			stroke(c);
+			if(alpha_is()) {
+				this.stroke = color(c.x(),c.y(),c.z(),c.w());
+			} else {
+				this.stroke = color(c.x(),c.y(),c.z(),g.colorModeA);
+			}			
+			stroke(this.stroke);
 		} else if(arg instanceof Integer) {
 			int c = (int)arg;
-			this.stroke = c;
-			stroke(c);
+			if(alpha_is()) {
+				stroke(c);	
+			} else {
+				if(g.colorMode == 3) {
+					this.stroke = color(hue(c),saturation(c),brightness(c),g.colorModeA);
+				} else {
+					this.stroke = color(red(c),green(c),blue(c),g.colorModeA);
+				}
+				stroke(this.stroke);
+			}
 		}
 	}
 
@@ -521,14 +573,12 @@ public class Costume {
 			start_matrix();
 			translate(pos);
 			rotate_behavior(rot);
-			//cross_box_2(vec2(size.x, size.y),ratio_size);
 			cross_box_2(vec2(size.x, size.y));
 			stop_matrix() ;
 		} else if (this.get_type() == CROSS_BOX_3_ROPE) {
 			start_matrix();
 			translate(pos);
 			rotate_behavior(rot);
-			//cross_box_3(size,ratio_size);
 			cross_box_3(size);
 			stop_matrix();
 		}
@@ -583,7 +633,6 @@ public class Costume {
 			stop_matrix();
 		}
 
-
 		else if (this.get_type() == STAR_ROPE) {
 			float [] ratio = {.38};
 			start_matrix();
@@ -613,8 +662,6 @@ public class Costume {
 			start_matrix();
 			translate(pos);
 			rotate_behavior(rot);
-			// int num_petals = 3;
-			// println(get_summit(),frameCount);
 			if(get_summit() == 0 ) set_summit(5);
 			if(get_pair() == null || get_pair().length != get_summit()*2) {
 				pair = new vec2[get_summit()*2];
@@ -625,7 +672,6 @@ public class Costume {
 
 			for(int i = 0 ; i < get_summit()*2 ; i++) {
 				vec2 value = vec2(.1,.1);
-				// if(i >= get_summit()) value.set(value.yx());
 				if(pair[i] == null) {
 					pair[i] = vec2(value);
 				} else {
@@ -636,7 +682,6 @@ public class Costume {
 
 			for(int i = 0 ; i < get_summit() ; i++) {
 				flower_static(pair[i],strength[i],pair[i+get_summit()],strength[i+get_summit()]);
-				//flower_wind(pair[i],strength[i],pair[i+get_summit()],strength[i+get_summit()]);
 			}
 			flower(vec3(),(int)size.x,get_summit());
 			stop_matrix();

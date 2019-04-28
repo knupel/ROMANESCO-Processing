@@ -1100,7 +1100,7 @@ void update_raw_item_value() {
   value_slider_item[col+10]
   value_slider_item[col+11]
   value_slider_item[col+12]
-    value_slider_item[col+13]
+  value_slider_item[col+13]
   value_slider_item[col+14]
   value_slider_item[col+15]
   */

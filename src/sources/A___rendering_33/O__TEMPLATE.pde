@@ -2,8 +2,8 @@
 * Template
 * the tab is the template that you can duplicate to add the item you want in your Romanesco.
 * You must change the class name and this one must be unique.
-* v 0.0.4
-* 2012-2019
+* v 0.0.5
+* 2018-2019
 */
 class Template extends Romanesco {
   public Template() {
@@ -33,7 +33,7 @@ class Template extends Romanesco {
     // canvas_x_is = true;
     // canvas_y_is = true;
     // canvas_z_is = true;
-    
+
     // COL 2
     // frequence_is = true;
     // speed_x_is = true;
@@ -91,6 +91,7 @@ class Template extends Romanesco {
   void draw() {
     // here if you want code in 3D mode
     info("info about the item","more","more");
+    aspect_is(fill_is(),stroke_is(),alpha_is());
     aspect(get_fill(),get_stroke(),get_thickness());
     set_ratio_costume_size(map(get_area(),get_area_min(),get_area_max(),0,1));
     costume(vec3(),get_size(),get_costume());

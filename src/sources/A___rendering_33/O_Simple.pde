@@ -1,6 +1,6 @@
 /**
 * Simple
-* v 0.0.4
+* v 0.0.5
 * 2018-2019
 */
 class Simple extends Romanesco {
@@ -71,6 +71,7 @@ class Simple extends Romanesco {
     // diffusion_is = true;
     // power_is = true;
     // mass_is = true;
+    // amplitude_is = true;
   }
 
   void setup() {
@@ -80,8 +81,10 @@ class Simple extends Romanesco {
   
   //DRAW
   void draw() {
+    println("simple", alpha_is());
     // here if you want code in 3D mode
     info("info about the item","more","more");
+    aspect_is(fill_is(),stroke_is(),alpha_is());
     aspect(get_fill(),get_stroke(),get_thickness());
     set_ratio_costume_size(map(get_area(),get_area_min(),get_area_max(),0,1));
     costume(vec3(),get_size().mult(3),get_costume());

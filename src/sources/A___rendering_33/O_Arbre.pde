@@ -1,7 +1,7 @@
 /**
 * ARBRE 
 * 2012-2019
-* v 1.4.6
+* v 1.5.0
 */
 class ArbreRomanesco extends Romanesco {
   Arbre arbre ;
@@ -10,7 +10,7 @@ class ArbreRomanesco extends Romanesco {
     item_name = "Arbre" ;
     item_author  = "Stan le Punk";
     item_references = "";
-    item_version = "Version 1.4.6";
+    item_version = "Version 1.5.0";
     item_pack = "Base 2012-2019" ;
     item_costume = "ellipse/triangle/rect/cross/pentagon/flower/Star 5/Star 7/Super Star 8/Super Star 12";
     item_mode = "";
@@ -76,7 +76,6 @@ class ArbreRomanesco extends Romanesco {
   
   //DRAW
   void draw() {
-    // printTempo(60,"arbre: h",get_fill_hue(),"s",get_fill_sat(),"b",get_fill_bri(),"a",get_fill_alp());
     int maxFork ;
     if(FULL_RENDERING) maxFork = 8 ; else maxFork = 4 ; // we can go beyond but by after the calcul slowing too much the computer... 14 is a good limit
     // int maxNode = 32 ; // 
@@ -221,7 +220,7 @@ class ArbreRomanesco extends Romanesco {
       start_matrix();    // Save the current state of transformation (i.e. where are we now)
       rotate(t);   // Rotate by theta
 
-      aspect_is(fill_is(),stroke_is());
+      aspect_is(fill_is(),stroke_is(),alpha_is());
       aspect(get_fill(),get_stroke(),thickness);
       vec3 pos_a = vec3();
       vec3 pos_b = vec3(0, -amplitude.x, -amplitude.y *factor);
@@ -243,12 +242,6 @@ class ArbreRomanesco extends Romanesco {
     }
   }
 }
-//end object two
-
-
-
-
-
 
 
 

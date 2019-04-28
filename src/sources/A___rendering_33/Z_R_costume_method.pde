@@ -244,52 +244,53 @@ void costume_impl(vec pos, vec size, vec rot, Costume costume) {
 ASPECT ROPE 2016-2018
 v 0.1.3
 */
-void aspect_is(boolean fill_is, boolean stroke_is) {
+void aspect_is(boolean fill_is, boolean stroke_is, boolean alpha_is) {
 	if(aspect_rope == null) aspect_rope = new Costume(this);
-	aspect_rope.aspect_is(fill_is,stroke_is);
+	aspect_rope.aspect_is(fill_is,stroke_is,alpha_is);
 	fill_rope_is = aspect_rope.fill_is();
 	stroke_rope_is = aspect_rope.stroke_is();
+	alpha_rope_is = aspect_rope.alpha_is();
 }
 
 void init_bool_aspect() {
 	if(aspect_rope == null) aspect_rope = new Costume(this);
-	aspect_rope.aspect_is(true,true);
+	aspect_rope.aspect_is(true,true,true);
 }
 
 void aspect(int fill, int stroke, float thickness) {
 	if(aspect_rope == null) aspect_rope = new Costume(this);
-	aspect_is(aspect_rope.fill_is(),aspect_rope.stroke_is());
+	aspect_is(aspect_rope.fill_is(),aspect_rope.stroke_is(),aspect_rope.alpha_is());
 	aspect_rope.aspect(fill,stroke,thickness);
 }
 
 void aspect(int fill, int stroke, float thickness, Costume costume) {
 	if(aspect_rope == null) aspect_rope = new Costume(this);
-	aspect_is(aspect_rope.fill_is(),aspect_rope.stroke_is());
+	aspect_is(aspect_rope.fill_is(),aspect_rope.stroke_is(),aspect_rope.alpha_is());
 	aspect_rope.aspect(fill,stroke,thickness,costume.get_type());
 }
 
 void aspect(int fill, int stroke, float thickness, int costume) {
 	if(aspect_rope == null) aspect_rope = new Costume(this);
-	aspect_is(aspect_rope.fill_is(),aspect_rope.stroke_is());
+	aspect_is(aspect_rope.fill_is(),aspect_rope.stroke_is(),aspect_rope.alpha_is());
 	aspect_rope.aspect(fill,stroke,thickness,costume);
 }
 
 void aspect(vec fill, vec stroke, float thickness) {
 	if(aspect_rope == null) aspect_rope = new Costume(this);
-	aspect_is(aspect_rope.fill_is(),aspect_rope.stroke_is());
+	aspect_is(aspect_rope.fill_is(),aspect_rope.stroke_is(),aspect_rope.alpha_is());
 	aspect_rope.aspect(fill,stroke,thickness);
 }
 
 void aspect(vec fill, vec stroke, float thickness, Costume costume) {
 	if(aspect_rope == null) aspect_rope = new Costume(this);
-	aspect_is(aspect_rope.fill_is(),aspect_rope.stroke_is());
+	aspect_is(aspect_rope.fill_is(),aspect_rope.stroke_is(),aspect_rope.alpha_is());
 	aspect_rope.aspect(fill,stroke,thickness,costume.get_type());
 }
 
 
 void aspect(vec fill, vec stroke, float thickness, int costume) {
 	if(aspect_rope == null) aspect_rope = new Costume(this);
-	aspect_is(aspect_rope.fill_is(),aspect_rope.stroke_is());
+	aspect_is(aspect_rope.fill_is(),aspect_rope.stroke_is(),aspect_rope.alpha_is());
 	aspect_rope.aspect(fill,stroke,thickness,costume);
 }
 
@@ -860,6 +861,7 @@ Costume aspect_rope;
 String costume_text_rope = null;
 boolean fill_rope_is = true;
 boolean stroke_rope_is = true;
+boolean alpha_rope_is = true;
 void costume_list() {
 	if(!list_costume_is_built) {
 		/* 

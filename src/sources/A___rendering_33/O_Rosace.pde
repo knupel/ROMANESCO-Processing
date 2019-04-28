@@ -115,7 +115,7 @@ class Rosace extends Romanesco {
   vec3 rotation;
   int direction = 1;
   void draw() {
-    
+    println("rosace", alpha_is());
 
     if(rotation == null) {
       rotation = vec3();
