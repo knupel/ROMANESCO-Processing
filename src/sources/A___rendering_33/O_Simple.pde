@@ -81,7 +81,6 @@ class Simple extends Romanesco {
   
   //DRAW
   void draw() {
-    println("simple", alpha_is());
     // here if you want code in 3D mode
     info("info about the item","more","more");
     aspect_is(fill_is(),stroke_is(),alpha_is());
