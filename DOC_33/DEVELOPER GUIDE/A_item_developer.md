@@ -3,8 +3,8 @@
 * Romanesco dui 
 * 2013-2019
 * v 2.1.0.33
-* Processing 3.5.3
-* Rope Library 0.5.1
+* Processing 3.5.3.269
+* Rope Library 0.7.1.25
 * 
 WARNING
 
@@ -72,7 +72,21 @@ ROPE_svg get_svg();
 
 
 
-*is method from prescene
+*is method
+
+*is from controller
+
+boolean show_is();
+  
+boolean sound_is();
+
+boolean action_is();
+
+boolean parameter_is();
+
+*is from prescene
+
+boolean alpha_is();
 
 boolean fill_is();
 
@@ -101,6 +115,8 @@ boolean clear_list_is();
 
 *set boolean state
 
+void alpha_is(boolean is);
+
 void fill_is(boolean is);
 
 void stroke_is(boolean is);
@@ -124,10 +140,40 @@ void special_is(boolean is);
 void wire_is(boolean is);
 
 
+*set boolean state
+
+void switch_alpha();
+
+void switch_fill();
+
+void switch_stroke();
+
+void switch_birth();
+
+void switch_colour();
+
+void switch_dimension();
+  
+void switch_horizon();
+
+void switch_motion();
+
+void switch_follow();
+
+void switch_reverse();
+
+void switch_special();
+
+void switch_wire();
+
+
 
 *get slider method
 
-All method return value from controller slider
+important all those method work with min() or max() or raw()
+like method_name_min(), method_name_max() that's return the min and the max value of the slider.
+like method_name_raw() return value before formating.
+
 
 int get_fill();
 
@@ -237,6 +283,8 @@ float get_power();
 
 float get_mass();
 
+float get_amplitude();
+
 Vec3 get_coord();
 
 float get_coord_x();
@@ -246,15 +294,7 @@ float get_coord_y();
 float get_coord_z();
 
 
-*is method
 
-boolean show_is();
-  
-boolean sound_is();
-
-boolean action_is();
-
-boolean parameter_is();
 
 *misc method
 

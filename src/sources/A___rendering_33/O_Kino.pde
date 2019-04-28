@@ -119,8 +119,8 @@ class Kino extends Romanesco {
   void param() {
     float h = get_fill_hue();
     float s = get_fill_sat();
-    float b = get_fill_bright();
-    float a = get_fill_alpha();
+    float b = get_fill_bri();
+    float a = get_fill_alp();
     if(colour == null) {
       colour = vec4(h,s,b,a);
     } else {

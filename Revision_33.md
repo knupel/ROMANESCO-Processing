@@ -4,55 +4,58 @@
 
 *MAJOR
 
->add POST-FX shader glsl : blur, grain, pixelate...
+>add: POST-FX shader glsl : blur, grain, pixelate...
 >the window position is keeping from previous session
->add dynamic method to manage font
+>add: dynamic method to manage font
 >try to detect the system font, to load from this one. If that's don't work use the font folder from Romanesco.
->remove direct access to item variables.
->add setting method for item variables.
->add get_method in class Romanesco to catch the arg : min, max, raw from slider value.
->add methode set_background() to pass PImage from item to the main background.
->change commande to actived the main camera, now don't to keep 'c' pressed, one hit to able or enable.
->add top bar for the controler
->add mix mode to use multiply, overlay... and other incrustation effect
+>remove: direct access to item variables.
+>add: setting method for item variables.
+>add: get_method in class Romanesco to catch the arg : min, max, raw from slider value.
+>add: methode set_background() to pass PImage from item to the main background.
+>change: commande to actived the main camera, now don't to keep 'c' pressed, one hit to able or enable.
+>add: top bar for the controler
+>add: mix mode to use multiply, overlay... and other incrustation effect
 
 *MINOR
 
->change min-max variable for angle, direction and scope from 0 to 360 for 0 to TAU and update the item linked with that.
->add class Mode to mange the name and the id item mode
->remove method boolean get_orbit() statement from keyboard prescene command
->add method boolean get_follow() statement from keyboard prescene command
->refactoring button general
->update costume method
->remove save scene option
->add method to select the first movie meet from the item like the global movie > must be improve properly in the future
->remove MIDI icone setting, now the acces is on the menu bar.
+>change: min-max variable for angle, direction and scope from 0 to 360 for 0 to TAU and update the item linked with that.
+>add: class Mode to mange the name and the id item mode
+>remove: method boolean get_orbit() statement from keyboard prescene command
+>add: method boolean get_follow() statement from keyboard prescene command
+>refactoring: button general
+>update: costume method
+>remove: save scene option
+>add: method to select the first movie meet from the item like the global movie > must be improve properly in the future
+>remove: MIDI icone setting, now the acces is on the menu bar.
 >add: event syphon to apple bar
 >remove: keyevent syphon from rendering sketch
+>add: slider amplitude
+>change: name for item.show(), item.parameter(), item.sound() and item.action() for item.show_is(), item.parameter_is(), item.sound_is() and item.action_is()
+>add: event alpha_is()
 
 *SHADER
 
->add background fx voronoi
->add post fx dither bayer 8
->add post fx threshold
->add post fx datamosh
->remove shader neon
+>add: background fx voronoi
+>add: post fx dither bayer 8
+>add: post fx threshold
+>add: post fx datamosh
+>remove: shader neon
 >total refactoring the FX BACKGROUND shader system to have a same manager fx system than FX POST
 
 *ITEM
 
->KINO, add method to swith off the sound
->KINO, change the direction for padding image up and down
->KINO pass image to background.
->BOXOLYZER add costume to change shape easily and other improvement.
->new item AUTOMATA 
->new item GRILLO about 3D grid and coin flip !
->new item TARTAN
->new item SIMPLE
->new item MER
->SOLEIL improvement the revolution part
->remove Galaxie
->add Rosace
+>update: KINO, add method to swith off the sound
+>update: KINO, change the direction for padding image up and down
+>update: KINO pass image to background.
+>update: BOXOLYZER add costume to change shape easily and other improvement.
+>add: AUTOMATA 
+>add: GRILLO about 3D grid and coin flip !
+>add: TARTAN
+>add: SIMPLE
+>add: MER
+>update: SOLEIL improvement the revolution part
+>remove: Galaxie
+>add: Rosace
 
 *BUG FIX
 

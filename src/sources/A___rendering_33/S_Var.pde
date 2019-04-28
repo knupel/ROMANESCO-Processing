@@ -202,6 +202,7 @@ float grid_raw;
 float viscosity_raw, diffusion_raw;
 float power_raw;
 float mass_raw;
+float amplitude_raw;
 float coord_x_raw, coord_y_raw, coord_z_raw;
 
 
@@ -232,6 +233,7 @@ float viscosity_ref, diffusion_ref;
 
 float power_ref;
 float mass_ref;
+float amplitude_ref;
 float coord_x_ref,coord_y_ref,coord_z_ref;
 
 
@@ -310,6 +312,8 @@ String diffusion_name = "diffusion";
 
 String power_name = "power"; 
 String mass_name = "mass";
+
+String amplitude_name = "amplitude";
 
 String pos_x_name = "pos_x"; 
 String pos_y_name = "pos_y"; 
@@ -667,6 +671,8 @@ void init_variable_item_min_max() {
     item.set_power_min_max(0,MAX_VALUE_SLIDER,0,1);
     item.set_mass_min_max(0,MAX_VALUE_SLIDER,0,1);
 
+    item.set_amplitude_min_max(0,MAX_VALUE_SLIDER,0,1);
+
     item.set_coord_x_min_max(0,MAX_VALUE_SLIDER,0,1);
     item.set_coord_y_min_max(0,MAX_VALUE_SLIDER,0,1);
     item.set_coord_z_min_max(0,MAX_VALUE_SLIDER,0,1);
@@ -726,8 +732,12 @@ void init_variable_item() {
       item.set_grid_raw(width);
       item.set_viscosity_raw(0);
       item.set_diffusion_raw(0);
+
       item.set_power_raw(0);
       item.set_mass_raw(0);
+
+      item.set_amplitude_raw(0);
+
       item.set_coord_raw(0);
     }
    
@@ -1077,14 +1087,15 @@ void update_raw_item_value() {
   diffusion_raw = value_slider_item[col+2]; 
 
   power_raw = value_slider_item[col+3];
-  mass_raw = value_slider_item[col+4]; 
-  coord_x_raw = value_slider_item[col+5];
-  coord_y_raw = value_slider_item[col+6];
-  coord_z_raw = value_slider_item[col+7];
+  mass_raw = value_slider_item[col+4];
+  amplitude_raw = value_slider_item[col+5]; 
+
+  coord_x_raw = value_slider_item[col+6];
+  coord_y_raw = value_slider_item[col+7];
+  coord_z_raw = value_slider_item[col+8];
   
 
   /*
-  value_slider_item[col+8]
   value_slider_item[col+9]
   value_slider_item[col+10]
   value_slider_item[col+11]
@@ -1179,6 +1190,7 @@ void update_slider_ref() {
 
   power_ref = power_raw;
   mass_ref = mass_raw;
+  amplitude_ref = amplitude_raw;
 
   coord_x_ref = coord_x_raw;
   coord_y_ref = coord_y_raw;

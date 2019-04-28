@@ -127,7 +127,7 @@ class Mer extends Romanesco {
           ani[count].update();
           // ani[count].set_speed(get_speed_x());
           // ani[count].set_radius(get_size_x(),get_size_y());
-          ani[count].apparence(get_fill_alpha(),get_stroke_alpha(),get_thickness());
+          ani[count].apparence(get_fill_alp(),get_stroke_alp(),get_thickness());
           ani[count].render_shape(x,y,get_diameter(),get_costume());
           count++; 
         }
@@ -142,7 +142,7 @@ class Mer extends Romanesco {
     //       ani[count].update();
     //       // ani[count].set_speed(get_speed_x());
     //       // ani[count].set_radius(get_size_x(),get_size_y());
-    //       ani[count].apparence(get_fill_alpha(),get_stroke_alpha(),get_thickness());
+    //       ani[count].apparence(get_fill_alp(),get_stroke_alp(),get_thickness());
     //       ani[count].render_shape(x,y,get_diameter(),get_costume());
     //       count++; 
     //     }

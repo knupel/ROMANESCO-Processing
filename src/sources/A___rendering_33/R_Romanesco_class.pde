@@ -1,6 +1,6 @@
 /**
 Abstract CLASS ROMANESCO
-v 1.4.1
+v 1.5.0
 2013-2019
 */
 public abstract class Romanesco implements rope.core.R_Constants {
@@ -49,16 +49,35 @@ public abstract class Romanesco implements rope.core.R_Constants {
   Varom coord_x,coord_y,coord_z;
 
 
-  // parameter
-  boolean show,sound,action,parameter;
+
 
   Mode mode;
   Costume costume;
   int costume_id;
+  
+  // event controller
+  boolean show_is;
+  boolean sound_is;
+  boolean action_is;
+  boolean parameter_is;
 
-  boolean birth, colour, dimension, horizon, motion, follow, reverse, special, wire;
-  boolean fill_is, stroke_is;
-  boolean setting, clearList;
+  // event
+  boolean birth_is;
+  boolean colour_is;
+  boolean dimension_is;
+  boolean horizon_is;
+  boolean motion_is;
+  boolean follow_is;
+  boolean reverse_is;
+  boolean special_is;
+  boolean wire_is;
+
+  boolean alpha_is;
+  boolean fill_is;
+  boolean stroke_is;
+
+  boolean setting;
+  boolean clearList;
 
   ROFont font_item;
 
@@ -261,21 +280,23 @@ public abstract class Romanesco implements rope.core.R_Constants {
   }
   
   // set boolean button controller
-  protected void show_is(boolean show) {
-    this.show = show;
+  /*
+  protected void show_is(boolean show_is) {
+    this.show_is = show_is;
   }
 
-  protected void sound_is(boolean sound) {
-    this.sound = sound;
+  protected void sound_is(boolean sound_is) {
+    this.sound_is = sound_is;
   }
 
-  protected void action_is(boolean action) {
-    this.action = action; 
+  protected void action_is(boolean action_is) {
+    this.action_is = action_is; 
   } 
 
-  protected void parameter_is(boolean parameter) {
-    this.parameter = parameter;
+  protected void parameter_is(boolean parameter_is) {
+    this.parameter_is = parameter_is;
   }
+  */
 
 
 
@@ -1478,56 +1499,62 @@ public abstract class Romanesco implements rope.core.R_Constants {
 
 
   // set boolean
-  protected void set_show(boolean show) {
-    this.show = show;
+  protected void show_is(boolean show_is) {
+    this.show_is = show_is;
   }
 
-  protected void set_sound(boolean sound) {
-    this.sound = sound;
+  protected void sound_is(boolean sound_is) {
+    this.sound_is = sound_is;
   }
 
-  protected void set_action(boolean action) {
-    this.action = action;
+  protected void action_is(boolean action_is) {
+    this.action_is = action_is;
   }
 
-  protected void set_parameter(boolean parameter) {
-    this.parameter = parameter;
+  protected void parameter_is(boolean parameter_is) {
+    this.parameter_is = parameter_is;
   }
 
-  protected void birth_is(boolean birth) {
-    this.birth = birth;
+
+
+  protected void birth_is(boolean birth_is) {
+    this.birth_is = birth_is;
   }
 
-  protected void colour_is(boolean colour) {
-    this.colour = colour;
+  protected void colour_is(boolean colour_is) {
+    this.colour_is = colour_is;
   }
 
-  protected void dimension_is(boolean dimension) {
-    this.dimension = dimension;
+  protected void dimension_is(boolean dimension_is) {
+    this.dimension_is = dimension_is;
   }
 
-  protected void horizon_is(boolean horizon) {
-    this.horizon = horizon;
+  protected void horizon_is(boolean horizon_is) {
+    this.horizon_is = horizon_is;
   }
 
-  protected void motion_is(boolean motion) {
-    this.motion = motion;
+  protected void motion_is(boolean motion_is) {
+    this.motion_is = motion_is;
   }
 
-  protected void follow_is(boolean follow) {
-    this.follow = follow;
+  protected void follow_is(boolean follow_is) {
+    this.follow_is = follow_is;
   }
 
-  protected void reverse_is(boolean reverse) {
-    this.reverse = reverse;
+  protected void reverse_is(boolean reverse_is) {
+    this.reverse_is = reverse_is;
   }
 
-  protected void special_is(boolean special) {
-    this.special = special;
+  protected void special_is(boolean special_is) {
+    this.special_is = special_is;
   }
 
-  protected void wire_is(boolean wire) {
-    this.wire = wire;
+  protected void wire_is(boolean wire_is) {
+    this.wire_is = wire_is;
+  }
+
+  protected void alpha_is(boolean alpha_is) {
+    this.alpha_is = alpha_is;
   }
 
   protected void fill_is(boolean fill_is) {
@@ -1538,40 +1565,46 @@ public abstract class Romanesco implements rope.core.R_Constants {
     this.stroke_is = stroke_is;
   }
 
+
+  // switch state
   protected void switch_birth() {
-    this.birth = !this.birth;
+    this.birth_is = !this.birth_is;
   }
 
   protected void switch_colour() {
-    this.colour = !this.colour;
+    this.colour_is = !this.colour_is;
   }
 
   protected void switch_dimension() {
-    this.dimension = !this.dimension;
+    this.dimension_is = !this.dimension_is;
   }
 
   protected void switch_horizon() {
-    this.horizon = !this.horizon;
+    this.horizon_is = !this.horizon_is;
   }
 
   protected void switch_motion() {
-    this.motion = !this.motion;
+    this.motion_is = !this.motion_is;
   }
 
   protected void switch_follow() {
-    this.follow = !this.follow;
+    this.follow_is = !this.follow_is;
   }
 
   protected void switch_reverse() {
-    this.reverse = !this.reverse;
+    this.reverse_is = !this.reverse_is;
   }
 
   protected void switch_special() {
-    this.special = !this.special;
+    this.special_is = !this.special_is;
   }
 
   protected void switch_wire() {
-    this.wire = !this.wire;
+    this.wire_is = !this.wire_is;
+  }
+
+  protected void switch_alpha() {
+    this.alpha_is = !this.alpha_is;
   }
 
   protected void switch_fill() {
@@ -1633,19 +1666,19 @@ public abstract class Romanesco implements rope.core.R_Constants {
   }
 
   protected boolean show_is() {
-    return show;
+    return show_is;
   }
 
   protected boolean sound_is() {
-    return sound;
+    return sound_is;
   }
 
   protected boolean action_is() {
-    return action; 
+    return action_is; 
   } 
 
   protected boolean parameter_is() {
-    return parameter;
+    return parameter_is;
   }
 
   protected Mode get_mode() {
@@ -1678,6 +1711,10 @@ public abstract class Romanesco implements rope.core.R_Constants {
   /**
   state method use in Prescene generally
   */
+  protected boolean alpha_is() {
+    return alpha_is;
+  }
+
   protected boolean fill_is() {
     return fill_is;
   }
@@ -1687,39 +1724,39 @@ public abstract class Romanesco implements rope.core.R_Constants {
   }
 
   protected boolean birth_is() {
-    return birth;
+    return birth_is;
   }
   
   protected boolean colour_is() {
-    return colour;
+    return colour_is;
 
   }
   protected boolean dimension_is() {
-    return dimension;
+    return dimension_is;
   }
   
   protected boolean horizon_is() {
-    return horizon;
+    return horizon_is;
   }
 
   protected boolean motion_is() {
-    return motion;
+    return motion_is;
   }
 
   protected boolean follow_is() {
-    return follow;
+    return follow_is;
   }
 
   protected boolean reverse_is() {
-    return reverse;
+    return reverse_is;
   }
 
   protected boolean wire_is() {
-    return wire;
+    return wire_is;
   }
 
   protected boolean special_is() {
-    return special;
+    return special_is;
   }
 
 
@@ -1772,36 +1809,36 @@ public abstract class Romanesco implements rope.core.R_Constants {
   }
   
   // fill_bright
-  protected float get_fill_bright() {
+  protected float get_fill_bri() {
     return fill_bright.get();
   }
 
-  protected float get_fill_bright_raw() {
+  protected float get_fill_bri_raw() {
     return fill_bright.raw();
   }
 
-  protected float get_fill_bright_max() {
+  protected float get_fill_bri_max() {
     return fill_bright.max();
   }
 
-  protected float get_fill_bright_min() {
+  protected float get_fill_bri_min() {
     return fill_bright.min();
   }
   
   // fill_alpha
-  protected float get_fill_alpha() {
+  protected float get_fill_alp() {
     return fill_alpha.get();
   }
 
-  protected float get_fill_alpha_raw() {
+  protected float get_fill_alp_raw() {
     return fill_alpha.raw();
   }
 
-  protected float get_fill_alpha_max() {
+  protected float get_fill_alp_max() {
     return fill_alpha.max();
   }
 
-  protected float get_fill_alpha_min() {
+  protected float get_fill_alp_min() {
     return fill_alpha.min();
   }
   
@@ -1844,36 +1881,36 @@ public abstract class Romanesco implements rope.core.R_Constants {
   }
   
   // stroke_bright
-  protected float get_stroke_bright() {
+  protected float get_stroke_bri() {
     return stroke_bright.get();
   }
 
-  protected float get_stroke_bright_raw() {
+  protected float get_stroke_bri_raw() {
     return stroke_bright.raw();
   }
 
-  protected float get_stroke_bright_max() {
+  protected float get_stroke_bri_max() {
     return stroke_bright.max();
   }
 
-  protected float get_stroke_bright_min() {
+  protected float get_stroke_bri_min() {
     return stroke_bright.min();
   }
   
   // stroke_alpha
-  protected float get_stroke_alpha() {
+  protected float get_stroke_alp() {
     return stroke_alpha.get();
   }
 
-  protected float get_stroke_alpha_raw() {
+  protected float get_stroke_alp_raw() {
     return stroke_alpha.raw();
   }
 
-  protected float get_stroke_alpha_max() {
+  protected float get_stroke_alp_max() {
     return stroke_alpha.max();
   }
 
-  protected float get_stroke_alpha_min() {
+  protected float get_stroke_alp_min() {
     return stroke_alpha.min();
   }
 
@@ -2843,49 +2880,49 @@ public abstract class Romanesco implements rope.core.R_Constants {
     } 
 
     if(costume_romanesco.equals("pixel") || costume_romanesco.equals("PIXEL") || costume_romanesco.equals("Pixel")) {
-      if(!dimension) {
+      if(!dimension_is()) {
         costume.set_type(PIXEL_ROPE); 
       } else {
         costume.set_type(PIXEL_ROPE);
       }
     } else if(costume_romanesco.equals("point") || costume_romanesco.equals("POINT") || costume_romanesco.equals("Point")) {
-      if(!dimension) {
+      if(!dimension_is()) {
         costume.set_type(POINT_ROPE); 
       } else {
         costume.set_type(SPHERE_LOW_ROPE);
       }
     } else if(costume_romanesco.equals("line") || costume_romanesco.equals("LINE") || costume_romanesco.equals("Line")) {
-      if(!dimension) {
+      if(!dimension_is()) {
         costume.set_type(LINE_ROPE); 
       } else {
         costume.set_type(LINE_ROPE);
       }
     } else if(costume_romanesco.equals("ellipse") || costume_romanesco.equals("ELLIPSE") || costume_romanesco.equals("Ellipse") || costume_romanesco.equals("disc") || costume_romanesco.equals("DISC") || costume_romanesco.equals("Disc")) {
-      if(!dimension) {
+      if(!dimension_is()) {
         costume.set_type(ELLIPSE_ROPE); 
       } else {
         costume.set_type(SPHERE_MEDIUM_ROPE);
       }
     } else if(costume_romanesco.equals("triangle") || costume_romanesco.equals("TRIANGLE") || costume_romanesco.equals("Triangle")) {
-      if(!dimension) {
+      if(!dimension_is()) {
         costume.set_type(TRIANGLE_ROPE); 
       } else {
         costume.set_type(TETRAHEDRON_ROPE);
       }
     } else if(costume_romanesco.equals("rectangle") || costume_romanesco.equals("RECTANGLE") || costume_romanesco.equals("Rectangle") || costume_romanesco.equals("rect") || costume_romanesco.equals("RECT") || costume_romanesco.equals("Rect")) {
-      if(!dimension) {
+      if(!dimension_is()) {
         costume.set_type(RECT_ROPE); 
       } else {
         costume.set_type(BOX_ROPE);
       }
     } else if(costume_romanesco.equals("pentagon") || costume_romanesco.equals("PENTAGON") || costume_romanesco.equals("Pentagon")) {
-      if(!dimension) {
+      if(!dimension_is()) {
         costume.set_type(PENTAGON_ROPE); 
       } else {
         costume.set_type(PENTAGON_ROPE);
       }
     } else if(costume_romanesco.equals("cross") || costume_romanesco.equals("CROSS") || costume_romanesco.equals("Cross")) {
-      if(!dimension) {
+      if(!dimension_is()) {
         costume.set_type(CROSS_BOX_2_ROPE); 
       } else {
         costume.set_type(CROSS_BOX_3_ROPE);
@@ -2893,7 +2930,7 @@ public abstract class Romanesco implements rope.core.R_Constants {
     } 
 
       else if(costume_romanesco.equals("flower") || costume_romanesco.equals("FLOWER") || costume_romanesco.equals("Flower")) {
-      if(!dimension) {
+      if(!dimension_is()) {
         costume.set_type(FLOWER_ROPE);
         costume.set_summit(5);
       } else {
@@ -2901,7 +2938,7 @@ public abstract class Romanesco implements rope.core.R_Constants {
         costume.set_summit(5);
       }
     } else if(costume_romanesco.equals("flower 3") || costume_romanesco.equals("FLOWER 3") || costume_romanesco.equals("Flower 3")) {
-      if(!dimension) {
+      if(!dimension_is()) {
         costume.set_type(FLOWER_ROPE);
         costume.set_summit(3);
       } else {
@@ -2909,7 +2946,7 @@ public abstract class Romanesco implements rope.core.R_Constants {
         costume.set_summit(3);
       }
     } else if(costume_romanesco.equals("flower 5") || costume_romanesco.equals("FLOWER 5") || costume_romanesco.equals("Flower 5")) {
-      if(!dimension) {
+      if(!dimension_is()) {
         costume.set_type(FLOWER_ROPE);
         costume.set_summit(5);
       } else {
@@ -2917,7 +2954,7 @@ public abstract class Romanesco implements rope.core.R_Constants {
         costume.set_summit(5);
       }
     } else if(costume_romanesco.equals("flower 7") || costume_romanesco.equals("FLOWER 7") || costume_romanesco.equals("Flower 7")) {
-      if(!dimension) {
+      if(!dimension_is()) {
         costume.set_type(FLOWER_ROPE);
         costume.set_summit(7);
       } else {
@@ -2925,7 +2962,7 @@ public abstract class Romanesco implements rope.core.R_Constants {
         costume.set_summit(7);
       }
     } else if(costume_romanesco.equals("flower 9") || costume_romanesco.equals("FLOWER 9") || costume_romanesco.equals("Flower 9")) {
-      if(!dimension) {
+      if(!dimension_is()) {
         costume.set_type(FLOWER_ROPE); 
         costume.set_summit(9);
       } else {
@@ -2933,7 +2970,7 @@ public abstract class Romanesco implements rope.core.R_Constants {
         costume.set_summit(9);
       }
     } else if(costume_romanesco.equals("flower 12") || costume_romanesco.equals("FLOWER 12") || costume_romanesco.equals("Flower 12")) {
-      if(!dimension) {
+      if(!dimension_is()) {
         costume.set_type(FLOWER_ROPE); 
         costume.set_summit(12);
       } else {
@@ -2941,7 +2978,7 @@ public abstract class Romanesco implements rope.core.R_Constants {
         costume.set_summit(12);
       }
     } else if(costume_romanesco.equals("flower 24") || costume_romanesco.equals("FLOWER 24") || costume_romanesco.equals("Flower 24")) {
-      if(!dimension) {
+      if(!dimension_is()) {
         costume.set_type(FLOWER_ROPE);
         costume.set_summit(24);
       } else {
@@ -2952,7 +2989,7 @@ public abstract class Romanesco implements rope.core.R_Constants {
 
 
       else if(costume_romanesco.equals("star") || costume_romanesco.equals("STAR") || costume_romanesco.equals("Star")) {
-      if(!dimension) {
+      if(!dimension_is()) {
         costume.set_type(STAR_ROPE);
         costume.set_summit(5);
       } else {
@@ -2960,7 +2997,7 @@ public abstract class Romanesco implements rope.core.R_Constants {
         costume.set_summit(5);
       }
     } else if(costume_romanesco.equals("star 4") || costume_romanesco.equals("STAR 4") || costume_romanesco.equals("Star 4")) {
-      if(!dimension) {
+      if(!dimension_is()) {
         costume.set_type(STAR_ROPE);
         costume.set_summit(4);
       } else {
@@ -2968,7 +3005,7 @@ public abstract class Romanesco implements rope.core.R_Constants {
         costume.set_summit(4);
       }
     } else if(costume_romanesco.equals("star 5") || costume_romanesco.equals("STAR 5") || costume_romanesco.equals("Star 5")) {
-      if(!dimension) {
+      if(!dimension_is()) {
         costume.set_type(STAR_ROPE);
         costume.set_summit(5);
       } else {
@@ -2976,7 +3013,7 @@ public abstract class Romanesco implements rope.core.R_Constants {
         costume.set_summit(5);
       }
     } else if(costume_romanesco.equals("star 6") || costume_romanesco.equals("STAR 6") || costume_romanesco.equals("Star 6")) {
-      if(!dimension) {
+      if(!dimension_is()) {
         costume.set_type(STAR_ROPE);
         costume.set_summit(6);
       } else {
@@ -2984,7 +3021,7 @@ public abstract class Romanesco implements rope.core.R_Constants {
         costume.set_summit(6);
       }
     } else if(costume_romanesco.equals("star 7") || costume_romanesco.equals("STAR 7") || costume_romanesco.equals("Star 7")) {
-      if(!dimension) {
+      if(!dimension_is()) {
         costume.set_type(STAR_ROPE);
         costume.set_summit(7);
       } else {
@@ -2992,7 +3029,7 @@ public abstract class Romanesco implements rope.core.R_Constants {
         costume.set_summit(7);
       }
     } else if(costume_romanesco.equals("star 8") || costume_romanesco.equals("STAR 8") || costume_romanesco.equals("Star 8")) {
-      if(!dimension) {
+      if(!dimension_is()) {
         costume.set_type(STAR_ROPE);
         costume.set_summit(8);
       } else {
@@ -3002,7 +3039,7 @@ public abstract class Romanesco implements rope.core.R_Constants {
     } 
 
       else if(costume_romanesco.equals("super star 8") || costume_romanesco.equals("SUPER STAR 8") || costume_romanesco.equals("Super Star 8")) {
-      if(!dimension) {
+      if(!dimension_is()) {
         costume.set_type(STAR_ROPE);
         costume.set_summit(8);
         costume.set_ratio(2.,.5,1.,.5);
@@ -3012,7 +3049,7 @@ public abstract class Romanesco implements rope.core.R_Constants {
         costume.set_ratio(2.,.5,1.,.5);
       }
     } else if(costume_romanesco.equals("super star 12") || costume_romanesco.equals("SUPER STAR 12") || costume_romanesco.equals("Super Star 12")) {
-      if(!dimension) {
+      if(!dimension_is()) {
         costume.set_type(STAR_ROPE);
         costume.set_summit(12);
         costume.set_ratio(2.,.5,1.,.5,1.,.5);
@@ -3025,7 +3062,7 @@ public abstract class Romanesco implements rope.core.R_Constants {
 
       
       else if(costume_romanesco.equals("abc") || costume_romanesco.equals("ABC") || costume_romanesco.equals("Abc")) {
-      if(!dimension) {
+      if(!dimension_is()) {
         costume.set_type(TEXT_ROPE); 
       } else {
         costume.set_type(TEXT_ROPE);
@@ -3036,7 +3073,7 @@ public abstract class Romanesco implements rope.core.R_Constants {
       else if(costume_romanesco.equals("none") || costume_romanesco.equals("NONE") || costume_romanesco.equals("None") ||
               costume_romanesco.equals("nothing") || costume_romanesco.equals("NOTHING") || costume_romanesco.equals("Nothing") || 
               costume_romanesco.equals("null") || costume_romanesco.equals("NULL") || costume_romanesco.equals("Null")) {
-      if(!dimension) {
+      if(!dimension_is()) {
         costume.set_type(NULL); 
       } else {
         costume.set_type(NULL);
