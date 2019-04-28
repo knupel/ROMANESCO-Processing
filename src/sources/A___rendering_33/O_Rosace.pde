@@ -13,7 +13,7 @@ class Rosace extends Romanesco {
     item_author  = "Stan le Punk";
     item_version = "Version 0.0.1";
     item_pack = "Base 2019-2019";
-    item_mode ="rose/crown/costume";
+    item_mode ="rosace/rose/crown/costume";
     item_costume = "point/ellipse/triangle/rect/cross/pentagon/flower/star";
 
 
@@ -57,7 +57,7 @@ class Rosace extends Romanesco {
     // life_is = true;
     // flow_is = true;
     quality_is = true;
-    // area_is = true;
+    area_is = true;
     // angle_is = true;
     // scope_is = true;
     // scan_is = true;
@@ -83,15 +83,17 @@ class Rosace extends Romanesco {
 
   boolean sync_crown_is = true;
   boolean show_crown_is = true;
+  boolean crown_mode_is = false;
+
   boolean group_is = true;
   boolean costume_is = false;
   boolean motion_is = true;
 
-  boolean show_stroke_is = true;
 
   boolean show_alpha_is = true;
-
+  boolean show_stroke_is = true;
   boolean show_fill_is = true;
+
   boolean background_is = true;
   boolean switch_fill_stroke_is = false;
 
@@ -105,7 +107,7 @@ class Rosace extends Romanesco {
   //SETUP
   void setup() {
     setting_start_position(ID_item,0,0,0);
-    parameter_rosace();
+    parameter_rosace(crown_mode_is);
     int range_hue = 30;
     generator_rosace(r.BLOOD,r.BLACK,range_hue);
   }
@@ -113,12 +115,14 @@ class Rosace extends Romanesco {
   vec3 rotation;
   int direction = 1;
   void draw() {
-    parameter_rosace();
+    
 
     if(rotation == null) {
       rotation = vec3();
     }
-    vec3 speed = vec3(get_dir_x(),get_dir_y(),get_speed_x());
+    float sx = map(get_dir_x(),get_dir_x_min(),get_dir_x_max(),0,1);
+    float sy = map(get_dir_y(),get_dir_y_min(),get_dir_y_max(),0,1);
+    vec3 speed = vec3(sx,sy,get_speed_x());
     rotation.add(speed.pow(3));
     rotation.mult(direction);
 
@@ -142,18 +146,30 @@ class Rosace extends Romanesco {
     }
 
     sync_crown_is = special_is();
-    // show_alpha_is = alpha_is();
     motion_is = motion_is();
+    show_alpha_is = alpha_is();
+    show_stroke_is = stroke_is();
+    show_fill_is = fill_is();
     
-    if(get_mode_name().equals("rose")) {
+    if(get_mode_name().equals("rosace")) {
+      costume_is = false;
+      show_crown_is = true;
+      crown_mode_is = false;
+    } if(get_mode_name().equals("rose")) {
       costume_is = false;
       show_crown_is = false;
+      crown_mode_is = false;
     } else if(get_mode_name().equals("crown")) {
       costume_is = false;
       show_crown_is = true;
+      crown_mode_is = true;
     } else if(get_mode_name().equals("costume")) {
       costume_is = true;
+      show_crown_is = false;
+      crown_mode_is = false;
     }
+
+    parameter_rosace(crown_mode_is);
 
     if(reverse_is()) {
       direction = -1;
@@ -167,15 +183,15 @@ class Rosace extends Romanesco {
 
   /**
   * Rosace Param
-  * v 0.0.2
+  * v 0.0.3
   * 2019-2019
   */
   Rosace_Setting [] rosace_setting;
-  boolean random_crown_is;
+  int num_crown_max;
   int rosace_complexity;
-  void parameter_rosace() {
+  void parameter_rosace(boolean crown_mode) {
     // catch slider param
-    float quantity = get_quantity();
+    float quantity = get_quantity() *get_quantity();
     float variety = get_variety();
     float quality = get_quality();
     float canvas_normal = map(get_canvas_x(),get_canvas_x_min(),get_canvas_x_max(),0,1);
@@ -186,20 +202,30 @@ class Rosace extends Romanesco {
     diam_normal *= diam_normal;
     float diam = get_diameter() *diam_normal;
 
+    vec2 range_speed_z = vec2(1).add(-get_spurt_x(),get_spurt_x()).mult(.01);
 
+    
     float altitude = get_canvas_z();
-
-    float amplitude = get_amplitude();
+    vec2 mut = vec2(1).add(-get_swing_x(),get_swing_x());
+    float norm_area = map(get_area(),get_area_min(),get_area_max(),0,1);
+    vec2 mut_rad_min = vec2(1).sub(norm_area).add(-get_amplitude(),get_amplitude());
+    vec2 mut_rad_max = vec2(1).add(norm_area).add(-get_amplitude(),get_amplitude());
 
     int ratio_summit = (int)map(quality,0,1,3,100);
-    // altitude = map(altitude,0,1,1,width*3);
 
     float range_relief_min = diam;
     float range_relief_max = canvas;
 
-    rosace_complexity = (int)map(quantity,0,1,3,21);
-    num_crown_max = (int)map(variety,0,1,0,rosace_complexity/2);
-    random_crown_is = false;
+    rosace_complexity = (int)map(quantity,0,1,3,111);
+    // make rose complexity is pair to have only crown and no rose
+    if(crown_mode && rosace_complexity%2 != 0) {
+      rosace_complexity += 1;
+    } 
+    if(!crown_mode) {
+      num_crown_max = (int)map(variety,0,1,0,rosace_complexity/2);
+    } else {
+      num_crown_max = rosace_complexity/2;
+    }
 
     // here we make setting for different groupe of rose
     int num_group = 3;
@@ -227,13 +253,16 @@ class Rosace extends Romanesco {
       rosace_setting[i].set_pos(0,0,alt[i]);
       rosace_setting[i].set_in(in[i]);
       rosace_setting[i].set_out(out[i]);
-      rosace_setting[i].set_offset_range_speed_z(0.02,0.01);
+      rosace_setting[i].set_offset_range_speed_z(range_speed_z.min(),range_speed_z.max());
       rosace_setting[i].set_offset_range_z(-altitude,altitude);
 
       rosace_setting[i].set_rot(0.2,0.4);
-      rosace_setting[i].set_mut(0.6,0.9);
-      rosace_setting[i].set_mut_rad_min(0.7,0.8);
-      rosace_setting[i].set_mut_rad_max(.9,1);
+      rosace_setting[i].set_mut(mut.min(),mut.max());
+      
+      rosace_setting[i].set_mut_rad_min(mut_rad_min.min(),mut_rad_min.max());
+      rosace_setting[i].set_mut_rad_max(mut_rad_max.min(),mut_rad_max.max());
+      // rosace_setting[i].set_mut_rad_min(0.7,0.8);
+      // rosace_setting[i].set_mut_rad_max(.9,1);
       rosace_setting[i].set_thickness(0,height *.1);
       rosace_setting[i].set_stroke_alpha(g.colorModeA *.2, g.colorModeA *.8);
       rosace_setting[i].set_fill_alpha(g.colorModeA *.2, g.colorModeA *.8);
@@ -254,7 +283,6 @@ class Rosace extends Romanesco {
 
   R_Colour colour_fill;
   R_Colour colour_stroke;
-  int num_crown_max;
 
   void generator_rosace(int colour_master_fill, int colour_master_stroke, float spectre) {
     init_crown(rosace_complexity,rosace_setting); 
@@ -275,11 +303,8 @@ class Rosace extends Romanesco {
       if(num_crown_max > num /2) {
         num_crown_max = num /2;
       }
-      if(random_crown_is) {
-        num_crown = round(random(num_crown_max));
-      } else {
-        num_crown = num_crown_max;
-      }
+      num_crown = num_crown_max;
+
       if(num_crown > 0) {
         ArrayList<Integer> list = new ArrayList<Integer>();
         ArrayList<Integer> result = new ArrayList<Integer>();
@@ -440,10 +465,9 @@ class Rosace extends Romanesco {
   // render
   void rosace() {
     // from slider
-    float alpha_fill = get_fill_alp();
-    float alpha_stroke = get_stroke_alp();
+    float alpha_fill = map(get_fill_alp(),get_fill_alp_min(),get_fill_alp_max(),0,1);
+    float alpha_stroke = map(get_stroke_alp(),get_stroke_alp_min(),get_stroke_alp_max(),0,1);
     float thickness = map(get_thickness(),get_thickness_min(),get_thickness_max(),0,1);
-    vec3 af_as_t = vec3(alpha_fill,alpha_stroke,thickness);
     
     // render
     if(costume_is) {
@@ -484,8 +508,11 @@ class Rosace extends Romanesco {
     int c_fill = rose[target].fill();
     int c_stroke = rose[target].stroke();
     if(!alpha_is) {
-      c_fill = color(hue(c_fill),saturation(c_fill),brightness(c_fill),fill_alp);
-      c_stroke = color(hue(c_stroke),saturation(c_stroke),brightness(c_stroke),stroke_alp);
+      c_fill = color(hue(c_fill),saturation(c_fill),brightness(c_fill),g.colorModeA);
+      c_stroke = color(hue(c_stroke),saturation(c_stroke),brightness(c_stroke),g.colorModeA);
+    } else {
+      c_fill = color(hue(c_fill),saturation(c_fill),brightness(c_fill),alpha(c_fill)*fill_alp);
+      c_stroke = color(hue(c_stroke),saturation(c_stroke),brightness(c_stroke),alpha(c_stroke)*stroke_alp);
     }
 
     if(fill_is) {
@@ -521,7 +548,10 @@ class Rosace extends Romanesco {
         strokeWeight(rose[i].thickness() *thickness);
         vec4 hsba = to_hsba(rose[i].fill());
         if(!alpha_is) {
-          hsba.alp(fill_alp);
+          hsba.alp(g.colorModeA);
+        } else {
+          float alpha = hsba.alp()*fill_alp;
+          hsba.alp(alpha);
         }
         stroke(hsba);
         noFill();
@@ -533,8 +563,16 @@ class Rosace extends Romanesco {
       strokeWeight(rose[0].thickness() *thickness);
       vec4 hsba = to_hsba(rose[0].fill());
       if(!alpha_is) {
+          hsba.alp(g.colorModeA);
+        } else {
+          float alpha = hsba.alp()*fill_alp;
+          hsba.alp(alpha);
+        }
+      /*
+      if(!alpha_is) {
         hsba.alp(fill_alp);
       }
+      */
       stroke(hsba);
       noFill();
       for (vec3 p : get_points_rosaces()) {

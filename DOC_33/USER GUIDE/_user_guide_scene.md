@@ -55,38 +55,34 @@ If it's available on the item selected
 'i' 
 > display a window info
 
+'g'
+> disable or enable grid 3D
+
 *ITEM ACTION
 
-'n'
-> add boolean birth[ID_item] 
+'a' > switch alpha
 
-'x'
-> add boolean colour[ID_item]
+'j' > switch fill
 
-'d' 
-> add boolean dimension[ID_item]
+'k' > switch stroke
 
-'d'
-> add boolean fill_is[ID_item] 
+'n' > switch birth
 
-'l'
-> add boolean stroke_is[ID_item] 
+'x' > switch colour
 
+'d' > switch dimension
 
-'h'
-> add boolean horizon[ID_item]
+'h' > switch horizon 
 
-'m'
-> add boolean motion[ID_item]
+'m' > switch motion
 
-'o'
-> orbit from keyboard 
+'r' > switch reverse
 
-'r'
-> add boolean reverse[ID_item]
+'s' > switch special
 
-'k'
-> add boolean special[ID_item]
+'w' > switch wire
+
+'f' > switch follow
 
 
 *SCREEN SHOT *S
@@ -94,15 +90,7 @@ If it's available on the item selected
 >'p'
 save png a window Scene or Prescene is on a full rendering mode
 
-*SYPHON *S
 
-'y'
-> disable or enable Syphon mode
-
-*GRID *S
-
-'g'
-> disable or enable grid 3D
 
 *MASK *S
 

@@ -46,6 +46,7 @@ public abstract class Romanesco implements rope.core.R_Constants {
 
   Varom power;
   Varom mass;
+  Varom amplitude;
   Varom coord_x,coord_y,coord_z;
 
 
@@ -140,6 +141,7 @@ public abstract class Romanesco implements rope.core.R_Constants {
   protected boolean diffusion_is;
   protected boolean power_is;
   protected boolean mass_is;
+  protected boolean amplitude_is;
   protected boolean coord_x_is;
   protected boolean coord_y_is;
   protected boolean coord_z_is;  
@@ -218,9 +220,10 @@ public abstract class Romanesco implements rope.core.R_Constants {
     if(!diffusion_is) item_slider +="," ; else item_slider += (slider[3][2]+",");
     if(!power_is) item_slider +="," ; else item_slider += (slider[3][3]+",");
     if(!mass_is) item_slider +="," ; else item_slider += (slider[3][4]+",");
-    if(!coord_x_is) item_slider +="," ; else item_slider += (slider[3][5]+",");
-    if(!coord_y_is) item_slider +="," ; else item_slider += (slider[3][6]+",");
-    if(!coord_z_is) item_slider +="," ; else item_slider += (slider[3][7]+",");
+    if(!amplitude_is) item_slider +="," ; else item_slider += (slider[3][5]+",");
+    if(!coord_x_is) item_slider +="," ; else item_slider += (slider[3][6]+",");
+    if(!coord_y_is) item_slider +="," ; else item_slider += (slider[3][7]+",");
+    if(!coord_z_is) item_slider +="," ; else item_slider += (slider[3][8]+",");
   }
 
   
@@ -278,25 +281,7 @@ public abstract class Romanesco implements rope.core.R_Constants {
     this.costume = costume;
     this.costume_id = costume_id;
   }
-  
-  // set boolean button controller
-  /*
-  protected void show_is(boolean show_is) {
-    this.show_is = show_is;
-  }
 
-  protected void sound_is(boolean sound_is) {
-    this.sound_is = sound_is;
-  }
-
-  protected void action_is(boolean action_is) {
-    this.action_is = action_is; 
-  } 
-
-  protected void parameter_is(boolean parameter_is) {
-    this.parameter_is = parameter_is;
-  }
-  */
 
 
 
@@ -1423,6 +1408,25 @@ public abstract class Romanesco implements rope.core.R_Constants {
     this.mass.set_min(min);
     this.mass.set_max(max);
   }
+
+
+  // amplitude
+  protected void set_amplitude_raw(float amplitude) {
+    set_amplitude_raw(amplitude,0,0);
+  }
+
+  protected void set_amplitude_raw(float amplitude, int begin, int end) {
+    if(this.amplitude == null) this.amplitude = new Varom();
+    this.amplitude.set_raw(amplitude,begin,end);
+  }
+
+  protected void set_amplitude_min_max(float min_raw, float max_raw, float min, float max) {
+    if(this.amplitude == null) this.amplitude = new Varom();
+    this.amplitude.set_min_raw(min_raw);
+    this.amplitude.set_max_raw(max_raw);
+    this.amplitude.set_min(min);
+    this.amplitude.set_max(max);
+  }
   
   // COORD
   protected void set_coord_raw(float coord) {
@@ -1664,23 +1668,7 @@ public abstract class Romanesco implements rope.core.R_Constants {
   protected String get_name() {
     return item_name;
   }
-
-  protected boolean show_is() {
-    return show_is;
-  }
-
-  protected boolean sound_is() {
-    return sound_is;
-  }
-
-  protected boolean action_is() {
-    return action_is; 
-  } 
-
-  protected boolean parameter_is() {
-    return parameter_is;
-  }
-
+  
   protected Mode get_mode() {
     return mode;
   }
@@ -1706,7 +1694,22 @@ public abstract class Romanesco implements rope.core.R_Constants {
   }
 
 
+  // get event
+  protected boolean show_is() {
+    return show_is;
+  }
 
+  protected boolean sound_is() {
+    return sound_is;
+  }
+
+  protected boolean action_is() {
+    return action_is; 
+  } 
+
+  protected boolean parameter_is() {
+    return parameter_is;
+  }
 
   /**
   state method use in Prescene generally
@@ -2721,6 +2724,23 @@ public abstract class Romanesco implements rope.core.R_Constants {
 
   protected float get_mass_min() {
     return mass.min();
+  }
+
+  // amplitude
+  protected float get_amplitude() {
+    return amplitude.get();
+  }
+
+  protected float get_amplitude_raw() {
+    return amplitude.raw();
+  }
+
+  protected float get_amplitude_max() {
+    return amplitude.max();
+  }
+
+  protected float get_amplitude_min() {
+    return amplitude.min();
   }
 
   // COORD

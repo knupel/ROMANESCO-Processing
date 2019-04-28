@@ -33,6 +33,7 @@ class Template extends Romanesco {
     // canvas_x_is = true;
     // canvas_y_is = true;
     // canvas_z_is = true;
+    
     // COL 2
     // frequence_is = true;
     // speed_x_is = true;
@@ -50,6 +51,7 @@ class Template extends Romanesco {
     // swing_x_is = true;
     // swing_y_is = true;
     // swing_z_is = true;
+
     // COL 3
     // quantity_is = true;
     // variety_is =true;
@@ -67,12 +69,14 @@ class Template extends Romanesco {
     // influence_is = true;
     // calm_is = true;
     // spectrum_is = true;
+
     // COL 4
     // grid_is = true;
     // viscosity_is = true;
     // diffusion_is = true;
     // power_is = true;
     // mass_is = true;
+    // amplitude_is = true;
     // coord_x_is = true;
     // coord_y_is = true;
     // coord_z_is = true;
