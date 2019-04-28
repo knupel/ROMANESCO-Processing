@@ -1,12 +1,12 @@
 /**
 * COSTUME class
 * Copyleft (c) 2019-2019
-* v 0.8.2
+* v 0.9.0
 * @author @stanlepunk
 * @see https://github.com/StanLepunK/Rope_framework
 * Here you finf the class Costume and all the class shape used.
-* Processing 3.5.3
-* Rope Library 0.5.1
+* Processing 3.5.3.269
+* Rope Library 0.7.1.25
 */
 final int POINT_ROPE = 1;
 final int ELLIPSE_ROPE = 2;
@@ -76,12 +76,14 @@ final int VIRUS_ROPE = 88_888_888;
 /**
 class Costume 
 2018-2019
-v 0.3.1
+v 0.4.0
 */
 import rope.costume.R_Primitive;
 public class Costume {
 	boolean fill_is;
 	boolean stroke_is;
+	boolean alpha_is;
+
 	int fill;
 	int stroke;
 	float thickness = 1.;
@@ -221,15 +223,32 @@ public class Costume {
 		return this.stroke_is;
 	}
 
+	public boolean alpha_is() {
+		return this.alpha_is;
+	}
+
 
 
 
 
 
 	// ASPECT
-	public void aspect_is(boolean fill_is, boolean stroke_is) {
+	public void fill_is(boolean fill_is) {
+		this.fill_is = fill_is;
+	}
+
+	public void stroke_is(boolean stroke_is) {
+		this.stroke_is = stroke_is;
+	}
+
+	public void alpha_is(boolean alpha_is) {
+		this.alpha_is = alpha_is;
+	}
+
+	public void aspect_is(boolean fill_is, boolean stroke_is, boolean alpha_is) {
 		this.fill_is = fill_is;
 		this.stroke_is = stroke_is;
+		this.alpha_is = alpha_is;
 	}
 
 	public void init_bool_aspect() {
@@ -347,40 +366,73 @@ public class Costume {
 	private void manage_fill(Object arg) {
 		if(arg instanceof vec2) {
 			vec2 c = (vec2)arg;
-			this.fill = color(c.x,c.x,c.x,c.y);
-			fill(c) ;
+			if(alpha_is()) {
+				this.fill = color(c.x(),c.x(),c.x(),c.y());
+			} else { 
+				this.fill = color(c.x(),c.x(),c.x(),g.colorModeA);
+			}
+			fill(this.fill);
 		} else if(arg instanceof vec3) {
 			vec3 c = (vec3)arg;
-			this.fill = color(c.x,c.y,c.z,g.colorModeA);
-			fill(c) ;
+			this.fill = color(c.x(),c.y(),c.z(),g.colorModeA);
+			fill(this.fill);
 		} else if(arg instanceof vec4) {
 			vec4 c = (vec4)arg;
-			this.fill = color(c.x,c.y,c.z,c.w);
-			fill(c);
+			if(alpha_is()) {
+				this.fill = color(c.x(),c.y(),c.z(),c.w());
+			} else {
+				this.fill = color(c.x(),c.y(),c.z(),g.colorModeA);
+			}
+			fill(this.fill);
 		} else if(arg instanceof Integer) {
 			int c = (int)arg;
-			this.fill = c;
-			fill(c);
+			if(alpha_is()) {
+				fill(c);	
+			} else {
+				if(g.colorMode == 3) {
+					this.fill = color(hue(c),saturation(c),brightness(c),g.colorModeA);
+				} else {
+					this.fill = color(red(c),green(c),blue(c),g.colorModeA);
+				}
+				fill(this.fill);
+			}
+			
 		}
 	}
 
 	private void manage_stroke(Object arg) {
 		if(arg instanceof vec2) {
 			vec2 c = (vec2)arg;
-			this.stroke = color(c.x,c.x,c.x,c.y);
-			stroke(c);
+			if(alpha_is()) {
+				this.stroke = color(c.x(),c.x(),c.x(),c.y());
+			} else {
+				this.stroke = color(c.x(),c.x(),c.x(),g.colorModeA);
+			}
+			stroke(this.stroke);
 		} else if(arg instanceof vec3) {
 			vec3 c = (vec3)arg;
-			this.stroke = color(c.x,c.y,c.z,g.colorModeA);
-			stroke(c);
+			this.stroke = color(c.x(),c.y(),c.z(),g.colorModeA);
+			stroke(this.stroke);
 		} else if(arg instanceof vec4) {
 			vec4 c = (vec4)arg;
-			this.stroke = color(c.x,c.y,c.z,c.w);
-			stroke(c);
+			if(alpha_is()) {
+				this.stroke = color(c.x(),c.y(),c.z(),c.w());
+			} else {
+				this.stroke = color(c.x(),c.y(),c.z(),g.colorModeA);
+			}			
+			stroke(this.stroke);
 		} else if(arg instanceof Integer) {
 			int c = (int)arg;
-			this.stroke = c;
-			stroke(c);
+			if(alpha_is()) {
+				stroke(c);	
+			} else {
+				if(g.colorMode == 3) {
+					this.stroke = color(hue(c),saturation(c),brightness(c),g.colorModeA);
+				} else {
+					this.stroke = color(red(c),green(c),blue(c),g.colorModeA);
+				}
+				stroke(this.stroke);
+			}
 		}
 	}
 
@@ -521,14 +573,12 @@ public class Costume {
 			start_matrix();
 			translate(pos);
 			rotate_behavior(rot);
-			//cross_box_2(vec2(size.x, size.y),ratio_size);
 			cross_box_2(vec2(size.x, size.y));
 			stop_matrix() ;
 		} else if (this.get_type() == CROSS_BOX_3_ROPE) {
 			start_matrix();
 			translate(pos);
 			rotate_behavior(rot);
-			//cross_box_3(size,ratio_size);
 			cross_box_3(size);
 			stop_matrix();
 		}
@@ -583,7 +633,6 @@ public class Costume {
 			stop_matrix();
 		}
 
-
 		else if (this.get_type() == STAR_ROPE) {
 			float [] ratio = {.38};
 			start_matrix();
@@ -613,8 +662,6 @@ public class Costume {
 			start_matrix();
 			translate(pos);
 			rotate_behavior(rot);
-			// int num_petals = 3;
-			// println(get_summit(),frameCount);
 			if(get_summit() == 0 ) set_summit(5);
 			if(get_pair() == null || get_pair().length != get_summit()*2) {
 				pair = new vec2[get_summit()*2];
@@ -625,7 +672,6 @@ public class Costume {
 
 			for(int i = 0 ; i < get_summit()*2 ; i++) {
 				vec2 value = vec2(.1,.1);
-				// if(i >= get_summit()) value.set(value.yx());
 				if(pair[i] == null) {
 					pair[i] = vec2(value);
 				} else {
@@ -636,7 +682,6 @@ public class Costume {
 
 			for(int i = 0 ; i < get_summit() ; i++) {
 				flower_static(pair[i],strength[i],pair[i+get_summit()],strength[i+get_summit()]);
-				//flower_wind(pair[i],strength[i],pair[i+get_summit()],strength[i+get_summit()]);
 			}
 			flower(vec3(),(int)size.x,get_summit());
 			stop_matrix();
@@ -1206,212 +1251,6 @@ public class House {
 		}
 	}
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/**
-CLASS VIRUS
-2015-2018
-v 0.2.0
-*/
-/*
-public class Virus {
-	vec3 [][] branch;
-	vec3 size;
-	vec3 pos ;
-	int node = 4;
-	int num = 4;
-	int mutation = 4;
-
-	float angle = 0 ;
-	public Virus() {
-		size = vec3(1);
-		pos = vec3(0);
-		set_branch();
-	}
-
-  // set
-	private void set_branch() {
-		branch = new vec3 [node][num] ;
-		for(int i = 0 ; i < node ; i++) {
-			for(int k = 0 ; k < num ; k++) {
-				vec3 dir = vec3().rand(-1,1);
-				branch[i][k] = projection(dir) ;
-			}
-		}
-	}
-
-
-	public void set_node(int node) {
-		this.node = node;
-		set_branch();
-	}
-
-	public void set_num(int num) {
-		this.num = num;
-		set_branch();
-	}
-
-	public void set_mutation(int mutation) {
-		this.mutation = mutation;
-	}
-  
-
-  // get
-	public int get_mutation() {
-		return this.mutation;
-	}
-
-	public int get_node() {
-		return this.node;
-	}
-
-	public int get_num() {
-		return this.num;
-	}
-
-
-
-  
-
-  // method
-	public void reset() {
-		for(int i = 0 ; i < node ; i++) {
-			for(int k = 0 ; k < num ; k++) {
-				vec3 dir = vec3().rand(-1,1);
-				branch[i][k].set(projection(dir)) ;
-			}
-		}
-	}
-  
-  // set
-  public void set_size(vec s) {
-  	vec3 final_size = vec3(1) ;
-		if(s instanceof vec2) {
-			vec2 size_temp = (vec2) s ;
-			final_size.set(size_temp.x, size_temp.y, 1) ;
-		} else if (s instanceof vec3) {
-			vec3 size_temp = (vec3) s ;
-			final_size.set(size_temp) ;
-		}
-		size.set(final_size) ;
-	}
-
-	public void set_pos(vec p) {
-  	vec3 final_pos = vec3() ;
-		if(p instanceof vec2) {
-			vec2 pos_temp = (vec2) p ;
-			final_pos.set(pos_temp.x, pos_temp.y, 1) ;
-		} else if (p instanceof vec3) {
-			vec3 pos_temp = (vec3) p ;
-			final_pos.set(pos_temp) ;
-		}
-		pos.set(final_pos) ;
-	}
-  
-
-  public void rotation(float angle) {
-  	this.angle = angle ;
-  	// System.err.println("Virus rotation() don't work must be coded for the future") ;
-  }
-
-	public vec2 angle(float angle) {
-		return to_cartesian_2D(angle) ;
-	}
-  
-
-  // show
-  public void show() {
-  	show(-1) ;
-  }
-	
-
-
-	public void show(int close) {
-		if(angle != 0) {
-			start_matrix() ;
-			translate(pos) ;
-			rotate(angle) ;
-		}
-		for(int k = 0 ; k < num ; k++) {
-			if(node == 2) {
-				vec3 final_pos_a = branch[0][k].copy() ;
-				final_pos_a.add(angle(angle)) ;
-				final_pos_a.mult(size) ;
-				if(angle == 0) final_pos_a.add(pos) ;
-
-				vec3 final_pos_b = branch[1][k].copy() ;
-				final_pos_b.mult(size) ;
-				if(angle == 0) final_pos_b.add(pos) ;
-				line(final_pos_a, final_pos_b) ;
-			} else if( node > 2) {
-				beginShape() ;
-				for(int m = 0 ; m < node ; m++) {
-					vec3 final_pos = branch[m][k].copy() ;
-					final_pos.mult(size) ;
-					if(angle == 0) final_pos.add(pos) ;
-					vertex(final_pos) ;
-				}
-				if(close == CLOSE) endShape(CLOSE) ; else endShape() ;
-			} else {
-				vec3 final_pos = branch[0][k].copy() ;
-				//final_pos.add(angle(angle)) ;
-				final_pos.mult(size) ;
-				if(angle == 0) final_pos.add(pos) ;
-				point(final_pos) ;
-			}
-		}
-		if(angle != 0) stop_matrix() ;
-	}
-  
-  // get
-	public vec3 [][] get() {
-		return branch ;
-	}
-}
-
-*/
-
-
-
-
-
-
 
 
 

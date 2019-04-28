@@ -1,11 +1,12 @@
 /**
 ROPE PROCESSING METHOD
-v 2.4.4
+v 2.4.5
 * Copyleft (c) 2014-2019
 * Stan le Punk > http://stanlepunk.xyz/
 * @author @stanlepunk
 * @see https://github.com/StanLepunK/Rope_framework
-* Processing 3.5.3
+* Processing 3.5.3.269
+* Rope library 0.7.1.25
 */
 
 

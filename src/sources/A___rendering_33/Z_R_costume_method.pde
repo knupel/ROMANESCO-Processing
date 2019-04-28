@@ -1,9 +1,9 @@
 /**
 * Costume method
 * Copyleft (c) 2014-2019
-* v 1.8.4
-* processing 3.5.3
-* Rope Library 0.6.0
+* v 1.8.5
+* processing 3.5.3.269
+* Rope Library 0.7.1.25
 * @author @stanlepunk
 * @see https://github.com/StanLepunK/Rope_framework
 */
