@@ -204,7 +204,7 @@ class Rosace extends Romanesco {
     vec2 range_speed_z = vec2(1).add(-get_spurt_x(),get_spurt_x()).mult(.01);
 
     
-    float altitude = get_canvas_z()*.5;
+    float altitude = get_canvas_z()*.33;
     vec2 mut = vec2(1).add(-get_swing_x(),get_swing_x());
     float norm_area = map(get_area(),get_area_min(),get_area_max(),0,1);
     vec2 mut_rad_min = vec2(1).sub(norm_area).add(-get_amplitude(),get_amplitude());

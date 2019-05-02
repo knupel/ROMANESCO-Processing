@@ -1,6 +1,6 @@
 /**
 * Rope framework image
-* v 0.4.3
+* v 0.4.4
 * Copyleft (c) 2014-2019
 * Processing 3.5.3.269
 * Rope library 0.7.1.25
@@ -1235,8 +1235,8 @@ void background_rope(float x, float y, float z) {
 
 
 /**
-GRAPHICS METHOD
-v 0.3.3
+* GRAPHICS METHOD
+* v 0.4.0
 */
 /**
 SCREEN
@@ -1391,10 +1391,20 @@ static final javax.swing.JFrame getJFrame(final PSurface surface) {
 
 
 /**
-Check renderer
+* Check renderer
 */
+boolean renderer_dimension_tested_is ;
+boolean three_dim_is = false;
 boolean renderer_P3D() {
-  if(get_renderer(getGraphics()).equals("processing.opengl.PGraphics3D")) return true ; else return false ;
+  if(!renderer_dimension_tested_is) {
+    if(get_renderer(getGraphics()).equals("processing.opengl.PGraphics3D")) {
+      three_dim_is = true ; 
+    } else {
+      three_dim_is = false ;
+    }
+    renderer_dimension_tested_is =true;
+  }
+  return three_dim_is;
 }
 
 
