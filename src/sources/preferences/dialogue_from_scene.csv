@@ -1,2 +1,2 @@
 fx active,fx slider active
-split rgb/blur circular/,strength X/strength Y/speed/quantity/strength X/
+blur circular/,quantity/strength X/

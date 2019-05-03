@@ -13,8 +13,8 @@ class Rosace extends Romanesco {
     item_author  = "Stan le Punk";
     item_version = "Version 0.0.1";
     item_pack = "Base 2019-2019";
-    item_mode ="rosace/rose/crown/costume";
-    item_costume = "point/ellipse/triangle/rect/cross/pentagon/flower/star";
+    item_mode ="rosace/rose/crown/pillar";
+    item_costume = "surface/point/line/face";
 
 
     //item_slider = "Fill hue,Fill sat,Fill bright,Fill alpha,Stroke hue,Stroke sat,Stroke bright,Stroke alpha,Thickness,Size X,Size Y,Size Z,Canvas X,Canvas Y,Quantity,Speed X,Influence" ;
@@ -79,14 +79,15 @@ class Rosace extends Romanesco {
     // coord_y_is = true;
     // coord_z_is = true;
   }
+  
 
+  boolean pillar_is = false;
 
   boolean sync_crown_is = true;
   boolean show_crown_is = true;
   boolean crown_mode_is = false;
 
   boolean group_is = true;
-  boolean costume_is = false;
   boolean motion_is = true;
 
 
@@ -132,7 +133,7 @@ class Rosace extends Romanesco {
     }
     rotateXYZ(rotation);
 
-    rosace();
+    rosace(pillar_is);
     pop();
 
     // param
@@ -151,22 +152,22 @@ class Rosace extends Romanesco {
     show_fill_is = fill_is();
     
     if(get_mode_name().equals("rosace")) {
-      costume_is = false;
       show_crown_is = true;
       crown_mode_is = false;
+      pillar_is = false;
     } if(get_mode_name().equals("rose")) {
-      costume_is = false;
       show_crown_is = false;
       crown_mode_is = false;
+      pillar_is = false;
     } else if(get_mode_name().equals("crown")) {
-      costume_is = false;
       show_crown_is = true;
       crown_mode_is = true;
-    } else if(get_mode_name().equals("costume")) {
-      costume_is = true;
+      pillar_is = false;
+    } else if(get_mode_name().equals("pillar")) {
       show_crown_is = false;
       crown_mode_is = false;
-    }
+      pillar_is = true;
+    } 
 
     parameter_rosace(crown_mode_is);
 
@@ -350,23 +351,9 @@ class Rosace extends Romanesco {
   void build_palette(int master_fill, int master_stroke, float spectre) {
     int num = rosace_complexity;
     int num_group_fill = 2;
-
-    int hue_range = int(spectre*.5); // > 360 / 2
-    int hue_key_fill = (int)hue(master_fill);
-    vec2 range_sat_fill = vec2(saturation(master_fill));
-    vec2 range_bri_fill = vec2(brightness(master_fill));
-    vec2 range_alp = vec2(100);
-    // fill
-    int [] list_temp = color_pool(num,num_group_fill, hue_key_fill,hue_range, range_sat_fill,range_bri_fill,range_alp);
-    colour_fill = new R_Colour(p5,list_temp);
-    
+    colour_fill = new R_Colour(p5, hue_palette(master_fill,num,num_group_fill,spectre));
     int num_group_stroke = 1;
-    int hue_key_stroke = (int)hue(master_stroke);
-    vec2 range_sat_stroke = vec2(saturation(master_stroke));
-    vec2 range_bri_stroke = vec2(brightness(master_stroke));
-    list_temp = color_pool(num,num_group_stroke, hue_key_stroke,hue_range, range_sat_stroke,range_bri_stroke,range_alp);
-    colour_stroke = new R_Colour(p5,list_temp);
-
+    colour_stroke = new R_Colour(p5, hue_palette(master_stroke,num,num_group_stroke,spectre));
   }
 
   void build_rose(Rose [] list, Rosace_Setting [] setting) {
@@ -462,23 +449,24 @@ class Rosace extends Romanesco {
 
 
   // render
-  void rosace() {
+  void rosace(boolean pillar_is) {
     // from slider
     float alpha_fill = map(get_fill_alp(),get_fill_alp_min(),get_fill_alp_max(),0,1);
     float alpha_stroke = map(get_stroke_alp(),get_stroke_alp_min(),get_stroke_alp_max(),0,1);
     float thickness = map(get_thickness(),get_thickness_min(),get_thickness_max(),0,1);
     
     // render
-    if(costume_is) {
-      rosace_costume(group_is,show_alpha_is,alpha_fill,alpha_stroke,thickness);
+    if(!pillar_is) {
+      rosace_surface(show_fill_is,show_stroke_is,switch_fill_stroke_is,group_is,show_alpha_is,sync_crown_is,show_crown_is,alpha_fill,alpha_stroke,thickness);
     } else {
-      rosace_classic(show_fill_is,show_stroke_is,switch_fill_stroke_is,group_is,show_alpha_is,sync_crown_is,show_crown_is,alpha_fill,alpha_stroke,thickness);
+      pillar_build();
+      pillar_show();
     }
   }
 
 
 
-  void rosace_classic(boolean fill_is, boolean stroke_is, boolean switch_is, boolean group_is, boolean alpha_is, boolean sync_crown_altitude_is, boolean show_crown_is, float fill_alp, float stroke_alp, float thickness) { 
+  void rosace_surface(boolean fill_is, boolean stroke_is, boolean switch_is, boolean group_is, boolean alpha_is, boolean sync_crown_altitude_is, boolean show_crown_is, float fill_alp, float stroke_alp, float thickness) { 
     for(int i = 0 ; i < rose.length ; i++) {
       // update angle / rotation
       rose[i].angle(rosace_angle[i] += speed_rot_rosace[i]);
@@ -538,49 +526,169 @@ class Rosace extends Romanesco {
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   /**
   * SHOW
   */
-  void rosace_costume(boolean group_is, boolean alpha_is, float fill_alp, float stroke_alp, float thickness) {
-    if(group_is) {
-      for(int i = 0 ; i < rose.length && i < rosace_complexity; i++) {
-        strokeWeight(rose[i].thickness() *thickness);
-        vec4 hsba = to_hsba(rose[i].fill());
-        if(!alpha_is) {
-          hsba.alp(g.colorModeA);
-        } else {
-          float alpha = hsba.alp()*fill_alp;
-          hsba.alp(alpha);
-        }
-        stroke(hsba);
-        noFill();
-        for(vec3 p : get_points_rosace(i)) {
-          point(p);
-        }
-      }
+
+  R_Plane [] plane ;
+  ArrayList<R_Node> node_list;
+  ArrayList<R_Face> face_list;
+  R_Colour pillar_palette;
+
+  void pillar_build() {
+    // setting
+    int num_plane = 5;
+    float range_pillar_plane = 20;
+    plane = new R_Plane[num_plane];
+    int dist_min = 20;
+    int dist_max = 100;
+    int max_pass = 100;
+    int max_faces = 100 / plane.length;
+    int mode_selection = r.RAND;
+    // int mode_selection = NORMAL;
+    // int mode_selection = LINE;
+    int max_group_colour = 3;
+
+
+    // build
+    if(node_list == null) {
+      node_list = new ArrayList<R_Node>();
     } else {
-      strokeWeight(rose[0].thickness() *thickness);
-      vec4 hsba = to_hsba(rose[0].fill());
-      if(!alpha_is) {
-          hsba.alp(g.colorModeA);
-        } else {
-          float alpha = hsba.alp()*fill_alp;
-          hsba.alp(alpha);
-        }
-      /*
-      if(!alpha_is) {
-        hsba.alp(fill_alp);
-      }
-      */
-      stroke(hsba);
-      noFill();
-      for (vec3 p : get_points_rosaces()) {
-        point(p);
+       node_list.clear();
+    }
+    for(int i = 0 ; i < rose.length ; i++) {
+      rose[i].angle(rosace_angle[i] += speed_rot_rosace[i]);
+      vec3 [] pts = rose[i].get_final_points();
+      for(int k = 0 ; k < pts.length ; k++) {
+        R_Node node = new R_Node(pts[k]);
+        node_list.add(node);
+        // node.set_branch(20); by default is 4     
       }
     }
 
-    // costume(pos,size,dir,get_costume());
+    // build palette
+    if(birth_is() || pillar_palette == null) {
+      int num_colour = plane.length;
+      int num_group = ceil(random(max_group_colour));
+      pillar_palette = new R_Colour(p5,hue_palette(get_fill(),num_colour,num_group,get_spectrum()));
+    }
+
+    for(int i = 0 ; i < plane.length ; i++) {
+      float step_first = (float)rose[0].get_final_points().length / num_plane;
+      vec3 a = rose[0].get_final_points()[floor(i*step_first)];
+      
+      float step_last = (float)rose[rose.length-1].get_final_points().length / num_plane;
+      vec3 b = rose[rose.length-1].get_final_points()[floor(i*step_last)];
+      vec3 c = rose[rose.length-1].get_final_points()[floor(i*step_last)+1];
+      plane[i] = new R_Plane(a,b,c);
+      plane[i].set_range(range_pillar_plane);
+      for(R_Node node : node_list) {
+        plane[i].add(node);
+      }
+
+
+
+      float step = get_spectrum() / plane.length;
+      if(plane[i].get_nodes() != null && (face_list == null || birth_is())) {
+        if(face_list == null) {
+          face_list = new ArrayList<R_Face>();
+        }
+        if(i == 0) face_list.clear();
+        generate_faces(face_list, plane[i].get_nodes(), max_pass, mode_selection,ivec2(dist_min,dist_max),max_faces,pillar_palette.get_colour(i,0));
+        max_faces += max_faces;        
+      }
+    }
+    birth_is(false);
   }
+
+
+  void pillar_show() {
+    if(get_costume().get_name().toLowerCase().equals("point")) {
+      pillar_show_point();
+    }
+    if(get_costume().get_name().toLowerCase().equals("surface")) {
+      pillar_show_surface();
+    }
+
+    if(get_costume().get_name().toLowerCase().equals("line")) {
+      pillar_show_line();
+    }
+
+    if(get_costume().get_name().toLowerCase().equals("face")) {
+      pillar_show_faces();    
+    }
+  }
+
+  void pillar_show_line() {
+
+  }
+
+  void pillar_show_faces() {
+    noStroke();
+    if(face_list != null) {
+      for(R_Face f : face_list) {
+        fill(f.get_fill());
+        f.show();
+      }
+    }
+
+  }
+
+  void pillar_show_surface() {
+    // surface
+    for(int i = 0 ; i < plane.length ; i++) {
+      fill(pillar_palette.get_colour(i,0));
+      noStroke();
+      // strokeWeight(get_thickness());
+      // noFill();
+
+      if(plane[i].get_nodes() != null) {
+        beginShape();
+        for(int n = 0 ; n < plane[i].get_nodes().length ; n++) {
+          R_Node node = plane[i].get_nodes()[n];
+          vertex(node.pos());
+        }
+        endShape(CLOSE);
+      }
+    }
+  }
+
+  void pillar_show_point() {
+    for(int i = 0 ; i < plane.length ; i++) {
+      stroke(pillar_palette.get_colour(i,0));
+      strokeWeight(get_thickness());
+      noFill();
+
+      if(plane[i].get_nodes() != null) {
+        for(int n = 0 ; n < plane[i].get_nodes().length ; n++) {
+          R_Node node = plane[i].get_nodes()[n];
+          point(node.pos());
+        }
+      }
+    }
+  }
+
+
 
 
 
@@ -620,7 +728,147 @@ class Rosace extends Romanesco {
 
     endShape(CLOSE);
   }
+
+
+
+
+
+
+
+
+  //faces part
+  void generate_faces(ArrayList<R_Face> face_list, R_Node [] original, int max_pass, int mode_selection, ivec2 dist, int max_faces, int colour) {
+    ArrayList<R_Node> temp = new ArrayList<R_Node>();
+    for(R_Node n : original) {
+      temp.add(n.copy());
+    }
+    // println("cloud original",original.length);
+    // println("cloud temp",temp.size());
+    // print_level_mode(mode_selection);
+    int count = 0 ;
+    // int max_pass = 50;
+    while(temp.size() > 2 && count < max_pass && face_list.size() < max_faces) {
+      tirage_faces(face_list,temp,mode_selection,dist,max_faces,colour);
+      clean_list_faces(temp);
+      count++;
+    }
+    // println("distance",dist);
+    // println("pass",count);
+    // println("faces",face_list.size());
+  }
+
+
+  void clean_list_faces(ArrayList<R_Node> list) {
+    for(int i = list.size()-1 ; i >= 0 ; i--) {
+      R_Node node = list.get(i);
+      if(node.get_branch() < 1) list.remove(i);
+    }
+  }
+
+  boolean tirage_faces(ArrayList<R_Face> face_list, ArrayList<R_Node> list, int sorting_mode, ivec2 dist, int max_faces, int colour) {
+    int max = list.size()-2;
+    boolean match_is = false;
+    R_Node [] p = new R_Node[3];
+    for(int i = 0 ; list.size() >= 3  && i < max  && face_list.size() < max_faces ; i++) {
+      ivec3 target = selection_faces(list,sorting_mode,i);
+
+      p[0] = list.get(target.x());
+      p[1] = list.get(target.y());
+      p[2] = list.get(target.z());
+
+      if(target.x() != target.y() && target.x() != target.z() && target.y() != target.z()) {
+        vec3 a = vec3(p[0].pos());
+        vec3 b = vec3(p[1].pos());
+        vec3 c = vec3(p[2].pos());
+        vec3 barycenter = barycenter(a,b,c);
+        if(dist_to_barycenter_faces(barycenter,dist,a,b,c)) {
+          R_Face f = new R_Face(a,b,c);
+          f.set_fill(colour);
+          f.set_stroke(colour);
+          face_list.add(f);
+          match_is = true;
+          p[0].set_branch(p[0].get_branch()-1);
+          p[1].set_branch(p[1].get_branch()-1);
+          p[2].set_branch(p[2].get_branch()-1);
+        } 
+      }
+    }
+    return match_is;
+  }
+
+  ivec3 selection_faces(ArrayList<R_Node> list, int mode, int first_target) {
+    ivec3 target = ivec3();
+    // RANDOM
+    if(mode == r.RAND) {
+      target.x(floor(random(list.size())));
+      // next summits
+      target.y(floor(random(list.size())));
+      target.z(floor(random(list.size())));
+    
+    // SEMI_RANDOM  
+    } else if(mode == NORMAL) {
+      target.x(floor(random(list.size())));
+      // next summits
+      if(target.x()+1 >= list.size()) {
+        target.y(target.x()+1-list.size());
+      } else {
+        target.y(target.x()+1);
+      }
+      if(target.x()+2 >= list.size()) {
+        target.y(target.x()+2-list.size());
+      } else {
+        target.y(target.x()+2);
+      }
+
+    // LINE
+    } else if(mode == LINE) {
+      if(first_target >= list.size()) {
+        target.x(first_target-list.size());
+      } else {
+        target.x(first_target);
+      }
+      // next summits
+      if(first_target+1 >= list.size()) {
+        target.y(first_target+1-list.size());
+      } else {
+        target.y(first_target+1);
+      }
+      if(first_target+2 >= list.size()) {
+        target.y(first_target+2-list.size());
+      } else {
+        target.y(first_target+2);
+      }
+    // END
+    }
+    return target;
+  }
+
+
+
+  boolean dist_to_barycenter_faces(vec3 barycenter, ivec2 dist, vec3... list) {
+    boolean in_is = true;
+    for(int i = 0 ; i < list.length ; i++) {
+      float distance = dist(barycenter,list[i]);
+      if(distance > dist.min() && distance < dist.max()) {
+        in_is = true;
+      } else {
+        in_is = false;
+        break;
+      }
+    }
+    return in_is;
+  }
 }
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -1086,4 +1334,15 @@ class Rose {
     }
     return mut;
   }
+
+
 }
+
+
+
+
+
+
+
+
+

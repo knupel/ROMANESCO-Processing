@@ -1,6 +1,6 @@
 /**
 Abstract CLASS ROMANESCO
-v 1.5.0
+v 1.6.0
 2013-2019
 */
 public abstract class Romanesco implements rope.core.R_Constants {
@@ -2885,7 +2885,8 @@ public abstract class Romanesco implements rope.core.R_Constants {
 
   
   /**
-  deep method
+  * deep method
+  * v 0.2.0
   */
   private Costume get_costume_private() {
     if(costume == null) {
@@ -2897,202 +2898,114 @@ public abstract class Romanesco implements rope.core.R_Constants {
     String costume_romanesco = "unknow" ;
     if(costume_split[0] != null) {
       costume_romanesco = costume_split[get_costume_id()];
+      String [] list = costume_romanesco.split(" ");
+      costume.set_name(list[0]);
     } 
 
-    if(costume_romanesco.equals("pixel") || costume_romanesco.equals("PIXEL") || costume_romanesco.equals("Pixel")) {
+    if(costume_romanesco.toLowerCase().equals("pixel")) {
       if(!dimension_is()) {
         costume.set_type(PIXEL_ROPE); 
       } else {
         costume.set_type(PIXEL_ROPE);
       }
-    } else if(costume_romanesco.equals("point") || costume_romanesco.equals("POINT") || costume_romanesco.equals("Point")) {
+    } else if(costume_romanesco.toLowerCase().equals("point")) {
       if(!dimension_is()) {
         costume.set_type(POINT_ROPE); 
       } else {
         costume.set_type(SPHERE_LOW_ROPE);
       }
-    } else if(costume_romanesco.equals("line") || costume_romanesco.equals("LINE") || costume_romanesco.equals("Line")) {
+    } else if(costume_romanesco.toLowerCase().equals("line")) {
       if(!dimension_is()) {
         costume.set_type(LINE_ROPE); 
       } else {
         costume.set_type(LINE_ROPE);
       }
-    } else if(costume_romanesco.equals("ellipse") || costume_romanesco.equals("ELLIPSE") || costume_romanesco.equals("Ellipse") || costume_romanesco.equals("disc") || costume_romanesco.equals("DISC") || costume_romanesco.equals("Disc")) {
+    } else if(costume_romanesco.toLowerCase().equals("ellipse") || costume_romanesco.toLowerCase().equals("disc")) {
       if(!dimension_is()) {
         costume.set_type(ELLIPSE_ROPE); 
       } else {
         costume.set_type(SPHERE_MEDIUM_ROPE);
       }
-    } else if(costume_romanesco.equals("triangle") || costume_romanesco.equals("TRIANGLE") || costume_romanesco.equals("Triangle")) {
+    } else if(costume_romanesco.toLowerCase().equals("triangle")) {
       if(!dimension_is()) {
         costume.set_type(TRIANGLE_ROPE); 
       } else {
         costume.set_type(TETRAHEDRON_ROPE);
       }
-    } else if(costume_romanesco.equals("rectangle") || costume_romanesco.equals("RECTANGLE") || costume_romanesco.equals("Rectangle") || costume_romanesco.equals("rect") || costume_romanesco.equals("RECT") || costume_romanesco.equals("Rect")) {
+    } else if(costume_romanesco.toLowerCase().equals("rectangle") || costume_romanesco.toLowerCase().equals("rect")) {
       if(!dimension_is()) {
         costume.set_type(RECT_ROPE); 
       } else {
         costume.set_type(BOX_ROPE);
       }
-    } else if(costume_romanesco.equals("pentagon") || costume_romanesco.equals("PENTAGON") || costume_romanesco.equals("Pentagon")) {
+    } else if(costume_romanesco.toLowerCase().equals("pentagon")) {
       if(!dimension_is()) {
         costume.set_type(PENTAGON_ROPE); 
       } else {
         costume.set_type(PENTAGON_ROPE);
       }
-    } else if(costume_romanesco.equals("cross") || costume_romanesco.equals("CROSS") || costume_romanesco.equals("Cross")) {
+    } else if(costume_romanesco.toLowerCase().equals("cross")) {
       if(!dimension_is()) {
         costume.set_type(CROSS_BOX_2_ROPE); 
       } else {
         costume.set_type(CROSS_BOX_3_ROPE);
       }
-    } 
-
-      else if(costume_romanesco.equals("flower") || costume_romanesco.equals("FLOWER") || costume_romanesco.equals("Flower")) {
+    } else if(costume_romanesco.toLowerCase().contains("flower")) {
+      String [] list = costume_romanesco.split(" ");
+      int num = 0;
+      try {
+        num = Integer.parseInt(list[list.length-1]);
+      } catch (NumberFormatException e) {
+        num = 5;
+      }
       if(!dimension_is()) {
         costume.set_type(FLOWER_ROPE);
-        costume.set_summit(5);
+        costume.set_summit(num);
       } else {
         costume.set_type(FLOWER_ROPE);
-        costume.set_summit(5);
+        costume.set_summit(num);
       }
-    } else if(costume_romanesco.equals("flower 3") || costume_romanesco.equals("FLOWER 3") || costume_romanesco.equals("Flower 3")) {
-      if(!dimension_is()) {
-        costume.set_type(FLOWER_ROPE);
-        costume.set_summit(3);
-      } else {
-        costume.set_type(FLOWER_ROPE);
-        costume.set_summit(3);
+    } else if(costume_romanesco.toLowerCase().contains("star")) {
+      String [] list = costume_romanesco.split(" ");
+      int num = 0;
+      try {
+        num = Integer.parseInt(list[list.length-1]);
+      } catch (NumberFormatException e) {
+        num = 5;
       }
-    } else if(costume_romanesco.equals("flower 5") || costume_romanesco.equals("FLOWER 5") || costume_romanesco.equals("Flower 5")) {
-      if(!dimension_is()) {
-        costume.set_type(FLOWER_ROPE);
-        costume.set_summit(5);
-      } else {
-        costume.set_type(FLOWER_ROPE);
-        costume.set_summit(5);
-      }
-    } else if(costume_romanesco.equals("flower 7") || costume_romanesco.equals("FLOWER 7") || costume_romanesco.equals("Flower 7")) {
-      if(!dimension_is()) {
-        costume.set_type(FLOWER_ROPE);
-        costume.set_summit(7);
-      } else {
-        costume.set_type(FLOWER_ROPE);
-        costume.set_summit(7);
-      }
-    } else if(costume_romanesco.equals("flower 9") || costume_romanesco.equals("FLOWER 9") || costume_romanesco.equals("Flower 9")) {
-      if(!dimension_is()) {
-        costume.set_type(FLOWER_ROPE); 
-        costume.set_summit(9);
-      } else {
-        costume.set_type(FLOWER_ROPE);
-        costume.set_summit(9);
-      }
-    } else if(costume_romanesco.equals("flower 12") || costume_romanesco.equals("FLOWER 12") || costume_romanesco.equals("Flower 12")) {
-      if(!dimension_is()) {
-        costume.set_type(FLOWER_ROPE); 
-        costume.set_summit(12);
-      } else {
-        costume.set_type(FLOWER_ROPE);
-        costume.set_summit(12);
-      }
-    } else if(costume_romanesco.equals("flower 24") || costume_romanesco.equals("FLOWER 24") || costume_romanesco.equals("Flower 24")) {
-      if(!dimension_is()) {
-        costume.set_type(FLOWER_ROPE);
-        costume.set_summit(24);
-      } else {
-        costume.set_type(FLOWER_ROPE);
-        costume.set_summit(24);
-      }
-    }
-
-
-      else if(costume_romanesco.equals("star") || costume_romanesco.equals("STAR") || costume_romanesco.equals("Star")) {
       if(!dimension_is()) {
         costume.set_type(STAR_ROPE);
-        costume.set_summit(5);
+        costume.set_summit(num);
       } else {
         costume.set_type(STAR_3D_ROPE);
-        costume.set_summit(5);
+        costume.set_summit(num);
       }
-    } else if(costume_romanesco.equals("star 4") || costume_romanesco.equals("STAR 4") || costume_romanesco.equals("Star 4")) {
+    } else if(costume_romanesco.toLowerCase().contains("super star")) {
+      String [] list = costume_romanesco.split(" ");
+      int num = 0;
+      try {
+        num = Integer.parseInt(list[list.length-1]);
+      } catch (NumberFormatException e) {
+        num = 5;
+      }
       if(!dimension_is()) {
         costume.set_type(STAR_ROPE);
-        costume.set_summit(4);
-      } else {
-        costume.set_type(STAR_3D_ROPE);
-        costume.set_summit(4);
-      }
-    } else if(costume_romanesco.equals("star 5") || costume_romanesco.equals("STAR 5") || costume_romanesco.equals("Star 5")) {
-      if(!dimension_is()) {
-        costume.set_type(STAR_ROPE);
-        costume.set_summit(5);
-      } else {
-        costume.set_type(STAR_3D_ROPE);
-        costume.set_summit(5);
-      }
-    } else if(costume_romanesco.equals("star 6") || costume_romanesco.equals("STAR 6") || costume_romanesco.equals("Star 6")) {
-      if(!dimension_is()) {
-        costume.set_type(STAR_ROPE);
-        costume.set_summit(6);
-      } else {
-        costume.set_type(STAR_3D_ROPE);
-        costume.set_summit(6);
-      }
-    } else if(costume_romanesco.equals("star 7") || costume_romanesco.equals("STAR 7") || costume_romanesco.equals("Star 7")) {
-      if(!dimension_is()) {
-        costume.set_type(STAR_ROPE);
-        costume.set_summit(7);
-      } else {
-        costume.set_type(STAR_3D_ROPE);
-        costume.set_summit(7);
-      }
-    } else if(costume_romanesco.equals("star 8") || costume_romanesco.equals("STAR 8") || costume_romanesco.equals("Star 8")) {
-      if(!dimension_is()) {
-        costume.set_type(STAR_ROPE);
-        costume.set_summit(8);
-      } else {
-        costume.set_type(STAR_3D_ROPE);
-        costume.set_summit(8);
-      }
-    } 
-
-      else if(costume_romanesco.equals("super star 8") || costume_romanesco.equals("SUPER STAR 8") || costume_romanesco.equals("Super Star 8")) {
-      if(!dimension_is()) {
-        costume.set_type(STAR_ROPE);
-        costume.set_summit(8);
+        costume.set_summit(num);
         costume.set_ratio(2.,.5,1.,.5);
       } else {
         costume.set_type(STAR_3D_ROPE);
-        costume.set_summit(8);
+        costume.set_summit(num);
         costume.set_ratio(2.,.5,1.,.5);
       }
-    } else if(costume_romanesco.equals("super star 12") || costume_romanesco.equals("SUPER STAR 12") || costume_romanesco.equals("Super Star 12")) {
-      if(!dimension_is()) {
-        costume.set_type(STAR_ROPE);
-        costume.set_summit(12);
-        costume.set_ratio(2.,.5,1.,.5,1.,.5);
-      } else {
-        costume.set_type(STAR_3D_ROPE);
-        costume.set_summit(12);
-        costume.set_ratio(2.,.5,1.,.5,1.,.5);
-      }
-    } 
-
-      
-      else if(costume_romanesco.equals("abc") || costume_romanesco.equals("ABC") || costume_romanesco.equals("Abc")) {
+    } else if(costume_romanesco.toLowerCase().equals("abc")) {
       if(!dimension_is()) {
         costume.set_type(TEXT_ROPE); 
       } else {
         costume.set_type(TEXT_ROPE);
       }
-    } 
-
-
-      else if(costume_romanesco.equals("none") || costume_romanesco.equals("NONE") || costume_romanesco.equals("None") ||
-              costume_romanesco.equals("nothing") || costume_romanesco.equals("NOTHING") || costume_romanesco.equals("Nothing") || 
-              costume_romanesco.equals("null") || costume_romanesco.equals("NULL") || costume_romanesco.equals("Null")) {
+    } else if(costume_romanesco.toLowerCase().equals("none") ||
+              costume_romanesco.toLowerCase().equals("nothing") || 
+              costume_romanesco.toLowerCase().equals("null") ) {
       if(!dimension_is()) {
         costume.set_type(NULL); 
       } else {

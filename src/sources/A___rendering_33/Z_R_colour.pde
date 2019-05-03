@@ -1,6 +1,6 @@
 /**
 * Rope COLOUR
-*v 0.10.0
+*v 0.10.1
 * Copyleft (c) 2016-2019 
 * Stan le Punk > http://stanlepunk.xyz/
 * Processing 3.5.3
@@ -11,6 +11,7 @@
 * Pack of method to use colour, palette and method conversion
 *
 */
+
 
 
 
@@ -80,7 +81,7 @@ public class R_Colour implements rope.core.R_Constants, rope.core.R_Constants_Co
     if(group >= 0 && group < list.size()) {
       return list.get(group).size();
     } else {
-      System.err.println("class R_Color method size() no group match with your demand, instead '-1' is return");
+      System.err.println("class R_Colour method size() no group match with your demand, instead '-1' is return");
       return -1;
     }
   }
@@ -90,7 +91,7 @@ public class R_Colour implements rope.core.R_Constants, rope.core.R_Constants_Co
     if(group >= 0 && group < list.size()) {
       return list.get(group).array();
     } else {
-      System.err.println("class R_Color method get() no group match with your demand, instead 'null' is return");
+      System.err.println("class R_Colour method get() no group match with your demand, instead 'null' is return");
       return null;
     }
   }
@@ -100,7 +101,7 @@ public class R_Colour implements rope.core.R_Constants, rope.core.R_Constants_Co
     if(target >= 0 && group >= 0 && group < list.size() && target < list.get(group).array().length) {
       return list.get(group).array()[target];
     } else {
-      System.err.println("class R_Color method get_colour() no target match with your demand, instead '0' is return");
+      System.err.println("class R_Colour method get_colour() no target match with your demand, instead '0' is return");
       return 0;
     }
   }
@@ -477,16 +478,16 @@ float [] getColorMode() {
 
 /**
 camaieu 
-v 0.1.1
+v 0.1.2
 */
-// return hue or other date in range of specific data float
-float camaieu(float max, float color_ref, float range) {
+// return hue or other data in range of specific data float
+float camaieu(float max, float reference, float range) {
   float camaieu = 0 ;
-  float which_color = random(-range, range) ;
-  camaieu = color_ref +which_color ;
-  if(camaieu < 0 ) camaieu = max +camaieu ;
-  if(camaieu > max) camaieu = camaieu -max ;
-  return camaieu ;
+  float choice = random(-range,range);
+  camaieu = reference + choice;
+  if(camaieu < 0 ) camaieu = max +camaieu;
+  if(camaieu > max) camaieu = camaieu -max;
+  return camaieu;
 }
 
 
@@ -494,6 +495,23 @@ float camaieu(float max, float color_ref, float range) {
 
 
 
+
+
+/**
+* simple color pool
+* v 0.0.2
+*/
+int [] hue_palette(int master_colour, int num_colour, int num_group, float spectrum) {
+  if(num_group > num_colour) num_group = num_colour;
+  float div = 1.0 / num_group;
+  int hue_range = int(spectrum*div); 
+  int hue_key = (int)hue(master_colour);
+  vec2 range_sat = vec2(saturation(master_colour));
+  vec2 range_bri = vec2(brightness(master_colour));
+  vec2 range_alp = vec2(100);
+  return color_pool(num_colour,num_group, hue_key,hue_range, range_sat,range_bri,range_alp);
+  //return new R_Colour(this,list_temp);
+}
 
 /**
 color pool 

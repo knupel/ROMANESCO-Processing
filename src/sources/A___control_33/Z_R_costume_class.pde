@@ -1,7 +1,7 @@
 /**
 * COSTUME class
 * Copyleft (c) 2019-2019
-* v 0.9.0
+* v 0.9.1
 * @author @stanlepunk
 * @see https://github.com/StanLepunK/Rope_framework
 * Here you finf the class Costume and all the class shape used.
@@ -76,7 +76,7 @@ final int VIRUS_ROPE = 88_888_888;
 /**
 class Costume 
 2018-2019
-v 0.4.0
+v 0.4.1
 */
 import rope.costume.R_Primitive;
 public class Costume {
@@ -88,6 +88,7 @@ public class Costume {
 	int stroke;
 	float thickness = 1.;
 
+  String name;
 	int type;
 	int node;
 	int summits;
@@ -112,6 +113,10 @@ public class Costume {
 	}
   
   // set
+  public void set_name(String name) {
+		this.name = name;
+	}
+
   public void set_type(int type) {
 		this.type = type;
 	}
@@ -170,7 +175,11 @@ public class Costume {
 	public float get_thickness() {
 		return thickness;
 	}
-
+  
+  public String get_name() {
+  	return name;
+  }
+  
 	public int get_type() {
 		return type;
 	}

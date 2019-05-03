@@ -1056,15 +1056,16 @@ vec4 jitter_4D(int range_x, int range_y, int range_z, int range_w) {
   jitter.w = random_next_gaussian(range_w, 2);
   return jitter ;
 }
-// END JITTER
-/////////////
+
+
+
+
 
 
 /**
 Normalize
 */
 // VEC 2 from angle
-///////////////////
 vec2 norm_rad(float angle) {
   float x = (float)Math.cos(angle) ;
   float y = (float)Math.sin(angle) ;
