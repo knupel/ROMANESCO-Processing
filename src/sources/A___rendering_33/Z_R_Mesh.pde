@@ -116,10 +116,12 @@ class R_Plane {
 
 /**
 * R_Face
-* v 0.0.1
+* v 0.0.2
 */
 public class R_Face {
 	vec3 a,b,c;
+	int fill;
+	int stroke;
 	public R_Face(vec3 a, vec3 b, vec3 c) {
 		this.a = a.copy();
 		this.b = b.copy();
@@ -132,6 +134,22 @@ public class R_Face {
 		summits[1] = b.copy();
 		summits[2] = c.copy();
 		return summits;
+	}
+
+	void set_fill(int fill) {
+		this.fill = fill;
+	}
+
+	void set_stroke(int stroke) {
+		this.stroke = stroke;
+	}
+
+	int get_fill() {
+		return this.fill;
+	}
+
+	int get_stroke() {
+		return this.stroke;
 	}
 
 	public void show() {
