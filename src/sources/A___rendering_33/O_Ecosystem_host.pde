@@ -1,15 +1,15 @@
 /**
 Ecosysteme Host 
 2016-2019
-V 0.2.0
+V 0.2.1
 */
 class Ecosystem_DNA extends Romanesco {
 	public Ecosystem_DNA() {
 		item_name = "Eco DNA" ;
 		item_author  = "Stan le Punk";
-		item_version = "Version 0.2.0";
+		item_version = "Version 0.2.1";
 		item_pack = "Ecosystem 2016-2019";
-    item_costume = "Point/Ellipse/Triangle/Rect/flower/Cross/ABC" ;
+    item_costume = "Point/Ellipse/Triangle/Rect/flower/Cross/ABC";
 		item_mode = "" ; // separate the differentes mode by "/"
 
 	  hue_fill_is = true;
@@ -72,7 +72,7 @@ class Ecosystem_DNA extends Romanesco {
 
   void setup() {
     // here we cannot use the setting pos, because it's too much ling with the item 26 !!!
-    setting_start_position(ID_item, 0,0,0) ;
+    set_item_pos(0,0,0);
     load_nucleotide_table(items_path+"ecosystem/code.csv");
 
     canvas = vec3(get_canvas_x(), get_canvas_y(), get_canvas_z()) ;

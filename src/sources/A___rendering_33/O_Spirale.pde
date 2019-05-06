@@ -1,7 +1,7 @@
 /**
 SPIRALE
 2011-2019
-v 1.3.12
+v 1.3.13
 */
 
 Spirale spirale ; 
@@ -11,7 +11,7 @@ class Spirale_romanesco extends Romanesco {
     //from the index_objects.csv
     item_name = "Spirale" ;
     item_author  = "Stan le Punk";
-    item_version = "Version 1.3.12";
+    item_version = "Version 1.3.13";
     item_pack = "Base 2011-2019" ;
     item_costume = "point/ellipse/triangle/rect/cross/pentagon/flower/Star 5/Star 7/Super Star 8/Super Star 12" ;
     item_mode = "" ;
@@ -76,8 +76,8 @@ class Spirale_romanesco extends Romanesco {
     int dir_swing = 1 ;
   //SETUP
   void setup() {
-    setting_start_position(ID_item, width/2, height/2, 0) ;
-    setting_start_direction(ID_item, 135,45) ;
+    set_item_pos(width/2, height/2, 0) ;
+    set_item_dir(PI*0.75,QUARTER_PI) ;
     spirale = new Spirale() ;
   }
   

@@ -76,7 +76,7 @@ class Soleil extends Romanesco {
   float angleRotation;
   //SETUP
   void setup() {
-    setting_start_position(ID_item,width/2,height/2,0);
+    set_item_pos(width/2,height/2,0);
   }
   
   vec3 pos;

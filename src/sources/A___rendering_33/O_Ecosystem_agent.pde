@@ -1,13 +1,13 @@
 /**
 Ecosysteme 
 2016-2019
-v 0.1.11
+v 0.1.12
 */
 class Ecosystem_agent extends Romanesco {
 	public Ecosystem_agent() {
 		item_name = "Eco Agents";
 		item_author  = "Stan le Punk";
-		item_version = "Version 0.1.11";
+		item_version = "Version 0.1.12";
 		item_pack = "Ecosystem 2016-2019";
     item_costume = "";
 		item_mode = "Virus/Human/Alien/Other"; // separate the differentes mode by "/"
@@ -83,7 +83,7 @@ class Ecosystem_agent extends Romanesco {
 
   void setup() {
     // here we cannot use the setting pos, because it's too much ling with the item 27 !!!
-    setting_start_position(ID_item, 0, 0, 0) ;
+    set_item_pos(0,0,0);
 
     load_nucleotide_table(items_path+"ecosystem/code.csv");
     vec3 pos = vec3(width/2, height/2, 0) ;

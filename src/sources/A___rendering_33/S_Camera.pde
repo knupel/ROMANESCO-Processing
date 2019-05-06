@@ -92,82 +92,12 @@ void camera_setting(int num, float speed_follow, float deceleration, float inert
 
 
 
-/**
-Item
-Start setting position and direction 
-v 0.0.1
-*/
-// direction
-void setting_start_direction(int ID, vec2 dir) {
-  int which_setting = 0 ;
-  setting_start_direction(ID, which_setting, (int)dir.x, (int)dir.y) ;
-}
-
-void setting_start_direction(int ID, int dir_x, int dir_y) {
-  int which_setting = 0 ;
-  setting_start_direction(ID, which_setting, dir_x, dir_y) ;
-}
-
-void setting_start_direction(int ID, int which_setting, int dir_x, int dir_y) {
-  if(dir_item_final[ID] == null) dir_item_final[ID] = vec3();
-  dir_item_final[ID].set(dir_x,dir_y,0);
-  if(item_setting_direction [0][ID] == null) item_setting_direction [which_setting][ID] = vec3();
-  item_setting_direction [0][ID] = vec3(dir_item_final[ID]);
-  if(temp_item_canvas_direction[ID] == null) temp_item_canvas_direction[ID] = vec3();
-  temp_item_canvas_direction[ID].x = map(item_setting_direction [which_setting][ID].y,0,360,0,width);
-  temp_item_canvas_direction[ID].y = map(item_setting_direction [which_setting][ID].x,0,360,0,height);
-}
-
-// position
-void setting_start_position(int ID, vec3 pos) {
-  int which_setting = 0 ;
-  setting_start_position(ID, which_setting, (int)pos.x, (int)pos.y, (int)pos.z) ;
-}
-
-void setting_start_position(int ID, int pos_x, int pos_y, int pos_z) {
-  int which_setting = 0 ;
-  setting_start_position(ID, which_setting, pos_x, pos_y, pos_z) ;
-}
-
-void setting_start_position(int ID, int which_setting, int pos_x, int pos_y, int pos_z) {
-  if(pos_item_final[ID] == null) pos_item_final[ID] = vec3() ;
-  pos_item_final[ID].x = pos_x -(width/2) ;
-  pos_item_final[ID].y = pos_y -(height/2) ;
-  pos_item_final[ID].z = pos_z ;
-  if(item_setting_position [which_setting][ID] == null) item_setting_position [which_setting][ID] = vec3() ;
-  item_setting_position [which_setting][ID] = vec3(pos_item_final[ID]) ;
-  mouse[ID] = vec3(pos_x, pos_y, pos_z) ;
-}
 
 
 
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-/**
-GET
-*/
-vec3 get_pos_item(int id_item) {
-  vec3 pos = pos_item_final[id_item].copy() ;
-  return pos.add(width/2, height/2,0) ;
-}
-
-vec3 get_dir_item(int id_item) {
-  return dir_item_final[id_item] ;
-}
 
 
 

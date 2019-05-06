@@ -1,13 +1,13 @@
 /**
 KOFOSPHERE 
 2013-2019
-v 1.3.0
+v 1.3.1
 */
 class Kofosphere extends Romanesco {
   public Kofosphere() {
     item_name = "Kofosphere" ;
     item_author  = "Kof";
-    item_version = "Version 1.3.0";
+    item_version = "Version 1.3.1";
     item_pack = "Base 2013-2019" ;
     item_costume = "point/ellipse/triangle/rect/cross/pentagon/flower/Star 5/Star 7/Super Star 8/Super Star 12";
     item_mode = "monochrome/polychrome" ;
@@ -73,7 +73,7 @@ class Kofosphere extends Romanesco {
   
   //SETUP
   void setup() {
-   setting_start_position(ID_item, width/2, height/2, 0) ;
+   set_item_pos(width/2,height/2,0);
    float startingRadius = width ;
    sphere = new Sphere(vec2(item_setting_position[0][ID_item].x,item_setting_position[0][ID_item].y),startingRadius);
  }

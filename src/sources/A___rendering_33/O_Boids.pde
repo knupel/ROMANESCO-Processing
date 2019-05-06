@@ -1,14 +1,14 @@
 /**
 BOIDS
 2015-2019
-V 1.0.6
+V 1.0.7
 */
 
 class Boids extends Romanesco {
   public Boids() {
     item_name = "Boids" ;
     item_author  = "Stan le Punk";
-    item_version = "Version 1.0.6";
+    item_version = "Version 1.0.7";
     item_pack = "Base 2015-2019" ;
     item_costume = "";
     item_mode = "Tetra monochrome/Tetra camaieu" ; // separate the differentes mode by "/"
@@ -74,7 +74,7 @@ class Boids extends Romanesco {
   // Main method
   // setup
   void setup() {
-   setting_start_position(ID_item, width/2, height/2, -width) ;
+   set_item_pos(width/2,height/2,-width);
 
    // build the canvas where the boid can move
    PVector pos = new PVector (0, 0, 0) ;

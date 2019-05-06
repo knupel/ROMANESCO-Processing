@@ -1,7 +1,7 @@
 /**
 * Wave
 * 2019-2019
-* v 0.0.4
+* v 0.0.5
 */
 class Mer extends Romanesco {
   public Mer() {
@@ -9,7 +9,7 @@ class Mer extends Romanesco {
     item_name = "Mer" ;
     item_author  = "Stan le Punk";
     item_references = "";
-    item_version = "Version 0.0.4";
+    item_version = "Version 0.0.5";
     item_pack = "Base 2019-2019" ;
     item_costume = "point/ellipse/triangle/rect/cross/pentagon/flower/Star 5/Star 7/Super Star 8/Super Star 12"; // costume available from get_costume();
     item_mode = "";
@@ -85,7 +85,7 @@ class Mer extends Romanesco {
   void setup() {
     // give the starting position of your item on the 3D grid
     ani = new Wave[cols*rows];
-    setting_start_position(ID_item,width/2,height/2,0);
+    set_item_pos(width/2,height/2,0);
   }
   
   //DRAW

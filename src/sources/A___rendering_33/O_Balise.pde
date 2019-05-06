@@ -1,7 +1,7 @@
 /**
 * BALISE
 * 2011-2019
-* v 1.3.8
+* v 1.3.9
 */
 Balise balise ;
 //object three
@@ -10,8 +10,8 @@ class BaliseRomanesco extends Romanesco {
     //from the index_objects.csv
     item_name = "Balise" ;
     item_author  = "Stan le Punk";
-    item_version = "Version 1.3.8";
-    item_pack = "Base 2011-2018" ; 
+    item_version = "Version 1.3.9";
+    item_pack = "Base 2011-2019" ; 
     item_costume = "point/ellipse/triangle/rect/cross/pentagon/flower/Star 5/Star 7/Super Star 8/Super Star 12" ;
     // item_mode = "Disc/Rectangle/Box/Box Snake" ;
     item_mode = "" ;
@@ -70,10 +70,10 @@ class BaliseRomanesco extends Romanesco {
   }
   //GLOBAL
   float speed =0;
-  boolean change_rotation_direction ;
+  boolean change_rotation_direction;
   //SETUP
   void setup() {
-    setting_start_position(ID_item, width/2, height/2, 0) ;
+    set_item_pos(width/2,height/2,0);
     balise = new Balise() ;
   }
   //DRAW

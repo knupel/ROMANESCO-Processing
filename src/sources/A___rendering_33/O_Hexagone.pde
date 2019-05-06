@@ -1,7 +1,7 @@
 /**
-HONEYCOMB
-2011-2019
-v 0.1.5
+* HONEYCOMB
+* 2011-2019
+* v 0.1.6
 */
 
 
@@ -11,7 +11,7 @@ class Honeycomb extends Romanesco {
     //from the index_objects.csv
     item_name = "Nid d'abeille" ;
     item_author  = "Amnon Owed";
-    item_version = "Version 0.1.5";
+    item_version = "Version 0.1.6";
     item_pack = "Base 2012-2019" ;
     item_costume = "" ;
     item_mode = "" ;
@@ -20,52 +20,52 @@ class Honeycomb extends Romanesco {
     sat_fill_is = true;
     bright_fill_is = true;
     alpha_fill_is = true;
-    hue_stroke_is = false;
-    sat_stroke_is = false;
-    bright_stroke_is = false;
-    alpha_stroke_is = false;
+    // hue_stroke_is = true;
+    // sat_stroke_is = true;
+    // bright_stroke_is = true;
+    // alpha_stroke_is = true;
     thickness_is = true;
     size_x_is = true;
-    size_y_is = false;
-    size_z_is = false;
-    diameter_is = false;
+    // size_y_is = true;
+    // size_z_is = true;
+    // diameter_is = true;
     canvas_x_is = true;
     canvas_y_is = true;
-    canvas_z_is = false;
+    // canvas_z_is = true;
 
     // frequence_is = true;
-    speed_x_is = false;
-    speed_y_is = false;
-    speed_z_is = false;
-    spurt_x_is = false;
-    spurt_y_is = false;
-    spurt_z_is = false;
-    dir_x_is = false;
-    dir_y_is = false;
-    dir_z_is = false;
-    jit_x_is = false;
-    jit_y_is = false;
-    jit_z_is  = false;
-    swing_x_is = false;
-    swing_y_is = false;
-    swing_z_is = false;
+    // speed_x_is = true;
+    // speed_y_is = true;
+    // speed_z_is = true;
+    // spurt_x_is = true;
+    // spurt_y_is = true;
+    // spurt_z_is = true;
+    // dir_x_is = true;
+    // dir_y_is = true;
+    // dir_z_is = true;
+    // jit_x_is = true;
+    // jit_y_is = true;
+    // jit_z_is  = true;
+    // swing_x_is = true;
+    // swing_y_is = true;
+    // swing_z_is = true;
 
-    quantity_is = false;
-    variety_is = false;
-    life_is = false;
-    flow_is = false;
-    quality_is = false;
-    area_is = false;
-    angle_is = false;
-    scope_is = false;
-    scan_is = false;
-    align_is = false;
-    repulsion_is = false;
-    attraction_is = false;
-    density_is = false;
-    influence_is = false;
-    calm_is = false;
-    spectrum_is = false;
+    // quantity_is = true;
+    // variety_is = true;
+    // life_is = true;
+    // flow_is = true;
+    // quality_is = true;
+    // area_is = true;
+    // angle_is = true;
+    // scope_is = true;
+    // scan_is = true;
+    // align_is = true;
+    // repulsion_is = true;
+    // attraction_is = true;
+    // density_is = true;
+    // influence_is = true;
+    // calm_is = true;
+    // spectrum_is = true;
   }
   //GLOBAL
   boolean newHoneycomb  ;
@@ -84,7 +84,7 @@ class Honeycomb extends Romanesco {
 
   //SETUP
   void setup() {
-    setting_start_position(ID_item, width/2, height/2, 0) ;
+    set_item_pos(width/2,height/2,0);
     canvas = new PVector(width, height) ;
     canvasRef = canvas.copy();
     if(grid == null) grid = new ArrayList<Hexagon>();

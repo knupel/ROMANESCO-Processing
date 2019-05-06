@@ -30,6 +30,9 @@ void draw_2D()
 
 *INFO
 
+void info(Object... obj);
+> create a field info for the user when this one call this on the rendering window: Scene or Prescene.
+
 item_name = "Unknown" ; // showing in controler
 item_author = "Anonymous"; // showing in controler
 item_references = "";
@@ -39,6 +42,25 @@ item_costume = "point/ellipse/triangle/rect/cross/pentagon/Star 5/Star 7/Super S
 item_mode = "";
 
 
+*CAMERA ITEM
+
+void set_item_dir(float x, float y);
+
+void set_item_dir(int which_setting, float x, float y);
+> which_setting is not avalaible for now, may be for in the near future ? '0' is the only one
+
+void set_item_pos(float x, float y, float z);
+
+void set_item_pos(int which_setting, float x, float y, float z);
+> which_setting is not avalaible for now, may be for in the near future ? '0' is the only one
+
+vec3 get_item_pos();
+
+vec3 get_item_dir();
+
+
+
+
 
 
 
@@ -46,8 +68,15 @@ item_mode = "";
 
 *get method
 
-int get_costume();
->return the reference of the costume selected for your item
+Costume get_costume();
+>return a class Costume of the selected costume from dropdown menu
+
+int get_costume().get_name();
+>return the String reference of the costume selected for your item
+
+String get_mode_name();
+
+int get_mode_id();
 
 String get_name();
 >return the name of your item
@@ -399,3 +428,8 @@ if(actionButton[ID_item] == 1 && spaceTouch ) { }
 //with parametter button
 open folder
 if ( parameterButton[ID_item] == 1 && oTouch ) { }
+
+
+
+
+

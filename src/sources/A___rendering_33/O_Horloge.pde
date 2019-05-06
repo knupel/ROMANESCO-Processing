@@ -1,7 +1,7 @@
 /**
 HORLOGE
-2012-2018
-v 1.0.12
+2012-2019
+v 1.0.13
 */
 
 class Horloge extends Romanesco {
@@ -9,8 +9,8 @@ class Horloge extends Romanesco {
     //from the index_objects.csv
     item_name = "Horloge" ;
     item_author  = "Stan Le Punk";
-    item_version = "Version 1.0.12";
-    item_pack = "Base 2012-2018" ;
+    item_version = "Version 1.0.13";
+    item_pack = "Base 2012-2019" ;
     item_mode = "Ellipse Clock 12/Ellipse Clock 24/Line Clock 12/Line Clock 24/minutes/secondes";// separate the name by a slash and write the next mode immadialtly after this one.
     item_costume = "";
 
@@ -71,7 +71,7 @@ class Horloge extends Romanesco {
   
   //SETUP
   void setup() {
-    setting_start_position(ID_item, width/2, height/2, -width) ;
+    set_item_pos(width/2,height/2,-width);
     pos_clock = vec3(width/2,height/2,0) ;
   }
   

@@ -103,7 +103,7 @@ class Atome extends Romanesco {
   
   //SETUP
   void setup() {
-    setting_start_position(ID_item, width/2, height/2, 0) ; 
+    set_item_pos(width/2,height/2,0); 
     atomList = new ArrayList<Atom>();
 
     //add one atom to the start

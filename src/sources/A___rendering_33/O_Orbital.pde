@@ -2,7 +2,7 @@
 /**
 ORBITAL
 2015-2019
-v 0.0.5
+v 0.0.6
 */
 class Orbital extends Romanesco {
   float r_min;
@@ -31,7 +31,7 @@ class Orbital extends Romanesco {
   public Orbital() {
     item_name = "Orbital" ;
     item_author  = "Alexandre Petit";
-    item_version = "Version 0.0.5";
+    item_version = "Version 0.0.6";
     item_pack = "Workshop 2015-2019" ;
     item_costume = "" ; // separate the differentes mode by "/"
     item_mode = "" ; // separate the differentes mode by "/"
@@ -50,56 +50,56 @@ class Orbital extends Romanesco {
     sat_stroke_is = true;
     bright_stroke_is = true;
     alpha_stroke_is = true;
-    thickness_is = false;
-    size_x_is = false;
-    size_y_is = false;
-    size_z_is = false;
-    diameter_is = false;
-    canvas_x_is = false;
-    canvas_y_is = false;
-    canvas_z_is = false;
+    // thickness_is = false;
+    // size_x_is = false;
+    // size_y_is = false;
+    // size_z_is = false;
+    // diameter_is = false;
+    // canvas_x_is = false;
+    // canvas_y_is = false;
+    // canvas_z_is = false;
 
     // frequence_is = true;
     speed_x_is = true;
-    speed_y_is = false;
-    speed_z_is = false;
-    spurt_x_is = false;
-    spurt_y_is = false;
-    spurt_z_is = false;
-    dir_x_is = false;
-    dir_y_is = false;
-    dir_z_is = false;
-    jit_x_is = false;
-    jit_y_is = false;
-    jit_z_is  = false;
-    swing_x_is = false;
-    swing_y_is = false;
-    swing_z_is = false;
+    // speed_y_is = false;
+    // speed_z_is = false;
+    // spurt_x_is = false;
+    // spurt_y_is = false;
+    // spurt_z_is = false;
+    // dir_x_is = false;
+    // dir_y_is = false;
+    // dir_z_is = false;
+    // jit_x_is = false;
+    // jit_y_is = false;
+    // jit_z_is  = false;
+    // swing_x_is = false;
+    // swing_y_is = false;
+    // swing_z_is = false;
 
     quantity_is = true;
-    variety_is = false;
-    life_is = false;
-    flow_is = false;
-    quality_is = false;
-    area_is = false;
-    angle_is = false;
-    scope_is = false;
-    scan_is = false;
-    align_is = false;
-    repulsion_is = false;
-    attraction_is = false;
-    density_is = false;
-    influence_is = false;
-    calm_is = false;
-    spectrum_is = false;
+    // variety_is = false;
+    // life_is = false;
+    // flow_is = false;
+    // quality_is = false;
+    // area_is = false;
+    // angle_is = false;
+    // scope_is = false;
+    // scan_is = false;
+    // align_is = false;
+    // repulsion_is = false;
+    // attraction_is = false;
+    // density_is = false;
+    // influence_is = false;
+    // calm_is = false;
+    // spectrum_is = false;
   }
  
   // Main method
   // setup
   void setup() {
 
-    setting_start_position(ID_item, width/2, height/2, 0);
-    setting_start_direction(ID_item, 45, 45);
+    set_item_pos(width/2, height/2, 0);
+    set_item_dir(QUARTER_PI,QUARTER_PI);
 
     flock = new Flock_Orbital();
   

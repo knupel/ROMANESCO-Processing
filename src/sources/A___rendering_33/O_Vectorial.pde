@@ -1,14 +1,14 @@
 /**
 VECTORIAL
 2015-2019
-v 0.0.10
+v 0.0.11
 */
 class Vectorial extends Romanesco {
  
   public Vectorial() {
     item_name = "Vectorial" ;
     item_author  = "Stan le Punk";
-    item_version = "Version 0.0.10";
+    item_version = "Version 0.0.11";
     item_pack = "Base 2015-2019" ;
     item_costume = "" ;
     item_mode = "Classic original/Classic custom/Walker original/Walker custom" ; // separate the differentes mode by "/"
@@ -76,8 +76,9 @@ class Vectorial extends Romanesco {
  
   // setup
   void setup() {
-    setting_start_position(ID_item, width/2, height/2 +height/4, -height);
-    setting_start_direction(ID_item, 30,-20);
+    set_item_pos(width/2, height/2 +height/4, -height);
+    float angle = QUARTER_PI*.5;
+    set_item_dir(angle,-angle);
 
     load_svg(ID_item);
     println("svg_current_path",svg_current_path);

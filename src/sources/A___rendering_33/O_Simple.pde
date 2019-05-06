@@ -1,6 +1,6 @@
 /**
 * Simple
-* v 0.0.5
+* v 0.0.6
 * 2018-2019
 */
 class Simple extends Romanesco {
@@ -9,7 +9,7 @@ class Simple extends Romanesco {
     item_name = "Simple" ;
     item_author  = "Stan le Punk";
     item_references = "";
-    item_version = "Version 0.0.3";
+    item_version = "Version 0.0.6";
     item_pack = "Simple 2018-2019" ;
     item_costume = "ellipse/triangle/rect/cross/pentagon/flower 5/flower 7/flower 12/flower 24/Star 5/Star 7/Super Star 8/Super Star 12"; // costume available from get_costume();
     item_mode = "";
@@ -76,7 +76,7 @@ class Simple extends Romanesco {
 
   void setup() {
     // give the starting position of your item on the 3D grid
-    setting_start_position(ID_item,width/2,height/2,0);
+    set_item_pos(width/2,height/2,0);
   }
   
   //DRAW

@@ -1,14 +1,14 @@
 /**
 WEBCAM 
 2011-2019
-v 1.2.10
+v 1.2.11
 */
 class Webcam extends Romanesco {
   public Webcam() {
     //from the index_objects.csv
     item_name = "Webcam" ;
     item_author  = "Stan le Punk";
-    item_version = "Version 1.2.10";
+    item_version = "Version 1.2.11";
     item_pack = "Base 2012-2019" ;
     item_costume = "" ;
     item_mode = "Rectangle color/Rectangle mono/Point color/Point mono/Box color/Box mono" ;
@@ -79,7 +79,7 @@ class Webcam extends Romanesco {
   
   //SETUP
   void setup() {
-    setting_start_position(ID_item, 0, 0, 0) ;
+    set_item_pos(0,0,0);
     factorDisplayCam = vec2();
     factorDisplayPixel = vec3();
   }

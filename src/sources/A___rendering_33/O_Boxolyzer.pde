@@ -1,7 +1,7 @@
 /**
 * BOXOLYZER
 * 2012-2019
-* v 2.1.0
+* v 2.1.1
 */
 
   
@@ -11,7 +11,7 @@ class Boxolyzer extends Romanesco {
     //from the index_objects.csv
     item_name = "Boxolyzer" ;
     item_author  = "Stan le Punk";
-    item_version = "Version 2.1.0";
+    item_version = "Version 2.1.1";
     item_pack = "Base 2012-2019";
 
     item_costume = "ellipse/triangle/rect/cross/pentagon/flower 5/flower 7/Star 5/Star 7/Super Star 8/Super Star 12";
@@ -80,7 +80,7 @@ class Boxolyzer extends Romanesco {
 
   //SETUP
   void setup() {
-    setting_start_position(ID_item,width/2,height/2,0);
+    set_item_pos(width/2,height/2,0);
     boitesSetting();
   }
   

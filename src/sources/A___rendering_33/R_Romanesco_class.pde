@@ -284,6 +284,67 @@ public abstract class Romanesco implements rope.core.R_Constants {
 
 
 
+  /** 
+  * CAMERA ITEM
+  * v 0.0.1
+  */
+  /**
+  * SET CAMERA ITEM
+  */
+  void set_item_dir(float x, float y) {
+    set_item_dir(0,x,y);
+  }
+  void set_item_dir(int which_setting, float x, float y) {
+  if(dir_item_final[ID_item] == null) dir_item_final[ID_item] = vec3();
+  dir_item_final[ID_item].set(x,y,0);
+  if(item_setting_direction [0][ID_item] == null) item_setting_direction [which_setting][ID_item] = vec3();
+  item_setting_direction [0][ID_item] = vec3(dir_item_final[ID_item]);
+  if(temp_item_canvas_direction[ID_item] == null) temp_item_canvas_direction[ID_item] = vec3();
+  temp_item_canvas_direction[ID_item].x = map(item_setting_direction [which_setting][ID_item].y,0,TAU,0,width);
+  temp_item_canvas_direction[ID_item].y = map(item_setting_direction [which_setting][ID_item].x,0,TAU,0,height);
+}
+
+// position
+void set_item_pos(float x, float y, float z) {
+  set_item_pos(0,x,y,z);
+}
+
+void set_item_pos(int which_setting, float x, float y, float z) {
+  if(pos_item_final[ID_item] == null) {
+    pos_item_final[ID_item] = vec3();
+  }
+  pos_item_final[ID_item].x = x -(width/2);
+  pos_item_final[ID_item].y = y -(height/2);
+  pos_item_final[ID_item].z = z ;
+  if(item_setting_position [which_setting][ID_item] == null) {
+    item_setting_position [which_setting][ID_item] = vec3();
+  }
+  item_setting_position [which_setting][ID_item] = vec3(pos_item_final[ID_item]);
+  mouse[ID_item] = vec3(x,y,z);
+}
+
+
+/**
+* GET CAMERA ITEM
+*/
+vec3 get_item_pos() {
+  vec3 pos = pos_item_final[ID_item].copy() ;
+  return pos.add(width/2, height/2,0) ;
+}
+
+vec3 get_item_dir() {
+  return dir_item_final[ID_item] ;
+}
+
+
+
+
+
+
+
+
+
+
 
 
 

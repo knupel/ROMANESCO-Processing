@@ -1,6 +1,6 @@
 /**
 * Tartan
-* v 0.0.3
+* v 0.0.4
 * 2018-2019
 */
 class Tartan extends Romanesco {
@@ -9,7 +9,7 @@ class Tartan extends Romanesco {
     item_name = "Tartan" ;
     item_author  = "Stan le Punk";
     item_references = "";
-    item_version = "Version 0.0.3";
+    item_version = "Version 0.0.4";
     item_pack = "Tartan 2018-2019" ;
     item_costume = ""; // costume available from get_costume();
     item_mode = "Tartan/Strip";
@@ -75,7 +75,7 @@ class Tartan extends Romanesco {
 
   void setup() {
     // give the starting position of your item on the 3D grid
-    setting_start_position(ID_item,width/2,height/2,0);
+    set_item_pos(width/2,height/2,0);
   }
   
   //DRAW

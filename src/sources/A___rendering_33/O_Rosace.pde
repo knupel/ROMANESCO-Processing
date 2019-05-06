@@ -107,10 +107,10 @@ class Rosace extends Romanesco {
   
   //SETUP
   void setup() {
-    setting_start_position(ID_item,0,0,0);
+    set_item_pos(width/2,height/2,0);
+    set_item_dir(0,HALF_PI);
     parameter_rosace(crown_mode_is);
-    int range_hue = 30;
-    generator_rosace(r.BLOOD,r.BLACK,range_hue);
+    generator_rosace(get_fill(),get_stroke(),get_spectrum());
   }
   //DRAW
   vec3 rotation;
@@ -127,16 +127,13 @@ class Rosace extends Romanesco {
     rotation.mult(direction);
 
     push();
-    translate(width/2,height/2);
     if(motion_is) {
       rotation.add(speed);
     }
     rotateXYZ(rotation);
-
     rosace(pillar_is);
     pop();
 
-    // param
 
 
     // event
@@ -570,33 +567,42 @@ class Rosace extends Romanesco {
     int max_group_colour = 3;
 
 
-    // build
+    // BUILD SETTING
     if(node_list == null) {
       node_list = new ArrayList<R_Node>();
     } else {
        node_list.clear();
     }
+
+    // UPDATE ROSE POSITION
     for(int i = 0 ; i < rose.length ; i++) {
       rose[i].angle(rosace_angle[i] += speed_rot_rosace[i]);
       vec3 [] pts = rose[i].get_final_points();
       for(int k = 0 ; k < pts.length ; k++) {
-        R_Node node = new R_Node(pts[k]);
+        R_Node node = new R_Node(rose[i].get_final_points()[k]);
         node_list.add(node);
         // node.set_branch(20); by default is 4     
       }
     }
 
-    // build palette
+
+
+
+    // BUILD PALETTE
     if(birth_is() || pillar_palette == null) {
       int num_colour = plane.length;
       int num_group = ceil(random(max_group_colour));
       pillar_palette = new R_Colour(p5,hue_palette(get_fill(),num_colour,num_group,get_spectrum()));
     }
 
+
+
+   
+    // BUILD PLANE
     for(int i = 0 ; i < plane.length ; i++) {
       float step_first = (float)rose[0].get_final_points().length / num_plane;
       vec3 a = rose[0].get_final_points()[floor(i*step_first)];
-      
+      // BUILD NODE
       float step_last = (float)rose[rose.length-1].get_final_points().length / num_plane;
       vec3 b = rose[rose.length-1].get_final_points()[floor(i*step_last)];
       vec3 c = rose[rose.length-1].get_final_points()[floor(i*step_last)+1];
@@ -605,9 +611,8 @@ class Rosace extends Romanesco {
       for(R_Node node : node_list) {
         plane[i].add(node);
       }
-
-
-
+      
+      // BUILD FACE
       float step = get_spectrum() / plane.length;
       if(plane[i].get_nodes() != null && (face_list == null || birth_is())) {
         if(face_list == null) {
@@ -664,9 +669,8 @@ class Rosace extends Romanesco {
 
       if(plane[i].get_nodes() != null) {
         beginShape();
-        for(int n = 0 ; n < plane[i].get_nodes().length ; n++) {
-          R_Node node = plane[i].get_nodes()[n];
-          vertex(node.pos());
+        for(R_Node node : plane[i].get_nodes()) {
+          vertex(node.pointer());
         }
         endShape(CLOSE);
       }
@@ -680,9 +684,8 @@ class Rosace extends Romanesco {
       noFill();
 
       if(plane[i].get_nodes() != null) {
-        for(int n = 0 ; n < plane[i].get_nodes().length ; n++) {
-          R_Node node = plane[i].get_nodes()[n];
-          point(node.pos());
+        for(R_Node node : plane[i].get_nodes()) {
+          point(node.pointer());
         }
       }
     }
@@ -737,11 +740,14 @@ class Rosace extends Romanesco {
 
 
   //faces part
-  void generate_faces(ArrayList<R_Face> face_list, R_Node [] original, int max_pass, int mode_selection, ivec2 dist, int max_faces, int colour) {
+  void generate_faces(ArrayList<R_Face> face_list, ArrayList<R_Node> original, int max_pass, int mode_selection, ivec2 dist, int max_faces, int colour) {
     ArrayList<R_Node> temp = new ArrayList<R_Node>();
+    temp = original;
+    /*
     for(R_Node n : original) {
       temp.add(n.copy());
     }
+    */
     // println("cloud original",original.length);
     // println("cloud temp",temp.size());
     // print_level_mode(mode_selection);
@@ -777,12 +783,14 @@ class Rosace extends Romanesco {
       p[2] = list.get(target.z());
 
       if(target.x() != target.y() && target.x() != target.z() && target.y() != target.z()) {
-        vec3 a = vec3(p[0].pos());
-        vec3 b = vec3(p[1].pos());
-        vec3 c = vec3(p[2].pos());
+        vec3 a = vec3(p[0].pointer());
+        vec3 b = vec3(p[1].pointer());
+        vec3 c = vec3(p[2].pointer());
         vec3 barycenter = barycenter(a,b,c);
         if(dist_to_barycenter_faces(barycenter,dist,a,b,c)) {
-          R_Face f = new R_Face(a,b,c);
+          R_Face f = new R_Face(list.get(target.x()).pointer(),
+                                list.get(target.y()).pointer(),
+                                list.get(target.z()).pointer());
           f.set_fill(colour);
           f.set_stroke(colour);
           face_list.add(f);

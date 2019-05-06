@@ -1,7 +1,7 @@
 /**
 * R_Mesh
 * temp tab before pass to Rope
-* v 0.0.4
+* v 0.1.0
 * 2019-2019
 */
 /**
@@ -27,7 +27,7 @@ vec3 get_plane_normal(vec3 a, vec3 b, vec3 c) {
 /**
 * R_Plane
 * 2019-2019
-* 0.0.2
+* 0.1.0
 */
 class R_Plane {
 	vec3 plane;
@@ -60,9 +60,10 @@ class R_Plane {
 		return range;
 	}
 
-	public R_Node [] get_nodes() {
+	public ArrayList<R_Node> get_nodes() {
 		if(nodes != null) {
-			return nodes.toArray(new R_Node[nodes.size()]);
+			return nodes;
+			// return nodes.toArray(new R_Node[nodes.size()]);
 		} else {
 			return null;
 		}
