@@ -1,6 +1,6 @@
 /**
-* update, display and design
-* v 0.1.2
+* UPDATE DISPLAY DESIGN
+* v 0.2.0
 * 2018-2019
 */
 
@@ -686,13 +686,20 @@ boolean show_slider_structure_colour(ivec2 [] pos, ivec2 [] size, float [] value
 
 /**
 * SLIDER Item
+* v 0.2.0
 * When you add a new sliders, you must change the starting value from 'NAN' 
 * to a value between 0 and 1 in the file 'defaultSetting.csv' in the 'preferences/setting' folder.
 * And you must add the name of this one in the 'preferences/' 
 * folder slider_name_en.csv' and in the 'slider_name_fr' file
 */
+boolean [] show_slider_item__is;
 void show_slider_item() {
   boolean [] is = new boolean[2];
+  show_slider_item__is = new boolean[NUM_SLIDER_ITEM];
+  for(int i = 0 ; i < NUM_SLIDER_ITEM ; i++) {
+    show_slider_item__is[i] = true;
+  }
+
   if(!show_all_slider_item) {
     if(!dropdown_is()) {
       is[0] = show_slider_item_colour(hue_fill_rank, sat_fill_rank, bright_fill_rank); // fill
@@ -702,8 +709,9 @@ void show_slider_item() {
       if (item_active[i]) {
         if (item_group[i] == 1) { 
           for(int k = 0 ; k < NUM_SLIDER_ITEM ; k++) {
-            if (display_slider[k]) {
+            if (display_slider[k] && show_slider_item__is[k]) {
               show_slider_item(k,is);
+              show_slider_item__is[k] = false;
             }
           }
         }
@@ -734,6 +742,7 @@ void show_slider_item(int index, boolean [] is) {
       for(int m = 0 ; m < num_special_slider ; m++) {    
         if(index == k* step +m || index == 3 || index > 6) {
           show_is = true;
+          show_slider_item__is[index] = true;
           break;
         } 
       }
@@ -752,17 +761,16 @@ void show_slider_item(int index, boolean [] is) {
 
 
 // local void to display the HSB slider and display the specific color of this one
-boolean show_slider_item_colour(int hueRank, int satRank, int brightRank) {
-  boolean is = (mouseX > (pos_slider_item[hueRank].x ) 
-                        && mouseX < (pos_slider_item[hueRank].x +size_slider_item[hueRank].x) 
-                        && mouseY > (pos_slider_item[hueRank].y - 5) 
-                        && mouseY < pos_slider_item[hueRank].y +30);
+boolean show_slider_item_colour(int hue_rank, int sat_rank, int bri_rank) {
+  boolean is = (mouseX > (pos_slider_item[hue_rank].x ) 
+                        && mouseX < (pos_slider_item[hue_rank].x +size_slider_item[hue_rank].x) 
+                        && mouseY > (pos_slider_item[hue_rank].y - 5) 
+                        && mouseY < pos_slider_item[hue_rank].y +30);
 
   if (is) {
-    if (display_slider[hueRank]) show_slider_hue_structure(pos_slider_item[hueRank], size_slider_item[hueRank]) ; 
-    if (display_slider[satRank]) show_slider_saturation_structure(pos_slider_item[satRank], size_slider_item[satRank], value_slider_item[hueRank], value_slider_item[satRank], value_slider_item[brightRank]) ;
-    if (display_slider[brightRank]) show_slider_brightness_structure(pos_slider_item[brightRank], size_slider_item[brightRank], value_slider_item[hueRank], value_slider_item[satRank], value_slider_item[brightRank]) ;
-    
+    if (display_slider[hue_rank]) show_slider_hue_structure(pos_slider_item[hue_rank], size_slider_item[hue_rank]) ; 
+    if (display_slider[sat_rank]) show_slider_saturation_structure(pos_slider_item[sat_rank], size_slider_item[sat_rank], value_slider_item[hue_rank], value_slider_item[sat_rank], value_slider_item[bri_rank]) ;
+    if (display_slider[bri_rank]) show_slider_brightness_structure(pos_slider_item[bri_rank], size_slider_item[bri_rank], value_slider_item[hue_rank], value_slider_item[sat_rank], value_slider_item[bri_rank]) ;    
   } 
   return is;
 }
@@ -887,7 +895,6 @@ void background_text_list(vec2 pos, String [] list, int [] size_text, int size_a
 /**
 slider method
 */
-
 // hue
 void show_slider_hue_structure(ivec2 pos, ivec2 size) {
   pushMatrix();
