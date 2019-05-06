@@ -1,13 +1,13 @@
 /**
 * Boum Boum / Transient detection
 * 2018-2019
-* v 0.0.8
+* v 0.1.0
 */
 class BoumBoum extends Romanesco {
 	public BoumBoum() {
 		item_name = "BoumBoum";
 		item_author  = "Stan le Punk";
-		item_version = "Version 0.0.7";
+		item_version = "Version 0.1.0";
 		item_pack = "Base 2018-2019";
     item_costume = "ellipse/triangle/rect/cross/pentagon/flower 5/flower 7/flower 9/flower 12/Star 5/Star 7/Super Star 8/Super Star 12";
     item_mode = "";
@@ -81,26 +81,26 @@ class BoumBoum extends Romanesco {
     if(size == null || size.length != shape_num) {
       size = new vec3 [shape_num];
       for(int i = 0 ; i < size.length ; i++) {
-        size[i] = vec3(get_size_x(),get_size_y(),get_size_z());
+        size[i] = get_size();
         size[i].mult(.3);
       }
     } else {
       for(int i = 0 ; i < size.length ; i++) {
-        size[i].set(get_size_x(),get_size_y(),get_size_z());
+        size[i].set(get_size());
       }
     }
 
     
-    float dist_between_shape = get_canvas_x() /(shape_num+1);
+    float dist_between_shape = get_canvas_x().value() /(shape_num+1);
     // give position for the shapes centered 
-    float offset_x = (get_canvas_x() /2) -(width/2);
+    float offset_x = (get_canvas_x().value() /2) -(width/2);
     vec3 pos = vec3(-offset_x,height/2,0);
-    vec3 dir = vec3(get_dir());
+    vec3 dir = get_dir();
 
     
     // speed
     if(motion_is()) {
-      vec3 inc_speed = vec3(get_speed_x(),get_speed_y(),get_speed_z());
+      vec3 inc_speed = get_speed();
       inc_speed.mult(inc_speed);
       if(speed == null) {
         speed = vec3(inc_speed);
@@ -119,8 +119,8 @@ class BoumBoum extends Romanesco {
       temp_size.mult(transient_value[i+1][ID_item]);
       fill(get_fill());
       stroke(get_stroke());
-      strokeWeight(get_thickness());
-      set_ratio_costume_size(map(get_area(),width*.1, width*TAU,0,1));
+      strokeWeight(get_thickness().value());
+      set_ratio_costume_size(get_area().normal());
       costume(temp_pos, temp_size, dir,get_costume());
     }
   }

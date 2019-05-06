@@ -1,6 +1,6 @@
 /**
 * Tartan
-* v 0.0.4
+* v 0.1.0
 * 2018-2019
 */
 class Tartan extends Romanesco {
@@ -9,7 +9,7 @@ class Tartan extends Romanesco {
     item_name = "Tartan" ;
     item_author  = "Stan le Punk";
     item_references = "";
-    item_version = "Version 0.0.4";
+    item_version = "Version 0.1.0";
     item_pack = "Tartan 2018-2019" ;
     item_costume = ""; // costume available from get_costume();
     item_mode = "Tartan/Strip";
@@ -103,17 +103,17 @@ class Tartan extends Romanesco {
 
   // int ref_num_strip;
   void strip() {
-    int num_strip = (int)map(get_quantity()*get_quantity(),get_quantity_min(),get_quantity_max(),1,111);
-    int w_strip = (int)get_size_x()*5;
-    int h_strip = (int)get_size_y()*2;
+    int num_strip = (int)map(get_quantity().value() *get_quantity().value(),get_quantity().min(),get_quantity().max(),1,111);
+    int w_strip = (int)get_size_x().value()*5;
+    int h_strip = (int)get_size_y().value()*2;
 
-    int space = (int)map(get_canvas_y(),get_canvas_y_min(),get_canvas_y_max(),h_strip,h_strip*(height*.1));
+    int space = (int)map(get_canvas_y().value(),get_canvas_y().min(),get_canvas_y().max(),h_strip,h_strip*(height*.1));
     int total_height = num_strip *(h_strip+space);
     float start_y = -(total_height*.5);
     // float start_x = -(w_strip*.5);
     float start_x = 0;
     rectMode(CENTER);
-    aspect(get_fill(),get_stroke(),get_thickness());
+    aspect(get_fill(),get_stroke(),get_thickness().value());
     for(int i = 0 ; i < num_strip ; i++) {
       float x = start_x ;
       float y = start_y +(i*(h_strip+space));

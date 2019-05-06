@@ -1,13 +1,13 @@
 /**
 SOLEIL
 2012-2019
-1.2.1
+1.3.0
 */
 class Soleil extends Romanesco {
   public Soleil() {
     item_name = "Soleil" ;
     item_author  = "Stan le Punk";
-    item_version = "Version 1.2.1";
+    item_version = "Version 1.3.0";
     item_pack = "Base 2013-2019";
     item_costume = "" ;
     item_mode = "Beam/Lie'Bro'One/Lie'Bro'Two/Lie'Bro Noisy";
@@ -82,7 +82,7 @@ class Soleil extends Romanesco {
   vec3 pos;
   //DRAW
   void draw() {
-    aspect(get_fill(),get_stroke(),get_thickness());
+    aspect(get_fill(),get_stroke(),get_thickness().value());
     // orbital revolution
     boolean revolution = false;
     if(action_is() && special_is()) {
@@ -91,27 +91,27 @@ class Soleil extends Romanesco {
     
     if(pos == null) pos = vec3(0);
     if(revolution) {
-      pos.set(get_coord_x()*width,get_coord_y()*height,0); 
+      pos.set(get_coord_x().value()*width,get_coord_y().value()*height,0); 
     } else {
       pos.set(0);
     }
     // diam
-    float diam = get_canvas_x();
+    float diam = get_canvas_x().value();
     if(sound_is()) diam *= all_transient(ID_item);
     // num beam
-    float num_temp = get_quantity() *get_quantity();
+    float num_temp = get_quantity().value() *get_quantity().value();
     int numBeam = (int)(num_temp *87 +1);
     if(!FULL_RENDERING) numBeam /= 20;
     if(numBeam < 2 ) numBeam = 2;
     
     // spurt
-    float ratio_spurt = (get_spurt_x() *get_spurt_x()) +.005;
+    float ratio_spurt = (get_spurt_x().normal() *get_spurt_x().normal()) +.005;
     spurt += (ratio_spurt *.33)  ;
     float spurting = cos(spurt) *tempo[ID_item] ;
 
     // jitter
     PVector jitter = new PVector() ;
-    float ratio_jitter = get_jitter_z() *get_jitter_z() ;
+    float ratio_jitter = get_jitter_z().normal() *get_jitter_z().normal();
     float amp = sq(ratio_jitter *(height /10)) ;
     float right_jit =  ((right[ID_item] *right[ID_item] *5) *amp) ;
     float left_jit = ((left[ID_item] *left[ID_item] *5) *amp) ;
@@ -124,8 +124,8 @@ class Soleil extends Romanesco {
     
     // rotation speed
     float speedRotation = 0 ;
-    float ratio_speed = (get_speed_x() *get_speed_x()) +.05 ;
-    if(get_speed_x() <= 0) ratio_speed = 0 ;
+    float ratio_speed = (get_speed_x().normal() *get_speed_x().normal()) +.05 ;
+
     speedRotation = sq(ratio_speed *8.0 *tempo[ID_item]) *direction ;
     angleRotation += speedRotation ;
     rotate (radians(angleRotation)) ;

@@ -1,7 +1,7 @@
 /**
 LETTER
 2012-2019
-v 1.4.5
+v 1.5.0
 */
 //GEOMERATIVE
 import geomerative.*;
@@ -10,7 +10,7 @@ class Letter extends Romanesco {
   public Letter() {
     item_name = "Letter" ;
     item_author  = "Stan le Punk";
-    item_version = "Version 1.4.5";
+    item_version = "Version 1.5.0";
     item_pack = "Base 2012-2019" ;
 
     item_costume = "Point/Line/Triangle";
@@ -102,7 +102,7 @@ class Letter extends Romanesco {
       warning_font = true;
     }
 
-    sizeFont = int(map(get_size_x(),get_size_x_min(), get_size_x_max(), (float)height *.01, (float)height *.7));
+    sizeFont = int(map(get_size_x().value(),get_size_x().min(), get_size_x().max(), (float)height *.01, (float)height *.7));
     int max_string = 49;
     if(get_text().length() < max_string) max_string = get_text().length();
     sentence = get_text().substring(0,max_string);
@@ -159,9 +159,9 @@ class Letter extends Romanesco {
     //ENGINE
     if(motion_is()) {
       if(sound_is()) {
-        speed = map(get_speed_x()*get_speed_x(),0,1,0.,.3) *tempo[ID_item];
+        speed = map(get_speed_x().normal() *get_speed_x().normal(),0,1,0.,.3) *tempo[ID_item];
       } else {
-        speed = map(get_speed_x()*get_speed_x(),0,1,0.,.1);
+        speed = map(get_speed_x().normal()*get_speed_x().normal(),0,1,0.,.1);
       } 
     } else {
       speed = 0;
@@ -171,11 +171,11 @@ class Letter extends Romanesco {
     if(reverse_is()) speed = -speed ;
     
     //num letter to display
-    numLetter = (int)map(get_quantity(),0,1, 0,grp.countChildren() +1) ;
+    numLetter = (int)map(get_quantity().value(),get_quantity().min(),get_quantity().max(), 0,grp.countChildren() +1) ;
     
     //DISPLAY
     // thickness
-    float thicknessLetter = map(get_thickness(), .1, height/3, 0.1, height /10) ; ;
+    float thicknessLetter = map(get_thickness().value(),get_thickness().min(),get_thickness().max(), 0.1, height /10) ; ;
 
     // color
     if(get_costume().get_type() != TRIANGLE_ROPE) {
@@ -188,10 +188,12 @@ class Letter extends Romanesco {
       strokeWeight(thicknessLetter) ;
     }
     //jitter
-    float jitterX = map(get_jitter_x(),0,1, 0, (float)width *.1) ;
-    float jitterY = map(get_jitter_y(),0,1, 0, (float)width *.1) ;
-    float jitterZ = map(get_jitter_z(),0,1, 0, (float)width *.1) ;
-    vec3 jitter = vec3(jitterX *jitterX, jitterY *jitterY, jitterZ *jitterZ) ;
+    // float jitterX = map(get_jitter_x(),0,1, 0, (float)width *.1) ;
+    // float jitterY = map(get_jitter_y(),0,1, 0, (float)width *.1) ;
+    // float jitterZ = map(get_jitter_z(),0,1, 0, (float)width *.1) ;
+    // vec3 jitter = vec3(jitterX *jitterX, jitterY *jitterY, jitterZ *jitterZ) ;
+    vec3 jitter = map(get_jitter(),get_jitter_x().min(),get_jitter_x().max(),0,width*.1);
+    jitter.pow(2);
 
     letters(speed, axeLetter, jitter) ;
     //END YOUR WORK

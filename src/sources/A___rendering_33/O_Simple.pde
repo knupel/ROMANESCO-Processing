@@ -1,6 +1,6 @@
 /**
 * Simple
-* v 0.0.6
+* v 0.1.0
 * 2018-2019
 */
 class Simple extends Romanesco {
@@ -9,7 +9,7 @@ class Simple extends Romanesco {
     item_name = "Simple" ;
     item_author  = "Stan le Punk";
     item_references = "";
-    item_version = "Version 0.0.6";
+    item_version = "Version 0.1.0";
     item_pack = "Simple 2018-2019" ;
     item_costume = "ellipse/triangle/rect/cross/pentagon/flower 5/flower 7/flower 12/flower 24/Star 5/Star 7/Super Star 8/Super Star 12"; // costume available from get_costume();
     item_mode = "";
@@ -84,8 +84,8 @@ class Simple extends Romanesco {
     // here if you want code in 3D mode
     info("info about the item","more","more");
     aspect_is(fill_is(),stroke_is(),alpha_is());
-    aspect(get_fill(),get_stroke(),get_thickness());
-    set_ratio_costume_size(map(get_area(),get_area_min(),get_area_max(),0,1));
+    aspect(get_fill(),get_stroke(),get_thickness().value());
+    set_ratio_costume_size(map(get_area().value(),get_area().min(),get_area().max(),0,1));
     costume(vec3(),get_size().mult(3),get_costume());
   }
 /*

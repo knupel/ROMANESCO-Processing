@@ -1,7 +1,7 @@
 /**
 * BALISE
 * 2011-2019
-* v 1.3.9
+* v 1.4.0
 */
 Balise balise ;
 //object three
@@ -10,7 +10,7 @@ class BaliseRomanesco extends Romanesco {
     //from the index_objects.csv
     item_name = "Balise" ;
     item_author  = "Stan le Punk";
-    item_version = "Version 1.3.9";
+    item_version = "Version 1.4.0";
     item_pack = "Base 2011-2019" ; 
     item_costume = "point/ellipse/triangle/rect/cross/pentagon/flower/Star 5/Star 7/Super Star 8/Super Star 12" ;
     // item_mode = "Disc/Rectangle/Box/Box Snake" ;
@@ -99,17 +99,17 @@ class BaliseRomanesco extends Romanesco {
 
 
     if (motion_is()) {
-      float speed_base = map(get_speed_x(), 0,1, 0,20);
+      float speed_base = map(get_speed_x().value(), 0,1, 0,20);
       speed = speed_base *tempo_balise *rotation_direction ; 
     } else {
       speed = 0.;
     }
 
     //amplitude
-    float amp = map(get_canvas_x(),get_canvas_x_min(),get_canvas_x_max(),1,width*10);
+    float amp = map(get_canvas_x().value(),get_canvas_x().min(),get_canvas_x().max(),1,width*10);
     
     //factor size
-    float factor_base = map(get_repulsion(),0,1,1,height/4);
+    float factor_base = map(get_repulsion().value(),0,1,1,height/4);
     float factor = 1;
     if(sound_is()) {
       factor = factor_base *(all_transient(ID_item) *.2);
@@ -125,7 +125,7 @@ class BaliseRomanesco extends Romanesco {
     }
 
     // aspect
-    aspect(get_fill(), get_stroke(), get_thickness(), get_costume());
+    aspect(get_fill(), get_stroke(), get_thickness().value(), get_costume());
 
     
     
@@ -134,7 +134,7 @@ class BaliseRomanesco extends Romanesco {
     float ratio = .5 ;
     float tempo_effect = 1 + ((transient_value[0][ID_item] *ratio) + (transient_value[2][ID_item] *ratio) + (transient_value[3][ID_item] *ratio) + (transient_value[4][ID_item] *ratio));
 
-    vec3 size = vec3(get_size_x(),get_size_y(),get_size_z());
+    vec3 size = get_size();
     size.mult(15);
 
     vec2 left_right_sound = vec2(1) ;
@@ -153,8 +153,8 @@ class BaliseRomanesco extends Romanesco {
     //quantity
     int maxBalise = 511 ;
     if(!FULL_RENDERING) maxBalise = 64 ;
-    float radiusBalise = map(get_quantity(), 0,1, 2, maxBalise); // here the value max is 511 because we work with buffersize with 512 field
-    float ratio_size = map(get_area(),width*.1, width*TAU,0,1);
+    float radiusBalise = map(get_quantity().value(), 0,1, 2, maxBalise); // here the value max is 511 because we work with buffersize with 512 field
+    float ratio_size = map(get_area().value(),get_area().min(),get_area().max(),0,1);
     
     vec3 pos = vec3();
     balise.update(pos,speed);

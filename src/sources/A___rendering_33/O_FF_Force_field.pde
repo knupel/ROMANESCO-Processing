@@ -1,13 +1,13 @@
 /**
 * Force Field
 * 2018-2019
-* v 0.0.11
+* v 0.1.0
 */
 class FF extends Romanesco {
 	public FF() {
 		item_name = "FF Force Field";
 		item_author  = "Stan le Punk";
-		item_version = "Version 0.0.11";
+		item_version = "Version 0.1.0";
 		item_pack = "Force 2018-2019";
     item_costume = "line/triangle/rect/cross/pentagon/flower/Star 5/Star 7/Super Star 8/Super Star 12/none";
     item_mode = "fluid/magnetic/gravity/perlin/equation/chaos/image";
@@ -85,10 +85,10 @@ class FF extends Romanesco {
   void draw() { 
     minimum_spot();
     set_ff();
-    if(ref_cell != get_grid() || ref_mode != get_mode_id() || ref_detection != get_area() || birth_is()) {
+    if(ref_cell != get_grid().value() || ref_mode != get_mode_id() || ref_detection != get_area().value() || birth_is()) {
       ref_mode = get_mode_id();
-      ref_cell = get_grid();
-      ref_detection = get_area();
+      ref_cell = get_grid().value();
+      ref_detection = get_area().value();
       birth_is(false);
       init_force_field(get_spot_num());
       // EQUATION
@@ -102,13 +102,13 @@ class FF extends Romanesco {
     ivec2 aspect_colour = ivec2(get_fill(),get_stroke());
     aspect_is(fill_is(), stroke_is(), alpha_is());
 
-    float thickness = get_thickness();
-    float scale = get_size_x() *.1;
+    float thickness = get_thickness().value();
+    float scale = get_size_x().value() *.1;
     float range = 0 ;
     if(reverse_is()) {
-      range = map(get_spectrum(),0,360,0,-1);
+      range = -1 *get_spectrum().normal();
     } else {
-      range = map(get_spectrum(),0,360,0,1);
+      range = get_spectrum().normal();
     }
     
     Force_field ff = get_force_field();
@@ -116,7 +116,7 @@ class FF extends Romanesco {
     if(get_costume().get_type() == NULL) {
       // nothing
     } else {
-      show_field(ff,scale,range,aspect_colour,thickness,get_area(),get_costume());
+      show_field(ff,scale,range,aspect_colour,thickness,get_area().value(),get_costume());
     }
     
     info();
@@ -210,11 +210,11 @@ class FF extends Romanesco {
   */
   private void set_ff() {
     // set detection
-    int level_detection = (int)map(get_scope(),width *.1,width*TAU,10,1);
+    int level_detection = (int)map(get_scope().value(),get_scope().min(),get_scope().max(),10,1);
     set_spot_detection_force_field(level_detection);
 
     // set cell
-    int cell_size = (int)map(get_grid(),width *.1,width*TAU,height/10,2);
+    int cell_size = (int)map(get_grid().value(),get_grid().min(),get_grid().max(),height/10,2);
     set_cell_force_field(cell_size);
     // set type
     if(get_mode_id() == 0) {
@@ -251,15 +251,15 @@ class FF extends Romanesco {
   }
 
   private void set_magnetic_field() {
-    int tesla = ceil(map(get_power(),0,1,1,height/3));
+    int tesla = ceil(map(get_power().value(),get_power().min(),get_power().max(),1,height/3));
     set_force_magnetic_tesla(tesla,-tesla);
 
-    int diam = ceil(get_diameter());
+    int diam = ceil(get_diameter().value());
     set_force_magnetic_diam(diam);
   }
 
   private void set_gravity_field() {
-    int mass = ceil(map(get_mass(),0,1,1,height/3));
+    int mass = ceil(map(get_mass().value(),get_mass().min(),get_mass().max(),1,height/3));
     set_force_gravity_mass(mass);
   }
 
@@ -269,12 +269,12 @@ class FF extends Romanesco {
       set_force_fluid_viscosity(.001);
       set_force_fluid_diffusion(1.);
       */
-      float frequence = map(get_frequence(),0,1,.01,.1);
+      float frequence = map(get_frequence().value(),get_frequence().min(),get_frequence().max(),.01,.1);
       // set_force_fluid_frequence(frequence/frameRate);
       set_force_fluid_frequence(frequence);
-      float viscosity = (get_viscosity()*get_viscosity()*get_viscosity())*.25;
+      float viscosity = (get_viscosity().normal() *get_viscosity().normal() *get_viscosity().normal())*.25;
       set_force_fluid_viscosity(viscosity);
-      float diffusion = get_diffusion();
+      float diffusion = get_diffusion().value();
       set_force_fluid_diffusion(diffusion);
 
   }

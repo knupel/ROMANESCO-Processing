@@ -2,7 +2,7 @@
 * Template
 * the tab is the template that you can duplicate to add the item you want in your Romanesco.
 * You must change the class name and this one must be unique.
-* v 0.0.6
+* v 0.1.0
 * 2018-2019
 */
 class Template extends Romanesco {
@@ -93,13 +93,25 @@ class Template extends Romanesco {
     // here if you want code in 3D mode
     info("info about the item","more","more");
     aspect_is(fill_is(),stroke_is(),alpha_is());
-    aspect(get_fill(),get_stroke(),get_thickness());
-    set_ratio_costume_size(map(get_area(),get_area_min(),get_area_max(),0,1));
+    aspect(get_fill(),get_stroke(),get_thickness().value());
+    set_ratio_costume_size(map(get_area().value(),get_area().min(),get_area().max(),0,1));
 
     costume(vec3(),get_size(),get_costume());
     println("costume",get_costume().get_name());
 
     println("mode",get_mode_name(),get_mode_id());
+
+    println("slider vec",get_size());
+    println("slider value from min to max",get_size_x().value()); // sometime 0 to 1 or 0 to width or 0 to TAU
+    println("slider value min",get_size_x().min());
+    println("slider value max",get_size_x().max());
+
+    println("slider raw from 0 to 360",get_size_x().raw());
+    println("slider raw min",get_size_x().min_raw());
+    println("slider rawmax",get_size_x().max_raw());
+
+    println("slider normal from 0 to 1",get_size_x().normal());
+
   }
 
   void draw_2D() {

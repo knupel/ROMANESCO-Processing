@@ -1,6 +1,6 @@
 /**
 Abstract CLASS ROMANESCO
-v 1.6.0
+v 1.7.0
 2013-2019
 */
 public abstract class Romanesco implements rope.core.R_Constants {
@@ -295,11 +295,17 @@ public abstract class Romanesco implements rope.core.R_Constants {
     set_item_dir(0,x,y);
   }
   void set_item_dir(int which_setting, float x, float y) {
-  if(dir_item_final[ID_item] == null) dir_item_final[ID_item] = vec3();
+  if(dir_item_final[ID_item] == null) {
+    dir_item_final[ID_item] = vec3();
+  }
   dir_item_final[ID_item].set(x,y,0);
-  if(item_setting_direction [0][ID_item] == null) item_setting_direction [which_setting][ID_item] = vec3();
+  if(item_setting_direction [0][ID_item] == null) {
+    item_setting_direction [which_setting][ID_item] = vec3();
+  }
   item_setting_direction [0][ID_item] = vec3(dir_item_final[ID_item]);
-  if(temp_item_canvas_direction[ID_item] == null) temp_item_canvas_direction[ID_item] = vec3();
+  if(temp_item_canvas_direction[ID_item] == null) {
+    temp_item_canvas_direction[ID_item] = vec3();
+  }
   temp_item_canvas_direction[ID_item].x = map(item_setting_direction [which_setting][ID_item].y,0,TAU,0,width);
   temp_item_canvas_direction[ID_item].y = map(item_setting_direction [which_setting][ID_item].x,0,TAU,0,height);
 }
@@ -315,7 +321,7 @@ void set_item_pos(int which_setting, float x, float y, float z) {
   }
   pos_item_final[ID_item].x = x -(width/2);
   pos_item_final[ID_item].y = y -(height/2);
-  pos_item_final[ID_item].z = z ;
+  pos_item_final[ID_item].z = z;
   if(item_setting_position [which_setting][ID_item] == null) {
     item_setting_position [which_setting][ID_item] = vec3();
   }
@@ -1839,1026 +1845,355 @@ vec3 get_item_dir() {
   }
   
   // fill_hue
-  protected float get_fill_hue() {
+  protected Varom get_fill_hue() {
     return fill_hue.get();
   }
 
-  protected float get_fill_hue_raw() {
-    return fill_hue.raw();
-  }
-
-  protected float get_fill_hue_max() {
-    return fill_hue.max();
-  }
-
-  protected float get_fill_hue_min() {
-    return fill_hue.min();
-  }
   
   // fill_sat
-  protected float get_fill_sat() {
+  protected Varom get_fill_sat() {
     return fill_sat.get();
-  }
-
-  protected float get_fill_sat_raw() {
-    return fill_sat.raw();
-  }
-
-  protected float get_fill_sat_max() {
-    return fill_sat.max();
-  }
-
-  protected float get_fill_sat_min() {
-    return fill_sat.min();
   }
   
   // fill_bright
-  protected float get_fill_bri() {
+  protected Varom get_fill_bri() {
     return fill_bright.get();
   }
 
-  protected float get_fill_bri_raw() {
-    return fill_bright.raw();
-  }
-
-  protected float get_fill_bri_max() {
-    return fill_bright.max();
-  }
-
-  protected float get_fill_bri_min() {
-    return fill_bright.min();
-  }
-  
   // fill_alpha
-  protected float get_fill_alp() {
+  protected Varom get_fill_alp() {
     return fill_alpha.get();
   }
 
-  protected float get_fill_alp_raw() {
-    return fill_alpha.raw();
-  }
 
-  protected float get_fill_alp_max() {
-    return fill_alpha.max();
-  }
-
-  protected float get_fill_alp_min() {
-    return fill_alpha.min();
-  }
-  
   // STROKE
   protected int get_stroke() {
     return stroke;
   }
   // stroke_hue
-  protected float get_stroke_hue() {
+  protected Varom get_stroke_hue() {
     return stroke_hue.get();
-  }
-
-  protected float get_stroke_hue_raw() {
-    return stroke_hue.raw();
-  }
-
-  protected float get_stroke_hue_max() {
-    return stroke_hue.max();
-  }
-
-  protected float get_stroke_hue_min() {
-    return stroke_hue.min();
   }
   
   // stroke_sat
-  protected float get_stroke_sat() {
+  protected Varom get_stroke_sat() {
     return stroke_sat.get();
   }
 
-  protected float get_stroke_sat_raw() {
-    return stroke_sat.raw();
-  }
-
-  protected float get_stroke_sat_max() {
-    return stroke_sat.max();
-  }
-
-  protected float get_stroke_sat_min() {
-    return stroke_sat.min();
-  }
-  
   // stroke_bright
-  protected float get_stroke_bri() {
+  protected Varom get_stroke_bri() {
     return stroke_bright.get();
   }
 
-  protected float get_stroke_bri_raw() {
-    return stroke_bright.raw();
-  }
-
-  protected float get_stroke_bri_max() {
-    return stroke_bright.max();
-  }
-
-  protected float get_stroke_bri_min() {
-    return stroke_bright.min();
-  }
-  
   // stroke_alpha
-  protected float get_stroke_alp() {
+  protected Varom get_stroke_alp() {
     return stroke_alpha.get();
   }
 
-  protected float get_stroke_alp_raw() {
-    return stroke_alpha.raw();
-  }
-
-  protected float get_stroke_alp_max() {
-    return stroke_alpha.max();
-  }
-
-  protected float get_stroke_alp_min() {
-    return stroke_alpha.min();
-  }
-
   // thickness
-  protected float get_thickness() {
+  protected Varom get_thickness() {
     return thickness.get();
   }
 
-  protected float get_thickness_raw() {
-    return thickness.raw();
-  }
 
-  protected float get_thickness_max() {
-    return thickness.max();
-  }
-
-  protected float get_thickness_min() {
-    return thickness.min();
-  }
-  
-
-  // size
+  // SIZE
   protected vec3 get_size() {
-    return vec3(get_size_x(),get_size_y(),get_size_z());
+    return vec3(get_size_x().value(),get_size_y().value(),get_size_z().value());
   }
   
   // size x
-  protected float get_size_x() {
+  protected Varom get_size_x() {
     return size_x.get();
   }
 
-  protected float get_size_x_raw() {
-    return size_x.raw();
-  }
-
-  protected float get_size_x_max() {
-    return size_x.max();
-  }
-
-  protected float get_size_x_min() {
-    return size_x.min();
-  }
-
   // size y
-  protected float get_size_y() {
+  protected Varom get_size_y() {
     return size_y.get();
   }
 
-  protected float get_size_y_raw() {
-    return size_y.raw();
-  }
-
-  protected float get_size_y_max() {
-    return size_y.max();
-  }
-
-  protected float get_size_y_min() {
-    return size_y.min();
-  }
-
   // size z
-  protected float get_size_z() {
+  protected Varom get_size_z() {
     return size_z.get();
   }
 
-  protected float get_size_z_raw() {
-    return size_z.raw();
-  }
-
-  protected float get_size_z_max() {
-    return size_z.max();
-  }
-
-  protected float get_size_z_min() {
-    return size_z.min();
-  }
-  
   // diameter
-  protected float get_diameter() {
+  protected Varom get_diameter() {
     return diameter.get();
   }
 
-  protected float get_diameter_raw() {
-    return diameter.raw();
-  }
 
-  protected float get_diameter_max() {
-    return diameter.max();
-  }
-
-  protected float get_diameter_min() {
-    return diameter.min();
-  }
-
-  // canvas
+  // CANVAS
   protected vec3 get_canvas() {
-    return vec3(get_canvas_x(),get_canvas_y(),get_canvas_z());
+    return vec3(get_canvas_x().value(),get_canvas_y().value(),get_canvas_z().value());
   }
 
   // canvas x
-  protected float get_canvas_x() {
+  protected Varom get_canvas_x() {
     return canvas_x.get();
   }
 
-  protected float get_canvas_x_raw() {
-    return canvas_x.raw();
-  }
-
-  protected float get_canvas_x_max() {
-    return canvas_x.max();
-  }
-
-  protected float get_canvas_x_min() {
-    return canvas_x.min();
-  }
-
   // size y
-  protected float get_canvas_y() {
+  protected Varom get_canvas_y() {
     return canvas_y.get();
   }
 
-  protected float get_canvas_y_raw() {
-    return canvas_y.raw();
-  }
-
-  protected float get_canvas_y_max() {
-    return canvas_y.max();
-  }
-
-  protected float get_canvas_y_min() {
-    return canvas_y.min();
-  }
-
   // size z
-  protected float get_canvas_z() {
+  protected Varom get_canvas_z() {
     return canvas_z.get();
-  }
-
-  protected float get_canvas_z_raw() {
-    return canvas_z.raw();
-  }
-
-  protected float get_canvas_z_max() {
-    return canvas_z.max();
-  }
-
-  protected float get_canvas_z_min() {
-    return canvas_z.min();
   }
 
 
   // COL 2
   // frequence
-  protected float get_frequence() {
+  protected Varom get_frequence() {
     return frequence.get();
   }
 
-  protected float get_frequence_raw() {
-    return frequence.raw();
-  }
 
-  protected float get_frequence_max() {
-    return frequence.max();
-  }
-
-  protected float get_frequence_min() {
-    return frequence.min();
-  }
-
-
-  // speed
+  // SPEED
   protected vec3 get_speed() {
-    return vec3(get_speed_x(),get_speed_y(),get_speed_z());
+    return vec3(get_speed_x().value(),get_speed_y().value(),get_speed_z().value());
   }
 
   // speed x
-  protected float get_speed_x() {
+  protected Varom get_speed_x() {
     return speed_x.get();
   }
 
-  protected float get_speed_x_raw() {
-    return speed_x.raw();
-  }
-
-  protected float get_speed_x_max() {
-    return speed_x.max();
-  }
-
-  protected float get_speed_x_min() {
-    return speed_x.min();
-  }
-
   // speed y
-  protected float get_speed_y() {
+  protected Varom get_speed_y() {
     return speed_y.get();
   }
 
-  protected float get_speed_y_raw() {
-    return speed_y.raw();
-  }
-
-  protected float get_speed_y_max() {
-    return speed_y.max();
-  }
-
-  protected float get_speed_y_min() {
-    return speed_y.min();
-  }
-
   // speed z
-  protected float get_speed_z() {
+  protected Varom get_speed_z() {
     return speed_z.get();
   }
 
-  protected float get_speed_z_raw() {
-    return speed_z.raw();
-  }
 
-  protected float get_speed_z_max() {
-    return speed_z.max();
-  }
-
-  protected float get_speed_z_min() {
-    return speed_z.min();
-  }
-
-  // spurt
+  // SPURT
   protected vec3 get_spurt() {
-    return vec3(get_spurt_x(),get_spurt_y(),get_spurt_z());
+    return vec3(get_spurt_x().value(),get_spurt_y().value(),get_spurt_z().value());
   }
 
   // spurt x
-  protected float get_spurt_x() {
+  protected Varom get_spurt_x() {
     return spurt_x.get();
   }
 
-  protected float get_spurt_x_raw() {
-    return spurt_x.raw();
-  }
-
-  protected float get_spurt_x_max() {
-    return spurt_x.max();
-  }
-
-  protected float get_spurt_x_min() {
-    return spurt_x.min();
-  }
-
   // spurt y
-  protected float get_spurt_y() {
+  protected Varom get_spurt_y() {
     return spurt_y.get();
   }
 
-  protected float get_spurt_y_raw() {
-    return spurt_y.raw();
-  }
-
-  protected float get_spurt_y_max() {
-    return spurt_y.max();
-  }
-
-  protected float get_spurt_y_min() {
-    return spurt_y.min();
-  }
-
   // spurt z
-  protected float get_spurt_z() {
+  protected Varom get_spurt_z() {
     return spurt_z.get();
   }
 
-  protected float get_spurt_z_raw() {
-    return spurt_z.raw();
-  }
-
-  protected float get_spurt_z_max() {
-    return spurt_z.max();
-  }
-
-  protected float get_spurt_z_min() {
-    return spurt_z.min();
-  }
 
   // DIR
   protected vec3 get_dir() {
-    return vec3(get_dir_x(),get_dir_y(),get_dir_z());
+    return vec3(get_dir_x().value(),get_dir_y().value(),get_dir_z().value());
   }
 
   // dir x
-  protected float get_dir_x() {
+  protected Varom get_dir_x() {
     return dir_x.get();
   }
 
-  protected float get_dir_x_raw() {
-    return dir_x.raw();
-  }
-
-  protected float get_dir_x_max() {
-    return dir_x.max();
-  }
-
-  protected float get_dir_x_min() {
-    return dir_x.min();
-  }
-
   // dir y
-  protected float get_dir_y() {
+  protected Varom get_dir_y() {
     return dir_y.get();
   }
 
-  protected float get_dir_y_raw() {
-    return dir_y.raw();
-  }
-
-  protected float get_dir_y_max() {
-    return dir_y.max();
-  }
-
-  protected float get_dir_y_min() {
-    return dir_y.min();
-  }
-
   // dir z
-  protected float get_dir_z() {
+  protected Varom get_dir_z() {
     return dir_z.get();
   }
 
-  protected float get_dir_z_raw() {
-    return dir_z.raw();
-  }
-
-  protected float get_dir_z_max() {
-    return dir_z.max();
-  }
-
-  protected float get_dir_z_min() {
-    return dir_z.min();
-  }
 
   // JITTER
   protected vec3 get_jitter() {
-    return vec3(get_jitter_x(),get_jitter_y(),get_jitter_z());
+    return vec3(get_jitter_x().value(),get_jitter_y().value(),get_jitter_z().value());
   }
 
   // jitter x
-  protected float get_jitter_x() {
+  protected Varom get_jitter_x() {
     return jitter_x.get();
   }
 
-  protected float get_jitter_x_raw() {
-    return jitter_x.raw();
-  }
-
-  protected float get_jitter_x_max() {
-    return jitter_x.max();
-  }
-
-  protected float get_jitter_x_min() {
-    return jitter_x.min();
-  }
-
   // jitter y
-  protected float get_jitter_y() {
+  protected Varom get_jitter_y() {
     return jitter_y.get();
   }
 
-  protected float get_jitter_y_raw() {
-    return jitter_y.raw();
-  }
-
-  protected float get_jitter_y_max() {
-    return jitter_y.max();
-  }
-
-  protected float get_jitter_y_min() {
-    return jitter_y.min();
-  }
-
   // jitter z
-  protected float get_jitter_z() {
+  protected Varom get_jitter_z() {
     return jitter_z.get();
-  }
-
-  protected float get_jitter_z_raw() {
-    return jitter_z.raw();
-  }
-
-  protected float get_jitter_z_max() {
-    return jitter_z.max();
-  }
-
-  protected float get_jitter_z_min() {
-    return jitter_z.min();
   }
 
 
   // SWING
   protected vec3 get_swing() {
-    return vec3(get_swing_x(),get_swing_y(),get_swing_z());
+    return vec3(get_swing_x().value(),get_swing_y().value(),get_swing_z().value());
   }
 
   // swing x
-  protected float get_swing_x() {
+  protected Varom get_swing_x() {
     return swing_x.get();
   }
 
-  protected float get_swing_x_raw() {
-    return swing_x.raw();
-  }
-
-  protected float get_swing_x_max() {
-    return swing_x.max();
-  }
-
-  protected float get_swing_x_min() {
-    return swing_x.min();
-  }
-
   // swing y
-  protected float get_swing_y() {
+  protected Varom get_swing_y() {
     return swing_y.get();
   }
 
-  protected float get_swing_y_raw() {
-    return swing_y.raw();
-  }
-
-  protected float get_swing_y_max() {
-    return swing_y.max();
-  }
-
-  protected float get_swing_y_min() {
-    return swing_y.min();
-  }
-
   // swing z
-  protected float get_swing_z() {
+  protected Varom get_swing_z() {
     return swing_z.get();
-  }
-
-  protected float get_swing_z_raw() {
-    return swing_z.raw();
-  }
-
-  protected float get_swing_z_max() {
-    return swing_z.max();
-  }
-
-  protected float get_swing_z_min() {
-    return swing_z.min();
   }
 
 
   // COL3
   // quantity
-  protected float get_quantity() {
+  protected Varom get_quantity() {
     return quantity.get();
   }
 
-  protected float get_quantity_raw() {
-    return quantity.raw();
-  }
-
-  protected float get_quantity_max() {
-    return quantity.max();
-  }
-
-  protected float get_quantity_min() {
-    return quantity.min();
-  }
-  
   // variety
-  protected float get_variety() {
+  protected Varom get_variety() {
     return variety.get();
-  }
-
-  protected float get_variety_raw() {
-    return variety.raw();
-  }
-
-  protected float get_variety_max() {
-    return variety.max();
-  }
-
-  protected float get_variety_min() {
-    return variety.min();
   }
   
   // life
-  protected float get_life() {
+  protected Varom get_life() {
     return life.get();
   }
 
-  protected float get_life_raw() {
-    return life.raw();
-  }
-
-  protected float get_life_max() {
-    return life.max();
-  }
-
-  protected float get_life_min() {
-    return life.min();
-  }
-  
   // flow
-  protected float get_flow() {
+  protected Varom get_flow() {
     return flow.get();
   }
 
-  protected float get_flow_raw() {
-    return flow.raw();
-  }
-
-  protected float get_flow_max() {
-    return flow.max();
-  }
-
-  protected float get_flow_min() {
-    return flow.min();
-  }
-  
   // quality
-  protected float get_quality() {
+  protected Varom get_quality() {
     return quality.get();
   }
 
-  protected float get_quality_raw() {
-    return quality.raw();
-  }
-
-  protected float get_quality_max() {
-    return quality.max();
-  }
-
-  protected float get_quality_min() {
-    return quality.min();
-  }
-  
   // area
-  protected float get_area() {
+  protected Varom get_area() {
     return area.get();
   }
 
-  protected float get_area_raw() {
-    return area.raw();
-  }
-
-  protected float get_area_max() {
-    return area.max();
-  }
-
-  protected float get_area_min() {
-    return area.min();
-  }
-  
   // angle
-  protected float get_angle() {
+  protected Varom get_angle() {
     return angle.get();
   }
 
-  protected float get_angle_raw() {
-    return angle.raw();
-  }
-
-  protected float get_angle_max() {
-    return angle.max();
-  }
-
-  protected float get_angle_min() {
-    return angle.min();
-  }
-  
   // scope
-  protected float get_scope() {
+  protected Varom get_scope() {
     return scope.get();
-  }
-
-  protected float get_scope_raw() {
-    return scope.raw();
-  }
-
-  protected float get_scope_max() {
-    return scope.max();
-  }
-
-  protected float get_scope_min() {
-    return scope.min();
   }
   
   // scan
-  protected float get_scan() {
+  protected Varom get_scan() {
     return scan.get();
   }
 
-  protected float get_scan_raw() {
-    return scan.raw();
-  }
-
-  protected float get_scan_max() {
-    return scan.max();
-  }
-
-  protected float get_scan_min() {
-    return scan.min();
-  }
-  
   // alignment
-  protected float get_alignment() {
+  protected Varom get_alignment() {
     return alignment.get();
-  }
-
-  protected float get_alignment_raw() {
-    return alignment.raw();
-  }
-
-  protected float get_alignment_max() {
-    return alignment.max();
-  }
-
-  protected float get_alignment_min() {
-    return alignment.min();
   }
   
   // repulsion
-  protected float get_repulsion() {
+  protected Varom get_repulsion() {
     return repulsion.get();
-  }
-
-  protected float get_repulsion_raw() {
-    return repulsion.raw();
-  }
-
-  protected float get_repulsion_max() {
-    return repulsion.max();
-  }
-
-  protected float get_repulsion_min() {
-    return repulsion.min();
   }
   
   // attraction
-  protected float get_attraction() {
+  protected Varom get_attraction() {
     return attraction.get();
   }
 
-  protected float get_attraction_raw() {
-    return attraction.raw();
-  }
-
-  protected float get_attraction_max() {
-    return attraction.max();
-  }
-
-  protected float get_attraction_min() {
-    return attraction.min();
-  }
-  
   // density
-  protected float get_density() {
+  protected Varom get_density() {
     return density.get();
   }
 
-  protected float get_density_raw() {
-    return density.raw();
-  }
-
-  protected float get_density_max() {
-    return density.max();
-  }
-
-  protected float get_density_min() {
-    return density.min();
-  }
-  
   // influence
-  protected float get_influence() {
+  protected Varom get_influence() {
     return influence.get();
   }
 
-  protected float get_influence_raw() {
-    return influence.raw();
-  }
-
-  protected float get_influence_max() {
-    return influence.max();
-  }
-
-  protected float get_influence_min() {
-    return influence.min();
-  }
-  
   // calm
-  protected float get_calm() {
+  protected Varom get_calm() {
     return calm.get();
   }
 
-  protected float get_calm_raw() {
-    return calm.raw();
-  }
-
-  protected float get_calm_max() {
-    return calm.max();
-  }
-
-  protected float get_calm_min() {
-    return calm.min();
-  }
-  
   // spectrum
-  protected float get_spectrum() {
+  protected Varom get_spectrum() {
     return spectrum.get();
-  }
-
-  protected float get_spectrum_raw() {
-    return spectrum.raw();
-  }
-
-  protected float get_spectrum_max() {
-    return spectrum.max();
-  }
-
-  protected float get_spectrum_min() {
-    return spectrum.min();
   }
 
 
   // COL 4
   // grid
-  protected float get_grid() {
+  protected Varom get_grid() {
     return grid.get();
   }
-
-  protected float get_grid_raw() {
-    return grid.raw();
-  }
-
-  protected float get_grid_max() {
-    return grid.max();
-  }
-
-  protected float get_grid_min() {
-    return grid.min();
-  }
-  
+ 
   // viscosity
-  protected float get_viscosity() {
+  protected Varom get_viscosity() {
     return viscosity.get();
-  }
-
-  protected float get_viscosity_raw() {
-    return viscosity.raw();
-  }
-
-  protected float get_viscosity_max() {
-    return viscosity.max();
-  }
-
-  protected float get_viscosity_min() {
-    return viscosity.min();
   }
   
   // diffusion
-  protected float get_diffusion() {
+  protected Varom get_diffusion() {
     return diffusion.get();
   }
 
-  protected float get_diffusion_raw() {
-    return diffusion.raw();
-  }
-
-  protected float get_diffusion_max() {
-    return diffusion.max();
-  }
-
-  protected float get_diffusion_min() {
-    return diffusion.min();
-  }
-  
   // power
-  protected float get_power() {
+  protected Varom get_power() {
     return power.get();
   }
 
-  protected float get_power_raw() {
-    return power.raw();
-  }
-
-  protected float get_power_max() {
-    return power.max();
-  }
-
-  protected float get_power_min() {
-    return power.min();
-  }
-
   // mass
-  protected float get_mass() {
+  protected Varom get_mass() {
     return mass.get();
   }
 
-  protected float get_mass_raw() {
-    return mass.raw();
-  }
-
-  protected float get_mass_max() {
-    return mass.max();
-  }
-
-  protected float get_mass_min() {
-    return mass.min();
-  }
-
   // amplitude
-  protected float get_amplitude() {
+  protected Varom get_amplitude() {
     return amplitude.get();
   }
 
-  protected float get_amplitude_raw() {
-    return amplitude.raw();
-  }
 
-  protected float get_amplitude_max() {
-    return amplitude.max();
-  }
-
-  protected float get_amplitude_min() {
-    return amplitude.min();
-  }
 
   // COORD
   protected vec3 get_coord() {
-    return vec3(get_coord_x(),get_coord_y(),get_coord_z());
+    return vec3(get_coord_x().value(),get_coord_y().value(),get_coord_z().value());
   }
   
   // coord x
-  protected float get_coord_x() {
+  protected Varom get_coord_x() {
     return coord_x.get();
   }
 
-  protected float get_coord_x_raw() {
-    return coord_x.raw();
-  }
-
-  protected float get_coord_x_max() {
-    return coord_x.max();
-  }
-
-  protected float get_coord_x_min() {
-    return coord_x.min();
-  }
-
   // swing y
-  protected float get_coord_y() {
+  protected Varom get_coord_y() {
     return coord_y.get();
   }
 
-  protected float get_coordg_y_raw() {
-    return coord_y.raw();
-  }
-
-  protected float get_coord_y_max() {
-    return coord_y.max();
-  }
-
-  protected float get_coord_y_min() {
-    return coord_y.min();
-  }
-
   // swing z
-  protected float get_coord_z() {
+  protected Varom get_coord_z() {
     return coord_z.get();
   }
 
-  protected float get_coord_z_raw() {
-    return coord_z.raw();
-  }
 
-  protected float get_coord_z_max() {
-    return coord_z.max();
-  }
 
-  protected float get_coord_z_min() {
-    return coord_z.min();
-  }
+
+
 
 
 
@@ -2868,7 +2203,7 @@ vec3 get_item_dir() {
 
 
   /**
-  font
+  * font
   */
   protected String get_font_path() {
     return font_item.get_path();

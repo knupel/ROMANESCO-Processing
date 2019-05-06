@@ -1,7 +1,7 @@
 /**
 * VARIABLE
 * 2015-2019
-* v 1.11.1
+* v 1.12.0
 */
 boolean scene, prescene;
 boolean miroir_on_off = false;
@@ -588,16 +588,11 @@ void create_var_item_slider() {
 
 
 /**
-INIT VAR 
+* INIT VAR 
 */
 void init_variable_item_min_max() {
-  float ratio_min_deci = .1;
-  float ratio_min_centi = .01;
-  float ratio_min_milli = .001;
-  float ratio_max = TAU;
-
-  float min_size = .1;
-  float max_size = width;
+  float min = 0;
+  float max = width;
   
   for(Romanesco item : rom_manager.get()) {
     // COL 1
@@ -611,15 +606,16 @@ void init_variable_item_min_max() {
     item.set_stroke_bright_min_max(0,MAX_VALUE_SLIDER,0,HSBmode.bri());
     item.set_stroke_alpha_min_max(0,MAX_VALUE_SLIDER,0,HSBmode.alp());
 
-    item.set_thickness_min_max(0,MAX_VALUE_SLIDER,min_size,max_size *ratio_min_centi);
-    item.set_size_x_min_max(0,MAX_VALUE_SLIDER,max_size *ratio_min_milli,max_size);
-    item.set_size_y_min_max(0,MAX_VALUE_SLIDER,max_size *ratio_min_milli,max_size);
-    item.set_size_z_min_max(0,MAX_VALUE_SLIDER,max_size *ratio_min_milli,max_size);
-    item.set_diameter_min_max(0,MAX_VALUE_SLIDER,max_size *ratio_min_milli,max_size);
+    item.set_thickness_min_max(0,MAX_VALUE_SLIDER,min,max);
+    item.set_size_x_min_max(0,MAX_VALUE_SLIDER,min,max);
+    item.set_size_y_min_max(0,MAX_VALUE_SLIDER,min,max);
+    item.set_size_z_min_max(0,MAX_VALUE_SLIDER,min,max);
+    item.set_diameter_min_max(0,MAX_VALUE_SLIDER,min,max);
 
-    item.set_canvas_x_min_max(0,MAX_VALUE_SLIDER,max_size *ratio_min_deci,max_size *ratio_max);
-    item.set_canvas_y_min_max(0,MAX_VALUE_SLIDER,max_size *ratio_min_deci,max_size *ratio_max);
-    item.set_canvas_z_min_max(0,MAX_VALUE_SLIDER,max_size *ratio_min_deci,max_size *ratio_max);
+    item.set_canvas_x_min_max(0,MAX_VALUE_SLIDER,min,max);
+    item.set_canvas_y_min_max(0,MAX_VALUE_SLIDER,min,max);
+    item.set_canvas_z_min_max(0,MAX_VALUE_SLIDER,min,max);
+
     // COL 2
     item.set_frequence_min_max(0,MAX_VALUE_SLIDER,0,1);
 
@@ -649,10 +645,10 @@ void init_variable_item_min_max() {
     item.set_life_min_max(0,MAX_VALUE_SLIDER,0,1);
     item.set_flow_min_max(0,MAX_VALUE_SLIDER,0,1);
     item.set_quality_min_max(0,MAX_VALUE_SLIDER,0,1);
-
-    item.set_area_min_max(0,MAX_VALUE_SLIDER,max_size *ratio_min_deci, max_size *ratio_max);
+    
+    item.set_area_min_max(0,MAX_VALUE_SLIDER,min,max);
     item.set_angle_min_max(0,MAX_VALUE_SLIDER,0,TAU);
-    item.set_scope_min_max(0,MAX_VALUE_SLIDER,max_size *ratio_min_deci, max_size *ratio_max);
+    item.set_scope_min_max(0,MAX_VALUE_SLIDER,min,max);
     item.set_scan_min_max(0,MAX_VALUE_SLIDER,0,TAU);
 
     item.set_alignment_min_max(0,MAX_VALUE_SLIDER,0,1);
@@ -664,7 +660,7 @@ void init_variable_item_min_max() {
     item.set_calm_min_max(0,MAX_VALUE_SLIDER,0,1);
     item.set_spectrum_min_max(0,MAX_VALUE_SLIDER,0,360);
     // COL 4
-    item.set_grid_min_max(0,MAX_VALUE_SLIDER,max_size *ratio_min_deci, max_size *ratio_max);
+    item.set_grid_min_max(0,MAX_VALUE_SLIDER,min,max);
     item.set_viscosity_min_max(0,MAX_VALUE_SLIDER,0,1);
     item.set_diffusion_min_max(0,MAX_VALUE_SLIDER,0,1);
 
@@ -699,7 +695,7 @@ void init_variable_item() {
       item.init();
       item.set_size_raw(width *.5);
       item.set_diameter_raw(10);
-      item.set_canvas_raw(width);
+      item.set_canvas_raw(width *.5);
 
       item.set_frequence_raw(0);
 
@@ -715,9 +711,9 @@ void init_variable_item() {
       item.set_flow_raw(0);
       item.set_quality_raw(.1);
 
-      item.set_area_raw(width);
+      item.set_area_raw(width *.5);
       item.set_angle_raw(0);
-      item.set_scope_raw(width);
+      item.set_scope_raw(width *.5);
       item.set_scan_raw(PI/2);
 
       item.set_alignment_raw(0);
@@ -729,7 +725,7 @@ void init_variable_item() {
       item.set_calm_raw(0);
       item.set_spectrum_raw(0);
 
-      item.set_grid_raw(width);
+      item.set_grid_raw(width *.5);
       item.set_viscosity_raw(0);
       item.set_diffusion_raw(0);
 

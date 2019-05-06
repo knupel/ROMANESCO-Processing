@@ -1,13 +1,13 @@
 /**
 KOFOSPHERE 
 2013-2019
-v 1.3.1
+v 1.4.0
 */
 class Kofosphere extends Romanesco {
   public Kofosphere() {
     item_name = "Kofosphere" ;
     item_author  = "Kof";
-    item_version = "Version 1.3.1";
+    item_version = "Version 1.4.0";
     item_pack = "Base 2013-2019" ;
     item_costume = "point/ellipse/triangle/rect/cross/pentagon/flower/Star 5/Star 7/Super Star 8/Super Star 12";
     item_mode = "monochrome/polychrome" ;
@@ -84,11 +84,11 @@ class Kofosphere extends Romanesco {
   //DRAW
   void draw() {
     float beatFactor = map(all_transient(ID_item), 1,12, 1., 3.5);
-    float radius = map(get_canvas_x(), width/10, width, .01, 1.1);
+    float radius = map(get_canvas_x().value(),get_canvas_x().min(),get_canvas_x().max(), .01, 1.1);
     if(sound_is()) radius = sq(radius) *beatFactor ; 
     
     // quantity of particules
-    float ratio_num = get_quantity() *get_quantity();
+    float ratio_num = get_quantity().normal() *get_quantity().normal();
     int max = 300;
     int quantity = (int)map(ratio_num,0,1,10,max); 
     if(get_costume().get_type() == POINT_ROPE && FULL_RENDERING) {
@@ -97,14 +97,14 @@ class Kofosphere extends Romanesco {
     
     // speed
     float ratio_speed = .1 ;
-    float norm_speed = map(get_speed_x(),0,1,0,1.5) ;
+    float norm_speed = map(get_speed_x().value(),get_speed_x().min(),get_speed_x().max(),0,1.5) ;
     norm_speed *= norm_speed ;
     if(reverse_is()) norm_speed *= ratio_speed ; else norm_speed *= -ratio_speed;
     vec2 speed = vec2(norm_speed) ;
     speed.mult(.5 +left[ID_item], .5 +right[ID_item]) ;
 
     // size for the box
-    vec3 size = vec3(get_size_x(),get_size_y(),get_size_z()); 
+    vec3 size = get_size(); 
     size.mult(2);
     sphere.drawSpheres(size,speed,radius,quantity,get_costume(),ID_item);
 
@@ -168,7 +168,7 @@ class Kofosphere extends Romanesco {
       
 
       // int frequence = 100 ; KOF value
-      float frequence = map(get_frequence(),1,0,1,200);
+      float frequence = map(get_frequence().value(),get_frequence().max(),get_frequence().min(),1,200);
       if(frequence < 1) frequence = 1;
       float d = noise(frameCount/frequence)*(number_quantity +(number_quantity *quantity));
       density = 2.9 +(20*(1 -quantity));
@@ -196,7 +196,7 @@ class Kofosphere extends Romanesco {
           float ratio_size = modelZ(x,y,z);
           float factor_size = map(abs(ratio_size),0,max_factor,.005,1);
 
-          float thickness = get_thickness();
+          float thickness = get_thickness().value();
           vec3 def_size = size.copy();
           boolean use_factor_is = true;
           if(use_factor_is) {
@@ -213,7 +213,7 @@ class Kofosphere extends Romanesco {
           // display
           aspect(c_fill,c_stroke,thickness);
           aspect_is(fill_is(),stroke_is(), alpha_is());
-          set_ratio_costume_size(map(get_area(),width*.1, width*TAU,0,1));
+          set_ratio_costume_size(map(get_area().value(),get_area().min(),get_area().max(),0,1));
           vec3 pos = vec3(pos_x *deform, pos_y *deform, pos_z *deform);
           costume(pos,def_size,costume);
           

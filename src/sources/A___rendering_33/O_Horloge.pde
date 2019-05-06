@@ -1,7 +1,7 @@
 /**
 HORLOGE
 2012-2019
-v 1.0.13
+v 1.1.0
 */
 
 class Horloge extends Romanesco {
@@ -9,7 +9,7 @@ class Horloge extends Romanesco {
     //from the index_objects.csv
     item_name = "Horloge" ;
     item_author  = "Stan Le Punk";
-    item_version = "Version 1.0.13";
+    item_version = "Version 1.1.0";
     item_pack = "Base 2012-2019" ;
     item_mode = "Ellipse Clock 12/Ellipse Clock 24/Line Clock 12/Line Clock 24/minutes/secondes";// separate the name by a slash and write the next mode immadialtly after this one.
     item_costume = "";
@@ -82,7 +82,7 @@ class Horloge extends Romanesco {
   void draw() {
     textAlign(CENTER);
     // typo
-    float size_font = (get_size_x() *2) +12;
+    float size_font = (get_size_x().value() *2) +12;
     if(sound_is()) size_font *= all_transient(ID_item);
     if(size_font < 1) size_font = 1;
     textFont(get_font(),size_font);
@@ -100,21 +100,21 @@ class Horloge extends Romanesco {
     }
     
     //rotation / deg
-    float angle = get_angle();
+    float angle = get_angle().value();
     //amplitude
-    float amp = map(get_area(), get_area_min(),get_area_max(), get_area_min() *.4, get_area_max() *.2) ;
+    float amp = map(get_area().value(), get_area().min(),get_area().max(), get_area().min() *.4, get_area().max() *.2) ;
 
     // pos clock
     if(motion_is()) {
       local_frameCount += 1 ;
       int direction = 1 ;
       if(reverse_is()) direction = -1 ;
-      float speed_x = get_speed_x() *.1 ;
-      float speed_y = get_speed_y() *.1 ;
-      float speed_z = get_speed_z() *.1 ;
-      float pos_x = sin(local_frameCount *speed_x *direction) *map(get_canvas_x(),width/10,width *r.PHI,0,width *r.PHI) ;
-      float pos_y = cos(local_frameCount *speed_y *direction) *map(get_canvas_y(),width/10,width *r.PHI,0,width *r.PHI) ;
-      float pos_z = sin(local_frameCount *speed_z *direction) *map(get_canvas_z(),width/10,width *r.PHI,0,width *r.PHI) ;
+      float speed_x = get_speed_x().value() *.1 ;
+      float speed_y = get_speed_y().value() *.1 ;
+      float speed_z = get_speed_z().value() *.1 ;
+      float pos_x = sin(local_frameCount *speed_x *direction) *map(get_canvas_x().value(),get_canvas_x().min(),get_canvas_x().max(),0,width *r.PHI) ;
+      float pos_y = cos(local_frameCount *speed_y *direction) *map(get_canvas_y().value(),get_canvas_y().min(),get_canvas_y().max(),0,width *r.PHI) ;
+      float pos_z = sin(local_frameCount *speed_z *direction) *map(get_canvas_z().value(),get_canvas_z().min(),get_canvas_z().max(),0,width *r.PHI) ;
       pos_clock = vec3(pos_x,pos_y,pos_z) ;
     }
 

@@ -1,14 +1,14 @@
 /**
 WEBCAM 
 2011-2019
-v 1.2.11
+v 1.3.0
 */
 class Webcam extends Romanesco {
   public Webcam() {
     //from the index_objects.csv
     item_name = "Webcam" ;
     item_author  = "Stan le Punk";
-    item_version = "Version 1.2.11";
+    item_version = "Version 1.3.0";
     item_pack = "Base 2012-2019" ;
     item_costume = "" ;
     item_mode = "Rectangle color/Rectangle mono/Point color/Point mono/Box color/Box mono" ;
@@ -94,20 +94,20 @@ class Webcam extends Romanesco {
     // size
     float minVal = 0.1 ;
     float maxVal = height / 50 ;
-    float size_x = map(get_size_x(),0.1,width, minVal, maxVal) *transient_value[3][ID_item] ;
-    float size_y = map(get_size_y(),0.1,width, minVal, maxVal) *transient_value[2][ID_item] ;
-    float size_z = map(get_size_z(),0.1,width, minVal, maxVal) *transient_value[4][ID_item] ;
+    float size_x = map(get_size_x().value(),get_size_x().min(),get_size_x().max(), minVal, maxVal) *transient_value[3][ID_item] ;
+    float size_y = map(get_size_y().value(),get_size_y().min(),get_size_y().max(), minVal, maxVal) *transient_value[2][ID_item] ;
+    float size_z = map(get_size_z().value(),get_size_z().min(),get_size_z().max(), minVal, maxVal) *transient_value[4][ID_item] ;
     vec3 factorSizePix = vec3(size_x, size_y, size_z) ; 
     factorDisplayPixel.set(factorDisplayCam.x *factorSizePix.x,factorDisplayCam.y *factorSizePix.y, factorSizePix.z) ;//PARAMETER THAT YOU CAN USE
     
     //PART TWO
 
     if(FULL_RENDERING) {
-      cellSizeX = int(map(get_canvas_y(),width/10, width, 50, 1))  ; 
-      cellSizeY = int(map(get_canvas_x(),width/10, width, 50, 1))  ;
+      cellSizeX = int(map(get_canvas_y().value(),get_canvas_y().min(),get_canvas_y().max(), 50, 1))  ; 
+      cellSizeY = int(map(get_canvas_x().value(),get_canvas_x().min(),get_canvas_x().max(), 50, 1))  ;
     } else {
-      cellSizeX = int(map(get_canvas_y(),width/10, width, 50, 20))  ; 
-      cellSizeY = int(map(get_canvas_x(),width/10, width, 50, 20))  ;
+      cellSizeX = int(map(get_canvas_y().value(),get_canvas_y().min(),get_canvas_y().max(), 50, 20))  ; 
+      cellSizeY = int(map(get_canvas_x().value(),get_canvas_x().min(),get_canvas_x().max(), 50, 20))  ;
     }
     if(cellSizeX < 1 ) cellSizeX = 1 ;
     if(cellSizeY < 1 ) cellSizeY = 1 ;
@@ -135,7 +135,7 @@ class Webcam extends Romanesco {
       } 
     } else {
       fill(get_fill()) ;
-      textSize(get_size_x()/10) ;
+      textSize(get_size_x().value()/10) ;
       text("Big Brother stops watching you, you're so boring !",0,0) ;
     } 
     rectMode (CORNER) ;
@@ -158,7 +158,7 @@ class Webcam extends Romanesco {
     
     float newCellSizeX = cellSizeX *factorDisplayPixel.x *left[ID_item] ;
     float newCellSizeY = cellSizeY *factorDisplayPixel.y *right[ID_item] ;
-    float factorSizeZ = map(get_size_z(), .1, width, .01, height/100) ;
+    float factorSizeZ = map(get_size_z().value(),get_size_z().min(),get_size_z().max(), .01, height/100) ;
     PVector newCellSize = new PVector (newCellSizeX, newCellSizeY, factorSizeZ ) ;
     //init the position of image on the middle of the screen
     vec3 posMouseCam = vec3( width / 2, height /2, 0) ;

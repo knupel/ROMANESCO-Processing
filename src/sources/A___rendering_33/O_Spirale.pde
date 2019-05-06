@@ -1,7 +1,7 @@
 /**
 SPIRALE
 2011-2019
-v 1.3.13
+v 1.4.0
 */
 
 Spirale spirale ; 
@@ -11,7 +11,7 @@ class Spirale_romanesco extends Romanesco {
     //from the index_objects.csv
     item_name = "Spirale" ;
     item_author  = "Stan le Punk";
-    item_version = "Version 1.3.13";
+    item_version = "Version 1.4.0";
     item_pack = "Base 2011-2019" ;
     item_costume = "point/ellipse/triangle/rect/cross/pentagon/flower/Star 5/Star 7/Super Star 8/Super Star 12" ;
     item_mode = "" ;
@@ -87,7 +87,7 @@ class Spirale_romanesco extends Romanesco {
     //quantity
     int n ;
     int nMax = 1 ;
-     nMax = 1 + int(get_quantity() *300) ; 
+     nMax = 1 + int(get_quantity().value() *300) ; 
     if(!FULL_RENDERING) nMax *= .1 ;
     n = nMax ;
 
@@ -98,7 +98,7 @@ class Spirale_romanesco extends Romanesco {
     // if(reverse_is()) reverseSpeed = !reverseSpeed ;
     
     if(motion_is()) {
-      float s = map(get_speed_x(),0,1,0,8) ;
+      float s = map(get_speed_x().value(),get_speed_x().min(),get_speed_x().max(),0,8) ;
       s *= s ;
       if(reverse_is()) speed = s *tempo[ID_item] ; else speed = s *tempo[ID_item] *-1. ;
     } else { 
@@ -118,32 +118,34 @@ class Spirale_romanesco extends Romanesco {
     float minValueSize = .5 ;
     float maxValueSize = width *.003 ;
     
-    float sx = map(get_size_x(), .1, width, minValueSize, maxValueSize) ;
-    float sy = map(get_size_y(), .1, width, minValueSize, maxValueSize) ;
-    float sz  = map(get_size_z(), .1, width, minValueSize, maxValueSize) ; 
-    sx *= sx ;
-    sy *= sy ;
-    sz *= sz ;
+    // float sx = map(get_size_x(), .1, width, minValueSize, maxValueSize) ;
+    // float sy = map(get_size_y(), .1, width, minValueSize, maxValueSize) ;
+    // float sz  = map(get_size_z(), .1, width, minValueSize, maxValueSize) ; 
+    // sx *= sx ;
+    // sy *= sy ;
+    // sz *= sz ;
 
-    
-    float temp_size_x = pow(sx, 3) *volumeLeft *transient_map;
-    float temp_size_y = pow(sy, 3) *volumeRight *transient_map;
-    float temp_size_z = pow(sz, 3) *volumeMix *transient_map;  
+    vec3 s = map(get_size(),get_size_x().min, get_size_x().max(),minValueSize,maxValueSize);
+    s.pow(4);
+    float temp_size_x = s.x() *volumeLeft *transient_map;
+    float temp_size_y = s.y() *volumeRight *transient_map;
+    float temp_size_z = s.z() *volumeMix *transient_map;  
     vec3 size = vec3(temp_size_x,temp_size_y,temp_size_z);
     
     //amplitude of the translate
     float minValueCanvas = .01 ;
     float maxValueCanvas = 3 *(transient_value[2][ID_item] *.7);
-    float canvasXtemp = map(get_canvas_x(), width *.1, width,minValueCanvas,maxValueCanvas);
-    float canvasYtemp = map(get_canvas_y(), width *.1, width,minValueCanvas,maxValueCanvas);
-    float canvasZtemp = map(get_canvas_z(), width *.1, width,minValueCanvas,maxValueCanvas);
-    vec3 canvas = vec3(canvasXtemp,canvasYtemp,canvasZtemp);
+    // float canvasXtemp = map(get_canvas_x().value(), width *.1, width,minValueCanvas,maxValueCanvas);
+    // float canvasYtemp = map(get_canvas_y().value(), width *.1, width,minValueCanvas,maxValueCanvas);
+    // float canvasZtemp = map(get_canvas_z().value(), width *.1, width,minValueCanvas,maxValueCanvas);
+    // vec3 canvas = vec3(canvasXtemp,canvasYtemp,canvasZtemp);
+    vec3 canvas = map(get_canvas(),get_canvas_x().min(),get_canvas_y().max(),minValueCanvas,maxValueCanvas);
 
     // alignement
-    float max_align = get_alignment() *(height/10) ;
-    if(get_swing_x() > 0 && motion_is() && horizon_is()) {
+    float max_align = get_alignment().value() *(height/10) ;
+    if(get_swing_x().value() > 0 && motion_is() && horizon_is()) {
       float align ;
-      float speed_swing = get_swing_x() *get_swing_x() ;
+      float speed_swing = get_swing_x().value() *get_swing_x().value();
       if(pos_swing > max_align || pos_swing < -max_align || all_transient(ID_item) > 8) {
         dir_swing *= -1 ;
       }
@@ -158,12 +160,12 @@ class Spirale_romanesco extends Romanesco {
     }
 
     // aspect
-    aspect(get_fill(), get_stroke(), get_thickness(), get_costume()) ;
+    aspect(get_fill(), get_stroke(), get_thickness().value(), get_costume()) ;
 
     // mode    
     vec3 pos = vec3() ; // we write that because the first part of the void is not available any more.
     spirale.update(pos, speed);
-    float ratio_size = map(get_area(),width*.1, width*TAU,0,1);
+    float ratio_size = map(get_area().value(),get_area().min(),get_area().max(),0,1);
     spirale.show(n, nMax, size, z, canvas, get_costume(), horizon_is(), pos_swing,ratio_size) ;
     
     // info display

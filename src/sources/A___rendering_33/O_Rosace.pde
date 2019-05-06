@@ -1,7 +1,7 @@
 /**
 * Rosace
 * 2019-2019
-* V 0.0.1
+* V 0.1.0
 */
 
 class Rosace extends Romanesco {
@@ -110,7 +110,7 @@ class Rosace extends Romanesco {
     set_item_pos(width/2,height/2,0);
     set_item_dir(0,HALF_PI);
     parameter_rosace(crown_mode_is);
-    generator_rosace(get_fill(),get_stroke(),get_spectrum());
+    generator_rosace(get_fill(),get_stroke(),get_spectrum().value());
   }
   //DRAW
   vec3 rotation;
@@ -120,9 +120,9 @@ class Rosace extends Romanesco {
     if(rotation == null) {
       rotation = vec3();
     }
-    float sx = map(get_dir_x(),get_dir_x_min(),get_dir_x_max(),0,1);
-    float sy = map(get_dir_y(),get_dir_y_min(),get_dir_y_max(),0,1);
-    vec3 speed = vec3(sx,sy,get_speed_x());
+    float sx = map(get_dir_x().value(),get_dir_x().min(),get_dir_x().max(),0,1);
+    float sy = map(get_dir_y().value(),get_dir_y().min(),get_dir_y().max(),0,1);
+    vec3 speed = vec3(sx,sy,get_speed_x().value());
     rotation.add(speed.pow(3));
     rotation.mult(direction);
 
@@ -138,7 +138,7 @@ class Rosace extends Romanesco {
 
     // event
     if(birth_is()) {
-      generator_rosace(get_fill(),get_stroke(),get_spectrum());
+      generator_rosace(get_fill(),get_stroke(),get_spectrum().value());
       birth_is(false);
     }
 
@@ -188,25 +188,31 @@ class Rosace extends Romanesco {
   int rosace_complexity;
   void parameter_rosace(boolean crown_mode) {
     // catch slider param
-    float quantity = get_quantity() *get_quantity();
-    float variety = get_variety();
-    float quality = get_quality();
-    float canvas_normal = map(get_canvas_x(),get_canvas_x_min(),get_canvas_x_max(),0,1);
+    float quantity = get_quantity().normal() *get_quantity().normal();
+    float variety = get_variety().value();
+    float quality = get_quality().value();
+    float canvas_normal = map(get_canvas_x().value(),get_canvas_x().min(),get_canvas_x().max(),0,1);
     canvas_normal *= canvas_normal;
-    float canvas = get_canvas_x() *canvas_normal;
+    float canvas = get_canvas_x().value() *canvas_normal;
 
-    float diam_normal = map(get_diameter(),get_diameter_min(),get_diameter_max(),0,1);
+    float diam_normal = map(get_diameter().value(),get_diameter().min(),get_diameter().max(),0,1);
     diam_normal *= diam_normal;
-    float diam = get_diameter() *diam_normal;
+    float diam = get_diameter().value() *diam_normal;
 
-    vec2 range_speed_z = vec2(1).add(-get_spurt_x(),get_spurt_x()).mult(.01);
+    vec2 range_speed_z = vec2(1).add(-get_spurt_x().value(),get_spurt_x().value()).mult(.01);
+  
+    float ratio_alt = map(get_canvas_z().value(),get_canvas_z().min(),get_canvas_z().max(),0,1);
+    println("canvas z",get_canvas_z().value(),"min",get_canvas_z().min(),"max",get_canvas_z().max());
+    //println("canvas z raw",get_canvas_z_raw(),"min",get_canvas_z_min(),"max",get_canvas_z_max());
+    // ratio_alt *= ratio_alt;
+    // float altitude = get_canvas_z()*ratio_alt;
+    float altitude = get_canvas_z().value() *ratio_alt;
+    println(ratio_alt,"x",get_canvas_z().value(),"=",altitude);
 
-    
-    float altitude = get_canvas_z()*.33;
-    vec2 mut = vec2(1).add(-get_swing_x(),get_swing_x());
-    float norm_area = map(get_area(),get_area_min(),get_area_max(),0,1);
-    vec2 mut_rad_min = vec2(1).sub(norm_area).add(-get_amplitude(),get_amplitude());
-    vec2 mut_rad_max = vec2(1).add(norm_area).add(-get_amplitude(),get_amplitude());
+    vec2 mut = vec2(1).add(-get_swing_x().value(),get_swing_x().value());
+    float norm_area = map(get_area().value(),get_area().min(),get_area().max(),0,1);
+    vec2 mut_rad_min = vec2(1).sub(norm_area).add(-get_amplitude().value(),get_amplitude().value());
+    vec2 mut_rad_max = vec2(1).add(norm_area).add(-get_amplitude().value(),get_amplitude().value());
 
     int ratio_summit = (int)map(quality,0,1,3,100);
 
@@ -230,7 +236,7 @@ class Rosace extends Romanesco {
     int[] alt = new int[num_group];
     alt[0] = int(- 1 * altitude);
     alt[1] = 0;
-    alt[1] = (int)altitude;
+    alt[2] = (int)altitude;
 
     int [] in = new int[num_group];
     int [] out = new int[num_group];
@@ -448,9 +454,9 @@ class Rosace extends Romanesco {
   // render
   void rosace(boolean pillar_is) {
     // from slider
-    float alpha_fill = map(get_fill_alp(),get_fill_alp_min(),get_fill_alp_max(),0,1);
-    float alpha_stroke = map(get_stroke_alp(),get_stroke_alp_min(),get_stroke_alp_max(),0,1);
-    float thickness = map(get_thickness(),get_thickness_min(),get_thickness_max(),0,1);
+    float alpha_fill = map(get_fill_alp().value(),get_fill_alp().min(),get_fill_alp().max(),0,1);
+    float alpha_stroke = map(get_stroke_alp().value(),get_stroke_alp().min(),get_stroke_alp().max(),0,1);
+    float thickness = map(get_thickness().value(),get_thickness().min(),get_thickness().max(),0,1);
     
     // render
     if(!pillar_is) {
@@ -592,7 +598,7 @@ class Rosace extends Romanesco {
     if(birth_is() || pillar_palette == null) {
       int num_colour = plane.length;
       int num_group = ceil(random(max_group_colour));
-      pillar_palette = new R_Colour(p5,hue_palette(get_fill(),num_colour,num_group,get_spectrum()));
+      pillar_palette = new R_Colour(p5,hue_palette(get_fill(),num_colour,num_group,get_spectrum().value()));
     }
 
 
@@ -613,7 +619,7 @@ class Rosace extends Romanesco {
       }
       
       // BUILD FACE
-      float step = get_spectrum() / plane.length;
+      float step = get_spectrum().value() / plane.length;
       if(plane[i].get_nodes() != null && (face_list == null || birth_is())) {
         if(face_list == null) {
           face_list = new ArrayList<R_Face>();
@@ -680,7 +686,7 @@ class Rosace extends Romanesco {
   void pillar_show_point() {
     for(int i = 0 ; i < plane.length ; i++) {
       stroke(pillar_palette.get_colour(i,0));
-      strokeWeight(get_thickness());
+      strokeWeight(get_thickness().value());
       noFill();
 
       if(plane[i].get_nodes() != null) {

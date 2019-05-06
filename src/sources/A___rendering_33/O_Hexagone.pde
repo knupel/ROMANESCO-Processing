@@ -1,7 +1,7 @@
 /**
 * HONEYCOMB
 * 2011-2019
-* v 0.1.6
+* v 0.2.0
 */
 
 
@@ -11,7 +11,7 @@ class Honeycomb extends Romanesco {
     //from the index_objects.csv
     item_name = "Nid d'abeille" ;
     item_author  = "Amnon Owed";
-    item_version = "Version 0.1.6";
+    item_version = "Version 0.2.0";
     item_pack = "Base 2012-2019" ;
     item_costume = "" ;
     item_mode = "" ;
@@ -93,18 +93,18 @@ class Honeycomb extends Romanesco {
   //DRAW
   void draw() {
     neighbourDistance = hexagonRadius *2;
-    hexagonStroke = get_thickness() ;
-    hexagonRadius = map(get_size_x(),.1,width, width /40, width/15)  ;
+    hexagonStroke = get_thickness().value();
+    hexagonRadius = map(get_size_x().value(),get_size_x().min(),get_size_x().max(), width /40, width/15)  ;
 
     
     // limitation for the preview
     int minSize = width/80 ;
     if(FULL_RENDERING) {
-      sliderCanvasX = map(get_canvas_x(), width/10, width, minSize, width *4) ;
-      sliderCanvasY = map(get_canvas_y(), width/10, width, minSize, width *4) ;      
+      sliderCanvasX = map(get_canvas_x().value(),get_canvas_x().min(),get_canvas_x().max(), minSize, width *4) ;
+      sliderCanvasY = map(get_canvas_y().value(),get_canvas_y().min(),get_canvas_y().max(), minSize, width *4) ;      
     } else {
-      sliderCanvasX = map(get_canvas_x(), width/10, width, minSize, width) ;
-      sliderCanvasY = map(get_canvas_y(), width/10, width, minSize, width) ;
+      sliderCanvasX = map(get_canvas_x().value(),get_canvas_x().min(),get_canvas_x().max(), minSize, width) ;
+      sliderCanvasY = map(get_canvas_y().value(),get_canvas_y().min(),get_canvas_y().max(), minSize, width) ;
     }
     
     

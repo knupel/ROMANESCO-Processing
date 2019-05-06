@@ -1,14 +1,14 @@
 /**
 BOIDS
 2015-2019
-V 1.0.7
+V 1.1.0
 */
 
 class Boids extends Romanesco {
   public Boids() {
     item_name = "Boids" ;
     item_author  = "Stan le Punk";
-    item_version = "Version 1.0.7";
+    item_version = "Version 1.1.0";
     item_pack = "Base 2015-2019" ;
     item_costume = "";
     item_mode = "Tetra monochrome/Tetra camaieu" ; // separate the differentes mode by "/"
@@ -93,11 +93,11 @@ class Boids extends Romanesco {
   // draw
   void draw() {
     // MAIN method
-    float thickness = map(get_thickness(),0,width/3,0,width/30 ) ;
-    int size = (int)map(get_size_x(),.1,width, 2,width/10) ;
-    float alignment = map(get_alignment(),0,1,0,10) ;
-    float cohesion = map(get_attraction(),0,1,0,10) ;
-    float separation = map(get_repulsion(),0,1,0,10) ;
+    float thickness = map(get_thickness().value(),0,width,0,width/30 ) ;
+    int size = (int)map(get_size_x().value(),0,width, 2,width/10) ;
+    float alignment = map(get_alignment().value(),0,1,0,10) ;
+    float cohesion = map(get_attraction().value(),0,1,0,10) ;
+    float separation = map(get_repulsion().value(),0,1,0,10) ;
     PVector unity = new PVector(cohesion, separation) ;
     if(flock.listBoid.size() > 0 )flock.run(alignment, unity);
     
@@ -106,43 +106,43 @@ class Boids extends Romanesco {
     // GOAL of the boids
     if(key_space_long) {
       float depthGoal =sin(frameCount *.002) *width ;
-      float pos_x = map(mouse[ID_item].x,0,width, -get_canvas_x(), get_canvas_x() ) ;
-      float pos_y = map(mouse[ID_item].y,0,height, -get_canvas_y(), get_canvas_y() ) ;
+      float pos_x = map(mouse[ID_item].x,0,width, -get_canvas_x().value(), get_canvas_x().value()) ;
+      float pos_y = map(mouse[ID_item].y,0,height, -get_canvas_y().value(), get_canvas_y().value()) ;
       flock.goal(pos_x,pos_y, depthGoal);
     }
 
     int beat_sensibility = 5 ;
     if(all_transient(ID_item) > beat_sensibility) {      
       float depthGoal =sin(frameCount *.003) *width ;
-      float pos_x = sin(frameCount *.003) *get_canvas_x() ;
-      float pos_y = cos(frameCount *.003) *get_canvas_y() ;
+      float pos_x = sin(frameCount *.003) *get_canvas_x().value();
+      float pos_y = cos(frameCount *.003) *get_canvas_y().value();
       flock.goal(pos_x,pos_y, depthGoal);
     }
 
 
     
     // INFLUENCE of the boid around him
-    float ratioInfluence = get_influence() *400 +1 ;
+    float ratioInfluence = get_influence().value() *400 +1 ;
     float influenceArea =  abs(sin(frameCount *.001) *ratioInfluence) ;
     flock.influence(influenceArea);
     
     // SPEED
-    float speed = map(get_speed_x(),0,1,.1,7) ;
+    float speed = map(get_speed_x().value(),0,1,.1,7) ;
     speed *= speed ;
     if(sound_is() )speed *= (map(mix[ID_item],0,1,.00000001,7)) ;
     if(!motion_is() || (sound_is() && get_time_track() < .2)) speed = .00000001 ;
     flock.speed(speed) ;
     
     // cage size
-    myCanvas.size.x = get_canvas_x() *10 ;
-    myCanvas.size.y = get_canvas_y() *10 ;
-    myCanvas.size.z = get_canvas_z() *10 ;
+    myCanvas.size.x = get_canvas_x().value() *10 ;
+    myCanvas.size.y = get_canvas_y().value() *10 ;
+    myCanvas.size.z = get_canvas_z().value() *10 ;
     myCanvas.update() ;
   
     flock.canvasSetting(myCanvas.left, myCanvas.right, myCanvas.top, myCanvas.bottom, myCanvas.front, myCanvas.back) ;
     
     // quantity of boids
-    numOfBoid = int(get_quantity() *700 +30); //amount of boids to start the program with
+    numOfBoid = int(get_quantity().value() *700 +30); //amount of boids to start the program with
     if(!FULL_RENDERING) numOfBoid /= 15 ;
     
     // change the setting of the boid

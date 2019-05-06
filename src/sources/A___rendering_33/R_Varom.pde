@@ -5,13 +5,15 @@ V 0.1.0
 */
 public class Varom {
   private float value = 0;
+  private float normal = 0;
   private float min = 0;
   private float max = 1;
 
   private float raw = 0;
   private float min_raw = 0;
   private float max_raw = 0;
-  // private float result;
+
+
 
   public Varom() {}
 
@@ -30,13 +32,25 @@ public class Varom {
   /**
   get
   */
+
+  public Varom get() {
+    return this;
+  } 
+
+
+  public float value() {
+    return value;
+  }
+
   public float raw() {
     return raw;
   }
 
-  public float get() {
-    return value;
+  public float normal() {
+    return normal;
   }
+
+
 
   public float min() {
     return min;
@@ -61,11 +75,7 @@ public class Varom {
   public void set(float value) {
     this.value = value;
   }
-/*
-  public void set_raw(float raw) {
-    set_raw(raw,0,0);
-  }
-  */
+
 
   public void set_raw(float raw) {
     set_raw(raw,0,0);
@@ -75,8 +85,10 @@ public class Varom {
     this.raw = raw;
     if(begin == 0 && end == 0) {
       value = map(this.raw,min_raw,max_raw,min,max);
+      normal = map(this.raw,min_raw,max_raw,0,1);
     } else {
       value = map(this.raw,min_raw,max_raw,min,max,begin,end);
+      normal = map(this.raw,min_raw,max_raw,0,1);
     }
   }
 

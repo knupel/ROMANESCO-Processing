@@ -1,13 +1,13 @@
 /**
 Ecosysteme Host 
 2016-2019
-V 0.2.1
+V 0.3.0
 */
 class Ecosystem_DNA extends Romanesco {
 	public Ecosystem_DNA() {
 		item_name = "Eco DNA" ;
 		item_author  = "Stan le Punk";
-		item_version = "Version 0.2.1";
+		item_version = "Version 0.3.0";
 		item_pack = "Ecosystem 2016-2019";
     item_costume = "Point/Ellipse/Triangle/Rect/flower/Cross/ABC";
 		item_mode = "" ; // separate the differentes mode by "/"
@@ -75,13 +75,13 @@ class Ecosystem_DNA extends Romanesco {
     set_item_pos(0,0,0);
     load_nucleotide_table(items_path+"ecosystem/code.csv");
 
-    canvas = vec3(get_canvas_x(), get_canvas_y(), get_canvas_z()) ;
-    canvas.mult(ratio_canvas) ;
-    size = vec3(get_size_x(), get_size_y(), get_size_z()) ;
+    canvas = get_canvas();
+    canvas.mult(ratio_canvas);
+    size = get_size();
     size.mult(ratio_size) ;
     pos = vec3(width/2, height/2, 0) ;
     
-    set_host(pos, size, canvas, get_quantity()) ;
+    set_host(pos, size, canvas, get_quantity().value()) ;
     init_symbiosis() ;
 
   }
@@ -89,7 +89,7 @@ class Ecosystem_DNA extends Romanesco {
 
   boolean rebuilt_host = false ;
 	void draw() {
-    float speed_rotation_host = get_speed_x() *get_speed_x();
+    float speed_rotation_host = get_speed_x().normal() *get_speed_x().normal();
     int direction_host = 1 ;
     boolean motion_bool_host = true ;
     
@@ -97,13 +97,13 @@ class Ecosystem_DNA extends Romanesco {
     change beat system for better reactivity
     
     */
-    float radius_x = get_canvas_x() *all_transient(ID_item) ;
-    canvas.set(radius_x, get_canvas_y(), get_canvas_z()) ;
+    float radius_x = get_canvas_x().value() *all_transient(ID_item) ;
+    canvas.set(radius_x, get_canvas_y().value(), get_canvas_z().value()) ;
     canvas.mult(ratio_canvas) ;
     radius.set(canvas) ;
     
 
-    size.set(get_size_x(), get_size_y(), get_size_z()) ;
+    size.set(get_size()) ;
     size.mult(ratio_size) ;
 
     if(reverse_is()) {
@@ -119,7 +119,7 @@ class Ecosystem_DNA extends Romanesco {
     }
 
     if(birth_is()) {
-      set_host(pos, size, canvas, get_quantity()) ;
+      set_host(pos, size, canvas, get_quantity().value()) ;
       init_symbiosis() ;
     	birth_is(false);
     }
@@ -130,9 +130,9 @@ class Ecosystem_DNA extends Romanesco {
       textFont(get_font());
     }
 
-    float direction = get_dir_x();
+    float direction = get_dir_x().value();
 
-    show_host(size, canvas, radius, direction, speed_rotation_host, direction_host, get_costume(), get_fill(), get_stroke(), get_thickness(), get_spectrum(), motion_bool_host, info_agent) ;
+    show_host(size, canvas, radius, direction, speed_rotation_host, direction_host, get_costume(), get_fill(), get_stroke(), get_thickness().value(), get_spectrum().value(), motion_bool_host, info_agent) ;
 		
 	}
 
@@ -149,7 +149,7 @@ class Ecosystem_DNA extends Romanesco {
   void set_host(vec3 pos, vec3 size, vec3 canvas, float ratio_quantity) {
     radius = vec3(canvas) ;
     int num = num_host(min_host, max_host, ratio_quantity) ;
-    create_host(num, get_density(), pos, size, canvas, radius) ; 
+    create_host(num, get_density().value(), pos, size, canvas, radius) ; 
   }
 
   int num_host(int min, int max, float ratio) {

@@ -1,7 +1,7 @@
 /**
 Lorenz attractor
 2016-2019
-v 0.1.5
+v 0.2.0
 Inspirated by Nature of Code of Daniel Shiffman
 */
 /*
@@ -12,7 +12,7 @@ class Lorenz extends Romanesco {
 	public Lorenz() {
 		item_name = "Lorenz attractor";
 		item_author  = "Stan le Punk";
-		item_version = "Version 0.1.5";
+		item_version = "Version 0.2.0";
 		item_pack = "Nature of Code 2016-2019";
     item_costume = "point/ellipse/triangle/rect/cross/pentagon/flower/Star 5";
     item_mode = "Costume/Surface";
@@ -89,16 +89,16 @@ class Lorenz extends Romanesco {
       list_points = new ArrayList<vec3>() ;
     } else {
       build_lorenz_attractor(list_points) ;
-      if(alpha(get_fill()) > 0 || get_thickness() > 0) {
-        float canvas = get_canvas_x() *.01 ;
-        vec3 jitter = get_jitter().copy();
+      if(alpha(get_fill()) > 0 || get_thickness().value() > 0) {
+        float canvas = get_canvas_x().value() *.01 ;
+        vec3 jitter = get_jitter();
         jitter.mult(height/10) ;
-        vec3 size = get_size().copy();
-        vec3 dir = get_dir().copy();
+        vec3 size = get_size();
+        vec3 dir = get_dir();
         fill(get_fill());
         stroke(get_stroke());
-        strokeWeight(get_thickness());
-        set_ratio_costume_size(map(get_area(),width*.1, width*TAU,0,1));
+        strokeWeight(get_thickness().value());
+        set_ratio_costume_size(map(get_area().value(),get_area().min(),get_area().max(),0,1));
         show_lorenz_attractor(size,dir,canvas,jitter,list_points,get_mode_id(),get_costume());
       }
 
@@ -106,7 +106,7 @@ class Lorenz extends Romanesco {
       // keep the size of list reasonable :)
       int max = 5000 ;
       if(!FULL_RENDERING) max /= 50 ;
-      int threshold = 2 + int(get_life() *max);
+      int threshold = 2 + int(get_life().value() *max);
       if(list_points.size() > threshold) {
         int remove_size = list_points.size() - threshold;
         for(int i = 0 ; i < remove_size ; i++) {

@@ -1,7 +1,7 @@
 /**
 RUBIS
 2013-2019
-v 1.0.10
+v 1.1.0
 */
 
 class Rubis extends Romanesco {
@@ -9,7 +9,7 @@ class Rubis extends Romanesco {
     //from the index_objects.csv
     item_name = "Rubis" ;
     item_author  = "Stan le Punk";
-    item_version = "version 1.0.10";
+    item_version = "version 1.1.0";
     item_pack = "Base 2013-2019";
     item_costume = "";
     item_mode = "Vertex/Point";
@@ -90,7 +90,7 @@ class Rubis extends Romanesco {
     vec3 center = vec3() ;
 
     // speed
-    float speed = map(get_speed_x(),0,1,.0001,.2);
+    float speed = map(get_speed_x().value(),get_speed_x().min(),get_speed_x().max(),.0001,.2);
     speed = speed*speed ;
     if(sound_is() && sound_is()) {
       speed *= all_transient(ID_item);
@@ -100,15 +100,15 @@ class Rubis extends Romanesco {
 
     vec3 jitter = vec3() ;
     if(sound_is() && sound_is()) {
-      float valueX = left[ID_item] *get_jitter_x() *width ;
-      float valueY = right[ID_item] *get_jitter_y() *width ;
-      float valueZ = mix[ID_item] *get_jitter_z() *width ;
+      float valueX = left[ID_item] *get_jitter_x().value() *width ;
+      float valueY = right[ID_item] *get_jitter_y().value() *width ;
+      float valueZ = mix[ID_item] *get_jitter_z().value() *width ;
       jitter.set(valueX,valueY,valueZ) ;
     }
 
     // size of the rubis
-    float radiusMax = get_canvas_x() *.7 ;
-    float radiusMin = map(get_swing_x(), 0, 1, radiusMax, radiusMax /10) ;
+    float radiusMax = get_canvas_x().value() *.7 ;
+    float radiusMin = map(get_swing_x().value(), get_swing_x().min(), get_swing_x().max(), radiusMax, radiusMax /10) ;
 
 
      // stop motion
@@ -123,7 +123,7 @@ class Rubis extends Romanesco {
     
     // new population
     int max_people = 150 ;
-    float quantity = get_quantity();
+    float quantity = get_quantity().value();
     if(!FULL_RENDERING)  quantity *= .1 ;
     numPeople = (int)map(quantity,0, 1, 10, max_people) ; 
     if ( numPeople != refNumPeople ) newPopulation = true ;
@@ -136,9 +136,9 @@ class Rubis extends Romanesco {
     
     
     if(get_mode_id() == 1) {
-      aspect(get_fill(), get_stroke(), get_thickness(), POINT_ROPE) ;
+      aspect(get_fill(), get_stroke(), get_thickness().value(), POINT_ROPE) ;
     } else {
-      aspect(get_fill(), get_stroke(), get_thickness()) ;
+      aspect(get_fill(), get_stroke(), get_thickness().value()) ;
     }
 
     ami_heart_move(center, speed, radiusMin, radiusMax, jitter,get_mode_id()) ;

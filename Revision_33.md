@@ -15,6 +15,7 @@
 >change: commande to actived the main camera, now don't to keep 'c' pressed, one hit to able or enable.
 >add: top bar for the controler
 >add: mix mode to use multiply, overlay... and other incrustation effect
+>pass allmethod to get slider value from the old style to the new class Varom > Varom for VAriable ROManesco.
 
 *MINOR
 

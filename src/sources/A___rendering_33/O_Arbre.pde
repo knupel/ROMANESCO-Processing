@@ -1,7 +1,7 @@
 /**
 * ARBRE 
 * 2012-2019
-* v 1.5.1
+* v 1.6.0
 */
 class ArbreRomanesco extends Romanesco {
   Arbre arbre ;
@@ -82,9 +82,9 @@ class ArbreRomanesco extends Romanesco {
     // num fork for the tree
     ivec2 fork = ivec2(maxFork);
   
-    int n = int(map(get_quantity(),0,1,2,maxFork*2)) ;
+    int n = int(map(get_quantity().value(),0,1,2,maxFork*2));
     
-    float epaisseur = get_thickness() ;
+    float epaisseur = get_thickness().value();
     float ratioLeft = map(left[ID_item], 0, 1, .5, 2) ;
     float ratioRight = map(right[ID_item], 0, 1, .5, 2) ;
     if(!FULL_RENDERING) {
@@ -102,18 +102,18 @@ class ArbreRomanesco extends Romanesco {
       
     //size
     int div_size = 20 ;
-    float x = map(get_size_x(),.1,width,.1,width /div_size) ;
-    float y = map(get_size_y(),.1,width,.1,width /div_size) ;
-    float z = map(get_size_z(),.1,width,.1,width /div_size) ;
+    float x = map(get_size_x().value(),.1,width,.1,width /div_size) ;
+    float y = map(get_size_y().value(),.1,width,.1,width /div_size) ;
+    float z = map(get_size_z().value(),.1,width,.1,width /div_size) ;
     x = x *x *ratioMix ;
     y = y *y *ratioMix ;
     z = z *z *ratioMix ;
 
     vec3 size  = vec3(x,y,z) ;
     //orientation
-    float direction = get_dir_x() ;
+    float direction = get_dir_x().value();
     //amplitude
-    vec2 amplitude = vec2(get_canvas_x() *.5,get_canvas_y() *.5) ;
+    vec2 amplitude = vec2(get_canvas_x().value() *.5,get_canvas_y().value() *.5) ;
     if(FULL_RENDERING) {
       amplitude.mult(all_transient(ID_item));
     }
@@ -125,7 +125,7 @@ class ArbreRomanesco extends Romanesco {
     float angle = 90 ; // but this function must be remove because it give no effect
     // speed
     if(motion_is() && FULL_RENDERING) {
-      float s = map(get_speed_x(),0,1,0,2) ;
+      float s = map(get_speed_x().value(),0,1,0,2) ;
       s *= s;
       speed = s *tempo[ID_item]; 
     } else if (!motion_is() && FULL_RENDERING){ 
@@ -142,7 +142,7 @@ class ArbreRomanesco extends Romanesco {
     if(horizon_is()) {
       arbre.set_horizon(0) ; 
     } else {
-      arbre.set_horizon(map(get_alignment(),0,1,-1,1));
+      arbre.set_horizon(map(get_alignment().value(),0,1,-1,1));
     }
     
     //info
@@ -230,7 +230,7 @@ class ArbreRomanesco extends Romanesco {
       } 
 
       // Draw the branch
-      set_ratio_costume_size(map(get_area(),width*.1, width*TAU,0,1));
+      set_ratio_costume_size(map(get_area().value(),width*.1, width*TAU,0,1));
       int offset_z = branch_ID;
       costume(vec3(0,0,offset_z),size,costume);
       

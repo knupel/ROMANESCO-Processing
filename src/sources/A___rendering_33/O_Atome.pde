@@ -1,7 +1,7 @@
 /**
 * ATOME 
 * 2012-2019
-* v 1.3.13
+* v 1.4.0
 */
 ArrayList<Atom> atomList;
 import rope.costume.R_Primitive;
@@ -11,7 +11,7 @@ class Atome extends Romanesco {
     //from the index_objects.csv
     item_name = "Atome" ;
     item_author  = "Stan le Punk";
-    item_version = "version 1.3.13";
+    item_version = "version 1.4.0";
     item_pack = "Base 2012-2019" ;
     item_costume = "";
     item_mode = "Chemical Name/File text/Electronic cloud/Ellipse circle/Ellipse triangle/Ellipse cloud/Triangle circle/Triangle triangle/Triangle cloud/Rectangle rectangle/Rectangle cloud" ;
@@ -127,7 +127,7 @@ class Atome extends Romanesco {
     if(parameter_is() & key_d) threeDimension = !threeDimension ;
     
     //speed
-    float speed = (get_speed_x() *100) *(get_speed_x() *100) ;
+    float speed = (get_speed_x().value() *100) *(get_speed_x().value() *100) ;
     float velLimit = tempo[ID_item] *5.0 ; // max of speed Atom
     if (velLimit < 1.1 ) velLimit = 1.1 ;
     //the atom temperature give the speed 
@@ -141,7 +141,7 @@ class Atome extends Romanesco {
       if(space_is() && action_is()) {
         newDirection = new PVector (-pen[ID_item].x, -pen[ID_item].y ) ;
       } else { 
-        newDirection = normal_direction(int(get_dir_x())) ;
+        newDirection = normal_direction(int(get_dir_x().value())) ;
       }
     } else {
       newDirection = new PVector () ;
@@ -161,30 +161,30 @@ class Atome extends Romanesco {
     PVector changeVelocity = new PVector (velocityX, velocityY) ;
     
     // FACTOR SOUND REACTIVITY
-    float maxBeat = map(get_swing_x(),0,1,1,15) ;
+    float maxBeat = map(get_swing_x().value(),0,1,1,15) ;
     transient_value[1][ID_item] = map(transient_value[1][ID_item],1,10, 1,maxBeat) ;
     transient_value[2][ID_item] = map(transient_value[2][ID_item],1,10, 1,maxBeat) ;
     transient_value[3][ID_item] = map(transient_value[3][ID_item],1,10, 1,maxBeat) ;
     transient_value[4][ID_item] = map(transient_value[4][ID_item],1,10, 1,maxBeat) ;
     
     // thickness
-    float thickness = map(get_thickness(),0, width/3, 0, width/20) ;
+    float thickness = map(get_thickness().value(),0, width/3, 0, width/20) ;
     
     // TEXT
 
     PVector posText = new PVector (0,0,0) ;
 
     //Canvas
-    PVector marge = new PVector(map(get_canvas_x(), width/10, width, width/20, width *3) , map(get_canvas_y(), height/10, height, height/20, height *3) ) ;
+    PVector marge = new PVector(map(get_canvas_x().value(), width/10, width, width/20, width *3) , map(get_canvas_y().value(), height/10, height, height/20, height *3) ) ;
     
     // SIZE
-    float sizeFont = get_size_x() ;
+    float sizeFont = get_size_x().value();
     int sizeTextName = int(sizeFont) ;
     int sizeTextInfo = int(sizeFont *.5) ;
 
-    float sizeAtomeRawX = map (get_size_x(), .1, width, .2, width *.05) ;
-    float sizeAtomeRawY = map (get_size_y(), .1, width, .2, width *.05) ;
-    float sizeAtomeRawZ = map (get_size_z(), .1, width, .2, width *.05) ;
+    float sizeAtomeRawX = map (get_size_x().value(), 0, width, .2, width *.05) ;
+    float sizeAtomeRawY = map (get_size_y().value(), 0, width, .2, width *.05) ;
+    float sizeAtomeRawZ = map (get_size_z().value(), 0, width, .2, width *.05) ;
     float sizeAtomeX = sizeAtomeRawX *beatSizeProton ;
     float sizeAtomeY = sizeAtomeRawY *beatSizeProton ;
     float sizeAtomeZ = sizeAtomeRawZ *beatSizeProton ;
@@ -192,7 +192,7 @@ class Atome extends Romanesco {
     //diameter
     float factorSizeField = sizeAtomeX *1.2 ; // factor size of the electronic Atom's Cloud
      //width
-    float posTextInfo = map(get_size_y(), .1, width,sizeAtomeRawX*.2, width*.2) + (transient_value[1][ID_item] *2.0)  ; 
+    float posTextInfo = map(get_size_y().value(), 0, width,sizeAtomeRawX*.2, width*.2) + (transient_value[1][ID_item] *2.0)  ; 
       
       
     
@@ -239,35 +239,35 @@ class Atome extends Romanesco {
       //MODE OF DISPLAY
       //item_mode = "Chemical Name/File text/Electronic cloud/Ellipse schema/Ellipse cloud/Triangle schema/Triangle cloud/Rectangle schema/Rectangle cloud/Box schema/Box cloud/Sphere schema/Sphere cloud" ;
       if (get_mode_id() == 0 || get_mode_id() == 255 ) {
-        atm.titleAtom2D (get_fill(), get_stroke(), get_font(), sizeTextName, sizeTextInfo, posTextInfo, get_angle()) ; // (color name, color Info, PFont, int sizeTextName,int  sizeTextInfo )
+        atm.titleAtom2D (get_fill(), get_stroke(), get_font(), sizeTextName, sizeTextInfo, posTextInfo, get_angle().value()) ; // (color name, color Info, PFont, int sizeTextName,int  sizeTextInfo )
       } else if (get_mode_id() == 1 ) { 
-        atm.title2D(get_fill(), get_font(), sizeTextName, posText, get_angle()) ;
+        atm.title2D(get_fill(), get_font(), sizeTextName, posText, get_angle().value()) ;
       } else if (get_mode_id() == 2 ) {
-        atm.display("", "POINT", sizeAtomeXYZ, get_fill(), get_stroke(), thickness, get_angle()) ;
+        atm.display("", "POINT", sizeAtomeXYZ, get_fill(), get_stroke(), thickness, get_angle().value()) ;
       } else if (get_mode_id() == 3 ) {
-        if(threeDimension) atm.display("SPHERE", "ELLIPSE", sizeAtomeXYZ, get_fill(), get_stroke(), thickness, get_angle()) ;
-        else atm.display("ELLIPSE", "ELLIPSE", sizeAtomeXYZ, get_fill(), get_stroke(), thickness, get_angle()) ;
+        if(threeDimension) atm.display("SPHERE", "ELLIPSE", sizeAtomeXYZ, get_fill(), get_stroke(), thickness, get_angle().value()) ;
+        else atm.display("ELLIPSE", "ELLIPSE", sizeAtomeXYZ, get_fill(), get_stroke(), thickness, get_angle().value()) ;
       } else if (get_mode_id() == 4 ) {
-        if(threeDimension) atm.display("SPHERE", "TRIANGLE", sizeAtomeXYZ, get_fill(), get_stroke(), thickness, get_angle()) ;
-        else atm.display("ELLIPSE", "TRIANGLE", sizeAtomeXYZ, get_fill(), get_stroke(), thickness, get_angle()) ;
+        if(threeDimension) atm.display("SPHERE", "TRIANGLE", sizeAtomeXYZ, get_fill(), get_stroke(), thickness, get_angle().value()) ;
+        else atm.display("ELLIPSE", "TRIANGLE", sizeAtomeXYZ, get_fill(), get_stroke(), thickness, get_angle().value()) ;
       } else if (get_mode_id() == 5 ) {
-        if(threeDimension) atm.display("SPHERE", "POINT", sizeAtomeXYZ, get_fill(), get_stroke(), thickness, get_angle()) ;
-        else atm.display("ELLIPSE", "POINT", sizeAtomeXYZ, get_fill(), get_stroke(), thickness, get_angle()) ;
+        if(threeDimension) atm.display("SPHERE", "POINT", sizeAtomeXYZ, get_fill(), get_stroke(), thickness, get_angle().value()) ;
+        else atm.display("ELLIPSE", "POINT", sizeAtomeXYZ, get_fill(), get_stroke(), thickness, get_angle().value()) ;
       } else if (get_mode_id() == 6 ) {
-        if(threeDimension) atm.display("TETRA", "ELLIPSE", sizeAtomeXYZ, get_fill(), get_stroke(), thickness, get_angle()) ;
-        else atm.display("TRIANGLE", "ELLIPSE", sizeAtomeXYZ, get_fill(), get_stroke(), thickness, get_angle()) ;
+        if(threeDimension) atm.display("TETRA", "ELLIPSE", sizeAtomeXYZ, get_fill(), get_stroke(), thickness, get_angle().value()) ;
+        else atm.display("TRIANGLE", "ELLIPSE", sizeAtomeXYZ, get_fill(), get_stroke(), thickness, get_angle().value()) ;
       } else if (get_mode_id() == 7 ) {
-        if(threeDimension) atm.display("TETRA", "TRIANGLE", sizeAtomeXYZ, get_fill(), get_stroke(), thickness, get_angle()) ;
-        else atm.display("TRIANGLE", "TRIANGLE", sizeAtomeXYZ, get_fill(), get_stroke(), thickness, get_angle()) ;
+        if(threeDimension) atm.display("TETRA", "TRIANGLE", sizeAtomeXYZ, get_fill(), get_stroke(), thickness, get_angle().value()) ;
+        else atm.display("TRIANGLE", "TRIANGLE", sizeAtomeXYZ, get_fill(), get_stroke(), thickness, get_angle().value()) ;
       } else if (get_mode_id() == 8 ) {
-        if(threeDimension) atm.display("TETRA", "POINT", sizeAtomeXYZ, get_fill(), get_stroke(), thickness, get_angle()) ;
-        else atm.display("TRIANGLE", "POINT", sizeAtomeXYZ, get_fill(), get_stroke(), thickness, get_angle()) ;
+        if(threeDimension) atm.display("TETRA", "POINT", sizeAtomeXYZ, get_fill(), get_stroke(), thickness, get_angle().value()) ;
+        else atm.display("TRIANGLE", "POINT", sizeAtomeXYZ, get_fill(), get_stroke(), thickness, get_angle().value()) ;
       } else if (get_mode_id() == 9 ) {
-        if(threeDimension) atm.display("BOX", "RECTANGLE", sizeAtomeXYZ, get_fill(), get_stroke(), thickness, get_angle()) ;
-        else atm.display("RECTANGLE", "RECTANGLE", sizeAtomeXYZ, get_fill(), get_stroke(), thickness, get_angle()) ;
+        if(threeDimension) atm.display("BOX", "RECTANGLE", sizeAtomeXYZ, get_fill(), get_stroke(), thickness, get_angle().value()) ;
+        else atm.display("RECTANGLE", "RECTANGLE", sizeAtomeXYZ, get_fill(), get_stroke(), thickness, get_angle().value()) ;
       } else if (get_mode_id() == 10 ) {
-        if(threeDimension) atm.display("BOX", "POINT", sizeAtomeXYZ, get_fill(), get_stroke(), thickness, get_angle()) ;
-        else atm.display("RECTANGLE", "POINT", sizeAtomeXYZ, get_fill(), get_stroke(), thickness, get_angle()) ;
+        if(threeDimension) atm.display("BOX", "POINT", sizeAtomeXYZ, get_fill(), get_stroke(), thickness, get_angle().value()) ;
+        else atm.display("RECTANGLE", "POINT", sizeAtomeXYZ, get_fill(), get_stroke(), thickness, get_angle().value()) ;
       }
  
 
@@ -287,7 +287,7 @@ class Atome extends Romanesco {
     //ADD ATOM
     int maxValueReproduction = 25 ;
     if(FULL_RENDERING) maxValueReproduction = 1 ; else maxValueReproduction = 25 ;
-    int speedReproduction = round(map(get_quantity(),0, 1, 30, maxValueReproduction));
+    int speedReproduction = round(map(get_quantity().value(),0, 1, 30, maxValueReproduction));
     if(action_is() && key_n_long && clickLongLeft[ID_item] && frameCount % speedReproduction == 0) atomAdd(giveNametoAtom(), item_setting_position[0][ID_item]) ;
     
     if(atomList.size()<1) {
@@ -323,7 +323,7 @@ class Atome extends Romanesco {
     //data
     //amplitude
     //give the field of type of atome must be create
-    float numP = map(get_variety(), 0,1,1,118) ; //
+    float numP = map(get_variety().value(), 0,1,1,118) ; //
     int Z = int(random (1,numP)) ; // Z is the number of protons give the number of electrons max knew is 118
     int ion = round(random(0,0)); // number of electron(s) less(Anion)   more(Cation)   / give the magnetism & conductivity of the atome cannot be equal or sup to "Z"proton
     

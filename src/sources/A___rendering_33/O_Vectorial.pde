@@ -1,14 +1,14 @@
 /**
 VECTORIAL
 2015-2019
-v 0.0.11
+v 0.1.0
 */
 class Vectorial extends Romanesco {
  
   public Vectorial() {
     item_name = "Vectorial" ;
     item_author  = "Stan le Punk";
-    item_version = "Version 0.0.11";
+    item_version = "Version 0.1.0";
     item_pack = "Base 2015-2019" ;
     item_costume = "" ;
     item_mode = "Classic original/Classic custom/Walker original/Walker custom" ; // separate the differentes mode by "/"
@@ -133,8 +133,8 @@ class Vectorial extends Romanesco {
 
 
     // scale
-    float scale_x = map(get_canvas_x(), get_canvas_x_min(), get_canvas_x_max(), .1, 8);
-    float scale_y = map(get_canvas_y(), get_canvas_y_min(), get_canvas_y_max(), .1, 8);
+    float scale_x = map(get_canvas_x().value(), get_canvas_x().min(), get_canvas_x().max(), .1, 8);
+    float scale_y = map(get_canvas_y().value(), get_canvas_y().min(), get_canvas_y().max(), .1, 8);
     vec3 scale_3D = vec3(scale_x, scale_y,1) ;
 
     // beat factor
@@ -146,7 +146,7 @@ class Vectorial extends Romanesco {
     
 
     if(FULL_RENDERING) {
-      jitting.set(get_jitter_x(),get_jitter_y(),get_jitter_z());
+      jitting.set(get_jitter());
       jitting.mult((int)height/2 *beat_factor) ;
     } else {
       jitting.set(0) ;
@@ -171,7 +171,7 @@ class Vectorial extends Romanesco {
       }
       normalize_fill.set(normalize_hue_fill, normalize_sat_fill,normalize_bright_fill, normalize_alpha_fill) ;
       normalize_stroke.set(normalize_hue_stroke,normalize_sat_stroke,normalize_bright_stroke, normalize_alpha_stroke) ;
-      full_svg_3D(pos_3D, scale_3D, jitting, svg_import[ID_item], normalize_fill, normalize_stroke, get_thickness(), false) ;
+      full_svg_3D(pos_3D, scale_3D, jitting, svg_import[ID_item], normalize_fill, normalize_stroke, get_thickness().value(), false) ;
     // walker  
     } else if(get_mode_id() == 2 && FULL_RENDERING) {
       walker = true ;
@@ -185,7 +185,7 @@ class Vectorial extends Romanesco {
       walker = true ;
       normalize_fill.set(normalize_hue_fill, normalize_sat_fill,normalize_bright_fill, normalize_alpha_fill) ;
       normalize_stroke.set(normalize_hue_stroke,normalize_sat_stroke,normalize_bright_stroke, normalize_alpha_stroke) ;
-      walker_svg_3D(pos_3D, scale_3D, svg_import[ID_item], normalize_fill, normalize_stroke, get_thickness(), false) ;
+      walker_svg_3D(pos_3D, scale_3D, svg_import[ID_item], normalize_fill, normalize_stroke, get_thickness().value(), false) ;
       if(key_n ) svg_import[ID_item].build() ;
       if(beat_factor > 5 && FULL_RENDERING) svg_import[ID_item].build() ;
     } else {
@@ -209,7 +209,7 @@ class Vectorial extends Romanesco {
 
   }
   void walker_svg_3D(vec3 pos_3D, vec3 scale_3D, ROPE_svg svg, vec4 factor_fill, vec4 factor_stroke, float thickness, boolean original_colour) {
-    vec3 swing = vec3(get_swing_x(),get_swing_y(),get_swing_z()) ;
+    vec3 swing = vec3(get_swing()) ;
     swing.mult(height /5 *beat_factor) ;
     for(int ID = 0 ; ID < svg.num_brick() ; ID++ ) {
       int length = svg.list_svg_vec(ID).length ;

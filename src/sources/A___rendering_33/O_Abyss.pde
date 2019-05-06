@@ -1,7 +1,7 @@
 /**
 The ABBYSS
 2014
-v 2.1.6
+v 2.2.0
 */
 
 
@@ -16,7 +16,7 @@ class The_Abbyss extends Romanesco {
     //from the index_objects.csv
     item_name = "The Abbyss" ;
     item_author  = "Andreas Gysin";
-    item_version = "version 2.1.6";
+    item_version = "version 2.2.0";
     item_pack = "Base 2014-2018" ;
     item_costume = "";
     item_mode = "Box Fish/Cubus/Floater/Radio/Worm/Sea Fly/Breather/Spider/Manta/Father/Super Nova" ;// separate the name by a slash and write the next mode immadialtly after this one.
@@ -84,7 +84,7 @@ class The_Abbyss extends Romanesco {
 
     if(alpha(get_stroke()) == 0) set_thickness_raw(0,0,0); // this line is dangerous...direct access to something resrved for the slider ????
    //  pushMatrix();
-    creatureManager.loop(get_fill(), get_stroke(), get_thickness(), get_speed_x() *100.0);
+    creatureManager.loop(get_fill(), get_stroke(), get_thickness().value(), get_speed_x().value() *100.0);
     // popMatrix();
     // resetMatrix();
     

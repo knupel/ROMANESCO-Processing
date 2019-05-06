@@ -1,7 +1,7 @@
 /**
 * Pulsar
 * 2018-2019
-* v 0.0.9
+* v 0.1.0
 */
 
 //object one
@@ -11,11 +11,11 @@ class Pulsar extends Romanesco {
   public Pulsar() {
     item_name = "Pulsar" ;
     item_author  = "Stan le Punk";
-    item_version = "version 0.0.9";
+    item_version = "version 0.1.0";
     item_pack = "Base 2018-2019";
     item_costume = "point/ellipse/triangle/rect/cross/pentagon/flower/star";
     item_mode = "nothing/cyclus/heart/ring cyclus/ring heart/helmet cyclus/helmet heart" ;
-    // item_slider = "Fill hue,Fill sat,Fill bright,Fill alpha,Thickness,Size X,Size Y,Canvas X,Canvas Y,Quantity,Reactivity,Angle,Life,Spurt X,Flow,Direction X,Direction Y" ;
+  
     hue_fill_is = true;
     sat_fill_is = true;
     bright_fill_is = true;
@@ -76,7 +76,7 @@ class Pulsar extends Romanesco {
   //DRAW
   int num_ref ;
   void draw() {
-    float num_temp = get_quantity();
+    float num_temp = get_quantity().value();
     num_temp = num_temp *num_temp *num_temp;
     int num = int(5 + (5000 *num_temp));
     if(pulsar == null || num_ref != num) {
@@ -89,19 +89,19 @@ class Pulsar extends Romanesco {
 
 
   void pulsar() {
-    int radius = (int)get_canvas_x();
+    int radius = (int)get_canvas_x().value();
 
-    vec3 speed = vec3(get_speed_x(),get_speed_y(),get_speed_z());
+    vec3 speed = get_speed();
     speed.pow(3).div(2);
 
     // cloud_3D.ring(.01, false);
     // cloud_3D.helmet(.005, false);
-    float ratio_size = map(get_area(),width*.1, width*TAU,0,1);
-    pulsar.size(get_size_x(),get_size_y(),get_size_z());
+    float ratio_size = map(get_area().value(),get_area().min(),get_area().max(),0,1);
+    pulsar.size(get_size());
     // cloud_3D.size((height/4) *abs(sin(frameCount *.01)));
     // cloud_3D.orientation_y(map(mouseY,0,height,-PI,PI));
     // cloud_3D.angle(frameCount *.01);
-    aspect(get_fill(), get_stroke(), get_thickness());
+    aspect(get_fill(), get_stroke(), get_thickness().value());
     
 
 
@@ -116,7 +116,7 @@ class Pulsar extends Romanesco {
       pulsar.orientation(get_dir());
 
       mode();
-      float swing = get_swing_x() *get_swing_x();
+      float swing = get_swing_x().normal() *get_swing_x().normal();
       swing = map(swing,0,1,0,80);
 
       pulsar.set_tempo((int)swing);

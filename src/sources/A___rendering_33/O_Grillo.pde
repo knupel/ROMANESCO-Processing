@@ -2,7 +2,7 @@
 * Grillo
 * the tab is the template that you can duplicate to add the item you want in your Romanesco.
 * You must change the class name and this one must be unique.
-v 0.0.7
+v 0.1.0
 */
 class Grillo extends Romanesco {
   public Grillo() {
@@ -10,7 +10,7 @@ class Grillo extends Romanesco {
     item_name = "Grillo" ;
     item_author  = "Stan le Punk";
     item_references = "";
-    item_version = "Version 0.0.7";
+    item_version = "Version 0.1.0";
     item_pack = "Base 2018-2019";
     item_costume = "point/ellipse/triangle/rect/cross/pentagon/flower/Star 5/Star 7/Super Star 8/Super Star 12"; // costume available from get_costume();
     item_mode = "Random/Automata/Full";
@@ -87,7 +87,7 @@ class Grillo extends Romanesco {
   int ref_num;
   String ref_mode;
   void draw() {
-    ivec3 canvas = ivec3(round(map(get_canvas(),get_canvas_x_min(),get_canvas_x_max(),1,19)));
+    ivec3 canvas = ivec3(round(map(get_canvas(),get_canvas_x().min(),get_canvas_x().max(),1,19)));
     if(ref_num != canvas.x*canvas.y*canvas.z || !get_mode_name().equals(ref_mode)) {
       reset(canvas);
       if(get_mode_name().equals("Random")) {
@@ -111,8 +111,8 @@ class Grillo extends Romanesco {
     }
 
 
-    aspect(get_fill(),get_stroke(),get_thickness());
-    int cell = (int)map(get_grid(),get_grid_min(),get_grid_max(),5,height);
+    aspect(get_fill(),get_stroke(),get_thickness().value());
+    int cell = (int)map(get_grid().value(),get_grid().min(),get_grid().max(),5,height);
     for(int x = 0 ; x < canvas.x ; x++) {
       for(int y = 0 ; y < canvas.y ; y++) {
         for(int z = 0 ; z < canvas.z ; z++) {
@@ -137,7 +137,7 @@ class Grillo extends Romanesco {
     if(get_costume().get_type() == STAR_3D_ROPE) {
       size.div(1,1,10);
     } else if(get_costume().get_type() == CROSS_BOX_3_ROPE || get_costume().get_type() == CROSS_BOX_2_ROPE) {
-      set_ratio_costume_size(map(get_area(),get_area_min(),get_area_max(),0,1));
+      set_ratio_costume_size(map(get_area().value(),get_area().min(),get_area().max(),0,1));
     }
     costume(pos,size,dir,get_costume());
   }
@@ -157,13 +157,13 @@ class Grillo extends Romanesco {
 
   void offset(ivec3 canvas) {
     if(!get_speed().equals(0) || !get_jitter().equals(0) || motion_is()) {
-      vec3 swing = map(get_swing().mult(get_swing()),0,1,0,width/2);
-      vec3 s = map(get_speed(),get_speed_x_min(),get_speed_x_max(),0,.01);
+      vec3 swing = map(get_swing().mult(get_swing()),get_swing_x().min(),get_swing_x().max(),0,width/2);
+      vec3 s = map(get_speed(),get_speed_x().min(),get_speed_x().max(),0,.01);
       s.x = cos(s.x *frameCount);
       s.y = cos(s.y *frameCount);
       s.z = cos(s.z *frameCount);
 
-      vec3 range = map(get_jitter().mult(get_jitter()),0,1,0,height/2);
+      vec3 range = map(get_jitter().mult(get_jitter()),get_jitter_x().min(),get_jitter_x().max(),0,height/2);
 
       for(int x = 0 ; x < canvas.x ; x++) {
         for(int y = 0 ; y < canvas.y ; y++) {

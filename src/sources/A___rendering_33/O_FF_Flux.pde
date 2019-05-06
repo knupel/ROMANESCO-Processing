@@ -1,7 +1,7 @@
 /**
 * Flux Force Field
 * 2018-2019
-* v 0.0.12
+* v 0.1.0
 */
 class Flux extends Romanesco {
 
@@ -10,7 +10,7 @@ class Flux extends Romanesco {
 	public Flux() {
 		item_name = "FF Flux";
 		item_author  = "Stan le Punk";
-		item_version = "Version 0.0.12";
+		item_version = "Version 0.1.0";
 		item_pack = "Force 2018-2019";
     item_costume = "pixel/point/ellipse/triangle/rect/cross/pentagon/flower/Star 5/Star 7/Super Star 8/Super Star 12";
     item_mode = "";
@@ -102,19 +102,19 @@ class Flux extends Romanesco {
 
 
   void draw_flux(int mult_particle) {
-    float ratio_num = get_quantity() *get_quantity() *get_quantity();
+    float ratio_num = get_quantity().normal() *get_quantity().normal() *get_quantity().normal();
     int num = (int)map(ratio_num,0,1,10,3000); // > 100_000;
     num *= mult_particle;
     
     set_vehicle(num);
     init_vehicle(num,get_force_field()); 
     
-    float speed = .1 + (get_speed_x()*2.);
+    float speed = .1 + (get_speed_x().value()*2.);
     update_vehicle(get_force_field(),speed);
-    aspect(get_fill(), get_stroke(),get_thickness());
-    vec3 size = vec3(get_size_x(),get_size_y(),get_size_z());
+    aspect(get_fill(), get_stroke(),get_thickness().value());
+    vec3 size = get_size();
     // size.map(get_size_x_min(),get_size_x_max(),1,get_size_x_max());
-    show_vehicle(size,get_area(),get_costume());
+    show_vehicle(size,get_area().value(),get_costume());
 
     //
     item_info[ID_item] = ("vehicles: " +vehicles.size());

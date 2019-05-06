@@ -1,14 +1,14 @@
 /**
 SURFACE
 2014-2019
-v 1.1.3
+v 1.2.0
 */
 
 class Surface extends Romanesco {
   public Surface() {
     item_name = "Surface" ;
     item_author  = "Stan le Punk";
-    item_version = "Version 1.1.3";
+    item_version = "Version 1.2.0";
     item_pack = "Base 2014-2019";
     item_costume = "" ;
     item_mode = "Surf/Wave/Wave++" ; // separate the differentes mode by "/"
@@ -108,7 +108,7 @@ class Surface extends Romanesco {
     }
 
     //ratio speed
-    float ratio_speed = get_speed_x() *get_speed_x() *get_speed_x() ;
+    float ratio_speed = get_speed_x().normal() *get_speed_x().normal() *get_speed_x().normal();
 
     //speed
     if(motion_is() ) {
@@ -125,14 +125,14 @@ class Surface extends Romanesco {
     // update motion
     if(motion_is()) {
       float speed_image = ratio_speed ;
-      float amplitude_image = get_swing_x() *width *ratio_swing ;
+      float amplitude_image = get_swing_x().value() *width *ratio_swing ;
       altitude_image = int(sin(frameCount *speed_image) *amplitude_image) ;
     }
     
     
     
     // IMAGE GRID
-    sizePixel_image = floor(map(get_quality(), 0,1,width/20,2)) ;
+    sizePixel_image = floor(map(get_quality().value(), get_quantity().min(),get_quantity().max(),width/20,2)) ;
     if(!FULL_RENDERING) sizePixel_image *= 3 ;
     // update data of the image
     if(key_n) {
@@ -148,41 +148,41 @@ class Surface extends Romanesco {
     if(get_mode_id() != 0 ) {
       //size pixel triangle
       int sizePixMin = 7 ;
-      int sizePix_grid_simple = int(sizePixMin +get_size_x() /11) ;
+      int sizePix_grid_simple = int(sizePixMin +get_size_x().value() /11) ;
       if(!FULL_RENDERING) sizePix_grid_simple *= 3 ;
       //size canvas grid
-      vec2 newCanvas = vec2(get_canvas_x(),get_canvas_y()) ;
+      vec2 newCanvas = vec2(get_canvas_x().value(),get_canvas_y().value()) ;
       newCanvas.mult(4.5) ;
       // create grid if there is no grid
       if(grid_surface_simple.size() < 1) create_surface_simple(sizePix_grid_simple,newCanvas) ;
       
       // from of the wave
-      int maxStep = (int)map(get_influence(),0,1,2,50) ;
+      int maxStep = (int)map(get_influence().value(),get_influence().min(),get_influence().max(),2,50) ;
       step = map(noise(5),0,1,0,maxStep) ; // break the linear mode of the wave
       // amplitude
-      amplitude_simple_grid = get_swing_x() *height *.07 *ratio_swing  ;
+      amplitude_simple_grid = get_swing_x().value() *height *.07 *ratio_swing  ;
       amplitude_simple_grid *= amplitude_simple_grid  ;
       
       // clear the list
-      if(refSizeTriangle != get_size_x() || !canvasRef.equals(newCanvas)) {
+      if(refSizeTriangle != get_size_x().value() || !canvasRef.equals(newCanvas)) {
         grid_surface_simple.clear() ;
       }
       
       // Vague + clear
       if(get_mode_id() == 1 ) {
-        if(refSizeTriangle != get_size_x() || !canvasRef.equals(newCanvas)) {
+        if(refSizeTriangle != get_size_x().value() || !canvasRef.equals(newCanvas)) {
           if(get_mode_id() == 1 ) grid_surface_simple.clear() ;
           create_surface_simple(sizePix_grid_simple,newCanvas) ;
         }
       }
       // vague ++
       if(get_mode_id() == 2) {
-        if(refSizeTriangle != get_size_x() || !canvasRef.equals(newCanvas)) {
+        if(refSizeTriangle != get_size_x().value() || !canvasRef.equals(newCanvas)) {
           create_surface_simple(sizePix_grid_simple,newCanvas) ;
         }
       }
       // make the reference
-      refSizeTriangle = get_size_x() ;
+      refSizeTriangle = get_size_x().value();
       canvasRef = newCanvas ;
     }
     // END simple grid param
@@ -218,10 +218,10 @@ class Surface extends Romanesco {
   void update_and_clean(int whichMode) {
     if(whichMode == 0 ) {
       if( grid_surface_simple.size() > 0 )grid_surface_simple.clear() ;
-      update_surface_image(sizePixel_image, fill_color, stroke_color,get_thickness(), altitude_image) ;
+      update_surface_image(sizePixel_image, fill_color, stroke_color,get_thickness().value(), altitude_image) ;
     } else if (whichMode == 1 || whichMode == 2 ) {
       if( grid_surface_image.size() > 0 )grid_surface_image.clear() ;
-      update_surface_simple(get_fill(), get_stroke(), get_thickness(), speed, amplitude_simple_grid, step) ;
+      update_surface_simple(get_fill(), get_stroke(), get_thickness().value(), speed, amplitude_simple_grid, step) ;
     }
   }
   

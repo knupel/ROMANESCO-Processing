@@ -1,7 +1,7 @@
 /**
 * BOXOLYZER
 * 2012-2019
-* v 2.1.1
+* v 2.2.0
 */
 
   
@@ -11,7 +11,7 @@ class Boxolyzer extends Romanesco {
     //from the index_objects.csv
     item_name = "Boxolyzer" ;
     item_author  = "Stan le Punk";
-    item_version = "Version 2.1.1";
+    item_version = "Version 2.2.0";
     item_pack = "Base 2012-2019";
 
     item_costume = "ellipse/triangle/rect/cross/pentagon/flower 5/flower 7/Star 5/Star 7/Super Star 8/Super Star 12";
@@ -87,7 +87,7 @@ class Boxolyzer extends Romanesco {
   //DRAW
   void draw() {
     //CLASSIC DISPLAY
-    int num_box = int(map(get_quantity(),0,1,1,NUM_BANDS));
+    int num_box = int(map(get_quantity().value(),get_quantity().min(),get_quantity().max(),1,NUM_BANDS));
     if (num_box != num_box_ref) {
       new_distribution = true;
     }
@@ -96,7 +96,7 @@ class Boxolyzer extends Romanesco {
 
     // color and thickness
     
-    aspect(get_fill(), get_stroke(), get_thickness());
+    aspect(get_fill(), get_stroke(), get_thickness().value());
     aspect_is(fill_is(),stroke_is(),alpha_is()); 
     //
     distribution(num_box, new_distribution);
@@ -105,7 +105,7 @@ class Boxolyzer extends Romanesco {
     if (get_mode_id() == 0) {
       boxolyzer_line(horizon_is());
     } else if (get_mode_id() == 1) {
-      boxolyzer_circle((int)get_canvas_x(),horizon_is());
+      boxolyzer_circle((int)get_canvas_x().value(),horizon_is());
     }
 
 
@@ -148,7 +148,7 @@ class Boxolyzer extends Romanesco {
       boxolyzer.set_size(get_size());
       boxolyzer.set_dir(get_dir());
       boxolyzer.set_ratio_spectrum(factorSpectrum);
-      boxolyzer.set_ratio_costume(get_area());
+      boxolyzer.set_ratio_costume(get_area().value());
       boxolyzer.set_costume(get_costume().get_type());
       boxolyzer.show(groundPosition);
     }
@@ -161,7 +161,7 @@ class Boxolyzer extends Romanesco {
     vec3 pos = vec3(0,height *.5,0);
     float factorSpectrum = 0;
     int num = box_list.size();
-    int canvasFinal = (int)map(get_canvas_x(), width/10, width, width/2,width*3)  ;
+    int canvasFinal = (int)map(get_canvas_x().value(),get_canvas_x().min(),get_canvas_x().max(), width/2,width*3)  ;
     int displacement_symetric = int(width *.5 -canvasFinal *.5) ;
     vec3 displacement = vec3(width/2, height/2, 0) ;
     for(int i = 0 ; i < num ; i++) {
@@ -177,7 +177,7 @@ class Boxolyzer extends Romanesco {
       boxolyzer.set_size(get_size());
       boxolyzer.set_dir(get_dir());
       boxolyzer.set_ratio_spectrum(factorSpectrum);
-      boxolyzer.set_ratio_costume(get_area());
+      boxolyzer.set_ratio_costume(get_area().value());
       boxolyzer.set_costume(get_costume().get_type());
       boxolyzer.show(groundPosition);
     }

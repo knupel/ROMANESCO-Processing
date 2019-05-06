@@ -1,7 +1,7 @@
 /**
 LIGNES
 2011-2019
-v 1.2.6
+v 1.3.0
 */
 Line line ;
 //object three
@@ -9,7 +9,7 @@ class Lignes extends Romanesco {
   public Lignes() {
     item_name = "Lignes" ;
     item_author  = "Stan le Punk";
-    item_version = "Version 1.2.6";
+    item_version = "Version 1.3.0";
     item_pack = "Base 2011-2019" ;
     item_costume = "" ;
     item_mode = "Lines 1/Lines 2/Lines 3/Lines 4/Lines 5/Lines 6" ;
@@ -78,15 +78,15 @@ class Lignes extends Romanesco {
   //DRAW
   void draw() {
     if(transient_value[0][ID_item] > 1 ) {
-      ampLine = transient_value[0][ID_item] *(map(get_swing_x(), 0,1, 0, 3)) ;
-      thicknessLine = (get_thickness() *ampLine ) ;
+      ampLine = transient_value[0][ID_item] *(map(get_swing_x().value(), get_swing_x().min(),get_swing_x().max(), 0, 3)) ;
+      thicknessLine = (get_thickness().value() *ampLine ) ;
     } else {
-      thicknessLine = get_thickness() ;
+      thicknessLine = get_thickness().value();
     }
 
     //speed
     if(motion_is()) {
-      speed = map(get_speed_x()*get_speed_x(),0,1,0,height/20) * tempo[ID_item]; 
+      speed = map(get_speed_x().normal() *get_speed_x().normal(),0,1,0,height/20) * tempo[ID_item]; 
     } else {
       speed = 0;
     }
@@ -94,15 +94,15 @@ class Lignes extends Romanesco {
     if(reverse_is()) speed = speed *1 ; else speed = speed * -1 ;
 
     // size canvas
-    float canvas_x = map(get_canvas_x(),get_canvas_x_min(),get_canvas_x_max(), width/2, width *4);
-    float canvas_y = map(get_canvas_y(),get_canvas_y_min(),get_canvas_y_max(), height/2, height *4);
+    float canvas_x = map(get_canvas_x().value(),get_canvas_x().min(),get_canvas_x().max(), width/2, width *4);
+    float canvas_y = map(get_canvas_y().value(),get_canvas_y().min(),get_canvas_y().max(), height/2, height *4);
     vec2 canvas = vec2(canvas_x,canvas_y);
 
     //quantity
-    float ratio_num = map(get_quantity()*get_quantity(),0,1,1,100);
+    float ratio_num = map(get_quantity().normal() *get_quantity().normal(),0,1,1,100);
 
-    int step_angle = (int)map(get_angle(),0,TAU,0,360);
-    float step_rotate = map(get_alignment(),0,1,0,TAU);
+    int step_angle = (int)map(get_angle().value(),get_angle().min(),get_angle().max(),0,360);
+    float step_rotate = map(get_alignment().value(),get_alignment().min(),get_alignment().max(),0,TAU);
     
 
     // this loop is a bullshit must be refactor, 
@@ -129,7 +129,7 @@ class Lignes extends Romanesco {
   
 
   void display_line(vec2 canvas, float ratio_num, float speed, float thickness, int start_angle_deg) {
-    float direction = get_dir_x() +start_angle_deg ;
+    float direction = get_dir_x().value() +start_angle_deg ;
     rotation(direction, 0, 0) ;
     //display
     line.drawLine (speed,ratio_num,get_fill(),thickness, canvas) ;

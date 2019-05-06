@@ -1,7 +1,7 @@
 /**
 ESCARGOT 
 2011-2019
-V 1.4.12
+V 1.5.0
 */
 //TOXIC
 import toxi.geom.*;
@@ -17,7 +17,7 @@ class Escargot extends Romanesco {
     //from the index_objects.csv
     item_name = "Image" ;
     item_author  = "Stan le Punk";
-    item_version = "version 1.4.12";
+    item_version = "version 1.5.0";
     item_pack = "Base 2012-2019" ;
     item_costume = "";
     item_mode = "Original/Raw/Point/Ellipse/Rectangle/Box/Cross/SVG/Vitraux" ;
@@ -197,10 +197,10 @@ class Escargot extends Romanesco {
 
     if(bitmap[ID_item] != null) {  
       //MOTION
-      windForce = (int)map(get_speed_x(),0,1,0,13) ;
-      windDirection = (int)get_dir_x();
+      windForce = (int)map(get_speed_x().value(),get_speed_x().min(),get_speed_x().max(),0,13) ;
+      windDirection = (int)get_dir_x().value();
       if(reverse_is()) windDirection += PI;
-      internal_motion_pixel = map(get_calm(),0,1, 0,20) *(1.0 + pen[ID_item].z) ;
+      internal_motion_pixel = map(get_calm().value(),get_calm().min(),get_calm().max(), 0,20) *(1.0 + pen[ID_item].z) ;
       motionInfo.y = windForce ;
       motionInfo.z = internal_motion_pixel ;
       //PEN
@@ -226,14 +226,14 @@ class Escargot extends Romanesco {
       radiusAnalyzeRef = radiusAnalyze ;
       maxEntryPointsRef = maxEntryPoints ;
       
-      int n = int(map(get_quantity(),0,1,10,150)) ;
+      int n = int(map(get_quantity().value(),get_quantity().min(),get_quantity().max(),10,150)) ;
       maxEntryPoints = n *n ;
       
       // security for the voronoï displaying, because if you change the analyze in the voronoi process, Romanesco make the Arraylist error
       if(get_mode_id() != 8 || (maxEntryPoints != maxEntryPointsRef && scene) ) {
         //if (maxEntryPoints > listPixelRaw.size() / 4 ) maxEntryPoints = listPixelRaw.size() ;
-        radiusAnalyze = int(map(get_swing_x(),0,1,2,100));
-        pixelAnalyzeSize = int(map(get_quality(),0,1,100,2));
+        radiusAnalyze = int(map(get_swing_x().value(),get_swing_x().min(),get_swing_x().max(),2,100));
+        pixelAnalyzeSize = int(map(get_quality().value(),get_quality().min(),get_quality().max(),100,2));
       } else {
         if(maxEntryPoints > maxVoronoiPoints) maxEntryPoints = maxVoronoiPoints  ;
       }
@@ -253,9 +253,11 @@ class Escargot extends Romanesco {
        }
        
        //size and thickness
-       PVector sizePix = new PVector (map(get_size_x(),.1,width, 1, height/30 ), map(get_size_y(),.1,width, 1, height/30 ), map(get_size_z(),.1,width, 1, height/30 )) ;
-       float sizePoint = map(get_size_x(),.1,width, 1, height/6 ) ;
-       float thickPix = map(get_thickness(),0.1,height *.33, 0.1, height/10 ) ;
+       PVector sizePix = new PVector (map(get_size_x().value(),get_size_x().min(),get_size_x().max(), 1, height/30 ), 
+                                      map(get_size_y().value(),get_size_y().min(),get_size_y().max(), 1, height/30 ), 
+                                      map(get_size_z().value(),get_size_z().min(),get_size_z().max(), 1, height/30 )) ;
+       float sizePoint = map(get_size_x().value(),get_size_x().min(),get_size_x().max(), 1, height/6 ) ;
+       float thickPix = map(get_thickness().value(),get_thickness().min(),get_thickness().max(), 0.1, height/10 ) ;
        
        // range 100
        float soundHundredMin = random(80) ;
@@ -267,7 +269,7 @@ class Escargot extends Romanesco {
        PVector rangeReactivitySoundThreeHundredSixty = new PVector (soundThreeHundredSixtyMin, soundThreeHundredSixtyMax) ;
        //Music factor
        PVector musicFactor = new PVector ( all_transient(ID_item) *left[ID_item], all_transient(ID_item) *right[ID_item]) ;
-       forceBeat = (int)map(get_repulsion(),0,1,1,40) ;
+       forceBeat = (int)map(get_repulsion().value(),get_repulsion().min(),get_repulsion().max(),1,40) ;
 
        
        // update image

@@ -1,13 +1,13 @@
 /**
 Kino
 2018-2019
-v 0.2.3
+v 0.3.0
 */
 class Kino extends Romanesco {
 	public Kino() {
 		item_name = "Kino";
 		item_author  = "Stan le Punk";
-		item_version = "Version 0.2.3";
+		item_version = "Version 0.3.0";
 		item_pack = "Base 2018-2019";
 		item_costume = ""; // separate the differentes mode by "/"
 		item_mode = "Movie/Movie 3D/Diaporama/Diaporama 3D"; // separate the differentes mode by "/"
@@ -94,9 +94,9 @@ class Kino extends Romanesco {
 		}
 
     if(parameter_is() && get_movie() != null) {
-      if(coord_ref != get_coord_x()) {
-        coord_ref = get_coord_x();
-        float pos = get_coord_x() *get_movie().duration();
+      if(coord_ref != get_coord_x().value()) {
+        coord_ref = get_coord_x().value();
+        float pos = get_coord_x().value() *get_movie().duration();
         get_movie().jump(pos);
       }     
     }
@@ -117,10 +117,10 @@ class Kino extends Romanesco {
   // float speed_movie = 1;
   // float ref_speed_slider;
   void param() {
-    float h = get_fill_hue();
-    float s = get_fill_sat();
-    float b = get_fill_bri();
-    float a = get_fill_alp();
+    float h = get_fill_hue().value();
+    float s = get_fill_sat().value();
+    float b = get_fill_bri().value();
+    float a = get_fill_alp().value();
     if(colour == null) {
       colour = vec4(h,s,b,a);
     } else {

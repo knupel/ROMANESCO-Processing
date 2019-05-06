@@ -1,14 +1,14 @@
 /**
 * Cellular Automata
 * 2018-2019
-* v 0.1.1
+* v 0.2.0
 */
 class Cellular_automata extends Romanesco {
 	public Cellular_automata() {
 		item_name = "Automata";
 		item_author  = "Stan le Punk";
     item_references = "Item based on Daniel Shiffman code\nand behavior from Stephen Wolfram\nhttps://natureofcode.com/";
-		item_version = "Version 0.1.1";
+		item_version = "Version 0.2.0";
 		item_pack = "Nature of Code 2018-2019";
     item_costume = "point/ellipse/triangle/rect/cross/pentagon/flower/Star 5/Star 7/Super Star 8/Super Star 12";
     item_mode = "rules 30/rules 110/rules 190/rules 222";
@@ -88,8 +88,8 @@ class Cellular_automata extends Romanesco {
   ivec2 canvas_ref;
   int ref_mode;
   void draw() {
-    int cell_size = (int)map(get_grid(),get_grid_min(),get_grid_max(),height/10,1);
-    ivec2 canvas = ivec2((int)get_canvas_x(),(int)get_canvas_y());
+    int cell_size = (int)map(get_grid().value(),get_grid().min(),get_grid().max(),height/10,1);
+    ivec2 canvas = ivec2((int)get_canvas_x().value(),(int)get_canvas_y().value());
 
     if(ca == null || cell_size != cell_size_ref || !canvas_ref.equals(canvas) || ref_mode != get_mode_id()) {
       int[] ruleset = {0,1,1,1,1,0,0,0}; // rule 30
@@ -119,13 +119,13 @@ class Cellular_automata extends Romanesco {
     }
 
     aspect_is(fill_is(),stroke_is(),alpha_is());
-    aspect(get_fill(),get_stroke(),get_thickness());
+    aspect(get_fill(),get_stroke(),get_thickness().value());
 
-    vec3 size = map(get_size(),get_size_x_min(),get_size_x_max(),0.01,cell_size*4);
-    float area = get_area();
+    vec3 size = map(get_size(),get_size_x().min(),get_size_x().max(),0.01,cell_size*4);
+    float area = get_area().value();
 
     ca.show(get_costume(),size,area);
-    int mod = (int)map(get_speed_x(),0,1,60,1);
+    int mod = (int)map(get_speed_x().value(),get_speed_x().min(),get_speed_x().max(),60,1);
     if(motion_is() && frameCount%mod == 0) {
       ca.generate();
     }
@@ -198,7 +198,7 @@ class Cellular_automata extends Romanesco {
             float temp_x = (i*cell_size) -displacement_x;
             float temp_y = ((y-1)*cell_size) -displacement_y;
             vec3 pos = vec3(temp_x,temp_y,0);
-            set_ratio_costume_size(map(area,get_area_min(),get_area_max(),0,1));
+            set_ratio_costume_size(map(area,get_area().min(),get_area().max(),0,1));
             costume(pos,temp_size,costume);
           } 
         }

@@ -2,36 +2,14 @@
 /**
 ORBITAL
 2015-2019
-v 0.0.6
+v 0.1.0
 */
 class Orbital extends Romanesco {
-  float r_min;
-  float r_max;
- 
-  // Shape spreaded dimensions
-  float spreadL;
-  float spreadW;
- 
-  // Process
-  PVector rfactors = new PVector();
-  PVector rotation = new PVector();
-  PVector rotationToReach = new PVector();
- 
-  // attributes
-  int iterations;
-  float offset;
-  float rad;
-  float vel;
-  int dir;
-  float smoothf;
-  float initialForce;
- 
-  Flock_Orbital flock;
- 
+
   public Orbital() {
     item_name = "Orbital" ;
     item_author  = "Alexandre Petit";
-    item_version = "Version 0.0.6";
+    item_version = "Version 0.1.0";
     item_pack = "Workshop 2015-2019" ;
     item_costume = "" ; // separate the differentes mode by "/"
     item_mode = "" ; // separate the differentes mode by "/"
@@ -93,6 +71,32 @@ class Orbital extends Romanesco {
     // calm_is = false;
     // spectrum_is = false;
   }
+
+
+
+
+  float r_min;
+  float r_max;
+ 
+  // Shape spreaded dimensions
+  float spreadL;
+  float spreadW;
+ 
+  // Process
+  PVector rfactors = new PVector();
+  PVector rotation = new PVector();
+  PVector rotationToReach = new PVector();
+ 
+  // attributes
+  int iterations;
+  float offset;
+  float rad;
+  float vel;
+  int dir;
+  float smoothf;
+  float initialForce;
+ 
+  Flock_Orbital flock;
  
   // Main method
   // setup
@@ -119,7 +123,7 @@ class Orbital extends Romanesco {
   // draw
   void draw() {
     // it's nice to code the variable from the sliders or from sound... here to see easily what's happen in your object.
-    float quantity = map(get_quantity(), 0, 1, .001, 1) ;
+    float quantity = map(get_quantity().value(),get_quantity().min(),get_quantity().max(), .001, 1) ;
 
     // display
     orbital_1(quantity) ;
@@ -139,9 +143,9 @@ class Orbital extends Romanesco {
   
     checkControls();
   
-    rotationToReach.x += rfactors.x * vel * get_speed_x();
-    rotationToReach.y += rfactors.y * vel * get_speed_x();
-    rotationToReach.z += rfactors.z * vel * get_speed_x();
+    rotationToReach.x += rfactors.x * vel * get_speed_x().value();
+    rotationToReach.y += rfactors.y * vel * get_speed_x().value();
+    rotationToReach.z += rfactors.z * vel * get_speed_x().value();
     rotation.x += (rotationToReach.x - rotation.x) * smoothf;
     rotation.y += (rotationToReach.y - rotation.y) * smoothf;
     rotation.z += (rotationToReach.z - rotation.z) * smoothf;

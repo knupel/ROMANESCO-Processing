@@ -199,128 +199,147 @@ void switch_wire();
 
 *get slider method
 
-important all those method work with min() or max() or raw()
-like method_name_min(), method_name_max() that's return the min and the max value of the slider.
-like method_name_raw() return value before formating.
+important all methodes of Varom object
+float value();
+> return the value mapped
+
+float min();
+> return the min of value mapped
+
+float max();
+> return the max of value mapped
+
+float raw();
+>return the value from slider with a min max from slider value
+
+float min_raw();
+> return the min raw value
+
+float max_row(); 
+> return the max raw value
+
+float normal();
+> return value slider between 0 and 1
+
 
 
 int get_fill();
 
 int get_stroke();
 
-float get_thickness();
+Varom get_thickness();
   
 Vec3 get_size();
 
-float get_size_x();
+Varom get_size_x();
 
-float get_size_y();
+Varom get_size_y();
 
-float get_size_z();
+Varom get_size_z();
 
-float get_diameter();
+Varom get_diameter();
 
 Vec3 get_canvas();
 
-float get_canvas_x();
+Varom get_canvas_x();
 
-float get_canvas_y();
+Varom get_canvas_y();
 
-float get_canvas_z();
+Varom get_canvas_z();
 
-get_frequence();
+Varom get_frequence();
 
 Vec3 get_speed();
 
-float get_speed_x();
+Varom get_speed_x();
 
-float get_speed_y();
+Varom get_speed_y();
 
-float get_speed_z();
+Varom get_speed_z();
 
 Vec3 get_jitter();
 
-float get_jitter_x();
+Varom get_jitter_x();
 
-float get_jitter_y();
+Varom get_jitter_y();
 
-float get_jitter_z();
+Varom get_jitter_z();
 
 Vec3 get_spurt();
 
-float get_spurt_x();
+Varom get_spurt_x();
 
-float get_spurt_y();
+Varom get_spurt_y();
 
-float get_spurt_z();
+Varom get_spurt_z();
 
 Vec3 get_swing();
 
-float get_swing_x();
+Varom get_swing_x();
 
-float get_swing_y();
+Varom get_swing_y();
 
-float get_swing_z();
+Varom get_swing_z();
 
 Vec3 get_dir();
 
-float get_dir_x();
+Varom get_dir_x();
 
-float get_dir_y();
+Varom get_dir_y();
 
-float get_dir_z();
+Varom get_dir_z();
 
 float get_quantity();
 
-float get_variety();
+Varom get_variety();
 
-float get_life();
+Varom get_life();
 
-float get_flow();
+Varom get_flow();
 
-float get_quality();
+Varom get_quality();
 
-float get_area();
+Varom get_area();
 
-float get_angle();
+Varom get_angle();
 
-float get_scope();
+Varom get_scope();
 
-float get_scan();
+Varom get_scan();
 
-float get_alignment();
+Varom get_alignment();
 
-float get_repulsion();
+Varom get_repulsion();
 
-float get_attraction();
+Varom get_attraction();
 
-float get_density();
+Varom get_density();
 
-float get_influence();
+Varom get_influence();
 
-float get_calm();
+Varom get_calm();
 
-float get_spectrum();
+Varom get_spectrum();
 
-float get_grid();
+Varom get_grid();
 
-float get_viscosity();
+Varom get_viscosity();
 
-float get_diffusion();
+Varom get_diffusion();
 
-float get_power();
+Varom get_power();
 
-float get_mass();
+Varom get_mass();
 
-float get_amplitude();
+Varom get_amplitude();
 
 Vec3 get_coord();
 
-float get_coord_x();
+Varom get_coord_x();
 
-float get_coord_y();
+Varom get_coord_y();
 
-float get_coord_z();
+Varom get_coord_z();
 
 
 

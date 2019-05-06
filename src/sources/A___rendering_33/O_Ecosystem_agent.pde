@@ -1,13 +1,13 @@
 /**
 Ecosysteme 
 2016-2019
-v 0.1.12
+v 0.2.0
 */
 class Ecosystem_agent extends Romanesco {
 	public Ecosystem_agent() {
 		item_name = "Eco Agents";
 		item_author  = "Stan le Punk";
-		item_version = "Version 0.1.12";
+		item_version = "Version 0.2.0";
 		item_pack = "Ecosystem 2016-2019";
     item_costume = "";
 		item_mode = "Virus/Human/Alien/Other"; // separate the differentes mode by "/"
@@ -87,7 +87,7 @@ class Ecosystem_agent extends Romanesco {
 
     load_nucleotide_table(items_path+"ecosystem/code.csv");
     vec3 pos = vec3(width/2, height/2, 0) ;
-    vec3 canvas = vec3(get_canvas_x(),get_canvas_y(),get_canvas_z());
+    vec3 canvas = get_canvas();
     canvas.mult(ratio_canvas) ;
 
 
@@ -98,8 +98,8 @@ class Ecosystem_agent extends Romanesco {
     // init_ecosystem(get_size_x(), get_life()) ;
     init(true) ;
     if(init_ecosystem) {
-      vec3 ratio_size = vec3(get_size_x(),get_size_y(),get_size_z()) ;
-      ecosystem_setting(biomass,follower[ID_item],ratio_size,get_life(),get_speed_x(),this);
+      vec3 ratio_size = get_size() ;
+      ecosystem_setting(biomass,follower[ID_item],ratio_size,get_life().value(),get_speed_x().value(),this);
       init_ecosystem = false ;
       first_save = true ;
     }
@@ -135,9 +135,9 @@ class Ecosystem_agent extends Romanesco {
 
 
     // SETTING
-    speed_agent = get_speed_x() *get_speed_x();
+    speed_agent = get_speed_x().value() *get_speed_x().value();
 
-    float thickness_common = get_thickness() ;
+    float thickness_common = get_thickness().value();
     
     if(action_is()) {
       if(key_1) {
@@ -161,7 +161,7 @@ class Ecosystem_agent extends Romanesco {
     } 
 
     float max = 360 / colour_groups ;
-    range_colour = map(get_spectrum(),0,360,0,max) ;
+    range_colour = map(get_spectrum().value(),get_spectrum().min(),get_spectrum().max(),0,max) ;
 
     
     if(hue_fill_ref != hue(get_fill())) {
@@ -284,8 +284,8 @@ class Ecosystem_agent extends Romanesco {
     init(birth_is()) ;
 
 		if(init_ecosystem) {
-      vec3 ratio_size = vec3(get_size_x(),get_size_y(),get_size_z()) ;
-			ecosystem_setting(biomass, follower[ID_item], ratio_size, get_life(), get_speed_x(),this);
+      vec3 ratio_size = get_size();
+			ecosystem_setting(biomass, follower[ID_item], ratio_size, get_life().value(), get_speed_x().value(),this);
 			init_ecosystem = false ;
 			first_save = true ;
 		}
@@ -302,7 +302,7 @@ class Ecosystem_agent extends Romanesco {
     }
 
     // CANVAS
-    vec3 canvas = vec3(get_canvas_x(), get_canvas_y(), get_canvas_z()) ;
+    vec3 canvas = get_canvas() ;
     canvas.mult(ratio_canvas) ;
     set_canvas_environment(canvas) ;
 
@@ -342,19 +342,19 @@ class Ecosystem_agent extends Romanesco {
     int div_pop = 1 ;
     if(!FULL_RENDERING) div_pop= 20 ;
     if(use_flora) {
-      set_pop_flora(10 +int(1500 *get_quantity())/div_pop) ;
+      set_pop_flora(10 +int(1500 *get_quantity().value())/div_pop) ;
     } else set_pop_flora(0) ;
     if(use_herbivore) {
-      set_pop_herbivore(20 +int(300 *get_quantity())/div_pop) ;
+      set_pop_herbivore(20 +int(300 *get_quantity().value())/div_pop) ;
     } else set_pop_herbivore(0) ;
     if(use_carnivore) {
-      set_pop_carnivore(2 +int(20 *get_quantity())/div_pop) ;
+      set_pop_carnivore(2 +int(20 *get_quantity().value())/div_pop) ;
     } else set_pop_carnivore(0) ;
     if(use_omnivore) {
-      set_pop_omnivore(4 +int(40 *get_quantity())/div_pop) ;
+      set_pop_omnivore(4 +int(40 *get_quantity().value())/div_pop) ;
     } else set_pop_omnivore(0) ;
     if(use_bacterium) {
-      set_pop_bacterium(1 +int(10 *get_quantity())/div_pop) ;
+      set_pop_bacterium(1 +int(10 *get_quantity().value())/div_pop) ;
     } else set_pop_bacterium(0) ;
 
     set_pop_dead(0/div_pop) ;
@@ -450,10 +450,10 @@ Info_dict dead_carac = new Info_dict() ;
 
 // main method
 void ecosystem_setting(Biomass b, boolean host_mode, vec3 factor_size, float factor_life, float ratio_speed, Romanesco item) {
-  factor_size.x = map(factor_size.x, item.get_size_x_min(), item.get_size_x_max(), width/2000, width/100) ;
-  factor_size.y = map(factor_size.y, item.get_size_y_min(), item.get_size_y_max(), width/2000, width/100) ;
-  factor_size.z = map(factor_size.z, item.get_size_z_min(), item.get_size_z_max(), width/2000, width/100) ;
-  factor_life = map(factor_life, item.get_life_min(), item.get_life_max(), .5, 3) ;
+  factor_size.x = map(factor_size.x, item.get_size_x().min(), item.get_size_x().max(), width/2000, width/100) ;
+  factor_size.y = map(factor_size.y, item.get_size_y().min(), item.get_size_y().max(), width/2000, width/100) ;
+  factor_size.z = map(factor_size.z, item.get_size_z().min(), item.get_size_z().max(), width/2000, width/100) ;
+  factor_life = map(factor_life, item.get_life().min(), item.get_life().max(), .5, 3) ;
   ratio_speed = map(ratio_speed, 0,1, .5, 8) ;
     // b.set_humus(ECO_BOX_SIZE.x *ECO_BOX_SIZE.y *.01) ;
 
