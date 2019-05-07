@@ -11,7 +11,7 @@ class Rosace extends Romanesco {
     //from the index_objects.csv
     item_name = "Rosace" ;
     item_author  = "Stan le Punk";
-    item_version = "Version 0.0.1";
+    item_version = "Version 0.1.0";
     item_pack = "Base 2019-2019";
     item_mode ="rosace/rose/crown/pillar";
     item_costume = "surface/point/line/face";
@@ -108,15 +108,19 @@ class Rosace extends Romanesco {
   //SETUP
   void setup() {
     set_item_pos(width/2,height/2,0);
-    set_item_dir(0,HALF_PI);
+    set_item_dir(0,QUARTER_PI);
     parameter_rosace(crown_mode_is);
-    generator_rosace(get_fill(),get_stroke(),get_spectrum().value());
+    build_palette();
+    generator_rosace();
   }
   //DRAW
   vec3 rotation;
   int direction = 1;
   void draw() {
+    
 
+
+    // update
     if(rotation == null) {
       rotation = vec3();
     }
@@ -134,13 +138,21 @@ class Rosace extends Romanesco {
     rosace(pillar_is);
     pop();
 
-
-
-    // event
+    // build
     if(birth_is()) {
-      generator_rosace(get_fill(),get_stroke(),get_spectrum().value());
-      birth_is(false);
+      build_palette();
+      generator_rosace();
+      // if(get_mode_name().equals("pillar") || plane == null) {
+      
+      //}
     }
+
+
+
+    
+
+    // end of build if necessary
+    birth_is(false);
 
     sync_crown_is = special_is();
     motion_is = motion_is();
@@ -178,6 +190,32 @@ class Rosace extends Romanesco {
 
 
 
+    /**
+  * COLOUR PALETTE
+  */
+  R_Colour colour_fill;
+  R_Colour colour_stroke;
+  void build_palette() {
+    int num_colour_fill =10;
+    int num_group_colour_fill =2;
+    colour_fill = new R_Colour(p5, hue_palette(get_fill(),num_group_colour_fill,num_colour_fill,get_spectrum().value()));
+    int num_colour_stroke =10;
+    int num_group_colour_stroke =2;
+    colour_stroke = new R_Colour(p5, hue_palette(get_stroke(),num_group_colour_stroke,num_colour_stroke,get_spectrum().value()));
+  }
+
+
+
+  void generator_rosace() {
+    init_crown(rosace_complexity,rosace_setting); 
+    rose = new Rose[rosace_complexity];
+    build_rose(rose,rosace_setting,colour_fill,colour_stroke);
+    pillar_build(true,colour_fill,colour_stroke); 
+  }
+
+
+
+
   /**
   * Rosace Param
   * v 0.0.3
@@ -201,13 +239,9 @@ class Rosace extends Romanesco {
 
     vec2 range_speed_z = vec2(1).add(-get_spurt_x().value(),get_spurt_x().value()).mult(.01);
   
-    float ratio_alt = map(get_canvas_z().value(),get_canvas_z().min(),get_canvas_z().max(),0,1);
-    println("canvas z",get_canvas_z().value(),"min",get_canvas_z().min(),"max",get_canvas_z().max());
-    //println("canvas z raw",get_canvas_z_raw(),"min",get_canvas_z_min(),"max",get_canvas_z_max());
-    // ratio_alt *= ratio_alt;
-    // float altitude = get_canvas_z()*ratio_alt;
+    float ratio_alt = get_canvas_z().normal();
     float altitude = get_canvas_z().value() *ratio_alt;
-    println(ratio_alt,"x",get_canvas_z().value(),"=",altitude);
+
 
     vec2 mut = vec2(1).add(-get_swing_x().value(),get_swing_x().value());
     float norm_area = map(get_area().value(),get_area().min(),get_area().max(),0,1);
@@ -264,13 +298,17 @@ class Rosace extends Romanesco {
       
       rosace_setting[i].set_mut_rad_min(mut_rad_min.min(),mut_rad_min.max());
       rosace_setting[i].set_mut_rad_max(mut_rad_max.min(),mut_rad_max.max());
-      // rosace_setting[i].set_mut_rad_min(0.7,0.8);
-      // rosace_setting[i].set_mut_rad_max(.9,1);
+
       rosace_setting[i].set_thickness(0,height *.1);
       rosace_setting[i].set_stroke_alpha(g.colorModeA *.2, g.colorModeA *.8);
       rosace_setting[i].set_fill_alpha(g.colorModeA *.2, g.colorModeA *.8);
     }
   }
+
+
+
+
+
 
 
 
@@ -283,17 +321,6 @@ class Rosace extends Romanesco {
   float [] rosace_angle;
   float [] speed_rot_rosace;
   boolean [] flower_is;
-
-  R_Colour colour_fill;
-  R_Colour colour_stroke;
-
-  void generator_rosace(int colour_master_fill, int colour_master_stroke, float spectre) {
-    init_crown(rosace_complexity,rosace_setting); 
-    build_palette(colour_master_fill,colour_master_stroke,spectre);
-    rose = new Rose[rosace_complexity];
-    build_rose(rose,rosace_setting);
-  }
-
 
   void init_crown(int num, Rosace_Setting [] setting) {
     int num_crown = 0;
@@ -349,19 +376,8 @@ class Rosace extends Romanesco {
     return id_contour;
   }
 
-
-
-  void build_palette(int master_fill, int master_stroke, float spectre) {
-    int num = rosace_complexity;
-    int num_group_fill = 2;
-    colour_fill = new R_Colour(p5, hue_palette(master_fill,num,num_group_fill,spectre));
-    int num_group_stroke = 1;
-    colour_stroke = new R_Colour(p5, hue_palette(master_stroke,num,num_group_stroke,spectre));
-  }
-
-  void build_rose(Rose [] list, Rosace_Setting [] setting) {
+  void build_rose(Rose [] list, Rosace_Setting [] setting, R_Colour r_fill, R_Colour r_stroke) {
     int num = list.length;
-    // println("rose",num);
     speed_rot_rosace = new float[num];
     rosace_angle = new float[num];
 
@@ -395,14 +411,14 @@ class Rosace extends Romanesco {
 
         // aspect
         list[k].thickness(random(setting[i].get_thickness().xy()));
-        int target_fill_group = floor(random(colour_fill.size_group()));
-        int target_fill = floor(random(colour_fill.size(target_fill_group)));
-        int c_fill = colour_fill.get_colour(target_fill,target_fill_group);
+        int target_fill_group = floor(random(r_fill.size_group()));
+        int target_fill = floor(random(r_fill.size(target_fill_group)));
+        int c_fill = r_fill.get_colour(target_fill_group,target_fill);
         list[k].fill(c_fill,random(setting[i].get_fill_alp().xy()));
 
-        int target_stroke_group = floor(random(colour_stroke.size_group()));        
-        int target_stroke = floor(random(colour_stroke.size(target_stroke_group)));
-        int c_stroke = colour_stroke.get_colour(target_stroke,target_stroke_group);
+        int target_stroke_group = floor(random(r_stroke.size_group()));        
+        int target_stroke = floor(random(r_stroke.size(target_stroke_group)));
+        int c_stroke = r_stroke.get_colour(target_stroke_group,target_stroke);
         list[k].stroke(c_stroke,random(setting[i].get_stroke_alp().xy()));
 
         //rotation
@@ -462,7 +478,11 @@ class Rosace extends Romanesco {
     if(!pillar_is) {
       rosace_surface(show_fill_is,show_stroke_is,switch_fill_stroke_is,group_is,show_alpha_is,sync_crown_is,show_crown_is,alpha_fill,alpha_stroke,thickness);
     } else {
-      pillar_build();
+      /*
+      if(plane == null ) {
+        pillar_build(true);
+      }
+      */
       pillar_show();
     }
   }
@@ -501,8 +521,8 @@ class Rosace extends Romanesco {
       c_fill = color(hue(c_fill),saturation(c_fill),brightness(c_fill),g.colorModeA);
       c_stroke = color(hue(c_stroke),saturation(c_stroke),brightness(c_stroke),g.colorModeA);
     } else {
-      c_fill = color(hue(c_fill),saturation(c_fill),brightness(c_fill),alpha(c_fill)*fill_alp);
-      c_stroke = color(hue(c_stroke),saturation(c_stroke),brightness(c_stroke),alpha(c_stroke)*stroke_alp);
+      c_fill = color(hue(c_fill),saturation(c_fill),brightness(c_fill),alpha(c_fill) *fill_alp);
+      c_stroke = color(hue(c_stroke),saturation(c_stroke),brightness(c_stroke),alpha(c_stroke) *stroke_alp);
     }
 
     if(fill_is) {
@@ -552,13 +572,13 @@ class Rosace extends Romanesco {
   /**
   * SHOW
   */
-
   R_Plane [] plane ;
   ArrayList<R_Node> node_list;
   ArrayList<R_Face> face_list;
-  R_Colour pillar_palette;
+  R_Colour pillar_palette_fill;
+  R_Colour pillar_palette_stroke;
 
-  void pillar_build() {
+  void pillar_build(boolean build_is, R_Colour palette_fill, R_Colour palette_stroke) {
     // setting
     int num_plane = 5;
     float range_pillar_plane = 20;
@@ -570,14 +590,29 @@ class Rosace extends Romanesco {
     int mode_selection = r.RAND;
     // int mode_selection = NORMAL;
     // int mode_selection = LINE;
-    int max_group_colour = 3;
+
+
+    // BUILD PALETTE
+    pillar_palette_fill = new R_Colour(p5);
+    for(int i = 0 ; i < num_plane ; i++) {
+      int target_group = floor(random(palette_fill.size_group()));
+      int target_colour = floor(random(palette_fill.size(target_group)));
+      pillar_palette_fill.add(palette_fill.get_colour(target_group,target_colour));
+    }
+
+    pillar_palette_stroke = new R_Colour(p5);
+    for(int i = 0 ; i < num_plane ; i++) {
+      int target_group = floor(random(palette_stroke.size_group()));
+      int target_colour = floor(random(palette_stroke.size(target_group)));
+      pillar_palette_stroke.add(palette_fill.get_colour(target_group,target_colour));
+    }
 
 
     // BUILD SETTING
     if(node_list == null) {
       node_list = new ArrayList<R_Node>();
     } else {
-       node_list.clear();
+      node_list.clear();
     }
 
     // UPDATE ROSE POSITION
@@ -590,18 +625,6 @@ class Rosace extends Romanesco {
         // node.set_branch(20); by default is 4     
       }
     }
-
-
-
-
-    // BUILD PALETTE
-    if(birth_is() || pillar_palette == null) {
-      int num_colour = plane.length;
-      int num_group = ceil(random(max_group_colour));
-      pillar_palette = new R_Colour(p5,hue_palette(get_fill(),num_colour,num_group,get_spectrum().value()));
-    }
-
-
 
    
     // BUILD PLANE
@@ -625,36 +648,35 @@ class Rosace extends Romanesco {
           face_list = new ArrayList<R_Face>();
         }
         if(i == 0) face_list.clear();
-        generate_faces(face_list, plane[i].get_nodes(), max_pass, mode_selection,ivec2(dist_min,dist_max),max_faces,pillar_palette.get_colour(i,0));
+        generate_faces(face_list, plane[i].get_nodes(), max_pass, mode_selection,ivec2(dist_min,dist_max),max_faces,palette_fill.get_colour(0,i));
         max_faces += max_faces;        
       }
     }
-    birth_is(false);
   }
 
 
   void pillar_show() {
     if(get_costume().get_name().toLowerCase().equals("point")) {
-      pillar_show_point();
+      pillar_show_point(pillar_palette_fill);
     }
     if(get_costume().get_name().toLowerCase().equals("surface")) {
-      pillar_show_surface();
+      pillar_show_surface(pillar_palette_fill);
     }
 
     if(get_costume().get_name().toLowerCase().equals("line")) {
-      pillar_show_line();
+      pillar_show_line(pillar_palette_fill);
     }
 
     if(get_costume().get_name().toLowerCase().equals("face")) {
-      pillar_show_faces();    
+      pillar_show_faces(pillar_palette_fill);    
     }
   }
 
-  void pillar_show_line() {
+  void pillar_show_line(R_Colour palette) {
 
   }
 
-  void pillar_show_faces() {
+  void pillar_show_faces(R_Colour palette) {
     noStroke();
     if(face_list != null) {
       for(R_Face f : face_list) {
@@ -665,10 +687,10 @@ class Rosace extends Romanesco {
 
   }
 
-  void pillar_show_surface() {
+  void pillar_show_surface(R_Colour palette) {
     // surface
     for(int i = 0 ; i < plane.length ; i++) {
-      fill(pillar_palette.get_colour(i,0));
+      fill(palette.get_colour(0,i));
       noStroke();
       // strokeWeight(get_thickness());
       // noFill();
@@ -683,9 +705,9 @@ class Rosace extends Romanesco {
     }
   }
 
-  void pillar_show_point() {
+  void pillar_show_point(R_Colour palette) {
     for(int i = 0 ; i < plane.length ; i++) {
-      stroke(pillar_palette.get_colour(i,0));
+      stroke(palette.get_colour(0,i));
       strokeWeight(get_thickness().value());
       noFill();
 
@@ -749,26 +771,13 @@ class Rosace extends Romanesco {
   void generate_faces(ArrayList<R_Face> face_list, ArrayList<R_Node> original, int max_pass, int mode_selection, ivec2 dist, int max_faces, int colour) {
     ArrayList<R_Node> temp = new ArrayList<R_Node>();
     temp = original;
-    /*
-    for(R_Node n : original) {
-      temp.add(n.copy());
-    }
-    */
-    // println("cloud original",original.length);
-    // println("cloud temp",temp.size());
-    // print_level_mode(mode_selection);
     int count = 0 ;
-    // int max_pass = 50;
     while(temp.size() > 2 && count < max_pass && face_list.size() < max_faces) {
       tirage_faces(face_list,temp,mode_selection,dist,max_faces,colour);
       clean_list_faces(temp);
       count++;
     }
-    // println("distance",dist);
-    // println("pass",count);
-    // println("faces",face_list.size());
   }
-
 
   void clean_list_faces(ArrayList<R_Node> list) {
     for(int i = list.size()-1 ; i >= 0 ; i--) {

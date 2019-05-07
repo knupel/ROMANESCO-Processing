@@ -200,6 +200,7 @@ void switch_wire();
 *get slider method
 
 important all methodes of Varom object
+
 float value();
 > return the value mapped
 

@@ -85,9 +85,6 @@ void camera_setting(int num, float speed_follow, float deceleration, float inert
   float max_speed_inertia_translate = width / 1000 * inertia_translate;
   motion_translate = new Motion(max_speed_inertia_translate);
   motion_translate.set_deceleration(deceleration);
-
-  
-  
 }
 
 

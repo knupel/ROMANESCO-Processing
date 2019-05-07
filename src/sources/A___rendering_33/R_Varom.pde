@@ -30,9 +30,8 @@ public class Varom {
 
 
   /**
-  get
+  * get
   */
-
   public Varom get() {
     return this;
   } 
@@ -71,7 +70,6 @@ public class Varom {
   /**
   set
   */
-
   public void set(float value) {
     this.value = value;
   }

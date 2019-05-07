@@ -1,7 +1,7 @@
 /**
 Ecosysteme 
 2016-2019
-v 0.2.0
+v 0.2.1
 */
 class Ecosystem_agent extends Romanesco {
 	public Ecosystem_agent() {
@@ -165,7 +165,7 @@ class Ecosystem_agent extends Romanesco {
 
     
     if(hue_fill_ref != hue(get_fill())) {
-      int [] pool_temp_fill = color_pool(type_agents, colour_groups, hue(get_fill()), range_colour);
+      int [] pool_temp_fill = color_pool(colour_groups, type_agents,  hue(get_fill()), range_colour);
       vec4 [] pool_fill = new vec4[pool_temp_fill.length];
       for(int i = 0 ; i < pool_fill.length ; i++) {
         pool_fill[i] = to_hsba(pool_temp_fill[i]);
@@ -177,7 +177,7 @@ class Ecosystem_agent extends Romanesco {
       hue_fill_ref = hue_fill[0] = hue(get_fill()) ;
     }
     if(hue_stroke_ref != hue(get_stroke())) {
-      int [] pool_temp_stroke = color_pool(type_agents, colour_groups, hue(get_stroke()), range_colour);
+      int [] pool_temp_stroke = color_pool(colour_groups, type_agents,  hue(get_stroke()), range_colour);
       vec4 [] pool_stroke = new vec4[pool_temp_stroke.length];
       for(int i = 0 ; i < pool_stroke.length ; i++) {
         pool_stroke[i] = to_hsba(pool_temp_stroke[i]);
@@ -189,13 +189,13 @@ class Ecosystem_agent extends Romanesco {
       hue_stroke_ref = hue_stroke[0] = hue(get_stroke()) ;
     }
     if(colour_is()) {
-      int [] pool_temp_fill = color_pool(type_agents, colour_groups, random(g.colorModeX), range_colour);
+      int [] pool_temp_fill = color_pool(colour_groups, type_agents,  random(g.colorModeX), range_colour);
       vec4 [] pool_fill = new vec4[pool_temp_fill.length];
       for(int i = 0 ; i < pool_fill.length ; i++) {
         pool_fill[i] = to_hsba(pool_temp_fill[i]);
       }
 
-      int [] pool_temp_stroke = color_pool(type_agents, colour_groups, random(g.colorModeX), range_colour);
+      int [] pool_temp_stroke = color_pool(colour_groups, type_agents,  random(g.colorModeX), range_colour);
       vec4 [] pool_stroke = new vec4[pool_temp_stroke.length];
       for(int i = 0 ; i < pool_stroke.length ; i++) {
         pool_stroke[i] = to_hsba(pool_temp_stroke[i]);
