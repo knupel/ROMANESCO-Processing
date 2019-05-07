@@ -113,13 +113,12 @@ class Rosace extends Romanesco {
     build_palette();
     generator_rosace();
   }
+
+
   //DRAW
   vec3 rotation;
   int direction = 1;
   void draw() {
-    
-
-
     // update
     if(rotation == null) {
       rotation = vec3();
@@ -142,9 +141,6 @@ class Rosace extends Romanesco {
     if(birth_is()) {
       build_palette();
       generator_rosace();
-      // if(get_mode_name().equals("pillar") || plane == null) {
-      
-      //}
     }
 
 
@@ -190,7 +186,7 @@ class Rosace extends Romanesco {
 
 
 
-    /**
+  /**
   * COLOUR PALETTE
   */
   R_Colour colour_fill;
@@ -205,7 +201,11 @@ class Rosace extends Romanesco {
   }
 
 
-
+  /**
+  * Rosace Param
+  * v 0.0.3
+  * 2019-2019
+  */
   void generator_rosace() {
     init_crown(rosace_complexity,rosace_setting); 
     rose = new Rose[rosace_complexity];
@@ -214,13 +214,6 @@ class Rosace extends Romanesco {
   }
 
 
-
-
-  /**
-  * Rosace Param
-  * v 0.0.3
-  * 2019-2019
-  */
   Rosace_Setting [] rosace_setting;
   int num_crown_max;
   int rosace_complexity;
@@ -438,7 +431,7 @@ class Rosace extends Romanesco {
 
 
 
-
+  /*
   ArrayList<vec3> rosace_pts;
   ArrayList<vec3> get_points_rosaces() {
     if(rosace_pts == null) {
@@ -455,6 +448,7 @@ class Rosace extends Romanesco {
     return rosace_pts;
   }
 
+
   vec3 [] get_points_rosace(int target) {
     if(target >= 0 && target < rosace_complexity) {
       rose[target].angle(rosace_angle[target] += speed_rot_rosace[target]);
@@ -463,7 +457,7 @@ class Rosace extends Romanesco {
       return null;
     }
   }
-
+  */
 
 
 
@@ -474,25 +468,52 @@ class Rosace extends Romanesco {
     float alpha_stroke = map(get_stroke_alp().value(),get_stroke_alp().min(),get_stroke_alp().max(),0,1);
     float thickness = map(get_thickness().value(),get_thickness().min(),get_thickness().max(),0,1);
     
+    update_rosace();
     // render
     if(!pillar_is) {
       rosace_surface(show_fill_is,show_stroke_is,switch_fill_stroke_is,group_is,show_alpha_is,sync_crown_is,show_crown_is,alpha_fill,alpha_stroke,thickness);
-    } else {
-      /*
-      if(plane == null ) {
-        pillar_build(true);
-      }
-      */
+    } else {   
       pillar_show();
     }
   }
 
 
+  void update_rosace() {
+    for(int i = 0 ; i < rose.length ; i++) {
+      rose[i].angle(rosace_angle[i] += speed_rot_rosace[i]);
+      rose[i].update();
+    }
+  }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  /**
+  * SHOW 
+  * CLASIC ROSACE
+  */
   void rosace_surface(boolean fill_is, boolean stroke_is, boolean switch_is, boolean group_is, boolean alpha_is, boolean sync_crown_altitude_is, boolean show_crown_is, float fill_alp, float stroke_alp, float thickness) { 
     for(int i = 0 ; i < rose.length ; i++) {
       // update angle / rotation
-      rose[i].angle(rosace_angle[i] += speed_rot_rosace[i]);
+      // rose[i].angle(rosace_angle[i] += speed_rot_rosace[i]);
       // display
       if(show_crown_is && crown != null && crown.length > 0 && group_is) {
         if(flower_is[i]) {
@@ -546,6 +567,18 @@ class Rosace extends Romanesco {
     }
   }
 
+  /**
+  * SHOW 
+  * RAW NODE
+  */
+  void show_node() {
+    for(R_Node node : node_list) {
+      stroke(get_fill());
+      strokeWeight(get_thickness().value());
+      noFill();
+      point(node.pointer());
+    }
+  }
 
 
 
@@ -570,7 +603,7 @@ class Rosace extends Romanesco {
 
 
   /**
-  * SHOW
+  * SHOW PILLAR MODE
   */
   R_Plane [] plane ;
   ArrayList<R_Node> node_list;
@@ -618,8 +651,9 @@ class Rosace extends Romanesco {
     // UPDATE ROSE POSITION
     for(int i = 0 ; i < rose.length ; i++) {
       rose[i].angle(rosace_angle[i] += speed_rot_rosace[i]);
-      vec3 [] pts = rose[i].get_final_points();
-      for(int k = 0 ; k < pts.length ; k++) {
+      rose[i].update();
+      int length = rose[i].get_final_points().length;
+      for(int k = 0 ; k < length ; k++) {
         R_Node node = new R_Node(rose[i].get_final_points()[k]);
         node_list.add(node);
         // node.set_branch(20); by default is 4     
@@ -636,6 +670,7 @@ class Rosace extends Romanesco {
       vec3 b = rose[rose.length-1].get_final_points()[floor(i*step_last)];
       vec3 c = rose[rose.length-1].get_final_points()[floor(i*step_last)+1];
       plane[i] = new R_Plane(a,b,c);
+
       plane[i].set_range(range_pillar_plane);
       for(R_Node node : node_list) {
         plane[i].add(node);
@@ -656,6 +691,7 @@ class Rosace extends Romanesco {
 
 
   void pillar_show() {
+    
     if(get_costume().get_name().toLowerCase().equals("point")) {
       pillar_show_point(pillar_palette_fill);
     }
@@ -671,6 +707,10 @@ class Rosace extends Romanesco {
       pillar_show_faces(pillar_palette_fill);    
     }
   }
+
+
+  
+
 
   void pillar_show_line(R_Colour palette) {
 
@@ -692,9 +732,6 @@ class Rosace extends Romanesco {
     for(int i = 0 ; i < plane.length ; i++) {
       fill(palette.get_colour(0,i));
       noStroke();
-      // strokeWeight(get_thickness());
-      // noFill();
-
       if(plane[i].get_nodes() != null) {
         beginShape();
         for(R_Node node : plane[i].get_nodes()) {
@@ -1158,7 +1195,7 @@ public class Crown {
 
 /**
 * Rosace
-* v 0.0.3
+* v 0.1.0
 * 2019-2019
 * Objet fait en mémoire de l'incendie de Notre-Dame de Paris, le 15 avril 2019
 * et de ses rosaces qui furent en péril
@@ -1300,14 +1337,31 @@ class Rose {
     return  thickness;
   }
 
-  vec3 [] get_final_points() {
+
+  void update() {
     chose.angle(angle);
     chose.radius(mutation(speed_mutation,min_mutation,max_mutation,relief));
     chose.calc();
     chose.get_final_points();
     vec3 offset = offset();
     if(!offset.equals(vec3(0))) {
-      vec3 [] temp =  chose.get_final_points();
+      vec3 [] temp = chose.get_final_points();
+      vec3 of = offset();
+      for(int i = 0 ; i < temp.length ; i++) {
+        temp[i].add(of);
+      }
+    } 
+  }
+
+  vec3 [] get_final_points() {
+    /*
+    chose.angle(angle);
+    chose.radius(mutation(speed_mutation,min_mutation,max_mutation,relief));
+    chose.calc();
+    chose.get_final_points();
+    vec3 offset = offset();
+    if(!offset.equals(vec3(0))) {
+      vec3 [] temp = chose.get_final_points();
       vec3 of = offset();
       for(int i = 0 ; i < temp.length ; i++) {
         temp[i].add(of);
@@ -1317,6 +1371,8 @@ class Rose {
     } else {
       return chose.get_final_points();
     }
+    */
+    return chose.get_final_points();
   }
 
   void show() {
