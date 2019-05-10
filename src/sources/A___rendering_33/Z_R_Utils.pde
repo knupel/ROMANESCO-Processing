@@ -1,10 +1,10 @@
 /**
 Rope UTILS 
-v 1.59.6
+v 1.59.7
 * Copyleft (c) 2014-2019
 * Rope – Romanesco Processing Environment – 
 * Processing 3.5.3
-* Rope library 0.7.0.24
+* Rope library 0.7.1.25
 * @author @stanlepunk
 * @see https://github.com/StanLepunK/Rope_framework
 */
@@ -2200,7 +2200,7 @@ boolean research_in_String(String research, String target) {
 /**
 String file utils
 2014-2018
-v 0.2.1
+v 0.2.2
 */
 /**
 * remove element of the sketch path
@@ -2250,10 +2250,10 @@ String extension(String filename) {
 boolean extension_is(String... data) {
   boolean is = false;
   if(data.length >= 2) {
-    String extension_to_compare = extension(data[0]);
+    String extension_to_compare = extension(data[0].toLowerCase());
     if(extension_to_compare != null) {
       for(int i = 1 ; i < data.length ; i++) {
-        if(extension_to_compare.equals(data[i])) {
+        if(extension_to_compare.equals(data[i].toLowerCase())) {
           is = true;
           break;
         } else {
@@ -2261,7 +2261,7 @@ boolean extension_is(String... data) {
         }
       }
     } else {
-      printErr("method extension_is(): [",data[0],"] this path don't have any extension");
+      printErr("method extension_is(): [",data[0].toLowerCase(),"] this path don't have any extension");
     }
   } else {
     printErr("method extension_is() need almost two components, the first is the path and the next is extension");

@@ -1,7 +1,7 @@
 /**
 * Rosace
 * 2019-2019
-* V 0.1.0
+* V 0.1.1
 */
 
 class Rosace extends Romanesco {
@@ -431,36 +431,6 @@ class Rosace extends Romanesco {
 
 
 
-  /*
-  ArrayList<vec3> rosace_pts;
-  ArrayList<vec3> get_points_rosaces() {
-    if(rosace_pts == null) {
-      rosace_pts = new ArrayList<vec3>();
-    } else {
-      rosace_pts.clear();
-    }
-    for(int i = 0 ; i < rose.length ; i++) {
-      vec3 [] list = get_points_rosace(i);
-      for(int k = 0 ; k < list.length ; k++) {
-        rosace_pts.add(list[k]);
-      }
-    }
-    return rosace_pts;
-  }
-
-
-  vec3 [] get_points_rosace(int target) {
-    if(target >= 0 && target < rosace_complexity) {
-      rose[target].angle(rosace_angle[target] += speed_rot_rosace[target]);
-      return rose[target].get_final_points();
-    } else {
-      return null;
-    }
-  }
-  */
-
-
-
   // render
   void rosace(boolean pillar_is) {
     // from slider
@@ -724,7 +694,6 @@ class Rosace extends Romanesco {
         f.show();
       }
     }
-
   }
 
   void pillar_show_surface(R_Colour palette) {
@@ -1354,24 +1323,6 @@ class Rose {
   }
 
   vec3 [] get_final_points() {
-    /*
-    chose.angle(angle);
-    chose.radius(mutation(speed_mutation,min_mutation,max_mutation,relief));
-    chose.calc();
-    chose.get_final_points();
-    vec3 offset = offset();
-    if(!offset.equals(vec3(0))) {
-      vec3 [] temp = chose.get_final_points();
-      vec3 of = offset();
-      for(int i = 0 ; i < temp.length ; i++) {
-        temp[i].add(of);
-      }
-      return temp;
-
-    } else {
-      return chose.get_final_points();
-    }
-    */
     return chose.get_final_points();
   }
 

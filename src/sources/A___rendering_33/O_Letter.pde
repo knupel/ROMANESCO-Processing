@@ -68,8 +68,8 @@ class Letter extends Romanesco {
     // spectrum_is = true;
   }
   //GLOBAL
-  RFont f;
-  RShape grp;
+  RFont r_font;
+  RShape r_grp;
   
   int sizeRef, sizeFont ;
   String sentenceRef = ("") ; 
@@ -134,12 +134,12 @@ class Letter extends Romanesco {
 
 
   void update(boolean reset,boolean reset_font) {
-    if(grp == null) {
-      grp = geomerative.RG.getText(sentence,get_font_path(),(int)sizeFont,CENTER);
+    if(r_grp == null) {
+      r_grp = geomerative.RG.getText(sentence,get_font_path(),(int)sizeFont,CENTER);
     }
     if(reset || reset_font) {
-      grp = geomerative.RG.getText(sentence,get_font_path(),(int)sizeFont,CENTER);
-      axeLetter = int(random (grp.countChildren()));
+      r_grp = geomerative.RG.getText(sentence,get_font_path(),(int)sizeFont,CENTER);
+      axeLetter = int(random (r_grp.countChildren()));
     }
 
     if(reverse_is()) {
@@ -152,7 +152,7 @@ class Letter extends Romanesco {
     }
     
     if(all_transient(ID_item) > 10 || key_n ) {
-      axeLetter = int(random (grp.countChildren())) ;
+      axeLetter = int(random (r_grp.countChildren())) ;
     }
 
     /////////
@@ -171,7 +171,7 @@ class Letter extends Romanesco {
     if(reverse_is()) speed = -speed ;
     
     //num letter to display
-    numLetter = (int)map(get_quantity().value(),get_quantity().min(),get_quantity().max(), 0,grp.countChildren() +1) ;
+    numLetter = (int)map(get_quantity().value(),get_quantity().min(),get_quantity().max(), 0,r_grp.countChildren() +1) ;
     
     //DISPLAY
     // thickness
@@ -214,8 +214,8 @@ class Letter extends Romanesco {
     //security against the array out bounds
     if(whichLetter < 0 ) {
       whichLetter = 0 ; 
-    } else if (whichLetter >= grp.countChildren()) {
-      whichLetter = grp.countChildren() -1  ;
+    } else if (whichLetter >= r_grp.countChildren()) {
+      whichLetter = r_grp.countChildren() -1  ;
     }
 
     wheelLetter(numLetter, speed, jttr) ;
@@ -223,8 +223,8 @@ class Letter extends Romanesco {
     
     if(axeLetter < 0 ) {
       axeLetter = 0 ; 
-    } else if (axeLetter >= grp.countChildren()) {
-      axeLetter = grp.countChildren() - 1 ;
+    } else if (axeLetter >= r_grp.countChildren()) {
+      axeLetter = r_grp.countChildren() - 1 ;
     }
     displayLetter(axeLetter,jttr);
   }
@@ -243,13 +243,13 @@ class Letter extends Romanesco {
     for (int i = 0 ; i < num ; i++) {
       int targetLetter ;
       targetLetter = whichLetter +i ;
-      if (targetLetter < grp.countChildren() ) {
+      if (targetLetter < r_grp.countChildren() ) {
         if(i%whichOneChangeDirection == 0 ) {
           speed  = speed *-1  ;
         }
         speed = speed *startDirection ;
         if(speed != 0) {
-          grp.children[targetLetter].rotate(speed, grp.children[axeLetter].getCenter());
+          r_grp.children[targetLetter].rotate(speed, r_grp.children[axeLetter].getCenter());
         }
         displayLetter(targetLetter,jttr);
       }
@@ -257,7 +257,7 @@ class Letter extends Romanesco {
   }
   
   void displayLetter(int which, vec3 ampJttr) {
-    RPoint[] pnts = grp.children[which].getPoints(); 
+    RPoint[] pnts = r_grp.children[which].getPoints(); 
     vec3 [] points = geomerativeFontPoints(pnts);
 
     for (int i = 0; i < points.length; i++) {
