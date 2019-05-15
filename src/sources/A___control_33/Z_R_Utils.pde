@@ -1,10 +1,10 @@
 /**
 Rope UTILS 
-v 1.59.6
+v 1.59.9
 * Copyleft (c) 2014-2019
 * Rope – Romanesco Processing Environment – 
 * Processing 3.5.3
-* Rope library 0.7.0.24
+* Rope library 0.7.1.25
 * @author @stanlepunk
 * @see https://github.com/StanLepunK/Rope_framework
 */
@@ -353,7 +353,7 @@ class Constant_list {
 
 /**
 * FOLDER & FILE MANAGER
-* v 0.7.0
+* v 0.8.0
 */
 String warning_input_file_folder_message = "Window was closed or the user hit cancel.";
 String warning_input_file_not_accepted = "This file don't match with any extension accepted:";
@@ -420,7 +420,7 @@ void print_extension_filter(String type) {
 
 /*
 * INPUT PART
-* v 0.2.4
+* v 0.3.0
 * 2017-2019
 */
 
@@ -609,24 +609,66 @@ void select_input() {
 
 void select_input(String type) {
   init_input_group();
-  int check_for_existing_method = 0 ;
-  for(int i = 0 ; i < input_rope.length ; i++) {
-    check_for_existing_method++;
-    if(type.toLowerCase().equals(input_rope[i].get_type())){
-      select_single_file(input_rope[i]);
-      break;
-    }
+  String context = get_renderer();
+  boolean apply_filter_is = true;
+  if(context.equals(P3D) || context.equals(P2D) || context.equals(FX2D)) {
+    apply_filter_is = false;
+    println("WARNING: method select_input() cannot apply filter extension",type," in this renderer context", context,"\ninstead classic method selectInput() is used");
   }
-  if(check_for_existing_method == input_rope.length) {
-    printErr("void select_input(String type) don't find callback method who's match with type: "+type);
-    printErr("type available:");
-    printArray(input_type);
+
+
+  // selectInput(input.get_prompt(),"select_single_file");
+  if(!apply_filter_is) {
+    type = "default";
+    for(int i = 0 ; i < input_rope.length ; i++) {
+      if (type.toLowerCase().equals(input_rope[i].get_type())) {  
+        selectInput(input_rope[i].get_prompt(),"select_single_file");
+        break;
+      }
+    }
+  } else if(apply_filter_is) {
+    int check_for_existing_method = 0 ;
+    for(int i = 0 ; i < input_rope.length ; i++) {
+      check_for_existing_method++;
+      if(type.toLowerCase().equals(input_rope[i].get_type())){  
+        select_single_file_filtering(input_rope[i]);
+        break;
+      }
+    }
+
+    if(check_for_existing_method == input_rope.length) {
+      printErr("void select_input(String type) don't find callback method who's match with type: "+type);
+      printErr("type available:");
+      printArray(input_type);
+    }
   }
 }
 
+
+void select_single_file(File selection) {
+  if (selection == null) {
+    println("Window was closed or the user hit cancel.");
+  } else {
+    String default_input = "default";
+    for(int i = 0 ; i < input_rope.length ; i++) {
+      if (default_input.toLowerCase().equals(input_rope[i].get_type())) { 
+        // println("method select_single_file_filtering() input default",selection.getAbsolutePath());
+        input_rope[i].set_file(selection);
+        if(input_rope[i].get_file() != null) {
+          println("method select_single_file(",input_rope[i].get_type(),"):",input_rope[i].get_file().getPath());
+        }
+        break;
+      }
+    }  
+  }
+  
+}
+
+
+
 int max_filter_input;
 String [] temp_filter_list;
-void select_single_file(R_Input input) {
+void select_single_file_filtering(R_Input input) {
   Frame frame = null;
   FileDialog dialog = new FileDialog(frame, input.get_prompt(), FileDialog.LOAD);
   if(input.get_filter() != null && input.get_filter().length > 0) {
@@ -652,9 +694,11 @@ void select_single_file(R_Input input) {
     input.set_file(new File(directory, filename));
   }
   if(input.get_file() != null) {
-    println("method select_single_file(",input.get_type(),"):",input.get_file().getPath());
+    println("method select_single_file_filtering(",input.get_type(),"):",input.get_file().getPath());
   }
 }
+
+
 
 
 
@@ -2200,7 +2244,7 @@ boolean research_in_String(String research, String target) {
 /**
 String file utils
 2014-2018
-v 0.2.1
+v 0.2.3
 */
 /**
 * remove element of the sketch path
@@ -2247,13 +2291,13 @@ String extension(String filename) {
   }
 }
 
-boolean extension_is(String... data) {
+boolean extension_is(String path, String... data) {
   boolean is = false;
-  if(data.length >= 2) {
-    String extension_to_compare = extension(data[0]);
+  if(data.length >= 1) {
+    String extension_to_compare = extension(path.toLowerCase());
     if(extension_to_compare != null) {
-      for(int i = 1 ; i < data.length ; i++) {
-        if(extension_to_compare.equals(data[i])) {
+      for(int i = 0 ; i < data.length ; i++) {
+        if(extension_to_compare.equals(data[i].toLowerCase())) {
           is = true;
           break;
         } else {
@@ -2261,7 +2305,7 @@ boolean extension_is(String... data) {
         }
       }
     } else {
-      printErr("method extension_is(): [",data[0],"] this path don't have any extension");
+      printErr("method extension_is(): [",path.toLowerCase(),"] this path don't have any extension");
     }
   } else {
     printErr("method extension_is() need almost two components, the first is the path and the next is extension");

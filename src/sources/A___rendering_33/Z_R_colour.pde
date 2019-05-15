@@ -1,6 +1,6 @@
 /**
 * Rope COLOUR
-*v 0.10.2
+*v 0.10.3
 * Copyleft (c) 2016-2019 
 * Stan le Punk > http://stanlepunk.xyz/
 * Processing 3.5.3
@@ -21,7 +21,7 @@
 
 /**
 * COLOUR LIST class
-* v 0.3.1
+* v 0.3.2
 * 2017-2019
 */
 public class R_Colour implements rope.core.R_Constants, rope.core.R_Constants_Colour {
@@ -56,6 +56,8 @@ public class R_Colour implements rope.core.R_Constants, rope.core.R_Constants_Co
   public void add(int colour) {
     list.get(0).add(colour);
   }
+
+
 
  
   // clear
@@ -105,6 +107,25 @@ public class R_Colour implements rope.core.R_Constants, rope.core.R_Constants_Co
       System.err.println("class R_Colour method get() no group match with your demand, instead 'null' is return");
       return null;
     }
+  }
+
+
+  // get colour
+  int rand() {
+    int group = floor(random(list.size()));
+    int target = floor(random(list.get(group).array().length));
+    return get_colour(group,target);
+  }
+
+  int rand(int group) {
+    int target = 0;
+    if(group < list.size()) {
+      target = floor(random(list.get(group).array().length));
+    } else {
+      group = 0;
+      target = floor(random(list.get(group).array().length));
+    }
+    return get_colour(group,target);
   }
 
 

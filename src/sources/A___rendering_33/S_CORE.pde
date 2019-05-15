@@ -362,7 +362,7 @@ void init_font() {
   current_font = font[0];
   for(int i = 0 ; i < rom_manager.size() ; i++) {
     Romanesco item = rom_manager.get(i);
-   item.set_font(current_font);
+    item.set_font(current_font);
   }
 }
 
