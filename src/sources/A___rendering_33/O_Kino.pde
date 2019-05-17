@@ -1,13 +1,13 @@
 /**
 Kino
 2018-2019
-v 0.3.0
+v 0.3.1
 */
 class Kino extends Romanesco {
 	public Kino() {
 		item_name = "Kino";
 		item_author  = "Stan le Punk";
-		item_version = "Version 0.3.0";
+		item_version = "Version 0.3.1";
 		item_pack = "Base 2018-2019";
 		item_costume = ""; // separate the differentes mode by "/"
 		item_mode = "Movie/Movie 3D/Diaporama/Diaporama 3D"; // separate the differentes mode by "/"
@@ -70,6 +70,9 @@ class Kino extends Romanesco {
     // coord_y_is = true;
     // coord_z_is = true;
 	}
+
+  boolean on_g = false;
+  boolean filter_is = false;
 
 	void setup() {
 		set_item_pos(0,0,0);
@@ -178,9 +181,9 @@ class Kino extends Romanesco {
 
       if(background_is) {
         // set_background(get_movie(),what);
-        set_background(fx_level(get_movie(),false,mode_to_black_or_white,c.array()),what);
+        set_background(fx_level(get_movie(),on_g,filter_is,mode_to_black_or_white,c.array()),what);
       } else {
-        image(fx_level(get_movie(),false,mode_to_black_or_white,c.array()),what);
+        image(fx_level(get_movie(),on_g,filter_is,mode_to_black_or_white,c.array()),what);
       }
     }
 	}
@@ -191,9 +194,9 @@ class Kino extends Romanesco {
 		load_bitmap(ID_item);
     if(get_bitmap() != null) {
       if(background_is) {
-        set_background(fx_level(get_bitmap(),false,mode_to_black_or_white,c.array()),what);
+        set_background(fx_level(get_bitmap(),on_g,filter_is,mode_to_black_or_white,c.array()),what);
       } else {
-        image(fx_level(get_bitmap(),false,mode_to_black_or_white,c.array()),what);
+        image(fx_level(get_bitmap(),on_g,filter_is,mode_to_black_or_white,c.array()),what);
       }
     }
 	}

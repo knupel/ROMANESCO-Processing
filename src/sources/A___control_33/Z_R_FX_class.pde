@@ -1,11 +1,11 @@
 /**
  * CLASS FX 
- * v 0.4.3
+ * v 0.4.4
  * @author @stanlepunk
  * @see https://github.com/StanLepunK/Shader
  * 2019-2019
  * Processing 3.5.3
- * Rope library 0.5.1
+ * Rope library 0.7.1
  * class used to create easy setting for shader fx
 */
 public class FX {
@@ -21,6 +21,7 @@ public class FX {
 	private String version;
 	private int revision;
 	private boolean on_g = true;
+	private boolean pg_filter_is = true;
 
 
 	// glsl parameter
@@ -66,10 +67,6 @@ public class FX {
   public FX () {}
 
   // set
-  public void set_on_g(boolean is) {
-  	on_g = is;
-  }
-
   public void set_canvas(int x, int y) {
   	if(this.canvas == null) {
   		this.canvas = ivec2(x,y);
@@ -129,6 +126,10 @@ public class FX {
   		set_quality((float)arg[0]);
   	} else if(which == 3) {
   		set_time((float)arg[0]);
+  	} else if(which == 4) {
+  		set_on_g((boolean)arg[0]);
+  	} else if(which == 5) {
+  		set_pg_filter((boolean)arg[0]);
   	}
 
   		else if(which == 10) {
@@ -222,6 +223,16 @@ public class FX {
   		}
   	}
   	return b;
+  }
+
+
+
+  public void set_on_g(boolean is) {
+  	on_g = is;
+  }
+
+  public void set_pg_filter(boolean is) {
+  	pg_filter_is = is;
   }
 
 
@@ -403,6 +414,10 @@ public class FX {
 	public boolean on_g() {
 		return on_g;
 	}
+
+	public boolean pg_filter_is() {
+  	return pg_filter_is;
+  }
 
 	public String get_name() {
 		return name;

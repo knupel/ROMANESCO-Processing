@@ -78,12 +78,13 @@ void update_fx_mix_slider() {
 int current_mix = 1;
 void fx_mix_inc(PImage src) {
   boolean on_g = true;
+  boolean filter_is = false;
   if(inc_fx != null && src.width == inc_fx.width && src.height == inc_fx.height) {
     
     if(current_mix != which_fx_mix +1) {
       current_mix = which_fx_mix +1;
     }
-    fx_mix(src,inc_fx, on_g, current_mix, fx_mix_colour_source,fx_mix_colour_layer);
+    fx_mix(src,inc_fx, on_g, filter_is, current_mix, fx_mix_colour_source,fx_mix_colour_layer);
   }
 }
 

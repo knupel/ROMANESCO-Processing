@@ -3,7 +3,7 @@
 * @author @stanlepunk
 * @see https://github.com/StanLepunK/Force_Field
 * 2017-2019
-v 0.9.2
+v 0.9.3
 */
 
 class Warp_Force {
@@ -17,6 +17,9 @@ class Warp_Force {
   private boolean reset_img ;
 
   private PShader rope_warp_shader, rope_warp_blur;
+
+  private boolean on_g = false;
+  private boolean filter_is = false;
   
 
   public Warp_Force() {
@@ -481,7 +484,7 @@ class Warp_Force {
   /**
   WARP GPU
   Graphic Processor Unit version of fluid image / GLSL
-  v 0.0.4
+  v 0.0.5
   */
   private void rendering_graphic_processor(PGraphics result, PImage buffer, PImage inc, Force_field ff, float intensity) {
     refresh_rendering_gpu(result,buffer,inc,ff,intensity);
@@ -499,15 +502,15 @@ class Warp_Force {
       result.beginDraw();
       if(refresh_mix_is) {
         int mix_mode_mix = 17;
-        result = fx_mix(buffer,inc,false,mix_mode_mix,warp_img_refresh,vec3(1));
+        result = fx_mix(buffer,inc,on_g,filter_is,mix_mode_mix,warp_img_refresh,vec3(1));
       }
       if(refresh_multiply_is) {  
         int mix_mode_multiply = 1;
-        result = fx_mix(buffer,inc,false,mix_mode_multiply,vec3(1),refresh_multiply_value);
+        result = fx_mix(buffer,inc,on_g,filter_is,mix_mode_multiply,vec3(1),refresh_multiply_value);
       }
       if(refresh_overlay_is) {
          int mix_mode_overlay = 4;
-         result = fx_mix(buffer,inc,false,mix_mode_overlay,vec3(1),refresh_overlay_value);
+         result = fx_mix(buffer,inc,on_g,filter_is,mix_mode_overlay,vec3(1),refresh_overlay_value);
       }
       if(result.pixels == null) {
         result.loadPixels();
@@ -525,12 +528,12 @@ class Warp_Force {
     if(effect_multiply_is) {
       int mix_mode_multiply = 1;
       println("multiply",refresh_multiply_value);
-      result = fx_mix(buffer,inc,false,mix_mode_multiply,vec3(1),refresh_multiply_value);
+      result = fx_mix(buffer,inc,on_g,filter_is,mix_mode_multiply,vec3(1),refresh_multiply_value);
     }
     if(effect_overlay_is) {
       println("overlay",refresh_overlay_value);
       int mix_mode_overlay = 4;
-      result = fx_mix(buffer,inc,false,mix_mode_overlay,vec3(1),refresh_overlay_value);
+      result = fx_mix(buffer,inc,on_g,filter_is,mix_mode_overlay,vec3(1),refresh_overlay_value);
     }
     result.endDraw();
   }
@@ -626,7 +629,7 @@ class Warp_Force {
     result.beginDraw();
     if(refresh_image_is) {
       int mix_mode_mix = 17;
-      result = fx_mix(buffer,inc,false,mix_mode_mix,warp_img_refresh,vec3(1));
+      result = fx_mix(buffer,inc,on_g,filter_is,mix_mode_mix,warp_img_refresh,vec3(1));
       // mix(result,buffer,inc,warp_img_refresh);
     }
     warp_image_computer_processor(result,buffer,inc,ff,intensity);

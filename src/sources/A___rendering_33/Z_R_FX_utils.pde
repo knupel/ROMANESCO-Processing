@@ -2,7 +2,7 @@
 * SHADER FX
 * @see @stanlepunk
 * @see https://github.com/StanLepunK/Shader
-* v 0.8.1
+* v 0.9.2
 * 2019-2019
 *
 */
@@ -33,7 +33,8 @@ int FX_IMAGE = 900;
 
 int FX_LEVEL = 12_00;
 
-int FX_MIX = 13_00;
+int FX_MASK = 13_00;
+int FX_MIX = 13_01;
 
 int FX_PIXEL = 16_00;
 
@@ -180,6 +181,8 @@ void select_fx_post(PImage main, PImage layer_a, PImage layer_b, FX... fx) {
 				fx_halftone_multi(main,fx[i]); 
 			} else if(fx[i].get_type() == FX_IMAGE) {
 				fx_image(main,fx[i]);
+			} else if(fx[i].get_type() == FX_MASK) {
+				fx_mask(main,layer_a,fx[i]); 
 			} else if(fx[i].get_type() == FX_PIXEL) {
 				fx_pixel(main,fx[i]);
 			} else if(fx[i].get_type() == FX_REAC_DIFF) {
@@ -268,6 +271,15 @@ void fx_set_quality(ArrayList<FX> fx_list, String name, float quality) {
 
 void fx_set_time(ArrayList<FX> fx_list, String name, float time) {
 	fx_set(fx_list,3,name,time);
+}
+
+
+void fx_set_on_g(ArrayList<FX> fx_list, String name, boolean on_g) {
+	fx_set(fx_list,4,name,on_g);
+}
+
+void fx_set_pg_filter(ArrayList<FX> fx_list, String name, boolean filter_is) {
+	fx_set(fx_list,5,name,filter_is);
 }
 
 // double
@@ -558,8 +570,35 @@ void set_fx_bg_path(String path) {
 
 /**
 * send information to shader.glsl to flip the source in case this one is a PGraphics or PImage
-* v 0.1.0
+* v 0.2.1
 */
+void fx_shader_flip(PShader shader, boolean on_g, boolean filter_is, PImage source, PImage layer) {
+	if(on_g) {
+		set_shader_flip(shader,source);
+	}
+  // reverse for the case filter is active
+	if(!on_g && filter_is) {
+		shader.set("flip_source",1,0);
+	}
+
+  // case there is layer to manage
+	if(layer != null) {
+		if(graphics_is(layer).equals("PGraphics")) {
+			shader.set("flip_layer",0,0);
+		} else {
+			if(on_g) {
+				shader.set("flip_layer",1,0);
+			} 
+			if(!on_g && filter_is) {
+				shader.set("flip_layer",1,0);
+			}
+		}
+	} 
+}
+
+
+
+
 void set_shader_flip(PShader ps, PImage... img) {
 	int num = img.length;
 	ps.set("flip_source",1,0);
@@ -569,7 +608,7 @@ void set_shader_flip(PShader ps, PImage... img) {
 		reverse_g_source(true);
 	}
 
-	if(num == 2) {
+	if(num == 2 && img[1] != null) {
 		ps.set("flip_layer",1,0);
 		if(graphics_is(img[1]).equals("PGraphics") && !reverse_g_layer_is()) {
 			ps.set("flip_layer",0,0);
@@ -640,18 +679,41 @@ void reset_reverse_g(boolean state){
 
 
 /**
-* render shader
+* RENDER FX
 * this method test if the shader must be display on the main Processing render or return a PGraphics
-* v 0.0.4
+* v 0.1.0
 */
-void render_shader(PShader ps, PGraphics pg, PImage src, boolean on_g) {
-	if(pg != null && !on_g) {
+void render_shader(PShader shader, PGraphics pg, PImage src, boolean on_g, boolean filter_is) {
+	if(on_g) {
+		render_filter_g(shader);
+	} else {
+		if(filter_is) {
+			render_filter_pgraphics(shader,pg);
+		} else {
+			render_shader_pgraphics(shader,pg,src);
+		}
+	}
+}
+
+
+void render_shader_pgraphics(PShader ps, PGraphics pg, PImage src) {
+	if(pg != null) {
   	pg.beginDraw();
   	pg.shader(ps);
   	pg.image(src,0,0,src.width,src.height);
   	pg.resetShader();
   	pg.endDraw();
-  } else {
-  	filter(ps);
   }
+}
+
+
+void render_filter_pgraphics(PShader ps, PGraphics pg) {
+	if(pg != null) {
+  	pg.filter(ps);
+  } 
+}
+
+
+void render_filter_g(PShader ps) {
+	filter(ps);
 }
