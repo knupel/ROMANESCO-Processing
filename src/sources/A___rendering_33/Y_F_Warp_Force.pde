@@ -3,7 +3,7 @@
 * @author @stanlepunk
 * @see https://github.com/StanLepunK/Force_Field
 * 2017-2019
-v 0.9.3
+v 0.9.5
 */
 
 class Warp_Force {
@@ -12,7 +12,7 @@ class Warp_Force {
   private boolean shader_warp_filter = false ;
   private int shader_warp_mode = 0 ;
 
-  private ROPImage_Manager img_manager ;
+  private R_Image_Manager img_manager ;
 
   private boolean reset_img ;
 
@@ -28,7 +28,7 @@ class Warp_Force {
 
 
   private void build(String path) {
-    img_manager = new ROPImage_Manager();
+    img_manager = new R_Image_Manager();
     shader(path);
   }
   
@@ -125,23 +125,23 @@ class Warp_Force {
   }
 
   public String get_name() {
-    return img_manager.get_name() ;
+    return img_manager.get_current_name() ;
   }
 
   public int get_width() {
-    if(img_manager.get() != null) {
-      return img_manager.get().width;
+    if(img_manager.get_current() != null) {
+      return img_manager.get_current().width;
     } else return 0 ;
   }
 
   public int get_height() {
-    if(img_manager.get() != null) {
-      return img_manager.get().height;
+    if(img_manager.get_current() != null) {
+      return img_manager.get_current().height;
     } else return 0 ;
   }
   
   public PImage get_image() {
-    return img_manager.get();
+    return img_manager.get_current();
   }
 
 
@@ -153,7 +153,7 @@ class Warp_Force {
     } else return -1;
   }
 
-  public ROPImage_Manager library() {
+  public R_Image_Manager library() {
     return img_manager ;
   }
 
@@ -274,14 +274,14 @@ class Warp_Force {
   */
   public void show(Force_field force_field, float intensity) {
     if(reset_img) {
-      draw(img_manager.get());
+      draw(img_manager.get_current());
     }
     reset_img = false;
 
-    if(pg == null && img_manager.get() != null) { 
-      set(img_manager.get());
-    } else if(img_manager.get() != null) {  
-      update(force_field,img_manager.get(),intensity);
+    if(pg == null && img_manager.get_current() != null) { 
+      set(img_manager.get_current());
+    } else if(img_manager.get_current() != null) {  
+      update(force_field,img_manager.get_current(),intensity);
     }
   }
 

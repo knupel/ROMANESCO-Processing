@@ -1,6 +1,6 @@
 /**
 * Rope framework image
-* v 0.4.4
+* v 0.5.0
 * Copyleft (c) 2014-2019
 * Processing 3.5.3.269
 * Rope library 0.7.1.25
@@ -246,15 +246,15 @@ void select_layer(int target) {
 
 /**
 PImage manager library
-v 0.4.2
+v 0.5.0
 */
-class ROPImage_Manager {
-  ArrayList<ROPImage> library ;
+class R_Image_Manager {
+  ArrayList<R_Image> library ;
   int which_img;
 
   private void build() {
     if(library == null) {
-      library = new ArrayList<ROPImage>();
+      library = new ArrayList<R_Image>();
     }
   }
 
@@ -262,7 +262,7 @@ class ROPImage_Manager {
     build();
     for(int i = 0 ; i <path_img.length ; i++) {
       //Image img = loadImage(img_src[i]);
-      ROPImage rop_img = new ROPImage(path_img[i]);
+      R_Image rop_img = new R_Image(path_img[i]);
       //println(img.width, img_src[i]);
       library.add(rop_img);
     }  
@@ -270,13 +270,13 @@ class ROPImage_Manager {
 
   public void add(PImage img_src) {
     build();
-    ROPImage rop_img = new ROPImage(img_src);
+    R_Image rop_img = new R_Image(img_src);
     library.add(rop_img);
   }
 
   public void add(PImage img_src, String name) {
     build();
-    ROPImage rop_img = new ROPImage(img_src, name);
+    R_Image rop_img = new R_Image(img_src, name);
     library.add(rop_img);
   }
 
@@ -286,7 +286,7 @@ class ROPImage_Manager {
     }
   }
 
-  public ArrayList<ROPImage> list() {
+  public ArrayList<R_Image> list() {
     return library;
   }
 
@@ -400,35 +400,46 @@ class ROPImage_Manager {
       }
       return get(target);
     } else return null;
+  }  
+}
+
+
+
+/**
+* R_Image
+* 2019-2019
+* v 0.0.1
+*/
+public class R_Image {
+  private PImage img ;
+  private String name = "no name" ;
+
+  public R_Image(String path) {
+    this.name = path.split("/")[path.split("/").length -1].split("\\.")[0] ;
+    this.img = loadImage(path);
+  }
+
+  public R_Image(PImage img) {
+    this.img = img;
+  }
+
+  public R_Image(PImage img, String name) {
+    this.img = img;
+    this.name = name;
+  }
+  
+
+  public R_Image get() {
+    return this;
   }
 
 
-  // private class
-  private class ROPImage {
-    private PImage img ;
-    private String name = "no name" ;
+  public String get_name() {
+    return name ;
+  }
 
-    private ROPImage(String path) {
-      this.name = path.split("/")[path.split("/").length -1].split("\\.")[0] ;
-      this.img = loadImage(path);
-    }
-
-    private ROPImage(PImage img) {
-      this.img = img;
-    }
-
-    private ROPImage(PImage img, String name) {
-      this.img = img;
-      this.name = name;
-    }
-
-    public String get_name() {
-      return name ;
-    }
-
-    public PImage get_image() {
-      return img ;
-    }
+  public PImage get_image() {
+    return img ;
   }
 }
 
