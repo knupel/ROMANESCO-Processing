@@ -2,7 +2,7 @@
 * Mask post FX
 * @see @stanlepunk
 * @see https://github.com/StanLepunK/Shader
-* v 0.0.2
+* v 0.0.3
 * 2019-2019
 */
 // Processing implementation
@@ -25,6 +25,7 @@ uniform sampler2D texture_layer;
 uniform vec2 resolution_layer;
 uniform ivec2 flip_layer; // can be use to flip texture layer
 uniform vec4 level_layer;
+uniform int mode;
 
 
 
@@ -77,7 +78,13 @@ void main() {
   vec4 colour_source = texture2D(texture_source,uv_source);
 
   vec4 colour_mask = texture2D(texture_layer,uv_layer);
-  vec4 remove = vec4((colour_mask.x + colour_mask.y + colour_mask.z) / 3.0);
+  float remove_alpha = (colour_mask.x + colour_mask.y + colour_mask.z) / 3.0;
+  vec4 remove = vec4(0,0,0,remove_alpha);
+  if(mode == 1) {
+    remove.xyz = colour_mask.xyz;
+  } else if(mode == 2) {
+    remove.xyz = vec3((colour_mask.x + colour_mask.y + colour_mask.z) / 3.0) ;
+  }
   colour_source.xyzw = colour_source.xyzw - remove;
   gl_FragColor = colour_source;
 }
