@@ -2,7 +2,7 @@
 * POST FX shader collection
 *
 * 2019-2019
-* v 0.2.7
+* v 0.2.8
 * all filter bellow has been tested.
 * @author @stanlepunk
 * @see https://github.com/StanLepunK/Shader
@@ -12,7 +12,7 @@
 /**
 * Template by Stan le punk
 * this template can be used for texture or direct filtering
-v 0.2.1
+v 0.2.2
 2018-2019
 */
 // setting by class FX
@@ -26,7 +26,7 @@ PGraphics pg_template;
 PGraphics fx_template(PImage source, boolean on_g, boolean filter_is, vec4 level_source) {
 	if(!on_g && (pg_template == null 
 								|| (source.width != pg_template.width 
-								&& source.height != pg_template.height))) {
+								|| source.height != pg_template.height))) {
 		pg_template = createGraphics(source.width,source.height,get_renderer());
 	}
 
@@ -104,7 +104,7 @@ PGraphics fx_template(PImage source, boolean on_g, boolean filter_is, vec4 level
 
 /**
 * Blur circular
-* v 0.2.1
+* v 0.2.2
 * 2018-2019
 */
 // use fx setting
@@ -116,7 +116,8 @@ PGraphics fx_blur_circular(PImage source, FX fx) {
 PShader fx_blur_circular;
 PGraphics pg_blur_circular;
 PGraphics fx_blur_circular(PImage source, boolean on_g, boolean filter_is, vec3 strength, int num) {
-	if(!on_g && (pg_blur_circular == null || (source.width != pg_blur_circular.width && source.height != pg_blur_circular.height))) {
+	if(!on_g && (pg_blur_circular == null || (source.width != pg_blur_circular.width 
+																				|| source.height != pg_blur_circular.height))) {
 		pg_blur_circular = createGraphics(source.width,source.height,get_renderer());
 	}
 	
@@ -157,7 +158,7 @@ PGraphics fx_blur_circular(PImage source, boolean on_g, boolean filter_is, vec3 
 
 /**
 * gaussian blur
-* v 0.2.4
+* v 0.2.5
 * 2018-2019
 */
 // setting by class FX
@@ -171,7 +172,8 @@ PGraphics fx_blur_gaussian(PImage source, FX fx) {
 PShader fx_blur_gaussian;
 PGraphics pg_blur_gaussian;
 PGraphics fx_blur_gaussian(PImage source, boolean on_g, boolean filter_is, boolean second_pass, ivec2 resolution, float strength) {
-	if(!on_g && (pg_blur_gaussian == null || (source.width != pg_blur_gaussian.width && source.height != pg_blur_gaussian.height))) {
+	if(!on_g && (pg_blur_gaussian == null || (source.width != pg_blur_gaussian.width 
+																				|| source.height != pg_blur_gaussian.height))) {
 		pg_blur_gaussian = createGraphics(source.width,source.height,get_renderer());
 	}
   
@@ -294,7 +296,7 @@ PGraphics fx_blur_gaussian(PImage source, boolean on_g, boolean filter_is, boole
 
 /**
 * Blur radial
-v 0.3.1
+v 0.3.2
 2018-2019
 */
 // setting by class FX
@@ -317,7 +319,7 @@ PGraphics pg_blur_radial;
 PGraphics fx_blur_radial(PImage source, boolean on_g, boolean filter_is, vec2 pos, float strength, float scale) {
 	if(!on_g && (pg_blur_radial == null 
 								|| (source.width != pg_blur_radial.width 
-								&& source.height != pg_blur_radial.height))) {
+								|| source.height != pg_blur_radial.height))) {
 		pg_blur_radial = createGraphics(source.width,source.height,get_renderer());
 	}
 	
@@ -362,7 +364,7 @@ PGraphics fx_blur_radial(PImage source, boolean on_g, boolean filter_is, vec2 po
 
 /**
 * Colour change A by Stan le punk
-v 0.3.1
+v 0.3.2
 2018-2019
 */
 // setting by class FX
@@ -376,7 +378,7 @@ PGraphics pg_colour_change_a;
 PGraphics fx_colour_change_a(PImage source, boolean on_g, boolean filter_is, int num, vec3... mat) {
 	if(!on_g && (pg_colour_change_a == null 
 								|| (source.width != pg_colour_change_a.width 
-								&& source.height != pg_colour_change_a.height))) {
+								|| source.height != pg_colour_change_a.height))) {
 		pg_colour_change_a = createGraphics(source.width,source.height,get_renderer());
 	}
 	
@@ -432,7 +434,7 @@ PGraphics fx_colour_change_a(PImage source, boolean on_g, boolean filter_is, int
 
 /**
 * colour change B
-* v 0.1.1
+* v 0.1.2
 * 2018-2019
 */
 
@@ -455,7 +457,7 @@ PGraphics pg_colour_change_b;
 PGraphics fx_colour_change_b(PImage source, boolean on_g, boolean filter_is, float angle, float strength) {
 	if(!on_g && (pg_colour_change_b == null 
 								|| (source.width != pg_colour_change_b.width 
-								&& source.height != pg_colour_change_b.height))) {
+								|| source.height != pg_colour_change_b.height))) {
 		pg_colour_change_b = createGraphics(source.width,source.height,get_renderer());
 	}
 
@@ -513,7 +515,7 @@ PGraphics fx_colour_change_b(PImage source, boolean on_g, boolean filter_is, flo
 /**
 * Datamosh inpired by an algorithm of Alexandre Rivaux 
 * @see https://github.com/alexr4/datamoshing-GLSL
-* v 0.0.3
+* v 0.0.4
 *2019-2019
 */
 // setting by class FX
@@ -528,7 +530,7 @@ PGraphics pg_datamosh;
 PGraphics fx_datamosh(PImage source, boolean on_g, boolean filter_is, float threshold, float strength, vec2 offset_red, vec2 offset_green, vec2 offset_blue) {
 	if(!on_g && (pg_datamosh == null 
 								|| (source.width != pg_datamosh.width 
-								&& source.height != pg_datamosh.height))) {
+								|| source.height != pg_datamosh.height))) {
 		pg_datamosh = createGraphics(source.width,source.height,get_renderer());
 	}
 
@@ -625,7 +627,7 @@ PGraphics fx_datamosh(PImage source, boolean on_g, boolean filter_is, float thre
 
 /**
 * Dither bayer 8
-* v 0.3.1
+* v 0.3.2
 * 2018-2019
 */
 // setting by class FX
@@ -639,7 +641,7 @@ PGraphics pg_dither_bayer_8;
 PGraphics fx_dither_bayer_8(PImage source, boolean on_g, boolean filter_is, vec3 level, int mode) {
 	if(!on_g && (pg_dither_bayer_8 == null 
 								|| (source.width != pg_dither_bayer_8.width 
-								&& source.height != pg_dither_bayer_8.height))) {
+								|| source.height != pg_dither_bayer_8.height))) {
 		pg_dither_bayer_8 = createGraphics(source.width,source.height,get_renderer());
 	}
 
@@ -687,7 +689,7 @@ PGraphics fx_dither_bayer_8(PImage source, boolean on_g, boolean filter_is, vec3
 
 /**
 * Flip
-* v 0.1.0
+* v 0.1.1
 *2019-2019
 */
 // setting by class FX
@@ -701,7 +703,7 @@ PGraphics pg_flip;
 PGraphics fx_flip(PImage source, boolean on_g, boolean filter_is, bvec2 flip) {
 	if(!on_g && (pg_flip == null 
 								|| (source.width != pg_flip.width 
-								&& source.height != pg_flip.height))) {
+								|| source.height != pg_flip.height))) {
 		pg_flip = createGraphics(source.width,source.height,get_renderer());
 	}
 
@@ -780,7 +782,7 @@ PGraphics pg_grain;
 PGraphics fx_grain(PImage source, boolean on_g, boolean filter_is, float offset, int mode) {
 	if(!on_g && (pg_grain == null 
 								|| (source.width != pg_grain.width 
-								&& source.height != pg_grain.height))) {
+								|| source.height != pg_grain.height))) {
 		pg_grain = createGraphics(source.width,source.height,get_renderer());
 	}
 
@@ -833,7 +835,7 @@ PGraphics fx_grain(PImage source, boolean on_g, boolean filter_is, float offset,
 
 /**
 * Grain scatter
-v 0.2.1
+v 0.2.2
 2018-2019
 */
 // setting by class FX
@@ -851,7 +853,7 @@ PGraphics pg_grain_scatter;
 PGraphics fx_grain_scatter(PImage source, boolean on_g, boolean filter_is, float strength) {
 	if(!on_g && (pg_grain_scatter == null 
 								|| (source.width != pg_grain_scatter.width 
-								&& source.height != pg_grain_scatter.height))) {
+								|| source.height != pg_grain_scatter.height))) {
 		pg_grain_scatter = createGraphics(source.width,source.height,get_renderer());
 	}
 
@@ -904,7 +906,7 @@ PGraphics fx_grain_scatter(PImage source, boolean on_g, boolean filter_is, float
 
 /**
 * halftone dot
-* v 0.1.1
+* v 0.1.2
 * 2018-2019
 */
 // setting by class FX
@@ -938,7 +940,7 @@ PGraphics pg_halftone_dot;
 PGraphics fx_halftone_dot(PImage source, boolean on_g, boolean filter_is, vec2 pos, float size, float angle, float threshold) {
 	if(!on_g && (pg_halftone_dot == null 
 								|| (source.width != pg_halftone_dot.width 
-								&& source.height != pg_halftone_dot.height))) {
+								|| source.height != pg_halftone_dot.height))) {
 		pg_halftone_dot = createGraphics(source.width,source.height,get_renderer());
 	}
 
@@ -990,7 +992,7 @@ PGraphics fx_halftone_dot(PImage source, boolean on_g, boolean filter_is, vec2 p
 
 /**
 * halftone line
-* v 0.1.1
+* v 0.1.2
 * 2018-2019
 */
 // use setting
@@ -1022,7 +1024,7 @@ PGraphics result_halftone_line;
 PGraphics fx_halftone_line(PImage source, boolean on_g, boolean filter_is, vec2 pos, vec3 angle, int mode, int num, float quality, vec3 threshold) {
 	if(!on_g && (result_halftone_line == null 
 								|| (source.width != result_halftone_line.width 
-								&& source.height != result_halftone_line.height))) {
+								|| source.height != result_halftone_line.height))) {
 		result_halftone_line = createGraphics(source.width,source.height,get_renderer());
 	}
 
@@ -1068,7 +1070,7 @@ PGraphics fx_halftone_line(PImage source, boolean on_g, boolean filter_is, vec2 
 /**
 * Halftone Multi
 * refactoring from 
-* v 0.1.0
+* v 0.1.1
 * 2019-2019
 */
 // use setting
@@ -1082,7 +1084,7 @@ PGraphics pg_halftone_multi;
 PGraphics fx_halftone_multi(PImage source, boolean on_g, boolean filter_is, vec2 pos, float size, float angle, float quality, float threshold, float saturation, int mode) {
 	if(!on_g && (pg_halftone_multi == null 
 								|| (source.width != pg_halftone_multi.width 
-								&& source.height != pg_halftone_multi.height))) {
+								|| source.height != pg_halftone_multi.height))) {
 		pg_halftone_multi = createGraphics(source.width,source.height,get_renderer());
 	}
 
@@ -1137,7 +1139,7 @@ PGraphics fx_halftone_multi(PImage source, boolean on_g, boolean filter_is, vec2
 
 /**
 * IMAGE
-* v 0.2.1
+* v 0.2.2
 */
 // setting by class FX
 PGraphics fx_image(PImage source, FX fx) {
@@ -1150,7 +1152,7 @@ PGraphics pg_image_rendering;
 PGraphics fx_image(PImage source, boolean on_g, boolean filter_is, vec2 pos, vec2 scale, vec3 colour_background, vec4 pos_curtain, int mode) {
 	if(!on_g && (pg_image_rendering == null 
 								|| (source.width != pg_image_rendering.width 
-								&& source.height != pg_image_rendering.height))) {
+								|| source.height != pg_image_rendering.height))) {
 		pg_image_rendering = createGraphics(source.width,source.height,get_renderer());
 	}
 
@@ -1245,7 +1247,7 @@ PGraphics fx_image(PImage source, boolean on_g, boolean filter_is, vec2 pos, vec
 
 /**
 * Level
-v 0.1.0
+v 0.1.1
 2019-2019
 */
 // direct filtering
@@ -1263,7 +1265,7 @@ PGraphics pg_level;
 PGraphics fx_level(PImage source, boolean on_g, boolean filter_is, int mode, float... level) {
 	if(!on_g && (pg_level == null 
 								|| (source.width != pg_level.width 
-								&& source.height != pg_level.height))) {
+								|| source.height != pg_level.height))) {
 		pg_level = createGraphics(source.width,source.height,get_renderer());
 	}
 
@@ -1325,7 +1327,7 @@ PGraphics fx_level(PImage source, boolean on_g, boolean filter_is, int mode, flo
 
 /**
 * Mask
-v 0.1.0
+v 0.1.1
 2019-2019
 */
 PGraphics fx_mask(PImage source, PImage mask, FX fx) {
@@ -1338,7 +1340,7 @@ PGraphics pg_mask;
 PGraphics fx_mask(PImage source, PImage mask, boolean on_g, boolean filter_is) {
 	if(!on_g && (pg_mask == null 
 								|| (source.width != pg_mask.width 
-								&& source.height != pg_mask.height))) {
+								|| source.height != pg_mask.height))) {
 		pg_mask = createGraphics(source.width,source.height,get_renderer());
 	}
 
@@ -1385,7 +1387,7 @@ PGraphics fx_mask(PImage source, PImage mask, boolean on_g, boolean filter_is) {
 
 /**
 * mix
-* v 0.1.1
+* v 0.1.2
 * 2019-2019
 *
 * -2 main
@@ -1437,7 +1439,7 @@ PGraphics pg_mix;
 PGraphics fx_mix(PImage source, PImage layer, boolean on_g, boolean filter_is, int mode, vec3 level_source, vec3 level_layer) {
 	if(!on_g && (pg_mix == null 
 								|| (source.width != pg_mix.width 
-								&& source.height != pg_mix.height))) {
+								|| source.height != pg_mix.height))) {
 		pg_mix = createGraphics(source.width,source.height,get_renderer());
 	}
 
@@ -1503,7 +1505,7 @@ PGraphics fx_mix(PImage source, PImage layer, boolean on_g, boolean filter_is, i
 
 /**
 * Pixel 
-* v 0.1.0
+* v 0.1.1
 * 2018-2019
 */
 // setting by class FX
@@ -1525,7 +1527,7 @@ PGraphics pg_pixel;
 PGraphics fx_pixel(PImage source, boolean on_g, boolean filter_is, ivec2 size, int num, vec3 level_source, boolean effect_is) {
 	if(!on_g && (pg_pixel == null 
 								|| (source.width != pg_pixel.width 
-								&& source.height != pg_pixel.height))) {
+								|| source.height != pg_pixel.height))) {
 		pg_pixel = createGraphics(source.width,source.height,get_renderer());
 	}
 
@@ -1580,7 +1582,7 @@ PGraphics fx_pixel(PImage source, boolean on_g, boolean filter_is, ivec2 size, i
 
 /**
 * Reaction diffusion
-* v 0.0.5
+* v 0.0.6
 * 2018-2019
 */
 /**
@@ -1599,7 +1601,7 @@ PImage buffer_reac_diff;
 PGraphics fx_reaction_diffusion(PImage source, boolean on_g, vec2 conc_uv, vec2 kf, vec2 scale, vec3 rgb, int num, boolean event) {
 	if(pg_reac_diff == null 
 								|| (source.width != pg_reac_diff.width 
-								&& source.height != pg_reac_diff.height)) {
+								|| source.height != pg_reac_diff.height)) {
 		pg_reac_diff = createGraphics(source.width,source.height,get_renderer());
 	}
 
@@ -1766,7 +1768,7 @@ PGraphics fx_reaction_diffusion(PImage source, boolean on_g, vec2 conc_uv, vec2 
 
 /**
 * split rgb
-* v 0.1.0
+* v 0.1.1
 * 2019-2019
 */
 // use setting
@@ -1780,7 +1782,7 @@ PGraphics pg_split_rgb;
 PGraphics fx_split_rgb(PImage source, boolean on_g, boolean filter_is, vec2 offset_red, vec2 offset_green, vec2 offset_blue) {
 	if(!on_g && (pg_split_rgb == null 
 								|| (source.width != pg_split_rgb.width 
-								&& source.height != pg_split_rgb.height))) {
+								|| source.height != pg_split_rgb.height))) {
 		pg_split_rgb = createGraphics(source.width,source.height,get_renderer());
 	}
 
@@ -1831,7 +1833,7 @@ PGraphics fx_split_rgb(PImage source, boolean on_g, boolean filter_is, vec2 offs
 
 /**
 * Threshold
-* v 0.3.0
+* v 0.3.1
 * 2018-2019
 */
 // setting by class FX
@@ -1845,7 +1847,7 @@ PGraphics pg_threshold;
 PGraphics fx_threshold(PImage source, boolean on_g, boolean filter_is, vec3 level, int mode) {
 	if(!on_g && (pg_threshold == null 
 								|| (source.width != pg_threshold.width 
-								&& source.height != pg_threshold.height))) {
+								|| source.height != pg_threshold.height))) {
 		pg_threshold = createGraphics(source.width,source.height,get_renderer());
 	}
 
@@ -1902,7 +1904,7 @@ PGraphics fx_threshold(PImage source, boolean on_g, boolean filter_is, vec3 leve
 * warp procedural line by Stan le punk
 * @see http://stanlepunk.xyz
 * @see https://github.com/StanLepunK/Filter
-* v 0.1.0
+* v 0.1.1
 * 2018-2019
 */
 PGraphics fx_warp_proc(PImage source, FX fx) {
@@ -1914,7 +1916,7 @@ PGraphics pg_warp_proc;
 PGraphics fx_warp_proc(PImage source, boolean on_g, boolean filter_is, float strength) {
 	if(!on_g && (pg_warp_proc == null 
 								|| (source.width != pg_warp_proc.width 
-								&& source.height != pg_warp_proc.height))) {
+								|| source.height != pg_warp_proc.height))) {
 		pg_warp_proc = createGraphics(source.width,source.height,get_renderer());
 	}
 
@@ -1959,7 +1961,7 @@ PGraphics fx_warp_proc(PImage source, boolean on_g, boolean filter_is, float str
 
 /**
 * warp texture type A
-* v 0.3.1
+* v 0.3.2
 * 2018-2019
 */
 // use setting
@@ -1973,7 +1975,7 @@ PGraphics pg_warp_tex_a;
 PGraphics fx_warp_tex_a(PImage source, PImage velocity, PImage direction, boolean on_g, boolean filter_is, int mode, float strength) {
 	if(!on_g && (pg_warp_proc == null 
 								|| (source.width != pg_warp_proc.width 
-								&& source.height != pg_warp_proc.height))) {
+								|| source.height != pg_warp_proc.height))) {
 		pg_warp_proc = createGraphics(source.width,source.height,get_renderer());
 	}
   
@@ -2027,7 +2029,7 @@ PGraphics fx_warp_tex_a(PImage source, PImage velocity, PImage direction, boolea
 
 /**
 * warp texture type B
-* v 0.1.1
+* v 0.1.2
 * 2019-2019
 */
 // use setting
@@ -2041,7 +2043,7 @@ PGraphics pg_warp_tex_b;
 PGraphics fx_warp_tex_b(PImage source, PImage layer, boolean on_g, boolean filter_is, float strength) {
 	if(!on_g && (pg_warp_tex_b == null 
 								|| (source.width != pg_warp_tex_b.width 
-								&& source.height != pg_warp_tex_b.height))) {
+								|| source.height != pg_warp_tex_b.height))) {
 		pg_warp_tex_b = createGraphics(source.width,source.height,get_renderer());
 	}
 
