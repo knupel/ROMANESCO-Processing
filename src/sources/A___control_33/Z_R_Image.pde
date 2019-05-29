@@ -1,6 +1,6 @@
 /**
 * Rope framework image
-* v 0.5.0
+* v 0.5.1
 * Copyleft (c) 2014-2019
 * Processing 3.5.3.269
 * Rope library 0.7.1.25
@@ -246,11 +246,13 @@ void select_layer(int target) {
 
 /**
 PImage manager library
-v 0.5.0
+v 0.6.2
 */
-class R_Image_Manager {
+public class R_Image_Manager {
   ArrayList<R_Image> library ;
   int which_img;
+
+  public R_Image_Manager() {}
 
   private void build() {
     if(library == null) {
@@ -276,7 +278,7 @@ class R_Image_Manager {
 
   public void add(PImage img_src, String name) {
     build();
-    R_Image rop_img = new R_Image(img_src, name);
+    R_Image rop_img = new R_Image(img_src, name, library.size());
     library.add(rop_img);
   }
 
@@ -286,9 +288,7 @@ class R_Image_Manager {
     }
   }
 
-  public ArrayList<R_Image> list() {
-    return library;
-  }
+
 
   public void select(int which_one) {
     which_img = which_one ;
@@ -346,7 +346,7 @@ class R_Image_Manager {
     }
   }
 
-  public String get_name() {
+  public String get_current_name() {
     return get_name(which_img);
   }
 
@@ -373,18 +373,30 @@ class R_Image_Manager {
       return rank;
     } else return -1;
   }
+  
 
+  public ArrayList<R_Image> list() {
+    return library;
+  }
 
-  public PImage get() {
+  PImage [] get() {
+    if(library != null && library.size() > 0) {
+      return library.toArray(new PImage[library.size()]);
+    } else return null;
+  }
+
+ 
+  public PImage get_current() {
     if(library != null && library.size() > 0 ) {
       if(which_img < library.size()) return library.get(which_img).img; 
-      else return library.get(0).img; 
+      else return library.get(0).get_image(); 
     } else return null ;
   }
+  
 
   public PImage get(int target){
     if(library != null && target < library.size()) {
-      return library.get(target).img;
+      return library.get(target).get_image();
     } else return null;
   }
 
@@ -400,7 +412,15 @@ class R_Image_Manager {
       }
       return get(target);
     } else return null;
-  }  
+  }
+
+
+  public R_Image rand() {
+    if(library != null && library.size() > 0) {
+      int target = floor(random(library.size()));
+      return library.get(target);
+    } else return null;
+  }
 }
 
 
@@ -408,11 +428,12 @@ class R_Image_Manager {
 /**
 * R_Image
 * 2019-2019
-* v 0.0.1
+* v 0.0.2
 */
 public class R_Image {
   private PImage img ;
   private String name = "no name" ;
+  private int id = -1;
 
   public R_Image(String path) {
     this.name = path.split("/")[path.split("/").length -1].split("\\.")[0] ;
@@ -423,9 +444,10 @@ public class R_Image {
     this.img = img;
   }
 
-  public R_Image(PImage img, String name) {
+  public R_Image(PImage img, String name, int id) {
     this.img = img;
     this.name = name;
+    this.id = id;
   }
   
 
@@ -433,6 +455,9 @@ public class R_Image {
     return this;
   }
 
+  public int get_id() {
+    return id;
+  }
 
   public String get_name() {
     return name ;
@@ -628,10 +653,10 @@ void image(PImage img, vec pos) {
     image(img, p.x, p.y) ;
   } else if(pos instanceof vec3) {
     vec3 p = (vec3) pos ;
-    start_matrix() ;
+    push() ;
     translate(p) ;
     image(img, 0,0) ;
-    stop_matrix() ;
+    pop() ;
   }
 }
 
@@ -641,10 +666,10 @@ void image(PImage img, vec pos, vec2 size) {
     image(img, p.x, p.y, size.x, size.y) ;
   } else if(pos instanceof vec3) {
     vec3 p = (vec3) pos ;
-    start_matrix() ;
+    push() ;
     translate(p) ;
     image(img, 0,0, size.x, size.y) ;
-    stop_matrix() ;
+    pop() ;
   }
 }
 
@@ -970,7 +995,7 @@ void show_canvas(int num) {
 
 /**
 * BACKGROUND
-* v 0.2.4
+* v 0.2.5
 * 2015-2019
 */
 /**
@@ -1083,7 +1108,7 @@ void background_calc(PImage src, vec2 pos, vec2 scale, vec3 colour_background, v
     }
     
     int shader_mode = 0;
-    if(mode == CENTER) {
+    if(mode == r.FIT) {
       shader_mode = 0;
     } else if(mode == SCREEN) {
       shader_mode = 1;

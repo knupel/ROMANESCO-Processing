@@ -246,11 +246,13 @@ void select_layer(int target) {
 
 /**
 PImage manager library
-v 0.6.1
+v 0.6.2
 */
-class R_Image_Manager {
+public class R_Image_Manager {
   ArrayList<R_Image> library ;
   int which_img;
+
+  public R_Image_Manager() {}
 
   private void build() {
     if(library == null) {
@@ -651,10 +653,10 @@ void image(PImage img, vec pos) {
     image(img, p.x, p.y) ;
   } else if(pos instanceof vec3) {
     vec3 p = (vec3) pos ;
-    start_matrix() ;
+    push() ;
     translate(p) ;
     image(img, 0,0) ;
-    stop_matrix() ;
+    pop() ;
   }
 }
 
@@ -664,10 +666,10 @@ void image(PImage img, vec pos, vec2 size) {
     image(img, p.x, p.y, size.x, size.y) ;
   } else if(pos instanceof vec3) {
     vec3 p = (vec3) pos ;
-    start_matrix() ;
+    push() ;
     translate(p) ;
     image(img, 0,0, size.x, size.y) ;
-    stop_matrix() ;
+    pop() ;
   }
 }
 
@@ -993,7 +995,7 @@ void show_canvas(int num) {
 
 /**
 * BACKGROUND
-* v 0.2.4
+* v 0.2.5
 * 2015-2019
 */
 /**
@@ -1106,7 +1108,7 @@ void background_calc(PImage src, vec2 pos, vec2 scale, vec3 colour_background, v
     }
     
     int shader_mode = 0;
-    if(mode == CENTER) {
+    if(mode == r.FIT) {
       shader_mode = 0;
     } else if(mode == SCREEN) {
       shader_mode = 1;

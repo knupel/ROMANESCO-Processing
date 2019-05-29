@@ -1,10 +1,10 @@
 /**
 * CROPE
 * Control ROmanesco Processing Environment
-* v 0.9.15
+* v 0.9.16
 * Copyleft (c) 2018-2019
 * Processing 3.5.3
-* Rope library 0.5.1
+* Rope library 0.8.1
 * @author @stanlepunk
 * @see https://github.com/StanLepunK/Crope
 */
@@ -748,7 +748,7 @@ public class Button extends Crope {
       fill(color_on_off);
       ivec2 pos_def = iadd(pos,pos_label);
       pos_def.y += size.y ;
-      text(this.name,pos_def);
+      text(this.name,vec2(pos_def));
     }  
   }
 
@@ -776,7 +776,7 @@ public class Button extends Crope {
     } else {
       fill(color_bg);
     }  
-    rect(pos, size);
+    rect(vec2(pos),vec2(size));
   }
 }
 
@@ -1465,7 +1465,7 @@ public class Slider extends Crope {
     if(rounded > 0) {
       rect(pos.x,pos.y,size.x,size.y,rounded);
     } else {
-      rect(pos,size);
+      rect(vec2(pos),vec2(size));
     }
   }
 
@@ -1550,9 +1550,9 @@ public class Slider extends Crope {
   
   private void molette_shape(int index) {
     if(molette_type == ELLIPSE) {
-      ivec2 temp = ivec2(round(mult(molette[index].size,.5)));
-      ivec2 pos = iadd(molette[index].pos,temp);
-      ellipse(pos,molette[index].size);
+      vec2 temp = vec2(round(mult(molette[index].size,.5)));
+      vec2 pos = add(vec2(molette[index].pos),temp);
+      ellipse(pos,vec2(molette[index].size));
     } else if(molette_type == RECT) {
       molette_rect(index);
     } else {
@@ -1563,13 +1563,13 @@ public class Slider extends Crope {
 
   private void molette_rect(int index) {
     if(size.x > size.y) {
-      ivec2 pos = molette[index].pos.copy();
+      vec2 pos = vec2(molette[index].pos);
       pos.y = pos.y -((molette[index].size.y -size.y)/2);
-      rect(pos,molette[index].size);
+      rect(pos,vec2(molette[index].size));
     } else {
-      ivec2 pos = molette[index].pos;
+      vec2 pos = vec2(molette[index].pos);
       pos.x = pos.x -((molette[index].size.x -size.x)/2);
-      rect(pos,molette[index].size);
+      rect(pos,vec2(molette[index].size));
     }
   }
   

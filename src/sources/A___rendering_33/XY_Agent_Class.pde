@@ -1,6 +1,6 @@
 /**
 * CLASS AGENT 
-* v 1.2.2
+* v 1.2.3
 * 2016-2019
 * @author @stanlepunk
 * @see https://github.com/StanLepunK/Life
@@ -1918,16 +1918,16 @@ COMMON HUNT & SEARCH
   void info_visual(vec4 colour) {
     vec3 pos_temp = vec3(0) ;
     aspect(vec4(0), colour_info(colour, satiate, pregnant, fertility), 1) ;
-    start_matrix() ;
+    push() ;
     translate(pos) ;
     ellipse(pos_temp.x, pos_temp.y, size.x *2, size.y *2) ;
-    stop_matrix() ;
+    pop() ;
   }
 
   void info_text(vec4 colour, int size_text) {
     aspect(colour_info(colour, satiate, pregnant, fertility), colour_info(colour, satiate, pregnant, fertility), 1) ;
     vec2 pos_text = vec2(0) ;
-    start_matrix() ;
+    push();
     translate(pos) ;
     textSize(size_text) ;
     textAlign(CENTER) ;
@@ -1952,7 +1952,7 @@ COMMON HUNT & SEARCH
         text("I'm carrion", pos_text.x, pos_text.y +(size_text *space[3])) ; 
       }
     }
-    stop_matrix() ;
+    pop() ;
   }
 
   /**
@@ -2309,7 +2309,7 @@ abstract class Agent_static extends Agent_model {
   void info_text(vec4 colour, int size_text) {
     aspect(colour, colour, 1) ;
     vec2 pos_text = vec2(0) ;
-    start_matrix() ;
+    push() ;
     translate(pos) ;
     textSize(size_text) ;
     textAlign(CENTER) ;
@@ -2321,7 +2321,7 @@ abstract class Agent_static extends Agent_model {
     } else {
       text("I'm dead", pos_text.x, pos_text.y +(size_text *2.4) ) ;
     }
-    stop_matrix() ;
+    pop() ;
   }
 }
 /**

@@ -1,7 +1,7 @@
 /**
 * COSTUME class
 * Copyleft (c) 2019-2019
-* v 0.9.1
+* v 0.9.2
 * @author @stanlepunk
 * @see https://github.com/StanLepunK/Rope_framework
 * Here you finf the class Costume and all the class shape used.
@@ -76,13 +76,19 @@ final int VIRUS_ROPE = 88_888_888;
 /**
 class Costume 
 2018-2019
-v 0.4.1
+v 0.5.0
 */
 import rope.costume.R_Primitive;
 public class Costume {
+	PGraphics other;
+
 	boolean fill_is;
 	boolean stroke_is;
 	boolean alpha_is;
+
+	vec3 pos;
+	vec3 size;
+	vec3 angle;
 
 	int fill;
 	int stroke;
@@ -94,7 +100,7 @@ public class Costume {
 	int summits;
 	int num;
 	int mutation;
-  float angle;
+  // float angle;
 	float [] ratio;
 	float [] strength;
 	vec2 [] pair;
@@ -102,6 +108,8 @@ public class Costume {
 	boolean is_vertex = true;
 	R_Primitive prim;
 	PApplet papplet;
+
+	int align = LEFT;
 
 	public Costume(PApplet pa) {
 		this.papplet = pa;
@@ -111,6 +119,38 @@ public class Costume {
 		this.papplet = pa;
 		this.type = type;
 	}
+
+
+	void pos(float x, float y, float z) {
+		if(pos == null) {
+			pos = vec3(x,y,z);
+		} else {
+			pos.set(x,y,z);
+		}
+	}
+
+
+	void size(float x, float y, float z) {
+		if(size == null) {
+			size = vec3(x,y,z);
+		} else {
+			size.set(x,y,z);
+		}
+	}
+
+	void angle(float x, float y, float z) {
+		if(angle == null) {
+			angle = vec3(x,y,z);
+		} else {
+			angle.set(x,y,z);
+		}
+	}
+
+	void pass_graphic(PGraphics other) {
+  	if(other != null) {
+  		this.other = other;
+  	}
+  }
   
   // set
   public void set_name(String name) {
@@ -137,9 +177,15 @@ public class Costume {
 		this.num = num;
 	}
 
+	public void set_align(int align) {
+		this.align = align;
+	} 
+
+/*
 	public void set_angle(float angle) {
 		this.angle = angle;
 	}
+	*/
 
 	public void set_ratio(float... ratio) {
 		this.ratio = ratio;
@@ -164,6 +210,20 @@ public class Costume {
 
 
 	// get
+
+	vec3 pos() {
+		return pos;
+	}
+
+	vec3 size() {
+		return size;
+	}
+
+	vec3 angle() {
+		return angle;
+	}
+
+
 	public int get_fill() {
 		return fill;
 	}
@@ -199,10 +259,11 @@ public class Costume {
 	public int get_num() {
 		return num;
 	}
-
+  /*
 	public float get_angle() {
 		return angle;
 	}
+	*/
 
 	public float[] get_ratio() {
 		return ratio;
@@ -451,226 +512,233 @@ public class Costume {
 		strokeWeight(this.thickness);
 	}
 
-
-
-
-
-
 	public void draw(vec3 pos, vec3 size, vec rot) {
-		if(rot.x != 0) costume_rotate_x();
-		if(rot.y != 0) costume_rotate_y();
-		if(rot.z != 0) costume_rotate_z();
+		if(rot.x() != 0) costume_rotate_x();
+		if(rot.y() != 0) costume_rotate_y();
+		if(rot.z() != 0) costume_rotate_z();
 
 		if (this.get_type() == PIXEL_ROPE) {
-			set((int)pos.x,(int)pos.y,(int)get_fill_rope());
+			set((int)pos.x(),(int)pos.y(),(int)get_fill_rope(),other);
 		} else if (this.get_type() == POINT_ROPE) {
-	    strokeWeight(size.x);
-			point(pos);
+	    strokeWeight(size.x(),other);
+			point(pos,other);
 		} else if (this.get_type() == ELLIPSE_ROPE) {
-			start_matrix();
-			translate(pos);
-			rotate_behavior(rot);
-			ellipse(vec2(),size);
-			stop_matrix();
+			push(other);
+			translate(pos,other);
+			rotate_behavior(rot,other);
+			ellipse(vec2(),vec2(size),other);
+			pop(other);
 
 		} else if (this.get_type() == RECT_ROPE) {
-			start_matrix();
-			translate(pos);
-			rotate_behavior(rot);
-			rect(vec2(-size.x,-size.y).div(2),vec2(size.x,size.y));
-			stop_matrix();
+			push(other);
+			translate(pos,other);
+			rotate_behavior(rot,other);
+			rect(vec2(-size.x(),-size.y()).div(2),vec2(size.x(),size.y()),other);
+			pop(other);
 
 		} else if (this.get_type() == LINE_ROPE) {
 			if(prim == null) prim = new R_Primitive(papplet,2);
-			start_matrix();
-			translate(pos);
-			rotate_behavior(rot);
-			prim.size((int)size.x);
+			push(other);
+			translate(pos,other);
+			rotate_behavior(rot,other);
+			prim.pass_graphic(other);
+			prim.size((int)size.x());
 			prim.show();
-			stop_matrix();
+			pop(other);
 		}
 
 		else if (this.get_type() == TRIANGLE_ROPE) {
 			if(prim == null) prim = new R_Primitive(papplet,3);
-			start_matrix();
-			translate(pos);
-			rotate_behavior(rot);
-			prim.size((int)size.x);
+			push(other);
+			translate(pos,other);
+			rotate_behavior(rot,other);
+			prim.pass_graphic(other);
+			prim.size((int)size.x());
 			prim.show();
-			stop_matrix();
+			pop(other);
 		}  else if (this.get_type() == SQUARE_ROPE) {
 			if(prim == null) prim = new R_Primitive(papplet,4);
-			start_matrix();
-			translate(pos);
-			rotate_behavior(rot);
-			prim.size((int)size.x);
+			push(other);
+			translate(pos,other);
+			rotate_behavior(rot,other);
+			prim.pass_graphic(other);
+			prim.size((int)size.x());
 			prim.show();
-			stop_matrix();
+			pop(other);
 		} else if (this.get_type() == PENTAGON_ROPE) {
 			if(prim == null) prim = new R_Primitive(papplet,5);
-			start_matrix();
-			translate(pos);
-			rotate_behavior(rot);
-			prim.size((int)size.x);
+			push(other);
+			translate(pos,other);
+			rotate_behavior(rot,other);
+			prim.pass_graphic(other);
+			prim.size((int)size.x());
 			prim.show();
-			stop_matrix();
+			pop(other);
 		} else if (this.get_type() == HEXAGON_ROPE) {
 			if(prim == null) prim = new R_Primitive(papplet,6);
-			start_matrix();
-			translate(pos);
-			rotate_behavior(rot);
-			prim.size((int)size.x);
+			push(other);
+			translate(pos,other);
+			rotate_behavior(rot,other);
+			prim.pass_graphic(other);
+			prim.size((int)size.x());
 			prim.show();
-			stop_matrix() ;
+			pop(other);
 		} else if (this.get_type() == HEPTAGON_ROPE) {
 			if(prim == null) prim = new R_Primitive(papplet,7);
-			start_matrix();
-			translate(pos);
-			rotate_behavior(rot);
-			prim.size((int)size.x);
+			push(other);
+			translate(pos,other);
+			rotate_behavior(rot,other);
+			prim.pass_graphic(other);
+			prim.size((int)size.x());
 			prim.show();
-			stop_matrix();
+			pop(other);
 		} else if (this.get_type() == OCTOGON_ROPE) {
 			if(prim == null) prim = new R_Primitive(papplet,8);
-			start_matrix();
-			translate(pos);
-			rotate_behavior(rot) ;
-			prim.size((int)size.x);
+			push(other);
+			translate(pos,other);
+			rotate_behavior(rot,other);
+			prim.pass_graphic(other);
+			prim.size((int)size.x());
 			prim.show();
-			stop_matrix();
+			pop(other);
 		} else if (this.get_type() == NONAGON_ROPE) {
 			if(prim == null) prim = new R_Primitive(papplet,9);
-			start_matrix();
-			translate(pos);
-			rotate_behavior(rot) ;
-			prim.size((int)size.x);
+			push(other);
+			translate(pos,other);
+			rotate_behavior(rot,other);
+			prim.pass_graphic(other);
+			prim.size((int)size.x());
 			prim.show();
-			stop_matrix();
+			pop(other);
 		} else if (this.get_type() == DECAGON_ROPE) {
 			if(prim == null) prim = new R_Primitive(papplet,10);
-			start_matrix();
-			translate(pos);
-			rotate_behavior(rot) ;
-			prim.size((int)size.x);
+			push(other);
+			translate(pos,other);
+			rotate_behavior(rot,other);
+			prim.pass_graphic(other);
+			prim.size((int)size.x());
 			prim.show();
-			stop_matrix();
+			pop(other);
 		} else if (this.get_type() == HENDECAGON_ROPE) {
 			if(prim == null) prim = new R_Primitive(papplet,11);
-			start_matrix();
-			translate(pos);
-			rotate_behavior(rot) ;
-			prim.size((int)size.x);
+			push(other);
+			translate(pos,other);
+			rotate_behavior(rot,other);
+			prim.pass_graphic(other);
+			prim.size((int)size.x());
 			prim.show();
-			stop_matrix();
+			pop(other);
 		} else if (this.get_type() == DODECAGON_ROPE) {
 			if(prim == null) prim = new R_Primitive(papplet,12);
-			start_matrix();
-			translate(pos);
-			rotate_behavior(rot) ;
-			prim.size((int)size.x);
+			push(other);
+			translate(pos,other);
+			rotate_behavior(rot,other);
+			prim.pass_graphic(other);
+			prim.size((int)size.x());
 			prim.show();
-			stop_matrix();
+			pop(other);
 		}
 
 		else if (this.get_type() == CROSS_RECT_ROPE) {
-			start_matrix();
-			translate(pos);
-			rotate_behavior(rot);
-			cross_rect(ivec2(0),(int)size.y,(int)size.x);
-			stop_matrix() ;
+			push(other);
+			translate(pos,other);
+			rotate_behavior(rot,other);
+			cross_rect(ivec2(0),(int)size.y(),(int)size.x(),other);
+			pop(other) ;
 		} else if (this.get_type() == CROSS_BOX_2_ROPE) {
-			start_matrix();
-			translate(pos);
-			rotate_behavior(rot);
-			cross_box_2(vec2(size.x, size.y));
-			stop_matrix() ;
+			push(other);
+			translate(pos,other);
+			rotate_behavior(rot,other);
+			cross_box_2(vec2(size.x(), size.y()),other);
+			pop(other) ;
 		} else if (this.get_type() == CROSS_BOX_3_ROPE) {
-			start_matrix();
-			translate(pos);
-			rotate_behavior(rot);
-			cross_box_3(size);
-			stop_matrix();
+			push(other);
+			translate(pos,other);
+			rotate_behavior(rot,other);
+			cross_box_3(size,other);
+			pop(other);
 		}
 
 
 
 	  else if(this.get_type() == TEXT_ROPE) {
-	  	start_matrix();
-	  	translate(pos);
-	  	rotate_behavior(rot);
-	  	textSize(size.x);
+	  	push(other);
+	  	translate(pos,other);
+	  	rotate_behavior(rot,other);
+	  	textAlign(align,other);
+	  	textSize(size.x(),other);
 	  	if(costume_text_rope != null) {
-	  		text(costume_text_rope,0,0);
+	  		text(costume_text_rope,0,0,other);
 	  	} else {
 	  		costume_text_rope = "ROPE";
-	  		text(costume_text_rope,0,0);
+	  		text(costume_text_rope,0,0,other);
 	  	}
-	  	stop_matrix();
+	  	pop(other);
 	  }
 
 		else if (this.get_type() == SPHERE_LOW_ROPE) {
-			start_matrix();
-			translate(pos);
-			rotate_behavior(rot);
-			sphereDetail(5);
-			sphere(size.x);
-			stop_matrix();
+			push(other);
+			translate(pos,other);
+			rotate_behavior(rot,other);
+			sphereDetail(5,other);
+			sphere(size.x(),other);
+			pop(other);
 		} else if (this.get_type() == SPHERE_MEDIUM_ROPE) {
-			start_matrix();
-			translate(pos);
-			rotate_behavior(rot);
-			sphereDetail(12);
-			sphere(size.x);
-			stop_matrix();
+			push(other);
+			translate(pos,other);
+			rotate_behavior(rot,other);
+			sphereDetail(12,other);
+			sphere(size.x(),other);
+			pop(other);
 		} else if (this.get_type() == SPHERE_HIGH_ROPE) {
-			start_matrix();
-			translate(pos);
-			rotate_behavior(rot);
-			sphere(size.x);
-			stop_matrix();
+			push(other);
+			translate(pos,other);
+			rotate_behavior(rot,other);
+			sphere(size.x(),other);
+			pop(other);
 		} else if (this.get_type() == TETRAHEDRON_ROPE) {
-			start_matrix();
-			translate(pos);
-			rotate_behavior(rot);
-			polyhedron("TETRAHEDRON","VERTEX",(int)size.x);
-			stop_matrix();
+			push(other);
+			translate(pos,other);
+			rotate_behavior(rot,other);
+			polyhedron("TETRAHEDRON","VERTEX",(int)size.x,other);
+			pop(other);
 		} else if (this.get_type() == BOX_ROPE) {
-			start_matrix();
-			translate(pos);
-			rotate_behavior(rot);
-			box(size);
-			stop_matrix();
+			push(other);
+			translate(pos,other);
+			rotate_behavior(rot,other);
+			box(size,other);
+			pop(other);
 		}
 
 		else if (this.get_type() == STAR_ROPE) {
 			float [] ratio = {.38};
-			start_matrix();
-			translate(pos);
-			rotate_behavior(rot);
+			push(other);
+			translate(pos,other);
+			rotate_behavior(rot,other);
 
 			star_3D_is(false);
 			if(get_summit() == 0 ) set_summit(5);
 			star_summits(get_summit());
-			star(vec3(),size);
-			stop_matrix();
+			star(vec3(),size,other);
+			pop(other);
 		} else if (this.get_type() == STAR_3D_ROPE) {
 			float [] ratio = {.38};
-			start_matrix();
-			translate(pos);
-			rotate_behavior(rot);
+			push(other);
+			translate(pos,other);
+			rotate_behavior(rot,other);
 
 			star_3D_is(true);
 			if(get_summit() == 0 ) set_summit(5);
 			star_summits(get_summit());
-			star(vec3(),size);
-			stop_matrix();
+			star(vec3(),size,other);
+			pop(other);
 		}
 
 
 		else if (this.get_type() == FLOWER_ROPE) {
-			start_matrix();
-			translate(pos);
-			rotate_behavior(rot);
+			push(other);
+			translate(pos,other);
+			rotate_behavior(rot,other);
 			if(get_summit() == 0 ) set_summit(5);
 			if(get_pair() == null || get_pair().length != get_summit()*2) {
 				pair = new vec2[get_summit()*2];
@@ -692,64 +760,64 @@ public class Costume {
 			for(int i = 0 ; i < get_summit() ; i++) {
 				flower_static(pair[i],strength[i],pair[i+get_summit()],strength[i+get_summit()]);
 			}
-			flower(vec3(),(int)size.x,get_summit());
-			stop_matrix();
+			flower(vec3(),(int)size.x,get_summit(),other);
+			pop(other);
 		}
 
 
 		else if (this.get_type() == TETRAHEDRON_LINE_ROPE) {
-			start_matrix();
-			translate(pos);
-			rotate_behavior(rot);
-			polyhedron("TETRAHEDRON","LINE",(int)size.x);
-			stop_matrix();
+			push(other);
+			translate(pos,other);
+			rotate_behavior(rot,other);
+			polyhedron("TETRAHEDRON","LINE",(int)size.x(),other);
+			pop(other);
 		} else if (this.get_type() == CUBE_LINE_ROPE) {
-			start_matrix();
-			translate(pos);
-			rotate_behavior(rot);
-			polyhedron("CUBE","LINE",(int)size.x);
-			stop_matrix();
+			push(other);
+			translate(pos,other);
+			rotate_behavior(rot,other);
+			polyhedron("CUBE","LINE",(int)size.x(),other);
+			pop(other);
 		} else if (this.get_type() == OCTOHEDRON_LINE_ROPE) {
-			start_matrix();
-			translate(pos);
-			rotate_behavior(rot);
-			polyhedron("OCTOHEDRON","LINE",(int)size.x);
-			stop_matrix();
+			push(other);
+			translate(pos,other);
+			rotate_behavior(rot,other);
+			polyhedron("OCTOHEDRON","LINE",(int)size.x(),other);
+			pop(other);
 		} else if (this.get_type() == RHOMBIC_COSI_DODECAHEDRON_SMALL_LINE_ROPE) {
-			start_matrix();
-			translate(pos);
-			rotate_behavior(rot);
-			polyhedron("RHOMBIC COSI DODECAHEDRON SMALL","LINE",(int)size.x);
-			stop_matrix();
+			push(other);
+			translate(pos,other);
+			rotate_behavior(rot,other);
+			polyhedron("RHOMBIC COSI DODECAHEDRON SMALL","LINE",(int)size.x(),other);
+			pop(other);
 		} else if (this.get_type() == ICOSI_DODECAHEDRON_LINE_ROPE) {
-			start_matrix();
-			translate(pos);
-			rotate_behavior(rot);
-			polyhedron("ICOSI DODECAHEDRON","LINE",(int)size.x);
-			stop_matrix();
+			push(other);
+			translate(pos,other);
+			rotate_behavior(rot,other);
+			polyhedron("ICOSI DODECAHEDRON","LINE",(int)size.x(),other);
+			pop(other);
 		}
 
 		else if(this.get_type() == HOUSE_ROPE) {
-			start_matrix();
-			translate(pos);
-			rotate_behavior(rot);
-			house(size);
-			stop_matrix();
+			push(other);
+			translate(pos,other);
+			rotate_behavior(rot,other);
+			house(size,other);
+			pop(other);
 		}
 
 
 	  else if(this.get_type() == VIRUS_ROPE) {
-			start_matrix();
+			push();
 			translate(pos);
 			rotate_behavior(rot);
 			virus(vec3(),size,0,-1);
-			stop_matrix();
+			pop();
 		}
 
 
 
 		else if(this.get_type() < 0) {
-			start_matrix() ;
+			push() ;
 			translate(pos) ;
 			rotate_behavior(rot) ;
 			for(int i = 0 ; i < costume_pic_list.size() ; i++) {
@@ -778,7 +846,7 @@ public class Costume {
 					}		
 				}
 			}
-			stop_matrix() ;
+			pop() ;
 		}
 
 	  // reset variable can be change the other costume, if the effect is don't use.
@@ -878,9 +946,10 @@ public class Costume_pic {
 /**
 Class House
 2019-2019
-v 0.0.7
+v 0.2.0
 */
-public class House {
+import rope.costume.R_Shape;
+public class House extends rope.costume.R_Shape  {
 	private int fill_roof = r.BLOOD;
 	private int fill_wall = r.GRAY[6];
 	private int fill_ground = r.BLACK;
@@ -891,8 +960,7 @@ public class House {
 	private boolean aspect_is;
 
 	private int level;
-	private vec3 pos;
-	private vec3 size;
+	// private vec3 pos;
 	private boolean roof_ar, roof_cr; // to draw or not the small roof side
 	private vec3 offset = vec3(-.5,0,.5); // to center the house; 
 
@@ -900,17 +968,20 @@ public class House {
 	private vec3 [] pc;
 
 	private int type = CENTER;
-	public House() {
+	public House(PApplet pa) {
+		super(pa);
 		build();
 	}
   
-  public House(float size) {
-  	this.size = vec3(size);
+  public House(PApplet pa, float size) {
+  	super(pa);
+  	size(size);
 		build();
 	}
 
-	public House(float sx, float sy, float sz) {
-		this.size = vec3(sx,sy,sz);
+	public House(PApplet pa, float sx, float sy, float sz) {
+		super(pa);
+		size(sx,sy,sz);
 		build();
 	}
 
@@ -918,21 +989,6 @@ public class House {
 		this.type = type;
 	}
 
-	public void set_pos(vec3 pos) {
-		if(this.pos == null) {
-			this.pos = pos.copy();
-		} else {
-			this.pos.set(pos);
-		}
-	}
-
-	public void set_size(vec3 size) {
-		if(this.size == null) {
-			this.size = size.copy();
-		} else {
-			this.size.set(size);
-		}
-	}
 
 	private void set_peak(float ra, float rc) {
 		// check if this peak configuration is permitted
@@ -1102,73 +1158,73 @@ public class House {
 	  	aspect(fill_wall,stroke_wall,thickness);
 	  }
 		// draw A : WALL > small and special side
-		beginShape();
+		beginShape(other);
 		if(def_pos == null) {
 			if(!roof_ar) {
-				vertex(pa[0].copy().mult(vec3(size.x,smallest_size,size.z))); // special point for the roof peak
+				vertex(pa[0].copy().mult(vec3(size.x,smallest_size,size.z)),other); // special point for the roof peak
 			}
 			for(int i = 1 ; i < pa.length ; i++) {
-				vertex(pa[i].copy().mult(size));
+				vertex(pa[i].copy().mult(size),other);
 			}
 		} else {
 			if(!roof_ar) {
-				vertex(pa[0].copy().mult(vec3(size.x,smallest_size,size.z)).add(def_pos)); // special point for the roof peak
+				vertex(pa[0].copy().mult(vec3(size.x,smallest_size,size.z)).add(def_pos),other); // special point for the roof peak
 			}
 			for(int i = 1 ; i < pa.length ; i++) {
-				vertex(pa[i].copy().mult(size).add(def_pos));
+				vertex(pa[i].copy().mult(size).add(def_pos),other);
 			}
 		}
-		endShape(CLOSE);
+		endShape(CLOSE,other);
 
 
 	  // draw B : WALL > main wall
-	  beginShape();
+	  beginShape(other);
 		if(def_pos == null) {
-			vertex(pa[2].copy().mult(size));
-			vertex(pa[1].copy().mult(size));
-			vertex(pc[1].copy().mult(size));
-			vertex(pc[2].copy().mult(size));
+			vertex(pa[2].copy().mult(size),other);
+			vertex(pa[1].copy().mult(size),other);
+			vertex(pc[1].copy().mult(size),other);
+			vertex(pc[2].copy().mult(size),other);
 		} else {
-			vertex(pa[2].copy().mult(size).add(def_pos));
-			vertex(pa[1].copy().mult(size).add(def_pos));
-			vertex(pc[1].copy().mult(size).add(def_pos));
-			vertex(pc[2].copy().mult(size).add(def_pos));
+			vertex(pa[2].copy().mult(size).add(def_pos),other);
+			vertex(pa[1].copy().mult(size).add(def_pos),other);
+			vertex(pc[1].copy().mult(size).add(def_pos),other);
+			vertex(pc[2].copy().mult(size).add(def_pos),other);
 		}
-		endShape(CLOSE);
+		endShape(CLOSE,other);
 
 	  // draw C : WALL > small and special side
-		beginShape();
+		beginShape(other);
 		if(def_pos == null) {
 			if(!roof_cr) {
-				vertex(pc[0].copy().mult(vec3(size.x,smallest_size,size.z))); // special point for the roof peak
+				vertex(pc[0].copy().mult(vec3(size.x,smallest_size,size.z)),other); // special point for the roof peak
 			}
 			for(int i = 1 ; i < pc.length ; i++) {
-				vertex(pc[i].copy().mult(size));
+				vertex(pc[i].copy().mult(size),other);
 			}
 		} else {
 			if(!roof_cr) {
-				vertex(pc[0].copy().mult(vec3(size.x,smallest_size,size.z)).add(def_pos)); // special point for the roof peak
+				vertex(pc[0].copy().mult(vec3(size.x,smallest_size,size.z)).add(def_pos),other); // special point for the roof peak
 			}
 			for(int i = 1 ; i < pc.length ; i++) {
-				vertex(pc[i].copy().mult(size).add(def_pos));
+				vertex(pc[i].copy().mult(size).add(def_pos),other);
 			}	
 		}
-		endShape(CLOSE);
+		endShape(CLOSE,other);
 
 		// draw D : WALL > main wall
-		beginShape();
+		beginShape(other);
 		if(def_pos == null) {
-			vertex(pa[3].copy().mult(size));
-			vertex(pa[4].copy().mult(size));
-			vertex(pc[4].copy().mult(size));
-			vertex(pc[3].copy().mult(size));
+			vertex(pa[3].copy().mult(size),other);
+			vertex(pa[4].copy().mult(size),other);
+			vertex(pc[4].copy().mult(size),other);
+			vertex(pc[3].copy().mult(size),other);
 		} else {
-			vertex(pa[3].copy().mult(size).add(def_pos));
-			vertex(pa[4].copy().mult(size).add(def_pos));
-			vertex(pc[4].copy().mult(size).add(def_pos));
-			vertex(pc[3].copy().mult(size).add(def_pos));
+			vertex(pa[3].copy().mult(size).add(def_pos),other);
+			vertex(pa[4].copy().mult(size).add(def_pos),other);
+			vertex(pc[4].copy().mult(size).add(def_pos),other);
+			vertex(pc[3].copy().mult(size).add(def_pos),other);
 		}
-		endShape(CLOSE);
+		endShape(CLOSE,other);
 
 
 
@@ -1179,19 +1235,19 @@ public class House {
 	  	aspect(fill_ground,stroke_ground,thickness);
 	  }
 		// draw G : GROUND
-		beginShape();
+		beginShape(other);
 		if(def_pos == null) {
-			vertex(pa[2].copy().mult(size));
-			vertex(pc[2].copy().mult(size));
-			vertex(pc[3].copy().mult(size));
-			vertex(pa[3].copy().mult(size));
+			vertex(pa[2].copy().mult(size),other);
+			vertex(pc[2].copy().mult(size),other);
+			vertex(pc[3].copy().mult(size),other);
+			vertex(pa[3].copy().mult(size),other);
 		} else {
-			vertex(pa[2].copy().mult(size).add(def_pos));
-			vertex(pc[2].copy().mult(size).add(def_pos));
-			vertex(pc[3].copy().mult(size).add(def_pos));
-			vertex(pa[3].copy().mult(size).add(def_pos));
+			vertex(pa[2].copy().mult(size).add(def_pos),other);
+			vertex(pc[2].copy().mult(size).add(def_pos),other);
+			vertex(pc[3].copy().mult(size).add(def_pos),other);
+			vertex(pa[3].copy().mult(size).add(def_pos),other);
 		}
-		endShape(CLOSE);
+		endShape(CLOSE,other);
 
 
 
@@ -1200,63 +1256,63 @@ public class House {
 	  	aspect(fill_roof,stroke_roof,thickness);
 	  }
     // draw E : ROOF > main roof
-		beginShape();
+		beginShape(other);
 		if(def_pos == null) {
-			vertex(pa[4].copy().mult(size));
-			vertex(pa[0].copy().mult(vec3(size.x,smallest_size,size.z))); // special point for the roof peak
-			vertex(pc[0].copy().mult(vec3(size.x,smallest_size,size.z))); // special point for the roof peak
-			vertex(pc[4].copy().mult(size));			
+			vertex(pa[4].copy().mult(size),other);
+			vertex(pa[0].copy().mult(vec3(size.x,smallest_size,size.z)),other); // special point for the roof peak
+			vertex(pc[0].copy().mult(vec3(size.x,smallest_size,size.z)),other); // special point for the roof peak
+			vertex(pc[4].copy().mult(size),other);			
 		} else {
-			vertex(pa[4].copy().mult(size).add(def_pos));
-			vertex(pa[0].copy().mult(vec3(size.x,smallest_size,size.z)).add(def_pos)); // special point for the roof peak
-			vertex(pc[0].copy().mult(vec3(size.x,smallest_size,size.z)).add(def_pos)); // special point for the roof peak
-			vertex(pc[4].copy().mult(size).add(def_pos));
+			vertex(pa[4].copy().mult(size).add(def_pos),other);
+			vertex(pa[0].copy().mult(vec3(size.x,smallest_size,size.z)).add(def_pos),other); // special point for the roof peak
+			vertex(pc[0].copy().mult(vec3(size.x,smallest_size,size.z)).add(def_pos),other); // special point for the roof peak
+			vertex(pc[4].copy().mult(size).add(def_pos),other);
 		}
-		endShape(CLOSE);
+		endShape(CLOSE,other);
 
 		// draw F : ROOF > main roof
-		beginShape();
+		beginShape(other);
 		if(def_pos == null) {
-			vertex(pa[0].copy().mult(vec3(size.x,smallest_size,size.z))); // special point for the roof peak
-			vertex(pa[1].copy().mult(size));
-			vertex(pc[1].copy().mult(size));
-			vertex(pc[0].copy().mult(vec3(size.x,smallest_size,size.z))); // special point for the roof peak
+			vertex(pa[0].copy().mult(vec3(size.x,smallest_size,size.z)),other); // special point for the roof peak
+			vertex(pa[1].copy().mult(size),other);
+			vertex(pc[1].copy().mult(size),other);
+			vertex(pc[0].copy().mult(vec3(size.x,smallest_size,size.z)),other); // special point for the roof peak
 		} else {
-			vertex(pa[0].copy().mult(vec3(size.x,smallest_size,size.z)).add(def_pos)); // special point for the roof peak
-			vertex(pa[1].copy().mult(size).add(def_pos));
-			vertex(pc[1].copy().mult(size).add(def_pos));
-			vertex(pc[0].copy().mult(vec3(size.x,smallest_size,size.z)).add(def_pos)); // special point for the roof peak
+			vertex(pa[0].copy().mult(vec3(size.x,smallest_size,size.z)).add(def_pos),other); // special point for the roof peak
+			vertex(pa[1].copy().mult(size).add(def_pos),other);
+			vertex(pc[1].copy().mult(size).add(def_pos),other);
+			vertex(pc[0].copy().mult(vec3(size.x,smallest_size,size.z)).add(def_pos),other); // special point for the roof peak
 		}
-		endShape(CLOSE);
+		endShape(CLOSE,other);
 
 		// DRAW AR  > small side roof
 		if(roof_ar) {
-			beginShape();
+			beginShape(other);
 			if(def_pos == null) {
-				vertex(pa[0].copy().mult(vec3(size.x,smallest_size,size.z))); // special point for the roof peak
-				vertex(pa[1].copy().mult(size));
-				vertex(pa[4].copy().mult(size));
+				vertex(pa[0].copy().mult(vec3(size.x,smallest_size,size.z)),other); // special point for the roof peak
+				vertex(pa[1].copy().mult(size),other);
+				vertex(pa[4].copy().mult(size),other);
 			} else {
-				vertex(pa[0].copy().mult(vec3(size.x,smallest_size,size.z)).add(def_pos)); // special point for the roof peak
-				vertex(pa[1].copy().mult(size).add(def_pos));
-				vertex(pa[4].copy().mult(size).add(def_pos));
+				vertex(pa[0].copy().mult(vec3(size.x,smallest_size,size.z)).add(def_pos),other); // special point for the roof peak
+				vertex(pa[1].copy().mult(size).add(def_pos),other);
+				vertex(pa[4].copy().mult(size).add(def_pos),other);
 			}
-			endShape(CLOSE);
+			endShape(CLOSE,other);
 		}
 
 		// DRAW CR > small side roof
 		if(roof_cr) {
-			beginShape();
+			beginShape(other);
 			if(def_pos == null) {
-				vertex(pc[0].copy().mult(vec3(size.x,smallest_size,size.z))); // special point for the roof peak
-				vertex(pc[1].copy().mult(size));
-				vertex(pc[4].copy().mult(size));
+				vertex(pc[0].copy().mult(vec3(size.x,smallest_size,size.z)),other); // special point for the roof peak
+				vertex(pc[1].copy().mult(size),other);
+				vertex(pc[4].copy().mult(size),other);
 			} else {
-				vertex(pc[0].copy().mult(vec3(size.x,smallest_size,size.z)).add(def_pos)); // special point for the roof peak
-				vertex(pc[1].copy().mult(size).add(def_pos));
-				vertex(pc[4].copy().mult(size).add(def_pos));
+				vertex(pc[0].copy().mult(vec3(size.x,smallest_size,size.z)).add(def_pos),other); // special point for the roof peak
+				vertex(pc[1].copy().mult(size).add(def_pos),other);
+				vertex(pc[4].copy().mult(size).add(def_pos),other);
 			}
-			endShape(CLOSE);
+			endShape(CLOSE,other);
 		}
 	}
 }

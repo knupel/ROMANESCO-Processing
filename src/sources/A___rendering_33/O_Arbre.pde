@@ -1,7 +1,7 @@
 /**
 * ARBRE 
 * 2012-2019
-* v 1.6.0
+* v 1.6.1
 */
 class ArbreRomanesco extends Romanesco {
   Arbre arbre ;
@@ -10,7 +10,7 @@ class ArbreRomanesco extends Romanesco {
     item_name = "Arbre" ;
     item_author  = "Stan le Punk";
     item_references = "";
-    item_version = "Version 1.5.1";
+    item_version = "Version 1.6.1";
     item_pack = "Base 2012-2019" ;
     item_costume = "ellipse/triangle/rect/cross/pentagon/flower/Star 5/Star 7/Super Star 8/Super Star 12";
     item_mode = "";
@@ -217,7 +217,7 @@ class ArbreRomanesco extends Romanesco {
         factor = deep ;
       }
 
-      start_matrix();    // Save the current state of transformation (i.e. where are we now)
+      push();    // Save the current state of transformation (i.e. where are we now)
       rotate(t);   // Rotate by theta
 
       aspect_is(fill_is(),stroke_is(),alpha_is());
@@ -238,7 +238,7 @@ class ArbreRomanesco extends Romanesco {
       translate(pos_b) ;
        
       branch(thickness,size,div,fork,amplitude,n,costume,bool_line,ID); // Ok, now call myself to draw two new branches!!
-      stop_matrix();     // Whenever we get back here, we "pop" in order to restore the previous matrix state
+      pop();     // Whenever we get back here, we "pop" in order to restore the previous matrix state
     }
   }
 }

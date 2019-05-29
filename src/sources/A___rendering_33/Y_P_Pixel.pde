@@ -1,9 +1,9 @@
 /**
 * CLASS PIX 
-* v 0.10.3
+* v 0.10.4
 * 2016-2018
 * Processing 3.5.3
-* Rope library 0.6.2
+* Rope library 0.8.1.26
 * @author @stanlepunk
 * @see https://github.com/StanLepunK/Pixel
 */
@@ -1171,10 +1171,10 @@ class Cloud_3D extends Cloud {
   
   // internal
   protected void costume_3D_polar(float dist) {
-   start_matrix() ;
+   push() ;
    translate(pos) ;
     for(int i = 0 ; i < num ;i++) {
-      start_matrix() ;
+      push() ;
       /**
       super effect
       float rot = (map(mouseX,0,width,-PI,PI)) ;
@@ -1194,7 +1194,7 @@ class Cloud_3D extends Cloud {
       vec3 pos_primitive = vec3(radius,0,0) ;
       translate(pos_primitive) ;
 
-      start_matrix();
+      push();
       rotateXYZ(orientation) ;
       vec3 pos_local_primitive = vec3();
 
@@ -1202,10 +1202,10 @@ class Cloud_3D extends Cloud {
         set_ratio_costume_size(ratio_costume_size);
       }
       costume.draw(pos_local_primitive, size,vec3(0,0,costume_angle));
-      stop_matrix() ;
-      stop_matrix() ;
+      pop() ;
+      pop() ;
     }
-    stop_matrix() ;
+    pop() ;
   }
 }
 

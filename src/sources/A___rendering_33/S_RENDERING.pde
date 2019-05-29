@@ -337,13 +337,13 @@ void message_opening() {
   stroke(blanc);
   textSize(48);
   textAlign(CENTER);
-  start_matrix();
+  push();
   translate(width/2, height/2, abs(sin(frameCount * .005)) *(height/2)) ;
   text(nameVersion.toUpperCase(),0,-12);
   textSize(24);
   text(prettyVersion+"." + version,0,16);
   text("rendering " +IAM,0,36);
-  stop_matrix() ;
+  pop() ;
   textAlign(LEFT) ;
 }
 

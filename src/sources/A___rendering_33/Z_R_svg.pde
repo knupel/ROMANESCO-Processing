@@ -1,6 +1,6 @@
 /**
 * ROPE SVG
-* v 1.5.0
+* v 1.5.1
 * Copyleft (c) 2014-2019
 * @author @stanlepunk
 * @see https://github.com/StanLepunK/Rope_framework
@@ -132,14 +132,14 @@ class ROPE_svg {
     reset() ;
     vec3 new_pos = pos.copy() ;
     if(bool_scale_translation) {
-      start_matrix() ;
+      push() ;
       vec3 translation = vec3() ;
       translation = scale_translation(scale_svg, layer_or_group_name); 
       translate(translation) ;
     }
     draw_SVG (pos, scale_svg, jitter_svg, layer_or_group_name) ;
 
-    if(bool_scale_translation) stop_matrix() ;
+    if(bool_scale_translation) pop() ;
 
     change_boolean_to_false() ;
   }
@@ -1069,10 +1069,10 @@ class ROPE_svg {
 
     
     if(check_matrix(t.matrix)) {
-      start_matrix() ;
+      push() ;
       matrix(t.matrix, temp_pos) ;
       text(t.sentence, 0,0) ;
-      stop_matrix() ;
+      pop() ;
     } else {
       // if there is no matrix effect
       text(t.sentence, temp_pos) ;
@@ -1186,10 +1186,10 @@ class ROPE_svg {
     vec2 temp_size = e.size.copy() ;
 
     if(check_matrix(e.matrix)) {
-      start_matrix() ;
+      push() ;
       matrix(e.matrix, temp_pos) ;
       ellipse(vec2(0), temp_size.mult(scale.x, scale.y)) ;
-      stop_matrix() ;
+      pop() ;
     } else {
       // if there is no matrix effect
       ellipse(temp_pos, temp_size.mult(scale.x, scale.y)) ;
@@ -1240,7 +1240,7 @@ class ROPE_svg {
     vec2 temp_size = r.size.copy() ;
 
     if(check_matrix(r.matrix)) {
-      start_matrix() ;
+      push() ;
       matrix(r.matrix, temp_pos) ;
       vec2 pos_def = vec2() ;
       // pos_def.x += (temp_size.x *.5) ;
@@ -1250,7 +1250,7 @@ class ROPE_svg {
       printTempo(60, pos_def) ;
       printTempo(60, "void build_rectangle()") ;
       rect(pos_def, temp_size) ;
-      stop_matrix() ;
+      pop() ;
     } else {
       // if there is no matrix effect
       rect(temp_pos, temp_size.mult(scale.x, scale.y)) ;

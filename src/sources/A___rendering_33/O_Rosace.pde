@@ -1,7 +1,7 @@
 /**
 * Rosace
 * 2019-2019
-* V 0.1.1
+* V 0.1.2
 */
 
 class Rosace extends Romanesco {
@@ -11,7 +11,7 @@ class Rosace extends Romanesco {
     //from the index_objects.csv
     item_name = "Rosace" ;
     item_author  = "Stan le Punk";
-    item_version = "Version 0.1.0";
+    item_version = "Version 0.1.2";
     item_pack = "Base 2019-2019";
     item_mode ="rosace/rose/crown/pillar";
     item_costume = "surface/point/line/face";
@@ -1308,7 +1308,7 @@ class Rose {
 
 
   void update() {
-    chose.angle(angle);
+    chose.angle_x(angle);
     chose.radius(mutation(speed_mutation,min_mutation,max_mutation,relief));
     chose.calc();
     chose.get_final_points();
@@ -1327,7 +1327,7 @@ class Rose {
   }
 
   void show() {
-    chose.angle(angle);
+    chose.angle_x(angle);
     chose.radius(mutation(speed_mutation,min_mutation,max_mutation,relief));
     chose.calc();
     vec3 offset = offset();

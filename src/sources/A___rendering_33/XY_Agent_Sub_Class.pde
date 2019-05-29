@@ -37,12 +37,12 @@ class Herbivore extends Agent_dynamic {
   void info_visual(vec4 colour) {
     aspect(vec4(),colour_info(colour, satiate, pregnant, fertility), 1) ;
     vec3 pos_temp = vec3(0) ;
-    start_matrix() ;
+    push() ;
     translate(pos) ;
     ellipse(pos_temp.x, pos_temp.y, sense_range*2, sense_range*2) ;
     ellipse(pos_temp.x, pos_temp.y, eat_zone *2, eat_zone *2) ;
     ellipse(pos_temp.x, pos_temp.y, mass *2, mass *2) ;
-    stop_matrix() ;
+    pop() ;
   }
   
   // print
@@ -97,12 +97,12 @@ class Omnivore extends Agent_dynamic {
   void info_visual(vec4 colour) {
     aspect(vec4(),colour_info(colour, satiate, pregnant, fertility), 1) ;
     vec3 pos_temp = vec3(0) ;
-    start_matrix() ;
+    push() ;
     translate(pos) ;
     ellipse(pos_temp.x, pos_temp.y, sense_range*2, sense_range*2) ;
     ellipse(pos_temp.x, pos_temp.y, eat_zone *2, eat_zone *2) ;
     ellipse(pos_temp.x, pos_temp.y, mass *2, mass *2) ;
-    stop_matrix() ;
+    pop() ;
   }
   
   // print
@@ -159,7 +159,7 @@ class Carnivore extends Agent_dynamic {
   void info_visual(vec4 colour) {
     vec3 pos_temp = vec3(0) ;
     aspect(vec4(), colour_info(colour, satiate, pregnant, fertility), 1) ;
-    start_matrix() ;
+    push() ;
     translate(pos) ;
     // info feed
     ellipse(pos_temp.x, pos_temp.y, sense_range*2, sense_range*2) ;
@@ -167,7 +167,7 @@ class Carnivore extends Agent_dynamic {
     ellipse(pos_temp.x, pos_temp.y, eat_zone *2, eat_zone *2) ;
     ellipse(pos_temp.x, pos_temp.y, mass *2, mass *2) ;
     // info reproduction
-    stop_matrix() ;
+    pop() ;
   }
 
   // print
@@ -276,12 +276,12 @@ class Bacterium extends Agent_dynamic {
   void info_visual(vec4 colour) {
     aspect(vec4(), colour_info(colour, satiate, pregnant, fertility), 1) ;
     vec3 pos_temp = vec3 (0) ;
-    start_matrix() ;
+    push() ;
     translate(pos) ;
     ellipse(pos_temp.x, pos_temp.y, sense_range*2, sense_range*2) ;
     ellipse(pos_temp.x, pos_temp.y, eat_zone *2, eat_zone *2) ;
     ellipse(pos_temp.x, pos_temp.y, mass *2, mass *2) ;
-    stop_matrix() ;
+    pop() ;
   }
 
 
@@ -378,13 +378,13 @@ class Flora extends Agent_static {
    void info_visual(vec4 colour) {
       vec3 pos_temp = vec3(0) ;
       aspect(vec4(), colour_info(colour), 1) ;
-      start_matrix() ;
+      push() ;
       translate(pos) ;
       // info feed
       strokeWeight(2) ;
       point(pos_temp) ;
       // info reproduction
-      stop_matrix() ;
+      pop() ;
    }
    
    void info_print_flora() {
@@ -440,13 +440,13 @@ class Dead extends Agent_static {
    void info_visual(vec4 colour) {
       vec3 pos_temp = vec3(0) ;
       aspect(vec4(), colour_info(colour), 1) ;
-      start_matrix() ;
+      push() ;
       translate(pos) ;
 
       strokeWeight(2) ;
       point(pos_temp) ;
  
-      stop_matrix() ;
+      pop() ;
    }
    
    
