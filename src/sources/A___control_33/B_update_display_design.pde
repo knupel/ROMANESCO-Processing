@@ -47,12 +47,12 @@ void display_structure() {
 
 void display_structure_header(ivec2 pos, ivec2 size, int colour_bg) {
   fill(colour_bg); 
-  rect(pos,size);
+  rect(vec2(pos),vec2(size));
 }
 
 void display_structure_console_general(ivec2 pos, ivec2 size, int colour_up, int colour_down) {
   fill(colour_up); 
-  rect(pos,size); 
+  rect(vec2(pos),vec2(size)); 
 
   fill(colour_down);
   rect(pos.x(),pos.y()+size.y(),size.x(),size.y());
@@ -61,12 +61,12 @@ void display_structure_console_general(ivec2 pos, ivec2 size, int colour_up, int
 
 void display_structure_general(ivec2 pos, ivec2 size, int colour_bg, int colour_line) {
   fill(colour_bg); 
-  rect(pos,size);
+  rect(vec2(pos),vec2(size));
 }
 
 void display_structure_menu_sound(ivec2 pos, ivec2 size, int colour_bg, int colour_line) {
   fill(colour_bg) ;
-  rect(pos,size); 
+  rect(vec2(pos),vec2(size)); 
   // decoration
   fill(colour_line);
   rect(pos.x,pos.y,size.x,thickness_line_deco); 
@@ -74,7 +74,7 @@ void display_structure_menu_sound(ivec2 pos, ivec2 size, int colour_bg, int colo
 
 void display_structure_item_selected(ivec2 pos, ivec2 size, int colour_bg, int colour_line) {
   fill(colour_bg);
-  rect(pos,size); 
+  rect(vec2(pos),vec2(size)); 
   // decoration
   fill(colour_line);
   rect(pos.x,pos.y,size.x,thickness_line_deco); 
@@ -82,7 +82,7 @@ void display_structure_item_selected(ivec2 pos, ivec2 size, int colour_bg, int c
 
 void display_structure_inventory_item(ivec2 pos, ivec2 size, int colour_bg, int colour_line) {
   fill(colour_bg);
-  rect(pos,size); 
+  rect(vec2(pos),vec2(size)); 
 }
 
 
@@ -209,7 +209,7 @@ void update_dropdown_item(Dropdown [] dd, String [] list, Inventory [] inventory
       ivec2 pos = dd[index].get_pos().add(dd[index].get_header_text_pos());
       PFont font = dd[index].get_font();
       textFont(font);
-      text(dd[index].get_name(),pos);
+      text(dd[index].get_name(),vec2(pos));
     }     
   }
 }

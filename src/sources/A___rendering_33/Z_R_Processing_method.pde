@@ -1,6 +1,6 @@
 /**
 ROPE PROCESSING METHOD
-v 2.7.0
+v 2.7.1
 * Copyleft (c) 2014-2019
 * Stan le Punk > http://stanlepunk.xyz/
 * @author @stanlepunk
@@ -269,16 +269,6 @@ void set(vec2 pos, int c) {
   set((int)pos.x(),(int)pos.y(),c);
 }
 
-/*
-void set(ivec2 pos, int c, PGraphics other) {
-  set(pos.x(),pos.y(),c,other);
-}
-
-void set(ivec2 pos, int c) {
-  set(pos.x(),pos.y(),c);
-}
-*/
-
 // main method
 void set(int x, int y, int c, PGraphics other) {
   new rope.core.R_Image(this,other).set(x,y,c,other);
@@ -308,6 +298,14 @@ void endDraw(PGraphics other) {
   }
 }
 
+void clear(PGraphics other) {
+  if(other != null) {
+    other.clear();
+  } else {
+    g.clear();
+  }
+}
+
 
 /**
 Ellipse
@@ -320,39 +318,6 @@ void ellipse(float px, float py, float sx, float sy, PGraphics other) {
     ellipse(px,py,sx,sy);
   }
 }
-
-
-// with vec3 or ivec3
-/*
-void ellipse(ivec p, int x, int y) {
-  ellipse(p,x,y,null);
-}
-
-void ellipse(ivec p, int x, int y, PGraphics other) {
-  ellipse(vec3(p),vec2(x,y),other);
-}
-
-void ellipse(ivec p, int x) {
-  ellipse(p,x,null);
-}
-
-void ellipse(ivec p, int x, PGraphics other) {
-  ellipse(vec3(p),vec2(x),other);
-}
-
-
-void ellipse(ivec p, ivec s) {
-  ellipse(p,s,null);
-}
-
-void ellipse(ivec p, ivec s, PGraphics other) {
-  if(p instanceof ivec3) {
-    ellipse(vec3(p),vec2(s),other);
-  } else {
-    ellipse(vec2(p),vec2(s),other);
-  } 
-}
-*/
 
 void ellipse(vec p, float x, float y) {
   ellipse(p,x,y,null);
@@ -406,20 +371,6 @@ void rect(float px, float py, float sx, float sy, PGraphics other) {
     rect(px,py,sx,sy);
   }
 }
-/*
-void rect(ivec p, ivec s) {
-  rect(p,s,null);
-}
-
-void rect(ivec p, ivec s, PGraphics other) {
-  if(p instanceof ivec3) {
-    rect(vec3(p),vec2(s),other);
-  } else {
-    rect(vec2(p),vec2(s),other);
-  }
-  
-}
-*/
 
 void rect(vec p, vec s) {
   rect(p,s,null);
@@ -449,15 +400,7 @@ void triangle(float x1, float y1, float x2, float y2, float x3, float y3, PGraph
   }
 
 }
-/*
-void triangle(ivec a, ivec b, ivec2 c) {
-  triangle(a,b,c,null);
-}
 
-void triangle(ivec a, ivec b, ivec2 c, PGraphics other) {
-  triangle(vec3(a),vec3(b),vec3(c),other);
-}
-*/
 
 void triangle(vec a, vec b, vec c) {
   triangle(a,b,c,null);
@@ -507,16 +450,6 @@ void box(vec3 p, PGraphics other) {
   box(p.x(),p.y(),p.z(),other);
 }
 
-//
-/*
-void box(ivec3 p) {
-  box(p,null);
-}
-
-void box(ivec3 p, PGraphics other) {
-  box(p.x(),p.y(),p.z(),other);
-}
-*/
 
 
 /**
@@ -584,21 +517,6 @@ void point(vec p, PGraphics other) {
   }
 }
 
-//
-/*
-void point(ivec p) {
-  point(p,null);
-}
-
-void point(ivec p, PGraphics other) {
-  if(renderer_P3D() && p instanceof ivec3) {
-    point(p.x(),p.y(),p.z(),other); 
-  } else {
-    point(p.x(),p.y(),other);
-  }
-}
-*/
-
 
 
 
@@ -633,21 +551,6 @@ void line(vec a, vec b, PGraphics other){
     line(a.x(),a.y(),b.x(),b.y(),other);
   }
 }
-
-//
-/*
-void line(ivec a, ivec b) {
-  line(a,b,null);
-}
-
-void line(ivec a, ivec b, PGraphics other) {
-  if(renderer_P3D() && a instanceof ivec3 && b instanceof ivec3) {
-    line(a.x(),a.y(),a.z(),b.x(),b.y(),b.z(),other); 
-  } else {
-    line(a.x(),a.y(),b.x(),b.y(),other);
-  }
-}
-*/
 
 
 
@@ -955,48 +858,6 @@ void fill(vec4 c, PGraphics other) {
   else noFill(other);
 }
 
-// ivec
-/*
-void fill(ivec2 c) {
-  fill(c,null);
-}
-
-void fill(ivec2 c, PGraphics other) {
-  if(c.y() > 0) fill(c.x(),c.y(),other); 
-  else noFill(other);
-}
-
-//
-void fill(ivec3 c) {
-  fill(c,null);
-}
-
-void fill(ivec3 c, PGraphics other) {
-  fill(c.x(),c.y(),c.z(),other);
-}
-
-//
-void fill(ivec3 c, float a) {
-  fill(c,a,null);
-}
-
-void fill(ivec3 c, float a, PGraphics other) {
-  if(a > 0) fill(c.x(),c.y(),c.z(),a,other);
-  else noFill(other);
-}
-
-//
-void fill(ivec4 c) {
-  fill(c,null);
-}
-
-void fill(ivec4 c, PGraphics other) {
-  if(c.w > 0) fill(c.x(),c.y(),c.z(),c.w(),other); 
-  else noFill(other);
-}
-*/
-
-
 
 
 /**
@@ -1089,48 +950,6 @@ void stroke(vec4 c, PGraphics other) {
   else noStroke(other);
 }
 
-// ivec
-/*
-void stroke(ivec2 c) {
-  stroke(c,null);
-}
-
-void stroke(ivec2 c, PGraphics other) {
-  if(c.y() > 0) stroke(c.x(),c.y(),other); 
-  else noStroke(other);
-}
-
-
-//
-
-void stroke(ivec3 c) {
-  stroke(c,null);
-}
-
-void stroke(ivec3 c, PGraphics other) {
-  stroke(c.x(),c.y(),c.z(),other);
-}
-
-//
-void stroke(ivec3 c, float a) {
-  stroke(c,a,null);
-}
-
-void stroke(ivec3 c, float a, PGraphics other) {
-  if(a > 0) stroke(c.x(),c.y(),c.z(),a,other);
-  else noStroke(other);
-}
-
-//
-void stroke(ivec4 c) {
-  stroke(c,null);
-}
-
-void stroke(ivec4 c, PGraphics other) {
-  if(c.w > 0) stroke(c.x(),c.y(),c.z(),c.w(),other); 
-  else noStroke(other);
-}
-*/
 
 
 
@@ -1264,69 +1083,7 @@ void text(float f, vec pos, PGraphics other) {
   } 
 }
 
-// ivec
-/*
-void text(String s, ivec pos) {
-  text(s,pos,null);
-}
 
-void text(String s, ivec pos, PGraphics other) {
-  if(pos instanceof ivec2 && s != null) {
-    vec2 temp_pos = vec2(pos.x,pos.y);
-    text(s, temp_pos,other);
-  } else if(pos instanceof ivec2) {
-    vec3 temp_pos = vec3(pos.x,pos.y,pos.z);
-    text(s,temp_pos,other);
-  } else {
-    printErrTempo(60,"method text(): String message is null or ivec is not an instance of ivec3 or ivec2");
-  }  
-}
-
-
-void text(char c, ivec pos) {
-  text(c,pos,null);
-}
-
-void text(char c, ivec pos, PGraphics other) {
-  if(pos instanceof ivec2) {
-    vec2 temp_pos = vec2(pos.x,pos.y);
-    text(c, temp_pos,other);
-  } else if(pos instanceof ivec2) {
-    vec3 temp_pos = vec3(pos.x,pos.y,pos.z);
-    text(c,temp_pos,other);
-  } 
-}
-
-
-void text(int i, ivec pos) {
-  text(i,pos,null);
-}
-
-void text(int i, ivec pos, PGraphics other) {
-  if(pos instanceof ivec2) {
-    vec2 temp_pos = vec2(pos.x,pos.y);
-    text(i, temp_pos,other);
-  } else if(pos instanceof ivec2) {
-    vec3 temp_pos = vec3(pos.x,pos.y,pos.z);
-    text(i,temp_pos,other);
-  }
-}
-
-
-void text(float f, ivec pos) {
-  text(f,pos,null);
-}
-
-void text(float f, ivec pos, PGraphics other) {
-  if(pos instanceof ivec2) {
-    vec2 temp_pos = vec2(pos.x,pos.y);
-    text(f, temp_pos,other);
-  } else if(pos instanceof ivec2) {
-    vec3 temp_pos = vec3(pos.x,pos.y,pos.z);
-    text(f,temp_pos,other);
-  } 
-}
-*/
 
 void textAlign(int type, PGraphics other) {
   if(other != null) {
@@ -1387,21 +1144,6 @@ void translate(vec v, PGraphics other) {
   }
 }
 
-
-// ivec
-/*
-void translate(ivec3 v) {
-  translate(v,null);
-}
-
-void translate(ivec3 v, PGraphics other) {
-  if(renderer_P3D() && v instanceof ivec3) {
-    translate(v.x(),v.y(),v.z(),other); 
-  } else {
-    translate(v.x(),v.y(),other);
-  }
-}
-*/
 
 
 
@@ -1510,48 +1252,6 @@ void rotateXYZ(vec3 rot, PGraphics other) {
   rotateZ(rot.z);
 }
 
-// ivec
-/*
-void rotateXY(ivec2 rot) {
-  rotateXY(rot,null);
-}
-
-void rotateXY(ivec2 rot, PGraphics other) {
-  rotateX(rot.x);
-  rotateY(rot.y);
-}
-
-void rotateXZ(ivec2 rot) {
-  rotateXZ(rot,null);
-}
-
-void rotateXZ(ivec2 rot, PGraphics other) {
-  rotateX(rot.x);
-  rotateZ(rot.y);
-}
-
-void rotateYZ(ivec2 rot) {
-  rotateYZ(rot,null);
-}
-
-void rotateYZ(ivec2 rot, PGraphics other) {
-  rotateY(rot.x);
-  rotateZ(rot.y);
-}
-
-void rotateXYZ(ivec3 rot) {
-  rotateXYZ(rot,null);
-}
-
-void rotateXYZ(ivec3 rot, PGraphics other) {
-  rotateX(rot.x);
-  rotateY(rot.y);
-  rotateZ(rot.z);
-}
-*/
-
-
-
 
 
 
@@ -1621,41 +1321,6 @@ void push_2D(vec pos, float orientation) {
 
 
 
-
-// ivec
-/*
-void push_3D(ivec pos, ivec3 dir_cart) {
-  vec3 temp_dir_cart = vec3(dir_cart.x, dir_cart.y, dir_cart.z);
-  if(pos instanceof ivec2) {
-    vec2 temp_pos = vec2(pos.x, pos.y);
-    push_3D(temp_pos, temp_dir_cart);
-  } else if(pos instanceof ivec3) {
-    vec3 temp_pos = vec3(pos.x, pos.y, pos.z);
-    push_3D(temp_pos, temp_dir_cart);
-  } 
-}
-
-void push_3D(ivec pos, ivec2 dir_polar) {
-  vec2 temp_dir_polar = vec2(dir_polar.x, dir_polar.y);
-  if(pos instanceof ivec2) {
-    vec2 temp_pos = vec2(pos.x, pos.y);
-    push_3D(temp_pos, temp_dir_polar);
-  } else if(pos instanceof ivec3) {
-    vec3 temp_pos = vec3(pos.x, pos.y, pos.z);
-    push_3D(temp_pos, temp_dir_polar);
-  }
-}
-
-void push_2D(ivec pos, float orientation) {
-  if(pos instanceof ivec2) {
-    vec2 temp_pos = vec2(pos.x, pos.y);
-    push_2D(temp_pos, orientation);
-  } else if(pos instanceof ivec3) {
-    vec3 temp_pos = vec3(pos.x, pos.y, pos.z);
-    push_2D(temp_pos, orientation);
-  }
-}
-*/
 
 
 

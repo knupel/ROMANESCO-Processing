@@ -1,9 +1,9 @@
 /**
 * Costume method
 * Copyleft (c) 2014-2019
-* v 1.8.7
+* v 1.9.1
 * processing 3.5.3.269
-* Rope Library 0.7.1.25
+* Rope Library 0.8.1.26
 * @author @stanlepunk
 * @see https://github.com/StanLepunK/Rope_framework
 */
@@ -13,90 +13,120 @@ import rope.costume.R_Bezier;
 import rope.costume.R_Star;
 import rope.costume.R_Virus;
 
-
-
-
-/**
-SHOW
-*/
 /**
 Costume selection in shape catalogue
 */
 void costume(float x, float y, float sx, float sy, Object data) {
-	costume(vec2(x,y),vec2(sx,sy),data);
+	costume(vec2(x,y),vec2(sx,sy),data,null);
 }
 
+void costume(float x, float y, float sx, float sy, Object data, PGraphics pg) {
+	costume(vec2(x,y),vec2(sx,sy),data,pg);
+}
+
+//
 void costume(float x, float y, float z, float sx, float sy, Object data) {
-	costume(vec3(x,y,z),vec2(sx,sy),data);
+	costume(vec3(x,y,z),vec2(sx,sy),data,null);
 }
 
+void costume(float x, float y, float z, float sx, float sy, Object data, PGraphics pg) {
+	costume(vec3(x,y,z),vec2(sx,sy),data,pg);
+}
+
+// 
 void costume(float x, float y, float z, float sx, float sy, float sz, Object data) {
-	costume(vec3(x,y,z),vec3(sx,sy,sz),data);
+	costume(vec3(x,y,z),vec3(sx,sy,sz),data,null);
 }
 
+void costume(float x, float y, float z, float sx, float sy, float sz, Object data, PGraphics pg) {
+	costume(vec3(x,y,z),vec3(sx,sy,sz),data,pg);
+}
 
+//
 void costume(vec pos, int size_int, Object data) {
+	costume(pos,size_int,data,null);
+}
+
+void costume(vec pos, int size_int, Object data, PGraphics pg) {
 	int which_costume = 0;
 	String sentence = null;
 	vec3 rotation = vec3();
 	vec3 size = vec3(size_int);
 	if(data instanceof Costume) {
-		costume_impl(pos,size,rotation,(Costume)data);
+		costume_impl(pos,size,rotation,(Costume)data,pg);
 	} else if(data instanceof Integer) {
 		which_costume = (int)data;
-		costume_management(pos,size,rotation,which_costume,null);
+		costume_management(pos,size,rotation,which_costume,null,pg);
 	} else if(data instanceof String) {
 		sentence = (String)data;
 		which_costume = MAX_INT;
-		costume_management(pos,size,rotation,which_costume,sentence);
+		costume_management(pos,size,rotation,which_costume,sentence,pg);
 	}
 }
 
+//
 void costume(vec pos, vec size, Object data) {
+	costume(pos,size,data,null);
+}
+
+void costume(vec pos, vec size, Object data, PGraphics pg) {
 	int which_costume = 0;
 	String sentence = null;
 	vec3 rotation = vec3();
 	if(data instanceof Costume) {
-		costume_impl(pos,size,rotation,(Costume)data);
+		costume_impl(pos,size,rotation,(Costume)data,pg);
 	} else if(data instanceof Integer) {
 		which_costume = (int)data;
-		costume_management(pos,size,rotation,which_costume,null);
+		costume_management(pos,size,rotation,which_costume,null,pg);
 	} else if(data instanceof String) {
 		sentence = (String)data;
 		which_costume = MAX_INT;
-		costume_management(pos,size,rotation,which_costume,sentence);
+		costume_management(pos,size,rotation,which_costume,sentence,pg);
 	}
 }
 
-void costume(vec pos, vec size, float rot, Object data) {
+//
+// for this method we use class Float to be sure of method signature
+void costume(vec pos, vec size, Float rot, Object data) {
+	costume(pos,size,rot,data,null);
+}
+
+// for this method we use class Float to be sure of method signature
+void costume(vec pos, vec size, Float rot, Object data, PGraphics pg) {
 	int which_costume = 0;
 	String sentence = null;
 	vec3 rotation = vec3(0,0,rot);
 	if(data instanceof Costume) {
-		costume_impl(pos,size,rotation,(Costume)data);
+		costume_impl(pos,size,rotation,(Costume)data,pg);
 	} else if(data instanceof Integer) {
 		which_costume = (int)data;
-		costume_management(pos,size,rotation,which_costume,null);
+		costume_management(pos,size,rotation,which_costume,null,pg);
 	} else if(data instanceof String) {
 		sentence = (String)data;
 		which_costume = MAX_INT;
-		costume_management(pos,size,rotation,which_costume,sentence);
+		costume_management(pos,size,rotation,which_costume,sentence,pg);
 	}
-
 }
 
+// 
 void costume(vec pos, vec size, vec rotation, Object data) {
+	costume(pos,size,rotation,data,null);
+}
+
+
+void costume(vec pos, vec size, vec rotation, Object data, PGraphics pg) {
+	println("ici 6");
 	int which_costume = 0;
 	String sentence = null;
 	if(data instanceof Costume) {
-		costume_impl(pos,size,rotation,(Costume)data);
+		costume_impl(pos,size,rotation,(Costume)data,pg);
 	} else if(data instanceof Integer) {
 		which_costume = (int)data;
-		costume_management(pos,size,rotation,which_costume,null);
+		costume_management(pos,size,rotation,which_costume,null,pg);
 	} else if(data instanceof String) {
 		sentence = (String)data;
 		which_costume = MAX_INT;
-		costume_management(pos,size,rotation,which_costume,sentence);
+		costume_management(pos,size,rotation,which_costume,sentence,pg);
 	}
 }
 
@@ -111,8 +141,7 @@ void costume(vec pos, vec size, vec rotation, Object data) {
 /**
 managing costume rope method
 */
-@Deprecated
-void costume_management(vec pos, vec size, vec rotation, int which_costume, String sentence) {
+void costume_management(vec pos, vec size, vec rotation, int which_costume, String sentence, PGraphics pg) {
   vec3 pos_final = vec3(0) ;
   vec3 size_final = vec3(1) ;
 	if((pos instanceof vec2 || pos instanceof vec3) 
@@ -136,9 +165,9 @@ void costume_management(vec pos, vec size, vec rotation, int which_costume, Stri
 		}
 		//send
 		if(sentence == null ) {
-			costume_impl(pos_final,size_final,rotation,which_costume);
+			costume_impl(pos_final,size_final,rotation,which_costume,pg);
 		} else {
-			costume_impl(pos_final,size_final,rotation,sentence);
+			costume_impl(pos_final,size_final,rotation,sentence,pg);
 		}		
 	} else {
 		printErrTempo(180,"vec pos or vec size if not an instanceof vec2 or vec3, it's not possible to process costume_rope()");
@@ -153,38 +182,45 @@ void costume_management(vec pos, vec size, vec rotation, int which_costume, Stri
 /**
 MAIN METHOD 
 String COSTUME
-v 0.2.0
+v 0.3.0
 Change the method for method with 
 case and which_costume
 and 
 break
 */
+/*
 void costume_impl(vec3 pos, vec3 size, vec rot, String sentence) {
+	costume_impl(pos,size,rot,sentence,null);
+}
+*/
+
+void costume_impl(vec3 pos, vec3 size, vec rot, String sentence, PGraphics pg) {
 	if(rot.x != 0) costume_rotate_x();
 	if(rot.y != 0) costume_rotate_y();
 	if(rot.z != 0) costume_rotate_z();
-
-	push();
-	translate(pos);
-	rotate_behavior(rot);
-  text(sentence,0,0);
-	pop();
+	push(pg);
+	translate(pos,pg);
+	rotate_behavior(rot,pg);
+  text(sentence,0,0,pg);
+	pop(pg);
 }
 
 /**
 method to pass costume to class costume
 */
 Costume costume_rope_buffer;
-void costume_impl(vec3 pos, vec3 size, vec rot, int which_costume) {
+void costume_impl(vec3 pos, vec3 size, vec rot, int which_costume, PGraphics pg) {
 	if(costume_rope_buffer == null) {
 		costume_rope_buffer = new Costume(this,which_costume);
 	} else {
 		costume_rope_buffer.set_type(which_costume);
 	}
+	costume_rope_buffer.pass_graphic(pg);
 	costume_rope_buffer.draw(pos,size,rot);
 }
 
-void costume_impl(vec pos, vec size, vec rot, Costume costume) {
+void costume_impl(vec pos, vec size, vec rot, Costume costume, PGraphics pg) {
+	costume.pass_graphic(pg);
 	costume.draw(vec3(pos),vec3(size),rot);
 }
 
@@ -431,7 +467,7 @@ void costume_text(String s) {
 
 /**
 * rotate behavior
-* v 0.2.0
+* v 0.3.0
 */
 boolean costume_rot_x;
 boolean costume_rot_y;
@@ -454,18 +490,33 @@ void rotate_behavior(vec rotate) {
 }
 
 void rotate_behavior(vec rotate, PGraphics other) {
-	if(costume_rot_x && rotate.x != 0) {
-		rotateX(rotate.x,other);
-		costume_rot_x = false;
-	}
-	if(costume_rot_y && rotate.y != 0) {
-		rotateY(rotate.y,other);
-		costume_rot_y = false;
-	}
-	if(costume_rot_z && rotate.z != 0) {
-		rotateZ(rotate.z,other);
-		costume_rot_z = false;
-	}
+  if(get_renderer() == P3D) {
+  	if(costume_rot_x && rotate.x() != 0) {
+			rotateX(rotate.x(),other);
+			costume_rot_x = false;
+		}
+		if(costume_rot_y && rotate.y() != 0) {
+			rotateY(rotate.y(),other);
+			costume_rot_y = false;
+		}
+		if(costume_rot_z && rotate.z() != 0) {
+			rotateZ(rotate.z(),other);
+			costume_rot_z = false;
+		}
+  } else {
+  	if(rotate.x() == 0 && rotate.y() == 0 && rotate.z() != 0 && costume_rot_x) {
+  		rotate(rotate.z(),other);
+  		costume_rot_x = false;
+  	} 
+  	if(costume_rot_x && rotate.x() != 0) {
+  		rotateX(rotate.x(),other);
+  		costume_rot_x = false;
+  	}
+  	if(costume_rot_y && rotate.y() != 0) {
+  		rotateY(rotate.y(),other);
+  		costume_rot_y = false;
+  	}
+  }
 }
 
 

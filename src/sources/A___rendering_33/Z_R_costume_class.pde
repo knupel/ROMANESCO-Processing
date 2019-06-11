@@ -76,7 +76,7 @@ final int VIRUS_ROPE = 88_888_888;
 /**
 class Costume 
 2018-2019
-v 0.5.0
+v 0.5.1
 */
 import rope.costume.R_Primitive;
 public class Costume {
@@ -121,7 +121,7 @@ public class Costume {
 	}
 
 
-	void pos(float x, float y, float z) {
+	public void pos(float x, float y, float z) {
 		if(pos == null) {
 			pos = vec3(x,y,z);
 		} else {
@@ -130,7 +130,7 @@ public class Costume {
 	}
 
 
-	void size(float x, float y, float z) {
+	public void size(float x, float y, float z) {
 		if(size == null) {
 			size = vec3(x,y,z);
 		} else {
@@ -138,7 +138,7 @@ public class Costume {
 		}
 	}
 
-	void angle(float x, float y, float z) {
+	public void angle(float x, float y, float z) {
 		if(angle == null) {
 			angle = vec3(x,y,z);
 		} else {
@@ -146,7 +146,7 @@ public class Costume {
 		}
 	}
 
-	void pass_graphic(PGraphics other) {
+	public void pass_graphic(PGraphics other) {
   	if(other != null) {
   		this.other = other;
   	}
@@ -211,15 +211,15 @@ public class Costume {
 
 	// get
 
-	vec3 pos() {
+	public vec3 pos() {
 		return pos;
 	}
 
-	vec3 size() {
+	public vec3 size() {
 		return size;
 	}
 
-	vec3 angle() {
+	public vec3 angle() {
 		return angle;
 	}
 
@@ -398,12 +398,12 @@ public class Costume {
 	  init_bool_aspect();
 	}
 
-	void aspect(vec fill, vec stroke, float thickness, Costume costume) {
+	public void aspect(vec fill, vec stroke, float thickness, Costume costume) {
 		aspect(fill,stroke,thickness,costume.get_type());
 	}
 
 
-	void aspect(vec fill, vec stroke, float thickness, int costume) {
+	public void aspect(vec fill, vec stroke, float thickness, int costume) {
 	  if(costume == r.NULL) {
 	    // 
 		} else if(costume != r.NULL || costume != POINT_ROPE || costume != POINT) {

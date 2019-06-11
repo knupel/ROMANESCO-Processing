@@ -40,5 +40,5 @@ void window_midi_info(ivec2 pos, ivec2 size) {
     size_y = int(spacing *2.5) ;
   }
   */
-  rect(pos,size);
+  rect(vec2(pos),vec2(size));
 }
