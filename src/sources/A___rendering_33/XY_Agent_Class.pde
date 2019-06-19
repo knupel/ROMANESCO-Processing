@@ -1,6 +1,6 @@
 /**
 * CLASS AGENT 
-* v 1.2.3
+* v 1.2.4
 * 2016-2019
 * @author @stanlepunk
 * @see https://github.com/StanLepunK/Life
@@ -586,7 +586,7 @@ abstract class Agent_model implements Agent {
   COSTUME
   */
   void costume() {
-    this.costume.draw(pos,size,vec3());
+    this.costume.show(pos,size,vec3());
   }
 
   void set_costume(Costume costume) {

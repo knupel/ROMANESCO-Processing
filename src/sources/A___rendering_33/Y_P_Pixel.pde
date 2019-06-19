@@ -1,6 +1,6 @@
 /**
 * CLASS PIX 
-* v 0.10.4
+* v 0.11.0
 * 2016-2018
 * Processing 3.5.3
 * Rope library 0.8.1.26
@@ -117,7 +117,7 @@ abstract class Pix implements rope.core.R_Constants {
   }
 
   public void costume_angle(float costume_angle) {
-    if(costume.get_type() == POINT_ROPE) {
+    if(costume.get_type() == POINT) {
       printErrTempo(180, "class Pix method costume_angle() cannot be used with costume_ID POINT_ROPE");
     }
     this.costume_angle = costume_angle ;
@@ -705,7 +705,7 @@ class Cloud extends Pix {
       if(ratio_costume_size != Float.MAX_VALUE) {
         set_ratio_costume_size(ratio_costume_size);
       }
-      costume.draw(coord[i],size,vec3(0,0,costume_angle));
+      costume.show(coord[i],size,vec3(0,0,costume_angle));
     }
   }
 
@@ -1161,7 +1161,7 @@ class Cloud_3D extends Cloud {
         if(ratio_costume_size != Float.MAX_VALUE) {
           set_ratio_costume_size(ratio_costume_size);
         }
-        costume.draw(coord[i],size,vec3(0,0,costume_angle));
+        costume.show(coord[i],size,vec3(0,0,costume_angle));
       }
     } else {
       // method from here don't need to pass info about arg
@@ -1201,7 +1201,7 @@ class Cloud_3D extends Cloud {
       if(ratio_costume_size != Float.MAX_VALUE) {
         set_ratio_costume_size(ratio_costume_size);
       }
-      costume.draw(pos_local_primitive, size,vec3(0,0,costume_angle));
+      costume.show(pos_local_primitive, size,vec3(0,0,costume_angle));
       pop() ;
       pop() ;
     }
@@ -1327,19 +1327,19 @@ class Pixel extends Pix  {
 
   // set summit
   private void set_summits(int summits) {
-    if(summits == 1) this.costume.set_type(POINT_ROPE);
-    else if(summits == 2) this.costume.set_type(LINE_ROPE);
-    else if(summits == 3) this.costume.set_type(TRIANGLE_ROPE);
-    else if(summits == 4) this.costume.set_type(SQUARE_ROPE);
-    else if(summits == 5) this.costume.set_type(PENTAGON_ROPE);
-    else if(summits == 6) this.costume.set_type(HEXAGON_ROPE);
-    else if(summits == 7) this.costume.set_type(HEPTAGON_ROPE);
-    else if(summits == 8) this.costume.set_type(OCTOGON_ROPE);
-    else if(summits == 9) this.costume.set_type(NONAGON_ROPE);
-    else if(summits == 10) this.costume.set_type(DECAGON_ROPE);
-    else if(summits == 11) this.costume.set_type(HENDECAGON_ROPE);
-    else if(summits == 12) this.costume.set_type(DODECAGON_ROPE);
-    else if(summits > 12) this.costume.set_type(ELLIPSE_ROPE);
+    if(summits == 1) this.costume.set_type(POINT);
+    else if(summits == 2) this.costume.set_type(LINE);
+    else if(summits == 3) this.costume.set_type(TRIANGLE);
+    else if(summits == 4) this.costume.set_type(SQUARE);
+    else if(summits == 5) this.costume.set_type(PENTAGON);
+    else if(summits == 6) this.costume.set_type(HEXAGON);
+    else if(summits == 7) this.costume.set_type(HEPTAGON);
+    else if(summits == 8) this.costume.set_type(OCTOGON);
+    else if(summits == 9) this.costume.set_type(NONAGON);
+    else if(summits == 10) this.costume.set_type(DECAGON);
+    else if(summits == 11) this.costume.set_type(HENDECAGON);
+    else if(summits == 12) this.costume.set_type(DODECAGON);
+    else if(summits > 12) this.costume.set_type(ELLIPSE);
   }
 
 
@@ -1350,9 +1350,9 @@ class Pixel extends Pix  {
       set_ratio_costume_size(ratio_costume_size);
     }
     if (renderer_P3D()) {
-      this.costume.draw(pos,size,dir);
+      this.costume.show(pos,size,dir);
     } else {
-      this.costume.draw(pos,size,vec3(0,0,costume_angle));
+      this.costume.show(pos,size,vec3(0,0,costume_angle));
     }
   }
 }
