@@ -1,6 +1,6 @@
 /**
 Abstract CLASS ROMANESCO
-v 1.7.0
+v 1.7.1
 2013-2019
 */
 public abstract class Romanesco implements rope.core.R_Constants {
@@ -238,7 +238,7 @@ public abstract class Romanesco implements rope.core.R_Constants {
 
 
   protected void init() {
-    costume = new Costume(p5,ELLIPSE_ROPE);
+    costume = new Costume(p5,ELLIPSE);
     mode = new Mode();
     fill_is(true);
     stroke_is(true);
@@ -2300,51 +2300,51 @@ vec3 get_item_dir() {
 
     if(costume_romanesco.toLowerCase().equals("pixel")) {
       if(!dimension_is()) {
-        costume.set_type(PIXEL_ROPE); 
+        costume.set_type(PIXEL); 
       } else {
-        costume.set_type(PIXEL_ROPE);
+        costume.set_type(PIXEL);
       }
     } else if(costume_romanesco.toLowerCase().equals("point")) {
       if(!dimension_is()) {
-        costume.set_type(POINT_ROPE); 
+        costume.set_type(POINT); 
       } else {
-        costume.set_type(SPHERE_LOW_ROPE);
+        costume.set_type(SPHERE_LOW);
       }
     } else if(costume_romanesco.toLowerCase().equals("line")) {
       if(!dimension_is()) {
-        costume.set_type(LINE_ROPE); 
+        costume.set_type(LINE); 
       } else {
-        costume.set_type(LINE_ROPE);
+        costume.set_type(LINE);
       }
     } else if(costume_romanesco.toLowerCase().equals("ellipse") || costume_romanesco.toLowerCase().equals("disc")) {
       if(!dimension_is()) {
-        costume.set_type(ELLIPSE_ROPE); 
+        costume.set_type(ELLIPSE); 
       } else {
-        costume.set_type(SPHERE_MEDIUM_ROPE);
+        costume.set_type(SPHERE_MEDIUM);
       }
     } else if(costume_romanesco.toLowerCase().equals("triangle")) {
       if(!dimension_is()) {
-        costume.set_type(TRIANGLE_ROPE); 
+        costume.set_type(TRIANGLE); 
       } else {
-        costume.set_type(TETRAHEDRON_ROPE);
+        costume.set_type(TETRAHEDRON);
       }
     } else if(costume_romanesco.toLowerCase().equals("rectangle") || costume_romanesco.toLowerCase().equals("rect")) {
       if(!dimension_is()) {
-        costume.set_type(RECT_ROPE); 
+        costume.set_type(RECT); 
       } else {
-        costume.set_type(BOX_ROPE);
+        costume.set_type(BOX);
       }
     } else if(costume_romanesco.toLowerCase().equals("pentagon")) {
       if(!dimension_is()) {
-        costume.set_type(PENTAGON_ROPE); 
+        costume.set_type(PENTAGON); 
       } else {
-        costume.set_type(PENTAGON_ROPE);
+        costume.set_type(PENTAGON);
       }
     } else if(costume_romanesco.toLowerCase().equals("cross")) {
       if(!dimension_is()) {
-        costume.set_type(CROSS_BOX_2_ROPE); 
+        costume.set_type(CROSS_BOX_2); 
       } else {
-        costume.set_type(CROSS_BOX_3_ROPE);
+        costume.set_type(CROSS_BOX_3);
       }
     } else if(costume_romanesco.toLowerCase().contains("flower")) {
       String [] list = costume_romanesco.split(" ");
@@ -2355,10 +2355,10 @@ vec3 get_item_dir() {
         num = 5;
       }
       if(!dimension_is()) {
-        costume.set_type(FLOWER_ROPE);
+        costume.set_type(FLOWER);
         costume.set_summit(num);
       } else {
-        costume.set_type(FLOWER_ROPE);
+        costume.set_type(FLOWER);
         costume.set_summit(num);
       }
     } else if(costume_romanesco.toLowerCase().contains("star")) {
@@ -2370,10 +2370,10 @@ vec3 get_item_dir() {
         num = 5;
       }
       if(!dimension_is()) {
-        costume.set_type(STAR_ROPE);
+        costume.set_type(STAR);
         costume.set_summit(num);
       } else {
-        costume.set_type(STAR_3D_ROPE);
+        costume.set_type(STAR_3D);
         costume.set_summit(num);
       }
     } else if(costume_romanesco.toLowerCase().contains("super star")) {
@@ -2385,19 +2385,19 @@ vec3 get_item_dir() {
         num = 5;
       }
       if(!dimension_is()) {
-        costume.set_type(STAR_ROPE);
+        costume.set_type(STAR);
         costume.set_summit(num);
         costume.set_ratio(2.,.5,1.,.5);
       } else {
-        costume.set_type(STAR_3D_ROPE);
+        costume.set_type(STAR_3D);
         costume.set_summit(num);
         costume.set_ratio(2.,.5,1.,.5);
       }
     } else if(costume_romanesco.toLowerCase().equals("abc")) {
       if(!dimension_is()) {
-        costume.set_type(TEXT_ROPE); 
+        costume.set_type(TEXT); 
       } else {
-        costume.set_type(TEXT_ROPE);
+        costume.set_type(TEXT);
       }
     } else if(costume_romanesco.toLowerCase().equals("none") ||
               costume_romanesco.toLowerCase().equals("nothing") || 

@@ -1,13 +1,13 @@
 /**
 KOFOSPHERE 
 2013-2019
-v 1.4.0
+v 1.4.1
 */
 class Kofosphere extends Romanesco {
   public Kofosphere() {
     item_name = "Kofosphere" ;
     item_author  = "Kof";
-    item_version = "Version 1.4.0";
+    item_version = "Version 1.4.1";
     item_pack = "Base 2013-2019" ;
     item_costume = "point/ellipse/triangle/rect/cross/pentagon/flower/Star 5/Star 7/Super Star 8/Super Star 12";
     item_mode = "monochrome/polychrome" ;
@@ -91,7 +91,7 @@ class Kofosphere extends Romanesco {
     float ratio_num = get_quantity().normal() *get_quantity().normal();
     int max = 300;
     int quantity = (int)map(ratio_num,0,1,10,max); 
-    if(get_costume().get_type() == POINT_ROPE && FULL_RENDERING) {
+    if(get_costume().get_type() == POINT && FULL_RENDERING) {
       quantity *= 10;
     }
     

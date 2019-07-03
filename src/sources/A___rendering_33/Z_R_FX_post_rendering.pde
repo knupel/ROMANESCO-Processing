@@ -2,7 +2,7 @@
 * POST FX shader collection
 *
 * 2019-2019
-* v 0.2.9
+* v 0.2.11
 * all filter bellow has been tested.
 * @author @stanlepunk
 * @see https://github.com/StanLepunK/Shader
@@ -1044,7 +1044,7 @@ PGraphics fx_halftone_line(PImage source, boolean on_g, boolean filter_is, vec2 
     fx_halftone_line.set("mode",mode);
     fx_halftone_line.set("num",num);
     fx_halftone_line.set("quality",quality);
-    fx_halftone_line.set("threshold",threshold.x); // good between 0.05 and 0.3
+    fx_halftone_line.set("threshold",threshold.x()); // good between 0.05 and 0.3
 		fx_halftone_line.set("angle",angle.x);
 
 		if(graphics_is(source).equals("PGraphics")) {
@@ -1327,17 +1327,17 @@ PGraphics fx_level(PImage source, boolean on_g, boolean filter_is, int mode, flo
 
 /**
 * Mask
-v 0.2.0
+v 0.2.3
 2019-2019
 */
 PGraphics fx_mask(PImage source, PImage mask, FX fx) {
-	return fx_mask(source,mask,fx.on_g(),fx.pg_filter_is(),fx.get_mode());
+	return fx_mask(source,mask,fx.on_g(),fx.pg_filter_is(),fx.get_mode(),fx.get_num(),fx.get_threshold().xy(),fx.get_level_layer());
 }
 
 // main
 PShader fx_mask;
 PGraphics pg_mask;
-PGraphics fx_mask(PImage source, PImage mask, boolean on_g, boolean filter_is, int mode) {
+PGraphics fx_mask(PImage source, PImage mask, boolean on_g, boolean filter_is, int mode, int num, vec2 threshold, vec4 level_layer) {
 	if(!on_g && (pg_mask == null 
 								|| (source.width != pg_mask.width 
 								|| source.height != pg_mask.height))) {
@@ -1359,8 +1359,21 @@ PGraphics fx_mask(PImage source, PImage mask, boolean on_g, boolean filter_is, i
 		fx_mask.set("resolution_layer",mask.width,mask.height);
 		fx_mask.set("texture_layer",mask);
 		fx_mask.set("mode",mode); // mode 0: gray || mode 1: RGB
-		
+
+		if(num < 2) num = 2;
+		fx_mask.set("num",num); // define the num of step separation
     
+
+    if(threshold.min() > threshold.max()) {
+    	threshold.x(0);
+    }
+    threshold.constrain(0,1);
+		fx_mask.set("threshold",threshold.min(),threshold.max()); // from 0 to 1, that's born the sensibility from the minium to the maximum
+
+
+		level_layer.constrain(0,6);
+		fx_mask.set("level_layer",level_layer.x(),level_layer.y(),level_layer.z(),level_layer.w()); // strength 1 is the classic strength
+		  
     // rendering
     render_shader(fx_mask,pg_mask,source,on_g,filter_is);
  

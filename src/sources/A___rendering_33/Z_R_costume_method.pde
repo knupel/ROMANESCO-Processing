@@ -181,25 +181,20 @@ void costume_management(vec pos, vec size, vec rotation, int which_costume, Stri
 /**
 MAIN METHOD 
 String COSTUME
-v 0.3.0
+v 0.4.0
 Change the method for method with 
 case and which_costume
 and 
 break
 */
-/*
-void costume_impl(vec3 pos, vec3 size, vec rot, String sentence) {
-	costume_impl(pos,size,rot,sentence,null);
-}
-*/
-
 void costume_impl(vec3 pos, vec3 size, vec rot, String sentence, PGraphics pg) {
 	if(rot.x != 0) costume_rotate_x();
 	if(rot.y != 0) costume_rotate_y();
 	if(rot.z != 0) costume_rotate_z();
 	push(pg);
 	translate(pos,pg);
-	rotate_behavior(rot,pg);
+	costume_rotate(rot,pg);
+	textSize(size.x());
   text(sentence,0,0,pg);
 	pop(pg);
 }
@@ -215,12 +210,13 @@ void costume_impl(vec3 pos, vec3 size, vec rot, int which_costume, PGraphics pg)
 		costume_rope_buffer.set_type(which_costume);
 	}
 	costume_rope_buffer.pass_graphic(pg);
-	costume_rope_buffer.draw(pos,size,rot);
+	costume_rope_buffer.show(pos,size,rot);
 }
+
 
 void costume_impl(vec pos, vec size, vec rot, Costume costume, PGraphics pg) {
 	costume.pass_graphic(pg);
-	costume.draw(vec3(pos),vec3(size),rot);
+	costume.show(vec3(pos),vec3(size),rot);
 }
 
 
@@ -453,15 +449,17 @@ float get_thickness_rope() {
 
 /**
 COSTUME
-v 0.0.1
+v 0.0.4
 */
 /**
 simple text 
-v 0.0.1
+v 0.0.2
 */
-void costume_text(String s) {
-	costume_text_rope = s ;
+
+void costume_text(String arg) {
+	costume_rope_buffer.set_text(arg);
 }
+
 
 
 /**
@@ -484,11 +482,11 @@ void costume_rotate_z() {
 	costume_rot_z = true;
 }
 
-void rotate_behavior(vec rotate) {
-	rotate_behavior(rotate,null);
+void costume_rotate(vec rotate) {
+	costume_rotate(rotate,null);
 }
 
-void rotate_behavior(vec rotate, PGraphics other) {
+void costume_rotate(vec rotate, PGraphics other) {
   if(get_renderer() == P3D) {
   	if(costume_rot_x && rotate.x() != 0) {
 			rotateX(rotate.x(),other);
@@ -626,8 +624,10 @@ void house(vec3 size, PGraphics other) {
 	if(house_costume_rope != null) {
 		house_costume_rope.size(size);
 		house_costume_rope.pass_graphic(other);
+		// house_costume_rope.show(g);
 		house_costume_rope.show();
 	} else {
+		//house_costume_rope = new House();
 		house_costume_rope = new House(this);
 	}
 }
@@ -957,7 +957,7 @@ void virus_node(int node) {
 /**
 * COSTUME INFO
 * 2016-2019
-* v 0.2.0
+* v 0.2.1
 */
 // get costume
 int get_costume(int target) {
@@ -980,9 +980,9 @@ int costumes_size() {
 
 
 Info_int_dict costume_dict = new Info_int_dict();
-boolean list_costume_is_built = false ;
-int ref_size_pic = -1 ;
-String costume_text_rope = null;
+boolean list_costume_is_built = false;
+int ref_size_pic = -1;
+// String costume_text_rope = null;
 boolean fill_rope_is = true;
 boolean stroke_rope_is = true;
 boolean alpha_rope_is = true;
@@ -996,52 +996,47 @@ void costume_list() {
 		*/
 		costume_dict.add("NULL",r.NULL,0,0);
 
-		costume_dict.add("PIXEL_ROPE",PIXEL_ROPE,2,1);
+		costume_dict.add("PIXEL",PIXEL,2,1);
 
-		costume_dict.add("POINT_ROPE",POINT_ROPE,2,0);
-		costume_dict.add("ELLIPSE_ROPE",ELLIPSE_ROPE,2,0);
-		costume_dict.add("RECT_ROPE",RECT_ROPE,2,0);
-		costume_dict.add("LINE_ROPE",LINE_ROPE,2,0);
+		costume_dict.add("POINT",POINT,2,0);
+		costume_dict.add("ELLIPSE",ELLIPSE,2,0);
+		costume_dict.add("RECT",RECT,2,0);
+		costume_dict.add("LINE",LINE,2,0);
 
-		costume_dict.add("TRIANGLE_ROPE",TRIANGLE_ROPE,2,0);
-		costume_dict.add("SQUARE_ROPE",SQUARE_ROPE,2,0);
-		costume_dict.add("PENTAGON_ROPE",PENTAGON_ROPE,2,0);
-		costume_dict.add("HEXAGON_ROPE",HEXAGON_ROPE,2,0);
-		costume_dict.add("HEPTAGON_ROPE",HEPTAGON_ROPE,2,0);
-		costume_dict.add("OCTOGON_ROPE",OCTOGON_ROPE,2,0);
-		costume_dict.add("NONAGON_ROPE",NONAGON_ROPE,2,0);
-		costume_dict.add("DECAGON_ROPE",DECAGON_ROPE,2,0);
-		costume_dict.add("HENDECAGON_ROPE",HENDECAGON_ROPE,2,0);
-		costume_dict.add("DODECAGON_ROPE",DODECAGON_ROPE,2,0);
+		costume_dict.add("TRIANGLE",TRIANGLE,2,0);
+		costume_dict.add("SQUARE",SQUARE,2,0);
+		costume_dict.add("PENTAGON",PENTAGON,2,0);
+		costume_dict.add("HEXAGON",HEXAGON,2,0);
+		costume_dict.add("HEPTAGON",HEPTAGON,2,0);
+		costume_dict.add("OCTOGON",OCTOGON,2,0);
+		costume_dict.add("NONAGON",NONAGON,2,0);
+		costume_dict.add("DECAGON",DECAGON,2,0);
+		costume_dict.add("HENDECAGON",HENDECAGON,2,0);
+		costume_dict.add("DODECAGON",DODECAGON,2,0);
 
-		costume_dict.add("TEXT_ROPE",TEXT_ROPE,2,4);
+		//costume_dict.add("TEXT_ROPE",TEXT_ROPE,2,4);
     
-    costume_dict.add("CROSS_RECT_ROPE",CROSS_RECT_ROPE,2,0);
-		costume_dict.add("CROSS_BOX_2_ROPE",CROSS_BOX_2_ROPE,3,0);
-		costume_dict.add("CROSS_BOX_3_ROPE",CROSS_BOX_3_ROPE,3,0);
+    costume_dict.add("CROSS_RECT",CROSS_RECT,2,0);
+		costume_dict.add("CROSS_BOX_2",CROSS_BOX_2,3,0);
+		costume_dict.add("CROSS_BOX_3",CROSS_BOX_3,3,0);
 
-		costume_dict.add("SPHERE_LOW_ROPE",SPHERE_LOW_ROPE,3,0);
-		costume_dict.add("SPHERE_MEDIUM_ROPE",SPHERE_MEDIUM_ROPE,3,0);
-		costume_dict.add("SPHERE_HIGH_ROPE",SPHERE_HIGH_ROPE,3,0);
-		costume_dict.add("TETRAHEDRON_ROPE",TETRAHEDRON_ROPE,3,0);
-		costume_dict.add("BOX_ROPE",BOX_ROPE,3,0);
+		costume_dict.add("SPHERE_LOW",SPHERE_LOW,3,0);
+		costume_dict.add("SPHERE_MEDIUM",SPHERE_MEDIUM,3,0);
+		costume_dict.add("SPHERE_HIGH",SPHERE_HIGH,3,0);
+		costume_dict.add("SPHERE",SPHERE,3,0);
+		costume_dict.add("TETRAHEDRON",TETRAHEDRON,3,0);
+		costume_dict.add("BOX",BOX,3,0);
 
-		costume_dict.add("SPHERE_LOW_ROPE",SPHERE_LOW_ROPE,3,0);
-		costume_dict.add("SPHERE_MEDIUM_ROPE",SPHERE_MEDIUM_ROPE,3,0);
-		costume_dict.add("SPHERE_HIGH_ROPE",SPHERE_HIGH_ROPE,3,0);
-		costume_dict.add("TETRAHEDRON_ROPE",TETRAHEDRON_ROPE,3,0);
-		costume_dict.add("BOX_ROPE",BOX_ROPE,3,0);
+		costume_dict.add("STAR",STAR,2,3);
+		costume_dict.add("STAR_3D",STAR_3D,2,3);
 
-		costume_dict.add("STAR_ROPE",STAR_ROPE,2,3);
-		costume_dict.add("STAR_3D_ROPE",STAR_3D_ROPE,2,3);
+		costume_dict.add("FLOWER",FLOWER,2,3);
 
-		costume_dict.add("FLOWER_ROPE",FLOWER_ROPE,2,3);
+		costume_dict.add("HOUSE",HOUSE,3,0);
 
-		costume_dict.add("HOUSE_ROPE",HOUSE_ROPE,3,0);
+		costume_dict.add("VIRUS",VIRUS,3,0);
 
-		costume_dict.add("VIRUS_ROPE",VIRUS_ROPE,3,0);
-
-		list_costume_is_built = true ;
+		list_costume_is_built = true;
 	}
 
   // add costume from your SVG or PNG

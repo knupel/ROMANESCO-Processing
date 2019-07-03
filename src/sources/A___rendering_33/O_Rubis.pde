@@ -1,7 +1,7 @@
 /**
 RUBIS
 2013-2019
-v 1.1.0
+v 1.1.1
 */
 
 class Rubis extends Romanesco {
@@ -9,7 +9,7 @@ class Rubis extends Romanesco {
     //from the index_objects.csv
     item_name = "Rubis" ;
     item_author  = "Stan le Punk";
-    item_version = "version 1.1.0";
+    item_version = "version 1.1.1";
     item_pack = "Base 2013-2019";
     item_costume = "";
     item_mode = "Vertex/Point";
@@ -136,7 +136,7 @@ class Rubis extends Romanesco {
     
     
     if(get_mode_id() == 1) {
-      aspect(get_fill(), get_stroke(), get_thickness().value(), POINT_ROPE) ;
+      aspect(get_fill(), get_stroke(), get_thickness().value(), POINT) ;
     } else {
       aspect(get_fill(), get_stroke(), get_thickness().value()) ;
     }

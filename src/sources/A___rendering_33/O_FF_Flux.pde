@@ -1,7 +1,7 @@
 /**
 * Flux Force Field
 * 2018-2019
-* v 0.1.0
+* v 0.1.1
 */
 class Flux extends Romanesco {
 
@@ -10,7 +10,7 @@ class Flux extends Romanesco {
 	public Flux() {
 		item_name = "FF Flux";
 		item_author  = "Stan le Punk";
-		item_version = "Version 0.1.0";
+		item_version = "Version 0.1.1";
 		item_pack = "Force 2018-2019";
     item_costume = "pixel/point/ellipse/triangle/rect/cross/pentagon/flower/Star 5/Star 7/Super Star 8/Super Star 12";
     item_mode = "";
@@ -85,14 +85,14 @@ class Flux extends Romanesco {
 
 
   void draw() {
-    if(get_costume().get_type() != PIXEL_ROPE) {
+    if(get_costume().get_type() != PIXEL) {
       int mult_particle = 1;
       draw_flux(mult_particle);
     }
   }
 
   void draw_2D() {
-    if(get_costume().get_type() == PIXEL_ROPE) {
+    if(get_costume().get_type() == PIXEL) {
       int mult_particle = 10 ;
       draw_flux(mult_particle);
     }
@@ -186,7 +186,7 @@ class Flux extends Romanesco {
     for (Vehicle v : vehicles) {
       float theta = v.get_direction() + radians(90);
       set_ratio_costume_size(map(ratio,width*.1, width*TAU,0,1));
-      if(get_costume().get_type() == PIXEL_ROPE) {
+      if(get_costume().get_type() == PIXEL) {
         costume(v.get_position().mult(displayDensity()),size,theta,costume);
       } else {
         costume(v.get_position(),size,theta,costume);

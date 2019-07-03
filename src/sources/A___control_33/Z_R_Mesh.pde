@@ -1,7 +1,7 @@
 /**
 * R_Mesh
 * temp tab before pass to Rope
-* v 0.1.0
+* v 0.1.1
 * 2019-2019
 */
 /**
@@ -331,7 +331,7 @@ public class R_Node {
 
 /**
 * SEGMENT
-* v 0.1.0
+* v 0.1.1
 * 2019-2019
 */
 public class R_Segment {
@@ -339,14 +339,9 @@ public class R_Segment {
 	private vec3 end;
 	private int capacity;
 	private boolean direction;
-	private float angle;
-	private float length;
 	public R_Segment(vec start, vec end) {
 		this.start = vec3(start.x,start.y,start.z);
 		this.end = vec3(end.x,end.y,end.z);
-		this.angle = angle(vec2(this.start),vec2(this.end));
-		this.length = dist(this.start,this.end);
-		// println("class Segment: new Segment build");
 	}
 
 	public vec3 get_start() {
@@ -358,11 +353,11 @@ public class R_Segment {
 	}
 
 	public float get_angle() {
-		return angle;
+		return vec2(start).angle(vec2(end));
 	}
 
 	public float get_length() {
-		return length;
+		return start.dist(end);
 	}
 
 	public void set_capacity(int capacity) {

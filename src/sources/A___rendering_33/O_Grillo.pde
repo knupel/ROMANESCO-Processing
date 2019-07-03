@@ -2,7 +2,7 @@
 * Grillo
 * the tab is the template that you can duplicate to add the item you want in your Romanesco.
 * You must change the class name and this one must be unique.
-v 0.1.0
+v 0.1.1
 */
 class Grillo extends Romanesco {
   public Grillo() {
@@ -10,7 +10,7 @@ class Grillo extends Romanesco {
     item_name = "Grillo" ;
     item_author  = "Stan le Punk";
     item_references = "";
-    item_version = "Version 0.1.0";
+    item_version = "Version 0.1.1";
     item_pack = "Base 2018-2019";
     item_costume = "point/ellipse/triangle/rect/cross/pentagon/flower/Star 5/Star 7/Super Star 8/Super Star 12"; // costume available from get_costume();
     item_mode = "Random/Automata/Full";
@@ -134,9 +134,9 @@ class Grillo extends Romanesco {
 
   void manage_costume(vec3 pos, vec3 dir) {
     vec3 size = get_size().copy();
-    if(get_costume().get_type() == STAR_3D_ROPE) {
+    if(get_costume().get_type() == STAR_3D) {
       size.div(1,1,10);
-    } else if(get_costume().get_type() == CROSS_BOX_3_ROPE || get_costume().get_type() == CROSS_BOX_2_ROPE) {
+    } else if(get_costume().get_type() == CROSS_BOX_3 || get_costume().get_type() == CROSS_BOX_2) {
       set_ratio_costume_size(map(get_area().value(),get_area().min(),get_area().max(),0,1));
     }
     costume(pos,size,dir,get_costume());

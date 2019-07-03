@@ -1,7 +1,7 @@
 /**
 LETTER
 2012-2019
-v 1.5.0
+v 1.5.1
 */
 //GEOMERATIVE
 import geomerative.*;
@@ -10,7 +10,7 @@ class Letter extends Romanesco {
   public Letter() {
     item_name = "Letter" ;
     item_author  = "Stan le Punk";
-    item_version = "Version 1.5.0";
+    item_version = "Version 1.5.1";
     item_pack = "Base 2012-2019" ;
 
     item_costume = "Point/Line/Triangle";
@@ -178,7 +178,7 @@ class Letter extends Romanesco {
     float thicknessLetter = map(get_thickness().value(),get_thickness().min(),get_thickness().max(), 0.1, height /10) ; ;
 
     // color
-    if(get_costume().get_type() != TRIANGLE_ROPE) {
+    if(get_costume().get_type() != TRIANGLE) {
       noFill() ; 
       stroke(get_fill()) ; 
       strokeWeight(thicknessLetter) ;
@@ -264,9 +264,9 @@ class Letter extends Romanesco {
       points[i].add(jitterPVector(ampJttr));
       float factor = 40.;
       points[i].z = points[i].z +(all_transient(ID_item) *factor); 
-      if(get_costume().get_type() == POINT_ROPE ) point(points[i]);
-      if(get_costume().get_type() == LINE_ROPE ) if(i > 0 ) line( points[i-1],points[i]);
-      if(get_costume().get_type() == TRIANGLE_ROPE ) if(i > 1 ) {
+      if(get_costume().get_type() == POINT) point(points[i]);
+      if(get_costume().get_type() == LINE) if(i > 0 ) line( points[i-1],points[i]);
+      if(get_costume().get_type() == TRIANGLE) if(i > 1 ) {
         beginShape();
         vertex(points[i-2]);
         vertex(points[i-1]);

@@ -1,13 +1,13 @@
 /**
 * Force Field
 * 2018-2019
-* v 0.1.1
+* v 0.1.2
 */
 class FF extends Romanesco {
 	public FF() {
 		item_name = "FF Force Field";
 		item_author  = "Stan le Punk";
-		item_version = "Version 0.1.1";
+		item_version = "Version 0.1.2";
 		item_pack = "Force 2018-2019";
     item_costume = "line/triangle/rect/cross/pentagon/flower/Star 5/Star 7/Super Star 8/Super Star 12/none";
     item_mode = "fluid/magnetic/gravity/perlin/equation/chaos/image";
@@ -342,7 +342,7 @@ class FF extends Romanesco {
     
     // costume_rope(vec2(),vec3(size),costume);
     // pass by costume for the line is very slow
-    if(costume.get_type() != LINE_ROPE) {
+    if(costume.get_type() != LINE) {
       set_ratio_costume_size(map(ratio,width*.1, width*TAU,0,1));
       costume(vec2(),vec3(size),costume);
     } else {

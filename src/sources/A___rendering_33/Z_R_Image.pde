@@ -1,9 +1,9 @@
 /**
 * Rope framework image
-* v 0.5.1
+* v 0.5.3
 * Copyleft (c) 2014-2019
 * Processing 3.5.3.269
-* Rope library 0.7.1.25
+* Rope library 0.8.3.28
 * @author @stanlepunk
 * @see https://github.com/StanLepunK/Rope_framework
 */
@@ -18,13 +18,15 @@
 
 /**
 PATTERN GENERATOR
-v 0.0.2
+v 0.0.3
 2018-2018
 */
 PGraphics pattern_noise(int w, int h, float... inc) {
   PGraphics pg ;
   noiseSeed((int)random(MAX_INT));
   if(w > 0 && h > 0 && inc.length > 0 && inc.length < 5) {
+    float [] cm = getColorMode(false);
+    colorMode(RGB,255,255,255,255);
     pg = createGraphics(w,h);
     float offset_x [] = new float[inc.length];
     float offset_y [] = new float[inc.length];
@@ -45,6 +47,7 @@ PGraphics pattern_noise(int w, int h, float... inc) {
       max[2] = g.colorModeZ;
       max[3] = g.colorModeA;
     }
+    colorMode((int)cm[0],cm[1],cm[2],cm[3],cm[4]);
 
     
     pg.beginDraw();
@@ -246,7 +249,7 @@ void select_layer(int target) {
 
 /**
 PImage manager library
-v 0.6.2
+v 0.7.0
 */
 public class R_Image_Manager {
   ArrayList<R_Image> library ;
@@ -379,9 +382,9 @@ public class R_Image_Manager {
     return library;
   }
 
-  PImage [] get() {
+  R_Image [] get() {
     if(library != null && library.size() > 0) {
-      return library.toArray(new PImage[library.size()]);
+      return library.toArray(new R_Image[library.size()]);
     } else return null;
   }
 
@@ -470,7 +473,7 @@ public class R_Image {
 
 /**
 resize image
-v 0.0.2
+v 0.0.3
 */
 /**
 * resize your picture proportionaly to the window sketch of the a specificic PGraphics
@@ -484,8 +487,12 @@ void image_resize(PImage src, boolean fullfit) {
 }
 
 void image_resize(PImage src, PGraphics pg, boolean fullfit) {
-  float ratio_w = pg.width / (float)src.width;
-  float ratio_h = pg.height / (float)src.height;
+  image_resize(src, pg.width, pg.height, fullfit);
+}
+
+void image_resize(PImage src, int target_width, int target_height, boolean fullfit) {
+  float ratio_w = target_width / (float)src.width;
+  float ratio_h = target_height / (float)src.height;
   if(!fullfit) {
     if(ratio_w > ratio_h) {
       src.resize(ceil(src.width *ratio_w), ceil(src.height *ratio_w));
