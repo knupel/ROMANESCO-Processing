@@ -1,6 +1,6 @@
 /**
 * UPDATE DISPLAY DESIGN
-* v 0.2.0
+* v 0.2.1
 * 2018-2019
 */
 
@@ -1303,6 +1303,7 @@ void update_button_general() {
 
 void update_button_local(Button... b) {
   for(int i = 0 ; i < b.length ; i++) {
-    b[i].update(mouseX,mouseY,dropdown_is());
+    b[i].update(mouseX,mouseY);
+    b[i].rollover(!dropdown_is());
   }
 }

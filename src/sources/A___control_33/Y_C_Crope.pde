@@ -1,7 +1,7 @@
 /**
 * CROPE
 * Control ROmanesco Processing Environment
-* v 0.10.1
+* v 0.10.2
 * Copyleft (c) 2018-2019
 * Processing 3.5.3
 * Rope library 0.8.1
@@ -209,7 +209,7 @@ public class Cropinfo {
 
 /**
 class Crope
-v 0.9.3
+v 0.10.0
 2018-2019
 */
 public class Crope {
@@ -218,8 +218,8 @@ public class Crope {
 
   protected ivec2 cursor;
 
-  protected int fill_in = color(g.colorModeX -(g.colorModeX *.1));
-  protected int fill_out = color(g.colorModeX /2);
+  protected int fill_in = r.GRAY[4];
+  protected int fill_out = r.GRAY[10];
   protected int stroke_in = fill_in;
   protected int stroke_out = fill_out;
   protected float thickness = 0;
@@ -558,14 +558,30 @@ public class Crope {
 
 /**
 CLASS BUTTON 
-v 1.2.3
-2013-2018
+v 1.3.0
+2013-2019
 */
 public class Button extends Crope {
-  protected int color_bg;
+  
+  protected int color_bg = r.GRAY[2];
 
-  protected int color_on_off;
-  protected int color_in_ON, color_out_ON, color_in_OFF, color_out_OFF; 
+  protected int color_on_off = r.GRAY[10];
+
+
+  protected int color_in_ON = r.GRAY[10];
+  protected int color_in_OFF = r.GRAY[6];
+
+  protected int color_out_ON = r.GRAY[18];;
+  protected int color_out_OFF = r.GRAY[14];; 
+
+
+/*
+    protected int fill_molette_in = color(g.colorModeX *.4);
+  protected int fill_molette_out = color(g.colorModeX *.2);
+  protected int stroke_molette_in = fill_molette_in;
+  protected int stroke_molette_out = fill_molette_out;
+  protected float thickness_molette = 0;
+  */
 
   protected PImage [] pic;
 
@@ -628,13 +644,31 @@ public class Button extends Crope {
   }
   
   /**
-  set
+  set colour
   */
+  public void set_colour_in_on(int c) {
+    this.color_in_ON = c;
+  }
+
+  public void set_colour_in_off(int c) {
+    this.color_in_OFF = c;
+  }
+
+
+  public void set_colour_out_on(int c) {
+    this.color_out_ON = c;
+  }
+
+
+  public void set_colour_out_off(int c) {
+    this.color_out_OFF = c;
+  }
+
   public Crope set_aspect_on_off(int color_in_ON, int color_out_ON, int color_in_OFF, int color_out_OFF) {
-    this.color_in_ON = color_in_ON ; 
-    this.color_out_ON = color_out_ON ; 
-    this.color_in_OFF = color_in_OFF ; 
-    this.color_out_OFF = color_out_OFF ;
+    set_colour_in_on(color_in_ON);
+    set_colour_in_off(color_in_OFF);
+    set_colour_out_on(color_out_ON);
+    set_colour_out_off(color_out_OFF);
     return this;
   }
 
@@ -653,11 +687,17 @@ public class Button extends Crope {
 
   public void update(int x, int y) {
     cursor(x,y);
-    update(x,y,true);
+    // update(x,y,true);
   }
-
+  
+  /*
   public void update(int x, int y, boolean authorization) {
     cursor(x,y);
+    this.authorization = authorization;
+  }
+  */
+
+  public void rollover(boolean authorization) {
     this.authorization = authorization;
   }
   
@@ -696,9 +736,9 @@ public class Button extends Crope {
   */
   public void show_picto(PImage [] pic) {
     int correctionX = -1 ;
-    if(pic[0] != null && pic[1] != null && pic[2] != null && pic[3] != null ) {
+    if(pic[0] != null && pic[1] != null && pic[2] != null && pic[3] != null) {
       if (is) {
-        if (inside() && !authorization) {
+        if (inside() && authorization) {
           // inside
           image(pic[0],pos.x +correctionX, pos.y); 
         } else {
@@ -706,7 +746,7 @@ public class Button extends Crope {
           image(pic[1],pos.x +correctionX, pos.y);
         }
       } else {
-        if (inside() && !authorization) {
+        if (inside() && authorization) {
           // inside
           image(pic[2],pos.x +correctionX, pos.y); 
         } else {
@@ -725,13 +765,13 @@ public class Button extends Crope {
   public void show_label() {
     if(this.name != null) {
       if (is) {
-        if (inside() && !authorization) {
+        if (inside() && authorization) {
           color_on_off = color_in_ON; 
         } else {
           color_on_off = color_out_ON;
         }
       } else {
-        if (inside() && !authorization) {
+        if (inside() && authorization) {
           color_on_off = color_in_OFF; 
         } else {
           color_on_off = color_out_OFF;
@@ -756,17 +796,38 @@ public class Button extends Crope {
   /**
   CLASSIC RECT BUTTON
   */
-  public void button_rect(boolean on_off_is) {
+  public void show(int kind, boolean on_off_is) {
+    if(kind == RECT) {
+      button_rect(on_off_is);
+    } else if(kind == ELLIPSE) {
+      button_ellipse(on_off_is);
+    }
+  }
+
+  private void button_ellipse(boolean on_off_is) {
+    aspect(on_off_is);
+    vec2 final_size = vec2(size);
+    vec2 final_pos = vec2(pos).add(final_size.copy().mult(.5));
+    ellipse(final_pos,final_size);
+  }
+
+
+  private void button_rect(boolean on_off_is) {
+    aspect(on_off_is);
+    rect(vec2(pos),vec2(size));
+  }
+
+  private void aspect(boolean on_off_is) {
     noStroke();
     if(on_off_is) {
       if (is) {
-        if (inside() && !authorization) {
+        if (inside() && authorization) {
           color_on_off = color_in_ON; 
         } else {
           color_on_off = color_out_ON;
         }
       } else {
-        if (inside() && !authorization) {
+        if (inside() && authorization) {
           color_on_off = color_in_OFF; 
         } else {
           color_on_off = color_out_OFF;
@@ -776,9 +837,11 @@ public class Button extends Crope {
     } else {
       fill(color_bg);
     }  
-    rect(vec2(pos),vec2(size));
   }
 }
+
+
+
 
 
 
@@ -1684,9 +1747,13 @@ public class Slider extends Crope {
     if(molette != null && index < molette.length 
       && pos_min.x > 0 && pos_min.y > 0 && pos_max.x > 0 && pos_max.y > 0) {
       if (size.x >= size.y) {
-        value = map(molette[index].pos.x,pos_min.x,pos_max.x,min_norm,max_norm); 
+        value = map(molette[index].pos.x,
+                    pos_min.x,pos_max.x,
+                    min_norm,max_norm); 
       } else {
-        value = map(molette[index].pos.y,pos_min.y,pos_max.y,min_norm,max_norm);
+        value = map(molette[index].pos.y,
+                    pos_min.y,pos_max.y,
+                    min_norm,max_norm);
       }
     }
     return value;
@@ -1805,7 +1872,7 @@ public class Slider extends Crope {
 
 /**
 SLOTCH > notch's slider
-v 0.2.0
+v 0.2.2
 2018-2018
 */
 public class Slotch extends Slider {
@@ -1864,27 +1931,33 @@ public class Slotch extends Slider {
   }
 
   private float pos_notch(int size, int pos_molette) {
-    float pos = pos_molette;
+
     float step = size / (float)get_notches_num();
+    float offset_slider_pos_x = get_pos().x() -step;
+    float abs_pos = pos_molette -offset_slider_pos_x;
     
     for(int i = 1 ; i < notches_pos.length ; i++) {
       float min = notches_pos[i] - (step *.5);
       float max = notches_pos[i] + (step *.5);
-      if(pos > min && pos < max) {
-        pos = notches_pos[i];
+      if(abs_pos > min && abs_pos < max) {
+        abs_pos = notches_pos[i];
         break;
-      } else if(pos <= min) {
-        pos = notches_pos[i];
+      } else if(abs_pos <= min ) {
+        abs_pos = notches_pos[i];
         break;
-      } else if(pos >= notches_pos[notches_pos.length-1] + (step *.5)) {
-        pos = notches_pos[notches_pos.length-1];
+      } else if(abs_pos >= notches_pos[notches_pos.length-1] + (step *.5) ) {
+        abs_pos = notches_pos[notches_pos.length-1];
         break;
       }
     }
+    
+    // here it's buggy, need to find a good ratio for the diffente size of slotch
+    // actully that's work well only when the step is equal to the mollete size in x and in y
     float offset = 0;
-    float size_mol = molette[0].size.x() *.5;
-    offset = step *.5 - size_mol;
-    return pos -offset;
+    float size_mol = molette[0].size.x();
+    float ratio = (size_mol / step) *0.5;
+    offset = step *.5 -(size_mol *ratio);
+    return abs_pos - offset +offset_slider_pos_x;
   }
 
 
@@ -1944,13 +2017,19 @@ public class Slotch extends Slider {
     float value = 0;
     if(molette != null && index < molette.length 
       && pos_min.x > 0 && pos_min.y > 0 && pos_max.x > 0 && pos_max.y > 0) {
-      if (size.x >= size.y) {
-        value = map(molette[index].pos.x,pos_min.x,pos_max.x,min_norm,max_norm); 
+      if (size.x >= size.y) {  
+        value = map(molette[index].pos.x,
+                    pos_min.x,pos_max.x,
+                    min_norm,max_norm); 
       } else {
-        value = map(molette[index].pos.y,pos_min.y,pos_max.y,min_norm,max_norm);
+        value = map(molette[index].pos.y,
+                    pos_min.y,pos_max.y,
+                    min_norm,max_norm);
       }
     }
-    return round(value *get_notches_num());
+
+    value = round(value*(float)notches_num);
+    return value -1;
   }
 
   public float [] get() {
@@ -1964,8 +2043,6 @@ public class Slotch extends Slider {
     }
     return value;
   }
-
-  
 } 
 
 
