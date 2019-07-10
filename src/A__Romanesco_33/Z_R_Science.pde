@@ -1,15 +1,35 @@
 /**
-ROPE SCIENCE
-v 0.7.0
+* ROPE SCIENCE
+* v 0.7.5
 * Copyleft (c) 2014-2019 
-* Stan le Punk > http://stanlepunk.xyz/
-* @author Stan le Punk
-* @see https://github.com/StanLepunK/Rope_method
-*
-the sketch method tab is not included on this repository if you need
-* @see https://github.com/StanLepunK/Old_code/tree/master/Science_rope_2017_12_8
+* @author @stanlepunk
+* @see https://github.com/StanLepunK/Rope_framework
 * Processing 3.5.3
 */
+
+
+
+
+/**
+* check if int number is prime number
+*/
+boolean is_prime(int n) {
+  if(n == 2) {
+    return true;
+  } else if (n%2==0) {
+    return false;
+  } else {
+    for(int i=3; i*i<=n ; i+=2) {
+      if(n%i==0) {
+        return false;
+      }
+    }
+    return true;
+  } 
+}
+
+
+
 
 /**
 Gaussian randomize
@@ -99,7 +119,7 @@ Physic Rope
 v 0.0.2
 */
 public double g_force(double dist, double m_1, double m_2) {
-  return RConstants.G *(dist*dist)/(m_1 *m_2);
+  return R_Constants.G *(dist*dist)/(m_1 *m_2);
 }
 
 
@@ -235,7 +255,11 @@ vec3 to_polar(vec3 cart) {
 }
 
 
-///////////////
+
+
+
+
+
 // Cartesian 3D
 /*
 @ return vec3
@@ -288,25 +312,26 @@ vec3 to_cartesian_3D(float longitude, float latitude, float radius) {
 
 
 
-//Step 1 : translate the mouse position x and y  on the sphere, we must do that separately
-/*
-@ return vec2 
-return linear value on the circle perimeter
-*/
-vec2 to_cartesian_2D (float posMouse, vec2 range, vec2 targetRadian, float distance) {
-  float rotationPlan = map(posMouse, range.x, range.y, targetRadian.x, targetRadian.y)  ;
-  return to_cartesian_2D (rotationPlan, distance) ;
+
+
+
+
+// To cartesian 2D
+vec2 to_cartesian_2D (float pos, vec2 range, vec2 target_rad, float distance) {
+  float rotation_plan = map(pos, range.x, range.y, target_rad.x, target_rad.y)  ;
+  return to_cartesian_2D (rotation_plan, distance) ;
 }
 
-vec2 to_cartesian_2D (float angle) {
-  float radius_normal = 1 ;
-  return to_cartesian_2D (angle, radius_normal) ;
+
+vec2 to_cartesian_2D (float angle, float radius) {
+  return to_cartesian_2D(angle).mult(radius);
 }
+
 
 // main method
-vec2 to_cartesian_2D (float angle, float radius) {
-  float x = cos(angle) *radius;
-  float y = sin(angle) *radius ;
+vec2 to_cartesian_2D (float angle) {
+  float x = cos(angle);
+  float y = sin(angle);
   return vec2(x,y) ;
 }
 
@@ -694,7 +719,7 @@ PRIMITIVE 3D
 
 /**
 POLYDRON
-v 0.2.0
+v 0.3.0
 */
   //create Polyhedron
   /*
@@ -707,6 +732,9 @@ v 0.2.0
   
 // MAIN VOID to create polyhedron
 void polyhedron(String type, String style, int size) {
+  polyhedron(type,style,size,null);
+}
+void polyhedron(String type, String style, int size, PGraphics other) {
   //This is where the actual defining of the polyhedrons takes place
 
   if(vec_polyhedron_list != null) {
@@ -737,9 +765,9 @@ void polyhedron(String type, String style, int size) {
   if(type.equals("RHOMBIC COSI DODECAHEDRON GREAT"))rhombic_cosi_dodecahedron_great(size) ;
   
   // which method to draw
-  if(style.equals("LINE")) polyhedron_draw_line(type) ;
-  if(style.equals("POINT")) polyhedron_draw_point(type) ;
-  if(style.equals("VERTEX")) polyhedron_draw_vertex(type) ;
+  if(style.equals("LINE")) polyhedron_draw_line(type,other) ;
+  if(style.equals("POINT")) polyhedron_draw_point(type,other) ;
+  if(style.equals("VERTEX")) polyhedron_draw_vertex(type,other) ;
 
 }
 
@@ -890,45 +918,63 @@ void rhombic_cosi_dodecahedron_great(int size) {
 // EASY METHOD, for direct and single drawing
 // classic and easy method
 void polyhedron_draw_point(String name) {
+  polyhedron_draw_point(name,null);
+}
+
+void polyhedron_draw_point(String name, PGraphics other) {
   for (int i = 0 ; i < vec_polyhedron_list.size() ; i++) {
     vec3 point = vec_polyhedron_list.get(i);
     if(name.equals("TETRAHEDRON")) {
-      pushMatrix() ;
-      rotateX(TAU -1) ;
-      rotateY(PI/4) ;
+      push(other);
+      rotateX(TAU -1,other);
+      rotateY(PI/4,other);
     }
     point(point.x *factor_size_polyhedron, point.y *factor_size_polyhedron, point.z *factor_size_polyhedron);
-    if(name.equals("TETRAHEDRON")) popMatrix() ;
+    if(name.equals("TETRAHEDRON")) {
+      pop(other);
+    }
   }
 }
 
+
 void polyhedron_draw_line(String name) {
+  polyhedron_draw_line(name,null);
+}
+
+void polyhedron_draw_line(String name, PGraphics other) {
   for (int i=0; i <vec_polyhedron_list.size(); i++) {
     for (int j=i +1; j < vec_polyhedron_list.size(); j++) {
       if (isEdge(i, j, vec_polyhedron_list) || edge_polyhedron_length == 0 ) {
         vec3 v1 = vec_polyhedron_list.get(i).copy();
         vec3 v2 = vec_polyhedron_list.get(j).copy();
         if(name.equals("TETRAHEDRON")) {
-          pushMatrix() ;
-          rotateX(TAU -1) ;
-          rotateY(PI/4) ;
+          push(other) ;
+          rotateX(TAU -1,other);
+          rotateY(PI/4,other);
         }
-        line(v1.x *factor_size_polyhedron, v1.y *factor_size_polyhedron, v1.z *factor_size_polyhedron, v2.x *factor_size_polyhedron, v2.y *factor_size_polyhedron, v2.z *factor_size_polyhedron);
-        if(name.equals("TETRAHEDRON")) popMatrix() ;
+        line( v1.x *factor_size_polyhedron, v1.y *factor_size_polyhedron, v1.z *factor_size_polyhedron, 
+              v2.x *factor_size_polyhedron, v2.y *factor_size_polyhedron, v2.z *factor_size_polyhedron,
+              other);
+        if(name.equals("TETRAHEDRON")) {
+          pop(other);
+        }
       }
     }
   }
 }
 
 void polyhedron_draw_vertex(String name) {
+  polyhedron_draw_vertex(name,null);
+}
+
+void polyhedron_draw_vertex(String name, PGraphics other) {
   // TETRAHEDRON
   if(name.equals("TETRAHEDRON")) {
-    pushMatrix() ;
-    rotateX(TAU -1) ;
-    rotateY(PI/4) ;
+    push(other);
+    rotateX(TAU -1,other);
+    rotateY(PI/4,other) ;
     int n = 4 ; // quantity of face of Tetrahedron
     for(int i = 0 ; i < n ; i++) {
-      // println("je suis là face",i);
       // choice of each point
       int a = i ;
       int b = i+1 ;
@@ -947,16 +993,16 @@ void polyhedron_draw_vertex(String name) {
       v3.mult(factor_size_polyhedron);
       
       // drawing
-      beginShape() ;
-      vertex(v1) ;
-      vertex(v2) ;
-      vertex(v3) ;
-      endShape(CLOSE) ;
+      beginShape(other);
+      vertex(v1,other);
+      vertex(v2,other);
+      vertex(v3,other);
+      endShape(CLOSE,other);
     }
-    popMatrix() ;
+    pop(other);
   // OTHER POLYHEDRON
   } else {
-    beginShape() ;
+    beginShape(other) ;
     for (int i= 0; i <vec_polyhedron_list.size(); i++) {
       for (int j= i +1; j <vec_polyhedron_list.size(); j++) {
         if (isEdge(i, j, vec_polyhedron_list) || edge_polyhedron_length == 0 ) {
@@ -965,12 +1011,12 @@ void polyhedron_draw_vertex(String name) {
           vec3 v2 = vec_polyhedron_list.get(j).copy();
           v1.mult(factor_size_polyhedron);
           v2.mult(factor_size_polyhedron);;
-          vertex(v1);
-          vertex(v2);
+          vertex(v1,other);
+          vertex(v2,other);
         }
       }
     }
-    endShape(CLOSE) ;
+    endShape(CLOSE,other);
   }
 }
 // END of EASY METHOD and DIRECT METHOD

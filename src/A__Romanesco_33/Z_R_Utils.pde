@@ -1,13 +1,227 @@
 /**
 Rope UTILS 
-v 1.56.2
+v 1.60.0
 * Copyleft (c) 2014-2019
-* Stan le Punk > http://stanlepunk.xyz/
-Rope – Romanesco Processing Environment – 
-Processing 3.5.3
-* @author Stan le Punk
-* @see https://github.com/StanLepunK/Rope
+* Rope – Romanesco Processing Environment – 
+* Processing 3.5.3
+* Rope library 0.8.3.29
+* @author @stanlepunk
+* @see https://github.com/StanLepunK/Rope_framework
 */
+
+// METHOD MANAGER
+import java.lang.reflect.Method;
+// FOLDER & FILE MANAGER
+import java.awt.FileDialog;
+import java.awt.Frame;
+import java.io.FilenameFilter;
+// TRANSLATOR 
+import java.nio.ByteBuffer;
+import java.nio.ByteOrder;
+// EXPORT PDF
+import processing.pdf.*;
+
+
+
+
+
+/**
+* METHOD MANAGER
+* to create method from String name, add in a list and recall from this String name later
+* v 0.0.4
+* 2019-2019
+*/
+// main method
+void template_method(String name, PApplet pa, Class... classes) {
+  if(method_index == null) {
+    method_index = new ArrayList<Method_Manager>();
+  } 
+  init_method(name,pa,classes);
+}
+
+boolean method_exist_is = true;
+boolean method_is() {
+  return method_exist_is;
+}
+
+void method(String name, PApplet pa, Object... args) {
+  method_exist_is = true;
+  Method method = method_exist(name, args);
+  if(method != null) {
+    invoke_method(method, pa, args);
+  } else {
+    println("method(): no method exist for this name:",name,"or this order of arguments:");
+    method_exist_is = false;
+    for(int i = 0 ; i < args.length ; i++) {
+      println("[",i,"]",args[i].getClass().getName());
+    } 
+  }
+}
+
+// private method
+Method method_exist(String name, Object... args) {
+  Method method = null;
+  if(method_index != null && method_index.size() > 0) {
+    for(Method_Manager mm : method_index) {
+      if(mm.get_name().equals(name)) {
+        boolean same_is = true;
+        if(args.length == mm.get_index().length) {
+          for(int i = 0 ; i < args.length; i++) {
+            String arg_name = translate_class_to_type_name_if_necessary(args[i]);
+            if(!arg_name.equals(mm.get_index()[i])) {
+              same_is = false;
+              break;
+            }
+          }
+        } else {
+          same_is = false;
+        }       
+        if(same_is) {
+          method = mm.get_method();
+        }
+      }
+    }
+  }
+  return method;
+}
+
+String translate_class_to_type_name_if_necessary(Object arg) {
+  String name = arg.getClass().getName();
+  if(name.equals("java.lang.Byte")) {
+    name = "byte";
+  } else if(name.equals("java.lang.Short")) {
+    name = "short";
+  } else if(name.equals("java.lang.Integer")) {
+    name = "int";
+  } else if(name.equals("java.lang.Long")) {
+    name = "long";
+  } else if(name.equals("java.lang.Float")) {
+    name = "float";
+  } else if(name.equals("java.lang.Double")) {
+    name = "double";
+  } else if(name.equals("java.lang.Boolean")) {
+    name = "boolean";
+  } else if(name.equals("java.lang.Character")) {
+    name = "char";
+  }
+  return name;
+}
+
+
+ArrayList<Method_Manager> method_index ;
+void init_method(String name, PApplet pa, Class... classes) { 
+  // check if method already exist
+  boolean create_class_is = true; 
+  for(Method_Manager mm : method_index) {
+    if(mm.get_name().equals(name)) {
+      if(mm.get_index().length == classes.length) {
+        int count_same_classes = 0;
+        for(int i = 0 ; i < classes.length ; i++) {
+          if(mm.get_index()[i].equals(classes[i].getCanonicalName())) {
+            count_same_classes++;
+          }
+        }
+        if(count_same_classes == classes.length) {
+          create_class_is = false;
+          break;
+        }
+      }
+    }
+  }
+  // instantiate if necessary
+  if(create_class_is) {
+    Method method = get_method(name,pa,classes);
+    Method_Manager method_manager = new Method_Manager(method,name,classes);
+    method_index.add(method_manager);
+  } else {
+    println("template_method(): this method",name,"with those classes organisation already exist");
+  }
+}
+
+
+/**
+* Method manger
+*/
+class Method_Manager {
+  Method method;
+  String name;
+  String [] index;
+  Method_Manager(Method method, String name, Class... classes) {
+    index = new String[classes.length];
+    for(int i = 0 ; i < index.length ; i++) {
+      index[i] = classes[i].getName();
+    }
+    this.method = method;
+    this.name = name;
+  }
+
+  String [] get_index() {
+    return index;
+  }
+
+  String get_name() {
+    return name;
+  }
+
+  Method get_method() {
+    return method;
+  }
+}
+
+
+/**
+ * refactoring of Method Reflective Invocation (v4.0)
+ * Stanlepunk (2019/Apr/03)
+ * Mod GoToLoop
+ * https://Discourse.Processing.org/t/create-callback/9831/16
+ */
+static final Method get_method(String name, Object instance, Class... classes) {
+  final Class<?> c = instance.getClass();
+  try {
+    return c.getMethod(name, classes);
+  } 
+  catch (final NoSuchMethodException e) {
+    try {
+      final Method m = c.getDeclaredMethod(name, classes);
+      m.setAccessible(true);
+      return m;
+    }   
+    catch (final NoSuchMethodException ex) {
+      ex.printStackTrace();
+      return null;
+    }
+  }
+}
+
+static final Object invoke_method(Method funct, Object instance, Object... args) {
+  try {
+    return funct.invoke(instance, args);
+  } 
+  catch (final ReflectiveOperationException e) {
+    throw new RuntimeException(e);
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 /**
@@ -40,13 +254,23 @@ void check_window_size() {
 
 /**
 print Constants
-v 0.0.3
+v 0.1.1
 */
-Constant_list processing_constants_list = new Constant_list(PConstants.class);
-Constant_list rope_constants_list = new Constant_list(rope.core.RConstants.class);
+Constant_list rope_constants_colour_list;
+public void print_constants_colour_rope() {
+  if(rope_constants_colour_list == null) {
+    rope_constants_colour_list = new Constant_list(rope.core.R_Constants_Colour.class);
+  }
+  println("ROPE CONSTANTS COLOUR");
+  for(String s: rope_constants_colour_list.list()){
+    println(s);
+  }
+}
+
+Constant_list rope_constants_list;
 public void print_constants_rope() {
   if(rope_constants_list == null) {
-    rope_constants_list = new Constant_list(rope.core.RConstants.class);
+    rope_constants_list = new Constant_list(rope.core.R_Constants.class);
   }
   println("ROPE CONSTANTS");
   for(String s: rope_constants_list.list()){
@@ -54,6 +278,7 @@ public void print_constants_rope() {
   }
 }
 
+Constant_list processing_constants_list;
 public void print_constants_processing() {
   if(processing_constants_list == null) {
     processing_constants_list = new Constant_list(PConstants.class);
@@ -65,23 +290,11 @@ public void print_constants_processing() {
 } 
 
 public void print_constants() {
-  if(processing_constants_list == null) {
-    processing_constants_list = new Constant_list(PConstants.class);
-  }
-
-  if(rope_constants_list == null) {
-    rope_constants_list = new Constant_list(rope.core.RConstants.class);
-  }
-
-  println("ROPE CONSTANTS");
-  for(String s: rope_constants_list.list()){
-    println(s);
-  }
-  println();
-  println("PROCESSING CONSTANTS");
-  for(String s: processing_constants_list.list()){
-    println(s);
-  }
+  print_constants_rope();
+  println(" ");
+  print_constants_colour_rope();
+  println(" ");
+  print_constants_processing();
 } 
 
 /*
@@ -139,52 +352,481 @@ class Constant_list {
 
 
 /**
-FOLDER & FILE MANAGER
-v 0.3.0
+* FOLDER & FILE MANAGER
+* v 0.8.0
 */
-/*
-INOUT PART
-*/
-String selected_path_input = null;
-boolean input_selected_is;
+String warning_input_file_folder_message = "Window was closed or the user hit cancel.";
+String warning_input_file_not_accepted = "This file don't match with any extension accepted:";
 
-void select_input() {
-  select_input("");
+String [] input_type = {  "default",
+                          "image","media","movie","shape","sound","text",
+                          "load",
+                          "preference","setting"
+                        };
+R_Input [] input_rope;
+
+
+// filter
+String[] ext_default;
+String[] ext_image = { "png", "jpeg", "jpg", "tif", "tga", "gif"};
+String[] ext_load;
+String[] ext_media;
+String[] ext_movie = { "mov", "avi", "mp4", "mpg", "mkv"};
+String[] ext_preference;
+String[] ext_setting = { "csv", "txt", "json"};
+String[] ext_shape = { "svg", "obj"};
+String[] ext_sound = { "mp3", "wav"};
+String[] ext_text = { "txt", "md"};
+
+
+
+
+
+
+
+void print_extension_filter() {
+  print_extension_filter("all");
 }
 
-void select_input(String message) {
-  // folder_selected_is = true ;
-  selectInput(message, "input_selected");
-}
 
-void input_selected(File selection) {
-  if (selection == null) {
-    println("Window was closed or the user hit cancel.");
+void print_extension_filter(String type) {
+  if(get_inputs() != null && get_inputs().length > 0) {
+    if(type.equals("all")) {
+      for(int i = 0 ; i < get_inputs().length ; i++) {
+        println(get_input(i).get_type());
+        printArray(get_input(i).get_filter());
+      }
+    } else {
+      int count = 0;
+      for(int i = 0 ; i < input_type.length ; i++) {
+        count++;
+        if(input_type[i].equals(type)) {
+          println(get_input(type).get_type());
+          printArray(get_input(type).get_filter());
+          break;
+        }
+        if(count == input_type.length) {
+          printErr("method print_extension_filter(): no input available for this type:",type);
+        }
+      }
+    }
   } else {
-    println("Input path is:" +selection.getAbsolutePath());
-    selected_path_input = selection.getAbsolutePath();
-    input_selected_is = true;
+    printErr("method print_extension_filter(): no input available");
   }
 }
 
-boolean input_selected_is() {
-  return input_selected_is;
-}
 
-void reset_input_selection() {
-  input_selected_is = false;
-}
-
-String input() {
-  return selected_path_input;
-}
 
 
 /*
-FOLDER PART
+* INPUT PART
+* v 0.3.0
+* 2017-2019
+*/
+
+/**
+* class Input
+*/
+class R_Input {
+  File file = null;
+  String type = null;
+  String callback = null;
+  String path = null;
+  String prompt = null;
+  String [] filter = null;
+  boolean is;
+  R_Input() { }
+  
+  // set
+  void set_file(File file) {
+    this.file = file;
+    this.path = file.getPath();
+  }
+
+  void set_is(boolean is) {
+    this.is = is;
+  }
+
+  void set_path(String path) {
+    this.path = path;
+  }
+
+  void set_type(String type) {
+    this.type = type;
+  }
+
+  void set_prompt(String prompt) {
+    this.prompt = prompt;
+  }
+
+  void set_callback(String callback) {
+    this.callback = callback;
+  }
+
+  void set_filter(String [] filter) {
+    this.filter = filter;
+  }
+  
+  // get
+  File get_file() {
+    return file;
+  }
+
+  String get_type() {
+    return type;
+  }
+
+  String get_path() {
+    return path;
+  }
+
+  String get_prompt() {
+    return prompt;
+  }
+
+  boolean get_is() {
+    return is;
+  }
+
+  String get_callback() {
+    return callback;
+  }
+
+  String [] get_filter() {
+    return filter;
+  }
+}
+
+
+
+
+
+
+
+
+/**
+* method input
+*/
+// set input
+void init_input_group() {
+  if(input_rope == null) {
+    input_rope = new R_Input[input_type.length];
+    for(int i = 0 ; i < input_rope.length ; i++) {
+      input_rope[i] = new R_Input();
+      set_input(input_rope[i],input_type[i]);
+    }
+  }
+}
+
+void set_input(R_Input input, String type) { 
+  input.set_type(type);
+  input.set_prompt("select "+type);
+  if(type.equals("default")) input.set_filter(ext_default);
+  else if(type.equals("image")) input.set_filter(ext_image);
+  else if(type.equals("load")) input.set_filter(ext_load);
+  else if(type.equals("media")) input.set_filter(ext_media);
+  else if(type.equals("movie")) input.set_filter(ext_movie);
+  else if(type.equals("preference")) input.set_filter(ext_preference);
+  else if(type.equals("setting")) input.set_filter(ext_setting);
+  else if(type.equals("shape")) input.set_filter(ext_shape);
+  else if(type.equals("sound")) input.set_filter(ext_sound);
+  else if(type.equals("text")) input.set_filter(ext_text);
+}
+
+
+void set_filter_input(String type, String... ext) {
+  init_input_group();
+  if(type.equals("default")) {
+    ext_default = ext;
+  } else if(type.equals("image")) {
+    ext_image = ext;
+  } else if(type.equals("load")) {
+    ext_load = ext;
+  } else if(type.equals("media")) {
+    ext_media = ext;
+  } else if(type.equals("movie")) {
+    ext_movie = ext;
+  } else if(type.equals("preference")) {
+    ext_preference = ext;
+  } else if(type.equals("setting")) {
+    ext_setting = ext;
+  } else if(type.equals("shape")) {
+    ext_shape = ext;
+  } else if(type.equals("sound")) {
+    ext_sound = ext;
+  } else if(type.equals("text")) {
+    ext_text = ext;
+  } else if(type.equals("default")) {
+    ext_default = ext;
+  }
+  set_input(get_input(type),type);
+}
+
+
+
+
+
+
+
+
+
+
+// get input
+String [] get_input_type() {
+  return input_type;
+}
+
+R_Input get_input(String type) {
+  R_Input input = null;
+  if(input_rope != null && input_rope.length > 0) {
+    for(int i = 0 ; i < input_rope.length ; i++) {
+      if(input_rope[i].get_type().equals(type)) {
+        input = input_rope[i];
+        break;
+      }
+    }
+  }
+  return input;
+}
+
+R_Input [] get_inputs() {
+  return input_rope;
+}
+
+R_Input get_input(int target) {
+  if(input_rope != null && target < input_rope.length && target >= 0) {
+    return input_rope[target];
+  } else {
+    return null;
+  }
+}
+
+
+
+void select_input() {
+  select_input("default");
+}
+
+void select_input(String type) {
+  init_input_group();
+  String context = get_renderer();
+  boolean apply_filter_is = true;
+  if(context.equals(P3D) || context.equals(P2D) || context.equals(FX2D)) {
+    apply_filter_is = false;
+    println("WARNING: method select_input() cannot apply filter extension",type," in this renderer context", context,"\ninstead classic method selectInput() is used");
+  }
+
+
+  // selectInput(input.get_prompt(),"select_single_file");
+  if(!apply_filter_is) {
+    type = "default";
+    for(int i = 0 ; i < input_rope.length ; i++) {
+      if (type.toLowerCase().equals(input_rope[i].get_type())) {  
+        selectInput(input_rope[i].get_prompt(),"select_single_file");
+        break;
+      }
+    }
+  } else if(apply_filter_is) {
+    int check_for_existing_method = 0 ;
+    for(int i = 0 ; i < input_rope.length ; i++) {
+      check_for_existing_method++;
+      if(type.toLowerCase().equals(input_rope[i].get_type())){  
+        select_single_file_filtering(input_rope[i]);
+        break;
+      }
+    }
+
+    if(check_for_existing_method == input_rope.length) {
+      printErr("void select_input(String type) don't find callback method who's match with type: "+type);
+      printErr("type available:");
+      printArray(input_type);
+    }
+  }
+}
+
+
+void select_single_file(File selection) {
+  if (selection == null) {
+    println("Window was closed or the user hit cancel.");
+  } else {
+    String default_input = "default";
+    for(int i = 0 ; i < input_rope.length ; i++) {
+      if (default_input.toLowerCase().equals(input_rope[i].get_type())) { 
+        // println("method select_single_file_filtering() input default",selection.getAbsolutePath());
+        input_rope[i].set_file(selection);
+        if(input_rope[i].get_file() != null) {
+          println("method select_single_file(",input_rope[i].get_type(),"):",input_rope[i].get_file().getPath());
+        }
+        break;
+      }
+    }  
+  }
+  
+}
+
+
+
+int max_filter_input;
+String [] temp_filter_list;
+void select_single_file_filtering(R_Input input) {
+  Frame frame = null;
+  FileDialog dialog = new FileDialog(frame, input.get_prompt(), FileDialog.LOAD);
+  if(input.get_filter() != null && input.get_filter().length > 0) {
+    temp_filter_list = input.get_filter();
+    dialog.setFilenameFilter(new FilenameFilter() {
+      @Override
+      public boolean accept(File dir, String name) {
+        name = name.toLowerCase();
+        for (int i = 0; i < temp_filter_list.length ; i++) {
+          if (name.endsWith(temp_filter_list[i]))  {
+            return true;
+          }
+        }
+        return false;
+      }}
+    );
+  }  
+  dialog.setVisible(true);
+  String directory = dialog.getDirectory();
+  String filename = dialog.getFile();
+
+  if (filename != null) {
+    input.set_file(new File(directory, filename));
+  }
+  if(input.get_file() != null) {
+    println("method select_single_file_filtering(",input.get_type(),"):",input.get_file().getPath());
+  }
+}
+
+
+
+
+
+boolean accept_input(String path, String [] ext) {
+  boolean accepted = false;
+  for (int i = ext.length; i-- != 0;) {
+    if (path.endsWith(ext[i]))  {
+      accepted = true;
+      break;
+    }
+  }
+  return accepted;
+}
+
+
+
+
+boolean input_is() {
+  return input_is("default");
+}
+
+boolean input_is(String type) {
+  boolean result = false;
+  for (int i = input_type.length; i-- != 0;) {
+    if(input_type[i].equals(type)) {
+      if(input_rope != null && input_rope[i] != null) {
+        result = input_rope[i].get_is();
+        break;
+      }
+    }
+  }
+  return result;
+}
+
+
+
+void reset_input() {
+  reset_input("default");;
+}
+
+void reset_input(String type) {
+  init_input_group();
+  for (int i = input_type.length; i-- != 0;) {
+    if(input_type[i].equals(type)) {
+      input_rope[i].set_is(false);
+      break;
+    }
+  }
+}
+
+
+void input_is(boolean is) {
+  input_is("default",is);;
+}
+
+void input_is(String type, boolean is) {
+  for (int i = input_type.length; i-- != 0;) {
+    if(input_type[i].equals(type)) {
+      input_rope[i].set_is(is);
+      break;
+    }
+  }
+}
+
+
+String input() {
+  return input("default");
+}
+
+
+String input(String type) {
+  String path = null;
+  for (int i = input_type.length; i-- != 0;) {
+    if(input_type[i].equals(type)) {
+      if(input_rope != null) {
+        path = input_rope[i].get_path();
+        break;
+      }
+    }
+  }
+  return path;
+}
+
+File input_file() {
+  return input_file("default");
+
+}
+
+File input_file(String type) {
+  File file = null;
+  for (int i = input_type.length; i-- != 0;) {
+    if(input_type[i].equals(type)) {
+      file = input_rope[i].get_file();
+      break;
+    }
+  }
+  return file;
+}
+
+
+
+
+void set_input(String type, File file) {
+  for(int i = 0 ; i < input_rope.length ; i++) {
+    if(type.equals(input_rope[i].get_type())) {
+      input_rope[i].set_file(file);
+      input_rope[i].set_path(file.getAbsolutePath());
+      input_rope[i].set_is(true);
+    }
+  }
+}
+
+
+
+
+
+
+
+
+
+/*
+* FOLDER PART
+* v 0.1.3
+* 2017-2019
 */
 String selected_path_folder = null;
 boolean folder_selected_is;
+boolean explore_subfolder_is = false;
 
 void select_folder() {
   select_folder("");
@@ -195,12 +837,13 @@ void select_folder(String message) {
 }
 
 
+
 /**
 * this method is called by method select_folder(), and the method name must be the same as named
 */
 void folder_selected(File selection) {
   if (selection == null) {
-    println("Window was closed or the user hit cancel.");
+    println(warning_input_file_folder_message);
   } else {
     println("Folder path is:" +selection.getAbsolutePath());
     selected_path_folder = selection.getAbsolutePath();
@@ -209,12 +852,24 @@ void folder_selected(File selection) {
 }
 
 
-boolean folder_selected_is() {
+void explore_subfolder_is(boolean is) {
+  explore_subfolder_is = is;
+}
+
+boolean explore_subfolder_is() {
+  return explore_subfolder_is;
+}
+
+boolean folder_is() {
   return folder_selected_is;
 }
 
-void reset_folder_selection() {
+void reset_folder() {
   folder_selected_is = false;
+}
+
+void folder_is(boolean is) {
+  folder_selected_is = is;
 }
 
 String folder() {
@@ -227,7 +882,11 @@ ArrayList <File> files;
 int count_selection;
 
 void set_media_list() {
-  if(files == null) files = new ArrayList<File>(); else files.clear();
+  if(files == null) {
+    files = new ArrayList<File>(); 
+  } else {
+    files.clear();
+  }
 }
 
 
@@ -253,26 +912,26 @@ String [] get_files_sort() {
 
 void explore_folder(String path_folder, String... extension) {
   explore_folder(path_folder, false, extension);
-
 }
 
 void explore_folder(String path, boolean check_sub_folder, String... extension) {
-  if((folder_selected_is || input_selected_is) && path != ("")) {
+  if((folder_input_default_is() || input_is()) && path != ("")) {
     count_selection++ ;
     set_media_list();
  
     ArrayList allFiles = list_files(path, check_sub_folder);
   
-    String fileName = "";
+    String file_name = "";
     int count_pertinent_file = 0 ;
   
     for (int i = 0; i < allFiles.size(); i++) {
       File f = (File) allFiles.get(i);   
-      fileName = f.getName(); 
+      file_name = f.getName(); 
       // Add it to the list if it's not a directory
       if (f.isDirectory() == false) {
         for(int k = 0 ; k < extension.length ; k++) {
-          if (extension(fileName).equals(extension[k])) {
+          String ext = extension[k].toLowerCase();
+          if(extension(file_name) != null && extension(file_name).equals(ext)) {
             count_pertinent_file += 1 ;
             println(count_pertinent_file, "/", i, f.getName());
             files.add(f);
@@ -281,9 +940,18 @@ void explore_folder(String path, boolean check_sub_folder, String... extension) 
       }
     }
     // to don't loop with this void
-    folder_selected_is = false ;
-    input_selected_is = false ;
+    reset_folder_input_default();
+    reset_input();
   }
+}
+
+boolean folder_input_default_is() {
+  return folder_selected_is;
+}
+
+
+void reset_folder_input_default() {
+  folder_selected_is = false ;
 }
 
 
@@ -301,7 +969,7 @@ ArrayList list_files(String dir, boolean check_sub_folder) {
       for(int i = 0 ; i < subfiles.length ; i++) {
         fileList.add(subfiles[i]);
       }
-    } else if(input_selected_is) {
+    } else if(input_is()) {
       File file = new File(dir);
       fileList.add(file);
     }
@@ -354,32 +1022,32 @@ void explore_directory(ArrayList list_file, String dir) {
 
 
 /**
-SAVE LOAD  FRAME Rope
-v 0.3.1
+* SAVE LOAD  FRAME Rope
+* v 0.4.0
+* 2016-2019
 */
 /**
-Save Frame
-V 0.1.2
+* Save Frame
 */
-void saveFrame(String where, String filename, PImage img) {
+void save_frame(String where, String filename, PImage img) {
+  float compression = 1.;
+  save_frame(where, filename, compression, img);
+}
+
+void save_frame(String where, String filename) {
   float compression = 1. ;
-  saveFrame(where, filename, compression, img) ;
+  PImage img = g;
+  save_frame(where, filename, compression, img);
 }
 
-void saveFrame(String where, String filename) {
-  float compression = 1. ;
-  PImage img = null;
-  saveFrame(where, filename, compression, img) ;
+void save_frame(String where, String filename, float compression) {
+  PImage img = g;
+  save_frame(where, filename, compression, img);
 }
 
-void saveFrame(String where, String filename, float compression) {
-  PImage img = null;
-  saveFrame(where, filename, compression, img);
-}
-
-void saveFrame(String where, String filename, float compression, PImage img) {
+void save_frame(String where, String filename, float compression, PImage img) {
   // check if the directory or folder exist, if it's not create the path
-  File dir = new File(where)  ;
+  File dir = new File(where);
   dir.mkdir() ;
   // final path with file name adding
   String path = where+"/"+filename ;
@@ -388,27 +1056,64 @@ void saveFrame(String where, String filename, float compression, PImage img) {
     loadPixels(); 
     BufferedImage buff_img;
     if(img == null) {
-      printErr("method saveFrame(): the PImage is null, no save can be done");
+      printErr("method save_frame(): the PImage is null, no save can be done");
     } else {
       buff_img = new BufferedImage(img.width, img.height, BufferedImage.TYPE_INT_RGB);
       buff_img.setRGB(0, 0, img.width, img.height, img.pixels, 0, img.width);
-      if(path.contains(".bmp") || path.contains(".BMP")) {
-        saveBMP(os, buff_img);
-      } else if(path.contains(".jpeg") || path.contains(".jpg") || path.contains(".JPG") || path.contains(".JPEG")) {
-        saveJPG(os, compression, buff_img);
+
+      if(extension_is(path, "bmp")) {
+        save_BMP(os, buff_img);
+      } else if(extension_is(path, "jpg", "jpeg")) {
+        save_JPG(os, compression, buff_img);
+      // } else if(extension_is(path, "png")) {
+      //   event_PNG();
+      //   filename = filename.substring(0,filename.length()-4);
+      //   save_PNG(path,filename);
+      } else {
+        printErr("method save_frame(): no save match with this path "+path);
       }
     } 
-  }  catch (FileNotFoundException e) {
+  } catch (FileNotFoundException e) {
     //
   }
 }
+
+
+
+
+
+
+/**
+* SAVE PNG
+*/
+boolean record_PNG;
+void save_PNG() {
+  save_PNG("data", "shot_"+ranking_shot + ".png");
+}
+
+void save_PNG(String path, String name_file) {
+  if(record_PNG) {
+    saveFrame(path + "/" + name_file + ".png");
+    record_PNG = false;
+  }
+}
+
+void event_PNG() {
+  record_PNG = true;
+}
+
+
+
+
+
+
 
 /**
 SAVE JPG
 v 0.0.1
 */
 // classic one
-boolean saveJPG(OutputStream output, float compression,  BufferedImage buff_img) {
+boolean save_JPG(OutputStream output, float compression,  BufferedImage buff_img) {
   compression = truncate(compression, 1);
   if(compression < 0) compression = 0.0f;
   else if(compression > 1) compression = 1.0f;
@@ -418,7 +1123,7 @@ boolean saveJPG(OutputStream output, float compression,  BufferedImage buff_img)
     ImageWriteParam param = null;
     IIOMetadata metadata = null;
 
-    if ((writer = imageioWriter("jpeg")) != null) {
+    if ((writer = image_io_writer("jpeg")) != null) {
       param = writer.getDefaultWriteParam();
       param.setCompressionMode(ImageWriteParam.MODE_EXPLICIT);
       param.setCompressionQuality(compression);
@@ -429,15 +1134,15 @@ boolean saveJPG(OutputStream output, float compression,  BufferedImage buff_img)
       output.flush();
       javax.imageio.ImageIO.write(buff_img, "jpg", output);
     }
-    return true ;
+    return true;
   }
   catch(IOException e) {
     e.printStackTrace();
   }
-  return false ;
+  return false;
 }
 
-ImageWriter imageioWriter(String extension) {
+ImageWriter image_io_writer(String extension) {
   // code from Processing PImage.java
   Iterator<ImageWriter> iter = ImageIO.getImageWritersByFormatName(extension);
   if (iter.hasNext()) {
@@ -452,23 +1157,23 @@ SAVE BMP
 v 0.3.0.1
 */
 // SAVE
-boolean saveBMP(OutputStream output, BufferedImage buff_img) {
+boolean save_BMP(OutputStream output, BufferedImage buff_img) {
   try {
     Graphics g = buff_img.getGraphics();
     g.dispose();
     output.flush();
     
     ImageIO.write(buff_img, "bmp", output);
-    return true ;
+    return true;
   }
   catch(IOException e) {
     e.printStackTrace();
   }
-  return false ;
+  return false;
 }
 
 // LOAD
-PImage loadImageBMP(String fileName) {
+PImage load_image_BMP(String fileName) {
   PImage img = null;
 
   try {
@@ -501,6 +1206,71 @@ PImage loadImageBMP(String fileName) {
     return null ;
   }
 }
+
+
+/**
+* SAVE PDF
+*/
+String ranking_shot = "_######" ;
+// PDF
+boolean record_PDF;
+void start_PDF() {
+  start_PDF(null,null) ;
+}
+
+void start_PDF(String name_file) {
+  start_PDF(null, name_file) ;
+}
+
+void start_PDF(String path_folder, String name_file) {
+  if(path_folder == null) path_folder = "pdf_folder";
+  if(name_file == null) name_file = "pdf_file_"+ranking_shot;
+
+  if (record_PDF && !record_PNG) {
+    if(renderer_P3D()) {
+      beginRaw(PDF, path_folder+"/"+name_file+".pdf"); 
+    } else {
+      beginRecord(PDF, path_folder+"/"+name_file+".pdf");
+    }
+  }
+}
+
+void save_PDF() {
+  if (record_PDF && !record_PNG) {
+    if(renderer_P3D()) {
+      endRaw(); 
+    } else {
+      endRecord() ;
+    }
+    println("PDF");
+    record_PDF = false;
+  }
+}
+
+void event_PDF() {
+  record_PDF = true;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -540,9 +1310,6 @@ v 0.2.0
 primitive to byte, byte to primitive
 v 0.1.0
 */
-import java.nio.ByteBuffer;
-import java.nio.ByteOrder;
-
 int int_from_byte(Byte b) {
   int result = b.intValue();
   return result;
@@ -851,76 +1618,7 @@ vec4 array_to_vec4_rgba(float... f) {
 
 
 
-/**
-EXPORT FILE PDF_PNG 0.1.1
-*/
-String ranking_shot = "_######" ;
-// PDF
-import processing.pdf.*;
-boolean record_PDF;
-void start_PDF() {
-  start_PDF(null,null) ;
-}
 
-void start_PDF(String name_file) {
-  start_PDF(null, name_file) ;
-}
-void start_PDF(String path_folder, String name_file) {
-  if(path_folder == null) path_folder = "pdf_folder";
-  if(name_file == null) name_file = "pdf_file_"+ranking_shot;
-
-  if (record_PDF && !record_PNG) {
-    if(renderer_P3D()) {
-      beginRaw(PDF, path_folder+"/"+name_file+".pdf"); 
-    } else {
-      beginRecord(PDF, path_folder+"/"+name_file+".pdf");
-    }
-  }
-}
-
-void save_PDF() {
-  if (record_PDF && !record_PNG) {
-    if(renderer_P3D()) {
-      endRaw(); 
-    } else {
-      endRecord() ;
-    }
-    println("PDF");
-    record_PDF = false;
-  }
-}
-
-void event_PDF() {
-  record_PDF = true;
-}
-
-
-
-
-// PNG
-boolean record_PNG ;
-boolean naming_PNG ;
-String path_folder_png, name_file_png  ;
-void start_PNG(String path_folder, String name_file) {
-  path_folder_png = path_folder ;
-  name_file_png = name_file ;
-  naming_PNG = true ;
-}
-
-void save_PNG() {
-  if(record_PNG) {
-    if(!naming_PNG) {
-      saveFrame("png_folder/shot_" + ranking_shot + ".png");
-    } else {
-      saveFrame(path_folder_png + "/" + name_file_png + ".png");
-    }
-    record_PNG = false ;
-  }
-}
-
-void event_PNG() {
-  record_PNG = true;
-}
 
 
 
@@ -1276,6 +1974,34 @@ String get_type(Object obj) {
 
 
 
+/**
+* Check OS
+* v 0.0.2
+*/
+String get_os() {
+  return System.getProperty("os.name").toLowerCase();
+}
+
+String get_os_family() {
+  String os = System.getProperty("os.name").toLowerCase();
+  String family = "";
+  if(os.indexOf("win") >= 0) {
+    family = "win";
+  } else if(os.indexOf("mac") >= 0) {
+    family = "mac";
+  } else if(os.indexOf("nix") >= 0 || os.indexOf("nux") >= 0 || os.indexOf("aix") >= 0) {
+    family = "unix";
+  } else if(os.indexOf("solaris") >= 0) {
+    family = "solaris";
+  }
+  return family;
+}
+
+
+
+
+
+
 
 
 
@@ -1552,7 +2278,7 @@ boolean research_in_String(String research, String target) {
 /**
 String file utils
 2014-2018
-v 0.2.0
+v 0.2.3
 */
 /**
 * remove element of the sketch path
@@ -1588,6 +2314,7 @@ String file_name(String s) {
 */
 String extension(String filename) {
   if(filename != null) {
+    filename = filename.toLowerCase();
     if(filename.contains(".")) {
       return filename.substring(filename.lastIndexOf(".") + 1, filename.length());
     } else {
@@ -1598,13 +2325,13 @@ String extension(String filename) {
   }
 }
 
-boolean extension_is(String... data) {
+boolean extension_is(String path, String... data) {
   boolean is = false;
-  if(data.length >= 2) {
-    String extension_to_compare = extension(data[0]);
+  if(data.length >= 1) {
+    String extension_to_compare = extension(path.toLowerCase());
     if(extension_to_compare != null) {
-      for(int i = 1 ; i < data.length ; i++) {
-        if(extension_to_compare.equals(data[i])) {
+      for(int i = 0 ; i < data.length ; i++) {
+        if(extension_to_compare.equals(data[i].toLowerCase())) {
           is = true;
           break;
         } else {
@@ -1612,7 +2339,7 @@ boolean extension_is(String... data) {
         }
       }
     } else {
-      printErr("method extension_is(): [",data[0],"] this path don't have any extension");
+      printErr("method extension_is(): [",path.toLowerCase(),"] this path don't have any extension");
     }
   } else {
     printErr("method extension_is() need almost two components, the first is the path and the next is extension");
@@ -1628,1282 +2355,5 @@ boolean extension_is(String... data) {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/**
-TABLE METHOD 
-v 0.0.3.1
-for Table with the first COLLUMN is used for name and the next 6 for the value.
-The method is used with the Class Info
-
-*/
-// table method for row sort
-void buildTable(Table table, TableRow [] tableRow, String [] col_name, String [] row_name) {
-  // add col
-  for(int i = 0 ; i < col_name.length ; i++) {
-    table.addColumn(col_name[i]);
-  }
-  // add row
-  tableRow = new TableRow[row_name.length] ;
-  buildRow(table, row_name) ;
-}
-
-void buildTable(Table table, String [] col_name) {
-  // add col
-  for(int i = 0 ; i < col_name.length ; i++) {
-    table.addColumn(col_name[i]);
-  }
-}
-
-void buildRow(Table table, String [] row_name) {
-  int num_row = table.getRowCount() ;
-  for(int i = 0 ; i < num_row ; i++) {
-    TableRow row = table.getRow(i) ;
-    row.setString(table.getColumnTitle(0), row_name[i]) ; 
-  }
-}
-
-void setTable(Table table, TableRow [] rows, Info_Object... info) {
-  for(int i = 0 ; i < rows.length ; i++) {
-    if(rows[i] != null) {
-      for(int j = 0 ; j < info.length ; j++) {
-        if(info[j] != null && info[j].get_name().equals(rows[i].getString(table.getColumnTitle(0)))) {
-          for(int k = 1 ; k < 7 ; k++) {
-            if(table.getColumnCount() > k && info[j].catch_obj(k-1) != null)  write_row(rows[i], table.getColumnTitle(k), info[j].catch_obj(k-1)) ;
-          }
-        }
-        
-      }
-    }
-  }
-}
-
-
-void setRow(Table table, Info_Object info) {
-  TableRow result = table.findRow(info.get_name(), table.getColumnTitle(0)) ;
-  if(result != null) {
-    for(int k = 1 ; k < 7 ; k++) {
-      if(table.getColumnCount() > k && info.catch_obj(k-1) != null)  write_row(result, table.getColumnTitle(k), info.catch_obj(k-1)) ;
-    }
-  }
-}
-
-void write_row(TableRow row, String col_name, Object o) {
-  if(o instanceof String) {
-    String s = (String) o ;
-    row.setString(col_name, s);
-  } else if(o instanceof Short) {
-    short sh = (Short) o ;
-    row.setInt(col_name, sh);
-  } else if(o instanceof Integer) {
-    int in = (Integer) o ;
-    row.setInt(col_name, in);
-  } else if(o instanceof Float) {
-    float f = (Float) o ;
-    row.setFloat(col_name, f);
-  } else if(o instanceof Character) {
-    char c = (Character) o ;
-    String s = Character.toString(c) ;
-    row.setString(col_name, s);
-  } else if(o instanceof Boolean) {
-    boolean b = (Boolean) o ;
-    String s = Boolean.toString(b) ;
-    row.setString(col_name, s);
-  } 
-}
-/**
-Info_dict 
-v 0.3.0.1
-*/
-public class Info_dict {
-  ArrayList<Info> list;
-  char type_list = 'o';
-
-  Info_dict(char type_list) {
-    this.type_list = type_list;
-  }
-
-  Info_dict() {
-    list = new ArrayList<Info>();
-  }
-
-  // add Object
-  void add(String name, Object a) {
-    Info_Object info = new Info_Object(name,a);
-    list.add(info);
-  }
-  void add(String name, Object a, Object b) {
-    Info_Object info = new Info_Object(name,a,b);
-    list.add(info);
-  }
-  void add(String name, Object a, Object b, Object c) {
-    Info_Object info = new Info_Object(name,a,b,c);
-    list.add(info);
-  }
-  void add(String name, Object a, Object b, Object c, Object d) {
-    Info_Object info = new Info_Object(name,a,b,c,d);
-    list.add(info);
-  }
-  void add(String name, Object a, Object b, Object c, Object d, Object e) {
-    Info_Object info = new Info_Object(name,a,b,c,d,e);
-    list.add(info);
-  }
-  void add(String name, Object a, Object b, Object c, Object d, Object e, Object f) {
-    Info_Object info = new Info_Object(name,a,b,c,d,e,f);
-    list.add(info);
-  }
-  void add(String name, Object a, Object b, Object c, Object d, Object e, Object f, Object g) {
-    Info_Object info = new Info_Object(name,a,b,c,d,e,f,g);
-    list.add(info);
-  }
-
-   // size
-   int size() {
-    return list.size();
-   }
-
-  // read
-  void read() {
-    println("Object list");
-    for(Info a : list) {
-      if(a instanceof Info_Object) {
-        Info_Object obj = (Info_Object)a ;
-        if(obj.a != null && obj.b == null && obj.c == null && obj.d == null && obj.e == null && obj.f == null && obj.g == null) {
-          println(a,get_type(obj.a));   
-        }
-        if(obj.a != null && obj.b != null && obj.c == null && obj.d == null && obj.e == null && obj.f == null && obj.g == null) {
-          println(a,get_type(obj.a),get_type(obj.b));   
-        }
-        if(obj.a != null && obj.b != null && obj.c != null && obj.d == null && obj.e == null && obj.f == null && obj.g == null) {
-          println(a,get_type(obj.a),get_type(obj.b),get_type(obj.c));   
-        }
-        if(obj.a != null && obj.b != null && obj.c != null && obj.d != null && obj.e == null && obj.f == null && obj.g == null) {
-          println(a,get_type(obj.a),get_type(obj.b),get_type(obj.c),get_type(obj.d));   
-        }
-        if(obj.a != null && obj.b != null && obj.c != null && obj.d != null && obj.e != null && obj.f == null && obj.g == null) {
-          println(a,get_type(obj.a),get_type(obj.b),get_type(obj.c),get_type(obj.d),get_type(obj.e));   
-        }
-        if(obj.a != null && obj.b != null && obj.c != null && obj.d != null && obj.e != null && obj.f != null && obj.g == null) {
-          println(a,get_type(obj.a),get_type(obj.b),get_type(obj.c),get_type(obj.d),get_type(obj.e),get_type(obj.f));   
-        }
-        if(obj.a != null && obj.b != null && obj.c != null && obj.d != null && obj.e != null && obj.f != null && obj.g != null) {
-          println(a,get_type(obj.a),get_type(obj.b),get_type(obj.c),get_type(obj.d),get_type(obj.e),get_type(obj.f),get_type(obj.g));   
-        }      
-      }
-    }
-  }
-
-  // get
-  Info get(int target) {
-    if(target < list.size() && target >= 0) {
-      return list.get(target);
-    } else return null;
-  }
-  
-  Info [] get(String which) {
-    Info [] info;
-    int count = 0;
-    for(Info a : list) {
-      if(a.get_name().equals(which)) {
-        count++;
-      }
-    }
-    if (count > 0 ) {
-      info = new Info[count] ;
-      count = 0;
-      for(Info a : list) {
-        if(a.get_name().equals(which)) {
-          info[count] = a;
-          count++;
-        }
-      }
-    } else {
-      info = new Info_String[1];
-      info[0] = null;
-    }
-    if(info.length == 1 && info[0] == null )return null ; else return info;
-  }
-
-  // clear
-  void clear() {
-    list.clear();
-  }
-
-  // remove
-  void remove(String which) {
-    for(int i = 0 ; i < list.size() ; i++) {
-      Info a = list.get(i);
-      if(a.get_name().equals(which)) {
-        list.remove(i);
-      }
-    }
-  }
-  
-  void remove(int target) {
-   if(target < list.size()) {
-      list.remove(target);
-    }
-  }
-}
-
-/**
-Info_int_dict
-v 0.0.2
-*/
-
-public class Info_int_dict extends Info_dict {
-  ArrayList<Info_int> list_int;
-  Info_int_dict() {
-    super('i');
-    list_int = new ArrayList<Info_int>();
-  }
-
-
-  // add int
-  void add(String name, int a) {
-    Info_int info = new Info_int(name,a);
-    list_int.add(info);
-  } 
-  void add(String name, int a, int b) {
-    Info_int info = new Info_int(name,a,b);
-    list_int.add(info);
-  } 
-
-  void add(String name, int a, int b, int c) {
-    Info_int info = new Info_int(name,a,b,c);
-    list_int.add(info);
-  } 
-  void add(String name, int a, int b, int c, int d) {
-    Info_int info = new Info_int(name, a,b,c,d);
-    list_int.add(info);
-  } 
-  void add(String name, int a, int b, int c, int d, int e) {
-    Info_int info = new Info_int(name,a,b,c,d,e);
-    list_int.add(info);
-  } 
-  void add(String name, int a, int b, int c, int d, int e, int f) {
-    Info_int info = new Info_int(name,a,b,c,d,e,f);
-    list_int.add(info);
-  }
-  void add(String name, int a, int b, int c, int d, int e, int f, int g) {
-    Info_int info = new Info_int(name,a,b,c,d,e,f,g);
-    list_int.add(info);
-  }
-
-
-  // size
-  int size() {
-    return list_int.size() ;
-  }
-
-  // read
-  void read() {
-    println("Integer list");
-    for(Info a : list_int) {
-      println(a,"Integer");
-    }
-  }
-  
-
-  // get
-  Info_int get(int target) {
-    if(target < list_int.size() && target >= 0) {
-      return list_int.get(target);
-    } else return null;
-  }
-  
-  Info_int [] get(String which) {
-    Info_int [] info  ;
-    int count = 0;
-    for(Info_int a : list_int) {
-      if(a.get_name().equals(which)) {
-        count++;
-      }
-    }
-    if (count > 0 ) {
-      info = new Info_int[count] ;
-      count = 0 ;
-      for(Info_int a : list_int) {
-        if(a.get_name().equals(which)) {
-          info[count] = a;
-          count++;
-        }
-      }
-    } else {
-      info = new Info_int[1] ;
-      info[0] = null;
-    }
-    if(info.length == 1 && info[0] == null )return null ; else return info ;
-  }
-
-  // clear
-  void clear() {
-    list_int.clear();
-  }
-
-  // remove
-  void remove(String which) {
-    for(int i = 0 ; i < list_int.size() ; i++) {
-      Info_int a = list_int.get(i) ;
-      if(a.get_name().equals(which)) {
-        list_int.remove(i);
-      }
-    }
-  }
-  
-  void remove(int target) {
-   if(target < list_int.size()) {
-      list_int.remove(target);
-    }
-  }
-}
-
-/**
-Info_float_dict
-v 0.0.2
-*/
-public class Info_float_dict extends Info_dict {
-  ArrayList<Info_float> list_float ;
-  Info_float_dict() {
-    super('f');
-    list_float = new ArrayList<Info_float>();
-  }
-
-  // add float
-  void add(String name, float a) {
-    Info_float info = new Info_float(name,a);
-    list_float.add(info);
-  }
-  void add(String name, float a, float b) {
-    Info_float info = new Info_float(name,a,b);
-    list_float.add(info);
-  }
-  void add(String name, float a, float b, float c) {
-    Info_float info = new Info_float(name,a,b,c);
-    list_float.add(info);
-  }
-  void add(String name, float a, float b, float c, float d) {
-    Info_float info = new Info_float(name,a,b,c,d);
-    list_float.add(info);
-  }
-  void add(String name, float a, float b, float c, float d, float e) {
-    Info_float info = new Info_float(name,a,b,c,d,e);
-    list_float.add(info);
-  }
-  void add(String name, float a, float b, float c, float d, float e, float f) {
-    Info_float info = new Info_float(name,a,b,c,d,e,f);
-    list_float.add(info);
-  }
-  void add(String name, float a, float b, float c, float d, float e, float f, float g) {
-    Info_float info = new Info_float(name,a,b,c,d,e,f,g);
-    list_float.add(info);
-  }
-
-  // size
-  int size() {
-    return list_float.size() ;
-  }
-
-  //read
-  void read() {
-    println("Float list");
-    for(Info a : list_float) {
-      println(a,"Float");
-    }
-  }
-   
-
-  // get
-  Info_float get(int target) {
-    if(target < list_float.size() && target >= 0) {
-      return list_float.get(target);
-    } else return null;
-  }
-  
-  Info_float [] get(String which) {
-    Info_float [] info;
-    int count = 0;
-    for(Info_float a : list_float) {
-      if(a.get_name().equals(which)) {
-        count++;
-      }
-    }
-    if (count > 0 ) {
-      info = new Info_float[count] ;
-      count = 0 ;
-      for(Info_float a : list_float) {
-        if(a.get_name().equals(which)) {
-          info[count] = a;
-          count++;
-        }
-      }
-    } else {
-      info = new Info_float[1] ;
-      info[0] = null;
-    }
-    if(info.length == 1 && info[0] == null )return null ; else return info ;
-  }
-
-  // clear
-  void clear() {
-    list_float.clear();
-  }
-
-  // remove
-  void remove(String which) {
-    for(int i = 0 ; i < list_float.size() ; i++) {
-      Info a = list_float.get(i) ;
-      if(a.get_name().equals(which)) {
-        list_float.remove(i);
-      }
-    }
-  }
-  
-  void remove(int target) {
-   if(target < list_float.size()) {
-      list_float.remove(target);
-    }
-  }
-}
-
-
-
-/**
-Info_String_dict
-
-*/
-public class Info_String_dict extends Info_dict {
-  ArrayList<Info_String> list_String ;
-  Info_String_dict() {
-    super('s');
-    list_String = new ArrayList<Info_String>();
-  }
-
-  // add String
-  void add(String name, String a) {
-    Info_String info = new Info_String(name,a);
-    list_String.add(info);
-  }
-  void add(String name, String a, String b) {
-    Info_String info = new Info_String(name,a,b); 
-    list_String.add(info);
-  }
-  void add(String name, String a, String b, String c) {
-    Info_String info = new Info_String(name,a,b,c);
-    list_String.add(info);
-  }
-  void add(String name, String a, String b, String c, String d) {
-    Info_String info = new Info_String(name,a,b,c,d);
-    list_String.add(info);
-  }
-  void add(String name, String a, String b, String c, String d, String e) {
-    Info_String info = new Info_String(name,a,b,c,d,e);
-    list_String.add(info);
-  }
-  void add(String name, String a, String b, String c, String d, String e, String f) {
-    Info_String info = new Info_String(name,a,b,c,d,e,f);
-    list_String.add(info);
-  }
-  void add(String name, String a, String b, String c, String d, String e, String f,String g) {
-    Info_String info = new Info_String(name,a,b,c,d,e,f,g);
-    list_String.add(info);
-  }
-
-  // size
-  int size() {
-    return list_String.size() ;
-  }
-
-  //read
-  void read() {
-    println("String list");
-    for(Info a : list_String) {
-      println(a,"String");
-    }
-  }
-  
-
-  // get
-  Info_String get(int target) {
-    if(target < list_String.size() && target >= 0) {
-      return list_String.get(target);
-    } else return null;
-  }
-  
-  Info_String [] get(String which) {
-    Info_String [] info  ;
-    int count = 0 ;
-    for(Info_String a : list_String) {
-      if(a.get_name().equals(which)) {
-        count++;
-      }
-    }
-    if (count > 0 ) {
-      info = new Info_String[count] ;
-      count = 0;
-      for(Info_String a : list_String) {
-        if(a.get_name().equals(which)) {
-          info[count] = a;
-          count++;
-        }
-      }
-    } else {
-      info = new Info_String[1];
-      info[0] = null;
-    }
-    if(info.length == 1 && info[0] == null )return null ; else return info;
-  }
-
-  // clear
-  void clear() {
-    list_String.clear();
-  }
-
-  // remove
-  void remove(String which) {
-    for(int i = 0 ; i < list_String.size() ; i++) {
-      Info_String a = list_String.get(i);
-      if(a.get_name().equals(which)) {
-        list_String.remove(i);
-      }
-    }
-  }
-  
-  void remove(int target) {
-   if(target < list_String.size()) {
-      list_String.remove(target);
-    }
-  }
-}
-
-
-/**
-Info_vec_dict
-*/
-public class Info_vec_dict extends Info_dict {
-  ArrayList<Info_vec> list_vec ;
-  Info_vec_dict() {
-    super('v') ;
-    list_vec = new ArrayList<Info_vec>() ;
-  }
-
-  // add vec
-  void add(String name, vec a) {
-    Info_vec info = new Info_vec(name,a);
-    list_vec.add(info);
-  }
-  void add(String name, vec a, vec b) {
-    Info_vec info = new Info_vec(name,a,b);
-    list_vec.add(info);
-  }
-  void add(String name, vec a, vec b, vec c) {
-    Info_vec info = new Info_vec(name,a,b,c);
-    list_vec.add(info);
-  }
-  void add(String name, vec a, vec b, vec c, vec d) {
-    Info_vec info = new Info_vec(name,a,b,c,d);
-    list_vec.add(info);
-  }
-  void add(String name, vec a, vec b, vec c, vec d, vec e) {
-    Info_vec info = new Info_vec(name,a,b,c,d,e);
-    list_vec.add(info);
-  }
-  void add(String name, vec a, vec b, vec c, vec d, vec e, vec f) {
-    Info_vec info = new Info_vec(name,a,b,c,d,e,f);
-    list_vec.add(info);
-  }
-  void add(String name, vec a, vec b, vec c, vec d, vec e, vec f, vec g) {
-    Info_vec info = new Info_vec(name,a,b,c,d,e,f,g);
-    list_vec.add(info);
-  }
-
-  // size
-  int size() {
-    return list_vec.size();
-  }
-
-  //read
-  void read() {
-    println("vec list");
-    for(Info a : list_vec) {
-      println(a,"vec");
-    }
-  }
-  
-
-  // get
-  Info_vec get(int target) {
-    if(target < list_vec.size() && target >= 0) {
-      return list_vec.get(target);
-    } else return null;
-  }
-  
-  Info_vec [] get(String which) {
-    Info_vec [] info;
-    int count = 0 ;
-    for(Info_vec a : list_vec) {
-      if(a.get_name().equals(which)) {
-        count++;
-      }
-    }
-    if (count > 0 ) {
-      info = new Info_vec[count];
-      count = 0 ;
-      for(Info_vec a : list_vec) {
-        if(a.get_name().equals(which)) {
-          info[count] = a;
-          count++ ;
-        }
-      }
-    } else {
-      info = new Info_vec[1];
-      info[0] = null ;
-    }
-    if(info.length == 1 && info[0] == null )return null ; else return info;
-  }
-
-  // clear
-  void clear() {
-    list_vec.clear();
-  }
-
-  // remove
-  void remove(String which) {
-    for(int i = 0 ; i < list_vec.size() ; i++) {
-      Info_vec a = list_vec.get(i) ;
-      if(a.get_name().equals(which)) {
-        list_vec.remove(i);
-      }
-    }
-  }
-  
-  void remove(int target) {
-   if(target < list_vec.size()) {
-      list_vec.remove(target);
-    }
-  }
-}
-
-
-
-/**
-Info 0.1.0.2
-
-*/
-interface Info {
-  String get_name();
-
-  Object [] catch_all() ;
-  Object catch_obj(int arg);
-
-  char get_type();
-}
- 
-abstract class Info_method implements Info {
-  String name  ;
-  // error message
-  String error_target = "Your target is beyond of my knowledge !" ;
-  String error_value_message = "This value is beyond of my power mate !" ;
-  Info_method (String name) {
-    this.name = name ;
-  }
-
-
-  String get_name() { 
-    return name ;
-  }
-}
-
-
-/**
-INFO int
-
-*/
-class Info_int extends Info_method {
-  char type = 'i' ;
-  int a, b, c, d, e, f, g ;
-  int num_value ;  
-
-
-  Info_int(String name) {
-    super(name) ;
-  }
-
-  Info_int(String name, int... var) {
-    super(name) ;
-    if(var.length > 7 ) {
-      num_value = 7 ; 
-    } else {
-      num_value = var.length ;
-    }
-    if(var.length > 0) this.a = var[0] ;
-    if(var.length > 1) this.b = var[1] ;
-    if(var.length > 2) this.c = var[2] ;
-    if(var.length > 3) this.d = var[3] ;
-    if(var.length > 4) this.e = var[4] ;
-    if(var.length > 5) this.f = var[5] ;
-    if(var.length > 6) this.g = var[6] ;
-  }
-
-
-  // get
-  int [] get() {
-    int [] list = new int[]{a,b,c,d,e,f,g} ;
-    return list ;
-  }
-
-  int get(int which) {
-    if(which == 0) {
-      return a ; 
-    } else if(which == 1) {
-      return b ;
-    } else if(which == 2) {
-      return c ;
-    } else if(which == 3) {
-      return d ;
-    } else if(which == 4) {
-      return e ;
-    } else if(which == 5) {
-      return f ;
-    } else if(which == 6) {
-      return g ;
-    } else {
-      System.err.println(error_target) ;
-      return 0 ;
-    } 
-  }
-  
-  Object [] catch_all() {
-    Object [] list = new Object[]{a,b,c,d,e,f,g} ;
-    return list ;
-  }
-
-  Object catch_obj(int which) {
-    if(which == 0) {
-      return a ; 
-    } else if(which == 1) {
-      return b ;
-    } else if(which == 2) {
-      return c ;
-    } else if(which == 3) {
-      return d ;
-    } else if(which == 4) {
-      return e ;
-    } else if(which == 5) {
-      return f ;
-    } else if(which == 6) {
-      return g ;
-    } else {
-      System.err.println(error_target) ;
-      return null ;
-    } 
-  }
-  
-  char get_type() { return type ; }
-
-  // Print info
-  @Override String toString() {
-    if(num_value == 1) {
-      return "[ " + name + ": " + a + " ]";
-    } else if(num_value == 2) {
-      return "[ " + name + ": " + a + ", " + b + " ]";
-    } else if(num_value == 3) {
-      return "[ " + name + ": " + a + ", " + b + ", " + c + " ]";
-    } else if(num_value == 4) {
-      return "[ " + name + ": " + a + ", " + b + ", " + c + ", " + d + " ]";
-    } else if(num_value == 5) {
-      return "[ " + name + ": " + a + ", " + b + ", " + c + ", " + d + ", " + e + " ]";
-    } else if(num_value == 6) {
-      return "[ " + name + ": " + a + ", " + b + ", " + c + ", " + d + ", " + e + ", " + f + " ]";
-    } else if(num_value == 7) {
-      return "[ " + name + ": " + a + ", " + b + ", " + c + ", " + d + ", " + e + ", " + f + ", " + g +" ]";
-    } else {
-      System.err.println(num_value) ;
-      System.err.println(error_value_message) ;
-      return "hmmm hmmm there is problem with your stuff mate";
-    }
-  }
-}
-
-/**
-INFO String
-*/
-class Info_String extends Info_method {
-  char type = 's' ;
-  String a, b, c, d, e, f, g ;
-  int num_value ;  
-
-  Info_String(String name) {
-    super(name) ;
-  }
-
-  Info_String(String name, String... var) {
-    super(name) ;
-    if(var.length > 7 ) {
-      num_value = 7 ; 
-    } else {
-      num_value = var.length ;
-    }
-    if(var.length > 0) this.a = var[0] ;
-    if(var.length > 1) this.b = var[1] ;
-    if(var.length > 2) this.c = var[2] ;
-    if(var.length > 3) this.d = var[3] ;
-    if(var.length > 4) this.e = var[4] ;
-    if(var.length > 5) this.f = var[5] ;
-    if(var.length > 6) this.g = var[6] ;
-  }
-
-
-  // get
-  String [] get() {
-    String [] list = new String[]{a,b,c,d,e,f,g} ;
-    return list ;
-  }
-
-  String get(int which) {
-    if(which == 0) {
-      return a ; 
-    } else if(which == 1) {
-      return b ;
-    } else if(which == 2) {
-      return c ;
-    } else if(which == 3) {
-      return d ;
-    } else if(which == 4) {
-      return e ;
-    } else if(which == 5) {
-      return f ;
-    } else if(which == 6) {
-      return g ;
-    }else {
-      System.err.println(error_target) ;
-      return null ;
-    }
-  }
-  
-  Object [] catch_all() {
-    Object [] list = new Object[]{a,b,c,d,e,f,g} ;
-    return list ;
-  }
-
-  Object catch_obj(int which) {
-    if(which == 0) {
-      return a ; 
-    } else if(which == 1) {
-      return b ;
-    } else if(which == 2) {
-      return c ;
-    } else if(which == 3) {
-      return d ;
-    } else if(which == 4) {
-      return e ;
-    } else if(which == 5) {
-      return f ;
-    } else if(which == 6) {
-      return g ;
-    }else {
-      System.err.println(error_target) ;
-      return null ;
-    }
-  }
-
-  char get_type() { return type ; }
-
-
-  // Print info
-  @Override String toString() {
-    if(num_value == 1) {
-      return "[ " + name + ": " + a + " ]";
-    } else if(num_value == 2) {
-      return "[ " + name + ": " + a + ", " + b + " ]";
-    } else if(num_value == 3) {
-      return "[ " + name + ": " + a + ", " + b + ", " + c + " ]";
-    } else if(num_value == 4) {
-      return "[ " + name + ": " + a + ", " + b + ", " + c + ", " + d + " ]";
-    } else if(num_value == 5) {
-      return "[ " + name + ": " + a + ", " + b + ", " + c + ", " + d + ", " + e + " ]";
-    } else if(num_value == 6) {
-      return "[ " + name + ": " + a + ", " + b + ", " + c + ", " + d + ", " + e + ", " + f + " ]";
-    } else if(num_value == 7) {
-      return "[ " + name + ": " + a + ", " + b + ", " + c + ", " + d + ", " + e + ", " + f + ", " + g + " ]";
-    } else {
-      System.err.println(num_value) ;
-      System.err.println(error_value_message) ;
-      return "hmmm hmmm there is problem with your stuff mate";
-    }
-  }
-}
-
-/**
-INFO float
-*/
-class Info_float extends Info_method {
-  char type = 'f' ;
-  float a, b, c, d, e, f, g ;
-  int num_value ; 
-
-  Info_float(String name) {
-    super(name) ;
-  }
-
-  Info_float(String name, float... var) {
-    super(name) ;
-    if(var.length > 7 ) {
-      num_value = 7 ; 
-    } else {
-      num_value = var.length ;
-    }
-    if(var.length > 0) this.a = var[0] ;
-    if(var.length > 1) this.b = var[1] ;
-    if(var.length > 2) this.c = var[2] ;
-    if(var.length > 3) this.d = var[3] ;
-    if(var.length > 4) this.e = var[4] ;
-    if(var.length > 5) this.f = var[5] ;
-    if(var.length > 6) this.g = var[6] ;
-  }
-
-  // get
-  float [] get() {
-    float [] list = new float[]{a,b,c,d,e,f,g} ;
-    return list ;
-  }
-
-  float get(int which) {
-    if(which == 0) {
-      return a ; 
-    } else if(which == 1) {
-      return b ;
-    } else if(which == 2) {
-      return c ;
-    } else if(which == 3) {
-      return d ;
-    } else if(which == 4) {
-      return e ;
-    } else if(which == 5) {
-      return f ;
-    } else if(which == 6) {
-      return g ;
-    } else {
-      System.err.println(error_target) ;
-      return 0.0 ;
-    }
-  }
-  
-  Object [] catch_all() {
-    Object [] list = new Object[]{a,b,c,d,e,f,g} ;
-    return list ;
-  }
-
-  Object catch_obj(int which) {
-    if(which == 0) {
-      return a ; 
-    } else if(which == 1) {
-      return b ;
-    } else if(which == 2) {
-      return c ;
-    } else if(which == 3) {
-      return d ;
-    } else if(which == 4) {
-      return e ;
-    } else if(which == 5) {
-      return f ;
-    } else if(which == 6) {
-      return g ;
-    } else {
-      System.err.println(error_target) ;
-      return null ;
-    }
-  }
-
-  char get_type() { return type ; }
-  
-  // Print info
-  @Override String toString() {
-    if(num_value == 1) {
-      return "[ " + name + ": " + a + " ]";
-    } else if(num_value == 2) {
-      return "[ " + name + ": " + a + ", " + b + " ]";
-    } else if(num_value == 3) {
-      return "[ " + name + ": " + a + ", " + b + ", " + c + " ]";
-    } else if(num_value == 4) {
-      return "[ " + name + ": " + a + ", " + b + ", " + c + ", " + d + " ]";
-    } else if(num_value == 5) {
-      return "[ " + name + ": " + a + ", " + b + ", " + c + ", " + d + ", " + e + " ]";
-    } else if(num_value == 6) {
-      return "[ " + name + ": " + a + ", " + b + ", " + c + ", " + d + ", " + e + ", " + f + " ]";
-    } else if(num_value == 7) {
-      return "[ " + name + ": " + a + ", " + b + ", " + c + ", " + d + ", " + e + ", " + f + ", " + g + " ]";
-    } else {
-      System.err.println(num_value) ;
-      System.err.println(error_value_message) ;
-      return "hmmm hmmm there is problem with your stuff mate";
-    }
-  }
-}
-
-/**
-INFO vec
-v 0.0.2
-*/
-class Info_vec extends Info_method {
-  char type = 'v' ;
-  vec a, b, c, d, e, f, g ;
-  int num_value ;  
-
-  Info_vec(String name) {
-    super(name) ;
-  }
-
-  // vec value
-  Info_vec(String name, vec... var) {
-    super(name) ;
-    if(var.length > 7 ) {
-      num_value = 7 ; 
-    } else {
-      num_value = var.length ;
-    }
-    if(var.length > 0) this.a = var[0] ;
-    if(var.length > 1) this.b = var[1] ;
-    if(var.length > 2) this.c = var[2] ;
-    if(var.length > 3) this.d = var[3] ;
-    if(var.length > 4) this.e = var[4] ;
-    if(var.length > 5) this.f = var[5] ;
-    if(var.length > 6) this.g = var[6] ;
-  }
-
-
-
-
-  // get
-  vec [] get() {
-    vec [] list = new vec[]{a,b,c,d,e,f,g} ;
-    return list ;
-  }
-
-  vec get(int which) {
-    if(which == 0) {
-      return a ; 
-    } else if(which == 1) {
-      return b ;
-    } else if(which == 2) {
-      return c ;
-    } else if(which == 3) {
-      return d ;
-    } else if(which == 4) {
-      return e ;
-    } else if(which == 5) {
-      return f ;
-    } else if(which == 6) {
-      return g ;
-    }else {
-      System.err.println(error_target) ;
-      return null;
-    }
-  }
-  
-  Object [] catch_all() {
-    Object [] list = new Object[]{a,b,c,d,e,f,g} ;
-    return list ;
-  }
-
-  Object catch_obj(int which) {
-    if(which == 0) {
-      return a ; 
-    } else if(which == 1) {
-      return b ;
-    } else if(which == 2) {
-      return c ;
-    } else if(which == 3) {
-      return d ;
-    } else if(which == 4) {
-      return e ;
-    } else if(which == 5) {
-      return f ;
-    } else if(which == 6) {
-      return g ;
-    } else {
-      System.err.println(error_target) ;
-      return null ;
-    }
-  }
-
-  char get_type() { return type; }
-
-  // Print info
-  @Override String toString() {
-    if(num_value == 1) {
-      return "[ " + name + ": " + a + " ]";
-    } else if(num_value == 2) {
-      return "[ " + name + ": " + a + ", " + b + " ]";
-    } else if(num_value == 3) {
-      return "[ " + name + ": " + a + ", " + b + ", " + c + " ]";
-    } else if(num_value == 4) {
-      return "[ " + name + ": " + a + ", " + b + ", " + c + ", " + d + " ]";
-    } else if(num_value == 5) {
-      return "[ " + name + ": " + a + ", " + b + ", " + c + ", " + d + ", " + e + " ]";
-    } else if(num_value == 6) {
-      return "[ " + name + ": " + a + ", " + b + ", " + c + ", " + d + ", " + e + ", " + f + " ]";
-    } else if(num_value == 7) {
-      return "[ " + name + ": " + a + ", " + b + ", " + c + ", " + d + ", " + e + ", " + f + ", " + g + " ]";
-    } else {
-      System.err.println(num_value) ;
-      System.err.println(error_value_message) ;
-      return "hmmm hmmm there is problem with your stuff mate";
-    }
-  }
-}
-
-
-
-
-/**
-INFO OBJECT
-v 0.0.2
-*/
-class Info_Object extends Info_method {
-  char type = 'o' ;
-  Object a, b, c, d, e, f, g ;
-  int num_value ;
-
-  Info_Object(String name) {
-    super(name) ;
-  }
-
-
-  // Object value
-  Info_Object(String name, Object... var) {
-    super(name) ;
-    if(var.length > 7 ) {
-      num_value = 7 ; 
-    } else {
-      num_value = var.length ;
-    }
-    if(var.length > 0) this.a = var[0] ;
-    if(var.length > 1) this.b = var[1] ;
-    if(var.length > 2) this.c = var[2] ;
-    if(var.length > 3) this.d = var[3] ;
-    if(var.length > 4) this.e = var[4] ;
-    if(var.length > 5) this.f = var[5] ;
-    if(var.length > 6) this.g = var[6] ;
-  }
-
-
-  // get
-  Object [] get() {
-    Object [] list = new Object []{a,b,c,d,e,f,g} ;
-    return list ;
-  }
-
-  Object get(int which) {
-    if(which == 0) {
-      return a ; 
-    } else if(which == 1) {
-      return b ;
-    } else if(which == 2) {
-      return c ;
-    } else if(which == 3) {
-      return d ;
-    } else if(which == 4) {
-      return e ;
-    } else if(which == 5) {
-      return f ;
-    } else if(which == 6) {
-      return g ;
-    } else {
-      printErr(error_target) ;
-      return null ;
-    }
-  }
-  
-  Object [] catch_all() {
-    Object [] list = new Object[]{a,b,c,d,e,f,g} ;
-    return list ;
-  }
-
-  Object catch_obj(int which) {
-    if(which == 0) {
-      return a ; 
-    } else if(which == 1) {
-      return b ;
-    } else if(which == 2) {
-      return c ;
-    } else if(which == 3) {
-      return d ;
-    } else if(which == 4) {
-      return e ;
-    } else if(which == 5) {
-      return f ;
-    } else if(which == 6) {
-      return g ;
-    } else {
-      printErr(error_target) ;
-      return null ;
-    }
-  }
-  
-  char get_type() { return type ; }
-
-
-  // Print info
-  @Override String toString() {
-    if(num_value == 1) {
-      return "[ " + name + ": " + a + " ]";
-    } else if(num_value == 2) {
-      return "[ " + name + ": " + a + ", " + b + " ]";
-    } else if(num_value == 3) {
-      return "[ " + name + ": " + a + ", " + b + ", " + c + " ]";
-    } else if(num_value == 4) {
-      return "[ " + name + ": " + a + ", " + b + ", " + c + ", " + d + " ]";
-    } else if(num_value == 5) {
-      return "[ " + name + ": " + a + ", " + b + ", " + c + ", " + d + ", " + e + " ]";
-    } else if(num_value == 6) {
-      return "[ " + name + ": " + a + ", " + b + ", " + c + ", " + d + ", " + e + ", " + f + " ]";
-    } else if(num_value == 7) {
-      return "[ " + name + ": " + a + ", " + b + ", " + c + ", " + d + ", " + e + ", " + f + ", " + g + " ]";
-    } else {
-      printErr(num_value) ;
-      printErr(error_value_message) ;
-      return "hmmm hmmm there is problem with your stuff mate";
-    }
-  }
-}
-/**
-END INFO LIST
-*/
 
 

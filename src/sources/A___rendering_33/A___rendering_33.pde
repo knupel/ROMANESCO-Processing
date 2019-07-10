@@ -30,12 +30,12 @@ BUG with warp on MacBook Pro 2018 or HighSierra / Mojave
 /**
 * DEVELOPER SETTING
 */
-boolean DEBUG_MODE = true;
-boolean USE_LAYER = false;
-boolean DEV_MODE = true; // inter alia, path preferences folder, curtain
-String IAM = "prescene";
-boolean LIVE = false;
-boolean FULL_RENDERING = true;
+// boolean DEBUG_MODE = true;
+// boolean USE_LAYER = false;
+// boolean DEV_MODE = true; // inter alia, path preferences folder, curtain
+// String IAM = "prescene";
+// boolean LIVE = false;
+// boolean FULL_RENDERING = true;
 
 // PRESCENE LIVE
 // boolean DEBUG_MODE = true;
@@ -46,12 +46,12 @@ boolean FULL_RENDERING = true;
 // boolean FULL_RENDERING = false;
 
 // SCENE LIVE
-// boolean DEBUG_MODE = true;
-// boolean USE_LAYER = false;
-// boolean DEV_MODE = true; // inter alia, path preferences folder, curtain
-// String IAM = "scene";
-// boolean LIVE = false;
-// boolean FULL_RENDERING = true;
+boolean DEBUG_MODE = true;
+boolean USE_LAYER = false;
+boolean DEV_MODE = true; // inter alia, path preferences folder, curtain
+String IAM = "scene";
+boolean LIVE = false;
+boolean FULL_RENDERING = true;
 
 
 
@@ -154,13 +154,13 @@ LIVE must change from the launcher, the info must be write in the external loadi
 
 
 void settings() {
-  size(1100,650,P3D); // DEV MODE PARAM
+  // size(1100,650,P3D); // DEV MODE PARAM
   
   // EXPORTING PARAM 
   // size(124,124,P3D);
 
-  // fullScreen(P3D); // original
-  // FULL_SCREEN = true;
+  fullScreen(P3D); // original
+  FULL_SCREEN = true;
 
   syphon_settings();
 
@@ -264,7 +264,7 @@ void draw() {
 void romanesco() {
   init_romanesco();
   if(FULL_RENDERING) {
-    start_PNG("screenshot Romanesco prescene", "Romanesco_"+year()+"_"+month()+"_"+day()+"_"+hour()+"_"+minute()+"_"+second());
+    //start_PNG("screenshot Romanesco prescene", "Romanesco_"+year()+"_"+month()+"_"+day()+"_"+hour()+"_"+minute()+"_"+second());
   }
 
   syphon_draw();

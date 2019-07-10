@@ -33,6 +33,7 @@
 >add: slider amplitude
 >change: name for item.show(), item.parameter(), item.sound() and item.action() for item.show_is(), item.parameter_is(), item.sound_is() and item.action_is()
 >add: event alpha_is()
+>bug: fix the bug who cause problem of choice problem in fullscreen selection window.
 
 *SHADER
 

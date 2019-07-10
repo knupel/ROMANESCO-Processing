@@ -1,6 +1,6 @@
 /**
 * Rope framework image
-* v 0.5.3
+* v 0.5.4
 * Copyleft (c) 2014-2019
 * Processing 3.5.3.269
 * Rope library 0.8.3.28
@@ -1279,7 +1279,7 @@ void background_rope(float x, float y, float z) {
 
 /**
 * GRAPHICS METHOD
-* v 0.4.0
+* v 0.4.1
 */
 /**
 SCREEN
@@ -1372,15 +1372,14 @@ Rectangle get_screen(int target_screen) {
   GraphicsDevice[] awtDevices = environment.getScreenDevices();
   int target = 0 ;
   if(target_screen < awtDevices.length) {
-    target = target_screen ; 
+    target = target_screen;
+    GraphicsDevice awtDisplayDevice = awtDevices[target];
+    Rectangle display = awtDisplayDevice.getDefaultConfiguration().getBounds();
+    return display; 
   } else {
-    printErr("No screen match with your request, instead we use the current screen");
-    target = sketchDisplay() -1;
-    if(target >= awtDevices.length) target = awtDevices.length -1;
+    printErr("method get_screen(",target_screen,"), No screen match with your request");
+    return null;
   }
-  GraphicsDevice awtDisplayDevice = awtDevices[target];
-  Rectangle display = awtDisplayDevice.getDefaultConfiguration().getBounds();
-  return display;
 }
 
 

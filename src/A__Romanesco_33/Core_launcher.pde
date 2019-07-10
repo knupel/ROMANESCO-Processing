@@ -61,10 +61,10 @@ boolean open_app_is() {
   return open_app_is;
 }
 
-
+String warning_launch = ("WARNING: \nin case Romanesco is not compiled,\nthe launcher set the size of windows only it cannot launch the app,\nafter it's necessary to run presecne.pde separately,\nthen run scene.pde if you want use it,\nthen run controller.pde");
 void open_prescene() {
   println("Prescene.app is launch, if it's possible");
-  println("WARNING:\nin case Romanesco in not compiled,\nthe launcher set the size of windows only it cannot launch the app,\nafter it's necessary to run presecne.pde separately,\nthen run scene.pde if you want use it,\nthen run controller.pde");
+  println(warning_launch);
   if(LIVE) {
     launch(path_prescene_live);
   } else {
@@ -76,7 +76,7 @@ void open_prescene() {
 
 void open_scene() {
   println("Scene.app is launch, if it's possible");
-  println("WARNING:\nin case Romanesco in not compiled,\nthe launcher set the size of windows only it cannot launch the app,after it's necessary to run presecne.pde separately,\nthen run scene.pde if you want use it,\nthen run controller.pde");
+  println(warning_launch);
   if(LIVE) {
     if(FULLSCREEN) {
       launch(path_scene_live_fullscreen);
@@ -89,7 +89,7 @@ void open_scene() {
 
 void open_controller() {
   println("Controller.app is launch, if it's possible");
-  println("WARNING:\nin case Romanesco in not compiled,\nthe launcher set the size of windows only it cannot launch the app,\nafter it's necessary to run presecne.pde separately,\nthen run scene.pde if you want use it,\nthen run controller.pde");
+  println(warning_launch);
   if(LIVE) { 
     launch(path_controller_live);
   } else {
@@ -462,7 +462,7 @@ selected display rendering
 void fullscreen_or_window(boolean window_is, boolean fullscreen_is) {
   if(window_is) buttonWindow.displayButton();
 
-  if(screenNum > 1 && fullscreen_is) {
+  if(screen_num > 1 && fullscreen_is) {
     buttonFullscreen.displayButton();
   }
   
@@ -564,7 +564,7 @@ void save_app_properties() {
   
   TableRow newRow = properies.addRow();
 
-  int which_screen = get_which_screen();
+
 
   println("display 0",0,get_display_size(0));
   println("display 1",1,get_display_size(1));
@@ -581,7 +581,7 @@ void save_app_properties() {
   int scene_y = 0;
 
   newRow.setString(col[0], screen);
-  newRow.setInt(col[1], which_screen);
+  newRow.setInt(col[1],get_which_screen());
   newRow.setString(col[2],"true"); 
   newRow.setString(col[3],"true"); 
   newRow.setInt(col[4], w);
@@ -673,20 +673,20 @@ void size_window_height(int[] format_height, int pos_y) {
 
 /**
 SCREEN
-v 1.0.0
+v 1.1.0
 */
-int screenNum  ;
+int screen_num  ;
 //SETUP 
 void set_which_screen(int n , PVector infoPos) {
   //quantity of button choice
-  screenNum = n ;
-  whichScreenButton = new Button [screenNum] ;
+  screen_num = n ;
+  whichScreenButton = new Button [screen_num] ;
   //position of the button  
   int x = (int)infoPos.x ;
   int y = (int)infoPos.y ;
   int space = (int)infoPos.z ;
   
-  for ( int i = 0 ; i <  screenNum ; i++) {
+  for ( int i = 0 ; i <  screen_num ; i++) {
     vec2 pos = vec2( x +( i *space), y ) ;
     vec2 size = vec2(20,20) ;
     String title = Integer.toString(i+1) ;
@@ -704,16 +704,16 @@ void choice_screen_for_fullscreen() {
 
 
 void which_screen() {
-  for(int i = 0 ; i < screenNum ; i++) {
+  for(int i = 0 ; i < screen_num ; i++) {
     whichScreenButton[i].displayButton() ;
   }
 }
 
 //MOUSEPRESSED
 void which_screen_pressed() {
-  for(int i =0 ; i< screenNum ; i++ ) {
+  for(int i =0 ; i< screen_num ; i++ ) {
     if (whichScreenButton[i].inside ) {
-      for( int j =0 ; j < screenNum ; j++ ) whichScreenButton[j].OnOff = false ;
+      for( int j =0 ; j < screen_num ; j++ ) whichScreenButton[j].OnOff = false ;
     }
   }
 }
@@ -721,8 +721,7 @@ void which_screen_pressed() {
 //MOUSERELEASED
 int screen_to_display;
 void which_screen_released() {
- // screen_to_display = -1;
-  for(int i = 0 ; i < screenNum ; i++ ) {
+  for(int i = 0 ; i < screen_num ; i++ ) {
     whichScreenButton[i].mouseClic() ;
     if(whichScreenButton[i].OnOff) {
       screen_to_display = i;
@@ -730,17 +729,34 @@ void which_screen_released() {
   }
 }
 
-//ID screen
-int IDscreen = 0 ;
 int get_which_screen() {
-  for(int i = 0 ; i < screenNum ; i++ ) { 
-    if(whichScreenButton[i].OnOff == true ) {
-      IDscreen = i+1 ; 
-    } else {
-      IDscreen = 1 ;
+  int id_screen = 0;
+  // check if all screen exist
+  boolean [] screen_is = new boolean[screen_num];
+  for(int i = 0 ; i < screen_num ; i++) {
+    if(get_screen(i) != null) {
+      println("size display",i,get_screen(i).getWidth(),get_screen(i).getHeight());
+      screen_is[i] = true;
     }
   }
-  return IDscreen ;
+ 
+  for(int i = 0 ; i < screen_num ; i++ ) { 
+    if(whichScreenButton[i].OnOff == true ) {
+      if(screen_is[i]) {
+        id_screen = i; 
+        break;
+      } else {
+        for(int k = 0 ; k < screen_is.length ; k++) {
+           if(screen_is[k]) {
+            id_screen = k;
+            break;
+          }
+        }
+      }
+    }
+  }
+  
+  return id_screen;
 }
 
 

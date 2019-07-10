@@ -2,7 +2,7 @@
 * POST FX shader collection
 *
 * 2019-2019
-* v 0.2.11
+* v 0.2.12
 * all filter bellow has been tested.
 * @author @stanlepunk
 * @see https://github.com/StanLepunK/Shader
@@ -69,6 +69,63 @@ PGraphics fx_template(PImage source, boolean on_g, boolean filter_is, vec4 level
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+/**
+* Antialiasing FXAA by Stan le punk
+* v 0.0.1
+* 2019-2019
+*/
+// setting by class FX
+PGraphics fx_fxaa(PImage source, FX fx) {
+	return fx_fxaa(source,fx.on_g(),fx.pg_filter_is());
+}
+
+// main
+PShader fx_fxaa;
+PGraphics pg_fxaa;
+PGraphics fx_fxaa(PImage source, boolean on_g, boolean filter_is) {
+	if(!on_g && (pg_fxaa == null 
+								|| (source.width != pg_fxaa.width 
+								|| source.height != pg_fxaa.height))) {
+		pg_fxaa = createGraphics(source.width,source.height,get_renderer());
+	}
+
+	if(fx_fxaa == null) {
+		String path = get_fx_post_path()+"AA_FXAA.glsl";
+		if(fx_post_rope_path_exists) {
+			fx_fxaa = loadShader(path);
+			println("load shader: AA_FXAA.glsl");
+		}
+		println("load shader:",path);
+	} else {
+		fx_shader_flip(fx_fxaa,on_g,filter_is,source,null);
+
+		fx_fxaa.set("texture_source",source);
+		fx_fxaa.set("resolution_source",(float)source.width,(float)source.height);
+
+    // rendering
+		render_shader(fx_fxaa,pg_fxaa,source,on_g,filter_is);
+	}
+	// return
+	reset_reverse_g(false);
+	if(on_g) {
+		return null;
+	} else {
+		return pg_fxaa; 
+	}
+}
 
 
 
@@ -610,6 +667,68 @@ PGraphics fx_datamosh(PImage source, boolean on_g, boolean filter_is, float thre
 
 
 
+/**
+* Derivative by Stan le punk
+* v 0.0.1
+* 2019-2019
+*/
+// setting by class FX
+PGraphics fx_derivative(PImage source, FX fx) {
+	return fx_derivative(source,fx.on_g(),fx.pg_filter_is());
+}
+
+// main
+PShader fx_derivative;
+PGraphics pg_derivative;
+PGraphics fx_derivative(PImage source, boolean on_g, boolean filter_is) {
+	if(!on_g && (pg_derivative == null 
+								|| (source.width != pg_derivative.width 
+								|| source.height != pg_derivative.height))) {
+		pg_derivative = createGraphics(source.width,source.height,get_renderer());
+	}
+
+	if(fx_derivative == null) {
+		String path = get_fx_post_path()+"derivative.glsl";
+		if(fx_post_rope_path_exists) {
+			fx_derivative = loadShader(path);
+			println("load shader: derivative.glsl");
+		}
+		println("load shader:",path);
+	} else {
+		fx_shader_flip(fx_derivative,on_g,filter_is,source,null);
+
+		fx_derivative.set("texture_source",source);
+		fx_derivative.set("resolution_source",(float)source.width,(float)source.height);
+
+		fx_derivative.set("time",frameCount); // value from 0 to 1
+
+    // rendering
+		render_shader(fx_derivative,pg_derivative,source,on_g,filter_is);
+
+	}
+
+	// return
+	reset_reverse_g(false);
+	if(on_g) {
+		return null;
+	} else {
+		return pg_derivative; 
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -746,6 +865,62 @@ PGraphics fx_flip(PImage source, boolean on_g, boolean filter_is, bvec2 flip) {
 
 
 
+
+
+
+
+
+
+/**
+* Glitch FXAA by Stan le punk
+* v 0.0.1
+* 2019-2019
+*/
+// setting by class FX
+PGraphics fx_glitch_fxaa(PImage source, FX fx) {
+	return fx_glitch_fxaa(source,fx.on_g(),fx.pg_filter_is(),fx.get_cardinal());
+}
+
+// main
+PShader fx_glitch_fxaa;
+PGraphics pg_glitch_fxaa;
+PGraphics fx_glitch_fxaa(PImage source, boolean on_g, boolean filter_is, vec4 cardinal) {
+	if(!on_g && (pg_glitch_fxaa == null 
+								|| (source.width != pg_glitch_fxaa.width 
+								|| source.height != pg_glitch_fxaa.height))) {
+		pg_glitch_fxaa = createGraphics(source.width,source.height,get_renderer());
+	}
+
+	if(fx_glitch_fxaa == null) {
+		String path = get_fx_post_path()+"AA_FXAA_glitch.glsl";
+		if(fx_post_rope_path_exists) {
+			fx_glitch_fxaa = loadShader(path);
+			println("load shader: AA_FXAA.glsl");
+		}
+		println("load shader:",path);
+	} else {
+		fx_shader_flip(fx_glitch_fxaa,on_g,filter_is,source,null);
+
+		fx_glitch_fxaa.set("texture_source",source);
+		fx_glitch_fxaa.set("resolution_source",(float)source.width,(float)source.height);
+
+
+		fx_glitch_fxaa.set("nw",cardinal.x(),cardinal.w()); // value from -1 to 1
+		fx_glitch_fxaa.set("ne",cardinal.x(),cardinal.y()); // value from -1 to 1
+		fx_glitch_fxaa.set("sw",cardinal.z(),cardinal.w()); // value from -1 to 1
+		fx_glitch_fxaa.set("se",cardinal.z(),cardinal.y()); // value from -1 to 1
+
+    // rendering
+		render_shader(fx_glitch_fxaa,pg_glitch_fxaa,source,on_g,filter_is);
+	}
+	// return
+	reset_reverse_g(false);
+	if(on_g) {
+		return null;
+	} else {
+		return pg_glitch_fxaa; 
+	}
+}
 
 
 
@@ -1576,6 +1751,66 @@ PGraphics fx_pixel(PImage source, boolean on_g, boolean filter_is, ivec2 size, i
 		return null;
 	} else {
 		return pg_pixel; 
+	}
+}
+
+
+
+
+
+
+
+
+
+/**
+* Posterize by Stan le punk
+* v 0.0.1
+* 2019-2019
+*/
+// setting by class FX
+PGraphics fx_posterization(PImage source, FX fx) {
+	return fx_posterization(source,fx.on_g(),fx.pg_filter_is(),fx.get_threshold(),fx.get_num());
+}
+
+// main
+PShader fx_posterization;
+PGraphics pg_posterization;
+PGraphics fx_posterization(PImage source, boolean on_g, boolean filter_is, vec3 threshold, int num) {
+	if(!on_g && (pg_posterization == null 
+								|| (source.width != pg_posterization.width 
+								|| source.height != pg_posterization.height))) {
+		pg_posterization = createGraphics(source.width,source.height,get_renderer());
+	}
+
+	if(fx_posterization == null) {
+		String path = get_fx_post_path()+"posterization.glsl";
+		if(fx_post_rope_path_exists) {
+			fx_posterization = loadShader(path);
+			println("load shader: posterization.glsl");
+		}
+		println("load shader:",path);
+	} else {
+		fx_shader_flip(fx_posterization,on_g,filter_is,source,null);
+
+		fx_posterization.set("texture_source",source);
+		fx_posterization.set("resolution_source",(float)source.width,(float)source.height);
+
+
+		fx_posterization.set("threshold",threshold.x(),threshold.y(),threshold.z()); // value 0 to 1
+		if(num < 2) num = 2;
+		fx_posterization.set("num",num);
+
+    // rendering
+		render_shader(fx_posterization,pg_posterization,source,on_g,filter_is);
+
+	}
+
+	// return
+	reset_reverse_g(false);
+	if(on_g) {
+		return null;
+	} else {
+		return pg_posterization; 
 	}
 }
 

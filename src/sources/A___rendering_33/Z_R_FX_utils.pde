@@ -4,7 +4,6 @@
 * @see https://github.com/StanLepunK/Shader
 * v 0.9.2
 * 2019-2019
-*
 */
 int NO_FX = -1;
 // CONSTANT FX POST
