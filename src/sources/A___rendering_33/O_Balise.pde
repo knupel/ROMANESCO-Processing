@@ -1,7 +1,7 @@
 /**
 * BALISE
 * 2011-2019
-* v 1.4.1
+* v 1.4.2
 */
 Balise balise ;
 //object three
@@ -10,7 +10,7 @@ class BaliseRomanesco extends Romanesco {
     //from the index_objects.csv
     item_name = "Balise" ;
     item_author  = "Stan le Punk";
-    item_version = "Version 1.4.1";
+    item_version = "Version 1.4.2";
     item_pack = "Base 2011-2019" ; 
     item_costume = "point/ellipse/triangle/rect/cross/pentagon/flower/Star 5/Star 7/Super Star 8/Super Star 12" ;
     // item_mode = "Disc/Rectangle/Box/Box Snake" ;
@@ -83,7 +83,7 @@ class BaliseRomanesco extends Romanesco {
     float tempo_balise = 1 ;
     if(sound_is() && FULL_RENDERING) {
       authorization = true ;
-      tempo_balise = tempo[ID_item] *.01;
+      tempo_balise = tempo_rom[ID_item] *.01;
     } else {
       tempo_balise = 1. ;
     }

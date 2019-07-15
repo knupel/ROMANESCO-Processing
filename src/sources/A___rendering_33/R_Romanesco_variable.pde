@@ -1,7 +1,7 @@
 /**
 * Romanesco Manager
 * 2013-2019
-* v 1.7.3
+* v 1.7.4
 */
 Romanesco_manager rom_manager;
 
@@ -325,11 +325,11 @@ void update_var_sound(Romanesco item) {
     transient_value[4][id] = transient_value[4][0]; // is hight transient detection by default : value 1,10 
 
 
-    tempo[id] = tempo[0]; // global speed of track  / float value(0,1)
-    tempoBeat[id] = tempoBeat[0]; // speed of track calculate on the beat
-    tempoKick[id] = tempoKick[0]; // speed of track calculate on the kick
-    tempoSnare[id] = tempoSnare[0]; // speed of track calculate on the snare
-    tempoHat[id] = tempoHat[0]; // speed of track calculte on the hat
+    tempo_rom[id] = tempo_rom[0]; // global speed of track  / float value(0,1)
+    tempo_rom_beat[id] = tempo_rom_beat[0]; // speed of track calculate on the beat
+    tempo_rom_kick[id] = tempo_rom_kick[0]; // speed of track calculate on the kick
+    tempo_rom_snare[id] = tempo_rom_snare[0]; // speed of track calculate on the snare
+    tempo_rom_hat[id] = tempo_rom_hat[0]; // speed of track calculte on the hat
     
     for (int i = 0 ; i <NUM_BANDS ; i++) {
       band[id][i] = band[0][i];
@@ -346,11 +346,11 @@ void update_var_sound(Romanesco item) {
     transient_value[3][id] = 1; // is medium transient detection by default : value 1,10 
     transient_value[4][id] = 1; // is hight transient detection by default : value 1,10 
     
-    tempo[id] = 1; // global speed of track  / float value(0,1)
-    tempoBeat[id] = 1; // speed of track calculate on the beat
-    tempoKick[id] = 1; // speed of track calculate on the kick
-    tempoSnare[id] = 1; // speed of track calculate on the snare
-    tempoHat[id] = 1; // speed of track calculte on the hat
+    tempo_rom[id] = 1; // global speed of track  / float value(0,1)
+    tempo_rom_beat[id] = 1; // speed of track calculate on the beat
+    tempo_rom_kick[id] = 1; // speed of track calculate on the kick
+    tempo_rom_snare[id] = 1; // speed of track calculate on the snare
+    tempo_rom_hat[id] = 1; // speed of track calculte on the hat
     
     for (int i = 0 ; i < NUM_BANDS ; i++) {
       band[id][i] = 1 ;

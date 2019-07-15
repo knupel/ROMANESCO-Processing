@@ -2,7 +2,7 @@
 * POST FX shader collection
 *
 * 2019-2019
-* v 0.2.12
+* v 0.2.13
 * all filter bellow has been tested.
 * @author @stanlepunk
 * @see https://github.com/StanLepunK/Shader
@@ -84,18 +84,18 @@ PGraphics fx_template(PImage source, boolean on_g, boolean filter_is, vec4 level
 
 /**
 * Antialiasing FXAA by Stan le punk
-* v 0.0.1
+* v 0.0.2
 * 2019-2019
 */
 // setting by class FX
 PGraphics fx_fxaa(PImage source, FX fx) {
-	return fx_fxaa(source,fx.on_g(),fx.pg_filter_is());
+	return fx_fxaa(source,fx.on_g(),fx.pg_filter_is(), fx.get_pair(0).x(), fx.get_pair(0).y());
 }
 
 // main
 PShader fx_fxaa;
 PGraphics pg_fxaa;
-PGraphics fx_fxaa(PImage source, boolean on_g, boolean filter_is) {
+PGraphics fx_fxaa(PImage source, boolean on_g, boolean filter_is, float sub_pix_cap, float sub_pix_trim) {
 	if(!on_g && (pg_fxaa == null 
 								|| (source.width != pg_fxaa.width 
 								|| source.height != pg_fxaa.height))) {
@@ -114,6 +114,29 @@ PGraphics fx_fxaa(PImage source, boolean on_g, boolean filter_is) {
 
 		fx_fxaa.set("texture_source",source);
 		fx_fxaa.set("resolution_source",(float)source.width,(float)source.height);
+
+		
+		float edge_threshold = 0.8; // nothing happen, but after 0.8 the effect is kill
+		fx_fxaa.set("edge_threshold",edge_threshold);
+
+		float edge_threshold_min = 0.5; // nothing happen
+		fx_fxaa.set("edge_threshold_min",edge_threshold_min);
+
+		// search
+		int search_steps = 8; // nothing happen
+		fx_fxaa.set("search_steps",search_steps);
+
+		float search_threshold = 0.5; // nothing happen from 0 to 1
+		fx_fxaa.set("search_threshold",search_threshold);
+
+		// sub
+		// float sub_pix_cap = 0.75 ; // something happen from 0 to 1
+		fx_fxaa.set("sub_pix_cap",sub_pix_cap);
+
+		//float sub_pix_trim = -0.5; //something happen from -1 to 1 
+		fx_fxaa.set("sub_pix_trim",sub_pix_trim);
+
+
 
     // rendering
 		render_shader(fx_fxaa,pg_fxaa,source,on_g,filter_is);

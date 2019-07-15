@@ -1,6 +1,6 @@
 /**
 SOUND
-v 1.4.0
+v 1.4.1
 */
 Sounda sounda;
 int [] transient_section_id;
@@ -62,10 +62,10 @@ void sound_draw() {
 ROMANESCO SOUND DRAW
 */
 void tempo_romanesco() {
-  tempo[0] = sounda.get_tempo();
-  tempoKick[0] = sounda.get_tempo();
-  tempoSnare[0] = sounda.get_tempo();
-  tempoHat[0] = sounda.get_tempo();
+  tempo_rom[0] = sounda.get_tempo();
+  tempo_rom_kick[0] = sounda.get_tempo();
+  tempo_rom_snare[0] = sounda.get_tempo();
+  tempo_rom_hat[0] = sounda.get_tempo();
 }
 
 void spectrum_romaneco() {

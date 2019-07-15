@@ -411,7 +411,9 @@ img_bitmap[ID_item] = loadImage(imagePath[whichImage[ID_item]]) ;
 
 details:
 loadImg(ID_item) void use to load and update the image
+
 String imagePath[whichImage] ; image jpg from the dropdown menu
+
 PImage img[ID_item] image selected from dropdown menu and confirm by the Parameter button of the object
 
 

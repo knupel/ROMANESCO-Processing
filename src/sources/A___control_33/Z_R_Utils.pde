@@ -1,6 +1,6 @@
 /**
 Rope UTILS 
-v 1.60.0
+v 1.61.0
 * Copyleft (c) 2014-2019
 * Rope – Romanesco Processing Environment – 
 * Processing 3.5.3
@@ -20,6 +20,62 @@ import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 // EXPORT PDF
 import processing.pdf.*;
+
+
+
+
+
+
+/**
+* tempo
+* v 0.0.1
+* 2019-2019
+* create tempo partition
+*/
+float [] tempo = {1};
+void tempo(float... tempo) {
+  this.tempo = tempo;
+}
+
+float sum_tempo() {
+  float sum = 0;
+  for(int i = 0 ; i < tempo().length ; i++) {
+    sum += tempo()[i];
+  }
+  return sum;
+}
+
+float get_tempo(float time) {
+  return tempo()[get_tempo_pos(time)];
+}
+
+int get_tempo_pos(float time) {
+  float rank = time%sum_tempo();
+  float progress = 0;
+  int pos = 0;
+  for(int i = 0 ; i < tempo().length ; i++) {
+    progress += tempo()[i];
+    if(rank < progress) {
+      pos = i;
+      break;
+    }  
+  } 
+  return pos;
+}
+
+float [] tempo() {
+  return tempo;
+}
+
+
+
+
+
+
+
+
+
+
 
 
 

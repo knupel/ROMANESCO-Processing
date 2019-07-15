@@ -1,7 +1,7 @@
 /**
 * ARBRE 
 * 2012-2019
-* v 1.6.1
+* v 1.6.2
 */
 class ArbreRomanesco extends Romanesco {
   Arbre arbre ;
@@ -10,7 +10,7 @@ class ArbreRomanesco extends Romanesco {
     item_name = "Arbre" ;
     item_author  = "Stan le Punk";
     item_references = "";
-    item_version = "Version 1.6.1";
+    item_version = "Version 1.6.2";
     item_pack = "Base 2012-2019" ;
     item_costume = "ellipse/triangle/rect/cross/pentagon/flower/Star 5/Star 7/Super Star 8/Super Star 12";
     item_mode = "";
@@ -127,7 +127,7 @@ class ArbreRomanesco extends Romanesco {
     if(motion_is() && FULL_RENDERING) {
       float s = map(get_speed_x().value(),0,1,0,2) ;
       s *= s;
-      speed = s *tempo[ID_item]; 
+      speed = s *tempo_rom[ID_item]; 
     } else if (!motion_is() && FULL_RENDERING){ 
       speed = 0.;
     } else {

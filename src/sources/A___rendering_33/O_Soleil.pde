@@ -1,13 +1,13 @@
 /**
 SOLEIL
 2012-2019
-1.3.0
+1.3.1
 */
 class Soleil extends Romanesco {
   public Soleil() {
     item_name = "Soleil" ;
     item_author  = "Stan le Punk";
-    item_version = "Version 1.3.0";
+    item_version = "Version 1.3.1";
     item_pack = "Base 2013-2019";
     item_costume = "" ;
     item_mode = "Beam/Lie'Bro'One/Lie'Bro'Two/Lie'Bro Noisy";
@@ -107,7 +107,7 @@ class Soleil extends Romanesco {
     // spurt
     float ratio_spurt = (get_spurt_x().normal() *get_spurt_x().normal()) +.005;
     spurt += (ratio_spurt *.33)  ;
-    float spurting = cos(spurt) *tempo[ID_item] ;
+    float spurting = cos(spurt) *tempo_rom[ID_item] ;
 
     // jitter
     PVector jitter = new PVector() ;
@@ -126,7 +126,7 @@ class Soleil extends Romanesco {
     float speedRotation = 0 ;
     float ratio_speed = (get_speed_x().normal() *get_speed_x().normal()) +.05 ;
 
-    speedRotation = sq(ratio_speed *8.0 *tempo[ID_item]) *direction ;
+    speedRotation = sq(ratio_speed *8.0 *tempo_rom[ID_item]) *direction ;
     angleRotation += speedRotation ;
     rotate (radians(angleRotation)) ;
 

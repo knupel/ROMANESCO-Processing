@@ -422,7 +422,7 @@ float [][] transient_value;
 // spectrum
 float band[][];
 //tempo
-float [] tempo, tempoBeat, tempoKick, tempoSnare, tempoHat;
+float [] tempo_rom, tempo_rom_beat, tempo_rom_kick, tempo_rom_snare, tempo_rom_hat;
 
 
 
@@ -542,11 +542,11 @@ void create_var_sound() {
    // spectrum
    band = new float [NUM_ITEM_PLUS_MASTER][NUM_BANDS];
    // tempo
-   tempo = new float [NUM_ITEM_PLUS_MASTER];
-   tempoBeat = new float [NUM_ITEM_PLUS_MASTER];
-   tempoKick = new float [NUM_ITEM_PLUS_MASTER];
-   tempoSnare = new float [NUM_ITEM_PLUS_MASTER];
-   tempoHat = new float [NUM_ITEM_PLUS_MASTER];
+   tempo_rom = new float [NUM_ITEM_PLUS_MASTER];
+   tempo_rom_beat = new float [NUM_ITEM_PLUS_MASTER];
+   tempo_rom_kick = new float [NUM_ITEM_PLUS_MASTER];
+   tempo_rom_snare = new float [NUM_ITEM_PLUS_MASTER];
+   tempo_rom_hat = new float [NUM_ITEM_PLUS_MASTER];
 }
 
 

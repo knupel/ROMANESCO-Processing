@@ -1,7 +1,7 @@
 /**
 SPIRALE
 2011-2019
-v 1.4.0
+v 1.4.1
 */
 
 Spirale spirale ; 
@@ -11,7 +11,7 @@ class Spirale_romanesco extends Romanesco {
     //from the index_objects.csv
     item_name = "Spirale" ;
     item_author  = "Stan le Punk";
-    item_version = "Version 1.4.0";
+    item_version = "Version 1.4.1";
     item_pack = "Base 2011-2019" ;
     item_costume = "point/ellipse/triangle/rect/cross/pentagon/flower/Star 5/Star 7/Super Star 8/Super Star 12" ;
     item_mode = "" ;
@@ -100,7 +100,7 @@ class Spirale_romanesco extends Romanesco {
     if(motion_is()) {
       float s = map(get_speed_x().value(),get_speed_x().min(),get_speed_x().max(),0,8) ;
       s *= s ;
-      if(reverse_is()) speed = s *tempo[ID_item] ; else speed = s *tempo[ID_item] *-1. ;
+      if(reverse_is()) speed = s *tempo_rom[ID_item] ; else speed = s *tempo_rom[ID_item] *-1. ;
     } else { 
       speed = 0.0 ;
     }

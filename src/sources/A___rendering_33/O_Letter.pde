@@ -1,7 +1,7 @@
 /**
 LETTER
 2012-2019
-v 1.5.1
+v 1.5.2
 */
 //GEOMERATIVE
 import geomerative.*;
@@ -10,7 +10,7 @@ class Letter extends Romanesco {
   public Letter() {
     item_name = "Letter" ;
     item_author  = "Stan le Punk";
-    item_version = "Version 1.5.1";
+    item_version = "Version 1.5.2";
     item_pack = "Base 2012-2019" ;
 
     item_costume = "Point/Line/Triangle";
@@ -159,7 +159,7 @@ class Letter extends Romanesco {
     //ENGINE
     if(motion_is()) {
       if(sound_is()) {
-        speed = map(get_speed_x().normal() *get_speed_x().normal(),0,1,0.,.3) *tempo[ID_item];
+        speed = map(get_speed_x().normal() *get_speed_x().normal(),0,1,0.,.3) *tempo_rom[ID_item];
       } else {
         speed = map(get_speed_x().normal()*get_speed_x().normal(),0,1,0.,.1);
       } 

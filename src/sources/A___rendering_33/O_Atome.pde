@@ -1,7 +1,7 @@
 /**
 * ATOME 
 * 2012-2019
-* v 1.4.0
+* v 1.4.1
 */
 ArrayList<Atom> atomList;
 import rope.costume.R_Primitive;
@@ -11,7 +11,7 @@ class Atome extends Romanesco {
     //from the index_objects.csv
     item_name = "Atome" ;
     item_author  = "Stan le Punk";
-    item_version = "version 1.4.0";
+    item_version = "version 1.4.1";
     item_pack = "Base 2012-2019" ;
     item_costume = "";
     item_mode = "Chemical Name/File text/Electronic cloud/Ellipse circle/Ellipse triangle/Ellipse cloud/Triangle circle/Triangle triangle/Triangle cloud/Rectangle rectangle/Rectangle cloud" ;
@@ -128,10 +128,10 @@ class Atome extends Romanesco {
     
     //speed
     float speed = (get_speed_x().value() *100) *(get_speed_x().value() *100) ;
-    float velLimit = tempo[ID_item] *5.0 ; // max of speed Atom
+    float velLimit = tempo_rom[ID_item] *5.0 ; // max of speed Atom
     if (velLimit < 1.1 ) velLimit = 1.1 ;
     //the atom temperature give the speed 
-    if(sound_is()) atomTemperature =  floor(speed *tempo[ID_item]) ; else atomTemperature = round(speed) ;
+    if(sound_is()) atomTemperature =  floor(speed *tempo_rom[ID_item]) ; else atomTemperature = round(speed) ;
     //ratio evolution for atom temperature...give an idea to change the speed of this one
     //because the temp of atom is linked with velocity of this one.
     float tempAbs = 10.0 ;
@@ -147,7 +147,7 @@ class Atome extends Romanesco {
       newDirection = new PVector () ;
     }
     
-    PVector newVelocity = new PVector (sq(tempo[ID_item]) *1000., sq(tempo[ID_item]) *1000.);
+    PVector newVelocity = new PVector (sq(tempo_rom[ID_item]) *1000., sq(tempo_rom[ID_item]) *1000.);
     //security if the value is null to don't stop the move
     float acceleration ; 
     if(pen[ID_item].z == 0 ) acceleration = 1. ; else acceleration = pen[ID_item].z *1000. ;

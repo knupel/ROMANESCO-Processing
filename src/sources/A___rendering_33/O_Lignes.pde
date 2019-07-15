@@ -1,7 +1,7 @@
 /**
 LIGNES
 2011-2019
-v 1.3.0
+v 1.3.1
 */
 Line line ;
 //object three
@@ -9,7 +9,7 @@ class Lignes extends Romanesco {
   public Lignes() {
     item_name = "Lignes" ;
     item_author  = "Stan le Punk";
-    item_version = "Version 1.3.0";
+    item_version = "Version 1.3.1";
     item_pack = "Base 2011-2019" ;
     item_costume = "" ;
     item_mode = "Lines 1/Lines 2/Lines 3/Lines 4/Lines 5/Lines 6" ;
@@ -86,7 +86,7 @@ class Lignes extends Romanesco {
 
     //speed
     if(motion_is()) {
-      speed = map(get_speed_x().normal() *get_speed_x().normal(),0,1,0,height/20) * tempo[ID_item]; 
+      speed = map(get_speed_x().normal() *get_speed_x().normal(),0,1,0,height/20) * tempo_rom[ID_item]; 
     } else {
       speed = 0;
     }
