@@ -1,10 +1,12 @@
 /**
 * CROPE
 * Control ROmanesco Processing Environment
-* v 0.10.2
+* v 0.11.0
 * Copyleft (c) 2018-2019
+
+* dependencies
 * Processing 3.5.3
-* Rope library 0.8.1
+* Rope library 0.8.5.30
 * @author @stanlepunk
 * @see https://github.com/StanLepunK/Crope
 */
@@ -536,8 +538,22 @@ public class Crope {
 
 
 
+/**
+* CLASS SINGLE
+*/
 
 
+
+/**
+* CLASS POTAR
+* v 0.0.1
+* 2019-2019
+*/
+/*
+public class Potar extends Crope {
+
+}
+*/
 
 
 
@@ -557,9 +573,9 @@ public class Crope {
 
 
 /**
-CLASS BUTTON 
-v 1.3.0
-2013-2019
+* CLASS BUTTON 
+* v 1.5.0
+* 2013-2019
 */
 public class Button extends Crope {
   
@@ -567,21 +583,11 @@ public class Button extends Crope {
 
   protected int color_on_off = r.GRAY[10];
 
-
   protected int color_in_ON = r.GRAY[10];
-  protected int color_in_OFF = r.GRAY[6];
+  protected int color_out_ON = r.GRAY[18];
 
-  protected int color_out_ON = r.GRAY[18];;
-  protected int color_out_OFF = r.GRAY[14];; 
-
-
-/*
-    protected int fill_molette_in = color(g.colorModeX *.4);
-  protected int fill_molette_out = color(g.colorModeX *.2);
-  protected int stroke_molette_in = fill_molette_in;
-  protected int stroke_molette_out = fill_molette_out;
-  protected float thickness_molette = 0;
-  */
+  protected int color_in_OFF = fill_in;
+  protected int color_out_OFF = fill_out;
 
   protected PImage [] pic;
 
@@ -589,18 +595,12 @@ public class Button extends Crope {
   protected boolean authorization;
   protected boolean is = false;  
 
+  public ivec2 offset;
+
   protected Button() {
     super("Button");
   }
 
-  //complexe
-  /*
-  public Button(int pos_x, int pos_y, int size_x, int size_y) {
-    this.pos(pos_x, pos_y);
-    this.size(size_x,size_y);
-    super("Button");
-  }
-  */
 
   public Button(ivec2 pos, ivec2 size) {
     super("Button");
@@ -613,24 +613,17 @@ public class Button extends Crope {
     super(type);
   }
 
-  //complexe
-  /*
-  private Button(String type, int pos_x, int pos_y, int size_x, int size_y) {
-    this.pos(pos_x, pos_y);
-    this.size(size_x,size_y);
-    super(type);
-  }
-  */
-
   private Button(String type, ivec2 pos, ivec2 size) {
     super(type);
     this.pos(pos);
     this.size(size); 
   }
 
-  /**
-  Setting
-  */
+
+
+
+
+
   public void set_is(boolean is) {
     this.is = is ;
   }
@@ -643,33 +636,58 @@ public class Button extends Crope {
     this.is = !this.is;
   }
   
-  /**
-  set colour
-  */
-  public void set_colour_in_on(int c) {
+
+  public Crope set_colour_in_on(int c) {
     this.color_in_ON = c;
+    return this;
   }
 
-  public void set_colour_in_off(int c) {
-    this.color_in_OFF = c;
-  }
-
-
-  public void set_colour_out_on(int c) {
+  public Crope set_colour_out_on(int c) {
     this.color_out_ON = c;
+    return this;
   }
 
 
-  public void set_colour_out_off(int c) {
+  public Crope set_colour_in_off(int c) {
+    this.color_in_OFF = c;
+    return this;
+  }
+
+
+  public Crope set_colour_out_off(int c) {
     this.color_out_OFF = c;
+    return this;
   }
-
+  
+  @Deprecated
   public Crope set_aspect_on_off(int color_in_ON, int color_out_ON, int color_in_OFF, int color_out_OFF) {
     set_colour_in_on(color_in_ON);
     set_colour_in_off(color_in_OFF);
     set_colour_out_on(color_out_ON);
     set_colour_out_off(color_out_OFF);
     return this;
+  }
+
+
+  /**
+  * offset
+  */
+  public void offset(int x, int y) {
+    if(offset == null) {
+      this.offset = new ivec2(x,y);
+    } else {
+      this.offset.set(x,y);
+    }
+    
+  }
+
+  public void offset_is(boolean display_button) {
+    if(!display_button) {
+      pos.set(-100) ; 
+    } else {
+      pos.set(pos_ref);
+      pos.add(offset);
+    }
   }
 
 
@@ -687,15 +705,8 @@ public class Button extends Crope {
 
   public void update(int x, int y) {
     cursor(x,y);
-    // update(x,y,true);
   }
   
-  /*
-  public void update(int x, int y, boolean authorization) {
-    cursor(x,y);
-    this.authorization = authorization;
-  }
-  */
 
   public void rollover(boolean authorization) {
     this.authorization = authorization;
@@ -725,15 +736,6 @@ public class Button extends Crope {
 
 
 
-
-
-
-  /**
-  SHOW BUTTON
-  */
-  /**
-  PICTO
-  */
   public void show_picto(PImage [] pic) {
     int correctionX = -1 ;
     if(pic[0] != null && pic[1] != null && pic[2] != null && pic[3] != null) {
@@ -792,30 +794,18 @@ public class Button extends Crope {
     }  
   }
 
-
-  /**
-  CLASSIC RECT BUTTON
-  */
   public void show(int kind, boolean on_off_is) {
     if(kind == RECT) {
-      button_rect(on_off_is);
+      aspect(on_off_is);
+      rect(vec2(pos),vec2(size));
     } else if(kind == ELLIPSE) {
-      button_ellipse(on_off_is);
+      aspect(on_off_is);
+      vec2 final_size = vec2(size);
+      vec2 final_pos = vec2(pos).add(final_size.copy().mult(.5));
+      ellipse(final_pos,final_size);
     }
   }
 
-  private void button_ellipse(boolean on_off_is) {
-    aspect(on_off_is);
-    vec2 final_size = vec2(size);
-    vec2 final_pos = vec2(pos).add(final_size.copy().mult(.5));
-    ellipse(final_pos,final_size);
-  }
-
-
-  private void button_rect(boolean on_off_is) {
-    aspect(on_off_is);
-    rect(vec2(pos),vec2(size));
-  }
 
   private void aspect(boolean on_off_is) {
     noStroke();
@@ -842,38 +832,6 @@ public class Button extends Crope {
 
 
 
-
-
-
-
-
-
-/**
-BUTTON DYNAMIC
-*/
-public class Button_dynamic extends Button {
-  public ivec2 change_pos = ivec2() ;
-  public Button_dynamic() {
-    super("Button dynamic") ;
-  }
-
-  public Button_dynamic(ivec2 pos, ivec2 size) {
-    super("Button dynamic",pos, size);
-  }
-  
-  public void change_pos(int x, int y) {
-    this.change_pos.set(x,y) ;
-  }
-
-  public void update_pos(boolean display_button) {
-    if(!display_button) {
-      pos.set(-100) ; 
-    } else {
-      pos.set(pos_ref) ;
-      pos.add(change_pos) ;
-    }
-  }
-}
 
 
 

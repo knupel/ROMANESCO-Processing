@@ -80,14 +80,14 @@ void init_var_item() {
 /**
 Item console
 */
-Button_dynamic[] button_item ;
+Button[] button_item ;
 
 void init_button_item_console() {
   int num = BUTTON_ITEM_CONSOLE;
   button_item_num = NUM_ITEM *num;
   value_button_item = new int[button_item_num] ;
   // button item
-  button_item = new Button_dynamic[button_item_num +num];
+  button_item = new Button[button_item_num +num];
   println("init_button_item_console()",frameCount);
   pos_button_width_item = new int[button_item_num +num];
   pos_button_height_item = new int[button_item_num +num];
@@ -110,7 +110,7 @@ void build_button_item_console() {
     if(NUM_ITEM > 0) {
       ivec2 pos = ivec2(pos_button_width_item[i], pos_button_height_item[i]);
       ivec2 size = ivec2(width_button_item[i], height_button_item[i]); 
-      button_item[i] = new Button_dynamic(pos, size);
+      button_item[i] = new Button(pos, size);
       button_item[i].set_aspect_on_off(button_on_in,button_on_out,button_off_in,button_off_out);
       // here we give information for the item button, we need later to manage the dynamic GUI
       int ID_temp = i / BUTTON_ITEM_CONSOLE ; // because there is few button by item
@@ -169,8 +169,8 @@ void display_button_item_console(boolean keep_setting) {
       int distance = pointer *DIST_BETWEEN_ITEM;
       for(int j = 0 ; j < BUTTON_ITEM_CONSOLE ; j++) {
         int rank = i*BUTTON_ITEM_CONSOLE+j;
-        button_item[rank].change_pos(distance, 0);
-        button_item[rank].update_pos(inventory[i].is());
+        button_item[rank].offset(distance, 0);
+        button_item[rank].offset_is(inventory[i].is());
         button_item[rank].update(mouseX,mouseY);
          button_item[rank].rollover(!dropdown_is());
 
@@ -219,8 +219,10 @@ void check_button_item_console() {
 void mousepressed_button_item_console() {
   if(!dropdown_is() && NUM_ITEM > 0) {
     for(int i = BUTTON_ITEM_CONSOLE ; i < NUM_ITEM *BUTTON_ITEM_CONSOLE +BUTTON_ITEM_CONSOLE ; i++) {
-      button_item[i].update_pos(inventory[i/BUTTON_ITEM_CONSOLE].is());
-      if(button_item[i].inside()) button_item[i].switch_is();
+      button_item[i].offset_is(inventory[i/BUTTON_ITEM_CONSOLE].is());
+      if(button_item[i].inside()) {
+        button_item[i].switch_is();
+      }
     }
   }
 }
