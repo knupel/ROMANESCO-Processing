@@ -1,7 +1,7 @@
 /**
 * variable déclaration
 * 2019-2019
-* 0.1.0
+* 0.2.0
 */
 
 
@@ -187,9 +187,9 @@ int num_box_dropdown_general;
 int height_dropdown_header_bar;
 
 Dropdown dropdown_setting;
-ivec2 dropdown_setting_pos;
-ivec2 dropdown_setting_size;
-ivec2 dropdown_pos_text;
+vec2 dropdown_setting_pos;
+vec2 dropdown_setting_size;
+vec2 dropdown_pos_text;
 
 int height_dropdown_top;
 int pos_y_dropdown_top;
@@ -198,8 +198,8 @@ int pos_y_dropdown_top;
 
 // DROPDOWN media bar
 Dropdown [] dd_media_bar;
-ivec2 [] dd_media_bar_pos;
-ivec2 [] dd_media_bar_size;
+vec2 [] dd_media_bar_pos;
+vec2 [] dd_media_bar_size;
 String [] bitmap_dropdown_list;
 String [] shape_dropdown_list;
 String [] movie_dropdown_list;
@@ -213,8 +213,8 @@ String [][] dd_media_bar_content;
 
 // DROPDOWN menu bar
 Dropdown [] dd_menu_bar;
-ivec2 [] dd_menu_bar_pos;
-ivec2 [] dd_menu_bar_size;
+vec2 [] dd_menu_bar_pos;
+vec2 [] dd_menu_bar_size;
 String [] font_dropdown_list;
 int num_dd_menu_bar;
 int pos_y_dd_menu_bar;
@@ -241,42 +241,42 @@ PImage[] pic_curtain = new PImage[4];
 Button button_curtain;
 boolean curtainOpenClose ;
 int button_curtain_is;
-ivec2 pos_curtain_button, size_curtain_button;
+vec2 pos_curtain_button, size_curtain_button;
 
 // reset camera
 PImage[] pic_reset_camera = new PImage[4];
 Button button_reset_camera;
 int button_reset_camera_is;
-ivec2 pos_reset_camera_button;
-ivec2 size_reset_camera_button;
+vec2 pos_reset_camera_button;
+vec2 size_reset_camera_button;
 
 // reset coor item selected
 PImage[] pic_reset_item_on = new PImage[4];
 Button button_reset_item_on;
 int button_reset_item_on_is;
-ivec2 pos_reset_item_on_button;
-ivec2 size_reset_item_on_button;
+vec2 pos_reset_item_on_button;
+vec2 size_reset_item_on_button;
 
 // reset fx
 PImage[] pic_reset_fx = new PImage[4];
 Button button_reset_fx;
 int button_reset_fx_is;
-ivec2 pos_reset_fx_button;
-ivec2 size_reset_fx_button;
+vec2 pos_reset_fx_button;
+vec2 size_reset_fx_button;
 
 // birth
 PImage[] pic_birth = new PImage[4];
 Button button_birth;
 int button_birth_is;
-ivec2 pos_birth_button;
-ivec2 size_birth_button;
+vec2 pos_birth_button;
+vec2 size_birth_button;
 
 // 3D
 PImage[] pic_3D = new PImage[4];
 Button button_3D;
 int button_3D_is;
-ivec2 pos_3D_button;
-ivec2 size_3D_button;
+vec2 pos_3D_button;
+vec2 size_3D_button;
 
 
 
@@ -294,14 +294,14 @@ ivec2 size_3D_button;
 // background button
 Button button_bg;
 int button_background_is;
-ivec2 pos_button_background, size_button_background;
+vec2 pos_button_background, size_button_background;
 // background slider
 Sladj [] slider_adj_background = new Sladj[NUM_SLIDER_BACKGROUND];
 Cropinfo [] cropinfo_slider_fx_bg; 
 int slider_width_background;
 int slider_height_background;
-ivec2 [] pos_slider_background = new ivec2[NUM_SLIDER_BACKGROUND]; 
-ivec2 [] size_slider_background = new ivec2[NUM_SLIDER_BACKGROUND];
+vec2 [] pos_slider_background = new vec2[NUM_SLIDER_BACKGROUND]; 
+vec2 [] size_slider_background = new vec2[NUM_SLIDER_BACKGROUND];
 float [] value_slider_background = new float[NUM_SLIDER_BACKGROUND];
 String[] slider_background_name = new String[NUM_SLIDER_BACKGROUND];
 int offset_background_x;
@@ -310,16 +310,16 @@ int offset_background_y;
 // FX FILTER button
 Button [] button_fx_filter = new Button[NUM_BUTTON_FX_FILTER];
 int [] button_fx_filter_is = new int[NUM_BUTTON_FX_FILTER];
-ivec2 [] pos_button_fx_filter = new ivec2[NUM_BUTTON_FX_FILTER];
-ivec2 [] size_button_fx_filter = new ivec2[NUM_BUTTON_FX_FILTER];
+vec2 [] pos_button_fx_filter = new vec2[NUM_BUTTON_FX_FILTER];
+vec2 [] size_button_fx_filter = new vec2[NUM_BUTTON_FX_FILTER];
 
 // filter slider
 Sladj [] slider_adj_fx_filter = new Sladj[NUM_SLIDER_FX_FILTER];
 Cropinfo [] cropinfo_slider_fx_filter;
 int slider_width_fx_filter;
 int slider_height_fx_filter;
-ivec2 [] pos_slider_fx_filter = new ivec2[NUM_SLIDER_FX_FILTER]; 
-ivec2 [] size_slider_fx_filter = new ivec2[NUM_SLIDER_FX_FILTER];
+vec2 [] pos_slider_fx_filter = new vec2[NUM_SLIDER_FX_FILTER]; 
+vec2 [] size_slider_fx_filter = new vec2[NUM_SLIDER_FX_FILTER];
 float [] value_slider_fx_filter = new float[NUM_SLIDER_FX_FILTER];
 String[] slider_fx_filter_name = new String[NUM_SLIDER_FX_FILTER];
 int offset_fx_filter_x;
@@ -331,16 +331,16 @@ int offset_fx_filter_y;
 // FX MIX button
 Button [] button_fx_mix = new Button[NUM_BUTTON_FX_MIX];
 int [] button_fx_mix_is = new int[NUM_BUTTON_FX_MIX];
-ivec2 [] pos_button_fx_mix = new ivec2[NUM_BUTTON_FX_MIX];
-ivec2 [] size_button_fx_mix = new ivec2[NUM_BUTTON_FX_MIX];
+vec2 [] pos_button_fx_mix = new vec2[NUM_BUTTON_FX_MIX];
+vec2 [] size_button_fx_mix = new vec2[NUM_BUTTON_FX_MIX];
 
 // mix slider
 Sladj [] slider_adj_fx_mix = new Sladj[NUM_SLIDER_FX_MIX];
 Cropinfo [] cropinfo_slider_fx_mix;
 int slider_width_fx_mix;
 int slider_height_fx_mix;
-ivec2 [] pos_slider_fx_mix = new ivec2[NUM_SLIDER_FX_MIX]; 
-ivec2 [] size_slider_fx_mix = new ivec2[NUM_SLIDER_FX_MIX];
+vec2 [] pos_slider_fx_mix = new vec2[NUM_SLIDER_FX_MIX]; 
+vec2 [] size_slider_fx_mix = new vec2[NUM_SLIDER_FX_MIX];
 float [] value_slider_fx_mix = new float[NUM_SLIDER_FX_MIX];
 String[] slider_fx_mix_name = new String[NUM_SLIDER_FX_MIX];
 int offset_fx_mix_x;
@@ -353,20 +353,20 @@ Button button_light_ambient, button_light_ambient_action,
 int light_ambient_button_is, light_ambient_action_button_is;
 int light_light_1_button_is, light_light_action_1_button_is; 
 int light_light_2_button_is, light_light_action_2_button_is;
-ivec2 pos_light_ambient_buttonButton, size_light_ambient_buttonButton;
-ivec2 pos_light_ambient_button_action, size_light_ambient_button_action; 
-ivec2 pos_light_1_button_action, size_light_1_button_action;
-ivec2 pos_light_1_button, size_light_1_button;
-ivec2 pos_light_2_button_action, size_light_2_button_action; 
-ivec2 pos_light_2_button, size_light_2_button;
+vec2 pos_light_ambient_buttonButton, size_light_ambient_buttonButton;
+vec2 pos_light_ambient_button_action, size_light_ambient_button_action; 
+vec2 pos_light_1_button_action, size_light_1_button_action;
+vec2 pos_light_1_button, size_light_1_button;
+vec2 pos_light_2_button_action, size_light_2_button_action; 
+vec2 pos_light_2_button, size_light_2_button;
 
 // light slider
 Sladj [] slider_adj_light = new Sladj[NUM_SLIDER_LIGHT];
 Cropinfo [] cropinfo_slider_light;
 int slider_width_light;
 int slider_height_light;
-ivec2 [] pos_slider_light = new ivec2[NUM_SLIDER_LIGHT]; 
-ivec2 [] size_slider_light = new ivec2[NUM_SLIDER_LIGHT];
+vec2 [] pos_slider_light = new vec2[NUM_SLIDER_LIGHT]; 
+vec2 [] size_slider_light = new vec2[NUM_SLIDER_LIGHT];
 float [] value_slider_light = new float[NUM_SLIDER_LIGHT];
 String[] slider_light_name = new String[NUM_SLIDER_LIGHT];
 int offset_light_x;
@@ -375,8 +375,8 @@ int offset_light_y;
 // sound button transient
 Button [] button_transient = new Button[NUM_BUTTON_TRANSIENT];
 int [] button_transient_is = new int[NUM_BUTTON_TRANSIENT];
-ivec2 [] pos_button_transient = new ivec2[NUM_BUTTON_TRANSIENT];
-ivec2 [] size_button_transient = new ivec2[NUM_BUTTON_TRANSIENT];
+vec2 [] pos_button_transient = new vec2[NUM_BUTTON_TRANSIENT];
+vec2 [] size_button_transient = new vec2[NUM_BUTTON_TRANSIENT];
 
 
 // sound slider
@@ -384,8 +384,8 @@ Sladj [] slider_adj_sound = new Sladj[NUM_SLIDER_SOUND];
 Cropinfo [] cropinfo_slider_sound;
 int slider_width_sound;
 int slider_height_sound;
-ivec2 [] pos_slider_sound = new ivec2[NUM_SLIDER_SOUND]; 
-ivec2 [] size_slider_sound = new ivec2[NUM_SLIDER_SOUND];
+vec2 [] pos_slider_sound = new vec2[NUM_SLIDER_SOUND]; 
+vec2 [] size_slider_sound = new vec2[NUM_SLIDER_SOUND];
 float [] value_slider_sound = new float[NUM_SLIDER_SOUND];
 String[] slider_sound_name = new String[NUM_SLIDER_SOUND];
 int offset_sound_x;
@@ -396,8 +396,8 @@ Slider [] slider_sound_setting = new Slider[NUM_SLIDER_SOUND_SETTING];
 Cropinfo [] cropinfo_slider_sound_setting;
 int slider_width_sound_setting;
 int slider_height_sound_setting;
-ivec2 [] pos_slider_sound_setting = new ivec2[NUM_SLIDER_SOUND_SETTING]; 
-ivec2 [] size_slider_sound_setting = new ivec2[NUM_SLIDER_SOUND_SETTING];
+vec2 [] pos_slider_sound_setting = new vec2[NUM_SLIDER_SOUND_SETTING]; 
+vec2 [] size_slider_sound_setting = new vec2[NUM_SLIDER_SOUND_SETTING];
 float [] value_slider_sound_setting = new float[NUM_MOLETTE_SOUND_SETTING];
 String[] slider_sound_setting_name = new String[NUM_SLIDER_SOUND_SETTING];
 int offset_sound_setting_x;
@@ -408,8 +408,8 @@ Sladj [] slider_adj_camera = new Sladj[NUM_SLIDER_CAMERA];
 Cropinfo [] cropinfo_slider_camera;
 int slider_width_camera;
 int slider_height_camera;
-ivec2 [] pos_slider_camera = new ivec2[NUM_SLIDER_CAMERA]; 
-ivec2 [] size_slider_camera = new ivec2[NUM_SLIDER_CAMERA];
+vec2 [] pos_slider_camera = new vec2[NUM_SLIDER_CAMERA]; 
+vec2 [] size_slider_camera = new vec2[NUM_SLIDER_CAMERA];
 float [] value_slider_camera = new float[NUM_SLIDER_CAMERA];
 String[] slider_camera_name = new String[NUM_SLIDER_CAMERA];
 int offset_camera_x;
@@ -427,8 +427,8 @@ Sladj [] slider_adj_item = new Sladj[NUM_SLIDER_ITEM];
 Cropinfo [] cropinfo_slider_item;
 int slider_width_item;
 int slider_height_item;
-ivec2 [] pos_slider_item = new ivec2[NUM_SLIDER_ITEM]; 
-ivec2 [] size_slider_item = new ivec2[NUM_SLIDER_ITEM];
+vec2 [] pos_slider_item = new vec2[NUM_SLIDER_ITEM]; 
+vec2 [] size_slider_item = new vec2[NUM_SLIDER_ITEM];
 float [] value_slider_item = new float[NUM_SLIDER_ITEM];
 String [] slider_item_name = new String[NUM_SLIDER_ITEM];
 int local_pos_y_slider_item;

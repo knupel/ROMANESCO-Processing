@@ -108,8 +108,8 @@ void init_inventory() {
 void build_button_item_console() {
   for ( int i = BUTTON_ITEM_CONSOLE ; i < button_item_num +BUTTON_ITEM_CONSOLE; i++) {
     if(NUM_ITEM > 0) {
-      ivec2 pos = ivec2(pos_button_width_item[i], pos_button_height_item[i]);
-      ivec2 size = ivec2(width_button_item[i], height_button_item[i]); 
+      vec2 pos = vec2(pos_button_width_item[i], pos_button_height_item[i]);
+      vec2 size = vec2(width_button_item[i], height_button_item[i]); 
       button_item[i] = new Button(pos, size);
       button_item[i].set_aspect_on_off(button_on_in,button_on_out,button_off_in,button_off_out);
       // here we give information for the item button, we need later to manage the dynamic GUI
@@ -176,11 +176,11 @@ void display_button_item_console(boolean keep_setting) {
 
         if(j == 0) {
           PImage [] pic = {ON_in_thumbnail[i], ON_out_thumbnail[i],OFF_in_thumbnail[i], OFF_out_thumbnail[i]};
-          button_item[rank].show_picto(pic);
+          button_item[rank].show(pic);
         }
-        if(j == 1) button_item[rank].show_picto(picSetting);
-        if(j == 2) button_item[rank].show_picto(picSound); 
-        if(j == 3) button_item[rank].show_picto(picAction);
+        if(j == 1) button_item[rank].show(picSetting);
+        if(j == 2) button_item[rank].show(picSound); 
+        if(j == 3) button_item[rank].show(picAction);
 
       }
       int px = pos_button_width_item[i*BUTTON_ITEM_CONSOLE +2] +distance;
@@ -258,8 +258,8 @@ void build_inventory() {
 }
 
 void set_button_inventory() {
-  ivec2 pos = ivec2();
-  ivec2 size = ivec2();
+  vec2 pos = vec2();
+  vec2 size = vec2();
   height_inventory = height -pos_y_inventory ;
 
   int h = 12 ;
@@ -281,55 +281,55 @@ void set_button_inventory() {
     if(temp_item_info_split[0] != "" ) {
       // Must be optimized, it's very very very too long, too much, too bad, too too...
       if(i <= num_item_by_col) {
-        pos = ivec2(left_flag, top_text +step);
-        size = ivec2(w,h);
+        pos = vec2(left_flag, top_text +step);
+        size = vec2(w,h);
         button_inventory[i].pos(pos);
         button_inventory[i].size(size);
       } else if (i > num_item_by_col && i <= num_item_by_col *2) {
         
-        pos = ivec2(left_flag +col_size_list_item, top_text +step -max_size_col);
-        size = ivec2(w,h);
+        pos = vec2(left_flag +col_size_list_item, top_text +step -max_size_col);
+        size = vec2(w,h);
         button_inventory[i].pos(pos);
         button_inventory[i].size(size);
       } else if (i > num_item_by_col *2 && i <= num_item_by_col *3) {
         
-        pos = ivec2(left_flag +(col_size_list_item *2), top_text +step -(max_size_col *2));
-        size = ivec2(w,h);
+        pos = vec2(left_flag +(col_size_list_item *2), top_text +step -(max_size_col *2));
+        size = vec2(w,h);
         button_inventory[i].pos(pos);
         button_inventory[i].size(size);
       } else if (i > num_item_by_col *3 && i <= num_item_by_col *4) {
-        pos = ivec2(left_flag +(col_size_list_item *3), top_text +step -(max_size_col *3));
-        size = ivec2(w,h);
+        pos = vec2(left_flag +(col_size_list_item *3), top_text +step -(max_size_col *3));
+        size = vec2(w,h);
         button_inventory[i].pos(pos);
         button_inventory[i].size(size);
       } else if (i > num_item_by_col *4 && i <= num_item_by_col *5) {
-        pos = ivec2(left_flag +(col_size_list_item *4), top_text +step -(max_size_col *4));
-        size = ivec2(w,h);
+        pos = vec2(left_flag +(col_size_list_item *4), top_text +step -(max_size_col *4));
+        size = vec2(w,h);
         button_inventory[i].pos(pos);
         button_inventory[i].size(size);
       } else if (i > num_item_by_col *5 && i <= num_item_by_col *6) {
-        pos = ivec2(left_flag +(col_size_list_item *5), top_text +step -(max_size_col *5));
-        size = ivec2(w,h);
+        pos = vec2(left_flag +(col_size_list_item *5), top_text +step -(max_size_col *5));
+        size = vec2(w,h);
         button_inventory[i].pos(pos);
         button_inventory[i].size(size) ;
       } else if (i > num_item_by_col *6 && i <= num_item_by_col *7) {
-        pos = ivec2(left_flag +(col_size_list_item *6), top_text +step -(max_size_col *6));
-        size = ivec2(w,h);
+        pos = vec2(left_flag +(col_size_list_item *6), top_text +step -(max_size_col *6));
+        size = vec2(w,h);
         button_inventory[i].pos(pos);
         button_inventory[i].size(size);
       } else if (i > num_item_by_col *7 && i <= num_item_by_col *8) {
-        pos = ivec2(left_flag +(col_size_list_item *7), top_text +step -(max_size_col *7));
-        size = ivec2(w,h);
+        pos = vec2(left_flag +(col_size_list_item *7), top_text +step -(max_size_col *7));
+        size = vec2(w,h);
         button_inventory[i].pos(pos) ;
         button_inventory[i].size(size) ;
       } else if (i > num_item_by_col *8 && i <= num_item_by_col *9) {
-        pos = ivec2(left_flag +(col_size_list_item *8), top_text +step -(max_size_col *8));
-        size = ivec2(w,h);
+        pos = vec2(left_flag +(col_size_list_item *8), top_text +step -(max_size_col *8));
+        size = vec2(w,h);
         button_inventory[i].pos(pos);
         button_inventory[i].size(size);
       } else if (i > num_item_by_col *9 && i <= num_item_by_col *10) {
-        pos = ivec2(left_flag +(col_size_list_item *9), top_text +step -(max_size_col *9));
-        size = ivec2(w,h);
+        pos = vec2(left_flag +(col_size_list_item *9), top_text +step -(max_size_col *9));
+        size = vec2(w,h);
         button_inventory[i].pos(pos);
         button_inventory[i].size(size);
       }

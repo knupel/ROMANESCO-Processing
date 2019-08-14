@@ -1,7 +1,7 @@
 /**
 * Variable controller
 * 2014-2019
-* v 0.5.1
+* v 0.6.0
 */
 
 void set_design() {
@@ -18,7 +18,7 @@ void set_design_structure() {
   num_box_dropdown_general = 30;
 
   height_box_dropdown = 15;
-  dropdown_pos_text = ivec2(3,10);
+  dropdown_pos_text = vec2(3,10);
   ratio_size_molette = 1.3;
   // vertical grid
   marge = 10;
@@ -74,10 +74,10 @@ void set_design_structure_background(int rank) {
 void set_design_structure_setting(int rank) {
   int px = grid_col[12];
   int py = pos_y_menu_general_content +(rank *spacing_slider);
-  dropdown_setting_pos = ivec2(px,py);
+  dropdown_setting_pos = vec2(px,py);
   int sx = 100;
   int sy = height_box_dropdown ;
-  dropdown_setting_size = ivec2(sx,sy);
+  dropdown_setting_size = vec2(sx,sy);
   set_design_structure_camera(rank+3);
   set_design_structure_sound_setting(rank+3);
 }
@@ -338,27 +338,27 @@ void set_console_window_info() {
 
 void set_console_general() {
   // CURTAIN
-  pos_curtain_button = ivec2(grid_col[0] +0, pos_y_button_top +8);
-  size_curtain_button = ivec2(30,30);
+  pos_curtain_button = vec2(grid_col[0] +0, pos_y_button_top +8);
+  size_curtain_button = vec2(30,30);
   // RESET CAMERA
-  pos_reset_camera_button = ivec2(grid_col[0] +40, pos_y_button_top +9);
-  size_reset_camera_button = ivec2(26,26);
+  pos_reset_camera_button = vec2(grid_col[0] +40, pos_y_button_top +9);
+  size_reset_camera_button = vec2(26,26);
   // RESET ITEM ON COORD
-  pos_reset_item_on_button = ivec2(grid_col[0] +70, pos_y_button_top +9);
-  size_reset_item_on_button = ivec2(26,26);
+  pos_reset_item_on_button = vec2(grid_col[0] +70, pos_y_button_top +9);
+  size_reset_item_on_button = vec2(26,26);
   // RESET FX LIST
-  pos_reset_fx_button = ivec2(grid_col[0] +100, pos_y_button_top +9);
-  size_reset_fx_button = ivec2(26,26);
+  pos_reset_fx_button = vec2(grid_col[0] +100, pos_y_button_top +9);
+  size_reset_fx_button = vec2(26,26);
   // BIRTH
-  pos_birth_button = ivec2(grid_col[0] +130, pos_y_button_top +9);
-  size_birth_button = ivec2(26,26);
+  pos_birth_button = vec2(grid_col[0] +130, pos_y_button_top +9);
+  size_birth_button = vec2(26,26);
   // 3D
-  pos_3D_button = ivec2(grid_col[0] +160, pos_y_button_top +9);
-  size_3D_button = ivec2(26,26);
+  pos_3D_button = vec2(grid_col[0] +160, pos_y_button_top +9);
+  size_3D_button = vec2(26,26);
 
   
   // MEDIA DROPDOWN
-  int pos_x_last_item = pos_3D_button.x() +35;
+  int pos_x_last_item = (int)pos_3D_button.x() +35;
   height_dropdown_header_bar = height_box_dropdown;
   set_console_media_bar(pos_x_last_item);
   set_console_menu_bar();
@@ -426,13 +426,13 @@ void set_console_menu_bar() {
 void set_console_slider_background(ivec2 pos, ivec2 size) {
   // button
   int offset_button_y = -int(size.y *1.5);
-  pos_button_background = ivec2(pos.x, pos.y +offset_button_y);
-  size_button_background = ivec2(80,10);
+  pos_button_background = vec2(pos.x, pos.y +offset_button_y);
+  size_button_background = vec2(80,10);
   // slider
   for(int i = 0 ; i < NUM_SLIDER_BACKGROUND ; i++) {
     int offset_y = offset_y(pos.y, size.y, i);
-    pos_slider_background[i] = ivec2(pos.x,offset_y);
-    size_slider_background[i] = ivec2(size);
+    pos_slider_background[i] = vec2(pos.x,offset_y);
+    size_slider_background[i] = vec2(size);
   }
 }
 
@@ -445,20 +445,20 @@ void set_console_slider_fx_filter(ivec2 pos, ivec2 size) {
   // set a default button
   for(int i = 0 ; i < NUM_BUTTON_FX_FILTER ; i++) {
     button_fx_filter_is[i] = 0;
-    size_button_fx_filter[i] = ivec2(38,10);
+    size_button_fx_filter[i] = vec2(38,10);
   }
   // set position from size
   int offset_x = 0;
   for(int i = 0 ; i < NUM_BUTTON_FX_FILTER ; i++) {  
     x = pos.x + offset_x;
     offset_x += size_button_fx_filter[i].x ;
-    pos_button_fx_filter[i] = ivec2(x,y);
+    pos_button_fx_filter[i] = vec2(x,y);
   }
 
   for(int i = 0 ; i < NUM_SLIDER_FX_FILTER ; i++) {
     int offset_y = offset_y(pos.y, size.y, i);
-    pos_slider_fx_filter[i] = ivec2(pos.x, offset_y);
-    size_slider_fx_filter[i] = ivec2(size);
+    pos_slider_fx_filter[i] = vec2(pos.x, offset_y);
+    size_slider_fx_filter[i] = vec2(size);
   }
 }
 
@@ -470,50 +470,50 @@ void set_console_slider_fx_mix(ivec2 pos, ivec2 size) {
 
   for(int i = 0 ; i < NUM_BUTTON_FX_MIX ; i++) {
     button_fx_mix_is[i] = 0;
-    size_button_fx_mix[i] = ivec2(47,10);
+    size_button_fx_mix[i] = vec2(47,10);
   }
   // set position from size
   int offset_x = 0;
   for(int i = 0 ; i < NUM_BUTTON_FX_MIX ; i++) {  
     x = pos.x + offset_x;
     offset_x += size_button_fx_mix[i].x;
-    pos_button_fx_mix[i] = ivec2(x,y);
+    pos_button_fx_mix[i] = vec2(x,y);
   }
 
   for(int i = 0 ; i < NUM_SLIDER_FX_MIX ; i++) {
     int offset_y = offset_y(pos.y, size.y, i);
-    pos_slider_fx_mix[i] = ivec2(pos.x, offset_y);
-    size_slider_fx_mix[i] = ivec2(size);
+    pos_slider_fx_mix[i] = vec2(pos.x, offset_y);
+    size_slider_fx_mix[i] = vec2(size);
   }
 }
 
 void set_console_slider_light(ivec2 pos, ivec2 size) {
   int offset_button_y = -int(size.y *1.5);
 
-  size_light_ambient_buttonButton = ivec2(75,10);
-  size_light_ambient_button_action = ivec2(45,10);
-  pos_light_ambient_buttonButton = ivec2(pos.x, pos.y +offset_button_y);
-  pos_light_ambient_button_action = ivec2(pos.x +size_light_ambient_buttonButton.x, pos_light_ambient_buttonButton.y); // for the y we take the y of the button
+  size_light_ambient_buttonButton = vec2(75,10);
+  size_light_ambient_button_action = vec2(45,10);
+  pos_light_ambient_buttonButton = vec2(pos.x, pos.y +offset_button_y);
+  pos_light_ambient_button_action = vec2(pos.x +size_light_ambient_buttonButton.x, pos_light_ambient_buttonButton.y); // for the y we take the y of the button
   
   // light one button
-  size_light_1_button = ivec2(80,10);
-  size_light_1_button_action = ivec2(45,10);
-  pos_light_1_button = ivec2(pos.x, pos.y +(5*spacing_slider) +offset_button_y);
-  pos_light_1_button_action = ivec2(pos.x +size_light_1_button.x, pos_light_1_button.y); // for the y we take the y of the button
+  size_light_1_button = vec2(80,10);
+  size_light_1_button_action = vec2(45,10);
+  pos_light_1_button = vec2(pos.x, pos.y +(5*spacing_slider) +offset_button_y);
+  pos_light_1_button_action = vec2(pos.x +size_light_1_button.x, pos_light_1_button.y); // for the y we take the y of the button
   // light two button
   
-  size_light_2_button = ivec2(82,10);
-  size_light_2_button_action = ivec2(45,10);
-  pos_light_2_button = ivec2(pos.x, pos.y +(10*spacing_slider) +offset_button_y);
-  pos_light_2_button_action = ivec2(pos.x +size_light_2_button.x, pos_light_2_button.y); // for the y we take the y of the button
+  size_light_2_button = vec2(82,10);
+  size_light_2_button_action = vec2(45,10);
+  pos_light_2_button = vec2(pos.x, pos.y +(10*spacing_slider) +offset_button_y);
+  pos_light_2_button_action = vec2(pos.x +size_light_2_button.x, pos_light_2_button.y); // for the y we take the y of the button
   
   //slider
   int count = 0;
   for(int i = 0 ; i < NUM_SLIDER_LIGHT ; i++) {
     if(i%3 == 0 && i > 0) count +=3 ; else count++ ;
     int offset_y = offset_y(pos.y, size.y, count-1);
-    pos_slider_light[i] = ivec2(pos.x, offset_y);
-    size_slider_light[i] = ivec2(size);  
+    pos_slider_light[i] = vec2(pos.x, offset_y);
+    size_slider_light[i] = vec2(size);  
   }
 }
 
@@ -528,33 +528,33 @@ void set_console_sound(ivec2 pos, ivec2 size) {
   int y =  pos.y +offset_button_y;
   for(int i = 0 ; i < NUM_BUTTON_TRANSIENT ; i++) {
     button_transient_is[i] = 0;
-    size_button_transient[i] = ivec2(40,10);
-    int s = size_button_transient[i].x ;
+    size_button_transient[i] = vec2(40,10);
+    int s = (int)size_button_transient[i].x ;
     x = ((s*i) +pos.x);
-    pos_button_transient[i] = ivec2(x,y);
+    pos_button_transient[i] = vec2(x,y);
   }
 
   //slider
   for(int i = 0 ; i < NUM_SLIDER_SOUND ;i++) {
     int offset_y = offset_y(pos.y, size.y, i);
-    pos_slider_sound[i] = ivec2(pos.x, offset_y);
-    size_slider_sound[i] = ivec2(size);
+    pos_slider_sound[i] = vec2(pos.x, offset_y);
+    size_slider_sound[i] = vec2(size);
   }
 }
 
 void set_console_slider_sound_setting(ivec2 pos, ivec2 size) {
   for(int i = 0 ; i < NUM_SLIDER_SOUND_SETTING ;i++) {
     int offset_y = offset_y(pos.y, size.y, i);
-    pos_slider_sound_setting[i] = ivec2(pos.x, offset_y);
-    size_slider_sound_setting[i] = ivec2(size);
+    pos_slider_sound_setting[i] = vec2(pos.x, offset_y);
+    size_slider_sound_setting[i] = vec2(size);
   }
 }
 
 void set_console_slider_camera(ivec2 pos, ivec2 size) {
   for(int i = 0 ; i < NUM_SLIDER_CAMERA ;i++) {
     int offset_y = offset_y(pos.y, 0, i);
-    pos_slider_camera[i] = ivec2(pos.x, offset_y);
-    size_slider_camera[i] = ivec2(size);
+    pos_slider_camera[i] = vec2(pos.x, offset_y);
+    size_slider_camera[i] = vec2(size);
   }
 }
 
@@ -579,8 +579,8 @@ void set_console_slider_item(int pos_y, ivec2 size) {
         case 3 : pos_x = item_d_col;
         break;
       }
-      pos_slider_item[whichSlider] = ivec2(pos_x, round(pos_y +i *spacing_slider));
-      size_slider_item[whichSlider] = ivec2(size);
+      pos_slider_item[whichSlider] = vec2(pos_x, round(pos_y +i *spacing_slider));
+      size_slider_item[whichSlider] = vec2(size);
     }
   }
 }

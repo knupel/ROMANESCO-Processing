@@ -1,6 +1,6 @@
 /**
 * Build interface 
-* v 3.4.0
+* v 3.5.0
 * 2014-2019
 *
 */
@@ -66,15 +66,15 @@ void build_console_general() {
 
 void build_console_media_bar() {
   dd_media_bar = new Dropdown[num_dd_media_bar];
-  dd_media_bar_pos = new ivec2[num_dd_media_bar];
-  dd_media_bar_size = new ivec2[num_dd_media_bar];
+  dd_media_bar_pos = new vec2[num_dd_media_bar];
+  dd_media_bar_size = new vec2[num_dd_media_bar];
   dd_media_bar_content = new String[num_dd_media_bar][0];
 }
 
 void build_console_menu_bar() {
   dd_menu_bar = new Dropdown[num_dd_menu_bar];
-  dd_menu_bar_pos = new ivec2[num_dd_menu_bar];
-  dd_menu_bar_size = new ivec2[num_dd_menu_bar];
+  dd_menu_bar_pos = new vec2[num_dd_menu_bar];
+  dd_menu_bar_size = new vec2[num_dd_menu_bar];
   dd_menu_bar_content = new String[num_dd_menu_bar][0];
 }
 
@@ -86,14 +86,14 @@ void build_console_menu_bar() {
 
 void build_console_background() {
   for (int i = 0 ; i < NUM_SLIDER_BACKGROUND ; i++) {
-    ivec2 temp_size_mol = ivec2(round(size_slider_background[i].y *ratio_size_molette), round(size_slider_background[i].y *ratio_size_molette));
-    ivec2 temp_pos = ivec2(pos_slider_background[i].x, round(pos_slider_background[i].y -(slider_height_background *.6)));
+    vec2 temp_size_mol = vec2(round(size_slider_background[i].y *ratio_size_molette), round(size_slider_background[i].y *ratio_size_molette));
+    vec2 temp_pos = vec2(pos_slider_background[i].x, round(pos_slider_background[i].y -(slider_height_background *.6)));
     if(cropinfo_slider_fx_bg[i].get_id() != -1) {
       slider_adj_background[i] = new Sladj(temp_pos, size_slider_background[i]);
       slider_adj_background[i].set_molette(ELLIPSE);
-      slider_adj_background[i].size_molette(temp_size_mol);
+      slider_adj_background[i].set_size_molette(temp_size_mol);
       slider_adj_background[i].set_id(i);
-      slider_adj_background[i].set_label(slider_background_name[i],iadd(slider_adj_background[i].get_size(),ivec2(3,0)));
+      slider_adj_background[i].set_label(slider_background_name[i],add(slider_adj_background[i].get_size(),vec2(3,0)));
       slider_adj_background[i].set_font(textUsual_1);
       slider_adj_background[i].set_rounded(rounded_slider);
       slider_adj_background[i].set_fill_label(label_in_light,label_out_dark);
@@ -120,13 +120,13 @@ void build_console_background() {
 
 void build_console_fx_filter() {
   for (int i = 0 ; i < NUM_SLIDER_FX_FILTER ; i++) {
-    ivec2 temp_size_mol = ivec2(round(size_slider_fx_filter[i].y *ratio_size_molette), round(size_slider_fx_filter[i].y *ratio_size_molette));
-    ivec2 temp_pos = ivec2(pos_slider_fx_filter[i].x, round(pos_slider_fx_filter[i].y -(slider_height_fx_filter *.6)));
+    vec2 temp_size_mol = vec2(round(size_slider_fx_filter[i].y *ratio_size_molette), round(size_slider_fx_filter[i].y *ratio_size_molette));
+    vec2 temp_pos = vec2(pos_slider_fx_filter[i].x, round(pos_slider_fx_filter[i].y -(slider_height_fx_filter *.6)));
     slider_adj_fx_filter[i] = new Sladj(temp_pos,size_slider_fx_filter[i]);
     slider_adj_fx_filter[i].set_molette(ELLIPSE);
-    slider_adj_fx_filter[i].size_molette(temp_size_mol);
+    slider_adj_fx_filter[i].set_size_molette(temp_size_mol);
     slider_adj_fx_filter[i].set_id(i);
-    slider_adj_fx_filter[i].set_label(slider_fx_filter_name[i],iadd(slider_adj_fx_filter[i].get_size(),ivec2(3,0)));
+    slider_adj_fx_filter[i].set_label(slider_fx_filter_name[i],add(slider_adj_fx_filter[i].get_size(),vec2(3,0)));
     slider_adj_fx_filter[i].set_font(textUsual_1);
     slider_adj_fx_filter[i].set_rounded(rounded_slider);
     slider_adj_fx_filter[i].set_fill_label(label_in_light,label_out_dark);
@@ -162,13 +162,13 @@ void build_console_fx_filter() {
 
 void build_console_fx_mix() {
   for (int i = 0 ; i < NUM_SLIDER_FX_MIX ; i++) {
-    ivec2 temp_size_mol = ivec2(round(size_slider_fx_mix[i].y *ratio_size_molette), round(size_slider_fx_mix[i].y *ratio_size_molette));
-    ivec2 temp_pos = ivec2(pos_slider_fx_mix[i].x, round(pos_slider_fx_mix[i].y -(slider_height_fx_mix *.6)));
+    vec2 temp_size_mol = vec2(round(size_slider_fx_mix[i].y *ratio_size_molette), round(size_slider_fx_mix[i].y *ratio_size_molette));
+    vec2 temp_pos = vec2(pos_slider_fx_mix[i].x, round(pos_slider_fx_mix[i].y -(slider_height_fx_mix *.6)));
     slider_adj_fx_mix[i] = new Sladj(temp_pos,size_slider_fx_mix[i]);
     slider_adj_fx_mix[i].set_molette(ELLIPSE);
-    slider_adj_fx_mix[i].size_molette(temp_size_mol);
+    slider_adj_fx_mix[i].set_size_molette(temp_size_mol);
     slider_adj_fx_mix[i].set_id(i);
-    slider_adj_fx_mix[i].set_label(slider_fx_mix_name[i],iadd(slider_adj_fx_mix[i].get_size(),ivec2(3,0)));
+    slider_adj_fx_mix[i].set_label(slider_fx_mix_name[i],add(slider_adj_fx_mix[i].get_size(),vec2(3,0)));
     slider_adj_fx_mix[i].set_font(textUsual_1);
     slider_adj_fx_mix[i].set_rounded(rounded_slider);
     slider_adj_fx_mix[i].set_fill_label(label_in_light,label_out_dark);
@@ -195,13 +195,13 @@ void build_console_fx_mix() {
 
 void build_console_light() {
   for (int i = 0 ; i < NUM_SLIDER_LIGHT ; i++) {
-    ivec2 temp_size_mol = ivec2(round(size_slider_light[i].y *ratio_size_molette), round(size_slider_light[i].y *ratio_size_molette));
-    ivec2 temp_pos = ivec2(pos_slider_light[i].x, round(pos_slider_light[i].y -(slider_height_light *.6)));
+    vec2 temp_size_mol = vec2(round(size_slider_light[i].y *ratio_size_molette), round(size_slider_light[i].y *ratio_size_molette));
+    vec2 temp_pos = vec2(pos_slider_light[i].x, round(pos_slider_light[i].y -(slider_height_light *.6)));
     slider_adj_light[i] = new Sladj(temp_pos, size_slider_light[i]);
     slider_adj_light[i].set_molette(ELLIPSE);
-    slider_adj_light[i].size_molette(temp_size_mol);
+    slider_adj_light[i].set_size_molette(temp_size_mol);
     slider_adj_light[i].set_id(i);
-    slider_adj_light[i].set_label(slider_light_name[i],iadd(slider_adj_light[i].get_size(),ivec2(3,0)));
+    slider_adj_light[i].set_label(slider_light_name[i],add(slider_adj_light[i].get_size(),vec2(3,0)));
     slider_adj_light[i].set_font(textUsual_1);
     slider_adj_light[i].set_rounded(rounded_slider);
     slider_adj_light[i].set_fill_label(label_in_dark,label_out_dark);
@@ -242,13 +242,13 @@ void build_console_light() {
 
 void build_console_sound() {
   for (int i = 0 ; i < NUM_SLIDER_SOUND ; i++) {
-    ivec2 temp_size_mol = ivec2(round(size_slider_sound[i].y *ratio_size_molette), round(size_slider_sound[i].y *ratio_size_molette));
-    ivec2 temp_pos = ivec2(pos_slider_sound[i].x, round(pos_slider_sound[i].y -(slider_height_sound *.6)));
+    vec2 temp_size_mol = vec2(round(size_slider_sound[i].y *ratio_size_molette), round(size_slider_sound[i].y *ratio_size_molette));
+    vec2 temp_pos = vec2(pos_slider_sound[i].x, round(pos_slider_sound[i].y -(slider_height_sound *.6)));
     slider_adj_sound[i] = new Sladj(temp_pos, size_slider_sound[i]);
     slider_adj_sound[i].set_molette(ELLIPSE);
-    slider_adj_sound[i].size_molette(temp_size_mol);
+    slider_adj_sound[i].set_size_molette(temp_size_mol);
     slider_adj_sound[i].set_id(i);
-    slider_adj_sound[i].set_label(slider_sound_name[i],iadd(slider_adj_sound[i].get_size(),ivec2(3,0)));
+    slider_adj_sound[i].set_label(slider_sound_name[i],add(slider_adj_sound[i].get_size(),vec2(3,0)));
     slider_adj_sound[i].set_font(textUsual_1);
     slider_adj_sound[i].set_rounded(rounded_slider);
     slider_adj_sound[i].set_fill_label(label_in_dark,label_out_dark);
@@ -283,13 +283,13 @@ void build_console_setting() {
 
 void build_console_sound_setting() {
   // slider range transient
-  ivec2 size_mol = ivec2(round(size_slider_sound_setting[0].y *ratio_size_molette), round(size_slider_sound_setting[0].y *ratio_size_molette));
-  ivec2 pos_slider = ivec2(pos_slider_sound_setting[0].x, round(pos_slider_sound_setting[0].y -(slider_height_sound_setting *.6)));
+  vec2 size_mol = vec2(round(size_slider_sound_setting[0].y *ratio_size_molette), round(size_slider_sound_setting[0].y *ratio_size_molette));
+  vec2 pos_slider = vec2(pos_slider_sound_setting[0].x, round(pos_slider_sound_setting[0].y -(slider_height_sound_setting *.6)));
   slider_sound_setting[0] = new Slider(pos_slider, size_slider_sound_setting[0]);
   slider_sound_setting[0].set_id(0);
   slider_sound_setting[0].set_molette_num(3);
-  slider_sound_setting[0].size_molette(size_mol.x/2,size_mol.y);
-  slider_sound_setting[0].set_label(slider_sound_setting_name[0],iadd(slider_sound_setting[0].get_size(),ivec2(3,0)));
+  slider_sound_setting[0].set_size_molette(size_mol.x/2,size_mol.y);
+  slider_sound_setting[0].set_label(slider_sound_setting_name[0],add(slider_sound_setting[0].get_size(),vec2(3,0)));
   slider_sound_setting[0].set_font(textUsual_1);
   slider_sound_setting[0].set_rounded(rounded_slider);
   slider_sound_setting[0].set_fill_label(label_in_light,label_out_light);
@@ -299,14 +299,14 @@ void build_console_sound_setting() {
   int in_slider_double = 1;
   int out_slider_double = 5;
   for (int i = in_slider_double ; i < out_slider_double ; i++) {
-    ivec2 temp_size_mol = ivec2(round(size_slider_sound_setting[i].y *ratio_size_molette), round(size_slider_sound_setting[i].y *ratio_size_molette));
-    ivec2 temp_pos = ivec2(pos_slider_sound_setting[i].x, round(pos_slider_sound_setting[i].y -(slider_height_sound_setting *.6)));
+    vec2 temp_size_mol = vec2(round(size_slider_sound_setting[i].y *ratio_size_molette), round(size_slider_sound_setting[i].y *ratio_size_molette));
+    vec2 temp_pos = vec2(pos_slider_sound_setting[i].x, round(pos_slider_sound_setting[i].y -(slider_height_sound_setting *.6)));
     if(cropinfo_slider_sound_setting[i].get_id() > -1) {
       slider_sound_setting[i] = new Slider(temp_pos, size_slider_sound_setting[i]);
       slider_sound_setting[i].set_id(i);
       slider_sound_setting[i].set_molette_num(2);
-      slider_sound_setting[i].size_molette(size_mol.x/2,size_mol.y);
-      slider_sound_setting[i].set_label(slider_sound_setting_name[i],iadd(slider_sound_setting[i].get_size(),ivec2(3,0)));
+      slider_sound_setting[i].set_size_molette(size_mol.x/2,size_mol.y);
+      slider_sound_setting[i].set_label(slider_sound_setting_name[i],add(slider_sound_setting[i].get_size(),vec2(3,0)));
       slider_sound_setting[i].set_font(textUsual_1);
       slider_sound_setting[i].set_rounded(rounded_slider);
       slider_sound_setting[i].set_fill_label(label_in_dark,label_out_dark);
@@ -318,13 +318,13 @@ void build_console_sound_setting() {
   int in_slider_single = out_slider_double;
   int out_slider_single = NUM_SLIDER_SOUND_SETTING;
   for (int i =  in_slider_single ; i < out_slider_single ; i++) {
-    ivec2 temp_size_mol = ivec2(round(size_slider_sound_setting[i].y *ratio_size_molette), round(size_slider_sound_setting[i].y *ratio_size_molette));
-    ivec2 temp_pos = ivec2(pos_slider_sound_setting[i].x, round(pos_slider_sound_setting[i].y -(slider_height_sound_setting *.6)));
+    vec2 temp_size_mol = vec2(round(size_slider_sound_setting[i].y *ratio_size_molette), round(size_slider_sound_setting[i].y *ratio_size_molette));
+    vec2 temp_pos = vec2(pos_slider_sound_setting[i].x, round(pos_slider_sound_setting[i].y -(slider_height_sound_setting *.6)));
     slider_sound_setting[i] = new Slider(temp_pos, size_slider_sound_setting[i]);
     slider_sound_setting[i].set_molette(ELLIPSE);
-    slider_sound_setting[i].size_molette(temp_size_mol);
+    slider_sound_setting[i].set_size_molette(temp_size_mol);
     slider_sound_setting[i].set_id(i);
-    slider_sound_setting[i].set_label(slider_sound_setting_name[i],iadd(slider_sound_setting[i].get_size(),ivec2(3,0)));
+    slider_sound_setting[i].set_label(slider_sound_setting_name[i],add(slider_sound_setting[i].get_size(),vec2(3,0)));
     slider_sound_setting[i].set_font(textUsual_1);
     slider_sound_setting[i].set_rounded(rounded_slider);
     slider_sound_setting[i].set_fill_label(label_in_dark,label_out_dark);
@@ -335,13 +335,13 @@ void build_console_sound_setting() {
 
 void build_console_camera() {
   for (int i = 0 ; i < NUM_SLIDER_CAMERA ; i++) {
-    ivec2 temp_size_mol = ivec2(round(size_slider_camera[i].y *ratio_size_molette), round(size_slider_camera[i].y *ratio_size_molette));
-    ivec2 temp_pos = ivec2(pos_slider_camera[i].x, round(pos_slider_camera[i].y -(slider_height_camera *.6)));
+    vec2 temp_size_mol = vec2(round(size_slider_camera[i].y *ratio_size_molette), round(size_slider_camera[i].y *ratio_size_molette));
+    vec2 temp_pos = vec2(pos_slider_camera[i].x, round(pos_slider_camera[i].y -(slider_height_camera *.6)));
     slider_adj_camera[i] = new Sladj(temp_pos, size_slider_camera[i]);
     slider_adj_camera[i].set_molette(ELLIPSE);
-    slider_adj_camera[i].size_molette(temp_size_mol);
+    slider_adj_camera[i].set_size_molette(temp_size_mol);
     slider_adj_camera[i].set_id(i);
-    slider_adj_camera[i].set_label(slider_camera_name[i],iadd(slider_adj_camera[i].get_size(),ivec2(3,0)));
+    slider_adj_camera[i].set_label(slider_camera_name[i],add(slider_adj_camera[i].get_size(),vec2(3,0)));
     slider_adj_camera[i].set_font(textUsual_1);
     slider_adj_camera[i].set_rounded(rounded_slider);
     slider_adj_camera[i].set_fill_label(label_in_dark,label_out_dark);
@@ -362,13 +362,13 @@ void build_console_item() {
 
   // slider
   for (int i = 0 ; i < NUM_SLIDER_ITEM ; i++) {
-    ivec2 temp_size_mol = ivec2(round(size_slider_item[i].y *ratio_size_molette), round(size_slider_item[i].y *ratio_size_molette));
-    ivec2 temp_pos = ivec2(pos_slider_item[i].x, round(pos_slider_item[i].y -(slider_height_item *.6)));
+    vec2 temp_size_mol = vec2(round(size_slider_item[i].y *ratio_size_molette), round(size_slider_item[i].y *ratio_size_molette));
+    vec2 temp_pos = vec2(pos_slider_item[i].x, round(pos_slider_item[i].y -(slider_height_item *.6)));
     println("method build_console_item(): cropinfo length",cropinfo_slider_item.length,i);
     if(cropinfo_slider_item[i].get_id() > -1) {
       slider_adj_item[i] = new Sladj(temp_pos, size_slider_item[i]);
       slider_adj_item[i].set_molette(ELLIPSE);
-      slider_adj_item[i].size_molette(temp_size_mol);
+      slider_adj_item[i].set_size_molette(temp_size_mol);
       slider_adj_item[i].set_id(i);
 
       String label_name = slider_item_name[i];
@@ -381,7 +381,7 @@ void build_console_item() {
       else if(label_name.equals("s_brightness")) label_name = "brightness";
       else if(label_name.equals("s_alpha")) label_name = "alpha";
       else if(label_name.equals("thickness")) label_name = "THICKNESS";
-      slider_adj_item[i].set_label(label_name,iadd(slider_adj_item[i].get_size(),ivec2(3,0)));
+      slider_adj_item[i].set_label(label_name,add(slider_adj_item[i].get_size(),vec2(3,0)));
       slider_adj_item[i].set_font(textUsual_1);
       slider_adj_item[i].set_rounded(rounded_slider);
       slider_adj_item[i].set_fill_label(label_in_dark,label_out_dark);
@@ -540,8 +540,8 @@ void build_dropdown_bar() {
 
 void build_dd_menu_bar() {
   for(int i = 0 ; i < dd_menu_bar.length ; i++) {
-    dd_menu_bar_pos[i] = ivec2(pos_x_dd_menu_bar[i],pos_y_dd_menu_bar);
-    dd_menu_bar_size[i] = ivec2(width_dd_menu_bar[i],height_dropdown_header_bar);
+    dd_menu_bar_pos[i] = vec2(pos_x_dd_menu_bar[i],pos_y_dd_menu_bar);
+    dd_menu_bar_size[i] = vec2(width_dd_menu_bar[i],height_dropdown_header_bar);
 
     dd_menu_bar[i] = new Dropdown(dd_menu_bar_pos[i],dd_menu_bar_size[i],name_dd_menu_bar[i],dd_menu_bar_content[i]);
     dd_menu_bar[i].set_colour(dropdown_colour);
@@ -557,8 +557,8 @@ void build_dd_menu_bar() {
 
 void build_dd_media_bar() {
   for(int i = 0 ; i < dd_media_bar.length ; i++) {
-    dd_media_bar_pos[i] = ivec2(pos_x_dd_media_bar[i],pos_y_dd_media_bar);
-    dd_media_bar_size[i] = ivec2(width_dd_media_bar[i],height_dropdown_header_bar);
+    dd_media_bar_pos[i] = vec2(pos_x_dd_media_bar[i],pos_y_dd_media_bar);
+    dd_media_bar_size[i] = vec2(width_dd_media_bar[i],height_dropdown_header_bar);
 
     dd_media_bar[i] = new Dropdown(dd_media_bar_pos[i],dd_media_bar_size[i],name_dd_media_bar[i],dd_media_bar_content[i]);
     dd_media_bar[i].set_colour(dropdown_colour);
@@ -584,8 +584,8 @@ void build_local_dd_item(Dropdown [] dd, Table inventory_table, String [] list_g
     list_global[row.getInt("ID")] = row.getString(type); 
   }
   //common param
-  ivec2 size_header = ivec2(30,15);
-  ivec2 pos_text = ivec2(8,8);
+  vec2 size_header = vec2(30,15);
+  vec2 pos_text = vec2(8,8);
   int x = offset_x_item;
   int y = height_item_selected +local_pos_y_dropdown_item + offset_y;
   // group item
@@ -594,7 +594,7 @@ void build_local_dd_item(Dropdown [] dd, Table inventory_table, String [] list_g
       //Split the dropdown to display in the dropdown
       String [] list_detail = split(list_global[i],"/");
       //to change the title of the header dropdown
-      dd[i] = new Dropdown(ivec2(x,y), size_header,title,list_detail);
+      dd[i] = new Dropdown(vec2(x,y), size_header,title,list_detail);
       dd[i].set_colour(dropdown_color_item);
       dd[i].set_header_text_pos(pos_text);
       dd[i].wheel(true);

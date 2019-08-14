@@ -206,10 +206,10 @@ void update_dropdown_item(Dropdown [] dd, String [] list, Inventory [] inventory
       dd[index].show_header_text(name);  
     } else {
       fill(r.GRAY[6]);
-      ivec2 pos = dd[index].get_pos().add(dd[index].get_header_text_pos());
+      vec2 pos = dd[index].get_pos().add(dd[index].get_header_text_pos());
       PFont font = dd[index].get_font();
       textFont(font);
-      text(dd[index].get_name(),vec2(pos));
+      text(dd[index].get_name(),pos);
     }     
   }
 }
@@ -610,8 +610,8 @@ And you must add the name of this one in the 'preferences/'  folder slider_name_
 boolean slider_light_0_show_structure_colour() {
   int start = 0;
   int length = 3 ;
-  ivec2 [] pos = new ivec2[length];
-  ivec2 [] size = new ivec2[length];
+  vec2 [] pos = new vec2[length];
+  vec2 [] size = new vec2[length];
   float [] value = new float[length];
   System.arraycopy(pos_slider_light,start,pos,0,length);
   System.arraycopy(size_slider_light,start,size,0,length);
@@ -622,8 +622,8 @@ boolean slider_light_0_show_structure_colour() {
 boolean slider_light_1_show_structure_colour() {
   int start = 3 ;
   int length = 3 ;
-  ivec2 [] pos = new ivec2[length];
-  ivec2 [] size = new ivec2[length];
+  vec2 [] pos = new vec2[length];
+  vec2 [] size = new vec2[length];
   float [] value = new float[length];
   System.arraycopy(pos_slider_light,start,pos,0,length);
   System.arraycopy(size_slider_light,start,size,0,length);
@@ -634,8 +634,8 @@ boolean slider_light_1_show_structure_colour() {
 boolean slider_light_2_show_structure_colour() {
   int start = 6 ;
   int length = 3 ;
-  ivec2 [] pos = new ivec2[length];
-  ivec2 [] size = new ivec2[length];
+  vec2 [] pos = new vec2[length];
+  vec2 [] size = new vec2[length];
   float [] value = new float[length];
   System.arraycopy(pos_slider_light,start,pos,0,length);
   System.arraycopy(size_slider_light,start,size,0,length);
@@ -647,7 +647,7 @@ boolean slider_light_2_show_structure_colour() {
 
 
 // supra local void
-boolean show_slider_structure_colour(ivec2 [] pos, ivec2 [] size, float [] value) {
+boolean show_slider_structure_colour(vec2 [] pos, vec2 [] size, float [] value) {
   if (mouseX > (pos[0].x ) && mouseX < ( pos[0].x +size[0].x) 
       && mouseY > ( pos[0].y - 5) && mouseY < pos[0].y +40) {
     show_slider_hue_structure(pos[0], size[0]) ;
@@ -896,7 +896,7 @@ void background_text_list(vec2 pos, String [] list, int [] size_text, int size_a
 slider method
 */
 // hue
-void show_slider_hue_structure(ivec2 pos, ivec2 size) {
+void show_slider_hue_structure(vec2 pos, vec2 size) {
   pushMatrix();
   translate (pos.x , pos.y -(size.y *.5));
   for (int i = 0 ; i < size.x ; i++) {
@@ -910,7 +910,7 @@ void show_slider_hue_structure(ivec2 pos, ivec2 size) {
 }
 
 // saturation
-void show_slider_saturation_structure(ivec2 pos, ivec2 size, float colour, float s, float d) {
+void show_slider_saturation_structure(vec2 pos, vec2 size, float colour, float s, float d) {
   pushMatrix ();
   translate (pos.x, pos.y-(size.y *.5));
   for ( int i = 0 ; i < size.x ; i++) {
@@ -925,7 +925,7 @@ void show_slider_saturation_structure(ivec2 pos, ivec2 size, float colour, float
 }
 
 // brightness
-void show_slider_brightness_structure(ivec2 pos, ivec2 size, float colour, float s, float d) {
+void show_slider_brightness_structure(vec2 pos, vec2 size, float colour, float s, float d) {
   pushMatrix ();
   translate (pos.x, pos.y-(size.y *.5));
   for (int i = 0 ; i < size.x ; i++) {
@@ -1269,14 +1269,14 @@ void display_button_general() {
     button_transient[i].show_label();
   }
   //MIDI / CURTAIN
-  button_curtain.show_picto(pic_curtain);
+  button_curtain.show(pic_curtain);
   // RESET
-  button_reset_camera.show_picto(pic_reset_camera);
-  button_reset_item_on.show_picto(pic_reset_item_on);
-  button_reset_fx.show_picto(pic_reset_fx);
+  button_reset_camera.show(pic_reset_camera);
+  button_reset_item_on.show(pic_reset_item_on);
+  button_reset_fx.show(pic_reset_fx);
   // MISC
-  button_birth.show_picto(pic_birth);
-  button_3D.show_picto(pic_3D);
+  button_birth.show(pic_birth);
+  button_3D.show(pic_3D);
 }
 
 
