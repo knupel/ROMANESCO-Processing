@@ -1,5 +1,7 @@
 /**
-ITEM 1.2.1
+* ITEM management
+* 2014-2019
+* v 1.2.3
 */
 void item_inventory() {
   int num_group = 1;
@@ -192,10 +194,10 @@ void display_button_item_console(boolean keep_setting) {
     } else if(!keep_setting) {
       for(int jj = 0 ; jj < BUTTON_ITEM_CONSOLE ; jj++) {
         int rank = i*BUTTON_ITEM_CONSOLE+jj;
-        if(jj == 0) button_item[rank].set_is(false); // show item
-        if(jj == 1) button_item[rank].set_is(false); // setting item
-        if(jj == 2) button_item[rank].set_is(false); // setting sound
-        if(jj == 3) button_item[rank].set_is(false); // setting action
+        if(jj == 0) button_item[rank].is(false); // show item
+        if(jj == 1) button_item[rank].is(false); // setting item
+        if(jj == 2) button_item[rank].is(false); // setting sound
+        if(jj == 3) button_item[rank].is(false); // setting action
       }
     } 
   }
@@ -350,14 +352,15 @@ void set_inventory_item(boolean keep_state) {
       button_inventory[i].set_font_size(12);
       button_inventory[i].set_font(textUsual_3);
       button_inventory[i].set_id(Integer.parseInt(temp_item_info_split[1])) ;
-      button_inventory[i].set_rank(Integer.parseInt(temp_item_info_split[2])) ;
+      button_inventory[i].set_rank(Integer.parseInt(temp_item_info_split[2]));
+      button_inventory[i].set_pos_label(0, button_inventory[i].size.y());
       // start a second loop to check again if the saved name is ok with the alphabetical sort of the item.
       for(int j = 0 ; j < inventory.length ; j++) {
         if(inventory[j].name.equals(button_inventory[i].name) && !keep_state) {
           if(INIT_INTERFACE) {
-            button_inventory[i].set_is(inventory[j].is()) ;
+            button_inventory[i].is(inventory[j].is()) ;
           } else {
-            button_inventory[i].set_is(on_off_inventory_save[i]) ;
+            button_inventory[i].is(on_off_inventory_save[i]) ;
             inventory[j].set_is(on_off_inventory_save[i]) ;
           }
         }

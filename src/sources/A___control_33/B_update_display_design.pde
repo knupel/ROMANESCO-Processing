@@ -1,6 +1,6 @@
 /**
 * UPDATE DISPLAY DESIGN
-* v 0.2.1
+* v 0.2.2
 * 2018-2019
 */
 
@@ -149,7 +149,7 @@ void update_dropdown(Dropdown... dd) {
     dd[i].update(mouseX,mouseY);
     dd[i].show_header_text();
     dd[i].show_box();
-    dd[i].show_selection(dd[i].get_pos().x +3 , dd[i].get_pos().y +22);
+    dd[i].show_selection(dd[i].pos().x +3 , dd[i].pos().y +22);
   }
 }
 
@@ -206,7 +206,7 @@ void update_dropdown_item(Dropdown [] dd, String [] list, Inventory [] inventory
       dd[index].show_header_text(name);  
     } else {
       fill(r.GRAY[6]);
-      vec2 pos = dd[index].get_pos().add(dd[index].get_header_text_pos());
+      vec2 pos = dd[index].pos().add(dd[index].get_header_text_pos());
       PFont font = dd[index].get_font();
       textFont(font);
       text(dd[index].get_name(),pos);

@@ -11,6 +11,8 @@
 * @see https://github.com/StanLepunK/Crope
 */
 import java.util.Arrays;
+import rope.vector.*;
+import rope.core.R_Image;
 
 /**
 Crope Manager
@@ -30,7 +32,7 @@ ArrayList<Crope> get_crope() {
 
 /**
 class Crope
-v 0.10.2
+v 0.11.1
 2018-2019
 */
 public class Crope {
@@ -49,9 +51,11 @@ public class Crope {
 
   protected float rounded = 0;
   // label
-  protected int align = LEFT;
+  protected int align_label_name = LEFT;
+  protected int align_label_value = RIGHT;
   protected String name = null;
-  protected vec2 pos_label;
+  protected vec2 pos_label = new vec2(0,-2);
+  protected vec2 pos_value = new vec2(0,-2);
 
   protected PFont font;
   protected int font_size = 0;
@@ -66,6 +70,7 @@ public class Crope {
   private int birth;
 
   private String type = "Crope";
+  private int rollover_type = RECT;
 
   protected boolean crope_build_is = false;
 
@@ -218,14 +223,14 @@ public class Crope {
     }
     return this;
   }
-
+  
   public Crope set_label(String name, vec2 pos_label) {
-    set_label(name, pos_label.x, pos_label.y);
+    set_label(name, pos_label.x(), pos_label.y());
     return this;
   }
 
   public Crope set_pos_label(vec2 pos) {
-    set_pos_label(pos.x,pos.y);
+    set_pos_label(pos.x(),pos.y());
     return this;
   }
 
@@ -238,6 +243,22 @@ public class Crope {
     return this;
   }
 
+  public Crope set_pos_value(vec2 pos) {
+    set_pos_label(pos.x(),pos.y());
+    return this;
+  }
+
+  public Crope set_pos_value(float x, float y) {
+    if(this.pos_value == null) {
+      this.pos_value = new vec2(x,y);
+    } else {
+       this.pos_value.set(x,y);
+    }
+    return this;
+  }
+
+
+
   public Crope set_fill_label(int c) {
     set_fill_label(c,c);
     return this;
@@ -249,8 +270,13 @@ public class Crope {
     return this;
   }
 
-  public Crope set_align_label(int align) {
-    this.align = align;
+  public Crope set_align_label_name(int align) {
+    this.align_label_name = align;
+    return this;
+  }
+
+  public Crope set_align_label_value(int align) {
+    this.align_label_value = align;
     return this;
   }
 
@@ -294,20 +320,31 @@ public class Crope {
   }
 
 
+  // set misc
+  public Crope set_rollover_type(int rollover_type) {
+    this.rollover_type = rollover_type;
+    return this;
+  }
+
+
 
   /**
   get
   */
-  public int get_dna() {
-    return dna;
-  }
-
-  public vec2 get_pos() {
+  public vec2 pos() {
     return pos;
   }
 
-  public vec2 get_size() {
+  public vec2 size() {
     return size;
+  }
+
+  public int get_rollover_type() {
+    return this.rollover_type;
+  }
+
+  public int get_dna() {
+    return dna;
   }
 
   public String get_name() {
@@ -345,12 +382,39 @@ public class Crope {
   }
 
 
+
+  // add crop
   public void add_crope(Crope crope) {
     if(object_crope == null) {
       object_crope = new ArrayList<Crope>();
     }
     object_crope.add(crope);
   }
+
+  
+
+  // inside crope
+  protected boolean inside() {
+    return inside(pos, size, rollover_type);
+  }
+
+  protected boolean inside(int shape_type) {
+    return inside(pos,size,shape_type);
+  }
+
+  protected boolean inside(vec2 pos, vec2 size, int shape_type) {
+    if(shape_type == ELLIPSE) {
+      // this part can be improve to check the 'x' and the 'y'
+      vec2 offset = pos.copy().add(size().copy().mult(.5));
+      if (offset.dist(cursor) < size.x() *.5) return true ; 
+      // if (dist(offset,cursor) < size.x() *.5) return true ; 
+      else return false ;
+    } else {
+      if(cursor.x() > pos.x && cursor.x() < pos.x() +size.x() && 
+         cursor.y() > pos.y && cursor.y() < pos.y() +size.y()) return true; 
+        else return false ;
+    }
+  }
 }
 
 
@@ -410,325 +474,7 @@ public class Crope {
 
 
 
-/**
-* CLASS BUTTON 
-* v 1.6.0
-* 2013-2019
-*/
-public class Button extends Crope {
-  
-  protected int color_bg = r.GRAY[2];
 
-  protected int color_on_off = r.GRAY[10];
-
-  protected int color_in_ON = r.GRAY[10];
-  protected int color_out_ON = r.GRAY[18];
-
-  protected int color_in_OFF = fill_in;
-  protected int color_out_OFF = fill_out;
-
-  protected PImage [] pic;
-
-  protected boolean inside;
-  protected boolean authorization;
-  protected boolean is = false;  
-
-  public vec2 offset;
-
-  protected Button() {
-    super("Button");
-  }
-
-  private Button(String type) {
-    super(type);
-  }
-
-  private Button(String type, vec2 pos, vec2 size) {
-    super(type);
-    this.pos(pos);
-    this.size(size); 
-  }
-
-
-  public Button(vec2 pos, vec2 size) {
-    super("Button");
-    this.pos(pos);
-    this.size(size);
-  }
-
-
-  public void set_is(boolean is) {
-    this.is = is ;
-  }
-
-  public boolean is() {
-    return is;
-  }
-
-  public void switch_is() {
-    this.is = !this.is;
-  }
-  
-
-  public Crope set_colour_in_on(int c) {
-    this.color_in_ON = c;
-    return this;
-  }
-
-  public Crope set_colour_out_on(int c) {
-    this.color_out_ON = c;
-    return this;
-  }
-
-
-  public Crope set_colour_in_off(int c) {
-    this.color_in_OFF = c;
-    return this;
-  }
-
-
-  public Crope set_colour_out_off(int c) {
-    this.color_out_OFF = c;
-    return this;
-  }
-  
-  @Deprecated
-  public Crope set_aspect_on_off(int color_in_ON, int color_out_ON, int color_in_OFF, int color_out_OFF) {
-    set_colour_in_on(color_in_ON);
-    set_colour_in_off(color_in_OFF);
-    set_colour_out_on(color_out_ON);
-    set_colour_out_off(color_out_OFF);
-    return this;
-  }
-
-
-  public void update(float x, float y) {
-    cursor(x,y);
-  }
-
-
-  /**
-  * offset
-  */
-  public void offset(float x, float y) {
-    if(offset == null) {
-      this.offset = new vec2(x,y);
-    } else {
-      this.offset.set(x,y);
-    }
-  }
-
-  public void offset_is(boolean display_button) {
-    if(!display_button) {
-      pos.set(-100) ; 
-    } else {
-      pos.set(pos_ref);
-      pos.add(offset);
-    }
-  }
-
-
-
-
-  
-
-  public void rollover(boolean authorization) {
-    this.authorization = authorization;
-  }
-  
-  //ROLLOVER
-  /**
-  this method inside() must be refactoring, 
-  it's not acceptable to have a def value inside
-  */
-  public boolean inside() {
-    if(cursor == null) cursor = new vec2();
-    float new_size = 1  ;
-    if (size.y < 10 ) new_size = size.y() *1.8 ; 
-    else if (size.y() >= 10 && size.y() < 20  ) new_size = size.y() *1.2 ;  
-    else if (size.y() >= 20 ) new_size = size.y();
-    
-    if (cursor.x() > pos.x() && cursor.x() < pos.x() + size.x() && cursor.y() > pos.y() && cursor.y() < pos.y() +new_size) { 
-      inside = true ;
-      return true ; 
-    } else {
-      inside = false ;
-      return false ; 
-    }
-  }
- 
-
-
-
-  
-
-
-
-  /**
-  LABEL
-  */
-  public void show_label() {
-    if(this.name != null) {
-      if (is) {
-        if (inside() && authorization) {
-          color_on_off = color_in_ON; 
-        } else {
-          color_on_off = color_out_ON;
-        }
-      } else {
-        if (inside() && authorization) {
-          color_on_off = color_in_OFF; 
-        } else {
-          color_on_off = color_out_OFF;
-        }
-      }
-      
-      if(pos_label == null) {
-        pos_label = new vec2();
-      }
-      // display text
-      if(font != null) textFont(font);
-      if(font_size > 0) textSize(font_size);
-      textAlign(align);
-      fill(color_on_off);
-      vec2 pos_def = add(pos,pos_label);
-      pos_def.y(pos_def.y() +size.y());
-      //pos_def.y() += size.y();
-      text(this.name,vec2(pos_def));
-    }  
-  }
-
-  public void show() {
-    show(ELLIPSE,true);
-  }
-
-  public void show(int kind, boolean on_off_is) {
-    if(kind == RECT) {
-      aspect(on_off_is);
-      rect(vec2(pos),vec2(size));
-    } else if(kind == ELLIPSE) {
-      aspect(on_off_is);
-      vec2 final_size = vec2(size);
-      vec2 final_pos = vec2(pos).add(final_size.copy().mult(.5));
-      ellipse(final_pos,final_size);
-    }
-  }
-
-
-  public void show(PImage [] pic) {
-    int correctionX = -1 ;
-    if(pic.length == 4) {
-      if (is) {
-        if (inside() && authorization) {
-          // inside
-          image(pic[0],pos.x +correctionX, pos.y); 
-        } else {
-          // outside
-          image(pic[1],pos.x +correctionX, pos.y);
-        }
-      } else {
-        if (inside() && authorization) {
-          // inside
-          image(pic[2],pos.x +correctionX, pos.y); 
-        } else {
-          // outside
-          image(pic[3],pos.x +correctionX, pos.y);
-        }
-      }
-    }
-  }
-
-
-  private void aspect(boolean on_off_is) {
-    noStroke();
-    if(on_off_is) {
-      if (is) {
-        if (inside() && authorization) {
-          color_on_off = color_in_ON; 
-        } else {
-          color_on_off = color_out_ON;
-        }
-      } else {
-        if (inside() && authorization) {
-          color_on_off = color_in_OFF; 
-        } else {
-          color_on_off = color_out_OFF;
-        }
-      }
-      fill(color_on_off);
-    } else {
-      fill(color_bg);
-    }  
-  }
-}
-
-
-
-
-
-
-
-
-/**
-* Buturn
-* v 0.0.1
-* 2019-2019
-*/
-public class Butturn extends Button {
-  protected int molette_type = ELLIPSE;
-  protected Molette molette;
-  public Butturn(vec2 pos, float size) {
-    super("Turn button");
-    this.pos(pos);
-    this.size(size);
-    this.molette = new Molette();
-  }
-
-
-  public Butturn set_molette(int type) {
-    this.molette_type = type;
-    return this;
-  }
-
-
-  // set size
-  public Butturn set_size_molette(vec2 size) {
-    return this;
-  }
-
-  public Butturn set_size_molette(float w, float h) {
-    return this;
-  }
-
-
-  public Butturn set_pos_molette(float dist) {
-    return this;
-  }
-
-
-  // draw
-  public void update(float x, float y) {
-    cursor(x,y);
-    molette_update();
-  }
-
-  private void molette_update() {
-    if(molette.select_is()) {
-
-
-    }
-  }
-
-
-
-
-  
-  // show
-  public void show_molette() {
-    float angle = pos.angle(cursor);
-
-  }
-}
 
 
 
@@ -746,32 +492,157 @@ public class Butturn extends Button {
 public class Molette {
   public vec2 size = new vec2();
   public vec2 pos = new vec2();
+  private vec2 offset;
+
+  private float angle = 0;
+  private float dist = 0;
 
   private float value = 0;
   public int id = 0;
 
   public int id_midi = -2;
 
+  private int shape_type = ELLIPSE;
+
   public boolean select_is;
   public boolean used_is;
   public boolean inside_is;
 
+  protected int fill_in = color(g.colorModeX *.4);
+  protected int fill_out = color(g.colorModeX *.2);
+  protected int stroke_in = fill_in;
+  protected int stroke_out = fill_out;
+
+  protected int fill_in_ON = color(g.colorModeX *.4);
+  protected int fill_out_ON = color(g.colorModeX *.2);
+  protected int stroke_in_ON = fill_in;
+  protected int stroke_out_ON = fill_out;
+
+  protected float thickness = 0;
+
   public Molette() { }
   
 
-
-
-  public void set(float value) {
+  public Molette set(float value) {
     this.value = value;
+    return this;
   }
 
-  public void set_id_midi(int id_midi) {
+  public Molette size(float w, float h) {
+    this.size.set(w,h);
+    return this;
+  }
+
+  public Molette pos(float x, float y) {
+    this.pos.set(x,y);
+    return this;
+  }
+
+  public Molette pos(vec2 pos) {
+    this.pos.set(pos);
+    return this;
+  }
+
+  public Molette angle(float angle) {
+    this.angle = angle;
+    return this;
+  }
+
+  public Molette set_distance(float dist) {
+    this.dist = dist;
+    return this;
+  }
+
+  public Molette set_offset(vec2 offset) {
+    if(this.offset == null) {
+      this.offset = new vec2(offset);
+    } else {
+      this.offset.set(offset);
+    }
+    return this;
+  }
+
+  public Molette set_shape_type(int shape_type) {
+    this.shape_type = shape_type;
+    return this;
+  }
+
+  public Molette set_id_midi(int id_midi) {
     this.id_midi = id_midi;
+    return this;
   }
 
-  public void set_id(int id) {
+  public Molette set_id(int id) {
     this.id = id;
+    return this;
   }
+
+  public Molette fill_in(int c) {
+    this.fill_in = c;
+    return this;
+  }
+
+  public Molette fill_out(int c) {
+    this.fill_out = c;
+    return this;   
+  }
+
+  public Molette stroke_in(int c) {
+    this.stroke_in = c;
+    return this;   
+  }
+
+  public Molette stroke_out(int c) {
+    this.stroke_out = c;
+    return this; 
+  }
+
+  public Molette fill_in_OFF(int c) {
+    fill_in(c);
+    return this;
+  }
+
+  public Molette fill_out_OFF(int c) {
+    fill_out(c);
+    return this;   
+  }
+
+  public Molette stroke_in_OFF(int c) {
+    stroke_in(c);
+    return this;   
+  }
+
+  public Molette stroke_out_OFF(int c) {
+    stroke_out(c);
+    return this; 
+  }
+
+  public Molette fill_in_ON(int c) {
+    this.fill_in = c;
+    return this;
+  }
+
+  public Molette fill_out_ON(int c) {
+    this.fill_out_ON = c;
+    return this;   
+  }
+
+  public Molette stroke_in_ON(int c) {
+    this.stroke_in_ON = c;
+    return this;   
+  }
+
+  public Molette stroke_out_ON(int c) {
+    this.stroke_out_ON = c;
+    return this; 
+  }
+
+  public Molette thickness(float thickness){
+    this.thickness = thickness;
+    return this;
+  }
+
+
 
   public void select(boolean state) {
     select_is = state;
@@ -781,9 +652,7 @@ public class Molette {
     used_is = state;
   }
 
-  public void inside(boolean state) {
-    inside_is = state;
-  }
+  
 
 
 
@@ -794,6 +663,26 @@ public class Molette {
     return value;
   }
 
+  public vec2 pos() {
+    return this.pos;
+  }
+
+  public vec2 size() {
+    return this.size;
+  }
+
+  public float angle() {
+    return this.angle;
+  }
+
+  public float get_distance() {
+    return dist;
+  }
+
+  public int get_shape_type() {
+    return this.shape_type;
+  }
+
   public int get_id() {
     return id;
   }
@@ -801,7 +690,6 @@ public class Molette {
   public int get_midi() {
     return id_midi;
   }
-
 
   public boolean select_is() {
     return select_is;
@@ -813,6 +701,69 @@ public class Molette {
 
   public boolean inside_is() {
     return inside_is;
+  }
+
+
+  //show
+  public void show() {
+    aspect(true);
+    push();
+    translate(add(offset,pos));
+    if(shape_type == ELLIPSE) {
+      ellipse(vec2(),size);
+    } else if(shape_type == RECT) {
+      vec2 temp_pos = pos.copy().sub(size.copy().mult(.5));
+      rotate(angle);
+      rect(size.copy().mult(.5).mult(-1),size);
+    } else {
+      ellipse(vec2(),size);
+    }
+    pop();
+  }
+
+  private void aspect(boolean on_off) { 
+    if(on_off) {
+      if(inside_is()) {
+        if(select_is()) {
+          fill(fill_in_ON);
+        } else {
+          fill(fill_in);
+        }
+      } else {
+        if(select_is()) {
+          fill(fill_out_ON);
+        } else {
+          fill(fill_out);
+        }
+      }
+    } else {
+      fill(fill_in);
+      stroke(stroke_in);
+      strokeWeight(thickness);
+    }
+  }
+
+
+  public void inside_is(boolean state) {
+    inside_is = state;
+  }
+
+  public boolean inside(vec2 cursor) {
+    vec2 temp_pos = pos;
+    // if offset is use to catch the crope position
+    if(offset != null) {
+      temp_pos = pos.copy().add(offset);
+    }
+
+    if(shape_type == ELLIPSE) {
+      if(temp_pos.dist(cursor) < size.x() *.5) return true; 
+      else return false ;
+    } else {
+      temp_pos.sub(size.copy().mult(.5));
+      if(cursor.x() > temp_pos.x && cursor.x() < temp_pos.x() +size.x() && 
+         cursor.y() > temp_pos.y && cursor.y() < temp_pos.y() +size.y()) return true; 
+        else return false ;
+    }
   }
 }
 
@@ -1001,10 +952,10 @@ public class Cropinfo {
     if(this.value != null && index < this.value.length && index >= 0) {
       return this.value[index];
     } else if(this.value == null) {
-      printErr("class Cropinfo method get_value(): value is null, may be you need to init it");
+      System.err.println("class Cropinfo method get_value(): value is null, may be you need to init it");
       return 0;    
     } else {
-      printErr("class Cropinfo method get_value(",index,") is out of the range first value is return");
+      System.err.println("class Cropinfo method get_value( " + index + " ) is out of the range first value is return");
       return this.value[0];  
     }    
   }

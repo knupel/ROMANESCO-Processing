@@ -1,6 +1,6 @@
 /**
 * CROPE DROPDOWN 
-* v 0.2.5
+* v 0.3.1
 * 2018-2019
 * method to know is dropdown is active or not
 * Add dropdown must use when the dropdown is build.
@@ -68,8 +68,6 @@ public class Dropdown extends Crope {
   private float height_box;
   private int num_box = 9;
 
-
-
   private int start = 0 ;
   private int end = 1 ;
   private int offset_slider = 0 ; //for the slider update
@@ -90,8 +88,8 @@ public class Dropdown extends Crope {
     this.font_box = createFont("defaultFont",size_content_text);
     this.name = name; 
     this.pos = pos.copy();
-    pos_ref_x = pos.x;
-    pos_ref_y = pos.y;
+    pos_ref_x = pos.x();
+    pos_ref_y = pos.y();
     this.size = size.copy(); // header size
 
     set_box(content.length);
@@ -108,7 +106,7 @@ public class Dropdown extends Crope {
 
 
   public Dropdown set_header_text_pos(vec2 pos) {
-    set_header_text_pos(pos.x, pos.y);
+    set_header_text_pos(pos.x(), pos.y());
     return this;
   }
 
@@ -123,7 +121,7 @@ public class Dropdown extends Crope {
 
 
   public Dropdown set_box_text_pos(vec2 pos) {
-    set_box_text_pos(pos.x, pos.y);
+    set_box_text_pos(pos.x(), pos.y());
     return this;
   }
 
@@ -245,27 +243,38 @@ public class Dropdown extends Crope {
     }
 
     if (slider && (slider_dd == null || new_slider_is)) {
-      update_slider();
+      build_slider();
     }
     return this;
   }
 
+  public void offset(int x, int y) {
+    pos.set(pos_ref_x, pos_ref_y);
+    ivec2 temp = ivec2(x,y);
+    pos.add(temp);
+    build_slider();
+  }
 
-  private void update_slider() {
+  public void offset(ivec2 offset) {
+    offset(offset.x, offset.y);
+  }
+
+
+  private void build_slider() {
     vec2 size_slider = new vec2(round(height_box *.5), round((end *height_box) -pos.z));
-    float x = pos.x -size_slider.x;
-    float y = pos.y +(height_box *box_starting_rank_position);
+    float x = pos.x() -size_slider.x();
+    float y = pos.y() +(height_box *box_starting_rank_position);
     vec2 pos_slider = new vec2(x,y);
   
     float ratio = float(content.length) / float(end -1);
     
-    vec2 size_molette = new vec2(size_slider.x, round(size_slider.y /ratio));
+    vec2 size_molette = new vec2(size_slider.x(), round(size_slider.y() /ratio));
     
     boolean keep_pos_mol_is = false;
     int index = 0 ; // so catch the first molette of the index ;
     float pos_mol_y = 0;
     if(slider_dd != null) {
-      pos_mol_y = slider_dd.get_molette_pos(index).y;
+      pos_mol_y = slider_dd.get_molette_pos(index).y();
       keep_pos_mol_is = true ;
     }
 
@@ -278,7 +287,7 @@ public class Dropdown extends Crope {
     }
     slider_dd.set_size_molette(size_molette);
     if(keep_pos_mol_is) {
-      float pos_mol_x = slider_dd.get_molette_pos(index).x;
+      float pos_mol_x = slider_dd.get_molette_pos(index).x();
       slider_dd.set_pos_molette(index,pos_mol_x,pos_mol_y);
     }
     slider_dd.set_molette(RECT);
@@ -287,16 +296,7 @@ public class Dropdown extends Crope {
     slider_dd.wheel(wheel_is);
   }
 
-  public void offset(int x, int y) {
-    pos.set(pos_ref_x, pos_ref_y);
-    ivec2 temp = ivec2(x,y);
-    pos.add(temp);
-    update_slider();
-  }
 
-  public void offset(ivec2 offset) {
-    offset(offset.x, offset.y);
-  }
 
   public void update(int x,int y) {
     cursor(x,y);
@@ -307,14 +307,14 @@ public class Dropdown extends Crope {
 
 
   private void open_dropdown() {
-    boolean inside = inside(get_pos(), get_size(),cursor,RECT);
+    boolean inside = inside(RECT);
     if (inside) {
       if(selected_type) {
         locked = true;
       }
     } else if(!inside && selected_type && slider_dd == null) {
       locked = false;
-    } else if(!inside && selected_type && slider_dd != null && !slider_dd.inside_slider()) {
+    } else if(!inside && selected_type && slider_dd != null && !slider_dd.inside(RECT)) {
       locked = false;
     }
     if(locked) {
@@ -327,16 +327,16 @@ public class Dropdown extends Crope {
 
 
   private int get_select_line() {
-    float content_size_y = ((content.length+1) *size.y) +pos.y;
+    float content_size_y = ((content.length+1) *size.y()) +pos.y();
     // very quick bug fix, for the case there is only two item in thelist
     if(content.length == 2) {
-      content_size_y = ((content.length+2) *size.y) +pos.y;
+      content_size_y = ((content.length+2) *size.y()) +pos.y();
     }
-    if(cursor.x >= pos.x 
-      && cursor.x <= pos.x +size_box.x 
-      && cursor.y >= pos.y && cursor.y <= content_size_y) {
+    if(cursor.x() >= pos.x() 
+      && cursor.x() <= pos.x() +size_box.x() 
+      && cursor.y() >= pos.y() && cursor.y() <= content_size_y) {
       //choice the line
-      int line = floor((cursor.y - (pos.y +size.y)) / size.y ) +offset_slider;
+      int line = floor((cursor.y() - (pos.y() +size.y())) / size.y()) +offset_slider;
       line -= (box_starting_rank_position -1);
       return line;
     } else {
@@ -357,7 +357,7 @@ public class Dropdown extends Crope {
   }
 
   private void show_selection(float x, float y) {
-    if (inside(pos,size,cursor,RECT)) {
+    if (inside(RECT)) {
       fill(colour_header_text_in); 
     } else {
       fill(colour_header_text_out);
@@ -372,23 +372,23 @@ public class Dropdown extends Crope {
   
   public void show_header() {
     noStroke();
-    if (inside(pos,size,cursor,RECT)) {
+    if (inside(RECT)) {
       fill(colour_header_in); 
     } else {
       fill(colour_header_out);
     }
-    rect(vec2(get_pos()),vec2(get_size()));
+    rect(pos(),size());
   }
 
   public void show_header_text(String name) {
     if(name != null) {
-      if (inside(pos,size,cursor,RECT)) {
+      if (inside(RECT)) {
         fill(colour_header_text_in); 
       } else {
         fill(colour_header_text_out);
       }
       textFont(font);
-      text(name, pos.x +pos_header_text.x, pos.y +pos_header_text.y);
+      text(name, pos.x() +pos_header_text.x(), pos.y() +pos_header_text.y());
     }
   }
 
@@ -400,34 +400,33 @@ public class Dropdown extends Crope {
   public void show_box() {
     if(locked) {
       int step = box_starting_rank_position;
-      int index = 0; // first pos molette from the array pos molette
       //give the position in list of Item with the position from the slider's molette
       if (slider) {
-        offset_slider = round(map(slider_dd.get(index),0,1,0,missing));
+        offset_slider = round(map(slider_dd.get(0),0,1,0,missing));
       }
+      //println("void show_box(): slider", slider,slider_dd.get(0));
+
       set_box_width(longest_String_pixel(font_box,this.content));
-      for (int i = start +offset_slider ; i < end +offset_slider ; i++) {
-        
+      for (int i = start +offset_slider ; i < end +offset_slider ; i++) {  
         if(i < 0) {
-          i = 0 ;
+          i = 0;
         }
 
         if(i >= content.length) {
           i = content.length -1;
         }
         
-        float pos_temp_y = pos.y + (size_box.y *step);
-        vec2 temp_pos = new vec2(pos.x, pos_temp_y);
-        boolean inside = inside(temp_pos,size_box,cursor,RECT);
+        float pos_temp_y = pos.y() + (size_box.y() *step);
+        vec2 temp_pos = new vec2(pos.x(), pos_temp_y);
+        boolean inside = inside(temp_pos,size,RECT);
         render_box(temp_pos,content[i],step,inside);
         step++;
 
-
-        if (slider) {
-          float x = pos.x -slider_dd.get_size().x;
-          float y = pos.y +(height_box *box_starting_rank_position);
+        // slider, if necessary show slider
+        if(slider) {
+          float x = pos.x() -slider_dd.size().x();
+          float y = pos.y() +(height_box *box_starting_rank_position);
           slider_dd.pos(x,y);
-          //slider_dd.select(false);
           slider_dd.update(cursor.x(),cursor.y());
           slider_dd.show_structure();
           slider_dd.show_molette();
@@ -435,6 +434,7 @@ public class Dropdown extends Crope {
       }
     }
   }
+
 
   private void render_box(vec2 pos, String content, int step, boolean inside) {
     if(content != null) {
@@ -454,7 +454,7 @@ public class Dropdown extends Crope {
       }
       rect(vec2(pos),vec2(size_box)); 
       // text part
-      if (inside(pos,size_box,cursor,RECT)) {
+      if (inside(RECT)) {
         fill(colour_box_text_in); 
       } else {
         fill(colour_box_text_out);
@@ -482,7 +482,7 @@ public class Dropdown extends Crope {
     vec2 temp_size = new vec2(size_box.x, (int)size_temp_y);
     vec2 temp_pos = pos.copy();
     temp_pos.y += (box_starting_rank_position *height_box);
-    boolean inside_open_box = inside(temp_pos,temp_size,cursor,RECT);
+    boolean inside_open_box = inside(temp_pos,temp_size,RECT);
     if(!inside_open_box) {
       line = current_line;
     }

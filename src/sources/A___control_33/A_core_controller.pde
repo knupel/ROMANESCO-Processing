@@ -1,6 +1,6 @@
 /**
 Core controller
-v 0.2.0
+v 0.2.1
 2018-2019
 */
 import java.awt.event.KeyEvent;
@@ -34,11 +34,11 @@ void reset() {
 }
 
 void reset_button_flash() {
-  button_reset_camera.set_is(false);
-  button_reset_item_on.set_is(false);
-  button_reset_fx.set_is(false);
-  button_birth.set_is(false);
-  button_3D.set_is(false);
+  button_reset_camera.is(false);
+  button_reset_item_on.is(false);
+  button_reset_fx.is(false);
+  button_birth.is(false);
+  button_3D.is(false);
 }
 
 

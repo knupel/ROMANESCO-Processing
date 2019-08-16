@@ -1,7 +1,7 @@
 /**
 * LOAD 
 * setting, save....
-* v 2.12.1
+* v 2.12.2
 * 2013-2019
 */
 void load_setup() {
@@ -625,14 +625,14 @@ void setting_data_slider(Slider slider, Cropinfo info) {
     for(int i = 0 ; i < value.length ;i++) {
       value[i] = (i+1)*step;
     }
-    slider.set_molette_pos_norm(value);
+    slider.set_value(value);
   } else if(info.get_value() != null) {
-    slider.set_molette_pos_norm(info.get_value());
+    slider.set_value(info.get_value());
   }
 
   if(slider instanceof Sladj) {
     Sladj sladj = (Sladj)slider;
-    sladj.set_min_max(info.get_min(),info.get_max());
+    sladj.set_range(info.get_min(),info.get_max());
   }
 }
 
@@ -646,49 +646,49 @@ void set_button_from_saved_file() {
   // see void midiButtonManager(boolean saveButton)
   int rank = 0;
   // background
-  if(info_button_general[rank].z == 1.0) button_bg.set_is(true) ; else button_bg.set_is(false);
+  if(info_button_general[rank].z == 1.0) button_bg.is(true) ; else button_bg.is(false);
   button_bg.set_id_midi((int)info_button_general[rank].y); 
   rank++ ;
   // curtain
-  if(info_button_general[rank].z == 1.0) button_curtain.set_is(true); else button_curtain.set_is(false);
+  if(info_button_general[rank].z == 1.0) button_curtain.is(true); else button_curtain.is(false);
   button_curtain.set_id_midi((int)info_button_general[rank].y); 
   rank++ ;
   // FX FILTER
   for(int i = 0 ; i < NUM_BUTTON_FX_FILTER; i++) {
-    if(info_button_general[rank].z == 1.0) button_fx_filter[i].set_is(true); else button_fx_filter[i].set_is(false);
+    if(info_button_general[rank].z == 1.0) button_fx_filter[i].is(true); else button_fx_filter[i].is(false);
     button_fx_filter[i].set_id_midi((int)info_button_general[rank].y); 
     rank++ ;
   }
 
   for(int i = 0 ; i < NUM_BUTTON_FX_MIX; i++) {
-    if(info_button_general[rank].z == 1.0) button_fx_mix[i].set_is(true); else button_fx_mix[i].set_is(false);
+    if(info_button_general[rank].z == 1.0) button_fx_mix[i].is(true); else button_fx_mix[i].is(false);
     button_fx_mix[i].set_id_midi((int)info_button_general[rank].y); 
     rank++ ;
   }
   // light ambient
-  if(info_button_general[rank].z == 1.0) button_light_ambient.set_is(true); else button_light_ambient.set_is(false);
+  if(info_button_general[rank].z == 1.0) button_light_ambient.is(true); else button_light_ambient.is(false);
   button_light_ambient.set_id_midi((int)info_button_general[rank].y); 
   rank++ ;
-  if(info_button_general[rank].z == 1.0) button_light_ambient_action.set_is(true); else button_light_ambient_action.set_is(false);
+  if(info_button_general[rank].z == 1.0) button_light_ambient_action.is(true); else button_light_ambient_action.is(false);
   button_light_ambient_action.set_id_midi((int)info_button_general[rank].y); 
   rank++ ;
   //LIGHT ONE
-  if(info_button_general[rank].z == 1.0) button_light_1.set_is(true); else button_light_1.set_is(false);
+  if(info_button_general[rank].z == 1.0) button_light_1.is(true); else button_light_1.is(false);
   button_light_1.set_id_midi((int)info_button_general[rank].y); 
   rank++ ;
-  if(info_button_general[rank].z == 1.0) button_light_1_action.set_is(true); else button_light_1_action.set_is(false);
+  if(info_button_general[rank].z == 1.0) button_light_1_action.is(true); else button_light_1_action.is(false);
   button_light_1_action.set_id_midi((int)info_button_general[rank].y); 
   rank++ ;
   // LIGHT TWO
-  if(info_button_general[rank].z == 1.0) button_light_2.set_is(true); else button_light_2.set_is(false);
+  if(info_button_general[rank].z == 1.0) button_light_2.is(true); else button_light_2.is(false);
   button_light_2.set_id_midi((int)info_button_general[rank].y); 
   rank++ ;
-  if(info_button_general[rank].z == 1.0) button_light_2_action.set_is(true); else button_light_2_action.set_is(false);
+  if(info_button_general[rank].z == 1.0) button_light_2_action.is(true); else button_light_2_action.is(false);
   button_light_2_action.set_id_midi((int)info_button_general[rank].y); 
   rank++ ;
   //SOUND
   for(int i = 0 ; i < NUM_BUTTON_TRANSIENT; i++) {
-    if(info_button_general[rank].z == 1.0) button_transient[i].set_is(true); else button_transient[i].set_is(false);
+    if(info_button_general[rank].z == 1.0) button_transient[i].is(true); else button_transient[i].is(false);
     button_transient[i].set_id_midi((int)info_button_general[rank].y); 
     rank++ ;
   }
@@ -706,9 +706,9 @@ void set_button_from_saved_file() {
       // that's happen when a new item is add from Scene before save the setting
       if(button_rank > 0) {
         if(info_button_item[rank].z == 1.0 && button_rank == (i*BUTTON_ITEM_CONSOLE)+j) {
-          button_item[button_rank].set_is(true);
+          button_item[button_rank].is(true);
         } else {
-          button_item[button_rank].set_is(false); 
+          button_item[button_rank].is(false); 
         }
         button_item[button_rank].set_id_midi((int)info_button_item[rank].y);
       }   

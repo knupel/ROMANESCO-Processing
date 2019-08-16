@@ -1,6 +1,6 @@
 /**
 * Build interface 
-* v 3.5.0
+* v 3.6.0
 * 2014-2019
 *
 */
@@ -40,7 +40,11 @@ void what_happen_in_menu(String what, ActionEvent ae) {
 
 
 
-
+/**
+* Build console
+* v 0.3.1
+* 2014-2019
+*/
 void build_console() {
   build_console_general();
   build_console_media_bar();
@@ -93,7 +97,7 @@ void build_console_background() {
       slider_adj_background[i].set_molette(ELLIPSE);
       slider_adj_background[i].set_size_molette(temp_size_mol);
       slider_adj_background[i].set_id(i);
-      slider_adj_background[i].set_label(slider_background_name[i],add(slider_adj_background[i].get_size(),vec2(3,0)));
+      slider_adj_background[i].set_label(slider_background_name[i],add(slider_adj_background[i].size(),vec2(3,0)));
       slider_adj_background[i].set_font(textUsual_1);
       slider_adj_background[i].set_rounded(rounded_slider);
       slider_adj_background[i].set_fill_label(label_in_light,label_out_dark);
@@ -113,9 +117,10 @@ void build_console_background() {
   }
 
   button_bg = new Button(pos_button_background, size_button_background);
-  button_bg.set_is(true);
+  button_bg.is(true);
   button_bg.set_aspect_on_off(button_on_in, button_on_out, button_off_in, button_off_out);
   button_bg.set_font(FuturaExtraBold_10);
+  button_bg.set_pos_label(0,button_bg.size().y());
 }
 
 void build_console_fx_filter() {
@@ -126,7 +131,7 @@ void build_console_fx_filter() {
     slider_adj_fx_filter[i].set_molette(ELLIPSE);
     slider_adj_fx_filter[i].set_size_molette(temp_size_mol);
     slider_adj_fx_filter[i].set_id(i);
-    slider_adj_fx_filter[i].set_label(slider_fx_filter_name[i],add(slider_adj_fx_filter[i].get_size(),vec2(3,0)));
+    slider_adj_fx_filter[i].set_label(slider_fx_filter_name[i],add(slider_adj_fx_filter[i].size(),vec2(3,0)));
     slider_adj_fx_filter[i].set_font(textUsual_1);
     slider_adj_fx_filter[i].set_rounded(rounded_slider);
     slider_adj_fx_filter[i].set_fill_label(label_in_light,label_out_dark);
@@ -148,6 +153,7 @@ void build_console_fx_filter() {
     button_fx_filter[i] = new Button(pos_button_fx_filter[i], size_button_fx_filter[i]);
     button_fx_filter[i].set_aspect_on_off(button_on_in,button_on_out,button_off_in,button_off_out);
     button_fx_filter[i].set_font(FuturaExtraBold_10);
+    button_fx_filter[i].set_pos_label(0,button_fx_filter[i].size().y());
     if(i == 0) {
       //
     } else if (i == 1) {
@@ -168,7 +174,7 @@ void build_console_fx_mix() {
     slider_adj_fx_mix[i].set_molette(ELLIPSE);
     slider_adj_fx_mix[i].set_size_molette(temp_size_mol);
     slider_adj_fx_mix[i].set_id(i);
-    slider_adj_fx_mix[i].set_label(slider_fx_mix_name[i],add(slider_adj_fx_mix[i].get_size(),vec2(3,0)));
+    slider_adj_fx_mix[i].set_label(slider_fx_mix_name[i],add(slider_adj_fx_mix[i].size(),vec2(3,0)));
     slider_adj_fx_mix[i].set_font(textUsual_1);
     slider_adj_fx_mix[i].set_rounded(rounded_slider);
     slider_adj_fx_mix[i].set_fill_label(label_in_light,label_out_dark);
@@ -188,6 +194,7 @@ void build_console_fx_mix() {
     button_fx_mix[i] = new Button(pos_button_fx_mix[i], size_button_fx_mix[i]);
     button_fx_mix[i].set_aspect_on_off(button_on_in,button_on_out,button_off_in,button_off_out);
     button_fx_mix[i].set_font(FuturaExtraBold_10);
+    button_fx_mix[i].set_pos_label(0,button_fx_mix[i].size().y());
   }
 }
 
@@ -201,7 +208,7 @@ void build_console_light() {
     slider_adj_light[i].set_molette(ELLIPSE);
     slider_adj_light[i].set_size_molette(temp_size_mol);
     slider_adj_light[i].set_id(i);
-    slider_adj_light[i].set_label(slider_light_name[i],add(slider_adj_light[i].get_size(),vec2(3,0)));
+    slider_adj_light[i].set_label(slider_light_name[i],add(slider_adj_light[i].size(),vec2(3,0)));
     slider_adj_light[i].set_font(textUsual_1);
     slider_adj_light[i].set_rounded(rounded_slider);
     slider_adj_light[i].set_fill_label(label_in_dark,label_out_dark);
@@ -214,29 +221,35 @@ void build_console_light() {
   button_light_ambient = new Button(pos_light_ambient_buttonButton, size_light_ambient_buttonButton);
   button_light_ambient.set_aspect_on_off(button_on_in, button_on_out, button_off_in, button_off_out);
   button_light_ambient.set_font(FuturaExtraBold_10);
+  button_light_ambient.set_pos_label(0,button_light_ambient.size().y());
   
 
   button_light_ambient_action = new Button(pos_light_ambient_button_action, size_light_ambient_button_action);
   button_light_ambient_action.set_aspect_on_off(button_on_in, button_on_out, button_off_in, button_off_out);
   button_light_ambient_action.set_label("MOVE");
+  button_light_ambient_action.set_pos_label(0,button_light_ambient_action.size().y());
   // LIGHT ONE
   button_light_1 = new Button(pos_light_1_button, size_light_1_button);
   button_light_1.set_aspect_on_off(button_on_in, button_on_out, button_off_in, button_off_out);
   button_light_1.set_font(FuturaExtraBold_10);
+  button_light_1.set_pos_label(0,button_light_1.size().y());
 
   button_light_1_action = new Button(pos_light_1_button_action, size_light_1_button_action);
   button_light_1_action.set_aspect_on_off(button_on_in, button_on_out, button_off_in, button_off_out);
   button_light_1_action.set_font(FuturaExtraBold_10);
   button_light_1_action.set_label("MOVE");
+  button_light_1_action.set_pos_label(0,button_light_1_action.size().y());
   // LIGHT TWO 
   button_light_2 = new Button(pos_light_2_button, size_light_2_button);
   button_light_2.set_aspect_on_off(button_on_in, button_on_out, button_off_in, button_off_out);
   button_light_2.set_font(FuturaExtraBold_10);
+  button_light_2.set_pos_label(0,button_light_2.size().y());
 
   button_light_2_action = new Button(pos_light_2_button_action, size_light_2_button_action);
   button_light_2_action.set_aspect_on_off(button_on_in, button_on_out, button_off_in, button_off_out);
   button_light_2_action.set_font(FuturaExtraBold_10);
   button_light_2_action.set_label("MOVE");
+  button_light_2_action.set_pos_label(0,button_light_2_action.size().y());
 }
 
 
@@ -248,7 +261,7 @@ void build_console_sound() {
     slider_adj_sound[i].set_molette(ELLIPSE);
     slider_adj_sound[i].set_size_molette(temp_size_mol);
     slider_adj_sound[i].set_id(i);
-    slider_adj_sound[i].set_label(slider_sound_name[i],add(slider_adj_sound[i].get_size(),vec2(3,0)));
+    slider_adj_sound[i].set_label(slider_sound_name[i],add(slider_adj_sound[i].size(),vec2(3,0)));
     slider_adj_sound[i].set_font(textUsual_1);
     slider_adj_sound[i].set_rounded(rounded_slider);
     slider_adj_sound[i].set_fill_label(label_in_dark,label_out_dark);
@@ -262,6 +275,7 @@ void build_console_sound() {
     button_transient[i].set_aspect_on_off(button_on_in, button_on_out, button_off_in, button_off_out);
     button_transient[i].set_font(FuturaExtraBold_10);
     button_transient[i].set_label("BEAT "+i);
+    button_transient[i].set_pos_label(0,button_transient[i].size().y());
   }
 }
 
@@ -289,7 +303,7 @@ void build_console_sound_setting() {
   slider_sound_setting[0].set_id(0);
   slider_sound_setting[0].set_molette_num(3);
   slider_sound_setting[0].set_size_molette(size_mol.x/2,size_mol.y);
-  slider_sound_setting[0].set_label(slider_sound_setting_name[0],add(slider_sound_setting[0].get_size(),vec2(3,0)));
+  slider_sound_setting[0].set_label(slider_sound_setting_name[0],add(slider_sound_setting[0].size(),vec2(3,0)));
   slider_sound_setting[0].set_font(textUsual_1);
   slider_sound_setting[0].set_rounded(rounded_slider);
   slider_sound_setting[0].set_fill_label(label_in_light,label_out_light);
@@ -306,7 +320,7 @@ void build_console_sound_setting() {
       slider_sound_setting[i].set_id(i);
       slider_sound_setting[i].set_molette_num(2);
       slider_sound_setting[i].set_size_molette(size_mol.x/2,size_mol.y);
-      slider_sound_setting[i].set_label(slider_sound_setting_name[i],add(slider_sound_setting[i].get_size(),vec2(3,0)));
+      slider_sound_setting[i].set_label(slider_sound_setting_name[i],add(slider_sound_setting[i].size(),vec2(3,0)));
       slider_sound_setting[i].set_font(textUsual_1);
       slider_sound_setting[i].set_rounded(rounded_slider);
       slider_sound_setting[i].set_fill_label(label_in_dark,label_out_dark);
@@ -324,7 +338,7 @@ void build_console_sound_setting() {
     slider_sound_setting[i].set_molette(ELLIPSE);
     slider_sound_setting[i].set_size_molette(temp_size_mol);
     slider_sound_setting[i].set_id(i);
-    slider_sound_setting[i].set_label(slider_sound_setting_name[i],add(slider_sound_setting[i].get_size(),vec2(3,0)));
+    slider_sound_setting[i].set_label(slider_sound_setting_name[i],add(slider_sound_setting[i].size(),vec2(3,0)));
     slider_sound_setting[i].set_font(textUsual_1);
     slider_sound_setting[i].set_rounded(rounded_slider);
     slider_sound_setting[i].set_fill_label(label_in_dark,label_out_dark);
@@ -341,7 +355,7 @@ void build_console_camera() {
     slider_adj_camera[i].set_molette(ELLIPSE);
     slider_adj_camera[i].set_size_molette(temp_size_mol);
     slider_adj_camera[i].set_id(i);
-    slider_adj_camera[i].set_label(slider_camera_name[i],add(slider_adj_camera[i].get_size(),vec2(3,0)));
+    slider_adj_camera[i].set_label(slider_camera_name[i],add(slider_adj_camera[i].size(),vec2(3,0)));
     slider_adj_camera[i].set_font(textUsual_1);
     slider_adj_camera[i].set_rounded(rounded_slider);
     slider_adj_camera[i].set_fill_label(label_in_dark,label_out_dark);
@@ -381,7 +395,7 @@ void build_console_item() {
       else if(label_name.equals("s_brightness")) label_name = "brightness";
       else if(label_name.equals("s_alpha")) label_name = "alpha";
       else if(label_name.equals("thickness")) label_name = "THICKNESS";
-      slider_adj_item[i].set_label(label_name,add(slider_adj_item[i].get_size(),vec2(3,0)));
+      slider_adj_item[i].set_label(label_name,add(slider_adj_item[i].size(),vec2(3,0)));
       slider_adj_item[i].set_font(textUsual_1);
       slider_adj_item[i].set_rounded(rounded_slider);
       slider_adj_item[i].set_fill_label(label_in_dark,label_out_dark);
