@@ -1,12 +1,10 @@
 /**
 * SLIDER
-* v 1.8.0
+* v 1.8.2
 * 2013-2019
 */
 boolean molette_already_selected ;
 public class Slider extends Crope {
-  protected boolean selected_type;
-  
   protected Molette [] molette;
 
   private boolean init_molette_is = false;
@@ -96,6 +94,9 @@ public class Slider extends Crope {
 
   public Slider set_molette(int type) {
     this.molette_type = type;
+    if(molette == null) {
+      init_molette(1);
+    }
     return this;
   }
 
@@ -299,7 +300,7 @@ public class Slider extends Crope {
     } else {
       inside = inside_molette_rect(index);
     }
-    if (inside && selected_type) {
+    if (inside && event) {
       return true ; 
     } else {
       return false ;
@@ -472,7 +473,7 @@ public class Slider extends Crope {
 
 
   // MISC
-    public void update(float x, float y) {
+  public void update(float x, float y) {
     if(!crope_build_is) {
       molette_builder(1);
     }
@@ -482,6 +483,9 @@ public class Slider extends Crope {
   
   private boolean wheel_is;
   public void wheel(boolean wheel_is) {
+    if(molette == null) {
+      init_molette(1);
+    }
     if(molette.length == 1) {
       this.wheel_is = wheel_is; 
     } else {
@@ -544,7 +548,7 @@ public class Slider extends Crope {
     }
     for(int i = 0 ; i < molette.length ; i++) {
       if(!molette[i].select_is()) {
-        selected_type = mousePressed;
+        event = mousePressed;
         boolean is = select(i,molette_used_is(i),molette[i].used_is(),true);
         molette[i].used(is);
         if(molette[i].used_is()) {
@@ -572,6 +576,12 @@ public class Slider extends Crope {
           val = molette[0].pos.y();
         }
         mol_update_pos(0,temp_min(0),temp_max(0));
+        println("val wheel",val);
+        if (size.x() >= size.y()) {
+          val = round(constrain(val, temp_min(0).x(), temp_max(0).x()));
+        } else { 
+          val = round(constrain(val, temp_min(0).y(), temp_max(0).y()));
+        }
         molette[0].set(val);
       }   
     }
@@ -760,7 +770,7 @@ public class Slider extends Crope {
 
   private void select(int index, boolean authorization) {
     molette[index].select(keep_selection);
-    selected_type = mousePressed;
+    event = mousePressed;
     molette[index].used_is = select(index, molette_used_is(index),molette[index].used_is,authorization);
   }
   
@@ -773,7 +783,7 @@ public class Slider extends Crope {
 
   private void select(int index, boolean authorization_1, boolean authorization_2) {
     molette[index].select(keep_selection);
-    selected_type = authorization_1;
+    event = authorization_1;
     molette[index].used_is = select(index,molette_used_is(index),molette[index].used_is,authorization_2);
   }
   
@@ -804,7 +814,7 @@ public class Slider extends Crope {
         result = true ;
       }
 
-      if (!selected_type) { 
+      if (!event) { 
         result = false ; 
         molette_already_selected = false;
       }

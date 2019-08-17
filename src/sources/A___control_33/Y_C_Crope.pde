@@ -32,7 +32,7 @@ ArrayList<Crope> get_crope() {
 
 /**
 class Crope
-v 0.11.1
+v 0.11.4
 2018-2019
 */
 public class Crope {
@@ -40,6 +40,8 @@ public class Crope {
   protected vec2 pos_ref;
 
   protected vec2 cursor = new vec2();
+  protected boolean event = mousePressed;
+  protected boolean use_event_is = false;
 
   protected int fill_in = r.GRAY[4];
   protected int fill_out = r.GRAY[10];

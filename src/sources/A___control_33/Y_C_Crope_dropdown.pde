@@ -1,6 +1,6 @@
 /**
 * CROPE DROPDOWN 
-* v 0.3.1
+* v 0.3.2
 * 2018-2019
 * method to know is dropdown is active or not
 * Add dropdown must use when the dropdown is build.
@@ -29,7 +29,7 @@ boolean dropdown_is() {
 * 2014-2018
 */
 public class Dropdown extends Crope {
-  protected boolean selected_type;
+  // protected boolean selected_type;
   //Slider dropdown
   private Slider slider_dd;
   private vec2 size_box;
@@ -101,7 +101,7 @@ public class Dropdown extends Crope {
     set_header_text_pos(offset_text_x,size.y -offset_text_header_y);
     float offset_text_content_y = (size_box.y - size_content_text)/2;
     set_box_text_pos(offset_text_x,size_box.y - offset_text_content_y); 
-    selected_type = mousePressed;
+    event = mousePressed;
   }
 
 
@@ -154,14 +154,6 @@ public class Dropdown extends Crope {
   }
 
 
-
-
-  /**
-  method
-  */
-  public void wheel(boolean wheel_is) {
-    this.wheel_is = wheel_is;
-  }
 
   public Dropdown set_box(int num_box) {
     set_box(num_box, this.box_starting_rank_position);
@@ -248,84 +240,13 @@ public class Dropdown extends Crope {
     return this;
   }
 
-  public void offset(int x, int y) {
-    pos.set(pos_ref_x, pos_ref_y);
-    ivec2 temp = ivec2(x,y);
-    pos.add(temp);
-    build_slider();
-  }
-
-  public void offset(ivec2 offset) {
-    offset(offset.x, offset.y);
-  }
-
-
-  private void build_slider() {
-    vec2 size_slider = new vec2(round(height_box *.5), round((end *height_box) -pos.z));
-    float x = pos.x() -size_slider.x();
-    float y = pos.y() +(height_box *box_starting_rank_position);
-    vec2 pos_slider = new vec2(x,y);
   
-    float ratio = float(content.length) / float(end -1);
-    
-    vec2 size_molette = new vec2(size_slider.x(), round(size_slider.y() /ratio));
-    
-    boolean keep_pos_mol_is = false;
-    int index = 0 ; // so catch the first molette of the index ;
-    float pos_mol_y = 0;
-    if(slider_dd != null) {
-      pos_mol_y = slider_dd.get_molette_pos(index).y();
-      keep_pos_mol_is = true ;
-    }
-
-    if(slider_dd == null) {
-      slider_dd = new Slider("Slider Dropdown",pos_slider, size_slider);
-    } else {
-      slider_dd.pos(pos_slider);
-      slider_dd.size(size_slider);
-      slider_dd.set_pos_molette();
-    }
-    slider_dd.set_size_molette(size_molette);
-    if(keep_pos_mol_is) {
-      float pos_mol_x = slider_dd.get_molette_pos(index).x();
-      slider_dd.set_pos_molette(index,pos_mol_x,pos_mol_y);
-    }
-    slider_dd.set_molette(RECT);
-    slider_dd.set_fill(colour_structure);
-    slider_dd.set_fill_molette(colour_box_in,colour_box_out);
-    slider_dd.wheel(wheel_is);
-  }
 
 
 
-  public void update(int x,int y) {
-    cursor(x,y);
-    selected_type = mousePressed;
-    open_dropdown(); 
-  }
 
 
-
-  private void open_dropdown() {
-    boolean inside = inside(RECT);
-    if (inside) {
-      if(selected_type) {
-        locked = true;
-      }
-    } else if(!inside && selected_type && slider_dd == null) {
-      locked = false;
-    } else if(!inside && selected_type && slider_dd != null && !slider_dd.inside(RECT)) {
-      locked = false;
-    }
-    if(locked) {
-      int result_line = get_select_line();
-      if (result_line > -1) {
-        line = result_line; 
-      }
-    }
-  }
-
-
+  // get
   private int get_select_line() {
     float content_size_y = ((content.length+1) *size.y()) +pos.y();
     // very quick bug fix, for the case there is only two item in thelist
@@ -344,12 +265,73 @@ public class Dropdown extends Crope {
     }
   }
 
+  //return which line of dropdown is selected
+  int current_line ;
+  public int get_selection() {
+    float size_temp_y = size_box.y *num_box;
+    vec2 temp_size = new vec2(size_box.x, (int)size_temp_y);
+    vec2 temp_pos = pos.copy();
+    temp_pos.y += (box_starting_rank_position *height_box);
+    boolean inside_open_box = inside(temp_pos,temp_size,RECT);
+    if(!inside_open_box) {
+      line = current_line;
+    }
+    if(!locked && inside_open_box) {
+      if(line >= 0 && line < content.length) {
+        current_line = line ;     
+      } else {
+        printErr("class Dropdown - method get_selected()\nthe line", line, "don't match with any content, the method keep the last content");
+      }
+    } 
+    return current_line;
+  }
+
+
+  //return which line of dropdown is highlighted
+  public int get_highlight() {
+    return line ;
+  }
+
+  public String get_name() {
+    return this.name;
+  }
+
+  public String [] get_content() {
+    return content;
+  }
+
+  public int get_num_box() {
+    return num_box;
+  }
+
+  public PFont get_font_box() {
+    return font_box;
+  }
+
+  public vec2 get_header_text_pos() {
+    return pos_header_text;
+  }
+
+  public vec2 get_content_text_pos() {
+    return pos_box_text;
+  }
+
+  public boolean locked_is() {
+    return locked;
+  }
 
 
 
-  /**
-  SHOW
-  */
+
+
+
+
+
+
+
+
+
+  // show
   public void show() {
     show_header();
     show_header_text();
@@ -404,9 +386,8 @@ public class Dropdown extends Crope {
       if (slider) {
         offset_slider = round(map(slider_dd.get(0),0,1,0,missing));
       }
-      //println("void show_box(): slider", slider,slider_dd.get(0));
-
       set_box_width(longest_String_pixel(font_box,this.content));
+ 
       for (int i = start +offset_slider ; i < end +offset_slider ; i++) {  
         if(i < 0) {
           i = 0;
@@ -431,6 +412,37 @@ public class Dropdown extends Crope {
           slider_dd.show_structure();
           slider_dd.show_molette();
         }
+      }
+    }
+  }
+
+
+
+
+
+  // misc
+  public void update(int x,int y) {
+    cursor(x,y);
+    event = mousePressed;
+    open_dropdown();
+  }
+
+
+  private void open_dropdown() {
+    boolean inside = inside(RECT);
+    if (inside) {
+      if(event) {
+        locked = true;
+      }
+    } else if(!inside && event && slider_dd == null) {
+      locked = false;
+    } else if(!inside && event && slider_dd != null && !slider_dd.inside(RECT)) {
+      locked = false;
+    }
+    if(locked) {
+      int result_line = get_select_line();
+      if (result_line > -1) {
+        line = result_line; 
       }
     }
   }
@@ -467,68 +479,59 @@ public class Dropdown extends Crope {
   }
 
 
+  public void wheel(boolean wheel_is) {
+    this.wheel_is = wheel_is;
+  }
 
 
 
+  public void offset(int x, int y) {
+    pos.set(pos_ref_x, pos_ref_y);
+    ivec2 temp = ivec2(x,y);
+    pos.add(temp);
+    build_slider();
+  }
+
+  public void offset(ivec2 offset) {
+    offset(offset.x, offset.y);
+  }
+
+
+  private void build_slider() {
+    vec2 size_slider = new vec2(round(height_box *.5), round((end *height_box) -pos.z));
+    float x = pos.x() -size_slider.x();
+    float y = pos.y() +(height_box *box_starting_rank_position);
+    vec2 pos_slider = new vec2(x,y);
   
-  
-  /**
-  GET
-  */
-  //return which line of dropdown is selected
-  int current_line ;
-  public int get_selection() {
-    float size_temp_y = size_box.y *num_box;
-    vec2 temp_size = new vec2(size_box.x, (int)size_temp_y);
-    vec2 temp_pos = pos.copy();
-    temp_pos.y += (box_starting_rank_position *height_box);
-    boolean inside_open_box = inside(temp_pos,temp_size,RECT);
-    if(!inside_open_box) {
-      line = current_line;
+    float ratio = float(content.length) / float(end -1);
+    
+    vec2 size_molette = new vec2(size_slider.x(), round(size_slider.y() /ratio));
+    
+    boolean keep_pos_mol_is = false;
+    int index = 0 ; // so catch the first molette of the index ;
+    float pos_mol_y = 0;
+    if(slider_dd != null) {
+      pos_mol_y = slider_dd.get_molette_pos(index).y();
+      keep_pos_mol_is = true ;
     }
-    if(!locked && inside_open_box) {
-      if(line >= 0 && line < content.length) {
-        current_line = line ;     
-      } else {
-        printErr("class Dropdown - method get_selected()\nthe line", line, "don't match with any content, the method keep the last content");
-      }
-    } 
-    return current_line;
+
+    if(slider_dd == null) {
+      slider_dd = new Slider("Slider Dropdown",pos_slider, size_slider);
+    } else {
+      slider_dd.pos(pos_slider);
+      slider_dd.size(size_slider);
+      slider_dd.set_pos_molette();
+    }
+    slider_dd.set_size_molette(size_molette);
+    if(keep_pos_mol_is) {
+      float pos_mol_x = slider_dd.get_molette_pos(index).x();
+      slider_dd.set_pos_molette(index,pos_mol_x,pos_mol_y);
+    }
+    slider_dd.set_molette(RECT);
+    slider_dd.set_fill(colour_structure);
+    slider_dd.set_fill_molette(colour_box_in,colour_box_out);
+    slider_dd.wheel(wheel_is);
   }
 
-
-  //return which line of dropdown is highlighted
-  public int get_highlight() {
-    return line ;
-  }
-
-  public String get_name() {
-    return this.name;
-  }
-
-
-  public String [] get_content() {
-    return content;
-  }
-
-  public int get_num_box() {
-    return num_box;
-  }
-
-  public PFont get_font_box() {
-    return font_box;
-  }
-
-  public vec2 get_header_text_pos() {
-    return pos_header_text;
-  }
-
-  public vec2 get_content_text_pos() {
-    return pos_box_text;
-  }
-
-  public boolean locked_is() {
-    return locked;
-  }
 }
 
