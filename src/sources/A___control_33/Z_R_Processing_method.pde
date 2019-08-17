@@ -1,6 +1,6 @@
 /**
 ROPE PROCESSING METHOD
-v 2.7.5
+v 2.7.6
 * Copyleft (c) 2014-2019
 * Stan le Punk > http://stanlepunk.xyz/
 * @author @stanlepunk
@@ -269,6 +269,8 @@ void set_buffer_shape(PGraphics other) {
   }
 }
 
+
+
 /**
 * set
 * v 0.2.1
@@ -296,9 +298,12 @@ void set(int x, int y, int c, PGraphics other) {
 
 
 
+
+
+
 /** 
 * PGraphics Method
-* v 0.1.0
+* v 0.1.1
 */
 /**
 * beginDraw and enDraw() is write here juste to keep a syntew cohesion withe PGraphics other system
@@ -323,6 +328,70 @@ void clear(PGraphics other) {
     g.clear();
   }
 }
+
+
+
+
+/**
+* background
+*/
+void background(int rgb, PGraphics other) {
+  if(other != null) {
+    other.background(rgb);
+  } else {
+    background(rgb);
+  }
+}
+
+void background(int rgb, float alpha, PGraphics other) {
+  if(other != null) {
+    other.background(rgb, alpha);
+  } else {
+    background(rgb, alpha);
+  }
+}
+
+void background(float gray, PGraphics other) {
+  if(other != null) {
+    other.background(gray);
+  } else {
+    background(gray);
+  }
+}
+
+void background(float gray, float alpha, PGraphics other) {
+  if(other != null) {
+    other.background(gray,alpha);
+  } else {
+    background(gray,alpha);
+  }
+}
+
+void background(float v1, float v2, float v3, PGraphics other) {
+  if(other != null) {
+    other.background(v1, v2, v3);
+  } else {
+    background(v1, v2, v3);
+  }
+}
+
+void background(float v1, float v2, float v3, float alpha, PGraphics other) {
+  if(other != null) {
+    other.background(v1, v2, v3, alpha);
+  } else {
+    background(v1, v2, v3 ,alpha);
+  }
+}
+
+void background(PImage img, PGraphics other) {
+  if(other != null) {
+    other.background(img);
+  } else {
+    background(img);
+  }
+}
+
+
 
 
 /**
@@ -3206,7 +3275,3 @@ void textFont(PFont font, float size) {
 
 
   
-
-
-
-

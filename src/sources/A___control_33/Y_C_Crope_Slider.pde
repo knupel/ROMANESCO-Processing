@@ -576,7 +576,6 @@ public class Slider extends Crope {
           val = molette[0].pos.y();
         }
         mol_update_pos(0,temp_min(0),temp_max(0));
-        println("val wheel",val);
         if (size.x() >= size.y()) {
           val = round(constrain(val, temp_min(0).x(), temp_max(0).x()));
         } else { 

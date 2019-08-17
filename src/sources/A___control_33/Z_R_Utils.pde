@@ -2402,14 +2402,3 @@ boolean extension_is(String path, String... data) {
   }
   return is;
 }
-
-
-
-
-
-
-
-
-
-
-

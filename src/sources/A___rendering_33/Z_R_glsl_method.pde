@@ -636,5 +636,3 @@ boolean any(bvec6 b) {
     return false;
   }
 }
-
-

@@ -32,7 +32,6 @@ import processing.pdf.*;
 * 2019-2019
 * create tempo partition
 */
-
 float [] tempo = {1};
 void tempo(float... tempo) {
   this.tempo = tempo;
@@ -67,7 +66,6 @@ int get_tempo_pos(float time) {
 float [] tempo() {
   return tempo;
 }
-
 
 
 
@@ -2404,14 +2402,3 @@ boolean extension_is(String path, String... data) {
   }
   return is;
 }
-
-
-
-
-
-
-
-
-
-
-

@@ -1214,16 +1214,13 @@ public class House extends R_Shape  {
 
 
 	  // draw B : WALL > main wall
-	  // println("ma maison");
 	  beginShape(other);
 		if(def_pos == null) {
-			// println("ma maison def pos");
 			vertex(pa[2].copy().mult(size),other);
 			vertex(pa[1].copy().mult(size),other);
 			vertex(pc[1].copy().mult(size),other);
 			vertex(pc[2].copy().mult(size),other);
 		} else {
-			//println("ma maison pos");
 			vertex(pa[2].copy().mult(size).add(def_pos),other);
 			vertex(pa[1].copy().mult(size).add(def_pos),other);
 			vertex(pc[1].copy().mult(size).add(def_pos),other);
@@ -1355,18 +1352,3 @@ public class House extends R_Shape  {
 		}
 	}
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

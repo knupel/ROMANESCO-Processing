@@ -1,7 +1,7 @@
 /**
 * R_Mesh
 * temp tab before pass to Rope
-* v 0.1.1
+* v 0.1.2
 * 2019-2019
 */
 /**
@@ -104,7 +104,6 @@ class R_Plane {
 			if(nodes == null) {
 				nodes = new ArrayList<R_Node>();
 			} 
-			// println("in plane",any,frameCount);
 			nodes.add(any);
 		} else if(debug) {
 			println("class R_Plane method add():",any,"not in the plane",plane);
@@ -416,10 +415,3 @@ public class R_Segment {
   	}
   }
 }
-
-
-
-
-
-
-

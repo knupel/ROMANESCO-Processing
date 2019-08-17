@@ -1,6 +1,6 @@
 /**
 * ROPE SVG
-* v 1.5.1
+* v 1.5.2
 * Copyleft (c) 2014-2019
 * @author @stanlepunk
 * @see https://github.com/StanLepunK/Rope_framework
@@ -1004,22 +1004,15 @@ class ROPE_svg {
 
 
 
-  /**
 
-  Build SVG brick
-
-
-  */
+  // Build SVG brick
   private void build_SVG(ArrayList<Brick_SVG> list, String path_brick) {
     PShape [] children = new PShape[list.size()] ;
     for(int i = 0 ; i < list.size() ; i++) {
       PShape mother = loadShape(path_brick + folder_brick_name + "_" + i + ".svg") ;
       children = mother.getChildren() ;
-      /**
-      Problem here with P3D and P2D mode
-      return null pointer exception with type 'text'
-      println(children) ;
-      */
+      // Problem here with P3D and P2D mode
+      // return null pointer exception with type 'text'
       
       Brick_SVG b = (Brick_SVG) list.get(i) ;
       if(b.kind == "polygon" || b.kind == "path" || b.kind == "polyline")  vertex_count(children[0], mother.getName(), b.ID) ;
@@ -1030,9 +1023,8 @@ class ROPE_svg {
     }
   }
   
-  /**
-  TEXT
-  */
+
+  // TEXT
   // list of group SVG
   ArrayList<ROPEText> list_text_SVG = new ArrayList<ROPEText>() ;
       
@@ -1247,8 +1239,6 @@ class ROPE_svg {
       // pos_def.y += (temp_size.y *.5) ;
       // pos_def.x += mouseX ;
       // pos_def.y += mouseY ;
-      printTempo(60, pos_def) ;
-      printTempo(60, "void build_rectangle()") ;
       rect(pos_def, temp_size) ;
       pop() ;
     } else {

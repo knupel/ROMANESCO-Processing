@@ -477,7 +477,6 @@ public class Knob extends Button {
       ref_angle_is = false;
       out_is = false;
     }
-    // println(out_is);
     if(molette.used_is()) {
       molette_update();
     }

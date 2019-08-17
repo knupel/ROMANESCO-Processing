@@ -39,7 +39,6 @@ public class Crope_Bar {
 			you_can_build = true;
 		} else {
       // com.jogamp.newt.opengl.GLWindow glw = (com.jogamp.newt.opengl.GLWindow)app.getSurface().getNative();
-			// println(glw);
 			printErr("Use class Crope_Bar with",get_renderer(),"is not possible. change your renderer to JAVA2D");
 		}
 

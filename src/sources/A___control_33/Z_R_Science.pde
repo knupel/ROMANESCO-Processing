@@ -1,6 +1,6 @@
 /**
 * ROPE SCIENCE
-* v 0.7.5
+* v 0.7.6
 * Copyleft (c) 2014-2019 
 * @author @stanlepunk
 * @see https://github.com/StanLepunK/Rope_framework
@@ -124,15 +124,33 @@ public double g_force(double dist, double m_1, double m_2) {
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /**
-Math rope 
-v 1.8.17
+* Math rope 
+* v 1.8.18
 * @author Stan le Punk
 * @see https://github.com/StanLepunK/Math_rope
 */
-/**
-Algebra utils
-*/
+
 //roots dimensions n
 float roots(float valueToRoots, int n) {
   return pow(valueToRoots, 1.0/n) ;
@@ -147,8 +165,8 @@ float decimale(float var, int n) {
 
 
 /**
-geometry util
-v. 0.0.7
+* geometry util
+* v. 0.0.7
 */
 float perimeter_disc(int r) {
   return 2 *r *PI ;
@@ -213,8 +231,8 @@ float latitude(float y, float range) {
 }
 
 /**
-angle
-v 0.0.2
+* angle
+* v 0.0.2
 * @return float
 */
 float angle_radians(float y, float range) {
@@ -261,9 +279,9 @@ vec3 to_polar(vec3 cart) {
 
 
 // Cartesian 3D
-/*
-@ return vec3
-return the position of point on Sphere, with longitude and latitude
+/**
+// @ return vec3
+// return the position of point on Sphere, with longitude and latitude
 */
 //If you want just the final pos
 vec3 to_cartesian_3D(vec2 pos, vec2 range, float sizeField)  {
@@ -317,22 +335,22 @@ vec3 to_cartesian_3D(float longitude, float latitude, float radius) {
 
 
 // To cartesian 2D
-vec2 to_cartesian_2D (float pos, vec2 range, vec2 target_rad, float distance) {
+vec2 to_cartesian_2D(float pos, vec2 range, vec2 target_rad, float distance) {
   float rotation_plan = map(pos, range.x, range.y, target_rad.x, target_rad.y)  ;
-  return to_cartesian_2D (rotation_plan, distance) ;
+  return to_cartesian_2D(rotation_plan, distance);
 }
 
 
-vec2 to_cartesian_2D (float angle, float radius) {
+vec2 to_cartesian_2D(float angle, float radius) {
   return to_cartesian_2D(angle).mult(radius);
 }
 
 
 // main method
-vec2 to_cartesian_2D (float angle) {
+vec2 to_cartesian_2D(float angle) {
   float x = cos(angle);
   float y = sin(angle);
-  return vec2(x,y) ;
+  return vec2(x,y);
 }
 
 
@@ -342,7 +360,7 @@ vec2 to_cartesian_2D (float angle) {
 
 
 /**
-Projection
+// Projection
 */
 // Cartesian projection 2D
 vec2 projection(vec2 direction) {
@@ -353,9 +371,7 @@ vec2 projection(vec2 direction, float radius) {
   return projection(direction, vec2(), radius) ;
 }
 vec2 projection(vec2 direction, vec2 origin, float radius) {
-  // vec3 p = point_to_project.normalize(origin) ;
-  vec2 ref = direction.copy() ;
-  vec2 p = ref.dir(origin) ;
+  vec2 p = direction.copy().dir(origin) ;
   p.mult(radius) ;
   p.add(origin) ;
   return p ;
@@ -422,7 +438,7 @@ SPHERE PROJECTION
 /**
 FIBONACCI SPHERE PROJECTION CARTESIAN
 */
-vec3 [] list_cartesian_fibonacci_sphere (int num, float step, float root) {
+vec3 [] list_cartesian_fibonacci_sphere(int num, float step, float root) {
   float root_sphere = root *num ;
   vec3 [] list_points = new vec3[num] ;
   for (int i = 0; i < list_points.length ; i++) list_points[i] = distribution_cartesian_fibonacci_sphere(i, num, step, root_sphere) ;
@@ -484,15 +500,15 @@ PVector normal_direction(int direction) {
 }
 
 // degre direction from PVector direction
-float deg360 (PVector dir) {
+float deg360(PVector dir) {
   float deg360 ;
-  deg360 = 360 -(degrees(atan2(dir.x, dir.y)) +180)   ;
+  deg360 = 360 -(degrees(atan2(dir.x, dir.y)) +180);
   return deg360 ;
 }
 
-float deg360 (vec2 dir) {
+float deg360(vec2 dir) {
   float deg360 ;
-  deg360 = 360 -(degrees(atan2(dir.x, dir.y)) +180)   ;
+  deg360 = 360 -(degrees(atan2(dir.x, dir.y)) +180);
   return deg360 ;
 }
 
@@ -500,20 +516,23 @@ float deg360 (vec2 dir) {
 ROTATION
 */
 //Rotation Objet
-void rotation (float angle, float posX, float posY) {
-  translate(posX, posY ) ;
-  rotate (radians(angle) ) ;
-}
-void rotation (float angle, vec2 pos) {
-  translate(pos.x, pos.y) ;
-  rotate (radians(angle) ) ;
+void rotation(float angle, float pos_x, float pos_y) {
+  translate(pos_x,pos_y);
+  rotate (radians(angle));
 }
 
-vec2 rotation (vec2 ref, vec2 lattice, float angle) {
-  float a = angle(lattice, ref) + angle;
+void rotation(float angle, vec2 pos) {
+  translate(pos.x,pos.y);
+  rotate(radians(angle));
+}
+
+
+
+vec2 rotation(vec2 ref, vec2 lattice, float angle) {
+  float a = angle(lattice, ref) +angle;
   float d = lattice.dist(ref);
-  float x = lattice.x + cos( a ) * d;
-  float y = lattice.y + sin( a ) * d;
+  float x = lattice.x +cos(a) *d;
+  float y = lattice.y +sin(a) *d;
   return vec2(x,y);
 }
 
@@ -521,10 +540,10 @@ vec2 rotation (vec2 ref, vec2 lattice, float angle) {
 May be must push to deprecated
 */
 vec2 rotation_lattice(vec2 ref, vec2 lattice, float angle) {
-  float a = angle( lattice, ref ) + angle;
-  float d = dist( lattice, ref );
-  float x = lattice.x + cos( a ) * d;
-  float y = lattice.y + sin( a ) * d;
+  float a = angle( lattice, ref) +angle;
+  float d = dist( lattice, ref);
+  float x = lattice.x +cos(a) *d;
+  float y = lattice.y +sin(a) *d;
   return vec2(x,y);
 }
 

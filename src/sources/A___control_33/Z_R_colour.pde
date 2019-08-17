@@ -1,6 +1,6 @@
 /**
 * Rope COLOUR
-*v 0.10.7
+*v 0.10.8
 * Copyleft (c) 2016-2019 
 * Stan le Punk > http://stanlepunk.xyz/
 * Processing 3.5.3
@@ -16,22 +16,29 @@
 
 
 
-
-R_Colour colour_rope;
-void colour(int... list_colour) {
-  if(colour_rope == null) {
-    colour_rope = new R_Colour(this,list_colour);
+/**
+* palette
+* v 0.0.2
+*/
+R_Colour palette_colour_rope;
+void palette(int... list_colour) {
+  if(palette_colour_rope == null) {
+    palette_colour_rope = new R_Colour(this,list_colour);
   } else {
-    colour_rope.clear();
-    colour_rope.add(0,list_colour);
+    palette_colour_rope.clear();
+    palette_colour_rope.add(0,list_colour);
   }
 }
 
-int [] get_colour() {
-  if(colour_rope != null) {
-    return colour_rope.get();
+int [] get_palette() {
+  if(palette_colour_rope != null) {
+    return palette_colour_rope.get();
   } else return null;
 }
+
+
+
+
 
 /**
 * COLOUR LIST class
@@ -1033,15 +1040,3 @@ int color_context(int color_ref, int threshold, int clear, int dark) {
   }
   return new_color ;
 }
-
-
-
-
-
-
-
-
-
-
-
-
