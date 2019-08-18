@@ -488,7 +488,7 @@ public class Crope {
 
 /**
 * Molette
-* v 0.1.0
+* v 0.1.1
 * 2019-2019
 */
 public class Molette {
@@ -710,7 +710,11 @@ public class Molette {
   public void show() {
     aspect(true);
     push();
-    translate(add(offset,pos));
+    if(offset != null ) {
+      translate(add(offset,pos));
+    } else {
+      translate(pos);
+    }
     if(shape_type == ELLIPSE) {
       ellipse(vec2(),size);
     } else if(shape_type == RECT) {

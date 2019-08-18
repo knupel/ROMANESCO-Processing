@@ -847,8 +847,8 @@ public class Slider extends Crope {
 
 /**
 SLOTCH > notch's slider
-v 0.2.2
-2018-2018
+v 0.2.3
+2018-2019
 */
 public class Slotch extends Slider {
   protected float [] notches_pos ;
@@ -909,8 +909,8 @@ public class Slotch extends Slider {
       }
     }
 
-    value = round(value*(float)notches_num);
-    return value -1;
+    value = round(value*(float)notches_num) -1;
+    return value;
   }
 
   public float [] get() {
@@ -931,16 +931,18 @@ public class Slotch extends Slider {
   public void update(float x, float y) {
     cursor(x,y);
     molette_update();
-    if (size.x >= size.y) { 
+    if (size.x() >= size.y()) { 
       if(notch_is) {
         for(int i = 0 ; i < molette.length ; i++) {
           molette[i].pos.x = floor(pos_notch(size.x, molette[i].pos.x));
+          molette[i].set(molette[i].pos.x());
         }    
       }
     } else { 
       if(notch_is) {
         for(int i = 0 ; i < molette.length ; i++) {
           molette[i].pos.y = (int)pos_notch(size.y, molette[i].pos.y);
+          molette[i].set(molette[i].pos.y());
         }
       }
     }
