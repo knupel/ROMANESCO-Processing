@@ -298,7 +298,7 @@ void select_layer(int target) {
 
 /**
 PImage manager library
-v 0.7.1
+v 0.7.2
 */
 public class R_Image_Manager {
   ArrayList<R_Image> library ;
@@ -315,14 +315,16 @@ public class R_Image_Manager {
   public void load(String... path_img) {
     build();
     for(int i = 0 ; i <path_img.length ; i++) {
-      R_Image rop_img = new R_Image(path_img[i]);
+      String [] temp = path_img[i].split("/");
+      PImage img = loadImage(path_img[i]);
+      R_Image rop_img = new R_Image(img,temp[temp.length-1],i);
       library.add(rop_img);
     }  
   }
 
   public void add(PImage img_src) {
     build();
-    R_Image rop_img = new R_Image(img_src);
+    R_Image rop_img = new R_Image(img_src, "unknow" ,library.size());
     library.add(rop_img);
   }
 
@@ -486,7 +488,7 @@ public class R_Image {
   private int id = -1;
 
   public R_Image(String path) {
-    this.name = path.split("/")[path.split("/").length -1].split("\\.")[0] ;
+    this.name = path.split("/")[path.split("/").length -1].split("\\.")[0];
     this.img = loadImage(path);
   }
 

@@ -84,6 +84,8 @@ class Photomontage extends Romanesco {
   vec2 [] cloud_mask;
   int [] fill_choses;
   R_Chose [] choses;
+  PImage img_mask ;
+  PGraphics mask;
 
   void setup() {
     // give the starting position of your item on the 3D grid
@@ -129,6 +131,18 @@ class Photomontage extends Romanesco {
 
   void draw_2D() {
     // here if you want code in 2D mode
+    int mode_mask = 0; // BW: 0 / RGB: 1
+    boolean clear_mask_is = true;
+    render_mask(mask, mode_mask, clear_mask_is);
+
+    boolean on_g = false;
+    boolean filter_is = true;
+    int step_speparation = 10;
+    vec2 threshold = vec2(0,1);
+    vec4 level_layer = vec4(1);
+    int fx_mode_mask = 0;
+    PImage buffer = fx_mask(img_mask,mask,on_g,filter_is,fx_mode_mask,step_speparation,threshold,level_layer);
+    set_background(buffer,CENTER);
 
   }
 
