@@ -1,12 +1,12 @@
 /**
-ROPE PROCESSING METHOD
-v 2.7.6
+* ROPE PROCESSING METHOD
+* v 2.7.7
 * Copyleft (c) 2014-2019
 * Stan le Punk > http://stanlepunk.xyz/
 * @author @stanlepunk
 * @see https://github.com/StanLepunK/Rope_framework
 * Processing 3.5.3.269
-* Rope library 0.8.1.26
+* Rope library 0.8.5.30
 */
 import rope.core.R_Image;
 import rope.costume.R_Shape;
@@ -701,6 +701,8 @@ void vertex(float x, float y, PGraphics other) {
     vertex(x,y);
   }
 }
+
+
 
 void vertex(float x, float y, float z, PGraphics other) {
   if(other != null) {
@@ -1644,9 +1646,9 @@ void pop(PGraphics other) {
 
 
 /**
-GHOST METHODS for PROCESSING
-2018-2018
-v 0.2.2
+* GHOST METHODS for PROCESSING
+* 2018-2019
+* v 0.2.3
 */
 boolean get_layer_is_correct() {
   if(get_layer() != null && get_layer().width > 0 && get_layer().height > 0) {
@@ -2227,9 +2229,17 @@ void vertex(float x, float y) {
 
 void vertex(float x, float y, float z) {
   if(get_layer_is_correct()) {
-    get_layer().vertex(x,y,z);
+    if(renderer_P3D()) { 
+      get_layer().vertex(x,y,z);
+    } else {
+      get_layer().vertex(x,y);
+    }
   } else {
-    g.vertex(x,y,z);
+    if(renderer_P3D()) {
+      g.vertex(x,y,z);
+    } else {
+      g.vertex(x,y);
+    }
   }
 }
 
@@ -2252,9 +2262,17 @@ void vertex(float x, float y, float u, float v) {
 
 void vertex(float x, float y, float z, float u, float v) {
   if(get_layer_is_correct()) {
-    get_layer().vertex(x,y,z,u,v);
+    if(renderer_P3D()) { 
+      get_layer().vertex(x,y,z,u,v);
+    } else {
+      get_layer().vertex(x,y,u,v);
+    }
   } else {
-    g.vertex(x,y,z,u,v);
+    if(renderer_P3D()) { 
+      g.vertex(x,y,z,u,v);
+    } else {
+      g.vertex(x,y,u,v);
+    }
   }
 }  
 
@@ -2270,9 +2288,17 @@ void quadraticVertex(float cx, float cy, float x3, float y3) {
 
 void quadraticVertex(float cx, float cy, float cz, float x3, float y3, float z3) {
   if(get_layer_is_correct()) {
-    get_layer().quadraticVertex(cx,cy,cz,x3,y3,z3);
+    if(renderer_P3D()) {
+      get_layer().quadraticVertex(cx,cy,cz,x3,y3,z3);
+    } else {
+      get_layer().quadraticVertex(cx,cy,x3,y3);
+    }
   } else {
-    g.quadraticVertex(cx,cy,cz,x3,y3,z3);
+    if(renderer_P3D()) {
+      g.quadraticVertex(cx,cy,cz,x3,y3,z3);
+    } else {
+      g.quadraticVertex(cx,cy,x3,y3);
+    }
   }
 }
 
@@ -2287,9 +2313,17 @@ void curveVertex(float x, float y) {
 
 void curveVertex(float x, float y, float z) {
   if(get_layer_is_correct()) {
-    get_layer().curveVertex(x,y,z);
+    if(renderer_P3D()) {
+      get_layer().curveVertex(x,y,z);
+    } else {
+      get_layer().curveVertex(x,y);
+    }
   } else {
-    g.curveVertex(x,y,z);
+    if(renderer_P3D()) {
+      g.curveVertex(x,y,z);
+    } else {
+      g.curveVertex(x,y);
+    }
   }
 }
 
@@ -2306,9 +2340,17 @@ void bezierVertex(float x2, float y2, float x3, float y3, float x4, float y4) {
 
 void bezierVertex(float x2, float y2, float z2, float x3, float y3, float z3, float x4, float y4, float z4) {
   if(get_layer_is_correct()) {
-    get_layer().bezierVertex(x2,y2,z2,x3,y3,z3,x4,y4,z4);
+    if(renderer_P3D()) {
+      get_layer().bezierVertex(x2,y2,z2, x3,y3,z3, x4,y4,z4);
+    } else {
+      get_layer().bezierVertex(x2,y2, x3,y3 ,x4,y4 );
+    }
   } else {
-    g.bezierVertex(x2,y2,z2,x3,y3,z3,x4,y4,z4);
+    if(renderer_P3D()) {
+      g.bezierVertex(x2,y2,z2, x3,y3,z3, x4,y4,z4);
+    } else {
+      g.bezierVertex(x2,y2, x3,y3, x4,y4);
+    }
   }
 }
 
@@ -2323,9 +2365,17 @@ void bezier(float x1, float y1, float x2, float y2, float x3, float y3, float x4
 
 void bezier(float x1, float y1, float z1, float x2, float y2, float z2, float x3, float y3, float z3, float x4, float y4, float z4) {
   if(get_layer_is_correct()) {
-    get_layer().bezier(x1,y1,z1,x2,y2,z2,x3,y3,z3,x4,y4,z4);
+    if(renderer_P3D()) {
+      get_layer().bezier(x1,y1,z1, x2,y2,z2, x3,y3,z3, x4,y4,z4);
+    } else {
+      get_layer().bezier(x1,y1, x2,y2, x3,y3, x4,y4);
+    }
   } else {
-    g.bezier(x1,y1,z1,x2,y2,z2,x3,y3,z3,x4,y4,z4);
+    if(renderer_P3D()) {
+      g.bezier(x1,y1,z1, x2,y2,z2, x3,y3,z3, x4,y4,z4);
+    } else {
+      g.bezier(x1,y1, x2,y2 ,x3,y3 ,x4,y4);
+    }
   }
 }
 
@@ -2350,9 +2400,17 @@ void curve(float x1, float y1, float x2, float y2, float x3, float y3, float x4,
 
 void curve(float x1, float y1, float z1, float x2, float y2, float z2, float x3, float y3, float z3, float x4, float y4, float z4) {
   if(get_layer_is_correct()) {
-    get_layer().curve(x1,y1,z1,x2,y2,z2,x3,y3,z3,x4,y4,z4);
+    if(renderer_P3D()) {
+      get_layer().curve(x1,y1,z1, x2,y2,z2, x3,y3,z3, x4,y4,z4);
+    } else {
+      get_layer().curve(x1,y1, x2,y2, x3,y3, x4,y4);
+    }
   } else {
-    g.curve(x1,y1,z1,x2,y2,z2,x3,y3,z3,x4,y4,z4);
+    if(renderer_P3D()) {
+      g.curve(x1,y1,z1, x2,y2,z2, x3,y3,z3, x4,y4,z4);
+    } else {
+      g.curve(x1,y1, x2,y2, x3,y3, x4,y4);
+    }
   }
 }
 
@@ -2401,7 +2459,6 @@ void noLights() {
   }
 }
 
-// ambient light
 void ambientLight(float v1, float v2, float v3) {
   if(get_layer_is_correct()) {
     get_layer().ambientLight(v1,v2,v3);
@@ -2420,7 +2477,6 @@ void ambientLight(float v1, float v2, float v3, float x, float y, float z) {
 }
 
 
-//directionalLight(v1, v2, v3, nx, ny, nz)
 void directionalLight(float v1, float v2, float v3, float nx, float ny, float nz) {
   if(get_layer_is_correct()) {
     get_layer().directionalLight(v1,v2,v3,nx,ny,nz);
@@ -2430,8 +2486,6 @@ void directionalLight(float v1, float v2, float v3, float nx, float ny, float nz
 }
 
 
-
-// lightFalloff(constant, linear, quadratic)
 void lightFalloff(float constant, float linear, float quadratic) {
   if(get_layer_is_correct()) {
     get_layer().lightFalloff(constant,linear,quadratic);
@@ -2441,8 +2495,6 @@ void lightFalloff(float constant, float linear, float quadratic) {
 }
 
 
-// lightSpecular(v1, v2, v3) 
-
 void lightSpecular(float v1, float v2, float v3) {
   if(get_layer_is_correct()) {
     get_layer().lightSpecular(v1,v2,v3);
@@ -2451,7 +2503,6 @@ void lightSpecular(float v1, float v2, float v3) {
   }
 }
 
-// normal(nx, ny, nz)
 void normal(float nx, float ny, float nz) {
   if(get_layer_is_correct()) {
     get_layer().normal(nx,ny,nz);
@@ -2460,8 +2511,6 @@ void normal(float nx, float ny, float nz) {
   }
 }
 
-
-
 void pointLight(float v1, float v2, float v3, float x, float y, float z) {
   if(get_layer_is_correct()) {
     get_layer().pointLight(v1,v2,v3,x,y,z);
@@ -2469,7 +2518,6 @@ void pointLight(float v1, float v2, float v3, float x, float y, float z) {
     g.pointLight(v1,v2,v3,x,y,z);
   }
 }
-
 
 void spotLight(float v1, float v2, float v3, float x, float y, float z, float nx, float ny, float nz, float angle, float concentration) {
   if(get_layer_is_correct()) {

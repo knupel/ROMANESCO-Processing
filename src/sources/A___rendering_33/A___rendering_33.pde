@@ -3,8 +3,6 @@ ROMANESCO
 romanesco dui rendering
 2013–2019
 release 33
-Processing 3.5.3.269
-Rope Lib 0.8.1.26
 */
 
 /**
@@ -17,6 +15,7 @@ Rope Lib 0.8.1.26
 2015 may 15_000 lines of code
 2016 may 27_500 lines of code
 2017 March 40_000 lines of code
+2019 August 65_000 lines of code
 */
 
 
@@ -155,6 +154,7 @@ LIVE must change from the launcher, the info must be write in the external loadi
 
 void settings() {
   size(1100,650,P3D); // DEV MODE PARAM
+  rope_version();
   
   // EXPORTING PARAM 
   // size(124,124,P3D);
