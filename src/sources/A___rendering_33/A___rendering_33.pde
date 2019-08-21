@@ -182,7 +182,7 @@ void setup() {
   path_setting();
   // shader_folder_filter(preference_path+"shader/filter/");
   load_save(preference_path+"setting/defaultSetting.csv");
-  media_init_path();
+  media_init_collection();
   version();
   set_system_specification();
   OSC_setup();

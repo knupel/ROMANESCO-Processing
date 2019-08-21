@@ -2,9 +2,7 @@
 * Core Romanesco
 * common code for CONTROLLER and RENDERER
 * 2018-2019
-* v 0.5.3
-* Processing 3.5.3
-* Rope library 0.6.2
+* v 0.6.0
 */
 int NUM_COL_SLIDER = 4;
 int NUM_SLIDER_ITEM_BY_COL = 16;
@@ -294,7 +292,7 @@ class ROFont {
 /**
 MEDIA
 2014-2019
-v 0.1.6
+v 0.2.0
 */
 ArrayList<File> text_files = new ArrayList<File>();
 ArrayList<File> bitmap_files = new ArrayList<File>();
@@ -303,12 +301,27 @@ ArrayList<File> movie_files = new ArrayList<File>();
 ArrayList<File> media_files = new ArrayList<File>();
 
 
+String [] extension_text = {"txt","md"};
+String [] extension_movie = {"mov","avi","mp4","mpg","mpeg","mkv"};
+String [] extension_bitmap = {"jpeg","jpg","tif","tiff","tga","gif","png"};
+
+
 
 
 String ref_path;
 void add_media(String path) {
   if(path != null && !path.equals(ref_path)) {
     ref_path = path;
+    if(extension_is(path,extension_movie)) {
+      add_input(movie_files,path);
+    } else if(extension_is(path,extension_bitmap)) {
+      add_input(bitmap_files,path);
+    } else if(extension_is(path,extension_text)) {
+      add_input(text_files,path);
+    } else if(extension_is(path,"svg")) {
+      add_input(svg_files,path);
+    }
+    /*
     if(ext(path,"mov") || ext(path,"avi") || ext(path,"mp4") || ext(path,"mpg")|| ext(path,"mkv")) {
       add_input(movie_files,path);
     } else if(ext(path,"jpeg") || ext(path,"jpg") || ext(path,"tif") || ext(path,"tiff") || ext(path,"tga") || ext(path,"gif") || ext(path,"png")) {
@@ -318,13 +331,15 @@ void add_media(String path) {
     } else if(ext(path,"svg")) {
       add_input(svg_files,path);
     }
+    */
   }
 }
 
-
+/*
 boolean ext(String path, String extension) {
   return extension(path.toLowerCase()).equals(extension.toLowerCase());
 }
+*/
 
 
 /**

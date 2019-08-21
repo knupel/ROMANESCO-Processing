@@ -1,19 +1,20 @@
 /*
-MANAGE MEDIA
-v 1.0.2
+* MANAGE MEDIA
+* v 1.1.0
+* 2016-2019
 */
-void media_init_path() {
-  update_movie_path();
-  update_svg_path();
-  update_text_path();
-  update_bitmap_path();
+void media_init_collection() {
+  update_movie_collection();
+  update_svg_collection();
+  update_text_collection();
+  update_bitmap_collection();
 }
 void media_update(int frequence) {
   if(frameCount%frequence == 0) {
-    update_movie_path();
-    update_svg_path();
-    update_text_path();
-    update_bitmap_path();
+    update_movie_collection();
+    update_svg_collection();
+    update_text_collection();
+    update_bitmap_collection();
     thread("load_autosave");
   }
 }
@@ -38,7 +39,7 @@ void load_svg(int id) {
   }
 }
 
-void update_svg_path() {
+void update_svg_collection() {
   svg_path = new String[svg_files.size()];
   for (int i = 0; i < svg_files.size(); i++) {
     File f = (File) svg_files.get(i);
@@ -81,7 +82,7 @@ void load_txt(int id) {
 }
 
 
-void update_text_path() {
+void update_text_collection() {
   text_path = new String[text_files.size()] ;
   for (int i = 0; i < text_files.size(); i++) {
     File f = (File) text_files.get(i);
@@ -110,9 +111,10 @@ void change_text_from_pad(int ID) {
 
 
 /**
-bitmap
+* bitmap
 */
-PImage[] bitmap ;
+R_Image_Manager r_img_collection;
+PImage[] bitmap;
 String [] bitmap_path ;
 void load_bitmap(int id) {
   if(which_bitmap[id] > bitmap_path.length) {
@@ -127,14 +129,34 @@ void load_bitmap(int id) {
   }
 }
 
-void update_bitmap_path() {
-  bitmap_path = new String[bitmap_files.size()] ;
+void update_bitmap_collection() {
+  // manage img path
+  bitmap_path = new String[bitmap_files.size()];
+  int count_existing_file = 0;
   for (int i = 0; i < bitmap_files.size(); i++) {
     File f = (File) bitmap_files.get(i);
     if(f.exists()) {
       bitmap_path[i] = f.getAbsolutePath();
+      count_existing_file++;
     }   
   }
+  // update collection
+  if(r_img_collection == null) {
+    r_img_collection = new R_Image_Manager();
+  }
+
+  if(r_img_collection.size() != count_existing_file) {
+    r_img_collection.clear();
+    for(int i = 0 ; i < bitmap_path.length; i++) {
+      if(bitmap_path[i] != null && extension_is(bitmap_path[i],extension_bitmap)) {
+        r_img_collection.load(bitmap_path[i]);
+      }
+    }
+  }
+}
+
+R_Image_Manager get_bitmap_collection() {
+  return r_img_collection;
 }
 
 
@@ -227,7 +249,7 @@ boolean check_for_new_movie() {
 }
 
 
-void update_movie_path() {
+void update_movie_collection() {
   if(movie_path == null || movie_path.length != movie_files.size()) {
     movie_path = new String[movie_files.size()] ;
   }
@@ -245,7 +267,8 @@ void setting_movie(int id, String path) {
   if(movie[id] != null) {
     movie[id].stop();
   }
-  if(ext(path,"mov") || ext(path,"MOV") || ext(path,"avi") || ext(path,"AVI") || ext(path,"mp4") || ext(path,"MP4") || ext(path,"mkv") || ext(path,"MKV")) {
+  if(extension_is(path,extension_movie)){
+  // if(ext(path,"mov") || ext(path,"MOV") || ext(path,"avi") || ext(path,"AVI") || ext(path,"mp4") || ext(path,"MP4") || ext(path,"mkv") || ext(path,"MKV")) {
     println(path);
     movie[id] = new Movie(this,path);
     movie[id].loop();

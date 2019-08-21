@@ -84,7 +84,7 @@ class Photomontage extends Romanesco {
   vec2 [] cloud_mask;
   int [] fill_choses;
   R_Chose [] choses;
-  PImage img_mask ;
+  PImage buffer;
   PGraphics mask;
 
   void setup() {
@@ -105,27 +105,6 @@ class Photomontage extends Romanesco {
   
   //DRAW
   void draw() {
-    // here if you want code in 3D mode
-    info("info about the item","more","more");
-    aspect_is(fill_is(),stroke_is(),alpha_is());
-    aspect(get_fill(),get_stroke(),get_thickness().value());
-    set_ratio_costume_size(map(get_area().value(),get_area().min(),get_area().max(),0,1));
-
-    costume(vec3(),get_size(),get_costume());
-    println("costume",get_costume().get_name());
-
-    println("mode",get_mode_name(),get_mode_id());
-
-    println("slider vec",get_size());
-    println("slider value from min to max",get_size_x().value()); // sometime 0 to 1 or 0 to width or 0 to TAU
-    println("slider value min",get_size_x().min());
-    println("slider value max",get_size_x().max());
-
-    println("slider raw from 0 to 360",get_size_x().raw());
-    println("slider raw min",get_size_x().min_raw());
-    println("slider rawmax",get_size_x().max_raw());
-
-    println("slider normal from 0 to 1",get_size_x().normal());
 
   }
 
@@ -133,6 +112,9 @@ class Photomontage extends Romanesco {
     // here if you want code in 2D mode
     int mode_mask = 0; // BW: 0 / RGB: 1
     boolean clear_mask_is = true;
+    if(mask == null) {
+      mask = createGraphics(width,height,get_renderer());
+    }
     render_mask(mask, mode_mask, clear_mask_is);
 
     boolean on_g = false;
@@ -141,9 +123,18 @@ class Photomontage extends Romanesco {
     vec2 threshold = vec2(0,1);
     vec4 level_layer = vec4(1);
     int fx_mode_mask = 0;
-    PImage buffer = fx_mask(img_mask,mask,on_g,filter_is,fx_mode_mask,step_speparation,threshold,level_layer);
-    set_background(buffer,CENTER);
+    //println(mask.width,mask.height,img_mask.width,img_mask.height);
+    if(get_bitmap_collection().size() > 0 && mask != null) {
+      buffer = get_bitmap_collection().rand().get_image();
+      // println("buffer",buffer);
+      // println("buffer dimension",buffer.width,buffer.height);
+      // println("mask",mask);
+      // println("mask dimension",mask.width,mask.height);
+      // buffer = fx_mask(buffer,mask,on_g,filter_is,fx_mode_mask,step_speparation,threshold,level_layer);
 
+      set_background(buffer,SCREEN);
+      //set_background(mask,SCREEN);
+    }
   }
 
 
@@ -153,7 +144,7 @@ class Photomontage extends Romanesco {
     cloud_mask = new vec2[num];
     int marge = 50;
     for(int i = 0 ; i < cloud_mask.length ; i++) {
-        cloud_mask[i] = vec2().rand(vec2(-marge,width+marge),vec2(-marge,height+marge));
+      cloud_mask[i] = vec2().rand(vec2(-marge,width+marge),vec2(-marge,height+marge));
     }
   }
 
@@ -173,27 +164,29 @@ class Photomontage extends Romanesco {
   }
 
   void render_mask(PGraphics pg_buffer, int mode, boolean clear_is) {
-    beginDraw(pg_buffer);
-    if(pg_buffer != null && clear_is) {
-      clear(pg_buffer);
-    }
-    
-    for (int i = 0 ; i < cloud_mask.length ; i++) {
-      if (mode == 0) {
-        fill(brightness(fill_choses[i]),pg_buffer);
-        noStroke(pg_buffer);
-        mask_chose(i,pg_buffer);
-      } else if(mode == 1) {
-        fill(r.WHITE,pg_buffer);
-        noStroke(pg_buffer);
-        mask_chose(i,pg_buffer);
-      } else if(mode == 2) {
-        fill(fill_choses[i],pg_buffer);
-        noStroke(pg_buffer);
-        mask_chose(i,pg_buffer);
-      } 
-    }
-    endDraw(pg_buffer);
+    if(pg_buffer != null) {
+      beginDraw(pg_buffer);
+      if(pg_buffer != null && clear_is) {
+        clear(pg_buffer);
+      }
+      
+      for (int i = 0 ; i < cloud_mask.length ; i++) {
+        if (mode == 0) {
+          fill(brightness(fill_choses[i]),pg_buffer);
+          noStroke(pg_buffer);
+          mask_chose(i,pg_buffer);
+        } else if(mode == 1) {
+          fill(r.WHITE,pg_buffer);
+          noStroke(pg_buffer);
+          mask_chose(i,pg_buffer);
+        } else if(mode == 2) {
+          fill(fill_choses[i],pg_buffer);
+          noStroke(pg_buffer);
+          mask_chose(i,pg_buffer);
+        } 
+      }
+      endDraw(pg_buffer);
+    } 
   }
 
   void mask_chose(int target, PGraphics pg_buffer) {

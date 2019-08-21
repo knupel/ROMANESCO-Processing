@@ -92,6 +92,9 @@ Movie get_movie()
 
 PImage get_bitmap();
 >return the current item image
+
+R_Image_Manager get_bitmap_collection();
+>return R_Image_Manager, give acces to R_Image class. From R_Image you can acces to PImage by using method get_image()
   
 String get_text()
 >return the current item text
