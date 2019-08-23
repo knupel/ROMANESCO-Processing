@@ -128,7 +128,8 @@ class Photomontage extends Romanesco {
       rand_image_buffer_id();
       // mask
       int min_shape = 3;
-      int max_shape = floor(min_shape + (get_quantity().value()*get_quantity().value()*get_quantity().value())*3000);
+      float norm_q = get_quantity().value() *get_quantity().value() *get_quantity().value();
+      int max_shape = floor(min_shape + (norm_q*3000));
       ivec2 num_range_shape = ivec2(min_shape,max_shape);
       create_cloud(num_range_shape);
 
@@ -146,7 +147,7 @@ class Photomontage extends Romanesco {
       // ivec2 range_alpha = ivec2(0,(int)g.colorModeA);
       //ivec2 range_alpha = ivec2(0,(int)g.colorModeX);
       //ivec2 range_alpha = ivec2(int(g.colorModeX/3),(int)g.colorModeX);
-      int master_colour = r.ORANGE;
+      int master_colour = get_fill();
       float spectrum = get_spectrum().value();
       println("spectrum", get_spectrum().value());
       create_mask(cloud_mask.length,range_branches,range_radius,master_colour,spectrum);
