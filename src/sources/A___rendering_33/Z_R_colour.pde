@@ -1,6 +1,6 @@
 /**
 * Rope COLOUR
-*v 0.10.8
+*v 0.10.10
 * Copyleft (c) 2016-2019 
 * Stan le Punk > http://stanlepunk.xyz/
 * Processing 3.5.3
@@ -697,23 +697,22 @@ void plot(int x, int y, int colour, float alpha, PGraphics pg) {
 
 /**
 * simple color pool
-* v 0.1.0
+* v 0.1.1
 */
 int [] hue_palette(int master_colour, int num_group, int num_colour, float spectrum) {
   if(num_group > num_colour) num_group = num_colour;
   float div = 1.0 / num_group;
-  int hue_range = int(spectrum*div); 
-  int hue_key = (int)hue(master_colour);
+  float hue_range = spectrum*div; 
+  float hue_key = hue(master_colour);
   vec2 range_sat = vec2(saturation(master_colour));
   vec2 range_bri = vec2(brightness(master_colour));
-  vec2 range_alp = vec2(100);
+  vec2 range_alp = vec2(100.0);
   return color_pool(num_group, num_colour, hue_key,hue_range, range_sat,range_bri,range_alp);
-  //return new R_Colour(this,list_temp);
 }
 
 /**
 color pool 
-v 0.5.0
+v 0.5.1
 */
 int [] color_pool(int num) {
   float hue_range = -1;
@@ -777,6 +776,14 @@ int [] color_pool(int num_group, int num, float key_hue, float hue_range, vec2 s
   float y = g.colorModeY;
   float z = g.colorModeZ;
   float a = g.colorModeA;
+  float ratio_h = 360.0 / g.colorModeX;
+  float ratio_s = 100.0 / g.colorModeY;
+  float ratio_b = 100.0 / g.colorModeZ;
+  float ratio_a = 100.0 / g.colorModeA;
+  hue_range *= ratio_h;
+  sat_range.mult(ratio_s);
+  bright_range.mult(ratio_b);
+  alpha_range.mult(ratio_a);
   colorMode(HSB,360,100,100,100);
   
   // create range if necessary

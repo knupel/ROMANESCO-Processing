@@ -18,16 +18,7 @@ void build_bar() {
   controler_bar.show();
 }
 
-void what_happen_in_menu(String what, ActionEvent ae) {
-  println("here code your the behavior of", what);
-  if(what.equals("midi map")) {
-    select_midi_is = select_midi_is ? false:true;
-  }
 
-  if(what.equals("syphon")) {
-    syphon_is = syphon_is ? false:true;
-  }
-}
 
 
 

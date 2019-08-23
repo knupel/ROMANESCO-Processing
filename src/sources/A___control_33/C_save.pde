@@ -1,9 +1,18 @@
 /**
-SAVE
-v 2.1.0
+* SAVE
+* v 2.2.0
 */
+
+void save_as_controller_setting() {
+  File tempFileName = new File ("your_controller_setting.csv");
+  selectOutput("Save setting", "save_controller_output", tempFileName);
+}
+
+
+
+
 String savePathSetting = ("") ;
-void save_controller_setting(File selection) {
+void save_controller_output(File selection) {
   savePathSetting = selection.getAbsolutePath() ;
   if (selection != null) {
     save_controller_setting(savePathSetting);

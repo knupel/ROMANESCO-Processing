@@ -1,16 +1,16 @@
 /**
-Kino
-2018-2019
-v 0.3.1
+* Kino
+* 2018-2019
+* v 0.3.2
 */
 class Kino extends Romanesco {
 	public Kino() {
 		item_name = "Kino";
 		item_author  = "Stan le Punk";
-		item_version = "Version 0.3.1";
+		item_version = "Version 0.3.2";
 		item_pack = "Base 2018-2019";
 		item_costume = ""; // separate the differentes mode by "/"
-		item_mode = "Movie/Movie 3D/Diaporama/Diaporama 3D"; // separate the differentes mode by "/"
+		item_mode = "Movie center/Movie screen/Movie 3D/Diaporama center/Diaporama screen/Diaporama 3D"; // separate the differentes mode by "/"
 
 		hue_fill_is = true;
     sat_fill_is = true;
@@ -108,10 +108,14 @@ class Kino extends Romanesco {
   void draw_2D() {
     param();
     boolean background_is = true;
-    if(get_mode_name().toLowerCase().equals("movie")) {
+    if(get_mode_name().toLowerCase().equals("movie center")) {
       kino_movie(colour,CENTER,background_is,to_white);
-    } else if(get_mode_name().toLowerCase().equals("diaporama")) {
+    } else if(get_mode_name().toLowerCase().equals("movie center")) {
+      kino_movie(colour,SCREEN,background_is,to_white);
+    } else if(get_mode_name().toLowerCase().equals("diaporama center")) {
       kino_bitmap(colour,CENTER,background_is,to_white);
+    } else if(get_mode_name().toLowerCase().equals("diaporama screen")) {
+      kino_bitmap(colour,SCREEN,background_is,to_white);
     }
   }
 
@@ -154,7 +158,7 @@ class Kino extends Romanesco {
   
   // kino movie
   int ref_which_movie;
-	private void kino_movie(vec4 c, int what, boolean background_is, int mode_to_black_or_white) {
+	private void kino_movie(vec4 c, int mode, boolean background_is, int mode_to_black_or_white) {
 		if(ref_which_movie != which_movie() && ref_which_movie < movie_time.length) {
       movie_time[ref_which_movie] = get_movie().time();
 			load_movie(true,ID_item);
@@ -181,22 +185,22 @@ class Kino extends Romanesco {
 
       if(background_is) {
         // set_background(get_movie(),what);
-        set_background(fx_level(get_movie(),on_g,filter_is,mode_to_black_or_white,c.array()),what);
+        set_background(fx_level(get_movie(),on_g,filter_is,mode_to_black_or_white,c.array()),mode);
       } else {
-        image(fx_level(get_movie(),on_g,filter_is,mode_to_black_or_white,c.array()),what);
+        image(fx_level(get_movie(),on_g,filter_is,mode_to_black_or_white,c.array()),mode);
       }
     }
 	}
 
 
 	// kino movie
-	private void kino_bitmap(vec4 c, int what, boolean background_is, int mode_to_black_or_white) {
+	private void kino_bitmap(vec4 c, int mode, boolean background_is, int mode_to_black_or_white) {
 		load_bitmap(ID_item);
     if(get_bitmap() != null) {
       if(background_is) {
-        set_background(fx_level(get_bitmap(),on_g,filter_is,mode_to_black_or_white,c.array()),what);
+        set_background(fx_level(get_bitmap(),on_g,filter_is,mode_to_black_or_white,c.array()),mode);
       } else {
-        image(fx_level(get_bitmap(),on_g,filter_is,mode_to_black_or_white,c.array()),what);
+        image(fx_level(get_bitmap(),on_g,filter_is,mode_to_black_or_white,c.array()),mode);
       }
     }
 	}

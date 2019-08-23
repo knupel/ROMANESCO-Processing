@@ -1,6 +1,6 @@
 /**
 * Rope framework image
-* v 0.5.7
+* v 0.5.8
 * Copyleft (c) 2014-2019
 *
 * dependencies
@@ -298,7 +298,7 @@ void select_layer(int target) {
 
 /**
 PImage manager library
-v 0.7.2
+v 0.7.3
 */
 public class R_Image_Manager {
   ArrayList<R_Image> library ;
@@ -447,7 +447,7 @@ public class R_Image_Manager {
   
 
   public PImage get(int target){
-    if(library != null && target < library.size()) {
+    if(library != null && target >= 0 && target < library.size()) {
       return library.get(target).get_image();
     } else return null;
   }

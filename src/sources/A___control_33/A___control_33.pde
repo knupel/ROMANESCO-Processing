@@ -100,7 +100,7 @@ void setup() {
 }
 
 void draw() {
-  print_debug_tempo(240,"void draw(): sketch controller is",focused);
+  // print_debug_tempo(240,"void draw(): sketch controller is",focused);
 
   check_size_window();
   update_window_location();
