@@ -1,6 +1,6 @@
 /**
 * ROPE PROCESSING METHOD
-* v 2.7.7
+* v 2.7.9
 * Copyleft (c) 2014-2019
 * Stan le Punk > http://stanlepunk.xyz/
 * @author @stanlepunk
@@ -303,12 +303,47 @@ void set(int x, int y, int c, PGraphics other) {
 
 /** 
 * PGraphics Method
-* v 0.1.1
+* v 0.1.3
 */
+
+/**
+* colorMode
+*/
+public void colorMode(int mode,PGraphics other) {
+  if(other != null) {
+    other.colorMode(mode);
+  } else {
+    colorMode(mode);
+  }
+}
+
+public void colorMode(int mode, float max, PGraphics other) {
+  if(other != null) {
+    other.colorMode(mode,max);
+  } else {
+    colorMode(mode,max);
+  }
+}
+
+public void colorMode(int mode, float max1, float max2, float max3, PGraphics other) {
+  if(other != null) {
+    other.colorMode(mode,max1,max2,max3);
+  } else {
+    colorMode(mode,max1,max2,max3);
+  }
+}
+
+
+public void colorMode(int mode, float max1, float max2, float max3, float maxA, PGraphics other) {
+  if(other != null) {
+    other.colorMode(mode,max1,max2,max3,maxA);
+  } else {
+    colorMode(mode,max1,max2,max3,maxA);
+  }
+}
 /**
 * beginDraw and enDraw() is write here juste to keep a syntew cohesion withe PGraphics other system
 */
-
 void beginDraw(PGraphics other) {
   if(other != null) {
     other.beginDraw();

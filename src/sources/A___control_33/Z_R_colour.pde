@@ -1,6 +1,6 @@
 /**
 * Rope COLOUR
-*v 0.10.9
+*v 0.10.10
 * Copyleft (c) 2016-2019 
 * Stan le Punk > http://stanlepunk.xyz/
 * Processing 3.5.3
@@ -776,11 +776,7 @@ int [] color_pool(int num_group, int num, float key_hue, float hue_range, vec2 s
   float y = g.colorModeY;
   float z = g.colorModeZ;
   float a = g.colorModeA;
-  // float ratio_h = g.colorModeX / 360.0;
-  // float ratio_s = g.colorModeY / 100.0;
-  // float ratio_b = g.colorModeZ / 100.0;
-  // float ratio_a = g.colorModeA / 100.0;
-    float ratio_h = 360.0 / g.colorModeX;
+  float ratio_h = 360.0 / g.colorModeX;
   float ratio_s = 100.0 / g.colorModeY;
   float ratio_b = 100.0 / g.colorModeZ;
   float ratio_a = 100.0 / g.colorModeA;

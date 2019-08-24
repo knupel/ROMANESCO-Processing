@@ -1,16 +1,16 @@
 /**
 * Kino
 * 2018-2019
-* v 0.3.2
+* v 0.3.3
 */
 class Kino extends Romanesco {
 	public Kino() {
 		item_name = "Kino";
 		item_author  = "Stan le Punk";
-		item_version = "Version 0.3.2";
+		item_version = "Version 0.3.3";
 		item_pack = "Base 2018-2019";
 		item_costume = ""; // separate the differentes mode by "/"
-		item_mode = "Movie center/Movie screen/Movie 3D/Diaporama center/Diaporama screen/Diaporama 3D"; // separate the differentes mode by "/"
+		item_mode = "Movie/Movie 3D/Diaporama center/Diaporama screen/Diaporama 3D"; // separate the differentes mode by "/"
 
 		hue_fill_is = true;
     sat_fill_is = true;
@@ -108,10 +108,8 @@ class Kino extends Romanesco {
   void draw_2D() {
     param();
     boolean background_is = true;
-    if(get_mode_name().toLowerCase().equals("movie center")) {
+    if(get_mode_name().toLowerCase().equals("movie")) {
       kino_movie(colour,CENTER,background_is,to_white);
-    } else if(get_mode_name().toLowerCase().equals("movie center")) {
-      kino_movie(colour,SCREEN,background_is,to_white);
     } else if(get_mode_name().toLowerCase().equals("diaporama center")) {
       kino_bitmap(colour,CENTER,background_is,to_white);
     } else if(get_mode_name().toLowerCase().equals("diaporama screen")) {

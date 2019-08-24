@@ -12,7 +12,7 @@ class Photomontage extends Romanesco {
     item_version = "Version 0.0.1";
     item_pack = "Base 2019-2019" ;
     item_costume = ""; // costume available from get_costume();
-    item_mode = "mask gray/mask colour/shape gray/shape colour";
+    item_mode = "fx mask gray/fx mask colour/show mask gray/show mask colour";
     // define slider
     // COL 1
     hue_fill_is = true;
@@ -123,6 +123,9 @@ class Photomontage extends Romanesco {
     boolean clear_mask_is = true;
     if(mask == null) {
       mask = createGraphics(width,height,get_renderer());
+      beginDraw(mask);
+      colorMode(HSB,g.colorModeX,g.colorModeY,g.colorModeZ,g.colorModeA,mask);
+      endDraw(mask);
     }
     render_mask(mask, mode_mask, clear_mask_is);
 
@@ -146,7 +149,6 @@ class Photomontage extends Romanesco {
       int max_rad = floor(min_branch + get_size_x().value());
       ivec2 range_radius = ivec2(min_rad,max_rad);
 
-      println("alpha fill slider",get_fill_alp().value());
       // ivec2 range_alpha = ivec2(0);
       vec2 range_alpha = vec2(0,get_power().value());
       // ivec2 range_alpha = ivec2(0,(int)g.colorModeA);
@@ -154,7 +156,6 @@ class Photomontage extends Romanesco {
       //ivec2 range_alpha = ivec2(int(g.colorModeX/3),(int)g.colorModeX);
       int master_colour = get_fill();
       float spectrum = get_spectrum().value();
-      println("spectrum", get_spectrum().value());
       create_mask(cloud_mask.length,range_branches,range_radius,master_colour,spectrum);
       birth_is(false);
     }
@@ -166,7 +167,7 @@ class Photomontage extends Romanesco {
       if(id_img_bg < 0) rand_image_background_id();
       if(id_img_buffer < 0) rand_image_buffer_id();
       // calc buffer
-      if(get_mode_id() < 2) {
+      if(get_mode_name().contains("fx")) {
         boolean on_g = false;
         boolean filter_is = true;
         int step_speparation = 3 + ceil(get_quality().value() *13);
@@ -180,7 +181,7 @@ class Photomontage extends Romanesco {
         buffer = get_bitmap_collection().get(id_img_buffer);
         buffer = fx_mask(buffer,mask,on_g,filter_is,fx_mode_mask,step_speparation,threshold,level_layer);
         image(buffer,SCREEN);
-      } else if(get_mode_id() == 2) {
+      } else if(get_mode_name().contains("show")) {
         image(mask,SCREEN);
       }            
     }
@@ -240,33 +241,28 @@ class Photomontage extends Romanesco {
   }
 
   private void render_mask(PGraphics pg_buffer, int mode, boolean clear_is) {
+    
     if(pg_buffer != null) {
       beginDraw(pg_buffer);
       if(pg_buffer != null && clear_is) {
         clear(pg_buffer);
       }
-      
+      // mode = 1;
       for (int i = 0 ; i < cloud_mask.length ; i++) {
         if (mode == 0) {
           // here we use hue value, because this one is a only one with different value in the array
           // because when we create colour with hue_palette the variation is only on hue, not on saturation and brightness.
           float gray = map(hue(fill_choses[i]),0,g.colorModeX,0,g.colorModeZ);
-          fill(gray,pg_buffer);
-          noStroke(pg_buffer);
-          mask_chose(i,pg_buffer);
+          fill(0,0,gray,pg_buffer);
         } else if(mode == 1) {
           fill(r.WHITE,pg_buffer);
-          noStroke(pg_buffer);
-          mask_chose(i,pg_buffer);
         } else if(mode == 2) {
           fill(r.BLACK,pg_buffer);
-          noStroke(pg_buffer);
-          mask_chose(i,pg_buffer);
         } else if(mode == 3) {
           fill(fill_choses[i],pg_buffer);
-          noStroke(pg_buffer);
-          mask_chose(i,pg_buffer);
-        } 
+        }
+        noStroke(pg_buffer);
+        mask_chose(i,pg_buffer); 
       }
       endDraw(pg_buffer);
     } 

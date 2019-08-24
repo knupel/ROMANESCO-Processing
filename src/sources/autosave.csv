@@ -1,7 +1,7 @@
 Type,ID slider,Min slider,Max slider,Value length,Value slider 0,Value slider 1,Value slider 2,Value slider 3,ID button,On Off,ID midi,Item ID,Item On Off,Item Name,Item Class Name,Path
 Slider background,0,0.0,1.0,1,0.0,,,,,,16,,,,,
-Slider background,1,0.0,1.0,1,0.93333334,,,,,,17,,,,,
-Slider background,2,0.0,1.0,1,0.3,,,,,,18,,,,,
+Slider background,1,0.0,1.0,1,1.0,,,,,,17,,,,,
+Slider background,2,0.0,1.0,1,1.0,,,,,,18,,,,,
 Slider background,3,0.0,1.0,1,1.0,,,,,,0,,,,,
 Slider background,4,0.0,1.0,1,0.18888889,,,,,,-2,,,,,
 Slider background,5,0.0,1.0,1,0.18888889,,,,,,-2,,,,,
@@ -59,9 +59,9 @@ Slider camera,6,0.0,1.0,1,0.5,,,,,,-2,,,,,
 Slider camera,7,0.0,1.0,1,0.1,,,,,,-2,,,,,
 Slider camera,8,0.0,1.0,1,0.1,,,,,,-2,,,,,
 Slider camera,9,0.0,1.0,1,0.1,,,,,,-2,,,,,
-Slider item a,0,0.0,1.0,1,0.82222223,,,,,,19,,,,,
-Slider item a,1,0.0,1.0,1,0.0,,,,,,20,,,,,
-Slider item a,2,0.0,1.0,1,1.0,,,,,,21,,,,,
+Slider item a,0,0.0,1.0,1,0.54444444,,,,,,19,,,,,
+Slider item a,1,0.0,1.0,1,0.9777778,,,,,,20,,,,,
+Slider item a,2,0.0,1.0,1,0.75555557,,,,,,21,,,,,
 Slider item a,3,0.0,1.0,1,1.0,,,,,,3,,,,,
 Slider item a,4,0.0,1.0,1,0.14444445,,,,,,22,,,,,
 Slider item a,5,0.0,1.0,1,1.0,,,,,,23,,,,,
@@ -106,7 +106,7 @@ Slider item c,43,0.0,1.0,1,0.31111112,,,,,,-2,,,,,
 Slider item c,44,0.0,1.0,1,0.31111112,,,,,,-2,,,,,
 Slider item c,45,0.0,1.0,1,0.31111112,,,,,,-2,,,,,
 Slider item c,46,0.0,1.0,1,0.31111112,,,,,,-2,,,,,
-Slider item c,47,0.0,1.0,1,0.56666666,,,,,,-2,,,,,
+Slider item c,47,0.0,1.0,1,0.7888889,,,,,,-2,,,,,
 Slider item c,48,0.0,1.0,1,0.22222222,,,,,,-2,,,,,
 Slider item d,49,0.0,1.0,1,0.22222222,,,,,,-2,,,,,
 Slider item d,50,0.0,1.0,1,0.25555557,,,,,,-2,,,,,
@@ -159,6 +159,30 @@ Item,,,,,,,,,,,,33,0,The Abbyss,The_Abbyss,
 Item,,,,,,,,,,,,34,0,Vectorial,Vectorial,
 Item,,,,,,,,,,,,35,0,Webcam,Webcam,
 Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/BOULOT/MEDIA/MEDIA ROMANESCO/FILM/extrait_film/blade_runner_intro.mp4
+Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/BOULOT/PROJET/Périph/import_periph/ext_italie.jpg
+Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/BOULOT/PROJET/Périph/import_periph/int_chataillon.jpg
+Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/BOULOT/PROJET/Périph/import_periph/int_charenton.jpg
+Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/BOULOT/PROJET/Périph/import_periph/int_st_cloud.jpg
+Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/BOULOT/PROJET/Périph/import_periph/ext_gentilly.jpg
+Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/BOULOT/PROJET/Périph/import_periph/ext_vincennes.jpg
+Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/BOULOT/PROJET/Périph/import_periph/ext_muette.jpg
+Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/BOULOT/PROJET/Périph/import_periph/int_st_ouen.jpg
+Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/BOULOT/PROJET/Périph/import_periph/ext_molitor.jpg
+Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/BOULOT/PROJET/Périph/import_periph/ext_quai_d_issy.jpg
+Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/BOULOT/PROJET/Périph/import_periph/ext_pantin.jpg
+Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/BOULOT/PROJET/Périph/import_periph/int_quai_d_ivry.jpg
+Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/BOULOT/PROJET/Périph/import_periph/ext_asnière.jpg
+Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/BOULOT/PROJET/Périph/import_periph/int_les_lilas.jpg
+Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/BOULOT/PROJET/Périph/import_periph/ext_les_lilas.jpg
+Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/BOULOT/PROJET/Périph/import_periph/ext_passy.jpg
+Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/BOULOT/PROJET/Périph/import_periph/int_dauphine.jpg
+Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/BOULOT/PROJET/Périph/import_periph/int_orléans.jpg
+Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/BOULOT/PROJET/Périph/import_periph/ext_st_mandé.jpg
+Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/BOULOT/PROJET/Périph/import_periph/int_bagnolet.jpg
+Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/BOULOT/PROJET/Périph/import_periph/int_pré_st_gervais.jpg
+Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/BOULOT/PROJET/Périph/import_periph/int_la_plaine.jpg
+Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/BOULOT/PROJET/Périph/import_periph/int_maillot.jpg
+Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/BOULOT/PROJET/Périph/import_periph/ext_auteuil.jpg
 Button item,,,,,,,,,0,0,0,,,,,
 Button item,,,,,,,,,1,0,0,,,,,
 Button item,,,,,,,,,2,0,0,,,,,
@@ -244,10 +268,10 @@ Button item,,,,,,,,,60,0,-2,,,,,
 Button item,,,,,,,,,61,0,-2,,,,,
 Button item,,,,,,,,,62,0,-2,,,,,
 Button item,,,,,,,,,63,0,-2,,,,,
-Button item,,,,,,,,,64,0,-2,,,,,
-Button item,,,,,,,,,65,0,-2,,,,,
+Button item,,,,,,,,,64,1,-2,,,,,
+Button item,,,,,,,,,65,1,-2,,,,,
 Button item,,,,,,,,,66,0,-2,,,,,
-Button item,,,,,,,,,67,0,-2,,,,,
+Button item,,,,,,,,,67,1,-2,,,,,
 Button item,,,,,,,,,68,0,-2,,,,,
 Button item,,,,,,,,,69,0,-2,,,,,
 Button item,,,,,,,,,70,0,-2,,,,,
@@ -273,9 +297,9 @@ Button item,,,,,,,,,89,0,-2,,,,,
 Button item,,,,,,,,,90,0,-2,,,,,
 Button item,,,,,,,,,91,0,-2,,,,,
 Button item,,,,,,,,,92,0,-2,,,,,
-Button item,,,,,,,,,93,0,-2,,,,,
+Button item,,,,,,,,,93,1,-2,,,,,
 Button item,,,,,,,,,94,0,-2,,,,,
-Button item,,,,,,,,,95,0,-2,,,,,
+Button item,,,,,,,,,95,1,-2,,,,,
 Button item,,,,,,,,,96,0,-2,,,,,
 Button item,,,,,,,,,97,0,-2,,,,,
 Button item,,,,,,,,,98,0,-2,,,,,
