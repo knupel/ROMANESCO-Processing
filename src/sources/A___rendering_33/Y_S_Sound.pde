@@ -1,7 +1,7 @@
 /**
 SOUNDA Rope
 * for SOUNDA > SOUND-Analyze
-* v 1.5.2
+* v 1.5.4
 * Copyleft (c) 2017-2019
 * @author @stanlepunk
 * @see https://github.com/StanLepunK/Sound_rope
@@ -14,23 +14,22 @@ SOUNDA Rope
 */
 
 
-
+import ddf.minim.*;
+import ddf.minim.analysis.*;
 /**
 Class Sounda
-v 0.2.1
+v 0.2.2
 */
 public class Sounda implements rope.core.R_Constants {
   boolean info = false;
   private int analyze_length;
   Section section[];
   // library stuff
-  import ddf.minim.*;
-  import ddf.minim.analysis.*;
   Minim minim;
   AudioInput input;
   AudioBuffer source_buffer;
   FFT fft;
-  String warning_input = ("there is no sound input available, check if any source is connected");
+  String warning_input = ("class Sounda(), there is no sound input available, check if any source is connected");
   
 
   public Sounda() {}

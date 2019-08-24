@@ -12,7 +12,7 @@ class Photomontage extends Romanesco {
     item_version = "Version 0.0.1";
     item_pack = "Base 2019-2019" ;
     item_costume = ""; // costume available from get_costume();
-    item_mode = "mask gray/mask colour/shape";
+    item_mode = "mask gray/mask colour/shape gray/shape colour";
     // define slider
     // COL 1
     hue_fill_is = true;
@@ -114,7 +114,12 @@ class Photomontage extends Romanesco {
 
   void draw_2D() {
     // here if you want code in 2D mode
-    int mode_mask = 2; // BW: 0 // RGB: 1
+    int mode_mask = 0; // GRAY VALUE: 0 // WHITE: 1 // BLACK: 2 // COLOUR: 3
+    if(get_mode_name().contains("gray")) {
+      mode_mask = 0;
+    } else {
+      mode_mask = 3;
+    }
     boolean clear_mask_is = true;
     if(mask == null) {
       mask = createGraphics(width,height,get_renderer());
@@ -243,7 +248,10 @@ class Photomontage extends Romanesco {
       
       for (int i = 0 ; i < cloud_mask.length ; i++) {
         if (mode == 0) {
-          fill(brightness(fill_choses[i]),pg_buffer);
+          // here we use hue value, because this one is a only one with different value in the array
+          // because when we create colour with hue_palette the variation is only on hue, not on saturation and brightness.
+          float gray = map(hue(fill_choses[i]),0,g.colorModeX,0,g.colorModeZ);
+          fill(gray,pg_buffer);
           noStroke(pg_buffer);
           mask_chose(i,pg_buffer);
         } else if(mode == 1) {
@@ -251,6 +259,10 @@ class Photomontage extends Romanesco {
           noStroke(pg_buffer);
           mask_chose(i,pg_buffer);
         } else if(mode == 2) {
+          fill(r.BLACK,pg_buffer);
+          noStroke(pg_buffer);
+          mask_chose(i,pg_buffer);
+        } else if(mode == 3) {
           fill(fill_choses[i],pg_buffer);
           noStroke(pg_buffer);
           mask_chose(i,pg_buffer);

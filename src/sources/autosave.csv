@@ -2,7 +2,7 @@ Type,ID slider,Min slider,Max slider,Value length,Value slider 0,Value slider 1,
 Slider background,0,0.0,1.0,1,0.0,,,,,,16,,,,,
 Slider background,1,0.0,1.0,1,0.93333334,,,,,,17,,,,,
 Slider background,2,0.0,1.0,1,0.3,,,,,,18,,,,,
-Slider background,3,0.0,1.0,1,0.2777778,,,,,,0,,,,,
+Slider background,3,0.0,1.0,1,1.0,,,,,,0,,,,,
 Slider background,4,0.0,1.0,1,0.18888889,,,,,,-2,,,,,
 Slider background,5,0.0,1.0,1,0.18888889,,,,,,-2,,,,,
 Slider background,6,0.0,1.0,1,0.2,,,,,,-2,,,,,
@@ -65,18 +65,18 @@ Slider item a,2,0.0,1.0,1,1.0,,,,,,21,,,,,
 Slider item a,3,0.0,1.0,1,1.0,,,,,,3,,,,,
 Slider item a,4,0.0,1.0,1,0.14444445,,,,,,22,,,,,
 Slider item a,5,0.0,1.0,1,1.0,,,,,,23,,,,,
-Slider item a,6,0.0,1.0,1,0.011111111,,,,,,7,,,,,
+Slider item a,6,0.0,1.0,1,0.0,,,,,,7,,,,,
 Slider item a,7,0.0,1.0,1,0.6666667,,,,,,6,,,,,
 Slider item a,8,0.0,1.0,1,0.2888889,,,,,,5,,,,,
 Slider item a,9,0.0,1.0,1,0.4,,,,,,-2,,,,,
 Slider item a,10,0.0,1.0,1,0.4,,,,,,-2,,,,,
 Slider item a,11,0.0,1.0,1,0.34444445,,,,,,-2,,,,,
 Slider item a,12,0.0,1.0,1,0.22222222,,,,,,-2,,,,,
-Slider item a,13,0.0,1.0,1,0.7,,,,,,-2,,,,,
+Slider item a,13,0.0,1.0,1,0.18888889,,,,,,-2,,,,,
 Slider item a,14,0.0,1.0,1,0.2,,,,,,-2,,,,,
 Slider item a,15,0.0,1.0,1,0.2,,,,,,-2,,,,,
 Slider item a,16,0.0,1.0,1,0.65555555,,,,,,-2,,,,,
-Slider item b,17,0.0,1.0,1,0.6666667,,,,,,-2,,,,,
+Slider item b,17,0.0,1.0,1,0.56666666,,,,,,-2,,,,,
 Slider item b,18,0.0,1.0,1,0.0,,,,,,-2,,,,,
 Slider item b,19,0.0,1.0,1,0.0,,,,,,-2,,,,,
 Slider item b,20,0.0,1.0,1,0.0,,,,,,-2,,,,,
@@ -91,7 +91,7 @@ Slider item b,28,0.0,1.0,1,0.0,,,,,,-2,,,,,
 Slider item b,29,0.0,1.0,1,0.0,,,,,,-2,,,,,
 Slider item b,30,0.0,1.0,1,0.0,,,,,,-2,,,,,
 Slider item b,31,0.0,1.0,1,0.0,,,,,,-2,,,,,
-Slider item b,32,0.0,1.0,1,0.35555556,,,,,,-2,,,,,
+Slider item b,32,0.0,1.0,1,0.18888889,,,,,,-2,,,,,
 Slider item c,33,0.0,1.0,1,0.31111112,,,,,,-2,,,,,
 Slider item c,34,0.0,1.0,1,0.2888889,,,,,,-2,,,,,
 Slider item c,35,0.0,1.0,1,0.31111112,,,,,,-2,,,,,
@@ -123,7 +123,7 @@ Slider item d,60,0.0,1.0,1,0.0,,,,,,-2,,,,,
 Slider item d,61,0.0,1.0,1,0.0,,,,,,-2,,,,,
 Slider item d,62,0.0,1.0,1,0.0,,,,,,-2,,,,,
 Slider item d,63,0.0,1.0,1,0.0,,,,,,-2,,,,,
-Item,,,,,,,,,,,,1,1,Arbre,ArbreRomanesco,
+Item,,,,,,,,,,,,1,0,Arbre,ArbreRomanesco,
 Item,,,,,,,,,,,,2,0,Atome,Atome,
 Item,,,,,,,,,,,,3,0,Balise,BaliseRomanesco,
 Item,,,,,,,,,,,,4,0,Boids,Boids,
@@ -147,7 +147,7 @@ Item,,,,,,,,,,,,21,0,Mer,Mer,
 Item,,,,,,,,,,,,22,0,Orbital,Orbital,
 Item,,,,,,,,,,,,23,1,Photomontage,Photomontage,
 Item,,,,,,,,,,,,24,0,Pulsar,Pulsar,
-Item,,,,,,,,,,,,25,0,FF Puppet Master,Puppet_master,
+Item,,,,,,,,,,,,25,1,FF Puppet Master,Puppet_master,
 Item,,,,,,,,,,,,26,0,Rosace,Rosace,
 Item,,,,,,,,,,,,27,0,Rubis,Rubis,
 Item,,,,,,,,,,,,28,0,Simple,Simple,
@@ -158,30 +158,6 @@ Item,,,,,,,,,,,,32,0,Tartan,Tartan,
 Item,,,,,,,,,,,,33,0,The Abbyss,The_Abbyss,
 Item,,,,,,,,,,,,34,0,Vectorial,Vectorial,
 Item,,,,,,,,,,,,35,0,Webcam,Webcam,
-Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/BOULOT/PROJET/Périph/import_periph/ext_italie.jpg
-Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/BOULOT/PROJET/Périph/import_periph/int_chataillon.jpg
-Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/BOULOT/PROJET/Périph/import_periph/int_charenton.jpg
-Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/BOULOT/PROJET/Périph/import_periph/int_st_cloud.jpg
-Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/BOULOT/PROJET/Périph/import_periph/ext_gentilly.jpg
-Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/BOULOT/PROJET/Périph/import_periph/ext_vincennes.jpg
-Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/BOULOT/PROJET/Périph/import_periph/ext_muette.jpg
-Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/BOULOT/PROJET/Périph/import_periph/int_st_ouen.jpg
-Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/BOULOT/PROJET/Périph/import_periph/ext_molitor.jpg
-Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/BOULOT/PROJET/Périph/import_periph/ext_quai_d_issy.jpg
-Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/BOULOT/PROJET/Périph/import_periph/ext_pantin.jpg
-Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/BOULOT/PROJET/Périph/import_periph/int_quai_d_ivry.jpg
-Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/BOULOT/PROJET/Périph/import_periph/ext_asnière.jpg
-Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/BOULOT/PROJET/Périph/import_periph/int_les_lilas.jpg
-Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/BOULOT/PROJET/Périph/import_periph/ext_les_lilas.jpg
-Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/BOULOT/PROJET/Périph/import_periph/ext_passy.jpg
-Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/BOULOT/PROJET/Périph/import_periph/int_dauphine.jpg
-Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/BOULOT/PROJET/Périph/import_periph/int_orléans.jpg
-Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/BOULOT/PROJET/Périph/import_periph/ext_st_mandé.jpg
-Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/BOULOT/PROJET/Périph/import_periph/int_bagnolet.jpg
-Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/BOULOT/PROJET/Périph/import_periph/int_pré_st_gervais.jpg
-Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/BOULOT/PROJET/Périph/import_periph/int_la_plaine.jpg
-Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/BOULOT/PROJET/Périph/import_periph/int_maillot.jpg
-Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/BOULOT/PROJET/Périph/import_periph/ext_auteuil.jpg
 Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/BOULOT/MEDIA/MEDIA ROMANESCO/FILM/extrait_film/blade_runner_intro.mp4
 Button item,,,,,,,,,0,0,0,,,,,
 Button item,,,,,,,,,1,0,0,,,,,
@@ -208,8 +184,8 @@ Button transient,,,,,,,,,17,0,0,,,,,
 Button transient,,,,,,,,,18,0,0,,,,,
 Button transient,,,,,,,,,19,0,0,,,,,
 Button transient,,,,,,,,,20,0,0,,,,,
-Button item,,,,,,,,,4,1,-2,,,,,
-Button item,,,,,,,,,5,1,-2,,,,,
+Button item,,,,,,,,,4,0,-2,,,,,
+Button item,,,,,,,,,5,0,-2,,,,,
 Button item,,,,,,,,,6,0,-2,,,,,
 Button item,,,,,,,,,7,0,-2,,,,,
 Button item,,,,,,,,,8,0,-2,,,,,
@@ -296,10 +272,10 @@ Button item,,,,,,,,,88,0,-2,,,,,
 Button item,,,,,,,,,89,0,-2,,,,,
 Button item,,,,,,,,,90,0,-2,,,,,
 Button item,,,,,,,,,91,0,-2,,,,,
-Button item,,,,,,,,,92,1,-2,,,,,
+Button item,,,,,,,,,92,0,-2,,,,,
 Button item,,,,,,,,,93,0,-2,,,,,
 Button item,,,,,,,,,94,0,-2,,,,,
-Button item,,,,,,,,,95,1,-2,,,,,
+Button item,,,,,,,,,95,0,-2,,,,,
 Button item,,,,,,,,,96,0,-2,,,,,
 Button item,,,,,,,,,97,0,-2,,,,,
 Button item,,,,,,,,,98,0,-2,,,,,
