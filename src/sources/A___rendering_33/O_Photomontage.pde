@@ -83,15 +83,11 @@ class Photomontage extends Romanesco {
 
   vec2 [] cloud_mask;
   int [] fill_choses;
-  R_Chose [] choses;
+  R_Chose [] list_choses;
   PImage buffer;
   PGraphics mask;
 
   void setup() {
-    // give the starting position of your item on the 3D grid
-    // set_item_pos(width/2,height/2,0);
-    // set_item_dir(HALF_PI,PI);
-
     ivec2 num_range_shape = ivec2(5,10);
     create_cloud(num_range_shape);
 
@@ -99,8 +95,8 @@ class Photomontage extends Romanesco {
     ivec2 range_radius = ivec2(width/100,width/2);
     vec2 range_alpha = vec2(0,1);
 
-          int master_colour = r.ORANGE;
-      float spectrum = 20;
+    int master_colour = r.ORANGE;
+    float spectrum = 20;
     create_mask(cloud_mask.length,range_branches,range_radius,master_colour,spectrum);
 
     rand_image_background_id();
@@ -127,6 +123,8 @@ class Photomontage extends Romanesco {
       colorMode(HSB,g.colorModeX,g.colorModeY,g.colorModeZ,g.colorModeA,mask);
       endDraw(mask);
     }
+
+    update_mask(10);
     render_mask(mask, mode_mask, clear_mask_is);
 
 
@@ -220,34 +218,41 @@ class Photomontage extends Romanesco {
   }
 
   private void create_mask(int num, ivec2 branch, ivec2 radius, int master_colour, float spectrum) {
-    choses = new R_Chose[num];
+    list_choses = new R_Chose[num];
     fill_choses = new int[num];
-
-    
     int num_group = 3;
     int [] colour_paleltte = hue_palette(master_colour, num_group, num, spectrum);
     for(int i = 0 ; i < num ; i++) {
-      choses[i] = new R_Chose(p5,(int)random(branch.min(),branch.max()));
+      list_choses[i] = new R_Chose(p5,(int)random(branch.min(),branch.max()));
 
 
       fill_choses[i] = colour_paleltte[i];
-      float [] relief = new float[(int)random(2,choses[i].get_summits())];
+      float [] relief = new float[(int)random(2,list_choses[i].get_summits())];
       for(int k = 0 ; k < relief.length ; k++) {
         relief[k] = random(radius.min(),radius.max());
       }
-      choses[i].radius(relief);
-      choses[i].angle_x(random(TAU));
+      list_choses[i].radius(relief);
+      list_choses[i].angle_x(random(TAU));
     }
   }
 
-  private void render_mask(PGraphics pg_buffer, int mode, boolean clear_is) {
-    
+  private void update_mask(float swing) {
+    for(R_Chose chose : list_choses) {
+      float [] relief = chose.get_radius();
+      for(int i = 0 ; i < relief.length ; i++) {
+        relief[i] = chose.get_radius(i) + random(-swing,swing);
+      }
+      chose.radius(relief);
+      chose.reset_is(true);
+    }
+  }
+
+  private void render_mask(PGraphics pg_buffer, int mode, boolean clear_is) { 
     if(pg_buffer != null) {
       beginDraw(pg_buffer);
       if(pg_buffer != null && clear_is) {
         clear(pg_buffer);
       }
-      // mode = 1;
       for (int i = 0 ; i < cloud_mask.length ; i++) {
         if (mode == 0) {
           // here we use hue value, because this one is a only one with different value in the array
@@ -270,9 +275,9 @@ class Photomontage extends Romanesco {
 
   private void mask_chose(int target, PGraphics pg_buffer) {
     beginShape(pg_buffer);
-    choses[target].calc();
-    for(int k = 0 ; k < choses[target].get_final_points().length ; k++) {
-      vec2 temp_pos = vec2(choses[target].get_final_points()[k]).add(cloud_mask[target].xy());
+    list_choses[target].calc();
+    for(int k = 0 ; k < list_choses[target].get_final_points().length ; k++) {
+      vec2 temp_pos = vec2(list_choses[target].get_final_points()[k]).add(cloud_mask[target].xy());
       vertex(temp_pos,pg_buffer);
     } 
     endShape(CLOSE,pg_buffer);
