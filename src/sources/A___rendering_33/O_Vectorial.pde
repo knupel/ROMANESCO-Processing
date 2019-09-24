@@ -80,7 +80,7 @@ class Vectorial extends Romanesco {
     float angle = QUARTER_PI*.5;
     set_item_dir(angle,-angle);
 
-    load_svg(ID_item);
+    load_svg();
     println("svg_current_path",svg_current_path);
     if(svg_current_path != null) {
       svg_import[ID_item].build(svg_current_path, svg_bricks_saved);
@@ -93,7 +93,7 @@ class Vectorial extends Romanesco {
   void draw() {
     if(svg_import[ID_item] != null) {
       if(parameter_is()) {
-        load_svg(ID_item);
+        load_svg();
         println("svg_current_path",svg_current_path);
         ref_name = svg_import[ID_item].name ;  
         if(!svg_import[ID_item].name.equals(ref_name)) {

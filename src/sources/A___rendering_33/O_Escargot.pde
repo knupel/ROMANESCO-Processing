@@ -1,7 +1,7 @@
 /**
 ESCARGOT 
 2011-2019
-V 1.5.0
+V 1.5.1
 */
 //TOXIC
 import toxi.geom.*;
@@ -17,7 +17,7 @@ class Escargot extends Romanesco {
     //from the index_objects.csv
     item_name = "Image" ;
     item_author  = "Stan le Punk";
-    item_version = "version 1.5.0";
+    item_version = "version 1.5.1";
     item_pack = "Base 2012-2019" ;
     item_costume = "";
     item_mode = "Original/Raw/Point/Ellipse/Rectangle/Box/Cross/SVG/Vitraux" ;
@@ -163,7 +163,7 @@ class Escargot extends Romanesco {
   //SETUP
   void setup() {
     set_item_pos(width/2,height/2,0);
-    load_bitmap(ID_item);
+    load_bitmap();
     if(!FULL_RENDERING) maxVoronoiPoints = 250 ;
     //load pattern SVG to display a Pixel pattern you create in Illustrator or other software
     pathSVG = preference_path +"pixel/model.svg" ;
@@ -192,7 +192,7 @@ class Escargot extends Romanesco {
     */
     
     if(parameter_is()) {
-      load_bitmap(ID_item);
+      load_bitmap();
     }
 
     if(bitmap[ID_item] != null) {  

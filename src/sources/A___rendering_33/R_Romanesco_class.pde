@@ -2235,8 +2235,10 @@ vec3 get_item_dir() {
     }
   }
   
+
+  
   /**
-  movie
+  get media
   */
   protected int which_movie() {
     return which_movie[ID_item];
@@ -2254,10 +2256,10 @@ vec3 get_item_dir() {
     } else return null;
   }
   
-  protected String get_text() {
+  protected String [] get_text() {
     if(text_import[ID_item] != null) {
       return text_import[ID_item];
-    } else return null;
+    } else return null; 
   }
 
   protected ROPE_svg get_svg() {
@@ -2265,6 +2267,26 @@ vec3 get_item_dir() {
       return svg_import[ID_item];
     } else return null;
   }
+
+  /**
+  load media
+  */
+  protected boolean load_movie(boolean change_movie_is) {
+    return load_movie_id(change_movie_is, ID_item);
+  }
+
+  protected boolean load_bitmap() {
+    return load_bitmap_id(ID_item);
+  }
+  
+  protected boolean load_text() {
+    return load_text_id(ID_item);
+  }
+
+  protected boolean load_svg() {
+    return load_svg_id(ID_item);
+  }
+
 
 
 

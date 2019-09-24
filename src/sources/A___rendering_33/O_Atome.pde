@@ -122,7 +122,7 @@ class Atome extends Romanesco {
   //DRAW
   void draw() {
     // SETTING PARAMETER
-    load_txt(ID_item) ;
+    load_text();
     // 3D or 2D
     if(parameter_is() & key_d) threeDimension = !threeDimension ;
     
@@ -310,10 +310,10 @@ class Atome extends Romanesco {
   //give name to the atom from the file.txt in the source repository
   String giveNametoAtom() {
     String s = ("") ;
-    int whichChapter = floor(random(numChapters(text_import[ID_item]))) ;
-    int whichSentence = floor(random(numMaxSentencesByChapter(text_import[ID_item]))) ;
+    int whichChapter = floor(random(numChapters(text_import[ID_item][0]))) ;
+    int whichSentence = floor(random(numMaxSentencesByChapter(text_import[ID_item][0]))) ;
     //give a random name, is this one is null in the array, give the tittle name of text
-    if(whichSentence(text_import[ID_item], whichChapter, whichSentence) != null ) s = whichSentence(text_import[ID_item], whichChapter, whichSentence) ; else s = whichSentence(text_import[ID_item], 0, 0) ;
+    if(whichSentence(text_import[ID_item][0], whichChapter, whichSentence) != null ) s = whichSentence(text_import[ID_item][0], whichChapter, whichSentence) ; else s = whichSentence(text_import[ID_item][0], 0, 0) ;
     return s ;
   }
   
@@ -566,7 +566,7 @@ class Atom {
     }
   }
   //::::::::::::::::::::::::Resolve Collision::::::::::::::::::::::::::::
-  void contact(Atom target , PVector atomVect)  {
+  void contact(Atom target, PVector atomVect)  {
     resolveCollision(target, atomVect) ;
   }
   //::::::::::::
@@ -578,7 +578,7 @@ class Atom {
   
 ////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////COVALENT COLLISION//////////////////////////////////////////////////
-  void covalentCollision(ArrayList<Atom> listA ) {
+  void covalentCollision(ArrayList<Atom> listA) {
     for (Atom target : listA) {
       if (target != this) {    // don't collide with ourselves. that would be weird.
         /////////////////////////\\\\\\\\\\\\\\\\\\\
@@ -731,7 +731,6 @@ class Atom {
   void contactElectronic(Atom target)  {
     // listA_electronicCollision.add(target); // when a collision is found, add it to a list for later use.
     // float forceMgt = abs(ion) + abs(target.ion) ;
-    
     if (target.ion < 0) target.ion = -1 ;
     if (target.ion > 0) target.ion =  1 ;
     if (ion < 0) ion = -1 ;
@@ -825,7 +824,6 @@ class Atom {
   // number of missing electron
  
   void electronicInfo() {
-
     // give the period of the atom, the period is call "n"
     if (proton < 3 )                  { n = 1 ; }
     if (proton > 2 && proton < 11 )   { n = 2 ; }

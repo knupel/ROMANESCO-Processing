@@ -1,13 +1,13 @@
 /**
 * Kino
 * 2018-2019
-* v 0.3.3
+* v 0.4.0
 */
 class Kino extends Romanesco {
 	public Kino() {
 		item_name = "Kino";
 		item_author  = "Stan le Punk";
-		item_version = "Version 0.3.3";
+		item_version = "Version 0.4.0";
 		item_pack = "Base 2018-2019";
 		item_costume = ""; // separate the differentes mode by "/"
 		item_mode = "Movie/Movie 3D/Diaporama center/Diaporama screen/Diaporama 3D"; // separate the differentes mode by "/"
@@ -76,7 +76,7 @@ class Kino extends Romanesco {
 
 	void setup() {
 		set_item_pos(0,0,0);
-		load_movie(true,ID_item);
+		load_movie(true);
 	}
 
   float coord_ref;
@@ -159,14 +159,14 @@ class Kino extends Romanesco {
 	private void kino_movie(vec4 c, int mode, boolean background_is, int mode_to_black_or_white) {
 		if(ref_which_movie != which_movie() && ref_which_movie < movie_time.length) {
       movie_time[ref_which_movie] = get_movie().time();
-			load_movie(true,ID_item);
+			load_movie(true);
       if(movie_time[which_movie()] < get_movie().duration()) {
         get_movie().jump(movie_time[which_movie()]);
       }
 			ref_which_movie = which_movie();
 		} else {
 			// need to write in case the movie path file change or new movie is imported
-			load_movie(false,ID_item);
+			load_movie(false);
 		}
     if(get_movie() != null) {
       // get_movie().speed(speed_movie);
@@ -193,7 +193,7 @@ class Kino extends Romanesco {
 
 	// kino movie
 	private void kino_bitmap(vec4 c, int mode, boolean background_is, int mode_to_black_or_white) {
-		load_bitmap(ID_item);
+		load_bitmap();
     if(get_bitmap() != null) {
       if(background_is) {
         set_background(fx_level(get_bitmap(),on_g,filter_is,mode_to_black_or_white,c.array()),mode);

@@ -449,7 +449,7 @@ float [] tempo_rom, tempo_rom_beat, tempo_rom_kick, tempo_rom_snare, tempo_rom_h
 
 /**
 CREATE VAR 
-v 1.1.0
+v 1.2.0
 */
 void create_variable() {
   NUM_ITEM = rom_manager.size();
@@ -489,7 +489,7 @@ void create_var_misc() {
   which_movie = new int[NUM_ITEM_PLUS_MASTER];
   //movie_path_ref = new String[NUM_ITEM_PLUS_MASTER];
   // TEXT
-  text_import = new String [NUM_ITEM_PLUS_MASTER];
+  text_import = new String [NUM_ITEM_PLUS_MASTER][];
   which_text = new int[NUM_ITEM_PLUS_MASTER];
 
 

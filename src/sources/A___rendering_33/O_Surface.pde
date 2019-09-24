@@ -1,14 +1,14 @@
 /**
 SURFACE
 2014-2019
-v 1.2.0
+v 1.2.1
 */
 
 class Surface extends Romanesco {
   public Surface() {
     item_name = "Surface" ;
     item_author  = "Stan le Punk";
-    item_version = "Version 1.2.0";
+    item_version = "Version 1.2.1";
     item_pack = "Base 2014-2019";
     item_costume = "" ;
     item_mode = "Surf/Wave/Wave++" ; // separate the differentes mode by "/"
@@ -77,7 +77,7 @@ class Surface extends Romanesco {
   void setup() {
     set_item_pos(width/2, height/2, -height/2);
     set_item_dir(QUARTER_PI,-(PI*.1));
-    load_bitmap(ID_item);
+    load_bitmap();
   }
   
   // declare VAR
@@ -104,7 +104,7 @@ class Surface extends Romanesco {
     stroke_color = vec4(hue(get_stroke()),saturation(get_stroke()),brightness(get_stroke()),alpha(get_stroke())) ;
     // load image
     if(parameter_is()) {
-      load_bitmap(ID_item);
+      load_bitmap();
     }
 
     //ratio speed
