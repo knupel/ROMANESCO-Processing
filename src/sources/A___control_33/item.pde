@@ -132,10 +132,10 @@ void build_button_item_console() {
 
 // LOCAL METHOD SETUP
 void set_button_item_console() {
-  ivec2 pos_main_button = ivec2(7, -10) ;
-  ivec2 pos_param_button = ivec2(7,14) ;
-  ivec2 pos_sound_button = ivec2(7,25) ;
-  ivec2 pos_action_button = ivec2(19,25) ;
+  ivec2 pos_main_button = ivec2(7, -10);
+  ivec2 pos_param_button = ivec2(7,14);
+  ivec2 pos_sound_button = ivec2(7,25);
+  ivec2 pos_action_button = ivec2(19,25);
 
   int pos_y = pos_y_item_selected +local_pos_y_button_item;
   //position and area for the rollover

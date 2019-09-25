@@ -1,6 +1,6 @@
 /**
 Core Prescene
-v 1.4.0
+v 1.4.1
 2013-2019
 * Here you find
 * variable Prescene
@@ -43,7 +43,7 @@ void prescene_setup() {
 /**
 command
 */
-void updateCommand() {
+void update_command() {
   // move the object
   if(clickLongLeft[0] || finger.activefingers == 1 ) {
     ORDER_ONE = true ; 

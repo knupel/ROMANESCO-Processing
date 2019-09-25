@@ -34,13 +34,14 @@
 >change: name for item.show(), item.parameter(), item.sound() and item.action() for item.show_is(), item.parameter_is(), item.sound_is() and item.action_is()
 >add: event alpha_is()
 >bug: fix the bug who cause problem of choice problem in fullscreen selection window.
+>add command to clear media list
+>when the camera item is use the global camera is locked.
 
 *SHADER
 
 >add: background fx voronoi
 >add: post fx dither bayer 8
 >add: post fx threshold
->add: post fx datamosh
 >remove: shader neon
 >total refactoring the FX BACKGROUND shader system to have a same manager fx system than FX POST
 
@@ -55,8 +56,10 @@
 >add: TARTAN
 >add: SIMPLE
 >add: MER
+>add: LYRICS
 >update: SOLEIL improvement the revolution part
 >remove: Galaxie
+>remove: Letter
 >add: Rosace
 
 *BUG FIX

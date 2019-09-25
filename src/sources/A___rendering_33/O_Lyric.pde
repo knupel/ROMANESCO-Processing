@@ -14,7 +14,7 @@ class Lyric extends Romanesco {
 		item_version = "Version 0.0.1";
 		item_pack = "Base 2019-2019" ;
 		item_costume = ""; // costume available from get_costume();
-		item_mode = "";
+		item_mode = "Line/Window";
 		// define slider
 		// COL 1
 		hue_fill_is = true;
@@ -101,7 +101,7 @@ class Lyric extends Romanesco {
 			poem  = new Poem(get_text());
 		}
 
-		if(text_is){
+		if(text_is) {
 			if(birth_is()) {
 				index_vers++;
 				birth_is(false);
@@ -120,50 +120,26 @@ class Lyric extends Romanesco {
 			}
 
 			String blabla = poem.get_vers(index_vers).toString();
-			int w = (int)get_canvas_x().value() * 2;
-			int h = (int)get_canvas_y().value() * 2;
-			// int x = 0;
-			// int y = 0;
-		  // "écoutons nos pochettes"
+			int font_size = 6 + (int)get_size_x().value();
+			int w = (int)get_canvas_x().value() * 3 + font_size;
+			int h = (int)get_canvas_y().value() * 4 + font_size;
+			int max_h = font_size * (blabla.length() / (w/font_size) +2); // can be better algo but that's ok
+			if(h > max_h) {
+				h = max_h;
+			}
 		  fill(get_fill());
 		  writer.path(get_font_path(),false);
-		  writer.size((int)get_size_x().value());
+		  writer.size(font_size);
 		  writer.angle(get_angle().value());
 		  writer.align(CENTER);
 		  writer.pos(0,0,0);
 		  writer.content(blabla);
-		  writer.show(w,h,CENTER);
+		  if(get_mode_name().toLowerCase().equals("window")) {
+		  	writer.show(w,h,CENTER);
+		  } else {
+		  	writer.show();
+		  }
 		}
-
-
-
-
-		
-
-		// /Users/stan/Library/Fonts/American Typewriter Medium BT.ttf
-
-		// writer.pos(get_coord().mult(width,height,width));
-	// here if you want code in 3D mode
-	// info("info about the item","more","more");
-	// aspect_is(fill_is(),stroke_is(),alpha_is());
-	// aspect(get_fill(),get_stroke(),get_thickness().value());
-	// set_ratio_costume_size(map(get_area().value(),get_area().min(),get_area().max(),0,1));
-
-	// costume(vec3(),get_size(),get_costume());
-	// println("costume",get_costume().get_name());
-
-	// println("mode",get_mode_name(),get_mode_id());
-
-	// println("slider vec",get_size());
-	// println("slider value from min to max",get_size_x().value()); // sometime 0 to 1 or 0 to width or 0 to TAU
-	// println("slider value min",get_size_x().min());
-	// println("slider value max",get_size_x().max());
-
-	// println("slider raw from 0 to 360",get_size_x().raw());
-	// println("slider raw min",get_size_x().min_raw());
-	// println("slider rawmax",get_size_x().max_raw());
-
-	// println("slider normal from 0 to 1",get_size_x().normal());
 
 	}
 

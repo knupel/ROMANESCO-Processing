@@ -26,7 +26,9 @@ import codeanticode.syphon.*;
 * get
 */
 boolean camera_global_is() {
-  return camera_global_is;
+  if(!camera_item_is()) {
+    return camera_global_is;
+  } else return false;
 }
 
 boolean camera_item_is() {

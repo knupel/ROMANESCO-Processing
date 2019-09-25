@@ -1,2 +1,2 @@
 fx active,fx slider active
-datamosh/,red/green/blue/strength X/threshold/
+split rgb/warp tex/,strength X/strength Y/speed/strength X/

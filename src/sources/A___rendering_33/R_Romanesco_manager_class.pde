@@ -42,7 +42,7 @@ class Romanesco_manager {
         } 
       }
     }
-    create_index(num_classes) ;
+    create_index(num_classes);
     
     //init the String info
     item_class_name = new String[num_classes] ;
@@ -60,7 +60,7 @@ class Romanesco_manager {
         }
       }
     }
-    begin_index() ;
+    begin_index();
     return classes;  
   }
 
@@ -212,7 +212,6 @@ class Romanesco_manager {
   }
   
 
-
   public void set_item(String path) {
     Table slider_item_data = loadTable(path,"header");
     String [][] slider_name = new String[4][16];
@@ -264,7 +263,7 @@ class Romanesco_manager {
     }
 
     if(num == romanesco_item_list.size()) {
-      return true ;
+      return true;
     } else {
       return false;
     }
@@ -353,7 +352,6 @@ class Romanesco_manager {
       script.add("power",family,item.get_power());
       script.add("mass",family,item.get_mass());
       script.add("coord",family,item.get_coord());
-
     }
     historic.add(script);
   }

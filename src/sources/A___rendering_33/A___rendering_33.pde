@@ -30,7 +30,7 @@ BUG with warp on MacBook Pro 2018 or HighSierra / Mojave
 * DEVELOPER SETTING
 */
 boolean DEBUG_MODE = true;
-boolean USE_LAYER = false;
+boolean USE_LAYER = true;
 boolean DEV_MODE = true; // inter alia, path preferences folder, curtain
 String IAM = "prescene";
 boolean LIVE = false;
@@ -245,7 +245,6 @@ void draw() {
 			//rom_manager.print_historic();
 		}
 
-
 		romanesco();
 
 		if(width == 1 || height == 1) {
@@ -277,16 +276,12 @@ void romanesco() {
 
 	update_raw_item_value();
 
-	
 	if(IAM.equals("prescene")) {
-		updateCommand();
-		leapMotionUpdate();
+		update_command();
+		leapmotion_update();
 	} 
 
 	rendering();
-
-
-
 
 	// save screenshot
 	if(FULL_RENDERING) {
@@ -412,7 +407,7 @@ void keyReleased() {
 	}
 
 	if(key == 'c') {
-		camera_global_is = camera_global_is? false:true;
+		camera_global_is = camera_global_is ? false:true;
 	}
 }
 

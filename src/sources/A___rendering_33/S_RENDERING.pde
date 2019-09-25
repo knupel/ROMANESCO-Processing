@@ -21,8 +21,8 @@ void rendering() {
     fx_mix_is_done = false;
     rendering_background(USE_LAYER,0);
     pre_fx(0);
-    rendering_item_3D(USE_LAYER,1);
     rendering_item_2D(USE_LAYER,1);
+    rendering_item_3D(USE_LAYER,2);
     pre_fx(1);
 
     fx_mix_after();

@@ -30,17 +30,17 @@ void update_leap_command() {
 
 
 
-/////////////////////////////
-// VOID & FUNCTION LEAPMOTION
-// LEAP MOTION
+/**
+* LEAP MOTION
+*/
 FingerLeap finger ;
 
 void leapmotion_setup() {
-  finger = new FingerLeap() ;
+  finger = new FingerLeap();
 }
 
-void leapMotionUpdate() {
-  finger.updateLeap() ;
+void leapmotion_update() {
+  finger.updateLeap();
   LEAPMOTION_DETECTED = false ;
   if(fingerVisibleCheck()) LEAPMOTION_DETECTED = true ; else LEAPMOTION_DETECTED = false ;
 }
