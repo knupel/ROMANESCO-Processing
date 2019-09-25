@@ -371,10 +371,6 @@ void set_console_media_bar(int start_x) {
   int step = width/6;
   // pos x
   pos_x_dd_media_bar = new int[num_dd_media_bar];
-  // pos_x_dd_media_bar[0] = start_x +(step *0); // text
-  // pos_x_dd_media_bar[1] = start_x +(step *1);// bitmap
-  // pos_x_dd_media_bar[2] = start_x +(step *2);// shape
-  // pos_x_dd_media_bar[3] = start_x +(step *3);// movie
   pos_x_dd_media_bar[0] = grid_col[4]; // text
   pos_x_dd_media_bar[1] = grid_col[6];// bitmap
   pos_x_dd_media_bar[2] = grid_col[8];// shape

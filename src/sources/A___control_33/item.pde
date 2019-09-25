@@ -87,7 +87,7 @@ Button[] button_item ;
 void init_button_item_console() {
   int num = BUTTON_ITEM_CONSOLE;
   button_item_num = NUM_ITEM *num;
-  value_button_item = new int[button_item_num] ;
+  value_button_item = new int[button_item_num];
   // button item
   button_item = new Button[button_item_num +num];
   println("init_button_item_console()",frameCount);
@@ -100,7 +100,7 @@ void init_button_item_console() {
 }
 
 void init_inventory() {
-  inventory = new Inventory[NUM_ITEM +1] ;
+  inventory = new Inventory[NUM_ITEM +1];
   for(int i = 0 ; i < inventory.length ; i++ ) {
     inventory[i] = new Inventory("", true);
   }
@@ -142,30 +142,30 @@ void set_button_item_console() {
   int num = BUTTON_ITEM_CONSOLE;
   for (int i = 1 ; i <= NUM_ITEM ; i++) {
     //main
-    pos_button_width_item[i*num+0] = offset_x_item +pos_main_button.x; 
-    pos_button_height_item[i*num+0] = pos_y +pos_main_button.y; 
-    width_button_item[i*num+0] = 20 ; 
-    height_button_item[i*num+0] = 20 ;  
+    pos_button_width_item[i *num +0] = offset_x_item +pos_main_button.x; 
+    pos_button_height_item[i *num +0] = pos_y +pos_main_button.y; 
+    width_button_item[i *num +0] = 20; 
+    height_button_item[i *num +0] = 20;  
     //setting
-    pos_button_width_item[i*num+1] = offset_x_item +pos_param_button.x; 
-    pos_button_height_item[i*num+1] = pos_y +pos_param_button.y; 
-    width_button_item[i*num+1] = 19 ; 
-    height_button_item[i*num+1] = 6 ; 
+    pos_button_width_item[i *num +1] = offset_x_item +pos_param_button.x; 
+    pos_button_height_item[i *num +1] = pos_y +pos_param_button.y; 
+    width_button_item[i *num +1] = 25; 
+    height_button_item[i *num +1] = 10; 
     //sound
-    pos_button_width_item[i*num+2] = offset_x_item +pos_sound_button.x; 
-    pos_button_height_item[i*num+2] = pos_y +pos_sound_button.y; 
-    width_button_item[i*num+2] = 10 ; 
-    height_button_item[i*num+2] = 6 ; 
+    pos_button_width_item[i *num +2] = offset_x_item +pos_sound_button.x; 
+    pos_button_height_item[i *num +2] = pos_y +pos_sound_button.y; 
+    width_button_item[i *num +2] = 10; 
+    height_button_item[i *num +2] = 20; 
     //action
-    pos_button_width_item[i*num+3] = offset_x_item +pos_action_button.x; 
-    pos_button_height_item[i*num+3] = pos_y +pos_action_button.y; 
-    width_button_item[i*num+3] = 10 ; 
-    height_button_item[i*num+3] = 6 ; 
+    pos_button_width_item[i *num +3] = offset_x_item +pos_action_button.x; 
+    pos_button_height_item[i *num +3] = pos_y +pos_action_button.y; 
+    width_button_item[i *num +3] = 10; 
+    height_button_item[i *num +3] = 20; 
   }
 }
 
 void display_button_item_console(boolean keep_setting) {
-  int pointer = 0 ;
+  int pointer = 0;
   for(int i = 1 ; i <= NUM_ITEM ; i++) {
     if(inventory[i].is()) {
       int distance = pointer *DIST_BETWEEN_ITEM;
@@ -185,15 +185,15 @@ void display_button_item_console(boolean keep_setting) {
         if(j == 3) button_item[rank].show(picAction);
 
       }
-      int px = pos_button_width_item[i*BUTTON_ITEM_CONSOLE +2] +distance;
-      int py = pos_button_height_item[i*BUTTON_ITEM_CONSOLE +1] -15;
+      int px = pos_button_width_item[i *BUTTON_ITEM_CONSOLE +2] +distance;
+      int py = pos_button_height_item[i *BUTTON_ITEM_CONSOLE +1] -15;
       ivec2 pos = ivec2(px,py);
       ivec2 size = ivec2(20,100);
       item_thumbnail_info(pos,size,i,1);
       pointer ++ ;
     } else if(!keep_setting) {
       for(int jj = 0 ; jj < BUTTON_ITEM_CONSOLE ; jj++) {
-        int rank = i*BUTTON_ITEM_CONSOLE+jj;
+        int rank = i *BUTTON_ITEM_CONSOLE +jj;
         if(jj == 0) button_item[rank].is(false); // show item
         if(jj == 1) button_item[rank].is(false); // setting item
         if(jj == 2) button_item[rank].is(false); // setting sound
@@ -243,12 +243,12 @@ void mousepressed_button_item_console() {
 /**
 ITEM INVENTORY
 */
-Button[] button_inventory ;
-boolean [] on_off_inventory_save ;
+Button[] button_inventory;
+boolean [] on_off_inventory_save;
 
 void init_button_inventory() {
-  button_inventory = new Button[NUM_ITEM +1] ;
-  on_off_inventory_save = new boolean[NUM_ITEM +1] ;
+  button_inventory = new Button[NUM_ITEM +1];
+  on_off_inventory_save = new boolean[NUM_ITEM +1];
 }
 
 void build_inventory() {

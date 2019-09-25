@@ -1,6 +1,6 @@
 /**
 * UPDATE DISPLAY DESIGN
-* v 0.2.2
+* v 0.2.3
 * 2018-2019
 */
 
@@ -134,8 +134,9 @@ void show_dropdown() {
   update_dd_media_bar_content();
 
   update_dropdown(dropdown_setting);
-  update_dropdown(dd_media_bar);
+  
   update_dropdown(dd_menu_bar);
+  update_dropdown(dd_media_bar);
 
   // item
   update_dropdown_item() ; 
