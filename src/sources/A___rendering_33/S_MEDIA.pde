@@ -1,6 +1,6 @@
 /*
 * MANAGE MEDIA
-* v 1.2.0
+* v 1.2.1
 * 2016-2019
 */
 void media_init_collection() {
@@ -15,9 +15,27 @@ void media_update(int frequence) {
 		update_svg_collection();
 		update_text_collection();
 		update_bitmap_collection();
+		clear_all_medias();
 		thread("load_autosave");
 	}
 }
+
+
+void change_media(int which [], int id, String [] path){
+	which[id] = pad_inc(which[id],UP);
+	which[id] = pad_inc(which[id],DOWN);
+	which[id] = pad_inc(which[id],RIGHT);
+	which[id] = pad_inc(which[id],LEFT);
+
+	if(which[id] < 0) {
+		which[id] = path.length -1;
+	} else if (which_movie[id] >= path.length) {
+		which[id] = 0;
+	}
+}
+
+
+
 
 
 /**
@@ -55,17 +73,8 @@ void update_svg_collection() {
 	}
 }
 
-void change_svg_from_pad(int ID) {
-	which_shape[ID] = pad_inc(which_shape[ID],UP);
-	which_shape[ID] = pad_inc(which_shape[ID],DOWN);
-	which_shape[ID] = pad_inc(which_shape[ID],RIGHT);
-	which_shape[ID] = pad_inc(which_shape[ID],LEFT);
-
-	if(which_shape[ID] < 0) {
-		which_shape[ID] = svg_path.length -1;
-	} else if (which_shape[ID] >= svg_path.length) {
-		which_shape[ID] = 0;
-	}
+void change_svg_from_pad(int id) {
+	change_media(which_shape, id, svg_path);
 }
 
 
@@ -99,18 +108,17 @@ void update_text_collection() {
 	}
 }
 
-void change_text_from_pad(int ID) {
-	which_text[ID] = pad_inc(which_text[ID],UP);
-	which_text[ID] = pad_inc(which_text[ID],DOWN);
-	which_text[ID] = pad_inc(which_text[ID],RIGHT);
-	which_text[ID] = pad_inc(which_text[ID],LEFT);
-
-	if(which_text[ID] < 0) {
-		which_text[ID] = text_path.length -1;
-	} else if (which_text[ID] >= text_path.length) {
-		which_text[ID] = 0;
-	}
+void change_text_from_pad(int id) {
+	change_media(which_text, id, text_path);
 }
+
+String [] import_text(String path) {
+	return  loadStrings(path) ;
+}
+
+
+
+
 
 
 
@@ -172,16 +180,7 @@ R_Image_Manager get_bitmap_collection() {
 
 
 void change_bitmap_from_pad(int id) {
-	which_bitmap[id] = pad_inc(which_bitmap[id],UP);
-	which_bitmap[id] = pad_inc(which_bitmap[id],DOWN);
-	which_bitmap[id] = pad_inc(which_bitmap[id],RIGHT);
-	which_bitmap[id] = pad_inc(which_bitmap[id],LEFT);
-
-	if(which_bitmap[id] < 0) {
-		which_bitmap[id] = bitmap_path.length -1;
-	} else if (which_bitmap[id] >= bitmap_path.length) {
-		which_bitmap[id] = 0;
-	}
+	change_media(which_bitmap, id, bitmap_path);
 }
 
 
@@ -204,17 +203,9 @@ boolean load_movie_id(boolean change_movie_is, int id) {
 
 
 void change_movie_from_pad(int id) {
-	which_movie[id] = pad_inc(which_movie[id],UP);
-	which_movie[id] = pad_inc(which_movie[id],DOWN);
-	which_movie[id] = pad_inc(which_movie[id],RIGHT);
-	which_movie[id] = pad_inc(which_movie[id],LEFT);
-
-	if(which_movie[id] < 0) {
-		which_movie[id] = movie_path.length -1;
-	} else if (which_movie[id] >= movie_path.length) {
-		which_movie[id] = 0;
-	}
+	change_media(which_movie, id, movie_path);
 }
+
 
 
 
@@ -296,40 +287,6 @@ void movieEvent(Movie m) {
 	m.read(); 
 }
 
-/*
-void classic_movie(int id, int place, boolean full_width, boolean full_height) {
-	int pos_x = 0;
-	int pos_y = 0;
-	int size_x = movie[id].width;
-	int size_y = movie[id].height;
-
-	// Size in the Scene
-	if(full_width && full_height) {
-		size_x = width;
-		size_y = height;
-	} else if(!full_width && !full_height) {
-		size_x = movie[id].width;
-		size_y = movie[id].height;
-	} else if(full_width && !full_height) {
-		size_x = width;
-		float ratio = (float)width / (float)movie[id].width ;
-		size_y = int(movie[id].height *ratio);
-	} else if(!full_width && full_height) {
-		size_y = height ;
-		float ratio = (float)height / (float)movie[id].height ;
-		size_x = int(movie[id].width *ratio) ;
-	}
-	
-	// position in the Scene
-	if(place == CENTER) {
-		pos_x = width/2 - (size_x/2) ;
-		pos_y = height/2  - (size_y/2);
-	}
-
-	// show movie
-	image(movie[id], pos_x, pos_y, size_x, size_y) ;
-}
-*/
 
 
 
@@ -338,14 +295,10 @@ void classic_movie(int id, int place, boolean full_width, boolean full_height) {
 
 
 
-/**
-TEXT MANAGER
-*/
-// String import_raw [];
-String [] import_text(String path) {
-	return  loadStrings(path) ;
-	// return join(import_rRaw, "") ;
-}
+
+
+
+
 
 
 

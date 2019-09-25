@@ -1,8 +1,12 @@
 /**
-* Core Romanesco
+* CORE MUTUAL ROMANESCO
+*
+*
+* WARNING
 * common code for CONTROLLER and RENDERER
 * 2018-2019
-* v 0.5.3
+* v 0.6.0
+*
 * Processing 3.5.3
 * Rope library 0.6.2
 */
@@ -216,7 +220,6 @@ class ROFont {
   int size;
 
   ROFont(String path, int size) {
-    //if(extension_is(path,"ttf","TTF","otf","OTF")) {
     if(extension_font(path)) {
       this.font = createFont(path,size);
       this.path = path;
@@ -253,48 +256,10 @@ class ROFont {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 /**
 MEDIA
 2014-2019
-v 0.1.6
+v 0.2.1
 */
 ArrayList<File> text_files = new ArrayList<File>();
 ArrayList<File> bitmap_files = new ArrayList<File>();
@@ -302,34 +267,26 @@ ArrayList<File> svg_files = new ArrayList<File>();
 ArrayList<File> movie_files = new ArrayList<File>();
 ArrayList<File> media_files = new ArrayList<File>();
 
-
-
+String [] extension_text = {"txt","md"};
+String [] extension_movie = {"mov","avi","mp4","mpg","mpeg","mkv"};
+String [] extension_bitmap = {"jpeg","jpg","tif","tiff","tga","gif","png"};
 
 String ref_path;
 void add_media(String path) {
   if(path != null && !path.equals(ref_path)) {
     ref_path = path;
-    if(ext(path,"mov") || ext(path,"avi") || ext(path,"mp4") || ext(path,"mpg")|| ext(path,"mkv")) {
+    if(extension_is(path,extension_movie)) {
       add_input(movie_files,path);
-    } else if(ext(path,"jpeg") || ext(path,"jpg") || ext(path,"tif") || ext(path,"tiff") || ext(path,"tga") || ext(path,"gif") || ext(path,"png")) {
+    } else if(extension_is(path,extension_bitmap)) {
       add_input(bitmap_files,path);
-    } else if(ext(path,"txt")) {
+    } else if(extension_is(path,extension_text)) {
       add_input(text_files,path);
-    } else if(ext(path,"svg")) {
+    } else if(extension_is(path,"svg")) {
       add_input(svg_files,path);
     }
   }
 }
 
-
-boolean ext(String path, String extension) {
-  return extension(path.toLowerCase()).equals(extension.toLowerCase());
-}
-
-
-/**
-add movie path
-*/
 void add_input(ArrayList<File> media_file_by_type, String path) {
   File file = new File(path);
   if(!check_already_existing_path(path)) {
@@ -350,10 +307,13 @@ boolean check_already_existing_path(String path) {
   return existing;
 }
 
-
-
-
-
+void clear_all_medias() {
+  text_files.clear();
+  bitmap_files.clear();
+  svg_files.clear();
+  movie_files.clear();
+  media_files.clear();
+}
 
 
 
@@ -384,15 +344,12 @@ void update_window_location() {
   }
 }
 
-
 void write_window_location() {
   String loc [] = new String[2];
   loc[0] = Integer.toString(ref_window_location.x);
   loc[1] = Integer.toString(ref_window_location.y);
   saveStrings("data/location.loc",loc);
 }
-
-
 
 void load_window_location() {
   load_window_location(ivec2(width,height));
@@ -449,6 +406,17 @@ void center_sketch(ivec2 loc) {
   int term_y_1 = height/2;
   loc.y = term_y_0 - term_y_1;
 }
+
+
+
+
+
+
+
+
+
+
+
 
 
 

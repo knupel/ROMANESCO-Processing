@@ -1,13 +1,20 @@
-/**
-ADD MEDIA
-v 0.1.1
-*/
+
+
+
+
+
+
+
+
+
+
 String input_ref;
 String input_media_ref;
 String input_image_ref;
 String input_shape_ref;
 String input_text_ref;
 String input_movie_ref;
+
 void add_media() {
   boolean any_input_is = false;
   if(input_is() && !input().equals(input_ref)) {
@@ -16,8 +23,7 @@ void add_media() {
     input_is(false);
     any_input_is = true;
   }
-  // println(input_is("media"));
-  // if(input("media") != null) println(input("media"));
+
   if(input_is("media") && input("media") != null && !input("media").equals(input_media_ref)) {
     input_media_ref = input("media");
     add_media(input_media_ref);
@@ -57,7 +63,6 @@ void add_media() {
     autosave();  
   }
 
-
   if(folder_input_default_is()) {
     boolean explore_sub_folder = false;
     explore_folder(folder(),explore_sub_folder,
@@ -83,30 +88,30 @@ void add_media() {
 
 void update_media() {
   //text
-  file_text_dropdown_list = new String[text_files.size()] ;
+  file_text_dropdown_list = new String[text_files.size()];
   for(int i = 0 ; i< file_text_dropdown_list.length ; i++) {
-    File f = (File) text_files.get(i);
+    File f = (File)text_files.get(i);
     file_text_dropdown_list[i] = naming_media_file(f);
   }
 
   // bitmap
-  bitmap_dropdown_list = new String[bitmap_files.size()] ;
+  bitmap_dropdown_list = new String[bitmap_files.size()];
   for(int i = 0 ; i< bitmap_dropdown_list.length ; i++) {
-    File f = (File) bitmap_files.get(i);
+    File f = (File)bitmap_files.get(i);
     bitmap_dropdown_list[i] = naming_media_file(f);
   }
 
   // shape
-  shape_dropdown_list = new String[svg_files.size()] ;
+  shape_dropdown_list = new String[svg_files.size()];
   for(int i = 0 ; i< shape_dropdown_list.length ; i++) {
-    File f = (File) svg_files.get(i);
+    File f = (File)svg_files.get(i);
     shape_dropdown_list[i] = naming_media_file(f);
   }
 
   // Movie
-  movie_dropdown_list = new String[movie_files.size()] ;
+  movie_dropdown_list = new String[movie_files.size()];
   for(int i = 0 ; i < movie_dropdown_list.length ; i++) {
-    File f = (File) movie_files.get(i);
+    File f = (File)movie_files.get(i);
     movie_dropdown_list[i] = naming_media_file(f);
   }
 }
@@ -119,8 +124,8 @@ String naming_media_file(File f) {
   name = name.replace(remove,"");
   if(name.length() > 13) {
     String begin = name.substring(0,6);
-    String end = name.substring(name.length() -4);
-    name = begin+"..."+end;
+    String end = name.substring(name.length() - 4);
+    name = begin + "..." + end;
     // check for dead link
   }
   if(!f.exists()) {

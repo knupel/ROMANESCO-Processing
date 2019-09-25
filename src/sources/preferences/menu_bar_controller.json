@@ -6,7 +6,7 @@
     "load recent": "périph.rope,youngtimer.rope"
   },
 
-  "import": {"menu": "media>i>cmd,image,video,text,shape,|,import folder>i>cmd>shift"},
+  "import": {"menu": "media>i>cmd,image,video,text,shape,|,import folder>i>cmd>shift,|,clear all medias>c>cmd"},
 
   "misc": {"menu": "midi map?,syphon?,mask?"},
 

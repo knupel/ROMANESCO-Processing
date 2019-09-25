@@ -1,14 +1,14 @@
 /**
 * R_Text
 * It's classes collection to manage text and sentences
-* v 0.0.3
+* v 0.0.5
 * 2019-2019
 */
 
 
 /**
 * class R_Typewriter
-* v 0.0.1
+* v 0.0.4
 */
 import geomerative.*;
 
@@ -47,17 +47,17 @@ public class R_Typewriter {
       this.type = extension(this.path);
       reset_cloud = true;
     } else {
-      printErr("class R_Text: path don't match with any font type:",path);
+      printErr("class R_Text: font path don't match with any font type:",path);
     }
   }
 
   // SET
-  public void path(String path) {
+  public void path(String path, boolean show_warning) {
     if(extension_is(path,type_wanted) && !this.path.equals(path)) {
       this.path = path;
       this.font = createFont(this.path,this.size);
-    } else {
-      printErr("class R_Text method set(): path don't match with any font type:",path);
+    } else if(show_warning) {
+      printErr("class R_Text method set(): font path don't match with any font type:",path);
     }
   }
 
@@ -77,7 +77,7 @@ public class R_Typewriter {
     this.angle = angle;
   }
 
-  public void sentence(String sentence) {
+  public void content(String sentence) {
     if(this.sentence == null || !this.sentence.equals(sentence)) {
       this.sentence = sentence;
     }
@@ -127,7 +127,7 @@ public class R_Typewriter {
   ArrayList<vec3>points;
   public vec3 [] get_points(){
     if (this.sentence == null) {
-      sentence("NULL");
+      content("NULL");
       return calc_get_points();
     } else {
       return calc_get_points();
@@ -167,15 +167,23 @@ public class R_Typewriter {
 
   // SHOW
   public void show(){
+    show(0,0);
+  }
+
+    public void show(int w, int h){
+    show(w,h,CORNER);
+  }
+
+  public void show(int w, int h, int window_position){
     if (this.sentence == null) {
-      sentence("NULL");
-      calc_show();
+      content("NULL");
+      calc_show(w,h,window_position);
     } else {
-      calc_show();
+      calc_show(w,h,window_position);
     }
   }
 
-  private void calc_show() {
+  private void calc_show(int w, int h, int window_position) {
     if(pos == null) {
       pos = vec3();
     }
@@ -187,10 +195,27 @@ public class R_Typewriter {
     textFont(font);
     textAlign(align);
     if(this.angle != 0){
-      text(this.sentence,vec3());
+      if(w > 0 && h > 0){
+        if(window_position != CENTER) {
+          text(this.sentence,0,0,w,h);
+        } else {
+          text(this.sentence,-w/2,-h/2,w,h);
+        } 
+      } else {
+        text(this.sentence,0,0);
+      }
       pop();
     } else {
-      text(this.sentence,pos);
+      if(w > 0 && h > 0){
+        if(window_position != CENTER) {
+          text(this.sentence,pos.x(),pos.y(),w,h);
+        } else {
+          text(this.sentence,-w/2 + pos.x(),-h/2 + pos.y(),w,h);
+        }
+        // text(this.sentence,pos.x(),pos.y(),w,h);
+      } else {
+        text(this.sentence,pos);
+      }
     }
   }
 }

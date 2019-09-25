@@ -95,7 +95,7 @@ void display_structure_bottom(int colour_a, int colour_b) {
 
 
 void show_misc_text() {
-  if(insideNameversion) fill (fill_text_title_in) ; else fill(fill_text_title_out) ;
+  if(inside_logo) fill (fill_text_title_in) ; else fill(fill_text_title_out) ;
   int posTextY = 18 ;
   textFont(FuturaStencil_20,16); 
   text(nameVersion,5,posTextY);

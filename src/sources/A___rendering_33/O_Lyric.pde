@@ -30,13 +30,13 @@ class Lyric extends Romanesco {
 		// size_y_is = true;
 		// size_z_is = true;
 		// diameter_is = true;
-		// canvas_x_is = true;
-		// canvas_y_is = true;
+		canvas_x_is = true;
+		canvas_y_is = true;
 		// canvas_z_is = true;
 
 		// COL 2
 		// frequence_is = true;
-		// speed_x_is = true;
+		speed_x_is = true;
 		// speed_y_is = true;
 		// speed_z_is = true;
 		// spurt_x_is = true;
@@ -77,9 +77,9 @@ class Lyric extends Romanesco {
 		// power_is = true;
 		// mass_is = true;
 		// amplitude_is = true;
-		coord_x_is = true;
-		coord_y_is = true;
-		coord_z_is = true;
+		// coord_x_is = true;
+		// coord_y_is = true;
+		// coord_z_is = true;
 	}
 
 	Poem poem;
@@ -90,17 +90,11 @@ class Lyric extends Romanesco {
 		set_item_pos(width/2,height/2,0);
 		set_item_dir(HALF_PI,PI);
 		writer = new R_Typewriter(p5,get_font_path(),48);
-		// String test = get_text();
-		// println("print",get_text());
-		// String [] test = {get_text()};
-		if(load_text()) {
-			// println(get_text());
-			// poem = new Poem(get_text());
-		}
 	}
 	
 	//DRAW
 	boolean text_is = false;
+	int index_vers = 0;
 	void draw() {
 		if(load_text()) {
 			text_is = true;
@@ -108,15 +102,37 @@ class Lyric extends Romanesco {
 		}
 
 		if(text_is){
-			String blabla = poem.get_vers(0).toString();
+			if(birth_is()) {
+				index_vers++;
+				birth_is(false);
+			}
+
+			if(reverse_is()) {
+				index_vers--;
+				reverse_is(false);
+			}
+			if(index_vers >= poem.size()){
+				index_vers = 0;
+			}
+
+			if(index_vers < 0){
+				index_vers = poem.size() -1;
+			}
+
+			String blabla = poem.get_vers(index_vers).toString();
+			int w = (int)get_canvas_x().value() * 2;
+			int h = (int)get_canvas_y().value() * 2;
+			// int x = 0;
+			// int y = 0;
 		  // "écoutons nos pochettes"
+		  fill(get_fill());
 		  writer.path(get_font_path(),false);
 		  writer.size((int)get_size_x().value());
 		  writer.angle(get_angle().value());
 		  writer.align(CENTER);
 		  writer.pos(0,0,0);
-		  writer.sentence(blabla);
-		  writer.show();
+		  writer.content(blabla);
+		  writer.show(w,h,CENTER);
 		}
 
 

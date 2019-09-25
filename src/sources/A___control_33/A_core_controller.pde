@@ -1,6 +1,6 @@
 /**
 Core controller
-v 0.2.1
+v 0.2.2
 2018-2019
 */
 import java.awt.event.KeyEvent;
@@ -197,12 +197,12 @@ void set_font() {
   FuturaCondLight_11 = loadFont(path_font_gui +"Futura-CondensedLight-11.vlw");
   FuturaCondLight_12 = loadFont(path_font_gui +"Futura-CondensedLight-12.vlw");
   
-  textUsual_1 = FuturaCondLight_10 ;
-  textUsual_2 = FuturaCondLight_11 ;
-  textUsual_3 = FuturaCondLight_12 ;
+  textUsual_1 = FuturaCondLight_10;
+  textUsual_2 = FuturaCondLight_11;
+  textUsual_3 = FuturaCondLight_12;
 
-  title_medium = FuturaExtraBold_10 ;
-  title_big = FuturaStencil_20 ;
+  title_medium = FuturaExtraBold_10;
+  title_big = FuturaStencil_20;
 }
 
 
@@ -215,7 +215,7 @@ void set_font() {
 * DETECTION CURSOR
 */
 boolean locked (boolean inside) {
-  if (inside && mousePressed) return true ; else return false ;
+  if(inside && mousePressed) return true ; else return false;
 }
 
 
@@ -225,15 +225,15 @@ boolean locked (boolean inside) {
 /**
 CREDIT
 */
-boolean insideNameversion ;
+boolean inside_logo;
 void credit() {
-  if(mouseX > 2 && mouseX < 160 && mouseY > 3 && mouseY < 26 ) {
-    insideNameversion = true; 
+  if(mouseX > 2 && mouseX < 160 && mouseY > 3 && mouseY < 26) {
+    inside_logo = true; 
   } else {
-    insideNameversion = false;
+    inside_logo = false;
   }
 
-  if(insideNameversion && mousePressed) {
+  if(inside_logo && mousePressed) {
     String credit[] = loadStrings("credit.txt");
     
     fill(struc_colour_credit_background,225); 

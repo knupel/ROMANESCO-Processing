@@ -1,7 +1,7 @@
 /**
 * Romanesco dui
 * 2012–2019
-* version 32
+* version 33
 * Processing 3.5.3
 * Rope library 0.8.5.30
 */
@@ -64,101 +64,100 @@ boolean KEEP_BUTTON_ITEM_STATE = true;
 
 
 void settings() {
-  size(810,725);
-  size_window_ref = ivec2(width,height);
-  set_design();
+	size(810,725);
+	size_window_ref = ivec2(width,height);
+	set_design();
 }
 
 void setup() {
-  colorMode(HSB,360,100,100);
-  load_window_location();
-  path_setting();
-  version();
-  setting_misc();
-  init_button_general();
-  init_midi();
-  init_info_shader();
-  create_and_initialize_item(); 
-  load_setup();
-  
-  set_system_specification();
-  set_font();
-  set_display_slider();
-  set_import_pic_button();
-  set_console();
-  set_button_item_console();
+	colorMode(HSB,360,100,100);
+	load_window_location();
+	path_setting();
+	version();
+	setting_misc();
+	init_button_general();
+	init_midi();
+	init_info_shader();
+	create_and_initialize_item(); 
+	load_setup();
+	
+	set_system_specification();
+	set_font();
+	set_display_slider();
+	set_import_pic_button();
+	set_console();
+	set_button_item_console();
 
-  build_bar();
-  build_console();
-  build_dropdown_bar();
-  build_dropdown_item_selected();
-  build_button_item_console();
-  build_inventory();
-  set_OSC();
-  set_data();
-  reset();
+	build_bar();
+	build_console();
+	build_dropdown_bar();
+	build_dropdown_item_selected();
+	build_button_item_console();
+	build_inventory();
+	set_OSC();
+	set_data();
+	reset();
 }
 
 void draw() {
-  // print_debug_tempo(240,"void draw(): sketch controller is",focused);
+	// print_debug_tempo(240,"void draw(): sketch controller is",focused);
+	check_size_window();
+	update_window_location();
+	check_slider_item();
+	
+	add_media();
+	check_button();
 
-  check_size_window();
-  update_window_location();
-  check_slider_item();
-  
-  add_media();
-  check_button();
+	manage_autosave();
+	load_dial_scene();
+	update_media();
 
-  manage_autosave();
-  load_dial_scene();
-  update_media();
-  
-  surface.setTitle(nameVersion + ": " +prettyVersion+"."+version+ " - Controller");
+	surface.setTitle(nameVersion + ": " +prettyVersion+"."+version+ " - Controller");
 
-  set_data();
+	set_data();
 
-  display_structure();
+	display_structure();
 
-  show_misc_text();
-  show_slider_controller();
+	show_misc_text();
+	show_slider_controller();
 
-  update_button();
-  show_button();
+	update_button();
+	show_button();
 
-  show_dropdown();
-  
-  midi_manager(false);
-  update_midi();
-  update_OSC();
-  update_dial();
+	show_dropdown();
+	
+	midi_manager(false);
+	update_midi();
+	update_OSC();
+	update_dial();
 
-  show_window_info();
+	show_window_info();
 
-  reset();
-  credit();
+	reset();
+	credit();
 }
 
 
 void mouseWheel(MouseEvent e) {
-  scroll(e);
+	scroll(e);
 }
 
 void mousePressed () {
-  if(!dropdown_is()) {
-    mousePressed_button_general();
-    mousepressed_button_item_console();
-    mousepressed_button_inventory();
-  } 
+	if(!dropdown_is()) {
+		mousePressed_button_general();
+		mousepressed_button_item_console();
+		mousepressed_button_inventory();
+	} 
 }
 
 boolean send_data_is;
 void keyPressed() {
-  keypressed_midi();
-  shortcuts_controller();
+	keypressed_midi();
+	shortcuts_controller();
 }
 
 
 void keyReleased() { 
-  key_false();
-  keyboard[keyCode] = false;
+	key_false();
+	keyboard[keyCode] = false;
 }

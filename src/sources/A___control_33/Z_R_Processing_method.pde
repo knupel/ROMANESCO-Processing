@@ -1,6 +1,6 @@
 /**
 * ROPE PROCESSING METHOD
-* v 2.7.9
+* v 2.7.10
 * Copyleft (c) 2014-2019
 * Stan le Punk > http://stanlepunk.xyz/
 * @author @stanlepunk
@@ -1246,73 +1246,87 @@ void stroke(vec4 c, PGraphics other) {
 /**
 * text
 */
-
+// free mode
 void text(String s, float x, float y, PGraphics other) {
   if(other != null) {
-    other.text(s,x,y);
+    other.text(s, x,y);
   } else {
-    text(s,x,y);
+    text(s, x,y);
   }
 }
 
 void text(char c, float x, float y, PGraphics other) {
   if(other != null) {
-    other.text(c,x,y);
+    other.text(c, x,y);
   } else {
-    text(c,x,y);
+    text(c, x,y);
   }
 }
 
 void text(int i, float x, float y, PGraphics other) {
   if(other != null) {
-    other.text(i,x,y);
+    other.text(i, x,y);
   } else {
-    text(i,x,y);
+    text(i, x,y);
   }
 }
 
 void text(float f, float x, float y, PGraphics other) {
   if(other != null) {
-    other.text(f,x,y);
+    other.text(f, x,y);
   } else {
-    text(f,x,y);
+    text(f, x,y);
   }
 }
 
 void text(String s, float x, float y, float z, PGraphics other) {
   if(other != null) {
-    other.text(s,x,y,z);
+    other.text(s, x,y,z);
   } else {
-    text(s,x,y,z);
+    text(s, x,y,z);
   }
 }
 
 void text(char c, float x, float y, float z, PGraphics other) {
   if(other != null) {
-    other.text(c,x,y,z);
+    other.text(c, x,y,z);
   } else {
-    text(c,x,y,z);
+    text(c, x,y,z);
   }
 }
 
 void text(int i, float x, float y, float z, PGraphics other) {
   if(other != null) {
-    other.text(i,x,y,z);
+    other.text(i, x,y,z);
   } else {
-    text(i,x,y,z);
+    text(i, x,y,z);
   }
 }
 
 void text(float f, float x, float y, float z, PGraphics other) {
   if(other != null) {
-    other.text(f,x,y,z);
+    other.text(f, x,y,z);
   } else {
-    text(f,x,y,z);
+    text(f, x,y,z);
+  }
+}
+
+void text(String s, float x, float y, float w, float h, PGraphics other) {
+  if(other != null) {
+    other.text(s, x,y, w,h);
+  } else {
+    text(s, x,y, w,h);
   }
 }
 
 
 
+
+
+
+
+
+// vec free mode
 void text(String s, vec pos) {
   text(s,pos,null);
 }
@@ -1320,10 +1334,10 @@ void text(String s, vec pos) {
 void text(String s, vec pos, PGraphics other) {
   if(pos instanceof vec2 && s != null) {
     vec2 p = (vec2)pos;
-    text(s,p.x,p.y,other);
+    text(s, p.x(),p.y(), other);
   } else if(pos instanceof vec3 && s != null) {
     vec3 p = (vec3)pos;
-    text(s,p.x,p.y,p.z,other);
+    text(s, p.x(),p.y(),p.z(), other);
   } else {
     printErrTempo(60,"method text(): String message is null or vec is not an instance of vec3 or vec2");
   }
@@ -1336,10 +1350,10 @@ void text(char c, vec pos) {
 void text(char c, vec pos, PGraphics other) {
   if(pos instanceof vec2) {
     vec2 p = (vec2)pos;
-    text(c, p.x, p.y,other);
+    text(c, p.x(),p.y(), other);
   } else if(pos instanceof vec3) {
     vec3 p = (vec3)pos;
-    text(c,p.x,p.y,p.z,other);
+    text(c, p.x(),p.y(),p.z(), other);
   }
 }
 
@@ -1351,10 +1365,10 @@ void text(int i, vec pos) {
 void text(int i, vec pos, PGraphics other) {
   if(pos instanceof vec2) {
     vec2 p = (vec2)pos;
-    text(i, p.x, p.y,other);
+    text(i, p.x(),p.y(), other);
   } else if(pos instanceof vec3) {
     vec3 p = (vec3)pos;
-    text(i,p.x,p.y,p.z,other);
+    text(i, p.x(),p.y(),p.z(), other);
   } 
 }
 
@@ -1365,12 +1379,26 @@ void text(float f, vec pos) {
 void text(float f, vec pos, PGraphics other) {
   if(pos instanceof vec2) {
     vec2 p = (vec2) pos;
-    text(f, p.x, p.y,other);
+    text(f, p.x(),p.y(), other);
   } else if(pos instanceof vec3) {
     vec3 p = (vec3) pos;
-    text(f,p.x,p.y,p.z,other);
+    text(f,p.x(),p.y(),p.z(),other);
   } 
 }
+
+void text(String s, vec2 pos, vec2 size) {
+  text(s, pos, size, null);
+}
+
+void text(String s, vec2 pos, vec2 size, PGraphics other) {
+  if(other != null) {
+    other.text(s, pos.x(),pos.y(), size.x(),size.y());
+  } else {
+    text(s, pos.x(),pos.y(), size.x(),size.y());
+  }
+}
+
+
 
 
 
