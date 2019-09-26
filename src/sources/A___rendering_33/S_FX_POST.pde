@@ -353,7 +353,7 @@ void setting_fx_filter(ArrayList<FX> fx_list) {
   setting_fx_blur_gaussian(fx_list);
   setting_fx_blur_radial(fx_list);
 
-  setting_fx_datamosh(fx_list);
+  // setting_fx_datamosh(fx_list);
 
   setting_fx_dither_bayer(fx_list);
 
@@ -404,7 +404,7 @@ void update_fx_filter(ArrayList<FX> fx_list) {
   update_fx_blur_gaussian(fx_list,move_fx_filter,sl_fx_strength_x);
   update_fx_blur_radial(fx_list,move_fx_filter,mouse_fx_filter.xy(),sl_fx_strength_x);
 
-  update_fx_datamosh(fx_list,move_fx_filter,sl_fx_strength_x,sl_fx_threshold,vec3(sl_fx_color_x,sl_fx_color_y,sl_fx_color_z));
+  // update_fx_datamosh(fx_list,move_fx_filter,sl_fx_strength_x,sl_fx_threshold,vec3(sl_fx_color_x,sl_fx_color_y,sl_fx_color_z));
   
   int mode_dither = 1 ; // rgb
   update_fx_dither_bayer(fx_list,move_fx_filter,vec3(sl_fx_color_x,sl_fx_color_y,sl_fx_color_z),mode_dither);
@@ -510,6 +510,7 @@ void update_fx_blur_radial(ArrayList<FX> fx_list, boolean move_is, vec2 pos,floa
 /**
 * datamosh
 */
+/*
 String set_datamosh = "datamosh";
 void setting_fx_datamosh(ArrayList<FX> fx_list) {
   String version = "0.0.1";
@@ -534,6 +535,7 @@ void update_fx_datamosh(ArrayList<FX> fx_list, boolean move_is, float strength, 
     fx_set_pair(fx_list,set_datamosh,2, offset_blue.array());
   }
 }
+*/
 
 
 

@@ -27,7 +27,7 @@ BUG with warp on MacBook Pro 2018 or HighSierra / Mojave
 
 // DEVELOPER SETTING
 boolean DEBUG_MODE = true;
-boolean USE_LAYER = true;
+boolean USE_LAYER = true; // cause a bug when the  shader effect is used
 boolean DEV_MODE = true; // inter alia, path preferences folder, curtain
 String IAM = "prescene";
 boolean LIVE = false;

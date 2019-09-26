@@ -14,18 +14,18 @@ class Lyric extends Romanesco {
 		item_version = "Version 0.0.1";
 		item_pack = "Base 2019-2019" ;
 		item_costume = ""; // costume available from get_costume();
-		item_mode = "Line/Window";
+		item_mode = "line/window/destroy";
 		// define slider
 		// COL 1
 		hue_fill_is = true;
 		sat_fill_is = true;
 		bright_fill_is = true;
 		alpha_fill_is = true;
-		// hue_stroke_is = true;
-		// sat_stroke_is = true;
-		// bright_stroke_is = true;
-		// alpha_stroke_is = true;
-		// thickness_is = true;
+		hue_stroke_is = true;
+		sat_stroke_is = true;
+		bright_stroke_is = true;
+		alpha_stroke_is = true;
+		thickness_is = true;
 		size_x_is = true;
 		// size_y_is = true;
 		// size_z_is = true;
@@ -36,18 +36,18 @@ class Lyric extends Romanesco {
 
 		// COL 2
 		// frequence_is = true;
-		speed_x_is = true;
+		// speed_x_is = true;
 		// speed_y_is = true;
 		// speed_z_is = true;
 		// spurt_x_is = true;
 		// spurt_y_is = true;
 		// spurt_z_is = true;
-		//dir_x_is = true;
+		// dir_x_is = true;
 		// dir_y_is = true;
 		// dir_z_is = true;
-		// jit_x_is = true;
-		// jit_y_is = true;
-		// jit_z_is  = true;
+		jit_x_is = true;
+		jit_y_is = true;
+		jit_z_is = true;
 		// swing_x_is = true;
 		// swing_y_is = true;
 		// swing_z_is = true;
@@ -56,7 +56,7 @@ class Lyric extends Romanesco {
 		// quantity_is = true;
 		// variety_is =true;
 		// life_is = true;
-		// flow_is = true;
+		flow_is = true;
 		// quality_is = true;
 		// area_is = true;
 		angle_is = true;
@@ -127,18 +127,34 @@ class Lyric extends Romanesco {
 			if(h > max_h) {
 				h = max_h;
 			}
-		  fill(get_fill());
-		  writer.path(get_font_path(),false);
-		  writer.size(font_size);
-		  writer.angle(get_angle().value());
-		  writer.align(CENTER);
-		  writer.pos(0,0,0);
-		  writer.content(blabla);
-		  if(get_mode_name().toLowerCase().equals("window")) {
-		  	writer.show(w,h,CENTER);
-		  } else {
-		  	writer.show();
-		  }
+			fill(get_fill());
+
+			writer.path(get_font_path(),false);
+			writer.size(font_size);
+			writer.angle(get_angle().value());
+			writer.align(CENTER);
+			writer.pos(0,0,0);
+			
+			if(get_mode_name().toLowerCase().equals("window")) {
+				writer.content(blabla);
+				writer.show(w,h,CENTER);
+			} else if (get_mode_name().toLowerCase().equals("line")) {
+				writer.content(blabla);
+				writer.show();
+			} else if (get_mode_name().toLowerCase().equals("destroy")) {
+				stroke(get_stroke());
+				strokeWeight(get_thickness().value());
+				writer.reset();
+				writer.content(blabla);
+				vec3 jit  = get_jitter().mult(height).mult(get_flow().value());
+				println("jitting",jit);
+				beginShape();
+				for(vec3 p : writer.get_points()) {
+					int show_is = floor(random(2));
+					if(show_is != 0) vertex(p.jitter(jit));
+				}
+				endShape();
+			}
 		}
 
 	}
