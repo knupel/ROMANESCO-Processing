@@ -1,7 +1,7 @@
 /**
 * CORE RENDERING
 * 2015-2019
-* v 1.10.0
+* v 1.11.0
 */
 import java.net.*;
 import java.io.*;
@@ -59,6 +59,22 @@ void curtain() {
 
 
 
+
+
+
+/**
+screenshot
+*/
+void screenshot() {
+  if(FULL_RENDERING) {
+    String path = sketchPath(1)+"/shot_"+year()+"_"+month()+"_"+day();
+    String name_file =  "rom_"+year()+"_"+month()+"_"+day()+"_"+hour()+"_"+minute()+"_"+second();
+    save_PNG(path,name_file);
+  }
+  if(key_p) {
+    event_PNG(); // this method is outside from scope (FULL_RENDERING) to send the order to Scene
+  }
+}
 
 
 

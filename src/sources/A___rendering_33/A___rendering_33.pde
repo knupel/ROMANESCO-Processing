@@ -38,7 +38,7 @@ boolean FULL_RENDERING = true;
 
 // PRESCENE LIVE
 // boolean DEBUG_MODE = true;
-// boolean USE_LAYER = false;
+// boolean USE_LAYER = true;
 // boolean DEV_MODE = true; // inter alia, path preferences folder, curtain
 // String IAM = "prescene";
 // boolean LIVE = true;
@@ -46,7 +46,7 @@ boolean FULL_RENDERING = true;
 
 // SCENE LIVE
 // boolean DEBUG_MODE = true;
-// boolean USE_LAYER = false;
+// boolean USE_LAYER = true;
 // boolean DEV_MODE = true; // inter alia, path preferences folder, curtain
 // String IAM = "scene";
 // boolean LIVE = false;
@@ -89,7 +89,7 @@ boolean FULL_RENDERING = true;
 */
 // PRESCENE FULL RENDERING
 // APP: prescene_## > change for size(124,124)
-// boolean USE_LAYER = false;
+// boolean USE_LAYER = true;
 // boolean DEV_MODE = false; // inter alia, path preferences folder, curtain
 // String IAM = "prescene";
 // boolean LIVE = false;
@@ -99,7 +99,7 @@ boolean FULL_RENDERING = true;
 
 // PRESCENE LIVE PREVIEW
 // APP: prescene_##_live > change for size(124,124) in settings()
-// boolean USE_LAYER = false;
+// boolean USE_LAYER = true;
 // boolean DEV_MODE = false; // inter alia, path preferences folder, curtain
 // String IAM = "prescene";
 // boolean LIVE = true;
@@ -111,7 +111,7 @@ boolean FULL_RENDERING = true;
 // for the scene live export, two export set in void settings() 
 // APP: scene_##_live_fullscreen  > change for  fullScreen() in settings()
 // APP: scene_##_live > change for size(124,124) in settings()
-// boolean USE_LAYER = false;
+// boolean USE_LAYER = true;
 // boolean DEV_MODE = false; // inter alia, path preferences folder, curtain
 // String IAM = "scene";
 // boolean LIVE = false; 
@@ -259,21 +259,24 @@ void draw() {
 	}
 }
 
-
-void romanesco() {
-	init_romanesco();
+void screenshot() {
 	if(FULL_RENDERING) {
-		//start_PNG("screenshot Romanesco prescene", "Romanesco_"+year()+"_"+month()+"_"+day()+"_"+hour()+"_"+minute()+"_"+second());
+		String path = sketchPath(1)+"/shot_"+year()+"_"+month()+"_"+day();
+		String name_file =  "rom_"+year()+"_"+month()+"_"+day()+"_"+hour()+"_"+minute()+"_"+second();
+		save_PNG(path,name_file);
+	}
+	if(key_p) {
+		event_PNG(); // this method is outside from scope (FULL_RENDERING) to send the order to Scene
 	}
 
+}
+void romanesco() {
+	init_romanesco();
 	syphon_draw();
-
 	if(USE_SOUND) {
 		sound_draw();
 	}
-
 	OSC_update();
-
 	update_raw_item_value();
 
 	if(IAM.equals("prescene")) {
@@ -282,13 +285,7 @@ void romanesco() {
 	} 
 
 	rendering();
-
-	// save screenshot
-	if(FULL_RENDERING) {
-		save_PNG();
-	}
-	// this method is outside de bracket (FULL_RENDERING) to give the possibility to send the order to Scene
-	if(key_p) event_PNG();
+	screenshot();
 
 	// misc
 	puppet_master(false); // use to resset puppet for the force field
@@ -330,13 +327,13 @@ void romanesco() {
 		}
 	}
 
-
 	// final display
 	if(USE_LAYER) {
 		for(int i = 0 ; i < get_layer_num() ; i++) {
 			g.image(get_layer(i),0,0);
 		}
 	}
+
 	// mask
 	if(FULL_RENDERING) {
 		masking(set_mask_is());
@@ -383,8 +380,7 @@ void keyPressed () {
 		if(LIVE) {
 			send_message(true);
 		}
-		 keyboard[keyCode] = true ;
-		// shortcuts_prescene();
+		keyboard[keyCode] = true;
 		key_true();
 	}
 
@@ -410,8 +406,6 @@ void keyReleased() {
 		camera_global_is = camera_global_is ? false:true;
 	}
 }
-
-
 
 
 void mousePressed() {

@@ -53,7 +53,7 @@ class Lyric extends Romanesco {
 		// swing_z_is = true;
 
 		// COL 3
-		quantity_is = true;
+		// quantity_is = true;
 		// variety_is =true;
 		// life_is = true;
 		// flow_is = true;

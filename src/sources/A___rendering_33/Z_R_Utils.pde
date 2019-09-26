@@ -1,6 +1,6 @@
 /**
 Rope UTILS 
-v 1.61.0
+v 1.61.1
 * Copyleft (c) 2014-2019
 * Rope – Romanesco Processing Environment – 
 * Processing 3.5.3
@@ -1079,7 +1079,7 @@ void explore_directory(ArrayList list_file, String dir) {
 
 /**
 * SAVE LOAD  FRAME Rope
-* v 0.4.0
+* v 0.4.1
 * 2016-2019
 */
 /**
@@ -1144,7 +1144,7 @@ void save_frame(String where, String filename, float compression, PImage img) {
 */
 boolean record_PNG;
 void save_PNG() {
-  save_PNG("data", "shot_"+ranking_shot + ".png");
+  save_PNG("data", "shot_"+ranking_shot);
 }
 
 void save_PNG(String path, String name_file) {
