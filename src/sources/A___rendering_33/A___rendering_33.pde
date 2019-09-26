@@ -87,7 +87,7 @@ boolean FULL_RENDERING = true;
 // PRESCENE FULL RENDERING
 // APP: prescene_## > change for size(124,124)
 // boolean USE_LAYER = true;
-// boolean DEV_MODE = false; 
+// boolean DEV_MODE = false;  // inter alia, path preferences folder, curtain
 // String IAM = "prescene";
 // boolean LIVE = false;
 // boolean FULL_RENDERING = true;
@@ -97,7 +97,7 @@ boolean FULL_RENDERING = true;
 // PRESCENE LIVE PREVIEW
 // APP: prescene_##_live > change for size(124,124) in settings()
 // boolean USE_LAYER = false;
-// boolean DEV_MODE = false; 
+// boolean DEV_MODE = false; // inter alia, path preferences folder, curtain
 // String IAM = "prescene";
 // boolean LIVE = true;
 // boolean FULL_RENDERING = false;
@@ -109,7 +109,7 @@ boolean FULL_RENDERING = true;
 // APP: scene_##_live_fullscreen  > change for  fullScreen() in settings()
 // APP: scene_##_live > change for size(124,124) in settings()
 // boolean USE_LAYER = true;
-// boolean DEV_MODE = false; 
+// boolean DEV_MODE = false; // inter alia, path preferences folder, curtain
 // String IAM = "scene";
 // boolean LIVE = false; 
 // boolean FULL_RENDERING = true;
@@ -184,7 +184,13 @@ void setup() {
 	set_system_specification();
 	OSC_setup();
  
-	int num_layer = 3;
+	int num_layer = 4;
+	/**
+	* layer 0 / first : background
+	* layer 1 : item 2D
+	* layer 2 : item 3D
+	* last layer : info
+	*/
 	int frame_rate = 60;
 	display_setup(frame_rate,num_layer); // the int value is the frameRate
 
@@ -269,12 +275,13 @@ void romanesco() {
 		update_command();
 		leapmotion_update();
 	} 
-
+  
+  show_is();
 	rendering();
-	screenshot();
+	post_rendering();
 
-	// misc
-	puppet_master(false); // use to resset puppet for the force field
+	screenshot();
+	puppet_master(false); // use to reset puppet for the force field
 	update_slider_ref();
 	media_update(180);
 	change_slider_ref();
@@ -302,23 +309,7 @@ void romanesco() {
 		key_false();
 	}
 
-	if(!controller_osc_is && FULL_RENDERING) {
-		if(USE_LAYER) {
-			select_layer(0);
-			begin_layer();
-			opening_display_message();
-			end_layer();
-		} else {
-			opening_display_message();
-		}
-	}
-
-	// final display
-	if(USE_LAYER) {
-		for(int i = 0 ; i < get_layer_num() ; i++) {
-			g.image(get_layer(i),0,0);
-		}
-	}
+	// post_rendering();
 
 	// mask
 	if(FULL_RENDERING) {

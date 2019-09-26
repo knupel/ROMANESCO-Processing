@@ -147,7 +147,7 @@ class Lyric extends Romanesco {
 				writer.reset();
 				writer.content(blabla);
 				vec3 jit  = get_jitter().mult(height).mult(get_flow().value());
-				println("jitting",jit);
+				// println("jitting",jit);
 				beginShape();
 				for(vec3 p : writer.get_points()) {
 					int show_is = floor(random(2));

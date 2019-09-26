@@ -113,7 +113,7 @@ int num_special_fx_filter;
 int ref_num_active_fx_filter;
 ArrayList<Integer>active_fx_filter;
 int fx_filter_classic_num;
-void fx_filter() {
+void fx_filter(PGraphics pg_target) {
   move_fx_filter = fx_filter_button_is(1);
   extra_fx_filter = fx_filter_button_is(2);
 
@@ -153,10 +153,10 @@ void fx_filter() {
     update_fx_filter(fx_filter_manager);
     if(extra_fx_filter && active_fx_filter != null && active_fx_filter.size() > 0) {
       for(int i : active_fx_filter) {
-        draw_fx_filter(i);
+        draw_fx_filter(pg_target, i);
       }
     } else {
-      draw_fx_filter(which_fx_filter);
+      draw_fx_filter(pg_target, which_fx_filter);
     }
   } 
 }
@@ -169,7 +169,7 @@ boolean draw_fx_filter_before_rendering_is() {
   return draw_fx_filter_before_rendering_is;
 }
 
-void draw_fx_filter(int which) {
+void draw_fx_filter(PGraphics pg_target, int which) {
   draw_fx_filter_before_rendering_is = false;
   // select fx 
   num_special_fx_filter = 1 ;
@@ -186,7 +186,7 @@ void draw_fx_filter(int which) {
           } else {
             draw_fx_filter_pattern(16,16,2,RGB,reset_fx_filter_button_alert_is());
           }
-          select_fx_post(g,get_fx_filter_pattern(0),get_fx_filter_pattern(1),get_fx(fx_filter_manager,target));
+          select_fx_post(pg_target, get_fx_filter_pattern(0),get_fx_filter_pattern(1),get_fx(fx_filter_manager,target));
         } else if (get_fx(fx_filter_manager,target).get_type() == FX_DATAMOSH) {
           draw_fx_filter_before_rendering_is = true;
           if(movie[which_current_movie] == null) {
@@ -201,7 +201,7 @@ void draw_fx_filter(int which) {
             select_fx_post(movie[which_current_movie],null,null,get_fx(fx_filter_manager,target));
           }
         } else {
-          select_fx_post(g,null,null,get_fx(fx_filter_manager,target));
+          select_fx_post(pg_target, null,null,get_fx(fx_filter_manager,target));
         }      
       }
     }
