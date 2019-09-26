@@ -54,14 +54,13 @@ void post_rendering() {
 		fx_mix_after();
 		for(int i = 0 ; i < get_layer_num() - 1 ; i++) {
 			g.image(get_layer(i),0,0);
-			// g.image(get_layer(i),0,0);
 		}
 		// it's way to do but there a huge bug :(
 		// fx_rendering(1);
 		// fx_mix_after();
 
     // info
-		// g.image(get_layer(get_layer_num() - 1),0,0);
+		g.image(get_layer(get_layer_num() - 1),0,0);
 	}
 }
 
