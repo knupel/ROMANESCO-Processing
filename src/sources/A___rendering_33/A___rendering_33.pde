@@ -25,10 +25,7 @@ BUG with warp on MacBook Pro 2018 or HighSierra / Mojave
 */
 
 
-
-/**
-* DEVELOPER SETTING
-*/
+// DEVELOPER SETTING
 boolean DEBUG_MODE = true;
 boolean USE_LAYER = true;
 boolean DEV_MODE = true; // inter alia, path preferences folder, curtain
@@ -90,7 +87,7 @@ boolean FULL_RENDERING = true;
 // PRESCENE FULL RENDERING
 // APP: prescene_## > change for size(124,124)
 // boolean USE_LAYER = true;
-// boolean DEV_MODE = false; // inter alia, path preferences folder, curtain
+// boolean DEV_MODE = false; 
 // String IAM = "prescene";
 // boolean LIVE = false;
 // boolean FULL_RENDERING = true;
@@ -99,8 +96,8 @@ boolean FULL_RENDERING = true;
 
 // PRESCENE LIVE PREVIEW
 // APP: prescene_##_live > change for size(124,124) in settings()
-// boolean USE_LAYER = true;
-// boolean DEV_MODE = false; // inter alia, path preferences folder, curtain
+// boolean USE_LAYER = false;
+// boolean DEV_MODE = false; 
 // String IAM = "prescene";
 // boolean LIVE = true;
 // boolean FULL_RENDERING = false;
@@ -112,7 +109,7 @@ boolean FULL_RENDERING = true;
 // APP: scene_##_live_fullscreen  > change for  fullScreen() in settings()
 // APP: scene_##_live > change for size(124,124) in settings()
 // boolean USE_LAYER = true;
-// boolean DEV_MODE = false; // inter alia, path preferences folder, curtain
+// boolean DEV_MODE = false; 
 // String IAM = "scene";
 // boolean LIVE = false; 
 // boolean FULL_RENDERING = true;
@@ -259,17 +256,6 @@ void draw() {
 	}
 }
 
-void screenshot() {
-	if(FULL_RENDERING) {
-		String path = sketchPath(1)+"/shot_"+year()+"_"+month()+"_"+day();
-		String name_file =  "rom_"+year()+"_"+month()+"_"+day()+"_"+hour()+"_"+minute()+"_"+second();
-		save_PNG(path,name_file);
-	}
-	if(key_p) {
-		event_PNG(); // this method is outside from scope (FULL_RENDERING) to send the order to Scene
-	}
-
-}
 void romanesco() {
 	init_romanesco();
 	syphon_draw();

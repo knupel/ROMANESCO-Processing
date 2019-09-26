@@ -11,20 +11,20 @@
 * 2015 may 4_100 lines of code
 * 2016 september 8_700 lines of code
 * 2017 March 11_100 lines of code
-* 2018 June 5_000 lines of code without CROPE and ROPE internal library who have around 18_000 lines
+* 2018 June 5_000 lines of code without CROPE and ROPE
 */
 String IAM = "controller";
 
 // DEV SETTING 
 boolean DEBUG_MODE = true;
-boolean DEV_MODE = true; // inter alia, path preferences folder, curtain
+boolean DEV_MODE = true;
 boolean LIVE = false;
 boolean MIROIR = false;
 boolean KEEP_BUTTON_ITEM_STATE = true;
 
 // DEV SETTING LIVE
 // boolean DEBUG_MODE = true;
-// boolean DEV_MODE = true; // inter alia, path preferences folder, curtain
+// boolean DEV_MODE = true; 
 // boolean LIVE = true;
 // boolean MIROIR = false;
 // boolean KEEP_BUTTON_ITEM_STATE = true;
@@ -44,7 +44,7 @@ boolean KEEP_BUTTON_ITEM_STATE = true;
 // boolean LIVE = false;
 // boolean MIROIR = false;
 // boolean KEEP_BUTTON_ITEM_STATE = true;
-// boolean DEV_MODE = false;  // inter alias, path preferences folder, curtain > we talk about what here ?
+// boolean DEV_MODE = false;
 // boolean DEBUG_MODE = false;
 
 // LIVE
@@ -52,7 +52,7 @@ boolean KEEP_BUTTON_ITEM_STATE = true;
 // boolean LIVE = true;
 // boolean MIROIR = false;
 // boolean KEEP_BUTTON_ITEM_STATE = true;
-// boolean DEV_MODE = false; // inter alia, path preferences folder, curtain
+// boolean DEV_MODE = false;
 // boolean DEBUG_MODE = false;
 
 
