@@ -26,8 +26,8 @@ void rendering() {
 		fx_rendering(0);
 		rendering_item_2D(USE_LAYER,1);
 		rendering_item_3D(USE_LAYER,2);
-		// fx_rendering(1);
-		// fx_mix_after();
+		fx_rendering(1);
+		fx_mix_after();
 	} 
 }
 
@@ -49,9 +49,10 @@ void post_rendering() {
   	rendering_curtain(USE_LAYER);
   }
 	if(USE_LAYER) {
-		println("num layer",  get_layer_num());
-		fx_rendering(1);
-		fx_mix_after();
+		//println("num layer",  get_layer_num());
+		// fx_filter(g);
+		// fx_rendering(1);
+		// fx_mix_after();
 		for(int i = 0 ; i < get_layer_num() - 1 ; i++) {
 			g.image(get_layer(i),0,0);
 		}
