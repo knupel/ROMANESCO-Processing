@@ -3,7 +3,6 @@
 * 2016-2019
 * v 1.4.0
 */
-boolean fx_filter_is_done = false;
 boolean fx_mix_is_done = false;
 boolean show_is = true;
 
@@ -17,21 +16,7 @@ void show_is() {
 	}
 }
 
-
-void rendering() {
-	if(show_is) {
-		fx_filter_is_done = false;
-		fx_mix_is_done = false;
-		rendering_background(USE_LAYER,0);
-		fx_rendering(0);
-		rendering_item_2D(USE_LAYER,1);
-		rendering_item_3D(USE_LAYER,2);
-		fx_rendering(1);
-		fx_mix_after();
-	} 
-}
-
-void post_rendering() {
+void opening_rendering() {
 	if(!controller_osc_is && FULL_RENDERING) {
 		if(USE_LAYER) {
 			select_layer(0);
@@ -42,57 +27,51 @@ void post_rendering() {
 			opening_display_message();
 		}
 	}
-  
-  if(show_is) {
-  	rendering_info(USE_LAYER, get_layer_num() - 1); // always the last layer
-  } else {
-  	rendering_curtain(USE_LAYER);
-  }
-	if(USE_LAYER) {
-		//println("num layer",  get_layer_num());
-		// fx_filter(g);
-		// fx_rendering(1);
-		// fx_mix_after();
+}
+
+
+void rendering() {
+	opening_rendering();
+	if(show_is) {
+		fx_mix_is_done = false;
+		rendering_background(USE_LAYER,0);
+		fx_mix_before_rendering(0);
+		rendering_item_2D(USE_LAYER,1);
+		rendering_item_3D(USE_LAYER,2);
+		post_fx_rendering();
+		rendering_info(USE_LAYER, get_layer_num() - 1); // always the last layer
+	} else {
+		rendering_curtain(USE_LAYER);
+	}
+}
+
+void post_fx_rendering() {
+	if(!USE_LAYER) {
+		fx_filter(g);
+		fx_mix_before_rendering(1);
+		fx_mix_after();
+	} else {
 		for(int i = 0 ; i < get_layer_num() - 1 ; i++) {
 			g.image(get_layer(i),0,0);
 		}
-		// it's way to do but there a huge bug :(
-		// fx_rendering(1);
-		// fx_mix_after();
-
+		fx_filter(g);
+		fx_mix_before_rendering(1);
+		fx_mix_after();
     // info
 		g.image(get_layer(get_layer_num() - 1),0,0);
 	}
 }
 
-
-
-
-
-
-
 /**
 * This method is used to choice when make a copy of Image to create the temp effect
 */
-void fx_rendering(int step) {
-	// FX MIX
+void fx_mix_before_rendering(int step) {
+	// before
 	if(!draw_fx_mix_before_rendering_is() && !fx_mix_is_done && step == 0) {
 		fx_mix_is_done = true;
 		fx_mix_before();
 	}
-
-	// FX FILTER
-	if(step == 1) {
-		if(!draw_fx_filter_before_rendering_is() && !fx_filter_is_done) {
-			fx_filter_is_done = true;
-			fx_filter(g);
-		} else if(!fx_filter_is_done) {
-			fx_filter_is_done = true;
-			fx_filter(g);
-		}
-	}
-
-	// FX MIX
+	// after
 	if(draw_fx_mix_before_rendering_is() && !fx_mix_is_done && step == 1) {
 		fx_mix_is_done = true; 
 		fx_mix_before();

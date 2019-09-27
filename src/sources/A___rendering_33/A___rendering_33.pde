@@ -150,7 +150,8 @@ LIVE must change from the launcher, the info must be write in the external loadi
 
 
 void settings() {
-	size(1100,650,P3D); // DEV MODE PARAM
+	size(800,580,P3D); // DEV MODE PARAM
+	// size(1100,650,P3D); // DEV MODE PARAM
 	rope_version();
 	
 	// EXPORTING PARAM 
@@ -278,7 +279,7 @@ void romanesco() {
   
   show_is();
 	rendering();
-	post_rendering();
+	// post_rendering();
 
 	screenshot();
 	puppet_master(false); // use to reset puppet for the force field

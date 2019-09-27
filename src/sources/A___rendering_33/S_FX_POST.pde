@@ -189,52 +189,13 @@ void draw_fx_filter(PGraphics pg_target, int which) {
           }
           select_fx_post(pg_target, get_fx_filter_pattern(0),get_fx_filter_pattern(1),get_fx(fx_filter_manager,target));
         } else {
-          select_fx_post(pg_target, null,null,get_fx(fx_filter_manager,target));
+          select_fx_post(pg_target, null,null, get_fx(fx_filter_manager,target));
         }      
       }
     }
   }
 }
-/*
-void draw_fx_filter(PGraphics pg_target, int which) {
-  draw_fx_filter_before_rendering_is = false;
-  // select fx 
-  num_special_fx_filter = 1 ;
-  if(which < num_special_fx_filter) {
-    apply_force_field();
-    warp_force(sl_fx_strength_x,sl_fx_speed,vec3(sl_fx_color_x,sl_fx_color_y,sl_fx_color_z));
-   } else {
-    int target = which- num_special_fx_filter; // min 1 cause the first one is a special one;
-    for(int i = 0 ; i < fx_filter_classic_num ; i++) {
-      if(target == i) {
-        if(get_fx(fx_filter_manager,target).get_type() == FX_WARP_TEX_A) {
-          if(fx_filter_pattern == null) {
-            draw_fx_filter_pattern(16,16,2,RGB,true);
-          } else {
-            draw_fx_filter_pattern(16,16,2,RGB,reset_fx_filter_button_alert_is());
-          }
-          select_fx_post(pg_target, get_fx_filter_pattern(0),get_fx_filter_pattern(1),get_fx(fx_filter_manager,target));
-        } else if (get_fx(fx_filter_manager,target).get_type() == FX_DATAMOSH) {
-          draw_fx_filter_before_rendering_is = true;
-          if(movie[which_current_movie] == null) {
-            for(int which_movie = 0 ; which_movie < rom_manager.size() ; which_movie++) {
-              if(movie[which_movie] != null) {
-                which_current_movie = which_movie;
-                break;
-              }
-            }         
-          } else {
-            movie[which_current_movie].loop();
-            select_fx_post(movie[which_current_movie],null,null,get_fx(fx_filter_manager,target));
-          }
-        } else {
-          select_fx_post(pg_target, null,null,get_fx(fx_filter_manager,target));
-        }      
-      }
-    }
-  }
-}
-*/
+
 
 
 
