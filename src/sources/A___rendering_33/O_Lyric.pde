@@ -35,7 +35,7 @@ class Lyric extends Romanesco {
 		// canvas_z_is = true;
 
 		// COL 2
-		// frequence_is = true;
+		frequence_is = true;
 		// speed_x_is = true;
 		// speed_y_is = true;
 		// speed_z_is = true;
@@ -95,6 +95,7 @@ class Lyric extends Romanesco {
 	//DRAW
 	boolean text_is = false;
 	int index_vers = 0;
+
 	void draw() {
 		if(load_text()) {
 			text_is = true;
@@ -102,22 +103,7 @@ class Lyric extends Romanesco {
 		}
 
 		if(text_is) {
-			if(birth_is()) {
-				index_vers++;
-				birth_is(false);
-			}
-
-			if(reverse_is()) {
-				index_vers--;
-				reverse_is(false);
-			}
-			if(index_vers >= poem.size()){
-				index_vers = 0;
-			}
-
-			if(index_vers < 0){
-				index_vers = poem.size() -1;
-			}
+			change_text();
 
 			String blabla = poem.get_vers(index_vers).toString();
 			int font_size = 6 + (int)get_size_x().value();
@@ -156,11 +142,38 @@ class Lyric extends Romanesco {
 				endShape();
 			}
 		}
-
 	}
 
 	void draw_2D() {
 	// here if you want code in 2D mode
+	}
+
+
+	void change_text() {
+		if(birth_is()) {
+			index_vers++;
+			birth_is(false);
+		}
+		println("freq slider", get_frequence().value());
+		float temp_freq = 1.0 -get_frequence().value();
+		int freq_next = (int)map(temp_freq *temp_freq , 1, 0, 600, 1);
+		println("freq",freq_next);
+		if(freq_next < 600 && frameCount%freq_next == 0) {
+			index_vers++;
+		}
+
+		if(reverse_is()) {
+			index_vers--;
+			reverse_is(false);
+		}
+		if(index_vers >= poem.size()){
+			index_vers = 0;
+		}
+
+		if(index_vers < 0){
+			index_vers = poem.size() -1;
+		}
+
 	}
 }
 
