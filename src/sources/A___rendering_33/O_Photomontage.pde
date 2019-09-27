@@ -1,6 +1,6 @@
 /**
 * Photomontage
-* v 0.0.1
+* v 0.0.2
 * 2019-2019
 */
 class Photomontage extends Romanesco {
@@ -9,7 +9,7 @@ class Photomontage extends Romanesco {
     item_name = "Photomontage" ;
     item_author  = "Stan le Punk";
     item_references = "";
-    item_version = "Version 0.0.1";
+    item_version = "Version 0.0.2";
     item_pack = "Base 2019-2019" ;
     item_costume = ""; // costume available from get_costume();
     item_mode = "fx mask gray/fx mask colour/show mask gray/show mask colour";
@@ -158,6 +158,10 @@ class Photomontage extends Romanesco {
       birth_is(false);
     }
 
+    boolean use_bg_like_src = true;
+    if(special_is()) use_bg_like_src = false;
+    else use_bg_like_src = true;
+
 
     //println(mask.width,mask.height,img_mask.width,img_mask.height);
     if(get_bitmap_collection().size() > 0 && mask != null) {
@@ -178,10 +182,19 @@ class Photomontage extends Romanesco {
         int fx_mode_mask = get_mode_id();
         buffer = get_bitmap_collection().get(id_img_buffer);
         buffer = fx_mask(buffer,mask,on_g,filter_is,fx_mode_mask,step_speparation,threshold,level_layer);
-        image(buffer,SCREEN);
+        show(buffer,SCREEN,use_bg_like_src);
       } else if(get_mode_name().contains("show")) {
-        image(mask,SCREEN);
+        show(mask,SCREEN,use_bg_like_src);
       }            
+    }
+  }
+
+
+  void show(PImage render, int mode, boolean use_bg_like_src) {
+    if(use_bg_like_src) {
+      image(render,mode);
+    } else {
+      set_background(render,mode);
     }
   }
 

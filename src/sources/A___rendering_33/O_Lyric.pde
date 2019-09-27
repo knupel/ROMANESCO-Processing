@@ -14,7 +14,7 @@ class Lyric extends Romanesco {
 		item_version = "Version 0.0.1";
 		item_pack = "Base 2019-2019" ;
 		item_costume = ""; // costume available from get_costume();
-		item_mode = "line/window/destroy";
+		item_mode = "bloc/line/destroy";
 		// define slider
 		// COL 1
 		hue_fill_is = true;
@@ -135,7 +135,7 @@ class Lyric extends Romanesco {
 			writer.align(CENTER);
 			writer.pos(0,0,0);
 			
-			if(get_mode_name().toLowerCase().equals("window")) {
+			if(get_mode_name().toLowerCase().equals("bloc")) {
 				writer.content(blabla);
 				writer.show(w,h,CENTER);
 			} else if (get_mode_name().toLowerCase().equals("line")) {

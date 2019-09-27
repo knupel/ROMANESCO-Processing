@@ -86,7 +86,7 @@ boolean FULL_RENDERING = true;
 */
 // PRESCENE FULL RENDERING
 // APP: prescene_## > change for size(124,124)
-// boolean USE_LAYER = true;
+// boolean USE_LAYER = false;
 // boolean DEV_MODE = false;  // inter alia, path preferences folder, curtain
 // String IAM = "prescene";
 // boolean LIVE = false;
@@ -108,7 +108,7 @@ boolean FULL_RENDERING = true;
 // for the scene live export, two export set in void settings() 
 // APP: scene_##_live_fullscreen  > change for  fullScreen() in settings()
 // APP: scene_##_live > change for size(124,124) in settings()
-// boolean USE_LAYER = true;
+// boolean USE_LAYER = false;
 // boolean DEV_MODE = false; // inter alia, path preferences folder, curtain
 // String IAM = "scene";
 // boolean LIVE = false; 
@@ -279,7 +279,6 @@ void romanesco() {
   
   show_is();
 	rendering();
-	// post_rendering();
 
 	screenshot();
 	puppet_master(false); // use to reset puppet for the force field

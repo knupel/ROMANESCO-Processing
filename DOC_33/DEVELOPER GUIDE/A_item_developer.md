@@ -119,28 +119,40 @@ boolean parameter_is();
 *is from prescene
 
 boolean alpha_is();
+> a key
 
 boolean fill_is();
+> j key
 
 boolean stroke_is();
+> k key
 
 boolean birth_is();
+> n key
 
 boolean colour_is();
+> x key
 
 boolean dimension_is();
+> d key
   
 boolean horizon_is();
+> h key
 
 boolean motion_is();
+> m key
 
 boolean follow_is();
+> f key
 
 boolean reverse_is();
+> r key
 
 boolean special_is();
+> s key
 
 boolean wire_is();
+> w key
 
 boolean clear_list_is();
 
