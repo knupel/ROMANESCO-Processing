@@ -71,8 +71,8 @@ void settings() {
 
 void setup() {
 	colorMode(HSB,360,100,100);
-	load_window_location();
 	path_setting();
+	load_window_location();
 	version();
 	setting_misc();
 	init_button_general();
@@ -80,7 +80,7 @@ void setup() {
 	init_info_shader();
 	create_and_initialize_item(); 
 	load_setup();
-	
+
 	set_system_specification();
 	set_font();
 	set_display_slider();
@@ -97,6 +97,7 @@ void setup() {
 	set_OSC();
 	set_data();
 	reset();
+
 }
 
 void draw() {

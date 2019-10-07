@@ -150,8 +150,8 @@ LIVE must change from the launcher, the info must be write in the external loadi
 
 
 void settings() {
-	size(800,580,P3D); // DEV MODE PARAM
-	// size(1100,650,P3D); // DEV MODE PARAM
+	// size(800,580,P3D); // DEV MODE PARAM
+	size(1100,650,P3D); // DEV MODE PARAM
 	rope_version();
 	
 	// EXPORTING PARAM 

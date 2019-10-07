@@ -5,7 +5,7 @@
 * WARNING
 * common code for CONTROLLER and RENDERER
 * 2018-2019
-* v 0.6.0
+* v 0.6.1
 *
 * Processing 3.5.3
 * Rope library 0.6.2
@@ -329,7 +329,7 @@ void clear_all_medias() {
 
 /**
 Manage window position
-v 0.0.2
+v 0.0.3
 */
 ivec2 ref_window_location;
 void update_window_location() {
@@ -348,7 +348,11 @@ void write_window_location() {
   String loc [] = new String[2];
   loc[0] = Integer.toString(ref_window_location.x);
   loc[1] = Integer.toString(ref_window_location.y);
-  saveStrings("data/location.loc",loc);
+  if(DEV_MODE) {
+    saveStrings("data/"+IAM+"_location.loc",loc);
+  } else {
+    saveStrings(preference_path+"/window/"+IAM+"_location.loc",loc);
+  }
 }
 
 void load_window_location() {
@@ -356,7 +360,14 @@ void load_window_location() {
 }
 
 void load_window_location(ivec2 window) {
-  String[] location = loadStrings("location.loc");
+  String[] location = {"0","0"};
+  if(DEV_MODE) {
+    background(r.BLACK);
+    location = loadStrings(IAM+"_location.loc");
+  } else {
+    location = loadStrings(preference_path+"window/"+IAM+"_location.loc");
+  }
+
   ivec2 loc = ivec2();
   loc.x = Integer.parseInt(location[0]);
   loc.y = Integer.parseInt(location[1]);
