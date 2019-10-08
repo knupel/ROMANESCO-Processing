@@ -4,6 +4,9 @@
 * v 0.6.0
 */
 
+
+
+
 void set_design() {
   set_design_structure();
   set_design_aspect();
@@ -23,7 +26,7 @@ void set_design_structure() {
   // vertical grid
   marge = 10;
 
-  int width_inside = width -(2*marge);
+  int width_inside = window_ref.x() -(2*marge);
   grid_col = new int[15];
   col_width = width_inside/grid_col.length;
   grid_col[0] = marge;

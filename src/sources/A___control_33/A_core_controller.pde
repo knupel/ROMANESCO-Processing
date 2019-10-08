@@ -112,10 +112,10 @@ size window
 */
 boolean change_size_window_is = false ;
 void check_size_window() {
-  if(size_window_ref.x != width || size_window_ref.y != height) {
+  if(window_ref.x != width || window_ref.y != height) {
     change_size_window(true);
     INIT_INTERFACE = true;
-    size_window_ref.set(width,height);
+    window_ref.set(width,height);
   }
 }
 

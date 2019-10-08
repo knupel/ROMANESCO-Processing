@@ -1,7 +1,7 @@
 /**
 * variable déclaration
 * 2019-2019
-* 0.2.0
+* 0.2.1
 */
 
 
@@ -159,7 +159,7 @@ PImage[] picAction = new PImage[4];
 Dropdown dd_item_costume[];
 Dropdown dd_item_mode[];
 
-ivec2 size_window_ref;
+ivec2 window_ref;
 
 //LOAD PICTURE VIGNETTE
 int numVignette ;

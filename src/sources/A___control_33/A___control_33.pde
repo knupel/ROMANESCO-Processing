@@ -16,11 +16,11 @@
 String IAM = "controller";
 
 // DEV SETTING 
-boolean DEBUG_MODE = true;
-boolean DEV_MODE = true;
-boolean LIVE = false;
-boolean MIROIR = false;
-boolean KEEP_BUTTON_ITEM_STATE = true;
+// boolean DEBUG_MODE = true;
+// boolean DEV_MODE = true;
+// boolean LIVE = false;
+// boolean MIROIR = false;
+// boolean KEEP_BUTTON_ITEM_STATE = true;
 
 // DEV SETTING LIVE
 // boolean DEBUG_MODE = true;
@@ -49,11 +49,11 @@ boolean KEEP_BUTTON_ITEM_STATE = true;
 
 // LIVE
 // APP: control_##_live
-// boolean LIVE = true;
-// boolean MIROIR = false;
-// boolean KEEP_BUTTON_ITEM_STATE = true;
-// boolean DEV_MODE = false;
-// boolean DEBUG_MODE = false;
+boolean LIVE = true;
+boolean MIROIR = false;
+boolean KEEP_BUTTON_ITEM_STATE = true;
+boolean DEV_MODE = false;
+boolean DEBUG_MODE = false;
 
 
 
@@ -64,15 +64,15 @@ boolean KEEP_BUTTON_ITEM_STATE = true;
 
 
 void settings() {
-	size(810,725);
-	size_window_ref = ivec2(width,height);
+	window_ref = ivec2(810,725);
 	set_design();
 }
 
 void setup() {
 	colorMode(HSB,360,100,100);
 	path_setting();
-	load_window_location();
+	set_window();
+
 	version();
 	setting_misc();
 	init_button_general();

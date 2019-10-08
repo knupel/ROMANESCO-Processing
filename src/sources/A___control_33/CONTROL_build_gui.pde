@@ -1,9 +1,20 @@
 /**
 * Build interface 
-* v 3.6.0
+* v 3.7.0
 * 2014-2019
 *
 */
+
+/**
+* WINDOW
+* v 0.0.1
+* 2019-2019
+*/
+void set_window() {
+  load_window_location();
+  surface.setSize(window_ref.x(),window_ref.y());
+}
+
 
 /**
 * CONTROL BAR
