@@ -1,6 +1,6 @@
 /**
 * Photomontage
-* v 0.0.2
+* v 0.0.3
 * 2019-2019
 */
 class Photomontage extends Romanesco {
@@ -144,7 +144,7 @@ class Photomontage extends Romanesco {
       ivec2 range_branches = ivec2(min_branch,max_branch);
 
       int min_rad = width/100;
-      int max_rad = floor(min_branch + get_size_x().value());
+      int max_rad = floor(min_branch + (get_size_x().value() *0.6));
       ivec2 range_radius = ivec2(min_rad,max_rad);
 
       // ivec2 range_alpha = ivec2(0);

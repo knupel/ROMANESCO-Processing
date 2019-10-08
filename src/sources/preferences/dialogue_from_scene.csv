@@ -1,2 +1,2 @@
 fx active,fx slider active
-dither bayer/,red/green/blue/
+dither bayer/split rgb/,red/green/blue/strength X/strength Y/speed/

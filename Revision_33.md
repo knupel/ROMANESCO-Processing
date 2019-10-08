@@ -16,6 +16,7 @@
 >add: top bar for the controler
 >add: mix mode to use multiply, overlay... and other incrustation effect
 >pass allmethod to get slider value from the old style to the new class Varom > Varom for VAriable ROManesco.
+>fix: freezing bug when the display is smallest than controller or rendering window.
 
 *MINOR
 

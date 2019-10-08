@@ -23,11 +23,11 @@ String IAM = "controller";
 // boolean KEEP_BUTTON_ITEM_STATE = true;
 
 // DEV SETTING LIVE
-// boolean DEBUG_MODE = true;
-// boolean DEV_MODE = true; 
-// boolean LIVE = true;
-// boolean MIROIR = false;
-// boolean KEEP_BUTTON_ITEM_STATE = true;
+boolean DEBUG_MODE = true;
+boolean DEV_MODE = true; 
+boolean LIVE = true;
+boolean MIROIR = false;
+boolean KEEP_BUTTON_ITEM_STATE = true;
 
 
 
@@ -49,11 +49,11 @@ String IAM = "controller";
 
 // LIVE
 // APP: control_##_live
-boolean LIVE = true;
-boolean MIROIR = false;
-boolean KEEP_BUTTON_ITEM_STATE = true;
-boolean DEV_MODE = false;
-boolean DEBUG_MODE = false;
+// boolean LIVE = true;
+// boolean MIROIR = false;
+// boolean KEEP_BUTTON_ITEM_STATE = true;
+// boolean DEV_MODE = false;
+// boolean DEBUG_MODE = false;
 
 
 
@@ -79,7 +79,7 @@ void setup() {
 	init_midi();
 	init_info_shader();
 	create_and_initialize_item(); 
-	load_setup();
+	load_autosave();
 
 	set_system_specification();
 	set_font();
