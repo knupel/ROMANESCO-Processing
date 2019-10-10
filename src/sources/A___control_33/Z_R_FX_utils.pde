@@ -2,7 +2,7 @@
 * SHADER FX
 * @see @stanlepunk
 * @see https://github.com/StanLepunK/Shader
-* v 0.9.2
+* v 0.9.3
 * 2019-2019
 */
 int NO_FX = -1;
@@ -680,7 +680,7 @@ void reset_reverse_g(boolean state){
 /**
 * RENDER FX
 * this method test if the shader must be display on the main Processing render or return a PGraphics
-* v 0.1.0
+* v 0.1.1
 */
 void render_shader(PShader shader, PGraphics pg, PImage src, boolean on_g, boolean filter_is) {
 	if(on_g) {
@@ -694,9 +694,8 @@ void render_shader(PShader shader, PGraphics pg, PImage src, boolean on_g, boole
 	}
 }
 
-
 void render_shader_pgraphics(PShader ps, PGraphics pg, PImage src) {
-	if(pg != null) {
+	if(pg != null && pg.pixels != null) {
   	pg.beginDraw();
   	pg.shader(ps);
   	pg.image(src,0,0,src.width,src.height);
@@ -705,13 +704,11 @@ void render_shader_pgraphics(PShader ps, PGraphics pg, PImage src) {
   }
 }
 
-
 void render_filter_pgraphics(PShader ps, PGraphics pg) {
 	if(pg != null) {
   	pg.filter(ps);
   } 
 }
-
 
 void render_filter_g(PShader ps) {
 	filter(ps);

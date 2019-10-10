@@ -37,6 +37,7 @@
 >bug: fix the bug who cause problem of choice problem in fullscreen selection window.
 >add command to clear media list
 >when the camera item is use the global camera is locked.
+>fix: midi bug controller with the last input selected.
 
 *SHADER
 
