@@ -25,8 +25,8 @@ boolean dropdown_is() {
 
 /**
 * DROPDOWN class
-* v 2.7.1
-* 2014-2018
+* v 2.7.2
+* 2014-2019
 */
 public class Dropdown extends Crope {
   // protected boolean selected_type;
@@ -286,7 +286,6 @@ public class Dropdown extends Crope {
     return current_line;
   }
 
-
   //return which line of dropdown is highlighted
   public int get_highlight() {
     return line ;
@@ -345,8 +344,12 @@ public class Dropdown extends Crope {
       fill(colour_header_text_out);
     }
     textFont(font);
-    if(get_content().length > 0 && get_content()[get_selection()] != null) {
-      text(get_content()[get_selection()], x, y);
+    int index = get_selection();
+    if(get_selection() >= get_content().length) {
+      index = 0;
+    }
+    if(get_content().length > 0 && get_content()[index] != null) {
+      text(get_content()[index],x,y);
     } else {
       text("empty",x,y);
     }

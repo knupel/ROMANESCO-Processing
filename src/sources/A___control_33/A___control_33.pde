@@ -16,18 +16,18 @@
 String IAM = "controller";
 
 // DEV SETTING 
-// boolean DEBUG_MODE = true;
-// boolean DEV_MODE = true;
-// boolean LIVE = false;
-// boolean MIROIR = false;
-// boolean KEEP_BUTTON_ITEM_STATE = true;
-
-// DEV SETTING LIVE
 boolean DEBUG_MODE = true;
-boolean DEV_MODE = true; 
-boolean LIVE = true;
+boolean DEV_MODE = true;
+boolean LIVE = false;
 boolean MIROIR = false;
 boolean KEEP_BUTTON_ITEM_STATE = true;
+
+// DEV SETTING LIVE
+// boolean DEBUG_MODE = true;
+// boolean DEV_MODE = true; 
+// boolean LIVE = true;
+// boolean MIROIR = false;
+// boolean KEEP_BUTTON_ITEM_STATE = true;
 
 
 

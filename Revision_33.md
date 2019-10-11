@@ -38,6 +38,7 @@
 >add command to clear media list
 >when the camera item is use the global camera is locked.
 >fix: midi bug controller with the last input selected.
+>fix: selection media, when the length of media change.
 
 *SHADER
 
